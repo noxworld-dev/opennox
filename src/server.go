@@ -720,61 +720,69 @@ func (s *Server) switchMap(fname string) {
 	s.nox_xxx_gameSetMapPath_409D70(mname)
 }
 
-func sub_4CFC90(a1 unsafe.Pointer) int {
-	v1 := *(*uint32)(unsafe.Pointer(uintptr(a1) + 1392))
-	if v1&4 != 0 {
-		return 256
-	}
-	if v1&0x20 != 0 {
-		return 1024
-	}
-	if v1&8 != 0 {
-		return 32
-	}
-	if v1&0x10 != 0 {
-		return 16
-	}
-	if v1&0x40 != 0 {
-		return 64
-	}
-	if v1&0x2 != 0 {
-		return 4096
-	}
-	return 128
-}
-
-func sub_4CFF50(v int) int {
-	out := 0
-	if v&1 != 0 {
-		out |= 512
-	}
-	if v&2 != 0 {
-		out |= 0x1000
-	}
-	if v&4 != 0 {
-		out |= 0x100
+func nox_gameModeFromMapPtr(a1 unsafe.Pointer) noxflags.GameFlag {
+	v := *(*uint32)(unsafe.Pointer(uintptr(a1) + 1392))
+	if v&0x4 != 0 {
+		return noxflags.GameModeArena
 	}
 	if v&0x20 != 0 {
-		out |= 0x400
+		return noxflags.GameModeElimination
 	}
-	if v&8 != 0 {
-		out |= 0x20
+	if v&0x8 != 0 {
+		return noxflags.GameModeCTF
 	}
 	if v&0x10 != 0 {
-		out |= 0x10
+		return noxflags.GameModeKOTR
 	}
 	if v&0x40 != 0 {
-		out |= 0x40
+		return noxflags.GameModeFlagBall
+	}
+	if v&0x2 != 0 {
+		return noxflags.GameModeQuest
+	}
+	if v&0x1 != 0 {
+		return noxflags.GameModeSolo10
+	}
+	return noxflags.GameModeChat
+}
+
+//export nox_mapToGameFlags_4CFF50
+func nox_mapToGameFlags_4CFF50(v C.int) C.int {
+	return C.int(nox_mapToGameFlags(int(v)))
+}
+
+func nox_mapToGameFlags(v int) noxflags.GameFlag {
+	var out noxflags.GameFlag
+	if v&1 != 0 {
+		out |= noxflags.GameModeSolo10
+	}
+	if v&2 != 0 {
+		out |= noxflags.GameModeQuest
+	}
+	if v&4 != 0 {
+		out |= noxflags.GameModeArena
+	}
+	if v&0x20 != 0 {
+		out |= noxflags.GameModeElimination
+	}
+	if v&8 != 0 {
+		out |= noxflags.GameModeCTF
+	}
+	if v&0x10 != 0 {
+		out |= noxflags.GameModeKOTR
+	}
+	if v&0x40 != 0 {
+		out |= noxflags.GameModeFlagBall
 	}
 	if v < 0 {
-		out |= 0x80
+		out |= noxflags.GameModeChat
 	}
 	return out
 }
 
-func nox_xxx_mapGetTypeMB_4CFFA0(a1 unsafe.Pointer) int {
+func nox_xxx_mapGetTypeMB_4CFFA0(a1 unsafe.Pointer) noxflags.GameFlag {
 	val := *(*int32)(unsafe.Pointer(uintptr(a1) + 1392))
-	return sub_4CFF50(int(val))
+	return nox_mapToGameFlags(int(val))
 }
 
 func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
@@ -815,14 +823,14 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 			s.setupQuestGame()
 		}
 	} else if vv >= 0 {
-		f52 := (*uint16)(unsafe.Pointer(uintptr(unsafe.Pointer(&v0[0])) + 52))
-		if int(*f52)&mapType == 0 {
-			*f52 = uint16(sub_4CFC90(memmap.PtrOff(0x973F18, 2408)) | int(*f52)&0xE80F)
+		pmode := (*uint16)(unsafe.Pointer(uintptr(unsafe.Pointer(&v0[0])) + 52))
+		if noxflags.GameFlag(*pmode)&mapType == 0 {
+			*pmode = uint16(nox_gameModeFromMapPtr(memmap.PtrOff(0x973F18, 2408)) | noxflags.GameFlag(*pmode)&0xE80F)
 		}
 		if v0[52]&0x10 == 0 {
 			C.nox_xxx_mapFindCrown_4CFC30()
 		}
-		mode := noxflags.GameFlag(*f52)
+		mode := noxflags.GameFlag(*pmode)
 		if mode.Has(noxflags.GameModeCTF) {
 			gameLog.Println("setting CTF mode")
 			if C.nox_xxx_mapInfoSetCapflag_417EA0() != 0 {

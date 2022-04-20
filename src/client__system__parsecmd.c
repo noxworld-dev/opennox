@@ -101,19 +101,6 @@ int nox_cmd_show_game(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
-//----- (004416F0) --------------------------------------------------------
-int nox_cmd_show_mmx(int tokInd, int tokCnt, wchar_t** tokens) {
-	wchar_t* s;
-
-	if (dword_5d4594_805836) {
-		s = nox_strman_loadString_40F1D0("MMXEnabled", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1869);
-	} else {
-		s = nox_strman_loadString_40F1D0("MMXNotEnabled", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1871);
-	}
-	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, s);
-	return 1;
-}
-
 //----- (00440A20) --------------------------------------------------------
 void sub_440A20(wchar_t* a1, ...) {
 	va_list va; // [esp+8h] [ebp+8h]
@@ -122,75 +109,6 @@ void sub_440A20(wchar_t* a1, ...) {
 	nox_vswprintf((wchar_t*)getMemAt(0x5D4594, 822660), a1, va);
 	nox_xxx_printCentered_445490((wchar_t*)getMemAt(0x5D4594, 822660));
 }
-
-//----- (00441910) --------------------------------------------------------
-int nox_cmd_load(int tokInd, int tokCnt, wchar_t** tokens) {
-	int v4;             // eax
-	int v5;             // ebx
-	wchar_t* v6;        // eax
-	unsigned int v7;    // kr04_4
-	char* v8;           // ebx
-	wchar_t* v9;        // eax
-	char* v10;          // [esp-4h] [ebp-234h]
-	char v11[260];      // [esp+8h] [ebp-228h]
-	struct _stat v12;   // [esp+10Ch] [ebp-124h]
-	char FileName[256]; // [esp+130h] [ebp-100h]
-
-	if (nox_common_gameFlags_check_40A5C0(4096)) {
-		return 1;
-	}
-	if (tokCnt != 2) {
-		return 0;
-	}
-	nox_sprintf(&v11[4], "%S", tokens[1]);
-	if (v11[4] != 35 && !nox_common_checkMapFile_4CFE10(&v11[4])) {
-		return 1;
-	}
-	v4 = nox_xxx_mapGetTypeMB_4CFFA0((int)getMemAt(0x973F18, 2408));
-	v5 = v4;
-	if (nox_common_gameFlags_check_40A5C0(0x2000)) {
-		if (!(v5 && !(v5 & 0x200))) {
-			return 1;
-		}
-		if (nox_common_gameFlags_check_40A5C0(128)) {
-			if (v5 & 0x60 && nox_xxx_getTeamCounter_417DD0() != 2) {
-				nox_xxx_wndGuiTeamCreate_4185B0();
-			}
-		} else if (!(nox_common_gameFlags_getVal_40A5B0() & v5)) {
-			v6 = nox_strman_loadString_40F1D0("NoMapLoadNewMode", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
-											  2005);
-			sub_440A20(v6);
-			return 1;
-		}
-	} else if (!(v5 & 0x200)) {
-		return 1;
-	}
-	v7 = strlen(&v11[4]) + 1;
-	if ((int)(v7 - 1) <= 4 || _strcmpi(&v11[v7 - 1], ".map")) {
-		strcpy((char*)getMemAt(0x5D4594, 822324), &v11[4]);
-		v8 = (char*)getMemAt(0x5D4594, 822324);
-		strcat((char*)getMemAt(0x5D4594, 822324), ".map");
-	} else {
-		v8 = &v11[4];
-	}
-	if (!v8 ||
-		*v8 != 35 && (strcpy(FileName, "maps\\"), strncat(FileName, v8, (strlen(v8) - 4 < 256 ? strlen(v8) - 4 : 256)),
-					  *(uint16_t*)&FileName[strlen(FileName)] = *getMemU16Ptr(0x587000, 103416), strcat(FileName, v8),
-					  _stat(FileName, (int)&v12))) {
-		v10 = v8;
-		v9 = nox_strman_loadString_40F1D0("CannotAccessMap", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2076);
-	} else {
-		nox_xxx_mapLoadOrSaveMB_4DCC70(1);
-		nox_xxx_mapLoad_4D2450(v8);
-		sub_41D650();
-		v10 = v8;
-		v9 = nox_strman_loadString_40F1D0("maploaded", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 2072);
-	}
-	sub_440A20(v9, v10);
-	return 1;
-}
-
-// 44198D: variable 'v4' is possibly undefined
 
 //----- (004424F0) --------------------------------------------------------
 int nox_cmd_set_cycle(int tokInd, int tokCnt, wchar_t** tokens) {

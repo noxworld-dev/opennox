@@ -20,8 +20,10 @@ Here's the list of the most interesting ones.
 - [`image`](#image) - take a screenshot
 - [`show`](#show) - show debug information
 - [`list`](#list) - list spells, objects, monsters
+- [`load`](#load) - switch game map
 - [`set god`](#set-god) - invulnerability, infinite mana, all spells
 - [`set quest`](#set-quest) - Nox Quest commands
+- [`set maps`](#set-maps) - map-related settings
 - [`cheat god`](#cheat-god) - invulnerability and infinite mana (no spells)
 - [`cheat sage`](#cheat-sage) - all spells, abilities, scrolls
 - [`cheat spells`](#cheat-spells) - all spells (optionally with hidden ones)
@@ -70,6 +72,17 @@ Available sub-commands:
 - `list maps` - list all maps.
 - `list users` - list all players.
 
+### load
+
+This command switches current game map to the one specified:
+
+```
+load wiz01a
+```
+
+In vanilla Nox, not all maps can usually be loaded. For example, it's impossible to load campaign maps in multiplayer.
+OpenNox allows removing those restrictions via [`set maps allow.all`](#set-maps).
+
 ### set god
 
 A vanilla cheat for invulnerability, all spells and infinite mana.
@@ -91,6 +104,12 @@ See [cheat god](#cheat-god) if you only need invulnerability and infinite mana.
 ### set quest
 
 These commands allow more controls for Nox Quest game mode. See [this page](game-quest.md) for details.
+
+### set maps
+
+These commands allow more controls for game map loading.
+
+- `set maps allow.all` - disable game mode checks when loading the map; allows loading campaign in multiplayer, etc
 
 ### cheat god
 

@@ -33,7 +33,9 @@ Vanilla Nox distinguishes between online and LAN multiplayer. It uses XWIS serve
 OpenNox joins both online and LAN games into a single list. It doesn't require XWIS password, while still able to join XWIS servers.
 
 OpenNox will also attempt to automatically forward ports, when hosting a game online.
-This requires UPnP to be enabled on your router (which is enabled by default in most cases). 
+This requires UPnP to be enabled on your router (which is enabled by default in most cases).
+
+There's initial work done for supporting [campaign in multiplayer](game-console.md#load).
 
 ## Server
 

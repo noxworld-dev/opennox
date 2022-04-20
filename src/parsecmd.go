@@ -14,8 +14,6 @@ int  sub_4D6B10(int a1);
 
 int nox_cmd_set_sysop(int, int, wchar_t**);
 int nox_cmd_show_game(int, int, wchar_t**);
-int nox_cmd_show_mmx(int, int, wchar_t**);
-int nox_cmd_load(int, int, wchar_t**);
 int nox_cmd_set_cycle(int, int, wchar_t**);
 int nox_cmd_set_weapons(int, int, wchar_t**);
 int nox_cmd_set_staffs(int, int, wchar_t**);
@@ -238,7 +236,6 @@ var (
 		}},
 		{Token: "gamma", HelpID: "gammahelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_gamma)},
 		{Token: "kick", HelpID: "kickhelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_kick)},
-		{Token: "load", HelpID: "loadhelp", Flags: console.Server | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_load)},
 		{Token: "log", HelpID: "loghelp", Flags: console.ClientServer | console.Cheat, Sub: []*console.Command{
 			{Token: "console", HelpID: "logconsolehelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_log_console)},
 			{Token: "file", HelpID: "logfilehelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_log_file)},
@@ -263,12 +260,6 @@ func nox_cmd_set_sysop(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_show_game(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_show_game(i, n, arr)
-}
-func nox_cmd_show_mmx(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_show_mmx(i, n, arr)
-}
-func nox_cmd_load(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_load(i, n, arr)
 }
 func nox_cmd_set_cycle(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_set_cycle(i, n, arr)

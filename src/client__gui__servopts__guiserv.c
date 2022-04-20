@@ -54,7 +54,9 @@ typedef struct {
 
 nox_gui_gamemode nox_gui_gamemodes[] = {
 	{"CTF", 0, 0x20, 0},      {"Arena", 0, 0x100, 0},  {"Highlander", 0, 0x400, 0},     {"KotR", 0, 0x10, 0},
-	{"Flagball", 0, 0x40, 0}, {"Quest", 0, 0x1000, 1}, {"Noxworld.c:Chat", 0, 0x80, 0}, {0},
+//	{"team.c:Coop", 0, 0x200, 0},
+	{"Flagball", 0, 0x40, 0}, {"Quest", 0, 0x1000, 1}, {"Noxworld.c:Chat", 0, 0x80, 0},
+	{0},
 };
 int nox_gui_gamemode_cnt = sizeof(nox_gui_gamemodes) / sizeof(nox_gui_gamemode) - 1;
 

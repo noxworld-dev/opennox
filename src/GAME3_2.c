@@ -779,29 +779,6 @@ void nox_xxx_mapFindCrown_4CFC30() {
 	}
 }
 
-//----- (004CFC90) --------------------------------------------------------
-int sub_4CFC90(int a1) {
-	int v1; // eax
-
-	v1 = *(uint32_t*)(a1 + 1392);
-	if (v1 & 4) {
-		return 256;
-	}
-	if (v1 & 0x20) {
-		return 1024;
-	}
-	if (v1 & 8) {
-		return 32;
-	}
-	if (v1 & 0x10) {
-		return 16;
-	}
-	if (v1 & 0x40) {
-		return 64;
-	}
-	return (v1 & 2) != 0 ? 4096 : 128;
-}
-
 //----- (004CFDF0) --------------------------------------------------------
 int sub_4CFDF0(int a1) {
 	int result; // eax
@@ -814,43 +791,11 @@ int sub_4CFDF0(int a1) {
 //----- (004CFE00) --------------------------------------------------------
 int sub_4CFE00() { return *getMemU32Ptr(0x5D4594, 1523072); }
 
-//----- (004CFF50) --------------------------------------------------------
-int sub_4CFF50(int a1) {
-	int result; // eax
-
-	result = 0;
-	if (a1 & 1) {
-		result = 512;
-	}
-	if (a1 & 2) {
-		BYTE1(result) |= 0x10u;
-	}
-	if (a1 & 4) {
-		BYTE1(result) |= 1u;
-	}
-	if (a1 & 0x20) {
-		BYTE1(result) |= 4u;
-	}
-	if (a1 & 8) {
-		LOBYTE(result) = result | 0x20;
-	}
-	if (a1 & 0x10) {
-		LOBYTE(result) = result | 0x10;
-	}
-	if (a1 & 0x40) {
-		LOBYTE(result) = result | 0x40;
-	}
-	if (a1 < 0) {
-		LOBYTE(result) = result | 0x80;
-	}
-	return result;
-}
-
 //----- (004CFFA0) --------------------------------------------------------
-int nox_xxx_mapGetTypeMB_4CFFA0(void* a1) { return sub_4CFF50(*(uint32_t*)((int)a1 + 1392)); }
+int nox_xxx_mapGetTypeMB_4CFFA0(void* a1) { return nox_mapToGameFlags_4CFF50(*(uint32_t*)((int)a1 + 1392)); }
 
 //----- (004CFFC0) --------------------------------------------------------
-int sub_4CFFC0(int a1) { return sub_4CFF50(*(uint32_t*)(a1 + 28)); }
+int sub_4CFFC0(int a1) { return nox_mapToGameFlags_4CFF50(*(uint32_t*)(a1 + 28)); }
 
 //----- (004CFFE0) --------------------------------------------------------
 int sub_4CFFE0(int a1) {
