@@ -409,8 +409,8 @@ func RunArgs(args []string) (gerr error) {
 	keyBinding = keybind.New(strMan)
 	C.nox_init_sound_index_40AED0()
 	C.nox_xxx_mapSetDataDefault_416500()
-	if C.nox_common_readcfgfile(CString("nox.cfg"), 0) == 0 {
-		return fmt.Errorf("failed to load config file")
+	if err := nox_common_readcfgfile("nox.cfg", false); err != nil {
+		return fmt.Errorf("failed to load config file: %w", err)
 	}
 	if env.IsE2E() {
 		videoSetGameMode(image.Point{X: 1024, Y: 768})

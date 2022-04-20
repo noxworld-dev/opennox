@@ -2,7 +2,10 @@ package opennox
 
 /*
 #include "client__gui__window.h"
+#include "GAME1_2.h"
 #include "GAME3.h"
+#include "GAME3_1.h"
+#include "client__shell__inputcfg__inputcfg.h"
 extern void* dword_5d4594_1307292;
 extern void* dword_5d4594_1309720;
 extern nox_gui_animation* nox_wnd_xxx_1309740;
@@ -191,4 +194,54 @@ func sub_4AAA10() C.int {
 	C.sub_4A1A40(1)
 	v0.Func13()
 	return 1
+}
+
+//export sub_4C3A90
+func sub_4C3A90(a1, a2 C.int, a3 *C.int, a4 C.int) C.int {
+	if a2 == 23 {
+		return 1
+	}
+	if a2 != 16391 {
+		return 0
+	}
+	win := asWindowP(unsafe.Pointer(a3))
+	clientPlaySoundSpecial(921, 100)
+	switch win.ID() {
+	case 931:
+		sub_42CD90()
+		nox_common_readcfgfile("nox.cfg", true)
+		sub_4C3B70()
+	case 932:
+		C.sub_4C35B0(0)
+	case 933:
+		sub_4C3CB0()
+	case 971, 972, 973:
+		C.sub_430AA0(C.int(win.ID() - 971))
+	}
+	return 0
+}
+
+//export sub_4CBE70
+func sub_4CBE70(a1, a2 C.int, a3 *C.int, a4 C.int) C.int {
+	if a2 == 23 {
+		return 1
+	}
+	if a2 != 16391 {
+		return 0
+	}
+	win := asWindowP(unsafe.Pointer(a3))
+	clientPlaySoundSpecial(921, 100)
+	switch win.ID() {
+	case 931:
+		sub_42CD90()
+		nox_common_readcfgfile("nox.cfg", true)
+		sub_4CBBF0()
+	case 932:
+		C.sub_4CBD30()
+	case 933:
+		sub_4CBF40()
+	case 971, 972, 973:
+		C.sub_430AA0(C.int(win.ID() - 971))
+	}
+	return 0
 }

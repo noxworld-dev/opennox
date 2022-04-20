@@ -3,7 +3,6 @@
 
 #include "defs.h"
 
-int nox_common_readcfgfile(const char* path, int a2);
 int nox_common_parsecfg_all(FILE* a1);
 int sub_431FC0();
 int sub_432010();

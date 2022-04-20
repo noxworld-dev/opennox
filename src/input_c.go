@@ -290,14 +290,14 @@ func nox_xxx_bindevent_bindNameByTitle_42EA40(title *C.wchar_t) *C.char {
 //export sub_4C3CB0
 func sub_4C3CB0() {
 	ctrlEvent.Reset()
-	C.nox_common_readcfgfile(internCStr("default.cfg"), 1)
+	nox_common_readcfgfile("default.cfg", true)
 	sub_4C3B70()
 }
 
 //export sub_4CBF40
 func sub_4CBF40() {
 	ctrlEvent.Reset()
-	C.nox_common_readcfgfile(internCStr("default.cfg"), 1)
+	nox_common_readcfgfile("default.cfg", true)
 	sub_4CBBF0()
 }
 

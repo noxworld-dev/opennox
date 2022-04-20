@@ -4313,45 +4313,6 @@ int sub_4C3A60(uint32_t* a1, unsigned int a2, unsigned int a3, int a4) {
 	return result;
 }
 
-//----- (004C3A90) --------------------------------------------------------
-int sub_4C3A90(int a1, int a2, int* a3, int a4) {
-	int v3;     // esi
-	int result; // eax
-
-	if (a2 == 23) {
-		return 1;
-	}
-	if (a2 != 16391) {
-		return 0;
-	}
-	v3 = nox_xxx_wndGetID_46B0A0(a3);
-	nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
-	switch (v3) {
-	case 931:
-		sub_42CD90();
-		nox_common_readcfgfile("nox.cfg", 1);
-		sub_4C3B70();
-		result = 0;
-		break;
-	case 932:
-		sub_4C35B0(0);
-		result = 0;
-		break;
-	case 933:
-		sub_4C3CB0();
-		result = 0;
-		break;
-	case 971:
-	case 972:
-	case 973:
-		sub_430AA0(v3 - 971);
-		return 0;
-	default:
-		return 0;
-	}
-	return result;
-}
-
 //----- (004C3EB0) --------------------------------------------------------
 int sub_4C3EB0(int a1, int a2, unsigned int a3, int a4) {
 	int result; // eax
@@ -6720,45 +6681,6 @@ int sub_4CBBB0() {
 	nox_xxx_windowDestroyMB_46C4E0(*(uint32_t**)&dword_5d4594_1522612);
 	v0();
 	return 1;
-}
-
-//----- (004CBE70) --------------------------------------------------------
-int sub_4CBE70(int a1, int a2, int* a3, int a4) {
-	int v3;     // esi
-	int result; // eax
-
-	if (a2 == 23) {
-		return 1;
-	}
-	if (a2 != 16391) {
-		return 0;
-	}
-	v3 = nox_xxx_wndGetID_46B0A0(a3);
-	nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
-	switch (v3) {
-	case 931:
-		sub_42CD90();
-		nox_common_readcfgfile("nox.cfg", 1);
-		sub_4CBBF0();
-		result = 0;
-		break;
-	case 932:
-		sub_4CBD30();
-		result = 0;
-		break;
-	case 933:
-		sub_4CBF40();
-		result = 0;
-		break;
-	case 971:
-	case 972:
-	case 973:
-		sub_430AA0(v3 - 971);
-		return 0;
-	default:
-		return 0;
-	}
-	return result;
 }
 
 //----- (004CC140) --------------------------------------------------------

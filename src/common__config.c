@@ -50,38 +50,6 @@ extern uint32_t nox_server_kickQuestPlayerMinVotes_229992;
 int g_scaled_cfg = 0;
 int g_fullscreen_cfg = 0;
 
-//----- (004317B0) --------------------------------------------------------
-int nox_common_readcfgfile(const char* path, int a2) {
-	sub_42CD90();
-	FILE* file = nox_fs_open_text(path);
-	if (file) {
-		if (a2 || nox_common_parsecfg_all(file)) {
-			if (nox_common_skipcfgfile_4331E0(file, a2)) {
-				nox_fs_close(file);
-				return 1;
-			}
-		}
-		nox_fs_close(file);
-		file = 0;
-	}
-	sub_42CD90();
-	file = nox_fs_open_text("default.cfg");
-	if (!file) {
-		return 0;
-	}
-	if (!(a2 || nox_common_parsecfg_all(file))) {
-		nox_fs_close(file);
-		return 0;
-	}
-	if (!nox_common_skipcfgfile_4331E0(file, a2)) {
-		nox_fs_close(file);
-		return 0;
-	}
-	nox_fs_close(file);
-	nox_common_writecfgfile("nox.cfg");
-	return 1;
-}
-
 //----- (00431890) --------------------------------------------------------
 int nox_common_parsecfg_all(FILE* a1) {
 	char* v1;          // eax
