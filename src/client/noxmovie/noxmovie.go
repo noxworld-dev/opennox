@@ -215,7 +215,11 @@ func (player *MoviePlayer) Play() {
 					alSrc.UnqueueBuffers(processedBuffers)
 					finished := 0
 					for _, b := range processedBuffers {
-						samples := b.GetSize() / ((b.GetBits() / 8) * b.GetChannels())
+						bits, chans := b.GetBits(), b.GetChannels()
+						if bits == 0 || chans == 0 || bits > 64 {
+							continue // FIXME: this is a workaround for random crashes
+						}
+						samples := b.GetSize() / ((bits / 8) * chans)
 						finished += int(samples)
 					}
 					samplesMu.Lock()
