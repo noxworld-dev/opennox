@@ -118,8 +118,16 @@ func (r *Refactorer) preProcessFile(path string) error {
 	return nil
 }
 
+var knownLibs = map[string][2]string{
+	"image":    {"", "image"},
+	"alloc":    {"", "github.com/noxworld-dev/opennox/v1/common/alloc"},
+	"memmap":   {"", "github.com/noxworld-dev/opennox/v1/common/memmap"},
+	"noxflags": {"noxflags", "github.com/noxworld-dev/opennox/v1/common/flags"},
+}
+
 func (r *Refactorer) processFile(path string) error {
 	r.fileChanged = false
+	r.fileCxgo = strings.HasPrefix(filepath.Base(path), "zzz_")
 	log.Println(path)
 	data, err := os.ReadFile(path)
 	if err != nil {
@@ -130,7 +138,43 @@ func (r *Refactorer) processFile(path string) error {
 	if err != nil {
 		return err
 	}
-	ast.Walk(r, f)
+	added := make(map[[2]string]struct{})
+	for _, id := range f.Unresolved {
+		path, ok := knownLibs[id.Name]
+		if !ok {
+			continue
+		}
+		if _, ok = added[path]; !ok {
+			added[path] = struct{}{}
+		}
+	}
+	if len(added) > 0 && r.fileCxgo {
+		r.fileChanged = true
+		var imports *ast.GenDecl
+		for _, d := range f.Decls {
+			if gd, ok := d.(*ast.GenDecl); ok && gd.Tok == token.IMPORT {
+				imports = gd
+				break
+			}
+		}
+		if imports == nil {
+			imports = &ast.GenDecl{Tok: token.IMPORT}
+			f.Decls = append([]ast.Decl{imports}, f.Decls...)
+		}
+		for path := range added {
+			var name *ast.Ident
+			if path[0] != "" {
+				name = ident(path[0])
+			}
+			imports.Specs = append(imports.Specs, &ast.ImportSpec{
+				Name: name,
+				Path: &ast.BasicLit{Kind: token.STRING, Value: strconv.Quote(path[1])},
+			})
+		}
+	}
+	for i, d := range f.Decls {
+		f.Decls[i] = r.visitDecl(d)
+	}
 	if !r.fileChanged {
 		return nil
 	}
@@ -149,6 +193,7 @@ func (r *Refactorer) processFile(path string) error {
 
 type Refactorer struct {
 	fileChanged bool
+	fileCxgo    bool
 	inDecl      string
 	defined     map[string]struct{}
 }
@@ -162,13 +207,11 @@ var callGoRename = map[string]string{
 	"nox_xxx_clientPlaySoundSpecial_452D80":   "clientPlaySoundSpecial",
 	"nox_common_setEngineFlag":                "noxflags.SetEngine",
 	"nox_common_resetEngineFlag":              "noxflags.UnsetEngine",
-	"nox_new_window_from_file":                "newWindowFromFile",
 	"nox_gui_makeAnimation_43C5B0":            "nox_gui_makeAnimation",
 	"nox_xxx_dialogMsgBoxCreate_449A10":       "NewDialogWindow",
 	"nox_xxx_windowFocus_46B500":              "guiFocus",
 	"nox_game_addStateCode_43BDD0":            "gameAddStateCode",
 	"nox_game_getStateCode_43BE10":            "gameGetStateCode",
-	"nox_xxx_gLoadImg_42F970":                 "nox_xxx_gLoadImg",
 	"nox_xxx_guiFontPtrByName_43F360":         "guiFontPtrByName",
 	"nox_xxx_checkHasSoloMaps_40ABD0":         "nox_xxx_checkHasSoloMaps",
 	"nox_xxx_wndShowModalMB_46A8C0":           "nox_xxx_wndShowModalMB",
@@ -180,11 +223,61 @@ var callGoRename = map[string]string{
 	"nox_xxx_wndClearCaptureMain_46ADE0":      "nox_xxx_wndClearCaptureMain",
 	"nox_xxx_wndGetCaptureMain_46AE00":        "nox_xxx_wndGetCaptureMain",
 	"nox_client_getServerPort_43B320":         "clientGetServerPort",
-	"nox_game_SetCliDrawFunc":                 "gameSetCliDrawFunc",
 	"nox_client_getMousePos_4309F0":           "getMousePos",
 	"sub_43F140":                              "noxAudioServeT",
 	"nox_platform_get_ticks":                  "platformTicks",
 	"nox_float2int":                           "int",
+}
+
+func stringExpr(n ast.Expr, changed *bool) ast.Expr {
+	switch n := n.(type) {
+	case *ast.CallExpr:
+		if len(n.Args) != 1 {
+			return n
+		}
+		fnc, ok := n.Fun.(*ast.Ident)
+		if !ok {
+			return n
+		}
+		switch fnc.Name {
+		case "CString":
+			*changed = true
+			return n.Args[0]
+		}
+	}
+	return n
+}
+
+func isFuncCall(name string, n ast.Expr) (*ast.CallExpr, bool) {
+	call, ok := n.(*ast.CallExpr)
+	if !ok {
+		return nil, false
+	}
+	switch fnc := call.Fun.(type) {
+	case *ast.Ident:
+		if name == fnc.Name {
+			return call, true
+		}
+	case *ast.SelectorExpr:
+		if x, ok := fnc.X.(*ast.Ident); ok && name == x.Name+"."+fnc.Sel.Name {
+			return call, true
+		}
+	}
+	return nil, false
+}
+
+func unwrapFunc(n ast.Expr, changed *bool) ast.Expr {
+	if isZero(n) {
+		*changed = true
+		return ident("nil")
+	}
+	if call, ok := isFuncCall("unsafe.Pointer", n); ok && len(call.Args) == 1 {
+		if call, ok := isFuncCall("libc.FuncAddr", call.Args[0]); ok && len(call.Args) == 1 {
+			*changed = true
+			return call.Args[0]
+		}
+	}
+	return n
 }
 
 func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
@@ -195,19 +288,19 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 	case "getMemIntPtr":
 		n.Fun = selExpr("memmap", "PtrInt32")
 		r.fileChanged = true
-	case "getMemU64Ptr":
+	case "getMemU64Ptr", "mem_getU64Ptr":
 		n.Fun = selExpr("memmap", "PtrUint64")
 		r.fileChanged = true
-	case "getMemU32Ptr":
+	case "getMemU32Ptr", "mem_getU32Ptr":
 		n.Fun = selExpr("memmap", "PtrUint32")
 		r.fileChanged = true
-	case "getMemU16Ptr":
+	case "getMemU16Ptr", "mem_getU16Ptr":
 		n.Fun = selExpr("memmap", "PtrUint16")
 		r.fileChanged = true
-	case "getMemI16Ptr":
+	case "getMemI16Ptr", "mem_getI16Ptr":
 		n.Fun = selExpr("memmap", "PtrInt16")
 		r.fileChanged = true
-	case "getMemByte":
+	case "getMemByte", "mem_getU8Ptr":
 		n.Fun = selExpr("memmap", "Uint8")
 		r.fileChanged = true
 	case "getMemAt":
@@ -231,7 +324,7 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 	case "nox_strman_loadString_40F1D0":
 		if len(n.Args) == 4 && isZero(n.Args[1]) {
 			n.Fun = selExpr("strMan", "GetStringInFile")
-			n.Args = []ast.Expr{n.Args[0], n.Args[2]}
+			n.Args = []ast.Expr{stringExpr(n.Args[0], &r.fileChanged), stringExpr(n.Args[2], &r.fileChanged)}
 			r.fileChanged = true
 			r.visitCall(n)
 		}
@@ -284,6 +377,31 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 			r.fileChanged = true
 			r.visitCall(n)
 		}
+	case "nox_xxx_gLoadImg_42F970":
+		n.Fun = ident("nox_xxx_gLoadImg")
+		r.fileChanged = true
+		fallthrough
+	case "nox_xxx_gLoadImg":
+		if len(n.Args) == 1 {
+			n.Args[0] = stringExpr(n.Args[0], &r.fileChanged)
+		}
+	case "nox_game_SetCliDrawFunc":
+		n.Fun = ident("gameSetCliDrawFunc")
+		r.fileChanged = true
+		fallthrough
+	case "gameSetCliDrawFunc":
+		if len(n.Args) == 1 {
+			n.Args[0] = unwrapFunc(n.Args[0], &r.fileChanged)
+		}
+	case "nox_new_window_from_file":
+		n.Fun = ident("newWindowFromFile")
+		r.fileChanged = true
+		fallthrough
+	case "newWindowFromFile":
+		if len(n.Args) == 2 {
+			n.Args[0] = stringExpr(n.Args[0], &r.fileChanged)
+			n.Args[1] = unwrapFunc(n.Args[1], &r.fileChanged)
+		}
 	case "nox_xxx_wndGetID_46B0A0":
 		if len(n.Args) == 1 {
 			n.Fun = recvCall(n.Args[0], "ID")
@@ -296,40 +414,35 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 			n.Fun = recvCall(n.Args[0], "setFunc93")
 			n.Args = []ast.Expr{n.Args[1]}
 			r.fileChanged = true
-			r.visitCall(n)
+			r.visitCallRecv(n.Fun.(*ast.SelectorExpr), n)
 		}
 	case "nox_xxx_wndSetProc_46B2C0":
 		if len(n.Args) == 2 {
 			n.Fun = recvCall(n.Args[0], "setFunc94")
 			n.Args = []ast.Expr{n.Args[1]}
 			r.fileChanged = true
-			r.visitCall(n)
+			r.visitCallRecv(n.Fun.(*ast.SelectorExpr), n)
 		}
 	case "nox_xxx_wndSetDrawFn_46B340":
 		if len(n.Args) == 2 {
 			n.Fun = recvCall(n.Args[0], "setDraw")
 			n.Args = []ast.Expr{n.Args[1]}
 			r.fileChanged = true
-			r.visitCall(n)
+			r.visitCallRecv(n.Fun.(*ast.SelectorExpr), n)
+		}
+	case "nox_gui_winSetFunc96_46B070":
+		if len(n.Args) == 2 {
+			n.Fun = recvCall(n.Args[0], "setTooltipFunc")
+			n.Args = []ast.Expr{n.Args[1]}
+			r.fileChanged = true
+			r.visitCallRecv(n.Fun.(*ast.SelectorExpr), n)
 		}
 	case "nox_window_set_all_funcs":
 		if len(n.Args) == 4 {
 			n.Fun = recvCall(n.Args[0], "SetAllFuncs")
 			n.Args = n.Args[1:]
-			if isZero(n.Args[0]) {
-				n.Args[0] = ident("nil")
-				r.fileChanged = true
-			}
-			if isZero(n.Args[1]) {
-				n.Args[1] = ident("nil")
-				r.fileChanged = true
-			}
-			if isZero(n.Args[2]) {
-				n.Args[2] = ident("nil")
-				r.fileChanged = true
-			}
 			r.fileChanged = true
-			r.visitCall(n)
+			r.visitCallRecv(n.Fun.(*ast.SelectorExpr), n)
 		}
 	case "nox_xxx_windowDestroyMB_46C4E0":
 		if len(n.Args) == 1 {
@@ -356,6 +469,12 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 			r.fileChanged = true
 			r.visitCall(n)
 		}
+	case "nox_window_call_field_94_fnc":
+		if len(n.Args) == 6 {
+			n.Fun = ident("nox_window_call_field_94")
+			n.Args = n.Args[:4]
+		}
+		fallthrough
 	case "nox_window_call_field_94":
 		if len(n.Args) == 4 {
 			n.Fun = recvCall(n.Args[0], "Func94")
@@ -507,6 +626,10 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 			r.fileChanged = true
 			r.visitCall(n)
 		}
+	case "nox_xxx_getTTByNameSpriteMB_44CFC0":
+		if len(n.Args) == 1 {
+			n.Args[0] = stringExpr(n.Args[0], &r.fileChanged)
+		}
 	default:
 		if newName := callGoRename[fnc.Name]; newName != "" {
 			fnc.Name = newName
@@ -568,14 +691,56 @@ func (r *Refactorer) visitMemmapCall(n *ast.CallExpr, fnc string) {
 		arg.Value = strconv.FormatUint(val, 10)
 	}
 }
-func (r *Refactorer) visitCall(n *ast.CallExpr) {
+func (r *Refactorer) visitUnsafeCall(n *ast.CallExpr, fnc string) ast.Expr {
+	switch fnc {
+	case "Pointer":
+		if len(n.Args) != 1 {
+			return n
+		}
+		if call, ok := isFuncCall("libc.FuncAddr", n.Args[0]); ok {
+			r.fileChanged = true
+			return call.Args[0]
+		}
+	}
+	return n
+}
+func (r *Refactorer) visitLibcCall(n *ast.CallExpr, fnc string) {
+	switch fnc {
+	case "AsFunc":
+		if len(n.Args) == 2 {
+			n.Fun = ident("cgoAsFunc")
+			r.fileChanged = true
+		}
+	case "FuncAddr":
+		if len(n.Args) == 1 {
+			n.Fun = ident("cgoFuncAddr")
+			r.fileChanged = true
+		}
+	}
+}
+func (r *Refactorer) visitCallRecv(sel *ast.SelectorExpr, n *ast.CallExpr) {
+	switch sel.Sel.Name {
+	case "setTooltipFunc":
+		if len(n.Args) == 1 {
+			n.Args[0] = unwrapFunc(n.Args[0], &r.fileChanged)
+		}
+	case "SetAllFuncs":
+		if len(n.Args) == 3 {
+			for i := range n.Args {
+				n.Args[i] = unwrapFunc(n.Args[i], &r.fileChanged)
+			}
+		}
+	}
+}
+func (r *Refactorer) visitCall(n *ast.CallExpr) ast.Expr {
 	switch fnc := n.Fun.(type) {
 	case *ast.Ident:
 		r.visitGoCall(n, fnc)
 	case *ast.SelectorExpr:
 		pkg, ok := fnc.X.(*ast.Ident)
 		if !ok {
-			return
+			r.visitCallRecv(fnc, n)
+			return n
 		}
 		switch pkg.Name {
 		case "C":
@@ -584,23 +749,224 @@ func (r *Refactorer) visitCall(n *ast.CallExpr) {
 			r.visitFlagsCall(n, fnc.Sel.Name)
 		case "memmap":
 			r.visitMemmapCall(n, fnc.Sel.Name)
+		case "unsafe":
+			return r.visitUnsafeCall(n, fnc.Sel.Name)
+		case "libc":
+			r.visitLibcCall(n, fnc.Sel.Name)
+		default:
+			r.visitCallRecv(fnc, n)
 		}
 	}
+	return n
+}
+func (r *Refactorer) visitBinaryExpr(n *ast.BinaryExpr) ast.Expr {
+	switch n.Op {
+	case token.EQL:
+		c1, ok1 := isFuncCall("libc.FuncAddr", n.X)
+		c2, ok2 := isFuncCall("libc.FuncAddr", n.Y)
+		if ok1 && ok2 {
+			r.fileChanged = true
+			return call("cgoFuncEqual", c1.Args[0], c2.Args[0])
+		}
+		if b, ok := n.Y.(*ast.Ident); ok && b.Name == "true" {
+			r.fileChanged = true
+			return n.X
+		}
+	case token.NEQ:
+		c1, ok1 := isFuncCall("libc.FuncAddr", n.X)
+		c2, ok2 := isFuncCall("libc.FuncAddr", n.Y)
+		if ok1 && ok2 {
+			r.fileChanged = true
+			return not(call("cgoFuncEqual", c1.Args[0], c2.Args[0]))
+		}
+		if b, ok := n.Y.(*ast.Ident); ok && b.Name == "true" {
+			r.fileChanged = true
+			return not(n.X)
+		}
+	}
+	return n
+}
+func (r *Refactorer) visitStarExpr(n *ast.StarExpr) ast.Expr {
+	switch x := n.X.(type) {
+	case *ast.CallExpr:
+		if len(x.Args) != 1 {
+			return n
+		}
+		par, ok := x.Fun.(*ast.ParenExpr)
+		if !ok {
+			return n
+		}
+		ptyp, ok := par.X.(*ast.StarExpr)
+		if !ok {
+			return n
+		}
+		_, ok = ptyp.X.(*ast.FuncType)
+		if !ok {
+			return n
+		}
+		return call("cgoAsFunc", star(callExpr(paren(star(ident("uint32"))), x.Args[0])), callExpr(par, ident("nil")))
+	}
+	return n
 }
 
-func (r *Refactorer) Visit(n ast.Node) ast.Visitor {
+func (r *Refactorer) visitDecl(n ast.Decl) ast.Decl {
 	switch n := n.(type) {
+	case *ast.FuncDecl:
+		r.inDecl = n.Name.Name
+		r.visitStmt(n.Body)
+	case *ast.GenDecl:
+		for _, s := range n.Specs {
+			switch s := s.(type) {
+			case *ast.ValueSpec:
+				s.Type = r.visitExpr(s.Type)
+				for i, v := range s.Names {
+					s.Names[i] = r.visitExpr(v).(*ast.Ident)
+				}
+				for i, v := range s.Values {
+					s.Values[i] = r.visitExpr(v)
+				}
+			case *ast.TypeSpec, *ast.ImportSpec:
+				// skip
+			default:
+				panic(fmt.Errorf("unsupported spec type: %T", s))
+			}
+		}
+	default:
+		panic(fmt.Errorf("unsupported decl type: %T", n))
+	}
+	return n
+}
+
+func (r *Refactorer) visitStmt(n ast.Stmt) ast.Stmt {
+	switch n := n.(type) {
+	case nil, *ast.BranchStmt, *ast.EmptyStmt:
+		// skip
+	case *ast.ExprStmt:
+		n.X = r.visitExpr(n.X)
+	case *ast.DeclStmt:
+		n.Decl = r.visitDecl(n.Decl)
+	case *ast.BlockStmt:
+		for i, st := range n.List {
+			n.List[i] = r.visitStmt(st)
+		}
+	case *ast.IfStmt:
+		n.Init = r.visitStmt(n.Init)
+		n.Cond = r.visitExpr(n.Cond)
+		n.Body = r.visitStmt(n.Body).(*ast.BlockStmt)
+		n.Else = r.visitStmt(n.Else)
+	case *ast.ForStmt:
+		n.Init = r.visitStmt(n.Init)
+		n.Cond = r.visitExpr(n.Cond)
+		n.Post = r.visitStmt(n.Post)
+		n.Body = r.visitStmt(n.Body).(*ast.BlockStmt)
+	case *ast.LabeledStmt:
+		n.Stmt = r.visitStmt(n.Stmt)
+	case *ast.ReturnStmt:
+		for i, e := range n.Results {
+			n.Results[i] = r.visitExpr(e)
+		}
+	case *ast.RangeStmt:
+		n.Key = r.visitExpr(n.Key)
+		n.Value = r.visitExpr(n.Value)
+		n.X = r.visitExpr(n.X)
+		n.Body = r.visitStmt(n.Body).(*ast.BlockStmt)
+	case *ast.AssignStmt:
+		for i, e := range n.Lhs {
+			n.Lhs[i] = r.visitExpr(e)
+		}
+		for i, e := range n.Rhs {
+			n.Rhs[i] = r.visitExpr(e)
+		}
+	case *ast.IncDecStmt:
+		n.X = r.visitExpr(n.X)
+	case *ast.DeferStmt:
+		n.Call = r.visitExpr(n.Call).(*ast.CallExpr)
+	case *ast.GoStmt:
+		n.Call = r.visitExpr(n.Call).(*ast.CallExpr)
+	case *ast.SendStmt:
+		n.Chan = r.visitExpr(n.Chan)
+		n.Value = r.visitExpr(n.Value)
+	case *ast.SwitchStmt:
+		n.Init = r.visitStmt(n.Init)
+		n.Tag = r.visitExpr(n.Tag)
+		n.Body = r.visitStmt(n.Body).(*ast.BlockStmt)
+	case *ast.TypeSwitchStmt:
+		n.Init = r.visitStmt(n.Init)
+		n.Assign = r.visitStmt(n.Assign)
+		n.Body = r.visitStmt(n.Body).(*ast.BlockStmt)
+	case *ast.SelectStmt:
+		n.Body = r.visitStmt(n.Body).(*ast.BlockStmt)
+	case *ast.CaseClause:
+		for i, e := range n.List {
+			n.List[i] = r.visitExpr(e)
+		}
+		for i, st := range n.Body {
+			n.Body[i] = r.visitStmt(st)
+		}
+	case *ast.CommClause:
+		n.Comm = r.visitStmt(n.Comm)
+		for i, st := range n.Body {
+			n.Body[i] = r.visitStmt(st)
+		}
+	default:
+		panic(fmt.Errorf("unsupported stmt type: %T", n))
+	}
+	return n
+}
+
+func (r *Refactorer) visitExpr(n ast.Expr) ast.Expr {
+	switch n := n.(type) {
+	case nil, *ast.BasicLit,
+		*ast.ArrayType, *ast.FuncType, *ast.MapType, *ast.ChanType, *ast.StructType, *ast.InterfaceType:
+		// skip
 	case *ast.Ident:
 		if newName := identGoRename[n.Name]; newName != "" {
 			n.Name = newName
 			r.fileChanged = true
 		}
-	case *ast.FuncDecl:
-		r.inDecl = n.Name.Name
+	case *ast.ParenExpr:
+		n.X = r.visitExpr(n.X)
+	case *ast.StarExpr:
+		n.X = r.visitExpr(n.X)
+		return r.visitStarExpr(n)
+	case *ast.UnaryExpr:
+		n.X = r.visitExpr(n.X)
+	case *ast.BinaryExpr:
+		n.X = r.visitExpr(n.X)
+		n.Y = r.visitExpr(n.Y)
+		return r.visitBinaryExpr(n)
+	case *ast.SelectorExpr:
+		n.Sel = r.visitExpr(n.Sel).(*ast.Ident)
+		n.X = r.visitExpr(n.X)
+	case *ast.IndexExpr:
+		n.X = r.visitExpr(n.X)
+		n.Index = r.visitExpr(n.Index)
+	case *ast.SliceExpr:
+		n.X = r.visitExpr(n.X)
+		n.Low = r.visitExpr(n.Low)
+		n.High = r.visitExpr(n.High)
+		n.Max = r.visitExpr(n.Max)
 	case *ast.CallExpr:
-		r.visitCall(n)
+		n.Fun = r.visitExpr(n.Fun)
+		for i, a := range n.Args {
+			n.Args[i] = r.visitExpr(a)
+		}
+		return r.visitCall(n)
+	case *ast.TypeAssertExpr:
+		n.X = r.visitExpr(n.X)
+	case *ast.CompositeLit:
+		for i, e := range n.Elts {
+			n.Elts[i] = r.visitExpr(e)
+		}
+	case *ast.KeyValueExpr:
+		n.Key = r.visitExpr(n.Key)
+		n.Value = r.visitExpr(n.Value)
+	case *ast.FuncLit:
+		n.Body = r.visitStmt(n.Body).(*ast.BlockStmt)
+	default:
+		panic(fmt.Errorf("unsupported expr type: %T", n))
 	}
-	return r
+	return n
 }
 
 func intLit(val int) *ast.BasicLit {
@@ -613,6 +979,18 @@ func strLit(val string) *ast.BasicLit {
 
 func ident(name string) *ast.Ident {
 	return &ast.Ident{Name: name}
+}
+
+func not(e ast.Expr) ast.Expr {
+	return &ast.UnaryExpr{Op: token.NOT, X: e}
+}
+
+func star(e ast.Expr) ast.Expr {
+	return &ast.StarExpr{X: e}
+}
+
+func paren(e ast.Expr) ast.Expr {
+	return &ast.ParenExpr{X: e}
 }
 
 func selExpr(pkg, name string) *ast.SelectorExpr {
