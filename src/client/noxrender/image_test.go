@@ -552,6 +552,14 @@ func TestDrawImage(t *testing.T) {
 					} else {
 						require.Equal(t, exp, got)
 					}
+					if debug {
+						rgba := image.NewNRGBA(pix.Rect)
+						draw.Draw(rgba, pix.Rect, pix, image.Pt(0, 0), draw.Src)
+						h.Reset()
+						h.Write(rgba.Pix)
+						rgbaHex := hex.EncodeToString(h.Sum(nil))
+						t.Logf("RGBA32: %q", rgbaHex)
+					}
 					require.Empty(t, d.colorMultMiss)
 					if skip {
 						t.SkipNow()
