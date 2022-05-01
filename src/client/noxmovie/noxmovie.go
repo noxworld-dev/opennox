@@ -200,9 +200,15 @@ func (player *MoviePlayer) Play() {
 		return
 	case <-time.After(time.Second / time.Duration(player.movie.Header.Fps/5)):
 	}
+	// This forces to wait for the audio thread to exit.
+	// Not closing it properly may lead to crashes later during the game.
+	var wg sync.WaitGroup
+	wg.Add(1)
+	defer wg.Wait()
 
 	// Audio thread
 	go func() {
+		defer wg.Done()
 		var freeBuffers openal.Buffers
 		for {
 			select {
@@ -217,7 +223,7 @@ func (player *MoviePlayer) Play() {
 					for _, b := range processedBuffers {
 						bits, chans := b.GetBits(), b.GetChannels()
 						if bits == 0 || chans == 0 || bits > 64 {
-							continue // FIXME: this is a workaround for random crashes
+							continue // this is a workaround for crashes in case we use buffers incorrectly (see #470)
 						}
 						samples := b.GetSize() / ((bits / 8) * chans)
 						finished += int(samples)
@@ -257,7 +263,11 @@ func (player *MoviePlayer) Play() {
 					alSrc.Play()
 					alSrc.SetLooping(false)
 				}
-				framesChan <- newFrame
+				select {
+				case <-player.stop:
+					return
+				case framesChan <- newFrame:
+				}
 			}
 		}
 	}()
