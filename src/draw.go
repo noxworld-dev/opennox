@@ -168,6 +168,11 @@ func sub_437290() {
 	noxrend.setRectFullScreen()
 }
 
+//export nox_client_drawRectFilledOpaque_49CE30
+func nox_client_drawRectFilledOpaque_49CE30(a1, a2, a3, a4 C.int) {
+	noxrend.DrawRectFilledOpaque(int(a1), int(a2), int(a3), int(a4))
+}
+
 type Viewport C.nox_draw_viewport_t
 
 func (vp *Viewport) C() *C.nox_draw_viewport_t {
@@ -775,7 +780,31 @@ func (r *NoxRender) DrawLineFromPoints(arr ...image.Point) { // nox_client_drawL
 }
 
 func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int) { // nox_client_drawRectFilledOpaque_49CE30
-	C.nox_client_drawRectFilledOpaque_49CE30(C.int(x), C.int(y), C.int(w), C.int(h))
+	if w == 0 || h == 0 {
+		return
+	}
+	d := r.Data()
+	rx, ry := x, y
+	rw, rh := w, h
+	if d.flag_0 != 0 {
+		out, ok := types.UtilRectXxx(types.Rect{Left: x, Right: x + w, Top: y, Bottom: y + h}, d.ClipRect())
+		if !ok {
+			return
+		}
+		ry = out.Top
+		rx = out.Left
+		rw = out.Right - out.Left
+		rh = out.Bottom - out.Top
+	}
+	sz := r.PixBuffer().Rect
+	if rx == 0 && ry == 0 && rw == sz.Dx() && rh == sz.Dy() {
+		prev := d.field_58
+		d.field_58 = d.field_61
+		r.ClearScreen()
+		d.field_58 = prev
+	} else {
+		C.nox_xxx_draw_49D270_MBRect_49D270(C.int(rx), C.int(ry), C.uint(rw), C.int(rh))
+	}
 }
 
 func (r *NoxRender) DrawRectFilledAlpha(x, y, w, h int) { // nox_client_drawRectFilledAlpha_49CF10

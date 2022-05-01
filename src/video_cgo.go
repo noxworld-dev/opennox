@@ -409,7 +409,6 @@ func nox_video_initLineDrawingFuncs_49E3F0() {
 }
 
 func nox_video_initRectDrawingFuncs_49CB50() {
-	*memmap.PtrPtr(0x5D4594, 1305704) = unsafe.Pointer(C.nox_xxx_draw_49D270_MBRect_49D270) // alpha filled
 	*memmap.PtrPtr(0x5D4594, 1305692) = unsafe.Pointer(C.sub_49D370)
 	C.dword_5d4594_1305712 = C.sub_49D6F0
 	C.dword_5d4594_1305720 = C.sub_49D6F0

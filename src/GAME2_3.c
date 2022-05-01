@@ -6504,47 +6504,6 @@ void sub_49CD30(int xLeft, int yTop, int a3, int a4, int a5, int a6) {
 	}
 }
 
-//----- (0049CE30) --------------------------------------------------------
-void nox_client_drawRectFilledOpaque_49CE30(int xLeft, int yTop, int a3, int a4) {
-	int v4; // ecx
-	int v5; // eax
-	nox_render_data_t* v6;
-	int v7;  // edx
-	int v8;  // esi
-	int v9;  // esi
-	RECT rc; // [esp+8h] [ebp-10h]
-
-	v4 = a3;
-	if (a3) {
-		v5 = a4;
-		if (a4) {
-			v6 = nox_draw_curDrawData_3799572;
-			v7 = yTop;
-			if (nox_draw_curDrawData_3799572->flag_0) {
-				SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
-				if (!nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&nox_draw_curDrawData_3799572->clip))) {
-					return;
-				}
-				v7 = rc.top;
-				v6 = nox_draw_curDrawData_3799572;
-				v8 = rc.left;
-				v4 = rc.right - rc.left;
-				v5 = rc.bottom - rc.top;
-			} else {
-				v8 = xLeft;
-			}
-			if (v8 || v7 || v4 != nox_getBackbufWidth() || v5 != nox_getBackbufHeight()) {
-				(*(void (**)(uint32_t, uint32_t, uint32_t, uint32_t))getMemAt(0x5D4594, 1305704))(v8, v7, v4, v5);
-			} else {
-				v9 = v6->field_58;
-				v6->field_58 = v6->field_61;
-				nox_client_clearScreen_440900();
-				nox_draw_curDrawData_3799572->field_58 = v9;
-			}
-		}
-	}
-}
-
 //----- (0049CF10) --------------------------------------------------------
 int4* nox_client_drawRectFilledAlpha_49CF10(int xLeft, int yTop, int a3, int a4) {
 	int4* result; // eax
