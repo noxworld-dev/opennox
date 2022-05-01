@@ -50,6 +50,10 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
+var (
+	legacyGamma2Set = false
+)
+
 //export nox_common_writecfgfile
 func nox_common_writecfgfile(str *C.char) {
 	if err := writeConfigLegacy(GoString(str)); err != nil {
@@ -153,6 +157,13 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 			nox_video_gamma = v
+		case "Gamma2":
+			v, err := strconv.ParseFloat(kv.Value, 32)
+			if err != nil {
+				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
+			}
+			legacyGamma2Set = true
+			setGamma(float32(v))
 		case "FXVolume":
 			if err := sub_432CB0(kv.Value, 0); err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
@@ -529,12 +540,6 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				updateFullScreen(g_fullscreen_cfg)
 			}
 			changeWindowedOrFullscreen()
-		case "Gamma2":
-			v, err := strconv.ParseFloat(kv.Value, 32)
-			if err != nil {
-				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
-			}
-			setGamma(float32(v))
 		case "Stretched":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
@@ -666,11 +671,10 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 	sect.Set("Stretched", strconv.Itoa(g_scaled_cfg))
 	sect.Set("Fullscreen", strconv.Itoa(g_fullscreen_cfg))
 	sect.Set("VideoSize", strconv.Itoa(nox_video_getCutSize()))
-
-	// TODO: always read/write Gamma and remove Gamma2
-	//sect.Set("Gamma", strconv.Itoa(int(memmap.Uint32(0x587000, 80852))))
-	sect.Set("Gamma2", strconv.FormatFloat(float64(draw_gamma), 'g', -1, 32))
-
+	sect.Set("Gamma", strconv.Itoa(nox_video_gamma))
+	if legacyGamma2Set {
+		sect.Set("Gamma2", strconv.FormatFloat(float64(draw_gamma), 'g', -1, 32))
+	}
 	sect.Set("InputSensitivity", strconv.FormatFloat(float64(getSensitivity()), 'g', -1, 32))
 
 	v := 0

@@ -94,7 +94,7 @@ var (
 	nox_client_itemDragnDrop_1097188       *Drawable
 	dword_5d4594_1097204                   int
 	nox_video_gammaValue                   int
-	draw_gamma                             float32
+	draw_gamma                             = float32(1.0)
 	noxPixBuffer                           struct {
 		img      *noximage.Image16
 		free     func()
