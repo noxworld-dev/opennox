@@ -9,7 +9,6 @@ package opennox
 #include "GAME3_1.h"
 #include "GAME5_2.h"
 #include "client__io__win95__focus.h"
-#include "common__config.h"
 #include "client__system__parsecmd.h"
 #include "input_common.h"
 #include "win.h"

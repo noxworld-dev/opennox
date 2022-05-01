@@ -29,7 +29,6 @@
 #include "client__system__ctrlevnt.h"
 #include "client__video__draw_common.h"
 #include "client__video__sdl__draw_nogl.h"
-#include "common__config.h"
 #include "common__magic__speltree.h"
 #include "defs.h"
 #include "input.h"
@@ -148,8 +147,6 @@ enum {
 
 int nox_video_getFullScreen();
 void nox_video_setFullScreen(int v);
-int nox_video_getScaled();
-void nox_video_setScaled(int v);
 
 #ifdef USE_SDL
 void change_windowed_fullscreen();

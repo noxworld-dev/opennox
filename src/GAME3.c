@@ -43,7 +43,6 @@
 #include "common/fs/nox_fs.h"
 #include "common__binfile.h"
 #include "common__crypt.h"
-#include "common__config.h"
 #include "input.h"
 #include "input_common.h"
 #include "movie.h"
@@ -5238,6 +5237,7 @@ int sub_4AD820() {
 }
 
 //----- (004AD9B0) --------------------------------------------------------
+void nox_common_writecfgfile(char* a1);
 int sub_4AD9B0(int a1) {
 	if (wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1309820)) {
 		return 0;

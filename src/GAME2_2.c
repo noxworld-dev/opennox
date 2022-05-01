@@ -189,8 +189,6 @@ int (*func_587000_154944)(int, int) = nox_xxx_drawTexEdgesProbably_481900;
 
 void (*nox_client_drawAtFunc_3799500)(nox_video_bag_image_t*, int, int) = 0;
 
-int nox_video_cutSize = 100;
-
 void* nox_client_spriteUnderCursorXxx_1096644 = 0;
 
 //----- (00476080) --------------------------------------------------------
@@ -467,21 +465,6 @@ int sub_476680() {
 	nox_client_highResFrontWalls_80820 = *getMemU32Ptr(0x5D4594, 1096444);
 	return result;
 }
-
-//----- (004766A0) --------------------------------------------------------
-void nox_video_setCutSize_4766A0(int a1) {
-	if (a1 >= 65) {
-		if (a1 > 100) {
-			a1 = 100;
-		}
-		nox_video_cutSize = a1;
-	} else {
-		nox_video_cutSize = 65;
-	}
-}
-
-//----- (004766D0) --------------------------------------------------------
-int nox_video_getCutSize_4766D0() { return nox_video_cutSize; }
 
 //----- (00476850) --------------------------------------------------------
 void sub_476850(nox_draw_viewport_t* vp, nox_drawable* dr) {

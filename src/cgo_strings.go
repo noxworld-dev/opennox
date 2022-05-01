@@ -96,6 +96,15 @@ func WStrCopyBytes(p []byte, src string) int {
 	return n
 }
 
+func WStrCopySlice(dst []uint16, src string) int {
+	val := utf16.Encode([]rune(src))
+	n := copy(dst, val)
+	if n < len(dst) {
+		dst[n] = 0
+	}
+	return n
+}
+
 func GoString(s *C.char) string {
 	return C.GoString(s)
 }

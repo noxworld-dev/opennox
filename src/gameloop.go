@@ -16,7 +16,6 @@ package opennox
 #include "GAME5_2.h"
 #include "client__network__netclint.h"
 #include "client__video__draw_common.h"
-#include "common__config.h"
 #include "GAME2_3.h"
 #include "thing.h"
 #include "common__system__team.h"
@@ -432,8 +431,8 @@ func mainloopReset() error {
 		}
 		return err
 	}
-	*memmap.PtrUint32(0x587000, 80852) = uint32(nox_video_getGammaSetting_434B00())
-	nox_video_setGammaSetting_434B30(1)
+	nox_video_gamma = nox_video_getGammaSetting()
+	nox_video_setGammaSetting(1)
 	C.sub_434B60()
 	mainloopConnectResultOK = false
 	if noxflags.HasGame(noxflags.GameHost) {
@@ -948,7 +947,7 @@ func CONNECT_RESULT_OK() error {
 		C.sub_43AA70()
 	}
 	noxAudioServe()
-	nox_video_setGammaSetting_434B30(C.int(memmap.Int32(0x587000, 80852)))
+	nox_video_setGammaSetting(nox_video_gamma)
 	C.sub_434B60()
 	noxflags.SetGame(noxflags.GameFlag29)
 	return nil
@@ -1166,7 +1165,7 @@ func map_download_finish() int {
 }
 
 func sub_435EB0() {
-	C.nox_common_writecfgfile(internCStr("nox.cfg"))
+	writeConfigLegacy("nox.cfg")
 	if noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_playerDisconnFinish_4DE530(31, 2)
 	} else {
@@ -1307,7 +1306,7 @@ func nox_xxx_cliDrawConnectedLoop_43B360() C.int {
 		C.nox_xxx_copyServerIPAndPort_431790(internCStr(v5))
 		clientSetServerHost(v0)
 	}
-	C.nox_common_writecfgfile(internCStr("nox.cfg"))
+	writeConfigLegacy("nox.cfg")
 	v2 := *(*int8)(unsafe.Add(C.dword_5d4594_814624, 102))
 	if v2 >= 0 {
 		videoSetMaxSize(noxVideoMax)

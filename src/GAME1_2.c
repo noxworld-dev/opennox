@@ -68,7 +68,6 @@
 #include "client__video__sdl__draw_nogl.h"
 #include "common/fs/nox_fs.h"
 #include "common__binfile.h"
-#include "common__config.h"
 #include "common__log.h"
 #include "common__magic__speltree.h"
 #include "defs.h"

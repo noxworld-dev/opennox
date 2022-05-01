@@ -267,7 +267,6 @@ void sub_489DC0();
 int nox_xxx_windowMplayFilterProc_489E70(int a1, int a2, int* a3, int a4);
 int sub_489FB0();
 int sub_489FF0(int a1, int a2, const void* a3);
-int sub_48A020(int a1, uint32_t* a2);
 int nox_video_checkIsWinNT_48A1D0(int a1);
 int nox_xxx_setSomeFunc_48A210(int a1);
 int sub_48A5D0();

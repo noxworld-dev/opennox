@@ -16,7 +16,6 @@
 #include "memmap.h"
 
 #include "client__shell__noxworld.h"
-#include "common__config.h"
 #include "operators.h"
 
 extern int nox_win_width_game;
@@ -303,7 +302,7 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 				} while (v19);
 				if (playerInfoStructParser_0((char*)v43)) {
 					buf[2] = 6;
-					v20 = sub_433890();
+					v20 = nox_xxx_serverOptionsGetServername_40A4C0();
 					v21 = (char*)v43 + 2;
 					do {
 						v22 = *v20;

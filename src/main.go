@@ -8,7 +8,6 @@ package opennox
 #include "GAME2_2.h"
 #include "GAME3_2.h"
 #include "GAME5.h"
-#include "common__config.h"
 #include "thing.h"
 #include "common__net_list.h"
 #include "client__system__parsecmd.h"
@@ -545,7 +544,7 @@ func sub_4AA9C0() C.int {
 	if !env.IsE2E() {
 		videoUpdateGameMode(guiOptionsRes)
 	}
-	C.nox_common_writecfgfile(internCStr("nox.cfg"))
+	writeConfigLegacy("nox.cfg")
 	C.nox_wnd_xxx_1309740.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)
 	sub_43BE40(2)
 	clientPlaySoundSpecial(923, 100)
@@ -557,7 +556,7 @@ func cleanup() {
 	if noxflags.HasGame(noxflags.GameFlag26) {
 		C.nox_xxx_networkLog_close_413D00()
 	}
-	C.nox_common_writecfgfile(internCStr("nox.cfg"))
+	writeConfigLegacy("nox.cfg")
 	nox_xxx_freeScreenParticles_4314D0()
 	C.sub_413960()
 	C.sub_431380()

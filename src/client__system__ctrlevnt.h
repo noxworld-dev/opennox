@@ -40,7 +40,6 @@ nox_ctrlevent_key_t* nox_xxx_getBindKeysBuf_42CD70();
 
 char* nox_xxx_netGetBuffSize_42CD50(uint8_t* a1);
 void sub_42CD90();
-void nox_client_writeConfigHotkeys_42CDF0(FILE* a1);
 int nox_client_parseConfigHotkeysLine_42CF50(char* a1);
 int nox_xxx_keyCheckWarrorKeys_42D460(nox_ctrlevent_code code);
 int nox_xxx_keyCanPauseMode_42D4B0(nox_ctrlevent_code code);

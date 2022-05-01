@@ -144,7 +144,6 @@ int sub_578C60();
 int sub_578C90(int a1);
 int sub_578CD0();
 char* nox_xxx_GetEndgameDialog_578D80();
-char sub_578DE0(char a1);
 unsigned char sub_578DF0();
 void sub_578E00();
 void* nox_xxx_waypointGetList_579860();

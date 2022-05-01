@@ -2729,15 +2729,6 @@ char* nox_xxx_GetEndgameDialog_578D80() {
 	return 0;
 }
 
-//----- (00578DE0) --------------------------------------------------------
-char sub_578DE0(char a1) {
-	char result; // al
-
-	result = a1;
-	*getMemU8Ptr(0x5D4594, 2516476) = a1;
-	return result;
-}
-
 //----- (00578DF0) --------------------------------------------------------
 unsigned char sub_578DF0() { return getMemByte(0x5D4594, 2516476); }
 

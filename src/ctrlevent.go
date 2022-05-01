@@ -30,13 +30,12 @@ import "C"
 import (
 	"bufio"
 	"encoding/binary"
-	"fmt"
 	"image"
-	"io"
 	"math"
 	"strings"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/cfg"
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/player"
@@ -426,11 +425,11 @@ func clientSetPhonemeFrame(a1 int) {
 }
 
 func nox_client_increaseViewport_4766E0() {
-	nox_draw_setCutSize_476700(0, 2)
+	nox_draw_setCutSize(0, 2)
 }
 
 func nox_client_decreaseViewport_4766F0() {
-	nox_draw_setCutSize_476700(0, -2)
+	nox_draw_setCutSize(0, -2)
 }
 
 func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
@@ -513,15 +512,15 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			ce.active = false
 		case player.CCIncreaseGamma:
 			clientPlaySoundSpecial(921, 100)
-			v38 := nox_video_getGammaSetting_434B00()
-			nox_video_setGammaSetting_434B30(v38 + 1)
+			v := nox_video_getGammaSetting()
+			nox_video_setGammaSetting(v + 1)
 			updateGamma(1)
 			C.sub_434B60()
 			ce.active = false
 		case player.CCDecreaseGamma:
 			clientPlaySoundSpecial(921, 100)
-			v39 := nox_video_getGammaSetting_434B00()
-			nox_video_setGammaSetting_434B30(v39 - 1)
+			v := nox_video_getGammaSetting()
+			nox_video_setGammaSetting(v - 1)
 			updateGamma(-1)
 			C.sub_434B60()
 			ce.active = false
@@ -811,95 +810,59 @@ func nox_client_parseConfigHotkeysLine_42CF50(a1 *C.char) C.int {
 			continue
 		}
 		key, val := strings.TrimSpace(line[:i]), strings.TrimSpace(line[i+1:])
-		switch key {
-		case "MousePickup":
-			val = strings.ToLower(val)
-			for i, s := range noxMouseSelectOpt {
-				if val == strings.ToLower(s) {
-					C.sub_430AA0(C.int(i))
-					return 1
-				}
-			}
-			C.sub_430AA0(0)
-			return 1
-		}
-		ce := new(CtrlEventBinding)
-		for _, s := range strings.Split(key, "+") {
-			s = strings.TrimSpace(s)
-			if k := keybind.KeyByName(s); k != 0 {
-				ce.keys = append(ce.keys, k)
-			}
-		}
-		for _, s := range strings.Split(val, "+") {
-			s = strings.TrimSpace(s)
-			if b := keyBinding.EventByName(s); b != nil && b.Event != 0 {
-				ce.events = append(ce.events, b.Event)
-			}
-		}
-		ctrlEvent.addBinding(ce)
-		return 1
+		return C.int(nox_client_parseConfigHotkeysLine(key, val))
 	}
 	return 0
 }
 
-func writeConfigHotkeys(w io.Writer) error {
-	v1 := int(C.nox_client_mousePriKey_430AF0())
-	_, err := fmt.Fprintf(w, "MousePickup = %s\r\n", noxMouseSelectOpt[v1])
-	if err != nil {
-		return err
+func nox_client_parseConfigHotkeysLine(key, val string) int {
+	switch key {
+	case "MousePickup":
+		val = strings.ToLower(val)
+		for i, s := range noxMouseSelectOpt {
+			if val == strings.ToLower(s) {
+				C.sub_430AA0(C.int(i))
+				return 1
+			}
+		}
+		C.sub_430AA0(0)
+		return 1
 	}
+	ce := new(CtrlEventBinding)
+	for _, s := range strings.Split(key, "+") {
+		s = strings.TrimSpace(s)
+		if k := keybind.KeyByName(s); k != 0 {
+			ce.keys = append(ce.keys, k)
+		}
+	}
+	for _, s := range strings.Split(val, "+") {
+		s = strings.TrimSpace(s)
+		if b := keyBinding.EventByName(s); b != nil && b.Event != 0 {
+			ce.events = append(ce.events, b.Event)
+		}
+	}
+	ctrlEvent.addBinding(ce)
+	return 1
+}
+
+func writeConfigHotkeys(sect *cfg.Section) {
+	v1 := int(C.nox_client_mousePriKey_430AF0())
+	sect.Set("MousePickup", noxMouseSelectOpt[v1])
 	for _, it := range ctrlEvent.listBindings() {
-		first := true
+		var keys []string
 		for _, k := range it.keys {
 			if !k.IsValid() {
 				continue
 			}
-			if !first {
-				if _, err = io.WriteString(w, "+ "); err != nil {
-					return err
-				}
-			}
-			first = false
-			_, err = fmt.Fprintf(w, "%s ", k.String())
-			if err != nil {
-				return err
-			}
+			keys = append(keys, k.String())
 		}
-		if _, err = io.WriteString(w, "= "); err != nil {
-			return err
-		}
-		first = true
+		var vals []string
 		for _, k := range it.events {
 			if b := keyBinding.EventByCode(k); b != nil && b.Name != "" {
-				if !first {
-					if _, err = io.WriteString(w, "+ "); err != nil {
-						return err
-					}
-				}
-				first = false
-				_, err = fmt.Fprintf(w, "%s ", b.Name)
-				if err != nil {
-					return err
-				}
+				vals = append(vals, b.Name)
 			}
 		}
-		if _, err = io.WriteString(w, "\n"); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-//export nox_client_writeConfigHotkeys_42CDF0
-func nox_client_writeConfigHotkeys_42CDF0(h *C.FILE) {
-	f := fileByHandle(h)
-	if f == nil {
-		input.Log.Println("cannot save config: empty file handle")
-		return
-	}
-	if err := writeConfigHotkeys(f.File); err != nil {
-		input.Log.Println("cannot save config:", err)
-		return
+		sect.Set(strings.Join(keys, " + "), strings.Join(vals, " + "))
 	}
 }
 

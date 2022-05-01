@@ -48,7 +48,6 @@ void nullsub_70() {}
 #include "client__gui__window.h"
 #include "client__io__win95__focus.h"
 #include "common/fs/nox_fs.h"
-#include "common__config.h"
 #include "input_common.h"
 #include "mutexes.h"
 #include "operators.h"

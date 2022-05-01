@@ -40,7 +40,6 @@
 #include "client__shell__optsback.h"
 #include "client__video__draw_common.h"
 #include "common/fs/nox_fs.h"
-#include "common__config.h"
 #include "common__strman.h"
 #include "input_common.h"
 #include "operators.h"
@@ -4284,6 +4283,7 @@ int sub_4C3560() {
 int sub_4C3580() { return nox_window_set_hidden(*(int*)&dword_5d4594_1321224, 1); }
 
 //----- (004C35B0) --------------------------------------------------------
+void nox_common_writecfgfile(char* a1);
 int sub_4C35B0(int a1) {
 	if (wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1321228)) {
 		return 0;

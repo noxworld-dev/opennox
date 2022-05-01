@@ -228,7 +228,7 @@ func nox_game_rollIntroAndStart_4AB170() {
 	if err := drawGeneral_4B0340(1); err != nil {
 		videoLog.Println(err)
 	}
-	C.sub_578DE0(C.char(C.sub_578DF0() | 0x80))
+	sub_578DE0(byte(C.sub_578DF0() | 0x80))
 }
 
 func nox_game_rollNoxLogoAndStart_4AB0F0() {
@@ -589,8 +589,8 @@ func initGameSession435CC0() error {
 	vp.field_10 = 0
 	vp.field_11 = 0
 	vp.field_12 = 0
-	v1 := C.nox_video_getCutSize_4766D0()
-	nox_draw_setCutSize_476700(v1, 0)
+	v1 := nox_video_getCutSize()
+	nox_draw_setCutSize(v1, 0)
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		C.sub_41CC00((*C.char)(memmap.PtrOff(0x85B3FC, 10984)))
 	} else if noxServer.nox_xxx_isQuest_4D6F50() || sub_4D6F70() {

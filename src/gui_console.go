@@ -50,19 +50,6 @@ func init() {
 	})
 }
 
-//export nox_gui_console_translucent_get
-func nox_gui_console_translucent_get() C.int {
-	if guiCon.translucent {
-		return 1
-	}
-	return 0
-}
-
-//export nox_gui_console_translucent_set
-func nox_gui_console_translucent_set(v C.int) {
-	guiCon.translucent = v != 0
-}
-
 //export nox_gui_console_Enable_450BE0
 func nox_gui_console_Enable_450BE0() {
 	guiCon.Enable(true)

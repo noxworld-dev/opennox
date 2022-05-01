@@ -2,6 +2,7 @@ package opennox
 
 /*
 #include <stdint.h>
+#include "GAME2_2.h"
 #include "client/audio/ail/compat_mss.h"
 #include "client__io__win95__focus.h"
 
@@ -435,4 +436,8 @@ func nox_xxx_parseSoundSetBin_424170(path string) error {
 		return fmt.Errorf("failed to load sounds")
 	}
 	return nil
+}
+
+func sub_486670(v int, ind int) {
+	C.sub_486670(C.int(v), C.int(ind))
 }

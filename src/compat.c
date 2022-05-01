@@ -27,7 +27,6 @@
 #include "client__system__ctrlevnt.h"
 #include "client__video__draw_common.h"
 #include "client__video__sdl__draw_nogl.h"
-#include "common__config.h"
 #include "common__magic__speltree.h"
 #include "defs.h"
 #include "input.h"

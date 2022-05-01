@@ -260,9 +260,9 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 			Y: noxDefaultHeight,
 		})
 	}
-	C.nox_video_setCutSize_4766A0(C.int(cut))
+	nox_video_setCutSize(cut)
 	if noxflags.HasGame(noxflags.GameFlag29) {
-		nox_draw_setCutSize_476700(C.int(cut), 0)
+		nox_draw_setCutSize(cut, 0)
 	}
 	C.nox_profiled_805856 = 1
 }

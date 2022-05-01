@@ -4,10 +4,7 @@ import (
 	"image"
 
 	"github.com/noxworld-dev/opennox-lib/client/seat"
-	"github.com/noxworld-dev/opennox-lib/env"
 	"github.com/noxworld-dev/opennox-lib/log"
-
-	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 const (
@@ -35,6 +32,11 @@ var (
 		{2560, 1440},
 		{3840, 2160},
 	}
+	nox_video_cutSize = 100
+	nox_video_gamma   = 1
+
+	g_scaled_cfg     = 0
+	g_fullscreen_cfg = 0
 )
 
 func videoModeID() int {
@@ -101,18 +103,20 @@ func videoResizeView(mode image.Point) {
 	videoSetWindowSize(mode)
 }
 
-func videoApplyConfigVideoMode() {
-	if env.IsE2E() {
-		changeWindowedOrFullscreen()
-		return
-	}
-	if !noxflags.HasEngine(noxflags.EngineWindowed) {
-		// FIXME: this will cause the game to change its window size to whatever set in nox.cfg right at the
-		// start! this is different from original game where window is only resized after joining the game
-		changeWindowedOrFullscreen()
-	}
-}
-
 func changeWindowedOrFullscreen() {
 	cfgUpdateFullScreen()
+}
+
+func nox_video_setCutSize(v int) {
+	if v < 65 {
+		v = 65
+	}
+	if v > 100 {
+		v = 100
+	}
+	nox_video_cutSize = v
+}
+
+func nox_video_getCutSize() int {
+	return nox_video_cutSize
 }

@@ -11,7 +11,6 @@ package opennox
 #include "GAME3.h"
 #include "GAME3_1.h"
 #include "common__magic__speltree.h"
-extern int g_fullscreen_cfg;
 extern unsigned int dword_5d4594_805860;
 extern int nox_video_dxFullScreen;
 extern int nox_enable_threads;
@@ -36,7 +35,6 @@ extern unsigned int nox_client_showTooltips_80840;
 extern int dword_5d4594_3799524;
 extern int nox_client_mouseCursorType;
 extern int nox_xxx_cursorTypePrev_587000_151528;
-extern int nox_video_cutSize;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned char** nox_pixbuffer_rows_3798776;
@@ -107,6 +105,16 @@ var (
 	func_5d4594_1311924 func()
 )
 
+//export nox_video_getCutSize_4766D0
+func nox_video_getCutSize_4766D0() C.int {
+	return C.int(nox_video_getCutSize())
+}
+
+//export nox_video_setCutSize_4766A0
+func nox_video_setCutSize_4766A0(v C.int) {
+	nox_video_setCutSize(int(v))
+}
+
 func OnPixBufferResize(fnc func(sz image.Point)) {
 	noxPixBuffer.onResize = append(noxPixBuffer.onResize, fnc)
 }
@@ -126,29 +134,30 @@ func videoSetWindowSize(sz image.Point) {
 }
 
 func cfgUpdateFullScreen() {
-	C.g_fullscreen_cfg = C.int(getWindowMode())
+	g_fullscreen_cfg = getWindowMode()
 }
 
-//export nox_video_getScaled
-func nox_video_getScaled() C.int {
-	return C.int(g_scaled)
+func nox_video_getScaled() int {
+	return g_scaled
 }
 
-//export nox_video_setScaled
-func nox_video_setScaled(v C.int) {
-	g_scaled = int(v)
+func nox_video_setScaled(v int) {
+	g_scaled = v
 	setScaled(v != 0)
 }
 
 //export nox_video_getGammaSetting_434B00
 func nox_video_getGammaSetting_434B00() C.int {
+	return C.int(nox_video_getGammaSetting())
+}
+func nox_video_getGammaSetting() int {
 	v := nox_video_gammaValue
 	if v < 1 {
 		nox_video_gammaValue = 1
 	} else if v > 10 {
 		nox_video_gammaValue = 10
 	}
-	return C.int(nox_video_gammaValue)
+	return nox_video_gammaValue
 }
 
 func updateGamma(value int) {
@@ -188,7 +197,9 @@ func setGamma(v float32) {
 
 //export nox_video_setGammaSetting_434B30
 func nox_video_setGammaSetting_434B30(a1 C.int) C.int {
-	v := int(a1)
+	return C.int(nox_video_setGammaSetting(int(a1)))
+}
+func nox_video_setGammaSetting(v int) int {
 	if v < 1 {
 		v = 1
 	} else if v > 10 {
@@ -198,7 +209,7 @@ func nox_video_setGammaSetting_434B30(a1 C.int) C.int {
 		videoLog.Printf("gamma: %v", nox_video_gammaValue)
 	}
 	nox_video_gammaValue = v
-	return C.int(v)
+	return v
 }
 
 //export sub_43BE50_get_video_mode_id
@@ -238,10 +249,6 @@ func nox_video_setFullScreen(v C.int) {
 	updateFullScreen(int(v))
 }
 
-func nox_video_sync_depths() C.bool {
-	return true
-}
-
 //export sub_430C30_set_video_max
 func sub_430C30_set_video_max(w, h C.int) {
 	videoSetMaxSize(image.Point{X: int(w), Y: int(h)})
@@ -274,11 +281,6 @@ func videoSetGameMode(mode image.Point) {
 	C.nox_win_height_game = C.int(mode.Y)
 	C.nox_win_depth_game = 16
 	setScreenSize(mode)
-}
-
-//export nox_common_parsecfg_videomode_apply
-func nox_common_parsecfg_videomode_apply(w, h, d C.int) {
-	videoApplyConfigVideoMode()
 }
 
 func nox_video_setBackBufferCopyFunc_4AD100() error {
@@ -822,11 +824,13 @@ func (r *NoxRender) noxDrawCursor(a1 *Image, pos image.Point) int {
 
 //export nox_draw_setCutSize_476700
 func nox_draw_setCutSize_476700(cutPerc C.int, a2 C.int) {
+	nox_draw_setCutSize(int(cutPerc), int(a2))
+}
+func nox_draw_setCutSize(perc int, a2 int) {
 	vp := getViewport()
 	bsz := noxPixBuffer.img.Size()
-	v2 := int(a2)
+	v2 := a2
 	v4 := int(vp.width)
-	perc := int(cutPerc)
 	if a2 != 0 {
 		v7 := 0
 		for v7 < 4 {
@@ -844,14 +848,13 @@ func nox_draw_setCutSize_476700(cutPerc C.int, a2 C.int) {
 			}
 		}
 	}
-	if perc >= 40 {
-		if perc > 100 {
-			perc = 100
-		}
-	} else {
+	if perc < 40 {
 		perc = 40
 	}
-	C.nox_video_cutSize = C.int(perc)
+	if perc > 100 {
+		perc = 100
+	}
+	nox_video_cutSize = perc
 
 	vp.x1 = C.int(uint32((bsz.X-perc*bsz.X/100)/2) & 0xFFFFFFFC)
 	if vp.x1 < 0 {
