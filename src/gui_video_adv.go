@@ -8,7 +8,6 @@ extern unsigned int nox_client_translucentFrontWalls_805844;
 extern unsigned int nox_client_highResFrontWalls_80820;
 extern unsigned int nox_client_highResFloors_154952;
 extern unsigned int nox_client_lockHighResFloors_1193152;
-extern unsigned int nox_client_texturedFloors_154956;
 extern unsigned int nox_gui_console_translucent;
 extern unsigned int nox_client_renderGlow_805852;
 extern unsigned int nox_client_fadeObjects_80836;
@@ -16,7 +15,6 @@ extern unsigned int nox_client_renderBubbles_80844;
 extern unsigned int nox_client_renderGUI_80828;
 extern unsigned int nox_client_showTooltips_80840;
 extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
-extern unsigned int nox_client_texturedFloors2_154960;
 extern unsigned int dword_5d4594_1193156;
 extern unsigned int dword_5d4594_1301812;
 extern unsigned int dword_5d4594_1301816;
@@ -75,7 +73,7 @@ var noxVideoAdvOptsList = []*videoOpt{
 	{ID: 2022, CFlag: &C.nox_client_highResFrontWalls_80820, TextID: "AdVidOpt.wnd:InterlacedFrontWalls"},
 	{ID: 2031, CFlag: &C.nox_client_highResFloors_154952, TextID: "AdVidOpt.wnd:InterlacedFloors"},
 	{ID: 2032, CFlag: &C.nox_client_lockHighResFloors_1193152, TextID: "AdVidOpt.wnd:LockHiResFloors"},
-	{ID: 2033, CFlag: &C.nox_client_texturedFloors2_154960, TextID: "AdVidOpt.wnd:FlatShadedFloors"},
+	{ID: 2033, Bool: &nox_client_texturedFloors2_154960, TextID: "AdVidOpt.wnd:FlatShadedFloors"},
 	{ID: 2041, CFlag: &C.nox_client_renderBubbles_80844, TextID: "AdVidOpt.wnd:RenderBubbles"},
 	{ID: 2040, CFlag: &C.nox_client_renderGUI_80828, TextID: "AdVidOpt.wnd:RenderGUI"},
 }
@@ -138,10 +136,10 @@ func nox_client_advVideoOptsProc_4CB5D0(win *Window, ev WindowEvent) WindowEvent
 			win.DrawData().Field0Set(0x4, true)
 			return nil
 		case 2033:
-			v := C.nox_client_texturedFloors2_154960 != 0
-			C.nox_client_texturedFloors2_154960 = C.uint(bool2int(!v))
-			C.nox_client_texturedFloors_154956 = C.uint(bool2int(!v))
-			C.nox_xxx_tileSetDrawFn_481420()
+			v := nox_client_texturedFloors2_154960
+			nox_client_texturedFloors2_154960 = !v
+			nox_client_texturedFloors_154956 = !v
+			nox_xxx_tileSetDrawFn_481420()
 			C.dword_5d4594_1193156 = 0
 			return nil
 		case 2099:

@@ -129,7 +129,6 @@ uint16_t* sub_480EB0(uint16_t* a1, short* a2, int a3);
 int* nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7, int a8, int a9,
 									   int a10);
 void sub_481410();
-int nox_xxx_tileSetDrawFn_481420();
 int sub_4814F0(nox_point* a1);
 char nox_xxx_tileDraw_4815E0(uint32_t* a1, int a2);
 char* sub_481770(uint32_t* a1, int a2, unsigned short a3);

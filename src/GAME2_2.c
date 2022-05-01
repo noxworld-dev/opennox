@@ -70,14 +70,12 @@ extern uint32_t dword_5d4594_1193664;
 extern uint32_t dword_5d4594_1193524;
 extern uint32_t dword_5d4594_3805484;
 extern uint32_t dword_5d4594_3804684;
-extern uint32_t dword_5d4594_1193156;
 extern uint32_t dword_5d4594_3807140;
 extern uint32_t dword_5d4594_3799552;
 extern uint32_t dword_5d4594_1193648;
 extern uint32_t dword_5d4594_1193668;
 extern uint32_t nox_video_bag_ready;
 extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
-extern unsigned int nox_client_texturedFloors2_154960;
 extern uint32_t dword_5d4594_3799476;
 extern uint32_t dword_5d4594_3799468;
 extern uint32_t nox_xxx_waypointCounterMB_587000_154948;
@@ -111,7 +109,6 @@ extern uint32_t dword_5d4594_1193348;
 extern int dword_5d4594_3799524;
 extern uint32_t dword_5d4594_3679320;
 extern uint32_t dword_5d4594_1193360;
-extern uint32_t nox_client_texturedFloors_154956;
 extern uint32_t nox_client_highResFrontWalls_80820;
 extern uint32_t dword_5d4594_3798836;
 extern uint32_t dword_5d4594_1107036;
@@ -4464,23 +4461,6 @@ int* nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, int* a5,
 //----- (00481410) --------------------------------------------------------
 void sub_481410() { nox_xxx_waypointCounterMB_587000_154948 = -1; }
 
-//----- (00481420) --------------------------------------------------------
-int nox_xxx_tileSetDrawFn_481420() {
-	int result; // eax
-
-	result = nox_client_texturedFloors_154956;
-	if (nox_client_texturedFloors_154956) {
-		func_587000_154940 = nox_xxx_tileDraw_4815E0;
-		func_587000_154944 = nox_xxx_drawTexEdgesProbably_481900;
-	} else {
-		func_587000_154940 = sub_481770;
-		func_587000_154944 = nullsub_8;
-	}
-	dword_5d4594_1193188 = 1;
-	return result;
-}
-// 481BE0: using guessed type void nullsub_8();
-
 //----- (004815E0) --------------------------------------------------------
 char nox_xxx_tileDraw_4815E0(uint32_t* a1, int a2) {
 	unsigned int v2; // ebx
@@ -4552,6 +4532,8 @@ char nox_xxx_tileDraw_4815E0(uint32_t* a1, int a2) {
 }
 
 //----- (00481770) --------------------------------------------------------
+bool get_nox_client_texturedFloors_154956();
+uint32_t dword_5d4594_1193156 = 0;
 char* sub_481770(uint32_t* a1, int a2, unsigned short a3) {
 	int v3;           // ebp
 	unsigned char v4; // cl
@@ -4564,7 +4546,7 @@ char* sub_481770(uint32_t* a1, int a2, unsigned short a3) {
 	char* result;     // eax
 	int v12;          // [esp+Ch] [ebp+Ch]
 
-	if (!nox_client_texturedFloors_154956 && (getMemByte(0x85B3FC, 32542 + 60 * a3) & 1) == 1) {
+	if (!get_nox_client_texturedFloors_154956() && (getMemByte(0x85B3FC, 32542 + 60 * a3) & 1) == 1) {
 		dword_5d4594_1193156 = 1;
 	}
 	v3 = *getMemU32Ptr(0x85B3FC, 32532 + 60 * a3);

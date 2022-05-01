@@ -18,13 +18,11 @@ extern unsigned int nox_client_translucentFrontWalls_805844;
 extern unsigned int nox_client_highResFrontWalls_80820;
 extern unsigned int nox_client_highResFloors_154952;
 extern unsigned int nox_client_lockHighResFloors_1193152;
-extern unsigned int nox_client_texturedFloors_154956;
 extern unsigned int nox_gui_console_translucent;
 extern unsigned int nox_client_renderGlow_805852;
 extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int nox_client_renderBubbles_80844;
 extern unsigned int nox_client_renderGUI_80828;
-extern unsigned int nox_client_texturedFloors2_154960;
 extern unsigned int nox_profiled_805856;
 extern unsigned int nox_video_dxUnlockSurface;
 extern uint32_t nox_server_connectionType_3596;
@@ -236,12 +234,12 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.nox_client_texturedFloors_154956 = C.uint(bool2int(v != 0))
-			C.nox_xxx_tileSetDrawFn_481420()
+			nox_client_texturedFloors_154956 = v != 0
+			nox_xxx_tileSetDrawFn_481420()
 			if v != 0 {
 				C.dword_5d4594_1193156 = 0
 			}
-			C.nox_client_texturedFloors2_154960 = C.nox_client_texturedFloors_154956
+			nox_client_texturedFloors2_154960 = nox_client_texturedFloors_154956
 		case "TranslucentConsole":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
@@ -704,7 +702,7 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 	sect.Set("HighResFrontWalls", strconv.Itoa(int(C.nox_client_highResFrontWalls_80820)))
 	sect.Set("HighResFloors", strconv.Itoa(int(C.nox_client_highResFloors_154952)))
 	sect.Set("LockHighResFloors", strconv.Itoa(int(C.nox_client_lockHighResFloors_1193152)))
-	sect.Set("TexturedFloors", strconv.Itoa(int(C.nox_client_texturedFloors_154956)))
+	sect.Set("TexturedFloors", strconv.Itoa(bool2int(nox_client_texturedFloors_154956)))
 	sect.Set("TranslucentConsole", strconv.Itoa(bool2int(guiCon.translucent)))
 	sect.Set("RenderGlow", strconv.Itoa(int(C.nox_client_renderGlow_805852)))
 	sect.Set("RenderGUI", strconv.Itoa(int(C.nox_client_renderGUI_80828)))

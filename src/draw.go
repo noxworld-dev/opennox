@@ -21,7 +21,6 @@ extern unsigned int nox_client_translucentFrontWalls_805844;
 extern unsigned int nox_client_highResFrontWalls_80820;
 extern unsigned int nox_client_highResFloors_154952;
 extern unsigned int nox_client_lockHighResFloors_1193152;
-extern unsigned int nox_client_texturedFloors_154956;
 extern unsigned int nox_gui_console_translucent;
 extern unsigned int nox_client_renderGlow_805852;
 extern unsigned int nox_client_fadeObjects_80836;
@@ -41,7 +40,6 @@ extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int dword_5d4594_1096432;
 extern unsigned int dword_5d4594_3799452;
 extern unsigned int dword_5d4594_3799468;
-extern unsigned int nox_client_texturedFloors2_154960;
 extern unsigned int dword_5d4594_1193156;
 extern unsigned int dword_5d4594_1193188;
 extern int dword_5d4594_3799524;
@@ -66,6 +64,8 @@ extern uint32_t nox_color_black_2650656;
 extern uint32_t nox_color_red_2589776;
 extern uint32_t nox_color_blue_2650684;
 extern uint32_t nox_color_green_2614268;
+extern void (*func_587000_154940)(int2*, uint32_t, uint32_t);
+extern int (*func_587000_154944)(int, int);
 */
 import "C"
 import (
@@ -96,7 +96,14 @@ var (
 		sync.Once
 		ptr *Viewport
 	}
+	nox_client_texturedFloors_154956  = true
+	nox_client_texturedFloors2_154960 = true
 )
+
+//export get_nox_client_texturedFloors_154956
+func get_nox_client_texturedFloors_154956() C.bool {
+	return C.bool(nox_client_texturedFloors_154956)
+}
 
 func getViewport() *Viewport {
 	viewport.Do(func() {
@@ -190,7 +197,7 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 		C.nox_client_highResFrontWalls_80820 = 0
 		C.nox_client_highResFloors_154952 = 0
 		C.nox_client_lockHighResFloors_1193152 = 0
-		C.nox_client_texturedFloors_154956 = 1
+		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
 		C.nox_client_renderGlow_805852 = 0
 		C.nox_client_fadeObjects_80836 = 0
@@ -204,7 +211,7 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 		C.nox_client_highResFrontWalls_80820 = 0
 		C.nox_client_highResFloors_154952 = 0
 		C.nox_client_lockHighResFloors_1193152 = 0
-		C.nox_client_texturedFloors_154956 = 1
+		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
 		C.nox_client_renderGlow_805852 = 0
 		C.nox_client_fadeObjects_80836 = 0
@@ -218,7 +225,7 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 		C.nox_client_highResFrontWalls_80820 = 1
 		C.nox_client_highResFloors_154952 = 1
 		C.nox_client_lockHighResFloors_1193152 = 0
-		C.nox_client_texturedFloors_154956 = 1
+		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
 		C.nox_client_renderGlow_805852 = 1
 		C.nox_client_fadeObjects_80836 = 1
@@ -232,7 +239,7 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 		C.nox_client_highResFrontWalls_80820 = 1
 		C.nox_client_highResFloors_154952 = 1
 		C.nox_client_lockHighResFloors_1193152 = 0
-		C.nox_client_texturedFloors_154956 = 1
+		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
 		C.nox_client_renderGlow_805852 = 1
 		C.nox_client_fadeObjects_80836 = 1
@@ -246,14 +253,14 @@ func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
 		C.nox_client_highResFrontWalls_80820 = 1
 		C.nox_client_highResFloors_154952 = 1
 		C.nox_client_lockHighResFloors_1193152 = 1
-		C.nox_client_texturedFloors_154956 = 1
+		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = true
 		C.nox_client_renderGlow_805852 = 1
 		C.nox_client_fadeObjects_80836 = 1
 		noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
 		C.nox_client_renderBubbles_80844 = 1
 	}
-	C.nox_xxx_tileSetDrawFn_481420()
+	nox_xxx_tileSetDrawFn_481420()
 	if !noxflags.HasEngine(noxflags.EngineWindowed) {
 		videoUpdateGameMode(image.Point{
 			X: noxDefaultWidth,
@@ -1313,15 +1320,15 @@ func nox_xxx_tileDrawMB_481C20(vp *Viewport) {
 	C.nox_xxx_waypointCounterMB_587000_154948++
 	dx := int(vp.field_4) - int(vp.x1)
 	dy := int(vp.field_5) - int(vp.y1)
-	if C.nox_client_texturedFloors_154956 == 0 && C.dword_5d4594_1193156 == 1 {
-		C.nox_client_texturedFloors2_154960 = 0
-		C.nox_client_texturedFloors_154956 = 1
-		C.nox_xxx_tileSetDrawFn_481420()
+	if !nox_client_texturedFloors_154956 && C.dword_5d4594_1193156 == 1 {
+		nox_client_texturedFloors2_154960 = false
+		nox_client_texturedFloors_154956 = true
+		nox_xxx_tileSetDrawFn_481420()
 	}
-	if C.dword_5d4594_1193156 == 1 && C.nox_client_texturedFloors2_154960 == 0 && gameFrame()%30 == 0 && C.nox_xxx_tileCheckRedrawMB_482570(vp.C()) == 0 {
+	if C.dword_5d4594_1193156 == 1 && !nox_client_texturedFloors2_154960 && gameFrame()%30 == 0 && C.nox_xxx_tileCheckRedrawMB_482570(vp.C()) == 0 {
 		C.dword_5d4594_1193156 = 0
-		C.nox_client_texturedFloors_154956 = C.nox_client_texturedFloors2_154960
-		C.nox_xxx_tileSetDrawFn_481420()
+		nox_client_texturedFloors_154956 = nox_client_texturedFloors2_154960
+		nox_xxx_tileSetDrawFn_481420()
 	}
 	if C.dword_5d4594_1193188 != 0 {
 		C.nox_xxx_tileDrawImpl_4826A0(vp.C())
@@ -1330,11 +1337,22 @@ func nox_xxx_tileDrawMB_481C20(vp *Viewport) {
 		C.nox_xxx_tileDrawMB_481C20_A(vp.C(), C.int(dx))
 		C.nox_xxx_tileDrawMB_481C20_B(vp.C(), C.int(dy))
 	}
-	if C.nox_client_texturedFloors_154956 != 0 {
+	if nox_client_texturedFloors_154956 {
 		C.nox_xxx_tileDrawMB_481C20_C_textured(vp.C(), C.int(dx), C.int(dy))
 	} else {
 		C.nox_xxx_tileDrawMB_481C20_C_solid(vp.C(), C.int(dx), C.int(dy))
 	}
+}
+
+func nox_xxx_tileSetDrawFn_481420() {
+	if nox_client_texturedFloors_154956 {
+		C.func_587000_154940 = (*[0]byte)(C.nox_xxx_tileDraw_4815E0)
+		C.func_587000_154944 = (*[0]byte)(C.nox_xxx_drawTexEdgesProbably_481900)
+	} else {
+		C.func_587000_154940 = (*[0]byte)(C.sub_481770)
+		C.func_587000_154944 = (*[0]byte)(C.nullsub_8)
+	}
+	C.dword_5d4594_1193188 = 1
 }
 
 func sub_4754F0(vp *Viewport) {

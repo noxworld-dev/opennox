@@ -110,7 +110,6 @@ extern uint32_t dword_5d4594_826028;
 extern uint32_t nox_client_highResFloors_154952;
 extern uint32_t dword_5d4594_2618912;
 extern uint32_t nox_draw_fontAdvance_816440;
-extern uint32_t nox_client_texturedFloors_154956;
 extern uint32_t nox_client_highResFrontWalls_80820;
 extern uint32_t dword_5d4594_830104;
 extern uint32_t dword_5d4594_830108;
