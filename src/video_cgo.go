@@ -49,7 +49,6 @@ extern void* dword_5d4594_1305700;
 extern void* dword_5d4594_1305716;
 extern void* dword_5d4594_3798696;
 extern unsigned int dword_5d4594_1305724;
-extern int4* (*func_5D4594_1305696)(int, int, int, int, int);
 extern void (*func_5D4594_1305708)(uint32_t*, int, unsigned int);
 int nox_video_initFloorBuffer_430BA0();
 int nox_xxx___cfltcvt_init_430CC0();
@@ -414,7 +413,6 @@ func nox_video_initRectDrawingFuncs_49CB50() {
 	C.dword_5d4594_1305720 = C.sub_49D6F0
 	C.dword_5d4594_1305700 = C.sub_49D8E0
 	C.dword_5d4594_1305716 = C.sub_49DBB0
-	C.func_5D4594_1305696 = (*[0]byte)(C.sub_49E060) // string size
 	C.func_5D4594_1305708 = (*[0]byte)(C.sub_49E3C0) // cursor?
 }
 
