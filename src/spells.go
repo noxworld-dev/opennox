@@ -576,6 +576,10 @@ func nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj4 *Unit, arg
 	}
 	obj5 := asUnitC(arg5.Obj)
 	sp := noxServer.SpellDefByInd(spellID)
+	if sp == nil {
+		gameLog.Printf("attempted to cast unsupported spell: %v", spellID)
+		return false
+	}
 	if noxServer.spellHasFlags(spellID, things.SpellFlagUnk8) && obj5 != nil && !obj5.Class().Has(object.MaskUnits) {
 		return false
 	}
