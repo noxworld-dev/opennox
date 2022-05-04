@@ -69,7 +69,6 @@ extern uint32_t dword_5d4594_3798676;
 extern uint32_t dword_5d4594_1308112;
 extern uint32_t nox_server_sendMotd_108752;
 extern uint32_t dword_5d4594_1308148;
-extern void* dword_5d4594_3798708;
 extern uint32_t dword_587000_171388;
 extern uint32_t dword_5d4594_1308140;
 extern uint32_t dword_5d4594_1308144;
@@ -115,7 +114,6 @@ extern uint32_t dword_5d4594_1309732;
 extern uint64_t qword_581450_9552;
 extern void* dword_587000_93164;
 extern uint32_t dword_5d4594_1311140;
-extern void* dword_5d4594_3798720;
 extern uint32_t dword_5d4594_1307716;
 extern uint32_t dword_5d4594_1312484;
 extern void* dword_587000_127004;
@@ -5734,9 +5732,9 @@ int sub_4AE6F0(int a1, int a2, int a3, int a4, int a5) {
 		nox_client_drawAddPoint_49F500(a1, a2);
 		nox_client_drawAddPoint_49F500(a1 + v7, a2 + v8);
 		sub_4AEC20(0, 1);
-		v10 = *(void (**)(int, int, int)) & dword_5d4594_3798708;
+		v10 = sub_49F180;
 		if (!nox_draw_curDrawData_3799572->field_13) {
-			v10 = *(void (**)(int, int, int)) & dword_5d4594_3798720;
+			v10 = sub_49F180;
 		}
 		v11 = a2 + a3;
 		v12 = a2 - a3;
@@ -7429,13 +7427,13 @@ int sub_4B0BC0(int a1, int a2, int a3) {
 
 	v3 = a3;
 	v16 = 1 - a3;
-	v4 = *(int (**)(int, int, int)) & dword_5d4594_3798708;
+	v4 = sub_49F180;
 	v10 = 5 - 2 * v3;
 	v12 = 0;
 	v13 = v3;
 	v11 = 3;
 	if (!nox_draw_curDrawData_3799572->field_13) {
-		v4 = *(int (**)(int, int, int)) & dword_5d4594_3798720;
+		v4 = sub_49F180;
 	}
 	v5 = a2;
 	v6 = a1;

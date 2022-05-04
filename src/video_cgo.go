@@ -39,14 +39,6 @@ extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned char** nox_pixbuffer_rows_3798776;
 extern unsigned char* nox_pixbuffer_3798788;
-extern void* dword_5d4594_3798720;
-extern void* dword_5d4594_3798708;
-extern void* dword_5d4594_3798712;
-extern void* dword_5d4594_1305712;
-extern void* dword_5d4594_1305720;
-extern void* dword_5d4594_1305700;
-extern void* dword_5d4594_1305716;
-extern void (*func_5D4594_1305708)(uint32_t*, int, unsigned int);
 int nox_video_initFloorBuffer_430BA0();
 int nox_xxx___cfltcvt_init_430CC0();
 extern uint32_t nox_color_yellow_2589772;
@@ -345,13 +337,11 @@ func drawInitAll(sz image.Point, flags int) error {
 		return errors.New("nox_client_initFade2_44D9A0 failed")
 	}
 	noxrend.initParticles()
-	nox_video_initLineDrawingFuncs_49E3F0()
 	sub_4B02D0()
 	if res := C.sub_4AF8D0(); res == 0 {
 		return errors.New("sub_4AF8D0 failed")
 	}
 	sub_4AE520()
-	nox_video_initRectDrawingFuncs_49CB50()
 	if err := loadGameFonts(); err != nil {
 		return err
 	}
@@ -387,21 +377,6 @@ func sub_4B05D0() {
 			func_5d4594_1311924()
 		}
 	}
-}
-
-func nox_video_initLineDrawingFuncs_49E3F0() {
-	C.dword_5d4594_3798720 = C.sub_49F180
-	C.dword_5d4594_3798708 = C.sub_49F180
-	C.dword_5d4594_3798712 = C.sub_49F420
-}
-
-func nox_video_initRectDrawingFuncs_49CB50() {
-	*memmap.PtrPtr(0x5D4594, 1305692) = unsafe.Pointer(C.sub_49D370)
-	C.dword_5d4594_1305712 = C.sub_49D6F0
-	C.dword_5d4594_1305720 = C.sub_49D6F0
-	C.dword_5d4594_1305700 = C.sub_49D8E0
-	C.dword_5d4594_1305716 = C.sub_49DBB0
-	C.func_5D4594_1305708 = (*[0]byte)(C.sub_49E3C0) // cursor?
 }
 
 func gameUpdateVideoMode(inMenu bool) error {

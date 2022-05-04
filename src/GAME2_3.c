@@ -45,17 +45,11 @@ extern unsigned char byte_5D4594_3804364[160];
 extern uint32_t dword_5d4594_1301808;
 extern uint32_t dword_5d4594_1303508;
 extern uint32_t dword_5d4594_1200776;
-extern void* dword_5d4594_1305716;
-extern void* dword_5d4594_1305700;
 extern uint32_t dword_5d4594_1301796;
-extern void* dword_5d4594_3798708;
-extern void* dword_5d4594_1305712;
 extern uint32_t dword_5d4594_1203832;
-extern void* dword_5d4594_1305720;
 extern uint32_t dword_5d4594_1200796;
 extern uint32_t dword_5d4594_1305788;
 extern void* nox_alloc_healthChange_1301772;
-extern void* dword_5d4594_3798712;
 extern uint32_t nox_server_sanctuaryHelp_54276;
 extern uint32_t dword_5d4594_1303536;
 extern uint32_t dword_5d4594_1197308;
@@ -89,7 +83,6 @@ extern uint32_t dword_5d4594_1301832;
 extern uint32_t dword_5d4594_1301836;
 extern uint32_t dword_5d4594_1301776;
 extern uint32_t dword_5d4594_1197316;
-extern void* dword_5d4594_3798720;
 extern uint32_t dword_5d4594_1217460;
 extern uint32_t cpuid_5d4594_3801804;
 extern void* nox_alloc_pixelSpan_1301844;
@@ -141,8 +134,6 @@ extern nox_render_data_t* nox_draw_curDrawData_3799572;
 extern nox_render_data_t obj_5D4594_3800716;
 
 void* dword_5d4594_810640 = 0;
-
-void (*func_5D4594_1305708)(uint32_t*, int, unsigned int);
 
 nox_list_item_t nox_gui_wol_servers_list = {0};
 
@@ -6461,11 +6452,11 @@ void nox_client_drawBorderLines_49CC70(int xLeft, int yTop, int a3, int a4) {
 				(SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4),
 				 nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&nox_draw_curDrawData_3799572->clip)))) {
 				v4 = xLeft + a3 - 1;
-				(*(void (**)(uint32_t, uint32_t, uint32_t)) & dword_5d4594_3798720)(xLeft, yTop, v4);
+				sub_49F180(xLeft, yTop, v4);
 				v5 = yTop + a4 - 1;
-				(*(void (**)(uint32_t, uint32_t, uint32_t)) & dword_5d4594_3798712)(v4, yTop + 1, v5);
-				(*(void (**)(uint32_t, uint32_t, uint32_t)) & dword_5d4594_3798720)(xLeft, v5, xLeft + a3 - 2);
-				(*(void (**)(uint32_t, uint32_t, uint32_t)) & dword_5d4594_3798712)(xLeft, yTop + 1, yTop + a4 - 2);
+				sub_49F420(v4, yTop + 1, v5);
+				sub_49F180(xLeft, v5, xLeft + a3 - 2);
+				sub_49F420(xLeft, yTop + 1, yTop + a4 - 2);
 			}
 		}
 	}
@@ -6506,13 +6497,12 @@ int4* nox_client_drawRectFilledAlpha_49CF10(int xLeft, int yTop, int a3, int a4)
 	RECT rc;      // [esp+4h] [ebp-10h]
 
 	if (!nox_draw_curDrawData_3799572->flag_0) {
-		return (int4*)(*(int (**)(uint32_t, uint32_t, uint32_t, uint32_t)) & dword_5d4594_1305712)(xLeft, yTop, a3, a4);
+		return sub_49D6F0(xLeft, yTop, a3, a4);
 	}
 	SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
 	result = nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&nox_draw_curDrawData_3799572->clip));
 	if (result) {
-		result = (int4*)(*(int (**)(uint32_t, uint32_t, uint32_t, uint32_t)) &
-						 dword_5d4594_1305712)(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
+		result = sub_49D6F0(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
 	}
 	return result;
 }
@@ -6524,13 +6514,12 @@ int4* sub_49D050(int xLeft, int yTop, int a3, int a4) {
 	RECT rc;      // [esp+4h] [ebp-10h]
 
 	if (!nox_draw_curDrawData_3799572->flag_0) {
-		return (int4*)(*(int (**)(uint32_t, uint32_t, uint32_t, uint32_t)) & dword_5d4594_1305700)(xLeft, yTop, a3, a4);
+		return sub_49D8E0(xLeft, yTop, a3, a4);
 	}
 	SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
 	result = nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&nox_draw_curDrawData_3799572->clip));
 	if (result) {
-		result = (int4*)(*(int (**)(uint32_t, uint32_t, uint32_t, uint32_t)) &
-						 dword_5d4594_1305700)(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
+		result = sub_49D8E0(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
 	}
 	return result;
 }
@@ -6542,20 +6531,19 @@ int4* nox_client_drawRectFadingScreen_49D0F0(int xLeft, int yTop, int a3, int a4
 	RECT rc;      // [esp+4h] [ebp-10h]
 
 	if (!nox_draw_curDrawData_3799572->flag_0) {
-		return (int4*)(*(int (**)(uint32_t, uint32_t, uint32_t, uint32_t)) & dword_5d4594_1305716)(xLeft, yTop, a3, a4);
+		return sub_49DBB0(xLeft, yTop, a3, a4);
 	}
 	SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
 	result = nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&nox_draw_curDrawData_3799572->clip));
 	if (result) {
-		result = (int4*)(*(int (**)(uint32_t, uint32_t, uint32_t, uint32_t)) &
-						 dword_5d4594_1305716)(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
+		result = sub_49DBB0(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
 	}
 	return result;
 }
 
 //----- (0049D1C0) --------------------------------------------------------
 int sub_49D1C0(void* a1, int a2, int a3) {
-	func_5D4594_1305708(a1, a2, a3);
+	sub_49E3C0(a1, a2, a3);
 	return 0;
 }
 
@@ -6569,7 +6557,7 @@ void nox_xxx_draw_49D270_MBRect_49D270(int a1, int a2, unsigned int a3, int a4) 
 
 	result = nox_draw_curDrawData_3799572;
 	if (nox_draw_curDrawData_3799572->field_13) {
-		(*(void (**)(uint32_t, uint32_t, uint32_t, uint32_t))getMemAt(0x5D4594, 1305692))(a1, a2, a3, a4);
+		sub_49D370(a1, a2, a3, a4);
 		return;
 	}
 	v5 = a4;
@@ -6908,9 +6896,9 @@ int sub_49E930(int a1) {
 				v2 = pixbuffer;
 				v3 = v24;
 				if (v26 == v25) {
-					(*(void (**)(uint32_t, uint32_t, uint32_t)) & dword_5d4594_3798712)(v26, v24, v23);
+					sub_49F420(v26, v24, v23);
 				} else if (v24 == v23) {
-					(*(void (**)(uint32_t, uint32_t, uint32_t)) & dword_5d4594_3798720)(v26, v24, v25);
+					sub_49F180(v26, v24, v25);
 				} else {
 					v4 = v25 - v26;
 					v5 = 2;
