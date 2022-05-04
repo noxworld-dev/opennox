@@ -522,6 +522,41 @@ func nox_draw_enableTextSmoothing_43F670(v C.int) {
 	noxrend.SetTextSmooting(v != 0)
 }
 
+//export nox_client_drawResetPoints_49F5A0
+func nox_client_drawResetPoints_49F5A0() {
+	noxrend.ClearPoints()
+}
+
+//export nox_client_drawAddPoint_49F500
+func nox_client_drawAddPoint_49F500(x, y C.int) {
+	noxrend.AddPoint(image.Pt(int(x), int(y)))
+}
+
+//export nox_xxx_rasterPointRel_49F570
+func nox_xxx_rasterPointRel_49F570(x, y C.int) {
+	noxrend.AddPointRel(image.Pt(int(x), int(y)))
+}
+
+//export nox_client_drawLastPoint_49F5B0
+func nox_client_drawLastPoint_49F5B0(px, py *C.uint, keep C.int) C.int {
+	pos, ok := noxrend.LastPoint(keep != 0)
+	if !ok {
+		return 0
+	}
+	if px != nil {
+		*px = C.uint(pos.X)
+	}
+	if py != nil {
+		*py = C.uint(pos.Y)
+	}
+	return 1
+}
+
+//export nox_client_drawLineFromPoints_49E4B0
+func nox_client_drawLineFromPoints_49E4B0() C.int {
+	return C.int(C.sub_49E930(0))
+}
+
 func toRect(cr *C.nox_rect) image.Rectangle {
 	return image.Rect(int(cr.left), int(cr.top), int(cr.right), int(cr.bottom))
 }
@@ -536,6 +571,8 @@ type NoxRender struct {
 		G    [256]uint16
 		B    [256]uint16
 	}
+
+	points []image.Point
 
 	particles struct {
 		byOpts   map[particleOpt]*Particle
@@ -720,7 +757,7 @@ func (r *NoxRender) SetColor2(a1 uint32) { // nox_client_drawSetColor_434460
 }
 
 func (r *NoxRender) sub49EFA0(pos image.Point) { // sub_49EFA0
-	C.sub_49EFA0(C.int(pos.X), C.int(pos.Y))
+	C.sub_49F010(C.int(pos.X), C.int(pos.Y))
 }
 
 func (r *NoxRender) SetBold(enable bool) {
@@ -764,19 +801,38 @@ func (r *NoxRender) DrawPoint(pos image.Point, rad int) { // nox_xxx_drawPointMB
 	}
 }
 
-func (r *NoxRender) nox_client_drawAddPoint_49F500(pos image.Point) {
-	C.nox_client_drawAddPoint_49F500(C.int(pos.X), C.int(pos.Y))
+func (r *NoxRender) ClearPoints() {
+	r.points = r.points[:0]
 }
 
-func (r *NoxRender) nox_xxx_rasterPointRel_49F570(pos image.Point) {
-	C.nox_xxx_rasterPointRel_49F570(C.int(pos.X), C.int(pos.Y))
+func (r *NoxRender) AddPoint(pos image.Point) {
+	r.points = append(r.points, pos)
+}
+
+func (r *NoxRender) AddPointRel(pos image.Point) {
+	if len(r.points) == 0 {
+		return
+	}
+	r.AddPoint(pos.Add(r.points[len(r.points)-1]))
+}
+
+func (r *NoxRender) LastPoint(keep bool) (image.Point, bool) {
+	if len(r.points) == 0 {
+		return image.Point{}, false
+	}
+	n := len(r.points)
+	pos := r.points[n-1]
+	if !keep {
+		r.points = r.points[:n-1]
+	}
+	return pos, true
 }
 
 func (r *NoxRender) DrawLineFromPoints(arr ...image.Point) { // nox_client_drawLineFromPoints_49E4B0
 	for _, p := range arr {
-		r.nox_client_drawAddPoint_49F500(p)
+		r.AddPoint(p)
 	}
-	C.nox_client_drawLineFromPoints_49E4B0()
+	C.sub_49E930(0)
 }
 
 func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int) { // nox_client_drawRectFilledOpaque_49CE30

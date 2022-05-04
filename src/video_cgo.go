@@ -42,13 +42,10 @@ extern unsigned char* nox_pixbuffer_3798788;
 extern void* dword_5d4594_3798720;
 extern void* dword_5d4594_3798708;
 extern void* dword_5d4594_3798712;
-extern void* dword_5d4594_3798716;
 extern void* dword_5d4594_1305712;
 extern void* dword_5d4594_1305720;
 extern void* dword_5d4594_1305700;
 extern void* dword_5d4594_1305716;
-extern void* dword_5d4594_3798696;
-extern unsigned int dword_5d4594_1305724;
 extern void (*func_5D4594_1305708)(uint32_t*, int, unsigned int);
 int nox_video_initFloorBuffer_430BA0();
 int nox_xxx___cfltcvt_init_430CC0();
@@ -358,14 +355,8 @@ func drawInitAll(sz image.Point, flags int) error {
 	if err := loadGameFonts(); err != nil {
 		return err
 	}
-	sub_49F4A0()
+	noxrend.ClearPoints()
 	return nil
-}
-
-func sub_49F4A0() {
-	C.dword_5d4594_1305724 = 32
-	*memmap.PtrUint32(0x973A20, 536) = 0
-	C.dword_5d4594_3798696, _ = alloc.Calloc(32, 8)
 }
 
 func sub_4B02D0() {
@@ -402,9 +393,6 @@ func nox_video_initLineDrawingFuncs_49E3F0() {
 	C.dword_5d4594_3798720 = C.sub_49F180
 	C.dword_5d4594_3798708 = C.sub_49F180
 	C.dword_5d4594_3798712 = C.sub_49F420
-	C.dword_5d4594_3798716 = C.sub_49E930
-	*memmap.PtrPtr(0x973A20, 544) = unsafe.Pointer(C.sub_49F010)
-	*memmap.PtrPtr(0x973A20, 548) = unsafe.Pointer(C.sub_49ED80)
 }
 
 func nox_video_initRectDrawingFuncs_49CB50() {
@@ -1157,7 +1145,6 @@ func sub_444C50() {
 		C.sub_4AF950()
 		sub_4AE540()
 		nox_xxx_FontDestroy_43F2E0()
-		C.sub_49F4D0()
 		C.dword_5d4594_823776 = 0
 		if memmap.Uint32(0x5D4594, 823780) != 0 {
 			nox_mutex_freeP(memmap.PtrOff(0x973F18, 168))

@@ -42,7 +42,6 @@
 
 extern unsigned char byte_5D4594_3804364[160];
 
-extern uint32_t dword_5d4594_1305724;
 extern uint32_t dword_5d4594_1301808;
 extern uint32_t dword_5d4594_1303508;
 extern uint32_t dword_5d4594_1200776;
@@ -80,7 +79,6 @@ extern uint32_t dword_5d4594_1301840;
 extern void* nox_alloc_chat_1197364;
 extern uint32_t dword_5d4594_1203864;
 extern uint32_t dword_5d4594_1217452;
-extern void* dword_5d4594_3798716;
 extern uint32_t dword_5d4594_1193712;
 extern uint32_t nox_server_connectionType_3596;
 extern void* nox_draw_colorTablesRev_3804668;
@@ -105,7 +103,6 @@ extern uint32_t dword_5d4594_1301792;
 extern uint32_t dword_5d4594_1301848;
 extern uint32_t dword_5d4594_1197312;
 extern uint32_t dword_5d4594_1303452;
-extern void* dword_5d4594_3798696;
 extern uint32_t nox_client_gui_flag_815132;
 extern uint32_t dword_5d4594_1305684;
 extern uint32_t dword_5d4594_1193516;
@@ -6851,22 +6848,19 @@ void sub_49E3C0(uint32_t* a1, int a2, unsigned int a3) {
 	}
 }
 
-//----- (0049E4B0) --------------------------------------------------------
-int nox_client_drawLineFromPoints_49E4B0() { return (*(int (**)(uint32_t)) & dword_5d4594_3798716)(0); }
-
 //----- (0049E4F0) --------------------------------------------------------
-int sub_49E4F0(int a1) { return (*(int (**)(uint32_t, uint32_t))getMemAt(0x973A20, 548))(a1, 0); }
+int sub_49E4F0(int a1) { return sub_49ED80(a1, 0); }
 
 //----- (0049E510) --------------------------------------------------------
 int sub_49E510(int a1) {
 	int i; // esi
 
 	for (i = a1 - 1; i > 0; --i) {
-		if (!(*(int (**)(uint32_t)) & dword_5d4594_3798716)(1)) {
+		if (!sub_49E930(1)) {
 			break;
 		}
 	}
-	return (*(int (**)(uint32_t)) & dword_5d4594_3798716)(0);
+	return sub_49E930(0);
 }
 
 //----- (0049E930) --------------------------------------------------------
@@ -6906,9 +6900,9 @@ int sub_49E930(int a1) {
 
 	uint8_t** pixbuffer = nox_pixbuffer_rows_3798784;
 
-	result = sub_49F5B0(&v25, &v23, 0);
+	result = nox_client_drawLastPoint_49F5B0(&v25, &v23, 0);
 	if (result) {
-		result = sub_49F5B0(&v26, &v24, a1);
+		result = nox_client_drawLastPoint_49F5B0(&v26, &v24, a1);
 		if (result) {
 			if (!nox_draw_curDrawData_3799572->flag_0 || sub_49F990(&v26, &v24, &v25, &v23)) {
 				v2 = pixbuffer;
@@ -7020,9 +7014,9 @@ int sub_49EAB0(int a1) {
 
 	uint8_t** pixbuffer = nox_pixbuffer_rows_3798784;
 
-	result = sub_49F5B0(&v28, &v27, 0);
+	result = nox_client_drawLastPoint_49F5B0(&v28, &v27, 0);
 	if (result) {
-		result = sub_49F5B0(&v29, &v30, a1);
+		result = nox_client_drawLastPoint_49F5B0(&v29, &v30, a1);
 		if (result) {
 			if (!nox_draw_curDrawData_3799572->flag_0 || sub_49F990(&v29, &v30, &v28, &v27)) {
 				v16 = (unsigned short)(*((uint16_t*)((uint8_t*)byte_5D4594_3804364 + 0)) &
@@ -7233,9 +7227,9 @@ int sub_49ED80(unsigned char a1, int a2) {
 	if (nox_draw_curDrawData_3799572->field_13) {
 		return sub_49EAB0(a2);
 	}
-	result = sub_49F5B0(&v22, &v23, 0);
+	result = nox_client_drawLastPoint_49F5B0(&v22, &v23, 0);
 	if (result) {
-		result = sub_49F5B0(&v19, &v18, a2);
+		result = nox_client_drawLastPoint_49F5B0(&v19, &v18, a2);
 		if (result) {
 			if (nox_draw_curDrawData_3799572->flag_0 && !sub_49F990(&v19, &v18, &v22, &v23)) {
 				return 1;
@@ -7316,7 +7310,7 @@ int sub_49ED80(unsigned char a1, int a2) {
 }
 
 //----- (0049EFA0) --------------------------------------------------------
-int sub_49EFA0(int a1, int a2) { return (*(int (**)(uint32_t, uint32_t))getMemAt(0x973A20, 544))(a1, a2); }
+int sub_49EFA0(int a1, int a2) { return sub_49F010(a1, a2); }
 
 
 //----- (0049F010) --------------------------------------------------------
@@ -7437,59 +7431,6 @@ void sub_49F420(int a1, int a2, int a3) {
 			v8 = v9-- <= 1;
 		} while (!v8);
 	}
-}
-
-//----- (0049F4D0) --------------------------------------------------------
-void sub_49F4D0() {
-	if (dword_5d4594_3798696) {
-		free(dword_5d4594_3798696);
-		dword_5d4594_3798696 = 0;
-		*getMemU32Ptr(0x973A20, 536) = 0;
-	}
-}
-
-//----- (0049F500) --------------------------------------------------------
-int nox_client_drawAddPoint_49F500(int a1, int a2) {
-	if (*getMemU32Ptr(0x973A20, 536) >= *(int*)&dword_5d4594_1305724) {
-		dword_5d4594_1305724 += 16;
-		dword_5d4594_3798696 = realloc(dword_5d4594_3798696, 8 * dword_5d4594_1305724);
-	}
-	*(uint32_t*)((uint32_t)dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x973A20, 536)) = a1;
-	*(uint32_t*)((uint32_t)dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x973A20, 536) + 4) = a2;
-	return ++*getMemU32Ptr(0x973A20, 536);
-}
-
-//----- (0049F570) --------------------------------------------------------
-int nox_xxx_rasterPointRel_49F570(int a1, int a2) {
-	int result; // eax
-
-	result = *getMemU32Ptr(0x973A20, 536);
-	if (*getMemU32Ptr(0x973A20, 536)) {
-		result = nox_client_drawAddPoint_49F500(
-			a1 + *(uint32_t*)((uint32_t)dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x973A20, 536) - 8),
-			a2 + *(uint32_t*)((uint32_t)dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x973A20, 536) - 4));
-	}
-	return result;
-}
-
-//----- (0049F5B0) --------------------------------------------------------
-int sub_49F5B0(uint32_t* a1, uint32_t* a2, int a3) {
-	int v3; // ecx
-
-	if (*getMemIntPtr(0x973A20, 536) <= 0) {
-		return 0;
-	}
-	v3 = --*getMemU32Ptr(0x973A20, 536);
-	if (a1) {
-		*a1 = *(uint32_t*)((uint32_t)dword_5d4594_3798696 + 8 * v3);
-	}
-	if (a2) {
-		*a2 = *(uint32_t*)((uint32_t)dword_5d4594_3798696 + 8 * *getMemU32Ptr(0x973A20, 536) + 4);
-	}
-	if (a3) {
-		++*getMemU32Ptr(0x973A20, 536);
-	}
-	return 1;
 }
 
 //----- (0049F6D0) --------------------------------------------------------

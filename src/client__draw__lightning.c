@@ -23,10 +23,8 @@ extern uint32_t dword_5d4594_1316436;
 extern uint32_t dword_5d4594_1316476;
 extern uint32_t dword_5d4594_1316492;
 
-//----- (0049F5A0) --------------------------------------------------------
-void sub_49F5A0() { *getMemU32Ptr(0x973A20, 536) = 0; }
-
 //----- (004BB070) --------------------------------------------------------
+void nox_client_drawResetPoints_49F5A0();
 int nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 	int v2;           // eax
 	bool v3;          // zf
@@ -122,7 +120,7 @@ int nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 		v17 = v4 + 1;
 		v27 = v6 + 1;
 		do {
-			sub_49F5A0();
+			nox_client_drawResetPoints_49F5A0();
 			v9 = v5 - v7;
 			if (v5 - v7 < 0) {
 				v9 = v7 - v5;
@@ -156,7 +154,7 @@ int nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 	v22 = v4 - 1;
 	v28 = v6 - 1;
 	do {
-		sub_49F5A0();
+		nox_client_drawResetPoints_49F5A0();
 		v11 = v5 - v7;
 		if (v5 - v7 < 0) {
 			v11 = v7 - v5;
