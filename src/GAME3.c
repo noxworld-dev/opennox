@@ -6408,7 +6408,7 @@ int sub_4AF8D0() {
 	if (!dword_5d4594_1311144) {
 		return 0;
 	}
-	v1 = getMemAt(0x5D4594, 1311160);
+	v1 = getMemAt(0x5D4594, 1311156 + 4);
 	do {
 		*((uint32_t*)v1 - 1) = 0;
 		*(uint32_t*)v1 = 0;
@@ -6651,7 +6651,7 @@ void sub_4AFD40() {
 			break;
 		}
 	}
-	v5 = getMemAt(0x5D4594, 1311168);
+	v5 = getMemAt(0x5D4594, 1311156 + 12);
 	v6 = 32;
 	do {
 		v7 = (int (**)(int))(v5 - 12);
