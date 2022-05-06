@@ -153,7 +153,6 @@ int sub_40CD00();
 int sub_40CD50(int a1, int a2, int a3);
 int nox_xxx_somejoinproc_40CD60(int a1, int a2, int a3);
 int sub_40CDC0(int a1, int a2, int a3, int a4);
-int sub_40CE60();
 void sub_40D0F0();
 int sub_40D250();
 int sub_40D280(int a1, int a2, int a3, int a4, int a5);

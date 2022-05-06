@@ -111,7 +111,6 @@ extern uint32_t dword_5d4594_1309728;
 extern uint32_t dword_5d4594_1309732;
 extern uint64_t qword_581450_9552;
 extern void* dword_587000_93164;
-extern uint32_t dword_5d4594_1311140;
 extern uint32_t dword_5d4594_1307716;
 extern uint32_t dword_5d4594_1312484;
 extern void* dword_587000_127004;
@@ -122,11 +121,9 @@ extern uint32_t dword_5d4594_2618912;
 extern uint32_t dword_5d4594_3798640;
 extern void* dword_5d4594_1307776;
 extern uint32_t dword_5d4594_1309748;
-extern uint32_t dword_5d4594_1311148;
 extern uint32_t dword_5d4594_1313796;
 extern uint32_t dword_5d4594_1313800;
 extern uint32_t dword_5d4594_1309720;
-extern uint32_t dword_5d4594_1311144;
 extern uint32_t dword_5d4594_3798636;
 extern void* dword_5d4594_1307764;
 extern uint32_t nox_client_gui_flag_815132;
@@ -175,6 +172,10 @@ void* dword_5d4594_3798632 = 0;
 char* dword_5d4594_3798644 = 0;
 
 void* dword_5d4594_1307292 = 0;
+
+nox_particlefx_t* dword_5d4594_1311140 = 0;
+void* dword_5d4594_1311144 = 0;
+uint32_t dword_5d4594_1311148 = 0;
 
 //----- (004A1A40) --------------------------------------------------------
 int sub_4A1A40(int a1) {
@@ -5834,12 +5835,12 @@ char* sub_4AEED0(int* a1, int a2, int a3) {
 	v4 = sub_4B0680(0, 0xFFu);
 	v5 = sub_48C5E0(0, 40);
 	v6 = sub_48C5E0(0, a1[7]);
-	result = nox_xxx_drawPartFx2_4AF990(a2, a3 + v5, v5, v6);
+	result = nox_xxx_particleFxNew_4AF990(a2, a3 + v5, v5, v6);
 	v8 = result;
 	if (result) {
-		sub_4AFB00((int)result, (int)v4);
+		nox_xxx_patricleFx_setPtr4_4AFB00((int)result, (int)v4);
 		sub_4AFB10((int)v8, *a1);
-		sub_4AFB90((int)v8, 50);
+		nox_xxx_patricleFx_setField44_4AFB90((int)v8, 50);
 		LOWORD(v9) = sub_48C610();
 		sub_4AFBD0((int)v8, v9);
 		sub_4AFC50((int)v8, -32768);
@@ -5870,18 +5871,18 @@ int nox_xxx_ParticleFxT1_4AEF80(int* a1) {
 	if (v3) {
 		v9 = a1[5];
 		do {
-			v5 = nox_xxx_drawPartFx2_4AF990(v2, v8, 0, 128);
+			v5 = nox_xxx_particleFxNew_4AF990(v2, v8, 0, 128);
 			if (v5) {
 				*((uint32_t*)v5 + 17) = sub_48C5E0(-256, 256);
 				*((uint32_t*)v5 + 18) = 0;
 				*((uint32_t*)v5 + 19) = 0;
 				sub_4AFB10((int)v5, *v1);
 				v6 = sub_48C5E0(0, 128);
-				sub_4AFB90((int)v5, v6);
-				sub_4AFB50((int)v5, 2);
+				nox_xxx_patricleFx_setField44_4AFB90((int)v5, v6);
+				nox_xxx_patricleFx_setField64_4AFB50((int)v5, 2);
 				LOWORD(v7) = sub_48C610();
 				sub_4AFBE0((int)v5, -16384 - (v7 >> 2));
-				sub_4AFB60((int)v5, sub_4AF060);
+				nox_xxx_patricleFx_setFunc128_4AFB60((int)v5, sub_4AF060);
 			}
 			result = --v9;
 		} while (v9);
@@ -5985,14 +5986,14 @@ unsigned char* nox_xxx_ParticleFxT2_4AF0F0(unsigned char** a1) {
 				v8 = sub_48C5E0(-8, -2);
 				v12 = (char*)a1 + v8;
 				v9 = sub_48C5E0((int)&v14[v5 / 2], (int)&v14[v15]);
-				v10 = nox_xxx_drawPartFx2_4AF990(v9, (int)v12, 0, v13);
+				v10 = nox_xxx_particleFxNew_4AF990(v9, (int)v12, 0, v13);
 				v11 = (int)v10;
 				if (v10) {
-					sub_4AFB50((int)v10, 2);
+					nox_xxx_patricleFx_setField64_4AFB50((int)v10, 2);
 					sub_4AFB10(v11, (int)*v1);
 					*(uint32_t*)(v11 + 68) = sub_48C5E0(v5 / -2, v5 / 2);
 					*(uint32_t*)(v11 + 72) = 0;
-					sub_4AFB60(v11, sub_4AF200);
+					nox_xxx_patricleFx_setFunc128_4AFB60(v11, sub_4AF200);
 				}
 				result = (unsigned char*)v7--;
 			} while (result);
@@ -6088,11 +6089,11 @@ void sub_4AF2D0(int* a1, int a2, int a3) {
 	v8 = a3;
 	sub_48C650(0, 256, 120, &v9, &v8);
 	v5 = sub_48C5E0(1, a1[7]);
-	v7 = nox_xxx_drawPartFx2_4AF990(v9, v8, 0, v5);
+	v7 = nox_xxx_particleFxNew_4AF990(v9, v8, 0, v5);
 	if (v7) {
 		nox_xxx_partfxLoadParticle_4AFE20(v7, *(char**)getMemAt(0x973A20, 472));
 		sub_4AFB10((int)v7, *a1);
-		sub_4AFB00((int)v7, (int)v4);
+		nox_xxx_patricleFx_setPtr4_4AFB00((int)v7, (int)v4);
 		sub_4AFC90(v7, a2, a3, 0);
 	}
 }
@@ -6111,10 +6112,10 @@ int sub_4AF400(int a1, int a2, int a3) {
 	int v6;   // eax
 
 	v3 = sub_48C5E0(0, 100);
-	v4 = nox_xxx_drawPartFx2_4AF990(a2, a3, 0, v3);
-	sub_4AFB50((int)v4, 1);
+	v4 = nox_xxx_particleFxNew_4AF990(a2, a3, 0, v3);
+	nox_xxx_patricleFx_setField64_4AFB50((int)v4, 1);
 	v5 = sub_48C5E0(0, 64);
-	sub_4AFB90((int)v4, v5);
+	nox_xxx_patricleFx_setField44_4AFB90((int)v4, v5);
 	LOWORD(v6) = sub_48C610();
 	return sub_4AFBE0((int)v4, v6 - 6553);
 }
@@ -6129,11 +6130,11 @@ char* nox_xxx_ParticleFxT5_4AF450(int* a1) {
 	nox_xxx_drawMakeRGB_433F10(0x32u, 0x32u, 0x32u);
 	sub_434080(10);
 	v1 = sub_4B0680(0, 0xFFu);
-	result = nox_xxx_drawPartFx2_4AF990(0, 0, 0, 0x7FFFFFFF);
+	result = nox_xxx_particleFxNew_4AF990(0, 0, 0, 0x7FFFFFFF);
 	v3 = result;
 	if (result) {
 		sub_4AFB10((int)result, *a1);
-		sub_4AFB00((int)v3, (int)v1);
+		nox_xxx_patricleFx_setPtr4_4AFB00((int)v3, (int)v1);
 		result = (char*)nox_xxx_registerParticleFx_4AFCF0(sub_4AF4C0, (int)v3, 1, a1[7]);
 	}
 	return result;
@@ -6158,14 +6159,14 @@ int sub_4AF4C0(int a1) {
 	nox_client_drawSetColor_434460(nox_color_yellow_2589772);
 	v11 = sub_48C5E0(v3 - 2, v3 + 2);
 	v4 = sub_48C5E0(v2 - 2, v2 + 2);
-	v5 = nox_xxx_drawPartFx2_4AF990(v4, v11, 2, 10);
+	v5 = nox_xxx_particleFxNew_4AF990(v4, v11, 2, 10);
 	v6 = (int)v5;
 	if (!v5) {
 		return 0;
 	}
 	nox_xxx_partfxLoadParticle_4AFE20(v5, *(char**)getMemAt(0x973A20, 472));
-	sub_4AFB00(v6, *(uint32_t*)(*(uint32_t*)(a1 + 20) + 4));
-	sub_4AFB50(v6, 1);
+	nox_xxx_patricleFx_setPtr4_4AFB00(v6, *(uint32_t*)(*(uint32_t*)(a1 + 20) + 4));
+	nox_xxx_patricleFx_setField64_4AFB50(v6, 1);
 	sub_4AFC50(v6, -32768);
 	sub_4AFC60(v6, 45875, 1);
 	LOWORD(v7) = sub_48C610();
@@ -6182,40 +6183,34 @@ int sub_4AF4C0(int a1) {
 
 //----- (004AF5A0) --------------------------------------------------------
 char* nox_xxx_ParticleFxT6_4AF5A0(int* a1) {
-	char* result; // eax
-	char* v2;     // esi
-
-	result = nox_xxx_drawPartFx2_4AF990(0, 0, 0, 0x7FFFFFFF);
-	v2 = result;
-	if (result) {
-		sub_4AFB40((int)result, a1[2]);
-		sub_4AFB10((int)v2, *a1);
-		sub_4AFB60((int)v2, 0);
-		sub_4AFB70((int)v2, 0);
-		result = (char*)nox_xxx_registerParticleFx_4AFCF0(nox_xxx_partFx_4AF600, (int)v2, 1, 500);
+	nox_particlefx_t* p = nox_xxx_particleFxNew_4AF990(0, 0, 0, 0x7FFFFFFF);
+	if (!p) {
+		return 0;
 	}
-	return result;
+	nox_xxx_patricleFx_setDrawableVp_4AFB40(p, a1[2]);
+	sub_4AFB10(p, a1[0]);
+	nox_xxx_patricleFx_setFunc128_4AFB60(p, 0);
+	nox_xxx_patricleFx_setFunc124_4AFB70(p, 0);
+	return nox_xxx_registerParticleFx_4AFCF0(nox_xxx_partFx_4AF600, p, 1, 500);
 }
 
-int sub_4AF650(int* a1) {
+int sub_4AF650(nox_particlefx_t* p) {
 	nox_client_drawEnableAlpha_434560(1);
-	nox_client_drawSetAlpha_434580(255 * a1[12] / a1[13]);
-	nox_xxx_drawParticlefx_4AFEB0(a1);
+	nox_client_drawSetAlpha_434580(255 * p->field_48 / p->field_52);
+	nox_xxx_drawParticlefx_4AFEB0(p);
 	nox_client_drawEnableAlpha_434560(0);
 	return 1;
 }
 
 //----- (004AF600) --------------------------------------------------------
-int nox_xxx_partFx_4AF600(int a1) {
-	char* v1; // esi
-
-	v1 = nox_xxx_drawPartFx2_4AF990(0, 0, 0, 5);
-	if (!v1) {
+int nox_xxx_partFx_4AF600(void* a1) {
+	nox_particlefx_t* p = nox_xxx_particleFxNew_4AF990(0, 0, 0, 5);
+	if (!p) {
 		return 0;
 	}
-	sub_4AFB40((int)v1, *(uint32_t*)(*(uint32_t*)(a1 + 20) + 16));
-	sub_4AFB10((int)v1, *(uint32_t*)(*(uint32_t*)(a1 + 20) + 12));
-	sub_4AFB70((int)v1, sub_4AF650);
+	nox_xxx_patricleFx_setDrawableVp_4AFB40(p, *(uint32_t*)(*(uint32_t*)((uint32_t)a1 + 20) + 16));
+	sub_4AFB10(p, *(uint32_t*)(*(uint32_t*)((uint32_t)a1 + 20) + 12));
+	nox_xxx_patricleFx_setFunc124_4AFB70(p, sub_4AF650);
 	return 1;
 }
 
@@ -6405,11 +6400,11 @@ int sub_4AF8D0() {
 
 	*getMemU32Ptr(0x973A20, 472) = getMemAt(0x587000, 174348);
 	dword_5d4594_1311148 = 512;
-	dword_5d4594_1311140 = calloc(0x200u, 0x88u);
+	dword_5d4594_1311140 = calloc(512, sizeof(nox_particlefx_t));
 	if (!dword_5d4594_1311140) {
 		return 0;
 	}
-	dword_5d4594_1311144 = calloc(0x200u, 1u);
+	dword_5d4594_1311144 = calloc(512, 1);
 	if (!dword_5d4594_1311144) {
 		return 0;
 	}
@@ -6427,53 +6422,52 @@ int sub_4AF8D0() {
 //----- (004AF950) --------------------------------------------------------
 void sub_4AF950() {
 	if (dword_5d4594_1311140) {
-		free(*(void**)&dword_5d4594_1311140);
+		free(dword_5d4594_1311140);
 		dword_5d4594_1311140 = 0;
 	}
 	if (dword_5d4594_1311144) {
-		free(*(void**)&dword_5d4594_1311144);
+		free(dword_5d4594_1311144);
 		dword_5d4594_1311144 = 0;
 	}
 	dword_5d4594_1311148 = 0;
 }
 
 //----- (004AF990) --------------------------------------------------------
-char* nox_xxx_drawPartFx2_4AF990(int a1, int a2, int a3, int a4) {
-	char* result; // eax
-
-	result = nox_xxx_partfxAllocSmth_4B01B0();
-	if (result) {
-		*(uint32_t*)result = 0;
-		*((uint32_t*)result + 1) = 0;
-		*((uint32_t*)result + 4) = 0;
-		*((uint32_t*)result + 3) = 0;
-		*((uint32_t*)result + 5) = 0;
-		*((uint32_t*)result + 6) = nox_draw_curDrawData_3799572->field_61;
-		*((uint32_t*)result + 7) = a1;
-		*((uint32_t*)result + 8) = a2;
-		*((uint32_t*)result + 9) = a3;
-		*((uint32_t*)result + 22) = a3 << 16;
-		*((uint32_t*)result + 21) = a2 << 16;
-		*((uint32_t*)result + 12) = a4;
-		*((uint32_t*)result + 13) = a4;
-		*((uint32_t*)result + 10) = 0;
-		*((uint32_t*)result + 11) = 0;
-		*((uint32_t*)result + 14) = 0;
-		*((uint32_t*)result + 20) = a1 << 16;
-		*((uint32_t*)result + 23) = 0;
-		*((uint32_t*)result + 24) = 0;
-		*((uint32_t*)result + 25) = 0;
-		*((uint32_t*)result + 26) = 0;
-		*((uint32_t*)result + 27) = 0;
-		*((uint32_t*)result + 28) = 0;
-		*((uint32_t*)result + 29) = 0;
-		*((uint32_t*)result + 30) = 0;
-		*((uint32_t*)result + 16) = 0;
-		*((uint32_t*)result + 32) = sub_4B0020;
-		*((uint32_t*)result + 31) = nox_xxx_drawParticlefx_4AFEB0;
-		*((uint32_t*)result + 33) = sub_4B01A0;
+nox_particlefx_t* nox_xxx_particleFxNew_4AF990(int a1, int a2, int a3, int a4) {
+	nox_particlefx_t* p = nox_xxx_partfxAllocSmth_4B01B0();
+	if (!p) {
+		return 0;
 	}
-	return result;
+	p->field_0 = 0;
+	p->field_4 = 0;
+	p->drawable = 0;
+	p->drawable_vp = 0;
+	p->field_20 = 0;
+	p->color_24 = nox_draw_curDrawData_3799572->field_61;
+	p->field_28 = a1;
+	p->field_32 = a2;
+	p->field_36 = a3;
+	p->field_40 = 0;
+	p->field_44 = 0;
+	p->field_48 = a4;
+	p->field_52 = a4;
+	p->field_56 = 0;
+	p->field_64 = 0;
+	p->field_80 = a1 << 16;
+	p->field_84 = a2 << 16;
+	p->field_88 = a3 << 16;
+	p->field_92 = 0;
+	p->field_96 = 0;
+	p->field_100 = 0;
+	p->field_104 = 0;
+	p->field_108 = 0;
+	p->field_112 = 0;
+	p->field_116 = 0;
+	p->field_120 = 0;
+	p->field_124 = nox_xxx_drawParticlefx_4AFEB0;
+	p->field_128 = sub_4B0020;
+	p->field_132 = sub_4B01A0;
+	return p;
 }
 
 //----- (004AFA40) --------------------------------------------------------
@@ -6483,8 +6477,8 @@ void sub_4AFA40(int a1) {
 
 	if (a1) {
 		v1 = *(uint32_t*)(a1 + 60);
-		if (v1 >= 0 && v1 < *(int*)&dword_5d4594_1311148) {
-			*(uint8_t*)(dword_5d4594_1311144 + v1) = 0;
+		if (v1 >= 0 && v1 < (int)dword_5d4594_1311148) {
+			*(uint8_t*)((uint32_t)dword_5d4594_1311144 + v1) = 0;
 			v2 = *(uint32_t**)(a1 + 20);
 			if (v2) {
 				*v2 = 0;
@@ -6494,12 +6488,8 @@ void sub_4AFA40(int a1) {
 }
 
 //----- (004AFB00) --------------------------------------------------------
-int sub_4AFB00(int a1, int a2) {
-	int result; // eax
-
-	result = a2;
-	*(uint32_t*)(a1 + 4) = a2;
-	return result;
+void nox_xxx_patricleFx_setPtr4_4AFB00(nox_particlefx_t* p, void* a2) {
+	p->field_4 = a2;
 }
 
 //----- (004AFB10) --------------------------------------------------------
@@ -6522,48 +6512,28 @@ int sub_4AFB10(int a1, int a2) {
 }
 
 //----- (004AFB40) --------------------------------------------------------
-int sub_4AFB40(int a1, int a2) {
-	int result; // eax
-
-	result = a2;
-	*(uint32_t*)(a1 + 16) = a2;
-	return result;
+void nox_xxx_patricleFx_setDrawableVp_4AFB40(nox_particlefx_t* p, void* a2) {
+	p->drawable_vp = a2;
 }
 
 //----- (004AFB50) --------------------------------------------------------
-int sub_4AFB50(int a1, int a2) {
-	int result; // eax
-
-	result = a2;
-	*(uint32_t*)(a1 + 64) = a2;
-	return result;
+void nox_xxx_patricleFx_setField64_4AFB50(nox_particlefx_t* p, int a2) {
+	p->field_64 = a2;
 }
 
 //----- (004AFB60) --------------------------------------------------------
-int sub_4AFB60(int a1, int a2) {
-	int result; // eax
-
-	result = a2;
-	*(uint32_t*)(a1 + 128) = a2;
-	return result;
+void nox_xxx_patricleFx_setFunc128_4AFB60(nox_particlefx_t* p, void* a2) {
+	p->field_128 = a2;
 }
 
 //----- (004AFB70) --------------------------------------------------------
-int sub_4AFB70(int a1, int a2) {
-	int result; // eax
-
-	result = a2;
-	*(uint32_t*)(a1 + 124) = a2;
-	return result;
+void nox_xxx_patricleFx_setFunc124_4AFB70(nox_particlefx_t* p, void* a2) {
+	p->field_124 = a2;
 }
 
 //----- (004AFB90) --------------------------------------------------------
-int sub_4AFB90(int a1, int a2) {
-	int result; // eax
-
-	result = a2;
-	*(uint32_t*)(a1 + 44) = a2;
-	return result;
+void nox_xxx_patricleFx_setField44_4AFB90(nox_particlefx_t* p, int a2) {
+	p->field_44 = a2;
 }
 
 //----- (004AFBD0) --------------------------------------------------------
@@ -6635,25 +6605,22 @@ void sub_4AFC90(uint32_t* a1, int a2, int a3, int a4) {
 }
 
 //----- (004AFCF0) --------------------------------------------------------
-int nox_xxx_registerParticleFx_4AFCF0(int a1, int a2, int a3, int a4) {
-	unsigned char* v4; // eax
-	int v5;            // ecx
-
-	v4 = getMemAt(0x5D4594, 1311156);
-	v5 = 0;
+int nox_xxx_registerParticleFx_4AFCF0(void* fnc, nox_particlefx_t* p, int a3, int a4) {
+	unsigned char* v4 = getMemAt(0x5D4594, 1311156);
+	int v5 = 0;
 	while (*(uint32_t*)v4) {
 		v4 += 24;
 		if (++v5 >= 32) {
 			return 0;
 		}
 	}
-	*(uint32_t*)v4 = a1;
-	*((uint32_t*)v4 + 5) = a2;
-	*(uint32_t*)(a2 + 20) = v4;
-	*((uint32_t*)v4 + 2) = a3;
+	p->field_20 = v4;
+	*((uint32_t*)v4 + 0) = fnc;
 	*((uint32_t*)v4 + 1) = a3;
+	*((uint32_t*)v4 + 2) = a3;
 	*((uint32_t*)v4 + 3) = 0;
 	*((uint32_t*)v4 + 4) = a4;
+	*((uint32_t*)v4 + 5) = p;
 	return 1;
 }
 
@@ -6661,9 +6628,6 @@ int nox_xxx_registerParticleFx_4AFCF0(int a1, int a2, int a3, int a4) {
 void sub_4AFD40() {
 	char* i;           // ebp
 	int v1;            // esi
-	int v2;            // edi
-	void (*v3)(int);   // eax
-	void (*v4)(int);   // eax
 	unsigned char* v5; // esi
 	int v6;            // ebx
 	int (**v7)(int);   // edi
@@ -6672,19 +6636,16 @@ void sub_4AFD40() {
 	int v10;           // eax
 	int v11;           // edx
 
-	for (i = (char*)memchr(*(const void**)&dword_5d4594_1311144, 255, *(size_t*)&dword_5d4594_1311148); i;
-		 i = (char*)memchr(i + 1, 255, dword_5d4594_1311148 - v1 - 1)) {
-		v1 = (int)&i[-dword_5d4594_1311144];
-		v2 = dword_5d4594_1311140 + 136 * (uint32_t)&i[-dword_5d4594_1311144];
-		if (!(*(uint8_t*)(v2 + 56) & 8)) {
-			v3 = *(void (**)(int))(v2 + 124);
-			if (v3) {
-				v3(dword_5d4594_1311140 + 136 * (uint32_t)&i[-dword_5d4594_1311144]);
+	for (i = memchr(dword_5d4594_1311144, -1, dword_5d4594_1311148); i; i = memchr(i + 1, -1, dword_5d4594_1311148 - v1 - 1)) {
+		v1 = (int)&i[-(int32_t)dword_5d4594_1311144];
+		nox_particlefx_t* v2 = &dword_5d4594_1311140[v1];
+		if (!(v2->field_56 & 8)) {
+			if (v2->field_124) {
+				v2->field_124(v2);
 			}
 		}
-		v4 = *(void (**)(int))(v2 + 128);
-		if (v4) {
-			v4(v2);
+		if (v2->field_128) {
+			v2->field_128(v2);
 		}
 		if (dword_5d4594_1311148 - v1 == 1) {
 			break;
@@ -6717,89 +6678,64 @@ void sub_4AFD40() {
 }
 
 //----- (004AFE20) --------------------------------------------------------
-int nox_xxx_partfxLoadParticle_4AFE20(uint32_t* a1, char* a2) {
-	int v2;       // eax
-	uint32_t* v3; // eax
-	uint32_t* v4; // edi
-	int result;   // eax
-
-	v2 = nox_xxx_getTTByNameSpriteMB_44CFC0(a2);
-	v3 = (uint32_t*)nox_xxx_spriteLoadAdd_45A360_drawable(v2, a1[20] >> 16, a1[21] >> 16);
-	v4 = v3;
-	if (v3) {
-		a1[3] = v3;
-		v3[108] = a1;
-		nox_xxx_spriteTransparentDecay_49B950(v3, a1[13]);
-		nox_xxx_sprite_45A110_drawable(v4);
+void nox_xxx_partfxLoadParticle_4AFE20(nox_particlefx_t* p, char* a2) {
+	int v2 = nox_xxx_getTTByNameSpriteMB_44CFC0(a2);
+	nox_drawable* dr = nox_xxx_spriteLoadAdd_45A360_drawable(v2, p->field_80 >> 16, p->field_84 >> 16);
+	if (dr) {
+		p->drawable = dr;
+		((uint32_t*)dr)[108] = p;
+		nox_xxx_spriteTransparentDecay_49B950(dr, p->field_52);
+		nox_xxx_sprite_45A110_drawable(dr);
 	}
-	result = a1[14];
-	LOBYTE(result) = result | 8;
-	a1[14] = result;
-	return result;
+	p->field_56 |= 8;
 }
 
 //----- (004AFEB0) --------------------------------------------------------
-void nox_xxx_drawParticlefx_4AFEB0(int* a1) {
-	int* v1;    // esi
-	int v2;     // ecx
-	int v3;     // edx
-	int v4;     // edi
-	int v5;     // ebx
-	int v6;     // eax
-	int v7;     // eax
-	int v8;     // ebp
-	int v10;    // ebx
-	int2 a1a;   // [esp+10h] [ebp-10h]
-	int2 a2;    // [esp+18h] [ebp-8h]
-	int v13;    // [esp+24h] [ebp+4h]
+void nox_xxx_drawParticlefx_4AFEB0(nox_particlefx_t* p) {
+	int2 a1a;
+	a1a.field_0 = p->field_80 >> 16;
+	a1a.field_4 = (p->field_84 >> 16) - (p->field_88 >> 16);
 
-	v1 = a1;
-	v2 = a1[22] >> 16;
-	v3 = a1[21] >> 16;
-	a1a.field_0 = a1[20] >> 16;
-	a1a.field_4 = v3 - v2;
+	int2 a2;
 	sub_4739A0(&a1a, &a2);
-	v4 = a2.field_0;
-	v5 = a2.field_4;
-	if (*a1) {
-		nox_client_drawImageAt_47D2C0(*a1, a2.field_0, a2.field_4);
+
+	if (p->field_0) {
+		nox_client_drawImageAt_47D2C0(p->field_0, a2.field_0, a2.field_4);
 	}
-	v6 = a1[1];
-	if (v6) {
-		nox_video_drawImageAt2_4B0820(v6, v4, v5);
+	if (p->field_4) {
+		nox_video_drawImageAt2_4B0820(p->field_4, a2.field_0, a2.field_4);
 	}
-	v7 = a1[3];
-	if (v7 && a1[4]) {
-		v8 = *(uint32_t*)(v7 + 12);
-		v13 = *(uint32_t*)(v7 + 16);
-		*(uint32_t*)(v7 + 12) = a1a.field_0;
-		*(uint32_t*)(v1[3] + 16) = a1a.field_4;
-		(*(void (**)(int, int))(v1[3] + 300))(v1[4], v1[3]);
-		*(uint32_t*)(v1[3] + 12) = v8;
-		*(uint32_t*)(v1[3] + 16) = v13;
+	if (p->drawable && p->drawable_vp) {
+		nox_drawable* dr = p->drawable;
+		int drx = dr->pos.x;
+		int dry = dr->pos.y;
+		dr->pos.x = a1a.field_0;
+		dr->pos.y = a1a.field_4;
+		dr->draw_func(p->drawable_vp, dr);
+		dr->pos.x = drx;
+		dr->pos.y = dry;
 	}
-	if (v1[16]) {
-		nox_client_drawSetColor_434460(v1[6]);
-		switch (v1[16]) {
+	if (p->field_64) {
+		nox_client_drawSetColor_434460(p->color_24);
+		switch (p->field_64) {
 		case 1:
-			nox_client_drawPixel_49EFA0(v4, v5);
+			nox_client_drawPixel_49EFA0(a2.field_0, a2.field_4);
 			break;
 		case 2:
-			nox_client_drawPixel_49EFA0(v4, v5);
-			nox_client_drawPixel_49EFA0(v4 + 1, v5);
-			v10 = v5 + 1;
-			nox_client_drawPixel_49EFA0(v4, v10);
-			nox_client_drawPixel_49EFA0(v4 + 1, v10);
+			nox_client_drawPixel_49EFA0(a2.field_0, a2.field_4);
+			nox_client_drawPixel_49EFA0(a2.field_0 + 1, a2.field_4);
+			nox_client_drawPixel_49EFA0(a2.field_0, a2.field_4 + 1);
+			nox_client_drawPixel_49EFA0(a2.field_0 + 1, a2.field_4 + 1);
 			break;
 		case 3:
-			nox_client_drawPixel_49EFA0(v4 + 1, v5);
-			nox_client_drawPixel_49EFA0(v4, v5 + 1);
-			nox_client_drawPixel_49EFA0(v4 + 1, v5 + 1);
-			nox_client_drawPixel_49EFA0(v4 + 2, v5 + 1);
-			nox_client_drawPixel_49EFA0(v4 + 1, v5 + 2);
+			nox_client_drawPixel_49EFA0(a2.field_0 + 1, a2.field_4);
+			nox_client_drawPixel_49EFA0(a2.field_0, a2.field_4 + 1);
+			nox_client_drawPixel_49EFA0(a2.field_0 + 1, a2.field_4 + 1);
+			nox_client_drawPixel_49EFA0(a2.field_0 + 2, a2.field_4 + 1);
+			nox_client_drawPixel_49EFA0(a2.field_0 + 1, a2.field_4 + 2);
 			break;
 		default:
-			nox_client_drawPoint_4B0BC0(v4, v5, v1[16] / 2);
+			nox_client_drawPoint_4B0BC0(a2.field_0, a2.field_4, p->field_64 / 2);
 			break;
 		}
 	}
@@ -6914,24 +6850,23 @@ int sub_4B0020(uint32_t* a1) {
 void sub_4B01A0(int a1) { sub_4AFA40(a1); }
 
 //----- (004B01B0) --------------------------------------------------------
-char* nox_xxx_partfxAllocSmth_4B01B0() {
+nox_particlefx_t* nox_xxx_partfxAllocSmth_4B01B0() {
 	char* v0;     // eax
-	char* result; // eax
 	int v2;       // ecx
 
-	v0 = (char*)memchr(*(const void**)&dword_5d4594_1311144, 0, *(size_t*)&dword_5d4594_1311148);
+	v0 = memchr(dword_5d4594_1311144, 0, dword_5d4594_1311148);
 	if (!v0) {
-		result = (char*)sub_4B0220(dword_5d4594_1311148 + 512);
-		if (!result) {
-			return result;
+		if (!sub_4B0220(dword_5d4594_1311148 + 512)) {
+			return 0;
 		}
-		v0 = (char*)memchr(*(const void**)&dword_5d4594_1311144, 0, *(size_t*)&dword_5d4594_1311148);
+		v0 = memchr(dword_5d4594_1311144, 0, dword_5d4594_1311148);
 	}
-	v2 = (int)&v0[-dword_5d4594_1311144];
-	*(uint8_t*)(dword_5d4594_1311144 + v2) = -1;
-	result = (char*)(dword_5d4594_1311140 + 136 * v2);
-	*((uint32_t*)result + 15) = v2;
-	return result;
+	v2 = (int)&v0[-(int32_t)dword_5d4594_1311144];
+	*(uint8_t*)((uint32_t)dword_5d4594_1311144 + v2) = -1;
+
+	nox_particlefx_t* p = &dword_5d4594_1311140[v2];
+	p->field_60 = v2;
+	return p;
 }
 
 //----- (004B0220) --------------------------------------------------------
@@ -6940,11 +6875,11 @@ int sub_4B0220(size_t a1) {
 	int result;      // eax
 
 	v1 = a1 - dword_5d4594_1311148;
-	result = realloc(*(void**)&dword_5d4594_1311140, 136 * a1);
+	result = realloc(dword_5d4594_1311140, sizeof(nox_particlefx_t) * a1);
 	if (result) {
 		dword_5d4594_1311140 = result;
-		memset((void*)(result + 136 * dword_5d4594_1311148), 0, 136 * v1);
-		result = realloc(*(void**)&dword_5d4594_1311144, a1);
+		memset((void*)(result + sizeof(nox_particlefx_t) * dword_5d4594_1311148), 0, sizeof(nox_particlefx_t) * v1);
+		result = realloc(dword_5d4594_1311144, a1);
 		if (result) {
 			dword_5d4594_1311144 = result;
 			memset((void*)(dword_5d4594_1311148 + result), 0, v1);

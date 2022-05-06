@@ -6332,13 +6332,9 @@ void sub_473970(int2* a1, int2* a2) {
 }
 
 //----- (004739A0) --------------------------------------------------------
-int sub_4739A0(int2* a1, int2* a2) {
-	int result; // eax
-
-	a2->field_0 = a1->field_0 - *getMemU32Ptr(0x5D4594, 1096428);
-	result = a1->field_4 - dword_5d4594_1096432;
-	a2->field_4 = result;
-	return result;
+void sub_4739A0(int2* a1, int2* out) {
+	out->field_0 = a1->field_0 - *getMemU32Ptr(0x5D4594, 1096428);
+	out->field_4 = a1->field_4 - dword_5d4594_1096432;
 }
 
 //----- (004739D0) --------------------------------------------------------

@@ -2724,7 +2724,7 @@ int sub_41D440() {
 
 	sub_41E370();
 	sub_41E300(0);
-	result = sub_40CE60();
+	result = 0;
 	if (result) {
 		sub_41FCF0();
 		nox_game_SetCliDrawFunc(sub_41E210);

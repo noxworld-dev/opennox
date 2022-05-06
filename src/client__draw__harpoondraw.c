@@ -41,7 +41,6 @@ int nox_thing_harpoon_rope_draw(int* a1, nox_drawable* dr) {
 		v8 = *(unsigned short*)(a2 + 443) - v5;
 		a2a.field_0 = v3 + v7;
 		a2a.field_4 = v8 + v6 - 20;
-	LABEL_12:
 		*getMemU32Ptr(0x5D4594, 1312492) = nox_color_rgb_4344A0(144, 104, 64);
 		*getMemU32Ptr(0x5D4594, 1312496) = nox_color_rgb_4344A0(24, 16, 0);
 		sub_4B63B0(&a1a, &a2a);
@@ -70,7 +69,10 @@ int nox_thing_harpoon_rope_draw(int* a1, nox_drawable* dr) {
 		a1a.field_0 += *getMemU32Ptr(0x587000, 175864 + 8 * *((unsigned char*)v10 + 297));
 		a1a.field_4 += *getMemU32Ptr(0x587000, 175868 + 8 * *((unsigned char*)v10 + 297));
 		a2a.field_4 -= 8;
-		goto LABEL_12;
+		*getMemU32Ptr(0x5D4594, 1312492) = nox_color_rgb_4344A0(144, 104, 64);
+		*getMemU32Ptr(0x5D4594, 1312496) = nox_color_rgb_4344A0(24, 16, 0);
+		sub_4B63B0(&a1a, &a2a);
+		return 1;
 	}
 	return 1;
 }
