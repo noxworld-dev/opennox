@@ -251,7 +251,6 @@ void nox_xxx____setargv_11_473920();
 char* sub_473930();
 int sub_473960();
 void sub_473970(int2* a1, int2* a2);
-void sub_4739A0(int2* a1, int2* a2);
 int sub_4739D0(int a1);
 int sub_4739E0(uint32_t* a1, int2* a2, int2* a3);
 int sub_473A10(uint32_t* a1, int2* a2, uint32_t* a3);

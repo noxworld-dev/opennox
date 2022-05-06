@@ -36,7 +36,6 @@ extern unsigned int dword_5d4594_2650676;
 extern unsigned int dword_5d4594_2650680;
 extern unsigned int dword_5d4594_811904;
 extern unsigned int nox_client_gui_flag_815132;
-extern unsigned int dword_5d4594_1096432;
 extern unsigned int dword_5d4594_3799452;
 extern unsigned int dword_5d4594_3799468;
 extern unsigned int dword_5d4594_1193156;
@@ -96,7 +95,25 @@ var (
 	}
 	nox_client_texturedFloors_154956  = true
 	nox_client_texturedFloors2_154960 = true
+	dword_5d4594_1096428              int
+	dword_5d4594_1096432              int
 )
+
+//export sub_473970
+func sub_473970(a1, a2 *C.int2) {
+	a2.field_0 = C.int(dword_5d4594_1096428) + a1.field_0
+	a2.field_4 = C.int(dword_5d4594_1096432) + a1.field_4
+}
+
+func sub_4739A0(p image.Point) image.Point {
+	return image.Point{
+		X: p.X - dword_5d4594_1096428,
+		Y: p.Y - dword_5d4594_1096432,
+	}
+}
+
+//export sub_4739D0
+func sub_4739D0(a1 C.int) C.int { return a1 - C.int(dword_5d4594_1096432) }
 
 //export get_nox_client_texturedFloors_154956
 func get_nox_client_texturedFloors_154956() C.bool {
@@ -111,7 +128,11 @@ func getViewport() *Viewport {
 }
 
 func asViewport(p *C.nox_draw_viewport_t) *Viewport {
-	return (*Viewport)(unsafe.Pointer(p))
+	return asViewportP(unsafe.Pointer(p))
+}
+
+func asViewportP(p unsafe.Pointer) *Viewport {
+	return (*Viewport)(p)
 }
 
 //export nox_draw_getViewport_437250
@@ -194,6 +215,11 @@ func nox_client_drawPixel_49EFA0(a1, a2 C.int) {
 //export nox_client_drawPoint_4B0BC0
 func nox_client_drawPoint_4B0BC0(a1, a2, a3 C.int) {
 	noxrend.rnd.DrawPointRad(image.Pt(int(a1), int(a2)), int(a3))
+}
+
+//export nox_xxx_drawPointMB_499B70
+func nox_xxx_drawPointMB_499B70(a1, a2, a3 C.int) {
+	noxrend.DrawPoint(image.Pt(int(a1), int(a2)), int(a3))
 }
 
 type Viewport C.nox_draw_viewport_t
@@ -1211,37 +1237,39 @@ func nox_xxx_drawAllMB_475810_draw_A(vp *Viewport) {
 	}
 	sub_477F80()
 	*memmap.PtrUint32(0x973F18, 68) = 0
+	r := noxrend
 	if vp.x1 != 0 {
 		C.dword_5d4594_3799468 = 1
 		v4 := int(vp.x2) + 1
 		v3 := int(vp.y2)
-		noxrend.setRectFullScreen()
+		r.setRectFullScreen()
 		if C.dword_5d4594_3799524 != 0 {
-			rect := noxrend.PixBuffer().Rect
-			noxrend.Data().SetColor2(uint32(C.nox_color_black_2650656))
-			noxrend.DrawRectFilledOpaque(0, 0, rect.Dx(), int(vp.y1))
-			noxrend.DrawRectFilledOpaque(0, v3, rect.Dx(), rect.Dy()-v3)
-			noxrend.DrawRectFilledOpaque(0, int(vp.y1), int(vp.x1), v3-int(vp.y1))
-			noxrend.DrawRectFilledOpaque(v4, int(vp.y1), rect.Dx()-v4, v3-int(vp.y1))
+			rect := r.PixBuffer().Rect
+			r.Data().SetColor2(uint32(C.nox_color_black_2650656))
+			r.DrawRectFilledOpaque(0, 0, rect.Dx(), int(vp.y1))
+			r.DrawRectFilledOpaque(0, v3, rect.Dx(), rect.Dy()-v3)
+			r.DrawRectFilledOpaque(0, int(vp.y1), int(vp.x1), v3-int(vp.y1))
+			r.DrawRectFilledOpaque(v4, int(vp.y1), rect.Dx()-v4, v3-int(vp.y1))
 			C.dword_5d4594_3799524 = 0
 		}
-		noxrend.Data().SetColor2(*memmap.PtrUint32(0x85B3FC, 956))
-		noxrend.rnd.DrawBorder(int(vp.x1)-2, int(vp.y1)-2, v4-int(vp.x1)+4, v3-int(vp.y1)+4)
+		r.Data().SetColor2(*memmap.PtrUint32(0x85B3FC, 956))
+		r.rnd.DrawBorder(int(vp.x1)-2, int(vp.y1)-2, v4-int(vp.x1)+4, v3-int(vp.y1)+4)
 	} else {
 		C.dword_5d4594_3799468 = 0
 	}
-	noxrend.nox_client_copyRect_49F6F0(int(vp.x1), int(vp.y1), int(vp.width), int(vp.height))
+	r.nox_client_copyRect_49F6F0(int(vp.x1), int(vp.y1), int(vp.width), int(vp.height))
 }
 
 func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
+	r := noxrend
 	nox_xxx_drawAllMB_475810_draw_A(vp)
 	if int32(vp.field_12) < 0 {
 		vp.field_12 = C.int(-1 - int32(vp.field_12))
 	} else if int32(vp.field_12) > 0 {
 		vp.field_12 = C.int(1 - int32(vp.field_12))
 	}
-	*memmap.PtrInt32(0x5D4594, 1096428) = int32(C.int(vp.field_4) - vp.x1)
-	C.dword_5d4594_1096432 = C.uint(C.int(vp.field_5) - vp.y1)
+	dword_5d4594_1096428 = int(C.int(vp.field_4) - vp.x1)
+	dword_5d4594_1096432 = int(C.int(vp.field_5) - vp.y1)
 	xmin := int(vp.field_4) / common.GridStep
 	ymin := int(vp.field_5) / common.GridStep
 	nox_wallsYyy = nox_wallsYyy[:0]
@@ -1251,18 +1279,18 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 		disableDraw = true
 	}
 	if C.nox_client_gui_flag_1556112 != 0 || disableDraw {
-		noxrend.SelectColor(uint32(C.nox_color_black_2650656))
-		noxrend.ClearScreen()
-		noxrend.setRectFullScreen()
+		r.SelectColor(uint32(C.nox_color_black_2650656))
+		r.ClearScreen()
+		r.setRectFullScreen()
 		C.dword_5d4594_3799524 = 1
 		return
 	}
 	if memmap.Uint32(0x5D4594, 1096520) != 0 {
-		noxrend.SelectColor(uint32(C.nox_color_white_2523948))
-		noxrend.ClearScreen()
-		noxrend.SelectColor(uint32(C.nox_color_black_2650656))
+		r.SelectColor(uint32(C.nox_color_white_2523948))
+		r.ClearScreen()
+		r.SelectColor(uint32(C.nox_color_black_2650656))
 		*memmap.PtrUint32(0x5D4594, 1096520) = 0
-		noxrend.setRectFullScreen()
+		r.setRectFullScreen()
 		C.dword_5d4594_3799524 = 1
 		return
 	}
@@ -1274,7 +1302,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 		nox_xxx_tileDrawMB_481C20(vp)
 		C.sub_4C5500(vp.C())
 	} else {
-		noxrend.ClearScreen()
+		r.ClearScreen()
 	}
 	sub_475F10(vp)
 	nox_client_queueWallsDraw(vp, xmin, ymin)
@@ -1290,7 +1318,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 		C.sub_476270(vp.C())
 	}
 	C.sub_45AB40()
-	noxrend.setRectFullScreen()
+	r.setRectFullScreen()
 	*memmap.PtrUint32(0x973F18, 68) = 1
 	C.sub_476680()
 }

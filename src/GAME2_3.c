@@ -5094,44 +5094,6 @@ uint32_t* nox_xxx_fxDrawTurnUndead_499880(short* a1) {
 	return result;
 }
 
-//----- (00499B70) --------------------------------------------------------
-void nox_xxx_drawPointMB_499B70(int xLeft, int yTop, int a3) {
-	switch (a3) {
-	case 0:
-	case 1:
-		nox_client_drawPixel_49EFA0(xLeft, yTop);
-		break;
-	case 2:
-		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 2, 2);
-		break;
-	case 3:
-		nox_client_drawPixel_49EFA0(xLeft, yTop - 1);
-		nox_client_drawRectFilledOpaque_49CE30(xLeft - 1, yTop, 3, 1);
-		nox_client_drawPixel_49EFA0(xLeft, yTop + 1);
-		break;
-	case 4:
-		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop - 1, 2, 1);
-		nox_client_drawRectFilledOpaque_49CE30(xLeft - 1, yTop, 4, 2);
-		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop + 2, 2, 1);
-		break;
-	case 5:
-		nox_client_drawRectFilledOpaque_49CE30(xLeft - 1, yTop - 2, 3, 1);
-		nox_client_drawRectFilledOpaque_49CE30(xLeft - 2, yTop - 1, 5, 3);
-		nox_client_drawRectFilledOpaque_49CE30(xLeft - 1, yTop + 2, 3, 1);
-		break;
-	case 6:
-		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop - 2, 2, 1);
-		nox_client_drawRectFilledOpaque_49CE30(xLeft - 1, yTop - 1, 4, 1);
-		nox_client_drawRectFilledOpaque_49CE30(xLeft - 2, yTop, 6, 2);
-		nox_client_drawRectFilledOpaque_49CE30(xLeft - 1, yTop + 2, 4, 1);
-		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop + 3, 2, 1);
-		break;
-	default:
-		nox_client_drawPoint_4B0BC0(xLeft, yTop, a3 >> 1);
-		break;
-	}
-}
-
 //----- (00499CF0) --------------------------------------------------------
 void nox_xxx_bookRewardCli_499CF0(int* a1, int a2, int a3) {
 	unsigned int result; // eax

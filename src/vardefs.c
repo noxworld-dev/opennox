@@ -767,7 +767,6 @@ uint32_t dword_5d4594_2386164 = 0;
 uint32_t dword_5d4594_1307724 = 0;
 uint32_t nox_server_kickQuestPlayerMinVotes_229992 = 0x5;
 uint32_t dword_5d4594_1523040 = 0;
-uint32_t dword_5d4594_1096432 = 0;
 uint32_t dword_5d4594_1096272 = 0;
 uint32_t dword_5d4594_1096636 = 0;
 uint32_t dword_5d4594_1522956 = 0;

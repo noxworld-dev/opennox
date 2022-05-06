@@ -54,7 +54,6 @@ extern uint32_t dword_5d4594_1049844;
 extern uint32_t dword_5d4594_1090180;
 extern uint32_t dword_5d4594_1050008;
 extern uint32_t dword_5d4594_1096272;
-extern uint32_t dword_5d4594_1096432;
 extern uint32_t dword_5d4594_1064300;
 extern uint32_t dword_5d4594_1049516;
 extern uint32_t dword_5d4594_1062520;
@@ -6324,21 +6323,6 @@ int sub_473960() {
 	*getMemU32Ptr(0x5D4594, 1096460) = 0;
 	return result;
 }
-
-//----- (00473970) --------------------------------------------------------
-void sub_473970(int2* a1, int2* a2) {
-	a2->field_0 = *getMemU32Ptr(0x5D4594, 1096428) + a1->field_0;
-	a2->field_4 = dword_5d4594_1096432 + a1->field_4;
-}
-
-//----- (004739A0) --------------------------------------------------------
-void sub_4739A0(int2* a1, int2* out) {
-	out->field_0 = a1->field_0 - *getMemU32Ptr(0x5D4594, 1096428);
-	out->field_4 = a1->field_4 - dword_5d4594_1096432;
-}
-
-//----- (004739D0) --------------------------------------------------------
-int sub_4739D0(int a1) { return a1 - dword_5d4594_1096432; }
 
 //----- (004739E0) --------------------------------------------------------
 int sub_4739E0(uint32_t* a1, int2* a2, int2* a3) {

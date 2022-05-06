@@ -6432,44 +6432,6 @@ void sub_4AF950() {
 	dword_5d4594_1311148 = 0;
 }
 
-//----- (004AF990) --------------------------------------------------------
-nox_particlefx_t* nox_xxx_particleFxNew_4AF990(int a1, int a2, int a3, int a4) {
-	nox_particlefx_t* p = nox_xxx_partfxAllocSmth_4B01B0();
-	if (!p) {
-		return 0;
-	}
-	p->field_0 = 0;
-	p->field_4 = 0;
-	p->drawable = 0;
-	p->drawable_vp = 0;
-	p->field_20 = 0;
-	p->color_24 = nox_draw_curDrawData_3799572->field_61;
-	p->field_28 = a1;
-	p->field_32 = a2;
-	p->field_36 = a3;
-	p->field_40 = 0;
-	p->field_44 = 0;
-	p->field_48 = a4;
-	p->field_52 = a4;
-	p->field_56 = 0;
-	p->field_64 = 0;
-	p->field_80 = a1 << 16;
-	p->field_84 = a2 << 16;
-	p->field_88 = a3 << 16;
-	p->field_92 = 0;
-	p->field_96 = 0;
-	p->field_100 = 0;
-	p->field_104 = 0;
-	p->field_108 = 0;
-	p->field_112 = 0;
-	p->field_116 = 0;
-	p->field_120 = 0;
-	p->field_124 = nox_xxx_drawParticlefx_4AFEB0;
-	p->field_128 = sub_4B0020;
-	p->field_132 = sub_4B01A0;
-	return p;
-}
-
 //----- (004AFA40) --------------------------------------------------------
 void sub_4AFA40(int a1) {
 	int v1;       // eax
@@ -6688,57 +6650,6 @@ void nox_xxx_partfxLoadParticle_4AFE20(nox_particlefx_t* p, char* a2) {
 		nox_xxx_sprite_45A110_drawable(dr);
 	}
 	p->field_56 |= 8;
-}
-
-//----- (004AFEB0) --------------------------------------------------------
-void nox_xxx_drawParticlefx_4AFEB0(nox_particlefx_t* p) {
-	int2 a1a;
-	a1a.field_0 = p->field_80 >> 16;
-	a1a.field_4 = (p->field_84 >> 16) - (p->field_88 >> 16);
-
-	int2 a2;
-	sub_4739A0(&a1a, &a2);
-
-	if (p->field_0) {
-		nox_client_drawImageAt_47D2C0(p->field_0, a2.field_0, a2.field_4);
-	}
-	if (p->field_4) {
-		nox_video_drawImageAt2_4B0820(p->field_4, a2.field_0, a2.field_4);
-	}
-	if (p->drawable && p->drawable_vp) {
-		nox_drawable* dr = p->drawable;
-		int drx = dr->pos.x;
-		int dry = dr->pos.y;
-		dr->pos.x = a1a.field_0;
-		dr->pos.y = a1a.field_4;
-		dr->draw_func(p->drawable_vp, dr);
-		dr->pos.x = drx;
-		dr->pos.y = dry;
-	}
-	if (p->field_64) {
-		nox_client_drawSetColor_434460(p->color_24);
-		switch (p->field_64) {
-		case 1:
-			nox_client_drawPixel_49EFA0(a2.field_0, a2.field_4);
-			break;
-		case 2:
-			nox_client_drawPixel_49EFA0(a2.field_0, a2.field_4);
-			nox_client_drawPixel_49EFA0(a2.field_0 + 1, a2.field_4);
-			nox_client_drawPixel_49EFA0(a2.field_0, a2.field_4 + 1);
-			nox_client_drawPixel_49EFA0(a2.field_0 + 1, a2.field_4 + 1);
-			break;
-		case 3:
-			nox_client_drawPixel_49EFA0(a2.field_0 + 1, a2.field_4);
-			nox_client_drawPixel_49EFA0(a2.field_0, a2.field_4 + 1);
-			nox_client_drawPixel_49EFA0(a2.field_0 + 1, a2.field_4 + 1);
-			nox_client_drawPixel_49EFA0(a2.field_0 + 2, a2.field_4 + 1);
-			nox_client_drawPixel_49EFA0(a2.field_0 + 1, a2.field_4 + 2);
-			break;
-		default:
-			nox_client_drawPoint_4B0BC0(a2.field_0, a2.field_4, p->field_64 / 2);
-			break;
-		}
-	}
 }
 
 //----- (004B0020) --------------------------------------------------------
