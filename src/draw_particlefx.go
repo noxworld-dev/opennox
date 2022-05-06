@@ -3,11 +3,25 @@ package opennox
 /*
 #include "defs.h"
 #include "GAME3.h"
+int nox_xxx_partFx_4AF600(void*);
+int sub_4AF650(nox_particlefx_t*);
 */
 import "C"
 import (
 	"image"
+	"unsafe"
 )
+
+//export sub_4AF650
+func sub_4AF650(p *C.nox_particlefx_t) C.int {
+	r := noxrend
+	d := r.Data()
+	d.SetAlphaEnabled(true)
+	d.SetAlpha(byte(255 * p.field_48 / p.field_52))
+	nox_xxx_drawParticlefx_4AFEB0(p)
+	d.SetAlphaEnabled(false)
+	return 1
+}
 
 //export nox_xxx_particleFxNew_4AF990
 func nox_xxx_particleFxNew_4AF990(a1, a2, a3, a4 C.int) *C.nox_particlefx_t {
@@ -86,4 +100,32 @@ func nox_xxx_drawParticlefx_4AFEB0(p *C.nox_particlefx_t) {
 			r.rnd.DrawPointRad(pos2, int(p.field_64)/2)
 		}
 	}
+}
+
+//export nox_xxx_partFx_4AF600
+func nox_xxx_partFx_4AF600(a1 unsafe.Pointer) C.int {
+	p := nox_xxx_particleFxNew_4AF990(0, 0, 0, 5)
+	if p == nil {
+		return 0
+	}
+	p20 := *(*unsafe.Pointer)(unsafe.Add(a1, 20))
+	p.drawable_vp = *(*unsafe.Pointer)(unsafe.Add(p20, 16))
+	C.sub_4AFB10(p, C.int(*(*uint32)(unsafe.Add(p20, 12))))
+	_ = sub_4AF650
+	p.field_124 = (*[0]byte)(C.sub_4AF650)
+	return 1
+}
+
+//export nox_xxx_ParticleFxT6_4AF5A0
+func nox_xxx_ParticleFxT6_4AF5A0(a1 unsafe.Pointer) C.int {
+	p := nox_xxx_particleFxNew_4AF990(0, 0, 0, 0x7FFFFFFF)
+	if p == nil {
+		return 0
+	}
+	p.drawable_vp = *(*unsafe.Pointer)(unsafe.Add(a1, 8))
+	C.sub_4AFB10(p, C.int(*(*uint32)(unsafe.Add(a1, 0))))
+	p.field_124 = nil
+	p.field_128 = nil
+	_ = nox_xxx_partFx_4AF600
+	return C.nox_xxx_registerParticleFx_4AFCF0(C.nox_xxx_partFx_4AF600, p, 1, 500)
 }

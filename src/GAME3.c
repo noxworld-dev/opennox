@@ -6181,39 +6181,6 @@ int sub_4AF4C0(int a1) {
 // 4AF56E: variable 'v8' is possibly undefined
 // 4AF57E: variable 'v9' is possibly undefined
 
-//----- (004AF5A0) --------------------------------------------------------
-char* nox_xxx_ParticleFxT6_4AF5A0(int* a1) {
-	nox_particlefx_t* p = nox_xxx_particleFxNew_4AF990(0, 0, 0, 0x7FFFFFFF);
-	if (!p) {
-		return 0;
-	}
-	nox_xxx_patricleFx_setDrawableVp_4AFB40(p, a1[2]);
-	sub_4AFB10(p, a1[0]);
-	nox_xxx_patricleFx_setFunc128_4AFB60(p, 0);
-	nox_xxx_patricleFx_setFunc124_4AFB70(p, 0);
-	return nox_xxx_registerParticleFx_4AFCF0(nox_xxx_partFx_4AF600, p, 1, 500);
-}
-
-int sub_4AF650(nox_particlefx_t* p) {
-	nox_client_drawEnableAlpha_434560(1);
-	nox_client_drawSetAlpha_434580(255 * p->field_48 / p->field_52);
-	nox_xxx_drawParticlefx_4AFEB0(p);
-	nox_client_drawEnableAlpha_434560(0);
-	return 1;
-}
-
-//----- (004AF600) --------------------------------------------------------
-int nox_xxx_partFx_4AF600(void* a1) {
-	nox_particlefx_t* p = nox_xxx_particleFxNew_4AF990(0, 0, 0, 5);
-	if (!p) {
-		return 0;
-	}
-	nox_xxx_patricleFx_setDrawableVp_4AFB40(p, *(uint32_t*)(*(uint32_t*)((uint32_t)a1 + 20) + 16));
-	sub_4AFB10(p, *(uint32_t*)(*(uint32_t*)((uint32_t)a1 + 20) + 12));
-	nox_xxx_patricleFx_setFunc124_4AFB70(p, sub_4AF650);
-	return 1;
-}
-
 //----- (004AF690) --------------------------------------------------------
 uint32_t* nox_xxx_partfxSwitch_4AF690(uint32_t* a1, void (*a2)(uint32_t*, uint32_t*, int)) {
 	uint32_t* result;                       // eax
@@ -6455,7 +6422,8 @@ void nox_xxx_patricleFx_setPtr4_4AFB00(nox_particlefx_t* p, void* a2) {
 }
 
 //----- (004AFB10) --------------------------------------------------------
-int sub_4AFB10(int a1, int a2) {
+int sub_4AFB10(nox_particlefx_t* p, int a2) {
+	int a1 = p;
 	int result;      // eax
 	int v3;          // edx
 	unsigned int v4; // edx

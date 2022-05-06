@@ -571,7 +571,12 @@ func nox_client_drawLastPoint_49F5B0(px, py *C.uint, keep C.int) C.int {
 
 //export nox_client_drawLineFromPoints_49E4B0
 func nox_client_drawLineFromPoints_49E4B0() C.int {
-	return C.int(C.sub_49E930(0))
+	return C.int(bool2int(noxrend.drawLineFromPoints(false)))
+}
+
+//export sub_49E4F0
+func sub_49E4F0(a1 C.int) C.int {
+	return C.int(bool2int(noxrend.drawParticles49ED80(int(a1), false)))
 }
 
 func toRect(cr *C.nox_rect) image.Rectangle {
@@ -863,7 +868,7 @@ func (r *NoxRender) DrawLineFromPoints(arr ...image.Point) { // nox_client_drawL
 	r.drawLineFromPoints(false)
 }
 
-func (r *NoxRender) drawLineFromPoints(keep bool) bool { // sub_49E930
+func (r *NoxRender) drawLineFromPoints(keep bool) bool {
 	d := r.Data()
 	if d.field_13 != 0 {
 		return C.sub_49EAB0(C.int(bool2int(keep))) != 0
@@ -1943,12 +1948,6 @@ func nox_video_getImagePixdata_42FB30(img *C.nox_video_bag_image_t) unsafe.Point
 	return unsafe.Pointer(&data[0])
 }
 
-//export nox_video_drawImageAt2_4B0820
-func nox_video_drawImageAt2_4B0820(a1 unsafe.Pointer, x, y C.int) {
-	p := noxrend.asParticle(a1)
-	p.DrawAt(image.Point{X: int(x), Y: int(y)})
-}
-
 func nox_draw_initColorTables_434CC0() {
 	mode := noxcolor.GetMode()
 	if C.nox_video_modeXxx_3801780 == 0 {
@@ -2061,6 +2060,83 @@ func (r *NoxRender) clipToRect2(p1, p2 *image.Point) bool { // sub_49F990
 	}
 	return p1.X >= rect.Min.X && p1.X <= rect.Max.X && p1.Y >= rect.Min.Y && p1.Y <= rect.Max.Y &&
 		p2.X >= rect.Min.X && p2.X <= rect.Max.X && p2.Y >= rect.Min.Y && p2.Y <= rect.Max.Y
+}
+
+func (r *NoxRender) drawParticles49ED80(mul2 int, keep bool) bool {
+	d := r.Data()
+	if d.field_13 != 0 {
+		return C.sub_49EAB0(C.int(bool2int(keep))) != 0
+	}
+	pos2, ok := r.LastPoint(false)
+	if !ok {
+		return false
+	}
+	pos1, ok := r.LastPoint(keep)
+	if !ok {
+		return false
+	}
+	if d.flag_0 != 0 && !r.clipToRect2(&pos1, &pos2) {
+		return true
+	}
+	dx := pos2.X - pos1.X
+	dy := pos2.Y - pos1.Y
+
+	sx := 0
+	if dx > 0 {
+		sx = +1
+	} else if dx < 0 {
+		sx = -1
+		dx = -dx
+	}
+
+	sy := 0
+	if dy > 0 {
+		sy = +1
+	} else if dy < 0 {
+		sy = -1
+		dy = -dy
+	}
+
+	p := r.newParticle(0, mul2)
+	each := p.opt.rad / 4
+	if dx <= dy {
+		v := 2*dx - dy
+		p.DrawAt(pos1)
+		step := 0
+		for i := dy; i > 0; i-- {
+			pos1.Y += sy
+			if v >= 0 {
+				v += 2 * (dx - dy)
+				pos1.X += sx
+			} else {
+				v += 2 * dx
+			}
+			step++
+			if step >= each {
+				p.DrawAt(pos1)
+				step = 0
+			}
+		}
+	} else {
+		v := 2*dy - dx
+		p.DrawAt(pos1)
+		step := 0
+		for i := dx; i > 0; i-- {
+			pos1.X += sx
+			if v >= 0 {
+				v += 2 * (dy - dx)
+				pos1.Y += sy
+			} else {
+				v += 2 * dy
+			}
+			step++
+			if step >= each {
+				p.DrawAt(pos1)
+				step = 0
+			}
+		}
+	}
+	return true
 }
 
 var (

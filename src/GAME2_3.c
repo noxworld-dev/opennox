@@ -6477,9 +6477,6 @@ void sub_49E3C0(uint32_t* a1, int a2, unsigned int a3) {
 	}
 }
 
-//----- (0049E4F0) --------------------------------------------------------
-int sub_49E4F0(int a1) { return sub_49ED80(a1, 0); }
-
 //----- (0049E930) --------------------------------------------------------
 int sub_49E930(int a1) {
 	int result;  // eax
@@ -6806,121 +6803,6 @@ int sub_49EAB0(int a1) {
 			} else {
 				result = 1;
 			}
-		}
-	}
-	return result;
-}
-
-int nox_particle_rad(void* p);
-//----- (0049ED80) --------------------------------------------------------
-int sub_49ED80(unsigned char a1, int a2) {
-	int result; // eax
-	int v3;     // edi
-	int v4;     // esi
-	int* v5;    // ebp
-	int v6;     // esi
-	int v7;     // ebx
-	int v8;     // ecx
-	int v9;     // edi
-	int v10;    // edi
-	int v11;    // ecx
-	int v12;    // edi
-	int v13;    // ebx
-	int v14;    // eax
-	int v15;    // esi
-	int v16;    // esi
-	int v17;    // ecx
-	int v18;    // [esp+0h] [ebp-1Ch]
-	int v19;    // [esp+4h] [ebp-18h]
-	int v20;    // [esp+8h] [ebp-14h]
-	int v21;    // [esp+Ch] [ebp-10h]
-	int v22;    // [esp+10h] [ebp-Ch]
-	int v23;    // [esp+14h] [ebp-8h]
-	int v24;    // [esp+18h] [ebp-4h]
-	int v25;    // [esp+20h] [ebp+4h]
-	int v26;    // [esp+20h] [ebp+4h]
-	int v27;    // [esp+24h] [ebp+8h]
-
-	if (nox_draw_curDrawData_3799572->field_13) {
-		return sub_49EAB0(a2);
-	}
-	result = nox_client_drawLastPoint_49F5B0(&v22, &v23, 0);
-	if (result) {
-		result = nox_client_drawLastPoint_49F5B0(&v19, &v18, a2);
-		if (result) {
-			if (nox_draw_curDrawData_3799572->flag_0 && !sub_49F990(&v19, &v18, &v22, &v23)) {
-				return 1;
-			}
-			v3 = v22 - v19;
-			v4 = v23 - v18;
-			if (v19 <= v22) {
-				v21 = v19 != v22;
-			} else {
-				v21 = -1;
-				v3 = v19 - v22;
-			}
-			if (v18 <= v23) {
-				v20 = v18 != v23;
-			} else {
-				v20 = -1;
-				v4 = v18 - v23;
-			}
-			v5 = sub_4B0680(0, a1);
-			v27 = 0;
-			v24 = nox_particle_rad(v5) >> 2;
-			if (v3 <= v4) {
-				v26 = 2 * v3;
-				v12 = 2 * (v3 - v4);
-				v13 = v26 - v4;
-				nox_video_drawImageAt2_4B0820((int)v5, v19, v18);
-				v14 = v4;
-				v15 = v4 - 1;
-				if (v14) {
-					v16 = v15 + 1;
-					do {
-						v17 = v20 + v18;
-						v18 += v20;
-						if (v13 >= 0) {
-							v13 += v12;
-							v19 += v21;
-						} else {
-							v13 += v26;
-						}
-						if (++v27 >= v24) {
-							nox_video_drawImageAt2_4B0820((int)v5, v19, v17);
-							v27 = 0;
-						}
-						--v16;
-					} while (v16);
-				}
-			} else {
-				v25 = 2 * v4;
-				v6 = 2 * (v4 - v3);
-				v7 = v25 - v3;
-				nox_video_drawImageAt2_4B0820((int)v5, v19, v18);
-				v8 = v3;
-				v9 = v3 - 1;
-				if (v8) {
-					v10 = v9 + 1;
-					do {
-						v11 = v21 + v19;
-						v19 += v21;
-						if (v7 >= 0) {
-							v7 += v6;
-							v18 += v20;
-						} else {
-							v7 += v25;
-						}
-						if (++v27 >= v24) {
-							nox_video_drawImageAt2_4B0820((int)v5, v11, v18);
-							v27 = 0;
-						}
-						--v10;
-					} while (v10);
-					return 1;
-				}
-			}
-			return 1;
 		}
 	}
 	return result;

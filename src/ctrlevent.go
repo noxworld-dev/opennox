@@ -140,7 +140,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_orientation(mpos image.P
 		x := mpos.X
 		y := mpos.Y
 		if v15 := nox_xxx_spriteGetMB_476F80(); v15 != nil {
-			y = int(C.sub_4739D0(C.int(v15.Pos().Y)))
+			y = int(sub_4739D0(C.int(v15.Pos().Y)))
 		}
 		wsz := videoGetWindowSize()
 		cx := x - wsz.X/2

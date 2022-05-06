@@ -74,11 +74,6 @@ func sub_4B0680(a1, a2 C.uchar) unsafe.Pointer {
 	return noxrend.newParticle(int(a1), int(a2)).C()
 }
 
-//export nox_particle_rad
-func nox_particle_rad(p unsafe.Pointer) C.int {
-	return C.int(noxrend.asParticle(p).opt.rad)
-}
-
 func (r *NoxRender) newParticle(mul1, mul2 int) *Particle {
 	rad := int(r.p.field_262)
 	opt := particleOpt{
