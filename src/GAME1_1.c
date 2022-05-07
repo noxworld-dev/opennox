@@ -817,37 +817,6 @@ int sub_419EE0(char a1) { return (*getMemU32Ptr(0x5D4594, 527716) & (1 << a1)) !
 //----- (00419F00) --------------------------------------------------------
 int sub_419F00() { return *getMemU32Ptr(0x5D4594, 527716) != 0; }
 
-//----- (00419F10) --------------------------------------------------------
-int sub_419F10(const char* a1, const char* a2) {
-	unsigned char v2; // al
-	char* v3;         // edi
-	char* v4;         // eax
-	int result;       // eax
-	char v6[1024];    // [esp+8h] [ebp-400h]
-
-	strcpy(v6, a1);
-	if (!strchr(v6, 46)) {
-		v2 = getMemByte(0x587000, 56164);
-		v3 = &v6[strlen(v6)];
-		*(uint32_t*)v3 = *getMemU32Ptr(0x587000, 56160);
-		v3[4] = v2;
-	}
-	v4 = nox_fs_root();
-	nox_sprintf((char*)getMemAt(0x85B3FC, 10984), "%s\\Save\\%s", v4, v6);
-	strcpy((char*)getMemAt(0x85B3FC, 12008), a2);
-	GetLocalTime((LPSYSTEMTIME)getMemAt(0x85B3FC, 12168));
-	result = nox_common_gameFlags_check_40A5C0(0x2000);
-	if (result) {
-		result = *getMemU32Ptr(0x85B3FC, 10980);
-		LOBYTE(result) = getMemByte(0x85B3FC, 10980) & 0xFE | 2;
-		*getMemU32Ptr(0x85B3FC, 10980) = result;
-	} else {
-		*getMemU32Ptr(0x85B3FC, 10980) = *getMemU32Ptr(0x85B3FC, 10980) & 0xFFFFFFFD | 1;
-	}
-	return result;
-}
-// 419F10: using guessed type char var_400[1024];
-
 //----- (0041A000) --------------------------------------------------------
 int sub_41A000(char* a1, nox_savegame_xxx* sv) {
 	int result;        // eax
@@ -4843,29 +4812,6 @@ int sub_41FFF0() {
 //----- (00420020) --------------------------------------------------------
 int sub_420020() { return 65540; }
 
-//----- (00420030) --------------------------------------------------------
-int sub_420030() {
-	int result;       // eax
-	HKEY phkResult;   // [esp+8h] [ebp-90h]
-	uint32_t Type;    // [esp+Ch] [ebp-8Ch]
-	uint8_t Data[4];  // [esp+10h] [ebp-88h]
-	uint32_t cbData;  // [esp+14h] [ebp-84h]
-	char SubKey[128]; // [esp+18h] [ebp-80h]
-
-	strcpy(SubKey, "SOFTWARE\\Westwood\\Nox");
-	cbData = 4;
-	*getMemU32Ptr(0x587000, 60072) = -1;
-	result = RegOpenKeyExA(HKEY_LOCAL_MACHINE, SubKey, 0, 0xF003Fu, &phkResult);
-	if (!result) {
-		if (!RegQueryValueExA(phkResult, "SKU", 0, &Type, Data, &cbData) && Type == 4) {
-			*getMemU32Ptr(0x587000, 60072) = *(uint32_t*)Data;
-			nox_sprintf((char*)getMemAt(0x5D4594, 534780), "%s%d_", "Lob_", *(uint32_t*)Data >> 8);
-		}
-		result = RegCloseKey(phkResult);
-	}
-	return result;
-}
-
 //----- (004200E0) --------------------------------------------------------
 int sub_4200E0() { return *getMemU32Ptr(0x587000, 60072); }
 
@@ -7414,47 +7360,6 @@ int nox_parse_shape(nox_shape* s, char* buf) {
 	}
 	return 0;
 }
-
-//----- (00423F80) --------------------------------------------------------
-HANDLE sub_423F80(const char* lpFileName, int a2, int a3, int a4) {
-	HANDLE result;                         // eax
-	HANDLE v5;                             // esi
-	char* v6;                              // edi
-	unsigned char v7;                      // cl
-	HANDLE v8;                             // [esp+4h] [ebp-248h]
-	char FileName[260];                    // [esp+8h] [ebp-244h]
-	struct _WIN32_FIND_DATAA FindFileData; // [esp+10Ch] [ebp-140h]
-
-	result = FindFirstFileA(lpFileName, &FindFileData);
-	v5 = result;
-	v8 = result;
-	if (result != (HANDLE)-1) {
-		do {
-			if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
-				++*(uint32_t*)a2;
-				if (_strcmpi(FindFileData.cFileName, ".")) {
-					if (_strcmpi(FindFileData.cFileName, "..")) {
-						strcpy(FileName, lpFileName);
-						*((uint8_t*)&v8 + strlen(FileName) + 3) = 0;
-						strcat(FileName, FindFileData.cFileName);
-						v6 = &FileName[strlen(FileName) + 1];
-						v7 = getMemByte(0x587000, 64698);
-						*(uint16_t*)--v6 = *getMemU16Ptr(0x587000, 64696);
-						v6[2] = v7;
-						sub_423F80(FileName, a2, a3, a4);
-						v5 = v8;
-					}
-				}
-			} else {
-				++*(uint32_t*)a3;
-				*(uint32_t*)a4 += FindFileData.nFileSizeLow;
-			}
-		} while (FindNextFileA(v5, &FindFileData));
-		result = (HANDLE)FindClose(v5);
-	}
-	return result;
-}
-// 423F80: using guessed type char FileName[260];
 
 //----- (004240F0) --------------------------------------------------------
 int sub_4240F0(int a1, const char* a2, int a3) {

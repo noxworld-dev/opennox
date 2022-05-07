@@ -10,9 +10,6 @@
 #include <string.h>
 #include <wctype.h>
 
-#define NO_MOVIE 1
-#define NO_WOLAPI 1
-
 #define NOX_DEFAULT_WIDTH 640
 #define NOX_DEFAULT_HEIGHT 480
 #define NOX_DEFAULT_DEPTH 16
@@ -30,8 +27,6 @@
 #define NOX_FILEPATH_MAX 1024
 
 #define NOX_PLAYER_MAX_LEVEL 10
-
-#define USE_SDL 1
 
 #include "common/platform/platform.h"
 #include "memmap.h"

@@ -44,7 +44,6 @@ void nullsub_70() {}
 #include "common__strman.h"
 #include "common__wolapi__woluser.h"
 
-#include "cdrom.h"
 #include "client__gui__window.h"
 #include "client__io__win95__focus.h"
 #include "common/fs/nox_fs.h"
@@ -2498,92 +2497,7 @@ int sub_40CDC0(int a1, int a2, int a3, int a4) {
 
 //----- (0040CE60) --------------------------------------------------------
 int sub_40CE60() {
-#ifdef NO_WOLAPI
 	return 0;
-#else
-	int v0;       // esi
-	int v1;       // edx
-	int result;   // eax
-	char* v3;     // [esp+10h] [ebp-8Ch]
-	int v4;       // [esp+14h] [ebp-88h]
-	int v5;       // [esp+18h] [ebp-84h]
-	char v6[128]; // [esp+1Ch] [ebp-80h]
-
-	if (*getMemU32Ptr(0x5D4594, 10972) || CoInitialize(0) < 0) {
-		if (*getMemU32Ptr(0x5D4594, 10972) != 1)
-			return 0;
-	} else {
-		*getMemU32Ptr(0x5D4594, 10972) = 1;
-	}
-	if (*getMemU32Ptr(0x5D4594, 10976))
-		return 0;
-	*getMemU32Ptr(0x5D4594, 4788) = getMemAt(0x587000, 25824);
-	*getMemU32Ptr(0x5D4594, 10992) = getMemAt(0x5D4594, 4676);
-	*getMemU32Ptr(0x5D4594, 4676) = 132;
-	*getMemU32Ptr(0x5D4594, 4776) = 768;
-	if (true) { // TODO: byte_5D4594 != (unsigned char*)-4676
-		*getMemU32Ptr(0x5D4594, 4692) = 0;
-		*getMemU32Ptr(0x5D4594, 4684) = *getMemU32Ptr(0x5D4594, 823784);
-		*getMemU32Ptr(0x5D4594, 4688) = *getMemU32Ptr(0x5D4594, 823784);
-		*getMemU32Ptr(0x5D4594, 4680) = *getMemU32Ptr(0x5D4594, 823784);
-		*getMemU32Ptr(0x5D4594, 4696) = 0;
-		*getMemU32Ptr(0x5D4594, 4700) = 0;
-		nox_mutex_init(getMemAt(0x5D4594, 4704));
-		nox_mutex_init(getMemAt(0x5D4594, 4728));
-		nox_mutex_init(getMemAt(0x5D4594, 4752));
-		v0 = *getMemU32Ptr(0x5D4594, 4692);
-		*getMemU32Ptr(0x5D4594, 4780) = 0;
-		*getMemU8Ptr(0x5D4594, 4784) = 1;
-		*getMemU32Ptr(0x5D4594, 4792) = 0;
-		*getMemU32Ptr(0x5D4594, 4800) = 0;
-		*getMemU32Ptr(0x5D4594, 4796) = 0;
-		*getMemU32Ptr(0x5D4594, 4804) = 0;
-		if (*getMemU32Ptr(0x5D4594, 4692)) {
-			if (**(uint32_t**)getMemAt(0x5D4594, 4692)) {
-				do {
-					(*(void (**)(int))(v0 + 32))(1);
-					if (*getMemU32Ptr(0x5D4594, 4676) == 100)
-						v0 += 28;
-					else
-						v0 += 36;
-				} while (*(uint32_t*)v0);
-			}
-		}
-	}
-	CoCreateInstance((const IID* const)getMemAt(0x581450, 5784), 0, 1u, (const IID* const)getMemAt(0x581450, 5624),
-					 (void**)&dword_5d4594_4668);
-	if (dword_5d4594_4668) {
-		sub_40E3E0(&v5);
-		sub_40E260(*(int (****)(uint32_t, void*, int*)) & dword_5d4594_4668, v5, (int)getMemAt(0x581450, 5640),
-				   (int)getMemAt(0x5D4594, 10960));
-	}
-	CoCreateInstance((const IID* const)getMemAt(0x581450, 5800), 0, 1u, (const IID* const)getMemAt(0x581450, 5656),
-					 (void**)&dword_5d4594_4808);
-	if (dword_5d4594_4808) {
-		sub_40E630(&v4);
-		sub_40E260(*(int (****)(uint32_t, void*, int*)) & dword_5d4594_4808, v4, (int)getMemAt(0x581450, 5672),
-				   (int)getMemAt(0x5D4594, 10964));
-	}
-	CoCreateInstance((const IID* const)getMemAt(0x581450, 5816), 0, 1u, (const IID* const)getMemAt(0x581450, 5688),
-					 (void**)&dword_5d4594_10956);
-	if (!dword_5d4594_10956)
-		goto LABEL_27;
-	sub_40E800(&v3);
-	sub_40E260(*(int (****)(uint32_t, void*, int*)) & dword_5d4594_10956, (int)v3, (int)getMemAt(0x581450, 5704),
-			   (int)getMemAt(0x5D4594, 10968));
-	if (!dword_5d4594_10956)
-		goto LABEL_27;
-	if (dword_5d4594_4808 && (v1 = dword_5d4594_4668) != 0 &&
-		(v3 = v6, *getMemU32Ptr(0x5D4594, 10976) = 1, strcpy(v6, "SOFTWARE\\Westwood\\Nox"),
-		 (*(void (**)(int, unsigned char*, char*))(*(uint32_t*)v1 + 164))(v1, getMemAt(0x587000, 25772), v6),
-		 sub_420030(), sub_4200E0() != -1)) {
-		result = 1;
-	} else {
-	LABEL_27:
-		result = 0;
-	}
-	return result;
-#endif
 }
 
 //----- (0040D0F0) --------------------------------------------------------
@@ -3449,16 +3363,6 @@ int sub_40E050(int a1, int a2) {
 	return (*(int (**)(uint32_t, int, int))(**(uint32_t**)&dword_5d4594_10956 + 44))(dword_5d4594_10956, a1, a2) >= 0;
 }
 
-//----- (0040E070) --------------------------------------------------------
-void sub_40E070() {
-#ifndef NO_WOLAPI
-	if (*getMemU32Ptr(0x5D4594, 10972) == 1) {
-		CoUninitialize();
-		*getMemU32Ptr(0x5D4594, 10972) = 0;
-	}
-#endif
-}
-
 //----- (0040E090) --------------------------------------------------------
 void sub_40E090() { dword_5d4594_10984 = 0; }
 
@@ -3470,103 +3374,6 @@ int sub_40E0B0() { return dword_5d4594_10984 == 0; }
 
 //----- (0040E0C0) --------------------------------------------------------
 int sub_40E0C0() { return *getMemU32Ptr(0x5D4594, 10976); }
-
-//----- (0040E0D0) --------------------------------------------------------
-int nox_common_getInstallPath_40E0D0(char* dst, const char* lpSubKey, int a3) {
-	int result;      // eax
-	signed int i;    // ecx
-	char* v5;        // edi
-	int v6;          // eax
-	int v7;          // ecx
-	FILE* v8;        // edi
-	int v9;          // esi
-	int v10;         // ebp
-	int v11;         // ecx
-	HKEY phkResult;  // [esp+4h] [ebp-214h]
-	FILE* v13;       // [esp+8h] [ebp-210h]
-	uint32_t cbData; // [esp+Ch] [ebp-20Ch]
-	uint32_t Type;   // [esp+10h] [ebp-208h]
-	char Data[516];  // [esp+14h] [ebp-204h]
-
-	if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, lpSubKey, 0, 0x20019u, &phkResult)) {
-		return 0;
-	}
-	Data[0] = 0;
-	cbData = 513;
-	if (RegQueryValueExA(phkResult, "InstallPath", 0, &Type, (uint8_t*)Data, &cbData)) {
-		RegCloseKey(phkResult);
-		result = 0;
-	} else {
-		RegCloseKey(phkResult);
-		for (i = strlen(Data) - 1; i >= 0; Data[i--] = 0) {
-			if (Data[i] == 92) {
-				break;
-			}
-		}
-		v5 = &Data[strlen(Data) + 1];
-		v6 = *getMemU32Ptr(0x587000, 25812);
-		v7 = *getMemU32Ptr(0x587000, 25816);
-		*(uint32_t*)--v5 = *getMemU32Ptr(0x587000, 25808);
-		*((uint32_t*)v5 + 1) = v6;
-		*((uint32_t*)v5 + 2) = v7;
-		result = nox_fs_open_text(Data);
-		v8 = (FILE*)result;
-		v13 = (FILE*)result;
-		if (result) {
-			v9 = 0;
-			v10 = 1;
-			if (!a3) {
-				v10 = -1;
-			}
-			v11 = nox_fs_fgetc((FILE*)result);
-			if (v11 != -1) {
-				do {
-					*(uint8_t*)(v9 + dst) = ((*(char*)(v9 + dst) - 48) % 10 + v10 * v11 + 1000) % 10 + 48;
-					if (++v9 == strlen(dst)) {
-						v9 = 0;
-					}
-					v11 = nox_fs_fgetc(v13);
-				} while (v11 != -1);
-				v8 = v13;
-			}
-			nox_fs_close(v8);
-			result = 1;
-		}
-	}
-	return result;
-}
-// 40E0D0: using guessed type uint8_t Data[516];
-
-//----- (0040E260) --------------------------------------------------------
-int sub_40E260(int (***a1)(uint32_t, void*, int*), int a2, int a3, int a4) {
-	int (**v4)(uint32_t, void*, int*); // ecx
-	int v5;                            // esi
-	int v7;                            // [esp+24h] [ebp-14h]
-	int v8[3];                         // [esp+28h] [ebp-10h]
-	int v9;                            // [esp+34h] [ebp-4h]
-
-	v8[0] = 0;
-	v9 = 0;
-	v7 = 0;
-	v4 = *a1;
-	LOBYTE(v9) = 1;
-	v5 = (*v4)(a1, getMemAt(0x581450, 11152), v8);
-	if (v5 >= 0) {
-		v5 = (*(int (**)(int, int, int*))(*(uint32_t*)v8[0] + 16))(v8[0], a3, &v7);
-		if (v5 >= 0) {
-			v5 = (*(int (**)(int, int, int))(*(uint32_t*)v7 + 20))(v7, a2, a4);
-		}
-	}
-	LOBYTE(v9) = 0;
-	if (v7) {
-		(*(void (**)(int))(*(uint32_t*)v7 + 8))(v7);
-	}
-	v9 = -1;
-	if (v8[0]) {
-		(*(void (**)(int))(*(uint32_t*)v8[0] + 8))(v8[0]);
-	}
-	return v5;
-}
 
 //----- (0040E320) --------------------------------------------------------
 int sub_40E320(int (***a1)(uint32_t, void*, int*), int a2, int a3) {
@@ -6176,16 +5983,6 @@ int sub_4137E0() {
 	return result;
 }
 
-//----- (00413870) --------------------------------------------------------
-int sub_413870(int a1) {
-	int result; // eax
-
-	dword_5d4594_251708 = 1;
-	result = sub_423CC0(a1);
-	dword_5d4594_251712 = result;
-	return result;
-}
-
 //----- (00413890) --------------------------------------------------------
 char* sub_413890() {
 	unsigned char* v0; // edi
@@ -6193,7 +5990,7 @@ char* sub_413890() {
 	short v2;          // dx
 	unsigned char v3;  // al
 
-	*getMemU8Ptr(0x5D4594, 251636) = sub_423EC0();
+	*getMemU8Ptr(0x5D4594, 251636) = 0;
 	*getMemU8Ptr(0x5D4594, 251637) = 0;
 	if (!getMemByte(0x5D4594, 251636)) {
 		return 0;
@@ -6327,146 +6124,6 @@ char* nox_clone_str(const char* a1) {
 		strcpy(result, a1);
 	}
 	return result;
-}
-
-//----- (00414580) --------------------------------------------------------
-int sub_414580() { return *getMemU32Ptr(0x5D4594, 338312); }
-
-//----- (00414590) --------------------------------------------------------
-int sub_414590() { return *getMemU32Ptr(0x5D4594, 338308); }
-
-//----- (004145A0) --------------------------------------------------------
-int sub_4145A0() { return *getMemU32Ptr(0x5D4594, 338320); }
-
-//----- (004145B0) --------------------------------------------------------
-int sub_4145B0() { return *getMemU32Ptr(0x5D4594, 338316); }
-
-//----- (004145C0) --------------------------------------------------------
-void* sub_4145C0(size_t a1, size_t a2) { return calloc(a1, a2); }
-
-//----- (004145E0) --------------------------------------------------------
-void sub_4145E0(void* lpMem) { free(lpMem); }
-
-//----- (00414800) --------------------------------------------------------
-int sub_414800() {
-	char MultiByteStr[128]; // [esp+0h] [ebp-500h]
-	char v2[128];           // [esp+80h] [ebp-480h]
-	char v3[256];           // [esp+100h] [ebp-400h]
-	wchar_t v4[128];        // [esp+200h] [ebp-300h]
-	wchar_t v5[128];        // [esp+300h] [ebp-200h]
-
-	if (!*getMemU32Ptr(0x5D4594, 338464)) {
-		return 0;
-	}
-	nox_common_convertWideToMbString_414B00(*(const wchar_t**)getMemAt(0x587000, 32584), MultiByteStr, 128);
-	nox_common_convertWideToMbString_414B00(*(const wchar_t**)getMemAt(0x587000, 32588), v3, 256);
-	nox_wsprintfA(v2, MultiByteStr, *getMemU32Ptr(0x5D4594, 338464));
-	nox_swprintf(v5, L"%S", v3);
-	nox_swprintf(v4, L"%S", v2);
-	nullsub_4(0, v5, v4, 262192);
-	return 1;
-}
-// 4514E0: using guessed type void  nullsub_4(uint32_t, uint32_t, uint32_t, uint32_t);
-
-//----- (004148D0) --------------------------------------------------------
-unsigned int sub_4148D0(const char* lpFileName) {
-	unsigned int v1;  // esi
-	FILE* v2;         // ebx
-	uint32_t* v3;     // ebp
-	const char* i;    // edi
-	unsigned char* j; // ecx
-	int v6;           // edx
-
-	v1 = -1;
-	v2 = nox_fs_open(lpFileName);
-	if (v2 == -1) {
-		return -1;
-	}
-	v3 = calloc(1, 0x2000u);
-	int n = nox_fs_fread(v2, v3, 0x2000);
-	v3[10] = 0;
-	for (i = n; n; i = n) {
-		for (j = (unsigned char*)v3; i; n = i) {
-			v6 = *j++;
-			v1 = *getMemU32Ptr(0x581450, 6160 + 4 * (v6 ^ (unsigned char)v1)) ^ (v1 >> 8);
-			--i;
-		}
-		nox_fs_fread(v2, v3, 0x2000);
-	}
-	nox_fs_close(v2);
-	free(v3);
-	return ~v1;
-}
-
-//----- (004149A0) --------------------------------------------------------
-int sub_4149A0(const char* lpFileName, void* lpBuffer, void* a3, void* a4) {
-	int v4;   // ebx
-	FILE* v5; // eax
-	void* v6; // esi
-
-	v4 = 0;
-	v5 = nox_fs_open(lpFileName);
-	v6 = v5;
-	if (v5 == -1) {
-		return 0;
-	}
-	int off = nox_fs_fseek_start(v5, 40);
-	if (off > 0 && nox_fs_fread(v6, lpBuffer, 4) == 4 && nox_fs_fread(v6, a3, 4) == 4) {
-		if (nox_fs_fread(v6, a4, 4) == 4) {
-			v4 = 1;
-		}
-	}
-	nox_fs_close(v6);
-	return v4;
-}
-
-//----- (00414A40) --------------------------------------------------------
-int nox_common_getRegistryValue_414A40(const char* lpSubKey, const char* lpValueName) {
-	int v2; // esi
-
-	v2 = 0;
-	if (!RegOpenKeyExA(HKEY_LOCAL_MACHINE, lpSubKey, 0, 0xF003Fu, (PHKEY)&lpSubKey)) {
-		if (!RegQueryValueExA((HKEY)lpSubKey, lpValueName, 0, 0, 0, 0)) {
-			v2 = 1;
-		}
-		RegCloseKey((HKEY)lpSubKey);
-	}
-	return v2;
-}
-
-//----- (00414A90) --------------------------------------------------------
-int nox_common_setRegistryValue_414A90(const char* lpSubKey, const char* lpValueName, uint8_t* lpData) {
-	int v3;                 // esi
-	uint32_t dwDisposition; // [esp+4h] [ebp-4h]
-
-	v3 = 0;
-	if (!RegCreateKeyExA(HKEY_LOCAL_MACHINE, lpSubKey, 0, 0, 0, 0xF003Fu, 0, (PHKEY)&lpSubKey, &dwDisposition)) {
-		if (!RegSetValueExA((HKEY)lpSubKey, lpValueName, 0, 1u, lpData, strlen((const char*)lpData) + 1)) {
-			v3 = 1;
-		}
-		RegCloseKey((HKEY)lpSubKey);
-	}
-	return v3;
-}
-
-//----- (00414B00) --------------------------------------------------------
-char* nox_common_convertWideToMbString_414B00(const wchar_t* lpWideCharStr, char* lpMultiByteStr, int cbMultiByte) {
-	WideCharToMultiByte(0, 0, lpWideCharStr, -1, lpMultiByteStr, cbMultiByte, 0, 0);
-	return _strrev(lpMultiByteStr);
-}
-
-//----- (00414BA0) --------------------------------------------------------
-int sub_414BA0(int a1) {
-	int v1; // eax
-
-	v1 = a1 + 4096;
-	if (a1 + 4096 < 0) {
-		return *getMemU32Ptr(0x5D4594, 338472);
-	}
-	if (v1 >= 0x2000) {
-		v1 = 0x1FFF;
-	}
-	return *getMemU32Ptr(0x5D4594, 338472 + 4 * v1);
 }
 
 //----- (00414BD0) --------------------------------------------------------

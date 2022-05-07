@@ -11,7 +11,6 @@
 #include "GAME4.h"
 #include "GAME4_1.h"
 #include "GAME5_2.h"
-#include "cdrom.h"
 #include "client__draw__fx.h"
 #include "client__draw__image.h"
 #include "client__drawable__drawdb.h"
@@ -31,7 +30,6 @@
 #include "defs.h"
 #include "input.h"
 #include "input_common.h"
-#include "movie.h"
 #include "server__network__mapsend.h"
 #include "server__script__builtin.h"
 #include "server__script__script.h"
@@ -60,11 +58,6 @@ enum {
 	HANDLE_MUTEX,
 };
 
-struct _REGKEY {
-	char* path;
-};
-
-uint32_t last_error;
 void* handles[1024];
 
 static inline HANDLE new_handle(unsigned int type, void* data) {
@@ -94,69 +87,6 @@ int HeapDestroy(HANDLE hHeap) {
 	return 0;
 }
 
-// CRT functions
-unsigned int _control87(unsigned int new_, unsigned int mask) {
-	if (new_ == 0x300 && mask == 0x300)
-		fesetround(FE_TOWARDZERO);
-	else
-		abort();
-	return 0;
-}
-
-unsigned int _controlfp(unsigned int new_, unsigned int mask) {
-	if (new_ == 0x300 && mask == 0x300)
-		fesetround(FE_TOWARDZERO);
-	else
-		abort();
-	return 0;
-}
-
-typedef struct {
-	void (*start_address)(void*);
-	void* arglist;
-} thread_arg_wrapper;
-
-// thread_start_wrapper correctly converts WinAPI callback function signature to pthread callback signature.
-void* thread_start_wrapper(void* arglist) {
-	thread_arg_wrapper* arg = arglist;
-	arglist = arg->arglist;
-	void (*start_address)(void*) = arg->start_address;
-	free(arg);
-	start_address(arglist);
-	return 0;
-}
-
-uintptr_t _beginthread(void (*start_address)(void*), unsigned int stack_size, void* arglist) {
-	printf("thread start\n");
-	thread_arg_wrapper* arg = (thread_arg_wrapper*)calloc(1, sizeof(thread_arg_wrapper));
-	arg->start_address = start_address;
-	arg->arglist = arglist;
-
-	pthread_t handle;
-	if (pthread_create(&handle, NULL, thread_start_wrapper, arg))
-		return (uintptr_t)-1;
-
-	return new_handle(HANDLE_THREAD, handle);
-}
-
-char* _strrev(char* str) {
-	char *begin, *end;
-
-	if (!str[0])
-		return str;
-
-	begin = str;
-	end = str + strlen(str) - 1;
-
-	while (begin < end) {
-		char tmp = *end;
-		*end = *begin;
-		*begin = tmp;
-	}
-
-	return str;
-}
-
 char* nox_itoa(int val, char* s, int radix);
 char* nox_utoa(int val, char* s, int radix);
 char* _itoa(int val, char* s, int radix) { return nox_itoa(val, s, radix); }
@@ -172,56 +102,6 @@ wchar_t* _itow(int val, wchar_t* s, int radix) {
 	s[i] = 0;
 
 	return s;
-}
-
-void _makepath(char* path, const char* drive, const char* dir, const char* fname, const char* ext) {
-	sprintf(path, "%s%s%s%s%s%s%s", drive, drive && drive[0] && (!dir || dir[0] != '\\') ? "\\" : "", dir,
-			dir && dir[0] && dir[strlen(dir) - 1] != '\\' ? "\\" : "", fname, ext && ext[0] && ext[0] != '.' ? "." : "",
-			ext);
-	// _dprintf("%s: (\"%s\", \"%s\", \"%s\", \"%s\") = \"%s\"", __FUNCTION__, drive, dir, fname, ext, path);
-}
-
-void _splitpath(const char* path, char* drive, char* dir, char* fname, char* ext) {
-	const char* tmp;
-
-	if (isalpha(path[0]) && path[1] == ':') {
-		if (drive) {
-			drive[0] = path[0];
-			drive[1] = path[1];
-			drive[2] = 0;
-		}
-		path += 2;
-	} else if (drive) {
-		drive[0] = 0;
-	}
-
-	tmp = strrchr(path, '\\');
-	if (tmp) {
-		if (dir) {
-			memcpy(dir, path, tmp + 1 - path);
-			dir[tmp + 1 - path] = 0;
-		}
-		path = tmp + 1;
-	} else if (dir) {
-		dir[0] = 0;
-	}
-
-	tmp = strrchr(path, '.');
-	if (tmp) {
-		if (fname) {
-			memcpy(fname, path, tmp - path);
-			fname[tmp - path] = 0;
-		}
-		path = tmp;
-	} else if (fname) {
-		fname[0] = 0;
-	}
-
-	if (ext) {
-		strcpy(ext, path);
-	}
-
-	// _dprintf("%s: \"%s\" = (\"%s\", \"%s\", \"%s\", \"%s\")", __FUNCTION__, path, drive, dir, fname, ext);
 }
 
 // Misc functions
@@ -248,25 +128,11 @@ int CloseHandle(HANDLE hObject) {
 	return true;
 }
 
-uint32_t GetLastError() { return last_error; }
-
-int GetVersionExA(LPOSVERSIONINFOA lpVersionInformation) {
-	lpVersionInformation->dwOSVersionInfoSize = sizeof(OSVERSIONINFOA);
-	lpVersionInformation->dwMajorVersion = 5;
-	lpVersionInformation->dwMinorVersion = 1;
-	return true;
-}
-
 int InterlockedExchange(volatile int* Target, int Value) { return __sync_lock_test_and_set(Target, Value); }
 
 int InterlockedDecrement(volatile int* Addend) { return __sync_fetch_and_sub(Addend, 1); }
 
 int InterlockedIncrement(volatile int* Addend) { return __sync_fetch_and_add(Addend, 1); }
-
-int MessageBoxA(HWND hWnd, const char* lpText, const char* lpCaption, unsigned int uType) {
-	abort();
-	return 0;
-}
 
 int MulDiv(int nNumber, int nNumerator, int nDenominator) {
 	abort();
@@ -275,12 +141,6 @@ int MulDiv(int nNumber, int nNumerator, int nDenominator) {
 
 HINSTANCE ShellExecuteA(HWND hwnd, const char* lpOperation, const char* lpFile, const char* lpParameters,
 						const char* lpDirectory, int nShowCmd) {
-	abort();
-	return 0;
-}
-
-int WideCharToMultiByte(unsigned int CodePage, uint32_t dwFlags, const wchar_t* lpWideCharStr, int cchWideChar,
-						char* lpMultiByteStr, int cbMultiByte, const char* lpDefaultChar, int* lpUsedDefaultChar) {
 	abort();
 	return 0;
 }
@@ -295,44 +155,6 @@ int GetDateFormatA(LCID Locale, uint32_t dwFlags, const SYSTEMTIME* lpDate, cons
 
 	// default locale, short date (M/d/yy)
 	return snprintf(lpDateStr, cchDate, "%d/%d/%02d", lpDate->wMonth, lpDate->wDay, lpDate->wYear % 100);
-}
-
-int GetTimeFormatA(LCID Locale, uint32_t dwFlags, const SYSTEMTIME* lpTime, const char* lpFormat, char* lpTimeStr,
-				   int cchTime) {
-	if (Locale != 0x800 || dwFlags != 14 || lpFormat)
-		abort();
-
-	// default locale, 24 hour, no time marker, no seconds
-	return snprintf(lpTimeStr, cchTime, "%02d:%02d", lpTime->wHour, lpTime->wMinute);
-}
-
-int SystemTimeToFileTime(const SYSTEMTIME* lpSystemTime, LPFILETIME lpFileTime) {
-	uint64_t t;
-	struct tm tm;
-
-	tm.tm_sec = lpSystemTime->wSecond;
-	tm.tm_min = lpSystemTime->wMinute;
-	tm.tm_hour = lpSystemTime->wHour;
-	tm.tm_mday = lpSystemTime->wDay;
-	tm.tm_mon = lpSystemTime->wMonth;
-	tm.tm_year = lpSystemTime->wYear - 1900;
-	tm.tm_isdst = -1;
-	tm.tm_zone = NULL;
-	tm.tm_gmtoff = 0;
-
-	t = mktime(&tm);
-	t = (t * 1000 + lpSystemTime->wMilliseconds) * 10000;
-	lpFileTime->dwLowDateTime = t & 0xffffffff;
-	lpFileTime->dwHighDateTime = t >> 32;
-	return 0;
-}
-
-int CompareFileTime(const FILETIME* lpFileTime1, const FILETIME* lpFileTime2) {
-	if (lpFileTime1->dwHighDateTime != lpFileTime2->dwHighDateTime)
-		return (int)lpFileTime1->dwHighDateTime - (int)lpFileTime2->dwHighDateTime;
-	if (lpFileTime1->dwLowDateTime != lpFileTime2->dwLowDateTime)
-		return (int)lpFileTime1->dwLowDateTime - (int)lpFileTime2->dwLowDateTime;
-	return 0;
 }
 
 void GetLocalTime(LPSYSTEMTIME lpSystemTime) {
@@ -350,19 +172,6 @@ void GetLocalTime(LPSYSTEMTIME lpSystemTime) {
 	lpSystemTime->wMinute = tm->tm_min;
 	lpSystemTime->wSecond = tm->tm_sec;
 	lpSystemTime->wMilliseconds = 0;
-}
-
-int QueryPerformanceCounter(LARGE_INTEGER* lpPerformanceCount) {
-	struct timeval tv;
-
-	gettimeofday(&tv, NULL);
-	lpPerformanceCount->QuadPart = (uint64_t)tv.tv_sec * 1000000 + tv.tv_usec;
-	return true;
-}
-
-int QueryPerformanceFrequency(LARGE_INTEGER* lpFrequency) {
-	lpFrequency->QuadPart = 1000000;
-	return true;
 }
 
 struct _FIND_FILE {
@@ -412,7 +221,6 @@ int FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData) {
 	struct _FIND_FILE* ff = (struct _FIND_FILE*)hFindFile;
 
 	if (ff->idx >= ff->globbuf.gl_pathc) {
-		last_error = ERROR_NO_MORE_FILES;
 		return false;
 	}
 
@@ -457,58 +265,6 @@ int _stat(const char* path, struct _stat* buffer) {
 	buffer->st_ctime = st.st_ctim.tv_sec;
 #endif
 	return result;
-}
-
-// Registry functions
-int RegCreateKeyExA(HKEY hKey, const char* lpSubKey, uint32_t Reserved, char* lpClass, uint32_t dwOptions,
-					REGSAM samDesired, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, PHKEY phkResult,
-					uint32_t* lpdwDisposition) {
-	abort();
-	return 0;
-}
-
-int RegOpenKeyExA(HKEY hKey, const char* lpSubKey, uint32_t ulOptions, REGSAM samDesired, PHKEY phkResult) {
-	HKEY hkResult;
-	const char* root;
-
-	if (hKey == HKEY_LOCAL_MACHINE)
-		root = "HKEY_LOCAL_MACHINE";
-	else
-		root = hKey->path;
-
-	hkResult = calloc(sizeof(*hkResult), 1);
-	hkResult->path = calloc(strlen(root) + strlen(lpSubKey) + 2, 1);
-	sprintf(hkResult->path, "%s\\%s", root, lpSubKey);
-	*phkResult = hkResult;
-	return 0;
-}
-
-int RegQueryValueExA(HKEY hKey, const char* lpValueName, uint32_t* lpReserved, uint32_t* lpType, uint8_t* lpData,
-					 uint32_t* lpcbData) {
-	_dprintf("%s: key=\"%s\", value=\"%s\"", __FUNCTION__, hKey->path, lpValueName);
-
-	if (strcmp(hKey->path, "HKEY_LOCAL_MACHINE\\SOFTWARE\\Westwood\\Nox") == 0 && strcmp(lpValueName, "Serial") == 0) {
-		int i;
-		for (i = 0; i < *lpcbData - 1; i++)
-			lpData[i] = (nox_platform_rand() % 10) + '0';
-		lpData[i] = 0;
-		*lpType = 1; // REG_SZ
-		return 0;
-	}
-
-	return 3;
-}
-
-int RegSetValueExA(HKEY hKey, const char* lpValueName, uint32_t Reserved, uint32_t dwType, const uint8_t* lpData,
-				   uint32_t cbData) {
-	abort();
-	return 0;
-}
-
-int RegCloseKey(HKEY hKey) {
-	free(hKey->path);
-	free(hKey);
-	return 0;
 }
 
 // Synchronization functions

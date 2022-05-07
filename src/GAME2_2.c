@@ -2087,82 +2087,6 @@ int sub_47A1F0() {
 //----- (0047A260) --------------------------------------------------------
 int sub_47A260() { return dword_5d4594_1123520; }
 
-//----- (0047A310) --------------------------------------------------------
-uint32_t sub_47A310(const char* lpPathName) {
-	uint32_t result;                       // eax
-	char* v3;                              // edx
-	const char* v4;                        // ebp
-	HANDLE v5;                             // ebx
-	char* v6;                              // edx
-	char* v7;                              // edx
-	int v8;                                // [esp+10h] [ebp-348h]
-	HANDLE v9;                             // [esp+14h] [ebp-344h]
-	struct _WIN32_FIND_DATAA FindFileData; // [esp+18h] [ebp-340h]
-	char Buffer[512];                      // [esp+158h] [ebp-200h]
-
-	dword_5d4594_1189600 = 0;
-	v8 = 0;
-	if (nox_fs_set_workdir(lpPathName) || (result = GetLastError()) == 0) {
-		nox_fs_workdir(Buffer, 512);
-		v3 = (char*)getMemAt(0x5D4594, 1124048 + 512 * (dword_5d4594_1189600)++);
-		strcpy(v3, Buffer);
-		if (*(int*)&dword_5d4594_1189600 <= 0) {
-		LABEL_27:
-			nox_fs_set_workdir(Buffer);
-			result = nox_fs_set_workdir("..");
-		} else {
-			v4 = (const char*)getMemAt(0x5D4594, 1124048);
-			while (nox_fs_set_workdir(v4) || !GetLastError()) {
-				v5 = FindFirstFileA((const char*)getMemAt(0x587000, 153724), &FindFileData);
-				v9 = v5;
-				if (v5 != (HANDLE)-1) {
-					if (FindFileData.dwFileAttributes & 0x10 && strcmp(FindFileData.cFileName, ".") &&
-						strcmp(FindFileData.cFileName, "..")) {
-						v6 = (char*)getMemAt(0x5D4594, 1124048 + 512 * dword_5d4594_1189600);
-						strcpy(v6, v4);
-						if (v4[strlen(v4) - 1] != 92) {
-							*(uint16_t*)&v6[strlen(v6)] = *getMemU16Ptr(0x587000, 153736);
-						}
-						strcat(v6, FindFileData.cFileName);
-						if (strlen(v6) >= 0x200) {
-							nox_exit(1);
-						}
-						if (++*(int*)&dword_5d4594_1189600 >= 128) {
-							nox_exit(1);
-						}
-					}
-					while (FindNextFileA(v5, &FindFileData)) {
-						if (FindFileData.dwFileAttributes & 0x10 && strcmp(FindFileData.cFileName, ".") &&
-							strcmp(FindFileData.cFileName, "..")) {
-							v7 = (char*)getMemAt(0x5D4594, 1124048 + 512 * dword_5d4594_1189600);
-							strcpy(v7, v4);
-							if (v4[strlen(v4) - 1] != 92) {
-								*(uint16_t*)&v7[strlen(v7)] = *getMemU16Ptr(0x587000, 153748);
-							}
-							strcat(v7, FindFileData.cFileName);
-							if (strlen(v7) >= 0x200) {
-								nox_exit(1);
-							}
-							if (++*(int*)&dword_5d4594_1189600 >= 128) {
-								nox_exit(1);
-							}
-							v5 = v9;
-						}
-					}
-					FindClose(v5);
-				}
-				v4 += 512;
-				if (++v8 >= *(int*)&dword_5d4594_1189600) {
-					goto LABEL_27;
-				}
-			}
-			nox_fs_set_workdir(Buffer);
-			result = nox_fs_set_workdir("..");
-		}
-	}
-	return result;
-}
-
 //----- (0047AD60) --------------------------------------------------------
 int nox_xxx_videoBag_LoadTile_47AD60(int a1, int a2, uint16_t* a3) {
 	int v3;    // edi
@@ -10281,24 +10205,6 @@ int sub_489FF0(int a1, int a2, const void* a3) {
 int sub_48A020(int a1, uint32_t* a2) {
 	*a2 = getMemAt(0x5D4594, 1193388 + 44 * a1);
 	return *getMemU32Ptr(0x5D4594, 1193372 + 4 * a1);
-}
-
-//----- (0048A1D0) --------------------------------------------------------
-int nox_video_checkIsWinNT_48A1D0(int a1) {
-	int v1; // eax
-
-	if (nox_video_windowsPlatformVersion != 5) // Non-NT
-	{
-		v1 = *(uint32_t*)&nox_video_renderTargetFlags;
-		if (a1) {
-			LOBYTE(v1) = nox_video_renderTargetFlags | 0x20;
-		} else {
-			LOBYTE(v1) = nox_video_renderTargetFlags & 0xDF;
-		}
-		*(uint32_t*)&nox_video_renderTargetFlags = v1;
-		sub_444D00();
-	}
-	return (*(uint32_t*)&nox_video_renderTargetFlags >> 5) & 1;
 }
 
 //----- (0048A210) --------------------------------------------------------

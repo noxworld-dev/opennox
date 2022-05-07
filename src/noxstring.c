@@ -476,14 +476,3 @@ void _dprintf(const char* fmt, ...) {
 	OutputDebugStringA(buf);
 	va_end(ap);
 }
-
-void dhexdump(const char* data, unsigned int len) {
-	char tmp[4];
-	unsigned int i;
-
-	for (i = 0; i < len; i++) {
-		sprintf(tmp, "%02X ", (unsigned char)data[i]);
-		OutputDebugStringA(tmp);
-	}
-	OutputDebugStringA("\n");
-}

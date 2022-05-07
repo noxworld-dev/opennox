@@ -1,4 +1,5 @@
-#include "cdrom.h"
+#include "memmap.h"
+#include "defs.h"
 #include "client__gui__window.h"
 #include "common__strman.h"
 

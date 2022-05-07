@@ -172,7 +172,6 @@ wchar_t* sub_444410(int a1);
 void nox_setProfiledMode_4445C0();
 int nox_xxx____crtGetStringTypeA_0_444830();
 int nox_client_drawInitAll_4449D0(int w, int h, int depth, int flags);
-void sub_444D00();
 void sub_444D30();
 void sub_444D50(nox_render_data_t* a1);
 void sub_444D70(nox_render_data_t* a1);

@@ -221,7 +221,6 @@ void sub_4B01A0(int a1);
 char* nox_xxx_partfxAllocSmth_4B01B0();
 int sub_4B0220(size_t a1);
 int sub_4B02D0();
-void sub_4B0610(int a1);
 int sub_4B0650();
 void sub_4B0660();
 void* sub_4B0680(unsigned char a1, unsigned char a2);

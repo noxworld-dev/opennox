@@ -12,7 +12,6 @@ import "C"
 import (
 	"errors"
 	"image"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
@@ -24,14 +23,6 @@ func clientDraw() bool {
 func copyPixBuffer() {
 	noxRendererS.CopyBuffer(noxPixBuffer.img)
 	*memmap.PtrUint32(0x973A20, 496)++
-}
-
-//export sub_444D00
-func sub_444D00() {
-	mu := asMutex(memmap.PtrOff(0x973F18, 168))
-	mu.Lock()
-	defer mu.Unlock()
-	nox_video_setBackBufferCopyFunc2_4AD150()
 }
 
 func resetRenderer(sz image.Point, init bool) error {
@@ -83,24 +74,4 @@ func nox_video_setBackBufSizes_48A3D0(sz image.Point) int {
 	*memmap.PtrUint32(0x973F18, 2348) = uint32(sz.X / 2)
 	C.nox_video_modeXxx_3801780 = 1
 	return 1
-}
-
-//export nox_video_showMovieFrame
-func nox_video_showMovieFrame(s unsafe.Pointer) {
-	panic("TODO")
-	//surf := (*sdl.Surface)(unsafe.Pointer(s))
-	//noxBackbuf.SetBlendMode(sdl.BLENDMODE_NONE)
-	//surf.SetBlendMode(sdl.BLENDMODE_NONE)
-	//
-	//srcRect := surf.ClipRect
-	//dstRect := noxBackbuf.ClipRect
-	//if srcRect.W < dstRect.W {
-	//	dstRect.X = (dstRect.W - srcRect.W) / 2
-	//}
-	//if srcRect.H < dstRect.H {
-	//	dstRect.Y = (dstRect.H - srcRect.H) / 2
-	//}
-	//surf.Blit(&srcRect, noxBackbuf, &dstRect)
-	//
-	//presentFrame()
 }

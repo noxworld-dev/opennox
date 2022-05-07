@@ -4372,27 +4372,6 @@ int sub_4D76E0(int a1) {
 //----- (004D76F0) --------------------------------------------------------
 int sub_4D76F0() { return *getMemU32Ptr(0x5D4594, 1556124); }
 
-//----- (004D7700) --------------------------------------------------------
-bool nox_client_checkQuestExp_SKU2_4D7700() {
-	return true; // License checks, we just allow it
-#if 0
-	HKEY phkResult;   // [esp+8h] [ebp-90h]
-	uint8_t Data[4];     // [esp+Ch] [ebp-8Ch]
-	uint32_t cbData;     // [esp+10h] [ebp-88h]
-	uint32_t Type;       // [esp+14h] [ebp-84h]
-	char SubKey[128]; // [esp+18h] [ebp-80h]
-
-	strcpy(SubKey, "SOFTWARE\\Westwood\\Nox");
-	*(uint32_t*)Data = -1;
-	cbData = 4;
-	if (!RegOpenKeyExA(HKEY_LOCAL_MACHINE, SubKey, 0, 0xF003Fu, &phkResult)) {
-		RegQueryValueExA(phkResult, "SKU", 0, &Type, Data, &cbData);
-		RegCloseKey(phkResult);
-	}
-	return *(uint32_t*)Data >= 9472;
-#endif
-}
-
 //----- (004D7790) --------------------------------------------------------
 int nox_xxx_checkAccessToGLava_4D7790() {
 	char* v0;            // eax
@@ -4401,72 +4380,6 @@ int nox_xxx_checkAccessToGLava_4D7790() {
 	v0 = nox_fs_root();
 	nox_sprintf(FileName, "%s\\Maps\\G_Lava", v0);
 	return nox_fs_access(FileName, 0) == 0;
-}
-
-//----- (004D77D0) --------------------------------------------------------
-int sub_4D77D0(int a1) {
-	int result;       // eax
-	uint8_t Data[4];  // [esp+0h] [ebp-88h]
-	HKEY phkResult;   // [esp+4h] [ebp-84h]
-	char SubKey[128]; // [esp+8h] [ebp-80h]
-
-	result = a1 - 4096;
-	switch (a1) {
-	case 4096:
-		*(uint32_t*)Data = 9472;
-		goto LABEL_8;
-	case 4098:
-		*(uint32_t*)Data = 9474;
-		goto LABEL_8;
-	case 4099:
-		*(uint32_t*)Data = 9475;
-		goto LABEL_8;
-	case 4101:
-		*(uint32_t*)Data = 9477;
-		goto LABEL_8;
-	case 4102:
-		*(uint32_t*)Data = 9478;
-		goto LABEL_8;
-	case 4105:
-		*(uint32_t*)Data = 9481;
-	LABEL_8:
-		strcpy(SubKey, "SOFTWARE\\Westwood\\Nox");
-		result = RegOpenKeyExA(HKEY_LOCAL_MACHINE, SubKey, 0, 0xF003Fu, &phkResult);
-		if (!result) {
-			RegSetValueExA(phkResult, "SKU", 0, 4u, Data, 4u);
-			result = RegCloseKey(phkResult);
-		}
-		break;
-	default:
-		return result;
-	}
-	return result;
-}
-
-//----- (004D78C0) --------------------------------------------------------
-int nox_common_readSKU_fromRegistry_4D78C0() {
-	int result;       // eax
-	uint8_t Data[4];  // [esp+8h] [ebp-90h]
-	HKEY phkResult;   // [esp+Ch] [ebp-8Ch]
-	uint32_t cbData;  // [esp+10h] [ebp-88h]
-	uint32_t Type;    // [esp+14h] [ebp-84h]
-	char SubKey[128]; // [esp+18h] [ebp-80h]
-
-	strcpy(SubKey, "SOFTWARE\\Westwood\\Nox");
-	*(uint32_t*)Data = -1;
-	cbData = 4;
-	result = RegOpenKeyExA(HKEY_LOCAL_MACHINE, SubKey, 0, 0xF003Fu, &phkResult);
-	if (!result) {
-		RegQueryValueExA(phkResult, "SKU", 0, &Type, Data, &cbData);
-		result = RegCloseKey(phkResult);
-	}
-	if (*(int*)Data < 9472) {
-		result = nox_xxx_checkAccessToGLava_4D7790();
-		if (result == 1) {
-			result = sub_4D77D0(*(int*)Data);
-		}
-	}
-	return result;
 }
 
 //----- (004D7960) --------------------------------------------------------

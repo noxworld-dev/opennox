@@ -441,7 +441,7 @@ void sub_439370(int2* a1, int a2) {
 	int v2;      // eax
 	wchar_t* v3; // eax
 
-	if (!(*(uint8_t*)(a2 + 164) & 0x10) || (LOBYTE(v2) = nox_client_checkQuestExp_SKU2_4D7700(), v2)) {
+	if (!(*(uint8_t*)(a2 + 164) & 0x10) || (1)) {
 		sub_439450(a1->field_0, a1->field_4, a1);
 		sub_46B120(*(uint32_t**)&dword_5d4594_815000, 0);
 		nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_815000);
@@ -850,7 +850,7 @@ int nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a4
 			return 0;
 		}
 		// host quest game
-		LOBYTE(v22) = nox_client_checkQuestExp_SKU2_4D7700();
+		LOBYTE(v22) = 1; // has expansion
 		if (!v22) {
 			v23 = nox_strman_loadString_40F1D0("GeneralPrint:InformExpansion", 0,
 											   "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 2013);

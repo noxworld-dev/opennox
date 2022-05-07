@@ -14,7 +14,6 @@ unsigned int sub_48C690(int a1, int a2, int a3, int a4);
 unsigned int sub_48C6B0(int a1, int a2);
 double sub_48C6D0(float a1, float a2, float a3, float a4);
 double sub_48C700(float a1, float a2);
-int nox_client_winVerGetMajor_48C870(char* printOut);
 int nox_xxx_showObserverWindow_48CA70(int a1);
 int sub_48CA90();
 int sub_48CAB0();

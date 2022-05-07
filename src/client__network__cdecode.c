@@ -471,10 +471,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 	wchar_t v405[256];        // [esp+1350h] [ebp-400h]
 	wchar_t v406[256];        // [esp+1550h] [ebp-200h]
 
-	if (sz) {
-		// dhexdump((uint8_t*)data, sz);
-	}
-
 	unsigned char* end = data + sz;
 	v364 = 0;
 	sub_470A80();

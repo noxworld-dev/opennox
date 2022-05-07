@@ -127,7 +127,6 @@ int sub_430B30();
 int sub_430B50(int a1, int a2, int a3, int a4);
 char* sub_430B80(uint32_t* a1);
 void sub_430BB0(uint32_t* a1, uint32_t* a2, uint32_t* a3);
-void nox_video_resizewnd(int w, int h, int d);
 void sub_430C30_set_video_max(int w, int h);
 void nox_xxx_screenGetSize_430C50_get_video_max(int* w, int* h);
 int nox_xxx_testMMXSupport_430D40();

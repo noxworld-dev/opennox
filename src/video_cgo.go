@@ -249,14 +249,6 @@ func nox_xxx_screenGetSize_430C50_get_video_max(pw, ph *C.int) {
 	*ph = C.int(sz.Y)
 }
 
-//export nox_video_resizewnd
-func nox_video_resizewnd(w, h, d C.int) {
-	videoResizeView(image.Point{
-		X: int(w),
-		Y: int(h),
-	})
-}
-
 func videoGetGameMode() image.Point {
 	return image.Point{
 		X: int(C.nox_win_width_game),
@@ -281,7 +273,6 @@ func nox_video_setBackBufferCopyFunc_4AD100() error {
 	return nil
 }
 
-//export nox_video_setBackBufferCopyFunc2_4AD150
 func nox_video_setBackBufferCopyFunc2_4AD150() {
 	if C.nox_video_renderTargetFlags&0x40 != 0 {
 		panic("not implemented")
@@ -369,7 +360,6 @@ func sub4B0640(fnc func()) {
 
 func sub_4B05D0() {
 	if C.dword_5d4594_1311936 != 0 {
-		C.sub_555500(1)
 		C.dword_5d4594_1311936 = 0
 		*memmap.PtrUint32(0x5D4594, 1311928) = 0
 		if func_5d4594_1311924 != nil {
@@ -445,11 +435,6 @@ func recreateRenderTarget(sz image.Point) error {
 //export nox_getBackbufferPitch
 func nox_getBackbufferPitch() C.int {
 	return C.int(2 * noxPixBuffer.img.Stride)
-}
-
-//export nox_video_getSurfaceData_48A720
-func nox_video_getSurfaceData_48A720(s unsafe.Pointer, outPitch *C.int, outPixels *unsafe.Pointer) C.int {
-	panic("TODO")
 }
 
 //export nox_xxx_makeFillerColor_48BDE0
@@ -768,11 +753,6 @@ func nox_video_initPixbufferRows_486230() {
 	for y := 0; y < sz.Y; y++ {
 		nox_pixbuffer_rows_3798776_arr[y] = unsafe.Pointer(&nox_pixbuffer_3798788_arr[y*2*sz.X])
 	}
-}
-
-//export sub_48B3F0
-func sub_48B3F0(a1 unsafe.Pointer, a2, a3 C.int) C.int {
-	return C.int(noxrend.noxDrawCursor(asImageP(a1), image.Point{X: int(a2), Y: int(a3)}))
 }
 
 func (r *NoxRender) noxDrawCursor(a1 *Image, pos image.Point) int {

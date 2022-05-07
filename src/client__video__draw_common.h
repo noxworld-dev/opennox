@@ -13,7 +13,6 @@
 #include "GAME4.h"
 #include "GAME4_1.h"
 #include "GAME5_2.h"
-#include "cdrom.h"
 #include "client__draw__fx.h"
 #include "client__draw__image.h"
 #include "client__drawable__drawdb.h"
@@ -33,7 +32,6 @@
 #include "defs.h"
 #include "input.h"
 #include "input_common.h"
-#include "movie.h"
 #include "server__network__mapsend.h"
 #include "server__script__builtin.h"
 #include "server__script__script.h"
@@ -44,7 +42,6 @@
 int nox_getBackbufWidth();
 int nox_getBackbufHeight();
 
-#define SDL_Surface void
 #define __m64 void
 
 extern unsigned char byte_581450_9176[160];
@@ -95,7 +92,6 @@ extern uint32_t dword_974854;
 
 extern int g_scaled;
 
-void sub_48B1D0_free_surface(SDL_Surface** a1);
 #ifndef IGNORE_EXTERNS
 
 extern unsigned char byte_5D4594_3804364[160];
@@ -127,9 +123,6 @@ extern short (*dword_6F7C34)();
 extern void (*dword_975240)(uint32_t, uint32_t*, uint32_t*, uint32_t*);
 extern int (*dword_975380)(uint32_t, uint32_t, uint32_t);
 
-extern SDL_Surface* g_surface_973C60;
-extern SDL_Surface* g_surface_973C88;
-
 float nox_video_getGamma();
 void nox_video_setGamma(float v);
 
@@ -148,10 +141,8 @@ enum {
 int nox_video_getFullScreen();
 void nox_video_setFullScreen(int v);
 
-#ifdef USE_SDL
 void change_windowed_fullscreen();
 void updateGamma(int value);
-#endif
 int sub_4338D0();
 void nox_draw_freeColorTables_433C20();
 int sub_433CD0(uint8_t a1, uint8_t a2, uint8_t a3);
@@ -183,10 +174,7 @@ void sub_435550();
 int nox_xxx_GfxInit_444930(int w, int h, int depth, int flags);
 int nox_client_drawXxx_444AC0(int w, int h, int depth, int flags);
 void sub_444C50();
-HDC sub_444F90();
-void sub_444FC0(HDC a1);
 int nox_video_initPixbuffer_486090();
-void nox_video_setBackBufferPtrs_48A190();
 void nox_xxx_directDrawBlitMB_48A220();
 void sub_48A290_call_present();
 int sub_48A5E0();
@@ -196,7 +184,6 @@ void nox_video_minimizeOrMaximize_48A9C0(int a1);
 void sub_48AA40();
 int nox_video_initCursorDrawVars_48B1F0();
 void nox_video_stopCursorDrawThread_48B350();
-int sub_48B3F0(void* a1p, int a2, int a3);
 int nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2);
 bool nox_xxx_makeFillerColor_48BDE0();
 int nox_video_createCursorSurface_48BF70();
@@ -205,11 +192,9 @@ void sub_48C110();
 unsigned char* sub_48C200(void* a1p, int a2, int a3);
 unsigned char* sub_48C320(void* a1p, int a2, int a3);
 int nox_video_setBackBufferCopyFunc_4AD100();
-void nox_video_setBackBufferCopyFunc2_4AD150();
 void nox_video_callCopyBackBuffer_4AD170(void);
 void nox_video_copyBackBuffer2_4AD180();
 void nox_video_copyBackBuffer3_4AD1E0();
-void nox_video_copyBackBuffer_4AD2A0();
 int sub_4B0300(char* a1);
 void sub_4B05D0();
 void sub_4B0640(void* a1);

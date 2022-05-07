@@ -125,7 +125,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 
 	if (a3) {
 		//	OutputDebugStringA("S -> ");
-		//    dhexdump((uint8_t*)operationId, a3);
 	}
 
 	if (a3 <= 0) {

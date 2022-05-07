@@ -474,9 +474,3 @@ func nox_fs_append_text(path *C.char) *C.FILE {
 	}
 	return newFileHandle(&File{File: f, text: true})
 }
-
-//export nox_readHiddenCode_4145F0
-func nox_readHiddenCode_4145F0(dst *C.char) C.int {
-	// this usually reads some hidden code that is then displayed in the legal screen
-	return 0
-}

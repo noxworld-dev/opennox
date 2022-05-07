@@ -25,6 +25,4 @@ int nox_vswprintf(wchar_t* str, const wchar_t* fmt, va_list ap);
 
 void _dprintf(const char* fmt, ...);
 
-void dhexdump(const char* data, unsigned int len);
-
 #endif

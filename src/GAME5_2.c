@@ -427,7 +427,6 @@ unsigned int sub_552FD0(int a1) {
 //----- (00553210) --------------------------------------------------------
 int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int packetSz, int a4) {
 	int out = a4;
-	// dhexdump(packet, packetSz);
 	int pid = (char)packet[0];
 	char p1 = packet[1];
 

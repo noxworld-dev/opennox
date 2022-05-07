@@ -45,7 +45,6 @@
 #include "common__crypt.h"
 #include "input.h"
 #include "input_common.h"
-#include "movie.h"
 #include "operators.h"
 
 extern unsigned char byte_5D4594_3804364[160];
@@ -7264,13 +7263,6 @@ int sub_4B0220(size_t a1) {
 		}
 	}
 	return result;
-}
-
-//----- (004B0610) --------------------------------------------------------
-void sub_4B0610(int a1) {
-	if (dword_5d4594_1311936 && (!*getMemU32Ptr(0x5D4594, 1311932) || a1 == 1)) {
-		sub_555500(1);
-	}
 }
 
 //----- (004B0870) --------------------------------------------------------

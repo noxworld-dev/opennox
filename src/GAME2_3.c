@@ -341,46 +341,6 @@ unsigned sub_48C730(unsigned int a1) {
 	return result;
 }
 
-//----- (0048C870) --------------------------------------------------------
-int nox_client_winVerGetMajor_48C870(char* printOut) {
-	int v1;                                    // esi
-	unsigned char* v2;                         // ebx
-	struct _OSVERSIONINFOA VersionInformation; // [esp+Ch] [ebp-94h]
-
-	memset(&VersionInformation, 0, sizeof(VersionInformation));
-	v1 = 0;
-	v2 = getMemAt(0x587000, 156220);
-	VersionInformation.dwOSVersionInfoSize = 148;
-	if (GetVersionExA(&VersionInformation)) {
-		if (VersionInformation.dwPlatformId) {
-			if (VersionInformation.dwPlatformId == 1) {
-				if (VersionInformation.dwMajorVersion > 4 ||
-					VersionInformation.dwMajorVersion == 4 && VersionInformation.dwMinorVersion) {
-					v1 = 4;
-					v2 = getMemAt(0x587000, 156240);
-				} else if (LOWORD(VersionInformation.dwBuildNumber) <= 0x3E8u) {
-					v1 = 2;
-					v2 = getMemAt(0x587000, 156268);
-				} else {
-					v1 = 3;
-					v2 = getMemAt(0x587000, 156252);
-				}
-			} else if (VersionInformation.dwPlatformId == 2) {
-				v1 = 5;
-				v2 = getMemAt(0x587000, 156280);
-			}
-		} else {
-			v1 = 1;
-			v2 = getMemAt(0x587000, 156228);
-		}
-	}
-	if (printOut) {
-		nox_wsprintfA(printOut, (const char*)getMemAt(0x587000, 156292), VersionInformation.dwMajorVersion,
-					  VersionInformation.dwMinorVersion, LOWORD(VersionInformation.dwBuildNumber), v2);
-	}
-	return v1;
-}
-
 //----- (0048CA70) --------------------------------------------------------
 int nox_xxx_showObserverWindow_48CA70(int a1) { return nox_window_set_hidden(*(int*)&dword_5d4594_1193712, a1); }
 

@@ -391,8 +391,6 @@ func RunArgs(args []string) (gerr error) {
 			return err
 		}
 	}
-	// C.nox_common_readSKU_fromRegistry_4D78C0()
-	// C.fesetround(C.FE_TOWARDZERO)
 	C.nox_xxx_servSetPlrLimit_409F80(32)
 
 	// manual spell cast timeout (in seconds)
@@ -572,7 +570,6 @@ func cleanup() {
 	nox_strman_free_410020()
 	C.nox_netlist_free_40EA70()
 	C.sub_40D0F0()
-	C.sub_40E070()
 	C.sub_4D11D0()
 	C.sub_4D0DA0()
 	C.sub_40C0D0()
