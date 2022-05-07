@@ -7,7 +7,6 @@ void init_data_mix();
 
 void OnLibraryNotice_256();
 void OnLibraryNotice_257();
-void OnLibraryNotice_258();
 void OnLibraryNotice_259(uint32_t arg1);
 void OnLibraryNotice_260(uint32_t arg1, uint32_t arg2, uint32_t arg3);
 void OnLibraryNotice_261();

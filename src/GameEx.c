@@ -225,9 +225,6 @@ char playerDropATrap(int playerObj) {
 	return v8;
 }
 
-//----- (100023E0) --------------------------------------------------------
-void playErrSoundClient() { nox_xxx_clientPlaySoundSpecial_452D80(766, 100); }
-
 //----- (10002680) --------------------------------------------------------
 int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from) {
 	uint32_t* v8; // esi
@@ -381,10 +378,6 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 
 //----- (10002C30) --------------------------------------------------------
 void OnLibraryNotice_256() {}
-void OnLibraryNotice_258() {
-	// is called from exe from here: 0x980650
-	someSwitch = 1;
-}
 void OnLibraryNotice_259(uint32_t arg1) {}
 
 void OnLibraryNotice_262(uint32_t arg1) {}

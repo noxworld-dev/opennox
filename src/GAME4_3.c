@@ -2852,14 +2852,6 @@ void nox_xxx_enactUnitOrder_5339A0(int source, int unit, int orderId) {
 	}
 }
 
-//----- (00533C80) --------------------------------------------------------
-int sub_533C80(int a1, int a2) {
-	float* v2; // ecx
-
-	v2 = getMemFloatPtr(0x587000, 194136 + 8 * *(short*)(a1 + 124));
-	return (*(float*)(a2 + 60) - *(float*)(a1 + 60)) * v2[1] + (*(float*)(a2 + 56) - *(float*)(a1 + 56)) * *v2 > 0.0;
-}
-
 //----- (00533CC0) --------------------------------------------------------
 void nox_xxx_mobCalcDir_533CC0(int a1, float* a2) {
 	float2 v2; // [esp+4h] [ebp-8h]
@@ -9863,19 +9855,6 @@ void nox_xxx_updateCrown_53E1D0(int a1) {
 	}
 }
 
-//----- (0053E2B0) --------------------------------------------------------
-char sub_53E2B0(int a1) {
-	int v1; // eax
-
-	v1 = *(uint32_t*)(a1 + 16);
-	if (!(v1 & 0x1000000)) {
-		LOBYTE(v1) = v1 | 0x40;
-		*(uint32_t*)(a1 + 744) = 0;
-		*(uint32_t*)(a1 + 16) = v1;
-	}
-	return v1;
-}
-
 //----- (0053E2D0) --------------------------------------------------------
 int sub_53E2D0(int a1) {
 	int result; // eax
@@ -12458,78 +12437,6 @@ int nox_xxx_tileCheckByte4_5440A0(int a1) {
 	return 1;
 }
 
-//----- (005440F0) --------------------------------------------------------
-int sub_5440F0(int a1, signed int a2) {
-	int v2;        // ebp
-	int v3;        // ebx
-	int v4;        // edi
-	signed int v5; // eax
-	int v6;        // eax
-	int result;    // eax
-
-	if (a1 < 0 || a1 >= 12 || *(int*)&dword_5d4594_3835356 == -1) {
-		return 0;
-	}
-	v2 = *getMemU32Ptr(0x587000, 283312 + 4 * a1);
-	v3 = getMemByte(0x85B3FC, 28697 + 60 * dword_5d4594_3835356);
-	v4 = getMemByte(0x85B3FC, 28696 + 60 * dword_5d4594_3835356);
-	if (v4 != 3 || v3 != getMemByte(0x85B3FC, 28696 + 60 * dword_5d4594_3835356)) {
-		switch (a1) {
-		case 0:
-		case 3:
-		case 4:
-			v2 = v4 + v2 - 3;
-			break;
-		case 5:
-		case 8:
-		case 9:
-		case 10:
-		case 11:
-			v2 = v2 + 2 * (v3 + v4 - 4) - 4;
-			break;
-		case 6:
-		case 7:
-			v2 = v4 + 2 * v3 - 6 + v2 - 3;
-			break;
-		default:
-			break;
-		}
-	}
-	v5 = a2;
-	if (a2 == -1) {
-		v6 = sub_544240(*(int*)&dword_5d4594_3835356);
-		if (a1 && a1 != 2 && a1 != 4 && a1 != 6) {
-			return nox_xxx_tileCheckByte4_5440A0(v2);
-		}
-		v5 = nox_xxx_mapGenRandFunc_526AC0(0, v6 - 1);
-	}
-	if (!v5) {
-		return nox_xxx_tileCheckByte4_5440A0(v2);
-	}
-	if (a1 != 6 && a1 != 2) {
-		if ((!a1 || a1 == 4) && v5 <= v3 - 3) {
-			goto LABEL_24;
-		}
-		return 0;
-	}
-	if (v5 > v4 - 3) {
-		return 0;
-	}
-LABEL_24:
-	switch (a1) {
-	case 0:
-	case 4:
-		v2 += 2 * v5;
-		return nox_xxx_tileCheckByte4_5440A0(v2);
-	case 2:
-	case 6:
-		result = nox_xxx_tileCheckByte4_5440A0(v5 + v2);
-		break;
-	default:
-		return nox_xxx_tileCheckByte4_5440A0(v2);
-	}
-	return result;
-}
 
 //----- (00544240) --------------------------------------------------------
 int sub_544240(int a1) {
@@ -12541,23 +12448,6 @@ int sub_544240(int a1) {
 		result = getMemByte(0x85B3FC, 28696 + 60 * a1) - 2;
 	}
 	return result;
-}
-
-//----- (00544270) --------------------------------------------------------
-int sub_544270(const char* a1) {
-	int v1;        // ebp
-	const char* i; // edi
-
-	v1 = 0;
-	if (*(int*)&dword_5d4594_251572 <= 0) {
-		return -1;
-	}
-	for (i = (const char*)getMemAt(0x85B3FC, 28644); strcmp(i, a1); i += 60) {
-		if (++v1 >= *(int*)&dword_5d4594_251572) {
-			return -1;
-		}
-	}
-	return v1;
 }
 
 //----- (005442D0) --------------------------------------------------------

@@ -303,9 +303,6 @@ void sub_461060() {
 	dword_5d4594_1049484 = 1;
 }
 
-//----- (00461080) --------------------------------------------------------
-int sub_461080() { return dword_5d4594_1049484; }
-
 //----- (00461090) --------------------------------------------------------
 char* sub_461090(int a1, int a2) {
 	int v2;       // edx
@@ -2730,19 +2727,6 @@ int sub_467590() {
 //----- (004675B0) --------------------------------------------------------
 int sub_4675B0() { return dword_5d4594_1049864; }
 
-//----- (004675C0) --------------------------------------------------------
-int sub_4675C0(int a1) {
-	int result; // eax
-
-	dword_5d4594_1049864 = a1;
-	if (a1 == 5) {
-		result = sub_465CA0();
-	} else {
-		result = sub_462740();
-	}
-	return result;
-}
-
 //----- (004675E0) --------------------------------------------------------
 short sub_4675E0(int a1, short a2, short a3) {
 	char* v3; // eax
@@ -3292,22 +3276,6 @@ int sub_4680B0() {
 	result = dword_5d4594_1064192;
 	if (dword_5d4594_1064192) {
 		v1 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1064192, 1801);
-		nox_window_set_hidden((int)v1, 0);
-		result = v1[9];
-		LOBYTE(result) = result | 4;
-		v1[9] = result;
-	}
-	return result;
-}
-
-//----- (004680E0) --------------------------------------------------------
-int sub_4680E0() {
-	int result;   // eax
-	uint32_t* v1; // esi
-
-	result = dword_5d4594_1064192;
-	if (dword_5d4594_1064192) {
-		v1 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1064192, 1803);
 		nox_window_set_hidden((int)v1, 0);
 		result = v1[9];
 		LOBYTE(result) = result | 4;
@@ -3935,15 +3903,6 @@ int nox_xxx_wndSetIcon_46AE60(int a1, int a2) {
 	return 0;
 }
 
-//----- (0046AE80) --------------------------------------------------------
-int sub_46AE80(int a1, int a2) {
-	if (!a1) {
-		return -2;
-	}
-	*(uint32_t*)(a1 + 84) = a2;
-	return 0;
-}
-
 //----- (0046AEA0) --------------------------------------------------------
 int nox_xxx_wndSetIconLit_46AEA0(int a1, int a2) {
 	if (!a1) {
@@ -4002,18 +3961,6 @@ void* sub_46AF40(void* a1p) {
 	return result;
 }
 
-//----- (0046AF50) --------------------------------------------------------
-int sub_46AF50(int a1, int a2) {
-	int result; // eax
-
-	if (a1 && *(uint8_t*)(a1 + 44) & 0x20) {
-		result = nox_window_call_field_94(a1, 16406, a2, 0);
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
 //----- (0046AF80) --------------------------------------------------------
 int nox_gui_windowCopyDrawData_46AF80(nox_window* win, const void* p) {
 	if (!win) {
@@ -4024,21 +3971,6 @@ int nox_gui_windowCopyDrawData_46AF80(nox_window* win, const void* p) {
 	}
 	memcpy(&win->draw_data, p, sizeof(nox_window_data));
 	return 0;
-}
-
-//----- (0046AFB0) --------------------------------------------------------
-int sub_46AFB0(int a1, void* a2) {
-	int result; // eax
-
-	if (!a1) {
-		return -2;
-	}
-	if (!a2) {
-		return -3;
-	}
-	result = 0;
-	memcpy(a2, (const void*)(a1 + 36), 0x14Cu);
-	return result;
 }
 
 //----- (0046B630) --------------------------------------------------------
@@ -4107,32 +4039,6 @@ int sub_46C610() {
 	*(uint32_t*)&v3[20] = 8;
 	nox_gui_windowCopyDrawData_46AF80((int)v1, v3);
 	return 1;
-}
-
-//----- (0046CCD0) --------------------------------------------------------
-int sub_46CCD0(int a1, int a2) {
-	int result;  // eax
-	char* v3;    // esi
-	char* v4;    // eax
-	char v5[12]; // [esp+Ch] [ebp-18h]
-	char v6[12]; // [esp+18h] [ebp-Ch]
-
-	nox_savegame_nameFromPath_4DC970((char*)(a1 + 4), v5, sizeof(v5));
-	nox_savegame_nameFromPath_4DC970((char*)(a1 + 4), v6, sizeof(v6));
-	if (!strcmp(v5, "AUTOSAVE")) {
-		return -1;
-	}
-	if (!strcmp(v6, "AUTOSAVE")) {
-		return 1;
-	}
-	v3 = sub_4DC9B0((char*)(a1 + 4));
-	v4 = sub_4DC9B0((char*)(a2 + 4));
-	if (v3 == v4) {
-		result = 0;
-	} else {
-		result = (int)v3 <= (int)v4 ? -1 : 1;
-	}
-	return result;
 }
 
 //----- (0046DB80) --------------------------------------------------------
@@ -5139,16 +5045,6 @@ unsigned char* nox_xxx_guiHealthManaColorInit_470B00() {
 		*(uint32_t*)result = 0;
 		result += 24;
 	} while ((int)result < (int)getMemAt(0x5D4594, 1096268));
-	return result;
-}
-
-//----- (00470C20) --------------------------------------------------------
-int sub_470C20(uint32_t* a1, uint32_t* a2) {
-	int result; // eax
-
-	*a1 = dword_5d4594_1090280;
-	result = dword_5d4594_1090284;
-	*a2 = dword_5d4594_1090284;
 	return result;
 }
 

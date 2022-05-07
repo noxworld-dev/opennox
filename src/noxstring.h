@@ -4,7 +4,6 @@
 #include <stdarg.h>
 
 int _nox_wcsicmp(const wchar_t* string1, const wchar_t* string2);
-int nox_wsprintfA(char* lpBuffer, const char* lpFmt, ...);
 wchar_t* nox_wcscat(wchar_t* dest, const wchar_t* src);
 wchar_t* nox_wcschr(wchar_t* nox_wcs, wchar_t wc);
 int nox_wcscmp(const wchar_t* s1, const wchar_t* s2);
@@ -18,7 +17,6 @@ wchar_t* nox_wcstok(wchar_t*, const wchar_t*);
 int nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format, va_list ap);
 int nox_vsnprintf(char* buffer, size_t count, const char* format, va_list ap);
 int nox_vsprintf(char* str, const char* format, va_list ap);
-int nox_snprintf(char* str, size_t size, const char* format, ...);
 int nox_sprintf(char* str, const char* format, ...);
 int nox_swprintf(wchar_t* str, const wchar_t* fmt, ...);
 int nox_vswprintf(wchar_t* str, const wchar_t* fmt, va_list ap);

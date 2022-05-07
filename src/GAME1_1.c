@@ -700,26 +700,6 @@ char sub_419960(int a1, int a2, short a3) {
 	return result;
 }
 
-//----- (004199C0) --------------------------------------------------------
-int sub_4199C0(int a1) {
-	int v1; // esi
-
-	if (!a1) {
-		return 0;
-	}
-	v1 = nox_xxx_getFirstPlayerUnit_4DA7C0();
-	if (!v1) {
-		return 0;
-	}
-	while (*(uint8_t*)(v1 + 52) != *(uint8_t*)(a1 + 57) || !nox_xxx_unitIsCrown_4E7BE0(v1)) {
-		v1 = nox_xxx_getNextPlayerUnit_4DA7F0(v1);
-		if (!v1) {
-			return 0;
-		}
-	}
-	return 1;
-}
-
 //----- (00419A10) --------------------------------------------------------
 double sub_419A10(float a1) {
 	*getMemFloatPtr(0x5D4594, 527672) = a1;
@@ -758,12 +738,6 @@ float nox_double2float(double a1) { return (float)a1; }
 
 //----- (00419B10) --------------------------------------------------------
 int nox_double2int(double a1) { return (int)a1; }
-
-//----- (00419DE0) --------------------------------------------------------
-void sub_419DE0(int a1, void** lpMem) {
-	free(*lpMem);
-	free(lpMem);
-}
 
 //----- (00419E10) --------------------------------------------------------
 int sub_419E10(int a1, int a2) {
@@ -1006,7 +980,6 @@ char* nox_xxx_cliPlrInfoLoadFromFile_41A2E0(char* a1, int a2) {
 			if (result) {
 				if (nox_common_gameFlags_check_40A5C0(2048)) {
 					nox_xxx_set_god_4EF500(0);
-					nox_xxx_set_sage(0);
 				}
 				*getMemU16Ptr(0x5D4594, 527696) = nox_xxx_unitGetHP_4EE780(v3);
 				*getMemU32Ptr(0x5D4594, 527696) = *getMemU16Ptr(0x5D4594, 527696);
@@ -2521,7 +2494,6 @@ int sub_41CC00(char* a1) {
 	int result; // eax
 	int v4;     // edi
 
-	nullsub_5();
 	v1 = nox_xxx_computeServerPlayerDataBufferSize_41CC50(a1);
 	v2 = v1 + 4;
 	result = (int)calloc(1, v1 + 4);
@@ -2533,7 +2505,6 @@ int sub_41CC00(char* a1) {
 	}
 	return result;
 }
-// 467F20: using guessed type void nullsub_5(void);
 
 //----- (0041CC50) --------------------------------------------------------
 int nox_xxx_computeServerPlayerDataBufferSize_41CC50(char* a1) {
@@ -2802,9 +2773,6 @@ int sub_41D530() {
 	}
 	return result;
 }
-
-//----- (0041D5D0) --------------------------------------------------------
-int sub_41D5D0() { return 1; }
 
 //----- (0041D5E0) --------------------------------------------------------
 void sub_41D5E0() {
@@ -3397,9 +3365,6 @@ int sub_41E4B0(int a1) {
 	return result;
 }
 
-//----- (0041E4C0) --------------------------------------------------------
-int sub_41E4C0() { return *getMemU32Ptr(0x5D4594, 528268); }
-
 //----- (0041E4D0) --------------------------------------------------------
 void sub_41E4D0(uint32_t* a1) {
 	uint32_t* v1; // ebx
@@ -3860,18 +3825,6 @@ int sub_41EC00() {
 	return result;
 }
 
-//----- (0041EC10) --------------------------------------------------------
-int sub_41EC10() {
-	int result; // eax
-
-	if (dword_5d4594_529340) {
-		result = *getMemU32Ptr(0x587000, 59616);
-	} else {
-		result = -1;
-	}
-	return result;
-}
-
 //----- (0041EC30) --------------------------------------------------------
 int sub_41EC30() {
 	uint32_t* v0; // ebx
@@ -4162,23 +4115,6 @@ wchar_t* sub_41F140(wchar_t* a1) {
 	return result;
 }
 
-//----- (0041F1C0) --------------------------------------------------------
-int sub_41F1C0(int a1) {
-	uint32_t* v1; // eax
-
-	v1 = *(uint32_t**)&dword_5d4594_529316;
-	if (!dword_5d4594_529316) {
-		return 0;
-	}
-	while (a1 != v1[5]) {
-		v1 = (uint32_t*)v1[9];
-		if (!v1) {
-			return 0;
-		}
-	}
-	return v1[3];
-}
-
 //----- (0041F1E0) --------------------------------------------------------
 int sub_41F1E0(int a1) {
 	int v1; // ecx
@@ -4198,12 +4134,6 @@ int sub_41F1E0(int a1) {
 	}
 	return v2 + 4;
 }
-
-//----- (0041F210) --------------------------------------------------------
-int sub_41F210() { return dword_5d4594_529336; }
-
-//----- (0041F220) --------------------------------------------------------
-int sub_41F220() { return dword_5d4594_529332; }
 
 //----- (0041F230) --------------------------------------------------------
 void sub_41F230(int a1, int a2) {
@@ -4452,12 +4382,6 @@ int sub_41F800(const char* a1) {
 		result = 0;
 	}
 	return result;
-}
-
-//----- (0041F820) --------------------------------------------------------
-void sub_41F820(const char* a1) {
-	sub_41F620((int)a1);
-	sub_41F520(a1);
 }
 
 //----- (0041F840) --------------------------------------------------------
@@ -4842,23 +4766,6 @@ void sub_4201B0(uint32_t* a1) {
 	}
 }
 
-//----- (00420200) --------------------------------------------------------
-void* sub_420200() {
-	int v0; // esi
-
-	v0 = dword_5d4594_534808;
-	if (!dword_5d4594_534808) {
-		return 0;
-	}
-	while (_strcmpi((const char*)(v0 + 24), "chat server")) {
-		v0 = *(uint32_t*)(v0 + 20);
-		if (!v0) {
-			return 0;
-		}
-	}
-	return (void*)v0;
-}
-
 //----- (00420230) --------------------------------------------------------
 int sub_420230(char* a1, uint16_t* a2) {
 	int v2;       // ebx
@@ -5120,60 +5027,6 @@ void sub_4207F0(int a1) {
 	}
 }
 
-//----- (00420B70) --------------------------------------------------------
-int sub_420B70(uint32_t* a1, uint32_t* a2, int (*a3)(uint32_t, int), int a4) {
-	uint32_t* v4; // esi
-
-	if (!a3) {
-		return 0;
-	}
-	v4 = (uint32_t*)*a1;
-	if (!*a1) {
-		return 0;
-	}
-	while (a3(*v4, a4) != 1) {
-		v4 = (uint32_t*)v4[3];
-		if (!v4) {
-			return 0;
-		}
-	}
-	*a2 = v4[1];
-	return *v4;
-}
-
-//----- (00420BE0) --------------------------------------------------------
-int sub_420BE0(int a1, uint32_t* a2) {
-	int* v2;    // ecx
-	bool v3;    // zf
-	int result; // eax
-
-	v2 = *(int**)a1;
-	v3 = *(uint32_t*)a1 == 0;
-	*(uint32_t*)(a1 + 8) = *(uint32_t*)a1;
-	if (v3) {
-		return 0;
-	}
-	*a2 = v2[1];
-	result = *v2;
-	*(uint32_t*)(a1 + 8) = v2[3];
-	return result;
-}
-
-//----- (00420C10) --------------------------------------------------------
-int sub_420C10(int a1, uint32_t* a2) {
-	int* v2;    // ecx
-	int result; // eax
-
-	v2 = *(int**)(a1 + 8);
-	if (!v2) {
-		return 0;
-	}
-	*a2 = v2[1];
-	result = *v2;
-	*(uint32_t*)(a1 + 8) = v2[3];
-	return result;
-}
-
 //----- (00420C40) --------------------------------------------------------
 uint32_t* sub_420C40(int a1, int a2) {
 	uint32_t* result; // eax
@@ -5377,56 +5230,6 @@ void* sub_421430() {
 	}
 	nox_xxx_polygonNextIdx_587000_60352 = 1;
 	return result;
-}
-
-//----- (00420EF0) --------------------------------------------------------
-int sub_420EF0(uint32_t* a1) {
-	unsigned int v1;   // ebp
-	unsigned char* v2; // ebx
-	int v3;            // edi
-	uint32_t* v4;      // eax
-	int v5;            // eax
-	unsigned char* i;  // ecx
-
-	v1 = 1;
-	if (nox_xxx_polygonNextIdx_587000_60352 > 1u) {
-		v2 = getMemAt(0x5D4594, 552496);
-		do {
-			if (*((uint32_t*)v2 - 11)) {
-				v3 = 0;
-				if (*(uint16_t*)v2) {
-					v4 = (uint32_t*)*((uint32_t*)v2 - 5);
-					while (*v4 != *a1) {
-						++v3;
-						++v4;
-						if (v3 >= *(unsigned short*)v2) {
-							goto LABEL_12;
-						}
-					}
-					if (--*(uint16_t*)v2 < 3u) {
-						sub_4212C0((int)(v2 - 128));
-					}
-					memcpy((void*)(*((uint32_t*)v2 - 5) + 4 * v3), (const void*)(*((uint32_t*)v2 - 5) + 4 * v3 + 4),
-						   4 * (*(unsigned short*)v2 - v3));
-				}
-			}
-		LABEL_12:
-			++v1;
-			v2 += 140;
-		} while (v1 < *(int*)&nox_xxx_polygonNextIdx_587000_60352);
-	}
-	v5 = 0;
-	if ((int)*getMemU16Ptr(0x5D4594, 588072) > 0) {
-		for (i = getMemAt(0x5D4594, 534820); *(uint32_t*)i != *a1; i += 4) {
-			if (++v5 >= *getMemU16Ptr(0x5D4594, 588072)) {
-				return sub_420EE0((int)a1);
-			}
-		}
-		--*getMemU16Ptr(0x5D4594, 588072);
-		memcpy(getMemAt(0x5D4594, 534820 + 4 * v5), getMemAt(0x5D4594, 534824 + 4 * v5),
-			   4 * (*getMemU16Ptr(0x5D4594, 588072) - v5));
-	}
-	return sub_420EE0((int)a1);
 }
 
 //----- (00421010) --------------------------------------------------------
@@ -5893,20 +5696,6 @@ int sub_421880(int a1, int a2, float a3) {
 	return 1;
 }
 
-//----- (00421960) --------------------------------------------------------
-int sub_421960(int a1, float a2, int a3) {
-	int* v3;    // eax
-	int result; // eax
-
-	v3 = sub_421990((int2*)a1, a2, a3);
-	if (v3) {
-		result = v3[20];
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
 //----- (00421990) --------------------------------------------------------
 int* sub_421990(int2* a1, float a2, int a3) {
 	int* i; // esi
@@ -5932,66 +5721,6 @@ int* sub_421990(int2* a1, float a2, int a3) {
 		return i;
 	}
 	return 0;
-}
-
-//----- (00421A30) --------------------------------------------------------
-short sub_421A30() {
-	short result;      // ax
-	unsigned int v1;   // edi
-	int v2;            // ebx
-	unsigned char* v3; // eax
-	int v4;            // edx
-	uint32_t* v5;      // ecx
-	bool v6;           // cc
-	unsigned char* v7; // [esp+0h] [ebp-8h]
-	int v8;            // [esp+4h] [ebp-4h]
-
-	result = *getMemU16Ptr(0x5D4594, 588072);
-	if (*getMemU16Ptr(0x5D4594, 588072)) {
-		v8 = 0;
-		if (*getMemU16Ptr(0x5D4594, 588072)) {
-			v7 = getMemAt(0x5D4594, 534820);
-			do {
-				v1 = 1;
-				v2 = 0;
-				if (nox_xxx_polygonNextIdx_587000_60352 <= 1u) {
-					sub_420EE0((int)getMemAt(0x5D4594, 535844 + 16 * *(uint32_t*)v7));
-				} else {
-					v3 = getMemAt(0x5D4594, 552496);
-					while (!v2) {
-						if (*((uint32_t*)v3 - 11)) {
-							v4 = 0;
-							if (*(uint16_t*)v3) {
-								v5 = (uint32_t*)*((uint32_t*)v3 - 5);
-								while (*v5 != *(uint32_t*)v7) {
-									++v4;
-									++v5;
-									if (v4 >= *(unsigned short*)v3) {
-										goto LABEL_14;
-									}
-								}
-								v2 = 1;
-							}
-						}
-					LABEL_14:
-						++v1;
-						v3 += 140;
-						if (v1 >= *(int*)&nox_xxx_polygonNextIdx_587000_60352) {
-							if (v2) {
-								break;
-							}
-							sub_420EE0((int)getMemAt(0x5D4594, 535844 + 16 * *(uint32_t*)v7));
-						}
-					}
-				}
-				result = v8 + 1;
-				v6 = ++v8 < *getMemU16Ptr(0x5D4594, 588072);
-				v7 += 4;
-			} while (v6);
-		}
-		*getMemU16Ptr(0x5D4594, 588072) = 0;
-	}
-	return result;
 }
 
 //----- (00421B10) --------------------------------------------------------
@@ -7420,25 +7149,6 @@ int nox_xxx_parseSoundSetBin_424170(char* a1) {
 	return 1;
 }
 
-//----- (004242C0) --------------------------------------------------------
-void sub_4242C0() {
-	int v0; // esi
-	int v1; // edi
-
-	v0 = dword_5d4594_588120;
-	if (dword_5d4594_588120) {
-		do {
-			v1 = *(uint32_t*)(v0 + 76);
-			free(*(void**)v0);
-			free((void*)v0);
-			v0 = v1;
-		} while (v1);
-		dword_5d4594_588120 = 0;
-	} else {
-		dword_5d4594_588120 = 0;
-	}
-}
-
 //----- (00424300) --------------------------------------------------------
 int nox_xxx_monsterGetSoundSet_424300(int a1) {
 	int result; // eax
@@ -7490,21 +7200,6 @@ const char** nox_xxx_getDefaultSoundSet_424350(const char* a1) {
 	return (const char**)v1;
 }
 
-//----- (004243C0) --------------------------------------------------------
-void* sub_4243C0() { return *(void**)&dword_5d4594_588120; }
-
-//----- (004243D0) --------------------------------------------------------
-int sub_4243D0(int a1) {
-	int result; // eax
-
-	if (a1) {
-		result = *(uint32_t*)(a1 + 76);
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
 // 424460: using guessed type char var_20[32];
 // 424460: using guessed type char var_120[256];
 
@@ -7553,18 +7248,6 @@ int nox_xxx_enchantByName_424880(const char* a1) {
 
 //----- (004248F0) --------------------------------------------------------
 char* sub_4248F0(int a1) { return *(char**)getMemAt(0x587000, 65316 + 4 * a1); }
-
-//----- (00424900) --------------------------------------------------------
-int sub_424900(int a1) {
-	int result;       // eax
-	unsigned char* i; // ecx
-
-	result = 0;
-	for (i = getMemAt(0x587000, 65188); *(uint32_t*)i != a1; i += 4) {
-		++result;
-	}
-	return result;
-}
 
 //----- (00424920) --------------------------------------------------------
 int nox_xxx_getEnchantSpell_424920(int a1) { return *getMemU32Ptr(0x587000, 65188 + 4 * a1); }
@@ -7702,23 +7385,6 @@ int nox_xxx_abilityGetName_0_425260(int a1) {
 	return result;
 }
 
-//----- (00425290) --------------------------------------------------------
-int nox_xxx_abil_425290(wchar_t* a1) {
-	int v1;            // edi
-	unsigned char* v2; // esi
-
-	v1 = 1;
-	v2 = getMemAt(0x5D4594, 599184);
-	while (!*((uint32_t*)v2 + 6) || nox_wcscmp(*(const wchar_t**)v2, a1)) {
-		v2 += 52;
-		++v1;
-		if ((int)v2 >= (int)getMemAt(0x5D4594, 599444)) {
-			return 0;
-		}
-	}
-	return v1;
-}
-
 //----- (004252D0) --------------------------------------------------------
 int nox_xxx_abilityCooldown_4252D0(int a1) { return *getMemU32Ptr(0x5D4594, 599160 + 52 * a1); }
 
@@ -7766,53 +7432,6 @@ int nox_xxx_bookNextKnownAbil_425350(int a1) {
 	}
 	return result;
 }
-
-//----- (00425380) --------------------------------------------------------
-int sub_425380(int a1) {
-	int result;       // eax
-	unsigned char* i; // ecx
-
-	if (!a1) {
-		return 0;
-	}
-	result = a1 - 1;
-	if (a1 - 1 <= 0) {
-		return 0;
-	}
-	for (i = getMemAt(0x5D4594, 599156 + 52 * result); !*(uint32_t*)i; i -= 52) {
-		if (--result <= 0) {
-			return 0;
-		}
-	}
-	return result;
-}
-
-//----- (004253B0) --------------------------------------------------------
-int sub_4253B0(int a1) { return *getMemU32Ptr(0x5D4594, 599156 + 52 * a1); }
-
-//----- (004253D0) --------------------------------------------------------
-int sub_4253D0(int a1) { return *getMemU32Ptr(0x5D4594, 599152 + 52 * a1); }
-
-//----- (004253F0) --------------------------------------------------------
-int sub_4253F0(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 599152 + 52 * a1) = 1;
-	return result;
-}
-
-//----- (00425410) --------------------------------------------------------
-int sub_425410(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 599152 + 52 * a1) = 0;
-	return result;
-}
-
-//----- (00425430) --------------------------------------------------------
-int sub_425430(int a1, int a2) { return (a2 & *getMemU32Ptr(0x5D4594, 599168 + 52 * a1)) != 0; }
 
 //----- (00425450) --------------------------------------------------------
 int sub_425450(int a1) { return *getMemU32Ptr(0x5D4594, 599168 + 52 * a1); }
@@ -8050,40 +7669,6 @@ void sub_4257F0(int* a1, uint32_t* a2) {
 	nox_common_list_append_4258E0((int)v3, a2);
 }
 
-//----- (00425840) --------------------------------------------------------
-void sub_425840(uint32_t* a1, int a2) {
-	uint32_t* result; // eax
-	int* v3;          // edi
-	uint32_t* v4;     // edx
-
-	result = (uint32_t*)*a1;
-	v3 = (int*)a1[1];
-	if ((uint32_t*)*a1 != a1) {
-		v4 = *(uint32_t**)(a2 + 4);
-		*v4 = result;
-		result[1] = v4;
-		*v3 = a2;
-		*(uint32_t*)(a2 + 4) = v3;
-		nox_common_list_clear_425760(a1);
-	}
-}
-
-//----- (00425870) --------------------------------------------------------
-int sub_425870(uint32_t** a1) {
-	int result;    // eax
-	uint32_t** v2; // ecx
-
-	result = 0;
-	v2 = (uint32_t**)*a1;
-	if (*a1 != a1) {
-		do {
-			v2 = (uint32_t**)*v2;
-			++result;
-		} while (v2 != a1);
-	}
-	return result;
-}
-
 //----- (00425890) --------------------------------------------------------
 nox_list_item_t* nox_common_list_getFirstSafe_425890(nox_list_item_t* list) {
 	return nox_common_list_getNextSafe_4258A0(list);
@@ -8181,34 +7766,6 @@ nox_list_item_t* nox_common_list_getNext_425940(nox_list_item_t* list) {
 //----- (00425960) --------------------------------------------------------
 int sub_425960(int a1) {
 	return *(uint32_t*)(*(uint32_t*)(a1 + 4) + 8) != *(uint32_t*)(a1 + 4) ? *(uint32_t*)(a1 + 4) : 0;
-}
-
-//----- (00425980) --------------------------------------------------------
-uint32_t* sub_425980(uint32_t* a1) {
-	uint32_t* result; // eax
-
-	result = (uint32_t*)*a1;
-	if (result == (uint32_t*)result[2]) {
-		result = (uint32_t*)*result;
-		if (result == (uint32_t*)result[2]) {
-			result = 0;
-		}
-	}
-	return result;
-}
-
-//----- (004259A0) --------------------------------------------------------
-int sub_4259A0(int a1) {
-	int result; // eax
-
-	result = *(uint32_t*)(a1 + 4);
-	if (result == *(uint32_t*)(result + 8)) {
-		result = *(uint32_t*)(result + 4);
-		if (result == *(uint32_t*)(result + 8)) {
-			result = 0;
-		}
-	}
-	return result;
 }
 
 //----- (004259C0) --------------------------------------------------------
@@ -8718,50 +8275,6 @@ int sub_4264D0() {
 //----- (00426590) --------------------------------------------------------
 void* sub_426590() { return calloc(1u, 0x144u); }
 
-//----- (004265A0) --------------------------------------------------------
-void sub_4265A0(void* lpMem) {
-	void** v1; // esi
-	int v2;    // ebx
-	int i;     // edi
-
-	if (lpMem) {
-		v1 = (void**)lpMem;
-		v2 = 27;
-		do {
-			if (*v1) {
-				for (i = 0; i < (int)v1[1]; ++i) {
-					free(*((void**)*v1 + 2 * i));
-				}
-				free(*v1);
-			}
-			v1 += 3;
-			--v2;
-		} while (v2);
-		free(lpMem);
-	}
-}
-
-//----- (00426600) --------------------------------------------------------
-int sub_426600(int a1, void (*a2)(uint32_t, uint32_t)) {
-	int* v2;    // edi
-	int v3;     // ebp
-	int result; // eax
-	int i;      // esi
-
-	v2 = (int*)(a1 + 4);
-	v3 = 27;
-	do {
-		result = *v2;
-		for (i = 0; i < *v2; ++i) {
-			a2(*(uint32_t*)(*(v2 - 1) + 8 * i), *(uint32_t*)(*(v2 - 1) + 8 * i + 4));
-			result = *v2;
-		}
-		v2 += 3;
-		--v3;
-	} while (v3);
-	return result;
-}
-
 //----- (004268B0) --------------------------------------------------------
 int sub_4268B0(int a1) {
 	int v1;     // ecx
@@ -8825,23 +8338,6 @@ int nox_xxx_guiCreatureGetName_427240(int a1) {
 	return result;
 }
 
-//----- (00427270) --------------------------------------------------------
-int nox_xxx_guidesTTByName_427270(wchar_t* a1) {
-	int v1;            // edi
-	unsigned char* v2; // esi
-
-	v1 = 1;
-	v2 = getMemAt(0x5D4594, 740104);
-	while (!*((uint32_t*)v2 + 1) || nox_wcscmp(*(const wchar_t**)v2, a1)) {
-		v2 += 28;
-		++v1;
-		if ((int)v2 >= (int)getMemAt(0x5D4594, 741224)) {
-			return 0;
-		}
-	}
-	return v1;
-}
-
 //----- (004272B0) --------------------------------------------------------
 int nox_xxx_creatureIsCharmableByTT_4272B0(int a1) {
 	int result;        // eax
@@ -8899,24 +8395,12 @@ int nox_xxx_bookGetNextCre_427320(int a1) {
 	return result;
 }
 
-//----- (004273A0) --------------------------------------------------------
-int sub_4273A0(int a1) { return *getMemU32Ptr(0x5D4594, 740096 + 28 * a1); }
-
 //----- (004273C0) --------------------------------------------------------
 int sub_4273C0(int a1) {
 	int result; // eax
 
 	result = a1;
 	*getMemU32Ptr(0x5D4594, 740096 + 28 * a1) = 1;
-	return result;
-}
-
-//----- (004273E0) --------------------------------------------------------
-int sub_4273E0(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 740096 + 28 * a1) = 0;
 	return result;
 }
 

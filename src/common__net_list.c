@@ -385,13 +385,6 @@ char* nox_xxx_netlistAdd_40EFA0(int ind, unsigned char* buf, int sz) {
 	return &p->buf[i];
 }
 
-//----- (0040F060) --------------------------------------------------------
-void sub_40F060() {
-	for (int i = 0; i < NOX_PLAYERINFO_MAX; ++i) {
-		nox_netlist_initPlayerBufs_40F020(i);
-	}
-}
-
 //----- (00420A60) --------------------------------------------------------
 void sub_420A60(nox_net_list_t* list, int (*fnc)(unsigned int, int), int a3) {
 	if (!list->first) {

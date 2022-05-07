@@ -8474,9 +8474,6 @@ void sub_5523E0(char a1, int a2) {
 	nox_net_struct2_arr[a2].field_0 = 0;
 }
 
-//----- (00552450) --------------------------------------------------------
-int sub_552450() { return sub_43DE40(0); }
-
 //----- (00552460) --------------------------------------------------------
 void nox_xxx_netMaybeSendAll_552460() {
 	dword_5d4594_2495920 = nox_platform_get_ticks();
@@ -8490,18 +8487,6 @@ void nox_xxx_netMaybeSendAll_552460() {
 		}
 	}
 	*getMemU32Ptr(0x5D4594, 2512888) = dword_5d4594_2495920;
-}
-
-//----- (00552510) --------------------------------------------------------
-int sub_552510(unsigned int a1) {
-	if (a1 >= NOX_NET_STRUCT_MAX) {
-		return 0;
-	}
-	nox_net_struct_t* ns = nox_net_struct_arr[a1];
-	if (!ns) {
-		return 0;
-	}
-	return &ns->data_2_base[2];
 }
 
 //----- (00552540) --------------------------------------------------------

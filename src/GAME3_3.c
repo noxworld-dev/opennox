@@ -1976,9 +1976,6 @@ int* nox_xxx_modifSetItemAttrs_4E4990(nox_object_t* a1p, int* a2) {
 //----- (004E4A70) --------------------------------------------------------
 double nox_xxx_objectGetMass_4E4A70(int a1) { return *(float*)(a1 + 120); }
 
-//----- (004E4A80) --------------------------------------------------------
-int sub_4E4A80(int a1) { return *(uint32_t*)(a1 + 340); }
-
 //----- (004E4A90) --------------------------------------------------------
 int* nox_xxx_setNPCColor_4E4A90(nox_object_t* a1p, unsigned char a2, int a3) {
 	int a1 = a1p;
@@ -4003,19 +4000,6 @@ char nox_xxx_objectToggle_4E7650(int a1) {
 	return result;
 }
 
-//----- (004E7680) --------------------------------------------------------
-int sub_4E7680(int a1) {
-	int result; // eax
-
-	for (result = a1; *(uint16_t*)(a1 + 124) < 0; *(uint16_t*)(a1 + 124) += 256) {
-		;
-	}
-	for (; *(uint16_t*)(a1 + 124) >= 256; *(uint16_t*)(a1 + 124) -= 256) {
-		;
-	}
-	return result;
-}
-
 //----- (004E7700) --------------------------------------------------------
 int sub_4E7700(int a1) {
 	unsigned short* v1; // ecx
@@ -4290,25 +4274,6 @@ int sub_4E7D70(int a1, int a2) {
 	for (i = *(uint32_t*)(a1 + 504); i; i = *(uint32_t*)(i + 496)) {
 		if (a2 & *(uint32_t*)(i + 8)) {
 			++result;
-		}
-	}
-	return result;
-}
-
-//----- (004E7DA0) --------------------------------------------------------
-int sub_4E7DA0(int a1, int a2, int a3) {
-	int result;  // eax
-	uint32_t* i; // ecx
-
-	result = 0;
-	if (!a1 || !a2 || !a3) {
-		return 0;
-	}
-	for (i = *(uint32_t**)(a1 + 504); i; i = (uint32_t*)i[124]) {
-		if (a2 & i[2]) {
-			if (a3 & i[3]) {
-				++result;
-			}
 		}
 	}
 	return result;
@@ -6571,27 +6536,6 @@ int nox_xxx_collideSpellPedestal_4EAD20(int a1, int a2) {
 	return result;
 }
 
-//----- (004EAD50) --------------------------------------------------------
-void nox_xxx_unused_4EAD50(int a1, int a2) {
-	uint32_t* v2; // edi
-	char* v3;     // eax
-
-	if (a2) {
-		if (*(uint8_t*)(a2 + 8) & 4) {
-			v2 = *(uint32_t**)(a1 + 748);
-			if (*(uint16_t*)(*(uint32_t*)(a2 + 748) + 4) < *(uint16_t*)(*(uint32_t*)(a2 + 748) + 8) && *v2 > 0) {
-				if (!nox_xxx_servObjectHasTeam_419130(a1 + 48) ||
-					nox_xxx_servObjectHasTeam_419130(a2 + 48) &&
-						(v3 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(a2 + 52))) != 0 &&
-						nox_xxx_teamCompare2_419180(a1 + 48, v3[57])) {
-					nox_xxx_playerManaAdd_4EEB80(a2, 1);
-					--*v2;
-				}
-			}
-		}
-	}
-}
-
 //----- (004EADF0) --------------------------------------------------------
 void nox_xxx_collideFist_4EADF0(int a1, int a2) {
 	int v2; // eax
@@ -7787,68 +7731,6 @@ char* sub_4ECAA0(char a1) {
 	return result;
 }
 
-//----- (004ECAC0) --------------------------------------------------------
-unsigned char sub_4ECAC0(const char* a1) {
-	unsigned char result; // al
-	unsigned char v2;     // [esp+Ch] [ebp-4h]
-
-	result = 0;
-	v2 = 0;
-	while (strcmp(a1, *(const char**)getMemAt(0x587000, 205304 + 4 * v2))) {
-		v2 = ++result;
-		if (result > 0x10u) {
-			return 0;
-		}
-	}
-	return result;
-}
-
-//----- (004ECB20) --------------------------------------------------------
-char* sub_4ECB20(char* a1) {
-	int v2;           // ecx
-	unsigned char* i; // eax
-	int v4;           // esi
-
-	if (!a1) {
-		return (char*)getMemAt(0x587000, 205676);
-	}
-	v2 = 0;
-	if (!*getMemU32Ptr(0x587000, 205224)) {
-		return 0;
-	}
-	for (i = getMemAt(0x587000, 205224); *((char**)i + 1) != a1; i += 8) {
-		v4 = *((uint32_t*)i + 2);
-		++v2;
-		if (!v4) {
-			return 0;
-		}
-	}
-	return *(char**)getMemAt(0x587000, 205224 + 8 * v2);
-}
-
-//----- (004ECB60) --------------------------------------------------------
-int sub_4ECB60(const char* a1) {
-	const char* v1;    // eax
-	int v2;            // ebp
-	unsigned char* v3; // edi
-
-	v1 = *(const char**)getMemAt(0x587000, 205224);
-	v2 = 0;
-	if (!*getMemU32Ptr(0x587000, 205224)) {
-		return 0;
-	}
-	v3 = getMemAt(0x587000, 205224);
-	while (strcmp(v1, a1)) {
-		v1 = (const char*)*((uint32_t*)v3 + 2);
-		v3 += 8;
-		++v2;
-		if (!v1) {
-			return 0;
-		}
-	}
-	return *getMemU32Ptr(0x587000, 205228 + 8 * v2);
-}
-
 //----- (004ECBD0) --------------------------------------------------------
 int sub_4ECBD0(int a1) {
 	int result; // eax
@@ -7885,25 +7767,6 @@ int sub_4ECC00(const char** a1) {
 		}
 	}
 	return *getMemU32Ptr(0x587000, 205228 + 8 * v2);
-}
-
-//----- (004ECC70) --------------------------------------------------------
-int sub_4ECC70(int a1) {
-	int v1;     // eax
-	int result; // eax
-
-	v1 = *getMemU32Ptr(0x5D4594, 1568032); // FIXME: could be part of netCodeCache struct, but there are no references
-										   // to this function at all
-	if (!*getMemU32Ptr(0x5D4594, 1568032)) {
-		v1 = nox_xxx_getNameId_4E3AA0("TeamBase");
-		*getMemU32Ptr(0x5D4594, 1568032) = v1;
-	}
-	if (*(unsigned short*)(a1 + 4) == v1) {
-		result = sub_4ECC00(*(const char***)(*(uint32_t*)(a1 + 692) + 4));
-	} else {
-		result = 0;
-	}
-	return result;
 }
 
 //----- (004ECCB0) --------------------------------------------------------
@@ -9058,18 +8921,6 @@ int nox_xxx_dropAnkhTradable_4EE370(int a1, int a2, int* a3) { return nox_xxx_dr
 
 //----- (004EE430) --------------------------------------------------------
 int sub_4EE430() { return dword_5d4594_1568260; }
-
-//----- (004EE440) --------------------------------------------------------
-int sub_4EE440(int a1) {
-	int result; // eax
-
-	if (a1) {
-		result = *(uint32_t*)(*(uint32_t*)(a1 + 556) + 8);
-	} else {
-		result = 0;
-	}
-	return result;
-}
 
 //----- (004EE460) --------------------------------------------------------
 void nox_xxx_unitAdjustHP_4EE460(nox_object_t* unitp, int dv) {

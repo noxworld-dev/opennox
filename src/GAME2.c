@@ -424,24 +424,6 @@ int nox_drawable_link_thing(nox_drawable* a1, int i) {
 	return 1;
 }
 
-//----- (0044D2C0) --------------------------------------------------------
-void sub_44D2C0() {
-	for (nox_thing* cur = nox_things_head; cur; cur = cur->next) {
-		if (cur->shape_kind == NOX_SHAPE_BOX) {
-			double r = cur->shape_r;
-
-			nox_shape s;
-			s.kind = NOX_SHAPE_BOX;
-			s.circle_r = r;
-			s.circle_r2 = r * r;
-			nox_shape_box_calc(&s);
-		}
-	}
-}
-
-//----- (0044D310) --------------------------------------------------------
-nox_thing* nox_get_things_head() { return nox_things_head; }
-
 //----- (0044D320) --------------------------------------------------------
 int sub_44D320(int a1) {
 	int result; // eax
@@ -723,25 +705,6 @@ int nox_client_screenFadeXxx_44DB30(int a1, int a2, void (*a3)(void)) {
 	obj->field_5 = a3;
 	obj->field_6 = nox_client_drawFadingScreen_44DD70;
 	nox_client_setScreenFade_44DF90(nox_xxx_cliClearScreen_44DDC0);
-	return 1;
-}
-
-//----- (0044DBA0) --------------------------------------------------------
-int sub_44DBA0(int a1, int a2, void (*a3)(void)) {
-	struc_36* obj = nox_client_newFade_44DF50();
-	if (!obj) {
-		return 0;
-	}
-	int v3 = 1;
-	if (a2) {
-		v3 = 5;
-	}
-	obj->field_0 = v3;
-	obj->field_1 = a1;
-	obj->field_2 = 0;
-	obj->field_3 = 0xFF0000 / a1;
-	obj->field_5 = a3;
-	obj->field_6 = sub_44DDF0;
 	return 1;
 }
 
@@ -1315,12 +1278,6 @@ int nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 	}
 	return result;
 }
-
-//----- (00450560) --------------------------------------------------------
-int sub_450560() { return dword_5d4594_831260; }
-
-//----- (00450570) --------------------------------------------------------
-int sub_450570() { return dword_5d4594_831220; }
 
 //----- (004505E0) --------------------------------------------------------
 int sub_4505E0() {
@@ -2535,15 +2492,6 @@ uint32_t* sub_452E60(uint32_t* a1) {
 	result = a1;
 	*a1 = 0;
 	a1[1] = 0;
-	return result;
-}
-
-//----- (00452E80) --------------------------------------------------------
-uint32_t* sub_452E80(uint32_t* a1) {
-	uint32_t* result; // eax
-
-	result = a1;
-	*a1 = 0;
 	return result;
 }
 
@@ -4422,19 +4370,6 @@ int sub_4571A0(int a1, int a2) {
 	return result;
 }
 
-//----- (00457350) --------------------------------------------------------
-int* sub_457350(unsigned char a1, unsigned char a2) {
-	int* result; // eax
-
-	for (result = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1045668)); result;
-		 result = nox_common_list_getNextSafe_4258A0(result)) {
-		if (result[15] == a1) {
-			result[15] = a2;
-		}
-	}
-	return result;
-}
-
 //----- (004573A0) --------------------------------------------------------
 int sub_4573A0() {
 	int result; // eax
@@ -5214,23 +5149,6 @@ int sub_45A0A0(int a1) {
 	return result;
 }
 
-//----- (0045A0C0) --------------------------------------------------------
-int sub_45A0C0() {
-	int result; // eax
-
-	result = nox_drawable_head_unk1;
-	if (!result) {
-		return 0;
-	}
-	while (!(*(uint32_t*)(result + 120) & 0x2000000)) {
-		result = *(uint32_t*)(result + 368);
-		if (!result) {
-			return 0;
-		}
-	}
-	return result;
-}
-
 //----- (0045A0E0) --------------------------------------------------------
 int sub_45A0E0(int a1) {
 	int result; // eax
@@ -5486,88 +5404,6 @@ uint32_t* nox_xxx_netSpriteByCodeStatic_45A720(int a1) {
 		if (!result) {
 			return 0;
 		}
-	}
-	return result;
-}
-
-//----- (0045A750) --------------------------------------------------------
-int nox_xxx_unused_45A750() {
-	int result;   // eax
-	uint32_t* v1; // edi
-	int v2;       // ecx
-	int v3;       // edx
-	int v4;       // ebp
-	int v5;       // edx
-	int v6;       // esi
-	int v7;       // ecx
-	int v8;       // ebx
-	int v9;       // eax
-	int v10;      // [esp+4h] [ebp-4h]
-
-	result = *getMemU32Ptr(0x852978, 8);
-	v1 = nox_drawable_head_unk1;
-	v10 = *getMemU32Ptr(0x852978, 8);
-	if (v1) {
-		do {
-			if (v1[28] & 0x300000) {
-				v2 = v1[8];
-				if (v2) {
-					v4 = v1[3];
-					v5 = v1[4];
-					v6 = (v1[3] - v2) >> 1;
-					v7 = v6;
-					if (v6 < 0) {
-						v7 = -v6;
-					}
-					if (v7 > 1) {
-						v4 = v1[3] + v6;
-					}
-					v8 = (v1[4] - v1[9]) >> 1;
-					v9 = v8;
-					if (v8 < 0) {
-						v9 = -v8;
-					}
-					if (v9 > 1) {
-						v5 = v1[4] + v8;
-					}
-					result = v6;
-					if (v6 < 0) {
-						result = -v6;
-					}
-					if (result <= 10) {
-						result = (v1[4] - v1[9]) >> 1;
-						if (v8 < 0) {
-							result = -v8;
-						}
-						if (result <= 10) {
-							v1[72] = nox_frame_xxx_2598000;
-							nox_xxx_updateSpritePosition_49AA90(v1, v4, v5);
-							result = v10;
-							if (v1 == (uint32_t*)v10) {
-								if (v6 < 0) {
-									v6 = -v6;
-								}
-								if (v6 > 1) {
-									goto LABEL_30;
-								}
-								if (v8 < 0) {
-									v8 = -v8;
-								}
-								if (v8 > 1) {
-								LABEL_30:
-									nox_xxx_cliUpdateCameraPos_435600(v1[3], v1[4]);
-								}
-							}
-						}
-					}
-				} else {
-					v3 = v1[4];
-					v1[8] = v1[3];
-					v1[9] = v3;
-				}
-			}
-			v1 = (uint32_t*)v1[92];
-		} while (v1);
 	}
 	return result;
 }
@@ -6962,9 +6798,6 @@ void sub_45D810() {
 //----- (0045D9B0) --------------------------------------------------------
 int sub_45D9B0() { return dword_5d4594_1047520; }
 
-//----- (0045D9C0) --------------------------------------------------------
-int nox_xxx_guiSpellTest_45D9C0() { return *getMemU32Ptr(0x5D4594, 1047916) != 0; }
-
 //----- (0045D9D0) --------------------------------------------------------
 int nox_xxx_guiSpellTargetClickSet_45D9D0(int a1) {
 	if (*getMemU32Ptr(0x5D4594, 1047916)) {
@@ -7888,26 +7721,6 @@ void nox_client_trapSetPrev_4603F0() {
 		*getMemU8Ptr(0x5D4594, 1048140) = 2;
 	}
 	*getMemU32Ptr(0x5D4594, 1048144) = getMemAt(0x5D4594, 1047940 + 40 * getMemByte(0x5D4594, 1048140));
-	nox_xxx_clientPlaySoundSpecial_452D80(798, 100);
-}
-
-//----- (00460440) --------------------------------------------------------
-void sub_460440() {
-	uint32_t* result = 0; // eax
-
-	if (nox_xxx_checkKeybTimeout_4160F0(6u, nox_gameFPS >> 1)) {
-		LOBYTE(result) = 0;
-		*getMemU32Ptr(0x5D4594, 1049708) = 0;
-	} else {
-		++*getMemU32Ptr(0x5D4594, 1049708);
-		if (*getMemIntPtr(0x5D4594, 1049708) >= 3) {
-			*getMemU8Ptr(0x5D4594, 1048140) = 2;
-			return;
-		}
-	}
-	*getMemU8Ptr(0x5D4594, 1048140) = (unsigned char)result;
-	*getMemU32Ptr(0x5D4594, 1048144) = getMemAt(0x5D4594, 1047940 + 40 * (unsigned char)result);
-	nox_xxx_setKeybTimeout_4160D0(6);
 	nox_xxx_clientPlaySoundSpecial_452D80(798, 100);
 }
 

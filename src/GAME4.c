@@ -4426,41 +4426,6 @@ void nox_xxx_collide_4FDF90(int a1, int a2) {
 	}
 }
 
-//----- (004FE100) --------------------------------------------------------
-int sub_4FE100(int a1) {
-	int result; // eax
-
-	switch (a1) {
-	case 1:
-	case 2:
-	case 6:
-	case 13:
-	case 15:
-	case 18:
-	case 19:
-	case 20:
-	case 30:
-	case 32:
-	case 33:
-	case 34:
-	case 38:
-	case 51:
-	case 57:
-	case 68:
-	case 69:
-	case 70:
-	case 73:
-	case 129:
-	case 133:
-		result = 1;
-		break;
-	default:
-		result = 0;
-		break;
-	}
-	return result;
-}
-
 //----- (004FE1C0) --------------------------------------------------------
 int nox_xxx_spellGetPhoneme_4FE1C0(int a1, char a2) {
 	char* v2;   // eax
@@ -7257,9 +7222,6 @@ void sub_5018D0() {
 //----- (00501900) --------------------------------------------------------
 int sub_501900(int a1) { return *getMemU32Ptr(0x5D4594, 1570288 + 28 * a1); }
 
-//----- (00501920) --------------------------------------------------------
-int sub_501920(int a1) { return *getMemU32Ptr(0x5D4594, 1570284 + 28 * a1); }
-
 //----- (00501940) --------------------------------------------------------
 int nox_xxx_getSevenDwords3_501940(int a1) { return *getMemU32Ptr(0x5D4594, 1570296 + 28 * a1); }
 
@@ -7346,9 +7308,6 @@ int nox_xxx_gameSetAudioFadeoutMb_501AC0(int a1) {
 	}
 	return result;
 }
-
-//----- (00501AE0) --------------------------------------------------------
-int sub_501AE0() { return dword_5d4594_1599068; }
 
 //----- (00501AF0) --------------------------------------------------------
 int sub_501AF0(int a1, float* a2, float* a3) {
@@ -8097,14 +8056,6 @@ int sub_5029F0(int a1) {
 //----- (00502A20) --------------------------------------------------------
 int sub_502A20() { return dword_5d4594_1599596; }
 
-//----- (00502A30) --------------------------------------------------------
-int sub_502A30(char* a1) {
-	int v1; // eax
-
-	v1 = sub_5029A0(a1);
-	return sub_502D70(v1);
-}
-
 //----- (00502A50) --------------------------------------------------------
 int sub_502A50(char* a1) {
 	int result; // eax
@@ -8136,9 +8087,6 @@ int sub_502AB0(char* a1) {
 	}
 	return result;
 }
-
-//----- (00502AF0) --------------------------------------------------------
-int sub_502AF0() { return strlen(*(const char**)&dword_5d4594_1599592) != 0 ? dword_5d4594_1599592 : 0; }
 
 //----- (00502B10) --------------------------------------------------------
 int sub_502B10() {
@@ -8407,176 +8355,6 @@ int sub_503140() {
 	return result;
 }
 // 503140: using guessed type char NewFileName[2048];
-
-//----- (00503230) --------------------------------------------------------
-FILE* sub_503230(const char* a1, char* a2) {
-	FILE* result;     // eax
-	int v3;           // edx
-	int v4;           // eax
-	char* v5;         // edi
-	unsigned char v6; // cl
-	FILE* v7;         // ebx
-	FILE* v8;         // ebp
-	int v9;           // esi
-	int v10;          // edx
-	int v11;          // ecx
-	int i;            // esi
-	char v13;         // [esp+13h] [ebp-85Dh]
-	int v14;          // [esp+14h] [ebp-85Ch]
-	int v15;          // [esp+18h] [ebp-858h]
-	int v16;          // [esp+1Ch] [ebp-854h]
-	int v17;          // [esp+20h] [ebp-850h]
-	int v18;          // [esp+24h] [ebp-84Ch]
-	int v19;          // [esp+28h] [ebp-848h]
-	int v20;          // [esp+2Ch] [ebp-844h]
-	char v21[64];     // [esp+30h] [ebp-840h]
-	char v22[2048];   // [esp+70h] [ebp-800h]
-
-	result = (FILE*)sub_503140();
-	if (result) {
-		v3 = *getMemU32Ptr(0x587000, 229752);
-		strcpy(v22, (const char*)getMemAt(0x973F18, 42152));
-		v4 = *getMemU32Ptr(0x587000, 229756);
-		v5 = &v22[strlen(v22)];
-		*(uint32_t*)v5 = *getMemU32Ptr(0x587000, 229748);
-		v6 = getMemByte(0x587000, 229760);
-		*((uint32_t*)v5 + 1) = v3;
-		*((uint32_t*)v5 + 2) = v4;
-		v5[12] = v6;
-		result = nox_fs_open(v22);
-		v7 = result;
-		if (result) {
-			v8 = nox_fs_create(*(const char**)&dword_5d4594_1599588);
-			if (v8) {
-				nox_fs_fread(v7, &v17, 4);
-				nox_fs_fwrite(v8, &v17, 4);
-				while (1) {
-					nox_fs_fread(v7, &v16, 4);
-					v9 = v16;
-					if (!v16) {
-						break;
-					}
-					nox_fs_fread(v7, &v14, 1);
-					nox_fs_fread(v7, v21, (unsigned char)v14);
-					v10 = (unsigned char)v14;
-					v11 = -1 - (unsigned char)v14;
-					v21[(unsigned char)v14] = 0;
-					v20 = v11 + v9;
-					if (!strcmp(v21, a1)) {
-						LOBYTE(v15) = strlen(a2);
-						v19 = v16 + (unsigned char)v15 - v10;
-						nox_fs_fwrite(v8, &v19, 4);
-						nox_fs_fwrite(v8, &v15, 1);
-						nox_fs_fwrite(v8, a2, (unsigned char)v15);
-					} else {
-						nox_fs_fwrite(v8, &v16, 4);
-						nox_fs_fwrite(v8, &v14, 1);
-						nox_fs_fwrite(v8, v21, (unsigned char)v14);
-					}
-					for (i = v20; i; --i) {
-						nox_fs_fread(v7, &v13, 1);
-						nox_fs_fwrite(v8, &v13, 1);
-					}
-				}
-				v18 = 0;
-				nox_fs_fwrite(v8, &v18, 4);
-				nox_fs_close(v7);
-				nox_fs_close(v8);
-				sub_502B10();
-				result = (FILE*)1;
-			} else {
-				nox_fs_close(v7);
-				result = 0;
-			}
-		}
-	}
-	return result;
-}
-// 503230: using guessed type char var_800[2048];
-// 503230: using guessed type char var_840[64];
-
-//----- (005034B0) --------------------------------------------------------
-int sub_5034B0(char* a1) {
-	int v1;            // edx
-	short v2;          // ax
-	char* v3;          // edi
-	char* v4;          // eax
-	FILE* v5;          // esi
-	int result;        // eax
-	FILE* v7;          // ebx
-	int v8;            // edi
-	int v9;            // edi
-	int v10;           // edi
-	int v11;           // edi
-	unsigned char v12; // [esp+Fh] [ebp-105Dh]
-	int v13;           // [esp+10h] [ebp-105Ch]
-	char v14;          // [esp+17h] [ebp-1055h]
-	int v15;           // [esp+18h] [ebp-1054h]
-	int v16;           // [esp+1Ch] [ebp-1050h]
-	int v17;           // [esp+20h] [ebp-104Ch]
-	int v18;           // [esp+24h] [ebp-1048h]
-	int v19;           // [esp+28h] [ebp-1044h]
-	char v20[64];      // [esp+2Ch] [ebp-1040h]
-	char v21[4096];    // [esp+6Ch] [ebp-1000h]
-
-	v1 = *getMemU32Ptr(0x587000, 229776);
-	strcpy(v21, (const char*)getMemAt(0x973F18, 42152));
-	v2 = *getMemU16Ptr(0x587000, 229780);
-	v3 = &v21[strlen(v21)];
-	*(uint32_t*)v3 = *getMemU32Ptr(0x587000, 229772);
-	*((uint32_t*)v3 + 1) = v1;
-	*((uint16_t*)v3 + 4) = v2;
-	v4 = (char*)sub_502A90();
-	sub_502DA0(v4);
-	v5 = sub_502E50(a1);
-	if (v5) {
-		v7 = nox_fs_create(v21);
-		if (v7) {
-			nox_fs_fread(v5, &v17, 4);
-			v8 = v17;
-			nox_fs_fread(v5, &v13, 1);
-			nox_fs_fread(v5, v20, (unsigned char)v13);
-			v9 = -1 - (unsigned char)v13 + v8;
-			v20[(unsigned char)v13] = 0;
-			nox_fs_fread(v5, &v14, 1);
-			nox_fs_fread(v5, &v12, 1);
-			nox_fs_fread(v5, &v19, 4);
-			nox_fs_fread(v5, &v18, 4);
-			v10 = v9 - 10;
-			if (v12 > 1u) {
-				nox_fs_fread(v5, &v16, 4);
-				nox_fs_fseek_cur(v5, v16);
-				v10 += -4 - v16;
-			}
-			nox_fs_fread(v5, &v15, 4);
-			v11 = v10 - 4;
-			if (v15 == -889266515) {
-				v15 = -1410467122;
-				nox_fs_fwrite(v7, &v15, 4);
-				for (; v11; --v11) {
-					nox_fs_fread(v5, &v13, 1);
-					nox_fs_fwrite(v7, &v13, 1);
-				}
-				sub_502DF0();
-				nox_fs_close(v7);
-				result = 1;
-			} else {
-				sub_502DF0();
-				nox_fs_close(v7);
-				result = 0;
-			}
-		} else {
-			sub_502DF0();
-			result = 0;
-		}
-	} else {
-		sub_502DF0();
-		result = 0;
-	}
-	return result;
-}
-// 5034B0: using guessed type char var_1000[4096];
-// 5034B0: using guessed type char var_1040[64];
 
 //----- (005036D0) --------------------------------------------------------
 int sub_5036D0(char* a1, const char* lpFileName) {
@@ -9234,29 +9012,6 @@ int sub_504560(int a1, int a2) {
 	return 1;
 }
 
-//----- (005045B0) --------------------------------------------------------
-int sub_5045B0() {
-	int result; // eax
-
-	if (dword_5d4594_1599480 == dword_5d4594_3835396 && *(int*)&dword_5d4594_1599480 != -1 &&
-			dword_5d4594_1599476 != 1 ||
-		(result = nox_xxx_mapgenSaveMap_503830(*(int*)&dword_5d4594_3835396)) != 0) {
-		result = **(uint32_t**)&dword_5d4594_1599548;
-	}
-	return result;
-}
-
-//----- (005045F0) --------------------------------------------------------
-int sub_5045F0(int a1) {
-	int result; // eax
-
-	result = a1;
-	if (a1) {
-		result = *(uint32_t*)(a1 + 484);
-	}
-	return result;
-}
-
 //----- (00504600) --------------------------------------------------------
 uint32_t* sub_504600(const char* a1, int a2, char a3) {
 	uint32_t* v3;     // ebx
@@ -9516,9 +9271,6 @@ int sub_5049E0(int a1) {
 	return result;
 }
 
-//----- (005049F0) --------------------------------------------------------
-int sub_5049F0(FILE* a1, int a2) { return nox_fs_fseek_cur(a1, a2); }
-
 //----- (00504A10) --------------------------------------------------------
 int sub_504A10(int a1) {
 	int* v1; // esi
@@ -9563,90 +9315,6 @@ int sub_504A10(int a1) {
 	free(v1);
 	return 1;
 }
-
-//----- (00504AB0) --------------------------------------------------------
-int sub_504AB0(char* a1) {
-	char* v1;       // eax
-	const char* v2; // eax
-	FILE* v3;       // ebp
-	int result;     // eax
-	FILE* v5;       // esi
-	int v6;         // edi
-	int v7;         // edi
-	char v8;        // [esp+Fh] [ebp-851h]
-	int v9;         // [esp+10h] [ebp-850h]
-	int v10;        // [esp+14h] [ebp-84Ch]
-	int v11;        // [esp+18h] [ebp-848h]
-	int v12;        // [esp+1Ch] [ebp-844h]
-	char v13[64];   // [esp+20h] [ebp-840h]
-	char v14[2048]; // [esp+60h] [ebp-800h]
-
-	v12 = 0;
-	strcpy(v14, (const char*)sub_502A90());
-	sub_502DF0();
-	v1 = (char*)sub_502AF0();
-	sub_502A50(v1);
-	sub_502B10();
-	v2 = (const char*)sub_502A90();
-	v3 = nox_fs_open_rw(v2);
-	if (v3) {
-		v5 = nox_fs_open(a1);
-		if (v5) {
-			nox_fs_fseek_end(v3, -4);
-			nox_fs_fread(v5, &v11, 4u);
-			if (v11 == -889266515) {
-				while (1) {
-					nox_fs_fread(v5, &v10, 4u);
-					v6 = v10;
-					if (!v10) {
-						break;
-					}
-					nox_fs_fread(v5, &v9, 1u);
-					nox_fs_fread(v5, v13, (unsigned char)v9);
-					v7 = -1 - (unsigned char)v9 + v6;
-					v13[(unsigned char)v9] = 0;
-					if (sub_5029A0(v13) == -1) {
-						nox_fs_fwrite(v3, &v10, 4);
-						nox_fs_fwrite(v3, &v9, 1);
-						nox_fs_fwrite(v3, v13, (unsigned char)v9);
-						for (; v7; --v7) {
-							nox_fs_fread(v5, &v8, 1);
-							nox_fs_fwrite(v3, &v8, 1);
-						}
-					} else {
-						nox_fs_fseek_cur(v5, v7);
-					}
-				}
-				nox_fs_fwrite(v3, &v12, 4);
-				nox_fs_close(v3);
-				nox_fs_close(v5);
-				sub_502A50(v14);
-				sub_502B10();
-				result = 1;
-			} else {
-				nox_fs_close(v3);
-				nox_fs_close(v5);
-				sub_502A50(v14);
-				sub_502B10();
-				result = 0;
-			}
-		} else {
-			nox_fs_close(v3);
-			sub_502A50(v14);
-			sub_502B10();
-			result = 0;
-		}
-	} else {
-		sub_502A50(v14);
-		sub_502B10();
-		result = 0;
-	}
-	return result;
-}
-// 504AB0: using guessed type char var_840[64];
-
-//----- (00505050) --------------------------------------------------------
-void* sub_505050() { return *(void**)&dword_5d4594_1599616; }
 
 //----- (00505060) --------------------------------------------------------
 void* sub_505060() {
@@ -10148,12 +9816,6 @@ int nox_xxx_allocVoteArray_5066D0() {
 		result = 1;
 	}
 	return result;
-}
-
-//----- (00506700) --------------------------------------------------------
-void sub_506700() {
-	nox_alloc_class_free_all(*(uint32_t**)&nox_alloc_vote_1599652);
-	dword_5d4594_1599656 = 0;
 }
 
 //----- (00506720) --------------------------------------------------------

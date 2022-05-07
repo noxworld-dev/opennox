@@ -996,30 +996,6 @@ int nox_xxx_mobAction_50A910(int a1) {
 	return result;
 }
 
-//----- (0050AA90) --------------------------------------------------------
-int sub_50AA90(int a1) {
-	int v1;      // edx
-	int v2;      // eax
-	uint32_t* i; // ecx
-	int v5;      // esi
-
-	v1 = *(uint32_t*)(a1 + 748);
-	v2 = *(char*)(v1 + 544);
-	if (v2 < 0) {
-		return 0;
-	}
-	for (i = (uint32_t*)(v1 + 8 * (3 * v2 + 69)); *i != 3; i -= 6) {
-		if (--v2 < 0) {
-			return 0;
-		}
-	}
-	v5 = v1 + 24 * v2 + 564;
-	if (*(uint32_t*)v5) {
-		sub_509FF0(v5);
-	}
-	return *(uint32_t*)v5;
-}
-
 //----- (0050AAE0) --------------------------------------------------------
 int nox_xxx_minimapFirstMonster_50AAE0() {
 	int v0; // eax
@@ -4859,24 +4835,6 @@ int sub_511310() {
 	return 1;
 }
 
-//----- (00511330) --------------------------------------------------------
-void sub_511330(int a1) {
-	int v1; // eax
-
-	v1 = dword_5d4594_2386572;
-	if (dword_5d4594_2386572) {
-		while (*(uint32_t*)(v1 + 8) != a1) {
-			v1 = *(uint32_t*)(v1 + 44);
-			if (!v1) {
-				return;
-			}
-		}
-		if (v1) {
-			sub_511360(v1);
-		}
-	}
-}
-
 //----- (00511360) --------------------------------------------------------
 void sub_511360(int a1) {
 	int v1; // ecx
@@ -8007,14 +7965,6 @@ void* sub_51A100() {
 //----- (0051A130) --------------------------------------------------------
 int sub_51A130() { return dword_5d4594_2388648; }
 
-//----- (0051A140) --------------------------------------------------------
-int sub_51A140(int a1) {
-	unsigned char* v1; // eax
-
-	v1 = getMemAt(0x5D4594, 2387148 + 48 * a1);
-	return v1 && a1 < 32 && *((uint16_t*)v1 + 1) == 1;
-}
-
 //----- (0051A170) --------------------------------------------------------
 int sub_51A170(const char* a1) {
 	int v1;          // ebp
@@ -8033,18 +7983,6 @@ int sub_51A170(const char* a1) {
 		}
 	}
 	return v1;
-}
-
-//----- (0051A1D0) --------------------------------------------------------
-char* sub_51A1D0(int a1) {
-	char* result; // eax
-
-	if (a1 <= -1 || a1 >= 3) {
-		result = 0;
-	} else {
-		result = *(char**)getMemAt(0x587000, 249880 + 4 * a1);
-	}
-	return result;
 }
 
 //----- (0051A500) --------------------------------------------------------
@@ -8527,58 +8465,6 @@ float* sub_51D1A0(float2* a1) {
 	return result;
 }
 
-//----- (0051D1E0) --------------------------------------------------------
-int sub_51D1E0(void* lpMem) {
-	void* v1; // eax
-	char* i;  // esi
-	int v4;   // ebx
-	char* v5; // edi
-
-	if (!lpMem) {
-		return 0;
-	}
-	v1 = nox_xxx_waypointGetList_579860();
-	if (!v1) {
-		return 0;
-	}
-	while (v1 != lpMem) {
-		v1 = (void*)nox_xxx_waypointNext_579870((int)v1);
-		if (!v1) {
-			return 0;
-		}
-	}
-	for (i = (char*)nox_xxx_waypointGetList_579860(); i; i = (char*)nox_xxx_waypointNext_579870((int)i)) {
-		v4 = 0;
-		if (i[476]) {
-			v5 = i + 96;
-			do {
-				if (*((void**)v5 - 1) == lpMem) {
-					sub_51D370((int)i, (int)lpMem, *v5);
-				}
-				++v4;
-				v5 += 8;
-			} while (v4 < (unsigned char)i[476]);
-		}
-	}
-	sub_579B30(lpMem);
-	return 1;
-}
-
-//----- (0051D270) --------------------------------------------------------
-float* sub_51D270(float* a1) {
-	float* result; // eax
-	float2 v2;     // [esp+0h] [ebp-8h]
-
-	result = (float*)nox_xxx_mapGenFixCoords_4D3D90((float2*)a1, &v2);
-	if (result) {
-		result = sub_579AD0(v2.field_0, v2.field_0);
-		if (result) {
-			result = (float*)sub_51D1E0(result);
-		}
-	}
-	return result;
-}
-
 //----- (0051D2C0) --------------------------------------------------------
 int sub_51D2C0(int a1, int a2) { return sub_51D300(a1, a2, getMemByte(0x973F18, 35972)); }
 
@@ -8697,26 +8583,6 @@ float* sub_51D440(float* a1, float* a2) {
 	return result;
 }
 
-//----- (0051D490) --------------------------------------------------------
-int sub_51D490(char* a1) {
-	int v1;         // edi
-	const char* v2; // esi
-
-	if (!a1) {
-		return -1;
-	}
-	v1 = 0;
-	v2 = (const char*)getMemAt(0x85B3FC, 32484);
-	while (_strcmpi(v2, a1)) {
-		v2 += 60;
-		++v1;
-		if ((int)v2 >= (int)getMemAt(0x85B3FC, 43044)) {
-			return -1;
-		}
-	}
-	return v1;
-}
-
 //----- (0051D4D0) --------------------------------------------------------
 int nox_xxx_tileGetDefByName_51D4D0(char* a1) {
 	int v1;         // ebx
@@ -8807,17 +8673,6 @@ int sub_51D8B0(int a1) {
 	}
 	if (*(uint32_t*)a1) {
 		return **(uint32_t**)a1;
-	}
-	return -1;
-}
-
-//----- (0051D8D0) --------------------------------------------------------
-int sub_51D8D0(int a1) {
-	if (!a1) {
-		return -1;
-	}
-	if (*(uint32_t*)a1) {
-		return *(uint32_t*)(*(uint32_t*)a1 + 4);
 	}
 	return -1;
 }

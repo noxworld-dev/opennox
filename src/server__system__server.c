@@ -83,7 +83,6 @@ uint32_t nox_xxx_resetMapInit_1569652 = 0;
 // monster AI?
 nox_server_xxx nox_server_xxx_1599716[NOX_SERVER_XXX_SIZE * NOX_SERVER_XXX_SIZE] = {0};
 
-void nullsub_21(void) {}
 void nullsub_25(uint32_t a1) {}
 
 //----- (00426060) --------------------------------------------------------
@@ -139,9 +138,6 @@ void sub_426060() {
 		*getMemU16Ptr(0x5D4594, 599482) = 0;
 	}
 }
-
-//----- (00446040) --------------------------------------------------------
-int sub_446040() { return dword_5d4594_825768; }
 
 int sub_46DCB0(void) { return sub_46DCC0(); }
 
@@ -207,9 +203,6 @@ void sub_4D10F0(char* a1) {
 		}
 	}
 }
-
-//----- (004D15F0) --------------------------------------------------------
-void nox_xxx____setargv_14_4D15F0() { *getMemU32Ptr(0x5D4594, 1548520) = 1; }
 
 //----- (004D2160) --------------------------------------------------------
 void sub_4D2160() {
@@ -414,15 +407,6 @@ LABEL_31:
 	return result;
 }
 
-//----- (004D7140) --------------------------------------------------------
-int sub_4D7140(int a1) {
-	int result; // eax
-
-	result = a1;
-	dword_5d4594_1556144 = a1;
-	return result;
-}
-
 //----- (004DB160) --------------------------------------------------------
 char* sub_4DB160() { return getMemAt(0x5D4594, 1557900); }
 
@@ -608,9 +592,6 @@ void sub_4DBA30(int a1) {
 		}
 	}
 }
-
-//----- (004DCC00) --------------------------------------------------------
-int sub_4DCC00() { return dword_5d4594_1563064; }
 
 //----- (004DCC80) --------------------------------------------------------
 int nox_xxx_mapLoadRequired_4DCC80() { return *getMemU32Ptr(0x5D4594, 1563072); }
@@ -1016,75 +997,6 @@ void sub_4FC680() {
 		if (v0) {
 			nox_xxx_playerExecuteAbil_4FBB70(v0, *(int*)&dword_5d4594_1569660);
 			dword_5d4594_1569660 = 0;
-		}
-	}
-}
-
-//----- (004FC6D0) --------------------------------------------------------
-void nox_server_xxxInitPlayerUnits_4FC6D0() {
-	char* v1;            // eax
-	int i;               // edi
-	int v3;              // esi
-	int v4;              // eax
-	int v5;              // ebp
-	int j;               // esi
-	int v7;              // eax
-	char FileName[1024]; // [esp+Ch] [ebp-400h]
-
-	if (nox_xxx_resetMapInit_1569652 != 1 && dword_5d4594_1569656 != 1) {
-		return;
-	}
-	if (!nox_xxx_getFirstPlayerUnit_4DA7C0()) {
-		return;
-	}
-	if (nox_common_gameFlags_check_40A5C0(4096)) {
-		if (nox_game_getQuestStage_4E3CC0() == 1) {
-			nox_game_sendQuestStage_4D6960(255);
-			sub_4D7440(1);
-			sub_4D60B0();
-		} else if (!sub_4D6F30() || sub_4D7430()) {
-			if (sub_4D76F0() == 1) {
-				sub_4D6880(255, 1);
-				sub_4D76E0(0);
-				sub_4D7440(1);
-				sub_4D60B0();
-			} else {
-				v1 = nox_fs_root();
-				nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v1);
-				for (i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
-					v3 = *(uint32_t*)(i + 748);
-					v4 = *(uint32_t*)(v3 + 276);
-					if (*(uint32_t*)(v4 + 4792) == 1 && !*(uint32_t*)(v3 + 552) &&
-						nox_xxx_playerSaveToFile_41A140(FileName, *(unsigned char*)(v4 + 2064))) {
-						v5 = sub_419EE0(*(uint8_t*)(*(uint32_t*)(v3 + 276) + 2064));
-						nox_xxx_sendGauntlet_4DCF80(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064), 1);
-						if (!sub_41CFA0(FileName, *(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064)) && !v5) {
-							nox_xxx_sendGauntlet_4DCF80(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064), 0);
-						}
-						nox_fs_remove(FileName);
-					}
-					sub_4D6770(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064));
-				}
-				sub_4D6880(255, 0);
-				sub_4D7440(1);
-				sub_4D60B0();
-			}
-		} else {
-			nox_game_sendQuestStage_4D6960(255);
-			sub_4D7440(1);
-			sub_4D60B0();
-		}
-	} else {
-		nox_xxx_netMsgFadeBegin_4D9800(1, 1);
-	}
-	if (nox_common_gameFlags_check_40A5C0(0x2000)) {
-		if (!nox_common_gameFlags_check_40A5C0(128)) {
-			for (j = nox_xxx_getFirstPlayerUnit_4DA7C0(); j; j = nox_xxx_getNextPlayerUnit_4DA7F0(j)) {
-				v7 = *(uint32_t*)(*(uint32_t*)(j + 748) + 276);
-				if (*(uint8_t*)(v7 + 2064) != 31 && !(*(uint8_t*)(v7 + 3680) & 1)) {
-					nox_xxx_buffApplyTo_4FF380(j, 23, 0, 5);
-				}
-			}
 		}
 	}
 }

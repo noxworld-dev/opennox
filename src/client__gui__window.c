@@ -418,42 +418,6 @@ int nox_xxx_wnd_46B280(int a1, int a2) {
 	return 0;
 }
 
-//----- (0046B2B0) --------------------------------------------------------
-int sub_46B2B0(int a1) {
-	int result; // eax
-
-	result = a1;
-	if (a1) {
-		result = *(unsigned int*)(a1 + 52);
-	}
-	return result;
-}
-
-//----- (0046B5B0) --------------------------------------------------------
-nox_window* nox_client_inWindowByPos_46B5B0(nox_window* root, int x, int y) {
-	if (!root) {
-		return 0;
-	}
-
-	nox_window* cur = root;
-LOOP:
-	for (nox_window* win = cur->field_100; win; win = win->prev) {
-		int px = win->off_x;
-		int py = win->off_y;
-		for (nox_window* win2 = win->parent; win2; win2 = win2->parent) {
-			px += win2->off_x;
-			py += win2->off_y;
-		}
-		if (x >= px && x <= px + win->width && y >= py && y <= py + win->height) {
-			if (win->flags & 8 && !(win->flags & 0x10)) {
-				cur = win;
-				goto LOOP;
-			}
-		}
-	}
-	return cur;
-}
-
 //----- (004AA1F0) --------------------------------------------------------
 char* nox_xxx_wndLoadBorder_4AA1F0() {
 	char* result; // eax

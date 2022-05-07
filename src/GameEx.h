@@ -15,7 +15,6 @@ char playerDropATrap(int playerObj);                      // idb
 void* GameIpParser(int a1, int a2, int a3);
 unsigned int pingAllServersInGameIp(int ebx0, int edi0, int a1, int a2, int a3);
 signed int inputNewIp_(int a1, int ebx0, int a2, int a3, int a4);
-void playErrSoundClient();
 unsigned int invalidIpChecker(unsigned int interval, void* param);
 int startInvalidIpChecker();
 int modifyWndInputHandler(int a1, int a2, int a3, int a4);

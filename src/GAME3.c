@@ -1613,15 +1613,6 @@ int sub_4A49D0(int yTop, int a2) {
 	return 1;
 }
 
-//----- (004A56E0) --------------------------------------------------------
-void* nox_xxx_clearAdminFlag() {
-	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ADMIN);
-	return sub_4602F0();
-}
-
-//----- (004A5700) --------------------------------------------------------
-void nox_xxx_setAdminFlag() { nox_common_setEngineFlag(NOX_ENGINE_FLAG_ADMIN); }
-
 //----- (004A5E90) --------------------------------------------------------
 int sub_4A5E90() {
 	const char** i; // eax
@@ -2734,35 +2725,6 @@ int sub_4A7D50(char* a1) {
 	return result;
 }
 
-//----- (004A7D70) --------------------------------------------------------
-int sub_4A7D70(char* a1) {
-	int result; // eax
-	FILE* v2;   // eax
-	FILE* v3;   // esi
-
-	result = (int)a1;
-	if (a1) {
-		v2 = nox_fs_open_text(a1);
-		v3 = v2;
-		if (!v2) {
-			return 0;
-		}
-		nox_fs_fgets(v2, (char*)getMemAt(0x5D4594, 1308388), 256);
-		if (!nox_fs_feof(v3)) {
-			while (sub_4A7DF0((char*)getMemAt(0x5D4594, 1308388))) {
-				nox_fs_fgets(v3, (char*)getMemAt(0x5D4594, 1308388), 256);
-				if (nox_fs_feof(v3)) {
-					break;
-				}
-			}
-			return 0;
-		}
-		nox_fs_close(v3);
-		result = 1;
-	}
-	return result;
-}
-
 //----- (004A7DF0) --------------------------------------------------------
 int sub_4A7DF0(char* a1) {
 	char* v1;       // ebx
@@ -2788,26 +2750,8 @@ int sub_4A7DF0(char* a1) {
 	return 1;
 }
 
-//----- (004A7E70) --------------------------------------------------------
-char* sub_4A7E70() { return (char*)getMemAt(0x5D4594, 1308644); }
-
 //----- (004A7E80) --------------------------------------------------------
 char* sub_4A7E80() { return (char*)getMemAt(0x5D4594, 1308172); }
-
-//----- (004A7E90) --------------------------------------------------------
-char* sub_4A7E90() { return (char*)getMemAt(0x5D4594, 1308352); }
-
-//----- (004A7EA0) --------------------------------------------------------
-int sub_4A7EA0() { return *getMemU32Ptr(0x5D4594, 1308184); }
-
-//----- (004A7EB0) --------------------------------------------------------
-int sub_4A7EB0() { return *getMemU32Ptr(0x5D4594, 1308740); }
-
-//----- (004A7EC0) --------------------------------------------------------
-char* sub_4A7EC0() { return (char*)getMemAt(0x5D4594, 1308324); }
-
-//----- (004A7ED0) --------------------------------------------------------
-char* sub_4A7ED0() { return (char*)getMemAt(0x5D4594, 1308364); }
 
 //----- (004A7EE0) --------------------------------------------------------
 int sub_4A7EE0() { return *getMemU32Ptr(0x5D4594, 1308188); }
@@ -2823,18 +2767,6 @@ char* sub_4A7F10() { return (char*)getMemAt(0x5D4594, 1308192); }
 
 //----- (004A7F20) --------------------------------------------------------
 int sub_4A7F20() { return *getMemU32Ptr(0x5D4594, 1308348); }
-
-//----- (004A7F30) --------------------------------------------------------
-int sub_4A7F30() { return *getMemU32Ptr(0x5D4594, 1308744); }
-
-//----- (004A7F40) --------------------------------------------------------
-int sub_4A7F40(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 1308744) = a1;
-	return result;
-}
 
 //----- (004A7F50) --------------------------------------------------------
 int nox_xxx_wndButtonProc_4A7F50(nox_window* win, int ev, int a3, int a4) {
@@ -3585,30 +3517,6 @@ int nox_xxx_wndCheckboxProcMB_4A92C0(int a1, int a2, wchar_t* a3, int a4) {
 	return result;
 }
 
-//----- (004A9330) --------------------------------------------------------
-nox_window* nox_gui_newRadioButton_4A9330(nox_window* parent, int a2, int a3, int a4, int a5, int a6,
-										  nox_window_data* draw, nox_radioButton_data* data) {
-	if (!(draw->style & 2)) {
-		return 0;
-	}
-	nox_window* win = nox_window_new(parent, a2, a3, a4, a5, a6, nox_xxx_wndRadioButtonProcPre_4A93C0);
-	if (!win) {
-		return 0;
-	}
-	nox_xxx_wndRadioButtonSetAllFn_4A87E0(win);
-	if (!draw->win) {
-		draw->win = win;
-	}
-	nox_radioButton_data* d = calloc(1, sizeof(nox_radioButton_data));
-	d->field_0 = 0;
-	if (data) {
-		d->field_0 = data->field_0;
-	}
-	win->widget_data = d;
-	nox_gui_windowCopyDrawData_46AF80(win, draw);
-	return win;
-}
-
 //----- (004A93C0) --------------------------------------------------------
 int nox_xxx_wndRadioButtonProcPre_4A93C0(int a1, int a2, wchar_t* a3, int a4) {
 	int v3;      // edi
@@ -3775,53 +3683,6 @@ int sub_4A9A10() {
 	return 1;
 }
 
-//----- (004A9A30) --------------------------------------------------------
-int sub_4A9A30(unsigned char a1, unsigned char a2, unsigned char a3) {
-	int result;        // eax
-	int v4;            // ebp
-	unsigned char* v5; // edi
-	int v6;            // edx
-	int v7;            // ebx
-	unsigned char v8;  // [esp+10h] [ebp-10h]
-	unsigned char v9;  // [esp+14h] [ebp-Ch]
-	unsigned char v10; // [esp+18h] [ebp-8h]
-	int v11;           // [esp+1Ch] [ebp-4h]
-
-	result = 0;
-	v4 = 0x1000000;
-	v11 = 0;
-	v5 = getMemAt(0x5D4594, 1308749);
-	while (*(v5 - 1) != a1 || *v5 != a2 || v5[1] != a3) {
-		v6 = *(v5 - 1);
-		if ((int)v6 - (int)a1 >= 0) {
-			v10 = v6 - a1;
-		} else {
-			v10 = a1 - v6;
-		}
-		if ((int)*v5 - (int)a2 >= 0) {
-			v9 = *v5 - a2;
-		} else {
-			v9 = a2 - *v5;
-		}
-		if ((int)v5[1] - (int)a3 >= 0) {
-			v8 = v5[1] - a3;
-		} else {
-			v8 = a3 - v5[1];
-		}
-		v7 = v9 * v9;
-		if (v8 * v8 + v7 + v10 * v10 < v4) {
-			v4 = v8 * v8 + v7 + v10 * v10;
-			v11 = result;
-		}
-		v5 += 3;
-		++result;
-		if ((int)v5 >= (int)getMemAt(0x5D4594, 1309517)) {
-			return v11;
-		}
-	}
-	return result;
-}
-
 //----- (004A9B20) --------------------------------------------------------
 short sub_4A9B20(int a1) {
 	int v1; // eax
@@ -3834,15 +3695,6 @@ short sub_4A9B20(int a1) {
 			  (getMemByte(0x5D4594, 1308749 + 3 * a1) & 0xF8 | (32 * (getMemByte(0x5D4594, 1308748 + 3 * a1) & 0xF8))));
 	}
 	return v1;
-}
-
-//----- (004A9C50) --------------------------------------------------------
-int sub_4A9C50(int a1) {
-	unsigned short v1; // cx
-
-	HIBYTE(v1) = getMemByte(0x5D4594, 1308750 + 3 * a1);
-	LOBYTE(v1) = getMemByte(0x5D4594, 1308749 + 3 * a1);
-	return getMemByte(0x5D4594, 1308748 + 3 * a1) | (v1 << 8);
 }
 
 //----- (004A9C80) --------------------------------------------------------
@@ -6708,15 +6560,6 @@ char* sub_4AFA70(int a1) {
 	return result;
 }
 
-//----- (004AFAF0) --------------------------------------------------------
-int sub_4AFAF0(uint32_t* a1, int a2) {
-	int result; // eax
-
-	result = a2;
-	*a1 = a2;
-	return result;
-}
-
 //----- (004AFB00) --------------------------------------------------------
 int sub_4AFB00(int a1, int a2) {
 	int result; // eax
@@ -6781,15 +6624,6 @@ int sub_4AFB70(int a1, int a2) {
 	return result;
 }
 
-//----- (004AFB80) --------------------------------------------------------
-int sub_4AFB80(int a1, int a2) {
-	int result; // eax
-
-	result = a2;
-	*(uint32_t*)(a1 + 132) = a2;
-	return result;
-}
-
 //----- (004AFB90) --------------------------------------------------------
 int sub_4AFB90(int a1, int a2) {
 	int result; // eax
@@ -6844,44 +6678,6 @@ int sub_4AFBF0(int a1, int a2) {
 
 	result = a2;
 	*(uint32_t*)(a1 + 100) = a2;
-	return result;
-}
-
-//----- (004AFC00) --------------------------------------------------------
-uint32_t* sub_4AFC00(uint32_t* a1, int a2, int a3, int a4) {
-	uint32_t* result; // eax
-
-	result = a1;
-	a1[26] = a2;
-	a1[27] = a3;
-	a1[28] = a4;
-	return result;
-}
-
-//----- (004AFC20) --------------------------------------------------------
-int sub_4AFC20(int a1, int a2) {
-	int result; // eax
-
-	result = a2;
-	*(uint32_t*)(a1 + 104) = a2;
-	return result;
-}
-
-//----- (004AFC30) --------------------------------------------------------
-int sub_4AFC30(int a1, int a2) {
-	int result; // eax
-
-	result = a2;
-	*(uint32_t*)(a1 + 108) = a2;
-	return result;
-}
-
-//----- (004AFC40) --------------------------------------------------------
-int sub_4AFC40(int a1, int a2) {
-	int result; // eax
-
-	result = a2;
-	*(uint32_t*)(a1 + 112) = a2;
 	return result;
 }
 
@@ -7265,141 +7061,6 @@ int sub_4B0220(size_t a1) {
 	return result;
 }
 
-//----- (004B0870) --------------------------------------------------------
-int sub_4B0870(int* a1) {
-	int v1;            // ebx
-	uint32_t* v2;      // esi
-	int v3;            // ebp
-	int v4;            // eax
-	int v5;            // edx
-	uint8_t* v6;       // esi
-	int v7;            // ebp
-	int result;        // eax
-	int v9;            // ecx
-	uint8_t* v10;      // esi
-	uint8_t* v11;      // esi
-	int v12;           // edi
-	int v13;           // ebp
-	int v14;           // edx
-	uint8_t* v15;      // esi
-	int v16;           // eax
-	bool v17;          // zf
-	int v18;           // [esp+10h] [ebp-44h]
-	int v19;           // [esp+14h] [ebp-40h]
-	int v20;           // [esp+18h] [ebp-3Ch]
-	int v21;           // [esp+20h] [ebp-34h]
-	int v22;           // [esp+24h] [ebp-30h]
-	int v23;           // [esp+28h] [ebp-2Ch]
-	int v24;           // [esp+28h] [ebp-2Ch]
-	unsigned char v25; // [esp+2Ch] [ebp-28h]
-	int v26;           // [esp+2Ch] [ebp-28h]
-	int v27;           // [esp+30h] [ebp-24h]
-	int v28;           // [esp+34h] [ebp-20h]
-	unsigned char v29; // [esp+38h] [ebp-1Ch]
-	int v30;           // [esp+38h] [ebp-1Ch]
-	int v31;           // [esp+3Ch] [ebp-18h]
-	unsigned char v32; // [esp+40h] [ebp-14h]
-	int v33;           // [esp+40h] [ebp-14h]
-	int v34;           // [esp+48h] [ebp-Ch]
-	int v35;           // [esp+4Ch] [ebp-8h]
-	int v36;           // [esp+50h] [ebp-4h]
-	int v37;           // [esp+58h] [ebp+4h]
-
-	v1 = *a1;
-	v2 = (uint32_t*)a1[16];
-	v3 = a1[1];
-	v4 = a1[2];
-	*v2 = 2 * *a1;
-	++v2;
-	*v2 = 2 * v1;
-	++v2;
-	*v2 = -*a1;
-	++v2;
-	*v2 = -*a1;
-	v32 = (unsigned short)(v3 * a1[12]) >> 8;
-	v5 = a1[13];
-	v23 = a1[14];
-	v29 = (unsigned short)(v3 * v5) >> 8;
-	v25 = (unsigned short)(v3 * v23) >> 8;
-	v6 = (char*)v2 + 5;
-	v34 = v32 << 16;
-	v18 = v32 << 16;
-	v7 = -v1;
-	v31 = -v1;
-	v27 = (int)(((((unsigned int)(v4 * a1[12]) >> 8) & 0xFF) - v32) << 16) / v1;
-	v35 = v29 << 16;
-	v19 = v29 << 16;
-	v28 = (int)(((((unsigned int)(v4 * v5) >> 8) & 0xFF) - v29) << 16) / v1;
-	v36 = v25 << 16;
-	v20 = v25 << 16;
-	v30 = (int)(((((unsigned int)(v4 * v23) >> 8) & 0xFF) - v25) << 16) / v1;
-	result = 2 * v1;
-	if (2 * v1) {
-		v33 = 2 * v1;
-		do {
-			v9 = (long long)sqrt((double)(v1 * v1 - v7 * v7));
-			if (v9 < v1) {
-				*v6 = 1;
-				v10 = v6 + 1;
-				*v10 = v1 - v9;
-				v6 = v10 + 1;
-			}
-			v26 = 2 * v9;
-			if (2 * v9) {
-				*v6 = 7;
-				v11 = v6 + 1;
-				v12 = v34;
-				v13 = v35;
-				*v11 = 2 * v9;
-				v6 = v11 + 1;
-				v37 = v36;
-				v21 = v18 / v9;
-				v22 = v19 / v9;
-				v14 = -v9;
-				v24 = v20 / v9;
-				do {
-					*(uint16_t*)v6 = (v37 >> 19) & 0x1F | (8 * (BYTE2(v13) & 0xFC | (32 * (HIWORD(v12) & 0xFFF8))));
-					if (v14 >= 0) {
-						v12 -= v21;
-						v13 -= v22;
-						v37 -= v24;
-					} else {
-						v12 += v21;
-						v13 += v22;
-						v37 += v24;
-					}
-					++v14;
-					v6 += 2;
-					--v26;
-				} while (v26);
-				v7 = v31;
-			}
-			if (v9 < v1) {
-				*v6 = 1;
-				v15 = v6 + 1;
-				*v15 = v1 - v9;
-				v6 = v15 + 1;
-			}
-			if (v7 >= 0) {
-				v19 -= v28;
-				v18 -= v27;
-				v16 = v20 - v30;
-			} else {
-				v19 += v28;
-				v18 += v27;
-				v16 = v30 + v20;
-			}
-			v20 = v16;
-			++v7;
-			result = v33 - 1;
-			v17 = v33 == 1;
-			v31 = v7;
-			--v33;
-		} while (!v17);
-	}
-	return result;
-}
-
 //----- (004B0BC0) --------------------------------------------------------
 int sub_4B0BC0(int a1, int a2, int a3) {
 	int v3;                   // ebp
@@ -7459,162 +7120,6 @@ int sub_4B0BC0(int a1, int a2, int a3) {
 			v4(v8, v9 + v15, v6);
 			result = v13;
 		} while (v13 > v12);
-	}
-	return result;
-}
-
-//----- (004B0F50) --------------------------------------------------------
-int sub_4B0F50(int a1, int a2, int a3) {
-	int v3;     // esi
-	char v4;    // bl
-	int v5;     // edx
-	int result; // eax
-	int v7;     // edi
-	int v8;     // ebp
-	int v9;     // edi
-	int v10;    // esi
-	int v11;    // ebx
-	int v12;    // ebp
-	int v13;    // edx
-	int v14;    // ecx
-	int v15;    // [esp+10h] [ebp-30h]
-	int v16;    // [esp+14h] [ebp-2Ch]
-	int v17;    // [esp+18h] [ebp-28h]
-	int v18;    // [esp+1Ch] [ebp-24h]
-	int v19;    // [esp+20h] [ebp-20h]
-	int v20;    // [esp+24h] [ebp-1Ch]
-	int v21;    // [esp+24h] [ebp-1Ch]
-	int v22;    // [esp+28h] [ebp-18h]
-	int v23;    // [esp+2Ch] [ebp-14h]
-	int v24;    // [esp+30h] [ebp-10h]
-	int v25;    // [esp+30h] [ebp-10h]
-	int v26;    // [esp+34h] [ebp-Ch]
-	int v27;    // [esp+38h] [ebp-8h]
-	int v28;    // [esp+3Ch] [ebp-4h]
-	int v29;    // [esp+44h] [ebp+4h]
-	int v30;    // [esp+48h] [ebp+8h]
-	char v31;   // [esp+4Ch] [ebp+Ch]
-
-	uint8_t** pixbuffer = nox_pixbuffer_rows_3798784;
-
-	v3 = a3;
-	v28 = 0;
-	v20 = 1 - a3;
-	v19 = 5 - 2 * a3;
-	v27 = a3;
-	v26 = 3;
-	v4 = *(uint8_t*)(&nox_draw_curDrawData_3799572->field_61);
-	v17 = nox_draw_curDrawData_3799572->clip.left;
-	v5 = a2;
-	v15 = nox_draw_curDrawData_3799572->clip.bottom;
-	v31 = *(uint8_t*)(&nox_draw_curDrawData_3799572->field_61);
-	result = a2 + v27;
-	v16 = nox_draw_curDrawData_3799572->clip.right;
-	v18 = nox_draw_curDrawData_3799572->clip.top;
-	v24 = a2 + v27;
-	if (a1 >= v17 && a1 < nox_draw_curDrawData_3799572->clip.right && result >= nox_draw_curDrawData_3799572->clip.top && result < v15) {
-		pixbuffer[result][a1] = v4;
-	}
-	v7 = a1 + v3;
-	v30 = a1 + v3;
-	if (a1 + v3 >= v17) {
-		if (v7 < v16 && v5 >= v18 && v5 < v15) {
-			pixbuffer[v5][v30] = v4;
-			v7 = a1 + v3;
-		}
-		if (v7 >= v17 && v7 < v16 && v5 >= v18 && v5 < v15) {
-			pixbuffer[v5][v30] = v4;
-		}
-	}
-	v8 = v5 - v3;
-	if (a1 >= v17) {
-		if (a1 < v16 && v8 >= v18 && v8 < v15) {
-			pixbuffer[v8][a1] = v4;
-		}
-		if (a1 >= v17 && a1 < v16 && v8 >= v18 && v8 < v15) {
-			pixbuffer[v8][a1] = v4;
-		}
-	}
-	v9 = a1 - v3;
-	if (a1 - v3 >= v17) {
-		if (v9 < v16 && v5 >= v18 && v5 < v15) {
-			pixbuffer[v5][v9] = v31;
-			result = v24;
-		}
-		if (v9 >= v17 && v9 < v16 && v5 >= v18 && v5 < v15) {
-			pixbuffer[v5][v9] = v31;
-			result = v24;
-		}
-	}
-	if (a1 >= v17 && a1 < v16 && result >= v18 && result < v15) {
-		pixbuffer[result][a1] = v31;
-		result = v24;
-	}
-	if (v3 > 0) {
-		v10 = a1;
-		v23 = 4 * v5;
-		v22 = 4 * v5;
-		v25 = 4 * result;
-		v11 = 4 * v8;
-		v12 = v18;
-		result = a1;
-		v13 = v5 - a1;
-		v14 = v20;
-		v29 = v11;
-		while (1) {
-			if (v14 >= 0) {
-				v21 = v19 + v14;
-				v19 += 4;
-				--v27;
-				--v30;
-				++v9;
-				v29 += 4;
-				v25 -= 4;
-			} else {
-				v21 = v26 + v14;
-				v19 += 2;
-			}
-			v26 += 2;
-			++v10;
-			++v28;
-			v23 += 4;
-			--result;
-			v22 -= 4;
-			if (v10 >= v17 && v10 < v16 && v13 + v30 >= v12 && v13 + v30 < v15) {
-				pixbuffer[v25 / 4][v10] = v31;
-			}
-			if (v30 >= v17) {
-				if (v30 < v16 && v13 + v10 >= v12 && v13 + v10 < v15) {
-					pixbuffer[v23 / 4][v30] = v31;
-					v12 = v18;
-				}
-				if (v30 < v16 && v13 + result >= v12 && v13 + result < v15) {
-					pixbuffer[v22 / 4][v30] = v31;
-					v12 = v18;
-				}
-			}
-			if (v10 >= v17 && v10 < v16 && v13 + v9 >= v12 && v13 + v9 < v15) {
-				pixbuffer[v29 / 4][v10] = v31;
-			}
-			if (result >= v17 && result < v16 && v13 + v9 >= v12 && v13 + v9 < v15) {
-				pixbuffer[v29 / 4][result] = v31;
-			}
-			if (v9 >= v17 && v9 < v16) {
-				if (v13 + result >= v12 && v13 + result < v15) {
-					pixbuffer[v22 / 4][v9] = v31;
-				}
-				if (v9 < v16 && v13 + v10 >= v12 && v13 + v10 < v15) {
-					pixbuffer[v23 / 4][v9] = v31;
-				}
-			}
-			if (result >= v17 && result < v16 && v13 + v30 >= v12 && v13 + v30 < v15) {
-				pixbuffer[v25 / 4][result] = v31;
-			}
-			if (v27 <= v28) {
-				break;
-			}
-			v14 = v21;
-		}
 	}
 	return result;
 }
@@ -10441,57 +9946,6 @@ LABEL_14:
 	return 0;
 }
 // 4B6CB4: variable 'v8' is possibly undefined
-
-//----- (004B71A0) --------------------------------------------------------
-int sub_4B71A0(uint32_t* a1, int a2) {
-	int v2;     // edx
-	int v3;     // ecx
-	int v4;     // ebx
-	int v5;     // ebx
-	int v6;     // edi
-	int result; // eax
-	int v8;     // eax
-	int v9;     // esi
-	int v10;    // ebp
-	int2 v11;   // [esp+10h] [ebp-8h]
-	int v12;    // [esp+20h] [ebp+8h]
-
-	v2 = *(uint32_t*)(a2 + 16);
-	v3 = *(short*)(a2 + 106);
-	v11.field_0 = *a1 + *(uint32_t*)(a2 + 12) - a1[4];
-	v11.field_4 = a1[1] + v2 - v3 - *(short*)(a2 + 104) - a1[5];
-	*(uint32_t*)(a2 + 432) +=
-		*(uint32_t*)(a2 + 440) * *getMemU32Ptr(0x587000, 192088 + 8 * *(unsigned char*)(a2 + 299));
-	v4 = *(uint32_t*)(a2 + 440) * *getMemU32Ptr(0x587000, 192092 + 8 * *(unsigned char*)(a2 + 299)) +
-		 *(uint32_t*)(a2 + 436);
-	*(uint32_t*)(a2 + 436) = v4;
-	nox_xxx_updateSpritePosition_49AA90((uint32_t*)a2, *(uint32_t*)(a2 + 432) >> 12, v4 >> 12);
-	v5 = *(uint32_t*)(a2 + 444) - *(uint32_t*)(a2 + 448);
-	v6 = *(uint32_t*)(a2 + 444) - nox_frame_xxx_2598000;
-	if (v6 == v5) {
-		--v6;
-	}
-	if (v6 > 0) {
-		if (v11.field_0 - 10 >= *a1 && v11.field_4 - 10 >= a1[1] && v11.field_0 + 10 < a1[2] &&
-			v11.field_4 + 10 < a1[3]) {
-			sub_4B69F0(a2);
-			v8 = 4 * (16 * v6 / v5);
-			v12 = *getMemU32Ptr(0x5D4594, 1313596 + v8);
-			v9 = v8 / 16;
-			v10 = (v8 / 16) >> 1;
-			sub_4B6720(&v11, *getMemU32Ptr(0x5D4594, 1313596 + v8), 2 * (v8 / 16) + 1, 5 * v6 / v5);
-			nox_client_drawSetColor_434460(v12);
-			nox_client_drawRectFilledOpaque_49CE30(v11.field_0 - v10, v11.field_4 - v10, v9, v9);
-		}
-		result = 1;
-	} else {
-		nox_xxx_spriteDeleteStatic_45A4E0_drawable(a2);
-		result = 0;
-	}
-	return result;
-}
-
-// 4B7BE5: variable 'v9' is possibly undefined
 
 //----- (004B7C40) --------------------------------------------------------
 uint32_t* nox_xxx_netHandleSummonPacket_4B7C40(short a1, unsigned short* a2, unsigned short a3, unsigned char a4,

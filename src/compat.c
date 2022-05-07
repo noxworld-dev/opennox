@@ -90,7 +90,6 @@ int HeapDestroy(HANDLE hHeap) {
 char* nox_itoa(int val, char* s, int radix);
 char* nox_utoa(int val, char* s, int radix);
 char* _itoa(int val, char* s, int radix) { return nox_itoa(val, s, radix); }
-char* _utoa(unsigned int val, char* s, int radix) { return nox_utoa(val, s, radix); }
 
 wchar_t* _itow(int val, wchar_t* s, int radix) {
 	char tmp[32];

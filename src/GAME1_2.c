@@ -596,39 +596,6 @@ int sub_428890(short* a1) {
 	return v3;
 }
 
-//----- (00428910) --------------------------------------------------------
-void* sub_428910(void** a1) {
-	unsigned int i; // edi
-	void* result;   // eax
-
-	if (a1[152]) {
-		for (i = 0; i < *(int*)&dword_5d4594_741332; ++i) {
-			free(*((void**)a1[152] + i));
-			*((uint32_t*)a1[152] + i) = 0;
-		}
-		free(a1[152]);
-		a1[152] = 0;
-	}
-	if (a1[153]) {
-		free(a1[153]);
-		a1[153] = 0;
-	}
-	if (a1[154]) {
-		free(a1[154]);
-		a1[154] = 0;
-	}
-	if (a1[155]) {
-		free(a1[155]);
-		a1[155] = 0;
-	}
-	result = a1[159];
-	if (result) {
-		free(a1[159]);
-		a1[159] = 0;
-	}
-	return result;
-}
-
 //----- (004289D0) --------------------------------------------------------
 void* sub_4289D0(void** a1) {
 	unsigned int i; // edi
@@ -3190,66 +3157,6 @@ int sub_42C360(uint32_t* this, int a2) {
 	return result;
 }
 
-//----- (0042C370) --------------------------------------------------------
-uint16_t* sub_42C370(uint16_t* this, uint16_t* a2) {
-	uint16_t* v2;     // edi
-	uint16_t v3;      // ax
-	uint16_t v4;      // ax
-	uint16_t* v5;     // esi
-	uint16_t v6;      // ax
-	void* v7;         // eax
-	int v8;           // ecx
-	int v9;           // ebx
-	uint32_t* v10;    // esi
-	uint16_t v11;     // ax
-	unsigned int v12; // ebp
-	void* v13;        // eax
-	int v14;          // eax
-	int v16;          // [esp+8h] [ebp-8h]
-	uint16_t* v17;    // [esp+Ch] [ebp-4h]
-	int v18;          // [esp+14h] [ebp+4h]
-
-	v2 = this;
-	v3 = *a2;
-	v17 = this;
-	*this = *a2;
-	*this = ntohs(v3);
-	v4 = a2[1];
-	v2[1] = a2[1];
-	v5 = a2 + 2;
-	v2[1] = ntohs(v4);
-	v6 = *v2;
-	*((uint32_t*)v2 + 1) = 0;
-	v16 = v6 - 4;
-	if (v16 <= 0) {
-		return v2;
-	}
-	while (1) {
-		v7 = operator_new(0x10u);
-		v8 = *(uint32_t*)v5;
-		v9 = (int)v7;
-		v10 = v5 + 4;
-		*(uint32_t*)v7 = v8;
-		*((uint32_t*)v7 + 1) = *(v10 - 1);
-		v11 = ntohs(*((uint16_t*)v7 + 3));
-		v12 = v11;
-		v13 = operator_new(v11);
-		*(uint32_t*)(v9 + 8) = v13;
-		memcpy(v13, v10, v12);
-		v14 = -(ntohs(*(uint16_t*)(v9 + 6)) & 3) & 3;
-		v18 = (int)v10 + v14 + v12;
-		v16 += -8 - v14 - v12;
-		sub_42CCE0((uint16_t*)v9);
-		sub_42C360(v17, v9);
-		if (v16 <= 0) {
-			break;
-		}
-		v5 = (uint16_t*)v18;
-	}
-	return v17;
-}
-// 5667CB: using guessed type void * operator_new(unsigned int);
-
 //----- (0042C480) --------------------------------------------------------
 uint16_t* sub_42C480(uint32_t* this, unsigned int* a2) {
 	uint32_t* v2;    // ebx
@@ -3308,63 +3215,8 @@ int sub_42C580(uint32_t* this, char* a2) {
 	return v2;
 }
 
-//----- (0042C5C0) --------------------------------------------------------
-bool sub_42C5C0(uint32_t* this, char* a2, uint8_t* a3) {
-	int v3; // eax
-
-	v3 = sub_42C580(this, a2);
-	if (v3) {
-		*a3 = **(uint8_t**)(v3 + 8);
-	}
-	return v3 != 0;
-}
-
-//----- (0042C5E0) --------------------------------------------------------
-bool sub_42C5E0(uint32_t* this, char* a2, uint8_t* a3) {
-	int v3; // eax
-
-	v3 = sub_42C580(this, a2);
-	if (v3) {
-		*a3 = **(uint8_t**)(v3 + 8);
-	}
-	return v3 != 0;
-}
-
-//----- (0042C600) --------------------------------------------------------
-bool sub_42C600(uint32_t* this, char* a2, uint16_t* a3) {
-	int v3; // eax
-
-	v3 = sub_42C580(this, a2);
-	if (v3) {
-		*a3 = **(uint16_t**)(v3 + 8);
-	}
-	return v3 != 0;
-}
-
-//----- (0042C630) --------------------------------------------------------
-bool sub_42C630(uint32_t* this, char* a2, uint16_t* a3) {
-	int v3; // eax
-
-	v3 = sub_42C580(this, a2);
-	if (v3) {
-		*a3 = **(uint16_t**)(v3 + 8);
-	}
-	return v3 != 0;
-}
-
 //----- (0042C660) --------------------------------------------------------
 bool sub_42C660(uint32_t* this, char* a2, uint32_t* a3) {
-	int v3; // eax
-
-	v3 = sub_42C580(this, a2);
-	if (v3) {
-		*a3 = **(uint32_t**)(v3 + 8);
-	}
-	return v3 != 0;
-}
-
-//----- (0042C680) --------------------------------------------------------
-bool sub_42C680(uint32_t* this, char* a2, uint32_t* a3) {
 	int v3; // eax
 
 	v3 = sub_42C580(this, a2);
@@ -3388,48 +3240,6 @@ bool sub_42C6A0(uint32_t* this, char* a2, char* a3) {
 	return !v4;
 }
 
-//----- (0042C6E0) --------------------------------------------------------
-bool sub_42C6E0(uint32_t* this, char* a2, uint32_t* a3) {
-	int v3; // eax
-
-	v3 = sub_42C580(this, a2);
-	if (v3) {
-		*a3 = **(uint32_t**)(v3 + 8);
-	}
-	return v3 != 0;
-}
-
-//----- (0042C700) --------------------------------------------------------
-bool sub_42C700(uint32_t* this, char* a2, uint32_t* a3) {
-	int v3; // eax
-
-	v3 = sub_42C580(this, a2);
-	if (v3) {
-		*a3 = **(uint32_t**)(v3 + 8);
-	}
-	return v3 != 0;
-}
-
-//----- (0042C720) --------------------------------------------------------
-bool sub_42C720(uint32_t* this, char* a2, void* a3, unsigned int* a4) {
-	int v4;          // eax
-	bool v5;         // zf
-	unsigned int v6; // ecx
-
-	v4 = sub_42C580(this, a2);
-	v5 = v4 == 0;
-	if (v4) {
-		v6 = *(unsigned short*)(v4 + 6);
-		if ((unsigned short)v6 >= (int)*a4) {
-			v6 = *a4;
-		}
-		memcpy(a3, *(const void**)(v4 + 8), v6);
-		*a4 = *(unsigned short*)(v4 + 6);
-		v5 = v4 == 0;
-	}
-	return !v5;
-}
-
 //----- (0042C770) --------------------------------------------------------
 int sub_42C770(void** this) {
 	void** v1;  // ebx
@@ -3444,16 +3254,6 @@ int sub_42C770(void** this) {
 	v1[2] = 0;
 	v1[3] = 0;
 	return result;
-}
-
-//----- (0042C7C0) --------------------------------------------------------
-int sub_42C7C0(int this, char* a2, char a3) {
-	int v3; // esi
-
-	v3 = this;
-	*(uint32_t*)(this + 8) = 0;
-	sub_42C940((void**)this, a2, a3);
-	return v3;
 }
 
 //----- (0042C7F0) --------------------------------------------------------
@@ -3473,16 +3273,6 @@ int sub_42C820(int this, char* a2, char a3) {
 	v3 = this;
 	*(uint32_t*)(this + 8) = 0;
 	sub_42CA00((void**)this, a2, a3);
-	return v3;
-}
-
-//----- (0042C850) --------------------------------------------------------
-int sub_42C850(int this, char* a2, char a3) {
-	int v3; // esi
-
-	v3 = this;
-	*(uint32_t*)(this + 8) = 0;
-	sub_42CA60((void**)this, a2, a3);
 	return v3;
 }
 
@@ -3692,9 +3482,6 @@ void* sub_42CBF0(void** this, char* a2, const void* a3, unsigned short a4) {
 }
 // 5667CB: using guessed type void * operator_new(unsigned int);
 
-//----- (0042CC60) --------------------------------------------------------
-int sub_42CC60(unsigned short* this) { return this[2]; }
-
 //----- (0042CC70) --------------------------------------------------------
 uint16_t sub_42CC70(int this) {
 	int v1;          // esi
@@ -3807,36 +3594,6 @@ int sub_42EB90(int a1) {
 
 //----- (0042EBA0) --------------------------------------------------------
 int sub_42EBA0() { return *getMemU32Ptr(0x5D4594, 754052); }
-
-//----- (0042ED20) --------------------------------------------------------
-void sub_42ED20() {
-	if (!obj_5D4594_754104_switch) {
-		return;
-	}
-	obj_5D4594_754104_switch = 0;
-	if (!ptr_5D4594_754088) {
-		return;
-	}
-	for (int i = 0; i < ptr_5D4594_754088_cnt; i++) {
-		obj_5D4594_754088_t* cur = &ptr_5D4594_754088[i];
-		cur->fnc(cur->field_4);
-	}
-}
-
-//----- (0042ED70) --------------------------------------------------------
-void sub_42ED70() {
-	if (obj_5D4594_754104_switch) {
-		return;
-	}
-	obj_5D4594_754104_switch = 1;
-	if (!ptr_5D4594_754092) {
-		return;
-	}
-	for (int i = 0; i < ptr_5D4594_754092_cnt; i++) {
-		obj_5D4594_754088_t* cur = &ptr_5D4594_754092[i];
-		cur->fnc(cur->field_4);
-	}
-}
 
 //----- (0042EDC0) --------------------------------------------------------
 void sub_42EDC0() {
@@ -4055,9 +3812,6 @@ int* sub_431290() {
 
 //----- (00431330) --------------------------------------------------------
 int sub_431330() { return dword_5d4594_805984 != 0; }
-
-//----- (00431340) --------------------------------------------------------
-int sub_431340() { return 1; }
 
 //----- (00431370) --------------------------------------------------------
 int sub_431370() { return sub_488B60() != 0; }
@@ -4309,68 +4063,6 @@ unsigned char sub_434630(unsigned char a1, unsigned char a2, unsigned char a3) {
 	return result;
 }
 
-//----- (004347C0) --------------------------------------------------------
-char sub_4347C0(char a1) {
-	char result; // al
-	int v2;      // ecx
-
-	result = a1;
-	v2 = 256;
-	do {
-		--v2;
-		*getMemU8Ptr(0x973F18, 3882) = a1;
-		*getMemU8Ptr(0x973F18, 3881) = a1;
-		*getMemU8Ptr(0x973F18, 3880) = a1;
-		*getMemU8Ptr(0x973F18, 3883) = 0;
-	} while (v2);
-	return result;
-}
-
-//----- (00434820) --------------------------------------------------------
-int sub_434820(int a1, char a2, char a3, char a4) {
-	if (a1 < 0 || a1 >= 256) {
-		return 0;
-	}
-	*getMemU8Ptr(0x973F18, 3880 + 4 * a1) = a2;
-	*getMemU8Ptr(0x973F18, 3881 + 4 * a1) = a3;
-	*getMemU8Ptr(0x973F18, 3882 + 4 * a1) = a4;
-	*getMemU8Ptr(0x973F18, 3883 + 4 * a1) = 4;
-	sub_435040();
-	sub_434F00();
-	nox_xxx_makeFillerColor_48BDE0();
-	return 1;
-}
-
-//----- (00434870) --------------------------------------------------------
-int sub_434870(int a1, uint8_t* a2, uint8_t* a3, uint8_t* a4) {
-	if (a1 < 0 || a1 >= 256) {
-		return 0;
-	}
-	if (a2) {
-		*a2 = getMemByte(0x973F18, 3880 + 4 * a1);
-	}
-	if (a3) {
-		*a3 = getMemByte(0x973F18, 3881 + 4 * a1);
-	}
-	if (a4) {
-		*a4 = getMemByte(0x973F18, 3882 + 4 * a1);
-	}
-	return 1;
-}
-
-//----- (00434920) --------------------------------------------------------
-int sub_434920() {
-	int result; // eax
-
-	if (dword_5d4594_808564) {
-		return 0;
-	}
-	result = 1;
-	memcpy(getMemAt(0x5D4594, 808572), getMemAt(0x973F18, 3880), 0x400u);
-	dword_5d4594_808564 = 1;
-	return result;
-}
-
 //----- (00434950) --------------------------------------------------------
 int sub_434950() {
 	if (!dword_5d4594_808564) {
@@ -4387,12 +4079,6 @@ int sub_434950() {
 char sub_434E80(char a1, char a2, char a3) {
 	return *(uint8_t*)((unsigned int)nox_draw_colorTablesRev_3804668 +
 					   (((unsigned char)(a3 & 0xF8) >> 3) | (4 * (a2 & 0xF8)) | ((a1 & 0xF8) << 7)));
-}
-
-//----- (00434EC0) --------------------------------------------------------
-char sub_434EC0(char a1, char a2, char a3) {
-	return *(uint8_t*)((unsigned int)nox_draw_colorTablesRev_3804668 +
-					   (((unsigned char)(a3 & 0xF8) >> 3) | (8 * (a2 & 0xFC)) | ((a1 & 0xF8) << 8)));
 }
 
 //----- (00434F00) --------------------------------------------------------
@@ -4424,27 +4110,6 @@ void sub_435040() {
 	}
 	dword_5d4594_808568 = 0;
 	dword_5d4594_810628 = 0;
-}
-
-//----- (004350E0) --------------------------------------------------------
-uint8_t* sub_4350E0(uint8_t* a1, uint8_t* a2) {
-	uint8_t* v2;     // ecx
-	uint8_t* result; // eax
-	int v4;          // esi
-
-	v2 = a2;
-	result = a1;
-	v4 = 256;
-	do {
-		*result = *v2;
-		result[1] = v2[1];
-		result[2] = v2[2];
-		result[3] = 4;
-		result += 4;
-		v2 += 4;
-		--v4;
-	} while (v4);
-	return result;
 }
 
 //----- (00435120) --------------------------------------------------------
@@ -4496,18 +4161,6 @@ void sub_435150(uint8_t* a1, char* a2) {
 		result = v6 + 1;
 		--v4;
 	} while (v4);
-}
-
-//----- (00435240) --------------------------------------------------------
-void sub_435240(unsigned char a1, uint8_t* a2, uint8_t* a3, char* a4) {
-	int v4;      // eax
-	char result; // al
-
-	v4 = 4 * a1;
-	*a2 = getMemByte(0x973F18, 3880 + v4);
-	*a3 = getMemByte(0x973F18, 3881 + v4);
-	result = getMemByte(0x973F18, 3882 + v4);
-	*a4 = result;
 }
 
 //----- (00435280) --------------------------------------------------------

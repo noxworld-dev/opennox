@@ -289,15 +289,6 @@ int nox_vsnprintf(char* buffer, size_t count, const char* format, va_list ap) {
 
 int nox_vsprintf(char* str, const char* format, va_list ap) { return nox_vsnprintf(str, 0x7fffffff, format, ap); }
 
-int nox_snprintf(char* str, size_t size, const char* format, ...) {
-	int ret;
-	va_list ap;
-	va_start(ap, format);
-	ret = nox_vsnprintf(str, size, format, ap);
-	va_end(ap);
-	return ret;
-}
-
 int nox_sprintf(char* str, const char* format, ...) {
 	int ret;
 	va_list ap;
@@ -447,11 +438,6 @@ long nox_wcstol(const wchar_t* nptr, wchar_t** endptr, int base) {
 
 	free(tmp);
 	return result;
-}
-
-int nox_wsprintfA(char* lpBuffer, const char* lpFmt, ...) {
-	abort();
-	return 0;
 }
 
 int nox_swprintf(wchar_t* str, const wchar_t* fmt, ...) {

@@ -50,19 +50,6 @@ int nox_xxx_log_4_reopen_413A80(char* path) {
 	return 1;
 }
 
-//----- (00413B70) --------------------------------------------------------
-void nox_xxx_log_4_printf_413B70(char* fmt, ...) {
-	va_list va;
-	va_start(va, fmt);
-	nox_vsprintf(nox_log_buf, fmt, va);
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_LOG_TO_FILE)) {
-		nox_fs_fputs_sync(nox_file_log_4, nox_log_buf);
-	}
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_LOG_TO_CONSOLE)) {
-		nox_gui_console_Printf_450C00(NOX_CONSOLE_GREEN, L"%S", nox_log_buf);
-	}
-}
-
 //----- (00413C00) --------------------------------------------------------
 void nox_xxx_log_4_close_413C00() {
 	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_LOG_TO_FILE | NOX_ENGINE_FLAG_LOG_TO_CONSOLE);
