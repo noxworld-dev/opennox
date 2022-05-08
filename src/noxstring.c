@@ -366,17 +366,6 @@ size_t nox_wcsspn(const wchar_t* nox_wcs, const wchar_t* accept) {
 	return i;
 }
 
-wchar_t* nox_wcsstr(wchar_t* haystack, const wchar_t* needle) {
-	size_t i, len = nox_wcslen(needle);
-
-	for (i = 0; haystack[i]; i++) {
-		if (memcmp(&haystack[i], needle, len * sizeof(wchar_t)) == 0)
-			return &haystack[i];
-	}
-
-	return NULL;
-}
-
 wchar_t* nox_wcstok(wchar_t* str, const wchar_t* delim) {
 	static wchar_t* next;
 	size_t i;

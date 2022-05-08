@@ -61,7 +61,6 @@ extern uint32_t dword_5d4594_251728;
 extern uint32_t dword_5d4594_3592;
 extern uint32_t dword_5d4594_805860;
 extern uint32_t dword_5d4594_526276;
-extern uint32_t dword_5d4594_371756;
 extern uint32_t dword_5d4594_251712;
 extern uint32_t nox_xxx_useMMX_587000_80800;
 extern uint32_t dword_5d4594_251708;
@@ -116,16 +115,12 @@ int nox_enable_audio = 1;
 int nox_enable_threads = 1;
 unsigned int nox_video_dxFullScreen = 0;
 unsigned int nox_video_dxUnlockSurface = 0;
-HANDLE* nox_video_cursorDrawThreadHandle;
 
 int nox_server_gameSettingsUpdated; // If you define it as 1-byte bool, the game will crash
 
 extern unsigned int nox_gameFPS;
 
 void cmain_loop(int);
-int g_v20, g_v21;
-int g_argc2;
-char** g_argv2;
 
 int map_download_finish();
 
@@ -314,26 +309,6 @@ unsigned int sub_409B50(const char* a1) {
 
 //----- (00409B80) --------------------------------------------------------
 char* sub_409B80() { return (char*)getMemAt(0x5D4594, 3452); }
-
-//----- (00409B90) --------------------------------------------------------
-char* nox_server_get_current_map_path_409B90() {
-	char* data_path = nox_fs_root();
-	if (!data_path) {
-		return 0;
-	}
-
-	short v1 = *getMemU16Ptr(0x587000, 4736);
-	strcpy((char*)getMemAt(0x5D4594, 2424), data_path);
-	unsigned char v2 = getMemByte(0x587000, 4738);
-	unsigned char* v3 = getMemAt(0x5D4594, 2424 + strlen((const char*)getMemAt(0x5D4594, 2424)));
-	*(uint32_t*)v3 = *getMemU32Ptr(0x587000, 4732);
-	*((uint16_t*)v3 + 2) = v1;
-	v3[6] = v2;
-	strcat((char*)getMemAt(0x5D4594, 2424), nox_xxx_mapGetMapName_409B40());
-	*getMemU16Ptr(0x5D4594, 2424 + strlen((const char*)getMemAt(0x5D4594, 2424))) = *getMemU16Ptr(0x587000, 4740);
-	strcat((char*)getMemAt(0x5D4594, 2424), nox_server_currentMapGetFilename_409B30());
-	return (char*)getMemAt(0x5D4594, 2424);
-}
 
 //----- (00409D70) --------------------------------------------------------
 char* nox_xxx_gameSetMapPath_409D70(char* a1) {
@@ -3091,17 +3066,6 @@ int sub_40E320(int (***a1)(uint32_t, void*, int*), int a2, int a3) {
 		(*(void (**)(int))(*(uint32_t*)v7[0] + 8))(v7[0]);
 	}
 	return v4;
-}
-
-//----- (0040E3D0) --------------------------------------------------------
-int sub_40E3D0(int* this) {
-	int result; // eax
-
-	result = *this;
-	if (*this) {
-		result = (*(int (**)(int))(*(uint32_t*)result + 8))(result);
-	}
-	return result;
 }
 
 //----- (0040E490) --------------------------------------------------------

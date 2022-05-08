@@ -45,7 +45,6 @@
 extern unsigned char byte_5D4594_3804364[160];
 
 extern uint32_t dword_5d4594_1098456;
-extern uint32_t dword_5d4594_1193180;
 extern uint32_t dword_5d4594_1193352;
 extern uint32_t dword_5d4594_1096636;
 extern uint32_t dword_5d4594_3807116;
@@ -53,7 +52,6 @@ extern uint32_t dword_5d4594_1098620;
 extern uint32_t nox_xxx_cursorTypePrev_587000_151528;
 extern uint32_t dword_5d4594_1123520;
 extern uint32_t dword_5d4594_1193188;
-extern uint32_t dword_5d4594_1193176;
 extern uint32_t dword_5d4594_1098596;
 extern uint32_t dword_5d4594_1193336;
 extern uint32_t nox_client_showTooltips_80840;
@@ -81,8 +79,6 @@ extern uint32_t dword_5d4594_3799468;
 extern uint32_t nox_xxx_waypointCounterMB_587000_154948;
 extern uint32_t dword_5d4594_3807160;
 extern uint32_t dword_5d4594_1098592;
-extern uint32_t dword_5d4594_1193184;
-extern uint32_t dword_5d4594_1189600;
 extern uint32_t dword_5d4594_823776;
 extern uint32_t dword_5d4594_1098580;
 extern uint32_t dword_5d4594_2650680;
@@ -91,7 +87,6 @@ extern uint32_t dword_5d4594_805836;
 extern uint32_t dword_5d4594_3799508;
 extern uint32_t dword_5d4594_3798812;
 extern uint32_t dword_5d4594_3798800;
-extern uint32_t dword_5d4594_1193584;
 extern uint32_t dword_5d4594_3798828;
 extern uint64_t qword_581450_9552;
 extern uint64_t qword_581450_9544;
@@ -104,7 +99,6 @@ extern uint32_t nox_client_highResFloors_154952;
 extern uint32_t dword_5d4594_3798808;
 extern uint32_t dword_5d4594_3798832;
 extern uint32_t dword_5d4594_1193384;
-extern uint32_t dword_5d4594_1123532;
 extern uint32_t dword_5d4594_1193348;
 extern int dword_5d4594_3799524;
 extern uint32_t dword_5d4594_3679320;
@@ -118,7 +112,6 @@ extern uint32_t dword_5d4594_251572;
 extern uint32_t dword_5d4594_1098628;
 extern uint32_t dword_5d4594_3798804;
 extern uint32_t dword_5d4594_1098576;
-extern uint32_t dword_5d4594_1193516;
 extern uint32_t dword_5d4594_3798820;
 extern uint32_t dword_5d4594_3798824;
 extern void* dword_587000_155144;
@@ -145,7 +138,6 @@ extern int nox_video_allowCursorDrawThread;
 extern int nox_video_windowsPlatformVersion;
 extern int nox_video_cursorDrawIsThreaded;
 extern unsigned int nox_frame_xxx_2598000;
-extern HANDLE* nox_video_cursorDrawThreadHandle;
 
 extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_red_2589776;
@@ -183,8 +175,6 @@ void* dword_5d4594_1096640 = 0;
 
 void (*func_587000_154940)(int2*, uint32_t, uint32_t) = nox_xxx_tileDraw_4815E0;
 int (*func_587000_154944)(int, int) = nox_xxx_drawTexEdgesProbably_481900;
-
-void (*nox_client_drawAtFunc_3799500)(nox_video_bag_image_t*, int, int) = 0;
 
 void* nox_client_spriteUnderCursorXxx_1096644 = 0;
 
@@ -683,9 +673,6 @@ unsigned int nox_xxx_packetGetMarshall_476F40() {
 	}
 	return result;
 }
-
-//----- (00476F80) --------------------------------------------------------
-void* nox_xxx_spriteGetMB_476F80() { return dword_5d4594_1096640; }
 
 //----- (00476FA0) --------------------------------------------------------
 void nox_xxx_clientEnumHover_476FA0() {
@@ -1893,56 +1880,6 @@ int sub_47A1F0() {
 //----- (0047A260) --------------------------------------------------------
 int sub_47A260() { return dword_5d4594_1123520; }
 
-//----- (0047D090) --------------------------------------------------------
-int sub_47D090(int a1, int a2) {
-	int result;        // eax
-	int v3;            // ecx
-	int v4;            // edi
-	int v5;            // esi
-	int v6;            // ebp
-	char v7;           // dl
-	unsigned char* v8; // eax
-	int v9;            // [esp+0h] [ebp-4h]
-	int v10;           // [esp+Ch] [ebp+8h]
-
-	result = a2;
-	if (a2 > 0) {
-		v3 = dword_5d4594_1189592;
-		v4 = 0;
-		v9 = a2;
-		do {
-			v5 = 0;
-			if (a1 > 0) {
-				v6 = v4;
-				do {
-					v7 = 0;
-					v8 = getMemAt(0x587000, 153689);
-					v10 = 0;
-					do {
-						if (*(uint8_t*)(v3 + v6) == *(v8 - 1) && *(uint8_t*)(v4 + v3 + 819200 + v5 - 409600) == *v8 &&
-							*(uint8_t*)(v4 + v3 + 819200 + v5) == v8[1]) {
-							*(uint8_t*)(v3 + v6) = v7;
-							v3 = dword_5d4594_1189592;
-							v10 = 1;
-						}
-						v8 += 3;
-						++v7;
-					} while ((int)v8 < (int)getMemAt(0x587000, 153710));
-					if (!v10) {
-						*(uint8_t*)(v4 + v3 + v5) = -1;
-						v3 = dword_5d4594_1189592;
-					}
-					++v5;
-					++v6;
-				} while (v5 < a1);
-			}
-			v4 += 640;
-			result = --v9;
-		} while (v9);
-	}
-	return result;
-}
-
 //----- (0047D380) --------------------------------------------------------
 int sub_47D380(int a1, int a2) {
 	int v2; // eax
@@ -1981,15 +1918,6 @@ int sub_47D380(int a1, int a2) {
 		dword_5d4594_3799452 = 1;
 	}
 	return 1;
-}
-
-//----- (0047D3F0) --------------------------------------------------------
-int sub_47D3F0(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x973F18, 44) = a1;
-	return result;
 }
 
 //----- (0047D5C0) --------------------------------------------------------
@@ -2132,11 +2060,6 @@ uint16_t* sub_480250(uint8_t* a1, uint16_t* a2) {
 	return result;
 }
 
-unsigned int sub_480290(void* a1, int a2, int a3, unsigned int* a4, unsigned int* a5) {
-	abort();
-	return 0;
-}
-
 //----- (00480860) --------------------------------------------------------
 void sub_480860(uint16_t* a1, uint16_t* a2, int a3, int* a4, int* a5) {
 	uint16_t* dword_975384 = nox_draw_colors_g_3804656;
@@ -2160,116 +2083,6 @@ void sub_480860(uint16_t* a1, uint16_t* a2, int a3, int* a4, int* a5) {
 		++a2;
 		--a3;
 	}
-}
-
-//----- (00480950) --------------------------------------------------------
-int sub_480950(int* a1, int* a2, int a3, int a4, int a5) {
-	int v5;          // ecx
-	int result;      // eax
-	int v7;          // edx
-	unsigned int v8; // eax
-	int v9;          // edi
-	int v10;         // ecx
-	int v11;         // edx
-	int* v12;        // eax
-	int v13;         // edi
-	int v14;         // ebx
-	int v15;         // edx
-	int v16;         // ebp
-	int v17;         // edi
-	void* v18;       // ebx
-	int v19;         // eax
-	int v20;         // eax
-	int v21[3];      // [esp+10h] [ebp-18h]
-	int v22[3];      // [esp+1Ch] [ebp-Ch]
-	void* v23;       // [esp+2Ch] [ebp+4h]
-
-	v5 = *a1;
-	result = a1[1] - dword_5d4594_3798824;
-	v7 = *a1 - dword_5d4594_3798820;
-	if (v7 >= 0 && result >= 0 && v7 < *(int*)&dword_5d4594_3798800 && result < *(int*)&dword_5d4594_3798808) {
-		v8 = dword_5d4594_3798804 * (dword_5d4594_3798840 + result) + dword_5d4594_3798796 +
-			 2 * (dword_5d4594_3798836 + v7);
-		if (v8 >= *(int*)&dword_5d4594_3798844) {
-			v8 += dword_5d4594_3798796 - dword_5d4594_3798844;
-		}
-		if (nox_common_getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS)) {
-			if (2 * a4 + v8 < *(int*)&dword_5d4594_3798844) {
-				result = (*(int (**)(uint32_t, uint32_t, uint32_t)) & dword_5d4594_3807160)(a5, v8, 2 * a4);
-			} else {
-				v9 = dword_5d4594_3798844 - v8;
-				(*(void (**)(uint32_t, uint32_t, uint32_t)) & dword_5d4594_3807160)(a5, v8, dword_5d4594_3798844 - v8);
-				result = (*(int (**)(uint32_t, uint32_t, uint32_t)) &
-						  dword_5d4594_3807160)(a5 + v9, dword_5d4594_3798796, 2 * a4 - v9);
-			}
-		} else {
-			v23 = (void*)v8;
-			v10 = v5 - 23 * *a2 - dword_5d4594_2650676;
-			v11 = 12 * a3 + 280 * *a2;
-			v12 = ((void*)&nox_arr_84EB20[4 + v11]);
-			v13 = *getMemU32Ptr(
-				0x8529A0, 1020 + 4 * ((*((int*)&nox_arr_84EB20[284 + v11]) - *((int*)&nox_arr_84EB20[4 + v11])) >> 8));
-			v22[0] = *getMemU32Ptr(
-				0x8529A0, 1020 + 4 * ((*((int*)&nox_arr_84EB20[284 + v11]) - *((int*)&nox_arr_84EB20[4 + v11])) >> 8));
-			v14 = *getMemU32Ptr(
-				0x8529A0, 1020 + 4 * ((*((int*)&nox_arr_84EB20[288 + v11]) - *((int*)&nox_arr_84EB20[8 + v11])) >> 8));
-			v22[1] = *getMemU32Ptr(
-				0x8529A0, 1020 + 4 * ((*((int*)&nox_arr_84EB20[288 + v11]) - *((int*)&nox_arr_84EB20[8 + v11])) >> 8));
-			v15 = *getMemU32Ptr(
-				0x8529A0, 1020 + 4 * ((*((int*)&nox_arr_84EB20[292 + v11]) - *((int*)&nox_arr_84EB20[12 + v11])) >> 8));
-			v22[2] = v15;
-			v21[0] = *v12;
-			v16 = v12[1];
-			v21[1] = v12[1];
-			v21[2] = v12[2];
-			if (v10 <= 0) {
-				v17 = 23;
-			} else {
-				v21[2] += v10 * v15;
-				v21[0] += v10 * v13;
-				v21[1] = v10 * v14 + v16;
-				v17 = 23 - v10;
-			}
-			if (v17 > a4) {
-				v17 = a4;
-			}
-			v18 = v23;
-			while (1) {
-				sub_480290(v18, a5, v17, (unsigned int*)v21, (unsigned int*)v22);
-				v18 = (void*)((char*)v18 + 2 * v17);
-				a5 += 2 * v17;
-				if ((unsigned int)v18 >= *(int*)&dword_5d4594_3798844) {
-					v18 =
-						(void*)((char*)v18 - 2 * ((*(int*)&dword_5d4594_3798844 - *(int*)&dword_5d4594_3798796) >> 1));
-				}
-				result = a4 - v17;
-				a4 -= v17;
-				if (a4 <= 0) {
-					break;
-				}
-				v17 = 23;
-				if (result < 23) {
-					v17 = result;
-				}
-				v19 = *a2 + 1;
-				*a2 = v19;
-				v20 = 12 * a3 + 280 * v19;
-				v21[0] = *((unsigned int*)&nox_arr_84EB20[4 + v20]);
-				v21[1] = *((unsigned int*)&nox_arr_84EB20[8 + v20]);
-				v21[2] = *((unsigned int*)&nox_arr_84EB20[12 + v20]);
-				v22[0] = *getMemU32Ptr(
-					0x8529A0,
-					1020 + 4 * ((*((int*)&nox_arr_84EB20[284 + v20]) - *((int*)&nox_arr_84EB20[4 + v20])) >> 8));
-				v22[1] = *getMemU32Ptr(
-					0x8529A0,
-					1020 + 4 * ((*((int*)&nox_arr_84EB20[288 + v20]) - *((int*)&nox_arr_84EB20[8 + v20])) >> 8));
-				v22[2] = *getMemU32Ptr(
-					0x8529A0,
-					1020 + 4 * ((*((int*)&nox_arr_84EB20[292 + v20]) - *((int*)&nox_arr_84EB20[12 + v20])) >> 8));
-			}
-		}
-	}
-	return result;
 }
 
 //----- (00480BE0) --------------------------------------------------------
@@ -3559,426 +3372,6 @@ int nox_xxx_tileDrawImpl_4826A0(nox_draw_viewport_t* vp) {
 }
 // 4828A6: variable 'v10' is possibly undefined
 
-//----- (00482910) --------------------------------------------------------
-char sub_482910(int a1, int a2) {
-	int v2;      // edx
-	int v3;      // edi
-	int v4;      // edi
-	int v5;      // edi
-	int v6;      // edi
-	int v7;      // edi
-	int v8;      // edi
-	int v9;      // edi
-	int v10;     // edi
-	int v11;     // edi
-	int v12;     // edi
-	int v13;     // edi
-	int v14;     // edi
-	int v15;     // edi
-	int v16;     // edi
-	int v17;     // edi
-	int v18;     // edi
-	int v19;     // edi
-	int v20;     // edi
-	int v21;     // edi
-	int v22;     // edi
-	int v23;     // edi
-	int v24;     // edi
-	int v25;     // edi
-	int v26;     // edi
-	int v27;     // edi
-	int v28;     // edi
-	int v29;     // edi
-	int v30;     // edi
-	int v31;     // edi
-	int v32;     // edi
-	int v33;     // edi
-	int v34;     // edi
-	int v35;     // edi
-	int v36;     // edi
-	int v37;     // edi
-	int v38;     // edi
-	int v39;     // edi
-	int v40;     // edi
-	int v41;     // edi
-	int v42;     // edi
-	int v43;     // edi
-	int v44;     // edi
-	int v45;     // edi
-	int v46;     // edi
-	char result; // al
-
-	v2 = dword_5d4594_3798804;
-	*(uint8_t*)(a2 + 23) = *(uint8_t*)a1;
-	v3 = v2 + a2;
-	*(uint16_t*)(v3 + 22) = *(uint16_t*)(a1 + 1);
-	*(uint8_t*)(v3 + 24) = *(uint8_t*)(a1 + 3);
-	v4 = v2 + v2 + a2;
-	*(uint8_t*)(v4 + 21) = *(uint8_t*)(a1 + 4);
-	*(uint16_t*)(v4 + 22) = *(uint16_t*)(a1 + 5);
-	*(uint16_t*)(v4 + 24) = *(uint16_t*)(a1 + 7);
-	v5 = v2 + v4;
-	*(uint32_t*)(v5 + 20) = *(uint32_t*)(a1 + 9);
-	*(uint16_t*)(v5 + 24) = *(uint16_t*)(a1 + 13);
-	*(uint8_t*)(v5 + 26) = *(uint8_t*)(a1 + 15);
-	v6 = v2 + v5;
-	*(uint8_t*)(v6 + 19) = *(uint8_t*)(a1 + 16);
-	*(uint32_t*)(v6 + 20) = *(uint32_t*)(a1 + 17);
-	*(uint32_t*)(v6 + 24) = *(uint32_t*)(a1 + 21);
-	v7 = v2 + v6;
-	*(uint16_t*)(v7 + 18) = *(uint16_t*)(a1 + 25);
-	*(uint32_t*)(v7 + 20) = *(uint32_t*)(a1 + 27);
-	*(uint32_t*)(v7 + 24) = *(uint32_t*)(a1 + 31);
-	*(uint8_t*)(v7 + 28) = *(uint8_t*)(a1 + 35);
-	v8 = v2 + v7;
-	*(uint8_t*)(v8 + 17) = *(uint8_t*)(a1 + 36);
-	*(uint16_t*)(v8 + 18) = *(uint16_t*)(a1 + 37);
-	*(uint32_t*)(v8 + 20) = *(uint32_t*)(a1 + 39);
-	*(uint32_t*)(v8 + 24) = *(uint32_t*)(a1 + 43);
-	*(uint16_t*)(v8 + 28) = *(uint16_t*)(a1 + 47);
-	v9 = v2 + v8;
-	*(uint32_t*)(v9 + 16) = *(uint32_t*)(a1 + 49);
-	*(uint32_t*)(v9 + 20) = *(uint32_t*)(a1 + 53);
-	*(uint32_t*)(v9 + 24) = *(uint32_t*)(a1 + 57);
-	*(uint16_t*)(v9 + 28) = *(uint16_t*)(a1 + 61);
-	*(uint8_t*)(v9 + 30) = *(uint8_t*)(a1 + 63);
-	v10 = v2 + v9;
-	*(uint8_t*)(v10 + 15) = *(uint8_t*)(a1 + 64);
-	*(uint32_t*)(v10 + 16) = *(uint32_t*)(a1 + 65);
-	*(uint32_t*)(v10 + 20) = *(uint32_t*)(a1 + 69);
-	*(uint32_t*)(v10 + 24) = *(uint32_t*)(a1 + 73);
-	*(uint32_t*)(v10 + 28) = *(uint32_t*)(a1 + 77);
-	v11 = v2 + v10;
-	*(uint16_t*)(v11 + 14) = *(uint16_t*)(a1 + 81);
-	*(uint32_t*)(v11 + 16) = *(uint32_t*)(a1 + 83);
-	*(uint32_t*)(v11 + 20) = *(uint32_t*)(a1 + 87);
-	*(uint32_t*)(v11 + 24) = *(uint32_t*)(a1 + 91);
-	*(uint32_t*)(v11 + 28) = *(uint32_t*)(a1 + 95);
-	*(uint8_t*)(v11 + 32) = *(uint8_t*)(a1 + 99);
-	v12 = v2 + v11;
-	*(uint8_t*)(v12 + 13) = *(uint8_t*)(a1 + 100);
-	*(uint16_t*)(v12 + 14) = *(uint16_t*)(a1 + 101);
-	*(uint32_t*)(v12 + 16) = *(uint32_t*)(a1 + 103);
-	*(uint32_t*)(v12 + 20) = *(uint32_t*)(a1 + 107);
-	*(uint32_t*)(v12 + 24) = *(uint32_t*)(a1 + 111);
-	*(uint32_t*)(v12 + 28) = *(uint32_t*)(a1 + 115);
-	*(uint16_t*)(v12 + 32) = *(uint16_t*)(a1 + 119);
-	v13 = v2 + v12;
-	*(uint32_t*)(v13 + 12) = *(uint32_t*)(a1 + 121);
-	*(uint32_t*)(v13 + 16) = *(uint32_t*)(a1 + 125);
-	*(uint32_t*)(v13 + 20) = *(uint32_t*)(a1 + 129);
-	*(uint32_t*)(v13 + 24) = *(uint32_t*)(a1 + 133);
-	*(uint32_t*)(v13 + 28) = *(uint32_t*)(a1 + 137);
-	*(uint16_t*)(v13 + 32) = *(uint16_t*)(a1 + 141);
-	*(uint8_t*)(v13 + 34) = *(uint8_t*)(a1 + 143);
-	v14 = v2 + v13;
-	*(uint8_t*)(v14 + 11) = *(uint8_t*)(a1 + 144);
-	*(uint32_t*)(v14 + 12) = *(uint32_t*)(a1 + 145);
-	*(uint32_t*)(v14 + 16) = *(uint32_t*)(a1 + 149);
-	*(uint32_t*)(v14 + 20) = *(uint32_t*)(a1 + 153);
-	*(uint32_t*)(v14 + 24) = *(uint32_t*)(a1 + 157);
-	*(uint32_t*)(v14 + 28) = *(uint32_t*)(a1 + 161);
-	*(uint32_t*)(v14 + 32) = *(uint32_t*)(a1 + 165);
-	v15 = v2 + v14;
-	*(uint16_t*)(v15 + 10) = *(uint16_t*)(a1 + 169);
-	*(uint32_t*)(v15 + 12) = *(uint32_t*)(a1 + 171);
-	*(uint32_t*)(v15 + 16) = *(uint32_t*)(a1 + 175);
-	*(uint32_t*)(v15 + 20) = *(uint32_t*)(a1 + 179);
-	*(uint32_t*)(v15 + 24) = *(uint32_t*)(a1 + 183);
-	*(uint32_t*)(v15 + 28) = *(uint32_t*)(a1 + 187);
-	*(uint32_t*)(v15 + 32) = *(uint32_t*)(a1 + 191);
-	*(uint8_t*)(v15 + 36) = *(uint8_t*)(a1 + 195);
-	v16 = v2 + v15;
-	*(uint8_t*)(v16 + 9) = *(uint8_t*)(a1 + 196);
-	*(uint16_t*)(v16 + 10) = *(uint16_t*)(a1 + 197);
-	*(uint32_t*)(v16 + 12) = *(uint32_t*)(a1 + 199);
-	*(uint32_t*)(v16 + 16) = *(uint32_t*)(a1 + 203);
-	*(uint32_t*)(v16 + 20) = *(uint32_t*)(a1 + 207);
-	*(uint32_t*)(v16 + 24) = *(uint32_t*)(a1 + 211);
-	*(uint32_t*)(v16 + 28) = *(uint32_t*)(a1 + 215);
-	*(uint32_t*)(v16 + 32) = *(uint32_t*)(a1 + 219);
-	*(uint16_t*)(v16 + 36) = *(uint16_t*)(a1 + 223);
-	v17 = v2 + v16;
-	*(uint32_t*)(v17 + 8) = *(uint32_t*)(a1 + 225);
-	*(uint32_t*)(v17 + 12) = *(uint32_t*)(a1 + 229);
-	*(uint32_t*)(v17 + 16) = *(uint32_t*)(a1 + 233);
-	*(uint32_t*)(v17 + 20) = *(uint32_t*)(a1 + 237);
-	*(uint32_t*)(v17 + 24) = *(uint32_t*)(a1 + 241);
-	*(uint32_t*)(v17 + 28) = *(uint32_t*)(a1 + 245);
-	*(uint32_t*)(v17 + 32) = *(uint32_t*)(a1 + 249);
-	*(uint16_t*)(v17 + 36) = *(uint16_t*)(a1 + 253);
-	*(uint8_t*)(v17 + 38) = *(uint8_t*)(a1 + 255);
-	v18 = v2 + v17;
-	*(uint8_t*)(v18 + 7) = *(uint8_t*)(a1 + 256);
-	*(uint32_t*)(v18 + 8) = *(uint32_t*)(a1 + 257);
-	*(uint32_t*)(v18 + 12) = *(uint32_t*)(a1 + 261);
-	*(uint32_t*)(v18 + 16) = *(uint32_t*)(a1 + 265);
-	*(uint32_t*)(v18 + 20) = *(uint32_t*)(a1 + 269);
-	*(uint32_t*)(v18 + 24) = *(uint32_t*)(a1 + 273);
-	*(uint32_t*)(v18 + 28) = *(uint32_t*)(a1 + 277);
-	*(uint32_t*)(v18 + 32) = *(uint32_t*)(a1 + 281);
-	*(uint32_t*)(v18 + 36) = *(uint32_t*)(a1 + 285);
-	v19 = v2 + v18;
-	*(uint16_t*)(v19 + 6) = *(uint16_t*)(a1 + 289);
-	*(uint32_t*)(v19 + 8) = *(uint32_t*)(a1 + 291);
-	*(uint32_t*)(v19 + 12) = *(uint32_t*)(a1 + 295);
-	*(uint32_t*)(v19 + 16) = *(uint32_t*)(a1 + 299);
-	*(uint32_t*)(v19 + 20) = *(uint32_t*)(a1 + 303);
-	*(uint32_t*)(v19 + 24) = *(uint32_t*)(a1 + 307);
-	*(uint32_t*)(v19 + 28) = *(uint32_t*)(a1 + 311);
-	*(uint32_t*)(v19 + 32) = *(uint32_t*)(a1 + 315);
-	*(uint32_t*)(v19 + 36) = *(uint32_t*)(a1 + 319);
-	*(uint8_t*)(v19 + 40) = *(uint8_t*)(a1 + 323);
-	v20 = v2 + v19;
-	*(uint8_t*)(v20 + 5) = *(uint8_t*)(a1 + 324);
-	*(uint16_t*)(v20 + 6) = *(uint16_t*)(a1 + 325);
-	*(uint32_t*)(v20 + 8) = *(uint32_t*)(a1 + 327);
-	*(uint32_t*)(v20 + 12) = *(uint32_t*)(a1 + 331);
-	*(uint32_t*)(v20 + 16) = *(uint32_t*)(a1 + 335);
-	*(uint32_t*)(v20 + 20) = *(uint32_t*)(a1 + 339);
-	*(uint32_t*)(v20 + 24) = *(uint32_t*)(a1 + 343);
-	*(uint32_t*)(v20 + 28) = *(uint32_t*)(a1 + 347);
-	*(uint32_t*)(v20 + 32) = *(uint32_t*)(a1 + 351);
-	*(uint32_t*)(v20 + 36) = *(uint32_t*)(a1 + 355);
-	*(uint16_t*)(v20 + 40) = *(uint16_t*)(a1 + 359);
-	v21 = v2 + v20;
-	*(uint32_t*)(v21 + 4) = *(uint32_t*)(a1 + 361);
-	*(uint32_t*)(v21 + 8) = *(uint32_t*)(a1 + 365);
-	*(uint32_t*)(v21 + 12) = *(uint32_t*)(a1 + 369);
-	*(uint32_t*)(v21 + 16) = *(uint32_t*)(a1 + 373);
-	*(uint32_t*)(v21 + 20) = *(uint32_t*)(a1 + 377);
-	*(uint32_t*)(v21 + 24) = *(uint32_t*)(a1 + 381);
-	*(uint32_t*)(v21 + 28) = *(uint32_t*)(a1 + 385);
-	*(uint32_t*)(v21 + 32) = *(uint32_t*)(a1 + 389);
-	*(uint32_t*)(v21 + 36) = *(uint32_t*)(a1 + 393);
-	*(uint16_t*)(v21 + 40) = *(uint16_t*)(a1 + 397);
-	*(uint8_t*)(v21 + 42) = *(uint8_t*)(a1 + 399);
-	v22 = v2 + v21;
-	*(uint8_t*)(v22 + 3) = *(uint8_t*)(a1 + 400);
-	*(uint32_t*)(v22 + 4) = *(uint32_t*)(a1 + 401);
-	*(uint32_t*)(v22 + 8) = *(uint32_t*)(a1 + 405);
-	*(uint32_t*)(v22 + 12) = *(uint32_t*)(a1 + 409);
-	*(uint32_t*)(v22 + 16) = *(uint32_t*)(a1 + 413);
-	*(uint32_t*)(v22 + 20) = *(uint32_t*)(a1 + 417);
-	*(uint32_t*)(v22 + 24) = *(uint32_t*)(a1 + 421);
-	*(uint32_t*)(v22 + 28) = *(uint32_t*)(a1 + 425);
-	*(uint32_t*)(v22 + 32) = *(uint32_t*)(a1 + 429);
-	*(uint32_t*)(v22 + 36) = *(uint32_t*)(a1 + 433);
-	*(uint32_t*)(v22 + 40) = *(uint32_t*)(a1 + 437);
-	v23 = v2 + v22;
-	*(uint16_t*)(v23 + 2) = *(uint16_t*)(a1 + 441);
-	*(uint32_t*)(v23 + 4) = *(uint32_t*)(a1 + 443);
-	*(uint32_t*)(v23 + 8) = *(uint32_t*)(a1 + 447);
-	*(uint32_t*)(v23 + 12) = *(uint32_t*)(a1 + 451);
-	*(uint32_t*)(v23 + 16) = *(uint32_t*)(a1 + 455);
-	*(uint32_t*)(v23 + 20) = *(uint32_t*)(a1 + 459);
-	*(uint32_t*)(v23 + 24) = *(uint32_t*)(a1 + 463);
-	*(uint32_t*)(v23 + 28) = *(uint32_t*)(a1 + 467);
-	*(uint32_t*)(v23 + 32) = *(uint32_t*)(a1 + 471);
-	*(uint32_t*)(v23 + 36) = *(uint32_t*)(a1 + 475);
-	*(uint32_t*)(v23 + 40) = *(uint32_t*)(a1 + 479);
-	*(uint8_t*)(v23 + 44) = *(uint8_t*)(a1 + 483);
-	v24 = v2 + v23;
-	*(uint8_t*)(v24 + 1) = *(uint8_t*)(a1 + 484);
-	*(uint16_t*)(v24 + 2) = *(uint16_t*)(a1 + 485);
-	*(uint32_t*)(v24 + 4) = *(uint32_t*)(a1 + 487);
-	*(uint32_t*)(v24 + 8) = *(uint32_t*)(a1 + 491);
-	*(uint32_t*)(v24 + 12) = *(uint32_t*)(a1 + 495);
-	*(uint32_t*)(v24 + 16) = *(uint32_t*)(a1 + 499);
-	*(uint32_t*)(v24 + 20) = *(uint32_t*)(a1 + 503);
-	*(uint32_t*)(v24 + 24) = *(uint32_t*)(a1 + 507);
-	*(uint32_t*)(v24 + 28) = *(uint32_t*)(a1 + 511);
-	*(uint32_t*)(v24 + 32) = *(uint32_t*)(a1 + 515);
-	*(uint32_t*)(v24 + 36) = *(uint32_t*)(a1 + 519);
-	*(uint32_t*)(v24 + 40) = *(uint32_t*)(a1 + 523);
-	*(uint16_t*)(v24 + 44) = *(uint16_t*)(a1 + 527);
-	v25 = v2 + v24;
-	*(uint8_t*)(v25 + 1) = *(uint8_t*)(a1 + 529);
-	*(uint16_t*)(v25 + 2) = *(uint16_t*)(a1 + 530);
-	*(uint32_t*)(v25 + 4) = *(uint32_t*)(a1 + 532);
-	*(uint32_t*)(v25 + 8) = *(uint32_t*)(a1 + 536);
-	*(uint32_t*)(v25 + 12) = *(uint32_t*)(a1 + 540);
-	*(uint32_t*)(v25 + 16) = *(uint32_t*)(a1 + 544);
-	*(uint32_t*)(v25 + 20) = *(uint32_t*)(a1 + 548);
-	*(uint32_t*)(v25 + 24) = *(uint32_t*)(a1 + 552);
-	*(uint32_t*)(v25 + 28) = *(uint32_t*)(a1 + 556);
-	*(uint32_t*)(v25 + 32) = *(uint32_t*)(a1 + 560);
-	*(uint32_t*)(v25 + 36) = *(uint32_t*)(a1 + 564);
-	*(uint32_t*)(v25 + 40) = *(uint32_t*)(a1 + 568);
-	*(uint16_t*)(v25 + 44) = *(uint16_t*)(a1 + 572);
-	v26 = v2 + v25;
-	*(uint16_t*)(v26 + 2) = *(uint16_t*)(a1 + 574);
-	*(uint32_t*)(v26 + 4) = *(uint32_t*)(a1 + 576);
-	*(uint32_t*)(v26 + 8) = *(uint32_t*)(a1 + 580);
-	*(uint32_t*)(v26 + 12) = *(uint32_t*)(a1 + 584);
-	*(uint32_t*)(v26 + 16) = *(uint32_t*)(a1 + 588);
-	*(uint32_t*)(v26 + 20) = *(uint32_t*)(a1 + 592);
-	*(uint32_t*)(v26 + 24) = *(uint32_t*)(a1 + 596);
-	*(uint32_t*)(v26 + 28) = *(uint32_t*)(a1 + 600);
-	*(uint32_t*)(v26 + 32) = *(uint32_t*)(a1 + 604);
-	*(uint32_t*)(v26 + 36) = *(uint32_t*)(a1 + 608);
-	*(uint32_t*)(v26 + 40) = *(uint32_t*)(a1 + 612);
-	*(uint8_t*)(v26 + 44) = *(uint8_t*)(a1 + 616);
-	v27 = v2 + v26;
-	*(uint8_t*)(v27 + 3) = *(uint8_t*)(a1 + 617);
-	*(uint32_t*)(v27 + 4) = *(uint32_t*)(a1 + 618);
-	*(uint32_t*)(v27 + 8) = *(uint32_t*)(a1 + 622);
-	*(uint32_t*)(v27 + 12) = *(uint32_t*)(a1 + 626);
-	*(uint32_t*)(v27 + 16) = *(uint32_t*)(a1 + 630);
-	*(uint32_t*)(v27 + 20) = *(uint32_t*)(a1 + 634);
-	*(uint32_t*)(v27 + 24) = *(uint32_t*)(a1 + 638);
-	*(uint32_t*)(v27 + 28) = *(uint32_t*)(a1 + 642);
-	*(uint32_t*)(v27 + 32) = *(uint32_t*)(a1 + 646);
-	*(uint32_t*)(v27 + 36) = *(uint32_t*)(a1 + 650);
-	*(uint32_t*)(v27 + 40) = *(uint32_t*)(a1 + 654);
-	v28 = v2 + v27;
-	*(uint32_t*)(v28 + 4) = *(uint32_t*)(a1 + 658);
-	*(uint32_t*)(v28 + 8) = *(uint32_t*)(a1 + 662);
-	*(uint32_t*)(v28 + 12) = *(uint32_t*)(a1 + 666);
-	*(uint32_t*)(v28 + 16) = *(uint32_t*)(a1 + 670);
-	*(uint32_t*)(v28 + 20) = *(uint32_t*)(a1 + 674);
-	*(uint32_t*)(v28 + 24) = *(uint32_t*)(a1 + 678);
-	*(uint32_t*)(v28 + 28) = *(uint32_t*)(a1 + 682);
-	*(uint32_t*)(v28 + 32) = *(uint32_t*)(a1 + 686);
-	*(uint32_t*)(v28 + 36) = *(uint32_t*)(a1 + 690);
-	*(uint16_t*)(v28 + 40) = *(uint16_t*)(a1 + 694);
-	*(uint8_t*)(v28 + 42) = *(uint8_t*)(a1 + 696);
-	v29 = v2 + v28;
-	*(uint8_t*)(v29 + 5) = *(uint8_t*)(a1 + 697);
-	*(uint16_t*)(v29 + 6) = *(uint16_t*)(a1 + 698);
-	*(uint32_t*)(v29 + 8) = *(uint32_t*)(a1 + 700);
-	*(uint32_t*)(v29 + 12) = *(uint32_t*)(a1 + 704);
-	*(uint32_t*)(v29 + 16) = *(uint32_t*)(a1 + 708);
-	*(uint32_t*)(v29 + 20) = *(uint32_t*)(a1 + 712);
-	*(uint32_t*)(v29 + 24) = *(uint32_t*)(a1 + 716);
-	*(uint32_t*)(v29 + 28) = *(uint32_t*)(a1 + 720);
-	*(uint32_t*)(v29 + 32) = *(uint32_t*)(a1 + 724);
-	*(uint32_t*)(v29 + 36) = *(uint32_t*)(a1 + 728);
-	*(uint16_t*)(v29 + 40) = *(uint16_t*)(a1 + 732);
-	v30 = v2 + v29;
-	*(uint16_t*)(v30 + 6) = *(uint16_t*)(a1 + 734);
-	*(uint32_t*)(v30 + 8) = *(uint32_t*)(a1 + 736);
-	*(uint32_t*)(v30 + 12) = *(uint32_t*)(a1 + 740);
-	*(uint32_t*)(v30 + 16) = *(uint32_t*)(a1 + 744);
-	*(uint32_t*)(v30 + 20) = *(uint32_t*)(a1 + 748);
-	*(uint32_t*)(v30 + 24) = *(uint32_t*)(a1 + 752);
-	*(uint32_t*)(v30 + 28) = *(uint32_t*)(a1 + 756);
-	*(uint32_t*)(v30 + 32) = *(uint32_t*)(a1 + 760);
-	*(uint32_t*)(v30 + 36) = *(uint32_t*)(a1 + 764);
-	*(uint8_t*)(v30 + 40) = *(uint8_t*)(a1 + 768);
-	v31 = v2 + v30;
-	*(uint8_t*)(v31 + 7) = *(uint8_t*)(a1 + 769);
-	*(uint32_t*)(v31 + 8) = *(uint32_t*)(a1 + 770);
-	*(uint32_t*)(v31 + 12) = *(uint32_t*)(a1 + 774);
-	*(uint32_t*)(v31 + 16) = *(uint32_t*)(a1 + 778);
-	*(uint32_t*)(v31 + 20) = *(uint32_t*)(a1 + 782);
-	*(uint32_t*)(v31 + 24) = *(uint32_t*)(a1 + 786);
-	*(uint32_t*)(v31 + 28) = *(uint32_t*)(a1 + 790);
-	*(uint32_t*)(v31 + 32) = *(uint32_t*)(a1 + 794);
-	*(uint32_t*)(v31 + 36) = *(uint32_t*)(a1 + 798);
-	v32 = v2 + v31;
-	*(uint32_t*)(v32 + 8) = *(uint32_t*)(a1 + 802);
-	*(uint32_t*)(v32 + 12) = *(uint32_t*)(a1 + 806);
-	*(uint32_t*)(v32 + 16) = *(uint32_t*)(a1 + 810);
-	*(uint32_t*)(v32 + 20) = *(uint32_t*)(a1 + 814);
-	*(uint32_t*)(v32 + 24) = *(uint32_t*)(a1 + 818);
-	*(uint32_t*)(v32 + 28) = *(uint32_t*)(a1 + 822);
-	*(uint32_t*)(v32 + 32) = *(uint32_t*)(a1 + 826);
-	*(uint16_t*)(v32 + 36) = *(uint16_t*)(a1 + 830);
-	*(uint8_t*)(v32 + 38) = *(uint8_t*)(a1 + 832);
-	v33 = v2 + v32;
-	*(uint8_t*)(v33 + 9) = *(uint8_t*)(a1 + 833);
-	*(uint16_t*)(v33 + 10) = *(uint16_t*)(a1 + 834);
-	*(uint32_t*)(v33 + 12) = *(uint32_t*)(a1 + 836);
-	*(uint32_t*)(v33 + 16) = *(uint32_t*)(a1 + 840);
-	*(uint32_t*)(v33 + 20) = *(uint32_t*)(a1 + 844);
-	*(uint32_t*)(v33 + 24) = *(uint32_t*)(a1 + 848);
-	*(uint32_t*)(v33 + 28) = *(uint32_t*)(a1 + 852);
-	*(uint32_t*)(v33 + 32) = *(uint32_t*)(a1 + 856);
-	*(uint16_t*)(v33 + 36) = *(uint16_t*)(a1 + 860);
-	v34 = v2 + v33;
-	*(uint16_t*)(v34 + 10) = *(uint16_t*)(a1 + 862);
-	*(uint32_t*)(v34 + 12) = *(uint32_t*)(a1 + 864);
-	*(uint32_t*)(v34 + 16) = *(uint32_t*)(a1 + 868);
-	*(uint32_t*)(v34 + 20) = *(uint32_t*)(a1 + 872);
-	*(uint32_t*)(v34 + 24) = *(uint32_t*)(a1 + 876);
-	*(uint32_t*)(v34 + 28) = *(uint32_t*)(a1 + 880);
-	*(uint32_t*)(v34 + 32) = *(uint32_t*)(a1 + 884);
-	*(uint8_t*)(v34 + 36) = *(uint8_t*)(a1 + 888);
-	v35 = v2 + v34;
-	*(uint8_t*)(v35 + 11) = *(uint8_t*)(a1 + 889);
-	*(uint32_t*)(v35 + 12) = *(uint32_t*)(a1 + 890);
-	*(uint32_t*)(v35 + 16) = *(uint32_t*)(a1 + 894);
-	*(uint32_t*)(v35 + 20) = *(uint32_t*)(a1 + 898);
-	*(uint32_t*)(v35 + 24) = *(uint32_t*)(a1 + 902);
-	*(uint32_t*)(v35 + 28) = *(uint32_t*)(a1 + 906);
-	*(uint32_t*)(v35 + 32) = *(uint32_t*)(a1 + 910);
-	v36 = v2 + v35;
-	*(uint32_t*)(v36 + 12) = *(uint32_t*)(a1 + 914);
-	*(uint32_t*)(v36 + 16) = *(uint32_t*)(a1 + 918);
-	*(uint32_t*)(v36 + 20) = *(uint32_t*)(a1 + 922);
-	*(uint32_t*)(v36 + 24) = *(uint32_t*)(a1 + 926);
-	*(uint32_t*)(v36 + 28) = *(uint32_t*)(a1 + 930);
-	*(uint16_t*)(v36 + 32) = *(uint16_t*)(a1 + 934);
-	*(uint8_t*)(v36 + 34) = *(uint8_t*)(a1 + 936);
-	v37 = v2 + v36;
-	*(uint8_t*)(v37 + 13) = *(uint8_t*)(a1 + 937);
-	*(uint16_t*)(v37 + 14) = *(uint16_t*)(a1 + 938);
-	*(uint32_t*)(v37 + 16) = *(uint32_t*)(a1 + 940);
-	*(uint32_t*)(v37 + 20) = *(uint32_t*)(a1 + 944);
-	*(uint32_t*)(v37 + 24) = *(uint32_t*)(a1 + 948);
-	*(uint32_t*)(v37 + 28) = *(uint32_t*)(a1 + 952);
-	*(uint16_t*)(v37 + 32) = *(uint16_t*)(a1 + 956);
-	v38 = v2 + v37;
-	*(uint16_t*)(v38 + 14) = *(uint16_t*)(a1 + 958);
-	*(uint32_t*)(v38 + 16) = *(uint32_t*)(a1 + 960);
-	*(uint32_t*)(v38 + 20) = *(uint32_t*)(a1 + 964);
-	*(uint32_t*)(v38 + 24) = *(uint32_t*)(a1 + 968);
-	*(uint32_t*)(v38 + 28) = *(uint32_t*)(a1 + 972);
-	*(uint8_t*)(v38 + 32) = *(uint8_t*)(a1 + 976);
-	v39 = v2 + v38;
-	*(uint8_t*)(v39 + 15) = *(uint8_t*)(a1 + 977);
-	*(uint32_t*)(v39 + 16) = *(uint32_t*)(a1 + 978);
-	*(uint32_t*)(v39 + 20) = *(uint32_t*)(a1 + 982);
-	*(uint32_t*)(v39 + 24) = *(uint32_t*)(a1 + 986);
-	*(uint32_t*)(v39 + 28) = *(uint32_t*)(a1 + 990);
-	v40 = v2 + v39;
-	*(uint32_t*)(v40 + 16) = *(uint32_t*)(a1 + 994);
-	*(uint32_t*)(v40 + 20) = *(uint32_t*)(a1 + 998);
-	*(uint32_t*)(v40 + 24) = *(uint32_t*)(a1 + 1002);
-	*(uint16_t*)(v40 + 28) = *(uint16_t*)(a1 + 1006);
-	*(uint8_t*)(v40 + 30) = *(uint8_t*)(a1 + 1008);
-	v41 = v2 + v40;
-	*(uint8_t*)(v41 + 17) = *(uint8_t*)(a1 + 1009);
-	*(uint16_t*)(v41 + 18) = *(uint16_t*)(a1 + 1010);
-	*(uint32_t*)(v41 + 20) = *(uint32_t*)(a1 + 1012);
-	*(uint32_t*)(v41 + 24) = *(uint32_t*)(a1 + 1016);
-	*(uint16_t*)(v41 + 28) = *(uint16_t*)(a1 + 1020);
-	v42 = v2 + v41;
-	*(uint16_t*)(v42 + 18) = *(uint16_t*)(a1 + 1022);
-	*(uint32_t*)(v42 + 20) = *(uint32_t*)(a1 + 1024);
-	*(uint32_t*)(v42 + 24) = *(uint32_t*)(a1 + 1028);
-	*(uint8_t*)(v42 + 28) = *(uint8_t*)(a1 + 1032);
-	v43 = v2 + v42;
-	*(uint8_t*)(v43 + 19) = *(uint8_t*)(a1 + 1033);
-	*(uint32_t*)(v43 + 20) = *(uint32_t*)(a1 + 1034);
-	*(uint32_t*)(v43 + 24) = *(uint32_t*)(a1 + 1038);
-	v44 = v2 + v43;
-	*(uint32_t*)(v44 + 20) = *(uint32_t*)(a1 + 1042);
-	*(uint16_t*)(v44 + 24) = *(uint16_t*)(a1 + 1046);
-	*(uint8_t*)(v44 + 26) = *(uint8_t*)(a1 + 1048);
-	v45 = v2 + v44;
-	*(uint8_t*)(v45 + 21) = *(uint8_t*)(a1 + 1049);
-	*(uint16_t*)(v45 + 22) = *(uint16_t*)(a1 + 1050);
-	*(uint16_t*)(v45 + 24) = *(uint16_t*)(a1 + 1052);
-	v46 = v2 + v45;
-	*(uint16_t*)(v46 + 22) = *(uint16_t*)(a1 + 1054);
-	result = *(uint8_t*)(a1 + 1056);
-	*(uint8_t*)(v46 + 24) = result;
-	*(uint8_t*)(v2 + v46 + 23) = *(uint8_t*)(a1 + 1057);
-	return result;
-}
-
 //----- (004831C0) --------------------------------------------------------
 short sub_4831C0(int a1, int a2) {
 	int v2;       // edx
@@ -4626,426 +4019,6 @@ short sub_4831C0(int a1, int a2) {
 	result = *(uint16_t*)(a1 + 2112);
 	*(uint16_t*)(v46 + 48) = result;
 	*(uint16_t*)(v2 + v46 + 46) = *(uint16_t*)(a1 + 2114);
-	return result;
-}
-
-//----- (00483FE0) --------------------------------------------------------
-int sub_483FE0(int a1, int a2) {
-	int result; // eax
-	int v3;     // edx
-	int v4;     // edi
-	int v5;     // edi
-	int v6;     // edi
-	int v7;     // edi
-	int v8;     // edi
-	int v9;     // edi
-	int v10;    // edi
-	int v11;    // edi
-	int v12;    // edi
-	int v13;    // edi
-	int v14;    // edi
-	int v15;    // edi
-	int v16;    // edi
-	int v17;    // edi
-	int v18;    // edi
-	int v19;    // edi
-	int v20;    // edi
-	int v21;    // edi
-	int v22;    // edi
-	int v23;    // edi
-	int v24;    // edi
-	int v25;    // edi
-	int v26;    // edi
-	int v27;    // edi
-	int v28;    // edi
-	int v29;    // edi
-	int v30;    // edi
-	int v31;    // edi
-	int v32;    // edi
-	int v33;    // edi
-	int v34;    // edi
-	int v35;    // edi
-	int v36;    // edi
-	int v37;    // edi
-	int v38;    // edi
-	int v39;    // edi
-	int v40;    // edi
-	int v41;    // edi
-	int v42;    // edi
-	int v43;    // edi
-	int v44;    // edi
-	int v45;    // edi
-	int v46;    // edi
-	int v47;    // edi
-
-	result = a1;
-	v3 = dword_5d4594_3798804;
-	*(uint8_t*)(a2 + 23) = a1;
-	v4 = v3 + a2;
-	*(uint16_t*)(v4 + 22) = a1;
-	*(uint8_t*)(v4 + 24) = a1;
-	v5 = v3 + v3 + a2;
-	*(uint8_t*)(v5 + 21) = a1;
-	*(uint16_t*)(v5 + 22) = a1;
-	*(uint16_t*)(v5 + 24) = a1;
-	v6 = v3 + v5;
-	*(uint32_t*)(v6 + 20) = a1;
-	*(uint16_t*)(v6 + 24) = a1;
-	*(uint8_t*)(v6 + 26) = a1;
-	v7 = v3 + v6;
-	*(uint8_t*)(v7 + 19) = a1;
-	*(uint32_t*)(v7 + 20) = a1;
-	*(uint32_t*)(v7 + 24) = a1;
-	v8 = v3 + v7;
-	*(uint16_t*)(v8 + 18) = a1;
-	*(uint32_t*)(v8 + 20) = a1;
-	*(uint32_t*)(v8 + 24) = a1;
-	*(uint8_t*)(v8 + 28) = a1;
-	v9 = v3 + v8;
-	*(uint8_t*)(v9 + 17) = a1;
-	*(uint16_t*)(v9 + 18) = a1;
-	*(uint32_t*)(v9 + 20) = a1;
-	*(uint32_t*)(v9 + 24) = a1;
-	*(uint16_t*)(v9 + 28) = a1;
-	v10 = v3 + v9;
-	*(uint32_t*)(v10 + 16) = a1;
-	*(uint32_t*)(v10 + 20) = a1;
-	*(uint32_t*)(v10 + 24) = a1;
-	*(uint16_t*)(v10 + 28) = a1;
-	*(uint8_t*)(v10 + 30) = a1;
-	v11 = v3 + v10;
-	*(uint8_t*)(v11 + 15) = a1;
-	*(uint32_t*)(v11 + 16) = a1;
-	*(uint32_t*)(v11 + 20) = a1;
-	*(uint32_t*)(v11 + 24) = a1;
-	*(uint32_t*)(v11 + 28) = a1;
-	v12 = v3 + v11;
-	*(uint16_t*)(v12 + 14) = a1;
-	*(uint32_t*)(v12 + 16) = a1;
-	*(uint32_t*)(v12 + 20) = a1;
-	*(uint32_t*)(v12 + 24) = a1;
-	*(uint32_t*)(v12 + 28) = a1;
-	*(uint8_t*)(v12 + 32) = a1;
-	v13 = v3 + v12;
-	*(uint8_t*)(v13 + 13) = a1;
-	*(uint16_t*)(v13 + 14) = a1;
-	*(uint32_t*)(v13 + 16) = a1;
-	*(uint32_t*)(v13 + 20) = a1;
-	*(uint32_t*)(v13 + 24) = a1;
-	*(uint32_t*)(v13 + 28) = a1;
-	*(uint16_t*)(v13 + 32) = a1;
-	v14 = v3 + v13;
-	*(uint32_t*)(v14 + 12) = a1;
-	*(uint32_t*)(v14 + 16) = a1;
-	*(uint32_t*)(v14 + 20) = a1;
-	*(uint32_t*)(v14 + 24) = a1;
-	*(uint32_t*)(v14 + 28) = a1;
-	*(uint16_t*)(v14 + 32) = a1;
-	*(uint8_t*)(v14 + 34) = a1;
-	v15 = v3 + v14;
-	*(uint8_t*)(v15 + 11) = a1;
-	*(uint32_t*)(v15 + 12) = a1;
-	*(uint32_t*)(v15 + 16) = a1;
-	*(uint32_t*)(v15 + 20) = a1;
-	*(uint32_t*)(v15 + 24) = a1;
-	*(uint32_t*)(v15 + 28) = a1;
-	*(uint32_t*)(v15 + 32) = a1;
-	v16 = v3 + v15;
-	*(uint16_t*)(v16 + 10) = a1;
-	*(uint32_t*)(v16 + 12) = a1;
-	*(uint32_t*)(v16 + 16) = a1;
-	*(uint32_t*)(v16 + 20) = a1;
-	*(uint32_t*)(v16 + 24) = a1;
-	*(uint32_t*)(v16 + 28) = a1;
-	*(uint32_t*)(v16 + 32) = a1;
-	*(uint8_t*)(v16 + 36) = a1;
-	v17 = v3 + v16;
-	*(uint8_t*)(v17 + 9) = a1;
-	*(uint16_t*)(v17 + 10) = a1;
-	*(uint32_t*)(v17 + 12) = a1;
-	*(uint32_t*)(v17 + 16) = a1;
-	*(uint32_t*)(v17 + 20) = a1;
-	*(uint32_t*)(v17 + 24) = a1;
-	*(uint32_t*)(v17 + 28) = a1;
-	*(uint32_t*)(v17 + 32) = a1;
-	*(uint16_t*)(v17 + 36) = a1;
-	v18 = v3 + v17;
-	*(uint32_t*)(v18 + 8) = a1;
-	*(uint32_t*)(v18 + 12) = a1;
-	*(uint32_t*)(v18 + 16) = a1;
-	*(uint32_t*)(v18 + 20) = a1;
-	*(uint32_t*)(v18 + 24) = a1;
-	*(uint32_t*)(v18 + 28) = a1;
-	*(uint32_t*)(v18 + 32) = a1;
-	*(uint16_t*)(v18 + 36) = a1;
-	*(uint8_t*)(v18 + 38) = a1;
-	v19 = v3 + v18;
-	*(uint8_t*)(v19 + 7) = a1;
-	*(uint32_t*)(v19 + 8) = a1;
-	*(uint32_t*)(v19 + 12) = a1;
-	*(uint32_t*)(v19 + 16) = a1;
-	*(uint32_t*)(v19 + 20) = a1;
-	*(uint32_t*)(v19 + 24) = a1;
-	*(uint32_t*)(v19 + 28) = a1;
-	*(uint32_t*)(v19 + 32) = a1;
-	*(uint32_t*)(v19 + 36) = a1;
-	v20 = v3 + v19;
-	*(uint16_t*)(v20 + 6) = a1;
-	*(uint32_t*)(v20 + 8) = a1;
-	*(uint32_t*)(v20 + 12) = a1;
-	*(uint32_t*)(v20 + 16) = a1;
-	*(uint32_t*)(v20 + 20) = a1;
-	*(uint32_t*)(v20 + 24) = a1;
-	*(uint32_t*)(v20 + 28) = a1;
-	*(uint32_t*)(v20 + 32) = a1;
-	*(uint32_t*)(v20 + 36) = a1;
-	*(uint8_t*)(v20 + 40) = a1;
-	v21 = v3 + v20;
-	*(uint8_t*)(v21 + 5) = a1;
-	*(uint16_t*)(v21 + 6) = a1;
-	*(uint32_t*)(v21 + 8) = a1;
-	*(uint32_t*)(v21 + 12) = a1;
-	*(uint32_t*)(v21 + 16) = a1;
-	*(uint32_t*)(v21 + 20) = a1;
-	*(uint32_t*)(v21 + 24) = a1;
-	*(uint32_t*)(v21 + 28) = a1;
-	*(uint32_t*)(v21 + 32) = a1;
-	*(uint32_t*)(v21 + 36) = a1;
-	*(uint16_t*)(v21 + 40) = a1;
-	v22 = v3 + v21;
-	*(uint32_t*)(v22 + 4) = a1;
-	*(uint32_t*)(v22 + 8) = a1;
-	*(uint32_t*)(v22 + 12) = a1;
-	*(uint32_t*)(v22 + 16) = a1;
-	*(uint32_t*)(v22 + 20) = a1;
-	*(uint32_t*)(v22 + 24) = a1;
-	*(uint32_t*)(v22 + 28) = a1;
-	*(uint32_t*)(v22 + 32) = a1;
-	*(uint32_t*)(v22 + 36) = a1;
-	*(uint16_t*)(v22 + 40) = a1;
-	*(uint8_t*)(v22 + 42) = a1;
-	v23 = v3 + v22;
-	*(uint8_t*)(v23 + 3) = a1;
-	*(uint32_t*)(v23 + 4) = a1;
-	*(uint32_t*)(v23 + 8) = a1;
-	*(uint32_t*)(v23 + 12) = a1;
-	*(uint32_t*)(v23 + 16) = a1;
-	*(uint32_t*)(v23 + 20) = a1;
-	*(uint32_t*)(v23 + 24) = a1;
-	*(uint32_t*)(v23 + 28) = a1;
-	*(uint32_t*)(v23 + 32) = a1;
-	*(uint32_t*)(v23 + 36) = a1;
-	*(uint32_t*)(v23 + 40) = a1;
-	v24 = v3 + v23;
-	*(uint16_t*)(v24 + 2) = a1;
-	*(uint32_t*)(v24 + 4) = a1;
-	*(uint32_t*)(v24 + 8) = a1;
-	*(uint32_t*)(v24 + 12) = a1;
-	*(uint32_t*)(v24 + 16) = a1;
-	*(uint32_t*)(v24 + 20) = a1;
-	*(uint32_t*)(v24 + 24) = a1;
-	*(uint32_t*)(v24 + 28) = a1;
-	*(uint32_t*)(v24 + 32) = a1;
-	*(uint32_t*)(v24 + 36) = a1;
-	*(uint32_t*)(v24 + 40) = a1;
-	*(uint8_t*)(v24 + 44) = a1;
-	v25 = v3 + v24;
-	*(uint8_t*)(v25 + 1) = a1;
-	*(uint16_t*)(v25 + 2) = a1;
-	*(uint32_t*)(v25 + 4) = a1;
-	*(uint32_t*)(v25 + 8) = a1;
-	*(uint32_t*)(v25 + 12) = a1;
-	*(uint32_t*)(v25 + 16) = a1;
-	*(uint32_t*)(v25 + 20) = a1;
-	*(uint32_t*)(v25 + 24) = a1;
-	*(uint32_t*)(v25 + 28) = a1;
-	*(uint32_t*)(v25 + 32) = a1;
-	*(uint32_t*)(v25 + 36) = a1;
-	*(uint32_t*)(v25 + 40) = a1;
-	*(uint16_t*)(v25 + 44) = a1;
-	v26 = v3 + v25;
-	*(uint8_t*)(v26 + 1) = a1;
-	*(uint16_t*)(v26 + 2) = a1;
-	*(uint32_t*)(v26 + 4) = a1;
-	*(uint32_t*)(v26 + 8) = a1;
-	*(uint32_t*)(v26 + 12) = a1;
-	*(uint32_t*)(v26 + 16) = a1;
-	*(uint32_t*)(v26 + 20) = a1;
-	*(uint32_t*)(v26 + 24) = a1;
-	*(uint32_t*)(v26 + 28) = a1;
-	*(uint32_t*)(v26 + 32) = a1;
-	*(uint32_t*)(v26 + 36) = a1;
-	*(uint32_t*)(v26 + 40) = a1;
-	*(uint16_t*)(v26 + 44) = a1;
-	v27 = v3 + v26;
-	*(uint16_t*)(v27 + 2) = a1;
-	*(uint32_t*)(v27 + 4) = a1;
-	*(uint32_t*)(v27 + 8) = a1;
-	*(uint32_t*)(v27 + 12) = a1;
-	*(uint32_t*)(v27 + 16) = a1;
-	*(uint32_t*)(v27 + 20) = a1;
-	*(uint32_t*)(v27 + 24) = a1;
-	*(uint32_t*)(v27 + 28) = a1;
-	*(uint32_t*)(v27 + 32) = a1;
-	*(uint32_t*)(v27 + 36) = a1;
-	*(uint32_t*)(v27 + 40) = a1;
-	*(uint8_t*)(v27 + 44) = a1;
-	v28 = v3 + v27;
-	*(uint8_t*)(v28 + 3) = a1;
-	*(uint32_t*)(v28 + 4) = a1;
-	*(uint32_t*)(v28 + 8) = a1;
-	*(uint32_t*)(v28 + 12) = a1;
-	*(uint32_t*)(v28 + 16) = a1;
-	*(uint32_t*)(v28 + 20) = a1;
-	*(uint32_t*)(v28 + 24) = a1;
-	*(uint32_t*)(v28 + 28) = a1;
-	*(uint32_t*)(v28 + 32) = a1;
-	*(uint32_t*)(v28 + 36) = a1;
-	*(uint32_t*)(v28 + 40) = a1;
-	v29 = v3 + v28;
-	*(uint32_t*)(v29 + 4) = a1;
-	*(uint32_t*)(v29 + 8) = a1;
-	*(uint32_t*)(v29 + 12) = a1;
-	*(uint32_t*)(v29 + 16) = a1;
-	*(uint32_t*)(v29 + 20) = a1;
-	*(uint32_t*)(v29 + 24) = a1;
-	*(uint32_t*)(v29 + 28) = a1;
-	*(uint32_t*)(v29 + 32) = a1;
-	*(uint32_t*)(v29 + 36) = a1;
-	*(uint16_t*)(v29 + 40) = a1;
-	*(uint8_t*)(v29 + 42) = a1;
-	v30 = v3 + v29;
-	*(uint8_t*)(v30 + 5) = a1;
-	*(uint16_t*)(v30 + 6) = a1;
-	*(uint32_t*)(v30 + 8) = a1;
-	*(uint32_t*)(v30 + 12) = a1;
-	*(uint32_t*)(v30 + 16) = a1;
-	*(uint32_t*)(v30 + 20) = a1;
-	*(uint32_t*)(v30 + 24) = a1;
-	*(uint32_t*)(v30 + 28) = a1;
-	*(uint32_t*)(v30 + 32) = a1;
-	*(uint32_t*)(v30 + 36) = a1;
-	*(uint16_t*)(v30 + 40) = a1;
-	v31 = v3 + v30;
-	*(uint16_t*)(v31 + 6) = a1;
-	*(uint32_t*)(v31 + 8) = a1;
-	*(uint32_t*)(v31 + 12) = a1;
-	*(uint32_t*)(v31 + 16) = a1;
-	*(uint32_t*)(v31 + 20) = a1;
-	*(uint32_t*)(v31 + 24) = a1;
-	*(uint32_t*)(v31 + 28) = a1;
-	*(uint32_t*)(v31 + 32) = a1;
-	*(uint32_t*)(v31 + 36) = a1;
-	*(uint8_t*)(v31 + 40) = a1;
-	v32 = v3 + v31;
-	*(uint8_t*)(v32 + 7) = a1;
-	*(uint32_t*)(v32 + 8) = a1;
-	*(uint32_t*)(v32 + 12) = a1;
-	*(uint32_t*)(v32 + 16) = a1;
-	*(uint32_t*)(v32 + 20) = a1;
-	*(uint32_t*)(v32 + 24) = a1;
-	*(uint32_t*)(v32 + 28) = a1;
-	*(uint32_t*)(v32 + 32) = a1;
-	*(uint32_t*)(v32 + 36) = a1;
-	v33 = v3 + v32;
-	*(uint32_t*)(v33 + 8) = a1;
-	*(uint32_t*)(v33 + 12) = a1;
-	*(uint32_t*)(v33 + 16) = a1;
-	*(uint32_t*)(v33 + 20) = a1;
-	*(uint32_t*)(v33 + 24) = a1;
-	*(uint32_t*)(v33 + 28) = a1;
-	*(uint32_t*)(v33 + 32) = a1;
-	*(uint16_t*)(v33 + 36) = a1;
-	*(uint8_t*)(v33 + 38) = a1;
-	v34 = v3 + v33;
-	*(uint8_t*)(v34 + 9) = a1;
-	*(uint16_t*)(v34 + 10) = a1;
-	*(uint32_t*)(v34 + 12) = a1;
-	*(uint32_t*)(v34 + 16) = a1;
-	*(uint32_t*)(v34 + 20) = a1;
-	*(uint32_t*)(v34 + 24) = a1;
-	*(uint32_t*)(v34 + 28) = a1;
-	*(uint32_t*)(v34 + 32) = a1;
-	*(uint16_t*)(v34 + 36) = a1;
-	v35 = v3 + v34;
-	*(uint16_t*)(v35 + 10) = a1;
-	*(uint32_t*)(v35 + 12) = a1;
-	*(uint32_t*)(v35 + 16) = a1;
-	*(uint32_t*)(v35 + 20) = a1;
-	*(uint32_t*)(v35 + 24) = a1;
-	*(uint32_t*)(v35 + 28) = a1;
-	*(uint32_t*)(v35 + 32) = a1;
-	*(uint8_t*)(v35 + 36) = a1;
-	v36 = v3 + v35;
-	*(uint8_t*)(v36 + 11) = a1;
-	*(uint32_t*)(v36 + 12) = a1;
-	*(uint32_t*)(v36 + 16) = a1;
-	*(uint32_t*)(v36 + 20) = a1;
-	*(uint32_t*)(v36 + 24) = a1;
-	*(uint32_t*)(v36 + 28) = a1;
-	*(uint32_t*)(v36 + 32) = a1;
-	v37 = v3 + v36;
-	*(uint32_t*)(v37 + 12) = a1;
-	*(uint32_t*)(v37 + 16) = a1;
-	*(uint32_t*)(v37 + 20) = a1;
-	*(uint32_t*)(v37 + 24) = a1;
-	*(uint32_t*)(v37 + 28) = a1;
-	*(uint16_t*)(v37 + 32) = a1;
-	*(uint8_t*)(v37 + 34) = a1;
-	v38 = v3 + v37;
-	*(uint8_t*)(v38 + 13) = a1;
-	*(uint16_t*)(v38 + 14) = a1;
-	*(uint32_t*)(v38 + 16) = a1;
-	*(uint32_t*)(v38 + 20) = a1;
-	*(uint32_t*)(v38 + 24) = a1;
-	*(uint32_t*)(v38 + 28) = a1;
-	*(uint16_t*)(v38 + 32) = a1;
-	v39 = v3 + v38;
-	*(uint16_t*)(v39 + 14) = a1;
-	*(uint32_t*)(v39 + 16) = a1;
-	*(uint32_t*)(v39 + 20) = a1;
-	*(uint32_t*)(v39 + 24) = a1;
-	*(uint32_t*)(v39 + 28) = a1;
-	*(uint8_t*)(v39 + 32) = a1;
-	v40 = v3 + v39;
-	*(uint8_t*)(v40 + 15) = a1;
-	*(uint32_t*)(v40 + 16) = a1;
-	*(uint32_t*)(v40 + 20) = a1;
-	*(uint32_t*)(v40 + 24) = a1;
-	*(uint32_t*)(v40 + 28) = a1;
-	v41 = v3 + v40;
-	*(uint32_t*)(v41 + 16) = a1;
-	*(uint32_t*)(v41 + 20) = a1;
-	*(uint32_t*)(v41 + 24) = a1;
-	*(uint16_t*)(v41 + 28) = a1;
-	*(uint8_t*)(v41 + 30) = a1;
-	v42 = v3 + v41;
-	*(uint8_t*)(v42 + 17) = a1;
-	*(uint16_t*)(v42 + 18) = a1;
-	*(uint32_t*)(v42 + 20) = a1;
-	*(uint32_t*)(v42 + 24) = a1;
-	*(uint16_t*)(v42 + 28) = a1;
-	v43 = v3 + v42;
-	*(uint16_t*)(v43 + 18) = a1;
-	*(uint32_t*)(v43 + 20) = a1;
-	*(uint32_t*)(v43 + 24) = a1;
-	*(uint8_t*)(v43 + 28) = a1;
-	v44 = v3 + v43;
-	*(uint8_t*)(v44 + 19) = a1;
-	*(uint32_t*)(v44 + 20) = a1;
-	*(uint32_t*)(v44 + 24) = a1;
-	v45 = v3 + v44;
-	*(uint32_t*)(v45 + 20) = a1;
-	*(uint16_t*)(v45 + 24) = a1;
-	*(uint8_t*)(v45 + 26) = a1;
-	v46 = v3 + v45;
-	*(uint8_t*)(v46 + 21) = a1;
-	*(uint16_t*)(v46 + 22) = a1;
-	*(uint16_t*)(v46 + 24) = a1;
-	v47 = v3 + v46;
-	*(uint16_t*)(v47 + 22) = a1;
-	*(uint8_t*)(v47 + 24) = a1;
-	*(uint8_t*)(v3 + v47 + 23) = a1;
 	return result;
 }
 
@@ -5761,19 +4734,6 @@ int sub_484CE0(int a1, float a2) {
 	return result;
 }
 
-//----- (00484D20) --------------------------------------------------------
-int sub_484D20(int a1, float a2) {
-	int result; // eax
-
-	if (a2 > 63.0) {
-		a2 = 63.0;
-	}
-	*(uint32_t*)(a1 + 12) = (long long)(a2 * *(double*)&qword_581450_9552 + *(double*)&qword_581450_9544);
-	result = sub_484C60(a2);
-	*(uint32_t*)(a1 + 8) = result;
-	return result;
-}
-
 //----- (00484D70) --------------------------------------------------------
 int nox_xxx_spriteChangeIntensity_484D70_light_intensity(int a1, float a2) {
 	int result; // eax
@@ -5837,159 +4797,6 @@ int sub_484DC0(int2* a1, int2* a2, int* a3) {
 	return result;
 }
 // 484F48: variable 'v3' is possibly undefined
-
-//----- (004854D0) --------------------------------------------------------
-int sub_4854D0(int2* a1, int2* a2, int2* a3, int a4, float a5) {
-	int v5;      // edx
-	int v6;      // edi
-	int2* v7;    // edi
-	int2* v8;    // ebx
-	int2* v9;    // esi
-	int result;  // eax
-	int v11;     // ecx
-	int v12[46]; // [esp+10h] [ebp-228h]
-	int v13[46]; // [esp+C8h] [ebp-170h]
-	int v14[46]; // [esp+180h] [ebp-B8h]
-
-	v5 = a1->field_4;
-	v6 = a2->field_4;
-	if (v5 > v6) {
-		v9 = a3;
-		if (v6 <= a3->field_4) {
-			v8 = a2;
-			v7 = a1;
-			goto LABEL_9;
-		}
-		v8 = a3;
-	} else {
-		v7 = a3;
-		if (v5 <= a3->field_4) {
-			v8 = a1;
-			v9 = a2;
-			goto LABEL_9;
-		}
-		v8 = a3;
-	}
-	v9 = a1;
-	v7 = a2;
-LABEL_9:
-	sub_484DC0(v8, v9, v14);
-	sub_484DC0(v8, v7, v13);
-	sub_4855D0((int)v14, (int)v13, a4, a5);
-	result = v9->field_4;
-	v11 = v7->field_4;
-	if (result >= v11) {
-		if (result > v11) {
-			sub_484DC0(v7, v9, v12);
-			result = sub_4855D0((int)v14, (int)v12, a4, a5);
-		}
-	} else {
-		sub_484DC0(v9, v7, v12);
-		result = sub_4855D0((int)v12, (int)v13, a4, a5);
-	}
-	return result;
-}
-
-//----- (004855D0) --------------------------------------------------------
-int sub_4855D0(int a1, int a2, int a3, float a4) {
-	int v4;             // edx
-	int v5;             // ecx
-	int v6;             // ebp
-	int result;         // eax
-	double v8;          // st7
-	int v9;             // ebx
-	double v10;         // st6
-	uint32_t* v11;      // edi
-	int v12;            // esi
-	double v13;         // st5
-	double v14;         // st4
-	unsigned char* v15; // ebx
-	double v16;         // st2
-	double v17;         // st2
-	int v18;            // [esp+1Ch] [ebp+8h]
-	int v19;            // [esp+24h] [ebp+10h]
-
-	v4 = a2;
-	v5 = *(uint32_t*)a1;
-	v6 = *(uint32_t*)a1 + *(uint32_t*)(a1 + 4);
-	if (*(uint32_t*)a1 < *(int*)a2) {
-		v5 = *(uint32_t*)a2;
-	}
-	if (v6 > *(int*)(a2 + 4) + *(uint32_t*)a2) {
-		v6 = *(uint32_t*)(a2 + 4) + *(uint32_t*)a2;
-	}
-	result = v6 - v5;
-	if (v6 - v5 > 1) {
-		v8 = a4 <= 31.0 ? a4 : 31.0;
-		*(float*)&v18 = a4 * a4;
-		result = 23 * v5 - *(uint32_t*)(a3 + 4);
-		v9 = v5;
-		v10 = (double)result;
-		v19 = v5;
-		if (v5 < v6) {
-			v11 = (uint32_t*)(v4 + 4 * v5 + 8);
-			result = a1 - v4;
-			do {
-				v12 = *(uint32_t*)((char*)v11 + result);
-				v13 = (double)(int)(23 * v12 - *(uint32_t*)a3);
-				if (v12 < *v11) {
-					v14 = *getMemFloatPtr(0x587000, 154988) + v8;
-					v15 = getMemAt(0x8531A0, +40 * v12 + 5 * v12 + v9);
-					do {
-						v16 = v14 / ((v13 * v13 + v10 * v10) * *getMemFloatPtr(0x587000, 154984) *
-										 *getMemFloatPtr(0x587000, 154972) / *(float*)&v18 +
-									 1.0);
-						if (v16 > *getMemFloatPtr(0x587000, 154988)) {
-							v17 = v16 - *getMemFloatPtr(0x587000, 154988) + (double)*v15;
-							if (v17 > 31.0) {
-								v17 = 31.0;
-							}
-							*v15 = (long long)v17;
-						}
-						++v12;
-						v13 = v13 + 23.0;
-						v15 += 45;
-					} while (v12 < *v11);
-					v9 = v19;
-					result = a1 - v4;
-				}
-				v10 = v10 + 23.0;
-				++v9;
-				++v11;
-				v19 = v9;
-			} while (v9 < v6);
-		}
-	}
-	return result;
-}
-
-//----- (00485AE0) --------------------------------------------------------
-unsigned int sub_485AE0(int a1, int a2) {
-	unsigned char* v2;   // esi
-	int v3;              // ecx
-	uint8_t* v4;         // edi
-	int v5;              // edx
-	int v6;              // eax
-	unsigned int result; // eax
-	bool v8;             // cc
-
-	v2 = *(unsigned char**)&dword_5d4594_1193184;
-	v3 = a1;
-	v4 = (uint8_t*)(dword_5d4594_1193180 - 1);
-	v5 = dword_5d4594_1193176;
-	do {
-		v6 = *v2++ << 13;
-		++v4;
-		result = (unsigned int)(v5 + v6) >> 8;
-		v5 += a2;
-		v8 = v3-- <= 1;
-		*v4 = getMemByte(0x5D4594, 2589804 + result);
-	} while (!v8);
-	dword_5d4594_1193176 = v5;
-	dword_5d4594_1193184 = v2;
-	dword_5d4594_1193180 = v4 + 1;
-	return result;
-}
 
 //----- (00485B30) --------------------------------------------------------
 int nox_thing_read_floor_485B30(int a1, char* a2) {
@@ -6262,15 +5069,6 @@ uint32_t* sub_486320(uint32_t* a1, int a2) {
 	result = a1;
 	*a1 |= 1u;
 	a1[2] = a2 << 16;
-	return result;
-}
-
-//----- (00486340) --------------------------------------------------------
-uint32_t* sub_486340(uint32_t* a1) {
-	uint32_t* result; // eax
-
-	result = a1;
-	*a1 |= 1u;
 	return result;
 }
 
@@ -6615,30 +5413,6 @@ unsigned int sub_486A10(int a1, void* a2) {
 	return result;
 }
 
-//----- (00486A50) --------------------------------------------------------
-char* sub_486A50(uint32_t* a1, int a2) {
-	char* result; // eax
-
-	if (a2 < 0 || a2 >= a1[1]) {
-		result = (char*)getMemAt(0x587000, 155088);
-	} else {
-		result = (char*)sub_4866D0(a1, a2);
-	}
-	return result;
-}
-
-//----- (00486A80) --------------------------------------------------------
-int sub_486A80(uint32_t* a1, int a2) {
-	int result; // eax
-
-	if (a2 < 0 || a2 >= a1[1]) {
-		result = 0;
-	} else {
-		result = *(uint32_t*)(*a1 + 36 * a2 + 20);
-	}
-	return result;
-}
-
 //----- (00486AA0) --------------------------------------------------------
 int sub_486AA0(uint32_t* a1, int a2, uint32_t* a3) {
 	uint32_t* v3; // eax
@@ -6933,19 +5707,6 @@ int* sub_487100(int** a1) {
 		*a1 = nox_common_list_getNextSafe_4258A0(*a1);
 	}
 	return *a1;
-}
-
-//----- (00487120) --------------------------------------------------------
-int sub_487120() {
-	int v0;  // esi
-	int* i;  // eax
-	int* v3; // [esp+4h] [ebp-4h]
-
-	v0 = 0;
-	for (i = sub_4870E0((int*)&v3); i; i = sub_487100(&v3)) {
-		v0 += i[5];
-	}
-	return v0;
 }
 
 //----- (00487150) --------------------------------------------------------
@@ -7328,19 +6089,6 @@ int* sub_487810(int a1, int a2) {
 	return result;
 }
 
-//----- (004878E0) --------------------------------------------------------
-int* sub_4878E0(int a1, int a2) {
-	int* v2; // eax
-	int* v3; // esi
-
-	v2 = sub_487810(a1, 1);
-	v3 = v2;
-	if (v2) {
-		sub_4BDA10((int)v2, a2);
-	}
-	return v3;
-}
-
 //----- (00487910) --------------------------------------------------------
 int sub_487910(int a1, int a2) {
 	int* v2; // edi
@@ -7385,50 +6133,6 @@ int* sub_487970(int a1, int a2) {
 	return result;
 }
 
-//----- (004879C0) --------------------------------------------------------
-int* sub_4879C0(int a1, int a2) {
-	int* result; // eax
-	int v3;      // esi
-
-	result = sub_4877D0(a1, &a1);
-	if (result) {
-		v3 = a2;
-		do {
-			if (result[31] & 1 && (v3 == -1 || result[3] == v3)) {
-				sub_4BDAC0((int)result);
-			}
-			result = sub_4877F0((int**)&a1);
-		} while (result);
-	}
-	return result;
-}
-
-//----- (00487A10) --------------------------------------------------------
-int* sub_487A10(int a1, int a2) {
-	int* result; // eax
-	int v3;      // esi
-
-	result = sub_4877D0(a1, &a1);
-	if (result) {
-		v3 = a2;
-		do {
-			if (result[31] & 4 && (v3 == -1 || result[3] == v3)) {
-				sub_4BDAF0((int)result);
-			}
-			result = sub_4877F0((int**)&a1);
-		} while (result);
-	}
-	return result;
-}
-
-//----- (00487C10) --------------------------------------------------------
-void sub_487C10(void* lpMem) {
-	if (*(uint32_t*)lpMem) {
-		free(*(void**)lpMem);
-	}
-	free(lpMem);
-}
-
 //----- (00487C30) --------------------------------------------------------
 void sub_487C30(uint32_t* a1) {
 	*a1 = 0;
@@ -7451,9 +6155,6 @@ int sub_487C50(int a1, uint32_t* a2) {
 
 //----- (00487C80) --------------------------------------------------------
 int sub_487C80(int a1) { return nox_common_list_getNext_425940((int*)(a1 + 8)); }
-
-//----- (00487CB0) --------------------------------------------------------
-int sub_487CB0(int a1, int a2) { return a2 * *(uint32_t*)(a1 + 20) / 1000; }
 
 //----- (00487D00) --------------------------------------------------------
 int sub_487D00(uint32_t* a1) {
@@ -8405,12 +7106,6 @@ int sub_489FF0(int a1, int a2, const void* a3) {
 	result = 11 * a1;
 	memcpy(getMemAt(0x5D4594, 1193388 + 44 * a1), a3, 0x2Cu);
 	return result;
-}
-
-//----- (0048A020) --------------------------------------------------------
-int sub_48A020(int a1, uint32_t* a2) {
-	*a2 = getMemAt(0x5D4594, 1193388 + 44 * a1);
-	return *getMemU32Ptr(0x5D4594, 1193372 + 4 * a1);
 }
 
 //----- (0048A210) --------------------------------------------------------

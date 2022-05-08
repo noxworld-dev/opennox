@@ -154,14 +154,6 @@ func (p *guiParser) parseFontField() (unsafe.Pointer, bool) {
 	return fnt, fnt != nil
 }
 
-//export nox_gui_parseColor_4A0570
-func nox_gui_parseColor_4A0570(out *C.uint, buf *C.char) C.int {
-	r, g, b := gui.ParseColor(GoString(buf))
-	cl := noxcolor.RGBColor(byte(r), byte(g), byte(b))
-	*out = C.uint(noxcolor.ExtendColor16(cl))
-	return 1
-}
-
 func (p *guiParser) skipToken() {
 	var s string
 	fmt.Fscan(p.br, &s)

@@ -48,8 +48,6 @@ extern unsigned char byte_581450_9176[160];
 extern unsigned char byte_581450_9336[160];
 
 extern uint32_t dword_5d4594_823772;
-extern uint32_t dword_5d4594_1193568;
-extern uint32_t dword_5d4594_1193576;
 extern uint32_t dword_5d4594_810628;
 extern uint32_t dword_5d4594_808564;
 extern uint32_t dword_5d4594_1311936;
@@ -66,12 +64,10 @@ extern uint32_t dword_5d4594_823776;
 extern uint8_t* nox_pixbuffer_3798780;
 extern void* dword_5d4594_1193704;
 extern void* nox_draw_colorTablesRev_3804668;
-extern uint32_t dword_5d4594_1193584;
 extern int nox_backbuffer_pitch_3801808;
 extern uint32_t cpuid_5d4594_3801804;
 void* nox_video_getImagePixdata_func(nox_video_bag_image_t*);
 extern void* dword_5d4594_810640;
-extern uint32_t dword_5d4594_1193516;
 extern uint32_t nox_video_pixmode_3799624;
 extern uint32_t nox_video_modeXxx_3801780;
 extern unsigned char* nox_draw_colors_r_3804672;
@@ -87,7 +83,6 @@ extern nox_render_data_t* nox_draw_curDrawData_3799572;
 extern nox_render_data_t obj_5D4594_3799660;
 extern nox_render_data_t obj_5D4594_3800716;
 
-extern HANDLE* nox_video_cursorDrawThreadHandle;
 extern uint32_t dword_974854;
 
 extern int g_scaled;
@@ -118,12 +113,9 @@ extern uint32_t g_cursor_surf_pitch;
 extern uint8_t* g_cursor_surf_pixels;
 extern uint8_t* g_cursor_surf_pixels_6F7C78;
 extern void (*dword_6F7C10)(uint32_t, uint32_t, uint32_t);
-extern short (*dword_6F7C40)();
-extern short (*dword_6F7C34)();
 extern void (*dword_975240)(uint32_t, uint32_t*, uint32_t*, uint32_t*);
 extern int (*dword_975380)(uint32_t, uint32_t, uint32_t);
 
-float nox_video_getGamma();
 void nox_video_setGamma(float v);
 
 extern int nox_backbuffer_pitchDiff;
@@ -131,17 +123,9 @@ extern int nox_backbuffer_width32;
 
 #endif // IGNORE_EXTERNS
 
-enum {
-	DDSCAPS_OFFSCREENPLAIN = 1,
-	DDSCAPS_SYSTEMMEMORY = 2,
-	DDSCAPS_VIDEOMEMORY = 4,
-	DDSCAPS_PRIMARYSURFACE = 8,
-};
-
 int nox_video_getFullScreen();
 void nox_video_setFullScreen(int v);
 
-void change_windowed_fullscreen();
 void updateGamma(int value);
 int sub_4338D0();
 void nox_draw_freeColorTables_433C20();
@@ -150,15 +134,11 @@ int sub_433E40(int a1);
 void sub_434040(int a1);
 void sub_4340A0(int a1, int a2, int a3, int a4);
 int nox_xxx_drawPlayer_4341D0(int a1, int a2);
-void nox_set_color_rgb_434320(int r, int g, int b);
-void nox_set_color_rgb_4343B0(int r, int g, int b);
-void nox_set_color_rgb_434400(int r, int g, int b);
 void nox_set_color_rgb_434430(int r, int g, int b);
 void sub_434480(int a1, int* a2, int* a3, int* a4);
 uint32_t nox_color_rgb_4344A0(int r, int g, int b);
 int sub_4347F0(char* a1, int a2);
 int sub_4348C0();
-int sub_434AC0(int a1);
 int nox_video_getGammaSetting_434B00();
 int nox_video_setGammaSetting_434B30(int a1);
 int sub_434B60();

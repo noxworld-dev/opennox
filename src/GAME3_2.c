@@ -1614,18 +1614,6 @@ int nox_xxx_scavengerTreasureMax_4D1600() { return *getMemU32Ptr(0x5D4594, 15485
 //----- (004D1610) --------------------------------------------------------
 void sub_4D1610() { *getMemU32Ptr(0x5D4594, 1548528) = 0; }
 
-//----- (004D1620) --------------------------------------------------------
-int sub_4D1620() {
-	int result; // eax
-
-	if (dword_5d4594_1548532) {
-		result = (uint32_t)dword_5d4594_1548532 + 56;
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
 //----- (004D1630) --------------------------------------------------------
 int nox_xxx_parseGamedataBinPre_4D1630() {
 	int result; // eax
@@ -1968,15 +1956,6 @@ int sub_4D3E30(float2* a1, float2* a2) {
 	return result;
 }
 
-//----- (004D3F60) --------------------------------------------------------
-int sub_4D3F60(int a1) {
-	if (a1 != 1 && a1) {
-		return 0;
-	}
-	*getMemU32Ptr(0x973F18, 35980) = 1;
-	return 1;
-}
-
 //----- (004D3FF0) --------------------------------------------------------
 int sub_4D3FF0(int a1) {
 	int result; // eax
@@ -2010,15 +1989,6 @@ int sub_4D3FF0(int a1) {
 		result = -1;
 		break;
 	}
-	return result;
-}
-
-//----- (004D42D0) --------------------------------------------------------
-int sub_4D42D0(int a1) {
-	int result; // eax
-
-	result = a1;
-	dword_5d4594_1550916 = a1;
 	return result;
 }
 
@@ -6602,33 +6572,6 @@ void sub_4DAF10() {
 	}
 }
 
-//----- (004DAFD0) --------------------------------------------------------
-void sub_4DAFD0(uint32_t* a1) {
-	int v2; // ecx
-	int v3; // ecx
-	int v4; // ecx
-
-	v2 = a1[4];
-	if (!(v2 & 4)) {
-		return;
-	}
-	a1[4] = v2 & 0xFFFFFFFB;
-	v3 = a1[112];
-	if (v3) {
-		*(uint32_t*)(v3 + 444) = a1[111];
-		v4 = a1[111];
-		if (v4) {
-			*(uint32_t*)(v4 + 448) = (uint32_t*)a1[112];
-		}
-	} else {
-		uint32_t* p = (uint32_t*)a1[111];
-		nox_set_server_objects_4DA3E0(p);
-		if (p) {
-			p[112] = 0;
-		}
-	}
-}
-
 //----- (004DB030) --------------------------------------------------------
 uint32_t* nox_xxx_unitClearPendingMB_4DB030() {
 	uint32_t* result; // eax
@@ -6794,23 +6737,6 @@ int nox_client_countPlayerFiles02_4DC630() {
 	return v0;
 }
 // 4DC630: using guessed type char PathName[1024];
-
-//----- (004DC9B0) --------------------------------------------------------
-char* sub_4DC9B0(char* a1) {
-	char* result; // eax
-	char v2[12];  // [esp+0h] [ebp-Ch]
-
-	if (!a1) {
-		return (char*)-1;
-	}
-	result = strrchr(a1, 92);
-	if (result) {
-		strncpy(v2, result - 4, 4u);
-		v2[4] = 0;
-		result = (char*)atoi(v2);
-	}
-	return result;
-}
 
 //----- (004DCBF0) --------------------------------------------------------
 int sub_4DCBF0(int a1) {

@@ -11,7 +11,6 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 
-	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/strman"
 )
 
@@ -63,16 +62,6 @@ func internWStr(s string) *C.wchar_t {
 	return p
 }
 
-//export nox_strman_readfile
-func nox_strman_readfile(cpath *C.char) C.int {
-	err := strmanReadFile(GoString(cpath))
-	if err != nil {
-		log.Println(err)
-		return 0
-	}
-	return 1
-}
-
 func strmanReadFile(path string) error {
 	if strManDone {
 		return nil
@@ -97,7 +86,6 @@ func nox_strman_loadString_40F1D0(name *C.char, strOut **C.char, srcFile *C.char
 	return internWStr(s)
 }
 
-//export nox_strman_free_410020
 func nox_strman_free_410020() {
 	strMan = strman.New()
 	strManDone = false

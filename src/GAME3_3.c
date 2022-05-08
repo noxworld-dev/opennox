@@ -50,7 +50,6 @@ extern uint32_t dword_5d4594_1565632;
 extern uint32_t dword_5d4594_1565612;
 extern uint32_t dword_5d4594_1565520;
 extern uint32_t nox_server_needInitNetCodeCache;
-extern uint32_t dword_5d4594_1568260;
 extern uint32_t dword_5d4594_1565516;
 extern uint32_t dword_5d4594_1563664;
 extern uint32_t dword_5d4594_1567928;
@@ -2963,17 +2962,6 @@ uint32_t* nox_xxx_finalizeDeletingUnits_4E5EC0() {
 	return result;
 }
 
-//----- (004E5F00) --------------------------------------------------------
-void sub_4E5F00(int (*a1)(int, int), int a2) {
-	int i; // esi
-
-	for (i = *getMemU32Ptr(0x5D4594, 1565588); i; i = *(uint32_t*)(i + 452)) {
-		if (*(uint32_t*)(i + 456) != nox_frame_xxx_2598000) {
-			a1(i, a2);
-		}
-	}
-}
-
 //----- (004E5F40) --------------------------------------------------------
 int sub_4E5F40(int a1) {
 	int result; // eax
@@ -4210,23 +4198,6 @@ int nox_xxx_unitIsGameball_4E7C30(int a1) {
 	return 1;
 }
 
-//----- (004E7CC0) --------------------------------------------------------
-int sub_4E7CC0(int a1, int a2) {
-	int result; // eax
-	int i;      // ecx
-
-	result = 0;
-	if (!a1 || !a2) {
-		return 0;
-	}
-	for (i = *(uint32_t*)(a1 + 516); i; i = *(uint32_t*)(i + 512)) {
-		if (a2 & *(uint32_t*)(i + 8)) {
-			++result;
-		}
-	}
-	return result;
-}
-
 //----- (004E7CF0) --------------------------------------------------------
 int nox_xxx_unitCountSlaves_4E7CF0(int a1, int a2, int a3) {
 	int result;  // eax
@@ -4257,23 +4228,6 @@ int nox_xxx_inventoryCountObjects_4E7D30(int a1, int a2) {
 			if (!a2 || *(unsigned short*)(i + 4) == a2 && !(*(uint8_t*)(i + 16) & 0x20)) {
 				++result;
 			}
-		}
-	}
-	return result;
-}
-
-//----- (004E7D70) --------------------------------------------------------
-int sub_4E7D70(int a1, int a2) {
-	int result; // eax
-	int i;      // ecx
-
-	result = 0;
-	if (!a1 || !a2) {
-		return 0;
-	}
-	for (i = *(uint32_t*)(a1 + 504); i; i = *(uint32_t*)(i + 496)) {
-		if (a2 & *(uint32_t*)(i + 8)) {
-			++result;
 		}
 	}
 	return result;
@@ -4540,37 +4494,6 @@ int sub_4E81D0(nox_object_t* a1p) {
 		}
 	}
 	return result;
-}
-
-//----- (004E8210) --------------------------------------------------------
-int sub_4E8210(int a1, int a2) {
-	float2* v2;      // edi
-	unsigned int v3; // esi
-	int v4;          // eax
-	int v5;          // ecx
-
-	v2 = 0;
-	v3 = 0;
-	v4 = nox_xxx_getFirstPlayerUnit_4DA7C0();
-	if (!v4) {
-		return 0;
-	}
-	do {
-		v5 = *(uint32_t*)(*(uint32_t*)(v4 + 748) + 308);
-		if (v5) {
-			if (**(uint32_t**)(v5 + 700) > v3) {
-				v3 = **(uint32_t**)(v5 + 700);
-				v2 = *(float2**)(*(uint32_t*)(v4 + 748) + 308);
-			}
-		}
-		v4 = nox_xxx_getNextPlayerUnit_4DA7F0(v4);
-	} while (v4);
-	if (!v2) {
-		return 0;
-	}
-	*(uint32_t*)(*(uint32_t*)(a1 + 748) + 308) = v2;
-	sub_4ED970(60.0, v2 + 7, (float2*)a2);
-	return 1;
 }
 
 //----- (004E8290) --------------------------------------------------------
@@ -7719,18 +7642,6 @@ int nox_xxx_allocItemRespawnArray_4ECA60() {
 //----- (004ECA90) --------------------------------------------------------
 void sub_4ECA90() { nox_free_alloc_class(*(void**)&nox_alloc_respawn_1568020); }
 
-//----- (004ECAA0) --------------------------------------------------------
-char* sub_4ECAA0(char a1) {
-	char* result; // eax
-
-	if (a1 <= 16) {
-		result = *(char**)getMemAt(0x587000, 205304 + 4 * a1);
-	} else {
-		result = *(char**)getMemAt(0x587000, 205304);
-	}
-	return result;
-}
-
 //----- (004ECBD0) --------------------------------------------------------
 int sub_4ECBD0(int a1) {
 	int result; // eax
@@ -8918,9 +8829,6 @@ int sub_4EE2F0(int a1, int a2, int* a3) {
 
 //----- (004EE370) --------------------------------------------------------
 int nox_xxx_dropAnkhTradable_4EE370(int a1, int a2, int* a3) { return nox_xxx_dropDefault_4ED290(a1, a2, (float2*)a3); }
-
-//----- (004EE430) --------------------------------------------------------
-int sub_4EE430() { return dword_5d4594_1568260; }
 
 //----- (004EE460) --------------------------------------------------------
 void nox_xxx_unitAdjustHP_4EE460(nox_object_t* unitp, int dv) {

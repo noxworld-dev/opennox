@@ -11,7 +11,6 @@ wchar_t* nox_wcscpy(wchar_t* dest, const wchar_t* src);
 size_t nox_wcslen(const wchar_t* nox_wcs);
 wchar_t* nox_wcsncpy(wchar_t* dest, const wchar_t* src, size_t n);
 size_t nox_wcsspn(const wchar_t* nox_wcs, const wchar_t* accept);
-wchar_t* nox_wcsstr(wchar_t* haystack, const wchar_t* needle);
 long nox_wcstol(const wchar_t* nptr, wchar_t** endptr, int base);
 wchar_t* nox_wcstok(wchar_t*, const wchar_t*);
 int nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format, va_list ap);

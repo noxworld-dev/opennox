@@ -232,11 +232,6 @@ func nox_client_setServerConnectAddr_435720(addr *C.char) {
 	clientSetServerHost(GoString(addr))
 }
 
-//export nox_client_getServerConnectAddr
-func nox_client_getServerConnectAddr() *C.char {
-	return internCStr(clientGetServerHost())
-}
-
 //export nox_xxx_cryptXor_56FDD0
 func nox_xxx_cryptXor_56FDD0(key C.char, p *C.uchar, n C.int) {
 	if p == nil || n == 0 || !noxNetXor {
@@ -282,9 +277,8 @@ func netCryptDst(key byte, src, dst []byte) {
 	}
 }
 
-//export nox_xxx_getMapCRC_40A370
-func nox_xxx_getMapCRC_40A370() C.int {
-	return C.int(noxMapCRC)
+func nox_xxx_getMapCRC_40A370() int {
+	return noxMapCRC
 }
 
 //export nox_xxx_setMapCRC_40A360
@@ -320,13 +314,6 @@ func convSendToServerErr(n int, err error) C.int {
 		return -1
 	}
 	return C.int(n)
-}
-
-//export nox_client_sendToServer_555010
-func nox_client_sendToServer_555010(addr C.uint, port C.uint16_t, cbuf *C.char, sz C.int) C.int {
-	buf := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), int(sz))
-	n, err := sendToServer(int2ip(uint32(addr)), int(port), buf)
-	return convSendToServerErr(n, err)
 }
 
 func sub_43AF90(v int) {
@@ -436,14 +423,6 @@ func nox_xxx_netClientSend2_4E53C0(a1 int, buf []byte, a4, a5 int) {
 	p, free := alloc.CloneSlice(buf)
 	defer free()
 	C.nox_xxx_netClientSend2_4E53C0(C.int(a1), unsafe.Pointer(&p[0]), C.int(len(buf)), C.int(a4), C.int(a5))
-}
-
-//export nox_xxx_clientSendInput_43C8F0
-func nox_xxx_clientSendInput_43C8F0(a1, a2, a3 C.int) C.int {
-	if !clientSendInput(int(a1), uint16(a2), uint16(a3)) {
-		return 0
-	}
-	return 1
 }
 
 func clientSendInput(a1 int, a2 uint16, a3 uint16) bool {
@@ -572,16 +551,6 @@ func (s *Server) nox_xxx_netAddPlayerHandler_4DEBC0(port int) (ind, cport int, _
 	}
 	*memmap.PtrInt32(0x5D4594, 1563148) = int32(ind)
 	return ind, narg.port, err
-}
-
-//export nox_xxx_netPreStructToFull_5546F0
-func nox_xxx_netPreStructToFull_5546F0(arg *C.nox_net_struct_arg_t) C.int {
-	narg := toNetStructOpt(arg)
-	ind, err := nox_xxx_netPreStructToFull(narg)
-	if err != nil {
-		netLog.Println(err)
-	}
-	return C.int(ind)
 }
 
 func nox_xxx_netPreStructToFull(narg *netStructOpt) (ind int, _ error) {

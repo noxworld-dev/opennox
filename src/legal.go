@@ -32,7 +32,7 @@ func sub_4CC6F0(win *Window, draw *WindowData) int {
 		v0 := nox_win_legalBg_1522892.ChildByID(9910)
 		v0.Show()
 	}
-	nox_set_color_rgb_4343B0(150, 150, 150)
+	noxrend.Data().SetTextColor(uint32(nox_color_rgb_4344A0(150, 150, 150)))
 	noxrend.DrawString(nil, "TM", image.Pt(500, 150))
 	return 1
 }

@@ -158,9 +158,8 @@ func updateGamma(value int) {
 	setGamma(draw_gamma + dv)
 }
 
-//export nox_video_getGamma
-func nox_video_getGamma() C.float {
-	return C.float(draw_gamma)
+func nox_video_getGamma() float32 {
+	return draw_gamma
 }
 
 //export nox_video_setGamma
@@ -996,9 +995,8 @@ func nox_xxx_bookGetSpellDnDType_477670() C.int {
 	return C.int(nox_client_spellDragnDrop_type_1097196)
 }
 
-//export nox_xxx_cursorGetDraggedItem_477680
-func nox_xxx_cursorGetDraggedItem_477680() *C.nox_drawable {
-	return nox_client_itemDragnDrop_1097188.C()
+func nox_xxx_cursorGetDraggedItem_477680() *Drawable {
+	return nox_client_itemDragnDrop_1097188
 }
 
 //export nox_xxx_cursorSetDraggedItem_477690

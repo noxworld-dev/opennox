@@ -139,8 +139,6 @@ void sub_426060() {
 	}
 }
 
-int sub_46DCB0(void) { return sub_46DCC0(); }
-
 //----- (004D0CF0) --------------------------------------------------------
 char* nox_xxx_getSomeMapName_4D0CF0() {
 	int v0; // eax

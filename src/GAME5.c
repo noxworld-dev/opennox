@@ -5884,28 +5884,6 @@ short nox_xxx_dieSpawnObject_54E070(int a1) {
 	return v4;
 }
 
-//----- (0054E0D0) --------------------------------------------------------
-void sub_54E0D0(int a1) {
-	int v1;       // eax
-	uint32_t* v2; // edi
-	int v3;       // eax
-
-	v1 = *getMemU32Ptr(0x5D4594, 2491700);
-	if (!*getMemU32Ptr(0x5D4594, 2491700)) {
-		v1 = nox_xxx_getNameId_4E3AA0("SmallFlame");
-		*getMemU32Ptr(0x5D4594, 2491700) = v1;
-	}
-	v2 = nox_xxx_newObjectWithTypeInd_4E3450(v1);
-	if (v2) {
-		nox_xxx_createAt_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
-		v3 = nox_common_randomInt_415FA0(45, 75);
-		nox_xxx_unitSetDecayTime_511660(v2, nox_gameFPS * v3);
-	}
-	nox_xxx_mapDamageUnitsAround_4E25B0(a1 + 56, 30.0, 30.0, 1, 1, a1, 0);
-	nox_xxx_aud_501960(282, a1, 0, 0);
-	nox_xxx_delayedDeleteObject_4E5CC0(a1);
-}
-
 //----- (0054E460) --------------------------------------------------------
 void nox_xxx_dieMarker_54E460(int a1) {
 	int v1;       // eax
@@ -8487,31 +8465,6 @@ void nox_xxx_netMaybeSendAll_552460() {
 		}
 	}
 	*getMemU32Ptr(0x5D4594, 2512888) = dword_5d4594_2495920;
-}
-
-//----- (00552540) --------------------------------------------------------
-int sub_552540(unsigned int a1) {
-	if (a1 >= NOX_NET_STRUCT_MAX) {
-		return 0;
-	}
-	nox_net_struct_t* ns = nox_net_struct_arr[a1];
-	if (!ns) {
-		return 0;
-	}
-	return &ns->data_1_base[2];
-}
-
-//----- (00552570) --------------------------------------------------------
-int sub_552570(unsigned int a1, int a2) {
-	if (a1 >= NOX_NET_STRUCT_MAX) {
-		return -3;
-	}
-	nox_net_struct_t* ns = nox_net_struct_arr[a1];
-	if (!ns) {
-		return -3;
-	}
-	ns->data_2_xxx = &ns->data_2_xxx[a2];
-	return 0;
 }
 
 //----- (00552640) --------------------------------------------------------

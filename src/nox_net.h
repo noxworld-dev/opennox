@@ -32,25 +32,13 @@ struct nox_net_sockaddr_in {
 
 char* nox_net_ip2str(nox_net_in_addr addr);
 
-int nox_net_init();
 int nox_net_stop();
 
-nox_socket_t nox_net_socket_tcp();
-nox_socket_t nox_net_socket_udp();
 nox_socket_t nox_net_socket_udp_broadcast();
 void nox_net_close(nox_socket_t sockfd);
-void nox_net_shutdown(nox_socket_t sockfd);
-int nox_net_last_error();
-int nox_net_error(nox_socket_t sockfd);
 
-int nox_net_bind(nox_socket_t sockfd, struct nox_net_sockaddr_in* addr);
-
-nox_socket_t nox_net_accept(nox_socket_t sockfd, struct nox_net_sockaddr_in* addr);
-int nox_net_send(nox_socket_t sockfd, void* buffer, unsigned int length);
-int nox_net_recv(nox_socket_t sockfd, void* buffer, unsigned int length);
 int nox_net_sendto(nox_socket_t sockfd, void* buffer, unsigned int length, struct nox_net_sockaddr_in* addr);
 int nox_net_recvfrom(nox_socket_t sockfd, void* buffer, unsigned int length, struct nox_net_sockaddr_in* addr);
 int nox_net_recv_available(nox_socket_t s, unsigned int* out);
-int nox_net_non_blocking(nox_socket_t s, int enabled);
 
 #endif // NOX_NET_H

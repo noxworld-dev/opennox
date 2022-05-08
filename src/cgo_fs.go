@@ -10,7 +10,6 @@ import (
 	"io"
 	"os"
 	"sync"
-	"unicode"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/datapath"
@@ -38,23 +37,6 @@ func (f *File) enableBuffer() {
 		return
 	}
 	f.buf = bufio.NewReader(f.File)
-}
-
-func (f *File) ScanString() (string, error) {
-	f.enableBuffer()
-	var out []byte
-	for {
-		b, err := f.buf.ReadByte()
-		if err == io.EOF {
-			return string(out), nil
-		} else if err != nil {
-			return string(out), err
-		}
-		if unicode.IsSpace(rune(b)) {
-			return string(out), nil
-		}
-		out = append(out, b)
-	}
 }
 
 func (f *File) Seek(off int64, whence int) (int64, error) {
@@ -128,16 +110,6 @@ func nox_fs_normalize(path *C.char) *C.char {
 	return CString(out)
 }
 
-//export nox_fs_workdir
-func nox_fs_workdir(dst *C.char, max C.int) C.bool {
-	dir, err := ifs.Workdir()
-	if err != nil {
-		return false
-	}
-	n := StrCopy(dst, int(max), dir)
-	return len(dir) <= n
-}
-
 //export nox_fs_remove
 func nox_fs_remove(path *C.char) C.bool {
 	return ifs.Remove(GoString(path)) == nil
@@ -146,11 +118,6 @@ func nox_fs_remove(path *C.char) C.bool {
 //export nox_fs_mkdir
 func nox_fs_mkdir(path *C.char) C.bool {
 	return ifs.Mkdir(GoString(path)) == nil
-}
-
-//export nox_fs_remove_dir
-func nox_fs_remove_dir(path *C.char) C.bool {
-	return ifs.Remove(GoString(path)) == nil
 }
 
 //export nox_fs_set_workdir
@@ -269,18 +236,6 @@ func nox_fs_fgets(f *C.FILE, dst *C.char, sz C.int) C.bool {
 	return C.bool(!end)
 }
 
-//export nox_fs_fgetc
-func nox_fs_fgetc(f *C.FILE) C.int {
-	fp := fileByHandle(f)
-	fp.enableBuffer()
-	b, err := fp.buf.ReadByte()
-	fp.err = err
-	if err != nil {
-		return -1
-	}
-	return C.int(b)
-}
-
 //export nox_fs_fputs
 func nox_fs_fputs(f *C.FILE, str *C.char) C.int {
 	fp := fileByHandle(f)
@@ -303,55 +258,6 @@ func nox_fs_fputs_sync(f *C.FILE, str *C.char) C.int {
 		return -1
 	}
 	return C.int(n)
-}
-
-//export nox_fs_fscan_str
-func nox_fs_fscan_str(f *C.FILE, str *C.char) C.int {
-	fp := fileByHandle(f)
-	s, err := fp.ScanString()
-	if err != nil {
-		return -1
-	}
-	StrCopy(str, len(s)+1, s)
-	return 1
-}
-
-//export nox_fs_fscan_skip
-func nox_fs_fscan_skip(f *C.FILE) C.int {
-	fp := fileByHandle(f)
-	_, err := fp.ScanString()
-	if err != nil {
-		return -1
-	}
-	return 1
-}
-
-//export nox_fs_fscan_char
-func nox_fs_fscan_char(f *C.FILE, p *C.char) C.int {
-	fp := fileByHandle(f)
-	s, err := fp.ScanString()
-	if err != nil {
-		return -1
-	}
-	*p = C.char(s[0])
-	return 1
-}
-
-//export nox_fs_fscan_char2
-func nox_fs_fscan_char2(f *C.FILE, p *C.char) C.int {
-	fp := fileByHandle(f)
-	s, err := fp.ScanString()
-	if err != nil {
-		return -1
-	}
-	b := unsafe.Slice((*byte)(unsafe.Pointer(p)), 2)
-	b[0] = s[0]
-	if len(s) > 1 {
-		b[1] = s[1]
-	} else {
-		b[1] = 0
-	}
-	return 1
 }
 
 //export nox_fs_feof

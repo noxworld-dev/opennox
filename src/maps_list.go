@@ -60,11 +60,6 @@ func nox_common_scanAddMap(filename string) {
 	C.nox_common_maplist_add_4D0760(mp)
 }
 
-//export nox_xxx_checkHasSoloMaps_40ABD0
-func nox_xxx_checkHasSoloMaps_40ABD0() C.bool {
-	return C.bool(nox_xxx_checkHasSoloMaps())
-}
-
 func nox_xxx_checkHasSoloMaps() bool {
 	_, err := ifs.Stat(datapath.Maps("con01a", "con01a.map"))
 	return err == nil

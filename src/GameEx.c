@@ -37,21 +37,6 @@ extern nox_window* nox_win_unk3;
 unsigned int gameex_flags = 0x1E;
 
 int DefaultPacket[4] = {171901697, 1, 347, 44391266}; // weak
-wchar_t wndEntryNames[5][35] = {
-	{119u, 97u,  114u, 114u, 105u, 111u, 114u, 115u, 32u, 108u, 105u, 107u, 101u, 32u, 115u, 104u, 105u, 101u,
-	 108u, 100u, 115u, 0u,   0u,   0u,   0u,   0u,   0u,  0u,   0u,   0u,   0u,   0u,  0u,   0u,   0u},
-	{119u, 97u, 108u, 107u, 105u, 110u, 103u, 32u, 119u, 105u, 116u, 104u, 32u, 115u, 119u, 111u, 114u, 100u,
-	 32u,  98u, 108u, 111u, 99u,  107u, 0u,   0u,  0u,   0u,   0u,   0u,   0u,  0u,   0u,   0u,   0u},
-	{119u, 101u, 97u, 112u, 111u, 110u, 32u, 114u, 111u, 108u, 108u, 0u, 0u, 0u, 0u, 0u, 0u, 0u,
-	 0u,   0u,   0u,  0u,   0u,   0u,   0u,  0u,   0u,   0u,   0u,   0u, 0u, 0u, 0u, 0u, 0u},
-	{115u, 104u, 105u, 101u, 108u, 100u, 32u,  38u,  32u,  98u, 101u, 114u, 115u, 101u, 114u, 107u, 101u, 114u,
-	 32u,  98u,  108u, 111u, 99u,  107u, 105u, 110u, 103u, 0u,  0u,   0u,   0u,   0u,   0u,   0u,   0u},
-	{101u, 120u, 116u, 101u, 110u, 115u, 105u, 111u, 110u, 32u, 109u, 101u, 115u, 115u, 97u, 103u, 101u, 115u,
-	 0u,   0u,   0u,   0u,   0u,   0u,   0u,   0u,   0u,   0u,  0u,   0u,   0u,   0u,   0u,  0u,   0u}};
-char someSwitch = 0;        // weak
-char isInvalidIp = 0;       // weak
-char inputNewIpMsgBox[512]; // weak
-
 
 int nox_CharToOemW(const wchar_t* pSrc, char* pDst) { return nox_sprintf(pDst, "%S", pSrc); }
 
@@ -377,10 +362,8 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 // 1000EF00: using guessed type int DefaultPacket[4];
 
 //----- (10002C30) --------------------------------------------------------
-void OnLibraryNotice_256() {}
 void OnLibraryNotice_259(uint32_t arg1) {}
 
-void OnLibraryNotice_262(uint32_t arg1) {}
 void OnLibraryNotice_263(uint32_t arg1) { nox_common_gameFlags_check_40A5C0(1); }
 void OnLibraryNotice_264(uint32_t arg1) { nox_common_gameFlags_check_40A5C0(1); }
 bool gameexSomeWeirdCheckFixmePlease();

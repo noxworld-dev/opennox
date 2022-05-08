@@ -29,11 +29,6 @@ func nox_platform_srand(seed C.uint) {
 	platform.RandSeed(int64(seed))
 }
 
-//export nox_platform_time_seed
-func nox_platform_time_seed() C.uint {
-	return C.uint(platform.TimeSeed())
-}
-
 //export nox_platform_srand_time
 func nox_platform_srand_time() {
 	platform.RandSeedTime()
@@ -49,15 +44,6 @@ func platformTicks() uint64 {
 		return uint64(platform.Ticks())
 	}
 	return uint64(platform.Ticks() / time.Millisecond)
-}
-
-//export nox_platform_sleep
-func nox_platform_sleep(ms C.uint) {
-	if env.IsE2E() {
-		platform.Sleep(time.Duration(ms))
-		return
-	}
-	platform.Sleep(time.Duration(ms) * time.Millisecond)
 }
 
 func nox_framerate_limit_416C70(fps int) {

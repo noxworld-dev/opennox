@@ -5192,15 +5192,6 @@ int sub_420E80(float a1, float a2, float a3) {
 	return v3;
 }
 
-//----- (00420EE0) --------------------------------------------------------
-int sub_420EE0(int a1) {
-	int result; // eax
-
-	result = a1;
-	*(uint32_t*)(a1 + 12) = 0;
-	return result;
-}
-
 //----- (00421430) --------------------------------------------------------
 void* sub_421430() {
 	unsigned char* v0; // esi
@@ -5386,103 +5377,6 @@ unsigned char* sub_421230() {
 	sub_421160((int)v1);
 	*((uint32_t*)v1 + 21) = 1;
 	return getMemAt(0x5D4594, 552228 + 140 * v0);
-}
-
-//----- (004212C0) --------------------------------------------------------
-int sub_4212C0(int a1) {
-	int v1;             // ebx
-	int v2;             // ebp
-	unsigned int v3;    // edi
-	int v4;             // ecx
-	unsigned char* v5;  // eax
-	int v6;             // edx
-	uint32_t* v7;       // ecx
-	int v8;             // eax
-	unsigned char* v9;  // edx
-	unsigned char* v10; // esi
-	int result;         // eax
-	int v12;            // [esp+Ch] [ebp-4h]
-	int v13;            // [esp+14h] [ebp+4h]
-
-	v1 = a1;
-	v2 = 0;
-	v12 = 0;
-	if (*(uint16_t*)(a1 + 128)) {
-		do {
-			v3 = 1;
-			v4 = 0;
-			v13 = 0;
-			if (nox_xxx_polygonNextIdx_587000_60352 <= 1u) {
-			LABEL_16:
-				v8 = 0;
-				v9 = getMemAt(0x5D4594, 535844 + 16 * *(uint32_t*)(*(uint32_t*)(v1 + 108) + 4 * v2));
-				if ((int)*getMemU16Ptr(0x5D4594, 588072) > 0) {
-					v10 = getMemAt(0x5D4594, 534820);
-					while (*(uint32_t*)v10 != *(uint32_t*)v9) {
-						++v8;
-						v10 += 4;
-						if (v8 >= *getMemU16Ptr(0x5D4594, 588072)) {
-							goto LABEL_22;
-						}
-					}
-					--*getMemU16Ptr(0x5D4594, 588072);
-					memcpy(getMemAt(0x5D4594, 534820 + 4 * v8), getMemAt(0x5D4594, 534824 + 4 * v8),
-						   4 * (*getMemU16Ptr(0x5D4594, 588072) - v2));
-				}
-			LABEL_22:
-				sub_420EE0((int)v9);
-			} else {
-				v5 = getMemAt(0x5D4594, 552496);
-				while (!v4) {
-					if (*((uint32_t*)v5 - 11)) {
-						if (v5 - 128 != (unsigned char*)v1) {
-							v6 = 0;
-							if (*(uint16_t*)v5) {
-								v7 = (uint32_t*)*((uint32_t*)v5 - 5);
-								while (*v7 != *(uint32_t*)(*(uint32_t*)(v1 + 108) + 4 * v2)) {
-									++v6;
-									++v7;
-									if (v6 >= *(unsigned short*)v5) {
-										v4 = v13;
-										goto LABEL_14;
-									}
-								}
-								v4 = 1;
-								v13 = 1;
-							}
-						}
-					}
-				LABEL_14:
-					++v3;
-					v5 += 140;
-					if (v3 >= *(int*)&nox_xxx_polygonNextIdx_587000_60352) {
-						v2 = v12;
-						if (v4) {
-							break;
-						}
-						goto LABEL_16;
-					}
-					v2 = v12;
-				}
-			}
-			v12 = ++v2;
-		} while (v2 < *(unsigned short*)(v1 + 128));
-	}
-	if (*(uint32_t*)v1) {
-		free(*(void**)v1);
-		*(uint32_t*)v1 = 0;
-	}
-	if (*(uint32_t*)(v1 + 108)) {
-		free(*(void**)(v1 + 108));
-		*(uint32_t*)(v1 + 108) = 0;
-	}
-	*(uint16_t*)(v1 + 128) = 0;
-	*(uint32_t*)(v1 + 80) = 0;
-	result = -1;
-	*(uint32_t*)(v1 + 84) = 0;
-	*(uint32_t*)(v1 + 116) = -1;
-	*(uint32_t*)(v1 + 124) = -1;
-	return result;
 }
 
 //----- (004214A0) --------------------------------------------------------
@@ -8272,28 +8166,6 @@ int sub_4264D0() {
 	return sub_428890(getMemI16Ptr(0x5D4594, 739396));
 }
 
-//----- (00426590) --------------------------------------------------------
-void* sub_426590() { return calloc(1u, 0x144u); }
-
-//----- (004268B0) --------------------------------------------------------
-int sub_4268B0(int a1) {
-	int v1;     // ecx
-	int result; // eax
-
-	v1 = 27;
-	result = a1 + 4;
-	do {
-		result += 12;
-		--v1;
-	} while (v1);
-	return result;
-}
-
-//----- (00426A20) --------------------------------------------------------
-void sub_426A20(int a1) {
-	*getMemU32Ptr(0x5D4594, 739992) = a1;
-}
-
 //----- (00426A30) --------------------------------------------------------
 int nox_xxx_wallGet_426A30() { return *getMemU32Ptr(0x5D4594, 739992); }
 
@@ -8392,15 +8264,6 @@ int nox_xxx_bookGetNextCre_427320(int a1) {
 			return 0;
 		}
 	}
-	return result;
-}
-
-//----- (004273C0) --------------------------------------------------------
-int sub_4273C0(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 740096 + 28 * a1) = 1;
 	return result;
 }
 

@@ -27,7 +27,6 @@ extern nox_window* dword_5d4594_1522624;
 extern nox_window* dword_5d4594_1522628;
 extern nox_window* nox_win_xxx1_last;
 extern nox_window* dword_5d4594_1062452;
-extern nox_window_ref* nox_win_1064912;
 
 extern unsigned int dword_5d4594_1193132;
 extern unsigned int nox_client_gui_flag_815132;
@@ -163,33 +162,9 @@ func nox_input_pollEvents_4453A0() C.int {
 	return 0
 }
 
-//export nox_input_pollEventsMovie
-func nox_input_pollEventsMovie() C.int {
-	panic("TODO")
-}
-
-//export nox_input_getSensitivity
-func nox_input_getSensitivity() C.float {
-	return C.float(getSensitivity())
-}
-
 //export nox_input_setSensitivity
 func nox_input_setSensitivity(v C.float) {
 	setSensitivity(float32(v))
-}
-
-//export acquireMouse_sub_47D8C0
-func acquireMouse_sub_47D8C0() C.int {
-	// TODO
-	//inpHandler.AcquireMouse()
-	return 0
-}
-
-//export unacquireMouse_sub_47D8B0
-func unacquireMouse_sub_47D8B0() C.int {
-	// TODO
-	//inpHandler.UnacquireMouse()
-	return 0
 }
 
 //export nox_input_enableTextEdit_5700CA
@@ -219,24 +194,6 @@ func noxInputOnChar(c uint16) {
 
 func call_OnLibraryNotice_265(dv int) {
 	C.OnLibraryNotice_265(0, 2, C.int(dv))
-}
-
-//export nox_xxx_keybind_nameByKey
-func nox_xxx_keybind_nameByKey(key C.uint) *C.char {
-	k := keybind.Key(key)
-	if !k.IsValid() {
-		return nil
-	}
-	return internCStr(k.String())
-}
-
-//export nox_xxx_keybind_keyByName
-func nox_xxx_keybind_keyByName(name *C.char) C.uint {
-	k := keybind.KeyByName(GoString(name))
-	if k == 0 {
-		return 0
-	}
-	return C.uint(k)
 }
 
 var keybindTitles struct {
@@ -286,14 +243,12 @@ func nox_xxx_bindevent_bindNameByTitle_42EA40(title *C.wchar_t) *C.char {
 	return internCStr(b.Name)
 }
 
-//export sub_4C3CB0
 func sub_4C3CB0() {
 	ctrlEvent.Reset()
 	nox_common_readcfgfile("default.cfg", true)
 	sub_4C3B70()
 }
 
-//export sub_4CBF40
 func sub_4CBF40() {
 	ctrlEvent.Reset()
 	nox_common_readcfgfile("default.cfg", true)
@@ -391,11 +346,6 @@ func nox_xxx_initInput_430190() error {
 	inputInitMouse()
 	C.sub_42EBB0(2, (*[0]byte)(C.nox_input_reset_430140), 0, internCStr("Input"))
 	return nil
-}
-
-//export sub_4309B0
-func sub_4309B0(i, v C.uchar) {
-	setKeyFlag(keybind.Key(i), v != 0)
 }
 
 func (c *CtrlEventHandler) nox_xxx_input_42D220(inp *input.Handler) {

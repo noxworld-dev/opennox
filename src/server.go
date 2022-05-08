@@ -161,11 +161,6 @@ func nox_xxx_servGetPort_40A430() C.int {
 	return C.int(noxServer.getServerPort())
 }
 
-//export nox_xxx_setPortParam_40A3E0
-func nox_xxx_setPortParam_40A3E0(port C.int) {
-	noxServer.setServerPort(int(port))
-}
-
 func inferHTTPPort(port int) int {
 	return common.GameHTTPPort + (port - common.GamePort)
 }
@@ -304,7 +299,6 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	}
 }
 
-//export nox_server_netMaybeSendInitialPackets_4DEB30
 func nox_server_netMaybeSendInitialPackets_4DEB30() {
 	if !noxflags.HasEngine(noxflags.EngineReplayRead) {
 		C.nox_xxx_servNetInitialPackets_552A80(C.uint(memmap.Uint32(0x5D4594, 1563148)), 1)

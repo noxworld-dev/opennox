@@ -5,12 +5,10 @@
 
 void init_data_mix();
 
-void OnLibraryNotice_256();
 void OnLibraryNotice_257();
 void OnLibraryNotice_259(uint32_t arg1);
 void OnLibraryNotice_260(uint32_t arg1, uint32_t arg2, uint32_t arg3);
 void OnLibraryNotice_261();
-void OnLibraryNotice_262(uint32_t arg1);
 void OnLibraryNotice_263(uint32_t arg1);
 void OnLibraryNotice_264(uint32_t arg1);
 void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, int arg3);

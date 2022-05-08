@@ -24,11 +24,9 @@ const (
 	NOX_NET_EADDRINUSE = C.NOX_NET_EADDRINUSE
 )
 
-//export nox_net_init
-func nox_net_init() C.int {
+func nox_net_init() {
 	C.debugNet = C.bool(debugNet)
 	C.nox_net_no_xor = C.bool(!noxNetXor)
-	return 0
 }
 
 //export nox_net_stop
@@ -52,31 +50,24 @@ func listenUDPBroadcast(ip net.IP, port int) (*net.UDPConn, *Socket, error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	return l, &Socket{udp: true, broadcast: true, pc: l}, nil
+	return l, &Socket{udp: true, pc: l}, nil
 }
 
 type Socket struct {
-	c         net.Conn
-	l         net.Listener
-	pc        net.PacketConn
-	udp       bool
-	broadcast bool
-	errno     int
-	err       error
+	c   net.Conn
+	l   net.Listener
+	pc  net.PacketConn
+	udp bool
+	err error
 }
 
 func (s *Socket) setErrno(v int, err error) {
 	if s != nil {
-		s.errno = v // TODO: mutex
 		s.err = err
 	}
 	sockets.Lock()
 	sockets.errno = v
 	sockets.Unlock()
-}
-
-func (s *Socket) getErrno() int {
-	return s.errno // TODO: mutex
 }
 
 func netCanReadConn(pc net.PacketConn) (int, syscall.Errno, error) {
@@ -326,18 +317,6 @@ func setAddr(dst *C.struct_nox_net_sockaddr_in, addr net.Addr) (net.IP, int) {
 	return ip, port
 }
 
-//export nox_net_socket_tcp
-func nox_net_socket_tcp() C.nox_socket_t {
-	s := &Socket{}
-	return newSocketHandle(s)
-}
-
-//export nox_net_socket_udp
-func nox_net_socket_udp() C.nox_socket_t {
-	s := newSocketUDP()
-	return newSocketHandle(s)
-}
-
 //export nox_net_close
 func nox_net_close(fd C.nox_socket_t) {
 	h := uintptr(fd)
@@ -360,86 +339,6 @@ func getSocket(fd C.nox_socket_t) *Socket {
 	return s
 }
 
-//export nox_net_shutdown
-func nox_net_shutdown(fd C.nox_socket_t) {
-	_ = getSocket(fd).Close()
-}
-
-//export nox_net_error
-func nox_net_error(fd C.nox_socket_t) C.int {
-	if fd <= 0 {
-		return nox_net_last_error()
-	}
-	return C.int(getSocket(fd).getErrno())
-}
-
-//export nox_net_last_error
-func nox_net_last_error() C.int {
-	sockets.RLock()
-	errno := sockets.errno
-	sockets.RUnlock()
-	return C.int(errno)
-}
-
-//export nox_net_bind
-func nox_net_bind(fd C.nox_socket_t, addr *C.struct_nox_net_sockaddr_in) C.int {
-	s := getSocket(fd)
-	if s == nil {
-		s.setErrno(123456, errors.New("no socket")) // TODO
-		return -1
-	}
-	ip, port := toIPPort(addr)
-	err := s.Bind(ip, port)
-	if err != nil {
-		netLog.Println(err)
-		return -1
-	}
-	return 0
-}
-
-//export nox_net_accept
-func nox_net_accept(fd C.nox_socket_t, addr *C.struct_nox_net_sockaddr_in) C.nox_socket_t {
-	s := getSocket(fd)
-	if s == nil {
-		s.setErrno(123456, errors.New("no socket")) // TODO
-		return -1
-	}
-	if s.l == nil {
-		err := errors.New("accept on UDP connection")
-		netLog.Printf("warning: %v", err)
-		s.setErrno(123456, err) // TODO
-		return -1
-	}
-	c, err := s.l.Accept()
-	if err != nil {
-		netLog.Println(err)
-		s.setErrno(123456, err) // TODO
-		return -1
-	}
-	s2 := &Socket{c: c}
-	ip, port := setAddr(addr, c.RemoteAddr())
-	if debugNet {
-		netLog.Printf("accept tcp %s:%d", ip, port)
-	}
-	return newSocketHandle(s2)
-}
-
-//export nox_net_send
-func nox_net_send(fd C.nox_socket_t, buffer unsafe.Pointer, length C.uint) C.int {
-	s := getSocket(fd)
-	if s == nil {
-		s.setErrno(123456, errors.New("no socket")) // TODO
-		return -1
-	}
-	buf := unsafe.Slice((*byte)(buffer), int(length))
-	n, err := s.Write(buf)
-	if err != nil {
-		return -1
-	}
-	return C.int(n)
-}
-
-//export nox_net_recv
 func nox_net_recv(fd C.nox_socket_t, buffer unsafe.Pointer, length C.uint) C.int {
 	s := getSocket(fd)
 	if s == nil {
@@ -530,15 +429,4 @@ func nox_net_recv_available(fd C.nox_socket_t, out *C.uint) C.int {
 	}
 	*out = C.uint(n)
 	return 0
-}
-
-//export nox_net_non_blocking
-func nox_net_non_blocking(fd C.nox_socket_t, enabled C.int) C.int {
-	s := getSocket(fd)
-	if s == nil {
-		s.setErrno(123456, errors.New("no socket")) // TODO
-		return -1
-	}
-	netLog.Printf("nox_net_non_blocking: %T, %T", s.c, s.pc)
-	panic("TODO")
 }

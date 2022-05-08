@@ -50,16 +50,6 @@ func init() {
 	})
 }
 
-//export nox_gui_console_Enable_450BE0
-func nox_gui_console_Enable_450BE0() {
-	guiCon.Enable(true)
-}
-
-//export nox_gui_console_Disable_450BF0
-func nox_gui_console_Disable_450BF0() {
-	guiCon.Enable(false)
-}
-
 //export nox_gui_console_flagXxx_451410
 func nox_gui_console_flagXxx_451410() C.int {
 	return C.int((^(guiCon.root.Flags() >> 4)) & 1)

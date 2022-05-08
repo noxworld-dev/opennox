@@ -109,7 +109,6 @@ extern void* dword_5d4594_814624;
 extern uint32_t dword_5d4594_826028;
 extern uint32_t nox_client_highResFloors_154952;
 extern uint32_t dword_5d4594_2618912;
-extern uint32_t nox_draw_fontAdvance_816440;
 extern uint32_t nox_client_highResFrontWalls_80820;
 extern uint32_t dword_5d4594_830104;
 extern uint32_t dword_5d4594_830108;
@@ -453,21 +452,6 @@ int sub_43CF70() {
 }
 // 43CFA0: variable 'v1' is possibly undefined
 
-//----- (0043CFF0) --------------------------------------------------------
-int nox_xxx_servNetInitialPacketsUntilCRC_43CFF0() {
-	long long start = nox_platform_get_ticks();
-	while ((unsigned long long)(nox_platform_get_ticks() - start) < 10000) {
-		nox_xxx_servNetInitialPackets_552A80(*(unsigned int*)getMemAt(0x5D4594, 815700), 1);
-		nox_xxx_netSendBySock_40EE10(*(unsigned int*)getMemAt(0x5D4594, 815700), 31, 0);
-		nox_netlist_resetByInd_40ED10(31, 0);
-		nox_xxx_netMaybeSendAll_552460();
-		if (nox_xxx_getMapCRC_40A370()) {
-			return 1;
-		}
-	}
-	return 0;
-}
-
 //----- (0043D2D0) --------------------------------------------------------
 void sub_43D2D0() {
 	int v1; // esi
@@ -772,24 +756,6 @@ int sub_43DC40() {
 	return result;
 }
 
-//----- (0043DC80) --------------------------------------------------------
-int sub_43DC80() {
-	unsigned char* v0; // eax
-
-	if (dword_587000_93156 && dword_5d4594_816340) {
-		while (1) {
-			v0 = getMemAt(0x5D4594, 816108 + 20 * *getMemU32Ptr(0x5D4594, 816352));
-			if (*(uint32_t*)v0) {
-				if (*((uint32_t*)v0 + 4)) {
-					break;
-				}
-			}
-			sub_4312C0();
-		}
-	}
-	return 1;
-}
-
 //----- (0043DD10) --------------------------------------------------------
 int sub_43DD10(int* a1) {
 	unsigned char* v1; // ecx
@@ -844,12 +810,6 @@ int sub_43E8C0(int a1) {
 	result = a1;
 	*getMemU32Ptr(0x5D4594, 816408) = a1;
 	return result;
-}
-
-//----- (0043E9C0) --------------------------------------------------------
-int sub_43E9C0() {
-	sub_43E9F0();
-	return 0;
 }
 
 //----- (0043EDB0) --------------------------------------------------------
@@ -1078,12 +1038,6 @@ int nox_xxx_doExecrul_4438A0(int a1) {
 	return 1;
 }
 
-//----- (00444D30) --------------------------------------------------------
-void sub_444D30() { memcpy(nox_draw_curDrawData_3799572, &obj_5D4594_3799660, sizeof(nox_render_data_t)); }
-
-//----- (00445440) --------------------------------------------------------
-int sub_445440() { return 1; }
-
 //----- (00445450) --------------------------------------------------------
 wchar_t* sub_445450() {
 	unsigned char* v0; // esi
@@ -1214,14 +1168,6 @@ int nox_xxx_wndDrawQuitMenu_445BC0(uint32_t* a1) {
 	nox_client_wndGetPosition_46AA60(a1, &xLeft, &yTop);
 	nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, a1[2], a1[3]);
 	return 1;
-}
-
-//----- (00445C00) --------------------------------------------------------
-void sub_445C00() {
-	int v = nox_xxx_wndGetFlags_46ADA0(nox_wnd_quitMenu_825760);
-	if (v & 0x10) {
-		sub_445C40();
-	}
 }
 
 //----- (00445C20) --------------------------------------------------------

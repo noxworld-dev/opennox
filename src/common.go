@@ -26,19 +26,9 @@ func nox_common_resetEngineFlag(flags C.nox_engine_flag) {
 	noxflags.UnsetEngine(noxflags.EngineFlag(flags))
 }
 
-//export nox_common_toggleEngineFlag
-func nox_common_toggleEngineFlag(flags C.nox_engine_flag) {
-	noxflags.ToggleEngine(noxflags.EngineFlag(flags))
-}
-
 //export nox_common_getEngineFlag
 func nox_common_getEngineFlag(flags C.nox_engine_flag) C.bool {
 	return C.bool(noxflags.HasEngine(noxflags.EngineFlag(flags)))
-}
-
-//export nox_common_initRandom_415F70
-func nox_common_initRandom_415F70() {
-	noxCommonInitRandom()
 }
 
 func noxCommonInitRandom() {

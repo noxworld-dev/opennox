@@ -84,12 +84,6 @@ func (s *Server) nox_xxx_replayStopSave_4D33B0() {
 	noxflags.UnsetEngine(noxflags.EngineReplayWrite)
 }
 
-//export nox_xxx_replaySaveConsole_4D33E0
-func nox_xxx_replaySaveConsole_4D33E0(a1 unsafe.Pointer, a2 C.int) {
-	cmd := GoWStringSlice(unsafe.Slice((*uint16)(a1), int(a2)))
-	nox_xxx_replaySaveConsole(cmd)
-}
-
 func nox_xxx_replaySaveConsole(cmd string) {
 	if replay.writer == nil || len(cmd) == 0 {
 		return

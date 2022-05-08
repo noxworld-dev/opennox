@@ -375,7 +375,7 @@ func mainloopConnectOrHost() (again bool, _ error) {
 	C.sub_43D990()
 	g_v20 = true
 	noxAudioServeT(800)
-	nox_common_initRandom_415F70()
+	noxCommonInitRandom()
 	gameFrameSetFromFlags()
 	C.nox_ensure_thing_bin()
 	*memmap.PtrUint32(0x85B3FC, 960) = 0
@@ -671,12 +671,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 		}
 		return newConnectFailErr(-15, errors.New("invalid port"))
 	}
-	if nox_net_init() == -1 {
-		if debugMainloop {
-			log.Println("NET_CONNECT_THEN_FAIL", -21)
-		}
-		return newConnectFailErr(-21, errors.New("net init failed"))
-	}
+	nox_net_init()
 	sock := newSocketUDP()
 	if sock == nil {
 		if debugMainloop {

@@ -56,12 +56,10 @@ extern uint32_t dword_5d4594_1049844;
 extern uint32_t dword_5d4594_1090180;
 extern uint32_t dword_5d4594_1050008;
 extern uint32_t dword_5d4594_1096272;
-extern uint32_t dword_587000_145548;
 extern uint32_t dword_5d4594_1096432;
 extern uint32_t dword_5d4594_1064300;
 extern uint32_t dword_5d4594_1049516;
 extern uint32_t dword_5d4594_1062520;
-extern uint32_t dword_5d4594_1082916;
 extern uint32_t dword_5d4594_1096276;
 extern uint32_t dword_5d4594_1049976;
 extern uint32_t dword_5d4594_1090284;
@@ -82,7 +80,6 @@ extern uint32_t dword_5d4594_1062492;
 extern uint32_t dword_5d4594_1062496;
 extern uint32_t dword_587000_145668;
 extern uint32_t dword_5d4594_1090176;
-extern uint32_t dword_587000_145540;
 extern uint32_t dword_5d4594_1096260;
 extern uint32_t nox_client_gui_flag_1556112;
 extern uint32_t dword_5d4594_1096284;
@@ -119,7 +116,6 @@ extern uint32_t nox_client_highResFloors_154952;
 extern uint32_t dword_5d4594_1062528;
 extern uint32_t dword_5d4594_1062524;
 extern uint32_t dword_5d4594_251540;
-extern nox_window_ref* nox_win_1064912;
 extern uint32_t dword_5d4594_3807156;
 extern int dword_5d4594_3799524;
 extern uint32_t dword_5d4594_1064856;
@@ -187,9 +183,6 @@ void* dword_5d4594_1064824 = 0;
 void* dword_5d4594_1064828 = 0;
 
 nox_window_yyy nox_windows_arr_1093036[7] = {0};
-
-const int nox_drawable_lists_cap = 512;
-const int nox_drawable_list_1_cap = 8192;
 
 obj_5D4594_2650668_t** ptr_5D4594_2650668 = 0;
 const int ptr_5D4594_2650668_cap = 128;
@@ -511,33 +504,6 @@ int sub_461360(int a1) {
 			v2 = 0;
 		}
 	} while (v2 != v3);
-	return result;
-}
-
-//----- (004613B0) --------------------------------------------------------
-int sub_4613B0() {
-	int v0;     // ebp
-	int v1;     // edx
-	int v2;     // eax
-	int v3;     // edi
-	int result; // eax
-	int v5;     // [esp+10h] [ebp-4h]
-
-	v0 = nox_xxx_aClosewoodengat_587000_133480;
-	v1 = nox_xxx_aClosewoodengat_587000_133480;
-	v5 = 5;
-	do {
-		v2 = v1;
-		v3 = 5;
-		do {
-			*getMemU32Ptr(0x5D4594, 1047564 + v2 - v0) = *(uint32_t*)v2;
-			*getMemU8Ptr(0x5D4594, 1047568 + v2 - v0) = *(uint8_t*)(v2 + 4);
-			v2 += 40;
-			--v3;
-		} while (v3);
-		v1 += 8;
-		result = --v5;
-	} while (v5);
 	return result;
 }
 
@@ -4026,21 +3992,6 @@ int nox_xxx_wnd_46C2A0(nox_window* a1p) {
 	return 0;
 }
 
-//----- (0046C610) --------------------------------------------------------
-int sub_46C610() {
-	uint32_t* v0; // eax
-	uint32_t* v1; // eax
-	char v3[332]; // [esp+0h] [ebp-14Ch]
-
-	v0 = nox_window_new(0, 12, 100, 100, 200, 200, 0);
-	*(uint32_t*)&v3[20] = 4;
-	nox_gui_windowCopyDrawData_46AF80((int)v0, v3);
-	v1 = nox_window_new(0, 12, 150, 150, 200, 200, 0);
-	*(uint32_t*)&v3[20] = 8;
-	nox_gui_windowCopyDrawData_46AF80((int)v1, v3);
-	return 1;
-}
-
 //----- (0046DB80) --------------------------------------------------------
 int sub_46DB80() {
 	int i;      // esi
@@ -4980,15 +4931,6 @@ int nox_xxx_cliDrawLagometer_470770(int a1, int a2) {
 	return 1;
 }
 
-//----- (00470A50) --------------------------------------------------------
-int sub_470A50(int a1) {
-	int result; // eax
-
-	result = a1;
-	dword_5d4594_1090180 = a1;
-	return result;
-}
-
 //----- (00470A60) --------------------------------------------------------
 int sub_470A60() {
 	dword_5d4594_1090180 = dword_5d4594_1090180 == 0;
@@ -5128,12 +5070,6 @@ int sub_470D20(int a1, int a2) {
 		result = nox_xxx_setKeybTimeout_4160D0(17);
 	}
 	return result;
-}
-
-//----- (00470D40) --------------------------------------------------------
-int sub_470D40() {
-	return !wndIsShown_nox_xxx_wndIsShown_46ACC0(nox_windows_arr_1093036[5].win) ||
-		   !wndIsShown_nox_xxx_wndIsShown_46ACC0(nox_windows_arr_1093036[6].win);
 }
 
 //----- (00470D70) --------------------------------------------------------
@@ -5726,9 +5662,6 @@ int nox_xxx_cliSetMinimapZoom_472520(int a1) {
 	nox_xxx_minimap_587000_149232 = a1;
 	return result;
 }
-
-//----- (00472530) --------------------------------------------------------
-int sub_472530() { return nox_xxx_minimap_587000_149232; }
 
 //----- (00472540) --------------------------------------------------------
 int sub_472540(int a1) {

@@ -23,8 +23,6 @@ typedef struct nox_ctrlevent_key_t {
 } nox_ctrlevent_key_t;
 _Static_assert(sizeof(nox_ctrlevent_key_t) == 96, "wrong size of nox_ctrlevent_key_t structure!");
 
-char* nox_xxx_keybind_nameByKey(unsigned int key);
-unsigned int nox_xxx_keybind_keyByName(char* name);
 char* nox_xxx_keybind_nameByTitle_42E960(wchar_t* title);
 wchar_t* nox_xxx_keybind_titleByKey_42EA00(unsigned int a1);
 wchar_t* nox_xxx_keybind_titleByKeyZero_42EA00(unsigned int a1);

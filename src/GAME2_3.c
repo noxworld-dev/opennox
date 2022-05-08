@@ -19,7 +19,6 @@
 
 #include "client__gui__chathelp.h"
 #include "client__gui__gadgets__listbox.h"
-#include "client__gui__gamewin__psscript.h"
 #include "client__gui__guicon.h"
 #include "client__gui__guiinv.h"
 #include "client__gui__guiquit.h"
@@ -53,7 +52,6 @@ extern void* nox_alloc_healthChange_1301772;
 extern uint32_t nox_server_sanctuaryHelp_54276;
 extern uint32_t dword_5d4594_1303536;
 extern uint32_t dword_5d4594_1197308;
-extern uint32_t dword_5d4594_1301824;
 extern uint32_t dword_5d4594_1197372;
 extern uint32_t dword_5d4594_1301816;
 extern void* nox_alloc_friendList_1203860;
@@ -69,7 +67,6 @@ extern uint32_t dword_5d4594_1301780;
 extern uint32_t dword_5d4594_1203836;
 extern uint32_t dword_5d4594_1203840;
 extern uint32_t dword_5d4594_1197332;
-extern uint32_t dword_5d4594_1301840;
 extern void* nox_alloc_chat_1197364;
 extern uint32_t dword_5d4594_1203864;
 extern uint32_t dword_5d4594_1217452;
@@ -77,10 +74,6 @@ extern uint32_t dword_5d4594_1193712;
 extern uint32_t nox_server_connectionType_3596;
 extern void* nox_draw_colorTablesRev_3804668;
 extern uint32_t dword_5d4594_810636;
-extern uint32_t dword_5d4594_1301828;
-extern uint32_t dword_5d4594_1193584;
-extern uint32_t dword_5d4594_1301832;
-extern uint32_t dword_5d4594_1301836;
 extern uint32_t dword_5d4594_1301776;
 extern uint32_t dword_5d4594_1197316;
 extern uint32_t dword_5d4594_1217460;
@@ -90,15 +83,12 @@ extern uint32_t dword_5d4594_1197320;
 extern uint32_t nox_wol_servers_sorting_166704;
 extern uint32_t dword_5d4594_1197324;
 extern uint32_t dword_5d4594_1217456;
-extern uint32_t dword_5d4594_1301800;
 extern uint32_t dword_5d4594_1305680;
-extern uint32_t dword_5d4594_1301792;
 extern uint32_t dword_5d4594_1301848;
 extern uint32_t dword_5d4594_1197312;
 extern uint32_t dword_5d4594_1303452;
 extern uint32_t nox_client_gui_flag_815132;
 extern uint32_t dword_5d4594_1305684;
-extern uint32_t dword_5d4594_1193516;
 extern uint32_t dword_5d4594_1217464;
 extern uint32_t nox_video_modeXxx_3801780;
 extern uint32_t dword_5d4594_810632;
@@ -142,37 +132,6 @@ nox_window* nox_gui_winParentsTop_4A14F0();
 nox_window* nox_gui_winParentsPop_4A18A0();
 void nox_gui_winParentsPush_4A18C0(nox_window* win);
 
-//----- (0048C4D0) --------------------------------------------------------
-int sub_48C4D0() {
-	unsigned short* v0; // esi
-	uint16_t* v1;       // edi
-	unsigned short v2;  // ax
-	int v3;             // eax
-	int result;         // eax
-	int v6;             // [esp-4h] [ebp-10h]
-
-	v0 = *(unsigned short**)&dword_5d4594_1193516;
-	v1 = *(uint16_t**)&dword_5d4594_1193584;
-	v6 = *getMemU32Ptr(0x5D4594, 1193520);
-	do {
-		v2 = *v0;
-		++v0;
-		v3 = (unsigned char)*(uint32_t*)((unsigned int)nox_draw_colorTablesRev_3804668 + v2);
-		result = *(uint32_t*)(nox_draw_colors_r_3804672 +
-							  2 * ((unsigned int)(*(uint32_t*)(&obj_5D4594_3800716.field_34) * v3) >> 8)) |
-				 *(uint32_t*)(nox_draw_colors_g_3804656 +
-							  2 * ((unsigned int)(*(uint32_t*)(&obj_5D4594_3800716.field_35) * v3) >> 8)) |
-				 *(uint32_t*)(nox_draw_colors_b_3804664 +
-							  2 * ((unsigned int)(*(uint32_t*)(&obj_5D4594_3800716.field_36) * v3) >> 8));
-		*v1 = result;
-		++v1;
-	} while ((*getMemU32Ptr(0x5D4594, 1193520))-- > 1);
-	*getMemU32Ptr(0x5D4594, 1193520) = v6;
-	dword_5d4594_1193516 = v0;
-	dword_5d4594_1193584 = v1;
-	return result;
-}
-
 //----- (0048C580) --------------------------------------------------------
 void sub_48C580(pixel8888* a1, int num) {
 	unsigned int* pix = (unsigned int*)a1;
@@ -186,34 +145,6 @@ void sub_48C580(pixel8888* a1, int num) {
 		*pix = result;
 		++pix;
 	}
-}
-
-//----- (0048C5B0) --------------------------------------------------------
-short sub_48C5B0(short* a1, int a2) {
-	short* v2;    // edi
-	int v3;       // ecx
-	short* v4;    // ebx
-	short result; // ax
-	short v6;     // t0
-
-	v2 = a1;
-	v3 = a2;
-	do {
-		v4 = &v2[v3];
-		result = *v2;
-		do {
-			--v4;
-			if (result > *v4) {
-				v6 = result;
-				result = *v4;
-				*v4 = v6;
-			}
-		} while (v4 != v2);
-		*v2 = result;
-		++v2;
-		--v3;
-	} while (v3);
-	return result;
 }
 
 //----- (0048C5E0) --------------------------------------------------------
@@ -276,16 +207,6 @@ unsigned int sub_48C690(int a1, int a2, int a3, int a4) {
 
 //----- (0048C6B0) --------------------------------------------------------
 unsigned int sub_48C6B0(int a1, int a2) { return sub_48C730(a2 * a2 + a1 * a1); }
-
-//----- (0048C6D0) --------------------------------------------------------
-double sub_48C6D0(float a1, float a2, float a3, float a4) {
-	return (double)sub_48C730((long long)((a3 - a1) * (a3 - a1) + (a4 - a2) * (a4 - a2)));
-}
-// 48C6F6: variable 'v4' is possibly undefined
-
-//----- (0048C700) --------------------------------------------------------
-double sub_48C700(float a1, float a2) { return (double)sub_48C730((long long)(a1 * a1 + a2 * a2)); }
-// 48C722: variable 'v2' is possibly undefined
 
 //----- (0048C730) --------------------------------------------------------
 unsigned sub_48C730(unsigned int a1) {
@@ -630,9 +551,6 @@ int sub_48D4B0(int a1) {
 	}
 	return result;
 }
-
-//----- (0048D4E0) --------------------------------------------------------
-int sub_48D4E0() { return *getMemU32Ptr(0x5D4594, 1197304); }
 
 //----- (0048D4F0) --------------------------------------------------------
 int sub_48D4F0(unsigned short a1, unsigned short a2) {
@@ -2790,23 +2708,6 @@ int sub_495D00(uint32_t* a1, int a2, uint32_t* a3) {
 	return 1;
 }
 
-//----- (00495F30) --------------------------------------------------------
-void sub_495F30(int a1, int a2) {
-	uint32_t* v2; // esi
-
-	v2 = *(uint32_t**)(a1 + 456);
-	if (v2) {
-		while (*v2 != a2) {
-			v2 = (uint32_t*)v2[16];
-			if (!v2) {
-				return;
-			}
-		}
-		sub_495B50(v2);
-		nox_alloc_class_free_obj_first(*(unsigned int**)getMemAt(0x5D4594, 1203868), v2);
-	}
-}
-
 //----- (00495F70) --------------------------------------------------------
 void sub_495F70(int a1) {
 	uint32_t* v1; // eax
@@ -2861,25 +2762,6 @@ int sub_496020(int a1, int a2) {
 		}
 	}
 	return 1;
-}
-
-//----- (00496050) --------------------------------------------------------
-void sub_496050(int a1) {
-	uint32_t* v1; // eax
-	int v2;       // ecx
-
-	if (a1 && sub_496020(a1, 2) != 1) {
-		v1 = nox_alloc_class_new_obj_zero(*(uint32_t**)getMemAt(0x5D4594, 1203868));
-		if (v1) {
-			*v1 = 2;
-			v2 = *((unsigned char*)v1 + 56);
-			v1[1] = 0;
-			v1[2 * v2 + 2] = *(uint32_t*)(a1 + 12);
-			v1[2 * v2 + 3] = *(uint32_t*)(a1 + 16);
-			++*((uint8_t*)v1 + 56);
-			sub_495FC0(v1, a1);
-		}
-	}
 }
 
 //----- (004960B0) --------------------------------------------------------
@@ -5614,52 +5496,6 @@ int sub_49AEA0() {
 	}
 	return 1;
 }
-
-//----- (0049B1A0) --------------------------------------------------------
-int sub_49B1A0(int a1) {
-	int result; // eax
-	int v2;     // esi
-
-	result = a1;
-	if (a1) {
-		do {
-			v2 = *(uint32_t*)(result + 8);
-			nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_pixelSpan_1301844, (uint64_t*)result);
-			result = v2;
-		} while (v2);
-	}
-	return result;
-}
-
-//----- (0049B1D0) --------------------------------------------------------
-int sub_49B1D0(int a1, int a2) {
-	int* v2;    // ecx
-	int result; // eax
-
-	if (a1) {
-		for (result = *(uint32_t*)(a1 + 8); result; result = *(uint32_t*)(a1 + 8)) {
-			if (result == a2) {
-				break;
-			}
-			*(uint32_t*)(a1 + 8) = *(uint32_t*)(result + 8);
-			nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_pixelSpan_1301844, (uint64_t*)result);
-		}
-	} else {
-		v2 = (int*)(dword_5d4594_1301848 + 4 * dword_5d4594_1301836);
-		for (result = *v2; result; v2 = (int*)(dword_5d4594_1301848 + 4 * dword_5d4594_1301836)) {
-			if (result == a2) {
-				break;
-			}
-			*v2 = *(uint32_t*)(result + 8);
-			nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_pixelSpan_1301844, (uint64_t*)result);
-			result = *(uint32_t*)(dword_5d4594_1301848 + 4 * dword_5d4594_1301836);
-		}
-	}
-	return result;
-}
-
-//----- (0049B3A0) --------------------------------------------------------
-int sub_49B3A0() { return dword_5d4594_1301812; }
 
 //----- (0049B3E0) --------------------------------------------------------
 int sub_49B3E0() {

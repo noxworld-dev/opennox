@@ -54,7 +54,6 @@ extern uint32_t dword_5d4594_2488608;
 extern uint32_t dword_5d4594_2488652;
 extern uint32_t dword_5d4594_3835348;
 extern uint32_t dword_5d4594_3835352;
-extern uint32_t dword_5d4594_2489432;
 extern uint32_t nox_xxx_lightningClosestTargetDistance_5d4594_2487912;
 extern uint32_t dword_5d4594_3835356;
 extern uint32_t nox_xxx_warriorMaxMana_587000_312788;
@@ -7749,50 +7748,6 @@ void nox_xxx_updateSpark_53ADC0(int a1) {
 	}
 }
 
-//----- (0053AE00) --------------------------------------------------------
-char sub_53AE00(int a1) {
-	uint8_t* v1; // esi
-	int v2;      // eax
-	bool v3;     // zf
-
-	v1 = *(uint8_t**)(a1 + 748);
-	if (v1[1]) {
-		LOBYTE(v2) = v1[1] - 1;
-		if (v1[1] == 1) {
-			LOBYTE(v2) = *v1 - 1;
-			v3 = *v1 == 1;
-			*v1 = v2;
-			if (v3) {
-				LOWORD(v2) = nox_common_randomInt_415FA0(0, 255);
-				*(uint16_t*)(a1 + 126) = v2;
-				v1[1] = 0;
-				*v1 = 2;
-				v1[2] = 0;
-			}
-		}
-	} else {
-		v2 = 8 * *(short*)(a1 + 124);
-		*(float*)(a1 + 88) = *getMemFloatPtr(0x587000, 194136 + v2) * 4.0;
-		*(float*)(a1 + 92) = *getMemFloatPtr(0x587000, 194140 + v2) * 4.0;
-		LOBYTE(v2) = *v1 - 1;
-		v3 = *v1 == 1;
-		*v1 = v2;
-		if (v3) {
-			LOBYTE(v2) = v1[2] + 1;
-			v1[2] = v2;
-			if ((uint8_t)v2 == 4) {
-				v1[2] = 0;
-				v1[1] = 1;
-				LOBYTE(v2) = nox_common_randomInt_415FA0(5, 60);
-				*v1 = v2;
-			} else {
-				*v1 = 2;
-			}
-		}
-	}
-	return v2;
-}
-
 //----- (0053AEC0) --------------------------------------------------------
 float* nox_xxx_updateProjTrail_53AEC0(int a1) {
 	float* v1;     // esi
@@ -12435,34 +12390,6 @@ int nox_xxx_tileCheckByte4_5440A0(int a1) {
 	}
 	dword_5d4594_3835360 = a1;
 	return 1;
-}
-
-
-//----- (00544240) --------------------------------------------------------
-int sub_544240(int a1) {
-	int result; // eax
-
-	if (a1 < 0 || a1 >= *(int*)&dword_5d4594_251572) {
-		result = 0;
-	} else {
-		result = getMemByte(0x85B3FC, 28696 + 60 * a1) - 2;
-	}
-	return result;
-}
-
-//----- (005442D0) --------------------------------------------------------
-int sub_5442D0(float* a1) {
-	int result; // eax
-	float2 a2;  // [esp+0h] [ebp-8h]
-
-	if (!dword_5d4594_2489436) {
-		return 1;
-	}
-	result = nox_xxx_mapGenFixCoords_4D3D90((float2*)a1, &a2);
-	if (result) {
-		result = nox_xxx_tileSubtile_544310(&a2);
-	}
-	return result;
 }
 
 //----- (00544310) --------------------------------------------------------

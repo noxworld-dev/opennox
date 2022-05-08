@@ -205,17 +205,6 @@ func sub_40E090() {
 	C.dword_5d4594_10984 = 0
 }
 
-//export sub_4A4CB0
-func sub_4A4CB0(sv1, sv2 *C.nox_savegame_xxx) C.int {
-	dt := asTime(&sv1.timestamp).Sub(asTime(&sv2.timestamp))
-	if dt < 0 {
-		return -1
-	} else if dt > 0 {
-		return +1
-	}
-	return 0
-}
-
 //export sub_4A50A0
 func sub_4A50A0() C.int {
 	nox_wnd_xxx_1307748.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)
@@ -572,7 +561,6 @@ func nox_xxx_findAutosaves_4A5150() {
 	}
 }
 
-//export sub_4A5690
 func sub_4A5690(sv *C.nox_savegame_xxx) C.int {
 	if sv.flags&4 == 0 {
 		if !noxServer.nox_xxx_isQuest_4D6F50() && !sub_4D6F70() {
@@ -731,11 +719,6 @@ func nox_savegame_sub_46CE40(wlist, wnames, wstyles *Window, sarr []C.nox_savega
 	wnames.Func94(ev2)
 	wstyles.Func94(ev2)
 	return ind
-}
-
-//export sub_46CD70
-func sub_46CD70(sv *C.nox_savegame_xxx) C.int {
-	return C.int(sub46CD70(sv))
 }
 
 func sub46CD70(sv *C.nox_savegame_xxx) int {
@@ -1161,7 +1144,6 @@ func sub_4505B0() {
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 1
 }
 
-//export sub_43DDA0
 func sub_43DDA0() {
 	*memmap.PtrUint32(0x5D4594, 816344) = 0
 	C.sub_43D9E0((*C.int4)(memmap.PtrOff(0x5D4594, 816060)))
@@ -1200,12 +1182,6 @@ func sub_4DCBD0(a1 int) {
 func sub_44D8F0() {
 	C.dword_5d4594_830872 = 0
 	C.dword_5d4594_830972 = 0
-}
-
-//export nox_savegame_nameFromPath_4DC970
-func nox_savegame_nameFromPath_4DC970(src, dst *C.char, max C.int) {
-	name := datapath.SaveNameFromPath(GoString(src))
-	StrCopy(dst, int(max), name)
 }
 
 func sub_46CCB0() {

@@ -164,8 +164,7 @@ func nox_xxx_netMapDownloadPart_4AB7C0(a1 C.ushort, a2p unsafe.Pointer, a3 C.uin
 	}
 }
 
-//export nox_xxx_gameDownloadShowDialog_4CC770
-func nox_xxx_gameDownloadShowDialog_4CC770() C.int {
+func nox_xxx_gameDownloadShowDialog_4CC770() {
 	winDownload = newWindowFromFile("mapdnld.wnd", nox_xxx_guiDownloadProc_4CC890)
 	winDownload.SetAllFuncs(nox_xxx_guiDownloadAbort_4CC830, nil, nil)
 	mode := videoGetGameMode()
@@ -184,7 +183,6 @@ func nox_xxx_gameDownloadShowDialog_4CC770() C.int {
 	}
 	winDownload.SetPos(image.Point{X: (v0 - 1024) / 2, Y: (v1 - 768) / 2})
 	nox_xxx_wndShowModalMB(winDownload)
-	return 1
 }
 
 func nox_xxx_guiDownloadAbort_4CC830(a1 *Window, ev WindowEvent) WindowEventResp {

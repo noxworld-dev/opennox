@@ -1660,7 +1660,6 @@ func nox_game_switchStates_43C0A0() C.int {
 	return C.int(bool2int(nox_game_state.Switch()))
 }
 
-//export nox_game_checkStateSwitch_43C1E0
 func nox_game_checkStateSwitch_43C1E0() {
 	if gameGetStateCode() < 0 {
 		return
@@ -1674,7 +1673,6 @@ func nox_game_checkStateSwitch_43C1E0() {
 	}
 }
 
-//export nox_game_checkStateOptions_43C220
 func nox_game_checkStateOptions_43C220() {
 	if gameGetStateCode() < 0 {
 		return

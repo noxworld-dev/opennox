@@ -117,11 +117,6 @@ func (s *Server) playerResetInd(ind int) *Player {
 	return p
 }
 
-//export nox_common_playerInfoResetInd_417000
-func nox_common_playerInfoResetInd_417000(ind C.int) *C.nox_playerInfo {
-	return noxServer.playerResetInd(int(ind)).C()
-}
-
 //export nox_common_playerInfoGetByID_417040
 func nox_common_playerInfoGetByID_417040(id C.int) *C.nox_playerInfo {
 	return noxServer.getPlayerByID(int(id)).C()

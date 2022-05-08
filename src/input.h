@@ -6,19 +6,15 @@
 void input_cleanup();
 void input_events_tick();
 
-int unacquireMouse_sub_47D8B0();
-int acquireMouse_sub_47D8C0();
 int nox_xxx_freeKeyboard_47FCC0();
 void nox_xxx_getKeyFromKeyboardImpl_47FA80(nox_keyboard_btn_t* ev);
 
-float nox_input_getSensitivity();
 void nox_input_setSensitivity(float v);
 
 void nox_input_resetBuffers();
 bool nox_input_shiftState();
 bool nox_input_scrollLockState();
 int nox_input_pollEvents_4453A0();
-int nox_input_pollEventsMovie();
 bool nox_input_isMouseDown();
 
 bool controller_relative();

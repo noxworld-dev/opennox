@@ -377,23 +377,6 @@ func nox_binfile_fseek_409050(cfile *C.FILE, coff, cwhence C.int) C.int {
 	return 0
 }
 
-//export nox_binfile_disable_409560
-func nox_binfile_disable_409560() {}
-
-//export nox_binfile_reset_4093A0
-func nox_binfile_reset_4093A0() {}
-
-//export nox_binfile_fflush_409110
-func nox_binfile_fflush_409110(cfile *C.FILE) C.int {
-	file := fileByHandle(cfile)
-	bin := file.bin
-	res, err := bin.FileFlush()
-	if err != nil {
-		binFileLog.Println(err)
-	}
-	return C.int(res)
-}
-
 //export nox_binfile_fwrite_409200
 func nox_binfile_fwrite_409200(cbuf *C.char, sz, cnt C.int, cfile *C.FILE) C.size_t {
 	if sz*cnt == 0 {
@@ -407,13 +390,4 @@ func nox_binfile_fwrite_409200(cbuf *C.char, sz, cnt C.int, cfile *C.FILE) C.siz
 		file.err = err
 	}
 	return C.size_t(n / int(sz))
-}
-
-//export nox_binfile_writeIntAt_409190
-func nox_binfile_writeIntAt_409190(cfile *C.FILE, cval, coff C.int) {
-	if coff < 0 {
-		return
-	}
-	file := fileByHandle(cfile)
-	file.bin.WriteUint32At(int32(cval), int64(coff))
 }

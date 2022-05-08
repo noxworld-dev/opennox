@@ -31,20 +31,6 @@ uint32_t nox_color_violet_2598268 = 0;
 uint32_t nox_color_black_2650656 = 0;
 uint32_t nox_color_orange_2614256 = 0;
 
-nox_team_info_t nox_team_table[] = {
-    {"advserv.wnd:None", 0, 0, &nox_color_white_2523948},
-    {"modifier.db:MaterialTeamRedDesc",    0, 1, &nox_color_red_2589776},
-    {"modifier.db:MaterialTeamBlueDesc",   0, 2, &nox_color_blue_2650684},
-    {"modifier.db:MaterialTeamGreenDesc",  0, 3, &nox_color_green_2614268},
-    {"modifier.db:MaterialTeamCyanDesc",   0, 4, &nox_color_cyan_2649820},
-    {"modifier.db:MaterialTeamYellowDesc", 0, 5, &nox_color_yellow_2589772},
-    {"modifier.db:MaterialTeamVioletDesc", 0, 6, &nox_color_violet_2598268},
-    {"modifier.db:MaterialTeamBlackDesc",  0, 7, &nox_color_black_2650656},
-    {"modifier.db:MaterialTeamWhiteDesc",  0, 8, &nox_color_white_2523948},
-    {"modifier.db:MaterialTeamOrangeDesc", 0, 9, &nox_color_orange_2614256},
-};
-int nox_team_table_cnt = sizeof(nox_team_table) / sizeof(nox_team_info_t);
-
 //----- (004191D0) --------------------------------------------------------
 void nox_xxx_createAtImpl_4191D0(unsigned char a1, void* a2p, int a3, int a4, int a5) {
 	int a2 = a2p;

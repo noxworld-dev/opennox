@@ -8071,9 +8071,6 @@ int sub_502A50(char* a1) {
 	return result;
 }
 
-//----- (00502A90) --------------------------------------------------------
-int sub_502A90() { return strlen(*(const char**)&dword_5d4594_1599588) != 0 ? dword_5d4594_1599588 : 0; }
-
 //----- (00502AB0) --------------------------------------------------------
 int sub_502AB0(char* a1) {
 	int result; // eax
@@ -8200,19 +8197,6 @@ FILE* sub_502E10(int a1) {
 	return nox_file_8;
 }
 
-//----- (00502E50) --------------------------------------------------------
-FILE* sub_502E50(char* a1) {
-	FILE* result; // eax
-	int v2;       // eax
-
-	result = (FILE*)a1;
-	if (a1) {
-		v2 = sub_5029A0(a1);
-		result = sub_502E10(v2);
-	}
-	return result;
-}
-
 //----- (00502E70) --------------------------------------------------------
 double sub_502E70(int a1) {
 	double result; // st7
@@ -8236,179 +8220,6 @@ double sub_502EA0(int a1) {
 	}
 	return result;
 }
-
-//----- (00502ED0) --------------------------------------------------------
-FILE* sub_502ED0(const char* a1) {
-	FILE* result;     // eax
-	int v2;           // edx
-	int v3;           // eax
-	char* v4;         // edi
-	unsigned char v5; // cl
-	FILE* v6;         // edi
-	FILE* v7;         // ebx
-	int v8;           // ebp
-	int v9;           // ecx
-	int v10;          // ebp
-	int v11;          // [esp+Ch] [ebp-854h]
-	int v12;          // [esp+10h] [ebp-850h]
-	int v13;          // [esp+14h] [ebp-84Ch]
-	int v14;          // [esp+18h] [ebp-848h]
-	int v15;          // [esp+1Ch] [ebp-844h]
-	char v16[64];     // [esp+20h] [ebp-840h]
-	char v17[2048];   // [esp+60h] [ebp-800h]
-
-	v13 = 0;
-	result = (FILE*)sub_503140();
-	if (result) {
-		v2 = *getMemU32Ptr(0x587000, 229712);
-		strcpy(v17, (const char*)getMemAt(0x973F18, 42152));
-		v3 = *getMemU32Ptr(0x587000, 229716);
-		v4 = &v17[strlen(v17)];
-		*(uint32_t*)v4 = *getMemU32Ptr(0x587000, 229708);
-		v5 = getMemByte(0x587000, 229720);
-		*((uint32_t*)v4 + 1) = v2;
-		*((uint32_t*)v4 + 2) = v3;
-		v4[12] = v5;
-		result = nox_fs_open(v17);
-		v6 = result;
-		if (result) {
-			result = nox_fs_create(*(const char**)&dword_5d4594_1599588);
-			v7 = result;
-			if (result) {
-				nox_fs_fread(v6, &v14, 4);
-				if (v14 == -889266515) {
-					nox_fs_fwrite(v7, &v14, 4);
-					while (1) {
-						v12 = 0;
-						nox_fs_fread(v6, &v12, 4);
-						v8 = v12;
-						if (!v12) {
-							break;
-						}
-						nox_fs_fread(v6, &v11, 1);
-						nox_fs_fread(v6, v16, (unsigned char)v11);
-						v9 = -1 - (unsigned char)v11;
-						v16[(unsigned char)v11] = 0;
-						v10 = v9 + v8;
-						if (!strcmp(v16, a1)) {
-							nox_fs_fseek_cur(v6, v10);
-						} else {
-							v13 = 1;
-							nox_fs_fwrite(v7, &v12, 4);
-							nox_fs_fwrite(v7, &v11, 1);
-							nox_fs_fwrite(v7, v16, (unsigned char)v11);
-							for (; v10; --v10) {
-								nox_fs_fread(v6, &v11, 1);
-								nox_fs_fwrite(v7, &v11, 1);
-							}
-						}
-					}
-					v15 = 0;
-					nox_fs_fwrite(v7, &v15, 4);
-					nox_fs_close(v6);
-					nox_fs_close(v7);
-					sub_502B10();
-					result = (FILE*)(v13 != 0);
-				} else {
-					nox_fs_close(v6);
-					nox_fs_close(v7);
-					result = 0;
-				}
-			}
-		}
-	}
-	return result;
-}
-// 502ED0: using guessed type char var_800[2048];
-// 502ED0: using guessed type char var_840[64];
-
-//----- (00503140) --------------------------------------------------------
-int sub_503140() {
-	int result;             // eax
-	int v1;                 // edx
-	int v2;                 // eax
-	char* v3;               // edi
-	unsigned char v4;       // cl
-	char NewFileName[2048]; // [esp+4h] [ebp-800h]
-
-	sub_502DF0();
-	result = 0;
-	if (strlen(*(const char**)&dword_5d4594_1599588)) {
-		result = 0;
-		if (strlen((const char*)getMemAt(0x973F18, 42152))) {
-			v1 = *getMemU32Ptr(0x587000, 229736);
-			strcpy(NewFileName, (const char*)getMemAt(0x973F18, 42152));
-			v2 = *getMemU32Ptr(0x587000, 229740);
-			v3 = &NewFileName[strlen(NewFileName)];
-			*(uint32_t*)v3 = *getMemU32Ptr(0x587000, 229732);
-			v4 = getMemByte(0x587000, 229744);
-			*((uint32_t*)v3 + 1) = v1;
-			*((uint32_t*)v3 + 2) = v2;
-			v3[12] = v4;
-			if (remove(NewFileName) != -1 || errno != 13) {
-				result = rename(*(const char**)&dword_5d4594_1599588, NewFileName) != -1;
-			} else {
-				result = 0;
-			}
-		}
-	}
-	return result;
-}
-// 503140: using guessed type char NewFileName[2048];
-
-//----- (005036D0) --------------------------------------------------------
-int sub_5036D0(char* a1, const char* lpFileName) {
-	const char* v2; // edi
-	char* v3;       // eax
-	FILE* v4;       // eax
-	FILE* v5;       // esi
-	FILE* v7;       // edi
-	char v8;        // [esp+Bh] [ebp-55h]
-	int v9;         // [esp+Ch] [ebp-54h]
-	int v10;        // [esp+10h] [ebp-50h]
-	int v11;        // [esp+14h] [ebp-4Ch]
-	int v12;        // [esp+18h] [ebp-48h]
-	int v13;        // [esp+1Ch] [ebp-44h]
-	char v14[64];   // [esp+20h] [ebp-40h]
-
-	v2 = lpFileName;
-	nox_fs_remove(lpFileName);
-	v3 = (char*)sub_502A90();
-	sub_502DA0(v3);
-	v4 = sub_502E50(a1);
-	v5 = v4;
-	if (!v4) {
-		sub_502DF0();
-		return 0;
-	}
-	nox_fs_fread(v4, &v11, 4);
-	nox_fs_fread(v5, &v10, 1);
-	nox_fs_fread(v5, v14, (unsigned char)v10);
-	v14[(unsigned char)v10] = 0;
-	nox_fs_fread(v5, &v8, 1);
-	nox_fs_fread(v5, &lpFileName, 1);
-	nox_fs_fread(v5, &v12, 4);
-	nox_fs_fread(v5, &v13, 4);
-	if ((unsigned char)lpFileName <= 1u) {
-		return 0;
-	}
-	nox_fs_fread(v5, &v9, 4);
-	if (!v9) {
-		return 0;
-	}
-	v7 = nox_fs_create(v2);
-	if (!v7) {
-		return 0;
-	}
-	for (; v9; --v9) {
-		nox_fs_fread(v5, &a1, 1);
-		nox_fs_fwrite(v7, &a1, 1);
-	}
-	sub_502DF0();
-	nox_fs_close(v7);
-	return 1;
-}
-// 5036D0: using guessed type char var_40[64];
 
 //----- (00503830) --------------------------------------------------------
 int nox_xxx_mapgenSaveMap_503830(int a1) {

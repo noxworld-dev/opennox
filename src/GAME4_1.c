@@ -46,7 +46,6 @@ extern void* nox_alloc_pendingOwn_2386916;
 extern uint32_t dword_5d4594_2386228;
 extern void* nox_alloc_spawn_2386216;
 extern uint32_t dword_587000_230092;
-extern uint32_t dword_5d4594_2386156;
 extern uint32_t dword_5d4594_3835348;
 extern void* nox_alloc_tradeSession_2386492;
 extern uint32_t dword_5d4594_2386564;
@@ -2765,17 +2764,6 @@ void sub_50D820() {
 	nox_alloc_monsterList_2386220 = 0;
 	dword_5d4594_2386224 = 0;
 	dword_5d4594_2386228 = 0;
-}
-
-//----- (0050D860) --------------------------------------------------------
-int sub_50D860(int a1, int a2) {
-	if (*(float*)(a1 + 4) == *(float*)(a2 + 4)) {
-		return 0;
-	}
-	if (*(float*)(a1 + 4) <= (double)*(float*)(a2 + 4)) {
-		return -1;
-	}
-	return 1;
 }
 
 //----- (0050D8D0) --------------------------------------------------------
@@ -7965,26 +7953,6 @@ void* sub_51A100() {
 //----- (0051A130) --------------------------------------------------------
 int sub_51A130() { return dword_5d4594_2388648; }
 
-//----- (0051A170) --------------------------------------------------------
-int sub_51A170(const char* a1) {
-	int v1;          // ebp
-	const char** v2; // edi
-
-	if (!a1) {
-		return -1;
-	}
-	v1 = 0;
-	v2 = (const char**)getMemAt(0x587000, 249880);
-	while (strcmp(*v2, a1)) {
-		++v2;
-		++v1;
-		if ((int)v2 >= (int)getMemAt(0x587000, 249892)) {
-			return -1;
-		}
-	}
-	return v1;
-}
-
 //----- (0051A500) --------------------------------------------------------
 int sub_51A500(int a1) {
 	int v1;           // ecx
@@ -8468,9 +8436,6 @@ float* sub_51D1A0(float2* a1) {
 //----- (0051D2C0) --------------------------------------------------------
 int sub_51D2C0(int a1, int a2) { return sub_51D300(a1, a2, getMemByte(0x973F18, 35972)); }
 
-//----- (0051D2E0) --------------------------------------------------------
-int sub_51D2E0(int a1, int a2) { return sub_51D370(a1, a2, getMemByte(0x973F18, 35972)); }
-
 //----- (0051D300) --------------------------------------------------------
 int sub_51D300(int a1, int a2, char a3) {
 	unsigned char v3; // al
@@ -8502,41 +8467,6 @@ int sub_51D300(int a1, int a2, char a3) {
 	return 1;
 }
 
-//----- (0051D370) --------------------------------------------------------
-int sub_51D370(int a1, int a2, char a3) {
-	int v3;       // eax
-	int v4;       // esi
-	uint8_t* i;   // ecx
-	int v7;       // ecx
-	uint32_t* v8; // eax
-
-	if (a1 == a2) {
-		return 0;
-	}
-	v3 = 0;
-	v4 = *(unsigned char*)(a1 + 476);
-	if (v4 <= 0) {
-		return 0;
-	}
-	for (i = (uint8_t*)(a1 + 96); *((uint32_t*)i - 1) != a2 || *i != a3; i += 8) {
-		if (++v3 >= v4) {
-			return 0;
-		}
-	}
-	v7 = v3;
-	if (v3 < v4 - 1) {
-		v8 = (uint32_t*)(a1 + 8 * v3 + 92);
-		do {
-			++v7;
-			*v8 = v8[2];
-			v8[1] = v8[3];
-			v8 += 2;
-		} while (v7 < *(unsigned char*)(a1 + 476) - 1);
-	}
-	--*(uint8_t*)(a1 + 476);
-	return 1;
-}
-
 //----- (0051D3F0) --------------------------------------------------------
 float2* sub_51D3F0(float2* a1, float2* a2) {
 	float2* result; // eax
@@ -8551,29 +8481,6 @@ float2* sub_51D3F0(float2* a1, float2* a2) {
 				result = (float2*)sub_51D1A0(a2);
 				if (result) {
 					result = (float2*)sub_51D2C0((int)v3, (int)result);
-				}
-			}
-		} else {
-			result = 0;
-		}
-	}
-	return result;
-}
-
-//----- (0051D440) --------------------------------------------------------
-float* sub_51D440(float* a1, float* a2) {
-	float* result; // eax
-	float* v3;     // esi
-
-	result = a1;
-	if (a1) {
-		if (a2) {
-			result = sub_51D1A0((float2*)a1);
-			v3 = result;
-			if (result) {
-				result = sub_51D1A0((float2*)a2);
-				if (result) {
-					result = (float*)sub_51D2E0((int)v3, (int)result);
 				}
 			}
 		} else {
@@ -8664,17 +8571,6 @@ float* sub_51D5E0(float* a1) {
 		}
 	}
 	return result;
-}
-
-//----- (0051D8B0) --------------------------------------------------------
-int sub_51D8B0(int a1) {
-	if (!a1) {
-		return -1;
-	}
-	if (*(uint32_t*)a1) {
-		return **(uint32_t**)a1;
-	}
-	return -1;
 }
 
 //----- (0051D8F0) --------------------------------------------------------

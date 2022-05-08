@@ -12,8 +12,6 @@ char* nox_fs_normalize(char* path);
 
 char* nox_fs_root();
 
-// nox_fs_workdir copies current work directory to specified buffer.
-bool nox_fs_workdir(char* dst, int max);
 // nox_fs_set_workdir sets current work directory.
 bool nox_fs_set_workdir(char* path);
 
@@ -21,7 +19,6 @@ void nox_fs_progname(char* dst, int max);
 
 bool nox_fs_mkdir(char* path);
 bool nox_fs_remove(char* path);
-bool nox_fs_remove_dir(char* path);
 bool nox_fs_copy(char* src, char* dst);
 bool nox_fs_move(char* src, char* dst);
 
@@ -45,10 +42,6 @@ FILE* nox_fs_append_text(char* path);
 int nox_fs_fputs(FILE* f, char* str);
 int nox_fs_fputs_sync(FILE* f, char* str);
 int nox_fs_fprintf(FILE* f, const char* format, ...);
-int nox_fs_fscan_str(FILE* f, char* dst);
-int nox_fs_fscan_skip(FILE* f);
-int nox_fs_fscan_char(FILE* f, char* dst);
-int nox_fs_fscan_char2(FILE* f, char* dst);
 
 int nox_fs_fseek(FILE* f, long off, int mode);
 long nox_fs_ftell(FILE* f);
@@ -56,7 +49,6 @@ long nox_fs_fsize(FILE* f);
 int nox_fs_fread(FILE* f, void* dst, int sz);
 int nox_fs_fwrite(FILE* f, void* src, int sz);
 bool nox_fs_fgets(FILE* f, char* dst, int max);
-int nox_fs_fgetc(FILE* f);
 bool nox_fs_feof(FILE* f);
 
 void nox_fs_close(FILE* f);

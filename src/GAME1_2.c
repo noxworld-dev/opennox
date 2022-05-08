@@ -112,7 +112,6 @@ extern uint32_t dword_5d4594_815056;
 extern uint32_t dword_5d4594_808568;
 extern uint32_t dword_5d4594_2660032;
 extern uint32_t nox_client_gui_flag_1556112;
-extern uint32_t dword_5d4594_787180;
 extern uint32_t dword_5d4594_741356;
 extern uint32_t dword_5d4594_741332;
 extern uint32_t dword_5d4594_741364;
@@ -3198,48 +3197,6 @@ uint16_t* sub_42C480(uint32_t* this, unsigned int* a2) {
 }
 // 5667CB: using guessed type void * operator_new(unsigned int);
 
-//----- (0042C580) --------------------------------------------------------
-int sub_42C580(uint32_t* this, char* a2) {
-	int v2; // esi
-
-	v2 = this[1];
-	if (!v2) {
-		return 0;
-	}
-	while (strncmp(a2, (const char*)v2, 4u)) {
-		v2 = *(uint32_t*)(v2 + 12);
-		if (!v2) {
-			return 0;
-		}
-	}
-	return v2;
-}
-
-//----- (0042C660) --------------------------------------------------------
-bool sub_42C660(uint32_t* this, char* a2, uint32_t* a3) {
-	int v3; // eax
-
-	v3 = sub_42C580(this, a2);
-	if (v3) {
-		*a3 = **(uint32_t**)(v3 + 8);
-	}
-	return v3 != 0;
-}
-
-//----- (0042C6A0) --------------------------------------------------------
-bool sub_42C6A0(uint32_t* this, char* a2, char* a3) {
-	int v3;  // eax
-	bool v4; // zf
-
-	v3 = sub_42C580(this, a2);
-	v4 = v3 == 0;
-	if (v3) {
-		strcpy(a3, *(const char**)(v3 + 8));
-		v4 = v3 == 0;
-	}
-	return !v4;
-}
-
 //----- (0042C770) --------------------------------------------------------
 int sub_42C770(void** this) {
 	void** v1;  // ebx
@@ -3276,16 +3233,6 @@ int sub_42C820(int this, char* a2, char a3) {
 	return v3;
 }
 
-//----- (0042C880) --------------------------------------------------------
-int sub_42C880(int this, char* a2, char a3) {
-	int v3; // esi
-
-	v3 = this;
-	*(uint32_t*)(this + 8) = 0;
-	sub_42CAC0((void**)this, a2, a3);
-	return v3;
-}
-
 //----- (0042C8B0) --------------------------------------------------------
 int sub_42C8B0(int this, char* a2, char a3) {
 	int v3; // esi
@@ -3315,26 +3262,6 @@ int sub_42C910(int this, char* a2, const void* a3, unsigned short a4) {
 	sub_42CBF0((void**)this, a2, a3, a4);
 	return v4;
 }
-
-//----- (0042C940) --------------------------------------------------------
-char* sub_42C940(void** this, char* a2, char a3) {
-	void** v3;       // ebx
-	char* result;    // eax
-	unsigned int v5; // edx
-
-	v3 = this;
-	sub_42C770(this);
-	strncpy((char*)v3, a2, 4u);
-	*((uint16_t*)v3 + 2) = 1;
-	*((uint16_t*)v3 + 3) = 1;
-	result = (char*)operator_new(1u);
-	v5 = *((unsigned short*)v3 + 3);
-	v3[2] = result;
-	memcpy(result, &a3, v5);
-	v3[3] = 0;
-	return result;
-}
-// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0042C9A0) --------------------------------------------------------
 char* sub_42C9A0(void** this, char* a2, char a3) {
@@ -3368,48 +3295,6 @@ char* sub_42CA00(void** this, char* a2, char a3) {
 	*((uint16_t*)v3 + 2) = 3;
 	*((uint16_t*)v3 + 3) = 2;
 	result = (char*)operator_new(2u);
-	v5 = *((unsigned short*)v3 + 3);
-	v3[2] = result;
-	int a3i = a3;
-	memcpy(result, &a3i, v5);
-	v3[3] = 0;
-	return result;
-}
-// 5667CB: using guessed type void * operator_new(unsigned int);
-
-//----- (0042CA60) --------------------------------------------------------
-char* sub_42CA60(void** this, char* a2, char a3) {
-	void** v3;       // ebx
-	char* result;    // eax
-	unsigned int v5; // edx
-
-	v3 = this;
-	sub_42C770(this);
-	strncpy((char*)v3, a2, 4u);
-	*((uint16_t*)v3 + 2) = 4;
-	*((uint16_t*)v3 + 3) = 2;
-	result = (char*)operator_new(2u);
-	v5 = *((unsigned short*)v3 + 3);
-	v3[2] = result;
-	int a3i = a3;
-	memcpy(result, &a3i, v5);
-	v3[3] = 0;
-	return result;
-}
-// 5667CB: using guessed type void * operator_new(unsigned int);
-
-//----- (0042CAC0) --------------------------------------------------------
-char* sub_42CAC0(void** this, char* a2, char a3) {
-	void** v3;       // ebx
-	char* result;    // eax
-	unsigned int v5; // edx
-
-	v3 = this;
-	sub_42C770(this);
-	strncpy((char*)v3, a2, 4u);
-	*((uint16_t*)v3 + 2) = 5;
-	*((uint16_t*)v3 + 3) = 4;
-	result = (char*)operator_new(4u);
 	v5 = *((unsigned short*)v3 + 3);
 	v3[2] = result;
 	int a3i = a3;
@@ -3683,12 +3568,6 @@ int sub_430B50(int a1, int a2, int a3, int a4) {
 	return result;
 }
 
-//----- (00430B80) --------------------------------------------------------
-char* sub_430B80(uint32_t* a1) {
-	*a1 = dword_5d4594_3804684;
-	return (char*)getMemAt(0x973F18, 6088);
-}
-
 //----- (00430DB0) --------------------------------------------------------
 int nox_xxx_tileInitBuf_430DB0(int a1, int a2) {
 	size_t v2; // edi
@@ -3727,9 +3606,6 @@ int nox_video_freeFloorBuffer_430EC0() {
 
 //----- (00430EF0) --------------------------------------------------------
 void nox_xxx_freeFloorBuffer_430EF0() { nox_video_freeFloorBuffer_430EC0(); }
-
-//----- (00430F00) --------------------------------------------------------
-int screenshot_num = 0;
 
 //----- (004310B0) --------------------------------------------------------
 int nox_audio_initall(int a3) {
@@ -3809,9 +3685,6 @@ int* sub_431290() {
 	}
 	return result;
 }
-
-//----- (00431330) --------------------------------------------------------
-int sub_431330() { return dword_5d4594_805984 != 0; }
 
 //----- (00431370) --------------------------------------------------------
 int sub_431370() { return sub_488B60() != 0; }
@@ -3952,19 +3825,6 @@ char* nox_xxx_copyServerIPAndPort_431790(char* a1) {
 }
 // 4335F8: variable 'v12' is possibly undefined
 
-//----- (00434510) --------------------------------------------------------
-char* sub_434510(char* a1, unsigned char a2, unsigned char a3, unsigned char a4) {
-	char* result; // eax
-	int v5[10];   // [esp+8h] [ebp-28h]
-
-	v5[6] = a2;
-	result = a1;
-	v5[7] = a3;
-	v5[8] = a4;
-	memcpy(a1, v5, 0x28u);
-	return result;
-}
-
 //----- (00434610) --------------------------------------------------------
 int sub_434610(int a1) {
 	int result; // eax
@@ -3981,98 +3841,6 @@ int sub_434620(int a1) {
 	result = a1;
 	dword_5d4594_810632 = a1;
 	return result;
-}
-
-//----- (00434630) --------------------------------------------------------
-unsigned char sub_434630(unsigned char a1, unsigned char a2, unsigned char a3) {
-	int v3;               // ecx
-	unsigned char* v4;    // eax
-	int v5;               // esi
-	unsigned int v6;      // ecx
-	int v7;               // edi
-	int v8;               // eax
-	unsigned char result; // al
-	unsigned char* v10;   // edi
-	int v11;              // edx
-	int v12;              // esi
-	int v13;              // edx
-	unsigned char* v14;   // ecx
-	int v15;              // [esp+10h] [ebp-10h]
-	int v16;              // [esp+10h] [ebp-10h]
-	unsigned int v17;     // [esp+14h] [ebp-Ch]
-	unsigned char v18;    // [esp+18h] [ebp-8h]
-
-	v3 = 0;
-	v4 = getMemAt(0x973F18, 5096);
-	if (*(int*)&dword_5d4594_808568 <= 0) {
-	LABEL_6:
-		v5 = a1;
-		v6 = a1 | ((a2 | (a3 << 8)) << 8);
-		v7 = 0;
-		v15 = 255;
-		do {
-			v8 = (v7 + v15) / 2;
-			if (v6 >= *getMemIntPtr(0x5D4594, 809604 + 4 * v8)) {
-				if (!v6) {
-					return getMemByte(0x5D4594, 808304 + v8);
-				}
-				v7 = v8 + 1;
-			} else {
-				v15 = v8 - 1;
-			}
-		} while (v7 <= v15);
-		v17 = 195075;
-		v18 = 0;
-		v16 = 0;
-		v10 = getMemAt(0x973F18, 3882);
-		while (1) {
-			v11 = *(v10 - 2) - v5;
-			v12 = *(v10 - 1) - a2;
-			if (v11 * v11 + v12 * v12 + (*v10 - a3) * (*v10 - (unsigned int)a3) < v17) {
-				v17 = v11 * v11 + v12 * v12 + (*v10 - a3) * (*v10 - a3);
-				v18 = v16;
-			}
-			v10 += 4;
-			if (++v16 >= 256) {
-				break;
-			}
-			v5 = a1;
-		}
-		v13 = dword_5d4594_810628;
-		*getMemU8Ptr(0x973F18, 5096 + 4 * dword_5d4594_810628) = a1;
-		v14 = getMemAt(0x973F18, 5096 + 4 * v13);
-		v14[1] = a2;
-		v14[2] = a3;
-		v14[3] = v18;
-		if (*(int*)&dword_5d4594_808568 < 32) {
-			++dword_5d4594_808568;
-		}
-		if (++*(int*)&dword_5d4594_810628 >= 32) {
-			dword_5d4594_810628 = 0;
-		}
-		result = v18;
-	} else {
-		while (a1 != *v4 || a2 != v4[1] || a3 != v4[2]) {
-			v4 += 4;
-			if (++v3 >= *(int*)&dword_5d4594_808568) {
-				goto LABEL_6;
-			}
-		}
-		result = v4[3];
-	}
-	return result;
-}
-
-//----- (00434950) --------------------------------------------------------
-int sub_434950() {
-	if (!dword_5d4594_808564) {
-		return 0;
-	}
-	dword_5d4594_808564 = 0;
-	memcpy(getMemAt(0x973F18, 3880), getMemAt(0x5D4594, 808572), 0x400u);
-	sub_435040();
-	sub_434F00();
-	return 1;
 }
 
 //----- (00434E80) --------------------------------------------------------

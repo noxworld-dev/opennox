@@ -24,7 +24,6 @@ package opennox
 #include "server__object__pickdrop__pickup.h"
 #include "server__system__cscrfunc.h"
 #include "server__script__script.h"
-#include "client__gui__gamewin__psscript.h"
 #include "common__wolapi__wolstate.h"
 #include "client__draw__animdraw.h"
 #include "client__draw__canidraw.h"

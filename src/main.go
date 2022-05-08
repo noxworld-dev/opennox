@@ -398,7 +398,6 @@ func RunArgs(args []string) (gerr error) {
 	// manual spell cast timeout (in frames)
 	*memmap.PtrUint32(0x852978, 16) = uint32(float64(gameFPS()) * msmul)
 
-	nox_binfile_reset_4093A0()
 	C.nox_ensure_thing_bin()
 	if err := nox_common_scanAllMaps_4D07F0(); err != nil {
 		return fmt.Errorf("cannot find maps: %w", err)
@@ -507,11 +506,6 @@ func nox_exit(exitCode C.int) {
 	panic(ErrExit(exitCode))
 }
 
-//export nox_xxx_getNoxVer_401020
-func nox_xxx_getNoxVer_401020() *C.wchar_t {
-	return internWStr(version.ClientVersion())
-}
-
 //export nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode
 func nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d *C.int) {
 	mode := videoGetGameMode()
@@ -528,11 +522,6 @@ func nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d *C.int) {
 
 func videoUpdateGameMode(mode image.Point) {
 	videoSetGameMode(mode)
-	changeWindowedOrFullscreen()
-}
-
-//export change_windowed_fullscreen
-func change_windowed_fullscreen() {
 	changeWindowedOrFullscreen()
 }
 
@@ -575,7 +564,6 @@ func cleanup() {
 	C.sub_40C0D0()
 	C.sub_40B740()
 	C.nox_common_maplist_free_4D0970()
-	nox_binfile_disable_409560()
 	C.sub_40AF30()
 	C.nox_free_thing_bin()
 	ail.Shutdown()
@@ -629,7 +617,6 @@ func sub_43DCC0() {
 	}
 }
 
-//export sub_4312C0
 func sub_4312C0() {
 	ail.Serve()
 	if C.dword_5d4594_805988 != 0 {

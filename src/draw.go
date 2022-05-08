@@ -376,15 +376,6 @@ func sub_4338D0() int {
 	return 1
 }
 
-//export sub_433E80
-func sub_433E80(r, g, b C.uchar) {
-	noxrend.Data().setColorInt44(ColorInt{
-		R: int(r),
-		G: int(g),
-		B: int(b),
-	})
-}
-
 //export nox_xxx_drawMakeRGB_433F10
 func nox_xxx_drawMakeRGB_433F10(r, g, b C.uchar) {
 	noxrend.Data().setColorInt54(ColorInt{
@@ -397,11 +388,6 @@ func nox_xxx_drawMakeRGB_433F10(r, g, b C.uchar) {
 //export sub_434080
 func sub_434080(a1 C.int) {
 	noxrend.Data().setField262(int(a1))
-}
-
-//export nox_xxx_drawSelectColor_434350
-func nox_xxx_drawSelectColor_434350(a1 C.int) {
-	noxrend.Data().SetSelectColor(uint32(a1))
 }
 
 //export nox_xxx_drawSetTextColor_434390
@@ -451,20 +437,6 @@ func sub_4349C0(a1 *C.uint) {
 		G: int(arr[1]),
 		B: int(arr[2]),
 	})
-}
-
-//export sub_434A10
-func sub_434A10(a1, a2, a3 *C.uint) {
-	p := noxrend.Data()
-	if a1 != nil {
-		*a1 = p.field_62
-	}
-	if a2 != nil {
-		*a2 = p.field_63
-	}
-	if a3 != nil {
-		*a3 = p.field_64
-	}
 }
 
 //export sub_47D370
@@ -728,7 +700,7 @@ func (r *NoxRender) SetAlpha(v byte) { // nox_client_drawSetAlpha_434580
 	r.p.SetAlpha(v)
 }
 
-func (r *NoxRender) SelectColor(a1 uint32) { // nox_xxx_drawSelectColor_434350
+func (r *NoxRender) SelectColor(a1 uint32) {
 	r.p.SetSelectColor(a1)
 }
 

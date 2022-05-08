@@ -38,13 +38,11 @@ func sub_44E040() {
 	sub_413A00(0)
 }
 
-//export sub_44E070
 func sub_44E070() {
 	nox_client_setScreenFade_44DF90(C.nox_client_drawFadingScreen_44DD70)
 	nox_client_setScreenFade_44DF90(C.sub_44DE30)
 }
 
-//export sub_44E090
 func sub_44E090() {
 	nox_client_setScreenFade_44DF90(C.nox_xxx_screenFadeEffect_44DD20)
 	nox_client_setScreenFade_44DF90(C.sub_44DDF0)

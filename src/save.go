@@ -115,16 +115,6 @@ func nox_client_copySave(from, to string) error {
 	return ifs.CopyDir(fromDir, toDir)
 }
 
-//export nox_client_checkSaveMapExistsTmp_4DB2A0
-func nox_client_checkSaveMapExistsTmp_4DB2A0(name *C.char) *C.char {
-	path, err := nox_client_checkSaveMapExistsTmp(GoString(name))
-	if err != nil {
-		gameLog.Println(err)
-		return nil
-	}
-	return internCStr(path)
-}
-
 func nox_client_checkSaveMapExistsTmp(name string) (string, error) {
 	name = strings.ToLower(name)
 	if i := strings.IndexByte(name, ':'); i > 0 {

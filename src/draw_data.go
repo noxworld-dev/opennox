@@ -130,7 +130,7 @@ func (p *RenderData) setField17(v int) { // nox_xxx_draw_434600
 	p.field_17 = C.uint(v)
 }
 
-func (p *RenderData) setColorInt44(c ColorInt) { // sub_433E80
+func (p *RenderData) setColorInt44(c ColorInt) {
 	p.field_44 = C.uint(c.R)
 	p.field_45 = C.uint(c.G)
 	p.field_46 = C.uint(c.B)
@@ -142,7 +142,7 @@ func (p *RenderData) setColorInt54(c ColorInt) { // nox_xxx_drawMakeRGB_433F10
 	p.field_56 = C.uint(c.B)
 }
 
-func (p *RenderData) SetSelectColor(a1 uint32) { // nox_xxx_drawSelectColor_434350
+func (p *RenderData) SetSelectColor(a1 uint32) {
 	p.field_58 = C.uint(a1)
 }
 
@@ -164,7 +164,7 @@ func (p *RenderData) SetLightColor(c ColorInt) { // nox_client_drawSetColor_4344
 	p.field_64 = C.uint(c.B)
 }
 
-func (p *RenderData) GetLightColor() ColorInt { // sub_434A10
+func (p *RenderData) GetLightColor() ColorInt {
 	return ColorInt{
 		R: int(p.field_62),
 		G: int(p.field_63),

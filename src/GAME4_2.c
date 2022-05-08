@@ -50,7 +50,6 @@ extern uint32_t dword_5d4594_2487624;
 extern uint32_t dword_5d4594_3835352;
 extern uint32_t dword_5d4594_2487620;
 extern uint32_t dword_5d4594_2487708;
-extern uint32_t dword_5d4594_2487552;
 extern uint32_t nox_xxx_energyBoltTarget_5d4594_2487880;
 extern uint32_t nox_xxx_warriorMaxMana_587000_312788;
 extern uint32_t dword_5d4594_2487532;
@@ -2383,93 +2382,6 @@ void sub_520F80() {
 	free(*(void**)&dword_5d4594_2487532);
 }
 
-//----- (00520FC0) --------------------------------------------------------
-void sub_520FC0() { ++*getMemU8Ptr(0x5D4594, 2487548); }
-
-//----- (00520FD0) --------------------------------------------------------
-int sub_520FD0(uint32_t* a1) {
-	unsigned short* v1; // eax
-	int result;         // eax
-
-	v1 = (unsigned short*)sub_520E60((int2*)a1);
-	if (v1) {
-		result = *v1;
-	} else {
-		result = -1;
-	}
-	return result;
-}
-
-//----- (00520FF0) --------------------------------------------------------
-int sub_520FF0(uint32_t* a1) {
-	int v1;     // eax
-	int result; // eax
-
-	v1 = sub_520E60((int2*)a1);
-	if (v1) {
-		result = *(uint32_t*)(v1 + 16) == 0;
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
-//----- (00521020) --------------------------------------------------------
-int sub_521020(uint32_t* a1) {
-	int v1;     // eax
-	int result; // eax
-
-	v1 = sub_520E60((int2*)a1);
-	if (v1) {
-		result = *(uint8_t*)(v1 + 2) == getMemByte(0x5D4594, 2487548);
-	} else {
-		result = 1;
-	}
-	return result;
-}
-
-//----- (00521050) --------------------------------------------------------
-int sub_521050(uint32_t* a1, short a2) {
-	int result; // eax
-
-	result = sub_520E60((int2*)a1);
-	if (result) {
-		*(uint8_t*)(result + 2) = getMemByte(0x5D4594, 2487548);
-		*(uint16_t*)result = a2;
-	}
-	return result;
-}
-
-//----- (00521080) --------------------------------------------------------
-int sub_521080(uint32_t* a1, int a2) {
-	int v2;  // ebp
-	int v3;  // esi
-	int2 v5; // [esp+10h] [ebp-8h]
-
-	v2 = 0;
-	v5.field_4 = a1[1] - a2 / 2;
-	if (a2 > 0) {
-		while (2) {
-			v3 = 0;
-			v5.field_0 = *a1 - a2 / 2;
-			do {
-				if (!sub_520FF0(&v5)) {
-					return 0;
-				}
-				++v3;
-				++v5.field_0;
-			} while (v3 < a2);
-			++v2;
-			++v5.field_4;
-			if (v2 < a2) {
-				continue;
-			}
-			break;
-		}
-	}
-	return 1;
-}
-
 //----- (00521100) --------------------------------------------------------
 int sub_521100(int a1) {
 	int result; // eax
@@ -2685,190 +2597,6 @@ int nox_xxx_mapgenAllocBuffer_5213E0() {
 
 //----- (00521400) --------------------------------------------------------
 void nox_xxx_mapgenFreeBuffer_521400() { free(*(void**)&dword_5d4594_2487556); }
-
-//----- (00521410) --------------------------------------------------------
-void* sub_521410(int* a1, uint32_t* a2, int a3, int* a4) {
-	void* result;  // eax
-	int v5;        // eax
-	int v6;        // edx
-	int v7;        // edi
-	int v8;        // ebp
-	int v9;        // ecx
-	uint32_t* v10; // ebx
-	int v11;       // edx
-	int v12;       // esi
-	uint32_t* v13; // ecx
-	int v14;       // edx
-	int v15;       // [esp+14h] [ebp+Ch]
-
-	sub_520FC0();
-	result = (void*)sub_521500(a2, a1, a3);
-	if (result) {
-		sub_521600(a2, a1);
-		if (dword_5d4594_2487552 <= 1) {
-			*a4 = a3;
-			result = *(void**)&dword_5d4594_2487556;
-		} else {
-			v5 = dword_5d4594_2487556;
-			v6 = 1;
-			v7 = *(uint32_t*)(dword_5d4594_2487556 + 8) - **(uint32_t**)&dword_5d4594_2487556;
-			v8 = *(uint32_t*)(dword_5d4594_2487556 + 12) - *(uint32_t*)(dword_5d4594_2487556 + 4);
-			v15 = 1;
-			v9 = 1;
-			if (dword_5d4594_2487552 - 1 > 1) {
-				do {
-					v10 = (uint32_t*)(v5 + 8 * v9 - 8);
-					v11 = *(uint32_t*)(v5 + 8 * v9) - *v10;
-					v12 = *(uint32_t*)(v5 + 8 * v9 + 4) - *(uint32_t*)(v5 + 8 * v9 - 4);
-					if (v11 != v7 || v12 != v8) {
-						*(uint32_t*)(v5 + 8 * v15++) = *v10;
-						*(uint32_t*)(dword_5d4594_2487556 + 8 * v15 - 4) = v10[1];
-						v5 = dword_5d4594_2487556;
-					}
-					v7 = v11;
-					++v9;
-					v8 = v12;
-				} while (v9 < *(int*)&dword_5d4594_2487552 - 1);
-				v6 = v15;
-			}
-			v13 = (uint32_t*)(v5 + 8 * v9);
-			v14 = v6 + 1;
-			*(uint32_t*)(v5 + 8 * v14 - 8) = *v13;
-			*(uint32_t*)(dword_5d4594_2487556 + 8 * v14 - 4) = v13[1];
-			*a4 = v14;
-			result = *(void**)&dword_5d4594_2487556;
-		}
-	}
-	return result;
-}
-
-//----- (00521500) --------------------------------------------------------
-int sub_521500(uint32_t* a1, uint32_t* a2, int a3) {
-	short v3;          // bp
-	int v4;            // eax
-	uint32_t* v5;      // edi
-	uint32_t* v6;      // ebx
-	unsigned char* v7; // esi
-	int v8;            // eax
-	int v9;            // eax
-	int v11;           // [esp+10h] [ebp-Ch]
-	int v12;           // [esp+14h] [ebp-8h]
-	int v13;           // [esp+18h] [ebp-4h]
-
-	v3 = 0;
-	v11 = 0;
-	v4 = sub_521050(a1, 0);
-	*(uint32_t*)(v4 + 12) = 0;
-	v5 = (uint32_t*)v4;
-	while (1) {
-		++v3;
-		v6 = 0;
-		if (!v5) {
-			return 0;
-		}
-		do {
-			if (v11) {
-				break;
-			}
-			v7 = getMemAt(0x587000, 254628);
-			while (1) {
-				v8 = *(uint32_t*)v7;
-				v12 = v5[1] + *((uint32_t*)v7 - 1);
-				v13 = v8 + v5[2];
-				if (sub_521080(&v12, a3) == 1 && !sub_521020(&v12)) {
-					v9 = sub_521050(&v12, v3);
-					*(uint32_t*)(v9 + 12) = v6;
-					v6 = (uint32_t*)v9;
-					if (v12 == *a2 && v13 == a2[1]) {
-						break;
-					}
-				}
-				v7 += 8;
-				if ((int)v7 >= (int)getMemAt(0x587000, 254660)) {
-					goto LABEL_12;
-				}
-			}
-			v11 = 1;
-		LABEL_12:
-			v5 = (uint32_t*)v5[3];
-		} while (v5);
-		if (!v6) {
-			return 0;
-		}
-		v5 = v6;
-		if (v11) {
-			return 1;
-		}
-	}
-}
-
-//----- (00521600) --------------------------------------------------------
-uint32_t* sub_521600(uint32_t* a1, int* a2) {
-	int v2;            // edx
-	uint32_t* v3;      // ebp
-	int v4;            // eax
-	uint32_t* result;  // eax
-	int v6;            // ebx
-	int v7;            // edi
-	unsigned char* v8; // esi
-	int v9;            // ecx
-	int v10;           // esi
-	int v11;           // ecx
-	int v12;           // [esp+10h] [ebp-14h]
-	int v13;           // [esp+14h] [ebp-10h]
-	int v14;           // [esp+18h] [ebp-Ch]
-	int v15;           // [esp+1Ch] [ebp-8h]
-	int v16;           // [esp+20h] [ebp-4h]
-
-	dword_5d4594_2487552 = 0;
-	v2 = a2[1];
-	v12 = -1;
-	v13 = *a2;
-	v14 = v2;
-	v3 = (uint32_t*)(sub_520FD0(&v13) - 1);
-	v4 = v13;
-	while (1) {
-		*(uint32_t*)(dword_5d4594_2487556 + 8 * dword_5d4594_2487552) = v4;
-		*(uint32_t*)(dword_5d4594_2487556 + 8 * dword_5d4594_2487552 + 4) = v14;
-		result = (uint32_t*)(dword_5d4594_2487552 + 1);
-		if (++dword_5d4594_2487552 == 1024) {
-			break;
-		}
-		result = a1;
-		if (v13 == *a1 && v14 == a1[1]) {
-			break;
-		}
-		v6 = -1;
-		v7 = 0;
-		v8 = getMemAt(0x587000, 254660);
-		do {
-			v9 = *(uint32_t*)v8;
-			v15 = v13 + *((uint32_t*)v8 - 1);
-			v16 = v14 + v9;
-			result = (uint32_t*)sub_520FD0(&v15);
-			if (result == v3) {
-				result = (uint32_t*)v12;
-				v6 = v7;
-				if (v7 == v12) {
-					break;
-				}
-			}
-			v8 += 8;
-			++v7;
-		} while ((int)v8 < (int)getMemAt(0x587000, 254692));
-		if (v6 < 0) {
-			break;
-		}
-		v10 = *getMemU32Ptr(0x587000, 254656 + 8 * v6);
-		v11 = *getMemU32Ptr(0x587000, 254660 + 8 * v6);
-		v4 = v10 + v13;
-		v13 += v10;
-		v14 += v11;
-		v3 = (uint32_t*)((char*)v3 - 1);
-		v12 = v6;
-	}
-	return result;
-}
 
 //----- (00521710) --------------------------------------------------------
 void* nox_xxx_mapGenGetTopRoom_521710() { return *(void**)&dword_5d4594_2487560; }
@@ -4720,70 +4448,6 @@ float* nox_xxx_mapGenMakeHall_523EC0(int a1, int a2, int a3) {
 
 	v3 = nox_xxx_mapGenRandFunc2_526B00(*(uint32_t*)(a1 + 4), *(uint32_t*)(a1 + 8));
 	return sub_523E30(a2, a3, v3);
-}
-
-//----- (00523F70) --------------------------------------------------------
-float* sub_523F70(int a1, int* a2, float* a3, int a4) {
-	float v4;   // eax
-	int v5;     // esi
-	int v6;     // ecx
-	int v7;     // edx
-	int v8;     // eax
-	int v9;     // ecx
-	int v10;    // edi
-	double v11; // st7
-	double v12; // st7
-	float* v13; // esi
-	int v14;    // eax
-	float2 a2a; // [esp+8h] [ebp-Ch]
-	int v17;    // [esp+10h] [ebp-4h]
-
-	v4 = *a3;
-	v5 = *a2;
-	v6 = *((uint32_t*)a3 + 1);
-	v7 = a2[1];
-	a2a.field_0 = v4;
-	v8 = LODWORD(v4) - v5;
-	v17 = v6;
-	v9 = v6 - v7;
-	if (v8) {
-		if (v8 <= 0) {
-			v10 = 5;
-			a2a.field_0 = (double)SLODWORD(a2a.field_0) * 32.526913;
-			v11 = (double)v17;
-		} else {
-			v10 = 4;
-			a2a.field_0 = (double)v5 * 32.526913;
-			v11 = (double)v7;
-		}
-		a2a.field_4 = v11 * 32.526913;
-		if (v8 < 0) {
-			v8 = -v8;
-		}
-	} else {
-		if (v9 <= 0) {
-			v10 = 2;
-			a2a.field_0 = (double)SLODWORD(a2a.field_0) * 32.526913;
-			v12 = (double)v17;
-		} else {
-			v10 = 3;
-			a2a.field_0 = (double)v5 * 32.526913;
-			v12 = (double)v7;
-		}
-		a2a.field_4 = v12 * 32.526913;
-		if (v9 < 0) {
-			v9 = -v9;
-		}
-		v8 = v9;
-	}
-	v13 = sub_523E30(v10, a1, v8);
-	if (v13) {
-		v14 = sub_523920(v10);
-		sub_521A70(a4, (int)v13, v14);
-		nox_xxx_mapGenSetRoomPos_521880(v13, &a2a);
-		nox_xxx_mapGenAddNewRoom_521730(v13);
-	}
-	return v13;
 }
 
 //----- (00524070) --------------------------------------------------------
@@ -7017,15 +6681,6 @@ int sub_526C40(int a1) {
 	return 1;
 }
 
-//----- (00526C60) --------------------------------------------------------
-int sub_526C60(int a1) {
-	if (a1 != 1 && a1) {
-		return 0;
-	}
-	dword_5d4594_3835372 = a1;
-	return 1;
-}
-
 //----- (00526C80) --------------------------------------------------------
 int sub_526C80(int a1) {
 	if (a1 != 1 && a1) {
@@ -7069,22 +6724,6 @@ int sub_526D50(int a1) {
 		result = 0;
 	} else {
 		*getMemU32Ptr(0x973F18, 35952) = a1;
-		result = 1;
-	}
-	return result;
-}
-
-//----- (00526D80) --------------------------------------------------------
-int sub_526D80(int a1) {
-	int v1;     // ecx
-	int result; // eax
-
-	v1 = nox_xxx_mapWallMaxVariation_410DD0(*getMemIntPtr(0x973F18, 35948), *getMemIntPtr(0x973F18, 35952), 0);
-	if (a1 < 0 || a1 >= v1) {
-		*getMemU32Ptr(0x973F18, 35956) = 0;
-		result = 0;
-	} else {
-		*getMemU32Ptr(0x973F18, 35956) = a1;
 		result = 1;
 	}
 	return result;
@@ -7244,66 +6883,6 @@ int sub_527030(float2* a1) {
 	}
 	nox_xxx_mapDelWallAtPt_410430(v1, v3);
 	return 1;
-}
-
-//----- (005271D0) --------------------------------------------------------
-int* sub_5271D0(int* a1) {
-	int* result; // eax
-
-	result = a1;
-	if (a1) {
-		result = (int*)*a1;
-		if (*a1) {
-			result =
-				(int*)nox_server_getWallAtGrid_410580(*((unsigned char*)result + 5), *((unsigned char*)result + 6));
-			if (result) {
-				*((uint8_t*)result + 4) |= 8u;
-				result = (int*)1;
-			}
-		}
-	}
-	return result;
-}
-
-//----- (005272F0) --------------------------------------------------------
-int sub_5272F0(int a1) {
-	int result; // eax
-
-	if (!a1) {
-		return -1;
-	}
-	if (!*(uint32_t*)a1) {
-		return -1;
-	}
-	result =
-		nox_server_getWallAtGrid_410580(*(unsigned char*)(*(uint32_t*)a1 + 5), *(unsigned char*)(*(uint32_t*)a1 + 6));
-	if (result) {
-		result = *(unsigned char*)result;
-	}
-	return result;
-}
-
-//----- (00527330) --------------------------------------------------------
-int sub_527330(int a1) {
-	if (!a1) {
-		return -1;
-	}
-	if (*(uint32_t*)a1) {
-		return *(unsigned char*)(*(uint32_t*)a1 + 2);
-	}
-	return -1;
-}
-
-//----- (00527350) --------------------------------------------------------
-int sub_527350(float* a1) {
-	int result; // eax
-	float2 v2;  // [esp+0h] [ebp-8h]
-
-	result = nox_xxx_mapGenFixCoords_4D3D90((float2*)a1, &v2);
-	if (result) {
-		result = sub_527380(&v2.field_0);
-	}
-	return result;
 }
 
 //----- (00527380) --------------------------------------------------------
@@ -7572,35 +7151,6 @@ int sub_527450(uint32_t* a1) {
 	return result;
 }
 
-//----- (00527840) --------------------------------------------------------
-int* sub_527840(int* a1, int a2) {
-	int* result; // eax
-	int* v3;     // esi
-
-	result = a1;
-	if (a1) {
-		result = (int*)*a1;
-		if (*a1) {
-			result =
-				(int*)nox_server_getWallAtGrid_410580(*((unsigned char*)result + 5), *((unsigned char*)result + 6));
-			v3 = result;
-			if (result) {
-				if (a2 < 15) {
-					*(uint8_t*)result = a2;
-					if (*((uint8_t*)result + 2) >=
-						nox_xxx_mapWallMaxVariation_410DD0(*((unsigned char*)result + 1), (unsigned char)a2, 0)) {
-						*((uint8_t*)v3 + 2) = 0;
-					}
-					result = (int*)1;
-				} else {
-					result = 0;
-				}
-			}
-		}
-	}
-	return result;
-}
-
 //----- (00527940) --------------------------------------------------------
 int nox_xxx_mapGenGetObjID_527940(char* a1) {
 	int result; // eax
@@ -7667,61 +7217,6 @@ float* nox_xxx_mapGenMoveObject_527A10(float* a1, float2* a2) {
 	nox_xxx_createAt_4DAA50((int)a1, 0, a1[14], a1[15]);
 	nox_xxx_unitClearPendingMB_4DB030();
 	return a1;
-}
-
-//----- (00527B00) --------------------------------------------------------
-int sub_527B00(float2* a1) {
-	int result; // eax
-	int v2;     // esi
-	float2 v3;  // [esp+4h] [ebp-8h]
-
-	result = nox_xxx_mapGenFixCoords_4D3D90(a1, &v3);
-	if (result) {
-		result = sub_527B70((long long)v3.field_0, (long long)v3.field_4, *getMemIntPtr(0x587000, 255124));
-		v2 = result;
-		if (result) {
-			sub_4DAFD0((uint32_t*)result);
-			nox_xxx_objectFreeMem_4E38A0(v2);
-			result = 1;
-		}
-	}
-	return result;
-}
-
-//----- (00527B70) --------------------------------------------------------
-int sub_527B70(int a1, int a2, int a3) {
-	int v3; // edi
-	int v4; // ebx
-	int v5; // esi
-	int v7; // [esp+8h] [ebp-4h]
-
-	v7 = 0;
-	v3 = nox_server_getFirstObject_4DA790();
-	if (!v3) {
-		return 0;
-	}
-	v4 = a3;
-	do {
-		v5 = (unsigned long long)(long long)*(float*)(v3 + 56) - a1;
-		if ((int)(v5 * v5 + ((unsigned long long)(long long)*(float*)(v3 + 60) - a2) *
-								((unsigned long long)(long long)*(float*)(v3 + 60) - a2)) < v4) {
-			v4 = v5 * v5 + ((unsigned long long)(long long)*(float*)(v3 + 60) - a2) *
-							   ((unsigned long long)(long long)*(float*)(v3 + 60) - a2);
-			v7 = v3;
-		}
-		v3 = nox_server_getNextObject_4DA7A0(v3);
-	} while (v3);
-	return v7;
-}
-
-//----- (00527BE0) --------------------------------------------------------
-int sub_527BE0(uint32_t* a1) {
-	if (!a1) {
-		return 0;
-	}
-	sub_4DAFD0(a1);
-	nox_xxx_objectFreeMem_4E38A0((int)a1);
-	return 1;
 }
 
 //----- (00527C60) --------------------------------------------------------
@@ -10301,9 +9796,6 @@ int sub_52BEB0(int a1, int a2, int a3, int a4) {
 	return 1;
 }
 
-//----- (0052BF00) --------------------------------------------------------
-int sub_52BF00() { return 1; }
-
 //----- (0052BF20) --------------------------------------------------------
 int nox_xxx_castSpellWinkORrestoreHealth_52BF20(int a1, int a2, int a3, int a4, int* a5) {
 	int result; // eax
@@ -11170,9 +10662,6 @@ int nox_xxx_castProtectElect_52D150(int a1, int a2, int a3, int a4, int* a5, cha
 	nox_xxx_buffApplyTo_4FF380(*a5, 20, v7, a6);
 	return 1;
 }
-
-//----- (0052D190) --------------------------------------------------------
-int sub_52D190() { return 1; }
 
 //----- (0052D1A0) --------------------------------------------------------
 int nox_xxx_castProtectPosion_52D1A0(int a1, int a2, int a3, int a4, int* a5, char a6) {

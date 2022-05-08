@@ -167,10 +167,10 @@ func guiEnhanceOptions(root *Window) {
 	// add gamma and sensitivity sliders instead
 	NewStaticText(root, 315, 112, 220, 140, 16, true, false, "Gamma")
 	NewHorizontalSlider(root, 316, 120, 236, 120, 16, 1, 100).
-		Func94(asWindowEvent(0x400A, uintptr((float32(nox_video_getGamma())-0.5)*50), 0))
+		Func94(asWindowEvent(0x400A, uintptr((nox_video_getGamma()-0.5)*50), 0))
 	NewStaticText(root, 317, 112, 258, 140, 16, true, false, "Sensitivity")
 	NewHorizontalSlider(root, 318, 120, 274, 120, 16, 1, 100).
-		Func94(asWindowEvent(0x400A, uintptr((math.Log10(float64(nox_input_getSensitivity()))+1.0)*50), 0))
+		Func94(asWindowEvent(0x400A, uintptr((math.Log10(float64(getSensitivity()))+1.0)*50), 0))
 }
 
 //export sub_4A19F0

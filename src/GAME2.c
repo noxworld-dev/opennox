@@ -101,7 +101,6 @@ extern uint32_t dword_5d4594_1046956;
 extern uint32_t dword_5d4594_1047936;
 extern uint32_t dword_5d4594_1046576;
 extern float2 obj_5d4594_1046620;
-extern uint32_t dword_5d4594_839884;
 extern uint32_t dword_5d4594_1046536;
 extern uint32_t dword_5d4594_1045436;
 extern uint32_t dword_5d4594_831220;
@@ -138,7 +137,6 @@ extern uint32_t dword_5d4594_1046656;
 extern uint32_t dword_5d4594_1049484;
 extern uint32_t dword_5d4594_830872;
 extern uint32_t dword_5d4594_1046516;
-extern uint32_t dword_5d4594_839888;
 extern uint32_t dword_5d4594_832536;
 extern uint32_t dword_5d4594_1046952;
 extern void* dword_587000_81128;
@@ -424,18 +422,6 @@ int nox_drawable_link_thing(nox_drawable* a1, int i) {
 	return 1;
 }
 
-//----- (0044D320) --------------------------------------------------------
-int sub_44D320(int a1) {
-	int result; // eax
-
-	if (a1) {
-		result = *(uint32_t*)(a1 + 108);
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
 //----- (0044D330) --------------------------------------------------------
 int sub_44D330(char* a1) { return sub_44D340(a1); }
 
@@ -705,25 +691,6 @@ int nox_client_screenFadeXxx_44DB30(int a1, int a2, void (*a3)(void)) {
 	obj->field_5 = a3;
 	obj->field_6 = nox_client_drawFadingScreen_44DD70;
 	nox_client_setScreenFade_44DF90(nox_xxx_cliClearScreen_44DDC0);
-	return 1;
-}
-
-//----- (0044DBF0) --------------------------------------------------------
-int sub_44DBF0(int a1, int a2, void (*a3)(void)) {
-	struc_36* obj = nox_client_newFade_44DF50();
-	if (!obj) {
-		return 0;
-	}
-	int v3 = 1;
-	if (a2) {
-		v3 = 5;
-	}
-	obj->field_0 = v3;
-	obj->field_1 = a1;
-	obj->field_2 = 0;
-	obj->field_3 = 0xFF0000 / a1;
-	obj->field_5 = a3;
-	obj->field_6 = sub_44DE30;
 	return 1;
 }
 
@@ -1892,30 +1859,6 @@ int sub_4522A0(int a1) {
 	return result;
 }
 
-//----- (004522C0) --------------------------------------------------------
-int sub_4522C0(int a1) {
-	int result; // eax
-
-	if (dword_5d4594_1045432) {
-		result = *(uint32_t*)(a1 + 8);
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
-//----- (004522E0) --------------------------------------------------------
-char* sub_4522E0(int a1) {
-	char* result; // eax
-
-	if (dword_5d4594_1045432) {
-		result = *(char**)(a1 + 84);
-	} else {
-		result = (char*)getMemAt(0x587000, 127128);
-	}
-	return result;
-}
-
 //----- (00452300) --------------------------------------------------------
 uint32_t* nox_xxx_draw_452300(uint32_t* a1) {
 	uint32_t* v1; // esi
@@ -2582,13 +2525,6 @@ int sub_452FE0(int a1, int a2) {
 
 	v2 = sub_452FA0(a2);
 	return sub_486350(a1 + 248, v2);
-}
-
-//----- (00453000) --------------------------------------------------------
-int sub_453000(uint32_t* a1, unsigned int a2, int a3) {
-	sub_486380(a1 + 46, a2, a3, 0x4000);
-	sub_486380(a1 + 54, a2, a3, 0x4000);
-	return sub_486380(a1 + 62, a2, a3, 0x4000);
 }
 
 //----- (00453050) --------------------------------------------------------
@@ -4927,15 +4863,6 @@ int sub_459D50(int a1) {
 //----- (00459D60) --------------------------------------------------------
 int sub_459D60() { return *getMemU32Ptr(0x5D4594, 1046544); }
 
-//----- (00459D70) --------------------------------------------------------
-int sub_459D70() {
-	int v0; // eax
-
-	v0 = -(dword_5d4594_1046492 != 0);
-	LOBYTE(v0) = v0 & 0xFE;
-	return v0 + 2;
-}
-
 //----- (00459D80) --------------------------------------------------------
 int sub_459D80(int a1) {
 	int result; // eax
@@ -5145,23 +5072,6 @@ int sub_45A0A0(int a1) {
 		result = *(uint32_t*)(a1 + 424);
 	} else {
 		result = 0;
-	}
-	return result;
-}
-
-//----- (0045A0E0) --------------------------------------------------------
-int sub_45A0E0(int a1) {
-	int result; // eax
-
-	result = *(uint32_t*)(a1 + 368);
-	if (!result) {
-		return 0;
-	}
-	while (!(*(uint32_t*)(result + 120) & 0x2000000)) {
-		result = *(uint32_t*)(result + 368);
-		if (!result) {
-			return 0;
-		}
 	}
 	return result;
 }
@@ -6342,18 +6252,6 @@ int nox_xxx_bookWndFn_45CC10(uint32_t* a1, int a2, unsigned int a3) {
 		goto LABEL_44;
 	default:
 		return 0;
-	}
-	return result;
-}
-
-//----- (0045CFA0) --------------------------------------------------------
-int sub_45CFA0() {
-	int result; // eax
-
-	if (nox_xxx_aNox_cfg_0_587000_132132) {
-		result = 0;
-	} else {
-		result = *getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932);
 	}
 	return result;
 }

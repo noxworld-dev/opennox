@@ -143,7 +143,6 @@ char nox_xxx_dieGlyph_54DF30(int a1);
 void nox_xxx_dieBarrel_54DFA0(int a1);
 void nox_xxx_dieCreateObject_54E010(int a1);
 short nox_xxx_dieSpawnObject_54E070(int a1);
-void sub_54E0D0(int a1);
 void nox_xxx_dieMarker_54E460(int a1);
 void nox_xxx_dieBoulder_54E4B0(int a1);
 int nox_xxx_dieGameBall_54E620(int a1);
@@ -203,8 +202,6 @@ int nox_xxx_makePacketTime_552340(int id, unsigned char* buf);
 void sub_552380(int a1);
 void sub_5523E0(char a1, int a2);
 void nox_xxx_netMaybeSendAll_552460();
-int sub_552540(unsigned int a1);
-int sub_552570(unsigned int a1, int a2);
 int nox_xxx_cliWaitServerResponse_5525B0(unsigned int a1, char a2, int a3, char a4);
 int nox_xxx_netSendSock_552640(unsigned int id, const char* buf, signed int sz, char flags);
 

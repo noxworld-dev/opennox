@@ -14,17 +14,12 @@
 
 unsigned char byte_5D4594_3804364[160] = {0};
 
-uint32_t dword_973C64;
-short (*dword_6F7C40)();
-short (*dword_6F7C34)();
-
 int nox_video_renderTargetFlags = 0;
 int nox_video_windowsPlatformVersion = 0;
 
 void (*dword_975240)(uint32_t, uint32_t*, uint32_t*, uint32_t*);
 int (*dword_975380)(uint32_t, uint32_t, uint32_t);
 void nox_color_rgb_func(uint8_t r, uint8_t g, uint8_t b, uint32_t* p);
-int nox_color_rgb_func_get();
 void nox_color_rgb_func_set(int mode);
 
 unsigned char* nox_draw_colors_r_3804672 = 0;
@@ -156,15 +151,6 @@ int nox_xxx_drawPlayer_4341D0(int a1, int a2) {
 
 //----- (00434480) --------------------------------------------------------
 void sub_434480(int a1, int* a2, int* a3, int* a4) { dword_975240(a1, a2, a3, a4); }
-
-//----- (00434AC0) --------------------------------------------------------
-int sub_434AC0(int a1) {
-	int v2; // [esp+0h] [ebp-8h]
-	int v3; // [esp+4h] [ebp-4h]
-
-	dword_975240(a1, &v3, &v2, &a1);
-	return dword_975380(v3, v2, a1);
-}
 
 //----- (00434B60) --------------------------------------------------------
 int sub_434B60() {
