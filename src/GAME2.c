@@ -22,7 +22,6 @@
 #include "client__drawable__drawable.h"
 #include "common__system__settings.h"
 #include "common__system__team.h"
-#include "common__telnet__telnetd.h"
 
 #include "client__gui__gadgets__listbox.h"
 #include "client__gui__gamewin__gamewin.h"

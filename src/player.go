@@ -62,7 +62,7 @@ func clientSetPlayerNetCode(id int) {
 	C.nox_player_netCode_85319C = C.uint(id)
 }
 
-func (s *Server) resetAllPlayers() { // nox_xxx_cliResetAllPlayers_416E30
+func (s *Server) resetAllPlayers() {
 	for i := range s.players {
 		s.players[i] = Player{}
 	}
@@ -152,7 +152,7 @@ func (s *Server) newPlayerInfo(id int) *Player {
 	return nil
 }
 
-func (p *Player) Reset(ind int) { // nox_common_playerInfoReset_416FD0
+func (p *Player) Reset(ind int) {
 	*p = Player{
 		playerInd:  C.uchar(ind),
 		active:     1,

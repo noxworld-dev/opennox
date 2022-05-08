@@ -221,7 +221,7 @@ func (s *Server) Teams() []*Team {
 	return out
 }
 
-func (s *Server) teamInactive() int { // nox_server_teamGetInactive_4187E0
+func (s *Server) teamInactive() int {
 	for i := 1; i < len(s.teams.arr); i++ {
 		t := asTeam(&s.teams.arr[i])
 		if !t.Active() {

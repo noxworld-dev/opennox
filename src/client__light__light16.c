@@ -1,4 +1,3 @@
-#include "client__light__light16.h"
 #include "client__draw__glowdraw.h"
 
 #include "GAME1.h"
@@ -10,7 +9,6 @@
 #include "GAME2_3.h"
 #include "GAME3_1.h"
 #include "GAME5_2.h"
-#include "client__io__win95__dxvideo.h"
 #include "client__video__draw_common.h"
 #include "common__random.h"
 #include "operators.h"

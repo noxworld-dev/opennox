@@ -67,7 +67,6 @@ double sub_44E8B0();
 int sub_44E8D0();
 int nox_client_lockScreenBriefing_450160(int a1, int a2, char a3);
 void sub_450580();
-void sub_4505B0();
 int sub_4505E0();
 unsigned char sub_450750();
 char sub_450760(char a1);

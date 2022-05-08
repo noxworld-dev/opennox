@@ -130,7 +130,7 @@ func sub_43E9F0() {
 	ail.Shutdown()
 }
 
-func noxAudioServeT(a1 int) { // sub_43F140
+func noxAudioServeT(a1 int) {
 	noxAudioServe()
 }
 

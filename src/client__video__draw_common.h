@@ -14,7 +14,6 @@
 #include "GAME4_1.h"
 #include "GAME5_2.h"
 #include "client__draw__fx.h"
-#include "client__draw__image.h"
 #include "client__drawable__drawdb.h"
 #include "client__gui__guiinv.h"
 #include "client__gui__guimeter.h"
@@ -127,8 +126,6 @@ int nox_video_getFullScreen();
 void nox_video_setFullScreen(int v);
 
 void updateGamma(int value);
-int sub_4338D0();
-void nox_draw_freeColorTables_433C20();
 int sub_433CD0(uint8_t a1, uint8_t a2, uint8_t a3);
 int sub_433E40(int a1);
 void sub_434040(int a1);
@@ -142,37 +139,14 @@ int sub_4348C0();
 int nox_video_getGammaSetting_434B00();
 int nox_video_setGammaSetting_434B30(int a1);
 int sub_434B60();
-int nox_draw_initColorTables_434CC0();
 int sub_434FB0();
 void sub_4352E0();
 void sub_4353C0();
 void sub_4353F0();
-int nox_xxx_GfxInit_444930(int w, int h, int depth, int flags);
-int nox_client_drawXxx_444AC0(int w, int h, int depth, int flags);
 void sub_444C50();
-int nox_video_initPixbuffer_486090();
-void nox_xxx_directDrawBlitMB_48A220();
-void sub_48A290_call_present();
-int sub_48A5E0();
-void sub_48A7F0();
-void sub_48A820(unsigned int uFlags);
-void nox_video_minimizeOrMaximize_48A9C0(int a1);
-void sub_48AA40();
-int nox_video_initCursorDrawVars_48B1F0();
-void nox_video_stopCursorDrawThread_48B350();
-int nox_video_waitVBlankAndDrawCursorFromThread_48B5D0(int a1, int a2);
 bool nox_xxx_makeFillerColor_48BDE0();
-int nox_video_createCursorSurface_48BF70();
-int sub_48C060();
-void sub_48C110();
-unsigned char* sub_48C200(void* a1p, int a2, int a3);
-unsigned char* sub_48C320(void* a1p, int a2, int a3);
-int nox_video_setBackBufferCopyFunc_4AD100();
 void nox_video_callCopyBackBuffer_4AD170(void);
-void nox_video_copyBackBuffer2_4AD180();
-void nox_video_copyBackBuffer3_4AD1E0();
 int sub_4B0300(char* a1);
-void sub_4B05D0();
 void sub_4B0640(void* a1);
 
 #endif // NOX_PORT_CLIENT_VIDEO_DRAW_COMMON_H

@@ -876,7 +876,7 @@ var (
 	noxCtrlEventNetbuf     [256]byte // TODO: size is a guess
 )
 
-func (c *CtrlEventHandler) writeToNetBuffer() { // nox_xxx_netBuf_42D510
+func (c *CtrlEventHandler) writeToNetBuffer() {
 	bufSize := &noxCtrlEventNetbufSize
 	buf := noxCtrlEventNetbuf[:]
 	ticks := uint32(platformTicks())

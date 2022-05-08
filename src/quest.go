@@ -351,7 +351,7 @@ func (s *Server) getQuestFlag() int {
 	return s.quest.nox_xxx_questFlag_1556148
 }
 
-func (s *Server) cmdStartSoloQuest() { // nox_server_conCmdHandler_startSoloQuest_4D7080
+func (s *Server) cmdStartSoloQuest() {
 	C.nox_client_gui_flag_1556112 = 1
 	nox_xxx_cliPlayMapIntro_44E0B0(1)
 	*memmap.PtrUint32(0x5D4594, 1556152) = uint32(bool2int(sub_416A00()))
@@ -363,11 +363,11 @@ func sub_4DCE60(a1 int) {
 	*memmap.PtrUint32(0x5D4594, 1563100) = uint32(a1)
 }
 
-func (s *Server) setQuestMapName(name string) { // sub_4DCE80
+func (s *Server) setQuestMapName(name string) {
 	s.quest.mapName = name
 }
 
-func (s *Server) getQuestMapName() string { // nox_xxx_getQuestMapName_4DCED0
+func (s *Server) getQuestMapName() string {
 	return s.quest.mapName
 }
 

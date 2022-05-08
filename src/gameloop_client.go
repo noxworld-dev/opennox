@@ -10,7 +10,6 @@ package opennox
 #include "GAME2.h"
 #include "GAME2_1.h"
 #include "GAME3_1.h"
-#include "client__system__gameloop.h"
 
 extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int nox_client_gui_flag_815132;
@@ -145,7 +144,6 @@ func mapDownloadLoop(first bool) (bool, error) {
 
 	DrawGUI()
 	nox_client_drawCursorAndTooltips_477830(noxrend, inp)
-	// C.nox_xxx_directDrawBlitMB_48A220() // does nothing
 	nox_video_callCopyBackBuffer_4AD170()
 
 	if !mapDownloading() {
@@ -170,7 +168,6 @@ func mainloopDrawAndPresent(inp *input.Handler) {
 	C.nox_client_procFade_44D9F0(1)
 	maybeScreenshot()
 	if !noxflags.HasEngine(noxflags.EngineNoRendering) || noxflags.HasEngine(noxflags.EngineFlag9) || C.nox_client_gui_flag_815132 != 0 {
-		// C.nox_xxx_directDrawBlitMB_48A220() // does nothing
 		nox_video_callCopyBackBuffer_4AD170()
 	}
 }

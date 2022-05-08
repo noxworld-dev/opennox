@@ -9,7 +9,6 @@
 #include "client__draw__debugdraw.h"
 #include "client__draw__doordraw.h"
 #include "client__draw__drawrays.h"
-#include "client__draw__drawwin.h"
 #include "client__draw__flagdraw.h"
 #include "client__draw__fx.h"
 #include "client__draw__glowdraw.h"

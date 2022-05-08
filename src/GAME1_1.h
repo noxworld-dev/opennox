@@ -42,7 +42,6 @@ int nox_double2int(double a1);
 int nox_xxx_parseGamedataBin_419B30();
 double nox_xxx_gamedataGetFloat_419D40(char* a1);
 double nox_xxx_gamedataGetFloatTable_419D70(char* a1, int a2);
-void nox_xxx_gamedataFree_419DB0();
 int sub_419E10(int a1, int a2);
 int sub_419E60(int a1);
 int sub_419EA0();
@@ -76,7 +75,6 @@ int nox_xxx_netSavePlayer_41CE00();
 int sub_41CEE0(int a1, int a2);
 int sub_41CFA0(char* a1, int a2);
 int sub_41D090(char* a1);
-int sub_41D110(uint32_t* a1);
 int sub_41D170();
 int sub_41D1A0(int a1);
 int sub_41D1B0();
@@ -311,14 +309,9 @@ void sub_425F10(nox_playerInfo* pl);
 char* sub_426150();
 char* nox_xxx_net_4263C0();
 int sub_4264D0();
-char* sub_426680(int a1, char* a2);
-char* sub_426740(int a1, char* a2);
-int sub_426840(const void* a1, const void* a2);
 int nox_xxx_wallGet_426A30();
-int nox_xxx_cryptGet_426A40();
 char* nox_xxx_mapGetWallSize_426A70();
 void nox_xxx_mapWall_426A80(int* a1);
-int sub_426BD0(unsigned char* a1, int a2);
 int nox_xxx_mapWriteSectionsMB_426E20(void* a1);
 int nox_xxx_mapReadSection_426EA0(void* a1, char* name, uint32_t* a3);
 int nox_xxx_guide_427010(const char* a1);
@@ -349,7 +342,6 @@ int sub_427980(float4* a1, float4* a2);
 int sub_427C80(int4* a1, int4* a2);
 int sub_427DF0(int a1, int* a2, float a3);
 
-int nox_xxx_mapReadSectionSpecial_426F40(void* a1, const char* name, int* err, int (*fnc)(int));
 void set_bitmask_flags_from_plus_separated_names_423930(const char* input, uint32_t* bitmask,
 														const char** allowed_names);
 

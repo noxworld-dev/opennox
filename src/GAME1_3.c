@@ -12,7 +12,6 @@
 #include "GAME4.h"
 #include "GAME5.h"
 #include "GAME5_2.h"
-#include "client__light__light16.h"
 #include "client__shell__wolapi__locale.h"
 #include "client__shell__wolapi__wolchat.h"
 #include "client__shell__wolapi__woldlgs.h"
@@ -28,7 +27,6 @@
 #include "client__shell__noxworld.h"
 #include "client__shell__selchar.h"
 #include "client__shell__selcolor.h"
-#include "client__system__gameloop.h"
 
 #include "MixPatch.h"
 #include "client__io__win95__focus.h"

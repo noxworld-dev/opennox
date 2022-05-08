@@ -3,7 +3,6 @@ package opennox
 /*
 #include "defs.h"
 #include "client__gui__window.h"
-int sub_4A24F0();
 */
 import "C"
 import (

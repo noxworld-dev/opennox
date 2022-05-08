@@ -31,7 +31,6 @@
 #include "common__strman.h"
 #include "common__crypt.h"
 #include "common__system__settings.h"
-#include "common__telnet__telnetd.h"
 #include "input_common.h"
 #include "operators.h"
 #include "server__network__mapsend.h"

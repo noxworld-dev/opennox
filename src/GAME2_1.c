@@ -39,11 +39,9 @@
 #include "client__gui__guisumn.h"
 #include "client__gui__guitrade.h"
 #include "client__gui__tooltip.h"
-#include "client__light__light16.h"
 #include "client__video__draw_common.h"
 #include "common__wolapi__wolpatch.h"
 
-#include "client__draw__drawwin.h"
 #include "client__draw__selectdw.h"
 
 #include "client__system__ctrlevnt.h"
@@ -171,9 +169,6 @@ extern nox_window* nox_win_xxx1_first;
 extern nox_window* nox_win_xxx1_last;
 
 extern unsigned int nox_gameFPS;
-
-extern nox_light_3 nox_arr2_853BC0[57 * 4]
-								  [45 * 4]; // TODO: the 4x factor is for high-res; figure out what those values are
 
 nox_window* nox_win_unk5 = 0;
 nox_window* dword_5d4594_1062452 = 0;

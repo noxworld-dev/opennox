@@ -12,7 +12,6 @@
 #include "GAME4_1.h"
 #include "GAME5_2.h"
 #include "client__draw__fx.h"
-#include "client__draw__image.h"
 #include "client__drawable__drawdb.h"
 #include "client__gui__guiinv.h"
 #include "client__gui__guimeter.h"

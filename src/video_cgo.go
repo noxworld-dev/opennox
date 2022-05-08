@@ -472,7 +472,6 @@ func drawGeneral_4B0340(a1 int) error {
 	sub_43E8E0(0)
 	v12 := C.sub_48B3E0(0)
 	//inpHandler.UnacquireMouse()
-	//sub_48A7F0()
 	v2 := C.nox_video_modeXxx_3801780
 	var (
 		v4     int

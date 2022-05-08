@@ -20,7 +20,6 @@ extern unsigned int dword_5d4594_1301812;
 extern unsigned int dword_5d4594_1301816;
 extern unsigned int dword_5d4594_1301808;
 extern unsigned int dword_5d4594_1301796;
-int nox_client_advVideoOptsProc_4CB5D0(void* a1, int a2, void* a3, int a4);
 int nox_xxx_tileSetDrawFn_481420();
 */
 import "C"

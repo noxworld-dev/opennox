@@ -1,9 +1,7 @@
 package opennox
 
 /*
-int nox_xxx_guiDownloadAbort_4CC830(int a1, int a2, int a3, int a4);
-int nox_xxx_guiDownloadProc_4CC890(int a1, int a2, int* a3, int a4);
-*/
+ */
 import "C"
 import (
 	"context"

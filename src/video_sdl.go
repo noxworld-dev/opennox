@@ -31,11 +31,9 @@ func resetRenderer(sz image.Point, init bool) error {
 			return err
 		}
 	}
-	//sub_48A820(1)
 	if nox_video_setBackBufSizes_48A3D0(sz) == 0 {
 		return errors.New("nox_video_setBackBufSizes_48A3D0 failed")
 	}
-	//sub_48A7F0()
 	return nil
 }
 

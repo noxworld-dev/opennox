@@ -12,7 +12,6 @@ package opennox
 #include "client__gui__guiggovr.h"
 #include "client__video__draw_common.h"
 #include "client__draw__selectdw.h"
-#include "client__draw__drawwin.h"
 #include "client__draw__debugdraw.h"
 extern nox_draw_viewport_t nox_draw_viewport;
 extern nox_drawable* nox_xxx_drawablePlayer_1046600;
@@ -186,7 +185,7 @@ func (vp *Viewport) toScreenPos(pos image.Point) image.Point { // sub_4739E0
 	})
 }
 
-func detectBestVideoSettings() { // nox_setProfiledMode_4445C0
+func detectBestVideoSettings() {
 	const cfg = 450
 	cut := 0
 	*memmap.PtrUint32(0x587000, 80808) = 1
@@ -1869,7 +1868,7 @@ func sub_499F60(p uint32, pos image.Point, a4 int, a5, a6, a7, a8, a9 int, a10 i
 	C.sub_499F60(C.int(p), C.int(pos.X), C.int(pos.Y), C.short(a4), C.char(a5), C.char(a6), C.char(a7), C.char(a8), C.char(a9), C.int(a10))
 }
 
-func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox_xxx_drawHasteAndRunParticles_4746C0
+func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 	if dr.CheckFlag31(0) && C.sub_474B40(dr.C()) == 0 {
 		return
 	}
@@ -1955,7 +1954,7 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox_
 	}
 }
 
-func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) { // nox_xxx_drawEffectsMB_474E60
+func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 	if dr.CheckFlag31(0) && C.sub_474B40(dr.C()) == 0 {
 		return
 	}

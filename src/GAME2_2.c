@@ -14,21 +14,16 @@
 #include "GAME4_1.h"
 #include "GAME5_2.h"
 #include "client__draw__debugdraw.h"
-#include "client__draw__image.h"
 #include "client__draw__staticdraw.h"
 #include "client__drawable__drawable.h"
 
 #include "client__gui__gadgets__listbox.h"
 #include "client__gui__guibook.h"
 #include "client__gui__guicon.h"
-#include "client__gui__guicurs.h"
 #include "client__gui__guishop.h"
 #include "client__gui__servopts__guiserv.h"
 #include "client__gui__tooltip.h"
 #include "client__gui__window.h"
-
-#include "client__draw__drawwin.h"
-#include "client__light__light16.h"
 
 #include "client__video__draw_common.h"
 
@@ -165,8 +160,6 @@ extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern uint32_t nox_arr_956A00[NOX_MAX_HEIGHT + 150];
 extern unsigned char nox_arr_957820[128 * (NOX_MAX_HEIGHT + 150)];
 unsigned char nox_arr_84EB20[280 * 57 * 4] = {0}; // TODO: the 4x factor is for high-res; figure out what 57 is
-extern nox_light_3 nox_arr2_853BC0[57 * 4]
-								  [45 * 4]; // TODO: the 4x factor is for high-res; figure out what those values are
 
 uint8_t** nox_pixbuffer_rows_3798776 = 0;
 uint8_t* nox_pixbuffer_3798788 = 0;

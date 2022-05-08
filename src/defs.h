@@ -70,25 +70,8 @@ enum {
 //_Static_assert(sizeof(bool) == 4, "boolean values must be aligned to 32-bit int");
 
 void nox_exit(int exitCode);
-void nox_on_exit(void (*fnc)(void));
 
-static int __OFSUB__(int x, int y) {
-	abort();
-	return 0;
-}
-static int __CFSHR__(int x, int y) {
-	abort();
-	return 0;
-}
 static int __CFSHL__(int x, int y) {
-	abort();
-	return 0;
-}
-static int __CFADD__(int x, int y) {
-	abort();
-	return 0;
-}
-static int __OFADD__(int x, int y) {
 	abort();
 	return 0;
 }
@@ -108,18 +91,6 @@ static void memset32(uint32_t* x, uint32_t y, size_t z) {
 
 #define __ROL4__ _rotl
 
-typedef struct std___Lockit {
-	uint32_t x;
-} std___Lockit;
-
-static void std___Lockit___Lockit(struct std___Lockit* l) { return; }
-
-static void std___Lockit__destructor_Lockit(struct std___Lockit* l) { return; }
-
-static void std___Xran() { abort(); }
-
-static void std___Xlen() { abort(); }
-
 static void* operator_new(size_t x) { return calloc(1, x); }
 
 static void operator_delete(void* x) { free(x); }
@@ -133,8 +104,6 @@ static uint16_t __ROL2__(uint16_t x, int shift) {
 }
 
 static float COERCE_FLOAT(uint32_t x) { return *(float*)&x; }
-
-static uint32_t COERCE_INT(float x) { return *(uint32_t*)&x; }
 
 typedef struct struc_13 {
 	char field_0[80];
@@ -1680,8 +1649,6 @@ typedef struct nox_video_mode {
 enum { NOX_MOUSE_LEFT = 0, NOX_MOUSE_RIGHT = 1, NOX_MOUSE_MIDDLE = 2 };
 
 enum { NOX_MOUSE_DOWN = 1, NOX_MOUSE_DRAG_END = 2, NOX_MOUSE_UP = 3, NOX_MOUSE_PRESSED = 4 };
-
-int nox_mouse_state(int btn, int st);
 
 typedef struct nox_mouse_btn_t {
 	int pressed;

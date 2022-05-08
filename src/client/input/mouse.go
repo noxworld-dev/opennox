@@ -459,7 +459,7 @@ func (h *mouseHandler) MouseAction(key keybind.Key, ev keybind.Event) bool {
 	return false
 }
 
-func (h *mouseHandler) GetDistSlow() bool { // sub_430B30
+func (h *mouseHandler) GetDistSlow() bool {
 	return h.distSlow
 }
 

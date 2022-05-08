@@ -18,7 +18,7 @@ type textHandler struct {
 	textMap   map[keybind.Key]inputCharMap
 }
 
-func (h *Handler) SetLanguage(code int) { // nox_xxx_keyboard_47DBD0 and nox_xxx_initKeyboard_47FB10
+func (h *Handler) SetLanguage(code int) { // nox_xxx_initKeyboard_47FB10
 	h.capsState = h.KeyModShift()
 	h.textMap = make(map[keybind.Key]inputCharMap, 256)
 	for k, v := range noxInputMapGeneric {

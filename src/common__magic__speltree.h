@@ -3,8 +3,6 @@
 
 #include "defs.h"
 
-int nox_xxx_spellLoadSpells_424460(nox_memfile* f, void* a2);
-
 int nox_xxx_spellNameToN_4243F0(char* id);
 int nox_xxx_spellGetAud44_424800(int ind, int a2);
 void* nox_xxx_spellGetDefArrayPtr_424820();

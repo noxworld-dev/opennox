@@ -64,7 +64,6 @@ int sub_4DCF20();
 int sub_4E76C0();
 void sub_4FC680();
 bool sub_57B140();
-//int nox_server_teamsReset_417C60();
 //int nox_xxx_freeObjectTypes_4E2A20();
 
 void nox_xxx_updateUnits_51B100_A();

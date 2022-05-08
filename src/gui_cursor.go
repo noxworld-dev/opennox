@@ -37,7 +37,7 @@ func nox_xxx_cursorGetTypePrev_477630() C.int {
 	return C.int(nox_xxx_cursorTypePrev_587000_151528)
 }
 
-func getCursorAnimFrame(ref *noxImageRef, dt int) *Image { // sub_4BE640
+func getCursorAnimFrame(ref *noxImageRef, dt int) *Image {
 	if ref == nil {
 		return nil
 	}

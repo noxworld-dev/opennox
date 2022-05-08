@@ -433,7 +433,7 @@ func sub_4281F0(p image.Point, r types.Rect) bool {
 	return p.X >= r.Left && p.X <= r.Right && p.Y >= r.Top && p.Y <= r.Bottom
 }
 
-func freeAllWindowsInList() { // sub_46C200
+func freeAllWindowsInList() {
 	win := nox_win_freeList
 	nox_win_freeList = nil
 	for win != nil {

@@ -112,7 +112,7 @@ func (r *NoxRender) DrawStringHL(font font.Face, str string, pos image.Point) in
 	return r.drawStringLine(font, str, pos)
 }
 
-func (r *NoxRender) drawStringLine(font font.Face, str string, pos image.Point) int { // nox_xxx_guiDrawString_4407F0
+func (r *NoxRender) drawStringLine(font font.Face, str string, pos image.Point) int {
 	str = strings.NewReplacer(
 		"\n", "",
 		"\r", "",
@@ -120,7 +120,7 @@ func (r *NoxRender) drawStringLine(font font.Face, str string, pos image.Point) 
 	return r.drawString(font, str, pos)
 }
 
-func (r *NoxRender) drawString(fnt font.Face, s string, pos image.Point) int { // nox_xxx_StringDraw_43FE90
+func (r *NoxRender) drawString(fnt font.Face, s string, pos image.Point) int {
 	// FIXME: handle tab characters properly
 	if fnt == nil {
 		return pos.X

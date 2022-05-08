@@ -35,7 +35,6 @@
 #include "client__shell__selcolor.h"
 
 #include "client__draw__drawrays.h"
-#include "client__draw__drawwin.h"
 #include "client__draw__fx.h"
 #include "client__draw__lvupdraw.h"
 

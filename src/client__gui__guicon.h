@@ -23,15 +23,9 @@ enum {
 	NOX_CONSOLE_LIGHT_YELLOW = 16
 };
 
-nox_window* nox_gui_console_Create_450C70(int win_width, int win_height);
-void nox_gui_console_reloadColors_451100();
 int nox_gui_console_Hide_4512B0();
 void nox_gui_console_Clear_450B70();
-void nox_gui_console_Lock_450B20(wchar_t* pass);
-void nox_gui_console_Unlock_450B50();
-void nox_client_toggleConsole_451350();
 int nox_gui_console_flagXxx_451410();
-void nox_gui_console_translucent_set(int v);
 
 int nox_gui_console_Print_450B90(unsigned char cl, wchar_t* str);
 void nox_gui_console_PrintOrError_450C30(unsigned char cl, wchar_t* str);

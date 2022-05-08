@@ -970,7 +970,7 @@ func nox_xxx_netRequestMap_43CA50() int {
 	return 1
 }
 
-func nox_xxx_netMapReceived_43CA80() C.int {
+func nox_xxx_netMapReceived_43CA80() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_RECEIVED_MAP)
 	nox_xxx_netSendSock_552640(int(memmap.Uint32(0x5D4594, 815700)), data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
