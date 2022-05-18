@@ -6784,21 +6784,21 @@ int nox_xxx_drawParticlefx_4AFEB0(int* a1) {
 		nox_client_drawSetColor_434460(v1[6]);
 		switch (v1[16]) {
 		case 1:
-			result = sub_49EFA0(v4, v5);
+			result = nox_client_drawPixel_49EFA0(v4, v5);
 			break;
 		case 2:
-			sub_49EFA0(v4, v5);
-			sub_49EFA0(v4 + 1, v5);
+			nox_client_drawPixel_49EFA0(v4, v5);
+			nox_client_drawPixel_49EFA0(v4 + 1, v5);
 			v10 = v5 + 1;
-			sub_49EFA0(v4, v10);
-			result = sub_49EFA0(v4 + 1, v10);
+			nox_client_drawPixel_49EFA0(v4, v10);
+			result = nox_client_drawPixel_49EFA0(v4 + 1, v10);
 			break;
 		case 3:
-			sub_49EFA0(v4 + 1, v5);
-			sub_49EFA0(v4, v5 + 1);
-			sub_49EFA0(v4 + 1, v5 + 1);
-			sub_49EFA0(v4 + 2, v5 + 1);
-			result = sub_49EFA0(v4 + 1, v5 + 2);
+			nox_client_drawPixel_49EFA0(v4 + 1, v5);
+			nox_client_drawPixel_49EFA0(v4, v5 + 1);
+			nox_client_drawPixel_49EFA0(v4 + 1, v5 + 1);
+			nox_client_drawPixel_49EFA0(v4 + 2, v5 + 1);
+			result = nox_client_drawPixel_49EFA0(v4 + 1, v5 + 2);
 			break;
 		default:
 			result = nox_client_drawPoint_4B0BC0(v4, v5, v1[16] / 2);

@@ -5451,9 +5451,9 @@ int sub_472080() {
 
 //----- (004720C0) --------------------------------------------------------
 int sub_4720C0(int xLeft, int a2) {
-	sub_49EFA0(xLeft + 1, a2);
+	nox_client_drawPixel_49EFA0(xLeft + 1, a2);
 	nox_client_drawRectFilledOpaque_49CE30(xLeft, a2 + 1, 3, 1);
-	return sub_49EFA0(xLeft + 1, a2 + 2);
+	return nox_client_drawPixel_49EFA0(xLeft + 1, a2 + 2);
 }
 
 //----- (00472100) --------------------------------------------------------
@@ -6173,7 +6173,7 @@ int sub_4730D0(int2* a1, unsigned char a2, int a3) {
 		}
 	} else {
 		nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 956));
-		result = sub_49EFA0(a1->field_0, a1->field_4);
+		result = nox_client_drawPixel_49EFA0(a1->field_0, a1->field_4);
 	}
 	return result;
 }

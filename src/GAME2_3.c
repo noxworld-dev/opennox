@@ -5099,15 +5099,15 @@ void nox_xxx_drawPointMB_499B70(int xLeft, int yTop, int a3) {
 	switch (a3) {
 	case 0:
 	case 1:
-		sub_49EFA0(xLeft, yTop);
+		nox_client_drawPixel_49EFA0(xLeft, yTop);
 		break;
 	case 2:
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 2, 2);
 		break;
 	case 3:
-		sub_49EFA0(xLeft, yTop - 1);
+		nox_client_drawPixel_49EFA0(xLeft, yTop - 1);
 		nox_client_drawRectFilledOpaque_49CE30(xLeft - 1, yTop, 3, 1);
-		sub_49EFA0(xLeft, yTop + 1);
+		nox_client_drawPixel_49EFA0(xLeft, yTop + 1);
 		break;
 	case 4:
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop - 1, 2, 1);
@@ -6987,7 +6987,7 @@ int sub_49ED80(unsigned char a1, int a2) {
 }
 
 //----- (0049EFA0) --------------------------------------------------------
-int sub_49EFA0(int a1, int a2) { return sub_49F010(a1, a2); }
+int nox_client_drawPixel_49EFA0(int a1, int a2) { return sub_49F010(a1, a2); }
 
 
 //----- (0049F010) --------------------------------------------------------

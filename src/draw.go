@@ -737,7 +737,7 @@ func (r *NoxRender) SetColor2(a1 uint32) { // nox_client_drawSetColor_434460
 	r.p.SetColor2(a1)
 }
 
-func (r *NoxRender) sub49EFA0(pos image.Point) { // sub_49EFA0
+func (r *NoxRender) sub49EFA0(pos image.Point) { // nox_client_drawPixel_49EFA0
 	C.sub_49F010(C.int(pos.X), C.int(pos.Y))
 }
 
