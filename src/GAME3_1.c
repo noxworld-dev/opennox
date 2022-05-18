@@ -5199,7 +5199,7 @@ void sub_4C5500(nox_draw_viewport_t* a1p) {
 			if (*(uint32_t*)v13 > 0) {
 				v10 = (unsigned int)(*(uint32_t*)v13 + 1) >> 1;
 				do {
-					sub_49F180(v8, v4, v9);
+					nox_client_drawLineHorizontal_49F180(v8, v4, v9);
 					v8 = *v7;
 					v9 = v7[1];
 					v7 += 2;
@@ -5207,7 +5207,7 @@ void sub_4C5500(nox_draw_viewport_t* a1p) {
 				} while (v10);
 				v2 = v14;
 			}
-			sub_49F180(v8, v4, v2 + a1[8]);
+			nox_client_drawLineHorizontal_49F180(v8, v4, v2 + a1[8]);
 			v5 = dword_5d4594_3798156;
 			++v4;
 			v6 += 128;

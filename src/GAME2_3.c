@@ -6153,10 +6153,10 @@ void nox_client_drawBorderLines_49CC70(int xLeft, int yTop, int a3, int a4) {
 				(SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4),
 				 nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&nox_draw_curDrawData_3799572->clip)))) {
 				v4 = xLeft + a3 - 1;
-				sub_49F180(xLeft, yTop, v4);
+				nox_client_drawLineHorizontal_49F180(xLeft, yTop, v4);
 				v5 = yTop + a4 - 1;
 				sub_49F420(v4, yTop + 1, v5);
-				sub_49F180(xLeft, v5, xLeft + a3 - 2);
+				nox_client_drawLineHorizontal_49F180(xLeft, v5, xLeft + a3 - 2);
 				sub_49F420(xLeft, yTop + 1, yTop + a4 - 2);
 			}
 		}
@@ -6587,7 +6587,7 @@ int sub_49E930(int a1) {
 				if (v26 == v25) {
 					sub_49F420(v26, v24, v23);
 				} else if (v24 == v23) {
-					sub_49F180(v26, v24, v25);
+					nox_client_drawLineHorizontal_49F180(v26, v24, v25);
 				} else {
 					v4 = v25 - v26;
 					v5 = 2;
@@ -7004,7 +7004,7 @@ int sub_49F010(int a1, int a2) {
 }
 
 //----- (0049F180) --------------------------------------------------------
-void sub_49F180(int a1, int a2, int a3) {
+void nox_client_drawLineHorizontal_49F180(int a1, int a2, int a3) {
 	int v3;          // ecx
 	int v4;          // edx
 	int v5;          // edi

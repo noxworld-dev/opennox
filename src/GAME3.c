@@ -5537,9 +5537,9 @@ int sub_4AE6F0(int a1, int a2, int a3, int a4, int a5) {
 		nox_client_drawAddPoint_49F500(a1, a2);
 		nox_client_drawAddPoint_49F500(a1 + v7, a2 + v8);
 		sub_4AEC20(0, 1);
-		v10 = sub_49F180;
+		v10 = nox_client_drawLineHorizontal_49F180;
 		if (!nox_draw_curDrawData_3799572->field_13) {
-			v10 = sub_49F180;
+			v10 = nox_client_drawLineHorizontal_49F180;
 		}
 		v11 = a2 + a3;
 		v12 = a2 - a3;
@@ -6977,13 +6977,13 @@ int nox_client_drawPoint_4B0BC0(int a1, int a2, int a3) {
 
 	v3 = a3;
 	v16 = 1 - a3;
-	v4 = sub_49F180;
+	v4 = nox_client_drawLineHorizontal_49F180;
 	v10 = 5 - 2 * v3;
 	v12 = 0;
 	v13 = v3;
 	v11 = 3;
 	if (!nox_draw_curDrawData_3799572->field_13) {
-		v4 = sub_49F180;
+		v4 = nox_client_drawLineHorizontal_49F180;
 	}
 	v5 = a2;
 	v6 = a1;
