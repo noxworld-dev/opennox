@@ -7091,7 +7091,7 @@ int nox_xxx_quickBarWnd_45EF50(int a1, int a2, unsigned int a3) {
 				if (v12 >> 16 == 137) {
 					v14.field_0 = v7;
 					v14.field_4 = v15;
-					v13 = sub_4281F0(&v14, (int4*)getMemAt(0x587000, 133656));
+					v13 = nox_xxx_pointInRect_4281F0(&v14, (int4*)getMemAt(0x587000, 133656));
 					if (v13 || dword_5d4594_1049696 && dword_5d4594_1049696 != v3[51]) {
 						goto LABEL_51;
 					}

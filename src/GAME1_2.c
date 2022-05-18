@@ -295,7 +295,7 @@ int sub_428170(void* a1p, int4* a2) {
 }
 
 //----- (004281F0) --------------------------------------------------------
-int sub_4281F0(int2* a1, int4* a2) {
+int nox_xxx_pointInRect_4281F0(int2* a1, int4* a2) {
 	int v2;      // ecx
 	bool result; // al
 

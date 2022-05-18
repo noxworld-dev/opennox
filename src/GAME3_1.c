@@ -2498,7 +2498,7 @@ char sub_4C0910(int2* a1) {
 			v10.field_8 = i + v8 + 50;
 			v10.field_4 = v2 + v9;
 			v10.field_C = v2 + v9 + 50;
-			v5 = sub_4281F0(a1, &v10);
+			v5 = nox_xxx_pointInRect_4281F0(a1, &v10);
 			if (v5) {
 				return (char)getMemAt(0x5D4594, 1319284 + 140 * (v7 + 2 * v3));
 			}
@@ -2706,7 +2706,7 @@ char sub_4C11E0(uint32_t* a1) {
 			v10.field_8 = i + v8 + 50;
 			v10.field_4 = v2 + v9;
 			v10.field_C = v2 + v9 + 50;
-			v5 = sub_4281F0((int2*)a1, &v10);
+			v5 = nox_xxx_pointInRect_4281F0((int2*)a1, &v10);
 			if (v5) {
 				return (char)getMemAt(0x5D4594, 1320308 + 140 * (v7 + 2 * v3));
 			}

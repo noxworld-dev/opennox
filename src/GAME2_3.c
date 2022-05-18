@@ -1092,8 +1092,8 @@ bool sub_48E000(int4* a1, uint32_t* a2) {
 	if (sub_467C80()) {
 		v2 = 279;
 		v11.field_C = 279;
-		v3 = sub_4281F0((int2*)a1, &v11);
-		if (v3 || (v3 = sub_4281F0((int2*)&a1->field_8, &v11), v3)) {
+		v3 = nox_xxx_pointInRect_4281F0((int2*)a1, &v11);
+		if (v3 || (v3 = nox_xxx_pointInRect_4281F0((int2*)&a1->field_8, &v11), v3)) {
 		LABEL_12:
 			a1->field_4 = v2;
 			*a2 = 0;
@@ -1102,11 +1102,11 @@ bool sub_48E000(int4* a1, uint32_t* a2) {
 	} else {
 		v2 = 55;
 		v11.field_C = 55;
-		v3 = sub_4281F0((int2*)a1, &v11);
+		v3 = nox_xxx_pointInRect_4281F0((int2*)a1, &v11);
 		if (v3) {
 			goto LABEL_12;
 		}
-		v3 = sub_4281F0((int2*)&a1->field_8, &v11);
+		v3 = nox_xxx_pointInRect_4281F0((int2*)&a1->field_8, &v11);
 		if (v3) {
 			goto LABEL_12;
 		}
@@ -1117,8 +1117,8 @@ LABEL_13:
 		v11.field_C = nox_win_height;
 		v11.field_8 = 111;
 		v11.field_4 = nox_win_height - 127;
-		v4 = sub_4281F0((int2*)a1, &v11);
-		if (v4 || (v5 = sub_4281F0((int2*)&a1->field_8, &v11), v5)) {
+		v4 = nox_xxx_pointInRect_4281F0((int2*)a1, &v11);
+		if (v4 || (v5 = nox_xxx_pointInRect_4281F0((int2*)&a1->field_8, &v11), v5)) {
 			a1->field_4 += v11.field_4 - a1->field_C;
 			*a2 = 0;
 		}
@@ -1126,8 +1126,8 @@ LABEL_13:
 		v11.field_0 = nox_win_width / 2 - 160;
 		v11.field_8 = v11.field_0 + 320;
 		v11.field_C = nox_win_height;
-		v6 = sub_4281F0((int2*)a1, &v11);
-		if (v6 || (v7 = sub_4281F0((int2*)&a1->field_8, &v11), v7)) {
+		v6 = nox_xxx_pointInRect_4281F0((int2*)a1, &v11);
+		if (v6 || (v7 = nox_xxx_pointInRect_4281F0((int2*)&a1->field_8, &v11), v7)) {
 			a1->field_4 += v11.field_4 - a1->field_C;
 			*a2 = 0;
 		}
@@ -1135,8 +1135,8 @@ LABEL_13:
 		v11.field_0 = nox_win_width - 91;
 		v11.field_C = nox_win_height;
 		v11.field_4 = nox_win_height - 201;
-		v8 = sub_4281F0((int2*)a1, &v11);
-		if (v8 || (v9 = sub_4281F0((int2*)&a1->field_8, &v11), v9)) {
+		v8 = nox_xxx_pointInRect_4281F0((int2*)a1, &v11);
+		if (v8 || (v9 = nox_xxx_pointInRect_4281F0((int2*)&a1->field_8, &v11), v9)) {
 			a1->field_4 += v11.field_4 - a1->field_C;
 			*a2 = 0;
 		}
@@ -1146,8 +1146,8 @@ LABEL_13:
 			v11.field_4 = 0;
 			v11.field_8 = nox_win_width;
 			v11.field_C = 145;
-			v3 = sub_4281F0((int2*)a1, &v11);
-			if (v3 || (v3 = sub_4281F0((int2*)&a1->field_8, &v11), v3)) {
+			v3 = nox_xxx_pointInRect_4281F0((int2*)a1, &v11);
+			if (v3 || (v3 = nox_xxx_pointInRect_4281F0((int2*)&a1->field_8, &v11), v3)) {
 				a1->field_4 = 145;
 				*a2 = 0;
 			}

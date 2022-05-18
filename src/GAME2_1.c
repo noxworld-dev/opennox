@@ -1747,7 +1747,7 @@ int nox_xxx_trade_4657B0(short a1) {
 char nox_xxx_clientTradeMB_4657E0(uint32_t* a1) {
 	int v1; // eax
 
-	v1 = sub_4281F0((int2*)a1, (int4*)getMemAt(0x587000, 136352));
+	v1 = nox_xxx_pointInRect_4281F0((int2*)a1, (int4*)getMemAt(0x587000, 136352));
 	if (v1) {
 		int i = (a1[1] + dword_5d4594_1062512 - 13) / 50 + NOX_INVENTORY_ROW_COUNT * ((*a1 - 314) / 50);
 		uint8_t n = nox_client_inventory_grid_1050020[i].field_140;
@@ -1773,16 +1773,16 @@ int nox_xxx_clientTrade_465870(short a1) {
 //----- (004658A0) --------------------------------------------------------
 void sub_4658A0(int a1, int2* a2) {
 	if (getMemByte(0x5D4594, 1049868) == 2) {
-		if (sub_4281F0(a2, (int4*)getMemAt(0x587000, 136336))) {
+		if (nox_xxx_pointInRect_4281F0(a2, (int4*)getMemAt(0x587000, 136336))) {
 			*getMemU32Ptr(0x5D4594, 1049848) = array_5D4594_1049872[sub_465990(a2)];
 			dword_5d4594_1049856 = 1;
 		} else {
 			dword_5d4594_1049856 = 0;
-			if (sub_4281F0(a2, (int4*)getMemAt(0x587000, 136368))) {
+			if (nox_xxx_pointInRect_4281F0(a2, (int4*)getMemAt(0x587000, 136368))) {
 				if ((a2->field_4 - 13) / 50 == 2) {
 					nox_client_toggleMap_473610();
 				}
-			} else if (sub_4281F0(a2, (int4*)getMemAt(0x587000, 136352))) {
+			} else if (nox_xxx_pointInRect_4281F0(a2, (int4*)getMemAt(0x587000, 136352))) {
 				dword_5d4594_1049796_inventory_click_column_index = (a2->field_0 - 314) / 50;
 				dword_5d4594_1049800_inventory_click_row_index = (a2->field_4 + *(int*)&dword_5d4594_1062512 - 13) / 50;
 				if (sub_464B40(*(int*)&dword_5d4594_1049796_inventory_click_column_index,
@@ -1810,7 +1810,7 @@ int sub_465990(uint32_t* a1) {
 	v6.field_4 = v1;
 	v2 = 0;
 	while (1) {
-		v3 = sub_4281F0(&v6, (int4*)getMemAt(0x587000, 136192 + 16 * v2));
+		v3 = nox_xxx_pointInRect_4281F0(&v6, (int4*)getMemAt(0x587000, 136192 + 16 * v2));
 		if (!v3) {
 			goto LABEL_6;
 		}
@@ -2514,7 +2514,7 @@ void nox_client_invAlterWeapon_4672C0() { // Switch onto secondary weapon
 	if (*(uint32_t*)(*getMemU32Ptr(0x852978, 8) + 276) == 34) {
 		return;
 	}
-	v2 = sub_4281F0((int2*)getMemAt(0x5D4594, 1062572), (int4*)getMemAt(0x587000, 136336));
+	v2 = nox_xxx_pointInRect_4281F0((int2*)getMemAt(0x5D4594, 1062572), (int4*)getMemAt(0x587000, 136336));
 	if (v2 == 1) {
 		nox_xxx_cursorSetDraggedItem_477690(0);
 	}

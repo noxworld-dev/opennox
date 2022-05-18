@@ -5518,7 +5518,7 @@ nox_player_polygon_check_data* nox_xxx_polygonIsPlayerInPolygon_4217B0(int2* a1,
 	if (a2) {
 		if (a2 != -559023410) {
 			if (*getMemU32Ptr(0x5D4594, 552312 + 140 * a2)) {
-				v2 = sub_4281F0(a1, (int4*)getMemAt(0x5D4594, 552316 + 140 * a2));
+				v2 = nox_xxx_pointInRect_4281F0(a1, (int4*)getMemAt(0x5D4594, 552316 + 140 * a2));
 				if (v2) {
 					if (nox_xxx_polygon_421660(&a1->field_0, (int)getMemAt(0x5D4594, 552228 + 140 * a2))) {
 						return (nox_player_polygon_check_data*)getMemAt(0x5D4594, 552228 + 140 * a2);
@@ -5534,7 +5534,7 @@ nox_player_polygon_check_data* nox_xxx_polygonIsPlayerInPolygon_4217B0(int2* a1,
 	for (i = getMemAt(0x5D4594, 552448);; i += 140) {
 		if (*((uint32_t*)i + 1)) {
 			if (*(uint32_t*)i != a2) {
-				v6 = sub_4281F0(a1, (int4*)(i + 8));
+				v6 = nox_xxx_pointInRect_4281F0(a1, (int4*)(i + 8));
 				if (v6) {
 					if (nox_xxx_polygon_421660(&a1->field_0, (int)(i - 80))) {
 						break;
@@ -5798,7 +5798,7 @@ unsigned char* sub_421F10(int* a1, int a2) {
 			v2 = getMemAt(0x5D4594, 552228 + 140 * a2);
 			if (*getMemU32Ptr(0x5D4594, 552312 + 140 * a2)) {
 				if (*((int*)v2 + 29) != -1 || *((int*)v2 + 31) != -1) {
-					v3 = sub_4281F0((int2*)a1, (int4*)(v2 + 88));
+					v3 = nox_xxx_pointInRect_4281F0((int2*)a1, (int4*)(v2 + 88));
 					if (v3) {
 						if (nox_xxx_polygon_421660(a1, (int)getMemAt(0x5D4594, 552228 + 140 * a2))) {
 							return getMemAt(0x5D4594, 552228 + 140 * a2);
@@ -5814,7 +5814,7 @@ unsigned char* sub_421F10(int* a1, int a2) {
 	}
 	for (i = getMemAt(0x5D4594, 552448);; i += 140) {
 		if (*((uint32_t*)i + 1) && *(int*)i != a2 && (*((int*)i + 9) != -1 || *((int*)i + 11) != -1)) {
-			v7 = sub_4281F0((int2*)a1, (int4*)(i + 8));
+			v7 = nox_xxx_pointInRect_4281F0((int2*)a1, (int4*)(i + 8));
 			if (v7) {
 				if (nox_xxx_polygon_421660(a1, (int)(i - 80))) {
 					break;

@@ -2304,7 +2304,7 @@ int sub_4A7270(int a1, int a2, unsigned int a3, int a4) {
 	}
 	v5.field_4 = a3 >> 16;
 	v5.field_0 = (unsigned short)a3;
-	v3 = sub_4281F0(&v5, (int4*)(a1 + 16));
+	v3 = nox_xxx_pointInRect_4281F0(&v5, (int4*)(a1 + 16));
 	if (v3) {
 		return 0;
 	}

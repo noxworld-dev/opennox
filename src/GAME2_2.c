@@ -1126,7 +1126,7 @@ int sub_478650(int a1, int a2, unsigned int a3) {
 	if (!sub_45D9B0()) {
 		switch (a2) {
 		case 5:
-			v4 = sub_4281F0(&v5, (int4*)getMemAt(0x5D4594, 1098380));
+			v4 = nox_xxx_pointInRect_4281F0(&v5, (int4*)getMemAt(0x5D4594, 1098380));
 			if (v4) {
 				if (dword_5d4594_1098628 == 2) {
 					sub_478730(&v5.field_0);
@@ -1657,7 +1657,7 @@ int sub_479840(short a1) {
 int sub_479870() { return dword_5d4594_1098628 == 2; }
 
 //----- (00479880) --------------------------------------------------------
-bool sub_479880(uint32_t* a1) { return sub_4281F0((int2*)a1, (int4*)getMemAt(0x5D4594, 1098380)); }
+bool sub_479880(uint32_t* a1) { return nox_xxx_pointInRect_4281F0((int2*)a1, (int4*)getMemAt(0x5D4594, 1098380)); }
 
 //----- (004798A0) --------------------------------------------------------
 int sub_4798A0(uint32_t* a1) {
@@ -1667,7 +1667,7 @@ int sub_4798A0(uint32_t* a1) {
 	int v4;            // edx
 	unsigned char* v5; // eax
 
-	v1 = sub_4281F0((int2*)a1, (int4*)getMemAt(0x5D4594, 1098380));
+	v1 = nox_xxx_pointInRect_4281F0((int2*)a1, (int4*)getMemAt(0x5D4594, 1098380));
 	if (!v1) {
 		return 0;
 	}
