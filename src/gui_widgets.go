@@ -292,7 +292,7 @@ func nox_xxx_wndStaticDrawNoImage(win *Window, draw *WindowData) int { // nox_xx
 	}
 	if borderColor != noxcolor.ExtendColor16(gui.ColorTransparent) {
 		r.Data().SetColor2(borderColor)
-		r.DrawBorder(x, y, w, h)
+		r.rnd.DrawBorder(x, y, w, h)
 	}
 	if text := GoWString(wdata.text); text != "" && draw.TextColorRaw() != noxcolor.ExtendColor16(gui.ColorTransparent) {
 		r.Data().SetTextColor(draw.TextColorRaw())

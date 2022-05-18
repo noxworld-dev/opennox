@@ -2733,12 +2733,6 @@ void sub_467680() {
 //----- (004676A0) --------------------------------------------------------
 nox_window* nox_xxx_wndGetHandle_4676A0() { return dword_5d4594_1062452; }
 
-//----- (004676B0) --------------------------------------------------------
-char* sub_4676B0() { return (char*)getMemAt(0x587000, 136384); }
-
-//----- (004676C0) --------------------------------------------------------
-char* sub_4676C0() { return (char*)getMemAt(0x587000, 136400); }
-
 //----- (004676D0) --------------------------------------------------------
 int sub_4676D0(int a1) {
 	char* v1;   // eax
@@ -5453,7 +5447,8 @@ int sub_472080() {
 int sub_4720C0(int xLeft, int a2) {
 	nox_client_drawPixel_49EFA0(xLeft + 1, a2);
 	nox_client_drawRectFilledOpaque_49CE30(xLeft, a2 + 1, 3, 1);
-	return nox_client_drawPixel_49EFA0(xLeft + 1, a2 + 2);
+	nox_client_drawPixel_49EFA0(xLeft + 1, a2 + 2);
+	return 0;
 }
 
 //----- (00472100) --------------------------------------------------------
@@ -6173,7 +6168,7 @@ int sub_4730D0(int2* a1, unsigned char a2, int a3) {
 		}
 	} else {
 		nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 956));
-		result = nox_client_drawPixel_49EFA0(a1->field_0, a1->field_4);
+		nox_client_drawPixel_49EFA0(a1->field_0, a1->field_4);
 	}
 	return result;
 }

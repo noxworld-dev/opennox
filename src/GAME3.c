@@ -6739,7 +6739,7 @@ int nox_xxx_partfxLoadParticle_4AFE20(uint32_t* a1, char* a2) {
 }
 
 //----- (004AFEB0) --------------------------------------------------------
-int nox_xxx_drawParticlefx_4AFEB0(int* a1) {
+void nox_xxx_drawParticlefx_4AFEB0(int* a1) {
 	int* v1;    // esi
 	int v2;     // ecx
 	int v3;     // edx
@@ -6748,7 +6748,6 @@ int nox_xxx_drawParticlefx_4AFEB0(int* a1) {
 	int v6;     // eax
 	int v7;     // eax
 	int v8;     // ebp
-	int result; // eax
 	int v10;    // ebx
 	int2 a1a;   // [esp+10h] [ebp-10h]
 	int2 a2;    // [esp+18h] [ebp-8h]
@@ -6779,33 +6778,31 @@ int nox_xxx_drawParticlefx_4AFEB0(int* a1) {
 		*(uint32_t*)(v1[3] + 12) = v8;
 		*(uint32_t*)(v1[3] + 16) = v13;
 	}
-	result = v1[16];
-	if (result) {
+	if (v1[16]) {
 		nox_client_drawSetColor_434460(v1[6]);
 		switch (v1[16]) {
 		case 1:
-			result = nox_client_drawPixel_49EFA0(v4, v5);
+			nox_client_drawPixel_49EFA0(v4, v5);
 			break;
 		case 2:
 			nox_client_drawPixel_49EFA0(v4, v5);
 			nox_client_drawPixel_49EFA0(v4 + 1, v5);
 			v10 = v5 + 1;
 			nox_client_drawPixel_49EFA0(v4, v10);
-			result = nox_client_drawPixel_49EFA0(v4 + 1, v10);
+			nox_client_drawPixel_49EFA0(v4 + 1, v10);
 			break;
 		case 3:
 			nox_client_drawPixel_49EFA0(v4 + 1, v5);
 			nox_client_drawPixel_49EFA0(v4, v5 + 1);
 			nox_client_drawPixel_49EFA0(v4 + 1, v5 + 1);
 			nox_client_drawPixel_49EFA0(v4 + 2, v5 + 1);
-			result = nox_client_drawPixel_49EFA0(v4 + 1, v5 + 2);
+			nox_client_drawPixel_49EFA0(v4 + 1, v5 + 2);
 			break;
 		default:
-			result = nox_client_drawPoint_4B0BC0(v4, v5, v1[16] / 2);
+			nox_client_drawPoint_4B0BC0(v4, v5, v1[16] / 2);
 			break;
 		}
 	}
-	return result;
 }
 
 //----- (004B0020) --------------------------------------------------------
@@ -6958,68 +6955,6 @@ int sub_4B0220(size_t a1) {
 	return result;
 }
 
-//----- (004B0BC0) --------------------------------------------------------
-int nox_client_drawPoint_4B0BC0(int a1, int a2, int a3) {
-	int v3;                   // ebp
-	int (*v4)(int, int, int); // esi
-	int v5;                   // edi
-	int v6;                   // ebx
-	int result;               // eax
-	int v8;                   // ebp
-	int v9;                   // edi
-	int v10;                  // [esp+10h] [ebp-10h]
-	int v11;                  // [esp+14h] [ebp-Ch]
-	int v12;                  // [esp+18h] [ebp-8h]
-	int v13;                  // [esp+1Ch] [ebp-4h]
-	int v14;                  // [esp+24h] [ebp+4h]
-	int v15;                  // [esp+28h] [ebp+8h]
-	int v16;                  // [esp+2Ch] [ebp+Ch]
-
-	v3 = a3;
-	v16 = 1 - a3;
-	v4 = nox_client_drawLineHorizontal_49F180;
-	v10 = 5 - 2 * v3;
-	v12 = 0;
-	v13 = v3;
-	v11 = 3;
-	if (!nox_draw_curDrawData_3799572->field_13) {
-		v4 = nox_client_drawLineHorizontal_49F180;
-	}
-	v5 = a2;
-	v6 = a1;
-	v4(a1, a2 + v3, a1);
-	v14 = a1 + v3;
-	v15 = v6 - v3;
-	v4(v6 - v3, v5, v6 + v3);
-	v4(v6 - v3, v5, v14);
-	result = v4(v6, v5 - v3, v6);
-	if (v3 > 0) {
-		v8 = v6;
-		v9 = v5 - v6;
-		do {
-			if (v16 >= 0) {
-				v16 += v10;
-				v10 += 4;
-				--v13;
-				--v14;
-				++v15;
-			} else {
-				v16 += v11;
-				v10 += 2;
-			}
-			++v6;
-			++v12;
-			--v8;
-			v11 += 2;
-			v4(v8, v9 + v14, v6);
-			v4(v15, v9 + v6, v14);
-			v4(v15, v9 + v8, v14);
-			v4(v8, v9 + v15, v6);
-			result = v13;
-		} while (v13 > v12);
-	}
-	return result;
-}
 
 //----- (004B1380) --------------------------------------------------------
 short nox_video_drawCircle16Opaque_4B1380(int a1, int a2, int a3) {

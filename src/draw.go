@@ -171,6 +171,31 @@ func nox_client_drawRectFilledOpaque_49CE30(a1, a2, a3, a4 C.int) {
 	noxrend.DrawRectFilledOpaque(int(a1), int(a2), int(a3), int(a4))
 }
 
+//export nox_client_drawBorderLines_49CC70
+func nox_client_drawBorderLines_49CC70(a1, a2, a3, a4 C.int) {
+	noxrend.rnd.DrawBorder(int(a1), int(a2), int(a3), int(a4))
+}
+
+//export nox_client_drawLineHorizontal_49F180
+func nox_client_drawLineHorizontal_49F180(a1, a2, a3 C.int) {
+	noxrend.rnd.DrawLineHorizontal(int(a1), int(a2), int(a3))
+}
+
+//export nox_client_drawLineVertical_49F420
+func nox_client_drawLineVertical_49F420(a1, a2, a3 C.int) {
+	noxrend.rnd.DrawLineVertical(int(a1), int(a2), int(a3))
+}
+
+//export nox_client_drawPixel_49EFA0
+func nox_client_drawPixel_49EFA0(a1, a2 C.int) {
+	noxrend.rnd.DrawPixel(image.Pt(int(a1), int(a2)))
+}
+
+//export nox_client_drawPoint_4B0BC0
+func nox_client_drawPoint_4B0BC0(a1, a2, a3 C.int) {
+	noxrend.rnd.DrawPointRad(image.Pt(int(a1), int(a2)), int(a3))
+}
+
 type Viewport C.nox_draw_viewport_t
 
 func (vp *Viewport) C() *C.nox_draw_viewport_t {
@@ -737,10 +762,6 @@ func (r *NoxRender) SetColor2(a1 uint32) { // nox_client_drawSetColor_434460
 	r.p.SetColor2(a1)
 }
 
-func (r *NoxRender) sub49EFA0(pos image.Point) { // nox_client_drawPixel_49EFA0
-	C.sub_49F010(C.int(pos.X), C.int(pos.Y))
-}
-
 func (r *NoxRender) SetBold(enable bool) {
 	r.rnd.SetBold(enable)
 }
@@ -756,13 +777,13 @@ func (r *NoxRender) SetTabWidth(w int) {
 func (r *NoxRender) DrawPoint(pos image.Point, rad int) { // nox_xxx_drawPointMB_499B70
 	switch rad {
 	case 0, 1:
-		r.sub49EFA0(pos)
+		r.rnd.DrawPixel(pos)
 	case 2:
 		r.DrawRectFilledOpaque(pos.X, pos.Y, 2, 2)
 	case 3:
-		r.sub49EFA0(pos.Add(image.Point{Y: -1}))
+		r.rnd.DrawPixel(pos.Add(image.Point{Y: -1}))
 		r.DrawRectFilledOpaque(pos.X-1, pos.Y, 3, 1)
-		r.sub49EFA0(pos.Add(image.Point{Y: +1}))
+		r.rnd.DrawPixel(pos.Add(image.Point{Y: +1}))
 	case 4:
 		r.DrawRectFilledOpaque(pos.X, pos.Y-1, 2, 1)
 		r.DrawRectFilledOpaque(pos.X-1, pos.Y, 4, 2)
@@ -778,7 +799,7 @@ func (r *NoxRender) DrawPoint(pos image.Point, rad int) { // nox_xxx_drawPointMB
 		r.DrawRectFilledOpaque(pos.X-1, pos.Y+2, 4, 1)
 		r.DrawRectFilledOpaque(pos.X, pos.Y+3, 2, 1)
 	default:
-		C.nox_client_drawPoint_4B0BC0(C.int(pos.X), C.int(pos.Y), C.int(rad/2))
+		r.rnd.DrawPointRad(pos, rad/2)
 	}
 }
 
@@ -813,7 +834,77 @@ func (r *NoxRender) DrawLineFromPoints(arr ...image.Point) { // nox_client_drawL
 	for _, p := range arr {
 		r.AddPoint(p)
 	}
-	C.sub_49E930(0)
+	r.drawLineFromPoints(false)
+}
+
+func (r *NoxRender) drawLineFromPoints(keep bool) bool { // sub_49E930
+	d := r.Data()
+	if d.field_13 != 0 {
+		return C.sub_49EAB0(C.int(bool2int(keep))) != 0
+	}
+
+	p2, ok := r.LastPoint(false)
+	if !ok {
+		return false
+	}
+	p1, ok := r.LastPoint(keep)
+	if !ok {
+		return false
+	}
+	if d.flag_0 != 0 && !r.clipToRect2(&p1, &p2) {
+		return true
+	}
+	if p1.X == p2.X {
+		r.rnd.DrawLineVertical(p1.X, p1.Y, p2.Y)
+		return true
+	} else if p1.Y == p2.Y {
+		r.rnd.DrawLineHorizontal(p1.X, p1.Y, p2.X)
+		return true
+	}
+	pix := r.PixBuffer()
+
+	y := p1.Y
+	w := p2.X - p1.X
+	dx := +2
+	if p2.X < p1.X {
+		dx = -2
+		w = p1.X - p2.X
+	}
+	h := p2.Y - p1.Y
+	dy := +1
+	if p2.Y < p1.Y {
+		dy = -1
+		h = p1.Y - p2.Y
+	}
+
+	cl := noxcolor.RGBA5551(d.field_61)
+	x := 2 * p1.X
+	if w < h {
+		dv := 2*w - h
+		for i := 0; i < h; i++ {
+			pix.SetRGBA5551(x/2, y, cl)
+			y += dy
+			if dv >= 0 {
+				dv += 2 * (w - h)
+				x += dx
+			} else {
+				dv += 2 * w
+			}
+		}
+	} else {
+		dv := 2*h - w
+		for i := 0; i < w; i++ {
+			pix.SetRGBA5551(x/2, y, cl)
+			x += dx
+			if dv >= 0 {
+				dv += 2 * (h - w)
+				y += dy
+			} else {
+				dv += 2 * h
+			}
+		}
+	}
+	return true
 }
 
 func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int) { // nox_client_drawRectFilledOpaque_49CE30
@@ -847,10 +938,6 @@ func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int) { // nox_client_drawRec
 
 func (r *NoxRender) DrawRectFilledAlpha(x, y, w, h int) { // nox_client_drawRectFilledAlpha_49CF10
 	C.nox_client_drawRectFilledAlpha_49CF10(C.int(x), C.int(y), C.int(w), C.int(h))
-}
-
-func (r *NoxRender) DrawBorder(x, y, w, h int) { // nox_client_drawBorderLines_49CC70
-	C.nox_client_drawBorderLines_49CC70(C.int(x), C.int(y), C.int(w), C.int(h))
 }
 
 func (r *NoxRender) ClipRectImg() image.Rectangle {
@@ -1139,7 +1226,7 @@ func nox_xxx_drawAllMB_475810_draw_A(vp *Viewport) {
 			C.dword_5d4594_3799524 = 0
 		}
 		noxrend.Data().SetColor2(*memmap.PtrUint32(0x85B3FC, 956))
-		noxrend.DrawBorder(int(vp.x1)-2, int(vp.y1)-2, v4-int(vp.x1)+4, v3-int(vp.y1)+4)
+		noxrend.rnd.DrawBorder(int(vp.x1)-2, int(vp.y1)-2, v4-int(vp.x1)+4, v3-int(vp.y1)+4)
 	} else {
 		C.dword_5d4594_3799468 = 0
 	}
@@ -1864,6 +1951,88 @@ func (r *NoxRender) SetColorMode(mode noxcolor.Mode) {
 		r.colors.B[i] = mode.RGB(0, 0, byte(i)).Color16()
 	}
 	r.colors.mode = mode
+}
+
+func clipFlags(p image.Point, r image.Rectangle) int {
+	flags := 0
+	if p.X >= r.Min.X {
+		if p.X > r.Max.X {
+			flags |= 0x2
+		}
+	} else {
+		flags |= 0x1
+	}
+	if p.Y >= r.Min.Y {
+		if p.Y > r.Max.Y {
+			flags |= 0x4
+		}
+	} else {
+		flags |= 0x8
+	}
+	return flags
+}
+
+func clipToRect(r image.Rectangle, p1 *image.Point, p2 image.Point, side bool) bool {
+	ds := +1
+	if side {
+		ds = -1
+	}
+	if p1.Y < r.Min.Y {
+		if p1.Y == p2.Y {
+			return false
+		}
+		dx := (r.Min.Y - p1.Y) * (ds * (p2.X - p1.X)) / (ds * (p2.Y - p1.Y))
+		p1.Y = r.Min.Y
+		p1.X += dx
+	} else if p1.Y > r.Max.Y {
+		if p1.Y == p2.Y {
+			return false
+		}
+		dx := (r.Max.Y - p1.Y) * (ds * (p2.X - p1.X)) / (ds * (p2.Y - p1.Y))
+		p1.Y = r.Max.Y
+		p1.X += dx
+	}
+	if p1.X > r.Max.X {
+		if p1.X == p2.X {
+			return false
+		}
+		dy := (r.Max.X - p1.X) * (ds * (p2.Y - p1.Y)) / (ds * (p2.X - p1.X))
+		p1.X = r.Max.X
+		p1.Y += dy
+	} else if p1.X < r.Min.X {
+		if p1.X == p2.X {
+			return false
+		}
+		dy := (r.Min.X - p1.X) * (ds * (p2.Y - p1.Y)) / (ds * (p2.X - p1.X))
+		p1.X = r.Min.X
+		p1.Y += dy
+	}
+	return true
+}
+
+func (r *NoxRender) clipToRect2(p1, p2 *image.Point) bool { // sub_49F990
+	d := r.Data()
+	rect := d.Rect2()
+	flag1 := clipFlags(*p1, rect)
+	flag2 := clipFlags(*p2, rect)
+	if flag1|flag2 == 0 {
+		return true
+	}
+	if flag1&flag2 != 0 {
+		return false
+	}
+	if flag1 != 0 {
+		if !clipToRect(rect, p1, *p2, false) {
+			return false
+		}
+	}
+	if flag2 != 0 {
+		if !clipToRect(rect, p2, *p1, true) {
+			return false
+		}
+	}
+	return p1.X >= rect.Min.X && p1.X <= rect.Max.X && p1.Y >= rect.Min.Y && p1.Y <= rect.Max.Y &&
+		p2.X >= rect.Min.X && p2.X <= rect.Max.X && p2.Y >= rect.Min.Y && p2.Y <= rect.Max.Y
 }
 
 var (
