@@ -5127,7 +5127,7 @@ void nox_xxx_drawPointMB_499B70(int xLeft, int yTop, int a3) {
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop + 3, 2, 1);
 		break;
 	default:
-		sub_4B0BC0(xLeft, yTop, a3 >> 1);
+		nox_client_drawPoint_4B0BC0(xLeft, yTop, a3 >> 1);
 		break;
 	}
 }

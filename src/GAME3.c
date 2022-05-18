@@ -6801,7 +6801,7 @@ int nox_xxx_drawParticlefx_4AFEB0(int* a1) {
 			result = sub_49EFA0(v4 + 1, v5 + 2);
 			break;
 		default:
-			result = sub_4B0BC0(v4, v5, v1[16] / 2);
+			result = nox_client_drawPoint_4B0BC0(v4, v5, v1[16] / 2);
 			break;
 		}
 	}
@@ -6959,7 +6959,7 @@ int sub_4B0220(size_t a1) {
 }
 
 //----- (004B0BC0) --------------------------------------------------------
-int sub_4B0BC0(int a1, int a2, int a3) {
+int nox_client_drawPoint_4B0BC0(int a1, int a2, int a3) {
 	int v3;                   // ebp
 	int (*v4)(int, int, int); // esi
 	int v5;                   // edi

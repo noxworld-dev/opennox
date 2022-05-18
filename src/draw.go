@@ -778,7 +778,7 @@ func (r *NoxRender) DrawPoint(pos image.Point, rad int) { // nox_xxx_drawPointMB
 		r.DrawRectFilledOpaque(pos.X-1, pos.Y+2, 4, 1)
 		r.DrawRectFilledOpaque(pos.X, pos.Y+3, 2, 1)
 	default:
-		C.sub_4B0BC0(C.int(pos.X), C.int(pos.Y), C.int(rad/2))
+		C.nox_client_drawPoint_4B0BC0(C.int(pos.X), C.int(pos.Y), C.int(rad/2))
 	}
 }
 

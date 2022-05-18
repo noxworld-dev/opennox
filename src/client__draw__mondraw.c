@@ -207,7 +207,7 @@ LABEL_24:
 				if (v18) {
 					nox_client_drawSetColor_434460(*v18);
 				}
-				sub_4B0BC0(v19, v20, 3);
+				nox_client_drawPoint_4B0BC0(v19, v20, 3);
 			}
 		}
 		goto LABEL_45;

@@ -3278,7 +3278,7 @@ int nox_xxx_guiDrawSummonBox_4C1FE0(uint32_t* a1) {
 					v7 = v3 + v21 / 2;
 					v8 = v5 + v20 / 2;
 					nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 956));
-					sub_4B0BC0(v7, v8, 9);
+					nox_client_drawPoint_4B0BC0(v7, v8, 9);
 					nox_video_drawCircleColored_4C3270(v7, v8, 9, *getMemIntPtr(0x852978, 4));
 					v3 = a1a.field_0;
 				}
