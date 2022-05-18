@@ -187,7 +187,7 @@ int sub_49ED80(unsigned char a1, int a2);
 int sub_49EFA0(int a1, int a2);
 int sub_49F010(int a1, int a2);
 void nox_client_drawLineHorizontal_49F180(int a1, int a2, int a3);
-void sub_49F420(int a1, int a2, int a3);
+void nox_client_drawLineVertical_49F420(int a1, int a2, int a3);
 void nox_client_drawAddPoint_49F500(int a1, int a2);
 void nox_xxx_rasterPointRel_49F570(int a1, int a2);
 int nox_client_drawLastPoint_49F5B0(uint32_t* a1, uint32_t* a2, int a3);

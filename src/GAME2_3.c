@@ -6155,9 +6155,9 @@ void nox_client_drawBorderLines_49CC70(int xLeft, int yTop, int a3, int a4) {
 				v4 = xLeft + a3 - 1;
 				nox_client_drawLineHorizontal_49F180(xLeft, yTop, v4);
 				v5 = yTop + a4 - 1;
-				sub_49F420(v4, yTop + 1, v5);
+				nox_client_drawLineVertical_49F420(v4, yTop + 1, v5);
 				nox_client_drawLineHorizontal_49F180(xLeft, v5, xLeft + a3 - 2);
-				sub_49F420(xLeft, yTop + 1, yTop + a4 - 2);
+				nox_client_drawLineVertical_49F420(xLeft, yTop + 1, yTop + a4 - 2);
 			}
 		}
 	}
@@ -6585,7 +6585,7 @@ int sub_49E930(int a1) {
 				v2 = pixbuffer;
 				v3 = v24;
 				if (v26 == v25) {
-					sub_49F420(v26, v24, v23);
+					nox_client_drawLineVertical_49F420(v26, v24, v23);
 				} else if (v24 == v23) {
 					nox_client_drawLineHorizontal_49F180(v26, v24, v25);
 				} else {
@@ -7062,7 +7062,7 @@ void nox_client_drawLineHorizontal_49F180(int a1, int a2, int a3) {
 }
 
 //----- (0049F420) --------------------------------------------------------
-void sub_49F420(int a1, int a2, int a3) {
+void nox_client_drawLineVertical_49F420(int a1, int a2, int a3) {
 	int v3;        // ecx
 	int v4;        // edx
 	int v5;        // edi
