@@ -7164,17 +7164,17 @@ int sub_4B15E0(int a1, int a2, int a3) {
 	v22 = 5 - 2 * a3;
 	v30 = 3;
 	v4 = *(uint16_t*)(&nox_draw_curDrawData_3799572->field_61);
-	v5 = nox_draw_curDrawData_3799572->clip.left;
-	v38 = nox_draw_curDrawData_3799572->clip.top;
+	v5 = nox_draw_curDrawData_3799572->clip.min_x;
+	v38 = nox_draw_curDrawData_3799572->clip.min_y;
 	v6 = a2;
-	v18 = nox_draw_curDrawData_3799572->clip.bottom;
+	v18 = nox_draw_curDrawData_3799572->clip.max_y;
 	result = a1;
 	v24 = *(uint16_t*)(&nox_draw_curDrawData_3799572->field_61);
 	v8 = a2 + v31;
-	v20 = nox_draw_curDrawData_3799572->clip.left;
-	v19 = nox_draw_curDrawData_3799572->clip.right;
+	v20 = nox_draw_curDrawData_3799572->clip.min_x;
+	v19 = nox_draw_curDrawData_3799572->clip.max_x;
 	v36 = a2 + v31;
-	if (a1 >= v5 && a1 < nox_draw_curDrawData_3799572->clip.right && v8 >= v38 && v8 < v18) {
+	if (a1 >= v5 && a1 < nox_draw_curDrawData_3799572->clip.max_x && v8 >= v38 && v8 < v18) {
 		*(uint16_t*)((uint32_t)pixbuffer[v8] + 2 * a1) = v4;
 	}
 	v9 = a1 + v3;
@@ -7984,11 +7984,11 @@ int sub_4B3450(int a1, int a2, int a3) {
 	v79 = a3;
 	v65 = 1 - a3;
 	v66 = 5 - 2 * a3;
-	v60 = nox_draw_curDrawData_3799572->clip.left;
-	v48 = nox_draw_curDrawData_3799572->clip.right;
+	v60 = nox_draw_curDrawData_3799572->clip.min_x;
+	v48 = nox_draw_curDrawData_3799572->clip.max_x;
 	v3 = *(uint16_t*)(&nox_draw_curDrawData_3799572->field_61);
-	v49 = nox_draw_curDrawData_3799572->clip.top;
-	v50 = nox_draw_curDrawData_3799572->clip.bottom;
+	v49 = nox_draw_curDrawData_3799572->clip.min_y;
+	v50 = nox_draw_curDrawData_3799572->clip.max_y;
 	v78 = 0;
 	v75 = 3;
 	v71 = (unsigned short)(*((uint16_t*)((uint8_t*)byte_5D4594_3804364 + 0)) & v3) >>

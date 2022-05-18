@@ -594,9 +594,9 @@ func sub_4AEBD0() {
 func sub_49F610(sz image.Point) {
 	p := noxrend.Data()
 	p.flag_0 = 0
-	p.SetClipRect(types.Rect{Right: sz.X, Bottom: sz.Y})
-	p.SetRect2(types.Rect{Right: sz.X - 1, Bottom: sz.Y - 1})
-	p.SetRect3(types.Rect{Right: sz.X, Bottom: sz.Y})
+	p.SetClipRect(image.Rectangle{Max: sz})
+	p.SetRect2(image.Rectangle{Max: image.Pt(sz.X-1, sz.Y-1)})
+	p.SetRect3(image.Rectangle{Max: sz})
 	C.dword_5d4594_1305748 = 0
 }
 
@@ -605,8 +605,8 @@ func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 	var ys, ye int
 	if p := noxrend.Data(); p.flag_0 != 0 {
 		rect2 := p.Rect2()
-		ys = rect2.Top
-		ye = rect2.Bottom
+		ys = rect2.Min.Y
+		ye = rect2.Max.Y
 	} else {
 		ys = 0
 		ye = noxPixBuffer.img.Rect.Dy() - 1

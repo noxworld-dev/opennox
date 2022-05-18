@@ -6,9 +6,8 @@ package opennox
 import "C"
 
 import (
+	"image"
 	"unsafe"
-
-	"github.com/noxworld-dev/opennox-lib/types"
 )
 
 var byte_5D4594_3804364 [40]uint32
@@ -40,52 +39,28 @@ func (p *RenderData) C() *C.nox_render_data_t {
 	return (*C.nox_render_data_t)(unsafe.Pointer(p))
 }
 
-func (p *RenderData) ClipRect() types.Rect {
-	return types.Rect{
-		Left:   int(p.clip.left),
-		Top:    int(p.clip.top),
-		Right:  int(p.clip.right),
-		Bottom: int(p.clip.bottom),
-	}
+func (p *RenderData) ClipRect() image.Rectangle {
+	return toRect(&p.clip)
 }
 
-func (p *RenderData) SetClipRect(r types.Rect) {
-	p.clip.left = C.int(r.Left)
-	p.clip.top = C.int(r.Top)
-	p.clip.right = C.int(r.Right)
-	p.clip.bottom = C.int(r.Bottom)
+func (p *RenderData) SetClipRect(r image.Rectangle) {
+	setRect(&p.clip, r)
 }
 
-func (p *RenderData) Rect2() types.Rect {
-	return types.Rect{
-		Left:   int(p.rect2.left),
-		Top:    int(p.rect2.top),
-		Right:  int(p.rect2.right),
-		Bottom: int(p.rect2.bottom),
-	}
+func (p *RenderData) Rect2() image.Rectangle {
+	return toRect(&p.rect2)
 }
 
-func (p *RenderData) SetRect2(r types.Rect) {
-	p.rect2.left = C.int(r.Left)
-	p.rect2.top = C.int(r.Top)
-	p.rect2.right = C.int(r.Right)
-	p.rect2.bottom = C.int(r.Bottom)
+func (p *RenderData) SetRect2(r image.Rectangle) {
+	setRect(&p.rect2, r)
 }
 
-func (p *RenderData) Rect3() types.Rect {
-	return types.Rect{
-		Left:   int(p.rect3.left),
-		Top:    int(p.rect3.top),
-		Right:  int(p.rect3.right),
-		Bottom: int(p.rect3.bottom),
-	}
+func (p *RenderData) Rect3() image.Rectangle {
+	return toRect(&p.rect3)
 }
 
-func (p *RenderData) SetRect3(r types.Rect) {
-	p.rect3.left = C.int(r.Left)
-	p.rect3.top = C.int(r.Top)
-	p.rect3.right = C.int(r.Right)
-	p.rect3.bottom = C.int(r.Bottom)
+func (p *RenderData) SetRect3(r image.Rectangle) {
+	setRect(&p.rect3, r)
 }
 
 func (p *RenderData) Reset() {

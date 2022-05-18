@@ -4,15 +4,13 @@ import (
 	"image"
 
 	"golang.org/x/image/font"
-
-	"github.com/noxworld-dev/opennox-lib/types"
 )
 
 var _ RenderData = &testRenderData{}
 
 func newRenderData(w, h int) *testRenderData {
 	return &testRenderData{
-		clip:          image.Rect(0, 0, w, h),
+		clipRect:      image.Rect(0, 0, w, h),
 		colorMult:     colorU32{0xff, 0xff, 0xff},
 		colorMultOp:   make(map[int]colorU32),
 		colorMultMiss: make(map[int]int),
@@ -24,7 +22,7 @@ type colorU32 struct {
 }
 
 type blendConf struct {
-	flag0        bool
+	clip         bool
 	multiply14   bool
 	flag16       bool
 	colorize17   bool
@@ -33,13 +31,15 @@ type blendConf struct {
 }
 
 type testRenderData struct {
-	frame uint32
-	clip  image.Rectangle
+	frame     uint32
+	clipRect  image.Rectangle
+	clipRect2 image.Rectangle
 	blendConf
 	colorMult     colorU32
 	colorMultOp   map[int]colorU32
 	colorMultMiss map[int]int
 	color         uint32
+	color2        uint32
 	bgcolor       uint32
 	textcolor     uint32
 	notext        bool
@@ -51,20 +51,15 @@ func (d *testRenderData) Frame() uint32 {
 }
 
 func (d *testRenderData) ClipRect() image.Rectangle {
+	return d.clipRect
+}
+
+func (d *testRenderData) ClipRect2() image.Rectangle {
+	return d.clipRect2
+}
+
+func (d *testRenderData) Clip() bool {
 	return d.clip
-}
-
-func (d *testRenderData) ClipRectNox() types.Rect {
-	return types.Rect{
-		Left:   d.clip.Min.X,
-		Top:    d.clip.Min.Y,
-		Right:  d.clip.Max.X,
-		Bottom: d.clip.Max.Y,
-	}
-}
-
-func (d *testRenderData) Flag0() bool {
-	return d.flag0
 }
 
 func (d *testRenderData) Multiply14() bool {
@@ -103,6 +98,10 @@ func (d *testRenderData) Alpha() byte {
 
 func (d *testRenderData) Color() uint32 {
 	return d.color
+}
+
+func (d *testRenderData) Color2() uint32 {
+	return d.color2
 }
 
 func (d *testRenderData) BgColor() uint32 {

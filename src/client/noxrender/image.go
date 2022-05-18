@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"image"
 	"unsafe"
-
-	"github.com/noxworld-dev/opennox-lib/types"
 )
 
 type drawOp16Func func(dst []uint16, src []byte, val int) (outDst []uint16, outSrc []byte)
@@ -131,22 +129,17 @@ func (r *NoxRender) nox_client_drawImg_bbb_4C7860(img Image16, pos image.Point) 
 	}
 
 	wsz := int(width)
-	if r.p.Flag0() {
-		rc := types.Rect{
-			Left:   pos.X,
-			Top:    pos.Y,
-			Right:  pos.X + int(width),
-			Bottom: pos.Y + int(height),
-		}
-		a1a, ok := types.UtilRectXxx(rc, r.p.ClipRectNox())
-		if !ok {
+	if r.p.Clip() {
+		rc := image.Rectangle{Min: pos, Max: pos.Add(image.Pt(int(width), int(height)))}
+		a1a := rc.Intersect(r.p.ClipRect())
+		if a1a.Empty() {
 			return
 		}
-		v11 := a1a.Left - rc.Left
-		v12 := a1a.Top - rc.Top
-		wsz = a1a.Right - a1a.Left
-		height = uint32(a1a.Bottom - a1a.Top)
-		if a1a.Left != rc.Left || v12 != 0 {
+		v11 := a1a.Min.X - rc.Min.X
+		v12 := a1a.Min.Y - rc.Min.Y
+		wsz = a1a.Dx()
+		height = uint32(a1a.Dy())
+		if a1a.Min.X != rc.Min.X || v12 != 0 {
 			pos.X += v11
 			data = data[int(width)*v12+2*v11:]
 			pos.Y += v12
@@ -191,10 +184,10 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(ops *drawOps, img Image16, pos
 	if r.HookImageDrawXxx != nil {
 		r.HookImageDrawXxx(pos, image.Point{X: int(width), Y: int(height)})
 	}
-	if r.p.Flag0() {
-		rc := types.Rect{Left: pos.X, Top: pos.Y, Right: pos.X + int(width), Bottom: pos.Y + int(height)}
-		a1a, ok := types.UtilRectXxx(rc, r.p.ClipRectNox())
-		if !ok {
+	if r.p.Clip() {
+		rc := image.Rectangle{Min: pos, Max: pos.Add(image.Pt(int(width), int(height)))}
+		a1a := rc.Intersect(r.p.ClipRect())
+		if a1a.Empty() {
 			return
 		}
 		if rc != a1a {
@@ -243,11 +236,11 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(ops *drawOps, img Image16, pos
 	}
 }
 
-func (r *NoxRender) nox_client_drawXxx_4C7C80(ops *drawOps, pix []byte, pos image.Point, width int, clip types.Rect) { // nox_client_drawXxx_4C7C80
-	left := clip.Left
-	right := clip.Right
-	dy := clip.Top - pos.Y
-	height := clip.Bottom - clip.Top
+func (r *NoxRender) nox_client_drawXxx_4C7C80(ops *drawOps, pix []byte, pos image.Point, width int, clip image.Rectangle) { // nox_client_drawXxx_4C7C80
+	left := clip.Min.X
+	right := clip.Max.X
+	dy := clip.Min.Y - pos.Y
+	height := clip.Dy()
 	if r.dword_5d4594_3799484 != 0 {
 		height -= int(r.dword_5d4594_3799484)
 		if height <= 0 {

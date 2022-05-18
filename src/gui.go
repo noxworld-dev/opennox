@@ -27,7 +27,6 @@ import (
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/strman"
-	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/input"
@@ -429,8 +428,8 @@ func keyBindingsCheckActive(inp *input.Handler) int {
 	return 1
 }
 
-func sub_4281F0(p image.Point, r types.Rect) bool {
-	return p.X >= r.Left && p.X <= r.Right && p.Y >= r.Top && p.Y <= r.Bottom
+func nox_xxx_pointInRect_4281F0(p image.Point, r image.Rectangle) bool {
+	return p.In(r)
 }
 
 func freeAllWindowsInList() {

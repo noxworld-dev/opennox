@@ -79,7 +79,6 @@ import (
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/noximage"
-	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client/input"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
@@ -454,26 +453,22 @@ func sub_49F7C0_def() {
 }
 
 func (r *NoxRender) sub_49F7C0_def_go() {
-	v1 := r.Get_dword_5d4594_3799476()
+	ymax := r.Get_dword_5d4594_3799476()
 	cr := r.Data().ClipRect()
-	if v1 > cr.Bottom {
-		v1 = cr.Bottom
+	if ymax > cr.Max.Y {
+		ymax = cr.Max.Y
 	}
-	r.nox_client_copyRect_49F6F0(cr.Left, cr.Top, cr.Right-cr.Left, v1-cr.Top)
+	r.nox_client_copyRect_49F6F0(cr.Min.X, cr.Min.Y, cr.Dx(), ymax-cr.Min.Y)
 }
 
 func (r *NoxRender) nox_client_copyRect_49F6F0(x, y, w, h int) {
-	rc := types.Rect{
-		Left:   x,
-		Top:    y,
-		Right:  x + w,
-		Bottom: y + h,
-	}
+	rc := image.Rect(x, y, x+w, y+h)
 	d := r.Data()
-	if rect, ok := types.UtilRectXxx(rc, d.Rect3()); ok {
+	rect := rc.Intersect(d.Rect3())
+	if !rect.Empty() {
 		d.SetClipRect(rect)
-		rect.Right--
-		rect.Bottom--
+		rect.Max.X--
+		rect.Max.Y--
 		d.SetRect2(rect)
 	}
 }
@@ -529,7 +524,14 @@ func nox_client_drawLineFromPoints_49E4B0() C.int {
 }
 
 func toRect(cr *C.nox_rect) image.Rectangle {
-	return image.Rect(int(cr.left), int(cr.top), int(cr.right), int(cr.bottom))
+	return image.Rect(int(cr.min_x), int(cr.min_y), int(cr.max_x), int(cr.max_y))
+}
+
+func setRect(cr *C.nox_rect, r image.Rectangle) {
+	cr.min_x = C.int(r.Min.X)
+	cr.min_y = C.int(r.Min.Y)
+	cr.max_x = C.int(r.Max.X)
+	cr.max_y = C.int(r.Max.Y)
 }
 
 type NoxRender struct {
@@ -620,11 +622,11 @@ func (d renderDataAdapter) ClipRect() image.Rectangle {
 	return d.r.ClipRectImg()
 }
 
-func (d renderDataAdapter) ClipRectNox() types.Rect {
-	return d.r.Rect()
+func (d renderDataAdapter) ClipRect2() image.Rectangle {
+	return d.r.ClipRectImg2()
 }
 
-func (d renderDataAdapter) Flag0() bool {
+func (d renderDataAdapter) Clip() bool {
 	return d.r.p.flag_0 != 0
 }
 
@@ -663,6 +665,10 @@ func (d renderDataAdapter) Color() uint32 {
 	return d.r.Color()
 }
 
+func (d renderDataAdapter) Color2() uint32 {
+	return d.r.Color2()
+}
+
 func (d renderDataAdapter) BgColor() uint32 {
 	return uint32(d.r.p.field_58)
 }
@@ -687,7 +693,7 @@ func (r *NoxRender) SetData(p *RenderData) {
 	r.p = p
 }
 
-func (r *NoxRender) Rect() types.Rect {
+func (r *NoxRender) ClipRect() image.Rectangle {
 	return r.p.ClipRect()
 }
 
@@ -717,6 +723,10 @@ func (r *NoxRender) SetTextSmooting(enabled bool) {
 
 func (r *NoxRender) Color() uint32 {
 	return uint32(r.p.field_60)
+}
+
+func (r *NoxRender) Color2() uint32 {
+	return uint32(r.p.field_61)
 }
 
 func (r *NoxRender) SetColor(a1 uint32) { // nox_xxx_drawSetColor_4343E0
@@ -814,14 +824,15 @@ func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int) { // nox_client_drawRec
 	rx, ry := x, y
 	rw, rh := w, h
 	if d.flag_0 != 0 {
-		out, ok := types.UtilRectXxx(types.Rect{Left: x, Right: x + w, Top: y, Bottom: y + h}, d.ClipRect())
-		if !ok {
+		rc := image.Rect(x, y, x+w, y+h)
+		out := rc.Intersect(d.ClipRect())
+		if out.Empty() {
 			return
 		}
-		ry = out.Top
-		rx = out.Left
-		rw = out.Right - out.Left
-		rh = out.Bottom - out.Top
+		ry = out.Min.Y
+		rx = out.Min.X
+		rw = out.Dx()
+		rh = out.Dy()
 	}
 	sz := r.PixBuffer().Rect
 	if rx == 0 && ry == 0 && rw == sz.Dx() && rh == sz.Dy() {
@@ -844,6 +855,10 @@ func (r *NoxRender) DrawBorder(x, y, w, h int) { // nox_client_drawBorderLines_4
 
 func (r *NoxRender) ClipRectImg() image.Rectangle {
 	return toRect(&r.p.clip)
+}
+
+func (r *NoxRender) ClipRectImg2() image.Rectangle {
+	return toRect(&r.p.rect2)
 }
 
 func (r *NoxRender) FontHeight(fnt font.Face) int {

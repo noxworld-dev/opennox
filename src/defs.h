@@ -233,10 +233,10 @@ typedef struct {
 } nox_pointf;
 
 typedef struct {
-	int left;
-	int top;
-	int right;
-	int bottom;
+	int min_x;
+	int min_y;
+	int max_x;
+	int max_y;
 } nox_rect;
 
 typedef enum { NOX_SHAPE_NONE = 0, NOX_SHAPE_CENTER = 1, NOX_SHAPE_CIRCLE = 2, NOX_SHAPE_BOX = 3 } nox_shape_kind;

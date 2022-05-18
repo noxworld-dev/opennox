@@ -1886,21 +1886,21 @@ int sub_47D380(int a1, int a2) {
 		v2 = a2;
 		v3 = a1;
 	}
-	v4 = nox_draw_curDrawData_3799572->clip.left;
+	v4 = nox_draw_curDrawData_3799572->clip.min_x;
 	if (v2 >= v4) {
-		if (v2 >= nox_draw_curDrawData_3799572->clip.right) {
+		if (v2 >= nox_draw_curDrawData_3799572->clip.max_x) {
 			return 0;
 		}
 	} else {
-		v2 = nox_draw_curDrawData_3799572->clip.left;
+		v2 = nox_draw_curDrawData_3799572->clip.min_x;
 	}
-	v5 = nox_draw_curDrawData_3799572->clip.right;
+	v5 = nox_draw_curDrawData_3799572->clip.max_x;
 	if (v3 < v5) {
 		if (v3 < v4) {
 			return 0;
 		}
 	} else {
-		v3 = nox_draw_curDrawData_3799572->clip.right;
+		v3 = nox_draw_curDrawData_3799572->clip.max_x;
 	}
 	if (v2 == v3) {
 		return 0;

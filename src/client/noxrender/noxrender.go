@@ -6,15 +6,14 @@ import (
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 	"github.com/noxworld-dev/opennox-lib/noximage"
-	"github.com/noxworld-dev/opennox-lib/types"
 )
 
 type RenderData interface {
 	Frame() uint32
 	ClipRect() image.Rectangle
-	ClipRectNox() types.Rect // TODO: replace with ClipRect
+	ClipRect2() image.Rectangle
 
-	Flag0() bool
+	Clip() bool
 	Multiply14() bool
 	Flag16() bool
 	Colorize17() bool
@@ -26,6 +25,7 @@ type RenderData interface {
 	Alpha() byte
 
 	Color() uint32
+	Color2() uint32
 	BgColor() uint32
 
 	RenderDataText

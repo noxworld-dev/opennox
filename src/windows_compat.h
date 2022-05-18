@@ -61,10 +61,10 @@ typedef struct _WIN32_FIND_DATAA {
 } WIN32_FIND_DATAA, *LPWIN32_FIND_DATAA;
 
 typedef struct _RECT {
-	int left;
-	int top;
-	int right;
-	int bottom;
+	int min_x;
+	int min_y;
+	int max_x;
+	int max_y;
 } RECT, *LPRECT;
 
 #include <sys/stat.h>
@@ -156,10 +156,10 @@ static inline int CopyRect(LPRECT lprcDst, const RECT* lprcSrc) {
 	return true;
 }
 static inline int SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom) {
-	lprc->left = xLeft;
-	lprc->top = yTop;
-	lprc->right = xRight;
-	lprc->bottom = yBottom;
+	lprc->min_x = xLeft;
+	lprc->min_y = yTop;
+	lprc->max_x = xRight;
+	lprc->max_y = yBottom;
 	return true;
 }
 

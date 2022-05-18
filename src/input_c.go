@@ -46,7 +46,6 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
 	"github.com/noxworld-dev/opennox-lib/client/seat"
-	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/input"
@@ -414,14 +413,12 @@ func (c *CtrlEventHandler) nox_xxx_input_42D220_A(inp *input.Handler) *CtrlEvent
 	return res
 }
 
-func loadRect(p unsafe.Pointer) types.Rect {
+func loadRect(p unsafe.Pointer) image.Rectangle {
 	rp := (*[4]int32)(p)
-	return types.Rect{
-		Left:   int(rp[0]),
-		Top:    int(rp[1]),
-		Right:  int(rp[2]),
-		Bottom: int(rp[3]),
-	}
+	return image.Rect(
+		int(rp[0]), int(rp[1]),
+		int(rp[2]), int(rp[3]),
+	)
 }
 
 func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int) {
@@ -472,13 +469,13 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 			if v47.pointIn(mpos) {
 				if v47 == v46 {
 					v65 = mpos
-					v50 := loadRect(unsafe.Pointer(C.sub_4676B0()))
-					if sub_4281F0(v65, v50) {
+					rect50 := loadRect(memmap.PtrOff(0x587000, 136384))
+					if v65.In(rect50) {
 						v63 = true
 						break
 					}
-					v52 := loadRect(unsafe.Pointer(C.sub_4676C0()))
-					if sub_4281F0(v65, v52) {
+					rect52 := loadRect(memmap.PtrOff(0x587000, 136400))
+					if v65.In(rect52) {
 						v63 = true
 						break
 					}
