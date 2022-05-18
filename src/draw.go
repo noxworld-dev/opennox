@@ -870,8 +870,8 @@ func (r *NoxRender) DrawLineFromPoints(arr ...image.Point) { // nox_client_drawL
 
 func (r *NoxRender) drawLineFromPoints(keep bool) bool {
 	d := r.Data()
-	if d.field_13 != 0 {
-		return C.sub_49EAB0(C.int(bool2int(keep))) != 0
+	if d.IsAlphaEnabled() {
+		return r.drawLineAlpha(keep)
 	}
 
 	p2, ok := r.LastPoint(false)
@@ -2064,8 +2064,8 @@ func (r *NoxRender) clipToRect2(p1, p2 *image.Point) bool { // sub_49F990
 
 func (r *NoxRender) drawParticles49ED80(mul2 int, keep bool) bool {
 	d := r.Data()
-	if d.field_13 != 0 {
-		return C.sub_49EAB0(C.int(bool2int(keep))) != 0
+	if d.IsAlphaEnabled() {
+		return r.drawLineAlpha(keep)
 	}
 	pos2, ok := r.LastPoint(false)
 	if !ok {
@@ -2133,6 +2133,86 @@ func (r *NoxRender) drawParticles49ED80(mul2 int, keep bool) bool {
 			if step >= each {
 				p.DrawAt(pos1)
 				step = 0
+			}
+		}
+	}
+	return true
+}
+
+func (r *NoxRender) drawLineAlpha(keep bool) bool {
+	d := r.Data()
+	const (
+		rshift = 7
+		gshift = 2
+		bshift = 3
+
+		rmask = 0x7c00
+		gmask = 0x03e0
+		bmask = 0x001f
+	)
+
+	p2, ok := r.LastPoint(false)
+	if !ok {
+		return false
+	}
+	p1, ok := r.LastPoint(keep)
+	if !ok {
+		return false
+	}
+	if d.flag_0 != 0 && !r.clipToRect2(&p1, &p2) {
+		return true
+	}
+	pix := r.PixBuffer()
+	alpha := uint16(d.Alpha())
+	br := rmask & uint16(d.field_61) >> rshift
+	bg := gmask & uint16(d.field_61) >> gshift
+	bb := bmask & uint16(d.field_61) << bshift
+
+	width := p2.X - p1.X
+	dx := 1
+	if p2.X < p1.X {
+		dx = -1
+		width = -width
+	}
+	height := p2.Y - p1.Y
+	dy := 1
+	if p2.Y < p1.Y {
+		dy = -1
+		height = -height
+	}
+	p := p1
+	if width < height {
+		v := 2*width - height
+		for i := 0; i < height; i++ {
+			ind := pix.PixOffset(p.X, p.Y)
+			cl := pix.Pix[ind]
+			cr := r.colors.R[byte(((alpha*(br-((rmask&cl)>>rshift)))>>8)+((rmask&cl)>>rshift))]
+			cg := r.colors.G[byte(((alpha*(bg-((gmask&cl)>>gshift)))>>8)+((gmask&cl)>>gshift))]
+			cb := r.colors.B[byte(((alpha*(bb-((bmask&cl)<<bshift)))>>8)+((bmask&cl)<<bshift))]
+			pix.Pix[ind] = cg | cr | cb
+			p.Y += dy
+			if v >= 0 {
+				p.X += dx
+				v += 2 * (width - height)
+			} else {
+				v += 2 * width
+			}
+		}
+	} else {
+		v := 2*height - width
+		for i := 0; i < width; i++ {
+			ind := pix.PixOffset(p.X, p.Y)
+			cl := pix.Pix[ind]
+			cr := r.colors.R[byte(((alpha*(br-((rmask&cl)>>rshift)))>>8)+((rmask&cl)>>rshift))]
+			cg := r.colors.G[byte(((alpha*(bg-((gmask&cl)>>gshift)))>>8)+((gmask&cl)>>gshift))]
+			cb := r.colors.B[byte(((alpha*(bb-((bmask&cl)<<bshift)))>>8)+((bmask&cl)<<bshift))]
+			pix.Pix[ind] = cg | cr | cb
+			p.X += dx
+			if v >= 0 {
+				v += 2 * (height - width)
+				p.Y += dy
+			} else {
+				v += 2 * height
 			}
 		}
 	}
