@@ -14,7 +14,6 @@ void nox_xxx_spriteDrawMonsterHP_4BC080(uint32_t* a1, int a2, unsigned short a3,
 int sub_4BC6B0(int* a1, nox_drawable* dr, int a3);
 int sub_4BC720(int a1);
 int nox_xxx_updDrawMonsterGen_4BC920();
-int sub_4BD010(nox_drawable* dr, int2* a2, int a3);
 uint32_t* sub_4BD280(int a1, int a2);
 void sub_4BD2D0(void* lpMem);
 uint32_t* sub_4BD2E0(uint32_t** a1);

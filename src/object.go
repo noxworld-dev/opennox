@@ -93,18 +93,20 @@ type noxShape struct {
 		R  float32 // 1, 0x4, (44)
 		R2 float32 // 2, 0x8, (45)
 	}
-	box struct {
-		W            float32 // 3, 0xC, (46)
-		H            float32 // 4, 0x10, (47)
-		LeftTop      float32 // 5, 0x14, (48)
-		LeftBottom   float32 // 6, 0x18, (49)
-		LeftBottom2  float32 // 7, 0x1C, (50)
-		LeftTop2     float32 // 8, 0x20, (51)
-		RightTop     float32 // 9, 0x24, (52)
-		RightBottom  float32 // 10, 0x28, (53)
-		RightBottom2 float32 // 11, 0x2C, (54)
-		RightTop2    float32 // 12, 0x30, (55)
-	}
+	box noxShapeBox
+}
+
+type noxShapeBox struct {
+	W            float32 // 3, 0xC, (46)
+	H            float32 // 4, 0x10, (47)
+	LeftTop      float32 // 5, 0x14, (48)
+	LeftBottom   float32 // 6, 0x18, (49)
+	LeftBottom2  float32 // 7, 0x1C, (50)
+	LeftTop2     float32 // 8, 0x20, (51)
+	RightTop     float32 // 9, 0x24, (52)
+	RightBottom  float32 // 10, 0x28, (53)
+	RightBottom2 float32 // 11, 0x2C, (54)
+	RightTop2    float32 // 12, 0x30, (55)
 }
 
 func asPointf(p unsafe.Pointer) types.Pointf {

@@ -426,40 +426,6 @@ void sub_4CE960(int a1) {
 	sub_484C00(a1 + 136, v6);
 }
 
-//----- (004CEA90) --------------------------------------------------------
-int sub_4CEA90(float* a1, int2* a2, int a3) {
-	int v3;  // ebx
-	int v4;  // ebp
-	int v5;  // esi
-	int v7;  // [esp+10h] [ebp-18h]
-	int v8;  // [esp+14h] [ebp-14h]
-	int v9;  // [esp+18h] [ebp-10h]
-	int v10; // [esp+1Ch] [ebp-Ch]
-	int v11; // [esp+20h] [ebp-8h]
-
-	v3 = a2->field_0 + nox_float2int(*a1);
-	v4 = a2->field_4 + nox_float2int(a1[1]);
-	v9 = a2->field_0 + nox_float2int(a1[2]);
-	v10 = a2->field_4 + nox_float2int(a1[3]);
-	v7 = a2->field_0 + nox_float2int(a1[4]);
-	v8 = a2->field_4 + nox_float2int(a1[5]);
-	v11 = a2->field_0 + nox_float2int(a1[6]);
-	v5 = a2->field_4 + nox_float2int(a1[7]);
-	nox_client_drawSetColor_434460(a3);
-	nox_client_drawAddPoint_49F500(v3, v4);
-	nox_client_drawAddPoint_49F500(v7, v8);
-	nox_client_drawLineFromPoints_49E4B0();
-	nox_client_drawAddPoint_49F500(v11, v5);
-	nox_client_drawAddPoint_49F500(v7, v8);
-	nox_client_drawLineFromPoints_49E4B0();
-	nox_client_drawAddPoint_49F500(v3, v4);
-	nox_client_drawAddPoint_49F500(v9, v10);
-	nox_client_drawLineFromPoints_49E4B0();
-	nox_client_drawAddPoint_49F500(v11, v5);
-	nox_client_drawAddPoint_49F500(v9, v10);
-	return nox_client_drawLineFromPoints_49E4B0();
-}
-
 //----- (004CEBA0) --------------------------------------------------------
 int sub_4CEBA0(int a1, char* a2) {
 	uint32_t* v2; // eax

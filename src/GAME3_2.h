@@ -14,7 +14,6 @@ void nox_xxx_colorLightAlterIntensity_4CE610(int a1);
 int nox_xxx_colorLightAlterRadius_4CE760(int a1);
 void sub_4CE8C0(int a1);
 void sub_4CE960(int a1);
-int sub_4CEA90(float* a1, int2* a2, int a3);
 int sub_4CEBA0(int a1, char* a2);
 void* sub_4CED40(char* a1);
 int sub_4CEED0(int a1, int a2);

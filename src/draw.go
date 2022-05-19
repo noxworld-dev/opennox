@@ -202,11 +202,6 @@ func nox_client_drawLineHorizontal_49F180(a1, a2, a3 C.int) {
 	noxrend.rnd.DrawLineHorizontal(int(a1), int(a2), int(a3))
 }
 
-//export nox_client_drawLineVertical_49F420
-func nox_client_drawLineVertical_49F420(a1, a2, a3 C.int) {
-	noxrend.rnd.DrawLineVertical(int(a1), int(a2), int(a3))
-}
-
 //export nox_client_drawPixel_49EFA0
 func nox_client_drawPixel_49EFA0(a1, a2 C.int) {
 	noxrend.rnd.DrawPixel(image.Pt(int(a1), int(a2)))
@@ -921,8 +916,8 @@ func (r *NoxRender) DrawCircle(a1, a2, a3 int) {
 	}
 }
 
-func (r *NoxRender) DrawCircleColored(a1, a2, a3 int, a4 uint32) {
-	r.SetColor2(a4)
+func (r *NoxRender) DrawCircleColored(a1, a2, a3 int, cl uint32) {
+	r.SetColor2(cl)
 	r.DrawCircle(a1, a2, a3)
 }
 
@@ -1649,7 +1644,7 @@ LOOP:
 			continue
 		}
 		if noxflags.HasEngine(noxflags.EngineShowExtents) {
-			C.nox_thing_debug_draw(vp.C(), dr.C())
+			nox_thing_debug_draw(vp.C(), dr.C())
 		}
 		dr.field_33 = 0
 		if dr.Flags70()&0x40 != 0 {
@@ -1676,7 +1671,7 @@ func sub_475FE0(vp *Viewport) {
 			dr.field_121 = 1
 			dr.DrawFunc(vp)
 			if noxflags.HasEngine(noxflags.EngineShowExtents) {
-				C.nox_thing_debug_draw(vp.C(), dr.C())
+				nox_thing_debug_draw(vp.C(), dr.C())
 			}
 			dr.field_33 = 0
 			if dr.field_120 == 0 && dr.field_122 == 0 {
@@ -1699,7 +1694,7 @@ func sub_475F10(vp *Viewport) {
 			drawCreatureFrontEffects(noxrend, vp, dr)
 			C.sub_495BB0(dr.C(), vp.C())
 			if noxflags.HasEngine(noxflags.EngineShowExtents) {
-				C.nox_thing_debug_draw(vp.C(), dr.C())
+				nox_thing_debug_draw(vp.C(), dr.C())
 			}
 			dr.field_33 = 0
 			if dr.field_120 == 0 && dr.field_122 == 0 {
@@ -1744,7 +1739,7 @@ func sub_4745F0(cvp *C.nox_draw_viewport_t) {
 		drawCreatureFrontEffects(noxrend, vp, dr)
 		C.sub_495BB0(dr.C(), vp.C())
 		if noxflags.HasEngine(noxflags.EngineShowExtents) {
-			C.nox_thing_debug_draw(vp.C(), dr.C())
+			nox_thing_debug_draw(vp.C(), dr.C())
 		}
 		dr.field_33 = 0
 		if dr.field_120 == 0 && dr.field_122 == 0 {

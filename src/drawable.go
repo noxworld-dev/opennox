@@ -105,6 +105,10 @@ func (s *Drawable) Flags70() uint {
 	return uint(s.flags70)
 }
 
+func (s *Drawable) Field27() uint32 {
+	return uint32(s.field_27) // TODO: Thing ID?
+}
+
 func (s *Drawable) Field32() uint32 {
 	return uint32(s.field_32) // TODO: NPC ID?
 }
@@ -115,6 +119,10 @@ func (s *Drawable) Field100() *Drawable {
 
 func (s *Drawable) Field104() *Drawable { // sub_45A010
 	return asDrawable(s.field_104)
+}
+
+func (s *Drawable) getShape() *noxShape {
+	return (*noxShape)(unsafe.Pointer(&s.shape))
 }
 
 func (s *Drawable) DrawFunc(vp *Viewport) int {
