@@ -335,7 +335,7 @@ func drawInitAll(sz image.Point, flags int) error {
 	if err := loadGameFonts(); err != nil {
 		return err
 	}
-	noxrend.ClearPoints()
+	noxrend.rnd.ClearPoints()
 	return nil
 }
 

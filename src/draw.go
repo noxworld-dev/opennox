@@ -541,22 +541,22 @@ func nox_draw_enableTextSmoothing_43F670(v C.int) {
 
 //export nox_client_drawResetPoints_49F5A0
 func nox_client_drawResetPoints_49F5A0() {
-	noxrend.ClearPoints()
+	noxrend.rnd.ClearPoints()
 }
 
 //export nox_client_drawAddPoint_49F500
 func nox_client_drawAddPoint_49F500(x, y C.int) {
-	noxrend.AddPoint(image.Pt(int(x), int(y)))
+	noxrend.rnd.AddPoint(image.Pt(int(x), int(y)))
 }
 
 //export nox_xxx_rasterPointRel_49F570
 func nox_xxx_rasterPointRel_49F570(x, y C.int) {
-	noxrend.AddPointRel(image.Pt(int(x), int(y)))
+	noxrend.rnd.AddPointRel(image.Pt(int(x), int(y)))
 }
 
 //export nox_client_drawLastPoint_49F5B0
 func nox_client_drawLastPoint_49F5B0(px, py *C.uint, keep C.int) C.int {
-	pos, ok := noxrend.LastPoint(keep != 0)
+	pos, ok := noxrend.rnd.LastPoint(keep != 0)
 	if !ok {
 		return 0
 	}
@@ -571,12 +571,12 @@ func nox_client_drawLastPoint_49F5B0(px, py *C.uint, keep C.int) C.int {
 
 //export nox_client_drawLineFromPoints_49E4B0
 func nox_client_drawLineFromPoints_49E4B0() C.int {
-	return C.int(bool2int(noxrend.drawLineFromPoints(false)))
+	return C.int(bool2int(noxrend.rnd.DrawLineFromPoints()))
 }
 
 //export sub_49E4F0
 func sub_49E4F0(a1 C.int) C.int {
-	return C.int(bool2int(noxrend.drawParticles49ED80(int(a1), false)))
+	return C.int(bool2int(noxrend.drawParticles49ED80(int(a1))))
 }
 
 func toRect(cr *C.nox_rect) image.Rectangle {
@@ -600,8 +600,6 @@ type NoxRender struct {
 		G    [256]uint16
 		B    [256]uint16
 	}
-
-	points []image.Point
 
 	particles struct {
 		byOpts   map[particleOpt]*Particle
@@ -832,110 +830,6 @@ func (r *NoxRender) DrawPoint(pos image.Point, rad int) { // nox_xxx_drawPointMB
 	default:
 		r.rnd.DrawPointRad(pos, rad/2)
 	}
-}
-
-func (r *NoxRender) ClearPoints() {
-	r.points = r.points[:0]
-}
-
-func (r *NoxRender) AddPoint(pos image.Point) {
-	r.points = append(r.points, pos)
-}
-
-func (r *NoxRender) AddPointRel(pos image.Point) {
-	if len(r.points) == 0 {
-		return
-	}
-	r.AddPoint(pos.Add(r.points[len(r.points)-1]))
-}
-
-func (r *NoxRender) LastPoint(keep bool) (image.Point, bool) {
-	if len(r.points) == 0 {
-		return image.Point{}, false
-	}
-	n := len(r.points)
-	pos := r.points[n-1]
-	if !keep {
-		r.points = r.points[:n-1]
-	}
-	return pos, true
-}
-
-func (r *NoxRender) DrawLineFromPoints(arr ...image.Point) { // nox_client_drawLineFromPoints_49E4B0
-	for _, p := range arr {
-		r.AddPoint(p)
-	}
-	r.drawLineFromPoints(false)
-}
-
-func (r *NoxRender) drawLineFromPoints(keep bool) bool {
-	d := r.Data()
-	if d.IsAlphaEnabled() {
-		return r.drawLineAlpha(keep)
-	}
-
-	p2, ok := r.LastPoint(false)
-	if !ok {
-		return false
-	}
-	p1, ok := r.LastPoint(keep)
-	if !ok {
-		return false
-	}
-	if d.flag_0 != 0 && !r.clipToRect2(&p1, &p2) {
-		return true
-	}
-	if p1.X == p2.X {
-		r.rnd.DrawLineVertical(p1.X, p1.Y, p2.Y)
-		return true
-	} else if p1.Y == p2.Y {
-		r.rnd.DrawLineHorizontal(p1.X, p1.Y, p2.X)
-		return true
-	}
-	pix := r.PixBuffer()
-
-	y := p1.Y
-	w := p2.X - p1.X
-	dx := +2
-	if p2.X < p1.X {
-		dx = -2
-		w = p1.X - p2.X
-	}
-	h := p2.Y - p1.Y
-	dy := +1
-	if p2.Y < p1.Y {
-		dy = -1
-		h = p1.Y - p2.Y
-	}
-
-	cl := noxcolor.RGBA5551(d.field_61)
-	x := 2 * p1.X
-	if w < h {
-		dv := 2*w - h
-		for i := 0; i < h; i++ {
-			pix.SetRGBA5551(x/2, y, cl)
-			y += dy
-			if dv >= 0 {
-				dv += 2 * (w - h)
-				x += dx
-			} else {
-				dv += 2 * w
-			}
-		}
-	} else {
-		dv := 2*h - w
-		for i := 0; i < w; i++ {
-			pix.SetRGBA5551(x/2, y, cl)
-			x += dx
-			if dv >= 0 {
-				dv += 2 * (h - w)
-				y += dy
-			} else {
-				dv += 2 * h
-			}
-		}
-	}
-	return true
 }
 
 func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int) { // nox_client_drawRectFilledOpaque_49CE30
@@ -2062,18 +1956,19 @@ func (r *NoxRender) clipToRect2(p1, p2 *image.Point) bool { // sub_49F990
 		p2.X >= rect.Min.X && p2.X <= rect.Max.X && p2.Y >= rect.Min.Y && p2.Y <= rect.Max.Y
 }
 
-func (r *NoxRender) drawParticles49ED80(mul2 int, keep bool) bool {
+func (r *NoxRender) drawParticles49ED80(mul2 int) bool {
 	d := r.Data()
+	pos2, ok := r.rnd.LastPoint(false)
+	if !ok {
+		return false
+	}
+	pos1, ok := r.rnd.LastPoint(false)
+	if !ok {
+		return false
+	}
 	if d.IsAlphaEnabled() {
-		return r.drawLineAlpha(keep)
-	}
-	pos2, ok := r.LastPoint(false)
-	if !ok {
-		return false
-	}
-	pos1, ok := r.LastPoint(keep)
-	if !ok {
-		return false
+		r.rnd.DrawLineAlpha(pos1, pos2)
+		return true
 	}
 	if d.flag_0 != 0 && !r.clipToRect2(&pos1, &pos2) {
 		return true
@@ -2133,86 +2028,6 @@ func (r *NoxRender) drawParticles49ED80(mul2 int, keep bool) bool {
 			if step >= each {
 				p.DrawAt(pos1)
 				step = 0
-			}
-		}
-	}
-	return true
-}
-
-func (r *NoxRender) drawLineAlpha(keep bool) bool {
-	d := r.Data()
-	const (
-		rshift = 7
-		gshift = 2
-		bshift = 3
-
-		rmask = 0x7c00
-		gmask = 0x03e0
-		bmask = 0x001f
-	)
-
-	p2, ok := r.LastPoint(false)
-	if !ok {
-		return false
-	}
-	p1, ok := r.LastPoint(keep)
-	if !ok {
-		return false
-	}
-	if d.flag_0 != 0 && !r.clipToRect2(&p1, &p2) {
-		return true
-	}
-	pix := r.PixBuffer()
-	alpha := uint16(d.Alpha())
-	br := rmask & uint16(d.field_61) >> rshift
-	bg := gmask & uint16(d.field_61) >> gshift
-	bb := bmask & uint16(d.field_61) << bshift
-
-	width := p2.X - p1.X
-	dx := 1
-	if p2.X < p1.X {
-		dx = -1
-		width = -width
-	}
-	height := p2.Y - p1.Y
-	dy := 1
-	if p2.Y < p1.Y {
-		dy = -1
-		height = -height
-	}
-	p := p1
-	if width < height {
-		v := 2*width - height
-		for i := 0; i < height; i++ {
-			ind := pix.PixOffset(p.X, p.Y)
-			cl := pix.Pix[ind]
-			cr := r.colors.R[byte(((alpha*(br-((rmask&cl)>>rshift)))>>8)+((rmask&cl)>>rshift))]
-			cg := r.colors.G[byte(((alpha*(bg-((gmask&cl)>>gshift)))>>8)+((gmask&cl)>>gshift))]
-			cb := r.colors.B[byte(((alpha*(bb-((bmask&cl)<<bshift)))>>8)+((bmask&cl)<<bshift))]
-			pix.Pix[ind] = cg | cr | cb
-			p.Y += dy
-			if v >= 0 {
-				p.X += dx
-				v += 2 * (width - height)
-			} else {
-				v += 2 * width
-			}
-		}
-	} else {
-		v := 2*height - width
-		for i := 0; i < width; i++ {
-			ind := pix.PixOffset(p.X, p.Y)
-			cl := pix.Pix[ind]
-			cr := r.colors.R[byte(((alpha*(br-((rmask&cl)>>rshift)))>>8)+((rmask&cl)>>rshift))]
-			cg := r.colors.G[byte(((alpha*(bg-((gmask&cl)>>gshift)))>>8)+((gmask&cl)>>gshift))]
-			cb := r.colors.B[byte(((alpha*(bb-((bmask&cl)<<bshift)))>>8)+((bmask&cl)<<bshift))]
-			pix.Pix[ind] = cg | cr | cb
-			p.X += dx
-			if v >= 0 {
-				v += 2 * (height - width)
-				p.Y += dy
-			} else {
-				v += 2 * height
 			}
 		}
 	}

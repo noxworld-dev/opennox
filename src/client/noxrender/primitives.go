@@ -131,3 +131,266 @@ func (r *NoxRender) DrawBorder(x, y, w, h int) {
 	r.DrawLineHorizontal(x, y2, x+w-2)
 	r.DrawLineVertical(x, y+1, y+h-2)
 }
+
+func (r *NoxRender) ClearPoints() {
+	r.points = r.points[:0]
+}
+
+func (r *NoxRender) AddPoint(pos image.Point) {
+	r.points = append(r.points, pos)
+}
+
+func (r *NoxRender) AddPointRel(pos image.Point) {
+	if len(r.points) == 0 {
+		return
+	}
+	r.AddPoint(pos.Add(r.points[len(r.points)-1]))
+}
+
+func (r *NoxRender) LastPoint(keep bool) (image.Point, bool) {
+	if len(r.points) == 0 {
+		return image.Point{}, false
+	}
+	n := len(r.points)
+	pos := r.points[n-1]
+	if !keep {
+		r.points = r.points[:n-1]
+	}
+	return pos, true
+}
+
+func (r *NoxRender) DrawLineFromPoints(arr ...image.Point) bool {
+	for _, p := range arr {
+		r.AddPoint(p)
+	}
+	p2, ok := r.LastPoint(false)
+	if !ok {
+		return false
+	}
+	p1, ok := r.LastPoint(false)
+	if !ok {
+		return false
+	}
+	r.DrawLine(p1, p2)
+	return true
+}
+
+func (r *NoxRender) DrawVector(base, vec image.Point) {
+	r.DrawLine(base, base.Add(vec))
+}
+
+func (r *NoxRender) DrawLine(p1, p2 image.Point) {
+	d := r.Data()
+	if d.IsAlphaEnabled() {
+		r.DrawLineAlpha(p1, p2)
+		return
+	}
+
+	if d.Clip() && !r.clipToRect2(&p1, &p2) {
+		return
+	}
+	if p1.X == p2.X {
+		r.DrawLineVertical(p1.X, p1.Y, p2.Y)
+		return
+	} else if p1.Y == p2.Y {
+		r.DrawLineHorizontal(p1.X, p1.Y, p2.X)
+		return
+	}
+	pix := r.PixBuffer()
+
+	y := p1.Y
+	w := p2.X - p1.X
+	dx := +2
+	if p2.X < p1.X {
+		dx = -2
+		w = p1.X - p2.X
+	}
+	h := p2.Y - p1.Y
+	dy := +1
+	if p2.Y < p1.Y {
+		dy = -1
+		h = p1.Y - p2.Y
+	}
+
+	cl := noxcolor.RGBA5551(d.Color2())
+	x := 2 * p1.X
+	if w < h {
+		dv := 2*w - h
+		for i := 0; i < h; i++ {
+			pix.SetRGBA5551(x/2, y, cl)
+			y += dy
+			if dv >= 0 {
+				dv += 2 * (w - h)
+				x += dx
+			} else {
+				dv += 2 * w
+			}
+		}
+	} else {
+		dv := 2*h - w
+		for i := 0; i < w; i++ {
+			pix.SetRGBA5551(x/2, y, cl)
+			x += dx
+			if dv >= 0 {
+				dv += 2 * (h - w)
+				y += dy
+			} else {
+				dv += 2 * h
+			}
+		}
+	}
+}
+
+func (r *NoxRender) DrawLineAlpha(p1, p2 image.Point) {
+	d := r.Data()
+	const (
+		rshift = 7
+		gshift = 2
+		bshift = 3
+
+		rmask = 0x7c00
+		gmask = 0x03e0
+		bmask = 0x001f
+	)
+
+	if d.Clip() && !r.clipToRect2(&p1, &p2) {
+		return
+	}
+	pix := r.PixBuffer()
+	alpha := uint16(d.Alpha())
+	bcl := uint16(d.Color2())
+	br := rmask & bcl >> rshift
+	bg := gmask & bcl >> gshift
+	bb := bmask & bcl << bshift
+
+	width := p2.X - p1.X
+	dx := 1
+	if p2.X < p1.X {
+		dx = -1
+		width = -width
+	}
+	height := p2.Y - p1.Y
+	dy := 1
+	if p2.Y < p1.Y {
+		dy = -1
+		height = -height
+	}
+	p := p1
+	if width < height {
+		v := 2*width - height
+		for i := 0; i < height; i++ {
+			ind := pix.PixOffset(p.X, p.Y)
+			cl := pix.Pix[ind]
+			cr := r.colors.R[byte(((alpha*(br-((rmask&cl)>>rshift)))>>8)+((rmask&cl)>>rshift))]
+			cg := r.colors.G[byte(((alpha*(bg-((gmask&cl)>>gshift)))>>8)+((gmask&cl)>>gshift))]
+			cb := r.colors.B[byte(((alpha*(bb-((bmask&cl)<<bshift)))>>8)+((bmask&cl)<<bshift))]
+			pix.Pix[ind] = cg | cr | cb
+			p.Y += dy
+			if v >= 0 {
+				p.X += dx
+				v += 2 * (width - height)
+			} else {
+				v += 2 * width
+			}
+		}
+	} else {
+		v := 2*height - width
+		for i := 0; i < width; i++ {
+			ind := pix.PixOffset(p.X, p.Y)
+			cl := pix.Pix[ind]
+			cr := r.colors.R[byte(((alpha*(br-((rmask&cl)>>rshift)))>>8)+((rmask&cl)>>rshift))]
+			cg := r.colors.G[byte(((alpha*(bg-((gmask&cl)>>gshift)))>>8)+((gmask&cl)>>gshift))]
+			cb := r.colors.B[byte(((alpha*(bb-((bmask&cl)<<bshift)))>>8)+((bmask&cl)<<bshift))]
+			pix.Pix[ind] = cg | cr | cb
+			p.X += dx
+			if v >= 0 {
+				v += 2 * (height - width)
+				p.Y += dy
+			} else {
+				v += 2 * height
+			}
+		}
+	}
+}
+
+func clipFlags(p image.Point, r image.Rectangle) int {
+	flags := 0
+	if p.X >= r.Min.X {
+		if p.X > r.Max.X {
+			flags |= 0x2
+		}
+	} else {
+		flags |= 0x1
+	}
+	if p.Y >= r.Min.Y {
+		if p.Y > r.Max.Y {
+			flags |= 0x4
+		}
+	} else {
+		flags |= 0x8
+	}
+	return flags
+}
+
+func clipToRect(r image.Rectangle, p1 *image.Point, p2 image.Point, side bool) bool {
+	ds := +1
+	if side {
+		ds = -1
+	}
+	if p1.Y < r.Min.Y {
+		if p1.Y == p2.Y {
+			return false
+		}
+		dx := (r.Min.Y - p1.Y) * (ds * (p2.X - p1.X)) / (ds * (p2.Y - p1.Y))
+		p1.Y = r.Min.Y
+		p1.X += dx
+	} else if p1.Y > r.Max.Y {
+		if p1.Y == p2.Y {
+			return false
+		}
+		dx := (r.Max.Y - p1.Y) * (ds * (p2.X - p1.X)) / (ds * (p2.Y - p1.Y))
+		p1.Y = r.Max.Y
+		p1.X += dx
+	}
+	if p1.X > r.Max.X {
+		if p1.X == p2.X {
+			return false
+		}
+		dy := (r.Max.X - p1.X) * (ds * (p2.Y - p1.Y)) / (ds * (p2.X - p1.X))
+		p1.X = r.Max.X
+		p1.Y += dy
+	} else if p1.X < r.Min.X {
+		if p1.X == p2.X {
+			return false
+		}
+		dy := (r.Min.X - p1.X) * (ds * (p2.Y - p1.Y)) / (ds * (p2.X - p1.X))
+		p1.X = r.Min.X
+		p1.Y += dy
+	}
+	return true
+}
+
+func (r *NoxRender) clipToRect2(p1, p2 *image.Point) bool { // sub_49F990
+	d := r.Data()
+	rect := d.ClipRect2()
+	flag1 := clipFlags(*p1, rect)
+	flag2 := clipFlags(*p2, rect)
+	if flag1|flag2 == 0 {
+		return true
+	}
+	if flag1&flag2 != 0 {
+		return false
+	}
+	if flag1 != 0 {
+		if !clipToRect(rect, p1, *p2, false) {
+			return false
+		}
+	}
+	if flag2 != 0 {
+		if !clipToRect(rect, p2, *p1, true) {
+			return false
+		}
+	}
+	return p1.X >= rect.Min.X && p1.X <= rect.Max.X && p1.Y >= rect.Min.Y && p1.Y <= rect.Max.Y &&
+		p2.X >= rect.Min.X && p2.X <= rect.Max.X && p2.Y >= rect.Min.Y && p2.Y <= rect.Max.Y
+}

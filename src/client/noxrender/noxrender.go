@@ -50,7 +50,8 @@ type NoxRender struct {
 		B        [256]uint16
 		revTable []byte // map[Color16]byte
 	}
-	text noxRenderText
+	points []image.Point
+	text   noxRenderText
 
 	dword_5d4594_3799476 int
 	dword_5d4594_3799484 uint32

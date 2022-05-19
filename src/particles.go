@@ -295,7 +295,7 @@ func (r *NoxRender) drawProtectParticle(vp *Viewport, part, tail image.Point, pa
 	r.DrawPoint(part, 3)
 
 	r.SetColor2(tailCl)
-	r.DrawLineFromPoints(part, tail)
+	r.rnd.DrawLine(part, tail)
 }
 
 // sincosTable16 assumes circle radius of 16, and expects an angle in range [0,256).
