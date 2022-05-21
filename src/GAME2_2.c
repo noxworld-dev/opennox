@@ -2053,31 +2053,6 @@ uint16_t* sub_480250(uint8_t* a1, uint16_t* a2) {
 	return result;
 }
 
-//----- (00480860) --------------------------------------------------------
-void sub_480860(uint16_t* a1, uint16_t* a2, int a3, int* a4, int* a5) {
-	uint16_t* dword_975384 = nox_draw_colors_g_3804656;
-	uint16_t* dword_97538C = nox_draw_colors_b_3804664;
-	uint16_t* dword_975394 = nox_draw_colors_r_3804672;
-	uint16_t dword_975260 = *((uint16_t*)((uint8_t*)byte_5D4594_3804364 + 0));
-	uint16_t dword_975264 = *((uint16_t*)((uint8_t*)byte_5D4594_3804364 + 4));
-	uint16_t dword_975268 = *((uint16_t*)((uint8_t*)byte_5D4594_3804364 + 8));
-	uint16_t dword_97526C = *((uint16_t*)((uint8_t*)byte_5D4594_3804364 + 12));
-	uint16_t dword_975270 = *((uint16_t*)((uint8_t*)byte_5D4594_3804364 + 16));
-	uint16_t dword_975274 = *((uint16_t*)((uint8_t*)byte_5D4594_3804364 + 20));
-
-	while (a3 > 0) {
-		*a1 = (dword_97538C[((a4[2] * ((*a2 & dword_975268) << dword_975274)) >> 16) & 0xFF] |
-			   dword_975384[((a4[1] * ((*a2 & dword_975264) >> dword_975270)) >> 16) & 0xFF] |
-			   dword_975394[((a4[0] * ((*a2 & dword_975260) >> dword_97526C)) >> 16) & 0xFF]);
-		a4[0] += a5[0];
-		a4[1] += a5[1];
-		a4[2] += a5[2];
-		++a1;
-		++a2;
-		--a3;
-	}
-}
-
 //----- (00480BE0) --------------------------------------------------------
 void sub_480BE0(uint32_t* a1, int* a2, int a3, int a4, int a5) {
 	uint8_t* v6; // ebp

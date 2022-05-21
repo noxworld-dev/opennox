@@ -575,6 +575,35 @@ func sub_49E4F0(a1 C.int) C.int {
 	return C.int(bool2int(noxrend.drawParticles49ED80(int(a1))))
 }
 
+//export sub_480860
+func sub_480860(a1, a2 *C.ushort, w C.int, a4, a5 *C.int) {
+	r := noxrend
+	const (
+		rshift = 7
+		gshift = 2
+		bshift = 3
+
+		rmask = 0x7c00
+		gmask = 0x03e0
+		bmask = 0x001f
+	)
+	dst := unsafe.Slice((*uint16)(unsafe.Pointer(a1)), int(w))
+	src := unsafe.Slice((*uint16)(unsafe.Pointer(a2)), int(w))
+	a4p := unsafe.Slice((*uint32)(unsafe.Pointer(a4)), 3)
+	a5p := unsafe.Slice((*uint32)(unsafe.Pointer(a5)), 3)
+	for i := 0; i < int(w); i++ {
+		cl := src[i]
+		cr := r.colors.R[byte((a4p[0]*uint32((cl&rmask)>>rshift))>>16)]
+		cg := r.colors.G[byte((a4p[1]*uint32((cl&gmask)>>gshift))>>16)]
+		cb := r.colors.B[byte((a4p[2]*uint32((cl&bmask)<<bshift))>>16)]
+		dst[i] = cr | cg | cb
+
+		a4p[0] += a5p[0]
+		a4p[1] += a5p[1]
+		a4p[2] += a5p[2]
+	}
+}
+
 func toRect(cr *C.nox_rect) image.Rectangle {
 	return image.Rect(int(cr.min_x), int(cr.min_y), int(cr.max_x), int(cr.max_y))
 }
