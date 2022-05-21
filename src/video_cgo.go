@@ -1061,7 +1061,7 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 		if py < 0 {
 			py = 0
 		}
-		r.DrawRectFilledAlpha(px, py, sz.X, sz.Y)
+		r.rnd.DrawRectFilledAlpha(px, py, sz.X, sz.Y)
 		r.SetTextColor(uint32(C.nox_color_yellow_2589772))
 		r.DrawStringWrapped(nil, str, image.Rect(px+2, py+2, px+2, py+2))
 		if C.dword_5d4594_3799468 != 0 {

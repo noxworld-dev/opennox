@@ -6131,21 +6131,6 @@ void sub_49CD30(int xLeft, int yTop, int a3, int a4, int a5, int a6) {
 	}
 }
 
-//----- (0049CF10) --------------------------------------------------------
-int4* nox_client_drawRectFilledAlpha_49CF10(int xLeft, int yTop, int a3, int a4) {
-	int4* result; // eax
-	RECT rc;      // [esp+4h] [ebp-10h]
-
-	if (!nox_draw_curDrawData_3799572->flag_0) {
-		return sub_49D6F0(xLeft, yTop, a3, a4);
-	}
-	SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
-	result = nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&nox_draw_curDrawData_3799572->clip));
-	if (result) {
-		result = sub_49D6F0(rc.min_x, rc.min_y, rc.max_x - rc.min_x, rc.max_y - rc.min_y);
-	}
-	return result;
-}
 
 // black screen
 //----- (0049D050) --------------------------------------------------------
@@ -6185,63 +6170,6 @@ int4* nox_client_drawRectFadingScreen_49D0F0(int xLeft, int yTop, int a3, int a4
 int sub_49D1C0(void* a1, int a2, int a3) {
 	sub_49E3C0(a1, a2, a3);
 	return 0;
-}
-
-//----- (0049D6F0) --------------------------------------------------------
-short sub_49D6F0(int a1, int a2, unsigned int a3, int a4) {
-	unsigned int v4 = 0; // eax
-	uint32_t* v5;        // esi
-	int v6;              // edx
-	int v7;              // ebx
-	char v8;             // cf
-	// char v9; // of
-	char v10;          // cc
-	int v11;           // ecx
-	unsigned int* v12; // edi
-	int v13;           // ecx
-	unsigned int* v14; // edi
-	unsigned int v16;  // [esp+1Ch] [ebp+10h]
-
-	if (a4 > 0) {
-		LOWORD(v4) = a2;
-		v5 = &nox_pixbuffer_rows_3798784[a2];
-		v6 = *((uint32_t*)((uint8_t*)byte_5D4594_3804364 + 24));
-		v7 = 2 * a1;
-		v8 = a3 & 1;
-		// v10 = (((a3 >> 1) & 0x80000000) != 0) ^ v9 | (a3 >> 1 == 0);
-		v16 = a3 >> 1;
-		if (v16) {
-			if (v8) {
-				do {
-					v13 = v16;
-					v14 = (unsigned int*)(v7 + *v5);
-					do {
-						*v14 = (v6 & *v14) >> 1;
-						++v14;
-						v10 = v13-- <= 1;
-					} while (!v10);
-					LOWORD(v4) = (unsigned short)(v6 & *(uint16_t*)v14) >> 1;
-					*(uint16_t*)v14 = v4;
-					++v5;
-					v10 = a4-- <= 1;
-				} while (!v10);
-			} else {
-				do {
-					v11 = v16;
-					v12 = (unsigned int*)(v7 + *v5);
-					do {
-						v4 = (v6 & *v12) >> 1;
-						*v12 = v4;
-						++v12;
-						v10 = v11-- <= 1;
-					} while (!v10);
-					++v5;
-					v10 = a4-- <= 1;
-				} while (!v10);
-			}
-		}
-	}
-	return v4;
 }
 
 //----- (0049D8E0) --------------------------------------------------------

@@ -473,6 +473,32 @@ func (r *NoxRender) drawRectFilledOpaqueOver(x, y, w, h int) {
 	}
 }
 
+func (r *NoxRender) DrawRectFilledAlpha(x, y, w, h int) {
+	d := r.Data()
+	if !d.Clip() {
+		r.drawRectFilledAlpha(x, y, w, h)
+		return
+	}
+	rc := image.Rect(x, y, x+w, y+h)
+	if rc := rc.Intersect(d.ClipRect()); !rc.Empty() {
+		r.drawRectFilledAlpha(rc.Min.X, rc.Min.Y, rc.Dx(), rc.Dy())
+	}
+}
+
+func (r *NoxRender) drawRectFilledAlpha(x, y, w, h int) {
+	if w <= 0 || h <= 0 {
+		return
+	}
+	pix := r.PixBuffer()
+	const mask = 0xFBDE
+	for i := 0; i < h; i++ {
+		for j := 0; j < w; j++ {
+			ind := pix.PixOffset(x+j, y+i)
+			pix.Pix[ind] = (mask & pix.Pix[ind]) / 2
+		}
+	}
+}
+
 func (r *NoxRender) DrawPoint(pos image.Point, rad int) {
 	switch rad {
 	case 0, 1:

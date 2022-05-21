@@ -19,7 +19,7 @@ func sub_4C26F0(a1 unsafe.Pointer) C.int {
 	sz := win.Size()
 	w, h := sz.X, sz.Y
 	r := noxrend
-	r.DrawRectFilledAlpha(x, y, w, h)
+	r.rnd.DrawRectFilledAlpha(x, y, w, h)
 	r.Data().SetColor2(memmap.Uint32(0x85B3FC, 944))
 	r.rnd.DrawVector(
 		image.Point{X: x + 1, Y: y},

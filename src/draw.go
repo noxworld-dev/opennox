@@ -192,6 +192,11 @@ func nox_client_drawRectFilledOpaque_49CE30(a1, a2, a3, a4 C.int) {
 	noxrend.rnd.DrawRectFilledOpaque(int(a1), int(a2), int(a3), int(a4))
 }
 
+//export nox_client_drawRectFilledAlpha_49CF10
+func nox_client_drawRectFilledAlpha_49CF10(a1, a2, a3, a4 C.int) {
+	noxrend.rnd.DrawRectFilledAlpha(int(a1), int(a2), int(a3), int(a4))
+}
+
 //export nox_client_drawBorderLines_49CC70
 func nox_client_drawBorderLines_49CC70(a1, a2, a3, a4 C.int) {
 	noxrend.rnd.DrawBorder(int(a1), int(a2), int(a3), int(a4))
@@ -826,10 +831,6 @@ func (r *NoxRender) TabWidth() int {
 
 func (r *NoxRender) SetTabWidth(w int) {
 	r.rnd.SetTabWidth(w)
-}
-
-func (r *NoxRender) DrawRectFilledAlpha(x, y, w, h int) { // nox_client_drawRectFilledAlpha_49CF10
-	C.nox_client_drawRectFilledAlpha_49CF10(C.int(x), C.int(y), C.int(w), C.int(h))
 }
 
 func (r *NoxRender) ClipRectImg() image.Rectangle {
