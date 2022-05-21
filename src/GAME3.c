@@ -4105,7 +4105,7 @@ int sub_4AABE0(int a1, int a2, int* a3, int a4) {
 			}
 			break;
 		case 316: // gamma slider
-			nox_video_setGamma(0.5 + a4 / 50.0f);
+			nox_video_setGammaSlider(a4);
 			break;
 		case 318: // input sensitivity slider
 			nox_input_setSensitivity(powf(10.0, a4 / 50.0f - 1.0));
@@ -5380,7 +5380,7 @@ int nox_xxx_windowOptionsProc_4ADF30(int a1, int a2, int* a3, int a4) {
 			}
 			break;
 		case 316: // gamma slider
-			nox_video_setGamma(0.5 + a4 / 50.0f);
+			nox_video_setGammaSlider(a4);
 			break;
 		case 318: // input sensitivity slider
 			nox_input_setSensitivity(powf(10.0, a4 / 50.0f - 1.0));

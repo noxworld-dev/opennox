@@ -110,7 +110,7 @@ extern uint8_t* g_cursor_surf_pixels;
 extern uint8_t* g_cursor_surf_pixels_6F7C78;
 extern void (*dword_6F7C10)(uint32_t, uint32_t, uint32_t);
 
-void nox_video_setGamma(float v);
+void nox_video_setGammaSlider(int v);
 
 extern int nox_backbuffer_pitchDiff;
 extern int nox_backbuffer_width32;
@@ -130,9 +130,6 @@ void nox_set_color_rgb_434430(int r, int g, int b);
 uint32_t nox_color_rgb_4344A0(int r, int g, int b);
 int sub_4347F0(char* a1, int a2);
 int sub_4348C0();
-int nox_video_getGammaSetting_434B00();
-int nox_video_setGammaSetting_434B30(int a1);
-int sub_434B60();
 int sub_434FB0();
 void sub_4352E0();
 void sub_4353C0();

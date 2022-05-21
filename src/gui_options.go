@@ -29,11 +29,16 @@ const (
 
 	configVideoWidth  = "video.size.width"
 	configVideoHeight = "video.size.height"
+	configVideoGamma  = "video.gamma"
 )
 
 func init() {
 	viper.SetDefault(configVideoWidth, 1024)
 	viper.SetDefault(configVideoHeight, 768)
+	viper.SetDefault(configVideoGamma, gammaDef)
+	registerOnConfigRead(func() {
+		setGamma(float32(viper.GetFloat64(configVideoGamma)))
+	})
 }
 
 var (
@@ -167,7 +172,7 @@ func guiEnhanceOptions(root *Window) {
 	// add gamma and sensitivity sliders instead
 	NewStaticText(root, 315, 112, 220, 140, 16, true, false, "Gamma")
 	NewHorizontalSlider(root, 316, 120, 236, 120, 16, 1, 100).
-		Func94(asWindowEvent(0x400A, uintptr((nox_video_getGamma()-0.5)*50), 0))
+		Func94(asWindowEvent(0x400A, uintptr(getGammaSlider()), 0))
 	NewStaticText(root, 317, 112, 258, 140, 16, true, false, "Sensitivity")
 	NewHorizontalSlider(root, 318, 120, 274, 120, 16, 1, 100).
 		Func94(asWindowEvent(0x400A, uintptr((math.Log10(float64(getSensitivity()))+1.0)*50), 0))

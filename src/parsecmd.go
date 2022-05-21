@@ -54,7 +54,6 @@ int nox_cmd_set(int, int, wchar_t**);
 int nox_cmd_cheat_ability(int, int, wchar_t**);
 int nox_cmd_cheat_level(int, int, wchar_t**);
 int nox_cmd_cheat_gold(int, int, wchar_t**);
-int nox_cmd_gamma(int, int, wchar_t**);
 int nox_cmd_window(int, int, wchar_t**);
 int nox_cmd_set_qual_modem(int, int, wchar_t**);
 int nox_cmd_set_qual_isdn(int, int, wchar_t**);
@@ -234,7 +233,6 @@ var (
 			nox_game_exit_xxx_43DE60()
 			return true
 		}},
-		{Token: "gamma", HelpID: "gammahelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_gamma)},
 		{Token: "kick", HelpID: "kickhelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_kick)},
 		{Token: "log", HelpID: "loghelp", Flags: console.ClientServer | console.Cheat, Sub: []*console.Command{
 			{Token: "console", HelpID: "logconsolehelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_log_console)},
@@ -377,9 +375,6 @@ func nox_cmd_cheat_ability(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_cheat_level(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_cheat_level(i, n, arr)
-}
-func nox_cmd_gamma(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_gamma(i, n, arr)
 }
 func nox_cmd_window(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_window(i, n, arr)

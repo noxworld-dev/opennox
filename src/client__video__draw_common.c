@@ -147,44 +147,6 @@ int nox_xxx_drawPlayer_4341D0(int a1, int a2) {
 	return result;
 }
 
-//----- (00434B60) --------------------------------------------------------
-int sub_434B60() {
-	int v0;       // ebp
-	pixel888* v1; // edi
-	int v2;       // ebx
-	char* v3;     // esi
-	long long v4; // rax
-	int v13;      // [esp+10h] [ebp-90Ch]
-	char v14[1536];
-	pixel888 v19[256]; // [esp+61Ch] [ebp-300h]
-
-	v0 = nox_video_getGammaSetting_434B00();
-	v1 = v19;
-	v2 = 0;
-	v3 = &v14[512];
-	v13 = 0;
-	do {
-		if (v0 == 1) {
-			LOWORD(v4) = (uint16_t)v2 << 8;
-		} else {
-			v4 = (long long)(pow((double)v13 * 0.00392156862745098,
-								 1.0 / ((double)(v0 - 1) * 0.1666666666666667 + 1.0)) *
-							 65535.0);
-		}
-		*((uint16_t*)v3 + 256) = v4;
-		*(uint16_t*)v3 = v4;
-		*((uint16_t*)v3 - 256) = v4;
-		++v2;
-		v3 += 2;
-		v13 = v2;
-	} while (v2 < 256);
-	// FIXME gamma control
-	return 0;
-}
-// 434B60: using guessed type char var_8FF[511];
-// 434B60: using guessed type char var_6FF[512];
-// 434B60: using guessed type char var_4FF[511];
-
 //----- (004B0300) --------------------------------------------------------
 int sub_4B0300(char* a1) {
 	int result; // eax

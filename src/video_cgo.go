@@ -81,8 +81,6 @@ var (
 	nox_client_spellDragnDrop_type_1097196 int
 	nox_client_itemDragnDrop_1097188       *Drawable
 	dword_5d4594_1097204                   int
-	nox_video_gammaValue                   int
-	draw_gamma                             = float32(1.0)
 	noxPixBuffer                           struct {
 		img      *noximage.Image16
 		free     func()
@@ -134,69 +132,9 @@ func nox_video_setScaled(v int) {
 	setScaled(v != 0)
 }
 
-//export nox_video_getGammaSetting_434B00
-func nox_video_getGammaSetting_434B00() C.int {
-	return C.int(nox_video_getGammaSetting())
-}
-func nox_video_getGammaSetting() int {
-	v := nox_video_gammaValue
-	if v < 1 {
-		nox_video_gammaValue = 1
-	} else if v > 10 {
-		nox_video_gammaValue = 10
-	}
-	return nox_video_gammaValue
-}
-
-func updateGamma(value int) {
-	var dv float32
-	if value > 0 {
-		dv = 0.1
-	} else if value < 0 {
-		dv = -0.1
-	}
-	setGamma(draw_gamma + dv)
-}
-
-func nox_video_getGamma() float32 {
-	return draw_gamma
-}
-
-//export nox_video_setGamma
-func nox_video_setGamma(v C.float) {
-	setGamma(float32(v))
-}
-
-func setGamma(v float32) {
-	if v < 0.1 {
-		v = 0.1
-	} else if v > 3.0 {
-		v = 3.0
-	}
-	if draw_gamma != v {
-		videoLog.Printf("gamma2: %v", v)
-	}
-	draw_gamma = v
-	if noxSeat != nil {
-		noxSeat.SetGamma(v)
-	}
-}
-
-//export nox_video_setGammaSetting_434B30
-func nox_video_setGammaSetting_434B30(a1 C.int) C.int {
-	return C.int(nox_video_setGammaSetting(int(a1)))
-}
-func nox_video_setGammaSetting(v int) int {
-	if v < 1 {
-		v = 1
-	} else if v > 10 {
-		v = 10
-	}
-	if nox_video_gammaValue != v {
-		videoLog.Printf("gamma: %v", nox_video_gammaValue)
-	}
-	nox_video_gammaValue = v
-	return v
+//export nox_video_setGammaSlider
+func nox_video_setGammaSlider(v C.int) {
+	setGammaSliderOpts(int(v))
 }
 
 //export sub_43BE50_get_video_mode_id

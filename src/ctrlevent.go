@@ -512,17 +512,11 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			ce.active = false
 		case player.CCIncreaseGamma:
 			clientPlaySoundSpecial(921, 100)
-			v := nox_video_getGammaSetting()
-			nox_video_setGammaSetting(v + 1)
 			updateGamma(1)
-			C.sub_434B60()
 			ce.active = false
 		case player.CCDecreaseGamma:
 			clientPlaySoundSpecial(921, 100)
-			v := nox_video_getGammaSetting()
-			nox_video_setGammaSetting(v - 1)
 			updateGamma(-1)
-			C.sub_434B60()
 			ce.active = false
 		case player.CCQuit:
 			C.nox_client_quit_4460C0()

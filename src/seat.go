@@ -16,6 +16,7 @@ func InitSeat(sz image.Point) error {
 		return err
 	}
 	noxSeat = s
+	s.SetGamma(getGamma())
 	return nil
 }
 

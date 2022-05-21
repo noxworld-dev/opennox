@@ -1257,35 +1257,6 @@ int nox_cmd_cheat_level(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
-//----- (004422D0) --------------------------------------------------------
-int nox_cmd_gamma(int tokInd, int tokCnt, wchar_t** tokens) {
-	const wchar_t* v3; // eax
-	int v4;            // esi
-	int v5;            // esi
-	int v6;            // eax
-	int v8;            // [esp-14h] [ebp-14h]
-
-	if (tokCnt <= 1) {
-		return 1;
-	}
-	v3 = tokens[tokInd];
-	if (*v3 == 43) {
-		v4 = nox_wcstol(v3, 0, 10);
-		v8 = nox_video_getGammaSetting_434B00() + v4;
-		nox_video_setGammaSetting_434B30(v8);
-	} else {
-		if (*v3 == 45) {
-			v5 = nox_wcstol(v3, 0, 10);
-			v6 = nox_video_getGammaSetting_434B00() - v5;
-		} else {
-			v6 = nox_wcstol(v3, 0, 10);
-		}
-		nox_video_setGammaSetting_434B30(v6);
-	}
-	sub_434B60();
-	return 1;
-}
-
 //----- (00442340) --------------------------------------------------------
 int nox_cmd_window(int tokInd, int tokCnt, wchar_t** tokens) {
 	const wchar_t* v3; // eax

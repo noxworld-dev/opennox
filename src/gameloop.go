@@ -430,9 +430,6 @@ func mainloopReset() error {
 		}
 		return err
 	}
-	nox_video_gamma = nox_video_getGammaSetting()
-	nox_video_setGammaSetting(1)
-	C.sub_434B60()
 	mainloopConnectResultOK = false
 	if noxflags.HasGame(noxflags.GameHost) {
 		noxServer.nox_xxx_servEndSession_4D3200()
@@ -941,8 +938,6 @@ func CONNECT_RESULT_OK() error {
 		C.sub_43AA70()
 	}
 	noxAudioServe()
-	nox_video_setGammaSetting(nox_video_gamma)
-	C.sub_434B60()
 	noxflags.SetGame(noxflags.GameFlag29)
 	return nil
 }

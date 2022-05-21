@@ -50,6 +50,8 @@ import (
 
 var (
 	legacyGamma2Set = false
+	legacyGamma2    = 1.0
+	legacyGamma     = 50
 )
 
 //export nox_common_writecfgfile
@@ -154,14 +156,14 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			nox_video_gamma = v
+			legacyGamma = v
 		case "Gamma2":
-			v, err := strconv.ParseFloat(kv.Value, 32)
+			v, err := strconv.ParseFloat(kv.Value, 64)
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 			legacyGamma2Set = true
-			setGamma(float32(v))
+			legacyGamma2 = v
 		case "FXVolume":
 			if err := sub_432CB0(kv.Value, 0); err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
@@ -669,9 +671,9 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 	sect.Set("Stretched", strconv.Itoa(g_scaled_cfg))
 	sect.Set("Fullscreen", strconv.Itoa(g_fullscreen_cfg))
 	sect.Set("VideoSize", strconv.Itoa(nox_video_getCutSize()))
-	sect.Set("Gamma", strconv.Itoa(nox_video_gamma))
+	sect.Set("Gamma", strconv.Itoa(legacyGamma))
 	if legacyGamma2Set {
-		sect.Set("Gamma2", strconv.FormatFloat(float64(draw_gamma), 'g', -1, 32))
+		sect.Set("Gamma2", strconv.FormatFloat(legacyGamma2, 'g', -1, 32))
 	}
 	sect.Set("InputSensitivity", strconv.FormatFloat(float64(getSensitivity()), 'g', -1, 32))
 
