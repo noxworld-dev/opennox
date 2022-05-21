@@ -105,7 +105,7 @@ int nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 				v12 = 0;
 				v13 = v5 + 2;
 				do {
-					sub_434480(*v13, (int)&v35, (int)&a2, (int)&v34);
+					sub_435280(*v13, (int)&v35, (int)&a2, (int)&v34);
 					if ((unsigned char)a2 >= 0x9Bu) {
 						LOBYTE(a2) = -1;
 					} else {

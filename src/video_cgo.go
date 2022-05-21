@@ -852,10 +852,8 @@ func nox_client_drawXxx_444AC0(w, h int, flags int) error {
 }
 
 func sub_48B800(a1 uint32) {
-	p, pfree := alloc.Make([]uint32{}, 3)
-	defer pfree()
-	C.sub_434480(C.int(a1), (*C.int)(unsafe.Pointer(&p[0])), (*C.int)(unsafe.Pointer(&p[1])), (*C.int)(unsafe.Pointer(&p[2])))
-	sub_48B6B0(byte(p[0]), byte(p[1]), byte(p[2]))
+	r, g, b := splitColor(uint16(a1))
+	sub_48B6B0(r, g, b)
 }
 
 func sub_48B6B0(a1, a2, a3 byte) {

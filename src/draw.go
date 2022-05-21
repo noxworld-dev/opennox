@@ -369,9 +369,32 @@ func nox_draw_freeColorTables_433C20() {
 	*memmap.PtrUint32(0x973F18, 5232) = 0
 }
 
+//export sub_435280
+func sub_435280(cl C.short, pr, pg, pb *C.uchar) {
+	r, g, b := splitColor(uint16(cl))
+	*pr = C.uchar(r)
+	*pg = C.uchar(g)
+	*pb = C.uchar(b)
+}
+
+func splitColor(cl uint16) (r, g, b byte) {
+	const (
+		rshift = 7
+		gshift = 2
+		bshift = 3
+
+		rmask = 0x7c00
+		gmask = 0x03e0
+		bmask = 0x001f
+	)
+	r = byte((cl & rmask) >> rshift)
+	g = byte((cl & gmask) >> gshift)
+	b = byte((cl & bmask) << bshift)
+	return
+}
+
 func sub_4338D0() int {
 	noxcolor.SetMode(noxcolor.ModeRGBA5551)
-	C.dword_975240 = (*[0]byte)(C.sub_435280)
 	C.dword_975380 = (*[0]byte)(C.sub_434E80)
 	copy(byte_5D4594_3804364[:], byte_581450_9176[:])
 	copy(unsafe.Slice((*uint32)(unsafe.Pointer(&C.byte_5D4594_3804364[0])), 40), byte_581450_9176[:])

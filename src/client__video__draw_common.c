@@ -17,7 +17,6 @@ unsigned char byte_5D4594_3804364[160] = {0};
 int nox_video_renderTargetFlags = 0;
 int nox_video_windowsPlatformVersion = 0;
 
-void (*dword_975240)(uint32_t, uint32_t*, uint32_t*, uint32_t*);
 int (*dword_975380)(uint32_t, uint32_t, uint32_t);
 void nox_color_rgb_func(uint8_t r, uint8_t g, uint8_t b, uint32_t* p);
 void nox_color_rgb_func_set(int mode);
@@ -107,7 +106,7 @@ int sub_433E40(int a1) {
 	int v2; // [esp+0h] [ebp-8h]
 	int v3; // [esp+4h] [ebp-4h]
 
-	dword_975240(a1, &v3, &v2, &a1);
+	sub_435280(a1, &v3, &v2, &a1);
 	return sub_433CD0(v3, v2, a1);
 }
 
@@ -116,7 +115,7 @@ void sub_434040(int a1) {
 	int v2; // [esp+0h] [ebp-8h]
 	int v3; // [esp+4h] [ebp-4h]
 
-	dword_975240(a1, &v3, &v2, &a1);
+	sub_435280(a1, &v3, &v2, &a1);
 	nox_xxx_drawMakeRGB_433F10(v3, v2, a1);
 }
 
@@ -138,7 +137,7 @@ int nox_xxx_drawPlayer_4341D0(int a1, int a2) {
 		v4 = 48 * a1 + (uint32_t)(&nox_draw_curDrawData_3799572->field_66);
 		result = *(uint32_t*)(48 * a1 + (uint32_t)(&nox_draw_curDrawData_3799572->field_76));
 		if (a2 != result) {
-			dword_975240(a2, &a1, &a2, &v10);
+			sub_435280(a2, &a1, &a2, &v10);
 			*(uint32_t*)(v4 + 24) = (unsigned char)a1;
 			*(uint32_t*)(v4 + 28) = (unsigned char)a2;
 			v5 = (unsigned char)v10;
@@ -148,9 +147,6 @@ int nox_xxx_drawPlayer_4341D0(int a1, int a2) {
 	}
 	return result;
 }
-
-//----- (00434480) --------------------------------------------------------
-void sub_434480(int a1, int* a2, int* a3, int* a4) { dword_975240(a1, a2, a3, a4); }
 
 //----- (00434B60) --------------------------------------------------------
 int sub_434B60() {

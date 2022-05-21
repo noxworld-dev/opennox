@@ -3930,18 +3930,6 @@ void sub_435150(uint8_t* a1, char* a2) {
 	} while (v4);
 }
 
-//----- (00435280) --------------------------------------------------------
-void sub_435280(short a1, uint8_t* a2, uint8_t* a3, uint8_t* a4) {
-	char result; // al
-
-	*a2 = (unsigned short)(*((uint16_t*)((uint8_t*)byte_5D4594_3804364 + 0)) & a1) >>
-		  *((uint8_t*)byte_5D4594_3804364 + 12);
-	*a3 = (unsigned short)(*((uint16_t*)((uint8_t*)byte_5D4594_3804364 + 4)) & a1) >>
-		  *((uint8_t*)byte_5D4594_3804364 + 16);
-	result = ((unsigned char)a1 & *((uint8_t*)byte_5D4594_3804364 + 8)) << *((uint8_t*)byte_5D4594_3804364 + 20);
-	*a4 = result;
-}
-
 //----- (00435570) --------------------------------------------------------
 long long nox_xxx_initTime_435570() {
 	long long result; // rax

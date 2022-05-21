@@ -165,7 +165,7 @@ LABEL_25:
 				v17 = getMemIntPtr(0x973A20, 512);
 				do {
 					int a2 = 0;
-					sub_434480(*v17, (int)&v33, &a2, (int)&a1);
+					sub_435280(*v17, (int)&v33, &a2, (int)&a1);
 					if ((unsigned char)a2 >= 0x9Bu) {
 						LOBYTE(a2) = -1;
 					} else {
