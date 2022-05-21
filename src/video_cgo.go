@@ -1081,7 +1081,7 @@ func sub_477F80() {
 		if dword_5d4594_1097212.X < int(vp.x1) || dword_5d4594_1097212.X+cursorSize >= int(vp.x2) ||
 			dword_5d4594_1097212.Y < int(vp.y1) || dword_5d4594_1097212.Y+cursorSize >= int(vp.y2) {
 			noxrend.SetColor2(uint32(C.nox_color_black_2650656))
-			noxrend.DrawRectFilledOpaque(dword_5d4594_1097212.X+cursorSize/2, dword_5d4594_1097212.Y+cursorSize/2, cursorSize, cursorSize)
+			noxrend.rnd.DrawRectFilledOpaque(dword_5d4594_1097212.X+cursorSize/2, dword_5d4594_1097212.Y+cursorSize/2, cursorSize, cursorSize)
 		}
 	}
 }

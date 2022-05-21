@@ -288,7 +288,7 @@ func nox_xxx_wndStaticDrawNoImage(win *Window, draw *WindowData) int { // nox_xx
 	}
 	if bgColor != noxcolor.ExtendColor16(gui.ColorTransparent) {
 		r.Data().SetColor2(bgColor)
-		r.DrawRectFilledOpaque(x+1, y+1, w-2, h-2)
+		r.rnd.DrawRectFilledOpaque(x+1, y+1, w-2, h-2)
 	}
 	if borderColor != noxcolor.ExtendColor16(gui.ColorTransparent) {
 		r.Data().SetColor2(borderColor)

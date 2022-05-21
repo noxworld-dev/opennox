@@ -173,8 +173,6 @@ int4* nox_client_drawRectFilledAlpha_49CF10(int xLeft, int yTop, int a3, int a4)
 int4* sub_49D050(int xLeft, int yTop, int a3, int a4);
 int4* nox_client_drawRectFadingScreen_49D0F0(int xLeft, int yTop, int a3, int a4);
 int sub_49D1C0(void* a1, int a2, int a3);
-void nox_xxx_draw_49D270_MBRect_49D270(int a1, int a2, unsigned int a3, int a4);
-void sub_49D370(int a1, int a2, int a3, int a4);
 short sub_49D6F0(int a1, int a2, unsigned int a3, int a4);
 int sub_49D8E0(int a1, int a2, int a3, int a4);
 int sub_49DBB0(int a1, int a2, int a3, int a4);

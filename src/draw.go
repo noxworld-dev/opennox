@@ -189,7 +189,7 @@ func sub_437290() {
 
 //export nox_client_drawRectFilledOpaque_49CE30
 func nox_client_drawRectFilledOpaque_49CE30(a1, a2, a3, a4 C.int) {
-	noxrend.DrawRectFilledOpaque(int(a1), int(a2), int(a3), int(a4))
+	noxrend.rnd.DrawRectFilledOpaque(int(a1), int(a2), int(a3), int(a4))
 }
 
 //export nox_client_drawBorderLines_49CC70
@@ -214,7 +214,7 @@ func nox_client_drawPoint_4B0BC0(a1, a2, a3 C.int) {
 
 //export nox_xxx_drawPointMB_499B70
 func nox_xxx_drawPointMB_499B70(a1, a2, a3 C.int) {
-	noxrend.DrawPoint(image.Pt(int(a1), int(a2)), int(a3))
+	noxrend.rnd.DrawPoint(image.Pt(int(a1), int(a2)), int(a3))
 }
 
 type Viewport C.nox_draw_viewport_t
@@ -798,64 +798,6 @@ func (r *NoxRender) SetTabWidth(w int) {
 	r.rnd.SetTabWidth(w)
 }
 
-func (r *NoxRender) DrawPoint(pos image.Point, rad int) { // nox_xxx_drawPointMB_499B70
-	switch rad {
-	case 0, 1:
-		r.rnd.DrawPixel(pos)
-	case 2:
-		r.DrawRectFilledOpaque(pos.X, pos.Y, 2, 2)
-	case 3:
-		r.rnd.DrawPixel(pos.Add(image.Point{Y: -1}))
-		r.DrawRectFilledOpaque(pos.X-1, pos.Y, 3, 1)
-		r.rnd.DrawPixel(pos.Add(image.Point{Y: +1}))
-	case 4:
-		r.DrawRectFilledOpaque(pos.X, pos.Y-1, 2, 1)
-		r.DrawRectFilledOpaque(pos.X-1, pos.Y, 4, 2)
-		r.DrawRectFilledOpaque(pos.X, pos.Y+2, 2, 1)
-	case 5:
-		r.DrawRectFilledOpaque(pos.X-1, pos.Y-2, 3, 1)
-		r.DrawRectFilledOpaque(pos.X-2, pos.Y-1, 5, 3)
-		r.DrawRectFilledOpaque(pos.X-1, pos.Y+2, 3, 1)
-	case 6:
-		r.DrawRectFilledOpaque(pos.X, pos.Y-2, 2, 1)
-		r.DrawRectFilledOpaque(pos.X-1, pos.Y-1, 4, 1)
-		r.DrawRectFilledOpaque(pos.X-2, pos.Y, 6, 2)
-		r.DrawRectFilledOpaque(pos.X-1, pos.Y+2, 4, 1)
-		r.DrawRectFilledOpaque(pos.X, pos.Y+3, 2, 1)
-	default:
-		r.rnd.DrawPointRad(pos, rad/2)
-	}
-}
-
-func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int) { // nox_client_drawRectFilledOpaque_49CE30
-	if w == 0 || h == 0 {
-		return
-	}
-	d := r.Data()
-	rx, ry := x, y
-	rw, rh := w, h
-	if d.flag_0 != 0 {
-		rc := image.Rect(x, y, x+w, y+h)
-		out := rc.Intersect(d.ClipRect())
-		if out.Empty() {
-			return
-		}
-		ry = out.Min.Y
-		rx = out.Min.X
-		rw = out.Dx()
-		rh = out.Dy()
-	}
-	sz := r.PixBuffer().Rect
-	if rx == 0 && ry == 0 && rw == sz.Dx() && rh == sz.Dy() {
-		prev := d.field_58
-		d.field_58 = d.field_61
-		r.ClearScreen()
-		d.field_58 = prev
-	} else {
-		C.nox_xxx_draw_49D270_MBRect_49D270(C.int(rx), C.int(ry), C.uint(rw), C.int(rh))
-	}
-}
-
 func (r *NoxRender) DrawRectFilledAlpha(x, y, w, h int) { // nox_client_drawRectFilledAlpha_49CF10
 	C.nox_client_drawRectFilledAlpha_49CF10(C.int(x), C.int(y), C.int(w), C.int(h))
 }
@@ -1140,10 +1082,10 @@ func nox_xxx_drawAllMB_475810_draw_A(vp *Viewport) {
 		if C.dword_5d4594_3799524 != 0 {
 			rect := r.PixBuffer().Rect
 			r.Data().SetColor2(uint32(C.nox_color_black_2650656))
-			r.DrawRectFilledOpaque(0, 0, rect.Dx(), int(vp.y1))
-			r.DrawRectFilledOpaque(0, v3, rect.Dx(), rect.Dy()-v3)
-			r.DrawRectFilledOpaque(0, int(vp.y1), int(vp.x1), v3-int(vp.y1))
-			r.DrawRectFilledOpaque(v4, int(vp.y1), rect.Dx()-v4, v3-int(vp.y1))
+			r.rnd.DrawRectFilledOpaque(0, 0, rect.Dx(), int(vp.y1))
+			r.rnd.DrawRectFilledOpaque(0, v3, rect.Dx(), rect.Dy()-v3)
+			r.rnd.DrawRectFilledOpaque(0, int(vp.y1), int(vp.x1), v3-int(vp.y1))
+			r.rnd.DrawRectFilledOpaque(v4, int(vp.y1), rect.Dx()-v4, v3-int(vp.y1))
 			C.dword_5d4594_3799524 = 0
 		}
 		r.Data().SetColor2(*memmap.PtrUint32(0x85B3FC, 956))
@@ -2216,7 +2158,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 			v22 := randomIntMinMax(3, 4)
 			r.DrawGlow(pos2, drawColorXxx1096452, v17+v22, v17+2)
 			r.SetColor2(drawColorXxx1096436)
-			r.DrawPoint(pos2, v17)
+			r.rnd.DrawPoint(pos2, v17)
 		}
 	}
 	if dr.CheckFlag31(17) {

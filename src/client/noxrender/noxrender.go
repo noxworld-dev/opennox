@@ -120,7 +120,10 @@ func (r *NoxRender) CopyPixBuffer() *image.NRGBA {
 }
 
 func (r *NoxRender) ClearScreen() {
-	cl := r.p.BgColor()
+	r.ClearScreenWith(r.p.BgColor())
+}
+
+func (r *NoxRender) ClearScreenWith(cl uint32) {
 	for i := range r.pix.Pix {
 		r.pix.Pix[i] = uint16(cl)
 	}

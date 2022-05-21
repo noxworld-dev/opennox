@@ -138,7 +138,7 @@ func (c *guiConsole) Init(sz image.Point) *Window {
 				return 1
 			}
 			noxrend.Data().SetColor2(noxcolor.ExtendColor16(a2.BackgroundColor()))
-			noxrend.DrawRectFilledOpaque(pos.X, pos.Y, wsz.X, wsz.Y)
+			noxrend.rnd.DrawRectFilledOpaque(pos.X, pos.Y, wsz.X, wsz.Y)
 		}
 		return 1
 	}, nil)

@@ -96,7 +96,7 @@ func (m *Perfmon) Draw(r *NoxRender) {
 	latency := C.nox_perfmon_ping_2614264
 	format = strMan.GetStringInFile("Latency", "client.c")
 	r.Data().SetColor2(uint32(C.nox_color_black_2650656))
-	r.DrawRectFilledOpaque(x+80, y, 16, 8)
+	r.rnd.DrawRectFilledOpaque(x+80, y, 16, 8)
 	r.DrawString(nil, fmt.Sprintf(format, latency, m.fps), image.Pt(x, y))
 
 	y = 200
