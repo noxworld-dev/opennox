@@ -87,8 +87,6 @@ extern int g_scaled;
 
 #ifndef IGNORE_EXTERNS
 
-extern unsigned char byte_5D4594_3804364[160];
-
 extern void* nox_backbuffer1_pix;
 extern void* nox_backbuffer_pix;
 

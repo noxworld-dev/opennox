@@ -64,6 +64,7 @@ extern uint32_t nox_color_blue_2650684;
 extern uint32_t nox_color_green_2614268;
 extern void (*func_587000_154940)(int2*, uint32_t, uint32_t);
 extern int (*func_587000_154944)(int, int);
+extern unsigned char byte_5D4594_3804364[160];
 */
 import "C"
 import (

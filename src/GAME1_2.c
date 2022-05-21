@@ -82,8 +82,6 @@
 
 #include <time.h>
 
-extern unsigned char byte_5D4594_3804364[160];
-
 extern uint32_t nox_xxx_useAudio_587000_80772;
 extern uint32_t dword_5d4594_811904;
 extern uint32_t dword_5d4594_805988;

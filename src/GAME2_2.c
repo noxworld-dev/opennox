@@ -37,8 +37,6 @@
 #include "mutexes.h"
 #include "operators.h"
 
-extern unsigned char byte_5D4594_3804364[160];
-
 extern uint32_t dword_5d4594_1098456;
 extern uint32_t dword_5d4594_1193352;
 extern uint32_t dword_5d4594_1096636;
