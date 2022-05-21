@@ -6104,7 +6104,7 @@ int nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 
 //----- (004730D0) --------------------------------------------------------
 int sub_4730D0(int2* a1, unsigned char a2, int a3) {
-	int result; // eax
+	int result = 0; // eax
 	int v4;     // ebx
 	int v5;     // edi
 	int2* v6;   // ebp
