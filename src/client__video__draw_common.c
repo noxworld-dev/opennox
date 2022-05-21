@@ -17,7 +17,6 @@ unsigned char byte_5D4594_3804364[160] = {0};
 int nox_video_renderTargetFlags = 0;
 int nox_video_windowsPlatformVersion = 0;
 
-int (*dword_975380)(uint32_t, uint32_t, uint32_t);
 void nox_color_rgb_func(uint8_t r, uint8_t g, uint8_t b, uint32_t* p);
 void nox_color_rgb_func_set(int mode);
 
@@ -96,7 +95,7 @@ int sub_433CD0(uint8_t a1, uint8_t a2, uint8_t a3) {
 	nox_draw_curDrawData_3799572->field_25 = a2;
 	nox_draw_curDrawData_3799572->field_26 = a3;
 	nox_draw_curDrawData_3799572->field_16 = a1 == 0xFF && a2 == 0xFF && a3 == 0xFF;
-	result = dword_975380(a1, a2, a3);
+	result = sub_434E80(a1, a2, a3);
 	((uint16_t*)(&nox_draw_curDrawData_3799572->field_258))[1] = result;
 	return result;
 }

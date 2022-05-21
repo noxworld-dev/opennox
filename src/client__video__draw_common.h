@@ -62,7 +62,6 @@ extern uint32_t nox_video_bag_ready;
 extern uint32_t dword_5d4594_823776;
 extern uint8_t* nox_pixbuffer_3798780;
 extern void* dword_5d4594_1193704;
-extern void* nox_draw_colorTablesRev_3804668;
 extern int nox_backbuffer_pitch_3801808;
 extern uint32_t cpuid_5d4594_3801804;
 void* nox_video_getImagePixdata_func(nox_video_bag_image_t*);
@@ -112,7 +111,6 @@ extern uint32_t g_cursor_surf_pitch;
 extern uint8_t* g_cursor_surf_pixels;
 extern uint8_t* g_cursor_surf_pixels_6F7C78;
 extern void (*dword_6F7C10)(uint32_t, uint32_t, uint32_t);
-extern int (*dword_975380)(uint32_t, uint32_t, uint32_t);
 
 void nox_video_setGamma(float v);
 

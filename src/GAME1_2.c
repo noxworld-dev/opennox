@@ -195,8 +195,6 @@ nox_render_data_t* nox_draw_curDrawData_3799572 = 0;
 nox_screenParticle* nox_screenParticles_head = 0;
 nox_screenParticle* dword_5d4594_806052 = 0;
 
-void* nox_draw_colorTablesRev_3804668 = 0;
-
 void* dword_5d4594_814624 = 0;
 
 //----- (00427F30) --------------------------------------------------------
@@ -3840,12 +3838,6 @@ int sub_434620(int a1) {
 	result = a1;
 	dword_5d4594_810632 = a1;
 	return result;
-}
-
-//----- (00434E80) --------------------------------------------------------
-char sub_434E80(char a1, char a2, char a3) {
-	return *(uint8_t*)((unsigned int)nox_draw_colorTablesRev_3804668 +
-					   (((unsigned char)(a3 & 0xF8) >> 3) | (4 * (a2 & 0xF8)) | ((a1 & 0xF8) << 7)));
 }
 
 //----- (00434F00) --------------------------------------------------------

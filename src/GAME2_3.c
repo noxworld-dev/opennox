@@ -72,7 +72,6 @@ extern uint32_t dword_5d4594_1203864;
 extern uint32_t dword_5d4594_1217452;
 extern uint32_t dword_5d4594_1193712;
 extern uint32_t nox_server_connectionType_3596;
-extern void* nox_draw_colorTablesRev_3804668;
 extern uint32_t dword_5d4594_810636;
 extern uint32_t dword_5d4594_1301776;
 extern uint32_t dword_5d4594_1197316;

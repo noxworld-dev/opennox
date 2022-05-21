@@ -323,36 +323,10 @@ func detectBestVideoSettings() {
 	C.nox_profiled_805856 = 1
 }
 
-func nox_draw_initColorTablesRev_434DA0() {
-	const max = 0x7FFF
-	const (
-		rshift = 7 // -10+3
-		gshift = 2 // -5+3
-		bshift = 3 // -0+3
-
-		rmask = 0x7c00
-		gmask = 0x03e0
-		bmask = 0x001f
-	)
-	nox_draw_colorTablesRev_3804668 = make([]byte, max+3)
-	for i := 0; i <= max; i++ {
-		cr := uint32((i & rmask) >> rshift)
-		cg := uint32((i & gmask) >> gshift)
-		cb := uint32((i & bmask) << bshift)
-		nox_draw_colorTablesRev_3804668[i] = byte((28*(cb|7) + 150*(cg|7) + 76*(cr|7)) >> 8)
-	}
-	ptr, _ := alloc.CloneSlice(nox_draw_colorTablesRev_3804668)
-	C.nox_draw_colorTablesRev_3804668 = unsafe.Pointer(&ptr[0])
-}
-
 func nox_draw_freeColorTables_433C20() {
 	if C.dword_5d4594_810640 != nil {
 		alloc.Free(C.dword_5d4594_810640)
 		C.dword_5d4594_810640 = nil
-	}
-	if C.nox_draw_colorTablesRev_3804668 != nil {
-		alloc.Free(C.nox_draw_colorTablesRev_3804668)
-		C.nox_draw_colorTablesRev_3804668 = nil
 	}
 	if p := C.nox_draw_colors_r_3804672; p != nil {
 		alloc.Free(unsafe.Pointer(p))
@@ -367,6 +341,12 @@ func nox_draw_freeColorTables_433C20() {
 		C.nox_draw_colors_b_3804664 = nil
 	}
 	*memmap.PtrUint32(0x973F18, 5232) = 0
+}
+
+//export sub_434E80
+func sub_434E80(a1, a2, a3 C.char) C.char {
+	r, g, b := byte(a1), byte(a2), byte(a3)
+	return C.char(noxrend.rnd.ColorIntensity(r, g, b))
 }
 
 //export sub_435280
@@ -395,13 +375,11 @@ func splitColor(cl uint16) (r, g, b byte) {
 
 func sub_4338D0() int {
 	noxcolor.SetMode(noxcolor.ModeRGBA5551)
-	C.dword_975380 = (*[0]byte)(C.sub_434E80)
 	copy(byte_5D4594_3804364[:], byte_581450_9176[:])
 	copy(unsafe.Slice((*uint32)(unsafe.Pointer(&C.byte_5D4594_3804364[0])), 40), byte_581450_9176[:])
 	ptr := noxrend.Data()
 	ptr.Reset()
 	nox_draw_initColorTables_434CC0()
-	nox_draw_initColorTablesRev_434DA0()
 	if C.dword_5d4594_823772 == 0 {
 		C.sub_4353C0()
 	}

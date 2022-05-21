@@ -61,6 +61,11 @@ type NoxRender struct {
 	HookImageDrawXxx func(pos image.Point, sz image.Point)
 }
 
+func (r *NoxRender) ColorIntensity(cr, cg, cb byte) byte {
+	v := ((cb & 0xF8) >> 3) | ((cg & 0xF8) << 2) | ((cr & 0xF8) << 7)
+	return r.colors.revTable[v]
+}
+
 func (r *NoxRender) PixBuffer() *noximage.Image16 {
 	return r.pix
 }
