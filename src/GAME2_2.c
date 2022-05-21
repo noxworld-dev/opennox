@@ -2241,7 +2241,6 @@ int* nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, int* a5,
 	char v39;                                   // al
 	int v40;                                    // [esp+10h] [ebp-48h]
 	int v41;                                    // [esp+14h] [ebp-44h]
-	void (*v42)(char*, char*, int, int*, int*); // [esp+18h] [ebp-40h]
 	int v43;                                    // [esp+1Ch] [ebp-3Ch]
 	int v44;                                    // [esp+20h] [ebp-38h]
 	int2 v45;                                   // [esp+24h] [ebp-34h]
@@ -2276,7 +2275,6 @@ int* nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, int* a5,
 	if ((v11 & 0x3F) != 3) {
 		return result;
 	}
-	v42 = sub_480860;
 	result = (int*)nox_video_getImagePixdata_42FB30(a1);
 	if (!result) {
 		return result;
@@ -2417,7 +2415,7 @@ int* nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, int* a5,
 					v51[0] = v47 + v10 * v50[0];
 					v51[1] = v48 + v10 * v50[1];
 					v51[2] = v49 + v10 * v50[2];
-					v42(v52, &v16[-2 * (v32 - v10)], v37, v51, v50);
+					sub_480860(v52, &v16[-2 * (v32 - v10)], v37, v51, v50);
 					v36 = v40;
 					v54 = 2 * v37;
 				}
@@ -2437,7 +2435,7 @@ int* nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, int* a5,
 						v51[0] = v47 + v50[0] * v32;
 						v51[2] = v49 + v50[2] * v32;
 						v51[1] = v48 + v50[1] * v32;
-						v42(&v52[2 * (v32 - v10)], v16, v60, v51, v50);
+						sub_480860(&v52[2 * (v32 - v10)], v16, v60, v51, v50);
 						v36 = v40;
 						v16 += 2 * v60;
 					}

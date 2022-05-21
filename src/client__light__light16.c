@@ -13,7 +13,6 @@
 #include "common__random.h"
 #include "operators.h"
 
-extern uint32_t dword_5d4594_3805492;
 extern uint32_t dword_587000_142316;
 extern uint32_t dword_587000_142328;
 extern uint32_t dword_587000_154968;
@@ -324,6 +323,5 @@ int nox_xxx___cfltcvt_init_430CC0() {
 	dword_5d4594_3807156 = sub_469920;
 	dword_5d4594_805836 = 0;
 	dword_5d4594_3805484 = sub_480BE0;
-	dword_5d4594_3805492 = sub_480860;
 	return 0;
 }
