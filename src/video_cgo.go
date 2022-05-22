@@ -273,7 +273,7 @@ func drawInitAll(sz image.Point, flags int) error {
 	if err := loadGameFonts(); err != nil {
 		return err
 	}
-	noxrend.rnd.ClearPoints()
+	noxrend.ClearPoints()
 	return nil
 }
 
@@ -999,7 +999,7 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 		if py < 0 {
 			py = 0
 		}
-		r.rnd.DrawRectFilledAlpha(px, py, sz.X, sz.Y)
+		r.DrawRectFilledAlpha(px, py, sz.X, sz.Y)
 		r.SetTextColor(uint32(C.nox_color_yellow_2589772))
 		r.DrawStringWrapped(nil, str, image.Rect(px+2, py+2, px+2, py+2))
 		if C.dword_5d4594_3799468 != 0 {
@@ -1017,7 +1017,7 @@ func sub_477F80() {
 		if dword_5d4594_1097212.X < int(vp.x1) || dword_5d4594_1097212.X+cursorSize >= int(vp.x2) ||
 			dword_5d4594_1097212.Y < int(vp.y1) || dword_5d4594_1097212.Y+cursorSize >= int(vp.y2) {
 			noxrend.SetColor2(uint32(C.nox_color_black_2650656))
-			noxrend.rnd.DrawRectFilledOpaque(dword_5d4594_1097212.X+cursorSize/2, dword_5d4594_1097212.Y+cursorSize/2, cursorSize, cursorSize)
+			noxrend.DrawRectFilledOpaque(dword_5d4594_1097212.X+cursorSize/2, dword_5d4594_1097212.Y+cursorSize/2, cursorSize, cursorSize)
 		}
 	}
 }

@@ -78,7 +78,6 @@ import (
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 	"github.com/noxworld-dev/opennox-lib/common"
-	"github.com/noxworld-dev/opennox-lib/noximage"
 
 	"github.com/noxworld-dev/opennox/v1/client/input"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
@@ -88,9 +87,8 @@ import (
 )
 
 var (
-	noxrend                         *NoxRender
-	nox_draw_colorTablesRev_3804668 []byte // map[Color16]byte
-	viewport                        struct {
+	noxrend  *NoxRender
+	viewport struct {
 		sync.Once
 		ptr *Viewport
 	}
@@ -190,37 +188,37 @@ func sub_437290() {
 
 //export nox_client_drawRectFilledOpaque_49CE30
 func nox_client_drawRectFilledOpaque_49CE30(a1, a2, a3, a4 C.int) {
-	noxrend.rnd.DrawRectFilledOpaque(int(a1), int(a2), int(a3), int(a4))
+	noxrend.DrawRectFilledOpaque(int(a1), int(a2), int(a3), int(a4))
 }
 
 //export nox_client_drawRectFilledAlpha_49CF10
 func nox_client_drawRectFilledAlpha_49CF10(a1, a2, a3, a4 C.int) {
-	noxrend.rnd.DrawRectFilledAlpha(int(a1), int(a2), int(a3), int(a4))
+	noxrend.DrawRectFilledAlpha(int(a1), int(a2), int(a3), int(a4))
 }
 
 //export nox_client_drawBorderLines_49CC70
 func nox_client_drawBorderLines_49CC70(a1, a2, a3, a4 C.int) {
-	noxrend.rnd.DrawBorder(int(a1), int(a2), int(a3), int(a4))
+	noxrend.DrawBorder(int(a1), int(a2), int(a3), int(a4))
 }
 
 //export nox_client_drawLineHorizontal_49F180
 func nox_client_drawLineHorizontal_49F180(a1, a2, a3 C.int) {
-	noxrend.rnd.DrawLineHorizontal(int(a1), int(a2), int(a3))
+	noxrend.DrawLineHorizontal(int(a1), int(a2), int(a3))
 }
 
 //export nox_client_drawPixel_49EFA0
 func nox_client_drawPixel_49EFA0(a1, a2 C.int) {
-	noxrend.rnd.DrawPixel(image.Pt(int(a1), int(a2)))
+	noxrend.DrawPixel(image.Pt(int(a1), int(a2)))
 }
 
 //export nox_client_drawPoint_4B0BC0
 func nox_client_drawPoint_4B0BC0(a1, a2, a3 C.int) {
-	noxrend.rnd.DrawPointRad(image.Pt(int(a1), int(a2)), int(a3))
+	noxrend.DrawPointRad(image.Pt(int(a1), int(a2)), int(a3))
 }
 
 //export nox_xxx_drawPointMB_499B70
 func nox_xxx_drawPointMB_499B70(a1, a2, a3 C.int) {
-	noxrend.rnd.DrawPoint(image.Pt(int(a1), int(a2)), int(a3))
+	noxrend.DrawPoint(image.Pt(int(a1), int(a2)), int(a3))
 }
 
 type Viewport C.nox_draw_viewport_t
@@ -352,7 +350,7 @@ func nox_draw_freeColorTables_433C20() {
 //export sub_434E80
 func sub_434E80(a1, a2, a3 C.char) C.char {
 	r, g, b := byte(a1), byte(a2), byte(a3)
-	return C.char(noxrend.rnd.ColorIntensity(r, g, b))
+	return C.char(noxrend.ColorIntensity(r, g, b))
 }
 
 //export sub_435280
@@ -543,22 +541,22 @@ func nox_draw_enableTextSmoothing_43F670(v C.int) {
 
 //export nox_client_drawResetPoints_49F5A0
 func nox_client_drawResetPoints_49F5A0() {
-	noxrend.rnd.ClearPoints()
+	noxrend.ClearPoints()
 }
 
 //export nox_client_drawAddPoint_49F500
 func nox_client_drawAddPoint_49F500(x, y C.int) {
-	noxrend.rnd.AddPoint(image.Pt(int(x), int(y)))
+	noxrend.AddPoint(image.Pt(int(x), int(y)))
 }
 
 //export nox_xxx_rasterPointRel_49F570
 func nox_xxx_rasterPointRel_49F570(x, y C.int) {
-	noxrend.rnd.AddPointRel(image.Pt(int(x), int(y)))
+	noxrend.AddPointRel(image.Pt(int(x), int(y)))
 }
 
 //export nox_client_drawLastPoint_49F5B0
 func nox_client_drawLastPoint_49F5B0(px, py *C.uint, keep C.int) C.int {
-	pos, ok := noxrend.rnd.LastPoint(keep != 0)
+	pos, ok := noxrend.LastPoint(keep != 0)
 	if !ok {
 		return 0
 	}
@@ -573,7 +571,7 @@ func nox_client_drawLastPoint_49F5B0(px, py *C.uint, keep C.int) C.int {
 
 //export nox_client_drawLineFromPoints_49E4B0
 func nox_client_drawLineFromPoints_49E4B0() C.int {
-	return C.int(bool2int(noxrend.rnd.DrawLineFromPoints()))
+	return C.int(bool2int(noxrend.DrawLineFromPoints()))
 }
 
 //export sub_49E4F0
@@ -622,8 +620,8 @@ func setRect(cr *C.nox_rect, r image.Rectangle) {
 }
 
 type NoxRender struct {
-	p   *RenderData
-	rnd *noxrender.NoxRender
+	*noxrender.NoxRender
+	p *RenderData
 
 	colors struct {
 		mode noxcolor.Mode
@@ -638,30 +636,6 @@ type NoxRender struct {
 	}
 }
 
-func (r *NoxRender) Set_dword_5d4594_3799484(v int) {
-	r.rnd.Set_dword_5d4594_3799484(v)
-}
-
-func (r *NoxRender) Set_dword_5d4594_37995xx(v uint32, a2 byte) {
-	r.rnd.Set_dword_5d4594_37995xx(v, a2)
-}
-
-func (r *NoxRender) Reset_dword_5d4594_3799476() {
-	r.rnd.Reset_dword_5d4594_3799476()
-}
-
-func (r *NoxRender) Get_dword_5d4594_3799476() int {
-	return r.rnd.Get_dword_5d4594_3799476()
-}
-
-func (r *NoxRender) PixBuffer() *noximage.Image16 {
-	return r.rnd.PixBuffer()
-}
-
-func (r *NoxRender) SetPixBuffer(pix *noximage.Image16) {
-	r.rnd.SetPixBuffer(pix)
-}
-
 func newNoxRenderData() (*RenderData, func()) {
 	d, free := alloc.New(RenderData{})
 	d.Reset()
@@ -669,18 +643,10 @@ func newNoxRenderData() (*RenderData, func()) {
 }
 
 func NewNoxRender() *NoxRender {
-	r := &NoxRender{rnd: noxrender.NewRender()}
-	r.rnd.SetData(renderDataAdapter{r})
+	r := &NoxRender{NoxRender: noxrender.NewRender()}
+	r.NoxRender.SetData(renderDataAdapter{r})
 	r.SetColorMode(noxcolor.ModeRGBA5551)
 	return r
-}
-
-func (r *NoxRender) CopyPixBuffer() *image.NRGBA {
-	return r.rnd.CopyPixBuffer()
-}
-
-func (r *NoxRender) ClearScreen() {
-	r.rnd.ClearScreen()
 }
 
 func (r *NoxRender) shouldDrawGlow() bool {
@@ -802,10 +768,6 @@ func (r *NoxRender) SetTextColor(a1 uint32) { // nox_xxx_drawSetTextColor_434390
 	r.p.SetTextColor(a1)
 }
 
-func (r *NoxRender) SetTextSmooting(enabled bool) {
-	r.rnd.SetTextSmooting(enabled)
-}
-
 func (r *NoxRender) Color() uint32 {
 	return uint32(r.p.field_60)
 }
@@ -822,64 +784,12 @@ func (r *NoxRender) SetColor2(a1 uint32) { // nox_client_drawSetColor_434460
 	r.p.SetColor2(a1)
 }
 
-func (r *NoxRender) SetBold(enable bool) {
-	r.rnd.SetBold(enable)
-}
-
-func (r *NoxRender) TabWidth() int {
-	return r.rnd.TabWidth()
-}
-
-func (r *NoxRender) SetTabWidth(w int) {
-	r.rnd.SetTabWidth(w)
-}
-
 func (r *NoxRender) ClipRectImg() image.Rectangle {
 	return toRect(&r.p.clip)
 }
 
 func (r *NoxRender) ClipRectImg2() image.Rectangle {
 	return toRect(&r.p.rect2)
-}
-
-func (r *NoxRender) FontHeight(fnt font.Face) int {
-	return r.rnd.FontHeight(fnt)
-}
-
-func (r *NoxRender) DrawString(font font.Face, str string, pos image.Point) int { // nox_xxx_drawString_43F6E0
-	return r.rnd.DrawString(font, str, pos)
-}
-
-func (r *NoxRender) DrawStringStyle(font font.Face, str string, pos image.Point) int { // nox_xxx_drawStringStyle_43F7B0
-	return r.rnd.DrawStringStyle(font, str, pos)
-}
-
-func (r *NoxRender) DrawStringHL(font font.Face, str string, pos image.Point) int { // nox_draw_drawStringHL_43F730
-	return r.rnd.DrawStringHL(font, str, pos)
-}
-
-func (r *NoxRender) DrawStringWrapped(font font.Face, s string, rect image.Rectangle) int { // nox_xxx_drawStringWrap_43FAF0
-	return r.rnd.DrawStringWrapped(font, s, rect)
-}
-
-func (r *NoxRender) DrawStringWrappedHL(font font.Face, s string, rect image.Rectangle) int { // nox_xxx_drawStringWrapHL_43FD00
-	return r.rnd.DrawStringWrappedHL(font, s, rect)
-}
-
-func (r *NoxRender) DrawStringWrappedStyle(font font.Face, s string, rect image.Rectangle) int { // nox_xxx_bookDrawString_43FA80_43FD80
-	return r.rnd.DrawStringWrappedStyle(font, s, rect)
-}
-
-func (r *NoxRender) SplitStringWrapped(fnt font.Face, s string, maxW int) []string {
-	return r.rnd.SplitStringWrapped(fnt, s, maxW)
-}
-
-func (r *NoxRender) GetStringSizeWrapped(fnt font.Face, s string, maxW int) image.Point { // nox_xxx_drawGetStringSize_43F840
-	return r.rnd.GetStringSizeWrapped(fnt, s, maxW)
-}
-
-func (r *NoxRender) GetStringSizeWrappedStyle(fnt font.Face, s string, maxW int) image.Point { // nox_xxx_bookGetStringSize_43FA80
-	return r.rnd.GetStringSizeWrappedStyle(fnt, s, maxW)
 }
 
 func (r *NoxRender) DrawCircle(a1, a2, a3 int) {
@@ -1114,14 +1024,14 @@ func nox_xxx_drawAllMB_475810_draw_A(vp *Viewport) {
 		if C.dword_5d4594_3799524 != 0 {
 			rect := r.PixBuffer().Rect
 			r.Data().SetColor2(uint32(C.nox_color_black_2650656))
-			r.rnd.DrawRectFilledOpaque(0, 0, rect.Dx(), int(vp.y1))
-			r.rnd.DrawRectFilledOpaque(0, v3, rect.Dx(), rect.Dy()-v3)
-			r.rnd.DrawRectFilledOpaque(0, int(vp.y1), int(vp.x1), v3-int(vp.y1))
-			r.rnd.DrawRectFilledOpaque(v4, int(vp.y1), rect.Dx()-v4, v3-int(vp.y1))
+			r.DrawRectFilledOpaque(0, 0, rect.Dx(), int(vp.y1))
+			r.DrawRectFilledOpaque(0, v3, rect.Dx(), rect.Dy()-v3)
+			r.DrawRectFilledOpaque(0, int(vp.y1), int(vp.x1), v3-int(vp.y1))
+			r.DrawRectFilledOpaque(v4, int(vp.y1), rect.Dx()-v4, v3-int(vp.y1))
 			C.dword_5d4594_3799524 = 0
 		}
 		r.Data().SetColor2(*memmap.PtrUint32(0x85B3FC, 956))
-		r.rnd.DrawBorder(int(vp.x1)-2, int(vp.y1)-2, v4-int(vp.x1)+4, v3-int(vp.y1)+4)
+		r.DrawBorder(int(vp.x1)-2, int(vp.y1)-2, v4-int(vp.x1)+4, v3-int(vp.y1)+4)
 	} else {
 		C.dword_5d4594_3799468 = 0
 	}
@@ -1744,20 +1654,20 @@ func (r *NoxRender) DrawImageAt(img *Image, pos image.Point) {
 		C.sub_49F780(C.int(memmap.Int32(0x973F18, 52)), C.int(memmap.Int32(0x973F18, 12)))
 		r.p.flag_0 = 1
 	}
-	r.rnd.HookImageDrawXxx = func(pos image.Point, sz image.Point) {
+	r.HookImageDrawXxx = func(pos image.Point, sz image.Point) {
 		*memmap.PtrInt32(0x973F18, 92) = int32(pos.X)
 		*memmap.PtrInt32(0x973F18, 84) = int32(pos.Y)
 		*memmap.PtrUint32(0x973F18, 88) = uint32(sz.X)
 		*memmap.PtrUint32(0x973F18, 76) = uint32(sz.Y)
 	}
 	if img != nil {
-		r.rnd.DrawImage16(img, pos)
+		r.DrawImage16(img, pos)
 	}
 	if C.dword_5d4594_3799452 != 0 {
 		C.sub_49F860()
 		C.dword_5d4594_3799452 = 0
 	}
-	r.rnd.Set_dword_5d4594_3799484(0)
+	r.Set_dword_5d4594_3799484(0)
 	*memmap.PtrUint32(0x973F18, 120) = 0
 	if memmap.Uint32(0x973F18, 68) != 0 && img != nil {
 		if memmap.Uint32(0x973F18, 92) != uint32(img.field_1_0) || memmap.Uint32(0x973F18, 84) != uint32(img.field_1_1) {
@@ -1927,16 +1837,16 @@ func (r *NoxRender) clipToRect2(p1, p2 *image.Point) bool { // sub_49F990
 
 func (r *NoxRender) drawParticles49ED80(mul2 int) bool {
 	d := r.Data()
-	pos2, ok := r.rnd.LastPoint(false)
+	pos2, ok := r.LastPoint(false)
 	if !ok {
 		return false
 	}
-	pos1, ok := r.rnd.LastPoint(false)
+	pos1, ok := r.LastPoint(false)
 	if !ok {
 		return false
 	}
 	if d.IsAlphaEnabled() {
-		r.rnd.DrawLineAlpha(pos1, pos2)
+		r.DrawLineAlpha(pos1, pos2)
 		return true
 	}
 	if d.flag_0 != 0 && !r.clipToRect2(&pos1, &pos2) {
@@ -2190,7 +2100,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 			v22 := randomIntMinMax(3, 4)
 			r.DrawGlow(pos2, drawColorXxx1096452, v17+v22, v17+2)
 			r.SetColor2(drawColorXxx1096436)
-			r.rnd.DrawPoint(pos2, v17)
+			r.DrawPoint(pos2, v17)
 		}
 	}
 	if dr.CheckFlag31(17) {

@@ -126,19 +126,20 @@ func (c *guiConsole) Init(sz image.Point) *Window {
 	c.root.SetAllFuncs(func(win *Window, ev WindowEvent) WindowEventResp {
 		return nil
 	}, func(win *Window, a2 *WindowData) int {
+		r := noxrend
 		pos := win.GlobalPos()
 		if win.Flags().Has(gui.StatusImage) {
-			noxrend.DrawImageAt(a2.BackgroundImage(), pos)
+			r.DrawImageAt(a2.BackgroundImage(), pos)
 			return 1
 		}
 		wsz := win.Size()
 		if a2.BackgroundColor() != gui.ColorTransparent {
 			if c.translucent {
-				noxrend.rnd.DrawRectFilledAlpha(pos.X, pos.Y, wsz.X, wsz.Y)
+				r.DrawRectFilledAlpha(pos.X, pos.Y, wsz.X, wsz.Y)
 				return 1
 			}
-			noxrend.Data().SetColor2(noxcolor.ExtendColor16(a2.BackgroundColor()))
-			noxrend.rnd.DrawRectFilledOpaque(pos.X, pos.Y, wsz.X, wsz.Y)
+			r.Data().SetColor2(noxcolor.ExtendColor16(a2.BackgroundColor()))
+			r.DrawRectFilledOpaque(pos.X, pos.Y, wsz.X, wsz.Y)
 		}
 		return 1
 	}, nil)

@@ -19,21 +19,21 @@ func sub_4C26F0(a1 unsafe.Pointer) C.int {
 	sz := win.Size()
 	w, h := sz.X, sz.Y
 	r := noxrend
-	r.rnd.DrawRectFilledAlpha(x, y, w, h)
+	r.DrawRectFilledAlpha(x, y, w, h)
 	r.Data().SetColor2(memmap.Uint32(0x85B3FC, 944))
-	r.rnd.DrawVector(
+	r.DrawVector(
 		image.Point{X: x + 1, Y: y},
 		image.Point{X: w - 2, Y: 0},
 	)
-	r.rnd.DrawVector(
+	r.DrawVector(
 		image.Point{X: x + 1, Y: y + h},
 		image.Point{X: w - 2, Y: 0},
 	)
-	r.rnd.DrawVector(
+	r.DrawVector(
 		image.Point{X: x, Y: y + 1},
 		image.Point{X: 0, Y: h - 2},
 	)
-	r.rnd.DrawVector(
+	r.DrawVector(
 		image.Point{X: x + w, Y: y + 1},
 		image.Point{X: 0, Y: h - 2},
 	)

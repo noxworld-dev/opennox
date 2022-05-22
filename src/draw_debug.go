@@ -36,25 +36,25 @@ func nox_thing_debug_draw(cvp *C.nox_draw_viewport_t, cdr *C.nox_drawable) C.int
 		y2 := p.Y - int(dr.field_25)
 		v11 := int(memmap.Int32(0x587000, 196184+8*uintptr(dr.field_74_4)))
 		v18 := int(memmap.Int32(0x587000, 196188+8*uintptr(dr.field_74_4)))
-		r.rnd.DrawVector(
+		r.DrawVector(
 			image.Pt(p.X, y1),
 			image.Pt(v11, v18),
 		)
-		r.rnd.DrawVector(
+		r.DrawVector(
 			image.Pt(p.X, y2),
 			image.Pt(v11, v18),
 		)
-		r.rnd.DrawLine(
+		r.DrawLine(
 			image.Pt(p.X, y1),
 			image.Pt(p.X, y2),
 		)
-		r.rnd.DrawLine(
+		r.DrawLine(
 			image.Pt(p.X+v11, y1+v18),
 			image.Pt(p.X+v11, y2+v18),
 		)
 	} else if dr.Flags28()&0x2 != 0 {
 		debugDrawShape(r, dr, p, cl)
-		r.rnd.DrawVector(
+		r.DrawVector(
 			p,
 			image.Point{
 				X: int(memmap.Int32(0x587000, 179880+8*uintptr(dr.field_74_2))),
@@ -66,7 +66,7 @@ func nox_thing_debug_draw(cvp *C.nox_draw_viewport_t, cdr *C.nox_drawable) C.int
 		r.DrawString(nil, debugStateStr2(int(dr.field_69)), image.Pt(p.X, p.Y+10))
 	} else if dr.Flags28()&0x4 != 0 {
 		debugDrawShape(r, dr, p, cl)
-		r.rnd.DrawVector(
+		r.DrawVector(
 			p,
 			image.Point{
 				X: int(memmap.Int32(0x587000, 179880+8*uintptr(dr.field_74_2))),
@@ -98,11 +98,11 @@ func debugDrawShape(r *NoxRender, dr *Drawable, p image.Point, cl uint32) {
 		r.DrawCircleColored(p.X, y1, rad, cl)
 		r.DrawCircleColored(p.X, y2, rad, cl)
 		r.Data().SetColor2(cl)
-		r.rnd.DrawLine(
+		r.DrawLine(
 			image.Pt(p.X-rad, y1),
 			image.Pt(p.X-rad, y2),
 		)
-		r.rnd.DrawLine(
+		r.DrawLine(
 			image.Pt(p.X+rad, y1),
 			image.Pt(p.X+rad, y2),
 		)
@@ -123,15 +123,15 @@ func debugDrawShape(r *NoxRender, dr *Drawable, p image.Point, cl uint32) {
 		drawDebugBox(r, box, p1, cl)
 		drawDebugBox(r, box, p2, cl)
 		r.Data().SetColor2(cl)
-		r.rnd.DrawLine(
+		r.DrawLine(
 			p1.Add(image.Pt(int(box.LeftBottom2), int(box.LeftTop2))),
 			p2.Add(image.Pt(int(box.LeftBottom2), int(box.LeftTop2))),
 		)
-		r.rnd.DrawLine(
+		r.DrawLine(
 			p1.Add(image.Pt(int(box.RightTop), int(box.RightBottom))),
 			p2.Add(image.Pt(int(box.RightTop), int(box.RightBottom))),
 		)
-		r.rnd.DrawLine(
+		r.DrawLine(
 			p1.Add(image.Pt(int(box.RightBottom2), int(box.RightTop2))),
 			p2.Add(image.Pt(int(box.RightBottom2), int(box.RightTop2))),
 		)
@@ -156,10 +156,10 @@ func drawDebugBox(r *NoxRender, b *noxShapeBox, p image.Point, cl uint32) {
 		Y: int(b.RightTop2),
 	})
 	r.Data().SetColor2(cl)
-	r.rnd.DrawLine(p1, p3)
-	r.rnd.DrawLine(p4, p3)
-	r.rnd.DrawLine(p1, p2)
-	r.rnd.DrawLine(p4, p2)
+	r.DrawLine(p1, p3)
+	r.DrawLine(p4, p3)
+	r.DrawLine(p1, p2)
+	r.DrawLine(p4, p2)
 }
 
 func debugStateStr2(v int) string {

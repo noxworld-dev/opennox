@@ -84,20 +84,20 @@ func nox_xxx_drawParticlefx_4AFEB0(p *C.nox_particlefx_t) {
 		r.Data().SetColor2(uint32(p.color_24))
 		switch p.field_64 {
 		case 1:
-			r.rnd.DrawPixel(pos2)
+			r.DrawPixel(pos2)
 		case 2:
-			r.rnd.DrawPixel(pos2.Add(image.Pt(0, 0)))
-			r.rnd.DrawPixel(pos2.Add(image.Pt(1, 0)))
-			r.rnd.DrawPixel(pos2.Add(image.Pt(0, 1)))
-			r.rnd.DrawPixel(pos2.Add(image.Pt(1, 1)))
+			r.DrawPixel(pos2.Add(image.Pt(0, 0)))
+			r.DrawPixel(pos2.Add(image.Pt(1, 0)))
+			r.DrawPixel(pos2.Add(image.Pt(0, 1)))
+			r.DrawPixel(pos2.Add(image.Pt(1, 1)))
 		case 3:
-			r.rnd.DrawPixel(pos2.Add(image.Pt(1, 0)))
-			r.rnd.DrawPixel(pos2.Add(image.Pt(0, 1)))
-			r.rnd.DrawPixel(pos2.Add(image.Pt(1, 1)))
-			r.rnd.DrawPixel(pos2.Add(image.Pt(2, 1)))
-			r.rnd.DrawPixel(pos2.Add(image.Pt(1, 2)))
+			r.DrawPixel(pos2.Add(image.Pt(1, 0)))
+			r.DrawPixel(pos2.Add(image.Pt(0, 1)))
+			r.DrawPixel(pos2.Add(image.Pt(1, 1)))
+			r.DrawPixel(pos2.Add(image.Pt(2, 1)))
+			r.DrawPixel(pos2.Add(image.Pt(1, 2)))
 		default:
-			r.rnd.DrawPointRad(pos2, int(p.field_64)/2)
+			r.DrawPointRad(pos2, int(p.field_64)/2)
 		}
 	}
 }
