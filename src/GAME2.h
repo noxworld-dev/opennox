@@ -45,7 +45,7 @@ int4* sub_44DDF0(int a1);
 int4* sub_44DE30(int a1);
 void sub_44DE80(uint32_t* a1);
 void sub_44DEE0(uint32_t* a1);
-struc_36* nox_client_newFade_44DF50();
+nox_gui_fade_t* nox_client_newFade_44DF50();
 void sub_44DF70();
 int nox_client_setScreenFade_44DF90(void* a1);
 int nox_client_checkFade_44DFD0(void* a1);

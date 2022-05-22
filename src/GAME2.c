@@ -590,7 +590,7 @@ int nox_client_initFade2_44D9A0() {
 
 //----- (0044D9D0) --------------------------------------------------------
 void nox_client_initFade_44D9D0() {
-	struc_36* arr = (struc_36*)getMemAt(0x5D4594, 831108);
+	nox_gui_fade_t* arr = (nox_gui_fade_t*)getMemAt(0x5D4594, 831108);
 	for (int i = 0; i < 4; i++) {
 		arr[i].field_0 = 0;
 	}
@@ -604,7 +604,7 @@ int nox_client_procFade_44D9F0(int a1) {
 	}
 	*getMemU32Ptr(0x5D4594, 831100) = nox_platform_get_ticks();
 	for (int i = 0; i < 4; i++) {
-		struc_36* it = getMemAt(0x5D4594, 831108 + sizeof(struc_36) * i);
+		nox_gui_fade_t* it = getMemAt(0x5D4594, 831108 + sizeof(nox_gui_fade_t) * i);
 		if ((it->field_0 & 5) != v1) {
 			continue;
 		}
@@ -628,7 +628,7 @@ int nox_client_fadeXxx_44DA60(int a1) {
 	if (nox_client_checkFade_44DFD0(nox_client_drawFadingScreen_44DD70)) {
 		return 1;
 	}
-	struc_36* obj = nox_client_newFade_44DF50();
+	nox_gui_fade_t* obj = nox_client_newFade_44DF50();
 	if (!obj) {
 		return 0;
 	}
@@ -654,7 +654,7 @@ int nox_client_screenFadeTimeout_44DAB0(int a1, int a2, void (*a3)(void)) {
 		return 1;
 	}
 	nox_client_setScreenFade_44DF90(nox_xxx_screenFadeEffect_44DD20);
-	struc_36* obj = nox_client_newFade_44DF50();
+	nox_gui_fade_t* obj = nox_client_newFade_44DF50();
 	if (!obj) {
 		return 0;
 	}
@@ -675,7 +675,7 @@ int nox_client_screenFadeTimeout_44DAB0(int a1, int a2, void (*a3)(void)) {
 //----- (0044DB30) --------------------------------------------------------
 int nox_client_screenFadeXxx_44DB30(int a1, int a2, void (*a3)(void)) {
 	nox_client_setScreenFade_44DF90(nox_client_drawFadingScreen_44DD70);
-	struc_36* obj = nox_client_newFade_44DF50();
+	nox_gui_fade_t* obj = nox_client_newFade_44DF50();
 	if (!obj) {
 		return 0;
 	}
@@ -695,7 +695,7 @@ int nox_client_screenFadeXxx_44DB30(int a1, int a2, void (*a3)(void)) {
 
 //----- (0044DC40) --------------------------------------------------------
 int sub_44DC40(int a1, int a2) {
-	struc_36* obj = nox_client_newFade_44DF50();
+	nox_gui_fade_t* obj = nox_client_newFade_44DF50();
 	if (!obj) {
 		return 0;
 	}
@@ -711,7 +711,7 @@ int sub_44DC40(int a1, int a2) {
 
 //----- (0044DCA0) --------------------------------------------------------
 int sub_44DCA0(int a1, int a2) {
-	struc_36* obj = nox_client_newFade_44DF50();
+	nox_gui_fade_t* obj = nox_client_newFade_44DF50();
 	if (!obj) {
 		return 0;
 	}
@@ -813,8 +813,8 @@ void sub_44DEE0(uint32_t* a1) {
 }
 
 //----- (0044DF50) --------------------------------------------------------
-struc_36* nox_client_newFade_44DF50() {
-	struc_36* it = (struc_36*)getMemAt(0x5D4594, 831108);
+nox_gui_fade_t* nox_client_newFade_44DF50() {
+	nox_gui_fade_t* it = (nox_gui_fade_t*)getMemAt(0x5D4594, 831108);
 	int v1 = 0;
 	while (it->field_0 & 1) {
 		it++;
@@ -827,7 +827,7 @@ struc_36* nox_client_newFade_44DF50() {
 
 //----- (0044DF70) --------------------------------------------------------
 void sub_44DF70() {
-	struc_36* arr = (struc_36*)getMemAt(0x5D4594, 831108);
+	nox_gui_fade_t* arr = (nox_gui_fade_t*)getMemAt(0x5D4594, 831108);
 	for (int i = 0; i < 4; i++) {
 		arr->field_0 &= 0xFFFFFFFE;
 		arr++;
@@ -837,7 +837,7 @@ void sub_44DF70() {
 //----- (0044DF90) --------------------------------------------------------
 int nox_client_setScreenFade_44DF90(void* a1) {
 	int result = 0;
-	struc_36* it = (struc_36*)getMemAt(0x5D4594, 831108);
+	nox_gui_fade_t* it = (nox_gui_fade_t*)getMemAt(0x5D4594, 831108);
 	for (int i = 0; i < 4; i++) {
 		if (it->field_0 & 1 && it->field_6 == a1) {
 			it->field_0 &= 0xFFFFFFFE;
@@ -853,7 +853,7 @@ int nox_client_setScreenFade_44DF90(void* a1) {
 
 //----- (0044DFD0) --------------------------------------------------------
 int nox_client_checkFade_44DFD0(void* a1) {
-	struc_36* it = (struc_36*)getMemAt(0x5D4594, 831108);
+	nox_gui_fade_t* it = (nox_gui_fade_t*)getMemAt(0x5D4594, 831108);
 	int v2 = 0;
 	while (!(it->field_0 & 1) || it->field_6 != a1) {
 		it++;
