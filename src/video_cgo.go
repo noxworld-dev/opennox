@@ -221,6 +221,8 @@ func nox_video_callCopyBackBuffer_4AD170() {
 	copyPixBuffer()
 }
 
+var videoInitDone = false
+
 func videoInit(sz image.Point, flags int) error {
 	C.dword_5d4594_823776 = 0
 	noxrend.SetData(asRenderData(&C.obj_5D4594_3799660))
@@ -233,7 +235,7 @@ func videoInit(sz image.Point, flags int) error {
 	C.nox_draw_curDrawData_3799572 = noxrend.Data().C()
 	C.obj_5D4594_3800716 = C.obj_5D4594_3799660
 	C.dword_5d4594_823776 = 1
-	C.dword_5d4594_823772++
+	videoInitDone = true
 	return nil
 }
 
@@ -260,9 +262,6 @@ func drawInitAll(sz image.Point, flags int) error {
 	}
 	if err := nox_video_setBackBufferCopyFunc_4AD100(); err != nil {
 		return err
-	}
-	if res := C.nox_client_initFade2_44D9A0(); res == 0 {
-		return errors.New("nox_client_initFade2_44D9A0 failed")
 	}
 	noxrend.initParticles()
 	sub_4B02D0()
@@ -1028,7 +1027,7 @@ func sub_444C50() {
 		nox_video_stopCursorDrawThread_48B350()
 		nox_free_pixbuffers_486110()
 		nox_draw_freeColorTables_433C20()
-		C.nox_client_initFade_44D9D0()
+		noxrend.FadeReset()
 		noxrend.freeParticles()
 		C.sub_4AF950()
 		sub_4AE540()

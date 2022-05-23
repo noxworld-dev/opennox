@@ -1221,33 +1221,6 @@ int sub_4460A0(int a1) {
 //----- (004460B0) --------------------------------------------------------
 int sub_4460B0() { return *getMemU32Ptr(0x5D4594, 825756); }
 
-//----- (004460C0) --------------------------------------------------------
-int nox_client_quit_4460C0() {
-	int result; // eax
-
-	if (nox_common_gameFlags_check_40A5C0(4096)) {
-		if (nox_common_gameFlags_check_40A5C0(1)) {
-			result = sub_4DCD40();
-		} else if (sub_4460B0()) {
-			sub_4460A0(0);
-			result = sub_446140();
-		} else {
-			nox_xxx_netSavePlayer_41CE00();
-			result = sub_4460A0(1);
-		}
-	} else {
-		dword_5d4594_825764 = 1;
-		result = nox_common_gameFlags_check_40A5C0(4096);
-		if (result) {
-			result = nox_common_gameFlags_check_40A5C0(1);
-			if (result) {
-				result = sub_4D6B10(0);
-			}
-		}
-	}
-	return result;
-}
-
 //----- (00446140) --------------------------------------------------------
 int sub_446140() {
 	int result; // eax

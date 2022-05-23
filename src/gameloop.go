@@ -48,6 +48,8 @@ extern nox_window* dword_5d4594_1090048;
 extern nox_window* dword_5d4594_1090100;
 extern void* dword_5d4594_1307292;
 extern uint32_t nox_color_black_2650656;
+extern unsigned int dword_5d4594_251744;
+extern unsigned int dword_5d4594_825764;
 
 static void go_call_sub_4516C0(wchar_t* a1, char* a2) {
 	sub_4516C0(a1, a2);
@@ -106,16 +108,6 @@ func gameSet816392Func(fnc func() bool) {
 func nox_client_getIntroScreenDuration_44E3B0() C.int {
 	if env.IsE2E() {
 		return 10
-	}
-	return 25
-}
-
-//export nox_client_getFadeDuration
-func nox_client_getFadeDuration() C.int {
-	if env.IsE2E() {
-		return 10
-	} else if env.IsDevMode() {
-		return 5
 	}
 	return 25
 }
@@ -1022,7 +1014,7 @@ func nox_xxx_cliSetupSession_437190() {
 	C.sub_49A8C0()
 	sub_470550()
 	sub_46C5D0()
-	C.sub_44DF70()
+	noxrend.FadeDisable()
 	if !noxflags.HasGame(noxflags.GameHost) {
 		C.sub_43CC80()
 	}
@@ -1130,7 +1122,7 @@ func map_download_finish() int {
 	C.nox_xxx_gui_43E1A0(0)
 	if !noxflags.HasEngine(noxflags.EngineNoRendering) {
 		C.nox_gameDisableMapDraw_5d4594_2650672 = 1
-		C.nox_client_fadeXxx_44DA60(1)
+		noxrend.FadeClearScreen(true, uint32(nox_color_rgb_4344A0(0, 0, 0)))
 	}
 	fname := noxServer.nox_server_currentMapGetFilename_409B30()
 	if err := nox_xxx_mapCliReadAll_4AC2B0(fname); err != nil {
@@ -1238,24 +1230,24 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 			}
 			if !noxflags.HasEngine(noxflags.EngineNoRendering) {
 				C.nox_gameDisableMapDraw_5d4594_2650672 = 1
-				C.nox_client_fadeXxx_44DA60(1)
+				noxrend.FadeClearScreen(true, uint32(nox_color_rgb_4344A0(0, 0, 0)))
 			}
 		} else if !noxflags.HasGame(noxflags.GameHost) {
 			if v3&1 == 0 || v3&4 != 0 {
 				noxflags.SetGame(noxflags.GameFlag21)
 			} else {
 				noxflags.UnsetGame(noxflags.GameFlag21 | noxflags.GameFlag24)
-				sub_477530(1)
+				sub_477530(true)
 				C.nox_xxx_gui_43E1A0(1)
 				v12 := strMan.GetStringInFile("OverwriteReadOnly", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 				v10 := strMan.GetStringInFile("Warning", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 				NewDialogWindow(nil, v10, v12, 24, func() {
-					sub_477530(0)
+					sub_477530(false)
 					noxflags.SetGame(noxflags.GameFlag21)
 					sub_44A400()
 				}, func() {
 
-					sub_477530(0)
+					sub_477530(false)
 					C.nox_xxx_gui_43E1A0(0)
 					nox_xxx_setContinueMenuOrHost_43DDD0(0)
 					nox_game_exit_xxx_43DE60()
@@ -1268,7 +1260,7 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 			}
 			if !noxflags.HasEngine(noxflags.EngineNoRendering) {
 				C.nox_gameDisableMapDraw_5d4594_2650672 = 1
-				C.nox_client_fadeXxx_44DA60(1)
+				noxrend.FadeClearScreen(true, uint32(nox_color_rgb_4344A0(0, 0, 0)))
 			}
 		}
 	}
@@ -1320,4 +1312,31 @@ func nox_client_guiXxxDestroy_4A24A0() C.int {
 
 func sub_4A1BD0() {
 	asWindowP(C.dword_5d4594_1307292).Destroy()
+}
+
+//export nox_client_quit_4460C0
+func nox_client_quit_4460C0() {
+	if noxflags.HasGame(noxflags.GameModeQuest) {
+		if noxflags.HasGame(noxflags.GameHost) {
+			C.sub_4DCD40()
+		} else if C.sub_4460B0() != 0 {
+			C.sub_4460A0(0)
+			C.sub_446140()
+		} else {
+			C.nox_xxx_netSavePlayer_41CE00()
+			C.sub_4460A0(1)
+		}
+	} else {
+		C.dword_5d4594_825764 = 1
+		if noxflags.HasGame(noxflags.GameModeQuest) {
+			if noxflags.HasGame(noxflags.GameHost) {
+				C.sub_4D6B10(0)
+			}
+		}
+	}
+}
+
+func sub_413960() {
+	C.dword_5d4594_251744 = 0
+	sub_413A00(0)
 }

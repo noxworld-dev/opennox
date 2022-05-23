@@ -330,9 +330,8 @@ func sub_413A00(a1 C.int) {
 //export sub_448640
 func sub_448640() { sub_44A400() }
 
-//export sub_477530
-func sub_477530(a1 C.int) {
-	if a1 == 1 {
+func sub_477530(a1 bool) {
+	if a1 {
 		*memmap.PtrUint32(0x5D4594, 1096652) = uint32(C.nox_xxx_bookHideMB_45ACA0(0))
 		*memmap.PtrUint32(0x5D4594, 1096664) = uint32(C.sub_467C10())
 		*memmap.PtrUint32(0x5D4594, 1096660) = uint32(C.nox_xxx_guiServerOptionsTryHide_4574D0())
@@ -1138,9 +1137,8 @@ func sub_446060() {
 func sub_4505B0() {
 	sub_450580()
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
-	v0 := nox_client_getIntroScreenDuration_44E3B0()
-	_ = sub_44E320
-	C.nox_client_screenFadeTimeout_44DAB0(v0, 1, (*[0]byte)(C.sub_44E320))
+	v0 := int(nox_client_getIntroScreenDuration_44E3B0())
+	noxrend.fadeInScreen(v0, true, sub_44E320)
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 1
 }
 

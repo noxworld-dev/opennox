@@ -46,7 +46,6 @@ int nox_getBackbufHeight();
 extern unsigned char byte_581450_9176[160];
 extern unsigned char byte_581450_9336[160];
 
-extern uint32_t dword_5d4594_823772;
 extern uint32_t dword_5d4594_810628;
 extern uint32_t dword_5d4594_808564;
 extern uint32_t dword_5d4594_1311936;
@@ -132,7 +131,6 @@ int sub_4347F0(char* a1, int a2);
 int sub_4348C0();
 int sub_434FB0();
 void sub_4352E0();
-void sub_4353C0();
 void sub_4353F0();
 void sub_444C50();
 bool nox_xxx_makeFillerColor_48BDE0();

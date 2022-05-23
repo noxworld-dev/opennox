@@ -9,7 +9,6 @@ extern int nox_cheat_summon_nolimit;
 
 void nox_xxx_consoleTokenAddPair_4444C0(wchar_t* tok, wchar_t* tok2);
 int nox_gui_console_Print_450B90(unsigned char typ, wchar_t* str);
-int nox_client_quit_4460C0();
 int  sub_4D6B10(int a1);
 
 int nox_cmd_set_sysop(int, int, wchar_t**);
@@ -227,7 +226,7 @@ var (
 				C.sub_4D6B10(0)
 			}
 			if noxflags.HasGame(noxflags.GameFlag26) {
-				C.nox_client_quit_4460C0()
+				nox_client_quit_4460C0()
 			}
 			nox_xxx_setContinueMenuOrHost_43DDD0(0)
 			nox_game_exit_xxx_43DE60()
@@ -245,7 +244,7 @@ var (
 		}},
 		{Token: "mute", HelpID: "mutehelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_mute)},
 		{Token: "quit", HelpID: "quithelp", Flags: console.ClientServer, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
-			C.nox_client_quit_4460C0()
+			nox_client_quit_4460C0()
 			return true
 		}},
 		{Token: "unmute", HelpID: "unmutehelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_unmute)},

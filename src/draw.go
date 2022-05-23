@@ -384,13 +384,10 @@ func sub_4338D0() int {
 	ptr := noxrend.Data()
 	ptr.Reset()
 	nox_draw_initColorTables_434CC0()
-	if C.dword_5d4594_823772 == 0 {
-		C.sub_4353C0()
-	}
 	*memmap.PtrUint32(0x5D4594, 809596) = 0
 	C.dword_5d4594_808568 = 0
 	C.dword_5d4594_810628 = 0
-	if C.dword_5d4594_823772 != 0 {
+	if videoInitDone {
 		v2, freeV2 := alloc.Malloc(256 * 3)
 		defer freeV2()
 		C.sub_435150((*C.uchar)(v2), (*C.char)(memmap.PtrOff(0x973F18, 3880)))
@@ -1091,7 +1088,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	C.sub_4AFD40()
 	C.sub_4C5060(vp.C())
 	nox_client_maybeDrawFrontWalls(vp)
-	C.nox_client_procFade_44D9F0(0)
+	r.DrawFade(false)
 	if noxflags.HasEngine(noxflags.EngineShowAI) {
 		C.sub_476270(vp.C())
 	}

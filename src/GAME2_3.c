@@ -5513,7 +5513,7 @@ void nox_xxx_consoleEsc_49B7A0() {
 	int v0; // esi
 
 	v0 = 0;
-	if (!nox_xxx_guiCursor_477600() && !sub_44E0D0()) {
+	if (!nox_xxx_guiCursor_477600() && !nox_video_inFadeTransition_44E0D0()) {
 		if (sub_460660()) {
 			v0 = 1;
 		}
@@ -6131,91 +6131,10 @@ void sub_49CD30(int xLeft, int yTop, int a3, int a4, int a5, int a6) {
 	}
 }
 
-
-// black screen
-//----- (0049D050) --------------------------------------------------------
-int4* sub_49D050(int xLeft, int yTop, int a3, int a4) {
-	int4* result; // eax
-	RECT rc;      // [esp+4h] [ebp-10h]
-
-	if (!nox_draw_curDrawData_3799572->flag_0) {
-		return sub_49D8E0(xLeft, yTop, a3, a4);
-	}
-	SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
-	result = nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&nox_draw_curDrawData_3799572->clip));
-	if (result) {
-		result = sub_49D8E0(rc.min_x, rc.min_y, rc.max_x - rc.min_x, rc.max_y - rc.min_y);
-	}
-	return result;
-}
-
-// black screen fade-in/out
-//----- (0049D0F0) --------------------------------------------------------
-int4* nox_client_drawRectFadingScreen_49D0F0(int xLeft, int yTop, int a3, int a4) {
-	int4* result; // eax
-	RECT rc;      // [esp+4h] [ebp-10h]
-
-	if (!nox_draw_curDrawData_3799572->flag_0) {
-		return sub_49DBB0(xLeft, yTop, a3, a4);
-	}
-	SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
-	result = nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&nox_draw_curDrawData_3799572->clip));
-	if (result) {
-		result = sub_49DBB0(rc.min_x, rc.min_y, rc.max_x - rc.min_x, rc.max_y - rc.min_y);
-	}
-	return result;
-}
-
 //----- (0049D1C0) --------------------------------------------------------
 int sub_49D1C0(void* a1, int a2, int a3) {
 	sub_49E3C0(a1, a2, a3);
 	return 0;
-}
-
-//----- (0049D8E0) --------------------------------------------------------
-int sub_49D8E0(int a1, int a2, int a3, int a4) {
-	int* v4;         // esi
-	int v5;          // edi
-	uint16_t* v6;    // edi
-	unsigned int v7; // edx
-	int v8;          // eax
-	unsigned int v9; // ebx
-	int v10;         // edx
-	int result;      // eax
-	bool v12;        // cc
-	int v13;         // [esp+Ch] [ebp-4h]
-
-	v4 = &nox_pixbuffer_rows_3798784[a2];
-	do {
-		v13 = a3;
-		v5 = *v4;
-		++v4;
-		v6 = (uint16_t*)(a1 + a1 + v5);
-		do {
-			v7 = (unsigned short)*v6;
-			v8 = (unsigned short)(*((uint16_t*)((uint8_t*)byte_5D4594_3804364 + 0)) & *v6) >>
-				 *((uint8_t*)byte_5D4594_3804364 + 12);
-			LOBYTE(v8) = SADD8(obj_5D4594_3800716.field_54,
-							   v8); //__CFADD__(obj_5D4594_3800716.field_54, (uint8_t)v8) ? -1 : (unsigned
-									// char)(obj_5D4594_3800716.field_54 + v8);
-			v9 = (*((uint32_t*)((uint8_t*)byte_5D4594_3804364 + 4)) & v7) >> *((uint8_t*)byte_5D4594_3804364 + 16);
-			LOBYTE(v9) = SADD8(obj_5D4594_3800716.field_55,
-							   v9); //__CFADD__(obj_5D4594_3800716.field_55, (uint8_t)v9) ? -1 : (unsigned
-									// char)(obj_5D4594_3800716.field_55 + v9);
-			v10 = (*((uint32_t*)((uint8_t*)byte_5D4594_3804364 + 8)) & v7) << *((uint8_t*)byte_5D4594_3804364 + 20);
-			LOBYTE(v10) = SADD8(obj_5D4594_3800716.field_56,
-								v10); //__CFADD__(obj_5D4594_3800716.field_56, (uint8_t)v10) ? -1 : (unsigned
-									  // char)(obj_5D4594_3800716.field_56 + v10);
-			result = *(uint32_t*)(nox_draw_colors_b_3804664 + 2 * v10) |
-					 *(uint32_t*)(nox_draw_colors_g_3804656 + 2 * v9) |
-					 *(uint32_t*)(nox_draw_colors_r_3804672 + 2 * v8);
-			*v6 = result;
-			++v6;
-			v12 = v13-- <= 1;
-		} while (!v12);
-		v12 = a4-- <= 1;
-	} while (!v12);
-	return result;
 }
 
 //----- (0049DBB0) --------------------------------------------------------

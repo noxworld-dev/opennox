@@ -396,6 +396,10 @@ func (r *NoxRender) clipToRect2(p1, p2 *image.Point) bool { // sub_49F990
 }
 
 func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int) {
+	r.DrawRectFilledOpaqueWith(x, y, w, h, r.Data().Color2())
+}
+
+func (r *NoxRender) DrawRectFilledOpaqueWith(x, y, w, h int, cl uint32) {
 	if w == 0 || h == 0 {
 		return
 	}
@@ -415,35 +419,33 @@ func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int) {
 	}
 	sz := r.PixBuffer().Rect
 	if rx == 0 && ry == 0 && rw == sz.Dx() && rh == sz.Dy() {
-		r.ClearScreenWith(d.Color2())
+		r.ClearScreenWith(cl)
 	} else {
-		r.drawRectFilledOpaque(rx, ry, rw, rh)
+		r.drawRectFilledOpaque(rx, ry, rw, rh, cl)
 	}
 }
 
-func (r *NoxRender) drawRectFilledOpaque(x, y, w, h int) {
+func (r *NoxRender) drawRectFilledOpaque(x, y, w, h int, cl uint32) {
 	d := r.Data()
 	if d.IsAlphaEnabled() {
-		r.drawRectFilledOpaqueOver(x, y, w, h)
+		r.drawRectFilledOpaqueOver(x, y, w, h, cl)
 		return
 	}
 	if h <= 0 || w <= 0 {
 		return
 	}
 	pix := r.PixBuffer()
-	cl := noxcolor.RGBA5551(d.Color2())
 	for i := 0; i < h; i++ {
 		for j := 0; j < w; j++ {
-			pix.SetRGBA5551(x+j, y+i, cl)
+			pix.SetRGBA5551(x+j, y+i, noxcolor.RGBA5551(cl))
 		}
 	}
 }
 
-func (r *NoxRender) drawRectFilledOpaqueOver(x, y, w, h int) {
+func (r *NoxRender) drawRectFilledOpaqueOver(x, y, w, h int, cl uint32) {
 	if w == 0 || h == 0 {
 		return
 	}
-	d := r.Data()
 	pix := r.PixBuffer()
 	const (
 		rshift = 7
@@ -454,7 +456,7 @@ func (r *NoxRender) drawRectFilledOpaqueOver(x, y, w, h int) {
 		gmask = 0x03e0
 		bmask = 0x001f
 	)
-	bc := uint16(d.Color2())
+	bc := uint16(cl)
 	br := (rmask & bc) >> rshift
 	bg := (gmask & bc) >> gshift
 	bb := (bmask & bc) << bshift

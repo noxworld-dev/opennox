@@ -821,7 +821,6 @@ uint32_t dword_5d4594_2489436 = 0;
 uint32_t dword_5d4594_10988 = 0;
 uint32_t dword_5d4594_1320944 = 0;
 uint32_t nox_xxx_normalWndBits_587000_172880 = 0x8;
-uint32_t dword_5d4594_823772 = 0;
 uint32_t dword_5d4594_527988 = 0;
 uint32_t dword_5d4594_2491588 = 0;
 uint32_t dword_5d4594_1046604 = 0;

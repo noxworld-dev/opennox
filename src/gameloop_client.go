@@ -165,7 +165,7 @@ func mainloopDrawAndPresent(inp *input.Handler) {
 	if !noxflags.HasEngine(noxflags.EngineNoRendering) || noxflags.HasEngine(noxflags.EngineFlag9) || C.nox_client_gui_flag_815132 != 0 {
 		nox_client_drawCursorAndTooltips_477830(noxrend, inp) // Draw cursor
 	}
-	C.nox_client_procFade_44D9F0(1)
+	noxrend.DrawFade(true)
 	maybeScreenshot()
 	if !noxflags.HasEngine(noxflags.EngineNoRendering) || noxflags.HasEngine(noxflags.EngineFlag9) || C.nox_client_gui_flag_815132 != 0 {
 		nox_video_callCopyBackBuffer_4AD170()

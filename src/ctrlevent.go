@@ -519,7 +519,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			updateGamma(-1)
 			ce.active = false
 		case player.CCQuit:
-			C.nox_client_quit_4460C0()
+			nox_client_quit_4460C0()
 			ce.active = false
 		case player.CCQuitMenu:
 			if sub_450560() {

@@ -281,18 +281,6 @@ typedef struct struc_35 {
 	int field_10;
 } struc_35;
 
-typedef struct nox_gui_fade_t nox_gui_fade_t;
-typedef struct nox_gui_fade_t {
-	uint32_t field_0;
-	int field_1;
-	uint32_t field_2;
-	uint32_t field_3;
-	uint32_t field_4;
-	void (*field_5)(void);
-	void (*field_6)(nox_gui_fade_t*);
-} nox_gui_fade_t;
-_Static_assert(sizeof(nox_gui_fade_t) == 28, "wrong size of nox_gui_fade_t structure!");
-
 typedef struct nox_video_bag_image_t nox_video_bag_image_t;
 int nox_video_bag_image_type(nox_video_bag_image_t* img);
 

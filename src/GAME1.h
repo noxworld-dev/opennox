@@ -309,7 +309,6 @@ char* sub_413890();
 void sub_4138E0(int a1);
 void sub_413900(int a1);
 int sub_413920();
-void sub_413960();
 int sub_4139B0();
 void sub_413A00(int a1);
 int nox_xxx_checkGameFlagPause_413A50();

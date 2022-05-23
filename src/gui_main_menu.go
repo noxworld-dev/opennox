@@ -20,6 +20,7 @@ extern unsigned int dword_5d4594_831220;
 extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_game_createOrJoin_815048;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
+extern uint32_t dword_5d4594_831260;
 int sub_4A1D40();
 int sub_4A1D80();
 */
@@ -157,8 +158,12 @@ func sub_44E320() {
 		C.nox_client_lockScreenBriefing_450160(254, 1, 2)
 		return
 	}
-	v0 := nox_client_getIntroScreenDuration_44E3B0()
-	C.nox_client_screenFadeXxx_44DB30(v0, 1, (*[0]byte)(C.sub_44E3C0))
+	v0 := int(nox_client_getIntroScreenDuration_44E3B0())
+	noxrend.fadeOutScreen(v0, true, func() {
+		sub_450580()
+		C.dword_5d4594_831260 = 0
+		sub_413A00(0)
+	})
 }
 
 func sub_4A2500() {

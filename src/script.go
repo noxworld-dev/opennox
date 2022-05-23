@@ -73,7 +73,7 @@ func (noxScript) BlindPlayers(blind bool) {
 }
 
 func (noxScript) CinemaPlayers(v bool) {
-	CinemaPlayers(v)
+	noxServer.CinemaPlayers(v)
 }
 
 func (s noxScript) Players() []script.Player {

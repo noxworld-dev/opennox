@@ -52,6 +52,7 @@ type NoxRender struct {
 	}
 	points []image.Point
 	text   noxRenderText
+	fade   noxRenderFade
 
 	dword_5d4594_3799476 int
 	dword_5d4594_3799484 uint32

@@ -81,6 +81,8 @@ extern unsigned int nox_frame_xxx_2598000;
 void noxOnCliPacketDebug(int op, unsigned char* data, int sz);
 int nox_client_getFadeDuration();
 
+void clientPacketFade(bool a1, int fnc);
+
 //----- (0048EA70) --------------------------------------------------------
 int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 	long long v5;           // rax
@@ -3488,12 +3490,10 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 					if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 						nox_gameDisableMapDraw_5d4594_2650672 = 0;
 						sub_413A00(1);
-						nox_client_screenFadeXxx_44DB30(nox_client_getFadeDuration(), *(uint8_t*)(data + 2) == 1,
-														sub_44E020);
+						clientPacketFade(*(uint8_t*)(data + 2) == 1, 1);
 					}
 				} else if (!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-					nox_client_screenFadeTimeout_44DAB0(nox_client_getFadeDuration(), *(uint8_t*)(data + 2) == 1,
-														sub_44E000);
+					clientPacketFade(*(uint8_t*)(data + 2) == 1, 0);
 				}
 			}
 			data += 3;

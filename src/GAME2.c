@@ -61,7 +61,6 @@ extern uint32_t dword_5d4594_1045420;
 extern uint32_t dword_5d4594_1045556;
 extern uint32_t dword_5d4594_831240;
 extern uint32_t dword_5d4594_1046604;
-extern uint32_t dword_5d4594_823772;
 extern uint32_t dword_5d4594_1045580;
 extern uint32_t dword_5d4594_1045548;
 extern uint32_t dword_5d4594_1045640;
@@ -579,291 +578,6 @@ int sub_44D970() {
 //----- (0044D990) --------------------------------------------------------
 int sub_44D990() { return dword_587000_122848; }
 
-//----- (0044D9A0) --------------------------------------------------------
-int nox_client_initFade2_44D9A0() {
-	if (dword_5d4594_823772) {
-		return 1;
-	}
-	nox_client_initFade_44D9D0();
-	return 1;
-}
-
-//----- (0044D9D0) --------------------------------------------------------
-void nox_client_initFade_44D9D0() {
-	nox_gui_fade_t* arr = (nox_gui_fade_t*)getMemAt(0x5D4594, 831108);
-	for (int i = 0; i < 4; i++) {
-		arr[i].field_0 = 0;
-	}
-}
-
-//----- (0044D9F0) --------------------------------------------------------
-int nox_client_procFade_44D9F0(int a1) {
-	int v1 = 1;
-	if (a1) {
-		v1 = 5;
-	}
-	*getMemU32Ptr(0x5D4594, 831100) = nox_platform_get_ticks();
-	for (int i = 0; i < 4; i++) {
-		nox_gui_fade_t* it = getMemAt(0x5D4594, 831108 + sizeof(nox_gui_fade_t) * i);
-		if ((it->field_0 & 5) != v1) {
-			continue;
-		}
-		it->field_6(it);
-		if (it->field_1 <= 0) {
-			if ((it->field_0 & 2) == 0) {
-				it->field_0 &= ~v1;
-				if (it->field_5) {
-					it->field_5();
-				}
-			}
-		} else {
-			it->field_1--;
-		}
-	}
-	return 0;
-}
-
-//----- (0044DA60) --------------------------------------------------------
-int nox_client_fadeXxx_44DA60(int a1) {
-	if (nox_client_checkFade_44DFD0(nox_client_drawFadingScreen_44DD70)) {
-		return 1;
-	}
-	nox_gui_fade_t* obj = nox_client_newFade_44DF50();
-	if (!obj) {
-		return 0;
-	}
-	int v1 = 3;
-	if (a1) {
-		v1 = 7;
-	}
-	obj->field_0 = v1;
-	obj->field_1 = 0;
-	obj->field_2 = 0;
-	obj->field_3 = 0;
-	obj->field_5 = 0;
-	obj->field_6 = nox_xxx_cliClearScreen_44DDC0;
-	return 1;
-}
-
-//----- (0044DAB0) --------------------------------------------------------
-int nox_client_screenFadeTimeout_44DAB0(int a1, int a2, void (*a3)(void)) {
-	if (nox_gameDisableMapDraw_5d4594_2650672 == 1) {
-		if (a3) {
-			a3();
-		}
-		return 1;
-	}
-	nox_client_setScreenFade_44DF90(nox_xxx_screenFadeEffect_44DD20);
-	nox_gui_fade_t* obj = nox_client_newFade_44DF50();
-	if (!obj) {
-		return 0;
-	}
-
-	int v3 = 1;
-	if (a2) {
-		v3 = 5;
-	}
-	obj->field_0 = v3;
-	obj->field_1 = a1;
-	obj->field_2 = 0;
-	obj->field_3 = 0xFF0000 / a1;
-	obj->field_5 = a3;
-	obj->field_6 = nox_xxx_screenFadeEffect_44DD20;
-	return 1;
-}
-
-//----- (0044DB30) --------------------------------------------------------
-int nox_client_screenFadeXxx_44DB30(int a1, int a2, void (*a3)(void)) {
-	nox_client_setScreenFade_44DF90(nox_client_drawFadingScreen_44DD70);
-	nox_gui_fade_t* obj = nox_client_newFade_44DF50();
-	if (!obj) {
-		return 0;
-	}
-	int v3 = 1;
-	if (a2) {
-		v3 = 5;
-	}
-	obj->field_0 = v3;
-	obj->field_1 = a1;
-	obj->field_2 = 0;
-	obj->field_3 = 0xFF0000 / a1;
-	obj->field_5 = a3;
-	obj->field_6 = nox_client_drawFadingScreen_44DD70;
-	nox_client_setScreenFade_44DF90(nox_xxx_cliClearScreen_44DDC0);
-	return 1;
-}
-
-//----- (0044DC40) --------------------------------------------------------
-int sub_44DC40(int a1, int a2) {
-	nox_gui_fade_t* obj = nox_client_newFade_44DF50();
-	if (!obj) {
-		return 0;
-	}
-	int v4 = a1 * nox_getBackbufHeight() / 100;
-	obj->field_0 = 3;
-	obj->field_1 = a2;
-	obj->field_2 = 0;
-	obj->field_3 = (v4 << 16) / a2;
-	obj->field_5 = 0;
-	obj->field_6 = sub_44DE80;
-	return 1;
-}
-
-//----- (0044DCA0) --------------------------------------------------------
-int sub_44DCA0(int a1, int a2) {
-	nox_gui_fade_t* obj = nox_client_newFade_44DF50();
-	if (!obj) {
-		return 0;
-	}
-	int v4 = a1 * nox_getBackbufHeight() / 100;
-	v4 <<= 16;
-	obj->field_0 = 1;
-	obj->field_1 = a2;
-	obj->field_2 = v4;
-	obj->field_3 = v4 / a2;
-	obj->field_4 = 0;
-	obj->field_5 = 0;
-	obj->field_6 = sub_44DEE0;
-	return 1;
-}
-
-//----- (0044DD00) --------------------------------------------------------
-int sub_44DD00() { return nox_client_checkFade_44DFD0(sub_44DE80) != 0; }
-
-//----- (0044DD20) --------------------------------------------------------
-int nox_xxx_screenFadeEffect_44DD20(int a1) {
-	int result; // eax
-
-	nox_xxx_drawMakeRGB_433F10(*(int*)(a1 + 8) >> 16, *(int*)(a1 + 8) >> 16, *(int*)(a1 + 8) >> 16);
-	nox_client_drawRectFadingScreen_49D0F0(0, 0, nox_getBackbufWidth(), nox_getBackbufHeight());
-	result = *(uint32_t*)(a1 + 12);
-	*(uint32_t*)(a1 + 8) += result;
-	return result;
-}
-
-//----- (0044DD70) --------------------------------------------------------
-int nox_client_drawFadingScreen_44DD70(int a1) {
-	int v1;           // esi
-	int result;       // eax
-	unsigned char v3; // [esp+8h] [ebp+4h]
-
-	v1 = a1;
-	v3 = -1 - (*(int*)(a1 + 8) >> 16);
-	nox_xxx_drawMakeRGB_433F10(v3, v3, v3);
-	nox_client_drawRectFadingScreen_49D0F0(0, 0, nox_getBackbufWidth(), nox_getBackbufHeight());
-	result = *(uint32_t*)(v1 + 12) + *(uint32_t*)(v1 + 8);
-	*(uint32_t*)(v1 + 8) = result;
-	return result;
-}
-
-//----- (0044DDC0) --------------------------------------------------------
-void nox_xxx_cliClearScreen_44DDC0() {
-	nox_client_drawSetColor_434460(nox_color_black_2650656);
-	nox_client_drawRectFilledOpaque_49CE30(0, 0, nox_getBackbufWidth(), nox_getBackbufHeight());
-}
-
-//----- (0044DDF0) --------------------------------------------------------
-int4* sub_44DDF0(int a1) {
-	int v1; // edx
-
-	v1 = *(uint32_t*)(a1 + 12) + *(uint32_t*)(a1 + 8);
-	*(uint32_t*)(a1 + 8) = v1;
-	nox_xxx_drawMakeRGB_433F10(BYTE2(v1), BYTE2(v1), BYTE2(v1));
-	return sub_49D050(0, 0, nox_getBackbufWidth(), nox_getBackbufHeight());
-}
-
-//----- (0044DE30) --------------------------------------------------------
-int4* sub_44DE30(int a1) {
-	int v1; // edx
-
-	v1 = *(uint32_t*)(a1 + 12) + *(uint32_t*)(a1 + 8);
-	*(uint32_t*)(a1 + 8) = v1;
-	nox_xxx_drawMakeRGB_433F10(-1 - BYTE2(v1), -1 - BYTE2(v1), -1 - BYTE2(v1));
-	return sub_49D050(0, 0, nox_getBackbufWidth(), nox_getBackbufHeight());
-}
-
-//----- (0044DE80) --------------------------------------------------------
-void sub_44DE80(uint32_t* a1) {
-	int v1; // esi
-
-	if (a1[1]) {
-		a1[2] += a1[3];
-	}
-	v1 = a1[2] >> 16;
-	nox_set_color_rgb_434430(0, 0, 0);
-	nox_client_drawRectFilledOpaque_49CE30(0, 0, nox_getBackbufWidth(), v1);
-	nox_client_drawRectFilledOpaque_49CE30(0, nox_getBackbufHeight() - v1, nox_getBackbufWidth(), v1);
-}
-
-//----- (0044DEE0) --------------------------------------------------------
-void sub_44DEE0(uint32_t* a1) {
-	int v1; // ecx
-	int v2; // esi
-
-	if (!a1[4]) {
-		nox_client_setScreenFade_44DF90(sub_44DE80);
-		a1[4] = 1;
-	}
-	v1 = a1[2] - a1[3];
-	a1[2] = v1;
-	v2 = v1 >> 16;
-	nox_set_color_rgb_434430(0, 0, 0);
-	nox_client_drawRectFilledOpaque_49CE30(0, 0, nox_getBackbufWidth(), v2);
-	nox_client_drawRectFilledOpaque_49CE30(0, nox_getBackbufHeight() - v2, nox_getBackbufWidth(), v2);
-}
-
-//----- (0044DF50) --------------------------------------------------------
-nox_gui_fade_t* nox_client_newFade_44DF50() {
-	nox_gui_fade_t* it = (nox_gui_fade_t*)getMemAt(0x5D4594, 831108);
-	int v1 = 0;
-	while (it->field_0 & 1) {
-		it++;
-		if (++v1 >= 4) {
-			return 0;
-		}
-	}
-	return it;
-}
-
-//----- (0044DF70) --------------------------------------------------------
-void sub_44DF70() {
-	nox_gui_fade_t* arr = (nox_gui_fade_t*)getMemAt(0x5D4594, 831108);
-	for (int i = 0; i < 4; i++) {
-		arr->field_0 &= 0xFFFFFFFE;
-		arr++;
-	}
-}
-
-//----- (0044DF90) --------------------------------------------------------
-int nox_client_setScreenFade_44DF90(void* a1) {
-	int result = 0;
-	nox_gui_fade_t* it = (nox_gui_fade_t*)getMemAt(0x5D4594, 831108);
-	for (int i = 0; i < 4; i++) {
-		if (it->field_0 & 1 && it->field_6 == a1) {
-			it->field_0 &= 0xFFFFFFFE;
-			if (it->field_5) {
-				it->field_5();
-			}
-			result = 1;
-		}
-		it++;
-	}
-	return result;
-}
-
-//----- (0044DFD0) --------------------------------------------------------
-int nox_client_checkFade_44DFD0(void* a1) {
-	nox_gui_fade_t* it = (nox_gui_fade_t*)getMemAt(0x5D4594, 831108);
-	int v2 = 0;
-	while (!(it->field_0 & 1) || it->field_6 != a1) {
-		it++;
-		if (++v2 >= 4) {
-			return 0;
-		}
-	}
-	return it != 0;
-}
-
 //----- (0044E110) --------------------------------------------------------
 uint32_t* sub_44E110() {
 	uint32_t* v0;     // eax
@@ -981,13 +695,6 @@ uint32_t* sub_44E110() {
 	return result;
 }
 
-//----- (0044E3C0) --------------------------------------------------------
-void sub_44E3C0() {
-	sub_450580();
-	dword_5d4594_831260 = 0;
-	sub_413A00(0);
-}
-
 //----- (0044E3E0) --------------------------------------------------------
 int nox_xxx_playGMCAPsmth_44E3E0() {
 	int result; // eax
@@ -1038,7 +745,7 @@ int nox_client_wndQuestBriefProc_44E630(int a1, int a2, int a3, int a4) {
 			if (dword_5d4594_831220 == 255) {
 				nox_gameDisableMapDraw_5d4594_2650672 = 0;
 				v2 = nox_client_getIntroScreenDuration_44E3B0();
-				nox_client_screenFadeTimeout_44DAB0(v2, 1, sub_44E320);
+				nox_video_fadeInScreen_44DAB0(v2, 1, sub_44E320);
 				nox_gameDisableMapDraw_5d4594_2650672 = 1;
 			}
 		} else {
@@ -1088,7 +795,7 @@ int sub_44E6F0(uint32_t* a1, int xLeft) {
 		if (dword_5d4594_831220) {
 			nox_gameDisableMapDraw_5d4594_2650672 = 0;
 			v3 = nox_client_getIntroScreenDuration_44E3B0();
-			nox_client_screenFadeTimeout_44DAB0(v3, 1, sub_44E320);
+			nox_video_fadeInScreen_44DAB0(v3, 1, sub_44E320);
 			nox_gameDisableMapDraw_5d4594_2650672 = 1;
 		} else if (!dword_5d4594_831256) {
 			nox_xxx_wndClearCaptureMain_46ADE0(*(int*)&dword_5d4594_831236);
@@ -1237,7 +944,7 @@ int nox_client_lockScreenBriefing_450160(int a1, int a2, char a3) {
 	*getMemU64Ptr(0x5D4594, 831292) = nox_platform_get_ticks();
 	*getMemU32Ptr(0x5D4594, 831248) = 0;
 	v12 = nox_client_getIntroScreenDuration_44E3B0();
-	nox_client_screenFadeXxx_44DB30(v12, 1, nox_xxx_playGMCAPsmth_44E3E0);
+	nox_video_fadeOutScreen_44DB30(v12, 1, nox_xxx_playGMCAPsmth_44E3E0);
 	result = dword_5d4594_831224;
 	if (dword_5d4594_831224) {
 		dword_5d4594_831244 = 0;

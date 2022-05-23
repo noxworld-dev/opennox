@@ -4298,7 +4298,7 @@ int sub_4AB4D0(int a1) {
 	int result; // eax
 
 	if (a1) {
-		sub_44E040();
+		nox_video_stopAllFades_44E040();
 		nox_window_set_hidden(*(int*)&dword_5d4594_1309748, 0);
 		nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1309748);
 		sub_46C690(*(int*)&dword_5d4594_1309748);

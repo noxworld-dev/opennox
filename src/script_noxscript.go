@@ -5,7 +5,10 @@ package opennox
 #include "server__script__internal.h"
 #include "GAME4_1.h" // for nox_xxx_scriptPrepareFoundUnit_511D70 and nox_xxx_script_511C50
 extern int nox_script_count_xxx_1599640;
+extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern nox_script_xxx_t* nox_script_arr_xxx_1599636;
+extern uint32_t dword_587000_311372;
+int sub_516570();
 */
 import "C"
 import (
@@ -15,6 +18,15 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/things"
+
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+)
+
+var (
+	nox_script_objTelekinesisHand int
+	nox_script_objCinemaRemove    []int
 )
 
 type activators struct {
@@ -311,4 +323,147 @@ func (s *Server) nox_server_scriptValToObjectPtr(val int) *Object {
 		}
 	}
 	return nil
+}
+
+func noxScriptPopI32() int32 {
+	return int32(C.nox_script_pop())
+}
+
+func noxScriptPopU32() uint32 {
+	return uint32(C.nox_script_pop())
+}
+
+//export nox_script_StartGame_516C20
+func nox_script_StartGame_516C20() C.int {
+	nox_xxx_cliPlayMapIntro_44E0B0(1)
+	return 0
+}
+
+//export nox_script_EndGame_516E10
+func nox_script_EndGame_516E10() C.int {
+	v := int(noxScriptPopI32())
+	noxScriptEndGame(v)
+	return 0
+}
+
+//export nox_script_UnBlind_515200
+func nox_script_UnBlind_515200() C.int {
+	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
+	noxrend.fadeOutScreen(25, false, nil)
+	return 0
+}
+
+//export nox_script_Blind_515220
+func nox_script_Blind_515220() C.int {
+	noxrend.fadeInScreen(25, false, fadeDisableGameDraw)
+	return 0
+}
+
+//export nox_script_WideScreen_515240
+func nox_script_WideScreen_515240() C.int {
+	noxServer.CinemaPlayers(noxScriptPopI32() == 1)
+	return 0
+}
+
+//export nox_script_StopAllFades_516C10
+func nox_script_StopAllFades_516C10() C.int {
+	nox_video_stopAllFades_44E040()
+	return 0
+}
+
+func noxScriptEndGame(v int) {
+	C.dword_587000_311372 = C.uint(v)
+	*memmap.PtrUint8(0x5D4594, 2516476) |= 1 << v
+	nox_xxx_cliPlayMapIntro_44E0B0(1)
+	sub_413960()
+	sub_477530(false)
+	nox_client_quit_4460C0()
+}
+
+//export sub_5165D0
+func sub_5165D0() {
+	*memmap.PtrUint32(0x5D4594, 2386828) = noxScriptPopU32() - 1
+	sub_413A00(1)
+	noxrend.fadeInScreen(25, true, func() {
+		C.sub_516570()
+	})
+}
+
+func (s *Server) CinemaPlayers(enable bool) {
+	if nox_script_objTelekinesisHand == 0 {
+		nox_script_objTelekinesisHand = s.getObjectTypeID("TelekinesisHand")
+	}
+	const (
+		perc       = 0.16
+		fadeOutDur = 30
+		fadeInDur  = 10
+	)
+	if !enable {
+		if noxrend.FadeOutCinema(perc, fadeOutDur, uint32(nox_color_rgb_4344A0(0, 0, 0))) {
+			sub_477530(false)
+		}
+		for it := s.firstServerObject(); it != nil; it = it.Next() {
+			if it.objTypeInd() == nox_script_objTelekinesisHand {
+				if f := it.Flags(); f.Has(object.FlagNoCollide) {
+					it.SetFlags(f &^ object.FlagNoCollide)
+				}
+			}
+		}
+		return
+	}
+	inFade := noxrend.CheckFade(noxrender.FadeInCinemaKey)
+	if noxrend.FadeInCinema(perc, fadeInDur, uint32(nox_color_rgb_4344A0(0, 0, 0))) {
+		sub_477530(true)
+	}
+	if inFade {
+		return
+	}
+	if len(nox_script_objCinemaRemove) == 0 {
+		for _, name := range []string{
+			"ToxicCloud", "SmallToxicCloud", "Meteor", "SmallFist", "MediumFist", "LargeFist", "Pixie",
+		} {
+			nox_script_objCinemaRemove = append(nox_script_objCinemaRemove, s.getObjectTypeID(name))
+		}
+	}
+
+	var next *Object
+	for it := firstServerObjectUpdatable2(); it != nil; it = next {
+		next = it.Next()
+		if it.objTypeInd() != int(memmap.Uint32(0x5D4594, 2386900)) {
+			it.Delete()
+		}
+	}
+
+	next = nil
+	for it := s.firstServerObject(); it != nil; it = next {
+		next = it.Next()
+		if it.OwnerC() != nil {
+			for _, id := range nox_script_objCinemaRemove {
+				if it.objTypeInd() == id {
+					it.Delete()
+					break
+				}
+			}
+		} else {
+			if it.objTypeInd() == nox_script_objTelekinesisHand {
+				if f := it.Flags(); !f.Has(object.FlagNoCollide) {
+					it.SetFlags(f | object.FlagNoCollide)
+				}
+			}
+			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_WALL, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_MANA_BOMB, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_LIGHTNING, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_CHAIN_LIGHTNING, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_DRAIN_MANA, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_FORCE_OF_NATURE, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_GREATER_HEAL, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_CHANNEL_LIFE, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_CHARM, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_BLINK, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_SWAP, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_TURN_UNDEAD, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_PLASMA, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_SUMMON_BAT, it)
+		}
+	}
 }

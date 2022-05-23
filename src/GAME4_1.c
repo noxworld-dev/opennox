@@ -5892,13 +5892,9 @@ void sub_516090(int a1, uint32_t* a2) {
 }
 
 //----- (00516570) --------------------------------------------------------
-int sub_516570(uint8_t* this) {
-	int v1;      // eax
-	uint8_t* v2; // esi
-	uint8_t* v4; // [esp+0h] [ebp-4h]
-
-	v4 = this;
-	v1 = nox_xxx_getFirstPlayerUnit_4DA7C0();
+int sub_516570() {
+	uint8_t* v2 = 0;
+	int v1 = nox_xxx_getFirstPlayerUnit_4DA7C0();
 	if (v1) {
 		do {
 			v2 = *(uint8_t**)(*(uint32_t*)(v1 + 748) + 276);
@@ -5907,12 +5903,12 @@ int sub_516570(uint8_t* this) {
 			}
 			v1 = nox_xxx_getNextPlayerUnit_4DA7F0(v1);
 		} while (v1);
-	} else {
-		v2 = v4;
 	}
 	nox_gameDisableMapDraw_5d4594_2650672 = 1;
-	return nox_xxx_netSendChapterEnd_4D9560((unsigned char)v2[2064], getMemByte(0x5D4594, 2386828),
-											*getMemIntPtr(0x5D4594, 2386832));
+	if (!v2) {
+		return 0;
+	}
+	return nox_xxx_netSendChapterEnd_4D9560((unsigned char)v2[2064], getMemByte(0x5D4594, 2386828), *getMemIntPtr(0x5D4594, 2386832));
 }
 
 //----- (00516A80) --------------------------------------------------------

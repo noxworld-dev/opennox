@@ -185,10 +185,6 @@ func BlindPlayers(blind bool) {
 	noxServer.nox_xxx_netMsgFadeBegin_4D9800(!blind, false)
 }
 
-func CinemaPlayers(cinema bool) {
-	C.nox_xxx_WideScreenDo_515240(C.bool(cinema))
-}
-
 func PrintToPlayers(text string) {
 	cstr, free := CWString(text)
 	defer free()
@@ -346,7 +342,7 @@ func (p *Player) Blind(blind bool) {
 
 func (p *Player) Cinema(v bool) {
 	// TODO: only works for everyone for now
-	CinemaPlayers(v)
+	p.getServer().CinemaPlayers(v)
 }
 
 func (p *Player) CObj() *nox_object_t {

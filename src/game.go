@@ -251,7 +251,7 @@ func sub_43C060() bool {
 	nox_xxx_wndLoadMainBG_4A2210()
 	nox_client_setCursorType(gui.CursorSelect)
 	C.sub_48B3E0(1)
-	sub_44E040()
+	nox_video_stopAllFades_44E040()
 	C.sub_43E8C0(0)
 	return C.nox_xxx_compassGenStrings_4A9C80() != 0
 }

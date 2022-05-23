@@ -98,7 +98,6 @@ uint32_t* sub_578BF0();
 int nox_xxx_nxzDecompress_578C10(uint32_t* a1, uint8_t* a2, uint32_t* a3, unsigned int a4, uint32_t* a5);
 void sub_578C40(void* lpMem);
 int sub_578C60();
-int sub_578C90(int a1);
 int sub_578CD0();
 char* nox_xxx_GetEndgameDialog_578D80();
 unsigned char sub_578DF0();

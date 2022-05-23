@@ -124,7 +124,7 @@ void sub_446070();
 int sub_446090();
 int sub_4460A0(int a1);
 int sub_4460B0();
-int nox_client_quit_4460C0();
+void nox_client_quit_4460C0();
 int sub_446140();
 int nox_xxx_serverIsClosing_446180();
 unsigned int nox_gui_xxx_check_446360();

@@ -962,12 +962,16 @@ func nox_xxx_castSpellByUser_4FDD20(a1 C.int, a2 *nox_object_t, a3 unsafe.Pointe
 	return 0
 }
 
+func nox_xxx_spellCancelDurSpell_4FEB10(spell things.SpellID, obj noxObject) {
+	C.nox_xxx_spellCancelDurSpell_4FEB10(C.int(spell), obj.CObj())
+}
+
 func nox_xxx_castSpellByUser4FDD20(spellInd things.SpellID, u *Unit, a3 *spellAcceptArg) bool {
 	lvl := int(C.nox_xxx_spellGetPower_4FE7B0(C.int(spellInd), u.CObj()))
 	if noxServer.spellHasFlags(spellInd, things.SpellOffensive) {
 		C.nox_xxx_spellBuffOff_4FF5B0(u.CObj(), 0)
 		C.nox_xxx_spellBuffOff_4FF5B0(u.CObj(), 23)
-		C.nox_xxx_spellCancelDurSpell_4FEB10(67, u.CObj())
+		nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_OVAL_SHIELD, u)
 	}
 	if !noxServer.spellHasFlags(spellInd, things.SpellTargeted) || u.CObj() == a3.Obj {
 		return nox_xxx_spellAccept4FD400(spellInd, u, u, u, a3, lvl)
