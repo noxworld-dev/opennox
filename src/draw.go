@@ -49,7 +49,6 @@ void nox_xxx_tileDrawMB_481C20_A(nox_draw_viewport_t* vp, int v3);
 void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, int v78);
 void nox_xxx_tileDrawMB_481C20_C_textured(nox_draw_viewport_t* vp, int v72, int v78);
 void nox_xxx_tileDrawMB_481C20_C_solid(nox_draw_viewport_t* vp, int v72, int v78);
-void sub_4C86B0();
 void  nox_xxx_cliLight16_469140(nox_drawable* dr, nox_draw_viewport_t* vp);
 void nox_xxx_clientDrawAll_436100_draw_A();
 void nox_xxx_clientDrawAll_436100_draw_B();
@@ -188,7 +187,8 @@ func sub_437290() {
 
 //export nox_client_drawRectFilledOpaque_49CE30
 func nox_client_drawRectFilledOpaque_49CE30(a1, a2, a3, a4 C.int) {
-	noxrend.DrawRectFilledOpaque(int(a1), int(a2), int(a3), int(a4))
+	r := noxrend
+	noxrend.DrawRectFilledOpaque(int(a1), int(a2), int(a3), int(a4), r.Data().Color2())
 }
 
 //export nox_client_drawRectFilledAlpha_49CF10
@@ -198,27 +198,32 @@ func nox_client_drawRectFilledAlpha_49CF10(a1, a2, a3, a4 C.int) {
 
 //export nox_client_drawBorderLines_49CC70
 func nox_client_drawBorderLines_49CC70(a1, a2, a3, a4 C.int) {
-	noxrend.DrawBorder(int(a1), int(a2), int(a3), int(a4))
+	r := noxrend
+	noxrend.DrawBorder(int(a1), int(a2), int(a3), int(a4), r.Data().Color2())
 }
 
 //export nox_client_drawLineHorizontal_49F180
 func nox_client_drawLineHorizontal_49F180(a1, a2, a3 C.int) {
-	noxrend.DrawLineHorizontal(int(a1), int(a2), int(a3))
+	r := noxrend
+	noxrend.DrawLineHorizontal(int(a1), int(a2), int(a3), r.Data().Color2())
 }
 
 //export nox_client_drawPixel_49EFA0
 func nox_client_drawPixel_49EFA0(a1, a2 C.int) {
-	noxrend.DrawPixel(image.Pt(int(a1), int(a2)))
+	r := noxrend
+	noxrend.DrawPixel(image.Pt(int(a1), int(a2)), r.Data().Color2())
 }
 
 //export nox_client_drawPoint_4B0BC0
 func nox_client_drawPoint_4B0BC0(a1, a2, a3 C.int) {
-	noxrend.DrawPointRad(image.Pt(int(a1), int(a2)), int(a3))
+	r := noxrend
+	r.DrawPointRad(image.Pt(int(a1), int(a2)), int(a3), r.Data().Color2())
 }
 
 //export nox_xxx_drawPointMB_499B70
 func nox_xxx_drawPointMB_499B70(a1, a2, a3 C.int) {
-	noxrend.DrawPoint(image.Pt(int(a1), int(a2)), int(a3))
+	r := noxrend
+	r.DrawPoint(image.Pt(int(a1), int(a2)), int(a3), r.Data().Color2())
 }
 
 type Viewport C.nox_draw_viewport_t
@@ -355,26 +360,10 @@ func sub_434E80(a1, a2, a3 C.char) C.char {
 
 //export sub_435280
 func sub_435280(cl C.short, pr, pg, pb *C.uchar) {
-	r, g, b := splitColor(uint16(cl))
-	*pr = C.uchar(r)
-	*pg = C.uchar(g)
-	*pb = C.uchar(b)
-}
-
-func splitColor(cl uint16) (r, g, b byte) {
-	const (
-		rshift = 7
-		gshift = 2
-		bshift = 3
-
-		rmask = 0x7c00
-		gmask = 0x03e0
-		bmask = 0x001f
-	)
-	r = byte((cl & rmask) >> rshift)
-	g = byte((cl & gmask) >> gshift)
-	b = byte((cl & bmask) << bshift)
-	return
+	c := noxrender.SplitColor(noxrender.Color(cl))
+	*pr = C.uchar(c.R)
+	*pg = C.uchar(c.G)
+	*pb = C.uchar(c.B)
 }
 
 func sub_4338D0() int {
@@ -438,17 +427,17 @@ func sub_434080(a1 C.int) {
 
 //export nox_xxx_drawSetTextColor_434390
 func nox_xxx_drawSetTextColor_434390(a1 C.int) {
-	noxrend.Data().SetTextColor(uint32(a1))
+	noxrend.Data().SetTextColor(noxrender.Color(a1))
 }
 
 //export nox_xxx_drawSetColor_4343E0
 func nox_xxx_drawSetColor_4343E0(a1 C.int) {
-	noxrend.Data().SetColor(uint32(a1))
+	noxrend.Data().SetColor(noxrender.Color(a1))
 }
 
 //export nox_client_drawSetColor_434460
 func nox_client_drawSetColor_434460(a1 C.int) {
-	noxrend.Data().SetColor2(uint32(a1))
+	noxrend.Data().SetColor2(noxrender.Color(a1))
 }
 
 //export nox_client_drawEnableAlpha_434560
@@ -458,12 +447,12 @@ func nox_client_drawEnableAlpha_434560(a1 C.int) {
 
 //export sub_4345F0
 func sub_4345F0(a1 C.int) {
-	noxrend.Data().setField14(int(a1))
+	noxrend.Data().setMultiply14(int(a1))
 }
 
 //export nox_xxx_draw_434600
 func nox_xxx_draw_434600(a1 C.int) {
-	noxrend.Data().setField17(int(a1))
+	noxrend.Data().setColorize17(int(a1))
 }
 
 //export sub_434990
@@ -517,7 +506,7 @@ func (r *NoxRender) nox_client_copyRect_49F6F0(x, y, w, h int) {
 		d.SetClipRect(rect)
 		rect.Max.X--
 		rect.Max.Y--
-		d.SetRect2(rect)
+		d.SetClipRect2(rect)
 	}
 }
 
@@ -568,7 +557,8 @@ func nox_client_drawLastPoint_49F5B0(px, py *C.uint, keep C.int) C.int {
 
 //export nox_client_drawLineFromPoints_49E4B0
 func nox_client_drawLineFromPoints_49E4B0() C.int {
-	return C.int(bool2int(noxrend.DrawLineFromPoints()))
+	r := noxrend
+	return C.int(bool2int(r.DrawLineFromPoints(r.Data().Color2())))
 }
 
 //export sub_49E4F0
@@ -578,26 +568,16 @@ func sub_49E4F0(a1 C.int) C.int {
 
 //export sub_480860
 func sub_480860(a1, a2 *C.ushort, w C.int, a4, a5 *C.int) {
-	r := noxrend
-	const (
-		rshift = 7
-		gshift = 2
-		bshift = 3
-
-		rmask = 0x7c00
-		gmask = 0x03e0
-		bmask = 0x001f
-	)
 	dst := unsafe.Slice((*uint16)(unsafe.Pointer(a1)), int(w))
 	src := unsafe.Slice((*uint16)(unsafe.Pointer(a2)), int(w))
 	a4p := unsafe.Slice((*uint32)(unsafe.Pointer(a4)), 3)
 	a5p := unsafe.Slice((*uint32)(unsafe.Pointer(a5)), 3)
 	for i := 0; i < int(w); i++ {
-		cl := src[i]
-		cr := r.colors.R[byte((a4p[0]*uint32((cl&rmask)>>rshift))>>16)]
-		cg := r.colors.G[byte((a4p[1]*uint32((cl&gmask)>>gshift))>>16)]
-		cb := r.colors.B[byte((a4p[2]*uint32((cl&bmask)<<bshift))>>16)]
-		dst[i] = cr | cg | cb
+		c := noxrender.SplitColor16(src[i])
+		c.R = uint16((a4p[0] * uint32(c.R)) >> 16)
+		c.G = uint16((a4p[1] * uint32(c.G)) >> 16)
+		c.B = uint16((a4p[2] * uint32(c.B)) >> 16)
+		dst[i] = c.Make16()
 
 		a4p[0] += a5p[0]
 		a4p[1] += a5p[1]
@@ -641,7 +621,7 @@ func newNoxRenderData() (*RenderData, func()) {
 
 func NewNoxRender() *NoxRender {
 	r := &NoxRender{NoxRender: noxrender.NewRender()}
-	r.NoxRender.SetData(renderDataAdapter{r})
+	r.NoxRender.SetData(renderDataAdapter{r: r, RenderData: r.p})
 	r.SetColorMode(noxcolor.ModeRGBA5551)
 	return r
 }
@@ -660,77 +640,15 @@ func (r *NoxRender) Data() *RenderData {
 
 type renderDataAdapter struct {
 	r *NoxRender
+	*RenderData
 }
 
 func (d renderDataAdapter) Frame() uint32 {
 	return d.r.Frame()
 }
 
-func (d renderDataAdapter) ClipRect() image.Rectangle {
-	return d.r.ClipRectImg()
-}
-
-func (d renderDataAdapter) ClipRect2() image.Rectangle {
-	return d.r.ClipRectImg2()
-}
-
-func (d renderDataAdapter) Clip() bool {
-	return d.r.p.flag_0 != 0
-}
-
-func (d renderDataAdapter) Multiply14() bool {
-	return d.r.p.field_14 != 0
-}
-
-func (d renderDataAdapter) Flag16() bool {
-	return d.r.p.field_16 != 0
-}
-
-func (d renderDataAdapter) Colorize17() bool {
-	return d.r.p.field_17 != 0
-}
-
-func (d renderDataAdapter) ColorMultA() (r, g, b uint32) {
-	p := d.r.p
-	return uint32(p.field_24), uint32(p.field_25), uint32(p.field_26)
-}
-
-func (d renderDataAdapter) ColorMultOp(op int) (r, g, b uint32) {
-	arr := d.r.p.field66(op)
-
-	return arr[6], arr[7], arr[8]
-}
-
-func (d renderDataAdapter) IsAlphaEnabled() bool {
-	return d.r.p.IsAlphaEnabled()
-}
-
-func (d renderDataAdapter) Alpha() byte {
-	return d.r.p.Alpha()
-}
-
-func (d renderDataAdapter) Color() uint32 {
-	return d.r.Color()
-}
-
-func (d renderDataAdapter) Color2() uint32 {
-	return d.r.Color2()
-}
-
-func (d renderDataAdapter) BgColor() uint32 {
-	return uint32(d.r.p.field_58)
-}
-
 func (d renderDataAdapter) ShouldDrawText() bool {
 	return !noxflags.HasEngine(noxflags.EngineNoTextRendering)
-}
-
-func (d renderDataAdapter) TextColor() uint32 {
-	return d.r.TextColor()
-}
-
-func (d renderDataAdapter) SetTextColor(a1 uint32) {
-	d.r.SetTextColor(a1)
 }
 
 func (d renderDataAdapter) DefaultFont() font.Face {
@@ -739,54 +657,7 @@ func (d renderDataAdapter) DefaultFont() font.Face {
 
 func (r *NoxRender) SetData(p *RenderData) {
 	r.p = p
-}
-
-func (r *NoxRender) ClipRect() image.Rectangle {
-	return r.p.ClipRect()
-}
-
-func (r *NoxRender) SetAlphaEnabled(enabled bool) { // nox_client_drawEnableAlpha_434560
-	r.p.SetAlphaEnabled(enabled)
-}
-
-func (r *NoxRender) SetAlpha(v byte) { // nox_client_drawSetAlpha_434580
-	r.p.SetAlpha(v)
-}
-
-func (r *NoxRender) SelectColor(a1 uint32) {
-	r.p.SetSelectColor(a1)
-}
-
-func (r *NoxRender) TextColor() uint32 {
-	return uint32(r.p.field_59)
-}
-
-func (r *NoxRender) SetTextColor(a1 uint32) { // nox_xxx_drawSetTextColor_434390
-	r.p.SetTextColor(a1)
-}
-
-func (r *NoxRender) Color() uint32 {
-	return uint32(r.p.field_60)
-}
-
-func (r *NoxRender) Color2() uint32 {
-	return uint32(r.p.field_61)
-}
-
-func (r *NoxRender) SetColor(a1 uint32) { // nox_xxx_drawSetColor_4343E0
-	r.p.SetColor(a1)
-}
-
-func (r *NoxRender) SetColor2(a1 uint32) { // nox_client_drawSetColor_434460
-	r.p.SetColor2(a1)
-}
-
-func (r *NoxRender) ClipRectImg() image.Rectangle {
-	return toRect(&r.p.clip)
-}
-
-func (r *NoxRender) ClipRectImg2() image.Rectangle {
-	return toRect(&r.p.rect2)
+	r.NoxRender.SetData(renderDataAdapter{r: r, RenderData: r.p})
 }
 
 func (r *NoxRender) DrawCircle(a1, a2, a3 int) {
@@ -797,8 +668,8 @@ func (r *NoxRender) DrawCircle(a1, a2, a3 int) {
 	}
 }
 
-func (r *NoxRender) DrawCircleColored(a1, a2, a3 int, cl uint32) {
-	r.SetColor2(cl)
+func (r *NoxRender) DrawCircleColored(a1, a2, a3 int, cl noxrender.Color) {
+	r.Data().SetColor2(cl)
 	r.DrawCircle(a1, a2, a3)
 }
 
@@ -983,8 +854,7 @@ func nox_xxx_clientDrawAll_436100_draw() {
 		nox_xxx_drawAllMB_475810_draw(vp)
 		C.nox_xxx_drawMinimapAndLines_4738E0()
 	} else {
-		noxrend.SelectColor(uint32(C.nox_color_black_2650656))
-		noxrend.ClearScreen()
+		noxrend.ClearScreen(noxrender.Color(C.nox_color_black_2650656))
 	}
 	noxPerfmon.Draw(noxrend)
 	if C.dword_5d4594_811904 != 0 {
@@ -1001,7 +871,7 @@ func nox_xxx_clientDrawAll_436100_draw() {
 	}
 	if memmap.Uint32(0x587000, 85744) != 0 {
 		C.sub_430B50(0, 0, C.int(nox_win_width-1), C.int(nox_win_height-1))
-		noxrend.ClearScreen()
+		noxrend.ClearScreen(noxrender.Color(C.nox_color_black_2650656))
 		*memmap.PtrUint32(0x587000, 85744) = 0
 	}
 }
@@ -1020,15 +890,15 @@ func nox_xxx_drawAllMB_475810_draw_A(vp *Viewport) {
 		r.setRectFullScreen()
 		if C.dword_5d4594_3799524 != 0 {
 			rect := r.PixBuffer().Rect
-			r.Data().SetColor2(uint32(C.nox_color_black_2650656))
-			r.DrawRectFilledOpaque(0, 0, rect.Dx(), int(vp.y1))
-			r.DrawRectFilledOpaque(0, v3, rect.Dx(), rect.Dy()-v3)
-			r.DrawRectFilledOpaque(0, int(vp.y1), int(vp.x1), v3-int(vp.y1))
-			r.DrawRectFilledOpaque(v4, int(vp.y1), rect.Dx()-v4, v3-int(vp.y1))
+			cl := noxrender.Color(C.nox_color_black_2650656)
+			r.DrawRectFilledOpaque(0, 0, rect.Dx(), int(vp.y1), cl)
+			r.DrawRectFilledOpaque(0, v3, rect.Dx(), rect.Dy()-v3, cl)
+			r.DrawRectFilledOpaque(0, int(vp.y1), int(vp.x1), v3-int(vp.y1), cl)
+			r.DrawRectFilledOpaque(v4, int(vp.y1), rect.Dx()-v4, v3-int(vp.y1), cl)
 			C.dword_5d4594_3799524 = 0
 		}
-		r.Data().SetColor2(*memmap.PtrUint32(0x85B3FC, 956))
-		r.DrawBorder(int(vp.x1)-2, int(vp.y1)-2, v4-int(vp.x1)+4, v3-int(vp.y1)+4)
+		cl := noxrender.Color(memmap.Uint32(0x85B3FC, 956))
+		r.DrawBorder(int(vp.x1)-2, int(vp.y1)-2, v4-int(vp.x1)+4, v3-int(vp.y1)+4, cl)
 	} else {
 		C.dword_5d4594_3799468 = 0
 	}
@@ -1054,16 +924,13 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 		disableDraw = true
 	}
 	if C.nox_client_gui_flag_1556112 != 0 || disableDraw {
-		r.SelectColor(uint32(C.nox_color_black_2650656))
-		r.ClearScreen()
+		r.ClearScreen(noxrender.Color(C.nox_color_black_2650656))
 		r.setRectFullScreen()
 		C.dword_5d4594_3799524 = 1
 		return
 	}
 	if memmap.Uint32(0x5D4594, 1096520) != 0 {
-		r.SelectColor(uint32(C.nox_color_white_2523948))
-		r.ClearScreen()
-		r.SelectColor(uint32(C.nox_color_black_2650656))
+		r.ClearScreen(noxrender.Color(C.nox_color_white_2523948))
 		*memmap.PtrUint32(0x5D4594, 1096520) = 0
 		r.setRectFullScreen()
 		C.dword_5d4594_3799524 = 1
@@ -1077,7 +944,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 		nox_xxx_tileDrawMB_481C20(vp)
 		C.sub_4C5500(vp.C())
 	} else {
-		r.ClearScreen()
+		r.ClearScreen(noxrender.Color(C.nox_color_black_2650656))
 	}
 	sub_475F10(vp)
 	nox_client_queueWallsDraw(vp, xmin, ymin)
@@ -1632,7 +1499,7 @@ func sub_4745F0(cvp *C.nox_draw_viewport_t) {
 
 //export nox_video_drawCircleColored_4C3270
 func nox_video_drawCircleColored_4C3270(a1, a2, a3, a4 C.int) {
-	noxrend.DrawCircleColored(int(a1), int(a2), int(a3), uint32(a4))
+	noxrend.DrawCircleColored(int(a1), int(a2), int(a3), noxrender.Color(a4))
 }
 
 //export nox_video_drawCircle_4B0B90
@@ -1807,9 +1674,9 @@ func clipToRect(r image.Rectangle, p1 *image.Point, p2 image.Point, side bool) b
 	return true
 }
 
-func (r *NoxRender) clipToRect2(p1, p2 *image.Point) bool { // sub_49F990
+func (r *NoxRender) clipToRect2(p1, p2 *image.Point) bool {
 	d := r.Data()
-	rect := d.Rect2()
+	rect := d.ClipRect2()
 	flag1 := clipFlags(*p1, rect)
 	flag2 := clipFlags(*p2, rect)
 	if flag1|flag2 == 0 {
@@ -1843,7 +1710,7 @@ func (r *NoxRender) drawParticles49ED80(mul2 int) bool {
 		return false
 	}
 	if d.IsAlphaEnabled() {
-		r.DrawLineAlpha(pos1, pos2)
+		r.DrawLineAlpha(pos1, pos2, r.Data().Color2())
 		return true
 	}
 	if d.flag_0 != 0 && !r.clipToRect2(&pos1, &pos2) {
@@ -2035,11 +1902,11 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 			pos.Y += int(memmap.Int32(0x587000, 149436+v8))
 		}
 		if dr.CheckFlag31(29) {
-			r.Data().setField17(1)
+			r.Data().setColorize17(1)
 			C.sub_433E40(C.int(C.nox_color_blue_2650684))
 		}
 		r.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(*memmap.PtrPtr(0x5D4594, 1096456)), pos.Add(image.Point{X: -64, Y: -64}))
-		r.Data().setField17(0)
+		r.Data().setColorize17(0)
 	}
 	if dr.CheckFlag31(4) && !nox_xxx_checkGameFlagPause_413A50() {
 		v11 := int(*(*float32)(dr.field(48)))
@@ -2096,8 +1963,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 			})
 			v22 := randomIntMinMax(3, 4)
 			r.DrawGlow(pos2, drawColorXxx1096452, v17+v22, v17+2)
-			r.SetColor2(drawColorXxx1096436)
-			r.DrawPoint(pos2, v17)
+			r.DrawPoint(pos2, v17, noxrender.Color(drawColorXxx1096436))
 		}
 	}
 	if dr.CheckFlag31(17) {
@@ -2120,10 +1986,10 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 			pos.X += int(memmap.Int32(0x587000, 149504+v26))
 			pos.Y += int(memmap.Int32(0x587000, 149508+v26))
 		}
-		r.SetAlphaEnabled(true)
-		r.SetAlpha(0x80)
+		r.Data().SetAlphaEnabled(true)
+		r.Data().SetAlpha(0x80)
 		r.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(*memmap.PtrPtr(0x5D4594, 1096460)), pos)
-		r.SetAlphaEnabled(false)
+		r.Data().SetAlphaEnabled(false)
 	}
 	if dr.CheckFlag31(27) {
 		switch *(*byte)(dr.field(297)) {

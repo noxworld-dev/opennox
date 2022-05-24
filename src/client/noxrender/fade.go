@@ -115,7 +115,7 @@ const (
 	FadeClearScreenKey = "FadeClearScreen"
 )
 
-func (r *NoxRender) FadeInCinema(perc float32, t int, cl uint32) bool {
+func (r *NoxRender) FadeInCinema(perc float32, t int, cl Color) bool {
 	f := r.NewFade(FadeInCinemaKey, t, FadeKeep)
 	if f == nil {
 		return false
@@ -134,7 +134,7 @@ func (r *NoxRender) FadeInCinema(perc float32, t int, cl uint32) bool {
 	return true
 }
 
-func (r *NoxRender) FadeOutCinema(perc float32, t int, cl uint32) bool {
+func (r *NoxRender) FadeOutCinema(perc float32, t int, cl Color) bool {
 	f := r.NewFade(FadeOutCinemaKey, t, 0)
 	if f == nil {
 		return false
@@ -156,13 +156,13 @@ func (r *NoxRender) FadeOutCinema(perc float32, t int, cl uint32) bool {
 	return true
 }
 
-func (r *NoxRender) drawFadeCinema(v int, cl uint32) {
+func (r *NoxRender) drawFadeCinema(v int, cl Color) {
 	pix := r.PixBuffer()
-	r.DrawRectFilledOpaqueWith(0, 0, pix.Rect.Dx(), v, cl)
-	r.DrawRectFilledOpaqueWith(0, pix.Rect.Dy()-v, pix.Rect.Dx(), v, cl)
+	r.DrawRectFilledOpaque(0, 0, pix.Rect.Dx(), v, cl)
+	r.DrawRectFilledOpaque(0, pix.Rect.Dy()-v, pix.Rect.Dx(), v, cl)
 }
 
-func (r *NoxRender) FadeClearScreen(menu bool, cl uint32) bool {
+func (r *NoxRender) FadeClearScreen(menu bool, cl Color) bool {
 	if r.CheckFade(FadeOutScreenKey) {
 		return true
 	}
@@ -176,7 +176,7 @@ func (r *NoxRender) FadeClearScreen(menu bool, cl uint32) bool {
 	}
 	f.DrawFunc = func(_ *Fade) {
 		pix := r.PixBuffer()
-		r.DrawRectFilledOpaqueWith(0, 0, pix.Rect.Dx(), pix.Rect.Dy(), cl)
+		r.DrawRectFilledOpaque(0, 0, pix.Rect.Dx(), pix.Rect.Dy(), cl)
 	}
 	return true
 }

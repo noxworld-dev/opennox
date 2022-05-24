@@ -61,6 +61,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/input"
 	"github.com/noxworld-dev/opennox/v1/client/noxmovie"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -357,7 +358,7 @@ func recreateRenderTarget(sz image.Point) error {
 	nox_xxx_cursorLoadAll_477710()
 	nox_client_setCursorType(v1)
 	C.sub_48B3E0(v2)
-	noxrend.ClearScreen()
+	noxrend.ClearScreen(noxrend.Data().BgColor())
 	C.nox_xxx_setupSomeVideo_47FEF0()
 	C.sub_49F6D0(1)
 	noxrend.setRectFullScreen()
@@ -532,7 +533,7 @@ func sub_49F610(sz image.Point) {
 	p := noxrend.Data()
 	p.flag_0 = 0
 	p.SetClipRect(image.Rectangle{Max: sz})
-	p.SetRect2(image.Rectangle{Max: image.Pt(sz.X-1, sz.Y-1)})
+	p.SetClipRect2(image.Rectangle{Max: image.Pt(sz.X-1, sz.Y-1)})
 	p.SetRect3(image.Rectangle{Max: sz})
 	C.dword_5d4594_1305748 = 0
 }
@@ -541,7 +542,7 @@ func sub_49F610(sz image.Point) {
 func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 	var ys, ye int
 	if p := noxrend.Data(); p.flag_0 != 0 {
-		rect2 := p.Rect2()
+		rect2 := p.ClipRect2()
 		ys = rect2.Min.Y
 		ye = rect2.Max.Y
 	} else {
@@ -614,7 +615,8 @@ func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 
 //export nox_client_clearScreen_440900
 func nox_client_clearScreen_440900() {
-	noxrend.ClearScreen()
+	r := noxrend
+	r.ClearScreen(r.Data().BgColor())
 }
 
 func nox_free_pixbuffers_486110() {
@@ -789,8 +791,8 @@ func nox_client_drawXxx_444AC0(w, h int, flags int) error {
 }
 
 func sub_48B800(a1 uint32) {
-	r, g, b := splitColor(uint16(a1))
-	sub_48B6B0(r, g, b)
+	c := noxrender.SplitColor(noxrender.Color(a1))
+	sub_48B6B0(byte(c.R), byte(c.G), byte(c.B))
 }
 
 func sub_48B6B0(a1, a2, a3 byte) {
@@ -821,7 +823,7 @@ func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos image
 	if gameFrame()&1 != 0 {
 		*memmap.PtrUint32(0x5D4594, 1097288)++
 	}
-	r.SetTextColor(uint32(C.nox_color_yellow_2589772))
+	r.Data().SetTextColor(noxrender.Color(C.nox_color_yellow_2589772))
 	fh := r.FontHeight(nil)
 	if C.nox_xxx_guiSpell_460650() != 0 || C.sub_4611A0() != 0 {
 		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Target, pos)
@@ -898,7 +900,7 @@ func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos image
 			sub_48B680(0)
 		}
 		r.sub_4BE710(noxCursors.Move, pos, int(v15))
-		r.Data().setField14(0)
+		r.Data().setMultiply14(0)
 	case gui.CursorPickupFar:
 		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.PickupFar, pos)
 		dword_5d4594_1097208 = -2 * fh
@@ -999,7 +1001,7 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 			py = 0
 		}
 		r.DrawRectFilledAlpha(px, py, sz.X, sz.Y)
-		r.SetTextColor(uint32(C.nox_color_yellow_2589772))
+		r.Data().SetTextColor(noxrender.Color(C.nox_color_yellow_2589772))
 		r.DrawStringWrapped(nil, str, image.Rect(px+2, py+2, px+2, py+2))
 		if C.dword_5d4594_3799468 != 0 {
 			vp := getViewport()
@@ -1015,8 +1017,7 @@ func sub_477F80() {
 		vp := getViewport()
 		if dword_5d4594_1097212.X < int(vp.x1) || dword_5d4594_1097212.X+cursorSize >= int(vp.x2) ||
 			dword_5d4594_1097212.Y < int(vp.y1) || dword_5d4594_1097212.Y+cursorSize >= int(vp.y2) {
-			noxrend.SetColor2(uint32(C.nox_color_black_2650656))
-			noxrend.DrawRectFilledOpaque(dword_5d4594_1097212.X+cursorSize/2, dword_5d4594_1097212.Y+cursorSize/2, cursorSize, cursorSize)
+			noxrend.DrawRectFilledOpaque(dword_5d4594_1097212.X+cursorSize/2, dword_5d4594_1097212.Y+cursorSize/2, cursorSize, cursorSize, noxrender.Color(C.nox_color_black_2650656))
 		}
 	}
 }

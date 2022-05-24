@@ -11,14 +11,10 @@ var _ RenderData = &testRenderData{}
 func newRenderData(w, h int) *testRenderData {
 	return &testRenderData{
 		clipRect:      image.Rect(0, 0, w, h),
-		colorMult:     colorU32{0xff, 0xff, 0xff},
-		colorMultOp:   make(map[int]colorU32),
+		colorMult:     Color16{0xff, 0xff, 0xff},
+		colorMultOp:   make(map[int]Color16),
 		colorMultMiss: make(map[int]int),
 	}
-}
-
-type colorU32 struct {
-	R, G, B uint32
 }
 
 type blendConf struct {
@@ -35,13 +31,13 @@ type testRenderData struct {
 	clipRect  image.Rectangle
 	clipRect2 image.Rectangle
 	blendConf
-	colorMult     colorU32
-	colorMultOp   map[int]colorU32
+	colorMult     Color16
+	colorMultOp   map[int]Color16
 	colorMultMiss map[int]int
-	color         uint32
-	color2        uint32
-	bgcolor       uint32
-	textcolor     uint32
+	color         Color
+	color2        Color
+	bgcolor       Color
+	textcolor     Color
 	notext        bool
 	defaultFont   font.Face
 }
@@ -74,18 +70,18 @@ func (d *testRenderData) Colorize17() bool {
 	return d.colorize17
 }
 
-func (d *testRenderData) ColorMultA() (r, g, b uint32) {
-	return d.colorMult.R, d.colorMult.G, d.colorMult.B
+func (d *testRenderData) ColorMultA() Color16 {
+	return d.colorMult
 }
 
-func (d *testRenderData) ColorMultOp(op int) (r, g, b uint32) {
+func (d *testRenderData) ColorMultOp(op int) Color16 {
 	c, ok := d.colorMultOp[op]
 	if !ok {
 		n := d.colorMultMiss[op]
 		n++
 		d.colorMultMiss[op] = n
 	}
-	return c.R, c.G, c.B
+	return c
 }
 
 func (d *testRenderData) IsAlphaEnabled() bool {
@@ -96,15 +92,15 @@ func (d *testRenderData) Alpha() byte {
 	return d.alpha
 }
 
-func (d *testRenderData) Color() uint32 {
+func (d *testRenderData) Color() Color {
 	return d.color
 }
 
-func (d *testRenderData) Color2() uint32 {
+func (d *testRenderData) Color2() Color {
 	return d.color2
 }
 
-func (d *testRenderData) BgColor() uint32 {
+func (d *testRenderData) BgColor() Color {
 	return d.bgcolor
 }
 
@@ -112,11 +108,11 @@ func (d *testRenderData) ShouldDrawText() bool {
 	return !d.notext
 }
 
-func (d *testRenderData) TextColor() uint32 {
+func (d *testRenderData) TextColor() Color {
 	return d.textcolor
 }
 
-func (d *testRenderData) SetTextColor(a1 uint32) {
+func (d *testRenderData) SetTextColor(a1 Color) {
 	d.textcolor = a1
 }
 

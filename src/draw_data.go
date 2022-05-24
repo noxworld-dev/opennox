@@ -8,6 +8,8 @@ import "C"
 import (
 	"image"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 )
 
 var byte_5D4594_3804364 [40]uint32
@@ -39,6 +41,10 @@ func (p *RenderData) C() *C.nox_render_data_t {
 	return (*C.nox_render_data_t)(unsafe.Pointer(p))
 }
 
+func (p *RenderData) Clip() bool {
+	return p.flag_0 != 0
+}
+
 func (p *RenderData) ClipRect() image.Rectangle {
 	return toRect(&p.clip)
 }
@@ -47,11 +53,11 @@ func (p *RenderData) SetClipRect(r image.Rectangle) {
 	setRect(&p.clip, r)
 }
 
-func (p *RenderData) Rect2() image.Rectangle {
+func (p *RenderData) ClipRect2() image.Rectangle {
 	return toRect(&p.rect2)
 }
 
-func (p *RenderData) SetRect2(r image.Rectangle) {
+func (p *RenderData) SetClipRect2(r image.Rectangle) {
 	setRect(&p.rect2, r)
 }
 
@@ -97,11 +103,23 @@ func (p *RenderData) SetAlphaEnabled(enabled bool) { // nox_client_drawEnableAlp
 	}
 }
 
-func (p *RenderData) setField14(v int) { // sub_4345F0
+func (p *RenderData) Multiply14() bool {
+	return p.field_14 != 0
+}
+
+func (p *RenderData) Flag16() bool {
+	return p.field_16 != 0
+}
+
+func (p *RenderData) Colorize17() bool {
+	return p.field_17 != 0
+}
+
+func (p *RenderData) setMultiply14(v int) { // sub_4345F0
 	p.field_14 = C.uint(v)
 }
 
-func (p *RenderData) setField17(v int) { // nox_xxx_draw_434600
+func (p *RenderData) setColorize17(v int) { // nox_xxx_draw_434600
 	p.field_17 = C.uint(v)
 }
 
@@ -117,19 +135,35 @@ func (p *RenderData) setColorInt54(c ColorInt) { // nox_xxx_drawMakeRGB_433F10
 	p.field_56 = C.uint(c.B)
 }
 
+func (p *RenderData) BgColor() noxrender.Color {
+	return noxrender.Color(p.field_58)
+}
+
 func (p *RenderData) SetSelectColor(a1 uint32) {
 	p.field_58 = C.uint(a1)
 }
 
-func (p *RenderData) SetTextColor(a1 uint32) { // nox_xxx_drawSetTextColor_434390
+func (p *RenderData) TextColor() noxrender.Color {
+	return noxrender.Color(p.field_59)
+}
+
+func (p *RenderData) SetTextColor(a1 noxrender.Color) { // nox_xxx_drawSetTextColor_434390
 	p.field_59 = C.uint(a1)
 }
 
-func (p *RenderData) SetColor(a1 uint32) { // nox_xxx_drawSetColor_4343E0
+func (p *RenderData) Color() noxrender.Color {
+	return noxrender.Color(p.field_60)
+}
+
+func (p *RenderData) Color2() noxrender.Color {
+	return noxrender.Color(p.field_61)
+}
+
+func (p *RenderData) SetColor(a1 noxrender.Color) { // nox_xxx_drawSetColor_4343E0
 	p.field_60 = C.uint(a1)
 }
 
-func (p *RenderData) SetColor2(a1 uint32) { // nox_client_drawSetColor_434460
+func (p *RenderData) SetColor2(a1 noxrender.Color) { // nox_client_drawSetColor_434460
 	p.field_61 = C.uint(a1)
 }
 
@@ -156,6 +190,23 @@ func (p *RenderData) field66(ind int) []uint32 {
 	arr := unsafe.Slice((*item)(unsafe.Pointer(&p.field_66)), max)
 	v := arr[ind][:]
 	return v
+}
+
+func (p *RenderData) ColorMultA() noxrender.Color16 {
+	return noxrender.Color16{
+		R: uint16(p.field_24),
+		G: uint16(p.field_25),
+		B: uint16(p.field_26),
+	}
+}
+
+func (p *RenderData) ColorMultOp(op int) noxrender.Color16 {
+	arr := p.field66(op)
+	return noxrender.Color16{
+		R: uint16(arr[6]),
+		G: uint16(arr[7]),
+		B: uint16(arr[8]),
+	}
 }
 
 func (p *RenderData) Alpha() byte {

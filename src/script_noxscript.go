@@ -399,7 +399,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 		fadeInDur  = 10
 	)
 	if !enable {
-		if noxrend.FadeOutCinema(perc, fadeOutDur, uint32(nox_color_rgb_4344A0(0, 0, 0))) {
+		if noxrend.FadeOutCinema(perc, fadeOutDur, noxrender.ColorRGB(0, 0, 0)) {
 			sub_477530(false)
 		}
 		for it := s.firstServerObject(); it != nil; it = it.Next() {
@@ -412,7 +412,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 		return
 	}
 	inFade := noxrend.CheckFade(noxrender.FadeInCinemaKey)
-	if noxrend.FadeInCinema(perc, fadeInDur, uint32(nox_color_rgb_4344A0(0, 0, 0))) {
+	if noxrend.FadeInCinema(perc, fadeInDur, noxrender.ColorRGB(0, 0, 0)) {
 		sub_477530(true)
 	}
 	if inFade {

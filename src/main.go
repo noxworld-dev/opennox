@@ -64,6 +64,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/log"
 
 	"github.com/noxworld-dev/opennox/v1/client/audio/ail"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -430,8 +431,7 @@ func RunArgs(args []string) (gerr error) {
 		if err := gameResetVideoMode(true, true); err != nil {
 			return fmt.Errorf("failed to update video mode: %w", err)
 		}
-		noxrend.SelectColor(uint32(C.nox_color_black_2650656))
-		noxrend.ClearScreen()
+		noxrend.ClearScreen(noxrender.Color(C.nox_color_black_2650656))
 	} else {
 		enableGUIDrawing(false)
 		videoInitStub()

@@ -12,6 +12,7 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 )
@@ -291,11 +292,8 @@ func (r *NoxRender) drawProtectParticle(vp *Viewport, part, tail image.Point, pa
 	tail = vp.toScreenPos(tail)
 
 	r.DrawGlow(part, partCl, 10, 12)
-	r.SetColor2(tailCl)
-	r.DrawPoint(part, 3)
-
-	r.SetColor2(tailCl)
-	r.DrawLine(part, tail)
+	r.DrawPoint(part, 3, noxrender.Color(tailCl))
+	r.DrawLine(part, tail, noxrender.Color(tailCl))
 }
 
 // sincosTable16 assumes circle radius of 16, and expects an angle in range [0,256).

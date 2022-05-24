@@ -6,14 +6,12 @@ import (
 
 	"golang.org/x/image/font"
 	"golang.org/x/image/math/fixed"
-
-	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 )
 
 type RenderDataText interface {
 	ShouldDrawText() bool
-	TextColor() uint32
-	SetTextColor(a1 uint32)
+	TextColor() Color
+	SetTextColor(a1 Color)
 	DefaultFont() font.Face
 }
 
@@ -128,7 +126,7 @@ func (r *NoxRender) drawString(fnt font.Face, s string, pos image.Point) int {
 	// TODO: handle invalid chars by blinking the replacement char
 	dy := fnt.Metrics().CapHeight.Round()
 	r.text.face.f = fnt
-	r.text.Src = image.NewUniform(noxcolor.RGBA5551(r.p.TextColor()))
+	r.text.Src = image.NewUniform(r.p.TextColor())
 	r.text.Dst = r.pix.SubImage(r.p.ClipRect())
 	r.text.Dot = fixed.P(pos.X, pos.Y+dy)
 	r.text.DrawString(s)

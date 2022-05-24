@@ -50,7 +50,7 @@ func nox_xxx_cliPlayMapIntro_44E0B0(menu C.int) {
 	stopFadeOutScreen()
 	stopFadeInScreen()
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 1
-	noxrend.FadeClearScreen(menu != 0, uint32(nox_color_rgb_4344A0(0, 0, 0)))
+	noxrend.FadeClearScreen(menu != 0, noxrender.ColorRGB(0, 0, 0))
 }
 
 func getFadeDuration() int {

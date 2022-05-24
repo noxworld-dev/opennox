@@ -8,6 +8,7 @@ import (
 	"image"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -20,22 +21,26 @@ func sub_4C26F0(a1 unsafe.Pointer) C.int {
 	w, h := sz.X, sz.Y
 	r := noxrend
 	r.DrawRectFilledAlpha(x, y, w, h)
-	r.Data().SetColor2(memmap.Uint32(0x85B3FC, 944))
+	cl := noxrender.Color(memmap.Uint32(0x85B3FC, 944))
 	r.DrawVector(
 		image.Point{X: x + 1, Y: y},
 		image.Point{X: w - 2, Y: 0},
+		cl,
 	)
 	r.DrawVector(
 		image.Point{X: x + 1, Y: y + h},
 		image.Point{X: w - 2, Y: 0},
+		cl,
 	)
 	r.DrawVector(
 		image.Point{X: x, Y: y + 1},
 		image.Point{X: 0, Y: h - 2},
+		cl,
 	)
 	r.DrawVector(
 		image.Point{X: x + w, Y: y + 1},
 		image.Point{X: 0, Y: h - 2},
+		cl,
 	)
 	C.dword_5d4594_3799524 = 1
 	return 1

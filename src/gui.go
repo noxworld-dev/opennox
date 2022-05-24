@@ -30,6 +30,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/input"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
@@ -369,7 +370,8 @@ func nox_color_rgb_func(r, g, b C.uint8_t, p *C.uint32_t) {
 
 //export nox_set_color_rgb_434430
 func nox_set_color_rgb_434430(r, g, b C.int) {
-	noxrend.Data().SetColor2(uint32(nox_color_rgb_4344A0(r, g, b)))
+	cl := noxrender.ColorRGB(byte(r), byte(g), byte(b))
+	noxrend.Data().SetColor2(cl)
 }
 
 func unsafePtrToInt(p unsafe.Pointer) C.int {

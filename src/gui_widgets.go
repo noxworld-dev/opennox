@@ -17,6 +17,7 @@ import (
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
@@ -238,7 +239,7 @@ func nox_xxx_wndStaticDrawWithImage_489550(win *Window, draw *WindowData) int {
 		r.DrawImageAt(img, wpos.Add(draw.ImagePoint()))
 	}
 	if str := GoWString(data.text); str != "" {
-		r.Data().SetTextColor(draw.TextColorRaw())
+		r.Data().SetTextColor(noxrender.Color(draw.TextColorRaw()))
 		y0 := wpos.Y + wsz.Y/2 - fh/2
 		if data.center != 0 {
 			tsz := r.GetStringSizeWrapped(fnt, str, 0)
@@ -287,15 +288,13 @@ func nox_xxx_wndStaticDrawNoImage(win *Window, draw *WindowData) int { // nox_xx
 		highlight = draw.SelectedColorRaw()
 	}
 	if bgColor != noxcolor.ExtendColor16(gui.ColorTransparent) {
-		r.Data().SetColor2(bgColor)
-		r.DrawRectFilledOpaque(x+1, y+1, w-2, h-2)
+		r.DrawRectFilledOpaque(x+1, y+1, w-2, h-2, noxrender.Color(bgColor))
 	}
 	if borderColor != noxcolor.ExtendColor16(gui.ColorTransparent) {
-		r.Data().SetColor2(borderColor)
-		r.DrawBorder(x, y, w, h)
+		r.DrawBorder(x, y, w, h, noxrender.Color(borderColor))
 	}
 	if text := GoWString(wdata.text); text != "" && draw.TextColorRaw() != noxcolor.ExtendColor16(gui.ColorTransparent) {
-		r.Data().SetTextColor(draw.TextColorRaw())
+		r.Data().SetTextColor(noxrender.Color(draw.TextColorRaw()))
 		sz := r.GetStringSizeWrapped(fnt, text, w)
 		cy := y + (h-sz.Y)/2
 		if wdata.center != 0 {
@@ -309,12 +308,12 @@ func nox_xxx_wndStaticDrawNoImage(win *Window, draw *WindowData) int { // nox_xx
 					lx := x + (w-sz.X)/2
 					ly := cy + dy*i
 					if wdata.field_2 != 0 {
-						r.Data().SetTextColor(highlight)
+						r.Data().SetTextColor(noxrender.Color(highlight))
 						r.DrawStringWrapped(fnt, line, image.Rect(lx-1, ly-1, lx-1+w, ly-1))
 						r.DrawStringWrapped(fnt, line, image.Rect(lx+1, ly-1, lx+1+w, ly-1))
 						r.DrawStringWrapped(fnt, line, image.Rect(lx-1, ly+1, lx-1+w, ly+1))
 						r.DrawStringWrapped(fnt, line, image.Rect(lx+1, ly+1, lx+1+w, ly+1))
-						r.Data().SetTextColor(draw.TextColorRaw())
+						r.Data().SetTextColor(noxrender.Color(draw.TextColorRaw()))
 						r.DrawStringWrapped(fnt, line, image.Rect(lx, ly, lx+w, ly))
 					} else {
 						r.DrawStringWrapped(fnt, line, image.Rect(lx, ly, lx+w, ly))
@@ -323,24 +322,24 @@ func nox_xxx_wndStaticDrawNoImage(win *Window, draw *WindowData) int { // nox_xx
 			} else {
 				x += (w - sz.X) / 2
 				if wdata.field_2 != 0 {
-					r.Data().SetTextColor(highlight)
+					r.Data().SetTextColor(noxrender.Color(highlight))
 					r.DrawStringWrapped(fnt, text, image.Rect(x-1, cy-1, x-1+w, cy-1))
 					r.DrawStringWrapped(fnt, text, image.Rect(x+1, cy-1, x+1+w, cy-1))
 					r.DrawStringWrapped(fnt, text, image.Rect(x-1, cy+1, x-1+w, cy+1))
 					r.DrawStringWrapped(fnt, text, image.Rect(x+1, cy+1, x+1+w, cy+1))
-					r.Data().SetTextColor(draw.TextColorRaw())
+					r.Data().SetTextColor(noxrender.Color(draw.TextColorRaw()))
 					r.DrawStringWrapped(fnt, text, image.Rect(x, cy, x+w, cy))
 				} else {
 					r.DrawStringWrapped(fnt, text, image.Rect(x, cy, x+w, cy))
 				}
 			}
 		} else if wdata.field_2 != 0 {
-			r.Data().SetTextColor(highlight)
+			r.Data().SetTextColor(noxrender.Color(highlight))
 			r.DrawStringWrapped(fnt, text, image.Rect(x+1, cy-1, x+1+w, cy-1))
 			r.DrawStringWrapped(fnt, text, image.Rect(x+3, cy-1, x+3+w, cy-1))
 			r.DrawStringWrapped(fnt, text, image.Rect(x+1, cy+1, x+1+w, cy+1))
 			r.DrawStringWrapped(fnt, text, image.Rect(x+3, cy+1, x+3+w, cy+1))
-			r.Data().SetTextColor(draw.TextColorRaw())
+			r.Data().SetTextColor(noxrender.Color(draw.TextColorRaw()))
 			r.DrawStringWrapped(fnt, text, image.Rect(x+2, cy, x+2+w, cy))
 		} else {
 			r.DrawStringWrapped(fnt, text, image.Rect(x+2, cy, x+2+w, cy))

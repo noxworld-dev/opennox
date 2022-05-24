@@ -138,8 +138,8 @@ func (c *guiConsole) Init(sz image.Point) *Window {
 				r.DrawRectFilledAlpha(pos.X, pos.Y, wsz.X, wsz.Y)
 				return 1
 			}
-			r.Data().SetColor2(noxcolor.ExtendColor16(a2.BackgroundColor()))
-			r.DrawRectFilledOpaque(pos.X, pos.Y, wsz.X, wsz.Y)
+			cl := noxcolor.ModelRGBA5551.Convert(a2.BackgroundColor()).(noxcolor.RGBA5551)
+			r.DrawRectFilledOpaque(pos.X, pos.Y, wsz.X, wsz.Y, cl)
 		}
 		return 1
 	}, nil)

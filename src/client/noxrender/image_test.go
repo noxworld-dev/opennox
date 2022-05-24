@@ -23,7 +23,7 @@ import (
 
 var drawBlends = []struct {
 	name string
-	mult colorU32
+	mult Color16
 	conf blendConf
 }{
 	{name: "default"},
@@ -36,20 +36,20 @@ var drawBlends = []struct {
 	{name: "alpha custom", conf: blendConf{
 		alphaEnabled: true, alpha: 0xaa,
 	}},
-	{name: "colorize", conf: blendConf{colorize17: true}, mult: colorU32{R: 0xff, G: 0, B: 0xff}},
-	{name: "multiply", conf: blendConf{multiply14: true}, mult: colorU32{R: 0xff, G: 0xaa, B: 0xff}},
+	{name: "colorize", conf: blendConf{colorize17: true}, mult: Color16{R: 0xff, G: 0, B: 0xff}},
+	{name: "multiply", conf: blendConf{multiply14: true}, mult: Color16{R: 0xff, G: 0xaa, B: 0xff}},
 	{name: "alpha 100 mult", conf: blendConf{
 		multiply14:   true,
 		alphaEnabled: true, alpha: 0xff,
-	}, mult: colorU32{R: 0xff, G: 0xaa, B: 0xff}},
+	}, mult: Color16{R: 0xff, G: 0xaa, B: 0xff}},
 	{name: "alpha 50 mult", conf: blendConf{
 		multiply14:   true,
 		alphaEnabled: true, alpha: 0x80,
-	}, mult: colorU32{R: 0xff, G: 0xaa, B: 0xff}},
+	}, mult: Color16{R: 0xff, G: 0xaa, B: 0xff}},
 	{name: "alpha custom mult", conf: blendConf{
 		multiply14:   true,
 		alphaEnabled: true, alpha: 0xaa,
-	}, mult: colorU32{R: 0xff, G: 0xaa, B: 0xff}},
+	}, mult: Color16{R: 0xff, G: 0xaa, B: 0xff}},
 }
 
 var drawCases = []struct {
@@ -57,7 +57,7 @@ var drawCases = []struct {
 	image    string
 	imageInd int
 	typ      int
-	ops      map[int]colorU32
+	ops      map[int]Color16
 	exp      []string
 }{
 	{image: "APA00001", typ: 4, exp: []string{
@@ -70,7 +70,7 @@ var drawCases = []struct {
 		"c302782a877fd68910ec420fc01be728",
 		"4d246020ec770ce1381497da8af6aeab",
 		"1f9ca1fa1a43b5a22783d78d029b8a36",
-	}, ops: map[int]colorU32{
+	}, ops: map[int]Color16{
 		1: {R: 0xff, G: 0, B: 0},
 		3: {R: 0, G: 0xff, B: 0},
 	}},
@@ -194,7 +194,7 @@ var drawCases = []struct {
 		"bf87795571cb71c3115d236b667f5035",
 		"d227535871a546a0fe3b08879d106cdb",
 		"e51a48996bf1b14797031dca29ef77bc",
-	}, ops: map[int]colorU32{
+	}, ops: map[int]Color16{
 		1: {R: 0xff, G: 0, B: 0},
 		2: {R: 0, G: 0xff, B: 0},
 		3: {R: 0, G: 0, B: 0xff},
@@ -287,7 +287,7 @@ var drawCases = []struct {
 		"55271da11194c293da6e26c949215e88",
 		"c77a7796e85c3ccb04082a8282acd06b",
 		"5f0907ea909eecf932e2be9de3fb1e62",
-	}, ops: map[int]colorU32{
+	}, ops: map[int]Color16{
 		1: {R: 0xff, G: 0, B: 0},
 		3: {R: 0, G: 0xff, B: 0},
 		4: {R: 0, G: 0, B: 0xff},
@@ -335,7 +335,7 @@ var drawCases = []struct {
 		"129f32fddb7b7c9821346f9bce8f78e0",
 		"a5a2796b1def24a92c062033afafcda1",
 		"5ff7c2a3956fc3b4be899affc2e9663d",
-	}, ops: map[int]colorU32{
+	}, ops: map[int]Color16{
 		1: {R: 0xff, G: 0, B: 0},
 		2: {R: 0, G: 0xff, B: 0},
 		3: {R: 0, G: 0, B: 0xff},
@@ -351,7 +351,7 @@ var drawCases = []struct {
 		"0b1b5f1c78435da4f27877e699b06ede",
 		"dd3655a6dc125af9f85382b5d48008c6",
 		"ab924ec96ed457e38ac7d77d10c0c101",
-	}, ops: map[int]colorU32{
+	}, ops: map[int]Color16{
 		1: {R: 0xff, G: 0, B: 0},
 		3: {R: 0, G: 0, B: 0xff},
 		4: {R: 0, G: 0xff, B: 0xff},
@@ -367,7 +367,7 @@ var drawCases = []struct {
 		"e2dadb406be7d874455b5645a3bbba0d",
 		"83ed11da9ed122c880762eee5eeffe58",
 		"afc4f8465d43e6d9c75f0add54ab34b8",
-	}, ops: map[int]colorU32{
+	}, ops: map[int]Color16{
 		1: {R: 0xff, G: 0, B: 0},
 		2: {R: 0, G: 0xff, B: 0},
 		4: {R: 0, G: 0, B: 0xff},
@@ -395,7 +395,7 @@ var drawCases = []struct {
 		"578267e1bc7f161c07ba211f2ba8cdb9",
 		"8c75ce3f0b0e0ac544d74cba7e28ea44",
 		"9fc0561a065fb67dbf3879348882e7b1",
-	}, ops: map[int]colorU32{
+	}, ops: map[int]Color16{
 		1: {R: 0xff, G: 0xaa, B: 0xaa},
 		3: {R: 0, G: 0xcc, B: 0xff},
 		4: {R: 0, G: 0xff, B: 0},
@@ -411,7 +411,7 @@ var drawCases = []struct {
 		"600e19be66ce24054a01f8e901b5b85a",
 		"57ead8aaab013fba2848bc874da473c5",
 		"775f0f34d695ec94a698630e2fef442a",
-	}, ops: map[int]colorU32{
+	}, ops: map[int]Color16{
 		1: {R: 0xff, G: 0, B: 0},
 		2: {R: 0, G: 0xbb, B: 0xff},
 		3: {R: 0, G: 0xff, B: 0},
@@ -516,7 +516,7 @@ func TestDrawImage(t *testing.T) {
 						d.colorMultOp[k] = v
 					}
 					d.blendConf = b.conf
-					if b.mult != (colorU32{}) {
+					if b.mult != (Color16{}) {
 						d.colorMult = b.mult
 					}
 

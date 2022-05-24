@@ -10,6 +10,8 @@ import "C"
 import (
 	"image"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 )
 
 //export sub_4AF650
@@ -81,23 +83,23 @@ func nox_xxx_drawParticlefx_4AFEB0(p *C.nox_particlefx_t) {
 		dr.SetPos(prev)
 	}
 	if p.field_64 != 0 {
-		r.Data().SetColor2(uint32(p.color_24))
+		cl := noxrender.Color(p.color_24)
 		switch p.field_64 {
 		case 1:
-			r.DrawPixel(pos2)
+			r.DrawPixel(pos2, cl)
 		case 2:
-			r.DrawPixel(pos2.Add(image.Pt(0, 0)))
-			r.DrawPixel(pos2.Add(image.Pt(1, 0)))
-			r.DrawPixel(pos2.Add(image.Pt(0, 1)))
-			r.DrawPixel(pos2.Add(image.Pt(1, 1)))
+			r.DrawPixel(pos2.Add(image.Pt(0, 0)), cl)
+			r.DrawPixel(pos2.Add(image.Pt(1, 0)), cl)
+			r.DrawPixel(pos2.Add(image.Pt(0, 1)), cl)
+			r.DrawPixel(pos2.Add(image.Pt(1, 1)), cl)
 		case 3:
-			r.DrawPixel(pos2.Add(image.Pt(1, 0)))
-			r.DrawPixel(pos2.Add(image.Pt(0, 1)))
-			r.DrawPixel(pos2.Add(image.Pt(1, 1)))
-			r.DrawPixel(pos2.Add(image.Pt(2, 1)))
-			r.DrawPixel(pos2.Add(image.Pt(1, 2)))
+			r.DrawPixel(pos2.Add(image.Pt(1, 0)), cl)
+			r.DrawPixel(pos2.Add(image.Pt(0, 1)), cl)
+			r.DrawPixel(pos2.Add(image.Pt(1, 1)), cl)
+			r.DrawPixel(pos2.Add(image.Pt(2, 1)), cl)
+			r.DrawPixel(pos2.Add(image.Pt(1, 2)), cl)
 		default:
-			r.DrawPointRad(pos2, int(p.field_64)/2)
+			r.DrawPointRad(pos2, int(p.field_64)/2, cl)
 		}
 	}
 }

@@ -4,7 +4,6 @@ import (
 	"image"
 	"image/draw"
 
-	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 	"github.com/noxworld-dev/opennox-lib/noximage"
 )
 
@@ -18,22 +17,19 @@ type RenderData interface {
 	Flag16() bool
 	Colorize17() bool
 
-	ColorMultA() (r, g, b uint32)
-	ColorMultOp(op int) (r, g, b uint32)
+	ColorMultA() Color16
+	ColorMultOp(op int) Color16
 
 	IsAlphaEnabled() bool
 	Alpha() byte
 
-	Color() uint32
-	Color2() uint32
-	BgColor() uint32
+	Color() Color
 
 	RenderDataText
 }
 
 func NewRender() *NoxRender {
 	r := &NoxRender{}
-	r.SetColorMode(noxcolor.ModeRGBA5551)
 	r.initText()
 	r.initColorTablesRev()
 	return r
@@ -44,10 +40,6 @@ type NoxRender struct {
 	pix *noximage.Image16
 
 	colors struct {
-		mode     noxcolor.Mode
-		R        [256]uint16
-		G        [256]uint16
-		B        [256]uint16
 		revTable []byte // map[Color16]byte
 	}
 	points []image.Point
@@ -87,35 +79,12 @@ func (r *NoxRender) Frame() uint32 {
 	return r.p.Frame()
 }
 
-func (r *NoxRender) SetColorMode(mode noxcolor.Mode) {
-	if r.colors.mode == mode {
-		return
-	}
-	for i := 0; i < 256; i++ {
-		r.colors.R[i] = mode.RGB(byte(i), 0, 0).Color16()
-		r.colors.G[i] = mode.RGB(0, byte(i), 0).Color16()
-		r.colors.B[i] = mode.RGB(0, 0, byte(i)).Color16()
-	}
-	r.colors.mode = mode
-}
-
 func (r *NoxRender) initColorTablesRev() {
 	const max = 0x7FFF
-	const (
-		rshift = 7 // -10+3
-		gshift = 2 // -5+3
-		bshift = 3 // -0+3
-
-		rmask = 0x7c00
-		gmask = 0x03e0
-		bmask = 0x001f
-	)
 	r.colors.revTable = make([]byte, max+3)
 	for i := 0; i <= max; i++ {
-		cr := uint32((i & rmask) >> rshift)
-		cg := uint32((i & gmask) >> gshift)
-		cb := uint32((i & bmask) << bshift)
-		r.colors.revTable[i] = byte((28*(cb|7) + 150*(cg|7) + 76*(cr|7)) >> 8)
+		c := SplitColor(Color(i))
+		r.colors.revTable[i] = byte((28*(c.B|7) + 150*(c.G|7) + 76*(c.R|7)) >> 8)
 	}
 }
 
@@ -125,11 +94,7 @@ func (r *NoxRender) CopyPixBuffer() *image.NRGBA {
 	return img
 }
 
-func (r *NoxRender) ClearScreen() {
-	r.ClearScreenWith(r.p.BgColor())
-}
-
-func (r *NoxRender) ClearScreenWith(cl uint32) {
+func (r *NoxRender) ClearScreen(cl Color) {
 	for i := range r.pix.Pix {
 		r.pix.Pix[i] = uint16(cl)
 	}

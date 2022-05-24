@@ -2,19 +2,17 @@ package noxrender
 
 import (
 	"image"
-
-	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 )
 
-func (r *NoxRender) DrawPixel(pos image.Point) {
+func (r *NoxRender) DrawPixel(pos image.Point, cl Color) {
 	d := r.Data()
 	if d.Clip() && !pos.In(d.ClipRect2()) {
 		return
 	}
-	r.PixBuffer().SetRGBA5551(pos.X, pos.Y, noxcolor.RGBA5551(d.Color2()))
+	r.PixBuffer().SetRGBA5551(pos.X, pos.Y, cl)
 }
 
-func (r *NoxRender) DrawLineHorizontal(x1, y, x2 int) {
+func (r *NoxRender) DrawLineHorizontal(x1, y, x2 int, cl Color) {
 	xmin, xmax := x1, x2
 	if xmin > xmax {
 		xmin, xmax = xmax, xmin
@@ -39,13 +37,12 @@ func (r *NoxRender) DrawLineHorizontal(x1, y, x2 int) {
 		}
 	}
 	pix := r.PixBuffer()
-	cl := noxcolor.RGBA5551(d.Color2())
 	for x := xmin; x <= xmax; x++ {
 		pix.SetRGBA5551(x, y, cl)
 	}
 }
 
-func (r *NoxRender) drawLineVertical(x, y1, y2 int) {
+func (r *NoxRender) drawLineVertical(x, y1, y2 int, cl Color) {
 	ymin, ymax := y1, y2
 	if ymin > ymax {
 		ymin, ymax = ymax, ymin
@@ -70,17 +67,16 @@ func (r *NoxRender) drawLineVertical(x, y1, y2 int) {
 		}
 	}
 	pix := r.PixBuffer()
-	cl := noxcolor.RGBA5551(d.Color2())
 	for y := ymin; y <= ymax; y++ {
 		pix.SetRGBA5551(x, y, cl)
 	}
 }
 
-func (r *NoxRender) DrawPointRad(p image.Point, rad int) {
-	r.DrawLineHorizontal(p.X, p.Y+rad, p.X)
-	r.DrawLineHorizontal(p.X-rad, p.Y, p.X+rad)
-	r.DrawLineHorizontal(p.X-rad, p.Y, p.X+rad)
-	r.DrawLineHorizontal(p.X, p.Y-rad, p.X)
+func (r *NoxRender) DrawPointRad(p image.Point, rad int, cl Color) {
+	r.DrawLineHorizontal(p.X, p.Y+rad, p.X, cl)
+	r.DrawLineHorizontal(p.X-rad, p.Y, p.X+rad, cl)
+	r.DrawLineHorizontal(p.X-rad, p.Y, p.X+rad, cl)
+	r.DrawLineHorizontal(p.X, p.Y-rad, p.X, cl)
 	if rad <= 0 {
 		return
 	}
@@ -106,14 +102,14 @@ func (r *NoxRender) DrawPointRad(p image.Point, rad int) {
 		x2++
 		x1--
 		dv2 += 2
-		r.DrawLineHorizontal(x1, p.Y+(xr2-p.X), x2)
-		r.DrawLineHorizontal(xr1, p.Y+(x2-p.X), xr2)
-		r.DrawLineHorizontal(xr1, p.Y+(x1-p.X), xr2)
-		r.DrawLineHorizontal(x1, p.Y+(xr1-p.X), x2)
+		r.DrawLineHorizontal(x1, p.Y+(xr2-p.X), x2, cl)
+		r.DrawLineHorizontal(xr1, p.Y+(x2-p.X), xr2, cl)
+		r.DrawLineHorizontal(xr1, p.Y+(x1-p.X), xr2, cl)
+		r.DrawLineHorizontal(x1, p.Y+(xr1-p.X), x2, cl)
 	}
 }
 
-func (r *NoxRender) DrawBorder(x, y, w, h int) {
+func (r *NoxRender) DrawBorder(x, y, w, h int, cl Color) {
 	if w == 0 || h == 0 {
 		return
 	}
@@ -126,10 +122,10 @@ func (r *NoxRender) DrawBorder(x, y, w, h int) {
 	}
 	x2 := x + w - 1
 	y2 := y + h - 1
-	r.DrawLineHorizontal(x, y, x2)
-	r.drawLineVertical(x2, y+1, y2)
-	r.DrawLineHorizontal(x, y2, x+w-2)
-	r.drawLineVertical(x, y+1, y+h-2)
+	r.DrawLineHorizontal(x, y, x2, cl)
+	r.drawLineVertical(x2, y+1, y2, cl)
+	r.DrawLineHorizontal(x, y2, x+w-2, cl)
+	r.drawLineVertical(x, y+1, y+h-2, cl)
 }
 
 func (r *NoxRender) ClearPoints() {
@@ -159,7 +155,7 @@ func (r *NoxRender) LastPoint(keep bool) (image.Point, bool) {
 	return pos, true
 }
 
-func (r *NoxRender) DrawLineFromPoints(arr ...image.Point) bool {
+func (r *NoxRender) DrawLineFromPoints(cl Color, arr ...image.Point) bool {
 	for _, p := range arr {
 		r.AddPoint(p)
 	}
@@ -171,18 +167,18 @@ func (r *NoxRender) DrawLineFromPoints(arr ...image.Point) bool {
 	if !ok {
 		return false
 	}
-	r.DrawLine(p1, p2)
+	r.DrawLine(p1, p2, cl)
 	return true
 }
 
-func (r *NoxRender) DrawVector(base, vec image.Point) {
-	r.DrawLine(base, base.Add(vec))
+func (r *NoxRender) DrawVector(base, vec image.Point, cl Color) {
+	r.DrawLine(base, base.Add(vec), cl)
 }
 
-func (r *NoxRender) DrawLine(p1, p2 image.Point) {
+func (r *NoxRender) DrawLine(p1, p2 image.Point, cl Color) {
 	d := r.Data()
 	if d.IsAlphaEnabled() {
-		r.DrawLineAlpha(p1, p2)
+		r.DrawLineAlpha(p1, p2, cl)
 		return
 	}
 
@@ -190,10 +186,10 @@ func (r *NoxRender) DrawLine(p1, p2 image.Point) {
 		return
 	}
 	if p1.X == p2.X {
-		r.drawLineVertical(p1.X, p1.Y, p2.Y)
+		r.drawLineVertical(p1.X, p1.Y, p2.Y, cl)
 		return
 	} else if p1.Y == p2.Y {
-		r.DrawLineHorizontal(p1.X, p1.Y, p2.X)
+		r.DrawLineHorizontal(p1.X, p1.Y, p2.X, cl)
 		return
 	}
 	pix := r.PixBuffer()
@@ -212,7 +208,6 @@ func (r *NoxRender) DrawLine(p1, p2 image.Point) {
 		h = p1.Y - p2.Y
 	}
 
-	cl := noxcolor.RGBA5551(d.Color2())
 	x := 2 * p1.X
 	if w < h {
 		dv := 2*w - h
@@ -241,27 +236,14 @@ func (r *NoxRender) DrawLine(p1, p2 image.Point) {
 	}
 }
 
-func (r *NoxRender) DrawLineAlpha(p1, p2 image.Point) {
+func (r *NoxRender) DrawLineAlpha(p1, p2 image.Point, cl Color) {
 	d := r.Data()
-	const (
-		rshift = 7
-		gshift = 2
-		bshift = 3
-
-		rmask = 0x7c00
-		gmask = 0x03e0
-		bmask = 0x001f
-	)
-
 	if d.Clip() && !r.clipToRect2(&p1, &p2) {
 		return
 	}
 	pix := r.PixBuffer()
 	alpha := uint16(d.Alpha())
-	bcl := uint16(d.Color2())
-	br := rmask & bcl >> rshift
-	bg := gmask & bcl >> gshift
-	bb := bmask & bcl << bshift
+	bc := SplitColor(cl)
 
 	width := p2.X - p1.X
 	dx := 1
@@ -280,11 +262,8 @@ func (r *NoxRender) DrawLineAlpha(p1, p2 image.Point) {
 		v := 2*width - height
 		for i := 0; i < height; i++ {
 			ind := pix.PixOffset(p.X, p.Y)
-			cl := pix.Pix[ind]
-			cr := r.colors.R[byte(((alpha*(br-((rmask&cl)>>rshift)))>>8)+((rmask&cl)>>rshift))]
-			cg := r.colors.G[byte(((alpha*(bg-((gmask&cl)>>gshift)))>>8)+((gmask&cl)>>gshift))]
-			cb := r.colors.B[byte(((alpha*(bb-((bmask&cl)<<bshift)))>>8)+((bmask&cl)<<bshift))]
-			pix.Pix[ind] = cg | cr | cb
+			c := SplitColor16(pix.Pix[ind])
+			pix.Pix[ind] = c.OverAlpha(alpha, bc).Make16()
 			p.Y += dy
 			if v >= 0 {
 				p.X += dx
@@ -297,11 +276,8 @@ func (r *NoxRender) DrawLineAlpha(p1, p2 image.Point) {
 		v := 2*height - width
 		for i := 0; i < width; i++ {
 			ind := pix.PixOffset(p.X, p.Y)
-			cl := pix.Pix[ind]
-			cr := r.colors.R[byte(((alpha*(br-((rmask&cl)>>rshift)))>>8)+((rmask&cl)>>rshift))]
-			cg := r.colors.G[byte(((alpha*(bg-((gmask&cl)>>gshift)))>>8)+((gmask&cl)>>gshift))]
-			cb := r.colors.B[byte(((alpha*(bb-((bmask&cl)<<bshift)))>>8)+((bmask&cl)<<bshift))]
-			pix.Pix[ind] = cg | cr | cb
+			c := SplitColor16(pix.Pix[ind])
+			pix.Pix[ind] = c.OverAlpha(alpha, bc).Make16()
 			p.X += dx
 			if v >= 0 {
 				v += 2 * (height - width)
@@ -370,7 +346,7 @@ func clipToRect(r image.Rectangle, p1 *image.Point, p2 image.Point, side bool) b
 	return true
 }
 
-func (r *NoxRender) clipToRect2(p1, p2 *image.Point) bool { // sub_49F990
+func (r *NoxRender) clipToRect2(p1, p2 *image.Point) bool {
 	d := r.Data()
 	rect := d.ClipRect2()
 	flag1 := clipFlags(*p1, rect)
@@ -395,11 +371,7 @@ func (r *NoxRender) clipToRect2(p1, p2 *image.Point) bool { // sub_49F990
 		p2.X >= rect.Min.X && p2.X <= rect.Max.X && p2.Y >= rect.Min.Y && p2.Y <= rect.Max.Y
 }
 
-func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int) {
-	r.DrawRectFilledOpaqueWith(x, y, w, h, r.Data().Color2())
-}
-
-func (r *NoxRender) DrawRectFilledOpaqueWith(x, y, w, h int, cl uint32) {
+func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int, cl Color) {
 	if w == 0 || h == 0 {
 		return
 	}
@@ -419,13 +391,13 @@ func (r *NoxRender) DrawRectFilledOpaqueWith(x, y, w, h int, cl uint32) {
 	}
 	sz := r.PixBuffer().Rect
 	if rx == 0 && ry == 0 && rw == sz.Dx() && rh == sz.Dy() {
-		r.ClearScreenWith(cl)
+		r.ClearScreen(cl)
 	} else {
 		r.drawRectFilledOpaque(rx, ry, rw, rh, cl)
 	}
 }
 
-func (r *NoxRender) drawRectFilledOpaque(x, y, w, h int, cl uint32) {
+func (r *NoxRender) drawRectFilledOpaque(x, y, w, h int, cl Color) {
 	d := r.Data()
 	if d.IsAlphaEnabled() {
 		r.drawRectFilledOpaqueOver(x, y, w, h, cl)
@@ -437,40 +409,22 @@ func (r *NoxRender) drawRectFilledOpaque(x, y, w, h int, cl uint32) {
 	pix := r.PixBuffer()
 	for i := 0; i < h; i++ {
 		for j := 0; j < w; j++ {
-			pix.SetRGBA5551(x+j, y+i, noxcolor.RGBA5551(cl))
+			pix.SetRGBA5551(x+j, y+i, cl)
 		}
 	}
 }
 
-func (r *NoxRender) drawRectFilledOpaqueOver(x, y, w, h int, cl uint32) {
+func (r *NoxRender) drawRectFilledOpaqueOver(x, y, w, h int, cl Color) {
 	if w == 0 || h == 0 {
 		return
 	}
 	pix := r.PixBuffer()
-	const (
-		rshift = 7
-		gshift = 2
-		bshift = 3
-
-		rmask = 0x7c00
-		gmask = 0x03e0
-		bmask = 0x001f
-	)
-	bc := uint16(cl)
-	br := (rmask & bc) >> rshift
-	bg := (gmask & bc) >> gshift
-	bb := (bmask & bc) << bshift
+	bc := SplitColor(cl)
 	for i := 0; i < h; i++ {
 		for j := 0; j < w; j++ {
 			ind := pix.PixOffset(x+j, y+i)
-			cl := pix.Pix[ind]
-			cr := (cl & rmask) >> rshift
-			cg := (cl & gmask) >> gshift
-			cb := (cl & bmask) << bshift
-			cr = r.colors.R[byte(cr+(br-cr)/2)]
-			cg = r.colors.G[byte(cg+(bg-cg)/2)]
-			cb = r.colors.B[byte(cb+(bb-cb)/2)]
-			pix.Pix[ind] = cr | cg | cb
+			c := SplitColor16(pix.Pix[ind])
+			pix.Pix[ind] = c.Over(bc).Make16()
 		}
 	}
 }
@@ -501,31 +455,31 @@ func (r *NoxRender) drawRectFilledAlpha(x, y, w, h int) {
 	}
 }
 
-func (r *NoxRender) DrawPoint(pos image.Point, rad int) {
+func (r *NoxRender) DrawPoint(pos image.Point, rad int, cl Color) {
 	switch rad {
 	case 0, 1:
-		r.DrawPixel(pos)
+		r.DrawPixel(pos, cl)
 	case 2:
-		r.DrawRectFilledOpaque(pos.X, pos.Y, 2, 2)
+		r.DrawRectFilledOpaque(pos.X, pos.Y, 2, 2, cl)
 	case 3:
-		r.DrawPixel(pos.Add(image.Point{Y: -1}))
-		r.DrawRectFilledOpaque(pos.X-1, pos.Y, 3, 1)
-		r.DrawPixel(pos.Add(image.Point{Y: +1}))
+		r.DrawPixel(pos.Add(image.Point{Y: -1}), cl)
+		r.DrawRectFilledOpaque(pos.X-1, pos.Y, 3, 1, cl)
+		r.DrawPixel(pos.Add(image.Point{Y: +1}), cl)
 	case 4:
-		r.DrawRectFilledOpaque(pos.X, pos.Y-1, 2, 1)
-		r.DrawRectFilledOpaque(pos.X-1, pos.Y, 4, 2)
-		r.DrawRectFilledOpaque(pos.X, pos.Y+2, 2, 1)
+		r.DrawRectFilledOpaque(pos.X, pos.Y-1, 2, 1, cl)
+		r.DrawRectFilledOpaque(pos.X-1, pos.Y, 4, 2, cl)
+		r.DrawRectFilledOpaque(pos.X, pos.Y+2, 2, 1, cl)
 	case 5:
-		r.DrawRectFilledOpaque(pos.X-1, pos.Y-2, 3, 1)
-		r.DrawRectFilledOpaque(pos.X-2, pos.Y-1, 5, 3)
-		r.DrawRectFilledOpaque(pos.X-1, pos.Y+2, 3, 1)
+		r.DrawRectFilledOpaque(pos.X-1, pos.Y-2, 3, 1, cl)
+		r.DrawRectFilledOpaque(pos.X-2, pos.Y-1, 5, 3, cl)
+		r.DrawRectFilledOpaque(pos.X-1, pos.Y+2, 3, 1, cl)
 	case 6:
-		r.DrawRectFilledOpaque(pos.X, pos.Y-2, 2, 1)
-		r.DrawRectFilledOpaque(pos.X-1, pos.Y-1, 4, 1)
-		r.DrawRectFilledOpaque(pos.X-2, pos.Y, 6, 2)
-		r.DrawRectFilledOpaque(pos.X-1, pos.Y+2, 4, 1)
-		r.DrawRectFilledOpaque(pos.X, pos.Y+3, 2, 1)
+		r.DrawRectFilledOpaque(pos.X, pos.Y-2, 2, 1, cl)
+		r.DrawRectFilledOpaque(pos.X-1, pos.Y-1, 4, 1, cl)
+		r.DrawRectFilledOpaque(pos.X-2, pos.Y, 6, 2, cl)
+		r.DrawRectFilledOpaque(pos.X-1, pos.Y+2, 4, 1, cl)
+		r.DrawRectFilledOpaque(pos.X, pos.Y+3, 2, 1, cl)
 	default:
-		r.DrawPointRad(pos, rad/2)
+		r.DrawPointRad(pos, rad/2, cl)
 	}
 }
