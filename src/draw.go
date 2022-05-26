@@ -13,6 +13,7 @@ package opennox
 #include "client__video__draw_common.h"
 #include "client__draw__selectdw.h"
 #include "client__draw__debugdraw.h"
+#include "client__draw__glowdraw.h"
 extern nox_draw_viewport_t nox_draw_viewport;
 extern nox_drawable* nox_xxx_drawablePlayer_1046600;
 extern unsigned int nox_client_drawFrontWalls_80812;
@@ -86,6 +87,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"image"
+	"math"
 	"sort"
 	"sync"
 	"unsafe"
@@ -1009,10 +1011,10 @@ func nox_xxx_get_57AF20() int {
 
 func sub_468F80(vp *Viewport) {
 	// TODO: values here are similar to lightGridW and lightGridH
-	dword_5d4594_2650676 = (2*common.GridStep)*((int(vp.field_4)+11)/(2*common.GridStep)-1) - 11
-	dword_5d4594_2650680 = (2*common.GridStep)*((int(vp.field_5)+11)/(2*common.GridStep)) - 57
-	C.dword_5d4594_2650676 = C.uint(dword_5d4594_2650676)
-	C.dword_5d4594_2650680 = C.uint(dword_5d4594_2650680)
+	noxTilesGpx = (2*common.GridStep)*((int(vp.field_4)+11)/(2*common.GridStep)-1) - 11
+	noxTilesGpy = (2*common.GridStep)*((int(vp.field_5)+11)/(2*common.GridStep)) - 57
+	C.dword_5d4594_2650676 = C.uint(noxTilesGpx)
+	C.dword_5d4594_2650680 = C.uint(noxTilesGpy)
 	if noxflags.HasEngine(noxflags.EngineNoSoftLights) {
 		for i := 0; i < lightGridW; i++ {
 			for j := 0; j < lightGridH; j++ {
@@ -1040,9 +1042,277 @@ func sub_468F80(vp *Viewport) {
 			int(vp.width)+int(vp.field_4)+add,
 			int(vp.height)+int(vp.field_5)+add,
 		)
-		nox_xxx_forEachSprite(rect, func(dr *Drawable) {
-			C.nox_xxx_cliLight16_469140(dr.C(), vp.C())
-		})
+		nox_xxx_forEachSprite(rect, nox_xxx_cliLight16_469140)
+	}
+}
+
+func sub_484BD0() float32 {
+	return dword_587000_154968
+}
+
+const (
+	dword_587000_142328 = 0x40000
+	dword_587000_142316 = 0x40000
+	dword_587000_154968 = 1.0
+	qword_581450_9552   = 0x10000
+	qword_581450_9544   = 0.5
+)
+
+func nox_xxx_cliLight16_469140(dr *Drawable) {
+	if !(sub_45A840(dr) || dr.Flags28()&0x80000 != 0 && dr.Flags30()&0x1000000 != 0 && dr.field_36 > 0 && dr.Flags30()&0x4 != 0) {
+		return
+	}
+	if !(nox_xxx_get_57AF20() == 0 || unsafe.Pointer(dr.C()) == *memmap.PtrPtr(0x852978, 8) || unsafe.Pointer(dr.draw_func) == C.nox_thing_glow_orb_draw) {
+		return
+	}
+	v3 := int(dr.field_37)
+	rad := int(dr.field_36)
+	if dr.Flags30()&0x20000000 != 0 {
+		v3 += randomIntMinMax(0, int(dr.field_37)>>18) << 16
+		rad = sub484C60(float32(v3) / 0x10000)
+	}
+	if v3 <= int(sub_484BD0()*0x10000) {
+		return
+	}
+	v33 := v3
+	if max := int(memmap.Int32(0x587000, 142320)); v33 > max {
+		v33 = max
+	}
+	pos := dr.Pos()
+	xx := pos.X - noxTilesGpx
+	yy := pos.Y - noxTilesGpy
+	a4 := image.Pt(xx, yy)
+	if dr.field_42 == 0xFFFF {
+		dlimit := rad * rad
+
+		xmin := (xx - rad) / common.GridStep
+		if xmin < 0 {
+			xmin = 0
+		}
+
+		xmax := (xx + rad) / common.GridStep
+		if xmax > 56 {
+			xmax = 56
+		}
+
+		ymin := (yy - rad) / common.GridStep
+		if ymin < 0 {
+			ymin = 0
+		}
+
+		ymax := (yy + rad) / common.GridStep
+		if ymax > 44 {
+			ymax = 44
+		}
+
+		v36 := (v3 >> 16) * (v3 >> 16)
+		for y := ymin; y <= ymax; y++ {
+			dy := yy - common.GridStep*y
+			dy2 := dy * dy
+			for x := xmin; x <= xmax; x++ {
+				dx := xx - common.GridStep*x
+				dx2 := dx * dx
+				if dist := dx2 + dy2; dist <= dlimit {
+					v16 := sub_4C1C70(v33+dword_587000_142328, 66*dist*int(memmap.Uint32(0x587000, 142324))/v36+0x10000)
+					if v16 > dword_587000_142328 {
+						sub_4695E0(x, y, (*int32)(unsafe.Pointer(&dr.field_38)), 8*(v16-dword_587000_142328), dr.field_43 != 0)
+					}
+					xx = a4.X
+					yy = a4.Y
+				}
+			}
+		}
+	} else {
+		a1 := image.Pt(
+			(xx<<16)/common.GridStep,
+			(yy<<16)/common.GridStep,
+		)
+		v19 := (rad << 16) / common.GridStep
+		v22 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(uint16(dr.field_41_0+0x4000)>>4))))
+		v23 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(uint16(dr.field_41_0)>>4))))
+
+		v22b := uint16(dr.field_41_0) + uint16(dr.field_41_1)
+		a3 := a1.Add(image.Pt(v22, v23))
+		v44 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr((v22b+0x4000)>>4))))
+		v24 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(v22b>>4))))
+
+		v22b = uint16(dr.field_41_0) + uint16(dr.field_41_1)
+		a2 := a1.Add(image.Pt(v44, v24))
+		v45 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr((v22b+0x4000)>>4))))
+		v25 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(v22b>>4))))
+
+		v42 := a1.Add(image.Pt(v45, v25))
+		sub_4696B0(a1, a2, a3, a4, v3, (*int32)(unsafe.Pointer(&dr.field_38)))
+		sub_4696B0(a1, a3, v42, a4, v3, (*int32)(unsafe.Pointer(&dr.field_38)))
+	}
+}
+
+func sub_467430() byte {
+	return memmap.Uint8(0x5D4594, 1062536)
+}
+
+func sub_45A840(dr *Drawable) bool {
+	if dr.CheckFlag31(23) {
+		dr.SetLightColor(128, 128, 255)
+		dr.SetLightIntensity(300.0)
+		return true
+	} else if dr.CheckFlag31(15) || unsafe.Pointer(dr.C()) == *memmap.PtrPtr(0x852978, 8) && sub_467430()&8 != 0 {
+		dr.SetLightColor(255, 255, 255)
+		dr.SetLightIntensity(200.0)
+		return true
+	} else if dr.Flags28()&0x2 == 0 || dr.Flags28()&0x80000 != 0 {
+		return false
+	} else if dr.field_69 == 10 {
+		dr.SetLightIntensity(0.0)
+		return true
+	}
+	dr.SetLightColor(255, 255, 255)
+	if dr.Flags29()&0x1 != 0 {
+		dr.SetLightIntensity(25.0)
+		return true
+	} else if dr.Flags29()&0x2 != 0 {
+		dr.SetLightIntensity(35.0)
+		return true
+	}
+	if dr.Flags29()&0x4 != 0 {
+		dr.SetLightIntensity(45.0)
+	}
+	return true
+}
+
+//export sub_484C60
+func sub_484C60(a1 C.float) C.int {
+	return C.int(sub484C60(float32(a1)))
+}
+
+func sub484C60(a1 float32) int {
+	if a1 <= dword_587000_154968 {
+		return 0
+	}
+	v2 := a1
+	if a1 > 31.0 {
+		v2 = 31.0
+	}
+	return int(math.Sqrt(float64(((memmap.Float32(0x587000, 154980)+v2)/
+		(memmap.Float32(0x587000, 154980)+dword_587000_154968) + 1.0) *
+		(a1 * a1 / (memmap.Float32(0x587000, 154976) * memmap.Float32(0x587000, 154972))))))
+}
+
+func sub_4C1C70(a1, a2 int) int {
+	return int((uint64(a1) << 16) / uint64(a2))
+}
+
+func sub_4696B0(a1, a2, a3, a4 image.Point, a5 int, a6 *int32) {
+	var v8, v9, v10 image.Point
+	if a1.Y > a2.Y {
+		if a2.Y <= a3.Y {
+			v9 = a2
+			v10 = a3
+			v8 = a1
+		} else {
+			v9 = a3
+			v10 = a1
+			v8 = a2
+		}
+	} else {
+		if a1.Y <= a3.Y {
+			v9 = a1
+			v10 = a2
+			v8 = a3
+		} else {
+			v9 = a3
+			v10 = a1
+			v8 = a2
+		}
+	}
+	var v13, v14, v15 [2 * common.GridStep]int
+	sub_484DC0(v9, v10, v15[:])
+	sub_484DC0(v9, v8, v14[:])
+	sub_4697C0(v15[:], v14[:], a4, a5, a6)
+	if v10.Y < v8.Y {
+		sub_484DC0(v10, v8, v13[:])
+		sub_4697C0(v13[:], v14[:], a4, a5, a6)
+	} else if v10.Y > v8.Y {
+		sub_484DC0(v8, v10, v13[:])
+		sub_4697C0(v15[:], v13[:], a4, a5, a6)
+	}
+}
+
+func sub_4697C0(a1, a2 []int, a3 image.Point, a4 int, a5 *int32) {
+	v0 := a1[0]
+	v7 := a1[0] + a1[1]
+	if a1[0] < a2[0] {
+		v0 = a2[0]
+	}
+	if v7 > a2[1]+a2[0] {
+		v7 = a2[1] + a2[0]
+	}
+	if v7-v0 <= 1 {
+		return
+	}
+	v23 := a4
+	if max := int(memmap.Int32(0x587000, 142308)); v23 > max {
+		v23 = max
+	}
+	if v0 >= v7 {
+		return
+	}
+	v21 := (a4 >> 16) * (a4 >> 16)
+	v8 := common.GridStep*v0 - a3.Y
+	v12 := dword_587000_142316
+	for ii := v0; ii < v7; ii++ {
+		v10 := &a2[ii+2]
+		v13 := a1[ii+2]
+		v14 := common.GridStep*v13 - a3.X
+		if v13 < *v10 {
+			v16 := v8 * v8
+			for jj := v13; jj < *v10; jj++ {
+				v17 := sub_4C1C70(v12+v23, 66*int(memmap.Uint32(0x587000, 142312))*(v16+v14*v14)/v21+0x10000)
+				v12 = dword_587000_142316
+				if v17 > dword_587000_142316 {
+					sub_4695E0(jj, ii, a5, 8*(v17-dword_587000_142316), false)
+					v12 = dword_587000_142316
+				}
+				v14 += common.GridStep
+			}
+		}
+		v0 = v7
+		v8 += common.GridStep
+	}
+}
+
+func sub_484DC0(a1, a2 image.Point, a3 []int) {
+	a3[0] = (a1.Y + 0x8000) >> 16
+	a3[1] = ((a2.Y + 0x8000) >> 16) - a3[0] + 1
+	if a3[1] <= 0 {
+		return
+	}
+	dn := (a2.X - a1.X) / a3[1]
+	v6 := a3[0] + a3[1]
+	if int(a3[0]) < 0 {
+		a3[0] = 0
+		a3[1] = v6
+	}
+	if v6 > 44 {
+		a3[1] += 44 - v6
+		v6 = 44
+	}
+	v7 := a3[0]
+	if v7 >= v6 {
+		return
+	}
+	v8 := a1.X + 0x8000
+	v9 := a3[v7+2:]
+	for v10 := v6 - v7; v10 != 0; v10-- {
+		v9[0] = v8 >> 16
+		if v8>>16 < 0 {
+			v9[0] = 0
+		}
+		if v9[0] >= 56 {
+			v9[0] = 55
+		}
+		v8 += dn
+		v9 = v9[1:]
 	}
 }
 
@@ -1052,8 +1322,8 @@ func sub_469920(p *C.nox_point) *C.char {
 		return (*C.char)(unsafe.Pointer(&lightsOutBuf[0]))
 	}
 
-	x := int(int32(p.x) - int32(dword_5d4594_2650676))
-	y := int(int32(p.y) - int32(dword_5d4594_2650680))
+	x := int(int32(p.x) - int32(noxTilesGpx))
+	y := int(int32(p.y) - int32(noxTilesGpy))
 
 	xd := x / lightGrid
 	yd := y / lightGrid
@@ -1091,7 +1361,7 @@ func sub_469920(p *C.nox_point) *C.char {
 	return (*C.char)(unsafe.Pointer(&dst[0]))
 }
 
-func sub_4814F0(p image.Point) {
+func noxTileUpdateLightXxx(p image.Point) {
 	c1 := nox_arr2_853BC0[p.X][p.Y+0]
 	c1r := c1.R >> 8
 	c1g := c1.G >> 8
@@ -1119,13 +1389,12 @@ func sub_4C1C60(a1, a2 int) int {
 	return int((int64(a1) * int64(a2)) >> 16)
 }
 
-//export sub_4695E0
-func sub_4695E0(a1, a2 C.int, a3p *C.int, a4, a5 C.int) {
-	v5 := int(a4)
-	if a5 != 0 {
-		v5 = -int(a4)
+func sub_4695E0(a1, a2 int, a3p *int32, a4 int, flip bool) {
+	v5 := a4
+	if flip {
+		v5 = -a4
 	}
-	a3 := unsafe.Slice((*int32)(unsafe.Pointer(a3p)), 3)
+	a3 := unsafe.Slice(a3p, 3)
 	v6 := sub_4C1C60(v5, int(a3[0])) << 8
 	v7 := sub_4C1C60(v5, int(a3[1])) << 8
 	v8 := sub_4C1C60(v5, int(a3[2])) << 8
@@ -1252,8 +1521,8 @@ var (
 	dword_5d4594_3798816 int
 	dword_5d4594_3798808 int
 	dword_5d4594_3798804 int
-	dword_5d4594_2650676 int
-	dword_5d4594_2650680 int
+	noxTilesGpx          int
+	noxTilesGpy          int
 	noxTileBuf           []uint16
 	noxTileBufFree       func()
 )
@@ -1299,8 +1568,8 @@ func nox_xxx_tileDrawMB_481C20_C_textured(vp *Viewport, dx, dy int) {
 
 	sy := int(C.dword_5d4594_3679320)
 	ymax := int(C.dword_5d4594_3798156)
-	gpx := dword_5d4594_2650676
-	gpy := dword_5d4594_2650680
+	gpx := noxTilesGpx
+	gpy := noxTilesGpy
 	var v67 image.Point
 	v67.Y = dy + sy
 	sub4745F0(vp)
@@ -1332,7 +1601,7 @@ func nox_xxx_tileDrawMB_481C20_C_textured(vp *Viewport, dx, dy int) {
 					v66.X = (v1 + dx - gpx) / common.GridStep
 					for kk := gpx + common.GridStep*v66.X; kk < v2+dx+common.GridStep; kk += common.GridStep {
 						if nox_arr_84EB20[v66.X].Y != v66.Y {
-							sub_4814F0(v66)
+							noxTileUpdateLightXxx(v66)
 						}
 						v66.X++
 					}
@@ -1378,7 +1647,7 @@ func noxTileDrawTextured(a1 image.Point, a2 int, a3, sz int, dst []uint16) int {
 		}
 		return a2
 	}
-	mul := a1.X - common.GridStep*a2 - dword_5d4594_2650676
+	mul := a1.X - common.GridStep*a2 - noxTilesGpx
 	c1 := nox_arr_84EB20[a2].Cl[a3]
 	c2 := nox_arr_84EB20[a2+1].Cl[a3]
 	lr := nox_light_8529A0[255+(c2.R-c1.R)>>8]

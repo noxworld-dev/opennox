@@ -101,7 +101,6 @@ long long nox_xxx_spriteChangeLightSize_484C30(int a1, int a2);
 int sub_484C60(float a1);
 int sub_484CE0(int a1, float a2);
 int nox_xxx_spriteChangeIntensity_484D70_light_intensity(int a1, float a2);
-int sub_484DC0(int2* a1, int2* a2, int* a3);
 int nox_thing_read_floor_485B30(int a1, char* a2);
 int nox_thing_read_edge_485D40(int a1, char* a2);
 int nox_xxx_tile_486060();

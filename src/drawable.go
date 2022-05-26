@@ -113,6 +113,28 @@ func (s *Drawable) Field32() uint32 {
 	return uint32(s.field_32) // TODO: NPC ID?
 }
 
+func (s *Drawable) SetLightColor(r, g, b byte) { // nox_xxx_spriteChangeLightColor_484BE0
+	if s == nil {
+		return
+	}
+	s.field_34 = 2
+	s.field_38 = C.uint(r)
+	s.field_39 = C.uint(g)
+	s.field_40 = C.uint(b)
+}
+
+func (s *Drawable) SetLightIntensity(v float32) { // nox_xxx_spriteChangeIntensity_484D70_light_intensity
+	if s == nil {
+		return
+	}
+	if v > 63.0 {
+		v = 63.0
+	}
+	s.field_35 = C.float(v)
+	s.field_37 = C.uint(v*qword_581450_9552 + qword_581450_9544)
+	s.field_36 = C.uint(sub484C60(v))
+}
+
 func (s *Drawable) Field100() *Drawable {
 	return asDrawable(s.field_100)
 }

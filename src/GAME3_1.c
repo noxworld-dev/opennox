@@ -3074,9 +3074,6 @@ int nox_xxx_prepareP2PTrade_4C1BF0() {
 	return result;
 }
 
-//----- (004C1C60) --------------------------------------------------------
-int sub_4C1C60(int a1, int a2) { return (unsigned long long)(a2 * (long long)a1) >> 16; }
-
 //----- (004C1CA0) --------------------------------------------------------
 int sub_4C1CA0(int a1) {
 	int result; // eax

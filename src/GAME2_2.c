@@ -4383,24 +4383,6 @@ long long nox_xxx_spriteChangeLightSize_484C30(int a1, int a2) {
 	return result;
 }
 
-//----- (00484C60) --------------------------------------------------------
-int sub_484C60(float a1) {
-	double v2; // st7
-
-	if (a1 <= (double)*(float*)&dword_587000_154968) {
-		return 0;
-	}
-	if (a1 <= 31.0) {
-		v2 = a1;
-	} else {
-		v2 = 31.0;
-	}
-	return nox_double2int(sqrt(((*getMemFloatPtr(0x587000, 154980) + v2) /
-									(*getMemFloatPtr(0x587000, 154980) + *(float*)&dword_587000_154968) +
-								1.0) *
-							   (a1 * a1 / (*getMemFloatPtr(0x587000, 154976) * *getMemFloatPtr(0x587000, 154972)))));
-}
-
 //----- (00484CE0) --------------------------------------------------------
 int sub_484CE0(int a1, float a2) {
 	int result; // eax
@@ -4428,55 +4410,6 @@ int nox_xxx_spriteChangeIntensity_484D70_light_intensity(int a1, float a2) {
 	return result;
 }
 
-//----- (00484DC0) --------------------------------------------------------
-int sub_484DC0(int2* a1, int2* a2, int* a3) {
-	int result; // eax
-	int v4;     // ecx
-	int v5;     // ebx
-	int v6;     // ecx
-	int v7;     // edi
-	int v8;     // ebx
-	int* v9;    // edx
-	int v10;    // ecx
-
-	result = (a1->field_4 + 0x8000) >> 16;
-	*a3 = result;
-	v4 = ((a2->field_4 + 0x8000) >> 16) - result + 1;
-	a3[1] = v4;
-	if (v4 > 0) {
-		v5 = a1->field_0;
-		result = (a2->field_0 - a1->field_0) / v4;
-		v6 = *a3 + v4;
-		if ((int)*a3 < 0) {
-			a3[1] = v6;
-			*a3 = 0;
-		}
-		if (v6 > 44) {
-			a3[1] += 44 - v6;
-			v6 = 44;
-		}
-		v7 = *a3;
-		if ((int)*a3 < v6) {
-			v8 = v5 + 0x8000;
-			v9 = &a3[v7 + 2];
-			v10 = v6 - v7;
-			do {
-				*v9 = v8 >> 16;
-				if (v8 >> 16 < 0) {
-					*v9 = 0;
-				}
-				if (*v9 >= 56) {
-					*v9 = 55;
-				}
-				v8 += result;
-				++v9;
-				--v10;
-			} while (v10);
-		}
-	}
-	return result;
-}
-// 484F48: variable 'v3' is possibly undefined
 
 //----- (00485B30) --------------------------------------------------------
 int nox_thing_read_floor_485B30(int a1, char* a2) {

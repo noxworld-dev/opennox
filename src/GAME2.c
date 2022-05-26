@@ -5024,48 +5024,6 @@ uint32_t* nox_xxx_netSpriteByCodeStatic_45A720(int a1) {
 	return result;
 }
 
-//----- (0045A840) --------------------------------------------------------
-int sub_45A840(uint32_t* a1) {
-	int result; // eax
-	int v2;     // eax
-	int v3;     // eax
-
-	if (nox_xxx_spriteCheckFlag31_4356C0((int)a1, 23)) {
-		nox_xxx_spriteChangeLightColor_484BE0(a1 + 34, 128, 128, 255);
-		nox_xxx_spriteChangeIntensity_484D70_light_intensity((int)(a1 + 34), 300.0);
-		result = 1;
-	} else if (nox_xxx_spriteCheckFlag31_4356C0((int)a1, 15) ||
-			   a1 == *(uint32_t**)getMemAt(0x852978, 8) && sub_467430() & 8) {
-		nox_xxx_spriteChangeLightColor_484BE0(a1 + 34, 255, 255, 255);
-		nox_xxx_spriteChangeIntensity_484D70_light_intensity((int)(a1 + 34), 200.0);
-		result = 1;
-	} else {
-		v2 = a1[28];
-		if (!(v2 & 2) || v2 & 0x80000) {
-			result = 0;
-		} else if (a1[69] == 10) {
-			nox_xxx_spriteChangeIntensity_484D70_light_intensity((int)(a1 + 34), 0.0);
-			result = 1;
-		} else {
-			nox_xxx_spriteChangeLightColor_484BE0(a1 + 34, 255, 255, 255);
-			v3 = a1[29];
-			if (v3 & 1) {
-				nox_xxx_spriteChangeIntensity_484D70_light_intensity((int)(a1 + 34), 25.0);
-				result = 1;
-			} else if (v3 & 2) {
-				nox_xxx_spriteChangeIntensity_484D70_light_intensity((int)(a1 + 34), 35.0);
-				result = 1;
-			} else {
-				if (v3 & 4) {
-					nox_xxx_spriteChangeIntensity_484D70_light_intensity((int)(a1 + 34), 45.0);
-				}
-				result = 1;
-			}
-		}
-	}
-	return result;
-}
-
 //----- (0045A990) --------------------------------------------------------
 int nox_xxx_spriteSetActiveMB_45A990_drawable(int a1) {
 	int result; // eax

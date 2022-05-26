@@ -207,7 +207,6 @@ int nox_xxx_spriteIsPlayerSprite_45A630(int a1);
 void sub_45A670(unsigned int a1);
 uint32_t* nox_xxx_netSpriteByCodeDynamic_45A6F0(int a1);
 uint32_t* nox_xxx_netSpriteByCodeStatic_45A720(int a1);
-int sub_45A840(uint32_t* a1);
 int nox_xxx_spriteSetActiveMB_45A990_drawable(int a1);
 int nox_xxx_cliDestroyObj_45A9A0(int a1);
 int* sub_45A9B0(int a1, int a2);

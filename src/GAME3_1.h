@@ -107,7 +107,6 @@ char* sub_4C19C0(int a1);
 int sub_4C1B50(int a1);
 int sub_4C1BC0(int a1);
 int nox_xxx_prepareP2PTrade_4C1BF0();
-int sub_4C1C60(int a1, int a2);
 int sub_4C1CA0(int a1);
 int nox_xxx_guiDrawSummonBox_4C1FE0(uint32_t* a1);
 int nox_xxx_wndSummonGet_4C2410(int2* a1);
