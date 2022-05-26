@@ -59,7 +59,6 @@ extern uint32_t dword_587000_154968;
 extern void* dword_5d4594_1193624;
 extern uint32_t dword_5d4594_1193664;
 extern uint32_t dword_5d4594_1193524;
-extern uint32_t dword_5d4594_3805484;
 extern uint32_t dword_5d4594_3804684;
 extern uint32_t dword_5d4594_3807140;
 extern uint32_t dword_5d4594_3799552;
@@ -70,7 +69,6 @@ extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
 extern uint32_t dword_5d4594_3799476;
 extern uint32_t dword_5d4594_3799468;
 extern uint32_t nox_xxx_waypointCounterMB_587000_154948;
-extern uint32_t dword_5d4594_3807160;
 extern uint32_t dword_5d4594_1098592;
 extern uint32_t dword_5d4594_823776;
 extern uint32_t dword_5d4594_1098580;
@@ -88,7 +86,6 @@ extern uint32_t dword_5d4594_2650676;
 extern uint32_t dword_5d4594_3798156;
 extern uint32_t cpuid_5d4594_3801804;
 extern uint32_t dword_5d4594_3798816;
-extern uint32_t nox_client_highResFloors_154952;
 extern uint32_t dword_5d4594_3798808;
 extern uint32_t dword_5d4594_3798832;
 extern uint32_t dword_5d4594_1193384;
@@ -113,8 +110,6 @@ extern uint32_t dword_5d4594_1123524;
 extern uint32_t dword_5d4594_1193380;
 extern uint32_t nox_video_modeXxx_3801780;
 extern uint32_t nox_client_renderGUI_80828;
-extern uint32_t dword_5d4594_3798796;
-extern uint32_t dword_5d4594_3798844;
 extern uint32_t nox_player_netCode_85319C;
 extern unsigned char* nox_draw_colors_r_3804672;
 extern unsigned char* nox_draw_colors_g_3804656;
@@ -157,7 +152,6 @@ extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
 extern uint32_t nox_arr_956A00[NOX_MAX_HEIGHT + 150];
 extern unsigned char nox_arr_957820[128 * (NOX_MAX_HEIGHT + 150)];
-unsigned char nox_arr_84EB20[280 * 57 * 4] = {0}; // TODO: the 4x factor is for high-res; figure out what 57 is
 
 uint8_t** nox_pixbuffer_rows_3798776 = 0;
 uint8_t* nox_pixbuffer_3798788 = 0;
@@ -168,6 +162,9 @@ void (*func_587000_154940)(int2*, uint32_t, uint32_t) = nox_xxx_tileDraw_4815E0;
 int (*func_587000_154944)(int, int) = nox_xxx_drawTexEdgesProbably_481900;
 
 void* nox_client_spriteUnderCursorXxx_1096644 = 0;
+uint32_t nox_client_highResFloors_154952 = 1;
+void* nox_video_tileBuf_ptr_3798796 = 0;
+void* nox_video_tileBuf_end_3798844 = 0;
 
 //----- (00476080) --------------------------------------------------------
 int sub_476080(unsigned char* a1) {
@@ -488,15 +485,15 @@ void* sub_476AE0(nox_draw_viewport_t* vp, nox_drawable* dr) {
 				v10 = nox_xxx_waypointCounterMB_587000_154948;
 			}
 			if (v10 - *((int*)v2 + 86) > 1 || v10 <= 0) {
-				v11 = dword_5d4594_3798844;
+				v11 = nox_video_tileBuf_end_3798844;
 				v12 = v8 + 1;
-				v29 = dword_5d4594_3798844;
-				v26 = dword_5d4594_3798844 - dword_5d4594_3798796;
+				v29 = nox_video_tileBuf_end_3798844;
+				v26 = (uint32_t)nox_video_tileBuf_end_3798844 - (uint32_t)nox_video_tileBuf_ptr_3798796;
 				v13 = dword_5d4594_3798804 * ((uint32_t)result + dword_5d4594_3798840 - v9);
 				v14 = v7 + dword_5d4594_3798836 - dword_5d4594_3798820;
-				v15 = v13 + dword_5d4594_3798796 + 2 * v14;
-				v25 = v13 + dword_5d4594_3798796 + 2 * v14;
-				if (v15 >= *(int*)&dword_5d4594_3798844) {
+				v15 = v13 + (uint32_t)nox_video_tileBuf_ptr_3798796 + 2 * v14;
+				v25 = v13 + (uint32_t)nox_video_tileBuf_ptr_3798796 + 2 * v14;
+				if (v15 >= nox_video_tileBuf_end_3798844) {
 					v15 -= v26;
 					v25 = v15;
 				}
@@ -524,9 +521,9 @@ void* sub_476AE0(nox_draw_viewport_t* vp, nox_drawable* dr) {
 											v21 = v16 + v20 - v29;
 											v22 = v29 - v16;
 											v33(v16, v12, v29 - v16);
-											v23 = dword_5d4594_3798796;
+											v23 = nox_video_tileBuf_ptr_3798796;
 											v24 = (int)&v12[v22];
-											v33(dword_5d4594_3798796, (uint8_t*)v24, v21);
+											v33(nox_video_tileBuf_ptr_3798796, (uint8_t*)v24, v21);
 											v12 = (uint8_t*)(v21 + v24);
 											v16 = v21 + v23;
 											v11 = v29;
@@ -1983,51 +1980,6 @@ int sub_47FCE0(uint32_t* a1, int a2) {
 
 // 4514E0: using guessed type void  nullsub_4(uint32_t, uint32_t, uint32_t, uint32_t);
 
-//----- (0047FEF0) --------------------------------------------------------
-int nox_xxx_setupSomeVideo_47FEF0() {
-	unsigned char* v0; // eax
-	int result;        // eax
-	unsigned char* v2; // eax
-
-	*getMemU32Ptr(0x973F18, 7716) = sub_480250;
-	*getMemU32Ptr(0x973F18, 5248) = sub_480220;
-	v0 = getMemAt(0x5D4594, 2598060);
-	do {
-		*((uint16_t*)v0 - 16) = 31744;
-		*(uint16_t*)v0 = 992;
-		*((uint16_t*)v0 + 16) = 31;
-		*((uint16_t*)v0 - 12) = -2048;
-		*((uint16_t*)v0 + 4) = -1024;
-		*((uint16_t*)v0 + 20) = -2048;
-		*((uint16_t*)v0 - 8) = -2048;
-		*((uint16_t*)v0 + 8) = 2016;
-		*((uint16_t*)v0 + 24) = 31;
-		*((uint16_t*)v0 - 4) = 248;
-		*((uint16_t*)v0 + 12) = 252;
-		*((uint16_t*)v0 + 28) = 248;
-		v0 += 2;
-	} while ((int)v0 < (int)getMemAt(0x5D4594, 2598068));
-	*getMemU32Ptr(0x5D4594, 2598128) = 0;
-	*getMemU32Ptr(0x5D4594, 2598160) = 0;
-	*getMemU32Ptr(0x5D4594, 2598132) = 0;
-	*getMemU32Ptr(0x5D4594, 2598136) = 0;
-	*getMemU32Ptr(0x5D4594, 2598168) = 0;
-	*getMemU32Ptr(0x5D4594, 2598144) = 0;
-	*getMemU32Ptr(0x5D4594, 2598176) = 0;
-	*getMemU32Ptr(0x5D4594, 2598152) = 0;
-	*getMemU32Ptr(0x5D4594, 2598184) = 0;
-	*getMemU32Ptr(0x5D4594, 2598124) = 7;
-	*getMemU32Ptr(0x5D4594, 2598156) = 2;
-	*getMemU32Ptr(0x5D4594, 2598164) = 5;
-	*getMemU32Ptr(0x5D4594, 2598140) = 8;
-	*getMemU32Ptr(0x5D4594, 2598172) = 3;
-	*getMemU32Ptr(0x5D4594, 2598148) = 8;
-	*getMemU32Ptr(0x5D4594, 2598180) = 3;
-	dword_5d4594_3807160 = sub_480EB0;
-	result = 1;
-	return result;
-}
-
 //----- (00480220) --------------------------------------------------------
 uint8_t* sub_480220(uint8_t* a1, uint8_t* a2) {
 	unsigned int v2; // edx
@@ -2049,132 +2001,6 @@ uint16_t* sub_480250(uint8_t* a1, uint16_t* a2) {
 	result = a2;
 	*a2 = (*a1 >> 3) | (8 * (a1[1] & 0xFC | (32 * (a1[2] & 0xF8))));
 	return result;
-}
-
-//----- (00480BE0) --------------------------------------------------------
-void sub_480BE0(uint32_t* a1, int* a2, int a3, int a4, int a5) {
-	uint8_t* v6; // ebp
-	int v7;      // edi
-	int v9;      // ecx
-	int v10;     // eax
-	int v16;     // ecx
-	int v17;     // edi
-	int v18;     // eax
-	int v21;     // [esp+14h] [ebp-10h]
-	int v22;     // [esp+18h] [ebp-Ch]
-	int v23;     // [esp+1Ch] [ebp-8h]
-	int v24;     // [esp+20h] [ebp-4h]
-	int v25;     // [esp+28h] [ebp+4h]
-	int v26;     // [esp+30h] [ebp+Ch]
-	// void( * maprgb)(const uint8_t*, uint16_t*);
-	uint8_t* x1 = *(uint8_t**)&dword_5d4594_3798844;
-	uint8_t* x2 = *(uint8_t**)&dword_5d4594_3798796;
-
-	v6 = (uint8_t*)(dword_5d4594_3798804 * (dword_5d4594_3798840 + a1[1] - dword_5d4594_3798824) +
-					dword_5d4594_3798796 + 2 * (dword_5d4594_3798836 + *a1 - dword_5d4594_3798820));
-	if (v6 >= x1) {
-		v6 += x2 - x1;
-	}
-	if (nox_common_getEngineFlag(NOX_ENGINE_DISABLE_SOFT_LIGHTS)) {
-		if ((unsigned int)&v6[2 * a4] < x1) {
-			(*(int (**)(uint32_t, uint32_t, uint32_t)) & dword_5d4594_3807160)(a5, v6, 2 * a4);
-		} else {
-			v7 = x1 - v6;
-			(*(void (**)(uint32_t, uint32_t, uint32_t)) & dword_5d4594_3807160)(a5, v6, x1 - v6);
-			(*(int (**)(uint32_t, uint32_t, uint32_t)) & dword_5d4594_3807160)(a5 + v7, dword_5d4594_3798796,
-																			   2 * a4 - v7);
-		}
-	} else {
-		v9 = *a1 - 23 * *a2 - dword_5d4594_2650676;
-		v21 = 12 * a3;
-		v10 = 12 * a3 + 280 * *a2;
-		int v11 = *((int*)&nox_arr_84EB20[4 + v10]);
-		int v12 = *((int*)&nox_arr_84EB20[8 + v10]);
-		int v13 = *((int*)&nox_arr_84EB20[12 + v10]);
-		int v11b = *((int*)&nox_arr_84EB20[284 + v10]);
-		int v12b = *((int*)&nox_arr_84EB20[288 + v10]);
-		int v13b = *((int*)&nox_arr_84EB20[292 + v10]);
-		v22 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((v11b - v11) >> 8));
-		v23 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((v12b - v12) >> 8));
-		v24 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((v13b - v13) >> 8));
-		if (v9 <= 0) {
-			v25 = 23;
-		} else {
-			v11 += v9 * v22;
-			v12 += v9 * v23;
-			v13 += v9 * v24;
-			v25 = 23 - v9;
-		}
-		if (v25 > a4) {
-			v25 = a4;
-		}
-		while (1) {
-			for (v26 = v25; v26; --v26) {
-				uint8_t r, g, b;
-				uint16_t x = *(uint16_t*)v6;
-
-#if 1
-				r = (v13 * (x & 0x1Fu)) >> 13;
-				g = (v12 * ((x >> 2) & 0xF8)) >> 16;
-				b = (v11 * ((x >> 7) & 0xF8)) >> 16;
-				*(uint16_t*)a5 = (r >> 3) | ((g & 0xF8) << 2) | ((b & 0xF8) << 7);
-#else
-				*(uint16_t*)a5 = x;
-#endif
-				// maprgb = *(void **)getMemAt(0x973F18, 7716);
-				// maprgb(tmp, v20);
-
-				v6 += 2;
-				a5 += 2;
-				if (v6 >= x1) {
-					v6 = x2;
-				}
-				v11 += v22;
-				v12 += v23;
-				v13 += v24;
-			}
-			v16 = a4 - v25;
-			a4 = v16;
-			if (v16 <= 0) {
-				break;
-			}
-			v25 = 23;
-			if (v16 < 23) {
-				v25 = v16;
-			}
-			v17 = *a2 + 1;
-			*a2 = v17;
-			v18 = v21 + 280 * v17;
-			v11 = *((int*)&nox_arr_84EB20[4 + v18]);
-			v12 = *((int*)&nox_arr_84EB20[8 + v18]);
-			v13 = *((int*)&nox_arr_84EB20[12 + v18]);
-			v11b = *((int*)&nox_arr_84EB20[284 + v18]);
-			v12b = *((int*)&nox_arr_84EB20[288 + v18]);
-			v13b = *((int*)&nox_arr_84EB20[292 + v18]);
-			v22 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((v11b - v11) >> 8));
-			v23 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((v12b - v12) >> 8));
-			v24 = *getMemU32Ptr(0x8529A0, 1020 + 4 * ((v13b - v13) >> 8));
-		}
-	}
-}
-
-//----- (00480EB0) --------------------------------------------------------
-uint16_t* sub_480EB0(uint16_t* a1, short* a2, int a3) {
-	short* v3;    // esi
-	uint16_t* v4; // edi
-	int v5;       // ecx
-	short v6;     // ax
-
-	v3 = a2;
-	v4 = a1;
-	v5 = a3;
-	do {
-		v6 = *v3;
-		++v3;
-		*v4 = v6 & 0x1F | (2 * v6) & 0xFFC0;
-		++v4;
-	} while (v5-- > 1);
-	return v4;
 }
 
 //----- (00480EF0) --------------------------------------------------------
@@ -2476,17 +2302,17 @@ char nox_xxx_tileDraw_4815E0(uint32_t* a1, int a2) {
 	char* v14;       // [esp+10h] [ebp+4h]
 	int i;           // [esp+14h] [ebp+8h]
 
-	v2 = dword_5d4594_3798804 * (dword_5d4594_3798840 + a1[1] - dword_5d4594_3798824) + dword_5d4594_3798796 +
+	v2 = dword_5d4594_3798804 * (dword_5d4594_3798840 + a1[1] - dword_5d4594_3798824) + (uint32_t)nox_video_tileBuf_ptr_3798796 +
 		 ((dword_5d4594_3798836 + *a1 - dword_5d4594_3798820) << getMemByte(0x973F18, 7696));
-	if (v2 >= *(int*)&dword_5d4594_3798844) {
-		v2 += dword_5d4594_3798796 - dword_5d4594_3798844;
+	if (v2 >= nox_video_tileBuf_end_3798844) {
+		v2 += (uint32_t)nox_video_tileBuf_ptr_3798796 - (uint32_t)nox_video_tileBuf_end_3798844;
 	}
 	v3 = nox_video_getImagePixdata_42FB30(a2);
 	v4 = (char*)v3;
 	v14 = (char*)v3;
 	if (v3) {
-		v5 = dword_5d4594_3798844;
-		if (v2 + *getMemIntPtr(0x973CE0, 376) >= *(int*)&dword_5d4594_3798844) {
+		v5 = nox_video_tileBuf_end_3798844;
+		if (v2 + *getMemIntPtr(0x973CE0, 376) >= nox_video_tileBuf_end_3798844) {
 			v6 = 0;
 			for (i = 0;; v6 = i) {
 				v7 = *getMemU32Ptr(0x973CE0, 192 + v6) << getMemByte(0x973F18, 7696);
@@ -2500,19 +2326,19 @@ char nox_xxx_tileDraw_4815E0(uint32_t* a1, int a2) {
 					v9 = v5 - v7 - v2;
 					if (v9 > 0) {
 						memcpy((void*)(v7 + v2), v4, v9);
-						memcpy(*(void**)&dword_5d4594_3798796, &v14[v9], v8 - v9);
-						v5 = dword_5d4594_3798844;
-						v2 += dword_5d4594_3798796 - dword_5d4594_3798844;
+						memcpy(nox_video_tileBuf_ptr_3798796, &v14[v9], v8 - v9);
+						v5 = nox_video_tileBuf_end_3798844;
+						v2 += (uint32_t)nox_video_tileBuf_ptr_3798796 - (uint32_t)nox_video_tileBuf_end_3798844;
 						goto LABEL_13;
 					}
-					v2 += dword_5d4594_3798796 - v5;
+					v2 += (uint32_t)nox_video_tileBuf_ptr_3798796 - v5;
 					memcpy((void*)(v7 + v2), v4, 4 * (v8 >> 2));
 					v11 = &v4[4 * (v8 >> 2)];
 					v10 = (char*)(v7 + v2 + 4 * (v8 >> 2));
 					v12 = v8;
 				}
 				memcpy(v10, v11, v12 & 3);
-				v5 = dword_5d4594_3798844;
+				v5 = nox_video_tileBuf_end_3798844;
 			LABEL_13:
 				v2 += dword_5d4594_3798804;
 				v14 += v8;
@@ -2550,13 +2376,13 @@ char* sub_481770(uint32_t* a1, int a2, unsigned short a3) {
 	}
 	v3 = *getMemU32Ptr(0x85B3FC, 32532 + 60 * a3);
 	v4 = getMemByte(0x973F18, 7696);
-	v5 = dword_5d4594_3798844;
-	v6 = dword_5d4594_3798804 * (dword_5d4594_3798840 + a1[1] - dword_5d4594_3798824) + dword_5d4594_3798796 +
+	v5 = nox_video_tileBuf_end_3798844;
+	v6 = dword_5d4594_3798804 * (dword_5d4594_3798840 + a1[1] - dword_5d4594_3798824) + (uint32_t)nox_video_tileBuf_ptr_3798796 +
 		 ((dword_5d4594_3798836 + *a1 - dword_5d4594_3798820) << getMemByte(0x973F18, 7696));
-	if (v6 >= *(int*)&dword_5d4594_3798844) {
-		v6 += dword_5d4594_3798796 - dword_5d4594_3798844;
+	if (v6 >= nox_video_tileBuf_end_3798844) {
+		v6 += (uint32_t)nox_video_tileBuf_ptr_3798796 - (uint32_t)nox_video_tileBuf_end_3798844;
 	}
-	if (v6 + *getMemU32Ptr(0x973CE0, 376) < *(int*)&dword_5d4594_3798844) {
+	if (v6 + *getMemU32Ptr(0x973CE0, 376) < nox_video_tileBuf_end_3798844) {
 		result = (char*)sub_484450(v3, v6);
 	} else {
 		v7 = 0;
@@ -2566,21 +2392,21 @@ char* sub_481770(uint32_t* a1, int a2, unsigned short a3) {
 			v9 = *getMemU32Ptr(0x973CE0, 384 + v7) << v4;
 			if (v6 + v9 + v8 < v5) {
 				result = (char*)sub_49D1C0(v6 + v8, v3, v9);
-				v5 = dword_5d4594_3798844;
+				v5 = nox_video_tileBuf_end_3798844;
 			} else {
 				v10 = v5 - v8 - v6;
 				if (v10 <= 0) {
-					v6 += dword_5d4594_3798796 - v5;
+					v6 += (uint32_t)nox_video_tileBuf_ptr_3798796 - v5;
 					result = (char*)sub_49D1C0(v6 + v8, v3, v9);
-					v5 = dword_5d4594_3798844;
+					v5 = nox_video_tileBuf_end_3798844;
 					v7 = v12;
 				} else {
 					sub_49D1C0(v6 + v8, v3, v5 - v8 - v6);
-					sub_49D1C0(*(int*)&dword_5d4594_3798796, v3, v9 - v10);
-					v5 = dword_5d4594_3798844;
+					sub_49D1C0(nox_video_tileBuf_ptr_3798796, v3, v9 - v10);
+					v5 = nox_video_tileBuf_end_3798844;
 					v7 = v12;
-					result = (char*)(dword_5d4594_3798796 - dword_5d4594_3798844);
-					v6 += dword_5d4594_3798796 - dword_5d4594_3798844;
+					result = (char*)((uint32_t)nox_video_tileBuf_ptr_3798796 - (uint32_t)nox_video_tileBuf_end_3798844);
+					v6 += (uint32_t)nox_video_tileBuf_ptr_3798796 - (uint32_t)nox_video_tileBuf_end_3798844;
 				}
 			}
 			v7 += 4;
@@ -2638,7 +2464,7 @@ char nox_xxx_drawTexEdgesProbably_481900(uint32_t* a1, uint32_t* a2) {
 	v6 = *(uint32_t*)addr;
 	v7 = dword_5d4594_3798840;
 	*getMemU32Ptr(0x5D4594, 2523980 + 4 * v4) = 1;
-	v8 = dword_5d4594_3798804 * (v7 + a1[1] - v2) + dword_5d4594_3798796 +
+	v8 = dword_5d4594_3798804 * (v7 + a1[1] - v2) + (uint32_t)nox_video_tileBuf_ptr_3798796 +
 		 ((v5 + *a1 - dword_5d4594_3798820) << getMemByte(0x973F18, 7696));
 	v9 = nox_video_getImagePixdata_42FB30(v6);
 	if (v9) {
@@ -2648,14 +2474,14 @@ char nox_xxx_drawTexEdgesProbably_481900(uint32_t* a1, uint32_t* a2) {
 		v9 = nox_video_getImagePixdata_42FB30(v3);
 		v11 = v9;
 		if (v9) {
-			v12 = dword_5d4594_3798844;
+			v12 = nox_video_tileBuf_end_3798844;
 			v9 = v32;
 			v13 = dword_5d4594_3798804 * v32 + v8;
 			v31 = v13;
 			v14 = (char*)((*getMemU32Ptr(0x973CE0, +4 * v32) << getMemByte(0x973F18, 7696)) + v11);
 			v27 = v14;
-			if (v13 >= *(int*)&dword_5d4594_3798844) {
-				v13 += dword_5d4594_3798796 - dword_5d4594_3798844;
+			if (v13 >= nox_video_tileBuf_end_3798844) {
+				v13 += (uint32_t)nox_video_tileBuf_ptr_3798796 - (uint32_t)nox_video_tileBuf_end_3798844;
 				v31 = v13;
 			}
 			v28 = v32;
@@ -2679,12 +2505,12 @@ char nox_xxx_drawTexEdgesProbably_481900(uint32_t* a1, uint32_t* a2) {
 									v17 = v15;
 								} else {
 									memcpy(v15, v33, v12 - (uint32_t)v15);
-									v17 = *(char**)&dword_5d4594_3798796;
+									v17 = nox_video_tileBuf_ptr_3798796;
 									v18 = v16 - (v12 - (uint32_t)v15);
 									v19 = &v33[v12 - (uint32_t)v15];
 								}
 								memcpy(v17, v19, v18);
-								v12 = dword_5d4594_3798844;
+								v12 = nox_video_tileBuf_end_3798844;
 								v13 = v31;
 								v33 += v16;
 								break;
@@ -2695,9 +2521,9 @@ char nox_xxx_drawTexEdgesProbably_481900(uint32_t* a1, uint32_t* a2) {
 									v20 = v12 - (uint32_t)v15;
 									memcpy(v15, v14, v20);
 									v14 = v26;
-									memcpy(*(void**)&dword_5d4594_3798796, &v26[v20], v16 - v20);
+									memcpy(nox_video_tileBuf_ptr_3798796, &v26[v20], v16 - v20);
 								}
-								v12 = dword_5d4594_3798844;
+								v12 = nox_video_tileBuf_end_3798844;
 								v13 = v31;
 								break;
 							case 1:
@@ -2711,7 +2537,7 @@ char nox_xxx_drawTexEdgesProbably_481900(uint32_t* a1, uint32_t* a2) {
 							v24 -= v29;
 							v26 = v14;
 							if ((unsigned int)v15 >= v12) {
-								v15 += dword_5d4594_3798796 - v12;
+								v15 += (uint32_t)nox_video_tileBuf_ptr_3798796 - v12;
 							}
 							v10 = v33;
 						} while (v22 > 0);
@@ -2722,7 +2548,7 @@ char nox_xxx_drawTexEdgesProbably_481900(uint32_t* a1, uint32_t* a2) {
 					v27 += *getMemU32Ptr(0x973CE0, 384 + 4 * v9) << getMemByte(0x973F18, 7696);
 					v31 = v13;
 					if (v13 >= v12) {
-						v13 += dword_5d4594_3798796 - v12;
+						v13 += (uint32_t)nox_video_tileBuf_ptr_3798796 - v12;
 						v31 = v13;
 					}
 					v28 = ++v9;
@@ -2965,117 +2791,7 @@ void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, int v78) {
 		}
 	}
 }
-void nox_xxx_tileDrawMB_481C20_C_textured(nox_draw_viewport_t* vp, int v72, int v78) {
-	unsigned char* v48; // eax
-	int v49;            // ecx
-	int v50;            // eax
-	unsigned char* v51; // esi
-	int v52;            // eax
-	int* v53;           // ebx
-	int v54;            // esi
-	int v55;            // eax
-	unsigned int v56;   // ecx
-	unsigned int v57;   // eax
-	int v58;            // eax
-	int v59;            // edi
-	int v60;            // edx
-	int v61;            // esi
-	int2 v66;           // [esp+Ch] [ebp-40h]
-	int2 v67;           // [esp+14h] [ebp-38h]
-	int v69;            // [esp+24h] [ebp-28h]
-	int v70;            // [esp+28h] [ebp-24h]
-	unsigned char* v75; // [esp+3Ch] [ebp-10h]
-	int v80;            // [esp+54h] [ebp+8h]
-	v67.field_4 = v78 + dword_5d4594_3679320;
-	sub_4745F0(vp);
-	v48 = nox_arr_84EB20;
-	do {
-		*(uint32_t*)v48 = -1;
-		v48 += 280;
-	} while ((int)(v48 - (unsigned char*)nox_arr_84EB20) < sizeof(nox_arr_84EB20));
-	v66.field_4 = (v67.field_4 - *(int*)&dword_5d4594_2650680) / 23;
-	v49 = dword_5d4594_3679320;
-	v50 = v67.field_4 - 23 * v66.field_4 - dword_5d4594_2650680;
-	v78 = v67.field_4 - 23 * v66.field_4 - dword_5d4594_2650680;
-	v80 = dword_5d4594_3679320;
-	if (*(int*)&dword_5d4594_3679320 < *(int*)&dword_5d4594_3798156) {
-		v51 = ((void*)&nox_arr_957820[128 * dword_5d4594_3679320]);
-		int v76 = 4 * dword_5d4594_3679320 - 4;
-		unsigned char ishift = getMemByte(0x973F18, 7696);
-		void* func1 = getMemAt(0x973F18, 7720);
-		for (int j = ((void*)&nox_arr_957820[128 * dword_5d4594_3679320]);; v51 = (unsigned char*)j) {
-			int i = (uint32_t)nox_pixbuffer_rows_3798784[v49];
-			if (v50 == 23) {
-				v78 = 0;
-				++v66.field_4;
-			}
-			v52 = nox_arr_956A00[v76 / 4 + 1];
-			v53 = (int*)v51;
-			// low-res floors basically skip each second row (interlacing) and then duplicate result from the first row
-			if (nox_client_highResFloors_154952 || !(v67.field_4 & 1) || v51 == nox_arr_957820) {
-				if (v52 > 0) {
-					int v71 = (unsigned int)(v52 + 1) >> 1;
-					do {
-						v58 = v53[1];
-						v69 = *v53;
-						v59 = v69 + v72;
-						v53 += 2;
-						v67.field_0 = v69 + v72;
-						v60 = (v69 + v72 - *(int*)&dword_5d4594_2650676) / 23;
-						v66.field_0 = v60;
-						v70 = (v69 + v72 - *(int*)&dword_5d4594_2650676) / 23;
-						v61 = dword_5d4594_2650676 + 23 * v60;
-						unsigned int v74 = v58 - v69;
-						v75 = ((void*)&nox_arr_84EB20[280 * v60]);
-						if (v61 < v58 + v72 + 23) {
-							do {
-								if (*(uint32_t*)v75 != v66.field_4) {
-									(*(int (**)(int2*))func1)(&v66);
-									v59 = v67.field_0;
-									v60 = v66.field_0;
-								}
-								v61 += 23;
-								v75 += 280;
-								v66.field_0 = ++v60;
-							} while (v61 < (int)(v74 + v59 + 23));
-						}
-						v66.field_0 = v70;
-						(*(void (**)(int2*, int*, uint32_t, uint32_t, uint32_t)) &
-						 dword_5d4594_3805484)(&v67, &v66.field_0, v78, v74, i + (v69 << ishift));
-						--v71;
-					} while (v71);
-				}
-			} else if (v52 > 0) {
-				// remove interlacing
-				unsigned int v74 = (unsigned int)(v52 + 1) >> 1;
-				do {
-					v54 = *v53;
-					v55 = v53[1];
-					v53 += 2;
-					v56 = (v55 - v54) << ishift;
-					v57 = v74;
-					memcpy((void*)(i + (v54 << ishift)),
-						   (const void*)((v54 << ishift) + (uint32_t)nox_pixbuffer_rows_3798784[v76 / 4]), v56);
-					v74 = v57 - 1;
-				} while (v57 != 1);
-			}
-			++v78;
-			bool v18 = ++v80 < *(int*)&dword_5d4594_3798156;
-			j += 128;
-			v76 += 4;
-			++v67.field_4;
-			if (!v18) {
-				break;
-			}
-			v49 = v80;
-			v50 = v78;
-		}
-	}
-#if 0
-	if (*(uint32_t*)& dword_5d4594_805836)
-		_m_femms();
-#endif
-}
+
 void nox_xxx_tileDrawMB_481C20_C_solid(nox_draw_viewport_t* vp, int v72, int v78) {
 	unsigned char* v35; // ebx
 	int v36;            // eax
@@ -3110,24 +2826,24 @@ void nox_xxx_tileDrawMB_481C20_C_solid(nox_draw_viewport_t* vp, int v72, int v78
 					v67.field_0 = *(uint32_t*)v35 + v72;
 					v35 += 8;
 					v39 = (char*)(dword_5d4594_3798804 * (v67.field_4 + dword_5d4594_3798840 - dword_5d4594_3798824) +
-								  dword_5d4594_3798796 +
+								  (uint32_t)nox_video_tileBuf_ptr_3798796 +
 								  ((v37 + v72 + dword_5d4594_3798836 - dword_5d4594_3798820)
 								   << getMemByte(0x973F18, 7696)));
-					if ((unsigned int)v39 >= *(int*)&dword_5d4594_3798844) {
-						v39 += dword_5d4594_3798796 - dword_5d4594_3798844;
+					if ((unsigned int)v39 >= nox_video_tileBuf_end_3798844) {
+						v39 += (uint32_t)nox_video_tileBuf_ptr_3798796 - (uint32_t)nox_video_tileBuf_end_3798844;
 					}
 					int v76 = i + (v37 << getMemByte(0x973F18, 7696));
 					v40 = v38 << getMemByte(0x973F18, 7696);
-					if ((unsigned int)&v39[v38 << getMemByte(0x973F18, 7696)] < *(int*)&dword_5d4594_3798844) {
+					if ((unsigned int)&v39[v38 << getMemByte(0x973F18, 7696)] < nox_video_tileBuf_end_3798844) {
 						v42 = (char*)v76;
 						memcpy((void*)v76, v39, 4 * (v40 >> 2));
 					} else {
-						v41 = dword_5d4594_3798844 - (uint32_t)v39;
-						memcpy((void*)v76, v39, dword_5d4594_3798844 - (uint32_t)v39);
-						v39 = *(char**)&dword_5d4594_3798796;
+						v41 = (uint32_t)nox_video_tileBuf_end_3798844 - (uint32_t)v39;
+						memcpy((void*)v76, v39, (uint32_t)nox_video_tileBuf_end_3798844 - (uint32_t)v39);
+						v39 = nox_video_tileBuf_ptr_3798796;
 						v42 = (char*)(v41 + v76);
 						v40 = (v38 << getMemByte(0x973F18, 7696)) - v41;
-						memcpy(v42, *(const void**)&dword_5d4594_3798796, 4 * (v40 >> 2));
+						memcpy(v42, nox_video_tileBuf_ptr_3798796, 4 * (v40 >> 2));
 					}
 					v44 = &v39[4 * (v40 >> 2)];
 					v43 = &v42[4 * (v40 >> 2)];
@@ -4956,56 +4672,6 @@ int nox_thing_read_edge_485D40(int a1, char* a2) {
 }
 // 485EEB: variable 'v25' is possibly undefined
 // 485D40: using guessed type char var_20[32];
-
-//----- (00485F80) --------------------------------------------------------
-void nox_xxx_initSight_485F80() {
-	int v0; // esi
-	int v1; // eax
-	int v2; // edx
-	int i;  // ecx
-	int v4; // edx
-	int v5; // edi
-	int v6; // ecx
-	int v7; // ebx
-
-	v0 = 0;
-	v1 = 0;
-	v2 = 1;
-	for (i = 23; i > 0; --i) {
-		*getMemU32Ptr(0x973CE0, +4 * v1) = v0;
-		*getMemU32Ptr(0x973CE0, 192 + 4 * v1) = i;
-		*getMemU32Ptr(0x973CE0, 384 + 4 * v1) = v2;
-		v0 += v2;
-		++v1;
-		v2 += 2;
-	}
-	if (v1 < 46) {
-		v4 = 91 - 2 * v1;
-		v5 = v1 - 22;
-		v6 = 4 * v1;
-		v7 = 46 - v1;
-		do {
-			*getMemU32Ptr(0x973CE0, +v6) = v0;
-			*getMemU32Ptr(0x973CE0, 192 + v6) = v5;
-			*getMemU32Ptr(0x973CE0, 384 + v6) = v4;
-			v0 += v4;
-			++v5;
-			v4 -= 2;
-			v6 += 4;
-			--v7;
-		} while (v7);
-	}
-
-	unsigned int* v8 = getMemAt(0x8529A0, 0);
-	for (int j = 0; j < 253; j++) {
-		v8[j] = ((j - 253) * 256) / 22;
-	}
-	*getMemU32Ptr(0x8529A0, 1016) = 0;
-	unsigned int* v12 = getMemAt(0x8529A0, 1020);
-	for (int k = 0; k < 256; k++) {
-		v12[k] = (k * 256) / 22;
-	}
-}
 
 //----- (00486060) --------------------------------------------------------
 int nox_xxx_tile_486060() {

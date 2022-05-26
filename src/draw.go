@@ -29,7 +29,6 @@ extern unsigned int nox_client_showTooltips_80840;
 extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 extern unsigned int nox_profiled_805856;
 extern unsigned int nox_xxx_waypointCounterMB_587000_154948;
-extern unsigned char nox_arr_84EB20[280*57*4];
 extern void* nox_draw_defaultFont_816492;
 extern unsigned int dword_5d4594_2523804;
 extern unsigned int dword_5d4594_2650676;
@@ -61,12 +60,30 @@ extern uint32_t nox_color_black_2650656;
 extern uint32_t nox_color_red_2589776;
 extern uint32_t nox_color_blue_2650684;
 extern uint32_t nox_color_green_2614268;
+extern uint32_t dword_5d4594_3679320;
+extern uint32_t dword_5d4594_3798156;
+extern uint32_t dword_5d4594_3798800;
+extern uint32_t dword_5d4594_3798804;
+extern uint32_t dword_5d4594_3798808;
+extern uint32_t dword_5d4594_3798812;
+extern uint32_t dword_5d4594_3798816;
+extern uint32_t dword_5d4594_3798820;
+extern uint32_t dword_5d4594_3798824;
+extern uint32_t dword_5d4594_3798828;
+extern uint32_t dword_5d4594_3798832;
+extern uint32_t dword_5d4594_3798836;
+extern uint32_t dword_5d4594_3798840;
+extern uint32_t nox_arr_956A00[NOX_MAX_HEIGHT + 150];
+extern unsigned char nox_arr_957820[128 * (NOX_MAX_HEIGHT + 150)];
 extern void (*func_587000_154940)(int2*, uint32_t, uint32_t);
 extern int (*func_587000_154944)(int, int);
 extern unsigned char byte_5D4594_3804364[160];
+extern void* nox_video_tileBuf_ptr_3798796;
+extern void* nox_video_tileBuf_end_3798844;
 */
 import "C"
 import (
+	"encoding/binary"
 	"fmt"
 	"image"
 	"sort"
@@ -85,6 +102,13 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
+const (
+	// TODO: the 4x factor is for high-res; figure out what those values are
+	lightGridW = 57 * 4
+	lightGridH = 45 * 4
+	lightGrid  = common.GridStep
+)
+
 var (
 	noxrend  *NoxRender
 	viewport struct {
@@ -95,7 +119,17 @@ var (
 	nox_client_texturedFloors2_154960 = true
 	dword_5d4594_1096428              int
 	dword_5d4594_1096432              int
+
+	nox_arr2_853BC0  [lightGridW][lightGridH]ColorInt
+	nox_arr_84EB20   [lightGridW]nox_arr_84EB20_t
+	lightsOutBuf     []uint32
+	nox_light_8529A0 [512]int
 )
+
+type nox_arr_84EB20_t struct {
+	Y  int
+	Cl [common.GridStep]ColorInt
+}
 
 //export sub_473970
 func sub_473970(a1, a2 *C.int2) {
@@ -969,26 +1003,16 @@ type ColorInt struct {
 	R, G, B int
 }
 
-const (
-	// TODO: the 4x factor is for high-res; figure out what those values are
-	lightGridW = 57 * 4
-	lightGridH = 45 * 4
-	lightGrid  = common.GridStep
-)
-
-var (
-	nox_arr2_853BC0 [lightGridW][lightGridH]ColorInt
-	lightsOutBuf    []uint32
-)
-
 func nox_xxx_get_57AF20() int {
 	return int(C.dword_5d4594_2523804)
 }
 
 func sub_468F80(vp *Viewport) {
 	// TODO: values here are similar to lightGridW and lightGridH
-	C.dword_5d4594_2650676 = C.uint(46*((int(vp.field_4)+11)/46-1) - 11)
-	C.dword_5d4594_2650680 = C.uint(46*((int(vp.field_5)+11)/46) - 57)
+	dword_5d4594_2650676 = (2*common.GridStep)*((int(vp.field_4)+11)/(2*common.GridStep)-1) - 11
+	dword_5d4594_2650680 = (2*common.GridStep)*((int(vp.field_5)+11)/(2*common.GridStep)) - 57
+	C.dword_5d4594_2650676 = C.uint(dword_5d4594_2650676)
+	C.dword_5d4594_2650680 = C.uint(dword_5d4594_2650680)
 	if noxflags.HasEngine(noxflags.EngineNoSoftLights) {
 		for i := 0; i < lightGridW; i++ {
 			for j := 0; j < lightGridH; j++ {
@@ -1028,8 +1052,8 @@ func sub_469920(p *C.nox_point) *C.char {
 		return (*C.char)(unsafe.Pointer(&lightsOutBuf[0]))
 	}
 
-	x := int(int32(p.x) - int32(uint32(C.dword_5d4594_2650676)))
-	y := int(int32(p.y) - int32(uint32(C.dword_5d4594_2650680)))
+	x := int(int32(p.x) - int32(dword_5d4594_2650676))
+	y := int(int32(p.y) - int32(dword_5d4594_2650680))
 
 	xd := x / lightGrid
 	yd := y / lightGrid
@@ -1067,35 +1091,28 @@ func sub_469920(p *C.nox_point) *C.char {
 	return (*C.char)(unsafe.Pointer(&dst[0]))
 }
 
-//export sub_4814F0
-func sub_4814F0(a1 *C.nox_point) C.int {
-	c1 := nox_arr2_853BC0[a1.x][a1.y+0]
-	v2 := c1.R >> 8
-	v3 := c1.G >> 8
-	v4 := c1.B >> 8
+func sub_4814F0(p image.Point) {
+	c1 := nox_arr2_853BC0[p.X][p.Y+0]
+	c1r := c1.R >> 8
+	c1g := c1.G >> 8
+	c1b := c1.B >> 8
 
-	c2 := nox_arr2_853BC0[a1.x][a1.y+1]
-	v2b := c2.R >> 8
-	v3b := c2.G >> 8
-	v4b := c2.B >> 8
+	c2 := nox_arr2_853BC0[p.X][p.Y+1]
+	c2r := c2.R >> 8
+	c2g := c2.G >> 8
+	c2b := c2.B >> 8
 
-	v8 := int(memmap.Int32(0x8529A0, uintptr(1020+4*((v2b-v2)>>8))))
-	v9 := int(memmap.Int32(0x8529A0, uintptr(1020+4*((v3b-v3)>>8))))
-	v10 := int(memmap.Int32(0x8529A0, uintptr(1020+4*((v4b-v4)>>8))))
+	dcr := nox_light_8529A0[255+(c2r-c1r)>>8]
+	dcg := nox_light_8529A0[255+(c2g-c1g)>>8]
+	dcb := nox_light_8529A0[255+(c2b-c1b)>>8]
 
 	for i := 0; i < lightGrid; i++ {
-		v6 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_84EB20[280*int(a1.x)+12*i+4])), 3)
-		v6[0] = uint32(int32(v2))
-		v6[1] = uint32(int32(v3))
-		v6[2] = uint32(int32(v4))
-		v2 += v8
-		v3 += v9
-		v4 += v10
+		nox_arr_84EB20[p.X].Cl[i] = ColorInt{R: c1r, G: c1g, B: c1b}
+		c1r += dcr
+		c1g += dcg
+		c1b += dcb
 	}
-
-	v6p := (*int32)(unsafe.Pointer(&C.nox_arr_84EB20[280*a1.x]))
-	*v6p = int32(a1.y)
-	return 7 * a1.x
+	nox_arr_84EB20[p.X].Y = p.Y
 }
 
 func sub_4C1C60(a1, a2 int) int {
@@ -1166,10 +1183,252 @@ func nox_xxx_tileDrawMB_481C20(vp *Viewport) {
 		C.nox_xxx_tileDrawMB_481C20_B(vp.C(), C.int(dy))
 	}
 	if nox_client_texturedFloors_154956 {
-		C.nox_xxx_tileDrawMB_481C20_C_textured(vp.C(), C.int(dx), C.int(dy))
+		nox_xxx_tileDrawMB_481C20_C_textured(vp, dx, dy)
 	} else {
 		C.nox_xxx_tileDrawMB_481C20_C_solid(vp.C(), C.int(dx), C.int(dy))
 	}
+}
+
+func nox_xxx_setupSomeVideo_47FEF0() {
+	*memmap.PtrPtr(0x973F18, 7716) = C.sub_480250
+	*memmap.PtrPtr(0x973F18, 5248) = C.sub_480220
+	*memmap.PtrUint32(0x5D4594, 2598128) = 0
+	*memmap.PtrUint32(0x5D4594, 2598160) = 0
+	*memmap.PtrUint32(0x5D4594, 2598132) = 0
+	*memmap.PtrUint32(0x5D4594, 2598136) = 0
+	*memmap.PtrUint32(0x5D4594, 2598168) = 0
+	*memmap.PtrUint32(0x5D4594, 2598144) = 0
+	*memmap.PtrUint32(0x5D4594, 2598176) = 0
+	*memmap.PtrUint32(0x5D4594, 2598152) = 0
+	*memmap.PtrUint32(0x5D4594, 2598184) = 0
+	*memmap.PtrUint32(0x5D4594, 2598124) = 7
+	*memmap.PtrUint32(0x5D4594, 2598156) = 2
+	*memmap.PtrUint32(0x5D4594, 2598164) = 5
+	*memmap.PtrUint32(0x5D4594, 2598140) = 8
+	*memmap.PtrUint32(0x5D4594, 2598172) = 3
+	*memmap.PtrUint32(0x5D4594, 2598148) = 8
+	*memmap.PtrUint32(0x5D4594, 2598180) = 3
+}
+
+func nox_xxx_initSight_485F80() {
+	v0 := 0
+	v1 := 0
+	v2 := 1
+	for i := common.GridStep; i > 0; i-- {
+		*memmap.PtrUint32(0x973CE0, 0+4*uintptr(v1)) = uint32(v0)
+		*memmap.PtrUint32(0x973CE0, 192+4*uintptr(v1)) = uint32(i)
+		*memmap.PtrUint32(0x973CE0, 384+4*uintptr(v1)) = uint32(v2)
+		v0 += v2
+		v1++
+		v2 += 2
+	}
+	if v1 < 2*common.GridStep {
+		v4 := 91 - 2*v1
+		v5 := v1 - 22
+		v6 := 4 * v1
+		for v7 := 2*common.GridStep - v1; v7 != 0; v7-- {
+			*memmap.PtrUint32(0x973CE0, 0+uintptr(v6)) = uint32(v0)
+			*memmap.PtrUint32(0x973CE0, 192+uintptr(v6)) = uint32(v5)
+			*memmap.PtrUint32(0x973CE0, 384+uintptr(v6)) = uint32(v4)
+			v0 += v4
+			v5++
+			v4 -= 2
+			v6 += 4
+		}
+	}
+
+	for i := 0; i < 253; i++ {
+		nox_light_8529A0[i] = ((i - 253) * 256) / 22
+	}
+	nox_light_8529A0[256] = 0
+	for i := 0; i < 256; i++ {
+		nox_light_8529A0[255+i] = (i * 256) / 22
+	}
+}
+
+var (
+	dword_5d4594_3798812 int
+	dword_5d4594_3798800 int
+	dword_5d4594_3798816 int
+	dword_5d4594_3798808 int
+	dword_5d4594_3798804 int
+	dword_5d4594_2650676 int
+	dword_5d4594_2650680 int
+	noxTileBuf           []uint16
+	noxTileBufFree       func()
+)
+
+func nox_xxx_tileInitBuf_430DB0(width, height int) {
+	dword_5d4594_3798812 = width/(2*common.GridStep) + 4
+	dword_5d4594_3798800 = (2 * common.GridStep) * dword_5d4594_3798812
+	dword_5d4594_3798816 = height/(2*common.GridStep) + 3
+	dword_5d4594_3798808 = (2 * common.GridStep) * dword_5d4594_3798816
+	dword_5d4594_3798804 = ((2 * common.GridStep) * dword_5d4594_3798812) * 2
+
+	C.dword_5d4594_3798812 = C.uint(dword_5d4594_3798812)
+	C.dword_5d4594_3798800 = C.uint(dword_5d4594_3798800)
+	C.dword_5d4594_3798816 = C.uint(dword_5d4594_3798816)
+	C.dword_5d4594_3798808 = C.uint(dword_5d4594_3798808)
+	C.dword_5d4594_3798804 = C.uint(dword_5d4594_3798804)
+
+	C.dword_5d4594_3798820 = 0
+	C.dword_5d4594_3798824 = 0
+	C.dword_5d4594_3798828 = 0
+	C.dword_5d4594_3798832 = 0
+	C.dword_5d4594_3798836 = 0
+	C.dword_5d4594_3798840 = 0
+
+	sz := dword_5d4594_3798804 * (2 * common.GridStep) * dword_5d4594_3798816
+	noxTileBuf, noxTileBufFree = alloc.Make([]uint16{}, sz/2)
+	C.nox_video_tileBuf_ptr_3798796 = unsafe.Pointer(&noxTileBuf[0])
+	C.nox_video_tileBuf_end_3798844 = unsafe.Add(unsafe.Pointer(&noxTileBuf[0]), sz)
+}
+
+//export nox_video_freeFloorBuffer_430EC0
+func nox_video_freeFloorBuffer_430EC0() {
+	if noxTileBuf != nil {
+		noxTileBufFree()
+		noxTileBuf = nil
+		noxTileBufFree = nil
+	}
+	sub_444C50()
+}
+
+func nox_xxx_tileDrawMB_481C20_C_textured(vp *Viewport, dx, dy int) {
+	r := noxrend
+
+	sy := int(C.dword_5d4594_3679320)
+	ymax := int(C.dword_5d4594_3798156)
+	gpx := dword_5d4594_2650676
+	gpy := dword_5d4594_2650680
+	var v67 image.Point
+	v67.Y = dy + sy
+	sub4745F0(vp)
+	nox_arr_957820 := unsafe.Slice((*byte)(unsafe.Pointer(&C.nox_arr_957820[0])), len(C.nox_arr_957820))
+	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
+	for i := range nox_arr_84EB20 {
+		nox_arr_84EB20[i].Y = -1
+	}
+	var v66 image.Point
+	v66.Y = (v67.Y - gpy) / common.GridStep
+	v78 := v67.Y - common.GridStep*v66.Y - gpy
+	pix := r.PixBuffer()
+	for yy := sy; yy < ymax; yy++ {
+		src := nox_arr_957820[128*yy:]
+		if v78 == common.GridStep {
+			v78 = 0
+			v66.Y++
+		}
+		vv := int(nox_arr_956A00[yy])
+		if C.nox_client_highResFloors_154952 != 0 || v67.Y&1 == 0 || yy == 0 {
+			// high-res or each second row on low-res
+			if vv > 0 {
+				for jj := (vv + 1) / 2; jj != 0; jj-- {
+					v1 := int(binary.LittleEndian.Uint32(src[0:]))
+					v2 := int(binary.LittleEndian.Uint32(src[4:]))
+					src = src[8:]
+
+					v67.X = v1 + dx
+					v66.X = (v1 + dx - gpx) / common.GridStep
+					for kk := gpx + common.GridStep*v66.X; kk < v2+dx+common.GridStep; kk += common.GridStep {
+						if nox_arr_84EB20[v66.X].Y != v66.Y {
+							sub_4814F0(v66)
+						}
+						v66.X++
+					}
+					v66.X = (v1 + dx - gpx) / common.GridStep
+					ind := pix.PixOffset(v1, yy)
+					v66.X = noxTileDrawTextured(v67, v66.X, v78, v2-v1, pix.Pix[ind:])
+				}
+			}
+		} else {
+			// low-res floors basically skip each second row (interlacing) and then duplicate result from the first row
+			if vv > 0 {
+				for jj := (vv + 1) / 2; jj != 0; jj-- {
+					v1 := int(binary.LittleEndian.Uint32(src[0:]))
+					v2 := int(binary.LittleEndian.Uint32(src[4:]))
+					src = src[8:]
+
+					ind := pix.PixOffset(v1, yy)
+					ind2 := pix.PixOffset(v1, yy-1)
+					copy(pix.Pix[ind:], pix.Pix[ind2:ind2+(v2-v1)])
+				}
+			}
+		}
+		v78++
+		v67.Y++
+	}
+}
+
+func noxTileDrawTextured(a1 image.Point, a2 int, a3, sz int, dst []uint16) int {
+	buf := noxTileBuf
+
+	bi := (dword_5d4594_3798804/2)*(int(C.dword_5d4594_3798840)+a1.Y-int(C.dword_5d4594_3798824)) + (int(C.dword_5d4594_3798836) + a1.X - int(C.dword_5d4594_3798820))
+	if bi >= len(buf) {
+		bi -= len(buf)
+	}
+	if noxflags.HasEngine(noxflags.EngineNoSoftLights) {
+		if bi+sz < len(buf) {
+			copy(dst[:sz], buf[bi:bi+sz])
+		} else {
+			sz1 := len(buf) - bi
+			sz2 := sz - sz1
+			copy(dst[:sz1], buf[bi:bi+sz1])
+			copy(dst[sz1:sz1+sz2], buf[:sz2])
+		}
+		return a2
+	}
+	mul := a1.X - common.GridStep*a2 - dword_5d4594_2650676
+	c1 := nox_arr_84EB20[a2].Cl[a3]
+	c2 := nox_arr_84EB20[a2+1].Cl[a3]
+	lr := nox_light_8529A0[255+(c2.R-c1.R)>>8]
+	lg := nox_light_8529A0[255+(c2.G-c1.G)>>8]
+	lb := nox_light_8529A0[255+(c2.B-c1.B)>>8]
+	var csz int
+	if mul <= 0 {
+		csz = common.GridStep
+	} else {
+		c1.R += mul * lr
+		c1.G += mul * lg
+		c1.B += mul * lb
+		csz = common.GridStep - mul
+	}
+	if csz > sz {
+		csz = sz
+	}
+	for {
+		bi = bi % len(buf)
+		_ = dst[csz:]
+		_ = buf[bi:]
+		for i := 0; i < csz; i++ {
+			cl := buf[bi%len(buf)]
+			r := uint16((uint32(c1.R)*uint32((cl>>7)&0xF8))>>16) & 0xF8
+			g := uint16((uint32(c1.G)*uint32((cl>>2)&0xF8))>>16) & 0xF8
+			b := uint16((uint32(c1.B)*uint32((cl>>0)&0x1F))>>13) & 0xF8
+			dst[i] = (r << 7) | (g << 2) | (b >> 3)
+
+			bi++
+			c1.R += lr
+			c1.G += lg
+			c1.B += lb
+		}
+		dst = dst[csz:]
+		sz -= csz
+		if sz <= 0 {
+			break
+		}
+		csz = common.GridStep
+		if sz < common.GridStep {
+			csz = sz
+		}
+		a2++
+		c1 = nox_arr_84EB20[a2].Cl[a3]
+		c2 = nox_arr_84EB20[a2+1].Cl[a3]
+		lr = nox_light_8529A0[255+(c2.R-c1.R)>>8]
+		lg = nox_light_8529A0[255+(c2.G-c1.G)>>8]
+		lb = nox_light_8529A0[255+(c2.B-c1.B)>>8]
+	}
+	return a2
 }
 
 func nox_xxx_tileSetDrawFn_481420() {
@@ -1473,7 +1732,9 @@ func nox_client_maybeDrawFrontWalls(vp *Viewport) { // nox_client_maybeDrawFront
 
 //export sub_4745F0
 func sub_4745F0(cvp *C.nox_draw_viewport_t) {
-	vp := asViewport(cvp)
+	sub4745F0(asViewport(cvp))
+}
+func sub4745F0(vp *Viewport) {
 	for _, dr := range nox_drawable_list_2 {
 		drawCreatureBackEffects(noxrend, vp, dr)
 		if C.nox_xxx_client_4984B0_drawable(dr.C()) == 0 {

@@ -16,7 +16,6 @@
 extern uint32_t dword_587000_142316;
 extern uint32_t dword_587000_142328;
 extern uint32_t dword_587000_154968;
-extern uint32_t dword_5d4594_3805484;
 extern uint32_t dword_5d4594_2650680;
 extern uint32_t dword_5d4594_805836;
 extern uint32_t dword_5d4594_3798800;
@@ -29,8 +28,6 @@ extern uint32_t dword_5d4594_3798820;
 extern uint32_t dword_5d4594_3798824;
 extern uint32_t dword_5d4594_3798840;
 extern uint32_t nox_video_modeXxx_3801780;
-extern uint32_t dword_5d4594_3798796;
-extern uint32_t dword_5d4594_3798844;
 extern int nox_win_width;
 extern int nox_win_height;
 extern int nox_video_dxFullScreen;
@@ -313,15 +310,4 @@ void nox_xxx_cliLight16_469140(nox_drawable* dr, nox_draw_viewport_t* vp) {
 		sub_4696B0(&a1, &a2, &a3, &a4, v3, v26);
 		sub_4696B0(&a1, &a3, &v42, &a4, v3, v26);
 	}
-}
-
-//----- (00430CC0) --------------------------------------------------------
-int nox_xxx___cfltcvt_init_430CC0() {
-	*getMemU32Ptr(0x973F18, 7696) = 1;
-	*getMemU32Ptr(0x973F18, 7700) = nox_xxx_someEdgeProcessing_480EF0;
-	*getMemU32Ptr(0x973F18, 7720) = sub_4814F0;
-	dword_5d4594_3807156 = sub_469920;
-	dword_5d4594_805836 = 0;
-	dword_5d4594_3805484 = sub_480BE0;
-	return 0;
 }

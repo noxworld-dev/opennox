@@ -132,7 +132,6 @@ int sub_4348C0();
 int sub_434FB0();
 void sub_4352E0();
 void sub_4353F0();
-void sub_444C50();
 bool nox_xxx_makeFillerColor_48BDE0();
 void nox_video_callCopyBackBuffer_4AD170(void);
 int sub_4B0300(char* a1);

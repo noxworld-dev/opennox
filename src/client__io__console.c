@@ -68,7 +68,7 @@ void sub_4516C0(wchar_t* a1, ...) {
 	nox_fs_fprintf(nox_file_log, "exiting..\n");
 	nox_fs_close(nox_file_log);
 	if (*(unsigned int*)&dword_5d4594_823776) {
-		nox_xxx_freeFloorBuffer_430EF0();
+		nox_video_freeFloorBuffer_430EC0();
 	}
 	nox_input_pollEvents_4453A0();
 	nox_input_pollEvents_4453A0();

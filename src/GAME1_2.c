@@ -98,7 +98,6 @@ extern uint32_t dword_5d4594_741680;
 extern uint32_t dword_5d4594_1193336;
 extern uint32_t dword_5d4594_3807152;
 extern uint32_t dword_5d4594_3807136;
-extern uint32_t dword_5d4594_3805484;
 extern uint32_t dword_5d4594_814548;
 extern uint32_t dword_5d4594_3804684;
 extern uint32_t nox_xxx_useMMX_587000_80800;
@@ -157,11 +156,9 @@ extern uint32_t nox_video_pixmode_3799624;
 extern uint32_t nox_video_modeXxx_3801780;
 extern uint32_t dword_5d4594_810632;
 extern uint32_t nox_client_renderGUI_80828;
-extern uint32_t dword_5d4594_3798796;
 extern uint32_t nox_wol_wnd_gameList_815012;
 extern nox_window* dword_5d4594_815004;
 extern uint32_t dword_5d4594_2650652;
-extern uint32_t dword_5d4594_3798844;
 extern uint32_t nox_player_netCode_85319C;
 extern nox_window* nox_wol_wnd_world_814980;
 extern int nox_enable_audio;
@@ -3562,44 +3559,6 @@ int sub_430B50(int a1, int a2, int a3, int a4) {
 	return result;
 }
 
-//----- (00430DB0) --------------------------------------------------------
-int nox_xxx_tileInitBuf_430DB0(int a1, int a2) {
-	size_t v2; // edi
-	char* v3;  // eax
-
-	dword_5d4594_3798812 = a1 / 46 + 4;
-	dword_5d4594_3798820 = 0;
-	dword_5d4594_3798824 = 0;
-	dword_5d4594_3798800 = 46 * dword_5d4594_3798812;
-	dword_5d4594_3798816 = a2 / 46 + 3;
-	dword_5d4594_3798828 = 0;
-	dword_5d4594_3798832 = 0;
-	dword_5d4594_3798808 = 46 * dword_5d4594_3798816;
-	v2 = ((46 * dword_5d4594_3798812) << getMemByte(0x973F18, 7696)) * 46 * dword_5d4594_3798816;
-	dword_5d4594_3798804 = (46 * dword_5d4594_3798812) << getMemByte(0x973F18, 7696);
-	dword_5d4594_3798836 = 0;
-	dword_5d4594_3798840 = 0;
-	v3 = (char*)calloc(1, v2);
-	dword_5d4594_3798796 = v3;
-	if (!v3) {
-		return 0;
-	}
-	dword_5d4594_3798844 = &v3[v2];
-	return 1;
-}
-
-//----- (00430EC0) --------------------------------------------------------
-int nox_video_freeFloorBuffer_430EC0() {
-	if (dword_5d4594_3798796) {
-		free(*(void**)&dword_5d4594_3798796);
-		dword_5d4594_3798796 = 0;
-	}
-	sub_444C50();
-	return 1;
-}
-
-//----- (00430EF0) --------------------------------------------------------
-void nox_xxx_freeFloorBuffer_430EF0() { nox_video_freeFloorBuffer_430EC0(); }
 
 //----- (004310B0) --------------------------------------------------------
 int nox_audio_initall(int a3) {

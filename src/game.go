@@ -550,7 +550,7 @@ func initGameSession435CC0() error {
 		return errors.New("nox_xxx_loadReflSheild_499360 failed")
 	}
 
-	C.nox_xxx_initSight_485F80()
+	nox_xxx_initSight_485F80()
 	if C.sub_4960B0() == 0 {
 		return errors.New("sub_4960B0 failed")
 	}

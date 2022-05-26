@@ -2,6 +2,18 @@ package noxrender
 
 import noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
+var colorTable struct {
+	R, G, B [256]Color
+}
+
+func init() {
+	for i := 0; i <= 0xff; i++ {
+		colorTable.R[i] = noxcolor.ToRGBA5551(byte(i), 0, 0, 0xff)
+		colorTable.G[i] = noxcolor.ToRGBA5551(0, byte(i), 0, 0xff)
+		colorTable.B[i] = noxcolor.ToRGBA5551(0, 0, byte(i), 0xff)
+	}
+}
+
 type Color = noxcolor.RGBA5551
 
 func ColorRGB(r, g, b byte) Color {
@@ -37,11 +49,11 @@ type Color16 struct {
 }
 
 func (c Color16) Make() Color {
-	return noxcolor.ToRGBA5551(byte(c.R), byte(c.G), byte(c.B), 0xff)
+	return colorTable.R[byte(c.R)] | colorTable.G[byte(c.G)] | colorTable.B[byte(c.B)]
 }
 
 func (c Color16) Make16() uint16 {
-	return uint16(noxcolor.ToRGBA5551(byte(c.R), byte(c.G), byte(c.B), 0xff))
+	return uint16(colorTable.R[byte(c.R)] | colorTable.G[byte(c.G)] | colorTable.B[byte(c.B)])
 }
 
 func (c Color16) Saturate() Color16 {

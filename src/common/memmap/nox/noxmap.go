@@ -6,7 +6,6 @@ func init() {
 	memmap.RegisterBlob(0x581450, "byte_581450", 23472)
 	memmap.RegisterBlob(0x587000, "byte_587000", 316820)
 	memmap.RegisterBlob(0x5D4594, "byte_5D4594", 2598284)
-	memmap.RegisterBlob(0x8529A0, "byte_8529A0", 2044)
 	memmap.RegisterBlob(0x8531A0, "byte_8531A0", 2592)
 	memmap.RegisterBlob(0x973CE0, "byte_973CE0", 568)
 	memmap.RegisterBlob(0x973F18, "byte_973F18", 44881)
@@ -1367,7 +1366,7 @@ var noxMemmap = []struct {
 	{0x973A20, 624, 4, "nox_pixbuffer_3798780"},            // 0x973C90
 	{0x973A20, 628, 4, "nox_pixbuffer_rows_3798784"},       // 0x973C94
 	{0x973A20, 632, 4, "nox_pixbuffer_3798788"},            // 0x973C98
-	{0x973A20, 640, 4, "dword_5d4594_3798796"},             // 0x973CA0
+	{0x973A20, 640, 4, "nox_video_tileBuf_ptr_3798796"},    // 0x973CA0
 	{0x973A20, 644, 4, "dword_5d4594_3798800"},             // 0x973CA4
 	{0x973A20, 648, 4, "dword_5d4594_3798804"},             // 0x973CA8
 	{0x973A20, 652, 4, "dword_5d4594_3798808"},             // 0x973CAC
@@ -1379,7 +1378,7 @@ var noxMemmap = []struct {
 	{0x973A20, 676, 4, "dword_5d4594_3798832"},             // 0x973CC4
 	{0x973A20, 680, 4, "dword_5d4594_3798836"},             // 0x973CC8
 	{0x973A20, 684, 4, "dword_5d4594_3798840"},             // 0x973CCC
-	{0x973A20, 688, 4, "dword_5d4594_3798844"},             // 0x973CD0
+	{0x973A20, 688, 4, "nox_video_tileBuf_end_3798844"},    // 0x973CD0
 	{0x973F18, 4, 4, "func_type4_3799432"},                 // 0x973F1C
 	{0x973F18, 16, 4, "nox_video_cur_pixdata_3799444"},     // 0x973F28
 	{0x973F18, 24, 4, "dword_5d4594_3799452"},              // 0x973F30

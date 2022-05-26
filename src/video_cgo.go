@@ -44,6 +44,8 @@ int nox_xxx___cfltcvt_init_430CC0();
 extern uint32_t nox_color_yellow_2589772;
 extern uint32_t nox_color_black_2650656;
 extern uint32_t nox_color_blue_2650684;
+extern uint32_t dword_5d4594_3807156;
+extern uint32_t dword_5d4594_805836;
 */
 import "C"
 import (
@@ -311,7 +313,7 @@ func gameUpdateVideoMode(inMenu bool) error {
 }
 
 func recreateBuffersAndTarget(sz image.Point) error {
-	C.nox_video_freeFloorBuffer_430EC0()
+	nox_video_freeFloorBuffer_430EC0()
 	if err := recreateRenderTarget(sz); err != nil {
 		videoLog.Println("recreate render target:", err)
 		return err
@@ -359,12 +361,12 @@ func recreateRenderTarget(sz image.Point) error {
 	nox_client_setCursorType(v1)
 	C.sub_48B3E0(v2)
 	noxrend.ClearScreen(noxrend.Data().BgColor())
-	C.nox_xxx_setupSomeVideo_47FEF0()
+	nox_xxx_setupSomeVideo_47FEF0()
 	C.sub_49F6D0(1)
 	noxrend.setRectFullScreen()
 	//videoSet16Bit(C.nox_video_modeXxx_3801780 != 0)
 	*memmap.PtrUint32(0x973F18, 6060) = uint32(2 * sz.X * sz.Y)
-	*memmap.PtrUint32(0x973F18, 7696) = uint32(bool2int(C.nox_video_modeXxx_3801780 == 1))
+	*memmap.PtrUint32(0x973F18, 7696) = 1
 	C.sub_430B50(0, 0, noxDefaultWidth-1, noxDefaultHeight-1)
 	return nil
 }
@@ -468,10 +470,8 @@ func drawGeneral_4B0340(a1 int) error {
 }
 
 func nox_video_initFloorBuffer_430BA0(sz image.Point) error {
-	C.nox_xxx___cfltcvt_init_430CC0()
-	if C.nox_xxx_tileInitBuf_430DB0(C.int(sz.X), C.int(sz.Y)) == 0 {
-		return errors.New("VideoInit: error initializing floor buffer")
-	}
+	nox_xxx___cfltcvt_init_430CC0()
+	nox_xxx_tileInitBuf_430DB0(sz.X, sz.Y)
 	if lightsOutBuf == nil {
 		lightsOutBuf, _ = alloc.Make([]uint32{}, 6)
 		lightsOutBuf[0] = 255
@@ -479,6 +479,14 @@ func nox_video_initFloorBuffer_430BA0(sz image.Point) error {
 		lightsOutBuf[2] = 255
 	}
 	return nil
+}
+
+func nox_xxx___cfltcvt_init_430CC0() {
+	*memmap.PtrUint32(0x973F18, 7696) = 1
+	*memmap.PtrPtr(0x973F18, 7700) = C.nox_xxx_someEdgeProcessing_480EF0
+	_ = sub_469920
+	C.dword_5d4594_3807156 = C.uint(uintptr(C.sub_469920))
+	C.dword_5d4594_805836 = 0
 }
 
 func nox_video_stopCursorDrawThread_48B350() {
@@ -1022,7 +1030,6 @@ func sub_477F80() {
 	}
 }
 
-//export sub_444C50
 func sub_444C50() {
 	if C.dword_5d4594_823776 != 0 {
 		nox_video_stopCursorDrawThread_48B350()
