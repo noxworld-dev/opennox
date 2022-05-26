@@ -1372,13 +1372,13 @@ typedef struct nox_drawable {
 	unsigned int flags31; // 31, 124
 	uint32_t field_32;    // 32, 128, npc ID?
 	uint32_t field_33;    // 33, 132
-	uint32_t field_34;    // 34, 136, 0
-	float field_35;       // 35, 140, 1
-	uint32_t field_36;    // 36, 144, 2
-	uint32_t field_37;    // 37, 148, 3
-	uint32_t field_38;    // 38, 152, 4
-	uint32_t field_39;    // 39, 156, 5
-	uint32_t field_40;    // 40, 160, 6
+	uint32_t light_flags;         // 34, 136, 0
+	float light_intensity;        // 35, 140, 1
+	uint32_t light_intensity_rad;  // 36, 144, 2
+	uint32_t light_intensity_u16; // 37, 148, 3
+	uint32_t light_color_r;    // 38, 152, 4
+	uint32_t light_color_g;    // 39, 156, 5
+	uint32_t light_color_b;    // 40, 160, 6
 	uint16_t field_41_0;  // 41, 164
 	uint16_t field_41_1;  // 41, 166
 	uint32_t field_42;    // 42, 168

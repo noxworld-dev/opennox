@@ -343,8 +343,6 @@ int sub_44D090(int a1) {
 //----- (0044D0C0) --------------------------------------------------------
 int nox_drawable_link_thing(nox_drawable* a1, int i) {
 	void* v2;     // esi
-	uint32_t* v3; // ebx
-	uint32_t* v4; // ebp
 	float v9;     // [esp+4h] [ebp+4h]
 
 	if (i < 1 || i >= nox_things_count) {
@@ -353,8 +351,6 @@ int nox_drawable_link_thing(nox_drawable* a1, int i) {
 	v2 = a1;
 	memset(a1, 0, sizeof(nox_drawable));
 	a1->field_27 = i;
-	v3 = &a1->field_34;
-	v4 = &a1->field_38;
 	int v5 = &(nox_things_array[i]->hwidth);
 	*((uint8_t*)&a1->field_0) = *(uint8_t*)v5;
 	*((uint8_t*)&a1->field_0 + 1) = *(uint8_t*)(v5 + 1);
@@ -369,11 +365,11 @@ int nox_drawable_link_thing(nox_drawable* a1, int i) {
 	a1->field_77 = *(uint32_t*)(v5 + 84);
 	a1->field_116 = *(uint32_t*)(v5 + 88);
 	a1->field_123 = *(uint32_t*)(v5 + 92);
-	a1->field_34 = *(unsigned char*)(v5 + 3);
+	a1->light_flags = *(unsigned char*)(v5 + 3);
 	a1->field_42 = *(uint32_t*)(v5 + 4);
-	a1->field_38 = *(uint32_t*)(v5 + 36);
-	a1->field_39 = *(uint32_t*)(v5 + 40);
-	a1->field_40 = *(uint32_t*)(v5 + 44);
+	a1->light_color_r = *(uint32_t*)(v5 + 36);
+	a1->light_color_g = *(uint32_t*)(v5 + 40);
+	a1->light_color_b = *(uint32_t*)(v5 + 44);
 	a1->field_41_0 = *(uint16_t*)(v5 + 12);
 	a1->field_41_1 = *(uint16_t*)(v5 + 14);
 
@@ -398,11 +394,11 @@ int nox_drawable_link_thing(nox_drawable* a1, int i) {
 	*(float*)((char*)v2 + 140) = v9;
 	if (v9 != 0.0) {
 		nox_xxx_spriteChangeIntensity_484D70_light_intensity((char*)v2 + 136, v9);
-		if (!*v3) {
-			*v3 = 1;
-			*v4 = 255;
-			*(uint32_t*)((char*)v2 + 156) = 255;
-			*(uint32_t*)((char*)v2 + 160) = 255;
+		if (!a1->light_flags) {
+			a1->light_flags = 1;
+			a1->light_color_r = 255;
+			a1->light_color_g = 255;
+			a1->light_color_b = 255;
 		}
 	}
 	if (*(uint32_t*)((char*)v2 + 112) & 0x13001000) {

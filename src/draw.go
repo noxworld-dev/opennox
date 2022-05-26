@@ -1047,36 +1047,36 @@ func sub_468F80(vp *Viewport) {
 }
 
 func sub_484BD0() float32 {
-	return dword_587000_154968
+	return lightMinIntensity
 }
 
 const (
 	dword_587000_142328 = 0x40000
 	dword_587000_142316 = 0x40000
-	dword_587000_154968 = 1.0
+	lightMinIntensity   = 1.0
 	qword_581450_9552   = 0x10000
 	qword_581450_9544   = 0.5
 )
 
 func nox_xxx_cliLight16_469140(dr *Drawable) {
-	if !(sub_45A840(dr) || dr.Flags28()&0x80000 != 0 && dr.Flags30()&0x1000000 != 0 && dr.field_36 > 0 && dr.Flags30()&0x4 != 0) {
+	if !(sub_45A840(dr) || dr.Flags28()&0x80000 != 0 && dr.Flags30()&0x1000000 != 0 && dr.light_intensity_rad > 0 && dr.Flags30()&0x4 != 0) {
 		return
 	}
 	if !(nox_xxx_get_57AF20() == 0 || unsafe.Pointer(dr.C()) == *memmap.PtrPtr(0x852978, 8) || unsafe.Pointer(dr.draw_func) == C.nox_thing_glow_orb_draw) {
 		return
 	}
-	v3 := int(dr.field_37)
-	rad := int(dr.field_36)
+	intens := int(dr.light_intensity_u16)
+	rad := int(dr.light_intensity_rad)
 	if dr.Flags30()&0x20000000 != 0 {
-		v3 += randomIntMinMax(0, int(dr.field_37)>>18) << 16
-		rad = sub484C60(float32(v3) / 0x10000)
+		intens += randomIntMinMax(0, int(dr.light_intensity_u16)>>18) << 16
+		rad = lightRadius(float32(intens) / 0x10000)
 	}
-	if v3 <= int(sub_484BD0()*0x10000) {
+	if intens <= int(sub_484BD0()*0x10000) {
 		return
 	}
-	v33 := v3
-	if max := int(memmap.Int32(0x587000, 142320)); v33 > max {
-		v33 = max
+	intens2 := intens
+	if max := int(memmap.Int32(0x587000, 142320)); intens2 > max {
+		intens2 = max
 	}
 	pos := dr.Pos()
 	xx := pos.X - noxTilesGpx
@@ -1091,8 +1091,8 @@ func nox_xxx_cliLight16_469140(dr *Drawable) {
 		}
 
 		xmax := (xx + rad) / common.GridStep
-		if xmax > 56 {
-			xmax = 56
+		if xmax > lightGridW-1 {
+			xmax = lightGridW - 1
 		}
 
 		ymin := (yy - rad) / common.GridStep
@@ -1101,11 +1101,11 @@ func nox_xxx_cliLight16_469140(dr *Drawable) {
 		}
 
 		ymax := (yy + rad) / common.GridStep
-		if ymax > 44 {
-			ymax = 44
+		if ymax > lightGridH-1 {
+			ymax = lightGridH - 1
 		}
 
-		v36 := (v3 >> 16) * (v3 >> 16)
+		v36 := (intens >> 16) * (intens >> 16)
 		for y := ymin; y <= ymax; y++ {
 			dy := yy - common.GridStep*y
 			dy2 := dy * dy
@@ -1113,9 +1113,9 @@ func nox_xxx_cliLight16_469140(dr *Drawable) {
 				dx := xx - common.GridStep*x
 				dx2 := dx * dx
 				if dist := dx2 + dy2; dist <= dlimit {
-					v16 := sub_4C1C70(v33+dword_587000_142328, 66*dist*int(memmap.Uint32(0x587000, 142324))/v36+0x10000)
-					if v16 > dword_587000_142328 {
-						sub_4695E0(x, y, (*int32)(unsafe.Pointer(&dr.field_38)), 8*(v16-dword_587000_142328), dr.field_43 != 0)
+					intens3 := sub_4C1C70(intens2+dword_587000_142328, 66*dist*int(memmap.Uint32(0x587000, 142324))/v36+0x10000)
+					if intens3 > dword_587000_142328 {
+						sub_4695E0(x, y, (*int32)(unsafe.Pointer(&dr.light_color_r)), 8*(intens3-dword_587000_142328), dr.field_43 != 0)
 					}
 					xx = a4.X
 					yy = a4.Y
@@ -1142,8 +1142,8 @@ func nox_xxx_cliLight16_469140(dr *Drawable) {
 		v25 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(v22b>>4))))
 
 		v42 := a1.Add(image.Pt(v45, v25))
-		sub_4696B0(a1, a2, a3, a4, v3, (*int32)(unsafe.Pointer(&dr.field_38)))
-		sub_4696B0(a1, a3, v42, a4, v3, (*int32)(unsafe.Pointer(&dr.field_38)))
+		sub_4696B0(a1, a2, a3, a4, intens, (*int32)(unsafe.Pointer(&dr.light_color_r)))
+		sub_4696B0(a1, a3, v42, a4, intens, (*int32)(unsafe.Pointer(&dr.light_color_r)))
 	}
 }
 
@@ -1182,27 +1182,27 @@ func sub_45A840(dr *Drawable) bool {
 
 //export sub_484C60
 func sub_484C60(a1 C.float) C.int {
-	return C.int(sub484C60(float32(a1)))
+	return C.int(lightRadius(float32(a1)))
 }
 
-func sub484C60(a1 float32) int {
-	if a1 <= dword_587000_154968 {
+func lightRadius(intens float32) int {
+	if intens <= lightMinIntensity {
 		return 0
 	}
-	v2 := a1
-	if a1 > 31.0 {
-		v2 = 31.0
+	intens2 := intens
+	if intens2 > 31.0 {
+		intens2 = 31.0
 	}
-	return int(math.Sqrt(float64(((memmap.Float32(0x587000, 154980)+v2)/
-		(memmap.Float32(0x587000, 154980)+dword_587000_154968) + 1.0) *
-		(a1 * a1 / (memmap.Float32(0x587000, 154976) * memmap.Float32(0x587000, 154972))))))
+	return int(math.Sqrt(float64(((memmap.Float32(0x587000, 154980)+intens2)/
+		(memmap.Float32(0x587000, 154980)+lightMinIntensity) + 1.0) *
+		(intens * intens / (memmap.Float32(0x587000, 154976) * memmap.Float32(0x587000, 154972))))))
 }
 
 func sub_4C1C70(a1, a2 int) int {
 	return int((uint64(a1) << 16) / uint64(a2))
 }
 
-func sub_4696B0(a1, a2, a3, a4 image.Point, a5 int, a6 *int32) {
+func sub_4696B0(a1, a2, a3, a4 image.Point, a5 int, pcl *int32) {
 	var v8, v9, v10 image.Point
 	if a1.Y > a2.Y {
 		if a2.Y <= a3.Y {
@@ -1228,13 +1228,13 @@ func sub_4696B0(a1, a2, a3, a4 image.Point, a5 int, a6 *int32) {
 	var v13, v14, v15 [2 * common.GridStep]int
 	sub_484DC0(v9, v10, v15[:])
 	sub_484DC0(v9, v8, v14[:])
-	sub_4697C0(v15[:], v14[:], a4, a5, a6)
+	sub_4697C0(v15[:], v14[:], a4, a5, pcl)
 	if v10.Y < v8.Y {
 		sub_484DC0(v10, v8, v13[:])
-		sub_4697C0(v13[:], v14[:], a4, a5, a6)
+		sub_4697C0(v13[:], v14[:], a4, a5, pcl)
 	} else if v10.Y > v8.Y {
 		sub_484DC0(v8, v10, v13[:])
-		sub_4697C0(v15[:], v13[:], a4, a5, a6)
+		sub_4697C0(v15[:], v13[:], a4, a5, pcl)
 	}
 }
 
@@ -1389,12 +1389,12 @@ func sub_4C1C60(a1, a2 int) int {
 	return int((int64(a1) * int64(a2)) >> 16)
 }
 
-func sub_4695E0(a1, a2 int, a3p *int32, a4 int, flip bool) {
+func sub_4695E0(a1, a2 int, pcl *int32, a4 int, flip bool) {
 	v5 := a4
 	if flip {
 		v5 = -a4
 	}
-	a3 := unsafe.Slice(a3p, 3)
+	a3 := unsafe.Slice(pcl, 3)
 	v6 := sub_4C1C60(v5, int(a3[0])) << 8
 	v7 := sub_4C1C60(v5, int(a3[1])) << 8
 	v8 := sub_4C1C60(v5, int(a3[2])) << 8
