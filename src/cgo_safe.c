@@ -1,5 +1,4 @@
 //go:build safe
-//+build safe
 #include <stdbool.h>
 #include <stdlib.h>
 

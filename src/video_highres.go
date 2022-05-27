@@ -1,5 +1,4 @@
 //go:build highres
-// +build highres
 
 package opennox
 

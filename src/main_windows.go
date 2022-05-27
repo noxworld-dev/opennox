@@ -1,5 +1,4 @@
 //go:build windows && !server
-// +build windows,!server
 
 package opennox
 
