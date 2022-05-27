@@ -6137,53 +6137,6 @@ int sub_49D1C0(void* a1, int a2, int a3) {
 	return 0;
 }
 
-//----- (0049DBB0) --------------------------------------------------------
-int sub_49DBB0(int a1, int a2, int a3, int a4) {
-	int* v4;               // esi
-	int v5;                // edi
-	uint16_t* v6;          // edi
-	unsigned long long v7; // kr00_8
-	unsigned long long v8; // kr08_8
-	int result;            // eax
-	bool v10;              // cc
-	int v11;               // [esp+Ch] [ebp-4h]
-
-	v4 = &nox_pixbuffer_rows_3798784[a2];
-	do {
-		v11 = a3;
-		v5 = *v4;
-		++v4;
-		v6 = (uint16_t*)(a1 + a1 + v5);
-		do {
-			v7 = ((unsigned short)(*((uint16_t*)((uint8_t*)byte_5D4594_3804364 + 4)) & *v6) >>
-				  *((uint8_t*)byte_5D4594_3804364 + 16)) -
-				 (unsigned long long)*(unsigned int*)&obj_5D4594_3800716.field_55;
-			v8 = ((unsigned short)(*((uint16_t*)((uint8_t*)byte_5D4594_3804364 + 8)) & *v6)
-				  << *((uint8_t*)byte_5D4594_3804364 + 20)) -
-				 (unsigned long long)*(unsigned int*)&obj_5D4594_3800716.field_56;
-			result =
-				*(uint32_t*)(nox_draw_colors_b_3804664 + 2 * (~HIDWORD(v8) & v8)) |
-				*(uint32_t*)(nox_draw_colors_g_3804656 + 2 * (~HIDWORD(v7) & v7)) |
-				*(uint32_t*)(nox_draw_colors_r_3804672 +
-							 2 * (~((__PAIR64__(
-										 *((uint32_t*)((uint8_t*)byte_5D4594_3804364 + 12)),
-										 (unsigned short)(*((uint16_t*)((uint8_t*)byte_5D4594_3804364 + 0)) & *v6) >>
-											 *((uint8_t*)byte_5D4594_3804364 + 12)) -
-									 __PAIR64__(*((uint32_t*)((uint8_t*)byte_5D4594_3804364 + 12)),
-												*(unsigned int*)&obj_5D4594_3800716.field_54)) >>
-									32) &
-								  (((unsigned short)(*((uint16_t*)((uint8_t*)byte_5D4594_3804364 + 0)) & *v6) >>
-									*((uint8_t*)byte_5D4594_3804364 + 12)) -
-								   *(uint32_t*)(&obj_5D4594_3800716.field_54))));
-			*v6 = result;
-			++v6;
-			v10 = v11-- <= 1;
-		} while (!v10);
-		v10 = a4-- <= 1;
-	} while (!v10);
-	return result;
-}
-
 //----- (0049E3C0) --------------------------------------------------------
 void sub_49E3C0(uint32_t* a1, int a2, unsigned int a3) {
 	uint32_t* v3;  // edi

@@ -1,31 +1,43 @@
 package noxrender
 
+import "image"
+
+type FadeKey int
+
+const (
+	FadeInCinemaKey = FadeKey(iota)
+	FadeOutCinemaKey
+	FadeInScreenKey
+	FadeOutScreenKey
+	FadeClearScreenKey
+)
+
 type noxRenderFade struct {
-	arr [4]Fade
+	arr [4]fade
 }
 
-type FadeFlags int
+type fadeFlags int
 
-func (f FadeFlags) Has(f2 FadeFlags) bool {
+func (f fadeFlags) Has(f2 fadeFlags) bool {
 	return f&f2 == f2
 }
-func (f FadeFlags) HasAny(f2 FadeFlags) bool {
+func (f fadeFlags) HasAny(f2 fadeFlags) bool {
 	return f&f2 != 0
 }
 
 const (
-	FadeActive = FadeFlags(1 << iota)
-	FadeKeep
-	FadeMenu
+	fadeActive = fadeFlags(1 << iota)
+	fadeKeep
+	fadeMenu
 )
 
-type Fade struct {
-	key       string
-	flags     FadeFlags
+type fade struct {
+	key       FadeKey
+	flags     fadeFlags
 	remaining int
 
-	DoneFunc func()
-	DrawFunc func(f *Fade)
+	doneFunc func()
+	drawFunc func(f *fade)
 }
 
 func (r *NoxRender) FadeReset() {
@@ -37,44 +49,44 @@ func (r *NoxRender) FadeReset() {
 func (r *NoxRender) FadeDisable() {
 	for i := range r.fade.arr {
 		f := &r.fade.arr[i]
-		f.flags &^= FadeActive
+		f.flags &^= fadeActive
 	}
 }
 
 func (r *NoxRender) DrawFade(menu bool) int {
-	flags := FadeActive
+	flags := fadeActive
 	if menu {
-		flags |= FadeMenu
+		flags |= fadeMenu
 	}
-	const mask = FadeActive | FadeMenu
+	const mask = fadeActive | fadeMenu
 	for i := range r.fade.arr {
 		f := &r.fade.arr[i]
 		if f.flags&mask != flags {
 			continue
 		}
-		f.DrawFunc(f)
+		f.drawFunc(f)
 		if f.remaining > 0 {
 			f.remaining--
 			continue
 		}
-		if !f.flags.Has(FadeKeep) {
+		if !f.flags.Has(fadeKeep) {
 			f.flags &= ^flags
-			if f.DoneFunc != nil {
-				f.DoneFunc()
+			if f.doneFunc != nil {
+				f.doneFunc()
 			}
 		}
 	}
 	return 0
 }
 
-func (r *NoxRender) NewFade(key string, t int, flags FadeFlags) *Fade {
+func (r *NoxRender) newFade(key FadeKey, t int, flags fadeFlags) *fade {
 	for i := range r.fade.arr {
 		it := &r.fade.arr[i]
-		if !it.flags.Has(FadeActive) {
-			*it = Fade{
+		if !it.flags.Has(fadeActive) {
+			*it = fade{
 				key:       key,
 				remaining: t,
-				flags:     FadeActive | flags,
+				flags:     fadeActive | flags,
 			}
 			return it
 		}
@@ -82,14 +94,14 @@ func (r *NoxRender) NewFade(key string, t int, flags FadeFlags) *Fade {
 	return nil
 }
 
-func (r *NoxRender) StopFade(key string) bool {
+func (r *NoxRender) StopFade(key FadeKey) bool {
 	done := false
 	for i := range r.fade.arr {
 		it := &r.fade.arr[i]
-		if it.flags.Has(FadeActive) && it.key == key {
-			it.flags &= ^FadeActive
-			if it.DoneFunc != nil {
-				it.DoneFunc()
+		if it.flags.Has(fadeActive) && it.key == key {
+			it.flags &= ^fadeActive
+			if it.doneFunc != nil {
+				it.doneFunc()
 			}
 			done = true
 		}
@@ -97,26 +109,18 @@ func (r *NoxRender) StopFade(key string) bool {
 	return done
 }
 
-func (r *NoxRender) CheckFade(key string) bool {
+func (r *NoxRender) CheckFade(key FadeKey) bool {
 	for i := range r.fade.arr {
 		it := &r.fade.arr[i]
-		if it.flags.Has(FadeActive) && it.key == key {
+		if it.flags.Has(fadeActive) && it.key == key {
 			return true
 		}
 	}
 	return false
 }
 
-const (
-	FadeInCinemaKey    = "FadeInCinema"
-	FadeOutCinemaKey   = "FadeOutCinema"
-	FadeInScreenKey    = "fadeInScreen"
-	FadeOutScreenKey   = "fadeOutScreen"
-	FadeClearScreenKey = "FadeClearScreen"
-)
-
 func (r *NoxRender) FadeInCinema(perc float32, t int, cl Color) bool {
-	f := r.NewFade(FadeInCinemaKey, t, FadeKeep)
+	f := r.newFade(FadeInCinemaKey, t, fadeKeep)
 	if f == nil {
 		return false
 	}
@@ -125,7 +129,7 @@ func (r *NoxRender) FadeInCinema(perc float32, t int, cl Color) bool {
 		cur = float32(0)
 		dv  = v / float32(t)
 	)
-	f.DrawFunc = func(f *Fade) {
+	f.drawFunc = func(f *fade) {
 		if f.remaining != 0 {
 			cur += dv
 		}
@@ -135,7 +139,7 @@ func (r *NoxRender) FadeInCinema(perc float32, t int, cl Color) bool {
 }
 
 func (r *NoxRender) FadeOutCinema(perc float32, t int, cl Color) bool {
-	f := r.NewFade(FadeOutCinemaKey, t, 0)
+	f := r.newFade(FadeOutCinemaKey, t, 0)
 	if f == nil {
 		return false
 	}
@@ -145,7 +149,7 @@ func (r *NoxRender) FadeOutCinema(perc float32, t int, cl Color) bool {
 		dv   = v / float32(t)
 		flag = false
 	)
-	f.DrawFunc = func(f *Fade) {
+	f.drawFunc = func(f *fade) {
 		if !flag {
 			r.StopFade(FadeInCinemaKey)
 			flag = true
@@ -166,17 +170,91 @@ func (r *NoxRender) FadeClearScreen(menu bool, cl Color) bool {
 	if r.CheckFade(FadeOutScreenKey) {
 		return true
 	}
-	flags := FadeKeep
+	flags := fadeKeep
 	if menu {
-		flags |= FadeMenu
+		flags |= fadeMenu
 	}
-	f := r.NewFade(FadeClearScreenKey, 0, flags)
+	f := r.newFade(FadeClearScreenKey, 0, flags)
 	if f == nil {
 		return false
 	}
-	f.DrawFunc = func(_ *Fade) {
+	f.drawFunc = func(_ *fade) {
 		pix := r.PixBuffer()
 		r.DrawRectFilledOpaque(0, 0, pix.Rect.Dx(), pix.Rect.Dy(), cl)
 	}
 	return true
+}
+
+func (r *NoxRender) FadeInScreen(t int, menu bool, done func()) bool {
+	r.StopFade(FadeInScreenKey)
+	flags := fadeFlags(0)
+	if menu {
+		flags |= fadeMenu
+	}
+	f := r.newFade(FadeInScreenKey, t, flags)
+	if f == nil {
+		return false
+	}
+
+	f.doneFunc = done
+	var (
+		cur = float32(0)
+		dv  = float32(0xff) / float32(t)
+	)
+	f.drawFunc = func(f *fade) {
+		c := int(cur)
+		pix := r.PixBuffer()
+		r.drawFadeScreen(pix.Rect, c)
+		cur += dv
+	}
+	return true
+}
+
+func (r *NoxRender) FadeOutScreen(t int, menu bool, done func()) int {
+	r.StopFade(FadeOutScreenKey)
+	flags := fadeFlags(0)
+	if menu {
+		flags |= fadeMenu
+	}
+	f := r.newFade(FadeOutScreenKey, t, flags)
+	if f == nil {
+		return 0
+	}
+	f.doneFunc = done
+	var (
+		cur = float32(0xff)
+		dv  = float32(0xff) / float32(t)
+	)
+	f.drawFunc = func(f *fade) {
+		c := int(cur)
+		pix := r.PixBuffer()
+		r.drawFadeScreen(pix.Rect, c)
+		cur -= dv
+	}
+	r.StopFade(FadeClearScreenKey)
+	return 1
+}
+
+func (r *NoxRender) drawFadeScreen(rc image.Rectangle, bc int) {
+	d := r.Data()
+	if d.Clip() {
+		rc = rc.Intersect(d.ClipRect())
+		if rc.Empty() {
+			return
+		}
+	}
+	pix := r.PixBuffer()
+	for y := rc.Min.Y; y < rc.Max.Y; y++ {
+		for x := rc.Min.X; x < rc.Max.X; x++ {
+			ind := pix.PixOffset(x, y)
+			c := SplitColor16(pix.Pix[ind])
+			cr := uint64(c.R) - uint64(bc)
+			cg := uint64(c.G) - uint64(bc)
+			cb := uint64(c.B) - uint64(bc)
+			c.R = uint16(^(cr >> 32) & cr)
+			c.G = uint16(^(cg >> 32) & cg)
+			c.B = uint16(^(cb >> 32) & cb)
+			pix.Pix[ind] = c.Make16()
+		}
+	}
 }

@@ -349,13 +349,13 @@ func nox_script_EndGame_516E10() C.int {
 //export nox_script_UnBlind_515200
 func nox_script_UnBlind_515200() C.int {
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
-	noxrend.fadeOutScreen(25, false, nil)
+	noxrend.FadeOutScreen(25, false, nil)
 	return 0
 }
 
 //export nox_script_Blind_515220
 func nox_script_Blind_515220() C.int {
-	noxrend.fadeInScreen(25, false, fadeDisableGameDraw)
+	noxrend.FadeInScreen(25, false, fadeDisableGameDraw)
 	return 0
 }
 
@@ -384,7 +384,7 @@ func noxScriptEndGame(v int) {
 func sub_5165D0() {
 	*memmap.PtrUint32(0x5D4594, 2386828) = noxScriptPopU32() - 1
 	sub_413A00(1)
-	noxrend.fadeInScreen(25, true, func() {
+	noxrend.FadeInScreen(25, true, func() {
 		C.sub_516570()
 	})
 }

@@ -1138,7 +1138,7 @@ func sub_4505B0() {
 	sub_450580()
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
 	v0 := int(nox_client_getIntroScreenDuration_44E3B0())
-	noxrend.fadeInScreen(v0, true, sub_44E320)
+	noxrend.FadeInScreen(v0, true, sub_44E320)
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 1
 }
 
