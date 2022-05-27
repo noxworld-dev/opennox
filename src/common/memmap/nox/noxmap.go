@@ -426,7 +426,7 @@ var noxMemmap = []struct {
 	{0x5D4594, 815104, 4, "dword_5d4594_815104"},                     // 0x69B594
 	{0x5D4594, 815132, 4, "nox_client_gui_flag_815132"},              // 0x69B5B0
 	{0x5D4594, 815140, 64, "nox_game_state_arr"},
-	{0x5D4594, 815208, 64, "nox_game_state_ind"},
+	{0x5D4594, 815208, 4, "nox_game_state_ind"},
 	{0x5D4594, 815212, 4, "nox_gui_animationHead_815212"},  // 0x69B600
 	{0x5D4594, 815704, 4, "dword_5d4594_815704"},           // 0x69B7EC
 	{0x5D4594, 815708, 4, "dword_5d4594_815708"},           // 0x69B7F0
