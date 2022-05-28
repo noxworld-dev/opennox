@@ -37,8 +37,6 @@ extern int nox_client_mouseCursorType;
 extern int nox_xxx_cursorTypePrev_587000_151528;
 extern int nox_win_width;
 extern int nox_win_height;
-extern unsigned char** nox_pixbuffer_rows_3798776;
-extern unsigned char* nox_pixbuffer_3798788;
 int nox_video_initFloorBuffer_430BA0();
 int nox_xxx___cfltcvt_init_430CC0();
 extern uint32_t nox_color_yellow_2589772;
@@ -46,6 +44,7 @@ extern uint32_t nox_color_black_2650656;
 extern uint32_t nox_color_blue_2650684;
 extern uint32_t dword_5d4594_3807156;
 extern uint32_t dword_5d4594_805836;
+extern uint8_t** nox_pixbuffer_rows_3798784;
 */
 import "C"
 import (
@@ -73,8 +72,6 @@ var (
 	g_scaled                               int
 	nox_win_width                          int
 	nox_win_height                         int
-	dword_6F7C10                           func(a1 *Image, a2, a3 uint32)
-	nox_pixbuffer_rows_3798776_arr         []unsafe.Pointer
 	nox_pixbuffer_3798788_arr              []byte
 	dword_5d4594_3798632_arr               []unsafe.Pointer
 	dword_5d4594_3798644_arr               []byte
@@ -157,13 +154,13 @@ func get_video_mode_string(cid C.int) *C.wchar_t {
 
 //export nox_getBackbufWidth
 func nox_getBackbufWidth() C.int {
-	dx := noxrend.PixBuffer().Rect.Dx()
+	dx := noxrend.PixBufferRect().Dx()
 	return C.int(dx)
 }
 
 //export nox_getBackbufHeight
 func nox_getBackbufHeight() C.int {
-	dy := noxrend.PixBuffer().Rect.Dy()
+	dy := noxrend.PixBufferRect().Dy()
 	return C.int(dy)
 }
 
@@ -638,7 +635,6 @@ func nox_free_pixbuffers_486110() {
 		if nox_pixbuffer_3798788_arr != nil {
 			alloc.FreeSlice(nox_pixbuffer_3798788_arr)
 			nox_pixbuffer_3798788_arr = nil
-			C.nox_pixbuffer_3798788 = nil
 		}
 	}
 	noxPixBuffer.rows = nil
@@ -646,11 +642,6 @@ func nox_free_pixbuffers_486110() {
 		noxPixBuffer.freeRows()
 		noxPixBuffer.freeRows = nil
 		C.nox_pixbuffer_rows_3798784 = nil
-	}
-	if nox_pixbuffer_rows_3798776_arr != nil {
-		alloc.FreeSlice(nox_pixbuffer_rows_3798776_arr)
-		nox_pixbuffer_rows_3798776_arr = nil
-		C.nox_pixbuffer_rows_3798776 = nil
 	}
 }
 
@@ -676,7 +667,6 @@ func nox_video_initPixbufferData_4861D0(sz image.Point) {
 	}
 
 	nox_pixbuffer_3798788_arr, _ = alloc.Make([]byte{}, len(data))
-	C.nox_pixbuffer_3798788 = (*C.uchar)(unsafe.Pointer(&nox_pixbuffer_3798788_arr[0]))
 }
 
 func nox_video_initPixbufferRows_486230() {
@@ -687,16 +677,6 @@ func nox_video_initPixbufferRows_486230() {
 	C.nox_pixbuffer_rows_3798784 = (**C.uchar)(unsafe.Pointer(&noxPixBuffer.rows[0]))
 	for y := 0; y < sz.Y; y++ {
 		noxPixBuffer.rows[y] = &noxPixBuffer.img.Row(y)[0]
-	}
-
-	if C.nox_video_renderTargetFlags&0x40 == 0 {
-		return
-	}
-
-	nox_pixbuffer_rows_3798776_arr, _ = alloc.Make([]unsafe.Pointer{}, sz.Y)
-	C.nox_pixbuffer_rows_3798776 = (**C.uchar)(unsafe.Pointer(&nox_pixbuffer_rows_3798776_arr[0]))
-	for y := 0; y < sz.Y; y++ {
-		nox_pixbuffer_rows_3798776_arr[y] = unsafe.Pointer(&nox_pixbuffer_3798788_arr[y*2*sz.X])
 	}
 }
 

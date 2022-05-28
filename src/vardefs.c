@@ -12,7 +12,6 @@ void nullsub_67();
 void nullsub_68();
 void nullsub_69();
 void nullsub_70();
-uint8_t** nox_pixbuffer_rows_3798784 = 0;
 unsigned int nox_frame_xxx_2598000 = 0;
 uint32_t dword_5d4594_4668 = 0;
 uint32_t dword_5d4594_1046492 = 0;

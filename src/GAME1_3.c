@@ -123,7 +123,6 @@ extern uint32_t nox_client_renderGUI_80828;
 extern nox_window* nox_wnd_quitMenu_825760;
 extern uint32_t dword_5d4594_2650652;
 extern uint32_t nox_player_netCode_85319C;
-extern uint8_t** nox_pixbuffer_rows_3798784;
 extern nox_memfile* nox_loaded_thing_bin;
 extern unsigned int nox_frame_xxx_2598000;
 void* dword_5d4594_830236 = 0;

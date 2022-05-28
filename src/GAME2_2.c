@@ -114,7 +114,6 @@ extern uint32_t nox_player_netCode_85319C;
 extern unsigned char* nox_draw_colors_r_3804672;
 extern unsigned char* nox_draw_colors_g_3804656;
 extern unsigned char* nox_draw_colors_b_3804664;
-extern uint8_t** nox_pixbuffer_rows_3798784;
 extern int nox_win_width;
 extern int nox_win_height;
 extern int nox_backbuffer_width;
@@ -153,8 +152,7 @@ extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern uint32_t nox_arr_956A00[NOX_MAX_HEIGHT + 150];
 extern unsigned char nox_arr_957820[128 * (NOX_MAX_HEIGHT + 150)];
 
-uint8_t** nox_pixbuffer_rows_3798776 = 0;
-uint8_t* nox_pixbuffer_3798788 = 0;
+uint8_t** nox_pixbuffer_rows_3798784 = 0;
 
 void* dword_5d4594_1096640 = 0;
 

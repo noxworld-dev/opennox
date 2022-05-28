@@ -67,7 +67,6 @@ extern uint32_t nox_video_modeXxx_3801780;
 extern unsigned char* nox_draw_colors_r_3804672;
 extern unsigned char* nox_draw_colors_g_3804656;
 extern unsigned char* nox_draw_colors_b_3804664;
-extern uint8_t** nox_pixbuffer_rows_3798784;
 extern int nox_enable_audio;
 
 extern int nox_win_width;
@@ -104,7 +103,6 @@ extern uint32_t dword_6F7BB0;
 extern uint32_t g_cursor_surf_pitch;
 extern uint8_t* g_cursor_surf_pixels;
 extern uint8_t* g_cursor_surf_pixels_6F7C78;
-extern void (*dword_6F7C10)(uint32_t, uint32_t, uint32_t);
 
 void nox_video_setGammaSlider(int v);
 

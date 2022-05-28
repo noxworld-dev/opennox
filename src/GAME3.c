@@ -138,7 +138,6 @@ extern uint32_t nox_player_netCode_85319C;
 extern unsigned char* nox_draw_colors_r_3804672;
 extern unsigned char* nox_draw_colors_g_3804656;
 extern unsigned char* nox_draw_colors_b_3804664;
-extern uint8_t** nox_pixbuffer_rows_3798784;
 extern float input_sensitivity;
 extern int default_win_width;
 extern int default_win_height;

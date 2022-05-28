@@ -145,7 +145,6 @@ extern uint32_t dword_5d4594_1062480;
 extern uint32_t nox_player_netCode_85319C;
 extern unsigned int nox_frame_xxx_2598000;
 extern void* nox_xxx_aClosewoodengat_587000_133480;
-extern uint8_t** nox_pixbuffer_rows_3798784;
 extern int nox_win_width;
 extern int nox_win_height;
 extern int nox_backbuffer_width;

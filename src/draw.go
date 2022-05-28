@@ -544,7 +544,7 @@ func (r *NoxRender) nox_client_copyRect_49F6F0(x, y, w, h int) {
 }
 
 func (r *NoxRender) setRectFullScreen() { // sub_437290
-	sz := r.PixBuffer().Size()
+	sz := r.PixBufferRect().Size()
 	r.nox_client_copyRect_49F6F0(0, 0, sz.X, sz.Y)
 }
 
@@ -909,7 +909,7 @@ func nox_xxx_drawAllMB_475810_draw_A(vp *Viewport) {
 		v3 := int(vp.y2)
 		r.setRectFullScreen()
 		if C.dword_5d4594_3799524 != 0 {
-			rect := r.PixBuffer().Rect
+			rect := r.PixBufferRect()
 			cl := noxrender.Color(C.nox_color_black_2650656)
 			r.DrawRectFilledOpaque(0, 0, rect.Dx(), int(vp.y1), cl)
 			r.DrawRectFilledOpaque(0, v3, rect.Dx(), rect.Dy()-v3, cl)

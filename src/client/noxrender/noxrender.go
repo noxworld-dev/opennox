@@ -59,6 +59,10 @@ func (r *NoxRender) ColorIntensity(cr, cg, cb byte) byte {
 	return r.colors.revTable[v]
 }
 
+func (r *NoxRender) PixBufferRect() image.Rectangle {
+	return r.pix.Rect
+}
+
 func (r *NoxRender) PixBuffer() *noximage.Image16 {
 	return r.pix
 }
