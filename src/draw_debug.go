@@ -101,10 +101,10 @@ func debugDrawShape(r *NoxRender, dr *Drawable, p image.Point, cl noxrender.Colo
 		y2 := p.Y - int(float32(dr.field_25)-float32(z))
 		if y1 > 0 {
 			cl := noxrender.Color(memmap.Uint32(0x85B3FC, 940))
-			r.DrawCircleColored(p.X, p.Y, rad, cl)
+			r.DrawCircle(p.X, p.Y, rad, cl)
 		}
-		r.DrawCircleColored(p.X, y1, rad, cl)
-		r.DrawCircleColored(p.X, y2, rad, cl)
+		r.DrawCircle(p.X, y1, rad, cl)
+		r.DrawCircle(p.X, y2, rad, cl)
 		r.Data().SetColor2(cl)
 		r.DrawLine(
 			image.Pt(p.X-rad, y1),

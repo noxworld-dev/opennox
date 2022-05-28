@@ -12,8 +12,6 @@
 #include "mutexes.h"
 #include "operators.h"
 
-unsigned char byte_5D4594_3804364[160] = {0};
-
 int nox_video_renderTargetFlags = 0;
 int nox_video_windowsPlatformVersion = 0;
 

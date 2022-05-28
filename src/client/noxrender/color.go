@@ -90,6 +90,13 @@ func (c Color16) Over(c2 Color16) Color16 {
 	return c
 }
 
+func (c Color16) Over2(c2 Color16) Color16 {
+	c.R += (c2.R - c.R) / 4
+	c.G += (c2.G - c.G) / 4
+	c.B += (c2.B - c.B) / 4
+	return c
+}
+
 func (c Color16) OverAlpha(a uint16, c2 Color16) Color16 {
 	c.R += ((a * (c2.R - c.R)) >> 8) & 0xff
 	c.G += ((a * (c2.G - c.G)) >> 8) & 0xff

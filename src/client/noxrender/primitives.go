@@ -483,3 +483,82 @@ func (r *NoxRender) DrawPoint(pos image.Point, rad int, cl Color) {
 		r.DrawPointRad(pos, rad/2, cl)
 	}
 }
+
+func (r *NoxRender) drawCircleWith(cx, cy, rad int, pixel func(x, y int)) {
+	pixel(cx+rad, cy)
+	pixel(cx-rad, cy)
+	pixel(cx, cy+rad)
+	pixel(cx, cy-rad)
+	if rad <= 0 {
+		return
+	}
+	x := 0
+	y := rad
+	p := 1 - rad
+	for x < y {
+		x++
+		if p < 0 {
+			p += 2*x + 1
+		} else {
+			y--
+			p += 2*(x-y) + 1
+		}
+		pixel(cx+x, cy+y)
+		pixel(cx-x, cy+y)
+		pixel(cx+x, cy-y)
+		pixel(cx-x, cy-y)
+		pixel(cx+y, cy+x)
+		pixel(cx-y, cy+x)
+		pixel(cx+y, cy-x)
+		pixel(cx-y, cy-x)
+	}
+}
+
+func (r *NoxRender) circleClipped(x, y, rad int) bool {
+	rect := r.Data().ClipRect()
+	return x-rad < rect.Min.X || x+rad >= rect.Max.X || y-rad < rect.Min.Y || y+rad >= rect.Max.Y
+}
+
+func (r *NoxRender) DrawCircleOpaque(cx, cy, rad int, cl Color) {
+	d := r.Data()
+	pix := r.PixBuffer()
+	if d.Clip() && r.circleClipped(cx, cy, rad) {
+		clip := d.ClipRect()
+		r.drawCircleWith(cx, cy, rad, func(x, y int) {
+			if !image.Pt(x, y).In(clip) {
+				return
+			}
+			pix.SetRGBA5551(x, y, cl)
+		})
+	} else {
+		r.drawCircleWith(cx, cy, rad, func(x, y int) {
+			pix.SetRGBA5551(x, y, cl)
+		})
+	}
+}
+
+func (r *NoxRender) DrawCircleAlpha(cx, cy, rad int, cl Color) {
+	d := r.Data()
+	bc := SplitColor(cl)
+	pix := r.PixBuffer()
+	clip := pix.Rect
+	if d.Clip() && r.circleClipped(cx, cy, rad) {
+		clip = d.ClipRect()
+	}
+	r.drawCircleWith(cx, cy, rad, func(x, y int) {
+		if !image.Pt(x, y).In(clip) {
+			return
+		}
+		ind := pix.PixOffset(x, y)
+		c := SplitColor16(pix.Pix[ind])
+		pix.Pix[ind] = c.Over2(bc).Make16()
+	})
+}
+
+func (r *NoxRender) DrawCircle(x, y, rad int, cl Color) {
+	if r.p.IsAlphaEnabled() {
+		r.DrawCircleAlpha(x, y, rad, cl)
+	} else {
+		r.DrawCircleOpaque(x, y, rad, cl)
+	}
+}

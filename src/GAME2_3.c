@@ -39,8 +39,6 @@
 #include "input_common.h"
 #include "operators.h"
 
-extern unsigned char byte_5D4594_3804364[160];
-
 extern uint32_t dword_5d4594_1301808;
 extern uint32_t dword_5d4594_1303508;
 extern uint32_t dword_5d4594_1200776;

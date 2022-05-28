@@ -43,9 +43,6 @@ int nox_getBackbufHeight();
 
 #define __m64 void
 
-extern unsigned char byte_581450_9176[160];
-extern unsigned char byte_581450_9336[160];
-
 extern uint32_t dword_5d4594_810628;
 extern uint32_t dword_5d4594_808564;
 extern uint32_t dword_5d4594_1311936;

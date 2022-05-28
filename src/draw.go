@@ -78,7 +78,6 @@ extern uint32_t nox_arr_956A00[NOX_MAX_HEIGHT + 150];
 extern unsigned char nox_arr_957820[128 * (NOX_MAX_HEIGHT + 150)];
 extern void (*func_587000_154940)(int2*, uint32_t, uint32_t);
 extern int (*func_587000_154944)(int, int);
-extern unsigned char byte_5D4594_3804364[160];
 extern void* nox_video_tileBuf_ptr_3798796;
 extern void* nox_video_tileBuf_end_3798844;
 */
@@ -404,8 +403,6 @@ func sub_435280(cl C.short, pr, pg, pb *C.uchar) {
 
 func sub_4338D0() int {
 	noxcolor.SetMode(noxcolor.ModeRGBA5551)
-	copy(byte_5D4594_3804364[:], byte_581450_9176[:])
-	copy(unsafe.Slice((*uint32)(unsafe.Pointer(&C.byte_5D4594_3804364[0])), 40), byte_581450_9176[:])
 	ptr := noxrend.Data()
 	ptr.Reset()
 	nox_draw_initColorTables_434CC0()
@@ -694,19 +691,6 @@ func (d renderDataAdapter) DefaultFont() font.Face {
 func (r *NoxRender) SetData(p *RenderData) {
 	r.p = p
 	r.NoxRender.SetData(renderDataAdapter{r: r, RenderData: r.p})
-}
-
-func (r *NoxRender) DrawCircle(a1, a2, a3 int) {
-	if r.p.IsAlphaEnabled() {
-		C.nox_video_drawCircle16Alpha_4B2480(C.int(a1), C.int(a2), C.int(a3))
-	} else {
-		C.nox_video_drawCircle16Opaque_4B1380(C.int(a1), C.int(a2), C.int(a3))
-	}
-}
-
-func (r *NoxRender) DrawCircleColored(a1, a2, a3 int, cl noxrender.Color) {
-	r.Data().SetColor2(cl)
-	r.DrawCircle(a1, a2, a3)
 }
 
 //export nox_xxx_guiFontHeightMB_43F320
@@ -2029,12 +2013,12 @@ func sub4745F0(vp *Viewport) {
 
 //export nox_video_drawCircleColored_4C3270
 func nox_video_drawCircleColored_4C3270(a1, a2, a3, a4 C.int) {
-	noxrend.DrawCircleColored(int(a1), int(a2), int(a3), noxrender.Color(a4))
+	noxrend.DrawCircle(int(a1), int(a2), int(a3), noxrender.Color(a4))
 }
 
 //export nox_video_drawCircle_4B0B90
 func nox_video_drawCircle_4B0B90(a1, a2, a3 C.int) {
-	noxrend.DrawCircle(int(a1), int(a2), int(a3))
+	noxrend.DrawCircle(int(a1), int(a2), int(a3), noxrend.Data().Color2())
 }
 
 func (r *NoxRender) DrawImageAt(img *Image, pos image.Point) {
