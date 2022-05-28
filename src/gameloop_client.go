@@ -201,7 +201,7 @@ func generateMouseSparks(inp *input.Handler) {
 	dy := mpos.Y - int(memmap.Uint32(0x5D4594, 816424))
 	r2 := dx*dx + dy*dy
 	if memmap.Uint32(0x5D4594, 816428) != 0 {
-		cnt := (int)(math.Sqrt(float64(r2)) * distanceSparks)
+		cnt := int(math.Sqrt(float64(r2)) * distanceSparks)
 		for i := cnt; i > 0; i-- {
 			v6 := randomIntMinMax(0, 100)
 			v7 := int(memmap.Uint32(0x5D4594, 816420)) + dx*v6/100

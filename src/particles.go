@@ -118,13 +118,13 @@ func (p *Particle) genImage() {
 	c1B := uint32((mul1*p.opt.colorB)&0xffff) >> 8
 	c3R := c1R << 16
 	c4R := c1R << 16
-	c2R := int(((((uint32)(mul2*p.opt.colorR)>>8)&0xFF)-c1R)<<16) / rr
+	c2R := int((((uint32(mul2*p.opt.colorR)>>8)&0xFF)-c1R)<<16) / rr
 	c3G := c1G << 16
 	c4G := c1G << 16
-	c2G := int(((((uint32)(mul2*p.opt.colorG)>>8)&0xFF)-c1G)<<16) / rr
+	c2G := int((((uint32(mul2*p.opt.colorG)>>8)&0xFF)-c1G)<<16) / rr
 	c3B := c1B << 16
 	c4B := c1B << 16
-	c2B := int(((((uint32)(mul2*p.opt.colorB)>>8)&0xFF)-c1B)<<16) / rr
+	c2B := int((((uint32(mul2*p.opt.colorB)>>8)&0xFF)-c1B)<<16) / rr
 	if rr == 0 {
 		return
 	}

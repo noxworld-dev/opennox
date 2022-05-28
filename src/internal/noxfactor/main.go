@@ -947,6 +947,12 @@ func (r *Refactorer) visitExpr(n ast.Expr) ast.Expr {
 		n.High = r.visitExpr(n.High)
 		n.Max = r.visitExpr(n.Max)
 	case *ast.CallExpr:
+		if p, ok := n.Fun.(*ast.ParenExpr); ok {
+			if id, ok := p.X.(*ast.Ident); ok {
+				n.Fun = id
+				r.fileChanged = true
+			}
+		}
 		n.Fun = r.visitExpr(n.Fun)
 		for i, a := range n.Args {
 			n.Args[i] = r.visitExpr(a)
