@@ -6102,12 +6102,12 @@ int sub_49CB40() { return dword_5d4594_1305684 != 0; }
 // Most probably borders with alpha
 //----- (0049CD30) --------------------------------------------------------
 void sub_49CD30(int xLeft, int yTop, int a3, int a4, int a5, int a6) {
-	RECT rc; // [esp+10h] [ebp-10h]
+	nox_rect rc; // [esp+10h] [ebp-10h]
 
 	if (a3) {
 		if (a4) {
 			if (!nox_draw_curDrawData_3799572->flag_0 ||
-				(SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4),
+				(noxSetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4),
 				 nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&nox_draw_curDrawData_3799572->clip)))) {
 				sub_434040(a5);
 				sub_434080(a6);
@@ -6166,16 +6166,16 @@ int sub_49F6D0(int a1) {
 //----- (0049F6F0) --------------------------------------------------------
 int4* nox_client_copyRect_49F6F0(int xLeft, int yTop, int a3, int a4) {
 	int4* result; // eax
-	RECT rcSrc;   // [esp+0h] [ebp-20h]
-	RECT rc;      // [esp+10h] [ebp-10h]
+	nox_rect rcSrc;   // [esp+0h] [ebp-20h]
+	nox_rect rc;      // [esp+10h] [ebp-10h]
 
-	SetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
+	noxSetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4);
 	result = nox_xxx_utilRect_49F930((int4*)&rcSrc, (int4*)&rc, (int4*)(&nox_draw_curDrawData_3799572->rect3));
 	if (result) {
-		CopyRect(&nox_draw_curDrawData_3799572->clip, &rcSrc);
+		noxCopyRect(&nox_draw_curDrawData_3799572->clip, &rcSrc);
 		--rcSrc.max_x;
 		--rcSrc.max_y;
-		result = (int4*)CopyRect((LPRECT)(&nox_draw_curDrawData_3799572->rect2), &rcSrc);
+		result = (int4*)noxCopyRect((&nox_draw_curDrawData_3799572->rect2), &rcSrc);
 	}
 	return result;
 }

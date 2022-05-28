@@ -60,13 +60,6 @@ typedef struct _WIN32_FIND_DATAA {
 	char cAlternateFileName[14];
 } WIN32_FIND_DATAA, *LPWIN32_FIND_DATAA;
 
-typedef struct _RECT {
-	int min_x;
-	int min_y;
-	int max_x;
-	int max_y;
-} RECT, *LPRECT;
-
 #include <sys/stat.h>
 #undef st_mtime
 #undef st_atime
@@ -104,8 +97,6 @@ enum {
 #define ReleaseMutex compatReleaseMutex
 #define SetEvent compatSetEvent
 #define WaitForSingleObject compatWaitForSingleObject
-#define CopyRect compatCopyRect
-#define SetRect compatSetRect
 #define _rotl compat_rotl
 #define _itoa compat_itoa
 #define _itow compat_itow
@@ -150,17 +141,6 @@ static inline unsigned int _rotl(unsigned int value, int shift) {
 	if (c == 0)
 		return value;
 	return (value << c) | (value >> (32 - c));
-}
-static inline int CopyRect(LPRECT lprcDst, const RECT* lprcSrc) {
-	*lprcDst = *lprcSrc;
-	return true;
-}
-static inline int SetRect(LPRECT lprc, int xLeft, int yTop, int xRight, int yBottom) {
-	lprc->min_x = xLeft;
-	lprc->min_y = yTop;
-	lprc->max_x = xRight;
-	lprc->max_y = yBottom;
-	return true;
 }
 
 #ifdef __cplusplus

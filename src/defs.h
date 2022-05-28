@@ -239,6 +239,18 @@ typedef struct {
 	int max_y;
 } nox_rect;
 
+static inline int noxCopyRect(nox_rect* lprcDst, const nox_rect* lprcSrc) {
+	*lprcDst = *lprcSrc;
+	return true;
+}
+static inline int noxSetRect(nox_rect* lprc, int xLeft, int yTop, int xRight, int yBottom) {
+	lprc->min_x = xLeft;
+	lprc->min_y = yTop;
+	lprc->max_x = xRight;
+	lprc->max_y = yBottom;
+	return true;
+}
+
 typedef enum { NOX_SHAPE_NONE = 0, NOX_SHAPE_CENTER = 1, NOX_SHAPE_CIRCLE = 2, NOX_SHAPE_BOX = 3 } nox_shape_kind;
 
 typedef struct nox_shape {

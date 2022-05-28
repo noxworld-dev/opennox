@@ -6690,7 +6690,7 @@ int sub_48B3E0(int a1) {
 void sub_48BD90(int a1) {
 	nox_mutex_lock(getMemAt(0x973F18, 168));
 	if (!a1) {
-		SetRect((LPRECT)getMemAt(0x5D4594, 1193532), 0, 0, 0, 0);
+		noxSetRect(getMemAt(0x5D4594, 1193532), 0, 0, 0, 0);
 	}
 	dword_5d4594_1193664 = 1;
 	dword_5d4594_1193668 = 1;
