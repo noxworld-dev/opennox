@@ -42,7 +42,6 @@ int nox_xxx___cfltcvt_init_430CC0();
 extern uint32_t nox_color_yellow_2589772;
 extern uint32_t nox_color_black_2650656;
 extern uint32_t nox_color_blue_2650684;
-extern uint32_t dword_5d4594_3807156;
 extern uint32_t dword_5d4594_805836;
 extern uint8_t** nox_pixbuffer_rows_3798784;
 */
@@ -480,8 +479,6 @@ func nox_video_initFloorBuffer_430BA0(sz image.Point) error {
 
 func nox_xxx___cfltcvt_init_430CC0() {
 	*memmap.PtrUint32(0x973F18, 7696) = 1
-	_ = sub_469920
-	C.dword_5d4594_3807156 = C.uint(uintptr(C.sub_469920))
 	C.dword_5d4594_805836 = 0
 }
 

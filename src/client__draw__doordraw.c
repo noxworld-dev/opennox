@@ -9,8 +9,6 @@
 #include "client__video__draw_common.h"
 #include "operators.h"
 
-extern uint32_t dword_5d4594_3807156;
-
 //----- (004BC9E0) --------------------------------------------------------
 int nox_thing_door_draw(uint32_t* a1, nox_drawable* dr) {
 	uint8_t* v2; // edi
@@ -41,7 +39,7 @@ int nox_thing_door_draw(uint32_t* a1, nox_drawable* dr) {
 	sub_4739E0(a1, &dr->pos, &a3);
 	a3.field_0 -= 64;
 	a3.field_4 -= 79;
-	v2 = (uint8_t*)(*(int (**)(int2*)) & dword_5d4594_3807156)(&dr->pos);
+	v2 = sub_469920(&dr->pos);
 	sub_4345F0(1);
 	LOBYTE(v4) = v2[8];
 	v3 = v2[4];

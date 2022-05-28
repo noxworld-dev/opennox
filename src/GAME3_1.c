@@ -108,7 +108,6 @@ extern uint32_t dword_5d4594_3798156;
 extern uint32_t dword_5d4594_1522612;
 extern uint32_t dword_5d4594_1522604;
 void* nox_video_getImagePixdata_func(nox_video_bag_image_t*);
-extern uint32_t dword_5d4594_3807156;
 extern int dword_5d4594_3799524;
 extern uint32_t dword_5d4594_3679320;
 extern uint32_t dword_5d4594_1313796;
@@ -4542,7 +4541,7 @@ LABEL_33:
 	if (*((uint32_t*)a2 + 28) & 0x80000 && *((uint32_t*)a2 + 30) & 0x1000000 || *((uint32_t*)a2 + 30) & 0x40000000) {
 		v28 = getMemAt(0x587000, 185472);
 	} else {
-		v28 = (unsigned char*)(*(int (**)(int2*)) & dword_5d4594_3807156)((int2*)(a2 + 12));
+		v28 = sub_469920((int2*)(a2 + 12));
 	}
 	v29 = *((uint16_t*)a2 + 52);
 	int a2b = 0;

@@ -113,7 +113,6 @@ extern uint32_t nox_client_highResFloors_154952;
 extern uint32_t dword_5d4594_1062528;
 extern uint32_t dword_5d4594_1062524;
 extern uint32_t dword_5d4594_251540;
-extern uint32_t dword_5d4594_3807156;
 extern int dword_5d4594_3799524;
 extern uint32_t dword_5d4594_1064856;
 extern uint32_t dword_5d4594_1049856;
@@ -6611,7 +6610,7 @@ LABEL_64:
 			v31 = v3[6];
 			v77.field_0 = 23 * v3[5];
 			v77.field_4 = 23 * (v31 + 1);
-			v32 = (int*)(*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
+			v32 = sub_469920(&v77);
 			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
@@ -6621,14 +6620,14 @@ LABEL_64:
 			}
 			v77.field_0 += 23;
 			v77.field_4 -= 23;
-			v34 = (*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
+			v34 = sub_469920(&v77);
 			break;
 		case 1:
 		case 4:
 			v35 = v3[6];
 			v77.field_0 = 23 * v3[5];
 			v77.field_4 = 23 * v35;
-			v32 = (int*)(*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
+			v32 = sub_469920(&v77);
 			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
@@ -6638,13 +6637,13 @@ LABEL_64:
 			}
 			v77.field_0 += 23;
 			v77.field_4 += 23;
-			v34 = (*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
+			v34 = sub_469920(&v77);
 			break;
 		case 7:
 			v37 = v3[6];
 			v77.field_0 = 23 * v3[5];
 			v77.field_4 = 23 * v37;
-			v32 = (int*)(*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
+			v32 = sub_469920(&v77);
 			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
@@ -6653,13 +6652,13 @@ LABEL_64:
 				v83[2] = v38;
 			}
 			v77.field_0 += 23;
-			v34 = (*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
+			v34 = sub_469920(&v77);
 			break;
 		case 8:
 			v39 = v3[6];
 			v77.field_0 = 23 * v3[5] + 11;
 			v77.field_4 = 23 * v39 + 11;
-			v32 = (int*)(*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
+			v32 = sub_469920(&v77);
 			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
@@ -6669,13 +6668,13 @@ LABEL_64:
 			}
 			v77.field_0 -= 34;
 			v77.field_4 -= 34;
-			v34 = (*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
+			v34 = sub_469920(&v77);
 			break;
 		case 10:
 			v41 = v3[6];
 			v77.field_0 = 23 * v3[5];
 			v77.field_4 = 23 * (v41 + 1);
-			v32 = (int*)(*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
+			v32 = sub_469920(&v77);
 			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
@@ -6685,13 +6684,13 @@ LABEL_64:
 			}
 			v77.field_0 += 11;
 			v77.field_4 -= 11;
-			v34 = (*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
+			v34 = sub_469920(&v77);
 			break;
 		default:
 			v43 = v3[6];
 			v77.field_0 = 23 * v3[5];
 			v77.field_4 = 23 * (v43 + 1);
-			v32 = (int*)(*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
+			v32 = sub_469920(&v77);
 			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
@@ -6700,7 +6699,7 @@ LABEL_64:
 				v83[2] = v44;
 			}
 			v77.field_0 += 23;
-			v34 = (*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
+			v34 = sub_469920(&v77);
 			break;
 		}
 		v74 = v34;
@@ -6735,7 +6734,7 @@ LABEL_64:
 		v53 = v3[6];
 		v77.field_0 = 23 * v3[5] + 11;
 		v77.field_4 = 23 * v53 + 11;
-		v54 = (uint8_t*)(*(int (**)(int2*)) & dword_5d4594_3807156)(&v77);
+		v54 = sub_469920(&v77);
 		v55 = nox_xxx_getWallDrawOffset_46A3F0(v3[1], v84, v3[2], v73);
 		v56 = v82 + *(uint32_t*)v55 - 50;
 		v57 = -72 - *((uint32_t*)v55 + 1) + v7;
