@@ -480,7 +480,6 @@ func nox_video_initFloorBuffer_430BA0(sz image.Point) error {
 
 func nox_xxx___cfltcvt_init_430CC0() {
 	*memmap.PtrUint32(0x973F18, 7696) = 1
-	*memmap.PtrPtr(0x973F18, 7700) = C.nox_xxx_someEdgeProcessing_480EF0
 	_ = sub_469920
 	C.dword_5d4594_3807156 = C.uint(uintptr(C.sub_469920))
 	C.dword_5d4594_805836 = 0

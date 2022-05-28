@@ -6719,8 +6719,7 @@ LABEL_64:
 			v64 = nox_win_height;
 			v63 = v74;
 			v52 = nox_xxx_getWallSprite_46A3B0(v3[1], v84, v3[2], v73);
-			(*(void (**)(uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t,
-						 uint32_t))getMemAt(0x973F18, 7700))(v52, v46, v47, v32, v63, v64, v65, v66, 0, v69);
+			nox_xxx_edgeDraw_480EF0(v52, v46, v47, v32, v63, v64, v65, v66, 0, v69);
 			goto LABEL_106;
 		}
 		if (!sub_47D380(a3, a4)) {

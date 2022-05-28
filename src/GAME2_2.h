@@ -84,8 +84,7 @@ uint8_t* sub_480220(uint8_t* a1, uint8_t* a2);
 uint16_t* sub_480250(uint8_t* a1, uint16_t* a2);
 void sub_480860(uint16_t* a1, uint16_t* a2, int a3, int* a4, int* a5);
 void sub_480BE0(uint32_t* a1, int* a2, int a3, int a4, int a5);
-int* nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7, int a8, int a9,
-									   int a10);
+int* nox_xxx_edgeDraw_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7, int a8, int a9, int a10);
 void sub_481410();
 char nox_xxx_tileDraw_4815E0(uint32_t* a1, int a2);
 char* sub_481770(uint32_t* a1, int a2, unsigned short a3);

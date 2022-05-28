@@ -2003,8 +2003,7 @@ uint16_t* sub_480250(uint8_t* a1, uint16_t* a2) {
 
 //----- (00480EF0) --------------------------------------------------------
 int nox_getBackbufferPitch();
-int* nox_xxx_someEdgeProcessing_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7, int a8, int a9,
-									   int a10) {
+int* nox_xxx_edgeDraw_480EF0(int a1, int a2, int a3, int* a4, int* a5, int a6, int a7, int a8, int a9, int a10) {
 	int* result;                                // eax
 	int v10;                                    // ebx
 	char v11;                                   // cl
