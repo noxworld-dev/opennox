@@ -1,5 +1,25 @@
 # Changelog
 
+## v1.8.10
+
+- First release as an open source project!
+- Significant cleanup of the codebase.
+- Fix long-standing bug for rendering lights in high-res.
+- Long-awaited support for movie playback.
+- Experimental support loading campaign in multiplayer.
+- Reworked most of the rendering code.
+- Allow console commands in Quest.
+- Use shaders for gamma control. Should work more reliably.
+- Send server resolution and player list to the lobby.
+- Allow overriding and initial modding support for spells.
+- Allow getting all spells, including hidden ones via `cheat spells all`.
+- Allow removing summon limit via `cheat summon.nolimit`.
+- Support XDG paths on Linux.
+- Fix: Correctly handle `goto` console command.
+- Fix: Minor physics deviation compared to vanilla.
+- Fix: Teams creation in Quest.
+- Fix: Reading gamma settings from config.
+
 ## v1.8.9
 
 - OpenNox will now use the new lobby server and fallback to XWIS if no servers were found.
