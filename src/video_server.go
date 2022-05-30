@@ -12,3 +12,6 @@ func resetRenderer(sz image.Point, _ bool) error {
 
 func copyPixBuffer() {
 }
+
+func playMovieFile(name string) {
+}

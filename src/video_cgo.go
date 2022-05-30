@@ -53,14 +53,12 @@ import (
 	"unsafe"
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
-	"github.com/noxworld-dev/opennox-lib/ifs"
 	"github.com/noxworld-dev/opennox-lib/noximage"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/input"
-	"github.com/noxworld-dev/opennox/v1/client/noxmovie"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -434,16 +432,7 @@ func drawGeneral_4B0340(a1 int) error {
 	}
 
 	var movieString = GoString((*C.char)(memmap.PtrOff(0x5d4594, 1311940)))
-	videoLog.Printf("DrawGeneral: movie string: %q", movieString)
-
-	if f, err := ifs.Open(movieString); err == nil {
-		defer f.Close()
-		if plr, err := noxmovie.NewPlayerWithHandle(f, noxSeat, audioDev); err == nil {
-			defer plr.Close()
-			plr.Start()
-			plr.Play()
-		}
-	}
+	playMovieFile(movieString)
 
 	if v2 == 0 {
 		nox_free_pixbuffers_486110()

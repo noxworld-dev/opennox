@@ -12,8 +12,23 @@ import (
 	"errors"
 	"image"
 
+	"github.com/noxworld-dev/opennox-lib/ifs"
+
+	"github.com/noxworld-dev/opennox/v1/client/noxmovie"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
+
+func playMovieFile(name string) {
+	videoLog.Printf("playMovieFile: %q", name)
+	if f, err := ifs.Open(name); err == nil {
+		defer f.Close()
+		if plr, err := noxmovie.NewPlayerWithHandle(f, noxSeat, audioDev); err == nil {
+			defer plr.Close()
+			plr.Start()
+			plr.Play()
+		}
+	}
+}
 
 func clientDraw() bool {
 	return nox_xxx_client_435F80_draw(inpHandlerS)
