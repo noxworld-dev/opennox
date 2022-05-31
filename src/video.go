@@ -211,7 +211,5 @@ func setGamma(v float32) {
 	}
 	videoLog.Printf("gamma: %v", v)
 	noxVideoGamma = v
-	if noxSeat != nil {
-		noxSeat.SetGamma(v)
-	}
+	setScreenGamma(v)
 }

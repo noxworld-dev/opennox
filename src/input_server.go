@@ -5,8 +5,6 @@ package opennox
 import (
 	"image"
 
-	"github.com/noxworld-dev/opennox-lib/client/keybind"
-
 	"github.com/noxworld-dev/opennox/v1/client/input"
 )
 
@@ -74,8 +72,6 @@ func getInputSeq() uint { return 1 }
 func resetInput() {}
 
 func setMouseBounds(rect image.Rectangle) {}
-
-func setKeyFlag(key keybind.Key, val bool) {}
 
 func map_download_start() {}
 

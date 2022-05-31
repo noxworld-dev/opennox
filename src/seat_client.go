@@ -8,7 +8,6 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/noxworld-dev/opennox-lib/client/keybind"
 	"github.com/noxworld-dev/opennox-lib/client/seat"
 	"github.com/noxworld-dev/opennox-lib/client/seat/sdl"
 	"github.com/noxworld-dev/opennox-lib/env"
@@ -21,6 +20,7 @@ import (
 var (
 	noxRendererS *render.Renderer
 	inpHandlerS  *input.Handler
+	noxSeat      seat.Seat
 )
 
 func init() {
@@ -30,6 +30,37 @@ func init() {
 const (
 	configVideoFiltering = "video.filtering"
 )
+
+func InitSeat(sz image.Point) error {
+	s, err := newSeat(sz)
+	if err != nil {
+		return err
+	}
+	if s != nil {
+		s.SetGamma(getGamma())
+	}
+	noxSeat = s
+	return nil
+}
+
+func FreeSeat() {
+	if noxSeat != nil {
+		noxSeat.Close()
+		noxSeat = nil
+	}
+}
+
+func setScreenSize(sz image.Point) {
+	if noxSeat != nil {
+		noxSeat.ResizeScreen(sz)
+	}
+}
+
+func setScreenGamma(v float32) {
+	if noxSeat != nil {
+		noxSeat.SetGamma(v)
+	}
+}
 
 func updateFullScreen(mode int) {
 	noxRendererS.SetWindowMode(mode)
@@ -105,10 +136,6 @@ func changeMousePos(pos image.Point, abs bool) {
 
 func setMouseBounds(rect image.Rectangle) {
 	inpHandlerS.SetMouseBounds(rect)
-}
-
-func setKeyFlag(key keybind.Key, val bool) {
-	inpHandlerS.SetKeyFlag(key, val)
 }
 
 func newSeat(sz image.Point) (seat.Seat, error) {
