@@ -14,6 +14,7 @@ import (
 	"context"
 	"fmt"
 	"image"
+	"image/color"
 
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
@@ -133,13 +134,12 @@ func (c *guiConsole) Init(sz image.Point) *Window {
 			return 1
 		}
 		wsz := win.Size()
-		if a2.BackgroundColor() != gui.ColorTransparent {
+		if _, _, _, alpha := a2.BackgroundColor().RGBA(); alpha != 0 {
 			if c.translucent {
 				r.DrawRectFilledAlpha(pos.X, pos.Y, wsz.X, wsz.Y)
 				return 1
 			}
-			cl := noxcolor.ModelRGBA5551.Convert(a2.BackgroundColor()).(noxcolor.RGBA5551)
-			r.DrawRectFilledOpaque(pos.X, pos.Y, wsz.X, wsz.Y, cl)
+			r.DrawRectFilledOpaque(pos.X, pos.Y, wsz.X, wsz.Y, a2.BackgroundColor())
 		}
 		return 1
 	}, nil)
@@ -148,8 +148,8 @@ func (c *guiConsole) Init(sz image.Point) *Window {
 	drawData, freeDraw := newWindowData()
 	defer freeDraw()
 
-	drawData.SetHighlightColor(gui.ColorTransparent)
-	drawData.SetSelectedColor(gui.ColorTransparent)
+	drawData.SetHighlightColor(color.Transparent)
+	drawData.SetSelectedColor(color.Transparent)
 	drawData.SetBackgroundImage(nil)
 	drawData.SetDisabledImage(nil)
 	drawData.SetEnabledColor(v0)
@@ -210,7 +210,7 @@ func (c *guiConsole) Hide() bool {
 }
 
 func (c *guiConsole) ReloadColors() {
-	color := noxcolor.RGBA5551(memmap.Uint32(0x85B3FC, 956))
+	cl := noxcolor.RGBA5551(memmap.Uint32(0x85B3FC, 956))
 	black := noxcolor.RGBA5551(C.nox_color_black_2650656)
 	white := noxcolor.RGBA5551(C.nox_color_white_2523948)
 	if c.root != nil {
@@ -218,26 +218,26 @@ func (c *guiConsole) ReloadColors() {
 	}
 	if c.scrollbox != nil {
 		dd := c.scrollbox.DrawData()
-		dd.SetBackgroundColor(gui.ColorTransparent)
-		dd.SetDisabledColor(gui.ColorTransparent)
-		dd.SetEnabledColor(color)
-		dd.SetHighlightColor(color)
-		dd.SetSelectedColor(gui.ColorTransparent)
-		dd.SetTextColor(color)
+		dd.SetBackgroundColor(color.Transparent)
+		dd.SetDisabledColor(color.Transparent)
+		dd.SetEnabledColor(cl)
+		dd.SetHighlightColor(cl)
+		dd.SetSelectedColor(color.Transparent)
+		dd.SetTextColor(cl)
 
 		scr := (*scrollListBoxData)(c.scrollbox.widget_data)
 		if v2 := asWindowP(scr.field_9); v2 != nil {
 			dd2 := v2.DrawData()
 			dd2.SetBackgroundColor(black)
 			dd2.SetDisabledColor(black)
-			dd2.SetEnabledColor(color)
+			dd2.SetEnabledColor(cl)
 			dd2.SetHighlightColor(black)
-			dd2.SetSelectedColor(color)
+			dd2.SetSelectedColor(cl)
 			if v3 := v2.Field100(); v3 != nil {
 				dd3 := v3.DrawData()
 				dd3.SetBackgroundColor(black)
 				dd3.SetDisabledColor(black)
-				dd3.SetEnabledColor(color)
+				dd3.SetEnabledColor(cl)
 				dd3.SetHighlightColor(black)
 				dd3.SetSelectedColor(black)
 			}
@@ -246,29 +246,29 @@ func (c *guiConsole) ReloadColors() {
 			dd4 := v4.DrawData()
 			dd4.SetBackgroundColor(black)
 			dd4.SetDisabledColor(black)
-			dd4.SetEnabledColor(color)
+			dd4.SetEnabledColor(cl)
 			dd4.SetHighlightColor(white)
-			dd4.SetSelectedColor(color)
-			dd4.SetTextColor(color)
+			dd4.SetSelectedColor(cl)
+			dd4.SetTextColor(cl)
 		}
 		if v5 := asWindowP(scr.field_8); v5 != nil {
 			dd5 := v5.DrawData()
 			dd5.SetBackgroundColor(black)
 			dd5.SetDisabledColor(black)
-			dd5.SetEnabledColor(color)
+			dd5.SetEnabledColor(cl)
 			dd5.SetHighlightColor(white)
-			dd5.SetSelectedColor(color)
-			dd5.SetTextColor(color)
+			dd5.SetSelectedColor(cl)
+			dd5.SetTextColor(cl)
 		}
 	}
 	if c.input != nil {
 		dd := c.input.DrawData()
 		dd.SetBackgroundColor(black)
-		dd.SetDisabledColor(color)
-		dd.SetEnabledColor(color)
-		dd.SetHighlightColor(color)
-		dd.SetSelectedColor(color)
-		dd.SetTextColor(color)
+		dd.SetDisabledColor(cl)
+		dd.SetEnabledColor(cl)
+		dd.SetHighlightColor(cl)
+		dd.SetSelectedColor(cl)
+		dd.SetTextColor(cl)
 	}
 }
 

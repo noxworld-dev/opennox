@@ -1,6 +1,9 @@
 package noxrender
 
-import "image"
+import (
+	"image"
+	"image/color"
+)
 
 type FadeKey int
 
@@ -119,7 +122,7 @@ func (r *NoxRender) CheckFade(key FadeKey) bool {
 	return false
 }
 
-func (r *NoxRender) FadeInCinema(perc float32, t int, cl Color) bool {
+func (r *NoxRender) FadeInCinema(perc float32, t int, cl color.Color) bool {
 	f := r.newFade(FadeInCinemaKey, t, fadeKeep)
 	if f == nil {
 		return false
@@ -138,7 +141,7 @@ func (r *NoxRender) FadeInCinema(perc float32, t int, cl Color) bool {
 	return true
 }
 
-func (r *NoxRender) FadeOutCinema(perc float32, t int, cl Color) bool {
+func (r *NoxRender) FadeOutCinema(perc float32, t int, cl color.Color) bool {
 	f := r.newFade(FadeOutCinemaKey, t, 0)
 	if f == nil {
 		return false
@@ -160,13 +163,13 @@ func (r *NoxRender) FadeOutCinema(perc float32, t int, cl Color) bool {
 	return true
 }
 
-func (r *NoxRender) drawFadeCinema(v int, cl Color) {
+func (r *NoxRender) drawFadeCinema(v int, cl color.Color) {
 	pix := r.PixBuffer()
 	r.DrawRectFilledOpaque(0, 0, pix.Rect.Dx(), v, cl)
 	r.DrawRectFilledOpaque(0, pix.Rect.Dy()-v, pix.Rect.Dx(), v, cl)
 }
 
-func (r *NoxRender) FadeClearScreen(menu bool, cl Color) bool {
+func (r *NoxRender) FadeClearScreen(menu bool, cl color.Color) bool {
 	if r.CheckFade(FadeOutScreenKey) {
 		return true
 	}

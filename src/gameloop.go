@@ -60,6 +60,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"image/color"
 	"net"
 	"os"
 	"path/filepath"
@@ -74,7 +75,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/platform"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
-	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -996,7 +996,7 @@ func nox_xxx_gameStateWait_43C020() bool {
 		return true
 	}
 	if !isDedicatedServer {
-		noxrend.ClearScreen(noxrender.Color(C.nox_color_black_2650656))
+		noxrend.ClearScreen(color.Black)
 	}
 	return false
 }
@@ -1121,7 +1121,7 @@ func map_download_finish() int {
 	C.nox_xxx_gui_43E1A0(0)
 	if !noxflags.HasEngine(noxflags.EngineNoRendering) {
 		C.nox_gameDisableMapDraw_5d4594_2650672 = 1
-		noxrend.FadeClearScreen(true, noxrender.ColorRGB(0, 0, 0))
+		noxrend.FadeClearScreen(true, color.Black)
 	}
 	fname := noxServer.nox_server_currentMapGetFilename_409B30()
 	if err := nox_xxx_mapCliReadAll_4AC2B0(fname); err != nil {
@@ -1229,7 +1229,7 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 			}
 			if !noxflags.HasEngine(noxflags.EngineNoRendering) {
 				C.nox_gameDisableMapDraw_5d4594_2650672 = 1
-				noxrend.FadeClearScreen(true, noxrender.ColorRGB(0, 0, 0))
+				noxrend.FadeClearScreen(true, color.Black)
 			}
 		} else if !noxflags.HasGame(noxflags.GameHost) {
 			if v3&1 == 0 || v3&4 != 0 {
@@ -1259,7 +1259,7 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 			}
 			if !noxflags.HasEngine(noxflags.EngineNoRendering) {
 				C.nox_gameDisableMapDraw_5d4594_2650672 = 1
-				noxrend.FadeClearScreen(true, noxrender.ColorRGB(0, 0, 0))
+				noxrend.FadeClearScreen(true, color.Black)
 			}
 		}
 	}

@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"image"
-	"image/draw"
 	"image/jpeg"
 	"image/png"
 	"io/ioutil"
@@ -143,15 +142,6 @@ func openImageZip(base string) (image.Image, error) {
 	return jpeg.Decode(f)
 }
 
-func asRGBA(img image.Image) *image.RGBA {
-	if rgba, ok := img.(*image.RGBA); ok {
-		return rgba
-	}
-	rgba := image.NewRGBA(img.Bounds())
-	draw.Draw(rgba, rgba.Rect, img, img.Bounds().Min, draw.Src)
-	return rgba
-}
-
 func imageByBagSection(sect, offs int) (*pcx.Image, error) {
 	videoBag.once.Do(func() {
 		if err := loadAndIndexVideoBag(); err != nil {
@@ -188,10 +178,14 @@ func imageByBagSection(sect, offs int) (*pcx.Image, error) {
 		return nil, err
 	}
 	out := &pcx.Image{
-		RGBA: *asRGBA(im),
+		Image: im,
 	}
-	if mask, err := openImage(base + "_mask"); err == nil {
-		out.Mask = asRGBA(mask)
+	if mat, err := openImage(base + "_mat"); err == nil {
+		if pal, ok := mat.(*image.Paletted); ok {
+			out.Material = pal
+		} else {
+			log.Printf("image material error: %q: unexpected type: %T", base, mat)
+		}
 	}
 	if meta, err := openImageMeta(base); err != nil {
 		log.Printf("image meta error: %q: %v", base, err)
@@ -212,7 +206,7 @@ func imageByBagSection(sect, offs int) (*pcx.Image, error) {
 	}
 	if debug {
 		log.Printf("image access: %q: type=%d, %dx%d, (%d, %d)",
-			base, out.Type, out.Rect.Dx(), out.Rect.Dy(), out.Point.X, out.Point.Y)
+			base, out.Type, out.Bounds().Dx(), out.Bounds().Dy(), out.Point.X, out.Point.Y)
 	}
 	return out, nil
 }

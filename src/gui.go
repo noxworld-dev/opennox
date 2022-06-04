@@ -18,6 +18,7 @@ import "C"
 import (
 	"context"
 	"image"
+	"image/color"
 	"os"
 	"unsafe"
 
@@ -30,7 +31,6 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/input"
-	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
@@ -185,11 +185,11 @@ func (d *WindowData) BackgroundColorRaw() uint32 {
 }
 
 func (d *WindowData) BackgroundColor() noxcolor.Color16 {
-	return noxcolor.IntToColor(d.BackgroundColorRaw())
+	return noxcolor.RGBA5551(d.BackgroundColorRaw())
 }
 
-func (d *WindowData) SetBackgroundColor(cl noxcolor.Color16) {
-	d.bg_color = C.uint32_t(noxcolor.ExtendColor16(cl))
+func (d *WindowData) SetBackgroundColor(cl color.Color) {
+	d.bg_color = C.uint32_t(noxcolor.ToRGBA5551Color(cl).Color32())
 }
 
 func (d *WindowData) EnabledImage() *Image {
@@ -205,11 +205,11 @@ func (d *WindowData) EnabledColorRaw() uint32 {
 }
 
 func (d *WindowData) EnabledColor() noxcolor.Color16 {
-	return noxcolor.IntToColor(d.EnabledColorRaw())
+	return noxcolor.RGBA5551(d.EnabledColorRaw())
 }
 
-func (d *WindowData) SetEnabledColor(cl noxcolor.Color16) {
-	d.en_color = C.uint32_t(noxcolor.ExtendColor16(cl))
+func (d *WindowData) SetEnabledColor(cl color.Color) {
+	d.en_color = C.uint32_t(noxcolor.ToRGBA5551Color(cl).Color32())
 }
 
 func (d *WindowData) DisabledImage() *Image {
@@ -225,11 +225,11 @@ func (d *WindowData) DisabledColorRaw() uint32 {
 }
 
 func (d *WindowData) DisabledColor() noxcolor.Color16 {
-	return noxcolor.IntToColor(d.DisabledColorRaw())
+	return noxcolor.RGBA5551(d.DisabledColorRaw())
 }
 
-func (d *WindowData) SetDisabledColor(cl noxcolor.Color16) {
-	d.dis_color = C.uint32_t(noxcolor.ExtendColor16(cl))
+func (d *WindowData) SetDisabledColor(cl color.Color) {
+	d.dis_color = C.uint32_t(noxcolor.ToRGBA5551Color(cl).Color32())
 }
 
 func (d *WindowData) HighlightImage() *Image {
@@ -245,11 +245,11 @@ func (d *WindowData) HighlightColorRaw() uint32 {
 }
 
 func (d *WindowData) HighlightColor() noxcolor.Color16 {
-	return noxcolor.IntToColor(d.HighlightColorRaw())
+	return noxcolor.RGBA5551(d.HighlightColorRaw())
 }
 
-func (d *WindowData) SetHighlightColor(cl noxcolor.Color16) {
-	d.hl_color = C.uint32_t(noxcolor.ExtendColor16(cl))
+func (d *WindowData) SetHighlightColor(cl color.Color) {
+	d.hl_color = C.uint32_t(noxcolor.ToRGBA5551Color(cl).Color32())
 }
 
 func (d *WindowData) SelectedImage() *Image {
@@ -265,11 +265,11 @@ func (d *WindowData) SelectedColorRaw() uint32 {
 }
 
 func (d *WindowData) SelectedColor() noxcolor.Color16 {
-	return noxcolor.IntToColor(d.SelectedColorRaw())
+	return noxcolor.RGBA5551(d.SelectedColorRaw())
 }
 
-func (d *WindowData) SetSelectedColor(cl noxcolor.Color16) {
-	d.sel_color = C.uint32_t(noxcolor.ExtendColor16(cl))
+func (d *WindowData) SetSelectedColor(cl color.Color) {
+	d.sel_color = C.uint32_t(noxcolor.ToRGBA5551Color(cl).Color32())
 }
 
 func (d *WindowData) TextColorRaw() uint32 {
@@ -277,11 +277,11 @@ func (d *WindowData) TextColorRaw() uint32 {
 }
 
 func (d *WindowData) TextColor() noxcolor.Color16 {
-	return noxcolor.IntToColor(d.TextColorRaw())
+	return noxcolor.RGBA5551(d.TextColorRaw())
 }
 
-func (d *WindowData) SetTextColor(cl noxcolor.Color16) {
-	d.text_color = C.uint32_t(noxcolor.ExtendColor16(cl))
+func (d *WindowData) SetTextColor(cl color.Color) {
+	d.text_color = C.uint32_t(noxcolor.ToRGBA5551Color(cl).Color32())
 }
 
 func (d *WindowData) Font() font.Face {
@@ -358,20 +358,17 @@ func nox_gui_draw() {
 
 //export nox_color_rgb_4344A0
 func nox_color_rgb_4344A0(r, g, b C.int) C.uint32_t {
-	cl := noxcolor.RGBColor(byte(r), byte(g), byte(b))
-	return C.uint32_t(noxcolor.ExtendColor16(cl))
+	return C.uint32_t(noxcolor.RGB5551Color(byte(r), byte(g), byte(b)).Color32())
 }
 
 //export nox_color_rgb_func
 func nox_color_rgb_func(r, g, b C.uint8_t, p *C.uint32_t) {
-	cl := noxcolor.RGBColor(byte(r), byte(g), byte(b))
-	*p = C.uint32_t(noxcolor.ExtendColor16(cl))
+	*p = C.uint32_t(noxcolor.RGB5551Color(byte(r), byte(g), byte(b)).Color32())
 }
 
 //export nox_set_color_rgb_434430
 func nox_set_color_rgb_434430(r, g, b C.int) {
-	cl := noxrender.ColorRGB(byte(r), byte(g), byte(b))
-	noxrend.Data().SetColor2(cl)
+	noxrend.Data().SetColor2(noxcolor.RGB5551Color(byte(r), byte(g), byte(b)))
 }
 
 func unsafePtrToInt(p unsafe.Pointer) C.int {

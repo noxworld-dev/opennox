@@ -7,7 +7,10 @@ import "C"
 
 import (
 	"image"
+	"image/color"
 	"unsafe"
+
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 )
@@ -116,36 +119,36 @@ func (p *RenderData) setColorInt54(c ColorInt) { // nox_xxx_drawMakeRGB_433F10
 	p.field_56 = C.uint(c.B)
 }
 
-func (p *RenderData) BgColor() noxrender.Color {
-	return noxrender.Color(p.field_58)
+func (p *RenderData) BgColor() color.Color {
+	return noxcolor.RGBA5551(p.field_58)
 }
 
 func (p *RenderData) SetSelectColor(a1 uint32) {
 	p.field_58 = C.uint(a1)
 }
 
-func (p *RenderData) TextColor() noxrender.Color {
-	return noxrender.Color(p.field_59)
+func (p *RenderData) TextColor() color.Color {
+	return noxcolor.RGBA5551(p.field_59)
 }
 
-func (p *RenderData) SetTextColor(a1 noxrender.Color) { // nox_xxx_drawSetTextColor_434390
-	p.field_59 = C.uint(a1)
+func (p *RenderData) SetTextColor(a1 color.Color) { // nox_xxx_drawSetTextColor_434390
+	p.field_59 = C.uint(noxcolor.ToRGBA5551Color(a1).Color32())
 }
 
-func (p *RenderData) Color() noxrender.Color {
-	return noxrender.Color(p.field_60)
+func (p *RenderData) Color() color.Color {
+	return noxcolor.RGBA5551(p.field_60)
 }
 
-func (p *RenderData) Color2() noxrender.Color {
-	return noxrender.Color(p.field_61)
+func (p *RenderData) Color2() color.Color {
+	return noxcolor.RGBA5551(p.field_61)
 }
 
-func (p *RenderData) SetColor(a1 noxrender.Color) { // nox_xxx_drawSetColor_4343E0
-	p.field_60 = C.uint(a1)
+func (p *RenderData) SetColor(a1 color.Color) { // nox_xxx_drawSetColor_4343E0
+	p.field_60 = C.uint(noxcolor.ToRGBA5551Color(a1).Color32())
 }
 
-func (p *RenderData) SetColor2(a1 noxrender.Color) { // nox_client_drawSetColor_434460
-	p.field_61 = C.uint(a1)
+func (p *RenderData) SetColor2(a1 color.Color) { // nox_client_drawSetColor_434460
+	p.field_61 = C.uint(noxcolor.ToRGBA5551Color(a1).Color32())
 }
 
 func (p *RenderData) SetLightColor(c ColorInt) { // nox_client_drawSetColor_434460

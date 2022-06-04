@@ -10,6 +10,7 @@ package opennox
 import "C"
 import (
 	"image"
+	"image/color"
 	"strings"
 	"unsafe"
 
@@ -17,7 +18,6 @@ import (
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
-	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
@@ -116,12 +116,12 @@ func nox_gui_newEntryField_488500(par *Window, status gui.StatusFlags, px, py, w
 func tempDrawData() (*WindowData, func()) {
 	p, free := alloc.Calloc(1, unsafe.Sizeof(WindowData{}))
 	d := (*WindowData)(p)
-	d.SetHighlightColor(noxcolor.RGBColor(255, 255, 255))
-	d.SetTextColor(noxcolor.RGBColor(200, 200, 200))
-	d.SetEnabledColor(gui.ColorTransparent)
-	d.SetDisabledColor(gui.ColorTransparent)
-	d.SetSelectedColor(gui.ColorTransparent)
-	d.SetBackgroundColor(gui.ColorTransparent)
+	d.SetHighlightColor(noxcolor.RGB5551Color(255, 255, 255))
+	d.SetTextColor(noxcolor.RGB5551Color(200, 200, 200))
+	d.SetEnabledColor(color.Transparent)
+	d.SetDisabledColor(color.Transparent)
+	d.SetSelectedColor(color.Transparent)
+	d.SetBackgroundColor(color.Transparent)
 	return d, free
 }
 
@@ -239,7 +239,7 @@ func nox_xxx_wndStaticDrawWithImage_489550(win *Window, draw *WindowData) int {
 		r.DrawImageAt(img, wpos.Add(draw.ImagePoint()))
 	}
 	if str := GoWString(data.text); str != "" {
-		r.Data().SetTextColor(noxrender.Color(draw.TextColorRaw()))
+		r.Data().SetTextColor(draw.TextColor())
 		y0 := wpos.Y + wsz.Y/2 - fh/2
 		if data.center != 0 {
 			tsz := r.GetStringSizeWrapped(fnt, str, 0)
@@ -266,35 +266,40 @@ func nox_xxx_wndStaticDrawNoImage(win *Window, draw *WindowData) int { // nox_xx
 	fnt := draw.Font()
 
 	wdata := (*staticTextData)(win.widget_data)
-	highlight := draw.EnabledColorRaw()
+	highlight := draw.EnabledColor()
 	wpos := win.GlobalPos()
 	wsz := win.Size()
 	x, y := wpos.X, wpos.Y
 	w, h := wsz.X, wsz.Y
 	if win.Flags().Has(gui.StatusSmoothText) {
 		r.SetTextSmooting(true)
+		defer r.SetTextSmooting(false)
 	}
-	borderColor := draw.EnabledColorRaw()
-	var bgColor uint32
+	borderColor := draw.EnabledColor()
+	var bgColor color.Color
 	if win.Flags().Has(gui.StatusEnabled) {
 		if draw.Field0()&0x2 != 0 {
-			borderColor = draw.HighlightColorRaw()
+			borderColor = draw.HighlightColor()
 		}
-		bgColor = draw.BackgroundColorRaw()
+		bgColor = draw.BackgroundColor()
 	} else {
-		bgColor = draw.DisabledColorRaw()
+		bgColor = draw.DisabledColor()
 	}
 	if draw.Field0()&0x4 != 0 {
-		highlight = draw.SelectedColorRaw()
+		highlight = draw.SelectedColor()
 	}
-	if bgColor != noxcolor.ExtendColor16(gui.ColorTransparent) {
-		r.DrawRectFilledOpaque(x+1, y+1, w-2, h-2, noxrender.Color(bgColor))
+	if _, _, _, alpha := bgColor.RGBA(); alpha != 0 {
+		r.DrawRectFilledOpaque(x+1, y+1, w-2, h-2, bgColor)
 	}
-	if borderColor != noxcolor.ExtendColor16(gui.ColorTransparent) {
-		r.DrawBorder(x, y, w, h, noxrender.Color(borderColor))
+	if _, _, _, alpha := borderColor.RGBA(); alpha != 0 {
+		r.DrawBorder(x, y, w, h, borderColor)
 	}
-	if text := GoWString(wdata.text); text != "" && draw.TextColorRaw() != noxcolor.ExtendColor16(gui.ColorTransparent) {
-		r.Data().SetTextColor(noxrender.Color(draw.TextColorRaw()))
+	text := GoWString(wdata.text)
+	if text == "" {
+		return 1
+	}
+	if _, _, _, alpha := draw.TextColor().RGBA(); alpha != 0 {
+		r.Data().SetTextColor(draw.TextColor())
 		sz := r.GetStringSizeWrapped(fnt, text, w)
 		cy := y + (h-sz.Y)/2
 		if wdata.center != 0 {
@@ -308,12 +313,12 @@ func nox_xxx_wndStaticDrawNoImage(win *Window, draw *WindowData) int { // nox_xx
 					lx := x + (w-sz.X)/2
 					ly := cy + dy*i
 					if wdata.field_2 != 0 {
-						r.Data().SetTextColor(noxrender.Color(highlight))
+						r.Data().SetTextColor(highlight)
 						r.DrawStringWrapped(fnt, line, image.Rect(lx-1, ly-1, lx-1+w, ly-1))
 						r.DrawStringWrapped(fnt, line, image.Rect(lx+1, ly-1, lx+1+w, ly-1))
 						r.DrawStringWrapped(fnt, line, image.Rect(lx-1, ly+1, lx-1+w, ly+1))
 						r.DrawStringWrapped(fnt, line, image.Rect(lx+1, ly+1, lx+1+w, ly+1))
-						r.Data().SetTextColor(noxrender.Color(draw.TextColorRaw()))
+						r.Data().SetTextColor(draw.TextColor())
 						r.DrawStringWrapped(fnt, line, image.Rect(lx, ly, lx+w, ly))
 					} else {
 						r.DrawStringWrapped(fnt, line, image.Rect(lx, ly, lx+w, ly))
@@ -322,30 +327,29 @@ func nox_xxx_wndStaticDrawNoImage(win *Window, draw *WindowData) int { // nox_xx
 			} else {
 				x += (w - sz.X) / 2
 				if wdata.field_2 != 0 {
-					r.Data().SetTextColor(noxrender.Color(highlight))
+					r.Data().SetTextColor(highlight)
 					r.DrawStringWrapped(fnt, text, image.Rect(x-1, cy-1, x-1+w, cy-1))
 					r.DrawStringWrapped(fnt, text, image.Rect(x+1, cy-1, x+1+w, cy-1))
 					r.DrawStringWrapped(fnt, text, image.Rect(x-1, cy+1, x-1+w, cy+1))
 					r.DrawStringWrapped(fnt, text, image.Rect(x+1, cy+1, x+1+w, cy+1))
-					r.Data().SetTextColor(noxrender.Color(draw.TextColorRaw()))
+					r.Data().SetTextColor(draw.TextColor())
 					r.DrawStringWrapped(fnt, text, image.Rect(x, cy, x+w, cy))
 				} else {
 					r.DrawStringWrapped(fnt, text, image.Rect(x, cy, x+w, cy))
 				}
 			}
 		} else if wdata.field_2 != 0 {
-			r.Data().SetTextColor(noxrender.Color(highlight))
+			r.Data().SetTextColor(highlight)
 			r.DrawStringWrapped(fnt, text, image.Rect(x+1, cy-1, x+1+w, cy-1))
 			r.DrawStringWrapped(fnt, text, image.Rect(x+3, cy-1, x+3+w, cy-1))
 			r.DrawStringWrapped(fnt, text, image.Rect(x+1, cy+1, x+1+w, cy+1))
 			r.DrawStringWrapped(fnt, text, image.Rect(x+3, cy+1, x+3+w, cy+1))
-			r.Data().SetTextColor(noxrender.Color(draw.TextColorRaw()))
+			r.Data().SetTextColor(draw.TextColor())
 			r.DrawStringWrapped(fnt, text, image.Rect(x+2, cy, x+2+w, cy))
 		} else {
 			r.DrawStringWrapped(fnt, text, image.Rect(x+2, cy, x+2+w, cy))
 		}
 	}
-	r.SetTextSmooting(false)
 	return 1
 }
 
@@ -356,10 +360,10 @@ func NewHorizontalSlider(par *Window, id uint, px, py, w, h int, min, max int) *
 
 	draw.win = par.C()
 	draw.style |= C.int(gui.StyleHorizSlider)
-	draw.SetHighlightColor(gui.ColorTransparent)
-	draw.SetDisabledColor(gui.ColorTransparent)
-	draw.SetEnabledColor(noxcolor.RGBColor(230, 165, 65))
-	draw.SetSelectedColor(noxcolor.RGBColor(230, 165, 65))
+	draw.SetHighlightColor(color.Transparent)
+	draw.SetDisabledColor(color.Transparent)
+	draw.SetEnabledColor(noxcolor.RGB5551Color(230, 165, 65))
+	draw.SetSelectedColor(noxcolor.RGB5551Color(230, 165, 65))
 	status := gui.StatusEnabled | gui.StatusNoFocus
 
 	datap, dataFree := alloc.Calloc(1, unsafe.Sizeof(sliderData{}))
@@ -387,8 +391,8 @@ func NewCheckbox(par *Window, id uint, px, py, w, h int, text string) *Window {
 
 	draw.win = par.C()
 	draw.style = C.int(gui.StyleCheckBox | gui.StyleMouseTrack)
-	draw.SetHighlightColor(noxcolor.RGBColor(192, 128, 128))
-	draw.SetTextColor(noxcolor.RGBColor(240, 180, 42))
+	draw.SetHighlightColor(noxcolor.RGB5551Color(192, 128, 128))
+	draw.SetTextColor(noxcolor.RGB5551Color(240, 180, 42))
 	draw.SetText(text)
 	draw.SetBackgroundImage(nox_xxx_gLoadImg("UICheckBox"))
 	draw.SetSelectedImage(nox_xxx_gLoadImg("UICheckBoxLit"))
@@ -413,7 +417,7 @@ func NewRadioButton(par *Window, id uint, px, py, w, h int, group int, text stri
 
 	draw.win = par.C()
 	draw.style = C.int(gui.StyleRadioButton | gui.StyleMouseTrack)
-	draw.SetTextColor(noxcolor.RGBColor(240, 180, 42))
+	draw.SetTextColor(noxcolor.RGB5551Color(240, 180, 42))
 	draw.SetText(text)
 	draw.SetBackgroundImage(nox_xxx_gLoadImg("UIRadio"))
 	draw.SetSelectedImage(nox_xxx_gLoadImg("UIRadioLit"))

@@ -6,6 +6,7 @@ extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 */
 import "C"
 import (
+	"image/color"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/env"
@@ -47,7 +48,7 @@ func nox_xxx_cliPlayMapIntro_44E0B0(menu C.int) {
 	stopFadeOutScreen()
 	stopFadeInScreen()
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 1
-	noxrend.FadeClearScreen(menu != 0, noxrender.ColorRGB(0, 0, 0))
+	noxrend.FadeClearScreen(menu != 0, color.Black)
 }
 
 func getFadeDuration() int {

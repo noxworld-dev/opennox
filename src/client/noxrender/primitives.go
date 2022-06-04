@@ -2,17 +2,21 @@ package noxrender
 
 import (
 	"image"
+	"image/color"
+
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 )
 
-func (r *NoxRender) DrawPixel(pos image.Point, cl Color) {
+func (r *NoxRender) DrawPixel(pos image.Point, cl color.Color) {
 	d := r.Data()
 	if d.Clip() && !pos.In(d.ClipRect2()) {
 		return
 	}
-	r.PixBuffer().SetRGBA5551(pos.X, pos.Y, cl)
+	cl16 := noxcolor.ToRGBA5551Color(cl)
+	r.PixBuffer().SetRGBA5551(pos.X, pos.Y, cl16)
 }
 
-func (r *NoxRender) DrawLineHorizontal(x1, y, x2 int, cl Color) {
+func (r *NoxRender) DrawLineHorizontal(x1, y, x2 int, cl color.Color) {
 	xmin, xmax := x1, x2
 	if xmin > xmax {
 		xmin, xmax = xmax, xmin
@@ -37,12 +41,13 @@ func (r *NoxRender) DrawLineHorizontal(x1, y, x2 int, cl Color) {
 		}
 	}
 	pix := r.PixBuffer()
+	cl16 := noxcolor.ToRGBA5551Color(cl)
 	for x := xmin; x <= xmax; x++ {
-		pix.SetRGBA5551(x, y, cl)
+		pix.SetRGBA5551(x, y, cl16)
 	}
 }
 
-func (r *NoxRender) drawLineVertical(x, y1, y2 int, cl Color) {
+func (r *NoxRender) drawLineVertical(x, y1, y2 int, cl color.Color) {
 	ymin, ymax := y1, y2
 	if ymin > ymax {
 		ymin, ymax = ymax, ymin
@@ -67,12 +72,13 @@ func (r *NoxRender) drawLineVertical(x, y1, y2 int, cl Color) {
 		}
 	}
 	pix := r.PixBuffer()
+	cl16 := noxcolor.ToRGBA5551Color(cl)
 	for y := ymin; y <= ymax; y++ {
-		pix.SetRGBA5551(x, y, cl)
+		pix.SetRGBA5551(x, y, cl16)
 	}
 }
 
-func (r *NoxRender) DrawPointRad(p image.Point, rad int, cl Color) {
+func (r *NoxRender) DrawPointRad(p image.Point, rad int, cl color.Color) {
 	r.DrawLineHorizontal(p.X, p.Y+rad, p.X, cl)
 	r.DrawLineHorizontal(p.X-rad, p.Y, p.X+rad, cl)
 	r.DrawLineHorizontal(p.X-rad, p.Y, p.X+rad, cl)
@@ -109,7 +115,7 @@ func (r *NoxRender) DrawPointRad(p image.Point, rad int, cl Color) {
 	}
 }
 
-func (r *NoxRender) DrawBorder(x, y, w, h int, cl Color) {
+func (r *NoxRender) DrawBorder(x, y, w, h int, cl color.Color) {
 	if w == 0 || h == 0 {
 		return
 	}
@@ -155,7 +161,7 @@ func (r *NoxRender) LastPoint(keep bool) (image.Point, bool) {
 	return pos, true
 }
 
-func (r *NoxRender) DrawLineFromPoints(cl Color, arr ...image.Point) bool {
+func (r *NoxRender) DrawLineFromPoints(cl color.Color, arr ...image.Point) bool {
 	for _, p := range arr {
 		r.AddPoint(p)
 	}
@@ -171,11 +177,11 @@ func (r *NoxRender) DrawLineFromPoints(cl Color, arr ...image.Point) bool {
 	return true
 }
 
-func (r *NoxRender) DrawVector(base, vec image.Point, cl Color) {
+func (r *NoxRender) DrawVector(base, vec image.Point, cl color.Color) {
 	r.DrawLine(base, base.Add(vec), cl)
 }
 
-func (r *NoxRender) DrawLine(p1, p2 image.Point, cl Color) {
+func (r *NoxRender) DrawLine(p1, p2 image.Point, cl color.Color) {
 	d := r.Data()
 	if d.IsAlphaEnabled() {
 		r.DrawLineAlpha(p1, p2, cl)
@@ -193,6 +199,7 @@ func (r *NoxRender) DrawLine(p1, p2 image.Point, cl Color) {
 		return
 	}
 	pix := r.PixBuffer()
+	cl16 := noxcolor.ToRGBA5551Color(cl)
 
 	y := p1.Y
 	w := p2.X - p1.X
@@ -212,7 +219,7 @@ func (r *NoxRender) DrawLine(p1, p2 image.Point, cl Color) {
 	if w < h {
 		dv := 2*w - h
 		for i := 0; i < h; i++ {
-			pix.SetRGBA5551(x/2, y, cl)
+			pix.SetRGBA5551(x/2, y, cl16)
 			y += dy
 			if dv >= 0 {
 				dv += 2 * (w - h)
@@ -224,7 +231,7 @@ func (r *NoxRender) DrawLine(p1, p2 image.Point, cl Color) {
 	} else {
 		dv := 2*h - w
 		for i := 0; i < w; i++ {
-			pix.SetRGBA5551(x/2, y, cl)
+			pix.SetRGBA5551(x/2, y, cl16)
 			x += dx
 			if dv >= 0 {
 				dv += 2 * (h - w)
@@ -236,14 +243,14 @@ func (r *NoxRender) DrawLine(p1, p2 image.Point, cl Color) {
 	}
 }
 
-func (r *NoxRender) DrawLineAlpha(p1, p2 image.Point, cl Color) {
+func (r *NoxRender) DrawLineAlpha(p1, p2 image.Point, cl color.Color) {
 	d := r.Data()
 	if d.Clip() && !r.clipToRect2(&p1, &p2) {
 		return
 	}
 	pix := r.PixBuffer()
 	alpha := uint16(d.Alpha())
-	bc := SplitColor(cl)
+	bc := SplitColor(noxcolor.ToRGBA5551Color(cl))
 
 	width := p2.X - p1.X
 	dx := 1
@@ -371,7 +378,7 @@ func (r *NoxRender) clipToRect2(p1, p2 *image.Point) bool {
 		p2.X >= rect.Min.X && p2.X <= rect.Max.X && p2.Y >= rect.Min.Y && p2.Y <= rect.Max.Y
 }
 
-func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int, cl Color) {
+func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int, cl color.Color) {
 	if w == 0 || h == 0 {
 		return
 	}
@@ -397,7 +404,7 @@ func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int, cl Color) {
 	}
 }
 
-func (r *NoxRender) drawRectFilledOpaque(x, y, w, h int, cl Color) {
+func (r *NoxRender) drawRectFilledOpaque(x, y, w, h int, cl color.Color) {
 	d := r.Data()
 	if d.IsAlphaEnabled() {
 		r.drawRectFilledOpaqueOver(x, y, w, h, cl)
@@ -406,20 +413,21 @@ func (r *NoxRender) drawRectFilledOpaque(x, y, w, h int, cl Color) {
 	if h <= 0 || w <= 0 {
 		return
 	}
+	c := noxcolor.ToRGBA5551Color(cl)
 	pix := r.PixBuffer()
 	for i := 0; i < h; i++ {
 		for j := 0; j < w; j++ {
-			pix.SetRGBA5551(x+j, y+i, cl)
+			pix.SetRGBA5551(x+j, y+i, c)
 		}
 	}
 }
 
-func (r *NoxRender) drawRectFilledOpaqueOver(x, y, w, h int, cl Color) {
+func (r *NoxRender) drawRectFilledOpaqueOver(x, y, w, h int, cl color.Color) {
 	if w == 0 || h == 0 {
 		return
 	}
 	pix := r.PixBuffer()
-	bc := SplitColor(cl)
+	bc := SplitColor(noxcolor.ToRGBA5551Color(cl))
 	for i := 0; i < h; i++ {
 		for j := 0; j < w; j++ {
 			ind := pix.PixOffset(x+j, y+i)
@@ -455,7 +463,7 @@ func (r *NoxRender) drawRectFilledAlpha(x, y, w, h int) {
 	}
 }
 
-func (r *NoxRender) DrawPoint(pos image.Point, rad int, cl Color) {
+func (r *NoxRender) DrawPoint(pos image.Point, rad int, cl color.Color) {
 	switch rad {
 	case 0, 1:
 		r.DrawPixel(pos, cl)
@@ -519,27 +527,28 @@ func (r *NoxRender) circleClipped(x, y, rad int) bool {
 	return x-rad < rect.Min.X || x+rad >= rect.Max.X || y-rad < rect.Min.Y || y+rad >= rect.Max.Y
 }
 
-func (r *NoxRender) DrawCircleOpaque(cx, cy, rad int, cl Color) {
+func (r *NoxRender) DrawCircleOpaque(cx, cy, rad int, cl color.Color) {
 	d := r.Data()
 	pix := r.PixBuffer()
+	cl16 := noxcolor.ToRGBA5551Color(cl)
 	if d.Clip() && r.circleClipped(cx, cy, rad) {
 		clip := d.ClipRect()
 		r.drawCircleWith(cx, cy, rad, func(x, y int) {
 			if !image.Pt(x, y).In(clip) {
 				return
 			}
-			pix.SetRGBA5551(x, y, cl)
+			pix.SetRGBA5551(x, y, cl16)
 		})
 	} else {
 		r.drawCircleWith(cx, cy, rad, func(x, y int) {
-			pix.SetRGBA5551(x, y, cl)
+			pix.SetRGBA5551(x, y, cl16)
 		})
 	}
 }
 
-func (r *NoxRender) DrawCircleAlpha(cx, cy, rad int, cl Color) {
+func (r *NoxRender) DrawCircleAlpha(cx, cy, rad int, cl color.Color) {
 	d := r.Data()
-	bc := SplitColor(cl)
+	bc := SplitColor(noxcolor.ToRGBA5551Color(cl))
 	pix := r.PixBuffer()
 	clip := pix.Rect
 	if d.Clip() && r.circleClipped(cx, cy, rad) {
@@ -555,7 +564,7 @@ func (r *NoxRender) DrawCircleAlpha(cx, cy, rad int, cl Color) {
 	})
 }
 
-func (r *NoxRender) DrawCircle(x, y, rad int, cl Color) {
+func (r *NoxRender) DrawCircle(x, y, rad int, cl color.Color) {
 	if r.p.IsAlphaEnabled() {
 		r.DrawCircleAlpha(x, y, rad, cl)
 	} else {

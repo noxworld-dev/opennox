@@ -2,8 +2,10 @@ package noxrender
 
 import (
 	"image"
+	"image/color"
 	"image/draw"
 
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 	"github.com/noxworld-dev/opennox-lib/noximage"
 )
 
@@ -23,7 +25,7 @@ type RenderData interface {
 	IsAlphaEnabled() bool
 	Alpha() byte
 
-	Color() Color
+	Color() color.Color
 
 	RenderDataText
 }
@@ -87,7 +89,7 @@ func (r *NoxRender) initColorTablesRev() {
 	const max = 0x7FFF
 	r.colors.revTable = make([]byte, max+3)
 	for i := 0; i <= max; i++ {
-		c := SplitColor(Color(i))
+		c := SplitColor16(uint16(i))
 		r.colors.revTable[i] = byte((28*(c.B|7) + 150*(c.G|7) + 76*(c.R|7)) >> 8)
 	}
 }
@@ -98,9 +100,10 @@ func (r *NoxRender) CopyPixBuffer() *image.NRGBA {
 	return img
 }
 
-func (r *NoxRender) ClearScreen(cl Color) {
+func (r *NoxRender) ClearScreen(cl color.Color) {
+	u16 := noxcolor.ModelRGBA5551.Convert16(cl).Color16()
 	for i := range r.pix.Pix {
-		r.pix.Pix[i] = uint16(cl)
+		r.pix.Pix[i] = u16
 	}
 }
 

@@ -12,7 +12,6 @@ import (
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
-	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/internal/version"
 )
@@ -33,7 +32,7 @@ func sub_4CC6F0(win *Window, draw *WindowData) int {
 		v0 := nox_win_legalBg_1522892.ChildByID(9910)
 		v0.Show()
 	}
-	noxrend.Data().SetTextColor(noxrender.ColorRGB(150, 150, 150))
+	noxrend.Data().SetTextColor(noxcolor.RGB5551Color(150, 150, 150))
 	noxrend.DrawString(nil, "TM", image.Pt(500, 150))
 	return 1
 }
@@ -103,10 +102,10 @@ func nox_client_onShowLegal(win *Window) {
 	// when the new release is available - highlight with green
 	// and if it's a dev build - make the text red
 	if version.IsDev() {
-		draw.SetTextColor(noxcolor.RGBColor(255, 0, 0))
+		draw.SetTextColor(noxcolor.RGB5551Color(255, 0, 0))
 	} else if !version.IsLatest() {
-		draw.SetTextColor(noxcolor.RGBColor(0, 242, 0))
+		draw.SetTextColor(noxcolor.RGB5551Color(0, 242, 0))
 	} else {
-		draw.SetTextColor(noxcolor.RGBColor(242, 218, 0))
+		draw.SetTextColor(noxcolor.RGB5551Color(242, 218, 0))
 	}
 }

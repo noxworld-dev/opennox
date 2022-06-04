@@ -24,6 +24,8 @@ int nox_xxx_tileSetDrawFn_481420();
 */
 import "C"
 import (
+	"image/color"
+
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 	"github.com/noxworld-dev/opennox-lib/noxfont"
 	"github.com/noxworld-dev/opennox-lib/strman"
@@ -180,12 +182,12 @@ func newAdvVideoOpts(sm *strman.StringManager) *Window {
 
 	draw.SetStatus(gui.StatusEnabled | gui.StatusNoFocus)
 
-	draw.SetHighlightColor(noxcolor.RGBColor(192, 128, 128))
-	draw.SetTextColor(noxcolor.RGBColor(240, 180, 42))
-	draw.SetEnabledColor(gui.ColorTransparent)
-	draw.SetDisabledColor(gui.ColorTransparent)
-	draw.SetSelectedColor(gui.ColorTransparent)
-	draw.SetBackgroundColor(gui.ColorTransparent)
+	draw.SetHighlightColor(noxcolor.RGB5551Color(192, 128, 128))
+	draw.SetTextColor(noxcolor.RGB5551Color(240, 180, 42))
+	draw.SetEnabledColor(color.Transparent)
+	draw.SetDisabledColor(color.Transparent)
+	draw.SetSelectedColor(color.Transparent)
+	draw.SetBackgroundColor(color.Transparent)
 	draw.SetFont(guiFontPtrByName(noxfont.LargeName))
 
 	const (

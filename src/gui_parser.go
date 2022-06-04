@@ -10,13 +10,13 @@ import (
 	"bufio"
 	"fmt"
 	"image"
+	"image/color"
 	"io"
 	"path/filepath"
 	"strconv"
 	"strings"
 	"unsafe"
 
-	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 	"github.com/noxworld-dev/opennox-lib/ifs"
 	"github.com/noxworld-dev/opennox-lib/noxfont"
 	"github.com/noxworld-dev/opennox-lib/strman"
@@ -110,9 +110,8 @@ func (p *guiParser) parentsPush(win *Window) {
 }
 
 func (p *guiParser) resetDefaults() {
-	val := noxcolor.IntToColor(uint32(C.nox_color_black_2650656))
 	p.defaults.font = nil
-	p.defaults.SetColors(val)
+	p.defaults.SetColors(color.Black)
 }
 
 func (p *guiParser) ParseRoot(fnc WindowFunc) *Window {
@@ -169,11 +168,11 @@ func (p *guiParser) nextToken() (string, error) {
 	return gui.ReadNextToken(p.br)
 }
 
-func (p *guiParser) parseColorField() (noxcolor.Color16, bool) {
+func (p *guiParser) parseColorField() (color.Color, bool) {
 	p.skipToken() // skip '='
 	tok, err := p.nextToken()
 	if err != nil {
-		return noxcolor.RGBA5551(0), false
+		return color.Black, false
 	}
 	return gui.ParseColorTransp(tok)
 }
@@ -503,7 +502,7 @@ func guiFlagsFromNames(str string, values []string) int {
 	return out
 }
 
-func makeColorParseFunc(field func(*WindowData, noxcolor.Color16)) guiWindowParseFunc {
+func makeColorParseFunc(field func(*WindowData, color.Color)) guiWindowParseFunc {
 	return func(_ *guiParser, draw *WindowData, buf string) bool {
 		cl, _ := gui.ParseColorTransp(buf)
 		field(draw, cl)

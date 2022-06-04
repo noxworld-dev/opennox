@@ -13,6 +13,7 @@ int sub_516570();
 import "C"
 import (
 	"encoding/binary"
+	"image/color"
 	"strings"
 	"unsafe"
 
@@ -399,7 +400,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 		fadeInDur  = 10
 	)
 	if !enable {
-		if noxrend.FadeOutCinema(perc, fadeOutDur, noxrender.ColorRGB(0, 0, 0)) {
+		if noxrend.FadeOutCinema(perc, fadeOutDur, color.Black) {
 			sub_477530(false)
 		}
 		for it := s.firstServerObject(); it != nil; it = it.Next() {
@@ -412,7 +413,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 		return
 	}
 	inFade := noxrend.CheckFade(noxrender.FadeInCinemaKey)
-	if noxrend.FadeInCinema(perc, fadeInDur, noxrender.ColorRGB(0, 0, 0)) {
+	if noxrend.FadeInCinema(perc, fadeInDur, color.Black) {
 		sub_477530(true)
 	}
 	if inFade {

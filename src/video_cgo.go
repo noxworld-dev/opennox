@@ -50,6 +50,7 @@ import (
 	"errors"
 	"fmt"
 	"image"
+	"image/color"
 	"unsafe"
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
@@ -59,7 +60,6 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/input"
-	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -372,8 +372,7 @@ func nox_getBackbufferPitch() C.int {
 
 //export nox_xxx_makeFillerColor_48BDE0
 func nox_xxx_makeFillerColor_48BDE0() C.bool {
-	v0 := noxcolor.ExtendColor16(noxcolor.RGBColor(255, 0, 255))
-	*memmap.PtrUint32(0x5D4594, 1193592) = v0
+	*memmap.PtrUint32(0x5D4594, 1193592) = noxcolor.RGB5551Color(255, 0, 255).Color32()
 	return true
 }
 
@@ -763,9 +762,9 @@ func nox_client_drawXxx_444AC0(w, h int, flags int) error {
 	return nil
 }
 
-func sub_48B800(a1 uint32) {
-	c := noxrender.SplitColor(noxrender.Color(a1))
-	sub_48B6B0(byte(c.R), byte(c.G), byte(c.B))
+func sub_48B800(cl color.Color) {
+	c := noxcolor.ToRGBA5551Color(cl).ColorNRGBA()
+	sub_48B6B0(c.R, c.G, c.B)
 }
 
 func sub_48B6B0(a1, a2, a3 byte) {
@@ -796,7 +795,7 @@ func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos image
 	if gameFrame()&1 != 0 {
 		*memmap.PtrUint32(0x5D4594, 1097288)++
 	}
-	r.Data().SetTextColor(noxrender.Color(C.nox_color_yellow_2589772))
+	r.Data().SetTextColor(noxcolor.RGBA5551(C.nox_color_yellow_2589772))
 	fh := r.FontHeight(nil)
 	if C.nox_xxx_guiSpell_460650() != 0 || C.sub_4611A0() != 0 {
 		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Target, pos)
@@ -865,9 +864,9 @@ func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos image
 		if v16 := nox_xxx_spriteGetMB_476F80(); v16 != nil {
 			sub_48B680(1)
 			if v16.Flags28()&6 == 0 || C.sub_495A80(C.int(v16.Field32())) != 0 {
-				sub_48B800(uint32(C.nox_color_blue_2650684))
+				sub_48B800(noxcolor.RGBA5551(C.nox_color_blue_2650684))
 			} else {
-				sub_48B800(memmap.Uint32(0x85B3FC, 940))
+				sub_48B800(noxcolor.RGBA5551(memmap.Uint32(0x85B3FC, 940)))
 			}
 		} else {
 			sub_48B680(0)
@@ -974,7 +973,7 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 			py = 0
 		}
 		r.DrawRectFilledAlpha(px, py, sz.X, sz.Y)
-		r.Data().SetTextColor(noxrender.Color(C.nox_color_yellow_2589772))
+		r.Data().SetTextColor(noxcolor.RGBA5551(C.nox_color_yellow_2589772))
 		r.DrawStringWrapped(nil, str, image.Rect(px+2, py+2, px+2, py+2))
 		if C.dword_5d4594_3799468 != 0 {
 			vp := getViewport()
@@ -990,7 +989,7 @@ func sub_477F80() {
 		vp := getViewport()
 		if dword_5d4594_1097212.X < int(vp.x1) || dword_5d4594_1097212.X+cursorSize >= int(vp.x2) ||
 			dword_5d4594_1097212.Y < int(vp.y1) || dword_5d4594_1097212.Y+cursorSize >= int(vp.y2) {
-			noxrend.DrawRectFilledOpaque(dword_5d4594_1097212.X+cursorSize/2, dword_5d4594_1097212.Y+cursorSize/2, cursorSize, cursorSize, noxrender.Color(C.nox_color_black_2650656))
+			noxrend.DrawRectFilledOpaque(dword_5d4594_1097212.X+cursorSize/2, dword_5d4594_1097212.Y+cursorSize/2, cursorSize, cursorSize, color.Black)
 		}
 	}
 }

@@ -11,7 +11,7 @@ import (
 	"image"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 )
 
 //export sub_4AF650
@@ -83,7 +83,7 @@ func nox_xxx_drawParticlefx_4AFEB0(p *C.nox_particlefx_t) {
 		dr.SetPos(prev)
 	}
 	if p.field_64 != 0 {
-		cl := noxrender.Color(p.color_24)
+		cl := noxcolor.RGBA5551(p.color_24)
 		switch p.field_64 {
 		case 1:
 			r.DrawPixel(pos2, cl)

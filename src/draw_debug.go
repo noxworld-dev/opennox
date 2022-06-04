@@ -9,10 +9,12 @@ import "C"
 import (
 	"fmt"
 	"image"
+	"image/color"
 	"strconv"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
+
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -22,12 +24,12 @@ func nox_thing_debug_draw(cvp *C.nox_draw_viewport_t, cdr *C.nox_drawable) C.int
 	vp := asViewport(cvp)
 	dr := asDrawable(cdr)
 
-	cl := noxrender.Color(memmap.Uint32(0x8531A0, 2572))
+	cl := noxcolor.RGBA5551(memmap.Uint32(0x8531A0, 2572))
 	if uint32(dr.field_72) >= gameFrame() {
-		cl = noxrender.Color(C.nox_color_yellow_2589772)
+		cl = noxcolor.RGBA5551(C.nox_color_yellow_2589772)
 	}
 	r.Data().SetColor2(cl)
-	r.Data().SetTextColor(noxrender.Color(C.nox_color_white_2523948))
+	r.Data().SetTextColor(color.White)
 	p := dr.Pos().Add(image.Point{
 		X: int(vp.x1) - int(vp.field_4),
 		Y: int(vp.y1) - int(vp.field_5),
@@ -91,7 +93,7 @@ func nox_thing_debug_draw(cvp *C.nox_draw_viewport_t, cdr *C.nox_drawable) C.int
 	return 1
 }
 
-func debugDrawShape(r *NoxRender, dr *Drawable, p image.Point, cl noxrender.Color) {
+func debugDrawShape(r *NoxRender, dr *Drawable, p image.Point, cl color.Color) {
 	sh := dr.getShape()
 	switch sh.kind {
 	case shapeKindCircle:
@@ -100,7 +102,7 @@ func debugDrawShape(r *NoxRender, dr *Drawable, p image.Point, cl noxrender.Colo
 		y1 := p.Y - int(float32(dr.field_24)-float32(z))
 		y2 := p.Y - int(float32(dr.field_25)-float32(z))
 		if y1 > 0 {
-			cl := noxrender.Color(memmap.Uint32(0x85B3FC, 940))
+			cl := noxcolor.RGBA5551(memmap.Uint32(0x85B3FC, 940))
 			r.DrawCircle(p.X, p.Y, rad, cl)
 		}
 		r.DrawCircle(p.X, y1, rad, cl)
@@ -128,7 +130,7 @@ func debugDrawShape(r *NoxRender, dr *Drawable, p image.Point, cl noxrender.Colo
 			Y: p.Y - int(float32(dr.field_25)-float32(z)),
 		}
 		if p1.Y > 0 {
-			cl := noxrender.Color(memmap.Uint32(0x85B3FC, 940))
+			cl := noxcolor.RGBA5551(memmap.Uint32(0x85B3FC, 940))
 			drawDebugBox(r, box, p, cl)
 		}
 		drawDebugBox(r, box, p1, cl)
@@ -152,7 +154,7 @@ func debugDrawShape(r *NoxRender, dr *Drawable, p image.Point, cl noxrender.Colo
 	}
 }
 
-func drawDebugBox(r *NoxRender, b *noxShapeBox, p image.Point, cl noxrender.Color) {
+func drawDebugBox(r *NoxRender, b *noxShapeBox, p image.Point, cl color.Color) {
 	p1 := p.Add(image.Point{
 		X: int(b.LeftTop),
 		Y: int(b.LeftBottom),

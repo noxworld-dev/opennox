@@ -1,12 +1,11 @@
 package gui
 
 import (
+	"image/color"
 	"io"
 	"strconv"
 	"strings"
 	"unicode"
-
-	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 )
 
 func ReadNextToken(r io.ByteReader) (string, error) {
@@ -71,13 +70,10 @@ func ParseColor(str string) (r, g, b int) {
 	return
 }
 
-const ColorTransparent = noxcolor.RGBA5551(0x8000)
-
-func ParseColorTransp(str string) (noxcolor.Color16, bool) {
+func ParseColorTransp(str string) (color.Color, bool) {
 	if str == "TRANSPARENT" {
-		return ColorTransparent, true
+		return color.Transparent, true
 	}
 	r, g, b := ParseColor(str)
-	cl := noxcolor.RGBColor(byte(r), byte(g), byte(b))
-	return cl, true
+	return color.NRGBA{R: byte(r), G: byte(g), B: byte(b), A: 0xff}, true
 }

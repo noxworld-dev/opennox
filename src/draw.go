@@ -86,6 +86,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"image"
+	"image/color"
 	"math"
 	"sort"
 	"sync"
@@ -395,14 +396,13 @@ func sub_434E80(a1, a2, a3 C.char) C.char {
 
 //export sub_435280
 func sub_435280(cl C.short, pr, pg, pb *C.uchar) {
-	c := noxrender.SplitColor(noxrender.Color(cl))
+	c := noxrender.SplitColor(noxcolor.RGBA5551(cl))
 	*pr = C.uchar(c.R)
 	*pg = C.uchar(c.G)
 	*pb = C.uchar(c.B)
 }
 
 func sub_4338D0() int {
-	noxcolor.SetMode(noxcolor.ModeRGBA5551)
 	ptr := noxrend.Data()
 	ptr.Reset()
 	nox_draw_initColorTables_434CC0()
@@ -460,17 +460,17 @@ func sub_434080(a1 C.int) {
 
 //export nox_xxx_drawSetTextColor_434390
 func nox_xxx_drawSetTextColor_434390(a1 C.int) {
-	noxrend.Data().SetTextColor(noxrender.Color(a1))
+	noxrend.Data().SetTextColor(noxcolor.RGBA5551(a1))
 }
 
 //export nox_xxx_drawSetColor_4343E0
 func nox_xxx_drawSetColor_4343E0(a1 C.int) {
-	noxrend.Data().SetColor(noxrender.Color(a1))
+	noxrend.Data().SetColor(noxcolor.RGBA5551(a1))
 }
 
 //export nox_client_drawSetColor_434460
 func nox_client_drawSetColor_434460(a1 C.int) {
-	noxrend.Data().SetColor2(noxrender.Color(a1))
+	noxrend.Data().SetColor2(noxcolor.RGBA5551(a1))
 }
 
 //export nox_client_drawEnableAlpha_434560
@@ -634,10 +634,9 @@ type NoxRender struct {
 	p *RenderData
 
 	colors struct {
-		mode noxcolor.Mode
-		R    [256]uint16
-		G    [256]uint16
-		B    [256]uint16
+		R [256]uint16
+		G [256]uint16
+		B [256]uint16
 	}
 
 	particles struct {
@@ -655,7 +654,7 @@ func newNoxRenderData() (*RenderData, func()) {
 func NewNoxRender() *NoxRender {
 	r := &NoxRender{NoxRender: noxrender.NewRender()}
 	r.NoxRender.SetData(renderDataAdapter{r: r, RenderData: r.p})
-	r.SetColorMode(noxcolor.ModeRGBA5551)
+	r.initColorTables()
 	return r
 }
 
@@ -874,7 +873,7 @@ func nox_xxx_clientDrawAll_436100_draw() {
 		nox_xxx_drawAllMB_475810_draw(vp)
 		C.nox_xxx_drawMinimapAndLines_4738E0()
 	} else {
-		noxrend.ClearScreen(noxrender.Color(C.nox_color_black_2650656))
+		noxrend.ClearScreen(color.Black)
 	}
 	noxPerfmon.Draw(noxrend)
 	if C.dword_5d4594_811904 != 0 {
@@ -891,7 +890,7 @@ func nox_xxx_clientDrawAll_436100_draw() {
 	}
 	if memmap.Uint32(0x587000, 85744) != 0 {
 		C.sub_430B50(0, 0, C.int(nox_win_width-1), C.int(nox_win_height-1))
-		noxrend.ClearScreen(noxrender.Color(C.nox_color_black_2650656))
+		noxrend.ClearScreen(color.Black)
 		*memmap.PtrUint32(0x587000, 85744) = 0
 	}
 }
@@ -910,14 +909,14 @@ func nox_xxx_drawAllMB_475810_draw_A(vp *Viewport) {
 		r.setRectFullScreen()
 		if C.dword_5d4594_3799524 != 0 {
 			rect := r.PixBufferRect()
-			cl := noxrender.Color(C.nox_color_black_2650656)
+			cl := color.Black
 			r.DrawRectFilledOpaque(0, 0, rect.Dx(), int(vp.y1), cl)
 			r.DrawRectFilledOpaque(0, v3, rect.Dx(), rect.Dy()-v3, cl)
 			r.DrawRectFilledOpaque(0, int(vp.y1), int(vp.x1), v3-int(vp.y1), cl)
 			r.DrawRectFilledOpaque(v4, int(vp.y1), rect.Dx()-v4, v3-int(vp.y1), cl)
 			C.dword_5d4594_3799524 = 0
 		}
-		cl := noxrender.Color(memmap.Uint32(0x85B3FC, 956))
+		cl := noxcolor.RGBA5551(memmap.Uint32(0x85B3FC, 956))
 		r.DrawBorder(int(vp.x1)-2, int(vp.y1)-2, v4-int(vp.x1)+4, v3-int(vp.y1)+4, cl)
 	} else {
 		C.dword_5d4594_3799468 = 0
@@ -944,13 +943,13 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 		disableDraw = true
 	}
 	if C.nox_client_gui_flag_1556112 != 0 || disableDraw {
-		r.ClearScreen(noxrender.Color(C.nox_color_black_2650656))
+		r.ClearScreen(color.Black)
 		r.setRectFullScreen()
 		C.dword_5d4594_3799524 = 1
 		return
 	}
 	if memmap.Uint32(0x5D4594, 1096520) != 0 {
-		r.ClearScreen(noxrender.Color(C.nox_color_white_2523948))
+		r.ClearScreen(color.White)
 		*memmap.PtrUint32(0x5D4594, 1096520) = 0
 		r.setRectFullScreen()
 		C.dword_5d4594_3799524 = 1
@@ -964,7 +963,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 		nox_xxx_tileDrawMB_481C20(vp)
 		C.sub_4C5500(vp.C())
 	} else {
-		r.ClearScreen(noxrender.Color(C.nox_color_black_2650656))
+		r.ClearScreen(color.Black)
 	}
 	sub_475F10(vp)
 	nox_client_queueWallsDraw(vp, xmin, ymin)
@@ -2013,7 +2012,7 @@ func sub4745F0(vp *Viewport) {
 
 //export nox_video_drawCircleColored_4C3270
 func nox_video_drawCircleColored_4C3270(a1, a2, a3, a4 C.int) {
-	noxrend.DrawCircle(int(a1), int(a2), int(a3), noxrender.Color(a4))
+	noxrend.DrawCircle(int(a1), int(a2), int(a3), noxcolor.RGBA5551(a4))
 }
 
 //export nox_video_drawCircle_4B0B90
@@ -2100,11 +2099,6 @@ func nox_video_getImagePixdata_42FB30(img *C.nox_video_bag_image_t) unsafe.Point
 }
 
 func nox_draw_initColorTables_434CC0() {
-	mode := noxcolor.GetMode()
-	if C.nox_video_modeXxx_3801780 == 0 {
-		mode = noxcolor.ModeRGBA5551
-	}
-	noxrend.SetColorMode(mode)
 	arrR, _ := alloc.Make([]uint16{}, 257)
 	arrG, _ := alloc.Make([]uint16{}, 257)
 	arrB, _ := alloc.Make([]uint16{}, 257)
@@ -2119,16 +2113,12 @@ func nox_draw_initColorTables_434CC0() {
 	C.nox_draw_colors_b_3804664 = (*C.uchar)(unsafe.Pointer(&arrB[0]))
 }
 
-func (r *NoxRender) SetColorMode(mode noxcolor.Mode) {
-	if r.colors.mode == mode {
-		return
-	}
+func (r *NoxRender) initColorTables() {
 	for i := 0; i < 256; i++ {
-		r.colors.R[i] = mode.RGB(byte(i), 0, 0).Color16()
-		r.colors.G[i] = mode.RGB(0, byte(i), 0).Color16()
-		r.colors.B[i] = mode.RGB(0, 0, byte(i)).Color16()
+		r.colors.R[i] = noxcolor.RGB5551Color(byte(i), 0, 0).Color16()
+		r.colors.G[i] = noxcolor.RGB5551Color(0, byte(i), 0).Color16()
+		r.colors.B[i] = noxcolor.RGB5551Color(0, 0, byte(i)).Color16()
 	}
-	r.colors.mode = mode
 }
 
 func clipFlags(p image.Point, r image.Rectangle) int {
@@ -2301,7 +2291,7 @@ var (
 	drawWhiteSpark              uint32
 	drawColorXxxLoaded1096552   bool
 	drawColorXxx1096452         uint32
-	drawColorXxx1096436         uint32
+	drawColorXxx1096436         color.Color
 )
 
 func sub_499F60(p uint32, pos image.Point, a4 int, a5, a6, a7, a8, a9 int, a10 int) {
@@ -2378,13 +2368,13 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 	}
 	// Protection effects
 	if dr.CheckFlag31(17) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, memmap.Uint32(0x85B3FC, 940), uint32(C.nox_color_red_2589776), true)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, memmap.Uint32(0x85B3FC, 940), noxcolor.RGBA5551(C.nox_color_red_2589776), true)
 	}
 	if dr.CheckFlag31(18) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, memmap.Uint32(0x8531A0, 2572), uint32(C.nox_color_green_2614268), true)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, memmap.Uint32(0x8531A0, 2572), noxcolor.RGBA5551(C.nox_color_green_2614268), true)
 	}
 	if dr.CheckFlag31(20) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, uint32(C.nox_color_blue_2650684), uint32(C.nox_color_white_2523948), true)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, uint32(C.nox_color_blue_2650684), noxcolor.RGBA5551(C.nox_color_white_2523948), true)
 	}
 	if dr.CheckFlag31(27) { // Shield effects
 		switch *(*byte)(dr.field(297)) {
@@ -2460,8 +2450,8 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 	}
 	if dr.CheckFlag31(13) && !nox_xxx_checkGameFlagPause_413A50() {
 		if !drawColorXxxLoaded1096552 {
-			drawColorXxx1096452 = noxcolor.ExtendColor16(noxcolor.RGBColor(255, 0, 255))
-			drawColorXxx1096436 = noxcolor.ExtendColor16(noxcolor.RGBColor(255, 180, 255))
+			drawColorXxx1096452 = noxcolor.RGB5551Color(255, 0, 255).Color32()
+			drawColorXxx1096436 = noxcolor.RGB5551Color(255, 180, 255)
 			drawColorXxxLoaded1096552 = true
 		}
 		pos := vp.toScreenPos(dr.Pos())
@@ -2477,17 +2467,17 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 			})
 			v22 := randomIntMinMax(3, 4)
 			r.DrawGlow(pos2, drawColorXxx1096452, v17+v22, v17+2)
-			r.DrawPoint(pos2, v17, noxrender.Color(drawColorXxx1096436))
+			r.DrawPoint(pos2, v17, drawColorXxx1096436)
 		}
 	}
 	if dr.CheckFlag31(17) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, memmap.Uint32(0x85B3FC, 940), uint32(C.nox_color_red_2589776), false)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, memmap.Uint32(0x85B3FC, 940), noxcolor.RGBA5551(C.nox_color_red_2589776), false)
 	}
 	if dr.CheckFlag31(18) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, memmap.Uint32(0x8531A0, 2572), uint32(C.nox_color_green_2614268), false)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, memmap.Uint32(0x8531A0, 2572), noxcolor.RGBA5551(C.nox_color_green_2614268), false)
 	}
 	if dr.CheckFlag31(20) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, uint32(C.nox_color_blue_2650684), uint32(C.nox_color_white_2523948), false)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, uint32(C.nox_color_blue_2650684), noxcolor.RGBA5551(C.nox_color_white_2523948), false)
 	}
 	if dr.CheckFlag31(26) {
 		pos := vp.toScreenPos(dr.Pos())

@@ -18,11 +18,11 @@ import "C"
 import (
 	"fmt"
 	"image"
+	"image/color"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/log"
 
-	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
@@ -71,20 +71,20 @@ func (m *Perfmon) Draw(r *NoxRender) {
 
 	frame := gameFrame()
 	format := strMan.GetStringInFile("Frame", "client.c")
-	r.Data().SetTextColor(noxrender.Color(C.nox_color_white_2523948))
+	r.Data().SetTextColor(color.White)
 	r.DrawString(nil, fmt.Sprintf(format, frame), image.Pt(x, y))
 	y += 10
 
 	packSz := noxPerfMonPacketSize()
 	format = strMan.GetStringInFile("PacketSize", "client.c")
-	r.Data().SetTextColor(noxrender.Color(C.nox_color_white_2523948))
+	r.Data().SetTextColor(color.White)
 	r.DrawString(nil, fmt.Sprintf(format, packSz), image.Pt(x, y))
 	C.nox_xxx_drawBandwith_436970(C.int(packSz))
 	y += 10
 
 	dcnt := C.nox_get_drawable_count()
 	format = strMan.GetStringInFile("DrawCount", "client.c")
-	r.Data().SetTextColor(noxrender.Color(C.nox_color_white_2523948))
+	r.Data().SetTextColor(color.White)
 	r.DrawString(nil, fmt.Sprintf(format, dcnt), image.Pt(x, y))
 	y += 10
 
@@ -96,7 +96,7 @@ func (m *Perfmon) Draw(r *NoxRender) {
 
 	latency := C.nox_perfmon_ping_2614264
 	format = strMan.GetStringInFile("Latency", "client.c")
-	r.DrawRectFilledOpaque(x+80, y, 16, 8, noxrender.Color(C.nox_color_black_2650656))
+	r.DrawRectFilledOpaque(x+80, y, 16, 8, color.Black)
 	r.DrawString(nil, fmt.Sprintf(format, latency, m.fps), image.Pt(x, y))
 
 	y = 200

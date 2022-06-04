@@ -8,7 +8,8 @@ import (
 	"image"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
+
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -21,7 +22,7 @@ func sub_4C26F0(a1 unsafe.Pointer) C.int {
 	w, h := sz.X, sz.Y
 	r := noxrend
 	r.DrawRectFilledAlpha(x, y, w, h)
-	cl := noxrender.Color(memmap.Uint32(0x85B3FC, 944))
+	cl := noxcolor.RGBA5551(memmap.Uint32(0x85B3FC, 944))
 	r.DrawVector(
 		image.Point{X: x + 1, Y: y},
 		image.Point{X: w - 2, Y: 0},

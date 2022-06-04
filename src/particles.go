@@ -9,10 +9,10 @@ import "C"
 import (
 	"encoding/binary"
 	"image"
+	"image/color"
 	"math"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 )
@@ -200,7 +200,7 @@ func (r *NoxRender) DrawGlow(pos image.Point, cl uint32, a3 int, a4 int) { // su
 	p.DrawAt(pos)
 }
 
-func (r *NoxRender) drawProtectEffectDefault(vp *Viewport, pos image.Point, dr *Drawable, phase, eff int, cl1, cl2 uint32, back bool) { // nox_client_drawXxxProtect_474BE0
+func (r *NoxRender) drawProtectEffectDefault(vp *Viewport, pos image.Point, dr *Drawable, phase, eff int, cl1 uint32, cl2 color.Color, back bool) { // nox_client_drawXxxProtect_474BE0
 	opts := ProtectEffect{
 		Cnt:       2,
 		Height:    20,
@@ -231,7 +231,7 @@ type ProtectEffect struct {
 	Phase     int
 	TailLeng  int
 	GlowColor uint32
-	TailColor uint32
+	TailColor color.Color
 }
 
 func intAngle(val, min, max int) int {
@@ -287,13 +287,13 @@ func (r *NoxRender) drawProtectEffect(vp *Viewport, pos image.Point, dr *Drawabl
 	}
 }
 
-func (r *NoxRender) drawProtectParticle(vp *Viewport, part, tail image.Point, partCl, tailCl uint32) { // nox_client_drawXxxProtectParticle_474DD0
+func (r *NoxRender) drawProtectParticle(vp *Viewport, part, tail image.Point, partCl uint32, tailCl color.Color) { // nox_client_drawXxxProtectParticle_474DD0
 	part = vp.toScreenPos(part)
 	tail = vp.toScreenPos(tail)
 
 	r.DrawGlow(part, partCl, 10, 12)
-	r.DrawPoint(part, 3, noxrender.Color(tailCl))
-	r.DrawLine(part, tail, noxrender.Color(tailCl))
+	r.DrawPoint(part, 3, tailCl)
+	r.DrawLine(part, tail, tailCl)
 }
 
 // sincosTable16 assumes circle radius of 16, and expects an angle in range [0,256).

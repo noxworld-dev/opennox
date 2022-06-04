@@ -2,6 +2,7 @@ package noxrender
 
 import (
 	"image"
+	"image/color"
 	"strings"
 
 	"golang.org/x/image/font"
@@ -10,8 +11,8 @@ import (
 
 type RenderDataText interface {
 	ShouldDrawText() bool
-	TextColor() Color
-	SetTextColor(a1 Color)
+	TextColor() color.Color
+	SetTextColor(a1 color.Color)
 	DefaultFont() font.Face
 }
 
