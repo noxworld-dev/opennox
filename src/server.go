@@ -672,7 +672,7 @@ func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
 		for _, u := range s.getPlayerUnits() {
 			plx := u.ControllingPlayer()
 			if plx.Index() != 31 && plx.field_3680&1 == 0 {
-				C.nox_xxx_buffApplyTo_4FF380(u.CObj(), 23, 0, 5)
+				u.ApplyEnchant(ENCHANT_INVULNERABLE, 0, 5)
 			}
 		}
 	}

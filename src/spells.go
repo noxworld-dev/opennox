@@ -712,11 +712,11 @@ func nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj4 *Unit, arg
 	case things.SPELL_POISON:
 		cfnc = C.nox_xxx_castPoison_52C720
 	case things.SPELL_PROTECTION_FROM_ELECTRICITY:
-		cfnc = C.nox_xxx_castProtectElect_52D150
+		fnc = castProtectElectricity
 	case things.SPELL_PROTECTION_FROM_FIRE:
-		cfnc = C.nox_xxx_castProtectFire_52D110
+		fnc = castProtectFire
 	case things.SPELL_PROTECTION_FROM_POISON:
-		cfnc = C.nox_xxx_castProtectPosion_52D1A0
+		fnc = castProtectPoison
 	case things.SPELL_PULL:
 		cfnc = C.nox_xxx_castPull_52BFA0
 	case things.SPELL_PUSH:

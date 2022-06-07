@@ -4,6 +4,7 @@ package opennox
 #include "defs.h"
 #include "GAME3_2.h"
 #include "GAME3_3.h"
+#include "GAME4.h"
 #include "GAME4_1.h"
 #include "GAME4_3.h"
 extern nox_object_t* nox_server_objects_1556844;
@@ -428,6 +429,13 @@ func (obj *Object) EnchantPower(v EnchantID) int { // nox_xxx_buffGetPower_4FF57
 		return 0
 	}
 	return int(obj.buffs_dur[v])
+}
+
+func (obj *Object) ApplyEnchant(v EnchantID, dur, power int) { // nox_xxx_buffApplyTo_4FF380
+	if obj == nil || v >= 32 {
+		return
+	}
+	C.nox_xxx_buffApplyTo_4FF380(obj.CObj(), C.int(v), C.short(dur), C.char(power))
 }
 
 func (obj *Object) AsUnit() *Unit {

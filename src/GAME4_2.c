@@ -10649,34 +10649,6 @@ int nox_xxx_castProtectFire_52D110(int a1, int a2, int a3, int a4, int* a5, char
 	return 1;
 }
 
-//----- (0052D150) --------------------------------------------------------
-int nox_xxx_castProtectElect_52D150(int a1, int a2, int a3, int a4, int* a5, char a6) {
-	short v7; // ax
-	float v8; // [esp+0h] [ebp-8h]
-
-	if (!*a5) {
-		return 0;
-	}
-	v8 = nox_xxx_gamedataGetFloat_419D40("ProtectElectricityEnchantDuration");
-	v7 = nox_float2int(v8);
-	nox_xxx_buffApplyTo_4FF380(*a5, 20, v7, a6);
-	return 1;
-}
-
-//----- (0052D1A0) --------------------------------------------------------
-int nox_xxx_castProtectPosion_52D1A0(int a1, int a2, int a3, int a4, int* a5, char a6) {
-	short v7; // ax
-	float v8; // [esp+0h] [ebp-8h]
-
-	if (!*a5) {
-		return 0;
-	}
-	v8 = nox_xxx_gamedataGetFloat_419D40("ProtectPoisonEnchantDuration");
-	v7 = nox_float2int(v8);
-	nox_xxx_buffApplyTo_4FF380(*a5, 18, v7, a6);
-	return 1;
-}
-
 //----- (0052D1E0) --------------------------------------------------------
 int nox_xxx_castDeathRay_52D1E0(int a1, int a2, int a3, int a4, int a5) {
 	int v5;     // ebp
