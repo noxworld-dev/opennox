@@ -90,15 +90,11 @@ func (s *Drawable) Flags30() uint {
 	return uint(s.flags30)
 }
 
-func (s *Drawable) Flags31() uint {
-	return uint(s.flags31)
-}
-
-func (s *Drawable) CheckFlag31(i byte) bool { // nox_xxx_spriteCheckFlag31_4356C0
-	if s == nil {
+func (s *Drawable) HasEnchant(v EnchantID) bool { // nox_client_drawable_testBuff_4356C0
+	if s == nil || v >= 32 {
 		return false
 	}
-	return (s.Flags31() & (1 << i)) != 0
+	return (uint(s.buffs) & (1 << v)) != 0
 }
 
 func (s *Drawable) Flags70() uint {

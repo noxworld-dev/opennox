@@ -2130,16 +2130,6 @@ void sub_452E10(int a1, int a2, int a3) {
 	sub_452510((int)v4);
 }
 
-//----- (00452E60) --------------------------------------------------------
-uint32_t* sub_452E60(uint32_t* a1) {
-	uint32_t* result; // eax
-
-	result = a1;
-	*a1 = 0;
-	a1[1] = 0;
-	return result;
-}
-
 //----- (00452E90) --------------------------------------------------------
 int sub_452E90(uint32_t* a1, int a2) {
 	int result; // eax
@@ -4824,7 +4814,8 @@ nox_drawable* nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a3
 	if (!dr) {
 		return 0;
 	}
-	sub_452E60(&dr->flags31);
+	dr->buffs = 0;
+	dr->field_32 = 0;
 	if (dr->field_116) {
 		nox_xxx_spriteToList_49BC80_drawable(dr);
 	}

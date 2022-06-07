@@ -3895,7 +3895,7 @@ uint32_t* sub_435690(uint32_t* a1) {
 }
 
 //----- (004356C0) --------------------------------------------------------
-bool nox_xxx_spriteCheckFlag31_4356C0(nox_drawable* dr, char a2) {
+bool nox_client_drawable_testBuff_4356C0(nox_drawable* dr, char a2) {
 	int a1 = dr;
 	int result; // eax
 

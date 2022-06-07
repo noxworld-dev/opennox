@@ -707,8 +707,8 @@ void nox_xxx_clientOnCursorHover_477050(int arg0, int a2) {
 		return;
 	}
 	v3 = *(uint32_t*)(arg0 + 120);
-	if (!((v3 & 0x8000) == 0 && (!nox_xxx_spriteCheckFlag31_4356C0(arg0, 0) ||
-								 nox_xxx_spriteCheckFlag31_4356C0(*getMemIntPtr(0x852978, 8), 21)))) {
+	if (!((v3 & 0x8000) == 0 && (!nox_client_drawable_testBuff_4356C0(arg0, 0) ||
+								 nox_client_drawable_testBuff_4356C0(*getMemIntPtr(0x852978, 8), 21)))) {
 		return;
 	}
 	v4 = *(uint32_t*)(arg0 + 112);

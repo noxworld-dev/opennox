@@ -960,7 +960,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	nox_wallsYyy = nox_wallsYyy[:0]
 	C.nox_xxx_drawBlack_496150(vp.C())
 	disableDraw := false
-	if asDrawable((*C.nox_drawable)(*memmap.PtrPtr(0x852978, 8))).CheckFlag31(2) || C.nox_gameDisableMapDraw_5d4594_2650672 != 0 {
+	if asDrawable((*C.nox_drawable)(*memmap.PtrPtr(0x852978, 8))).HasEnchant(ENCHANT_BLINDED) || C.nox_gameDisableMapDraw_5d4594_2650672 != 0 {
 		disableDraw = true
 	}
 	if C.nox_client_gui_flag_1556112 != 0 || disableDraw {
@@ -1063,7 +1063,7 @@ const (
 )
 
 func nox_xxx_cliLight16_469140(dr *Drawable) {
-	if !(sub_45A840(dr) || dr.Flags28()&0x80000 != 0 && dr.Flags30()&0x1000000 != 0 && dr.light_intensity_rad > 0 && dr.Flags30()&0x4 != 0) {
+	if !(drawableUpdateLight(dr) || dr.Flags28()&0x80000 != 0 && dr.Flags30()&0x1000000 != 0 && dr.light_intensity_rad > 0 && dr.Flags30()&0x4 != 0) {
 		return
 	}
 	if !(nox_xxx_get_57AF20() == 0 || unsafe.Pointer(dr.C()) == *memmap.PtrPtr(0x852978, 8) || unsafe.Pointer(dr.draw_func) == C.nox_thing_glow_orb_draw) {
@@ -1155,12 +1155,12 @@ func sub_467430() byte {
 	return memmap.Uint8(0x5D4594, 1062536)
 }
 
-func sub_45A840(dr *Drawable) bool {
-	if dr.CheckFlag31(23) {
+func drawableUpdateLight(dr *Drawable) bool {
+	if dr.HasEnchant(ENCHANT_INVULNERABLE) {
 		dr.SetLightColor(128, 128, 255)
 		dr.SetLightIntensity(300.0)
 		return true
-	} else if dr.CheckFlag31(15) || unsafe.Pointer(dr.C()) == *memmap.PtrPtr(0x852978, 8) && sub_467430()&8 != 0 {
+	} else if dr.HasEnchant(ENCHANT_LIGHT) || unsafe.Pointer(dr.C()) == *memmap.PtrPtr(0x852978, 8) && sub_467430()&8 != 0 {
 		dr.SetLightColor(255, 255, 255)
 		dr.SetLightIntensity(200.0)
 		return true
@@ -1173,12 +1173,9 @@ func sub_45A840(dr *Drawable) bool {
 	dr.SetLightColor(255, 255, 255)
 	if dr.Flags29()&0x1 != 0 {
 		dr.SetLightIntensity(25.0)
-		return true
 	} else if dr.Flags29()&0x2 != 0 {
 		dr.SetLightIntensity(35.0)
-		return true
-	}
-	if dr.Flags29()&0x4 != 0 {
+	} else if dr.Flags29()&0x4 != 0 {
 		dr.SetLightIntensity(45.0)
 	}
 	return true
@@ -1903,7 +1900,7 @@ LOOP:
 		}
 		if uint32(dr.field_27) == memmap.Uint32(0x5D4594, 1096448) && nox_server_teamFirst_418B10() != nil {
 			for v25 := nox_xxx_cliGetSpritePlayer_45A000(); v25 != nil; v25 = v25.Field104() {
-				if v25.CheckFlag31(30) {
+				if v25.HasEnchant(ENCHANT_CROWN) {
 					continue LOOP
 				}
 			}
@@ -2302,14 +2299,14 @@ func sub_499F60(p uint32, pos image.Point, a4 int, a5, a6, a7, a8, a9 int, a10 i
 }
 
 func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
-	if dr.CheckFlag31(0) && C.sub_474B40(dr.C()) == 0 {
+	if dr.HasEnchant(ENCHANT_INVISIBLE) && C.sub_474B40(dr.C()) == 0 {
 		return
 	}
-	if dr.CheckFlag31(14) {
+	if dr.HasEnchant(ENCHANT_ANCHORED) {
 		pos := vp.toScreenPos(dr.Pos())
 		r.DrawGlow(pos, nox_color_blue_2650684, 30, 31)
 	}
-	if dr.CheckFlag31(9) && !nox_xxx_checkGameFlagPause_413A50() { // Haste effect
+	if dr.HasEnchant(ENCHANT_HASTED) && !nox_xxx_checkGameFlagPause_413A50() {
 		if drawWhiteBubbleParticle == 0 {
 			drawWhiteBubbleParticle = nox_xxx_getTTByNameSpriteMB_44CFC0("WhiteBubbleParticle")
 			drawLightBlueBubbleParticle = nox_xxx_getTTByNameSpriteMB_44CFC0("LightBlueBubbleParticle")
@@ -2339,7 +2336,7 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 			sub_499F60(drawLightBlueBubbleParticle, pos.Add(pos3), 1, v15, v19, 0, 0, 0, v23)
 		}
 	}
-	if dr.CheckFlag31(8) && !nox_xxx_checkGameFlagPause_413A50() { // Run effect
+	if dr.HasEnchant(ENCHANT_RUN) && !nox_xxx_checkGameFlagPause_413A50() {
 		if drawRedBubbleParticle == 0 {
 			drawRedBubbleParticle = nox_xxx_getTTByNameSpriteMB_44CFC0("RedBubbleParticle")
 			drawOrangeBubbleParticle = nox_xxx_getTTByNameSpriteMB_44CFC0("OrangeBubbleParticle")
@@ -2370,16 +2367,16 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 		}
 	}
 	// Protection effects
-	if dr.CheckFlag31(17) {
+	if dr.HasEnchant(ENCHANT_PROTECT_FROM_FIRE) {
 		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, nox_color_red, nox_color_red_2589776, true)
 	}
-	if dr.CheckFlag31(18) {
+	if dr.HasEnchant(ENCHANT_PROTECT_FROM_POISON) {
 		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, nox_color_green, nox_color_green_2614268, true)
 	}
-	if dr.CheckFlag31(20) {
+	if dr.HasEnchant(ENCHANT_PROTECT_FROM_ELECTRICITY) {
 		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, nox_color_blue_2650684, nox_color_white_2523948, true)
 	}
-	if dr.CheckFlag31(27) { // Shield effects
+	if dr.HasEnchant(ENCHANT_REFLECTIVE_SHIELD) { // Shield effects
 		switch *(*byte)(dr.field(297)) {
 		case 0, 1, 2:
 			C.nox_xxx_drawShield_499810(vp.C(), dr.C())
@@ -2388,17 +2385,17 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 }
 
 func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
-	if dr.CheckFlag31(0) && C.sub_474B40(dr.C()) == 0 {
+	if dr.HasEnchant(ENCHANT_INVISIBLE) && C.sub_474B40(dr.C()) == 0 {
 		return
 	}
-	if dr.CheckFlag31(22) {
+	if dr.HasEnchant(ENCHANT_SHOCK) {
 		if drawWhiteSpark == 0 {
 			drawWhiteSpark = nox_xxx_getTTByNameSpriteMB_44CFC0("WhiteSpark")
 		}
 		pos := dr.Pos()
 		C.nox_xxx_drawEnergyBolt_499710(C.int(pos.X), C.int(pos.Y), C.short(*(*int16)(dr.field(104))), C.int(drawWhiteSpark))
 	}
-	if dr.CheckFlag31(3) || dr.CheckFlag31(5) || dr.CheckFlag31(29) || dr.CheckFlag31(28) {
+	if dr.HasEnchant(ENCHANT_CONFUSED) || dr.HasEnchant(ENCHANT_HELD) || dr.HasEnchant(ENCHANT_ANTI_MAGIC) || dr.HasEnchant(ENCHANT_CHARMING) {
 		pos := vp.toScreenPos(dr.Pos())
 		v5 := 5 - int(*(*int16)(dr.field(106))) - int(*(*int16)(dr.field(104))) - int(dr.Field25())
 		v6 := *(*byte)(dr.field(112))
@@ -2408,14 +2405,14 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 			pos.X += int(memmap.Int32(0x587000, 149432+v8))
 			pos.Y += int(memmap.Int32(0x587000, 149436+v8))
 		}
-		if dr.CheckFlag31(29) {
+		if dr.HasEnchant(ENCHANT_ANTI_MAGIC) {
 			r.Data().setColorize17(1)
 			sub433E40(nox_color_blue_2650684)
 		}
 		r.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(*memmap.PtrPtr(0x5D4594, 1096456)), pos.Add(image.Point{X: -64, Y: -64}))
 		r.Data().setColorize17(0)
 	}
-	if dr.CheckFlag31(4) && !nox_xxx_checkGameFlagPause_413A50() {
+	if dr.HasEnchant(ENCHANT_SLOWED) && !nox_xxx_checkGameFlagPause_413A50() {
 		v11 := int(*(*float32)(dr.field(48)))
 		v44 := int(dr.Field25() * 0.5)
 		if drawYellowBubbleParticle == 0 {
@@ -2434,7 +2431,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 			sub_499F60(drawYellowBubbleParticle, pos.Add(pos2), v32, v34, v36, -5, 0, 0, v40)
 		}
 	}
-	if dr.CheckFlag31(21) && !nox_xxx_checkGameFlagPause_413A50() {
+	if dr.HasEnchant(ENCHANT_INFRAVISION) && !nox_xxx_checkGameFlagPause_413A50() {
 		if drawGreenBubbleParticle == 0 {
 			drawGreenBubbleParticle = nox_xxx_getTTByNameSpriteMB_44CFC0("GreenBubbleParticle")
 		}
@@ -2451,7 +2448,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 		}
 		sub_499F60(drawGreenBubbleParticle, pos.Add(pos2), v33, v35, v37, 1, 0, 0, v41)
 	}
-	if dr.CheckFlag31(13) && !nox_xxx_checkGameFlagPause_413A50() {
+	if dr.HasEnchant(ENCHANT_VAMPIRISM) && !nox_xxx_checkGameFlagPause_413A50() {
 		pos := vp.toScreenPos(dr.Pos())
 
 		for v16 := 0; v16 < 10; v16++ {
@@ -2468,16 +2465,16 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 			r.DrawPoint(pos2, v17, drawColorDarkPurple)
 		}
 	}
-	if dr.CheckFlag31(17) {
+	if dr.HasEnchant(ENCHANT_PROTECT_FROM_FIRE) {
 		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, nox_color_red, nox_color_red_2589776, false)
 	}
-	if dr.CheckFlag31(18) {
+	if dr.HasEnchant(ENCHANT_PROTECT_FROM_POISON) {
 		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, nox_color_green, nox_color_green_2614268, false)
 	}
-	if dr.CheckFlag31(20) {
+	if dr.HasEnchant(ENCHANT_PROTECT_FROM_ELECTRICITY) {
 		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, nox_color_blue_2650684, nox_color_white_2523948, false)
 	}
-	if dr.CheckFlag31(26) {
+	if dr.HasEnchant(ENCHANT_SHIELD) {
 		pos := vp.toScreenPos(dr.Pos())
 		v23 := *(*uint32)(dr.field(276))
 		v24 := -90 - int(*(*int16)(dr.field(104)))
@@ -2493,7 +2490,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 		r.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(*memmap.PtrPtr(0x5D4594, 1096460)), pos)
 		r.Data().SetAlphaEnabled(false)
 	}
-	if dr.CheckFlag31(27) {
+	if dr.HasEnchant(ENCHANT_REFLECTIVE_SHIELD) {
 		switch *(*byte)(dr.field(297)) {
 		default:
 			C.nox_xxx_drawShield_499810(vp.C(), dr.C())

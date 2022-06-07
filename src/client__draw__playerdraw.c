@@ -139,7 +139,7 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	colors[3] = 0;
 	colors[4] = 0;
 	colors[5] = 0;
-	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 23)) { // ENCHANT_INVULNERABLE
+	if (nox_client_drawable_testBuff_4356C0(dr, 23)) { // ENCHANT_INVULNERABLE
 		if (!((unsigned char)nox_frame_xxx_2598000 & 1)) {
 			for (int i = 0; i < 6; i++) {
 				colors[i] = nox_color_blue_2650684;
@@ -149,7 +149,7 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 				colors[i] = nox_color_white_2523948;
 			}
 		}
-	} else if (nox_xxx_spriteCheckFlag31_4356C0(dr, 25)) { // ENCHANT_FREEZE
+	} else if (nox_client_drawable_testBuff_4356C0(dr, 25)) { // ENCHANT_FREEZE
 		for (int i = 0; i < 6; i++) {
 			colors[i] = nox_color_blue_2650684;
 		}
@@ -210,8 +210,8 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 		sub_4B8D40(v10, dr, *((uint32_t*)v3 + 1) & 2, (uint32_t*)v3 + 581, v28, v27);
 	}
 
-	if (v30 || !nox_xxx_spriteCheckFlag31_4356C0(dr, 0) || dr->field_32 == nox_player_netCode_85319C ||
-		*getMemU32Ptr(0x852978, 8) && (nox_xxx_spriteCheckFlag31_4356C0(*getMemIntPtr(0x852978, 8), 21) || v31)) {
+	if (v30 || !nox_client_drawable_testBuff_4356C0(dr, 0) || dr->field_32 == nox_player_netCode_85319C ||
+		*getMemU32Ptr(0x852978, 8) && (nox_client_drawable_testBuff_4356C0(*getMemIntPtr(0x852978, 8), 21) || v31)) {
 		a1 = nox_color_rgb_4344A0(155, 155, 155);
 		if (!sub_48D830(dr) && !nox_common_gameFlags_check_40A5C0(2048)) {
 			v21 = (short*)(v3 + 4704);
@@ -230,7 +230,7 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 			nox_xxx_drawString_43F6E0(0, v21, v22, a2);
 			v3 = v32;
 		}
-		if (nox_xxx_spriteCheckFlag31_4356C0(dr, 16)) {
+		if (nox_client_drawable_testBuff_4356C0(dr, 16)) {
 			v36[2] = nox_win_width;
 			v36[8] = nox_win_width;
 			v36[0] = 0;
@@ -248,7 +248,7 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 			*(uint32_t*)(dword_5d4594_1313796 + 16) = v10[1] - v10[5] + dr->pos.y - 50;
 			(*(void (**)(int*, uint32_t))(dword_5d4594_1313796 + 300))(v36, dword_5d4594_1313796);
 		}
-		if (nox_xxx_spriteCheckFlag31_4356C0(dr, 30)) {
+		if (nox_client_drawable_testBuff_4356C0(dr, 30)) {
 			v36[2] = nox_win_width;
 			v36[8] = nox_win_width;
 			v36[0] = 0;

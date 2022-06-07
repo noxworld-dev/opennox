@@ -748,7 +748,7 @@ int nox_xxx_quickBarWarriorDraw_45FDE0(int yTop) {
 			v14 = v20;
 		}
 		if (!nox_xxx_spellIsEnabled_424B70(v4[2 * v2]) || nox_xxx_playerAnimCheck_4372B0() ||
-			nox_xxx_spriteCheckFlag31_4356C0(*getMemIntPtr(0x852978, 8), 29)) {
+			nox_client_drawable_testBuff_4356C0(*getMemIntPtr(0x852978, 8), 29)) {
 			nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, 30, 30);
 			return 1;
 		}

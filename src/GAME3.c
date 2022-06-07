@@ -7927,7 +7927,7 @@ short sub_4B8960(int* a1, nox_drawable* dr, int a3, uint32_t* a4, int a5, int a6
 	int v31;           // [esp+18h] [ebp-8h]
 
 	v6 = (unsigned char*)dr;
-	v28 = nox_xxx_spriteCheckFlag31_4356C0(dr, 23);
+	v28 = nox_client_drawable_testBuff_4356C0(dr, 23);
 	v7 = 0;
 	v30 = 0;
 	v31 = 0;
@@ -8120,7 +8120,7 @@ short sub_4B8D40(int* a1, nox_drawable* dr, int a3, uint32_t* a4, int a5, int a6
 	int v14;           // [esp+14h] [ebp-4h]
 
 	v6 = (unsigned char*)dr;
-	v14 = nox_xxx_spriteCheckFlag31_4356C0(dr, 25);
+	v14 = nox_client_drawable_testBuff_4356C0(dr, 25);
 	if ((unsigned char)nox_frame_xxx_2598000 & 1) {
 		v13 = nox_color_white_2523948;
 	} else {
@@ -8258,7 +8258,7 @@ int sub_4B8FA0(nox_drawable* dr, int* a2, int* a3) {
 
 	v3 = *(uint32_t*)(a1 + 304);
 	if (*(uint32_t*)(a1 + 276) || !sub_48D830(dr)) {
-		if (*(uint32_t*)(a1 + 276) != 4 || (v5 = !nox_xxx_spriteCheckFlag31_4356C0(dr, 31), v4 = 53, v5)) {
+		if (*(uint32_t*)(a1 + 276) != 4 || (v5 = !nox_client_drawable_testBuff_4356C0(dr, 31), v4 = 53, v5)) {
 			v4 = *(uint32_t*)(a1 + 276);
 		}
 	} else {

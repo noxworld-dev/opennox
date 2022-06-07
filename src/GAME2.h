@@ -88,7 +88,6 @@ int sub_452BD0(int a1, char* a2);
 void nox_xxx_clientPlaySoundSpecial_452D80(int a1, int a2);
 void sub_452DC0(int a1, int a2, int a3);
 void sub_452E10(int a1, int a2, int a3);
-uint32_t* sub_452E60(uint32_t* a1);
 int sub_452E90(uint32_t* a1, int a2);
 int sub_452EB0(int* a1);
 int sub_452EE0(int a1, int a2);

@@ -1505,14 +1505,14 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			if (!(uint32_t)v5) {
 				goto LABEL_1149;
 			}
-			LODWORD(v5) = nox_xxx_spriteCheckFlag31_4356C0(v5, 15);
+			LODWORD(v5) = nox_client_drawable_testBuff_4356C0(v5, 15);
 			HIDWORD(v5) = *(uint32_t*)(data + 3);
 			v135 = v5;
 			*(uint32_t*)(v134 + 124) = HIDWORD(v5);
 			if (v134 == *getMemU32Ptr(0x852978, 8)) {
 				sub_467410(*(uint32_t*)(data + 3));
 			}
-			if (v135 != 1 || nox_xxx_spriteCheckFlag31_4356C0(v134, 15) ||
+			if (v135 != 1 || nox_client_drawable_testBuff_4356C0(v134, 15) ||
 				v134 == *getMemU32Ptr(0x852978, 8) && sub_467430() & 8) {
 				goto LABEL_1149;
 			}
@@ -1526,7 +1526,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 				v130 = (v129 >> 3) & 1;
 				sub_467420(*(uint8_t*)(data + 1));
 				if (v130 == 1 && !(sub_467430() & 8) && *getMemU32Ptr(0x852978, 8) &&
-					!nox_xxx_spriteCheckFlag31_4356C0(*getMemIntPtr(0x852978, 8), 15)) {
+					!nox_client_drawable_testBuff_4356C0(*getMemIntPtr(0x852978, 8), 15)) {
 					nox_thing* v131 = nox_get_thing(*(uint32_t*)(*getMemU32Ptr(0x852978, 8) + 108));
 					nox_xxx_spriteChangeIntensity_484D70_light_intensity(*getMemU32Ptr(0x852978, 8) + 136,
 																		 v131->light_intensity);

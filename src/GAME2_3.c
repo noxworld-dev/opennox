@@ -3336,7 +3336,7 @@ int sub_497260(int* a1) {
 		v3 = a1;
 		do {
 			*(uint32_t*)(v2 + 132) = 0;
-			if (!nox_xxx_spriteCheckFlag31_4356C0(v2, 0)) {
+			if (!nox_client_drawable_testBuff_4356C0(v2, 0)) {
 				if (*(char*)(v2 + 112) >= 0) {
 					v6 = *(uint32_t*)(v2 + 44);
 					if (v6 == 2) {

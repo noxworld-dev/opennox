@@ -30,7 +30,7 @@ int nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
 		nox_xxx_draw_434600(0);
 		return v7;
 	}
-	if (nox_xxx_spriteCheckFlag31_4356C0(*getMemIntPtr(0x852978, 8), 21)) {
+	if (nox_client_drawable_testBuff_4356C0(*getMemIntPtr(0x852978, 8), 21)) {
 		nox_xxx_draw_434600(1);
 		sub_433E40(*getMemIntPtr(0x8531A0, 2572));
 		v3 = -1;

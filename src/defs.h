@@ -1359,7 +1359,7 @@ typedef struct nox_drawable {
 	unsigned int flags28; // 28, 112
 	unsigned int flags29; // 29, 116
 	unsigned int flags30; // 30, 120
-	unsigned int flags31; // 31, 124
+	unsigned int buffs;   // 31, 124
 	uint32_t field_32;    // 32, 128, npc ID?
 	uint32_t field_33;    // 33, 132
 	uint32_t light_flags;         // 34, 136, 0

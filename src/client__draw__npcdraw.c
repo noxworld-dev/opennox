@@ -78,7 +78,7 @@ int nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 		v5 = (int*)nox_npc_by_id(v30);
 		v33 = v5;
 		if (v36 && v5) {
-			if (nox_xxx_spriteCheckFlag31_4356C0(v4, 23)) {
+			if (nox_client_drawable_testBuff_4356C0(v4, 23)) {
 				if ((unsigned char)nox_frame_xxx_2598000 & 1) {
 					v6 = 0;
 					do {
@@ -94,7 +94,7 @@ int nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 						v8 = v9;
 					} while (v9 < 6);
 				}
-			} else if (nox_xxx_spriteCheckFlag31_4356C0(v4, 25)) {
+			} else if (nox_client_drawable_testBuff_4356C0(v4, 25)) {
 				v10 = 0;
 				do {
 					v11 = v10 + 1;
@@ -145,7 +145,7 @@ int nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					sub_4B8D40(v21, v4, v33[326], v33 + 8, v19, v20);
 					sub_4B8960(v21, v4, v33[327], v33 + 170, v19, v20);
 				}
-				if (nox_xxx_spriteCheckFlag31_4356C0(v4, 16)) {
+				if (nox_client_drawable_testBuff_4356C0(v4, 16)) {
 					if (!dword_5d4594_1313796) {
 						v23 = nox_xxx_getTTByNameSpriteMB_44CFC0("SpinningSkull");
 						dword_5d4594_1313796 = nox_new_drawable_for_thing(v23);
@@ -158,7 +158,7 @@ int nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 					v25 = nox_draw_getViewport_437250();
 					(*v24)(v25, v31);
 				}
-				if (nox_xxx_spriteCheckFlag31_4356C0(v4, 30)) {
+				if (nox_client_drawable_testBuff_4356C0(v4, 30)) {
 					if (!dword_5d4594_1313800) {
 						v26 = nox_xxx_getTTByNameSpriteMB_44CFC0("SpinningCrown");
 						dword_5d4594_1313800 = nox_new_drawable_for_thing(v26);
