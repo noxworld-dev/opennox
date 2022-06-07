@@ -180,12 +180,8 @@ func (d *WindowData) SetBackgroundImage(p *Image) {
 	d.bg_image = unsafe.Pointer(p.C())
 }
 
-func (d *WindowData) BackgroundColorRaw() uint32 {
-	return uint32(d.bg_color)
-}
-
 func (d *WindowData) BackgroundColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.BackgroundColorRaw())
+	return noxcolor.RGBA5551(d.bg_color >> 16)
 }
 
 func (d *WindowData) SetBackgroundColor(cl color.Color) {
@@ -200,12 +196,8 @@ func (d *WindowData) SetEnabledImage(p *Image) {
 	d.en_image = unsafe.Pointer(p.C())
 }
 
-func (d *WindowData) EnabledColorRaw() uint32 {
-	return uint32(d.en_color)
-}
-
 func (d *WindowData) EnabledColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.EnabledColorRaw())
+	return noxcolor.RGBA5551(d.en_color >> 16)
 }
 
 func (d *WindowData) SetEnabledColor(cl color.Color) {
@@ -220,12 +212,8 @@ func (d *WindowData) SetDisabledImage(p *Image) {
 	d.dis_image = unsafe.Pointer(p.C())
 }
 
-func (d *WindowData) DisabledColorRaw() uint32 {
-	return uint32(d.dis_color)
-}
-
 func (d *WindowData) DisabledColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.DisabledColorRaw())
+	return noxcolor.RGBA5551(d.dis_color >> 16)
 }
 
 func (d *WindowData) SetDisabledColor(cl color.Color) {
@@ -240,12 +228,8 @@ func (d *WindowData) SetHighlightImage(p *Image) {
 	d.hl_image = unsafe.Pointer(p.C())
 }
 
-func (d *WindowData) HighlightColorRaw() uint32 {
-	return uint32(d.hl_color)
-}
-
 func (d *WindowData) HighlightColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.HighlightColorRaw())
+	return noxcolor.RGBA5551(d.hl_color >> 16)
 }
 
 func (d *WindowData) SetHighlightColor(cl color.Color) {
@@ -260,24 +244,16 @@ func (d *WindowData) SetSelectedImage(p *Image) {
 	d.sel_image = unsafe.Pointer(p.C())
 }
 
-func (d *WindowData) SelectedColorRaw() uint32 {
-	return uint32(d.sel_color)
-}
-
 func (d *WindowData) SelectedColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.SelectedColorRaw())
+	return noxcolor.RGBA5551(d.sel_color >> 16)
 }
 
 func (d *WindowData) SetSelectedColor(cl color.Color) {
 	d.sel_color = C.uint32_t(noxcolor.ToRGBA5551Color(cl).Color32())
 }
 
-func (d *WindowData) TextColorRaw() uint32 {
-	return uint32(d.text_color)
-}
-
 func (d *WindowData) TextColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.TextColorRaw())
+	return noxcolor.RGBA5551(d.text_color >> 16)
 }
 
 func (d *WindowData) SetTextColor(cl color.Color) {
