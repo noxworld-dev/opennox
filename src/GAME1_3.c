@@ -37,7 +37,6 @@
 #include "common__net_list.h"
 #include "common__strman.h"
 #include "input_common.h"
-#include "mutexes.h"
 #include "operators.h"
 
 extern uint32_t dword_587000_122856;
@@ -118,7 +117,6 @@ extern uint32_t dword_587000_87412;
 extern uint32_t dword_5d4594_829492;
 extern uint32_t dword_5d4594_830248;
 extern uint32_t dword_5d4594_829480;
-extern uint32_t nox_video_modeXxx_3801780;
 extern uint32_t nox_client_renderGUI_80828;
 extern nox_window* nox_wnd_quitMenu_825760;
 extern uint32_t dword_5d4594_2650652;

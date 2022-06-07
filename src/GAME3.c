@@ -46,22 +46,17 @@
 #include "input_common.h"
 #include "operators.h"
 
-extern uint32_t dword_5d4594_3798688;
 extern uint32_t dword_5d4594_1307792;
 extern uint32_t dword_5d4594_1313788;
 extern uint32_t dword_5d4594_1308136;
 extern uint32_t nox_xxx_normalWndBits_587000_172880;
 extern uint32_t dword_5d4594_1308104;
 extern uint32_t dword_5d4594_1313532;
-extern uint32_t dword_5d4594_3798672;
 extern uint32_t dword_5d4594_1313564;
 extern uint32_t dword_5d4594_1308096;
 extern int (*func_5d4594_1311924)(void);
 extern uint32_t nox_game_loop_xxx_805872;
 extern uint32_t dword_5d4594_1307724;
-extern uint32_t dword_5d4594_3798684;
-extern uint32_t dword_5d4594_3798680;
-extern uint32_t dword_5d4594_3798676;
 extern uint32_t dword_5d4594_1308112;
 extern uint32_t nox_server_sendMotd_108752;
 extern uint32_t dword_5d4594_1308148;
@@ -130,14 +125,10 @@ extern uint32_t dword_5d4594_1308084;
 extern uint32_t dword_5d4594_1309812;
 extern uint32_t dword_5d4594_1309820;
 extern uint32_t nox_video_pixmode_3799624;
-extern uint32_t nox_video_modeXxx_3801780;
 extern uint32_t dword_5d4594_810632;
 extern uint32_t dword_5d4594_2650652;
 extern uint32_t dword_5d4594_1307784;
 extern uint32_t nox_player_netCode_85319C;
-extern unsigned char* nox_draw_colors_r_3804672;
-extern unsigned char* nox_draw_colors_g_3804656;
-extern unsigned char* nox_draw_colors_b_3804664;
 extern float input_sensitivity;
 extern int default_win_width;
 extern int default_win_height;
@@ -2153,14 +2144,14 @@ int sub_4A6DC0(uint32_t* a1, int a2) {
 	LOBYTE(v3) = getMemByte(0x5D4594, 1307797 + 3 * v1);
 	LOBYTE(v1) = getMemByte(0x5D4594, 1307796 + 3 * v1);
 	v4 = nox_color_rgb_4344A0(v1, v3, v2);
-	nox_xxx_drawPlayer_4341D0(6, v4);
+	nox_draw_setMaterial_4341D0(6, v4);
 	v5 = ((unsigned short)(*(uint32_t*)(dword_5d4594_1308100 + 32) >> 16)) +
 		 32 * *(unsigned short*)(dword_5d4594_1308100 + 32);
 	v6 = getMemByte(0x5D4594, 1307798 + 3 * v5);
 	LOBYTE(v7) = getMemByte(0x5D4594, 1307797 + 3 * v5);
 	LOBYTE(v5) = getMemByte(0x5D4594, 1307796 + 3 * v5);
 	v8 = nox_color_rgb_4344A0(v5, v7, v6);
-	nox_xxx_drawPlayer_4341D0(1, v8);
+	nox_draw_setMaterial_4341D0(1, v8);
 	v9 = dword_5d4594_1308144;
 	if (*(uint8_t*)(dword_5d4594_1308144 + 4) & 8) {
 		v10 = (unsigned short)(*(uint32_t*)(dword_5d4594_1308108 + 32) >> 16);
@@ -2169,11 +2160,11 @@ int sub_4A6DC0(uint32_t* a1, int a2) {
 		v12 = nox_color_rgb_4344A0(
 			getMemByte(0x5D4594, 1307796 + 3 * v11), v9,
 			getMemByte(0x5D4594, 1307798 + 3 * (v10 + 32 * *(unsigned short*)(dword_5d4594_1308108 + 32))));
-		nox_xxx_drawPlayer_4341D0(2, v12);
+		nox_draw_setMaterial_4341D0(2, v12);
 	} else {
-		nox_xxx_drawPlayer_4341D0(2, v4);
+		nox_draw_setMaterial_4341D0(2, v4);
 	}
-	nox_xxx_drawPlayer_4341D0(3, v4);
+	nox_draw_setMaterial_4341D0(3, v4);
 	v13 = dword_5d4594_1308148;
 	if (*(uint8_t*)(dword_5d4594_1308148 + 4) & 8) {
 		v14 = (unsigned short)(*(uint32_t*)(dword_5d4594_1308112 + 32) >> 16);
@@ -2182,9 +2173,9 @@ int sub_4A6DC0(uint32_t* a1, int a2) {
 		LOBYTE(v15) = getMemByte(0x5D4594, 1307796 + 3 * v15);
 		v16 = nox_color_rgb_4344A0(
 			v15, v13, getMemByte(0x5D4594, 1307798 + 3 * (v14 + 32 * *(unsigned short*)(dword_5d4594_1308112 + 32))));
-		nox_xxx_drawPlayer_4341D0(4, v16);
+		nox_draw_setMaterial_4341D0(4, v16);
 	} else {
-		nox_xxx_drawPlayer_4341D0(4, v4);
+		nox_draw_setMaterial_4341D0(4, v4);
 	}
 	v17 = dword_5d4594_1308140;
 	if (*(uint8_t*)(dword_5d4594_1308140 + 4) & 8) {
@@ -2194,9 +2185,9 @@ int sub_4A6DC0(uint32_t* a1, int a2) {
 		LOBYTE(v19) = getMemByte(0x5D4594, 1307796 + 3 * v19);
 		v20 = nox_color_rgb_4344A0(
 			v19, v17, getMemByte(0x5D4594, 1307798 + 3 * (v18 + 32 * *(unsigned short*)(dword_5d4594_1308104 + 32))));
-		nox_xxx_drawPlayer_4341D0(5, v20);
+		nox_draw_setMaterial_4341D0(5, v20);
 	} else {
-		nox_xxx_drawPlayer_4341D0(5, v4);
+		nox_draw_setMaterial_4341D0(5, v4);
 	}
 	if (*(uint8_t*)(dword_5d4594_1308136 + 4) & 8) {
 		nox_client_drawImageAt_47D2C0(*getMemU32Ptr(0x973A20, 16 + 4 * *(unsigned char*)(dword_5d4594_1307784 + 67)),
@@ -2219,7 +2210,7 @@ int sub_4A6DC0(uint32_t* a1, int a2) {
 				LOBYTE(v25) = *(uint8_t*)(i + dword_5d4594_1308156 + 14);
 				LOBYTE(v23) = *(uint8_t*)(i + dword_5d4594_1308156 + 13);
 				LOBYTE(v29) = *(uint8_t*)(i + dword_5d4594_1308156 + 12);
-				sub_4340A0(v27++, v29, v23, v25);
+				nox_draw_setMaterial_4340A0(v27++, v29, v23, v25);
 			}
 			v30 = ((unsigned short)(*(uint32_t*)(dword_5d4594_1308116 + 32) >> 16)) +
 				  32 * *(unsigned short*)(dword_5d4594_1308116 + 32);
@@ -2227,7 +2218,7 @@ int sub_4A6DC0(uint32_t* a1, int a2) {
 			LOBYTE(v23) = getMemByte(0x5D4594, 1307797 + 3 * v30);
 			LOBYTE(v30) = getMemByte(0x5D4594, 1307796 + 3 * v30);
 			v32 = nox_color_rgb_4344A0(v30, v23, v31);
-			nox_xxx_drawPlayer_4341D0(*(uint32_t*)(dword_5d4594_1308156 + 40), v32);
+			nox_draw_setMaterial_4341D0(*(uint32_t*)(dword_5d4594_1308156 + 40), v32);
 		} else if (v26 == 1024) {
 			v33 = 1;
 			for (j = 3; j < 21; j += 3) {
@@ -2235,7 +2226,7 @@ int sub_4A6DC0(uint32_t* a1, int a2) {
 				LOBYTE(v25) = *(uint8_t*)(dword_5d4594_1308160 + j + 14);
 				LOBYTE(v23) = *(uint8_t*)(dword_5d4594_1308160 + j + 13);
 				LOBYTE(v35) = *(uint8_t*)(dword_5d4594_1308160 + j + 12);
-				sub_4340A0(v33++, v35, v23, v25);
+				nox_draw_setMaterial_4340A0(v33++, v35, v23, v25);
 			}
 			v36 = ((unsigned short)(*(uint32_t*)(dword_5d4594_1308120 + 32) >> 16)) +
 				  32 * *(unsigned short*)(dword_5d4594_1308120 + 32);
@@ -2243,14 +2234,14 @@ int sub_4A6DC0(uint32_t* a1, int a2) {
 			LOBYTE(v23) = getMemByte(0x5D4594, 1307797 + 3 * v36);
 			LOBYTE(v36) = getMemByte(0x5D4594, 1307796 + 3 * v36);
 			v38 = nox_color_rgb_4344A0(v36, v23, v37);
-			nox_xxx_drawPlayer_4341D0(*(uint32_t*)(dword_5d4594_1308160 + 40), v38);
+			nox_draw_setMaterial_4341D0(*(uint32_t*)(dword_5d4594_1308160 + 40), v38);
 			v39 = ((unsigned short)(*(uint32_t*)(dword_5d4594_1308124 + 32) >> 16)) +
 				  32 * *(unsigned short*)(dword_5d4594_1308124 + 32);
 			v40 = getMemByte(0x5D4594, 1307798 + 3 * v39);
 			LOBYTE(v41) = getMemByte(0x5D4594, 1307797 + 3 * v39);
 			LOBYTE(v39) = getMemByte(0x5D4594, 1307796 + 3 * v39);
 			v52 = nox_color_rgb_4344A0(v39, v41, v40);
-			nox_xxx_drawPlayer_4341D0(*(uint32_t*)(dword_5d4594_1308160 + 44), v52);
+			nox_draw_setMaterial_4341D0(*(uint32_t*)(dword_5d4594_1308160 + 44), v52);
 		} else {
 			if (v26 != 1) {
 				goto LABEL_27;
@@ -2261,7 +2252,7 @@ int sub_4A6DC0(uint32_t* a1, int a2) {
 				LOBYTE(v25) = *(uint8_t*)(k + dword_5d4594_1308164 + 14);
 				LOBYTE(v23) = *(uint8_t*)(k + dword_5d4594_1308164 + 13);
 				LOBYTE(v44) = *(uint8_t*)(k + dword_5d4594_1308164 + 12);
-				sub_4340A0(v42++, v44, v23, v25);
+				nox_draw_setMaterial_4340A0(v42++, v44, v23, v25);
 			}
 			v45 = ((unsigned short)(*(uint32_t*)(dword_5d4594_1308128 + 32) >> 16)) +
 				  32 * *(unsigned short*)(dword_5d4594_1308128 + 32);
@@ -2269,14 +2260,14 @@ int sub_4A6DC0(uint32_t* a1, int a2) {
 			LOBYTE(v23) = getMemByte(0x5D4594, 1307797 + 3 * v45);
 			LOBYTE(v45) = getMemByte(0x5D4594, 1307796 + 3 * v45);
 			v47 = nox_color_rgb_4344A0(v45, v23, v46);
-			nox_xxx_drawPlayer_4341D0(*(uint32_t*)(dword_5d4594_1308164 + 40), v47);
+			nox_draw_setMaterial_4341D0(*(uint32_t*)(dword_5d4594_1308164 + 40), v47);
 			v48 = ((unsigned short)(*(uint32_t*)(dword_5d4594_1308132 + 32) >> 16)) +
 				  32 * *(unsigned short*)(dword_5d4594_1308132 + 32);
 			v49 = getMemByte(0x5D4594, 1307798 + 3 * v48);
 			LOBYTE(v50) = getMemByte(0x5D4594, 1307797 + 3 * v48);
 			LOBYTE(v48) = getMemByte(0x5D4594, 1307796 + 3 * v48);
 			v53 = nox_color_rgb_4344A0(v48, v50, v49);
-			nox_xxx_drawPlayer_4341D0(*(uint32_t*)(dword_5d4594_1308164 + 36), v53);
+			nox_draw_setMaterial_4341D0(*(uint32_t*)(dword_5d4594_1308164 + 36), v53);
 		}
 		nox_client_drawImageAt_47D2C0(*v24, v54, v55);
 	LABEL_27:
@@ -3523,129 +3514,6 @@ int nox_xxx_wndRadioButtonProcPre_4A93C0(int a1, int a2, wchar_t* a3, int a4) {
 	}
 	v8 = nox_xxx_wndGetID_46B0A0((int*)a1);
 	nox_window_call_field_94(*(uint32_t*)(a1 + 52), 16387, (int)a3, v8);
-	return 1;
-}
-
-//----- (004A94A0) --------------------------------------------------------
-int nox_xxx_loadDefColor_4A94A0() // initListBoxColors, recall that one
-{
-	nox_color_black_2650656 = nox_color_rgb_4344A0(0, 0, 0); // rgbatocompatiblecolor
-	*getMemU32Ptr(0x852978, 4) = nox_color_rgb_4344A0(8, 8, 8);
-	*getMemU32Ptr(0x85B3FC, 956) = nox_color_rgb_4344A0(115, 115, 115);
-	*getMemU32Ptr(0x5D4594, 2597996) = nox_color_rgb_4344A0(212, 212, 212);
-	nox_color_white_2523948 = nox_color_rgb_4344A0(255, 255, 255);
-	nox_color_violet_2598268 = nox_color_rgb_4344A0(100, 0, 0);
-	*getMemU32Ptr(0x85B3FC, 940) = nox_color_rgb_4344A0(255, 0, 0);
-	nox_color_red_2589776 = nox_color_rgb_4344A0(255, 128, 128);
-	*getMemU32Ptr(0x85B3FC, 984) = nox_color_rgb_4344A0(0, 100, 0);
-	*getMemU32Ptr(0x8531A0, 2572) = nox_color_rgb_4344A0(0, 255, 0);
-	nox_color_green_2614268 = nox_color_rgb_4344A0(128, 255, 128);
-	*getMemU32Ptr(0x85B3FC, 944) = nox_color_rgb_4344A0(0, 0, 140);
-	nox_color_cyan_2649820 = nox_color_rgb_4344A0(0, 0, 255);
-	nox_color_blue_2650684 = nox_color_rgb_4344A0(0, 160, 255);
-	nox_color_orange_2614256 = nox_color_rgb_4344A0(240, 180, 42);
-	nox_color_yellow_2589772 = nox_color_rgb_4344A0(255, 255, 0);
-	*getMemU32Ptr(0x852978, 0) = nox_color_rgb_4344A0(255, 255, 128);
-	*getMemU32Ptr(0x85B3FC, 132) = &nox_color_black_2650656;
-	*getMemU32Ptr(0x85B3FC, 136) = getMemAt(0x852978, 4);
-	*getMemU32Ptr(0x85B3FC, 140) = getMemAt(0x85B3FC, 956);
-	*getMemU32Ptr(0x85B3FC, 144) = getMemAt(0x5D4594, 2597996);
-	*getMemU32Ptr(0x85B3FC, 148) = &nox_color_white_2523948;
-	*getMemU32Ptr(0x85B3FC, 152) = &nox_color_violet_2598268;
-	*getMemU32Ptr(0x85B3FC, 156) = getMemAt(0x85B3FC, 940);
-	*getMemU32Ptr(0x85B3FC, 160) = &nox_color_red_2589776;
-	*getMemU32Ptr(0x85B3FC, 164) = getMemAt(0x85B3FC, 984);
-	*getMemU32Ptr(0x85B3FC, 168) = getMemAt(0x8531A0, 2572);
-	*getMemU32Ptr(0x85B3FC, 172) = &nox_color_green_2614268;
-	*getMemU32Ptr(0x85B3FC, 176) = getMemAt(0x85B3FC, 944);
-	*getMemU32Ptr(0x85B3FC, 180) = &nox_color_cyan_2649820;
-	*getMemU32Ptr(0x85B3FC, 184) = &nox_color_blue_2650684;
-	*getMemU32Ptr(0x85B3FC, 188) = &nox_color_orange_2614256;
-	*getMemU32Ptr(0x85B3FC, 192) = &nox_color_yellow_2589772;
-	*getMemU32Ptr(0x85B3FC, 196) = getMemAt(0x852978, 0);
-	return 1;
-}
-
-//----- (004A96C0) --------------------------------------------------------
-FILE* nox_xxx_loadPal_4A96C0_video_read_palette(char* a1) {
-	FILE* result; // eax
-	FILE* v2;     // ebp
-	char v3[8];   // [esp+Ch] [ebp-40h]
-	char v4[12];  // [esp+14h] [ebp-38h]
-	char v5[12];  // [esp+20h] [ebp-2Ch]
-	char v6[32];  // [esp+2Ch] [ebp-20h]
-
-	strcpy(v4, "SHADEMAP");
-	strcpy(v5, "TRANSMAP");
-	strcpy(v3, "PALETTE");
-	if (nox_video_modeXxx_3801780 != 1) {
-		result = nox_fs_open(a1);
-		v2 = result;
-		if (!result) {
-			return result;
-		}
-		if (nox_binfile_fread_raw_40ADD0(v6, 1u, strlen(v3), result) != strlen(v3)) {
-			nox_fs_close(v2);
-			return 0;
-		}
-		v6[strlen(v3)] = 0;
-		if (strcmp(v6, v3)) {
-			nox_fs_close(v2);
-			return 0;
-		}
-		if (nox_binfile_fread_raw_40ADD0((char*)getMemAt(0x5D4594, 1308748), 1u, 0x300u, v2) != 768) {
-			nox_fs_close(v2);
-			return 0;
-		}
-		sub_4347F0((char*)getMemAt(0x5D4594, 1308748), 256);
-		sub_4348C0();
-		if (!sub_42FFF0(v2)) {
-			nox_fs_close(v2);
-			return 0;
-		}
-		if (nox_binfile_fread_raw_40ADD0(v6, 1u, strlen(v4), v2) != strlen(v4)) {
-			nox_fs_close(v2);
-			return 0;
-		}
-		v6[strlen(v4)] = 0;
-		if (strcmp(v6, v4)) {
-			nox_fs_close(v2);
-			return 0;
-		}
-		if (nox_binfile_fread_raw_40ADD0((char*)getMemAt(0x5D4594, 2589804), 1u, 0x2000u, v2) != 0x2000) {
-			nox_fs_close(v2);
-			return 0;
-		}
-		sub_434610((int)getMemAt(0x5D4594, 2589804));
-		if (nox_binfile_fread_raw_40ADD0(v6, 1u, strlen(v5), v2) != strlen(v5)) {
-			nox_fs_close(v2);
-			return 0;
-		}
-		v6[strlen(v5)] = 0;
-		if (strcmp(v6, v5)) {
-			nox_fs_close(v2);
-			return 0;
-		}
-		if (nox_binfile_fread_raw_40ADD0((char*)getMemAt(0x5D4594, 2524236), 1u, 0x10000u, v2) != 0x10000) {
-			nox_fs_close(v2);
-			return 0;
-		}
-		sub_434620((int)getMemAt(0x5D4594, 2524236));
-		nox_fs_close(v2);
-	}
-	nox_xxx_loadDefColor_4A94A0();
-	sub_4A9A10();
-	return (FILE*)1;
-}
-// 4A96C0: using guessed type char var_20[32];
-
-//----- (004A9A10) --------------------------------------------------------
-int sub_4A9A10() {
-	int i; // esi
-
-	for (i = 0; i < 6; ++i) {
-		nox_xxx_drawPlayer_4341D0(i, nox_color_white_2523948);
-	}
 	return 1;
 }
 
@@ -5826,7 +5694,7 @@ char* sub_4AEED0(int* a1, int a2, int a3) {
 	char* v8;     // esi
 	int v9;       // eax
 
-	nox_xxx_drawMakeRGB_433F10(0xFFu, 0x80u, 0x20u);
+	nox_draw_set54RGB_433F10(0xFFu, 0x80u, 0x20u);
 	v3 = sub_48C5E0(2, 3);
 	sub_434080(v3);
 	v4 = sub_4B0680(0, 0xFFu);
@@ -6078,7 +5946,7 @@ void sub_4AF2D0(int* a1, int a2, int a3) {
 		*getMemU32Ptr(0x5D4594, 1311128) = nox_color_rgb_4344A0(64, 64, 255);
 		*getMemU32Ptr(0x5D4594, 1311132) = 1;
 	}
-	sub_434040(*getMemU32Ptr(0x5D4594, 1311124 + 4 * a1[6]));
+	nox_draw_set54RGB32_434040(*getMemU32Ptr(0x5D4594, 1311124 + 4 * a1[6]));
 	v3 = sub_48C5E0(2, 5);
 	sub_434080(v3);
 	v4 = sub_4B0680(0, 0xFFu);
@@ -6124,7 +5992,7 @@ char* nox_xxx_ParticleFxT5_4AF450(int* a1) {
 	char* result; // eax
 	char* v3;     // esi
 
-	nox_xxx_drawMakeRGB_433F10(0x32u, 0x32u, 0x32u);
+	nox_draw_set54RGB_433F10(0x32u, 0x32u, 0x32u);
 	sub_434080(10);
 	v1 = sub_4B0680(0, 0xFFu);
 	result = nox_xxx_particleFxNew_4AF990(0, 0, 0, 0x7FFFFFFF);
@@ -8083,7 +7951,7 @@ short sub_4B8960(int* a1, nox_drawable* dr, int a3, uint32_t* a4, int a5, int a6
 				if (v11) {
 					if (v28) {
 						for (i = 1; i < 7; ++i) {
-							nox_xxx_drawPlayer_4341D0(i, v27);
+							nox_draw_setMaterial_4341D0(i, v27);
 						}
 						v6 = (unsigned char*)dr;
 					} else {
@@ -8109,7 +7977,7 @@ LABEL_22:
 					if (*v29) {
 						if (v28) {
 							for (j = 1; j < 7; ++j) {
-								nox_xxx_drawPlayer_4341D0(j, v27);
+								nox_draw_setMaterial_4341D0(j, v27);
 							}
 							v6 = (unsigned char*)dr;
 						} else {
@@ -8139,7 +8007,7 @@ LABEL_22:
 		if (v20) {
 			if (v28) {
 				for (k = 1; k < 7; ++k) {
-					nox_xxx_drawPlayer_4341D0(k, v27);
+					nox_draw_setMaterial_4341D0(k, v27);
 				}
 				v6 = (unsigned char*)dr;
 			} else {
@@ -8163,7 +8031,7 @@ LABEL_55:
 		if (v24) {
 			if (v28) {
 				for (l = 1; l < 7; ++l) {
-					nox_xxx_drawPlayer_4341D0(l, v27);
+					nox_draw_setMaterial_4341D0(l, v27);
 				}
 				v6 = (unsigned char*)dr;
 			} else {
@@ -8212,7 +8080,7 @@ uint32_t* sub_4B8CA0(uint32_t* a1, char* a2) {
 			LOBYTE(result) = v9[1];
 			LOBYTE(v6) = *v9;
 			LOBYTE(v5) = *(v9 - 1);
-			sub_4340A0(v8++, v5, v6, (int)result);
+			nox_draw_setMaterial_4340A0(v8++, v5, v6, (int)result);
 			v9 += 3;
 		} while (v8 < 7);
 		v10 = a1;
@@ -8227,7 +8095,7 @@ uint32_t* sub_4B8CA0(uint32_t* a1, char* a2) {
 				LOBYTE(v10) = *((uint8_t*)result + 25);
 				v15 = v5;
 				LOBYTE(v5) = *((uint8_t*)result + 24);
-				sub_4340A0(*v12, v5, (int)v10, v15);
+				nox_draw_setMaterial_4340A0(*v12, v5, (int)v10, v15);
 			}
 			++v14;
 			++v12;
@@ -8267,7 +8135,7 @@ short sub_4B8D40(int* a1, nox_drawable* dr, int a3, uint32_t* a4, int a5, int a6
 			if (*v8) {
 				if (v14) {
 					for (i = 1; i < 7; ++i) {
-						nox_xxx_drawPlayer_4341D0(i, v13);
+						nox_draw_setMaterial_4341D0(i, v13);
 					}
 					v6 = (unsigned char*)dr;
 				} else {
@@ -8319,7 +8187,7 @@ uint32_t* sub_4B8E10(uint32_t* a1, char* a2) {
 			LOBYTE(result) = v9[1];
 			LOBYTE(v6) = *v9;
 			LOBYTE(v5) = *(v9 - 1);
-			sub_4340A0(v8++, v5, v6, (int)result);
+			nox_draw_setMaterial_4340A0(v8++, v5, v6, (int)result);
 			v9 += 3;
 		} while (v8 < 7);
 		v10 = a1;
@@ -8334,7 +8202,7 @@ uint32_t* sub_4B8E10(uint32_t* a1, char* a2) {
 				LOBYTE(v10) = *((uint8_t*)result + 25);
 				v15 = v5;
 				LOBYTE(v5) = *((uint8_t*)result + 24);
-				sub_4340A0(*v12, v5, (int)v10, v15);
+				nox_draw_setMaterial_4340A0(*v12, v5, (int)v10, v15);
 			}
 			++v14;
 			++v12;

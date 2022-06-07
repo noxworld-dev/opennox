@@ -87,14 +87,10 @@ extern uint32_t dword_5d4594_1303452;
 extern uint32_t nox_client_gui_flag_815132;
 extern uint32_t dword_5d4594_1305684;
 extern uint32_t dword_5d4594_1217464;
-extern uint32_t nox_video_modeXxx_3801780;
 extern uint32_t dword_5d4594_810632;
 extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_1217448;
 extern uint32_t nox_player_netCode_85319C;
-extern unsigned char* nox_draw_colors_r_3804672;
-extern unsigned char* nox_draw_colors_g_3804656;
-extern unsigned char* nox_draw_colors_b_3804664;
 extern int nox_win_width;
 extern int nox_win_height;
 extern int nox_backbuffer_width;
@@ -785,7 +781,7 @@ void sub_48D990(nox_draw_viewport_t* a1p) {
 	uint32_t* v4;  // edi
 	char* v5;      // eax
 	char* v6;      // eax
-	int* v7;       // eax
+	int v7;       // eax
 	int v8;        // edi
 	int v9;        // eax
 	int v10;       // eax
@@ -833,10 +829,8 @@ void sub_48D990(nox_draw_viewport_t* a1p) {
 				if (v4) {
 					v6 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)v4 + 4));
 					if (v6) {
-						v7 = (int*)nox_xxx_materialGetTeamColor_418D50((int)v6);
-						if (v7) {
-							v21 = *v7;
-						}
+						v7 = nox_xxx_materialGetTeamColor_418D50((int)v6);
+						v21 = v7;
 					}
 				}
 			}
@@ -6109,7 +6103,7 @@ void sub_49CD30(int xLeft, int yTop, int a3, int a4, int a5, int a6) {
 			if (!nox_draw_curDrawData_3799572->flag_0 ||
 				(noxSetRect(&rc, xLeft, yTop, xLeft + a3, yTop + a4),
 				 nox_xxx_utilRect_49F930((int4*)&rc, (int4*)&rc, (int4*)(&nox_draw_curDrawData_3799572->clip)))) {
-				sub_434040(a5);
+				nox_draw_set54RGB32_434040(a5);
 				sub_434080(a6);
 				nox_client_drawAddPoint_49F500(xLeft, yTop);
 				nox_client_drawAddPoint_49F500(xLeft + a3 - 1, yTop);

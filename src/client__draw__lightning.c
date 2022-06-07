@@ -84,7 +84,7 @@ int nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 	}
 	if (*getMemU32Ptr(0x5D4594, 1316508)) {
 		v23 = getMemByte(0x5D4594, 1316420) + 48;
-		sub_434040(*getMemIntPtr(0x5D4594, 1316440));
+		nox_draw_set54RGB32_434040(*getMemIntPtr(0x5D4594, 1316440));
 		sub_434080(12);
 		v4 = SHIWORD(a1);
 		v5 = (short)a1;
@@ -95,7 +95,7 @@ int nox_xxx_drawLightningStep_4BB070(int a1, int a2) {
 		sub_49E4F0(v23);
 		v23 = 1;
 	} else {
-		sub_434040(*(int*)&dword_5d4594_1316472);
+		nox_draw_set54RGB32_434040(*(int*)&dword_5d4594_1316472);
 		sub_434080(3);
 		v4 = SHIWORD(a1);
 		v5 = (short)a1;

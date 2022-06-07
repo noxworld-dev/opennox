@@ -2,8 +2,6 @@ package opennox
 
 /*
 #include "defs.h"
-extern uint32_t nox_color_white_2523948;
-extern uint32_t nox_color_yellow_2589772;
 */
 import "C"
 import (
@@ -12,8 +10,6 @@ import (
 	"image/color"
 	"strconv"
 	"unsafe"
-
-	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
@@ -24,9 +20,9 @@ func nox_thing_debug_draw(cvp *C.nox_draw_viewport_t, cdr *C.nox_drawable) C.int
 	vp := asViewport(cvp)
 	dr := asDrawable(cdr)
 
-	cl := noxcolor.RGBA5551(memmap.Uint32(0x8531A0, 2572))
+	cl := nox_color_green
 	if uint32(dr.field_72) >= gameFrame() {
-		cl = noxcolor.RGBA5551(C.nox_color_yellow_2589772)
+		cl = nox_color_yellow_2589772
 	}
 	r.Data().SetColor2(cl)
 	r.Data().SetTextColor(color.White)
@@ -102,8 +98,7 @@ func debugDrawShape(r *NoxRender, dr *Drawable, p image.Point, cl color.Color) {
 		y1 := p.Y - int(float32(dr.field_24)-float32(z))
 		y2 := p.Y - int(float32(dr.field_25)-float32(z))
 		if y1 > 0 {
-			cl := noxcolor.RGBA5551(memmap.Uint32(0x85B3FC, 940))
-			r.DrawCircle(p.X, p.Y, rad, cl)
+			r.DrawCircle(p.X, p.Y, rad, nox_color_red)
 		}
 		r.DrawCircle(p.X, y1, rad, cl)
 		r.DrawCircle(p.X, y2, rad, cl)
@@ -130,8 +125,7 @@ func debugDrawShape(r *NoxRender, dr *Drawable, p image.Point, cl color.Color) {
 			Y: p.Y - int(float32(dr.field_25)-float32(z)),
 		}
 		if p1.Y > 0 {
-			cl := noxcolor.RGBA5551(memmap.Uint32(0x85B3FC, 940))
-			drawDebugBox(r, box, p, cl)
+			drawDebugBox(r, box, p, nox_color_red)
 		}
 		drawDebugBox(r, box, p1, cl)
 		drawDebugBox(r, box, p2, cl)

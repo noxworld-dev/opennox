@@ -11,6 +11,7 @@ import "C"
 import (
 	"errors"
 	"image"
+	"image/color"
 
 	"github.com/noxworld-dev/opennox-lib/ifs"
 
@@ -40,7 +41,7 @@ func copyPixBuffer() {
 }
 
 func resetRenderer(sz image.Point, init bool) error {
-	if C.nox_video_renderTargetFlags&4 == 0 && !init {
+	if nox_video_renderTargetFlags&4 == 0 && !init {
 		if err := noxRendererS.Reset(sz); err != nil {
 			return err
 		}
@@ -72,9 +73,16 @@ func gameResetVideoMode(inMenu, force bool) error {
 	if err := recreateBuffersAndTarget(mode); err != nil {
 		return err
 	}
-	C.nox_xxx_loadPal_4A96C0_video_read_palette(internCStr("default.pal"))
+	nox_xxx_loadPal_4A96C0_video_read_palette()
 	C.sub_461520()
 	return nil
+}
+
+func nox_xxx_loadPal_4A96C0_video_read_palette() {
+	nox_xxx_loadDefColor_4A94A0()
+	for i := 0; i < 6; i++ {
+		noxrend.Data().SetMaterial(i, color.White)
+	}
 }
 
 func nox_video_setBackBufSizes_48A3D0(sz image.Point) int {
@@ -84,6 +92,5 @@ func nox_video_setBackBufSizes_48A3D0(sz image.Point) int {
 	*memmap.PtrUint32(0x973F18, 2368) = 1
 
 	*memmap.PtrUint32(0x973F18, 2348) = uint32(sz.X / 2)
-	C.nox_video_modeXxx_3801780 = 1
 	return 1
 }

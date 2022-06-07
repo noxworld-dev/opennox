@@ -246,7 +246,7 @@ func nox_game_rollNoxLogoAndStart_4AB0F0() {
 }
 
 func sub_43C060() bool {
-	C.nox_xxx_loadPal_4A96C0_video_read_palette(internCStr("default.pal"))
+	nox_xxx_loadPal_4A96C0_video_read_palette()
 	C.nox_xxx_wndLoadBorder_4AA1F0()
 	nox_xxx_wndLoadMainBG_4A2210()
 	nox_client_setCursorType(gui.CursorSelect)

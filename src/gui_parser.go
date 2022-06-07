@@ -3,7 +3,6 @@ package opennox
 /*
 #include "client__gui__window.h"
 extern unsigned int nox_client_gui_flag_815132;
-extern uint32_t nox_color_black_2650656;
 */
 import "C"
 import (

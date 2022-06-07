@@ -361,11 +361,6 @@ func nox_color_rgb_4344A0(r, g, b C.int) C.uint32_t {
 	return C.uint32_t(noxcolor.RGB5551Color(byte(r), byte(g), byte(b)).Color32())
 }
 
-//export nox_color_rgb_func
-func nox_color_rgb_func(r, g, b C.uint8_t, p *C.uint32_t) {
-	*p = C.uint32_t(noxcolor.RGB5551Color(byte(r), byte(g), byte(b)).Color32())
-}
-
 //export nox_set_color_rgb_434430
 func nox_set_color_rgb_434430(r, g, b C.int) {
 	noxrend.Data().SetColor2(noxcolor.RGB5551Color(byte(r), byte(g), byte(b)))

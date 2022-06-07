@@ -13,6 +13,9 @@ import (
 	"math"
 	"unsafe"
 
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
+
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 )
@@ -187,20 +190,21 @@ func (p *Particle) DrawAt(pos image.Point) {
 
 //export sub_4B6720
 func sub_4B6720(a1 *C.int2, a2, a3 C.int, a4 C.char) {
-	noxrend.DrawGlow(asPoint(unsafe.Pointer(a1)), uint32(a2), int(a3), int(a4))
+	noxrend.DrawGlow(asPoint(unsafe.Pointer(a1)), noxcolor.RGBA5551(a2), int(a3), int(a4))
 }
 
-func (r *NoxRender) DrawGlow(pos image.Point, cl uint32, a3 int, a4 int) { // sub_4B6720
+func (r *NoxRender) DrawGlow(pos image.Point, cl color.Color, a3 int, a4 int) { // sub_4B6720
 	if !r.shouldDrawGlow() {
 		return
 	}
-	C.sub_434040(C.int(cl))
+	c := noxrender.SplitColor(noxcolor.ToRGBA5551Color(cl))
+	r.Data().setColorInt54(ColorInt{R: int(c.R), G: int(c.G), B: int(c.B)})
 	r.Data().setField262(a3 + 4)
 	p := r.newParticle(0, int(32*byte(a4)))
 	p.DrawAt(pos)
 }
 
-func (r *NoxRender) drawProtectEffectDefault(vp *Viewport, pos image.Point, dr *Drawable, phase, eff int, cl1 uint32, cl2 color.Color, back bool) { // nox_client_drawXxxProtect_474BE0
+func (r *NoxRender) drawProtectEffectDefault(vp *Viewport, pos image.Point, dr *Drawable, phase, eff int, cl1, cl2 color.Color, back bool) { // nox_client_drawXxxProtect_474BE0
 	opts := ProtectEffect{
 		Cnt:       2,
 		Height:    20,
@@ -230,7 +234,7 @@ type ProtectEffect struct {
 	Angle     int
 	Phase     int
 	TailLeng  int
-	GlowColor uint32
+	GlowColor color.Color
 	TailColor color.Color
 }
 
@@ -287,7 +291,7 @@ func (r *NoxRender) drawProtectEffect(vp *Viewport, pos image.Point, dr *Drawabl
 	}
 }
 
-func (r *NoxRender) drawProtectParticle(vp *Viewport, part, tail image.Point, partCl uint32, tailCl color.Color) { // nox_client_drawXxxProtectParticle_474DD0
+func (r *NoxRender) drawProtectParticle(vp *Viewport, part, tail image.Point, partCl, tailCl color.Color) { // nox_client_drawXxxProtectParticle_474DD0
 	part = vp.toScreenPos(part)
 	tail = vp.toScreenPos(tail)
 

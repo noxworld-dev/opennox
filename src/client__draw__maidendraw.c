@@ -19,7 +19,7 @@ int nox_thing_maiden_draw(uint32_t* a1, nox_drawable* dr) {
 		int v12;
 		do {
 			v12 = v10 + 1;
-			nox_xxx_drawPlayer_4341D0(v10 + 1, *v11);
+			nox_draw_setMaterial_4341D0(v10 + 1, *v11);
 			v10 = v12;
 			++v11;
 		} while (v12 < 6);
@@ -49,7 +49,7 @@ int nox_thing_maiden_draw(uint32_t* a1, nox_drawable* dr) {
 		LOBYTE(v5) = *(v7 - 1);
 		v8 = v6 + 1;
 		LOBYTE(v6) = *v7;
-		sub_4340A0(v8, v5, v6, v3);
+		nox_draw_setMaterial_4340A0(v8, v5, v6, v3);
 		v6 = v8;
 		v7 += 3;
 	} while (v8 < 6);

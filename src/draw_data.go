@@ -113,7 +113,7 @@ func (p *RenderData) setColorInt44(c ColorInt) {
 	p.field_46 = C.uint(c.B)
 }
 
-func (p *RenderData) setColorInt54(c ColorInt) { // nox_xxx_drawMakeRGB_433F10
+func (p *RenderData) setColorInt54(c ColorInt) { // nox_draw_set54RGB_433F10
 	p.field_54 = C.uint(c.R)
 	p.field_55 = C.uint(c.G)
 	p.field_56 = C.uint(c.B)
@@ -165,15 +165,56 @@ func (p *RenderData) GetLightColor() ColorInt {
 	}
 }
 
-func (p *RenderData) field66(ind int) []uint32 {
-	const (
-		size = 12
-		max  = 16
-	)
-	type item [size]uint32
-	arr := unsafe.Slice((*item)(unsafe.Pointer(&p.field_66)), max)
-	v := arr[ind][:]
-	return v
+var _ = [1]struct{}{}[48-unsafe.Sizeof(renderMat{})]
+
+type renderMat struct {
+	field0  uint32 // 0, 0
+	field1  uint32 // 1, 4
+	field2  uint32 // 2, 8
+	field3  uint32 // 3, 12
+	field4  uint32 // 4, 16
+	field5  uint32 // 5, 20
+	R       uint32 // 6, 24
+	G       uint32 // 7, 28
+	B       uint32 // 8, 32
+	field9  uint32 // 9, 36
+	Color32 uint32 // 10, 40
+	field11 uint32 // 11, 44
+}
+
+func (p *RenderData) material(ind int) *renderMat {
+	return (*renderMat)(unsafe.Pointer(&p.materials[ind]))
+}
+
+func (p *RenderData) SetMaterialRGB(ind int, r, g, b int) {
+	if ind < 0 || ind >= 16 {
+		return
+	}
+	r = r & 0xFF
+	g = g & 0xFF
+	b = b & 0xFF
+	m := p.material(ind)
+	m.R = uint32(r)
+	m.G = uint32(g)
+	m.B = uint32(b)
+	m.Color32 = noxcolor.RGB5551Color(byte(r), byte(g), byte(b)).Color32()
+}
+
+func (p *RenderData) SetMaterial(ind int, cl color.Color) {
+	if ind < 0 || ind >= 16 {
+		return
+	}
+	cl16 := noxcolor.ToRGBA5551Color(cl)
+	m := p.material(ind)
+	cl32 := cl16.Color32()
+	if cl16.Color32() == m.Color32 {
+		return
+	}
+	m.Color32 = cl32
+	c := cl16.ColorNRGBA()
+	m.R = uint32(c.R)
+	m.G = uint32(c.G)
+	m.B = uint32(c.B)
 }
 
 func (p *RenderData) ColorMultA() noxrender.Color16 {
@@ -184,12 +225,18 @@ func (p *RenderData) ColorMultA() noxrender.Color16 {
 	}
 }
 
+func (p *RenderData) SetColorMultA(c noxrender.Color16) {
+	p.field_24 = C.uint(c.R)
+	p.field_25 = C.uint(c.G)
+	p.field_26 = C.uint(c.B)
+}
+
 func (p *RenderData) ColorMultOp(op int) noxrender.Color16 {
-	arr := p.field66(op)
+	m := p.material(op)
 	return noxrender.Color16{
-		R: uint16(arr[6]),
-		G: uint16(arr[7]),
-		B: uint16(arr[8]),
+		R: uint16(m.R),
+		G: uint16(m.G),
+		B: uint16(m.B),
 	}
 }
 

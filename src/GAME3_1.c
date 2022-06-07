@@ -214,7 +214,7 @@ uint32_t* sub_4B95D0(nox_drawable* dr) {
 			LOBYTE(v3) = v6[1];
 			LOBYTE(v2) = *v6;
 			LOBYTE(result) = *(v6 - 1);
-			sub_4340A0(v5++, (int)result, v2, v3);
+			nox_draw_setMaterial_4340A0(v5++, (int)result, v2, v3);
 			v6 += 3;
 		} while (v5 < 7);
 		v7 = v4 + 9;
@@ -226,7 +226,7 @@ uint32_t* sub_4B95D0(nox_drawable* dr) {
 				LOBYTE(v3) = *((uint8_t*)result + 26);
 				LOBYTE(v2) = *((uint8_t*)result + 25);
 				LOBYTE(result) = *((uint8_t*)result + 24);
-				sub_4340A0(*v7, (int)result, v2, v3);
+				nox_draw_setMaterial_4340A0(*v7, (int)result, v2, v3);
 			}
 			++v8;
 			++v7;
@@ -254,7 +254,7 @@ uint32_t* sub_4B9650(int a1) {
 			LOBYTE(v3) = v5[1];
 			LOBYTE(v2) = *v5;
 			LOBYTE(result) = *(v5 - 1);
-			sub_4340A0(v4++, (int)result, v2, v3);
+			nox_draw_setMaterial_4340A0(v4++, (int)result, v2, v3);
 			v5 += 3;
 		} while (v4 < 7);
 	}
@@ -286,7 +286,7 @@ uint32_t* sub_4B96F0(nox_drawable* dr) {
 			LOBYTE(v3) = v6[1];
 			LOBYTE(v2) = *v6;
 			LOBYTE(result) = *(v6 - 1);
-			sub_4340A0(v5++, (int)result, v2, v3);
+			nox_draw_setMaterial_4340A0(v5++, (int)result, v2, v3);
 			v6 += 3;
 		} while (v5 < 7);
 		v7 = v4 + 9;
@@ -298,7 +298,7 @@ uint32_t* sub_4B96F0(nox_drawable* dr) {
 				LOBYTE(v3) = *((uint8_t*)result + 26);
 				LOBYTE(v2) = *((uint8_t*)result + 25);
 				LOBYTE(result) = *((uint8_t*)result + 24);
-				sub_4340A0(*v7, (int)result, v2, v3);
+				nox_draw_setMaterial_4340A0(*v7, (int)result, v2, v3);
 			}
 			++v8;
 			++v7;
@@ -1586,7 +1586,7 @@ void sub_4BEAD0(int2* a1, int2* a2, int2* a3, int2* a4, int a5, int a6) {
 			if (*getMemU32Ptr(0x5D4594, 1316988)) {
 				nox_client_drawAddPoint_49F500(v13, v41);
 				nox_client_drawAddPoint_49F500(v27, v28);
-				sub_434040(*getMemIntPtr(0x5D4594, 1316984));
+				nox_draw_set54RGB32_434040(*getMemIntPtr(0x5D4594, 1316984));
 				sub_434080(*getMemIntPtr(0x5D4594, 1316992));
 				v32 = getMemByte(0x5D4594, 1316996);
 				sub_49E4F0(v32);
@@ -1735,12 +1735,12 @@ short sub_4BF7E0(uint32_t* a1) {
 	if (*getMemU32Ptr(0x852978, 8)) {
 		v4 = *getMemU32Ptr(0x8531A0, 2576);
 		if (*getMemU32Ptr(0x8531A0, 2576)) {
-			nox_xxx_drawPlayer_4341D0(1, *(uint32_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2296));
-			nox_xxx_drawPlayer_4341D0(2, *(uint32_t*)(v4 + 2304));
-			nox_xxx_drawPlayer_4341D0(3, *(uint32_t*)(v4 + 2312));
-			nox_xxx_drawPlayer_4341D0(4, *(uint32_t*)(v4 + 2308));
-			nox_xxx_drawPlayer_4341D0(5, *(uint32_t*)(v4 + 2300));
-			nox_xxx_drawPlayer_4341D0(6, *(uint32_t*)(v4 + 2292));
+			nox_draw_setMaterial_4341D0(1, *(uint32_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2296));
+			nox_draw_setMaterial_4341D0(2, *(uint32_t*)(v4 + 2304));
+			nox_draw_setMaterial_4341D0(3, *(uint32_t*)(v4 + 2312));
+			nox_draw_setMaterial_4341D0(4, *(uint32_t*)(v4 + 2308));
+			nox_draw_setMaterial_4341D0(5, *(uint32_t*)(v4 + 2300));
+			nox_draw_setMaterial_4341D0(6, *(uint32_t*)(v4 + 2292));
 			if (*(uint32_t*)(v4 + 2292) == *(uint32_t*)(v4 + 2296)) {
 				nox_client_drawImageAt_47D2C0(*getMemU32Ptr(0x973A20, 24 + 4 * *(unsigned char*)(v4 + 2252)), v2, v1);
 			} else {
@@ -1815,7 +1815,7 @@ short sub_4BF9F0(int a1, int a2, int a3, int a4, int a5, int a6, int a7) {
 				LOBYTE(v9) = v15[1];
 				LOBYTE(v11) = *v15;
 				LOBYTE(v10) = *(v15 - 1);
-				sub_4340A0(v14++, v10, v11, (int)v9);
+				nox_draw_setMaterial_4340A0(v14++, v10, v11, (int)v9);
 				v15 += 3;
 			} while (v14 < 7);
 			v16 = v12 + 9;
@@ -1827,7 +1827,7 @@ short sub_4BF9F0(int a1, int a2, int a3, int a4, int a5, int a6, int a7) {
 					LOBYTE(v11) = v19[26];
 					LOBYTE(v10) = v19[25];
 					LOBYTE(v19) = v19[24];
-					sub_4340A0(*v16, (int)v19, v10, v11);
+					nox_draw_setMaterial_4340A0(*v16, (int)v19, v10, v11);
 				}
 				++v17;
 				++v16;

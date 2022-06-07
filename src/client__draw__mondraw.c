@@ -112,7 +112,7 @@ int nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 	int v15;   // eax
 	int v16;   // ebp
 	char* v17; // ebx
-	int* v18;  // ebx
+	int v18;  // ebx
 	int v19;   // ebp
 	int v20;   // edi
 	int v21;   // [esp+Ch] [ebp-Ch]
@@ -200,13 +200,11 @@ LABEL_24:
 			if ((!nox_common_gameFlags_check_40A5C0(4096) || !(*(uint8_t*)(v2 + 112) & 2) ||
 				 !(*(uint8_t*)(v2 + 116) & 8)) &&
 				v16) {
-				v18 = (int*)nox_xxx_materialGetTeamColor_418D50((int)v17);
+				v18 = nox_xxx_materialGetTeamColor_418D50((int)v17);
+				nox_client_drawSetColor_434460(v18);
 				v19 = *v12 + *(uint32_t*)(v2 + 12) - v12[4];
 				v20 = *(uint32_t*)(v2 + 16) + v12[1] - *(short*)(v2 + 104) - a1[5] -
 					  2 * nox_float2int(*(float*)(v2 + 100));
-				if (v18) {
-					nox_client_drawSetColor_434460(*v18);
-				}
 				nox_client_drawPoint_4B0BC0(v19, v20, 3);
 			}
 		}

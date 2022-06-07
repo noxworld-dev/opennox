@@ -35,7 +35,6 @@ extern unsigned int dword_5d4594_816340;
 extern unsigned int dword_5d4594_816348;
 extern unsigned int dword_5d4594_805988;
 extern int nox_video_bag_var_2650640;
-extern uint32_t nox_color_black_2650656;
 
 extern nox_gui_animation* nox_wnd_xxx_1309740;
 */

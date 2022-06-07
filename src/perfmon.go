@@ -11,8 +11,6 @@ package opennox
 
 extern uint32_t nox_perfmon_ping_2614264;
 extern uint32_t nox_perfmon_latePackets_2618900;
-extern uint32_t nox_color_white_2523948;
-extern uint32_t nox_color_black_2650656;
 */
 import "C"
 import (

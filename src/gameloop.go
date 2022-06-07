@@ -47,7 +47,6 @@ extern uint32_t dword_5d4594_1090120;
 extern nox_window* dword_5d4594_1090048;
 extern nox_window* dword_5d4594_1090100;
 extern void* dword_5d4594_1307292;
-extern uint32_t nox_color_black_2650656;
 extern unsigned int dword_5d4594_251744;
 extern unsigned int dword_5d4594_825764;
 

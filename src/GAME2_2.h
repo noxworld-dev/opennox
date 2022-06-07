@@ -183,6 +183,5 @@ int sub_489FB0();
 int sub_489FF0(int a1, int a2, const void* a3);
 int nox_xxx_setSomeFunc_48A210(int a1);
 int sub_48B3E0(int a1);
-void sub_48BD90(int a1);
 
 #endif // NOX_PORT_GAME2_2

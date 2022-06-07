@@ -5,21 +5,14 @@ package opennox
 #include "GAME1_1.h"
 #include "GAME2.h"
 #include "client__gui__servopts__guiserv.h"
-extern uint32_t nox_color_white_2523948;
-extern uint32_t nox_color_red_2589776;
-extern uint32_t nox_color_blue_2650684;
-extern uint32_t nox_color_green_2614268;
-extern uint32_t nox_color_cyan_2649820;
-extern uint32_t nox_color_yellow_2589772;
-extern uint32_t nox_color_violet_2598268;
-extern uint32_t nox_color_black_2650656;
-extern uint32_t nox_color_orange_2614256;
 extern unsigned int nox_player_netCode_85319C;
 */
 import "C"
 import (
+	"image/color"
 	"unsafe"
 
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
@@ -61,8 +54,9 @@ func nox_xxx_teamCreate_4186D0(a1 C.char) *nox_team_t {
 }
 
 //export nox_xxx_materialGetTeamColor_418D50
-func nox_xxx_materialGetTeamColor_418D50(t *nox_team_t) *C.uint {
-	return noxServer.getTeamColor(asTeam(t))
+func nox_xxx_materialGetTeamColor_418D50(t *nox_team_t) C.uint {
+	c := noxServer.getTeamColor(asTeam(t))
+	return C.uint(noxcolor.ToRGBA5551Color(c).Color32())
 }
 
 //export nox_xxx_getTeamCounter_417DD0
@@ -100,7 +94,7 @@ func nox_xxx_servCompareTeams_419150(p1, p2 *objectTeam) bool {
 type TeamDef struct {
 	Name  strman.ID
 	Title string
-	Color *C.uint
+	Color color.Color
 }
 
 type nox_team_t = C.nox_team_t
@@ -167,16 +161,16 @@ type serverTeams struct {
 
 func (s *Server) allocTeams() {
 	s.teams.defs = map[TeamColor]*TeamDef{
-		0: {Name: "advserv.wnd:None", Color: &C.nox_color_white_2523948},
-		1: {Name: "modifier.db:MaterialTeamRedDesc", Color: &C.nox_color_red_2589776},
-		2: {Name: "modifier.db:MaterialTeamBlueDesc", Color: &C.nox_color_blue_2650684},
-		3: {Name: "modifier.db:MaterialTeamGreenDesc", Color: &C.nox_color_green_2614268},
-		4: {Name: "modifier.db:MaterialTeamCyanDesc", Color: &C.nox_color_cyan_2649820},
-		5: {Name: "modifier.db:MaterialTeamYellowDesc", Color: &C.nox_color_yellow_2589772},
-		6: {Name: "modifier.db:MaterialTeamVioletDesc", Color: &C.nox_color_violet_2598268},
-		7: {Name: "modifier.db:MaterialTeamBlackDesc", Color: &C.nox_color_black_2650656},
-		8: {Name: "modifier.db:MaterialTeamWhiteDesc", Color: &C.nox_color_white_2523948},
-		9: {Name: "modifier.db:MaterialTeamOrangeDesc", Color: &C.nox_color_orange_2614256},
+		0: {Name: "advserv.wnd:None", Color: nox_color_white_2523948},
+		1: {Name: "modifier.db:MaterialTeamRedDesc", Color: nox_color_red_2589776},
+		2: {Name: "modifier.db:MaterialTeamBlueDesc", Color: nox_color_blue_2650684},
+		3: {Name: "modifier.db:MaterialTeamGreenDesc", Color: nox_color_green_2614268},
+		4: {Name: "modifier.db:MaterialTeamCyanDesc", Color: nox_color_cyan_2649820},
+		5: {Name: "modifier.db:MaterialTeamYellowDesc", Color: nox_color_yellow_2589772},
+		6: {Name: "modifier.db:MaterialTeamVioletDesc", Color: nox_color_violet_2598268},
+		7: {Name: "modifier.db:MaterialTeamBlackDesc", Color: nox_color_black_2650656},
+		8: {Name: "modifier.db:MaterialTeamWhiteDesc", Color: nox_color_white_2523948},
+		9: {Name: "modifier.db:MaterialTeamOrangeDesc", Color: nox_color_orange_2614256},
 	}
 	s.teamsReloadTitles()
 	const teamsMax = 17
@@ -346,7 +340,7 @@ func (s *Server) teamTitle(c TeamColor) string {
 	return s.Strings().GetStringInFile("NoTeam", "C:\\NoxPost\\src\\common\\System\\team.c")
 }
 
-func (s *Server) getTeamColor(t2 *Team) *C.uint {
+func (s *Server) getTeamColor(t2 *Team) color.Color {
 	if t2 == nil {
 		return nil
 	}

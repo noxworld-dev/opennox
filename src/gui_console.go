@@ -3,8 +3,6 @@ package opennox
 /*
 #include "client__gui__window.h"
 #include "client__gui__guicon.h"
-extern uint32_t nox_color_black_2650656;
-extern uint32_t nox_color_white_2523948;
 extern int dword_5d4594_3799524;
 void nox_xxx_consoleEsc_49B7A0();
 unsigned int nox_gui_xxx_check_446360();
@@ -17,8 +15,6 @@ import (
 	"image/color"
 
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
-	noxcolor "github.com/noxworld-dev/opennox-lib/color"
-
 	"github.com/noxworld-dev/opennox-lib/console"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
@@ -120,7 +116,6 @@ func (c *guiConsole) Clear() {
 }
 
 func (c *guiConsole) Init(sz image.Point) *Window {
-	v0 := noxcolor.RGBA5551(memmap.Uint32(0x85B3FC, 956))
 	*memmap.PtrInt32(0x5D4594, 833704) = int32(sz.X) - 1
 	*memmap.PtrInt32(0x5D4594, 833708) = int32(sz.Y) / 2
 	c.root = newWindowRaw(nil, 0x38, 0, 0, sz.X-1, sz.Y/2, nil)
@@ -143,7 +138,7 @@ func (c *guiConsole) Init(sz image.Point) *Window {
 		}
 		return 1
 	}, nil)
-	c.root.DrawData().SetBackgroundColor(noxcolor.RGBA5551(C.nox_color_black_2650656))
+	c.root.DrawData().SetBackgroundColor(color.Black)
 
 	drawData, freeDraw := newWindowData()
 	defer freeDraw()
@@ -152,8 +147,8 @@ func (c *guiConsole) Init(sz image.Point) *Window {
 	drawData.SetSelectedColor(color.Transparent)
 	drawData.SetBackgroundImage(nil)
 	drawData.SetDisabledImage(nil)
-	drawData.SetEnabledColor(v0)
-	drawData.SetTextColor(v0)
+	drawData.SetEnabledColor(nox_color_gray2)
+	drawData.SetTextColor(nox_color_gray2)
 	drawData.SetText(version.ClientVersion())
 
 	drawData.SetStyleFlags(gui.StyleScrollListBox)
@@ -167,11 +162,11 @@ func (c *guiConsole) Init(sz image.Point) *Window {
 	scrollData.field_3 = 1
 	scrollData.field_4 = 0
 	c.scrollbox = nox_gui_newScrollListBox_4A4310(c.root, 1152, 0, 0, int(memmap.Int32(0x5D4594, 833704)), int(memmap.Int32(0x5D4594, 833708))-20, drawData, scrollData)
-	drawData.SetDisabledColor(v0)
-	drawData.SetEnabledColor(v0)
-	drawData.SetHighlightColor(v0)
-	drawData.SetSelectedColor(v0)
-	drawData.SetTextColor(v0)
+	drawData.SetDisabledColor(nox_color_gray2)
+	drawData.SetEnabledColor(nox_color_gray2)
+	drawData.SetHighlightColor(nox_color_gray2)
+	drawData.SetSelectedColor(nox_color_gray2)
+	drawData.SetTextColor(nox_color_gray2)
 
 	inpData, freeInp := alloc.New(entryFieldData{})
 	defer freeInp()
@@ -210,9 +205,9 @@ func (c *guiConsole) Hide() bool {
 }
 
 func (c *guiConsole) ReloadColors() {
-	cl := noxcolor.RGBA5551(memmap.Uint32(0x85B3FC, 956))
-	black := noxcolor.RGBA5551(C.nox_color_black_2650656)
-	white := noxcolor.RGBA5551(C.nox_color_white_2523948)
+	gray := nox_color_gray2
+	black := nox_color_black_2650656
+	white := nox_color_white_2523948
 	if c.root != nil {
 		c.root.DrawData().SetBackgroundColor(black)
 	}
@@ -220,24 +215,24 @@ func (c *guiConsole) ReloadColors() {
 		dd := c.scrollbox.DrawData()
 		dd.SetBackgroundColor(color.Transparent)
 		dd.SetDisabledColor(color.Transparent)
-		dd.SetEnabledColor(cl)
-		dd.SetHighlightColor(cl)
+		dd.SetEnabledColor(gray)
+		dd.SetHighlightColor(gray)
 		dd.SetSelectedColor(color.Transparent)
-		dd.SetTextColor(cl)
+		dd.SetTextColor(gray)
 
 		scr := (*scrollListBoxData)(c.scrollbox.widget_data)
 		if v2 := asWindowP(scr.field_9); v2 != nil {
 			dd2 := v2.DrawData()
 			dd2.SetBackgroundColor(black)
 			dd2.SetDisabledColor(black)
-			dd2.SetEnabledColor(cl)
+			dd2.SetEnabledColor(gray)
 			dd2.SetHighlightColor(black)
-			dd2.SetSelectedColor(cl)
+			dd2.SetSelectedColor(gray)
 			if v3 := v2.Field100(); v3 != nil {
 				dd3 := v3.DrawData()
 				dd3.SetBackgroundColor(black)
 				dd3.SetDisabledColor(black)
-				dd3.SetEnabledColor(cl)
+				dd3.SetEnabledColor(gray)
 				dd3.SetHighlightColor(black)
 				dd3.SetSelectedColor(black)
 			}
@@ -246,29 +241,29 @@ func (c *guiConsole) ReloadColors() {
 			dd4 := v4.DrawData()
 			dd4.SetBackgroundColor(black)
 			dd4.SetDisabledColor(black)
-			dd4.SetEnabledColor(cl)
+			dd4.SetEnabledColor(gray)
 			dd4.SetHighlightColor(white)
-			dd4.SetSelectedColor(cl)
-			dd4.SetTextColor(cl)
+			dd4.SetSelectedColor(gray)
+			dd4.SetTextColor(gray)
 		}
 		if v5 := asWindowP(scr.field_8); v5 != nil {
 			dd5 := v5.DrawData()
 			dd5.SetBackgroundColor(black)
 			dd5.SetDisabledColor(black)
-			dd5.SetEnabledColor(cl)
+			dd5.SetEnabledColor(gray)
 			dd5.SetHighlightColor(white)
-			dd5.SetSelectedColor(cl)
-			dd5.SetTextColor(cl)
+			dd5.SetSelectedColor(gray)
+			dd5.SetTextColor(gray)
 		}
 	}
 	if c.input != nil {
 		dd := c.input.DrawData()
 		dd.SetBackgroundColor(black)
-		dd.SetDisabledColor(cl)
-		dd.SetEnabledColor(cl)
-		dd.SetHighlightColor(cl)
-		dd.SetSelectedColor(cl)
-		dd.SetTextColor(cl)
+		dd.SetDisabledColor(gray)
+		dd.SetEnabledColor(gray)
+		dd.SetHighlightColor(gray)
+		dd.SetSelectedColor(gray)
+		dd.SetTextColor(gray)
 	}
 }
 

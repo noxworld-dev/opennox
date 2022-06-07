@@ -153,7 +153,6 @@ extern uint32_t dword_5d4594_815000;
 extern uint32_t dword_5d4594_741676;
 extern uint32_t dword_5d4594_3798840;
 extern uint32_t nox_video_pixmode_3799624;
-extern uint32_t nox_video_modeXxx_3801780;
 extern uint32_t dword_5d4594_810632;
 extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t nox_wol_wnd_gameList_815012;
@@ -3794,11 +3793,6 @@ int sub_434620(int a1) {
 	result = a1;
 	dword_5d4594_810632 = a1;
 	return result;
-}
-
-//----- (00434F00) --------------------------------------------------------
-int sub_434F00() {
-	return 1;
 }
 
 //----- (00435040) --------------------------------------------------------

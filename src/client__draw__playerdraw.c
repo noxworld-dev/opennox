@@ -21,11 +21,6 @@ extern int nox_win_height;
 extern uint32_t dword_5d4594_1313792;
 extern uint32_t dword_5d4594_1313796;
 extern uint32_t dword_5d4594_1313800;
-extern uint32_t dword_5d4594_3798672;
-extern uint32_t dword_5d4594_3798676;
-extern uint32_t dword_5d4594_3798680;
-extern uint32_t dword_5d4594_3798684;
-extern uint32_t dword_5d4594_3798688;
 extern uint32_t nox_player_netCode_85319C;
 extern unsigned int nox_frame_xxx_2598000;
 
@@ -50,17 +45,15 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	unsigned char v9; // al
 	int* v10;         // ebp
 	uint32_t* v11;    // eax
-	int v12;          // edi
 	int v13;          // eax
 	int v14;          // ecx
 	uint32_t* v15;    // edx
-	int v16;          // eax
 	int* v17;         // edi
 	int v18;          // eax
 	char v20;         // al
 	short* v21;       // edi
 	int v22;          // esi
-	int* v23;         // eax
+	int v23;         // eax
 	int v24;          // eax
 	int v25;          // eax
 	int v26;          // [esp-4h] [ebp-6Ch]
@@ -70,7 +63,6 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	int v30;          // [esp+1Ch] [ebp-4Ch]
 	int v31;          // [esp+20h] [ebp-48h]
 	char* v32;        // [esp+24h] [ebp-44h]
-	int v33;          // [esp+28h] [ebp-40h]
 	int v34;          // [esp+2Ch] [ebp-3Ch]
 	int v35;          // [esp+30h] [ebp-38h]
 	int v36[13];      // [esp+34h] [ebp-34h]
@@ -113,7 +105,6 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	v9 = nox_xxx_getTeamCounter_417DD0();
 	v10 = (int*)a1;
 	v35 = v9 != 0;
-	v12 = 0;
 	if ((v3[4] & 1)) {
 		v36[2] = nox_win_width;
 		v36[8] = nox_win_width;
@@ -141,61 +132,55 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 			(*(void (**)(int*, uint32_t))(dword_5d4594_1313792 + 300))(v36, dword_5d4594_1313792);
 		}
 	}
-	if (!nox_xxx_spriteCheckFlag31_4356C0(dr, 23)) {
-		if (nox_xxx_spriteCheckFlag31_4356C0(dr, 25)) {
-			*getMemU32Ptr(0x973A20, 512) = nox_color_blue_2650684;
-			dword_5d4594_3798672 = nox_color_blue_2650684;
-			dword_5d4594_3798676 = nox_color_blue_2650684;
-			dword_5d4594_3798680 = nox_color_blue_2650684;
-			dword_5d4594_3798684 = nox_color_blue_2650684;
-			dword_5d4594_3798688 = nox_color_blue_2650684;
+	uint32_t colors[6];
+	colors[0] = 0;
+	colors[1] = 0;
+	colors[2] = 0;
+	colors[3] = 0;
+	colors[4] = 0;
+	colors[5] = 0;
+	if (nox_xxx_spriteCheckFlag31_4356C0(dr, 23)) { // ENCHANT_INVULNERABLE
+		if (!((unsigned char)nox_frame_xxx_2598000 & 1)) {
+			for (int i = 0; i < 6; i++) {
+				colors[i] = nox_color_blue_2650684;
+			}
 		} else {
-			*getMemU32Ptr(0x973A20, 512) = *((uint32_t*)v3 + 574);
-			dword_5d4594_3798672 = *((uint32_t*)v3 + 576);
-			dword_5d4594_3798676 = *((uint32_t*)v3 + 578);
-			dword_5d4594_3798680 = *((uint32_t*)v3 + 577);
-			dword_5d4594_3798684 = *((uint32_t*)v3 + 575);
-			dword_5d4594_3798688 = *((uint32_t*)v3 + 573);
-			v16 = *((uint32_t*)v3 + 920);
-			if (v16 & 0x400) {
-				v17 = getMemIntPtr(0x973A20, 512);
-				do {
-					int a2 = 0;
-					sub_435280(*v17, (int)&v33, &a2, (int)&a1);
-					if ((unsigned char)a2 >= 0x9Bu) {
-						LOBYTE(a2) = -1;
-					} else {
-						LOBYTE(a2) = a2 + 100;
-					}
-					*v17 = nox_color_rgb_4344A0(v33, a2, a1);
-					++v17;
-				} while ((int)v17 < (int)getMemAt(0x973A20, 536));
-				v12 = 0;
+			for (int i = 0; i < 6; i++) {
+				colors[i] = nox_color_white_2523948;
 			}
 		}
+	} else if (nox_xxx_spriteCheckFlag31_4356C0(dr, 25)) { // ENCHANT_FREEZE
+		for (int i = 0; i < 6; i++) {
+			colors[i] = nox_color_blue_2650684;
+		}
 	} else {
-		if (!((unsigned char)nox_frame_xxx_2598000 & 1)) {
-			*getMemU32Ptr(0x973A20, 512) = nox_color_blue_2650684;
-			dword_5d4594_3798672 = nox_color_blue_2650684;
-			dword_5d4594_3798676 = nox_color_blue_2650684;
-			dword_5d4594_3798680 = nox_color_blue_2650684;
-			dword_5d4594_3798684 = nox_color_blue_2650684;
-			dword_5d4594_3798688 = nox_color_blue_2650684;
-		} else {
-			*getMemU32Ptr(0x973A20, 512) = nox_color_white_2523948;
-			dword_5d4594_3798672 = nox_color_white_2523948;
-			dword_5d4594_3798676 = nox_color_white_2523948;
-			dword_5d4594_3798680 = nox_color_white_2523948;
-			dword_5d4594_3798684 = nox_color_white_2523948;
-			dword_5d4594_3798688 = nox_color_white_2523948;
+		colors[0] = *((uint32_t*)v3 + 574);
+		colors[1] = *((uint32_t*)v3 + 576);
+		colors[2] = *((uint32_t*)v3 + 578);
+		colors[3] = *((uint32_t*)v3 + 577);
+		colors[4] = *((uint32_t*)v3 + 575);
+		colors[5] = *((uint32_t*)v3 + 573);
+		if (*((uint32_t*)v3 + 920) & 0x400) {
+			for (int i = 0; i < 6; i++) {
+				int r = 0;
+				int g = 0;
+				int b = 0;
+				nox_draw_splitColor_435280(colors[i], &r, &g, &b);
+				if (g >= 155) {
+					g = 255;
+				} else {
+					g += 100;
+				}
+				colors[i] = nox_color_rgb_4344A0(r, g, b);
+			}
 		}
 	}
-	nox_xxx_drawPlayer_4341D0(1, *getMemIntPtr(0x973A20, 512));
-	nox_xxx_drawPlayer_4341D0(2, *(int*)&dword_5d4594_3798672);
-	nox_xxx_drawPlayer_4341D0(3, *(int*)&dword_5d4594_3798676);
-	nox_xxx_drawPlayer_4341D0(4, *(int*)&dword_5d4594_3798680);
-	nox_xxx_drawPlayer_4341D0(5, *(int*)&dword_5d4594_3798684);
-	nox_xxx_drawPlayer_4341D0(6, *(int*)&dword_5d4594_3798688);
+	nox_draw_setMaterial_4341D0(1, colors[0]);
+	nox_draw_setMaterial_4341D0(2, colors[1]);
+	nox_draw_setMaterial_4341D0(3, colors[2]);
+	nox_draw_setMaterial_4341D0(4, colors[3]);
+	nox_draw_setMaterial_4341D0(5, colors[4]);
+	nox_draw_setMaterial_4341D0(6, colors[5]);
 	v18 = sub_4B8FA0(dr, &v28, &v27);
 	if (!v18) {
 		return 0;
@@ -238,15 +223,12 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 			nox_xxx_drawSetTextColor_434390(a1);
 			if (v35) {
 				if (v29) {
-					v23 = (int*)nox_xxx_materialGetTeamColor_418D50((int)v29);
-					if (v23) {
-						nox_xxx_drawSetTextColor_434390(*v23);
-					}
+					v23 = nox_xxx_materialGetTeamColor_418D50((int)v29);
+					nox_xxx_drawSetTextColor_434390(v23);
 				}
 			}
 			nox_xxx_drawString_43F6E0(0, v21, v22, a2);
 			v3 = v32;
-			v12 = 0;
 		}
 		if (nox_xxx_spriteCheckFlag31_4356C0(dr, 16)) {
 			v36[2] = nox_win_width;
@@ -284,9 +266,10 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 			*(uint32_t*)(dword_5d4594_1313800 + 16) = v10[1] - v10[5] + dr->pos.y - 50;
 			(*(void (**)(int*, uint32_t))(dword_5d4594_1313800 + 300))(v36, dword_5d4594_1313800);
 		}
-		do {
-			nox_xxx_drawPlayer_4341D0(v12++, nox_color_white_2523948);
-		} while (v12 < 6);
+		for (int i = 0; i < 6; i++) {
+			// TODO: shouldn't it be i+1 ?
+			nox_draw_setMaterial_4341D0(i, nox_color_white_2523948);
+		}
 		if (dr != *getMemU32Ptr(0x852978, 8) && nox_xxx_playerGet_470A90()) {
 			if (nox_common_gameFlags_check_40A5C0(4096)) {
 				nox_xxx_drawOtherPlayerHP_4B8EB0(v10, dr, (unsigned char)v3[2282], (*((uint32_t*)v3 + 920) >> 10) & 1);

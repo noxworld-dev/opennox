@@ -48,7 +48,6 @@ void nullsub_70() {}
 #include "client__io__win95__focus.h"
 #include "common/fs/nox_fs.h"
 #include "input_common.h"
-#include "mutexes.h"
 #include "operators.h"
 #include "static.h"
 #include "thing.h"
@@ -2411,11 +2410,6 @@ int sub_40CDC0(int a1, int a2, int a3, int a4) {
 	return 0;
 }
 
-//----- (0040CE60) --------------------------------------------------------
-int sub_40CE60() {
-	return 0;
-}
-
 //----- (0040D0F0) --------------------------------------------------------
 void sub_40D0F0() {
 	unsigned char* v0; // eax
@@ -2461,9 +2455,6 @@ void sub_40D0F0() {
 					}
 				} while (*(uint32_t*)v1);
 			}
-			nox_mutex_free(getMemAt(0x5D4594, 4704));
-			nox_mutex_free(getMemAt(0x5D4594, 4728));
-			nox_mutex_free(getMemAt(0x5D4594, 4752));
 			v3 = *(uint32_t**)getMemAt(0x5D4594, 4804);
 			if (*getMemU32Ptr(0x5D4594, 4804)) {
 				do {
@@ -3140,7 +3131,6 @@ void sub_40E5F0(uint32_t* a1) {
 	*a1 = getMemAt(0x581450, 5920);
 	a1[1] = 1;
 	InterlockedDecrement((volatile int*)getMemAt(0x5D4594, 4696));
-	nox_mutex_free(v1 != 0 ? v2 + 1 : 4);
 }
 
 //----- (0040E680) --------------------------------------------------------
@@ -3212,7 +3202,6 @@ void sub_40E7C0(uint32_t* a1) {
 	*a1 = getMemAt(0x581450, 6084);
 	a1[1] = 1;
 	InterlockedDecrement((volatile int*)getMemAt(0x5D4594, 4696));
-	nox_mutex_free(v1 != 0 ? v2 + 1 : 4);
 }
 
 //----- (0040E850) --------------------------------------------------------
@@ -3284,7 +3273,6 @@ void sub_40E990(uint32_t* a1) {
 	*a1 = getMemAt(0x581450, 6116);
 	a1[1] = 1;
 	InterlockedDecrement((volatile int*)getMemAt(0x5D4594, 4696));
-	nox_mutex_free(v1 != 0 ? v2 + 1 : 4);
 }
 
 //----- (0040EE10) --------------------------------------------------------

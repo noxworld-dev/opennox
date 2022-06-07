@@ -138,7 +138,6 @@ extern nox_window* dword_5d4594_1082856;
 extern uint32_t dword_5d4594_1049504;
 extern uint32_t dword_5d4594_1090120;
 extern uint32_t dword_5d4594_1063116;
-extern uint32_t nox_video_modeXxx_3801780;
 extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_1062480;
 extern uint32_t nox_player_netCode_85319C;
@@ -2420,7 +2419,7 @@ int sub_466F50(uint32_t* a1, int* a2) {
 				LOBYTE(v4) = v10[1];
 				LOBYTE(v5) = *v10;
 				LOBYTE(v7) = *(v10 - 1);
-				sub_4340A0(v8++, v7, v5, (int)v4);
+				nox_draw_setMaterial_4340A0(v8++, v7, v5, (int)v4);
 				v10 += 3;
 			} while (v8 < 7);
 			v11 = v6 + 9;
@@ -2432,7 +2431,7 @@ int sub_466F50(uint32_t* a1, int* a2) {
 					LOBYTE(v5) = v14[26];
 					LOBYTE(v7) = v14[25];
 					LOBYTE(v14) = v14[24];
-					sub_4340A0(*v11, (int)v14, v7, v5);
+					nox_draw_setMaterial_4340A0(*v11, (int)v14, v7, v5);
 				}
 				++v12;
 				++v11;
@@ -5739,17 +5738,17 @@ int nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 	int v45;                            // edi
 	uint32_t* v46;                      // eax
 	char* v47;                          // eax
-	int* v48;                           // eax
+	int v48;                           // eax
 	uint32_t* v49;                      // eax
 	uint32_t* v50;                      // edi
 	char* v51;                          // eax
-	int* v52;                           // eax
+	int v52;                           // eax
 	int v53;                            // eax
 	int v54;                            // eax
 	char* v55;                          // eax
 	char* v56;                          // eax
 	uint32_t* v57;                      // eax
-	int* v58;                           // eax
+	int v58;                           // eax
 	int l;                              // esi
 	int v60;                            // eax
 	int v61;                            // edx
@@ -5757,7 +5756,7 @@ int nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 	nox_player_polygon_check_data* v63; // eax
 	int v64;                            // et1
 	char* v65;                          // eax
-	int* v66;                           // eax
+	int v66;                           // eax
 	int v68;                            // [esp-10h] [ebp-70h]
 	int v69;                            // [esp+10h] [ebp-50h]
 	int v70;                            // [esp+10h] [ebp-50h]
@@ -5977,8 +5976,8 @@ int nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 				if (v46) {
 					v47 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)v46 + 4));
 					if (v47) {
-						v48 = (int*)nox_xxx_materialGetTeamColor_418D50((int)v47);
-						nox_client_drawSetColor_434460(*v48);
+						v48 = nox_xxx_materialGetTeamColor_418D50((int)v47);
+						nox_client_drawSetColor_434460(v48);
 					}
 				}
 				sub_473420(&xLeft);
@@ -5998,8 +5997,8 @@ int nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 			if (v49 && nox_xxx_servObjectHasTeam_419130((int)v49)) {
 				v51 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)v50 + 4));
 				if (v51) {
-					v52 = (int*)nox_xxx_materialGetTeamColor_418D50((int)v51);
-					nox_client_drawSetColor_434460(*v52);
+					v52 = nox_xxx_materialGetTeamColor_418D50((int)v51);
+					nox_client_drawSetColor_434460(v52);
 				}
 			} else {
 				nox_client_drawSetColor_434460(nox_color_white_2523948);
@@ -6042,8 +6041,8 @@ int nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 														: nox_xxx_clientGetTeamColor_418AB0(1);
 						if (v55) {
 						LABEL_88:
-							v58 = (int*)nox_xxx_materialGetTeamColor_418D50((int)v55);
-							nox_client_drawSetColor_434460(*v58);
+							v58 = nox_xxx_materialGetTeamColor_418D50((int)v55);
+							nox_client_drawSetColor_434460(v58);
 						}
 					}
 				LABEL_89:
@@ -6086,8 +6085,8 @@ int nox_xxx_cliDrawMinimap_472600(int a1, int a2) {
 					if (v81) {
 						v65 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(v81 + 4));
 						if (v65) {
-							v66 = (int*)nox_xxx_materialGetTeamColor_418D50((int)v65);
-							nox_client_drawSetColor_434460(*v66);
+							v66 = nox_xxx_materialGetTeamColor_418D50((int)v65);
+							nox_client_drawSetColor_434460(v66);
 						}
 					}
 					sub_473420(&xLeft);
@@ -6611,7 +6610,7 @@ LABEL_64:
 			v77.field_0 = 23 * v3[5];
 			v77.field_4 = 23 * (v31 + 1);
 			v32 = sub_469920(&v77);
-			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
+			if (v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
 				v33 = v32[2];
@@ -6628,7 +6627,7 @@ LABEL_64:
 			v77.field_0 = 23 * v3[5];
 			v77.field_4 = 23 * v35;
 			v32 = sub_469920(&v77);
-			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
+			if (v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
 				v36 = v32[2];
@@ -6644,7 +6643,7 @@ LABEL_64:
 			v77.field_0 = 23 * v3[5];
 			v77.field_4 = 23 * v37;
 			v32 = sub_469920(&v77);
-			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
+			if (v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
 				v38 = v32[2];
@@ -6659,7 +6658,7 @@ LABEL_64:
 			v77.field_0 = 23 * v3[5] + 11;
 			v77.field_4 = 23 * v39 + 11;
 			v32 = sub_469920(&v77);
-			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
+			if (v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
 				v40 = v32[2];
@@ -6675,7 +6674,7 @@ LABEL_64:
 			v77.field_0 = 23 * v3[5];
 			v77.field_4 = 23 * (v41 + 1);
 			v32 = sub_469920(&v77);
-			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
+			if (v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
 				v42 = v32[2];
@@ -6691,7 +6690,7 @@ LABEL_64:
 			v77.field_0 = 23 * v3[5];
 			v77.field_4 = 23 * (v43 + 1);
 			v32 = sub_469920(&v77);
-			if (nox_video_modeXxx_3801780 == 1 && v32 != (int*)31) {
+			if (v32 != (int*)31) {
 				v83[0] = *v32;
 				v83[1] = v32[1];
 				v44 = v32[2];

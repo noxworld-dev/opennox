@@ -31,7 +31,7 @@ unsigned char nox_xxx_getTeamCounter_417DD0();
 nox_team_t* nox_xxx_clientGetTeamColor_418AB0(int a1);
 nox_team_t* nox_xxx_teamCreate_4186D0(char a1);
 wchar_t* nox_server_teamTitle_418C20(int a1);
-uint32_t* nox_xxx_materialGetTeamColor_418D50(nox_team_t* a1);
+uint32_t nox_xxx_materialGetTeamColor_418D50(nox_team_t* a1);
 void nox_xxx_createAtImpl_4191D0(unsigned char a1, void* a2, int a3, int a4, int a5);
 int nox_server_teamsResetYyy_417D00();
 int nox_server_teamsZzz_419030(int a1);

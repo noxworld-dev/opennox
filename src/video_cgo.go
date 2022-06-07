@@ -39,11 +39,18 @@ extern int nox_win_width;
 extern int nox_win_height;
 int nox_video_initFloorBuffer_430BA0();
 int nox_xxx___cfltcvt_init_430CC0();
-extern uint32_t nox_color_yellow_2589772;
-extern uint32_t nox_color_black_2650656;
-extern uint32_t nox_color_blue_2650684;
 extern uint32_t dword_5d4594_805836;
 extern uint8_t** nox_pixbuffer_rows_3798784;
+
+extern uint32_t nox_color_white_2523948;
+extern uint32_t nox_color_red_2589776;
+extern uint32_t nox_color_blue_2650684;
+extern uint32_t nox_color_green_2614268;
+extern uint32_t nox_color_cyan_2649820;
+extern uint32_t nox_color_yellow_2589772;
+extern uint32_t nox_color_violet_2598268;
+extern uint32_t nox_color_black_2650656;
+extern uint32_t nox_color_orange_2614256;
 */
 import "C"
 import (
@@ -86,6 +93,26 @@ var (
 		onResize []func(sz image.Point)
 	}
 	func_5d4594_1311924 func()
+
+	nox_color_black_2650656  = noxcolor.RGB5551Color(0, 0, 0)
+	nox_color_white_2523948  = noxcolor.RGB5551Color(255, 255, 255)
+	nox_color_violet_2598268 = noxcolor.RGB5551Color(100, 0, 0)
+	nox_color_red_2589776    = noxcolor.RGB5551Color(255, 128, 128)
+	nox_color_green_2614268  = noxcolor.RGB5551Color(128, 255, 128)
+	nox_color_cyan_2649820   = noxcolor.RGB5551Color(0, 0, 255)
+	nox_color_blue_2650684   = noxcolor.RGB5551Color(0, 160, 255)
+	nox_color_orange_2614256 = noxcolor.RGB5551Color(240, 180, 42)
+	nox_color_yellow_2589772 = noxcolor.RGB5551Color(255, 255, 0)
+	nox_color_gray1          = noxcolor.RGB5551Color(8, 8, 8)
+	nox_color_gray2          = noxcolor.RGB5551Color(115, 115, 115)
+	nox_color_gray3          = noxcolor.RGB5551Color(212, 212, 212)
+	nox_color_red            = noxcolor.RGB5551Color(255, 0, 0)
+	nox_color_darkGreen      = noxcolor.RGB5551Color(0, 100, 0)
+	nox_color_green          = noxcolor.RGB5551Color(0, 255, 0)
+	nox_color_darkBlue       = noxcolor.RGB5551Color(0, 0, 140)
+	nox_color_darkYellow     = noxcolor.RGB5551Color(255, 255, 128)
+	drawColorPurple          = noxcolor.RGB5551Color(255, 0, 255)
+	drawColorDarkPurple      = noxcolor.RGB5551Color(255, 180, 255)
 )
 
 //export nox_video_getCutSize_4766D0
@@ -198,7 +225,7 @@ func videoSetGameMode(mode image.Point) {
 }
 
 func nox_video_setBackBufferCopyFunc_4AD100() error {
-	if C.nox_video_renderTargetFlags&0x40 != 0 {
+	if nox_video_renderTargetFlags&0x40 != 0 {
 		return errors.New("nox_video_setBackBufferCopyFunc_4AD100: flag not implemented")
 	} else {
 		nox_video_setBackBufferCopyFunc2_4AD150()
@@ -208,7 +235,7 @@ func nox_video_setBackBufferCopyFunc_4AD100() error {
 }
 
 func nox_video_setBackBufferCopyFunc2_4AD150() {
-	if C.nox_video_renderTargetFlags&0x40 != 0 {
+	if nox_video_renderTargetFlags&0x40 != 0 {
 		panic("not implemented")
 	}
 }
@@ -247,9 +274,6 @@ func videoInitStub() {
 func drawInitAll(sz image.Point, flags int) error {
 	if err := nox_client_drawXxx_444AC0(sz.X, sz.Y, flags); err != nil {
 		return err
-	}
-	if C.nox_video_modeXxx_3801780 != 1 {
-		panic("unsupported draw mode")
 	}
 	sub_47D200()
 	nox_video_initPixbuffer_486090(sz)
@@ -358,7 +382,6 @@ func recreateRenderTarget(sz image.Point) error {
 	nox_xxx_setupSomeVideo_47FEF0()
 	C.sub_49F6D0(1)
 	noxrend.setRectFullScreen()
-	//videoSet16Bit(C.nox_video_modeXxx_3801780 != 0)
 	*memmap.PtrUint32(0x973F18, 6060) = uint32(2 * sz.X * sz.Y)
 	*memmap.PtrUint32(0x973F18, 7696) = 1
 	C.sub_430B50(0, 0, noxDefaultWidth-1, noxDefaultHeight-1)
@@ -391,7 +414,7 @@ func drawGeneral_4B0340(a1 int) error {
 	// FIXME
 	v1 := false
 	videoLog.Println("DrawGeneralStart")
-	if /*noxflags.HasEngine(noxflags.EngineWindowed) ||*/ v1 /*|| C.nox_video_renderTargetFlags&0x10 != 0*/ {
+	if /*noxflags.HasEngine(noxflags.EngineWindowed) ||*/ v1 /*|| nox_video_renderTargetFlags&0x10 != 0*/ {
 		videoLog.Println("DrawGeneralSkip")
 		sub_4B05D0()
 		return nil
@@ -405,52 +428,54 @@ func drawGeneral_4B0340(a1 int) error {
 	sub_43E8E0(0)
 	v12 := C.sub_48B3E0(0)
 	//inpHandler.UnacquireMouse()
-	v2 := C.nox_video_modeXxx_3801780
-	var (
-		v4     int
-		prevSz image.Point
-		vpos   image.Point
-		v11    *Image
-	)
-	if v2 != 0 {
-		v4 = a1
-	} else {
-		v11, vpos = sub_48B590()
-		v2 = C.nox_video_modeXxx_3801780
-		v4 = int(C.nox_video_renderTargetFlags)
-		prevSz = noxPixBuffer.img.Size()
-		nox_video_stopCursorDrawThread_48B350()
-		nox_draw_freeColorTables_433C20()
-		nox_free_pixbuffers_486110()
-		C.nox_video_renderTargetFlags = C.int(v4)
-		sz := image.Point{X: noxDefaultWidth, Y: noxDefaultHeight}
-		if err := resetRenderer(sz, false); err != nil {
-			return err
-		}
-		nox_video_initPixbuffer_486090(sz)
-	}
 
 	var movieString = GoString((*C.char)(memmap.PtrOff(0x5d4594, 1311940)))
 	playMovieFile(movieString)
 
-	if v2 == 0 {
-		nox_free_pixbuffers_486110()
-		C.nox_video_renderTargetFlags = C.int(v4)
-		if err := resetRenderer(prevSz, false); err != nil {
-			return err
-		}
-		nox_video_initPixbuffer_486090(prevSz)
-		if sub_4338D0() == 0 {
-			return errors.New("sub_4338D0 failed")
-		}
-		noxrend.noxDrawCursor(v11, vpos)
-	}
 	sub_43E910(0)
 	C.sub_43DBE0()
 	//inpHandler.AcquireMouse()
 	C.sub_48B3E0(v12)
 	sub_4B05D0()
 	return nil
+}
+
+func nox_xxx_loadDefColor_4A94A0() {
+	C.nox_color_black_2650656 = C.uint(nox_color_black_2650656.Color32())
+	*memmap.PtrUint32(0x852978, 4) = nox_color_gray1.Color32()
+	*memmap.PtrUint32(0x85B3FC, 956) = nox_color_gray2.Color32()
+	*memmap.PtrUint32(0x5D4594, 2597996) = nox_color_gray3.Color32()
+	C.nox_color_white_2523948 = C.uint(nox_color_white_2523948.Color32())
+	C.nox_color_violet_2598268 = C.uint(nox_color_violet_2598268.Color32())
+	*memmap.PtrUint32(0x85B3FC, 940) = nox_color_red.Color32()
+	C.nox_color_red_2589776 = C.uint(nox_color_red_2589776.Color32())
+	*memmap.PtrUint32(0x85B3FC, 984) = nox_color_darkGreen.Color32()
+	*memmap.PtrUint32(0x8531A0, 2572) = nox_color_green.Color32()
+	C.nox_color_green_2614268 = C.uint(nox_color_green_2614268.Color32())
+	*memmap.PtrUint32(0x85B3FC, 944) = nox_color_darkBlue.Color32()
+	C.nox_color_cyan_2649820 = C.uint(nox_color_cyan_2649820.Color32())
+	C.nox_color_blue_2650684 = C.uint(nox_color_blue_2650684.Color32())
+	C.nox_color_orange_2614256 = C.uint(nox_color_orange_2614256.Color32())
+	C.nox_color_yellow_2589772 = C.uint(nox_color_yellow_2589772.Color32())
+	*memmap.PtrUint32(0x852978, 0) = nox_color_darkYellow.Color32()
+
+	*memmap.PtrPtr(0x85B3FC, 132) = unsafe.Pointer(&C.nox_color_black_2650656)
+	*memmap.PtrPtr(0x85B3FC, 136) = memmap.PtrOff(0x852978, 4)
+	*memmap.PtrPtr(0x85B3FC, 140) = memmap.PtrOff(0x85B3FC, 956)
+	*memmap.PtrPtr(0x85B3FC, 144) = memmap.PtrOff(0x5D4594, 2597996)
+	*memmap.PtrPtr(0x85B3FC, 148) = unsafe.Pointer(&C.nox_color_white_2523948)
+	*memmap.PtrPtr(0x85B3FC, 152) = unsafe.Pointer(&C.nox_color_violet_2598268)
+	*memmap.PtrPtr(0x85B3FC, 156) = memmap.PtrOff(0x85B3FC, 940)
+	*memmap.PtrPtr(0x85B3FC, 160) = unsafe.Pointer(&C.nox_color_red_2589776)
+	*memmap.PtrPtr(0x85B3FC, 164) = memmap.PtrOff(0x85B3FC, 984)
+	*memmap.PtrPtr(0x85B3FC, 168) = memmap.PtrOff(0x8531A0, 2572)
+	*memmap.PtrPtr(0x85B3FC, 172) = unsafe.Pointer(&C.nox_color_green_2614268)
+	*memmap.PtrPtr(0x85B3FC, 176) = memmap.PtrOff(0x85B3FC, 944)
+	*memmap.PtrPtr(0x85B3FC, 180) = unsafe.Pointer(&C.nox_color_cyan_2649820)
+	*memmap.PtrPtr(0x85B3FC, 184) = unsafe.Pointer(&C.nox_color_blue_2650684)
+	*memmap.PtrPtr(0x85B3FC, 188) = unsafe.Pointer(&C.nox_color_orange_2614256)
+	*memmap.PtrPtr(0x85B3FC, 192) = unsafe.Pointer(&C.nox_color_yellow_2589772)
+	*memmap.PtrPtr(0x85B3FC, 196) = memmap.PtrOff(0x852978, 0)
 }
 
 func nox_video_initFloorBuffer_430BA0(sz image.Point) error {
@@ -476,7 +501,6 @@ func nox_video_stopCursorDrawThread_48B350() {
 		dword_5d4594_1193704_arr = nil
 		C.dword_5d4594_1193704 = nil
 	}
-	C.dword_5d4594_1193624 = nil
 }
 
 func sub_4AEDF0() {
@@ -646,7 +670,7 @@ func nox_video_initPixbufferData_4861D0(sz image.Point) {
 	noxPixBuffer.free = free
 	noxPixBuffer.img = noximage.NewImage16WithData(data, sz)
 	noxrend.SetPixBuffer(noxPixBuffer.img)
-	if C.nox_video_renderTargetFlags&0x40 == 0 {
+	if nox_video_renderTargetFlags&0x40 == 0 {
 		return
 	}
 
@@ -739,19 +763,12 @@ func nox_client_drawXxx_444AC0(w, h int, flags int) error {
 	//int v9;             // eax
 	//int v10;            // eax
 
-	nox_mutex_initP(memmap.PtrOff(0x973F18, 168))
 	*memmap.PtrUint32(0x5D4594, 823780) = 1
 
-	C.nox_video_renderTargetFlags = C.int(flags)
+	nox_video_renderTargetFlags = flags
 
-	// Force always WINNT, forces always using unlocked DX surfaces
-	C.nox_video_windowsPlatformVersion = 5
-
-	var v7 byte
-	if C.nox_video_windowsPlatformVersion == 5 { // if Windows NT platform
-		v7 = byte(C.nox_video_renderTargetFlags | 0x20)
-		C.nox_video_renderTargetFlags |= 0x120
-	}
+	v7 := byte(nox_video_renderTargetFlags | 0x20)
+	nox_video_renderTargetFlags |= 0x120
 	v8 := int(uint32(w) & 0xFFFFFFE0)
 	if v7&4 != 0 {
 		panic("unreachable")
@@ -762,24 +779,10 @@ func nox_client_drawXxx_444AC0(w, h int, flags int) error {
 	return nil
 }
 
-func sub_48B800(cl color.Color) {
-	c := noxcolor.ToRGBA5551Color(cl).ColorNRGBA()
-	sub_48B6B0(c.R, c.G, c.B)
-}
-
-func sub_48B6B0(a1, a2, a3 byte) {
-	C.sub_433CD0(C.uchar(a1), C.uchar(a2), C.uchar(a3))
-}
-
-func sub_48B590() (a1 *Image, pos image.Point) {
-	return asImageP(C.dword_5d4594_1193624), image.Point{X: int(C.dword_5d4594_1193648), Y: int(C.dword_5d4594_1193524)}
-}
-
 func sub_48B680(a1 int) {
 	p := noxrend.Data()
 	if a1 != int(p.field_15) {
 		p.field_14 = C.uint(a1)
-		C.sub_48BD90(1)
 	}
 }
 
@@ -795,7 +798,7 @@ func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos image
 	if gameFrame()&1 != 0 {
 		*memmap.PtrUint32(0x5D4594, 1097288)++
 	}
-	r.Data().SetTextColor(noxcolor.RGBA5551(C.nox_color_yellow_2589772))
+	r.Data().SetTextColor(nox_color_yellow_2589772)
 	fh := r.FontHeight(nil)
 	if C.nox_xxx_guiSpell_460650() != 0 || C.sub_4611A0() != 0 {
 		r.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Target, pos)
@@ -864,9 +867,9 @@ func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos image
 		if v16 := nox_xxx_spriteGetMB_476F80(); v16 != nil {
 			sub_48B680(1)
 			if v16.Flags28()&6 == 0 || C.sub_495A80(C.int(v16.Field32())) != 0 {
-				sub_48B800(noxcolor.RGBA5551(C.nox_color_blue_2650684))
+				sub_48B800(nox_color_blue_2650684)
 			} else {
-				sub_48B800(noxcolor.RGBA5551(memmap.Uint32(0x85B3FC, 940)))
+				sub_48B800(nox_color_red)
 			}
 		} else {
 			sub_48B680(0)
@@ -973,7 +976,7 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 			py = 0
 		}
 		r.DrawRectFilledAlpha(px, py, sz.X, sz.Y)
-		r.Data().SetTextColor(noxcolor.RGBA5551(C.nox_color_yellow_2589772))
+		r.Data().SetTextColor(nox_color_yellow_2589772)
 		r.DrawStringWrapped(nil, str, image.Rect(px+2, py+2, px+2, py+2))
 		if C.dword_5d4594_3799468 != 0 {
 			vp := getViewport()
@@ -1006,7 +1009,6 @@ func sub_444C50() {
 		nox_xxx_FontDestroy_43F2E0()
 		C.dword_5d4594_823776 = 0
 		if memmap.Uint32(0x5D4594, 823780) != 0 {
-			nox_mutex_freeP(memmap.PtrOff(0x973F18, 168))
 			*memmap.PtrUint32(0x5D4594, 823780) = 0
 		}
 	}

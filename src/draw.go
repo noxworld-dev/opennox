@@ -56,11 +56,6 @@ void nox_xxx_drawAllMB_475810_draw_A(nox_draw_viewport_t* vp);
 int nox_xxx_drawAllMB_475810_draw_B(nox_draw_viewport_t* vp);
 void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7);
 void nox_xxx_drawAllMB_475810_draw_D(nox_draw_viewport_t* vp);
-extern uint32_t nox_color_white_2523948;
-extern uint32_t nox_color_black_2650656;
-extern uint32_t nox_color_red_2589776;
-extern uint32_t nox_color_blue_2650684;
-extern uint32_t nox_color_green_2614268;
 extern uint32_t dword_5d4594_3679320;
 extern uint32_t dword_5d4594_3798156;
 extern uint32_t dword_5d4594_3798800;
@@ -117,6 +112,7 @@ var (
 		sync.Once
 		ptr *Viewport
 	}
+	nox_video_renderTargetFlags       = 0
 	nox_client_texturedFloors_154956  = true
 	nox_client_texturedFloors2_154960 = true
 	dword_5d4594_1096428              int
@@ -373,39 +369,30 @@ func nox_draw_freeColorTables_433C20() {
 		alloc.Free(C.dword_5d4594_810640)
 		C.dword_5d4594_810640 = nil
 	}
-	if p := C.nox_draw_colors_r_3804672; p != nil {
-		alloc.Free(unsafe.Pointer(p))
-		C.nox_draw_colors_r_3804672 = nil
-	}
-	if p := C.nox_draw_colors_g_3804656; p != nil {
-		alloc.Free(unsafe.Pointer(p))
-		C.nox_draw_colors_g_3804656 = nil
-	}
-	if p := C.nox_draw_colors_b_3804664; p != nil {
-		alloc.Free(unsafe.Pointer(p))
-		C.nox_draw_colors_b_3804664 = nil
-	}
 	*memmap.PtrUint32(0x973F18, 5232) = 0
 }
 
-//export sub_434E80
-func sub_434E80(a1, a2, a3 C.char) C.char {
-	r, g, b := byte(a1), byte(a2), byte(a3)
-	return C.char(noxrend.ColorIntensity(r, g, b))
-}
-
-//export sub_435280
-func sub_435280(cl C.short, pr, pg, pb *C.uchar) {
+//export nox_draw_splitColor_435280
+func nox_draw_splitColor_435280(cl C.short, pr, pg, pb *C.uchar) {
 	c := noxrender.SplitColor(noxcolor.RGBA5551(cl))
 	*pr = C.uchar(c.R)
 	*pg = C.uchar(c.G)
 	*pb = C.uchar(c.B)
 }
 
+//export nox_draw_setMaterial_4340A0
+func nox_draw_setMaterial_4340A0(ind, r, g, b C.int) {
+	noxrend.Data().SetMaterialRGB(int(ind), int(r), int(g), int(b))
+}
+
+//export nox_draw_setMaterial_4341D0
+func nox_draw_setMaterial_4341D0(ind, cl C.int) {
+	noxrend.Data().SetMaterial(int(ind), noxcolor.RGBA5551(cl))
+}
+
 func sub_4338D0() int {
-	ptr := noxrend.Data()
-	ptr.Reset()
-	nox_draw_initColorTables_434CC0()
+	d := noxrend.Data()
+	d.Reset()
 	*memmap.PtrUint32(0x5D4594, 809596) = 0
 	C.dword_5d4594_808568 = 0
 	C.dword_5d4594_810628 = 0
@@ -417,40 +404,75 @@ func sub_4338D0() int {
 	} else {
 		C.sub_4347F0((*C.char)(memmap.PtrOff(0x581450, 8404)), 256)
 	}
-	if C.sub_434FB0() == 0 {
-		return 0
-	}
-	C.sub_4340A0(0, 0, 0, 255)
-	C.sub_4340A0(1, 0, 255, 0)
-	C.sub_4340A0(2, 0, 255, 255)
-	C.sub_4340A0(3, 255, 0, 0)
-	C.sub_4340A0(4, 255, 0, 255)
-	C.sub_4340A0(5, 255, 255, 0)
-	C.sub_4340A0(6, 255, 255, 255)
-	C.sub_4340A0(7, 0, 0, 0)
-	C.sub_4340A0(8, 0, 0, 128)
-	C.sub_4340A0(9, 0, 128, 0)
-	C.sub_4340A0(10, 0, 128, 128)
-	C.sub_4340A0(11, 128, 0, 0)
-	C.sub_4340A0(12, 128, 0, 128)
-	C.sub_4340A0(13, 128, 128, 0)
-	C.sub_4340A0(14, 128, 128, 128)
-	C.sub_4340A0(15, 0, 0, 0)
+	d.SetMaterialRGB(0, 0, 0, 255)
+	d.SetMaterialRGB(1, 0, 255, 0)
+	d.SetMaterialRGB(2, 0, 255, 255)
+	d.SetMaterialRGB(3, 255, 0, 0)
+	d.SetMaterialRGB(4, 255, 0, 255)
+	d.SetMaterialRGB(5, 255, 255, 0)
+	d.SetMaterialRGB(6, 255, 255, 255)
+	d.SetMaterialRGB(7, 0, 0, 0)
+	d.SetMaterialRGB(8, 0, 0, 128)
+	d.SetMaterialRGB(9, 0, 128, 0)
+	d.SetMaterialRGB(10, 0, 128, 128)
+	d.SetMaterialRGB(11, 128, 0, 0)
+	d.SetMaterialRGB(12, 128, 0, 128)
+	d.SetMaterialRGB(13, 128, 128, 0)
+	d.SetMaterialRGB(14, 128, 128, 128)
+	d.SetMaterialRGB(15, 0, 0, 0)
 	// TODO gamma control
 	C.dword_5d4594_808564 = 0
-	C.sub_4348C0()
-	C.sub_4352E0()
 	*memmap.PtrUint32(0x973F18, 5232) = 0
 	return 1
 }
 
-//export nox_xxx_drawMakeRGB_433F10
-func nox_xxx_drawMakeRGB_433F10(r, g, b C.uchar) {
+//export nox_draw_set54RGB32_434040
+func nox_draw_set54RGB32_434040(cl C.int) {
+	c := noxrender.SplitColor(noxcolor.RGBA5551(cl))
+	noxrend.Data().setColorInt54(ColorInt{
+		R: int(c.R),
+		G: int(c.G),
+		B: int(c.B),
+	})
+}
+
+//export nox_draw_set54RGB_433F10
+func nox_draw_set54RGB_433F10(r, g, b C.uchar) {
 	noxrend.Data().setColorInt54(ColorInt{
 		R: int(r),
 		G: int(g),
 		B: int(b),
 	})
+}
+
+//export sub_433E40
+func sub_433E40(cl C.int) C.int {
+	c := noxcolor.RGBA5551(cl).ColorNRGBA()
+	return C.int(sub433CD0(c.R, c.G, c.B))
+}
+
+func sub433E40(cl noxcolor.Color) C.int {
+	c := cl.ColorNRGBA()
+	return C.int(sub433CD0(c.R, c.G, c.B))
+}
+
+//export sub_433CD0
+func sub_433CD0(r, g, b C.uchar) C.int {
+	return C.int(sub433CD0(byte(r), byte(g), byte(b)))
+}
+
+func sub_48B800(cl color.Color) {
+	c := noxcolor.ToRGBA5551Color(cl).ColorNRGBA()
+	sub433CD0(c.R, c.G, c.B)
+}
+
+func sub433CD0(r, g, b byte) byte {
+	d := noxrend.Data()
+	d.field_16 = C.uint(bool2int(r == 0xFF && g == 0xFF && b == 0xFF))
+	d.SetColorMultA(noxrender.Color16{R: uint16(r), G: uint16(g), B: uint16(b)})
+	v := noxrend.ColorIntensity(r, g, b)
+	d.field_258_2 = C.ushort(v)
+	return v
 }
 
 //export sub_434080
@@ -916,8 +938,7 @@ func nox_xxx_drawAllMB_475810_draw_A(vp *Viewport) {
 			r.DrawRectFilledOpaque(v4, int(vp.y1), rect.Dx()-v4, v3-int(vp.y1), cl)
 			C.dword_5d4594_3799524 = 0
 		}
-		cl := noxcolor.RGBA5551(memmap.Uint32(0x85B3FC, 956))
-		r.DrawBorder(int(vp.x1)-2, int(vp.y1)-2, v4-int(vp.x1)+4, v3-int(vp.y1)+4, cl)
+		r.DrawBorder(int(vp.x1)-2, int(vp.y1)-2, v4-int(vp.x1)+4, v3-int(vp.y1)+4, nox_color_gray2)
 	} else {
 		C.dword_5d4594_3799468 = 0
 	}
@@ -2098,21 +2119,6 @@ func nox_video_getImagePixdata_42FB30(img *C.nox_video_bag_image_t) unsafe.Point
 	return unsafe.Pointer(&data[0])
 }
 
-func nox_draw_initColorTables_434CC0() {
-	arrR, _ := alloc.Make([]uint16{}, 257)
-	arrG, _ := alloc.Make([]uint16{}, 257)
-	arrB, _ := alloc.Make([]uint16{}, 257)
-	arrR = arrR[:256]
-	arrG = arrG[:256]
-	arrB = arrB[:256]
-	copy(arrR, noxrend.colors.R[:])
-	copy(arrG, noxrend.colors.G[:])
-	copy(arrB, noxrend.colors.B[:])
-	C.nox_draw_colors_r_3804672 = (*C.uchar)(unsafe.Pointer(&arrR[0]))
-	C.nox_draw_colors_g_3804656 = (*C.uchar)(unsafe.Pointer(&arrG[0]))
-	C.nox_draw_colors_b_3804664 = (*C.uchar)(unsafe.Pointer(&arrB[0]))
-}
-
 func (r *NoxRender) initColorTables() {
 	for i := 0; i < 256; i++ {
 		r.colors.R[i] = noxcolor.RGB5551Color(byte(i), 0, 0).Color16()
@@ -2289,9 +2295,6 @@ var (
 	drawYellowBubbleParticle    uint32
 	drawGreenBubbleParticle     uint32
 	drawWhiteSpark              uint32
-	drawColorXxxLoaded1096552   bool
-	drawColorXxx1096452         uint32
-	drawColorXxx1096436         color.Color
 )
 
 func sub_499F60(p uint32, pos image.Point, a4 int, a5, a6, a7, a8, a9 int, a10 int) {
@@ -2304,7 +2307,7 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 	}
 	if dr.CheckFlag31(14) {
 		pos := vp.toScreenPos(dr.Pos())
-		r.DrawGlow(pos, uint32(C.nox_color_blue_2650684), 30, 31)
+		r.DrawGlow(pos, nox_color_blue_2650684, 30, 31)
 	}
 	if dr.CheckFlag31(9) && !nox_xxx_checkGameFlagPause_413A50() { // Haste effect
 		if drawWhiteBubbleParticle == 0 {
@@ -2368,13 +2371,13 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 	}
 	// Protection effects
 	if dr.CheckFlag31(17) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, memmap.Uint32(0x85B3FC, 940), noxcolor.RGBA5551(C.nox_color_red_2589776), true)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, nox_color_red, nox_color_red_2589776, true)
 	}
 	if dr.CheckFlag31(18) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, memmap.Uint32(0x8531A0, 2572), noxcolor.RGBA5551(C.nox_color_green_2614268), true)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, nox_color_green, nox_color_green_2614268, true)
 	}
 	if dr.CheckFlag31(20) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, uint32(C.nox_color_blue_2650684), noxcolor.RGBA5551(C.nox_color_white_2523948), true)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, nox_color_blue_2650684, nox_color_white_2523948, true)
 	}
 	if dr.CheckFlag31(27) { // Shield effects
 		switch *(*byte)(dr.field(297)) {
@@ -2407,7 +2410,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 		}
 		if dr.CheckFlag31(29) {
 			r.Data().setColorize17(1)
-			C.sub_433E40(C.int(C.nox_color_blue_2650684))
+			sub433E40(nox_color_blue_2650684)
 		}
 		r.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(*memmap.PtrPtr(0x5D4594, 1096456)), pos.Add(image.Point{X: -64, Y: -64}))
 		r.Data().setColorize17(0)
@@ -2449,11 +2452,6 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 		sub_499F60(drawGreenBubbleParticle, pos.Add(pos2), v33, v35, v37, 1, 0, 0, v41)
 	}
 	if dr.CheckFlag31(13) && !nox_xxx_checkGameFlagPause_413A50() {
-		if !drawColorXxxLoaded1096552 {
-			drawColorXxx1096452 = noxcolor.RGB5551Color(255, 0, 255).Color32()
-			drawColorXxx1096436 = noxcolor.RGB5551Color(255, 180, 255)
-			drawColorXxxLoaded1096552 = true
-		}
 		pos := vp.toScreenPos(dr.Pos())
 
 		for v16 := 0; v16 < 10; v16++ {
@@ -2466,18 +2464,18 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 				Y: randomIntMinMax(-10-v20, 0) + int(*(*int16)(dr.field(104))),
 			})
 			v22 := randomIntMinMax(3, 4)
-			r.DrawGlow(pos2, drawColorXxx1096452, v17+v22, v17+2)
-			r.DrawPoint(pos2, v17, drawColorXxx1096436)
+			r.DrawGlow(pos2, drawColorPurple, v17+v22, v17+2)
+			r.DrawPoint(pos2, v17, drawColorDarkPurple)
 		}
 	}
 	if dr.CheckFlag31(17) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, memmap.Uint32(0x85B3FC, 940), noxcolor.RGBA5551(C.nox_color_red_2589776), false)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, nox_color_red, nox_color_red_2589776, false)
 	}
 	if dr.CheckFlag31(18) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, memmap.Uint32(0x8531A0, 2572), noxcolor.RGBA5551(C.nox_color_green_2614268), false)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, nox_color_green, nox_color_green_2614268, false)
 	}
 	if dr.CheckFlag31(20) {
-		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, uint32(C.nox_color_blue_2650684), noxcolor.RGBA5551(C.nox_color_white_2523948), false)
+		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, nox_color_blue_2650684, nox_color_white_2523948, false)
 	}
 	if dr.CheckFlag31(26) {
 		pos := vp.toScreenPos(dr.Pos())

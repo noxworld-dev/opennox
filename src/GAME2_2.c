@@ -34,7 +34,6 @@
 #include "common__strman.h"
 #include "input.h"
 #include "input_common.h"
-#include "mutexes.h"
 #include "operators.h"
 
 extern uint32_t dword_5d4594_1098456;
@@ -56,14 +55,9 @@ extern uint32_t dword_5d4594_1193672;
 extern uint32_t dword_5d4594_3807136;
 extern uint32_t dword_5d4594_1098604;
 extern uint32_t dword_587000_154968;
-extern void* dword_5d4594_1193624;
-extern uint32_t dword_5d4594_1193664;
-extern uint32_t dword_5d4594_1193524;
 extern uint32_t dword_5d4594_3804684;
 extern uint32_t dword_5d4594_3807140;
 extern uint32_t dword_5d4594_3799552;
-extern uint32_t dword_5d4594_1193648;
-extern uint32_t dword_5d4594_1193668;
 extern uint32_t nox_video_bag_ready;
 extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
 extern uint32_t dword_5d4594_3799476;
@@ -108,21 +102,15 @@ extern void* dword_587000_155144;
 extern uint32_t dword_5d4594_3798840;
 extern uint32_t dword_5d4594_1123524;
 extern uint32_t dword_5d4594_1193380;
-extern uint32_t nox_video_modeXxx_3801780;
 extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t nox_player_netCode_85319C;
-extern unsigned char* nox_draw_colors_r_3804672;
-extern unsigned char* nox_draw_colors_g_3804656;
-extern unsigned char* nox_draw_colors_b_3804664;
 extern int nox_win_width;
 extern int nox_win_height;
 extern int nox_backbuffer_width;
 extern int nox_backbuffer_height;
-extern int nox_video_renderTargetFlags;
 extern int nox_video_pauseThreadedDrawCursor;
 extern int nox_video_drawCursorThreadOk;
 extern int nox_video_allowCursorDrawThread;
-extern int nox_video_windowsPlatformVersion;
 extern int nox_video_cursorDrawIsThreaded;
 extern unsigned int nox_frame_xxx_2598000;
 
@@ -6684,16 +6672,4 @@ int sub_48B3E0(int a1) {
 	result = dword_5d4594_1193672;
 	dword_5d4594_1193672 = a1;
 	return result;
-}
-
-//----- (0048BD90) --------------------------------------------------------
-void sub_48BD90(int a1) {
-	nox_mutex_lock(getMemAt(0x973F18, 168));
-	if (!a1) {
-		noxSetRect(getMemAt(0x5D4594, 1193532), 0, 0, 0, 0);
-	}
-	dword_5d4594_1193664 = 1;
-	dword_5d4594_1193668 = 1;
-	dword_5d4594_1193624 = 0;
-	nox_mutex_unlock(getMemAt(0x973F18, 168));
 }
