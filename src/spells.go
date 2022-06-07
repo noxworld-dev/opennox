@@ -159,7 +159,7 @@ func nox_xxx_spellDescription_424A30(ind C.int) *wchar_t {
 func nox_xxx_spellByTitle_424960(ctitle *wchar_t) C.int {
 	title := GoWString(ctitle)
 	for i := 1; i < noxSpellsMax; i++ {
-		if noxServer.SpellDefByInd(things.SpellID(i)).Title == title {
+		if sp := noxServer.SpellDefByInd(things.SpellID(i)); sp != nil && sp.Title == title {
 			return C.int(i)
 		}
 	}
