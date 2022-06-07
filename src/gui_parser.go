@@ -272,6 +272,8 @@ func (p *guiParser) parseWinFields(win *Window) bool {
 			p.defaults.EnabledColor, ok = p.parseColorField()
 		case "DISABLEDCOLOR":
 			p.defaults.DisabledColor, ok = p.parseColorField()
+		case "BACKGROUNDCOLOR":
+			p.defaults.BackgroundColor, ok = p.parseColorField()
 		case "HILITECOLOR":
 			p.defaults.HighlightColor, ok = p.parseColorField()
 		case "SELECTEDCOLOR":
