@@ -8247,8 +8247,6 @@ void nox_xxx_drawOtherPlayerHP_4B8EB0(uint32_t* a1, nox_drawable* dr, unsigned s
 
 //----- (004B8FA0) --------------------------------------------------------
 int sub_4B8FA0(nox_drawable* dr, int* a2, int* a3) {
-	int a1 = dr;
-
 	int v3;  // esi
 	int v4;  // eax
 	bool v5; // zf
@@ -8256,10 +8254,14 @@ int sub_4B8FA0(nox_drawable* dr, int* a2, int* a3) {
 	int v8;  // eax
 	int v9;  // ecx
 
-	v3 = *(uint32_t*)(a1 + 304);
-	if (*(uint32_t*)(a1 + 276) || !sub_48D830(dr)) {
-		if (*(uint32_t*)(a1 + 276) != 4 || (v5 = !nox_client_drawable_testBuff_4356C0(dr, 31), v4 = 53, v5)) {
-			v4 = *(uint32_t*)(a1 + 276);
+	v3 = dr->field_76;
+	if (dr->field_69 || !sub_48D830(dr)) {
+		if (dr->field_69 != 4) {
+			v4 = dr->field_69;
+		} else if (!nox_client_drawable_testBuff_4356C0(dr, 31)) {
+			v4 = dr->field_69;
+	    } else {
+			v4 = 53;
 		}
 	} else {
 		v4 = 19;
@@ -8283,5 +8285,5 @@ int sub_4B8FA0(nox_drawable* dr, int* a2, int* a3) {
 	if (a3) {
 		*a3 = v8;
 	}
-	return *(uint32_t*)(*(uint32_t*)(*(uint32_t*)(v6 + 48) + 4 * *(unsigned char*)(a1 + 297) + 4) + 4 * v8);
+	return *(uint32_t*)(*(uint32_t*)(*(uint32_t*)(v6 + 48) + 4 * (int)dr->field_74_2 + 4) + 4 * v8);
 }
