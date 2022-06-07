@@ -292,7 +292,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	}
 	nox_xxx_playerInventory_4F8420(u)
 	C.nox_xxx_unitUpdatePlayerImpl_4F8460(u.CObj())
-	if u.testBuff(8) && ud.field_22_0 != 1 {
+	if u.HasEnchant(ENCHANT_RUN) && ud.field_22_0 != 1 {
 		C.nox_xxx_playerSetState_4FA020(u.CObj(), 5)
 	}
 	C.nox_xxx_questCheckSecretArea_421C70(u.CObj())
@@ -565,7 +565,7 @@ func nox_xxx_enemyAggro(self *Unit, r, max float32) *Object {
 		sin := memmap.Float32(0x587000, 194140+8*uintptr(self.field_31_0))
 		if !someFlag || vec.Y/dist*sin+vec.X/dist*cos > 0.5 {
 			dist2 := dist
-			if it.testBuff(10) {
+			if it.HasEnchant(ENCHANT_VILLAIN) {
 				dist2 /= 3
 			}
 			if dist2 < min {

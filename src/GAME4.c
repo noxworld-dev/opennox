@@ -5413,19 +5413,15 @@ void sub_4FF310(int a1) {
 }
 
 //----- (004FF350) --------------------------------------------------------
-int nox_xxx_testUnitBuffs_4FF350(nox_object_t* a1p, char a2) {
-	int a1 = a1p;
-	int result; // eax
-
-	result = a1;
-	if (a1) {
-		result = ((1 << a2) & *(uint32_t*)(a1 + 340)) != 0;
+int nox_xxx_testUnitBuffs_4FF350(nox_object_t* unit, char buff) {
+	if ((!unit) || (buff < 0) || (buff >= 32)) {
+		return 0;
 	}
-	return result;
+	return ((1 << buff) & unit->buffs) != 0;
 }
 
 //----- (004FF380) --------------------------------------------------------
-void nox_xxx_buffApplyTo_4FF380(nox_object_t* unit, int a2, short a3, char a4) {
+void nox_xxx_buffApplyTo_4FF380(nox_object_t* unit, int buff, short dur, char power) {
 	int a1 = unit;
 	int v5; // eax
 	int v6; // eax
@@ -5438,11 +5434,11 @@ void nox_xxx_buffApplyTo_4FF380(nox_object_t* unit, int a2, short a3, char a4) {
 		return;
 	}
 	unsigned short v4w = *(uint16_t*)(a1 + 4);
-	if (v4w == *getMemU32Ptr(0x5D4594, 1569740) && a2 == 29) {
+	if (v4w == *getMemU32Ptr(0x5D4594, 1569740) && buff == 29) {
 		return;
 	}
 	if (nox_common_gameFlags_check_40A5C0(4096) && *(unsigned short*)(a1 + 4) == *getMemU32Ptr(0x5D4594, 1569740) &&
-		a2 == 3) {
+		buff == 3) {
 		nox_xxx_aud_501960(582, unit, 0, 0);
 		return;
 	}
@@ -5450,9 +5446,9 @@ void nox_xxx_buffApplyTo_4FF380(nox_object_t* unit, int a2, short a3, char a4) {
 	if (v4 &&
 		(LOWORD(v4) = *getMemU16Ptr(0x5D4594, 1569744),
 		 *(unsigned short*)(a1 + 4) == *getMemU32Ptr(0x5D4594, 1569744)) &&
-		a2 == 3) {
+		buff == 3) {
 		nox_xxx_aud_501960(595, unit, 0, 0);
-	} else if (*(uint8_t*)(a1 + 8) & 2 && (v4 = *(uint32_t*)(a1 + 12), BYTE1(v4) & 0x10) && a2 == 11 &&
+	} else if (*(uint8_t*)(a1 + 8) & 2 && (v4 = *(uint32_t*)(a1 + 12), BYTE1(v4) & 0x10) && buff == 11 &&
 			   (v4 = nox_common_gameFlags_check_40A5C0(2048)) == 0) {
 		v4 = *(uint16_t*)(a1 + 4);
 		if ((unsigned short)v4 == *getMemU32Ptr(0x5D4594, 1569740)) {
@@ -5461,14 +5457,14 @@ void nox_xxx_buffApplyTo_4FF380(nox_object_t* unit, int a2, short a3, char a4) {
 			nox_xxx_aud_501960(595, unit, 0, 0);
 		}
 	} else if (!(*(uint32_t*)(a1 + 16) & 0x8022)) {
-		if (!nox_xxx_testUnitBuffs_4FF350(unit, a2) || (v4 = nox_xxx_unitGetBuffTimer_4FF550(unit, a2)) != 0) {
-			if (a2) {
+		if (!nox_xxx_testUnitBuffs_4FF350(unit, buff) || (v4 = nox_xxx_unitGetBuffTimer_4FF550(unit, buff)) != 0) {
+			if (buff) {
 				nox_xxx_spellBuffOff_4FF5B0(unit, 0);
 			}
-			*(uint16_t*)(a1 + 2 * a2 + 344) = a3;
-			*(uint8_t*)(a1 + a2 + 408) = a4;
-			nox_xxx_setUnitBuffFlags_4E48F0(unit, (1 << a2) | *(uint32_t*)(a1 + 340));
-			v5 = nox_xxx_getEnchantSpell_424920(a2);
+			unit->buffs_dur[buff] = dur;
+			unit->buffs_power[buff] = power;
+			nox_xxx_setUnitBuffFlags_4E48F0(unit, (1 << buff) | unit->buffs);
+			v5 = nox_xxx_getEnchantSpell_424920(buff);
 			v6 = nox_xxx_spellGetAud44_424800(v5, 1);
 			nox_xxx_aud_501960(v6, unit, 0, 0);
 		}
@@ -5476,25 +5472,27 @@ void nox_xxx_buffApplyTo_4FF380(nox_object_t* unit, int a2, short a3, char a4) {
 }
 
 //----- (004FF550) --------------------------------------------------------
-int nox_xxx_unitGetBuffTimer_4FF550(int a1, int a2) { return *(unsigned short*)(a1 + 2 * a2 + 344); }
+int nox_xxx_unitGetBuffTimer_4FF550(nox_object_t* unit, int buff) {
+	if ((!unit) || (buff < 0) || (buff >= 32)) {
+		return 0;
+	}
+	return unit->buffs_dur[buff]; }
 
 //----- (004FF570) --------------------------------------------------------
-char nox_xxx_buffGetPower_4FF570(int a1, int a2) { return *(uint8_t*)(a1 + a2 + 408); }
+char nox_xxx_buffGetPower_4FF570(nox_object_t* unit, int buff) {
+	if ((!unit) || (buff < 0) || (buff >= 32)) {
+		return 0;
+	}
+	return unit->buffs_power[buff];
+}
 
 //----- (004FF580) --------------------------------------------------------
-int nox_xxx_unitClearBuffs_4FF580(int a1) {
-	int result;   // eax
-	uint16_t* v2; // ecx
-
-	nox_xxx_setUnitBuffFlags_4E48F0(a1, 0);
-	result = 0;
-	v2 = (uint16_t*)(a1 + 344);
-	do {
-		*v2 = 0;
-		*(uint8_t*)(a1 + result++ + 408) = 0;
-		++v2;
-	} while (result < 32);
-	return result;
+void nox_xxx_unitClearBuffs_4FF580(nox_object_t* unit) {
+	nox_xxx_setUnitBuffFlags_4E48F0(unit, 0);
+	for (int i = 0; i < 32; i++) {
+		unit->buffs_dur[i] = 0;
+		unit->buffs_power[i] = 0;
+	}
 }
 
 //----- (004FF5B0) --------------------------------------------------------

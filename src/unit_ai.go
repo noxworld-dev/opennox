@@ -303,7 +303,7 @@ func nox_xxx_mobActionDependency_546A70(uc *C.nox_object_t) {
 		case ai.DEPENDENCY_UNINTERRUPTABLE:
 			return
 		case ai.DEPENDENCY_IS_ENCHANTED:
-			ok = u.testBuff(byte(st.arg_1))
+			ok = u.HasEnchant(EnchantID(st.arg_1))
 		case ai.DEPENDENCY_ENEMY_CLOSER_THAN:
 			enemy := asUnitC(ud.current_enemy)
 			ok = enemy != nil && nox_xxx_calcDistance_4E6C00(u, enemy) <= st.ArgF32(0)

@@ -475,31 +475,9 @@ typedef struct nox_object_t {
 	uint32_t field_82;       // 82, 328
 	uint32_t field_83;       // 83, 332
 	uint32_t field_84;       // 84, 336
-	uint32_t field_85;       // 85, 340, TODO: buff flags?
-	uint32_t field_86;       // 86, 344
-	uint32_t field_87;       // 87, 348
-	uint32_t field_88;       // 88, 352
-	uint32_t field_89;       // 89, 356
-	uint32_t field_90;       // 90, 360
-	uint32_t field_91;       // 91, 364
-	uint32_t field_92;       // 92, 368
-	uint32_t field_93;       // 93, 372
-	uint32_t field_94;       // 94, 376
-	uint32_t field_95;       // 95, 380
-	uint32_t field_96;       // 96, 384
-	uint32_t field_97;       // 97, 388
-	uint32_t field_98;       // 98, 392
-	uint32_t field_99;       // 99, 396
-	uint32_t field_100;      // 100, 400
-	uint32_t field_101;      // 101, 404
-	uint32_t field_102;      // 102, 408
-	uint32_t field_103;      // 103, 412
-	uint32_t field_104;      // 104, 416
-	uint32_t field_105;      // 105, 420
-	uint32_t field_106;      // 106, 424
-	uint32_t field_107;      // 107, 428
-	uint32_t field_108;      // 108, 432
-	uint32_t field_109;      // 109, 436
+	uint32_t buffs;          // 85, 340
+	uint16_t buffs_dur[32];  // 86, 344
+	uint8_t  buffs_power[32];// 102, 408
 	uint32_t field_110;      // 110, 440
 	void* field_111;         // 111, 444
 	uint32_t field_112;      // 112, 448
@@ -2207,7 +2185,7 @@ typedef struct nox_playerInfo {
 	uint32_t prot_unit_mana_max;     // 1150, 4600
 	uint32_t prot_unit_experience;   // 1151, 4604
 	uint32_t prot_unit_mass;         // 1152, 4608
-	uint32_t prot_unit_field_85;     // 1153, 4612
+	uint32_t prot_unit_buffs;        // 1153, 4612
 	uint32_t prot_player_class;      // 1154, 4616
 	uint32_t prot_player_field_2235; // 1155, 4620
 	uint32_t prot_player_field_2239; // 1156, 4624

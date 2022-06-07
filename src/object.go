@@ -409,12 +409,25 @@ func (obj *Object) GetOwned516() []*Object {
 	return out
 }
 
-func (obj *Object) buffFlags() uint32 {
-	return uint32(obj.field_85)
+func (obj *Object) HasEnchant(v EnchantID) bool { // nox_xxx_testUnitBuffs_4FF350
+	if obj == nil || v >= 32 {
+		return false
+	}
+	return uint32(obj.buffs)&(uint32(1)<<v) != 0
 }
 
-func (obj *Object) testBuff(v byte) bool { // nox_xxx_testUnitBuffs_4FF350
-	return obj.buffFlags()&(uint32(1)<<v) != 0
+func (obj *Object) EnchantDur(v EnchantID) int { // nox_xxx_unitGetBuffTimer_4FF550
+	if obj == nil || v >= 32 {
+		return 0
+	}
+	return int(obj.buffs_dur[v])
+}
+
+func (obj *Object) EnchantPower(v EnchantID) int { // nox_xxx_buffGetPower_4FF570
+	if obj == nil || v >= 32 {
+		return 0
+	}
+	return int(obj.buffs_dur[v])
 }
 
 func (obj *Object) AsUnit() *Unit {
@@ -677,7 +690,7 @@ func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_533
 	if obj.Class().HasAny(2) && (obj.SubClass()&0x8 != 0) {
 		return false
 	}
-	if obj.testBuff(28) || obj2.testBuff(28) {
+	if obj.HasEnchant(ENCHANT_CHARMING) || obj2.HasEnchant(ENCHANT_CHARMING) {
 		return false
 	}
 	if obj2.Class().HasAny(object.ClassPlayer) {

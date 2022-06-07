@@ -726,7 +726,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	pl.prot_unit_mana_max = C.uint(protectUint16(uint16(udata.mana_max)))
 	pl.prot_unit_experience = C.uint(protectFloat32(float32(punit.experience)))
 	pl.prot_unit_mass = C.uint(protectFloat32(punit.Mass()))
-	pl.prot_unit_field_85 = C.uint(protectInt(int(*(*uint32)(&punit.field_85))))
+	pl.prot_unit_buffs = C.uint(protectInt(int(punit.buffs)))
 	pl.prot_player_class = C.uint(protectInt(int(pl.PlayerClass())))
 	pl.prot_player_field_2235 = C.uint(protectUint32(pl.Info().Field2235()))
 	pl.prot_player_field_2239 = C.uint(protectUint32(pl.Info().Field2239()))

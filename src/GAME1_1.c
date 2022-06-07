@@ -2033,7 +2033,7 @@ int nox_xxx_guiEnchantment_41B9C0(uint32_t* a1) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v22, 1u);
 			for (i = sub_424D00(); i != -1; i = sub_424D20(i)) {
 				if (nox_xxx_testUnitBuffs_4FF350((int)a1, i)) {
-					v3 = sub_4248F0(i);
+					v3 = nox_xxx_getEnchantName_4248F0(i);
 					LOBYTE(v20) = strlen(v3);
 					nox_xxx_fileReadWrite_426AC0_file3_fread(&v20, 1u);
 					nox_xxx_fileReadWrite_426AC0_file3_fread(v3, (unsigned char)v20);
@@ -7108,43 +7108,6 @@ int nox_xxx_updateSpellRelated_424830(int a1, int a2) {
 	}
 	return result;
 }
-
-//----- (00424880) --------------------------------------------------------
-int nox_xxx_enchantByName_424880(const char* a1) {
-	if (!a1) {
-		return -1;
-	}
-	const char* v1;    // ecx
-	int v2;            // ebp
-	unsigned char* v3; // edi
-	int result;        // eax
-
-	v1 = *(const char**)getMemAt(0x587000, 65316);
-	v2 = 0;
-	if (*getMemU32Ptr(0x587000, 65316)) {
-		v3 = getMemAt(0x587000, 65316);
-		do {
-			if (!strcmp(v1, a1)) {
-				break;
-			}
-			v1 = (const char*)*((uint32_t*)v3 + 1);
-			v3 += 4;
-			++v2;
-		} while (v1);
-	}
-	if (*getMemU32Ptr(0x587000, 65316 + 4 * v2)) {
-		result = v2;
-	} else {
-		result = -1;
-	}
-	return result;
-}
-
-//----- (004248F0) --------------------------------------------------------
-char* sub_4248F0(int a1) { return *(char**)getMemAt(0x587000, 65316 + 4 * a1); }
-
-//----- (00424920) --------------------------------------------------------
-int nox_xxx_getEnchantSpell_424920(int a1) { return *getMemU32Ptr(0x587000, 65188 + 4 * a1); }
 
 //----- (00424CB0) --------------------------------------------------------
 char sub_424CB0(int a1) {

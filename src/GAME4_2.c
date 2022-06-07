@@ -9057,7 +9057,7 @@ int nox_xxx_XFer_ReadMonsterBuffs_52AAB0(uint32_t* a1) {
 	}
 	do {
 		if (nox_xxx_testUnitBuffs_4FF350((int)a1, v1)) {
-			v2 = sub_4248F0(v1);
+			v2 = nox_xxx_getEnchantName_4248F0(v1);
 			LOBYTE(v11) = strlen(v2);
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v11, 1u);
 			nox_xxx_fileReadWrite_426AC0_file3_fread(v2, (unsigned char)v11);

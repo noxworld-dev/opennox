@@ -57,6 +57,25 @@ func nox_xxx_spellGetDefArrayPtr_424820() unsafe.Pointer {
 	return unsafe.Pointer(getPhonemeTree())
 }
 
+//export nox_xxx_getEnchantSpell_424920
+func nox_xxx_getEnchantSpell_424920(enc C.int) C.int {
+	return C.int(enchantSpells[EnchantID(enc)])
+}
+
+//export nox_xxx_getEnchantName_4248F0
+func nox_xxx_getEnchantName_4248F0(enc C.int) *C.char {
+	return internCStr(enchantNames[EnchantID(enc)])
+}
+
+//export nox_xxx_enchantByName_424880
+func nox_xxx_enchantByName_424880(cname *C.char) C.int {
+	id := enchantByName[GoString(cname)]
+	if id == 0 {
+		return -1
+	}
+	return C.int(id)
+}
+
 func getPhonemeTree() *phonemeLeaf {
 	if spellPhonemeTree == nil {
 		spellPhonemeTree, _ = alloc.New(phonemeLeaf{})
