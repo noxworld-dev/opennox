@@ -157,7 +157,7 @@ int sub_4C4220();
 void sub_4C4260();
 int sub_4C4280();
 int sub_4C42A0(int2* a1, int2* a2, int* a3, int* a4);
-short nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3);
+void nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3);
 char sub_4C4EC0(uint32_t* a1, int a2);
 short nox_xxx_drawShinySpot_4C4F40(nox_draw_viewport_t* vp, nox_drawable* dr);
 int nox_xxx_colorInit_4C4FD0();

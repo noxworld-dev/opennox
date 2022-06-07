@@ -4388,7 +4388,7 @@ LABEL_77:
 }
 
 //----- (004C4770) --------------------------------------------------------
-short nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
+void nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 	unsigned char* a2 = dr;
 	unsigned char* v3;  // esi
 	char* v4;           // eax
@@ -4465,7 +4465,7 @@ short nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 				v54 = 1;
 			}
 		} else if (v4 && v4[3680] & 1) {
-			return (short)v4;
+			return;
 		}
 		v5 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C);
 		if (v5) {
@@ -4520,24 +4520,18 @@ short nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 				if (sub_4C5630(v26, v26, v25 - 5)) {
 					v27 = a2a.field_4 - 2;
 					a1a.field_4 -= 2;
-				} else {
-					if (!sub_4C5630(v26, v26, v25 + 5)) {
-						goto LABEL_32;
-					}
+					a2a.field_4 = v27;
+				} else if (sub_4C5630(v26, v26, v25 + 5)) {
 					v27 = a2a.field_4 + 2;
 					a1a.field_4 += 2;
+					a2a.field_4 = v27;
 				}
-				a2a.field_4 = v27;
 			}
-		LABEL_32:
-			v4 = (char*)sub_4C42A0(&a1a, &a2a, &a3a, &a4);
-			if (!v4) {
-				return (short)v4;
+			if (!sub_4C42A0(&a1a, &a2a, &a3a, &a4)) {
+				return;
 			}
-			goto LABEL_33;
 		}
 	}
-LABEL_33:
 	if (*((uint32_t*)a2 + 28) & 0x80000 && *((uint32_t*)a2 + 30) & 0x1000000 || *((uint32_t*)a2 + 30) & 0x40000000) {
 		v28 = getMemAt(0x587000, 185472);
 	} else {
@@ -4586,16 +4580,18 @@ LABEL_33:
 				v64 = v39;
 				nox_client_drawEnableAlpha_434560(1);
 				nox_client_drawSetAlpha_434580(v64);
-				goto LABEL_64;
+			} else {
+				nox_client_drawEnableAlpha_434560(1);
+				nox_client_drawSetAlpha_434580(v63);
 			}
-		} else if (*((uint32_t*)v3 + 30) & 0x4000000) {
-			v63 = v38 >> 1;
+		} else {
+			if (*((uint32_t*)v3 + 30) & 0x4000000) {
+				v63 = v38 >> 1;
+			}
+			nox_client_drawEnableAlpha_434560(1);
+			nox_client_drawSetAlpha_434580(v63);
 		}
-		nox_client_drawEnableAlpha_434560(1);
-		nox_client_drawSetAlpha_434580(v63);
-		goto LABEL_64;
-	}
-	if (*((uint32_t*)a2 + 27) == dword_5d4594_1321520) {
+	} else if (*((uint32_t*)a2 + 27) == dword_5d4594_1321520) {
 		v61 = sub_4C4EC0(a1, (int)a2);
 		nox_client_drawEnableAlpha_434560(1);
 		nox_client_drawSetAlpha_434580(v61);
@@ -4603,94 +4599,88 @@ LABEL_33:
 		nox_client_drawEnableAlpha_434560(1);
 		nox_client_drawSetAlpha_434580(0x80u);
 	}
-LABEL_64:
-	if (!nox_client_drawable_testBuff_4356C0((int)v3, 0) && !v54 &&
+	if (!(!nox_client_drawable_testBuff_4356C0((int)v3, 0) && !v54 &&
 		(*((uint32_t*)v3 + 27) != dword_5d4594_1321520 || !*getMemU32Ptr(0x852978, 8) ||
-		 !nox_client_drawable_testBuff_4356C0(*getMemIntPtr(0x852978, 8), 21))) {
-		goto LABEL_105;
-	}
-	if (*getMemU32Ptr(0x8531A0, 2576) && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 1) {
-		nox_client_drawEnableAlpha_434560(1);
-		nox_client_drawSetAlpha_434580(0x80u);
-		goto LABEL_105;
-	}
-	v40 = *((uint32_t*)v3 + 8);
-	v41 = *((uint32_t*)v3 + 9);
-	v42 = *((uint32_t*)v3 + 3) - v40;
-	v43 = *((uint32_t*)v3 + 4) - v41;
-	v44 = *((uint32_t*)v3 + 3) - v40;
-	if (v42 < 0) {
-		v44 = v40 - *((uint32_t*)v3 + 3);
-	}
-	if (v44 < 4) {
-		v45 = *((uint32_t*)v3 + 4) - v41;
-		if (v43 < 0) {
-			v45 = v41 - *((uint32_t*)v3 + 4);
-		}
-		if (v45 < 4) {
+		 !nox_client_drawable_testBuff_4356C0(*getMemIntPtr(0x852978, 8), 21)))) {
+		if (*getMemU32Ptr(0x8531A0, 2576) && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 1) {
+			nox_client_drawEnableAlpha_434560(1);
+			nox_client_drawSetAlpha_434580(0x80u);
+		} else {
+			v40 = *((uint32_t*)v3 + 8);
+			v41 = *((uint32_t*)v3 + 9);
+			v42 = *((uint32_t*)v3 + 3) - v40;
+			v43 = *((uint32_t*)v3 + 4) - v41;
+			v44 = *((uint32_t*)v3 + 3) - v40;
+			if (v42 < 0) {
+				v44 = v40 - *((uint32_t*)v3 + 3);
+			}
+			if (v44 < 4) {
+				v45 = *((uint32_t*)v3 + 4) - v41;
+				if (v43 < 0) {
+					v45 = v41 - *((uint32_t*)v3 + 4);
+				}
+				if (v45 < 4) {
+					v46 = *getMemU32Ptr(0x852978, 8);
+					if (!*getMemU32Ptr(0x852978, 8)) {
+						goto LABEL_82;
+					}
+					if (!nox_client_drawable_testBuff_4356C0(*getMemIntPtr(0x852978, 8), 21)) {
+						LOWORD(v4) = v53;
+						if (!v53) {
+							return;
+						}
+					}
+				}
+			}
 			v46 = *getMemU32Ptr(0x852978, 8);
-			if (!*getMemU32Ptr(0x852978, 8)) {
-				goto LABEL_82;
-			}
-			if (!nox_client_drawable_testBuff_4356C0(*getMemIntPtr(0x852978, 8), 21)) {
-				LOWORD(v4) = v53;
-				if (!v53) {
-					return (short)v4;
+		LABEL_82:
+			if (v42 || v43) {
+				v47 = *((uint32_t*)v3 + 5) - *((uint32_t*)v3 + 10);
+				if (!v47) {
+					v47 = 1;
 				}
+				v48 = nox_double2int(sqrt((double)(v42 * v42 + v43 * v43))) / v47;
+				v30 = a1a.field_0;
+				v42 = v48;
+				v46 = *getMemU32Ptr(0x852978, 8);
 			}
-		}
-	}
-	v46 = *getMemU32Ptr(0x852978, 8);
-LABEL_82:
-	if (v42 || v43) {
-		v47 = *((uint32_t*)v3 + 5) - *((uint32_t*)v3 + 10);
-		if (!v47) {
-			v47 = 1;
-		}
-		v48 = nox_double2int(sqrt((double)(v42 * v42 + v43 * v43))) / v47;
-		v30 = a1a.field_0;
-		v42 = v48;
-		v46 = *getMemU32Ptr(0x852978, 8);
-	}
-	if (!v46) {
-		goto LABEL_123;
-	}
-	if (v54) {
-		goto LABEL_95;
-	}
-	if (v53 || !nox_client_drawable_testBuff_4356C0(v46, 21)) {
-	LABEL_123:
-		if (v42 < 8) {
-			v49 = (v42 << 7) / 8;
-			v62 = v49;
-			if ((uint8_t)v49) {
-				goto LABEL_97;
+			if (!v46) {
+				goto LABEL_123;
 			}
-			LOBYTE(v49) = 1;
-		LABEL_96:
-			v62 = v49;
-		LABEL_97:
-			if (v53 && (unsigned char)v49 <= 1u) {
-				if ((v50 = *((uint32_t*)v3 + 28), v50 & 2) && *((uint32_t*)v3 + 69) == 8 ||
-					v50 & 4 && !*((uint32_t*)v3 + 69)) {
-					nox_xxx_draw_434600(1);
-					sub_433E40(*getMemIntPtr(0x8531A0, 2572));
-					v62 = -128;
+			if (v54) {
+				goto LABEL_95;
+			}
+			if (v53 || !nox_client_drawable_testBuff_4356C0(v46, 21)) {
+			LABEL_123:
+				if (v42 < 8) {
+					v49 = (v42 << 7) / 8;
+					v62 = v49;
+					if (!(uint8_t)v49) {
+						LOBYTE(v49) = 1;
+						v62 = v49;
+					}
+				} else {
+				LABEL_95:
+					LOBYTE(v49) = -128;
+					v62 = v49;
 				}
+				if (v53 && (unsigned char)v49 <= 1u) {
+					if ((v50 = *((uint32_t*)v3 + 28), v50 & 2) && *((uint32_t*)v3 + 69) == 8 ||
+						v50 & 4 && !*((uint32_t*)v3 + 69)) {
+						nox_xxx_draw_434600(1);
+						sub_433E40(*getMemIntPtr(0x8531A0, 2572));
+						v62 = -128;
+					}
+				}
+			} else {
+				nox_xxx_draw_434600(1);
+				sub_433E40(*getMemIntPtr(0x8531A0, 2572));
+				v62 = -1;
 			}
-			goto LABEL_104;
+			nox_client_drawEnableAlpha_434560(1);
+			nox_client_drawSetAlpha_434580(v62);
 		}
-	LABEL_95:
-		LOBYTE(v49) = -128;
-		goto LABEL_96;
 	}
-	nox_xxx_draw_434600(1);
-	sub_433E40(*getMemIntPtr(0x8531A0, 2572));
-	v62 = -1;
-LABEL_104:
-	nox_client_drawEnableAlpha_434560(1);
-	nox_client_drawSetAlpha_434580(v62);
-LABEL_105:
 	if (!(v3[112] & 4) && nox_client_drawable_testBuff_4356C0((int)v3, 23) && !nox_common_gameFlags_check_40A5C0(2048)) {
 		nox_xxx_draw_434600(1);
 		if ((unsigned char)nox_frame_xxx_2598000 & 1) {
@@ -4721,7 +4711,6 @@ LABEL_105:
 	*((uint16_t*)v3 + 2) = *getMemU16Ptr(0x973F18, 88);
 	*((uint16_t*)v3 + 3) = *getMemU16Ptr(0x973F18, 76);
 	*((uint32_t*)v3 + 2) = a3;
-	return (short)v4;
 }
 // 4C4AD0: variable 'v35' is possibly undefined
 // 4C4AD0: variable 'v34' is possibly undefined

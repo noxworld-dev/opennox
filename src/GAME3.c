@@ -7898,7 +7898,7 @@ int nox_xxx_gameDeleteSpiningCrownSkull_4B8220() {
 }
 
 //----- (004B8960) --------------------------------------------------------
-short sub_4B8960(int* a1, nox_drawable* dr, int a3, uint32_t* a4, int a5, int a6) {
+void sub_4B8960(int* a1, nox_drawable* dr, int a3, uint32_t* a4, int a5, int a6) {
 	int a2 = dr;
 	unsigned char* v6; // esi
 	int v7;            // ecx
@@ -8024,7 +8024,7 @@ LABEL_55:
 		v22 = (v8 & 0x1000000) != 0 ? 0x1000000 : 0x2000000;
 		while (!((1 << v23) & v22)) {
 			if (++v23 >= 26) {
-				return v22;
+				return;
 			}
 		}
 		v24 = *(uint32_t*)(a5 + 4 * v23 + 52);
@@ -8037,11 +8037,9 @@ LABEL_55:
 			} else {
 				sub_4B8CA0(a4, (char*)v22);
 			}
-			LOWORD(v22) =
-				nox_xxx_drawObject_4C4770_draw(a1, v6, *(uint32_t*)(*(uint32_t*)(v24 + 4 * v6[297] + 4) + 4 * a6));
+			nox_xxx_drawObject_4C4770_draw(a1, v6, *(uint32_t*)(*(uint32_t*)(v24 + 4 * v6[297] + 4) + 4 * a6));
 		}
 	}
-	return v22;
 }
 
 //----- (004B8CA0) --------------------------------------------------------
@@ -8109,11 +8107,10 @@ uint32_t* sub_4B8CA0(uint32_t* a1, char* a2) {
 // 4B8D20: variable 'v10' is possibly undefined
 
 //----- (004B8D40) --------------------------------------------------------
-short sub_4B8D40(int* a1, nox_drawable* dr, int a3, uint32_t* a4, int a5, int a6) {
+void sub_4B8D40(int* a1, nox_drawable* dr, int a3, uint32_t* a4, int a5, int a6) {
 	unsigned char* v6; // esi
 	int v7;            // ebx
 	int* v8;           // ebp
-	int v9;            // eax
 	int v10;           // edi
 	int i;             // esi
 	int v13;           // [esp+10h] [ebp-8h]
@@ -8129,7 +8126,6 @@ short sub_4B8D40(int* a1, nox_drawable* dr, int a3, uint32_t* a4, int a5, int a6
 	v7 = 1;
 	v8 = (int*)(a5 + 160);
 	do {
-		v9 = 1 << v7;
 		if ((1 << v7) & a3) {
 			v10 = *v8;
 			if (*v8) {
@@ -8141,14 +8137,12 @@ short sub_4B8D40(int* a1, nox_drawable* dr, int a3, uint32_t* a4, int a5, int a6
 				} else {
 					sub_4B8E10(a4, (char*)(1 << v7));
 				}
-				LOWORD(v9) =
-					nox_xxx_drawObject_4C4770_draw(a1, v6, *(uint32_t*)(*(uint32_t*)(v10 + 4 * v6[297] + 4) + 4 * a6));
+				nox_xxx_drawObject_4C4770_draw(a1, v6, *(uint32_t*)(*(uint32_t*)(v10 + 4 * v6[297] + 4) + 4 * a6));
 			}
 		}
 		++v7;
 		++v8;
 	} while (v7 < 27);
-	return v9;
 }
 
 //----- (004B8E10) --------------------------------------------------------
