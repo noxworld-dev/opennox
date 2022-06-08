@@ -76,7 +76,7 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	if (!v3) {
 		return 1;
 	}
-	if (*getMemU32Ptr(0x8531A0, 2576) && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 1) {
+	if (*getMemU32Ptr(0x8531A0, 2576) && (*(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 1)) {
 		v30 = 1;
 	}
 	if (nox_player_netCode_85319C == dr->field_32) {
@@ -210,7 +210,7 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 		sub_4B8D40(v10, dr, *((uint32_t*)v3 + 1) & 2, (uint32_t*)v3 + 581, v28, v27);
 	}
 
-	if (v30 || !nox_client_drawable_testBuff_4356C0(dr, 0) || dr->field_32 == nox_player_netCode_85319C ||
+	if (v30 || !nox_client_drawable_testBuff_4356C0(dr, 0) || (dr->field_32 == nox_player_netCode_85319C) ||
 		*getMemU32Ptr(0x852978, 8) && (nox_client_drawable_testBuff_4356C0(*getMemIntPtr(0x852978, 8), 21) || v31)) {
 		a1 = nox_color_rgb_4344A0(155, 155, 155);
 		if (!sub_48D830(dr) && !nox_common_gameFlags_check_40A5C0(2048)) {
@@ -270,7 +270,7 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 			// TODO: shouldn't it be i+1 ?
 			nox_draw_setMaterial_4341D0(i, nox_color_white_2523948);
 		}
-		if (dr != *getMemU32Ptr(0x852978, 8) && nox_xxx_playerGet_470A90()) {
+		if ((dr != *getMemU32Ptr(0x852978, 8)) && nox_xxx_playerGet_470A90()) {
 			if (nox_common_gameFlags_check_40A5C0(4096)) {
 				nox_xxx_drawOtherPlayerHP_4B8EB0(v10, dr, (unsigned char)v3[2282], (*((uint32_t*)v3 + 920) >> 10) & 1);
 			}

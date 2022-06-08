@@ -4532,7 +4532,7 @@ void nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 			}
 		}
 	}
-	if (*((uint32_t*)a2 + 28) & 0x80000 && *((uint32_t*)a2 + 30) & 0x1000000 || *((uint32_t*)a2 + 30) & 0x40000000) {
+	if ((*((uint32_t*)a2 + 28) & 0x80000) && (*((uint32_t*)a2 + 30) & 0x1000000) || (*((uint32_t*)a2 + 30) & 0x40000000)) {
 		v28 = getMemAt(0x587000, 185472);
 	} else {
 		v28 = sub_469920((int2*)(a2 + 12));
@@ -4554,7 +4554,7 @@ void nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 	if (nox_client_drawable_testBuff_4356C0((int)a2, 25)) {
 		nox_xxx_draw_434600(1);
 		nox_draw_setColorMultAndIntensity_433E40(nox_color_blue_2650684);
-	} else if (a2[112] & 2 && (v32 = *((uint32_t*)a2 + 30), v32 & 0x40000000) && !(v32 & 0x8020)) {
+	} else if ((a2[112] & 2) && (v32 = *((uint32_t*)a2 + 30), v32 & 0x40000000) && !(v32 & 0x8020)) {
 		nox_xxx_draw_434600(1);
 		nox_draw_setColorMultAndIntensity_433E40(nox_color_blue_2650684);
 	} else {
@@ -4602,7 +4602,7 @@ void nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 	if (!(!nox_client_drawable_testBuff_4356C0((int)v3, 0) && !v54 &&
 		(*((uint32_t*)v3 + 27) != dword_5d4594_1321520 || !*getMemU32Ptr(0x852978, 8) ||
 		 !nox_client_drawable_testBuff_4356C0(*getMemIntPtr(0x852978, 8), 21)))) {
-		if (*getMemU32Ptr(0x8531A0, 2576) && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 1) {
+		if (*getMemU32Ptr(0x8531A0, 2576) && (*(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 1)) {
 			nox_client_drawEnableAlpha_434560(1);
 			nox_client_drawSetAlpha_434580(0x80u);
 		} else {
@@ -4665,8 +4665,8 @@ void nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 					v62 = v49;
 				}
 				if (v53 && (unsigned char)v49 <= 1u) {
-					if ((v50 = *((uint32_t*)v3 + 28), v50 & 2) && *((uint32_t*)v3 + 69) == 8 ||
-						v50 & 4 && !*((uint32_t*)v3 + 69)) {
+					if ((v50 = *((uint32_t*)v3 + 28), v50 & 2) && (*((uint32_t*)v3 + 69) == 8) ||
+						(v50 & 4) && !*((uint32_t*)v3 + 69)) {
 						nox_xxx_draw_434600(1);
 						nox_draw_setColorMultAndIntensity_433E40(*getMemIntPtr(0x8531A0, 2572));
 						v62 = -128;
