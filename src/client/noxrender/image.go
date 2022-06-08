@@ -550,7 +550,7 @@ func (r *NoxRender) pixOpOverMultiplyAlpha50Indexed(dst []uint16, src []byte, op
 
 	return r.drawOpU8(dst, src, sz, func(c1 uint16, c2 byte) uint16 {
 		cc1 := SplitColor16(c1)
-		return cc1.Over(pmul.MultI(uint16(c2))).Mult(mul).Make16()
+		return cc1.Over(pmul.MultI(uint16(c2)).Mult(mul)).Make16()
 	})
 }
 
