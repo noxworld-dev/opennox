@@ -162,20 +162,21 @@ int nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 		nox_xxx_draw_434600(1);
 		nox_draw_setColorMultAndIntensity_433E40(*getMemIntPtr(0x8531A0, 2572));
 		LOBYTE(a2) = -1;
-	LABEL_21:
-		nox_client_drawEnableAlpha_434560(1);
-		nox_client_drawSetAlpha_434580(a2);
-	LABEL_22:
-		sub_4BC490(v2);
+	} else {
+		if (v10 * v10 + v11 * v11 < 40000) {
+			goto LABEL_21;
+		}
 		v12 = a1;
-		v23 = sub_4BC6B0(a1, v2, v8);
-		nox_xxx_draw_434600(0);
 		goto LABEL_24;
 	}
-	if (v10 * v10 + v11 * v11 < 40000) {
-		goto LABEL_21;
-	}
+LABEL_21:
+	nox_client_drawEnableAlpha_434560(1);
+	nox_client_drawSetAlpha_434580(a2);
+LABEL_22:
+	sub_4BC490(v2);
 	v12 = a1;
+	v23 = sub_4BC6B0(a1, v2, v8);
+	nox_xxx_draw_434600(0);
 LABEL_24:
 	if (nox_xxx_unitSpriteCheckAlly_4951F0(*(uint32_t*)(v2 + 128))) {
 		v22 = 0;
@@ -186,39 +187,40 @@ LABEL_24:
 	}
 	if (!nox_xxx_CheckGameplayFlags_417DA0(4) &&
 		(!*getMemU32Ptr(0x852978, 8) || !nox_xxx_servObjectHasTeam_419130(*getMemU32Ptr(0x852978, 8) + 24))) {
-		goto LABEL_45;
+		nox_client_drawEnableAlpha_434560(0);
+		return v23;
 	}
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		v15 = *getMemU32Ptr(0x852978, 8) + 24;
-	LABEL_34:
-		if (v15) {
-			v16 = 0;
-			v17 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(v15 + 4));
-			if (v17 && sub_495A80(*(uint32_t*)(v2 + 128))) {
-				v16 = 1;
-			}
-			if ((!nox_common_gameFlags_check_40A5C0(4096) || !(*(uint8_t*)(v2 + 112) & 2) ||
-				 !(*(uint8_t*)(v2 + 116) & 8)) &&
-				v16) {
-				v18 = nox_xxx_materialGetTeamColor_418D50((int)v17);
-				nox_client_drawSetColor_434460(v18);
-				v19 = *v12 + *(uint32_t*)(v2 + 12) - v12[4];
-				v20 = *(uint32_t*)(v2 + 16) + v12[1] - *(short*)(v2 + 104) - a1[5] -
-					  2 * nox_float2int(*(float*)(v2 + 100));
-				nox_client_drawPoint_4B0BC0(v19, v20, 3);
-			}
+	} else {
+		v13 = nox_common_playerInfoFromNum_417090(31);
+		if (!v13) {
+			nox_client_drawEnableAlpha_434560(0);
+			return v23;
 		}
-		goto LABEL_45;
-	}
-	v13 = nox_common_playerInfoFromNum_417090(31);
-	if (v13) {
 		v14 = *((uint32_t*)v13 + 514);
-		if (v14) {
-			v15 = v14 + 48;
-			goto LABEL_34;
+		if (!v14) {
+			nox_client_drawEnableAlpha_434560(0);
+			return v23;
 		}
+		v15 = v14 + 48;
 	}
-LABEL_45:
+	if (!v15) {
+		nox_client_drawEnableAlpha_434560(0);
+		return v23;
+	}
+	v16 = 0;
+	v17 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(v15 + 4));
+	if (v17 && sub_495A80(*(uint32_t*)(v2 + 128))) {
+		v16 = 1;
+	}
+	if ((!nox_common_gameFlags_check_40A5C0(4096) || !(*(uint8_t*)(v2 + 112) & 2) || !(*(uint8_t*)(v2 + 116) & 8)) && v16) {
+		v18 = nox_xxx_materialGetTeamColor_418D50((int)v17);
+		nox_client_drawSetColor_434460(v18);
+		v19 = *v12 + *(uint32_t*)(v2 + 12) - v12[4];
+		v20 = *(uint32_t*)(v2 + 16) + v12[1] - *(short*)(v2 + 104) - a1[5] - 2 * nox_float2int(*(float*)(v2 + 100));
+		nox_client_drawPoint_4B0BC0(v19, v20, 3);
+	}
 	nox_client_drawEnableAlpha_434560(0);
 	return v23;
 }
