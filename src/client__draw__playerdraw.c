@@ -54,8 +54,6 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	short* v21;       // edi
 	int v22;          // esi
 	int v23;         // eax
-	int v24;          // eax
-	int v25;          // eax
 	int v26;          // [esp-4h] [ebp-6Ch]
 	int v27;          // [esp+10h] [ebp-58h]
 	int v28;          // [esp+14h] [ebp-54h]
@@ -231,39 +229,37 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 			v3 = v32;
 		}
 		if (nox_client_drawable_testBuff_4356C0(dr, 16)) {
-			v36[2] = nox_win_width;
-			v36[8] = nox_win_width;
 			v36[0] = 0;
 			v36[1] = 0;
+			v36[2] = nox_win_width;
 			v36[3] = nox_win_height;
-			v36[9] = nox_win_height;
 			v36[4] = 0;
 			v36[5] = 0;
+			v36[8] = nox_win_width;
+			v36[9] = nox_win_height;
 			if (!dword_5d4594_1313796) {
-				v24 = nox_xxx_getTTByNameSpriteMB_44CFC0("SpinningSkull");
-				dword_5d4594_1313796 = nox_new_drawable_for_thing(v24);
+				dword_5d4594_1313796 = nox_new_drawable_for_thing(nox_xxx_getTTByNameSpriteMB_44CFC0("SpinningSkull"));
 				*(uint32_t*)(dword_5d4594_1313796 + 120) |= 0x1000000u;
 			}
-			*(uint32_t*)(dword_5d4594_1313796 + 12) = *v10 + dr->pos.x - v10[4];
-			*(uint32_t*)(dword_5d4594_1313796 + 16) = v10[1] - v10[5] + dr->pos.y - 50;
+			*(uint32_t*)(dword_5d4594_1313796 + 12) = dr->pos.x + v10[0] - v10[4];
+			*(uint32_t*)(dword_5d4594_1313796 + 16) = dr->pos.y + v10[1] - v10[5] - 50;
 			(*(void (**)(int*, uint32_t))(dword_5d4594_1313796 + 300))(v36, dword_5d4594_1313796);
 		}
 		if (nox_client_drawable_testBuff_4356C0(dr, 30)) {
-			v36[2] = nox_win_width;
-			v36[8] = nox_win_width;
 			v36[0] = 0;
 			v36[1] = 0;
+			v36[2] = nox_win_width;
 			v36[3] = nox_win_height;
-			v36[9] = nox_win_height;
 			v36[4] = 0;
 			v36[5] = 0;
+			v36[8] = nox_win_width;
+			v36[9] = nox_win_height;
 			if (!dword_5d4594_1313800) {
-				v25 = nox_xxx_getTTByNameSpriteMB_44CFC0("SpinningCrown");
-				dword_5d4594_1313800 = nox_new_drawable_for_thing(v25);
+				dword_5d4594_1313800 = nox_new_drawable_for_thing(nox_xxx_getTTByNameSpriteMB_44CFC0("SpinningCrown"));
 				*(uint32_t*)(dword_5d4594_1313800 + 120) |= 0x1000000u;
 			}
-			*(uint32_t*)(dword_5d4594_1313800 + 12) = *v10 + dr->pos.x - v10[4];
-			*(uint32_t*)(dword_5d4594_1313800 + 16) = v10[1] - v10[5] + dr->pos.y - 50;
+			*(uint32_t*)(dword_5d4594_1313800 + 12) = dr->pos.x + v10[0] - v10[4];
+			*(uint32_t*)(dword_5d4594_1313800 + 16) = dr->pos.y + v10[1] - v10[5] - 50;
 			(*(void (**)(int*, uint32_t))(dword_5d4594_1313800 + 300))(v36, dword_5d4594_1313800);
 		}
 		for (int i = 0; i < 6; i++) {

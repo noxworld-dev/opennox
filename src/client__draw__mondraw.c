@@ -9,6 +9,7 @@
 #include "client__draw__parse__parse.h"
 #include "client__gui__window.h"
 #include "client__video__draw_common.h"
+#include "client__drawable__drawable.h"
 #include "common__random.h"
 #include "common__system__team.h"
 #include "operators.h"
@@ -16,6 +17,7 @@
 extern int nox_backbuffer_depth;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
+extern uint32_t dword_5d4594_1313796;
 
 //----- (004BC490) --------------------------------------------------------
 char sub_4BC490(int a1) {
@@ -178,6 +180,24 @@ LABEL_22:
 	v23 = sub_4BC6B0(a1, v2, v8);
 	nox_xxx_draw_434600(0);
 LABEL_24:
+	if (nox_client_drawable_testBuff_4356C0(dr, 16)) {
+		int v36[13] = {0};
+		v36[0] = 0;
+		v36[1] = 0;
+		v36[2] = nox_win_width;
+		v36[3] = nox_win_height;
+		v36[4] = 0;
+		v36[5] = 0;
+		v36[8] = nox_win_width;
+		v36[9] = nox_win_height;
+		if (!dword_5d4594_1313796) {
+			dword_5d4594_1313796 = nox_new_drawable_for_thing(nox_xxx_getTTByNameSpriteMB_44CFC0("SpinningSkull"));
+			*(uint32_t*)(dword_5d4594_1313796 + 120) |= 0x1000000u;
+		}
+		*(uint32_t*)(dword_5d4594_1313796 + 12) = dr->pos.x + a1[0] - a1[4];
+		*(uint32_t*)(dword_5d4594_1313796 + 16) = dr->pos.y + a1[1] - a1[5] - 50;
+		(*(void (**)(int*, uint32_t))(dword_5d4594_1313796 + 300))(v36, dword_5d4594_1313796);
+	}
 	if (nox_xxx_unitSpriteCheckAlly_4951F0(*(uint32_t*)(v2 + 128))) {
 		v22 = 0;
 		v21 = 0;
