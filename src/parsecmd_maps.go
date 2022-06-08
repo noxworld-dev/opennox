@@ -106,6 +106,7 @@ func noxCmdLoad(ctx context.Context, c *console.Console, tokens []string) bool {
 	noxServer.switchMap(fname)
 	C.sub_41D650()
 	str := strMan.GetStringInFile("maploaded", "parsecmd.c")
+	str = strings.ReplaceAll(str, "%S", "%s")
 	nox_xxx_printCentered_445490(fmt.Sprintf(str, fname))
 	return true
 }
