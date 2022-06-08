@@ -15,3 +15,5 @@ func copyPixBuffer() {
 
 func playMovieFile(name string) {
 }
+
+func sub_43C060() bool { return true }
