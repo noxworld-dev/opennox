@@ -44,7 +44,7 @@ int nox_thing_door_draw(uint32_t* a1, nox_drawable* dr) {
 	LOBYTE(v4) = v2[8];
 	v3 = v2[4];
 	LOBYTE(v5) = *v2;
-	sub_433CD0(v5, v3, v4);
+	nox_draw_setColorMultAndIntensityRGB_433CD0(v5, v3, v4);
 	v6 = dr->field_74_4;
 	if (v6 == 0) {
 		v7 = dr->field_108_2;

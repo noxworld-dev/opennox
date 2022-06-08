@@ -32,7 +32,7 @@ int nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
 	}
 	if (nox_client_drawable_testBuff_4356C0(*getMemIntPtr(0x852978, 8), 21)) {
 		nox_xxx_draw_434600(1);
-		sub_433E40(*getMemIntPtr(0x8531A0, 2572));
+		nox_draw_setColorMultAndIntensity_433E40(*getMemIntPtr(0x8531A0, 2572));
 		v3 = -1;
 	LABEL_9:
 		LOBYTE(a2) = v3;

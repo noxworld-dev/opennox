@@ -867,9 +867,9 @@ func nox_video_cursorDrawImpl_477A30(r *NoxRender, inp *input.Handler, pos image
 		if v16 := nox_xxx_spriteGetMB_476F80(); v16 != nil {
 			sub_48B680(1)
 			if v16.Flags28()&6 == 0 || C.sub_495A80(C.int(v16.Field32())) != 0 {
-				sub_48B800(nox_color_blue_2650684)
+				r.setColorMultAndIntensity(nox_color_blue_2650684)
 			} else {
-				sub_48B800(nox_color_red)
+				r.setColorMultAndIntensity(nox_color_red)
 			}
 		} else {
 			sub_48B680(0)

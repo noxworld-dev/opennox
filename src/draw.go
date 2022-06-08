@@ -445,32 +445,32 @@ func nox_draw_set54RGB_433F10(r, g, b C.uchar) {
 	})
 }
 
-//export sub_433E40
-func sub_433E40(cl C.int) C.int {
+//export nox_draw_setColorMultAndIntensity_433E40
+func nox_draw_setColorMultAndIntensity_433E40(cl C.int) C.int {
 	c := noxcolor.RGBA5551(cl).ColorNRGBA()
-	return C.int(sub433CD0(c.R, c.G, c.B))
+	return C.int(noxrend.setColorMultAndIntensityRGB(c.R, c.G, c.B))
 }
 
 func sub433E40(cl noxcolor.Color) C.int {
 	c := cl.ColorNRGBA()
-	return C.int(sub433CD0(c.R, c.G, c.B))
+	return C.int(noxrend.setColorMultAndIntensityRGB(c.R, c.G, c.B))
 }
 
-//export sub_433CD0
-func sub_433CD0(r, g, b C.uchar) C.int {
-	return C.int(sub433CD0(byte(r), byte(g), byte(b)))
+//export nox_draw_setColorMultAndIntensityRGB_433CD0
+func nox_draw_setColorMultAndIntensityRGB_433CD0(r, g, b C.uchar) C.int {
+	return C.int(noxrend.setColorMultAndIntensityRGB(byte(r), byte(g), byte(b)))
 }
 
-func sub_48B800(cl color.Color) {
+func (r *NoxRender) setColorMultAndIntensity(cl color.Color) {
 	c := noxcolor.ToRGBA5551Color(cl).ColorNRGBA()
-	sub433CD0(c.R, c.G, c.B)
+	r.setColorMultAndIntensityRGB(c.R, c.G, c.B)
 }
 
-func sub433CD0(r, g, b byte) byte {
-	d := noxrend.Data()
-	d.field_16 = C.uint(bool2int(r == 0xFF && g == 0xFF && b == 0xFF))
-	d.SetColorMultA(noxrender.Color16{R: uint16(r), G: uint16(g), B: uint16(b)})
-	v := noxrend.ColorIntensity(r, g, b)
+func (r *NoxRender) setColorMultAndIntensityRGB(cr, cg, cb byte) byte {
+	d := r.Data()
+	d.field_16 = C.uint(bool2int(cr == 0xFF && cg == 0xFF && cb == 0xFF))
+	d.SetColorMultA(noxrender.Color16{R: uint16(cr), G: uint16(cg), B: uint16(cb)})
+	v := r.ColorIntensity(cr, cg, cb)
 	d.field_258_2 = C.ushort(v)
 	return v
 }

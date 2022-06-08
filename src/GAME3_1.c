@@ -4553,16 +4553,16 @@ void nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 	*getMemU32Ptr(0x5D4594, 1321512) = v31;
 	if (nox_client_drawable_testBuff_4356C0((int)a2, 25)) {
 		nox_xxx_draw_434600(1);
-		sub_433E40(nox_color_blue_2650684);
+		nox_draw_setColorMultAndIntensity_433E40(nox_color_blue_2650684);
 	} else if (a2[112] & 2 && (v32 = *((uint32_t*)a2 + 30), v32 & 0x40000000) && !(v32 & 0x8020)) {
 		nox_xxx_draw_434600(1);
-		sub_433E40(nox_color_blue_2650684);
+		nox_draw_setColorMultAndIntensity_433E40(nox_color_blue_2650684);
 	} else {
 		sub_4345F0(1);
 		LOBYTE(v34) = v28[8];
 		v33 = v28[4];
 		LOBYTE(v35) = *v28;
-		sub_433CD0(v35, v33, v34);
+		nox_draw_setColorMultAndIntensityRGB_433CD0(v35, v33, v34);
 	}
 	if (*((uint32_t*)a2 + 120)) {
 		v60 = (unsigned int)(nox_frame_xxx_2598000 - *((uint32_t*)a2 + 85));
@@ -4668,13 +4668,13 @@ void nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 					if ((v50 = *((uint32_t*)v3 + 28), v50 & 2) && *((uint32_t*)v3 + 69) == 8 ||
 						v50 & 4 && !*((uint32_t*)v3 + 69)) {
 						nox_xxx_draw_434600(1);
-						sub_433E40(*getMemIntPtr(0x8531A0, 2572));
+						nox_draw_setColorMultAndIntensity_433E40(*getMemIntPtr(0x8531A0, 2572));
 						v62 = -128;
 					}
 				}
 			} else {
 				nox_xxx_draw_434600(1);
-				sub_433E40(*getMemIntPtr(0x8531A0, 2572));
+				nox_draw_setColorMultAndIntensity_433E40(*getMemIntPtr(0x8531A0, 2572));
 				v62 = -1;
 			}
 			nox_client_drawEnableAlpha_434560(1);
@@ -4684,14 +4684,14 @@ void nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 	if (!(v3[112] & 4) && nox_client_drawable_testBuff_4356C0((int)v3, 23) && !nox_common_gameFlags_check_40A5C0(2048)) {
 		nox_xxx_draw_434600(1);
 		if ((unsigned char)nox_frame_xxx_2598000 & 1) {
-			sub_433E40(nox_color_white_2523948);
+			nox_draw_setColorMultAndIntensity_433E40(nox_color_white_2523948);
 		} else {
-			sub_433E40(nox_color_blue_2650684);
+			nox_draw_setColorMultAndIntensity_433E40(nox_color_blue_2650684);
 		}
 	}
 	if (!nox_client_drawable_testBuff_4356C0((int)v3, 23) && nox_client_drawable_testBuff_4356C0((int)v3, 11)) {
 		nox_xxx_draw_434600(1);
-		sub_433E40(*getMemIntPtr(0x85B3FC, 956));
+		nox_draw_setColorMultAndIntensity_433E40(*getMemIntPtr(0x85B3FC, 956));
 	}
 	if (a2b) {
 		nox_xxx_wndDraw_49F7F0();

@@ -6709,7 +6709,7 @@ LABEL_64:
 		v48 = *((uint8_t*)v32 + 8);
 		LOBYTE(v49) = *((uint8_t*)v32 + 4);
 		LOBYTE(v50) = *(uint8_t*)v32;
-		sub_433CD0(v50, v49, v48);
+		nox_draw_setColorMultAndIntensityRGB_433CD0(v50, v49, v48);
 		if (!(v72 & 2)) {
 			v69 = v72;
 			v66 = a4;
@@ -6741,7 +6741,7 @@ LABEL_64:
 		LOBYTE(v59) = v54[8];
 		v58 = v54[4];
 		LOBYTE(v60) = *v54;
-		sub_433CD0(v60, v58, v59);
+		nox_draw_setColorMultAndIntensityRGB_433CD0(v60, v58, v59);
 		if (!(v72 & 2)) {
 			if (sub_47D380(a3, a4)) {
 				sub_47D400(nox_client_highResFrontWalls_80820 == 0, a1[5]);

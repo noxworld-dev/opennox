@@ -160,7 +160,7 @@ int nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 	}
 	if (*getMemU32Ptr(0x852978, 8) && nox_client_drawable_testBuff_4356C0(*getMemIntPtr(0x852978, 8), 21)) {
 		nox_xxx_draw_434600(1);
-		sub_433E40(*getMemIntPtr(0x8531A0, 2572));
+		nox_draw_setColorMultAndIntensity_433E40(*getMemIntPtr(0x8531A0, 2572));
 		LOBYTE(a2) = -1;
 	LABEL_21:
 		nox_client_drawEnableAlpha_434560(1);
