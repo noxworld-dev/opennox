@@ -1819,7 +1819,7 @@ func nox_client_queueWallsDraw(vp *Viewport, xmin, ymin int) { // nox_xxx_drawAl
 			if wl == nil {
 				continue
 			}
-			if memmap.Uint8(0x85B3FC, 43076+12332*uintptr(wl.field1()))&4 == 0 {
+			if memmap.Uint8(0x85B3FC, 43076+12332*uintptr(wl.tile()))&4 == 0 {
 				if wl.field4()&2 != 0 {
 					nox_frontWalls = append(nox_frontWalls, wl)
 				} else {

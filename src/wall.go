@@ -20,6 +20,12 @@ func asWall(p unsafe.Pointer) *Wall {
 	return (*Wall)(p)
 }
 
+func (s *Server) nox_xxx_wallTileByName_410D60(name string) byte {
+	str := CString(name)
+	defer StrFree(str)
+	return byte(C.nox_xxx_wallTileByName_410D60(str))
+}
+
 func (s *Server) getWallAtGrid(pos image.Point) *Wall {
 	p := C.nox_server_getWallAtGrid_410580(C.int(pos.X), C.int(pos.Y))
 	return asWall(p)
@@ -94,12 +100,44 @@ func (w *Wall) String() string {
 	return fmt.Sprintf("Wall(%d, %d)", pos.X, pos.Y)
 }
 
-func (w *Wall) field1() byte {
+func (w *Wall) dir() byte {
+	return *(*byte)(w.field(0))
+}
+
+func (w *Wall) setDir(v byte) {
+	*(*byte)(w.field(0)) = v
+}
+
+func (w *Wall) tile() byte {
 	return *(*byte)(w.field(1))
+}
+
+func (w *Wall) setTile(v byte) {
+	*(*byte)(w.field(1)) = v
+}
+
+func (w *Wall) field2() byte {
+	return *(*byte)(w.field(2))
+}
+
+func (w *Wall) setField2(v byte) {
+	*(*byte)(w.field(2)) = v
 }
 
 func (w *Wall) field4() byte {
 	return *(*byte)(w.field(4))
+}
+
+func (w *Wall) setField4(v byte) {
+	*(*byte)(w.field(4)) = v
+}
+
+func (w *Wall) health() byte {
+	return *(*byte)(w.field(7))
+}
+
+func (w *Wall) setHealth(v byte) {
+	*(*byte)(w.field(7)) = v
 }
 
 func (w *Wall) GridPos() image.Point {
