@@ -800,7 +800,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj
 	case things.SPELL_TRIGGER_GLYPH:
 		cfnc = C.sub_52CCD0
 	case things.SPELL_VAMPIRISM:
-		cfnc = C.nox_xxx_castVamp_52C530
+		fnc = castVampirism
 	case things.SPELL_VILLAIN:
 		fnc = castVillain
 	case things.SPELL_WALL:

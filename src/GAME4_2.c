@@ -10079,31 +10079,6 @@ LABEL_12:
 	return 1;
 }
 
-//----- (0052C530) --------------------------------------------------------
-int nox_xxx_castVamp_52C530(int a1, int a2, int a3, int a4, int* a5, char a6) {
-	int* v6;   // edi
-	int v8;    // eax
-	short v9;  // si
-	float v10; // [esp+0h] [ebp-Ch]
-	float v11; // [esp+0h] [ebp-Ch]
-	int v12;   // [esp+20h] [ebp+14h]
-
-	v6 = a5;
-	if (!*a5) {
-		return 0;
-	}
-	v10 = nox_xxx_gamedataGetFloat_419D40("VampirismEnchantDuration");
-	v8 = nox_float2int(v10);
-	v9 = v8;
-	v12 = v8;
-	if (nox_common_gameFlags_check_40A5C0(4096)) {
-		v11 = nox_xxx_gamedataGetFloat_419D40("QuestVampDurMultiplier") * (double)v12;
-		v9 = nox_float2int(v11);
-	}
-	nox_xxx_buffApplyTo_4FF380(*v6, 13, v9, a6);
-	return 1;
-}
-
 //----- (0052C5A0) --------------------------------------------------------
 int nox_xxx_useShock_52C5A0(int a1, int a2, int a3, int a4, int* a5, int a6) {
 	int result; // eax
