@@ -10167,19 +10167,6 @@ int nox_xxx_castPoison_52C720(int a1, int a2, int a3, int a4, int* a5, int a6) {
 	return result;
 }
 
-//----- (0052C750) --------------------------------------------------------
-int sub_52C750(int a1, int a2, int a3, int a4, int* a5, char a6) {
-	int result; // eax
-
-	result = *a5;
-	if (*a5) {
-		nox_xxx_buffApplyTo_4FF380(result, 2, 4 * (uint16_t)nox_gameFPS, a6);
-		sub_4E7540(a3, *a5);
-		result = 1;
-	}
-	return result;
-}
-
 //----- (0052C790) --------------------------------------------------------
 int nox_xxx_castFireball_52C790(int a1, int a2, int a3, int a4, int a5, int a6) {
 	int v6;     // ebx

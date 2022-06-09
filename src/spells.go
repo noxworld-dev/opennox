@@ -624,7 +624,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj
 	case things.SPELL_ARACHNAPHOBIA:
 		cfnc = C.nox_xxx_spellArachna_52DC80
 	case things.SPELL_BLIND:
-		cfnc = C.sub_52C750
+		fnc = castBlind
 	case things.SPELL_BLINK:
 		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_spellBlink2_530310, C.nox_xxx_spellBlink1_530380, nil, 0)
 	case things.SPELL_BURN:
