@@ -12,17 +12,27 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-var (
-	noxSpellMissileTyp = make(map[things.SpellID]int) // map[spellID]typeID, 0x5D4594, 2489136
-)
+type spellMissiles struct {
+	s    *Server
+	proj map[things.SpellID]int // map[spellID]typeID, 0x5D4594, 2489136
+}
 
-func nox_xxx_castMissilesOM_540160(spellID things.SpellID, a2, owner, caster *Unit, a5 *spellAcceptArg, lvl int) int {
-	sp := noxServer.SpellDefByInd(spellID)
-	opts := sp.Def.Missiles.Level(lvl)
-	typ, ok := noxSpellMissileTyp[spellID]
+func (sp *spellMissiles) Init(s *Server) {
+	sp.s = s
+	sp.proj = make(map[things.SpellID]int)
+}
+
+func (sp *spellMissiles) Free() {
+	sp.proj = nil
+}
+
+func (sp *spellMissiles) Cast(spellID things.SpellID, a2, owner, caster *Unit, a5 *spellAcceptArg, lvl int) int {
+	spl := sp.s.SpellDefByInd(spellID)
+	opts := spl.Def.Missiles.Level(lvl)
+	typ, ok := sp.proj[spellID]
 	if !ok {
-		typ = noxServer.getObjectTypeID(opts.Projectile)
-		noxSpellMissileTyp[spellID] = typ
+		typ = sp.s.getObjectTypeID(opts.Projectile)
+		sp.proj[spellID] = typ
 	}
 	curCnt := owner.countSubOfType(typ)
 	var cnt, maxCnt int
@@ -42,11 +52,11 @@ func nox_xxx_castMissilesOM_540160(spellID things.SpellID, a2, owner, caster *Un
 		return 0
 	}
 	opts.Count = cnt
-	noxServer.castSpellMissilesCustom(spellID, owner, caster, opts)
+	sp.CastCustom(spellID, owner, caster, opts)
 	return 1
 }
 
-func (s *Server) castSpellMissilesCustom(spellID things.SpellID, owner, caster *Unit, opts things.MissilesSpell) {
+func (sp *spellMissiles) CastCustom(spellID things.SpellID, owner, caster *Unit, opts things.MissilesSpell) {
 	cpos := caster.Pos()
 	cvel := caster.Vel()
 	rdist := float32(caster.shape.circle_r) + opts.Offset
@@ -66,7 +76,7 @@ func (s *Server) castSpellMissilesCustom(spellID things.SpellID, owner, caster *
 		if !nox_xxx_mapTraceRay_535250_00(&p1, &p2, 5) {
 			continue
 		}
-		msl := noxServer.newObjectByTypeID(opts.Projectile)
+		msl := sp.s.newObjectByTypeID(opts.Projectile)
 		mud := msl.updateDataMissile()
 		nox_xxx_createAt_4DAA50(msl, owner, p2)
 		mspeed := float32(noxRndCounter1.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.curSpeed()))
@@ -89,6 +99,6 @@ func (s *Server) castSpellMissilesCustom(spellID things.SpellID, owner, caster *
 		mud.target = targ.CObj()
 		mud.spellID = C.int(spellID)
 	}
-	aud := s.SpellDefByInd(spellID).GetAudio(0)
+	aud := sp.s.SpellDefByInd(spellID).GetAudio(0)
 	nox_xxx_aud_501960(aud, caster, 0, 0)
 }

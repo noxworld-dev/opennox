@@ -419,6 +419,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	if C.nox_xxx_allocVisitNodesArray_50AB90() == 0 {
 		return errors.New("nox_xxx_allocVisitNodesArray_50AB90 failed")
 	}
+	s.spells.Init(s)
 	if err := nox_xxx_allocSpellRelatedArrays_4FC9B0(); err != nil {
 		return err
 	}
@@ -509,6 +510,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	C.sub_57C460()
 	C.sub_57C030()
 	C.sub_511310()
+	s.spells.Free()
 	nox_xxx_freeSpellRelated_4FCA80()
 	C.sub_50ABF0()
 	C.sub_517B30()

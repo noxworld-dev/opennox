@@ -889,7 +889,7 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 					}
 					arg.Arg1 = float32(pl.field_2284)
 					arg.Arg2 = float32(pl.field_2288)
-					if nox_xxx_castSpellByUser4FDD20(spellInd, u, arg) {
+					if noxServer.nox_xxx_castSpellByUser4FDD20(spellInd, u, arg) {
 						nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 1, int(spellInd))
 					} else {
 						sub_4FD030(u, mana)
