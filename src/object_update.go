@@ -301,10 +301,14 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 			nox_xxx_harpoonBreakForPlr_537520(u)
 		} else {
 			force := gamedataFloat("HarpoonForce")
-			C.sub_4E7540(u.CObj(), harp.CObj())
+			sub_4E7540(u, harp)
 			harp.applyForce(u.Pos(), -force)
 		}
 	}
+}
+
+func sub_4E7540(a1, a2 noxObject) {
+	C.sub_4E7540(a1.CObj(), a2.CObj())
 }
 
 //export nox_xxx_objectApplyForce_52DF80

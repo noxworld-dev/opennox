@@ -9953,16 +9953,6 @@ int sub_52C230(int a1, int a2, int a3, int a4, int* a5, char a6) {
 	return 1;
 }
 
-//----- (0052C270) --------------------------------------------------------
-int sub_52C270(int a1, int a2, int a3, int a4, int* a5, short a6) {
-	if (!*a5) {
-		return 0;
-	}
-	nox_xxx_buffApplyTo_4FF380(*a5, 10, 12 * a6 * (uint16_t)nox_gameFPS, a6);
-	sub_4E7540(a3, *a5);
-	return 1;
-}
-
 //----- (0052C2C0) --------------------------------------------------------
 int nox_xxx_castStun_52C2C0(int a1, int a2, int a3, int a4, int* a5, char a6) {
 	short v7;  // ax

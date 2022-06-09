@@ -802,7 +802,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj
 	case things.SPELL_VAMPIRISM:
 		cfnc = C.nox_xxx_castVamp_52C530
 	case things.SPELL_VILLAIN:
-		cfnc = C.sub_52C270
+		fnc = castVillain
 	case things.SPELL_WALL:
 		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_spellWallCreate_4FFA90, C.nox_xxx_spellWallUpdate_500070, C.nox_xxx_spellWallDestroy_500080, 0)
 	default:
