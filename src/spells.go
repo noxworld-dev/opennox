@@ -708,7 +708,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj
 	case things.SPELL_MOONGLOW:
 		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj5, obj4, sa, lvl, C.nox_xxx_spellCreateMoonglow_531A00, nil, C.sub_531AF0, 0)
 	case things.SPELL_NULLIFY:
-		cfnc = C.sub_52C230
+		fnc = castNullify
 	case things.SPELL_MANA_BOMB:
 		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_manaBomb_530F90, C.nox_xxx_manaBombBoom_5310C0, C.sub_531290, 0)
 	case things.SPELL_PIXIE_SWARM:

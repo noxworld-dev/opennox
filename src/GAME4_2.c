@@ -9925,19 +9925,6 @@ int nox_xxx_castConfuse_52C1E0(int a1, int a2, int a3, int a4, int* a5, char a6)
 	return 1;
 }
 
-//----- (0052C230) --------------------------------------------------------
-int sub_52C230(int a1, int a2, int a3, int a4, int* a5, char a6) {
-	short v7; // ax
-
-	if (!*a5) {
-		return 0;
-	}
-	v7 = sub_425470(2);
-	nox_xxx_buffApplyTo_4FF380(*a5, 29, v7, a6);
-	sub_4E7540(a3, *a5);
-	return 1;
-}
-
 //----- (0052C2C0) --------------------------------------------------------
 int nox_xxx_castStun_52C2C0(int a1, int a2, int a3, int a4, int* a5, char a6) {
 	short v7;  // ax
