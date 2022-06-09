@@ -3606,7 +3606,8 @@ void nox_xxx_playerCancelAbils_4FC180(int a1) {
 }
 
 //----- (004FC250) --------------------------------------------------------
-int nox_common_playerIsAbilityActive_4FC250(int a1, int a2) {
+int nox_common_playerIsAbilityActive_4FC250(nox_object_t* a1p, int a2) {
+	int a1 = a1p;
 	int v2;       // eax
 	uint32_t* v3; // eax
 	int v4;       // ecx

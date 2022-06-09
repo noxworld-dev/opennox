@@ -72,7 +72,7 @@ int sub_4FC030(int a1, int a2);
 uint32_t* sub_4FC070(int a1, int a2, int a3);
 void sub_4FC0B0(int a1, int a2);
 void nox_xxx_playerCancelAbils_4FC180(int a1);
-int nox_common_playerIsAbilityActive_4FC250(int a1, int a2);
+int nox_common_playerIsAbilityActive_4FC250(nox_object_t* a1, int a2);
 int nox_xxx_playerIsExecutingAbility_4FC2B0(int a1);
 void sub_4FC300(uint32_t* a1, int a2);
 int sub_4FC3C0(int a1, char a2, char a3);
