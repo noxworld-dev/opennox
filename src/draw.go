@@ -552,7 +552,7 @@ func sub_47D370(a1 C.int) {
 
 //export sub_47D400
 func sub_47D400(a1 C.int, a2 C.char) {
-	noxrend.Set_dword_5d4594_37995xx(uint32(a1), byte(a2))
+	noxrend.SetInterlacing(a1 != 0, int(a2))
 }
 
 //export sub_49F7C0_def
@@ -2111,7 +2111,7 @@ func sub_47D200() {
 	*memmap.PtrUint32(0x973F18, 68) = 0
 	C.dword_5d4594_3799524 = 0
 	C.dword_5d4594_3799468 = 0
-	noxrend.Set_dword_5d4594_37995xx(0, 0)
+	noxrend.SetInterlacing(false, 0)
 }
 
 //export nox_video_getImagePixdata_func

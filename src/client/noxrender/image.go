@@ -195,14 +195,14 @@ func (r *NoxRender) nox_client_drawImg_aaa_4C79F0(ops *drawOps, img Image16, pos
 			return
 		}
 	}
-	r.dword_5d4594_3799508 ^= byte(pos.Y & 0x1)
+	r.interlacingY ^= pos.Y & 0x1
 	pixbuf := r.PixBuffer()
 	pitch := pixbuf.Stride
 	for i := 0; i < int(height); i++ {
 		dst := pixbuf.Pix[pitch*(pos.Y+i)+pos.X:]
-		if r.dword_5d4594_3799552 != 0 {
-			r.dword_5d4594_3799508 ^= 1
-			if r.dword_5d4594_3799508 != 0 {
+		if r.interlacing {
+			r.interlacingY ^= 1
+			if r.interlacingY != 0 {
 				if i != 0 {
 					copy(dst[:width], pixbuf.Pix[pitch*(pos.Y+i-1)+pos.X:])
 				}
@@ -256,14 +256,14 @@ func (r *NoxRender) nox_client_drawXxx_4C7C80(ops *drawOps, pix []byte, pos imag
 		ys += dy
 		pix = skipPixdata(pix, width, dy)
 	}
-	r.dword_5d4594_3799508 ^= byte(ys & 0x1)
+	r.interlacingY ^= ys & 0x1
 	pixbuf := r.PixBuffer()
 	pitch := pixbuf.Stride
 	for i := 0; i < height; i++ {
 		yi := ys + i
-		if r.dword_5d4594_3799552 != 0 {
-			r.dword_5d4594_3799508 ^= 1
-			if r.dword_5d4594_3799508 != 0 {
+		if r.interlacing {
+			r.interlacingY ^= 1
+			if r.interlacingY != 0 {
 				if i != 0 {
 					src := pixbuf.Pix[pitch*(yi-1)+left:]
 					dst := pixbuf.Pix[pitch*(yi+0)+left:]

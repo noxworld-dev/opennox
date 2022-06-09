@@ -50,8 +50,8 @@ type NoxRender struct {
 
 	dword_5d4594_3799476 int
 	dword_5d4594_3799484 uint32
-	dword_5d4594_3799508 byte
-	dword_5d4594_3799552 uint32
+	interlacingY         int
+	interlacing          bool
 
 	HookImageDrawXxx func(pos image.Point, sz image.Point)
 }
@@ -114,12 +114,9 @@ func (r *NoxRender) Set_dword_5d4594_3799484(v int) { // sub_47D370
 	r.dword_5d4594_3799484 = uint32(v)
 }
 
-func (r *NoxRender) Set_dword_5d4594_37995xx(v uint32, a2 byte) { // sub_47D400
-	if v < 0 {
-		v = 0
-	}
-	r.dword_5d4594_3799552 = v
-	r.dword_5d4594_3799508 = a2 & 0x1
+func (r *NoxRender) SetInterlacing(enable bool, y int) {
+	r.interlacing = enable
+	r.interlacingY = y & 0x1
 }
 
 func (r *NoxRender) Reset_dword_5d4594_3799476() {
