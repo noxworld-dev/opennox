@@ -688,7 +688,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj
 	case things.SPELL_LESSER_HEAL:
 		cfnc = C.sub_52DD50
 	case things.SPELL_LIGHT:
-		cfnc = C.nox_xxx_castLight_52C6D0
+		fnc = castLight
 	case things.SPELL_CHAIN_LIGHTNING:
 		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_onStartLightning_52F820, C.nox_xxx_onFrameLightning_52F8A0, C.sub_530100, 30)
 	case things.SPELL_LOCK:

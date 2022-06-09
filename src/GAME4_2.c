@@ -10096,21 +10096,6 @@ int nox_xxx_castRun_52C680(int a1, int a2, int a3, int a4, int* a5, char a6) {
 	return 1;
 }
 
-//----- (0052C6D0) --------------------------------------------------------
-int nox_xxx_castLight_52C6D0(int a1, int a2, int a3, int a4, int* a5, char a6) {
-	short v7; // ax
-	float v8; // [esp+0h] [ebp-8h]
-
-	if (!*a5) {
-		return 0;
-	}
-	v8 = nox_xxx_gamedataGetFloat_419D40("LightEnchantDuration");
-	v7 = nox_float2int(v8);
-	nox_xxx_buffApplyTo_4FF380(*a5, 15, v7, a6);
-	sub_4E7540(a3, *a5);
-	return 1;
-}
-
 //----- (0052C720) --------------------------------------------------------
 int nox_xxx_castPoison_52C720(int a1, int a2, int a3, int a4, int* a5, int a6) {
 	int result; // eax
