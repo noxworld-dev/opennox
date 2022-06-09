@@ -107,7 +107,6 @@ extern uint32_t dword_5d4594_1321252;
 extern uint32_t dword_5d4594_3798156;
 extern uint32_t dword_5d4594_1522612;
 extern uint32_t dword_5d4594_1522604;
-void* nox_video_getImagePixdata_func(nox_video_bag_image_t*);
 extern int dword_5d4594_3799524;
 extern uint32_t dword_5d4594_3679320;
 extern uint32_t dword_5d4594_1313796;

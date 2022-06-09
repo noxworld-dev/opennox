@@ -55,7 +55,6 @@ extern uint8_t* nox_pixbuffer_3798780;
 extern void* dword_5d4594_1193704;
 extern int nox_backbuffer_pitch_3801808;
 extern uint32_t cpuid_5d4594_3801804;
-void* nox_video_getImagePixdata_func(nox_video_bag_image_t*);
 extern void* dword_5d4594_810640;
 extern uint32_t nox_video_pixmode_3799624;
 extern int nox_enable_audio;

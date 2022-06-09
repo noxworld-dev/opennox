@@ -448,7 +448,7 @@ void* sub_476AE0(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	} else {
 		v4 = *(uint32_t*)(*(uint32_t*)(*((uint32_t*)a2 + 76) + 4) + 4 * *((uint32_t*)a2 + 77));
 	}
-	result = nox_video_getImagePixdata_func(v4);
+	result = nox_video_getImagePixdata_42FB30(v4);
 	if (result) {
 		v33 = sub_476D70;
 		v5 = *(uint32_t*)result;

@@ -2144,15 +2144,6 @@ func nox_draw_imageMeta_47D5C0(img *C.nox_video_bag_image_t, px, py, pw, ph *C.u
 	return 1
 }
 
-//export nox_video_getImagePixdata_func
-func nox_video_getImagePixdata_func(img *C.nox_video_bag_image_t) unsafe.Pointer {
-	data := asImage(img).Pixdata()
-	if len(data) == 0 {
-		return nil
-	}
-	return unsafe.Pointer(&data[0])
-}
-
 //export nox_video_getImagePixdata_42FB30
 func nox_video_getImagePixdata_42FB30(img *C.nox_video_bag_image_t) unsafe.Pointer {
 	data := asImage(img).Pixdata()

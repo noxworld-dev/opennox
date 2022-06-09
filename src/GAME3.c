@@ -109,7 +109,6 @@ extern uint32_t dword_5d4594_1312484;
 extern void* dword_587000_127004;
 extern uint32_t dword_5d4594_1308088;
 extern uint32_t dword_5d4594_1312480;
-void* nox_video_getImagePixdata_func(nox_video_bag_image_t*);
 extern uint32_t dword_5d4594_2618912;
 extern uint32_t dword_5d4594_3798640;
 extern void* dword_5d4594_1307776;
@@ -6080,7 +6079,7 @@ uint32_t* nox_xxx_partfxSwitch_4AF690(uint32_t* a1, void (*a2)(uint32_t*, uint32
 	int v31;                                // [esp+2Ch] [ebp-4h]
 	uint8_t* v32;                           // [esp+38h] [ebp+8h]
 
-	result = nox_video_getImagePixdata_func(a1[1]);
+	result = nox_video_getImagePixdata_42FB30(a1[1]);
 	if (result) {
 		v3 = *result;
 		v4 = result[1];
