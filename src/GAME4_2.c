@@ -9910,21 +9910,6 @@ int nox_xxx_castFumble_52C060(int a1, int a2, int a3, int a4, int* a5) {
 	return result;
 }
 
-//----- (0052C190) --------------------------------------------------------
-int nox_xxx_castSlow_52C190(int a1, int a2, int a3, int a4, int* a5, char a6) {
-	short v7; // ax
-	float v8; // [esp+0h] [ebp-Ch]
-
-	if (!*a5) {
-		return 0;
-	}
-	v8 = nox_xxx_gamedataGetFloat_419D40("SlowEnchantDuration");
-	v7 = nox_float2int(v8);
-	nox_xxx_buffApplyTo_4FF380(*a5, 4, v7, a6);
-	sub_4E7540(a3, *a5);
-	return 1;
-}
-
 //----- (0052C1E0) --------------------------------------------------------
 int nox_xxx_castConfuse_52C1E0(int a1, int a2, int a3, int a4, int* a5, char a6) {
 	short v7; // ax
