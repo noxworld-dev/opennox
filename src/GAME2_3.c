@@ -2281,7 +2281,7 @@ LABEL_26:
 		goto LABEL_27;
 	}
 LABEL_28:
-	sub_47D5C0(v8, &v27, &v26, &v23, &v25);
+	nox_draw_imageMeta_47D5C0(v8, &v27, &v26, &v23, &v25);
 	nox_xxx_drawGetStringSize_43F840(v1, v29, &v21, &v22, 0);
 	v11 = v21;
 	nox_xxx_drawGetStringSize_43F840(v1, v28, &v21, &v22, 0);

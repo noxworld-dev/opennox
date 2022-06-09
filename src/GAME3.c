@@ -5834,7 +5834,7 @@ unsigned char* nox_xxx_ParticleFxT2_4AF0F0(unsigned char** a1) {
 		v3 = (unsigned char**)v1[4];
 		v14 = v1[3];
 		a1 = v3;
-		sub_47D5C0((int)v1[1], &v14, &a1, &v15, &v16);
+		nox_draw_imageMeta_47D5C0((int)v1[1], &v14, &a1, &v15, &v16);
 		v4 = v15;
 		v5 = v4;
 		result = (unsigned char*)(v4 - HIDWORD(v4));

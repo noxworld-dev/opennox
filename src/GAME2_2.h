@@ -77,7 +77,7 @@ void nox_client_drawImageAt_47D2C0(nox_video_bag_image_t* img, int x, int y);
 void sub_47D370(int a1);
 int sub_47D380(int a1, int a2);
 void sub_47D400(int a1, char a2);
-int sub_47D5C0(int a1, uint32_t* a2, uint32_t* a3, uint32_t* a4, uint32_t* a5);
+int nox_draw_imageMeta_47D5C0(nox_video_bag_image_t* a1, uint32_t* a2, uint32_t* a3, uint32_t* a4, uint32_t* a5);
 unsigned char sub_47DBC0();
 int sub_47FCE0(uint32_t* a1, int a2);
 uint8_t* sub_480220(uint8_t* a1, uint8_t* a2);

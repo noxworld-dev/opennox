@@ -2114,6 +2114,36 @@ func sub_47D200() {
 	noxrend.SetInterlacing(false, 0)
 }
 
+//export nox_draw_imageMeta_47D5C0
+func nox_draw_imageMeta_47D5C0(img *C.nox_video_bag_image_t, px, py, pw, ph *C.uint) C.int {
+	if img == nil {
+		return 0
+	}
+	if pw != nil {
+		*pw = 0
+	}
+	if ph != nil {
+		*ph = 0
+	}
+	pix := asImage(img).Pixdata()
+	if len(pix) < 16 {
+		return 0
+	}
+	if pw != nil {
+		*pw = C.uint(binary.LittleEndian.Uint32(pix[0:]))
+	}
+	if ph != nil {
+		*ph = C.uint(binary.LittleEndian.Uint32(pix[4:]))
+	}
+	if px != nil {
+		*px += C.uint(binary.LittleEndian.Uint32(pix[8:]))
+	}
+	if py != nil {
+		*py += C.uint(binary.LittleEndian.Uint32(pix[12:]))
+	}
+	return 1
+}
+
 //export nox_video_getImagePixdata_func
 func nox_video_getImagePixdata_func(img *C.nox_video_bag_image_t) unsafe.Pointer {
 	data := asImage(img).Pixdata()

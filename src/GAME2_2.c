@@ -1894,42 +1894,6 @@ int sub_47D380(int a1, int a2) {
 	return 1;
 }
 
-//----- (0047D5C0) --------------------------------------------------------
-int sub_47D5C0(int a1, uint32_t* a2, uint32_t* a3, uint32_t* a4, uint32_t* a5) {
-	uint32_t* v5; // eax
-	uint32_t* v6; // eax
-	uint32_t* v7; // eax
-
-	if (a4) {
-		*a4 = 0;
-	}
-	if (a5) {
-		*a5 = 0;
-	}
-	if (!a1) {
-		return 0;
-	}
-	v5 = nox_video_getImagePixdata_func(a1);
-	if (!v5) {
-		return 0;
-	}
-	if (a4) {
-		*a4 = *v5;
-	}
-	v6 = v5 + 1;
-	if (a5) {
-		*a5 = *v6;
-	}
-	v7 = v6 + 1;
-	if (a2) {
-		*a2 += *v7;
-	}
-	if (a3) {
-		*a3 += v7[1];
-	}
-	return 1;
-}
-
 //----- (0047DBC0) --------------------------------------------------------
 unsigned char sub_47DBC0() { return getMemByte(0x5D4594, 1193128); }
 
