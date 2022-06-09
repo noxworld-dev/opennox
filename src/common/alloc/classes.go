@@ -44,6 +44,11 @@ func (c ClassT[T]) FreeObjectLast(p *T) {
 	c.Class.FreeObjectLast(unsafe.Pointer(p))
 }
 
+func (c ClassT[T]) Free() {
+	c.Class.Free()
+	c.Class = nil
+}
+
 const DeadChar = 0xAC
 
 var allocClasses = make(map[unsafe.Pointer]*Class)
