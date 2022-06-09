@@ -74,7 +74,59 @@ func (s *Server) newObjectByTypeID(id string) *Object { // nox_xxx_newObjectByTy
 	return typ.newObject()
 }
 
-type ObjectType C.nox_objectType_t
+var _ = [1]struct{}{}[224-unsafe.Sizeof(ObjectType{})]
+
+type ObjectType struct {
+	ind               uint16         // 0, 0
+	field_0_1         uint16         // 0, 2
+	id                *C.char        // 1, 4
+	field_2           uint32         // 2, 8
+	menu_icon         int32          // 3, 12
+	field_4           uint32         // 4, 16
+	field_5_0         uint16         // 5, 20
+	field_5_1         uint16         // 5, 22
+	obj_class         uint32         // 6, 24
+	obj_subclass      uint32         // 7, 28
+	obj_flags         uint32         // 8, 32
+	field_9           uint32         // 9, 36
+	material          uint16         // 10, 40
+	field_10_1        uint16         // 10, 42
+	experience        float32        // 11, 44
+	worth             uint32         // 12, 48
+	field_13          float32        // 13, 52
+	mass              float32        // 14, 56
+	shape             noxShape       // 15, 60
+	zsize1            float32        // 28, 112
+	zsize2            float32        // 29, 116
+	weight            byte           // 30, 120
+	field_30_1        byte           // 30, 121
+	carry_capacity    uint16         // 30, 122
+	speed             float32        // 31, 124
+	speed_2           float32        // 32, 128
+	float_33          float32        // 33, 132
+	data_34           unsafe.Pointer // 34, 136, TODO: data, *[20]byte
+	func_collide      unsafe.Pointer // 35, 140
+	collide_data      unsafe.Pointer // 36, 144
+	collide_data_size int32          // 37, 148
+	func_damage       unsafe.Pointer // 38, 152
+	func_damage_sound unsafe.Pointer // 39, 156
+	func_die          unsafe.Pointer // 40, 160
+	die_data          unsafe.Pointer // 41, 164
+	func_drop         unsafe.Pointer // 42, 168
+	func_init         unsafe.Pointer // 43, 172
+	init_data         unsafe.Pointer // 44, 176
+	init_data_size    int32          // 45, 180
+	func_pickup       unsafe.Pointer // 46, 184
+	func_update       unsafe.Pointer // 47, 188
+	data_update       unsafe.Pointer // 48, 192
+	data_update_size  int32          // 49, 196
+	func_use          unsafe.Pointer // 50, 200
+	use_data          unsafe.Pointer // 51, 204
+	use_data_size     int32          // 52, 208
+	func_xfer         unsafe.Pointer // 53, 212
+	func_new          unsafe.Pointer // 54, 216
+	next              *ObjectType    // 55, 220
+}
 
 func asObjectType(p *C.nox_objectType_t) *ObjectType {
 	return asObjectTypeP(unsafe.Pointer(p))

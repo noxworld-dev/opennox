@@ -72,9 +72,9 @@ func nox_xxx_parseUpdate_536620(objt *ObjectType, _ *MemFile, str string, _ []by
 		// TODO: add "unknown" updates as a nop update types (similar to NoUpdate)
 		return nil
 	}
-	objt.func_update = (*[0]byte)(t.Func)
+	objt.func_update = t.Func
 	objt.data_update = nil
-	objt.data_update_size = C.int(t.DataSize)
+	objt.data_update_size = int32(t.DataSize)
 	if t.DataSize == 0 {
 		return nil
 	}
