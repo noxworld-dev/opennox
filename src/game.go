@@ -571,10 +571,10 @@ func initGameSession435CC0() error {
 	vp := getViewport()
 	vp.x1 = 0
 	vp.y1 = 0
-	vp.x2 = C.int(sz.X - 1)
-	vp.y2 = C.int(sz.Y - 1)
-	vp.width = C.int(sz.X)
-	vp.height = C.int(sz.Y)
+	vp.x2 = int32(sz.X - 1)
+	vp.y2 = int32(sz.Y - 1)
+	vp.width = int32(sz.X)
+	vp.height = int32(sz.Y)
 	vp.field_10 = 0
 	vp.field_11 = 0
 	vp.field_12 = 0

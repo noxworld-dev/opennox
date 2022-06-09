@@ -729,28 +729,28 @@ func nox_draw_setCutSize(perc int, a2 int) {
 	}
 	nox_video_cutSize = perc
 
-	vp.x1 = C.int(uint32((bsz.X-perc*bsz.X/100)/2) & 0xFFFFFFFC)
+	vp.x1 = int32(uint32((bsz.X-perc*bsz.X/100)/2) & 0xFFFFFFFC)
 	if vp.x1 < 0 {
 		vp.x1 = 0
 	}
 
-	vp.y1 = C.int((bsz.Y - perc*bsz.Y/100) / 2)
+	vp.y1 = int32((bsz.Y - perc*bsz.Y/100) / 2)
 	if vp.y1 < 0 {
 		vp.y1 = 0
 	}
 
-	vp.x2 = C.int(uint32(bsz.X-int(vp.x1)+2) & 0xFFFFFFFC)
+	vp.x2 = int32(uint32(bsz.X-int(vp.x1)+2) & 0xFFFFFFFC)
 	if int(vp.x2) >= bsz.X {
-		vp.x2 = C.int(bsz.X - 1)
+		vp.x2 = int32(bsz.X - 1)
 	}
 
-	vp.y2 = C.int(bsz.Y - int(vp.y1) - 1)
+	vp.y2 = int32(bsz.Y - int(vp.y1) - 1)
 	if int(vp.y2) >= bsz.Y {
-		vp.y2 = C.int(bsz.Y - 1)
+		vp.y2 = int32(bsz.Y - 1)
 	}
 
-	vp.width = C.int(vp.x2 - vp.x1 + 1)
-	vp.height = C.int(vp.y2 - vp.y1 + 1)
+	vp.width = vp.x2 - vp.x1 + 1
+	vp.height = vp.y2 - vp.y1 + 1
 	C.dword_5d4594_1193188 = 1
 	C.dword_5d4594_3799524 = 1
 }
@@ -930,12 +930,12 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 	vp := asViewport((*C.nox_draw_viewport_t)(vpp))
 	vp.x1 = 0
 	vp.y1 = 0
-	vp.x2 = C.int(nox_win_width)
-	vp.y2 = C.int(nox_win_height)
+	vp.x2 = int32(nox_win_width)
+	vp.y2 = int32(nox_win_height)
 	vp.field_4 = 0
 	vp.field_5 = 0
-	vp.width = C.int(nox_win_width)
-	vp.height = C.int(nox_win_height)
+	vp.width = int32(nox_win_width)
+	vp.height = int32(nox_win_height)
 	dword_5d4594_1097204 = 0
 	dword_5d4594_1097208 = noxrend.FontHeight(nil) + 4
 	if nox_client_itemDragnDrop_1097188 != nil { // Dragging item

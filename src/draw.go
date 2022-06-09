@@ -182,7 +182,7 @@ func sub_437180() {
 
 //export sub_4355B0
 func sub_4355B0(a1 C.int) {
-	getViewport().field_12 = a1
+	getViewport().field_12 = int32(a1)
 }
 
 func nox_xxx_getSomeCoods() image.Point {
@@ -203,12 +203,12 @@ func nox_xxx_getSomeCoods_435670(a1 *C.int2) {
 //export nox_xxx_cliUpdateCameraPos_435600
 func nox_xxx_cliUpdateCameraPos_435600(a1, a2 C.int) {
 	vp := getViewport()
-	*memmap.PtrInt32(0x5D4594, 811364) = int32(vp.field_6)
-	*memmap.PtrInt32(0x5D4594, 811368) = int32(vp.field_7)
-	v2 := a2 + vp.field_12 - vp.height/2
-	vp.field_4 = a1 - vp.width/2
-	vp.field_5 = a2 + vp.field_12 - vp.height/2
-	vp.field_6 = a1
+	*memmap.PtrInt32(0x5D4594, 811364) = vp.field_6
+	*memmap.PtrInt32(0x5D4594, 811368) = vp.field_7
+	v2 := int32(a2) + vp.field_12 - vp.height/2
+	vp.field_4 = int32(a1) - vp.width/2
+	vp.field_5 = int32(a2) + vp.field_12 - vp.height/2
+	vp.field_6 = int32(a1)
 	vp.field_7 = v2 + vp.height/2
 }
 
@@ -258,7 +258,23 @@ func nox_xxx_drawPointMB_499B70(a1, a2, a3 C.int) {
 	r.DrawPoint(image.Pt(int(a1), int(a2)), int(a3), r.Data().Color2())
 }
 
-type Viewport C.nox_draw_viewport_t
+var _ = [1]struct{}{}[52-unsafe.Sizeof(Viewport{})]
+
+type Viewport struct {
+	x1       int32  // 0, 0
+	y1       int32  // 1, 4
+	x2       int32  // 2, 8
+	y2       int32  // 3, 12
+	field_4  int32  // 4, 16
+	field_5  int32  // 5, 20
+	field_6  int32  // 6, 24
+	field_7  int32  // 7, 28
+	width    int32  // 8, 32
+	height   int32  // 9, 36
+	field_10 uint32 // 10, 40
+	field_11 uint32 // 11, 44
+	field_12 int32  // 12, 48
+}
 
 func (vp *Viewport) C() *C.nox_draw_viewport_t {
 	return (*C.nox_draw_viewport_t)(unsafe.Pointer(vp))
@@ -877,15 +893,15 @@ func nox_xxx_clientDrawAll_436100_draw() {
 	v6 := int(vp.x1)
 	v7 := int(vp.y1)
 	if memmap.Uint32(0x587000, 85744) != 0 {
-		vp.height = vp.width * C.int(nox_win_height) / C.int(nox_win_width)
+		vp.height = vp.width * int32(nox_win_height) / int32(nox_win_width)
 		v6 = (nox_win_width - int(vp.width)) / 2
 		v7 = (nox_win_height - int(vp.height)) / 2
-		vp.x1 = C.int(v6)
-		vp.y1 = C.int(v7)
-		vp.x2 = C.int(v6) + vp.width - 1
-		vp.y2 = C.int(v7) + vp.height - 1
+		vp.x1 = int32(v6)
+		vp.y1 = int32(v7)
+		vp.x2 = int32(v6) + vp.width - 1
+		vp.y2 = int32(v7) + vp.height - 1
 	}
-	C.sub_430B50(C.int(v6), C.int(v7), vp.x2, vp.y2)
+	C.sub_430B50(C.int(v6), C.int(v7), C.int(vp.x2), C.int(vp.y2))
 	if id := clientPlayerNetCode(); id != 0 {
 		*memmap.PtrPtr(0x852978, 8) = unsafe.Pointer(C.nox_xxx_netSpriteByCodeDynamic_45A6F0(C.int(id)))
 	}
@@ -948,13 +964,13 @@ func nox_xxx_drawAllMB_475810_draw_A(vp *Viewport) {
 func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	r := noxrend
 	nox_xxx_drawAllMB_475810_draw_A(vp)
-	if int32(vp.field_12) < 0 {
-		vp.field_12 = C.int(-1 - int32(vp.field_12))
-	} else if int32(vp.field_12) > 0 {
-		vp.field_12 = C.int(1 - int32(vp.field_12))
+	if vp.field_12 < 0 {
+		vp.field_12 = -1 - vp.field_12
+	} else if vp.field_12 > 0 {
+		vp.field_12 = 1 - vp.field_12
 	}
-	dword_5d4594_1096428 = int(C.int(vp.field_4) - vp.x1)
-	dword_5d4594_1096432 = int(C.int(vp.field_5) - vp.y1)
+	dword_5d4594_1096428 = int(vp.field_4 - vp.x1)
+	dword_5d4594_1096432 = int(vp.field_5 - vp.y1)
 	xmin := int(vp.field_4) / common.GridStep
 	ymin := int(vp.field_5) / common.GridStep
 	nox_wallsYyy = nox_wallsYyy[:0]
