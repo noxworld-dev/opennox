@@ -620,7 +620,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj
 	effectID := sp.Effect
 	switch effectID {
 	case things.SPELL_ANCHOR:
-		cfnc = C.nox_xxx_castAnchor_52C390
+		fnc = castAnchor
 	case things.SPELL_ARACHNAPHOBIA:
 		cfnc = C.nox_xxx_spellArachna_52DC80
 	case things.SPELL_BLIND:

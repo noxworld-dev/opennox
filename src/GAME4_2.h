@@ -232,7 +232,6 @@ int nox_xxx_castConfuse_52C1E0(int a1, int a2, int a3, int a4, int* a5, char a6)
 int sub_52C230(int a1, int a2, int a3, int a4, int* a5, char a6);
 int nox_xxx_castStun_52C2C0(int a1, int a2, int a3, int a4, int* a5, char a6);
 int nox_xxx_castFreeze_52C350(int a1, int a2, int a3, int a4, int* a5, char a6);
-int nox_xxx_castAnchor_52C390(int a1, int a2, int a3, int a4, int* a5, char a6);
 int nox_xxx_castBurn_52C3E0(int a1, int a2, int a3, int a4, int a5);
 int nox_xxx_useShock_52C5A0(int a1, int a2, int a3, int a4, int* a5, int a6);
 int nox_xxx_castHaste_52C640(int a1, int a2, int a3, int a4, int* a5, char a6);
