@@ -37,7 +37,7 @@ import (
 )
 
 var (
-	nox_alloc_window    alloc.ClassT[C.nox_window]
+	nox_alloc_window    alloc.ClassT[Window]
 	nox_win_cur_focused *Window
 	nox_win_cur_input   *Window
 	nox_win_xxx1_first  *Window
@@ -227,9 +227,9 @@ func nox_window_set_hidden(p *C.nox_window, hidden C.int) C.int {
 
 func nox_client_wndListXxxAdd_46A920(win *Window) {
 	win.next = nil
-	win.prev = nox_win_xxx1_last.C()
+	win.prev = nox_win_xxx1_last
 	if nox_win_xxx1_last != nil {
-		nox_win_xxx1_last.next = win.C()
+		nox_win_xxx1_last.next = win
 	} else {
 		nox_win_xxx1_first = win
 	}
@@ -240,12 +240,12 @@ func nox_client_wndListXxxRemove_46A960(win *Window) {
 	prev := win.Prev()
 	next := win.Next()
 	if prev != nil {
-		prev.next = next.C()
+		prev.next = next
 	} else {
 		nox_win_xxx1_first = next
 	}
 	if next != nil {
-		next.prev = prev.C()
+		next.prev = prev
 	} else {
 		nox_win_xxx1_last = prev
 	}
@@ -264,9 +264,9 @@ func newUserWindow(parent *Window, id uint, status gui.StatusFlags, px, py, w, h
 
 func newWindowRaw(parent *Window, status gui.StatusFlags, px, py, w, h int, fnc94 WindowFunc) *Window {
 	if nox_alloc_window.Class == nil {
-		nox_alloc_window = alloc.NewClassT("Window", C.nox_window{}, 576)
+		nox_alloc_window = alloc.NewClassT("Window", Window{}, 576)
 	}
-	win := asWindow(nox_alloc_window.NewObject())
+	win := nox_alloc_window.NewObject()
 	if parent != nil {
 		win.setParent(parent)
 	} else {
@@ -274,8 +274,8 @@ func newWindowRaw(parent *Window, status gui.StatusFlags, px, py, w, h int, fnc9
 	}
 	win.SetID(0)
 	win.SetFlags(status)
-	win.width = C.int(w)
-	win.height = C.int(h)
+	win.width = int32(w)
+	win.height = int32(h)
 	win.SetPos(image.Point{X: px, Y: py})
 	win.draw_data.tooltip[0] = 0
 	win.setDraw(nil)
@@ -302,7 +302,27 @@ func asWindowP(win unsafe.Pointer) *Window {
 	return w
 }
 
-type Window C.nox_window
+type Window struct {
+	id           int32          // 0, 0
+	flags        uint32         // 1, 4
+	width        int32          // 2, 8
+	height       int32          // 3, 12
+	off_x        int32          // 4, 16
+	off_y        int32          // 5, 20
+	end_x        int32          // 6, 24
+	end_y        int32          // 7, 28
+	widget_data  unsafe.Pointer // 8, 32; different types
+	draw_data    WindowData     // 9, 36
+	field_92     uint32         // 92, 368
+	field_93     unsafe.Pointer // 93
+	field_94     unsafe.Pointer // 94, 376
+	draw_func    unsafe.Pointer // 95, 380, second arg is &field_9
+	tooltip_func unsafe.Pointer // 96, 384
+	prev         *Window        // 97, 388
+	next         *Window        // 98, 392
+	parent       *Window        // 99, 396
+	field_100    *Window        // 100, 400
+}
 
 func (win *Window) C() *C.nox_window {
 	return (*C.nox_window)(unsafe.Pointer(win))
@@ -331,7 +351,7 @@ func (win *Window) SetID(id uint) int {
 	if win == nil {
 		return -2
 	}
-	win.id = C.int(id)
+	win.id = int32(id)
 	return 0
 }
 
@@ -343,7 +363,7 @@ func (win *Window) Flags() gui.StatusFlags {
 }
 
 func (win *Window) SetFlags(v gui.StatusFlags) {
-	win.flags = C.nox_window_flags(v)
+	win.flags = uint32(v)
 }
 
 func (win *Window) Offs() image.Point { // nox_gui_getWindowOffs_46AA20
@@ -357,8 +377,8 @@ func (win *Window) Offs() image.Point { // nox_gui_getWindowOffs_46AA20
 }
 
 func (win *Window) SetOffs(p image.Point) {
-	win.off_x = C.int(p.X)
-	win.off_y = C.int(p.Y)
+	win.off_x = int32(p.X)
+	win.off_y = int32(p.Y)
 }
 
 func (win *Window) End() image.Point {
@@ -372,8 +392,8 @@ func (win *Window) End() image.Point {
 }
 
 func (win *Window) SetEnd(p image.Point) {
-	win.end_x = C.int(p.X)
-	win.end_y = C.int(p.Y)
+	win.end_x = int32(p.X)
+	win.end_y = int32(p.Y)
 }
 
 func (win *Window) Size() image.Point {
@@ -423,7 +443,7 @@ func (win *Window) ChildByID(id uint) *Window {
 		if cur.ID() == id {
 			return cur
 		}
-		if sub := asWindow(cur.field_100); sub != nil {
+		if sub := cur.field_100; sub != nil {
 			if res := sub.ChildByID(id); res != nil {
 				return res
 			}
@@ -455,7 +475,7 @@ loop:
 }
 
 func (win *Window) DrawData() *WindowData {
-	return asWindowData(&win.draw_data)
+	return &win.draw_data
 }
 
 func (win *Window) CopyDrawData(p *WindowData) int {
@@ -465,7 +485,7 @@ func (win *Window) CopyDrawData(p *WindowData) int {
 	if p == nil {
 		return -3
 	}
-	win.draw_data = *p.C()
+	win.draw_data = *p
 	return 0
 }
 
@@ -490,14 +510,14 @@ func (win *Window) Hide() {
 			C.dword_5d4594_3799524 = 1
 		}
 	}
-	win.flags |= C.nox_window_flags(gui.StatusHidden)
+	win.flags |= uint32(gui.StatusHidden)
 }
 
 func (win *Window) Show() {
 	if win == nil {
 		return
 	}
-	win.flags &^= C.nox_window_flags(gui.StatusHidden)
+	win.flags &^= uint32(gui.StatusHidden)
 }
 
 func (win *Window) setFunc93(fnc WindowFunc) { // nox_xxx_wndSetWindowProc_46B300
@@ -521,12 +541,12 @@ func (win *Window) Func93(e WindowEvent) WindowEventResp {
 	if ext := win.ext(); ext != nil && ext.Func93 != nil {
 		return ext.Func93(win, e)
 	}
-	if win.field_93 == nil || uintptr(unsafe.Pointer(win.field_93)) == DeadWord {
+	if win.field_93 == nil || uintptr(win.field_93) == DeadWord {
 		return nil
 	}
 	ev := e.EventCode()
 	a1, a2 := e.EventArgsC()
-	r := C.nox_window_call_func_go(win.field_93, win.C(), C.int(ev), C.int(a1), C.int(a2))
+	r := C.nox_window_call_func_go((*[0]byte)(win.field_93), win.C(), C.int(ev), C.int(a1), C.int(a2))
 	if r == 0 {
 		return nil
 	}
@@ -540,12 +560,12 @@ func (win *Window) Func94(e WindowEvent) WindowEventResp {
 	if ext := win.ext(); ext != nil && ext.Func94 != nil {
 		return ext.Func94(win, e)
 	}
-	if win.field_94 == nil || uintptr(unsafe.Pointer(win.field_94)) == DeadWord {
+	if win.field_94 == nil || uintptr(win.field_94) == DeadWord {
 		return nil
 	}
 	ev := e.EventCode()
 	a1, a2 := e.EventArgsC()
-	r := C.nox_window_call_func_go(win.field_94, win.C(), C.int(ev), C.int(a1), C.int(a2))
+	r := C.nox_window_call_func_go((*[0]byte)(win.field_94), win.C(), C.int(ev), C.int(a1), C.int(a2))
 	if r == 0 {
 		return nil
 	}
@@ -560,10 +580,10 @@ func (win *Window) Draw() {
 		ext.Draw(win, win.DrawData())
 		return
 	}
-	if win.draw_func == nil || uintptr(unsafe.Pointer(win.draw_func)) == DeadWord {
+	if win.draw_func == nil || uintptr(win.draw_func) == DeadWord {
 		return
 	}
-	C.nox_window_call_draw_func_go(win.draw_func, win.C(), win.DrawData().C())
+	C.nox_window_call_draw_func_go((*[0]byte)(win.draw_func), win.C(), win.DrawData().C())
 }
 
 func (win *Window) setDraw(fnc WindowDrawFunc) { // nox_xxx_wndSetDrawFn_46B340
@@ -581,35 +601,35 @@ func (win *Window) TooltipFunc(a1 uintptr) {
 }
 
 func (win *Window) setTooltipFunc(fnc unsafe.Pointer) {
-	win.tooltip_func = (*[0]byte)(fnc)
+	win.tooltip_func = fnc
 }
 
 func (win *Window) Next() *Window {
 	if win == nil {
 		return nil
 	}
-	return asWindow(win.next)
+	return win.next
 }
 
 func (win *Window) Prev() *Window {
 	if win == nil {
 		return nil
 	}
-	return asWindow(win.prev)
+	return win.prev
 }
 
 func (win *Window) Parent() *Window {
 	if win == nil {
 		return nil
 	}
-	return asWindow(win.parent)
+	return win.parent
 }
 
 func (win *Window) Field100() *Window {
 	if win == nil {
 		return nil
 	}
-	return asWindow(win.field_100)
+	return win.field_100
 }
 
 func (win *Window) drawRecursive() bool {
@@ -624,7 +644,7 @@ func (win *Window) drawRecursive() bool {
 		C.sub_4AA030(win.C(), win.DrawData().C())
 	}
 
-	for sub := asWindow(win.field_100); sub != nil; sub = sub.Prev() {
+	for sub := win.field_100; sub != nil; sub = sub.Prev() {
 		sub.drawRecursive()
 	}
 	return true
@@ -656,10 +676,10 @@ func (win *Window) setParent(par *Window) {
 	v2 := par.field_100
 	win.prev = v2
 	if v2 != nil {
-		v2.next = win.C()
+		v2.next = win
 	}
-	par.field_100 = win.C()
-	win.parent = par.C()
+	par.field_100 = win
+	win.parent = par
 }
 
 func guiFocus(win *Window) {
@@ -689,7 +709,7 @@ func (win *Window) Destroy() {
 	if win.Flags().Has(gui.StatusDestroyed) {
 		return
 	}
-	win.flags |= C.nox_window_flags(gui.StatusDestroyed)
+	win.flags |= uint32(gui.StatusDestroyed)
 	delete(winExts, win)
 
 	if nox_win_cur_input == win {
@@ -719,7 +739,7 @@ func (win *Window) Destroy() {
 		nox_client_wndListXxxRemove_46A960(win)
 	}
 	win.next = nil
-	win.prev = nox_win_freeList.C()
+	win.prev = nox_win_freeList
 	nox_win_freeList = win
 }
 
@@ -736,7 +756,7 @@ func nox_xxx_wndShowModalMB(win *Window) int {
 		if it == win {
 			nox_client_wndListXxxRemove_46A960(win)
 			nox_client_wndListXxxAdd_46A920(win)
-			win.flags |= C.nox_window_flags(gui.StatusActive)
+			win.flags |= uint32(gui.StatusActive)
 			win.Show()
 			return 0
 		}
@@ -785,13 +805,13 @@ func sub_46B180(win *Window) {
 	next := win.Next()
 	prev := win.Prev()
 	if next != nil {
-		next.prev = prev.C()
+		next.prev = prev
 		if prev != nil {
-			prev.next = win.Next().C()
+			prev.next = win.Next()
 		}
 	} else if prev != nil {
-		win.Parent().field_100 = prev.C()
-		win.Prev().next = win.Next().C()
+		win.Parent().field_100 = prev
+		win.Prev().next = win.Next()
 		win.prev = nil
 	} else {
 		win.Parent().field_100 = nil

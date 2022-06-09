@@ -448,7 +448,7 @@ func freeAllWindowsInList() {
 			nox_win_1064916 = nil
 		}
 		win.Func94(WindowDestroy{})
-		nox_alloc_window.FreeObjectFirst(win.C())
+		nox_alloc_window.FreeObjectFirst(win)
 		win = prev
 	}
 }
