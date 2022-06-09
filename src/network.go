@@ -471,13 +471,33 @@ func asNetList(p *C.nox_net_list_t) *NetList {
 	return (*NetList)(unsafe.Pointer(p))
 }
 
-type NetList C.nox_net_list_t
+var _ = [1]struct{}{}[16-unsafe.Sizeof(netListItem{})]
+
+type netListItem struct {
+	buf  unsafe.Pointer // 0, 0
+	size uint32         // 1, 4
+	prev *netListItem   // 2, 8
+	next *netListItem   // 3, 12
+}
+
+var _ = [1]struct{}{}[32-unsafe.Sizeof(NetList{})]
+
+type NetList struct {
+	first   *netListItem       // 0, 0
+	last    *netListItem       // 1, 4
+	field_2 uint32             // 2, 8
+	alloc   *C.nox_alloc_class // 3, 12
+	count   uint32             // 4, 16
+	size    uint32             // 5, 20
+	field_6 uint32             // 6, 24
+	field_7 uint32             // 7, 28
+}
 
 func (l *NetList) C() *C.nox_net_list_t {
 	return (*C.nox_net_list_t)(unsafe.Pointer(l))
 }
 
-func (l *NetList) freeItem(item *C.nox_net_list_item_t) {
+func (l *NetList) freeItem(item *netListItem) {
 	alloc.AsClass(unsafe.Pointer(l.alloc)).FreeObjectFirst(unsafe.Pointer(item))
 }
 
@@ -502,7 +522,7 @@ func (l *NetList) get() []byte { // nox_netlist_get_420A90
 		l.first = item.next
 	}
 
-	buf := unsafe.Slice((*byte)(unsafe.Pointer(item.buf)), sz)
+	buf := unsafe.Slice((*byte)(item.buf), sz)
 	l.freeItem(item)
 	return buf
 }
