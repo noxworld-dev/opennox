@@ -833,13 +833,13 @@ func (s *Server) castSpellMissilesCustom(spellID things.SpellID, owner, caster *
 			X: cpos.X + cvel.X + rdist*dirX,
 			Y: cpos.Y + cvel.Y + rdist*dirY,
 		}
-		tpos, ok := nox_xxx_mapTraceRay_535250_00(cpos, p2, 5)
-		if !ok {
+		p1 := cpos
+		if !nox_xxx_mapTraceRay_535250_00(&p1, &p2, 5) {
 			continue
 		}
 		msl := noxServer.newObjectByTypeID(opts.Projectile)
 		mud := msl.updateDataMissile()
-		nox_xxx_createAt_4DAA50(msl, owner, tpos)
+		nox_xxx_createAt_4DAA50(msl, owner, p2)
 		mspeed := float32(noxRndCounter1.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.curSpeed()))
 		msl.speed_cur = C.float(mspeed)
 		msl.setDir(dir)
@@ -909,10 +909,11 @@ func nox_xxx_spellFlySearchTarget(pos *types.Pointf, msl *Object, sflags things.
 		}
 		center = msl.Pos()
 	} else if msl != nil {
-		if _, ok := nox_xxx_mapTraceRay_535250_00(msl.Pos(), *pos, 5); ok {
-			center = *pos // TODO: it ignores tay tracing result; intentional?
+		pos1 := msl.Pos()
+		if nox_xxx_mapTraceRay_535250_00(&pos1, pos, 5) {
+			center = *pos
 		} else {
-			center = msl.Pos()
+			center = pos1
 		}
 	} else {
 		center = *pos

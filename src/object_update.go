@@ -441,13 +441,14 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 		_ = nox_xxx_maybeAnimatePixie_53D010
 		C.sub_518170(unsafe.Pointer(&u.x), 200.0, C.nox_xxx_maybeAnimatePixie_53D010, u.CObj())
 		if owner != nil {
-			if _, trok := nox_xxx_mapTraceRay_535250_00(u.Pos(), owner.Pos(), 9); trok {
-				nox_xxx_pixieIdleAnimate_53CF90(u, owner.Pos().Sub(u.Pos()), 25)
+			pos1, pos2 := u.Pos(), owner.Pos()
+			if nox_xxx_traceRay_5374B0(&pos1, &pos2) {
+				nox_xxx_pixieIdleAnimate_53CF90(u, pos2.Sub(pos1), 25)
 			}
 		} else {
-			pos2 := types.Pointf{X: float32(u.float_39), Y: float32(u.float_40)}
-			if _, trok := nox_xxx_mapTraceRay_535250_00(u.Pos(), pos2, 9); trok {
-				nox_xxx_pixieIdleAnimate_53CF90(u, pos2.Sub(u.Pos()), 25)
+			pos1, pos2 := u.Pos(), types.Pointf{X: float32(u.float_39), Y: float32(u.float_40)}
+			if nox_xxx_traceRay_5374B0(&pos1, &pos2) {
+				nox_xxx_pixieIdleAnimate_53CF90(u, pos2.Sub(pos1), 25)
 			}
 		}
 	}

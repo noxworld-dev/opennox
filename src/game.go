@@ -1354,32 +1354,39 @@ func (s *Server) sub_417160() {
 	}
 }
 
-func randomReachablePointAround(a1 float32, v3 types.Pointf) types.Pointf { // sub_4ED970
+func randomReachablePointAround(a1 float32, pos types.Pointf) types.Pointf { // sub_4ED970
 	v9 := a1 * 0.015625
 	v11 := float32(noxRndCounter1.FloatClamp(-math.Pi, math.Pi))
 	for v5 := 0; v5 < 64; v5++ {
 		v6 := v11 + 1.8849558
 		v11 = v6
 		p2 := types.Pointf{
-			X: float32(math.Cos(float64(v6)))*a1 + v3.X,
-			Y: float32(math.Sin(float64(v11)))*a1 + v3.Y,
+			X: float32(math.Cos(float64(v6)))*a1 + pos.X,
+			Y: float32(math.Sin(float64(v11)))*a1 + pos.Y,
 		}
-		if tpos, ok := nox_xxx_mapTraceRay_535250_00(v3, p2, 1); ok {
-			return tpos
+		pos2 := pos
+		if nox_xxx_mapTraceRay_535250_00(&pos2, &p2, 1) {
+			return p2
 		}
 		a1 = a1 - v9
 	}
-	return v3
+	return pos
 }
 
-func nox_xxx_mapTraceRay_535250_00(p1, p2 types.Pointf, a4 byte) (types.Pointf, bool) {
+func nox_xxx_traceRay_5374B0(p1, p2 *types.Pointf) bool {
+	return nox_xxx_mapTraceRay_535250_00(p1, p2, 9)
+}
+
+func nox_xxx_mapTraceRay_535250_00(p1, p2 *types.Pointf, a4 byte) bool {
 	a1p, a1Free := alloc.Malloc(16)
 	defer a1Free()
 	a1c := (*[2]types.Pointf)(a1p)
-	a1c[0] = p1
-	a1c[1] = p2
+	a1c[0] = *p1
+	a1c[1] = *p2
 	res := C.nox_xxx_mapTraceRay_535250((*C.float4)(unsafe.Pointer(a1c)), nil, nil, C.char(a4)) != 0
-	return a1c[1], res
+	*p1 = a1c[0]
+	*p2 = a1c[1]
+	return res
 }
 
 //export nox_xxx_mapTraceObstacles_50B580
