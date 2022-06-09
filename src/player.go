@@ -900,7 +900,7 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 		}
 	}
 	if ud.field_22_0 == 2 {
-		C.nox_xxx_playerSetState_4FA020(u.CObj(), 13)
+		nox_xxx_playerSetState_4FA020(u, 13)
 	}
 	if ok2 {
 		v13 := noxServer.Strings().GetStringInFile("SpellUnknown", "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c")

@@ -293,7 +293,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	nox_xxx_playerInventory_4F8420(u)
 	C.nox_xxx_unitUpdatePlayerImpl_4F8460(u.CObj())
 	if u.HasEnchant(ENCHANT_RUN) && ud.field_22_0 != 1 {
-		C.nox_xxx_playerSetState_4FA020(u.CObj(), 5)
+		nox_xxx_playerSetState_4FA020(u, 5)
 	}
 	C.nox_xxx_questCheckSecretArea_421C70(u.CObj())
 	if harp := asObjectC(ud.harpoon); harp != nil {
