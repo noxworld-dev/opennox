@@ -1263,19 +1263,6 @@ typedef struct nox_things_imageRef2_t {
 _Static_assert(sizeof(nox_things_imageRef2_t) == 16, "wrong size of nox_things_imageRef2_t structure!");
 
 typedef struct {
-	uint32_t field_0;
-} nox_radioButton_data;
-_Static_assert(sizeof(nox_radioButton_data) == 4, "wrong size of nox_radioButton_data structure!");
-
-typedef struct {
-	uint32_t field_0;
-	uint32_t field_1;
-	uint32_t field_2;
-	uint32_t field_3;
-} nox_slider_data;
-_Static_assert(sizeof(nox_slider_data) == 16, "wrong size of nox_slider_data structure!");
-
-typedef struct {
 	uint32_t field_0;  // 0, 0
 	wchar_t text[256]; // 1, 4
 	uint32_t field_129;  // 129, 516
@@ -1305,23 +1292,9 @@ typedef struct {
 _Static_assert(sizeof(nox_scrollListBox_data) == 56, "wrong size of nox_scrollListBox_data structure!");
 
 typedef struct {
-	wchar_t text[512];
-	uint32_t field_1024;
-	uint32_t field_1028;
-	uint32_t field_1032;
-	uint32_t field_1036;
-	unsigned short field_1040;
-	short field_1042;
-	uint32_t field_1044;
-	uint32_t field_1048;
-	uint32_t field_1052;
-} nox_entryField_data;
-_Static_assert(sizeof(nox_entryField_data) == 1056, "wrong size of nox_entryField_data structure!");
-
-typedef struct {
 	wchar_t* text;
 	uint32_t center;
-	uint32_t field_2;
+	uint32_t glow;
 } nox_staticText_data;
 _Static_assert(sizeof(nox_staticText_data) == 12, "wrong size of nox_staticText_data structure!");
 

@@ -176,7 +176,7 @@ func (c *guiConsole) Init(sz image.Point) *Window {
 	inpData.field_1032 = 0
 	inpData.field_1036 = 0
 	inpData.field_1040 = 128
-	inpData.field_1042 = C.short(*memmap.PtrInt16(0x5D4594, 833704))
+	inpData.field_1042 = memmap.Int16(0x5D4594, 833704)
 
 	drawData.SetText("")
 	drawData.SetStyleFlags(gui.StyleEntryField)

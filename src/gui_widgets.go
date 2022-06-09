@@ -33,13 +33,20 @@ func (d rawWidgetData) cWidgetData() unsafe.Pointer {
 	return unsafe.Pointer(d.Ptr)
 }
 
-type radioButtonData C.nox_radioButton_data
+type radioButtonData struct {
+	field0 uint32
+}
 
 func (d *radioButtonData) cWidgetData() unsafe.Pointer {
 	return unsafe.Pointer(d)
 }
 
-type sliderData C.nox_slider_data
+type sliderData struct {
+	min    uint32
+	max    uint32
+	field2 uint32
+	field3 uint32
+}
 
 func (d *sliderData) cWidgetData() unsafe.Pointer {
 	return unsafe.Pointer(d)
@@ -51,13 +58,30 @@ func (d *scrollListBoxData) cWidgetData() unsafe.Pointer {
 	return unsafe.Pointer(d)
 }
 
-type entryFieldData C.nox_entryField_data
+var _ = [1]struct{}{}[1056-unsafe.Sizeof(entryFieldData{})]
+
+type entryFieldData struct {
+	text       [512]wchar_t
+	field_1024 uint32
+	field_1028 uint32
+	field_1032 uint32
+	field_1036 uint32
+	field_1040 uint16
+	field_1042 int16
+	field_1044 uint32
+	field_1048 uint32
+	field_1052 uint32
+}
 
 func (d *entryFieldData) cWidgetData() unsafe.Pointer {
 	return unsafe.Pointer(d)
 }
 
-type staticTextData C.nox_staticText_data
+type staticTextData struct {
+	text   *wchar_t
+	center uint32
+	glow   uint32
+}
 
 func (d *staticTextData) cWidgetData() unsafe.Pointer {
 	return unsafe.Pointer(d)
@@ -114,8 +138,7 @@ func nox_gui_newEntryField_488500(par *Window, status gui.StatusFlags, px, py, w
 }
 
 func tempDrawData() (*WindowData, func()) {
-	p, free := alloc.Calloc(1, unsafe.Sizeof(WindowData{}))
-	d := (*WindowData)(p)
+	d, free := alloc.New(WindowData{})
 	d.SetHighlightColor(noxcolor.RGB5551Color(255, 255, 255))
 	d.SetTextColor(noxcolor.RGB5551Color(200, 200, 200))
 	d.SetEnabledColor(color.Transparent)
@@ -125,7 +148,7 @@ func tempDrawData() (*WindowData, func()) {
 	return d, free
 }
 
-func NewStaticText(par *Window, id uint, px, py, w, h int, center, f2 bool, text string) *Window {
+func NewStaticText(par *Window, id uint, px, py, w, h int, center, glow bool, text string) *Window {
 	draw, dfree := tempDrawData()
 	defer dfree()
 	*draw = *par.DrawData()
@@ -135,9 +158,9 @@ func NewStaticText(par *Window, id uint, px, py, w, h int, center, f2 bool, text
 	status := gui.StatusSmoothText | gui.StatusNoFocus
 
 	win := newStaticText(par, status, px, py, w, h, draw, &staticTextData{
-		text:    internWStr(text),
-		center:  C.uint(bool2int(center)),
-		field_2: C.uint(bool2int(f2)),
+		text:   internWStr(text),
+		center: uint32(bool2int(center)),
+		glow:   uint32(bool2int(glow)),
 	})
 	win.SetID(id)
 	if par != nil {
@@ -312,7 +335,7 @@ func nox_xxx_wndStaticDrawNoImage(win *Window, draw *WindowData) int { // nox_xx
 					sz := r.GetStringSizeWrapped(fnt, line, w)
 					lx := x + (w-sz.X)/2
 					ly := cy + dy*i
-					if wdata.field_2 != 0 {
+					if wdata.glow != 0 {
 						r.Data().SetTextColor(highlight)
 						r.DrawStringWrapped(fnt, line, image.Rect(lx-1, ly-1, lx-1+w, ly-1))
 						r.DrawStringWrapped(fnt, line, image.Rect(lx+1, ly-1, lx+1+w, ly-1))
@@ -326,7 +349,7 @@ func nox_xxx_wndStaticDrawNoImage(win *Window, draw *WindowData) int { // nox_xx
 				}
 			} else {
 				x += (w - sz.X) / 2
-				if wdata.field_2 != 0 {
+				if wdata.glow != 0 {
 					r.Data().SetTextColor(highlight)
 					r.DrawStringWrapped(fnt, text, image.Rect(x-1, cy-1, x-1+w, cy-1))
 					r.DrawStringWrapped(fnt, text, image.Rect(x+1, cy-1, x+1+w, cy-1))
@@ -338,7 +361,7 @@ func nox_xxx_wndStaticDrawNoImage(win *Window, draw *WindowData) int { // nox_xx
 					r.DrawStringWrapped(fnt, text, image.Rect(x, cy, x+w, cy))
 				}
 			}
-		} else if wdata.field_2 != 0 {
+		} else if wdata.glow != 0 {
 			r.Data().SetTextColor(highlight)
 			r.DrawStringWrapped(fnt, text, image.Rect(x+1, cy-1, x+1+w, cy-1))
 			r.DrawStringWrapped(fnt, text, image.Rect(x+3, cy-1, x+3+w, cy-1))
@@ -366,13 +389,12 @@ func NewHorizontalSlider(par *Window, id uint, px, py, w, h int, min, max int) *
 	draw.SetSelectedColor(noxcolor.RGB5551Color(230, 165, 65))
 	status := gui.StatusEnabled | gui.StatusNoFocus
 
-	datap, dataFree := alloc.Calloc(1, unsafe.Sizeof(sliderData{}))
+	data, dataFree := alloc.New(sliderData{})
 	defer dataFree()
-	data := (*sliderData)(datap)
-	data.field_0 = C.uint(min)
-	data.field_1 = C.uint(max)
-	data.field_2 = 0
-	data.field_3 = 0
+	data.min = uint32(min)
+	data.max = uint32(max)
+	data.field2 = 0
+	data.field3 = 0
 
 	iparent := unsafePtrToInt(unsafe.Pointer(par.C()))
 	win := asWindow(C.nox_gui_newSlider_4B4EE0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h),
@@ -427,10 +449,10 @@ func NewRadioButton(par *Window, id uint, px, py, w, h int, group int, text stri
 	draw.SetGroup(group)
 	status := gui.StatusEnabled | gui.StatusToggle | gui.StatusImage | gui.StatusSmoothText | gui.StatusNoFocus
 
-	rdata, rfree := alloc.Calloc(1, unsafe.Sizeof(radioButtonData{}))
+	rdata, rfree := alloc.New(radioButtonData{})
 	defer rfree()
 
-	win := newRadioButton(par, status, px, py, w, h, draw, (*radioButtonData)(rdata))
+	win := newRadioButton(par, status, px, py, w, h, draw, rdata)
 	win.SetID(id)
 	if par != nil {
 		par.Func94(WindowNewChild{ID: id})
@@ -478,10 +500,9 @@ func newRadioButton(parent *Window, status gui.StatusFlags, px, py, w, h int, dr
 	if draw.win == nil {
 		draw.win = win.C()
 	}
-	dp, _ := alloc.Calloc(1, unsafe.Sizeof(C.nox_radioButton_data{}))
-	d := (*C.nox_radioButton_data)(dp)
+	d, _ := alloc.New(radioButtonData{})
 	if data != nil {
-		d.field_0 = data.field_0
+		d.field0 = data.field0
 	}
 	win.widget_data = unsafe.Pointer(d)
 	win.CopyDrawData(draw)
