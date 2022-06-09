@@ -194,6 +194,11 @@ func cryptFileReadWrite(p []byte) (int, error) {
 	return cryptFileWrite(p)
 }
 
+func cryptFileWriteU8(v byte) error {
+	_, err := cryptFileWrite([]byte{v})
+	return err
+}
+
 func cryptFileWriteU16(v uint16) error {
 	var buf [2]byte
 	binary.LittleEndian.PutUint16(buf[:], v)
