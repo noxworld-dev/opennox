@@ -180,7 +180,7 @@ func (p *guiParser) parseWindowRoot(fnc WindowFunc) *Window {
 	draw, drawFree := tempDrawData()
 	defer drawFree()
 
-	draw.field_0 = 0
+	draw.field0 = 0
 	draw.SetDefaults(p.defaults.StyleDefaults)
 	font := p.defaults.font
 	if font == nil {

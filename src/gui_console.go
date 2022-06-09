@@ -198,8 +198,8 @@ func (c *guiConsole) Hide() bool {
 	c.root.flags &= 0xFFFFFFF7
 	c.input.flags &= 0xFFFFFFF7
 	c.scrollbox.flags &= 0xFFFFFFF7
-	c.input.DrawData().field_0 &= 0xFFFFFFFB
-	c.input.DrawData().field_0 &= 0xFFFFFFFD
+	c.input.DrawData().field0 &= 0xFFFFFFFB
+	c.input.DrawData().field0 &= 0xFFFFFFFD
 	C.dword_5d4594_3799524 = 1
 	return true
 }

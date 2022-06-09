@@ -116,21 +116,45 @@ func newWindowData() (*WindowData, func()) {
 	return alloc.New(WindowData{})
 }
 
-type WindowData C.nox_window_data
+var _ = [1]struct{}{}[332-unsafe.Sizeof(WindowData{})]
+
+type WindowData struct {
+	field0    uint32                   // 0, 0 (36)
+	group     int32                    // 1, 4 (40)
+	style     int32                    // 2, 8 (44)
+	status    int32                    // 3, 12 (48)
+	win       *C.nox_window            // 4, 16 (52)
+	bgColor   uint32                   // 5, 20 (56)
+	bgImage   *C.nox_video_bag_image_t // 6, 24 (60)
+	enColor   uint32                   // 7, 28 (64)
+	enImage   *C.nox_video_bag_image_t // 8, 32 (68)
+	hlColor   uint32                   // 9, 36 (72)
+	hlImage   *C.nox_video_bag_image_t // 10, 40 (76)
+	disColor  uint32                   // 11, 44 (80)
+	disImage  *C.nox_video_bag_image_t // 12, 48 (84)
+	selColor  uint32                   // 13, 52 (88)
+	selImage  *C.nox_video_bag_image_t // 14, 56 (92)
+	imgPx     int32                    // 15, 60 (96)
+	imgPy     int32                    // 16, 64 (100)
+	textColor uint32                   // 17, 68 (104)
+	text      [64]wchar_t              // 18, 72 (108)
+	font      unsafe.Pointer           // 50, 200 (236)
+	tooltip   [64]wchar_t              // 51, 204 (240)
+}
 
 func (d *WindowData) C() *C.nox_window_data {
 	return (*C.nox_window_data)(unsafe.Pointer(d))
 }
 
 func (d *WindowData) Field0() uint32 {
-	return uint32(d.field_0)
+	return d.field0
 }
 
 func (d *WindowData) Field0Set(flag uint32, v bool) {
 	if v {
-		d.field_0 |= C.uint(flag)
+		d.field0 |= flag
 	} else {
-		d.field_0 &^= C.uint(flag)
+		d.field0 &^= flag
 	}
 }
 
@@ -139,7 +163,7 @@ func (d *WindowData) Group() int {
 }
 
 func (d *WindowData) SetGroup(v int) {
-	d.group = C.int(v)
+	d.group = int32(v)
 }
 
 func (d *WindowData) StyleFlags() gui.StyleFlags {
@@ -147,7 +171,7 @@ func (d *WindowData) StyleFlags() gui.StyleFlags {
 }
 
 func (d *WindowData) SetStyleFlags(v gui.StyleFlags) {
-	d.style = C.int(v)
+	d.style = int32(v)
 }
 
 func (d *WindowData) Status() gui.StatusFlags {
@@ -155,7 +179,7 @@ func (d *WindowData) Status() gui.StatusFlags {
 }
 
 func (d *WindowData) SetStatus(v gui.StatusFlags) {
-	d.status = C.int(v)
+	d.status = int32(v)
 }
 
 func (d *WindowData) Window() *Window {
@@ -173,91 +197,91 @@ func (d *WindowData) SetText(s string) {
 }
 
 func (d *WindowData) BackgroundImage() *Image {
-	return asImageP(d.bg_image)
+	return asImage(d.bgImage)
 }
 
 func (d *WindowData) SetBackgroundImage(p *Image) {
-	d.bg_image = unsafe.Pointer(p.C())
+	d.bgImage = p.C()
 }
 
 func (d *WindowData) BackgroundColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.bg_color >> 16)
+	return noxcolor.RGBA5551(d.bgColor >> 16)
 }
 
 func (d *WindowData) SetBackgroundColor(cl color.Color) {
-	d.bg_color = C.uint32_t(noxcolor.ToRGBA5551Color(cl).Color32())
+	d.bgColor = noxcolor.ToRGBA5551Color(cl).Color32()
 }
 
 func (d *WindowData) EnabledImage() *Image {
-	return asImageP(d.en_image)
+	return asImage(d.enImage)
 }
 
 func (d *WindowData) SetEnabledImage(p *Image) {
-	d.en_image = unsafe.Pointer(p.C())
+	d.enImage = p.C()
 }
 
 func (d *WindowData) EnabledColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.en_color >> 16)
+	return noxcolor.RGBA5551(d.enColor >> 16)
 }
 
 func (d *WindowData) SetEnabledColor(cl color.Color) {
-	d.en_color = C.uint32_t(noxcolor.ToRGBA5551Color(cl).Color32())
+	d.enColor = noxcolor.ToRGBA5551Color(cl).Color32()
 }
 
 func (d *WindowData) DisabledImage() *Image {
-	return asImageP(d.dis_image)
+	return asImage(d.disImage)
 }
 
 func (d *WindowData) SetDisabledImage(p *Image) {
-	d.dis_image = unsafe.Pointer(p.C())
+	d.disImage = p.C()
 }
 
 func (d *WindowData) DisabledColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.dis_color >> 16)
+	return noxcolor.RGBA5551(d.disColor >> 16)
 }
 
 func (d *WindowData) SetDisabledColor(cl color.Color) {
-	d.dis_color = C.uint32_t(noxcolor.ToRGBA5551Color(cl).Color32())
+	d.disColor = noxcolor.ToRGBA5551Color(cl).Color32()
 }
 
 func (d *WindowData) HighlightImage() *Image {
-	return asImageP(d.hl_image)
+	return asImage(d.hlImage)
 }
 
 func (d *WindowData) SetHighlightImage(p *Image) {
-	d.hl_image = unsafe.Pointer(p.C())
+	d.hlImage = p.C()
 }
 
 func (d *WindowData) HighlightColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.hl_color >> 16)
+	return noxcolor.RGBA5551(d.hlColor >> 16)
 }
 
 func (d *WindowData) SetHighlightColor(cl color.Color) {
-	d.hl_color = C.uint32_t(noxcolor.ToRGBA5551Color(cl).Color32())
+	d.hlColor = noxcolor.ToRGBA5551Color(cl).Color32()
 }
 
 func (d *WindowData) SelectedImage() *Image {
-	return asImageP(d.sel_image)
+	return asImage(d.selImage)
 }
 
 func (d *WindowData) SetSelectedImage(p *Image) {
-	d.sel_image = unsafe.Pointer(p.C())
+	d.selImage = p.C()
 }
 
 func (d *WindowData) SelectedColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.sel_color >> 16)
+	return noxcolor.RGBA5551(d.selColor >> 16)
 }
 
 func (d *WindowData) SetSelectedColor(cl color.Color) {
-	d.sel_color = C.uint32_t(noxcolor.ToRGBA5551Color(cl).Color32())
+	d.selColor = noxcolor.ToRGBA5551Color(cl).Color32()
 }
 
 func (d *WindowData) TextColor() noxcolor.Color16 {
-	return noxcolor.RGBA5551(d.text_color >> 16)
+	return noxcolor.RGBA5551(d.textColor >> 16)
 }
 
 func (d *WindowData) SetTextColor(cl color.Color) {
-	d.text_color = C.uint32_t(noxcolor.ToRGBA5551Color(cl).Color32())
+	d.textColor = noxcolor.ToRGBA5551Color(cl).Color32()
 }
 
 func (d *WindowData) Font() font.Face {
@@ -274,14 +298,14 @@ func (d *WindowData) SetFont(font unsafe.Pointer) {
 
 func (d *WindowData) ImagePoint() image.Point {
 	return image.Point{
-		X: int(d.img_px),
-		Y: int(d.img_py),
+		X: int(d.imgPx),
+		Y: int(d.imgPy),
 	}
 }
 
 func (d *WindowData) SetImagePoint(p image.Point) {
-	d.img_px = C.int(p.X)
-	d.img_py = C.int(p.Y)
+	d.imgPx = int32(p.X)
+	d.imgPy = int32(p.Y)
 }
 
 func (d *WindowData) Tooltip() string {

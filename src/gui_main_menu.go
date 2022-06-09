@@ -434,7 +434,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 				C.nox_client_lockScreenBriefing_450160(255, 1, 0)
 				sub_4A2530()
 			}
-			ev.Win.DrawData().field_0 &= 0xFFFFFFFD
+			ev.Win.DrawData().field0 &= 0xFFFFFFFD
 			clientPlaySoundSpecial(921, 100)
 		case 131: // Solo Quest
 			noxServer.announce = false

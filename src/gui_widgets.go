@@ -69,37 +69,37 @@ func guiNewWidget(typ string, parent *Window, status gui.StatusFlags, px, py, w,
 	udraw := unsafe.Pointer(draw.C())
 	switch typ {
 	case "PUSHBUTTON":
-		draw.style |= C.int(gui.StylePushButton)
+		draw.style |= int32(gui.StylePushButton)
 		return newButtonOrCheckbox(parent, status, px, py, w, h, draw)
 	case "RADIOBUTTON":
 		tdata, _ := data.(*radioButtonData)
-		draw.style |= C.int(gui.StyleRadioButton)
+		draw.style |= int32(gui.StyleRadioButton)
 		return newRadioButton(parent, status, px, py, w, h, draw, tdata)
 	case "CHECKBOX":
-		draw.style |= C.int(gui.StyleCheckBox)
+		draw.style |= int32(gui.StyleCheckBox)
 		return newButtonOrCheckbox(parent, status, px, py, w, h, draw)
 	case "VERTSLIDER":
 		tdata, _ := data.(*sliderData)
-		draw.style |= C.int(gui.StyleVertSlider)
+		draw.style |= int32(gui.StyleVertSlider)
 		return asWindow(C.nox_gui_newSlider_4B4EE0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.float)(unsafe.Pointer(tdata))))
 	case "HORZSLIDER":
 		tdata, _ := data.(*sliderData)
-		draw.style |= C.int(gui.StyleHorizSlider)
+		draw.style |= int32(gui.StyleHorizSlider)
 		return asWindow(C.nox_gui_newSlider_4B4EE0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.float)(unsafe.Pointer(tdata))))
 	case "SCROLLLISTBOX":
 		tdata, _ := data.(*scrollListBoxData)
-		draw.style |= C.int(gui.StyleScrollListBox)
+		draw.style |= int32(gui.StyleScrollListBox)
 		return nox_gui_newScrollListBox_4A4310(parent, status, px, py, w, h, draw, tdata)
 	case "ENTRYFIELD":
 		tdata, _ := data.(*entryFieldData)
-		draw.style |= C.int(gui.StyleEntryField)
+		draw.style |= int32(gui.StyleEntryField)
 		return nox_gui_newEntryField_488500(parent, status, px, py, w, h, draw, tdata)
 	case "STATICTEXT":
 		tdata, _ := data.(*staticTextData)
-		draw.style |= C.int(gui.StyleStaticText)
+		draw.style |= int32(gui.StyleStaticText)
 		return newStaticText(parent, status, px, py, w, h, draw, tdata)
 	case "PROGRESSBAR":
-		draw.style |= C.int(gui.StyleProgressBar)
+		draw.style |= int32(gui.StyleProgressBar)
 		return asWindow(C.nox_gui_newProgressBar_4CAF10(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw)))
 	}
 	return nil
@@ -131,7 +131,7 @@ func NewStaticText(par *Window, id uint, px, py, w, h int, center, f2 bool, text
 	*draw = *par.DrawData()
 
 	draw.win = par.C()
-	draw.style |= C.int(gui.StyleStaticText)
+	draw.style |= int32(gui.StyleStaticText)
 	status := gui.StatusSmoothText | gui.StatusNoFocus
 
 	win := newStaticText(par, status, px, py, w, h, draw, &staticTextData{
@@ -359,7 +359,7 @@ func NewHorizontalSlider(par *Window, id uint, px, py, w, h int, min, max int) *
 	*draw = *par.DrawData()
 
 	draw.win = par.C()
-	draw.style |= C.int(gui.StyleHorizSlider)
+	draw.style |= int32(gui.StyleHorizSlider)
 	draw.SetHighlightColor(color.Transparent)
 	draw.SetDisabledColor(color.Transparent)
 	draw.SetEnabledColor(noxcolor.RGB5551Color(230, 165, 65))
@@ -390,7 +390,7 @@ func NewCheckbox(par *Window, id uint, px, py, w, h int, text string) *Window {
 	*draw = *par.DrawData()
 
 	draw.win = par.C()
-	draw.style = C.int(gui.StyleCheckBox | gui.StyleMouseTrack)
+	draw.style = int32(gui.StyleCheckBox | gui.StyleMouseTrack)
 	draw.SetHighlightColor(noxcolor.RGB5551Color(192, 128, 128))
 	draw.SetTextColor(noxcolor.RGB5551Color(240, 180, 42))
 	draw.SetText(text)
@@ -416,7 +416,7 @@ func NewRadioButton(par *Window, id uint, px, py, w, h int, group int, text stri
 	*draw = *par.DrawData()
 
 	draw.win = par.C()
-	draw.style = C.int(gui.StyleRadioButton | gui.StyleMouseTrack)
+	draw.style = int32(gui.StyleRadioButton | gui.StyleMouseTrack)
 	draw.SetTextColor(noxcolor.RGB5551Color(240, 180, 42))
 	draw.SetText(text)
 	draw.SetBackgroundImage(nox_xxx_gLoadImg("UIRadio"))

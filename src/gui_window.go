@@ -253,7 +253,7 @@ func nox_client_wndListXxxRemove_46A960(win *Window) {
 
 func newUserWindow(parent *Window, id uint, status gui.StatusFlags, px, py, w, h int, drawData *WindowData, fnc WindowFunc) *Window {
 	win := newWindowRaw(parent, status, px, py, w, h, fnc)
-	drawData.style |= C.int(gui.StyleUserWindow)
+	drawData.style |= int32(gui.StyleUserWindow)
 	win.SetID(id)
 	win.CopyDrawData(drawData)
 	if parent != nil {

@@ -261,10 +261,10 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 				a2b.Func94(&WindowEvent0x400d{Str: wstr, Val: -1})
 				if uint32(C.getFlagValueFromFlagIndex(C.int(id)-1519))&uint32(C.gameex_flags) != 0 {
 					v14 := modifyWndPntr.ChildByID(id)
-					v14.DrawData().field_0 |= 0x4
+					v14.DrawData().field0 |= 0x4
 				} else {
 					v15 := modifyWndPntr.ChildByID(id)
-					v15.DrawData().field_0 &= 0xFFFFFFFB
+					v15.DrawData().field0 &= 0xFFFFFFFB
 				}
 			}
 		}

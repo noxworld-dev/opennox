@@ -134,9 +134,9 @@ func sub_4683B0() C.int {
 	C.dword_5d4594_1064824 = unsafe.Pointer(win.ChildByID(1756).C())
 	C.dword_5d4594_1064828 = unsafe.Pointer(win.ChildByID(1754).C())
 	v0 := win.ChildByID(1766)
-	v0.DrawData().field_0 |= 4
+	v0.DrawData().field0 |= 4
 	v1 := win.ChildByID(1767)
-	v1.DrawData().field_0 |= 4
+	v1.DrawData().field0 |= 4
 	C.dword_5d4594_1064296 = 0
 	nox_xxx_wnd_46ABB0(win, 1)
 	return 1
