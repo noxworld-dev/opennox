@@ -34,10 +34,10 @@ func loadMemfile(path string, key int) (*MemFile, error) {
 
 func newMemfile(data unsafe.Pointer, sz int) *MemFile {
 	nf, _ := alloc.New(MemFile{})
-	nf.size = C.int(sz)
-	nf.data = (*C.char)(data)
+	nf.size = int32(sz)
+	nf.data = data
 	nf.cur = nf.data
-	nf.end = (*C.char)(unsafe.Add(data, sz))
+	nf.end = unsafe.Add(data, sz)
 	return nf
 }
 
@@ -49,7 +49,14 @@ func asMemfileP(p unsafe.Pointer) *MemFile {
 	return (*MemFile)(p)
 }
 
-type MemFile C.nox_memfile
+var _ = [1]struct{}{}[16-unsafe.Sizeof(MemFile{})]
+
+type MemFile struct {
+	data unsafe.Pointer
+	size int32
+	cur  unsafe.Pointer
+	end  unsafe.Pointer
+}
 
 func (f *MemFile) C() *C.nox_memfile {
 	return (*C.nox_memfile)(unsafe.Pointer(f))
@@ -57,7 +64,7 @@ func (f *MemFile) C() *C.nox_memfile {
 
 func (f *MemFile) Free() {
 	if f.data != nil {
-		alloc.Free(unsafe.Pointer(f.data))
+		alloc.Free(f.data)
 	}
 	f.data = nil
 	f.cur = nil
@@ -70,18 +77,18 @@ func (f *MemFile) RawData() []byte {
 	if f.data == nil {
 		return nil
 	}
-	return unsafe.Slice((*byte)(unsafe.Pointer(f.data)), int(f.size))
+	return unsafe.Slice((*byte)(f.data), int(f.size))
 }
 
 func (f *MemFile) Data() []byte {
 	if f.data == nil {
 		return nil
 	}
-	sp, ep := uintptr(unsafe.Pointer(f.cur)), uintptr(unsafe.Pointer(f.end))
+	sp, ep := uintptr(f.cur), uintptr(f.end)
 	if sp == 0 || ep == 0 || sp >= ep {
 		return nil
 	}
-	return unsafe.Slice((*byte)(unsafe.Pointer(f.cur)), int(ep-sp))
+	return unsafe.Slice((*byte)(f.cur), int(ep-sp))
 }
 
 func (f *MemFile) Seek(offset int64, whence int) (int64, error) {
@@ -89,7 +96,7 @@ func (f *MemFile) Seek(offset int64, whence int) (int64, error) {
 	case io.SeekStart:
 		// nop
 	case io.SeekCurrent:
-		sp, ep := uintptr(unsafe.Pointer(f.data)), uintptr(unsafe.Pointer(f.cur))
+		sp, ep := uintptr(f.data), uintptr(f.cur)
 		offset += int64(ep - sp)
 	case io.SeekEnd:
 		offset = int64(f.size) + offset
@@ -103,7 +110,7 @@ func (f *MemFile) Seek(offset int64, whence int) (int64, error) {
 		f.cur = f.end
 		return int64(f.size), nil
 	}
-	f.cur = (*C.char)(unsafe.Add(unsafe.Pointer(f.data), int(offset)))
+	f.cur = unsafe.Add(f.data, int(offset))
 	return offset, nil
 }
 
@@ -111,14 +118,14 @@ func (f *MemFile) Skip(n int) {
 	if f.data == nil {
 		return
 	}
-	sp, ep := unsafe.Pointer(f.cur), unsafe.Pointer(f.end)
+	sp, ep := f.cur, f.end
 	if sp == nil || ep == nil {
 		return
 	}
 	if uintptr(sp)+uintptr(n) >= uintptr(ep) {
 		f.cur = f.end
 	} else {
-		f.cur = (*C.char)(unsafe.Add(sp, n))
+		f.cur = unsafe.Add(sp, n)
 	}
 }
 
