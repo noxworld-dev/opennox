@@ -10219,25 +10219,6 @@ int sub_52C8D0(int a1, int a2, int a3, int a4, int* a5, char a6) {
 	return 1;
 }
 
-//----- (0052C920) --------------------------------------------------------
-int nox_xxx_castDeath_52C920(int a1, int a2, int a3, int a4, int* a5, char a6) {
-	int result; // eax
-
-	result = *a5;
-	if (*a5) {
-		if (nox_xxx_testUnitBuffs_4FF350(result, 16)) {
-			result = 0;
-		} else {
-			nox_xxx_buffApplyTo_4FF380(*a5, 16, *getMemI16Ptr(0x587000, 258404), a6);
-			if (a3) {
-				sub_4E7540(a3, *a5);
-			}
-			result = 1;
-		}
-	}
-	return result;
-}
-
 //----- (0052C980) --------------------------------------------------------
 int nox_xxx_castInvis_52C980(int a1, int a2, int a3, int a4, int* a5, char a6) {
 	short v7; // di
