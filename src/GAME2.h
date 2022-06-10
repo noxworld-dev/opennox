@@ -196,7 +196,7 @@ int sub_45A060();
 int sub_45A070(int a1);
 int sub_45A090();
 int sub_45A0A0(int a1);
-uint32_t* nox_xxx_sprite_45A110_drawable(nox_drawable* a1);
+void nox_xxx_sprite_45A110_drawable(nox_drawable* a1);
 void sub_45A160_drawable(nox_drawable* a1);
 nox_drawable* nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a3);
 void nox_xxx_sprite_45A480_drawable(int a1);

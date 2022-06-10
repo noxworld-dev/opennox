@@ -10,7 +10,7 @@
 
 extern unsigned int nox_frame_xxx_2598000;
 //----- (00499490) --------------------------------------------------------
-uint32_t* sub_499490(int a1, uint16_t* a2, int a3, int a4, char a5, char a6) {
+void sub_499490(int a1, uint16_t* a2, int a3, int a4, char a5, char a6) {
 	uint32_t* result; // eax
 	uint32_t* v7;     // esi
 
@@ -25,13 +25,12 @@ uint32_t* sub_499490(int a1, uint16_t* a2, int a3, int a4, char a5, char a6) {
 			nox_common_randomIntMinMax_415FF0(3, 10, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 138);
 		*((uint8_t*)v7 + 446) = a6;
 		*((uint8_t*)v7 + 445) = a6;
-		result = nox_xxx_sprite_45A110_drawable(v7);
+		nox_xxx_sprite_45A110_drawable(v7);
 	}
-	return result;
 }
 
 //----- (00499520) --------------------------------------------------------
-uint32_t* sub_499520(int a1, unsigned short* a2, short a3, char a4, char a5) {
+void sub_499520(int a1, unsigned short* a2, short a3, char a4, char a5) {
 	int v5;           // ebp
 	int v6;           // edi
 	uint32_t* result; // eax
@@ -55,9 +54,8 @@ uint32_t* sub_499520(int a1, unsigned short* a2, short a3, char a4, char a5) {
 		*((uint8_t*)v8 + 445) = a5;
 		v8[116] = sub_4CA720;
 		*((uint16_t*)v8 + 254) = a3;
-		result = nox_xxx_sprite_45A110_drawable(v8);
+		nox_xxx_sprite_45A110_drawable(v8);
 	}
-	return result;
 }
 
 //----- (00499610) --------------------------------------------------------
@@ -139,7 +137,7 @@ int sub_499950(int a1, int2* a2, int2* a3, unsigned short a4, char a5) {
 		*(uint8_t*)(result + 442) =
 			nox_common_randomIntMinMax_415FF0(3, 10, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 406);
 		*(int2*)(v6 + 432) = *a3;
-		result = nox_xxx_sprite_45A110_drawable((uint32_t*)v6);
+		nox_xxx_sprite_45A110_drawable((uint32_t*)v6);
 	}
 	return result;
 }

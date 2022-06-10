@@ -5114,7 +5114,7 @@ void nox_xxx_bookRewardCli_499CF0(int* a1, int a2, int a3) {
 }
 
 //----- (00499F60) --------------------------------------------------------
-uint32_t* sub_499F60(int a1, int a2, int a3, short a4, char a5, char a6, char a7, char a8, char a9, int a10) {
+void sub_499F60(int a1, int a2, int a3, short a4, char a5, char a6, char a7, char a8, char a9, int a10) {
 	uint32_t* result; // eax
 	int v11;          // edx
 	int v12;          // ecx
@@ -5167,9 +5167,8 @@ uint32_t* sub_499F60(int a1, int a2, int a3, short a4, char a5, char a6, char a7
 		*((uint8_t*)v13 + 446) = a7;
 		nox_xxx_spriteToSightDestroyList_49BAB0_drawable(v13);
 		nox_xxx_spriteTransparentDecay_49B950(v13, a10);
-		result = nox_xxx_sprite_45A110_drawable(v13);
+		nox_xxx_sprite_45A110_drawable(v13);
 	}
-	return result;
 }
 // 49A025: variable 'v11' is possibly undefined
 // 49A025: variable 'v12' is possibly undefined

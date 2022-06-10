@@ -82,6 +82,7 @@ void noxOnCliPacketDebug(int op, unsigned char* data, int sz);
 int nox_client_getFadeDuration();
 
 void clientPacketFade(bool a1, int fnc);
+void nox_client_onDeathRay(int p1x, int p1y, int p2x, int p2y);
 
 //----- (0048EA70) --------------------------------------------------------
 int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
@@ -2154,54 +2155,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			LODWORD(v5) = nox_xxx_spriteLoadAdd_45A360_drawable(v235, *(short*)(data + 1), *(short*)(data + 3));
 			goto LABEL_829;
 		case 0x94u:
-			if (nox_client_isConnected_43C700()) {
-				v241 = *(unsigned short*)(data + 5) - *(unsigned short*)(data + 1);
-				v242 = *(unsigned short*)(data + 7) - *(unsigned short*)(data + 3);
-				LODWORD(v5) = nox_double2int(sqrt((double)(v241 * v241 + v242 * v242))) + 1;
-				v371 = v5;
-				if ((int)v5 >= 0) {
-					v360 = 0;
-					v363 = 0;
-					i = 2 * v242;
-					v374 = 2 * v241;
-					v356 = (unsigned int)(v5 + 2) >> 1;
-					do {
-						v243 = *(unsigned short*)(data + 1) + v363 / v371;
-						v244 = *(unsigned short*)(data + 3) + v360 / v371;
-						v245 = nox_xxx_spriteLoadAdd_45A360_drawable(*(int*)&dword_5d4594_1200796, v243, v244);
-						v362 = v245;
-						if (v245) {
-							v246 = (uint32_t*)(v245 + 432);
-							if (v245 != -432) {
-								*(uint32_t*)(v245 + 432) = v243 << 12;
-								*(uint32_t*)(v245 + 436) = v244 << 12;
-								v247 = nox_common_randomIntMinMax_415FF0(
-									0, 255, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5393);
-								*(uint8_t*)(v362 + 299) = v247;
-								v246[2] = nox_common_randomIntMinMax_415FF0(
-									1, 200, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5396);
-								v246[4] = nox_frame_xxx_2598000 +
-										  nox_common_randomIntMinMax_415FF0(
-											  20, 40, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5399);
-								v246[3] = nox_frame_xxx_2598000;
-							}
-							v248 = nox_common_randomIntMinMax_415FF0(
-								15, 30, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5405);
-							v249 = v362;
-							*(uint16_t*)(v362 + 104) = v248;
-							*(uint8_t*)(v249 + 296) = nox_common_randomIntMinMax_415FF0(
-								-4, 4, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 5406);
-							nox_xxx_sprite_45A110_drawable((uint32_t*)v249);
-						}
-						k = i;
-						HIDWORD(v5) = i + v360;
-						v250 = v356 == 1;
-						v363 += v374;
-						v360 += i;
-						--v356;
-					} while (!v250);
-				}
-			}
+			nox_client_onDeathRay(*(unsigned short*)(data + 1), *(unsigned short*)(data + 3), *(unsigned short*)(data + 5), *(unsigned short*)(data + 7));
 			data += 9;
 			break;
 		case 0x95u:

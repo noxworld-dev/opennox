@@ -4,6 +4,7 @@ package opennox
 #include "defs.h"
 int nox_xxx_getTTByNameSpriteMB_44CFC0(char* a1);
 int  nox_xxx_client_4984B0_drawable(nox_drawable* dr);
+nox_drawable* nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a3);
 static int go_nox_drawable_call_draw_func(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	return dr->draw_func(vp, dr);
 }
@@ -168,6 +169,10 @@ func sub_49A8E0_init() {
 func sub_49A950_free() {
 	nox_drawable_2d_index = nil
 	nox_drawable_2d_index_size = 0
+}
+
+func nox_xxx_spriteLoadAdd_45A360_drawable(thingInd int, pos image.Point) *Drawable {
+	return asDrawable(C.nox_xxx_spriteLoadAdd_45A360_drawable(C.int(thingInd), C.int(pos.X), C.int(pos.Y)))
 }
 
 //export nox_xxx_sprite_49AA00_drawable

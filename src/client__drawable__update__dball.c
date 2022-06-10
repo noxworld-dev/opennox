@@ -35,7 +35,7 @@ uint32_t* nox_xxx_updDrawAddRndSpark_4CDFA0(int a1, uint32_t* a2) {
 				*((uint16_t*)v4 + 52) = 22;
 				*((uint8_t*)v4 + 296) =
 					nox_common_randomIntMinMax_415FF0(0, 4, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 49);
-				result = nox_xxx_sprite_45A110_drawable(v4);
+				nox_xxx_sprite_45A110_drawable(v4);
 			}
 			v3 = (uint32_t*)((char*)v3 - 1);
 		} while (v3);

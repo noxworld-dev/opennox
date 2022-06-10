@@ -1327,7 +1327,8 @@ typedef struct nox_drawable {
 	nox_shape shape;      // 11, 44
 	float field_24;       // 24, 96
 	float field_25;       // 25, 100
-	uint32_t field_26;    // 26, 104
+	uint16_t z;    // 26, 104
+	uint16_t field_26_1;    // 26, 106
 	uint32_t field_27;    // 27, 108, thing ID?
 	unsigned int flags28; // 28, 112
 	unsigned int flags29; // 29, 116
@@ -1360,7 +1361,7 @@ typedef struct nox_drawable {
 	uint32_t field_72;                          // 72, 288
 	uint16_t field_73_1;                        // 73, 292
 	uint16_t field_73_2;                        // 73, 294
-	uint8_t field_74_1;                         // 74, 296
+	int8_t  vel_z;                              // 74, 296
 	uint8_t field_74_2;                         // 74, 297
 	uint8_t field_74_3;                         // 74, 298
 	uint8_t field_74_4;                         // 74, 299
@@ -1397,7 +1398,7 @@ typedef struct nox_drawable {
 	nox_drawable* field_105; // 105, 420
 	uint32_t field_106;      // 106, 424
 	uint32_t field_107;      // 107, 428
-	uint8_t field_108_1;     // 108, 432
+	uint8_t field_108_1;     // 108, 432 // TODO: union?
 	uint8_t field_108_2;     // 108, 433
 	uint16_t field_108_3;    // 108, 434
 	uint32_t field_109;      // 109, 436, SE?

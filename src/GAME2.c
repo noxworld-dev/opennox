@@ -4769,10 +4769,7 @@ int sub_45A0A0(int a1) {
 }
 
 //----- (0045A110) --------------------------------------------------------
-uint32_t* nox_xxx_sprite_45A110_drawable(nox_drawable* a1) {
-	uint32_t* result; // eax
-
-	result = a1;
+void nox_xxx_sprite_45A110_drawable(nox_drawable* a1) {
 	a1->field_98 = 0;
 	a1->field_97 = nox_drawable_head_unk3;
 	if (nox_drawable_head_unk3) {
@@ -4782,7 +4779,6 @@ uint32_t* nox_xxx_sprite_45A110_drawable(nox_drawable* a1) {
 	}
 	nox_drawable_head_unk3 = a1;
 	a1->flags30 |= 0x400000u;
-	return result;
 }
 
 //----- (0045A160) --------------------------------------------------------

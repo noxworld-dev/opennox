@@ -9,7 +9,6 @@ import (
 	"image"
 	"image/color"
 	"strconv"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
@@ -94,7 +93,7 @@ func debugDrawShape(r *NoxRender, dr *Drawable, p image.Point, cl color.Color) {
 	switch sh.kind {
 	case shapeKindCircle:
 		rad := int(sh.circle.R)
-		z := *(*int16)(unsafe.Pointer(&dr.field_26))
+		z := int16(dr.z)
 		y1 := p.Y - int(float32(dr.field_24)-float32(z))
 		y2 := p.Y - int(float32(dr.field_25)-float32(z))
 		if y1 > 0 {
@@ -115,7 +114,7 @@ func debugDrawShape(r *NoxRender, dr *Drawable, p image.Point, cl color.Color) {
 		)
 	case shapeKindBox:
 		box := &sh.box
-		z := *(*int16)(unsafe.Pointer(&dr.field_26))
+		z := int16(dr.z)
 		p1 := image.Point{
 			X: p.X,
 			Y: p.Y - int(float32(dr.field_24)-float32(z)),
