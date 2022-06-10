@@ -539,8 +539,7 @@ func nox_script_Effect_514210() C.int {
 	case noxnet.MSG_FX_JIGGLE:
 		nox_xxx_earthquakeSend_4D9110(pos, int(pos2.X))
 	case noxnet.MSG_FX_GREEN_BOLT:
-		// TODO: fix coordinates
-		nox_xxx_netSendFxGreenBolt_523790(image.Point{}, image.Point{}, 30)
+		nox_xxx_netSendFxGreenBolt_523790(dpos.Add(pos.Point()), dpos.Add(pos2.Point()), 30)
 	case noxnet.MSG_FX_VAMPIRISM:
 		nox_xxx_netSendVampFx_523270(fx, dpos.Add(pos.Point()), dpos.Add(pos2.Point()), 100)
 	}
