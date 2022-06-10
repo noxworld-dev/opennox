@@ -333,8 +333,9 @@ int nox_xxx_mapSaveMap_51E010(char* a1, int a2) {
 
 	v7 = -86050098;
 	strcpy(Mem, a1);
-	v8[0] = getMemByte(0x5D4594, 2487260);
-	strncat(v8, a1, (strlen(a1) - 4 < 1024 ? strlen(a1) - 4 : 1024));
+	v8[0] = 0;
+	strncat(v8, a1, 1024-1);
+	v8[strlen(v8)-4] = 0;
 	v2 = &v8[strlen(v8) + 1];
 	v3 = getMemByte(0x587000, 253116);
 	*(uint32_t*)--v2 = *getMemU32Ptr(0x587000, 253112);

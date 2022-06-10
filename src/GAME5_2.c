@@ -3015,7 +3015,8 @@ int sub_57A950(char* a1) {
 	char v2[256]; // [esp+Ch] [ebp-100h]
 
 	strcpy(v2, "maps\\");
-	strncat(v2, a1, (strlen(a1) - 4 < 256 ? strlen(a1) - 4 : 256));
+	strncat(v2, a1, 256-6);
+	v2[strlen(v2)-4] = 0;
 	*(uint16_t*)&v2[strlen(v2)] = *getMemU16Ptr(0x587000, 312564);
 	strcat(v2, a1);
 	return sub_4D0550(v2);
