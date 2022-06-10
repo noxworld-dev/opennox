@@ -711,7 +711,7 @@ int nox_xxx_gameSetWallsDamage_4E25A0(int a1) {
 }
 
 //----- (004E25B0) --------------------------------------------------------
-bool nox_xxx_mapDamageUnitsAround_4E25B0(int a1, float a2, float a3, int a4, int a5, int a6, int a7) {
+bool nox_xxx_mapDamageUnitsAround_4E25B0(float* a1, float a2, float a3, int a4, int a5, nox_object_t* a6, int a7) {
 	bool result; // al
 	float4 a1a;  // [esp+0h] [ebp-3Ch]
 	int4 v11;    // [esp+10h] [ebp-2Ch]

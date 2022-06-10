@@ -3800,9 +3800,6 @@ void nox_xxx_sendGeneratorBreakFX_523200(float* a1, char a2) {
 	nox_xxx_netSendFxAllCli_523030((float2*)a1, v5, 7);
 }
 
-//----- (00523250) --------------------------------------------------------
-int nox_xxx_sendDeathRayCast_523250(int a1) { return nox_xxx_netSendRayFx_5232F0(148, a1); }
-
 //----- (00523270) --------------------------------------------------------
 int nox_xxx_netSendVampFx_523270(char a1, short* a2, short a3) {
 	short v3;          // dx
@@ -10412,61 +10409,6 @@ void sub_52D060(int a1, int a2) {
 	v5.field_C = (double)(23 * v3) + 34.0;
 	nox_xxx_getUnitsInRect_517C10(&v5, sub_52CE60, 0);
 	*getMemU32Ptr(0x5D4594, 2487716) = 0;
-}
-
-//----- (0052D1E0) --------------------------------------------------------
-int nox_xxx_castDeathRay_52D1E0(int a1, int a2, int a3, int a4, int a5) {
-	int v5;     // ebp
-	float v6;   // edx
-	float v7;   // ecx
-	float v8;   // edx
-	int v9;     // edx
-	int v11;    // eax
-	float v12;  // [esp+0h] [ebp-44h]
-	float v13;  // [esp+4h] [ebp-40h]
-	float v14;  // [esp+8h] [ebp-3Ch]
-	int v15;    // [esp+8h] [ebp-3Ch]
-	float4 v16; // [esp+24h] [ebp-20h]
-	int4 v20;   // [esp+34h] [ebp-10h]
-
-	if (!a5 || !a4) {
-		return 0;
-	}
-	if (*(uint8_t*)(a3 + 8) & 4) {
-		v5 = *(uint32_t*)(a3 + 748);
-	} else {
-		v5 = a5;
-	}
-	v6 = *(float*)(a4 + 60);
-	v16.field_0 = *(float*)(a4 + 56);
-	v7 = *(float*)(a5 + 4);
-	v16.field_4 = v6;
-	v8 = *(float*)(a5 + 8);
-	v16.field_8 = v7;
-	v16.field_C = v8;
-	if (!(unsigned char)nox_xxx_traceRay_5374B0(&v16)) {
-		if (*(uint8_t*)(a4 + 8) & 4) {
-			v9 = *(uint32_t*)(v5 + 276);
-			a5 = 2;
-			nox_xxx_netInformTextMsg_4DA0F0(*(unsigned char*)(v9 + 2064), 0, &a5);
-		}
-		return 0;
-	}
-	nox_xxx_gameSetWallsDamage_4E25A0(0);
-	v14 = nox_xxx_gamedataGetFloat_419D40("DeathRayDamage");
-	v15 = nox_float2int(v14);
-	v13 = nox_xxx_gamedataGetFloat_419D40("DeathRayInRadius");
-	v12 = nox_xxx_gamedataGetFloat_419D40("DeathRayOutRadius");
-	nox_xxx_mapDamageUnitsAround_4E25B0(&v16.field_8, v12, v13, v15, 16, a3, 0);
-	v20.field_0 = (long long)v16.field_0;
-	v20.field_4 = (long long)v16.field_4;
-	v20.field_8 = (long long)v16.field_8;
-	v20.field_C = (long long)v16.field_C;
-	nox_xxx_sendDeathRayCast_523250(&v20);
-	v11 = nox_xxx_spellGetAud44_424800(a1, 0);
-	nox_xxx_aud_501960(v11, a4, 0, 0);
-	nox_xxx_sMakeScorch_537AF0(&v16.field_8, 1);
-	return 1;
 }
 
 //----- (0052D330) --------------------------------------------------------

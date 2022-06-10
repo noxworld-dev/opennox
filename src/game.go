@@ -1549,6 +1549,22 @@ func nox_xxx_unitCanInteractWith_5370E0(u, obj noxObject, a3 byte) bool {
 	return C.nox_xxx_unitCanInteractWith_5370E0(u.CObj(), obj.CObj(), C.char(a3)) != 0
 }
 
+func nox_xxx_mapDamageUnitsAround_4E25B0(pos types.Pointf, r1, r2 float32, dmg, a5 int, u *Unit, a7 int) bool {
+	cpos, pfree := alloc.Make([]float32{}, 2)
+	defer pfree()
+	cpos[0] = pos.X
+	cpos[1] = pos.Y
+	return bool(C.nox_xxx_mapDamageUnitsAround_4E25B0((*C.float)(unsafe.Pointer(&cpos[0])), C.float(r1), C.float(r2), C.int(dmg), C.int(a5), u.CObj(), C.int(a7)))
+}
+
+func nox_xxx_sMakeScorch_537AF0(pos types.Pointf, a2 int) {
+	cpos, pfree := alloc.Make([]float32{}, 2)
+	defer pfree()
+	cpos[0] = pos.X
+	cpos[1] = pos.Y
+	C.nox_xxx_sMakeScorch_537AF0((*C.float)(unsafe.Pointer(&cpos[0])), C.int(a2))
+}
+
 func sub_473840() {
 	guiCon.Enable(false)
 	C.nox_gui_itemAmount_free_4C03E0()

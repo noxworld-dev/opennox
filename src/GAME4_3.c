@@ -5639,7 +5639,7 @@ LABEL_4:
 // 537A87: variable 'v24' is possibly undefined
 
 //----- (00537AF0) --------------------------------------------------------
-uint32_t* nox_xxx_sMakeScorch_537AF0(int* a1, int a2) {
+void nox_xxx_sMakeScorch_537AF0(float* a1, int a2) {
 	uint32_t* result; // eax
 	uint32_t* v3;     // esi
 	int v4;           // eax
@@ -5657,7 +5657,7 @@ uint32_t* nox_xxx_sMakeScorch_537AF0(int* a1, int a2) {
 		} else {
 			result = (uint32_t*)(a2 - 2);
 			if (a2 != 2) {
-				return result;
+				return;
 			}
 			v5 = *getMemU32Ptr(0x587000, 276844 + 8 * nox_common_randomInt_415FA0(0, 0));
 			result = nox_xxx_newObjectWithTypeInd_4E3450(v5);
@@ -5674,9 +5674,8 @@ uint32_t* nox_xxx_sMakeScorch_537AF0(int* a1, int a2) {
 		} else {
 			v4 = nox_common_randomInt_415FA0(10, 20);
 		}
-		result = (uint32_t*)nox_xxx_unitSetDecayTime_511660(v3, nox_gameFPS * v4);
+		nox_xxx_unitSetDecayTime_511660(v3, nox_gameFPS * v4);
 	}
-	return result;
 }
 
 //----- (00537BD0) --------------------------------------------------------

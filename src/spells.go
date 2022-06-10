@@ -644,7 +644,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj
 	case things.SPELL_DEATH:
 		fnc = castDeath
 	case things.SPELL_DEATH_RAY:
-		cfnc = C.nox_xxx_castDeathRay_52D1E0
+		fnc = castDeathRay
 	case things.SPELL_DETECT_MAGIC:
 		fnc = castDetectMagic
 	case things.SPELL_DETONATE_GLYPHS:
