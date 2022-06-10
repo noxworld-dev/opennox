@@ -75,10 +75,10 @@ func noxCmdLoad(ctx context.Context, c *console.Console, tokens []string) bool {
 			return true
 		}
 		if noxflags.HasGame(noxflags.GameModeChat) {
-			if mode.Has(noxflags.GameModeCTF|noxflags.GameModeFlagBall) && nox_xxx_getTeamCounter_417DD0() != 2 {
+			if mode.Has(noxflags.GameModeCTF|noxflags.GameModeFlagBall) && noxServer.teamCount() != 2 {
 				C.nox_xxx_wndGuiTeamCreate_4185B0()
 			}
-		} else if !noxflags.GetGame().Has(mode) {
+		} else if !noxMapsIgnoreMode && !noxflags.GetGame().Has(mode) {
 			v6 := strMan.GetStringInFile("NoMapLoadNewMode", "parsecmd.c")
 			nox_xxx_printCentered_445490(v6)
 			return true
