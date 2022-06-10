@@ -10996,20 +10996,6 @@ short nox_xxx_equakeDamage_52DEC0(int a1, int a2) {
 	return v3;
 }
 
-//----- (0052DF40) --------------------------------------------------------
-int nox_xxx_castFear_52DF40(int a1, int a2, int a3, int a4, int* a5, char a6) {
-	short v7; // ax
-	float v8; // [esp+0h] [ebp-Ch]
-
-	if (!*a5) {
-		return 0;
-	}
-	v8 = nox_xxx_gamedataGetFloat_419D40("FearEnchantDuration");
-	v7 = nox_float2int(v8);
-	nox_xxx_buffApplyTo_4FF380(*a5, 11, v7, a6);
-	return 1;
-}
-
 //----- (0052E020) --------------------------------------------------------
 unsigned int nox_xxx_isObjectMovable_52E020(int a1) {
 	unsigned int result; // eax

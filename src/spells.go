@@ -658,7 +658,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj
 	case things.SPELL_LIGHTNING:
 		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_spellEnergyBoltStop_52E820, C.nox_xxx_spellEnergyBoltTick_52E850, C.nullsub_29, 30)
 	case things.SPELL_FEAR:
-		cfnc = C.nox_xxx_castFear_52DF40
+		fnc = castFear
 	case things.SPELL_FIREBALL:
 		cfnc = C.nox_xxx_castFireball_52C790
 	case things.SPELL_FIREWALK:
