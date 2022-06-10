@@ -735,7 +735,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj
 	case things.SPELL_RESTORE_MANA:
 		cfnc = C.sub_52BF50
 	case things.SPELL_RUN:
-		cfnc = C.nox_xxx_castRun_52C680
+		fnc = castRun
 	case things.SPELL_SHOCK:
 		cfnc = C.nox_xxx_useShock_52C5A0
 	case things.SPELL_SLOW:
