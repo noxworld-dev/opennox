@@ -307,6 +307,10 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	}
 }
 
+func sub_4FF310(a1 noxObject) {
+	C.sub_4FF310(a1.CObj())
+}
+
 func sub_4E7540(a1, a2 noxObject) {
 	C.sub_4E7540(a1.CObj(), a2.CObj())
 }

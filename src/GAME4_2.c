@@ -10192,21 +10192,6 @@ int nox_xxx_castInvis_52C980(int a1, int a2, int a3, int a4, int* a5, char a6) {
 	return 1;
 }
 
-//----- (0052C9E0) --------------------------------------------------------
-int nox_xxx_castInvul_52C9E0(int a1, int a2, int a3, int a4, int* a5, char a6) {
-	short v7; // di
-	float v8; // [esp+0h] [ebp-Ch]
-
-	if (!*a5) {
-		return 0;
-	}
-	v8 = nox_xxx_gamedataGetFloat_419D40("InvulnerabilityEnchantDuration");
-	v7 = nox_float2int(v8);
-	sub_4FF310(*a5);
-	nox_xxx_buffApplyTo_4FF380(*a5, 23, v7, a6);
-	return 1;
-}
-
 //----- (0052CA30) --------------------------------------------------------
 int nox_xxx_castInfra_52CA30(int a1, int a2, int a3, int a4, int* a5, char a6) {
 	short v7; // ax

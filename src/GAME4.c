@@ -5395,7 +5395,8 @@ int sub_4FF2D0(int a1, int a2) {
 }
 
 //----- (004FF310) --------------------------------------------------------
-void sub_4FF310(int a1) {
+void sub_4FF310(nox_object_t* a1p) {
+	int a1 = a1p;
 	int* v1; // esi
 	int* v2; // edi
 

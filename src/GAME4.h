@@ -120,7 +120,7 @@ void nox_xxx_spellCastByPlayer_4FEEF0();
 void nox_xxx_netStopRaySpell_4FEF90(int a1, uint32_t* a2);
 char* nox_xxx_netStartDurationRaySpell_4FF130(int a1);
 int sub_4FF2D0(int a1, int a2);
-void sub_4FF310(int a1);
+void sub_4FF310(nox_object_t* a1);
 int nox_xxx_testUnitBuffs_4FF350(nox_object_t* unit, char buff);
 void nox_xxx_buffApplyTo_4FF380(nox_object_t* unit, int buff, short dur, char power);
 int nox_xxx_unitGetBuffTimer_4FF550(nox_object_t* unit, int buff);
