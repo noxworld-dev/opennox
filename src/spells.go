@@ -678,7 +678,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj
 	case things.SPELL_HASTE:
 		fnc = castHaste
 	case things.SPELL_INFRAVISION:
-		cfnc = C.nox_xxx_castInfra_52CA30
+		fnc = castInfravision
 	case things.SPELL_INVERSION:
 		cfnc = C.sub_52BEB0
 	case things.SPELL_INVISIBILITY:
