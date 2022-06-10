@@ -10167,15 +10167,6 @@ int nox_xxx_castFireball_52C790(int a1, int a2, int a3, int a4, int a5, int a6) 
 	return 1;
 }
 
-//----- (0052C8D0) --------------------------------------------------------
-int sub_52C8D0(int a1, int a2, int a3, int a4, int* a5, char a6) {
-	if (!*a5) {
-		return 0;
-	}
-	nox_xxx_buffApplyTo_4FF380(*a5, 6, 60 * (uint16_t)nox_gameFPS, a6);
-	return 1;
-}
-
 //----- (0052C980) --------------------------------------------------------
 int nox_xxx_castInvis_52C980(int a1, int a2, int a3, int a4, int* a5, char a6) {
 	short v7; // di
