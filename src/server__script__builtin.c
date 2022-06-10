@@ -3106,7 +3106,6 @@ int nox_script_builtin_5162D0() {
 	unsigned char* v2; // edi
 	int v3;            // ebp
 	const char* v4;    // ecx
-	bool v5;           // zf
 	const char** i;    // [esp+10h] [ebp-10h]
 	unsigned char* v7; // [esp+14h] [ebp-Ch]
 	int v8;            // [esp+18h] [ebp-8h]
@@ -3117,32 +3116,26 @@ int nox_script_builtin_5162D0() {
 	v9 = nox_server_scriptValToObjectPtr_511B60(v0);
 	if (v9) {
 		v2 = getMemAt(0x587000, 237304);
-		if (true) { // TODO: byte_587000 != (unsigned char*)-237304
-			v7 = getMemAt(0x587000, 237304);
-			for (i = (const char**)getMemAt(0x587000, 237304);; i += 32) {
-				v3 = 1;
-				v4 = *i;
-				if (*i) {
-					break;
-				}
-			LABEL_8:
-				v5 = (v7 + 128) == 0;
-				v2 = v7 + 128;
-				v7 += 128;
-				if (v5) {
-					return 0;
-				}
+		v7 = getMemAt(0x587000, 237304);
+		for (i = (const char**)getMemAt(0x587000, 237304);; i += 32) {
+			v3 = 1;
+			v4 = *i;
+			if (*i) {
+				break;
 			}
-			while (strcmp(v4, nox_script_getString_512E40(v8))) {
-				v4 = (const char*)*((uint32_t*)v2 + 1);
-				v2 += 4;
-				v3 *= 2;
-				if (!v4) {
-					goto LABEL_8;
-				}
-			}
-			nox_script_push((v3 & *(uint32_t*)(v9 + 12)) != 0);
+		LABEL_8:
+			v2 = v7 + 128;
+			v7 += 128;
 		}
+		while (strcmp(v4, nox_script_getString_512E40(v8))) {
+			v4 = (const char*)*((uint32_t*)v2 + 1);
+			v2 += 4;
+			v3 *= 2;
+			if (!v4) {
+				goto LABEL_8;
+			}
+		}
+		nox_script_push((v3 & *(uint32_t*)(v9 + 12)) != 0);
 		result = 0;
 	} else {
 		nox_script_push(0);
