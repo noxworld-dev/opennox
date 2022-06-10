@@ -9959,19 +9959,6 @@ LABEL_6:
 	return 1;
 }
 
-//----- (0052C350) --------------------------------------------------------
-int nox_xxx_castFreeze_52C350(int a1, int a2, int a3, int a4, int* a5, char a6) {
-	int result; // eax
-
-	result = *a5;
-	if (*a5) {
-		nox_xxx_buffApplyTo_4FF380(result, 25, 4 * (uint16_t)nox_gameFPS, a6);
-		sub_4E7540(a3, *a5);
-		result = 1;
-	}
-	return result;
-}
-
 //----- (0052C3E0) --------------------------------------------------------
 int nox_xxx_castBurn_52C3E0(int a1, int a2, int a3, int a4, int a5) {
 	int v5;     // eax

@@ -668,7 +668,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj
 	case things.SPELL_FORCE_OF_NATURE:
 		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.sub_52EF30, C.sub_52EFD0, C.sub_52F1D0, 2*gameFPS()/3)
 	case things.SPELL_FREEZE:
-		cfnc = C.nox_xxx_castFreeze_52C350
+		fnc = castFreeze
 	case things.SPELL_FUMBLE:
 		cfnc = C.nox_xxx_castFumble_52C060
 	case things.SPELL_GLYPH:
