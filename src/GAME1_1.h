@@ -36,7 +36,6 @@ unsigned int sub_419A30(float a1);
 int nox_float2int(float a1);
 short nox_float2int16(float a1);
 short nox_float2int16_abs(float a1);
-char nox_float2int8(float a1);
 float nox_double2float(double a1);
 int nox_double2int(double a1);
 int nox_xxx_parseGamedataBin_419B30();

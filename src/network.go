@@ -49,6 +49,7 @@ import (
 	"context"
 	"encoding/binary"
 	"errors"
+	"image"
 	"net"
 	"time"
 	"unsafe"
@@ -1103,6 +1104,64 @@ func nox_xxx_netSendPointFx_522FF0(fx noxnet.Op, pos types.Pointf) bool {
 	return nox_xxx_netSendFxAllCli_523030(pos, buf[:5])
 }
 
+func nox_xxx_netSendRayFx_5232F0(fx noxnet.Op, p1, p2 image.Point) bool {
+	var buf [9]byte
+	buf[0] = byte(fx)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(p1.X))
+	binary.LittleEndian.PutUint16(buf[3:], uint16(p1.Y))
+	binary.LittleEndian.PutUint16(buf[5:], uint16(p2.X))
+	binary.LittleEndian.PutUint16(buf[7:], uint16(p2.Y))
+	return nox_xxx_servCode_523340(p1, p2, buf[:9])
+}
+
+func nox_xxx_netSparkExplosionFx_5231B0(pos types.Pointf, a2 byte) bool {
+	var buf [6]byte
+	buf[0] = byte(noxnet.MSG_FX_SPARK_EXPLOSION)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(pos.X))
+	binary.LittleEndian.PutUint16(buf[3:], uint16(pos.Y))
+	buf[5] = a2
+	return nox_xxx_netSendFxAllCli_523030(pos, buf[:6])
+}
+
+func nox_xxx_earthquakeSend_4D9110(pos types.Pointf, a2 int) {
+	cpos, pfree := alloc.Make([]float32{}, 2)
+	defer pfree()
+	cpos[0] = pos.X
+	cpos[1] = pos.Y
+
+	C.nox_xxx_earthquakeSend_4D9110((*C.float)(unsafe.Pointer(&cpos[0])), C.int(a2))
+}
+
+func nox_xxx_netSendFxGreenBolt_523790(p1, p2 image.Point, a2 int) bool {
+	var buf [11]byte
+	buf[0] = byte(noxnet.MSG_FX_GREEN_BOLT)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(p1.X))
+	binary.LittleEndian.PutUint16(buf[3:], uint16(p1.Y))
+	binary.LittleEndian.PutUint16(buf[5:], uint16(p2.X))
+	binary.LittleEndian.PutUint16(buf[7:], uint16(p2.Y))
+	binary.LittleEndian.PutUint16(buf[9:], uint16(a2))
+	pos := types.Pointf{
+		X: float32(p1.X) + float32(p2.X-p1.X)*0.5,
+		Y: float32(p1.Y) + float32(p2.Y-p1.Y)*0.5,
+	}
+	return nox_xxx_netSendFxAllCli_523030(pos, buf[:11])
+}
+
+func nox_xxx_netSendVampFx_523270(fx noxnet.Op, p1, p2 image.Point, a3 int) bool {
+	var buf [11]byte
+	buf[0] = byte(fx)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(p1.X))
+	binary.LittleEndian.PutUint16(buf[3:], uint16(p1.Y))
+	binary.LittleEndian.PutUint16(buf[5:], uint16(p2.X))
+	binary.LittleEndian.PutUint16(buf[7:], uint16(p2.Y))
+	binary.LittleEndian.PutUint16(buf[9:], uint16(a3))
+	pos := types.Pointf{
+		X: float32(p2.X),
+		Y: float32(p2.Y),
+	}
+	return nox_xxx_netSendFxAllCli_523030(pos, buf[:11])
+}
+
 func nox_xxx_netSendFxAllCli_523030(pos types.Pointf, data []byte) bool {
 	cdata, dfree := alloc.Make([]byte{}, len(data))
 	defer dfree()
@@ -1114,4 +1173,19 @@ func nox_xxx_netSendFxAllCli_523030(pos types.Pointf, data []byte) bool {
 	cpos[1] = pos.Y
 
 	return C.nox_xxx_netSendFxAllCli_523030((*C.float2)(unsafe.Pointer(&cpos[0])), unsafe.Pointer(&cdata[0]), C.int(len(data))) != 0
+}
+
+func nox_xxx_servCode_523340(p1, p2 image.Point, data []byte) bool {
+	cdata, dfree := alloc.Make([]byte{}, len(data))
+	defer dfree()
+	copy(cdata, data)
+
+	cpos, pfree := alloc.Make([]int32{}, 4)
+	defer pfree()
+	cpos[0] = int32(p1.X)
+	cpos[1] = int32(p1.Y)
+	cpos[2] = int32(p2.X)
+	cpos[3] = int32(p2.Y)
+
+	return C.nox_xxx_servCode_523340((*C.int)(unsafe.Pointer(&cpos[0])), unsafe.Pointer(&cdata[0]), C.int(len(data))) != 0
 }

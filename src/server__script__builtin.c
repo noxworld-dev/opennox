@@ -1795,115 +1795,6 @@ int nox_script_CancelTimer_5141F0() {
 	return 0;
 }
 
-//----- (00514210) --------------------------------------------------------
-int nox_script_Effect_514210() {
-	int v0;            // ebp
-	const char* v1;    // edi
-	const char* v2;    // esi
-	unsigned int v3;   // ebx
-	char* v4;          // edi
-	char* v5;          // edi
-	const char* v6;    // esi
-	char v7;           // cl
-	char v8;           // bl
-	char v9;           // si
-	int result;        // eax
-	int v11;           // eax
-	char v12;          // al
-	unsigned char v13; // [esp+10h] [ebp-68h]
-	float v14;         // [esp+14h] [ebp-64h]
-	float v15;         // [esp+18h] [ebp-60h]
-	int v16;           // [esp+1Ch] [ebp-5Ch]
-	float2 v17;        // [esp+20h] [ebp-58h]
-	int v19[4];        // [esp+28h] [ebp-50h]
-	char v20[64];      // [esp+38h] [ebp-40h]
-
-	v16 = nox_script_pop();
-	v0 = nox_script_pop();
-	v15 = nox_script_popf();
-	v14 = nox_script_popf();
-	v1 = nox_script_getString_512E40(nox_script_pop());
-	strncpy(v20, "MSG_FX_", sizeof(v20) - 1);
-	v17.field_0 = (double)nox_script_builtinGetF40() + v14;
-	v17.field_4 = (double)nox_script_builtinGetF44() + v15;
-	v2 = v1;
-	v3 = strlen(v1) + 1;
-	v4 = &v20[strlen(v20)];
-	memcpy(v4, v2, 4 * (v3 >> 2));
-	v6 = &v2[4 * (v3 >> 2)];
-	v5 = &v4[4 * (v3 >> 2)];
-	v7 = v3;
-	v8 = 87;
-	v13 = 87;
-	memcpy(v5, v6, v7 & 3);
-	do {
-		if (!_strcmpi(*(const char**)getMemAt(0x587000, 238648 + 4 * v13), v20)) {
-			break;
-		}
-		v13 = ++v8;
-	} while ((unsigned char)v8 <= 0x73u);
-	v9 = v8 + 39;
-	switch ((unsigned char)(v8 + 39)) {
-	case 0x81u:
-	case 0x82u:
-	case 0x83u:
-	case 0x84u:
-	case 0x85u:
-	case 0x86u:
-	case 0x87u:
-	case 0x88u:
-	case 0x89u:
-	case 0x8Au:
-	case 0x8Bu:
-	case 0x96u:
-	case 0x9Au:
-	case 0xA0u:
-	case 0xA3u:
-		nox_xxx_netSendPointFx_522FF0(v8 + 39, &v17);
-		result = 0;
-		break;
-	case 0x8Cu:
-	case 0x8Fu:
-	case 0x90u:
-	case 0x91u:
-	case 0x94u:
-	case 0x95u:
-		v19[0] = nox_script_builtinGetF40() + nox_float2int(v14);
-		v19[1] = nox_script_builtinGetF44() + nox_float2int(v15);
-		v19[2] = nox_script_builtinGetF40() + nox_float2int(*(float*)&v0);
-		v19[3] = nox_script_builtinGetF44() + nox_float2int(*(float*)&v16);
-		nox_xxx_netSendRayFx_5232F0(v9, (int)v19);
-		result = 0;
-		break;
-	case 0x93u:
-		v12 = nox_float2int8(*(float*)&v0);
-		nox_xxx_netSparkExplosionFx_5231B0(&v17, v12);
-		result = 0;
-		break;
-	case 0x97u:
-		v11 = nox_float2int(*(float*)&v0);
-		nox_xxx_earthquakeSend_4D9110(&v17, v11);
-		result = 0;
-		break;
-	case 0x98u:
-		nox_xxx_netSendFxGreenBolt_523790((int4*)v19, 30);
-		result = 0;
-		break;
-	case 0xA2u:
-		v19[0] = nox_script_builtinGetF40() + nox_float2int(v14);
-		v19[1] = nox_script_builtinGetF44() + nox_float2int(v15);
-		v19[2] = nox_script_builtinGetF40() + nox_float2int(*(float*)&v0);
-		v19[3] = nox_script_builtinGetF44() + nox_float2int(*(float*)&v16);
-		nox_xxx_netSendVampFx_523270(v9, (short*)v19, 100);
-		result = 0;
-		break;
-	default:
-		result = 0;
-		break;
-	}
-	return result;
-}
-
 //----- (00514490) --------------------------------------------------------
 int nox_script_SetOwner_514490() {
 	int v0; // esi
@@ -3986,6 +3877,7 @@ int nox_script_UnBlind_515200();
 int nox_script_Blind_515220();
 int nox_script_WideScreen_515240();
 int nox_script_StopAllFades_516C10();
+int nox_script_Effect_514210();
 
 //-------------------------------------------------------------------------
 void* nox_script_builtin[] = {

@@ -8,18 +8,24 @@ extern int nox_script_count_xxx_1599640;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern nox_script_xxx_t* nox_script_arr_xxx_1599636;
 extern uint32_t dword_587000_311372;
+extern unsigned int dword_5d4594_3821636;
+extern unsigned int dword_5d4594_3821640;
 int sub_516570();
 */
 import "C"
 import (
 	"encoding/binary"
+	"image"
 	"image/color"
+	"math"
 	"strings"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/things"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -28,7 +34,14 @@ import (
 var (
 	nox_script_objTelekinesisHand int
 	nox_script_objCinemaRemove    []int
+	noxScriptFXNames              = make(map[string]noxnet.Op)
 )
+
+func init() {
+	for fx := noxnet.MSG_FX_PARTICLEFX; fx <= noxnet.MSG_FX_MANA_BOMB_CANCEL; fx++ {
+		noxScriptFXNames[fx.String()] = fx
+	}
+}
 
 type activators struct {
 	lastID uint32
@@ -334,6 +347,23 @@ func noxScriptPopU32() uint32 {
 	return uint32(C.nox_script_pop())
 }
 
+func noxScriptPopF32() float32 {
+	return math.Float32frombits(uint32(C.nox_script_pop()))
+}
+
+func noxScriptPopString() string {
+	return GoString(C.nox_script_getString_512E40(C.nox_script_pop()))
+}
+
+func nox_script_builtinGetF40() int { return int(C.dword_5d4594_3821636) }
+func nox_script_builtinGetF44() int { return int(C.dword_5d4594_3821640) }
+
+func noxScriptPopPointf() types.Pointf {
+	y := noxScriptPopF32()
+	x := noxScriptPopF32()
+	return types.Pointf{X: x, Y: y}
+}
+
 //export nox_script_StartGame_516C20
 func nox_script_StartGame_516C20() C.int {
 	nox_xxx_cliPlayMapIntro_44E0B0(1)
@@ -467,4 +497,52 @@ func (s *Server) CinemaPlayers(enable bool) {
 			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_SUMMON_BAT, it)
 		}
 	}
+}
+
+//export nox_script_Effect_514210
+func nox_script_Effect_514210() C.int {
+	pos2 := noxScriptPopPointf()
+	pos := noxScriptPopPointf()
+	name := "MSG_FX_" + strings.ToUpper(noxScriptPopString())
+	dpos := image.Point{
+		X: nox_script_builtinGetF40(),
+		Y: nox_script_builtinGetF44(),
+	}
+	pos = pos.Add(types.Point2f(dpos))
+
+	switch fx := noxScriptFXNames[name]; fx {
+	case noxnet.MSG_FX_BLUE_SPARKS,
+		noxnet.MSG_FX_YELLOW_SPARKS,
+		noxnet.MSG_FX_CYAN_SPARKS,
+		noxnet.MSG_FX_VIOLET_SPARKS,
+		noxnet.MSG_FX_EXPLOSION,
+		noxnet.MSG_FX_LESSER_EXPLOSION,
+		noxnet.MSG_FX_COUNTERSPELL_EXPLOSION,
+		noxnet.MSG_FX_THIN_EXPLOSION,
+		noxnet.MSG_FX_TELEPORT,
+		noxnet.MSG_FX_SMOKE_BLAST,
+		noxnet.MSG_FX_DAMAGE_POOF,
+		noxnet.MSG_FX_RICOCHET,
+		noxnet.MSG_FX_WHITE_FLASH,
+		noxnet.MSG_FX_TURN_UNDEAD,
+		noxnet.MSG_FX_MANA_BOMB_CANCEL:
+		nox_xxx_netSendPointFx_522FF0(fx, pos)
+	case noxnet.MSG_FX_LIGHTNING,
+		noxnet.MSG_FX_DRAIN_MANA,
+		noxnet.MSG_FX_CHARM,
+		noxnet.MSG_FX_GREATER_HEAL,
+		noxnet.MSG_FX_DEATH_RAY,
+		noxnet.MSG_FX_SENTRY_RAY:
+		nox_xxx_netSendRayFx_5232F0(fx, dpos.Add(pos.Point()), dpos.Add(pos2.Point()))
+	case noxnet.MSG_FX_SPARK_EXPLOSION:
+		nox_xxx_netSparkExplosionFx_5231B0(pos, byte(pos2.X))
+	case noxnet.MSG_FX_JIGGLE:
+		nox_xxx_earthquakeSend_4D9110(pos, int(pos2.X))
+	case noxnet.MSG_FX_GREEN_BOLT:
+		// TODO: fix coordinates
+		nox_xxx_netSendFxGreenBolt_523790(image.Point{}, image.Point{}, 30)
+	case noxnet.MSG_FX_VAMPIRISM:
+		nox_xxx_netSendVampFx_523270(fx, dpos.Add(pos.Point()), dpos.Add(pos2.Point()), 100)
+	}
+	return 0
 }

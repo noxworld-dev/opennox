@@ -730,9 +730,6 @@ short nox_float2int16(float a1) { return (int)a1; }
 //----- (00419AB0) --------------------------------------------------------
 short nox_float2int16_abs(float a1) { return (int)fabs(a1); }
 
-//----- (00419AD0) --------------------------------------------------------
-char nox_float2int8(float a1) { return (int)a1; }
-
 //----- (00419AF0) --------------------------------------------------------
 float nox_double2float(double a1) { return (float)a1; }
 
