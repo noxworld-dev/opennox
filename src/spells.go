@@ -682,7 +682,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj
 	case things.SPELL_INVERSION:
 		cfnc = C.sub_52BEB0
 	case things.SPELL_INVISIBILITY:
-		cfnc = C.nox_xxx_castInvis_52C980
+		fnc = castInvisibility
 	case things.SPELL_INVULNERABILITY:
 		fnc = castInvulnerability
 	case things.SPELL_LESSER_HEAL:

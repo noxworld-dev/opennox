@@ -10167,22 +10167,6 @@ int nox_xxx_castFireball_52C790(int a1, int a2, int a3, int a4, int a5, int a6) 
 	return 1;
 }
 
-//----- (0052C980) --------------------------------------------------------
-int nox_xxx_castInvis_52C980(int a1, int a2, int a3, int a4, int* a5, char a6) {
-	short v7; // di
-	float v8; // [esp+0h] [ebp-Ch]
-
-	if (!*a5) {
-		return 0;
-	}
-	v8 = nox_xxx_gamedataGetFloat_419D40("InvisibilityEnchantDuration");
-	v7 = nox_float2int(v8);
-	sub_4FF310(*a5);
-	nox_xxx_buffApplyTo_4FF380(*a5, 0, v7, a6);
-	nox_xxx_netSendPointFx_522FF0(138, (float2*)(*a5 + 56));
-	return 1;
-}
-
 //----- (0052CA30) --------------------------------------------------------
 int nox_xxx_castInfra_52CA30(int a1, int a2, int a3, int a4, int* a5, char a6) {
 	short v7; // ax

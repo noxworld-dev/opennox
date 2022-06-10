@@ -7,6 +7,7 @@ package opennox
 #include "server__network__sdecode.h"
 #include "GAME5.h"
 #include "GAME3_2.h"
+#include "GAME4_2.h"
 #include "GAME5_2.h"
 #ifdef _WIN32
 #include <windows.h>
@@ -57,6 +58,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/platform"
 	"github.com/noxworld-dev/opennox-lib/things"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -1091,4 +1093,25 @@ func nox_xxx_netSendLineMessage_4D9EB0(u *Unit, s string) bool {
 	cstr, free := CWString(s)
 	defer free()
 	return C.nox_xxx_netSendLineMessage_go(u.CObj(), cstr) != 0
+}
+
+func nox_xxx_netSendPointFx_522FF0(fx noxnet.Op, pos types.Pointf) bool {
+	var buf [5]byte
+	buf[0] = byte(fx)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(int(pos.X)))
+	binary.LittleEndian.PutUint16(buf[3:], uint16(int(pos.Y)))
+	return nox_xxx_netSendFxAllCli_523030(pos, buf[:5])
+}
+
+func nox_xxx_netSendFxAllCli_523030(pos types.Pointf, data []byte) bool {
+	cdata, dfree := alloc.Make([]byte{}, len(data))
+	defer dfree()
+	copy(cdata, data)
+
+	cpos, pfree := alloc.Make([]float32{}, 2)
+	defer pfree()
+	cpos[0] = pos.X
+	cpos[1] = pos.Y
+
+	return C.nox_xxx_netSendFxAllCli_523030((*C.float2)(unsafe.Pointer(&cpos[0])), unsafe.Pointer(&cdata[0]), C.int(len(data))) != 0
 }
