@@ -676,7 +676,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj
 	case things.SPELL_GREATER_HEAL:
 		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.sub_52F220, C.sub_52F2E0, nil, 0)
 	case things.SPELL_HASTE:
-		cfnc = C.nox_xxx_castHaste_52C640
+		fnc = castHaste
 	case things.SPELL_INFRAVISION:
 		cfnc = C.nox_xxx_castInfra_52CA30
 	case things.SPELL_INVERSION:

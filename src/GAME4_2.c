@@ -10067,20 +10067,6 @@ int nox_xxx_useShock_52C5A0(int a1, int a2, int a3, int a4, int* a5, int a6) {
 	return result;
 }
 
-//----- (0052C640) --------------------------------------------------------
-int nox_xxx_castHaste_52C640(int a1, int a2, int a3, int a4, int* a5, char a6) {
-	short v7; // ax
-	float v8; // [esp+0h] [ebp-8h]
-
-	if (!*a5) {
-		return 0;
-	}
-	v8 = nox_xxx_gamedataGetFloat_419D40("HasteEnchantDuration");
-	v7 = nox_float2int(v8);
-	nox_xxx_buffApplyTo_4FF380(*a5, 9, v7, a6);
-	return 1;
-}
-
 //----- (0052C680) --------------------------------------------------------
 int nox_xxx_castRun_52C680(int a1, int a2, int a3, int a4, int* a5, char a6) {
 	short v7; // ax
