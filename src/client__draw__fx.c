@@ -14,15 +14,13 @@ void sub_499490(int a1, uint16_t* a2, int a3, int a4, char a5, char a6) {
 	uint32_t* result; // eax
 	uint32_t* v7;     // esi
 
-	result =
-		(uint32_t*)nox_xxx_spriteLoadAdd_45A360_drawable(a1, a3 + (unsigned short)a2[2], a4 + (unsigned short)a2[3]);
+	result = nox_xxx_spriteLoadAdd_45A360_drawable(a1, a3 + (unsigned short)a2[2], a4 + (unsigned short)a2[3]);
 	v7 = result;
 	if (result) {
 		*((uint16_t*)result + 216) = *a2;
 		*((uint16_t*)result + 217) = a2[1];
 		*((uint8_t*)result + 443) = a5;
-		*((uint8_t*)result + 444) =
-			nox_common_randomIntMinMax_415FF0(3, 10, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 138);
+		*((uint8_t*)result + 444) = nox_common_randomIntMinMax_415FF0(3, 10, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 138);
 		*((uint8_t*)v7 + 446) = a6;
 		*((uint8_t*)v7 + 445) = a6;
 		nox_xxx_sprite_45A110_drawable(v7);
@@ -30,26 +28,25 @@ void sub_499490(int a1, uint16_t* a2, int a3, int a4, char a5, char a6) {
 }
 
 //----- (00499520) --------------------------------------------------------
-void sub_499520(int a1, unsigned short* a2, short a3, char a4, char a5) {
+void sub_499520(int a1, short* a2, short a3, char a4, char a5) {
 	int v5;           // ebp
 	int v6;           // edi
 	uint32_t* result; // eax
 	uint32_t* v8;     // esi
 
-	v5 = a2[3];
 	v6 = a2[2];
-	result = (uint32_t*)nox_xxx_spriteLoadAdd_45A360_drawable(a1, v6, (unsigned short)v5);
+	v5 = a2[3];
+	result = nox_xxx_spriteLoadAdd_45A360_drawable(a1, v6, v5);
 	v8 = result;
 	if (result) {
-		*((uint16_t*)result + 216) = *a2;
+		*((uint16_t*)result + 216) = a2[0];
 		*((uint16_t*)result + 217) = a2[1];
 		*((uint16_t*)result + 218) = v6;
 		*((uint16_t*)result + 219) = v5;
 		*((uint8_t*)result + 442) = a3;
-		*((uint16_t*)result + 220) = (long long)sqrt((double)((v6 - *a2) * (v6 - *a2) + (v5 - a2[1]) * (v5 - a2[1])));
+		*((uint16_t*)result + 220) = (long long)sqrt((double)((v6 - a2[0]) * (v6 - a2[0]) + (v5 - a2[1]) * (v5 - a2[1])));
 		*((uint8_t*)result + 443) = a4;
-		*((uint8_t*)result + 444) =
-			nox_common_randomIntMinMax_415FF0(3, 10, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 182);
+		*((uint8_t*)result + 444) = nox_common_randomIntMinMax_415FF0(3, 10, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 182);
 		*((uint8_t*)v8 + 446) = a5;
 		*((uint8_t*)v8 + 445) = a5;
 		v8[116] = sub_4CA720;

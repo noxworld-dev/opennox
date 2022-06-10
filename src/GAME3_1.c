@@ -5271,7 +5271,7 @@ int sub_4CA720(int a1, int a2) {
 			v6 += -256 * ((unsigned int)v6 >> 8);
 		}
 		v7 = v4 * *getMemIntPtr(0x587000, 192088 + 8 * v6);
-		v8 = *(unsigned short*)(a2 + 434) + v4 * *getMemU32Ptr(0x587000, 192092 + 8 * v6) / 16;
+		v8 = *(unsigned short*)(a2 + 434) + v4 * *getMemI32Ptr(0x587000, 192092 + 8 * v6) / 16;
 		nox_xxx_updateSpritePosition_49AA90((uint32_t*)a2, v3 + v7 / 16, v8);
 		*(uint32_t*)(a2 + 32) = v3 + v7 / 16;
 		*(uint32_t*)(a2 + 36) = v8;
