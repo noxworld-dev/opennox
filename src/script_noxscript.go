@@ -528,6 +528,8 @@ func nox_script_Effect_514210() C.int {
 		noxnet.MSG_FX_MANA_BOMB_CANCEL:
 		nox_xxx_netSendPointFx_522FF0(fx, pos)
 	case noxnet.MSG_FX_LIGHTNING,
+		noxnet.MSG_FX_ENERGY_BOLT,
+		noxnet.MSG_FX_PLASMA,
 		noxnet.MSG_FX_DRAIN_MANA,
 		noxnet.MSG_FX_CHARM,
 		noxnet.MSG_FX_GREATER_HEAL,
