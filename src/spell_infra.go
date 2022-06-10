@@ -2,11 +2,8 @@ package opennox
 
 import "github.com/noxworld-dev/opennox-lib/things"
 
-func castInfravision(_ things.SpellID, _, _, _ *Unit, args *spellAcceptArg, lvl int) int {
-	if args.Obj == nil {
-		return 0
-	}
-	dur := int(gamedataFloat("InfravisionEnchantDuration"))
-	asObjectC(args.Obj).ApplyEnchant(ENCHANT_INFRAVISION, dur, lvl)
-	return 1
+func castInfravision(spellID things.SpellID, _, _, _ *Unit, args *spellAcceptArg, lvl int) int {
+	return castBuffSpell(spellID, ENCHANT_INFRAVISION, lvl, asUnitC(args.Obj), spellBuffConf{
+		DurOpt: "InfravisionEnchantDuration",
+	})
 }

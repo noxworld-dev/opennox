@@ -2,23 +2,20 @@ package opennox
 
 import "github.com/noxworld-dev/opennox-lib/things"
 
-func castProtectSpell(enc EnchantID, durKey string, args *spellAcceptArg, lvl int) int {
-	if args.Obj == nil {
-		return 0
-	}
-	dur := int(gamedataFloat(durKey))
-	asObjectC(args.Obj).ApplyEnchant(enc, dur, lvl)
-	return 1
+func castProtectElectricity(spellID things.SpellID, _, _, _ *Unit, args *spellAcceptArg, lvl int) int {
+	return castBuffSpell(spellID, ENCHANT_PROTECT_FROM_ELECTRICITY, lvl, asUnitC(args.Obj), spellBuffConf{
+		DurOpt: "ProtectElectricityEnchantDuration",
+	})
 }
 
-func castProtectElectricity(_ things.SpellID, _, _, _ *Unit, args *spellAcceptArg, lvl int) int {
-	return castProtectSpell(ENCHANT_PROTECT_FROM_ELECTRICITY, "ProtectElectricityEnchantDuration", args, lvl)
+func castProtectPoison(spellID things.SpellID, _, _, _ *Unit, args *spellAcceptArg, lvl int) int {
+	return castBuffSpell(spellID, ENCHANT_PROTECT_FROM_POISON, lvl, asUnitC(args.Obj), spellBuffConf{
+		DurOpt: "ProtectPoisonEnchantDuration",
+	})
 }
 
-func castProtectPoison(_ things.SpellID, _, _, _ *Unit, args *spellAcceptArg, lvl int) int {
-	return castProtectSpell(ENCHANT_PROTECT_FROM_POISON, "ProtectPoisonEnchantDuration", args, lvl)
-}
-
-func castProtectFire(_ things.SpellID, _, _, _ *Unit, args *spellAcceptArg, lvl int) int {
-	return castProtectSpell(ENCHANT_PROTECT_FROM_FIRE, "ProtectFireEnchantDuration", args, lvl)
+func castProtectFire(spellID things.SpellID, _, _, _ *Unit, args *spellAcceptArg, lvl int) int {
+	return castBuffSpell(spellID, ENCHANT_PROTECT_FROM_FIRE, lvl, asUnitC(args.Obj), spellBuffConf{
+		DurOpt: "ProtectFireEnchantDuration",
+	})
 }
