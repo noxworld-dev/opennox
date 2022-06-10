@@ -3126,7 +3126,7 @@ int nox_script_builtin_5162D0() {
 					break;
 				}
 			LABEL_8:
-				v5 = v7 + 128 == 0;
+				v5 = (v7 + 128) == 0;
 				v2 = v7 + 128;
 				v7 += 128;
 				if (v5) {
