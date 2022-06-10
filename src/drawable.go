@@ -189,7 +189,14 @@ func nox_xxx_sprite_49AA00_drawable(d *C.nox_drawable) {
 
 	dr.field_101 = nil
 
-	v4 := nox_drawable_2d_index[xi][yi]
+	if xi < 0 || xi >= len(nox_drawable_2d_index) {
+		return
+	}
+	index := nox_drawable_2d_index[xi]
+	if yi < 0 || yi >= len(index) {
+		return
+	}
+	v4 := index[yi]
 	dr.field_100 = v4.C()
 	if v4 != nil {
 		v4.field_101 = dr.C()
