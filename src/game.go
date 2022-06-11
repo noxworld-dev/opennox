@@ -878,7 +878,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
 			C.nox_xxx_gameSetNoMPFlag_4DB230(1)
 			C.nox_xxx_gameSetSoloSavePath_4DB270(internCStr(v31))
 		} else {
-			gameLog.Println(err)
+			gameLog.Println("check tmp map exists:", err)
 		}
 		s.switchMap(v30)
 	}

@@ -201,7 +201,7 @@ func nox_xxx_mapWall_426A80(a1, a2 uint32) {
 //export nox_common_checkMapFile_4CFE10
 func nox_common_checkMapFile_4CFE10(name *C.char) C.int {
 	if err := nox_common_checkMapFile(GoString(name)); err != nil {
-		gameLog.Println(err)
+		gameLog.Println("check map file:", err)
 		return 0
 	}
 	return 1

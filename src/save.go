@@ -132,7 +132,7 @@ func nox_client_checkSaveMapExistsTmp(name string) (string, error) {
 func nox_client_countPlayerFiles04_4DC7D0() C.int {
 	cnt, err := nox_client_countPlayerFiles(0x4)
 	if err != nil {
-		gameLog.Println(err)
+		gameLog.Println("count player files:", err)
 		return 0
 	}
 	return C.int(cnt)

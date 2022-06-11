@@ -268,7 +268,7 @@ mainloop:
 		} else {
 			if err := nox_xxx_gameChangeMap_43DEB0(); err != nil {
 				if err != nil && err != ErrMapDownload {
-					gameLog.Println(err)
+					gameLog.Println("change game map:", err)
 				}
 				// XXX
 				if mapDownloading() {
@@ -1124,7 +1124,7 @@ func map_download_finish() int {
 	}
 	fname := noxServer.nox_server_currentMapGetFilename_409B30()
 	if err := nox_xxx_mapCliReadAll_4AC2B0(fname); err != nil {
-		gameLog.Println(err)
+		gameLog.Println("read downloaded map:", err)
 		v6 := strMan.GetStringInFile("MapLoadError", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 		C.go_call_sub_4516C0(internWStr(v6), internCStr(fname))
 		C.nox_xxx_spriteLoadError_4356E0()
@@ -1205,7 +1205,7 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 			noxAudioServeT(500)
 			if err := nox_xxx_mapCliReadAll_4AC2B0(mapName); err != nil {
 				err = fmt.Errorf("change map failed: %w", err)
-				gameLog.Println(err)
+				gameLog.Println("client read map:", err)
 				v13 := noxServer.nox_server_currentMapGetFilename_409B30()
 				v6 := strMan.GetStringInFile("MapLoadError", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 				C.go_call_sub_4516C0(internWStr(v6), internCStr(v13))

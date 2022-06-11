@@ -244,7 +244,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 		C.nox_xxx_unitsUpdateDeletedList_4E5E20()
 	}
 	if err := s.updateRemotePlayers(); err != nil {
-		gameLog.Println(err)
+		gameLog.Println("update remote players:", err)
 		return false
 	}
 	C.nox_xxx_unitsNewAddToList_4DAC00()
@@ -602,7 +602,7 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 	C.nox_xxx_mapSetCrcMB_409B10(C.int(crc))
 	if err := s.nox_xxx_serverParseEntireMap_4CFCE0(); err != nil {
 		cryptFileClose()
-		gameLog.Println(err)
+		gameLog.Println("server read map:", err)
 		return err
 	}
 	C.nox_xxx_scriptRunFirst_507290()
@@ -794,7 +794,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 	mapname := s.getServerMap()
 	gameLog.Printf("checking map flags for %q", filepath.Base(mapname))
 	if err := nox_common_checkMapFile(mapname); err != nil {
-		gameLog.Println(err)
+		gameLog.Println("check map file:", err)
 		if !noxflags.HasGame(noxflags.GameModeSolo10) {
 			noxflags.UnsetGame(noxflags.GameModeMask)
 			noxflags.SetGame(noxflags.GameModeArena)
