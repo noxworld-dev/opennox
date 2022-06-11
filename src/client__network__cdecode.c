@@ -81,6 +81,10 @@ extern unsigned int nox_frame_xxx_2598000;
 void noxOnCliPacketDebug(int op, unsigned char* data, int sz);
 int nox_client_getFadeDuration();
 
+void nox_client_onMapDownloadStart(char* a1, unsigned int a2);
+void nox_client_onMapDownloadPart(unsigned short a1, void* a2, size_t a3);
+void nox_client_onMapDownloadAbort();
+
 void clientPacketFade(bool a1, int fnc);
 void nox_client_onDeathRay(int p1x, int p1y, int p2x, int p2y);
 
@@ -2740,23 +2744,17 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			}
 			data += 14;
 			break;
-		case 0xB8u:
-			if (!nox_xxx_mapDownloadStart_4ABAD0((char*)(data + 8), *(uint32_t*)(data + 4))) {
-				nox_xxx_cliSendCancelMap_43CAB0();
-				nox_xxx_mapSetDownloadInProgress_4AB560(0);
-				nox_xxx_mapSetDownloadOK_4AB570(0);
-			}
+		case 0xB8u: // MSG_MAP_SEND_START
+			nox_client_onMapDownloadStart((char*)(data + 8), *(uint32_t*)(data + 4));
 			data += 88;
 			break;
-		case 0xB9u:
-			nox_xxx_netMapDownloadPart_4AB7C0(*(uint16_t*)(data + 2), (void*)(data + 6), *(unsigned short*)(data + 4));
+		case 0xB9u: // MSG_MAP_SEND_PACKET
+			nox_client_onMapDownloadPart(*(uint16_t*)(data + 2), (void*)(data + 6), *(unsigned short*)(data + 4));
 			k = *(unsigned short*)(data + 4);
 			data += k + 6;
 			break;
-		case 0xBAu:
-			nox_xxx_mapDeleteFile_4AB720();
-			nox_xxx_mapSetDownloadInProgress_4AB560(0);
-			nox_xxx_mapSetDownloadOK_4AB570(0);
+		case 0xBAu: // MSG_MAP_SEND_ABORT
+			nox_client_onMapDownloadAbort();
 			data += 2;
 			break;
 		case 0xBDu:

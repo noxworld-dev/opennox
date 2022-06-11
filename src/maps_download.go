@@ -53,20 +53,9 @@ func nox_xxx_mapSetDownloadOK(v bool) {
 	mapsend.downloadOK = v
 }
 
-//export nox_xxx_mapSetDownloadInProgress_4AB560
-func nox_xxx_mapSetDownloadInProgress_4AB560(v C.int) {
-	nox_xxx_mapSetDownloadInProgress(v != 0)
-}
-
-//export nox_xxx_mapSetDownloadOK_4AB570
-func nox_xxx_mapSetDownloadOK_4AB570(v C.int) {
-	nox_xxx_mapSetDownloadOK(v != 0)
-}
-
-//export nox_xxx_mapDeleteFile_4AB720
 func nox_xxx_mapDeleteFile_4AB720() {
 	mapsendNative.CancelAndDelete()
-	nox_xxx_mapSetDownloadInProgress_4AB560(0)
+	nox_xxx_mapSetDownloadInProgress(false)
 	nox_xxx_mapSetDownloadOK(true)
 }
 
@@ -110,12 +99,44 @@ func nox_xxx_mapDownloadStart_native_4ABAD0(name string, sz uint) int {
 	return 1
 }
 
-//export nox_xxx_mapDownloadStart_4ABAD0
-func nox_xxx_mapDownloadStart_4ABAD0(a1 *C.char, a2 C.uint) C.int {
+//export nox_client_onMapDownloadStart
+func nox_client_onMapDownloadStart(a1 *C.char, a2 C.uint) {
 	name := strings.TrimSuffix(strings.ToLower(GoString(a1)), maps.Ext)
 	mapsendLog.Printf("download start: %q, %d", name, int(a2))
 	mapsend.native = true
-	return C.int(nox_xxx_mapDownloadStart_native_4ABAD0(name, uint(a2)))
+	if nox_xxx_mapDownloadStart_native_4ABAD0(name, uint(a2)) == 0 {
+		nox_xxx_cliSendCancelMap_43CAB0()
+		nox_xxx_mapSetDownloadInProgress(false)
+		nox_xxx_mapSetDownloadOK(false)
+	}
+}
+
+//export nox_client_onMapDownloadPart
+func nox_client_onMapDownloadPart(a1 C.ushort, a2p unsafe.Pointer, a3 C.uint) {
+	if a2p == nil || a3 == 0 {
+		return
+	}
+	ind := uint(a1)
+	data := unsafe.Slice((*byte)(a2p), int(a3))
+	mapsendNative.WritePart(ind, data)
+
+	if mapsendNative.Complete() {
+		mapsendNative.Reset()
+		nox_xxx_mapSetDownloadInProgress(false)
+		nox_xxx_mapSetDownloadOK(true)
+		nox_xxx_guiDownloadSetPercent_4CC900(100)
+		nox_xxx_netMapReceived_43CA80()
+	} else {
+		nox_xxx_guiDownloadSetPercent_4CC900(int(mapsendNative.Progress() * 100.0))
+	}
+}
+
+//export nox_client_onMapDownloadAbort
+func nox_client_onMapDownloadAbort() {
+	mapsendLog.Printf("download aborted by the server")
+	nox_xxx_mapDeleteFile_4AB720()
+	nox_xxx_mapSetDownloadInProgress(false)
+	nox_xxx_mapSetDownloadOK(false)
 }
 
 func nox_xxx_cliCancelMapDownload_4ABA90() {
@@ -140,26 +161,6 @@ func clientGetServerMap() string {
 		return nox_xxx_mapFilenameGetSolo_4DB260()
 	}
 	return noxServer.nox_server_currentMapGetFilename_409B30()
-}
-
-//export nox_xxx_netMapDownloadPart_4AB7C0
-func nox_xxx_netMapDownloadPart_4AB7C0(a1 C.ushort, a2p unsafe.Pointer, a3 C.uint) {
-	if a2p == nil || a3 == 0 {
-		return
-	}
-	ind := uint(a1)
-	data := unsafe.Slice((*byte)(a2p), int(a3))
-	mapsendNative.WritePart(ind, data)
-
-	if mapsendNative.Complete() {
-		mapsendNative.Reset()
-		nox_xxx_mapSetDownloadInProgress_4AB560(0)
-		nox_xxx_mapSetDownloadOK(true)
-		nox_xxx_guiDownloadSetPercent_4CC900(100)
-		nox_xxx_netMapReceived_43CA80()
-	} else {
-		nox_xxx_guiDownloadSetPercent_4CC900(int(mapsendNative.Progress() * 100.0))
-	}
 }
 
 func nox_xxx_gameDownloadShowDialog_4CC770() {
@@ -196,8 +197,8 @@ func nox_xxx_guiDownloadAbort_4CC830(a1 *Window, ev WindowEvent) WindowEventResp
 		nox_xxx_guiDownloadClose_4CC930()
 		noxServer.nox_xxx_gameSetMapPath_409D70(GoString((*C.char)(memmap.PtrOff(0x5D4594, 1522936))))
 		nox_xxx_cliCancelMapDownload_4ABA90()
-		nox_xxx_mapSetDownloadInProgress_4AB560(0)
-		nox_xxx_mapSetDownloadOK_4AB570(0)
+		nox_xxx_mapSetDownloadInProgress(false)
+		nox_xxx_mapSetDownloadOK(false)
 		noxflags.UnsetGame(noxflags.GameFlag21 | noxflags.GameFlag24)
 	}
 	return RawEventResp(1)
@@ -214,8 +215,8 @@ func nox_xxx_guiDownloadProc_4CC890(a1 *Window, ev WindowEvent) WindowEventResp 
 		nox_xxx_guiDownloadClose_4CC930()
 		nox_xxx_cliCancelMapDownload_4ABA90()
 		noxServer.nox_xxx_gameSetMapPath_409D70(GoString((*C.char)(memmap.PtrOff(0x5D4594, 1522940))))
-		nox_xxx_mapSetDownloadInProgress_4AB560(0)
-		nox_xxx_mapSetDownloadOK_4AB570(0)
+		nox_xxx_mapSetDownloadInProgress(false)
+		nox_xxx_mapSetDownloadOK(false)
 		noxflags.UnsetGame(noxflags.GameFlag21 | noxflags.GameFlag24)
 		return RawEventResp(1)
 	}
