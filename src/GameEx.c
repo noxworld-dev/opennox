@@ -42,11 +42,11 @@ int nox_CharToOemW(const wchar_t* pSrc, char* pDst) { return nox_sprintf(pDst, "
 
 //----- (10001A20) --------------------------------------------------------
 int gameex_sendPacket(char* buf, int len, int smth) {
-	if (!buf || !len || *getMemU32Ptr(0x5D4594, 815700) >= NOX_NET_STRUCT_MAX) {
+	if (!buf || !len || nox_xxx_netGet_43C750() >= NOX_NET_STRUCT_MAX) {
 		return 0;
 	}
 	// 0x69B7E8 = netSocketData
-	nox_net_struct_t* ns = nox_net_struct_arr[*getMemU32Ptr(0x5D4594, 815700)];
+	nox_net_struct_t* ns = nox_net_struct_arr[nox_xxx_netGet_43C750()];
 	if (!ns) {
 		return 0;
 	}

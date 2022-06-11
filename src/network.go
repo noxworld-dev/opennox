@@ -76,15 +76,19 @@ func init() {
 }
 
 var (
-	noxNetXor bool
-	debugNet  bool
-	netLog    = log.New("network")
+	noxNetXor           bool
+	debugNet            bool
+	netLog              = log.New("network")
+	dword_5D4594_815700 int
 )
 
 var (
 	noxMapCRC     = 0
 	noxServerHost = "localhost"
 )
+
+//export nox_xxx_netGet_43C750
+func nox_xxx_netGet_43C750() C.int { return C.int(dword_5D4594_815700) }
 
 func newNetStruct() (*netStruct, func()) {
 	return alloc.New(netStruct{})
@@ -975,34 +979,34 @@ func nox_xxx_netSend_5552D0(ind int, a2 byte, a3 bool) int {
 func nox_xxx_netSendClientReady_43C9F0() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_CLIENT_READY)
-	nox_xxx_netSendSock_552640(int(memmap.Uint32(0x5D4594, 815700)), data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	nox_xxx_netSendSock_552640(dword_5D4594_815700, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
 	return 1
 }
 
 func nox_xxx_netKeepAliveSocket_43CA20() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_KEEP_ALIVE)
-	nox_xxx_netSendSock_552640(int(memmap.Uint32(0x5D4594, 815700)), data[:], NOX_NET_SEND_FLAG2)
+	nox_xxx_netSendSock_552640(dword_5D4594_815700, data[:], NOX_NET_SEND_FLAG2)
 	return 1
 }
 
 func nox_xxx_netRequestMap_43CA50() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_REQUEST_MAP)
-	nox_xxx_netSendSock_552640(int(memmap.Uint32(0x5D4594, 815700)), data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	nox_xxx_netSendSock_552640(dword_5D4594_815700, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
 	return 1
 }
 
 func nox_xxx_netMapReceived_43CA80() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_RECEIVED_MAP)
-	nox_xxx_netSendSock_552640(int(memmap.Uint32(0x5D4594, 815700)), data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	nox_xxx_netSendSock_552640(dword_5D4594_815700, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
 	return 1
 }
 
 //export nox_xxx_cliSendCancelMap_43CAB0
 func nox_xxx_cliSendCancelMap_43CAB0() C.int {
-	id := int(memmap.Uint32(0x5D4594, 815700))
+	id := dword_5D4594_815700
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_CANCEL_MAP)
 	v0, _ := nox_xxx_netSendSock_552640(id, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
@@ -1014,7 +1018,7 @@ func nox_xxx_cliSendCancelMap_43CAB0() C.int {
 }
 
 func nox_xxx_netSendIncomingClient_43CB00() int {
-	id := int(memmap.Uint32(0x5D4594, 815700))
+	id := dword_5D4594_815700
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_INCOMING_CLIENT)
 	v0, _ := nox_xxx_netSendSock_552640(id, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
@@ -1026,7 +1030,7 @@ func nox_xxx_netSendIncomingClient_43CB00() int {
 }
 
 func nox_xxx_cliSendOutgoingClient_43CB50() int {
-	id := int(memmap.Uint32(0x5D4594, 815700))
+	id := dword_5D4594_815700
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_OUTGOING_CLIENT)
 	v0, _ := nox_xxx_netSendSock_552640(id, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)

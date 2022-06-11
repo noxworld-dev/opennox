@@ -262,9 +262,6 @@ int sub_43C650() {
 //----- (0043C6E0) --------------------------------------------------------
 int sub_43C6E0() { return !dword_5d4594_815704 && !dword_5d4594_815708; }
 
-//----- (0043C750) --------------------------------------------------------
-int nox_xxx_netGet_43C750() { return *(uint32_t*)getMemAt(0x5D4594, 815700); }
-
 //----- (0043C790) --------------------------------------------------------
 int sub_43C790() { return *getMemU32Ptr(0x587000, 91876); }
 
@@ -312,7 +309,7 @@ int nox_xxx_netHandleCliPacket_43C860(int a1, unsigned char* a2, int a3, void* a
 int sub_43CC80() {
 	int result; // eax
 
-	result = sub_5549F0(*(unsigned int*)getMemAt(0x5D4594, 815700));
+	result = sub_5549F0(nox_xxx_netGet_43C750());
 	dword_5d4594_2649712 = 0;
 	return result;
 }
@@ -328,7 +325,7 @@ void sub_43CCA0() {
 
 	nox_xxx_spriteDeleteSomeList_49C4B0();
 	v0 = nox_frame_xxx_2598000;
-	nox_xxx_servNetInitialPackets_552A80(*(unsigned int*)getMemAt(0x5D4594, 815700), 1);
+	nox_xxx_servNetInitialPackets_552A80(nox_xxx_netGet_43C750(), 1);
 	if (v0 != nox_frame_xxx_2598000 && dword_5d4594_2650652 == 1 && !nox_common_gameFlags_check_40A5C0(1)) {
 		v1 = sub_40A710(1);
 		if (sub_43C790() > v1) {
@@ -345,12 +342,12 @@ void sub_43CCA0() {
 	v3 = nox_platform_get_ticks() - *(uint64_t*)&qword_5d4594_815724;
 	if (v3 >= 2000) {
 		*(uint64_t*)&qword_5d4594_815724 = nox_platform_get_ticks();
-		sub_552E70(*(unsigned int*)getMemAt(0x5D4594, 815700));
+		sub_552E70(nox_xxx_netGet_43C750());
 	}
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		nox_xxx_netImportant_4E5770(0x1Fu, 0);
 	}
-	nox_xxx_netSendBySock_40EE10(*(unsigned int*)getMemAt(0x5D4594, 815700), 31, 0);
+	nox_xxx_netSendBySock_40EE10(nox_xxx_netGet_43C750(), 31, 0);
 	nox_netlist_resetByInd_40ED10(31, 0);
 	nox_xxx_netMaybeSendAll_552460();
 	if (!(*getMemU32Ptr(0x5D4594, 815720) || (*getMemU32Ptr(0x5D4594, 815716) != 0))) {

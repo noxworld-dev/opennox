@@ -634,7 +634,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	if err != nil {
 		return newConnectFailErr(0, err)
 	}
-	*memmap.PtrUint32(0x5D4594, 815700) = uint32(ind)
+	dword_5D4594_815700 = ind
 
 	if debugMainloop {
 		log.Println("NET_CONNECT", ind, host, port)
@@ -799,8 +799,8 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 			}
 			return newConnectFailErr(-19, errors.New("timeout 2"))
 		}
-		C.nox_xxx_servNetInitialPackets_552A80(C.uint(memmap.Uint32(0x5D4594, 815700)), 1)
-		C.nox_xxx_netSendBySock_40EE10(C.uint(memmap.Uint32(0x5D4594, 815700)), 31, 0)
+		C.nox_xxx_servNetInitialPackets_552A80(C.uint(dword_5D4594_815700), 1)
+		C.nox_xxx_netSendBySock_40EE10(C.uint(dword_5D4594_815700), 31, 0)
 		C.nox_netlist_resetByInd_40ED10(31, 0)
 		C.nox_xxx_netMaybeSendAll_552460()
 		if nox_xxx_getMapCRC_40A370() != 0 {
