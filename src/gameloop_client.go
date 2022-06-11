@@ -94,7 +94,7 @@ func mapDownloadLoop(first bool) (bool, error) {
 			mapsend.native = false
 
 			name := strings.TrimSuffix(strings.ToLower(clientGetServerMap()), maps.Ext)
-			mapsendLog.Printf("download start: %q", name)
+			mapsendLog.Printf("download start (http): %q", name)
 			go func() {
 				defer cli.Close()
 				defer close(errc)

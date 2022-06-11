@@ -5,6 +5,8 @@ package opennox
 import "C"
 import (
 	"context"
+	"errors"
+	"fmt"
 	"image"
 	"path/filepath"
 	"strings"
@@ -45,7 +47,7 @@ func mapDownloading() bool {
 	return mapsend.inProgress
 }
 
-func nox_xxx_mapSetDownloadInProgress(v bool) { // nox_xxx_mapSetDownloadInProgress_4AB560
+func nox_xxx_mapSetDownloadInProgress(v bool) {
 	mapsend.inProgress = v
 }
 
@@ -54,6 +56,7 @@ func nox_xxx_mapSetDownloadOK(v bool) {
 }
 
 func nox_xxx_mapDeleteFile_4AB720() {
+	mapsendLog.Println("delete downloaded map")
 	mapsendNative.CancelAndDelete()
 	nox_xxx_mapSetDownloadInProgress(false)
 	nox_xxx_mapSetDownloadOK(true)
@@ -66,9 +69,11 @@ func nox_xxx_cliCancelMapDownload_native_4ABA90() {
 	}
 }
 
-func nox_xxx_mapDownloadStart_native_4ABAD0(name string, sz uint) int {
-	if name == "" || sz <= 0 {
-		return 0
+func nox_xxx_mapDownloadStart_native_4ABAD0(name string, sz uint) error {
+	if name == "" {
+		return errors.New("empty name")
+	} else if sz <= 0 {
+		return errors.New("invalid size")
 	}
 	mapsendNative.Reset()
 	var (
@@ -80,7 +85,7 @@ func nox_xxx_mapDownloadStart_native_4ABAD0(name string, sz uint) int {
 		i := strings.IndexByte(name, '/')
 		j := strings.IndexByte(name, '.')
 		if i <= 0 || j <= 0 {
-			return 0
+			return fmt.Errorf("unexpected map name: %q", name)
 		}
 		mname := name[i+1 : j]
 		mdir = datapath.Maps(mname)
@@ -88,23 +93,24 @@ func nox_xxx_mapDownloadStart_native_4ABAD0(name string, sz uint) int {
 		noxServer.nox_xxx_gameSetMapPath_409D70(name[i+1:])
 	} else {
 		noxServer.nox_xxx_gameSetMapPath_409D70(name)
-		mname := noxServer.getServerMap()
+		mname := strings.TrimSuffix(name, filepath.Ext(name))
 		mdir = datapath.Maps(mname)
 		fpath = filepath.Join(mdir, mname+".nxz")
 	}
+	mapsendLog.Println("downloading map to:", fpath)
 	if err := mapsendNative.Start(fpath, sz); err != nil {
-		mapsendLog.Println(err)
-		return 0
+		return err
 	}
-	return 1
+	return nil
 }
 
 //export nox_client_onMapDownloadStart
 func nox_client_onMapDownloadStart(a1 *C.char, a2 C.uint) {
 	name := strings.TrimSuffix(strings.ToLower(GoString(a1)), maps.Ext)
-	mapsendLog.Printf("download start: %q, %d", name, int(a2))
+	mapsendLog.Printf("download start (native): %q, %d", name, int(a2))
 	mapsend.native = true
-	if nox_xxx_mapDownloadStart_native_4ABAD0(name, uint(a2)) == 0 {
+	if err := nox_xxx_mapDownloadStart_native_4ABAD0(name, uint(a2)); err != nil {
+		mapsendLog.Println("download start failed:", err)
 		nox_xxx_cliSendCancelMap_43CAB0()
 		nox_xxx_mapSetDownloadInProgress(false)
 		nox_xxx_mapSetDownloadOK(false)
@@ -121,7 +127,7 @@ func nox_client_onMapDownloadPart(a1 C.ushort, a2p unsafe.Pointer, a3 C.uint) {
 	mapsendNative.WritePart(ind, data)
 
 	if mapsendNative.Complete() {
-		mapsendNative.Reset()
+		mapsendNative.Reset() // closes the map file
 		nox_xxx_mapSetDownloadInProgress(false)
 		nox_xxx_mapSetDownloadOK(true)
 		nox_xxx_guiDownloadSetPercent_4CC900(100)
