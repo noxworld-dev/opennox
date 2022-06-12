@@ -623,7 +623,7 @@ func sub_432CB0(val string, ind int) error {
 
 func sub_432E50(val string, ind int) error {
 	sub := strings.SplitN(val, ",", 12)
-	if len(sub) != 12 {
+	if len(sub) > 12 {
 		return fmt.Errorf("invalid filter values: %q", val)
 	}
 	arr, freeArr := alloc.Make([]int32{}, 12)
