@@ -3600,7 +3600,9 @@ int nox_xxx_wallPreDestroy_534DA0(int* a1) {
 }
 
 //----- (00534FC0) --------------------------------------------------------
-bool nox_xxx_mapDamageToWalls_534FC0(int4* a1, int a2, float a3, int a4, int a5, int a6) {
+bool nox_xxx_mapDamageToWalls_534FC0(int4* a1, void* a2p, float a3, int a4, int a5, void* a6p) {
+	int a2 = a2p;
+	int a6 = a6p;
 	int4* v6;        // edx
 	int v7;          // edi
 	int v8;          // eax

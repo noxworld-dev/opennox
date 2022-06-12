@@ -549,7 +549,7 @@ typedef struct nox_object_t {
 	int (*func_xfer)(nox_object_t*, int); // 176, 704
 	void* func_pickup;       // 177, 708
 	void* func_drop;         // 178, 712
-	void* func_damage;       // 179, 716
+	void (*func_damage)(nox_object_t*, nox_object_t*, int, int, int); // 179, 716
 	void* func_damage_sound; // 180, 720
 	void* func_die;          // 181, 724
 	void* die_data;          // 182, 728

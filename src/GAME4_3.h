@@ -119,7 +119,7 @@ int nox_xxx_unitIsARat_534B60(nox_object_t* a1);
 int nox_xxx_unitIsAFrog_534B90(nox_object_t* a1);
 int nox_xxx_damageToMap_534BC0(int a1, int a2, int a3, int a4, int a5);
 int nox_xxx_wallPreDestroy_534DA0(int* a1);
-bool nox_xxx_mapDamageToWalls_534FC0(int4* a1, int a2, float a3, int a4, int a5, int a6);
+bool nox_xxx_mapDamageToWalls_534FC0(int4* a1, void* a2, float a3, int a4, int a5, void* a6);
 int nox_xxx_mapTraceRay_535250(float4* a1, float2* a2, int2* a3, char a4);
 int nox_xxx_parseXP_535970(int a1, int a2, char* a3);
 int nox_xxx_parseExtent_535990(int a1, int a2, char* a3);

@@ -46,6 +46,9 @@ type Unit struct {
 }
 
 func (u *Unit) AsObject() *Object {
+	if u == nil {
+		return nil
+	}
 	return asObjectC(u.CObj())
 }
 

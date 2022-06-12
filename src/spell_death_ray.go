@@ -2,7 +2,6 @@ package opennox
 
 /*
 #include "defs.h"
-int nox_xxx_gameSetWallsDamage_4E25A0(int a1);
 void nox_xxx_sprite_45A110_drawable(nox_drawable* a1);
 */
 import "C"
@@ -33,11 +32,10 @@ func castDeathRay(spellID things.SpellID, a2, a3, a4 *Unit, a5 *spellAcceptArg, 
 		}
 		return 0
 	}
-	C.nox_xxx_gameSetWallsDamage_4E25A0(0)
 	dmg := int(gamedataFloat("DeathRayDamage"))
 	rin := float32(gamedataFloat("DeathRayInRadius"))
 	rout := float32(gamedataFloat("DeathRayOutRadius"))
-	nox_xxx_mapDamageUnitsAround_4E25B0(pos16, rout, rin, dmg, 16, a3, 0)
+	nox_xxx_mapDamageUnitsAround(pos16, rout, rin, dmg, 16, a3, nil, false)
 	nox_xxx_sendDeathRayCast_523250(pos4.Point(), pos16.Point())
 	snd := noxServer.SpellDefByInd(spellID).GetAudio(0)
 	nox_xxx_aud_501960(snd, a4, 0, 0)
