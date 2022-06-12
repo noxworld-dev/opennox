@@ -150,6 +150,7 @@ jobs:
       - name: Docker build
         run: |
           cd ./docker/opennox-server
+          chmod +x opennox-server
           docker build -t $DOCKER_IMAGE_NAME:tmp .
 
       - name: Log in to the Container registry
