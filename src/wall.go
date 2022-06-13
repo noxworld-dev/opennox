@@ -154,9 +154,13 @@ func (w *Wall) Pos() types.Pointf {
 	return wall.GridToPos(p)
 }
 
+func (w *Wall) field28() unsafe.Pointer {
+	return *(*unsafe.Pointer)(w.field(28))
+}
+
 // IsEnabled checks if the wall is closed.
 func (w *Wall) IsEnabled() bool {
-	v2 := *(*unsafe.Pointer)(w.field(28))
+	v2 := w.field28()
 	v3 := *(*byte)(unsafe.Add(v2, 21))
 	return v3 == 1 || v3 == 2
 }

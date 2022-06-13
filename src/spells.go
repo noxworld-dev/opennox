@@ -840,7 +840,7 @@ func nox_xxx_spellFlySearchTarget(pos *types.Pointf, msl *Object, sflags things.
 		center = msl.Pos()
 	} else if msl != nil {
 		pos1 := msl.Pos()
-		if nox_xxx_mapTraceRay_535250_00(&pos1, pos, 5) {
+		if MapTraceRay(pos1, *pos, MapTraceFlag1|MapTraceFlag3) {
 			center = *pos
 		} else {
 			center = pos1

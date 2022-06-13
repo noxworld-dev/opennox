@@ -72,8 +72,7 @@ func (sp *spellMissiles) CastCustom(spellID things.SpellID, owner, caster *Unit,
 			X: cpos.X + cvel.X + rdist*dirX,
 			Y: cpos.Y + cvel.Y + rdist*dirY,
 		}
-		p1 := cpos
-		if !nox_xxx_mapTraceRay_535250_00(&p1, &p2, 5) {
+		if !MapTraceRay(cpos, p2, MapTraceFlag1|MapTraceFlag3) {
 			continue
 		}
 		msl := sp.s.newObjectByTypeID(opts.Projectile)

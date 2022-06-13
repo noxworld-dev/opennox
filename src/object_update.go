@@ -450,12 +450,12 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 		C.sub_518170(unsafe.Pointer(&u.x), 200.0, C.nox_xxx_maybeAnimatePixie_53D010, u.CObj())
 		if owner != nil {
 			pos1, pos2 := u.Pos(), owner.Pos()
-			if nox_xxx_traceRay_5374B0(&pos1, &pos2) {
+			if MapTraceRay9(pos1, pos2) {
 				nox_xxx_pixieIdleAnimate_53CF90(u, pos2.Sub(pos1), 25)
 			}
 		} else {
 			pos1, pos2 := u.Pos(), types.Pointf{X: float32(u.float_39), Y: float32(u.float_40)}
-			if nox_xxx_traceRay_5374B0(&pos1, &pos2) {
+			if MapTraceRay9(pos1, pos2) {
 				nox_xxx_pixieIdleAnimate_53CF90(u, pos2.Sub(pos1), 25)
 			}
 		}

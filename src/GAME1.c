@@ -3588,7 +3588,7 @@ void* nox_server_getWallAtGrid_410580(int a1, int a2) {
 }
 
 //----- (004105E0) --------------------------------------------------------
-int nox_xxx_wall_4105E0(int a1, int a2) {
+void* nox_xxx_wall_4105E0(int a1, int a2) {
 	int v2;     // eax
 	int result; // eax
 
