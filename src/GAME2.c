@@ -140,7 +140,7 @@ extern uint32_t dword_5d4594_1046952;
 extern void* dword_587000_81128;
 extern void* dword_587000_122852;
 extern uint32_t dword_5d4594_1046532;
-extern uint64_t qword_581450_9568;
+extern double qword_581450_9568;
 extern uint32_t dword_5d4594_1049496;
 extern uint32_t dword_5d4594_1047932;
 extern uint32_t dword_5d4594_1049512;
@@ -385,7 +385,7 @@ int nox_drawable_link_thing(nox_drawable* a1, int i) {
 	a1->field_24 = *(float*)(v5 + 56);
 	a1->field_25 = *(float*)(v5 + 60);
 	v9 = *(float*)(v5 + 32);
-	if (v9 >= *(double*)&qword_581450_9568) {
+	if (v9 >= qword_581450_9568) {
 		*(uint32_t*)((char*)v2 + 172) = 0;
 	} else {
 		v9 = -v9;

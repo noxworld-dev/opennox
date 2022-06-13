@@ -66,10 +66,8 @@ extern uint32_t nox_xxx_wizardMaximumMana_587000_312820;
 extern uint32_t dword_5d4594_2488660;
 extern uint64_t qword_581450_10176;
 extern uint64_t qword_581450_9512;
-extern uint64_t qword_581450_9568;
 extern uint64_t qword_581450_9544;
 extern uint32_t dword_5d4594_2488604;
-extern uint32_t nox_xxx_float_23_587000_264364;
 extern uint32_t nox_xxx_lightningTargetArrayIndex_5d4594_2487904;
 extern uint32_t nox_xxx_lightningTarget_5d4594_2487908;
 extern uint32_t dword_5d4594_251572;
@@ -79,6 +77,8 @@ extern unsigned int nox_frame_xxx_2598000;
 extern unsigned int gameex_flags;
 
 unsigned int nox_gameFPS = 0;
+float nox_xxx_float_23_587000_264364 = 23;
+double qword_581450_9568 = 0;
 
 //----- (0052F8A0) --------------------------------------------------------
 int nox_xxx_onFrameLightning_52F8A0(float a1) {
@@ -3737,7 +3737,7 @@ LABEL_10:
 int nox_xxx_mapTraceRay_535250(float4* a1, float2* a2, int2* a3, char a4) {
 	int v4;     // edi
 	int v5;     // ebx
-	float v6;   // eax
+	int v6;   // eax
 	double v7;  // st7
 	int v8;     // eax
 	float v10;  // edx
@@ -3759,7 +3759,6 @@ int nox_xxx_mapTraceRay_535250(float4* a1, float2* a2, int2* a3, char a4) {
 	int v26;    // edi
 	int v27;    // eax
 	int v28;    // ebx
-	float v29;  // ecx
 	double v30; // st7
 	float v31;  // et1
 	float v32;  // et1
@@ -3773,7 +3772,6 @@ int nox_xxx_mapTraceRay_535250(float4* a1, float2* a2, int2* a3, char a4) {
 	int v40;    // edi
 	int v41;    // eax
 	int v42;    // ebx
-	float v43;  // edx
 	float v44;  // [esp+8h] [ebp-5Ch]
 	float v45;  // [esp+8h] [ebp-5Ch]
 	float v46;  // [esp+8h] [ebp-5Ch]
@@ -3805,6 +3803,7 @@ int nox_xxx_mapTraceRay_535250(float4* a1, float2* a2, int2* a3, char a4) {
 	float v72;  // [esp+40h] [ebp-24h]
 	double v73; // [esp+44h] [ebp-20h]
 	float v74;  // [esp+4Ch] [ebp-18h]
+	int v74a;   // [esp+4Ch] [ebp-18h]
 	float v75;  // [esp+50h] [ebp-14h]
 	float4 a4a; // [esp+54h] [ebp-10h]
 
@@ -3813,223 +3812,228 @@ int nox_xxx_mapTraceRay_535250(float4* a1, float2* a2, int2* a3, char a4) {
 	v45 = a1->field_4 * 0.043478262;
 	v5 = nox_float2int(v45);
 	v46 = a1->field_8 * 0.043478262;
-	v6 = COERCE_FLOAT(nox_float2int(v46));
+	v6 = nox_float2int(v46);
 	v7 = a1->field_C * 0.043478262;
-	v74 = v6;
+	v74a = v6;
 	v47 = v7;
 	v8 = nox_float2int(v47);
 	if (v4 < 0 || v4 >= 256 || v5 < 0 || v5 >= 256) {
 		return 0;
 	}
-	if (v4 == LODWORD(v74)) {
+	if (v4 == v74a) {
 		v52 = -1;
 		if (a1->field_C >= (double)a1->field_4) {
 			v52 = 1;
 		}
 		v64 = v8 + v52;
-		if (v5 != v8 + v52) {
-			while (!nox_xxx_mapTraceRayImpl_57C9A0(v4, v5, a1, &a4a, a4)) {
-				v5 += v52;
-				if (v5 == v64) {
-					return 1;
-				}
-			}
-			if (a2) {
-				v10 = a4a.field_4;
-				a2->field_0 = a4a.field_0;
-				a2->field_4 = v10;
-			}
-		LABEL_14:
-			if (a3) {
-				a3->field_0 = v4;
-				a3->field_4 = v5;
-			}
-			return 0;
+		if (v5 == v8 + v52) {
+			return 1;
 		}
-	} else {
-		v11 = a1->field_8;
-		if (v5 == v8) {
-			if (v11 >= a1->field_0) {
-				v12 = 1;
-			} else {
-				v12 = -1;
+		while (!nox_xxx_mapTraceRayImpl_57C9A0(v4, v5, a1, &a4a, a4)) {
+			v5 += v52;
+			if (v5 == v64) {
+				return 1;
 			}
-			v53 = v12;
-			v65 = LODWORD(v74) + v12;
-			if (v4 != LODWORD(v74) + v12) {
-				while (!nox_xxx_mapTraceRayImpl_57C9A0(v4, v5, a1, &a4a, a4)) {
-					v4 += v53;
-					if (v4 == v65) {
-						return 1;
-					}
-				}
-				if (a2) {
-					v13 = a4a.field_4;
-					a2->field_0 = a4a.field_0;
-					a2->field_4 = v13;
-				}
-				goto LABEL_14;
-			}
+		}
+		if (a2) {
+			v10 = a4a.field_4;
+			a2->field_0 = a4a.field_0;
+			a2->field_4 = v10;
+		}
+		if (a3) {
+			a3->field_0 = v4;
+			a3->field_4 = v5;
+		}
+		return 0;
+	}
+	v11 = a1->field_8;
+	if (v5 == v8) {
+		if (v11 >= a1->field_0) {
+			v12 = 1;
 		} else {
-			a1c = v11 - a1->field_0;
-			v14 = a1->field_C - a1->field_4;
-			v56 = v14;
-			v62 = v14 / a1c;
-			v63 = a1->field_4 - v56 * a1->field_0 / a1c;
-			v66 = sub_419A10(a1c);
-			if (sub_419A10(v56) >= v66) {
-				if (a1->field_0 >= (double)a1->field_8) {
-					v58 = a1->field_8;
-					v55 = a1->field_0;
-					v51 = -1.0;
-				} else {
-					v58 = a1->field_0;
-					v55 = a1->field_8;
-					v51 = 1.0;
-				}
-				v49 = 1.0;
-				if (a1->field_4 >= (double)a1->field_C) {
-					v49 = -1.0;
-				}
-				v30 = a1->field_0;
-				if (v30 <= v55) {
-					while (v30 >= v58) {
-						v31 = *(float*)&nox_xxx_float_23_587000_264364;
-						modf(v30 / v31, &v73);
-						v32 = *(float*)&nox_xxx_float_23_587000_264364;
-						v33 = nox_double2float(v32 * v73);
-						if (v51 <= *(double*)&qword_581450_9568) {
-							v70 = v33;
-							v35 = *(float*)&nox_xxx_float_23_587000_264364;
-							v74 = v33 + v35;
-						} else {
-							v74 = v33;
-							v34 = *(float*)&nox_xxx_float_23_587000_264364;
-							v70 = v33 + v34;
-						}
-						a1b = nox_double2int(v73);
-						v36 = v74 * v62 + v63;
-						if (v49 > *(double*)&qword_581450_9568 && v36 < a1->field_4 ||
-							v49 < *(double*)&qword_581450_9568 && v36 > a1->field_4) {
-							v36 = a1->field_4;
-						}
-						v72 = v70 * v62 + v63;
-						if (v49 > *(double*)&qword_581450_9568 && v72 > (double)a1->field_C ||
-							v49 < *(double*)&qword_581450_9568 && v72 < (double)a1->field_C) {
-							v72 = a1->field_C;
-						}
-						v37 = *(float*)&nox_xxx_float_23_587000_264364;
-						modf(v36 / v37, &v73);
-						v38 = nox_double2int(v73 - v49);
-						v39 = *(float*)&nox_xxx_float_23_587000_264364;
-						v40 = v38;
-						modf(v72 / v39, &v73);
-						v41 = nox_double2int(v49 + v73);
-						v42 = v40 >= v41 ? -1 : 1;
-						v68 = v42 + v41;
-						if (v40 != v42 + v41) {
-							while (!nox_xxx_mapTraceRayImpl_57C9A0(a1b, v40, a1, &a4a, a4)) {
-								v40 += v42;
-								if (v40 == v68) {
-									goto LABEL_80;
-								}
-							}
-							if (a2) {
-								v43 = a4a.field_4;
-								a2->field_0 = a4a.field_0;
-								a2->field_4 = v43;
-							}
-							if (a3) {
-								a3->field_4 = v40;
-								a3->field_0 = a1b;
-								return 0;
-							}
-							return 0;
-						}
-					LABEL_80:
+			v12 = -1;
+		}
+		v53 = v12;
+		v65 = v74a + v12;
+		if (v4 == v74a + v12) {
+			return 1;
+		}
+		while (!nox_xxx_mapTraceRayImpl_57C9A0(v4, v5, a1, &a4a, a4)) {
+			v4 += v53;
+			if (v4 == v65) {
+				return 1;
+			}
+		}
+		if (a2) {
+			v13 = a4a.field_4;
+			a2->field_0 = a4a.field_0;
+			a2->field_4 = v13;
+		}
+		if (a3) {
+			a3->field_0 = v4;
+			a3->field_4 = v5;
+		}
+		return 0;
+	}
+	a1c = v11 - a1->field_0;
+	v14 = a1->field_C - a1->field_4;
+	v56 = v14;
+	v62 = v14 / a1c;
+	v63 = a1->field_4 - v56 * a1->field_0 / a1c;
+	v66 = sub_419A10(a1c);
+	if (sub_419A10(v56) >= v66) {
+		if (a1->field_0 >= (double)a1->field_8) {
+			v58 = a1->field_8;
+			v55 = a1->field_0;
+			v51 = -1.0;
+		} else {
+			v58 = a1->field_0;
+			v55 = a1->field_8;
+			v51 = 1.0;
+		}
+		v49 = 1.0;
+		if (a1->field_4 >= (double)a1->field_C) {
+			v49 = -1.0;
+		}
+		v30 = a1->field_0;
+		if (v30 > v55) {
+			return 1;
+		}
+		while (v30 >= v58) {
+			v31 = nox_xxx_float_23_587000_264364;
+			modf(v30 / v31, &v73);
+			v32 = nox_xxx_float_23_587000_264364;
+			v33 = nox_double2float(v32 * v73);
+			if (v51 <= qword_581450_9568) {
+				v70 = v33;
+				v35 = nox_xxx_float_23_587000_264364;
+				v74 = v33 + v35;
+			} else {
+				v74 = v33;
+				v34 = nox_xxx_float_23_587000_264364;
+				v70 = v33 + v34;
+			}
+			a1b = nox_double2int(v73);
+			v36 = v74 * v62 + v63;
+			if (v49 > qword_581450_9568 && v36 < a1->field_4 ||
+				v49 < qword_581450_9568 && v36 > a1->field_4) {
+				v36 = a1->field_4;
+			}
+			v72 = v70 * v62 + v63;
+			if (v49 > qword_581450_9568 && v72 > (double)a1->field_C ||
+				v49 < qword_581450_9568 && v72 < (double)a1->field_C) {
+				v72 = a1->field_C;
+			}
+			v37 = nox_xxx_float_23_587000_264364;
+			modf(v36 / v37, &v73);
+			v38 = nox_double2int(v73 - v49);
+			v39 = nox_xxx_float_23_587000_264364;
+			v40 = v38;
+			modf(v72 / v39, &v73);
+			v41 = nox_double2int(v49 + v73);
+			v42 = v40 >= v41 ? -1 : 1;
+			v68 = v42 + v41;
+			if (v40 != v42 + v41) {
+				while (!nox_xxx_mapTraceRayImpl_57C9A0(a1b, v40, a1, &a4a, a4)) {
+					v40 += v42;
+					if (v40 == v68) {
 						v30 = v51 * 0.1 + v70;
 						if (v30 > v55) {
 							return 1;
 						}
 					}
 				}
+				if (a2) {
+					a2->field_0 = a4a.field_0;
+					a2->field_4 = a4a.field_4;
+				}
+				if (a3) {
+					a3->field_4 = v40;
+					a3->field_0 = a1b;
+				}
+				return 0;
+			}
+			v30 = v51 * 0.1 + v70;
+			if (v30 > v55) {
+				return 1;
+			}
+		}
+	} else {
+		if (a1->field_4 >= (double)a1->field_C) {
+			v57 = a1->field_C;
+			v54 = a1->field_4;
+			v50 = -1.0;
+		} else {
+			v57 = a1->field_4;
+			v54 = a1->field_C;
+			v50 = 1.0;
+		}
+		v48 = 1.0;
+		if (a1->field_0 >= (double)a1->field_8) {
+			v48 = -1.0;
+		}
+		v15 = a1->field_4;
+		if (v15 > v54) {
+			return 1;
+		}
+		while (v15 >= v57) {
+			v16 = nox_xxx_float_23_587000_264364;
+			modf(v15 / v16, &v73);
+			v17 = nox_xxx_float_23_587000_264364;
+			v18 = v17 * v73;
+			if (v50 <= qword_581450_9568) {
+				v20 = nox_double2float(v18);
+				v71 = v20;
+				v21 = nox_xxx_float_23_587000_264364;
+				v75 = v20 + v21;
 			} else {
-				if (a1->field_4 >= (double)a1->field_C) {
-					v57 = a1->field_C;
-					v54 = a1->field_4;
-					v50 = -1.0;
-				} else {
-					v57 = a1->field_4;
-					v54 = a1->field_C;
-					v50 = 1.0;
-				}
-				v48 = 1.0;
-				if (a1->field_0 >= (double)a1->field_8) {
-					v48 = -1.0;
-				}
-				v15 = a1->field_4;
-				if (v15 <= v54) {
-					while (v15 >= v57) {
-						v16 = *(float*)&nox_xxx_float_23_587000_264364;
-						modf(v15 / v16, &v73);
-						v17 = *(float*)&nox_xxx_float_23_587000_264364;
-						v18 = v17 * v73;
-						if (v50 <= *(double*)&qword_581450_9568) {
-							v20 = nox_double2float(v18);
-							v71 = v20;
-							v21 = *(float*)&nox_xxx_float_23_587000_264364;
-							v75 = v20 + v21;
-						} else {
-							v75 = nox_double2float(v18);
-							v19 = *(float*)&nox_xxx_float_23_587000_264364;
-							v71 = v19 + v75;
-						}
-						a1a = nox_double2int(v73);
-						v22 = (v75 - v63) / v62;
-						if (v48 > *(double*)&qword_581450_9568 && v22 < a1->field_0 ||
-							v48 < *(double*)&qword_581450_9568 && v22 > a1->field_0) {
-							v22 = a1->field_0;
-						}
-						v69 = (v71 - v63) / v62;
-						if (v48 > *(double*)&qword_581450_9568 && v69 > (double)a1->field_8 ||
-							v48 < *(double*)&qword_581450_9568 && v69 < (double)a1->field_8) {
-							v69 = a1->field_8;
-						}
-						v23 = *(float*)&nox_xxx_float_23_587000_264364;
-						modf(v22 / v23, &v73);
-						v24 = nox_double2int(v73 - v48);
-						v25 = *(float*)&nox_xxx_float_23_587000_264364;
-						v26 = v24;
-						modf(v69 / v25, &v73);
-						v27 = nox_double2int(v48 + v73);
-						v28 = v26 >= v27 ? -1 : 1;
-						v67 = v28 + v27;
-						if (v26 != v28 + v27) {
-							while (!nox_xxx_mapTraceRayImpl_57C9A0(v26, a1a, a1, &a4a, a4)) {
-								v26 += v28;
-								if (v26 == v67) {
-									goto LABEL_51;
-								}
-							}
-							if (a2) {
-								v29 = a4a.field_4;
-								a2->field_0 = a4a.field_0;
-								a2->field_4 = v29;
-							}
-							if (a3) {
-								a3->field_0 = v26;
-								a3->field_4 = a1a;
-								return 0;
-							}
-							return 0;
-						}
-					LABEL_51:
+				v75 = nox_double2float(v18);
+				v19 = nox_xxx_float_23_587000_264364;
+				v71 = v19 + v75;
+			}
+			a1a = nox_double2int(v73);
+			v22 = (v75 - v63) / v62;
+			if (v48 > qword_581450_9568 && v22 < a1->field_0 ||
+				v48 < qword_581450_9568 && v22 > a1->field_0) {
+				v22 = a1->field_0;
+			}
+			v69 = (v71 - v63) / v62;
+			if (v48 > qword_581450_9568 && v69 > (double)a1->field_8 ||
+				v48 < qword_581450_9568 && v69 < (double)a1->field_8) {
+				v69 = a1->field_8;
+			}
+			v23 = nox_xxx_float_23_587000_264364;
+			modf(v22 / v23, &v73);
+			v24 = nox_double2int(v73 - v48);
+			v25 = nox_xxx_float_23_587000_264364;
+			v26 = v24;
+			modf(v69 / v25, &v73);
+			v27 = nox_double2int(v48 + v73);
+			v28 = v26 >= v27 ? -1 : 1;
+			v67 = v28 + v27;
+			if (v26 != v28 + v27) {
+				while (!nox_xxx_mapTraceRayImpl_57C9A0(v26, a1a, a1, &a4a, a4)) {
+					v26 += v28;
+					if (v26 == v67) {
 						v15 = v50 * 0.1 + v71;
 						if (v15 > v54) {
 							return 1;
 						}
 					}
 				}
+				if (a2) {
+					a2->field_0 = a4a.field_0;
+					a2->field_4 = a4a.field_4;
+				}
+				if (a3) {
+					a3->field_0 = v26;
+					a3->field_4 = a1a;
+				}
+				return 0;
+			}
+			v15 = v50 * 0.1 + v71;
+			if (v15 > v54) {
+				return 1;
 			}
 		}
 	}
