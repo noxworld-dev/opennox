@@ -3514,29 +3514,6 @@ int sub_410550(short a1) {
 	return v1[3];
 }
 
-//----- (004105E0) --------------------------------------------------------
-void* nox_xxx_wall_4105E0(int a1, int a2) {
-	int v2;     // eax
-	int result; // eax
-
-	v2 = ((uint16_t)a2 + ((uint16_t)a1 << 8)) & 0x1FFF;
-	*getMemU32Ptr(0x5D4594, 251536) = v2;
-	result = dword_5D4594_251544[v2];
-	*getMemU32Ptr(0x5D4594, 251532) = result;
-	if (!result) {
-		return 0;
-	}
-	while (*(unsigned char*)(result + 5) != a1 || *(unsigned char*)(result + 6) != a2 ||
-		   *(uint8_t*)(result + 4) & 0x20) {
-		result = *(uint32_t*)(result + 16);
-		*getMemU32Ptr(0x5D4594, 251532) = result;
-		if (!result) {
-			return 0;
-		}
-	}
-	return result;
-}
-
 //----- (00410640) --------------------------------------------------------
 int nox_xxx_wallForeachFn_410640(void (*a1)(int, int), int a2) {
 	int result; // eax

@@ -1622,7 +1622,7 @@ func mapTraceRayImpl(pi image.Point, p1, p2 types.Pointf, flags MapTraceFlags) [
 	}
 	var wl *Wall
 	if flags.Has(MapTraceFlag1) {
-		wl = asWall(C.nox_xxx_wall_4105E0(C.int(pi.X), C.int(pi.Y)))
+		wl = noxServer.getWallAtGrid2(pi)
 	} else {
 		wl = noxServer.getWallAtGrid(pi)
 	}
