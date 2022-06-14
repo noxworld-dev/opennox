@@ -86,7 +86,6 @@ extern uint32_t dword_5d4594_3624;
 extern uint32_t dword_5d4594_528256;
 extern uint32_t dword_5d4594_371692;
 extern uint32_t dword_5d4594_251540;
-extern uint32_t dword_5d4594_251548;
 extern uint32_t dword_5d4594_251568;
 extern uint32_t dword_5d4594_251572;
 extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
@@ -155,6 +154,8 @@ extern table_27168_t table_27168[];
 extern int table_27168_cnt;
 
 extern table_28760_t table_28760[];
+
+void* dword_5d4594_251548 = 0;
 
 //----- (004093E0) --------------------------------------------------------
 void nox_xxx_parseRead_4093E0(FILE* a1, char* a2, int a3) {
@@ -3332,34 +3333,6 @@ int nox_xxx_wall_410160() {
 	return j;
 }
 
-//----- (004101D0) --------------------------------------------------------
-int nox_xxx_mapAlloc_4101D0() {
-	dword_5D4594_251544 = (uint32_t*)calloc(8192, 4);
-	if (!dword_5D4594_251544) {
-		return 0;
-	}
-	dword_5d4594_251556 = calloc(256, 4);
-	if (!dword_5d4594_251556) {
-		return 0;
-	}
-	dword_5d4594_251552 = 0;
-	int v1 = 0;
-	while (1) {
-		uint32_t* v2 = calloc(1, 36);
-		if (!v2) {
-			break;
-		}
-		++v1;
-		v2[5] = dword_5d4594_251548;
-		dword_5d4594_251548 = v2;
-		if (v1 >= 0x2000) {
-			nox_xxx_wall_410160();
-			return 1;
-		}
-	}
-	return 0;
-}
-
 //----- (00410250) --------------------------------------------------------
 void* nox_xxx_wallCreateAt_410250(int a1, int a2) {
 	void* result; // eax
@@ -3379,7 +3352,7 @@ void* nox_xxx_wallCreateAt_410250(int a1, int a2) {
 	if (!dword_5d4594_251548) {
 		return 0;
 	}
-	dword_5d4594_251548 = *(uint32_t*)(dword_5d4594_251548 + 20);
+	dword_5d4594_251548 = *(uint32_t*)((uint32_t)dword_5d4594_251548 + 20);
 	memset((void*)v3, 0, 0x24u);
 	*(uint8_t*)(v3 + 6) = a2;
 	*(uint8_t*)(v3 + 5) = a1;

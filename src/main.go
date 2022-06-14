@@ -451,7 +451,7 @@ func RunArgs(args []string) (gerr error) {
 	if err := nox_xxx_initInput_430190(); err != nil {
 		return fmt.Errorf("failed to init input: %w", err)
 	}
-	if C.nox_xxx_mapAlloc_4101D0() == 0 {
+	if nox_xxx_mapAlloc_4101D0() == 0 {
 		return fmt.Errorf("failed to init map")
 	}
 	if C.nox_xxx_tileAlloc_410F60_init() == 0 {

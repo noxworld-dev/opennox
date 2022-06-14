@@ -50,6 +50,10 @@ extern unsigned int nox_console_waitSysOpPass;
 extern unsigned int dword_5d4594_1049508;
 extern nox_draw_viewport_t nox_draw_viewport;
 extern unsigned char nox_net_lists_buf[2048];
+extern uint32_t* dword_5D4594_251544;
+extern void* dword_5d4594_251548;
+extern uint32_t dword_5d4594_251552;
+extern uint32_t* dword_5d4594_251556;
 
 int sub_4EDD70();
 void sub_426060();
@@ -111,6 +115,8 @@ var (
 	gameLog                   = log.New("game")
 	nox_game_state            gui.State
 	nox_game_playState_811372 int
+	dword_5D4594_251544       []unsafe.Pointer
+	dword_5d4594_251556       []unsafe.Pointer
 )
 
 const (
@@ -2096,4 +2102,30 @@ func nox_game_checkStateMenu_43C2F0() {
 		}
 	}
 	gamePopStateUntil(gameStateMainMenu)
+}
+
+func nox_xxx_mapAlloc_4101D0() int {
+	dword_5D4594_251544, _ = alloc.Make([]unsafe.Pointer{}, 32*256)
+	if dword_5D4594_251544 == nil {
+		return 0
+	}
+	C.dword_5D4594_251544 = (*C.uint)(unsafe.Pointer(&dword_5D4594_251544[0]))
+
+	dword_5d4594_251556, _ = alloc.Make([]unsafe.Pointer{}, 256)
+	if dword_5d4594_251556 == nil {
+		return 0
+	}
+	C.dword_5d4594_251556 = (*C.uint)(unsafe.Pointer(&dword_5d4594_251556[0]))
+
+	C.dword_5d4594_251552 = 0
+	for v1 := 0; v1 < 32*256; v1++ {
+		ptr, _ := alloc.Malloc(36)
+		if ptr == nil {
+			return 0
+		}
+		*(*unsafe.Pointer)(unsafe.Add(ptr, 20)) = C.dword_5d4594_251548
+		C.dword_5d4594_251548 = ptr
+	}
+	C.nox_xxx_wall_410160()
+	return 1
 }
