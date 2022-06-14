@@ -3514,27 +3514,6 @@ int sub_410550(short a1) {
 	return v1[3];
 }
 
-//----- (00410580) --------------------------------------------------------
-void* nox_server_getWallAtGrid_410580(int a1, int a2) {
-	int result; // eax
-	int v3;     // eax
-
-	if (((uint8_t)a1 + (uint8_t)a2) & 1) {
-		return 0;
-	}
-	v3 = ((uint16_t)a2 + ((uint16_t)a1 << 8)) & 0x1FFF;
-	*getMemU32Ptr(0x5D4594, 251528) = v3;
-	result = dword_5D4594_251544[v3];
-	for (*getMemU32Ptr(0x5D4594, 251524) = result; result; *getMemU32Ptr(0x5D4594, 251524) = result) {
-		if (*(unsigned char*)(result + 5) == a1 && *(unsigned char*)(result + 6) == a2 &&
-			!(*(uint8_t*)(result + 4) & 0x30)) {
-			break;
-		}
-		result = *(uint32_t*)(result + 16);
-	}
-	return result;
-}
-
 //----- (004105E0) --------------------------------------------------------
 void* nox_xxx_wall_4105E0(int a1, int a2) {
 	int v2;     // eax

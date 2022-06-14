@@ -20,15 +20,28 @@ func asWall(p unsafe.Pointer) *Wall {
 	return (*Wall)(p)
 }
 
+//export nox_server_getWallAtGrid_410580
+func nox_server_getWallAtGrid_410580(x, y C.int) unsafe.Pointer {
+	return noxServer.getWallAtGrid(image.Pt(int(x), int(y))).C()
+}
+
 func (s *Server) nox_xxx_wallTileByName_410D60(name string) byte {
 	str := CString(name)
 	defer StrFree(str)
 	return byte(C.nox_xxx_wallTileByName_410D60(str))
 }
 
-func (s *Server) getWallAtGrid(pos image.Point) *Wall {
-	p := C.nox_server_getWallAtGrid_410580(C.int(pos.X), C.int(pos.Y))
-	return asWall(p)
+func (s *Server) getWallAtGrid(pos image.Point) *Wall { // nox_server_getWallAtGrid_410580
+	if (byte(pos.X)+byte(pos.Y))&0x1 != 0 {
+		return nil
+	}
+	ind := (uint16(pos.Y) + (uint16(pos.X) << 8)) & 0x1FFF
+	for it := asWall(dword_5D4594_251544[ind]); it != nil; it = it.next() {
+		if pos == it.GridPos() && it.field4()&0x30 == 0 {
+			return it
+		}
+	}
+	return nil
 }
 
 func (s *Server) getWallAt(pos types.Pointf) *Wall {
@@ -152,6 +165,10 @@ func (w *Wall) GridPos() image.Point {
 func (w *Wall) Pos() types.Pointf {
 	p := w.GridPos()
 	return wall.GridToPos(p)
+}
+
+func (w *Wall) next() *Wall {
+	return asWall(*(*unsafe.Pointer)(w.field(16)))
 }
 
 func (w *Wall) field28() unsafe.Pointer {
