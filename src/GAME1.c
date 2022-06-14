@@ -3308,31 +3308,6 @@ int nox_xxx_cliCanTalkMB_4100F0(short* a1) {
 	return 0;
 }
 
-//----- (00410160) --------------------------------------------------------
-int nox_xxx_wall_410160() {
-	for (int i = 0; i < 8192; i++) {
-		int v1 = dword_5D4594_251544[i];
-		if (v1) {
-			int v2 = dword_5d4594_251548;
-			int v3 = 0;
-			do {
-				v3 = *(uint32_t*)(v1 + 16);
-				*(uint32_t*)(v1 + 20) = v2;
-				v2 = v1;
-				v1 = v3;
-				dword_5d4594_251548 = v2;
-			} while (v3);
-		}
-		dword_5D4594_251544[i] = 0;
-	}
-	dword_5d4594_251552 = 0;
-	int j = 0;
-	for (j = 0; j < 1024; j += 4) {
-		*(uint32_t*)(j + dword_5d4594_251556) = 0;
-	}
-	return j;
-}
-
 //----- (00410250) --------------------------------------------------------
 void* nox_xxx_wallCreateAt_410250(int a1, int a2) {
 	void* result; // eax

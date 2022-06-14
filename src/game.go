@@ -2126,6 +2126,31 @@ func nox_xxx_mapAlloc_4101D0() int {
 		*(*unsafe.Pointer)(unsafe.Add(ptr, 20)) = C.dword_5d4594_251548
 		C.dword_5d4594_251548 = ptr
 	}
-	C.nox_xxx_wall_410160()
+	nox_xxx_wall_410160()
 	return 1
+}
+
+//export nox_xxx_wall_410160
+func nox_xxx_wall_410160() {
+	for i := 0; i < 32*256; i++ {
+		ptr := dword_5D4594_251544[i]
+		if ptr == nil {
+			dword_5D4594_251544[i] = nil
+			continue
+		}
+
+		var next unsafe.Pointer
+		prev := C.dword_5d4594_251548
+		for it := ptr; it != nil; it = next {
+			next = *(*unsafe.Pointer)(unsafe.Add(it, 16))
+			*(*unsafe.Pointer)(unsafe.Add(it, 20)) = prev
+			C.dword_5d4594_251548 = it
+			prev = it
+		}
+		dword_5D4594_251544[i] = nil
+	}
+	C.dword_5d4594_251552 = 0
+	for i := 0; i < 256; i++ {
+		dword_5d4594_251556[i] = nil
+	}
 }
