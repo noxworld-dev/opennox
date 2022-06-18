@@ -218,7 +218,7 @@ func (r *NoxRender) DrawLine(p1, p2 image.Point, cl color.Color) {
 	x := 2 * p1.X
 	if w < h {
 		dv := 2*w - h
-		for i := 0; i < h; i++ {
+		for i := 0; i <= h; i++ {
 			pix.SetRGBA5551(x/2, y, cl16)
 			y += dy
 			if dv >= 0 {
@@ -230,7 +230,7 @@ func (r *NoxRender) DrawLine(p1, p2 image.Point, cl color.Color) {
 		}
 	} else {
 		dv := 2*h - w
-		for i := 0; i < w; i++ {
+		for i := 0; i <= w; i++ {
 			pix.SetRGBA5551(x/2, y, cl16)
 			x += dx
 			if dv >= 0 {
