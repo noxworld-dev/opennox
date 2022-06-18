@@ -483,10 +483,10 @@ int nox_xxx_quickBarCreate_45E190() {
 	if (!*(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2251)) {
 		for (j = 0; j < 120; j += 24) {
 			*getMemU32Ptr(0x5D4594, 1047764 + 24*1 + j) = *getMemU32Ptr(0x587000, 133536 + j);
-			*getMemU32Ptr(0x5D4594, 1047764 + 24*1 + 4 + j) = *getMemU32Ptr(0x587000, 133540 + j);
-			*getMemU32Ptr(0x5D4594, 1047764 + 24*1 + 8 + j) = *getMemU32Ptr(0x587000, 133544 + j);
-			*getMemU32Ptr(0x5D4594, 1047764 + 24*1 + 12 + j) = *getMemU32Ptr(0x587000, 133548 + j);
-			*getMemU32Ptr(0x5D4594, 1047764 + 24*1 + 16 + j) = *getMemU32Ptr(0x587000, 133552 + j);
+			*getMemU32Ptr(0x5D4594, 1047764 + 24*1 + 4 + j) = *getMemU32Ptr(0x587000, 133536 + 4 + j);
+			*getMemU32Ptr(0x5D4594, 1047764 + 24*1 + 8 + j) = *getMemU32Ptr(0x587000, 133536 + 8 + j);
+			*getMemU32Ptr(0x5D4594, 1047764 + 24*1 + 12 + j) = *getMemU32Ptr(0x587000, 133536 + 12 + j);
+			*getMemU32Ptr(0x5D4594, 1047764 + 24*1 + 16 + j) = *getMemU32Ptr(0x587000, 133536 + 16 + j);
 			*getMemU32Ptr(0x5D4594, 1047764 + 24*1 + 20 + j) = 0;
 		}
 	}
