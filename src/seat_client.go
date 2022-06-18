@@ -25,10 +25,12 @@ var (
 
 func init() {
 	viper.SetDefault(configVideoFiltering, true)
+	viper.SetDefault(configVideoStretch, false)
 }
 
 const (
 	configVideoFiltering = "video.filtering"
+	configVideoStretch   = "video.stretch"
 )
 
 func InitSeat(sz image.Point) error {
@@ -66,16 +68,23 @@ func updateFullScreen(mode int) {
 	noxRendererS.SetWindowMode(mode)
 }
 
-func setScaled(v bool) {
+func setStretch(v bool) {
 	noxRendererS.SetStretched(v)
+	viper.Set(configVideoStretch, v)
 }
 
-func getScaled() bool {
+func setStretchIfNotSet(v bool) {
+	if !viper.IsSet(configVideoStretch) {
+		setStretch(v)
+	}
+}
+
+func getStretch() bool {
 	return noxRendererS.GetStretched()
 }
 
-func toggleScaled() {
-	noxRendererS.SetStretched(!noxRendererS.GetStretched())
+func toggleStretch() {
+	setStretch(!getStretch())
 }
 
 func getFiltering() bool {
@@ -174,6 +183,7 @@ func newSeat(sz image.Point) (seat.Seat, error) {
 	OnPixBufferResize(inp.SetDrawWinSize)
 
 	r.SetFiltering(viper.GetBool(configVideoFiltering))
+	r.SetStretched(viper.GetBool(configVideoStretch))
 
 	return s, nil
 }

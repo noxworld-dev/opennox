@@ -546,9 +546,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 			g_scaled_cfg = v
-			if nox_video_getScaled() >= 0 {
-				nox_video_setScaled(g_scaled_cfg)
-			}
+			setStretchIfNotSet(v != 0)
 		case "InputSensitivity":
 			v, err := strconv.ParseFloat(kv.Value, 32)
 			if err != nil {

@@ -147,15 +147,6 @@ func cfgUpdateFullScreen() {
 	g_fullscreen_cfg = getWindowMode()
 }
 
-func nox_video_getScaled() int {
-	return g_scaled
-}
-
-func nox_video_setScaled(v int) {
-	g_scaled = v
-	setScaled(v != 0)
-}
-
 //export nox_video_setGammaSlider
 func nox_video_setGammaSlider(v C.int) {
 	setGammaSliderOpts(int(v))

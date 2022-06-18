@@ -62,7 +62,7 @@ type videoOpt struct {
 
 var noxVideoAdvOptsList = []*videoOpt{
 	{ID: 2051, Get: getFiltering, Toggle: toggleFiltering, Text: "Smooth image", TextID: "AdVidOpt.wnd:Filtering"},
-	{ID: 2050, Get: getScaled, Toggle: toggleScaled, Text: "Stretch image", TextID: "AdVidOpt.wnd:Stretched"},
+	{ID: 2050, Get: getStretch, Toggle: toggleStretch, Text: "Stretch image", TextID: "AdVidOpt.wnd:Stretched"},
 	{ID: 2010, CFlag: &C.nox_video_dxUnlockSurface, TextID: "AdVidOpt.wnd:ClipWalls", Def: true, Hidden: true},
 	{ID: 2012, Flag: noxflags.EngineSoftShadowEdge, TextID: "AdVidOpt.wnd:GouradShading"},
 	{ID: 2014, Bool: &guiCon.translucent, TextID: "AdVidOpt.wnd:TranslucentConsole"},

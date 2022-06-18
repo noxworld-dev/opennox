@@ -26,14 +26,17 @@ func updateFullScreen(mode int) {
 	winMode = mode
 }
 
-func setScaled(v bool) {
+func setStretch(v bool) {
 }
 
-func getScaled() bool {
+func setStretchIfNotSet(v bool) {
+}
+
+func getStretch() bool {
 	return false
 }
 
-func toggleScaled() {
+func toggleStretch() {
 }
 
 func getFiltering() bool {

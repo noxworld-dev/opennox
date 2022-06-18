@@ -143,7 +143,6 @@ func RunArgs(args []string) (gerr error) {
 		fWindow     = flags.Bool("window", false, "window")
 		fSWindow    = flags.Bool("swindow", false, "swindow")
 		fFullScreen = flags.Bool("fullscreen", false, "fullscreen")
-		fStretch    = flags.Bool("stretch", false, "stretch")
 		fMinimize   = flags.Bool("minimize", false, "minimize")
 		fNoLimit    = flags.Bool("nolimit", false, "nolimit")
 		fSleep      = flags.Bool("sleep", false, "sleep")
@@ -275,9 +274,6 @@ func RunArgs(args []string) (gerr error) {
 	}
 	if *fFullScreen {
 		updateFullScreen(-1)
-	}
-	if *fStretch {
-		g_scaled = -1
 	}
 	if *fMinimize {
 		*memmap.PtrUint32(0x5D4594, 805864) = 1
