@@ -2,6 +2,7 @@ package noxrender
 
 import (
 	"image"
+	"image/color"
 
 	"golang.org/x/image/font"
 )
@@ -34,10 +35,10 @@ type testRenderData struct {
 	colorMult     Color16
 	colorMultOp   map[int]Color16
 	colorMultMiss map[int]int
-	color         Color
-	color2        Color
-	bgcolor       Color
-	textcolor     Color
+	color         color.Color
+	color2        color.Color
+	bgcolor       color.Color
+	textcolor     color.Color
 	notext        bool
 	defaultFont   font.Face
 }
@@ -92,15 +93,15 @@ func (d *testRenderData) Alpha() byte {
 	return d.alpha
 }
 
-func (d *testRenderData) Color() Color {
+func (d *testRenderData) Color() color.Color {
 	return d.color
 }
 
-func (d *testRenderData) Color2() Color {
+func (d *testRenderData) Color2() color.Color {
 	return d.color2
 }
 
-func (d *testRenderData) BgColor() Color {
+func (d *testRenderData) BgColor() color.Color {
 	return d.bgcolor
 }
 
@@ -108,11 +109,11 @@ func (d *testRenderData) ShouldDrawText() bool {
 	return !d.notext
 }
 
-func (d *testRenderData) TextColor() Color {
+func (d *testRenderData) TextColor() color.Color {
 	return d.textcolor
 }
 
-func (d *testRenderData) SetTextColor(a1 Color) {
+func (d *testRenderData) SetTextColor(a1 color.Color) {
 	d.textcolor = a1
 }
 
