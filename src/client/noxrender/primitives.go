@@ -379,7 +379,7 @@ func (r *NoxRender) clipToRect2(p1, p2 *image.Point) bool {
 }
 
 func (r *NoxRender) DrawRectFilledOpaque(x, y, w, h int, cl color.Color) {
-	if w == 0 || h == 0 {
+	if w <= 0 || h <= 0 {
 		return
 	}
 	d := r.Data()
@@ -438,6 +438,9 @@ func (r *NoxRender) drawRectFilledOpaqueOver(x, y, w, h int, cl color.Color) {
 }
 
 func (r *NoxRender) DrawRectFilledAlpha(x, y, w, h int) {
+	if w <= 0 || h <= 0 {
+		return
+	}
 	d := r.Data()
 	if !d.Clip() {
 		r.drawRectFilledAlpha(x, y, w, h)
