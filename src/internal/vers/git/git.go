@@ -11,16 +11,17 @@ import (
 
 const defVersion = version.Series
 
-func do(cmd ...string) string {
+func do(cmd ...string) (string, error) {
 	c := exec.Command(cmd[0], cmd[1:]...)
 	var buf bytes.Buffer
 	c.Stdout = &buf
 	c.Stderr = os.Stderr
 	c.Env = os.Environ()
-	if err := c.Run(); err != nil {
-		panic(err)
+	err := c.Run()
+	if err != nil {
+		return "", err
 	}
-	return strings.TrimSpace(buf.String())
+	return strings.TrimSpace(buf.String()), nil
 }
 
 func FullVersion() string {
@@ -36,7 +37,7 @@ func Version() (string, string) {
 	if sha == "" {
 		return defVersion, ""
 	}
-	vers := do("git", "name-rev", "--tags", "--name-only", sha)
+	vers, _ := do("git", "name-rev", "--tags", "--name-only", sha)
 	if vers == "" || vers == "undefined" {
 		return defVersion, sha
 	}
@@ -44,9 +45,11 @@ func Version() (string, string) {
 }
 
 func SHA() string {
-	return do("git", "rev-parse", "HEAD")
+	v, _ := do("git", "rev-parse", "HEAD")
+	return v
 }
 
 func ShortSHA() string {
-	return do("git", "rev-parse", "--short", "HEAD")
+	v, _ := do("git", "rev-parse", "--short", "HEAD")
+	return v
 }
