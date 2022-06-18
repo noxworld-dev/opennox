@@ -482,12 +482,12 @@ int nox_xxx_quickBarCreate_45E190() {
 	}
 	if (!*(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2251)) {
 		for (j = 0; j < 120; j += 24) {
-			*getMemU32Ptr(0x5D4594, 1047788 + j) = *getMemU32Ptr(0x587000, 133536 + j);
-			*getMemU32Ptr(0x5D4594, 1047792 + j) = *getMemU32Ptr(0x587000, 133540 + j);
-			*getMemU32Ptr(0x5D4594, 1047796 + j) = *getMemU32Ptr(0x587000, 133544 + j);
-			*getMemU32Ptr(0x5D4594, 1047800 + j) = *getMemU32Ptr(0x587000, 133548 + j);
-			*getMemU32Ptr(0x5D4594, 1047804 + j) = *getMemU32Ptr(0x587000, 133552 + j);
-			*getMemU32Ptr(0x5D4594, 1047808 + j) = 0;
+			*getMemU32Ptr(0x5D4594, 1047764 + 24*1 + j) = *getMemU32Ptr(0x587000, 133536 + j);
+			*getMemU32Ptr(0x5D4594, 1047764 + 24*1 + 4 + j) = *getMemU32Ptr(0x587000, 133540 + j);
+			*getMemU32Ptr(0x5D4594, 1047764 + 24*1 + 8 + j) = *getMemU32Ptr(0x587000, 133544 + j);
+			*getMemU32Ptr(0x5D4594, 1047764 + 24*1 + 12 + j) = *getMemU32Ptr(0x587000, 133548 + j);
+			*getMemU32Ptr(0x5D4594, 1047764 + 24*1 + 16 + j) = *getMemU32Ptr(0x587000, 133552 + j);
+			*getMemU32Ptr(0x5D4594, 1047764 + 24*1 + 20 + j) = 0;
 		}
 	}
 	nox_xxx_clientUpdateButtonRow_45E110(0);
@@ -626,7 +626,7 @@ int nox_xxx_quickBarDrawFn_45FBD0(int yTop) {
 			v19 = 1;
 		}
 		v16 = *v7;
-		if (*getMemU32Ptr(0x5D4594, 1047776 + 24 * *v7)) {
+		if (*getMemU32Ptr(0x5D4594, 1047764 + 12 + 24 * *v7)) {
 			v10 = (wchar_t*)nox_xxx_abilityGetName_0_425260(v16);
 			nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(v1 + 36), v10);
 			if (v9) {
@@ -634,14 +634,14 @@ int nox_xxx_quickBarDrawFn_45FBD0(int yTop) {
 				nox_client_drawImageAt_47D2C0(v9, xLeft, yTop);
 			LABEL_19:
 				v13 = 24 * *v7;
-				if (*getMemU32Ptr(0x5D4594, 1047776 + v13) || !*getMemU32Ptr(0x5D4594, 1047772 + v13) ||
+				if (*getMemU32Ptr(0x5D4594, 1047764 + 12 + v13) || !*getMemU32Ptr(0x5D4594, 1047764 + 8 + v13) ||
 					nox_xxx_playerAnimCheck_4372B0()) {
 					v14 = nox_xxx_abilityCooldown_4252D0(*v7);
 					if (v14 / nox_gameFPS) {
 						if (!v19) {
 							nox_client_drawRectFilledAlpha_49CF10(
 								xLeft, yTop, 34,
-								34 - (nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 1047784 + 24 * *v7)) /
+								34 - (nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 1047764 + 20 + 24 * *v7)) /
 										 (v14 / nox_gameFPS));
 						}
 					}

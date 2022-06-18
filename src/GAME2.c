@@ -6610,7 +6610,7 @@ int sub_45DFC0(int a1) {
 	int v3;     // eax
 
 	if (a1) {
-		v2 = *getMemU32Ptr(0x5D4594, 1047768 + 24 * a1);
+		v2 = *getMemU32Ptr(0x5D4594, 1047764 + 24*a1 + 4);
 		if (v2) {
 			dword_5d4594_1047932 = 0;
 			dword_5d4594_1047936 = 0;
@@ -6618,7 +6618,7 @@ int sub_45DFC0(int a1) {
 			nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
 			result = v2;
 		} else {
-			v3 = *getMemU32Ptr(0x5D4594, 1047764 + 24 * a1);
+			v3 = *getMemU32Ptr(0x5D4594, 1047764 + 24*a1);
 			dword_5d4594_1047932 = 1;
 			dword_5d4594_1047936 = v3;
 			nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
@@ -7239,7 +7239,7 @@ void* sub_4602F0() {
 void* sub_460380() {
 	unsigned char* v0; // eax
 
-	v0 = getMemAt(0x5D4594, 1047804);
+	v0 = getMemAt(0x5D4594, 1047764 + 24*1 + 16);
 	do {
 		*(uint32_t*)v0 = 0;
 		v0 += 24;

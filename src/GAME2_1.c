@@ -293,7 +293,7 @@ char* sub_461090(int a1, int a2) {
 	char* result; // eax
 
 	v2 = nox_frame_xxx_2598000;
-	result = (char*)getMemAt(0x5D4594, 1047808);
+	result = (char*)getMemAt(0x5D4594, 1047764 + 24*1 + 20);
 	do {
 		if (*((uint32_t*)result - 5) == a1) {
 			*(uint32_t*)result = a2 == 0 ? v2 : 0;
@@ -310,9 +310,9 @@ char* sub_4610D0(unsigned char a1) {
 	char* result; // eax
 
 	if (a1 != 6) {
-		return sub_461090(*getMemU32Ptr(0x5D4594, 1047764 + 24 * a1), 1);
+		return sub_461090(*getMemU32Ptr(0x5D4594, 1047764 + 24*a1), 1);
 	}
-	v1 = getMemIntPtr(0x5D4594, 1047788);
+	v1 = getMemIntPtr(0x5D4594, 1047764 + 24*1);
 	do {
 		result = sub_461090(*v1, 1);
 		v1 += 6;
@@ -326,7 +326,7 @@ char* sub_461120(int a1, int a2) {
 	char* result; // eax
 
 	v2 = 1 << a1;
-	result = (char*)getMemAt(0x5D4594, 1047800);
+	result = (char*)getMemAt(0x5D4594, 1047764 + 24*1 + 12);
 	do {
 		if (*((uint32_t*)result - 3) == a1) {
 			if (a2) {
@@ -346,7 +346,7 @@ int sub_461160(int a1) {
 	unsigned char* v2; // eax
 
 	v1 = 1;
-	v2 = getMemAt(0x5D4594, 1047788);
+	v2 = getMemAt(0x5D4594, 1047764 + 24*1);
 	while (*(uint32_t*)v2 != a1) {
 		v2 += 24;
 		++v1;
@@ -354,7 +354,7 @@ int sub_461160(int a1) {
 			return 0;
 		}
 	}
-	return ((1 << a1) & *getMemU32Ptr(0x5D4594, 1047776 + 24 * v1)) != 0;
+	return ((1 << a1) & *getMemU32Ptr(0x5D4594, 1047764 + 24*v1 + 12)) != 0;
 }
 
 //----- (004611A0) --------------------------------------------------------
@@ -378,7 +378,7 @@ void nox_xxx_netAbilityRewardCli_4611E0(int a1, int a2, char* a3) {
 	unsigned char* v3; // esi
 
 	if (a1 >= 1 && a1 < 6) {
-		v3 = getMemAt(0x5D4594, 1047804);
+		v3 = getMemAt(0x5D4594, 1047764 + 24*1 + 16);
 		do {
 			if (*((uint32_t*)v3 - 4) == a1 && *(uint32_t*)v3 != a2) {
 				if (nox_common_gameFlags_check_40A5C0(2) && *getMemU32Ptr(0x8531A0, 2576)) {
