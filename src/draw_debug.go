@@ -25,10 +25,7 @@ func nox_thing_debug_draw(cvp *C.nox_draw_viewport_t, cdr *C.nox_drawable) C.int
 	}
 	r.Data().SetColor2(cl)
 	r.Data().SetTextColor(color.White)
-	p := dr.Pos().Add(image.Point{
-		X: int(vp.x1) - int(vp.field_4),
-		Y: int(vp.y1) - int(vp.field_5),
-	})
+	p := vp.ToScreenPos(dr.Pos())
 	if dr.Flags28()&0x80 != 0 {
 		y1 := p.Y - int(dr.field_24)
 		y2 := p.Y - int(dr.field_25)

@@ -292,8 +292,8 @@ func (r *NoxRender) drawProtectEffect(vp *Viewport, pos image.Point, dr *Drawabl
 }
 
 func (r *NoxRender) drawProtectParticle(vp *Viewport, part, tail image.Point, partCl, tailCl color.Color) { // nox_client_drawXxxProtectParticle_474DD0
-	part = vp.toScreenPos(part)
-	tail = vp.toScreenPos(tail)
+	part = vp.ToScreenPos(part)
+	tail = vp.ToScreenPos(tail)
 
 	r.DrawGlow(part, partCl, 10, 12)
 	r.DrawPoint(part, 3, tailCl)

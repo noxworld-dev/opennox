@@ -115,8 +115,7 @@ var (
 	nox_video_renderTargetFlags       = 0
 	nox_client_texturedFloors_154956  = true
 	nox_client_texturedFloors2_154960 = true
-	dword_5d4594_1096428              int
-	dword_5d4594_1096432              int
+	partViewportOff                   image.Point
 
 	nox_arr2_853BC0  [lightGridW][lightGridH]ColorInt
 	nox_arr_84EB20   [lightGridW]nox_arr_84EB20_t
@@ -131,19 +130,16 @@ type nox_arr_84EB20_t struct {
 
 //export sub_473970
 func sub_473970(a1, a2 *C.int2) {
-	a2.field_0 = C.int(dword_5d4594_1096428) + a1.field_0
-	a2.field_4 = C.int(dword_5d4594_1096432) + a1.field_4
+	a2.field_0 = C.int(partViewportOff.X) + a1.field_0
+	a2.field_4 = C.int(partViewportOff.Y) + a1.field_4
 }
 
 func sub_4739A0(p image.Point) image.Point {
-	return image.Point{
-		X: p.X - dword_5d4594_1096428,
-		Y: p.Y - dword_5d4594_1096432,
-	}
+	return p.Sub(partViewportOff)
 }
 
 //export sub_4739D0
-func sub_4739D0(a1 C.int) C.int { return a1 - C.int(dword_5d4594_1096432) }
+func sub_4739D0(a1 C.int) C.int { return a1 - C.int(partViewportOff.Y) }
 
 //export get_nox_client_texturedFloors_154956
 func get_nox_client_texturedFloors_154956() C.bool {
@@ -173,7 +169,7 @@ func nox_draw_getViewport_437250() *C.nox_draw_viewport_t {
 //export sub_437260
 func sub_437260() {
 	vp := getViewport()
-	noxrend.nox_client_copyRect_49F6F0(int(vp.x1), int(vp.y1), int(vp.width), int(vp.height))
+	noxrend.setClipRects(vp.Screen.Min, vp.Size)
 }
 
 func sub_437180() {
@@ -182,34 +178,25 @@ func sub_437180() {
 
 //export sub_4355B0
 func sub_4355B0(a1 C.int) {
-	getViewport().field_12 = int32(a1)
-}
-
-func nox_xxx_getSomeCoods() image.Point {
-	vp := getViewport()
-	return image.Point{
-		X: int(vp.field_6),
-		Y: int(vp.field_7),
-	}
+	getViewport().field_12 = int(a1)
 }
 
 //export nox_xxx_getSomeCoods_435670
 func nox_xxx_getSomeCoods_435670(a1 *C.int2) {
-	p := nox_xxx_getSomeCoods()
+	p := getViewport().World.Max
 	a1.field_0 = C.int(p.X)
 	a1.field_4 = C.int(p.Y)
 }
 
 //export nox_xxx_cliUpdateCameraPos_435600
-func nox_xxx_cliUpdateCameraPos_435600(a1, a2 C.int) {
+func nox_xxx_cliUpdateCameraPos_435600(x, y C.int) {
 	vp := getViewport()
-	*memmap.PtrInt32(0x5D4594, 811364) = vp.field_6
-	*memmap.PtrInt32(0x5D4594, 811368) = vp.field_7
-	v2 := int32(a2) + vp.field_12 - vp.height/2
-	vp.field_4 = int32(a1) - vp.width/2
-	vp.field_5 = int32(a2) + vp.field_12 - vp.height/2
-	vp.field_6 = int32(a1)
-	vp.field_7 = v2 + vp.height/2
+	*memmap.PtrInt32(0x5D4594, 811364) = int32(vp.World.Max.X)
+	*memmap.PtrInt32(0x5D4594, 811368) = int32(vp.World.Max.Y)
+	vp.World.Min.X = int(x) - vp.Size.X/2
+	vp.World.Min.Y = int(y) + vp.field_12 - vp.Size.Y/2
+	vp.World.Max.X = int(x)
+	vp.World.Max.Y = int(y) + vp.field_12
 }
 
 //export sub_437290
@@ -259,32 +246,27 @@ func nox_xxx_drawPointMB_499B70(a1, a2, a3 C.int) {
 }
 
 var _ = [1]struct{}{}[52-unsafe.Sizeof(Viewport{})]
+var _ = [1]struct{}{}[4-unsafe.Sizeof(int(0))]
 
 type Viewport struct {
-	x1       int32  // 0, 0
-	y1       int32  // 1, 4
-	x2       int32  // 2, 8
-	y2       int32  // 3, 12
-	field_4  int32  // 4, 16
-	field_5  int32  // 5, 20
-	field_6  int32  // 6, 24
-	field_7  int32  // 7, 28
-	width    int32  // 8, 32
-	height   int32  // 9, 36
-	field_10 uint32 // 10, 40
-	field_11 uint32 // 11, 44
-	field_12 int32  // 12, 48
+	Screen   image.Rectangle // 0, 0
+	World    image.Rectangle // 4, 16
+	Size     image.Point     // 8, 32
+	field_10 uint            // 10, 40
+	field_11 uint            // 11, 44
+	field_12 int             // 12, 48
 }
 
 func (vp *Viewport) C() *C.nox_draw_viewport_t {
 	return (*C.nox_draw_viewport_t)(unsafe.Pointer(vp))
 }
 
-func (vp *Viewport) toScreenPos(pos image.Point) image.Point { // sub_4739E0
-	return pos.Add(image.Point{
-		X: int(vp.x1) - int(vp.field_4),
-		Y: int(vp.y1) - int(vp.field_5),
-	})
+func (vp *Viewport) ToScreenPos(pos image.Point) image.Point { // sub_4739E0
+	return pos.Sub(vp.World.Min).Add(vp.Screen.Min)
+}
+
+func (vp *Viewport) ToWorldPos(pos image.Point) image.Point {
+	return pos.Sub(vp.Screen.Min).Add(vp.World.Min)
 }
 
 func detectBestVideoSettings() {
@@ -566,11 +548,11 @@ func (r *NoxRender) sub_49F7C0_def_go() {
 	if ymax > cr.Max.Y {
 		ymax = cr.Max.Y
 	}
-	r.nox_client_copyRect_49F6F0(cr.Min.X, cr.Min.Y, cr.Dx(), ymax-cr.Min.Y)
+	r.setClipRects(cr.Min, image.Pt(cr.Dx(), ymax-cr.Min.Y))
 }
 
-func (r *NoxRender) nox_client_copyRect_49F6F0(x, y, w, h int) {
-	rc := image.Rect(x, y, x+w, y+h)
+func (r *NoxRender) setClipRects(p, sz image.Point) { // nox_client_copyRect_49F6F0
+	rc := image.Rectangle{Min: p, Max: p.Add(sz)}
 	d := r.Data()
 	rect := rc.Intersect(d.Rect3())
 	if !rect.Empty() {
@@ -583,7 +565,7 @@ func (r *NoxRender) nox_client_copyRect_49F6F0(x, y, w, h int) {
 
 func (r *NoxRender) setRectFullScreen() { // sub_437290
 	sz := r.PixBufferRect().Size()
-	r.nox_client_copyRect_49F6F0(0, 0, sz.X, sz.Y)
+	r.setClipRects(image.Pt(0, 0), sz)
 }
 
 //export nox_client_drawSetAlpha_434580
@@ -836,9 +818,8 @@ func nox_xxx_client_435F80_draw(inp *input.Handler) bool {
 	}
 	C.nox_xxx_clientEnumHover_476FA0()
 	vp := getViewport()
-	ipx := int(vp.field_4) + mpos.X - int(vp.x1)
-	ipy := int(vp.field_5) + mpos.Y - int(vp.y1)
-	if !clientSendInput(31, uint16(ipx), uint16(ipy)) {
+	ipos := vp.ToWorldPos(mpos)
+	if !clientSendInput(31, uint16(ipos.X), uint16(ipos.Y)) {
 		return true
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
@@ -890,18 +871,16 @@ func nox_xxx_clientDrawAll_436100_draw() {
 	*memmap.PtrUint64(0x5D4594, 814532) = v0
 	*memmap.PtrUint32(0x5D4594, 811916) = gameFrame()
 	vp := getViewport()
-	v6 := int(vp.x1)
-	v7 := int(vp.y1)
 	if memmap.Uint32(0x587000, 85744) != 0 {
-		vp.height = vp.width * int32(nox_win_height) / int32(nox_win_width)
-		v6 = (nox_win_width - int(vp.width)) / 2
-		v7 = (nox_win_height - int(vp.height)) / 2
-		vp.x1 = int32(v6)
-		vp.y1 = int32(v7)
-		vp.x2 = int32(v6) + vp.width - 1
-		vp.y2 = int32(v7) + vp.height - 1
+		vp.Size.Y = vp.Size.X * nox_win_height / nox_win_width
+		sx := (nox_win_width - vp.Size.X) / 2
+		sy := (nox_win_height - vp.Size.Y) / 2
+		vp.Screen.Min.X = sx
+		vp.Screen.Min.Y = sy
+		vp.Screen.Max.X = sx + vp.Size.X - 1
+		vp.Screen.Max.Y = sy + vp.Size.Y - 1
 	}
-	C.sub_430B50(C.int(v6), C.int(v7), C.int(vp.x2), C.int(vp.y2))
+	C.sub_430B50(C.int(vp.Screen.Min.X), C.int(vp.Screen.Min.Y), C.int(vp.Screen.Max.X), C.int(vp.Screen.Max.Y))
 	if id := clientPlayerNetCode(); id != 0 {
 		*memmap.PtrPtr(0x852978, 8) = unsafe.Pointer(C.nox_xxx_netSpriteByCodeDynamic_45A6F0(C.int(id)))
 	}
@@ -940,25 +919,25 @@ func nox_xxx_drawAllMB_475810_draw_A(vp *Viewport) {
 	sub_477F80()
 	*memmap.PtrUint32(0x973F18, 68) = 0
 	r := noxrend
-	if vp.x1 != 0 {
+	if vp.Screen.Min.X != 0 {
 		C.dword_5d4594_3799468 = 1
-		v4 := int(vp.x2) + 1
-		v3 := int(vp.y2)
+		x := vp.Screen.Max.X + 1
+		y := vp.Screen.Max.Y
 		r.setRectFullScreen()
 		if C.dword_5d4594_3799524 != 0 {
 			rect := r.PixBufferRect()
 			cl := color.Black
-			r.DrawRectFilledOpaque(0, 0, rect.Dx(), int(vp.y1), cl)
-			r.DrawRectFilledOpaque(0, v3, rect.Dx(), rect.Dy()-v3, cl)
-			r.DrawRectFilledOpaque(0, int(vp.y1), int(vp.x1), v3-int(vp.y1), cl)
-			r.DrawRectFilledOpaque(v4, int(vp.y1), rect.Dx()-v4, v3-int(vp.y1), cl)
+			r.DrawRectFilledOpaque(0, 0, rect.Dx(), vp.Screen.Min.Y, cl)
+			r.DrawRectFilledOpaque(0, y, rect.Dx(), rect.Dy()-y, cl)
+			r.DrawRectFilledOpaque(0, vp.Screen.Min.Y, int(vp.Screen.Min.X), y-vp.Screen.Min.Y, cl)
+			r.DrawRectFilledOpaque(x, vp.Screen.Min.Y, rect.Dx()-x, y-vp.Screen.Min.Y, cl)
 			C.dword_5d4594_3799524 = 0
 		}
-		r.DrawBorder(int(vp.x1)-2, int(vp.y1)-2, v4-int(vp.x1)+4, v3-int(vp.y1)+4, nox_color_gray2)
+		r.DrawBorder(vp.Screen.Min.X-2, vp.Screen.Min.Y-2, x-vp.Screen.Min.X+4, y-vp.Screen.Min.Y+4, nox_color_gray2)
 	} else {
 		C.dword_5d4594_3799468 = 0
 	}
-	r.nox_client_copyRect_49F6F0(int(vp.x1), int(vp.y1), int(vp.width), int(vp.height))
+	r.setClipRects(vp.Screen.Min, vp.Size)
 }
 
 func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
@@ -969,10 +948,9 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	} else if vp.field_12 > 0 {
 		vp.field_12 = 1 - vp.field_12
 	}
-	dword_5d4594_1096428 = int(vp.field_4 - vp.x1)
-	dword_5d4594_1096432 = int(vp.field_5 - vp.y1)
-	xmin := int(vp.field_4) / common.GridStep
-	ymin := int(vp.field_5) / common.GridStep
+	partViewportOff = vp.ToWorldPos(image.Pt(0, 0))
+	xmin := int(vp.World.Min.X) / common.GridStep
+	ymin := int(vp.World.Min.Y) / common.GridStep
 	nox_wallsYyy = nox_wallsYyy[:0]
 	C.nox_xxx_drawBlack_496150(vp.C())
 	disableDraw := false
@@ -1031,8 +1009,8 @@ func nox_xxx_get_57AF20() int {
 
 func sub_468F80(vp *Viewport) {
 	// TODO: values here are similar to lightGridW and lightGridH
-	noxTilesGpx = (2*common.GridStep)*((int(vp.field_4)+11)/(2*common.GridStep)-1) - 11
-	noxTilesGpy = (2*common.GridStep)*((int(vp.field_5)+11)/(2*common.GridStep)) - 57
+	noxTilesGpx = (2*common.GridStep)*((int(vp.World.Min.X)+11)/(2*common.GridStep)-1) - 11
+	noxTilesGpy = (2*common.GridStep)*((int(vp.World.Min.Y)+11)/(2*common.GridStep)) - 57
 	C.dword_5d4594_2650676 = C.uint(noxTilesGpx)
 	C.dword_5d4594_2650680 = C.uint(noxTilesGpy)
 	if noxflags.HasEngine(noxflags.EngineNoSoftLights) {
@@ -1056,12 +1034,11 @@ func sub_468F80(vp *Viewport) {
 			}
 		}
 		const add = 100
-		rect := image.Rect(
-			int(vp.field_4)-add,
-			int(vp.field_5)-add,
-			int(vp.width)+int(vp.field_4)+add,
-			int(vp.height)+int(vp.field_5)+add,
-		)
+		padd := image.Pt(add, add)
+		rect := image.Rectangle{
+			Min: vp.World.Min.Sub(padd),
+			Max: vp.World.Min.Add(vp.Size).Add(padd),
+		}
 		nox_xxx_forEachSprite(rect, nox_xxx_cliLight16_469140)
 	}
 }
@@ -1449,8 +1426,7 @@ func sub_4695E0(a1, a2 int, pcl *int32, a4 int, flip bool) {
 
 func nox_xxx_tileDrawMB_481C20(vp *Viewport) {
 	C.nox_xxx_waypointCounterMB_587000_154948++
-	dx := int(vp.field_4) - int(vp.x1)
-	dy := int(vp.field_5) - int(vp.y1)
+	dp := vp.ToWorldPos(image.Pt(0, 0))
 	if !nox_client_texturedFloors_154956 && C.dword_5d4594_1193156 == 1 {
 		nox_client_texturedFloors2_154960 = false
 		nox_client_texturedFloors_154956 = true
@@ -1465,13 +1441,13 @@ func nox_xxx_tileDrawMB_481C20(vp *Viewport) {
 		C.nox_xxx_tileDrawImpl_4826A0(vp.C())
 		C.dword_5d4594_1193188 = 0
 	} else {
-		C.nox_xxx_tileDrawMB_481C20_A(vp.C(), C.int(dx))
-		C.nox_xxx_tileDrawMB_481C20_B(vp.C(), C.int(dy))
+		C.nox_xxx_tileDrawMB_481C20_A(vp.C(), C.int(dp.X))
+		C.nox_xxx_tileDrawMB_481C20_B(vp.C(), C.int(dp.Y))
 	}
 	if nox_client_texturedFloors_154956 {
-		nox_xxx_tileDrawMB_481C20_C_textured(vp, dx, dy)
+		nox_xxx_tileDrawMB_481C20_C_textured(vp, dp)
 	} else {
-		C.nox_xxx_tileDrawMB_481C20_C_solid(vp.C(), C.int(dx), C.int(dy))
+		C.nox_xxx_tileDrawMB_481C20_C_solid(vp.C(), C.int(dp.X), C.int(dp.Y))
 	}
 }
 
@@ -1580,7 +1556,7 @@ func nox_video_freeFloorBuffer_430EC0() {
 	sub_444C50()
 }
 
-func nox_xxx_tileDrawMB_481C20_C_textured(vp *Viewport, dx, dy int) {
+func nox_xxx_tileDrawMB_481C20_C_textured(vp *Viewport, dp image.Point) {
 	r := noxrend
 
 	sy := int(C.dword_5d4594_3679320)
@@ -1588,7 +1564,7 @@ func nox_xxx_tileDrawMB_481C20_C_textured(vp *Viewport, dx, dy int) {
 	gpx := noxTilesGpx
 	gpy := noxTilesGpy
 	var v67 image.Point
-	v67.Y = dy + sy
+	v67.Y = dp.Y + sy
 	sub4745F0(vp)
 	nox_arr_957820 := unsafe.Slice((*byte)(unsafe.Pointer(&C.nox_arr_957820[0])), len(C.nox_arr_957820))
 	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
@@ -1614,15 +1590,15 @@ func nox_xxx_tileDrawMB_481C20_C_textured(vp *Viewport, dx, dy int) {
 					v2 := int(binary.LittleEndian.Uint32(src[4:]))
 					src = src[8:]
 
-					v67.X = v1 + dx
-					v66.X = (v1 + dx - gpx) / common.GridStep
-					for kk := gpx + common.GridStep*v66.X; kk < v2+dx+common.GridStep; kk += common.GridStep {
+					v67.X = v1 + dp.X
+					v66.X = (v1 + dp.X - gpx) / common.GridStep
+					for kk := gpx + common.GridStep*v66.X; kk < v2+dp.X+common.GridStep; kk += common.GridStep {
 						if nox_arr_84EB20[v66.X].Y != v66.Y {
 							noxTileUpdateLightXxx(v66)
 						}
 						v66.X++
 					}
-					v66.X = (v1 + dx - gpx) / common.GridStep
+					v66.X = (v1 + dp.X - gpx) / common.GridStep
 					ind := pix.PixOffset(v1, yy)
 					v66.X = noxTileDrawTextured(v67, v66.X, v78, v2-v1, pix.Pix[ind:])
 				}
@@ -1729,10 +1705,10 @@ func nox_xxx_tileSetDrawFn_481420() {
 }
 
 func sub_4754F0(vp *Viewport) {
-	rect := image.Rect(
-		int(vp.field_4), int(vp.field_5),
-		int(vp.field_4+vp.width), int(vp.field_5+vp.height)+128,
-	)
+	rect := image.Rectangle{
+		Min: vp.World.Min,
+		Max: vp.World.Min.Add(vp.Size).Add(image.Pt(0, 128)),
+	}
 	nox_drawable_list_1 = nox_drawable_list_1[:0]
 	nox_drawable_list_3 = nox_drawable_list_3[:0]
 	nox_drawable_list_2 = nox_drawable_list_2[:0]
@@ -1827,8 +1803,8 @@ func nox_xxx_cliGetSpritePlayer_45A000() *Drawable {
 }
 
 func nox_client_queueWallsDraw(vp *Viewport, xmin, ymin int) { // nox_xxx_drawAllMB_475810_draw_C
-	xmax := xmin + int(vp.width)/common.GridStep + 2
-	ymax := ymin + int(vp.height)/common.GridStep + 4
+	xmax := xmin + int(vp.Size.X)/common.GridStep + 2
+	ymax := ymin + int(vp.Size.Y)/common.GridStep + 4
 	for y := ymin; y <= ymax; y++ {
 		for x := xmin; x <= xmax; x++ {
 			wl := noxServer.getWallAtGrid(image.Point{X: x, Y: y})
@@ -2340,7 +2316,7 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 		return
 	}
 	if dr.HasEnchant(ENCHANT_ANCHORED) {
-		pos := vp.toScreenPos(dr.Pos())
+		pos := vp.ToScreenPos(dr.Pos())
 		r.DrawGlow(pos, nox_color_blue_2650684, 30, 31)
 	}
 	if dr.HasEnchant(ENCHANT_HASTED) && !nox_xxx_checkGameFlagPause_413A50() {
@@ -2433,7 +2409,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 		C.nox_xxx_drawEnergyBolt_499710(C.int(pos.X), C.int(pos.Y), C.short(*(*int16)(dr.field(104))), C.int(drawWhiteSpark))
 	}
 	if dr.HasEnchant(ENCHANT_CONFUSED) || dr.HasEnchant(ENCHANT_HELD) || dr.HasEnchant(ENCHANT_ANTI_MAGIC) || dr.HasEnchant(ENCHANT_CHARMING) {
-		pos := vp.toScreenPos(dr.Pos())
+		pos := vp.ToScreenPos(dr.Pos())
 		v5 := 5 - int(*(*int16)(dr.field(106))) - int(*(*int16)(dr.field(104))) - int(dr.Field25())
 		v6 := *(*byte)(dr.field(112))
 		pos.Y += v5
@@ -2486,7 +2462,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 		sub_499F60(drawGreenBubbleParticle, pos.Add(pos2), v33, v35, v37, 1, 0, 0, v41)
 	}
 	if dr.HasEnchant(ENCHANT_VAMPIRISM) && !nox_xxx_checkGameFlagPause_413A50() {
-		pos := vp.toScreenPos(dr.Pos())
+		pos := vp.ToScreenPos(dr.Pos())
 
 		for v16 := 0; v16 < 10; v16++ {
 			v17 := randomIntMinMax(1, 2)
@@ -2512,7 +2488,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 		r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, nox_color_blue_2650684, nox_color_white_2523948, false)
 	}
 	if dr.HasEnchant(ENCHANT_SHIELD) {
-		pos := vp.toScreenPos(dr.Pos())
+		pos := vp.ToScreenPos(dr.Pos())
 		v23 := *(*uint32)(dr.field(276))
 		v24 := -90 - int(*(*int16)(dr.field(104)))
 		pos.X -= 64

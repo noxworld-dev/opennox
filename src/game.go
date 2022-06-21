@@ -575,12 +575,8 @@ func initGameSession435CC0() error {
 	*memmap.PtrUint32(0x587000, 85720) = 1
 	sz := videoGetWindowSize()
 	vp := getViewport()
-	vp.x1 = 0
-	vp.y1 = 0
-	vp.x2 = int32(sz.X - 1)
-	vp.y2 = int32(sz.Y - 1)
-	vp.width = int32(sz.X)
-	vp.height = int32(sz.Y)
+	vp.Screen = image.Rect(0, 0, sz.X-1, sz.Y-1)
+	vp.Size = sz
 	vp.field_10 = 0
 	vp.field_11 = 0
 	vp.field_12 = 0

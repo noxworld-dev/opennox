@@ -694,11 +694,11 @@ func nox_draw_setCutSize(perc int, a2 int) {
 	vp := getViewport()
 	bsz := noxPixBuffer.img.Size()
 	v2 := a2
-	v4 := int(vp.width)
+	v4 := vp.Size.X
 	if a2 != 0 {
 		v7 := 0
 		for v7 < 4 {
-			perc = v2 + 100*(bsz.X-2*int(vp.x1))/bsz.X
+			perc = v2 + 100*(bsz.X-2*vp.Screen.Min.X)/bsz.X
 			v6 := perc * bsz.X / 100
 			if v2 >= 0 {
 				v2++
@@ -720,28 +720,28 @@ func nox_draw_setCutSize(perc int, a2 int) {
 	}
 	nox_video_cutSize = perc
 
-	vp.x1 = int32(uint32((bsz.X-perc*bsz.X/100)/2) & 0xFFFFFFFC)
-	if vp.x1 < 0 {
-		vp.x1 = 0
+	vp.Screen.Min.X = int(uint32((bsz.X-perc*bsz.X/100)/2) & 0xFFFFFFFC)
+	if vp.Screen.Min.X < 0 {
+		vp.Screen.Min.X = 0
 	}
 
-	vp.y1 = int32((bsz.Y - perc*bsz.Y/100) / 2)
-	if vp.y1 < 0 {
-		vp.y1 = 0
+	vp.Screen.Min.Y = (bsz.Y - perc*bsz.Y/100) / 2
+	if vp.Screen.Min.Y < 0 {
+		vp.Screen.Min.Y = 0
 	}
 
-	vp.x2 = int32(uint32(bsz.X-int(vp.x1)+2) & 0xFFFFFFFC)
-	if int(vp.x2) >= bsz.X {
-		vp.x2 = int32(bsz.X - 1)
+	vp.Screen.Max.X = int(uint32(bsz.X-vp.Screen.Min.X+2) & 0xFFFFFFFC)
+	if vp.Screen.Max.X >= bsz.X {
+		vp.Screen.Max.X = bsz.X - 1
 	}
 
-	vp.y2 = int32(bsz.Y - int(vp.y1) - 1)
-	if int(vp.y2) >= bsz.Y {
-		vp.y2 = int32(bsz.Y - 1)
+	vp.Screen.Max.Y = bsz.Y - vp.Screen.Min.Y - 1
+	if vp.Screen.Max.Y >= bsz.Y {
+		vp.Screen.Max.Y = bsz.Y - 1
 	}
 
-	vp.width = vp.x2 - vp.x1 + 1
-	vp.height = vp.y2 - vp.y1 + 1
+	vp.Size.X = vp.Screen.Dx() + 1
+	vp.Size.Y = vp.Screen.Dy() + 1
 	C.dword_5d4594_1193188 = 1
 	C.dword_5d4594_3799524 = 1
 }
@@ -916,17 +916,11 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 		nox_xxx_cursorLoadAll_477710()
 	}
 	mpos := inp.GetMousePos()
-	vpp, freeVp := alloc.New(C.nox_draw_viewport_t{})
+	vp, freeVp := alloc.New(Viewport{})
 	defer freeVp()
-	vp := asViewport((*C.nox_draw_viewport_t)(vpp))
-	vp.x1 = 0
-	vp.y1 = 0
-	vp.x2 = int32(nox_win_width)
-	vp.y2 = int32(nox_win_height)
-	vp.field_4 = 0
-	vp.field_5 = 0
-	vp.width = int32(nox_win_width)
-	vp.height = int32(nox_win_height)
+	vp.Screen = image.Rect(0, 0, nox_win_width, nox_win_height)
+	vp.World.Min = image.Pt(0, 0)
+	vp.Size = image.Pt(nox_win_width, nox_win_height)
 	dword_5d4594_1097204 = 0
 	dword_5d4594_1097208 = noxrend.FontHeight(nil) + 4
 	if nox_client_itemDragnDrop_1097188 != nil { // Dragging item
@@ -971,7 +965,7 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 		r.DrawStringWrapped(nil, str, image.Rect(px+2, py+2, px+2, py+2))
 		if C.dword_5d4594_3799468 != 0 {
 			vp := getViewport()
-			if px < int(vp.x1) || px+sz.X > int(vp.x2) || py < int(vp.y1) || py+sz.Y > int(vp.y2) {
+			if px < vp.Screen.Min.X || px+sz.X > vp.Screen.Max.X || py < vp.Screen.Min.Y || py+sz.Y > vp.Screen.Max.Y {
 				C.dword_5d4594_3799524 = 1
 			}
 		}
@@ -981,8 +975,8 @@ func nox_client_drawCursorAndTooltips_477830(r *NoxRender, inp *input.Handler) {
 func sub_477F80() {
 	if C.dword_5d4594_3799468 != 0 {
 		vp := getViewport()
-		if dword_5d4594_1097212.X < int(vp.x1) || dword_5d4594_1097212.X+cursorSize >= int(vp.x2) ||
-			dword_5d4594_1097212.Y < int(vp.y1) || dword_5d4594_1097212.Y+cursorSize >= int(vp.y2) {
+		if dword_5d4594_1097212.X < vp.Screen.Min.X || dword_5d4594_1097212.X+cursorSize >= vp.Screen.Max.X ||
+			dword_5d4594_1097212.Y < vp.Screen.Min.Y || dword_5d4594_1097212.Y+cursorSize >= vp.Screen.Max.Y {
 			noxrend.DrawRectFilledOpaque(dword_5d4594_1097212.X+cursorSize/2, dword_5d4594_1097212.Y+cursorSize/2, cursorSize, cursorSize, color.Black)
 		}
 	}
