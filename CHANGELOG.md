@@ -1,5 +1,28 @@
 # Changelog
 
+## v1.8.11
+
+- Preparations to make more spells moddable.
+- Hidden Death spell now correctly draws spinning skull on monsters.
+- Allow using two more effects from scripts: `ENERGY_BOLT` and `PLASMA`.
+- Lots of internal changes related to color handling.
+- Allow force-switching maps in more cases.
+- Stretch image option is now persisted.
+- Fix: Potential crash when loading certain maps.
+- Fix: Downloading maps via Nox protocol.
+- Fix: Incorrect rendering of the observer effect.
+- Fix: Rendering of abilities panel when player dies.
+- Fix: Obliteration spell effect.
+- Fix: Minimap rendering.
+- Fix: Parsing of network filters from the config.
+- Fix: Transparent color not rendering correctly in some GUI elements.
+- Fix: Correctly override background color in GUI.
+- Fix: Crash when reading gamma on the server.
+- Fix: Server requiring audio/video libs.
+- Fix: Text message when switching maps.
+- Fix: `GREEN_BOLT` effect when called from a script.
+- Fix: Build now doesn't require Git.
+
 ## v1.8.10
 
 - First release as an open source project!
