@@ -1709,7 +1709,7 @@ func sub_4754F0(vp *Viewport) {
 		Min: vp.World.Min,
 		Max: vp.World.Min.Add(vp.Size).Add(image.Pt(0, 128)),
 	}
-	nox_drawable_list_1 = nox_drawable_list_1[:0]
+	nox_drawable_objects_queue = nox_drawable_objects_queue[:0]
 	nox_drawable_list_3 = nox_drawable_list_3[:0]
 	nox_drawable_list_2 = nox_drawable_list_2[:0]
 	nox_drawable_list_4 = nox_drawable_list_4[:0]
@@ -1747,7 +1747,7 @@ func nox_xxx_spriteAddQueue_475560_draw(dr *Drawable) {
 			if (dr.field_120 != 0 || dr.field_122 != 0) && (gameFrame()-uint32(dr.field_85)) > gameFPS() {
 				dr.field_120 = 0
 			} else {
-				nox_drawable_list_1 = append(nox_drawable_list_1, dr)
+				nox_drawable_objects_queue = append(nox_drawable_objects_queue, dr)
 			}
 		}
 	}
@@ -1761,10 +1761,10 @@ const (
 )
 
 var (
-	nox_drawable_list_1 []*Drawable
-	nox_drawable_list_3 []*Drawable
-	nox_drawable_list_2 []*Drawable
-	nox_drawable_list_4 []*Drawable
+	nox_drawable_objects_queue []*Drawable
+	nox_drawable_list_3        []*Drawable
+	nox_drawable_list_2        []*Drawable
+	nox_drawable_list_4        []*Drawable
 
 	nox_backWalls  []*Wall
 	nox_frontWalls []*Wall
@@ -1772,7 +1772,7 @@ var (
 )
 
 func initDrawableLists() {
-	nox_drawable_list_1 = make([]*Drawable, 0, nox_drawable_list_1_cap)
+	nox_drawable_objects_queue = make([]*Drawable, 0, nox_drawable_list_1_cap)
 	nox_drawable_list_3 = make([]*Drawable, 0, nox_drawable_lists_cap)
 	nox_drawable_list_2 = make([]*Drawable, 0, nox_drawable_lists_cap)
 	nox_drawable_list_4 = make([]*Drawable, 0, nox_drawable_lists_cap)
@@ -1783,7 +1783,7 @@ func initDrawableLists() {
 }
 
 func sub_473B30_free() {
-	nox_drawable_list_1 = nil
+	nox_drawable_objects_queue = nil
 	nox_drawable_list_3 = nil
 	nox_drawable_list_2 = nil
 	nox_drawable_list_4 = nil
@@ -1846,49 +1846,48 @@ func sub_476160(a1, a2 *Drawable) bool {
 }
 
 func nox_xxx_drawAllMB_475810_draw_E(vp *Viewport) {
-	sort.Slice(nox_drawable_list_1, func(i, j int) bool {
-		a, b := nox_drawable_list_1[i], nox_drawable_list_1[j]
+	sort.Slice(nox_drawable_objects_queue, func(i, j int) bool {
+		a, b := nox_drawable_objects_queue[i], nox_drawable_objects_queue[j]
 		return sub_476160(a, b)
 	})
 	sort.Slice(nox_wallsYyy, func(i, j int) bool {
 		a, b := nox_wallsYyy[i], nox_wallsYyy[j]
 		return C.sub_476080((*C.uchar)(a.C())) < C.sub_476080((*C.uchar)(b.C()))
 	})
-	arr1 := nox_drawable_list_1
-	arr2 := nox_wallsYyy
-	v41 := 0x7FFFFFFF
-	if len(arr1) > 0 {
-		v41 = arr1[0].Pos().Y
+	objects := nox_drawable_objects_queue
+	walls := nox_wallsYyy
+	sy := math.MaxInt32
+	if len(objects) > 0 {
+		sy = objects[0].Pos().Y
 	}
-	v21 := 0x7FFFFFFF
-	if len(arr2) > 0 {
-		v21 = int(C.sub_476080((*C.uchar)(arr2[0].C())))
+	wy := math.MaxInt32
+	if len(walls) > 0 {
+		wy = int(C.sub_476080((*C.uchar)(walls[0].C())))
 	}
 LOOP:
-	for len(arr1) > 0 || len(arr2) > 0 {
-		if v41 >= v21 {
-			if len(arr2) != 0 {
-				nox_xxx_drawWalls_473C10(vp, arr2[0])
-				arr2 = arr2[1:]
-				if len(arr2) != 0 {
-					v21 = int(C.sub_476080((*C.uchar)(arr2[0].C())))
+	for len(objects) > 0 || len(walls) > 0 {
+		if sy >= wy {
+			if len(walls) != 0 {
+				nox_xxx_drawWalls_473C10(vp, walls[0])
+				walls = walls[1:]
+				if len(walls) != 0 {
+					wy = int(C.sub_476080((*C.uchar)(walls[0].C())))
 					continue
 				}
 			}
-			v21 = 0x7FFFFFFF
+			wy = math.MaxInt32
 			continue
 		}
-		if len(arr1) == 0 {
-			v41 = 0x7FFFFFFF
+		if len(objects) == 0 {
+			sy = math.MaxInt32
 			continue
 		}
-		dr := arr1[0]
-		arr1 = arr1[1:]
-		//nox_drawable_list_1_size--
-		if len(arr1) > 0 {
-			v41 = arr1[0].Pos().Y
+		dr := objects[0]
+		objects = objects[1:]
+		if len(objects) > 0 {
+			sy = objects[0].Pos().Y
 		} else {
-			v41 = 0x7FFFFFFF
+			sy = math.MaxInt32
 		}
 		if uint32(dr.field_27) == memmap.Uint32(0x5D4594, 1096448) && nox_server_teamFirst_418B10() != nil {
 			for v25 := nox_xxx_cliGetSpritePlayer_45A000(); v25 != nil; v25 = v25.Field104() {
@@ -1931,7 +1930,7 @@ LOOP:
 			C.sub_49A6A0(vp.C(), dr.C())
 		}
 	}
-	nox_drawable_list_1 = nox_drawable_list_1[:0]
+	nox_drawable_objects_queue = nox_drawable_objects_queue[:0]
 }
 
 func sub_475FE0(vp *Viewport) {
@@ -1954,21 +1953,22 @@ func sub_475FE0(vp *Viewport) {
 func sub_475F10(vp *Viewport) {
 	for _, dr := range nox_drawable_list_3 {
 		drawCreatureBackEffects(noxrend, vp, dr)
-		if C.nox_xxx_client_4984B0_drawable(dr.C()) != 0 {
-			dr.field_121 = 1
-			dr.DrawFunc(vp)
-			if dr.Flags70()&0x40 != 0 {
-				C.nox_xxx_drawShinySpot_4C4F40(vp.C(), dr.C())
-			}
-			drawCreatureFrontEffects(noxrend, vp, dr)
-			C.sub_495BB0(dr.C(), vp.C())
-			if noxflags.HasEngine(noxflags.EngineShowExtents) {
-				nox_thing_debug_draw(vp.C(), dr.C())
-			}
-			dr.field_33 = 0
-			if dr.field_120 == 0 && dr.field_122 == 0 {
-				dr.field_85 = C.uint(gameFrame())
-			}
+		if C.nox_xxx_client_4984B0_drawable(dr.C()) == 0 {
+			continue
+		}
+		dr.field_121 = 1
+		dr.DrawFunc(vp)
+		if dr.Flags70()&0x40 != 0 {
+			C.nox_xxx_drawShinySpot_4C4F40(vp.C(), dr.C())
+		}
+		drawCreatureFrontEffects(noxrend, vp, dr)
+		C.sub_495BB0(dr.C(), vp.C())
+		if noxflags.HasEngine(noxflags.EngineShowExtents) {
+			nox_thing_debug_draw(vp.C(), dr.C())
+		}
+		dr.field_33 = 0
+		if dr.field_120 == 0 && dr.field_122 == 0 {
+			dr.field_85 = C.uint(gameFrame())
 		}
 	}
 	nox_drawable_list_3 = nox_drawable_list_3[:0]
