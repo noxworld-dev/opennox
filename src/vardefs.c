@@ -309,7 +309,6 @@ uint32_t dword_5d4594_2487532 = 0;
 uint32_t nox_win_onlineOrLAN_1309716 = 0;
 uint32_t dword_5d4594_805984 = 0;
 uint32_t nox_server_connectionType_3596 = 0;
-uint32_t nox_client_fadeObjects_80836 = 0x1;
 uint32_t dword_5d4594_2386924 = 0;
 uint32_t dword_5d4594_830872 = 0;
 uint32_t dword_5d4594_1312472 = 0;

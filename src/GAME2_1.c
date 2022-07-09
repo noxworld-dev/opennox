@@ -97,7 +97,6 @@ extern uint32_t dword_5d4594_1049532;
 extern uint32_t dword_5d4594_1090100;
 extern uint32_t dword_5d4594_2650680;
 extern uint32_t dword_5d4594_1049484;
-extern uint32_t nox_client_fadeObjects_80836;
 extern void* nox_win_activeWindow_1064900;
 extern uint32_t dword_5d4594_1062516;
 extern uint32_t nox_client_drawFrontWalls_80812;

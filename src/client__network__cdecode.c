@@ -65,7 +65,6 @@ extern uint32_t nox_perfmon_ping_2614264;
 extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
 extern uint32_t nox_xxx_warriorMaxMana_587000_312788;
 extern uint32_t dword_5d4594_1200804;
-extern uint32_t nox_client_fadeObjects_80836;
 extern uint32_t nox_xxx_warriorMaxHealth_587000_312784;
 extern uint32_t nox_xxx_conjurerMaxHealth_587000_312800;
 extern uint32_t nox_xxx_wizardMaxHealth_587000_312816;
@@ -87,6 +86,8 @@ void nox_client_onMapDownloadAbort();
 
 void clientPacketFade(bool a1, int fnc);
 void nox_client_onDeathRay(int p1x, int p1y, int p2x, int p2y);
+
+uint32_t nox_client_fadeObjects_80836 = 1;
 
 //----- (0048EA70) --------------------------------------------------------
 int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {

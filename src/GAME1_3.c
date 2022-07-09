@@ -84,7 +84,6 @@ extern uint32_t dword_5d4594_825744;
 extern uint32_t dword_5d4594_816372;
 extern uint32_t nox_client_renderGlow_805852;
 extern unsigned int nox_gui_console_translucent;
-extern uint32_t nox_client_fadeObjects_80836;
 extern uint32_t nox_client_lockHighResFloors_1193152;
 extern uint32_t dword_5d4594_815708;
 extern uint32_t nox_client_drawFrontWalls_80812;
