@@ -30,12 +30,10 @@ func (r *NoxRender) freeParticles() {
 }
 
 type particleOpt struct {
-	rad    int // 0, 0
-	mul1   int // 1, 4
-	mul2   int // 2, 8
-	colorR int // 12, 48
-	colorG int // 13, 52
-	colorB int // 14, 56
+	rad   int // 0, 0
+	mul1  int // 1, 4
+	mul2  int // 2, 8
+	color RGB // 12, 48
 }
 
 // Particle represents a particle prototype that can be drawn multiple times at different positions.
@@ -59,12 +57,10 @@ func (p *Particle) Free() {
 func (r *NoxRender) newParticle(mul1, mul2 int) *Particle {
 	rad := int(r.p.field_262)
 	opt := particleOpt{
-		rad:    rad,
-		mul1:   mul1,
-		mul2:   mul2,
-		colorR: int(r.p.field_54),
-		colorG: int(r.p.field_55),
-		colorB: int(r.p.field_56),
+		rad:   rad,
+		mul1:  mul1,
+		mul2:  mul2,
+		color: r.p.color54,
 	}
 	if p := r.particles.byOpts[opt]; p != nil {
 		return p
@@ -94,18 +90,18 @@ func (p *Particle) genImage() {
 	data = data[4:]
 	data = data[1:] // skip
 
-	c1R := uint32((mul1*p.opt.colorR)&0xffff) >> 8
-	c1G := uint32((mul1*p.opt.colorG)&0xffff) >> 8
-	c1B := uint32((mul1*p.opt.colorB)&0xffff) >> 8
+	c1R := uint32((mul1*p.opt.color.R)&0xffff) >> 8
+	c1G := uint32((mul1*p.opt.color.G)&0xffff) >> 8
+	c1B := uint32((mul1*p.opt.color.B)&0xffff) >> 8
 	c3R := c1R << 16
 	c4R := c1R << 16
-	c2R := int((((uint32(mul2*p.opt.colorR)>>8)&0xFF)-c1R)<<16) / rr
+	c2R := int((((uint32(mul2*p.opt.color.R)>>8)&0xFF)-c1R)<<16) / rr
 	c3G := c1G << 16
 	c4G := c1G << 16
-	c2G := int((((uint32(mul2*p.opt.colorG)>>8)&0xFF)-c1G)<<16) / rr
+	c2G := int((((uint32(mul2*p.opt.color.G)>>8)&0xFF)-c1G)<<16) / rr
 	c3B := c1B << 16
 	c4B := c1B << 16
-	c2B := int((((uint32(mul2*p.opt.colorB)>>8)&0xFF)-c1B)<<16) / rr
+	c2B := int((((uint32(mul2*p.opt.color.B)>>8)&0xFF)-c1B)<<16) / rr
 	if rr == 0 {
 		return
 	}
@@ -176,7 +172,7 @@ func (r *NoxRender) DrawGlow(pos image.Point, cl color.Color, a3 int, a4 int) { 
 		return
 	}
 	c := noxrender.SplitColor(noxcolor.ToRGBA5551Color(cl))
-	r.Data().setColorInt54(ColorInt{R: int(c.R), G: int(c.G), B: int(c.B)})
+	r.Data().setColorInt54(RGB{R: int(c.R), G: int(c.G), B: int(c.B)})
 	r.Data().setField262(a3 + 4)
 	p := r.newParticle(0, int(32*byte(a4)))
 	p.DrawAt(pos)

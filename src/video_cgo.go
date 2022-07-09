@@ -541,7 +541,7 @@ func sub_4AEBD0() {
 
 func sub_49F610(sz image.Point) {
 	p := noxrend.Data()
-	p.flag_0 = 0
+	p.useClip = 0
 	p.SetClipRect(image.Rectangle{Max: sz})
 	p.SetClipRect2(image.Rectangle{Max: image.Pt(sz.X-1, sz.Y-1)})
 	p.SetRect3(image.Rectangle{Max: sz})
@@ -551,7 +551,7 @@ func sub_49F610(sz image.Point) {
 //export sub_49FC20
 func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 	var ys, ye int
-	if p := noxrend.Data(); p.flag_0 != 0 {
+	if p := noxrend.Data(); p.useClip != 0 {
 		rect2 := p.ClipRect2()
 		ys = rect2.Min.Y
 		ye = rect2.Max.Y
@@ -779,7 +779,7 @@ func nox_client_drawXxx_444AC0(w, h int, flags int) error {
 func sub_48B680(a1 int) {
 	p := noxrend.Data()
 	if a1 != int(p.field_15) {
-		p.field_14 = C.uint(a1)
+		p.multiply14 = uint32(a1)
 	}
 }
 

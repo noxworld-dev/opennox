@@ -117,7 +117,7 @@ var (
 	nox_client_texturedFloors2_154960 = true
 	partViewportOff                   image.Point
 
-	nox_arr2_853BC0  [lightGridW][lightGridH]ColorInt
+	nox_arr2_853BC0  [lightGridW][lightGridH]RGB
 	nox_arr_84EB20   [lightGridW]nox_arr_84EB20_t
 	lightsOutBuf     []uint32
 	nox_light_8529A0 [512]int
@@ -125,7 +125,7 @@ var (
 
 type nox_arr_84EB20_t struct {
 	Y  int
-	Cl [common.GridStep]ColorInt
+	Cl [common.GridStep]RGB
 }
 
 //export sub_473970
@@ -429,7 +429,7 @@ func sub_4338D0() int {
 //export nox_draw_set54RGB32_434040
 func nox_draw_set54RGB32_434040(cl C.int) {
 	c := noxrender.SplitColor(noxcolor.RGBA5551(cl))
-	noxrend.Data().setColorInt54(ColorInt{
+	noxrend.Data().setColorInt54(RGB{
 		R: int(c.R),
 		G: int(c.G),
 		B: int(c.B),
@@ -459,10 +459,10 @@ func (r *NoxRender) setColorMultAndIntensity(cl color.Color) {
 
 func (r *NoxRender) setColorMultAndIntensityRGB(cr, cg, cb byte) byte {
 	d := r.Data()
-	d.field_16 = C.uint(bool2int(cr == 0xFF && cg == 0xFF && cb == 0xFF))
+	d.flag16 = uint32(bool2int(cr == 0xFF && cg == 0xFF && cb == 0xFF))
 	d.SetColorMultA(noxrender.Color16{R: uint16(cr), G: uint16(cg), B: uint16(cb)})
 	v := r.ColorIntensity(cr, cg, cb)
-	d.field_258_2 = C.ushort(v)
+	d.intensity258 = uint16(v)
 	return v
 }
 
@@ -503,7 +503,7 @@ func nox_xxx_draw_434600(a1 C.int) {
 
 //export sub_434990
 func sub_434990(r, g, b C.int) {
-	noxrend.Data().SetLightColor(ColorInt{
+	noxrend.Data().SetLightColor(RGB{
 		R: int(r),
 		G: int(g),
 		B: int(b),
@@ -513,7 +513,7 @@ func sub_434990(r, g, b C.int) {
 //export sub_4349C0
 func sub_4349C0(a1 *C.uint) {
 	arr := unsafe.Slice(a1, 3)
-	noxrend.Data().SetLightColor(ColorInt{
+	noxrend.Data().SetLightColor(RGB{
 		R: int(arr[0]),
 		G: int(arr[1]),
 		B: int(arr[2]),
@@ -992,7 +992,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	C.sub_476680()
 }
 
-type ColorInt struct {
+type RGB struct {
 	R, G, B int
 }
 
@@ -1017,7 +1017,7 @@ func sub_468F80(vp *Viewport) {
 	} else {
 		cl := noxrend.Data().GetLightColor()
 		if nox_xxx_get_57AF20() != 0 {
-			cl = ColorInt{R: 50, G: 50, B: 50}
+			cl = RGB{R: 50, G: 50, B: 50}
 		}
 		for i := 0; i < lightGridW; i++ {
 			for j := 0; j < lightGridH; j++ {
@@ -1326,17 +1326,17 @@ func sub_469920(p *C.nox_point) *C.char {
 	c01 := nox_arr2_853BC0[xd+0][yd+1]
 	c11 := nox_arr2_853BC0[xd+1][yd+1]
 
-	var cr1 ColorInt
+	var cr1 RGB
 	cr1.R = c00.R + xr*(c10.R-c00.R)/lightGrid
 	cr1.G = c00.G + xr*(c10.G-c00.G)/lightGrid
 	cr1.B = c00.B + xr*(c10.B-c00.B)/lightGrid
 
-	var cr2 ColorInt
+	var cr2 RGB
 	cr2.R = c01.R + xr*(c11.R-c01.R)/lightGrid
 	cr2.G = c01.G + xr*(c11.G-c01.G)/lightGrid
 	cr2.B = c01.B + xr*(c11.B-c01.B)/lightGrid
 
-	var res ColorInt
+	var res RGB
 	res.R = cr1.R + yr*(cr2.R-cr1.R)/lightGrid
 	res.G = cr1.G + yr*(cr2.G-cr1.G)/lightGrid
 	res.B = cr1.B + yr*(cr2.B-cr1.B)/lightGrid
@@ -1364,7 +1364,7 @@ func noxTileUpdateLightXxx(p image.Point) {
 	dcb := nox_light_8529A0[255+(c2b-c1b)>>8]
 
 	for i := 0; i < lightGrid; i++ {
-		nox_arr_84EB20[p.X].Cl[i] = ColorInt{R: c1r, G: c1g, B: c1b}
+		nox_arr_84EB20[p.X].Cl[i] = RGB{R: c1r, G: c1g, B: c1b}
 		c1r += dcr
 		c1g += dcg
 		c1b += dcb
@@ -1388,7 +1388,7 @@ func sub_4695E0(a1, a2 int, pcl *int32, a4 int, flip bool) {
 
 	ptr := &nox_arr2_853BC0[a1][a2]
 
-	var res ColorInt
+	var res RGB
 	res.R = v6 + ptr.R
 	res.G = v7 + ptr.G
 	res.B = v8 + ptr.B
@@ -2032,7 +2032,7 @@ func (r *NoxRender) DrawImageAt(img *Image, pos image.Point) {
 	if C.dword_5d4594_3799452 != 0 {
 		C.nox_xxx_wndDraw_49F7F0()
 		C.sub_49F780(C.int(memmap.Int32(0x973F18, 52)), C.int(memmap.Int32(0x973F18, 12)))
-		r.p.flag_0 = 1
+		r.p.useClip = 1
 	}
 	r.HookImageDrawXxx = func(pos image.Point, sz image.Point) {
 		*memmap.PtrInt32(0x973F18, 92) = int32(pos.X)
@@ -2226,7 +2226,7 @@ func (r *NoxRender) drawParticles49ED80(mul2 int) bool {
 		r.DrawLineAlpha(pos1, pos2, r.Data().Color2())
 		return true
 	}
-	if d.flag_0 != 0 && !r.clipToRect2(&pos1, &pos2) {
+	if d.useClip != 0 && !r.clipToRect2(&pos1, &pos2) {
 		return true
 	}
 	dx := pos2.X - pos1.X
