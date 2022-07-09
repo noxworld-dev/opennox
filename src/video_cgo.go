@@ -236,26 +236,34 @@ func nox_video_callCopyBackBuffer_4AD170() {
 	copyPixBuffer()
 }
 
-var videoInitDone = false
+var (
+	videoInitDone = false
+	renderData1   *RenderData
+	renderData2   *RenderData
+)
 
 func videoInit(sz image.Point, flags int) error {
 	C.dword_5d4594_823776 = 0
-	noxrend.SetData(asRenderData(&C.obj_5D4594_3799660))
+	if renderData1 == nil {
+		renderData1, _ = alloc.New(RenderData{})
+		renderData2, _ = alloc.New(RenderData{})
+	}
+	noxrend.SetData(renderData1)
 	C.nox_draw_curDrawData_3799572 = noxrend.Data().C()
 	if err := drawInitAll(sz, flags); err != nil {
 		videoLog.Println("init:", err)
 		return err
 	}
-	noxrend.SetData(asRenderData(&C.obj_5D4594_3800716))
+	noxrend.SetData(renderData2)
 	C.nox_draw_curDrawData_3799572 = noxrend.Data().C()
-	C.obj_5D4594_3800716 = C.obj_5D4594_3799660
+	*renderData2 = *renderData1
 	C.dword_5d4594_823776 = 1
 	videoInitDone = true
 	return nil
 }
 
 func videoInitStub() {
-	noxrend.SetData(asRenderData(&C.obj_5D4594_3800716))
+	noxrend.SetData(renderData2)
 	C.nox_draw_curDrawData_3799572 = noxrend.Data().C()
 	C.dword_5d4594_823776 = 1
 	C.nox_win_width = noxDefaultWidth

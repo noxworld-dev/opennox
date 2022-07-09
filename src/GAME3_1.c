@@ -140,7 +140,6 @@ extern int nox_backbuffer_depth;
 extern unsigned int nox_video_dxUnlockSurface;
 
 extern nox_render_data_t* nox_draw_curDrawData_3799572;
-extern nox_render_data_t obj_5D4594_3800716;
 
 nox_gui_animation* nox_wnd_xxx_1522608 = 0;
 

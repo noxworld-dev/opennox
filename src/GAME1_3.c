@@ -164,8 +164,6 @@ nox_thing** nox_things_array = 0;
 int nox_things_count = 0;
 
 extern nox_render_data_t* nox_draw_curDrawData_3799572;
-nox_render_data_t obj_5D4594_3799660 = {0};
-nox_render_data_t obj_5D4594_3800716 = {0};
 
 nox_gui_animation* nox_wnd_xxx_829520 = 0;
 nox_gui_animation* nox_wnd_xxx_830244 = 0;

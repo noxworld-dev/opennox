@@ -113,7 +113,6 @@ const int nox_max_npcs = 1024;
 nox_npc* npc_array;
 
 extern nox_render_data_t* nox_draw_curDrawData_3799572;
-extern nox_render_data_t obj_5D4594_3800716;
 
 void* dword_5d4594_810640 = 0;
 

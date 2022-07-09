@@ -63,8 +63,6 @@ extern int nox_win_width;
 extern int nox_win_height;
 
 extern nox_render_data_t* nox_draw_curDrawData_3799572;
-extern nox_render_data_t obj_5D4594_3799660;
-extern nox_render_data_t obj_5D4594_3800716;
 
 extern uint32_t dword_974854;
 

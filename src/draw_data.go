@@ -15,10 +15,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 )
 
-func asRenderData(p *C.nox_render_data_t) *RenderData {
-	return (*RenderData)(unsafe.Pointer(p))
-}
-
 type RenderData C.nox_render_data_t
 
 func (p *RenderData) C() *C.nox_render_data_t {
