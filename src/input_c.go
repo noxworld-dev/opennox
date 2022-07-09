@@ -96,11 +96,11 @@ func inputClearKeyTimeouts() {
 }
 
 func nox_xxx_spriteGetMB_476F80() *Drawable {
-	return asDrawable((*C.nox_drawable)(C.dword_5d4594_1096640))
+	return asDrawable((*nox_drawable)(C.dword_5d4594_1096640))
 }
 
 func nox_xxx_clientGetSpriteAtCursor_476F90() *Drawable {
-	return asDrawable((*C.nox_drawable)(C.nox_client_spriteUnderCursorXxx_1096644))
+	return asDrawable((*nox_drawable)(C.nox_client_spriteUnderCursorXxx_1096644))
 }
 
 func nox_xxx_guiSpellTest_45D9C0() bool {

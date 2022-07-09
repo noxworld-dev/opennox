@@ -14,7 +14,7 @@ import (
 )
 
 //export nox_thing_debug_draw
-func nox_thing_debug_draw(cvp *C.nox_draw_viewport_t, cdr *C.nox_drawable) C.int {
+func nox_thing_debug_draw(cvp *nox_draw_viewport_t, cdr *nox_drawable) C.int {
 	r := noxrend
 	vp := asViewport(cvp)
 	dr := asDrawable(cdr)

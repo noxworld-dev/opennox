@@ -71,11 +71,6 @@ enum {
 
 void nox_exit(int exitCode);
 
-static int __CFSHL__(int x, int y) {
-	abort();
-	return 0;
-}
-
 // saturating 8-bit addition
 static uint8_t SADD8(uint8_t x, uint8_t y) {
 	unsigned int z = x + y;
@@ -1316,7 +1311,7 @@ _Static_assert(sizeof(nox_parseWindowFunc) == 8, "wrong size of nox_parseWindowF
 typedef struct nox_drawable {
 	uint32_t field_0;     // 0, 0
 	uint32_t field_1;     // 1, 4
-	uint32_t field_2;     // 2, 8
+	void* field_2;        // 2, 8
 	nox_point pos;        // 3, 12
 	uint32_t field_5;     // 5, 20
 	uint32_t field_6;     // 6, 24
@@ -1329,7 +1324,7 @@ typedef struct nox_drawable {
 	float field_25;       // 25, 100
 	uint16_t z;    // 26, 104
 	uint16_t field_26_1;    // 26, 106
-	uint32_t field_27;    // 27, 108, thing ID?
+	uint32_t field_27;    // 27, 108, thing ID? pointer? union?
 	unsigned int flags28; // 28, 112
 	unsigned int flags29; // 29, 116
 	unsigned int flags30; // 30, 120
@@ -2116,44 +2111,5 @@ typedef struct nox_gui_server_ent_t {
 } nox_gui_server_ent_t;
 #pragma pack(pop)
 _Static_assert(sizeof(nox_gui_server_ent_t) == 169, "wrong size of nox_gui_server_ent_t structure!");
-
-typedef struct nox_particlefx_t nox_particlefx_t;
-typedef struct nox_particlefx_t {
-	nox_video_bag_image_t* field_0; // 0, 0
-	void* field_4; // 1, 4
-	uint32_t field_8; // 2, 8
-	nox_drawable* drawable; // 3, 12
-	void* drawable_vp; // 4, 16
-	uint32_t field_20; // 5, 20
-	uint32_t color_24; // 6, 24
-	int field_28; // 7, 28
-	int field_32; // 8, 32
-	int field_36; // 9, 36
-	uint32_t field_40; // 10, 40
-	int field_44; // 11, 44
-	int field_48; // 12, 48
-	int field_52; // 13, 52
-	uint32_t field_56; // 14, 56
-	uint32_t field_60; // 15, 60
-	int field_64; // 16, 64
-	uint32_t field_68; // 17, 68
-	uint32_t field_72; // 18, 72
-	uint32_t field_76; // 19, 76
-	uint32_t field_80; // 20, 80
-	uint32_t field_84; // 21, 84
-	uint32_t field_88; // 22, 88
-	uint32_t field_92; // 23, 92
-	uint32_t field_96; // 24, 96
-	uint32_t field_100; // 25, 100
-	uint32_t field_104; // 26, 104
-	uint32_t field_108; // 27, 108
-	uint32_t field_112; // 28, 112
-	uint32_t field_116; // 29, 116
-	uint32_t field_120; // 30, 120
-	void (*field_124)(nox_particlefx_t*); // 31, 124
-	void (*field_128)(nox_particlefx_t*); // 32, 128
-	void* field_132; // 33, 132
-} nox_particlefx_t;
-_Static_assert(sizeof(nox_particlefx_t) == 136, "wrong size of nox_particlefx_t structure!");
 
 #endif

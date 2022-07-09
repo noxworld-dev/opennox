@@ -30,14 +30,16 @@ type drawableExt struct {
 	Field99 **Drawable
 }
 
-func asDrawable(p *C.nox_drawable) *Drawable {
+func asDrawable(p *nox_drawable) *Drawable {
 	return (*Drawable)(unsafe.Pointer(p))
 }
 
-type Drawable C.nox_drawable
+type nox_drawable = C.nox_drawable
 
-func (s *Drawable) C() *C.nox_drawable {
-	return (*C.nox_drawable)(unsafe.Pointer(s))
+type Drawable nox_drawable
+
+func (s *Drawable) C() *nox_drawable {
+	return (*nox_drawable)(unsafe.Pointer(s))
 }
 
 func (s *Drawable) field(dp uintptr) unsafe.Pointer {
@@ -176,7 +178,7 @@ func nox_xxx_spriteLoadAdd_45A360_drawable(thingInd int, pos image.Point) *Drawa
 }
 
 //export nox_xxx_sprite_49AA00_drawable
-func nox_xxx_sprite_49AA00_drawable(d *C.nox_drawable) {
+func nox_xxx_sprite_49AA00_drawable(d *nox_drawable) {
 	dr := asDrawable(d)
 	pos := dr.Pos()
 	xi := pos.X / nox_drawable_2d_div
@@ -207,7 +209,7 @@ func nox_xxx_sprite_49AA00_drawable(d *C.nox_drawable) {
 }
 
 //export nox_xxx_sprite_49A9B0_drawable
-func nox_xxx_sprite_49A9B0_drawable(d *C.nox_drawable) C.int {
+func nox_xxx_sprite_49A9B0_drawable(d *nox_drawable) C.int {
 	dr := asDrawable(d)
 	nox_xxx_sprite_2d_remove(dr, dr.Ext())
 	return 0
@@ -266,7 +268,7 @@ func nox_xxx_forEachSprite(rect image.Rectangle, fnc func(dr *Drawable)) {
 }
 
 //export nox_drawable_find_49ABF0
-func nox_drawable_find_49ABF0(pt *C.nox_point, r C.int) *C.nox_drawable {
+func nox_drawable_find_49ABF0(pt *C.nox_point, r C.int) *nox_drawable {
 	return nox_drawable_find(image.Point{X: int(pt.x), Y: int(pt.y)}, int(r)).C()
 }
 

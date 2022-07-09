@@ -4,9 +4,6 @@
 #include "defs.h"
 
 void sub_48C580(pixel8888* a1, int num);
-int sub_48C5E0(int a1, int a2);
-short sub_48C610();
-uint32_t* sub_48C650(int a1, int a2, int a3, uint32_t* a4, uint32_t* a5);
 unsigned int sub_48C690(int a1, int a2, int a3, int a4);
 unsigned int sub_48C6B0(int a1, int a2);
 int nox_xxx_showObserverWindow_48CA70(int a1);
@@ -142,7 +139,7 @@ int sub_49B420(int a1, int a2, int* a3, int a4);
 int sub_49B490();
 int sub_49B6B0();
 void nox_xxx_consoleEsc_49B7A0();
-uint32_t* nox_xxx_spriteTransparentDecay_49B950(uint32_t* a1, int a2);
+uint32_t* nox_xxx_spriteTransparentDecay_49B950(nox_drawable* a1, int a2);
 uint32_t* nox_xxx_sprite_49BA10(nox_drawable* dr);
 int sub_49BA70();
 uint32_t* nox_xxx_spriteToSightDestroyList_49BAB0_drawable(uint32_t* a1);

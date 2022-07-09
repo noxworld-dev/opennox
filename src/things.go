@@ -163,7 +163,7 @@ func nox_thing_read_IMAG_one_42F660(f *MemFile) error {
 		return nil
 	case 2:
 		sz := f.ReadU8()
-		arr, _ := alloc.Make([]*C.nox_video_bag_image_t{}, sz)
+		arr, _ := alloc.Make([]*nox_video_bag_image_t{}, sz)
 		anim, _ := alloc.New(noxImageRefAnim{})
 		anim.on_end = nil
 		anim.images = &arr[0]

@@ -106,7 +106,6 @@ void sub_431700(uint64_t* a1);
 void nox_client_screenParticlesDraw_431720(nox_draw_viewport_t* rdr);
 char* nox_xxx_getHostInfoPtr_431770();
 char* nox_xxx_copyServerIPAndPort_431790(char* a1);
-void nox_draw_set54RGB_433F10(unsigned char a1, unsigned char a2, unsigned char a3);
 void sub_434080(int a1);
 void nox_xxx_drawSetTextColor_434390(int a1);
 void nox_xxx_drawSetColor_4343E0(int a1);

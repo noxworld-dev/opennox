@@ -134,7 +134,7 @@ func sub_473970(a1, a2 *C.int2) {
 	a2.field_4 = C.int(partViewportOff.Y) + a1.field_4
 }
 
-func sub_4739A0(p image.Point) image.Point {
+func partOffsetPos(p image.Point) image.Point {
 	return p.Sub(partViewportOff)
 }
 
@@ -153,7 +153,7 @@ func getViewport() *Viewport {
 	return viewport.ptr
 }
 
-func asViewport(p *C.nox_draw_viewport_t) *Viewport {
+func asViewport(p *nox_draw_viewport_t) *Viewport {
 	return asViewportP(unsafe.Pointer(p))
 }
 
@@ -162,7 +162,7 @@ func asViewportP(p unsafe.Pointer) *Viewport {
 }
 
 //export nox_draw_getViewport_437250
-func nox_draw_getViewport_437250() *C.nox_draw_viewport_t {
+func nox_draw_getViewport_437250() *nox_draw_viewport_t {
 	return getViewport().C()
 }
 
@@ -248,6 +248,8 @@ func nox_xxx_drawPointMB_499B70(a1, a2, a3 C.int) {
 var _ = [1]struct{}{}[52-unsafe.Sizeof(Viewport{})]
 var _ = [1]struct{}{}[4-unsafe.Sizeof(int(0))]
 
+type nox_draw_viewport_t = C.nox_draw_viewport_t
+
 type Viewport struct {
 	Screen   image.Rectangle // 0, 0
 	World    image.Rectangle // 4, 16
@@ -257,8 +259,8 @@ type Viewport struct {
 	field_12 int             // 12, 48
 }
 
-func (vp *Viewport) C() *C.nox_draw_viewport_t {
-	return (*C.nox_draw_viewport_t)(unsafe.Pointer(vp))
+func (vp *Viewport) C() *nox_draw_viewport_t {
+	return (*nox_draw_viewport_t)(unsafe.Pointer(vp))
 }
 
 func (vp *Viewport) ToScreenPos(pos image.Point) image.Point { // sub_4739E0
@@ -431,15 +433,6 @@ func nox_draw_set54RGB32_434040(cl C.int) {
 		R: int(c.R),
 		G: int(c.G),
 		B: int(c.B),
-	})
-}
-
-//export nox_draw_set54RGB_433F10
-func nox_draw_set54RGB_433F10(r, g, b C.uchar) {
-	noxrend.Data().setColorInt54(ColorInt{
-		R: int(r),
-		G: int(g),
-		B: int(b),
 	})
 }
 
@@ -660,9 +653,9 @@ type NoxRender struct {
 	}
 
 	particles struct {
-		byOpts   map[particleOpt]*Particle
-		byHandle map[unsafe.Pointer]*Particle
+		byOpts map[particleOpt]*Particle
 	}
+	partfx partFXes
 }
 
 func newNoxRenderData() (*RenderData, func()) {
@@ -954,7 +947,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	nox_wallsYyy = nox_wallsYyy[:0]
 	C.nox_xxx_drawBlack_496150(vp.C())
 	disableDraw := false
-	if asDrawable((*C.nox_drawable)(*memmap.PtrPtr(0x852978, 8))).HasEnchant(ENCHANT_BLINDED) || C.nox_gameDisableMapDraw_5d4594_2650672 != 0 {
+	if asDrawable((*nox_drawable)(*memmap.PtrPtr(0x852978, 8))).HasEnchant(ENCHANT_BLINDED) || C.nox_gameDisableMapDraw_5d4594_2650672 != 0 {
 		disableDraw = true
 	}
 	if C.nox_client_gui_flag_1556112 != 0 || disableDraw {
@@ -986,7 +979,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	sub_475FE0(vp)
 	C.nox_video_drawCursorSelectCircle_4773C0(vp.C())
 	nox_xxx_drawAllMB_475810_draw_E(vp)
-	C.sub_4AFD40()
+	r.partfx.Draw()
 	C.sub_4C5060(vp.C())
 	nox_client_maybeDrawFrontWalls(vp)
 	r.DrawFade(false)
@@ -1993,7 +1986,7 @@ func nox_client_maybeDrawFrontWalls(vp *Viewport) { // nox_client_maybeDrawFront
 }
 
 //export sub_4745F0
-func sub_4745F0(cvp *C.nox_draw_viewport_t) {
+func sub_4745F0(cvp *nox_draw_viewport_t) {
 	sub4745F0(asViewport(cvp))
 }
 func sub4745F0(vp *Viewport) {
@@ -2066,7 +2059,7 @@ func (r *NoxRender) DrawImageAt(img *Image, pos image.Point) {
 }
 
 //export nox_client_drawImageAt_47D2C0
-func nox_client_drawImageAt_47D2C0(img *C.nox_video_bag_image_t, x, y C.int) {
+func nox_client_drawImageAt_47D2C0(img *nox_video_bag_image_t, x, y C.int) {
 	noxrend.DrawImageAt(asImage(img), image.Point{X: int(x), Y: int(y)})
 }
 
@@ -2091,7 +2084,7 @@ func sub_47D200() {
 }
 
 //export nox_draw_imageMeta_47D5C0
-func nox_draw_imageMeta_47D5C0(img *C.nox_video_bag_image_t, px, py, pw, ph *C.uint) C.int {
+func nox_draw_imageMeta_47D5C0(img *nox_video_bag_image_t, px, py, pw, ph *C.uint) C.int {
 	if img == nil {
 		return 0
 	}
@@ -2101,27 +2094,27 @@ func nox_draw_imageMeta_47D5C0(img *C.nox_video_bag_image_t, px, py, pw, ph *C.u
 	if ph != nil {
 		*ph = 0
 	}
-	pix := asImage(img).Pixdata()
-	if len(pix) < 16 {
+	off, sz, ok := asImage(img).Meta()
+	if !ok {
 		return 0
 	}
-	if pw != nil {
-		*pw = C.uint(binary.LittleEndian.Uint32(pix[0:]))
-	}
-	if ph != nil {
-		*ph = C.uint(binary.LittleEndian.Uint32(pix[4:]))
-	}
 	if px != nil {
-		*px += C.uint(binary.LittleEndian.Uint32(pix[8:]))
+		*px += C.uint(off.X)
 	}
 	if py != nil {
-		*py += C.uint(binary.LittleEndian.Uint32(pix[12:]))
+		*py += C.uint(off.Y)
+	}
+	if pw != nil {
+		*pw = C.uint(sz.X)
+	}
+	if ph != nil {
+		*ph = C.uint(sz.Y)
 	}
 	return 1
 }
 
 //export nox_video_getImagePixdata_42FB30
-func nox_video_getImagePixdata_42FB30(img *C.nox_video_bag_image_t) unsafe.Pointer {
+func nox_video_getImagePixdata_42FB30(img *nox_video_bag_image_t) unsafe.Pointer {
 	data := asImage(img).Pixdata()
 	if len(data) == 0 {
 		return nil

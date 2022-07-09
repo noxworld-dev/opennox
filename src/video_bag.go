@@ -8,7 +8,9 @@ extern void* dword_5d4594_1189596;
 import "C"
 
 import (
+	"encoding/binary"
 	"fmt"
+	"image"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/bag"
@@ -32,7 +34,9 @@ func init() {
 	noxImages.byHandle = make(map[unsafe.Pointer]*Image)
 }
 
-func asImage(p *C.nox_video_bag_image_t) *Image {
+type nox_video_bag_image_t = C.nox_video_bag_image_t
+
+func asImage(p *nox_video_bag_image_t) *Image {
 	return asImageP(unsafe.Pointer(p))
 }
 
@@ -81,7 +85,7 @@ func (img *Image) String() string {
 	return fmt.Sprintf("{type=%d, raw=[%d]}", img.Type(), len(img.raw))
 }
 
-func (img *Image) C() *C.nox_video_bag_image_t {
+func (img *Image) C() *nox_video_bag_image_t {
 	if img == nil {
 		return nil
 	}
@@ -92,7 +96,7 @@ func (img *Image) C() *C.nox_video_bag_image_t {
 		img.h = handles.NewPtr()
 		noxImages.byHandle[img.h] = img
 	}
-	return (*C.nox_video_bag_image_t)(img.h)
+	return (*nox_video_bag_image_t)(img.h)
 }
 
 func (img *Image) Type() int {
@@ -147,6 +151,24 @@ func (img *Image) Pixdata() []byte {
 	return img.cdata
 }
 
+func (img *Image) Meta() (off, sz image.Point, ok bool) {
+	pix := img.Pixdata()
+	if len(pix) < 8 {
+		ok = false
+		return
+	}
+	sz.X = int(binary.LittleEndian.Uint32(pix[0:]))
+	sz.Y = int(binary.LittleEndian.Uint32(pix[4:]))
+	if len(pix) < 16 {
+		ok = false
+		return
+	}
+	ok = true
+	off.X = int(binary.LittleEndian.Uint32(pix[8:]))
+	off.Y = int(binary.LittleEndian.Uint32(pix[12:]))
+	return
+}
+
 func readVideobag(path string) error {
 	f, err := bag.Open(path)
 	if err != nil {
@@ -191,12 +213,12 @@ func (img *Image) bagPixdata() []byte { // nox_video_getImagePixdata_42FB30
 }
 
 //export nox_video_bag_image_type
-func nox_video_bag_image_type(img *C.nox_video_bag_image_t) C.int {
+func nox_video_bag_image_type(img *nox_video_bag_image_t) C.int {
 	return C.int(asImage(img).Type())
 }
 
 //export nox_xxx_readImgMB_42FAA0
-func nox_xxx_readImgMB_42FAA0(known_idx C.int, typ C.char, cname2 *C.char) *C.nox_video_bag_image_t {
+func nox_xxx_readImgMB_42FAA0(known_idx C.int, typ C.char, cname2 *C.char) *nox_video_bag_image_t {
 	if known_idx != -1 {
 		return bagImageByIndex(int(known_idx)).C()
 	}
@@ -212,7 +234,7 @@ func nox_xxx_readImgMB42FAA0(ind int, typ byte, name2 string) *Image {
 }
 
 //export nox_xxx_gLoadImg_42F970
-func nox_xxx_gLoadImg_42F970(name *C.char) *C.nox_video_bag_image_t {
+func nox_xxx_gLoadImg_42F970(name *C.char) *nox_video_bag_image_t {
 	return nox_xxx_gLoadImg(GoString(name)).C()
 }
 
@@ -296,7 +318,7 @@ func (r *noxImageRefAnim) C() *C.nox_things_imageRef2_t {
 	return (*C.nox_things_imageRef2_t)(unsafe.Pointer(r))
 }
 
-func (r *noxImageRefAnim) Images() []*C.nox_video_bag_image_t {
+func (r *noxImageRefAnim) Images() []*nox_video_bag_image_t {
 	return unsafe.Slice(r.images, r.images_sz)
 }
 

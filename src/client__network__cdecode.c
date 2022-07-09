@@ -86,6 +86,7 @@ void nox_client_onMapDownloadAbort();
 
 void clientPacketFade(bool a1, int fnc);
 void nox_client_onDeathRay(int p1x, int p1y, int p2x, int p2y);
+void nox_client_onParticleFx(int code, nox_drawable* a1, int a2, int a3, int a4);
 
 uint32_t nox_client_fadeObjects_80836 = 1;
 
@@ -314,7 +315,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 	int v235;                 // eax
 	int v236;                 // eax
 	int v237;                 // esi
-	uint32_t* v238;             // eax
 	int v239;                 // ebx
 	int v240;                 // edi
 	int v241;                 // esi
@@ -1872,46 +1872,17 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			sub_467CA0();
 			++data;
 			break;
-		case 124:
+		case 124: // MSG_FX_PARTICLEFX
 			v236 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 8));
 			v237 = v236;
 			if (nox_client_isConnected_43C700()) {
-				if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 8))) {
-					v238 = nox_xxx_netSpriteByCodeStatic_45A720(v237);
+				nox_drawable* dr = 0;
+				if (nox_xxx_netTestHighBit_578B70(*(uint16_t*)(data + 8))) {
+					dr = nox_xxx_netSpriteByCodeStatic_45A720(v237);
 				} else {
-					v238 = nox_xxx_netSpriteByCodeDynamic_45A6F0(v237);
+					dr = nox_xxx_netSpriteByCodeDynamic_45A6F0(v237);
 				}
-				HIWORD(k) = 0;
-				v382[0] = (int)v238;
-				LOWORD(k) = *(uint16_t*)(data + 2);
-				HIWORD(v5) = 0;
-				v382[5] = (unsigned short)k;
-				WORD2(v5) = *(uint16_t*)(data + 4);
-				v382[6] = WORD2(v5);
-				v382[7] = *(unsigned short*)(data + 6);
-				switch (*(unsigned char*)(data + 1)) {
-				case 0u:
-					nox_xxx_ParticleFxT0_4AEEA0((unsigned char**)v382);
-					break;
-				case 1u:
-					nox_xxx_ParticleFxT1_4AEF80(v382);
-					break;
-				case 2u:
-					nox_xxx_ParticleFxT2_4AF0F0((unsigned char**)v382);
-					break;
-				case 3u:
-					nox_xxx_ParticleFxT3_4AF2A0((unsigned char**)v382);
-					break;
-				case 4u:
-					nox_xxx_ParticleFxT4_4AF3D0(v382);
-					break;
-				case 5u:
-					nox_xxx_ParticleFxT5_4AF450(v382);
-					break;
-				case 6u:
-					nox_xxx_ParticleFxT6_4AF5A0(v382);
-					break;
-				}
+				nox_client_onParticleFx(*(unsigned char*)(data + 1), dr, *(uint16_t*)(data + 2), *(uint16_t*)(data + 4), *(uint16_t*)(data + 6));
 			}
 			data += 14;
 			break;

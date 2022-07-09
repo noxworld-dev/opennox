@@ -17,22 +17,16 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 )
 
 func (r *NoxRender) initParticles() {
 	r.particles.byOpts = make(map[particleOpt]*Particle)
-	r.particles.byHandle = make(map[unsafe.Pointer]*Particle)
 }
 
 func (r *NoxRender) freeParticles() {
 	for _, it := range r.particles.byOpts {
 		it.Free()
 	}
-}
-
-func (r *NoxRender) asParticle(p unsafe.Pointer) *Particle {
-	return r.particles.byHandle[p]
 }
 
 type particleOpt struct {
@@ -47,35 +41,19 @@ type particleOpt struct {
 // Particle represents a particle prototype that can be drawn multiple times at different positions.
 type Particle struct {
 	r    *NoxRender
-	hnd  unsafe.Pointer
 	img  *Image
 	opt  particleOpt
 	data []byte // 16, 64
-}
-
-func (p *Particle) C() unsafe.Pointer {
-	if p.hnd == nil {
-		p.hnd = handles.NewPtr()
-		p.r.particles.byHandle[p.hnd] = p
-	}
-	return p.hnd
 }
 
 func (p *Particle) Free() {
 	alloc.FreeSlice(p.data)
 	p.data = nil
 	delete(p.r.particles.byOpts, p.opt)
-	delete(p.r.particles.byHandle, p.hnd)
 	p.r = nil
-	p.hnd = nil
 	if p.img != nil && p.img.cfree != nil {
 		p.img.cfree()
 	}
-}
-
-//export sub_4B0680
-func sub_4B0680(a1, a2 C.uchar) unsafe.Pointer {
-	return noxrend.newParticle(int(a1), int(a2)).C()
 }
 
 func (r *NoxRender) newParticle(mul1, mul2 int) *Particle {

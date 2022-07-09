@@ -139,59 +139,6 @@ void sub_48C580(pixel8888* a1, int num) {
 	}
 }
 
-//----- (0048C5E0) --------------------------------------------------------
-int sub_48C5E0(int a1, int a2) {
-	unsigned int v2; // eax
-	int v3;          // ecx
-	bool v4;         // tt
-
-	v2 = *getMemU32Ptr(0x587000, 156212);
-	v3 = 32;
-	do {
-		v4 = __CFSHL__(v2, 1);
-		v2 = __ROL4__(v2, 1);
-		if (v4) {
-			v2 ^= 0xA0Au;
-		}
-		--v3;
-	} while (v3);
-	*getMemU32Ptr(0x587000, 156212) = v2;
-	return a1 + (((unsigned int)(a2 - a1) * (unsigned long long)v2) >> 32);
-}
-
-//----- (0048C610) --------------------------------------------------------
-short sub_48C610() {
-	int v0;  // eax
-	int v1;  // ecx
-	bool v2; // tt
-
-	v0 = *getMemU32Ptr(0x587000, 156216);
-	v1 = 16;
-	do {
-		v2 = __CFSHL__(v0, 1);
-		LOWORD(v0) = __ROL2__(v0, 1);
-		if (v2) {
-			v0 ^= 0xAu;
-		}
-		--v1;
-	} while (v1);
-	*getMemU32Ptr(0x587000, 156216) = v0;
-	return v0;
-}
-
-//----- (0048C650) --------------------------------------------------------
-uint32_t* sub_48C650(int a1, int a2, int a3, uint32_t* a4, uint32_t* a5) {
-	int v5;           // eax
-	uint32_t* result; // eax
-
-	v5 = sub_48C5E0(a1, a2);
-	sub_4AEDA0(&a2, &a1, v5, a3);
-	*a4 += a2;
-	result = a5;
-	*a5 += a1;
-	return result;
-}
-
 //----- (0048C690) --------------------------------------------------------
 unsigned int sub_48C690(int a1, int a2, int a3, int a4) {
 	return sub_48C730((a3 - a1) * (a3 - a1) + (a4 - a2) * (a4 - a2));
@@ -5569,7 +5516,8 @@ void nox_xxx_consoleEsc_49B7A0() {
 // 49B881: variable 'v2' is possibly undefined
 
 //----- (0049B950) --------------------------------------------------------
-uint32_t* nox_xxx_spriteTransparentDecay_49B950(uint32_t* a1, int a2) {
+uint32_t* nox_xxx_spriteTransparentDecay_49B950(nox_drawable* a1p, int a2) {
+	uint32_t* a1 = a1p;
 	unsigned int v2;  // edx
 	uint32_t* result; // eax
 	uint32_t* v4;     // ecx

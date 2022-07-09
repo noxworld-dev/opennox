@@ -174,7 +174,7 @@ func mainloopDrawAndPresent(inp *input.Handler) {
 func DrawSparks() {
 	if C.nox_client_gui_flag_815132 != 0 {
 		sz := videoGetWindowSize()
-		rdr, rdrFree := alloc.New(C.nox_draw_viewport_t{})
+		rdr, rdrFree := alloc.New(nox_draw_viewport_t{})
 		defer rdrFree()
 		rdr.x1 = 0
 		rdr.y1 = 0

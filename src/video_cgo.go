@@ -277,9 +277,7 @@ func drawInitAll(sz image.Point, flags int) error {
 	}
 	noxrend.initParticles()
 	sub_4B02D0()
-	if res := C.sub_4AF8D0(); res == 0 {
-		return errors.New("sub_4AF8D0 failed")
-	}
+	noxrend.partfx.Init(noxrend)
 	sub_4AE520()
 	if err := loadGameFonts(); err != nil {
 		return err
@@ -902,7 +900,7 @@ func nox_xxx_cursorGetDraggedItem_477680() *Drawable {
 }
 
 //export nox_xxx_cursorSetDraggedItem_477690
-func nox_xxx_cursorSetDraggedItem_477690(a1 *C.nox_drawable) {
+func nox_xxx_cursorSetDraggedItem_477690(a1 *nox_drawable) {
 	nox_client_itemDragnDrop_1097188 = asDrawable(a1)
 }
 
@@ -989,7 +987,7 @@ func sub_444C50() {
 		nox_draw_freeColorTables_433C20()
 		noxrend.FadeReset()
 		noxrend.freeParticles()
-		C.sub_4AF950()
+		noxrend.partfx.Free()
 		sub_4AE540()
 		nox_xxx_FontDestroy_43F2E0()
 		C.dword_5d4594_823776 = 0

@@ -34,21 +34,27 @@ type number interface {
 		~uintptr
 }
 
+// New is an analog of builtin new that allocates on C heap.
+// Since passing types as parameters is not supported, the first argument must be a value, instead of a type.
 func New[T comparable](zero T) (*T, func()) {
 	ptr, free := Malloc(unsafe.Sizeof(zero))
 	return (*T)(ptr), free
 }
 
-func Make[T comparable, N number](_ []T, n N) ([]T, func()) {
+// Make is an analog of builtin make that allocates on C heap.
+// Since passing types as parameters is not supported, the first argument must be a slice value, instead of a type.
+// If the slice value is not empty, the content of it will be copied to the beginning of a new slice.
+func Make[T comparable, N number](src []T, n N) ([]T, func()) {
 	var elem T
 	ptr, free := Calloc(int(n), unsafe.Sizeof(elem))
-	return unsafe.Slice((*T)(ptr), n), free
+	out := unsafe.Slice((*T)(ptr), n)
+	copy(out, src)
+	return out, free
 }
 
+// CloneSlice copies the slice to the C heap.
 func CloneSlice[T comparable](src []T) ([]T, func()) {
-	dst, free := Make([]T{}, len(src))
-	copy(dst, src)
-	return dst, free
+	return Make(src, len(src))
 }
 
 func Realloc(ptr unsafe.Pointer, size uintptr) unsafe.Pointer {
