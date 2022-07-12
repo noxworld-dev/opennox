@@ -183,8 +183,6 @@ int ptr_5D4594_754092_cnt = 0;
 
 int obj_5D4594_754104_switch = 0;
 
-nox_render_data_t* nox_draw_curDrawData_3799572 = 0;
-
 nox_screenParticle* nox_screenParticles_head = 0;
 nox_screenParticle* dword_5d4594_806052 = 0;
 

@@ -62,8 +62,6 @@ extern int nox_enable_audio;
 extern int nox_win_width;
 extern int nox_win_height;
 
-extern nox_render_data_t* nox_draw_curDrawData_3799572;
-
 extern uint32_t dword_974854;
 
 extern int g_scaled;

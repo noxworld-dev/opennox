@@ -51,6 +51,8 @@ extern uint32_t nox_color_yellow_2589772;
 extern uint32_t nox_color_violet_2598268;
 extern uint32_t nox_color_black_2650656;
 extern uint32_t nox_color_orange_2614256;
+
+extern nox_render_data_t* nox_draw_curDrawData_3799572;
 */
 import "C"
 import (

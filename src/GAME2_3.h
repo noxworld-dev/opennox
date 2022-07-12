@@ -181,7 +181,7 @@ int sub_49F6D0(int a1);
 int4* nox_client_copyRect_49F6F0(int xLeft, int yTop, int a3, int a4);
 int4* sub_49F780(int xLeft, int a2);
 void sub_49F7C0_def();
-int nox_xxx_wndDraw_49F7F0();
+void nox_xxx_wndDraw_49F7F0();
 int sub_49F860();
 bool sub_49F8E0(int x, int y, int d);
 int4* nox_xxx_utilRect_49F930(int4* a1, int4* a2, int4* a3);

@@ -112,7 +112,7 @@ extern uint32_t nox_color_orange_2614256;
 const int nox_max_npcs = 1024;
 nox_npc* npc_array;
 
-extern nox_render_data_t* nox_draw_curDrawData_3799572;
+nox_render_data_t* nox_draw_curDrawData_3799572 = 0;
 
 void* dword_5d4594_810640 = 0;
 
@@ -6138,14 +6138,9 @@ int4* sub_49F780(int xLeft, int a2) {
 }
 
 //----- (0049F7F0) --------------------------------------------------------
-int nox_xxx_wndDraw_49F7F0() {
-	int result; // eax
-	int v1;     // edx
-
-	result = dword_5d4594_1305748;
+void nox_xxx_wndDraw_49F7F0() {
 	if (!dword_5d4594_1305748) {
 		*getMemU32Ptr(0x5D4594, 1305772) = nox_draw_curDrawData_3799572->flag_0;
-		result = (uint32_t)(&nox_draw_curDrawData_3799572->rect2);
 		*getMemU32Ptr(0x5D4594, 1305756) = nox_draw_curDrawData_3799572->clip.min_x;
 		*getMemU32Ptr(0x5D4594, 1305760) = nox_draw_curDrawData_3799572->clip.min_y;
 		*getMemU32Ptr(0x5D4594, 1305764) = nox_draw_curDrawData_3799572->clip.max_x;
@@ -6153,11 +6148,9 @@ int nox_xxx_wndDraw_49F7F0() {
 		*getMemU32Ptr(0x5D4594, 1305732) = nox_draw_curDrawData_3799572->rect2.min_x;
 		*getMemU32Ptr(0x5D4594, 1305736) = nox_draw_curDrawData_3799572->rect2.min_y;
 		*getMemU32Ptr(0x5D4594, 1305740) = nox_draw_curDrawData_3799572->rect2.max_x;
-		v1 = nox_draw_curDrawData_3799572->rect2.max_y;
+		*getMemU32Ptr(0x5D4594, 1305744) = nox_draw_curDrawData_3799572->rect2.max_y;
 		dword_5d4594_1305748 = 1;
-		*getMemU32Ptr(0x5D4594, 1305744) = v1;
 	}
-	return result;
 }
 
 //----- (0049F860) --------------------------------------------------------
