@@ -42,8 +42,18 @@ func (r *NoxRender) DrawLineHorizontal(x1, y, x2 int, cl color.Color) {
 	}
 	pix := r.PixBuffer()
 	cl16 := noxcolor.ToRGBA5551Color(cl)
-	for x := xmin; x <= xmax; x++ {
-		pix.SetRGBA5551(x, y, cl16)
+	if r.Data().IsAlphaEnabled() {
+		bc := SplitColor(cl16)
+		alpha := uint16(r.Data().Alpha())
+		for x := xmin; x <= xmax; x++ {
+			ind := pix.PixOffset(x, y)
+			c := SplitColor16(pix.Pix[ind])
+			pix.Pix[ind] = bc.OverAlpha(alpha, c).Make16()
+		}
+	} else {
+		for x := xmin; x <= xmax; x++ {
+			pix.SetRGBA5551(x, y, cl16)
+		}
 	}
 }
 

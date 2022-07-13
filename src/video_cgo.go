@@ -26,10 +26,6 @@ extern int dword_5d4594_1097212;
 extern int dword_5d4594_1097216;
 extern unsigned int dword_5d4594_1193188;
 extern unsigned int dword_5d4594_1305748;
-extern unsigned int dword_5d4594_3798636;
-extern unsigned int dword_5d4594_3798640;
-extern char* dword_5d4594_3798644;
-extern char* dword_5d4594_3798648;
 extern unsigned int dword_5d4594_3799468;
 extern unsigned int nox_client_showTooltips_80840;
 extern int dword_5d4594_3799524;
@@ -79,9 +75,11 @@ var (
 	nox_win_width                          int
 	nox_win_height                         int
 	nox_pixbuffer_3798788_arr              []byte
-	dword_5d4594_3798632_arr               []unsafe.Pointer
-	dword_5d4594_3798644_arr               []byte
-	dword_5d4594_3798648_arr               []byte
+	dword_5d4594_3798632_arr               []*dword_5d4594_3798648_t
+	dword_5d4594_3798636                   int
+	dword_5d4594_3798640                   int
+	dword_5d4594_3798644_arr               []dword_5d4594_3798648_t
+	dword_5d4594_3798648_arr               []dword_5d4594_3798648_t
 	dword_5d4594_1193704_arr               []unsafe.Pointer
 	nox_client_spellDragnDrop_1097192      uint32
 	nox_client_spellDragnDrop_type_1097196 int
@@ -116,6 +114,11 @@ var (
 	drawColorPurple          = noxcolor.RGB5551Color(255, 0, 255)
 	drawColorDarkPurple      = noxcolor.RGB5551Color(255, 180, 255)
 )
+
+type dword_5d4594_3798648_t struct {
+	val int
+	ptr *dword_5d4594_3798648_t
+}
 
 //export nox_video_getCutSize_4766D0
 func nox_video_getCutSize_4766D0() C.int {
@@ -504,23 +507,17 @@ func nox_video_stopCursorDrawThread_48B350() {
 
 func sub_4AEDF0() {
 	height := noxPixBuffer.img.Rect.Dy()
-	dword_5d4594_3798632_arr, _ = alloc.Make([]unsafe.Pointer{}, height)
-	C.dword_5d4594_3798632 = (*C.char)(unsafe.Pointer(&dword_5d4594_3798632_arr[0]))
-
-	dword_5d4594_3798644_arr, _ = alloc.Make([]byte{}, height<<6)
-	C.dword_5d4594_3798644 = (*C.char)(unsafe.Pointer(&dword_5d4594_3798644_arr[0]))
+	dword_5d4594_3798632_arr = make([]*dword_5d4594_3798648_t, height)
+	dword_5d4594_3798644_arr = make([]dword_5d4594_3798648_t, height*8)
 }
 
 func sub_4AE540() {
 	if dword_5d4594_3798632_arr != nil {
-		alloc.FreeSlice(dword_5d4594_3798632_arr)
 		dword_5d4594_3798632_arr = nil
-		C.dword_5d4594_3798632 = nil
 	}
 	if dword_5d4594_3798644_arr != nil {
-		alloc.FreeSlice(dword_5d4594_3798644_arr)
 		dword_5d4594_3798644_arr = nil
-		C.dword_5d4594_3798644 = nil
+		dword_5d4594_3798648_arr = nil
 	}
 }
 
@@ -529,16 +526,15 @@ func sub_4AE520() {
 	C.sub_4AEE30()
 }
 
-//export sub_4AEBD0
 func sub_4AEBD0() {
-	C.dword_5d4594_3798648, dword_5d4594_3798648_arr = C.dword_5d4594_3798644, dword_5d4594_3798644_arr
+	dword_5d4594_3798648_arr = dword_5d4594_3798644_arr
 	v0 := 0
-	C.dword_5d4594_3798640 = 0
-	for C.dword_5d4594_3798636 = 0; int(C.dword_5d4594_3798636) < noxPixBuffer.img.Rect.Dy(); C.dword_5d4594_3798636++ {
+	dword_5d4594_3798640 = 0
+	for dword_5d4594_3798636 = 0; dword_5d4594_3798636 < noxPixBuffer.img.Rect.Dy(); dword_5d4594_3798636++ {
 		dword_5d4594_3798632_arr[v0] = nil
-		v0 = int(C.dword_5d4594_3798636 + 1)
+		v0 = dword_5d4594_3798636 + 1
 	}
-	C.dword_5d4594_3798636 = C.uint(v0 - 1)
+	dword_5d4594_3798636 = v0 - 1
 }
 
 func sub_49F610(sz image.Point) {
@@ -550,10 +546,10 @@ func sub_49F610(sz image.Point) {
 	C.dword_5d4594_1305748 = 0
 }
 
-//export sub_49FC20
-func sub_49FC20(a1, a2, a3, a4 *C.int) int {
+func sub_49FC20(p1, p2 *image.Point) bool {
+	r := noxrend
 	var ys, ye int
-	if p := noxrend.Data(); p.useClip != 0 {
+	if p := r.Data(); p.useClip != 0 {
 		rect2 := p.ClipRect2()
 		ys = rect2.Min.Y
 		ye = rect2.Max.Y
@@ -562,10 +558,10 @@ func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 		ye = noxPixBuffer.img.Rect.Dy() - 1
 	}
 	v16 := 0
-	v6 := int(*a1)
-	v7 := int(*a3)
-	v8 := int(*a2)
-	v9 := int(*a4)
+	v6 := p1.X
+	v7 := p2.X
+	v8 := p1.Y
+	v9 := p2.Y
 	if v8 >= ys {
 		if v8 > ye {
 			v16 = 4
@@ -582,19 +578,19 @@ func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 		v17 = 8
 	}
 	if v17&v16 != 0 {
-		return 0
+		return false
 	}
 	if v16 != 0 {
 		if v16&8 != 0 {
 			if v9 == v8 {
-				return 0
+				return false
 			}
 			v11 := (ys - v8) * (v7 - v6) / (v9 - v8)
 			v8 = ys
 			v6 += v11
 		} else if v16&4 != 0 {
 			if v9 == v8 {
-				return 0
+				return false
 			}
 			v12 := (ye - v8) * (v7 - v6) / (v9 - v8)
 			v8 = ye
@@ -604,25 +600,25 @@ func sub_49FC20(a1, a2, a3, a4 *C.int) int {
 	if v17 != 0 {
 		if v17&8 != 0 {
 			if v9 == v8 {
-				return 0
+				return false
 			}
 			v13 := (v7 - v6) * (ys - v9) / (v9 - v8)
 			v9 = ys
 			v7 += v13
 		} else if v17&4 != 0 {
 			if v9 == v8 {
-				return 0
+				return false
 			}
 			v14 := (v7 - v6) * (ye - v9) / (v9 - v8)
 			v9 = ye
 			v7 += v14
 		}
 	}
-	*a1 = C.int(v6)
-	*a2 = C.int(v8)
-	*a3 = C.int(v7)
-	*a4 = C.int(v9)
-	return 1
+	p1.X = v6
+	p1.Y = v8
+	p2.X = v7
+	p2.Y = v9
+	return true
 }
 
 //export nox_client_clearScreen_440900

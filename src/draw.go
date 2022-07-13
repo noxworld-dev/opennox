@@ -207,7 +207,7 @@ func sub_437290() {
 //export nox_client_drawRectFilledOpaque_49CE30
 func nox_client_drawRectFilledOpaque_49CE30(a1, a2, a3, a4 C.int) {
 	r := noxrend
-	noxrend.DrawRectFilledOpaque(int(a1), int(a2), int(a3), int(a4), r.Data().Color2())
+	r.DrawRectFilledOpaque(int(a1), int(a2), int(a3), int(a4), r.Data().Color2())
 }
 
 //export nox_client_drawRectFilledAlpha_49CF10
@@ -218,19 +218,19 @@ func nox_client_drawRectFilledAlpha_49CF10(a1, a2, a3, a4 C.int) {
 //export nox_client_drawBorderLines_49CC70
 func nox_client_drawBorderLines_49CC70(a1, a2, a3, a4 C.int) {
 	r := noxrend
-	noxrend.DrawBorder(int(a1), int(a2), int(a3), int(a4), r.Data().Color2())
+	r.DrawBorder(int(a1), int(a2), int(a3), int(a4), r.Data().Color2())
 }
 
 //export nox_client_drawLineHorizontal_49F180
 func nox_client_drawLineHorizontal_49F180(a1, a2, a3 C.int) {
 	r := noxrend
-	noxrend.DrawLineHorizontal(int(a1), int(a2), int(a3), r.Data().Color2())
+	r.DrawLineHorizontal(int(a1), int(a2), int(a3), r.Data().Color2())
 }
 
 //export nox_client_drawPixel_49EFA0
 func nox_client_drawPixel_49EFA0(a1, a2 C.int) {
 	r := noxrend
-	noxrend.DrawPixel(image.Pt(int(a1), int(a2)), r.Data().Color2())
+	r.DrawPixel(image.Pt(int(a1), int(a2)), r.Data().Color2())
 }
 
 //export nox_client_drawPoint_4B0BC0
@@ -586,17 +586,16 @@ func nox_xxx_rasterPointRel_49F570(x, y C.int) {
 	noxrend.AddPointRel(image.Pt(int(x), int(y)))
 }
 
-//export nox_client_drawLastPoint_49F5B0
-func nox_client_drawLastPoint_49F5B0(px, py *C.uint, keep C.int) C.int {
+func nox_client_drawLastPoint_49F5B0(px, py *uint, keep int) int {
 	pos, ok := noxrend.LastPoint(keep != 0)
 	if !ok {
 		return 0
 	}
 	if px != nil {
-		*px = C.uint(pos.X)
+		*px = uint(pos.X)
 	}
 	if py != nil {
-		*py = C.uint(pos.Y)
+		*py = uint(pos.Y)
 	}
 	return 1
 }
@@ -2502,6 +2501,209 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 			C.nox_xxx_drawShield_499810(vp.C(), dr.C())
 		case 0, 1, 2:
 		}
+	}
+}
+
+func (r *NoxRender) sub_4AEC20(a1, a2 bool) {
+	p2, ok := r.LastPoint(false)
+	if !ok {
+		return
+	}
+	p1, ok := r.LastPoint(a1)
+	if !ok {
+		return
+	}
+	if !sub_49FC20(&p1, &p2) {
+		return
+	}
+	v3 := p2.X - p1.X
+	p1.X <<= 16
+	yi := p1.Y
+	v5 := v3 << 16
+	var v6, v7 int
+	if p1.Y > p2.Y {
+		v6 = -1
+		v7 = p1.Y - p2.Y
+		v5 /= p1.Y - p2.Y
+		if p2.Y < dword_5d4594_3798636 {
+			dword_5d4594_3798636 = p2.Y
+		}
+		if p1.Y > dword_5d4594_3798640 {
+			dword_5d4594_3798640 = p1.Y
+		}
+	} else {
+		v6 = 1
+		v7 = p2.Y - p1.Y
+		if p2.Y != p1.Y {
+			v5 /= v7
+		}
+		if p1.Y < dword_5d4594_3798636 {
+			dword_5d4594_3798636 = p1.Y
+		}
+		if p2.Y > dword_5d4594_3798640 {
+			dword_5d4594_3798640 = p2.Y
+		}
+	}
+	for ; v7 > 0; v7-- {
+		v8 := dword_5d4594_3798632_arr[yi]
+		p := &dword_5d4594_3798648_arr[0]
+		dword_5d4594_3798632_arr[yi] = p
+		p.val = p1.X >> 16
+		p.ptr = v8
+		dword_5d4594_3798648_arr = dword_5d4594_3798648_arr[1:]
+		yi = v6 + p1.Y
+		p1.X += v5
+		p1.Y += v6
+	}
+	if a2 {
+		v9 := dword_5d4594_3798632_arr[yi]
+		p := &dword_5d4594_3798648_arr[0]
+		dword_5d4594_3798632_arr[yi] = p
+		p.val = int(uint16(p2.X))
+		p.ptr = v9
+		dword_5d4594_3798648_arr = dword_5d4594_3798648_arr[1:]
+	}
+}
+
+//export sub_4AE6F0
+func sub_4AE6F0(cx, cy, rad, ang, ccl C.int) {
+	noxrend.drawCircleSegment(int(cx), int(cy), int(rad), int(ang), noxcolor.RGBA5551(ccl))
+}
+
+func (r *NoxRender) drawCircleSegment(cx, cy, rad, ang int, cl color.Color) {
+	v31 := 1 - rad
+	v34 := 3
+	v32 := 5 - 2*rad
+	r.Data().SetColor2(cl)
+	if ang < 0 {
+		ang = 0
+	}
+	if ang >= 256 {
+		return
+	}
+	dx := rad * int(memmap.Int32(0x5D4594, 1310096+4*uintptr(256-ang))) >> 16
+	dy := rad * int(memmap.Int32(0x5D4594, 1309840+4*uintptr(256-ang))) >> 16
+	sub_4AEBD0()
+	r.AddPoint(image.Pt(cx, cy-rad))
+	r.AddPoint(image.Pt(cx, cy))
+	r.sub_4AEC20(false, false)
+	r.AddPoint(image.Pt(cx, cy))
+	r.AddPoint(image.Pt(cx+dx, cy+dy))
+	r.sub_4AEC20(false, true)
+	y1 := cy - rad
+	v41 := y1
+	y2 := cy + rad
+	flag1 := false
+	yy1 := cy
+	yy2 := cy
+	v36 := cy
+	v33 := v41
+	v13 := cx - cy
+	for cnt, v37 := 0, rad; v37 >= cnt; {
+		if flag1 {
+			if y1 < dword_5d4594_3798636 || y1 > dword_5d4594_3798640 {
+				if dx <= 0 {
+					r.DrawLineHorizontal(v13+yy2, y1, v13+yy1, cl)
+				}
+			} else {
+				p := dword_5d4594_3798632_arr[v33]
+				if p2 := p.ptr; p2 != nil {
+					if p.val > p2.val {
+						p.val, p2.val = p2.val, p.val
+					}
+					if dx > 0 {
+						r.DrawLineHorizontal(p.val, v41, p2.val, cl)
+					} else {
+						r.DrawLineHorizontal(v13+yy2, v41, p.val, cl)
+						r.DrawLineHorizontal(p2.val, v41, v13+yy1, cl)
+					}
+				} else {
+					r.DrawLineHorizontal(p.val, y1, v13+yy1, cl)
+				}
+			}
+		}
+		if cnt != 0 {
+			if yy2 < dword_5d4594_3798636 || yy2 >= dword_5d4594_3798640 {
+				if dx <= 0 {
+					r.DrawLineHorizontal(v13+v41, yy2, v13+y2, cl)
+				}
+			} else {
+				p := dword_5d4594_3798632_arr[v36]
+				if p2 := p.ptr; p2 != nil {
+					if p.val > p2.val {
+						p.val, p2.val = p2.val, p.val
+					}
+					if dx > 0 {
+						r.DrawLineHorizontal(p.val, yy2, p2.val, cl)
+					} else {
+						r.DrawLineHorizontal(v13+v41, yy2, p.val, cl)
+						r.DrawLineHorizontal(p2.val, yy2, v13+y2, cl)
+					}
+				} else {
+					r.DrawLineHorizontal(p.val, yy2, v13+y2, cl)
+				}
+			}
+		}
+		if yy1 >= dword_5d4594_3798636 && yy1 < dword_5d4594_3798640 {
+			p := dword_5d4594_3798632_arr[yy1]
+			if p2 := p.ptr; p2 != nil {
+				if p.val > p2.val {
+					p.val, p2.val = p2.val, p.val
+				}
+				if dx > 0 {
+					r.DrawLineHorizontal(p.val, yy1, p2.val, cl)
+				} else {
+					r.DrawLineHorizontal(v13+v41, yy1, p.val, cl)
+					r.DrawLineHorizontal(p2.val, yy1, v13+y2, cl)
+				}
+			} else {
+				r.DrawLineHorizontal(p.val, yy1, v13+y2, cl)
+			}
+		} else if dx <= 0 {
+			r.DrawLineHorizontal(v13+v41, yy1, v13+y2, cl)
+		}
+		if flag1 {
+			if y2 < dword_5d4594_3798636 || y2 > dword_5d4594_3798640 {
+				if dx <= 0 {
+					r.DrawLineHorizontal(v13+yy2, y2, v13+yy1, cl)
+				}
+			} else {
+				p := dword_5d4594_3798632_arr[y2]
+				if p2 := p.ptr; p2 != nil {
+					if p.val > p2.val {
+						p.val, p2.val = p2.val, p.val
+					}
+					if dx > 0 {
+						r.DrawLineHorizontal(p.val, y2, p2.val, cl)
+					} else {
+						r.DrawLineHorizontal(v13+yy2, y2, p.val, cl)
+						r.DrawLineHorizontal(p2.val, y2, v13+yy1, cl)
+					}
+				} else {
+					r.DrawLineHorizontal(p.val, y2, v13+yy1, cl)
+				}
+			}
+		}
+		if int(v31) >= 0 {
+			v31 += v32
+			v33++
+			y1 = v41 + 1
+			v32 += 4
+			flag1 = true
+			v37--
+			v41++
+			y2--
+		} else {
+			v31 += v34
+			y1 = v41
+			v32 += 2
+			flag1 = false
+		}
+		v34 += 2
+		yy1++
+		v36--
+		cnt++
+		yy2--
 	}
 }
 
