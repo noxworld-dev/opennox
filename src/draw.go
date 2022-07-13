@@ -651,6 +651,7 @@ type NoxRender struct {
 		B [256]uint16
 	}
 
+	circleSeg circleSegments
 	particles struct {
 		byOpts map[particleOpt]*Particle
 	}
@@ -2504,8 +2505,120 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 	}
 }
 
-func (r *NoxRender) sub_4AEC20(p1, p2 image.Point, a2 bool) {
-	if !sub_49FC20(&p1, &p2) {
+type circleSeg struct {
+	val int
+	ptr *circleSeg
+}
+
+type circleSegments struct {
+	byY  []*circleSeg
+	ymin int
+	ymax int
+	arr  []circleSeg
+	cur  []circleSeg
+}
+
+func (c *circleSegments) Init(r *NoxRender) {
+	height := r.PixBufferRect().Dy()
+	c.byY = make([]*circleSeg, height)
+	c.arr = make([]circleSeg, height*8)
+}
+
+func (c *circleSegments) Free() {
+	if c.byY != nil {
+		c.byY = nil
+	}
+	if c.arr != nil {
+		c.arr = nil
+		c.cur = nil
+	}
+}
+
+func (c *circleSegments) Reset() {
+	c.cur = c.arr
+	c.ymax = 0
+	c.ymin = len(c.byY) - 1
+	for i := range c.byY {
+		c.byY[i] = nil
+	}
+}
+
+func (r *NoxRender) circleSegClip(p1, p2 *image.Point) bool {
+	var ys, ye int
+	if p := r.Data(); p.useClip != 0 {
+		rect2 := p.ClipRect2()
+		ys = rect2.Min.Y
+		ye = rect2.Max.Y
+	} else {
+		ys = 0
+		ye = r.PixBufferRect().Dy() - 1
+	}
+	v16 := 0
+	v6 := p1.X
+	v7 := p2.X
+	v8 := p1.Y
+	v9 := p2.Y
+	if v8 >= ys {
+		if v8 > ye {
+			v16 = 4
+		}
+	} else {
+		v16 = 8
+	}
+	v17 := 0
+	if v9 >= ys {
+		if v9 > ye {
+			v17 = 4
+		}
+	} else {
+		v17 = 8
+	}
+	if v17&v16 != 0 {
+		return false
+	}
+	if v16 != 0 {
+		if v16&8 != 0 {
+			if v9 == v8 {
+				return false
+			}
+			v11 := (ys - v8) * (v7 - v6) / (v9 - v8)
+			v8 = ys
+			v6 += v11
+		} else if v16&4 != 0 {
+			if v9 == v8 {
+				return false
+			}
+			v12 := (ye - v8) * (v7 - v6) / (v9 - v8)
+			v8 = ye
+			v6 += v12
+		}
+	}
+	if v17 != 0 {
+		if v17&8 != 0 {
+			if v9 == v8 {
+				return false
+			}
+			v13 := (v7 - v6) * (ys - v9) / (v9 - v8)
+			v9 = ys
+			v7 += v13
+		} else if v17&4 != 0 {
+			if v9 == v8 {
+				return false
+			}
+			v14 := (v7 - v6) * (ye - v9) / (v9 - v8)
+			v9 = ye
+			v7 += v14
+		}
+	}
+	p1.X = v6
+	p1.Y = v8
+	p2.X = v7
+	p2.Y = v9
+	return true
+}
+
+func (r *NoxRender) circleSegAdd(p1, p2 image.Point, a2 bool) {
+	if !r.circleSegClip(&p1, &p2) {
 		return
 	}
 	v3 := p2.X - p1.X
@@ -2517,11 +2630,11 @@ func (r *NoxRender) sub_4AEC20(p1, p2 image.Point, a2 bool) {
 		v6 = -1
 		v7 = p1.Y - p2.Y
 		v5 /= p1.Y - p2.Y
-		if p2.Y < dword_5d4594_3798636 {
-			dword_5d4594_3798636 = p2.Y
+		if p2.Y < r.circleSeg.ymin {
+			r.circleSeg.ymin = p2.Y
 		}
-		if p1.Y > dword_5d4594_3798640 {
-			dword_5d4594_3798640 = p1.Y
+		if p1.Y > r.circleSeg.ymax {
+			r.circleSeg.ymax = p1.Y
 		}
 	} else {
 		v6 = 1
@@ -2529,31 +2642,31 @@ func (r *NoxRender) sub_4AEC20(p1, p2 image.Point, a2 bool) {
 		if p2.Y != p1.Y {
 			v5 /= v7
 		}
-		if p1.Y < dword_5d4594_3798636 {
-			dword_5d4594_3798636 = p1.Y
+		if p1.Y < r.circleSeg.ymin {
+			r.circleSeg.ymin = p1.Y
 		}
-		if p2.Y > dword_5d4594_3798640 {
-			dword_5d4594_3798640 = p2.Y
+		if p2.Y > r.circleSeg.ymax {
+			r.circleSeg.ymax = p2.Y
 		}
 	}
 	for ; v7 > 0; v7-- {
-		v8 := dword_5d4594_3798632_arr[yi]
-		p := &dword_5d4594_3798648_arr[0]
-		dword_5d4594_3798632_arr[yi] = p
+		v8 := r.circleSeg.byY[yi]
+		p := &r.circleSeg.cur[0]
+		r.circleSeg.byY[yi] = p
 		p.val = p1.X >> 16
 		p.ptr = v8
-		dword_5d4594_3798648_arr = dword_5d4594_3798648_arr[1:]
+		r.circleSeg.cur = r.circleSeg.cur[1:]
 		yi = v6 + p1.Y
 		p1.X += v5
 		p1.Y += v6
 	}
 	if a2 {
-		v9 := dword_5d4594_3798632_arr[yi]
-		p := &dword_5d4594_3798648_arr[0]
-		dword_5d4594_3798632_arr[yi] = p
+		v9 := r.circleSeg.byY[yi]
+		p := &r.circleSeg.cur[0]
+		r.circleSeg.byY[yi] = p
 		p.val = int(uint16(p2.X))
 		p.ptr = v9
-		dword_5d4594_3798648_arr = dword_5d4594_3798648_arr[1:]
+		r.circleSeg.cur = r.circleSeg.cur[1:]
 	}
 }
 
@@ -2572,16 +2685,16 @@ func (r *NoxRender) drawCircleSegment(cx, cy, rad, ang int, cl color.Color) {
 	}
 	dx := rad * int(memmap.Int32(0x5D4594, 1310096+4*uintptr(256-ang))) >> 16
 	dy := rad * int(memmap.Int32(0x5D4594, 1309840+4*uintptr(256-ang))) >> 16
-	sub_4AEBD0()
-	r.sub_4AEC20(image.Pt(cx, cy-rad), image.Pt(cx, cy), false)
-	r.sub_4AEC20(image.Pt(cx, cy), image.Pt(cx+dx, cy+dy), true)
+	r.circleSeg.Reset()
+	r.circleSegAdd(image.Pt(cx, cy-rad), image.Pt(cx, cy), false)
+	r.circleSegAdd(image.Pt(cx, cy), image.Pt(cx+dx, cy+dy), true)
 	drawPart := func(x1, y1, x2, ly, yi, dn int) {
-		if y1 < dword_5d4594_3798636 || y1 > dword_5d4594_3798640+dn {
+		if y1 < r.circleSeg.ymin || y1 > r.circleSeg.ymax+dn {
 			if dx <= 0 {
 				r.DrawLineHorizontal(x1, y1, x2, cl)
 			}
 		} else {
-			p := dword_5d4594_3798632_arr[yi]
+			p := r.circleSeg.byY[yi]
 			if p2 := p.ptr; p2 != nil {
 				if p.val > p2.val {
 					p.val, p2.val = p2.val, p.val
