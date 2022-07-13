@@ -68,7 +68,7 @@ func AIL_sample_user_data(s C.HSAMPLE) unsafe.Pointer {
 	if v == nil {
 		return nil
 	}
-	return v.(unsafe.Pointer)
+	return unsafe.Pointer(v.(*audioSample))
 }
 
 //export AIL_set_stream_volume
@@ -93,14 +93,13 @@ var (
 
 //export sub_43EFD0
 func sub_43EFD0(a1 unsafe.Pointer) C.int {
-	v1p := *(**uint32)(unsafe.Add(a1, 272))
-	v1 := unsafe.Slice(v1p, 8)
-	ail.Sample(v1[2]).End()
-	if v1[7] == 0 {
-		ptr := unsafe.Pointer(uintptr(v1[1]))
+	s := *(**audioSample)(unsafe.Add(a1, 272))
+	s.smp.End()
+	if s.flag7 == 0 {
+		ptr := s.field1
 		fptr := (*unsafe.Pointer)(unsafe.Add(ptr, 284))
-		cgoCallVoidUintFunc(*fptr, v1[1])
-		v1[7] = 1
+		cgoCallVoidPtrFunc(*fptr, ptr)
+		s.flag7 = 1
 	}
 	return 0
 }
@@ -218,75 +217,85 @@ func sub_43F130() C.int {
 
 //export sub_43F010
 func sub_43F010(a1 unsafe.Pointer) C.int {
-	p := *(*unsafe.Pointer)(unsafe.Add(a1, 272))
-	h := *(*uint32)(unsafe.Add(p, 8))
-	ail.Sample(h).Stop()
+	p := *(**audioSample)(unsafe.Add(a1, 272))
+	p.smp.Stop()
 	return 0
+}
+
+var _ = [1]struct{}{}[32-unsafe.Sizeof(audioSample{})]
+
+type audioSample struct {
+	dev    ail.Driver     // 0, 0
+	field1 unsafe.Pointer // 1, 4
+	smp    ail.Sample     // 2, 8
+	field3 uint32         // 3, 12
+	field4 unsafe.Pointer // 4, 16
+	data1  *byte          // 5, 20
+	data2  *byte          // 6, 24
+	flag7  uint32         // 7, 28
 }
 
 //export sub_43EC30
 func sub_43EC30(a1 unsafe.Pointer) C.int {
 	smp := audioDev.AllocateSample()
-	v1, _ := alloc.Make([]uint32{}, 8)
-	*(**uint32)(unsafe.Add(a1, 272)) = &v1[0]
-	v1[0] = uint32(audioDev)
-	v1[1] = uint32(uintptr(a1))
-	v1[2] = uint32(smp)
+	s, _ := alloc.New(audioSample{})
+	*(*unsafe.Pointer)(unsafe.Add(a1, 272)) = unsafe.Pointer(s)
+	s.dev = audioDev
+	s.field1 = a1
+	s.smp = smp
 	b1, _ := alloc.Make([]byte{}, 16384)
 	b2, _ := alloc.Make([]byte{}, 16384)
-	v1[5] = uint32(uintptr(unsafe.Pointer(&b1[0])))
-	v1[6] = uint32(uintptr(unsafe.Pointer(&b2[0])))
+	s.data1 = &b1[0]
+	s.data2 = &b2[0]
 	if smp == 0 {
 		return -2147221504 // 0x80040000
 	}
-	smp.SetUserData(unsafe.Pointer(&v1[0]))
+	smp.SetUserData(s)
 	return 0
 }
 
 //export sub_43ECB0
 func sub_43ECB0(a1 unsafe.Pointer) C.int {
-	p := *(*unsafe.Pointer)(unsafe.Add(a1, 272))
-	if h := *(*uint32)(unsafe.Add(p, 8)); h != 0 {
-		ail.Sample(h).Release()
+	p := *(**audioSample)(unsafe.Add(a1, 272))
+	if p.smp != 0 {
+		p.smp.Release()
 	}
-	if p2 := *(*unsafe.Pointer)(unsafe.Add(p, 20)); p2 != nil {
-		alloc.Free(p2)
+	if p2 := p.data1; p2 != nil {
+		alloc.Free(unsafe.Pointer(p2))
 	}
-	if p2 := *(*unsafe.Pointer)(unsafe.Add(p, 24)); p2 != nil {
-		alloc.Free(p2)
+	if p2 := p.data2; p2 != nil {
+		alloc.Free(unsafe.Pointer(p2))
 	}
-	alloc.Free(p)
+	alloc.Free(unsafe.Pointer(p))
 	return 0
 }
 
 //export sub_43ED00
 func sub_43ED00(a1p *C.uint32_t) C.int {
 	a1 := unsafe.Slice((*uint32)(unsafe.Pointer(a1p)), 73)
-	v1 := unsafe.Slice((*uint32)(unsafe.Pointer(uintptr(a1[68]))), 8)
-	smp := ail.Sample(v1[2])
+	s := *(**audioSample)(unsafe.Pointer(&a1[68]))
+	smp := s.smp
 	smp.Init()
-	v2 := *(*uint32)(unsafe.Add(unsafe.Pointer(uintptr(a1[72])), 20))
-	v1[4] = v2
-	if v2 == 0 {
-		v1[4] = a1[33] + 60
+	s.field4 = *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a1[72])), 20))
+	if s.field4 == nil {
+		s.field4 = unsafe.Pointer(uintptr(a1[33]) + 60)
 	}
-	v3 := int32(C.sub_43F0E0((*C.uint)(unsafe.Pointer(uintptr(v1[4])))))
+	v3 := int32(C.sub_43F0E0((*C.uint)(s.field4)))
 	smp.SetType(v3, 0)
-	v4 := unsafe.Pointer(uintptr(v1[4]))
-	if *(*uint32)(unsafe.Add(v4, 4)) == 2 {
-		smp.SetADPCMBlockSize(*(*uint32)(unsafe.Add(v4, 24)))
+	if *(*uint32)(unsafe.Add(s.field4, 4)) == 2 {
+		smp.SetADPCMBlockSize(*(*uint32)(unsafe.Add(s.field4, 24)))
 	}
 	sub_43F060((*C.uint)(unsafe.Pointer(&a1[0])))
-	v1[7] = 0
-	v1[3] = 0
+	s.flag7 = 0
+	s.field3 = 0
 	smp.RegisterEOBCallback(func() {
-		v := smp.UserData().(unsafe.Pointer)
-		C.sub_43EE00(v)
+		v := smp.UserData().(*audioSample)
+		C.sub_43EE00(unsafe.Pointer(v))
 	})
 	smp.RegisterEOSCallback(func() {
 		C.sub_43EDB0(C.HSAMPLE(unsafe.Pointer(smp)))
 	})
-	C.sub_43EE00(unsafe.Pointer(&v1[0]))
+	C.sub_43EE00(unsafe.Pointer(s))
 	return 0
 }
 
@@ -419,11 +428,11 @@ func sub_44D660(a1 *C.char) C.int {
 //export sub_43F060
 func sub_43F060(a1p *C.uint32_t) C.int {
 	a1 := unsafe.Slice((*uint32)(unsafe.Pointer(a1p)), 69)
-	v1 := unsafe.Pointer(uintptr(a1[68]))
-	smp := ail.Sample(*(*uint32)(unsafe.Add(v1, 8)))
+	s := *(**audioSample)(unsafe.Pointer(&a1[68]))
+	smp := s.smp
 	smp.SetVolume(int((127 * (a1[45] >> 16)) >> 14))
 	smp.SetPan(int((127 * (a1[61] >> 16)) >> 14))
-	p2 := *(*unsafe.Pointer)(unsafe.Add(v1, 16))
+	p2 := s.field4
 	v2 := C.sub_486640(unsafe.Pointer(&a1[44]), C.int(*(*uint32)(unsafe.Add(p2, 8))))
 	smp.SetPlaybackRate(int(v2))
 	return 0
