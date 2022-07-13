@@ -2571,9 +2571,6 @@ func sub_4AE6F0(cx, cy, rad, ang, ccl C.int) {
 }
 
 func (r *NoxRender) drawCircleSegment(cx, cy, rad, ang int, cl color.Color) {
-	v31 := 1 - rad
-	v34 := 3
-	v32 := 5 - 2*rad
 	r.Data().SetColor2(cl)
 	if ang < 0 {
 		ang = 0
@@ -2590,120 +2587,53 @@ func (r *NoxRender) drawCircleSegment(cx, cy, rad, ang int, cl color.Color) {
 	r.AddPoint(image.Pt(cx, cy))
 	r.AddPoint(image.Pt(cx+dx, cy+dy))
 	r.sub_4AEC20(false, true)
-	y1 := cy - rad
-	v41 := y1
-	y2 := cy + rad
-	flag1 := false
-	yy1 := cy
-	yy2 := cy
-	v36 := cy
-	v33 := v41
-	v13 := cx - cy
-	for cnt, v37 := 0, rad; v37 >= cnt; {
-		if flag1 {
-			if y1 < dword_5d4594_3798636 || y1 > dword_5d4594_3798640 {
-				if dx <= 0 {
-					r.DrawLineHorizontal(v13+yy2, y1, v13+yy1, cl)
-				}
-			} else {
-				p := dword_5d4594_3798632_arr[v33]
-				if p2 := p.ptr; p2 != nil {
-					if p.val > p2.val {
-						p.val, p2.val = p2.val, p.val
-					}
-					if dx > 0 {
-						r.DrawLineHorizontal(p.val, v41, p2.val, cl)
-					} else {
-						r.DrawLineHorizontal(v13+yy2, v41, p.val, cl)
-						r.DrawLineHorizontal(p2.val, v41, v13+yy1, cl)
-					}
-				} else {
-					r.DrawLineHorizontal(p.val, y1, v13+yy1, cl)
-				}
+	drawPart := func(x1, y1, x2, ly, yi, dn int) {
+		if y1 < dword_5d4594_3798636 || y1 > dword_5d4594_3798640+dn {
+			if dx <= 0 {
+				r.DrawLineHorizontal(x1, y1, x2, cl)
 			}
-		}
-		if cnt != 0 {
-			if yy2 < dword_5d4594_3798636 || yy2 >= dword_5d4594_3798640 {
-				if dx <= 0 {
-					r.DrawLineHorizontal(v13+v41, yy2, v13+y2, cl)
-				}
-			} else {
-				p := dword_5d4594_3798632_arr[v36]
-				if p2 := p.ptr; p2 != nil {
-					if p.val > p2.val {
-						p.val, p2.val = p2.val, p.val
-					}
-					if dx > 0 {
-						r.DrawLineHorizontal(p.val, yy2, p2.val, cl)
-					} else {
-						r.DrawLineHorizontal(v13+v41, yy2, p.val, cl)
-						r.DrawLineHorizontal(p2.val, yy2, v13+y2, cl)
-					}
-				} else {
-					r.DrawLineHorizontal(p.val, yy2, v13+y2, cl)
-				}
-			}
-		}
-		if yy1 >= dword_5d4594_3798636 && yy1 < dword_5d4594_3798640 {
-			p := dword_5d4594_3798632_arr[yy1]
+		} else {
+			p := dword_5d4594_3798632_arr[yi]
 			if p2 := p.ptr; p2 != nil {
 				if p.val > p2.val {
 					p.val, p2.val = p2.val, p.val
 				}
 				if dx > 0 {
-					r.DrawLineHorizontal(p.val, yy1, p2.val, cl)
+					r.DrawLineHorizontal(p.val, ly, p2.val, cl)
 				} else {
-					r.DrawLineHorizontal(v13+v41, yy1, p.val, cl)
-					r.DrawLineHorizontal(p2.val, yy1, v13+y2, cl)
+					r.DrawLineHorizontal(x1, ly, p.val, cl)
+					r.DrawLineHorizontal(p2.val, ly, x2, cl)
 				}
 			} else {
-				r.DrawLineHorizontal(p.val, yy1, v13+y2, cl)
+				r.DrawLineHorizontal(p.val, y1, x2, cl)
 			}
-		} else if dx <= 0 {
-			r.DrawLineHorizontal(v13+v41, yy1, v13+y2, cl)
 		}
+	}
+	dval := 5 - 2*rad
+	flag1 := false
+	j := 0
+	val := 1 - rad
+	for i := 0; i <= rad-j; i++ {
 		if flag1 {
-			if y2 < dword_5d4594_3798636 || y2 > dword_5d4594_3798640 {
-				if dx <= 0 {
-					r.DrawLineHorizontal(v13+yy2, y2, v13+yy1, cl)
-				}
-			} else {
-				p := dword_5d4594_3798632_arr[y2]
-				if p2 := p.ptr; p2 != nil {
-					if p.val > p2.val {
-						p.val, p2.val = p2.val, p.val
-					}
-					if dx > 0 {
-						r.DrawLineHorizontal(p.val, y2, p2.val, cl)
-					} else {
-						r.DrawLineHorizontal(v13+yy2, y2, p.val, cl)
-						r.DrawLineHorizontal(p2.val, y2, v13+yy1, cl)
-					}
-				} else {
-					r.DrawLineHorizontal(p.val, y2, v13+yy1, cl)
-				}
-			}
+			drawPart(cx-i, cy-rad+j, cx+i, cy-rad+j, cy-rad+j, 0)
 		}
-		if int(v31) >= 0 {
-			v31 += v32
-			v33++
-			y1 = v41 + 1
-			v32 += 4
+		if i != 0 {
+			drawPart(cx-rad+j, cy-i, cx+rad-j, cy-i, cy-i, -1)
+		}
+		drawPart(cx-rad+j, cy+i, cx+rad-j, cy+i, cy+i, -1)
+		if flag1 {
+			drawPart(cx-i, cy+rad-j, cx+i, cy+rad-j, cy+rad-j, 0)
+		}
+		if int(val) >= 0 {
 			flag1 = true
-			v37--
-			v41++
-			y2--
+			j++
+			val += dval
+			dval += 4
 		} else {
-			v31 += v34
-			y1 = v41
-			v32 += 2
 			flag1 = false
+			val += 3 + 2*i
+			dval += 2
 		}
-		v34 += 2
-		yy1++
-		v36--
-		cnt++
-		yy2--
 	}
 }
 
