@@ -2504,15 +2504,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 	}
 }
 
-func (r *NoxRender) sub_4AEC20(a1, a2 bool) {
-	p2, ok := r.LastPoint(false)
-	if !ok {
-		return
-	}
-	p1, ok := r.LastPoint(a1)
-	if !ok {
-		return
-	}
+func (r *NoxRender) sub_4AEC20(p1, p2 image.Point, a2 bool) {
 	if !sub_49FC20(&p1, &p2) {
 		return
 	}
@@ -2581,12 +2573,8 @@ func (r *NoxRender) drawCircleSegment(cx, cy, rad, ang int, cl color.Color) {
 	dx := rad * int(memmap.Int32(0x5D4594, 1310096+4*uintptr(256-ang))) >> 16
 	dy := rad * int(memmap.Int32(0x5D4594, 1309840+4*uintptr(256-ang))) >> 16
 	sub_4AEBD0()
-	r.AddPoint(image.Pt(cx, cy-rad))
-	r.AddPoint(image.Pt(cx, cy))
-	r.sub_4AEC20(false, false)
-	r.AddPoint(image.Pt(cx, cy))
-	r.AddPoint(image.Pt(cx+dx, cy+dy))
-	r.sub_4AEC20(false, true)
+	r.sub_4AEC20(image.Pt(cx, cy-rad), image.Pt(cx, cy), false)
+	r.sub_4AEC20(image.Pt(cx, cy), image.Pt(cx+dx, cy+dy), true)
 	drawPart := func(x1, y1, x2, ly, yi, dn int) {
 		if y1 < dword_5d4594_3798636 || y1 > dword_5d4594_3798640+dn {
 			if dx <= 0 {
