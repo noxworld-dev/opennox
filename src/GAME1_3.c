@@ -804,7 +804,7 @@ void sub_43EDB0(HSAMPLE a1) {
 	int v2;     // esi
 	int result; // eax
 
-	v1 = AIL_sample_user_data(a1, 0);
+	v1 = AIL_sample_user_data(a1);
 	v2 = v1;
 	result = *(uint32_t*)(v1 + 28);
 	if (!result) {
@@ -812,10 +812,10 @@ void sub_43EDB0(HSAMPLE a1) {
 		*(uint32_t*)(v2 + 28) = 1;
 	}
 }
-// 5813A8: using guessed type int AIL_sample_user_data(uint32_t, uint32_t);
 
 //----- (0043EE00) --------------------------------------------------------
-int sub_43EE00(int a1) {
+int sub_43EE00(void* a1p) {
+	int a1 = a1p;
 	int v1;           // esi
 	int result;       // eax
 	int v3;           // ebx

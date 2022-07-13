@@ -12,7 +12,7 @@ void* sub_486EF0();
 void sub_43D2D0();
 uint32_t* sub_486620(uint32_t* a1);
 void sub_43EDB0(HSAMPLE a1);
-int sub_43EE00(int a1);
+int sub_43EE00(void* a1);
 int sub_43F060(uint32_t* a1);
 int sub_43F0E0(uint32_t* a1);
 void sub_44D5C0(int a1, int a2);
@@ -63,8 +63,12 @@ func AIL_sample_buffer_ready(s C.HSAMPLE) C.int32_t {
 }
 
 //export AIL_sample_user_data
-func AIL_sample_user_data(s C.HSAMPLE, ind C.uint32_t) C.int32_t {
-	return C.int32_t(ail.Sample(unsafe.Pointer(s)).UserData(int(ind)))
+func AIL_sample_user_data(s C.HSAMPLE) unsafe.Pointer {
+	v := ail.Sample(unsafe.Pointer(s)).UserData()
+	if v == nil {
+		return nil
+	}
+	return v.(unsafe.Pointer)
 }
 
 //export AIL_set_stream_volume
@@ -235,7 +239,7 @@ func sub_43EC30(a1 unsafe.Pointer) C.int {
 	if smp == 0 {
 		return -2147221504 // 0x80040000
 	}
-	smp.SetUserData(0, int32(uintptr(unsafe.Pointer(&v1[0]))))
+	smp.SetUserData(unsafe.Pointer(&v1[0]))
 	return 0
 }
 
@@ -276,13 +280,13 @@ func sub_43ED00(a1p *C.uint32_t) C.int {
 	v1[7] = 0
 	v1[3] = 0
 	smp.RegisterEOBCallback(func() {
-		v := smp.UserData(0)
-		C.sub_43EE00(C.int(v))
+		v := smp.UserData().(unsafe.Pointer)
+		C.sub_43EE00(v)
 	})
 	smp.RegisterEOSCallback(func() {
 		C.sub_43EDB0(C.HSAMPLE(unsafe.Pointer(smp)))
 	})
-	C.sub_43EE00(C.int(uintptr(unsafe.Pointer(&v1[0]))))
+	C.sub_43EE00(unsafe.Pointer(&v1[0]))
 	return 0
 }
 

@@ -127,7 +127,7 @@ type audioSample struct {
 
 	eob  func()
 	eos  func()
-	user [8]int32
+	user any
 }
 
 func (s *audioSample) IsPlaying() bool {
@@ -989,15 +989,14 @@ func (h Sample) BufferReady() int {
 	return 0
 }
 
-func (h Sample) UserData(ind int) int32 {
+func (h Sample) UserData() any {
 	if audioDebug {
 		audioLog.Println("AIL_sample_user_data")
 	}
 	if env.IsE2E() {
-		return -1
+		return nil
 	}
-	s := h.get()
-	return s.user[ind]
+	return h.get().user
 }
 
 func Serve() {
@@ -1071,15 +1070,14 @@ func (h Sample) SetType(format int32, flags uint32) {
 	s.adpcm = format&4 != 0
 }
 
-func (h Sample) SetUserData(index int, value int32) {
+func (h Sample) SetUserData(value any) {
 	if audioDebug {
 		audioLog.Println("AIL_set_sample_user_data")
 	}
 	if env.IsE2E() {
 		return
 	}
-	s := h.get()
-	s.user[index] = value
+	h.get().user = value
 }
 
 func (h Sample) SetVolume(volume int) {

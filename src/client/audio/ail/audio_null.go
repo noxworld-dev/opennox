@@ -54,7 +54,7 @@ func (h Sample) RegisterEOSCallback(f func()) {}
 
 func (h Sample) BufferReady() int { return -1 }
 
-func (h Sample) UserData(ind int) int32 { return -1 }
+func (h Sample) UserData() any { return nil }
 
 func Serve() {}
 
@@ -66,7 +66,7 @@ func (h Sample) SetPlaybackRate(rate int) {}
 
 func (h Sample) SetType(format int32, flags uint32) {}
 
-func (h Sample) SetUserData(index int, value int32) {}
+func (h Sample) SetUserData(value any) {}
 
 func (h Sample) SetVolume(volume int) {}
 

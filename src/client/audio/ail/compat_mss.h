@@ -85,7 +85,7 @@ void AIL_release_sample_handle(HSAMPLE S);
 void AIL_release_timer_handle(HTIMER timer);
 void AIL_resume_sample(HSAMPLE S);
 int32_t AIL_sample_buffer_ready(HSAMPLE S);
-int32_t AIL_sample_user_data(HSAMPLE S, uint32_t index);
+void* AIL_sample_user_data(HSAMPLE S);
 void AIL_serve(void);
 int32_t AIL_set_preference(uint32_t number, int32_t value);
 void AIL_set_sample_adpcm_block_size(HSAMPLE S, uint32_t blocksize);
