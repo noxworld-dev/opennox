@@ -27,11 +27,11 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 )
 
-var (
-	aiAllocListen  alloc.ClassT[MonsterListen]
-	aiListenHead   *MonsterListen
-	aiSoundFadeVal int
-)
+type aiData struct {
+	allocListen  alloc.ClassT[MonsterListen]
+	listenHead   *MonsterListen
+	soundFadeVal int
+}
 
 //export nox_ai_debug_print
 func nox_ai_debug_print(str *C.char) {
@@ -178,7 +178,10 @@ func (u *Unit) maybePrintAIStack(event string) {
 
 //export nox_xxx_mobActionDependency_546A70
 func nox_xxx_mobActionDependency_546A70(uc *C.nox_object_t) {
-	u := asUnitC(uc)
+	noxServer.ai.nox_xxx_mobActionDependency(asUnitC(uc))
+}
+
+func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 	ud := u.updateDataMonster()
 	stack := ud.getAIStack()
 	if len(stack) == 0 {
@@ -468,35 +471,39 @@ type MonsterListen struct {
 
 //export sub_50D1C0
 func sub_50D1C0() {
-	aiAllocListen.FreeAllObjects()
-	//allocMonsterListen.Class = nil
-	aiListenHead = nil
+	noxServer.ai.Reset()
 }
 
-func freeAIListen() {
-	if aiAllocListen.Class != nil {
-		aiAllocListen.Free()
+func (a *aiData) Reset() {
+	a.allocListen.FreeAllObjects()
+	//allocMonsterListen.Class = nil
+	a.listenHead = nil
+}
+
+func (a *aiData) Free() {
+	if a.allocListen.Class != nil {
+		a.allocListen.Free()
 	}
-	aiListenHead = nil
+	a.listenHead = nil
 }
 
 //export nox_xxx_audioAddAIInteresting_50CD40
 func nox_xxx_audioAddAIInteresting_50CD40(snd C.int, obj *nox_object_t, cp *C.float2) {
-	aiNewSound(int(snd), asObjectC(obj), asPointf(unsafe.Pointer(cp)))
+	noxServer.ai.NewSound(int(snd), asObjectC(obj), asPointf(unsafe.Pointer(cp)))
 }
 
-func aiNewSound(snd int, obj *Object, pos types.Pointf) {
+func (a *aiData) NewSound(snd int, obj *Object, pos types.Pointf) {
 	if getSoundXxx(snd) == 0 {
 		return
 	}
-	if aiAllocListen.Class == nil {
-		aiAllocListen = alloc.NewClassT("MonsterListen", MonsterListen{}, 128)
+	if a.allocListen.Class == nil {
+		a.allocListen = alloc.NewClassT("MonsterListen", MonsterListen{}, 128)
 	}
 	if getOwnerUnit(obj) == nil {
 		return
 	}
 
-	p := aiAllocListen.NewObject()
+	p := a.allocListen.NewObject()
 	if p == nil {
 		return
 	}
@@ -506,8 +513,8 @@ func aiNewSound(snd int, obj *Object, pos types.Pointf) {
 		pos:   pos,
 		frame: gameFrame(),
 	}
-	p.next = aiListenHead
-	aiListenHead = p
+	p.next = a.listenHead
+	a.listenHead = p
 }
 
 func getOwnerUnit(obj *Object) *Object {
@@ -521,10 +528,10 @@ func getOwnerUnit(obj *Object) *Object {
 
 //export nox_xxx_unitListenRoutine_50CDD0
 func nox_xxx_unitListenRoutine_50CDD0(unit *nox_object_t) {
-	aiListenToSounds(asUnitC(unit))
+	noxServer.ai.aiListenToSounds(asUnitC(unit))
 }
 
-func aiListenToSounds(u *Unit) {
+func (a *aiData) aiListenToSounds(u *Unit) {
 	// Not sure about this check. If unit is invulnerable, don't listen for anything?
 	// Is present in vanilla though, so this might be some kind of weird fix for strange behaviour
 	if C.nox_xxx_checkIsKillable_528190(u.CObj()) == 0 {
@@ -543,21 +550,21 @@ func aiListenToSounds(u *Unit) {
 		maxDist  int
 	)
 	ud := u.updateDataMonster()
-	for it := aiListenHead; it != nil; it = next {
+	for it := a.listenHead; it != nil; it = next {
 		next = it.next
 		if gameFrame() < it.frame || gameFrame()-it.frame > 2 {
 			if prev != nil {
 				prev.next = next
 			} else {
-				aiListenHead = it.next
+				a.listenHead = it.next
 			}
-			aiAllocListen.FreeObjectFirst(it)
+			a.allocListen.FreeObjectFirst(it)
 		} else {
 			if it.obj != nil && it.obj.Flags().Has(object.FlagDestroyed) {
 				it.obj = nil
 			}
-			if uint32(ud.field_101) <= it.frame && shouldUnitListen(u, it) {
-				dist := traceSound(u, it)
+			if uint32(ud.field_101) <= it.frame && a.shouldUnitListen(u, it) {
+				dist := a.traceSound(u, it)
 				// This finds the farthest?
 				if dist > 0 && dist > maxDist {
 					maxDist = dist
@@ -568,7 +575,7 @@ func aiListenToSounds(u *Unit) {
 		}
 	}
 	if maxHeard != nil && (maxHeard.frame > uint32(ud.field_101) || maxDist > int(ud.field_102)) {
-		nox_xxx_unitEmitHearEvent_50D110(u, maxHeard, maxDist)
+		a.nox_xxx_unitEmitHearEvent_50D110(u, maxHeard, maxDist)
 	}
 }
 
@@ -576,16 +583,16 @@ func getSoundXxx(ind int) int {
 	return int(memmap.Uint32(0x5D4594, 1570288+28*uintptr(ind)))
 }
 
-func traceSound(u *Unit, p *MonsterListen) int {
+func (a *aiData) traceSound(u *Unit, p *MonsterListen) int {
 	xx := getSoundXxx(p.snd)
-	perc := soundFadePerc(p.snd, p.pos, u.Pos())
-	if !checkSoundFadePerc(xx, perc) {
+	perc := a.soundFadePerc(p.snd, p.pos, u.Pos())
+	if !a.checkSoundFadePerc(xx, perc) {
 		return -1
 	}
 	if !MapTraceRayAt(u.Pos(), p.pos, nil, nil, 5) {
 		perc = int(float64(perc) * 0.5)
 	}
-	if !checkSoundFadePerc(xx, perc) {
+	if !a.checkSoundFadePerc(xx, perc) {
 		return -1
 	}
 	return perc
@@ -593,20 +600,24 @@ func traceSound(u *Unit, p *MonsterListen) int {
 
 //export nox_xxx_gameSetAudioFadeoutMb_501AC0
 func nox_xxx_gameSetAudioFadeoutMb_501AC0(v C.int) {
+	noxServer.ai.nox_xxx_gameSetAudioFadeoutMb(int(v))
+}
+
+func (a *aiData) nox_xxx_gameSetAudioFadeoutMb(v int) {
 	if v < 0 {
 		v = 0
 	} else if v > 100 {
 		v = 100
 	}
-	aiSoundFadeVal = int(v)
+	a.soundFadeVal = v
 }
 
 //export sub_501AF0
 func sub_501AF0(snd C.int, p1, p2 *C.float2) C.int {
-	return C.int(soundFadePerc(int(snd), asPointf(unsafe.Pointer(p1)), asPointf(unsafe.Pointer(p2))))
+	return C.int(noxServer.ai.soundFadePerc(int(snd), asPointf(unsafe.Pointer(p1)), asPointf(unsafe.Pointer(p2))))
 }
 
-func soundFadePerc(snd int, p1, p2 types.Pointf) int {
+func (a *aiData) soundFadePerc(snd int, p1, p2 types.Pointf) int {
 	max := int(memmap.Uint32(0x5D4594, 1570284+28*uintptr(snd)))
 	dx := float64(p1.X - p2.X)
 	dy := float64(p1.Y - p2.Y)
@@ -629,13 +640,13 @@ func soundFadePerc(snd int, p1, p2 types.Pointf) int {
 	} else if v > 100 {
 		v = 100
 	}
-	if v <= aiSoundFadeVal {
+	if v <= a.soundFadeVal {
 		return 0
 	}
 	return v
 }
 
-func checkSoundFadePerc(flags, dist int) bool {
+func (a *aiData) checkSoundFadePerc(flags, dist int) bool {
 	if flags&0x20 != 0 {
 		if dist < 89 {
 			return false
@@ -652,7 +663,7 @@ func checkSoundFadePerc(flags, dist int) bool {
 	return true
 }
 
-func shouldUnitListen(u *Unit, lis *MonsterListen) bool {
+func (a *aiData) shouldUnitListen(u *Unit, lis *MonsterListen) bool {
 	ud := u.updateDataMonster()
 	punit := lis.obj.findOwnerChainPlayer()
 	listenable := getSoundXxx(lis.snd)
@@ -689,7 +700,7 @@ func shouldUnitListen(u *Unit, lis *MonsterListen) bool {
 	return true
 }
 
-func nox_xxx_unitEmitHearEvent_50D110(u *Unit, lis *MonsterListen, dist int) {
+func (a *aiData) nox_xxx_unitEmitHearEvent_50D110(u *Unit, lis *MonsterListen, dist int) {
 	ud := u.updateDataMonster()
 	ud.field_97 = C.uint(lis.snd)
 	ud.field_101 = C.uint(gameFrame())

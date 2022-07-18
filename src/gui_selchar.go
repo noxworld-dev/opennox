@@ -291,7 +291,7 @@ func sub_43B670() {
 		C.nox_client_xxx_switchChatMap_43B510()
 		C.nox_client_guiXxx_43A9D0()
 		nox_client_guiXxxDestroy_4A24A0()
-		nox_xxx_gameSetAudioFadeoutMb_501AC0(C.int(*(*uint32)(unsafe.Pointer(&v0[74]))))
+		noxServer.ai.nox_xxx_gameSetAudioFadeoutMb(int(*(*uint32)(unsafe.Pointer(&v0[74]))))
 	} else {
 		C.sub_43B630()
 		C.sub_40D350(C.int(*(*uint32)(unsafe.Add(C.dword_5d4594_814624, 32))))
