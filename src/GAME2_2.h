@@ -5,7 +5,6 @@
 
 int sub_476080(unsigned char* a1);
 int sub_4761B0(nox_drawable* a1p);
-void sub_476270(nox_draw_viewport_t* a1p);
 int sub_4765F0(nox_draw_viewport_t* a1p);
 int sub_476680();
 void nox_video_setCutSize_4766A0(int a1);

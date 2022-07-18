@@ -984,7 +984,7 @@ func nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	nox_client_maybeDrawFrontWalls(vp)
 	r.DrawFade(false)
 	if noxflags.HasEngine(noxflags.EngineShowAI) {
-		C.sub_476270(vp.C())
+		drawDebugAI(vp)
 	}
 	C.sub_45AB40()
 	r.setRectFullScreen()
