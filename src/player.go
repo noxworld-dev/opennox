@@ -353,6 +353,14 @@ func (p *Player) CObj() *nox_object_t {
 	return u.CObj()
 }
 
+func (p *Player) AsObject() *Object {
+	u := p.UnitC()
+	if u == nil {
+		return nil
+	}
+	return u.AsObject()
+}
+
 func (p *Player) GetObject() script.Object {
 	u := p.Unit()
 	if u == nil {

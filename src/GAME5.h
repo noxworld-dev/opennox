@@ -27,7 +27,7 @@ int sub_545B60(int a1, unsigned char a2);
 int nox_xxx_monsterRoamDeadEnd_545BB0(int a1, int a2);
 int sub_545C60(int a1, int a2, unsigned char a3);
 int sub_545DA0(int a1);
-int sub_545E60(int* a1);
+int sub_545E60(nox_object_t* a1);
 int* nox_xxx_mobActionGuard_546010(int a1);
 int sub_546410(int a1);
 int sub_546420(int a1);

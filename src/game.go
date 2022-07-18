@@ -336,7 +336,7 @@ func nox_xxx_serverHost_43B4D0() {
 		C.nox_client_xxx_switchChatMap_43B510()
 		C.nox_client_guiXxx_43A9D0()
 		nox_client_guiXxxDestroy_4A24A0()
-		C.nox_xxx_gameSetAudioFadeoutMb_501AC0(0)
+		nox_xxx_gameSetAudioFadeoutMb_501AC0(0)
 	} else {
 		// join
 		C.sub_43B630()
@@ -1261,7 +1261,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 					n.SetPos(v61)
 					ud.field_97 = 0
 					n.clearActionStack()
-					n.field_130 = 0
+					n.obj_130 = nil
 					ud.current_enemy = nil
 					ud.field_304 = 0
 					*(*byte)(unsafe.Add(unsafe.Pointer(ud), 1129)) = 0

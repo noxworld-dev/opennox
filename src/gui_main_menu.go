@@ -352,7 +352,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 				noxflags.SetGame(noxflags.GameModeCoop)
 				noxflags.UnsetGame(noxflags.GameOnline)
 				noxflags.UnsetGame(noxflags.GameNotQuest)
-				C.nox_xxx_gameSetAudioFadeoutMb_501AC0(0)
+				nox_xxx_gameSetAudioFadeoutMb_501AC0(0)
 				noxflags.UnsetEngine(noxflags.EngineAdmin | noxflags.EngineGodMode)
 				sub_4D6F40(0)
 				sub_4D6F90(0)

@@ -177,13 +177,12 @@ uint32_t* nox_xxx_unitDoSummonAt_5016C0(int a1, int* a2, int a3, unsigned char a
 void nox_xxx_banishUnit_5017F0(int unit);
 int nox_xxx_allocAudEventArray_501860();
 void sub_5018D0();
-int sub_501900(int a1);
 int nox_xxx_getSevenDwords3_501940(int a1);
 uint32_t* nox_xxx_aud_501960(int a1, nox_object_t* a2, int a3, int a4);
 void nox_xxx_audCreate_501A30(int a1, float2* a2, int a3, int a4);
-int nox_xxx_gameSetAudioFadeoutMb_501AC0(int a1);
-int sub_501AF0(int a1, float* a2, float* a3);
-char sub_501C00(float* a1, int a2);
+void nox_xxx_gameSetAudioFadeoutMb_501AC0(int a1);
+int sub_501AF0(int a1, float2* a2, float2* a3);
+char sub_501C00(float* a1, nox_object_t* a2);
 int nox_xxx_netUpdateRemotePlr_501CA0(int a1);
 int sub_501E80();
 uint32_t* sub_501EA0(uint32_t* a1, int a2);
