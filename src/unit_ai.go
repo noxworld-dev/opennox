@@ -31,6 +31,7 @@ type aiData struct {
 	allocListen  alloc.ClassT[MonsterListen]
 	listenHead   *MonsterListen
 	soundFadeVal int
+	lastHeard    types.Pointf
 }
 
 //export nox_ai_debug_print
@@ -712,18 +713,12 @@ func (a *aiData) nox_xxx_unitEmitHearEvent_50D110(u *Unit, lis *MonsterListen, d
 	}
 	ud.field_99_x = C.float(lis.pos.X)
 	ud.field_99_y = C.float(lis.pos.Y)
-	setLastHearEvent(lis.pos)
+	a.lastHeard = lis.pos
 	obj5 := lis.obj.findOwnerChainPlayer()
 	// EventID 16 is MonsterHearsEnemy
 	C.nox_xxx_scriptCallByEventBlock_502490((*C.int)(unsafe.Pointer(&ud.field_320)), C.int(uintptr(unsafe.Pointer(obj5.CObj()))), C.int(uintptr(unsafe.Pointer(u.CObj()))), 16)
 }
 
-func setLastHearEvent(pos types.Pointf) {
-	*memmap.PtrFloat32(0x5D4594, 2386196) = pos.X
-	*memmap.PtrFloat32(0x5D4594, 2386200) = pos.Y
-}
-
-//export nox_xxx_getLastHearEvent_50CD30
-func nox_xxx_getLastHearEvent_50CD30() unsafe.Pointer {
-	return memmap.PtrOff(0x5D4594, 2386196)
+func (a *aiData) lastHeardEvent() types.Pointf {
+	return a.lastHeard
 }

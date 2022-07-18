@@ -2,6 +2,10 @@ package opennox
 
 /*
 #include "defs.h"
+#include "GAME4_1.h"
+#include "GAME5_2.h"
+extern void* dword_5d4594_2386176;
+extern uint32_t dword_5d4594_2386180;
 */
 import "C"
 import (
@@ -9,6 +13,11 @@ import (
 	"image"
 	"image/color"
 	"strconv"
+	"unsafe"
+
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
+	"github.com/noxworld-dev/opennox-lib/common"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
@@ -165,6 +174,85 @@ func drawDebugBox(r *NoxRender, b *noxShapeBox, p image.Point, cl color.Color) {
 	r.DrawLine(p4, p3, cl)
 	r.DrawLine(p1, p2, cl)
 	r.DrawLine(p4, p2, cl)
+}
+
+func sub_50CB00() int {
+	return int(C.dword_5d4594_2386180)
+}
+
+func sub_50D210() int {
+	return int(memmap.Int32(0x5D4594, 2386204))
+}
+
+func sub_50CB10() []types.Pointf {
+	sz := sub_50CB00()
+	return unsafe.Slice((*types.Pointf)(C.dword_5d4594_2386176), sz)
+}
+
+func drawDebugAI(vp *Viewport) {
+	r := noxrend
+
+	if arr := sub_50CB10(); len(arr) >= 2 {
+		cur := sub_50D210()
+		var lp image.Point
+		for i := 0; i < len(arr)-1; i++ {
+			var cl color.Color
+			if i == cur {
+				cl = nox_color_red
+			} else if arr[i].X < 0.0 || arr[i].Y < 0.0 {
+				cl = nox_color_blue_2650684
+			} else {
+				cl = nox_color_yellow_2589772
+			}
+			p1 := vp.ToScreenPos(arr[i].Point())
+			p2 := vp.ToScreenPos(arr[i+1].Point())
+			r.DrawBorder(p1.X-1, p1.Y-1, 3, 3, cl)
+			r.DrawLine(p1, p2, nox_color_green)
+			lp = p2
+		}
+		r.DrawBorder(lp.X-1, lp.Y-1, 3, 3, nox_color_yellow_2589772)
+	}
+
+	last := noxServer.ai.lastHeardEvent()
+	lp := vp.ToScreenPos(last.Point())
+	r.DrawBorder(lp.X-2, lp.Y-2, 5, 5, nox_color_white_2523948)
+
+	vsz := videoGetWindowSize()
+	xmin := int(float32(vp.World.Min.X/common.GridStep) + 0.5)
+	ymin := int(float32(vp.World.Min.Y/common.GridStep) + 0.5)
+	xmax := int(float32((vp.World.Min.X+vsz.X)/common.GridStep) + 0.5)
+	ymax := int(float32((vp.World.Min.Y+vsz.Y)/common.GridStep) + 0.5)
+	for y := ymin; y <= ymax; y++ {
+		yi := common.GridStep * y
+		for x := xmin; x <= xmax; x++ {
+			xi := common.GridStep * x
+			if C.sub_57B500(C.int(x), C.int(y), 64) != -1 {
+				r.Data().SetColor2(noxcolor.RGB5551Color(0, 0, 255))
+				r.DrawBorder(xi-vp.World.Min.X, yi-vp.World.Min.Y, common.GridStep, common.GridStep, r.Data().Color2())
+				continue
+			}
+			flags := C.sub_50AB50(C.int(x), C.int(y))
+			var cl color.Color
+			if flags&0x40 != 0 {
+				cl = noxcolor.RGB5551Color(0, 255, 0)
+			} else if flags&2 != 0 {
+				cl = noxcolor.RGB5551Color(0, 255, 255)
+			} else if flags&1 != 0 {
+				cl = noxcolor.RGB5551Color(0, 100, 100)
+			} else if flags&0x3C != 0 {
+				cl = noxcolor.RGB5551Color(255, 0, 255)
+			} else if flags&0x400 != 0 {
+				cl = noxcolor.RGB5551Color(255, 0, 0)
+			} else if flags&0x200 != 0 {
+				cl = noxcolor.RGB5551Color(255, 255, 0)
+			} else if flags&0x100 != 0 {
+				cl = noxcolor.RGB5551Color(100, 100, 0)
+			}
+			if cl != nil {
+				r.DrawBorder(xi-vp.World.Min.X, yi-vp.World.Min.Y, common.GridStep, common.GridStep, cl)
+			}
+		}
+	}
 }
 
 func debugStateStr2(v int) string {

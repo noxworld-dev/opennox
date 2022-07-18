@@ -63,7 +63,6 @@ int nox_xxx_pathFindStatus_50CAF0();
 int sub_50CB00();
 void* sub_50CB10();
 int sub_50CB20(int a1, float* a2);
-void* nox_xxx_getLastHearEvent_50CD30();
 void nox_xxx_audioAddAIInteresting_50CD40(int a1, nox_object_t* a2, float2* a3);
 void nox_xxx_unitListenRoutine_50CDD0(nox_object_t* unitA);
 void sub_50D1C0();
