@@ -7411,35 +7411,32 @@ int nox_xxx_netUpdateRemotePlr_501CA0(int a1) {
 	int2 v17;                          // [esp+10h] [ebp-8h]
 	char v18;                          // [esp+1Ch] [ebp+4h]
 
-	v1 = a1;
 	v2 = *(uint32_t*)(a1 + 748);
-	v16 = 0;
 	v3 = *(uint32_t*)(v2 + 276);
 	if (!(*(uint8_t*)(v3 + 3680) & 3) || (v4 = *(uint32_t*)(v3 + 3628)) == 0) {
 		if (*(int*)(v3 + 3664) == -559023410) {
 			nox_xxx_questCheckSecretArea_421C70(a1);
 		}
 		v5 = *(uint32_t*)(v2 + 276);
-		goto LABEL_11;
-	}
-	if (*(uint8_t*)(v4 + 8) & 4) {
-		v5 = *(uint32_t*)(*(uint32_t*)(v4 + 748) + 276);
-	LABEL_11:
 		v18 = *(uint8_t*)(v5 + 3668);
-		goto LABEL_12;
-	}
-	v6 = nox_float2int(*(float*)(*(uint32_t*)(v3 + 3628) + 56));
-	v7 = *(uint32_t*)(v2 + 276);
-	v17.field_0 = v6;
-	v17.field_4 = nox_float2int(*(float*)(*(uint32_t*)(v7 + 3628) + 60));
-	v8 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v17, 0);
-	if (v8) {
-		v18 = BYTE2(v8->field_0[32]);
+	} else if (*(uint8_t*)(v4 + 8) & 4) {
+		v5 = *(uint32_t*)(*(uint32_t*)(v4 + 748) + 276);
+		v18 = *(uint8_t*)(v5 + 3668);
 	} else {
-		v18 = 0;
+		v6 = nox_float2int(*(float*)(*(uint32_t*)(v3 + 3628) + 56));
+		v7 = *(uint32_t*)(v2 + 276);
+		v17.field_0 = v6;
+		v17.field_4 = nox_float2int(*(float*)(*(uint32_t*)(v7 + 3628) + 60));
+		v8 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v17, 0);
+		if (v8) {
+			v18 = BYTE2(v8->field_0[32]);
+		} else {
+			v18 = 0;
+		}
 	}
-LABEL_12:
 	sub_501E80();
+	v16 = 0;
+	v1 = a1;
 	if (nox_xxx_servObjectHasTeam_419130(v1 + 48)) {
 		v16 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(v1 + 52));
 	}
@@ -7447,27 +7444,24 @@ LABEL_12:
 		v10 = *(uint32_t*)(i + 20);
 		if (v10 == 1) {
 			v11 = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(i + 24));
-			if (v16 && v11 && v16 == v11) {
-				goto LABEL_22;
+			if (!(v16 && v11 && v16 == v11)) {
+				continue;
 			}
-		} else if (v10 != 2 || *(uint32_t*)(v1 + 36) == *(uint32_t*)(i + 24)) {
-		LABEL_22:
-			v12 = sub_501C00((float*)(i + 8), *(uint32_t*)(i + 16));
-			if (v12 == v18 || !v12) {
-				if (*(uint8_t*)(v2 + 188) || (v13 = *(uint32_t*)(i + 4), v13 < 186) || v13 > 193 ||
-					v1 != *(uint32_t*)(i + 16)) {
-					v14 =
-						sub_501AF0(*(uint32_t*)(i + 4), (float*)(i + 8), (float*)(*(uint32_t*)(v2 + 276) + 3632)) >> 1;
-					if (v14 > 0) {
-						if (*getMemU32Ptr(0x5D4594, 1570304 + 28 * *(uint32_t*)(i + 4))) {
-							sub_501EA0((uint32_t*)i, v14);
-						} else {
-							sub_501FD0(v1, i, v14);
-						}
+		} else if (!(v10 != 2 || *(uint32_t*)(v1 + 36) == *(uint32_t*)(i + 24))) {
+			continue;
+		}
+		v12 = sub_501C00((float*)(i + 8), *(uint32_t*)(i + 16));
+		if (v12 == v18 || !v12) {
+			if (*(uint8_t*)(v2 + 188) || (v13 = *(uint32_t*)(i + 4), v13 < 186) || v13 > 193 || v1 != *(uint32_t*)(i + 16)) {
+				v14 = sub_501AF0(*(uint32_t*)(i + 4), (float*)(i + 8), (float*)(*(uint32_t*)(v2 + 276) + 3632)) >> 1;
+				if (v14 > 0) {
+					if (*getMemU32Ptr(0x5D4594, 1570304 + 28 * *(uint32_t*)(i + 4))) {
+						sub_501EA0((uint32_t*)i, v14);
+					} else {
+						sub_501FD0(v1, i, v14);
 					}
 				}
 			}
-			continue;
 		}
 	}
 	return sub_502060(v1);
