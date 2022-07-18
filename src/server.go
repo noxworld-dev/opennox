@@ -125,6 +125,7 @@ type Server struct {
 	tickHooks       tickHooks
 	objs            serverObjects
 	teams           serverTeams
+	ai              aiData
 	quest           questServer
 	mapSwitchWPName string
 	announce        bool
@@ -494,7 +495,7 @@ func (s *Server) nox_server_netCloseHandler_4DEC60(ind int) {
 }
 
 func (s *Server) nox_xxx_servEndSession_4D3200() {
-	freeAIListen()
+	s.ai.Free()
 	C.sub_4DB100()
 	C.sub_421B10()
 	C.sub_516F10()
