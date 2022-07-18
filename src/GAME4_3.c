@@ -3039,28 +3039,6 @@ int sub_534120(int a1, float2* a2) {
 		   0.89999998;
 }
 
-//----- (00534160) --------------------------------------------------------
-nox_object_t* sub_534160(int a1) {
-	int result; // eax
-	int i;      // ecx
-
-	result = a1;
-	if (a1) {
-		for (i = *(uint32_t*)(a1 + 508); i; i = *(uint32_t*)(i + 508)) {
-			if (*(uint8_t*)(result + 8) & 6) {
-				break;
-			}
-			result = i;
-		}
-		if (result) {
-			if (!(*(uint8_t*)(result + 8) & 6)) {
-				result = 0;
-			}
-		}
-	}
-	return result;
-}
-
 //----- (005341A0) --------------------------------------------------------
 void nox_ai_debug_print(char* str);
 void nox_ai_debug_printf_5341A0(char* a1, ...) {
@@ -3155,7 +3133,7 @@ int sub_534340(int a1) {
 }
 
 //----- (00534390) --------------------------------------------------------
-int nox_xxx_monsterCanAttackAtWill_534390(int a1) { return *(float*)(*(uint32_t*)(a1 + 748) + 1304) > 0.66000003; }
+int nox_xxx_monsterCanAttackAtWill_534390(nox_object_t* a1) { return *(float*)(*(uint32_t*)((int)a1 + 748) + 1304) > 0.66000003; }
 
 //----- (005343C0) --------------------------------------------------------
 int sub_5343C0(int a1) {

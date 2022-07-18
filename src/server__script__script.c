@@ -486,6 +486,12 @@ void nox_xxx_scriptRunFirst_507290() {
 
 //----- (00507310) --------------------------------------------------------
 void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
+	if (!nox_script_arr_xxx_1599636) {
+		return;
+	}
+	if ((index < 0) || (index >= nox_script_count_xxx_1599640)) {
+		return;
+	}
 	char buf[256]; // [esp+28h] [ebp-100h]
 
 	nox_script_xxx_t* script = &nox_script_arr_xxx_1599636[index];

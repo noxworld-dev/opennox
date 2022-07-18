@@ -7409,7 +7409,8 @@ short sub_528030(int a1) {
 }
 
 //----- (00528190) --------------------------------------------------------
-int nox_xxx_checkIsKillable_528190(int a1) {
+int nox_xxx_checkIsKillable_528190(nox_object_t* a1p) {
+	int a1 = a1p;
 	uint16_t* v1; // eax
 	bool v2;      // zf
 	int result;   // eax

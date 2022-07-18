@@ -35,7 +35,6 @@ extern uint32_t dword_5d4594_1569660;
 extern uint32_t dword_5d4594_1569736;
 extern uint32_t nox_server_resetQuestMinVotes_229988;
 extern uint32_t dword_5d4594_1599644;
-extern uint32_t dword_5d4594_1599068;
 extern uint32_t dword_5d4594_3835392;
 extern uint32_t nox_xxx_resetMapInit_1569652;
 extern uint32_t dword_5d4594_3835312;
@@ -7219,9 +7218,6 @@ void sub_5018D0() {
 	}
 }
 
-//----- (00501900) --------------------------------------------------------
-int sub_501900(int a1) { return *getMemU32Ptr(0x5D4594, 1570288 + 28 * a1); }
-
 //----- (00501940) --------------------------------------------------------
 int nox_xxx_getSevenDwords3_501940(int a1) { return *getMemU32Ptr(0x5D4594, 1570296 + 28 * a1); }
 
@@ -7292,66 +7288,9 @@ void nox_xxx_audCreate_501A30(int a1, float2* a2, int a3, int a4) {
 	}
 }
 
-//----- (00501AC0) --------------------------------------------------------
-int nox_xxx_gameSetAudioFadeoutMb_501AC0(int a1) {
-	int result; // eax
-
-	result = a1;
-	if (a1 >= 0) {
-		if (a1 > 100) {
-			result = 100;
-		}
-		dword_5d4594_1599068 = result;
-	} else {
-		result = 0;
-		dword_5d4594_1599068 = 0;
-	}
-	return result;
-}
-
-//----- (00501AF0) --------------------------------------------------------
-int sub_501AF0(int a1, float* a2, float* a3) {
-	float* v3; // eax
-	int v4;    // esi
-	double v5; // st7
-	int v6;    // eax
-	int v7;    // eax
-	int v9;    // [esp+Ch] [ebp-4h]
-	float v10; // [esp+14h] [ebp+4h]
-	float v11; // [esp+18h] [ebp+8h]
-
-	v3 = a2;
-	v4 = *getMemU32Ptr(0x5D4594, 1570284 + 28 * a1);
-	v9 = *getMemU32Ptr(0x5D4594, 1570284 + 28 * a1);
-	v11 = *a2 - *a3;
-	v10 = v3[1] - a3[1];
-	v5 = (double)v9;
-	if (v11 >= v5) {
-		return 0;
-	}
-	if (v10 >= v5) {
-		return 0;
-	}
-	if (v4 <= 0) {
-		return 0;
-	}
-	v6 = nox_double2int(sqrt(v10 * v10 + v11 * v11 + 0.1));
-	if (v6 >= v4) {
-		return 0;
-	}
-	v7 = 100 * (v4 - v6) / v4;
-	if (v7 <= 100) {
-		if (v7 < 0) {
-			v7 = 0;
-		}
-	} else {
-		v7 = 100;
-	}
-	return v7 <= *(int*)&dword_5d4594_1599068 ? 0 : v7;
-}
-
 //----- (00501C00) --------------------------------------------------------
-char sub_501C00(float* a1, int a2) {
+char sub_501C00(float* a1, nox_object_t* a2p) {
+	int a2 = a2p;
 	char v2;                           // bl
 	int v3;                            // ecx
 	char* v4;                          // eax

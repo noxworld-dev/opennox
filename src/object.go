@@ -27,6 +27,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 )
 
 type serverObjects struct {
@@ -221,8 +222,16 @@ func toCObj(obj noxObject) *nox_object_t {
 	return obj.CObj()
 }
 
+func toObject(obj noxObject) *Object {
+	if obj == nil {
+		return nil
+	}
+	return obj.AsObject()
+}
+
 type noxObject interface {
 	CObj() *nox_object_t
+	AsObject() *Object
 }
 
 type Object nox_object_t
@@ -237,6 +246,10 @@ func (obj *Object) UniqueKey() uintptr {
 
 func (obj *Object) CObj() *nox_object_t {
 	return (*nox_object_t)(unsafe.Pointer(obj))
+}
+
+func (obj *Object) AsObject() *Object {
+	return obj
 }
 
 func (obj *Object) field(dp uintptr) unsafe.Pointer {
@@ -657,7 +670,7 @@ func (obj *Object) forceDrop(item *Object) { // nox_xxx_invForceDropItem_4ED930
 }
 
 func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_5330C0
-	obj2 := asObjectC(toCObj(objp))
+	obj2 := toObject(objp)
 	if obj == nil || obj2 == nil {
 		return false
 	}
@@ -667,7 +680,11 @@ func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_533
 	srv := obj.getServer()
 	if srv.objs.types.plant == 0 {
 		srv.objs.types.plant = srv.getObjectTypeID("CarnivorousPlant")
+	}
+	if srv.objs.types.polyp == 0 {
 		srv.objs.types.polyp = srv.getObjectTypeID("Polyp")
+	}
+	if srv.objs.types.wisp == 0 {
 		srv.objs.types.wisp = srv.getObjectTypeID("WillOWisp")
 	}
 	if obj2.Class().HasAny(object.ClassMonster) {
@@ -728,7 +745,7 @@ func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_533
 		return false
 	}
 	if !noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().HasAny(object.ClassMonster) && obj2.objTypeInd() == srv.objs.types.wisp {
-		return C.nox_xxx_checkMobAction_50A0D0(obj2.CObj(), 15) != 0
+		return nox_xxx_checkMobAction_50A0D0(obj2.AsUnit(), ai.ACTION_FIGHT)
 	}
 	if nox_xxx_servObjectHasTeam_419130(own1.teamPtr()) || nox_xxx_servObjectHasTeam_419130(own2.teamPtr()) {
 		return true
@@ -771,6 +788,17 @@ func (obj *Object) isFrog() bool {
 		srv.objs.types.frog = srv.getObjectTypeID("GreenFrog")
 	}
 	return obj.objTypeInd() == srv.objs.types.frog
+}
+
+func (obj *Object) isPlant() bool {
+	if obj == nil {
+		return false
+	}
+	srv := obj.getServer()
+	if srv.objs.types.plant == 0 {
+		srv.objs.types.plant = srv.getObjectTypeID("CarnivorousPlant")
+	}
+	return obj.objTypeInd() == srv.objs.types.plant
 }
 
 func (obj *Object) findOwnerChainPlayer() *Object { // nox_xxx_findParentChainPlayer_4EC580

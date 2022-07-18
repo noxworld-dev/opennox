@@ -495,7 +495,7 @@ typedef struct nox_object_t {
 	nox_object_t* owner;     // 127, 508
 	void* field_128;         // 128, 512
 	void* field_129;         // 129, 516
-	uint32_t field_130;      // 130, 520
+	nox_object_t* obj_130;   // 130, 520
 	uint32_t field_131;      // 131, 524
 	uint32_t field_132;      // 132, 528
 	uint32_t field_133;      // 133, 532
@@ -832,12 +832,12 @@ typedef struct {
 	uint32_t field_94; // 94, 376
 	uint32_t field_95; // 95, 380
 	uint32_t field_96; // 96, 384
-	uint32_t field_97; // 97, 388
-	uint32_t field_98; // 98, 392
-	uint32_t field_99; // 99, 396
-	uint32_t field_100; // 100, 400
-	uint32_t field_101; // 101, 404, TODO: some frame/timestamp
-	uint32_t field_102; // 102, 408
+	uint32_t field_97; // 97, 388, TODO: hear sound ind
+	uint32_t field_98; // 98, 392, TODO: some frame/timestamp
+	float field_99_x;  // 99, 396
+	float field_99_y;  // 100, 400
+	uint32_t field_101; // 101, 404, TODO: hear frame/timestamp
+	uint32_t field_102; // 102, 408, TODO: hear distance
 	uint32_t field_103; // 103, 412
 	uint32_t field_104; // 104, 416
 	uint32_t field_105; // 105, 420
@@ -864,7 +864,7 @@ typedef struct {
 	uint32_t field_126; // 126, 504
 	uint32_t field_127; // 127, 508
 	uint32_t field_128; // 128, 512
-	uint32_t field_129; // 129, 516
+	uint32_t field_129; // 129, 516, TODO: some timestamp
 	uint32_t field_130; // 130, 520
 	uint32_t field_131; // 131, 524
 	uint32_t field_132; // 132, 528
@@ -916,7 +916,7 @@ typedef struct {
 	uint32_t field_317; // 317, 1268
 	uint32_t field_318; // 318, 1272
 	uint32_t field_319; // 319, 1276
-	uint32_t field_320; // 320, 1280
+	uint32_t field_320; // 320, 1280 // TODO: monster hear script callback?
 	uint32_t field_321; // 321, 1284
 	uint32_t field_322; // 322, 1288
 	uint32_t field_323; // 323, 1292
@@ -924,7 +924,7 @@ typedef struct {
 	uint32_t field_325; // 325, 1300
 	uint32_t field_326; // 326, 1304
 	uint32_t field_327; // 327, 1308
-	uint32_t field_328; // 328, 1312
+	float field_328;    // 328, 1312
 	uint32_t field_329; // 329, 1316
 	uint32_t field_330; // 330, 1320
 	uint32_t field_331; // 331, 1324

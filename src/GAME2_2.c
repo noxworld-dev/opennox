@@ -292,7 +292,7 @@ void sub_476270(nox_draw_viewport_t* a1p) {
 		nox_client_drawSetColor_434460(nox_color_yellow_2589772);
 		nox_client_drawBorderLines_49CC70(v6 - 1, v7 - 1, 3, 3);
 	}
-	v8 = (float*)sub_50CD30();
+	v8 = nox_xxx_getLastHearEvent_50CD30();
 	v9 = *v1 + (unsigned long long)(long long)*v8 - v1[4];
 	v10 = v1[1] + (unsigned long long)(long long)v8[1] - v1[5];
 	nox_client_drawSetColor_434460(nox_color_white_2523948);

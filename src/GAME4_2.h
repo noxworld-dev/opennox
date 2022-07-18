@@ -186,7 +186,7 @@ int nox_xxx_mapGenFinishSpellbook_527DB0(int a1, char a2);
 int* sub_527E00(int a1);
 int nox_xxx_netUpdateObjectSpecial_527E50(int a1, uint32_t* a2);
 short sub_528030(int a1);
-int nox_xxx_checkIsKillable_528190(int a1);
+int nox_xxx_checkIsKillable_528190(nox_object_t* a1);
 int nox_xxx_frameCounterSetCopyToNextFrame_5281D0();
 int nox_xxx_frameCounterSetCopy_5281E0();
 void nox_xxx_unitUpdateSightMB_5281F0(float a1);

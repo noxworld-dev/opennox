@@ -2,10 +2,13 @@ package opennox
 
 /*
 #include "defs.h"
+#include "GAME1_1.h"
 #include "GAME4.h"
 #include "GAME4_1.h"
+#include "GAME4_2.h"
 #include "GAME4_3.h"
 #include "GAME5.h"
+#include "server__script__script.h"
 extern unsigned int dword_5d4594_2489460;
 */
 import "C"
@@ -18,8 +21,16 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
+)
+
+var (
+	aiAllocListen  alloc.ClassT[MonsterListen]
+	aiListenHead   *MonsterListen
+	aiSoundFadeVal int
 )
 
 //export nox_ai_debug_print
@@ -48,6 +59,9 @@ func (s *aiStack) Type() ai.ActionType {
 }
 
 func (s *aiStack) SetArgs(args ...any) {
+	if s == nil {
+		return
+	}
 	for i, v := range args {
 		p := s.ptr(i)
 		switch v := v.(type) {
@@ -61,6 +75,11 @@ func (s *aiStack) SetArgs(args ...any) {
 			*(*float32)(p) = v
 		case noxObject:
 			*(*unsafe.Pointer)(p) = unsafe.Pointer(toCObj(v))
+		case types.Pointf:
+			if i == 3 {
+				panic(i)
+			}
+			*(*types.Pointf)(p) = v
 		default:
 			panic(fmt.Errorf("unsupported arg: %T", v))
 		}
@@ -192,8 +211,8 @@ func nox_xxx_mobActionDependency_546A70(uc *C.nox_object_t) {
 			}
 		case ai.DEPENDENCY_UNDER_ATTACK:
 			if C.sub_5347A0(u.CObj()) != 0 {
-				if u.field_130 != 0 {
-					v26 := asObjectC(C.sub_534160(C.int(u.field_130)))
+				if u.obj_130 != nil {
+					v26 := getOwnerUnit(asObjectC(u.obj_130))
 					if v26 != nil && v26.Class().HasAny(object.MaskUnits) {
 						st.arg_1 = gameFrame()
 					}
@@ -204,19 +223,19 @@ func nox_xxx_mobActionDependency_546A70(uc *C.nox_object_t) {
 			if C.sub_5347A0(u.CObj()) == 0 {
 				break
 			}
-			if u.field_130 == 0 {
+			if u.obj_130 == nil {
 				break
 			}
-			v27 := asObjectC(C.sub_534160(C.int(u.field_130)))
-			if v27 == nil {
+			attacker := getOwnerUnit(asObjectC(u.obj_130))
+			if attacker == nil {
 				break
 			}
-			if v27.Class().HasAny(object.MaskUnits) {
+			if attacker.Class().HasAny(object.MaskUnits) {
 				ok = false
 			}
 		case ai.DEPENDENCY_CAN_SEE:
-			v14 := st.ArgObj(0)
-			if v14 == nil || !nox_xxx_unitCanInteractWith_5370E0(u, v14, 0) {
+			obj := st.ArgObj(0)
+			if obj == nil || !nox_xxx_unitCanInteractWith_5370E0(u, obj, 0) {
 				ok = false
 			}
 		case ai.DEPENDENCY_CANNOT_SEE:
@@ -385,4 +404,315 @@ func nox_xxx_monsterActionReset_50A110(u *Unit) {
 
 func nox_xxx_monsterPopAction_50A160(u *Unit) {
 	C.nox_xxx_monsterPopAction_50A160(u.CObj())
+}
+
+func nox_xxx_checkMobAction_50A0D0(u *Unit, act ai.ActionType) bool {
+	return C.nox_xxx_checkMobAction_50A0D0(u.CObj(), C.int(act)) != 0
+}
+
+//export sub_545E60
+func sub_545E60(a1c *nox_object_t) C.int {
+	u := asUnitC(a1c)
+
+	ud := u.updateDataMonster()
+	ts := uint32(u.field_134)
+	if uint32(ud.field_129) >= ts || gameFrame()-ts >= 10*gameFPS() {
+		return 0
+	}
+	ud.field_129 = C.uint(ts)
+	if u.obj_130 != nil {
+		if obj4 := getOwnerUnit(asObjectC(u.obj_130)); obj4 != nil {
+			if !u.isEnemyTo(obj4) {
+				return 0
+			}
+			canInteract := nox_xxx_unitCanInteractWith_5370E0(u, obj4, 0)
+			if u.isPlant() {
+				if !canInteract {
+					return 0
+				}
+				u.monsterPushAction(ai.DEPENDENCY_ENEMY_CLOSER_THAN, float32(ud.field_328)*1.05)
+			} else {
+				u.monsterPushAction(ai.DEPENDENCY_UNDER_ATTACK, gameFrame())
+			}
+			u.monsterPushAction(ai.ACTION_FIGHT, obj4.Pos(), gameFrame())
+			if !canInteract {
+				u.monsterPushAction(ai.DEPENDENCY_NO_VISIBLE_ENEMY)
+				if C.nox_xxx_monsterCanAttackAtWill_534390(u.CObj()) != 0 {
+					u.monsterPushAction(ai.DEPENDENCY_NO_INTERESTING_SOUND)
+				}
+				u.monsterPushAction(ai.ACTION_MOVE_TO, obj4.Pos(), 0)
+			}
+			return 1
+		}
+	}
+	if !nox_xxx_checkMobAction_50A0D0(u, ai.ACTION_ROAM) {
+		u.monsterPushAction(ai.DEPENDENCY_TIME, 5*gameFPS())
+		u.monsterPushAction(ai.DEPENDENCY_NO_VISIBLE_ENEMY)
+		if C.nox_xxx_monsterCanAttackAtWill_534390(u.CObj()) != 0 {
+			u.monsterPushAction(ai.DEPENDENCY_NO_INTERESTING_SOUND)
+		}
+		u.monsterPushAction(ai.ACTION_ROAM, 0, 0, -128)
+	}
+	return 0
+}
+
+var _ = [1]struct{}{}[24-unsafe.Sizeof(MonsterListen{})]
+
+type MonsterListen struct {
+	snd   int            // 0, 0
+	obj   *Object        // 1, 4
+	pos   types.Pointf   // 2, 8
+	frame uint32         // 4, 16
+	next  *MonsterListen // 5, 20
+}
+
+//export sub_50D1C0
+func sub_50D1C0() {
+	aiAllocListen.FreeAllObjects()
+	//allocMonsterListen.Class = nil
+	aiListenHead = nil
+}
+
+func freeAIListen() {
+	if aiAllocListen.Class != nil {
+		aiAllocListen.Free()
+	}
+	aiListenHead = nil
+}
+
+//export nox_xxx_audioAddAIInteresting_50CD40
+func nox_xxx_audioAddAIInteresting_50CD40(snd C.int, obj *nox_object_t, cp *C.float2) {
+	aiNewSound(int(snd), asObjectC(obj), asPointf(unsafe.Pointer(cp)))
+}
+
+func aiNewSound(snd int, obj *Object, pos types.Pointf) {
+	if getSoundXxx(snd) == 0 {
+		return
+	}
+	if aiAllocListen.Class == nil {
+		aiAllocListen = alloc.NewClassT("MonsterListen", MonsterListen{}, 128)
+	}
+	if getOwnerUnit(obj) == nil {
+		return
+	}
+
+	p := aiAllocListen.NewObject()
+	if p == nil {
+		return
+	}
+	*p = MonsterListen{
+		snd:   snd,
+		obj:   obj,
+		pos:   pos,
+		frame: gameFrame(),
+	}
+	p.next = aiListenHead
+	aiListenHead = p
+}
+
+func getOwnerUnit(obj *Object) *Object {
+	for it := obj; it != nil; it = it.OwnerC() {
+		if it.Class().HasAny(object.MaskUnits) {
+			return it
+		}
+	}
+	return nil
+}
+
+//export nox_xxx_unitListenRoutine_50CDD0
+func nox_xxx_unitListenRoutine_50CDD0(unit *nox_object_t) {
+	aiListenToSounds(asUnitC(unit))
+}
+
+func aiListenToSounds(u *Unit) {
+	// Not sure about this check. If unit is invulnerable, don't listen for anything?
+	// Is present in vanilla though, so this might be some kind of weird fix for strange behaviour
+	if C.nox_xxx_checkIsKillable_528190(u.CObj()) == 0 {
+		return
+	}
+
+	// Do not listen to anything if you are a fish, frog or rat
+	if u.isFish() || u.isFrog() || u.isRat() {
+		return
+	}
+
+	var (
+		prev     *MonsterListen
+		next     *MonsterListen
+		maxHeard *MonsterListen
+		maxDist  int
+	)
+	ud := u.updateDataMonster()
+	for it := aiListenHead; it != nil; it = next {
+		next = it.next
+		if gameFrame() < it.frame || gameFrame()-it.frame > 2 {
+			if prev != nil {
+				prev.next = next
+			} else {
+				aiListenHead = it.next
+			}
+			aiAllocListen.FreeObjectFirst(it)
+		} else {
+			if it.obj != nil && it.obj.Flags().Has(object.FlagDestroyed) {
+				it.obj = nil
+			}
+			if uint32(ud.field_101) <= it.frame && shouldUnitListen(u, it) {
+				dist := traceSound(u, it)
+				// This finds the farthest?
+				if dist > 0 && dist > maxDist {
+					maxDist = dist
+					maxHeard = it
+				}
+			}
+			prev = it
+		}
+	}
+	if maxHeard != nil && (maxHeard.frame > uint32(ud.field_101) || maxDist > int(ud.field_102)) {
+		nox_xxx_unitEmitHearEvent_50D110(u, maxHeard, maxDist)
+	}
+}
+
+func getSoundXxx(ind int) int {
+	return int(memmap.Uint32(0x5D4594, 1570288+28*uintptr(ind)))
+}
+
+func traceSound(u *Unit, p *MonsterListen) int {
+	xx := getSoundXxx(p.snd)
+	perc := soundFadePerc(p.snd, p.pos, u.Pos())
+	if !checkSoundFadePerc(xx, perc) {
+		return -1
+	}
+	if !MapTraceRayAt(u.Pos(), p.pos, nil, nil, 5) {
+		perc = int(float64(perc) * 0.5)
+	}
+	if !checkSoundFadePerc(xx, perc) {
+		return -1
+	}
+	return perc
+}
+
+//export nox_xxx_gameSetAudioFadeoutMb_501AC0
+func nox_xxx_gameSetAudioFadeoutMb_501AC0(v C.int) {
+	if v < 0 {
+		v = 0
+	} else if v > 100 {
+		v = 100
+	}
+	aiSoundFadeVal = int(v)
+}
+
+//export sub_501AF0
+func sub_501AF0(snd C.int, p1, p2 *C.float2) C.int {
+	return C.int(soundFadePerc(int(snd), asPointf(unsafe.Pointer(p1)), asPointf(unsafe.Pointer(p2))))
+}
+
+func soundFadePerc(snd int, p1, p2 types.Pointf) int {
+	max := int(memmap.Uint32(0x5D4594, 1570284+28*uintptr(snd)))
+	dx := float64(p1.X - p2.X)
+	dy := float64(p1.Y - p2.Y)
+	if dx >= float64(max) {
+		return 0
+	}
+	if dy >= float64(max) {
+		return 0
+	}
+	if max <= 0 {
+		return 0
+	}
+	dist := int(math.Sqrt(dy*dy + dx*dx + 0.1))
+	if dist >= max {
+		return 0
+	}
+	v := 100 * (max - dist) / max
+	if v < 0 {
+		v = 0
+	} else if v > 100 {
+		v = 100
+	}
+	if v <= aiSoundFadeVal {
+		return 0
+	}
+	return v
+}
+
+func checkSoundFadePerc(flags, dist int) bool {
+	if flags&0x20 != 0 {
+		if dist < 89 {
+			return false
+		}
+	} else if flags&0x40 != 0 {
+		if dist < 20 {
+			return false
+		}
+	} else {
+		if dist < 50 {
+			return false
+		}
+	}
+	return true
+}
+
+func shouldUnitListen(u *Unit, lis *MonsterListen) bool {
+	ud := u.updateDataMonster()
+	punit := lis.obj.findOwnerChainPlayer()
+	listenable := getSoundXxx(lis.snd)
+	if uint32(ud.field_101) > gameFrame() {
+		return false
+	}
+	if punit == nil {
+		if listenable == 0 {
+			return false
+		}
+	} else {
+		if u.isEnemyTo(punit) {
+			if listenable == 0 {
+				return false
+			}
+		} else if listenable&0x10 == 0 {
+			return false
+		}
+	}
+	cp, free := alloc.New(types.Pointf{})
+	defer free()
+	*cp = lis.pos
+	if v12 := C.sub_501C00((*C.float)(unsafe.Pointer(cp)), lis.obj.CObj()); v12 != 0 {
+		pos := u.Pos()
+		cpi, free := alloc.Make([]int32{}, 2)
+		defer free()
+		cpi[0] = int32(pos.X)
+		cpi[1] = int32(pos.Y)
+		resp := C.nox_xxx_polygonIsPlayerInPolygon_4217B0((*C.int2)(unsafe.Pointer(&cpi[0])), 0)
+		if resp != nil && byte(v12) != *(*byte)(unsafe.Add(unsafe.Pointer(&resp.field_0[32]), 2)) {
+			return false
+		}
+	}
+	return true
+}
+
+func nox_xxx_unitEmitHearEvent_50D110(u *Unit, lis *MonsterListen, dist int) {
+	ud := u.updateDataMonster()
+	ud.field_97 = C.uint(lis.snd)
+	ud.field_101 = C.uint(gameFrame())
+	ud.field_102 = C.uint(dist)
+	if lis.obj != nil {
+		ud.field_98 = lis.obj.field_9
+	} else {
+		ud.field_98 = 0
+	}
+	ud.field_99_x = C.float(lis.pos.X)
+	ud.field_99_y = C.float(lis.pos.Y)
+	setLastHearEvent(lis.pos)
+	obj5 := lis.obj.findOwnerChainPlayer()
+	// EventID 16 is MonsterHearsEnemy
+	C.nox_xxx_scriptCallByEventBlock_502490((*C.int)(unsafe.Pointer(&ud.field_320)), C.int(uintptr(unsafe.Pointer(obj5.CObj()))), C.int(uintptr(unsafe.Pointer(u.CObj()))), 16)
+}
+
+func setLastHearEvent(pos types.Pointf) {
+	*memmap.PtrFloat32(0x5D4594, 2386196) = pos.X
+	*memmap.PtrFloat32(0x5D4594, 2386200) = pos.Y
+}
+
+//export nox_xxx_getLastHearEvent_50CD30
+func nox_xxx_getLastHearEvent_50CD30() unsafe.Pointer {
+	return memmap.PtrOff(0x5D4594, 2386196)
 }
