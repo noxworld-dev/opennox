@@ -317,16 +317,17 @@ func nox_xxx_playerCancelAbils_4FC180(cu *nox_object_t) {
 }
 
 //export sub_4FC300
-func sub_4FC300(cu *nox_object_t, a2 int) {
+func sub_4FC300(cu *nox_object_t, a2 C.int) {
+	sub4FC300(asUnitC(cu), Ability(a2))
+}
+func sub4FC300(u *Unit, abil Ability) {
 	s := noxServer
-	if cu == nil {
+	if u == nil {
 		return
 	}
-	abil := Ability(a2)
 	if !abil.Valid() {
 		return
 	}
-	u := asUnitC(cu)
 	switch abil {
 	case AbilityHarpoon:
 		ud := u.updateDataPlayer()

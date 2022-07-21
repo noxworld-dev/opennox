@@ -1,6 +1,7 @@
 package opennox
 
 /*
+#include "GAME4_3.h"
 #include "GAME5_2.h"
 */
 import "C"
@@ -8,11 +9,16 @@ import (
 	"encoding/binary"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+)
+
+var (
+	harpoonDamage int
 )
 
 func nox_xxx_warriorHarpoon_540070(u *Unit) {
@@ -69,4 +75,68 @@ func (s *Server) nox_xxx_netHarpoonBreak_4D98A0(u1 *Unit, u2 *Unit) {
 		binary.LittleEndian.PutUint16(buf[5:], uint16(C.nox_xxx_netGetUnitCodeServ_578AC0(u2.CObj())))
 		s.nox_xxx_netSendPacket1_4E5390(255, buf[:7], 0, 1)
 	}
+}
+
+func harpoonUpdatePlayer(u *Unit) {
+	ud := u.updateDataPlayer()
+	if targ := asObjectC(ud.harpoon_targ); targ != nil {
+		if targ.Flags().Has(object.FlagDestroyed) {
+			nox_xxx_harpoonBreakForPlr(u)
+		} else {
+			force := gamedataFloat("HarpoonForce")
+			sub_4E7540(u, targ)
+			targ.applyForce(u.Pos(), -force)
+		}
+	}
+}
+
+//export nox_xxx_harpoonBreakForPlr_537520
+func nox_xxx_harpoonBreakForPlr_537520(u *nox_object_t) {
+	nox_xxx_harpoonBreakForPlr(asUnitC(u))
+}
+
+func nox_xxx_harpoonBreakForPlr(u *Unit) {
+	C.sub_5374D0(u.CObj())
+	nox_xxx_aud_501960(998, u, 0, 0)
+}
+
+//export nox_xxx_collideHarpoon_4EB6A0
+func nox_xxx_collideHarpoon_4EB6A0(a1c *nox_object_t, a2c *nox_object_t) {
+	bolt := asUnitC(a1c)
+	targ := asUnitC(a2c)
+
+	owner := bolt.OwnerC().AsUnit()
+	if harpoonDamage == 0 {
+		harpoonDamage = int(gamedataFloat("HarpoonDamage"))
+	}
+	ud := owner.updateDataPlayer()
+	if targ == nil {
+		npos := bolt.newPos()
+		C.nox_xxx_damageToMap_534BC0(C.int(npos.X/common.GridStep), C.int(npos.Y/common.GridStep), C.int(harpoonDamage), 11, bolt.CObj())
+		ud.harpoon_targ = nil
+		sub4FC300(owner, AbilityHarpoon)
+		bolt.Delete()
+		ud.harpoon_bolt = nil
+		return
+	}
+	if targ.Flags().HasAny(object.FlagDestroyed|object.FlagDead) || targ == owner {
+		return
+	}
+	u5 := bolt.findOwnerChainPlayer()
+	if targ.callDamage(u5, bolt, harpoonDamage, 11) == 0 || !(owner.isEnemyTo(targ) || checkGameplayFlags(1) && targ.Class().HasAny(object.MaskUnits)) {
+		C.nox_xxx_soundDefaultDamageSound_532E20(targ.CObj(), bolt.CObj())
+		ud.harpoon_targ = nil
+		sub4FC300(owner, AbilityHarpoon)
+		bolt.Delete()
+		ud.harpoon_bolt = nil
+		return
+	}
+	ud.harpoon_targ = targ.CObj()
+	tpos := targ.Pos()
+	ud.harpoon_targ_x = C.float(tpos.X)
+	ud.harpoon_targ_y = C.float(tpos.Y)
+	ud.harpoon_frame = C.uint(gameFrame())
+	bolt.SetFlags(bolt.Flags() | object.FlagNoCollide)
+	sub_4E7540(bolt.OwnerC(), targ)
+	nox_xxx_aud_501960(999, owner, 0, 0)
 }

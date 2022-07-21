@@ -6767,64 +6767,6 @@ void nox_xxx_collideArrow_4EB490(int a1, int a2) {
 	}
 }
 
-//----- (004EB6A0) --------------------------------------------------------
-void nox_xxx_collideHarpoon_4EB6A0(int a1, int a2) {
-	int v2;       // eax
-	uint32_t* v3; // ebp
-	uint32_t* v4; // ebx
-	int v5;       // eax
-	int v6;       // eax
-	float v7;     // [esp+0h] [ebp-24h]
-	float v8;     // [esp+4h] [ebp-20h]
-	int v9;       // [esp+4h] [ebp-20h]
-	int v10;      // [esp+8h] [ebp-1Ch]
-	int v11;      // [esp+Ch] [ebp-18h]
-	int v12;      // [esp+Ch] [ebp-18h]
-	float v13;    // [esp+10h] [ebp-14h]
-
-	v2 = *getMemU32Ptr(0x5D4594, 1568004);
-	v3 = *(uint32_t**)(a1 + 508);
-	v4 = (uint32_t*)v3[187];
-	if (!*getMemU32Ptr(0x5D4594, 1568004)) {
-		v13 = nox_xxx_gamedataGetFloat_419D40("HarpoonDamage");
-		v2 = nox_float2int(v13);
-		*getMemU32Ptr(0x5D4594, 1568004) = v2;
-	}
-	if (!a2) {
-		v10 = v2;
-		v8 = *(float*)(a1 + 68) * 0.043478262;
-		v9 = nox_float2int(v8);
-		v7 = *(float*)(a1 + 64) * 0.043478262;
-		v6 = nox_float2int(v7);
-		nox_xxx_damageToMap_534BC0(v6, v9, v10, 11, a1);
-	LABEL_13:
-		v4[33] = 0;
-		sub_4FC300(v3, 3);
-		nox_xxx_delayedDeleteObject_4E5CC0(a1);
-		v4[34] = 0;
-		return;
-	}
-	if (!(*(uint32_t*)(a2 + 16) & 0x8020) && (uint32_t*)a2 != v3) {
-		v11 = v2;
-		v5 = nox_xxx_findParentChainPlayer_4EC580(a1);
-		if ((*(int (**)(int, int, int, int, int))(a2 + 716))(a2, v5, a1, v11, 11) &&
-			(nox_xxx_unitIsEnemyTo_5330C0((int)v3, a2) ||
-			 nox_xxx_CheckGameplayFlags_417DA0(1) && *(uint8_t*)(a2 + 8) & 6)) {
-			v4[33] = a2;
-			v4[36] = *(uint32_t*)(a2 + 56);
-			v4[37] = *(uint32_t*)(a2 + 60);
-			v4[38] = nox_frame_xxx_2598000;
-			v12 = *(uint32_t*)(a1 + 508);
-			*(uint32_t*)(a1 + 16) |= 0x40u;
-			sub_4E7540(v12, a2);
-			nox_xxx_aud_501960(999, (int)v3, 0, 0);
-			return;
-		}
-		nox_xxx_soundDefaultDamageSound_532E20(a2, a1);
-		goto LABEL_13;
-	}
-}
-
 //----- (004EB800) --------------------------------------------------------
 void nox_xxx_collideMonsterArrow_4EB800(int a1, int a2) {
 	int* v2; // esi

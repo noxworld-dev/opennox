@@ -216,7 +216,7 @@ int sub_4EB250(int a1);
 void sub_4EB340(float* a1, int a2);
 void sub_4EB3E0(int a1);
 void nox_xxx_collideArrow_4EB490(int a1, int a2);
-void nox_xxx_collideHarpoon_4EB6A0(int a1, int a2);
+void nox_xxx_collideHarpoon_4EB6A0(nox_object_t* a1, nox_object_t* a2);
 void nox_xxx_collideMonsterArrow_4EB800(int a1, int a2);
 void nox_xxx_collideBearTrap_4EB890(int* a1, int a2);
 void nox_xxx_collidePoisonGasTrap_4EB910(int* a1, int a2);

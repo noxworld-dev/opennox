@@ -1898,7 +1898,7 @@ func nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, dmg, a5 int,
 		if dist >= r2 {
 			rdmg *= 1.0 - (dist-r2)/(rr-r2)
 		}
-		u.callDamage(who, 0, int(rdmg), a5)
+		u.callDamage(who, nil, int(rdmg), a5)
 	})
 	wrect := image.Rect(
 		int(rect.Left)/common.GridStep,

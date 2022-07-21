@@ -12,7 +12,7 @@ extern nox_object_t* nox_server_objects_uninited_1556860;
 extern nox_object_t* nox_server_objects_updatable2_1556848;
 static void nox_call_obj_update_go(void (*fnc)(nox_object_t*), nox_object_t* obj) { fnc(obj); }
 static int nox_call_object_xfer(int (*fnc)(nox_object_t*, void*), nox_object_t* a1, void* a2) { return fnc(a1, a2); }
-static void nox_call_object_damage(int (*fnc)(nox_object_t*, nox_object_t*, int, int, int), nox_object_t* a1, nox_object_t* a2, int a3, int a4, int a5) { fnc(a1, a2, a3, a4, a5); }
+static int nox_call_object_damage(int (*fnc)(nox_object_t*, nox_object_t*, nox_object_t*, int, int), nox_object_t* a1, nox_object_t* a2, nox_object_t* a3, int a4, int a5) { return fnc(a1, a2, a3, a4, a5); }
 */
 import "C"
 import (
@@ -660,10 +660,11 @@ func (obj *Object) callXfer(a2 unsafe.Pointer) int {
 	return int(C.nox_call_object_xfer((*[0]byte)(obj.func_xfer), obj.CObj(), a2))
 }
 
-func (obj *Object) callDamage(who noxObject, a3, a4, a5 int) {
+func (obj *Object) callDamage(who noxObject, a3 noxObject, dmg, a5 int) int {
 	if obj.func_damage != nil {
-		C.nox_call_object_damage((*[0]byte)(obj.func_damage), obj.CObj(), toCObj(who), C.int(a3), C.int(a4), C.int(a5))
+		return int(C.nox_call_object_damage((*[0]byte)(obj.func_damage), obj.CObj(), toCObj(who), toCObj(a3), C.int(dmg), C.int(a5)))
 	}
+	return 0
 }
 
 func (obj *Object) forceDrop(item *Object) { // nox_xxx_invForceDropItem_4ED930

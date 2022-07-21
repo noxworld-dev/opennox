@@ -2493,7 +2493,9 @@ int sub_532930(int a1, unsigned short a2, unsigned short a3) {
 }
 
 //----- (00532E20) --------------------------------------------------------
-int nox_xxx_soundDefaultDamageSound_532E20(int a1, int a2) {
+int nox_xxx_soundDefaultDamageSound_532E20(nox_object_t* a1p, nox_object_t* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v3; // eax
 
 	if (a1 && *(uint32_t*)(a1 + 8) & 0x1001000 && *(uint32_t*)(a1 + 492)) {
@@ -3443,7 +3445,7 @@ unsigned int nox_xxx_mobRaiseZombie_534AB0(int a1) {
 }
 
 //----- (00534BC0) --------------------------------------------------------
-int nox_xxx_damageToMap_534BC0(int a1, int a2, int a3, int a4, int a5) {
+int nox_xxx_damageToMap_534BC0(int a1, int a2, int a3, int a4, nox_object_t* a5) {
 	unsigned char* v5; // esi
 	unsigned char v6;  // al
 	int v7;            // eax
@@ -5014,12 +5016,6 @@ void sub_5374D0(nox_object_t* a1p) {
 			}
 		}
 	}
-}
-
-//----- (00537520) --------------------------------------------------------
-void nox_xxx_harpoonBreakForPlr_537520(nox_object_t* a1) {
-	sub_5374D0(a1);
-	nox_xxx_aud_501960(998, a1, 0, 0);
 }
 
 //----- (00537540) --------------------------------------------------------
