@@ -919,8 +919,8 @@ func nox_xxx_spellCancelDurSpell_4FEB10(spell things.SpellID, obj noxObject) {
 func (s *Server) nox_xxx_castSpellByUser4FDD20(spellInd things.SpellID, u *Unit, a3 *spellAcceptArg) bool {
 	lvl := int(C.nox_xxx_spellGetPower_4FE7B0(C.int(spellInd), u.CObj()))
 	if s.spellHasFlags(spellInd, things.SpellOffensive) {
-		C.nox_xxx_spellBuffOff_4FF5B0(u.CObj(), 0)
-		C.nox_xxx_spellBuffOff_4FF5B0(u.CObj(), 23)
+		u.DisableEnchant(ENCHANT_INVISIBLE)
+		u.DisableEnchant(ENCHANT_INVULNERABLE)
 		nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_OVAL_SHIELD, u)
 	}
 	if !s.spellHasFlags(spellInd, things.SpellTargeted) || u.CObj() == a3.Obj {

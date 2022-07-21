@@ -47,14 +47,12 @@ extern uint32_t dword_5d4594_1568028;
 extern uint32_t dword_5d4594_600116;
 extern uint32_t dword_5d4594_1556144;
 extern uint32_t dword_5d4594_2386164;
-extern uint32_t dword_5d4594_1569660;
 extern uint32_t dword_5d4594_1568300;
 extern uint32_t dword_5d4594_1548480;
 extern uint32_t dword_5d4594_528260;
 extern uint32_t dword_5d4594_1548704;
 extern uint32_t dword_5d4594_1563096;
 extern uint32_t dword_5d4594_1563052;
-extern void* nox_alloc_execAbil_1569644;
 extern uint32_t dword_5d4594_825768;
 extern void* nox_alloc_springs_2386568;
 extern uint32_t dword_5d4594_608316;
@@ -936,65 +934,6 @@ void sub_4F1F20() {
 			}
 			v0 = v10;
 		} while (v10);
-	}
-}
-
-//----- (004FBEE0) --------------------------------------------------------
-void nox_xxx_abilUpdateMB_4FBEE0() {
-	for (char* p = nox_common_playerInfoGetFirst_416EA0(); p; p = nox_common_playerInfoGetNext_416EE0(p)) {
-		if (*((uint32_t*)p + 514) && !p[2251]) {
-			for (int i = 0; i < 6; ++i) {
-				int v2 = i + 6 * (unsigned char)p[2064];
-				int v3 = *getMemU32Ptr(0x5D4594, 1568876 + 4 * v2);
-				if (v3) {
-					*getMemU32Ptr(0x5D4594, 1568876 + 4 * v2) = v3 - 1;
-					if (!*getMemU32Ptr(0x5D4594, 1568876 + 4 * (i + 6 * (unsigned char)p[2064]))) {
-						nox_xxx_netAbilRepotState_4D8100(*((uint32_t*)p + 514), i, 1);
-					}
-				}
-			}
-		}
-	}
-	int* next;
-	for (int* p = *(int**)getMemAt(0x5D4594, 1569648); p; p = next) {
-		next = (int*)p[4];
-		if (!(*(uint32_t*)(p[1] + 16) & 0x8020)) {
-			if (nox_frame_xxx_2598000 <= (unsigned int)p[2]) {
-				continue;
-			}
-			int v11 = p[1];
-			int v8 = sub_425230(*p, 2);
-			nox_xxx_aud_501960(v8, v11, 0, 0);
-			sub_4FC3C0(p[1], *p, 0);
-			if (*p == 1) {
-				nox_xxx_playerSetState_4FA020((uint32_t*)p[1], 13);
-			}
-		}
-		int v5 = p[4];
-		if (v5) {
-			*(uint32_t*)(v5 + 20) = p[5];
-		}
-		int v7 = p[5];
-		if (v7) {
-			*(uint32_t*)(v7 + 16) = p[4];
-		} else {
-			*getMemU32Ptr(0x5D4594, 1569648) = p[4];
-		}
-		nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_execAbil_1569644, p);
-	}
-}
-
-//----- (004FC680) --------------------------------------------------------
-void sub_4FC680() {
-	int v0; // eax
-
-	if (nox_common_gameFlags_check_40A5C0(2048) && !nox_common_gameFlags_check_40A5C0(0x80000) &&
-		dword_5d4594_1569660) {
-		v0 = nox_xxx_getFirstPlayerUnit_4DA7C0();
-		if (v0) {
-			nox_xxx_playerExecuteAbil_4FBB70(v0, *(int*)&dword_5d4594_1569660);
-			dword_5d4594_1569660 = 0;
-		}
 	}
 }
 

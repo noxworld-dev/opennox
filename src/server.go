@@ -62,7 +62,6 @@ void sub_4139C0();
 //void sub_446190();
 int sub_4DCF20();
 int sub_4E76C0();
-void sub_4FC680();
 bool sub_57B140();
 //int nox_xxx_freeObjectTypes_4E2A20();
 
@@ -238,7 +237,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 			C.sub_4E4170()
 		}
 		nox_xxx_spellBookReact_4FCB70()
-		C.nox_xxx_abilUpdateMB_4FBEE0()
+		s.updateAbilities()
 		s.nox_script_activatorRun_51ADF0()
 		s.scriptTick()
 		C.nox_xxx_voteUptate_506F30()
@@ -286,7 +285,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	s.maybeRegisterGameOnline() // TODO: not exactly the right place
 	s.nox_xxx_mapInitialize_4FC590()
 	s.nox_xxx_mapEntry_4FC600()
-	C.sub_4FC680()
+	sub_4FC680()
 	if unit := s.getPlayerByInd(31).UnitC(); unit != nil {
 		C.nox_xxx_playerSomeWallsUpdate_5003B0(unit.CObj())
 	}
@@ -463,7 +462,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 			C.nox_xxx_networkLog_init_413CC0()
 		}
 	}
-	C.nox_xxx_allocArrayExecAbilities_4FB990()
+	s.resetAbilities()
 	if C.nox_xxx_allocPendingOwnsArray_516EE0() == 0 {
 		return errors.New("nox_xxx_allocPendingOwnsArray_516EE0 failed")
 	}

@@ -109,8 +109,8 @@ func loadAllBinFileSections(thg *MemFile, buf unsafe.Pointer) error {
 				return fmt.Errorf("failed to load edges")
 			}
 		case 0x4142494C: // ABIL
-			if C.nox_thing_read_ABIL_415750(thg.C(), buf) == 0 {
-				return fmt.Errorf("failed to load abilities")
+			if err := nox_thing_read_ABIL_415750(thg); err != nil {
+				return err
 			}
 		case 0x494D4147: // IMAG
 			if err := nox_thing_read_IMAG_415700(thg); err != nil {
