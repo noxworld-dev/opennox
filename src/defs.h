@@ -600,8 +600,8 @@ typedef struct {
 	uint32_t field_28; // 28, 112
 	nox_object_t* field_29[4]; // 29, 116, TODO: teleport markers? traps?
 	nox_object_t* harpoon; // 33, 132
-	uint32_t field_34; // 34, 136
-	uint32_t field_35; // 35, 140
+	nox_object_t* harpoon_bolt; // 34, 136
+	uint32_t harpoon_35; // 35, 140
 	uint32_t field_36; // 36, 144
 	uint32_t field_37; // 37, 148
 	uint32_t field_38; // 38, 152

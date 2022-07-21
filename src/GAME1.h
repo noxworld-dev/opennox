@@ -325,7 +325,6 @@ int nox_thing_skip_spells_415100(int a1);
 int nox_thing_read_image_415240(int a1);
 int nox_thing_read_ability_415320(int a1);
 int nox_thing_read_audio_415660(nox_memfile* a1, char* a2);
-int nox_thing_read_ABIL_415750(nox_memfile* f, void* a2);
 int nox_xxx_weaponInventoryEquipFlags_415820(nox_object_t* item);
 int sub_415840(char* a1);
 int nox_xxx_ammoCheck_415880(unsigned short typ_ind);

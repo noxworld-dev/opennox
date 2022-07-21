@@ -36,7 +36,6 @@ void nullsub_70() {}
 #include "client__network__netclint.h"
 #include "client__system__ctrlevnt.h"
 #include "client__video__draw_common.h"
-#include "common__ability__comablty.h"
 #include "common__binfile.h"
 #include "common__magic__speltree.h"
 #include "common__net_list.h"
@@ -5946,24 +5945,6 @@ int nox_thing_read_audio_415660(nox_memfile* a1p, char* a2) {
 		return 1;
 	}
 	while (sub_452BD0(a1, a2)) {
-		if (++v2 >= v4) {
-			return 1;
-		}
-	}
-	return 0;
-}
-
-//----- (00415750) --------------------------------------------------------
-int nox_thing_read_ABIL_415750(nox_memfile* f, void* a2) {
-	int v2; // ebx
-	int v4; // edi
-
-	v2 = 0;
-	v4 = nox_memfile_read_i32(f);
-	if (v4 <= 0) {
-		return 1;
-	}
-	while (nox_thing_read_ABIL_rec_424F00(f, a2)) {
 		if (++v2 >= v4) {
 			return 1;
 		}

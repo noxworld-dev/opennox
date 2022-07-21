@@ -452,6 +452,13 @@ func (obj *Object) ApplyEnchant(v EnchantID, dur, power int) { // nox_xxx_buffAp
 	C.nox_xxx_buffApplyTo_4FF380(obj.CObj(), C.int(v), C.short(dur), C.char(power))
 }
 
+func (obj *Object) DisableEnchant(v EnchantID) { // nox_xxx_spellBuffOff_4FF5B0
+	if obj == nil || v >= 32 {
+		return
+	}
+	C.nox_xxx_spellBuffOff_4FF5B0(obj.CObj(), C.int(v))
+}
+
 func (obj *Object) AsUnit() *Unit {
 	// TODO: check somehow
 	return asUnit(unsafe.Pointer(obj))

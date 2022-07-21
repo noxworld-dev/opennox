@@ -4245,53 +4245,6 @@ int nox_xxx_netReportObjectPoison_4D7F40(int a1, uint32_t* a2, char a3) {
 	return nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064), &a1, 4, 0, 1);
 }
 
-//----- (004D80C0) --------------------------------------------------------
-int sub_4D80C0(int a1, char a2) {
-	int result; // eax
-	int v3;     // eax
-
-	result = a1;
-	if (*(uint8_t*)(a1 + 8) & 4) {
-		v3 = *(uint32_t*)(a1 + 748);
-		LOBYTE(a1) = -21;
-		BYTE1(a1) = a2;
-		result = nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064), &a1, 2, 0, 1);
-	}
-	return result;
-}
-
-//----- (004D8100) --------------------------------------------------------
-int nox_xxx_netAbilRepotState_4D8100(int a1, char a2, char a3) {
-	int result; // eax
-	int v4;     // edx
-
-	result = a1;
-	if (*(uint8_t*)(a1 + 8) & 4) {
-		BYTE2(a1) = a3;
-		v4 = *(uint32_t*)(result + 748);
-		BYTE1(a1) = a2;
-		LOBYTE(a1) = -50;
-		result = nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(v4 + 276) + 2064), &a1, 3, 0, 1);
-	}
-	return result;
-}
-
-//----- (004D8150) --------------------------------------------------------
-int nox_xxx_netReportActiveAbils_4D8150(int a1, char a2, char a3) {
-	int result; // eax
-	int v4;     // edx
-
-	result = a1;
-	if (*(uint8_t*)(a1 + 8) & 4) {
-		BYTE2(a1) = a3;
-		v4 = *(uint32_t*)(result + 748);
-		BYTE1(a1) = a2;
-		LOBYTE(a1) = -49;
-		result = nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(v4 + 276) + 2064), &a1, 3, 0, 1);
-	}
-	return result;
-}
-
 //----- (004D81A0) --------------------------------------------------------
 void sub_4D81A0(int a1) {
 	double v1;  // st7
@@ -5410,20 +5363,6 @@ void nox_xxx_netHarpoonAttach_4D9840(uint32_t* a1, uint32_t* a2) {
 		*(uint16_t*)&v3[5] = nox_xxx_netGetUnitCodeServ_578AC0(a2);
 	}
 	nox_xxx_netSendPacket1_4E5390(255, (int)v3, 7, 0, 1);
-}
-
-//----- (004D98A0) --------------------------------------------------------
-int nox_xxx_netHarpoonBreak_4D98A0(uint32_t* a1, uint32_t* a2) {
-	char v3[7]; // [esp+4h] [ebp-8h]
-
-	if (a1 && a2) {
-		v3[0] = -98;
-		v3[1] = 14;
-		v3[2] = 0;
-		*(uint16_t*)&v3[3] = nox_xxx_netGetUnitCodeServ_578AC0(a1);
-		*(uint16_t*)&v3[5] = nox_xxx_netGetUnitCodeServ_578AC0(a2);
-	}
-	return nox_xxx_netSendPacket1_4E5390(255, (int)v3, 7, 0, 1);
 }
 
 //----- (004D9900) --------------------------------------------------------

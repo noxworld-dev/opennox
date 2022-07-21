@@ -387,10 +387,6 @@ func (u *Unit) countSubOfType(typ int) int { // nox_xxx_unitIsUnitTT_4E7C80
 	return cnt
 }
 
-func nox_common_playerIsAbilityActive_4FC250(u *Unit, a2 int) bool {
-	return C.nox_common_playerIsAbilityActive_4FC250(u.CObj(), C.int(a2)) != 0
-}
-
 func nox_xxx_playerSetState_4FA020(u *Unit, a2 int) {
 	C.nox_xxx_playerSetState_4FA020(u.CObj(), C.int(a2))
 }

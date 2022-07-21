@@ -187,3 +187,13 @@ func (f *MemFile) ReadString8() (string, error) {
 	}
 	return string(buf), nil
 }
+
+func (f *MemFile) ReadString16() (string, error) {
+	n := f.ReadU16()
+	buf := make([]byte, n)
+	_, err := io.ReadFull(f, buf)
+	if err != nil {
+		return "", err
+	}
+	return string(buf), nil
+}
