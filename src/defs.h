@@ -544,7 +544,7 @@ typedef struct nox_object_t {
 	int (*func_xfer)(nox_object_t*, int); // 176, 704
 	void* func_pickup;       // 177, 708
 	void* func_drop;         // 178, 712
-	void (*func_damage)(nox_object_t*, nox_object_t*, int, int, int); // 179, 716
+	int (*func_damage)(nox_object_t*, nox_object_t*, int, int, int); // 179, 716
 	void* func_damage_sound; // 180, 720
 	void* func_die;          // 181, 724
 	void* die_data;          // 182, 728
@@ -599,12 +599,12 @@ typedef struct {
 	uint32_t field_27; // 27, 108
 	uint32_t field_28; // 28, 112
 	nox_object_t* field_29[4]; // 29, 116, TODO: teleport markers? traps?
-	nox_object_t* harpoon; // 33, 132
+	nox_object_t* harpoon_targ; // 33, 132
 	nox_object_t* harpoon_bolt; // 34, 136
 	uint32_t harpoon_35; // 35, 140
-	uint32_t field_36; // 36, 144
-	uint32_t field_37; // 37, 148
-	uint32_t field_38; // 38, 152
+	float harpoon_targ_x; // 36, 144
+	float harpoon_targ_y; // 37, 148
+	uint32_t harpoon_frame; // 38, 152
 	uint32_t field_39; // 39, 156
 	uint16_t field_40_0; // 40, 160
 	uint16_t field_40_1; // 40, 162

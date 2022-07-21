@@ -296,15 +296,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 		nox_xxx_playerSetState_4FA020(u, 5)
 	}
 	C.nox_xxx_questCheckSecretArea_421C70(u.CObj())
-	if harp := asObjectC(ud.harpoon); harp != nil {
-		if harp.Flags().Has(object.FlagDestroyed) {
-			nox_xxx_harpoonBreakForPlr_537520(u)
-		} else {
-			force := gamedataFloat("HarpoonForce")
-			sub_4E7540(u, harp)
-			harp.applyForce(u.Pos(), -force)
-		}
-	}
+	harpoonUpdatePlayer(u)
 }
 
 func sub_4FF310(a1 noxObject) {
@@ -344,11 +336,6 @@ func (obj *Object) applyForce(vec types.Pointf, force float64) { // nox_xxx_obje
 	if !obj.Class().Has(object.ClassMissile) {
 		C.nox_xxx_unitHasCollideOrUpdateFn_537610(obj.CObj())
 	}
-}
-
-func nox_xxx_harpoonBreakForPlr_537520(u *Unit) {
-	C.sub_5374D0(u.CObj())
-	nox_xxx_aud_501960(998, u, 0, 0)
 }
 
 func nox_xxx_aud_501960(a1 int, u *Unit, a3, a4 int) {
