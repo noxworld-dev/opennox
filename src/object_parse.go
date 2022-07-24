@@ -165,7 +165,7 @@ var noxObjectFieldByName = map[string]objectFieldFunc{
 	"DIE":         wrapObjectFieldFuncC(C.nox_xxx_parseDieProc_536B80),
 	"DROP":        wrapObjectFieldFuncC(C.nox_xxx_parseDrop_536A20),
 	"INIT":        wrapObjectFieldFuncC(C.nox_xxx_parseInitProc_536930),
-	"CREATE":      wrapObjectFieldFuncC(C.nox_xxx_parseCreateProc_536830),
+	"CREATE":      nox_xxx_parseCreateProc_536830,
 	"PICKUP":      wrapObjectFieldFuncC(C.nox_xxx_parsePickup_536710),
 	"UPDATE":      nox_xxx_parseUpdate_536620,
 	"USE":         wrapObjectFieldFuncC(C.nox_xxx_parseUseFn_5363F0),
