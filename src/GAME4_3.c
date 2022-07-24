@@ -3713,45 +3713,8 @@ LABEL_10:
 }
 // 535128: variable 'v34' is possibly undefined
 
-//----- (00535970) --------------------------------------------------------
-int nox_xxx_parseXP_535970(int a1, int a2, char* a3) {
-	sscanf(a3, "%f", a1 + 44);
-	return 1;
-}
-
 //----- (00535990) --------------------------------------------------------
 int nox_xxx_parseExtent_535990(int a1, int a2, char* a3) { return nox_parse_shape((nox_shape*)(a1 + 60), a3); }
-
-//----- (005359B0) --------------------------------------------------------
-int nox_xxx_parseZSize_5359B0(int a1, int a2, char* a3) {
-	int v5; // [esp+0h] [ebp-4h]
-
-	sscanf(a3, "%d %d", &v5, &a3);
-	if ((int)a3 < (int)v5) {
-		a3 = v5;
-	}
-	*(float*)(a1 + 112) = (double)(int)v5;
-	*(float*)(a1 + 116) = (double)(int)a3;
-	return 1;
-}
-
-//----- (00535A00) --------------------------------------------------------
-int nox_xxx_parseWorth_535A00(int a1, int a2, char* a3) {
-	sscanf(a3, "%d", a1 + 48);
-	return 1;
-}
-
-//----- (00535A20) --------------------------------------------------------
-int nox_xxx_parseSpeed_535A20(int a1, int a2, char* a3) {
-	double v3; // st7
-
-	sscanf(a3, "%d", &a3);
-	v3 = (double)(int)a3 * 0.03125;
-	*(uint32_t*)(a1 + 132) = 0;
-	*(float*)(a1 + 124) = v3;
-	*(float*)(a1 + 128) = v3;
-	return 1;
-}
 
 //----- (00535A60) --------------------------------------------------------
 int nox_xxx_parseHealth_535A60(int a1, int a2, char* a3) {
@@ -3794,26 +3757,6 @@ int nox_xxx_parseSubclass_535B30(int a1, int a2, const char* a3) {
 	return 1;
 }
 
-//----- (00535B60) --------------------------------------------------------
-int nox_xxx_parseMass_535B60(int a1, int a2, char* a3) {
-	sscanf(a3, "%f", a1 + 56);
-	return 1;
-}
-
-//----- (00535B80) --------------------------------------------------------
-int nox_xxx_parseCapacity_535B80(int a1, int a2, char* a3) {
-	sscanf(a3, "%d", &a3);
-	*(uint16_t*)(a1 + 122) = (uint16_t)a3;
-	return 1;
-}
-
-//----- (00535BB0) --------------------------------------------------------
-int nox_xxx_parseWeight_535BB0(int a1, int a2, char* a3) {
-	sscanf(a3, "%d", &a3);
-	*(uint8_t*)(a1 + 120) = (uint8_t)a3;
-	return 1;
-}
-
 //----- (00535BE0) --------------------------------------------------------
 int nox_xxx_parseMaterial_535BE0(int a1, int a2, const char* a3) {
 	int v4; // [esp+0h] [ebp-4h]
@@ -3823,9 +3766,6 @@ int nox_xxx_parseMaterial_535BE0(int a1, int a2, const char* a3) {
 	*(uint16_t*)(a1 + 40) = v4;
 	return 1;
 }
-
-//----- (00535C20) --------------------------------------------------------
-int nox_xxx_parseLightIntensity_535C20(int a1, int a2, char* a3) { return 1; }
 
 //----- (00535C30) --------------------------------------------------------
 int nox_xxx_parseMenuIcon_535C30(int a1, int a2, char* a3) {
