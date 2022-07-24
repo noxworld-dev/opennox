@@ -76,8 +76,8 @@ func nox_xxx_getEnchantName_4248F0(enc C.int) *C.char {
 
 //export nox_xxx_enchantByName_424880
 func nox_xxx_enchantByName_424880(cname *C.char) C.int {
-	id := enchantByName[GoString(cname)]
-	if id == 0 {
+	id, ok := enchantByName[GoString(cname)]
+	if !ok {
 		return -1
 	}
 	return C.int(id)
