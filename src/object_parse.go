@@ -11,7 +11,9 @@ static int nox_call_objectType_parse_go(int (*fnc)(nox_objectType_t*, nox_memfil
 import "C"
 import (
 	"errors"
+	"fmt"
 	"io"
+	"strconv"
 	"strings"
 	"unsafe"
 )
@@ -48,6 +50,7 @@ func nox_thing_read_xxx_4E3220(a1 *C.nox_memfile, pbuf *C.char, ctyp *C.nox_obje
 		}
 		str = strings.TrimSpace(str)
 		if err := parseFnc(typ, f, str, buf); err != nil {
+			err = fmt.Errorf("parse of %q failed: %w", name, err)
 			thingsLog.Println(err)
 			return 0
 		}
@@ -66,33 +69,106 @@ func wrapObjectFieldFuncC(p unsafe.Pointer) objectFieldFunc {
 	}
 }
 
+func firstWord(s string) string {
+	if i := strings.IndexAny(s, " \t\n\r"); i > 0 {
+		return s[:i]
+	}
+	return s
+}
+
 var noxObjectFieldByName = map[string]objectFieldFunc{
-	"CARRYCAPACITY":  wrapObjectFieldFuncC(C.nox_xxx_parseCapacity_535B80),
-	"CLASS":          wrapObjectFieldFuncC(C.nox_xxx_parseClass_535B00),
-	"SUBCLASS":       wrapObjectFieldFuncC(C.nox_xxx_parseSubclass_535B30),
-	"EXTENT":         wrapObjectFieldFuncC(C.nox_xxx_parseExtent_535990),
-	"FLAGS":          wrapObjectFieldFuncC(C.nox_xxx_parseFlags_535AD0),
-	"HEALTH":         wrapObjectFieldFuncC(C.nox_xxx_parseHealth_535A60),
-	"LIGHTINTENSITY": wrapObjectFieldFuncC(C.nox_xxx_parseLightIntensity_535C20),
-	"MASS":           wrapObjectFieldFuncC(C.nox_xxx_parseMass_535B60),
-	"MENUICON":       wrapObjectFieldFuncC(C.nox_xxx_parseMenuIcon_535C30),
-	"PRETTYIMAGE":    wrapObjectFieldFuncC(C.nox_xxx_parsePrettyImage_0_535C80),
-	"SPEED":          wrapObjectFieldFuncC(C.nox_xxx_parseSpeed_535A20),
-	"WEIGHT":         wrapObjectFieldFuncC(C.nox_xxx_parseWeight_535BB0),
-	"MATERIAL":       wrapObjectFieldFuncC(C.nox_xxx_parseMaterial_535BE0),
-	"EXPERIENCE":     wrapObjectFieldFuncC(C.nox_xxx_parseXP_535970),
-	"COLLIDE":        wrapObjectFieldFuncC(C.nox_xxx_parseCollide_536EC0),
-	"DAMAGE":         wrapObjectFieldFuncC(C.nox_xxx_parseDamageFn_536C60),
-	"DAMAGESOUND":    wrapObjectFieldFuncC(C.nox_xxx_parseDamageSound_536CF0),
-	"DIE":            wrapObjectFieldFuncC(C.nox_xxx_parseDieProc_536B80),
-	"DROP":           wrapObjectFieldFuncC(C.nox_xxx_parseDrop_536A20),
-	"INIT":           wrapObjectFieldFuncC(C.nox_xxx_parseInitProc_536930),
-	"CREATE":         wrapObjectFieldFuncC(C.nox_xxx_parseCreateProc_536830),
-	"PICKUP":         wrapObjectFieldFuncC(C.nox_xxx_parsePickup_536710),
-	"UPDATE":         nox_xxx_parseUpdate_536620,
-	"USE":            wrapObjectFieldFuncC(C.nox_xxx_parseUseFn_5363F0),
-	"XFER":           nox_xxx_parseXFer_5360A0,
-	"DRAW":           wrapObjectFieldFuncC(C.nox_xxx_parseDraw_535CD0),
-	"ZSIZE":          wrapObjectFieldFuncC(C.nox_xxx_parseZSize_5359B0),
-	"WORTH":          wrapObjectFieldFuncC(C.nox_xxx_parseWorth_535A00),
+	"CLASS":    wrapObjectFieldFuncC(C.nox_xxx_parseClass_535B00),
+	"SUBCLASS": wrapObjectFieldFuncC(C.nox_xxx_parseSubclass_535B30),
+	"EXTENT":   wrapObjectFieldFuncC(C.nox_xxx_parseExtent_535990),
+	"FLAGS":    wrapObjectFieldFuncC(C.nox_xxx_parseFlags_535AD0),
+	"MATERIAL": wrapObjectFieldFuncC(C.nox_xxx_parseMaterial_535BE0),
+	"CARRYCAPACITY": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
+		v, err := strconv.ParseUint(firstWord(str), 10, 16)
+		if err != nil {
+			return err
+		}
+		objt.carry_capacity = uint16(v)
+		return nil
+	},
+	"LIGHTINTENSITY": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
+		return nil // server doesn't need that
+	},
+	"MASS": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
+		v, err := strconv.ParseFloat(firstWord(str), 32)
+		if err != nil {
+			return err
+		}
+		objt.mass = float32(v)
+		return nil
+	},
+	"SPEED": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
+		v, err := strconv.Atoi(firstWord(str))
+		if err != nil {
+			return err
+		}
+		fv := float32(float64(v) / 32)
+		objt.float_33 = 0
+		objt.speed = fv
+		objt.speed_2 = fv
+		return nil
+	},
+	"WEIGHT": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
+		v, err := strconv.ParseUint(firstWord(str), 10, 8)
+		if err != nil {
+			return err
+		}
+		objt.weight = byte(v)
+		return nil
+	},
+	"WORTH": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
+		v, err := strconv.ParseUint(firstWord(str), 10, 32)
+		if err != nil {
+			return err
+		}
+		objt.worth = uint32(v)
+		return nil
+	},
+	"EXPERIENCE": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
+		v, err := strconv.ParseFloat(firstWord(str), 32)
+		if err != nil {
+			return err
+		}
+		objt.experience = float32(v)
+		return nil
+	},
+	"ZSIZE": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
+		sub := strings.SplitN(str, " ", 2)
+		if len(sub) != 2 {
+			return errors.New("expected two values")
+		}
+		v1, err := strconv.Atoi(sub[0])
+		if err != nil {
+			return err
+		}
+		v2, err := strconv.Atoi(sub[1])
+		if err != nil {
+			return err
+		}
+		if v2 < v1 {
+			v2 = v1
+		}
+		objt.zsize1 = float32(v1)
+		objt.zsize2 = float32(v2)
+		return nil
+	},
+	"HEALTH":      wrapObjectFieldFuncC(C.nox_xxx_parseHealth_535A60),
+	"MENUICON":    wrapObjectFieldFuncC(C.nox_xxx_parseMenuIcon_535C30),
+	"PRETTYIMAGE": wrapObjectFieldFuncC(C.nox_xxx_parsePrettyImage_0_535C80),
+	"COLLIDE":     wrapObjectFieldFuncC(C.nox_xxx_parseCollide_536EC0),
+	"DAMAGE":      wrapObjectFieldFuncC(C.nox_xxx_parseDamageFn_536C60),
+	"DAMAGESOUND": wrapObjectFieldFuncC(C.nox_xxx_parseDamageSound_536CF0),
+	"DIE":         wrapObjectFieldFuncC(C.nox_xxx_parseDieProc_536B80),
+	"DROP":        wrapObjectFieldFuncC(C.nox_xxx_parseDrop_536A20),
+	"INIT":        wrapObjectFieldFuncC(C.nox_xxx_parseInitProc_536930),
+	"CREATE":      wrapObjectFieldFuncC(C.nox_xxx_parseCreateProc_536830),
+	"PICKUP":      wrapObjectFieldFuncC(C.nox_xxx_parsePickup_536710),
+	"UPDATE":      nox_xxx_parseUpdate_536620,
+	"USE":         wrapObjectFieldFuncC(C.nox_xxx_parseUseFn_5363F0),
+	"XFER":        nox_xxx_parseXFer_5360A0,
+	"DRAW":        wrapObjectFieldFuncC(C.nox_xxx_parseDraw_535CD0),
 }

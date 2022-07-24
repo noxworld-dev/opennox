@@ -12,7 +12,6 @@ int nox_xxx_xfer_4F3E30(unsigned short a1, nox_object_t* a2, int a3);
 import "C"
 import (
 	"fmt"
-	"strings"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
@@ -52,10 +51,7 @@ var noxObjectXfers = map[string]unsafe.Pointer{
 }
 
 func nox_xxx_parseXFer_5360A0(objt *ObjectType, _ *MemFile, str string, _ []byte) error {
-	name := str
-	if i := strings.IndexAny(str, " \t\n\r"); i > 0 {
-		name = str[:i]
-	}
+	name := firstWord(str)
 	xfer := noxObjectXfers[name]
 	if xfer == nil {
 		return fmt.Errorf("unsupported xfer: %q", name)
