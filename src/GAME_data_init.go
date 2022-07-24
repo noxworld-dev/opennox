@@ -54,7 +54,6 @@ void nullsub_62();
 void nullsub_65();
 void nullsub_66();
 void nullsub_67();
-void nullsub_68();
 void nullsub_69();
 void nullsub_70();
 */
@@ -324,15 +323,6 @@ func initBlobData() {
 		Ptr_sub_4F3D50:                              unsafe.Pointer(C.sub_4F3D50),
 		Ptr_sub_5367B0:                              unsafe.Pointer(C.sub_5367B0),
 		Ptr_sub_4F3DD0:                              unsafe.Pointer(C.sub_4F3DD0),
-		Ptr_nox_xxx_monsterCreateFn_54C480:          unsafe.Pointer(C.nox_xxx_monsterCreateFn_54C480),
-		Ptr_sub_54C950:                              unsafe.Pointer(C.sub_54C950),
-		Ptr_nox_xxx_createWeapon_54C710:             unsafe.Pointer(C.nox_xxx_createWeapon_54C710),
-		Ptr_nullsub_68:                              unsafe.Pointer(C.nullsub_68),
-		Ptr_nox_xxx_createFnObelisk_54CA10:          unsafe.Pointer(C.nox_xxx_createFnObelisk_54CA10),
-		Ptr_nox_xxx_createFnAnim_54CA50:             unsafe.Pointer(C.nox_xxx_createFnAnim_54CA50),
-		Ptr_nox_xxx_createTrigger_54CA60:            unsafe.Pointer(C.nox_xxx_createTrigger_54CA60),
-		Ptr_nox_xxx_createMonsterGen_54CA90:         unsafe.Pointer(C.nox_xxx_createMonsterGen_54CA90),
-		Ptr_nox_xxx_createRewardMarker_54CAC0:       unsafe.Pointer(C.nox_xxx_createRewardMarker_54CAC0),
 		Ptr_nox_xxx_unitMonsterInit_4F0040:          unsafe.Pointer(C.nox_xxx_unitMonsterInit_4F0040),
 		Ptr_nox_xxx_unitInitPlayer_4EFE80:           unsafe.Pointer(C.nox_xxx_unitInitPlayer_4EFE80),
 		Ptr_nullsub_47:                              unsafe.Pointer(C.nullsub_47),

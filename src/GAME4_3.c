@@ -4327,33 +4327,6 @@ char* sub_5367B0(short* a1) {
 	return result;
 }
 
-//----- (00536830) --------------------------------------------------------
-int nox_xxx_parseCreateProc_536830(int a1, int a2, char* a3) {
-	char* v3;          // eax
-	const char* v4;    // ecx
-	int v5;            // ebp
-	unsigned char* v6; // edi
-
-	v3 = strtok(a3, " \t\n\r");
-	v4 = *(const char**)getMemAt(0x587000, 272808);
-	v5 = 0;
-	if (*getMemU32Ptr(0x587000, 272808)) {
-		v6 = getMemAt(0x587000, 272808);
-		do {
-			if (!strcmp(v4, v3)) {
-				break;
-			}
-			v4 = (const char*)*((uint32_t*)v6 + 3);
-			v6 += 12;
-			++v5;
-		} while (v4);
-	}
-	if (*getMemU32Ptr(0x587000, 272808 + 12 * v5)) {
-		*(uint32_t*)(a1 + 216) = *getMemU32Ptr(0x587000, 272812 + 12 * v5);
-	}
-	return 1;
-}
-
 //----- (005368C0) --------------------------------------------------------
 int sub_5368C0(char* a1, int a2) {
 	int* v2;  // esi
