@@ -38,7 +38,6 @@
 #include "client__draw__fx.h"
 #include "client__draw__lvupdraw.h"
 
-#include "client__video__sdl__draw_nogl.h"
 #include "common/fs/nox_fs.h"
 #include "common__binfile.h"
 #include "common__crypt.h"
@@ -54,8 +53,6 @@ extern uint32_t dword_5d4594_1308104;
 extern uint32_t dword_5d4594_1313532;
 extern uint32_t dword_5d4594_1313564;
 extern uint32_t dword_5d4594_1308096;
-extern int (*func_5d4594_1311924)(void);
-extern uint32_t nox_game_loop_xxx_805872;
 extern uint32_t dword_5d4594_1307724;
 extern uint32_t dword_5d4594_1308112;
 extern uint32_t nox_server_sendMotd_108752;
@@ -83,16 +80,12 @@ extern uint32_t dword_5d4594_1309824;
 extern uint32_t dword_5d4594_1307720;
 extern uint32_t dword_5d4594_1308164;
 extern uint32_t dword_5d4594_1312476;
-extern nox_gui_animation* nox_wnd_xxx_1307748;
 extern uint32_t dword_5d4594_1307736;
 extern uint32_t dword_5d4594_1309708;
-extern uint32_t nox_client_renderGlow_805852;
 extern uint32_t dword_5d4594_1312472;
 extern uint32_t nox_server_connectionType_3596;
 extern uint32_t nox_win_onlineOrLAN_1309716;
-extern void* dword_5d4594_1307768;
 extern uint32_t dword_5d4594_1313792;
-extern void* dword_5d4594_1307744;
 extern void* dword_587000_122852;
 extern uint32_t dword_5d4594_1309828;
 extern uint32_t dword_5d4594_1309836;
@@ -105,45 +98,23 @@ extern uint32_t dword_5d4594_1312484;
 extern void* dword_587000_127004;
 extern uint32_t dword_5d4594_1308088;
 extern uint32_t dword_5d4594_1312480;
-extern uint32_t dword_5d4594_2618912;
-extern uint32_t dword_5d4594_3798640;
-extern void* dword_5d4594_1307776;
 extern uint32_t dword_5d4594_1309748;
 extern uint32_t dword_5d4594_1313796;
 extern uint32_t dword_5d4594_1313800;
 extern uint32_t dword_5d4594_1309720;
-extern uint32_t dword_5d4594_3798636;
-extern void* dword_5d4594_1307764;
-extern uint32_t nox_client_gui_flag_815132;
-extern void* dword_5d4594_1307780;
 extern uint32_t dword_5d4594_1308084;
 extern uint32_t dword_5d4594_1309812;
 extern uint32_t dword_5d4594_1309820;
-extern uint32_t nox_video_pixmode_3799624;
-extern uint32_t dword_5d4594_810632;
 extern uint32_t dword_5d4594_2650652;
 extern uint32_t dword_5d4594_1307784;
-extern uint32_t nox_player_netCode_85319C;
-extern float input_sensitivity;
-extern int default_win_width;
-extern int default_win_height;
 extern int nox_win_width;
 extern int nox_win_height;
-extern int nox_backbuffer_height;
-extern int nox_win_depth_game;
-extern int nox_win_depth_menu;
 extern unsigned int nox_frame_xxx_2598000;
-extern char nox_savegame_name_1307752[9];
 
 extern uint32_t nox_color_white_2523948;
-extern uint32_t nox_color_red_2589776;
 extern uint32_t nox_color_blue_2650684;
-extern uint32_t nox_color_green_2614268;
-extern uint32_t nox_color_cyan_2649820;
-extern uint32_t nox_color_yellow_2589772;
 extern uint32_t nox_color_violet_2598268;
 extern uint32_t nox_color_black_2650656;
-extern uint32_t nox_color_orange_2614256;
 
 nox_gui_animation* nox_wnd_xxx_1307732 = 0;
 nox_gui_animation* nox_wnd_xxx_1308092 = 0;

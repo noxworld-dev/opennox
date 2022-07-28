@@ -97,9 +97,7 @@ extern uint32_t dword_5d4594_1049532;
 extern uint32_t dword_5d4594_1090100;
 extern uint32_t dword_5d4594_2650680;
 extern uint32_t dword_5d4594_1049484;
-extern void* nox_win_activeWindow_1064900;
 extern uint32_t dword_5d4594_1062516;
-extern uint32_t nox_client_drawFrontWalls_80812;
 extern uint32_t nox_client_translucentFrontWalls_805844;
 extern uint64_t qword_581450_9512;
 extern uint64_t qword_581450_9544;
@@ -132,7 +130,6 @@ extern uint32_t dword_5d4594_1062512;
 extern uint32_t dword_5d4594_1049864;
 extern uint32_t dword_5d4594_1062508;
 extern uint32_t dword_5d4594_1064192;
-extern uint32_t nox_video_pixmode_3799624;
 extern nox_window* dword_5d4594_1082856;
 extern uint32_t dword_5d4594_1049504;
 extern uint32_t dword_5d4594_1090120;
@@ -144,8 +141,6 @@ extern unsigned int nox_frame_xxx_2598000;
 extern void* nox_xxx_aClosewoodengat_587000_133480;
 extern int nox_win_width;
 extern int nox_win_height;
-extern int nox_backbuffer_width;
-extern int nox_backbuffer_height;
 extern uint32_t array_5D4594_1049872[9];
 
 extern uint32_t nox_color_white_2523948;
@@ -157,8 +152,6 @@ extern uint32_t nox_color_yellow_2589772;
 extern uint32_t nox_color_violet_2598268;
 extern uint32_t nox_color_black_2650656;
 extern uint32_t nox_color_orange_2614256;
-
-extern nox_window* nox_win_unk3;
 
 extern nox_window* nox_win_xxx1_first;
 extern nox_window* nox_win_xxx1_last;

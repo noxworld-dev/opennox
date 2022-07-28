@@ -14,11 +14,7 @@ package opennox
 #include "common__object__weaplook.h"
 #include "common__log.h"
 
-extern unsigned int dword_5d4594_805860;
-extern int nox_video_dxFullScreen;
 extern int nox_enable_audio;
-extern unsigned int nox_video_dxUnlockSurface;
-extern int nox_enable_threads;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_profiled_805856;
@@ -266,13 +262,11 @@ func RunArgs(args []string) (gerr error) {
 		}
 	}
 	if *fWindow {
-		C.nox_video_dxFullScreen = 0
-		C.dword_5d4594_805860 = 0
+		dword_5d4594_805860 = false
 		noxClient.updateFullScreen(-2)
 	}
 	if *fSWindow {
-		C.nox_video_dxFullScreen = 0
-		C.dword_5d4594_805860 = 1
+		dword_5d4594_805860 = true
 		noxClient.updateFullScreen(-3)
 	}
 	if *fFullScreen {
@@ -344,9 +338,9 @@ func RunArgs(args []string) (gerr error) {
 		noxflags.UnsetEngine(noxflags.EngineSoftShadowEdge)
 		noxflags.SetEngine(noxflags.EngineWindowed)
 		C.nox_enable_audio = 0
-		C.nox_video_dxUnlockSurface = 1
+		legacyUnlockSurface = true
 		*memmap.PtrUint32(0x5D4594, 805840) = 1
-		C.nox_enable_threads = 0
+		nox_enable_threads = false
 		mode := image.Point{
 			X: noxDefaultWidth,
 			Y: noxDefaultHeight,
@@ -361,7 +355,7 @@ func RunArgs(args []string) (gerr error) {
 		*memmap.PtrUint32(0x5D4594, 805840) = 1
 	}
 	if *fNoThreads {
-		C.nox_enable_threads = 0
+		nox_enable_threads = false
 	}
 	if v := *fVol; v >= 0 {
 		*memmap.PtrUint8(0x587000, 88) = byte(v)

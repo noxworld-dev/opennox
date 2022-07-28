@@ -74,7 +74,6 @@ extern uint32_t dword_5d4594_810636;
 extern uint32_t dword_5d4594_1301776;
 extern uint32_t dword_5d4594_1197316;
 extern uint32_t dword_5d4594_1217460;
-extern uint32_t cpuid_5d4594_3801804;
 extern void* nox_alloc_pixelSpan_1301844;
 extern uint32_t dword_5d4594_1197320;
 extern uint32_t nox_wol_servers_sorting_166704;
@@ -93,8 +92,6 @@ extern uint32_t dword_5d4594_1217448;
 extern uint32_t nox_player_netCode_85319C;
 extern int nox_win_width;
 extern int nox_win_height;
-extern int nox_backbuffer_width;
-extern int nox_backbuffer_height;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 extern uint32_t dword_5d4594_3799476;
@@ -113,8 +110,6 @@ const int nox_max_npcs = 1024;
 nox_npc* npc_array;
 
 nox_render_data_t* nox_draw_curDrawData_3799572 = 0;
-
-void* dword_5d4594_810640 = 0;
 
 nox_list_item_t nox_gui_wol_servers_list = {0};
 

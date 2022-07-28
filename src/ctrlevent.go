@@ -11,7 +11,6 @@ package opennox
 #include "GAME3_2.h"
 #include "GAME4_1.h"
 #include "GAME5_2.h"
-#include "client__video__draw_common.h"
 #include "client__gui__guicon.h"
 #include "client__gui__guisave.h"
 #include "client__gui__guispell.h"

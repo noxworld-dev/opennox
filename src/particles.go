@@ -2,7 +2,6 @@ package opennox
 
 /*
 #include "defs.h"
-#include "client__video__draw_common.h"
 #include "GAME1_2.h"
 */
 import "C"
@@ -168,7 +167,7 @@ func sub_4B6720(a1 *C.int2, a2, a3 C.int, a4 C.char) {
 }
 
 func (r *NoxRender) DrawGlow(pos image.Point, cl color.Color, a3 int, a4 int) { // sub_4B6720
-	if !r.shouldDrawGlow() {
+	if !r.renderGlow {
 		return
 	}
 	c := noxrender.SplitColor(noxcolor.ToRGBA5551Color(cl))

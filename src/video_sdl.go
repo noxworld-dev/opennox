@@ -3,9 +3,9 @@
 package opennox
 
 /*
+#include "GAME1_3.h"
 #include "GAME2_1.h"
 #include "GAME3.h"
-#include "client__video__draw_common.h"
 */
 import "C"
 import (
@@ -91,7 +91,7 @@ func sub_43C060() bool {
 	C.nox_xxx_wndLoadBorder_4AA1F0()
 	nox_xxx_wndLoadMainBG_4A2210()
 	nox_client_setCursorType(gui.CursorSelect)
-	C.sub_48B3E0(1)
+	sub_48B3E0(true)
 	nox_video_stopAllFades_44E040()
 	C.sub_43E8C0(0)
 	return C.nox_xxx_compassGenStrings_4A9C80() != 0

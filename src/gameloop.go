@@ -15,7 +15,6 @@ package opennox
 #include "GAME5.h"
 #include "GAME5_2.h"
 #include "client__network__netclint.h"
-#include "client__video__draw_common.h"
 #include "GAME2_3.h"
 #include "common__system__team.h"
 #include "common__net_list.h"
@@ -31,7 +30,6 @@ extern unsigned int dword_5d4594_815704;
 extern unsigned int dword_5d4594_815708;
 extern unsigned int dword_5d4594_3844304;
 extern unsigned int dword_5d4594_2649712;
-extern unsigned int dword_5d4594_2618912;
 extern unsigned int dword_587000_145664;
 extern unsigned int dword_587000_145668;
 extern unsigned int nox_client_gui_flag_815132;

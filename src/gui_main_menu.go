@@ -13,7 +13,6 @@ package opennox
 #include "client__shell__noxworld.h"
 #include "client__shell__selchar.h"
 #include "client__shell__mainmenu.h"
-#include "client__video__draw_common.h"
 extern void* dword_5d4594_1307292;
 extern void* dword_5d4594_831236;
 extern unsigned int dword_5d4594_831220;
@@ -30,7 +29,6 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
@@ -153,7 +151,7 @@ func sub_44E320() {
 		if C.nox_client_gui_flag_815132 == 1 {
 			C.sub_4505E0()
 			sub_4A2500()
-			C.sub_578E00()
+			sub_578E00()
 		}
 	} else if memmap.Uint8(0x5D4594, 832472)&0x5 != 0 {
 		C.nox_client_lockScreenBriefing_450160(254, 1, 2)
@@ -252,7 +250,7 @@ func nox_game_showMainMenu4A1C00() bool {
 	}
 	sub4A19F0("OptsBack.wnd:Quit")
 	nox_xxx_unknown_libname_11_4D1650()
-	C.sub_578CD0()
+	sub_578CD0()
 	C.sub_43D9B0(25, 100)
 	if noxflags.HasGame(noxflags.GameFlag26) {
 		v3 := win.ChildByID(112)
@@ -415,14 +413,13 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 			C.sub_43AF50(0)
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		case 121:
-			ptr, free := alloc.Malloc(128)
-			defer free()
-			if !nox_game_setMovieFile_4CB230("Intro.vqa", (*C.char)(ptr)) {
+			path, ok := nox_game_setMovieFile_4CB230("intro.vqa")
+			if !ok {
 				clientPlaySoundSpecial(sound.SoundShellClick, 100)
 				break
 			}
 			sub_4A1D40()
-			C.sub_4B0300((*C.char)(ptr))
+			pushMovieFile(path)
 			sub4B0640(func() {
 				nox_game_state.Switch()
 			})

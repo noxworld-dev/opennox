@@ -1,5 +1,6 @@
 #include <math.h>
 
+#include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_2.h"
 #include "GAME1_3.h"
@@ -49,7 +50,6 @@ extern uint32_t nox_xxx_lightningOwner_5d4594_2487900;
 extern uint32_t dword_587000_261388;
 extern uint32_t dword_5d4594_2487948;
 extern uint32_t dword_5d4594_2488640;
-extern uint32_t dword_5d4594_3835312;
 extern uint32_t dword_5d4594_2488608;
 extern uint32_t dword_5d4594_2488652;
 extern uint32_t dword_5d4594_3835348;
@@ -77,7 +77,6 @@ extern unsigned int nox_frame_xxx_2598000;
 extern unsigned int gameex_flags;
 
 unsigned int nox_gameFPS = 0;
-float nox_xxx_float_23_587000_264364 = 23;
 
 //----- (0052F8A0) --------------------------------------------------------
 int nox_xxx_onFrameLightning_52F8A0(float a1) {

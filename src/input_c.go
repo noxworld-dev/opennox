@@ -11,7 +11,6 @@ package opennox
 #include "client__io__win95__focus.h"
 #include "client__system__parsecmd.h"
 #include "input_common.h"
-#include "win.h"
 #include "MixPatch.h"
 #include "client__gui__tooltip.h"
 #include "client__gui__gamewin__gamewin.h"
@@ -32,7 +31,6 @@ extern unsigned int dword_5d4594_1193132;
 extern unsigned int nox_client_gui_flag_815132;
 
 extern int obj_5D4594_754104_switch;
-extern int nox_client_mouseCursorType;
 extern void* dword_5d4594_1096640;
 extern void* nox_client_spriteUnderCursorXxx_1096644;
 

@@ -6,9 +6,7 @@ package opennox
 #include "GAME2_2.h"
 #include "GAME2_3.h"
 #include "client__gui__guicon.h"
-#include "win.h"
 
-extern nox_window* dword_5d4594_1064896;
 extern nox_window_ref* nox_win_1064912;
 
 extern unsigned int nox_client_renderGUI_80828;
@@ -405,14 +403,11 @@ func nox_xxx_windowUpdateKeysMB_46B6B0(inp *input.Handler, key keybind.Key) {
 	inp.SetKeyFlag(key, ok)
 }
 
-//var dword_5d4594_2618912 *noxKeyEventInt
-
 func (c *Client) keyBindingsCheckActive() int {
 	if C.sub_46A4A0() != 0 {
 		return 1
 	}
 	for _, key := range c.inp.KeyboardKeys() {
-		//dword_5d4594_2618912 = p
 		if !c.inp.GetKeyFlag(key) && !c.inp.IsPressed(key) && nox_xxx_guiCursor_477600() == 0 {
 			if noxConsole.ExecMacros(context.Background(), key) {
 				c.inp.SetKeyFlag(key, true)

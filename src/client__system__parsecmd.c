@@ -31,7 +31,6 @@ void sub_4E3BC0(nox_objectType_t* a1);
 
 extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
 extern uint32_t nox_server_connectionType_3596;
-extern uint32_t dword_5d4594_805836;
 extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_2650652;
 extern uint32_t nox_player_netCode_85319C;

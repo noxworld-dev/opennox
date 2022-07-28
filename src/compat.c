@@ -1,39 +1,6 @@
 #ifndef _WIN32
 
-#include "GAME1.h"
-#include "GAME1_1.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_2.h"
-#include "GAME2_3.h"
-#include "GAME3.h"
-#include "GAME3_3.h"
-#include "GAME4.h"
-#include "GAME4_1.h"
-#include "GAME5_2.h"
-#include "client__draw__fx.h"
-#include "client__drawable__drawdb.h"
-#include "client__gui__guiinv.h"
-#include "client__gui__guimeter.h"
-#include "client__gui__guishop.h"
-#include "client__gui__guispell.h"
-#include "client__gui__servopts__guiserv.h"
-#include "client__gui__window.h"
-#include "client__io__win95__focus.h"
-#include "client__network__netclint.h"
-#include "client__shell__optsback.h"
-#include "client__system__ctrlevnt.h"
-#include "client__video__draw_common.h"
-#include "client__video__sdl__draw_nogl.h"
-#include "common__magic__speltree.h"
 #include "defs.h"
-#include "input.h"
-#include "input_common.h"
-#include "server__network__mapsend.h"
-#include "server__script__builtin.h"
-#include "server__script__script.h"
-#include "server__xfer__savegame__savegame.h"
-#include "win.h"
 
 #include <ctype.h>
 #include <errno.h>
@@ -48,6 +15,7 @@
 #include <wctype.h>
 
 #include "common/fs/nox_fs.h"
+#include "windows_compat.h"
 
 enum {
 	HANDLE_FILE,
