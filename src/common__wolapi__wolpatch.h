@@ -1,8 +1,0 @@
-#ifndef NOX_PORT_COMMON_WOLAPI_WOLPATCH
-#define NOX_PORT_COMMON_WOLAPI_WOLPATCH
-
-#include "defs.h"
-
-wchar_t* sub_41E5D0();
-
-#endif // NOX_PORT_COMMON_WOLAPI_WOLPATCH

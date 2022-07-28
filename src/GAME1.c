@@ -31,7 +31,6 @@ void nullsub_70() {}
 #include "common__xfer__savegame__xferplyr.h"
 
 #include "client__gui__servopts__playrlst.h"
-#include "client__gui__woldisc.h"
 #include "client__network__netclint.h"
 #include "client__system__ctrlevnt.h"
 #include "client__video__draw_common.h"
@@ -40,23 +39,18 @@ void nullsub_70() {}
 #include "common__net_list.h"
 #include "common__random.h"
 #include "common__strman.h"
-#include "common__wolapi__woluser.h"
 
 #include "client__gui__window.h"
 #include "client__io__win95__focus.h"
 #include "common/fs/nox_fs.h"
 #include "input_common.h"
 #include "operators.h"
-#include "static.h"
 
-extern uint32_t nox_profiled_805856;
 extern uint32_t dword_5d4594_10988;
 extern uint32_t dword_5d4594_527656;
-extern uint32_t dword_5d4594_251728;
 extern uint32_t dword_5d4594_3592;
 extern uint32_t dword_5d4594_526276;
 extern uint32_t dword_5d4594_251712;
-extern uint32_t nox_xxx_useMMX_587000_80800;
 extern uint32_t dword_5d4594_251708;
 extern uint32_t dword_5d4594_251716;
 extern uint32_t dword_5d4594_10984;
@@ -67,7 +61,6 @@ extern uint32_t dword_5d4594_251744;
 extern uint32_t dword_5d4594_251556;
 extern uint32_t dword_5d4594_4808;
 extern uint32_t dword_5d4594_251552;
-extern uint32_t nox_game_cdState_251700;
 extern uint32_t dword_5d4594_251564;
 extern uint32_t dword_5d4594_528252;
 extern uint32_t dword_5d4594_3484;
@@ -81,36 +74,17 @@ extern uint32_t dword_5d4594_371692;
 extern uint32_t dword_5d4594_251540;
 extern uint32_t dword_5d4594_251568;
 extern uint32_t dword_5d4594_251572;
-extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
 extern uint32_t dword_5d4594_10956;
 extern uint32_t dword_5d4594_2660652;
-extern uint32_t dword_5d4594_2650652;
 extern uint32_t dword_5d4594_4668;
 extern uint32_t nox_player_netCode_85319C;
-extern int nox_video_bag_var_2650640;
 extern unsigned int nox_frame_xxx_2598000;
-
-extern uint32_t nox_color_white_2523948;
-extern uint32_t nox_color_red_2589776;
-extern uint32_t nox_color_blue_2650684;
-extern uint32_t nox_color_green_2614268;
-extern uint32_t nox_color_cyan_2649820;
-extern uint32_t nox_color_yellow_2589772;
-extern uint32_t nox_color_violet_2598268;
-extern uint32_t nox_color_black_2650656;
-extern uint32_t nox_color_orange_2614256;
-
-extern unsigned int nox_rnd_table_37892[4096];
 
 int nox_enable_audio = 1;
 
 int nox_server_gameSettingsUpdated; // If you define it as 1-byte bool, the game will crash
 
 extern unsigned int nox_gameFPS;
-
-void cmain_loop(int);
-
-int map_download_finish();
 
 uint32_t* dword_5D4594_251544 = 0;
 
@@ -119,9 +93,6 @@ int byte_5D4594_251596 = 0;
 
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
-
-extern int nox_win_width;
-extern int nox_win_height;
 
 extern table_26792_t table_26792[];
 extern int table_26792_cnt;
@@ -138,6 +109,8 @@ extern int table_27168_cnt;
 extern table_28760_t table_28760[];
 
 void* dword_5d4594_251548 = 0;
+
+void sub_41F620(int a1);
 
 //----- (004093E0) --------------------------------------------------------
 void nox_xxx_parseRead_4093E0(FILE* a1, char* a2, int a3) {
@@ -2212,6 +2185,7 @@ int sub_40CBA0(int a1, int a2, int a3) {
 }
 
 //----- (0040CBE0) --------------------------------------------------------
+void sub_44B010();
 int sub_40CBE0(int a1, int a2) {
 	int v2;     // eax
 	int v3;     // eax

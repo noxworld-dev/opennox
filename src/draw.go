@@ -29,7 +29,6 @@ extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int nox_client_renderBubbles_80844;
 extern unsigned int nox_client_renderGUI_80828;
 extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
-extern unsigned int nox_profiled_805856;
 extern unsigned int nox_xxx_waypointCounterMB_587000_154948;
 extern unsigned int dword_5d4594_2523804;
 extern unsigned int dword_5d4594_2650676;
@@ -347,7 +346,7 @@ func detectBestVideoSettings() {
 	if noxflags.HasGame(noxflags.GameFlag29) {
 		noxClient.nox_draw_setCutSize(cut, 0)
 	}
-	C.nox_profiled_805856 = 1
+	legacyProfiled = 1
 }
 
 func nox_draw_freeColorTables_433C20() {

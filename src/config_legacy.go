@@ -20,7 +20,6 @@ extern unsigned int nox_client_lockHighResFloors_1193152;
 extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int nox_client_renderBubbles_80844;
 extern unsigned int nox_client_renderGUI_80828;
-extern unsigned int nox_profiled_805856;
 extern uint32_t nox_server_connectionType_3596;
 extern uint32_t nox_server_kickQuestPlayerMinVotes_229992;
 extern uint32_t nox_server_resetQuestMinVotes_229988;
@@ -49,6 +48,7 @@ var (
 	legacyGamma2Set     = false
 	legacyGamma2        = 1.0
 	legacyGamma         = 50
+	legacyProfiled      = 0
 )
 
 //export nox_common_writecfgfile
@@ -287,7 +287,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.nox_profiled_805856 = C.uint(bool2int(v != 0))
+			legacyProfiled = v
 		case "SanctuaryHelp":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
@@ -704,7 +704,7 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 	sect.Set("TrackData", strconv.Itoa(int(sub_578DF0())))
 	sect.Set("SysopPassword", GoWString(C.nox_xxx_sysopGetPass_40A630()))
 	sect.Set("ServerPassword", GoWString((*wchar_t)(unsafe.Pointer(&v1[78]))))
-	sect.Set("Profiled", strconv.Itoa(bool2int(C.nox_profiled_805856 != 0)))
+	sect.Set("Profiled", strconv.Itoa(bool2int(legacyProfiled != 0)))
 	sect.Set("SanctuaryHelp", strconv.Itoa(int(C.nox_server_sanctuaryHelp_54276)))
 	sect.Set("MaxPacketLossPct", strconv.Itoa(int(memmap.Uint32(0x587000, 81280))))
 	sect.Set("SendMessageOfTheDay", strconv.Itoa(int(C.nox_server_sendMotd_108752)))

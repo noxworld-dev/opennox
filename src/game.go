@@ -20,16 +20,13 @@ package opennox
 #include "GAME5_2.h"
 #include "client__shell__noxworld.h"
 #include "client__system__parsecmd.h"
-#include "common__magic__comguide.h"
 #include "common__net_list.h"
 #include "client__gui__guicon.h"
 #include "client__gui__guisave.h"
-#include "client__gui__chaticon.h"
 #include "client__gui__guirank.h"
 #include "client__gui__guisumn.h"
 #include "client__gui__guiquit.h"
 #include "client__gui__gui_ctf.h"
-#include "client__gui__guiobs.h"
 #include "client__gui__guitrade.h"
 #include "client__gui__guiinput.h"
 #include "client__shell__mainmenu.h"
@@ -74,6 +71,7 @@ void sub_4D22B0();
 void sub_4D2230();
 void sub_4DBA30(int a1);
 void sub_50AFA0();
+int sub_48C980();
 void nox_console_sendSysOpPass_4409D0(wchar_t* a1);
 unsigned int*  nox_xxx_netUseMap_4DEE00(const char* a1, int a2);
 char* nox_xxx_getSomeMapName_4D0CF0();
@@ -82,6 +80,8 @@ void  nox_xxx_addDebugEntry_511590(void* a1, void* a2);
 int nox_xxx_mapLoadRequired_4DCC80();
 int  sub_4EF660(nox_object_t* a1p);
 void  sub_500510(const char* a1);
+int nox_xxx_guiChatIconLoad_445650();
+int nox_xxx_loadGuides_427070();
 
 void nox_xxx_getUnitsInRect_517C10_go(nox_object_t* obj, void* payload);
 */
