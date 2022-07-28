@@ -204,7 +204,11 @@ func RunArgs(args []string) (gerr error) {
 		}()
 	}
 	noxServer = NewServer(noxConsole, strMan)
-	noxrend = NewNoxRender()
+	var err error
+	noxClient, err = NewClient(noxConsole, noxServer)
+	if err != nil {
+		return err
+	}
 	if err := readConfig(*fConfig); err != nil {
 		return fmt.Errorf("cannot read config: %w", err)
 	}
@@ -256,24 +260,23 @@ func RunArgs(args []string) (gerr error) {
 		return fmt.Errorf("failed to load strings file: %w", err)
 	}
 	if !*fServer && !*fNoDraw {
-		err := InitSeat(image.Point{X: noxDefaultWidth, Y: noxDefaultHeight})
+		err = noxClient.initSeat(image.Point{X: noxDefaultWidth, Y: noxDefaultHeight})
 		if err != nil {
 			return err
 		}
-		defer FreeSeat()
 	}
 	if *fWindow {
 		C.nox_video_dxFullScreen = 0
 		C.dword_5d4594_805860 = 0
-		updateFullScreen(-2)
+		noxClient.updateFullScreen(-2)
 	}
 	if *fSWindow {
 		C.nox_video_dxFullScreen = 0
 		C.dword_5d4594_805860 = 1
-		updateFullScreen(-3)
+		noxClient.updateFullScreen(-3)
 	}
 	if *fFullScreen {
-		updateFullScreen(-1)
+		noxClient.updateFullScreen(-1)
 	}
 	if *fMinimize {
 		*memmap.PtrUint32(0x5D4594, 805864) = 1
@@ -348,7 +351,7 @@ func RunArgs(args []string) (gerr error) {
 			X: noxDefaultWidth,
 			Y: noxDefaultHeight,
 		}
-		videoSetGameMode(mode)
+		noxClient.videoSetGameMode(mode)
 		videoSetMenuMode(mode)
 	}
 	if *fNoAudio {
@@ -403,9 +406,9 @@ func RunArgs(args []string) (gerr error) {
 		return fmt.Errorf("failed to load config file: %w", err)
 	}
 	if env.IsE2E() {
-		videoSetGameMode(image.Point{X: 1024, Y: 768})
+		noxClient.videoSetGameMode(image.Point{X: 1024, Y: 768})
 	} else {
-		videoSetGameMode(image.Point{
+		noxClient.videoSetGameMode(image.Point{
 			X: viper.GetInt(configVideoWidth),
 			Y: viper.GetInt(configVideoHeight),
 		})
@@ -421,10 +424,10 @@ func RunArgs(args []string) (gerr error) {
 	C.sub_4D11A0()
 	if !isDedicatedServer {
 		videoResizeView(image.Point{})
-		if err := gameResetVideoMode(true, true); err != nil {
+		if err := noxClient.gameResetVideoMode(true, true); err != nil {
 			return fmt.Errorf("failed to update video mode: %w", err)
 		}
-		noxrend.ClearScreen(color.Black)
+		noxClient.r.ClearScreen(color.Black)
 	} else {
 		enableGUIDrawing(false)
 		videoInitStub()
@@ -459,7 +462,7 @@ func RunArgs(args []string) (gerr error) {
 	C.sub_40B170(32)
 	C.sub_4134D0()
 	if v := strMan.Lang(); v == 6 || v == 8 {
-		noxrend.SetBold(false)
+		noxClient.r.SetBold(false)
 	}
 	C.sub_413920()
 	nox_client_initScreenParticles_431390()
@@ -501,7 +504,7 @@ func nox_exit(exitCode C.int) {
 
 //export nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode
 func nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d *C.int) {
-	mode := videoGetGameMode()
+	mode := noxClient.videoGetGameMode()
 	if w != nil {
 		*w = C.int(mode.X)
 	}
@@ -514,7 +517,7 @@ func nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d *C.int) {
 }
 
 func videoUpdateGameMode(mode image.Point) {
-	videoSetGameMode(mode)
+	noxClient.videoSetGameMode(mode)
 	changeWindowedOrFullscreen()
 }
 

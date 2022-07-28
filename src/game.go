@@ -387,7 +387,7 @@ func (s *Server) getGameInfo() xwisInfoShort {
 	}
 	res := videoGetMaxSize()
 	if !isDedicatedServer {
-		res = videoGetGameMode()
+		res = noxClient.videoGetGameMode()
 	}
 	return xwisInfoShort{
 		Port:       s.getServerPort(),
@@ -570,18 +570,18 @@ func initGameSession435CC0() error {
 	} else {
 		nox_xxx_netSendIncomingClient_43CB00()
 	}
-	gameSetCliDrawFunc(clientDraw)
+	gameSetCliDrawFunc(noxClient.clientDraw)
 	gameSetPlayState(3)
 	*memmap.PtrUint32(0x587000, 85720) = 1
 	sz := videoGetWindowSize()
-	vp := getViewport()
+	vp := noxClient.Viewport()
 	vp.Screen = image.Rect(0, 0, sz.X-1, sz.Y-1)
 	vp.Size = sz
 	vp.field_10 = 0
 	vp.field_11 = 0
 	vp.field_12 = 0
 	v1 := nox_video_getCutSize()
-	nox_draw_setCutSize(v1, 0)
+	noxClient.nox_draw_setCutSize(v1, 0)
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		C.sub_41CC00((*C.char)(memmap.PtrOff(0x85B3FC, 10984)))
 	} else if noxServer.nox_xxx_isQuest_4D6F50() || sub_4D6F70() {

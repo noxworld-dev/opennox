@@ -238,7 +238,7 @@ func nox_xxx_wndStaticProc_489420(win *Window, ev WindowEvent) WindowEventResp {
 }
 
 func nox_xxx_wndStaticDrawWithImage_489550(win *Window, draw *WindowData) int {
-	r := noxrend
+	r := noxClient.r
 
 	data := (*staticTextData)(unsafe.Pointer(win.widget_data))
 
@@ -285,7 +285,7 @@ func nox_xxx_wndStaticDrawNoImage_488D00(win *C.nox_window, draw *C.nox_window_d
 }
 
 func nox_xxx_wndStaticDrawNoImage(win *Window, draw *WindowData) int { // nox_xxx_wndStaticDrawNoImage_488D00
-	r := noxrend
+	r := noxClient.r
 	fnt := draw.Font()
 
 	wdata := (*staticTextData)(win.widget_data)

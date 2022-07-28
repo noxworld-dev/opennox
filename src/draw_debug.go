@@ -24,7 +24,7 @@ import (
 
 //export nox_thing_debug_draw
 func nox_thing_debug_draw(cvp *nox_draw_viewport_t, cdr *nox_drawable) C.int {
-	r := noxrend
+	r := noxClient.r
 	vp := asViewport(cvp)
 	dr := asDrawable(cdr)
 
@@ -190,7 +190,7 @@ func sub_50CB10() []types.Pointf {
 }
 
 func drawDebugAI(vp *Viewport) {
-	r := noxrend
+	r := noxClient.r
 
 	if arr := sub_50CB10(); len(arr) >= 2 {
 		cur := sub_50D210()

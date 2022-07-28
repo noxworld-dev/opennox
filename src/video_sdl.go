@@ -24,7 +24,7 @@ func playMovieFile(name string) {
 	videoLog.Printf("playMovieFile: %q", name)
 	if f, err := ifs.Open(name); err == nil {
 		defer f.Close()
-		if plr, err := noxmovie.NewPlayerWithHandle(f, noxSeat, audioDev); err == nil {
+		if plr, err := noxmovie.NewPlayerWithHandle(f, noxClient.seat, audioDev); err == nil {
 			defer plr.Close()
 			plr.Start()
 			plr.Play()
@@ -32,18 +32,18 @@ func playMovieFile(name string) {
 	}
 }
 
-func clientDraw() bool {
-	return nox_xxx_client_435F80_draw(inpHandlerS)
+func (c *Client) clientDraw() bool {
+	return c.nox_xxx_client_435F80_draw()
 }
 
-func copyPixBuffer() {
-	noxRendererS.CopyBuffer(noxPixBuffer.img)
+func (c *Client) copyPixBuffer() {
+	c.win.CopyBuffer(noxPixBuffer.img)
 	*memmap.PtrUint32(0x973A20, 496)++
 }
 
-func resetRenderer(sz image.Point, init bool) error {
+func (c *Client) resetRenderer(sz image.Point, init bool) error {
 	if nox_video_renderTargetFlags&4 == 0 && !init {
-		if err := noxRendererS.Reset(sz); err != nil {
+		if err := c.win.Reset(sz); err != nil {
 			return err
 		}
 	}
@@ -53,7 +53,7 @@ func resetRenderer(sz image.Point, init bool) error {
 	return nil
 }
 
-func gameResetVideoMode(inMenu, force bool) error {
+func (c *Client) gameResetVideoMode(inMenu, force bool) error {
 	var mode image.Point
 	if inMenu {
 		if debugMainloop {
@@ -64,7 +64,7 @@ func gameResetVideoMode(inMenu, force bool) error {
 		if debugMainloop {
 			videoLog.Printf("gameUpdateVideoMode: game (%s)", caller(1))
 		}
-		mode = videoGetGameMode()
+		mode = c.videoGetGameMode()
 	}
 	videoLog.Printf("mode switch: %+v (menu: %v)", mode, inMenu)
 	videoResizeView(mode)
@@ -74,20 +74,20 @@ func gameResetVideoMode(inMenu, force bool) error {
 	if err := recreateBuffersAndTarget(mode); err != nil {
 		return err
 	}
-	nox_xxx_loadPal_4A96C0_video_read_palette()
+	c.nox_xxx_loadPal_4A96C0_video_read_palette()
 	C.sub_461520()
 	return nil
 }
 
-func nox_xxx_loadPal_4A96C0_video_read_palette() {
+func (c *Client) nox_xxx_loadPal_4A96C0_video_read_palette() {
 	nox_xxx_loadDefColor_4A94A0()
 	for i := 0; i < 6; i++ {
-		noxrend.Data().SetMaterial(i, color.White)
+		c.r.Data().SetMaterial(i, color.White)
 	}
 }
 
 func sub_43C060() bool {
-	nox_xxx_loadPal_4A96C0_video_read_palette()
+	noxClient.nox_xxx_loadPal_4A96C0_video_read_palette()
 	C.nox_xxx_wndLoadBorder_4AA1F0()
 	nox_xxx_wndLoadMainBG_4A2210()
 	nox_client_setCursorType(gui.CursorSelect)

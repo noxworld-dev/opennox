@@ -93,7 +93,7 @@ func NewDialogWindow(a1 *Window, title string, text string, flags gui.DialogFlag
 	}
 	*memmap.PtrUint32(0x5D4594, 830240) = 0
 	lang := strMan.Lang()
-	if noxrend.FontHeight(nil) > 10 {
+	if noxClient.r.FontHeight(nil) > 10 {
 		lang = 2
 	}
 	wfile := "dlg.wnd"
@@ -199,10 +199,10 @@ func sub449EA0(flags gui.DialogFlags) {
 	if flags.Has(gui.DialogLockMouse) {
 		off := nox_gui_curDialog_830224.Offs()
 		end := nox_gui_curDialog_830224.End()
-		setMouseBounds(image.Rect(off.X, off.Y, end.X, end.Y))
+		noxClient.setMouseBounds(image.Rect(off.X, off.Y, end.X, end.Y))
 	} else {
 		sz := videoGetWindowSize()
-		setMouseBounds(image.Rect(0, 0, sz.X-1, sz.Y-1))
+		noxClient.setMouseBounds(image.Rect(0, 0, sz.X-1, sz.Y-1))
 	}
 	*memmap.PtrUint32(0x5D4594, 830240) = uint32(flags)
 }
@@ -233,7 +233,7 @@ func nox_gui_dialogUnsetFlags_830224(a1 gui.DialogFlags) {
 		nox_gui_curDialog_830224.ChildByID(4008).Hide()
 	}
 	if a1.Has(gui.DialogLockMouse) {
-		setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
+		noxClient.setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
 	}
 	*memmap.PtrUint32(0x5D4594, 830240) &^= uint32(a1)
 }
@@ -247,7 +247,7 @@ func sub_449BE0(win *Window, ev WindowEvent) WindowEventResp {
 		case keybind.KeyEsc:
 			return RawEventResp(1)
 		case keybind.KeySpace:
-			mpos := getMousePos()
+			mpos := noxClient.getMousePos()
 			win.Func93(&WindowMouseState{State: input.NOX_MOUSE_LEFT_DOWN, Pos: mpos})
 		}
 		return nil

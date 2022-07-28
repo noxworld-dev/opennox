@@ -648,7 +648,7 @@ func sub_4373A0() {
 	if C.dword_587000_87408 == 1 || C.dword_587000_87412 == -1 {
 		if C.nox_game_createOrJoin_815048 == 1 {
 			C.nox_game_createOrJoin_815048 = 0
-			setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
+			noxClient.setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
 			v2 := strMan.GetStringInFile("ChooseArea", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
 			asWindowP(C.dword_5d4594_814996).Func94(&WindowEvent0x4001{Str: v2})
 			clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
@@ -665,7 +665,7 @@ func sub_4373A0() {
 		}
 	} else if C.nox_game_createOrJoin_815048 == 1 {
 		C.nox_game_createOrJoin_815048 = 0
-		setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
+		noxClient.setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
 		nox_xxx_wndClearCaptureMain(asWindowP(C.dword_5d4594_814984))
 		C.sub_4375C0(1)
 		v0 := strMan.GetStringInFile("JoinServer", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")

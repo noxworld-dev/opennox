@@ -363,7 +363,7 @@ func nox_color_rgb_4344A0(r, g, b C.int) C.uint32_t {
 
 //export nox_set_color_rgb_434430
 func nox_set_color_rgb_434430(r, g, b C.int) {
-	noxrend.Data().SetColor2(noxcolor.RGB5551Color(byte(r), byte(g), byte(b)))
+	noxClient.r.Data().SetColor2(noxcolor.RGB5551Color(byte(r), byte(g), byte(b)))
 }
 
 func unsafePtrToInt(p unsafe.Pointer) C.int {
@@ -407,15 +407,15 @@ func nox_xxx_windowUpdateKeysMB_46B6B0(inp *input.Handler, key keybind.Key) {
 
 //var dword_5d4594_2618912 *noxKeyEventInt
 
-func keyBindingsCheckActive(inp *input.Handler) int {
+func (c *Client) keyBindingsCheckActive() int {
 	if C.sub_46A4A0() != 0 {
 		return 1
 	}
-	for _, key := range inp.KeyboardKeys() {
+	for _, key := range c.inp.KeyboardKeys() {
 		//dword_5d4594_2618912 = p
-		if !inp.GetKeyFlag(key) && !inp.IsPressed(key) && nox_xxx_guiCursor_477600() == 0 {
+		if !c.inp.GetKeyFlag(key) && !c.inp.IsPressed(key) && nox_xxx_guiCursor_477600() == 0 {
 			if noxConsole.ExecMacros(context.Background(), key) {
-				inp.SetKeyFlag(key, true)
+				c.inp.SetKeyFlag(key, true)
 			}
 		}
 	}
