@@ -44,7 +44,6 @@ int nox_getBackbufHeight();
 
 extern uint32_t dword_5d4594_810628;
 extern uint32_t dword_5d4594_808564;
-extern uint32_t dword_5d4594_1311936;
 extern uint32_t dword_5d4594_1193672;
 extern uint32_t dword_5d4594_3798728;
 extern uint32_t dword_5d4594_808568;
