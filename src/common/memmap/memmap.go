@@ -1,6 +1,7 @@
 package memmap
 
 import (
+	"bytes"
 	"fmt"
 	"sort"
 	"strconv"
@@ -221,6 +222,12 @@ func RelativeAddr(addr uintptr) (blob, off uintptr) {
 
 // PtrOff returns an unsafe pointer to the specified blob at a given offset.
 func PtrOff(blob, off uintptr) unsafe.Pointer {
+	sl := Slice(blob, off)
+	return unsafe.Pointer(&sl[0])
+}
+
+// Slice returns a slice to the specified blob at a given offset.
+func Slice(blob, off uintptr) []byte {
 	if len(blobs) == 0 {
 		panic("no blobs defined")
 	}
@@ -231,7 +238,7 @@ func PtrOff(blob, off uintptr) unsafe.Pointer {
 		if off >= uintptr(len(b.Data)) {
 			panic(fmt.Errorf("out of bounds error on blob: 0x%X, %d (%+d)", blob, off, off-uintptr(len(b.Data))))
 		}
-		return unsafe.Pointer(&b.Data[off])
+		return b.Data[off:]
 	}
 	panic("no blobs matching the address: 0x" + strconv.FormatUint(uint64(blob), 16))
 }
@@ -328,4 +335,13 @@ func Float32(base, off uintptr) float32 {
 
 func Float64(base, off uintptr) float64 {
 	return *(*float64)(PtrSizeOff(base, off, 8))
+}
+
+func String(base, off uintptr) string {
+	sl := Slice(base, off)
+	i := bytes.IndexByte(sl, 0)
+	if i < 0 {
+		panic("non zero-terminated string")
+	}
+	return string(sl[:i])
 }

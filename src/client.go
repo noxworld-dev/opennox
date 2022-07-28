@@ -31,6 +31,7 @@ func NewClient(pr console.Printer, srv *Server) (*Client, error) {
 	c.vp, _ = alloc.New(Viewport{})
 	c.guiAdv.Init(c)
 	c.screenshots.Init(c)
+	c.mapsend.Init(c)
 	return c, nil
 }
 
@@ -42,6 +43,7 @@ type Client struct {
 	r           *NoxRender
 	vp          *Viewport
 	inp         *input.Handler
+	mapsend     clientMapDownload
 	guiAdv      guiAdvOptions
 	screenshots screenshots
 }
