@@ -36,9 +36,7 @@ extern unsigned int dword_587000_145664;
 extern unsigned int dword_587000_145668;
 extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_gameFPS;
-extern unsigned int nox_xxx_gameDownloadInProgress_587000_173328;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
-extern unsigned int nox_xxx_mapDownloadOK_587000_173332;
 extern void* nox_alloc_chat_1197364;
 extern unsigned int nox_client_renderGUI_80828;
 extern char nox_clientServerAddr[32];
@@ -242,7 +240,7 @@ func mainloop_43E290(exitPath bool) {
 	*memmap.PtrUint32(0x5D4594, 816400) = 60 * gameFPS()
 
 	// XXX
-	nox_xxx_mapSetDownloadInProgress(false)
+	noxClient.mapsend.setDownloading(false)
 
 mainloop:
 	for mainloopContinue && !mainloopStopError {
@@ -251,7 +249,7 @@ mainloop:
 			mainloopHook()
 		}
 		runGameLoopHooks()
-		if mapDownloading() {
+		if noxClient.mapsend.Downloading() {
 			if done, err := noxClient.mapDownloadLoop(false); !done {
 				continue mainloop
 			} else if err != nil {
@@ -270,7 +268,7 @@ mainloop:
 					gameLog.Println("change game map:", err)
 				}
 				// XXX
-				if mapDownloading() {
+				if noxClient.mapsend.Downloading() {
 					continue mainloop
 				}
 				mainloopContinue = false
@@ -1099,24 +1097,24 @@ func (s *Server) nox_xxx_gameSetMapPath_409D70(path string) {
 	C.nox_xxx_gameSetMapPath_409D70(internCStr(path))
 }
 
-func map_download_finish() int {
-	nox_xxx_guiDownloadClose_4CC930()
-	if mapsend.downloadOK {
-		if mode := noxClient.videoGetGameMode(); mode.X == 0 || mode.Y == 0 {
+func (c *Client) map_download_finish() int {
+	c.mapsend.CloseDialog()
+	if c.mapsend.downloadOK {
+		if mode := c.videoGetGameMode(); mode.X == 0 || mode.Y == 0 {
 			mode.X = noxDefaultWidth
 			mode.Y = noxDefaultHeight
 			videoUpdateGameMode(mode)
 		}
 	}
 
-	if !mapsend.downloadOK {
+	if !c.mapsend.downloadOK {
 		noxflags.UnsetGame(noxflags.GameFlag21 | noxflags.GameFlag24)
 		return 0
 	}
 	C.nox_xxx_gui_43E1A0(0)
 	if !noxflags.HasEngine(noxflags.EngineNoRendering) {
 		C.nox_gameDisableMapDraw_5d4594_2650672 = 1
-		noxClient.r.FadeClearScreen(true, color.Black)
+		c.r.FadeClearScreen(true, color.Black)
 	}
 	fname := noxServer.nox_server_currentMapGetFilename_409B30()
 	if err := nox_xxx_mapCliReadAll_4AC2B0(fname); err != nil {

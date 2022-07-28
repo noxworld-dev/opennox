@@ -47,17 +47,17 @@ func (c *Client) drawAndPresent() {
 
 func (c *Client) map_download_start() {
 	C.nox_xxx_gameClearAll_467DF0(1)
-	nox_xxx_gameDownloadShowDialog_4CC770()
-	nox_xxx_mapSetDownloadInProgress(true)
-	nox_xxx_mapSetDownloadOK(true)
+	c.ShowMapDownload()
+	c.mapsend.setDownloading(true)
+	c.mapsend.setDownloadOK(true)
 	if _, err := c.mapDownloadLoop(true); err != nil {
-		mapsendLog.Println(err)
+		c.mapsend.log.Println(err)
 	}
 }
 
 func (c *Client) mapDownloadLoop(first bool) (bool, error) {
-	if !mapDownloading() {
-		if map_download_finish() == 0 {
+	if !c.mapsend.Downloading() {
+		if c.map_download_finish() == 0 {
 			return true, errors.New("map download failed")
 		}
 		return true, nil
@@ -76,41 +76,41 @@ func (c *Client) mapDownloadLoop(first bool) (bool, error) {
 
 		hport := inferHTTPPort(clientGetServerPort())
 		srv := fmt.Sprintf("%s:%d", clientGetServerHost(), hport)
-		mapsendLog.Printf("checking map download API on server %q", srv)
+		c.mapsend.log.Printf("checking map download API on server %q", srv)
 		cli, err := maps.NewClient(ctx, srv)
 		if err != nil {
 			if err == maps.ErrAPIUnsupported {
-				mapsendLog.Println("map API check:", err)
+				c.mapsend.log.Println("map API check:", err)
 			} else {
-				mapsendLog.Println("cannot check map API:", err)
+				c.mapsend.log.Println("cannot check map API:", err)
 			}
 			cancel()
-			mapsend.native = true
+			c.mapsend.native = true
 		} else {
-			mapsendLog.Println("map API supported")
+			c.mapsend.log.Println("map API supported")
 			errc := make(chan error, 1)
-			mapsend.cancel = cancel
-			mapsend.done = errc
-			mapsend.native = false
+			c.mapsend.cancel = cancel
+			c.mapsend.done = errc
+			c.mapsend.native = false
 
 			name := strings.TrimSuffix(strings.ToLower(clientGetServerMap()), maps.Ext)
-			mapsendLog.Printf("download start (http): %q", name)
+			c.mapsend.log.Printf("download start (http): %q", name)
 			go func() {
 				defer cli.Close()
 				defer close(errc)
 
 				err := cli.DownloadMap(ctx, datapath.Data(maps.Dir), name)
 				if err != nil {
-					mapsendLog.Println("download failed:", err)
+					c.mapsend.log.Println("download failed:", err)
 					errc <- err
 				} else {
-					mapsendLog.Println("download complete")
+					c.mapsend.log.Println("download complete")
 				}
 			}()
 		}
 	}
 
-	if mapsend.native {
+	if c.mapsend.native {
 		if first {
 			nox_xxx_netRequestMap_43CA50()
 		}
@@ -119,23 +119,23 @@ func (c *Client) mapDownloadLoop(first bool) (bool, error) {
 		}
 	} else {
 		select {
-		case err := <-mapsend.done:
-			nox_xxx_mapSetDownloadInProgress(false)
+		case err := <-c.mapsend.done:
+			c.mapsend.setDownloading(false)
 			if err != nil {
-				nox_xxx_mapSetDownloadOK(false)
+				c.mapsend.setDownloadOK(false)
 				return true, err
 			}
-			nox_xxx_mapSetDownloadOK(true)
-			nox_xxx_guiDownloadSetPercent_4CC900(100)
-			if map_download_finish() == 0 {
+			c.mapsend.setDownloadOK(true)
+			c.mapsend.setProgress(100)
+			if c.map_download_finish() == 0 {
 				return true, errors.New("map download failed")
 			}
 			return true, nil
 		default:
 		}
 	}
-	if !mapDownloading() {
-		if map_download_finish() == 0 {
+	if !c.mapsend.Downloading() {
+		if c.map_download_finish() == 0 {
 			return true, errors.New("map download failed")
 		}
 		return true, nil
@@ -145,8 +145,8 @@ func (c *Client) mapDownloadLoop(first bool) (bool, error) {
 	c.nox_client_drawCursorAndTooltips_477830()
 	c.copyPixBuffer()
 
-	if !mapDownloading() {
-		if map_download_finish() == 0 {
+	if !c.mapsend.Downloading() {
+		if c.map_download_finish() == 0 {
 			return true, errors.New("map download failed")
 		}
 		return true, nil

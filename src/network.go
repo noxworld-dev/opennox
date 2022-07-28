@@ -1004,8 +1004,7 @@ func nox_xxx_netMapReceived_43CA80() int {
 	return 1
 }
 
-//export nox_xxx_cliSendCancelMap_43CAB0
-func nox_xxx_cliSendCancelMap_43CAB0() C.int {
+func nox_xxx_cliSendCancelMap_43CAB0() int {
 	id := dword_5D4594_815700
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_CANCEL_MAP)

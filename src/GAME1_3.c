@@ -74,7 +74,6 @@ extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
 extern uint32_t dword_5d4594_826036;
 extern uint32_t dword_5d4594_816356;
 extern uint32_t dword_5d4594_826032;
-extern uint32_t nox_xxx_gameDownloadInProgress_587000_173328;
 extern uint32_t nox_client_renderBubbles_80844;
 extern uint32_t dword_5d4594_830276;
 extern int nox_video_16bit;
