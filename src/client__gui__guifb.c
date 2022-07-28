@@ -1,4 +1,3 @@
-#include "client__gui__guifb.h"
 #include "common__strman.h"
 
 #include "GAME1_2.h"

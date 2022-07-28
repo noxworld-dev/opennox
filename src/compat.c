@@ -201,37 +201,6 @@ int FindClose(HANDLE hFindFile) {
 	return true;
 }
 
-int _stat(const char* path, struct _stat* buffer) {
-	int result;
-	char* converted = nox_fs_normalize(path);
-	struct stat st;
-
-	result = stat(converted, &st);
-	free(converted);
-
-	if (result)
-		return result;
-
-	buffer->st_dev = st.st_dev;
-	buffer->st_ino = st.st_ino;
-	buffer->st_mode = st.st_mode;
-	buffer->st_nlink = st.st_nlink;
-	buffer->st_uid = st.st_uid;
-	buffer->st_gid = st.st_gid;
-	buffer->st_rdev = st.st_rdev;
-	buffer->st_size = st.st_size;
-#ifdef __APPLE__
-	buffer->st_mtime = st.st_mtimespec.tv_sec;
-	buffer->st_atime = st.st_atimespec.tv_sec;
-	buffer->st_ctime = st.st_ctimespec.tv_sec;
-#else
-	buffer->st_mtime = st.st_mtim.tv_sec;
-	buffer->st_atime = st.st_atim.tv_sec;
-	buffer->st_ctime = st.st_ctim.tv_sec;
-#endif
-	return result;
-}
-
 // Synchronization functions
 
 HANDLE CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, int bInitialOwner, const char* lpName) {

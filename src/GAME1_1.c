@@ -30,7 +30,6 @@
 #include "common__wolapi__wol.h"
 #include "common__wolapi__wolchnl.h"
 #include "common__wolapi__wolstate.h"
-#include "common__wolapi__woluser.h"
 #include "operators.h"
 
 #include "client__gui__guibook.h"

@@ -33,7 +33,6 @@
 #include "client__system__client.h"
 #include "client__system__ctrlevnt.h"
 #include "client__video__draw_common.h"
-#include "common__magic__comguide.h"
 
 #include "client__draw__partscrn.h"
 #include "client__gui__guicon.h"
@@ -93,7 +92,6 @@ extern uint32_t dword_5d4594_3807152;
 extern uint32_t dword_5d4594_3807136;
 extern uint32_t dword_5d4594_814548;
 extern uint32_t dword_5d4594_3804684;
-extern uint32_t nox_xxx_useMMX_587000_80800;
 extern uint32_t dword_5d4594_3807140;
 extern uint32_t nox_client_connError_814552;
 extern uint32_t dword_5d4594_815056;

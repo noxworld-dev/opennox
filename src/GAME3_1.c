@@ -5705,27 +5705,6 @@ int sub_4CB1A0(uint32_t* a1, int a2) {
 	return 1;
 }
 
-//----- (004CB230) --------------------------------------------------------
-int nox_game_setMovieFile_4CB230(const char* a1, char* lpFileName) // setmoviefile
-{
-	char* v3;        // eax
-	struct _stat v4; // [esp+10h] [ebp-24h]
-
-	strcpy(lpFileName, "movies\\");
-	strcat(lpFileName, a1);
-	if (!_stat(lpFileName, (int)&v4)) {
-		return 1;
-	}
-	v3 = sub_413890();
-	if (!v3) {
-		return 0;
-	}
-	strcpy(lpFileName, v3);
-	strcat(lpFileName, "movies\\");
-	strcat(lpFileName, a1);
-	return _stat(lpFileName, (int)&v4) == 0;
-}
-
 //----- (004CB880) --------------------------------------------------------
 int sub_4CB880() {
 	int result;    // eax

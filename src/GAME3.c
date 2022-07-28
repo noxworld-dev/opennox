@@ -28,7 +28,6 @@
 #include "client__shell__arnamain.h"
 #include "client__shell__mainmenu.h"
 #include "client__shell__noxworld.h"
-#include "client__shell__options.h"
 #include "client__shell__optsback.h"
 #include "client__shell__selchar.h"
 #include "client__shell__selclass.h"
@@ -3757,6 +3756,7 @@ LABEL_22:
 }
 
 int nox_gui_menu_proc_ext(int id);
+void sub_4AA650();
 //----- (004AABE0) --------------------------------------------------------
 int sub_4AABE0(int a1, int a2, int* a3, int a4) {
 	int v4;                               // eax

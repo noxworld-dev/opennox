@@ -1,4 +1,3 @@
-#include "client__gui__chaticon.h"
 #include "client__gui__window.h"
 
 #include "GAME1_2.h"

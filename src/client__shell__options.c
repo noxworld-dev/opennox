@@ -1,5 +1,3 @@
-#include "client__shell__options.h"
-
 #include "GAME2.h"
 #include "common__strman.h"
 
