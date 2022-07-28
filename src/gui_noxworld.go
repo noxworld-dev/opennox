@@ -47,6 +47,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/discover"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 var (
@@ -650,7 +651,7 @@ func sub_4373A0() {
 			setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
 			v2 := strMan.GetStringInFile("ChooseArea", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
 			asWindowP(C.dword_5d4594_814996).Func94(&WindowEvent0x4001{Str: v2})
-			clientPlaySoundSpecial(231, 100)
+			clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 		} else {
 			nox_game_checkStateSwitch_43C1E0()
 			C.sub_49FF20()
@@ -660,7 +661,7 @@ func sub_4373A0() {
 				C.sub_4207F0(4)
 				C.sub_40D380()
 			}
-			clientPlaySoundSpecial(231, 100)
+			clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 		}
 	} else if C.nox_game_createOrJoin_815048 == 1 {
 		C.nox_game_createOrJoin_815048 = 0
@@ -669,7 +670,7 @@ func sub_4373A0() {
 		C.sub_4375C0(1)
 		v0 := strMan.GetStringInFile("JoinServer", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
 		asWindowP(C.dword_5d4594_814996).Func94(&WindowEvent0x4001{Str: v0})
-		clientPlaySoundSpecial(231, 100)
+		clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 	} else {
 		C.sub_49FF20()
 		if C.dword_587000_87404 != 0 {
@@ -680,7 +681,7 @@ func sub_4373A0() {
 			v1 := strMan.GetStringInFile("ChooseArea", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
 			asWindowP(C.dword_5d4594_814996).Func94(&WindowEvent0x4001{Str: v1})
 			nox_client_refreshServerList_4378B0()
-			clientPlaySoundSpecial(231, 100)
+			clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 		} else {
 			nox_game_checkStateSwitch_43C1E0()
 		}

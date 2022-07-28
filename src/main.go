@@ -67,6 +67,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/version"
 )
 
@@ -399,7 +400,6 @@ func RunArgs(args []string) (gerr error) {
 		return fmt.Errorf("cannot find maps: %w", err)
 	}
 	keyBinding = keybind.New(strMan)
-	C.nox_init_sound_index_40AED0()
 	C.nox_xxx_mapSetDataDefault_416500()
 	if err := nox_common_readcfgfile("nox.cfg", false); err != nil {
 		return fmt.Errorf("failed to load config file: %w", err)
@@ -529,7 +529,7 @@ func sub_4AA9C0() C.int {
 	writeConfigLegacy("nox.cfg")
 	C.nox_wnd_xxx_1309740.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)
 	sub_43BE40(2)
-	clientPlaySoundSpecial(923, 100)
+	clientPlaySoundSpecial(sound.SoundShellSlideOut, 100)
 	return 1
 }
 
@@ -559,7 +559,6 @@ func cleanup() {
 	C.sub_40C0D0()
 	C.sub_40B740()
 	C.nox_common_maplist_free_4D0970()
-	C.sub_40AF30()
 	C.nox_free_thing_bin()
 	ail.Shutdown()
 }

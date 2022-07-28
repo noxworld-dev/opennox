@@ -36,6 +36,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 )
 
@@ -259,27 +260,27 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 			v14 := u.field_131
 			if pl.Info().IsFemale() {
 				if v14 == 5 {
-					nox_xxx_aud_501960(330, u, 0, 0)
+					nox_xxx_aud_501960(sound.SoundHumanFemaleHurtPoison, u, 0, 0)
 				} else if v2 <= 450 {
 					if v2 <= 70 {
-						nox_xxx_aud_501960(327, u, 0, 0)
+						nox_xxx_aud_501960(sound.SoundHumanFemaleHurtLight, u, 0, 0)
 					} else {
-						nox_xxx_aud_501960(328, u, 0, 0)
+						nox_xxx_aud_501960(sound.SoundHumanFemaleHurtMedium, u, 0, 0)
 					}
 				} else {
-					nox_xxx_aud_501960(329, u, 0, 0)
+					nox_xxx_aud_501960(sound.SoundHumanFemaleHurtHeavy, u, 0, 0)
 				}
 			} else {
 				if v14 == 5 {
-					nox_xxx_aud_501960(320, u, 0, 0)
+					nox_xxx_aud_501960(sound.SoundHumanMaleHurtPoison, u, 0, 0)
 				} else if v2 <= 450 {
 					if v2 <= 70 {
-						nox_xxx_aud_501960(317, u, 0, 0)
+						nox_xxx_aud_501960(sound.SoundHumanMaleHurtLight, u, 0, 0)
 					} else {
-						nox_xxx_aud_501960(318, u, 0, 0)
+						nox_xxx_aud_501960(sound.SoundHumanMaleHurtMedium, u, 0, 0)
 					}
 				} else {
-					nox_xxx_aud_501960(319, u, 0, 0)
+					nox_xxx_aud_501960(sound.SoundHumanMaleHurtHeavy, u, 0, 0)
 				}
 			}
 		}
@@ -339,8 +340,8 @@ func (obj *Object) applyForce(vec types.Pointf, force float64) { // nox_xxx_obje
 	}
 }
 
-func nox_xxx_aud_501960(a1 int, u *Unit, a3, a4 int) {
-	C.nox_xxx_aud_501960(C.int(a1), u.CObj(), C.int(a3), C.int(a4))
+func nox_xxx_aud_501960(snd sound.ID, u *Unit, a3, a4 int) {
+	C.nox_xxx_aud_501960(C.int(snd), u.CObj(), C.int(a3), C.int(a4))
 }
 
 func playerSuddedDeath4F9E70(u *Unit) {

@@ -32,6 +32,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 func drawAndPresent() {
@@ -226,7 +227,7 @@ func generateMouseSparks(inp *input.Handler) {
 		randomIntMinMax(0, 2)
 		if memmap.Uint32(0x5D4594, 816416) == 0 {
 			*memmap.PtrUint32(0x5D4594, 816416) = 1
-			clientPlaySoundSpecial(924, 100)
+			clientPlaySoundSpecial(sound.SoundShellMouseBoom, 100)
 			for i := explosionSparks; i > 0; i-- {
 				v12 := randomIntMinMax(0, 255)
 				v13 := randomIntMinMax(6, 12)

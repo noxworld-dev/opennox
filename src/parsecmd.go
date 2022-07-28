@@ -75,6 +75,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/console"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 var (
@@ -189,7 +190,7 @@ var (
 		{Token: "motd", HelpID: "showmotdhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_motd)},
 		{Token: "rank", HelpID: "showrankhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_rank)},
 		{Token: "extents", HelpID: "showextentshelp", Flags: console.ClientServer | console.Cheat, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
-			clientPlaySoundSpecial(921, 100)
+			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			noxflags.ToggleEngine(noxflags.EngineShowExtents)
 			return true
 		}},

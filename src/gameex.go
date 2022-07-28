@@ -37,6 +37,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 //export gameexSomeWeirdCheckFixmePlease
@@ -219,7 +220,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 			}
 			if noxflags.HasGame(noxflags.GameHost) { // isServer
 				if u := HostPlayerUnit(); u != nil && C.mix_MouseKeyboardWeaponRoll(C.int(uintptr(unsafe.Pointer(u.CObj()))), C.char(v8)) != 0 {
-					clientPlaySoundSpecial(895, 100)
+					clientPlaySoundSpecial(sound.SoundNextWeapon, 100)
 				}
 			} else {
 				buf, freeBuf := alloc.Make([]byte{}, 10)
@@ -233,13 +234,13 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 	if kcode == keybind.KeyF8 { // TODO: should be configurable, or actually just set defaults and remove this window
 		if !noxflags.HasGame(noxflags.GameHost) {
 			nox_xxx_printCentered_445490("only server can change these options")
-			clientPlaySoundSpecial(231, 100)
+			clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 			return
 		}
 		if !noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
 			return
 		}
-		clientPlaySoundSpecial(921, 100)
+		clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		if modifyWndPntr != nil {
 			destroyGameExWindow()
 			modifyWndPntr = nil
@@ -280,7 +281,7 @@ func destroyGameExWindow() {
 func modifyWndInputHandler(a1 *Window, ev WindowEvent) WindowEventResp {
 	switch ev := ev.(type) {
 	case *WindowEvent0x4007:
-		clientPlaySoundSpecial(766, 100)
+		clientPlaySoundSpecial(sound.SoundButtonPress, 100)
 		switch ev.Win.ID() {
 		case 1937:
 			destroyGameExWindow()

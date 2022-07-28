@@ -80,6 +80,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -116,7 +117,7 @@ func sub_468480(win *Window, ev WindowEvent) WindowEventResp {
 		return nil
 	}
 	if ekey.Pressed {
-		clientPlaySoundSpecial(231, 100)
+		clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 		sub_4684C0()
 	}
 	return RawEventResp(1)
@@ -209,7 +210,7 @@ func sub_40E090() {
 func sub_4A50A0() C.int {
 	nox_wnd_xxx_1307748.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)
 	sub_43BE40(2)
-	clientPlaySoundSpecial(923, 100)
+	clientPlaySoundSpecial(sound.SoundShellSlideOut, 100)
 	return 1
 }
 
@@ -822,7 +823,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 		}
 		return nil
 	case *WindowEvent0x4005:
-		clientPlaySoundSpecial(920, 100)
+		clientPlaySoundSpecial(sound.SoundShellSelect, 100)
 		return RawEventResp(1)
 	case *WindowEvent0x4010:
 		ev2 := asWindowEvent(0x4013, e.Val, 0)
@@ -846,8 +847,8 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 			spath := GoString(&sv.path[0])
 			if spath == "" {
 				saveLog.Printf("save path is empty for slot %d", v10)
-				clientPlaySoundSpecial(925, 100)
-				clientPlaySoundSpecial(921, 100)
+				clientPlaySoundSpecial(sound.SoundNoCanDo, 100)
+				clientPlaySoundSpecial(sound.SoundShellClick, 100)
 				return RawEventResp(1)
 			}
 			v20 := datapath.SaveNameFromPath(spath)
@@ -906,15 +907,15 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 			npath := datapath.SaveNameFromPath(spath)
 			nox_savegame_name_1307752 = npath
 			if noxflags.HasGame(noxflags.GameModeCoop) && nox_savegame_name_1307752 == common.SaveAuto {
-				clientPlaySoundSpecial(925, 100)
+				clientPlaySoundSpecial(sound.SoundNoCanDo, 100)
 				v17 = nil
 				v16 = 33
 				v15 = strMan.GetStringInFile("GUISave.c:AutoSaveDeleteNotAllowed", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
 				v6 = strMan.GetStringInFile("GUISave.c:AutoSaveDeleteTitle", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
 			} else {
 				if spath == "" {
-					clientPlaySoundSpecial(925, 100)
-					clientPlaySoundSpecial(921, 100)
+					clientPlaySoundSpecial(sound.SoundNoCanDo, 100)
+					clientPlaySoundSpecial(sound.SoundShellClick, 100)
 					return RawEventResp(1)
 				}
 				v17 = sub_4A5C70
@@ -934,7 +935,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 			winCharListNames.Func94(ev2)
 			winCharListStyle.Func94(ev2)
 		}
-		clientPlaySoundSpecial(921, 100)
+		clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		return RawEventResp(1)
 	}
 	return nil
@@ -1043,7 +1044,7 @@ func nox_savegame_sub_46C920(win1 *Window, ev WindowEvent) WindowEventResp {
 		dword_5d4594_1082868.Func94(ev2)
 		return nil
 	case *WindowEvent0x4007:
-		clientPlaySoundSpecial(766, 100)
+		clientPlaySoundSpecial(sound.SoundButtonPress, 100)
 		switch ev.Win.ID() {
 		case 501:
 			v8 := *(*int32)(unsafe.Add(dword_5d4594_1082864.widget_data, 48))
@@ -1093,7 +1094,7 @@ func nox_savegame_sub_46C920(win1 *Window, ev WindowEvent) WindowEventResp {
 				NewDialogWindow(nil, v7, v12, 24, nox_savegame_sub_46CBD0, sub_44A400)
 				return nil
 			}
-			clientPlaySoundSpecial(925, 100)
+			clientPlaySoundSpecial(sound.SoundNoCanDo, 100)
 			return nil
 		case 503:
 			if sub_450560() {

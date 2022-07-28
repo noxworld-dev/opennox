@@ -32,6 +32,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 var (
@@ -398,9 +399,9 @@ func (s *Server) createSpellFrom(def *things.Spell, isClient bool) error {
 		Valid:     true,
 		Title:     s.Strings().GetStringInFile(def.Title, strFile),
 		Desc:      s.Strings().GetStringInFile(def.Desc, strFile),
-		CastSound: nox_xxx_utilFindSound_40AF50(def.CastSound),
-		OnSound:   nox_xxx_utilFindSound_40AF50(def.OnSound),
-		OffSound:  nox_xxx_utilFindSound_40AF50(def.OffSound),
+		CastSound: sound.ByName(def.CastSound),
+		OnSound:   sound.ByName(def.OnSound),
+		OffSound:  sound.ByName(def.OffSound),
 	}
 	if def.Effect != "" {
 		if eff := things.ParseSpellID(def.Effect); eff > 0 {
@@ -549,16 +550,16 @@ type SpellDef struct {
 	Desc        string
 	Icon        *Image
 	IconEnabled *Image
-	CastSound   int
-	OnSound     int
-	OffSound    int
+	CastSound   sound.ID
+	OnSound     sound.ID
+	OffSound    sound.ID
 }
 
 func (s *SpellDef) IsValid() bool {
 	return s != nil && s.Valid
 }
 
-func (s *SpellDef) GetAudio(snd int) int { // nox_xxx_spellGetAud44_424800
+func (s *SpellDef) GetAudio(snd int) sound.ID { // nox_xxx_spellGetAud44_424800
 	if s == nil {
 		return 0
 	}
@@ -610,7 +611,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj
 		return false
 	}
 	if !(obj5 == nil || C.nox_xxx_gameCaptureMagic_4FDC10(C.int(spellID), obj5.CObj()) != 0) {
-		nox_xxx_aud_501960(231, obj5, 0, 0)
+		nox_xxx_aud_501960(sound.SoundPermanentFizzle, obj5, 0, 0)
 		return false
 	}
 	var (
@@ -815,7 +816,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID things.SpellID, a2, obj3, obj
 	}
 	v9 := fnc(spellID, a2, obj3, obj4, sa, lvl)
 	if v9 == 0 {
-		nox_xxx_aud_501960(231, obj4, 0, 0)
+		nox_xxx_aud_501960(sound.SoundPermanentFizzle, obj4, 0, 0)
 	}
 	return v9 != 0
 }

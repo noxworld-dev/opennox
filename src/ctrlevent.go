@@ -44,6 +44,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/input"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 var (
@@ -333,7 +334,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 				if inputKeyCheckTimeout(k, gameFPS()/4) {
 					inputSetKeyTimeout(k)
 					C.nox_client_trapSetSelect_4604B0(C.int(k - keybind.EventTrapBomber1))
-					clientPlaySoundSpecial(798, 100)
+					clientPlaySoundSpecial(sound.SoundChangeSpellbar, 100)
 				}
 			case keybind.EventQuit:
 				c.nox_ctrlevent_action_42E670(player.CCQuit, nil)
@@ -452,42 +453,42 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 		switch ce.code {
 		case player.CCSpellGestureUp: // un
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				clientPlaySoundSpecial(186, 100)
+				clientPlaySoundSpecial(sound.SoundSpellPhonemeUp, 100)
 				clientSetPhonemeFrame(1)
 			}
 		case player.CCSpellGestureDown: // zo
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				clientPlaySoundSpecial(190, 100)
+				clientPlaySoundSpecial(sound.SoundSpellPhonemeDown, 100)
 				clientSetPhonemeFrame(6)
 			}
 		case player.CCSpellGestureLeft: // et
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				clientPlaySoundSpecial(192, 100)
+				clientPlaySoundSpecial(sound.SoundSpellPhonemeLeft, 100)
 				clientSetPhonemeFrame(3)
 			}
 		case player.CCSpellGestureRight: // cha
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				clientPlaySoundSpecial(188, 100)
+				clientPlaySoundSpecial(sound.SoundSpellPhonemeRight, 100)
 				clientSetPhonemeFrame(4)
 			}
 		case player.CCSpellGestureUpperRight: // in
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				clientPlaySoundSpecial(187, 100)
+				clientPlaySoundSpecial(sound.SoundSpellPhonemeUpRight, 100)
 				clientSetPhonemeFrame(2)
 			}
 		case player.CCSpellGestureUpperLeft: // ka
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				clientPlaySoundSpecial(193, 100)
+				clientPlaySoundSpecial(sound.SoundSpellPhonemeUpLeft, 100)
 				clientSetPhonemeFrame(0)
 			}
 		case player.CCSpellGestureLowerRight: // do
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				clientPlaySoundSpecial(189, 100)
+				clientPlaySoundSpecial(sound.SoundSpellPhonemeDownRight, 100)
 				clientSetPhonemeFrame(7)
 			}
 		case player.CCSpellGestureLowerLeft: // ro
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				clientPlaySoundSpecial(191, 100)
+				clientPlaySoundSpecial(sound.SoundSpellPhonemeDownLeft, 100)
 				clientSetPhonemeFrame(5)
 			}
 		case player.CCChat:
@@ -503,19 +504,19 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			guiCon.Toggle()
 			ce.active = false
 		case player.CCIncreaseWindowSize:
-			clientPlaySoundSpecial(921, 100)
+			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			nox_client_increaseViewport_4766E0()
 			ce.active = false
 		case player.CCDecreaseWindowSize:
-			clientPlaySoundSpecial(921, 100)
+			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			nox_client_decreaseViewport_4766F0()
 			ce.active = false
 		case player.CCIncreaseGamma:
-			clientPlaySoundSpecial(921, 100)
+			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			updateGamma(1)
 			ce.active = false
 		case player.CCDecreaseGamma:
-			clientPlaySoundSpecial(921, 100)
+			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			updateGamma(-1)
 			ce.active = false
 		case player.CCQuit:
@@ -582,35 +583,35 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			C.sub_460630()
 			ce.active = false
 		case player.CCToggleRank:
-			clientPlaySoundSpecial(921, 100)
+			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			sub_4703F0()
 			ce.active = false
 		case player.CCToggleNetstat:
 			C.sub_470A60()
-			clientPlaySoundSpecial(921, 100)
+			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			ce.active = false
 		case player.CCToggleGUI:
 			if !noxflags.HasEngine(noxflags.EngineNoRendering) {
 				C.nox_client_renderGUI_80828 ^= 1
 				C.nox_xxx_xxxRenderGUI_587000_80832 = C.nox_client_renderGUI_80828
-				clientPlaySoundSpecial(921, 100)
+				clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			}
 			ce.active = false
 		case player.CCAutoSave:
 			if noxflags.HasGame(noxflags.GameModeCoop) {
 				if C.nox_xxx_game_4DCCB0() != 0 {
-					clientPlaySoundSpecial(921, 100)
+					clientPlaySoundSpecial(sound.SoundShellClick, 100)
 					sub_4DB130(common.SaveAuto)
 					sub_4DB170(1, 0, 0)
 				} else {
-					clientPlaySoundSpecial(231, 100)
+					clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 				}
 			}
 			ce.active = false
 		case player.CCAutoLoad:
 			if noxflags.HasGame(noxflags.GameModeCoop) {
 				if C.nox_xxx_game_4DCCB0() != 0 {
-					clientPlaySoundSpecial(921, 100)
+					clientPlaySoundSpecial(sound.SoundShellClick, 100)
 					sub_413A00(1)
 					v41 := strMan.GetStringInFile("GUIQuit.c:ReallyLoadMessage", "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c")
 					v40 := strMan.GetStringInFile("SelChar.c:LoadLabel", "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c")
@@ -621,7 +622,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 						sub_413A00(0)
 					})
 				} else {
-					clientPlaySoundSpecial(231, 100)
+					clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 				}
 			}
 			ce.active = false

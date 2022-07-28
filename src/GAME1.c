@@ -64,7 +64,6 @@ extern uint32_t dword_5d4594_251708;
 extern uint32_t dword_5d4594_251716;
 extern uint32_t dword_5d4594_10984;
 extern uint32_t dword_5d4594_2660032;
-extern uint32_t dword_5d4594_3616;
 extern uint32_t dword_5d4594_251720;
 extern int nox_video_16bit;
 extern uint32_t dword_5d4594_3620;
@@ -136,8 +135,6 @@ extern int nox_win_depth_game;
 extern int nox_win_width_menu;
 extern int nox_win_height_menu;
 extern int nox_win_depth_menu;
-
-extern const char* table_5184[];
 
 extern table_26792_t table_26792[];
 extern int table_26792_cnt;
@@ -882,53 +879,6 @@ LABEL_31:
 	}
 	return result;
 }
-
-//----- (0040AE90) --------------------------------------------------------
-int nox_xxx_PtFuncCompare_40AE90(const void* a1, const void* a2) {
-	return _strcmpi(*((const char**)a1 + 1), *((const char**)a2 + 1));
-}
-
-//----- (0040AEB0) --------------------------------------------------------
-int sub_40AEB0(const void* a1, const void* a2) { return _strcmpi((const char*)a1, *((const char**)a2 + 1)); }
-
-//----- (0040AED0) --------------------------------------------------------
-void nox_init_sound_index_40AED0() {
-	if (dword_5d4594_3616) {
-		return;
-	}
-	uint32_t* v0 = calloc(1023, 8);
-	dword_5d4594_3616 = v0;
-	for (int i = 0; i < 1023; i++) {
-		v0[2 * i + 0] = i;
-		v0[2 * i + 1] = (uint32_t)table_5184[i];
-	}
-	qsort(*(void**)&dword_5d4594_3616, 1023, 8, nox_xxx_PtFuncCompare_40AE90);
-}
-
-//----- (0040AF30) --------------------------------------------------------
-void sub_40AF30() {
-	if (dword_5d4594_3616) {
-		free(*(void**)&dword_5d4594_3616);
-		dword_5d4594_3616 = 0;
-	}
-}
-
-//----- (0040AF50) --------------------------------------------------------
-int nox_xxx_utilFindSound_40AF50(char* a1) {
-	int* v1;    // eax
-	int result; // eax
-
-	v1 = (int*)bsearch(a1, *(const void**)&dword_5d4594_3616, 0x3FFu, 8u, sub_40AEB0);
-	if (v1) {
-		result = *v1;
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
-//----- (0040AF80) --------------------------------------------------------
-const char* nox_xxx_getSndName_40AF80(int a1) { return table_5184[a1]; }
 
 //----- (0040AF90) --------------------------------------------------------
 void nox_xxx_soloGameEscMenuCallback_40AF90(int a1, int a2, char a3, int a4, uint8_t* a5, unsigned int a6) {
