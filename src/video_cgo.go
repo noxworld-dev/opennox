@@ -420,7 +420,7 @@ func drawGeneral_4B0340(a1 int) error {
 	v12 := C.sub_48B3E0(0)
 	//inpHandler.UnacquireMouse()
 
-	var movieString = GoString((*C.char)(memmap.PtrOff(0x5d4594, 1311940)))
+	var movieString = memmap.String(0x5d4594, 1311940)
 	playMovieFile(movieString)
 
 	sub_43E910(0)
