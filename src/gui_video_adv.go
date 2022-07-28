@@ -32,6 +32,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 var (
@@ -126,10 +127,10 @@ func sub_49B3C0() {
 func nox_client_advVideoOptsProc_4CB5D0(win *Window, ev WindowEvent) WindowEventResp {
 	switch ev := ev.(type) {
 	case *WindowEvent0x4005:
-		clientPlaySoundSpecial(920, 100)
+		clientPlaySoundSpecial(sound.SoundShellSelect, 100)
 		return RawEventResp(1)
 	case *WindowEvent0x4007:
-		clientPlaySoundSpecial(766, 100)
+		clientPlaySoundSpecial(sound.SoundButtonPress, 100)
 		id := ev.Win.ID()
 		switch id {
 		case 2010:

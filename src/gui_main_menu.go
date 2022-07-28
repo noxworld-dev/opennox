@@ -33,6 +33,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 var (
@@ -63,7 +64,7 @@ func sub_4A1A60() bool {
 func sub_4A1AA0(a1 *Window, ev WindowEvent) WindowEventResp {
 	switch ev := ev.(type) {
 	case *WindowEvent0x4005:
-		clientPlaySoundSpecial(920, 100)
+		clientPlaySoundSpecial(sound.SoundShellSelect, 100)
 		return RawEventResp(1)
 	case *WindowEvent0x4007:
 		if sub_43BE30() != 2 && sub_43BE30() != 3 || sub_4D6F30() != 0 {
@@ -90,7 +91,7 @@ func sub_4A1AA0(a1 *Window, ev WindowEvent) WindowEventResp {
 				}
 				nox_game_checkStateOptions_43C220()
 			}
-			clientPlaySoundSpecial(921, 100)
+			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			return nil
 		}
 		return RawEventResp(1)
@@ -136,7 +137,7 @@ func sub_4A1D40() C.int {
 	nox_wnd_xxx_1307308.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)
 	nox_wnd_xxx_1307304.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)
 	sub_43BE40(2)
-	clientPlaySoundSpecial(923, 100)
+	clientPlaySoundSpecial(sound.SoundShellSlideOut, 100)
 	return 1
 }
 
@@ -338,11 +339,11 @@ func nox_client_drawGeneralCallback_4A2200() C.int {
 func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventResp {
 	switch ev := ev.(type) {
 	case *WindowEvent0x4005:
-		clientPlaySoundSpecial(920, 100)
+		clientPlaySoundSpecial(sound.SoundShellSelect, 100)
 		return RawEventResp(1)
 	case *WindowEvent0x4007:
 		if guiAnimState(nox_wnd_xxx_1307308.state) != NOX_GUI_ANIM_IN_DONE && !noxflags.HasGame(noxflags.GameFlag26) {
-			clientPlaySoundSpecial(921, 100)
+			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			return RawEventResp(1)
 		}
 		switch ev.Win.ID() {
@@ -375,14 +376,14 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 					C.sub_4A7A70(0)
 					nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showSelClass_4A4840)
 				}
-				clientPlaySoundSpecial(921, 100)
+				clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			} else {
 				v9 := strMan.GetStringInFile("caution", "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c")
 				v5 := strMan.GetStringInFile("solo", "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c")
 				NewDialogWindow(nox_win_main_menu, v5, v9, 33, nil, nil)
 				sub_44A360(1)
 				sub_44A4B0()
-				clientPlaySoundSpecial(921, 100)
+				clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			}
 			return RawEventResp(1)
 		case 112: // Multiplayer button
@@ -412,12 +413,12 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 			// sub_4AA450();
 			nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showGameSel_4379F0)
 			C.sub_43AF50(0)
-			clientPlaySoundSpecial(921, 100)
+			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		case 121:
 			ptr, free := alloc.Malloc(128)
 			defer free()
 			if !nox_game_setMovieFile_4CB230("Intro.vqa", (*C.char)(ptr)) {
-				clientPlaySoundSpecial(921, 100)
+				clientPlaySoundSpecial(sound.SoundShellClick, 100)
 				break
 			}
 			sub_4A1D40()
@@ -427,7 +428,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 			})
 			_ = nox_client_drawGeneralCallback_4A2200
 			nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_client_drawGeneralCallback_4A2200)
-			clientPlaySoundSpecial(921, 100)
+			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			return RawEventResp(1)
 		case 122:
 			if C.sub_44E560() != nil {
@@ -435,7 +436,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 				sub_4A2530()
 			}
 			ev.Win.DrawData().field0 &= 0xFFFFFFFD
-			clientPlaySoundSpecial(921, 100)
+			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		case 131: // Solo Quest
 			noxServer.announce = false
 			sub_4A1D40()
@@ -461,9 +462,9 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 			// sub_4AA450();
 			nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showGameSel_4379F0)
 			C.sub_43AF50(0)
-			clientPlaySoundSpecial(921, 100)
+			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		default:
-			clientPlaySoundSpecial(921, 100)
+			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		}
 		return RawEventResp(1)
 	default:

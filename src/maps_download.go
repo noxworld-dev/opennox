@@ -19,6 +19,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 var (
@@ -199,7 +200,7 @@ func nox_xxx_guiDownloadAbort_4CC830(a1 *Window, ev WindowEvent) WindowEventResp
 		return nil
 	}
 	if ekey.Pressed {
-		clientPlaySoundSpecial(231, 100)
+		clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 		nox_xxx_guiDownloadClose_4CC930()
 		noxServer.nox_xxx_gameSetMapPath_409D70(GoString((*C.char)(memmap.PtrOff(0x5D4594, 1522936))))
 		nox_xxx_cliCancelMapDownload_4ABA90()
@@ -214,7 +215,7 @@ func nox_xxx_guiDownloadProc_4CC890(a1 *Window, ev WindowEvent) WindowEventResp 
 	switch ev := ev.(type) {
 	case *WindowEvent0x4007:
 		v3 := ev.Win.ID()
-		clientPlaySoundSpecial(766, 100)
+		clientPlaySoundSpecial(sound.SoundButtonPress, 100)
 		if v3 != 1601 {
 			return nil
 		}

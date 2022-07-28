@@ -15,6 +15,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 //export nox_xxx_harpoonBreakForPlr_537520
@@ -130,7 +131,7 @@ func (a *abilityHarpoon) UpdatePlayer(u *Unit) {
 
 func (a *abilityHarpoon) breakForPlayer(u *Unit) {
 	a.breakSilent(u)
-	nox_xxx_aud_501960(998, u, 0, 0)
+	nox_xxx_aud_501960(sound.SoundHarpoonBroken, u, 0, 0)
 }
 
 func (a *abilityHarpoon) breakSilent(u *Unit) {
@@ -177,7 +178,7 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 	ud.harpoon_frame = C.uint(gameFrame())
 	bolt.SetFlags(bolt.Flags() | object.FlagNoCollide)
 	sub_4E7540(bolt.OwnerC(), targ)
-	nox_xxx_aud_501960(999, owner, 0, 0)
+	nox_xxx_aud_501960(sound.SoundHarpoonReel, owner, 0, 0)
 }
 
 func (a *abilityHarpoon) Update(bolt *Unit) {

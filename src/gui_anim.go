@@ -13,6 +13,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 var guiAnimSpeed = 1
@@ -241,7 +242,7 @@ func nox_gui_makeAnimation(win *Window, x1, y1, x2, y2, in_dx, in_dy, out_dx, ou
 	a.out_dy = C.int(out_dy)
 	a.setState(NOX_GUI_ANIM_IN)
 	sub_43BE40(3)
-	clientPlaySoundSpecial(922, 100)
+	clientPlaySoundSpecial(sound.SoundShellSlideIn, 100)
 	a.field_12 = nil
 	a.fnc_done_out = nil
 	a.fnc_done_in = nil

@@ -22,6 +22,8 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/noxfont"
 	"github.com/noxworld-dev/opennox-lib/strman"
+
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 const (
@@ -104,7 +106,7 @@ func nox_gui_menu_proc_ext(cid C.int) C.int {
 		viper.Set(configVideoHeight, guiOptionsRes.Y)
 		writeConfigLater()
 	}
-	clientPlaySoundSpecial(921, 100)
+	clientPlaySoundSpecial(sound.SoundShellClick, 100)
 	return 1
 }
 
@@ -210,7 +212,7 @@ func sub_4C3A90(a1, a2 C.int, a3 *C.int, a4 C.int) C.int {
 		return 0
 	}
 	win := asWindowP(unsafe.Pointer(a3))
-	clientPlaySoundSpecial(921, 100)
+	clientPlaySoundSpecial(sound.SoundShellClick, 100)
 	switch win.ID() {
 	case 931:
 		sub_42CD90()
@@ -235,7 +237,7 @@ func sub_4CBE70(a1, a2 C.int, a3 *C.int, a4 C.int) C.int {
 		return 0
 	}
 	win := asWindowP(unsafe.Pointer(a3))
-	clientPlaySoundSpecial(921, 100)
+	clientPlaySoundSpecial(sound.SoundShellClick, 100)
 	switch win.ID() {
 	case 931:
 		sub_42CD90()

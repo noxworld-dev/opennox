@@ -13,6 +13,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/things"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 //export sub_4FC670
@@ -141,19 +142,19 @@ func nox_xxx_netAbilRepotState_4D8100(a1 *nox_object_t, a2, a3 C.char) {
 }
 
 type AbilityDef struct {
-	name     string // 0, 0
-	desc     string // 1, 4
-	icon8    *Image // 2, 8
-	icon12   *Image // 3, 12
-	icon16   *Image // 4, 16
-	field20  uint32 // 5, 20
-	field24  uint32 // 6, 24
-	delay    int    // 7, 28
-	duration int    // 8, 32
-	field36  int    // 9, 36
-	sound40  int    // 10, 40
-	sound44  int    // 11, 44
-	sound48  int    // 12, 48
+	name     string   // 0, 0
+	desc     string   // 1, 4
+	icon8    *Image   // 2, 8
+	icon12   *Image   // 3, 12
+	icon16   *Image   // 4, 16
+	field20  uint32   // 5, 20
+	field24  uint32   // 6, 24
+	delay    int      // 7, 28
+	duration int      // 8, 32
+	field36  int      // 9, 36
+	sound40  sound.ID // 10, 40
+	sound44  sound.ID // 11, 44
+	sound48  sound.ID // 12, 48
 }
 
 type serverAbilities struct {
@@ -260,42 +261,42 @@ func (a *serverAbilities) Do(u *Unit, abil Ability) {
 			for it := u.FirstItem(); it != nil; it = it.NextItem() {
 				if it.Class().Has(object.ClassFlag) {
 					nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 5)
-					nox_xxx_aud_501960(231, u, 0, 0)
+					nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
 					return
 				}
 			}
 		}
 		if a.IsActiveVal(u, AbilityWarcry) || a.IsActive(u, AbilityHarpoon) {
 			nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 2)
-			nox_xxx_aud_501960(231, u, 0, 0)
+			nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
 			return
 		}
 	case AbilityWarcry:
 		if a.IsActive(u, AbilityWarcry) || a.IsActive(u, AbilityHarpoon) {
 			nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 2)
-			nox_xxx_aud_501960(231, u, 0, 0)
+			nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
 			return
 		}
 	case AbilityHarpoon:
 		if a.IsActiveVal(u, AbilityWarcry) || a.IsActive(u, AbilityBerserk) {
 			nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 2)
-			nox_xxx_aud_501960(231, u, 0, 0)
+			nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
 			return
 		}
 	}
 	if a.IsActive(u, abil) {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 2)
-		nox_xxx_aud_501960(231, u, 0, 0)
+		nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
 	if ud.field_22_0 == 12 || !noxflags.HasGame(noxflags.GameModeCoop) && u.Flags().Has(object.FlagAirborne) {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 6)
-		nox_xxx_aud_501960(231, u, 0, 0)
+		nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
 	if (!noxflags.HasGame(noxflags.GameOnline) || noxflags.HasGame(noxflags.GameModeQuest)) && pl.spell_lvl[abil] == 0 {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 3)
-		nox_xxx_aud_501960(231, u, 0, 0)
+		nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
 	if abil == AbilityBerserk && pl.field_3656 == 1 {
@@ -305,7 +306,7 @@ func (a *serverAbilities) Do(u *Unit, abil Ability) {
 	cd := &a.cooldowns[pl.Index()][abil]
 	if *cd != 0 {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 2)
-		nox_xxx_aud_501960(231, u, 0, 0)
+		nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
 	*cd = a.getDelay(abil)
@@ -698,17 +699,17 @@ func (a *serverAbilities) thingsRead(f *MemFile) error {
 	if err != nil {
 		return fmt.Errorf("cannot read ability sound: %w", err)
 	}
-	def.sound40 = nox_xxx_utilFindSound_40AF50(str)
+	def.sound40 = sound.ByName(str)
 	str, err = f.ReadString8()
 	if err != nil {
 		return fmt.Errorf("cannot read ability sound: %w", err)
 	}
-	def.sound44 = nox_xxx_utilFindSound_40AF50(str)
+	def.sound44 = sound.ByName(str)
 	str, err = f.ReadString8()
 	if err != nil {
 		return fmt.Errorf("cannot read ability sound: %w", err)
 	}
-	def.sound48 = nox_xxx_utilFindSound_40AF50(str)
+	def.sound48 = sound.ByName(str)
 	def.field20 = 1
 	def.field24 = 1
 	return nil
@@ -727,7 +728,7 @@ func (a *serverAbilities) reloadGamedata() {
 	a.defs[AbilityInfravis].duration = int(gamedataFloat("EyeOfTheWolfDuration"))
 }
 
-func (a *serverAbilities) getSound(abil Ability, snd int) int {
+func (a *serverAbilities) getSound(abil Ability, snd int) sound.ID {
 	p := &a.defs[abil]
 	switch snd {
 	case 0:

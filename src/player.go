@@ -41,6 +41,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 const NOX_PLAYERINFO_MAX = int(C.NOX_PLAYERINFO_MAX)
@@ -879,13 +880,13 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 			}
 			if a1 != 0 {
 				nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 0, a1)
-				nox_xxx_aud_501960(231, u, 0, 0)
+				nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
 			} else {
 				mana := int(C.sub_4FCF90(u.CObj(), C.int(spellInd), 1))
 				if mana < 0 {
 					a1 = 11
 					nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 0, a1)
-					nox_xxx_aud_501960(232, u, 0, 0)
+					nox_xxx_aud_501960(sound.SoundManaEmpty, u, 0, 0)
 				} else {
 					arg, v14free := alloc.New(spellAcceptArg{})
 					defer v14free()

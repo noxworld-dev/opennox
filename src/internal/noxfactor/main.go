@@ -19,6 +19,7 @@ import (
 	"golang.org/x/sync/errgroup"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/noxfactor/c2gotok"
 )
 
@@ -225,6 +226,7 @@ var callGoRename = map[string]string{
 	"nox_client_getServerPort_43B320":         "clientGetServerPort",
 	"nox_client_getMousePos_4309F0":           "getMousePos",
 	"sub_43F140":                              "noxAudioServeT",
+	"nox_xxx_utilFindSound_40AF50":            "sound.ByName",
 	"nox_platform_get_ticks":                  "platformTicks",
 	"nox_float2int":                           "int",
 }
@@ -629,6 +631,24 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 	case "nox_xxx_getTTByNameSpriteMB_44CFC0":
 		if len(n.Args) == 1 {
 			n.Args[0] = stringExpr(n.Args[0], &r.fileChanged)
+		}
+	case "clientPlaySoundSpecial":
+		if len(n.Args) == 2 {
+			if l, ok := n.Args[0].(*ast.BasicLit); ok && l.Kind == token.INT {
+				if v, err := strconv.ParseUint(l.Value, 0, 64); err == nil {
+					n.Args[0] = &ast.Ident{Name: sound.ID(v).GoString()}
+					r.fileChanged = true
+				}
+			}
+		}
+	case "nox_xxx_aud_501960":
+		if len(n.Args) == 4 {
+			if l, ok := n.Args[0].(*ast.BasicLit); ok && l.Kind == token.INT {
+				if v, err := strconv.ParseUint(l.Value, 0, 64); err == nil {
+					n.Args[0] = &ast.Ident{Name: sound.ID(v).GoString()}
+					r.fileChanged = true
+				}
+			}
 		}
 	default:
 		if newName := callGoRename[fnc.Name]; newName != "" {
