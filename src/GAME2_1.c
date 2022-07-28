@@ -15,8 +15,6 @@
 #include "client__draw__debugdraw.h"
 #include "client__draw__staticdraw.h"
 #include "client__drawable__drawable.h"
-#include "client__gui__chaticon.h"
-#include "client__gui__guiobs.h"
 #include "client__gui__window.h"
 #include "client__shell__wolapi__wollogin.h"
 #include "client__shell__wolapi__wolreg.h"
@@ -40,7 +38,6 @@
 #include "client__gui__guitrade.h"
 #include "client__gui__tooltip.h"
 #include "client__video__draw_common.h"
-#include "common__wolapi__wolpatch.h"
 
 #include "client__draw__selectdw.h"
 
@@ -3227,6 +3224,7 @@ int sub_4680B0() {
 	return result;
 }
 
+wchar_t* sub_41E5D0();
 //----- (00468340) --------------------------------------------------------
 int sub_468340() {
 	uint32_t* v0; // esi

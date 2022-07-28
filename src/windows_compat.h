@@ -103,10 +103,7 @@ enum {
 #define InterlockedExchange compatInterlockedExchange
 #define InterlockedDecrement compatInterlockedDecrement
 #define InterlockedIncrement compatInterlockedIncrement
-#define _open compat_open
-#define _stat compat_stat
 
-#define _strdup strdup
 #define _strcmpi strcasecmp
 #define _strnicmp strncasecmp
 
@@ -133,8 +130,6 @@ int InterlockedIncrement(volatile int* Addend);
 
 char* _itoa(int val, char* s, int radix);
 wchar_t* _itow(int val, wchar_t* s, int radix);
-int _open(const char* filename, int oflag, ...);
-int _stat(const char* path, struct _stat* buffer);
 
 static inline unsigned int _rotl(unsigned int value, int shift) {
 	unsigned int c = shift & 31;

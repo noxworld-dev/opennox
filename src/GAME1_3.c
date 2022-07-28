@@ -45,7 +45,6 @@ extern uint32_t dword_5d4594_829532;
 extern uint32_t dword_5d4594_825764;
 extern uint32_t dword_5d4594_830200;
 extern uint32_t dword_5d4594_830268;
-extern uint32_t nox_profiled_805856;
 extern uint32_t dword_5d4594_815748;
 extern uint32_t dword_5d4594_830196;
 extern uint32_t dword_5d4594_830252;

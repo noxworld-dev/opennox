@@ -1,4 +1,3 @@
-#include "client__gui__woldisc.h"
 #include "common__strman.h"
 
 #include "GAME1.h"

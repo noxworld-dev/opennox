@@ -1,4 +1,3 @@
-#include "static.h"
 #include "common__object__modifier.h"
 
 #include "client__drawable__drawdb.h"

@@ -793,7 +793,6 @@ uint32_t dword_5d4594_1090180 = 0;
 uint32_t dword_5d4594_1321196 = 0;
 uint32_t dword_5d4594_815748 = 0;
 uint32_t dword_5d4594_2488644 = 0;
-uint32_t nox_profiled_805856 = 0;
 uint32_t dword_5d4594_1045556 = 0;
 uint32_t dword_5d4594_1045420 = 0;
 uint32_t dword_5d4594_739392 = 0;

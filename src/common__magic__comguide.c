@@ -1,5 +1,3 @@
-#include "common__magic__comguide.h"
-
 #include "GAME1_2.h"
 #include "GAME2.h"
 #include "common__strman.h"

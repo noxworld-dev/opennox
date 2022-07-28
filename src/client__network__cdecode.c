@@ -37,7 +37,6 @@
 #include "client__gui__guibrief.h"
 #include "client__gui__guicon.h"
 #include "client__gui__guidlg.h"
-#include "client__gui__guifb.h"
 #include "client__gui__guigen.h"
 #include "client__gui__guiggovr.h"
 #include "client__gui__guiinv.h"
@@ -87,6 +86,7 @@ void nox_client_onMapDownloadAbort();
 void clientPacketFade(bool a1, int fnc);
 void nox_client_onDeathRay(int p1x, int p1y, int p2x, int p2y);
 void nox_client_onParticleFx(int code, nox_drawable* a1, int a2, int a3, int a4);
+void sub_456140(unsigned char a1);
 
 uint32_t nox_client_fadeObjects_80836 = 1;
 

@@ -25,7 +25,6 @@
 #include "GAME5_2.h"
 #include "client__video__draw_common.h"
 #include "common__magic__speltree.h"
-#include "static.h"
 
 void sub_4E3BC0(nox_objectType_t* a1);
 
@@ -52,6 +51,7 @@ int nox_cmd_set_sysop(int tokInd, int tokCnt, wchar_t** tokens) {
 }
 
 //----- (00441550) --------------------------------------------------------
+extern char nox_version_string_102944[7];
 int nox_cmd_show_game(int tokInd, int tokCnt, wchar_t** tokens) {
 	char* v2;        // esi
 	int v4;          // edi

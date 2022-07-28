@@ -96,7 +96,7 @@ int nox_script_addString_512E40(char* s) {
 	if (nox_script_strings_cnt >= 1024) {
 		return nox_script_strings_cnt - 1;
 	}
-	char* cstr = _strdup(s);
+	char* cstr = strdup(s);
 	int i = nox_script_strings_cnt;
 	nox_script_strings[i] = cstr;
 	nox_script_strings_cnt++;

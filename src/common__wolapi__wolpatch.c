@@ -1,7 +1,6 @@
-#include "common__wolapi__wolpatch.h"
-
 #include "client__gui__window.h"
 #include "common__strman.h"
+#include "defs.h"
 
 //----- (0041E5D0) --------------------------------------------------------
 wchar_t* sub_41E5D0() {

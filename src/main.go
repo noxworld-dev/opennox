@@ -17,8 +17,6 @@ package opennox
 extern int nox_enable_audio;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern unsigned int nox_gameFPS;
-extern unsigned int nox_profiled_805856;
-extern unsigned int nox_xxx_useMMX_587000_80800;
 
 extern unsigned int dword_5d4594_3592;
 extern unsigned int dword_5d4594_2650652;
@@ -29,7 +27,6 @@ extern unsigned int dword_587000_93156;
 extern unsigned int dword_5d4594_816340;
 extern unsigned int dword_5d4594_816348;
 extern unsigned int dword_5d4594_805988;
-extern int nox_video_bag_var_2650640;
 
 extern nox_gui_animation* nox_wnd_xxx_1309740;
 */

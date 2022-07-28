@@ -188,7 +188,6 @@ int sub_4CAF80(int a1, int a2, int a3, int a4);
 int sub_4CAFB0(int a1);
 int sub_4CAFF0(uint32_t* a1, uint32_t* a2);
 int sub_4CB1A0(uint32_t* a1, int a2);
-int nox_game_setMovieFile_4CB230(const char* a1, char* lpFileName);
 void nox_client_advVideoOptsLoad_4CB330();
 int nox_client_advVideoOpts_New_4CB590(nox_window* a1);
 int sub_4CB880();
