@@ -86,7 +86,8 @@ var (
 		freeRows func()
 		onResize []func(sz image.Point)
 	}
-	func_5d4594_1311924 func()
+	dword_5d4594_1311936 bool
+	func_5d4594_1311924  func()
 
 	nox_color_black_2650656  = noxcolor.RGB5551Color(0, 0, 0)
 	nox_color_white_2523948  = noxcolor.RGB5551Color(255, 255, 255)
@@ -289,7 +290,7 @@ func drawInitAll(sz image.Point, flags int) error {
 }
 
 func sub_4B02D0() {
-	C.dword_5d4594_1311936 = 0
+	dword_5d4594_1311936 = false
 	func_5d4594_1311924 = nil
 	*memmap.PtrUint32(0x5D4594, 1311928) = 0
 	*memmap.PtrUint32(0x5D4594, 1311932) = 0
@@ -307,8 +308,8 @@ func sub4B0640(fnc func()) {
 }
 
 func sub_4B05D0() {
-	if C.dword_5d4594_1311936 != 0 {
-		C.dword_5d4594_1311936 = 0
+	if dword_5d4594_1311936 {
+		dword_5d4594_1311936 = false
 		*memmap.PtrUint32(0x5D4594, 1311928) = 0
 		if func_5d4594_1311924 != nil {
 			nox_client_clearScreen_440900()
@@ -400,7 +401,7 @@ func nox_client_drawGeneral_4B0340(a1 C.int) C.int {
 }
 
 func drawGeneral_4B0340(a1 int) error {
-	C.dword_5d4594_1311936 = 1
+	dword_5d4594_1311936 = true
 	*memmap.PtrUint32(0x5D4594, 1311932) = uint32(a1)
 	// FIXME
 	v1 := false
