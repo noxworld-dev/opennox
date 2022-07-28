@@ -552,7 +552,7 @@ func CONNECT_OR_HOST() error {
 	if memmap.Uint8(0x85B3FC, 10980)&4 != 0 {
 		popts.Byte152 |= 0x80
 	}
-	popts.Field2072 = GoString((*C.char)(memmap.PtrOff(0x85B3FC, 10395)))
+	popts.Field2072 = memmap.String(0x85B3FC, 10395)
 	popts.Field2096 = GoString(C.sub_41FA40())
 	popts.Field2068 = int(C.dword_5d4594_2660032)
 	popts.Info = *info
@@ -1085,7 +1085,7 @@ func sub_4703F0() {
 func (s *Server) nox_xxx_mapLoad_40A380() {
 	C.nox_xxx_set3512_40A340(0)
 	nox_xxx_setMapCRC_40A360(0)
-	name := GoString((*C.char)(memmap.PtrOff(0x5D4594, 3608)))
+	name := memmap.String(0x5D4594, 3608)
 	s.nox_xxx_gameSetMapPath_409D70(name)
 	noxflags.SetGame(noxflags.GameHost | noxflags.GameClient)
 	noxflags.UnsetGame(noxflags.GameFlag3 | noxflags.GameFlag4 | noxflags.GameModeMask | noxflags.GameFlag18) // TODO
