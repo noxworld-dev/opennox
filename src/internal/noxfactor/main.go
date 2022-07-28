@@ -548,7 +548,7 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 		}
 	case "nox_xxx_drawString_43F6E0":
 		if len(n.Args) == 4 {
-			n.Fun = selExpr("noxrend", "DrawString")
+			n.Fun = selExpr("noxClient.r", "DrawString")
 			if isZeroInt(n.Args[0]) {
 				n.Args[0] = ident("nil")
 			}

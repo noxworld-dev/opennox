@@ -164,7 +164,7 @@ func (p *Particle) DrawAt(pos image.Point) {
 
 //export sub_4B6720
 func sub_4B6720(a1 *C.int2, a2, a3 C.int, a4 C.char) {
-	noxrend.DrawGlow(asPoint(unsafe.Pointer(a1)), noxcolor.RGBA5551(a2), int(a3), int(a4))
+	noxClient.r.DrawGlow(asPoint(unsafe.Pointer(a1)), noxcolor.RGBA5551(a2), int(a3), int(a4))
 }
 
 func (r *NoxRender) DrawGlow(pos image.Point, cl color.Color, a3 int, a4 int) { // sub_4B6720

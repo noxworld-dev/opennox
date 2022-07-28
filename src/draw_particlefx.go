@@ -27,7 +27,7 @@ const (
 
 //export nox_client_onParticleFx
 func nox_client_onParticleFx(code C.int, a1 *nox_drawable, a2, a3, a4 C.int) {
-	noxrend.partfx.onParticleFx(byte(code), asDrawable(a1), int(a2), a3 != 0, int(a4))
+	noxClient.r.partfx.onParticleFx(byte(code), asDrawable(a1), int(a2), a3 != 0, int(a4))
 }
 
 type partFXes struct {

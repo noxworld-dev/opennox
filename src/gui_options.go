@@ -83,7 +83,7 @@ func getResolutionOptions() []image.Point {
 //export nox_video_setMenuOptions
 func nox_video_setMenuOptions(cwin *C.nox_window) {
 	root := asWindow(cwin)
-	mode := videoGetGameMode()
+	mode := noxClient.videoGetGameMode()
 	for i, res := range getResolutionOptions() {
 		if res == (image.Point{}) {
 			continue
@@ -177,7 +177,7 @@ func guiEnhanceOptions(root *Window) {
 		Func94(asWindowEvent(0x400A, uintptr(getGammaSlider()), 0))
 	NewStaticText(root, 317, 112, 258, 140, 16, true, false, "Sensitivity")
 	NewHorizontalSlider(root, 318, 120, 274, 120, 16, 1, 100).
-		Func94(asWindowEvent(0x400A, uintptr((math.Log10(float64(getSensitivity()))+1.0)*50), 0))
+		Func94(asWindowEvent(0x400A, uintptr((math.Log10(float64(noxClient.getSensitivity()))+1.0)*50), 0))
 }
 
 //export sub_4A19F0

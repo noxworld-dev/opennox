@@ -425,12 +425,12 @@ func clientSetPhonemeFrame(a1 int) {
 	*memmap.PtrUint32(0x5D4594, 1096596+4*uintptr(a1)) = gameFrame()
 }
 
-func nox_client_increaseViewport_4766E0() {
-	nox_draw_setCutSize(0, 2)
+func (c *Client) nox_client_increaseViewport_4766E0() {
+	c.nox_draw_setCutSize(0, 2)
 }
 
-func nox_client_decreaseViewport_4766F0() {
-	nox_draw_setCutSize(0, -2)
+func (c *Client) nox_client_decreaseViewport_4766F0() {
+	c.nox_draw_setCutSize(0, -2)
 }
 
 func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
@@ -505,11 +505,11 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			ce.active = false
 		case player.CCIncreaseWindowSize:
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
-			nox_client_increaseViewport_4766E0()
+			noxClient.nox_client_increaseViewport_4766E0()
 			ce.active = false
 		case player.CCDecreaseWindowSize:
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
-			nox_client_decreaseViewport_4766F0()
+			noxClient.nox_client_decreaseViewport_4766F0()
 			ce.active = false
 		case player.CCIncreaseGamma:
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)

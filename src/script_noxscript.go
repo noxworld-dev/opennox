@@ -380,13 +380,13 @@ func nox_script_EndGame_516E10() C.int {
 //export nox_script_UnBlind_515200
 func nox_script_UnBlind_515200() C.int {
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
-	noxrend.FadeOutScreen(25, false, nil)
+	noxClient.r.FadeOutScreen(25, false, nil)
 	return 0
 }
 
 //export nox_script_Blind_515220
 func nox_script_Blind_515220() C.int {
-	noxrend.FadeInScreen(25, false, fadeDisableGameDraw)
+	noxClient.r.FadeInScreen(25, false, fadeDisableGameDraw)
 	return 0
 }
 
@@ -415,7 +415,7 @@ func noxScriptEndGame(v int) {
 func sub_5165D0() {
 	*memmap.PtrUint32(0x5D4594, 2386828) = noxScriptPopU32() - 1
 	sub_413A00(1)
-	noxrend.FadeInScreen(25, true, func() {
+	noxClient.r.FadeInScreen(25, true, func() {
 		C.sub_516570()
 	})
 }
@@ -430,7 +430,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 		fadeInDur  = 10
 	)
 	if !enable {
-		if noxrend.FadeOutCinema(perc, fadeOutDur, color.Black) {
+		if noxClient.r.FadeOutCinema(perc, fadeOutDur, color.Black) {
 			sub_477530(false)
 		}
 		for it := s.firstServerObject(); it != nil; it = it.Next() {
@@ -442,8 +442,8 @@ func (s *Server) CinemaPlayers(enable bool) {
 		}
 		return
 	}
-	inFade := noxrend.CheckFade(noxrender.FadeInCinemaKey)
-	if noxrend.FadeInCinema(perc, fadeInDur, color.Black) {
+	inFade := noxClient.r.CheckFade(noxrender.FadeInCinemaKey)
+	if noxClient.r.FadeInCinema(perc, fadeInDur, color.Black) {
 		sub_477530(true)
 	}
 	if inFade {

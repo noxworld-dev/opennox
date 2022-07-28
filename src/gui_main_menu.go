@@ -160,7 +160,7 @@ func sub_44E320() {
 		return
 	}
 	v0 := int(nox_client_getIntroScreenDuration_44E3B0())
-	noxrend.FadeOutScreen(v0, true, func() {
+	noxClient.r.FadeOutScreen(v0, true, func() {
 		sub_450580()
 		C.dword_5d4594_831260 = 0
 		sub_413A00(0)

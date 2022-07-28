@@ -37,12 +37,12 @@ func nox_xxx_cursorGetTypePrev_477630() C.int {
 	return C.int(nox_xxx_cursorTypePrev_587000_151528)
 }
 
-func getCursorAnimFrame(ref *noxImageRef, dt int) *Image {
+func (c *Client) getCursorAnimFrame(ref *noxImageRef, dt int) *Image {
 	if ref == nil {
 		return nil
 	}
 	anim := ref.field24ptr()
-	ts := int(getInputSeq()) + dt
+	ts := int(c.getInputSeq()) + dt
 	imgs := anim.Images()
 	switch anim.anim_type {
 	case 0: // OneShot

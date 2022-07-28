@@ -16,7 +16,7 @@ func sub_4C26F0(a1 unsafe.Pointer) C.int {
 	x, y := pos.X, pos.Y
 	sz := win.Size()
 	w, h := sz.X, sz.Y
-	r := noxrend
+	r := noxClient.r
 	r.DrawRectFilledAlpha(x, y, w, h)
 	r.DrawVector(
 		image.Point{X: x + 1, Y: y},

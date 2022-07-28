@@ -32,8 +32,8 @@ func sub_4CC6F0(win *Window, draw *WindowData) int {
 		v0 := nox_win_legalBg_1522892.ChildByID(9910)
 		v0.Show()
 	}
-	noxrend.Data().SetTextColor(noxcolor.RGB5551Color(150, 150, 150))
-	noxrend.DrawString(nil, "TM", image.Pt(500, 150))
+	noxClient.r.Data().SetTextColor(noxcolor.RGB5551Color(150, 150, 150))
+	noxClient.r.DrawString(nil, "TM", image.Pt(500, 150))
 	return 1
 }
 
@@ -75,7 +75,7 @@ func nox_game_showLegal_4CC4E0() {
 	v0 := win.ChildByID(9980)
 	v8 := GoWString(C.sub_46AF00(unsafe.Pointer(v0.C())))
 	v1 := asFont(C.sub_46AF40(unsafe.Pointer(v0.C())))
-	v9 := noxrend.GetStringSizeWrapped(v1, v8, 640).Y
+	v9 := noxClient.r.GetStringSizeWrapped(v1, v8, 640).Y
 	v0.SetPos(image.Pt(0, 477-v9))
 	vers := version.ClientVersion()
 	versText := win.ChildByID(9999)

@@ -122,7 +122,7 @@ func (c *guiConsole) Init(sz image.Point) *Window {
 	c.root.SetAllFuncs(func(win *Window, ev WindowEvent) WindowEventResp {
 		return nil
 	}, func(win *Window, a2 *WindowData) int {
-		r := noxrend
+		r := noxClient.r
 		pos := win.GlobalPos()
 		if win.Flags().Has(gui.StatusImage) {
 			r.DrawImageAt(a2.BackgroundImage(), pos)

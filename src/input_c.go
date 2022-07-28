@@ -129,7 +129,7 @@ func nox_xxx_guiCursor_477600() uint32 {
 
 //export nox_client_getMousePos_4309F0
 func nox_client_getMousePos_4309F0() (out C.nox_point) {
-	mpos := getMousePos()
+	mpos := noxClient.getMousePos()
 	out.x = C.int(mpos.X)
 	out.y = C.int(mpos.Y)
 	return
@@ -137,21 +137,21 @@ func nox_client_getMousePos_4309F0() (out C.nox_point) {
 
 //export nox_xxx_bookGet_430B40_get_mouse_prev_seq
 func nox_xxx_bookGet_430B40_get_mouse_prev_seq() C.int {
-	return C.int(getInputSeq())
+	return C.int(noxClient.getInputSeq())
 }
 
 func nox_client_setMousePos_430B10(x, y int) {
-	changeMousePos(image.Pt(x, y), true)
+	noxClient.changeMousePos(image.Pt(x, y), true)
 }
 
 //export nox_client_changeMousePos_430A00
 func nox_client_changeMousePos_430A00(x, y C.int, isAbs C.bool) {
-	changeMousePos(image.Pt(int(x), int(y)), bool(isAbs))
+	noxClient.changeMousePos(image.Pt(int(x), int(y)), bool(isAbs))
 }
 
 //export nox_xxx_setMouseBounds_430A70
 func nox_xxx_setMouseBounds_430A70(xmin, xmax, ymin, ymax C.int) {
-	setMouseBounds(image.Rect(int(xmin), int(ymin), int(xmax), int(ymax)))
+	noxClient.setMouseBounds(image.Rect(int(xmin), int(ymin), int(xmax), int(ymax)))
 }
 
 //export nox_input_pollEvents_4453A0
@@ -163,22 +163,22 @@ func nox_input_pollEvents_4453A0() C.int {
 
 //export nox_input_setSensitivity
 func nox_input_setSensitivity(v C.float) {
-	setSensitivity(float32(v))
+	noxClient.setSensitivity(float32(v))
 }
 
 //export nox_input_enableTextEdit_5700CA
 func nox_input_enableTextEdit_5700CA() {
-	setTextInput(true)
+	noxClient.setTextInput(true)
 }
 
 //export nox_input_disableTextEdit_5700F6
 func nox_input_disableTextEdit_5700F6() {
-	setTextInput(false)
+	noxClient.setTextInput(false)
 }
 
 //export nox_input_getStringBuffer_57011C
 func nox_input_getStringBuffer_57011C() *C.wchar_t {
-	p, _ := CWString(getTextEditBuf())
+	p, _ := CWString(noxClient.getTextEditBuf())
 	return p
 }
 
@@ -330,7 +330,7 @@ func nox_client_processInput_4308A0(h *input.Handler) {
 
 //export nox_input_reset_430140
 func nox_input_reset_430140(a1 C.int) {
-	resetInput()
+	noxClient.resetInput()
 }
 
 func nox_xxx_freeKeyboard_430210() {
@@ -487,7 +487,7 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 			}
 		}
 
-		v65 = getViewport().World.Max
+		v65 = noxClient.Viewport().World.Max
 		sp := sprite.Pos()
 		c1 := v65.X - sp.X
 		c2 := v65.Y - sp.Y
@@ -532,7 +532,7 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 			*memmap.PtrUint32(0x5D4594, 1064944) = mimic
 		}
 		if sprite.Flags28()&0x400000 != 0 && sprite.Flags29()&0x80 != 0 && sprite.Flags70()&0xC == 0 || uint32(sprite.field_27) == mimic && sprite.field_69 == 0 {
-			v65 = getViewport().World.Max
+			v65 = noxClient.Viewport().World.Max
 			sp := sprite.Pos()
 			c1 := v65.X - sp.X
 			c2 := v65.Y - sp.Y
@@ -809,5 +809,5 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 
 //export nox_input_scanCodeToAlpha_47F950
 func nox_input_scanCodeToAlpha_47F950(r C.ushort) C.ushort {
-	return C.ushort(inpHandlerS.KeyToWChar(keybind.Key(r)))
+	return C.ushort(noxClient.inp.KeyToWChar(keybind.Key(r)))
 }
