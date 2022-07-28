@@ -41,24 +41,20 @@ extern uint32_t dword_5d4594_1193352;
 extern uint32_t dword_5d4594_1096636;
 extern uint32_t dword_5d4594_3807116;
 extern uint32_t dword_5d4594_1098620;
-extern uint32_t nox_xxx_cursorTypePrev_587000_151528;
 extern uint32_t dword_5d4594_1123520;
 extern uint32_t dword_5d4594_1193188;
 extern uint32_t dword_5d4594_1098596;
 extern uint32_t dword_5d4594_1193336;
-extern uint32_t nox_client_showTooltips_80840;
 extern uint32_t dword_5d4594_3799452;
 extern uint32_t dword_5d4594_1098600;
 extern uint32_t dword_5d4594_3807152;
 extern uint32_t dword_5d4594_1098616;
-extern uint32_t dword_5d4594_1193672;
 extern uint32_t dword_5d4594_3807136;
 extern uint32_t dword_5d4594_1098604;
 extern uint32_t dword_587000_154968;
 extern uint32_t dword_5d4594_3804684;
 extern uint32_t dword_5d4594_3807140;
 extern uint32_t dword_5d4594_3799552;
-extern uint32_t nox_video_bag_ready;
 extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
 extern uint32_t dword_5d4594_3799476;
 extern uint32_t dword_5d4594_3799468;
@@ -68,7 +64,6 @@ extern uint32_t dword_5d4594_823776;
 extern uint32_t dword_5d4594_1098580;
 extern uint32_t dword_5d4594_2650680;
 extern uint32_t nox_client_lockHighResFloors_1193152;
-extern uint32_t dword_5d4594_805836;
 extern uint32_t dword_5d4594_3799508;
 extern uint32_t dword_5d4594_3798812;
 extern uint32_t dword_5d4594_3798800;
@@ -78,7 +73,6 @@ extern uint64_t qword_581450_9544;
 extern uint32_t dword_5d4594_1098624;
 extern uint32_t dword_5d4594_2650676;
 extern uint32_t dword_5d4594_3798156;
-extern uint32_t cpuid_5d4594_3801804;
 extern uint32_t dword_5d4594_3798816;
 extern uint32_t dword_5d4594_3798808;
 extern uint32_t dword_5d4594_3798832;
@@ -106,12 +100,9 @@ extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t nox_player_netCode_85319C;
 extern int nox_win_width;
 extern int nox_win_height;
-extern int nox_backbuffer_width;
-extern int nox_backbuffer_height;
 extern int nox_video_pauseThreadedDrawCursor;
 extern int nox_video_drawCursorThreadOk;
 extern int nox_video_allowCursorDrawThread;
-extern int nox_video_cursorDrawIsThreaded;
 extern unsigned int nox_frame_xxx_2598000;
 
 extern uint32_t nox_color_white_2523948;
@@ -6486,14 +6477,5 @@ int nox_xxx_setSomeFunc_48A210(int a1) {
 
 	result = a1;
 	*getMemU32Ptr(0x5D4594, 1193504) = a1;
-	return result;
-}
-
-//----- (0048B3E0) --------------------------------------------------------
-int sub_48B3E0(int a1) {
-	int result; // eax
-
-	result = dword_5d4594_1193672;
-	dword_5d4594_1193672 = a1;
 	return result;
 }

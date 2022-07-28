@@ -181,8 +181,6 @@ extern void* nox_xxx_aClosewoodengat_587000_133480;
 extern uint32_t dword_5d4594_1046492;
 extern int nox_win_width;
 extern int nox_win_height;
-extern int nox_backbuffer_width;
-extern int nox_backbuffer_height;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 

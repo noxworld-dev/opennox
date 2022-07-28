@@ -16,7 +16,6 @@
 #include "GAME4_3.h"
 #include "GAME5.h"
 #include "GAME5_2.h"
-#include "client__audio__auddiag.h"
 #include "client__system__parsecmd.h"
 #include "common__net_list.h"
 #include "common__system__settings.h"
@@ -63,7 +62,6 @@
 #include "client__shell__optsback.h"
 #include "client__system__ctrlevnt.h"
 #include "client__video__draw_common.h"
-#include "client__video__sdl__draw_nogl.h"
 #include "common/fs/nox_fs.h"
 #include "common__binfile.h"
 #include "common__log.h"
@@ -77,7 +75,6 @@
 #include "server__script__script.h"
 #include "server__xfer__savegame__savegame.h"
 #include "server__network__playback.h"
-#include "win.h"
 
 #include <time.h>
 
@@ -91,8 +88,6 @@ extern uint32_t dword_5d4594_815052;
 extern uint32_t dword_5d4594_805980;
 extern uint32_t dword_5d4594_741652;
 extern uint32_t dword_5d4594_3807116;
-extern uint32_t dword_5d4594_810628;
-extern uint32_t dword_5d4594_808564;
 extern uint32_t dword_5d4594_1193336;
 extern uint32_t dword_5d4594_3807152;
 extern uint32_t dword_5d4594_3807136;
@@ -102,17 +97,14 @@ extern uint32_t nox_xxx_useMMX_587000_80800;
 extern uint32_t dword_5d4594_3807140;
 extern uint32_t nox_client_connError_814552;
 extern uint32_t dword_5d4594_815056;
-extern uint32_t dword_5d4594_808568;
 extern uint32_t dword_5d4594_2660032;
 extern uint32_t nox_client_gui_flag_1556112;
 extern uint32_t dword_5d4594_741356;
 extern uint32_t dword_5d4594_741332;
 extern uint32_t dword_5d4594_741364;
-extern int nox_video_16bit;
 extern nox_gui_animation* nox_wnd_xxx_815040;
 extern uint32_t dword_5d4594_805984;
 extern uint32_t dword_5d4594_810636;
-extern uint32_t dword_5d4594_805836;
 extern uint32_t dword_587000_87408;
 extern uint32_t dword_5d4594_3798812;
 extern uint32_t dword_5d4594_3798800;
@@ -126,14 +118,12 @@ extern void* dword_587000_93164;
 extern uint32_t dword_5d4594_815044;
 extern uint32_t nox_wol_server_result_cnt_815088;
 extern void* dword_587000_127004;
-extern uint32_t cpuid_5d4594_3801804;
 extern uint32_t dword_5d4594_528256;
 extern uint32_t dword_5d4594_3798816;
 extern uint32_t dword_5d4594_3798808;
 extern uint32_t dword_5d4594_3798832;
 extern int dword_5d4594_3799524;
 extern uint32_t dword_5d4594_815032;
-extern void* dword_5d4594_810640;
 extern uint32_t dword_5d4594_815020;
 extern uint32_t dword_5d4594_815024;
 extern uint32_t dword_5d4594_815028;
@@ -149,7 +139,6 @@ extern uint32_t dword_5d4594_3798820;
 extern uint32_t dword_5d4594_3798824;
 extern uint32_t dword_5d4594_815000;
 extern uint32_t dword_5d4594_3798840;
-extern uint32_t nox_video_pixmode_3799624;
 extern uint32_t dword_5d4594_810632;
 extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t nox_wol_wnd_gameList_815012;
@@ -160,11 +149,6 @@ extern nox_window* nox_wol_wnd_world_814980;
 extern int nox_enable_audio;
 extern unsigned int nox_frame_xxx_2598000;
 extern uint32_t nox_color_white_2523948;
-
-extern int nox_backbuffer_width;
-extern int nox_backbuffer_height;
-
-extern float input_sensitivity;
 
 int nox_win_width = 0;
 int nox_win_height = 0;
@@ -3360,6 +3344,7 @@ int sub_430B50(int a1, int a2, int a3, int a4) {
 
 
 //----- (004310B0) --------------------------------------------------------
+int nox_xxx_WorkerHurt_44D810();
 int nox_audio_initall(int a3) {
 	if (!nox_enable_audio) {
 		return 1;
@@ -3617,12 +3602,10 @@ void sub_435040() {
 		data[4 * i + 3] = 0;
 		*getMemU8Ptr(0x5D4594, 808304 + i) = buf[i].field_0;
 	}
-	dword_5d4594_808568 = 0;
-	dword_5d4594_810628 = 0;
 }
 
 //----- (00435120) --------------------------------------------------------
-void sub_435120(uint8_t* a1, char* a2) {
+void sub_435120(void* a1, void* a2) {
 	char* result; // eax
 	uint8_t* v3;  // ecx
 	int v4;       // esi

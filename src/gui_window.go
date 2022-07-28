@@ -5,7 +5,6 @@ package opennox
 #include "client__gui__window.h"
 extern unsigned int dword_5d4594_3799468;
 extern int dword_5d4594_3799524;
-extern nox_window* dword_5d4594_1064896;
 extern nox_window_ref* nox_win_1064912;
 
 int  nox_xxx_wndDrawFnDefault_46B370(int a1, int* a2);

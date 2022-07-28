@@ -5,8 +5,6 @@
 #include "client__video__draw_common.h"
 #include "operators.h"
 
-extern int nox_backbuffer_depth;
-
 //----- (004B9C70) --------------------------------------------------------
 int nox_thing_glyph_draw(int* a1, nox_drawable* dr) {
 	char v3; // cl

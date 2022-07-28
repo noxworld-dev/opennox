@@ -14,7 +14,6 @@
 #include "common__system__team.h"
 #include "operators.h"
 
-extern int nox_backbuffer_depth;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 extern uint32_t dword_5d4594_1313796;

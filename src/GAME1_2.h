@@ -118,7 +118,7 @@ int sub_434620(int a1);
 void sub_434990(int a1, int a2, int a3);
 void sub_4349C0(uint32_t* a1);
 void sub_435040();
-void sub_435120(uint8_t* a1, char* a2);
+void sub_435120(void* a1, void* a2);
 void sub_435150(uint8_t* a1, char* a2);
 void nox_draw_splitColor_435280(short a1, uint8_t* a2, uint8_t* a3, uint8_t* a4);
 long long nox_xxx_initTime_435570();

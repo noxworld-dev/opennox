@@ -1,7 +1,6 @@
 package opennox
 
 /*
-#include "client__video__draw_common.h"
 #include "GAME1_2.h"
 #include "GAME1_3.h"
 #include "GAME2.h"
@@ -11,32 +10,15 @@ package opennox
 #include "GAME3.h"
 #include "GAME3_1.h"
 #include "common__magic__speltree.h"
-extern unsigned int dword_5d4594_805860;
-extern int nox_video_dxFullScreen;
-extern int nox_enable_threads;
-extern int nox_video_dxFullScreen;
-extern unsigned int nox_video_dxUnlockSurface;
-extern unsigned int nox_video_16bit;
-extern int nox_win_width_game;
-extern int nox_win_height_game;
-extern int nox_win_depth_game;
-extern char* dword_5d4594_3798632;
-extern unsigned int dword_5d4594_3798728;
-extern int dword_5d4594_1097212;
-extern int dword_5d4594_1097216;
 extern unsigned int dword_5d4594_1193188;
 extern unsigned int dword_5d4594_1305748;
 extern unsigned int dword_5d4594_3799468;
-extern unsigned int nox_client_showTooltips_80840;
 extern int dword_5d4594_3799524;
-extern int nox_client_mouseCursorType;
-extern int nox_xxx_cursorTypePrev_587000_151528;
 extern int nox_win_width;
 extern int nox_win_height;
-int nox_video_initFloorBuffer_430BA0();
-int nox_xxx___cfltcvt_init_430CC0();
-extern uint32_t dword_5d4594_805836;
+
 extern uint8_t** nox_pixbuffer_rows_3798784;
+extern uint32_t dword_5d4594_823776;
 
 extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_red_2589776;
@@ -65,20 +47,19 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
-	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var (
-	g_scaled                               int
 	nox_win_width                          int
 	nox_win_height                         int
 	nox_pixbuffer_3798788_arr              []byte
-	dword_5d4594_1193704_arr               []unsafe.Pointer
 	nox_client_spellDragnDrop_1097192      uint32
 	nox_client_spellDragnDrop_type_1097196 int
 	nox_client_itemDragnDrop_1097188       *Drawable
 	dword_5d4594_1097204                   int
+	dword_5d4594_805860                    bool
+	nox_enable_threads                     = true
 	noxPixBuffer                           struct {
 		img      *noximage.Image16
 		free     func()
@@ -88,6 +69,10 @@ var (
 	}
 	dword_5d4594_1311936 bool
 	func_5d4594_1311924  func()
+	dword_5d4594_1193672 bool
+
+	nox_win_width_game  = noxDefaultWidth
+	nox_win_height_game = noxDefaultHeight
 
 	nox_color_black_2650656  = noxcolor.RGB5551Color(0, 0, 0)
 	nox_color_white_2523948  = noxcolor.RGB5551Color(255, 255, 255)
@@ -109,6 +94,12 @@ var (
 	drawColorPurple          = noxcolor.RGB5551Color(255, 0, 255)
 	drawColorDarkPurple      = noxcolor.RGB5551Color(255, 180, 255)
 )
+
+func sub_48B3E0(v bool) bool {
+	prev := dword_5d4594_1193672
+	dword_5d4594_1193672 = v
+	return prev
+}
 
 //export nox_video_getCutSize_4766D0
 func nox_video_getCutSize_4766D0() C.int {
@@ -198,15 +189,14 @@ func nox_xxx_screenGetSize_430C50_get_video_max(pw, ph *C.int) {
 
 func (c *Client) videoGetGameMode() image.Point {
 	return image.Point{
-		X: int(C.nox_win_width_game),
-		Y: int(C.nox_win_height_game),
+		X: nox_win_width_game,
+		Y: nox_win_height_game,
 	}
 }
 
 func (c *Client) videoSetGameMode(mode image.Point) {
-	C.nox_win_width_game = C.int(mode.X)
-	C.nox_win_height_game = C.int(mode.Y)
-	C.nox_win_depth_game = 16
+	nox_win_width_game = mode.X
+	nox_win_height_game = mode.Y
 	c.setScreenSize(mode)
 }
 
@@ -292,15 +282,8 @@ func drawInitAll(sz image.Point, flags int) error {
 func sub_4B02D0() {
 	dword_5d4594_1311936 = false
 	func_5d4594_1311924 = nil
-	*memmap.PtrUint32(0x5D4594, 1311928) = 0
+	movieFilesStackCur = 0
 	*memmap.PtrUint32(0x5D4594, 1311932) = 0
-}
-
-//export sub_4B0640
-func sub_4B0640(fnc unsafe.Pointer) {
-	sub4B0640(func() {
-		cgoCallVoid2Func(fnc)
-	})
 }
 
 func sub4B0640(fnc func()) {
@@ -310,7 +293,7 @@ func sub4B0640(fnc func()) {
 func sub_4B05D0() {
 	if dword_5d4594_1311936 {
 		dword_5d4594_1311936 = false
-		*memmap.PtrUint32(0x5D4594, 1311928) = 0
+		movieFilesStackCur = 0
 		if func_5d4594_1311924 != nil {
 			nox_client_clearScreen_440900()
 			func_5d4594_1311924()
@@ -337,20 +320,11 @@ func recreateBuffersAndTarget(sz image.Point) error {
 
 func recreateRenderTarget(sz image.Point) error {
 	flags := uint(0)
-	if C.nox_video_dxFullScreen != 0 {
-		if C.nox_video_dxUnlockSurface != 0 {
-			flags = 0x20
-		}
-	} else {
-		flags = 0x10
-	}
-	if C.dword_5d4594_805860 != 0 {
+	flags |= 0x10
+	if dword_5d4594_805860 {
 		flags |= 0x18
 	}
-	if noxflags.HasEngine(noxflags.EngineLockResolution) && C.nox_video_dxFullScreen != 0 {
-		flags &= 0xFFFFFFDF
-	}
-	if C.nox_enable_threads == 0 {
+	if !nox_enable_threads {
 		flags |= 0x100
 	}
 	if memmap.Uint32(0x5D4594, 805864) != 0 {
@@ -359,7 +333,7 @@ func recreateRenderTarget(sz image.Point) error {
 	C.nox_xxx_setSomeFunc_48A210(C.int(uintptr(C.sub_47FCE0))) // TODO: another callback
 	v1 := nox_client_getCursorType()
 	nox_client_setCursorType(gui.CursorSelect)
-	v2 := C.sub_48B3E0(0)
+	v2 := sub_48B3E0(false)
 	if err := videoInit(videoGetWindowSize(), int(flags)); err != nil {
 		v9 := strMan.GetStringInFile("result:ERROR", "C:\\NoxPost\\src\\Client\\Io\\Win95\\dxvideo.c")
 		v4 := strMan.GetStringInFile("gfxDdraw.c:DXWarning", "C:\\NoxPost\\src\\Client\\Io\\Win95\\dxvideo.c")
@@ -369,7 +343,7 @@ func recreateRenderTarget(sz image.Point) error {
 	}
 	nox_xxx_cursorLoadAll_477710()
 	nox_client_setCursorType(v1)
-	C.sub_48B3E0(v2)
+	sub_48B3E0(v2)
 	noxClient.r.ClearScreen(noxClient.r.Data().BgColor())
 	nox_xxx_setupSomeVideo_47FEF0()
 	C.sub_49F6D0(1)
@@ -385,15 +359,12 @@ func nox_getBackbufferPitch() C.int {
 	return C.int(2 * noxPixBuffer.img.Stride)
 }
 
-//export nox_xxx_makeFillerColor_48BDE0
-func nox_xxx_makeFillerColor_48BDE0() C.bool {
+func nox_xxx_makeFillerColor_48BDE0() {
 	*memmap.PtrUint32(0x5D4594, 1193592) = noxcolor.RGB5551Color(255, 0, 255).Color32()
-	return true
 }
 
-//export nox_client_drawGeneral_4B0340
-func nox_client_drawGeneral_4B0340(a1 C.int) C.int {
-	if err := drawGeneral_4B0340(int(a1)); err != nil {
+func nox_client_drawGeneral_4B0340(a1 int) int {
+	if err := drawGeneral_4B0340(a1); err != nil {
 		videoLog.Println(err)
 		return 0
 	}
@@ -418,16 +389,15 @@ func drawGeneral_4B0340(a1 int) error {
 		sub_4312C0()
 	}
 	sub_43E8E0(0)
-	v12 := C.sub_48B3E0(0)
+	v12 := sub_48B3E0(false)
 	//inpHandler.UnacquireMouse()
 
-	var movieString = memmap.String(0x5d4594, 1311940)
-	playMovieFile(movieString)
+	playMovieFile(movieFilesStack[0])
 
 	sub_43E910(0)
 	C.sub_43DBE0()
 	//inpHandler.AcquireMouse()
-	C.sub_48B3E0(v12)
+	sub_48B3E0(v12)
 	sub_4B05D0()
 	return nil
 }
@@ -484,15 +454,6 @@ func nox_video_initFloorBuffer_430BA0(sz image.Point) error {
 
 func nox_xxx___cfltcvt_init_430CC0() {
 	*memmap.PtrUint32(0x973F18, 7696) = 1
-	C.dword_5d4594_805836 = 0
-}
-
-func nox_video_stopCursorDrawThread_48B350() {
-	if dword_5d4594_1193704_arr != nil {
-		alloc.FreeSlice(dword_5d4594_1193704_arr)
-		dword_5d4594_1193704_arr = nil
-		C.dword_5d4594_1193704 = nil
-	}
 }
 
 func sub_4AE520() {
@@ -572,7 +533,7 @@ func nox_video_initPixbufferRows_486230() {
 }
 
 func (r *NoxRender) noxDrawCursor(a1 *Image, pos image.Point) int {
-	if C.dword_5d4594_1193672 != 0 && a1 != nil {
+	if dword_5d4594_1193672 && a1 != nil {
 		r.DrawImageAt(a1, pos)
 	}
 	return 1
@@ -834,7 +795,7 @@ func (c *Client) nox_client_drawCursorAndTooltips_477830() {
 		}
 	}
 	c.nox_video_cursorDrawImpl_477A30(mpos)
-	if str := GoWStringP(memmap.PtrOff(0x5D4594, 1096676)); str != "" && C.nox_client_showTooltips_80840 == 1 {
+	if str := GoWStringP(memmap.PtrOff(0x5D4594, 1096676)); str != "" && nox_client_showTooltips_80840 {
 		sz := c.r.GetStringSizeWrapped(nil, str, 0)
 		px := mpos.X - dword_5d4594_1097204
 		py := mpos.Y - dword_5d4594_1097208
@@ -876,7 +837,6 @@ func (c *Client) sub_477F80() {
 
 func (c *Client) sub_444C50() {
 	if C.dword_5d4594_823776 != 0 {
-		nox_video_stopCursorDrawThread_48B350()
 		nox_free_pixbuffers_486110()
 		nox_draw_freeColorTables_433C20()
 		c.r.FadeReset()

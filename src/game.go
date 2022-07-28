@@ -1,15 +1,23 @@
 package opennox
 
 /*
+#include "GAME1.h"
+#include "GAME1_1.h"
 #include "GAME1_2.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
 #include "GAME2_1.h"
+#include "GAME2_2.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
 #include "GAME3_1.h"
 #include "GAME3_2.h"
+#include "GAME3_3.h"
+#include "GAME4.h"
 #include "GAME4_1.h"
 #include "GAME4_3.h"
 #include "GAME5.h"
 #include "GAME5_2.h"
-#include "client__video__draw_common.h"
 #include "client__shell__noxworld.h"
 #include "client__system__parsecmd.h"
 #include "common__magic__comguide.h"
@@ -32,6 +40,9 @@ package opennox
 #include "server__network__playback.h"
 #include "server__network__sdecode.h"
 #include "client__drawable__drawable.h"
+#include "client__gui__guimeter.h"
+#include "server__network__mapsend.h"
+#include "server__xfer__savegame__savegame.h"
 extern unsigned int nox_game_createOrJoin_815048;
 extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_client_gui_flag_1556112;
@@ -40,15 +51,12 @@ extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 extern unsigned int dword_5d4594_1548524;
 extern unsigned int dword_5d4594_2650652;
 extern void* dword_5d4594_1548532;
-extern unsigned int nox_server_switchToWP_1548664;
 extern unsigned int dword_5d4594_1548704;
 extern unsigned int dword_5d4594_1556144;
 extern unsigned int dword_5d4594_1563064;
 extern unsigned int dword_5d4594_251744;
 extern unsigned int dword_5d4594_815052;
-extern unsigned int nox_console_waitSysOpPass;
 extern unsigned int dword_5d4594_1049508;
-extern nox_draw_viewport_t nox_draw_viewport;
 extern unsigned char nox_net_lists_buf[2048];
 extern uint32_t* dword_5D4594_251544;
 extern void* dword_5d4594_251548;
@@ -117,6 +125,10 @@ var (
 	nox_game_playState_811372 int
 	dword_5D4594_251544       []unsafe.Pointer
 	dword_5d4594_251556       []unsafe.Pointer
+	movieFilesStackCur        int
+	movieFilesStack           [2]string
+	dword_587000_311372       = -1
+	dword_5d4594_2516476      byte
 )
 
 const (
@@ -189,16 +201,90 @@ func gameSetPlayState(st int) {
 	nox_game_playState_811372 = st
 }
 
-func nox_game_setMovieFile_4CB230(name string, out *C.char) bool {
+func nox_game_setMovieFile_4CB230(name string) (string, bool) {
 	filename := filepath.Join("movies", name)
 	_, err := ifs.Stat(filename)
 	if err != nil {
 		gameLog.Printf("movie not found: %q", filename)
-		return false
+		return "", false
 	}
-	StrCopy(out, 127, filename)
 	gameLog.Printf("movie found: %q", filename)
-	return true
+	return filename, true
+}
+
+func pushMovieFile(path string) {
+	if movieFilesStackCur < 2 {
+		movieFilesStack[movieFilesStackCur] = path
+		movieFilesStackCur++
+	}
+}
+
+func sub_578E00() {
+	dword_587000_311372 = -1
+}
+
+//export nox_xxx_GetEndgameDialog_578D80
+func nox_xxx_GetEndgameDialog_578D80() *C.char {
+	if s := nox_xxx_GetEndgameDialog(); s != "" {
+		return internCStr(s)
+	}
+	return nil
+}
+
+func sub_578DF0() byte {
+	return dword_5d4594_2516476
+}
+
+func sub_578DE0(v byte) {
+	dword_5d4594_2516476 = v
+}
+func nox_xxx_GetEndgameDialog() string {
+	if dword_587000_311372 == 0 {
+		if dword_5d4594_2516476&2 == 0 {
+			return "gmcap14e.wav"
+		}
+		if dword_5d4594_2516476&4 == 0 {
+			return "gmcap13e.wav"
+		}
+	} else if dword_587000_311372 == 1 {
+		if dword_5d4594_2516476&1 == 0 {
+			return "gmcap17e.wav"
+		}
+		if dword_5d4594_2516476&4 == 0 {
+			return "gmcap18e.wav"
+		}
+	} else if dword_587000_311372 == 2 {
+		if dword_5d4594_2516476&2 == 0 {
+			return "gmcap16e.wav"
+		}
+		if dword_5d4594_2516476&1 == 0 {
+			return "gmcap15e.wav"
+		}
+	}
+	return ""
+}
+
+func sub_578CD0() {
+	if dword_587000_311372 != -1 {
+		names := []string{
+			"warrior", "wizard", "conjurer",
+		}
+		name := names[dword_587000_311372] + ".vqa"
+		if path, ok := nox_game_setMovieFile_4CB230(name); ok {
+			pushMovieFile(path)
+			sub4B0640(sub_578C60)
+			nox_client_drawGeneral_4B0340(1)
+		} else {
+			sub_578C60()
+		}
+	}
+}
+
+func sub_578C60() {
+	if C.sub_44E560() != nil {
+		C.nox_client_lockScreenBriefing_450160(255, 1, 0)
+		sub_4A2530()
+	}
 }
 
 func nox_game_rollLogoAndStart_4AB1F0() bool {
@@ -206,15 +292,17 @@ func nox_game_rollLogoAndStart_4AB1F0() bool {
 		// FIXME: switch to server state directly
 		return startServer()
 	}
-	pathP, freePath := alloc.Malloc(128)
-	defer freePath()
-	path := (*C.char)(pathP)
 	gamePopState()
-	if noxflags.HasGame(noxflags.GameFlag26) || !nox_game_setMovieFile_4CB230("WWLogo.vqa", path) {
+	if noxflags.HasGame(noxflags.GameFlag26) {
 		nox_game_rollIntroAndStart_4AB170()
 		return true
 	}
-	C.sub_4B0300(path)
+	path, ok := nox_game_setMovieFile_4CB230("wwlogo.vqa")
+	if !ok {
+		nox_game_rollIntroAndStart_4AB170()
+		return true
+	}
+	pushMovieFile(path)
 	sub4B0640(nox_game_rollIntroAndStart_4AB170)
 	if err := drawGeneral_4B0340(0); err != nil {
 		videoLog.Println(err)
@@ -223,28 +311,34 @@ func nox_game_rollLogoAndStart_4AB1F0() bool {
 }
 
 func nox_game_rollIntroAndStart_4AB170() {
-	path, freePath := alloc.Malloc(128)
-	defer freePath()
-	if C.sub_578DF0()&0x80 != 0 || noxflags.HasGame(noxflags.GameFlag26) || !nox_game_setMovieFile_4CB230("Intro.vqa", (*C.char)(path)) {
+	if sub_578DF0()&0x80 != 0 || noxflags.HasGame(noxflags.GameFlag26) {
 		nox_game_rollNoxLogoAndStart_4AB0F0()
 		return
 	}
-	C.sub_4B0300((*C.char)(path))
+	path, ok := nox_game_setMovieFile_4CB230("intro.vqa")
+	if !ok {
+		nox_game_rollNoxLogoAndStart_4AB0F0()
+		return
+	}
+	pushMovieFile(path)
 	sub4B0640(nox_game_rollNoxLogoAndStart_4AB0F0)
 	if err := drawGeneral_4B0340(1); err != nil {
 		videoLog.Println(err)
 	}
-	sub_578DE0(byte(C.sub_578DF0() | 0x80))
+	sub_578DE0(sub_578DF0() | 0x80)
 }
 
 func nox_game_rollNoxLogoAndStart_4AB0F0() {
-	path, freePath := alloc.Malloc(128)
-	defer freePath()
-	if noxflags.HasGame(noxflags.GameFlag26) || !nox_game_setMovieFile_4CB230("NoxLogo.vqa", (*C.char)(path)) {
+	if noxflags.HasGame(noxflags.GameFlag26) {
 		nox_game_showLegal_4CC4E0()
 		return
 	}
-	C.sub_4B0300((*C.char)(path))
+	path, ok := nox_game_setMovieFile_4CB230("noxlogo.vqa")
+	if !ok {
+		nox_game_showLegal_4CC4E0()
+		return
+	}
+	pushMovieFile(path)
 	sub4B0640(nox_game_showLegal_4CC4E0)
 	if err := drawGeneral_4B0340(0); err != nil {
 		videoLog.Println(err)

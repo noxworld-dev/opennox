@@ -50,7 +50,6 @@ extern uint32_t dword_5d4594_815748;
 extern uint32_t dword_5d4594_830196;
 extern uint32_t dword_5d4594_830252;
 extern uint32_t dword_587000_109280;
-extern uint32_t nox_game_loop_xxx_805872;
 extern uint32_t dword_5d4594_830112;
 extern uint32_t dword_5d4594_830192;
 extern uint32_t dword_5d4594_816444;
@@ -58,7 +57,6 @@ extern uint32_t dword_5d4594_830260;
 extern uint32_t dword_5d4594_829544;
 extern uint32_t dword_5d4594_816412;
 extern uint32_t dword_5d4594_829500;
-extern uint32_t nox_client_showTooltips_80840;
 extern uint32_t dword_5d4594_830120;
 extern uint32_t dword_5d4594_830256;
 extern uint32_t dword_5d4594_830204;
@@ -76,16 +74,12 @@ extern uint32_t dword_5d4594_816356;
 extern uint32_t dword_5d4594_826032;
 extern uint32_t nox_client_renderBubbles_80844;
 extern uint32_t dword_5d4594_830276;
-extern int nox_video_16bit;
 extern uint32_t dword_5d4594_830264;
 extern uint32_t dword_5d4594_829504;
 extern uint32_t dword_5d4594_825744;
 extern uint32_t dword_5d4594_816372;
-extern uint32_t nox_client_renderGlow_805852;
-extern unsigned int nox_gui_console_translucent;
 extern uint32_t nox_client_lockHighResFloors_1193152;
 extern uint32_t dword_5d4594_815708;
-extern uint32_t nox_client_drawFrontWalls_80812;
 extern void* dword_587000_81128;
 extern uint32_t dword_5d4594_2649712;
 extern uint32_t nox_client_translucentFrontWalls_805844;
@@ -102,7 +96,6 @@ extern void* dword_587000_127004;
 extern uint32_t dword_5d4594_829484;
 extern void* dword_5d4594_814624;
 extern uint32_t dword_5d4594_826028;
-extern uint32_t dword_5d4594_2618912;
 extern uint32_t nox_client_highResFrontWalls_80820;
 extern uint32_t dword_5d4594_830104;
 extern uint32_t dword_5d4594_830108;
@@ -135,15 +128,6 @@ extern uint32_t nox_color_orange_2614256;
 
 extern int nox_win_width;
 extern int nox_win_height;
-
-int nox_win_width_game = NOX_DEFAULT_WIDTH;
-int nox_win_height_game = NOX_DEFAULT_HEIGHT;
-int nox_win_depth_game = NOX_DEFAULT_DEPTH;
-
-extern int nox_backbuffer_width;
-extern int nox_backbuffer_height;
-extern int nox_backbuffer_depth;
-extern int nox_backbuffer_width32;
 
 extern unsigned int nox_gameFPS;
 

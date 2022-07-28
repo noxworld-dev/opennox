@@ -67,7 +67,6 @@ extern uint32_t dword_5d4594_3835372;
 extern uint32_t dword_5d4594_1556144;
 extern uint32_t dword_5d4594_1523040;
 extern uint32_t dword_5d4594_1563276;
-extern uint32_t nox_server_switchToWP_1548664;
 extern uint32_t dword_5d4594_3835392;
 extern uint32_t nox_server_sendMotd_108752;
 extern uint32_t dword_5d4594_1563084;
@@ -3198,7 +3197,7 @@ unsigned int nox_xxx_mapGenMakeInfo_4D5DB0(int a1) {
 	strcpy((char*)(a1 + 976), "Generated Map");
 	strcpy((char*)(a1 + 1232), "Westwood Studios");
 	GetLocalTime(&SystemTime);
-	GetDateFormatA(0x800u, 0, &SystemTime, (const char*)getMemAt(0x587000, 198496), DateStr, 1024);
+	GetDateFormatA(0x800u, 0, &SystemTime, "dddd',' MMMM d yyyy", DateStr, 1024);
 	result = strlen(DateStr) + 1;
 	memcpy((void*)(a1 + 1360), DateStr, result);
 	*(uint32_t*)(a1 + 1392) = 3;

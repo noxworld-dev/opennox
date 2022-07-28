@@ -18,18 +18,9 @@
 #include "client__shell__noxworld.h"
 #include "operators.h"
 
-extern int nox_win_width_game;
-extern int nox_win_height_game;
-extern int dword_5d4594_3484;
 extern nox_object_t* nox_xxx_host_player_unit_3843628;
-extern nox_window* dword_5d4594_1064896;
-extern void* nox_win_activeWindow_1064900;
-extern unsigned int dword_587000_87404;
-extern unsigned int dword_5d4594_1064868;
-extern unsigned int dword_5d4594_1316972;
 extern uint32_t nox_player_netCode_85319C;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
-extern nox_window* nox_win_unk3;
 
 //-------------------------------------------------------------------------
 // Data declarations
