@@ -385,7 +385,7 @@ func sub_44A400() {
 		dword_5d4594_830228 = nil
 		nox_client_setCursorType(gui.CursorSelect)
 
-		setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
+		noxClient.setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
 	}
 }
 
@@ -1139,7 +1139,7 @@ func sub_4505B0() {
 	sub_450580()
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
 	v0 := int(nox_client_getIntroScreenDuration_44E3B0())
-	noxrend.FadeInScreen(v0, true, sub_44E320)
+	noxClient.r.FadeInScreen(v0, true, sub_44E320)
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 1
 }
 

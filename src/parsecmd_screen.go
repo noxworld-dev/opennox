@@ -33,7 +33,7 @@ var screenshotSeq uint32
 func makeScreenshot() {
 	// Screenshot will wait for the next clean frame, so must run in a goroutine
 	go func() {
-		img, err := Screenshot(context.Background())
+		img, err := noxClient.Screenshot(context.Background())
 		if err != nil {
 			log.Println("cannot take screenshot:", err)
 			return

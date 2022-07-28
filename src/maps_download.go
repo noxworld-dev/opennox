@@ -173,7 +173,7 @@ func clientGetServerMap() string {
 func nox_xxx_gameDownloadShowDialog_4CC770() {
 	winDownload = newWindowFromFile("mapdnld.wnd", nox_xxx_guiDownloadProc_4CC890)
 	winDownload.SetAllFuncs(nox_xxx_guiDownloadAbort_4CC830, nil, nil)
-	mode := videoGetGameMode()
+	mode := noxClient.videoGetGameMode()
 	v3, v4 := mode.X, mode.Y
 	max := videoGetMaxSize()
 	v5, v6 := max.X, max.Y

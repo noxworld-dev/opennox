@@ -10,31 +10,34 @@ import (
 	"time"
 )
 
-var screenshots struct {
+type screenshots struct {
 	req chan chan<- image.Image
 }
 
+func (c *screenshots) Init(cli *Client) {
+	c.req = make(chan chan<- image.Image)
+}
+
 func init() {
-	screenshots.req = make(chan chan<- image.Image)
 	http.HandleFunc("/nox/screenshot", screenshotHandler)
 }
 
-func maybeScreenshot() {
+func (c *Client) maybeScreenshot() {
 	select {
 	case <-time.After(time.Millisecond):
 		return
-	case out := <-screenshots.req:
+	case out := <-c.screenshots.req:
 		defer close(out)
-		out <- noxrend.CopyPixBuffer()
+		out <- c.r.CopyPixBuffer()
 	}
 }
 
-func Screenshot(ctx context.Context) (image.Image, error) {
+func (c *Client) Screenshot(ctx context.Context) (image.Image, error) {
 	out := make(chan image.Image, 1)
 	select {
 	case <-ctx.Done():
 		return nil, ctx.Err()
-	case screenshots.req <- out:
+	case c.screenshots.req <- out:
 	}
 	select {
 	case <-ctx.Done():
@@ -46,7 +49,7 @@ func Screenshot(ctx context.Context) (image.Image, error) {
 
 func screenshotHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
-	img, err := Screenshot(ctx)
+	img, err := noxClient.Screenshot(ctx)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))

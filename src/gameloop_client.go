@@ -28,35 +28,34 @@ import (
 	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/maps"
 
-	"github.com/noxworld-dev/opennox/v1/client/input"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
-func drawAndPresent() {
+func (c *Client) drawAndPresent() {
 	if C.nox_client_gui_flag_815132 != 0 {
 		guiAnimationStep()
 		noxflags.UnsetEngine(noxflags.EnginePause)
-		generateMouseSparks(inpHandlerS)
+		c.generateMouseSparks()
 	}
 	if !noxflags.HasEngine(noxflags.EnginePause) {
-		mainloopDrawAndPresent(inpHandlerS)
+		c.mainloopDrawAndPresent()
 	}
 }
 
-func map_download_start() {
+func (c *Client) map_download_start() {
 	C.nox_xxx_gameClearAll_467DF0(1)
 	nox_xxx_gameDownloadShowDialog_4CC770()
 	nox_xxx_mapSetDownloadInProgress(true)
 	nox_xxx_mapSetDownloadOK(true)
-	if _, err := mapDownloadLoop(true); err != nil {
+	if _, err := c.mapDownloadLoop(true); err != nil {
 		mapsendLog.Println(err)
 	}
 }
 
-func mapDownloadLoop(first bool) (bool, error) {
+func (c *Client) mapDownloadLoop(first bool) (bool, error) {
 	if !mapDownloading() {
 		if map_download_finish() == 0 {
 			return true, errors.New("map download failed")
@@ -69,7 +68,7 @@ func mapDownloadLoop(first bool) (bool, error) {
 		C.sub_40DF90()
 	}
 	nox_framerate_limit_416C70(30)
-	inp := processInput()
+	c.processInput()
 	C.sub_43CCA0()
 
 	if first {
@@ -143,8 +142,8 @@ func mapDownloadLoop(first bool) (bool, error) {
 	}
 
 	DrawGUI()
-	nox_client_drawCursorAndTooltips_477830(noxrend, inp)
-	nox_video_callCopyBackBuffer_4AD170()
+	c.nox_client_drawCursorAndTooltips_477830()
+	c.copyPixBuffer()
 
 	if !mapDownloading() {
 		if map_download_finish() == 0 {
@@ -156,23 +155,23 @@ func mapDownloadLoop(first bool) (bool, error) {
 	return false, nil
 }
 
-func mainloopDrawAndPresent(inp *input.Handler) {
+func (c *Client) mainloopDrawAndPresent() {
 	sub_437180()
 	if C.nox_client_gui_flag_1556112 == 0 {
 		DrawGUI() // Draw game windows
 	}
-	DrawSparks()
+	c.DrawSparks()
 	if !noxflags.HasEngine(noxflags.EngineNoRendering) || noxflags.HasEngine(noxflags.EngineFlag9) || C.nox_client_gui_flag_815132 != 0 {
-		nox_client_drawCursorAndTooltips_477830(noxrend, inp) // Draw cursor
+		c.nox_client_drawCursorAndTooltips_477830() // Draw cursor
 	}
-	noxrend.DrawFade(true)
-	maybeScreenshot()
+	c.r.DrawFade(true)
+	c.maybeScreenshot()
 	if !noxflags.HasEngine(noxflags.EngineNoRendering) || noxflags.HasEngine(noxflags.EngineFlag9) || C.nox_client_gui_flag_815132 != 0 {
-		nox_video_callCopyBackBuffer_4AD170()
+		c.copyPixBuffer()
 	}
 }
 
-func DrawSparks() {
+func (c *Client) DrawSparks() {
 	if C.nox_client_gui_flag_815132 != 0 {
 		sz := videoGetWindowSize()
 		rdr, rdrFree := alloc.New(nox_draw_viewport_t{})
@@ -185,17 +184,17 @@ func DrawSparks() {
 		rdr.height = C.int(sz.Y)
 		C.nox_client_screenParticlesDraw_431720(rdr)
 	} else {
-		vp := getViewport()
+		vp := c.Viewport()
 		C.nox_client_screenParticlesDraw_431720(vp.C())
 	}
 }
 
-func generateMouseSparks(inp *input.Handler) {
+func (c *Client) generateMouseSparks() {
 	if memmap.Uint32(0x5D4594, 816408) != 0 {
 		return
 	}
 
-	mpos := inp.GetMousePos()
+	mpos := c.inp.GetMousePos()
 	// emit sparks when passing a certain distance
 	const distanceSparks = 0.25
 	dx := mpos.X - int(memmap.Uint32(0x5D4594, 816420))
@@ -223,7 +222,7 @@ func generateMouseSparks(inp *input.Handler) {
 	}
 	// explode with sparks when clicking
 	const explosionSparks = 75
-	if inp.IsMousePressed(seat.MouseButtonLeft) {
+	if c.inp.IsMousePressed(seat.MouseButtonLeft) {
 		randomIntMinMax(0, 2)
 		if memmap.Uint32(0x5D4594, 816416) == 0 {
 			*memmap.PtrUint32(0x5D4594, 816416) = 1

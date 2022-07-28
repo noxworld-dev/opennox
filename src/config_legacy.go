@@ -536,8 +536,8 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 			g_fullscreen_cfg = v
-			if getWindowMode() <= -4 {
-				updateFullScreen(g_fullscreen_cfg)
+			if noxClient.getWindowMode() <= -4 {
+				noxClient.updateFullScreen(g_fullscreen_cfg)
 			}
 			changeWindowedOrFullscreen()
 		case "Stretched":
@@ -546,13 +546,13 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 			g_scaled_cfg = v
-			setStretchIfNotSet(v != 0)
+			noxClient.setStretchIfNotSet(v != 0)
 		case "InputSensitivity":
 			v, err := strconv.ParseFloat(kv.Value, 32)
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			setSensitivity(float32(v))
+			noxClient.setSensitivity(float32(v))
 		default:
 			for _, ci := range configCycleIndexes {
 				if ci.Name == kv.Key {
@@ -664,7 +664,7 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 	if _, ok := sect.Get("Version"); !ok {
 		sect.Set("Version", "65540")
 	}
-	mode := videoGetGameMode()
+	mode := noxClient.videoGetGameMode()
 	sect.Set("VideoMode", fmt.Sprintf("%d %d 16", mode.X, mode.Y))
 	sect.Set("Stretched", strconv.Itoa(g_scaled_cfg))
 	sect.Set("Fullscreen", strconv.Itoa(g_fullscreen_cfg))
@@ -673,7 +673,7 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 	if legacyGamma2Set {
 		sect.Set("Gamma2", strconv.FormatFloat(legacyGamma2, 'g', -1, 32))
 	}
-	sect.Set("InputSensitivity", strconv.FormatFloat(float64(getSensitivity()), 'g', -1, 32))
+	sect.Set("InputSensitivity", strconv.FormatFloat(float64(noxClient.getSensitivity()), 'g', -1, 32))
 
 	v := 0
 	if C.sub_453070() == 1 {

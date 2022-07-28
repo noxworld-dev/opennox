@@ -90,7 +90,7 @@ func init() {
 }
 
 func videoModeID() int {
-	mode := videoGetGameMode()
+	mode := noxClient.videoGetGameMode()
 	for i, res := range noxVideoModes {
 		if mode == res {
 			return i
@@ -211,5 +211,5 @@ func setGamma(v float32) {
 	}
 	videoLog.Printf("gamma: %v", v)
 	noxVideoGamma = v
-	setScreenGamma(v)
+	noxClient.setScreenGamma(v)
 }

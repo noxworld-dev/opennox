@@ -35,19 +35,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
-var (
-	nox_win_advVideoOpts_1522600 *Window
-	noxVideoAdvOpts              = make(map[uint]*videoOpt)
-)
-
-//export nox_client_advVideoOpts_New_4CB590
-func nox_client_advVideoOpts_New_4CB590(par *C.nox_window) C.int {
-	nox_win_advVideoOpts_1522600 = newAdvVideoOpts(strMan)
-	sub46B120(nox_win_advVideoOpts_1522600, asWindow(par))
-	nox_client_advVideoOptsLoad(nox_win_advVideoOpts_1522600)
-	return 1
-}
-
 type videoOpt struct {
 	ID     uint
 	Flag   noxflags.EngineFlag
@@ -61,47 +48,63 @@ type videoOpt struct {
 	Hidden bool
 }
 
-var noxVideoAdvOptsList = []*videoOpt{
-	{ID: 2051, Get: getFiltering, Toggle: toggleFiltering, Text: "Smooth image", TextID: "AdVidOpt.wnd:Filtering"},
-	{ID: 2050, Get: getStretch, Toggle: toggleStretch, Text: "Stretch image", TextID: "AdVidOpt.wnd:Stretched"},
-	{ID: 2010, CFlag: &C.nox_video_dxUnlockSurface, TextID: "AdVidOpt.wnd:ClipWalls", Def: true, Hidden: true},
-	{ID: 2012, Flag: noxflags.EngineSoftShadowEdge, TextID: "AdVidOpt.wnd:GouradShading"},
-	{ID: 2014, Bool: &guiCon.translucent, TextID: "AdVidOpt.wnd:TranslucentConsole"},
-	{ID: 2015, CFlag: &C.nox_client_renderGlow_805852, TextID: "AdVidOpt.wnd:RenderGlow"},
-	{ID: 2016, CFlag: &C.nox_client_fadeObjects_80836, TextID: "AdVidOpt.wnd:FadeObjects"},
-	{ID: 2017, CFlag: &C.nox_client_showTooltips_80840, TextID: "AdVidOpt.wnd:ShowTooltips"},
-	{ID: 2020, CFlag: &C.nox_client_drawFrontWalls_80812, TextID: "AdVidOpt.wnd:DrawFrontWalls"},
-	{ID: 2021, CFlag: &C.nox_client_translucentFrontWalls_805844, TextID: "AdVidOpt.wnd:TranslucentFrontWalls"},
-	{ID: 2022, CFlag: &C.nox_client_highResFrontWalls_80820, TextID: "AdVidOpt.wnd:InterlacedFrontWalls"},
-	{ID: 2031, CFlag: &C.nox_client_highResFloors_154952, TextID: "AdVidOpt.wnd:InterlacedFloors"},
-	{ID: 2032, CFlag: &C.nox_client_lockHighResFloors_1193152, TextID: "AdVidOpt.wnd:LockHiResFloors"},
-	{ID: 2033, Bool: &nox_client_texturedFloors2_154960, TextID: "AdVidOpt.wnd:FlatShadedFloors"},
-	{ID: 2052, Flag: noxflags.EngineNoSoftLights, Text: "Disable Soft Light", TextID: "AdVidOpt.wnd:NoSoftLights"},
-	//{ID: 2041, CFlag: &C.nox_client_renderBubbles_80844, TextID: "AdVidOpt.wnd:RenderBubbles"},
-	{ID: 2040, CFlag: &C.nox_client_renderGUI_80828, TextID: "AdVidOpt.wnd:RenderGUI"},
+type guiAdvOptions struct {
+	cli                          *Client
+	nox_win_advVideoOpts_1522600 *Window
+	noxVideoAdvList              []*videoOpt
+	noxVideoAdvOpts              map[uint]*videoOpt
 }
 
-func init() {
-	for _, opt := range noxVideoAdvOptsList {
-		registerVideoOpt(opt)
+func (c *guiAdvOptions) Init(cli *Client) {
+	c.cli = cli
+	c.noxVideoAdvOpts = make(map[uint]*videoOpt)
+	c.noxVideoAdvList = []*videoOpt{
+		{ID: 2051, Get: c.cli.getFiltering, Toggle: c.cli.toggleFiltering, Text: "Smooth image", TextID: "AdVidOpt.wnd:Filtering"},
+		{ID: 2050, Get: c.cli.getStretch, Toggle: c.cli.toggleStretch, Text: "Stretch image", TextID: "AdVidOpt.wnd:Stretched"},
+		{ID: 2010, CFlag: &C.nox_video_dxUnlockSurface, TextID: "AdVidOpt.wnd:ClipWalls", Def: true, Hidden: true},
+		{ID: 2012, Flag: noxflags.EngineSoftShadowEdge, TextID: "AdVidOpt.wnd:GouradShading"},
+		{ID: 2014, Bool: &guiCon.translucent, TextID: "AdVidOpt.wnd:TranslucentConsole"},
+		{ID: 2015, CFlag: &C.nox_client_renderGlow_805852, TextID: "AdVidOpt.wnd:RenderGlow"},
+		{ID: 2016, CFlag: &C.nox_client_fadeObjects_80836, TextID: "AdVidOpt.wnd:FadeObjects"},
+		{ID: 2017, CFlag: &C.nox_client_showTooltips_80840, TextID: "AdVidOpt.wnd:ShowTooltips"},
+		{ID: 2020, CFlag: &C.nox_client_drawFrontWalls_80812, TextID: "AdVidOpt.wnd:DrawFrontWalls"},
+		{ID: 2021, CFlag: &C.nox_client_translucentFrontWalls_805844, TextID: "AdVidOpt.wnd:TranslucentFrontWalls"},
+		{ID: 2022, CFlag: &C.nox_client_highResFrontWalls_80820, TextID: "AdVidOpt.wnd:InterlacedFrontWalls"},
+		{ID: 2031, CFlag: &C.nox_client_highResFloors_154952, TextID: "AdVidOpt.wnd:InterlacedFloors"},
+		{ID: 2032, CFlag: &C.nox_client_lockHighResFloors_1193152, TextID: "AdVidOpt.wnd:LockHiResFloors"},
+		{ID: 2033, Bool: &nox_client_texturedFloors2_154960, TextID: "AdVidOpt.wnd:FlatShadedFloors"},
+		{ID: 2052, Flag: noxflags.EngineNoSoftLights, Text: "Disable Soft Light", TextID: "AdVidOpt.wnd:NoSoftLights"},
+		//{ID: 2041, CFlag: &C.nox_client_renderBubbles_80844, TextID: "AdVidOpt.wnd:RenderBubbles"},
+		{ID: 2040, CFlag: &C.nox_client_renderGUI_80828, TextID: "AdVidOpt.wnd:RenderGUI"},
+	}
+	for _, opt := range c.noxVideoAdvList {
+		if opt.ID == 0 {
+			panic("ID must be set")
+		}
+		c.noxVideoAdvOpts[opt.ID] = opt
 	}
 }
 
-func registerVideoOpt(opt *videoOpt) {
-	if opt.ID == 0 {
-		panic("ID must be set")
-	}
-	noxVideoAdvOpts[opt.ID] = opt
+func (c *guiAdvOptions) NewOn(par *Window) {
+	c.nox_win_advVideoOpts_1522600 = c.newAdvVideoOpts()
+	sub46B120(c.nox_win_advVideoOpts_1522600, par)
+	c.nox_client_advVideoOptsLoad()
+}
+
+//export nox_client_advVideoOpts_New_4CB590
+func nox_client_advVideoOpts_New_4CB590(par *C.nox_window) C.int {
+	noxClient.guiAdv.NewOn(asWindow(par))
+	return 1
 }
 
 //export nox_client_advVideoOptsLoad_4CB330
 func nox_client_advVideoOptsLoad_4CB330() {
-	nox_client_advVideoOptsLoad(nox_win_advVideoOpts_1522600)
+	noxClient.guiAdv.nox_client_advVideoOptsLoad()
 }
 
-func nox_client_advVideoOptsLoad(win *Window) {
-	for id, opt := range noxVideoAdvOpts {
-		if w := win.ChildByID(id); w != nil {
+func (c *guiAdvOptions) nox_client_advVideoOptsLoad() {
+	for id, opt := range c.noxVideoAdvOpts {
+		if w := c.nox_win_advVideoOpts_1522600.ChildByID(id); w != nil {
 			v := opt.Def
 			if opt.Get != nil {
 				v = opt.Get()
@@ -124,7 +127,7 @@ func sub_49B3C0() {
 	C.dword_5d4594_1301796 = 0
 }
 
-func nox_client_advVideoOptsProc_4CB5D0(win *Window, ev WindowEvent) WindowEventResp {
+func (c *guiAdvOptions) nox_client_advVideoOptsProc_4CB5D0(win *Window, ev WindowEvent) WindowEventResp {
 	switch ev := ev.(type) {
 	case *WindowEvent0x4005:
 		clientPlaySoundSpecial(sound.SoundShellSelect, 100)
@@ -147,13 +150,13 @@ func nox_client_advVideoOptsProc_4CB5D0(win *Window, ev WindowEvent) WindowEvent
 			return nil
 		case 2099:
 			detectBestVideoSettings()
-			nox_client_advVideoOptsLoad(nox_win_advVideoOpts_1522600)
+			c.nox_client_advVideoOptsLoad()
 			if par := win.Parent(); par != nil {
 				par.Func94(ev)
 			}
 			return nil
 		}
-		if opt, ok := noxVideoAdvOpts[id]; ok {
+		if opt, ok := c.noxVideoAdvOpts[id]; ok {
 			if opt.Toggle != nil {
 				opt.Toggle()
 			} else if opt.Flag != 0 {
@@ -177,7 +180,7 @@ func nox_client_advVideoOptsProc_4CB5D0(win *Window, ev WindowEvent) WindowEvent
 	return nil
 }
 
-func newAdvVideoOpts(sm *strman.StringManager) *Window {
+func (c *guiAdvOptions) newAdvVideoOpts() *Window {
 	draw, drawFree := tempDrawData()
 	defer drawFree()
 
@@ -196,7 +199,7 @@ func newAdvVideoOpts(sm *strman.StringManager) *Window {
 		height = 315
 	)
 
-	root := newUserWindow(nil, 2000, draw.Status(), 280, 38, width, height, draw, nox_client_advVideoOptsProc_4CB5D0)
+	root := newUserWindow(nil, 2000, draw.Status(), 280, 38, width, height, draw, c.nox_client_advVideoOptsProc_4CB5D0)
 
 	const (
 		pad     = 3
@@ -205,14 +208,14 @@ func newAdvVideoOpts(sm *strman.StringManager) *Window {
 	)
 
 	n := 0
-	for _, opt := range noxVideoAdvOptsList {
+	for _, opt := range c.noxVideoAdvList {
 		if opt.Hidden {
 			continue
 		}
 		y := pad + crow*n
 		str := opt.Text
 		if opt.TextID != "" {
-			if e, ok := sm.GetInFile(opt.TextID, "psscript.c"); ok {
+			if e, ok := c.cli.Strings().GetInFile(opt.TextID, "psscript.c"); ok {
 				str = e.Value().Str
 			}
 		}
