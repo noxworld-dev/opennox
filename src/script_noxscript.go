@@ -7,7 +7,6 @@ package opennox
 extern int nox_script_count_xxx_1599640;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern nox_script_xxx_t* nox_script_arr_xxx_1599636;
-extern uint32_t dword_587000_311372;
 extern unsigned int dword_5d4594_3821636;
 extern unsigned int dword_5d4594_3821640;
 int sub_516570();
@@ -403,8 +402,8 @@ func nox_script_StopAllFades_516C10() C.int {
 }
 
 func noxScriptEndGame(v int) {
-	C.dword_587000_311372 = C.uint(v)
-	*memmap.PtrUint8(0x5D4594, 2516476) |= 1 << v
+	dword_587000_311372 = v
+	dword_5d4594_2516476 |= 1 << v
 	nox_xxx_cliPlayMapIntro_44E0B0(1)
 	sub_413960()
 	sub_477530(false)

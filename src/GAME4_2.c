@@ -19,6 +19,7 @@
 #include "common__net_list.h"
 #include "common__random.h"
 #include "operators.h"
+#include "input.h"
 
 #include "client__video__draw_common.h"
 #include "common__magic__speltree.h"

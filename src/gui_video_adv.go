@@ -2,18 +2,13 @@ package opennox
 
 /*
 #include "client__gui__window.h"
-extern unsigned int nox_video_dxUnlockSurface;
-extern unsigned int nox_client_drawFrontWalls_80812;
 extern unsigned int nox_client_translucentFrontWalls_805844;
 extern unsigned int nox_client_highResFrontWalls_80820;
 extern unsigned int nox_client_highResFloors_154952;
 extern unsigned int nox_client_lockHighResFloors_1193152;
-extern unsigned int nox_gui_console_translucent;
-extern unsigned int nox_client_renderGlow_805852;
 extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int nox_client_renderBubbles_80844;
 extern unsigned int nox_client_renderGUI_80828;
-extern unsigned int nox_client_showTooltips_80840;
 extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 extern unsigned int dword_5d4594_1193156;
 extern unsigned int dword_5d4594_1301812;
@@ -61,13 +56,13 @@ func (c *guiAdvOptions) Init(cli *Client) {
 	c.noxVideoAdvList = []*videoOpt{
 		{ID: 2051, Get: c.cli.getFiltering, Toggle: c.cli.toggleFiltering, Text: "Smooth image", TextID: "AdVidOpt.wnd:Filtering"},
 		{ID: 2050, Get: c.cli.getStretch, Toggle: c.cli.toggleStretch, Text: "Stretch image", TextID: "AdVidOpt.wnd:Stretched"},
-		{ID: 2010, CFlag: &C.nox_video_dxUnlockSurface, TextID: "AdVidOpt.wnd:ClipWalls", Def: true, Hidden: true},
+		{ID: 2010, Bool: &legacyUnlockSurface, TextID: "AdVidOpt.wnd:ClipWalls", Def: true, Hidden: true},
 		{ID: 2012, Flag: noxflags.EngineSoftShadowEdge, TextID: "AdVidOpt.wnd:GouradShading"},
 		{ID: 2014, Bool: &guiCon.translucent, TextID: "AdVidOpt.wnd:TranslucentConsole"},
-		{ID: 2015, CFlag: &C.nox_client_renderGlow_805852, TextID: "AdVidOpt.wnd:RenderGlow"},
+		{ID: 2015, Bool: &c.cli.r.renderGlow, TextID: "AdVidOpt.wnd:RenderGlow"},
 		{ID: 2016, CFlag: &C.nox_client_fadeObjects_80836, TextID: "AdVidOpt.wnd:FadeObjects"},
-		{ID: 2017, CFlag: &C.nox_client_showTooltips_80840, TextID: "AdVidOpt.wnd:ShowTooltips"},
-		{ID: 2020, CFlag: &C.nox_client_drawFrontWalls_80812, TextID: "AdVidOpt.wnd:DrawFrontWalls"},
+		{ID: 2017, Bool: &nox_client_showTooltips_80840, TextID: "AdVidOpt.wnd:ShowTooltips"},
+		{ID: 2020, Bool: &nox_client_drawFrontWalls_80812, TextID: "AdVidOpt.wnd:DrawFrontWalls"},
 		{ID: 2021, CFlag: &C.nox_client_translucentFrontWalls_805844, TextID: "AdVidOpt.wnd:TranslucentFrontWalls"},
 		{ID: 2022, CFlag: &C.nox_client_highResFrontWalls_80820, TextID: "AdVidOpt.wnd:InterlacedFrontWalls"},
 		{ID: 2031, CFlag: &C.nox_client_highResFloors_154952, TextID: "AdVidOpt.wnd:InterlacedFloors"},
@@ -138,7 +133,7 @@ func (c *guiAdvOptions) nox_client_advVideoOptsProc_4CB5D0(win *Window, ev Windo
 		switch id {
 		case 2010:
 			// always enabled
-			C.nox_video_dxUnlockSurface = 1
+			legacyUnlockSurface = true
 			win.DrawData().Field0Set(0x4, true)
 			return nil
 		case 2033:

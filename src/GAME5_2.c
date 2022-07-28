@@ -31,7 +31,6 @@
 
 #include "MixPatch.h"
 #include "client__video__draw_common.h"
-#include "client__video__sdl__draw_nogl.h"
 #include "common/fs/nox_fs.h"
 #include "common__magic__speltree.h"
 #include "nox_net.h"
@@ -57,7 +56,6 @@ extern uint32_t dword_5d4594_2523776;
 extern uint32_t nox_xxx_conjurerStrength_587000_312808;
 extern void* nox_alloc_groupInfo_2523892;
 extern uint32_t dword_5d4594_2516356;
-extern uint32_t dword_587000_311372;
 extern void* nox_alloc_debugData_2523908;
 extern void* nox_alloc_itemGroupElem_2523896;
 extern uint32_t nox_xxx_warriorMaxMana_587000_312788;
@@ -2147,77 +2145,6 @@ void sub_578C40(void* lpMem) {
 		operator_delete(lpMem);
 	}
 }
-
-//----- (00578C60) --------------------------------------------------------
-int sub_578C60() {
-	if (sub_44E560()) {
-		nox_client_lockScreenBriefing_450160(255, 1, 0);
-		sub_4A2530();
-	}
-	return 1;
-}
-
-//----- (00578CD0) --------------------------------------------------------
-int sub_578CD0() {
-	int result;       // eax
-	unsigned char v1; // dl
-	char* v2;         // edi
-	char v3[16];      // [esp+0h] [ebp-90h]
-	char v4[128];     // [esp+10h] [ebp-80h]
-
-	result = dword_587000_311372;
-	if (*(int*)&dword_587000_311372 != -1) {
-		v1 = getMemByte(0x587000, 311380);
-		strcpy(v3, *(const char**)getMemAt(0x587000, 29456 + 4 * dword_587000_311372));
-		v2 = &v3[strlen(v3)];
-		*(uint32_t*)v2 = *getMemU32Ptr(0x587000, 311376);
-		v2[4] = v1;
-		if (nox_game_setMovieFile_4CB230(v3, v4)) {
-			sub_4B0300(v4);
-			sub_4B0640(sub_578C60);
-			result = nox_client_drawGeneral_4B0340(1);
-		} else {
-			result = sub_578C60();
-		}
-	}
-	return result;
-}
-// 578CD0: using guessed type char var_90[16];
-
-//----- (00578D80) --------------------------------------------------------
-char* nox_xxx_GetEndgameDialog_578D80() {
-	if (dword_587000_311372) {
-		if (dword_587000_311372 == 1) {
-			if (!(getMemByte(0x5D4594, 2516476) & 1)) {
-				return (char*)getMemAt(0x587000, 311416);
-			}
-			if (!(getMemByte(0x5D4594, 2516476) & 4)) {
-				return (char*)getMemAt(0x587000, 311432);
-			}
-		} else if (dword_587000_311372 == 2) {
-			if (!(getMemByte(0x5D4594, 2516476) & 2)) {
-				return (char*)getMemAt(0x587000, 311448);
-			}
-			if (!(getMemByte(0x5D4594, 2516476) & 1)) {
-				return (char*)getMemAt(0x587000, 311464);
-			}
-		}
-	} else {
-		if (!(getMemByte(0x5D4594, 2516476) & 2)) {
-			return (char*)getMemAt(0x587000, 311384);
-		}
-		if (!(getMemByte(0x5D4594, 2516476) & 4)) {
-			return (char*)getMemAt(0x587000, 311400);
-		}
-	}
-	return 0;
-}
-
-//----- (00578DF0) --------------------------------------------------------
-unsigned char sub_578DF0() { return getMemByte(0x5D4594, 2516476); }
-
-//----- (00578E00) --------------------------------------------------------
-void sub_578E00() { dword_587000_311372 = -1; }
 
 //----- (00579860) --------------------------------------------------------
 void* nox_xxx_waypointGetList_579860() { return *(void**)&nox_xxx_waypointsHead_2523752; }

@@ -13,18 +13,14 @@ extern void* dword_587000_122852;
 extern void* dword_587000_127004;
 extern void* dword_587000_93164;
 extern unsigned int dword_5d4594_1193156;
-extern unsigned int nox_client_drawFrontWalls_80812;
 extern unsigned int nox_client_translucentFrontWalls_805844;
 extern unsigned int nox_client_highResFrontWalls_80820;
 extern unsigned int nox_client_highResFloors_154952;
 extern unsigned int nox_client_lockHighResFloors_1193152;
-extern unsigned int nox_gui_console_translucent;
-extern unsigned int nox_client_renderGlow_805852;
 extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int nox_client_renderBubbles_80844;
 extern unsigned int nox_client_renderGUI_80828;
 extern unsigned int nox_profiled_805856;
-extern unsigned int nox_video_dxUnlockSurface;
 extern uint32_t nox_server_connectionType_3596;
 extern uint32_t nox_server_kickQuestPlayerMinVotes_229992;
 extern uint32_t nox_server_resetQuestMinVotes_229988;
@@ -49,9 +45,10 @@ import (
 )
 
 var (
-	legacyGamma2Set = false
-	legacyGamma2    = 1.0
-	legacyGamma     = 50
+	legacyUnlockSurface = false
+	legacyGamma2Set     = false
+	legacyGamma2        = 1.0
+	legacyGamma         = 50
 )
 
 //export nox_common_writecfgfile
@@ -190,7 +187,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.nox_video_dxUnlockSurface = C.uint(bool2int(v != 0))
+			legacyUnlockSurface = v != 0
 		case "SoftShadowEdge":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
@@ -206,7 +203,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.nox_client_drawFrontWalls_80812 = C.uint(bool2int(v != 0))
+			nox_client_drawFrontWalls_80812 = v != 0
 		case "TranslucentFrontWalls":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
@@ -253,7 +250,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.nox_client_renderGlow_805852 = C.uint(bool2int(v != 0))
+			noxClient.r.renderGlow = v != 0
 		case "RenderGUI":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
@@ -599,10 +596,6 @@ var configConnTypes = []struct {
 	{Name: "Undefined", Val: 0x0},
 }
 
-func sub_578DE0(v byte) {
-	*memmap.PtrUint8(0x5D4594, 2516476) = v
-}
-
 func sub_432CB0(val string, ind int) error {
 	v, err := strconv.ParseUint(val, 10, 32)
 	if err != nil {
@@ -695,20 +688,20 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 
 	sect.Set("LastServer", GoStringP(memmap.PtrOff(0x5D4594, 806060)))
 	sect.Set("ServerName", sub_433890())
-	sect.Set("UnlockSurface", strconv.Itoa(int(C.nox_video_dxUnlockSurface)))
+	sect.Set("UnlockSurface", strconv.Itoa(bool2int(legacyUnlockSurface)))
 	sect.Set("SoftShadowEdge", strconv.Itoa(bool2int(noxflags.HasEngine(noxflags.EngineSoftShadowEdge))))
-	sect.Set("DrawFrontWalls", strconv.Itoa(int(C.nox_client_drawFrontWalls_80812)))
+	sect.Set("DrawFrontWalls", strconv.Itoa(bool2int(nox_client_drawFrontWalls_80812)))
 	sect.Set("TranslucentFrontWalls", strconv.Itoa(int(C.nox_client_translucentFrontWalls_805844)))
 	sect.Set("HighResFrontWalls", strconv.Itoa(int(C.nox_client_highResFrontWalls_80820)))
 	sect.Set("HighResFloors", strconv.Itoa(int(C.nox_client_highResFloors_154952)))
 	sect.Set("LockHighResFloors", strconv.Itoa(int(C.nox_client_lockHighResFloors_1193152)))
 	sect.Set("TexturedFloors", strconv.Itoa(bool2int(nox_client_texturedFloors_154956)))
 	sect.Set("TranslucentConsole", strconv.Itoa(bool2int(guiCon.translucent)))
-	sect.Set("RenderGlow", strconv.Itoa(int(C.nox_client_renderGlow_805852)))
+	sect.Set("RenderGlow", strconv.Itoa(bool2int(noxClient.r.renderGlow)))
 	sect.Set("RenderGUI", strconv.Itoa(int(C.nox_client_renderGUI_80828)))
 	sect.Set("FadeObjects", strconv.Itoa(int(C.nox_client_fadeObjects_80836)))
 	sect.Set("RenderBubbles", strconv.Itoa(int(C.nox_client_renderBubbles_80844)))
-	sect.Set("TrackData", strconv.Itoa(int(C.sub_578DF0())))
+	sect.Set("TrackData", strconv.Itoa(int(sub_578DF0())))
 	sect.Set("SysopPassword", GoWString(C.nox_xxx_sysopGetPass_40A630()))
 	sect.Set("ServerPassword", GoWString((*wchar_t)(unsafe.Pointer(&v1[78]))))
 	sect.Set("Profiled", strconv.Itoa(bool2int(C.nox_profiled_805856 != 0)))

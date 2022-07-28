@@ -48,14 +48,12 @@ void nullsub_70() {}
 #include "input_common.h"
 #include "operators.h"
 #include "static.h"
-#include "win.h"
 
 extern uint32_t nox_profiled_805856;
 extern uint32_t dword_5d4594_10988;
 extern uint32_t dword_5d4594_527656;
 extern uint32_t dword_5d4594_251728;
 extern uint32_t dword_5d4594_3592;
-extern uint32_t dword_5d4594_805860;
 extern uint32_t dword_5d4594_526276;
 extern uint32_t dword_5d4594_251712;
 extern uint32_t nox_xxx_useMMX_587000_80800;
@@ -64,7 +62,6 @@ extern uint32_t dword_5d4594_251716;
 extern uint32_t dword_5d4594_10984;
 extern uint32_t dword_5d4594_2660032;
 extern uint32_t dword_5d4594_251720;
-extern int nox_video_16bit;
 extern uint32_t dword_5d4594_3620;
 extern uint32_t dword_5d4594_251744;
 extern uint32_t dword_5d4594_251556;
@@ -106,9 +103,6 @@ extern uint32_t nox_color_orange_2614256;
 extern unsigned int nox_rnd_table_37892[4096];
 
 int nox_enable_audio = 1;
-int nox_enable_threads = 1;
-unsigned int nox_video_dxFullScreen = 0;
-unsigned int nox_video_dxUnlockSurface = 0;
 
 int nox_server_gameSettingsUpdated; // If you define it as 1-byte bool, the game will crash
 
@@ -128,12 +122,6 @@ extern int ptr_5D4594_2650668_cap;
 
 extern int nox_win_width;
 extern int nox_win_height;
-extern int nox_win_width_game;
-extern int nox_win_height_game;
-extern int nox_win_depth_game;
-extern int nox_win_width_menu;
-extern int nox_win_height_menu;
-extern int nox_win_depth_menu;
 
 extern table_26792_t table_26792[];
 extern int table_26792_cnt;

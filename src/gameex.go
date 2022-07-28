@@ -6,7 +6,6 @@ package opennox
 extern unsigned int dword_587000_87404;
 extern unsigned int dword_5d4594_1064868;
 extern unsigned int dword_5d4594_1316972;
-extern nox_window* dword_5d4594_1064896;
 extern unsigned int gameex_flags;
 int sub_4BDFD0();
 int  gameex_sendPacket(char* buf, int len, int smth);

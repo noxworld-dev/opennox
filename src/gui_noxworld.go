@@ -7,7 +7,6 @@ package opennox
 #include "GAME1_3.h"
 #include "GAME2_2.h"
 #include "GAME2_3.h"
-#include "win.h"
 #include "MixPatch.h"
 extern unsigned int dword_587000_87404;
 extern int dword_587000_87412;

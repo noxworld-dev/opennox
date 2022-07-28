@@ -1,36 +1,36 @@
 package opennox
 
 /*
+#include "defs.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
 #include "GAME1_2.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
+#include "GAME2_2.h"
 #include "GAME2_3.h"
 #include "GAME3_1.h"
-#include "defs.h"
-#include "GAME2_1.h"
+#include "GAME5_2.h"
 #include "common__system__team.h"
 #include "client__system__client.h"
 #include "client__gui__guiquit.h"
 #include "client__gui__guiggovr.h"
-#include "client__video__draw_common.h"
 #include "client__draw__selectdw.h"
 #include "client__draw__debugdraw.h"
 #include "client__draw__glowdraw.h"
-extern nox_draw_viewport_t nox_draw_viewport;
+#include "client__draw__fx.h"
 extern nox_drawable* nox_xxx_drawablePlayer_1046600;
-extern unsigned int nox_client_drawFrontWalls_80812;
 extern unsigned int nox_client_translucentFrontWalls_805844;
 extern unsigned int nox_client_highResFrontWalls_80820;
 extern unsigned int nox_client_highResFloors_154952;
 extern unsigned int nox_client_lockHighResFloors_1193152;
-extern unsigned int nox_gui_console_translucent;
-extern unsigned int nox_client_renderGlow_805852;
 extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int nox_client_renderBubbles_80844;
 extern unsigned int nox_client_renderGUI_80828;
-extern unsigned int nox_client_showTooltips_80840;
 extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 extern unsigned int nox_profiled_805856;
 extern unsigned int nox_xxx_waypointCounterMB_587000_154948;
-extern void* nox_draw_defaultFont_816492;
 extern unsigned int dword_5d4594_2523804;
 extern unsigned int dword_5d4594_2650676;
 extern unsigned int dword_5d4594_2650680;
@@ -43,8 +43,6 @@ extern unsigned int dword_5d4594_1193188;
 extern int dword_5d4594_3799524;
 extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
-extern void* dword_5d4594_810640;
-extern void* nox_draw_colorTablesRev_3804668;
 void nox_xxx_tileDrawMB_481C20_A(nox_draw_viewport_t* vp, int v3);
 void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, int v78);
 void nox_xxx_tileDrawMB_481C20_C_textured(nox_draw_viewport_t* vp, int v72, int v78);
@@ -108,6 +106,8 @@ var (
 	nox_video_renderTargetFlags       = 0
 	nox_client_texturedFloors_154956  = true
 	nox_client_texturedFloors2_154960 = true
+	nox_client_showTooltips_80840     = true
+	nox_client_drawFrontWalls_80812   = true
 	partViewportOff                   image.Point
 
 	nox_arr2_853BC0  [lightGridW][lightGridH]RGB
@@ -262,76 +262,76 @@ func detectBestVideoSettings() {
 	cut := 0
 	*memmap.PtrUint32(0x587000, 80808) = 1
 	*memmap.PtrUint32(0x587000, 80816) = 1
-	C.nox_client_showTooltips_80840 = 1
+	nox_client_showTooltips_80840 = true
 	C.nox_client_renderGUI_80828 = 1
 	C.nox_xxx_xxxRenderGUI_587000_80832 = 1
 	if cfg == 0 {
 		//v4 = 8
 		cut = 75
-		C.nox_client_drawFrontWalls_80812 = 0
+		nox_client_drawFrontWalls_80812 = false
 		C.nox_client_translucentFrontWalls_805844 = 0
 		C.nox_client_highResFrontWalls_80820 = 0
 		C.nox_client_highResFloors_154952 = 0
 		C.nox_client_lockHighResFloors_1193152 = 0
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
-		C.nox_client_renderGlow_805852 = 0
+		noxClient.r.renderGlow = false
 		C.nox_client_fadeObjects_80836 = 0
 		noxflags.UnsetEngine(noxflags.EngineSoftShadowEdge)
 		C.nox_client_renderBubbles_80844 = 0
 	} else if cfg == 200 {
 		//v4 = 8
 		cut = 85
-		C.nox_client_drawFrontWalls_80812 = 1
+		nox_client_drawFrontWalls_80812 = true
 		C.nox_client_translucentFrontWalls_805844 = 0
 		C.nox_client_highResFrontWalls_80820 = 0
 		C.nox_client_highResFloors_154952 = 0
 		C.nox_client_lockHighResFloors_1193152 = 0
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
-		C.nox_client_renderGlow_805852 = 0
+		noxClient.r.renderGlow = false
 		C.nox_client_fadeObjects_80836 = 0
 		noxflags.UnsetEngine(noxflags.EngineSoftShadowEdge)
 		C.nox_client_renderBubbles_80844 = 0
 	} else if cfg == 266 {
 		//v4 = 8
 		cut = 100
-		C.nox_client_drawFrontWalls_80812 = 1
+		nox_client_drawFrontWalls_80812 = true
 		C.nox_client_translucentFrontWalls_805844 = 1
 		C.nox_client_highResFrontWalls_80820 = 1
 		C.nox_client_highResFloors_154952 = 1
 		C.nox_client_lockHighResFloors_1193152 = 0
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
-		C.nox_client_renderGlow_805852 = 1
+		noxClient.r.renderGlow = true
 		C.nox_client_fadeObjects_80836 = 1
 		noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
 		C.nox_client_renderBubbles_80844 = 1
 	} else if cfg == 300 {
 		//v4 = 16
 		cut = 100
-		C.nox_client_drawFrontWalls_80812 = 1
+		nox_client_drawFrontWalls_80812 = true
 		C.nox_client_translucentFrontWalls_805844 = 1
 		C.nox_client_highResFrontWalls_80820 = 1
 		C.nox_client_highResFloors_154952 = 1
 		C.nox_client_lockHighResFloors_1193152 = 0
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
-		C.nox_client_renderGlow_805852 = 1
+		noxClient.r.renderGlow = true
 		C.nox_client_fadeObjects_80836 = 1
 		noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
 		C.nox_client_renderBubbles_80844 = 1
 	} else if cfg == 450 {
 		//v4 = 16
 		cut = 100
-		C.nox_client_drawFrontWalls_80812 = 1
+		nox_client_drawFrontWalls_80812 = true
 		C.nox_client_translucentFrontWalls_805844 = 1
 		C.nox_client_highResFrontWalls_80820 = 1
 		C.nox_client_highResFloors_154952 = 1
 		C.nox_client_lockHighResFloors_1193152 = 1
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = true
-		C.nox_client_renderGlow_805852 = 1
+		noxClient.r.renderGlow = true
 		C.nox_client_fadeObjects_80836 = 1
 		noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
 		C.nox_client_renderBubbles_80844 = 1
@@ -351,10 +351,6 @@ func detectBestVideoSettings() {
 }
 
 func nox_draw_freeColorTables_433C20() {
-	if C.dword_5d4594_810640 != nil {
-		alloc.Free(C.dword_5d4594_810640)
-		C.dword_5d4594_810640 = nil
-	}
 	*memmap.PtrUint32(0x973F18, 5232) = 0
 }
 
@@ -376,19 +372,25 @@ func nox_draw_setMaterial_4341D0(ind, cl C.int) {
 	noxClient.r.Data().SetMaterial(int(ind), noxcolor.RGBA5551(cl))
 }
 
+func sub_4347F0(a1 unsafe.Pointer, a2 int) {
+	if a2 <= 256 {
+		C.sub_435120(memmap.PtrOff(0x973F18, 3880), a1)
+		C.sub_435040()
+	}
+	nox_xxx_makeFillerColor_48BDE0()
+}
+
 func sub_4338D0() int {
 	d := noxClient.r.Data()
 	d.Reset()
 	*memmap.PtrUint32(0x5D4594, 809596) = 0
-	C.dword_5d4594_808568 = 0
-	C.dword_5d4594_810628 = 0
 	if videoInitDone {
 		v2, freeV2 := alloc.Malloc(256 * 3)
 		defer freeV2()
 		C.sub_435150((*C.uchar)(v2), (*C.char)(memmap.PtrOff(0x973F18, 3880)))
-		C.sub_4347F0((*C.char)(v2), 256)
+		sub_4347F0(v2, 256)
 	} else {
-		C.sub_4347F0((*C.char)(memmap.PtrOff(0x581450, 8404)), 256)
+		sub_4347F0(memmap.PtrOff(0x581450, 8404), 256)
 	}
 	d.SetMaterialRGB(0, 0, 0, 255)
 	d.SetMaterialRGB(1, 0, 255, 0)
@@ -406,8 +408,6 @@ func sub_4338D0() int {
 	d.SetMaterialRGB(13, 128, 128, 0)
 	d.SetMaterialRGB(14, 128, 128, 128)
 	d.SetMaterialRGB(15, 0, 0, 0)
-	// TODO gamma control
-	C.dword_5d4594_808564 = 0
 	*memmap.PtrUint32(0x973F18, 5232) = 0
 	return 1
 }
@@ -637,8 +637,9 @@ type NoxRender struct {
 		B [256]uint16
 	}
 
-	circleSeg circleSegments
-	particles struct {
+	renderGlow bool
+	circleSeg  circleSegments
+	particles  struct {
 		byOpts map[particleOpt]*Particle
 	}
 	partfx partFXes
@@ -651,14 +652,13 @@ func newNoxRenderData() (*RenderData, func()) {
 }
 
 func NewNoxRender() *NoxRender {
-	r := &NoxRender{NoxRender: noxrender.NewRender()}
+	r := &NoxRender{
+		NoxRender:  noxrender.NewRender(),
+		renderGlow: true,
+	}
 	r.NoxRender.SetData(renderDataAdapter{r: r, RenderData: r.p})
 	r.initColorTables()
 	return r
-}
-
-func (r *NoxRender) shouldDrawGlow() bool {
-	return C.nox_client_renderGlow_805852 != 0
 }
 
 func (r *NoxRender) Frame() uint32 {
@@ -1958,7 +1958,7 @@ func nox_xxx_drawWalls_473C10(vp *Viewport, p *Wall) {
 }
 
 func nox_client_maybeDrawFrontWalls(vp *Viewport) { // nox_client_maybeDrawFrontWalls_475810_F
-	if C.nox_client_drawFrontWalls_80812 != 0 {
+	if nox_client_drawFrontWalls_80812 {
 		for _, wl := range nox_frontWalls {
 			nox_xxx_drawWalls_473C10(vp, wl)
 		}
