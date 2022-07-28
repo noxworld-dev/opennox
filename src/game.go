@@ -685,11 +685,11 @@ func nox_xxx_getSomeMapName_4D0CF0() string {
 }
 
 func (s *Server) nox_server_currentMapGetFilename_409B30() string {
-	return GoString((*C.char)(memmap.PtrOff(0x5D4594, 2598188)))
+	return memmap.String(0x5D4594, 2598188)
 }
 
 func nox_xxx_mapFilenameGetSolo_4DB260() string {
-	return GoString((*C.char)(memmap.PtrOff(0x5D4594, 1559960)))
+	return memmap.String(0x5D4594, 1559960)
 }
 
 func (s *Server) nox_xxx_servInitialMapLoad_4D17F0() bool {
