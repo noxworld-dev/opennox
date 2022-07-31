@@ -3,9 +3,8 @@ package opennox
 import (
 	"context"
 
-	"github.com/noxworld-dev/opennox-lib/things"
-
 	"github.com/noxworld-dev/opennox-lib/console"
+	"github.com/noxworld-dev/opennox-lib/spell"
 )
 
 func init() {
@@ -22,7 +21,7 @@ func init() {
 			for i, sp := range noxServer.SpellDefs() {
 				mana := sp.Def.ManaCost
 				title := sp.Title
-				ind := things.SpellID(i + 1)
+				ind := spell.ID(i + 1)
 				id := ind.String()
 				astr := disallow
 				if !sp.IsValid() {

@@ -2,7 +2,7 @@ package opennox
 
 import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
-	"github.com/noxworld-dev/opennox-lib/things"
+	"github.com/noxworld-dev/opennox-lib/spell"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
@@ -20,7 +20,7 @@ type spellBuffConf struct {
 	PointFX        noxnet.Op // play this point effect at the target
 }
 
-func castBuffSpell(spellID things.SpellID, enc EnchantID, lvl int, targ *Unit, opts spellBuffConf) int {
+func castBuffSpell(spellID spell.ID, enc EnchantID, lvl int, targ *Unit, opts spellBuffConf) int {
 	if targ == nil {
 		return 0
 	}

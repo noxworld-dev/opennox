@@ -58,7 +58,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/platform"
-	"github.com/noxworld-dev/opennox-lib/things"
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
@@ -1084,7 +1084,7 @@ func nox_xxx_netInformTextMsg_4DA0F0(pid int, code byte, ind int) bool {
 	}
 }
 
-func nox_xxx_netReportSpellStat_4D9630(a1 int, a2 things.SpellID, a3 byte) bool {
+func nox_xxx_netReportSpellStat_4D9630(a1 int, a2 spell.ID, a3 byte) bool {
 	var buf [6]byte
 	buf[0] = byte(noxnet.MSG_REPORT_SPELL_STAT)
 	binary.LittleEndian.PutUint32(buf[1:], uint32(a2))

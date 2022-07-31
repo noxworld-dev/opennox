@@ -23,7 +23,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
-	"github.com/noxworld-dev/opennox-lib/things"
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
@@ -480,20 +480,20 @@ func (s *Server) CinemaPlayers(enable bool) {
 					it.SetFlags(f | object.FlagNoCollide)
 				}
 			}
-			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_WALL, it)
-			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_MANA_BOMB, it)
-			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_LIGHTNING, it)
-			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_CHAIN_LIGHTNING, it)
-			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_DRAIN_MANA, it)
-			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_FORCE_OF_NATURE, it)
-			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_GREATER_HEAL, it)
-			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_CHANNEL_LIFE, it)
-			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_CHARM, it)
-			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_BLINK, it)
-			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_SWAP, it)
-			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_TURN_UNDEAD, it)
-			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_PLASMA, it)
-			nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_SUMMON_BAT, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_WALL, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_MANA_BOMB, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_LIGHTNING, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_CHAIN_LIGHTNING, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_DRAIN_MANA, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_FORCE_OF_NATURE, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_GREATER_HEAL, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_CHANNEL_LIFE, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_CHARM, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_BLINK, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_SWAP, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_TURN_UNDEAD, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_PLASMA, it)
+			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_SUMMON_BAT, it)
 		}
 	}
 }
