@@ -554,7 +554,7 @@ func (obj *Object) Dir() uint16 {
 	if obj == nil {
 		return 0
 	}
-	return uint16(obj.direction)
+	return uint16(obj.direction2)
 }
 
 func (obj *Object) curSpeed() float32 {
@@ -564,9 +564,9 @@ func (obj *Object) curSpeed() float32 {
 	return float32(obj.speed_cur)
 }
 
-func (obj *Object) setDir(dir uint16) {
-	obj.field_31_0 = C.uint16_t(dir)
-	obj.direction = C.uint16_t(dir)
+func (obj *Object) setAllDirs(dir uint16) {
+	obj.direction1 = C.uint16_t(dir)
+	obj.direction2 = C.uint16_t(dir)
 }
 
 func (obj *Object) prevPos() types.Pointf {

@@ -10,6 +10,7 @@ extern nox_script_xxx_t* nox_script_arr_xxx_1599636;
 extern unsigned int dword_5d4594_3821636;
 extern unsigned int dword_5d4594_3821640;
 int sub_516570();
+void sub_43D9B0(int a1, int a2);
 */
 import "C"
 import (
@@ -20,6 +21,7 @@ import (
 	"strings"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
@@ -27,13 +29,15 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var (
-	nox_script_objTelekinesisHand int
-	nox_script_objCinemaRemove    []int
-	noxScriptFXNames              = make(map[string]noxnet.Op)
+	nox_script_objTelekinesisHand  int
+	nox_script_objCinemaRemove     []int
+	noxScriptFXNames               = make(map[string]noxnet.Op)
+	nox_xxx_imagCasterUnit_1569664 *Unit
 )
 
 func init() {
@@ -544,5 +548,121 @@ func nox_script_Effect_514210() C.int {
 	case noxnet.MSG_FX_VAMPIRISM:
 		nox_xxx_netSendVampFx_523270(fx, dpos.Add(pos.Point()), dpos.Add(pos2.Point()), 100)
 	}
+	return 0
+}
+
+//export nox_script_ForceAutosave_516400
+func nox_script_ForceAutosave_516400() C.int {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
+		sub_4DB130("AUTOSAVE")
+		sub_4DB170(1, 0, 0)
+	}
+	return 0
+}
+
+//export nox_script_Music_516430
+func nox_script_Music_516430() C.int {
+	v0 := noxScriptPopU32()
+	v3 := noxScriptPopU32()
+	if noxflags.HasGame(noxflags.GameModeCoop) {
+		C.sub_43D9B0(C.int(v3), C.int(v0))
+	} else {
+		var buf [3]byte
+		buf[0] = byte(noxnet.MSG_MUSIC_EVENT)
+		buf[1] = byte(v3)
+		buf[2] = byte(v0)
+		noxServer.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
+	}
+	return 0
+}
+
+//export nox_setImaginaryCaster
+func nox_setImaginaryCaster() C.int {
+	nox_xxx_imagCasterUnit_1569664 = noxServer.newObjectByTypeID("ImaginaryCaster").AsUnit()
+	if nox_xxx_imagCasterUnit_1569664 == nil {
+		return 0
+	}
+	nox_xxx_createAt_4DAA50(nox_xxx_imagCasterUnit_1569664, nil, types.Pointf{X: 128 * common.GridStep, Y: 128 * common.GridStep})
+	return 1
+}
+
+//export nox_script_CastLocation2_515130
+func nox_script_CastLocation2_515130() C.int {
+	y2 := noxScriptPopF32()
+	x2 := noxScriptPopF32()
+	targPos := types.Pointf{X: x2, Y: y2}
+	y1 := noxScriptPopF32()
+	x1 := noxScriptPopF32()
+	srcPos := types.Pointf{X: x1, Y: y1}
+	sp := spell.ParseID(noxScriptPopString())
+	if !sp.Valid() {
+		return 0
+	}
+	nox_xxx_imagCasterUnit_1569664.SetPos(srcPos)
+	nox_xxx_imagCasterUnit_1569664.direction1 = C.ushort(nox_xxx_math_509ED0(targPos.Sub(srcPos)))
+	noxServer.castSpellBy(sp, nox_xxx_imagCasterUnit_1569664, nil, targPos)
+	return 0
+}
+
+//export nox_script_CastLocationObject_515060
+func nox_script_CastLocationObject_515060() C.int {
+	objID := noxScriptPopU32()
+	y1 := noxScriptPopF32()
+	x1 := noxScriptPopF32()
+	srcPos := types.Pointf{X: x1, Y: y1}
+	sp := spell.ParseID(noxScriptPopString())
+	if !sp.Valid() {
+		return 0
+	}
+	targ := noxServer.nox_server_scriptValToObjectPtr(int(objID))
+	if targ == nil {
+		return 0
+	}
+	nox_xxx_imagCasterUnit_1569664.SetPos(srcPos)
+	nox_xxx_imagCasterUnit_1569664.direction1 = C.ushort(nox_xxx_math_509ED0(targ.Pos().Sub(srcPos)))
+	noxServer.castSpellBy(sp, nox_xxx_imagCasterUnit_1569664, targ, targ.Pos())
+	return 0
+}
+
+//export nox_script_CastObject2_514F10
+func nox_script_CastObject2_514F10() C.int {
+	targID := noxScriptPopU32()
+	casterID := noxScriptPopU32()
+	sp := spell.ParseID(noxScriptPopString())
+	if !sp.Valid() {
+		return 0
+	}
+	caster := noxServer.nox_server_scriptValToObjectPtr(int(casterID)).AsUnit()
+	if caster == nil {
+		return 0
+	}
+	if caster.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
+		return 0
+	}
+	targ := noxServer.nox_server_scriptValToObjectPtr(int(targID))
+	if targ == nil {
+		return 0
+	}
+	caster.direction1 = C.ushort(nox_xxx_math_509ED0(targ.Pos().Sub(caster.Pos())))
+	noxServer.castSpellBy(sp, caster, targ, targ.Pos())
+	return 0
+}
+
+//export nox_script_CastObjectLocation_514FC0
+func nox_script_CastObjectLocation_514FC0() C.int {
+	y2 := noxScriptPopF32()
+	x2 := noxScriptPopF32()
+	targPos := types.Pointf{X: x2, Y: y2}
+	casterID := noxScriptPopU32()
+	sp := spell.ParseID(noxScriptPopString())
+	if !sp.Valid() {
+		return 0
+	}
+	caster := noxServer.nox_server_scriptValToObjectPtr(int(casterID)).AsUnit()
+	if caster == nil {
+		return 0
+	}
+	caster.direction1 = C.ushort(nox_xxx_math_509ED0(targPos.Sub(caster.Pos())))
+	noxServer.castSpellBy(sp, caster, nil, targPos)
 	return 0
 }

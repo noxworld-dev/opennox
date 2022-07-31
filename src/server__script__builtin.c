@@ -46,7 +46,6 @@ unsigned int dword_5d4594_1599628 = 0;
 void* nox_script_objGold = 0;
 unsigned int dword_5d4594_2386848 = 0;
 unsigned int dword_5d4594_2386852 = 0;
-void* nox_xxx_imagCasterUnit_1569664 = 0;
 
 int nox_script_builtinGetF40() { return dword_5d4594_3821636; }
 
@@ -952,7 +951,7 @@ int nox_script_groupDamage_513010() {
 }
 
 //----- (00513070) --------------------------------------------------------
-int nox_script_builtin_513070() {
+int nox_script_Wander_513070() {
 	int v0;    // edi
 	int v1;    // eax
 	int v2;    // esi
@@ -975,7 +974,7 @@ int nox_script_builtin_513070() {
 }
 
 //----- (00513160) --------------------------------------------------------
-int nox_script_builtin_513160() {
+int nox_script_WanderGroup_513160() {
 	int v0;            // esi
 	int v1;            // edi
 	unsigned char* v2; // eax
@@ -1811,7 +1810,7 @@ int nox_script_SetOwner_514490() {
 }
 
 //----- (005144C0) --------------------------------------------------------
-int nox_script_GroupSetOwner_5144C0() {
+int nox_script_SetOwnerGroup_5144C0() {
 	int v0; // esi
 	int v1; // eax
 	int v2; // edi
@@ -1835,7 +1834,7 @@ int nox_script_GroupSetOwner_5144C0() {
 }
 
 //----- (00514510) --------------------------------------------------------
-int nox_script_SetOwnerGroup_514510() {
+int nox_script_SetOwners_514510() {
 	int v0;  // edi
 	int v1;  // eax
 	int v2;  // esi
@@ -1861,7 +1860,7 @@ int nox_script_SetOwnerGroup_514510() {
 }
 
 //----- (00514570) --------------------------------------------------------
-int nox_script_builtin_514570() {
+int nox_script_SetOwnersGroup_514570() {
 	int v0; // edi
 	int v1; // eax
 	int v2; // esi
@@ -1896,7 +1895,7 @@ int nox_script_builtin_514570() {
 }
 
 //----- (005145F0) --------------------------------------------------------
-int nox_script_builtin_5145F0() {
+int nox_script_IsOwnedBy_5145F0() {
 	int v0; // esi
 	int v1; // edi
 	int v2; // esi
@@ -1913,7 +1912,7 @@ int nox_script_builtin_5145F0() {
 }
 
 //----- (00514630) --------------------------------------------------------
-int nox_script_builtin_514630() {
+int nox_script_IsOwnedByGroup_514630() {
 	int v0;     // esi
 	int v1;     // edi
 	int result; // eax
@@ -1956,7 +1955,7 @@ int nox_script_builtin_514630() {
 }
 
 //----- (005146B0) --------------------------------------------------------
-int nox_script_builtin_5146B0() {
+int nox_script_IsOwnedByAny_5146B0() {
 	int v0;     // edi
 	int v1;     // eax
 	int result; // eax
@@ -1999,7 +1998,7 @@ int nox_script_builtin_5146B0() {
 }
 
 //----- (00514730) --------------------------------------------------------
-int nox_script_builtin_514730() {
+int nox_script_IsOwnedByAnyGroup_514730() {
 	int v0;  // esi
 	int v1;  // edi
 	int v2;  // esi
@@ -2151,7 +2150,7 @@ int nox_script_NoChatAll_514BD0() {
 }
 
 //----- (00514BE0) --------------------------------------------------------
-int nox_script_JournalQuest_514BE0() {
+int nox_script_SetQuestInt_514BE0() {
 	int v0; // esi
 	int v1; // eax
 
@@ -2162,7 +2161,7 @@ int nox_script_JournalQuest_514BE0() {
 }
 
 //----- (00514C10) --------------------------------------------------------
-int nox_script_JournalQuestBool_514C10() {
+int nox_script_SetQuestFloat_514C10() {
 	int v0; // esi
 	int v1; // eax
 
@@ -2173,7 +2172,7 @@ int nox_script_JournalQuestBool_514C10() {
 }
 
 //----- (00514C40) --------------------------------------------------------
-int nox_script_JournalGetQuest_514C40() {
+int nox_script_GetQuestInt_514C40() {
 	int v0; // eax
 	int v1; // eax
 
@@ -2184,7 +2183,7 @@ int nox_script_JournalGetQuest_514C40() {
 }
 
 //----- (00514C60) --------------------------------------------------------
-int nox_script_JournalGetQuestBool_514C60() {
+int nox_script_GetQuestFloat_514C60() {
 	int v0; // eax
 	int v2; // [esp+0h] [ebp-4h]
 
@@ -2195,7 +2194,7 @@ int nox_script_JournalGetQuestBool_514C60() {
 }
 
 //----- (00514C90) --------------------------------------------------------
-int nox_script_RestoreQuestStatus_514C90() {
+int nox_script_ResetQuestStatus_514C90() {
 	int v0; // eax
 
 	v0 = nox_script_pop();
@@ -2204,7 +2203,7 @@ int nox_script_RestoreQuestStatus_514C90() {
 }
 
 //----- (00514CB0) --------------------------------------------------------
-int nox_script_ObjIsTrigger_514CB0() {
+int nox_script_IsTrigger_514CB0() {
 	int v0; // eax
 	int v1; // esi
 	int v2; // eax
@@ -2220,7 +2219,7 @@ int nox_script_ObjIsTrigger_514CB0() {
 }
 
 //----- (00514CF0) --------------------------------------------------------
-int nox_script_builtin_514CF0() {
+int nox_script_IsCaller_514CF0() {
 	int v0; // eax
 	int v1; // esi
 	int v2; // eax
@@ -2326,7 +2325,7 @@ int nox_script_TellStory_514E90() {
 }
 
 //----- (00514ED0) --------------------------------------------------------
-int nox_script_ForceDialog_514ED0() {
+int nox_script_StartDialog_514ED0() {
 	int v0; // esi
 	int v1; // edi
 	int v2; // esi
@@ -2338,140 +2337,6 @@ int nox_script_ForceDialog_514ED0() {
 	v3 = nox_server_scriptValToObjectPtr_511B60(v1);
 	if (v2 && v3) {
 		nox_xxx_script_forcedialog_548CD0(v2, v3);
-	}
-	return 0;
-}
-
-//----- (00514F10) --------------------------------------------------------
-int nox_script_builtin_514F10() {
-	int v0;     // ebp
-	int v1;     // esi
-	int v2;     // eax
-	int v3;     // ebx
-	int v4;     // eax
-	int v5;     // edi
-	int v6;     // eax
-	int v7;     // esi
-	float2 v9;  // [esp+10h] [ebp-14h]
-	int v10[3]; // [esp+18h] [ebp-Ch]
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_script_pop();
-	v3 = nox_xxx_spellNameToN_4243F0(nox_script_getString_512E40(v2));
-	if (v3) {
-		v4 = nox_server_scriptValToObjectPtr_511B60(v1);
-		v5 = v4;
-		if (v4) {
-			if (!(*(uint32_t*)(v4 + 16) & 0x8020)) {
-				v6 = nox_server_scriptValToObjectPtr_511B60(v0);
-				v7 = v6;
-				if (v6) {
-					v9.field_0 = *(float*)(v6 + 56) - *(float*)(v5 + 56);
-					v9.field_4 = *(float*)(v6 + 60) - *(float*)(v5 + 60);
-					*(uint16_t*)(v5 + 124) = nox_xxx_math_509ED0(&v9);
-					v10[0] = v7;
-					v10[1] = *(uint32_t*)(v7 + 56);
-					v10[2] = *(uint32_t*)(v7 + 60);
-					nox_xxx_castSpellByUser_4FDD20(v3, (uint32_t*)v5, v10);
-				}
-			}
-		}
-	}
-	return 0;
-}
-
-//----- (00514FC0) --------------------------------------------------------
-int nox_script_builtin_514FC0() {
-	int v0;       // esi
-	int v1;       // eax
-	int v2;       // edi
-	int v3;       // eax
-	uint32_t* v4; // esi
-	float v6;     // [esp+8h] [ebp-1Ch]
-	float v7;     // [esp+Ch] [ebp-18h]
-	float2 v8;    // [esp+10h] [ebp-14h]
-	float v9[3];  // [esp+18h] [ebp-Ch]
-
-	v7 = nox_script_popf();
-	v6 = nox_script_popf();
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_xxx_spellNameToN_4243F0(nox_script_getString_512E40(v1));
-	if (v2) {
-		v3 = nox_server_scriptValToObjectPtr_511B60(v0);
-		v4 = (uint32_t*)v3;
-		if (v3) {
-			v8.field_0 = v6 - *(float*)(v3 + 56);
-			v8.field_4 = v7 - *(float*)(v3 + 60);
-			*(uint16_t*)(v3 + 124) = nox_xxx_math_509ED0(&v8);
-			v9[0] = 0.0;
-			v9[1] = v6;
-			v9[2] = v7;
-			nox_xxx_castSpellByUser_4FDD20(v2, v4, v9);
-		}
-	}
-	return 0;
-}
-
-//----- (00515060) --------------------------------------------------------
-int nox_script_builtin_515060() {
-	int v0;    // esi
-	int v1;    // eax
-	int v2;    // edi
-	int v3;    // esi
-	float2 v5; // [esp+8h] [ebp-1Ch]
-	float2 v6; // [esp+10h] [ebp-14h]
-	int v7[3]; // [esp+18h] [ebp-Ch]
-
-	v0 = nox_script_pop();
-	LODWORD(v5.field_4) = nox_script_pop();
-	LODWORD(v5.field_0) = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_xxx_spellNameToN_4243F0(nox_script_getString_512E40(v1));
-	if (v2) {
-		v3 = nox_server_scriptValToObjectPtr_511B60(v0);
-		if (v3) {
-			v6 = v5;
-			nox_xxx_unitMove_4E7010(nox_xxx_imagCasterUnit_1569664, &v6);
-			v6.field_0 = *(float*)(v3 + 56) - v5.field_0;
-			v6.field_4 = *(float*)(v3 + 60) - v5.field_4;
-			*(uint16_t*)((uint32_t)nox_xxx_imagCasterUnit_1569664 + 124) = nox_xxx_math_509ED0(&v6);
-			v7[0] = v3;
-			v7[1] = *(uint32_t*)(v3 + 56);
-			v7[2] = *(uint32_t*)(v3 + 60);
-			nox_xxx_castSpellByUser_4FDD20(v2, nox_xxx_imagCasterUnit_1569664, &v7);
-		}
-	}
-	return 0;
-}
-
-//----- (00515130) --------------------------------------------------------
-int nox_script_cast_515130() {
-	int v0;      // eax
-	int v1;      // esi
-	float2 v3;   // [esp+4h] [ebp-24h]
-	float v4;    // [esp+Ch] [ebp-1Ch]
-	float v5;    // [esp+10h] [ebp-18h]
-	float2 v6;   // [esp+14h] [ebp-14h]
-	float v7[3]; // [esp+1Ch] [ebp-Ch]
-
-	v5 = nox_script_popf();
-	v4 = nox_script_popf();
-	LODWORD(v3.field_4) = nox_script_pop();
-	LODWORD(v3.field_0) = nox_script_pop();
-	v0 = nox_script_pop();
-	v1 = nox_xxx_spellNameToN_4243F0(nox_script_getString_512E40(v0));
-	if (v1) {
-		v6 = v3;
-		nox_xxx_unitMove_4E7010(nox_xxx_imagCasterUnit_1569664, &v6);
-		v6.field_0 = v4 - v3.field_0;
-		v6.field_4 = v5 - v3.field_4;
-		*(uint16_t*)((uint32_t)nox_xxx_imagCasterUnit_1569664 + 124) = nox_xxx_math_509ED0(&v6);
-		v7[1] = v4;
-		v7[0] = 0.0;
-		v7[2] = v5;
-		nox_xxx_castSpellByUser_4FDD20(v1, nox_xxx_imagCasterUnit_1569664, &v7);
 	}
 	return 0;
 }
@@ -2497,7 +2362,7 @@ int nox_script_GetElevatorStat_5154A0() {
 }
 
 //----- (005154E0) --------------------------------------------------------
-int nox_script_builtin_5154E0() {
+int nox_script_JournalEntry_5154E0() {
 	short v0; // bx
 	int v1;   // edi
 	int v2;   // eax
@@ -2522,7 +2387,7 @@ int nox_script_builtin_5154E0() {
 }
 
 //----- (00515550) --------------------------------------------------------
-int nox_script_DeleteJournalEntry_515550() {
+int nox_script_JournalDelete_515550() {
 	int v0; // esi
 	int v1; // eax
 	int v2; // eax
@@ -2542,7 +2407,7 @@ int nox_script_DeleteJournalEntry_515550() {
 }
 
 //----- (005155A0) --------------------------------------------------------
-int nox_script_builtin_5155A0() {
+int nox_script_JournalEdit_5155A0() {
 	short v0; // si
 	int v1;   // edi
 	int v2;   // eax
@@ -2564,7 +2429,7 @@ int nox_script_builtin_5155A0() {
 }
 
 //----- (00515600) --------------------------------------------------------
-int nox_script_SetGuardPoint_515600() {
+int nox_script_Guard_515600() {
 	int v0;    // eax
 	int v1;    // eax
 	int v3;    // [esp+0h] [ebp-28h]
@@ -2593,7 +2458,7 @@ int nox_script_SetGuardPoint_515600() {
 }
 
 //----- (00515700) --------------------------------------------------------
-int nox_script_builtin_515700() {
+int nox_script_GuardGroup_515700() {
 	int v0;            // eax
 	unsigned char* v1; // eax
 	int v3;            // [esp+0h] [ebp-28h]
@@ -2620,7 +2485,7 @@ int nox_script_builtin_515700() {
 }
 
 //----- (00515780) --------------------------------------------------------
-int nox_script_MonsterHunt_515780() {
+int nox_script_Hunt_515780() {
 	int v0; // eax
 	int v1; // eax
 
@@ -2633,7 +2498,7 @@ int nox_script_MonsterHunt_515780() {
 }
 
 //----- (005157D0) --------------------------------------------------------
-int nox_script_builtin_5157D0() {
+int nox_script_HuntGroup_5157D0() {
 	int v0;            // eax
 	unsigned char* v1; // eax
 
@@ -2687,7 +2552,7 @@ int nox_script_Follow_515880() {
 }
 
 //----- (00515910) --------------------------------------------------------
-int nox_script_builtin_515910() {
+int nox_script_FollowGroup_515910() {
 	int v0;            // esi
 	int v1;            // edi
 	int v2;            // eax
@@ -2706,7 +2571,7 @@ int nox_script_builtin_515910() {
 }
 
 //----- (00515950) --------------------------------------------------------
-int nox_script_AgresssionLevel_515950() {
+int nox_script_AgressionLevel_515950() {
 	int v0; // eax
 	int v1; // eax
 	int v3; // [esp+0h] [ebp-4h]
@@ -2721,7 +2586,7 @@ int nox_script_AgresssionLevel_515950() {
 }
 
 //----- (005159B0) --------------------------------------------------------
-int nox_script_builtin_5159B0() {
+int nox_script_AggressionLevelGroup_5159B0() {
 	int v0;            // eax
 	unsigned char* v1; // eax
 	int v3;            // [esp+0h] [ebp-4h]
@@ -2754,7 +2619,7 @@ int nox_script_HitLocation_5159E0() {
 }
 
 //----- (00515AE0) --------------------------------------------------------
-int nox_script_builtin_515AE0() {
+int nox_script_HitLocationGroup_515AE0() {
 	int v0;            // eax
 	unsigned char* v1; // eax
 	float2 v3;         // [esp+0h] [ebp-10h]
@@ -2770,7 +2635,7 @@ int nox_script_builtin_515AE0() {
 }
 
 //----- (00515B30) --------------------------------------------------------
-int nox_script_ShootLocation_515B30() {
+int nox_script_HitFarLocation_515B30() {
 	int v0;    // eax
 	int v1;    // eax
 	int v3[2]; // [esp+0h] [ebp-10h]
@@ -2788,7 +2653,7 @@ int nox_script_ShootLocation_515B30() {
 }
 
 //----- (00515BF0) --------------------------------------------------------
-int nox_script_builtin_515BF0() {
+int nox_script_HitFarLocationGroup_515BF0() {
 	int v0;            // eax
 	unsigned char* v1; // eax
 	int v3[2];         // [esp+0h] [ebp-10h]
@@ -2804,7 +2669,7 @@ int nox_script_builtin_515BF0() {
 }
 
 //----- (00515C40) --------------------------------------------------------
-int nox_script_MonsterWayFlag_515C40(int a1) {
+int nox_script_SetRoamFlag_515C40(int a1) {
 	char v1; // bl
 	int v2;  // eax
 	int v3;  // eax
@@ -2822,7 +2687,7 @@ int nox_script_MonsterWayFlag_515C40(int a1) {
 }
 
 //----- (00515CB0) --------------------------------------------------------
-int nox_script_builtin_515CB0() {
+int nox_script_SetRoamFlagGroup_515CB0() {
 	char v0;           // bl
 	int v1;            // eax
 	unsigned char* v2; // eax
@@ -2854,7 +2719,7 @@ int nox_script_Attack_515CF0() {
 }
 
 //----- (00515DB0) --------------------------------------------------------
-int nox_script_builtin_515DB0() {
+int nox_script_AttackGroup_515DB0() {
 	int v0;            // esi
 	int v1;            // edi
 	unsigned char* v2; // eax
@@ -2869,7 +2734,7 @@ int nox_script_builtin_515DB0() {
 }
 
 //----- (00515DF0) --------------------------------------------------------
-int nox_script_SetIdleLevel_515DF0() {
+int nox_script_RetreatLevel_515DF0() {
 	int v0; // eax
 	int v1; // eax
 	int v3; // [esp+0h] [ebp-4h]
@@ -2884,7 +2749,7 @@ int nox_script_SetIdleLevel_515DF0() {
 }
 
 //----- (00515E50) --------------------------------------------------------
-int nox_script_GroupSetIdleHP_515E50() {
+int nox_script_RetreatLevelGroup_515E50() {
 	int v0;            // eax
 	unsigned char* v1; // eax
 	int v3;            // [esp+0h] [ebp-4h]
@@ -2912,7 +2777,7 @@ int nox_script_SetResumeLevel_515E80() {
 }
 
 //----- (00515EE0) --------------------------------------------------------
-int nox_script_builtin_515EE0() {
+int nox_script_SetResumeLevelGroup_515EE0() {
 	int v0;            // eax
 	unsigned char* v1; // eax
 	int v3;            // [esp+0h] [ebp-4h]
@@ -2947,7 +2812,7 @@ int nox_script_RunAway_515F10() {
 }
 
 //----- (00516000) --------------------------------------------------------
-int nox_script_monsterGroupFleeFrom_516000() {
+int nox_script_RunAwayGroup_516000() {
 	int v0;            // edi
 	int v1;            // esi
 	int v2;            // ebx
@@ -2967,7 +2832,7 @@ int nox_script_monsterGroupFleeFrom_516000() {
 }
 
 //----- (00516060) --------------------------------------------------------
-int nox_script_MonsterWait_516060() {
+int nox_script_PauseObject_516060() {
 	int v0; // eax
 	int v1; // eax
 	int v3; // [esp+0h] [ebp-4h]
@@ -2982,7 +2847,7 @@ int nox_script_MonsterWait_516060() {
 }
 
 //----- (005160F0) --------------------------------------------------------
-int nox_script_builtin_5160F0() {
+int nox_script_PauseObjectGroup_5160F0() {
 	int v0;            // eax
 	unsigned char* v1; // eax
 	int v3;            // [esp+0h] [ebp-4h]
@@ -2995,7 +2860,7 @@ int nox_script_builtin_5160F0() {
 }
 
 //----- (00516120) --------------------------------------------------------
-int nox_script_builtin_516120() {
+int nox_script_GetGold_516120() {
 	int v0; // eax
 	int v1; // eax
 	int v2; // eax
@@ -3012,7 +2877,7 @@ int nox_script_builtin_516120() {
 }
 
 //----- (00516160) --------------------------------------------------------
-int nox_script_builtin_516160() {
+int nox_script_ChangeGold_516160() {
 	int v0; // esi
 	int v1; // eax
 	int v2; // eax
@@ -3042,7 +2907,7 @@ int nox_script_GiveExp_516190() {
 }
 
 //----- (005161C0) --------------------------------------------------------
-int nox_script_builtin_5161C0() {
+int nox_script_IsAttackedBy_5161C0() {
 	int v0; // edi
 	int v1; // eax
 	int v2; // esi
@@ -3062,7 +2927,7 @@ int nox_script_builtin_5161C0() {
 }
 
 //----- (00516210) --------------------------------------------------------
-int nox_script_getObjectType_516210() {
+int nox_script_HasClass_516210() {
 	int v0;            // esi
 	int v1;            // eax
 	int result;        // eax
@@ -3100,7 +2965,7 @@ int nox_script_getObjectType_516210() {
 }
 
 //----- (005162D0) --------------------------------------------------------
-int nox_script_builtin_5162D0() {
+int nox_script_HasSubclass_5162D0() {
 	int v0;            // eax
 	int result;        // eax
 	unsigned char* v2; // edi
@@ -3161,36 +3026,8 @@ int nox_script_DialogResult_5163C0() {
 	return 0;
 }
 
-//----- (00516400) --------------------------------------------------------
-int nox_script_ForceAutosave_516400() {
-	if (nox_common_gameFlags_check_40A5C0(2048)) {
-		sub_4DB130("AUTOSAVE");
-		sub_4DB170(1, 0, 0);
-	}
-	return 0;
-}
-
-//----- (00516430) --------------------------------------------------------
-int nox_script_Music_516430() {
-	int v0;     // ebx
-	char v2[3]; // [esp+4h] [ebp-8h]
-	int v3;     // [esp+8h] [ebp-4h]
-
-	v0 = nox_script_pop();
-	v3 = nox_script_pop();
-	if (nox_common_gameFlags_check_40A5C0(2048)) {
-		sub_43D9B0(v3, v0);
-	} else {
-		v2[1] = v3;
-		v2[2] = v0;
-		v2[0] = -27;
-		nox_xxx_netSendPacket1_4E5390(255, (int)v2, 3, 0, 1);
-	}
-	return 0;
-}
-
 //----- (005164A0) --------------------------------------------------------
-int nox_script_builtin_5164A0(void* this) {
+int nox_script_MusicPushEvent_5164A0(void* this) {
 	void* v2; // [esp+0h] [ebp-4h]
 
 	v2 = this;
@@ -3204,7 +3041,7 @@ int nox_script_builtin_5164A0(void* this) {
 }
 
 //----- (005164E0) --------------------------------------------------------
-int nox_script_builtin_5164E0(void* this) {
+int nox_script_MusicPopEvent_5164E0(void* this) {
 	void* v2; // [esp+0h] [ebp-4h]
 
 	v2 = this;
@@ -3232,7 +3069,7 @@ int nox_script_ClearMusic_516520(void* this) {
 }
 
 //----- (00516600) --------------------------------------------------------
-int nox_script_builtin_516600() {
+int nox_script_StartupScreen_516600() {
 	int i;  // esi
 	int v1; // esi
 	int v2; // edi
@@ -3259,14 +3096,14 @@ int nox_script_builtin_516600() {
 }
 
 //----- (00516680) --------------------------------------------------------
-int nox_script_builtin_516680() {
+int nox_script_DeathScreen_516680() {
 	*getMemU32Ptr(0x5D4594, 2386832) = 0;
 	sub_5165D0();
 	return 0;
 }
 
 //----- (005166A0) --------------------------------------------------------
-int nox_script_builtin_5166A0() {
+int nox_script_IsTalking_5166A0() {
 	char* v0; // eax
 	int v1;   // ecx
 
@@ -3294,7 +3131,7 @@ int nox_script_PlayerIsTrading_5166E0() {
 }
 
 //----- (00516720) --------------------------------------------------------
-int nox_script_builtin_516720() {
+int nox_script_MakeFriendly_516720() {
 	char* v0; // esi
 	int v1;   // eax
 	int v2;   // eax
@@ -3317,7 +3154,7 @@ int nox_script_builtin_516720() {
 }
 
 //----- (00516760) --------------------------------------------------------
-int nox_script_builtin_516760() {
+int nox_script_MakeEnemy_516760() {
 	int v0; // eax
 	int v1; // eax
 	int v2; // edx
@@ -3455,13 +3292,13 @@ int nox_script_Frozen_516920() {
 }
 
 //----- (00516960) --------------------------------------------------------
-int nox_script_builtin_516960() {
+int nox_script_NoWallSound_516960() {
 	nox_xxx_wallSounds_2386840 = nox_script_pop();
 	return 0;
 }
 
 //----- (00516970) --------------------------------------------------------
-int nox_script_SetProperty_516970() {
+int nox_script_SetCallback_516970() {
 	int v0;       // esi
 	int v1;       // edi
 	int v2;       // eax
@@ -3524,7 +3361,7 @@ int nox_script_SetProperty_516970() {
 }
 
 //----- (00516A50) --------------------------------------------------------
-int nox_script_DecayObject_516A50() {
+int nox_script_DeleteObjectTimer_516A50() {
 	int v0;       // esi
 	int v1;       // eax
 	uint32_t* v2; // eax
@@ -3572,7 +3409,7 @@ int nox_script_TrapSpells_516B40() {
 }
 
 //----- (00516BC0) --------------------------------------------------------
-int nox_script_builtin_516BC0() {
+int nox_script_ClearMessages_516BC0() {
 	int v0; // eax
 	int v1; // eax
 
@@ -3600,7 +3437,7 @@ int nox_script_SetShopkeeperGreet_516BE0() {
 }
 
 //----- (00516C30) --------------------------------------------------------
-int nox_script_TestMobStatus_516C30() {
+int nox_script_IsSummoned_516C30() {
 	int v0; // eax
 	int v1; // esi
 	int v2; // eax
@@ -3616,7 +3453,7 @@ int nox_script_TestMobStatus_516C30() {
 }
 
 //----- (00516C70) --------------------------------------------------------
-int nox_script_builtin_516C70() {
+int nox_script_ZombieStayDown_516C70() {
 	int v0; // eax
 	int v1; // eax
 
@@ -3629,7 +3466,7 @@ int nox_script_builtin_516C70() {
 }
 
 //----- (00516CB0) --------------------------------------------------------
-int nox_script_builtin_516CB0() {
+int nox_script_ZombieStayDownGroup_516CB0() {
 	int v0;            // eax
 	unsigned char* v1; // eax
 
@@ -3640,7 +3477,7 @@ int nox_script_builtin_516CB0() {
 }
 
 //----- (00516CE0) --------------------------------------------------------
-int nox_script_builtin_516CE0() {
+int nox_script_RaiseZombie_516CE0() {
 	int v0; // eax
 	int v1; // eax
 
@@ -3653,7 +3490,7 @@ int nox_script_builtin_516CE0() {
 }
 
 //----- (00516D40) --------------------------------------------------------
-int nox_script_builtin_516D40() {
+int nox_script_RaiseZombieGroup_516D40() {
 	int v0;            // eax
 	unsigned char* v1; // eax
 
@@ -3702,7 +3539,7 @@ int nox_script_ObjIsCrown_516DC0() {
 }
 
 //----- (00516E30) --------------------------------------------------------
-int nox_script_PlayerScore_516E30() {
+int nox_script_ChangeScore_516E30() {
 	int v0;   // edi
 	int v1;   // eax
 	int v2;   // eax
@@ -3729,7 +3566,7 @@ int nox_script_PlayerScore_516E30() {
 }
 
 //----- (00516EA0) --------------------------------------------------------
-int nox_script_builtin_516EA0() {
+int nox_script_GetScore_516EA0() {
 	int v0; // eax
 	int v1; // esi
 	int v2; // eax
@@ -3759,7 +3596,7 @@ int nox_script_Fn5E_513F70() {
 }
 
 //----- (00514A80) --------------------------------------------------------
-int nox_script_builtin_514A80() {
+int nox_script_ChatTimerSeconds_514A80() {
 	short v0;    // di
 	int v1;      // ebx
 	int v2;      // eax
@@ -3787,7 +3624,7 @@ int nox_script_builtin_514A80() {
 }
 
 //----- (00514B10) --------------------------------------------------------
-int nox_script_builtin_514B10() {
+int nox_script_ChatTimerFrames_514B10() {
 	wchar_t v0;  // di
 	int v1;      // ebx
 	int v2;      // eax
@@ -3871,6 +3708,12 @@ int nox_script_Blind_515220();
 int nox_script_WideScreen_515240();
 int nox_script_StopAllFades_516C10();
 int nox_script_Effect_514210();
+int nox_script_ForceAutosave_516400();
+int nox_script_Music_516430();
+int nox_script_CastLocation2_515130();
+int nox_script_CastLocationObject_515060();
+int nox_script_CastObject2_514F10();
+int nox_script_CastObjectLocation_514FC0();
 
 //-------------------------------------------------------------------------
 void* nox_script_builtin[] = {
@@ -3927,8 +3770,8 @@ void* nox_script_builtin[] = {
 	&nox_script_create_512F10,                // 50
 	&nox_script_damage_512F80,                // 51
 	&nox_script_groupDamage_513010,           // 52
-	&nox_script_builtin_513070,               // 53
-	&nox_script_builtin_513160,               // 54
+	&nox_script_Wander_513070,                // 53
+	&nox_script_WanderGroup_513160,           // 54
 	&nox_script_awardSpell_5131C0,            // 55
 	&nox_script_awardSpellGroup_513230,       // 56
 	&nox_script_enchant_5132E0,               // 57
@@ -3953,7 +3796,7 @@ void* nox_script_builtin[] = {
 	&nox_script_getInvHolder_513960,          // 76
 	&nox_script_pickup_5139A0,                // 77
 	&nox_script_drop_513C10,                  // 78
-	&nox_script_getObjectType_516210,         // 79
+	&nox_script_HasClass_516210,              // 79
 	&nox_script_builtin_513C60,               // 80
 	&nox_script_TestBuffs_513C70,             // 81
 	&nox_script_cancelBuff_513D00,            // 82
@@ -3976,115 +3819,115 @@ void* nox_script_builtin[] = {
 	&nox_script_CancelTimer_5141F0,           // 99
 	&nox_script_Effect_514210,                // 100
 	&nox_script_SetOwner_514490,              // 101
-	&nox_script_GroupSetOwner_5144C0,         // 102
-	&nox_script_SetOwnerGroup_514510,         // 103
-	&nox_script_builtin_514570,               // 104
-	&nox_script_builtin_5145F0,               // 105
-	&nox_script_builtin_514630,               // 106
-	&nox_script_builtin_5146B0,               // 107
-	&nox_script_builtin_514730,               // 108
+	&nox_script_SetOwnerGroup_5144C0,         // 102
+	&nox_script_SetOwners_514510,             // 103
+	&nox_script_SetOwnersGroup_514570,        // 104
+	&nox_script_IsOwnedBy_5145F0,             // 105
+	&nox_script_IsOwnedByGroup_514630,        // 106
+	&nox_script_IsOwnedByAny_5146B0,          // 107
+	&nox_script_IsOwnedByAnyGroup_514730,     // 108
 	&nox_script_ClearOwner_5147E0,            // 109
 	&nox_script_Waypoint_514800,              // 110
 	&nox_script_GetWaypointGroup_5148A0,      // 111
 	&nox_script_GetObjectGroup_514940,        // 112
 	&nox_script_GetWallGroup_5149E0,          // 113
-	&nox_script_builtin_514A80,               // 114
-	&nox_script_builtin_514B10,               // 115
+	&nox_script_ChatTimerSeconds_514A80,      // 114
+	&nox_script_ChatTimerFrames_514B10,       // 115
 	&nox_script_Pop2_74_514BA0,               // 116
 	&nox_script_RemoveChat_514BB0,            // 117
 	&nox_script_NoChatAll_514BD0,             // 118
-	&nox_script_JournalQuest_514BE0,          // 119
-	&nox_script_JournalQuestBool_514C10,      // 120
-	&nox_script_JournalGetQuest_514C40,       // 121
-	&nox_script_JournalGetQuestBool_514C60,   // 122
-	&nox_script_RestoreQuestStatus_514C90,    // 123
-	&nox_script_ObjIsTrigger_514CB0,          // 124
-	&nox_script_builtin_514CF0,               // 125
+	&nox_script_SetQuestInt_514BE0,           // 119
+	&nox_script_SetQuestFloat_514C10,         // 120
+	&nox_script_GetQuestInt_514C40,           // 121
+	&nox_script_GetQuestFloat_514C60,         // 122
+	&nox_script_ResetQuestStatus_514C90,      // 123
+	&nox_script_IsTrigger_514CB0,             // 124
+	&nox_script_IsCaller_514CF0,              // 125
 	&nox_script_SetDialog_514D90,             // 126
 	&nox_script_CancelDialog_514DF0,          // 127
 	&nox_script_DialogPortrait_514E30,        // 128
 	&nox_script_TellStory_514E90,             // 129
-	&nox_script_ForceDialog_514ED0,           // 130
-	&nox_script_builtin_514F10,               // 131
-	&nox_script_builtin_514FC0,               // 132
-	&nox_script_builtin_515060,               // 133
-	&nox_script_cast_515130,                  // 134
+	&nox_script_StartDialog_514ED0,           // 130
+	&nox_script_CastObject2_514F10,           // 131
+	&nox_script_CastObjectLocation_514FC0,    // 132
+	&nox_script_CastLocationObject_515060,    // 133
+	&nox_script_CastLocation2_515130,         // 134
 	&nox_script_UnBlind_515200,               // 135
 	&nox_script_Blind_515220,                 // 136
 	&nox_script_WideScreen_515240,            // 137
 	&nox_script_GetElevatorStat_5154A0,       // 138
-	&nox_script_SetGuardPoint_515600,         // 139
-	&nox_script_builtin_515700,               // 140
-	&nox_script_MonsterHunt_515780,           // 141
-	&nox_script_builtin_5157D0,               // 142
+	&nox_script_Guard_515600,                 // 139
+	&nox_script_GuardGroup_515700,            // 140
+	&nox_script_Hunt_515780,                  // 141
+	&nox_script_HuntGroup_5157D0,             // 142
 	&nox_script_Idle_515800,                  // 143
 	&nox_script_GroupIdle_515850,             // 144
 	&nox_script_Follow_515880,                // 145
-	&nox_script_builtin_515910,               // 146
-	&nox_script_AgresssionLevel_515950,       // 147
-	&nox_script_builtin_5159B0,               // 148
+	&nox_script_FollowGroup_515910,           // 146
+	&nox_script_AgressionLevel_515950,        // 147
+	&nox_script_AggressionLevelGroup_5159B0,  // 148
 	&nox_script_HitLocation_5159E0,           // 149
-	&nox_script_builtin_515AE0,               // 150
-	&nox_script_ShootLocation_515B30,         // 151
-	&nox_script_builtin_515BF0,               // 152
-	&nox_script_MonsterWayFlag_515C40,        // 153
-	&nox_script_builtin_515CB0,               // 154
+	&nox_script_HitLocationGroup_515AE0,      // 150
+	&nox_script_HitFarLocation_515B30,        // 151
+	&nox_script_HitFarLocationGroup_515BF0,   // 152
+	&nox_script_SetRoamFlag_515C40,           // 153
+	&nox_script_SetRoamFlagGroup_515CB0,      // 154
 	&nox_script_Attack_515CF0,                // 155
-	&nox_script_builtin_515DB0,               // 156
-	&nox_script_builtin_5154E0,               // 157
-	&nox_script_DeleteJournalEntry_515550,    // 158
-	&nox_script_builtin_5155A0,               // 159
-	&nox_script_SetIdleLevel_515DF0,          // 160
-	&nox_script_GroupSetIdleHP_515E50,        // 161
+	&nox_script_AttackGroup_515DB0,           // 156
+	&nox_script_JournalEntry_5154E0,          // 157
+	&nox_script_JournalDelete_515550,         // 158
+	&nox_script_JournalEdit_5155A0,           // 159
+	&nox_script_RetreatLevel_515DF0,          // 160
+	&nox_script_RetreatLevelGroup_515E50,     // 161
 	&nox_script_SetResumeLevel_515E80,        // 162
-	&nox_script_builtin_515EE0,               // 163
+	&nox_script_SetResumeLevelGroup_515EE0,   // 163
 	&nox_script_RunAway_515F10,               // 164
-	&nox_script_monsterGroupFleeFrom_516000,  // 165
-	&nox_script_MonsterWait_516060,           // 166
-	&nox_script_builtin_5160F0,               // 167
-	&nox_script_builtin_5161C0,               // 168
-	&nox_script_builtin_516120,               // 169
-	&nox_script_builtin_516160,               // 170
+	&nox_script_RunAwayGroup_516000,          // 165
+	&nox_script_PauseObject_516060,           // 166
+	&nox_script_PauseObjectGroup_5160F0,      // 167
+	&nox_script_IsAttackedBy_5161C0,          // 168
+	&nox_script_GetGold_516120,               // 169
+	&nox_script_ChangeGold_516160,            // 170
 	&nox_script_DialogResult_5163C0,          // 171
 	&nox_script_GiveExp_516190,               // 172
-	&nox_script_builtin_5162D0,               // 173
+	&nox_script_HasSubclass_5162D0,           // 173
 	&nox_script_ForceAutosave_516400,         // 174
 	&nox_script_Music_516430,                 // 175
-	&nox_script_builtin_516600,               // 176
-	&nox_script_builtin_5166A0,               // 177
+	&nox_script_StartupScreen_516600,         // 176
+	&nox_script_IsTalking_5166A0,             // 177
 	&nox_script_GetTrigger_514D30,            // 178
 	&nox_script_GetCaller_514D60,             // 179
-	&nox_script_builtin_516720,               // 180
-	&nox_script_builtin_516760,               // 181
+	&nox_script_MakeFriendly_516720,          // 180
+	&nox_script_MakeEnemy_516760,             // 181
 	&nox_script_BecomePet_5167D0,             // 182
 	&nox_script_BecomeEnemy_516810,           // 183
 	&nox_script_builtin_516790,               // 184
 	&nox_script_builtin_516850,               // 185
 	&nox_script_OblivionGive_516890,          // 186
-	&nox_script_builtin_516680,               // 187
+	&nox_script_DeathScreen_516680,           // 187
 	&nox_script_Frozen_516920,                // 188
-	&nox_script_builtin_516960,               // 189
-	&nox_script_SetProperty_516970,           // 190
-	&nox_script_DecayObject_516A50,           // 191
+	&nox_script_NoWallSound_516960,           // 189
+	&nox_script_SetCallback_516970,           // 190
+	&nox_script_DeleteObjectTimer_516A50,     // 191
 	&nox_script_TrapSpells_516B40,            // 192
 	&nox_script_PlayerIsTrading_5166E0,       // 193
-	&nox_script_builtin_516BC0,               // 194
+	&nox_script_ClearMessages_516BC0,         // 194
 	&nox_script_SetShopkeeperGreet_516BE0,    // 195
 	&nox_script_StopAllFades_516C10,          // 196
-	&nox_script_TestMobStatus_516C30,         // 197
-	&nox_script_builtin_516C70,               // 198
-	&nox_script_builtin_516CB0,               // 199
-	&nox_script_builtin_516CE0,               // 200
-	&nox_script_builtin_516D40,               // 201
-	&nox_script_builtin_5164A0,               // 202
-	&nox_script_builtin_5164E0,               // 203
+	&nox_script_IsSummoned_516C30,            // 197
+	&nox_script_ZombieStayDown_516C70,        // 198
+	&nox_script_ZombieStayDownGroup_516CB0,   // 199
+	&nox_script_RaiseZombie_516CE0,           // 200
+	&nox_script_RaiseZombieGroup_516D40,      // 201
+	&nox_script_MusicPushEvent_5164A0,        // 202
+	&nox_script_MusicPopEvent_5164E0,         // 203
 	&nox_script_ClearMusic_516520,            // 204
 	&nox_script_ObjIsGameball_516D70,         // 205
 	&nox_script_ObjIsCrown_516DC0,            // 206
 	&nox_script_EndGame_516E10,               // 207
 	&nox_script_StartGame_516C20,             // 208
-	&nox_script_PlayerScore_516E30,           // 209
-	&nox_script_builtin_516EA0,               // 210
+	&nox_script_ChangeScore_516E30,           // 209
+	&nox_script_GetScore_516EA0,              // 210
 };
 int nox_script_builtin_cnt = sizeof(nox_script_builtin) / sizeof(void*);
 
@@ -4162,7 +4005,7 @@ bool nox_script_shouldReadMoreXxx(int fi) {
 	void* f = nox_script_builtin[fi];
 	return f == nox_script_secondTimer_512320 || f == nox_script_frameTimer_512350 ||
 		   f == nox_script_timerSecSpecial_512DE0 || f == nox_script_specialTimer_512E10 ||
-		   f == nox_script_SetProperty_516970 || f == nox_script_SetDialog_514D90;
+		   f == nox_script_SetCallback_516970 || f == nox_script_SetDialog_514D90;
 }
 
 bool nox_script_shouldReadEvenMoreXxx(int fi) {

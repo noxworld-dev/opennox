@@ -13,7 +13,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/spell"
-	"github.com/noxworld-dev/opennox-lib/types"
 )
 
 var (
@@ -25,7 +24,7 @@ func castDeathRay(spellID spell.ID, a2, a3, a4 *Unit, a5 *spellAcceptArg, lvl in
 		return 0
 	}
 	pos4 := a4.Pos()
-	pos16 := types.Pointf{X: a5.Arg1, Y: a5.Arg2}
+	pos16 := a5.Pos
 	if !MapTraceRay9(pos4, pos16) {
 		if a4.Class().Has(object.ClassPlayer) && a3.Class().Has(object.ClassPlayer) {
 			nox_xxx_netInformTextMsg_4DA0F0(a3.ControllingPlayer().Index(), 0, 2)

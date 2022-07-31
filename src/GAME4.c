@@ -46,7 +46,6 @@ extern void* nox_alloc_magicWall_1569748;
 extern uint32_t dword_5d4594_1599060;
 extern uint32_t dword_5d4594_1599592;
 extern uint32_t dword_5d4594_1599556;
-extern void* nox_xxx_imagCasterUnit_1569664;
 extern uint32_t dword_5d4594_1599548;
 extern uint32_t dword_5d4594_1599480;
 extern uint32_t dword_5d4594_1599532;
@@ -1683,9 +1682,9 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 	LABEL_93:
 		if (!sub_4F9AB0(u)) {
 			if (nox_xxx_testUnitBuffs_4FF350(u, 3)) {
-				u->direction = nox_xxx_playerConfusedGetDirection_4F7A40(u);
+				u->direction2 = nox_xxx_playerConfusedGetDirection_4F7A40(u);
 			}
-			int dir = 8 * (int)u->direction;
+			int dir = 8 * (int)u->direction2;
 			// update force based on direction, speed, etc
 			u->force_x += *getMemFloatPtr(0x587000, 194136 + dir) * u->speed_cur;
 			u->force_y += *getMemFloatPtr(0x587000, 194140 + dir) * u->speed_cur;
@@ -1840,7 +1839,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 			if (!v50) {
 			LABEL_155:;
 				double v51 = 2 * u->speed_cur;
-				v52 = 8 * (int)u->field_31_0;
+				v52 = 8 * (int)u->direction1;
 				u->force_x = v51 * *getMemFloatPtr(0x587000, 194136 + v52);
 				u->force_y = v51 * *getMemFloatPtr(0x587000, 194140 + v52);
 				break;
@@ -2132,7 +2131,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 					nox_xxx_netInformTextMsg_4DA0F0(pl->playerInd, 13, &v67);
 				} else if (nox_xxx_playerSubStamina_4F7D30(u, 90)) {
 					if (nox_xxx_testUnitBuffs_4FF350(u, 3)) {
-						u->direction = nox_xxx_playerConfusedGetDirection_4F7A40(u);
+						u->direction2 = nox_xxx_playerConfusedGetDirection_4F7A40(u);
 					}
 					u->obj_flags |= 0x4000u;
 					nox_xxx_playerSetState_4FA020(u, 12);
@@ -3314,6 +3313,7 @@ int sub_4FC960(int a1, char a2) {
 	return result;
 }
 
+int nox_setImaginaryCaster();
 //----- (004FCAC0) --------------------------------------------------------
 int nox_xxx_Fn_4FCAC0(int a1, int a2) {
 	sub_4FE8A0(a1);
@@ -3331,12 +3331,9 @@ int nox_xxx_Fn_4FCAC0(int a1, int a2) {
 		*(uint8_t*)(v3 + 212) = 0;
 	}
 	if (a2) {
-		uint32_t* v4 = nox_xxx_newObjectByTypeID_4E3810("ImaginaryCaster");
-		nox_xxx_imagCasterUnit_1569664 = v4;
-		if (!v4) {
+		if (!nox_setImaginaryCaster()) {
 			return 0;
 		}
-		nox_xxx_createAt_4DAA50(v4, 0, 2944.0, 2944.0);
 	}
 	return 1;
 }
