@@ -24,14 +24,15 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 )
 
 type aiData struct {
-	allocListen  alloc.ClassT[MonsterListen]
-	listenHead   *MonsterListen
-	soundFadeVal int
-	lastHeard    types.Pointf
+	allocListen        alloc.ClassT[MonsterListen]
+	listenHead         *MonsterListen
+	soundMuteThreshold int
+	lastHeard          types.Pointf
 }
 
 //export nox_ai_debug_print
@@ -463,7 +464,7 @@ func sub_545E60(a1c *nox_object_t) C.int {
 var _ = [1]struct{}{}[24-unsafe.Sizeof(MonsterListen{})]
 
 type MonsterListen struct {
-	snd   int            // 0, 0
+	snd   sound.ID       // 0, 0
 	obj   *Object        // 1, 4
 	pos   types.Pointf   // 2, 8
 	frame uint32         // 4, 16
@@ -490,11 +491,11 @@ func (a *aiData) Free() {
 
 //export nox_xxx_audioAddAIInteresting_50CD40
 func nox_xxx_audioAddAIInteresting_50CD40(snd C.int, obj *nox_object_t, cp *C.float2) {
-	noxServer.ai.NewSound(int(snd), asObjectC(obj), asPointf(unsafe.Pointer(cp)))
+	noxServer.ai.NewSound(sound.ID(snd), asObjectC(obj), asPointf(unsafe.Pointer(cp)))
 }
 
-func (a *aiData) NewSound(snd int, obj *Object, pos types.Pointf) {
-	if getSoundXxx(snd) == 0 {
+func (a *aiData) NewSound(snd sound.ID, obj *Object, pos types.Pointf) {
+	if getSoundFlags(snd) == 0 {
 		return
 	}
 	if a.allocListen.Class == nil {
@@ -580,20 +581,20 @@ func (a *aiData) aiListenToSounds(u *Unit) {
 	}
 }
 
-func getSoundXxx(ind int) int {
+func getSoundFlags(ind sound.ID) int {
 	return int(memmap.Uint32(0x5D4594, 1570288+28*uintptr(ind)))
 }
 
 func (a *aiData) traceSound(u *Unit, p *MonsterListen) int {
-	xx := getSoundXxx(p.snd)
+	flags := getSoundFlags(p.snd)
 	perc := a.soundFadePerc(p.snd, p.pos, u.Pos())
-	if !a.checkSoundFadePerc(xx, perc) {
+	if !a.checkSoundThreshold(flags, perc) {
 		return -1
 	}
 	if !MapTraceRayAt(u.Pos(), p.pos, nil, nil, 5) {
 		perc = int(float64(perc) * 0.5)
 	}
-	if !a.checkSoundFadePerc(xx, perc) {
+	if !a.checkSoundThreshold(flags, perc) {
 		return -1
 	}
 	return perc
@@ -605,30 +606,23 @@ func nox_xxx_gameSetAudioFadeoutMb_501AC0(v C.int) {
 }
 
 func (a *aiData) nox_xxx_gameSetAudioFadeoutMb(v int) {
-	if v < 0 {
-		v = 0
-	} else if v > 100 {
-		v = 100
-	}
-	a.soundFadeVal = v
+	v = clamp(v, 0, 100)
+	a.soundMuteThreshold = v
 }
 
 //export sub_501AF0
 func sub_501AF0(snd C.int, p1, p2 *C.float2) C.int {
-	return C.int(noxServer.ai.soundFadePerc(int(snd), asPointf(unsafe.Pointer(p1)), asPointf(unsafe.Pointer(p2))))
+	return C.int(noxServer.ai.soundFadePerc(sound.ID(snd), asPointf(unsafe.Pointer(p1)), asPointf(unsafe.Pointer(p2))))
 }
 
-func (a *aiData) soundFadePerc(snd int, p1, p2 types.Pointf) int {
+func (a *aiData) soundFadePerc(snd sound.ID, p1, p2 types.Pointf) int {
 	max := int(memmap.Uint32(0x5D4594, 1570284+28*uintptr(snd)))
+	if max <= 0 {
+		return 0
+	}
 	dx := float64(p1.X - p2.X)
 	dy := float64(p1.Y - p2.Y)
-	if dx >= float64(max) {
-		return 0
-	}
-	if dy >= float64(max) {
-		return 0
-	}
-	if max <= 0 {
+	if abs(dx) >= float64(max) || abs(dy) >= float64(max) {
 		return 0
 	}
 	dist := int(math.Sqrt(dy*dy + dx*dx + 0.1))
@@ -636,51 +630,40 @@ func (a *aiData) soundFadePerc(snd int, p1, p2 types.Pointf) int {
 		return 0
 	}
 	v := 100 * (max - dist) / max
-	if v < 0 {
-		v = 0
-	} else if v > 100 {
-		v = 100
-	}
-	if v <= a.soundFadeVal {
+	v = clamp(v, 0, 100)
+	if v <= a.soundMuteThreshold {
 		return 0
 	}
 	return v
 }
 
-func (a *aiData) checkSoundFadePerc(flags, dist int) bool {
-	if flags&0x20 != 0 {
-		if dist < 89 {
-			return false
-		}
-	} else if flags&0x40 != 0 {
-		if dist < 20 {
-			return false
-		}
-	} else {
-		if dist < 50 {
-			return false
-		}
+func (a *aiData) checkSoundThreshold(flags, perc int) bool {
+	threshold := 50
+	if flags&0x20 != 0 { // walk?
+		threshold = 89
+	} else if flags&0x40 != 0 { // run?
+		threshold = 20
 	}
-	return true
+	return perc >= threshold
 }
 
 func (a *aiData) shouldUnitListen(u *Unit, lis *MonsterListen) bool {
 	ud := u.updateDataMonster()
 	punit := lis.obj.findOwnerChainPlayer()
-	listenable := getSoundXxx(lis.snd)
+	flags := getSoundFlags(lis.snd)
 	if uint32(ud.field_101) > gameFrame() {
 		return false
 	}
 	if punit == nil {
-		if listenable == 0 {
+		if flags == 0 {
 			return false
 		}
 	} else {
 		if u.isEnemyTo(punit) {
-			if listenable == 0 {
+			if flags == 0 {
 				return false
 			}
-		} else if listenable&0x10 == 0 {
+		} else if flags&0x10 == 0 {
 			return false
 		}
 	}
