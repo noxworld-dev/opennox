@@ -1,8 +1,23 @@
 package opennox
 
-func abs(v int) int {
+type number interface {
+	~int | ~int8 | ~int16 | ~int32 | ~int64 |
+		~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 |
+		~uintptr | ~float64 | ~float32
+}
+
+func abs[T number](v T) T {
 	if v < 0 {
 		return -v
+	}
+	return v
+}
+
+func clamp[T number](v, min, max T) T {
+	if v < min {
+		v = min
+	} else if v > max {
+		v = max
 	}
 	return v
 }
