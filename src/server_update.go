@@ -32,7 +32,7 @@ func (s *Server) updateUnitsCallUpdate() { // nox_xxx_updateUnits_51B100_callUpd
 		C.sub_51B810(obj.CObj())
 		C.sub_537770(obj.CObj())
 		prev := obj.Pos()
-		obj.field_31_0 = obj.direction
+		obj.direction1 = obj.direction2
 		npos := obj.newPos()
 		obj.setPrevPos(prev)
 		obj.setPos(npos)

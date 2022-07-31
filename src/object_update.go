@@ -17,7 +17,6 @@ void nullsub_70();
 extern uint32_t dword_5d4594_1569672;
 extern void* nox_alloc_magicEnt_1569668;
 extern void* nox_alloc_spellDur_1569724;
-extern void* nox_xxx_imagCasterUnit_1569664;
 
 void nox_xxx_maybeAnimatePixie_53D010(nox_object_t* a1, nox_object_t* a2);
 static int nox_call_objectType_parseUpdate_go(int (*fnc)(char*, void*), char* arg1, void* arg2) { return fnc(arg1, arg2); }
@@ -372,12 +371,11 @@ func sub_4F9ED0(u *Unit) {
 func nox_xxx_allocSpellRelatedArrays_4FC9B0() error {
 	C.nox_alloc_spellDur_1569724 = alloc.NewClass("spellDuration", 120, 512).UPtr()
 	C.nox_alloc_magicEnt_1569668 = alloc.NewClass("magicEntityClass", 60, 64).UPtr()
-	imagCaster := noxServer.newObjectByTypeID("ImaginaryCaster")
-	if imagCaster == nil {
+	nox_xxx_imagCasterUnit_1569664 = noxServer.newObjectByTypeID("ImaginaryCaster").AsUnit()
+	if nox_xxx_imagCasterUnit_1569664 == nil {
 		return errors.New("cannot find ImaginaryCaster object type")
 	}
-	C.nox_xxx_imagCasterUnit_1569664 = unsafe.Pointer(imagCaster.CObj())
-	nox_xxx_createAt_4DAA50(imagCaster, nil, types.Pointf{X: 2944.0, Y: 2944.0})
+	nox_xxx_createAt_4DAA50(nox_xxx_imagCasterUnit_1569664, nil, types.Pointf{X: 2944.0, Y: 2944.0})
 	noxPixieObjID = noxServer.getObjectTypeID("Pixie")
 	*memmap.PtrUint32(0x5D4594, 1569676) = uint32(noxPixieObjID)
 	*memmap.PtrUint32(0x5D4594, 1569680) = uint32(noxServer.getObjectTypeID("MagicMissile"))
@@ -393,8 +391,8 @@ func nox_xxx_freeSpellRelated_4FCA80() {
 	alloc.AsClass(C.nox_alloc_spellDur_1569724).Free()
 	alloc.AsClass(C.nox_alloc_magicEnt_1569668).Free()
 	C.dword_5d4594_1569672 = 0
-	asUnit(C.nox_xxx_imagCasterUnit_1569664).Delete()
-	C.nox_xxx_imagCasterUnit_1569664 = nil
+	nox_xxx_imagCasterUnit_1569664.Delete()
+	nox_xxx_imagCasterUnit_1569664 = nil
 }
 
 //export nox_xxx_updatePixie_53CD20
@@ -480,7 +478,7 @@ func nox_xxx_pixieIdleAnimate_53CF90(obj *Unit, vec types.Pointf, ddir int) {
 			dir += 256
 		}
 	}
-	obj.direction = C.ushort(dir)
+	obj.direction2 = C.ushort(dir)
 }
 
 //export nox_xxx_maybeAnimatePixie_53D010
@@ -559,8 +557,8 @@ func nox_xxx_enemyAggro(self *Unit, r, max float32) *Object {
 		}
 		vec := it.Pos().Sub(self.Pos())
 		dist := float32(math.Sqrt(float64(vec.X*vec.X+vec.Y*vec.Y)) + 0.001)
-		cos := memmap.Float32(0x587000, 194136+8*uintptr(self.field_31_0))
-		sin := memmap.Float32(0x587000, 194140+8*uintptr(self.field_31_0))
+		cos := memmap.Float32(0x587000, 194136+8*uintptr(self.direction1))
+		sin := memmap.Float32(0x587000, 194140+8*uintptr(self.direction1))
 		if !someFlag || vec.Y/dist*sin+vec.X/dist*cos > 0.5 {
 			dist2 := dist
 			if it.HasEnchant(ENCHANT_VILLAIN) {
