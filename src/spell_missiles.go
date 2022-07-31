@@ -6,6 +6,7 @@ package opennox
 import "C"
 import (
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
 
@@ -14,19 +15,19 @@ import (
 
 type spellMissiles struct {
 	s    *Server
-	proj map[things.SpellID]int // map[spellID]typeID, 0x5D4594, 2489136
+	proj map[spell.ID]int // map[spellID]typeID, 0x5D4594, 2489136
 }
 
 func (sp *spellMissiles) Init(s *Server) {
 	sp.s = s
-	sp.proj = make(map[things.SpellID]int)
+	sp.proj = make(map[spell.ID]int)
 }
 
 func (sp *spellMissiles) Free() {
 	sp.proj = nil
 }
 
-func (sp *spellMissiles) Cast(spellID things.SpellID, a2, owner, caster *Unit, a5 *spellAcceptArg, lvl int) int {
+func (sp *spellMissiles) Cast(spellID spell.ID, a2, owner, caster *Unit, a5 *spellAcceptArg, lvl int) int {
 	spl := sp.s.SpellDefByInd(spellID)
 	opts := spl.Def.Missiles.Level(lvl)
 	typ, ok := sp.proj[spellID]
@@ -56,7 +57,7 @@ func (sp *spellMissiles) Cast(spellID things.SpellID, a2, owner, caster *Unit, a
 	return 1
 }
 
-func (sp *spellMissiles) CastCustom(spellID things.SpellID, owner, caster *Unit, opts things.MissilesSpell) {
+func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts things.MissilesSpell) {
 	cpos := caster.Pos()
 	cvel := caster.Vel()
 	rdist := float32(caster.shape.circle_r) + opts.Offset

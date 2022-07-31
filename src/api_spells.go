@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/things"
 )
 
@@ -16,7 +17,7 @@ type debugSpellDef struct {
 	Valid     bool              `json:"valid"`
 	ManaCost  int               `json:"mana_cost,omitempty"`
 	BasePrice int               `json:"base_price,omitempty"`
-	Phonemes  []things.Phoneme  `json:"phonemes,omitempty"`
+	Phonemes  []spell.Phoneme   `json:"phonemes,omitempty"`
 }
 
 var _ json.Marshaler = &SpellDef{}

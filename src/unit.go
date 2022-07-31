@@ -15,6 +15,7 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
@@ -340,6 +341,24 @@ func (u *Unit) AddGold(v int) {
 	} else {
 		C.nox_xxx_playerAddGold_4FA590(C.int(uintptr(unsafe.Pointer(u.CObj()))), C.int(v))
 	}
+}
+
+func (u *Unit) Cast(sp spell.ID, lvl int, targ script.Positioner) bool {
+	if !sp.Valid() || lvl <= 0 {
+		return false
+	}
+	var s *Server = u.getServer()
+	sa, freeArg := alloc.New(spellAcceptArg{})
+	defer freeArg()
+	if targ == nil {
+		targ = u
+	}
+	if o, ok := targ.(noxObject); ok {
+		sa.Obj = o.AsObject().CObj()
+	}
+	pos := targ.Pos()
+	sa.Arg1, sa.Arg2 = pos.X, pos.Y
+	return s.castSpell(sp, lvl, u, sa)
 }
 
 func (u *Unit) dropAllItems() {

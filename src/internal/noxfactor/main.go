@@ -624,7 +624,7 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 		}
 	case "nox_xxx_spellNameToN_4243F0":
 		if len(n.Args) == 1 {
-			n.Fun = selExpr("things", "SpellIndex")
+			n.Fun = selExpr("spell", "ParseID")
 			r.fileChanged = true
 			r.visitCall(n)
 		}

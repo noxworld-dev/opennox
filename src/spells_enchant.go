@@ -3,7 +3,7 @@ package opennox
 import (
 	"fmt"
 
-	"github.com/noxworld-dev/opennox-lib/things"
+	"github.com/noxworld-dev/opennox-lib/spell"
 )
 
 type EnchantID byte
@@ -59,37 +59,37 @@ const (
 	ENCHANT_SNEAK                    = EnchantID(31)
 )
 
-var enchantSpells = map[EnchantID]things.SpellID{
-	ENCHANT_INVISIBLE:                things.SPELL_INVISIBILITY,
-	ENCHANT_MOONGLOW:                 things.SPELL_MOONGLOW,
-	ENCHANT_BLINDED:                  things.SPELL_BLIND,
-	ENCHANT_CONFUSED:                 things.SPELL_CONFUSE,
-	ENCHANT_SLOWED:                   things.SPELL_SLOW,
-	ENCHANT_HELD:                     things.SPELL_STUN,
+var enchantSpells = map[EnchantID]spell.ID{
+	ENCHANT_INVISIBLE:                spell.SPELL_INVISIBILITY,
+	ENCHANT_MOONGLOW:                 spell.SPELL_MOONGLOW,
+	ENCHANT_BLINDED:                  spell.SPELL_BLIND,
+	ENCHANT_CONFUSED:                 spell.SPELL_CONFUSE,
+	ENCHANT_SLOWED:                   spell.SPELL_SLOW,
+	ENCHANT_HELD:                     spell.SPELL_STUN,
 	ENCHANT_DETECTING:                0,
 	ENCHANT_ETHEREAL:                 0,
-	ENCHANT_RUN:                      things.SPELL_RUN,
-	ENCHANT_HASTED:                   things.SPELL_HASTE,
-	ENCHANT_VILLAIN:                  things.SPELL_VILLAIN,
-	ENCHANT_AFRAID:                   things.SPELL_FEAR,
+	ENCHANT_RUN:                      spell.SPELL_RUN,
+	ENCHANT_HASTED:                   spell.SPELL_HASTE,
+	ENCHANT_VILLAIN:                  spell.SPELL_VILLAIN,
+	ENCHANT_AFRAID:                   spell.SPELL_FEAR,
 	ENCHANT_BURNING:                  0,
-	ENCHANT_VAMPIRISM:                things.SPELL_VAMPIRISM,
-	ENCHANT_ANCHORED:                 things.SPELL_ANCHOR,
-	ENCHANT_LIGHT:                    things.SPELL_LIGHT,
-	ENCHANT_DEATH:                    things.SPELL_DEATH,
-	ENCHANT_PROTECT_FROM_FIRE:        things.SPELL_PROTECTION_FROM_FIRE,
-	ENCHANT_PROTECT_FROM_POISON:      things.SPELL_PROTECTION_FROM_POISON,
-	ENCHANT_PROTECT_FROM_MAGIC:       things.SPELL_PROTECTION_FROM_MAGIC,
-	ENCHANT_PROTECT_FROM_ELECTRICITY: things.SPELL_PROTECTION_FROM_ELECTRICITY,
-	ENCHANT_INFRAVISION:              things.SPELL_INFRAVISION,
-	ENCHANT_SHOCK:                    things.SPELL_SHOCK,
-	ENCHANT_INVULNERABLE:             things.SPELL_INVULNERABILITY,
-	ENCHANT_TELEKINESIS:              things.SPELL_TELEKINESIS,
-	ENCHANT_FREEZE:                   things.SPELL_FREEZE,
-	ENCHANT_SHIELD:                   things.SPELL_SHIELD,
-	ENCHANT_REFLECTIVE_SHIELD:        things.SPELL_OVAL_SHIELD,
-	ENCHANT_CHARMING:                 things.SPELL_CHARM,
-	ENCHANT_ANTI_MAGIC:               things.SPELL_NULLIFY,
+	ENCHANT_VAMPIRISM:                spell.SPELL_VAMPIRISM,
+	ENCHANT_ANCHORED:                 spell.SPELL_ANCHOR,
+	ENCHANT_LIGHT:                    spell.SPELL_LIGHT,
+	ENCHANT_DEATH:                    spell.SPELL_DEATH,
+	ENCHANT_PROTECT_FROM_FIRE:        spell.SPELL_PROTECTION_FROM_FIRE,
+	ENCHANT_PROTECT_FROM_POISON:      spell.SPELL_PROTECTION_FROM_POISON,
+	ENCHANT_PROTECT_FROM_MAGIC:       spell.SPELL_PROTECTION_FROM_MAGIC,
+	ENCHANT_PROTECT_FROM_ELECTRICITY: spell.SPELL_PROTECTION_FROM_ELECTRICITY,
+	ENCHANT_INFRAVISION:              spell.SPELL_INFRAVISION,
+	ENCHANT_SHOCK:                    spell.SPELL_SHOCK,
+	ENCHANT_INVULNERABLE:             spell.SPELL_INVULNERABILITY,
+	ENCHANT_TELEKINESIS:              spell.SPELL_TELEKINESIS,
+	ENCHANT_FREEZE:                   spell.SPELL_FREEZE,
+	ENCHANT_SHIELD:                   spell.SPELL_SHIELD,
+	ENCHANT_REFLECTIVE_SHIELD:        spell.SPELL_OVAL_SHIELD,
+	ENCHANT_CHARMING:                 spell.SPELL_CHARM,
+	ENCHANT_ANTI_MAGIC:               spell.SPELL_NULLIFY,
 	ENCHANT_CROWN:                    0,
 	ENCHANT_SNEAK:                    0,
 }
