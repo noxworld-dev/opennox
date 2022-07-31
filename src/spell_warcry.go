@@ -8,7 +8,7 @@ import "C"
 import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
-	"github.com/noxworld-dev/opennox-lib/things"
+	"github.com/noxworld-dev/opennox-lib/spell"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
@@ -61,12 +61,12 @@ func nox_xxx_warriorWarcry_53FF40(u *Unit) {
 					Arg1: pos.X,
 					Arg2: pos.Y,
 				}
-				s.nox_xxx_spellAccept4FD400(things.SPELL_NULLIFY, u, u, u, sa, 5)
+				s.nox_xxx_spellAccept4FD400(spell.SPELL_NULLIFY, u, u, u, sa, 5)
 			}
 		}
 	})
 	u.DisableEnchant(ENCHANT_INVISIBLE)
 	u.DisableEnchant(ENCHANT_INVULNERABLE)
-	nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_OVAL_SHIELD, u)
+	nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_OVAL_SHIELD, u)
 	s.abilities.netAbilReportActive(u, AbilityWarcry, true)
 }

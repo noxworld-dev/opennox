@@ -12,7 +12,7 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
-	"github.com/noxworld-dev/opennox-lib/things"
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 )
 
@@ -20,7 +20,7 @@ var (
 	spellDRayVioletSpark int
 )
 
-func castDeathRay(spellID things.SpellID, a2, a3, a4 *Unit, a5 *spellAcceptArg, lvl int) int {
+func castDeathRay(spellID spell.ID, a2, a3, a4 *Unit, a5 *spellAcceptArg, lvl int) int {
 	if a5 == nil || a4 == nil {
 		return 0
 	}

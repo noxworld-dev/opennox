@@ -35,6 +35,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
 
@@ -863,7 +864,7 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 	if leaf := (*phonemeLeaf)(ud.spell_phoneme_leaf); leaf == getPhonemeTree() {
 		ok2 = false
 	} else if leaf != nil && leaf.Ind != 0 {
-		spellInd := things.SpellID(leaf.Ind)
+		spellInd := spell.ID(leaf.Ind)
 		if !noxflags.HasGame(noxflags.GameModeQuest) {
 			targ := ud.CursorObj()
 			if noxServer.spellHasFlags(spellInd, things.SpellOffensive) {
@@ -916,11 +917,11 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 		nox_xxx_netSendLineMessage_4D9EB0(u, v13)
 	} else if a1 != 0 {
 		v4 := (*phonemeLeaf)(ud.spell_phoneme_leaf)
-		nox_xxx_netReportSpellStat_4D9630(pl.Index(), things.SpellID(v4.Ind), 0)
+		nox_xxx_netReportSpellStat_4D9630(pl.Index(), spell.ID(v4.Ind), 0)
 	} else {
 		v4 := (*phonemeLeaf)(ud.spell_phoneme_leaf)
-		if !noxServer.spellHasFlags(things.SpellID(v4.Ind), things.SpellFlagUnk21) {
-			nox_xxx_netReportSpellStat_4D9630(pl.Index(), things.SpellID(v4.Ind), 15)
+		if !noxServer.spellHasFlags(spell.ID(v4.Ind), things.SpellFlagUnk21) {
+			nox_xxx_netReportSpellStat_4D9630(pl.Index(), spell.ID(v4.Ind), 15)
 		}
 	}
 }
