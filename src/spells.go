@@ -576,9 +576,8 @@ func (s *SpellDef) GetAudio(snd int) sound.ID { // nox_xxx_spellGetAud44_424800
 }
 
 type spellAcceptArg struct {
-	Obj  *nox_object_t
-	Arg1 float32
-	Arg2 float32
+	Obj *nox_object_t
+	Pos types.Pointf
 }
 
 //export nox_xxx_spellAccept_4FD400
@@ -930,6 +929,14 @@ func (s *Server) castSpell(spellInd spell.ID, lvl int, u *Unit, a3 *spellAcceptA
 	}
 	C.nox_xxx_createSpellFly_4FDDA0(u.CObj(), a3.Obj, C.int(spellInd))
 	return true
+}
+
+func (s *Server) castSpellBy(spellInd spell.ID, caster *Unit, targ noxObject, targPos types.Pointf) bool {
+	sa, freeArg := alloc.New(spellAcceptArg{})
+	defer freeArg()
+	sa.Obj = toCObj(targ)
+	sa.Pos = targPos
+	return s.nox_xxx_castSpellByUser4FDD20(spellInd, caster, sa)
 }
 
 func (s *Server) nox_xxx_castSpellByUser4FDD20(spellInd spell.ID, u *Unit, a3 *spellAcceptArg) bool {

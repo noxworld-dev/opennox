@@ -66,7 +66,7 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts 
 		if i%2 == 1 {
 			doff = -doff
 		}
-		dir := nox_xxx_math_roundDirI16(int16(caster.field_31_0) + doff)
+		dir := nox_xxx_math_roundDirI16(int16(caster.direction1) + doff)
 		dirX := memmap.Float32(0x587000, 194136+8*uintptr(dir))
 		dirY := memmap.Float32(0x587000, 194140+8*uintptr(dir))
 		p2 := types.Pointf{
@@ -81,7 +81,7 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts 
 		nox_xxx_createAt_4DAA50(msl, owner, p2)
 		mspeed := float32(noxRndCounter1.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.curSpeed()))
 		msl.speed_cur = C.float(mspeed)
-		msl.setDir(dir)
+		msl.setAllDirs(dir)
 		msl.setVel(types.Pointf{
 			X: cvel.X + mspeed*dirX*opts.VelMult,
 			Y: cvel.Y + mspeed*dirY*opts.VelMult,

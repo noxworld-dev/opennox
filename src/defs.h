@@ -427,8 +427,8 @@ typedef struct nox_object_t {
 	float float_28;          // 28, 112, // TODO: damping/drag?
 	uint32_t field_29;       // 29, 116
 	float mass;              // 30, 120
-	uint16_t field_31_0;     // 31, 124, // TODO: 124 is set to value of 126 in at least 51B100
-	uint16_t direction;      // 31, 126, // TODO: 126 accessed as word in at least 51B100, probably direction
+	uint16_t direction1;     // 31, 124, // TODO: 124 is set to value of 126 in at least 51B100
+	uint16_t direction2;     // 31, 126, // TODO: 126 accessed as word in at least 51B100, probably direction
 	uint32_t field_32;       // 32, 128
 	uint32_t field_33;       // 33, 132
 	uint32_t field_34;       // 34, 136, TODO: some frame/timestamp

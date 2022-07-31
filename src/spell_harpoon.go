@@ -77,17 +77,17 @@ func (a *abilityHarpoon) createBolt(u *Unit) {
 	ud := u.updateDataPlayer()
 	r := u.getShape().circle.R + 1.0
 	*(**nox_object_t)(unsafe.Add(bolt.collide_data, 4)) = u.CObj()
-	cos := memmap.Float32(0x587000, 194136+8*uintptr(u.field_31_0))
-	sin := memmap.Float32(0x587000, 194140+8*uintptr(u.field_31_0))
+	cos := memmap.Float32(0x587000, 194136+8*uintptr(u.direction1))
+	sin := memmap.Float32(0x587000, 194140+8*uintptr(u.direction1))
 	hpos := u.Pos().Add(types.Pointf{
 		X: r * cos, Y: r * sin,
 	})
 	nox_xxx_createAt_4DAA50(bolt, u, hpos)
 	bolt.vel_x = C.float(cos * float32(bolt.speed_cur))
 	bolt.vel_y = C.float(sin * float32(bolt.speed_cur))
-	dir := u.field_31_0
-	bolt.field_31_0 = dir
-	bolt.direction = dir
+	dir := u.direction1
+	bolt.direction1 = dir
+	bolt.direction2 = dir
 	ud.harpoon_bolt = bolt.CObj()
 	ud.harpoon_35 = 0
 }
@@ -214,7 +214,7 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 			obj6 := nox_xxx_spellFlySearchTarget(&v13, bolt, 32, a.maxDist, 0, owner)
 			*(**nox_object_t)(bud) = obj6.CObj()
 			if obj6 != nil {
-				if nox_server_testTwoPointsAndDirection_4E6E50(bolt.Pos(), int16(bolt.field_31_0), obj6.Pos())&0x1 == 0 {
+				if nox_server_testTwoPointsAndDirection_4E6E50(bolt.Pos(), int16(bolt.direction1), obj6.Pos())&0x1 == 0 {
 					*(**nox_object_t)(bud) = nil
 				}
 			}
@@ -264,7 +264,7 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 		bolt.setPrevPos(tpos)
 		bolt.setVel(types.Pointf{})
 		bolt.setForce(types.Pointf{})
-		bolt.field_31_0 = targ.field_31_0
+		bolt.direction1 = targ.direction1
 		nox_xxx_moveUpdateSpecial_517970(bolt.CObj())
 	} else if dist > a.maxFlight {
 		a.breakForPlayer(owner)

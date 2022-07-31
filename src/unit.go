@@ -356,8 +356,7 @@ func (u *Unit) Cast(sp spell.ID, lvl int, targ script.Positioner) bool {
 	if o, ok := targ.(noxObject); ok {
 		sa.Obj = o.AsObject().CObj()
 	}
-	pos := targ.Pos()
-	sa.Arg1, sa.Arg2 = pos.X, pos.Y
+	sa.Pos = targ.Pos()
 	return s.castSpell(sp, lvl, u, sa)
 }
 

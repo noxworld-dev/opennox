@@ -57,9 +57,8 @@ func nox_xxx_warriorWarcry_53FF40(u *Unit) {
 				sa, free := alloc.New(spellAcceptArg{})
 				defer free()
 				*sa = spellAcceptArg{
-					Obj:  u2.CObj(),
-					Arg1: pos.X,
-					Arg2: pos.Y,
+					Obj: u2.CObj(),
+					Pos: pos,
 				}
 				s.nox_xxx_spellAccept4FD400(spell.SPELL_NULLIFY, u, u, u, sa, 5)
 			}
