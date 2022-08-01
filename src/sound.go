@@ -62,20 +62,20 @@ func nox_thing_read_audio_one(f *MemFile) bool {
 	v17 := f.ReadU8()
 	f.Skip(3)
 	if v8 > 0 {
-		*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)) = 15 * uint32(v8)
+		*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+0) = 15 * uint32(v8)
 	}
-	*memmap.PtrUint32(0x5D4594, 1570288+28*uintptr(snd)) = uint32(v6)
-	*memmap.PtrUint32(0x5D4594, 1570292+28*uintptr(snd)) = uint32(v7)
-	*memmap.PtrUint32(0x5D4594, 1570304+28*uintptr(snd)) = uint32(v17)
+	*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+4) = uint32(v6)
+	*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+8) = uint32(v7)
+	*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+20) = uint32(v17)
 	for {
 		n := int(f.ReadU8())
 		if n == 0 {
 			break
 		}
 		f.Skip(n)
-		*memmap.PtrUint32(0x5D4594, 1570296+28*uintptr(snd))++
+		*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+12)++
 	}
-	*memmap.PtrUint32(0x5D4594, 1570300+28*uintptr(snd)) = 2
+	*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+16) = 2
 	return true
 }
 
@@ -100,17 +100,17 @@ func nox_thing_read_AVNT_502120(f *MemFile) bool {
 		case 2:
 			v := f.ReadU8()
 			if upd {
-				*memmap.PtrUint32(0x5D4594, 1570300+28*uintptr(snd)) = uint32(v)
+				*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+16) = uint32(v)
 			}
 		case 3:
 			v := f.ReadU8()
 			if upd {
-				*memmap.PtrUint32(0x5D4594, 1570292+28*uintptr(snd)) = uint32(v)
+				*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+8) = uint32(v)
 			}
 		case 4:
 			v := f.ReadU8()
 			if upd {
-				*memmap.PtrUint32(0x5D4594, 1570304+28*uintptr(snd)) = uint32(v)
+				*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+20) = uint32(v)
 			}
 		case 6:
 			f.Skip(2)
@@ -121,19 +121,19 @@ func nox_thing_read_AVNT_502120(f *MemFile) bool {
 					break
 				}
 				f.Skip(int(n))
-				*memmap.PtrUint32(0x5D4594, 1570296+28*uintptr(snd))++
+				*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+12)++
 			}
 		case 8:
 			f.Skip(8)
 		case 9:
 			v := f.ReadU16()
 			if upd {
-				*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)) = 15 * uint32(v)
+				*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+0) = 15 * uint32(v)
 			}
 		case 10:
 			v := f.ReadU16()
 			if upd {
-				*memmap.PtrUint32(0x5D4594, 1570288+28*uintptr(snd)) = uint32(v)
+				*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+4) = uint32(v)
 			}
 		default:
 			return false

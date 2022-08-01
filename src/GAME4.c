@@ -6694,7 +6694,7 @@ int nox_xxx_allocAudEventArray_501860() {
 	if (!*getMemU32Ptr(0x5D4594, 1599056)) {
 		return 0;
 	}
-	v1 = getMemAt(0x5D4594, 1570292);
+	v1 = getMemAt(0x5D4594, 1570284 + 8);
 	do {
 		*((uint32_t*)v1 - 2) = 600;
 		*(uint32_t*)v1 = 0;
@@ -6719,7 +6719,7 @@ void sub_5018D0() {
 }
 
 //----- (00501940) --------------------------------------------------------
-int nox_xxx_getSevenDwords3_501940(int a1) { return *getMemU32Ptr(0x5D4594, 1570296 + 28 * a1); }
+int nox_xxx_getSevenDwords3_501940(int a1) { return *getMemU32Ptr(0x5D4594, 1570284 + 28*a1 + 12); }
 
 //----- (00501960) --------------------------------------------------------
 uint32_t* nox_xxx_aud_501960(int a1, nox_object_t* a2p, int a3, int a4) {
@@ -6894,7 +6894,7 @@ int nox_xxx_netUpdateRemotePlr_501CA0(int a1) {
 			if (*(uint8_t*)(v2 + 188) || (v13 = *(uint32_t*)(i + 4), v13 < 186) || v13 > 193 || v1 != *(uint32_t*)(i + 16)) {
 				v14 = sub_501AF0(*(uint32_t*)(i + 4), (float*)(i + 8), (float*)(*(uint32_t*)(v2 + 276) + 3632)) >> 1;
 				if (v14 > 0) {
-					if (*getMemU32Ptr(0x5D4594, 1570304 + 28 * *(uint32_t*)(i + 4))) {
+					if (*getMemU32Ptr(0x5D4594, 1570284 + 20 + 28 * *(uint32_t*)(i + 4))) {
 						sub_501EA0((uint32_t*)i, v14);
 					} else {
 						sub_501FD0(v1, i, v14);
@@ -6922,10 +6922,10 @@ uint32_t* sub_501EA0(uint32_t* a1, int a2) {
 	v2 = a1[1];
 	if (!sub_501EF0(v2)) {
 		sub_501F10(v2);
-		*getMemU32Ptr(0x5D4594, 1570308 + 28 * v2) = 0;
+		*getMemU32Ptr(0x5D4594, 1570284 + 28*v2 + 24) = 0;
 	}
 	a1[8] = a2;
-	return sub_501F30((int)getMemAt(0x5D4594, 1570284 + 28 * v2), a1);
+	return sub_501F30((int)getMemAt(0x5D4594, 1570284 + 28*v2), a1);
 }
 
 //----- (00501EF0) --------------------------------------------------------
@@ -6966,7 +6966,7 @@ uint32_t* sub_501F30(int a1, uint32_t* a2) {
 				if (v5 > v6) {
 					break;
 				}
-			} else if (getMemByte(0x5D4594, 1570300 + 28 * a2[1]) & 0x10) {
+			} else if (getMemByte(0x5D4594, 1570284 + 28*a2[1] + 16) & 0x10) {
 				break;
 			}
 			if (++v4 > *(int*)(a1 + 20)) {
@@ -7028,8 +7028,8 @@ int sub_502060(int a1) {
 			v4 = 0;
 			do {
 				if (result & 1) {
-					v5 = *getMemU32Ptr(0x5D4594, 1570308 + 28 * (v2 + v4));
-					for (i = *getMemU32Ptr(0x5D4594, 1570304 + 28 * (v2 + v4)); v5; v5 = *(uint32_t*)(v5 + 28)) {
+					v5 = *getMemU32Ptr(0x5D4594, 1570284 + 28*(v2 + v4) + 24);
+					for (i = *getMemU32Ptr(0x5D4594, 1570284 + 28*(v2 + v4) + 20); v5; v5 = *(uint32_t*)(v5 + 28)) {
 						v7 = i--;
 						if (v7 <= 0) {
 							break;
