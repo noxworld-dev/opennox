@@ -582,7 +582,7 @@ func (a *aiData) aiListenToSounds(u *Unit) {
 }
 
 func getSoundFlags(ind sound.ID) int {
-	return int(memmap.Uint32(0x5D4594, 1570288+28*uintptr(ind)))
+	return int(memmap.Uint32(0x5D4594, 1570284+28*uintptr(ind)+4))
 }
 
 func (a *aiData) traceSound(u *Unit, p *MonsterListen) int {
@@ -616,7 +616,7 @@ func sub_501AF0(snd C.int, p1, p2 *C.float2) C.int {
 }
 
 func (a *aiData) soundFadePerc(snd sound.ID, p1, p2 types.Pointf) int {
-	max := int(memmap.Uint32(0x5D4594, 1570284+28*uintptr(snd)))
+	max := int(memmap.Uint32(0x5D4594, 1570284+28*uintptr(snd)+0))
 	if max <= 0 {
 		return 0
 	}
