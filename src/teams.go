@@ -9,6 +9,7 @@ extern unsigned int nox_player_netCode_85319C;
 */
 import "C"
 import (
+	"encoding/binary"
 	"image/color"
 	"unsafe"
 
@@ -297,7 +298,7 @@ func (s *Server) teamCreate(ind byte) *Team {
 	t.name[0] = 0
 	t.field_44 = 0
 	t.field_48 = 0
-	t.field_52 = 0
+	t.lessons = 0
 	t.def_ind = C.uchar(ti)
 	t.ind = C.uchar(ti)
 	t.field_60 = 0
@@ -353,7 +354,7 @@ func (s *Server) getTeamColor(t2 *Team) color.Color {
 func (s *Server) teamsResetYyy() int {
 	for i := 1; i < len(s.teams.arr); i++ {
 		t := &s.teams.arr[i]
-		t.field_52 = 0
+		t.lessons = 0
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
 		return 0
@@ -371,6 +372,22 @@ func (s *Server) sendTeamPacket(op byte) int {
 	buf[0] = byte(noxnet.MSG_TEAM_MSG)
 	buf[1] = op
 	return s.nox_xxx_netSendPacket1_4E5390(159, buf[:], 0, 1)
+}
+
+func (s *Server) teamChangeLessons(tm *Team, val int) { // nox_xxx_netChangeTeamID_419090
+	if tm == nil {
+		return
+	}
+	tm.lessons = C.int(val)
+	if !noxflags.HasGame(noxflags.GameHost) {
+		return
+	}
+	var buf [10]byte
+	buf[0] = byte(noxnet.MSG_TEAM_MSG)
+	buf[1] = 0x8
+	binary.LittleEndian.PutUint32(buf[2:], uint32(tm.field_57))
+	binary.LittleEndian.PutUint32(buf[6:], uint32(val))
+	s.nox_xxx_netSendPacket1_4E5390(159, buf[:10], 0, 1)
 }
 
 func (s *Server) teamsZzz(a1 int) int {

@@ -108,7 +108,7 @@ func (s *Server) newScriptTimer(df int, callback, arg uint32) uint32 {
 //export nox_script_activatorTimer_51ACA0
 func nox_script_activatorTimer_51ACA0(df, callback, arg C.int) {
 	id := noxServer.newScriptTimer(int(df), uint32(callback), uint32(arg))
-	noxServer.nox_script_push(id)
+	noxServer.scriptPushU32(id)
 }
 
 func (s *Server) nox_script_activatorClearObj(obj *Object) {
@@ -233,7 +233,7 @@ func (s *Server) nox_script_activatorRun_51ADF0() {
 			caller := it.caller
 			trigger := it.trigger
 			if scripts[callback].size_28 != 0 {
-				s.nox_script_push(it.arg)
+				s.scriptPushU32(it.arg)
 			}
 			it = s.nox_script_activatorDoneNext_51AD90(it)
 			C.nox_script_callByIndex_507310(C.int(callback), unsafe.Pointer(caller.CObj()), unsafe.Pointer(trigger.CObj()))
@@ -275,7 +275,11 @@ func (s *Server) nox_script_activatorDoneNext_51AD90(act *Activator) *Activator 
 	return next
 }
 
-func (s *Server) nox_script_push(v uint32) {
+func (s *Server) scriptPushU32(v uint32) {
+	C.nox_script_push(C.int(v))
+}
+
+func (s *Server) scriptPushI32(v int32) {
 	C.nox_script_push(C.int(v))
 }
 
@@ -358,6 +362,10 @@ func noxScriptPopF32() float32 {
 
 func noxScriptPopString() string {
 	return GoString(C.nox_script_getString_512E40(C.nox_script_pop()))
+}
+
+func noxScriptPopObject() *Object {
+	return noxServer.nox_server_scriptValToObjectPtr(int(C.nox_script_pop()))
 }
 
 func nox_script_builtinGetF40() int { return int(C.dword_5d4594_3821636) }
@@ -608,7 +616,7 @@ func nox_script_CastLocation2_515130() C.int {
 
 //export nox_script_CastLocationObject_515060
 func nox_script_CastLocationObject_515060() C.int {
-	objID := noxScriptPopU32()
+	targ := noxScriptPopObject()
 	y1 := noxScriptPopF32()
 	x1 := noxScriptPopF32()
 	srcPos := types.Pointf{X: x1, Y: y1}
@@ -616,7 +624,6 @@ func nox_script_CastLocationObject_515060() C.int {
 	if !sp.Valid() {
 		return 0
 	}
-	targ := noxServer.nox_server_scriptValToObjectPtr(int(objID))
 	if targ == nil {
 		return 0
 	}
@@ -629,12 +636,11 @@ func nox_script_CastLocationObject_515060() C.int {
 //export nox_script_CastObject2_514F10
 func nox_script_CastObject2_514F10() C.int {
 	targID := noxScriptPopU32()
-	casterID := noxScriptPopU32()
+	caster := noxScriptPopObject().AsUnit()
 	sp := spell.ParseID(noxScriptPopString())
 	if !sp.Valid() {
 		return 0
 	}
-	caster := noxServer.nox_server_scriptValToObjectPtr(int(casterID)).AsUnit()
 	if caster == nil {
 		return 0
 	}
@@ -655,12 +661,11 @@ func nox_script_CastObjectLocation_514FC0() C.int {
 	y2 := noxScriptPopF32()
 	x2 := noxScriptPopF32()
 	targPos := types.Pointf{X: x2, Y: y2}
-	casterID := noxScriptPopU32()
+	caster := noxScriptPopObject().AsUnit()
 	sp := spell.ParseID(noxScriptPopString())
 	if !sp.Valid() {
 		return 0
 	}
-	caster := noxServer.nox_server_scriptValToObjectPtr(int(casterID)).AsUnit()
 	if caster == nil {
 		return 0
 	}
@@ -673,8 +678,7 @@ func nox_script_CastObjectLocation_514FC0() C.int {
 func nox_script_SetCallback_516970() C.int {
 	fnc := C.int(noxScriptPopU32())
 	ev := noxScriptPopU32()
-	objID := int(noxScriptPopU32())
-	u := noxServer.nox_server_scriptValToObjectPtr(objID).AsUnit()
+	u := noxScriptPopObject().AsUnit()
 	if u == nil || !u.Class().Has(object.ClassMonster) {
 		return 0
 	}
@@ -719,5 +723,37 @@ func nox_script_printToAll_512B60() C.int {
 	strID := noxScriptPopString()
 	str := noxServer.Strings().GetStringInFile(strman.ID(strID), "CScrFunc.c")
 	PrintToPlayers(str)
+	return 0
+}
+
+//export nox_script_ChangeScore_516E30
+func nox_script_ChangeScore_516E30() C.int {
+	val := int(noxScriptPopU32())
+	u := noxScriptPopObject().AsUnit()
+	if u == nil || !u.Class().Has(object.ClassPlayer) {
+		return 0
+	}
+	if val <= 0 {
+		nox_xxx_playerSubLessons_4D8EC0(u, -val)
+	} else {
+		nox_xxx_changeScore_4D8E90(u, val)
+	}
+
+	if tm := noxServer.teamByYyy(u.team()); tm != nil {
+		noxServer.teamChangeLessons(tm, val+int(tm.lessons))
+	}
+	nox_xxx_netReportLesson_4D8EF0(u)
+	return 0
+}
+
+//export nox_script_GetScore_516EA0
+func nox_script_GetScore_516EA0() C.int {
+	u := noxScriptPopObject().AsUnit()
+	if u == nil || !u.Class().Has(object.ClassPlayer) {
+		noxServer.scriptPushU32(0)
+		return 0
+	}
+	pl := u.ControllingPlayer()
+	noxServer.scriptPushI32(int32(pl.lessons))
 	return 0
 }
