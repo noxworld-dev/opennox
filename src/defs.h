@@ -916,7 +916,7 @@ typedef struct {
 	int field_317; // 317, 1268
 	uint32_t field_318; // 318, 1272
 	uint32_t field_319; // 319, 1276
-	uint32_t field_320; // 320, 1280
+	uint32_t field_320; // 320, 1280 // TODO: monster hear script callback?
 	uint32_t field_321; // 321, 1284
 	uint32_t field_322; // 322, 1288
 	uint32_t field_323; // 323, 1292
