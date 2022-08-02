@@ -3588,32 +3588,6 @@ int nox_script_ChatTimerFrames_514B10() {
 	return 0;
 }
 
-//----- (00512B10) --------------------------------------------------------
-int nox_script_printToCaller_512B10() {
-	int v0;      // eax
-	wchar_t* v1; // eax
-
-	v0 = nox_script_pop();
-	if (nox_script_get_caller() && *(uint8_t*)((char*)nox_script_get_caller() + 8) & 4) {
-		v1 = nox_strman_loadString_40F1D0(nox_script_getString_512E40(v0), 0,
-										  "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1285);
-		nox_xxx_netSendLineMessage_4D9EB0(nox_script_get_caller(), v1);
-	}
-	return 0;
-}
-
-//----- (00512B60) --------------------------------------------------------
-int nox_script_printToAll_512B60() {
-	int v0;      // eax
-	wchar_t* v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_strman_loadString_40F1D0(nox_script_getString_512E40(v0), 0,
-									  "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1310);
-	nox_xxx_printToAll_4D9FD0(0, v1);
-	return 0;
-}
-
 //----- (00512B90) --------------------------------------------------------
 int nox_script_sayChat_512B90() {
 	int v0;      // edi
@@ -3652,6 +3626,8 @@ int nox_script_CastLocationObject_515060();
 int nox_script_CastObject2_514F10();
 int nox_script_CastObjectLocation_514FC0();
 int nox_script_SetCallback_516970();
+int nox_script_printToCaller_512B10();
+int nox_script_printToAll_512B60();
 
 //-------------------------------------------------------------------------
 void* nox_script_builtin[] = {
