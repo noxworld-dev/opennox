@@ -3297,69 +3297,6 @@ int nox_script_NoWallSound_516960() {
 	return 0;
 }
 
-//----- (00516970) --------------------------------------------------------
-int nox_script_SetCallback_516970() {
-	int v0;       // esi
-	int v1;       // edi
-	int v2;       // eax
-	int v3;       // eax
-	uint32_t* v4; // eax
-	int result;   // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_script_pop();
-	v3 = nox_server_scriptValToObjectPtr_511B60(v2);
-	if (!v3 || !(*(uint8_t*)(v3 + 8) & 2)) {
-		return 0;
-	}
-	v4 = *(uint32_t**)(v3 + 748);
-	switch (v1) {
-	case 3: // Enemy sighted
-		v4[309] = v0;
-		result = 0;
-		break;
-	case 4: // Looking for enemy
-		v4[307] = v0;
-		result = 0;
-		break;
-	case 5: // Death
-		v4[317] = v0;
-		result = 0;
-		break;
-	case 6: // Change focus
-		v4[311] = v0;
-		result = 0;
-		break;
-	case 7: // Is hit
-		v4[313] = v0;
-		result = 0;
-		break;
-	case 8: // Retreat
-		v4[315] = v0;
-		result = 0;
-		break;
-	case 9: // Collision
-		v4[319] = v0;
-		result = 0;
-		break;
-	case 10: // Enemy heard
-		v4[321] = v0;
-		result = 0;
-		break;
-	case 11: // End of waypoint
-		v4[323] = v0;
-		result = 0;
-		break;
-	case 13: // Lost sight of enemy
-		v4[325] = v0;
-		return 0;
-	default:
-		return 0;
-	}
-	return result;
-}
-
 //----- (00516A50) --------------------------------------------------------
 int nox_script_DeleteObjectTimer_516A50() {
 	int v0;       // esi
@@ -3714,6 +3651,7 @@ int nox_script_CastLocation2_515130();
 int nox_script_CastLocationObject_515060();
 int nox_script_CastObject2_514F10();
 int nox_script_CastObjectLocation_514FC0();
+int nox_script_SetCallback_516970();
 
 //-------------------------------------------------------------------------
 void* nox_script_builtin[] = {
