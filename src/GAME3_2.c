@@ -6905,7 +6905,7 @@ int nox_xxx_netGuiGameSettings_4DD9B0(char a1, const void* a2, int a3) {
 void nox_xxx_netNewPlayerMakePacket_4DDA90(unsigned char* buf, nox_playerInfo* pl) {
 	buf[0] = 45; // MSG_NEW_PLAYER
 	*(uint16_t*)(&buf[1]) = pl->netCode;
-	*(uint16_t*)(&buf[100]) = pl->field_2136;
+	*(uint16_t*)(&buf[100]) = pl->lessons;
 	*(uint16_t*)(&buf[102]) = pl->field_2140;
 	*(uint32_t*)(&buf[104]) = pl->field_0;
 	*(uint32_t*)(&buf[108]) = pl->field_4;

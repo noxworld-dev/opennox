@@ -1916,7 +1916,7 @@ typedef struct nox_playerInfo {
 	char serial[22];   // 528, 2112
 	uint8_t field_2134;
 	uint8_t field_2135;
-	uint32_t field_2136; // 534, 2136
+	int lessons; // 534, 2136
 	uint32_t field_2140; // 535, 2140
 	uint32_t field_2144; // 536, 2144
 	uint32_t field_2148; // 537, 2148

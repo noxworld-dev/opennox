@@ -1192,3 +1192,13 @@ func nox_xxx_servCode_523340(p1, p2 image.Point, data []byte) bool {
 
 	return C.nox_xxx_servCode_523340((*C.int)(unsafe.Pointer(&cpos[0])), unsafe.Pointer(&cdata[0]), C.int(len(data))) != 0
 }
+
+func nox_xxx_netReportLesson_4D8EF0(u *Unit) {
+	var buf [11]byte
+	buf[0] = byte(noxnet.MSG_REPORT_LESSON)
+	pl := u.ControllingPlayer()
+	binary.LittleEndian.PutUint16(buf[1:], uint16(u.field_9))
+	binary.LittleEndian.PutUint32(buf[3:], uint32(pl.lessons))
+	binary.LittleEndian.PutUint32(buf[7:], uint32(pl.field_2140))
+	noxServer.nox_xxx_netSendPacket1_4E5390(255, buf[:11], 0, 1)
+}
