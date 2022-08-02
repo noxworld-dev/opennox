@@ -26,6 +26,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/spell"
+	"github.com/noxworld-dev/opennox-lib/strman"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
@@ -700,5 +701,23 @@ func nox_script_SetCallback_516970() C.int {
 	case 13: // Lost sight of enemy
 		ud.script_lost_enemy_cb = fnc
 	}
+	return 0
+}
+
+//export nox_script_printToCaller_512B10
+func nox_script_printToCaller_512B10() C.int {
+	strID := noxScriptPopString()
+	if c := asObject(C.nox_script_get_caller()).AsUnit(); c != nil && c.Class().Has(object.ClassPlayer) {
+		str := noxServer.Strings().GetStringInFile(strman.ID(strID), "CScrFunc.c")
+		nox_xxx_netSendLineMessage_4D9EB0(c, str)
+	}
+	return 0
+}
+
+//export nox_script_printToAll_512B60
+func nox_script_printToAll_512B60() C.int {
+	strID := noxScriptPopString()
+	str := noxServer.Strings().GetStringInFile(strman.ID(strID), "CScrFunc.c")
+	PrintToPlayers(str)
 	return 0
 }
