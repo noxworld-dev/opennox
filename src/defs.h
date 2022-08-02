@@ -903,25 +903,25 @@ typedef struct {
 	uint32_t field_304; // 304, 1216
 	uint32_t field_305; // 305, 1220
 	uint32_t field_306; // 306, 1224
-	int field_307; // 307, 1228
+	int script_looking_for_enemy_cb; // 307, 1228
 	uint32_t field_308; // 308, 1232
-	int field_309; // 309, 1236
+	int script_enemy_sighted_cb; // 309, 1236
 	uint32_t field_310; // 310, 1240
-	uint32_t field_311; // 311, 1244
+	int script_change_focus_cb; // 311, 1244
 	uint32_t field_312; // 312, 1248
-	uint32_t field_313; // 313, 1252
+	int script_is_hit_cb; // 313, 1252
 	uint32_t field_314; // 314, 1256
-	uint32_t field_315; // 315, 1260
+	int script_retreat_cb; // 315, 1260
 	uint32_t field_316; // 316, 1264
-	int field_317; // 317, 1268
+	int script_death_cb; // 317, 1268
 	uint32_t field_318; // 318, 1272
-	uint32_t field_319; // 319, 1276
-	uint32_t field_320; // 320, 1280 // TODO: monster hear script callback?
-	uint32_t field_321; // 321, 1284
+	int script_collision_cb; // 319, 1276
+	uint32_t field_320; // 320, 1280 // TODO: monster hear script callback base?
+	int script_hear_enemy_cb; // 321, 1284
 	uint32_t field_322; // 322, 1288
-	uint32_t field_323; // 323, 1292
+	int script_end_of_waypoint_cb; // 323, 1292
 	uint32_t field_324; // 324, 1296
-	uint32_t field_325; // 325, 1300
+	int script_lost_enemy_cb; // 325, 1300
 	uint32_t field_326; // 326, 1304
 	uint32_t field_327; // 327, 1308
 	float field_328;    // 328, 1312
