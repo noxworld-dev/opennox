@@ -288,8 +288,9 @@ func nox_script_callOnEvent(cevent *C.char, a1, a2 unsafe.Pointer) {
 }
 
 func (s *Server) noxscriptOnEvent(event script.EventType) {
-	for i := 0; i < int(C.nox_script_count_xxx_1599640); i++ {
-		sc := (*C.nox_script_xxx_t)(unsafe.Add(unsafe.Pointer(C.nox_script_arr_xxx_1599636), unsafe.Sizeof(C.nox_script_xxx_t{})*uintptr(i)))
+	scripts := unsafe.Slice((*C.nox_script_xxx_t)(unsafe.Pointer(C.nox_script_arr_xxx_1599636)), int(C.nox_script_count_xxx_1599640))
+	for i := range scripts {
+		sc := &scripts[i]
 		name := GoString(sc.field_0)
 		if strings.HasPrefix(name, string(event)) {
 			C.nox_script_callByIndex_507310(C.int(i), nil, nil)
@@ -664,5 +665,40 @@ func nox_script_CastObjectLocation_514FC0() C.int {
 	}
 	caster.direction1 = C.ushort(nox_xxx_math_509ED0(targPos.Sub(caster.Pos())))
 	noxServer.castSpellBy(sp, caster, nil, targPos)
+	return 0
+}
+
+//export nox_script_SetCallback_516970
+func nox_script_SetCallback_516970() C.int {
+	fnc := C.int(noxScriptPopU32())
+	ev := noxScriptPopU32()
+	objID := int(noxScriptPopU32())
+	u := noxServer.nox_server_scriptValToObjectPtr(objID).AsUnit()
+	if u == nil || !u.Class().Has(object.ClassMonster) {
+		return 0
+	}
+	ud := u.updateDataMonster()
+	switch ev {
+	case 3: // Enemy sighted
+		ud.script_enemy_sighted_cb = fnc
+	case 4: // Looking for enemy
+		ud.script_looking_for_enemy_cb = fnc
+	case 5: // Death
+		ud.script_death_cb = fnc
+	case 6: // Change focus
+		ud.script_change_focus_cb = fnc
+	case 7: // Is hit
+		ud.script_is_hit_cb = fnc
+	case 8: // Retreat
+		ud.script_retreat_cb = fnc
+	case 9: // Collision
+		ud.script_collision_cb = fnc
+	case 10: // Enemy heard
+		ud.script_hear_enemy_cb = fnc
+	case 11: // End of waypoint
+		ud.script_end_of_waypoint_cb = fnc
+	case 13: // Lost sight of enemy
+		ud.script_lost_enemy_cb = fnc
+	}
 	return 0
 }

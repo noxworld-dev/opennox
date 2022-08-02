@@ -212,9 +212,9 @@ func (s *serverObjTypes) readType(thg *MemFile, buf []byte) error {
 	}
 	if typ.Class().Has(object.ClassMonster) {
 		ud := typ.updateDataMonster()
-		ud.field_309 = -1
-		ud.field_307 = -1
-		ud.field_317 = -1
+		ud.script_enemy_sighted_cb = -1
+		ud.script_looking_for_enemy_cb = -1
+		ud.script_death_cb = -1
 	} else if typ.Class().Has(object.ClassTrigger) {
 		ud := unsafe.Slice((*int32)(typ.data_update), 9)
 		ud[6] = -1
