@@ -545,7 +545,7 @@ func (s *Server) hasPlayerUnits() bool {
 func nox_xxx_netNewPlayerMakePacket_4DDA90(buf []byte, pl *Player) {
 	buf[0] = byte(noxnet.MSG_NEW_PLAYER)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(pl.NetCode()))
-	binary.LittleEndian.PutUint16(buf[100:], uint16(pl.field_2136))
+	binary.LittleEndian.PutUint16(buf[100:], uint16(pl.lessons))
 	binary.LittleEndian.PutUint16(buf[102:], uint16(pl.field_2140))
 	binary.LittleEndian.PutUint32(buf[104:], uint32(pl.field_0))
 	binary.LittleEndian.PutUint32(buf[108:], uint32(pl.field_4))
@@ -929,4 +929,20 @@ func sub_4FD030(a1 *Unit, a2 int) {
 	if a1.Class().Has(object.ClassPlayer) {
 		C.nox_xxx_playerManaAdd_4EEB80(a1.CObj(), C.short(a2))
 	}
+}
+
+func nox_xxx_playerSubLessons_4D8EC0(u *Unit, val int) {
+	if !u.Class().Has(object.ClassPlayer) {
+		return
+	}
+	pl := u.ControllingPlayer()
+	pl.lessons -= C.int(val)
+}
+
+func nox_xxx_changeScore_4D8E90(u *Unit, val int) {
+	if !u.Class().Has(object.ClassPlayer) {
+		return
+	}
+	pl := u.ControllingPlayer()
+	pl.lessons += C.int(val)
 }

@@ -3475,49 +3475,6 @@ int nox_script_ObjIsCrown_516DC0() {
 	return 0;
 }
 
-//----- (00516E30) --------------------------------------------------------
-int nox_script_ChangeScore_516E30() {
-	int v0;   // edi
-	int v1;   // eax
-	int v2;   // eax
-	int v3;   // esi
-	char* v4; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
-	v3 = v2;
-	if (v2 && *(uint8_t*)(v2 + 8) & 4) {
-		if (v0 <= 0) {
-			nox_xxx_playerSubLessons_4D8EC0(v2, -v0);
-		} else {
-			nox_xxx_changeScore_4D8E90(v2, v0);
-		}
-		v4 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(v3 + 52));
-		if (v4) {
-			nox_xxx_netChangeTeamID_419090((int)v4, v0 + *((uint32_t*)v4 + 13));
-		}
-		nox_xxx_netReportLesson_4D8EF0(v3);
-	}
-	return 0;
-}
-
-//----- (00516EA0) --------------------------------------------------------
-int nox_script_GetScore_516EA0() {
-	int v0; // eax
-	int v1; // esi
-	int v2; // eax
-
-	v0 = nox_script_pop();
-	v1 = 0;
-	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v2 && *(uint8_t*)(v2 + 8) & 4) {
-		v1 = *(uint32_t*)(*(uint32_t*)(*(uint32_t*)(v2 + 748) + 276) + 2136);
-	}
-	nox_script_push(v1);
-	return 0;
-}
-
 //----- (00513F70) --------------------------------------------------------
 int nox_script_Fn5E_513F70() {
 	int v0;      // eax
@@ -3628,6 +3585,8 @@ int nox_script_CastObjectLocation_514FC0();
 int nox_script_SetCallback_516970();
 int nox_script_printToCaller_512B10();
 int nox_script_printToAll_512B60();
+int nox_script_ChangeScore_516E30();
+int nox_script_GetScore_516EA0();
 
 //-------------------------------------------------------------------------
 void* nox_script_builtin[] = {

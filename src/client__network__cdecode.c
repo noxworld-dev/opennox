@@ -601,7 +601,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			}
 			if (!nox_common_gameFlags_check_40A5C0(1)) {
 				pl->netCode = playerID;
-				pl->field_2136 = *(short*)(data + 100);
+				pl->lessons = *(short*)(data + 100);
 				pl->field_2140 = *(unsigned short*)(data + 102);
 				pl->field_0 = *(uint32_t*)(data + 104);
 				pl->field_4 = *(uint32_t*)(data + 108);

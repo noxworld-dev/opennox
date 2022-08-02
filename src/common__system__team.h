@@ -11,7 +11,7 @@ typedef struct {
 	uint16_t field_42; // 10, 42
 	uint32_t field_44; // 11, 44
 	uint32_t field_48; // 12, 48
-	uint32_t field_52; // 13, 52
+	int lessons; // 13, 52
 	uint8_t  def_ind; // 14, 56
 	uint8_t  field_57; // 14, 57 TODO: team def code?
 	uint8_t  ind; // 14, 58
