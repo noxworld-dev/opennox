@@ -4,8 +4,6 @@ package opennox
 #include "server__script__script.h"
 #include "server__script__internal.h"
 #include "GAME4_1.h" // for nox_xxx_scriptPrepareFoundUnit_511D70 and nox_xxx_script_511C50
-extern int nox_script_stack[1024];
-extern int nox_script_stack_top;
 extern int nox_script_count_xxx_1599640;
 extern void* nox_script_caller_3821964;
 extern void* nox_script_trigger_3821968;
@@ -78,6 +76,31 @@ func nox_server_scriptValToObjectPtr_511B60(val C.int) *C.nox_object_t {
 	return noxServer.noxScript.scriptToObject(int(val)).CObj()
 }
 
+//export nox_script_push
+func nox_script_push(v C.int) {
+	noxServer.noxScript.PushI32(int32(v))
+}
+
+//export nox_script_pop
+func nox_script_pop() C.int {
+	return C.int(noxServer.noxScript.PopI32())
+}
+
+//export nox_script_saveStack
+func nox_script_saveStack() C.int {
+	return C.int(noxServer.noxScript.saveStack())
+}
+
+//export nox_script_resetStack
+func nox_script_resetStack() {
+	noxServer.noxScript.resetStack()
+}
+
+//export nox_script_adjustStack
+func nox_script_adjustStack(prev, sz C.int) {
+	noxServer.noxScript.adjustStack(int(prev), int(sz))
+}
+
 //export nox_script_callOnEvent
 func nox_script_callOnEvent(cevent *C.char, a1, a2 unsafe.Pointer) {
 	if a1 != nil || a2 != nil { // these are never set to anything
@@ -87,8 +110,6 @@ func nox_script_callOnEvent(cevent *C.char, a1, a2 unsafe.Pointer) {
 	noxServer.scriptOnEvent(event)
 }
 
-const noxScriptStackSize = 1024
-
 var (
 	nox_script_objTelekinesisHand  int
 	nox_script_objCinemaRemove     []int
@@ -96,11 +117,14 @@ var (
 )
 
 type noxScript struct {
-	s          *Server
-	fxNames    map[string]noxnet.Op
-	f40        int
-	f44        int
-	nameSuff   string
+	s        *Server
+	fxNames  map[string]noxnet.Op
+	f40      int
+	f44      int
+	nameSuff string
+	vm       struct {
+		stack []uint32
+	}
 	activators struct {
 		lastID uint32
 		head   *Activator
@@ -152,51 +176,72 @@ func (s *noxScript) Trigger() *Object {
 	return asObject(C.nox_script_trigger_3821968)
 }
 
+func (s *noxScript) resetStack() {
+	s.vm.stack = s.vm.stack[:0]
+}
+
+func (s *noxScript) saveStack() int {
+	return len(s.vm.stack)
+}
+
+func (s *noxScript) adjustStack(prev, sz int) {
+	if n := len(s.vm.stack); n != prev+sz {
+		if sz != 0 {
+			if n != 0 {
+				v := s.PopU32()
+				s.vm.stack = s.vm.stack[:prev]
+				s.PushU32(v)
+			} else {
+				s.vm.stack = s.vm.stack[:prev]
+				s.PushU32(0)
+			}
+		} else {
+			s.vm.stack = s.vm.stack[:prev]
+		}
+	}
+}
+
 func (s *noxScript) stackAt(i int) uint32 {
-	if i < 0 || i >= noxScriptStackSize {
+	if i < 0 || i >= len(s.vm.stack) {
 		return 0
 	}
-	return uint32(C.nox_script_stack[i])
+	return s.vm.stack[i]
 }
 
 func (s *noxScript) PushU32(v uint32) {
-	if i := C.nox_script_stack_top; i < noxScriptStackSize {
-		C.nox_script_stack[i] = C.int(v)
-		C.nox_script_stack_top++
-	}
+	s.vm.stack = append(s.vm.stack, v)
 }
 
 func (s *noxScript) PushI32(v int32) {
-	if i := C.nox_script_stack_top; i < noxScriptStackSize {
-		C.nox_script_stack[i] = C.int(v)
-		C.nox_script_stack_top++
-	}
+	s.vm.stack = append(s.vm.stack, uint32(v))
 }
 
 func (s *noxScript) PushF32(v float32) {
-	s.PushU32(math.Float32bits(v))
+	s.vm.stack = append(s.vm.stack, math.Float32bits(v))
 }
 
 func (s *noxScript) PushBool(v bool) {
-	s.PushU32(uint32(bool2int(v)))
+	s.vm.stack = append(s.vm.stack, uint32(bool2int(v)))
 }
 
 func (s *noxScript) PopI32() int32 {
-	i := C.nox_script_stack_top
-	if i > 0 {
-		C.nox_script_stack_top--
-		i = C.nox_script_stack_top
+	n := len(s.vm.stack)
+	if n == 0 {
+		return 0
 	}
-	return int32(C.nox_script_stack[i])
+	v := s.vm.stack[n-1]
+	s.vm.stack = s.vm.stack[:n-1]
+	return int32(v)
 }
 
 func (s *noxScript) PopU32() uint32 {
-	i := C.nox_script_stack_top
-	if i > 0 {
-		C.nox_script_stack_top--
-		i = C.nox_script_stack_top
+	n := len(s.vm.stack)
+	if n == 0 {
+		return 0
 	}
-	return uint32(C.nox_script_stack[i])
+	v := s.vm.stack[n-1]
+	s.vm.stack = s.vm.stack[:n-1]
+	return v
 }
 
 func (s *noxScript) PopF32() float32 {
