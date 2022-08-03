@@ -28,26 +28,8 @@ char* nox_script_strings[1024] = {0};
 unsigned int nox_script_strings_xxx = 0;
 unsigned int nox_script_strings_cnt = 0;
 
-int nox_script_stack[1024] = {0};
-int nox_script_stack_top = 0;
-
-//----- (00507230) --------------------------------------------------------
-void nox_script_push(int val) {
-	if (nox_script_stack_top < 1024) {
-		nox_script_stack[nox_script_stack_top] = val;
-		nox_script_stack_top++;
-	}
-}
 void nox_script_pushf(float val) { nox_script_push(*((int*)&val)); }
 
-//----- (00507250) --------------------------------------------------------
-int nox_script_pop() {
-	int i = nox_script_stack_top;
-	if (nox_script_stack_top > 0) {
-		i = --nox_script_stack_top;
-	}
-	return nox_script_stack[i];
-}
 float nox_script_popf() {
 	int v = nox_script_pop();
 	return *((float*)&v);
@@ -160,6 +142,9 @@ LABEL_16:
 
 //----- (00502490) --------------------------------------------------------
 void nox_script_callByEvent_cgo(int eventCode, void* a1, void* a2);
+void nox_script_resetStack();
+int nox_script_saveStack();
+void nox_script_adjustStack(int prev, int sz);
 unsigned char* nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3, int eventCode) {
 	nox_script_callByEvent_cgo(eventCode, a2, a3);
 	*getMemU32Ptr(0x5D4594, 1599076) = 0;
@@ -177,7 +162,7 @@ unsigned char* nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3, in
 		LOBYTE(v3) = v3 | 1;
 		a1[0] = v3;
 	}
-	if (nox_script_stack_top) {
+	if (nox_script_saveStack() != 0) {
 		sub_5025A0((int)a1, a2, a3);
 		return getMemAt(0x5D4594, 1599076);
 	}
@@ -185,7 +170,7 @@ unsigned char* nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3, in
 	if (nox_script_arr_xxx_1599636[a1[1]].stack_size) {
 		*getMemU32Ptr(0x5D4594, 1599076) = nox_script_pop();
 	}
-	nox_script_stack_top = 0;
+	nox_script_resetStack();
 
 	if (nox_script_strings_xxx < nox_script_strings_cnt) {
 		for (int i = nox_script_strings_xxx; i < nox_script_strings_cnt; i++) {
@@ -474,7 +459,7 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 		int v = nox_script_pop();
 		script->field_28[i] = v;
 	}
-	int bstack = nox_script_stack_top;
+	int bstack = nox_script_saveStack();
 	void* data = script->data;
 	while (1) {
 		int sa1 = 0;
@@ -1219,20 +1204,7 @@ void nox_script_callByIndex_507310(int index, void* a2, void* a3) {
 		default:
 			break;
 		}
-		if (nox_script_stack_top != script->stack_size + bstack) {
-			if (script->stack_size) {
-				if (nox_script_stack_top) {
-					int v = nox_script_pop();
-					nox_script_stack_top = bstack;
-					nox_script_push(v);
-				} else {
-					nox_script_stack_top = bstack;
-					nox_script_push(0);
-				}
-			} else {
-				nox_script_stack_top = bstack;
-			}
-		}
+		nox_script_adjustStack(bstack, script->stack_size);
 		return;
 	}
 }
