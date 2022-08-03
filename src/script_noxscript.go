@@ -5,7 +5,10 @@ package opennox
 #include "server__script__internal.h"
 #include "GAME4_1.h" // for nox_xxx_scriptPrepareFoundUnit_511D70 and nox_xxx_script_511C50
 extern int nox_script_stack[1024];
+extern int nox_script_stack_top;
 extern int nox_script_count_xxx_1599640;
+extern void* nox_script_caller_3821964;
+extern void* nox_script_trigger_3821968;
 extern nox_script_xxx_t* nox_script_arr_xxx_1599636;
 extern unsigned int dword_5d4594_3821636;
 extern unsigned int dword_5d4594_3821640;
@@ -84,6 +87,8 @@ func nox_script_callOnEvent(cevent *C.char, a1, a2 unsafe.Pointer) {
 	noxServer.scriptOnEvent(event)
 }
 
+const noxScriptStackSize = 1024
+
 var (
 	nox_script_objTelekinesisHand  int
 	nox_script_objCinemaRemove     []int
@@ -139,20 +144,81 @@ func (s *noxScript) callByIndex(fnc int, caller, trigger noxObject) {
 	C.nox_script_callByIndex_507310(C.int(fnc), unsafe.Pointer(toCObj(caller)), unsafe.Pointer(toCObj(trigger)))
 }
 
+func (s *noxScript) Caller() *Object {
+	return asObject(C.nox_script_caller_3821964)
+}
+
+func (s *noxScript) Trigger() *Object {
+	return asObject(C.nox_script_trigger_3821968)
+}
+
+func (s *noxScript) stackAt(i int) uint32 {
+	if i < 0 || i >= noxScriptStackSize {
+		return 0
+	}
+	return uint32(C.nox_script_stack[i])
+}
+
 func (s *noxScript) PushU32(v uint32) {
-	C.nox_script_push(C.int(v))
+	if i := C.nox_script_stack_top; i < noxScriptStackSize {
+		C.nox_script_stack[i] = C.int(v)
+		C.nox_script_stack_top++
+	}
 }
 
 func (s *noxScript) PushI32(v int32) {
-	C.nox_script_push(C.int(v))
+	if i := C.nox_script_stack_top; i < noxScriptStackSize {
+		C.nox_script_stack[i] = C.int(v)
+		C.nox_script_stack_top++
+	}
 }
 
 func (s *noxScript) PushF32(v float32) {
-	C.nox_script_push(C.int(math.Float32bits(v)))
+	s.PushU32(math.Float32bits(v))
 }
 
 func (s *noxScript) PushBool(v bool) {
-	C.nox_script_push(C.int(bool2int(v)))
+	s.PushU32(uint32(bool2int(v)))
+}
+
+func (s *noxScript) PopI32() int32 {
+	i := C.nox_script_stack_top
+	if i > 0 {
+		C.nox_script_stack_top--
+		i = C.nox_script_stack_top
+	}
+	return int32(C.nox_script_stack[i])
+}
+
+func (s *noxScript) PopU32() uint32 {
+	i := C.nox_script_stack_top
+	if i > 0 {
+		C.nox_script_stack_top--
+		i = C.nox_script_stack_top
+	}
+	return uint32(C.nox_script_stack[i])
+}
+
+func (s *noxScript) PopF32() float32 {
+	return math.Float32frombits(s.PopU32())
+}
+
+func (s *noxScript) PopBool() bool {
+	return s.PopU32() != 0
+}
+
+func (s *noxScript) PopString() string {
+	return GoString(C.nox_script_getString_512E40(C.int(s.PopU32())))
+}
+
+func (s *noxScript) PopObject() *Object {
+	return s.scriptToObject(int(C.nox_script_pop()))
+}
+
+func (s *noxScript) PopPointf() types.Pointf {
+	y := s.PopF32()
+	x := s.PopF32()
+	return types.Pointf{X: x, Y: y}
 }
 
 func (s *noxScript) nox_xxx_scriptRunFirst_507290() {
@@ -241,44 +307,6 @@ func (s *noxScript) scriptToObject(val int) *Object {
 	return nil
 }
 
-func (s *noxScript) Caller() *Object {
-	return asObject(C.nox_script_get_caller())
-}
-
-func (s *noxScript) Trigger() *Object {
-	return asObject(C.nox_script_get_trigger())
-}
-
-func (s *noxScript) PopI32() int32 {
-	return int32(C.nox_script_pop())
-}
-
-func (s *noxScript) PopU32() uint32 {
-	return uint32(C.nox_script_pop())
-}
-
-func (s *noxScript) PopF32() float32 {
-	return math.Float32frombits(uint32(C.nox_script_pop()))
-}
-
-func (s *noxScript) PopBool() bool {
-	return C.nox_script_pop() != 0
-}
-
-func (s *noxScript) PopString() string {
-	return GoString(C.nox_script_getString_512E40(C.nox_script_pop()))
-}
-
-func (s *noxScript) PopObject() *Object {
-	return s.scriptToObject(int(C.nox_script_pop()))
-}
-
-func (s *noxScript) PopPointf() types.Pointf {
-	y := s.PopF32()
-	x := s.PopF32()
-	return types.Pointf{X: x, Y: y}
-}
-
 func (s *noxScript) resetBuiltin() {
 	s.f40 = 0
 	s.f44 = 0
@@ -301,13 +329,6 @@ func (s *noxScript) scriptField40(i int) int {
 func (s *noxScript) scriptField44(i int) int {
 	scripts := s.scripts()
 	return int(scripts[i].field_44)
-}
-
-func (s *noxScript) stackAt(i int) uint32 {
-	if i < 0 || i >= 1024 {
-		return 0
-	}
-	return uint32(C.nox_script_stack[i])
 }
 
 func (s *noxScript) noxScriptEndGame(v int) {
