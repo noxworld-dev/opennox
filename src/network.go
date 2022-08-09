@@ -57,6 +57,7 @@ import (
 	"github.com/noxworld-dev/nat"
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
+	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/platform"
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
@@ -1197,8 +1198,31 @@ func nox_xxx_netReportLesson_4D8EF0(u *Unit) {
 	var buf [11]byte
 	buf[0] = byte(noxnet.MSG_REPORT_LESSON)
 	pl := u.ControllingPlayer()
-	binary.LittleEndian.PutUint16(buf[1:], uint16(u.field_9))
+	binary.LittleEndian.PutUint16(buf[1:], uint16(u.net_code))
 	binary.LittleEndian.PutUint32(buf[3:], uint32(pl.lessons))
 	binary.LittleEndian.PutUint32(buf[7:], uint32(pl.field_2140))
 	noxServer.nox_xxx_netSendPacket1_4E5390(255, buf[:11], 0, 1)
+}
+
+func nox_xxx_netScriptMessageKill_4D9760(u *Unit) {
+	if !u.Class().Has(object.ClassPlayer) {
+		return
+	}
+	pl := u.ControllingPlayer()
+	var buf [1]byte
+	buf[0] = byte(noxnet.MSG_MESSAGES_KILL)
+	noxServer.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:1], 0, 1)
+}
+
+func nox_xxx_netKillChat_528D00(u *Unit) {
+	var buf [3]byte
+	buf[0] = byte(noxnet.MSG_CHAT_KILL)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(noxServer.nox_xxx_netGetUnitCodeServ(u)))
+	for _, pl := range noxServer.getPlayers() {
+		u := pl.UnitC()
+		if u == nil {
+			continue
+		}
+		nox_netlist_addToMsgListCli_40EBC0(pl.Index(), 1, buf[:3])
+	}
 }

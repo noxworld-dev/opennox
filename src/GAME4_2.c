@@ -7884,23 +7884,6 @@ int nox_xxx_monsterCmdSend_528BD0(int unit, int source, const char* command, sho
 	return result;
 }
 
-//----- (00528D00) --------------------------------------------------------
-int nox_xxx_netKillChat_528D00(uint32_t* a1) {
-	int result; // eax
-	int i;      // esi
-	char v3[3]; // [esp+4h] [ebp-4h]
-
-	v3[0] = -54;
-	*(uint16_t*)&v3[1] = nox_xxx_netGetUnitCodeServ_578AC0(a1);
-	result = nox_xxx_getFirstPlayerUnit_4DA7C0();
-	for (i = result; result; i = result) {
-		nox_netlist_addToMsgListCli_40EBC0(*(unsigned char*)(*(uint32_t*)(*(uint32_t*)(i + 748) + 276) + 2064), 1, v3,
-										   3);
-		result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
-	}
-	return result;
-}
-
 //----- (00528D60) --------------------------------------------------------
 int nox_xxx_destroyEveryChatMB_528D60() {
 	int result; // eax

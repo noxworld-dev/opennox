@@ -837,13 +837,12 @@ int nox_xxx_freeGameObjectClass_4E3420() {
 nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	void* v5; // eax
 	int v8;   // eax
-	int v9;   // [esp+10h] [ebp-4h]
 
 	nox_object_t* ob = nox_alloc_class_new_obj(nox_alloc_gameObject_1563344);
 	if (!ob) {
 		return 0;
 	}
-	v9 = ob->field_9; // TODO: is it a really weird way to get random data?
+	int netCode = ob->net_code; // it is persisted by the allocator; so we basically reuse ID of the older object
 	memset(ob, 0, sizeof(nox_object_t));
 	ob->typ_ind = typ->field_5_0; // TODO: why is it setting it and then overwriting again?
 	ob->obj_class = typ->obj_class;
@@ -917,7 +916,7 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	ob->field_190 = 0;
 	ob->die_data = typ->die_data;
 	ob->field_192 = -1;
-	ob->field_9 = v9;
+	ob->net_code = netCode;
 	if (nox_common_gameFlags_check_40A5C0(6291456) &&
 		(ob->obj_class & 0x20A02 || ob->func_xfer == nox_xxx_XFerInvLight_4F5AA0 || ob->weight != 0xff) &&
 		(v5 = calloc(1u, 0xA0Cu), (ob->field_189 = v5) == 0)) {
@@ -1762,7 +1761,7 @@ int sub_4E4C00(nox_object_t* item) {
 	int result; // eax
 
 	if (item) {
-		result = *(uint32_t*)&item->field_9;
+		result = item->net_code;
 	} else {
 		result = 0;
 	}
@@ -1774,7 +1773,7 @@ int sub_4E4C10(nox_object_t* item) {
 	int result; // eax
 
 	if (item) {
-		result = *(unsigned short*)&item->typ_ind;
+		result = item->typ_ind;
 	} else {
 		result = 0;
 	}

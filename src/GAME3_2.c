@@ -5312,20 +5312,6 @@ int sub_4D9700(int a1) {
 	return result;
 }
 
-//----- (004D9760) --------------------------------------------------------
-int nox_xxx_netScriptMessageKill_4D9760(int a1) {
-	int result; // eax
-	int v2;     // edx
-
-	result = a1;
-	if (*(uint8_t*)(a1 + 8) & 4) {
-		v2 = *(uint32_t*)(a1 + 748);
-		LOBYTE(a1) = -53;
-		result = nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064), &a1, 1, 0, 1);
-	}
-	return result;
-}
-
 //----- (004D97A0) --------------------------------------------------------
 int nox_xxx_netFriendAddRemove_4D97A0(int a1, uint32_t* a2, int a3) {
 	LOBYTE(a3) = (a3 != 1) + 52;

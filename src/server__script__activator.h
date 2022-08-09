@@ -3,9 +3,7 @@
 
 #include "defs.h"
 
-bool nox_script_activatorCancel_51AD60(int id);
 void nox_script_activatorCancelAll_51AC60();
-void nox_script_activatorTimer_51ACA0(int df, int callback, int arg);
 void nox_script_activatorClearObj_51AE60(nox_object_t* obj);
 int nox_script_activatorSave_51AEA0();
 int nox_script_activatorLoad_51AF80();

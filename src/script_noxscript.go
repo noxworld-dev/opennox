@@ -9,8 +9,12 @@ extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern nox_script_xxx_t* nox_script_arr_xxx_1599636;
 extern unsigned int dword_5d4594_3821636;
 extern unsigned int dword_5d4594_3821640;
+extern unsigned int nox_xxx_wallSounds_2386840;
 int sub_516570();
+int sub_43DA80();
+void sub_43DAD0();
 void sub_43D9B0(int a1, int a2);
+int nox_xxx_destroyEveryChatMB_528D60();
 */
 import "C"
 import (
@@ -75,11 +79,6 @@ func (s *Server) nox_script_activatorNextHandle_51AD20() uint32 {
 	return id
 }
 
-//export nox_script_activatorCancel_51AD60
-func nox_script_activatorCancel_51AD60(id C.int) C.bool {
-	return C.bool(noxServer.nox_script_activatorCancel(uint32(id)))
-}
-
 func (s *Server) nox_script_activatorCancel(id uint32) bool {
 	for it := s.activators.head; it != nil; it = it.next {
 		if it.id == id {
@@ -103,12 +102,6 @@ func (s *Server) newScriptTimer(df int, callback, arg uint32) uint32 {
 	}
 	s.nox_script_activator_append(act)
 	return act.id
-}
-
-//export nox_script_activatorTimer_51ACA0
-func nox_script_activatorTimer_51ACA0(df, callback, arg C.int) {
-	id := noxServer.newScriptTimer(int(df), uint32(callback), uint32(arg))
-	noxServer.scriptPushU32(id)
 }
 
 func (s *Server) nox_script_activatorClearObj(obj *Object) {
@@ -283,6 +276,14 @@ func (s *Server) scriptPushI32(v int32) {
 	C.nox_script_push(C.int(v))
 }
 
+func (s *Server) scriptPushF32(v float32) {
+	C.nox_script_push(C.int(math.Float32bits(v)))
+}
+
+func (s *Server) scriptPushBool(v bool) {
+	C.nox_script_push(C.int(bool2int(v)))
+}
+
 //export nox_script_callOnEvent
 func nox_script_callOnEvent(cevent *C.char, a1, a2 unsafe.Pointer) {
 	if a1 != nil || a2 != nil { // these are never set to anything
@@ -303,9 +304,33 @@ func (s *Server) noxscriptOnEvent(event script.EventType) {
 	}
 }
 
+//export nox_xxx_netGetUnitCodeServ_578AC0
+func nox_xxx_netGetUnitCodeServ_578AC0(cobj *nox_object_t) C.uint {
+	return C.uint(noxServer.nox_xxx_netGetUnitCodeServ(asObjectC(cobj)))
+}
+
 //export nox_server_scriptValToObjectPtr_511B60
 func nox_server_scriptValToObjectPtr_511B60(val C.int) *C.nox_object_t {
 	return noxServer.nox_server_scriptValToObjectPtr(int(val)).CObj()
+}
+
+func (s *Server) nox_xxx_netGetUnitCodeServ(p noxObject) int {
+	obj := toObject(p)
+	if obj == nil {
+		return 0
+	}
+	if obj.net_code >= 0x8000 {
+		return 0
+	}
+	ext := int(obj.extent)
+	if ext >= 0x8000 {
+		return 0
+	}
+	if !obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile) {
+		return int(obj.net_code)
+	}
+	ext |= 0x8000
+	return ext
 }
 
 func (s *Server) nox_server_scriptValToObjectPtr(val int) *Object {
@@ -348,32 +373,36 @@ func (s *Server) nox_server_scriptValToObjectPtr(val int) *Object {
 	return nil
 }
 
-func noxScriptPopI32() int32 {
+func (s *Server) noxScriptPopI32() int32 {
 	return int32(C.nox_script_pop())
 }
 
-func noxScriptPopU32() uint32 {
+func (s *Server) noxScriptPopU32() uint32 {
 	return uint32(C.nox_script_pop())
 }
 
-func noxScriptPopF32() float32 {
+func (s *Server) noxScriptPopF32() float32 {
 	return math.Float32frombits(uint32(C.nox_script_pop()))
 }
 
-func noxScriptPopString() string {
+func (s *Server) noxScriptPopBool() bool {
+	return C.nox_script_pop() != 0
+}
+
+func (s *Server) noxScriptPopString() string {
 	return GoString(C.nox_script_getString_512E40(C.nox_script_pop()))
 }
 
-func noxScriptPopObject() *Object {
-	return noxServer.nox_server_scriptValToObjectPtr(int(C.nox_script_pop()))
+func (s *Server) noxScriptPopObject() *Object {
+	return s.nox_server_scriptValToObjectPtr(int(C.nox_script_pop()))
 }
 
 func nox_script_builtinGetF40() int { return int(C.dword_5d4594_3821636) }
 func nox_script_builtinGetF44() int { return int(C.dword_5d4594_3821640) }
 
-func noxScriptPopPointf() types.Pointf {
-	y := noxScriptPopF32()
-	x := noxScriptPopF32()
+func (s *Server) noxScriptPopPointf() types.Pointf {
+	y := s.noxScriptPopF32()
+	x := s.noxScriptPopF32()
 	return types.Pointf{X: x, Y: y}
 }
 
@@ -385,7 +414,8 @@ func nox_script_StartGame_516C20() C.int {
 
 //export nox_script_EndGame_516E10
 func nox_script_EndGame_516E10() C.int {
-	v := int(noxScriptPopI32())
+	s := noxServer
+	v := int(s.noxScriptPopI32())
 	noxScriptEndGame(v)
 	return 0
 }
@@ -405,7 +435,8 @@ func nox_script_Blind_515220() C.int {
 
 //export nox_script_WideScreen_515240
 func nox_script_WideScreen_515240() C.int {
-	noxServer.CinemaPlayers(noxScriptPopI32() == 1)
+	s := noxServer
+	s.CinemaPlayers(s.noxScriptPopI32() == 1)
 	return 0
 }
 
@@ -426,7 +457,8 @@ func noxScriptEndGame(v int) {
 
 //export sub_5165D0
 func sub_5165D0() {
-	*memmap.PtrUint32(0x5D4594, 2386828) = noxScriptPopU32() - 1
+	s := noxServer
+	*memmap.PtrUint32(0x5D4594, 2386828) = s.noxScriptPopU32() - 1
 	sub_413A00(1)
 	noxClient.r.FadeInScreen(25, true, func() {
 		C.sub_516570()
@@ -514,9 +546,10 @@ func (s *Server) CinemaPlayers(enable bool) {
 
 //export nox_script_Effect_514210
 func nox_script_Effect_514210() C.int {
-	pos2 := noxScriptPopPointf()
-	pos := noxScriptPopPointf()
-	name := "MSG_FX_" + strings.ToUpper(noxScriptPopString())
+	s := noxServer
+	pos2 := s.noxScriptPopPointf()
+	pos := s.noxScriptPopPointf()
+	name := "MSG_FX_" + strings.ToUpper(s.noxScriptPopString())
 	dpos := image.Point{
 		X: nox_script_builtinGetF40(),
 		Y: nox_script_builtinGetF44(),
@@ -572,8 +605,9 @@ func nox_script_ForceAutosave_516400() C.int {
 
 //export nox_script_Music_516430
 func nox_script_Music_516430() C.int {
-	v0 := noxScriptPopU32()
-	v3 := noxScriptPopU32()
+	s := noxServer
+	v0 := s.noxScriptPopU32()
+	v3 := s.noxScriptPopU32()
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		C.sub_43D9B0(C.int(v3), C.int(v0))
 	} else {
@@ -581,14 +615,15 @@ func nox_script_Music_516430() C.int {
 		buf[0] = byte(noxnet.MSG_MUSIC_EVENT)
 		buf[1] = byte(v3)
 		buf[2] = byte(v0)
-		noxServer.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
+		s.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
 	}
 	return 0
 }
 
 //export nox_setImaginaryCaster
 func nox_setImaginaryCaster() C.int {
-	nox_xxx_imagCasterUnit_1569664 = noxServer.newObjectByTypeID("ImaginaryCaster").AsUnit()
+	s := noxServer
+	nox_xxx_imagCasterUnit_1569664 = s.newObjectByTypeID("ImaginaryCaster").AsUnit()
 	if nox_xxx_imagCasterUnit_1569664 == nil {
 		return 0
 	}
@@ -598,29 +633,25 @@ func nox_setImaginaryCaster() C.int {
 
 //export nox_script_CastLocation2_515130
 func nox_script_CastLocation2_515130() C.int {
-	y2 := noxScriptPopF32()
-	x2 := noxScriptPopF32()
-	targPos := types.Pointf{X: x2, Y: y2}
-	y1 := noxScriptPopF32()
-	x1 := noxScriptPopF32()
-	srcPos := types.Pointf{X: x1, Y: y1}
-	sp := spell.ParseID(noxScriptPopString())
+	s := noxServer
+	targPos := s.noxScriptPopPointf()
+	srcPos := s.noxScriptPopPointf()
+	sp := spell.ParseID(s.noxScriptPopString())
 	if !sp.Valid() {
 		return 0
 	}
 	nox_xxx_imagCasterUnit_1569664.SetPos(srcPos)
 	nox_xxx_imagCasterUnit_1569664.direction1 = C.ushort(nox_xxx_math_509ED0(targPos.Sub(srcPos)))
-	noxServer.castSpellBy(sp, nox_xxx_imagCasterUnit_1569664, nil, targPos)
+	s.castSpellBy(sp, nox_xxx_imagCasterUnit_1569664, nil, targPos)
 	return 0
 }
 
 //export nox_script_CastLocationObject_515060
 func nox_script_CastLocationObject_515060() C.int {
-	targ := noxScriptPopObject()
-	y1 := noxScriptPopF32()
-	x1 := noxScriptPopF32()
-	srcPos := types.Pointf{X: x1, Y: y1}
-	sp := spell.ParseID(noxScriptPopString())
+	s := noxServer
+	targ := s.noxScriptPopObject()
+	srcPos := s.noxScriptPopPointf()
+	sp := spell.ParseID(s.noxScriptPopString())
 	if !sp.Valid() {
 		return 0
 	}
@@ -629,15 +660,16 @@ func nox_script_CastLocationObject_515060() C.int {
 	}
 	nox_xxx_imagCasterUnit_1569664.SetPos(srcPos)
 	nox_xxx_imagCasterUnit_1569664.direction1 = C.ushort(nox_xxx_math_509ED0(targ.Pos().Sub(srcPos)))
-	noxServer.castSpellBy(sp, nox_xxx_imagCasterUnit_1569664, targ, targ.Pos())
+	s.castSpellBy(sp, nox_xxx_imagCasterUnit_1569664, targ, targ.Pos())
 	return 0
 }
 
 //export nox_script_CastObject2_514F10
 func nox_script_CastObject2_514F10() C.int {
-	targID := noxScriptPopU32()
-	caster := noxScriptPopObject().AsUnit()
-	sp := spell.ParseID(noxScriptPopString())
+	s := noxServer
+	targID := s.noxScriptPopU32()
+	caster := s.noxScriptPopObject().AsUnit()
+	sp := spell.ParseID(s.noxScriptPopString())
 	if !sp.Valid() {
 		return 0
 	}
@@ -647,22 +679,21 @@ func nox_script_CastObject2_514F10() C.int {
 	if caster.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
 		return 0
 	}
-	targ := noxServer.nox_server_scriptValToObjectPtr(int(targID))
+	targ := s.nox_server_scriptValToObjectPtr(int(targID))
 	if targ == nil {
 		return 0
 	}
 	caster.direction1 = C.ushort(nox_xxx_math_509ED0(targ.Pos().Sub(caster.Pos())))
-	noxServer.castSpellBy(sp, caster, targ, targ.Pos())
+	s.castSpellBy(sp, caster, targ, targ.Pos())
 	return 0
 }
 
 //export nox_script_CastObjectLocation_514FC0
 func nox_script_CastObjectLocation_514FC0() C.int {
-	y2 := noxScriptPopF32()
-	x2 := noxScriptPopF32()
-	targPos := types.Pointf{X: x2, Y: y2}
-	caster := noxScriptPopObject().AsUnit()
-	sp := spell.ParseID(noxScriptPopString())
+	s := noxServer
+	targPos := s.noxScriptPopPointf()
+	caster := s.noxScriptPopObject().AsUnit()
+	sp := spell.ParseID(s.noxScriptPopString())
 	if !sp.Valid() {
 		return 0
 	}
@@ -670,15 +701,16 @@ func nox_script_CastObjectLocation_514FC0() C.int {
 		return 0
 	}
 	caster.direction1 = C.ushort(nox_xxx_math_509ED0(targPos.Sub(caster.Pos())))
-	noxServer.castSpellBy(sp, caster, nil, targPos)
+	s.castSpellBy(sp, caster, nil, targPos)
 	return 0
 }
 
 //export nox_script_SetCallback_516970
 func nox_script_SetCallback_516970() C.int {
-	fnc := C.int(noxScriptPopU32())
-	ev := noxScriptPopU32()
-	u := noxScriptPopObject().AsUnit()
+	s := noxServer
+	fnc := C.int(s.noxScriptPopU32())
+	ev := s.noxScriptPopU32()
+	u := s.noxScriptPopObject().AsUnit()
 	if u == nil || !u.Class().Has(object.ClassMonster) {
 		return 0
 	}
@@ -710,9 +742,10 @@ func nox_script_SetCallback_516970() C.int {
 
 //export nox_script_printToCaller_512B10
 func nox_script_printToCaller_512B10() C.int {
-	strID := noxScriptPopString()
+	s := noxServer
+	strID := s.noxScriptPopString()
 	if c := asObject(C.nox_script_get_caller()).AsUnit(); c != nil && c.Class().Has(object.ClassPlayer) {
-		str := noxServer.Strings().GetStringInFile(strman.ID(strID), "CScrFunc.c")
+		str := s.Strings().GetStringInFile(strman.ID(strID), "CScrFunc.c")
 		nox_xxx_netSendLineMessage_4D9EB0(c, str)
 	}
 	return 0
@@ -720,16 +753,18 @@ func nox_script_printToCaller_512B10() C.int {
 
 //export nox_script_printToAll_512B60
 func nox_script_printToAll_512B60() C.int {
-	strID := noxScriptPopString()
-	str := noxServer.Strings().GetStringInFile(strman.ID(strID), "CScrFunc.c")
+	s := noxServer
+	strID := s.noxScriptPopString()
+	str := s.Strings().GetStringInFile(strman.ID(strID), "CScrFunc.c")
 	PrintToPlayers(str)
 	return 0
 }
 
 //export nox_script_ChangeScore_516E30
 func nox_script_ChangeScore_516E30() C.int {
-	val := int(noxScriptPopU32())
-	u := noxScriptPopObject().AsUnit()
+	s := noxServer
+	val := int(s.noxScriptPopU32())
+	u := s.noxScriptPopObject().AsUnit()
 	if u == nil || !u.Class().Has(object.ClassPlayer) {
 		return 0
 	}
@@ -739,8 +774,8 @@ func nox_script_ChangeScore_516E30() C.int {
 		nox_xxx_changeScore_4D8E90(u, val)
 	}
 
-	if tm := noxServer.teamByYyy(u.team()); tm != nil {
-		noxServer.teamChangeLessons(tm, val+int(tm.lessons))
+	if tm := s.teamByYyy(u.team()); tm != nil {
+		s.teamChangeLessons(tm, val+int(tm.lessons))
 	}
 	nox_xxx_netReportLesson_4D8EF0(u)
 	return 0
@@ -748,12 +783,259 @@ func nox_script_ChangeScore_516E30() C.int {
 
 //export nox_script_GetScore_516EA0
 func nox_script_GetScore_516EA0() C.int {
-	u := noxScriptPopObject().AsUnit()
+	s := noxServer
+	u := s.noxScriptPopObject().AsUnit()
 	if u == nil || !u.Class().Has(object.ClassPlayer) {
-		noxServer.scriptPushU32(0)
+		s.scriptPushU32(0)
 		return 0
 	}
 	pl := u.ControllingPlayer()
-	noxServer.scriptPushI32(int32(pl.lessons))
+	s.scriptPushI32(int32(pl.lessons))
+	return 0
+}
+
+//export nox_script_DeathScreen_516680
+func nox_script_DeathScreen_516680() C.int {
+	*memmap.PtrUint32(0x5D4594, 2386832) = 0
+	sub_5165D0()
+	return 0
+}
+
+//export nox_script_MusicPushEvent_5164A0
+func nox_script_MusicPushEvent_5164A0() C.int {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
+		C.sub_43DA80()
+	} else {
+		var buf [3]byte
+		buf[0] = byte(noxnet.MSG_MUSIC_PUSH_EVENT)
+		noxServer.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
+	}
+	return 0
+}
+
+//export nox_script_MusicPopEvent_5164E0
+func nox_script_MusicPopEvent_5164E0() C.int {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
+		C.sub_43DAD0()
+	} else {
+		var buf [3]byte
+		buf[0] = byte(noxnet.MSG_MUSIC_POP_EVENT)
+		noxServer.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
+	}
+	return 0
+}
+
+//export nox_script_ClearMusic_516520
+func nox_script_ClearMusic_516520() C.int {
+	if noxflags.HasGame(noxflags.GameModeCoop) {
+		C.sub_43D9B0(0, 0)
+	} else {
+		var buf [3]byte
+		buf[0] = byte(noxnet.MSG_MUSIC_EVENT)
+		noxServer.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
+	}
+	return 0
+}
+
+//export nox_script_Frozen_516920
+func nox_script_Frozen_516920() C.int {
+	s := noxServer
+	val := s.noxScriptPopBool()
+	if u := s.noxScriptPopObject().AsUnit(); u != nil {
+		u.Freeze(val)
+	}
+	return 0
+}
+
+//export nox_script_NoWallSound_516960
+func nox_script_NoWallSound_516960() C.int {
+	s := noxServer
+	C.nox_xxx_wallSounds_2386840 = C.uint(s.noxScriptPopU32())
+	return 0
+}
+
+//export nox_script_ClearMessages_516BC0
+func nox_script_ClearMessages_516BC0() C.int {
+	s := noxServer
+	if u := s.noxScriptPopObject().AsUnit(); u != nil {
+		nox_xxx_netScriptMessageKill_4D9760(u)
+	}
+	return 0
+}
+
+//export nox_script_IsAttackedBy_5161C0
+func nox_script_IsAttackedBy_5161C0() C.int {
+	s := noxServer
+	obj2 := s.noxScriptPopObject()
+	obj1 := s.noxScriptPopObject()
+	val := obj1 != nil && obj2 != nil && obj1.isEnemyTo(obj2)
+	s.scriptPushBool(val)
+	return 0
+}
+
+//export nox_script_Pop2_74_514BA0
+func nox_script_Pop2_74_514BA0() C.int {
+	s := noxServer
+	s.noxScriptPopU32()
+	s.noxScriptPopU32()
+	return 0
+}
+
+//export nox_script_RemoveChat_514BB0
+func nox_script_RemoveChat_514BB0() C.int {
+	s := noxServer
+	if u := s.noxScriptPopObject().AsUnit(); u != nil {
+		nox_xxx_netKillChat_528D00(u)
+	}
+	return 0
+}
+
+//export nox_script_NoChatAll_514BD0
+func nox_script_NoChatAll_514BD0() C.int {
+	C.nox_xxx_destroyEveryChatMB_528D60()
+	return 0
+}
+
+//export nox_script_CancelTimer_5141F0
+func nox_script_CancelTimer_5141F0() C.int {
+	s := noxServer
+	act := s.noxScriptPopU32()
+	ok := s.nox_script_activatorCancel(act)
+	s.scriptPushBool(ok)
+	return 0
+}
+
+//export nox_script_fn58_513F10
+func nox_script_fn58_513F10() C.int {
+	s := noxServer
+	s.noxScriptPopU32()
+	s.noxScriptPopU32()
+	return 0
+}
+
+//export nox_script_fn59_513F20
+func nox_script_fn59_513F20() C.int {
+	s := noxServer
+	s.noxScriptPopU32()
+	s.noxScriptPopU32()
+	return 0
+}
+
+//export nox_script_fn5A_513F30
+func nox_script_fn5A_513F30() C.int {
+	s := noxServer
+	s.noxScriptPopU32()
+	s.noxScriptPopU32()
+	return 0
+}
+
+//export nox_script_fn5B_513F40
+func nox_script_fn5B_513F40() C.int {
+	s := noxServer
+	s.noxScriptPopU32()
+	s.noxScriptPopU32()
+	return 0
+}
+
+//export nox_script_Fn5C_513F50
+func nox_script_Fn5C_513F50() C.int {
+	s := noxServer
+	s.noxScriptPopU32()
+	s.noxScriptPopU32()
+	return 0
+}
+
+//export nox_script_Fn5D_513F60
+func nox_script_Fn5D_513F60() C.int {
+	s := noxServer
+	s.noxScriptPopU32()
+	s.noxScriptPopU32()
+	return 0
+}
+
+//export nox_script_builtin_513C60
+func nox_script_builtin_513C60() C.int { return 0 }
+
+//export nox_script_randomFloat_512D70
+func nox_script_randomFloat_512D70() C.int {
+	s := noxServer
+	max := float64(s.noxScriptPopF32())
+	min := float64(s.noxScriptPopF32())
+	val := noxRndCounter1.FloatClamp(min, max)
+	s.scriptPushF32(float32(val))
+	return 0
+}
+
+//export nox_script_randomInt_512DB0
+func nox_script_randomInt_512DB0() C.int {
+	s := noxServer
+	max := int(s.noxScriptPopU32())
+	min := int(s.noxScriptPopU32())
+	val := noxRndCounter1.IntClamp(min, max)
+	s.scriptPushI32(int32(val))
+	return 0
+}
+
+//export nox_script_timerSecSpecial_512DE0
+func nox_script_timerSecSpecial_512DE0() C.int {
+	s := noxServer
+	fnc := s.noxScriptPopU32()
+	arg := s.noxScriptPopU32()
+	dt := s.noxScriptPopU32()
+	s.scriptPushU32(s.newScriptTimer(int(dt*gameFPS()), fnc, arg))
+	return 0
+}
+
+//export nox_script_specialTimer_512E10
+func nox_script_specialTimer_512E10() C.int {
+	s := noxServer
+	fnc := s.noxScriptPopU32()
+	arg := s.noxScriptPopU32()
+	df := int(s.noxScriptPopU32())
+	s.scriptPushU32(s.newScriptTimer(df, fnc, arg))
+	return 0
+}
+
+//export nox_script_returnOne_512C10
+func nox_script_returnOne_512C10() C.int { return 1 }
+
+//export nox_script_getObject2_5129C0
+func nox_script_getObject2_5129C0() C.int {
+	s := noxServer
+	_ = s.noxScriptPopObject()
+	return 0
+}
+
+//export nox_script_getObject3_5129E0
+func nox_script_getObject3_5129E0() C.int {
+	s := noxServer
+	_ = s.noxScriptPopObject()
+	return 0
+}
+
+//export nox_script_deleteObject_5128B0
+func nox_script_deleteObject_5128B0() C.int {
+	s := noxServer
+	if obj := s.noxScriptPopObject(); obj != nil {
+		obj.Delete()
+	}
+	return 0
+}
+
+//export nox_script_secondTimer_512320
+func nox_script_secondTimer_512320() C.int {
+	s := noxServer
+	fnc := s.noxScriptPopU32()
+	dt := s.noxScriptPopU32()
+	s.scriptPushU32(s.newScriptTimer(int(dt*gameFPS()), fnc, 0))
+	return 0
+}
+
+//export nox_script_frameTimer_512350
+func nox_script_frameTimer_512350() C.int {
+	s := noxServer
+	fnc := s.noxScriptPopU32()
+	df := int(s.noxScriptPopU32())
+	s.scriptPushU32(s.newScriptTimer(df, fnc, 0))
 	return 0
 }
