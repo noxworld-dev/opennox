@@ -71,11 +71,6 @@ func sub_4FBEA0(a1 unsafe.Pointer, abil, cd C.int) {
 	noxServer.abilities.setCooldown(a1, Ability(abil), int(cd))
 }
 
-//export nox_xxx_loadWariorParams_424DF0
-func nox_xxx_loadWariorParams_424DF0() {
-	noxServer.abilities.reloadGamedata()
-}
-
 //export nox_xxx_abilityGetName_0_425260
 func nox_xxx_abilityGetName_0_425260(ca C.int) *wchar_t {
 	return internWStr(noxServer.abilities.getName(Ability(ca)))

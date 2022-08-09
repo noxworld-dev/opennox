@@ -9,7 +9,6 @@ extern int nox_cheat_summon_nolimit;
 
 void nox_xxx_consoleTokenAddPair_4444C0(wchar_t* tok, wchar_t* tok2);
 int nox_gui_console_Print_450B90(unsigned char typ, wchar_t* str);
-int  sub_4D6B10(int a1);
 
 int nox_cmd_set_sysop(int, int, wchar_t**);
 int nox_cmd_show_game(int, int, wchar_t**);
@@ -222,7 +221,7 @@ var (
 		{Token: "execrul", HelpID: "execrulhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_exec_rul)},
 		{Token: "exit", HelpID: "exithelp", Flags: console.ClientServer, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			if noxflags.HasGame(noxflags.GameModeQuest) && noxflags.HasGame(noxflags.GameHost) {
-				C.sub_4D6B10(0)
+				sub_4D6B10(false)
 			}
 			if noxflags.HasGame(noxflags.GameFlag26) {
 				nox_client_quit_4460C0()

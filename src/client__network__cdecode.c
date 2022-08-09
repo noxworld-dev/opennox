@@ -52,23 +52,11 @@ extern uint32_t nox_perfmon_latePackets_2618900;
 extern uint32_t dword_5d4594_1200776;
 extern uint32_t dword_5d4594_1200796;
 extern uint32_t dword_5d4594_1200768;
-extern uint32_t nox_xxx_warriorMaxSpeed_587000_312796;
 extern uint32_t nox_server_sanctuaryHelp_54276;
-extern uint32_t nox_xxx_conjurerSpeed_587000_312812;
-extern uint32_t nox_xxx_wizardSpeed_587000_312828;
-extern uint32_t nox_xxx_wizardStrength_587000_312824;
-extern uint32_t nox_xxx_warriorMaxStrength_587000_312792;
-extern uint32_t nox_xxx_conjurerStrength_587000_312808;
 extern uint32_t nox_client_gui_flag_1556112;
 extern uint32_t nox_perfmon_ping_2614264;
 extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
-extern uint32_t nox_xxx_warriorMaxMana_587000_312788;
 extern uint32_t dword_5d4594_1200804;
-extern uint32_t nox_xxx_warriorMaxHealth_587000_312784;
-extern uint32_t nox_xxx_conjurerMaxHealth_587000_312800;
-extern uint32_t nox_xxx_wizardMaxHealth_587000_312816;
-extern uint32_t nox_xxx_conjurerMaxMana_587000_312804;
-extern uint32_t nox_xxx_wizardMaximumMana_587000_312820;
 extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
 extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_2650652;
@@ -86,6 +74,7 @@ void nox_client_onMapDownloadAbort();
 void clientPacketFade(bool a1, int fnc);
 void nox_client_onDeathRay(int p1x, int p1y, int p2x, int p2y);
 void nox_client_onParticleFx(int code, nox_drawable* a1, int a2, int a3, int a4);
+void nox_client_onClassStats(unsigned char* data, int sz);
 void sub_456140(unsigned char a1);
 
 uint32_t nox_client_fadeObjects_80836 = 1;
@@ -3543,23 +3532,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			}
 			return 0;
 		case 0xEFu:
-			if (getMemByte(0x85B3FC, 12254) == 0) {
-				nox_xxx_warriorMaxHealth_587000_312784 = *(uint32_t*)(data + 1);
-				nox_xxx_warriorMaxMana_587000_312788 = *(uint32_t*)(data + 5);
-				nox_xxx_warriorMaxStrength_587000_312792 = *(uint32_t*)(data + 9);
-				nox_xxx_warriorMaxSpeed_587000_312796 = *(uint32_t*)(data + 13);
-			} else if (getMemByte(0x85B3FC, 12254) == 1) {
-				nox_xxx_wizardMaxHealth_587000_312816 = *(uint32_t*)(data + 1);
-				nox_xxx_wizardMaximumMana_587000_312820 = *(uint32_t*)(data + 5);
-				nox_xxx_wizardStrength_587000_312824 = *(uint32_t*)(data + 9);
-				nox_xxx_wizardSpeed_587000_312828 = *(uint32_t*)(data + 13);
-			} else if (getMemByte(0x85B3FC, 12254) == 2) {
-				nox_xxx_conjurerMaxHealth_587000_312800 = *(uint32_t*)(data + 1);
-				nox_xxx_conjurerMaxMana_587000_312804 = *(uint32_t*)(data + 5);
-				nox_xxx_conjurerStrength_587000_312808 = *(uint32_t*)(data + 9);
-				nox_xxx_conjurerSpeed_587000_312812 = *(uint32_t*)(data + 13);
-			}
-			nox_xxx_loadBaseValues_57B200();
+			nox_client_onClassStats(data, 17);
 			data += 17;
 			break;
 		case 0xF0u:

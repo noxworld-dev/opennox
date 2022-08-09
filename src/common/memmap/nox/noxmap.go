@@ -175,16 +175,16 @@ var noxMemmap = []struct {
 	{0x587000, 311480, 4, "nox_telnet_listener"},                      // 0x5D30B8
 	{0x587000, 312784, 4, "nox_xxx_warriorMaxHealth_587000_312784"},   // 0x5D35D0
 	{0x587000, 312788, 4, "nox_xxx_warriorMaxMana_587000_312788"},     // 0x5D35D4
-	{0x587000, 312792, 4, "nox_xxx_warriorMaxStrength_587000_312792"}, // 0x5D35D8
-	{0x587000, 312796, 4, "nox_xxx_warriorMaxSpeed_587000_312796"},    // 0x5D35DC
+	{0x587000, 312792, 4, "noxServer.players.mult.warrior.strength"},  // 0x5D35D8
+	{0x587000, 312796, 4, "noxServer.players.mult.warrior.speed"},     // 0x5D35DC
 	{0x587000, 312800, 4, "nox_xxx_conjurerMaxHealth_587000_312800"},  // 0x5D35E0
 	{0x587000, 312804, 4, "nox_xxx_conjurerMaxMana_587000_312804"},    // 0x5D35E4
-	{0x587000, 312808, 4, "nox_xxx_conjurerStrength_587000_312808"},   // 0x5D35E8
-	{0x587000, 312812, 4, "nox_xxx_conjurerSpeed_587000_312812"},      // 0x5D35EC
+	{0x587000, 312808, 4, "noxServer.players.mult.conjurer.strength"}, // 0x5D35E8
+	{0x587000, 312812, 4, "noxServer.players.mult.conjurer.speed"},    // 0x5D35EC
 	{0x587000, 312816, 4, "nox_xxx_wizardMaxHealth_587000_312816"},    // 0x5D35F0
 	{0x587000, 312820, 4, "nox_xxx_wizardMaximumMana_587000_312820"},  // 0x5D35F4
-	{0x587000, 312824, 4, "nox_xxx_wizardStrength_587000_312824"},     // 0x5D35F8
-	{0x587000, 312828, 4, "nox_xxx_wizardSpeed_587000_312828"},        // 0x5D35FC
+	{0x587000, 312824, 4, "noxServer.players.mult.wizard.strength"},   // 0x5D35F8
+	{0x587000, 312828, 4, "noxServer.players.mult.wizard.speed"},      // 0x5D35FC
 	{0x5D4594, 260, 4, "nox_loaded_thing_bin"},                        // 0x5D4698
 	{0x5D4594, 1276, 8, "nox_binfile_buf1"},                           // 0x5D4A90
 	{0x5D4594, 1284, 4, "nox_binfile_offs"},                           // 0x5D4A98

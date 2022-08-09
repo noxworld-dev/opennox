@@ -21,6 +21,16 @@ void nox_xxx_WideScreenDo_515240(bool enable);
 static void nox_xxx_printToAll_4D9FD0_go(int a1, wchar_t* str) {
 	nox_xxx_printToAll_4D9FD0(a1, str);
 }
+
+extern float nox_xxx_warriorMaxHealth_587000_312784;
+extern float nox_xxx_warriorMaxMana_587000_312788;
+
+extern float nox_xxx_conjurerMaxHealth_587000_312800;
+extern float nox_xxx_conjurerMaxMana_587000_312804;
+
+extern float nox_xxx_wizardMaxHealth_587000_312816;
+extern float nox_xxx_wizardMaximumMana_587000_312820;
+
 */
 import "C"
 import (
@@ -47,9 +57,37 @@ import (
 
 const NOX_PLAYERINFO_MAX = int(C.NOX_PLAYERINFO_MAX)
 
-func (s *Server) allocPlayers() {
+type classStatMult struct {
+	// TODO: health and mana
+
+	strength float32
+	speed    float32
+}
+
+type serverPlayers struct {
+	list []Player
+	mult struct {
+		warrior  classStatMult
+		wizard   classStatMult
+		conjurer classStatMult
+	}
+}
+
+func (s *Server) initPlayers() {
 	p, _ := alloc.Calloc(NOX_PLAYERINFO_MAX, unsafe.Sizeof(Player{}))
-	s.players = unsafe.Slice((*Player)(p), NOX_PLAYERINFO_MAX)
+	s.players.list = unsafe.Slice((*Player)(p), NOX_PLAYERINFO_MAX)
+	s.players.mult.warrior = classStatMult{
+		strength: 1,
+		speed:    1,
+	}
+	s.players.mult.wizard = classStatMult{
+		strength: 1,
+		speed:    1,
+	}
+	s.players.mult.conjurer = classStatMult{
+		strength: 1,
+		speed:    1,
+	}
 }
 
 func clientPlayer() *Player {
@@ -65,14 +103,14 @@ func clientSetPlayerNetCode(id int) {
 }
 
 func (s *Server) resetAllPlayers() {
-	for i := range s.players {
-		s.players[i] = Player{}
+	for i := range s.players.list {
+		s.players.list[i] = Player{}
 	}
 }
 
 func (s *Server) playerFirst() *Player {
-	for i := range s.players {
-		p := &s.players[i]
+	for i := range s.players.list {
+		p := &s.players.list[i]
 		if p.IsActive() {
 			return p
 		}
@@ -84,8 +122,8 @@ func (s *Server) playerNext(it *Player) *Player {
 	if it == nil {
 		return nil
 	}
-	for i := it.Index() + 1; i < len(s.players); i++ {
-		p := &s.players[i]
+	for i := it.Index() + 1; i < len(s.players.list); i++ {
+		p := &s.players.list[i]
 		if p.IsActive() {
 			return p
 		}
@@ -114,7 +152,7 @@ func nox_common_playerInfoNew_416F60(id C.int) *C.nox_playerInfo {
 }
 
 func (s *Server) playerResetInd(ind int) *Player {
-	p := &s.players[ind]
+	p := &s.players.list[ind]
 	p.Reset(ind)
 	return p
 }
@@ -131,7 +169,7 @@ func nox_common_playerInfoFromNum_417090(ind C.int) *C.nox_playerInfo {
 
 //export nox_common_playerInfoFromNumRaw
 func nox_common_playerInfoFromNumRaw(ind C.int) *C.nox_playerInfo {
-	return noxServer.players[ind].C()
+	return noxServer.players.list[ind].C()
 }
 
 //export nox_xxx_playerNew_4DD320
@@ -143,8 +181,8 @@ func (s *Server) newPlayerInfo(id int) *Player {
 	if p := s.getPlayerByID(id); p != nil {
 		return p
 	}
-	for i := range s.players {
-		p := &s.players[i]
+	for i := range s.players.list {
+		p := &s.players.list[i]
 		if !p.IsActive() {
 			p.Reset(i)
 			p.netCode = C.uint(id)
@@ -474,8 +512,8 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool {
 }
 
 func (s *Server) cntPlayers() (n int) {
-	for i := range s.players {
-		p := &s.players[i]
+	for i := range s.players.list {
+		p := &s.players.list[i]
 		if p.IsActive() {
 			n++
 		}
@@ -484,16 +522,16 @@ func (s *Server) cntPlayers() (n int) {
 }
 
 func (s *Server) getAllPlayerStructs() (out []*Player) {
-	for i := range s.players {
-		p := &s.players[i]
+	for i := range s.players.list {
+		p := &s.players.list[i]
 		out = append(out, p)
 	}
 	return out
 }
 
 func (s *Server) getPlayers() (out []*Player) {
-	for i := range s.players {
-		p := &s.players[i]
+	for i := range s.players.list {
+		p := &s.players.list[i]
 		if p.IsActive() {
 			out = append(out, p)
 		}
@@ -511,10 +549,10 @@ func (s *Server) getPlayerUnits() (out []*Unit) {
 }
 
 func (s *Server) getPlayerByInd(i int) *Player {
-	if i < 0 || i >= len(s.players) {
+	if i < 0 || i >= len(s.players.list) {
 		return nil
 	}
-	p := &s.players[i]
+	p := &s.players.list[i]
 	if !p.IsActive() {
 		return nil
 	}
@@ -523,8 +561,8 @@ func (s *Server) getPlayerByInd(i int) *Player {
 }
 
 func (s *Server) getPlayerByID(id int) *Player {
-	for i := range s.players {
-		p := &s.players[i]
+	for i := range s.players.list {
+		p := &s.players.list[i]
 		if p.IsActive() && int(p.netCode) == id {
 			return p
 		}
@@ -533,8 +571,8 @@ func (s *Server) getPlayerByID(id int) *Player {
 }
 
 func (s *Server) hasPlayerUnits() bool {
-	for i := range s.players {
-		p := &s.players[i]
+	for i := range s.players.list {
+		p := &s.players.list[i]
 		if p.UnitC() != nil {
 			return true
 		}
@@ -945,4 +983,103 @@ func nox_xxx_changeScore_4D8E90(u *Unit, val int) {
 	}
 	pl := u.ControllingPlayer()
 	pl.lessons += C.int(val)
+}
+
+func nox_xxx_loadBaseValues_57B200() {
+	*memmap.PtrFloat32(0x5D4594, 2523812) = float32(gamedataFloat("BaseHealth"))
+	*memmap.PtrFloat32(0x5D4594, 2523816) = float32(gamedataFloat("BaseMana"))
+	*memmap.PtrFloat32(0x5D4594, 2523824) = float32(gamedataFloat("BaseStrength"))
+	*memmap.PtrFloat32(0x5D4594, 2523820) = float32(gamedataFloat("BaseSpeed"))
+	*memmap.PtrFloat32(0x5D4594, 2523828) = float32(gamedataFloat("WarriorMaxHealth")) * float32(C.nox_xxx_warriorMaxHealth_587000_312784)
+	*memmap.PtrFloat32(0x5D4594, 2523832) = float32(gamedataFloat("WarriorMaxMana")) * float32(C.nox_xxx_warriorMaxMana_587000_312788)
+	*memmap.PtrFloat32(0x5D4594, 2523840) = float32(gamedataFloat("WarriorMaxStrength")) * noxServer.players.mult.warrior.strength
+	*memmap.PtrFloat32(0x5D4594, 2523836) = float32(gamedataFloat("WarriorMaxSpeed")) * noxServer.players.mult.warrior.speed
+	*memmap.PtrFloat32(0x5D4594, 2523860) = float32(gamedataFloat("ConjurerMaxHealth")) * float32(C.nox_xxx_conjurerMaxHealth_587000_312800)
+	*memmap.PtrFloat32(0x5D4594, 2523864) = float32(gamedataFloat("ConjurerMaxMana")) * float32(C.nox_xxx_conjurerMaxMana_587000_312804)
+	*memmap.PtrFloat32(0x5D4594, 2523872) = float32(gamedataFloat("ConjurerMaxStrength")) * noxServer.players.mult.conjurer.strength
+	*memmap.PtrFloat32(0x5D4594, 2523868) = float32(gamedataFloat("ConjurerMaxSpeed")) * noxServer.players.mult.conjurer.speed
+	*memmap.PtrFloat32(0x5D4594, 2523844) = float32(gamedataFloat("WizardMaxHealth")) * float32(C.nox_xxx_wizardMaxHealth_587000_312816)
+	*memmap.PtrFloat32(0x5D4594, 2523848) = float32(gamedataFloat("WizardMaxMana")) * float32(C.nox_xxx_wizardMaximumMana_587000_312820)
+	*memmap.PtrFloat32(0x5D4594, 2523856) = float32(gamedataFloat("WizardMaxStrength")) * noxServer.players.mult.wizard.strength
+	*memmap.PtrFloat32(0x5D4594, 2523852) = float32(gamedataFloat("WizardMaxSpeed")) * noxServer.players.mult.wizard.speed
+}
+
+func sub_4D6B10(a1 bool) {
+	C.nox_xxx_warriorMaxHealth_587000_312784 = C.float(memmap.Float32(0x5D4594, 1556076))
+	C.nox_xxx_warriorMaxMana_587000_312788 = C.float(memmap.Float32(0x5D4594, 1556084))
+	noxServer.players.mult.warrior.strength = memmap.Float32(0x5D4594, 1556064)
+	noxServer.players.mult.warrior.speed = memmap.Float32(0x5D4594, 1556072)
+	C.nox_xxx_conjurerMaxHealth_587000_312800 = C.float(memmap.Float32(0x5D4594, 1556060))
+	C.nox_xxx_conjurerMaxMana_587000_312804 = C.float(memmap.Float32(0x5D4594, 1556096))
+	noxServer.players.mult.conjurer.strength = memmap.Float32(0x5D4594, 1550932)
+	noxServer.players.mult.conjurer.speed = memmap.Float32(0x5D4594, 1556080)
+	C.nox_xxx_wizardMaxHealth_587000_312816 = C.float(memmap.Float32(0x5D4594, 1556088))
+	C.nox_xxx_wizardMaximumMana_587000_312820 = C.float(memmap.Float32(0x5D4594, 1556068))
+	noxServer.players.mult.wizard.strength = memmap.Float32(0x5D4594, 1556100)
+	noxServer.players.mult.wizard.speed = memmap.Float32(0x5D4594, 1556092)
+	nox_xxx_loadBaseValues_57B200()
+	for _, it := range noxServer.getPlayerUnits() {
+		C.nox_xxx_plrReadVals_4EEDC0(it.CObj(), 0)
+		if a1 {
+			nox_xxx_netStatsMultiplier_4D9C20(it.CObj())
+		}
+	}
+}
+
+func sub_4D6A60() {
+	C.nox_xxx_warriorMaxHealth_587000_312784 = 3
+	C.nox_xxx_warriorMaxMana_587000_312788 = 1
+	noxServer.players.mult.warrior.strength = 1
+	noxServer.players.mult.warrior.speed = 1
+	C.nox_xxx_conjurerMaxHealth_587000_312800 = 3
+	C.nox_xxx_conjurerMaxMana_587000_312804 = 3
+	noxServer.players.mult.conjurer.strength = 1
+	noxServer.players.mult.conjurer.speed = 1
+	C.nox_xxx_wizardMaxHealth_587000_312816 = 3
+	C.nox_xxx_wizardMaximumMana_587000_312820 = 3
+	noxServer.players.mult.wizard.strength = 1
+	noxServer.players.mult.wizard.speed = 1
+	nox_xxx_loadBaseValues_57B200()
+	for _, it := range noxServer.getPlayerUnits() {
+		C.nox_xxx_plrReadVals_4EEDC0(it.CObj(), 0)
+		nox_xxx_netStatsMultiplier_4D9C20(it.CObj())
+	}
+}
+
+func sub_4D6BE0() {
+	*memmap.PtrFloat32(0x5D4594, 1556076) = float32(C.nox_xxx_warriorMaxHealth_587000_312784)
+	*memmap.PtrFloat32(0x5D4594, 1556084) = float32(C.nox_xxx_warriorMaxMana_587000_312788)
+	*memmap.PtrFloat32(0x5D4594, 1556064) = noxServer.players.mult.warrior.strength
+	*memmap.PtrFloat32(0x5D4594, 1556072) = noxServer.players.mult.warrior.speed
+	*memmap.PtrFloat32(0x5D4594, 1556060) = float32(C.nox_xxx_conjurerMaxHealth_587000_312800)
+	*memmap.PtrFloat32(0x5D4594, 1556096) = float32(C.nox_xxx_conjurerMaxMana_587000_312804)
+	*memmap.PtrFloat32(0x5D4594, 1550932) = noxServer.players.mult.conjurer.strength
+	*memmap.PtrFloat32(0x5D4594, 1556080) = noxServer.players.mult.conjurer.speed
+	*memmap.PtrFloat32(0x5D4594, 1556088) = float32(C.nox_xxx_wizardMaxHealth_587000_312816)
+	*memmap.PtrFloat32(0x5D4594, 1556068) = float32(C.nox_xxx_wizardMaximumMana_587000_312820)
+	*memmap.PtrFloat32(0x5D4594, 1556100) = noxServer.players.mult.wizard.strength
+	*memmap.PtrFloat32(0x5D4594, 1556092) = noxServer.players.mult.wizard.speed
+}
+
+//export nox_client_onClassStats
+func nox_client_onClassStats(cbuf *C.uchar, sz C.int) {
+	data := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), int(sz))
+	switch player.Class(memmap.Uint8(0x85B3FC, 12254)) {
+	case player.Warrior:
+		C.nox_xxx_warriorMaxHealth_587000_312784 = C.float(math.Float32frombits(binary.LittleEndian.Uint32(data[1:])))
+		C.nox_xxx_warriorMaxMana_587000_312788 = C.float(math.Float32frombits(binary.LittleEndian.Uint32(data[5:])))
+		noxServer.players.mult.warrior.strength = math.Float32frombits(binary.LittleEndian.Uint32(data[9:]))
+		noxServer.players.mult.warrior.speed = math.Float32frombits(binary.LittleEndian.Uint32(data[13:]))
+	case player.Wizard:
+		C.nox_xxx_wizardMaxHealth_587000_312816 = C.float(math.Float32frombits(binary.LittleEndian.Uint32(data[1:])))
+		C.nox_xxx_wizardMaximumMana_587000_312820 = C.float(math.Float32frombits(binary.LittleEndian.Uint32(data[5:])))
+		noxServer.players.mult.wizard.strength = math.Float32frombits(binary.LittleEndian.Uint32(data[9:]))
+		noxServer.players.mult.wizard.speed = math.Float32frombits(binary.LittleEndian.Uint32(data[13:]))
+	case player.Conjurer:
+		C.nox_xxx_conjurerMaxHealth_587000_312800 = C.float(math.Float32frombits(binary.LittleEndian.Uint32(data[1:])))
+		C.nox_xxx_conjurerMaxMana_587000_312804 = C.float(math.Float32frombits(binary.LittleEndian.Uint32(data[5:])))
+		noxServer.players.mult.conjurer.strength = math.Float32frombits(binary.LittleEndian.Uint32(data[9:]))
+		noxServer.players.mult.conjurer.speed = math.Float32frombits(binary.LittleEndian.Uint32(data[13:]))
+	}
+	nox_xxx_loadBaseValues_57B200()
 }

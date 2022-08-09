@@ -3,6 +3,7 @@ package opennox
 /*
 #include "GAME1_1.h"
 #include "server__xfer__savegame__savegame.h"
+extern unsigned int dword_5d4594_825764;
 */
 import "C"
 import (
@@ -170,4 +171,15 @@ func sub_41A000_check0(path string) byte {
 	defer freeSave()
 	C.sub_41A000(cstr, (*C.nox_savegame_xxx)(unsafe.Pointer(&save[0])))
 	return save[0]
+}
+
+//export sub_446140
+func sub_446140() C.int {
+	C.dword_5d4594_825764 = 1
+	if noxflags.HasGame(noxflags.GameModeQuest) {
+		if noxflags.HasGame(noxflags.GameHost) {
+			sub_4D6B10(false)
+		}
+	}
+	return 1
 }

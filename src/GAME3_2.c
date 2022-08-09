@@ -80,16 +80,10 @@ extern uint32_t dword_5d4594_1563096;
 extern uint32_t dword_5d4594_1523044;
 extern uint32_t dword_5d4594_1523032;
 extern uint32_t dword_5d4594_1563088;
-extern uint32_t nox_xxx_warriorMaxSpeed_587000_312796;
 extern uint32_t nox_server_sanctuaryHelp_54276;
 extern uint32_t dword_5d4594_3835312;
-extern uint32_t nox_xxx_conjurerSpeed_587000_312812;
-extern uint32_t nox_xxx_wizardSpeed_587000_312828;
-extern uint32_t nox_xxx_wizardStrength_587000_312824;
-extern uint32_t nox_xxx_warriorMaxStrength_587000_312792;
 extern uint32_t nox_xxx_questFlag_1556148;
 extern uint32_t dword_5d4594_3835388;
-extern uint32_t nox_xxx_conjurerStrength_587000_312808;
 extern uint32_t dword_5d4594_1563092;
 extern uint32_t dword_5d4594_3835348;
 extern uint32_t nox_client_gui_flag_1556112;
@@ -98,14 +92,9 @@ extern uint32_t dword_5d4594_1550912;
 extern uint32_t dword_5d4594_1523036;
 extern uint32_t dword_5d4594_1548700;
 extern uint32_t dword_5d4594_3835356;
-extern uint32_t nox_xxx_warriorMaxMana_587000_312788;
+
 extern uint32_t nox_server_connectionType_3596;
-extern uint32_t nox_xxx_warriorMaxHealth_587000_312784;
-extern uint32_t nox_xxx_conjurerMaxHealth_587000_312800;
-extern uint32_t nox_xxx_wizardMaxHealth_587000_312816;
-extern uint32_t nox_xxx_conjurerMaxMana_587000_312804;
 extern uint32_t dword_5d4594_1550916;
-extern uint32_t nox_xxx_wizardMaximumMana_587000_312820;
 extern uint32_t dword_5d4594_2649712;
 extern uint32_t dword_5d4594_3835396;
 extern uint32_t dword_5d4594_1523024;
@@ -1581,19 +1570,6 @@ int nox_xxx_scavengerTreasureMax_4D1600() { return *getMemU32Ptr(0x5D4594, 15485
 
 //----- (004D1610) --------------------------------------------------------
 void sub_4D1610() { *getMemU32Ptr(0x5D4594, 1548528) = 0; }
-
-//----- (004D1630) --------------------------------------------------------
-int nox_xxx_parseGamedataBinPre_4D1630() {
-	int result; // eax
-
-	result = nox_xxx_parseGamedataBin_419B30();
-	if (result) {
-		nox_xxx_loadWariorParams_424DF0();
-		nox_xxx_loadBaseValues_57B200();
-		result = nox_xxx_loadMonsterBin_517010() != 0;
-	}
-	return result;
-}
 
 //----- (004D23C0) --------------------------------------------------------
 int nox_xxx_servResetPlayers_4D23C0() {
@@ -3525,82 +3501,6 @@ int sub_4D6A20(int a1, int a2) {
 	return nox_xxx_netSendPacket0_4E5420(a1, &v5, 4, 0, 1);
 }
 
-//----- (004D6A60) --------------------------------------------------------
-int sub_4D6A60() {
-	int result; // eax
-	int i;      // esi
-
-	nox_xxx_warriorMaxHealth_587000_312784 = 1077936128;
-	nox_xxx_warriorMaxMana_587000_312788 = 1065353216;
-	nox_xxx_warriorMaxStrength_587000_312792 = 1065353216;
-	nox_xxx_warriorMaxSpeed_587000_312796 = 1065353216;
-	nox_xxx_conjurerMaxHealth_587000_312800 = 1077936128;
-	nox_xxx_conjurerMaxMana_587000_312804 = 1077936128;
-	nox_xxx_conjurerStrength_587000_312808 = 1065353216;
-	nox_xxx_conjurerSpeed_587000_312812 = 1065353216;
-	nox_xxx_wizardMaxHealth_587000_312816 = 1077936128;
-	nox_xxx_wizardMaximumMana_587000_312820 = 1077936128;
-	nox_xxx_wizardStrength_587000_312824 = 1065353216;
-	nox_xxx_wizardSpeed_587000_312828 = 1065353216;
-	nox_xxx_loadBaseValues_57B200();
-	result = nox_xxx_getFirstPlayerUnit_4DA7C0();
-	for (i = result; result; i = result) {
-		nox_xxx_plrReadVals_4EEDC0(i, 0);
-		nox_xxx_netStatsMultiplier_4D9C20(i);
-		result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
-	}
-	return result;
-}
-
-//----- (004D6B10) --------------------------------------------------------
-int sub_4D6B10(int a1) {
-	int result; // eax
-	int i;      // esi
-
-	nox_xxx_warriorMaxHealth_587000_312784 = *getMemU32Ptr(0x5D4594, 1556076);
-	nox_xxx_warriorMaxMana_587000_312788 = *getMemU32Ptr(0x5D4594, 1556084);
-	nox_xxx_warriorMaxStrength_587000_312792 = *getMemU32Ptr(0x5D4594, 1556064);
-	nox_xxx_warriorMaxSpeed_587000_312796 = *getMemU32Ptr(0x5D4594, 1556072);
-	nox_xxx_conjurerMaxHealth_587000_312800 = *getMemU32Ptr(0x5D4594, 1556060);
-	nox_xxx_conjurerMaxMana_587000_312804 = *getMemU32Ptr(0x5D4594, 1556096);
-	nox_xxx_conjurerStrength_587000_312808 = *getMemU32Ptr(0x5D4594, 1550932);
-	nox_xxx_conjurerSpeed_587000_312812 = *getMemU32Ptr(0x5D4594, 1556080);
-	nox_xxx_wizardMaxHealth_587000_312816 = *getMemU32Ptr(0x5D4594, 1556088);
-	nox_xxx_wizardMaximumMana_587000_312820 = *getMemU32Ptr(0x5D4594, 1556068);
-	nox_xxx_wizardStrength_587000_312824 = *getMemU32Ptr(0x5D4594, 1556100);
-	nox_xxx_wizardSpeed_587000_312828 = *getMemU32Ptr(0x5D4594, 1556092);
-	nox_xxx_loadBaseValues_57B200();
-	result = nox_xxx_getFirstPlayerUnit_4DA7C0();
-	for (i = result; result; i = result) {
-		nox_xxx_plrReadVals_4EEDC0(i, 0);
-		if (a1) {
-			nox_xxx_netStatsMultiplier_4D9C20(i);
-		}
-		result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
-	}
-	return result;
-}
-
-//----- (004D6BE0) --------------------------------------------------------
-int sub_4D6BE0() {
-	int result; // eax
-
-	*getMemU32Ptr(0x5D4594, 1556076) = nox_xxx_warriorMaxHealth_587000_312784;
-	*getMemU32Ptr(0x5D4594, 1556084) = nox_xxx_warriorMaxMana_587000_312788;
-	*getMemU32Ptr(0x5D4594, 1556064) = nox_xxx_warriorMaxStrength_587000_312792;
-	*getMemU32Ptr(0x5D4594, 1556072) = nox_xxx_warriorMaxSpeed_587000_312796;
-	*getMemU32Ptr(0x5D4594, 1556060) = nox_xxx_conjurerMaxHealth_587000_312800;
-	*getMemU32Ptr(0x5D4594, 1556096) = nox_xxx_conjurerMaxMana_587000_312804;
-	*getMemU32Ptr(0x5D4594, 1550932) = nox_xxx_conjurerStrength_587000_312808;
-	result = nox_xxx_wizardMaximumMana_587000_312820;
-	*getMemU32Ptr(0x5D4594, 1556080) = nox_xxx_conjurerSpeed_587000_312812;
-	*getMemU32Ptr(0x5D4594, 1556088) = nox_xxx_wizardMaxHealth_587000_312816;
-	*getMemU32Ptr(0x5D4594, 1556068) = nox_xxx_wizardMaximumMana_587000_312820;
-	*getMemU32Ptr(0x5D4594, 1556100) = nox_xxx_wizardStrength_587000_312824;
-	*getMemU32Ptr(0x5D4594, 1556092) = nox_xxx_wizardSpeed_587000_312828;
-	return result;
-}
-
 //----- (004D6F50) --------------------------------------------------------
 int nox_xxx_isQuest_4D6F50() { return *getMemU32Ptr(0x5D4594, 1556160); }
 
@@ -5452,45 +5352,6 @@ void nox_xxx_playerReportAnything_4D9900(int a1) {
 			}
 		}
 	}
-}
-
-//----- (004D9C20) --------------------------------------------------------
-int nox_xxx_netStatsMultiplier_4D9C20(int a1) {
-	int result;  // eax
-	int v2;      // ecx
-	int v3;      // edx
-	char v4[17]; // [esp+0h] [ebp-14h]
-
-	result = a1;
-	if (a1) {
-		v2 = *(uint32_t*)(a1 + 748);
-		v4[0] = -17;
-		if (*(uint8_t*)(*(uint32_t*)(v2 + 276) + 2251)) {
-			if (*(uint8_t*)(*(uint32_t*)(v2 + 276) + 2251) == 1) {
-				*(uint32_t*)&v4[1] = nox_xxx_wizardMaxHealth_587000_312816;
-				*(uint32_t*)&v4[5] = nox_xxx_wizardMaximumMana_587000_312820;
-				v3 = nox_xxx_wizardSpeed_587000_312828;
-				*(uint32_t*)&v4[9] = nox_xxx_wizardStrength_587000_312824;
-			} else {
-				result = *(unsigned char*)(*(uint32_t*)(v2 + 276) + 2251) - 2;
-				if (*(uint8_t*)(*(uint32_t*)(v2 + 276) + 2251) != 2) {
-					return result;
-				}
-				*(uint32_t*)&v4[1] = nox_xxx_conjurerMaxHealth_587000_312800;
-				*(uint32_t*)&v4[5] = nox_xxx_conjurerMaxMana_587000_312804;
-				v3 = nox_xxx_conjurerSpeed_587000_312812;
-				*(uint32_t*)&v4[9] = nox_xxx_conjurerStrength_587000_312808;
-			}
-		} else {
-			*(uint32_t*)&v4[1] = nox_xxx_warriorMaxHealth_587000_312784;
-			*(uint32_t*)&v4[5] = nox_xxx_warriorMaxMana_587000_312788;
-			v3 = nox_xxx_warriorMaxSpeed_587000_312796;
-			*(uint32_t*)&v4[9] = nox_xxx_warriorMaxStrength_587000_312792;
-		}
-		*(uint32_t*)&v4[13] = v3;
-		result = nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064), v4, 17, 0, 1);
-	}
-	return result;
 }
 
 //----- (004D9CF0) --------------------------------------------------------
