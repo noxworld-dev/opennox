@@ -56,13 +56,13 @@ extern uint32_t dword_5d4594_3835348;
 extern uint32_t dword_5d4594_3835352;
 extern uint32_t nox_xxx_lightningClosestTargetDistance_5d4594_2487912;
 extern uint32_t dword_5d4594_3835356;
-extern uint32_t nox_xxx_warriorMaxMana_587000_312788;
-extern uint32_t nox_xxx_warriorMaxHealth_587000_312784;
+extern float nox_xxx_warriorMaxMana_587000_312788;
+extern float nox_xxx_warriorMaxHealth_587000_312784;
 extern uint32_t dword_5d4594_2487248;
-extern uint32_t nox_xxx_conjurerMaxHealth_587000_312800;
-extern uint32_t nox_xxx_wizardMaxHealth_587000_312816;
-extern uint32_t nox_xxx_conjurerMaxMana_587000_312804;
-extern uint32_t nox_xxx_wizardMaximumMana_587000_312820;
+extern float nox_xxx_conjurerMaxHealth_587000_312800;
+extern float nox_xxx_wizardMaxHealth_587000_312816;
+extern float nox_xxx_conjurerMaxMana_587000_312804;
+extern float nox_xxx_wizardMaximumMana_587000_312820;
 extern uint32_t dword_5d4594_2488660;
 extern uint64_t qword_581450_10176;
 extern uint64_t qword_581450_9512;
@@ -8351,15 +8351,15 @@ signed int nox_xxx_updateObelisk_53C580(int a1) {
 			v13 = *(uint8_t*)(*(uint32_t*)(v5 + 276) + 2251);
 			if (v13) {
 				if (v13 == 1) {
-					v14 = nox_float2int(*(float*)&nox_xxx_wizardMaximumMana_587000_312820);
+					v14 = nox_float2int(nox_xxx_wizardMaximumMana_587000_312820);
 				} else {
 					if (v13 != 2) {
 						goto LABEL_36;
 					}
-					v14 = nox_float2int(*(float*)&nox_xxx_conjurerMaxMana_587000_312804);
+					v14 = nox_float2int(nox_xxx_conjurerMaxMana_587000_312804);
 				}
 			} else {
-				v14 = nox_float2int(*(float*)&nox_xxx_warriorMaxMana_587000_312788);
+				v14 = nox_float2int(nox_xxx_warriorMaxMana_587000_312788);
 			}
 			v12 = v14;
 		}
@@ -10035,7 +10035,7 @@ int nox_xxx_usePotion_53EF70(int a1, int a2) {
 			v10 = *(uint8_t*)(*(uint32_t*)(v9 + 276) + 2251);
 			if (v10) {
 				if (v10 == 1) {
-					v11 = (double)v25 * *(float*)&nox_xxx_wizardMaximumMana_587000_312820;
+					v11 = (double)v25 * nox_xxx_wizardMaximumMana_587000_312820;
 				} else {
 					if (v10 != 2) {
 					LABEL_26:
@@ -10044,10 +10044,10 @@ int nox_xxx_usePotion_53EF70(int a1, int a2) {
 						result = 1;
 						goto LABEL_27;
 					}
-					v11 = (double)v25 * *(float*)&nox_xxx_conjurerMaxMana_587000_312804;
+					v11 = (double)v25 * nox_xxx_conjurerMaxMana_587000_312804;
 				}
 			} else {
-				v11 = (double)v25 * *(float*)&nox_xxx_warriorMaxMana_587000_312788;
+				v11 = (double)v25 * nox_xxx_warriorMaxMana_587000_312788;
 			}
 			v24 = v11;
 			v3 = nox_float2int(v24);
@@ -10062,17 +10062,17 @@ int nox_xxx_usePotion_53EF70(int a1, int a2) {
 			v7 = *(uint8_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 2251);
 			switch (v7) {
 			case 0:
-				v8 = (double)v25 * *(float*)&nox_xxx_warriorMaxHealth_587000_312784;
+				v8 = (double)v25 * nox_xxx_warriorMaxHealth_587000_312784;
 			LABEL_13:
 				v23 = v8;
 				v3 = nox_float2int(v23);
 				v25 = v3;
 				break;
 			case 1:
-				v8 = (double)v25 * *(float*)&nox_xxx_wizardMaxHealth_587000_312816;
+				v8 = (double)v25 * nox_xxx_wizardMaxHealth_587000_312816;
 				goto LABEL_13;
 			case 2:
-				v8 = (double)v25 * *(float*)&nox_xxx_conjurerMaxHealth_587000_312800;
+				v8 = (double)v25 * nox_xxx_conjurerMaxHealth_587000_312800;
 				goto LABEL_13;
 			}
 		}

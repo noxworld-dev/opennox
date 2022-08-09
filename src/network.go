@@ -43,6 +43,15 @@ static int nox_xxx_netSendLineMessage_go(nox_object_t* a1, wchar_t* str) {
 
 int nox_xxx_netHandlerDefXxx_553D60(unsigned int a1, char* a2, int a3, void* a4);
 int nox_xxx_netHandlerDefYyy_553D70(unsigned int a1, char* a2, int a3, void* a4);
+
+extern float nox_xxx_warriorMaxHealth_587000_312784;
+extern float nox_xxx_warriorMaxMana_587000_312788;
+
+extern float nox_xxx_conjurerMaxHealth_587000_312800;
+extern float nox_xxx_conjurerMaxMana_587000_312804;
+
+extern float nox_xxx_wizardMaxHealth_587000_312816;
+extern float nox_xxx_wizardMaximumMana_587000_312820;
 */
 import "C"
 import (
@@ -50,6 +59,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"image"
+	"math"
 	"net"
 	"time"
 	"unsafe"
@@ -60,6 +70,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/platform"
+	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
@@ -1237,4 +1248,35 @@ func nox_xxx_netKillChat_528D00(u *Unit) {
 		}
 		nox_netlist_addToMsgListCli_40EBC0(pl.Index(), 1, buf[:3])
 	}
+}
+
+//export nox_xxx_netStatsMultiplier_4D9C20
+func nox_xxx_netStatsMultiplier_4D9C20(a1p *nox_object_t) C.int {
+	u := asUnitC(a1p)
+	if u == nil {
+		return 0
+	}
+	pl := u.ControllingPlayer()
+	var buf [17]byte
+	buf[0] = byte(noxnet.MSG_STAT_MULTIPLIERS)
+	switch pl.PlayerClass() {
+	default:
+		return 0
+	case player.Warrior:
+		binary.LittleEndian.PutUint32(buf[1:], math.Float32bits(float32(C.nox_xxx_warriorMaxHealth_587000_312784)))
+		binary.LittleEndian.PutUint32(buf[5:], math.Float32bits(float32(C.nox_xxx_warriorMaxMana_587000_312788)))
+		binary.LittleEndian.PutUint32(buf[9:], math.Float32bits(noxServer.players.mult.warrior.strength))
+		binary.LittleEndian.PutUint32(buf[13:], math.Float32bits(noxServer.players.mult.warrior.speed))
+	case player.Wizard:
+		binary.LittleEndian.PutUint32(buf[1:], math.Float32bits(float32(C.nox_xxx_wizardMaxHealth_587000_312816)))
+		binary.LittleEndian.PutUint32(buf[5:], math.Float32bits(float32(C.nox_xxx_wizardMaximumMana_587000_312820)))
+		binary.LittleEndian.PutUint32(buf[9:], math.Float32bits(noxServer.players.mult.wizard.strength))
+		binary.LittleEndian.PutUint32(buf[13:], math.Float32bits(noxServer.players.mult.wizard.speed))
+	case player.Conjurer:
+		binary.LittleEndian.PutUint32(buf[1:], math.Float32bits(float32(C.nox_xxx_conjurerMaxHealth_587000_312800)))
+		binary.LittleEndian.PutUint32(buf[5:], math.Float32bits(float32(C.nox_xxx_conjurerMaxMana_587000_312804)))
+		binary.LittleEndian.PutUint32(buf[9:], math.Float32bits(noxServer.players.mult.conjurer.strength))
+		binary.LittleEndian.PutUint32(buf[13:], math.Float32bits(noxServer.players.mult.conjurer.speed))
+	}
+	return C.int(noxServer.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:17], 0, 1))
 }

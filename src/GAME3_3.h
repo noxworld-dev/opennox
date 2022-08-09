@@ -287,7 +287,7 @@ short nox_xxx_playerGetMaxMana_4EECB0(int unit);
 int nox_xxx_playerSetMaxMana_4EECD0(int unit, short amount);
 uint32_t* nox_xxx_playerManaRefresh_4EECF0(int unit);
 void nox_xxx_abilGivePlayerAll_4EED40(int a1, char a2, int a3);
-int nox_xxx_plrReadVals_4EEDC0(int a1, int a2);
+int nox_xxx_plrReadVals_4EEDC0(nox_object_t* a1, int a2);
 int sub_4EF140(int a1);
 double nox_xxx_calcBoltDamage_4EF1E0(int a1, int a2);
 void sub_4EF410(int a1, unsigned char a2);

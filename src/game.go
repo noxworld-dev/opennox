@@ -374,7 +374,7 @@ func startServer() bool {
 	}
 	C.nox_xxx_cliSetMinimapZoom_472520(2300)
 	C.sub_43AF50(0)
-	if C.nox_xxx_parseGamedataBinPre_4D1630() == 0 {
+	if nox_xxx_parseGamedataBinPre_4D1630() == 0 {
 		nox_xxx_setContinueMenuOrHost_43DDD0(0)
 		C.nox_client_gui_flag_815132 = 0
 		return false
