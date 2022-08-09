@@ -1374,6 +1374,15 @@ func randomReachablePointAround(a1 float32, pos types.Pointf) types.Pointf { // 
 	return pos
 }
 
+func nox_server_testTwoPointsAndDirection_4E6E50(p1 types.Pointf, dir int16, p2 types.Pointf) int {
+	cp1, free1 := alloc.New(types.Pointf{})
+	defer free1()
+	cp2, free2 := alloc.New(types.Pointf{})
+	defer free2()
+	*cp1, *cp2 = p1, p2
+	return int(C.nox_server_testTwoPointsAndDirection_4E6E50((*C.float2)(unsafe.Pointer(cp1)), C.int(dir), (*C.float2)(unsafe.Pointer(cp2))))
+}
+
 //export nox_xxx_mapTraceRay_535250
 func nox_xxx_mapTraceRay_535250(a1 *C.float4, a2 *C.float2, a3 *C.int2, a4 C.char) C.int {
 	p1 := (*types.Pointf)(unsafe.Pointer(&a1.field_0))

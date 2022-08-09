@@ -318,9 +318,10 @@ func nox_xxx_playerCancelAbils_4FC180(cu *nox_object_t) {
 
 //export sub_4FC300
 func sub_4FC300(cu *nox_object_t, a2 C.int) {
-	sub4FC300(asUnitC(cu), Ability(a2))
+	abilityDisable(asUnitC(cu), Ability(a2))
 }
-func sub4FC300(u *Unit, abil Ability) {
+
+func abilityDisable(u *Unit, abil Ability) {
 	s := noxServer
 	if u == nil {
 		return

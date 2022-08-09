@@ -91,12 +91,18 @@ func (u *Unit) CanSee(obj script.Object) bool {
 }
 
 func (u *Unit) updateDataPlayer() *PlayerUpdateData {
+	if !u.Class().Has(object.ClassPlayer) {
+		panic(u.Class().String())
+	}
 	// TODO: verify this conversion by checking ObjectType
 	p := (*C.nox_object_Player_data_t)(u.updateDataPtr())
 	return (*PlayerUpdateData)(unsafe.Pointer(p))
 }
 
 func (u *Unit) updateDataMonster() *MonsterUpdateData {
+	if !u.Class().Has(object.ClassMonster) {
+		panic(u.Class().String())
+	}
 	// TODO: verify this conversion by checking ObjectType
 	p := (*C.nox_object_Monster_data_t)(u.updateDataPtr())
 	return (*MonsterUpdateData)(unsafe.Pointer(p))
