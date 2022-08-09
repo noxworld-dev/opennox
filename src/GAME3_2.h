@@ -226,7 +226,7 @@ int nox_xxx_netPrintLineToAll_4DA390(const char* a1);
 uint32_t* nox_get_and_zero_server_objects_4DA3C0(void);
 void nox_set_server_objects_4DA3E0(void* p);
 int nox_server_strcmpWithoutMapname_4DA3F0(const char* a1, const char* a2);
-int nox_xxx_getObjectByScrName_4DA4F0(char* a1);
+nox_object_t* nox_xxx_getObjectByScrName_4DA4F0(char* a1);
 int sub_4DA5C0(int a1, const char* a2);
 int sub_4DA660(int a1, const char* a2);
 nox_object_t* nox_server_getFirstObject_4DA790();

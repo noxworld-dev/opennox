@@ -5805,7 +5805,7 @@ int nox_server_strcmpWithoutMapname_4DA3F0(const char* a1, const char* a2) {
 }
 
 //----- (004DA4F0) --------------------------------------------------------
-int nox_xxx_getObjectByScrName_4DA4F0(char* a1) {
+nox_object_t* nox_xxx_getObjectByScrName_4DA4F0(char* a1) {
 	int i;      // esi
 	int result; // eax
 	int v3;     // esi
