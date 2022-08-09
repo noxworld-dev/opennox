@@ -55,7 +55,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
-const NOX_PLAYERINFO_MAX = int(C.NOX_PLAYERINFO_MAX)
+const noxMaxPlayers = 32
 
 type classStatMult struct {
 	// TODO: health and mana
@@ -74,8 +74,8 @@ type serverPlayers struct {
 }
 
 func (s *Server) initPlayers() {
-	p, _ := alloc.Calloc(NOX_PLAYERINFO_MAX, unsafe.Sizeof(Player{}))
-	s.players.list = unsafe.Slice((*Player)(p), NOX_PLAYERINFO_MAX)
+	p, _ := alloc.Calloc(noxMaxPlayers, unsafe.Sizeof(Player{}))
+	s.players.list = unsafe.Slice((*Player)(p), noxMaxPlayers)
 	s.players.mult.warrior = classStatMult{
 		strength: 1,
 		speed:    1,
@@ -695,7 +695,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	v2 := opts.Byte152
 	opts.Byte152 &= 0x7F
 	v3 := v2 >> 7
-	if ind != 31 {
+	if ind != noxMaxPlayers-1 {
 		if !noxflags.HasGame(noxflags.GameModeQuest) && v3 == 1 {
 			return 0
 		}
@@ -720,7 +720,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	if punit == nil {
 		return 0
 	}
-	if ind != 31 {
+	if ind != noxMaxPlayers-1 {
 		if v5[100] != 0 {
 			if (1<<opts.Info.PlayerClass())&v5[100] != 0 {
 				return 0
@@ -794,7 +794,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 		pl.GoObserver(false, true)
 	} else if noxflags.HasGame(noxflags.GameModeSolo10) {
 		C.nox_xxx_netReportPlayerStatus_417630(pl.C())
-	} else if pl.Index() == 31 && noxflags.HasEngine(noxflags.EngineNoRendering) {
+	} else if pl.Index() == noxMaxPlayers-1 && noxflags.HasEngine(noxflags.EngineNoRendering) {
 		pl.GoObserver(false, true)
 	} else if noxflags.HasGame(noxflags.GameModeChat) {
 		if C.sub_40A740() != 0 {
@@ -808,7 +808,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 		pl.GoObserver(true, true)
 	}
 	C.nox_xxx_servSendSettings_4DDB40(punit.CObj())
-	if pl.Index() == 31 {
+	if pl.Index() == noxMaxPlayers-1 {
 		C.nox_xxx_host_player_unit_3843628 = punit.CObj()
 	}
 	var v30 [132]byte
@@ -832,7 +832,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	}
 	punit.SetPos(p28)
 	sub_422140(pl)
-	if ind != 31 {
+	if ind != noxMaxPlayers-1 {
 		if sub_459D70() == 2 {
 			v24 := nox_xxx_cliGamedataGet_416590(1)
 			C.nox_xxx_netGuiGameSettings_4DD9B0(1, unsafe.Pointer(&v24[0]), C.int(pl.Index()))

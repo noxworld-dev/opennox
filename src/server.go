@@ -287,7 +287,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	s.nox_xxx_mapInitialize_4FC590()
 	s.nox_xxx_mapEntry_4FC600()
 	s.abilities.sub_4FC680()
-	if unit := s.getPlayerByInd(31).UnitC(); unit != nil {
+	if unit := s.getPlayerByInd(noxMaxPlayers - 1).UnitC(); unit != nil {
 		C.nox_xxx_playerSomeWallsUpdate_5003B0(unit.CObj())
 	}
 	if nox_xxx_get_57AF20() != 0 && C.sub_57B140() {
@@ -668,7 +668,7 @@ func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
 	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(noxflags.GameModeChat) {
 		for _, u := range s.getPlayerUnits() {
 			plx := u.ControllingPlayer()
-			if plx.Index() != 31 && plx.field_3680&1 == 0 {
+			if plx.Index() != noxMaxPlayers-1 && plx.field_3680&1 == 0 {
 				u.ApplyEnchant(ENCHANT_INVULNERABLE, 0, 5)
 			}
 		}
