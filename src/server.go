@@ -107,6 +107,7 @@ func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 	s.allocPlayers()
 	s.http.init()
 	s.initMetrics()
+	s.abilities.Init(s)
 	return s
 }
 
@@ -115,6 +116,7 @@ type Server struct {
 	port            int
 	players         []Player
 	spells          serverSpells
+	abilities       serverAbilities
 	srvReg          srvReg
 	scriptEvents    scriptEvents
 	nat             natService
@@ -237,7 +239,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 			C.sub_4E4170()
 		}
 		nox_xxx_spellBookReact_4FCB70()
-		s.updateAbilities()
+		s.abilities.Update()
 		s.nox_script_activatorRun_51ADF0()
 		s.scriptTick()
 		C.nox_xxx_voteUptate_506F30()
@@ -285,7 +287,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	s.maybeRegisterGameOnline() // TODO: not exactly the right place
 	s.nox_xxx_mapInitialize_4FC590()
 	s.nox_xxx_mapEntry_4FC600()
-	sub_4FC680()
+	s.abilities.sub_4FC680()
 	if unit := s.getPlayerByInd(31).UnitC(); unit != nil {
 		C.nox_xxx_playerSomeWallsUpdate_5003B0(unit.CObj())
 	}
@@ -420,6 +422,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 		return errors.New("nox_xxx_allocVisitNodesArray_50AB90 failed")
 	}
 	s.spells.Init(s)
+	s.abilities.Reset()
 	if err := nox_xxx_allocSpellRelatedArrays_4FC9B0(); err != nil {
 		return err
 	}
@@ -462,7 +465,6 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 			C.nox_xxx_networkLog_init_413CC0()
 		}
 	}
-	s.resetAbilities()
 	if C.nox_xxx_allocPendingOwnsArray_516EE0() == 0 {
 		return errors.New("nox_xxx_allocPendingOwnsArray_516EE0 failed")
 	}
@@ -510,6 +512,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	C.sub_57C460()
 	C.sub_57C030()
 	C.sub_511310()
+	s.abilities.Free()
 	s.spells.Free()
 	nox_xxx_freeSpellRelated_4FCA80()
 	C.sub_50ABF0()

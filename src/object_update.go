@@ -201,6 +201,7 @@ func (ud *MonsterUpdateData) printAIStack(event string) {
 
 //export nox_xxx_updatePlayer_4F8100
 func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
+	s := noxServer
 	u := asUnitC(up)
 	ud := u.updateDataPlayer()
 	v5 := (*C.ushort)(u.ptrXxx())
@@ -296,7 +297,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 		nox_xxx_playerSetState_4FA020(u, 5)
 	}
 	C.nox_xxx_questCheckSecretArea_421C70(u.CObj())
-	harpoonUpdatePlayer(u)
+	s.abilities.harpoon.UpdatePlayer(u)
 }
 
 func sub_4FF310(a1 noxObject) {

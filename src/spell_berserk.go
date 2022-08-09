@@ -28,5 +28,5 @@ func nox_xxx_warriorBerserker_53FEB0(u *Unit) {
 	u.DisableEnchant(ENCHANT_INVISIBLE)
 	u.DisableEnchant(ENCHANT_INVULNERABLE)
 	nox_xxx_spellCancelDurSpell_4FEB10(things.SPELL_OVAL_SHIELD, u)
-	s.netAbilReportActive(u, AbilityBerserk, true)
+	s.abilities.netAbilReportActive(u, AbilityBerserk, true)
 }
