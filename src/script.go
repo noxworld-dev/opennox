@@ -181,6 +181,10 @@ func (noxScript) Console(error bool) script.Printer {
 	return scriptConsole(console.ColorYellow)
 }
 
+func (noxScript) AudioEffect(name string, pos script.Positioner) {
+	// FIXME: trigger audio event
+}
+
 type scriptGlobalPrint struct{}
 
 func (scriptGlobalPrint) Print(text string) {
