@@ -55,7 +55,7 @@ type mapSection struct {
 	Fnc  mapSectionFunc
 }
 
-type mapSectionFunc func(a1 unsafe.Pointer) int
+type mapSectionFunc func(a1 unsafe.Pointer) error
 
 var (
 	noxMapSections = []mapSection{
@@ -79,37 +79,64 @@ var (
 	noxMapSectByName = make(map[string]*mapSection)
 )
 
-func nox_server_mapRWMapInfo_42A6E0(a1 unsafe.Pointer) int {
-	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWMapInfo_42A6E0, a1)
+func nox_server_mapRWMapInfo_42A6E0(a1 unsafe.Pointer) error {
+	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWMapInfo_42A6E0, a1) == 0 {
+		return fmt.Errorf("%s failed", caller(0))
+	}
+	return nil
 }
-func nox_server_mapRWWallMap_429B20(a1 unsafe.Pointer) int {
-	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWWallMap_429B20, a1)
+func nox_server_mapRWWallMap_429B20(a1 unsafe.Pointer) error {
+	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWWallMap_429B20, a1) == 0 {
+		return fmt.Errorf("%s failed", caller(0))
+	}
+	return nil
 }
-func nox_server_mapRWFloorMap_422230(a1 unsafe.Pointer) int {
-	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWFloorMap_422230, a1)
+func nox_server_mapRWFloorMap_422230(a1 unsafe.Pointer) error {
+	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWFloorMap_422230, a1) == 0 {
+		return fmt.Errorf("%s failed", caller(0))
+	}
+	return nil
 }
-func nox_server_mapRWSecretWalls_4297C0(a1 unsafe.Pointer) int {
-	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWSecretWalls_4297C0, a1)
+func nox_server_mapRWSecretWalls_4297C0(a1 unsafe.Pointer) error {
+	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWSecretWalls_4297C0, a1) == 0 {
+		return fmt.Errorf("%s failed", caller(0))
+	}
+	return nil
 }
-func nox_server_mapRWDestructableWalls_429530(a1 unsafe.Pointer) int {
-	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWDestructableWalls_429530, a1)
+func nox_server_mapRWDestructableWalls_429530(a1 unsafe.Pointer) error {
+	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWDestructableWalls_429530, a1) == 0 {
+		return fmt.Errorf("%s failed", caller(0))
+	}
+	return nil
 }
-func nox_server_mapRWWaypoints_506260(a1 unsafe.Pointer) int {
-	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWWaypoints_506260, a1)
+func nox_server_mapRWWaypoints_506260(a1 unsafe.Pointer) error {
+	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWWaypoints_506260, a1) == 0 {
+		return fmt.Errorf("%s failed", caller(0))
+	}
+	return nil
 }
-func nox_server_mapRWDebugData_5060D0(a1 unsafe.Pointer) int {
-	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWDebugData_5060D0, a1)
+func nox_server_mapRWDebugData_5060D0(a1 unsafe.Pointer) error {
+	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWDebugData_5060D0, a1) == 0 {
+		return fmt.Errorf("%s failed", caller(0))
+	}
+	return nil
 }
-func nox_server_mapRWWindowWalls_4292C0(a1 unsafe.Pointer) int {
-	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWWindowWalls_4292C0, a1)
+func nox_server_mapRWWindowWalls_4292C0(a1 unsafe.Pointer) error {
+	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWWindowWalls_4292C0, a1) == 0 {
+		return fmt.Errorf("%s failed", caller(0))
+	}
+	return nil
 }
-func nox_server_mapRWGroupData_505C30(a1 unsafe.Pointer) int {
-	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWGroupData_505C30, a1)
+func nox_server_mapRWGroupData_505C30(a1 unsafe.Pointer) error {
+	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWGroupData_505C30, a1) == 0 {
+		return fmt.Errorf("%s failed", caller(0))
+	}
+	return nil
 }
 
-func nox_server_mapRWScriptObject_505A40(a1 unsafe.Pointer) (gout int) {
+func nox_server_mapRWScriptObject_505A40(a1 unsafe.Pointer) (gout error) {
 	defer func() {
-		log.Printf("nox_server_mapRWScriptObject_505A40: 0x%x (%s)", gout, caller(1))
+		log.Printf("nox_server_mapRWScriptObject_505A40: %w (%s)", gout, caller(1))
 	}()
 	fname := datapath.Data(noxscript.NCobjName)
 	C.dword_5d4594_1599644 = 0
@@ -118,72 +145,90 @@ func nox_server_mapRWScriptObject_505A40(a1 unsafe.Pointer) (gout int) {
 		f, err := ifs.Open(fname)
 		if os.IsNotExist(err) {
 			cryptFileWriteU32(0)
-			return 1
+			return nil
 		} else if err != nil {
 			mapLog.Println(err)
-			return 0
+			return err
 		}
 		defer f.Close()
 		fi, _ := f.Stat()
 		sz := fi.Size()
 		cryptFileWriteU32(uint32(sz))
 		if sz == 0 {
-			return 1
+			return nil
 		}
 		_, err = io.CopyN(cryptFileWriter{}, f, sz)
 		if err != nil {
 			mapLog.Println(err)
-			return 0
+			return err
 		}
-		return 1
+		return nil
 	}
 	v10, _ := cryptFileReadU16()
 	if int16(v10) < 1 {
-		return 0
+		return fmt.Errorf("unsupported version: %d", v10)
 	}
 	if nox_xxx_cryptGetXxx() != 1 {
-		return 0
+		return fmt.Errorf("unexpected crypt file state")
 	}
 	f, err := ifs.Create(fname)
 	if err != nil {
 		mapLog.Println(err)
-		return 0
+		return err
 	}
 	defer f.Close()
 	sz, err := cryptFileReadU32()
 	if err != nil {
 		mapLog.Println(err)
-		return 0
+		return err
 	}
 	C.dword_5d4594_1599644 = C.uint(sz)
 	if sz > 0 {
 		_, err = io.CopyN(f, cryptFileReader{}, int64(sz))
 		if err != nil {
 			mapLog.Println(err)
-			return 0
+			return err
 		}
 	}
 	_ = f.Close()
 	if sz <= 0 || noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) {
-		return 1
+		return nil
 	}
-	return int(C.nox_script_ncobj_parse_505360())
+	if C.nox_script_ncobj_parse_505360() == 0 {
+		return fmt.Errorf("nox_script_ncobj_parse_505360 failed")
+	}
+	return nil
 }
 
-func nox_server_mapRWAmbientData_429200(a1 unsafe.Pointer) int {
-	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWAmbientData_429200, a1)
+func nox_server_mapRWAmbientData_429200(a1 unsafe.Pointer) error {
+	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWAmbientData_429200, a1) == 0 {
+		return fmt.Errorf("%s failed", caller(0))
+	}
+	return nil
 }
-func nox_server_mapRWPolygons_428CD0(a1 unsafe.Pointer) int {
-	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWPolygons_428CD0, a1)
+func nox_server_mapRWPolygons_428CD0(a1 unsafe.Pointer) error {
+	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWPolygons_428CD0, a1) == 0 {
+		return fmt.Errorf("%s failed", caller(0))
+	}
+	return nil
 }
-func nox_server_mapRWMapIntro_505080(a1 unsafe.Pointer) int {
-	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWMapIntro_505080, a1)
+func nox_server_mapRWMapIntro_505080(a1 unsafe.Pointer) error {
+	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWMapIntro_505080, a1) == 0 {
+		return fmt.Errorf("%s failed", caller(0))
+	}
+	return nil
 }
-func nox_server_mapRWScriptData_504F90(a1 unsafe.Pointer) int {
-	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWScriptData_504F90, a1)
+func nox_server_mapRWScriptData_504F90(a1 unsafe.Pointer) error {
+	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWScriptData_504F90, a1) == 0 {
+		return fmt.Errorf("%s failed", caller(0))
+	}
+	return nil
 }
-func nox_server_mapRWObjectTOC_428B30(a1 unsafe.Pointer) int {
-	return cgoCallIntVoidPtrFunc(C.nox_server_mapRWObjectTOC_428B30, a1)
+func nox_server_mapRWObjectTOC_428B30(a1 unsafe.Pointer) error {
+	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWObjectTOC_428B30, a1) == 0 {
+		return fmt.Errorf("%s failed", caller(0))
+	}
+	return nil
 }
 
 func init() {
@@ -234,8 +279,8 @@ func nox_common_checkMapFile(name string) error {
 	}
 	var pbuf [32]byte
 	cryptFileReadWrite(pbuf[:32])
-	if nox_server_mapRWMapInfo_42A6E0(nil) == 0 {
-		return fmt.Errorf("cannot read map info: %q", name)
+	if err := nox_server_mapRWMapInfo_42A6E0(nil); err != nil {
+		return fmt.Errorf("cannot read map info: %q: %w", name, err)
 	}
 	return nil
 }
@@ -260,8 +305,11 @@ func (s *Server) nox_xxx_serverParseEntireMap_4CFCE0() error {
 				return err
 			}
 			obj := s.newObjectByTypeID(sect)
-			if obj == nil || obj.callXfer(nil) == 0 {
-				return fmt.Errorf("cannot decode map object: %q", sect)
+			if obj == nil {
+				return fmt.Errorf("cannot decode map object: invalid type: %q", sect)
+			}
+			if err := obj.callXfer(nil); err != nil {
+				return fmt.Errorf("cannot decode map object: %q: %w", sect, err)
 			}
 			C.nox_xxx_servMapLoadPlaceObj_4F3F50(obj.CObj(), 0, nil)
 		}
@@ -296,8 +344,8 @@ func nox_xxx_mapReadSection(a1 unsafe.Pointer, name string) (bool, error) {
 		mapLog.Printf("unsupported map section: %q", name)
 		return false, nil
 	}
-	if sect.Fnc(a1) == 0 {
-		return false, fmt.Errorf("cannot parse map section: %q", name)
+	if err := sect.Fnc(a1); err != nil {
+		return false, fmt.Errorf("cannot parse map section: %q: %w", name, err)
 	}
 	return true, nil
 }
@@ -310,8 +358,8 @@ func nox_xxx_mapWriteSectionsMB_426E20(a1 unsafe.Pointer) C.int {
 		copy(buf[1:], sect.Name)
 		cryptFileWrite(buf)
 		nox_xxx_crypt_426C90()
-		if sect.Fnc(a1) == 0 {
-			gameLog.Println("failed to write section: ", sect.Name)
+		if err := sect.Fnc(a1); err != nil {
+			gameLog.Printf("failed to write section: %q: %v", sect.Name, err)
 			return 0
 		}
 		nox_xxx_crypt_426D40()
@@ -423,24 +471,28 @@ func nox_xxx_mapCliReadAll_4AC2B0(path string) error {
 	return nil
 }
 
-func nox_server_mapRWObjectData_504CF0_Read(a2 unsafe.Pointer, v16 unsafe.Pointer) int {
+func nox_server_mapRWObjectData_504CF0_Read(a2 unsafe.Pointer, v16 unsafe.Pointer) error {
+	s := noxServer
 	v12, _ := cryptFileReadU16()
 	if v12 == 0 {
-		return 1
+		return nil
 	}
 	for {
 		_, _ = cryptFileReadAlignedU32()
 		typInd := int(C.nox_xxx_objectTOCgetTT_42C2B0(C.short(v12)))
-		obj := noxServer.newObjectByTypeInd(typInd)
-		if obj == nil {
-			break
+		typ := s.getObjectTypeByInd(typInd)
+		if typ == nil {
+			cryptFileClose()
+			return fmt.Errorf("cannot find object with type: %d", typInd)
 		}
+		obj := typ.newObject()
 		var v9a2 unsafe.Pointer
 		if a2 != nil {
 			v9a2 = v16
 		}
-		if obj.callXfer(v9a2) == 0 {
-			break
+		if err := obj.callXfer(v9a2); err != nil {
+			cryptFileClose()
+			return fmt.Errorf("xfer decode failed for %s: %w", typ.String(), err)
 		}
 		var (
 			v11 bool
@@ -459,19 +511,17 @@ func nox_server_mapRWObjectData_504CF0_Read(a2 unsafe.Pointer, v16 unsafe.Pointe
 		}
 		v12, _ = cryptFileReadU16()
 		if v12 == 0 {
-			return 1
+			return nil
 		}
 	}
-	cryptFileClose()
-	return 0
 }
 
-func nox_server_mapRWObjectData_504CF0_Write(a2 unsafe.Pointer) int {
+func nox_server_mapRWObjectData_504CF0_Write(a2 unsafe.Pointer) error {
 	for it := noxServer.firstServerObject(); it != nil; it = it.Next() {
 		pos := it.Pos()
 		if a2 == nil || sub_4280E0(image.Point{X: int(pos.X), Y: int(pos.Y)}, a2) {
 			if C.sub_4E3B80(C.int(it.objTypeInd())) != 0 && nox_xxx_xfer_saveObj51DF90(it) == 0 {
-				return 0
+				return fmt.Errorf("cannot write object %s", it.String())
 			}
 		}
 	}
@@ -488,14 +538,14 @@ func nox_server_mapRWObjectData_504CF0_Write(a2 unsafe.Pointer) int {
 			v6.setPos(pos)
 			nox_xxx_xfer_saveObj51DF90(v6)
 		} else if C.sub_4E3B80(C.int(obj.objTypeInd())) != 0 && nox_xxx_xfer_saveObj51DF90(obj) == 0 {
-			return 0
+			return fmt.Errorf("cannot write upd object %s", obj.String())
 		}
 	}
 	if noxflags.HasGame(noxflags.GameFlag22) || !noxflags.HasGame(noxflags.GameHost) || noxflags.HasGame(noxflags.GameFlag23) || C.sub_51DED0() != 0 {
 		cryptFileWriteU16(0)
-		return 1
+		return nil
 	}
-	return 0
+	return fmt.Errorf("object write failed")
 }
 
 func sub_4280E0(pt image.Point, a2p unsafe.Pointer) bool {
@@ -523,17 +573,17 @@ func sub_4280E0(pt image.Point, a2p unsafe.Pointer) bool {
 	return true
 }
 
-func nox_server_mapRWObjectData_504CF0(a2 unsafe.Pointer) int {
-	if v13, _ := cryptFileReadWriteU16(1); v13 > 1 {
-		return 0
+func nox_server_mapRWObjectData_504CF0(ptr unsafe.Pointer) error {
+	if vers, _ := cryptFileReadWriteU16(1); vers > 1 {
+		return fmt.Errorf("wrong section version: %d", int(vers))
 	}
 	v16p, free := alloc.Malloc(16)
 	defer free()
-	if a2 != nil {
-		C.sub_428170(a2, (*C.int4)(v16p))
+	if ptr != nil {
+		C.sub_428170(ptr, (*C.int4)(v16p))
 	}
 	if nox_xxx_cryptGetXxx() != 0 {
-		return nox_server_mapRWObjectData_504CF0_Read(a2, v16p)
+		return nox_server_mapRWObjectData_504CF0_Read(ptr, v16p)
 	}
-	return nox_server_mapRWObjectData_504CF0_Write(a2)
+	return nox_server_mapRWObjectData_504CF0_Write(ptr)
 }

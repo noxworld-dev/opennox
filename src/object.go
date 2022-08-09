@@ -652,12 +652,15 @@ func (obj *Object) callUpdate() {
 	}
 }
 
-func (obj *Object) callXfer(a2 unsafe.Pointer) int {
+func (obj *Object) callXfer(a2 unsafe.Pointer) error {
 	switch unsafe.Pointer(obj.func_xfer) {
 	case unsafe.Pointer(C.nox_xxx_XFerDefault_4F49A0):
 		return nox_xxx_XFerDefault4F49A0(obj, a2)
 	}
-	return int(C.nox_call_object_xfer((*[0]byte)(obj.func_xfer), obj.CObj(), a2))
+	if C.nox_call_object_xfer((*[0]byte)(obj.func_xfer), obj.CObj(), a2) == 0 {
+		return fmt.Errorf("xfer for %s failed", obj.String())
+	}
+	return nil
 }
 
 func (obj *Object) callDamage(who noxObject, a3 noxObject, dmg, a5 int) int {
