@@ -5000,24 +5000,6 @@ void nox_xxx_lineCollisionChk_537230(float* a1, int arg4) {
 //----- (005374B0) --------------------------------------------------------
 int nox_xxx_traceRay_5374B0(float4* a1) { return nox_xxx_mapTraceRay_535250(a1, 0, 0, 9); }
 
-//----- (005374D0) --------------------------------------------------------
-void sub_5374D0(nox_object_t* a1p) {
-	uint32_t* a1 = a1p;
-	int v1; // esi
-
-	if (a1) {
-		v1 = a1[187];
-		if (v1) {
-			if (*(uint32_t*)(v1 + 136)) {
-				*(uint32_t*)(v1 + 132) = 0;
-				sub_4FC300(a1, 3);
-				nox_xxx_delayedDeleteObject_4E5CC0(*(uint32_t*)(v1 + 136));
-				*(uint32_t*)(v1 + 136) = 0;
-			}
-		}
-	}
-}
-
 //----- (00537540) --------------------------------------------------------
 void sub_537540(int a1) {
 	uint32_t* i; // esi

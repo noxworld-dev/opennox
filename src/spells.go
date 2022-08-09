@@ -824,7 +824,8 @@ func nox_xxx_spellDurationBased_4FEBA0(spellID things.SpellID, a2, a3, a4 *Unit,
 	return C.nox_xxx_spellDurationBased_4FEBA0(C.int(spellID), a2.CObj(), a3.CObj(), a4.CObj(), unsafe.Pointer(a5), C.int(a6), a7, a8, a9, C.int(a10)) != 0
 }
 
-func nox_xxx_spellFlySearchTarget(pos *types.Pointf, msl *Object, sflags things.SpellFlags, dist float32, a5 int, self *Unit) *Object {
+func nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo noxObject, sflags things.SpellFlags, dist float32, a5 int, self *Unit) *Object {
+	msl := mslo.AsObject()
 	if self != nil && self.Class().Has(object.ClassPlayer) && sflags.Has(things.SpellOffensive) {
 		if curTarg := self.updateDataPlayer().CursorObj(); curTarg != nil {
 			if self.isEnemyTo(curTarg) && ((a5 == 1) || (a5 == 0) && msl != curTarg) {

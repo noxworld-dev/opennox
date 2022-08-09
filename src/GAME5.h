@@ -159,7 +159,7 @@ void sub_54EF60(float* a1, int a2);
 int sub_54EF90(float a1, int a2, int a3, int a4);
 uint32_t* nox_xxx_mobGeneratorSpawn_54F070(int a1, int a2, int a3);
 void nox_xxx_unitCreatureCopyUC_54F2B0(int a1, int a2);
-void nox_xxx_updateHarpoon_54F380(int a1);
+void nox_xxx_updateHarpoon_54F380(nox_object_t* a1);
 void nox_xxx_unitUpdateMover_54F740(int a1);
 int nox_xxx_updateShootingTrap_54F9A0(int a1);
 void nox_xxx_createArrowTrapProjectile_54FA80(int a1, int a2);

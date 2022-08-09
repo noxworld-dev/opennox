@@ -174,7 +174,6 @@ int nox_xxx_unitCanInteractWith_5370E0(nox_object_t* a1, nox_object_t* a2, char 
 int nox_xxx_mapCheck_537110(nox_object_t* a1, nox_object_t* a2);
 void nox_xxx_lineCollisionChk_537230(float* a1, int arg4);
 int nox_xxx_traceRay_5374B0(float4* a1);
-void sub_5374D0(nox_object_t* a1);
 void nox_xxx_harpoonBreakForPlr_537520(nox_object_t* a1);
 void sub_537540(int a1);
 int sub_537580(int a1);

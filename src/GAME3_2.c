@@ -5351,20 +5351,6 @@ int nox_xxx_netMsgFadeBeginPlayer(int pl, int a1, int a2) {
 	return nox_xxx_netSendPacket1_4E5390(pl, (int)v4, 3, 0, 1);
 }
 
-//----- (004D9840) --------------------------------------------------------
-void nox_xxx_netHarpoonAttach_4D9840(uint32_t* a1, uint32_t* a2) {
-	char v3[7]; // [esp+4h] [ebp-8h]
-
-	if (a1 && a2) {
-		v3[0] = -98;
-		v3[1] = 7;
-		v3[2] = 0;
-		*(uint16_t*)&v3[3] = nox_xxx_netGetUnitCodeServ_578AC0(a1);
-		*(uint16_t*)&v3[5] = nox_xxx_netGetUnitCodeServ_578AC0(a2);
-	}
-	nox_xxx_netSendPacket1_4E5390(255, (int)v3, 7, 0, 1);
-}
-
 //----- (004D9900) --------------------------------------------------------
 void nox_xxx_playerReportAnything_4D9900(int a1) {
 	int v1;        // ebp
