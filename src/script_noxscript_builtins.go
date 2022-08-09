@@ -29,7 +29,7 @@ func nox_script_secondTimer_512320() C.int {
 	s := noxServer
 	fnc := s.noxScriptPopU32()
 	dt := s.noxScriptPopU32()
-	s.scriptPushU32(s.newScriptTimer(int(dt*gameFPS()), fnc, 0))
+	s.scriptPushU32(s.noxScript.newScriptTimer(int(dt*gameFPS()), fnc, 0))
 	return 0
 }
 
@@ -38,7 +38,7 @@ func nox_script_frameTimer_512350() C.int {
 	s := noxServer
 	fnc := s.noxScriptPopU32()
 	df := int(s.noxScriptPopU32())
-	s.scriptPushU32(s.newScriptTimer(df, fnc, 0))
+	s.scriptPushU32(s.noxScript.newScriptTimer(df, fnc, 0))
 	return 0
 }
 
@@ -114,7 +114,7 @@ func nox_script_timerSecSpecial_512DE0() C.int {
 	fnc := s.noxScriptPopU32()
 	arg := s.noxScriptPopU32()
 	dt := s.noxScriptPopU32()
-	s.scriptPushU32(s.newScriptTimer(int(dt*gameFPS()), fnc, arg))
+	s.scriptPushU32(s.noxScript.newScriptTimer(int(dt*gameFPS()), fnc, arg))
 	return 0
 }
 
@@ -124,7 +124,7 @@ func nox_script_specialTimer_512E10() C.int {
 	fnc := s.noxScriptPopU32()
 	arg := s.noxScriptPopU32()
 	df := int(s.noxScriptPopU32())
-	s.scriptPushU32(s.newScriptTimer(df, fnc, arg))
+	s.scriptPushU32(s.noxScript.newScriptTimer(df, fnc, arg))
 	return 0
 }
 
@@ -183,7 +183,7 @@ func nox_script_Fn5D_513F60() C.int {
 func nox_script_CancelTimer_5141F0() C.int {
 	s := noxServer
 	act := s.noxScriptPopU32()
-	ok := s.nox_script_activatorCancel(act)
+	ok := s.noxScript.actCancel(act)
 	s.scriptPushBool(ok)
 	return 0
 }
@@ -200,7 +200,7 @@ func nox_script_Effect_514210() C.int {
 	}
 	pos = pos.Add(types.Point2f(dpos))
 
-	switch fx := noxScriptFXNames[name]; fx {
+	switch fx := s.noxScript.fxNames[name]; fx {
 	case noxnet.MSG_FX_BLUE_SPARKS,
 		noxnet.MSG_FX_YELLOW_SPARKS,
 		noxnet.MSG_FX_CYAN_SPARKS,

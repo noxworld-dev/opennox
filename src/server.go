@@ -106,6 +106,7 @@ func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 	s.http.init()
 	s.initMetrics()
 	s.abilities.Init(s)
+	s.noxScript.Init(s)
 	return s
 }
 
@@ -119,8 +120,8 @@ type Server struct {
 	scriptEvents    scriptEvents
 	nat             natService
 	http            httpService
+	noxScript       noxScript
 	lua             scriptLUA
-	activators      activators
 	tickHooks       tickHooks
 	objs            serverObjTypes
 	teams           serverTeams
@@ -238,7 +239,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 		}
 		nox_xxx_spellBookReact_4FCB70()
 		s.abilities.Update()
-		s.nox_script_activatorRun_51ADF0()
+		s.noxScript.actRun()
 		s.scriptTick()
 		C.nox_xxx_voteUptate_506F30()
 		C.nox_xxx_unitsUpdateDeletedList_4E5E20()

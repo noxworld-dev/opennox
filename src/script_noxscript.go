@@ -29,22 +29,61 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
+//export nox_script_activatorCancelAll_51AC60
+func nox_script_activatorCancelAll_51AC60() {
+	noxServer.noxScript.actCancelAll()
+}
+
+//export nox_script_activatorClearObj_51AE60
+func nox_script_activatorClearObj_51AE60(obj *C.nox_object_t) {
+	noxServer.noxScript.actClearObj(asObjectC(obj))
+}
+
+//export nox_script_activatorSave_51AEA0
+func nox_script_activatorSave_51AEA0() C.int {
+	return C.int(noxServer.noxScript.actSave())
+}
+
+//export nox_script_activatorLoad_51AF80
+func nox_script_activatorLoad_51AF80() C.int {
+	return C.int(noxServer.noxScript.actLoad())
+}
+
+//export nox_script_activatorResolveObjs_51B0C0
+func nox_script_activatorResolveObjs_51B0C0() {
+	noxServer.noxScript.actResolveObjs()
+}
+
+//export nox_script_callOnEvent
+func nox_script_callOnEvent(cevent *C.char, a1, a2 unsafe.Pointer) {
+	if a1 != nil || a2 != nil { // these are never set to anything
+		panic("unexpected argument to nox_script_callOnEvent")
+	}
+	event := script.EventType(GoString(cevent))
+	noxServer.scriptOnEvent(event)
+}
+
 var (
 	nox_script_objTelekinesisHand  int
 	nox_script_objCinemaRemove     []int
-	noxScriptFXNames               = make(map[string]noxnet.Op)
 	nox_xxx_imagCasterUnit_1569664 *Unit
 )
 
-func init() {
-	for fx := noxnet.MSG_FX_PARTICLEFX; fx <= noxnet.MSG_FX_MANA_BOMB_CANCEL; fx++ {
-		noxScriptFXNames[fx.String()] = fx
+type noxScript struct {
+	s          *Server
+	fxNames    map[string]noxnet.Op
+	activators struct {
+		lastID uint32
+		head   *Activator
 	}
 }
 
-type activators struct {
-	lastID uint32
-	head   *Activator
+func (s *noxScript) Init(srv *Server) {
+	s.s = srv
+	s.fxNames = make(map[string]noxnet.Op)
+	for fx := noxnet.MSG_FX_PARTICLEFX; fx <= noxnet.MSG_FX_MANA_BOMB_CANCEL; fx++ {
+		s.fxNames[fx.String()] = fx
+	}
 }
 
 type Activator struct {
@@ -60,7 +99,7 @@ type Activator struct {
 	prev      *Activator
 }
 
-func (s *Server) nox_script_activatorNextHandle_51AD20() uint32 {
+func (s *noxScript) actNextHandle() uint32 {
 	s.activators.lastID++
 	id := s.activators.lastID
 	if s.activators.lastID > 32000 {
@@ -70,50 +109,7 @@ func (s *Server) nox_script_activatorNextHandle_51AD20() uint32 {
 	return id
 }
 
-func (s *Server) nox_script_activatorCancel(id uint32) bool {
-	for it := s.activators.head; it != nil; it = it.next {
-		if it.id == id {
-			s.nox_script_activatorDoneNext_51AD90(it)
-			return true
-		}
-	}
-	return false
-}
-
-//export nox_script_activatorCancelAll_51AC60
-func nox_script_activatorCancelAll_51AC60() {
-	noxServer.activators.head = nil
-}
-
-func (s *Server) newScriptTimer(df int, callback, arg uint32) uint32 {
-	act := &Activator{
-		id:       s.nox_script_activatorNextHandle_51AD20(),
-		frame:    gameFrame() + uint32(df),
-		callback: callback, arg: arg,
-	}
-	s.nox_script_activator_append(act)
-	return act.id
-}
-
-func (s *Server) nox_script_activatorClearObj(obj *Object) {
-	for it := s.activators.head; it != nil; {
-		if it.trigger == obj {
-			it = s.nox_script_activatorDoneNext_51AD90(it)
-		} else {
-			if it.caller == obj {
-				it.caller = nil
-			}
-			it = it.next
-		}
-	}
-}
-
-//export nox_script_activatorClearObj_51AE60
-func nox_script_activatorClearObj_51AE60(obj *C.nox_object_t) {
-	noxServer.nox_script_activatorClearObj(asObjectC(obj))
-}
-
-func (s *Server) nox_script_activator_append(act *Activator) {
+func (s *noxScript) actAppend(act *Activator) {
 	var last *Activator
 	for it := s.activators.head; it != nil; it = it.next {
 		last = it
@@ -127,12 +123,44 @@ func (s *Server) nox_script_activator_append(act *Activator) {
 	}
 }
 
-//export nox_script_activatorSave_51AEA0
-func nox_script_activatorSave_51AEA0() C.int {
-	return C.int(noxServer.nox_script_activatorSave())
+func (s *noxScript) actCancel(id uint32) bool {
+	for it := s.activators.head; it != nil; it = it.next {
+		if it.id == id {
+			s.actDoneNext(it)
+			return true
+		}
+	}
+	return false
 }
 
-func (s *Server) nox_script_activatorSave() int {
+func (s *noxScript) actCancelAll() {
+	s.activators.head = nil
+}
+
+func (s *noxScript) newScriptTimer(df int, callback, arg uint32) uint32 {
+	act := &Activator{
+		id:       s.actNextHandle(),
+		frame:    gameFrame() + uint32(df),
+		callback: callback, arg: arg,
+	}
+	s.actAppend(act)
+	return act.id
+}
+
+func (s *noxScript) actClearObj(obj *Object) {
+	for it := s.activators.head; it != nil; {
+		if it.trigger == obj {
+			it = s.actDoneNext(it)
+		} else {
+			if it.caller == obj {
+				it.caller = nil
+			}
+			it = it.next
+		}
+	}
+}
+
+func (s *noxScript) actSave() int {
 	var buf [4]byte
 	binary.LittleEndian.PutUint16(buf[:], 1)
 	cryptFileReadWrite(buf[:2])
@@ -168,12 +196,7 @@ func (s *Server) nox_script_activatorSave() int {
 	return 1
 }
 
-//export nox_script_activatorLoad_51AF80
-func nox_script_activatorLoad_51AF80() C.int {
-	return C.int(noxServer.nox_script_activatorLoad())
-}
-
-func (s *Server) nox_script_activatorLoad() int {
+func (s *noxScript) actLoad() int {
 	var buf [4]byte
 	cryptFileReadWrite(buf[:2])
 	vers := binary.LittleEndian.Uint16(buf[:])
@@ -197,17 +220,17 @@ func (s *Server) nox_script_activatorLoad() int {
 		caller := binary.LittleEndian.Uint32(buf[:])
 
 		act := &Activator{
-			id:       s.nox_script_activatorNextHandle_51AD20(),
+			id:       s.actNextHandle(),
 			frame:    gameFrame() + (frame - saveFrame),
 			callback: callback, arg: arg,
 			triggerID: trigger, callerID: caller,
 		}
-		s.nox_script_activator_append(act)
+		s.actAppend(act)
 	}
 	return 1
 }
 
-func (s *Server) nox_script_activatorRun_51ADF0() {
+func (s *noxScript) actRun() {
 	scripts := unsafe.Slice((*C.nox_script_xxx_t)(unsafe.Pointer(C.nox_script_arr_xxx_1599636)), int(C.nox_script_count_xxx_1599640))
 	for it := s.activators.head; it != nil; {
 		if it.frame > gameFrame() {
@@ -217,33 +240,28 @@ func (s *Server) nox_script_activatorRun_51ADF0() {
 			caller := it.caller
 			trigger := it.trigger
 			if scripts[callback].size_28 != 0 {
-				s.scriptPushU32(it.arg)
+				s.s.scriptPushU32(it.arg)
 			}
-			it = s.nox_script_activatorDoneNext_51AD90(it)
+			it = s.actDoneNext(it)
 			C.nox_script_callByIndex_507310(C.int(callback), unsafe.Pointer(caller.CObj()), unsafe.Pointer(trigger.CObj()))
 		}
 	}
 }
 
-//export nox_script_activatorResolveObjs_51B0C0
-func nox_script_activatorResolveObjs_51B0C0() {
-	noxServer.nox_script_activatorResolveObjs()
-}
-
-func (s *Server) nox_script_activatorResolveObjs() { // nox_script_activatorResolveObjs_51B0C0
+func (s *noxScript) actResolveObjs() {
 	for it := s.activators.head; it != nil; it = it.next {
 		if it.triggerID != 0 {
-			it.trigger = s.nox_server_scriptValToObjectPtr(int(it.triggerID))
+			it.trigger = s.s.nox_server_scriptValToObjectPtr(int(it.triggerID))
 			it.triggerID = 0
 		}
 		if it.callerID != 0 {
-			it.caller = s.nox_server_scriptValToObjectPtr(int(it.callerID))
+			it.caller = s.s.nox_server_scriptValToObjectPtr(int(it.callerID))
 			it.callerID = 0
 		}
 	}
 }
 
-func (s *Server) nox_script_activatorDoneNext_51AD90(act *Activator) *Activator {
+func (s *noxScript) actDoneNext(act *Activator) *Activator {
 	next := act.next
 	if next != nil {
 		next.prev = act.prev
@@ -275,16 +293,7 @@ func (s *Server) scriptPushBool(v bool) {
 	C.nox_script_push(C.int(bool2int(v)))
 }
 
-//export nox_script_callOnEvent
-func nox_script_callOnEvent(cevent *C.char, a1, a2 unsafe.Pointer) {
-	if a1 != nil || a2 != nil { // these are never set to anything
-		panic("unexpected argument to nox_script_callOnEvent")
-	}
-	event := script.EventType(GoString(cevent))
-	noxServer.scriptOnEvent(event)
-}
-
-func (s *Server) noxscriptOnEvent(event script.EventType) {
+func (s *noxScript) OnEvent(event script.EventType) {
 	scripts := unsafe.Slice((*C.nox_script_xxx_t)(unsafe.Pointer(C.nox_script_arr_xxx_1599636)), int(C.nox_script_count_xxx_1599640))
 	for i := range scripts {
 		sc := &scripts[i]
