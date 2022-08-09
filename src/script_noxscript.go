@@ -257,7 +257,7 @@ func (s *noxScript) PopString() string {
 }
 
 func (s *noxScript) PopObject() *Object {
-	return s.scriptToObject(int(C.nox_script_pop()))
+	return s.scriptToObject(int(nox_script_pop()))
 }
 
 func (s *noxScript) PopPointf() types.Pointf {

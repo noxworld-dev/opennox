@@ -527,9 +527,6 @@ func sub_4AA9C0() C.int {
 
 func cleanup() {
 	log.Println("cleanup")
-	if noxflags.HasGame(noxflags.GameFlag26) {
-		C.nox_xxx_networkLog_close_413D00()
-	}
 	writeConfigLegacy("nox.cfg")
 	nox_xxx_freeScreenParticles_4314D0()
 	sub_413960()

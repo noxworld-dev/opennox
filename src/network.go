@@ -55,6 +55,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/nat"
+	"github.com/noxworld-dev/opennox-lib/console"
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
@@ -63,6 +64,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/serial"
 )
@@ -87,6 +89,16 @@ var (
 	noxMapCRC     = 0
 	noxServerHost = "localhost"
 )
+
+//export nox_xxx_networkLog_print
+func nox_xxx_networkLog_print(cstr *C.char) {
+	if !noxflags.HasGame(noxflags.GameFlag3) {
+		return
+	}
+	str := GoString(cstr)
+	netLog.Println(str)
+	noxConsole.Print(console.ColorGreen, str)
+}
 
 //export nox_xxx_netGet_43C750
 func nox_xxx_netGet_43C750() C.int { return C.int(dword_5D4594_815700) }
