@@ -98,8 +98,8 @@ func (a *abilityHarpoon) netHarpoonAttach(u1, u2 *Unit) {
 		buf[0] = byte(noxnet.MSG_FX_DURATION_SPELL)
 		buf[1] = 7
 		buf[2] = 0
-		binary.LittleEndian.PutUint16(buf[3:], uint16(C.nox_xxx_netGetUnitCodeServ_578AC0(u1.CObj())))
-		binary.LittleEndian.PutUint16(buf[5:], uint16(C.nox_xxx_netGetUnitCodeServ_578AC0(u2.CObj())))
+		binary.LittleEndian.PutUint16(buf[3:], uint16(a.s.nox_xxx_netGetUnitCodeServ(u1)))
+		binary.LittleEndian.PutUint16(buf[5:], uint16(a.s.nox_xxx_netGetUnitCodeServ(u2)))
 		a.s.nox_xxx_netSendPacket1_4E5390(255, buf[:7], 0, 1)
 	}
 }
@@ -110,8 +110,8 @@ func (a *abilityHarpoon) netHarpoonBreak(u1 *Unit, u2 *Unit) {
 		buf[0] = byte(noxnet.MSG_FX_DURATION_SPELL)
 		buf[1] = 14
 		buf[2] = 0
-		binary.LittleEndian.PutUint16(buf[3:], uint16(C.nox_xxx_netGetUnitCodeServ_578AC0(u1.CObj())))
-		binary.LittleEndian.PutUint16(buf[5:], uint16(C.nox_xxx_netGetUnitCodeServ_578AC0(u2.CObj())))
+		binary.LittleEndian.PutUint16(buf[3:], uint16(a.s.nox_xxx_netGetUnitCodeServ(u1)))
+		binary.LittleEndian.PutUint16(buf[5:], uint16(a.s.nox_xxx_netGetUnitCodeServ(u2)))
 		a.s.nox_xxx_netSendPacket1_4E5390(255, buf[:7], 0, 1)
 	}
 }

@@ -1630,8 +1630,8 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		a1 = 1;
 		u->speed_cur *= 2;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(6, &v67, &v69);
-		v25 = (u->field_9 + nox_frame_xxx_2598000) / (unsigned int)(v69 + 1) % v67;
-		if (v25 <= (int)((u->field_9 + nox_frame_xxx_2598000 - 1) / (unsigned int)(v69 + 1) % v67) ||
+		v25 = (u->net_code + nox_frame_xxx_2598000) / (unsigned int)(v69 + 1) % v67;
+		if (v25 <= (int)((u->net_code + nox_frame_xxx_2598000 - 1) / (unsigned int)(v69 + 1) % v67) ||
 			v25 != 2 && v25 != 8) {
 			goto LABEL_90;
 		}
@@ -1693,7 +1693,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 			break;
 		}
 		nox_xxx_animPlayerGetFrameRange_4F9F90(4, &v67, &v69);
-		v31 = u->field_9 + nox_frame_xxx_2598000;
+		v31 = u->net_code + nox_frame_xxx_2598000; // TODO: this doesn't look right
 		v32 = (v31 - 1) / (v69 + 1) % v67;
 		v33 = v31 / (v69 + 1) % v67;
 		if (!((!nox_common_playerIsAbilityActive_4FC250(u, 4) || a1) && v33 != v32 && (v33 == 3 || v33 == 9))) {

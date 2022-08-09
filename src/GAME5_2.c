@@ -2018,27 +2018,6 @@ int sub_56FF80(int a1, int a2) {
 	return result;
 }
 
-//----- (00578AC0) --------------------------------------------------------
-unsigned int nox_xxx_netGetUnitCodeServ_578AC0(nox_object_t* item) {
-	unsigned int result; // eax
-
-	if (!item) {
-		return 0;
-	}
-	if (item->field_9 >= 0x8000u) {
-		return 0;
-	}
-	result = item->extent;
-	if (result >= 0x8000) {
-		return 0;
-	}
-	if (!(item->obj_class & 0x20400000)) {
-		return item->field_9;
-	}
-	BYTE1(result) |= 0x80u;
-	return result;
-}
-
 //----- (00578B00) --------------------------------------------------------
 unsigned int nox_xxx_netGetUnitCodeCli_578B00(int a1) {
 	unsigned int result; // eax

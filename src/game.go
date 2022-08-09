@@ -1238,7 +1238,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 			plx.lessons = 0
 			plx.field_2140 = 0
 			plx.field_2144 = C.uint(gameFrame())
-			C.nox_xxx_netReportLesson_4D8EF0(k.CObj())
+			nox_xxx_netReportLesson_4D8EF0(k)
 		}
 	}
 	C.sub_50AFA0()

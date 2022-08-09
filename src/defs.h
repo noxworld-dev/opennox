@@ -405,7 +405,7 @@ typedef struct nox_object_t {
 	uint16_t field_6_2;      // 6, 26
 	float experience;        // 7, 28
 	uint32_t worth;          // 8, 32
-	uint32_t field_9;        // 9, 36, TODO: some frame/timestamp
+	unsigned int net_code;   // 9, 36
 	unsigned int extent;     // 10, 40
 	int script_id;           // 11, 44
 	uint32_t field_12;       // 12, 48
