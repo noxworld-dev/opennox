@@ -15,8 +15,6 @@ char* nox_fs_root();
 // nox_fs_set_workdir sets current work directory.
 bool nox_fs_set_workdir(char* path);
 
-void nox_fs_progname(char* dst, int max);
-
 bool nox_fs_mkdir(char* path);
 bool nox_fs_remove(char* path);
 bool nox_fs_copy(char* src, char* dst);
@@ -47,7 +45,6 @@ bool nox_fs_fgets(FILE* f, char* dst, int max);
 bool nox_fs_feof(FILE* f);
 
 void nox_fs_close(FILE* f);
-void nox_fs_flush(FILE* f);
 
 #define nox_fs_fseek_start(f, off) nox_fs_fseek(f, off, SEEK_SET)
 #define nox_fs_fseek_cur(f, off) nox_fs_fseek(f, off, SEEK_CUR)
