@@ -34,13 +34,8 @@ FILE* nox_fs_create(char* path);
 FILE* nox_fs_create_text(char* path);
 // nox_fs_open_rw opens the file for reading and writing (in binary mode).
 FILE* nox_fs_open_rw(char* path);
-// nox_fs_create_rw creates the file for reading and writing (in binary mode).
-FILE* nox_fs_create_rw(char* path);
-// nox_fs_append_text opens the file for appending (in text mode).
-FILE* nox_fs_append_text(char* path);
 
 int nox_fs_fputs(FILE* f, char* str);
-int nox_fs_fputs_sync(FILE* f, char* str);
 int nox_fs_fprintf(FILE* f, const char* format, ...);
 
 int nox_fs_fseek(FILE* f, long off, int mode);
@@ -56,6 +51,5 @@ void nox_fs_flush(FILE* f);
 
 #define nox_fs_fseek_start(f, off) nox_fs_fseek(f, off, SEEK_SET)
 #define nox_fs_fseek_cur(f, off) nox_fs_fseek(f, off, SEEK_CUR)
-#define nox_fs_fseek_end(f, off) nox_fs_fseek(f, off, SEEK_END)
 
 #endif // NOX_COMMON_FS_H

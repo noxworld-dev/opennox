@@ -1184,40 +1184,6 @@ int nox_cmd_list_maps(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
-//----- (00441870) --------------------------------------------------------
-int nox_cmd_log_file(int tokInd, int tokCnt, wchar_t** tokens) {
-	if (tokCnt == 3) {
-		if (tokens[2]) {
-			nox_common_setEngineFlag(NOX_ENGINE_FLAG_LOG_TO_FILE);
-			char v4[256];
-			nox_sprintf(v4, "%S", tokens[2]);
-			return nox_xxx_log_4_reopen_413A80(v4);
-		}
-	}
-	return 0;
-}
-
-//----- (004418D0) --------------------------------------------------------
-int nox_cmd_log_console(int tokInd, int tokCnt, wchar_t** tokens) {
-	if (tokCnt != 2) {
-		return 0;
-	}
-	nox_common_setEngineFlag(NOX_ENGINE_FLAG_LOG_TO_CONSOLE);
-	return 1;
-}
-
-//----- (004418F0) --------------------------------------------------------
-int nox_cmd_log_stop(int tokInd, int tokCnt, wchar_t** tokens) {
-	if (tokCnt != 2) {
-		return 0;
-	}
-	nox_xxx_log_4_close_413C00();
-	return 1;
-}
-
-//----- (00441D20) --------------------------------------------------------
-int nox_cmd_set(int tokInd, int tokCnt, wchar_t** tokens) { return 1; }
-
 //----- (00441D30) --------------------------------------------------------
 int nox_cmd_cheat_ability(int tokInd, int tokCnt, wchar_t** tokens) {
 	char* i; // esi
