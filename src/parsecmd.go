@@ -46,10 +46,6 @@ int nox_cmd_show_rank(int, int, wchar_t**);
 int nox_cmd_show_motd(int, int, wchar_t**);
 int nox_cmd_show_seq(int, int, wchar_t**);
 int nox_cmd_list_maps(int, int, wchar_t**);
-int nox_cmd_log_file(int, int, wchar_t**);
-int nox_cmd_log_console(int, int, wchar_t**);
-int nox_cmd_log_stop(int, int, wchar_t**);
-int nox_cmd_set(int, int, wchar_t**);
 int nox_cmd_cheat_ability(int, int, wchar_t**);
 int nox_cmd_cheat_level(int, int, wchar_t**);
 int nox_cmd_cheat_gold(int, int, wchar_t**);
@@ -219,7 +215,9 @@ var (
 			{Token: "user", HelpID: "allowuserhelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_allow_user)},
 			{Token: "IP", HelpID: "allowiphelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_allow_ip)},
 		}},
-		{Token: "audtest", HelpID: "sethelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_set)},
+		{Token: "audtest", HelpID: "sethelp", Flags: console.ClientServer, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+			return true
+		}},
 		{Token: "ban", HelpID: "banhelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_ban)},
 		{Token: "execrul", HelpID: "execrulhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_exec_rul)},
 		{Token: "exit", HelpID: "exithelp", Flags: console.ClientServer, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
@@ -235,9 +233,19 @@ var (
 		}},
 		{Token: "kick", HelpID: "kickhelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_kick)},
 		{Token: "log", HelpID: "loghelp", Flags: console.ClientServer | console.Cheat, Sub: []*console.Command{
-			{Token: "console", HelpID: "logconsolehelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_log_console)},
-			{Token: "file", HelpID: "logfilehelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_log_file)},
-			{Token: "stop", HelpID: "logstophelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_log_stop)},
+			{Token: "console", HelpID: "logconsolehelp", Flags: console.ClientServer, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+				if len(tokens) != 0 {
+					return false
+				}
+				noxflags.SetEngine(noxflags.EngineLogToConsole)
+				return true
+			}},
+			{Token: "file", HelpID: "logfilehelp", Flags: console.ClientServer, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+				return true
+			}},
+			{Token: "stop", HelpID: "logstophelp", Flags: console.ClientServer, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+				return true
+			}},
 		}},
 		{Token: "menu", HelpID: "menuhelp", Flags: console.ClientServer, Sub: []*console.Command{
 			{Token: "vidopt", HelpID: "menuvidopthelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_menu_vidopt)},
@@ -357,18 +365,6 @@ func nox_cmd_show_seq(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_list_maps(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_list_maps(i, n, arr)
-}
-func nox_cmd_log_file(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_log_file(i, n, arr)
-}
-func nox_cmd_log_console(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_log_console(i, n, arr)
-}
-func nox_cmd_log_stop(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_log_stop(i, n, arr)
-}
-func nox_cmd_set(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_set(i, n, arr)
 }
 func nox_cmd_cheat_ability(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_cheat_ability(i, n, arr)

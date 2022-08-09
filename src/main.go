@@ -141,7 +141,6 @@ func RunArgs(args []string) (gerr error) {
 		fSleep      = flags.Bool("sleep", false, "sleep")
 		fDrop       = flags.Int("drop", 0, "drop given percent of network packets")
 		fNoText     = flags.Bool("notext", false, "notext")
-		fNoLog      = flags.Bool("nolog", false, "nolog")
 		fLock       = flags.Bool("lock", false, "lock")
 		fSafe       = flags.Bool("safe", false, "run in safe mode")
 		fNoAudio    = flags.Bool("noaudio", false, "disable audio")
@@ -324,9 +323,6 @@ func RunArgs(args []string) (gerr error) {
 	}
 	if *fNoText {
 		noxflags.SetEngine(noxflags.EngineNoTextRendering)
-	}
-	if *fNoLog {
-		C.nox_xxx_log_4_close_413C00()
 	}
 	if *fLock {
 		noxflags.SetEngine(noxflags.EngineLockResolution)
