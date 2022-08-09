@@ -1,6 +1,7 @@
 package opennox
 
 /*
+#include "defs.h"
 int nox_script_getWall_511EB0();
 int nox_script_openSecretWall_511F50();
 int nox_script_openWallGroup_512010();
@@ -10,8 +11,6 @@ int nox_script_toggleWall_512130();
 int nox_script_toggleWallGroup_512260();
 int nox_script_wallBreak_512290();
 int nox_script_wallGroupBreak_5122F0();
-int nox_script_secondTimer_512320();
-int nox_script_frameTimer_512350();
 int nox_script_moverOrMonsterGo_512370();
 int nox_script_groupGoTo_512500();
 int nox_script_lookAtDirection_512560();
@@ -28,27 +27,17 @@ int nox_script_toggleObject_5127F0();
 int nox_script_toggleObjectGroup_512810();
 int nox_script_toggleWaypoint_512850();
 int nox_script_toggleWaypointGroup_512870();
-int nox_script_deleteObject_5128B0();
 int nox_script_deleteObjectGroup_5128D0();
 int nox_script_followNearestWaypoint_512910();
 int nox_script_groupRoam_512990();
-int nox_script_getObject2_5129C0();
-int nox_script_getObject3_5129E0();
 int nox_script_gotoHome_512A00();
 int nox_script_audioEven_512AC0();
-int nox_script_printToCaller_512B10();
-int nox_script_printToAll_512B60();
 int nox_script_sayChat_512B90();
-int nox_script_returnOne_512C10();
 int nox_script_unlockDoor_512C20();
 int nox_script_lockDoor_512C60();
 int nox_script_isOn_512CA0();
 int nox_script_wpIsEnabled_512CE0();
 int nox_script_doorIsLocked_512D20();
-int nox_script_randomFloat_512D70();
-int nox_script_randomInt_512DB0();
-int nox_script_timerSecSpecial_512DE0();
-int nox_script_specialTimer_512E10();
 int nox_script_intToString_512EA0();
 int nox_script_floatToString_512ED0();
 int nox_script_create_512F10();
@@ -61,10 +50,7 @@ int nox_script_awardSpellGroup_513230();
 int nox_script_enchant_5132E0();
 int nox_script_groupEnchant_5133B0();
 int nox_script_getHost_513460();
-int nox_script_objectGet_513490();
-int nox_script_getObjectX_513530();
 int nox_script_getWaypointX_513570();
-int nox_script_getObjectY_5135B0();
 int nox_script_getWaypointY_5135F0();
 int nox_script_unitHeight_513630();
 int nox_script_getUnitLook_513670();
@@ -81,7 +67,6 @@ int nox_script_getInvHolder_513960();
 int nox_script_pickup_5139A0();
 int nox_script_drop_513C10();
 int nox_script_HasClass_516210();
-int nox_script_builtin_513C60();
 int nox_script_TestBuffs_513C70();
 int nox_script_cancelBuff_513D00();
 int nox_script_getCurrentHP_513D70();
@@ -89,19 +74,11 @@ int nox_script_getMaxHP_513DB0();
 int nox_script_restoreHP_513DF0();
 int nox_script_getDistance_513E20();
 int nox_script_canInteract_513E80();
-int nox_script_fn58_513F10();
-int nox_script_fn59_513F20();
-int nox_script_fn5A_513F30();
-int nox_script_fn5B_513F40();
-int nox_script_Fn5C_513F50();
-int nox_script_Fn5D_513F60();
 int nox_script_Fn5E_513F70();
 int nox_script_GetHostInfo_513FA0();
 int nox_script_FaceObject_514050();
 int nox_script_Walk_5140B0();
 int nox_script_GroupWalk_514170();
-int nox_script_CancelTimer_5141F0();
-int nox_script_Effect_514210();
 int nox_script_SetOwner_514490();
 int nox_script_SetOwnerGroup_5144C0();
 int nox_script_SetOwners_514510();
@@ -111,15 +88,8 @@ int nox_script_IsOwnedByGroup_514630();
 int nox_script_IsOwnedByAny_5146B0();
 int nox_script_IsOwnedByAnyGroup_514730();
 int nox_script_ClearOwner_5147E0();
-int nox_script_Waypoint_514800();
-int nox_script_GetWaypointGroup_5148A0();
-int nox_script_GetObjectGroup_514940();
-int nox_script_GetWallGroup_5149E0();
 int nox_script_ChatTimerSeconds_514A80();
 int nox_script_ChatTimerFrames_514B10();
-int nox_script_Pop2_74_514BA0();
-int nox_script_RemoveChat_514BB0();
-int nox_script_NoChatAll_514BD0();
 int nox_script_SetQuestInt_514BE0();
 int nox_script_SetQuestFloat_514C10();
 int nox_script_GetQuestInt_514C40();
@@ -132,13 +102,6 @@ int nox_script_CancelDialog_514DF0();
 int nox_script_DialogPortrait_514E30();
 int nox_script_TellStory_514E90();
 int nox_script_StartDialog_514ED0();
-int nox_script_CastObject2_514F10();
-int nox_script_CastObjectLocation_514FC0();
-int nox_script_CastLocationObject_515060();
-int nox_script_CastLocation2_515130();
-int nox_script_UnBlind_515200();
-int nox_script_Blind_515220();
-int nox_script_WideScreen_515240();
 int nox_script_GetElevatorStat_5154A0();
 int nox_script_Guard_515600();
 int nox_script_GuardGroup_515700();
@@ -169,14 +132,11 @@ int nox_script_RunAway_515F10();
 int nox_script_RunAwayGroup_516000();
 int nox_script_PauseObject_516060();
 int nox_script_PauseObjectGroup_5160F0();
-int nox_script_IsAttackedBy_5161C0();
 int nox_script_GetGold_516120();
 int nox_script_ChangeGold_516160();
 int nox_script_DialogResult_5163C0();
 int nox_script_GiveExp_516190();
 int nox_script_HasSubclass_5162D0();
-int nox_script_ForceAutosave_516400();
-int nox_script_Music_516430();
 int nox_script_StartupScreen_516600();
 int nox_script_IsTalking_5166A0();
 int nox_script_GetTrigger_514D30();
@@ -188,34 +148,24 @@ int nox_script_BecomeEnemy_516810();
 int nox_script_builtin_516790();
 int nox_script_builtin_516850();
 int nox_script_OblivionGive_516890();
-int nox_script_DeathScreen_516680();
-int nox_script_Frozen_516920();
-int nox_script_NoWallSound_516960();
-int nox_script_SetCallback_516970();
 int nox_script_DeleteObjectTimer_516A50();
 int nox_script_TrapSpells_516B40();
 int nox_script_PlayerIsTrading_5166E0();
-int nox_script_ClearMessages_516BC0();
 int nox_script_SetShopkeeperGreet_516BE0();
-int nox_script_StopAllFades_516C10();
 int nox_script_IsSummoned_516C30();
 int nox_script_ZombieStayDown_516C70();
 int nox_script_ZombieStayDownGroup_516CB0();
 int nox_script_RaiseZombie_516CE0();
 int nox_script_RaiseZombieGroup_516D40();
-int nox_script_MusicPushEvent_5164A0();
-int nox_script_MusicPopEvent_5164E0();
-int nox_script_ClearMusic_516520();
 int nox_script_ObjIsGameball_516D70();
 int nox_script_ObjIsCrown_516DC0();
-int nox_script_EndGame_516E10();
-int nox_script_StartGame_516C20();
-int nox_script_ChangeScore_516E30();
-int nox_script_GetScore_516EA0();
 
 extern unsigned int nox_xxx_wallSounds_2386840;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
+nox_object_t* nox_xxx_getObjectByScrName_4DA4F0(char* a1);
+void* nox_server_scriptGetMapGroupByName_57C280(const char* a1, int a2);
 int nox_xxx_destroyEveryChatMB_528D60();
+const char* nox_xxx_waypointByName_579E30(const char* a1);
 void sub_43D9B0(int a1, int a2);
 int sub_43DA80();
 void sub_43DAD0();
@@ -236,13 +186,82 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func wrapScriptC(fnc unsafe.Pointer) func() C.int {
-	return func() C.int {
-		return C.int(cgoCallIntVoidFunc(fnc))
+func wrapScriptC(fnc unsafe.Pointer) func() int {
+	return func() int {
+		return cgoCallIntVoidFunc(fnc)
 	}
 }
 
-var noxScriptBuiltins = []func() C.int{
+//export nox_script_callBuiltin_508B70
+func nox_script_callBuiltin_508B70(i, fi C.int) C.int {
+	return C.int(noxServer.noxScript.callBuiltin(int(i), int(fi)))
+}
+
+func (s *noxScript) callBuiltin(i, fi int) int {
+	if fi < 0 || fi >= len(noxScriptBuiltins) {
+		if !s.panicCompilerCheck(fi) {
+			scriptLog.Printf("noxscript: invalid builtin index: %d (%x)", fi, fi)
+			return 0
+		}
+		return 0
+	}
+	if s.builtinNeedsField36(fi) {
+		s.nameSuff = s.scriptNameSuff(i)
+	}
+	if s.builtinNeedsFields4044(fi) {
+		s.f40 = s.scriptField40(i)
+		s.f44 = s.scriptField44(i)
+	}
+	res := s.callBuiltinNative(fi)
+	s.resetBuiltin()
+	return res
+}
+
+//export nox_script_shouldReadMoreXxx
+func nox_script_shouldReadMoreXxx(fi C.int) C.bool {
+	return C.bool(fi == 9 || fi == 10 ||
+		fi == 46 || fi == 47 ||
+		fi == 190 || fi == 126)
+}
+
+//export nox_script_shouldReadEvenMoreXxx
+func nox_script_shouldReadEvenMoreXxx(fi C.int) C.bool {
+	return C.bool(fi == 126)
+}
+
+func (s *noxScript) callBuiltinNative(fi int) int {
+	if res, ok := s.panicScriptCall(fi); ok {
+		return res
+	}
+	return noxScriptBuiltins[fi]()
+}
+
+func (s *noxScript) builtinNeedsFields4044(fi int) bool {
+	// TODO: 7 items in the array, but the count is set to 5; why?
+	var check = []int{
+		0,
+		67, 68,
+		72,
+		97, 98,
+		100,
+	}
+	for _, ind := range check[:5] {
+		if fi == ind {
+			return true
+		}
+	}
+	return false
+}
+
+func (s *noxScript) builtinNeedsField36(fi int) bool {
+	switch fi {
+	case 60, 110, 111, 112, 113:
+		return true
+	}
+	return false
+}
+
+var noxScriptBuiltins = []func() int{
 	0:   wrapScriptC(C.nox_script_getWall_511EB0),
 	1:   wrapScriptC(C.nox_script_openSecretWall_511F50),
 	2:   wrapScriptC(C.nox_script_openWallGroup_512010),
@@ -303,10 +322,10 @@ var noxScriptBuiltins = []func() C.int{
 	57:  wrapScriptC(C.nox_script_enchant_5132E0),
 	58:  wrapScriptC(C.nox_script_groupEnchant_5133B0),
 	59:  wrapScriptC(C.nox_script_getHost_513460),
-	60:  wrapScriptC(C.nox_script_objectGet_513490),
-	61:  wrapScriptC(C.nox_script_getObjectX_513530),
+	60:  nox_script_objectGet_513490,
+	61:  nox_script_getObjectX_513530,
 	62:  wrapScriptC(C.nox_script_getWaypointX_513570),
-	63:  wrapScriptC(C.nox_script_getObjectY_5135B0),
+	63:  nox_script_getObjectY_5135B0,
 	64:  wrapScriptC(C.nox_script_getWaypointY_5135F0),
 	65:  wrapScriptC(C.nox_script_unitHeight_513630),
 	66:  wrapScriptC(C.nox_script_getUnitLook_513670),
@@ -352,10 +371,10 @@ var noxScriptBuiltins = []func() C.int{
 	107: wrapScriptC(C.nox_script_IsOwnedByAny_5146B0),
 	108: wrapScriptC(C.nox_script_IsOwnedByAnyGroup_514730),
 	109: wrapScriptC(C.nox_script_ClearOwner_5147E0),
-	110: wrapScriptC(C.nox_script_Waypoint_514800),
-	111: wrapScriptC(C.nox_script_GetWaypointGroup_5148A0),
-	112: wrapScriptC(C.nox_script_GetObjectGroup_514940),
-	113: wrapScriptC(C.nox_script_GetWallGroup_5149E0),
+	110: nox_script_Waypoint_514800,
+	111: nox_script_GetWaypointGroup_5148A0,
+	112: nox_script_GetObjectGroup_514940,
+	113: nox_script_GetWallGroup_5149E0,
 	114: wrapScriptC(C.nox_script_ChatTimerSeconds_514A80),
 	115: wrapScriptC(C.nox_script_ChatTimerFrames_514B10),
 	116: nox_script_Pop2_74_514BA0,
@@ -455,26 +474,23 @@ var noxScriptBuiltins = []func() C.int{
 	210: nox_script_GetScore_516EA0,
 }
 
-//export nox_script_secondTimer_512320
-func nox_script_secondTimer_512320() C.int {
+func nox_script_secondTimer_512320() int {
 	s := &noxServer.noxScript
-	fnc := s.PopU32()
+	fnc := int(s.PopU32())
 	dt := s.PopU32()
 	s.PushU32(s.newScriptTimer(int(dt*gameFPS()), fnc, 0))
 	return 0
 }
 
-//export nox_script_frameTimer_512350
-func nox_script_frameTimer_512350() C.int {
+func nox_script_frameTimer_512350() int {
 	s := &noxServer.noxScript
-	fnc := s.PopU32()
+	fnc := int(s.PopU32())
 	df := int(s.PopU32())
 	s.PushU32(s.newScriptTimer(df, fnc, 0))
 	return 0
 }
 
-//export nox_script_deleteObject_5128B0
-func nox_script_deleteObject_5128B0() C.int {
+func nox_script_deleteObject_5128B0() int {
 	s := &noxServer.noxScript
 	if obj := s.PopObject(); obj != nil {
 		obj.Delete()
@@ -482,22 +498,19 @@ func nox_script_deleteObject_5128B0() C.int {
 	return 0
 }
 
-//export nox_script_getObject2_5129C0
-func nox_script_getObject2_5129C0() C.int {
+func nox_script_getObject2_5129C0() int {
 	s := &noxServer.noxScript
 	_ = s.PopObject()
 	return 0
 }
 
-//export nox_script_getObject3_5129E0
-func nox_script_getObject3_5129E0() C.int {
+func nox_script_getObject3_5129E0() int {
 	s := &noxServer.noxScript
 	_ = s.PopObject()
 	return 0
 }
 
-//export nox_script_printToCaller_512B10
-func nox_script_printToCaller_512B10() C.int {
+func nox_script_printToCaller_512B10() int {
 	s := &noxServer.noxScript
 	strID := s.PopString()
 	if c := s.Caller().AsUnit(); c != nil && c.Class().Has(object.ClassPlayer) {
@@ -507,8 +520,7 @@ func nox_script_printToCaller_512B10() C.int {
 	return 0
 }
 
-//export nox_script_printToAll_512B60
-func nox_script_printToAll_512B60() C.int {
+func nox_script_printToAll_512B60() int {
 	s := &noxServer.noxScript
 	strID := s.PopString()
 	str := s.s.Strings().GetStringInFile(strman.ID(strID), "CScrFunc.c")
@@ -516,11 +528,9 @@ func nox_script_printToAll_512B60() C.int {
 	return 0
 }
 
-//export nox_script_returnOne_512C10
-func nox_script_returnOne_512C10() C.int { return 1 }
+func nox_script_returnOne_512C10() int { return 1 }
 
-//export nox_script_randomFloat_512D70
-func nox_script_randomFloat_512D70() C.int {
+func nox_script_randomFloat_512D70() int {
 	s := &noxServer.noxScript
 	max := float64(s.PopF32())
 	min := float64(s.PopF32())
@@ -529,8 +539,7 @@ func nox_script_randomFloat_512D70() C.int {
 	return 0
 }
 
-//export nox_script_randomInt_512DB0
-func nox_script_randomInt_512DB0() C.int {
+func nox_script_randomInt_512DB0() int {
 	s := &noxServer.noxScript
 	max := int(s.PopU32())
 	min := int(s.PopU32())
@@ -539,79 +548,99 @@ func nox_script_randomInt_512DB0() C.int {
 	return 0
 }
 
-//export nox_script_timerSecSpecial_512DE0
-func nox_script_timerSecSpecial_512DE0() C.int {
+func nox_script_timerSecSpecial_512DE0() int {
 	s := &noxServer.noxScript
-	fnc := s.PopU32()
+	fnc := int(s.PopU32())
 	arg := s.PopU32()
 	dt := s.PopU32()
 	s.PushU32(s.newScriptTimer(int(dt*gameFPS()), fnc, arg))
 	return 0
 }
 
-//export nox_script_specialTimer_512E10
-func nox_script_specialTimer_512E10() C.int {
+func nox_script_specialTimer_512E10() int {
 	s := &noxServer.noxScript
-	fnc := s.PopU32()
+	fnc := int(s.PopU32())
 	arg := s.PopU32()
 	df := int(s.PopU32())
 	s.PushU32(s.newScriptTimer(df, fnc, arg))
 	return 0
 }
 
-//export nox_script_builtin_513C60
-func nox_script_builtin_513C60() C.int { return 0 }
+func nox_script_objectGet_513490() int {
+	s := &noxServer.noxScript
+	str := s.PopString()
+	str += s.nameSuff
+	cstr := CString(str)
+	defer StrFree(cstr)
+	obj := asObjectC(C.nox_xxx_getObjectByScrName_4DA4F0(cstr))
+	if obj != nil {
+		s.PushU32(uint32(obj.script_id))
+	} else {
+		scriptLog.Printf("noxscript: cannot find object: %q", str)
+		s.PushU32(0)
+	}
+	return 0
+}
 
-//export nox_script_fn58_513F10
-func nox_script_fn58_513F10() C.int {
+func nox_script_getObjectX_513530() int {
+	s := &noxServer.noxScript
+	obj := s.PopObject()
+	s.PushF32(obj.Pos().X)
+	return 0
+}
+
+func nox_script_getObjectY_5135B0() int {
+	s := &noxServer.noxScript
+	obj := s.PopObject()
+	s.PushF32(obj.Pos().Y)
+	return 0
+}
+
+func nox_script_builtin_513C60() int { return 0 }
+
+func nox_script_fn58_513F10() int {
 	s := &noxServer.noxScript
 	s.PopU32()
 	s.PopU32()
 	return 0
 }
 
-//export nox_script_fn59_513F20
-func nox_script_fn59_513F20() C.int {
+func nox_script_fn59_513F20() int {
 	s := &noxServer.noxScript
 	s.PopU32()
 	s.PopU32()
 	return 0
 }
 
-//export nox_script_fn5A_513F30
-func nox_script_fn5A_513F30() C.int {
+func nox_script_fn5A_513F30() int {
 	s := &noxServer.noxScript
 	s.PopU32()
 	s.PopU32()
 	return 0
 }
 
-//export nox_script_fn5B_513F40
-func nox_script_fn5B_513F40() C.int {
+func nox_script_fn5B_513F40() int {
 	s := &noxServer.noxScript
 	s.PopU32()
 	s.PopU32()
 	return 0
 }
 
-//export nox_script_Fn5C_513F50
-func nox_script_Fn5C_513F50() C.int {
+func nox_script_Fn5C_513F50() int {
 	s := &noxServer.noxScript
 	s.PopU32()
 	s.PopU32()
 	return 0
 }
 
-//export nox_script_Fn5D_513F60
-func nox_script_Fn5D_513F60() C.int {
+func nox_script_Fn5D_513F60() int {
 	s := &noxServer.noxScript
 	s.PopU32()
 	s.PopU32()
 	return 0
 }
 
-//export nox_script_CancelTimer_5141F0
-func nox_script_CancelTimer_5141F0() C.int {
+func nox_script_CancelTimer_5141F0() int {
 	s := &noxServer.noxScript
 	act := s.PopU32()
 	ok := s.actCancel(act)
@@ -619,8 +648,7 @@ func nox_script_CancelTimer_5141F0() C.int {
 	return 0
 }
 
-//export nox_script_Effect_514210
-func nox_script_Effect_514210() C.int {
+func nox_script_Effect_514210() int {
 	s := &noxServer.noxScript
 	pos2 := s.PopPointf()
 	pos := s.PopPointf()
@@ -669,16 +697,78 @@ func nox_script_Effect_514210() C.int {
 	return 0
 }
 
-//export nox_script_Pop2_74_514BA0
-func nox_script_Pop2_74_514BA0() C.int {
+func nox_script_Waypoint_514800() int {
+	s := &noxServer.noxScript
+	str := s.PopString()
+	str += s.nameSuff
+	cstr := CString(str)
+	defer StrFree(cstr)
+	ptr := unsafe.Pointer(C.nox_xxx_waypointByName_579E30(cstr))
+	if ptr != nil {
+		s.PushU32(*(*uint32)(unsafe.Add(ptr, 0)))
+	} else {
+		scriptLog.Printf("noxscript: cannot find waypoint: %q", str)
+		s.PushU32(0)
+	}
+	return 0
+}
+
+func nox_script_GetWaypointGroup_5148A0() int {
+	s := &noxServer.noxScript
+	str := s.PopString()
+	str += s.nameSuff
+	cstr := CString(str)
+	defer StrFree(cstr)
+	ptr := unsafe.Pointer(C.nox_server_scriptGetMapGroupByName_57C280(cstr, 1))
+	if ptr != nil {
+		s.PushU32(*(*uint32)(unsafe.Add(ptr, 4)))
+	} else {
+		scriptLog.Printf("noxscript: cannot find waypoint group: %q", str)
+		s.PushU32(0)
+	}
+	return 0
+}
+
+func nox_script_GetObjectGroup_514940() int {
+	s := &noxServer.noxScript
+	str := s.PopString()
+	str += s.nameSuff
+	cstr := CString(str)
+	defer StrFree(cstr)
+	ptr := unsafe.Pointer(C.nox_server_scriptGetMapGroupByName_57C280(cstr, 0))
+	if ptr != nil {
+		s.PushU32(*(*uint32)(unsafe.Add(ptr, 4)))
+	} else {
+		scriptLog.Printf("noxscript: cannot find object group: %q", str)
+		s.PushU32(0)
+	}
+	return 0
+}
+
+func nox_script_GetWallGroup_5149E0() int {
+	s := &noxServer.noxScript
+	str := s.PopString()
+	str += s.nameSuff
+	cstr := CString(str)
+	defer StrFree(cstr)
+	ptr := unsafe.Pointer(C.nox_server_scriptGetMapGroupByName_57C280(cstr, 2))
+	if ptr != nil {
+		s.PushU32(*(*uint32)(unsafe.Add(ptr, 4)))
+	} else {
+		scriptLog.Printf("noxscript: cannot find wall group: %q", str)
+		s.PushU32(0)
+	}
+	return 0
+}
+
+func nox_script_Pop2_74_514BA0() int {
 	s := &noxServer.noxScript
 	s.PopU32()
 	s.PopU32()
 	return 0
 }
 
-//export nox_script_RemoveChat_514BB0
-func nox_script_RemoveChat_514BB0() C.int {
+func nox_script_RemoveChat_514BB0() int {
 	s := &noxServer.noxScript
 	if u := s.PopObject().AsUnit(); u != nil {
 		nox_xxx_netKillChat_528D00(u)
@@ -686,14 +776,12 @@ func nox_script_RemoveChat_514BB0() C.int {
 	return 0
 }
 
-//export nox_script_NoChatAll_514BD0
-func nox_script_NoChatAll_514BD0() C.int {
+func nox_script_NoChatAll_514BD0() int {
 	C.nox_xxx_destroyEveryChatMB_528D60()
 	return 0
 }
 
-//export nox_script_CastObject2_514F10
-func nox_script_CastObject2_514F10() C.int {
+func nox_script_CastObject2_514F10() int {
 	s := &noxServer.noxScript
 	targ := s.PopObject()
 	caster := s.PopObject().AsUnit()
@@ -715,8 +803,7 @@ func nox_script_CastObject2_514F10() C.int {
 	return 0
 }
 
-//export nox_script_CastObjectLocation_514FC0
-func nox_script_CastObjectLocation_514FC0() C.int {
+func nox_script_CastObjectLocation_514FC0() int {
 	s := &noxServer.noxScript
 	targPos := s.PopPointf()
 	caster := s.PopObject().AsUnit()
@@ -732,8 +819,7 @@ func nox_script_CastObjectLocation_514FC0() C.int {
 	return 0
 }
 
-//export nox_script_CastLocationObject_515060
-func nox_script_CastLocationObject_515060() C.int {
+func nox_script_CastLocationObject_515060() int {
 	s := &noxServer.noxScript
 	targ := s.PopObject()
 	srcPos := s.PopPointf()
@@ -750,8 +836,7 @@ func nox_script_CastLocationObject_515060() C.int {
 	return 0
 }
 
-//export nox_script_CastLocation2_515130
-func nox_script_CastLocation2_515130() C.int {
+func nox_script_CastLocation2_515130() int {
 	s := &noxServer.noxScript
 	targPos := s.PopPointf()
 	srcPos := s.PopPointf()
@@ -765,28 +850,24 @@ func nox_script_CastLocation2_515130() C.int {
 	return 0
 }
 
-//export nox_script_UnBlind_515200
-func nox_script_UnBlind_515200() C.int {
+func nox_script_UnBlind_515200() int {
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
 	noxClient.r.FadeOutScreen(25, false, nil)
 	return 0
 }
 
-//export nox_script_Blind_515220
-func nox_script_Blind_515220() C.int {
+func nox_script_Blind_515220() int {
 	noxClient.r.FadeInScreen(25, false, fadeDisableGameDraw)
 	return 0
 }
 
-//export nox_script_WideScreen_515240
-func nox_script_WideScreen_515240() C.int {
+func nox_script_WideScreen_515240() int {
 	s := &noxServer.noxScript
 	s.s.CinemaPlayers(s.PopI32() == 1)
 	return 0
 }
 
-//export nox_script_IsAttackedBy_5161C0
-func nox_script_IsAttackedBy_5161C0() C.int {
+func nox_script_IsAttackedBy_5161C0() int {
 	s := &noxServer.noxScript
 	obj2 := s.PopObject()
 	obj1 := s.PopObject()
@@ -795,8 +876,7 @@ func nox_script_IsAttackedBy_5161C0() C.int {
 	return 0
 }
 
-//export nox_script_ForceAutosave_516400
-func nox_script_ForceAutosave_516400() C.int {
+func nox_script_ForceAutosave_516400() int {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		sub_4DB130("AUTOSAVE")
 		sub_4DB170(1, 0, 0)
@@ -804,8 +884,7 @@ func nox_script_ForceAutosave_516400() C.int {
 	return 0
 }
 
-//export nox_script_Music_516430
-func nox_script_Music_516430() C.int {
+func nox_script_Music_516430() int {
 	s := &noxServer.noxScript
 	v0 := s.PopU32()
 	v3 := s.PopU32()
@@ -821,15 +900,13 @@ func nox_script_Music_516430() C.int {
 	return 0
 }
 
-//export nox_script_DeathScreen_516680
-func nox_script_DeathScreen_516680() C.int {
+func nox_script_DeathScreen_516680() int {
 	*memmap.PtrUint32(0x5D4594, 2386832) = 0
 	sub_5165D0()
 	return 0
 }
 
-//export nox_script_Frozen_516920
-func nox_script_Frozen_516920() C.int {
+func nox_script_Frozen_516920() int {
 	s := &noxServer.noxScript
 	val := s.PopBool()
 	if u := s.PopObject().AsUnit(); u != nil {
@@ -838,15 +915,13 @@ func nox_script_Frozen_516920() C.int {
 	return 0
 }
 
-//export nox_script_NoWallSound_516960
-func nox_script_NoWallSound_516960() C.int {
+func nox_script_NoWallSound_516960() int {
 	s := &noxServer.noxScript
 	C.nox_xxx_wallSounds_2386840 = C.uint(s.PopU32())
 	return 0
 }
 
-//export nox_script_SetCallback_516970
-func nox_script_SetCallback_516970() C.int {
+func nox_script_SetCallback_516970() int {
 	s := &noxServer.noxScript
 	fnc := C.int(s.PopU32())
 	ev := s.PopU32()
@@ -880,8 +955,7 @@ func nox_script_SetCallback_516970() C.int {
 	return 0
 }
 
-//export nox_script_ClearMessages_516BC0
-func nox_script_ClearMessages_516BC0() C.int {
+func nox_script_ClearMessages_516BC0() int {
 	s := &noxServer.noxScript
 	if u := s.PopObject().AsUnit(); u != nil {
 		nox_xxx_netScriptMessageKill_4D9760(u)
@@ -889,14 +963,12 @@ func nox_script_ClearMessages_516BC0() C.int {
 	return 0
 }
 
-//export nox_script_StopAllFades_516C10
-func nox_script_StopAllFades_516C10() C.int {
+func nox_script_StopAllFades_516C10() int {
 	nox_video_stopAllFades_44E040()
 	return 0
 }
 
-//export nox_script_MusicPushEvent_5164A0
-func nox_script_MusicPushEvent_5164A0() C.int {
+func nox_script_MusicPushEvent_5164A0() int {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		C.sub_43DA80()
 	} else {
@@ -907,8 +979,7 @@ func nox_script_MusicPushEvent_5164A0() C.int {
 	return 0
 }
 
-//export nox_script_MusicPopEvent_5164E0
-func nox_script_MusicPopEvent_5164E0() C.int {
+func nox_script_MusicPopEvent_5164E0() int {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		C.sub_43DAD0()
 	} else {
@@ -919,8 +990,7 @@ func nox_script_MusicPopEvent_5164E0() C.int {
 	return 0
 }
 
-//export nox_script_ClearMusic_516520
-func nox_script_ClearMusic_516520() C.int {
+func nox_script_ClearMusic_516520() int {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		C.sub_43D9B0(0, 0)
 	} else {
@@ -931,22 +1001,19 @@ func nox_script_ClearMusic_516520() C.int {
 	return 0
 }
 
-//export nox_script_EndGame_516E10
-func nox_script_EndGame_516E10() C.int {
+func nox_script_EndGame_516E10() int {
 	s := &noxServer.noxScript
 	v := int(s.PopI32())
 	s.noxScriptEndGame(v)
 	return 0
 }
 
-//export nox_script_StartGame_516C20
-func nox_script_StartGame_516C20() C.int {
+func nox_script_StartGame_516C20() int {
 	nox_xxx_cliPlayMapIntro_44E0B0(1)
 	return 0
 }
 
-//export nox_script_ChangeScore_516E30
-func nox_script_ChangeScore_516E30() C.int {
+func nox_script_ChangeScore_516E30() int {
 	s := &noxServer.noxScript
 	val := int(s.PopU32())
 	u := s.PopObject().AsUnit()
@@ -966,8 +1033,7 @@ func nox_script_ChangeScore_516E30() C.int {
 	return 0
 }
 
-//export nox_script_GetScore_516EA0
-func nox_script_GetScore_516EA0() C.int {
+func nox_script_GetScore_516EA0() int {
 	s := &noxServer.noxScript
 	u := s.PopObject().AsUnit()
 	if u == nil || !u.Class().Has(object.ClassPlayer) {

@@ -606,7 +606,7 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 		gameLog.Println("server read map:", err)
 		return err
 	}
-	C.nox_xxx_scriptRunFirst_507290()
+	s.noxScript.nox_xxx_scriptRunFirst_507290()
 	cryptFileClose()
 	if !noxflags.HasGame(noxflags.GameFlag22) {
 		s.nox_xxx_mapReadSetFlags_4CF990()
