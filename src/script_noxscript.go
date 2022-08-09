@@ -54,6 +54,16 @@ func nox_script_activatorResolveObjs_51B0C0() {
 	noxServer.noxScript.actResolveObjs()
 }
 
+//export nox_xxx_netGetUnitCodeServ_578AC0
+func nox_xxx_netGetUnitCodeServ_578AC0(cobj *nox_object_t) C.uint {
+	return C.uint(noxServer.getUnitNetCode(asObjectC(cobj)))
+}
+
+//export nox_server_scriptValToObjectPtr_511B60
+func nox_server_scriptValToObjectPtr_511B60(val C.int) *C.nox_object_t {
+	return noxServer.noxScript.scriptToObject(int(val)).CObj()
+}
+
 //export nox_script_callOnEvent
 func nox_script_callOnEvent(cevent *C.char, a1, a2 unsafe.Pointer) {
 	if a1 != nil || a2 != nil { // these are never set to anything
@@ -230,8 +240,12 @@ func (s *noxScript) actLoad() int {
 	return 1
 }
 
+func (s *noxScript) scripts() []C.nox_script_xxx_t {
+	return unsafe.Slice((*C.nox_script_xxx_t)(unsafe.Pointer(C.nox_script_arr_xxx_1599636)), int(C.nox_script_count_xxx_1599640))
+}
+
 func (s *noxScript) actRun() {
-	scripts := unsafe.Slice((*C.nox_script_xxx_t)(unsafe.Pointer(C.nox_script_arr_xxx_1599636)), int(C.nox_script_count_xxx_1599640))
+	scripts := s.scripts()
 	for it := s.activators.head; it != nil; {
 		if it.frame > gameFrame() {
 			it = it.next
@@ -240,7 +254,7 @@ func (s *noxScript) actRun() {
 			caller := it.caller
 			trigger := it.trigger
 			if scripts[callback].size_28 != 0 {
-				s.s.scriptPushU32(it.arg)
+				s.PushU32(it.arg)
 			}
 			it = s.actDoneNext(it)
 			C.nox_script_callByIndex_507310(C.int(callback), unsafe.Pointer(caller.CObj()), unsafe.Pointer(trigger.CObj()))
@@ -251,11 +265,11 @@ func (s *noxScript) actRun() {
 func (s *noxScript) actResolveObjs() {
 	for it := s.activators.head; it != nil; it = it.next {
 		if it.triggerID != 0 {
-			it.trigger = s.s.nox_server_scriptValToObjectPtr(int(it.triggerID))
+			it.trigger = s.scriptToObject(int(it.triggerID))
 			it.triggerID = 0
 		}
 		if it.callerID != 0 {
-			it.caller = s.s.nox_server_scriptValToObjectPtr(int(it.callerID))
+			it.caller = s.scriptToObject(int(it.callerID))
 			it.callerID = 0
 		}
 	}
@@ -277,24 +291,24 @@ func (s *noxScript) actDoneNext(act *Activator) *Activator {
 	return next
 }
 
-func (s *Server) scriptPushU32(v uint32) {
+func (s *noxScript) PushU32(v uint32) {
 	C.nox_script_push(C.int(v))
 }
 
-func (s *Server) scriptPushI32(v int32) {
+func (s *noxScript) PushI32(v int32) {
 	C.nox_script_push(C.int(v))
 }
 
-func (s *Server) scriptPushF32(v float32) {
+func (s *noxScript) PushF32(v float32) {
 	C.nox_script_push(C.int(math.Float32bits(v)))
 }
 
-func (s *Server) scriptPushBool(v bool) {
+func (s *noxScript) PushBool(v bool) {
 	C.nox_script_push(C.int(bool2int(v)))
 }
 
 func (s *noxScript) OnEvent(event script.EventType) {
-	scripts := unsafe.Slice((*C.nox_script_xxx_t)(unsafe.Pointer(C.nox_script_arr_xxx_1599636)), int(C.nox_script_count_xxx_1599640))
+	scripts := s.scripts()
 	for i := range scripts {
 		sc := &scripts[i]
 		name := GoString(sc.field_0)
@@ -304,17 +318,7 @@ func (s *noxScript) OnEvent(event script.EventType) {
 	}
 }
 
-//export nox_xxx_netGetUnitCodeServ_578AC0
-func nox_xxx_netGetUnitCodeServ_578AC0(cobj *nox_object_t) C.uint {
-	return C.uint(noxServer.nox_xxx_netGetUnitCodeServ(asObjectC(cobj)))
-}
-
-//export nox_server_scriptValToObjectPtr_511B60
-func nox_server_scriptValToObjectPtr_511B60(val C.int) *C.nox_object_t {
-	return noxServer.nox_server_scriptValToObjectPtr(int(val)).CObj()
-}
-
-func (s *Server) nox_xxx_netGetUnitCodeServ(p noxObject) int {
+func (s *Server) getUnitNetCode(p noxObject) int {
 	obj := toObject(p)
 	if obj == nil {
 		return 0
@@ -333,16 +337,16 @@ func (s *Server) nox_xxx_netGetUnitCodeServ(p noxObject) int {
 	return ext
 }
 
-func (s *Server) nox_server_scriptValToObjectPtr(val int) *Object {
+func (s *noxScript) scriptToObject(val int) *Object {
 	if val == -1 {
-		obj := asObject(C.nox_script_get_caller())
+		obj := s.Caller()
 		if obj == nil || obj.Flags().Has(object.FlagDestroyed) {
 			return nil
 		}
 		return obj
 	}
 	if val == -2 {
-		obj := asObject(C.nox_script_get_trigger())
+		obj := s.Trigger()
 		if obj == nil || obj.Flags().Has(object.FlagDestroyed) {
 			return nil
 		}
@@ -352,7 +356,7 @@ func (s *Server) nox_server_scriptValToObjectPtr(val int) *Object {
 		return obj
 	}
 
-	for obj := s.firstServerObject(); obj != nil; obj = obj.Next() {
+	for obj := s.s.firstServerObject(); obj != nil; obj = obj.Next() {
 		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID() == val {
 			C.nox_xxx_scriptPrepareFoundUnit_511D70(obj.CObj())
 			return obj
@@ -364,7 +368,7 @@ func (s *Server) nox_server_scriptValToObjectPtr(val int) *Object {
 			}
 		}
 	}
-	for obj := s.firstServerObjectUninited(); obj != nil; obj = obj.Next() {
+	for obj := s.s.firstServerObjectUninited(); obj != nil; obj = obj.Next() {
 		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID() == val {
 			C.nox_xxx_scriptPrepareFoundUnit_511D70(obj.CObj())
 			return obj
@@ -373,40 +377,48 @@ func (s *Server) nox_server_scriptValToObjectPtr(val int) *Object {
 	return nil
 }
 
-func (s *Server) noxScriptPopI32() int32 {
+func (s *noxScript) Caller() *Object {
+	return asObject(C.nox_script_get_caller())
+}
+
+func (s *noxScript) Trigger() *Object {
+	return asObject(C.nox_script_get_trigger())
+}
+
+func (s *noxScript) PopI32() int32 {
 	return int32(C.nox_script_pop())
 }
 
-func (s *Server) noxScriptPopU32() uint32 {
+func (s *noxScript) PopU32() uint32 {
 	return uint32(C.nox_script_pop())
 }
 
-func (s *Server) noxScriptPopF32() float32 {
+func (s *noxScript) PopF32() float32 {
 	return math.Float32frombits(uint32(C.nox_script_pop()))
 }
 
-func (s *Server) noxScriptPopBool() bool {
+func (s *noxScript) PopBool() bool {
 	return C.nox_script_pop() != 0
 }
 
-func (s *Server) noxScriptPopString() string {
+func (s *noxScript) PopString() string {
 	return GoString(C.nox_script_getString_512E40(C.nox_script_pop()))
 }
 
-func (s *Server) noxScriptPopObject() *Object {
-	return s.nox_server_scriptValToObjectPtr(int(C.nox_script_pop()))
+func (s *noxScript) PopObject() *Object {
+	return s.scriptToObject(int(C.nox_script_pop()))
 }
 
-func nox_script_builtinGetF40() int { return int(C.dword_5d4594_3821636) }
-func nox_script_builtinGetF44() int { return int(C.dword_5d4594_3821640) }
-
-func (s *Server) noxScriptPopPointf() types.Pointf {
-	y := s.noxScriptPopF32()
-	x := s.noxScriptPopF32()
+func (s *noxScript) PopPointf() types.Pointf {
+	y := s.PopF32()
+	x := s.PopF32()
 	return types.Pointf{X: x, Y: y}
 }
 
-func noxScriptEndGame(v int) {
+func (s *noxScript) builtinGetF40() int { return int(C.dword_5d4594_3821636) }
+func (s *noxScript) builtinGetF44() int { return int(C.dword_5d4594_3821640) }
+
+func (s *noxScript) noxScriptEndGame(v int) {
 	dword_587000_311372 = v
 	dword_5d4594_2516476 |= 1 << v
 	nox_xxx_cliPlayMapIntro_44E0B0(1)
@@ -417,8 +429,8 @@ func noxScriptEndGame(v int) {
 
 //export sub_5165D0
 func sub_5165D0() {
-	s := noxServer
-	*memmap.PtrUint32(0x5D4594, 2386828) = s.noxScriptPopU32() - 1
+	s := &noxServer.noxScript
+	*memmap.PtrUint32(0x5D4594, 2386828) = s.PopU32() - 1
 	sub_413A00(1)
 	noxClient.r.FadeInScreen(25, true, func() {
 		C.sub_516570()

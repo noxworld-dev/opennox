@@ -1217,7 +1217,7 @@ func nox_xxx_netScriptMessageKill_4D9760(u *Unit) {
 func nox_xxx_netKillChat_528D00(u *Unit) {
 	var buf [3]byte
 	buf[0] = byte(noxnet.MSG_CHAT_KILL)
-	binary.LittleEndian.PutUint16(buf[1:], uint16(noxServer.nox_xxx_netGetUnitCodeServ(u)))
+	binary.LittleEndian.PutUint16(buf[1:], uint16(noxServer.getUnitNetCode(u)))
 	for _, pl := range noxServer.getPlayers() {
 		u := pl.UnitC()
 		if u == nil {
