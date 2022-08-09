@@ -246,20 +246,6 @@ func nox_fs_fputs(f *C.FILE, str *C.char) C.int {
 	return C.int(n)
 }
 
-//export nox_fs_fputs_sync
-func nox_fs_fputs_sync(f *C.FILE, str *C.char) C.int {
-	fp := fileByHandle(f)
-	n, err := fp.WriteString(GoString(str))
-	if err != nil {
-		return -1
-	}
-	err = fp.Sync()
-	if err != nil {
-		return -1
-	}
-	return C.int(n)
-}
-
 //export nox_fs_feof
 func nox_fs_feof(f *C.FILE) C.bool {
 	fp := fileByHandle(f)
@@ -365,18 +351,4 @@ func nox_fs_open_rw(path *C.char) *C.FILE {
 		return nil
 	}
 	return newFileHandle(&File{File: f})
-}
-
-//export nox_fs_create_rw
-func nox_fs_create_rw(path *C.char) *C.FILE {
-	return nox_fs_create(path)
-}
-
-//export nox_fs_append_text
-func nox_fs_append_text(path *C.char) *C.FILE {
-	f, err := ifs.OpenFile(GoString(path), os.O_WRONLY|os.O_APPEND)
-	if err != nil {
-		return nil
-	}
-	return newFileHandle(&File{File: f, text: true})
 }
