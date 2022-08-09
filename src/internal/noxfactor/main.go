@@ -228,8 +228,6 @@ var callGoRename = map[string]string{
 	"sub_43F140":                              "noxAudioServeT",
 	"nox_xxx_utilFindSound_40AF50":            "sound.ByName",
 	"nox_platform_get_ticks":                  "platformTicks",
-	"nox_script_pop":                          "noxScriptPopU32",
-	"nox_script_popf":                         "noxScriptPopF32",
 	"nox_float2int":                           "int",
 }
 
