@@ -613,55 +613,6 @@ size_t nox_script_readWriteWww_5417C0(FILE* a1, FILE* a2, FILE* a3) {
 	return nox_fs_fwrite(a3, v6, v4 - 1);
 }
 
-//----- (00541670) --------------------------------------------------------
-int nox_script_readWriteZzz_541670(const char* path, const char* path2, const char* dst) {
-	if (!path) {
-		return 0;
-	}
-	if (!path2) {
-		return 0;
-	}
-	if (!dst) {
-		return 0;
-	}
-	FILE* f1 = nox_fs_open(path);
-	if (!f1) {
-		return 0;
-	}
-	FILE* f2 = nox_fs_open(path2);
-	if (!f2) {
-		nox_fs_close(f1);
-		return 0;
-	}
-	int v6 = nox_fs_fsize(f1);
-	if (!v6) {
-		nox_fs_close(f1);
-		nox_fs_close(f2);
-		nox_fs_remove(dst);
-		nox_fs_move(path2, dst);
-		return 1;
-	}
-	int v7 = nox_fs_fsize(f2);
-	if (!v7) {
-		nox_fs_close(f1);
-		nox_fs_close(f2);
-		nox_fs_remove(dst);
-		nox_fs_move(path, dst);
-		return 1;
-	}
-	FILE* df = nox_fs_open_rw(dst);
-	if (!df) {
-		nox_fs_close(f1);
-		nox_fs_close(f2);
-		return 0;
-	}
-	nox_script_readWriteWww_5417C0(f1, f2, df);
-	nox_fs_close(f1);
-	nox_fs_close(f2);
-	nox_fs_close(df);
-	return 1;
-}
-
 //----- (00543110) --------------------------------------------------------
 int sub_543110(const char* lpExistingFileName, int* a2) {
 	int v2;                 // edx

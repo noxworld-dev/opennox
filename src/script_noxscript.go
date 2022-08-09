@@ -12,15 +12,18 @@ extern unsigned int dword_5d4594_3821636;
 extern unsigned int dword_5d4594_3821640;
 int sub_516570();
 int nox_xxx_gameIsSwitchToSolo_4DB240();
+size_t nox_script_readWriteWww_5417C0(FILE* a1, FILE* a2, FILE* a3);
 */
 import "C"
 import (
 	"image/color"
 	"math"
+	"os"
 	"strings"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/common"
+	"github.com/noxworld-dev/opennox-lib/ifs"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
@@ -482,5 +485,52 @@ func nox_setImaginaryCaster() C.int {
 		return 0
 	}
 	nox_xxx_createAt_4DAA50(nox_xxx_imagCasterUnit_1569664, nil, types.Pointf{X: 128 * common.GridStep, Y: 128 * common.GridStep})
+	return 1
+}
+
+//export nox_script_readWriteZzz_541670
+func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *C.char) C.int {
+	if cpath == nil {
+		return 0
+	}
+	if cpath2 == nil {
+		return 0
+	}
+	if cdst == nil {
+		return 0
+	}
+	path, path2, dst := GoString(cpath), GoString(cpath2), GoString(cdst)
+	f1, err := ifs.Open(path)
+	if err != nil {
+		return 0
+	}
+	defer f1.Close()
+
+	f2, err := ifs.Open(path2)
+	if err != nil {
+		return 0
+	}
+	defer f2.Close()
+
+	v6, _ := fileSize(f1)
+	if v6 == 0 {
+		ifs.Remove(dst)
+		ifs.Rename(path2, dst)
+		return 1
+	}
+
+	v7, _ := fileSize(f2)
+	if v7 == 0 {
+		ifs.Remove(dst)
+		ifs.Rename(path, dst)
+		return 1
+	}
+
+	df, err := ifs.OpenFile(dst, os.O_RDWR)
+	if err != nil {
+		return 0
+	}
+	defer df.Close()
+	C.nox_script_readWriteWww_5417C0(newFileHandle(&File{File: f1}), newFileHandle(&File{File: f2}), newFileHandle(&File{File: df}))
 	return 1
 }
