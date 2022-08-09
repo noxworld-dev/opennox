@@ -91,7 +91,7 @@ var noxObjectFieldByName = map[string]objectFieldFunc{
 	"PICKUP":         wrapObjectFieldFuncC(C.nox_xxx_parsePickup_536710),
 	"UPDATE":         nox_xxx_parseUpdate_536620,
 	"USE":            wrapObjectFieldFuncC(C.nox_xxx_parseUseFn_5363F0),
-	"XFER":           wrapObjectFieldFuncC(C.nox_xxx_parseXFer_5360A0),
+	"XFER":           nox_xxx_parseXFer_5360A0,
 	"DRAW":           wrapObjectFieldFuncC(C.nox_xxx_parseDraw_535CD0),
 	"ZSIZE":          wrapObjectFieldFuncC(C.nox_xxx_parseZSize_5359B0),
 	"WORTH":          wrapObjectFieldFuncC(C.nox_xxx_parseWorth_535A00),

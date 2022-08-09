@@ -137,7 +137,6 @@ int nox_xxx_parseLightIntensity_535C20(int a1, int a2, char* a3);
 int nox_xxx_parseMenuIcon_535C30(int a1, int a2, char* a3);
 int nox_xxx_parsePrettyImage_0_535C80(int a1, int a2);
 int nox_xxx_parseDraw_535CD0(int a1, uint32_t* a2, void* a3);
-int nox_xxx_parseXFer_5360A0(int a1, int a2, char* a3);
 char* sub_536130(char* a1, int* a2);
 char* sub_536180(char* a1, int* a2);
 char* sub_5361B0(char* a1, int a2);

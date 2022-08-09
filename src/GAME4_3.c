@@ -4078,34 +4078,6 @@ int nox_xxx_parseDraw_535CD0(int a1, uint32_t* a2, void* a3) {
 	return 1;
 }
 
-//----- (005360A0) --------------------------------------------------------
-int nox_xxx_parseXFer_5360A0(int a1, int a2, char* a3) {
-	char* v3;          // eax
-	const char* v4;    // ecx
-	int v5;            // ebp
-	unsigned char* v6; // edi
-
-	v3 = strtok(a3, " \t\n\r");
-	v4 = *(const char**)getMemAt(0x587000, 269128);
-	v5 = 0;
-	if (*getMemU32Ptr(0x587000, 269128)) {
-		v6 = getMemAt(0x587000, 269128);
-		do {
-			if (!strcmp(v4, v3)) {
-				break;
-			}
-			v4 = (const char*)*((uint32_t*)v6 + 2);
-			v6 += 8;
-			++v5;
-		} while (v4);
-	}
-	if (!*getMemU32Ptr(0x587000, 269128 + 8 * v5)) {
-		return 0;
-	}
-	*(uint32_t*)(a1 + 212) = *getMemU32Ptr(0x587000, 269132 + 8 * v5);
-	return 1;
-}
-
 //----- (00536130) --------------------------------------------------------
 char* sub_536130(char* a1, int* a2) {
 	char* result; // eax
