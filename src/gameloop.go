@@ -19,7 +19,6 @@ package opennox
 #include "common__system__team.h"
 #include "common__net_list.h"
 #include "client__drawable__drawdb.h"
-#include "client__io__console.h"
 #include "client__gui__guimsg.h"
 #include "client__system__client.h"
 #include "client__drawable__drawable.h"
@@ -44,10 +43,6 @@ extern nox_window* dword_5d4594_1090100;
 extern void* dword_5d4594_1307292;
 extern unsigned int dword_5d4594_251744;
 extern unsigned int dword_5d4594_825764;
-
-static void go_call_sub_4516C0(wchar_t* a1, char* a2) {
-	sub_4516C0(a1, a2);
-}
 */
 import "C"
 import (
@@ -1117,8 +1112,6 @@ func (c *Client) map_download_finish() int {
 	fname := noxServer.nox_server_currentMapGetFilename_409B30()
 	if err := nox_xxx_mapCliReadAll_4AC2B0(fname); err != nil {
 		gameLog.Println("read downloaded map:", err)
-		v6 := strMan.GetStringInFile("MapLoadError", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
-		C.go_call_sub_4516C0(internWStr(v6), internCStr(fname))
 		C.nox_xxx_spriteLoadError_4356E0()
 		return 0
 	}
@@ -1198,9 +1191,6 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 			if err := nox_xxx_mapCliReadAll_4AC2B0(mapName); err != nil {
 				err = fmt.Errorf("change map failed: %w", err)
 				gameLog.Println("client read map:", err)
-				v13 := noxServer.nox_server_currentMapGetFilename_409B30()
-				v6 := strMan.GetStringInFile("MapLoadError", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
-				C.go_call_sub_4516C0(internWStr(v6), internCStr(v13))
 				C.nox_xxx_spriteLoadError_4356E0()
 				return err
 			}
