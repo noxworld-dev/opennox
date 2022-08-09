@@ -556,11 +556,11 @@ func CONNECT_OR_HOST() error {
 			return fmt.Errorf("nox_xxx_replay_4D3860: %w", err)
 		}
 		if !isDedicatedServer {
-			clientSetPlayerNetCode(noxServer.newPlayer(31, &popts))
+			clientSetPlayerNetCode(noxServer.newPlayer(noxMaxPlayers-1, &popts))
 		}
 		C.nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE)
 		if !isDedicatedServer {
-			C.nox_netlist_receiveCli_494E90(31)
+			C.nox_netlist_receiveCli_494E90(noxMaxPlayers - 1)
 		}
 		gameSetPlayState(2)
 	} else {
@@ -767,7 +767,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		C.dword_5d4594_2649712 |= 0x80000000
 	}
-	C.nox_netlist_resetByInd_40ED10(31, 0)
+	C.nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
 	C.nox_xxx_set3512_40A340(0)
 	nox_xxx_setMapCRC_40A360(0)
 
@@ -787,8 +787,8 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 			return newConnectFailErr(-19, errors.New("timeout 2"))
 		}
 		C.nox_xxx_servNetInitialPackets_552A80(C.uint(dword_5D4594_815700), 1)
-		C.nox_xxx_netSendBySock_40EE10(C.uint(dword_5D4594_815700), 31, 0)
-		C.nox_netlist_resetByInd_40ED10(31, 0)
+		C.nox_xxx_netSendBySock_40EE10(C.uint(dword_5D4594_815700), noxMaxPlayers-1, 0)
+		C.nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
 		C.nox_xxx_netMaybeSendAll_552460()
 		if nox_xxx_getMapCRC_40A370() != 0 {
 			break
@@ -1116,7 +1116,7 @@ func (c *Client) map_download_finish() int {
 		return 0
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
-		C.nox_xxx_gameServerReadyMB_4DD180(31)
+		C.nox_xxx_gameServerReadyMB_4DD180(noxMaxPlayers - 1)
 	} else {
 		nox_xxx_netSendClientReady_43C9F0()
 	}
@@ -1131,7 +1131,7 @@ func (c *Client) map_download_finish() int {
 func sub_435EB0() {
 	writeConfigLegacy("nox.cfg")
 	if noxflags.HasGame(noxflags.GameHost) {
-		C.nox_xxx_playerDisconnFinish_4DE530(31, 2)
+		C.nox_xxx_playerDisconnFinish_4DE530(noxMaxPlayers-1, 2)
 	} else {
 		nox_xxx_cliSendOutgoingClient_43CB50()
 	}
@@ -1196,7 +1196,7 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 			}
 			noxAudioServe()
 			if noxflags.HasGame(noxflags.GameHost) {
-				C.nox_xxx_gameServerReadyMB_4DD180(31)
+				C.nox_xxx_gameServerReadyMB_4DD180(noxMaxPlayers - 1)
 			} else {
 				nox_xxx_netSendClientReady_43C9F0()
 			}
@@ -1236,7 +1236,7 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 			}
 		} else {
 			if !isDedicatedServer {
-				C.nox_xxx_gameServerReadyMB_4DD180(31)
+				C.nox_xxx_gameServerReadyMB_4DD180(noxMaxPlayers - 1)
 			}
 			if !noxflags.HasEngine(noxflags.EngineNoRendering) {
 				C.nox_gameDisableMapDraw_5d4594_2650672 = 1

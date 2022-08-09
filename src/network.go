@@ -1036,7 +1036,7 @@ func nox_xxx_cliSendCancelMap_43CAB0() int {
 	if nox_xxx_cliWaitServerResponse_5525B0(id, v0, 20, 6) != 0 {
 		return 0
 	}
-	C.nox_netlist_resetByInd_40ED10(31, 0)
+	C.nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
 	return 1
 }
 
@@ -1048,7 +1048,7 @@ func nox_xxx_netSendIncomingClient_43CB00() int {
 	if nox_xxx_cliWaitServerResponse_5525B0(id, v0, 20, 6) != 0 {
 		return 0
 	}
-	C.nox_netlist_resetByInd_40ED10(31, 0)
+	C.nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
 	return 1
 }
 
@@ -1061,7 +1061,7 @@ func nox_xxx_cliSendOutgoingClient_43CB50() int {
 		return 0
 	}
 	C.nox_xxx_servNetInitialPackets_552A80(C.uint(id), 3)
-	C.nox_netlist_resetByInd_40ED10(31, 0)
+	C.nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
 	return 1
 }
 

@@ -220,7 +220,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 		u.vel_x = 0
 		u.vel_y = 0
 	}
-	if noxflags.HasGame(noxflags.GameModeQuest) && ud.field_137 != 0 && ud.player.playerInd != 31 && (gameFrame()-uint32(ud.field_137) > (30 * gameFPS())) {
+	if noxflags.HasGame(noxflags.GameModeQuest) && ud.field_137 != 0 && ud.player.playerInd != noxMaxPlayers-1 && (gameFrame()-uint32(ud.field_137) > (30 * gameFPS())) {
 		C.sub_4DCFB0(u.CObj())
 		return
 	}
