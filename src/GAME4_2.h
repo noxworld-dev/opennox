@@ -201,7 +201,6 @@ char* nox_xxx_netReportDestroyObject_5289D0(int a1);
 int nox_xxx_netObjectOutOfSight_528A60(int a1, uint32_t* a2);
 int nox_xxx_netObjectInShadows_528A90(int a1, uint32_t* a2);
 int nox_xxx_monsterCmdSend_528BD0(int unit, int source, const char* command, short a4);
-int nox_xxx_netKillChat_528D00(uint32_t* a1);
 int nox_xxx_destroyEveryChatMB_528D60();
 int nox_xxx_XFerMonster_528DB0(int a1);
 void nox_xxx_monsterOnSpawnSpellcaster_529BC0(int a1);

@@ -206,7 +206,6 @@ int nox_xxx_netSendSecondaryWeapon_4D9670(int a1, uint32_t* a2, char a3);
 int nox_xxx_netMsgLastQuiver_4D96B0(int a1, uint32_t* a2);
 int nox_xxx_netMsgInventoryLoaded_4D96E0(int a1);
 int sub_4D9700(int a1);
-int nox_xxx_netScriptMessageKill_4D9760(int a1);
 int nox_xxx_netFriendAddRemove_4D97A0(int a1, uint32_t* a2, int a3);
 int sub_4D97E0(int a1);
 int nox_xxx_netMsgFadeBeginPlayer(int pl, int a1, int a2);

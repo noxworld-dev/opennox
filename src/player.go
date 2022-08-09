@@ -725,7 +725,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	C.nox_xxx_playerInitColors_461460(pl.C())
 	pl.playerUnit = punit.CObj()
 	pl.field_2152 = 0
-	pl.netCode = punit.field_9
+	pl.netCode = punit.net_code
 	pl.field_2156 = C.uint(C.nox_xxx_scavengerTreasureMax_4D1600())
 	udata := punit.updateDataPlayer()
 	xxx := punit.ptrXxx()
@@ -813,7 +813,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		if noxflags.HasGame(noxflags.GameModeQuest) {
 			C.nox_game_sendQuestStage_4D6960(C.int(ind))
-			return int(punit.field_9)
+			return int(punit.net_code)
 		}
 		var buf [3]byte
 		buf[0] = byte(noxnet.MSG_FADE_BEGIN)
@@ -822,7 +822,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 		s.nox_xxx_netSendPacket_4E5030(ind, buf[:], 0, 0, 0)
 	}
 	s.callOnPlayerJoin(pl)
-	return int(punit.field_9)
+	return int(punit.net_code)
 }
 
 func (s *Server) sub_4E8210(u *Unit) (types.Pointf, bool) {

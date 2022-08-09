@@ -690,7 +690,7 @@ func (a *aiData) nox_xxx_unitEmitHearEvent_50D110(u *Unit, lis *MonsterListen, d
 	ud.field_101 = C.uint(gameFrame())
 	ud.field_102 = C.uint(dist)
 	if lis.obj != nil {
-		ud.field_98 = lis.obj.field_9
+		ud.field_98 = lis.obj.net_code
 	} else {
 		ud.field_98 = 0
 	}
