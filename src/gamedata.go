@@ -1,5 +1,8 @@
 package opennox
 
+/*
+int nox_xxx_loadMonsterBin_517010();
+*/
 import "C"
 import (
 	"github.com/noxworld-dev/opennox-lib/balance"
@@ -20,8 +23,7 @@ func nox_xxx_gamedataFree_419DB0() {
 	gamedata.file = nil
 }
 
-//export nox_xxx_parseGamedataBin_419B30
-func nox_xxx_parseGamedataBin_419B30() C.int {
+func nox_xxx_parseGamedataBin_419B30() int {
 	gamedata.file = nil
 	var err error
 	gamedata.file, err = balance.ReadBalance(datapath.Data(balance.GamedataFile))
@@ -69,4 +71,13 @@ func gamedataFloatInd(key string, i int) float64 {
 		return 0
 	}
 	return arr[i]
+}
+
+func nox_xxx_parseGamedataBinPre_4D1630() int {
+	if nox_xxx_parseGamedataBin_419B30() == 0 {
+		return 0
+	}
+	noxServer.abilities.reloadGamedata()
+	nox_xxx_loadBaseValues_57B200()
+	return bool2int(C.nox_xxx_loadMonsterBin_517010() != 0)
 }

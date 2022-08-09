@@ -339,8 +339,8 @@ func (s *Server) setupQuestGame() {
 			C.nox_xxx_createAtImpl_4191D0(C.uchar(t.Ind57()), unsafe.Pointer(u.teamPtr()), 1, C.int(u.net_code), 0)
 		}
 	}
-	C.sub_4D6BE0()
-	C.sub_4D6A60()
+	sub_4D6BE0()
+	sub_4D6A60()
 }
 
 func (s *Server) setQuestFlag(v int) {

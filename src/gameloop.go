@@ -1301,7 +1301,7 @@ func nox_client_quit_4460C0() {
 			C.sub_4DCD40()
 		} else if C.sub_4460B0() != 0 {
 			C.sub_4460A0(0)
-			C.sub_446140()
+			sub_446140()
 		} else {
 			C.nox_xxx_netSavePlayer_41CE00()
 			C.sub_4460A0(1)
@@ -1310,7 +1310,7 @@ func nox_client_quit_4460C0() {
 		C.dword_5d4594_825764 = 1
 		if noxflags.HasGame(noxflags.GameModeQuest) {
 			if noxflags.HasGame(noxflags.GameHost) {
-				C.sub_4D6B10(0)
+				sub_4D6B10(false)
 			}
 		}
 	}

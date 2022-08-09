@@ -361,7 +361,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 				C.sub_461440(0)
 				sub_4A1D40()
 				C.nox_xxx_cliSetMinimapZoom_472520(1110)
-				if C.nox_xxx_parseGamedataBinPre_4D1630() == 0 {
+				if nox_xxx_parseGamedataBinPre_4D1630() == 0 {
 					nox_xxx_setContinueMenuOrHost_43DDD0(0)
 					C.nox_client_gui_flag_815132 = 0
 					return nil
@@ -403,7 +403,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 			}
 			C.nox_xxx_cliShowHideTubes_470AA0(0)
 			C.nox_xxx_cliSetMinimapZoom_472520(2300)
-			if C.nox_xxx_parseGamedataBinPre_4D1630() == 0 {
+			if nox_xxx_parseGamedataBinPre_4D1630() == 0 {
 				nox_xxx_setContinueMenuOrHost_43DDD0(0)
 				C.nox_client_gui_flag_815132 = 0
 				return nil
@@ -451,7 +451,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 				nox_client_toggleMap_473610()
 			}
 			C.sub_461440(0)
-			if C.nox_xxx_parseGamedataBinPre_4D1630() == 0 {
+			if nox_xxx_parseGamedataBinPre_4D1630() == 0 {
 				nox_xxx_setContinueMenuOrHost_43DDD0(0)
 				C.nox_client_gui_flag_815132 = 0
 				return nil

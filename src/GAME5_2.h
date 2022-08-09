@@ -137,7 +137,6 @@ int nox_xxx_get_57AF20();
 void sub_57B0A0();
 long long nox_xxx___Getcvt_57B180();
 int sub_57B190(unsigned short a1, unsigned short a2);
-void nox_xxx_loadBaseValues_57B200();
 float* sub_57B350();
 float* nox_xxx_plrGetMaxVarsPtr_57B360(int a1);
 char sub_57B370(int a1, unsigned char a2, int a3);

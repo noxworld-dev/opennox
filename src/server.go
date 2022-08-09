@@ -102,7 +102,7 @@ func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 		Server: server.New(pr, sm),
 	}
 	s.allocTeams()
-	s.allocPlayers()
+	s.initPlayers()
 	s.http.init()
 	s.initMetrics()
 	s.abilities.Init(s)
@@ -113,7 +113,7 @@ func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 type Server struct {
 	*server.Server
 	port            int
-	players         []Player
+	players         serverPlayers
 	spells          serverSpells
 	abilities       serverAbilities
 	srvReg          srvReg
@@ -783,7 +783,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 	C.sub_455C10()
 	C.sub_456050()
 	if noxflags.HasGame(noxflags.GameModeQuest) && memmap.Int32(0x973F18, 3800) < 0 {
-		C.sub_4D6B10(1)
+		sub_4D6B10(true)
 		nox_server_teamsZzz_419030(1)
 	}
 	mapname := s.getServerMap()
