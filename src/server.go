@@ -459,9 +459,6 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 			return err
 		}
 		s.setServerPort(nport)
-		if !noxflags.HasGame(noxflags.GameFlag26) {
-			C.nox_xxx_networkLog_init_413CC0()
-		}
 	}
 	if C.nox_xxx_allocPendingOwnsArray_516EE0() == 0 {
 		return errors.New("nox_xxx_allocPendingOwnsArray_516EE0 failed")
@@ -525,9 +522,6 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	s.objs.nox_xxx_freeObjectTypes_4E2A20()
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		s.nox_server_netCloseHandler_4DEC60(int(memmap.Uint32(0x5D4594, 1548516)))
-		if !noxflags.HasGame(noxflags.GameFlag26) {
-			C.nox_xxx_networkLog_close_413D00()
-		}
 	}
 	C.sub_56F3B0()
 	C.nox_netlist_resetAll_40EE60()
