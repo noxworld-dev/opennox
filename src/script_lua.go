@@ -70,7 +70,7 @@ func (s *Server) luaMaybeInitMap() {
 	s.lua.curmap = mp
 	mp = strings.TrimSuffix(mp, maps.Ext)
 	mapDir := datapath.Data(maps.Dir, mp)
-	s.lua.vm = lua.NewVM(noxScript{s}, mapDir)
+	s.lua.vm = lua.NewVM(noxScriptImpl{s}, mapDir)
 	lname := mp + ".lua"
 	err := s.lua.vm.ExecFile(filepath.Join(mapDir, lname))
 	if os.IsNotExist(err) {
