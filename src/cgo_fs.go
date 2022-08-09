@@ -80,12 +80,6 @@ func (f *File) WriteString(p string) (int, error) {
 	return n, err
 }
 
-func (f *File) Sync() error {
-	err := f.File.Sync()
-	f.err = err
-	return err
-}
-
 func (f *File) Close() error {
 	if f.buf != nil {
 		f.buf = nil
@@ -275,12 +269,6 @@ func nox_fs_close(f *C.FILE) {
 		_ = fp.Close()
 		delete(files.byHandle, h)
 	}
-}
-
-//export nox_fs_flush
-func nox_fs_flush(f *C.FILE) {
-	fp := fileByHandle(f)
-	_ = fp.Sync()
 }
 
 func newFileHandle(f *File) *C.FILE {
