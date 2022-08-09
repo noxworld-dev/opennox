@@ -449,8 +449,8 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if v < 1 {
 				v = 1
 			}
-			if v > NOX_PLAYERINFO_MAX {
-				v = NOX_PLAYERINFO_MAX
+			if v > noxMaxPlayers {
+				v = noxMaxPlayers
 			}
 			v1 := sub_416640()
 			v1[104] = byte(v)

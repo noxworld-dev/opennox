@@ -156,7 +156,7 @@ type serverAbilities struct {
 	s         *Server
 	execList  *execAbilityClass
 	curxxx    Ability
-	cooldowns [NOX_PLAYERINFO_MAX][abilityMax]int
+	cooldowns [noxMaxPlayers][abilityMax]int
 	byName    map[string]Ability
 	defs      [abilityMax]AbilityDef
 
@@ -173,7 +173,7 @@ func (a *serverAbilities) Init(s *Server) {
 }
 
 func (a *serverAbilities) Reset() {
-	a.cooldowns = [NOX_PLAYERINFO_MAX][abilityMax]int{}
+	a.cooldowns = [noxMaxPlayers][abilityMax]int{}
 }
 
 func (a *serverAbilities) Free() {

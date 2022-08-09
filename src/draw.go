@@ -797,7 +797,7 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 	C.nox_xxx_clientEnumHover_476FA0()
 	vp := c.Viewport()
 	ipos := vp.ToWorldPos(mpos)
-	if !clientSendInput(31, uint16(ipos.X), uint16(ipos.Y)) {
+	if !clientSendInput(noxMaxPlayers-1, uint16(ipos.X), uint16(ipos.Y)) {
 		return true
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
@@ -806,7 +806,7 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_spriteDeleteSomeList_49C4B0()
-		if C.nox_netlist_receiveCli_494E90(31) == 0 {
+		if C.nox_netlist_receiveCli_494E90(noxMaxPlayers-1) == 0 {
 			return true
 		}
 	} else {

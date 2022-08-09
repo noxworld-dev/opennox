@@ -109,7 +109,7 @@ func (m *Perfmon) Draw(r *NoxRender) {
 		r.DrawString(nil, str, image.Pt(10, y))
 		d := noxPerfmonBandData(pl.Index())
 		var bps uint32
-		if pl.Index() == NOX_PLAYERINFO_MAX-1 {
+		if pl.Index() == noxMaxPlayers-1 {
 			bps = noxPerfmonTransferStats(0)
 			format = strMan.GetStringInFile("TransferStats", "client.c")
 		} else {
@@ -137,7 +137,7 @@ func noxLogBandwidth(ticks uint64) {
 		d := noxPerfmonBandData(pl.Index())
 		v4 := gameFrame()
 		var bps uint32
-		if pl.Index() == NOX_PLAYERINFO_MAX-1 {
+		if pl.Index() == noxMaxPlayers-1 {
 			bps = noxPerfmonTransferStats(0)
 		} else {
 			bps = noxPerfmonTransferStats(pl.Index() + 1)
@@ -151,7 +151,7 @@ type playerBandData struct {
 }
 
 func noxPerfmonBandData(ind int) playerBandData {
-	arr := unsafe.Slice((*uint32)(memmap.PtrOff(0x5D4594, 1565124)), 3*NOX_PLAYERINFO_MAX)
+	arr := unsafe.Slice((*uint32)(memmap.PtrOff(0x5D4594, 1565124)), 3*noxMaxPlayers)
 	arr = arr[3*ind : 3*(ind+1)]
 	return playerBandData{
 		rpu: arr[0] & 0xff,
@@ -177,5 +177,5 @@ func noxPerfMonPacketSize() int {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		return int(memmap.Uint32(0x5D4594, 815712))
 	}
-	return int(C.nox_netlist_sizeByInd_40E9F0(31, 1) + C.nox_netlist_sizeByInd2_40F0D0(31))
+	return int(C.nox_netlist_sizeByInd_40E9F0(noxMaxPlayers-1, 1) + C.nox_netlist_sizeByInd2_40F0D0(noxMaxPlayers-1))
 }
