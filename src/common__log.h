@@ -5,8 +5,6 @@
 
 int nox_xxx_log_4_reopen_413A80(char* path);
 void nox_xxx_log_4_close_413C00();
-void nox_xxx_networkLog_init_413CC0();
-void nox_xxx_networkLog_close_413D00();
 void nox_xxx_networkLog_printf_413D30(char* fmt, ...);
 
 #endif // NOX_COMMON_LOG
