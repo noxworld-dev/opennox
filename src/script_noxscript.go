@@ -4,15 +4,16 @@ package opennox
 #include "server__script__script.h"
 #include "server__script__internal.h"
 #include "GAME4_1.h" // for nox_xxx_scriptPrepareFoundUnit_511D70 and nox_xxx_script_511C50
+extern int nox_script_stack[1024];
 extern int nox_script_count_xxx_1599640;
 extern nox_script_xxx_t* nox_script_arr_xxx_1599636;
 extern unsigned int dword_5d4594_3821636;
 extern unsigned int dword_5d4594_3821640;
 int sub_516570();
+int nox_xxx_gameIsSwitchToSolo_4DB240();
 */
 import "C"
 import (
-	"encoding/binary"
 	"image/color"
 	"math"
 	"strings"
@@ -28,6 +29,16 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
+
+//export nox_script_builtinGetF40
+func nox_script_builtinGetF40() C.int {
+	return C.int(noxServer.noxScript.builtinGetF40())
+}
+
+//export nox_script_builtinGetF44
+func nox_script_builtinGetF44() C.int {
+	return C.int(noxServer.noxScript.builtinGetF44())
+}
 
 //export nox_script_activatorCancelAll_51AC60
 func nox_script_activatorCancelAll_51AC60() {
@@ -82,10 +93,14 @@ var (
 type noxScript struct {
 	s          *Server
 	fxNames    map[string]noxnet.Op
+	f40        int
+	f44        int
+	nameSuff   string
 	activators struct {
 		lastID uint32
 		head   *Activator
 	}
+	panic noxScriptPanic
 }
 
 func (s *noxScript) Init(srv *Server) {
@@ -96,199 +111,32 @@ func (s *noxScript) Init(srv *Server) {
 	}
 }
 
-type Activator struct {
-	frame     uint32
-	callback  uint32
-	arg       uint32
-	id        uint32
-	trigger   *Object
-	caller    *Object
-	triggerID uint32
-	callerID  uint32
-	next      *Activator
-	prev      *Activator
+var _ = [1]struct{}{}[48-unsafe.Sizeof(noxScriptCode{})]
+
+type noxScriptCode struct {
+	name       *C.char        // 0, 0
+	stack_size uint32         // 1, 4
+	size_28    uint32         // 2, 8
+	field_12   uint32         // 3, 12; len field_20 and field_24
+	field_16   uint32         // 4, 16
+	field_20   *uint32        // 5, 20
+	field_24   *uint32        // 6, 24
+	field_28   *uint32        // 7, 28
+	data       unsafe.Pointer // 8, 32
+	suff       *C.char        // 9, 36
+	field_40   uint32         // 10, 40
+	field_44   uint32         // 11, 44
 }
 
-func (s *noxScript) actNextHandle() uint32 {
-	s.activators.lastID++
-	id := s.activators.lastID
-	if s.activators.lastID > 32000 {
-		id = 1
-		s.activators.lastID = 1
+func (s *noxScript) scripts() []noxScriptCode {
+	if C.nox_script_arr_xxx_1599636 == nil {
+		return nil
 	}
-	return id
+	return unsafe.Slice((*noxScriptCode)(unsafe.Pointer(C.nox_script_arr_xxx_1599636)), int(C.nox_script_count_xxx_1599640))
 }
 
-func (s *noxScript) actAppend(act *Activator) {
-	var last *Activator
-	for it := s.activators.head; it != nil; it = it.next {
-		last = it
-	}
-	if last != nil {
-		last.next = act
-		act.prev = last
-	} else {
-		s.activators.head = act
-		act.prev = nil
-	}
-}
-
-func (s *noxScript) actCancel(id uint32) bool {
-	for it := s.activators.head; it != nil; it = it.next {
-		if it.id == id {
-			s.actDoneNext(it)
-			return true
-		}
-	}
-	return false
-}
-
-func (s *noxScript) actCancelAll() {
-	s.activators.head = nil
-}
-
-func (s *noxScript) newScriptTimer(df int, callback, arg uint32) uint32 {
-	act := &Activator{
-		id:       s.actNextHandle(),
-		frame:    gameFrame() + uint32(df),
-		callback: callback, arg: arg,
-	}
-	s.actAppend(act)
-	return act.id
-}
-
-func (s *noxScript) actClearObj(obj *Object) {
-	for it := s.activators.head; it != nil; {
-		if it.trigger == obj {
-			it = s.actDoneNext(it)
-		} else {
-			if it.caller == obj {
-				it.caller = nil
-			}
-			it = it.next
-		}
-	}
-}
-
-func (s *noxScript) actSave() int {
-	var buf [4]byte
-	binary.LittleEndian.PutUint16(buf[:], 1)
-	cryptFileReadWrite(buf[:2])
-	binary.LittleEndian.PutUint32(buf[:], gameFrame())
-	cryptFileReadWrite(buf[:4])
-
-	cnt := 0
-	for it := s.activators.head; it != nil; it = it.next {
-		cnt++
-	}
-	binary.LittleEndian.PutUint32(buf[:], uint32(cnt))
-	cryptFileReadWrite(buf[:4])
-	for it := s.activators.head; it != nil; it = it.next {
-		binary.LittleEndian.PutUint32(buf[:], it.frame)
-		cryptFileReadWrite(buf[:4])
-		binary.LittleEndian.PutUint32(buf[:], uint32(it.callback))
-		cryptFileReadWrite(buf[:4])
-		binary.LittleEndian.PutUint32(buf[:], it.arg)
-		cryptFileReadWrite(buf[:4])
-		oid := 0
-		if it.trigger != nil {
-			oid = it.trigger.ScriptID()
-		}
-		binary.LittleEndian.PutUint32(buf[:], uint32(oid))
-		cryptFileReadWrite(buf[:4])
-		oid = 0
-		if it.caller != nil {
-			oid = it.caller.ScriptID()
-		}
-		binary.LittleEndian.PutUint32(buf[:], uint32(oid))
-		cryptFileReadWrite(buf[:4])
-	}
-	return 1
-}
-
-func (s *noxScript) actLoad() int {
-	var buf [4]byte
-	cryptFileReadWrite(buf[:2])
-	vers := binary.LittleEndian.Uint16(buf[:])
-	if vers > 1 || vers <= 0 {
-		return 0
-	}
-	cryptFileReadWrite(buf[:4])
-	saveFrame := binary.LittleEndian.Uint32(buf[:])
-	cryptFileReadWrite(buf[:4])
-	cnt := int(binary.LittleEndian.Uint32(buf[:]))
-	for i := 0; i < cnt; i++ {
-		cryptFileReadWrite(buf[:4])
-		frame := binary.LittleEndian.Uint32(buf[:])
-		cryptFileReadWrite(buf[:4])
-		callback := binary.LittleEndian.Uint32(buf[:])
-		cryptFileReadWrite(buf[:4])
-		arg := binary.LittleEndian.Uint32(buf[:])
-		cryptFileReadWrite(buf[:4])
-		trigger := binary.LittleEndian.Uint32(buf[:])
-		cryptFileReadWrite(buf[:4])
-		caller := binary.LittleEndian.Uint32(buf[:])
-
-		act := &Activator{
-			id:       s.actNextHandle(),
-			frame:    gameFrame() + (frame - saveFrame),
-			callback: callback, arg: arg,
-			triggerID: trigger, callerID: caller,
-		}
-		s.actAppend(act)
-	}
-	return 1
-}
-
-func (s *noxScript) scripts() []C.nox_script_xxx_t {
-	return unsafe.Slice((*C.nox_script_xxx_t)(unsafe.Pointer(C.nox_script_arr_xxx_1599636)), int(C.nox_script_count_xxx_1599640))
-}
-
-func (s *noxScript) actRun() {
-	scripts := s.scripts()
-	for it := s.activators.head; it != nil; {
-		if it.frame > gameFrame() {
-			it = it.next
-		} else {
-			callback := it.callback
-			caller := it.caller
-			trigger := it.trigger
-			if scripts[callback].size_28 != 0 {
-				s.PushU32(it.arg)
-			}
-			it = s.actDoneNext(it)
-			C.nox_script_callByIndex_507310(C.int(callback), unsafe.Pointer(caller.CObj()), unsafe.Pointer(trigger.CObj()))
-		}
-	}
-}
-
-func (s *noxScript) actResolveObjs() {
-	for it := s.activators.head; it != nil; it = it.next {
-		if it.triggerID != 0 {
-			it.trigger = s.scriptToObject(int(it.triggerID))
-			it.triggerID = 0
-		}
-		if it.callerID != 0 {
-			it.caller = s.scriptToObject(int(it.callerID))
-			it.callerID = 0
-		}
-	}
-}
-
-func (s *noxScript) actDoneNext(act *Activator) *Activator {
-	next := act.next
-	if next != nil {
-		next.prev = act.prev
-	}
-	if prev := act.prev; prev != nil {
-		prev.next = next
-	}
-
-	if act == s.activators.head {
-		s.activators.head = next
-	}
-	*act = Activator{}
-	return next
+func (s *noxScript) callByIndex(fnc int, caller, trigger noxObject) {
+	C.nox_script_callByIndex_507310(C.int(fnc), unsafe.Pointer(toCObj(caller)), unsafe.Pointer(toCObj(trigger)))
 }
 
 func (s *noxScript) PushU32(v uint32) {
@@ -307,13 +155,29 @@ func (s *noxScript) PushBool(v bool) {
 	C.nox_script_push(C.int(bool2int(v)))
 }
 
+func (s *noxScript) nox_xxx_scriptRunFirst_507290() {
+	s.resetBuiltin()
+	if scripts := s.scripts(); len(scripts) >= 2 {
+		sc := unsafe.Slice((*int32)(unsafe.Pointer(scripts[1].field_28)), 4)
+		sc[0] = -2
+		sc[1] = -1
+		sc[2] = 1
+		sc[3] = 0
+		if C.nox_xxx_gameIsSwitchToSolo_4DB240() == 0 {
+			s.callByIndex(1, nil, nil)
+		}
+	} else {
+		scriptLog.Printf("noxscript: no init function")
+	}
+}
+
 func (s *noxScript) OnEvent(event script.EventType) {
 	scripts := s.scripts()
 	for i := range scripts {
 		sc := &scripts[i]
-		name := GoString(sc.field_0)
+		name := GoString(sc.name)
 		if strings.HasPrefix(name, string(event)) {
-			C.nox_script_callByIndex_507310(C.int(i), nil, nil)
+			s.callByIndex(i, nil, nil)
 		}
 	}
 }
@@ -415,8 +279,36 @@ func (s *noxScript) PopPointf() types.Pointf {
 	return types.Pointf{X: x, Y: y}
 }
 
-func (s *noxScript) builtinGetF40() int { return int(C.dword_5d4594_3821636) }
-func (s *noxScript) builtinGetF44() int { return int(C.dword_5d4594_3821640) }
+func (s *noxScript) resetBuiltin() {
+	s.f40 = 0
+	s.f44 = 0
+	s.nameSuff = ""
+}
+
+func (s *noxScript) builtinGetF40() int { return s.f40 }
+func (s *noxScript) builtinGetF44() int { return s.f44 }
+
+func (s *noxScript) scriptNameSuff(i int) string {
+	scripts := s.scripts()
+	return GoString(scripts[i].suff)
+}
+
+func (s *noxScript) scriptField40(i int) int {
+	scripts := s.scripts()
+	return int(scripts[i].field_40)
+}
+
+func (s *noxScript) scriptField44(i int) int {
+	scripts := s.scripts()
+	return int(scripts[i].field_44)
+}
+
+func (s *noxScript) stackAt(i int) uint32 {
+	if i < 0 || i >= 1024 {
+		return 0
+	}
+	return uint32(C.nox_script_stack[i])
+}
 
 func (s *noxScript) noxScriptEndGame(v int) {
 	dword_587000_311372 = v
