@@ -1,7 +1,218 @@
 package opennox
 
 /*
-#include "server__script__internal.h"
+int nox_script_getWall_511EB0();
+int nox_script_openSecretWall_511F50();
+int nox_script_openWallGroup_512010();
+int nox_script_closeWall_512040();
+int nox_script_closeWallGroup_512100();
+int nox_script_toggleWall_512130();
+int nox_script_toggleWallGroup_512260();
+int nox_script_wallBreak_512290();
+int nox_script_wallGroupBreak_5122F0();
+int nox_script_secondTimer_512320();
+int nox_script_frameTimer_512350();
+int nox_script_moverOrMonsterGo_512370();
+int nox_script_groupGoTo_512500();
+int nox_script_lookAtDirection_512560();
+int nox_script_groupLookAtDirection_512610();
+int nox_script_objectOn_512670();
+int nox_script_objGroupOn_512690();
+int nox_script_waypointOn_5126D0();
+int nox_script_waypointGroupOn_5126F0();
+int nox_script_objectOff_512730();
+int nox_script_objGroupOff_512750();
+int nox_script_waypointOff_512790();
+int nox_script_waypointGroupOff_5127B0();
+int nox_script_toggleObject_5127F0();
+int nox_script_toggleObjectGroup_512810();
+int nox_script_toggleWaypoint_512850();
+int nox_script_toggleWaypointGroup_512870();
+int nox_script_deleteObject_5128B0();
+int nox_script_deleteObjectGroup_5128D0();
+int nox_script_followNearestWaypoint_512910();
+int nox_script_groupRoam_512990();
+int nox_script_getObject2_5129C0();
+int nox_script_getObject3_5129E0();
+int nox_script_gotoHome_512A00();
+int nox_script_audioEven_512AC0();
+int nox_script_printToCaller_512B10();
+int nox_script_printToAll_512B60();
+int nox_script_sayChat_512B90();
+int nox_script_returnOne_512C10();
+int nox_script_unlockDoor_512C20();
+int nox_script_lockDoor_512C60();
+int nox_script_isOn_512CA0();
+int nox_script_wpIsEnabled_512CE0();
+int nox_script_doorIsLocked_512D20();
+int nox_script_randomFloat_512D70();
+int nox_script_randomInt_512DB0();
+int nox_script_timerSecSpecial_512DE0();
+int nox_script_specialTimer_512E10();
+int nox_script_intToString_512EA0();
+int nox_script_floatToString_512ED0();
+int nox_script_create_512F10();
+int nox_script_damage_512F80();
+int nox_script_groupDamage_513010();
+int nox_script_Wander_513070();
+int nox_script_WanderGroup_513160();
+int nox_script_awardSpell_5131C0();
+int nox_script_awardSpellGroup_513230();
+int nox_script_enchant_5132E0();
+int nox_script_groupEnchant_5133B0();
+int nox_script_getHost_513460();
+int nox_script_objectGet_513490();
+int nox_script_getObjectX_513530();
+int nox_script_getWaypointX_513570();
+int nox_script_getObjectY_5135B0();
+int nox_script_getWaypointY_5135F0();
+int nox_script_unitHeight_513630();
+int nox_script_getUnitLook_513670();
+int nox_script_moveObject_5136A0();
+int nox_script_moveWaypoint_513700();
+int nox_script_raise_513750();
+int nox_script_faceAngle_513780();
+int nox_script_pushObject_5137D0();
+int nox_script_pushObjectTo_513820();
+int nox_script_getFirstInvItem_5138B0();
+int nox_script_getNextInvItem_5138E0();
+int nox_script_hasItem_513910();
+int nox_script_getInvHolder_513960();
+int nox_script_pickup_5139A0();
+int nox_script_drop_513C10();
+int nox_script_HasClass_516210();
+int nox_script_builtin_513C60();
+int nox_script_TestBuffs_513C70();
+int nox_script_cancelBuff_513D00();
+int nox_script_getCurrentHP_513D70();
+int nox_script_getMaxHP_513DB0();
+int nox_script_restoreHP_513DF0();
+int nox_script_getDistance_513E20();
+int nox_script_canInteract_513E80();
+int nox_script_fn58_513F10();
+int nox_script_fn59_513F20();
+int nox_script_fn5A_513F30();
+int nox_script_fn5B_513F40();
+int nox_script_Fn5C_513F50();
+int nox_script_Fn5D_513F60();
+int nox_script_Fn5E_513F70();
+int nox_script_GetHostInfo_513FA0();
+int nox_script_FaceObject_514050();
+int nox_script_Walk_5140B0();
+int nox_script_GroupWalk_514170();
+int nox_script_CancelTimer_5141F0();
+int nox_script_Effect_514210();
+int nox_script_SetOwner_514490();
+int nox_script_SetOwnerGroup_5144C0();
+int nox_script_SetOwners_514510();
+int nox_script_SetOwnersGroup_514570();
+int nox_script_IsOwnedBy_5145F0();
+int nox_script_IsOwnedByGroup_514630();
+int nox_script_IsOwnedByAny_5146B0();
+int nox_script_IsOwnedByAnyGroup_514730();
+int nox_script_ClearOwner_5147E0();
+int nox_script_Waypoint_514800();
+int nox_script_GetWaypointGroup_5148A0();
+int nox_script_GetObjectGroup_514940();
+int nox_script_GetWallGroup_5149E0();
+int nox_script_ChatTimerSeconds_514A80();
+int nox_script_ChatTimerFrames_514B10();
+int nox_script_Pop2_74_514BA0();
+int nox_script_RemoveChat_514BB0();
+int nox_script_NoChatAll_514BD0();
+int nox_script_SetQuestInt_514BE0();
+int nox_script_SetQuestFloat_514C10();
+int nox_script_GetQuestInt_514C40();
+int nox_script_GetQuestFloat_514C60();
+int nox_script_ResetQuestStatus_514C90();
+int nox_script_IsTrigger_514CB0();
+int nox_script_IsCaller_514CF0();
+int nox_script_SetDialog_514D90();
+int nox_script_CancelDialog_514DF0();
+int nox_script_DialogPortrait_514E30();
+int nox_script_TellStory_514E90();
+int nox_script_StartDialog_514ED0();
+int nox_script_CastObject2_514F10();
+int nox_script_CastObjectLocation_514FC0();
+int nox_script_CastLocationObject_515060();
+int nox_script_CastLocation2_515130();
+int nox_script_UnBlind_515200();
+int nox_script_Blind_515220();
+int nox_script_WideScreen_515240();
+int nox_script_GetElevatorStat_5154A0();
+int nox_script_Guard_515600();
+int nox_script_GuardGroup_515700();
+int nox_script_Hunt_515780();
+int nox_script_HuntGroup_5157D0();
+int nox_script_Idle_515800();
+int nox_script_GroupIdle_515850();
+int nox_script_Follow_515880();
+int nox_script_FollowGroup_515910();
+int nox_script_AgressionLevel_515950();
+int nox_script_AggressionLevelGroup_5159B0();
+int nox_script_HitLocation_5159E0();
+int nox_script_HitLocationGroup_515AE0();
+int nox_script_HitFarLocation_515B30();
+int nox_script_HitFarLocationGroup_515BF0();
+int nox_script_SetRoamFlag_515C40();
+int nox_script_SetRoamFlagGroup_515CB0();
+int nox_script_Attack_515CF0();
+int nox_script_AttackGroup_515DB0();
+int nox_script_JournalEntry_5154E0();
+int nox_script_JournalDelete_515550();
+int nox_script_JournalEdit_5155A0();
+int nox_script_RetreatLevel_515DF0();
+int nox_script_RetreatLevelGroup_515E50();
+int nox_script_SetResumeLevel_515E80();
+int nox_script_SetResumeLevelGroup_515EE0();
+int nox_script_RunAway_515F10();
+int nox_script_RunAwayGroup_516000();
+int nox_script_PauseObject_516060();
+int nox_script_PauseObjectGroup_5160F0();
+int nox_script_IsAttackedBy_5161C0();
+int nox_script_GetGold_516120();
+int nox_script_ChangeGold_516160();
+int nox_script_DialogResult_5163C0();
+int nox_script_GiveExp_516190();
+int nox_script_HasSubclass_5162D0();
+int nox_script_ForceAutosave_516400();
+int nox_script_Music_516430();
+int nox_script_StartupScreen_516600();
+int nox_script_IsTalking_5166A0();
+int nox_script_GetTrigger_514D30();
+int nox_script_GetCaller_514D60();
+int nox_script_MakeFriendly_516720();
+int nox_script_MakeEnemy_516760();
+int nox_script_BecomePet_5167D0();
+int nox_script_BecomeEnemy_516810();
+int nox_script_builtin_516790();
+int nox_script_builtin_516850();
+int nox_script_OblivionGive_516890();
+int nox_script_DeathScreen_516680();
+int nox_script_Frozen_516920();
+int nox_script_NoWallSound_516960();
+int nox_script_SetCallback_516970();
+int nox_script_DeleteObjectTimer_516A50();
+int nox_script_TrapSpells_516B40();
+int nox_script_PlayerIsTrading_5166E0();
+int nox_script_ClearMessages_516BC0();
+int nox_script_SetShopkeeperGreet_516BE0();
+int nox_script_StopAllFades_516C10();
+int nox_script_IsSummoned_516C30();
+int nox_script_ZombieStayDown_516C70();
+int nox_script_ZombieStayDownGroup_516CB0();
+int nox_script_RaiseZombie_516CE0();
+int nox_script_RaiseZombieGroup_516D40();
+int nox_script_MusicPushEvent_5164A0();
+int nox_script_MusicPopEvent_5164E0();
+int nox_script_ClearMusic_516520();
+int nox_script_ObjIsGameball_516D70();
+int nox_script_ObjIsCrown_516DC0();
+int nox_script_EndGame_516E10();
+int nox_script_StartGame_516C20();
+int nox_script_ChangeScore_516E30();
+int nox_script_GetScore_516EA0();
+
 extern unsigned int nox_xxx_wallSounds_2386840;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 int nox_xxx_destroyEveryChatMB_528D60();
@@ -13,6 +224,7 @@ import "C"
 import (
 	"image"
 	"strings"
+	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
@@ -24,28 +236,247 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
+func wrapScriptC(fnc unsafe.Pointer) func() C.int {
+	return func() C.int {
+		return C.int(cgoCallIntVoidFunc(fnc))
+	}
+}
+
+var noxScriptBuiltins = []func() C.int{
+	0:   wrapScriptC(C.nox_script_getWall_511EB0),
+	1:   wrapScriptC(C.nox_script_openSecretWall_511F50),
+	2:   wrapScriptC(C.nox_script_openWallGroup_512010),
+	3:   wrapScriptC(C.nox_script_closeWall_512040),
+	4:   wrapScriptC(C.nox_script_closeWallGroup_512100),
+	5:   wrapScriptC(C.nox_script_toggleWall_512130),
+	6:   wrapScriptC(C.nox_script_toggleWallGroup_512260),
+	7:   wrapScriptC(C.nox_script_wallBreak_512290),
+	8:   wrapScriptC(C.nox_script_wallGroupBreak_5122F0),
+	9:   nox_script_secondTimer_512320,
+	10:  nox_script_frameTimer_512350,
+	11:  wrapScriptC(C.nox_script_moverOrMonsterGo_512370),
+	12:  wrapScriptC(C.nox_script_groupGoTo_512500),
+	13:  wrapScriptC(C.nox_script_lookAtDirection_512560),
+	14:  wrapScriptC(C.nox_script_groupLookAtDirection_512610),
+	15:  wrapScriptC(C.nox_script_objectOn_512670),
+	16:  wrapScriptC(C.nox_script_objGroupOn_512690),
+	17:  wrapScriptC(C.nox_script_waypointOn_5126D0),
+	18:  wrapScriptC(C.nox_script_waypointGroupOn_5126F0),
+	19:  wrapScriptC(C.nox_script_objectOff_512730),
+	20:  wrapScriptC(C.nox_script_objGroupOff_512750),
+	21:  wrapScriptC(C.nox_script_waypointOff_512790),
+	22:  wrapScriptC(C.nox_script_waypointGroupOff_5127B0),
+	23:  wrapScriptC(C.nox_script_toggleObject_5127F0),
+	24:  wrapScriptC(C.nox_script_toggleObjectGroup_512810),
+	25:  wrapScriptC(C.nox_script_toggleWaypoint_512850),
+	26:  wrapScriptC(C.nox_script_toggleWaypointGroup_512870),
+	27:  nox_script_deleteObject_5128B0,
+	28:  wrapScriptC(C.nox_script_deleteObjectGroup_5128D0),
+	29:  wrapScriptC(C.nox_script_followNearestWaypoint_512910),
+	30:  wrapScriptC(C.nox_script_groupRoam_512990),
+	31:  nox_script_getObject2_5129C0,
+	32:  nox_script_getObject3_5129E0,
+	33:  wrapScriptC(C.nox_script_gotoHome_512A00),
+	34:  wrapScriptC(C.nox_script_audioEven_512AC0),
+	35:  nox_script_printToCaller_512B10,
+	36:  nox_script_printToAll_512B60,
+	37:  wrapScriptC(C.nox_script_sayChat_512B90),
+	38:  nox_script_returnOne_512C10,
+	39:  wrapScriptC(C.nox_script_unlockDoor_512C20),
+	40:  wrapScriptC(C.nox_script_lockDoor_512C60),
+	41:  wrapScriptC(C.nox_script_isOn_512CA0),
+	42:  wrapScriptC(C.nox_script_wpIsEnabled_512CE0),
+	43:  wrapScriptC(C.nox_script_doorIsLocked_512D20),
+	44:  nox_script_randomFloat_512D70,
+	45:  nox_script_randomInt_512DB0,
+	46:  nox_script_timerSecSpecial_512DE0,
+	47:  nox_script_specialTimer_512E10,
+	48:  wrapScriptC(C.nox_script_intToString_512EA0),
+	49:  wrapScriptC(C.nox_script_floatToString_512ED0),
+	50:  wrapScriptC(C.nox_script_create_512F10),
+	51:  wrapScriptC(C.nox_script_damage_512F80),
+	52:  wrapScriptC(C.nox_script_groupDamage_513010),
+	53:  wrapScriptC(C.nox_script_Wander_513070),
+	54:  wrapScriptC(C.nox_script_WanderGroup_513160),
+	55:  wrapScriptC(C.nox_script_awardSpell_5131C0),
+	56:  wrapScriptC(C.nox_script_awardSpellGroup_513230),
+	57:  wrapScriptC(C.nox_script_enchant_5132E0),
+	58:  wrapScriptC(C.nox_script_groupEnchant_5133B0),
+	59:  wrapScriptC(C.nox_script_getHost_513460),
+	60:  wrapScriptC(C.nox_script_objectGet_513490),
+	61:  wrapScriptC(C.nox_script_getObjectX_513530),
+	62:  wrapScriptC(C.nox_script_getWaypointX_513570),
+	63:  wrapScriptC(C.nox_script_getObjectY_5135B0),
+	64:  wrapScriptC(C.nox_script_getWaypointY_5135F0),
+	65:  wrapScriptC(C.nox_script_unitHeight_513630),
+	66:  wrapScriptC(C.nox_script_getUnitLook_513670),
+	67:  wrapScriptC(C.nox_script_moveObject_5136A0),
+	68:  wrapScriptC(C.nox_script_moveWaypoint_513700),
+	69:  wrapScriptC(C.nox_script_raise_513750),
+	70:  wrapScriptC(C.nox_script_faceAngle_513780),
+	71:  wrapScriptC(C.nox_script_pushObject_5137D0),
+	72:  wrapScriptC(C.nox_script_pushObjectTo_513820),
+	73:  wrapScriptC(C.nox_script_getFirstInvItem_5138B0),
+	74:  wrapScriptC(C.nox_script_getNextInvItem_5138E0),
+	75:  wrapScriptC(C.nox_script_hasItem_513910),
+	76:  wrapScriptC(C.nox_script_getInvHolder_513960),
+	77:  wrapScriptC(C.nox_script_pickup_5139A0),
+	78:  wrapScriptC(C.nox_script_drop_513C10),
+	79:  wrapScriptC(C.nox_script_HasClass_516210),
+	80:  nox_script_builtin_513C60,
+	81:  wrapScriptC(C.nox_script_TestBuffs_513C70),
+	82:  wrapScriptC(C.nox_script_cancelBuff_513D00),
+	83:  wrapScriptC(C.nox_script_getCurrentHP_513D70),
+	84:  wrapScriptC(C.nox_script_getMaxHP_513DB0),
+	85:  wrapScriptC(C.nox_script_restoreHP_513DF0),
+	86:  wrapScriptC(C.nox_script_getDistance_513E20),
+	88:  nox_script_fn58_513F10,
+	89:  nox_script_fn59_513F20,
+	90:  nox_script_fn5A_513F30,
+	91:  nox_script_fn5B_513F40,
+	92:  nox_script_Fn5C_513F50,
+	93:  nox_script_Fn5D_513F60,
+	94:  wrapScriptC(C.nox_script_Fn5E_513F70),
+	95:  wrapScriptC(C.nox_script_GetHostInfo_513FA0),
+	96:  wrapScriptC(C.nox_script_FaceObject_514050),
+	97:  wrapScriptC(C.nox_script_Walk_5140B0),
+	98:  wrapScriptC(C.nox_script_GroupWalk_514170),
+	99:  nox_script_CancelTimer_5141F0,
+	100: nox_script_Effect_514210,
+	101: wrapScriptC(C.nox_script_SetOwner_514490),
+	102: wrapScriptC(C.nox_script_SetOwnerGroup_5144C0),
+	103: wrapScriptC(C.nox_script_SetOwners_514510),
+	104: wrapScriptC(C.nox_script_SetOwnersGroup_514570),
+	105: wrapScriptC(C.nox_script_IsOwnedBy_5145F0),
+	106: wrapScriptC(C.nox_script_IsOwnedByGroup_514630),
+	107: wrapScriptC(C.nox_script_IsOwnedByAny_5146B0),
+	108: wrapScriptC(C.nox_script_IsOwnedByAnyGroup_514730),
+	109: wrapScriptC(C.nox_script_ClearOwner_5147E0),
+	110: wrapScriptC(C.nox_script_Waypoint_514800),
+	111: wrapScriptC(C.nox_script_GetWaypointGroup_5148A0),
+	112: wrapScriptC(C.nox_script_GetObjectGroup_514940),
+	113: wrapScriptC(C.nox_script_GetWallGroup_5149E0),
+	114: wrapScriptC(C.nox_script_ChatTimerSeconds_514A80),
+	115: wrapScriptC(C.nox_script_ChatTimerFrames_514B10),
+	116: nox_script_Pop2_74_514BA0,
+	117: nox_script_RemoveChat_514BB0,
+	118: nox_script_NoChatAll_514BD0,
+	119: wrapScriptC(C.nox_script_SetQuestInt_514BE0),
+	120: wrapScriptC(C.nox_script_SetQuestFloat_514C10),
+	121: wrapScriptC(C.nox_script_GetQuestInt_514C40),
+	122: wrapScriptC(C.nox_script_GetQuestFloat_514C60),
+	123: wrapScriptC(C.nox_script_ResetQuestStatus_514C90),
+	124: wrapScriptC(C.nox_script_IsTrigger_514CB0),
+	125: wrapScriptC(C.nox_script_IsCaller_514CF0),
+	126: wrapScriptC(C.nox_script_SetDialog_514D90),
+	127: wrapScriptC(C.nox_script_CancelDialog_514DF0),
+	128: wrapScriptC(C.nox_script_DialogPortrait_514E30),
+	129: wrapScriptC(C.nox_script_TellStory_514E90),
+	130: wrapScriptC(C.nox_script_StartDialog_514ED0),
+	131: nox_script_CastObject2_514F10,
+	132: nox_script_CastObjectLocation_514FC0,
+	133: nox_script_CastLocationObject_515060,
+	134: nox_script_CastLocation2_515130,
+	135: nox_script_UnBlind_515200,
+	136: nox_script_Blind_515220,
+	137: nox_script_WideScreen_515240,
+	138: wrapScriptC(C.nox_script_GetElevatorStat_5154A0),
+	139: wrapScriptC(C.nox_script_Guard_515600),
+	140: wrapScriptC(C.nox_script_GuardGroup_515700),
+	141: wrapScriptC(C.nox_script_Hunt_515780),
+	142: wrapScriptC(C.nox_script_HuntGroup_5157D0),
+	143: wrapScriptC(C.nox_script_Idle_515800),
+	144: wrapScriptC(C.nox_script_GroupIdle_515850),
+	145: wrapScriptC(C.nox_script_Follow_515880),
+	146: wrapScriptC(C.nox_script_FollowGroup_515910),
+	147: wrapScriptC(C.nox_script_AgressionLevel_515950),
+	148: wrapScriptC(C.nox_script_AggressionLevelGroup_5159B0),
+	149: wrapScriptC(C.nox_script_HitLocation_5159E0),
+	150: wrapScriptC(C.nox_script_HitLocationGroup_515AE0),
+	151: wrapScriptC(C.nox_script_HitFarLocation_515B30),
+	152: wrapScriptC(C.nox_script_HitFarLocationGroup_515BF0),
+	153: wrapScriptC(C.nox_script_SetRoamFlag_515C40),
+	154: wrapScriptC(C.nox_script_SetRoamFlagGroup_515CB0),
+	155: wrapScriptC(C.nox_script_Attack_515CF0),
+	156: wrapScriptC(C.nox_script_AttackGroup_515DB0),
+	157: wrapScriptC(C.nox_script_JournalEntry_5154E0),
+	158: wrapScriptC(C.nox_script_JournalDelete_515550),
+	159: wrapScriptC(C.nox_script_JournalEdit_5155A0),
+	160: wrapScriptC(C.nox_script_RetreatLevel_515DF0),
+	161: wrapScriptC(C.nox_script_RetreatLevelGroup_515E50),
+	162: wrapScriptC(C.nox_script_SetResumeLevel_515E80),
+	163: wrapScriptC(C.nox_script_SetResumeLevelGroup_515EE0),
+	164: wrapScriptC(C.nox_script_RunAway_515F10),
+	165: wrapScriptC(C.nox_script_RunAwayGroup_516000),
+	166: wrapScriptC(C.nox_script_PauseObject_516060),
+	167: wrapScriptC(C.nox_script_PauseObjectGroup_5160F0),
+	168: nox_script_IsAttackedBy_5161C0,
+	169: wrapScriptC(C.nox_script_GetGold_516120),
+	170: wrapScriptC(C.nox_script_ChangeGold_516160),
+	171: wrapScriptC(C.nox_script_DialogResult_5163C0),
+	172: wrapScriptC(C.nox_script_GiveExp_516190),
+	173: wrapScriptC(C.nox_script_HasSubclass_5162D0),
+	174: nox_script_ForceAutosave_516400,
+	175: nox_script_Music_516430,
+	176: wrapScriptC(C.nox_script_StartupScreen_516600),
+	177: wrapScriptC(C.nox_script_IsTalking_5166A0),
+	178: wrapScriptC(C.nox_script_GetTrigger_514D30),
+	179: wrapScriptC(C.nox_script_GetCaller_514D60),
+	180: wrapScriptC(C.nox_script_MakeFriendly_516720),
+	181: wrapScriptC(C.nox_script_MakeEnemy_516760),
+	182: wrapScriptC(C.nox_script_BecomePet_5167D0),
+	183: wrapScriptC(C.nox_script_BecomeEnemy_516810),
+	184: wrapScriptC(C.nox_script_builtin_516790),
+	185: wrapScriptC(C.nox_script_builtin_516850),
+	186: wrapScriptC(C.nox_script_OblivionGive_516890),
+	187: nox_script_DeathScreen_516680,
+	188: nox_script_Frozen_516920,
+	189: nox_script_NoWallSound_516960,
+	190: nox_script_SetCallback_516970,
+	191: wrapScriptC(C.nox_script_DeleteObjectTimer_516A50),
+	192: wrapScriptC(C.nox_script_TrapSpells_516B40),
+	193: wrapScriptC(C.nox_script_PlayerIsTrading_5166E0),
+	194: nox_script_ClearMessages_516BC0,
+	195: wrapScriptC(C.nox_script_SetShopkeeperGreet_516BE0),
+	196: nox_script_StopAllFades_516C10,
+	197: wrapScriptC(C.nox_script_IsSummoned_516C30),
+	198: wrapScriptC(C.nox_script_ZombieStayDown_516C70),
+	199: wrapScriptC(C.nox_script_ZombieStayDownGroup_516CB0),
+	200: wrapScriptC(C.nox_script_RaiseZombie_516CE0),
+	201: wrapScriptC(C.nox_script_RaiseZombieGroup_516D40),
+	202: nox_script_MusicPushEvent_5164A0,
+	203: nox_script_MusicPopEvent_5164E0,
+	204: nox_script_ClearMusic_516520,
+	205: wrapScriptC(C.nox_script_ObjIsGameball_516D70),
+	206: wrapScriptC(C.nox_script_ObjIsCrown_516DC0),
+	207: nox_script_EndGame_516E10,
+	208: nox_script_StartGame_516C20,
+	209: nox_script_ChangeScore_516E30,
+	210: nox_script_GetScore_516EA0,
+}
+
 //export nox_script_secondTimer_512320
 func nox_script_secondTimer_512320() C.int {
-	s := noxServer
-	fnc := s.noxScriptPopU32()
-	dt := s.noxScriptPopU32()
-	s.scriptPushU32(s.noxScript.newScriptTimer(int(dt*gameFPS()), fnc, 0))
+	s := &noxServer.noxScript
+	fnc := s.PopU32()
+	dt := s.PopU32()
+	s.PushU32(s.newScriptTimer(int(dt*gameFPS()), fnc, 0))
 	return 0
 }
 
 //export nox_script_frameTimer_512350
 func nox_script_frameTimer_512350() C.int {
-	s := noxServer
-	fnc := s.noxScriptPopU32()
-	df := int(s.noxScriptPopU32())
-	s.scriptPushU32(s.noxScript.newScriptTimer(df, fnc, 0))
+	s := &noxServer.noxScript
+	fnc := s.PopU32()
+	df := int(s.PopU32())
+	s.PushU32(s.newScriptTimer(df, fnc, 0))
 	return 0
 }
 
 //export nox_script_deleteObject_5128B0
 func nox_script_deleteObject_5128B0() C.int {
-	s := noxServer
-	if obj := s.noxScriptPopObject(); obj != nil {
+	s := &noxServer.noxScript
+	if obj := s.PopObject(); obj != nil {
 		obj.Delete()
 	}
 	return 0
@@ -53,24 +484,24 @@ func nox_script_deleteObject_5128B0() C.int {
 
 //export nox_script_getObject2_5129C0
 func nox_script_getObject2_5129C0() C.int {
-	s := noxServer
-	_ = s.noxScriptPopObject()
+	s := &noxServer.noxScript
+	_ = s.PopObject()
 	return 0
 }
 
 //export nox_script_getObject3_5129E0
 func nox_script_getObject3_5129E0() C.int {
-	s := noxServer
-	_ = s.noxScriptPopObject()
+	s := &noxServer.noxScript
+	_ = s.PopObject()
 	return 0
 }
 
 //export nox_script_printToCaller_512B10
 func nox_script_printToCaller_512B10() C.int {
-	s := noxServer
-	strID := s.noxScriptPopString()
-	if c := asObject(C.nox_script_get_caller()).AsUnit(); c != nil && c.Class().Has(object.ClassPlayer) {
-		str := s.Strings().GetStringInFile(strman.ID(strID), "CScrFunc.c")
+	s := &noxServer.noxScript
+	strID := s.PopString()
+	if c := s.Caller().AsUnit(); c != nil && c.Class().Has(object.ClassPlayer) {
+		str := s.s.Strings().GetStringInFile(strman.ID(strID), "CScrFunc.c")
 		nox_xxx_netSendLineMessage_4D9EB0(c, str)
 	}
 	return 0
@@ -78,9 +509,9 @@ func nox_script_printToCaller_512B10() C.int {
 
 //export nox_script_printToAll_512B60
 func nox_script_printToAll_512B60() C.int {
-	s := noxServer
-	strID := s.noxScriptPopString()
-	str := s.Strings().GetStringInFile(strman.ID(strID), "CScrFunc.c")
+	s := &noxServer.noxScript
+	strID := s.PopString()
+	str := s.s.Strings().GetStringInFile(strman.ID(strID), "CScrFunc.c")
 	PrintToPlayers(str)
 	return 0
 }
@@ -90,41 +521,41 @@ func nox_script_returnOne_512C10() C.int { return 1 }
 
 //export nox_script_randomFloat_512D70
 func nox_script_randomFloat_512D70() C.int {
-	s := noxServer
-	max := float64(s.noxScriptPopF32())
-	min := float64(s.noxScriptPopF32())
+	s := &noxServer.noxScript
+	max := float64(s.PopF32())
+	min := float64(s.PopF32())
 	val := noxRndCounter1.FloatClamp(min, max)
-	s.scriptPushF32(float32(val))
+	s.PushF32(float32(val))
 	return 0
 }
 
 //export nox_script_randomInt_512DB0
 func nox_script_randomInt_512DB0() C.int {
-	s := noxServer
-	max := int(s.noxScriptPopU32())
-	min := int(s.noxScriptPopU32())
+	s := &noxServer.noxScript
+	max := int(s.PopU32())
+	min := int(s.PopU32())
 	val := noxRndCounter1.IntClamp(min, max)
-	s.scriptPushI32(int32(val))
+	s.PushI32(int32(val))
 	return 0
 }
 
 //export nox_script_timerSecSpecial_512DE0
 func nox_script_timerSecSpecial_512DE0() C.int {
-	s := noxServer
-	fnc := s.noxScriptPopU32()
-	arg := s.noxScriptPopU32()
-	dt := s.noxScriptPopU32()
-	s.scriptPushU32(s.noxScript.newScriptTimer(int(dt*gameFPS()), fnc, arg))
+	s := &noxServer.noxScript
+	fnc := s.PopU32()
+	arg := s.PopU32()
+	dt := s.PopU32()
+	s.PushU32(s.newScriptTimer(int(dt*gameFPS()), fnc, arg))
 	return 0
 }
 
 //export nox_script_specialTimer_512E10
 func nox_script_specialTimer_512E10() C.int {
-	s := noxServer
-	fnc := s.noxScriptPopU32()
-	arg := s.noxScriptPopU32()
-	df := int(s.noxScriptPopU32())
-	s.scriptPushU32(s.noxScript.newScriptTimer(df, fnc, arg))
+	s := &noxServer.noxScript
+	fnc := s.PopU32()
+	arg := s.PopU32()
+	df := int(s.PopU32())
+	s.PushU32(s.newScriptTimer(df, fnc, arg))
 	return 0
 }
 
@@ -133,74 +564,74 @@ func nox_script_builtin_513C60() C.int { return 0 }
 
 //export nox_script_fn58_513F10
 func nox_script_fn58_513F10() C.int {
-	s := noxServer
-	s.noxScriptPopU32()
-	s.noxScriptPopU32()
+	s := &noxServer.noxScript
+	s.PopU32()
+	s.PopU32()
 	return 0
 }
 
 //export nox_script_fn59_513F20
 func nox_script_fn59_513F20() C.int {
-	s := noxServer
-	s.noxScriptPopU32()
-	s.noxScriptPopU32()
+	s := &noxServer.noxScript
+	s.PopU32()
+	s.PopU32()
 	return 0
 }
 
 //export nox_script_fn5A_513F30
 func nox_script_fn5A_513F30() C.int {
-	s := noxServer
-	s.noxScriptPopU32()
-	s.noxScriptPopU32()
+	s := &noxServer.noxScript
+	s.PopU32()
+	s.PopU32()
 	return 0
 }
 
 //export nox_script_fn5B_513F40
 func nox_script_fn5B_513F40() C.int {
-	s := noxServer
-	s.noxScriptPopU32()
-	s.noxScriptPopU32()
+	s := &noxServer.noxScript
+	s.PopU32()
+	s.PopU32()
 	return 0
 }
 
 //export nox_script_Fn5C_513F50
 func nox_script_Fn5C_513F50() C.int {
-	s := noxServer
-	s.noxScriptPopU32()
-	s.noxScriptPopU32()
+	s := &noxServer.noxScript
+	s.PopU32()
+	s.PopU32()
 	return 0
 }
 
 //export nox_script_Fn5D_513F60
 func nox_script_Fn5D_513F60() C.int {
-	s := noxServer
-	s.noxScriptPopU32()
-	s.noxScriptPopU32()
+	s := &noxServer.noxScript
+	s.PopU32()
+	s.PopU32()
 	return 0
 }
 
 //export nox_script_CancelTimer_5141F0
 func nox_script_CancelTimer_5141F0() C.int {
-	s := noxServer
-	act := s.noxScriptPopU32()
-	ok := s.noxScript.actCancel(act)
-	s.scriptPushBool(ok)
+	s := &noxServer.noxScript
+	act := s.PopU32()
+	ok := s.actCancel(act)
+	s.PushBool(ok)
 	return 0
 }
 
 //export nox_script_Effect_514210
 func nox_script_Effect_514210() C.int {
-	s := noxServer
-	pos2 := s.noxScriptPopPointf()
-	pos := s.noxScriptPopPointf()
-	name := "MSG_FX_" + strings.ToUpper(s.noxScriptPopString())
+	s := &noxServer.noxScript
+	pos2 := s.PopPointf()
+	pos := s.PopPointf()
+	name := "MSG_FX_" + strings.ToUpper(s.PopString())
 	dpos := image.Point{
-		X: nox_script_builtinGetF40(),
-		Y: nox_script_builtinGetF44(),
+		X: s.builtinGetF40(),
+		Y: s.builtinGetF44(),
 	}
 	pos = pos.Add(types.Point2f(dpos))
 
-	switch fx := s.noxScript.fxNames[name]; fx {
+	switch fx := s.fxNames[name]; fx {
 	case noxnet.MSG_FX_BLUE_SPARKS,
 		noxnet.MSG_FX_YELLOW_SPARKS,
 		noxnet.MSG_FX_CYAN_SPARKS,
@@ -240,16 +671,16 @@ func nox_script_Effect_514210() C.int {
 
 //export nox_script_Pop2_74_514BA0
 func nox_script_Pop2_74_514BA0() C.int {
-	s := noxServer
-	s.noxScriptPopU32()
-	s.noxScriptPopU32()
+	s := &noxServer.noxScript
+	s.PopU32()
+	s.PopU32()
 	return 0
 }
 
 //export nox_script_RemoveChat_514BB0
 func nox_script_RemoveChat_514BB0() C.int {
-	s := noxServer
-	if u := s.noxScriptPopObject().AsUnit(); u != nil {
+	s := &noxServer.noxScript
+	if u := s.PopObject().AsUnit(); u != nil {
 		nox_xxx_netKillChat_528D00(u)
 	}
 	return 0
@@ -263,10 +694,10 @@ func nox_script_NoChatAll_514BD0() C.int {
 
 //export nox_script_CastObject2_514F10
 func nox_script_CastObject2_514F10() C.int {
-	s := noxServer
-	targID := s.noxScriptPopU32()
-	caster := s.noxScriptPopObject().AsUnit()
-	sp := spell.ParseID(s.noxScriptPopString())
+	s := &noxServer.noxScript
+	targ := s.PopObject()
+	caster := s.PopObject().AsUnit()
+	sp := spell.ParseID(s.PopString())
 	if !sp.Valid() {
 		return 0
 	}
@@ -276,21 +707,20 @@ func nox_script_CastObject2_514F10() C.int {
 	if caster.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
 		return 0
 	}
-	targ := s.nox_server_scriptValToObjectPtr(int(targID))
 	if targ == nil {
 		return 0
 	}
 	caster.direction1 = C.ushort(nox_xxx_math_509ED0(targ.Pos().Sub(caster.Pos())))
-	s.castSpellBy(sp, caster, targ, targ.Pos())
+	s.s.castSpellBy(sp, caster, targ, targ.Pos())
 	return 0
 }
 
 //export nox_script_CastObjectLocation_514FC0
 func nox_script_CastObjectLocation_514FC0() C.int {
-	s := noxServer
-	targPos := s.noxScriptPopPointf()
-	caster := s.noxScriptPopObject().AsUnit()
-	sp := spell.ParseID(s.noxScriptPopString())
+	s := &noxServer.noxScript
+	targPos := s.PopPointf()
+	caster := s.PopObject().AsUnit()
+	sp := spell.ParseID(s.PopString())
 	if !sp.Valid() {
 		return 0
 	}
@@ -298,16 +728,16 @@ func nox_script_CastObjectLocation_514FC0() C.int {
 		return 0
 	}
 	caster.direction1 = C.ushort(nox_xxx_math_509ED0(targPos.Sub(caster.Pos())))
-	s.castSpellBy(sp, caster, nil, targPos)
+	s.s.castSpellBy(sp, caster, nil, targPos)
 	return 0
 }
 
 //export nox_script_CastLocationObject_515060
 func nox_script_CastLocationObject_515060() C.int {
-	s := noxServer
-	targ := s.noxScriptPopObject()
-	srcPos := s.noxScriptPopPointf()
-	sp := spell.ParseID(s.noxScriptPopString())
+	s := &noxServer.noxScript
+	targ := s.PopObject()
+	srcPos := s.PopPointf()
+	sp := spell.ParseID(s.PopString())
 	if !sp.Valid() {
 		return 0
 	}
@@ -316,22 +746,22 @@ func nox_script_CastLocationObject_515060() C.int {
 	}
 	nox_xxx_imagCasterUnit_1569664.SetPos(srcPos)
 	nox_xxx_imagCasterUnit_1569664.direction1 = C.ushort(nox_xxx_math_509ED0(targ.Pos().Sub(srcPos)))
-	s.castSpellBy(sp, nox_xxx_imagCasterUnit_1569664, targ, targ.Pos())
+	s.s.castSpellBy(sp, nox_xxx_imagCasterUnit_1569664, targ, targ.Pos())
 	return 0
 }
 
 //export nox_script_CastLocation2_515130
 func nox_script_CastLocation2_515130() C.int {
-	s := noxServer
-	targPos := s.noxScriptPopPointf()
-	srcPos := s.noxScriptPopPointf()
-	sp := spell.ParseID(s.noxScriptPopString())
+	s := &noxServer.noxScript
+	targPos := s.PopPointf()
+	srcPos := s.PopPointf()
+	sp := spell.ParseID(s.PopString())
 	if !sp.Valid() {
 		return 0
 	}
 	nox_xxx_imagCasterUnit_1569664.SetPos(srcPos)
 	nox_xxx_imagCasterUnit_1569664.direction1 = C.ushort(nox_xxx_math_509ED0(targPos.Sub(srcPos)))
-	s.castSpellBy(sp, nox_xxx_imagCasterUnit_1569664, nil, targPos)
+	s.s.castSpellBy(sp, nox_xxx_imagCasterUnit_1569664, nil, targPos)
 	return 0
 }
 
@@ -350,18 +780,18 @@ func nox_script_Blind_515220() C.int {
 
 //export nox_script_WideScreen_515240
 func nox_script_WideScreen_515240() C.int {
-	s := noxServer
-	s.CinemaPlayers(s.noxScriptPopI32() == 1)
+	s := &noxServer.noxScript
+	s.s.CinemaPlayers(s.PopI32() == 1)
 	return 0
 }
 
 //export nox_script_IsAttackedBy_5161C0
 func nox_script_IsAttackedBy_5161C0() C.int {
-	s := noxServer
-	obj2 := s.noxScriptPopObject()
-	obj1 := s.noxScriptPopObject()
+	s := &noxServer.noxScript
+	obj2 := s.PopObject()
+	obj1 := s.PopObject()
 	val := obj1 != nil && obj2 != nil && obj1.isEnemyTo(obj2)
-	s.scriptPushBool(val)
+	s.PushBool(val)
 	return 0
 }
 
@@ -376,9 +806,9 @@ func nox_script_ForceAutosave_516400() C.int {
 
 //export nox_script_Music_516430
 func nox_script_Music_516430() C.int {
-	s := noxServer
-	v0 := s.noxScriptPopU32()
-	v3 := s.noxScriptPopU32()
+	s := &noxServer.noxScript
+	v0 := s.PopU32()
+	v3 := s.PopU32()
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		C.sub_43D9B0(C.int(v3), C.int(v0))
 	} else {
@@ -386,7 +816,7 @@ func nox_script_Music_516430() C.int {
 		buf[0] = byte(noxnet.MSG_MUSIC_EVENT)
 		buf[1] = byte(v3)
 		buf[2] = byte(v0)
-		s.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
+		s.s.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
 	}
 	return 0
 }
@@ -400,9 +830,9 @@ func nox_script_DeathScreen_516680() C.int {
 
 //export nox_script_Frozen_516920
 func nox_script_Frozen_516920() C.int {
-	s := noxServer
-	val := s.noxScriptPopBool()
-	if u := s.noxScriptPopObject().AsUnit(); u != nil {
+	s := &noxServer.noxScript
+	val := s.PopBool()
+	if u := s.PopObject().AsUnit(); u != nil {
 		u.Freeze(val)
 	}
 	return 0
@@ -410,17 +840,17 @@ func nox_script_Frozen_516920() C.int {
 
 //export nox_script_NoWallSound_516960
 func nox_script_NoWallSound_516960() C.int {
-	s := noxServer
-	C.nox_xxx_wallSounds_2386840 = C.uint(s.noxScriptPopU32())
+	s := &noxServer.noxScript
+	C.nox_xxx_wallSounds_2386840 = C.uint(s.PopU32())
 	return 0
 }
 
 //export nox_script_SetCallback_516970
 func nox_script_SetCallback_516970() C.int {
-	s := noxServer
-	fnc := C.int(s.noxScriptPopU32())
-	ev := s.noxScriptPopU32()
-	u := s.noxScriptPopObject().AsUnit()
+	s := &noxServer.noxScript
+	fnc := C.int(s.PopU32())
+	ev := s.PopU32()
+	u := s.PopObject().AsUnit()
 	if u == nil || !u.Class().Has(object.ClassMonster) {
 		return 0
 	}
@@ -452,8 +882,8 @@ func nox_script_SetCallback_516970() C.int {
 
 //export nox_script_ClearMessages_516BC0
 func nox_script_ClearMessages_516BC0() C.int {
-	s := noxServer
-	if u := s.noxScriptPopObject().AsUnit(); u != nil {
+	s := &noxServer.noxScript
+	if u := s.PopObject().AsUnit(); u != nil {
 		nox_xxx_netScriptMessageKill_4D9760(u)
 	}
 	return 0
@@ -503,9 +933,9 @@ func nox_script_ClearMusic_516520() C.int {
 
 //export nox_script_EndGame_516E10
 func nox_script_EndGame_516E10() C.int {
-	s := noxServer
-	v := int(s.noxScriptPopI32())
-	noxScriptEndGame(v)
+	s := &noxServer.noxScript
+	v := int(s.PopI32())
+	s.noxScriptEndGame(v)
 	return 0
 }
 
@@ -517,9 +947,9 @@ func nox_script_StartGame_516C20() C.int {
 
 //export nox_script_ChangeScore_516E30
 func nox_script_ChangeScore_516E30() C.int {
-	s := noxServer
-	val := int(s.noxScriptPopU32())
-	u := s.noxScriptPopObject().AsUnit()
+	s := &noxServer.noxScript
+	val := int(s.PopU32())
+	u := s.PopObject().AsUnit()
 	if u == nil || !u.Class().Has(object.ClassPlayer) {
 		return 0
 	}
@@ -529,8 +959,8 @@ func nox_script_ChangeScore_516E30() C.int {
 		nox_xxx_changeScore_4D8E90(u, val)
 	}
 
-	if tm := s.teamByYyy(u.team()); tm != nil {
-		s.teamChangeLessons(tm, val+int(tm.lessons))
+	if tm := s.s.teamByYyy(u.team()); tm != nil {
+		s.s.teamChangeLessons(tm, val+int(tm.lessons))
 	}
 	nox_xxx_netReportLesson_4D8EF0(u)
 	return 0
@@ -538,13 +968,13 @@ func nox_script_ChangeScore_516E30() C.int {
 
 //export nox_script_GetScore_516EA0
 func nox_script_GetScore_516EA0() C.int {
-	s := noxServer
-	u := s.noxScriptPopObject().AsUnit()
+	s := &noxServer.noxScript
+	u := s.PopObject().AsUnit()
 	if u == nil || !u.Class().Has(object.ClassPlayer) {
-		s.scriptPushU32(0)
+		s.PushU32(0)
 		return 0
 	}
 	pl := u.ControllingPlayer()
-	s.scriptPushI32(int32(pl.lessons))
+	s.PushI32(int32(pl.lessons))
 	return 0
 }
