@@ -175,20 +175,20 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 		case 0x26u:
 			data += 2;
 			break;
-		case 0x29u:
+		case 0x29u: // MSG_NEED_TIMESTAMP
 			nox_xxx_netNeedTimestampStatus_4174F0(v8, 64);
 			++data;
 			break;
-		case 0x3Fu:
+		case 0x3Fu: // MSG_PLAYER_INPUT
 			data += nox_xxx_playerSaveInput_51A960(*(unsigned char*)(v10[69] + 2064), data + 1) + 1;
 			break;
-		case 0x40u:
+		case 0x40u: // MSG_PLAYER_SET_WAYPOINT
 			v84 = (double)*(unsigned short*)(data + 5);
 			v83 = (double)*(unsigned short*)(data + 3);
 			nox_xxx_playerSetCustomWP_4F79A0(unit, SLODWORD(v83), SLODWORD(v84));
 			data += 7;
 			break;
-		case 0x72u:
+		case 0x72u: // MSG_TRY_DROP
 			v19 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
@@ -207,7 +207,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 			v10 = (int*)v85;
 			data += 7;
 			break;
-		case 0x73u:
+		case 0x73u: // MSG_TRY_GET
 			v22 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
@@ -236,7 +236,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 			v10 = (int*)v85;
 			data += 3;
 			break;
-		case 0x74u:
+		case 0x74u: // MSG_TRY_USE
 			v26 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
@@ -253,7 +253,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 			v10 = (int*)v85;
 			data += 3;
 			break;
-		case 0x75u:
+		case 0x75u: // MSG_TRY_EQUIP
 			v15 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
@@ -270,7 +270,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 			v10 = (int*)v85;
 			data += 3;
 			break;
-		case 0x76u:
+		case 0x76u: // MSG_TRY_DEQUIP
 			v17 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
@@ -288,7 +288,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 			v10 = (int*)v85;
 			data += 3;
 			break;
-		case 0x78: // command spawned creatures
+		case 0x78: // MSG_TRY_CREATURE_COMMAND
 			v31 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
@@ -307,7 +307,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 			v10 = (int*)v85;
 			data += 4;
 			break;
-		case 0x79u:
+		case 0x79u: // MSG_TRY_SPELL
 			v34 = 1;
 			if (*(uint8_t*)(*(uint32_t*)(v85 + 276) + 3680) & 1) {
 				nox_xxx_netPriMsgToPlayer_4DA2C0(unit, "GeneralPrint:NoSpellWarningGeneral", 0);
@@ -354,7 +354,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 			v10 = (int*)v85;
 			data += 22;
 			break;
-		case 0x7Au:
+		case 0x7Au: // MSG_TRY_ABILITY
 			v33 = (*(uint8_t*)(*(uint32_t*)(v85 + 276) + 3680) & 3) == 0;
 			if (!nox_common_gameFlags_check_40A5C0(128) && v33) {
 				nox_xxx_playerExecuteAbil_4FBB70(unit, data[1]);
@@ -362,7 +362,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 			v10 = (int*)v85;
 			data += 2;
 			break;
-		case 0x7Bu:
+		case 0x7Bu: // MSG_TRY_COLLIDE
 			v28 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
@@ -381,7 +381,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 			v10 = (int*)v85;
 			data += 3;
 			break;
-		case 0xA5u:
+		case 0xA5u: // MSG_NEW_ALIAS
 			*(uint16_t*)(v8 + 8 * data[1] + 16) = *((uint16_t*)data + 1);
 			*(uint16_t*)(v8 + 8 * data[1] + 18) = *((uint16_t*)data + 2);
 			v14 = data[1];
@@ -389,7 +389,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 			data += 10;
 			*(uint32_t*)(v8 + 8 * v14 + 20) = v7;
 			break;
-		case 0xA8u:
+		case 0xA8u: // MSG_TEXT_MESSAGE
 			if (data[3] & 2) {
 				nox_swprintf(v97, L"%S", data + 11);
 				v44 = 1;
@@ -439,32 +439,32 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 			data += v45;
 			v10 = (int*)v85;
 			break;
-		case 0xAAu:
+		case 0xAAu: // MSG_IMPORTANT
 			v13 = v10[69];
 			*(uint32_t*)&v92[1] = *(uint32_t*)(data + 1);
 			v92[0] = -85;
 			nox_netlist_addToMsgListCli_40EBC0(*(unsigned char*)(v13 + 2064), 1, v92, 5);
 			data += 5;
 			break;
-		case 0xABu:
+		case 0xABu: // MSG_IMPORTANT_ACK
 			sub_4E55A0(*(uint8_t*)(v10[69] + 2064), *(uint32_t*)(data + 1));
 			data += 5;
 			break;
-		case 0xACu:
+		case 0xACu: // MSG_MOUSE
 			v12 = *(uint16_t*)(data + 1);
 			data += 5;
 			*(uint32_t*)(v8 + 2284) = v12;
 			*(uint32_t*)(v8 + 2288) = *((unsigned short*)data - 1);
 			break;
-		case 0xADu:
+		case 0xADu: // MSG_INCOMING_CLIENT
 			nox_xxx_netPlayerIncomingServ_4DDF60(*(unsigned char*)(v8 + 2064));
 			++data;
 			break;
-		case 0xAEu:
+		case 0xAEu: // MSG_OUTGOING_CLIENT
 			nox_xxx_playerDisconnFinish_4DE530(*(unsigned char*)(v8 + 2064), 2);
 			++data;
 			break;
-		case 0xB6u:
+		case 0xB6u: // MSG_REQUEST_MAP
 			nox_xxx_playerGoObserver_4E6860(v8, 1, 1);
 			v51 = *(uint32_t*)(v8 + 2056);
 			if (v51) {
@@ -473,16 +473,16 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 			nox_xxx_netMapSend_519D20(*(unsigned char*)(v8 + 2064));
 			++data;
 			break;
-		case 0xB7u:
+		case 0xB7u: // MSG_CANCEL_MAP
 			nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(*(unsigned char*)(v8 + 2064));
 			++data;
 			break;
-		case 0xBBu:
+		case 0xBBu: // MSG_SERVER_CMD
 			nox_xxx_serverHandleClientConsole_443E90(v8, data[1], (wchar_t*)(data + 5));
 			data += 2 * data[4] + 7;
 			break;
-		case 0xBCu:
-			v87[0] = -67;
+		case 0xBCu: // MSG_SYSOP_PW
+			v87[0] = 0xBDu; // MSG_SYSOP_RESULT
 			v42 = nox_xxx_sysopGetPass_40A630();
 			if (!*v42 || _nox_wcsicmp((const wchar_t*)(data + 1), v42)) {
 				v87[1] = 0;
@@ -498,19 +498,19 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 			nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(v8 + 2064), v87, 2, 0, 1);
 			data += 21;
 			break;
-		case 0xBEu:
+		case 0xBEu: // MSG_KEEP_ALIVE
 			++data;
 			break;
-		case 0xBFu:
+		case 0xBFu: // MSG_RECEIVED_MAP
 			*(uint8_t*)(v8 + 3676) = 3;
 			sub_519E80(*(unsigned char*)(v8 + 2064));
 			++data;
 			break;
-		case 0xC0u:
+		case 0xC0u: // MSG_CLIENT_READY
 			nox_xxx_gameServerReadyMB_4DD180(*(unsigned char*)(v8 + 2064));
 			++data;
 			break;
-		case 0xC1u:
+		case 0xC1u: // MSG_REQUEST_SAVE_PLAYER
 			if (nox_common_gameFlags_check_40A5C0(4096) && *(uint8_t*)(v8 + 2064) != 31 && *(uint32_t*)(v8 + 2092) &&
 				*(uint32_t*)(v8 + 2056) && v10[138] == 1) {
 				nox_xxx_playerCallDisconnect_4DEAB0(*(unsigned char*)(v8 + 2064), 2);
@@ -525,7 +525,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 				data += 3;
 			}
 			break;
-		case 0xC2u:
+		case 0xC2u: // MSG_XFER_MSG
 			switch (data[1]) {
 			case 0u:
 				sub_40B5D0(*(unsigned char*)(v8 + 2064) + 1, data[2], (const char*)data + 8, *((uint32_t*)data + 1),
@@ -570,7 +570,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 				break;
 			}
 			break;
-		case 0xC4u:
+		case 0xC4u: // MSG_TEAM_MSG
 			if (data[1] == 10) {
 				v55 = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));
 				if (v55) {
@@ -595,11 +595,11 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 				data += 10;
 			}
 			break;
-		case 0xC8u:
+		case 0xC8u: // MSG_SERVER_QUIT_ACK
 			sub_446070();
 			++data;
 			break;
-		case 0xD0u:
+		case 0xD0u: // MSG_DIALOG
 			if (data[1] == 1) {
 				if (nox_xxx_gameGet_4DB1B0() || (v7 = v10[69], *(uint8_t*)(v7 + 3680) & 3) ||
 					(v57 = nox_server_getObjectFromNetCode_4ECCB0(*((unsigned short*)data + 1))) == 0) {
@@ -613,12 +613,12 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 				data += 3;
 			}
 			break;
-		case 0xD4u:
+		case 0xD4u: // MSG_REQUEST_TIMER_STATUS
 			v41 = sub_40A220();
 			nox_xxx_netTimerStatus_4D8F50(a1, v41);
 			++data;
 			break;
-		case 0xE0u:
+		case 0xE0u: // MSG_REPORT_SECONDARY_WEAPON
 			v58 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
@@ -632,7 +632,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 			v10 = (int*)v85;
 			data += 3;
 			break;
-		case 0xE2u:
+		case 0xE2u: // MSG_INFO_BOOK_DATA
 			v60 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
 				nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1));
@@ -655,7 +655,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 			v10 = (int*)v85;
 			data += 4;
 			break;
-		case 0xE3u:
+		case 0xE3u: // MSG_SOCIAL
 			switch (data[1]) {
 			case 1u:
 				nox_xxx_playerSetState_4FA020((uint32_t*)unit, 26);
@@ -673,7 +673,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 				break;
 			}
 			break;
-		case 0xEEu:
+		case 0xEEu: // MSG_VOTE
 			switch (data[1]) {
 			case 0u:;
 				int c1 = 0;
@@ -711,7 +711,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 				return 0;
 			}
 			// fallthrough
-		case 0xC9u:
+		case 0xC9u: // MSG_TRADE
 			switch (data[1]) {
 			case 0xEu:
 				if (v10[70]) {
@@ -826,7 +826,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 				return 0;
 			}
 			break;
-		case 0xF0u:
+		case 0xF0u: // MSG_GAUNTLET
 			v79 = data[1];
 			if (v79 == 3) {
 				v80 = v10[69];
@@ -846,7 +846,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 			}
 			data += 2;
 			break;
-		case 0xF1u:
+		case 0xF1u: // MSG_INVENTORY_FAIL
 			v63 = (uint32_t*)nox_xxx_equipedItemByCode_4F7920(unit, *(unsigned short*)(data + 1));
 			if (v63) {
 				nox_xxx_drop_4ED790(unit, v63, (float2*)(unit + 56));
