@@ -30,7 +30,7 @@ func (s *Server) scriptOnEvent(event script.EventType) {
 
 	// TODO: handle OnPlayerAFK
 
-	s.noxscriptOnEvent(event)
+	s.noxScript.OnEvent(event)
 	s.luaOnEvent(event)
 
 	switch event {
