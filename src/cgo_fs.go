@@ -23,6 +23,22 @@ var files struct {
 	byHandle map[unsafe.Pointer]*File
 }
 
+func fileSize(f io.Seeker) (int64, error) {
+	cur, err := f.Seek(0, io.SeekCurrent)
+	if err != nil {
+		return 0, err
+	}
+	size, err := f.Seek(0, io.SeekEnd)
+	if err != nil {
+		return 0, err
+	}
+	_, err = f.Seek(cur, io.SeekStart)
+	if err != nil {
+		return 0, err
+	}
+	return size, nil
+}
+
 type File struct {
 	h unsafe.Pointer
 	*os.File
@@ -37,6 +53,14 @@ func (f *File) enableBuffer() {
 		return
 	}
 	f.buf = bufio.NewReader(f.File)
+}
+
+func (f *File) Size() (int64, error) {
+	size, err := fileSize(f)
+	if err != nil {
+		f.err = err
+	}
+	return size, err
 }
 
 func (f *File) Seek(off int64, whence int) (int64, error) {
@@ -168,17 +192,7 @@ func nox_fs_ftell(f *C.FILE) C.long {
 //export nox_fs_fsize
 func nox_fs_fsize(f *C.FILE) C.long {
 	fp := fileByHandle(f)
-	cur, err := fp.Seek(0, io.SeekCurrent)
-	if err != nil {
-		e := int64(-1)
-		return C.long(e)
-	}
-	size, err := fp.Seek(0, io.SeekEnd)
-	if err != nil {
-		e := int64(-1)
-		return C.long(e)
-	}
-	_, err = fp.Seek(cur, io.SeekStart)
+	size, err := fp.Size()
 	if err != nil {
 		e := int64(-1)
 		return C.long(e)

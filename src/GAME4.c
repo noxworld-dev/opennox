@@ -7555,6 +7555,7 @@ int nox_xxx_mapgenSaveMap_503830(int a1) {
 }
 
 //----- (00503B30) --------------------------------------------------------
+void nox_script_readWriteZzz_541670(char* path, char* path2, char* dst);
 int sub_503B30(float2* a1) {
 	int result; // eax
 	int v2;     // edi
@@ -7648,15 +7649,15 @@ int sub_503B30(float2* a1) {
 								v16.field_4 = v9;
 								sub_543110((const char*)getMemAt(0x973F18, 30760), &v16);
 								if (*getMemU32Ptr(0x5D4594, 1599580)) {
-									remove((const char*)getMemAt(0x973F18, 36008));
-									rename((const char*)getMemAt(0x973F18, 38056),
+									nox_fs_remove((const char*)getMemAt(0x973F18, 36008));
+									nox_fs_move((const char*)getMemAt(0x973F18, 38056),
 										   (const char*)getMemAt(0x973F18, 36008));
 									nox_script_readWriteZzz_541670((const char*)getMemAt(0x973F18, 36008),
 																   (const char*)getMemAt(0x973F18, 30760),
 																   (const char*)getMemAt(0x973F18, 38056));
 								} else {
 									*getMemU32Ptr(0x5D4594, 1599580) = 1;
-									rename((const char*)getMemAt(0x973F18, 30760),
+									nox_fs_move((const char*)getMemAt(0x973F18, 30760),
 										   (const char*)getMemAt(0x973F18, 38056));
 								}
 							}

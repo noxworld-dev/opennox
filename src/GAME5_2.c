@@ -2936,7 +2936,7 @@ int sub_57A9F0(const char* a1, const char* a2) {
 	strcat(FileName, a1);
 	*(uint16_t*)&FileName[strlen(FileName)] = *getMemU16Ptr(0x587000, 312576);
 	strcat(FileName, a2);
-	return remove(FileName);
+	return nox_fs_remove(FileName);
 }
 
 //----- (0057AAA0) --------------------------------------------------------
