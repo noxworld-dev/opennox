@@ -903,9 +903,9 @@ typedef struct {
 	uint32_t field_304; // 304, 1216
 	uint32_t field_305; // 305, 1220
 	uint32_t field_306; // 306, 1224
-	uint32_t field_307; // 307, 1228
+	int field_307; // 307, 1228
 	uint32_t field_308; // 308, 1232
-	uint32_t field_309; // 309, 1236
+	int field_309; // 309, 1236
 	uint32_t field_310; // 310, 1240
 	uint32_t field_311; // 311, 1244
 	uint32_t field_312; // 312, 1248
@@ -913,7 +913,7 @@ typedef struct {
 	uint32_t field_314; // 314, 1256
 	uint32_t field_315; // 315, 1260
 	uint32_t field_316; // 316, 1264
-	uint32_t field_317; // 317, 1268
+	int field_317; // 317, 1268
 	uint32_t field_318; // 318, 1272
 	uint32_t field_319; // 319, 1276
 	uint32_t field_320; // 320, 1280 // TODO: monster hear script callback?
