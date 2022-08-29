@@ -17,6 +17,5 @@ void nox_things_free_44C580();
 int nox_xxx_freeObjectTypes_4E2A20();
 
 void sub_4E29D0();
-int nox_read_things_alternative_4E2B60(void);
 
 #endif // NOX_PORT_CLIENT_DRAWABLE_DRAWDB

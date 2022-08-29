@@ -399,8 +399,8 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	if C.nox_xxx_allocAudEventArray_501860() == 0 {
 		return errors.New("nox_xxx_allocAudEventArray_501860 failed")
 	}
-	if C.nox_read_things_alternative_4E2B60() == 0 {
-		return errors.New("nox_read_things_alternative_4E2B60 failed")
+	if err := s.nox_read_things_alternative_4E2B60(); err != nil {
+		return err
 	}
 	C.nox_motd_4463E0(1)
 	s.teamsReset()

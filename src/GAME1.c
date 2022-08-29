@@ -5507,7 +5507,8 @@ int nox_thing_read_FLOR_414DB0(nox_memfile* f) {
 }
 
 //----- (00414E70) --------------------------------------------------------
-int nox_thing_read_EDGE_414E70(int a1, void* a2) {
+int nox_thing_read_EDGE_414E70(nox_memfile* f, void* a2) {
+	int a1 = f;
 	int v2;             // esi
 	unsigned char* v3;  // edx
 	unsigned char* v4;  // eax
@@ -5574,7 +5575,8 @@ int nox_thing_read_EDGE_414E70(int a1, void* a2) {
 }
 
 //----- (00414F60) --------------------------------------------------------
-int nox_thing_read_WALL_414F60(uint32_t* a1, void* a2) {
+int nox_thing_read_WALL_414F60(nox_memfile* f, void* a2) {
+	uint32_t* a1 = f;
 	uint32_t* v2;       // esi
 	void* v3;           // edi
 	unsigned char* v4;  // eax

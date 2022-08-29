@@ -8,10 +8,13 @@ package opennox
 #include "GAME2.h"
 #include "GAME2_1.h"
 #include "GAME2_2.h"
+#include "GAME4.h"
 extern uint32_t dword_5d4594_251540;
 extern uint32_t dword_5d4594_251568;
 extern uint32_t dword_5d4594_251572;
+extern uint32_t dword_5d4594_1563664;
 extern int nox_things_count;
+extern nox_objectType_t* nox_xxx_objectTypes_head_1563660;
 int sub_485CF0();
 int sub_485F30();
 int sub_46A360();
@@ -19,6 +22,10 @@ void nox_things_free_44C580();
 int nox_xxx_spriteDefByAlphabetClear_44CCA0();
 int nox_xxx_parseThingBinClient_44C840_read_things_THNG(nox_memfile* things, char* scratch_buffer);
 int nox_xxx_parseThingBinClient_44C840_read_things_DONE(void);
+int sub_4E3010();
+int nox_read_things_alternative_4E2B60_DONE(void);
+int nox_read_things_alternative_4E2B60_THNG(nox_memfile* things, void* v3);
+int nox_xxx_freeObjectTypes_4E2A20();
 */
 import "C"
 import (
@@ -217,6 +224,59 @@ func nox_thing_read_IMAG_one_42F660(f *MemFile) error {
 	default:
 		return fmt.Errorf("unsupported image kind: %d", int(kind))
 	}
+}
+
+func (s *Server) nox_read_things_alternative_4E2B60() error {
+	if C.nox_xxx_objectTypes_head_1563660 != nil {
+		C.nox_xxx_freeObjectTypes_4E2A20()
+	}
+	C.sub_4E3010()
+	C.dword_5d4594_1563664 = 0
+
+	buf, bfree := alloc.Make([]byte{}, 256*1024)
+	defer bfree()
+	thg, err := openThings()
+	if err != nil {
+		return err
+	}
+	for {
+		sect := thg.ReadU32()
+		if sect == 0 {
+			break
+		}
+		switch sect {
+		case 0x5350454C: // SPEL
+			C.nox_thing_skip_spells_415100(thg.C())
+		case 0x4142494C: // ABIL
+			C.nox_thing_read_ability_415320(thg.C())
+		case 0x41554420: // AUD
+			C.nox_thing_read_audio_502320(thg.C(), unsafe.Pointer(&buf[0]))
+		case 0x41564E54: // AVNT
+			C.nox_thing_read_AVNT_502120(thg.C(), unsafe.Pointer(&buf[0]))
+		case 0x57414C4C: // WALL
+			if C.nox_thing_read_WALL_414F60(thg.C(), unsafe.Pointer(&buf[0])) == 0 {
+				return fmt.Errorf("nox_thing_read_WALL_414F60 failed")
+			}
+		case 0x464C4F52: // FLOR
+			if C.nox_thing_read_FLOR_414DB0(thg.C()) == 0 {
+				return fmt.Errorf("nox_thing_read_FLOR_414DB0 failed")
+			}
+		case 0x45444745: // EDGE
+			if C.nox_thing_read_EDGE_414E70(thg.C(), unsafe.Pointer(&buf[0])) == 0 {
+				return fmt.Errorf("nox_thing_read_EDGE_414E70 failed")
+			}
+		case 0x494D4147: // IMAG
+			C.nox_thing_read_image_415240(thg.C())
+		case 0x54484E47: // THNG
+			if C.nox_read_things_alternative_4E2B60_THNG(thg.C(), unsafe.Pointer(&buf[0])) == 0 {
+				return fmt.Errorf("nox_read_things_alternative_4E2B60_THNG failed")
+			}
+		}
+	}
+	if C.nox_read_things_alternative_4E2B60_DONE() == 0 {
+		return fmt.Errorf("nox_read_things_alternative_4E2B60_DONE failed")
+	}
+	return nil
 }
 
 func nox_xxx_parseThingBinClient_44C840_read_things() error {
