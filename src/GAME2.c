@@ -197,10 +197,6 @@ extern uint32_t nox_color_violet_2598268;
 extern uint32_t nox_color_black_2650656;
 extern uint32_t nox_color_orange_2614256;
 
-extern nox_thing* nox_things_head;
-extern nox_thing** nox_things_array;
-extern int nox_things_count;
-
 extern nox_drawable* nox_drawable_head_unk1;
 extern nox_drawable* nox_drawable_head_unk2;
 extern nox_drawable* nox_drawable_head_unk3;

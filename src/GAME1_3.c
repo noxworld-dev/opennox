@@ -158,10 +158,6 @@ uint32_t dword_5d4594_816364 = 0;
 uint32_t dword_5d4594_816376 = 0;
 uint32_t dword_5d4594_816092 = 0;
 
-nox_thing* nox_things_head = 0;
-nox_thing** nox_things_array = 0;
-int nox_things_count = 0;
-
 nox_gui_animation* nox_wnd_xxx_829520 = 0;
 nox_gui_animation* nox_wnd_xxx_830244 = 0;
 

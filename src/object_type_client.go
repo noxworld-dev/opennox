@@ -8,14 +8,13 @@ package opennox
 void nox_xxx_draw_44C650_free(void* lpMem, void* draw);
 void nox_xxx_free_42BF80();
 void sub_44C620_free();
-extern int nox_things_count;
-extern nox_thing* nox_things_head;
-extern nox_thing** nox_things_array;
 */
 import "C"
 import (
 	"fmt"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -25,7 +24,10 @@ var (
 	nox_things clientObjTypes
 )
 
-type clientObjTypes struct{}
+type clientObjTypes struct {
+	first *nox_thing
+	byInd []*nox_thing
+}
 
 type nox_thing struct {
 	name            *C.char        // 0, 0x0
@@ -81,7 +83,7 @@ func (t *nox_thing) Index() int {
 
 func (c *clientObjTypes) nox_things_free_44C580() {
 	var next *nox_thing
-	for cur := (*nox_thing)(unsafe.Pointer(C.nox_things_head)); cur != nil; cur = next {
+	for cur := c.first; cur != nil; cur = next {
 		next = cur.next
 		if cur.name != nil {
 			StrFree(cur.name)
@@ -91,12 +93,8 @@ func (c *clientObjTypes) nox_things_free_44C580() {
 		}
 		alloc.Free(unsafe.Pointer(cur))
 	}
-	C.nox_things_head = nil
-	if C.nox_things_array != nil {
-		C.free(unsafe.Pointer(C.nox_things_array))
-		C.nox_things_array = nil
-	}
-	C.nox_things_count = 0
+	c.first = nil
+	c.byInd = []*nox_thing{nil}
 	C.sub_44C620_free()
 	if !noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_free_42BF80()
@@ -111,8 +109,8 @@ func (c *clientObjTypes) readType(thg *MemFile, buf []byte) error {
 	}
 	typ.name = CString(id)
 	typ.menuicon = -1
-	typ.field_1c = int32(C.nox_things_count)
-	C.nox_things_count++
+	typ.field_1c = int32(len(c.byInd))
+	c.byInd = append(c.byInd, typ)
 	typ.flags |= 0x1000000
 	typ.field_f = 0
 	typ.field_10 = 0xFFFF
@@ -123,66 +121,73 @@ func (c *clientObjTypes) readType(thg *MemFile, buf []byte) error {
 	if C.nox_parse_thing(thg.C(), (*C.char)(unsafe.Pointer(&buf[0])), typ.C()) == 0 {
 		return fmt.Errorf("cannot parse object type %q", id)
 	}
-	typ.next = (*nox_thing)(unsafe.Pointer(C.nox_things_head))
-	C.nox_things_head = typ.C()
+	typ.next = nox_things.first
+	nox_things.first = typ
 	C.nox_xxx_spriteDefByAlphabetAdd_44CD10(typ.name)
+	if typ.weight != 0 {
+		if typ.pretty_name == nil {
+			typ.pretty_name, _ = CWString(strMan.GetStringInFile(strman.ID(fmt.Sprintf("thing.db:%sPrettyName", id)), "drawdb.c"))
+		}
+		if typ.desc == nil {
+			typ.desc, _ = CWString(strMan.GetStringInFile(strman.ID(fmt.Sprintf("thing.db:%sDescription", id)), "drawdb.c"))
+		}
+	}
 	return nil
+}
+
+//export nox_get_things_count
+func nox_get_things_count() C.int {
+	return C.int(len(nox_things.byInd))
 }
 
 //export nox_get_thing_name
 func nox_get_thing_name(i C.int) *C.char {
-	if i < 1 || int(i) >= int(C.nox_things_count) {
+	if i < 1 || int(i) >= len(nox_things.byInd) {
 		return nil
 	}
-	arr := unsafe.Slice((**nox_thing)(unsafe.Pointer(C.nox_things_array)), int(C.nox_things_count))
-	return arr[i].name
+	return nox_things.byInd[i].name
 }
 
 //export nox_get_thing
 func nox_get_thing(i C.int) *C.nox_thing {
-	if i < 1 || int(i) >= int(C.nox_things_count) {
+	if i < 1 || int(i) >= len(nox_things.byInd) {
 		return nil
 	}
-	arr := unsafe.Slice((**nox_thing)(unsafe.Pointer(C.nox_things_array)), int(C.nox_things_count))
-	return arr[i].C()
+	return nox_things.byInd[i].C()
 }
 
 //export nox_get_thing_pretty_name
 func nox_get_thing_pretty_name(i C.int) *wchar_t {
-	if i < 1 || int(i) >= int(C.nox_things_count) {
+	if i < 1 || int(i) >= len(nox_things.byInd) {
 		return nil
 	}
-	arr := unsafe.Slice((**nox_thing)(unsafe.Pointer(C.nox_things_array)), int(C.nox_things_count))
-	return arr[i].pretty_name
+	return nox_things.byInd[i].pretty_name
 }
 
 //export nox_get_thing_desc
 func nox_get_thing_desc(i C.int) *wchar_t {
-	if i < 1 || int(i) >= int(C.nox_things_count) {
+	if i < 1 || int(i) >= len(nox_things.byInd) {
 		return nil
 	}
-	arr := unsafe.Slice((**nox_thing)(unsafe.Pointer(C.nox_things_array)), int(C.nox_things_count))
-	return arr[i].desc
+	return nox_things.byInd[i].desc
 }
 
 //export nox_get_thing_pretty_image
 func nox_get_thing_pretty_image(i C.int) C.int {
-	if i < 1 || int(i) >= int(C.nox_things_count) {
+	if i < 1 || int(i) >= len(nox_things.byInd) {
 		return 0
 	}
-	arr := unsafe.Slice((**nox_thing)(unsafe.Pointer(C.nox_things_array)), int(C.nox_things_count))
-	return C.int(arr[i].pretty_image)
+	return C.int(nox_things.byInd[i].pretty_image)
 }
 
 //export nox_drawable_link_thing
 func nox_drawable_link_thing(a1c *nox_drawable, i C.int) C.int {
-	if i < 1 || int(i) >= int(C.nox_things_count) {
+	if i < 1 || int(i) >= len(nox_things.byInd) {
 		return 0
 	}
 	dr := asDrawable(a1c)
 	*dr = Drawable{}
-	arr := unsafe.Slice((**nox_thing)(unsafe.Pointer(C.nox_things_array)), int(C.nox_things_count))
-	typ := arr[i]
+	typ := nox_things.byInd[i]
 	dr.field_27 = C.uint(i)
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&dr.field_0), 0)) = typ.hwidth
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&dr.field_0), 1)) = typ.hheight
