@@ -2367,14 +2367,13 @@ char sub_453750() {
 }
 
 //----- (004537F0) --------------------------------------------------------
-int sub_4537F0() {
+void sub_4537F0() {
 	int v0;     // esi
 	int v1;     // edi
 	int v2;     // eax
 	int v3;     // eax
 	int v4;     // esi
 	int v5;     // edi
-	int result; // eax
 	int v7;     // eax
 
 	v0 = 1;
@@ -2391,15 +2390,14 @@ int sub_4537F0() {
 	v4 = 1;
 	v5 = 27;
 	do {
-		result = sub_415840((char*)v4);
+		int result = sub_415840((char*)v4);
 		if (result) {
 			v7 = nox_xxx_objectTypeByInd_4E3B70(result);
-			result = sub_4E3BF0(v7);
+			sub_4E3BF0(v7);
 		}
 		v4 *= 2;
 		--v5;
 	} while (v5);
-	return result;
 }
 
 //----- (00453B00) --------------------------------------------------------

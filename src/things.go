@@ -12,7 +12,6 @@ package opennox
 extern uint32_t dword_5d4594_251540;
 extern uint32_t dword_5d4594_251568;
 extern uint32_t dword_5d4594_251572;
-extern uint32_t dword_5d4594_1563664;
 extern nox_objectType_t* nox_xxx_objectTypes_head_1563660;
 int sub_485CF0();
 int sub_485F30();
