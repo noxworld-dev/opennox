@@ -407,7 +407,6 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	s.teamsReset()
 	C.sub_4259C0()
 	C.sub_4D7C60()
-	C.nox_xxx_unitDefFindMaxDataSize_4E3320()
 	if C.sub_518770() == 0 {
 		return errors.New("sub_518770 failed")
 	}
