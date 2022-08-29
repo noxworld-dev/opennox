@@ -1016,6 +1016,84 @@ const char* sub_4F0640() {
 }
 
 //----- (004E2B60) --------------------------------------------------------
+int nox_read_things_alternative_4E2B60_THNG(nox_memfile* things, void* v3) {
+	nox_objectType_t* typ = calloc(1, sizeof(nox_objectType_t));
+	if (!typ) {
+		return 0;
+	}
+	int n = nox_memfile_read_u8(things);
+	nox_memfile_read(v3, 1, n, things);
+	*((uint8_t*)v3 + n) = 0;
+	typ->id = nox_clone_str(v3);
+
+	typ->ind = *getMemU16Ptr(0x587000, 201384);
+	++*getMemU32Ptr(0x587000, 201384);
+
+	typ->field_2 = 0;
+	typ->menu_icon = -1;
+	typ->material = 0x4000;
+	typ->mass = 1.0f;
+	typ->zsize1 = 0;
+	typ->zsize2 = 30.0f;
+	typ->func_damage = nox_xxx_damageDefaultProc_4E0B30;
+	typ->func_damage_sound = nox_xxx_soundDefaultDamageSound_532E20;
+	typ->func_xfer = nox_xxx_XFerDefault_4F49A0;
+	typ->weight = 0xff;
+	if (!nox_thing_read_xxx_4E3220(things, v3, typ)) {
+		return 0;
+	}
+	if (!typ->func_collide) {
+		typ->obj_flags |= 0x40;
+	}
+	*((uint16_t*)typ + 10) = typ->ind;
+	typ->obj_flags |= 0x1000000;
+	if (typ->obj_class & 0x400000) {
+		typ->mass = 1e10f;
+	}
+	if (typ->obj_class & 0x1) {
+		typ->field_13 = 1.0f;
+		typ->speed *= 2;
+		typ->speed_2 *= 2;
+	} else {
+		typ->field_13 = 0.5f;
+	}
+	if (!strcmp(typ->id, "Boulder") || !strcmp(typ->id, "RollingBoulder") ||
+		!strcmp(typ->id, "BoulderIndestructible")) {
+		typ->field_13 = 0.01f;
+		typ->mass = 100.0f;
+	}
+	if (!strcmp(typ->id, "Rock7")) {
+		typ->mass = 0.25f;
+	}
+	if (typ->obj_class & 0x2) {
+		uint32_t* v13 = typ->data_update;
+		v13[309] = -1;
+		v13[307] = -1;
+		v13[317] = -1;
+	} else if (typ->obj_class & 0x200) {
+		uint32_t* v14 = typ->data_update;
+		v14[6] = -1;
+		v14[8] = -1;
+		v14[4] = -1;
+	} else if (typ->obj_class & 0x800) {
+		*(uint32_t*)((uint32_t)(typ->collide_data) + 4) = -1;
+	}
+	if (typ->obj_class & 0x3000006) {
+		if (!typ->data_34) {
+			typ->data_34 = calloc(1, 20);
+			if (!typ->data_34) {
+				return 0;
+			}
+		}
+	}
+	typ->field_4 = 1;
+	typ->mass *= 10.0f;
+	dword_5d4594_1563664 ^= nox_xxx_unitDefProtectMB_4E31A0(typ);
+	typ->next = nox_xxx_objectTypes_head_1563660;
+	nox_xxx_objectTypes_head_1563660 = typ;
+	nox_xxx_unitDefByAlphabetAdd_4E3080(typ->id);
+	return 1;
+}
 int nox_read_things_alternative_4E2B60(void) {
 	void* v1;     // eax
 	void* v3;     // edi
@@ -1076,87 +1154,12 @@ int nox_read_things_alternative_4E2B60(void) {
 			nox_thing_read_image_415240(things);
 			break;
 		case 0x54484E47: // THNG
-		{
-			nox_objectType_t* typ = calloc(1, sizeof(nox_objectType_t));
-			if (!typ) {
+			if (!nox_read_things_alternative_4E2B60_THNG(things, v3)) {
 				nox_memfile_free(things);
 				return 0;
 			}
-			int n = nox_memfile_read_u8(things);
-			nox_memfile_read(v3, 1, n, things);
-			*((uint8_t*)v3 + n) = 0;
-			typ->id = nox_clone_str(v3);
-
-			typ->ind = *getMemU16Ptr(0x587000, 201384);
-			++*getMemU32Ptr(0x587000, 201384);
-
-			typ->field_2 = 0;
-			typ->menu_icon = -1;
-			typ->material = 0x4000;
-			typ->mass = 1.0f;
-			typ->zsize1 = 0;
-			typ->zsize2 = 30.0f;
-			typ->func_damage = nox_xxx_damageDefaultProc_4E0B30;
-			typ->func_damage_sound = nox_xxx_soundDefaultDamageSound_532E20;
-			typ->func_xfer = nox_xxx_XFerDefault_4F49A0;
-			typ->weight = 0xff;
-			if (!nox_thing_read_xxx_4E3220(things, v3, typ)) {
-				nox_memfile_free(things);
-				return 0;
-			}
-			if (!typ->func_collide) {
-				typ->obj_flags |= 0x40;
-			}
-			*((uint16_t*)typ + 10) = typ->ind;
-			typ->obj_flags |= 0x1000000;
-			if (typ->obj_class & 0x400000) {
-				typ->mass = 1e10f;
-			}
-			if (typ->obj_class & 0x1) {
-				typ->field_13 = 1.0f;
-				typ->speed *= 2;
-				typ->speed_2 *= 2;
-			} else {
-				typ->field_13 = 0.5f;
-			}
-			if (!strcmp(typ->id, "Boulder") || !strcmp(typ->id, "RollingBoulder") ||
-				!strcmp(typ->id, "BoulderIndestructible")) {
-				typ->field_13 = 0.01f;
-				typ->mass = 100.0f;
-			}
-			if (!strcmp(typ->id, "Rock7")) {
-				typ->mass = 0.25f;
-			}
-			if (typ->obj_class & 0x2) {
-				uint32_t* v13 = typ->data_update;
-				v13[309] = -1;
-				v13[307] = -1;
-				v13[317] = -1;
-			} else if (typ->obj_class & 0x200) {
-				uint32_t* v14 = typ->data_update;
-				v14[6] = -1;
-				v14[8] = -1;
-				v14[4] = -1;
-			} else if (typ->obj_class & 0x800) {
-				*(uint32_t*)((uint32_t)(typ->collide_data) + 4) = -1;
-			}
-			if (typ->obj_class & 0x3000006) {
-				if (!typ->data_34) {
-					typ->data_34 = calloc(1, 20);
-					if (!typ->data_34) {
-						return 0;
-					}
-				}
-			}
-			typ->field_4 = 1;
-			typ->mass *= 10.0f;
-			dword_5d4594_1563664 ^= nox_xxx_unitDefProtectMB_4E31A0(typ);
-			typ->next = nox_xxx_objectTypes_head_1563660;
-			nox_xxx_objectTypes_head_1563660 = typ;
-			nox_xxx_unitDefByAlphabetAdd_4E3080(typ->id);
 			v3 = v21;
 			break;
-		}
 		}
 	}
 	*getMemU32Ptr(0x85B3FC, 960) = 1;
