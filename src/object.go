@@ -100,6 +100,30 @@ type noxShapeBox struct {
 	RightTop2    float32 // 12, 0x30, (55)
 }
 
+func (s *noxShapeBox) Calc() {
+	const mul = 0.35354999 // cos(Pi/4) / 2
+	px := s.W * mul
+	py := s.H * mul
+
+	v := float32(0.0)
+
+	v = -px + py
+	s.LeftTop = v
+	s.LeftTop2 = v
+
+	v = -px - py
+	s.LeftBottom = v
+	s.LeftBottom2 = v
+
+	v = +px + py
+	s.RightTop = v
+	s.RightTop2 = v
+
+	v = +px - py
+	s.RightBottom = v
+	s.RightBottom2 = v
+}
+
 func asPointf(p unsafe.Pointer) types.Pointf {
 	cp := (*C.float2)(p)
 	return types.Pointf{

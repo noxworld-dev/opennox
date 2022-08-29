@@ -2,6 +2,7 @@ package opennox
 
 /*
 #include "GAME2.h"
+#include "GAME2_3.h"
 #include "client__drawable__drawdb.h"
 #include "client__draw__debugdraw.h"
 void nox_xxx_draw_44C650_free(void* lpMem, void* draw);
@@ -171,4 +172,76 @@ func nox_get_thing_pretty_image(i C.int) C.int {
 	}
 	arr := unsafe.Slice((**nox_thing)(unsafe.Pointer(C.nox_things_array)), int(C.nox_things_count))
 	return C.int(arr[i].pretty_image)
+}
+
+//export nox_drawable_link_thing
+func nox_drawable_link_thing(a1c *nox_drawable, i C.int) C.int {
+	if i < 1 || int(i) >= int(C.nox_things_count) {
+		return 0
+	}
+	dr := asDrawable(a1c)
+	*dr = Drawable{}
+	arr := unsafe.Slice((**nox_thing)(unsafe.Pointer(C.nox_things_array)), int(C.nox_things_count))
+	typ := arr[i]
+	dr.field_27 = C.uint(i)
+	*(*uint8)(unsafe.Add(unsafe.Pointer(&dr.field_0), 0)) = typ.hwidth
+	*(*uint8)(unsafe.Add(unsafe.Pointer(&dr.field_0), 1)) = typ.hheight
+	dr.field_26_1 = C.ushort(typ.z) // TODO: shouldn't it put this in dr.z?
+	dr.flags28 = C.uint(typ.pri_class)
+	dr.flags29 = C.uint(typ.sub_class)
+	dr.flags30 = C.uint(typ.flags)
+	dr.flags70 = C.uint(typ.field_54)
+	dr.field_74_3 = C.uchar(typ.weight)
+	dr.draw_func = (*[0]byte)(typ.draw_func)
+	dr.field_76 = typ.field_5c
+	dr.field_77 = C.uint(typ.field_60)
+	dr.field_116 = C.uint(typ.client_update)
+	dr.field_123 = C.uint(typ.audio_loop)
+	dr.light_flags = C.uint(typ.field_f)
+	dr.field_42 = C.uint(typ.field_10)
+	dr.light_color_r = C.uint(typ.light_color_r)
+	dr.light_color_g = C.uint(typ.light_color_g)
+	dr.light_color_b = C.uint(typ.light_color_b)
+	dr.field_41_0 = C.ushort(typ.light_dir)
+	dr.field_41_1 = C.ushort(typ.light_penumbra)
+
+	dr.shape.kind = C.nox_shape_kind(typ.shape_kind)
+	dr.shape.circle_r = C.float(typ.shape_r)
+	dr.shape.circle_r2 = C.float(typ.shape_r * typ.shape_r)
+	dr.shape.box_w = C.float(typ.shape_w)
+	dr.shape.box_h = C.float(typ.shape_h)
+	if shapeKind(dr.shape.kind) == shapeKindBox {
+		dr.getShape().box.Calc()
+	}
+
+	dr.field_24 = C.float(typ.zsize_min)
+	dr.field_25 = C.float(typ.zsize_max)
+	intens := typ.light_intensity
+	dr.field_43 = 0
+	if intens < 0 {
+		intens = -intens
+		dr.field_43 = 1
+	}
+	dr.light_intensity = C.float(intens)
+	if intens != 0.0 {
+		dr.SetLightIntensity(intens)
+		if dr.light_flags == 0 {
+			dr.light_flags = 1
+			dr.light_color_r = 255
+			dr.light_color_g = 255
+			dr.light_color_b = 255
+		}
+	}
+	if dr.flags28&0x13001000 != 0 {
+		*(*uint32)(dr.field(432)) = 0
+		*(*uint32)(dr.field(436)) = 0
+		*(*uint32)(dr.field(440)) = 0
+		*(*uint32)(dr.field(444)) = 0
+		*(*int16)(dr.field(448)) = -1
+		*(*int16)(dr.field(450)) = -1
+	}
+	if typ.lifetime != 0 {
+		C.nox_xxx_spriteTransparentDecay_49B950(dr.C(), C.int(typ.lifetime))
+	}
+	return 1
 }
