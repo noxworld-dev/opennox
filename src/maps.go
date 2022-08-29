@@ -136,7 +136,9 @@ func nox_server_mapRWGroupData_505C30(a1 unsafe.Pointer) error {
 
 func nox_server_mapRWScriptObject_505A40(a1 unsafe.Pointer) (gout error) {
 	defer func() {
-		log.Printf("nox_server_mapRWScriptObject_505A40: %w (%s)", gout, caller(1))
+		if gout != nil {
+			log.Printf("nox_server_mapRWScriptObject_505A40: %w (%s)", gout, caller(1))
+		}
 	}()
 	fname := datapath.Data(noxscript.NCobjName)
 	C.dword_5d4594_1599644 = 0
