@@ -18,12 +18,10 @@
 #include "client__video__draw_common.h"
 #include "common__strman.h"
 #include "operators.h"
-#include "thing.h"
 
 extern int nox_things_count;
 extern nox_thing* nox_things_head;
 extern nox_thing** nox_things_array;
-extern nox_memfile* nox_loaded_thing_bin;
 
 extern uint64_t qword_581450_9544;
 extern uint64_t qword_581450_9552;

@@ -48,7 +48,6 @@ void nullsub_70() {}
 #include "input_common.h"
 #include "operators.h"
 #include "static.h"
-#include "thing.h"
 #include "win.h"
 
 extern uint32_t nox_profiled_805856;

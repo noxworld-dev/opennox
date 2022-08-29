@@ -72,7 +72,6 @@ extern nox_object_t* nox_xxx_host_player_unit_3843628;
 extern uint32_t dword_5d4594_1568024;
 extern uint32_t dword_5d4594_1565512;
 extern uint32_t dword_5d4594_2650652;
-extern nox_memfile* nox_loaded_thing_bin;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 extern unsigned int gameex_flags;

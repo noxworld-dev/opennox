@@ -33,7 +33,6 @@
 #include "server__script__builtin.h"
 #include "server__script__script.h"
 #include "server__xfer__savegame__savegame.h"
-#include "thing.h"
 #include "win.h"
 
 #include <ctype.h>

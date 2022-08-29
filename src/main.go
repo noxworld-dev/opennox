@@ -8,7 +8,6 @@ package opennox
 #include "GAME2_2.h"
 #include "GAME3_2.h"
 #include "GAME5.h"
-#include "thing.h"
 #include "common__net_list.h"
 #include "client__system__parsecmd.h"
 #include "common__object__armrlook.h"
@@ -395,7 +394,6 @@ func RunArgs(args []string) (gerr error) {
 	// manual spell cast timeout (in frames)
 	*memmap.PtrUint32(0x852978, 16) = uint32(float64(gameFPS()) * msmul)
 
-	C.nox_ensure_thing_bin()
 	if err := nox_common_scanAllMaps_4D07F0(); err != nil {
 		return fmt.Errorf("cannot find maps: %w", err)
 	}
@@ -559,7 +557,6 @@ func cleanup() {
 	C.sub_40C0D0()
 	C.sub_40B740()
 	C.nox_common_maplist_free_4D0970()
-	C.nox_free_thing_bin()
 	ail.Shutdown()
 }
 
