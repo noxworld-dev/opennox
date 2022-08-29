@@ -4,8 +4,12 @@ package opennox
 #include "GAME2.h"
 #include "client__drawable__drawdb.h"
 #include "client__draw__debugdraw.h"
+void nox_xxx_draw_44C650_free(void* lpMem, void* draw);
+void nox_xxx_free_42BF80();
+void sub_44C620_free();
 extern int nox_things_count;
 extern nox_thing* nox_things_head;
+extern nox_thing** nox_things_array;
 */
 import "C"
 import (
@@ -13,6 +17,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 var (
@@ -71,6 +76,30 @@ func (t *nox_thing) Index() int {
 		return 0
 	}
 	return int(t.field_1c)
+}
+
+func (c *clientObjTypes) nox_things_free_44C580() {
+	var next *nox_thing
+	for cur := (*nox_thing)(unsafe.Pointer(C.nox_things_head)); cur != nil; cur = next {
+		next = cur.next
+		if cur.name != nil {
+			StrFree(cur.name)
+		}
+		if cur.field_5c != nil {
+			C.nox_xxx_draw_44C650_free(cur.field_5c, cur.draw_func)
+		}
+		alloc.Free(unsafe.Pointer(cur))
+	}
+	C.nox_things_head = nil
+	if C.nox_things_array != nil {
+		C.free(unsafe.Pointer(C.nox_things_array))
+		C.nox_things_array = nil
+	}
+	C.nox_things_count = 0
+	C.sub_44C620_free()
+	if !noxflags.HasGame(noxflags.GameHost) {
+		C.nox_xxx_free_42BF80()
+	}
 }
 
 func (c *clientObjTypes) readType(thg *MemFile, buf []byte) error {

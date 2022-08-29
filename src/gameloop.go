@@ -1155,7 +1155,7 @@ func sub_435EB0() {
 	sub_473B30_free()
 	C.sub_496120()
 	sub_473840()
-	C.nox_things_free_44C580()
+	nox_things.nox_things_free_44C580()
 	sub_49A950_free()
 	C.nox_drawable_free()
 	C.sub_49AEA0()

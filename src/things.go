@@ -18,7 +18,6 @@ extern nox_objectType_t* nox_xxx_objectTypes_head_1563660;
 int sub_485CF0();
 int sub_485F30();
 int sub_46A360();
-void nox_things_free_44C580();
 int nox_xxx_spriteDefByAlphabetClear_44CCA0();
 int nox_xxx_parseThingBinClient_44C840_read_things_DONE(void);
 int sub_4E3010();
@@ -279,7 +278,7 @@ func (s *Server) nox_read_things_alternative_4E2B60() error {
 
 func nox_xxx_parseThingBinClient_44C840_read_things() error {
 	C.nox_xxx_spriteDefByAlphabetClear_44CCA0()
-	C.nox_things_free_44C580()
+	nox_things.nox_things_free_44C580()
 	C.nox_things_count = 1
 	C.sub_485CF0()
 	C.sub_485F30()
