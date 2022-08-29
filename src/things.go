@@ -6,9 +6,19 @@ package opennox
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME2.h"
+#include "GAME2_1.h"
+#include "GAME2_2.h"
 extern uint32_t dword_5d4594_251540;
 extern uint32_t dword_5d4594_251568;
 extern uint32_t dword_5d4594_251572;
+extern int nox_things_count;
+int sub_485CF0();
+int sub_485F30();
+int sub_46A360();
+void nox_things_free_44C580();
+int nox_xxx_spriteDefByAlphabetClear_44CCA0();
+int nox_xxx_parseThingBinClient_44C840_read_things_THNG(nox_memfile* things, char* scratch_buffer);
+int nox_xxx_parseThingBinClient_44C840_read_things_DONE(void);
 */
 import "C"
 import (
@@ -207,4 +217,60 @@ func nox_thing_read_IMAG_one_42F660(f *MemFile) error {
 	default:
 		return fmt.Errorf("unsupported image kind: %d", int(kind))
 	}
+}
+
+func nox_xxx_parseThingBinClient_44C840_read_things() error {
+	C.nox_xxx_spriteDefByAlphabetClear_44CCA0()
+	C.nox_things_free_44C580()
+	C.nox_things_count = 1
+	C.sub_485CF0()
+	C.sub_485F30()
+	C.sub_46A360()
+
+	thg, err := openThings()
+	if err != nil {
+		return err
+	}
+
+	buf, bfree := alloc.Make([]byte{}, 256*1024)
+	defer bfree()
+
+	for {
+		sect := thg.ReadU32()
+		if sect == 0 {
+			break
+		}
+		switch sect {
+		case 0x5350454C: // "SPEL"
+			C.nox_thing_skip_spells_415100(thg.C())
+		case 0x4142494C: // "ABIL"
+			C.nox_thing_read_ability_415320(thg.C())
+		case 0x41554420: // "AUD "
+			C.nox_thing_skip_AUD_414D40(thg.C())
+		case 0x41564E54: // "AVNT"
+			C.nox_thing_skip_AVNT_452B00(thg.C())
+		case 0x57414C4C: // "WALL"
+			if C.nox_thing_read_wall_46A010(thg.C(), (*C.char)(unsafe.Pointer(&buf[0]))) == 0 {
+				return fmt.Errorf("nox_thing_read_wall_46A010 failed")
+			}
+		case 0x464C4F52: // "FLOR"
+			if C.nox_thing_read_floor_485B30(thg.C(), (*C.char)(unsafe.Pointer(&buf[0]))) == 0 {
+				return fmt.Errorf("nox_thing_read_floor_485B30 failed")
+			}
+		case 0x45444745: // "EDGE"
+			if C.nox_thing_read_edge_485D40(thg.C(), (*C.char)(unsafe.Pointer(&buf[0]))) == 0 {
+				return fmt.Errorf("nox_thing_read_edge_485D40 failed")
+			}
+		case 0x494D4147: // "IMAG"
+			C.nox_thing_read_image_415240(thg.C())
+		case 0x54484E47: // "THNG"
+			if C.nox_xxx_parseThingBinClient_44C840_read_things_THNG(thg.C(), (*C.char)(unsafe.Pointer(&buf[0]))) == 0 {
+				return fmt.Errorf("nox_thing_read_edge_485D40 failed")
+			}
+		}
+	}
+	if C.nox_xxx_parseThingBinClient_44C840_read_things_DONE() == 0 {
+		return fmt.Errorf("nox_xxx_parseThingBinClient_44C840_read_things_DONE failed")
+	}
+	return nil
 }

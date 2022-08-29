@@ -140,7 +140,7 @@ int sub_469B90(int* a1);
 char* nox_xxx_getAmbientColor_469BB0();
 int sub_469FA0();
 int sub_469FB0(const char* a1);
-int nox_thing_read_wall_46A010(uint32_t* a1, char* a2);
+int nox_thing_read_wall_46A010(nox_memfile* a1, char* a2);
 int nox_xxx_getWallSprite_46A3B0(int a1, int a2, int a3, int a4);
 char* nox_xxx_getWallDrawOffset_46A3F0(int a1, int a2, int a3, int a4);
 void nox_client_chatStart_46A430(int a1);

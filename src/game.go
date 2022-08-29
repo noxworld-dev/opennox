@@ -522,8 +522,8 @@ func initGameSession435CC0() error {
 		return errors.New("nox_xxx_allocArrayHealthChanges_49A5F0 failed")
 	}
 
-	if C.nox_xxx_parseThingBinClient_44C840_read_things() == nil {
-		return errors.New("nox_xxx_parseThingBinClient_44C840_read_things failed")
+	if err := nox_xxx_parseThingBinClient_44C840_read_things(); err != nil {
+		return err
 	}
 
 	if C.nox_xxx_loadGuides_427070() == 0 {

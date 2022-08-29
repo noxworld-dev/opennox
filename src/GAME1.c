@@ -5677,7 +5677,8 @@ int nox_thing_read_WALL_414F60(uint32_t* a1, void* a2) {
 }
 
 //----- (00415100) --------------------------------------------------------
-int nox_thing_skip_spells_415100(int a1) {
+int nox_thing_skip_spells_415100(nox_memfile* f) {
+	int a1 = f;
 	int* v1;            // ecx
 	int v2;             // edx
 	int v3;             // esi
@@ -5742,7 +5743,8 @@ int nox_thing_skip_spells_415100(int a1) {
 }
 
 //----- (00415240) --------------------------------------------------------
-int nox_thing_read_image_415240(int a1) {
+int nox_thing_read_image_415240(nox_memfile* f) {
+	int a1 = f;
 	int v1;             // ecx
 	int* v2;            // eax
 	int v3;             // edx
@@ -5808,7 +5810,8 @@ int nox_thing_read_image_415240(int a1) {
 }
 
 //----- (00415320) --------------------------------------------------------
-int nox_thing_read_ability_415320(int a1) {
+int nox_thing_read_ability_415320(nox_memfile* f) {
+	int a1 = f;
 	int* v1;            // ecx
 	int v2;             // edx
 	int v3;             // esi
