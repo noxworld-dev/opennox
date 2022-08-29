@@ -17,9 +17,7 @@ extern nox_objectType_t* nox_xxx_objectTypes_head_1563660;
 int sub_485CF0();
 int sub_485F30();
 int sub_46A360();
-int sub_4E3010();
 int nox_read_things_alternative_4E2B60_DONE(void);
-int nox_xxx_freeObjectTypes_4E2A20();
 int sub_42BF10();
 char* nox_xxx_equipWeapon_4131A0();
 void nox_xxx_equipArmor_415AB0();
@@ -225,12 +223,7 @@ func nox_thing_read_IMAG_one_42F660(f *MemFile) error {
 }
 
 func (s *Server) nox_read_things_alternative_4E2B60() error {
-	if C.nox_xxx_objectTypes_head_1563660 != nil {
-		C.nox_xxx_freeObjectTypes_4E2A20()
-	}
-	C.sub_4E3010()
-	C.dword_5d4594_1563664 = 0
-
+	s.objs.Clear()
 	buf, bfree := alloc.Make([]byte{}, 256*1024)
 	defer bfree()
 	thg, err := openThings()

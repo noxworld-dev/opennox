@@ -559,52 +559,6 @@ void nox_xxx_free_42BF80() {
 	dword_5d4594_741680 = 0;
 }
 
-//----- (004E2A20) --------------------------------------------------------
-int nox_xxx_freeObjectTypes_4E2A20() {
-	nox_objectType_t* next = 0;
-	for (nox_objectType_t* typ = nox_xxx_objectTypes_head_1563660; typ; typ = next) {
-		next = typ->next;
-		if (typ->id) {
-			free(typ->id);
-		}
-		if (typ->data_34) {
-			free(typ->data_34);
-		}
-		if (typ->collide_data) {
-			free(typ->collide_data);
-		}
-		if (typ->die_data) {
-			free(typ->die_data);
-		}
-		if (typ->init_data) {
-			free(typ->init_data);
-		}
-		void* v2 = typ->data_update;
-		if (v2) {
-			if (typ->obj_class & 0x2) {
-				void* v3 = *(void**)((uint32_t)v2 + 476);
-				if (v3) {
-					free(v3);
-				}
-			}
-			free(typ->data_update);
-		}
-		if (typ->use_data) {
-			free(typ->use_data);
-		}
-		free(typ);
-	}
-	nox_xxx_objectTypes_head_1563660 = 0;
-	if (*getMemU32Ptr(0x5D4594, 1563456)) {
-		free(*(void**)getMemAt(0x5D4594, 1563456));
-		*getMemU32Ptr(0x5D4594, 1563456) = 0;
-	}
-	*getMemU32Ptr(0x587000, 201384) = 1;
-	nox_xxx_unitDefByAlphabetFree_4E2B30();
-	nox_xxx_free_42BF80();
-	return 1;
-}
-
 //----- (004E3010) --------------------------------------------------------
 int sub_4E3010() {
 	int result; // eax
