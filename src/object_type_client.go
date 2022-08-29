@@ -127,3 +127,48 @@ func (c *clientObjTypes) readType(thg *MemFile, buf []byte) error {
 	C.nox_xxx_spriteDefByAlphabetAdd_44CD10(typ.name)
 	return nil
 }
+
+//export nox_get_thing_name
+func nox_get_thing_name(i C.int) *C.char {
+	if i < 1 || int(i) >= int(C.nox_things_count) {
+		return nil
+	}
+	arr := unsafe.Slice((**nox_thing)(unsafe.Pointer(C.nox_things_array)), int(C.nox_things_count))
+	return arr[i].name
+}
+
+//export nox_get_thing
+func nox_get_thing(i C.int) *C.nox_thing {
+	if i < 1 || int(i) >= int(C.nox_things_count) {
+		return nil
+	}
+	arr := unsafe.Slice((**nox_thing)(unsafe.Pointer(C.nox_things_array)), int(C.nox_things_count))
+	return arr[i].C()
+}
+
+//export nox_get_thing_pretty_name
+func nox_get_thing_pretty_name(i C.int) *wchar_t {
+	if i < 1 || int(i) >= int(C.nox_things_count) {
+		return nil
+	}
+	arr := unsafe.Slice((**nox_thing)(unsafe.Pointer(C.nox_things_array)), int(C.nox_things_count))
+	return arr[i].pretty_name
+}
+
+//export nox_get_thing_desc
+func nox_get_thing_desc(i C.int) *wchar_t {
+	if i < 1 || int(i) >= int(C.nox_things_count) {
+		return nil
+	}
+	arr := unsafe.Slice((**nox_thing)(unsafe.Pointer(C.nox_things_array)), int(C.nox_things_count))
+	return arr[i].desc
+}
+
+//export nox_get_thing_pretty_image
+func nox_get_thing_pretty_image(i C.int) C.int {
+	if i < 1 || int(i) >= int(C.nox_things_count) {
+		return 0
+	}
+	arr := unsafe.Slice((**nox_thing)(unsafe.Pointer(C.nox_things_array)), int(C.nox_things_count))
+	return C.int(arr[i].pretty_image)
+}
