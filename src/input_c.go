@@ -528,7 +528,7 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 	} else {
 		mimic := memmap.Uint32(0x5D4594, 1064944)
 		if mimic == 0 {
-			mimic = nox_xxx_getTTByNameSpriteMB_44CFC0("Mimic")
+			mimic = uint32(nox_things.IndByID("Mimic"))
 			*memmap.PtrUint32(0x5D4594, 1064944) = mimic
 		}
 		if sprite.Flags28()&0x400000 != 0 && sprite.Flags29()&0x80 != 0 && sprite.Flags70()&0xC == 0 || uint32(sprite.field_27) == mimic && sprite.field_69 == 0 {

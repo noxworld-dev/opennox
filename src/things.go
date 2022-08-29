@@ -17,13 +17,9 @@ extern nox_objectType_t* nox_xxx_objectTypes_head_1563660;
 int sub_485CF0();
 int sub_485F30();
 int sub_46A360();
-int nox_xxx_spriteDefByAlphabetClear_44CCA0();
 int sub_4E3010();
 int nox_read_things_alternative_4E2B60_DONE(void);
 int nox_xxx_freeObjectTypes_4E2A20();
-size_t nox_xxx_spriteDefByAlphabetAlloc_44CCD0();
-void nox_xxx_spriteDefByAlphabetAdd_0_44CD60(nox_thing* a1, int a2);
-void nox_xxx_spriteDefByAlphabetSort_44CDB0();
 int sub_42BF10();
 char* nox_xxx_equipWeapon_4131A0();
 void nox_xxx_equipArmor_415AB0();
@@ -283,7 +279,6 @@ func (s *Server) nox_read_things_alternative_4E2B60() error {
 }
 
 func nox_xxx_parseThingBinClient_44C840_read_things() error {
-	C.nox_xxx_spriteDefByAlphabetClear_44CCA0()
 	nox_things.nox_things_free_44C580()
 	C.sub_485CF0()
 	C.sub_485F30()
@@ -332,14 +327,6 @@ func nox_xxx_parseThingBinClient_44C840_read_things() error {
 		}
 	}
 	*memmap.PtrUint32(0x85B3FC, 4) = 1
-	C.nox_xxx_spriteDefByAlphabetAlloc_44CCD0()
-	for i, cur := range nox_things.byInd {
-		if i == 0 {
-			continue
-		}
-		C.nox_xxx_spriteDefByAlphabetAdd_0_44CD60(cur.C(), C.int(i))
-	}
-	C.nox_xxx_spriteDefByAlphabetSort_44CDB0()
 	C.nox_xxx_equipWeapon_4131A0()
 	C.nox_xxx_equipArmor_415AB0()
 	C.nox_xxx_equipWeapon_4157C0()

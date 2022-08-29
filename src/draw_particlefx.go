@@ -387,7 +387,7 @@ func (pfx *partFXes) sub_4AF4C0(t *particlefxType) bool {
 }
 
 func (p *particleFx) loadParticle(typ string) {
-	id := int(nox_xxx_getTTByNameSpriteMB_44CFC0(typ))
+	id := nox_things.IndByID(typ)
 	dr := nox_xxx_spriteLoadAdd_45A360_drawable(id, image.Pt(p.x16>>16, p.y16>>16))
 	if dr != nil {
 		p.drawable12 = dr

@@ -358,17 +358,6 @@ int nox_parse_thing(nox_memfile* thing_file, char* scratch_buffer, nox_thing* th
 	return 1;
 }
 
-//----- (0044CCA0) --------------------------------------------------------
-int nox_xxx_spriteDefByAlphabetClear_44CCA0() {
-	int result; // eax
-
-	result = 0;
-	memset(getMemAt(0x5D4594, 830616), 0, 0x6Cu);
-	memset(getMemAt(0x5D4594, 830724), 0, 0x6Cu);
-	memset(getMemAt(0x5D4594, 830296), 0, 0x6Cu);
-	return result;
-}
-
 //----- (00485CF0) --------------------------------------------------------
 int sub_485CF0() {
 	int v0;    // edi
@@ -431,64 +420,6 @@ int sub_46A360() {
 		} while (v1 < 3840);
 	}
 	return 1;
-}
-
-//----- (0044CCD0) --------------------------------------------------------
-size_t nox_xxx_spriteDefByAlphabetAlloc_44CCD0() {
-	int i;         // esi
-	size_t result; // eax
-
-	for (i = 0; i < 108; i += 4) {
-		result = *getMemU32Ptr(0x5D4594, 830616 + i);
-		if (result) {
-			result = (size_t)calloc(1u, 8 * result);
-			*getMemU32Ptr(0x5D4594, 830296 + i) = result;
-		} else {
-			*getMemU32Ptr(0x5D4594, 830296 + i) = 0;
-		}
-		*getMemU32Ptr(0x5D4594, 830724 + i) = 0;
-	}
-	return result;
-}
-
-//----- (0044CD60) --------------------------------------------------------
-void nox_xxx_spriteDefByAlphabetAdd_0_44CD60(nox_thing* a1, int a2) {
-	if (!a1) {
-		return;
-	}
-
-	int v2 = nox_xxx_keyFirstLetterNumberCli_44CD30(a1->name);
-	if (v2 < 0) {
-		return;
-	}
-
-	int v3 = *getMemU32Ptr(0x5D4594, 830296 + 4 * v2);
-	if (!v3) {
-		return;
-	}
-
-	int v4 = *getMemU32Ptr(0x5D4594, 830724 + 4 * v2);
-	*(uint32_t*)(v3 + 8 * v4) = a1;
-	*(uint32_t*)(v3 + 8 * v4 + 4) = a2;
-	++*getMemU32Ptr(0x5D4594, 830724 + 4 * v2);
-}
-
-//----- (0044CDE0) --------------------------------------------------------
-int nox_xxx_spriteDefByAlphabetCompare_44CDE0(const void* a1, const void* a2) {
-	return _strcmpi(**(const char***)a1, **(const char***)a2);
-}
-
-//----- (0044CDB0) --------------------------------------------------------
-void nox_xxx_spriteDefByAlphabetSort_44CDB0() {
-	int i;         // esi
-	signed int v1; // eax
-
-	for (i = 0; i < 108; i += 4) {
-		v1 = *getMemU32Ptr(0x5D4594, 830616 + i);
-		if (v1 > 1) {
-			qsort(*(void**)getMemAt(0x5D4594, 830296 + i), v1, 8u, nox_xxx_spriteDefByAlphabetCompare_44CDE0);
-		}
-	}
 }
 
 //----- (004131A0) --------------------------------------------------------
@@ -601,20 +532,6 @@ int sub_42BF10() {
 		return 1;
 	}
 	return 0;
-}
-
-//----- (0044C620) --------------------------------------------------------
-void sub_44C620_free() {
-	void** v0; // esi
-
-	v0 = (void**)getMemAt(0x5D4594, 830296);
-	do {
-		if (*v0) {
-			free(*v0);
-		}
-		*v0 = 0;
-		++v0;
-	} while ((int)v0 < (int)getMemAt(0x5D4594, 830404));
 }
 
 //----- (004E2B30) --------------------------------------------------------

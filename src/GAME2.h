@@ -3,7 +3,6 @@
 
 #include "defs.h"
 
-char* nox_xxx_spriteDefByAlphabetAdd_44CD10(char* a1);
 int nox_xxx_keyFirstLetterNumberCli_44CD30(char* a1);
 char* nox_get_thing_name(int i);
 nox_thing* nox_get_thing(int i);
@@ -11,14 +10,11 @@ wchar_t* nox_get_thing_pretty_name(int i);
 wchar_t* nox_get_thing_desc(int i);
 int nox_get_thing_pretty_image(int i);
 int nox_xxx_getTTByNameSpriteMB_44CFC0(char* a1);
-int nox_xxx_getvalByName2Imp_44CFD0(char* a1);
-int sub_44D020(const void* a1, const void* a2);
 int sub_44D040(int i);
 int sub_44D060(int a1);
 int sub_44D090(int a1);
 int nox_drawable_link_thing(nox_drawable* a1, int i);
-int sub_44D330(char* a1);
-int sub_44D340(char* a1);
+nox_thing* sub_44D330(char* a1);
 void sub_44D3A0();
 void sub_44D5C0(int a1, int a2);
 void sub_44D640();
