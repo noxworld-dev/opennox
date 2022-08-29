@@ -135,10 +135,10 @@ func (c *clientObjTypes) readType(thg *MemFile, buf []byte) error {
 	c.byID[strings.ToLower(id)] = typ
 	if typ.weight != 0 {
 		if typ.pretty_name == nil {
-			typ.pretty_name, _ = CWString(strMan.GetStringInFile(strman.ID(fmt.Sprintf("thing.db:%sPrettyName", id)), "drawdb.c"))
+			typ.pretty_name = internWStr(strMan.GetStringInFile(strman.ID(fmt.Sprintf("thing.db:%sPrettyName", id)), "drawdb.c"))
 		}
 		if typ.desc == nil {
-			typ.desc, _ = CWString(strMan.GetStringInFile(strman.ID(fmt.Sprintf("thing.db:%sDescription", id)), "drawdb.c"))
+			typ.desc = internWStr(strMan.GetStringInFile(strman.ID(fmt.Sprintf("thing.db:%sDescription", id)), "drawdb.c"))
 		}
 	}
 	return nil
