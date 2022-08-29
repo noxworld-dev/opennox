@@ -4219,7 +4219,8 @@ int nox_xxx_spriteChangeIntensity_484D70_light_intensity(int a1, float a2) {
 
 
 //----- (00485B30) --------------------------------------------------------
-int nox_thing_read_floor_485B30(int a1, char* a2) {
+int nox_thing_read_floor_485B30(nox_memfile* f, char* a2) {
+	int a1 = f;
 	int v2;            // esi
 	uint8_t* v3;       // edi
 	int v4;            // eax
@@ -4307,7 +4308,8 @@ int nox_thing_read_floor_485B30(int a1, char* a2) {
 // 485B30: using guessed type char var_20[32];
 
 //----- (00485D40) --------------------------------------------------------
-int nox_thing_read_edge_485D40(int a1, char* a2) {
+int nox_thing_read_edge_485D40(nox_memfile* f, char* a2) {
+	int a1 = f;
 	int v2;            // esi
 	uint8_t* v3;       // edi
 	int v4;            // eax

@@ -3436,7 +3436,8 @@ int sub_469FB0(const char* a1) {
 }
 
 //----- (0046A010) --------------------------------------------------------
-int nox_thing_read_wall_46A010(uint32_t* a1, char* a2) {
+int nox_thing_read_wall_46A010(nox_memfile* f, char* a2) {
+	uint32_t* a1 = f;
 	uint32_t* v2;       // esi
 	char* v3;           // ebx
 	unsigned char* v4;  // edx
