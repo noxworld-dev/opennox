@@ -612,32 +612,6 @@ int sub_42BF10() {
 }
 
 //----- (0044C840) --------------------------------------------------------
-int nox_xxx_parseThingBinClient_44C840_read_things_THNG(nox_memfile* things, char* scratch_buffer) {
-	nox_thing* obj = (nox_thing*)calloc(1, sizeof(nox_thing));
-	if (!obj) {
-		return 0;
-	}
-	unsigned char v28 = nox_memfile_read_u8(things);
-	nox_memfile_read(scratch_buffer, 1, v28, things);
-	scratch_buffer[v28] = 0;
-	obj->name = nox_clone_str(scratch_buffer);
-	obj->menuicon = -1;
-	obj->field_1c = nox_things_count++;
-	obj->flags |= 0x1000000;
-	*((uint8_t*)obj + 15) = 0;
-	obj->field_10 = 0xFFFF;
-	obj->audio_loop = 0;
-	obj->draw_func = nox_thing_debug_draw;
-	obj->zsize_min = 0;
-	obj->zsize_max = 30.0f;
-	if (!nox_parse_thing(things, scratch_buffer, obj)) {
-		return 0;
-	}
-	obj->next = nox_things_head;
-	nox_things_head = obj;
-	nox_xxx_spriteDefByAlphabetAdd_44CD10(obj->name);
-	return 1;
-}
 int nox_xxx_parseThingBinClient_44C840_read_things_DONE(void) {
 	*getMemU32Ptr(0x85B3FC, 4) = 1;
 	nox_things_array = calloc(nox_things_count, sizeof(nox_thing*));
