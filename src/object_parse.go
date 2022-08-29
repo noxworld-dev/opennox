@@ -20,19 +20,14 @@ import (
 
 type objectFieldFunc func(objt *ObjectType, f *MemFile, str string, buf []byte) error
 
-//export nox_thing_read_xxx_4E3220
-func nox_thing_read_xxx_4E3220(a1 *C.nox_memfile, pbuf *C.char, ctyp *C.nox_objectType_t) C.int {
-	f := asMemfile(a1)
-	buf := unsafe.Slice((*byte)(unsafe.Pointer(pbuf)), 256*1024)
-	typ := asObjectType(ctyp)
+func nox_thing_read_xxx_4E3220(f *MemFile, buf []byte, typ *ObjectType) error {
 	for {
 		sz := f.ReadU8()
 		if sz == 0 {
-			return 1
+			return nil
 		}
 		if _, err := io.ReadFull(f, buf[:sz]); err != nil {
-			thingsLog.Printf("cannot read object type: %v", err)
-			return 0
+			return fmt.Errorf("cannot read object type: %w", err)
 		}
 		buf[sz] = 0
 		str := string(buf[:sz])
@@ -50,9 +45,7 @@ func nox_thing_read_xxx_4E3220(a1 *C.nox_memfile, pbuf *C.char, ctyp *C.nox_obje
 		}
 		str = strings.TrimSpace(str)
 		if err := parseFnc(typ, f, str, buf); err != nil {
-			err = fmt.Errorf("parse of %q failed: %w", name, err)
-			thingsLog.Println(err)
-			return 0
+			return fmt.Errorf("parse of %q failed: %w", name, err)
 		}
 	}
 }

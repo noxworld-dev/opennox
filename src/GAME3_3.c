@@ -783,7 +783,8 @@ int nox_xxx_keyFirstLetterNumber_4E30A0(char* a1) {
 }
 
 //----- (004E31A0) --------------------------------------------------------
-int nox_xxx_unitDefProtectMB_4E31A0(int a1) {
+unsigned int nox_xxx_unitDefProtectMB_4E31A0(nox_objectType_t* a1p) {
+	int a1 = a1p;
 	int result; // eax
 	int v2;     // esi
 	int v3;     // esi
@@ -1116,9 +1117,6 @@ int nox_xxx_getNameId_4E3AA0(char* a1) {
 	}
 	return result;
 }
-
-//----- (004E3AC0) --------------------------------------------------------
-int nox_xxx_unitDefGetCount_4E3AC0() { return *getMemU32Ptr(0x587000, 201384); }
 
 //----- (004E3AD0) --------------------------------------------------------
 int sub_4E3AD0(int a1) {
