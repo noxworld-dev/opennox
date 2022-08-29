@@ -71,7 +71,7 @@ func nox_thing_debug_draw(cvp *nox_draw_viewport_t, cdr *nox_drawable) C.int {
 			cl,
 		)
 		r.DrawString(nil, strconv.Itoa(int(dr.Field32())), image.Pt(p.X, p.Y-10))
-		r.DrawString(nil, nox_get_thing_name(int(dr.Field27())), p)
+		r.DrawString(nil, getThingName(int(dr.Field27())), p)
 		r.DrawString(nil, debugStateStr2(int(dr.field_69)), image.Pt(p.X, p.Y+10))
 	} else if dr.Flags28()&0x4 != 0 {
 		debugDrawShape(r, dr, p, cl)
@@ -84,13 +84,13 @@ func nox_thing_debug_draw(cvp *nox_draw_viewport_t, cdr *nox_drawable) C.int {
 			cl,
 		)
 		r.DrawString(nil, strconv.Itoa(int(dr.Field32())), image.Pt(p.X, p.Y-10))
-		r.DrawString(nil, nox_get_thing_name(int(dr.Field27())), p)
+		r.DrawString(nil, getThingName(int(dr.Field27())), p)
 		r.DrawString(nil, debugStateStr(int(dr.field_69)), image.Pt(p.X, p.Y+10))
 	} else {
 		debugDrawShape(r, dr, p, cl)
 	}
 	r.DrawString(nil, strconv.Itoa(int(dr.Field32())), image.Pt(p.X, p.Y-10))
-	r.DrawString(nil, nox_get_thing_name(int(dr.Field27())), p)
+	r.DrawString(nil, getThingName(int(dr.Field27())), p)
 	return 1
 }
 

@@ -30,7 +30,7 @@ var (
 	nox_images_arr1_787156 []*noxImageRef
 )
 
-func nox_get_thing_name(i int) string {
+func getThingName(i int) string {
 	return GoString(C.nox_get_thing_name(C.int(i)))
 }
 
