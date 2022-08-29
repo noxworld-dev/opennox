@@ -7,6 +7,9 @@ package opennox
 extern uint32_t dword_5d4594_1563664;
 extern nox_objectType_t* nox_xxx_objectTypes_head_1563660;
 char* nox_xxx_unitDefByAlphabetAdd_4E3080(char* a1);
+void nox_xxx_unitDefByAlphabetFree_4E2B30();
+void nox_xxx_free_42BF80();
+int sub_4E3010();
 */
 import "C"
 import (
@@ -37,6 +40,64 @@ type serverObjTypes struct {
 		polyp     int
 		wisp      int
 	}
+}
+
+func (s *serverObjTypes) nox_xxx_freeObjectTypes_4E2A20() {
+	var next *ObjectType
+	for typ := asObjectType(C.nox_xxx_objectTypes_head_1563660); typ != nil; typ = next {
+		next = typ.next
+		if typ.id != nil {
+			StrFree(typ.id)
+			typ.id = nil
+		}
+		if typ.data_34 != nil {
+			C.free(unsafe.Pointer(typ.data_34))
+			typ.data_34 = nil
+		}
+		if typ.collide_data != nil {
+			C.free(unsafe.Pointer(typ.collide_data))
+			typ.collide_data = nil
+		}
+		if typ.die_data != nil {
+			C.free(unsafe.Pointer(typ.die_data))
+			typ.die_data = nil
+		}
+		if typ.init_data != nil {
+			C.free(unsafe.Pointer(typ.init_data))
+			typ.init_data = nil
+		}
+		if typ.data_update != nil {
+			if typ.Class().Has(object.ClassMonster) {
+				ud := typ.updateDataMonster()
+				if ud.field_119 != nil {
+					C.free(unsafe.Pointer(ud.field_119))
+				}
+			}
+			C.free(unsafe.Pointer(typ.data_update))
+			typ.data_update = nil
+		}
+		if typ.use_data != nil {
+			C.free(unsafe.Pointer(typ.use_data))
+			typ.use_data = nil
+		}
+		alloc.Free(unsafe.Pointer(typ))
+	}
+	C.nox_xxx_objectTypes_head_1563660 = nil
+	if memmap.Uint32(0x5D4594, 1563456) != 0 {
+		C.free(*memmap.PtrPtr(0x5D4594, 1563456))
+		*memmap.PtrPtr(0x5D4594, 1563456) = nil
+	}
+	*memmap.PtrUint32(0x587000, 201384) = 1
+	C.nox_xxx_unitDefByAlphabetFree_4E2B30()
+	C.nox_xxx_free_42BF80()
+}
+
+func (s *serverObjTypes) Clear() {
+	if C.nox_xxx_objectTypes_head_1563660 != nil {
+		s.nox_xxx_freeObjectTypes_4E2A20()
+	}
+	C.sub_4E3010()
+	C.dword_5d4594_1563664 = 0
 }
 
 func (s *serverObjTypes) readType(thg *MemFile, buf []byte) error {
