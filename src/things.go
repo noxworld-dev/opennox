@@ -20,7 +20,6 @@ int sub_485F30();
 int sub_46A360();
 void nox_things_free_44C580();
 int nox_xxx_spriteDefByAlphabetClear_44CCA0();
-int nox_xxx_parseThingBinClient_44C840_read_things_THNG(nox_memfile* things, char* scratch_buffer);
 int nox_xxx_parseThingBinClient_44C840_read_things_DONE(void);
 int sub_4E3010();
 int nox_read_things_alternative_4E2B60_DONE(void);
@@ -323,8 +322,8 @@ func nox_xxx_parseThingBinClient_44C840_read_things() error {
 		case 0x494D4147: // "IMAG"
 			C.nox_thing_read_image_415240(thg.C())
 		case 0x54484E47: // "THNG"
-			if C.nox_xxx_parseThingBinClient_44C840_read_things_THNG(thg.C(), (*C.char)(unsafe.Pointer(&buf[0]))) == 0 {
-				return fmt.Errorf("nox_thing_read_edge_485D40 failed")
+			if err := nox_things.readType(thg, buf); err != nil {
+				return err
 			}
 		}
 	}
