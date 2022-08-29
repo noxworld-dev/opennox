@@ -4,7 +4,6 @@ package opennox
 #include "GAME3_2.h"
 #include "GAME3_3.h"
 #include "GAME4_3.h"
-extern nox_objectType_t* nox_xxx_objectTypes_head_1563660;
 char* nox_xxx_unitDefByAlphabetAdd_4E3080(char* a1);
 void nox_xxx_unitDefByAlphabetFree_4E2B30();
 void nox_xxx_free_42BF80();
@@ -21,12 +20,45 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 //export nox_xxx_unitDefGetCount_4E3AC0
 func nox_xxx_unitDefGetCount_4E3AC0() C.int {
-	return C.int(memmap.Uint32(0x587000, 201384))
+	return C.int(len(noxServer.objs.byInd))
+}
+
+//export nox_xxx_newObjectWithTypeInd_4E3450
+func nox_xxx_newObjectWithTypeInd_4E3450(ind C.int) *nox_object_t {
+	return noxServer.getObjectTypeByInd(int(ind)).newObject().CObj()
+}
+
+//export nox_xxx_objectTypeByInd_4E3B70
+func nox_xxx_objectTypeByInd_4E3B70(ind C.int) *C.nox_objectType_t {
+	return noxServer.getObjectTypeByInd(int(ind)).C()
+}
+
+//export nox_xxx_getUnitDefDd10_4E3BA0
+func nox_xxx_getUnitDefDd10_4E3BA0(ind C.int) C.int {
+	return C.int(noxServer.getObjectTypeByInd(int(ind)).field_4)
+}
+
+//export nox_xxx_getUnitName_4E39D0
+func nox_xxx_getUnitName_4E39D0(cobj *nox_object_t) *C.char {
+	// TODO: was noxServer.getObjectTypeByInd(asObjectC(cobj).Index()).id
+	return asObjectC(cobj).ObjectTypeC().id
+}
+
+//export sub_4E3B80
+func sub_4E3B80(ind C.int) C.int {
+	return C.int(bool2int(noxServer.getObjectTypeByInd(int(ind)).menu_icon != -1))
+}
+
+//export nox_xxx_getUnitNameByThingType_4E3A80
+func nox_xxx_getUnitNameByThingType_4E3A80(ind C.int) *C.char {
+	if ind == 0 {
+		return nil
+	}
+	return noxServer.getObjectTypeByInd(int(ind)).id
 }
 
 //export sub_4E3BC0
@@ -45,8 +77,10 @@ func sub_4E3BF0(a1 *C.nox_objectType_t) {
 }
 
 type serverObjTypes struct {
-	crc  uint32
-	fast struct {
+	first *ObjectType
+	byInd []*ObjectType
+	crc   uint32
+	fast  struct {
 		frog      int
 		rat       int
 		fishSmall int
@@ -59,7 +93,7 @@ type serverObjTypes struct {
 
 func (s *serverObjTypes) nox_xxx_freeObjectTypes_4E2A20() {
 	var next *ObjectType
-	for typ := asObjectType(C.nox_xxx_objectTypes_head_1563660); typ != nil; typ = next {
+	for typ := s.first; typ != nil; typ = next {
 		next = typ.next
 		if typ.id != nil {
 			StrFree(typ.id)
@@ -97,20 +131,17 @@ func (s *serverObjTypes) nox_xxx_freeObjectTypes_4E2A20() {
 		}
 		alloc.Free(unsafe.Pointer(typ))
 	}
-	C.nox_xxx_objectTypes_head_1563660 = nil
-	if memmap.Uint32(0x5D4594, 1563456) != 0 {
-		C.free(*memmap.PtrPtr(0x5D4594, 1563456))
-		*memmap.PtrPtr(0x5D4594, 1563456) = nil
-	}
-	*memmap.PtrUint32(0x587000, 201384) = 1
+	s.first = nil
+	s.byInd = []*ObjectType{nil}
 	C.nox_xxx_unitDefByAlphabetFree_4E2B30()
 	C.nox_xxx_free_42BF80()
 }
 
 func (s *serverObjTypes) Clear() {
-	if C.nox_xxx_objectTypes_head_1563660 != nil {
+	if s.first != nil {
 		s.nox_xxx_freeObjectTypes_4E2A20()
 	}
+	s.byInd = []*ObjectType{nil}
 	C.sub_4E3010()
 	s.crc = 0
 }
@@ -123,8 +154,8 @@ func (s *serverObjTypes) readType(thg *MemFile, buf []byte) error {
 	}
 	typ.id = CString(id)
 
-	typ.ind = memmap.Uint16(0x587000, 201384)
-	*memmap.PtrUint16(0x587000, 201384)++
+	typ.ind = uint16(len(s.byInd))
+	s.byInd = append(s.byInd, typ)
 
 	typ.field_2 = 0
 	typ.menu_icon = -1
@@ -182,8 +213,8 @@ func (s *serverObjTypes) readType(thg *MemFile, buf []byte) error {
 	typ.field_4 = 1
 	typ.mass *= 10.0
 	s.crc ^= s.nox_xxx_unitDefProtectMB_4E31A0(typ)
-	typ.next = asObjectType(C.nox_xxx_objectTypes_head_1563660)
-	C.nox_xxx_objectTypes_head_1563660 = typ.C()
+	typ.next = s.first
+	s.first = typ
 	C.nox_xxx_unitDefByAlphabetAdd_4E3080(typ.id)
 	return nil
 }
@@ -198,7 +229,7 @@ func (s *serverObjTypes) checkTypes() error {
 
 func (s *serverObjTypes) checkObjSizes() error {
 	const maxSize = 85
-	for typ := asObjectType(C.nox_xxx_objectTypes_head_1563660); typ != nil; typ = typ.next {
+	for typ := s.first; typ != nil; typ = typ.next {
 		if typ.Flags().Has(object.FlagNoCollide) {
 			continue
 		}
@@ -243,7 +274,7 @@ func (s *serverObjTypes) nox_xxx_unitDefProtectMB_4E31A0(typ *ObjectType) uint32
 
 func (s *serverObjTypes) nox_xxx_protectUnitDefUpdateMB_4E3C20() {
 	val := uint32(0)
-	for typ := asObjectType(C.nox_xxx_objectTypes_head_1563660); typ != nil; typ = typ.next {
+	for typ := s.first; typ != nil; typ = typ.next {
 		val ^= s.nox_xxx_unitDefProtectMB_4E31A0(typ)
 	}
 	if val != s.crc {
@@ -273,19 +304,14 @@ func (s *Server) getObjectTypeByInd(ind int) *ObjectType { // nox_xxx_objectType
 	if ind == math.MaxUint16 {
 		return nil
 	}
-	if ind < 0 || ind >= int(C.nox_xxx_unitDefGetCount_4E3AC0()) {
+	if ind < 0 || ind >= len(s.objs.byInd) {
 		return nil
 	}
-	p := C.nox_xxx_objectTypeByInd_4E3B70(C.int(ind))
-	if p == nil {
-		return nil
-	}
-	return asObjectType(p)
+	return s.objs.byInd[ind]
 }
 
 func (s *Server) getObjectTypes() (out []*ObjectType) {
-	for i := 0; i < int(C.nox_xxx_unitDefGetCount_4E3AC0()); i++ {
-		typ := s.getObjectTypeByInd(i)
+	for _, typ := range s.objs.byInd {
 		if typ == nil {
 			continue
 		}

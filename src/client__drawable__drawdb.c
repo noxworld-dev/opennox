@@ -27,7 +27,6 @@ extern uint32_t dword_5d4594_251600;
 extern uint32_t dword_5d4594_251608;
 extern uint32_t dword_5d4594_741676;
 extern uint32_t dword_5d4594_741680;
-nox_objectType_t* nox_xxx_objectTypes_head_1563660 = 0;
 
 bool nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value);
 bool nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value);
@@ -597,7 +596,8 @@ void nox_xxx_unitDefByAlphabetInit_4E3040() {
 }
 
 //----- (004E30D0) --------------------------------------------------------
-void nox_xxx_objectTypeAddToNameInd_4E30D0(int a1) {
+void nox_xxx_objectTypeAddToNameInd_4E30D0(nox_objectType_t* a1p) {
+	int a1 = a1p;
 	int v1; // eax
 	int v2; // ecx
 
@@ -702,27 +702,6 @@ int sub_4F0640() {
 		} while (result);
 	}
 	return result;
-}
-
-//----- (004E2B60) --------------------------------------------------------
-int nox_read_things_alternative_4E2B60_DONE(void) {
-	void* result = calloc(*getMemU32Ptr(0x587000, 201384), 4);
-	*getMemU32Ptr(0x5D4594, 1563456) = result;
-	if (!result) {
-		return 0;
-	}
-	nox_xxx_unitDefByAlphabetInit_4E3040();
-	int v17 = *getMemU32Ptr(0x587000, 201384);
-	int v18 = nox_xxx_objectTypes_head_1563660;
-	int v19 = 1;
-	for (int i = 1; i < *getMemIntPtr(0x587000, 201384); ++i) {
-		*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1563456) + 4 * (v17 - v19)) = v18;
-		nox_xxx_objectTypeAddToNameInd_4E30D0(v18);
-		v17 = *getMemU32Ptr(0x587000, 201384);
-		v18 = *(uint32_t*)(v18 + 220);
-		v19 = i + 1;
-	}
-	return 1;
 }
 
 //----- (0044C780) --------------------------------------------------------
