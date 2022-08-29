@@ -7054,7 +7054,8 @@ int sub_502060(int a1) {
 }
 
 //----- (00502120) --------------------------------------------------------
-int nox_thing_read_AVNT_502120(int a1, void* a2) {
+int nox_thing_read_AVNT_502120(nox_memfile* f, void* a2) {
+	int a1 = f;
 	int v2;            // esi
 	int v3;            // ebp
 	unsigned char* v4; // eax
@@ -7163,7 +7164,8 @@ int nox_thing_read_AVNT_502120(int a1, void* a2) {
 }
 
 //----- (00502320) --------------------------------------------------------
-int nox_thing_read_audio_502320(int a1, void* a2) {
+int nox_thing_read_audio_502320(nox_memfile* f, void* a2) {
+	int a1 = f;
 	int v2;  // ebx
 	int* v3; // eax
 	int v4;  // edi
