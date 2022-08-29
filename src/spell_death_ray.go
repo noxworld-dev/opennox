@@ -17,7 +17,7 @@ import (
 )
 
 var (
-	spellDRayVioletSpark uint32
+	spellDRayVioletSpark int
 )
 
 func castDeathRay(spellID things.SpellID, a2, a3, a4 *Unit, a5 *spellAcceptArg, lvl int) int {
@@ -63,7 +63,7 @@ func clientFXDeathRay(p1, p2 image.Point) {
 		return
 	}
 	if spellDRayVioletSpark == 0 {
-		spellDRayVioletSpark = nox_xxx_getTTByNameSpriteMB_44CFC0("VioletSpark")
+		spellDRayVioletSpark = nox_things.IndByID("VioletSpark")
 	}
 	for i := 0; i < dist/2+1; i++ {
 		pos := p1.Add(image.Point{

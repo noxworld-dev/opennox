@@ -212,20 +212,6 @@ uint32_t dword_5d4594_831088 = 0;
 uint32_t dword_5d4594_831092 = 0;
 uint32_t nox_player_netCode_85319C = 0;
 
-//----- (0044CD10) --------------------------------------------------------
-char* nox_xxx_spriteDefByAlphabetAdd_44CD10(char* a1) {
-	char* result; // eax
-
-	result = a1;
-	if (a1) {
-		result = (char*)nox_xxx_keyFirstLetterNumberCli_44CD30(a1);
-		if ((int)result >= 0) {
-			++*getMemU32Ptr(0x5D4594, 830616 + 4 * (uint32_t)result);
-		}
-	}
-	return result;
-}
-
 //----- (0044CD30) --------------------------------------------------------
 int nox_xxx_keyFirstLetterNumberCli_44CD30(char* a1) {
 	int result; // eax
@@ -242,31 +228,6 @@ int nox_xxx_keyFirstLetterNumberCli_44CD30(char* a1) {
 	}
 	return result;
 }
-
-//----- (0044CFC0) --------------------------------------------------------
-int nox_xxx_getTTByNameSpriteMB_44CFC0(char* a1) { return nox_xxx_getvalByName2Imp_44CFD0(a1); }
-
-//----- (0044CFD0) --------------------------------------------------------
-int nox_xxx_getvalByName2Imp_44CFD0(char* a1) {
-	int v1;         // eax
-	signed int v2;  // ecx
-	const void* v3; // eax
-	uint32_t* v4;   // eax
-	int result;     // eax
-
-	if (a1 && (v1 = nox_xxx_keyFirstLetterNumberCli_44CD30(a1), v1 >= 0) &&
-		(v2 = *getMemU32Ptr(0x5D4594, 830616 + 4 * v1), v2 >= 0) &&
-		(v3 = *(const void**)getMemAt(0x5D4594, 830296 + 4 * v1)) != 0 &&
-		(v4 = bsearch(a1, v3, v2, 8u, sub_44D020)) != 0) {
-		result = v4[1];
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
-//----- (0044D020) --------------------------------------------------------
-int sub_44D020(const void* a1, const void* a2) { return _strcmpi((const char*)a1, **(const char***)a2); }
 
 //----- (0044D040) --------------------------------------------------------
 int sub_44D040(int i) {
@@ -292,26 +253,6 @@ int sub_44D090(int a1) {
 	result = nox_get_thing(a1);
 	if (result) {
 		result = (*(uint32_t*)(result + 32) & 0x20400000) != 0;
-	}
-	return result;
-}
-
-//----- (0044D330) --------------------------------------------------------
-int sub_44D330(char* a1) { return sub_44D340(a1); }
-
-//----- (0044D340) --------------------------------------------------------
-int sub_44D340(char* a1) {
-	int v1;        // eax
-	signed int v2; // ecx
-	int* v3;       // eax
-	int result;    // eax
-
-	if (a1 && (v1 = nox_xxx_keyFirstLetterNumberCli_44CD30(a1), v1 >= 0) &&
-		(v2 = *getMemU32Ptr(0x5D4594, 830616 + 4 * v1), v2 >= 0) &&
-		(v3 = (int*)bsearch(a1, *(const void**)getMemAt(0x5D4594, 830296 + 4 * v1), v2, 8u, sub_44D020)) != 0) {
-		result = *v3;
-	} else {
-		result = 0;
 	}
 	return result;
 }

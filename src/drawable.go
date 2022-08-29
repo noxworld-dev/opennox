@@ -2,7 +2,6 @@ package opennox
 
 /*
 #include "defs.h"
-int nox_xxx_getTTByNameSpriteMB_44CFC0(char* a1);
 int  nox_xxx_client_4984B0_drawable(nox_drawable* dr);
 nox_drawable* nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a3);
 static int go_nox_drawable_call_draw_func(nox_draw_viewport_t* vp, nox_drawable* dr) {
@@ -21,10 +20,6 @@ import (
 var (
 	drawableExts = make(map[unsafe.Pointer]*drawableExt)
 )
-
-func nox_xxx_getTTByNameSpriteMB_44CFC0(name string) uint32 {
-	return uint32(C.nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr(name)))
-}
 
 type drawableExt struct {
 	Field99 **Drawable

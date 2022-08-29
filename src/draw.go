@@ -907,7 +907,7 @@ func nox_xxx_clientDrawAll_436100_draw() {
 
 func nox_xxx_drawAllMB_475810_draw_A(vp *Viewport) {
 	if *memmap.PtrUint32(0x5D4594, 1096448) == 0 {
-		*memmap.PtrUint32(0x5D4594, 1096448) = nox_xxx_getTTByNameSpriteMB_44CFC0("Crown")
+		*memmap.PtrUint32(0x5D4594, 1096448) = uint32(nox_things.IndByID("Crown"))
 	}
 	sub_477F80()
 	*memmap.PtrUint32(0x973F18, 68) = 0
@@ -2291,16 +2291,16 @@ func (r *NoxRender) drawParticles49ED80(mul2 int) bool {
 }
 
 var (
-	drawWhiteBubbleParticle     uint32
-	drawLightBlueBubbleParticle uint32
-	drawRedBubbleParticle       uint32
-	drawOrangeBubbleParticle    uint32
-	drawYellowBubbleParticle    uint32
-	drawGreenBubbleParticle     uint32
-	drawWhiteSpark              uint32
+	drawWhiteBubbleParticle     int
+	drawLightBlueBubbleParticle int
+	drawRedBubbleParticle       int
+	drawOrangeBubbleParticle    int
+	drawYellowBubbleParticle    int
+	drawGreenBubbleParticle     int
+	drawWhiteSpark              int
 )
 
-func sub_499F60(p uint32, pos image.Point, a4 int, a5, a6, a7, a8, a9 int, a10 int) {
+func sub_499F60(p int, pos image.Point, a4 int, a5, a6, a7, a8, a9 int, a10 int) {
 	C.sub_499F60(C.int(p), C.int(pos.X), C.int(pos.Y), C.short(a4), C.char(a5), C.char(a6), C.char(a7), C.char(a8), C.char(a9), C.int(a10))
 }
 
@@ -2314,8 +2314,8 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 	}
 	if dr.HasEnchant(ENCHANT_HASTED) && !nox_xxx_checkGameFlagPause_413A50() {
 		if drawWhiteBubbleParticle == 0 {
-			drawWhiteBubbleParticle = nox_xxx_getTTByNameSpriteMB_44CFC0("WhiteBubbleParticle")
-			drawLightBlueBubbleParticle = nox_xxx_getTTByNameSpriteMB_44CFC0("LightBlueBubbleParticle")
+			drawWhiteBubbleParticle = nox_things.IndByID("WhiteBubbleParticle")
+			drawLightBlueBubbleParticle = nox_things.IndByID("LightBlueBubbleParticle")
 		}
 		pos := dr.Pos()
 		v2 := 0
@@ -2344,8 +2344,8 @@ func drawCreatureBackEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 	}
 	if dr.HasEnchant(ENCHANT_RUN) && !nox_xxx_checkGameFlagPause_413A50() {
 		if drawRedBubbleParticle == 0 {
-			drawRedBubbleParticle = nox_xxx_getTTByNameSpriteMB_44CFC0("RedBubbleParticle")
-			drawOrangeBubbleParticle = nox_xxx_getTTByNameSpriteMB_44CFC0("OrangeBubbleParticle")
+			drawRedBubbleParticle = nox_things.IndByID("RedBubbleParticle")
+			drawOrangeBubbleParticle = nox_things.IndByID("OrangeBubbleParticle")
 		}
 		pos := dr.Pos()
 		v5 := 1
@@ -2396,7 +2396,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 	}
 	if dr.HasEnchant(ENCHANT_SHOCK) {
 		if drawWhiteSpark == 0 {
-			drawWhiteSpark = nox_xxx_getTTByNameSpriteMB_44CFC0("WhiteSpark")
+			drawWhiteSpark = nox_things.IndByID("WhiteSpark")
 		}
 		pos := dr.Pos()
 		C.nox_xxx_drawEnergyBolt_499710(C.int(pos.X), C.int(pos.Y), C.short(*(*int16)(dr.field(104))), C.int(drawWhiteSpark))
@@ -2422,7 +2422,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 		v11 := int(*(*float32)(dr.field(48)))
 		v44 := int(dr.Field25() * 0.5)
 		if drawYellowBubbleParticle == 0 {
-			drawYellowBubbleParticle = nox_xxx_getTTByNameSpriteMB_44CFC0("YellowBubbleParticle")
+			drawYellowBubbleParticle = nox_things.IndByID("YellowBubbleParticle")
 		}
 		pos := dr.Pos()
 		for v12 := 0; v12 < 2; v12++ {
@@ -2439,7 +2439,7 @@ func drawCreatureFrontEffects(r *NoxRender, vp *Viewport, dr *Drawable) {
 	}
 	if dr.HasEnchant(ENCHANT_INFRAVISION) && !nox_xxx_checkGameFlagPause_413A50() {
 		if drawGreenBubbleParticle == 0 {
-			drawGreenBubbleParticle = nox_xxx_getTTByNameSpriteMB_44CFC0("GreenBubbleParticle")
+			drawGreenBubbleParticle = nox_things.IndByID("GreenBubbleParticle")
 		}
 		pos := dr.Pos()
 		v41 := randomIntMinMax(2, 3)

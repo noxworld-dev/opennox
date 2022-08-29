@@ -1,17 +1,16 @@
 package opennox
 
 /*
-#include "GAME2.h"
 #include "GAME2_3.h"
 #include "client__drawable__drawdb.h"
 #include "client__draw__debugdraw.h"
 void nox_xxx_draw_44C650_free(void* lpMem, void* draw);
 void nox_xxx_free_42BF80();
-void sub_44C620_free();
 */
 import "C"
 import (
 	"fmt"
+	"strings"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/strman"
@@ -20,6 +19,18 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
+//export nox_xxx_getTTByNameSpriteMB_44CFC0
+func nox_xxx_getTTByNameSpriteMB_44CFC0(cstr *C.char) C.int {
+	id := GoString(cstr)
+	return C.int(nox_things.TypeByID(id).Index())
+}
+
+//export sub_44D330
+func sub_44D330(cstr *C.char) *C.nox_thing {
+	id := GoString(cstr)
+	return nox_things.TypeByID(id).C()
+}
+
 var (
 	nox_things clientObjTypes
 )
@@ -27,6 +38,7 @@ var (
 type clientObjTypes struct {
 	first *nox_thing
 	byInd []*nox_thing
+	byID  map[string]*nox_thing
 }
 
 type nox_thing struct {
@@ -83,7 +95,7 @@ func (t *nox_thing) Index() int {
 
 func (c *clientObjTypes) nox_things_free_44C580() {
 	var next *nox_thing
-	for cur := c.first; cur != nil; cur = next {
+	for cur := nox_things.first; cur != nil; cur = next {
 		next = cur.next
 		if cur.name != nil {
 			StrFree(cur.name)
@@ -95,7 +107,7 @@ func (c *clientObjTypes) nox_things_free_44C580() {
 	}
 	c.first = nil
 	c.byInd = []*nox_thing{nil}
-	C.sub_44C620_free()
+	c.byID = make(map[string]*nox_thing)
 	if !noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_free_42BF80()
 	}
@@ -121,9 +133,9 @@ func (c *clientObjTypes) readType(thg *MemFile, buf []byte) error {
 	if C.nox_parse_thing(thg.C(), (*C.char)(unsafe.Pointer(&buf[0])), typ.C()) == 0 {
 		return fmt.Errorf("cannot parse object type %q", id)
 	}
-	typ.next = nox_things.first
-	nox_things.first = typ
-	C.nox_xxx_spriteDefByAlphabetAdd_44CD10(typ.name)
+	typ.next = c.first
+	c.first = typ
+	c.byID[strings.ToLower(id)] = typ
 	if typ.weight != 0 {
 		if typ.pretty_name == nil {
 			typ.pretty_name, _ = CWString(strMan.GetStringInFile(strman.ID(fmt.Sprintf("thing.db:%sPrettyName", id)), "drawdb.c"))
@@ -133,6 +145,14 @@ func (c *clientObjTypes) readType(thg *MemFile, buf []byte) error {
 		}
 	}
 	return nil
+}
+
+func (c *clientObjTypes) TypeByID(id string) *nox_thing {
+	return c.byID[strings.ToLower(id)]
+}
+
+func (c *clientObjTypes) IndByID(id string) int {
+	return c.TypeByID(id).Index()
 }
 
 //export nox_get_things_count
