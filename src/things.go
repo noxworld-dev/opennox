@@ -47,7 +47,7 @@ var (
 )
 
 func getThingName(i int) string {
-	return GoString(C.nox_get_thing_name(C.int(i)))
+	return GoString(nox_get_thing_name(C.int(i)))
 }
 
 func thingsImageRef(ref *things.ImageRef) *Image {
