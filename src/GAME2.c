@@ -247,46 +247,6 @@ int nox_xxx_keyFirstLetterNumberCli_44CD30(char* a1) {
 	return result;
 }
 
-//----- (0044CEF0) --------------------------------------------------------
-char* nox_get_thing_name(int i) {
-	if (i < 1 || i >= nox_things_count) {
-		return 0;
-	}
-	return nox_things_array[i]->name;
-}
-
-//----- (0044CF10) --------------------------------------------------------
-nox_thing* nox_get_thing(int i) {
-	if (i < 1 || i >= nox_things_count) {
-		return 0;
-	}
-	return nox_things_array[i];
-}
-
-//----- (0044CF30) --------------------------------------------------------
-wchar_t* nox_get_thing_pretty_name(int i) {
-	if (i < 1 || i >= nox_things_count) {
-		return 0;
-	}
-	return nox_things_array[i]->pretty_name;
-}
-
-//----- (0044CF60) --------------------------------------------------------
-wchar_t* nox_get_thing_desc(int i) {
-	if (i < 1 || i >= nox_things_count) {
-		return 0;
-	}
-	return nox_things_array[i]->desc;
-}
-
-//----- (0044CF90) --------------------------------------------------------
-int nox_get_thing_pretty_image(int i) {
-	if (i < 1 || i >= nox_things_count) {
-		return 0;
-	}
-	return nox_things_array[i]->pretty_image;
-}
-
 //----- (0044CFC0) --------------------------------------------------------
 int nox_xxx_getTTByNameSpriteMB_44CFC0(char* a1) { return nox_xxx_getvalByName2Imp_44CFD0(a1); }
 
