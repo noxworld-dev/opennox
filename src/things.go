@@ -12,17 +12,17 @@ package opennox
 extern uint32_t dword_5d4594_251540;
 extern uint32_t dword_5d4594_251568;
 extern uint32_t dword_5d4594_251572;
-extern nox_objectType_t* nox_xxx_objectTypes_head_1563660;
 int sub_485CF0();
 int sub_485F30();
 int sub_46A360();
 int sub_4F0640();
-int nox_read_things_alternative_4E2B60_DONE(void);
 int sub_42BF10();
 char* nox_xxx_equipWeapon_4131A0();
 void nox_xxx_equipArmor_415AB0();
 void nox_xxx_equipWeapon_4157C0();
 void sub_4E29D0();
+void nox_xxx_unitDefByAlphabetInit_4E3040();
+void nox_xxx_objectTypeAddToNameInd_4E30D0(nox_objectType_t* a1p);
 */
 import "C"
 import (
@@ -32,10 +32,12 @@ import (
 
 	"github.com/noxworld-dev/noxcrypt"
 	"github.com/noxworld-dev/opennox-lib/log"
+	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/things"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var (
@@ -268,8 +270,9 @@ func (s *Server) nox_read_things_alternative_4E2B60() error {
 	if err := s.objs.checkTypes(); err != nil {
 		return err
 	}
-	if C.nox_read_things_alternative_4E2B60_DONE() == 0 {
-		return fmt.Errorf("nox_read_things_alternative_4E2B60_DONE failed")
+	C.nox_xxx_unitDefByAlphabetInit_4E3040()
+	for _, cur := range s.objs.byInd {
+		C.nox_xxx_objectTypeAddToNameInd_4E30D0(cur.C())
 	}
 	C.sub_4E29D0()
 	C.nox_xxx_equipWeapon_4131A0()
@@ -337,4 +340,18 @@ func nox_xxx_parseThingBinClient_44C840_read_things() error {
 		return fmt.Errorf("sub_42BF10 failed")
 	}
 	return nil
+}
+
+//export sub_4E3AD0
+func sub_4E3AD0(ind C.int) C.int {
+	if memmap.Uint32(0x5D4594, 1563904) == 0 {
+		*memmap.PtrUint32(0x5D4594, 1563904) = uint32(noxServer.getObjectTypeID("Pixie"))
+	}
+	typ := noxServer.getObjectTypeByInd(int(ind))
+	if cl := typ.Class(); !cl.Has(object.ClassMissile) && cl.Has(object.ClassImmobile) && !cl.Has(object.ClassVisibleEnable) {
+		if f := typ.Flags(); f.Has(object.FlagNoCollide) && !f.Has(object.FlagShadow) {
+			return 0
+		}
+	}
+	return 1
 }

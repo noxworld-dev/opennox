@@ -56,7 +56,6 @@ extern void* nox_alloc_respawn_1568020;
 extern uint32_t dword_5d4594_1565616;
 extern uint32_t dword_587000_202404;
 extern uint32_t nox_xxx_warriorMaxMana_587000_312788;
-extern nox_objectType_t* nox_xxx_objectTypes_head_1563660;
 extern uint32_t nox_xxx_warriorMaxHealth_587000_312784;
 extern uint32_t nox_xxx_conjurerMaxHealth_587000_312800;
 extern uint32_t nox_xxx_wizardMaxHealth_587000_312816;
@@ -834,11 +833,6 @@ int nox_xxx_freeGameObjectClass_4E3420() {
 	return 1;
 }
 
-//----- (004E3450) --------------------------------------------------------
-nox_object_t* nox_xxx_newObjectWithTypeInd_4E3450(int ind) {
-	return nox_xxx_newObjectWithType_4E3470(*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1563456) + 4 * ind));
-}
-
 //----- (004E3470) --------------------------------------------------------
 nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	void* v5; // eax
@@ -1056,22 +1050,6 @@ int nox_xxx_objectFreeMem_4E38A0(int a1) {
 	return --*getMemU32Ptr(0x5D4594, 1563900);
 }
 
-//----- (004E39D0) --------------------------------------------------------
-int nox_xxx_getUnitName_4E39D0(int a1) {
-	return *(uint32_t*)(*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1563456) + 4 * *(unsigned short*)(a1 + 4)) + 4);
-}
-
-//----- (004E3A80) --------------------------------------------------------
-int nox_xxx_getUnitNameByThingType_4E3A80(int a1) {
-	int result; // eax
-
-	result = a1;
-	if (a1) {
-		result = *(uint32_t*)(*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1563456) + 4 * a1) + 4);
-	}
-	return result;
-}
-
 //----- (004E3AA0) --------------------------------------------------------
 int nox_xxx_getNameId_4E3AA0(char* a1) {
 	unsigned short* v1; // eax
@@ -1086,60 +1064,8 @@ int nox_xxx_getNameId_4E3AA0(char* a1) {
 	return result;
 }
 
-//----- (004E3AD0) --------------------------------------------------------
-int sub_4E3AD0(int a1) {
-	int v1;     // ecx
-	int v2;     // eax
-	int v3;     // ecx
-	int result; // eax
-
-	if (!*getMemU32Ptr(0x5D4594, 1563904)) {
-		*getMemU32Ptr(0x5D4594, 1563904) = nox_xxx_getNameId_4E3AA0("Pixie");
-	}
-	v1 = *(uint32_t*)(*getMemU32Ptr(0x5D4594, 1563456) + 4 * a1);
-	v2 = *(uint32_t*)(v1 + 24);
-	result = 1;
-	if (!(v2 & 1)) {
-		if (v2 & 0x400000) {
-			if (!(0x800000 & v2)) {
-				v3 = *(uint32_t*)(v1 + 32);
-				if (v3 & 0x40) {
-					if (!(v3 & 0x10000)) {
-						result = 0;
-					}
-				}
-			}
-		}
-	}
-	return result;
-}
-
-//----- (004E3B30) --------------------------------------------------------
-nox_objectType_t* nox_xxx_getFirstObjectType_4E3B30() { return nox_xxx_objectTypes_head_1563660; }
-
-//----- (004E3B40) --------------------------------------------------------
-nox_objectType_t* nox_xxx_objectType_next_4E3B40(nox_objectType_t* typ) {
-	if (!typ) {
-		return 0;
-	}
-	return typ->next;
-}
-
 //----- (004E3B60) --------------------------------------------------------
 nox_objectType_t* nox_xxx_objectTypeByID_4E3B60(char* id) { return nox_xxx_objectTypeByID_4E3830(id); }
-
-//----- (004E3B70) --------------------------------------------------------
-nox_objectType_t* nox_xxx_objectTypeByInd_4E3B70(int ind) {
-	return *(uint32_t*)(*getMemU32Ptr(0x5D4594, 1563456) + 4 * ind);
-}
-
-//----- (004E3B80) --------------------------------------------------------
-int sub_4E3B80(int a1) { return *(int*)(*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1563456) + 4 * a1) + 12) != -1; }
-
-//----- (004E3BA0) --------------------------------------------------------
-int nox_xxx_getUnitDefDd10_4E3BA0(int a1) {
-	return *(uint32_t*)(*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1563456) + 4 * a1) + 16);
-}
 
 //----- (004E3CA0) --------------------------------------------------------
 double sub_4E3CA0() { return *getMemFloatPtr(0x587000, 202024); }
