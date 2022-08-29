@@ -1039,13 +1039,41 @@ int nox_read_things_alternative_4E2B60_THNG(nox_memfile* things, void* v3) {
 	nox_xxx_unitDefByAlphabetAdd_4E3080(typ->id);
 	return 1;
 }
+int nox_read_things_alternative_4E2B60_DONE(void) {
+	*getMemU32Ptr(0x85B3FC, 960) = 1;
+	if (!nox_xxx_objectTypes_allFit_4E3110()) {
+		return 0;
+	}
+	nox_xxx_protectUnitDefUpdateMB_4E3C20();
+	void* result = calloc(*getMemU32Ptr(0x587000, 201384), 4);
+	*getMemU32Ptr(0x5D4594, 1563456) = result;
+	if (!result) {
+		return 0;
+	}
+	nox_xxx_unitDefByAlphabetInit_4E3040();
+	int v17 = *getMemU32Ptr(0x587000, 201384);
+	int v18 = nox_xxx_objectTypes_head_1563660;
+	int v19 = 1;
+	for (int i = 1; i < *getMemIntPtr(0x587000, 201384); ++i) {
+		*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1563456) + 4 * (v17 - v19)) = v18;
+		nox_xxx_objectTypeAddToNameInd_4E30D0(v18);
+		v17 = *getMemU32Ptr(0x587000, 201384);
+		v18 = *(uint32_t*)(v18 + 220);
+		v19 = i + 1;
+	}
+	sub_4E29D0();
+	nox_xxx_equipWeapon_4131A0();
+	nox_xxx_equipArmor_415AB0();
+	nox_xxx_equipWeapon_4157C0();
+	sub_4F0640();
+	if (!sub_42BF10()) {
+		return 0;
+	}
+	return 1;
+}
 int nox_read_things_alternative_4E2B60(void) {
 	void* v1;     // eax
 	void* v3;     // edi
-	void* result; // eax
-	int v17;      // ecx
-	int v18;      // esi
-	int v19;      // eax
 	int i;        // [esp+0h] [ebp-8h]
 	void* v21;    // [esp+4h] [ebp-4h]
 
@@ -1107,7 +1135,6 @@ int nox_read_things_alternative_4E2B60(void) {
 			break;
 		}
 	}
-	*getMemU32Ptr(0x85B3FC, 960) = 1;
 	if (nox_loaded_thing_bin) {
 		if (nox_common_gameFlags_check_40A5C0(2) && *getMemU32Ptr(0x85B3FC, 4)) {
 			nox_free_thing_bin();
@@ -1115,36 +1142,8 @@ int nox_read_things_alternative_4E2B60(void) {
 	} else {
 		nox_memfile_free(things);
 	}
-	if (!nox_xxx_objectTypes_allFit_4E3110()) {
-		return 0;
-	}
-	nox_xxx_protectUnitDefUpdateMB_4E3C20();
-	result = calloc(*getMemU32Ptr(0x587000, 201384), 4);
-	*getMemU32Ptr(0x5D4594, 1563456) = result;
-	if (!result) {
-		return 0;
-	}
-	nox_xxx_unitDefByAlphabetInit_4E3040();
-	v17 = *getMemU32Ptr(0x587000, 201384);
-	v18 = nox_xxx_objectTypes_head_1563660;
-	v19 = 1;
-	for (i = 1; i < *getMemIntPtr(0x587000, 201384); ++i) {
-		*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1563456) + 4 * (v17 - v19)) = v18;
-		nox_xxx_objectTypeAddToNameInd_4E30D0(v18);
-		v17 = *getMemU32Ptr(0x587000, 201384);
-		v18 = *(uint32_t*)(v18 + 220);
-		v19 = i + 1;
-	}
-	sub_4E29D0();
 	free(v3);
-	nox_xxx_equipWeapon_4131A0();
-	nox_xxx_equipArmor_415AB0();
-	nox_xxx_equipWeapon_4157C0();
-	sub_4F0640();
-	if (!sub_42BF10()) {
-		return 0;
-	}
-	return 1;
+	return nox_read_things_alternative_4E2B60_DONE();
 }
 
 //----- (0044C780) --------------------------------------------------------
