@@ -17,11 +17,15 @@ extern nox_objectType_t* nox_xxx_objectTypes_head_1563660;
 int sub_485CF0();
 int sub_485F30();
 int sub_46A360();
+int sub_4F0640();
 int nox_read_things_alternative_4E2B60_DONE(void);
 int sub_42BF10();
 char* nox_xxx_equipWeapon_4131A0();
 void nox_xxx_equipArmor_415AB0();
 void nox_xxx_equipWeapon_4157C0();
+int nox_xxx_objectTypes_allFit_4E3110();
+int nox_xxx_protectUnitDefUpdateMB_4E3C20();
+void sub_4E29D0();
 */
 import "C"
 import (
@@ -35,6 +39,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var (
@@ -264,8 +269,21 @@ func (s *Server) nox_read_things_alternative_4E2B60() error {
 			}
 		}
 	}
+	*memmap.PtrUint32(0x85B3FC, 960) = 1
+	if C.nox_xxx_objectTypes_allFit_4E3110() == 0 {
+		return fmt.Errorf("nox_xxx_objectTypes_allFit_4E3110 failed")
+	}
+	C.nox_xxx_protectUnitDefUpdateMB_4E3C20()
 	if C.nox_read_things_alternative_4E2B60_DONE() == 0 {
 		return fmt.Errorf("nox_read_things_alternative_4E2B60_DONE failed")
+	}
+	C.sub_4E29D0()
+	C.nox_xxx_equipWeapon_4131A0()
+	C.nox_xxx_equipArmor_415AB0()
+	C.nox_xxx_equipWeapon_4157C0()
+	C.sub_4F0640()
+	if C.sub_42BF10() == 0 {
+		return fmt.Errorf("sub_42BF10 failed")
 	}
 	return nil
 }

@@ -653,7 +653,7 @@ void sub_4E29D0() {
 }
 
 //----- (004F0640) --------------------------------------------------------
-const char* sub_4F0640() {
+int sub_4F0640() {
 	char* v0;           // eax
 	unsigned char* v1;  // esi
 	char v2;            // cl
@@ -730,11 +730,6 @@ const char* sub_4F0640() {
 
 //----- (004E2B60) --------------------------------------------------------
 int nox_read_things_alternative_4E2B60_DONE(void) {
-	*getMemU32Ptr(0x85B3FC, 960) = 1;
-	if (!nox_xxx_objectTypes_allFit_4E3110()) {
-		return 0;
-	}
-	nox_xxx_protectUnitDefUpdateMB_4E3C20();
 	void* result = calloc(*getMemU32Ptr(0x587000, 201384), 4);
 	*getMemU32Ptr(0x5D4594, 1563456) = result;
 	if (!result) {
@@ -750,14 +745,6 @@ int nox_read_things_alternative_4E2B60_DONE(void) {
 		v17 = *getMemU32Ptr(0x587000, 201384);
 		v18 = *(uint32_t*)(v18 + 220);
 		v19 = i + 1;
-	}
-	sub_4E29D0();
-	nox_xxx_equipWeapon_4131A0();
-	nox_xxx_equipArmor_415AB0();
-	nox_xxx_equipWeapon_4157C0();
-	sub_4F0640();
-	if (!sub_42BF10()) {
-		return 0;
 	}
 	return 1;
 }
