@@ -3,6 +3,10 @@ package opennox
 /*
 #include "GAME3_2.h"
 #include "GAME3_3.h"
+#include "GAME4_3.h"
+extern uint32_t dword_5d4594_1563664;
+extern nox_objectType_t* nox_xxx_objectTypes_head_1563660;
+char* nox_xxx_unitDefByAlphabetAdd_4E3080(char* a1);
 */
 import "C"
 import (
@@ -13,7 +17,15 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
+
+//export nox_xxx_unitDefGetCount_4E3AC0
+func nox_xxx_unitDefGetCount_4E3AC0() C.int {
+	return C.int(memmap.Uint32(0x587000, 201384))
+}
 
 type serverObjTypes struct {
 	fast struct {
@@ -25,6 +37,79 @@ type serverObjTypes struct {
 		polyp     int
 		wisp      int
 	}
+}
+
+func (s *serverObjTypes) readType(thg *MemFile, buf []byte) error {
+	typ, _ := alloc.New(ObjectType{})
+	id, err := thg.ReadString8()
+	if err != nil {
+		return fmt.Errorf("cannot read object type: %w", err)
+	}
+	typ.id = CString(id)
+
+	typ.ind = memmap.Uint16(0x587000, 201384)
+	*memmap.PtrUint16(0x587000, 201384)++
+
+	typ.field_2 = 0
+	typ.menu_icon = -1
+	typ.material = 0x4000
+	typ.mass = 1.0
+	typ.zsize1 = 0
+	typ.zsize2 = 30.0
+	typ.func_damage = C.nox_xxx_damageDefaultProc_4E0B30
+	typ.func_damage_sound = C.nox_xxx_soundDefaultDamageSound_532E20
+	typ.func_xfer = C.nox_xxx_XFerDefault_4F49A0
+	typ.weight = 255
+	if err := nox_thing_read_xxx_4E3220(thg, buf, typ); err != nil {
+		return err
+	}
+	if typ.func_collide == nil {
+		typ.obj_flags |= uint32(object.FlagNoCollide)
+	}
+	typ.field_5_0 = typ.ind
+	typ.obj_flags |= uint32(object.FlagEnabled)
+	if typ.Class().Has(object.ClassImmobile) {
+		typ.mass = 1e10
+	}
+	if typ.Class().Has(object.ClassMissile) {
+		typ.field_13 = 1.0
+		typ.speed *= 2
+		typ.speed_2 *= 2
+	} else {
+		typ.field_13 = 0.5
+	}
+	switch id {
+	case "Boulder", "RollingBoulder", "BoulderIndestructible":
+		typ.field_13 = 0.01
+		typ.mass = 100.0
+	case "Rock7":
+		typ.mass = 0.25
+	}
+	if typ.Class().Has(object.ClassMonster) {
+		ud := typ.updateDataMonster()
+		ud.field_309 = -1
+		ud.field_307 = -1
+		ud.field_317 = -1
+	} else if typ.Class().Has(object.ClassTrigger) {
+		ud := unsafe.Slice((*int32)(typ.data_update), 9)
+		ud[6] = -1
+		ud[8] = -1
+		ud[4] = -1
+	} else if typ.Class().Has(object.ClassHole) {
+		*(*int32)(unsafe.Add(typ.collide_data, 4)) = -1
+	}
+	if typ.Class().HasAny(object.ClassWeapon | object.ClassArmor | object.ClassPlayer | object.ClassMonster) {
+		if typ.data_34 == nil {
+			typ.data_34, _ = alloc.Malloc(20)
+		}
+	}
+	typ.field_4 = 1
+	typ.mass *= 10.0
+	C.dword_5d4594_1563664 ^= C.nox_xxx_unitDefProtectMB_4E31A0(typ.C())
+	typ.next = asObjectType(C.nox_xxx_objectTypes_head_1563660)
+	C.nox_xxx_objectTypes_head_1563660 = typ.C()
+	C.nox_xxx_unitDefByAlphabetAdd_4E3080(typ.id)
+	return nil
 }
 
 func (s *Server) getObjectTypeByID(id string) *ObjectType { // nox_xxx_objectTypeByID_4E3830
@@ -202,6 +287,18 @@ func (t *ObjectType) CreateObject(p types.Pointf) script.Object {
 	return obj
 }
 
+func (t *ObjectType) updateDataPtr() unsafe.Pointer {
+	return t.data_update
+}
+
 func (t *ObjectType) updateDataRaw() []byte {
 	return unsafe.Slice((*byte)(t.data_update), int(t.data_update_size))
+}
+
+func (t *ObjectType) updateDataMonster() *MonsterUpdateData {
+	if !t.Class().Has(object.ClassMonster) {
+		panic(t.Class().String())
+	}
+	p := (*C.nox_object_Monster_data_t)(t.updateDataPtr())
+	return (*MonsterUpdateData)(unsafe.Pointer(p))
 }

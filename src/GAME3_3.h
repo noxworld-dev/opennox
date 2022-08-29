@@ -19,7 +19,7 @@ void nox_xxx_mapDamageUnitsAround_4E25B0(float* a1, float a2, float a3, int a4, 
 void nox_xxx_damageFn_4E2700(float* a1, int a2);
 int nox_xxx_damageMonsterGen_4E27D0(int a1, int a2, int a3, int a4, int a5);
 int nox_xxx_keyFirstLetterNumber_4E30A0(char* a1);
-int nox_xxx_unitDefProtectMB_4E31A0(int a1);
+unsigned int nox_xxx_unitDefProtectMB_4E31A0(nox_objectType_t* a1);
 int sub_4E31E0(uint32_t* a1);
 int nox_thing_read_xxx_4E3220(nox_memfile* a1, char* a2, nox_objectType_t* a3);
 int nox_xxx_allocClassArrayObjects_4E3360(unsigned int a1);

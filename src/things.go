@@ -24,7 +24,6 @@ int nox_xxx_parseThingBinClient_44C840_read_things_THNG(nox_memfile* things, cha
 int nox_xxx_parseThingBinClient_44C840_read_things_DONE(void);
 int sub_4E3010();
 int nox_read_things_alternative_4E2B60_DONE(void);
-int nox_read_things_alternative_4E2B60_THNG(nox_memfile* things, void* v3);
 int nox_xxx_freeObjectTypes_4E2A20();
 */
 import "C"
@@ -268,8 +267,8 @@ func (s *Server) nox_read_things_alternative_4E2B60() error {
 		case 0x494D4147: // IMAG
 			C.nox_thing_read_image_415240(thg.C())
 		case 0x54484E47: // THNG
-			if C.nox_read_things_alternative_4E2B60_THNG(thg.C(), unsafe.Pointer(&buf[0])) == 0 {
-				return fmt.Errorf("nox_read_things_alternative_4E2B60_THNG failed")
+			if err := s.objs.readType(thg, buf); err != nil {
+				return err
 			}
 		}
 	}
