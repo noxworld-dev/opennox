@@ -97,9 +97,6 @@ func (c *clientObjTypes) nox_things_free_44C580() {
 	var next *nox_thing
 	for cur := nox_things.first; cur != nil; cur = next {
 		next = cur.next
-		if cur.name != nil {
-			StrFree(cur.name)
-		}
 		if cur.field_5c != nil {
 			C.nox_xxx_draw_44C650_free(cur.field_5c, cur.draw_func)
 		}
@@ -119,7 +116,7 @@ func (c *clientObjTypes) readType(thg *MemFile, buf []byte) error {
 	if err != nil {
 		return fmt.Errorf("cannot read object type: %w", err)
 	}
-	typ.name = CString(id)
+	typ.name = internCStr(id)
 	typ.menuicon = -1
 	typ.field_1c = int32(len(c.byInd))
 	c.byInd = append(c.byInd, typ)
