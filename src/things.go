@@ -23,8 +23,6 @@ int sub_42BF10();
 char* nox_xxx_equipWeapon_4131A0();
 void nox_xxx_equipArmor_415AB0();
 void nox_xxx_equipWeapon_4157C0();
-int nox_xxx_objectTypes_allFit_4E3110();
-int nox_xxx_protectUnitDefUpdateMB_4E3C20();
 void sub_4E29D0();
 */
 import "C"
@@ -270,10 +268,9 @@ func (s *Server) nox_read_things_alternative_4E2B60() error {
 		}
 	}
 	*memmap.PtrUint32(0x85B3FC, 960) = 1
-	if C.nox_xxx_objectTypes_allFit_4E3110() == 0 {
-		return fmt.Errorf("nox_xxx_objectTypes_allFit_4E3110 failed")
+	if err := s.objs.checkTypes(); err != nil {
+		return err
 	}
-	C.nox_xxx_protectUnitDefUpdateMB_4E3C20()
 	if C.nox_read_things_alternative_4E2B60_DONE() == 0 {
 		return fmt.Errorf("nox_read_things_alternative_4E2B60_DONE failed")
 	}

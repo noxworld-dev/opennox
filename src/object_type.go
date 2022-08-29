@@ -10,6 +10,7 @@ char* nox_xxx_unitDefByAlphabetAdd_4E3080(char* a1);
 void nox_xxx_unitDefByAlphabetFree_4E2B30();
 void nox_xxx_free_42BF80();
 int sub_4E3010();
+int nox_xxx_protectUnitDefUpdateMB_4E3C20();
 */
 import "C"
 import (
@@ -170,6 +171,37 @@ func (s *serverObjTypes) readType(thg *MemFile, buf []byte) error {
 	typ.next = asObjectType(C.nox_xxx_objectTypes_head_1563660)
 	C.nox_xxx_objectTypes_head_1563660 = typ.C()
 	C.nox_xxx_unitDefByAlphabetAdd_4E3080(typ.id)
+	return nil
+}
+
+func (s *serverObjTypes) checkTypes() error {
+	if err := s.checkObjSizes(); err != nil {
+		return err
+	}
+	C.nox_xxx_protectUnitDefUpdateMB_4E3C20()
+	return nil
+}
+
+func (s *serverObjTypes) checkObjSizes() error {
+	const maxSize = 85
+	for typ := asObjectType(C.nox_xxx_objectTypes_head_1563660); typ != nil; typ = typ.next {
+		if typ.Flags().Has(object.FlagNoCollide) {
+			continue
+		}
+		shape := &typ.shape
+		if shape.kind == shapeKindCircle {
+			if sz := 2 * shape.circle.R; sz >= maxSize {
+				return fmt.Errorf("object %q is too large: %v >= %v", typ.ID(), sz, maxSize)
+			}
+		} else if shape.kind == shapeKindBox {
+			shape.box.Calc()
+			if sz := shape.box.RightTop - shape.box.LeftBottom2; sz >= 85.0 {
+				return fmt.Errorf("object %q is too large: %v >= %v", typ.ID(), sz, maxSize)
+			} else if sz = shape.box.RightTop2 - shape.box.LeftBottom; sz >= 85.0 {
+				return fmt.Errorf("object %q is too large: %v >= %v", typ.ID(), sz, maxSize)
+			}
+		}
+	}
 	return nil
 }
 

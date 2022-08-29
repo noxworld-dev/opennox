@@ -584,29 +584,6 @@ char* nox_xxx_unitDefByAlphabetAdd_4E3080(char* a1) {
 	return result;
 }
 
-//----- (004E3110) --------------------------------------------------------
-int nox_xxx_objectTypes_allFit_4E3110() {
-	int ret = 1;
-	for (nox_objectType_t* typ = nox_xxx_getFirstObjectType_4E3B30(); typ; typ = nox_xxx_objectType_next_4E3B40(typ)) {
-		if ((typ->obj_flags & 0x40) != 0) {
-			continue;
-		}
-		nox_shape* shape = &typ->shape;
-		if (shape->kind == NOX_SHAPE_CIRCLE) {
-			if (shape->circle_r + shape->circle_r >= 85.0) {
-				ret = 0;
-			}
-		} else if (shape->kind == NOX_SHAPE_BOX) {
-			nox_shape_box_calc(shape);
-			if (shape->box_right_top - shape->box_left_bottom_2 >= 85.0 ||
-				shape->box_right_top_2 - shape->box_left_bottom >= 85.0) {
-				ret = 0;
-			}
-		}
-	}
-	return ret;
-}
-
 //----- (004E3040) --------------------------------------------------------
 void nox_xxx_unitDefByAlphabetInit_4E3040() {
 	for (int i = 0; i < 27; i++) {
