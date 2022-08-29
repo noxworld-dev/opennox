@@ -13,7 +13,6 @@ extern int nox_parse_thing_funcs_cnt;
 
 void* nox_xxx_parseThingBinClient_44C840_read_things(void);
 int nox_parse_thing(nox_memfile* thing_file, char* scratch_buffer, nox_thing* thing);
-void nox_things_free_44C580();
 
 int nox_xxx_freeObjectTypes_4E2A20();
 

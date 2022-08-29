@@ -1108,31 +1108,3 @@ void nox_xxx_draw_44C650_free(void* lpMem, void* draw) {
 		break;
 	}
 }
-
-//----- (0044C580) --------------------------------------------------------
-void nox_things_free_44C580() {
-	if (nox_things_head) {
-		nox_thing* cur = nox_things_head;
-		while (cur) {
-			if (cur->name) {
-				free(cur->name);
-			}
-			if (cur->field_5c) {
-				nox_xxx_draw_44C650_free(cur->field_5c, cur->draw_func);
-			}
-			nox_thing* next = cur->next;
-			free(cur);
-			cur = next;
-		}
-	}
-	nox_things_head = NULL;
-	if (nox_things_array) {
-		free(nox_things_array);
-		nox_things_array = NULL;
-	}
-	nox_things_count = 0;
-	sub_44C620_free();
-	if (!nox_common_gameFlags_check_40A5C0(1)) {
-		nox_xxx_free_42BF80();
-	}
-}
