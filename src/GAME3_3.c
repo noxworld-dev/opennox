@@ -811,17 +811,6 @@ int sub_4E31E0(uint32_t* a1) {
 	return result;
 }
 
-//----- (004E3320) --------------------------------------------------------
-void nox_xxx_unitDefFindMaxDataSize_4E3320() {
-	int max = 0;
-	for (nox_objectType_t* typ = nox_xxx_objectTypes_head_1563660; typ; typ = typ->next) {
-		if (max < typ->collide_data_size + typ->init_data_size + typ->data_update_size + typ->use_data_size) {
-			max = typ->collide_data_size + typ->init_data_size + typ->data_update_size + typ->use_data_size;
-		}
-	}
-	// TODO: result is unused :/
-}
-
 //----- (004E3360) --------------------------------------------------------
 int nox_xxx_allocClassArrayObjects_4E3360(unsigned int a1) {
 	uint32_t* v1; // esi
