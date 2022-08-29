@@ -37,7 +37,6 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var (
@@ -267,7 +266,6 @@ func (s *Server) nox_read_things_alternative_4E2B60() error {
 			}
 		}
 	}
-	*memmap.PtrUint32(0x85B3FC, 960) = 1
 	if err := s.objs.checkTypes(); err != nil {
 		return err
 	}

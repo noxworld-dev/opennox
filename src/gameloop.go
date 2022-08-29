@@ -366,7 +366,6 @@ func mainloopConnectOrHost() (again bool, _ error) {
 	noxAudioServeT(800)
 	noxCommonInitRandom()
 	gameFrameSetFromFlags()
-	*memmap.PtrUint32(0x85B3FC, 960) = 0
 	if mainloopConnectResultOK {
 		if debugMainloop {
 			log.Println("CONNECT_RESULT_OK retry")
