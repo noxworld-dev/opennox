@@ -4,13 +4,11 @@ package opennox
 #include "GAME3_2.h"
 #include "GAME3_3.h"
 #include "GAME4_3.h"
-extern uint32_t dword_5d4594_1563664;
 extern nox_objectType_t* nox_xxx_objectTypes_head_1563660;
 char* nox_xxx_unitDefByAlphabetAdd_4E3080(char* a1);
 void nox_xxx_unitDefByAlphabetFree_4E2B30();
 void nox_xxx_free_42BF80();
 int sub_4E3010();
-int nox_xxx_protectUnitDefUpdateMB_4E3C20();
 */
 import "C"
 import (
@@ -31,7 +29,23 @@ func nox_xxx_unitDefGetCount_4E3AC0() C.int {
 	return C.int(memmap.Uint32(0x587000, 201384))
 }
 
+//export sub_4E3BC0
+func sub_4E3BC0(a1 *C.nox_objectType_t) {
+	typ := asObjectType(a1)
+	noxServer.objs.crc ^= typ.field_4
+	typ.field_4 = 0
+}
+
+//export sub_4E3BF0
+func sub_4E3BF0(a1 *C.nox_objectType_t) {
+	typ := asObjectType(a1)
+	noxServer.objs.crc ^= typ.field_4
+	typ.field_4 = 1
+	noxServer.objs.crc ^= 1
+}
+
 type serverObjTypes struct {
+	crc  uint32
 	fast struct {
 		frog      int
 		rat       int
@@ -98,7 +112,7 @@ func (s *serverObjTypes) Clear() {
 		s.nox_xxx_freeObjectTypes_4E2A20()
 	}
 	C.sub_4E3010()
-	C.dword_5d4594_1563664 = 0
+	s.crc = 0
 }
 
 func (s *serverObjTypes) readType(thg *MemFile, buf []byte) error {
@@ -167,7 +181,7 @@ func (s *serverObjTypes) readType(thg *MemFile, buf []byte) error {
 	}
 	typ.field_4 = 1
 	typ.mass *= 10.0
-	C.dword_5d4594_1563664 ^= C.nox_xxx_unitDefProtectMB_4E31A0(typ.C())
+	s.crc ^= s.nox_xxx_unitDefProtectMB_4E31A0(typ)
 	typ.next = asObjectType(C.nox_xxx_objectTypes_head_1563660)
 	C.nox_xxx_objectTypes_head_1563660 = typ.C()
 	C.nox_xxx_unitDefByAlphabetAdd_4E3080(typ.id)
@@ -178,7 +192,7 @@ func (s *serverObjTypes) checkTypes() error {
 	if err := s.checkObjSizes(); err != nil {
 		return err
 	}
-	C.nox_xxx_protectUnitDefUpdateMB_4E3C20()
+	s.nox_xxx_protectUnitDefUpdateMB_4E3C20()
 	return nil
 }
 
@@ -203,6 +217,38 @@ func (s *serverObjTypes) checkObjSizes() error {
 		}
 	}
 	return nil
+}
+
+func (s *serverObjTypes) sub_4E31E0(typ *ObjectType) uint32 {
+	//unsigned short* v1;
+
+	val := uint32(typ.field_5_0) ^ typ.obj_flags ^ typ.field_9 ^ math.Float32bits(typ.mass)
+	if ptr := typ.data_34; ptr != nil {
+		sl := unsafe.Slice((*uint16)(ptr), 3)
+		val ^= uint32(sl[0] ^ sl[2])
+	}
+	return val
+}
+
+func (s *serverObjTypes) nox_xxx_unitDefProtectMB_4E31A0(typ *ObjectType) uint32 {
+	if typ == nil {
+		return 0
+	}
+	val := uint32(typ.ind)
+	val ^= typ.field_4
+	val ^= s.sub_4E31E0(typ)
+	val ^= protectBytes([]byte(typ.ID()))
+	return val
+}
+
+func (s *serverObjTypes) nox_xxx_protectUnitDefUpdateMB_4E3C20() {
+	val := uint32(0)
+	for typ := asObjectType(C.nox_xxx_objectTypes_head_1563660); typ != nil; typ = typ.next {
+		val ^= s.nox_xxx_unitDefProtectMB_4E31A0(typ)
+	}
+	if val != s.crc {
+		// TODO: there was a nop function here; what was it for?
+	}
 }
 
 func (s *Server) getObjectTypeByID(id string) *ObjectType { // nox_xxx_objectTypeByID_4E3830

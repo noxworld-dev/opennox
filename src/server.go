@@ -250,7 +250,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 	}
 	C.nox_xxx_unitsNewAddToList_4DAC00()
 	if inputKeyCheckTimeoutLegacy(0x10, 10*gameFPS()) {
-		C.nox_xxx_protectUnitDefUpdateMB_4E3C20()
+		s.objs.nox_xxx_protectUnitDefUpdateMB_4E3C20()
 		inputSetKeyTimeoutLegacy(16)
 	}
 	if noxflags.HasGame(noxflags.GameOnline) && C.nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(noxflags.GameModeChat) && inputKeyCheckTimeoutLegacy(0xF, 60*gameFPS()) {

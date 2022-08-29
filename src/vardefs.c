@@ -438,7 +438,6 @@ uint32_t dword_5d4594_2386920 = 0;
 uint32_t dword_5d4594_1046576 = 0;
 uint32_t dword_5d4594_2386564 = 0;
 uint32_t dword_5d4594_830292 = 0;
-uint32_t dword_5d4594_1563664 = 0;
 void* nox_alloc_magicWall_1569748 = 0;
 uint32_t dword_5d4594_1550912 = 0;
 uint32_t dword_5d4594_1062488 = 0;

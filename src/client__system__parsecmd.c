@@ -27,7 +27,8 @@
 #include "common__magic__speltree.h"
 #include "static.h"
 
-extern uint32_t dword_5d4594_1563664;
+void sub_4E3BC0(nox_objectType_t* a1);
+
 extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
 extern uint32_t nox_server_connectionType_3596;
 extern uint32_t dword_5d4594_805836;
@@ -359,12 +360,6 @@ void nox_xxx_deleteAllObjectsOfType_4E5DB0(int a1) {
 			v1 = v2;
 		} while (v2);
 	}
-}
-
-//----- (004E3BC0) --------------------------------------------------------
-void sub_4E3BC0(int a1) {
-	dword_5d4594_1563664 ^= *(uint32_t*)(a1 + 16);
-	*(uint32_t*)(a1 + 16) = 0;
 }
 
 //----- (00415A60) --------------------------------------------------------

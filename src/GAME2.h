@@ -110,7 +110,7 @@ int sub_453690(int a1);
 int sub_4536B0(uint32_t* a1);
 int sub_453710();
 char sub_453750();
-int sub_4537F0();
+void sub_4537F0();
 uint32_t* sub_453B00();
 int sub_453B80(int a1, int a2);
 void sub_453F70(const void* a1);

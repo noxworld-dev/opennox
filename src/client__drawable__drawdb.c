@@ -28,7 +28,6 @@ extern uint32_t dword_5d4594_251608;
 extern uint32_t dword_5d4594_741676;
 extern uint32_t dword_5d4594_741680;
 nox_objectType_t* nox_xxx_objectTypes_head_1563660 = 0;
-extern uint32_t dword_5d4594_1563664;
 
 bool nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value);
 bool nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value);

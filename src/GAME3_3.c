@@ -51,7 +51,6 @@ extern uint32_t dword_5d4594_1565612;
 extern uint32_t dword_5d4594_1565520;
 extern uint32_t nox_server_needInitNetCodeCache;
 extern uint32_t dword_5d4594_1565516;
-extern uint32_t dword_5d4594_1563664;
 extern uint32_t dword_5d4594_1567928;
 extern void* nox_alloc_respawn_1568020;
 extern uint32_t dword_5d4594_1565616;
@@ -781,36 +780,6 @@ int nox_xxx_keyFirstLetterNumber_4E30A0(char* a1) {
 	return result;
 }
 
-//----- (004E31A0) --------------------------------------------------------
-unsigned int nox_xxx_unitDefProtectMB_4E31A0(nox_objectType_t* a1p) {
-	int a1 = a1p;
-	int result; // eax
-	int v2;     // esi
-	int v3;     // esi
-
-	result = 0;
-	if (a1) {
-		LOWORD(result) = *(uint16_t*)a1;
-		v2 = result ^ *(uint32_t*)(a1 + 16);
-		v3 = sub_4E31E0((uint32_t*)(a1 + 20)) ^ v2;
-		result = nox_xxx_protectionStringCRCLen_56FAE0(*(int**)(a1 + 4), strlen(*(const char**)(a1 + 4))) ^ v3;
-	}
-	return result;
-}
-
-//----- (004E31E0) --------------------------------------------------------
-int sub_4E31E0(uint32_t* a1) {
-	unsigned short* v1; // ecx
-	int result;         // eax
-
-	v1 = (unsigned short*)a1[29];
-	result = *(unsigned short*)a1 ^ a1[3] ^ a1[4] ^ a1[9];
-	if (v1) {
-		result ^= *v1 ^ v1[2];
-	}
-	return result;
-}
-
 //----- (004E3360) --------------------------------------------------------
 int nox_xxx_allocClassArrayObjects_4E3360(unsigned int a1) {
 	uint32_t* v1; // esi
@@ -1171,35 +1140,6 @@ int sub_4E3B80(int a1) { return *(int*)(*(uint32_t*)(*getMemU32Ptr(0x5D4594, 156
 int nox_xxx_getUnitDefDd10_4E3BA0(int a1) {
 	return *(uint32_t*)(*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1563456) + 4 * a1) + 16);
 }
-
-//----- (004E3BF0) --------------------------------------------------------
-int sub_4E3BF0(int a1) {
-	int result; // eax
-
-	result = a1;
-	dword_5d4594_1563664 ^= *(uint32_t*)(a1 + 16);
-	*(uint32_t*)(a1 + 16) = 1;
-	dword_5d4594_1563664 ^= 1u;
-	return result;
-}
-
-//----- (004E3C20) --------------------------------------------------------
-int nox_xxx_protectUnitDefUpdateMB_4E3C20() {
-	int v0;     // edi
-	void* i;    // esi
-	int result; // eax
-
-	v0 = 0;
-	for (i = nox_xxx_getFirstObjectType_4E3B30(); i; i = (void*)nox_xxx_objectType_next_4E3B40((int)i)) {
-		v0 ^= nox_xxx_unitDefProtectMB_4E31A0((int)i);
-	}
-	result = dword_5d4594_1563664;
-	if (v0 != dword_5d4594_1563664) {
-		nullsub_31(1);
-	}
-	return result;
-}
-// 560840: using guessed type void  nullsub_31(uint32_t);
 
 //----- (004E3CA0) --------------------------------------------------------
 double sub_4E3CA0() { return *getMemFloatPtr(0x587000, 202024); }
