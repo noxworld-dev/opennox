@@ -367,7 +367,6 @@ func mainloopConnectOrHost() (again bool, _ error) {
 	noxCommonInitRandom()
 	gameFrameSetFromFlags()
 	*memmap.PtrUint32(0x85B3FC, 960) = 0
-	*memmap.PtrUint32(0x85B3FC, 4) = 0
 	if mainloopConnectResultOK {
 		if debugMainloop {
 			log.Println("CONNECT_RESULT_OK retry")

@@ -37,7 +37,6 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var (
@@ -326,7 +325,6 @@ func nox_xxx_parseThingBinClient_44C840_read_things() error {
 			}
 		}
 	}
-	*memmap.PtrUint32(0x85B3FC, 4) = 1
 	C.nox_xxx_equipWeapon_4131A0()
 	C.nox_xxx_equipArmor_415AB0()
 	C.nox_xxx_equipWeapon_4157C0()
