@@ -17,7 +17,6 @@ package opennox
 #include "client__network__netclint.h"
 #include "client__video__draw_common.h"
 #include "GAME2_3.h"
-#include "thing.h"
 #include "common__system__team.h"
 #include "common__net_list.h"
 #include "client__drawable__drawdb.h"
@@ -367,7 +366,6 @@ func mainloopConnectOrHost() (again bool, _ error) {
 	noxAudioServeT(800)
 	noxCommonInitRandom()
 	gameFrameSetFromFlags()
-	C.nox_ensure_thing_bin()
 	*memmap.PtrUint32(0x85B3FC, 960) = 0
 	*memmap.PtrUint32(0x85B3FC, 4) = 0
 	if mainloopConnectResultOK {

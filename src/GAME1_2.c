@@ -77,7 +77,6 @@
 #include "server__script__script.h"
 #include "server__xfer__savegame__savegame.h"
 #include "server__network__playback.h"
-#include "thing.h"
 #include "win.h"
 
 #include <time.h>
