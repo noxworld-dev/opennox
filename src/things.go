@@ -41,6 +41,28 @@ func thingsImageRef(ref *things.ImageRef) *Image {
 	return nox_xxx_readImgMB42FAA0(ref.Ind, byte(ref.Ind2), ref.Name)
 }
 
+func openThings() (*MemFile, error) {
+	thg := noxLoadedThings
+	var err error
+	if thg == nil {
+		thg, err = loadMemfile("thing.bin", crypt.ThingBin)
+		if err != nil {
+			return nil, fmt.Errorf("failed to open things: %w", err)
+		}
+		noxLoadedThings = thg
+	}
+	_, err = thg.Seek(0, io.SeekStart)
+	return thg, err
+}
+
+func closeThings() {
+	if noxLoadedThings == nil {
+		return
+	}
+	noxLoadedThings.Free()
+	noxLoadedThings = nil
+}
+
 func nox_xxx_loadAllBinFiles_415470() error {
 	if err := nox_xxx_parseSoundSetBin_424170("soundset.bin"); err != nil {
 		return err
@@ -51,25 +73,18 @@ func nox_xxx_loadAllBinFiles_415470() error {
 		return fmt.Errorf("failed to load modifiers")
 	}
 
-	thg := noxLoadedThings
-	if thg == nil {
-		var err error
-		thg, err = loadMemfile("thing.bin", crypt.ThingBin)
-		if err != nil {
-			return fmt.Errorf("failed to open things: %w", err)
-		}
-	}
-	thg.Seek(0, io.SeekStart)
-	if err := loadAllBinFileSections(thg, buf); err != nil {
-		thg.Free()
-		noxLoadedThings = nil
+	thg, err := openThings()
+	if err != nil {
 		return err
 	}
-	noxLoadedThings = thg
+	if err := loadAllBinFileSections(thg, buf); err != nil {
+		return err
+	}
 	return nil
 }
 
 func loadAllBinFileSections(thg *MemFile, buf unsafe.Pointer) error {
+	s := noxServer
 	C.dword_5d4594_251540 = 0
 	C.dword_5d4594_251568 = 0
 	C.dword_5d4594_251572 = 0
@@ -81,7 +96,7 @@ func loadAllBinFileSections(thg *MemFile, buf unsafe.Pointer) error {
 		}
 		switch sect {
 		case 0x5350454C: // SPEL
-			if err := noxServer.nox_thing_read_SPEL_4156B0(thg, isClient); err != nil {
+			if err := s.nox_thing_read_SPEL_4156B0(thg, isClient); err != nil {
 				return err
 			}
 		case 0x41554420: // AUD
@@ -109,7 +124,7 @@ func loadAllBinFileSections(thg *MemFile, buf unsafe.Pointer) error {
 				return fmt.Errorf("failed to load edges")
 			}
 		case 0x4142494C: // ABIL
-			if err := noxServer.abilities.thingsReadAll(thg); err != nil {
+			if err := s.abilities.thingsReadAll(thg); err != nil {
 				return err
 			}
 		case 0x494D4147: // IMAG
