@@ -638,6 +638,73 @@ int nox_xxx_parseThingBinClient_44C840_read_things_THNG(nox_memfile* things, cha
 	nox_xxx_spriteDefByAlphabetAdd_44CD10(obj->name);
 	return 1;
 }
+int nox_xxx_parseThingBinClient_44C840_read_things_DONE(void) {
+	*getMemU32Ptr(0x85B3FC, 4) = 1;
+	nox_things_array = calloc(nox_things_count, sizeof(nox_thing*));
+	if (!nox_things_array) {
+		return 0;
+	}
+	nox_xxx_spriteDefByAlphabetAlloc_44CCD0();
+	nox_thing* cur = nox_things_head;
+	for (int i = 1; i < nox_things_count; i++) {
+		nox_things_array[nox_things_count - i] = cur;
+		nox_xxx_spriteDefByAlphabetAdd_0_44CD60(cur, nox_things_count - i);
+		if (*((uint8_t*)cur + 0xe)) {
+			// The large amount of logic in the following two branches is due to copying strings as WORDs.
+			// If not loaded, set cur->pretty_name = load_string "thing.db:${cur->name}PrettyName"
+			if (!cur->pretty_name) {
+				strcpy((char*)getMemAt(0x5D4594, 830404), "thing.db:");
+				char* cur_name = cur->name;
+				unsigned int cur_name_len_plus_one = strlen(cur->name) + 1;
+				unsigned char* v11 = getMemAt(0x5D4594, 830404 + strlen((const char*)getMemAt(0x5D4594, 830404)));
+				memcpy(v11, cur->name, 4 * (cur_name_len_plus_one >> 2));
+				char* v13 = &cur_name[4 * (cur_name_len_plus_one >> 2)];
+				unsigned char* v12 = &v11[4 * (cur_name_len_plus_one >> 2)];
+				char v14 = cur_name_len_plus_one;
+				LOWORD(cur_name_len_plus_one) = *getMemU16Ptr(0x587000, 122728);
+				memcpy(v12, v13, v14 & 3);
+				unsigned char* v15 = getMemAt(0x5D4594, 830405 + strlen((const char*)getMemAt(0x5D4594, 830404)));
+				int v16 = *getMemU32Ptr(0x587000, 122724);
+				*(uint32_t*)--v15 = *getMemU32Ptr(0x587000, 122720);
+				unsigned char v17 = getMemByte(0x587000, 122730);
+				*((uint32_t*)v15 + 1) = v16;
+				*((uint16_t*)v15 + 4) = cur_name_len_plus_one;
+				v15[10] = v17;
+				cur->pretty_name = nox_strman_loadString_40F1D0(
+					(char*)getMemAt(0x5D4594, 830404), 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1926);
+			}
+			// if not loaded, set cur->desc = load_string "thing.db:${cur->name}Description"
+			if (!cur->desc) {
+				strcpy((char*)getMemAt(0x5D4594, 830404), "thing.db:");
+				char* v18 = cur->name;
+				unsigned int v19 = strlen(cur->name) + 1;
+				unsigned char* v20 = getMemAt(0x5D4594, 830404 + strlen((const char*)getMemAt(0x5D4594, 830404)));
+				memcpy(v20, cur->name, 4 * (v19 >> 2));
+				char* v22 = &v18[4 * (v19 >> 2)];
+				unsigned char* v21 = &v20[4 * (v19 >> 2)];
+				char v23 = v19;
+				int v24 = *getMemU32Ptr(0x587000, 122792);
+				memcpy(v21, v22, v23 & 3);
+				unsigned char* v25 = getMemAt(0x5D4594, 830405 + strlen((const char*)getMemAt(0x5D4594, 830404)));
+				int v26 = *getMemU32Ptr(0x587000, 122788);
+				*(uint32_t*)--v25 = *getMemU32Ptr(0x587000, 122784);
+				*((uint32_t*)v25 + 1) = v26;
+				*((uint32_t*)v25 + 2) = v24;
+				cur->desc = nox_strman_loadString_40F1D0((char*)getMemAt(0x5D4594, 830404), 0,
+														 "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1933);
+			}
+		}
+		cur = cur->next;
+	}
+	nox_xxx_spriteDefByAlphabetSort_44CDB0();
+	nox_xxx_equipWeapon_4131A0();
+	nox_xxx_equipArmor_415AB0();
+	nox_xxx_equipWeapon_4157C0();
+	if (!sub_42BF10()) {
+		return 0;
+	}
+	return 1;
+}
 void* nox_xxx_parseThingBinClient_44C840_read_things(void) {
 	char* scratch_buffer = calloc(256 * 1024, 1);
 	nox_xxx_spriteDefByAlphabetClear_44CCA0();
@@ -693,7 +760,7 @@ void* nox_xxx_parseThingBinClient_44C840_read_things(void) {
 			break;
 		}
 	}
-	*getMemU32Ptr(0x85B3FC, 4) = 1;
+	free(scratch_buffer);
 	if (nox_loaded_thing_bin) {
 		if (nox_common_gameFlags_check_40A5C0(1) && *getMemU32Ptr(0x85B3FC, 960)) {
 			nox_free_thing_bin();
@@ -701,69 +768,7 @@ void* nox_xxx_parseThingBinClient_44C840_read_things(void) {
 	} else {
 		nox_memfile_free(things);
 	}
-	void* result = calloc(nox_things_count, sizeof(nox_thing*));
-	nox_things_array = result;
-	if (result) {
-		nox_xxx_spriteDefByAlphabetAlloc_44CCD0();
-		nox_thing* cur = nox_things_head;
-		for (int i = 1; i < nox_things_count; i++) {
-			nox_things_array[nox_things_count - i] = cur;
-			nox_xxx_spriteDefByAlphabetAdd_0_44CD60(cur, nox_things_count - i);
-			if (*((uint8_t*)cur + 0xe)) {
-				// The large amount of logic in the following two branches is due to copying strings as WORDs.
-				// If not loaded, set cur->pretty_name = load_string "thing.db:${cur->name}PrettyName"
-				if (!cur->pretty_name) {
-					strcpy((char*)getMemAt(0x5D4594, 830404), "thing.db:");
-					char* cur_name = cur->name;
-					unsigned int cur_name_len_plus_one = strlen(cur->name) + 1;
-					unsigned char* v11 = getMemAt(0x5D4594, 830404 + strlen((const char*)getMemAt(0x5D4594, 830404)));
-					memcpy(v11, cur->name, 4 * (cur_name_len_plus_one >> 2));
-					char* v13 = &cur_name[4 * (cur_name_len_plus_one >> 2)];
-					unsigned char* v12 = &v11[4 * (cur_name_len_plus_one >> 2)];
-					char v14 = cur_name_len_plus_one;
-					LOWORD(cur_name_len_plus_one) = *getMemU16Ptr(0x587000, 122728);
-					memcpy(v12, v13, v14 & 3);
-					unsigned char* v15 = getMemAt(0x5D4594, 830405 + strlen((const char*)getMemAt(0x5D4594, 830404)));
-					int v16 = *getMemU32Ptr(0x587000, 122724);
-					*(uint32_t*)--v15 = *getMemU32Ptr(0x587000, 122720);
-					unsigned char v17 = getMemByte(0x587000, 122730);
-					*((uint32_t*)v15 + 1) = v16;
-					*((uint16_t*)v15 + 4) = cur_name_len_plus_one;
-					v15[10] = v17;
-					cur->pretty_name = nox_strman_loadString_40F1D0(
-						(char*)getMemAt(0x5D4594, 830404), 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1926);
-				}
-				// if not loaded, set cur->desc = load_string "thing.db:${cur->name}Description"
-				if (!cur->desc) {
-					strcpy((char*)getMemAt(0x5D4594, 830404), "thing.db:");
-					char* v18 = cur->name;
-					unsigned int v19 = strlen(cur->name) + 1;
-					unsigned char* v20 = getMemAt(0x5D4594, 830404 + strlen((const char*)getMemAt(0x5D4594, 830404)));
-					memcpy(v20, cur->name, 4 * (v19 >> 2));
-					char* v22 = &v18[4 * (v19 >> 2)];
-					unsigned char* v21 = &v20[4 * (v19 >> 2)];
-					char v23 = v19;
-					int v24 = *getMemU32Ptr(0x587000, 122792);
-					memcpy(v21, v22, v23 & 3);
-					unsigned char* v25 = getMemAt(0x5D4594, 830405 + strlen((const char*)getMemAt(0x5D4594, 830404)));
-					int v26 = *getMemU32Ptr(0x587000, 122788);
-					*(uint32_t*)--v25 = *getMemU32Ptr(0x587000, 122784);
-					*((uint32_t*)v25 + 1) = v26;
-					*((uint32_t*)v25 + 2) = v24;
-					cur->desc = nox_strman_loadString_40F1D0((char*)getMemAt(0x5D4594, 830404), 0,
-															 "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1933);
-				}
-			}
-			cur = cur->next;
-		}
-		nox_xxx_spriteDefByAlphabetSort_44CDB0();
-		free(scratch_buffer);
-		nox_xxx_equipWeapon_4131A0();
-		nox_xxx_equipArmor_415AB0();
-		nox_xxx_equipWeapon_4157C0();
-		result = (void*)(sub_42BF10() != 0);
-	}
-	return result;
+	return nox_xxx_parseThingBinClient_44C840_read_things_DONE();
 }
 
 //----- (0044C620) --------------------------------------------------------
