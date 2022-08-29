@@ -78,7 +78,6 @@ extern unsigned int gameex_flags;
 
 unsigned int nox_gameFPS = 0;
 float nox_xxx_float_23_587000_264364 = 23;
-double qword_581450_9568 = 0;
 
 //----- (0052F8A0) --------------------------------------------------------
 int nox_xxx_onFrameLightning_52F8A0(float a1) {
