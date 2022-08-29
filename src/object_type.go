@@ -15,6 +15,18 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 )
 
+type serverObjTypes struct {
+	fast struct {
+		frog      int
+		rat       int
+		fishSmall int
+		fishBig   int
+		plant     int
+		polyp     int
+		wisp      int
+	}
+}
+
 func (s *Server) getObjectTypeByID(id string) *ObjectType { // nox_xxx_objectTypeByID_4E3830
 	cstr := CString(id)
 	defer StrFree(cstr)
@@ -160,6 +172,10 @@ func (t *ObjectType) ArmorClass() object.ArmorClass {
 		return 0
 	}
 	return object.ArmorClass(t.obj_subclass)
+}
+
+func (t *ObjectType) Flags() object.Flags {
+	return object.Flags(t.obj_flags)
 }
 
 func (t *ObjectType) String() string {

@@ -63,7 +63,6 @@ void sub_4139C0();
 int sub_4DCF20();
 int sub_4E76C0();
 bool sub_57B140();
-//int nox_xxx_freeObjectTypes_4E2A20();
 
 void nox_xxx_updateUnits_51B100_A();
 void nox_xxx_updateUnits_51B100_B();
@@ -124,7 +123,7 @@ type Server struct {
 	lua             scriptLUA
 	activators      activators
 	tickHooks       tickHooks
-	objs            serverObjects
+	objs            serverObjTypes
 	teams           serverTeams
 	ai              aiData
 	quest           questServer
