@@ -4,9 +4,6 @@ package opennox
 #include "GAME3_2.h"
 #include "GAME3_3.h"
 #include "GAME4_3.h"
-char* nox_xxx_unitDefByAlphabetAdd_4E3080(char* a1);
-void nox_xxx_unitDefByAlphabetFree_4E2B30();
-int sub_4E3010();
 */
 import "C"
 import (
@@ -43,7 +40,6 @@ func nox_xxx_getUnitDefDd10_4E3BA0(ind C.int) C.int {
 
 //export nox_xxx_getUnitName_4E39D0
 func nox_xxx_getUnitName_4E39D0(cobj *nox_object_t) *C.char {
-	// TODO: was noxServer.getObjectTypeByInd(asObjectC(cobj).Index()).id
 	return asObjectC(cobj).ObjectTypeC().id
 }
 
@@ -58,6 +54,29 @@ func nox_xxx_getUnitNameByThingType_4E3A80(ind C.int) *C.char {
 		return nil
 	}
 	return noxServer.getObjectTypeByInd(int(ind)).id
+}
+
+//export nox_xxx_objectTypeByID_4E3B60
+func nox_xxx_objectTypeByID_4E3B60(cstr *C.char) *C.nox_objectType_t {
+	return noxServer.getObjectTypeByID(GoString(cstr)).C()
+}
+
+//export nox_xxx_newObjectByTypeID_4E3810
+func nox_xxx_newObjectByTypeID_4E3810(cstr *C.char) *nox_object_t {
+	typ := noxServer.getObjectTypeByID(GoString(cstr))
+	if typ == nil {
+		return nil
+	}
+	return typ.newObject().CObj()
+}
+
+//export nox_xxx_getNameId_4E3AA0
+func nox_xxx_getNameId_4E3AA0(cstr *C.char) C.int {
+	typ := noxServer.getObjectTypeByID(GoString(cstr))
+	if typ == nil {
+		return 0
+	}
+	return C.int(typ.ind)
 }
 
 //export sub_4E3BC0
@@ -78,6 +97,7 @@ func sub_4E3BF0(a1 *C.nox_objectType_t) {
 type serverObjTypes struct {
 	first *ObjectType
 	byInd []*ObjectType
+	byID  map[string]*ObjectType
 	crc   uint32
 	fast  struct {
 		frog      int
@@ -91,6 +111,9 @@ type serverObjTypes struct {
 }
 
 func (s *serverObjTypes) nox_xxx_freeObjectTypes_4E2A20() {
+	if s.first == nil && s.byID != nil {
+		return
+	}
 	var next *ObjectType
 	for typ := s.first; typ != nil; typ = next {
 		next = typ.next
@@ -132,17 +155,13 @@ func (s *serverObjTypes) nox_xxx_freeObjectTypes_4E2A20() {
 	}
 	s.first = nil
 	s.byInd = []*ObjectType{nil}
-	C.nox_xxx_unitDefByAlphabetFree_4E2B30()
+	s.byID = make(map[string]*ObjectType)
+	s.crc = 0
 	nox_xxx_free_42BF80()
 }
 
 func (s *serverObjTypes) Clear() {
-	if s.first != nil {
-		s.nox_xxx_freeObjectTypes_4E2A20()
-	}
-	s.byInd = []*ObjectType{nil}
-	C.sub_4E3010()
-	s.crc = 0
+	s.nox_xxx_freeObjectTypes_4E2A20()
 }
 
 func (s *serverObjTypes) readType(thg *MemFile, buf []byte) error {
@@ -214,7 +233,7 @@ func (s *serverObjTypes) readType(thg *MemFile, buf []byte) error {
 	s.crc ^= s.nox_xxx_unitDefProtectMB_4E31A0(typ)
 	typ.next = s.first
 	s.first = typ
-	C.nox_xxx_unitDefByAlphabetAdd_4E3080(typ.id)
+	s.byID[id] = typ
 	return nil
 }
 
@@ -281,14 +300,8 @@ func (s *serverObjTypes) nox_xxx_protectUnitDefUpdateMB_4E3C20() {
 	}
 }
 
-func (s *Server) getObjectTypeByID(id string) *ObjectType { // nox_xxx_objectTypeByID_4E3830
-	cstr := CString(id)
-	defer StrFree(cstr)
-	p := C.nox_xxx_objectTypeByID_4E3830(cstr)
-	if p == nil {
-		return nil
-	}
-	return asObjectType(p)
+func (s *Server) getObjectTypeByID(id string) *ObjectType { // nox_xxx_objectTypeByID_4E3B60
+	return s.objs.byID[id]
 }
 
 func (s *Server) getObjectTypeID(id string) int { // nox_xxx_getNameId_4E3AA0

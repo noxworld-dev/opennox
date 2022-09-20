@@ -1,8 +1,5 @@
 package opennox
 
-/*
-int nox_xxx_getUnitDefDd10_4E3BA0(int);
-*/
 import "C"
 import (
 	"context"
@@ -67,7 +64,7 @@ func cmdListObjectsWithClass(c *console.Console, class object.Class) bool {
 			c.Printf(console.ColorRed, "%d\t%s", typ.Ind(), typ.ID())
 		} else {
 			allow := allowed
-			if C.nox_xxx_getUnitDefDd10_4E3BA0(C.int(typ.Ind())) == 0 {
+			if nox_xxx_getUnitDefDd10_4E3BA0(C.int(typ.Ind())) == 0 {
 				allow = disallowed
 			}
 			// TODO: print full name via sub_415E80/sub_4159F0/sub_4159F0
