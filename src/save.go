@@ -2,6 +2,7 @@ package opennox
 
 /*
 #include "GAME1_1.h"
+#include "GAME3_3.h"
 #include "server__xfer__savegame__savegame.h"
 extern unsigned int dword_5d4594_825764;
 void nox_xxx_unitsNewAddToList_4DAC00();
@@ -189,6 +190,24 @@ func sub_446140() C.int {
 		}
 	}
 	return 1
+}
+
+//export sub_4DB9C0
+func sub_4DB9C0() {
+	var next *Object
+	for it := noxServer.firstServerObject(); it != nil; it = next {
+		next = it.Next()
+		if C.nox_xxx_isUnit_4E5B50(it.CObj()) != 0 {
+			it.Delete()
+		}
+	}
+	next = nil
+	for it := firstServerObjectUpdatable2(); it != nil; it = next {
+		next = it.Next()
+		if C.sub_4E5B80(it.CObj()) != 0 {
+			it.Delete()
+		}
+	}
 }
 
 func nox_xxx_gameSetSoloSavePath_4DB270(a1 string) {
