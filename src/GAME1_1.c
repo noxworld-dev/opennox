@@ -767,20 +767,6 @@ int sub_419E60(int a1) {
 //----- (00419EA0) --------------------------------------------------------
 int sub_419EA0() { return dword_5d4594_527712 != 0; }
 
-//----- (00419EB0) --------------------------------------------------------
-int sub_419EB0(char a1, int a2) {
-	int result; // eax
-
-	result = 1 << a1;
-	if (a2 == 1) {
-		*getMemU32Ptr(0x5D4594, 527716) |= result;
-	} else {
-		result = ~result;
-		*getMemU32Ptr(0x5D4594, 527716) &= result;
-	}
-	return result;
-}
-
 //----- (00419EE0) --------------------------------------------------------
 int sub_419EE0(char a1) { return (*getMemU32Ptr(0x5D4594, 527716) & (1 << a1)) != 0; }
 
