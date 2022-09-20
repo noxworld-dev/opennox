@@ -130,6 +130,7 @@ var (
 	dword_587000_311372       = -1
 	dword_5d4594_2516476      byte
 	dword_587000_87404        = 2
+	gameIsNotMultiplayer      bool
 )
 
 const (
@@ -951,6 +952,16 @@ func nox_xxx_cliGamedataGet_416590(v int) []byte {
 	return unsafe.Slice((*byte)(unsafe.Pointer(C.nox_xxx_cliGamedataGet_416590(C.int(v)))), 60)
 }
 
+//export nox_xxx_gameSetNoMPFlag_4DB230
+func nox_xxx_gameSetNoMPFlag_4DB230(a1 C.int) {
+	gameIsNotMultiplayer = a1 != 0
+}
+
+//export nox_xxx_gameIsNotMultiplayer_4DB250
+func nox_xxx_gameIsNotMultiplayer_4DB250() C.int {
+	return C.int(bool2int(gameIsNotMultiplayer))
+}
+
 func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
 	pl := s.getPlayerByInd(noxMaxPlayers - 1)
 	if pl == nil {
@@ -983,7 +994,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
 		v31, err := nox_client_checkSaveMapExistsTmp(v30)
 		if err == nil && v31 != "" {
 			C.nox_xxx_gameSetSwitchSolo_4DB220(1)
-			C.nox_xxx_gameSetNoMPFlag_4DB230(1)
+			nox_xxx_gameSetNoMPFlag_4DB230(1)
 			C.nox_xxx_gameSetSoloSavePath_4DB270(internCStr(v31))
 		} else {
 			gameLog.Println("check tmp map exists:", err)
