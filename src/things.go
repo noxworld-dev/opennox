@@ -45,7 +45,6 @@ var (
 	nox_images_arr1_787156    []*noxImageRef
 	objectTypeCode16ByInd     []uint16
 	objectTypeCode16ByInd_len int
-	objectTypeCode16ByInd_cap int
 )
 
 func getThingName(i int) string {
@@ -298,8 +297,8 @@ func sub_42BF10() {
 		}
 		sz = len(nox_things.byInd)
 	}
-	objectTypeCode16ByInd_cap = sz
-	sub_42BFB0()
+	objectTypeCode16ByInd = make([]uint16, sz)
+	objectTypeCode16ByInd_len = 0
 }
 
 func nox_xxx_parseThingBinClient_44C840_read_things() error {
@@ -359,13 +358,12 @@ func nox_xxx_parseThingBinClient_44C840_read_things() error {
 
 //export sub_42BFB0
 func sub_42BFB0() {
-	objectTypeCode16ByInd = make([]uint16, objectTypeCode16ByInd_cap)
+	objectTypeCode16ByInd = make([]uint16, len(objectTypeCode16ByInd))
 	objectTypeCode16ByInd_len = 0
 }
 
 func nox_xxx_free_42BF80() {
 	objectTypeCode16ByInd = nil
-	objectTypeCode16ByInd_cap = 0
 }
 
 //export nox_xxx_objectTOCgetTT_42C2B0
