@@ -247,6 +247,15 @@ func sub_446140() C.int {
 	return 1
 }
 
+//export sub_419EB0
+func sub_419EB0(i, val C.int) {
+	if val == 1 {
+		*memmap.PtrUint32(0x5D4594, 527716) |= 1 << i
+	} else {
+		*memmap.PtrUint32(0x5D4594, 527716) &^= 1 << i
+	}
+}
+
 //export sub_4DB9C0
 func sub_4DB9C0() {
 	var next *Object

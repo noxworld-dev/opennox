@@ -3880,9 +3880,6 @@ int nox_xxx_player_4D7960(char a1) {
 	return result;
 }
 
-//----- (004D7980) --------------------------------------------------------
-int nox_xxx_player_4D7980(char a1) { return (*getMemU32Ptr(0x5D4594, 1556300) & (1 << a1)) != 0; }
-
 //----- (004D79A0) --------------------------------------------------------
 int sub_4D79A0(char a1) {
 	int result; // eax
@@ -6576,15 +6573,6 @@ int sub_4DCE30() {
 	return sub_446140();
 }
 
-//----- (004DCF80) --------------------------------------------------------
-int nox_xxx_sendGauntlet_4DCF80(int a1, char a2) {
-	char v4[3]; // [esp+0h] [ebp-4h]
-	v4[0] = -16;
-	v4[1] = 28;
-	v4[2] = a2;
-	return nox_xxx_netSendPacket1_4E5390(a1, (int)v4, 3, 0, 0);
-}
-
 //----- (004DCFB0) --------------------------------------------------------
 void sub_4DCFB0(nox_object_t* a1p) {
 	int a1 = a1p;
@@ -6621,24 +6609,6 @@ void sub_4DCFB0(nox_object_t* a1p) {
 			}
 		}
 	}
-}
-
-//----- (004DD0B0) --------------------------------------------------------
-char* sub_4DD0B0(int a1) {
-	char* result; // eax
-	int v2;       // esi
-
-	result = (char*)a1;
-	if (a1) {
-		v2 = *(uint32_t*)(a1 + 748);
-		if (nox_xxx_player_4D7980(*(uint8_t*)(*(uint32_t*)(v2 + 276) + 2064))) {
-			result = nox_xxx_playerCallDisconnect_4DEAB0(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064), 4);
-		} else {
-			sub_419EB0(*(uint8_t*)(*(uint32_t*)(v2 + 276) + 2064), 0);
-			result = (char*)nox_xxx_sendGauntlet_4DCF80(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064), 0);
-		}
-	}
-	return result;
 }
 
 //----- (004DD140) --------------------------------------------------------
