@@ -33,52 +33,7 @@ int sub_4738D0() {
 
 bool nox_xxx_saveMakeFolder_0_4DB1D0();
 bool nox_client_makeSaveMapDir_4DB5A0(char* a1, char* a2);
-
-//----- (004DB600) --------------------------------------------------------
-int nox_xxx_saveMakePlayerLocation_4DB600(int a1) {
-	char* v1;     // eax
-	float* v2;    // esi
-	uint32_t* v3; // edi
-	float v4;     // eax
-	float v5;     // ecx
-	int v6;       // ecx
-	int v7;       // eax
-	int v8;       // esi
-
-	v1 = nox_common_playerInfoFromNum_417090(31);
-	if (!v1) {
-		return 0;
-	}
-	v2 = (float*)*((uint32_t*)v1 + 514);
-	if (!v2) {
-		return 0;
-	}
-	v3 = nox_xxx_newObjectByTypeID_4E3810("SaveGameLocation");
-	if (!v3) {
-		return 0;
-	}
-	v4 = v2[14];
-	v5 = v2[15];
-	if (a1) {
-		v6 = *(uint32_t*)(a1 + 700);
-		v4 = *(float*)(v6 + 80);
-		v5 = *(float*)(v6 + 84);
-	}
-	nox_xxx_createAt_4DAA50((int)v3, 0, v4, v5);
-	nox_xxx_unitsNewAddToList_4DAC00();
-	v3[11] = *((uint32_t*)v2 + 11);
-	v7 = *((uint32_t*)v2 + 129);
-	if (v7) {
-		do {
-			v8 = *(uint32_t*)(v7 + 512);
-			if (*(uint8_t*)(v7 + 16) & 4) {
-				nox_xxx_unitSetOwner_4EC290((int)v3, v7);
-			}
-			v7 = v8;
-		} while (v8);
-	}
-	return 1;
-}
+int nox_xxx_saveMakePlayerLocation_4DB600(void* a1);
 
 //----- (004DB6A0) --------------------------------------------------------
 void nox_xxx_monstersAllBelongToHost_4DB6A0() {
