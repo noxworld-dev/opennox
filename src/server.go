@@ -271,7 +271,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 		C.sub_446190()
 	}
 	if C.sub_446030() != 0 && gameFrame() > 5*gameFPS()+sub_446040() {
-		C.sub_446380()
+		sub_446380()
 	}
 	if !noxflags.HasGame(noxflags.GamePause) {
 		gameFrameInc()

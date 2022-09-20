@@ -1200,17 +1200,6 @@ unsigned int nox_gui_xxx_check_446360() {
 	return result;
 }
 
-//----- (00446380) --------------------------------------------------------
-void sub_446380() {
-	sub_44A400();
-	if (nox_common_gameFlags_check_40A5C0(0x2000) && !nox_common_gameFlags_check_40A5C0(4096) && !sub_4D6F30()) {
-		sub_41CEE0((int)getMemAt(0x85B3FC, 10980), 1);
-	}
-	nox_xxx_guiServerOptionsHide_4597E0(1);
-	nox_game_exit_xxx2();
-	sub_446060();
-}
-
 //----- (004463E0) --------------------------------------------------------
 int nox_motd_4463E0(int a1) {
 	FILE* result; // eax
