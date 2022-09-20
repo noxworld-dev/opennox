@@ -25,12 +25,6 @@ extern uint32_t dword_5d4594_1563084;
 extern uint32_t dword_5d4594_1563088;
 extern uint32_t dword_5d4594_1563092;
 
-//----- (004738D0) --------------------------------------------------------
-int sub_4738D0() {
-	nox_xxx_bookHideMB_45ACA0(1);
-	return 1;
-}
-
 bool nox_xxx_saveMakeFolder_0_4DB1D0();
 bool nox_client_makeSaveMapDir_4DB5A0(char* a1, char* a2);
 int nox_xxx_saveMakePlayerLocation_4DB600(void* a1);
@@ -164,66 +158,4 @@ int nox_xxx_saveDoAutosaveMB_4DB370_savegame(const char* a1) {
 	dword_5d4594_1563092 = 0;
 	dword_5d4594_1563088 = 0;
 	return 1;
-}
-
-//----- (004DB7E0) --------------------------------------------------------
-void nox_xxx_gameSetSoloSavePath_4DB270_c(char* a1);
-int nox_xxx_soloLoadGame_4DB7E0_savegame(const char* a1) {
-	char* v1;            // ebp
-	char* result;        // eax
-	char* v3;            // eax
-	wchar_t* v4;         // eax
-	int v5;              // eax
-	char* v6;            // eax
-	wchar_t* v7;         // eax
-	char v8[20];         // [esp+Ch] [ebp-414h]
-	char FileName[1024]; // [esp+20h] [ebp-400h]
-
-	v1 = nox_common_playerInfoFromNum_417090(31);
-	if (!a1) {
-		return 0;
-	}
-	if (!nox_common_gameFlags_check_40A5C0(2) || (result = (char*)sub_4738D0()) != 0) {
-		sub_4DB9C0();
-		if (!strcmp(a1, "WORKING") || (result = (char*)nox_client_copySave_4DC100(a1, "WORKING")) != 0) {
-			v3 = nox_fs_root();
-			nox_sprintf(FileName, "%s\\Save\\%s\\Player.plr", v3, getMemAt(0x587000, 199424));
-			if (nox_fs_access(FileName, 0) == -1) {
-				v4 = nox_strman_loadString_40F1D0("AutoSaveNotFound", 0,
-												  "C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c", 755);
-				nox_xxx_printToAll_4D9FD0(0, v4);
-				result = 0;
-			} else {
-				v5 = sub_41D090(FileName);
-				nox_server_SetFirstObjectScriptID_4E3C60(v5);
-				nox_server_ResetObjectGIDs_4E3C70();
-				nox_xxx_gameSetSwitchSolo_4DB220(1);
-				nox_xxx_gameSetNoMPFlag_4DB230(1);
-				result = nox_xxx_cliPlrInfoLoadFromFile_41A2E0(FileName, 31);
-				if (result) {
-					nox_xxx_cliPrepareGameplay1_460E60();
-					nox_xxx_cliPrepareGameplay2_4721D0();
-					nox_sprintf(v8, "%s.map", v1 + 4760);
-					nox_xxx_gameSetMapPath_409D70(v8);
-					v6 = nox_fs_root();
-					nox_sprintf((char*)getMemAt(0x5D4594, 1559960), "%s\\Save\\%s\\%s\\%s.map", v6,
-								getMemAt(0x587000, 199532), v1 + 4760, v1 + 4760);
-					nox_xxx_gameSetSoloSavePath_4DB270_c((char*)getMemAt(0x5D4594, 1559960));
-					nox_xxx_mapLoad_4D2450(v8);
-					nox_xxx_cliPlayMapIntro_44E0B0(0);
-					result = (char*)nox_xxx_plrLoad_41A480(FileName);
-					if (result) {
-						nox_gui_console_Clear_450B70();
-						sub_445450();
-						nox_xxx_destroyEveryChatMB_528D60();
-						v7 = nox_strman_loadString_40F1D0("GameLoaded", 0,
-														  "C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c", 824);
-						nox_xxx_printToAll_4D9FD0(0, v7);
-						result = (char*)1;
-					}
-				}
-			}
-		}
-	}
-	return result;
 }

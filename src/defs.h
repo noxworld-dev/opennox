@@ -2003,7 +2003,8 @@ typedef struct nox_playerInfo {
 	uint32_t field_4692; // 1173, 4692
 	uint32_t field_4696; // 1174, 4696
 	uint32_t field_4700; // 1175, 4700
-	wchar_t name_final[30]; // 4704, server-approved player name // TODO: size is a wild guess
+	wchar_t name_final[28]; // 4704, server-approved player name // TODO: size is a wild guess
+	char    field_4760[4]; // 1190, 4760
 	uint32_t field_4764; // 1191, 4764
 	uint32_t field_4768; // 1192, 4768
 	uint32_t field_4772; // 1193, 4772

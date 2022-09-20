@@ -2,7 +2,11 @@ package opennox
 
 /*
 #include "GAME1_1.h"
+#include "GAME1_3.h"
+#include "GAME2.h"
+#include "GAME2_1.h"
 #include "GAME3_3.h"
+#include "GAME4_2.h"
 #include "server__xfer__savegame__savegame.h"
 extern unsigned int dword_5d4594_825764;
 void nox_xxx_unitsNewAddToList_4DAC00();
@@ -23,6 +27,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
@@ -35,18 +40,18 @@ func nox_xxx_playerSaveToFile_41A140(path string, ind int) bool {
 
 //export sub_4DB790
 func sub_4DB790(a1 *C.char) C.int {
-	return C.int(sub4DB790(GoString(a1)))
+	return C.int(bool2int(sub4DB790(GoString(a1))))
 }
 
-func sub4DB790(a1 string) int {
+func sub4DB790(a1 string) bool {
 	nox_xxx_mapLoadOrSaveMB_4DCC70(1)
 	noxflags.SetGame(noxflags.GameFlag28)
 	noxAudioServeT(500)
-	v1 := int(C.nox_xxx_soloLoadGame_4DB7E0_savegame(internCStr(a1)))
+	res := nox_xxx_soloLoadGame_4DB7E0_savegame(a1)
 	noxAudioServe()
 	noxflags.UnsetGame(noxflags.GameFlag28)
 	*memmap.PtrUint32(0x5D4594, 1563068) = gameFrame()
-	return v1
+	return res
 }
 
 //export nox_xxx_saveMakeFolder_0_4DB1D0
@@ -210,13 +215,77 @@ func sub_4DB9C0() {
 	}
 }
 
+func sub_4738D0() int {
+	C.nox_xxx_bookHideMB_45ACA0(1)
+	return 1
+}
+
+func nox_xxx_soloLoadGame_4DB7E0_savegame(a1 string) bool {
+	if a1 == "" {
+		return false
+	}
+	if noxflags.HasGame(noxflags.GameClient) && sub_4738D0() == 0 {
+		return false
+	}
+	sub_4DB9C0()
+	if a1 != common.SaveTmp && nox_client_copySave(a1, common.SaveTmp) != nil {
+		return false
+	}
+	path := datapath.Save(common.SaveTmp, common.PlayerFile)
+	if _, err := ifs.Stat(path); os.IsNotExist(err) {
+		str := strMan.GetStringInFile("AutoSaveNotFound", "SaveGame.c")
+		PrintToPlayers(str)
+		return false
+	}
+	v5, _ := sub41D090(path)
+	noxServer.SetFirstObjectScriptID(server.ObjectScriptID(v5))
+	nox_server_ResetObjectGIDs_4E3C70()
+	nox_xxx_gameSetSwitchSolo_4DB220(1)
+	nox_xxx_gameSetNoMPFlag_4DB230(1)
+	if C.nox_xxx_cliPlrInfoLoadFromFile_41A2E0(internCStr(path), noxMaxPlayers-1) == nil {
+		return false
+	}
+	C.nox_xxx_cliPrepareGameplay1_460E60()
+	C.nox_xxx_cliPrepareGameplay2_4721D0()
+	pl := noxServer.getPlayerByInd(noxMaxPlayers - 1)
+	pl.Name()
+	mname := pl.saveName()
+	noxServer.nox_xxx_gameSetMapPath_409D70(mname + ".map")
+	dword_5d4594_1559960 = datapath.Save(common.SaveTmp, mname, mname+".map")
+	noxServer.switchMap(mname + ".map")
+	nox_xxx_cliPlayMapIntro_44E0B0(0)
+	if C.nox_xxx_plrLoad_41A480(internCStr(path)) == 0 {
+		return false
+	}
+	guiCon.Clear()
+	C.sub_445450()
+	C.nox_xxx_destroyEveryChatMB_528D60()
+	str := strMan.GetStringInFile("GameLoaded", "C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c")
+	PrintToPlayers(str)
+	return true
+}
+
 func nox_xxx_gameSetSoloSavePath_4DB270(a1 string) {
 	dword_5d4594_1559960 = a1
 }
 
-//export nox_xxx_gameSetSoloSavePath_4DB270_c
-func nox_xxx_gameSetSoloSavePath_4DB270_c(a1 *C.char) {
-	nox_xxx_gameSetSoloSavePath_4DB270(GoString(a1))
+//export sub_4DD0B0
+func sub_4DD0B0(a1p *nox_object_t) {
+	u := asUnitC(a1p)
+	if u == nil {
+		return
+	}
+	pl := u.ControllingPlayer()
+	if nox_xxx_player_4D7980(pl.Index()) {
+		noxServer.getPlayerByInd(pl.Index()).Disconnect(4)
+	} else {
+		sub_419EB0(C.int(pl.Index()), 0)
+		nox_xxx_sendGauntlet_4DCF80(pl.Index(), 0)
+	}
+}
+
+func nox_xxx_player_4D7980(a1 int) bool {
+	return (*memmap.PtrUint32(0x5D4594, 1556300) & (1 << a1)) != 0
 }
 
 //export nox_xxx_saveMakePlayerLocation_4DB600
