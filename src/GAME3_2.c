@@ -6369,15 +6369,6 @@ int nox_xxx_gameGet_4DB1B0() { return dword_5d4594_1563080; }
 //----- (004DB1C0) --------------------------------------------------------
 int sub_4DB1C0() { return dword_5d4594_1563084; }
 
-//----- (004DB270) --------------------------------------------------------
-unsigned int nox_xxx_gameSetSoloSavePath_4DB270(const char* a1) {
-	unsigned int result; // eax
-
-	result = strlen(a1) + 1;
-	memcpy(getMemAt(0x5D4594, 1559960), a1, result);
-	return result;
-}
-
 //----- (004DC550) --------------------------------------------------------
 int nox_client_countSaveFiles_4DC550() {
 	int v0;              // ebx
