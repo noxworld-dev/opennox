@@ -35,6 +35,8 @@ import (
 )
 
 var (
+	dword_5d4594_1563044 = false
+	dword_5d4594_1563048 = false
 	dword_5d4594_1559960 string
 )
 
@@ -248,6 +250,17 @@ func sub_446140() C.int {
 	return 1
 }
 
+func sub_4DCE30() {
+	if !dword_5d4594_1563048 {
+		sub_4169F0()
+	}
+	sub_446140()
+}
+
+func sub_419F00() bool {
+	return *memmap.PtrUint32(0x5D4594, 527716) != 0
+}
+
 //export sub_419EB0
 func sub_419EB0(i, val C.int) {
 	if val == 1 {
@@ -261,7 +274,16 @@ func sub_419EE0(a1 int) bool {
 	return (*memmap.PtrUint32(0x5D4594, 527716) & (1 << a1)) != 0
 }
 
-//export sub_4DB9C0
+//export sub_4DCE00
+func sub_4DCE00() {
+	if dword_5d4594_1563044 {
+		if !sub_419F00() {
+			sub_4DCE30()
+			dword_5d4594_1563044 = false
+		}
+	}
+}
+
 func sub_4DB9C0() {
 	var next *Object
 	for it := noxServer.firstServerObject(); it != nil; it = next {
@@ -331,6 +353,23 @@ func nox_xxx_soloLoadGame_4DB7E0_savegame(a1 string) bool {
 
 func nox_xxx_gameSetSoloSavePath_4DB270(a1 string) {
 	dword_5d4594_1559960 = a1
+}
+
+func sub_4DCD40() {
+	dword_5d4594_1563048 = sub_416A00()
+	sub_4169E0()
+	dword_5d4594_1563044 = true
+	path := datapath.Save("_temp_.dat")
+	for _, u := range noxServer.getPlayerUnits() {
+		ud := u.updateDataPlayer()
+		pl := ud.Player()
+		if pl.field_4792 != 0 && ud.field_138 != 1 {
+			if nox_xxx_playerSaveToFile_41A140(path, pl.Index()) {
+				sub41CFA0(path, pl.Index())
+			}
+			ifs.Remove(path)
+		}
+	}
 }
 
 //export sub_4DCFB0
