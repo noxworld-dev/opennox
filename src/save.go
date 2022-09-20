@@ -11,6 +11,12 @@ package opennox
 #include "server__xfer__savegame__savegame.h"
 extern unsigned int dword_5d4594_825764;
 extern uint32_t dword_5d4594_1049844;
+extern unsigned int dword_5d4594_1563064;
+extern uint32_t dword_5d4594_1563080;
+extern uint32_t dword_5d4594_1563084;
+extern uint32_t dword_5d4594_1563088;
+extern uint32_t dword_5d4594_1563092;
+extern uint32_t dword_5d4594_1563096;
 void nox_xxx_unitsNewAddToList_4DAC00();
 */
 import "C"
@@ -237,6 +243,17 @@ func nox_xxx_savePlayerMB_41C8F0(cdata *C.char, csz C.uint) C.int {
 	str2 := strMan.GetStringInFile("CharacterSaved", "XferPlyr.c")
 	nox_xxx_printCentered_445490(str2)
 	return 1
+}
+
+func sub_4DB100() {
+	C.dword_5d4594_1563080 = 0
+	C.dword_5d4594_1563084 = 0
+	C.dword_5d4594_1563096 = 0
+	C.dword_5d4594_1563064 = 0
+	C.dword_5d4594_1563092 = 0
+	C.dword_5d4594_1563088 = 0
+	*memmap.PtrUint32(0x5D4594, 1563072) = 0
+	*memmap.PtrUint32(0x5D4594, 1563068) = 0
 }
 
 //export sub_446140
