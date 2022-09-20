@@ -9,6 +9,7 @@ package opennox
 #include "GAME4_2.h"
 #include "server__xfer__savegame__savegame.h"
 extern unsigned int dword_5d4594_825764;
+extern uint32_t dword_5d4594_1049844;
 void nox_xxx_unitsNewAddToList_4DAC00();
 */
 import "C"
@@ -18,7 +19,9 @@ import (
 	"strings"
 	"unsafe"
 
+	crypt "github.com/noxworld-dev/noxcrypt"
 	"github.com/noxworld-dev/opennox-lib/common"
+	"github.com/noxworld-dev/opennox-lib/console"
 	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/ifs"
 	"github.com/noxworld-dev/opennox-lib/object"
@@ -184,6 +187,53 @@ func sub_41A000_check0(path string) byte {
 	defer freeSave()
 	C.sub_41A000(cstr, (*C.nox_savegame_xxx)(unsafe.Pointer(&save[0])))
 	return save[0]
+}
+
+//export nox_xxx_savePlayerMB_41C8F0
+func nox_xxx_savePlayerMB_41C8F0(cdata *C.char, csz C.uint) C.int {
+	data := unsafe.Slice((*byte)(unsafe.Pointer(cdata)), int(csz))
+	path := memmap.String(0x85B3FC, 10984)
+	const expSize = 216 // TODO: limit was *getMemIntPtr(0x587000, 55984) == 700, see #304
+	if !noxflags.HasGame(noxflags.GameHost) && len(data) < expSize {
+		str := strMan.GetStringInFile("Wol.c:WolApierror", "XferPlyr.c")
+		noxConsole.Print(console.ColorBlue, str)
+		str2 := strMan.GetStringInFile("Wol.c:Wolapierror", "XferPlyr.c")
+		nox_xxx_printCentered_445490(str2)
+		saveLog.Printf("SavePlayerOnClient: Error - character file too small %q (%d vs %d)\n", path, len(data), expSize)
+		return 0
+	}
+
+	ifs.MkdirAll(datapath.Save())
+
+	f, err := BinfileOpen(path, BinFileWO)
+	if err != nil {
+		saveLog.Printf("SavePlayerOnClient: Unable to open file %q\n", path)
+		return 0
+	}
+	if err := f.SetKey(crypt.SaveKey); err != nil {
+		_ = f.Close()
+		saveLog.Printf("SavePlayerOnClient: Unable to key file %q: %v\n", path, err)
+		return 0
+	}
+	if len(data) != 0 {
+		f.Write(data)
+	}
+	f.Close()
+
+	if noxflags.HasGame(noxflags.GameModeQuest) {
+		*memmap.PtrUint8(0x85B3FC, 12257) = byte(C.dword_5d4594_1049844)
+	} else {
+		*memmap.PtrUint8(0x85B3FC, 12257) = 0
+	}
+	if C.nox_xxx_mapSavePlayerDataMB_41A230(internCStr(path)) == 0 {
+		networkLogPrint("SavePlayerOnClient: Unable to save client data to file\n")
+		return 0
+	}
+	str := strMan.GetStringInFile("CharacterSaved", "XferPlyr.c")
+	noxConsole.Print(console.ColorBlue, str)
+	str2 := strMan.GetStringInFile("CharacterSaved", "XferPlyr.c")
+	nox_xxx_printCentered_445490(str2)
+	return 1
 }
 
 //export sub_446140

@@ -28,7 +28,6 @@ void nullsub_70() {}
 #include "common__object__armrlook.h"
 #include "common__object__weaplook.h"
 #include "common__system__team.h"
-#include "common__xfer__savegame__xferplyr.h"
 
 #include "client__gui__servopts__playrlst.h"
 #include "client__network__netclint.h"
@@ -841,6 +840,7 @@ LABEL_31:
 }
 
 //----- (0040AF90) --------------------------------------------------------
+int nox_xxx_savePlayerMB_41C8F0(char* a1, unsigned int a2);
 void nox_xxx_soloGameEscMenuCallback_40AF90(int a1, int a2, char a3, int a4, uint8_t* a5, unsigned int a6) {
 	char* v6;            // eax
 	char* v7;            // edi
