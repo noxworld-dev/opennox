@@ -630,7 +630,9 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 		}
 	case "nox_xxx_getTTByNameSpriteMB_44CFC0":
 		if len(n.Args) == 1 {
+			n.Fun = selExpr("nox_things", "IndByID")
 			n.Args[0] = stringExpr(n.Args[0], &r.fileChanged)
+			r.fileChanged = true
 		}
 	case "clientPlaySoundSpecial":
 		if len(n.Args) == 2 {

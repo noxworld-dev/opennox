@@ -12,16 +12,13 @@ package opennox
 extern uint32_t dword_5d4594_251540;
 extern uint32_t dword_5d4594_251568;
 extern uint32_t dword_5d4594_251572;
+void nox_xxx_equipWeapon_4131A0();
+void nox_xxx_equipArmor_415AB0();
+void nox_xxx_equipWeapon_4157C0();
 int sub_485CF0();
 int sub_485F30();
 int sub_46A360();
 int sub_4F0640();
-char* nox_xxx_equipWeapon_4131A0();
-void nox_xxx_equipArmor_415AB0();
-void nox_xxx_equipWeapon_4157C0();
-void sub_4E29D0();
-void nox_xxx_unitDefByAlphabetInit_4E3040();
-void nox_xxx_objectTypeAddToNameInd_4E30D0(nox_objectType_t* a1p);
 */
 import "C"
 import (
@@ -271,11 +268,6 @@ func (s *Server) nox_read_things_alternative_4E2B60() error {
 	if err := s.objs.checkTypes(); err != nil {
 		return err
 	}
-	C.nox_xxx_unitDefByAlphabetInit_4E3040()
-	for _, cur := range s.objs.byInd {
-		C.nox_xxx_objectTypeAddToNameInd_4E30D0(cur.C())
-	}
-	C.sub_4E29D0()
 	C.nox_xxx_equipWeapon_4131A0()
 	C.nox_xxx_equipArmor_415AB0()
 	C.nox_xxx_equipWeapon_4157C0()
