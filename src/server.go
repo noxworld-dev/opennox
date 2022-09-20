@@ -491,7 +491,7 @@ func (s *Server) nox_server_netCloseHandler_4DEC60(ind int) {
 
 func (s *Server) nox_xxx_servEndSession_4D3200() {
 	s.ai.Free()
-	C.sub_4DB100()
+	sub_4DB100()
 	C.sub_421B10()
 	C.sub_516F10()
 	C.sub_4FF770()

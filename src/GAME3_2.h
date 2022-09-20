@@ -243,7 +243,6 @@ char nox_xxx_servFinalizeDelObject_4DADE0(nox_object_t* item);
 int sub_4DAE50(int a1);
 void sub_4DAF10();
 uint32_t* nox_xxx_unitClearPendingMB_4DB030();
-int sub_4DB100();
 unsigned int sub_4DB130(const char* a1);
 void sub_4DB170(int a1, int a2, int a3);
 int nox_xxx_gameGet_4DB1B0();
