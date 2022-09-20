@@ -1100,8 +1100,7 @@ func nox_savegame_sub_46C920(win1 *Window, ev WindowEvent) WindowEventResp {
 			if sub_450560() {
 				sub_450580()
 				sub_43DDA0()
-				nox_xxx_setContinueMenuOrHost_43DDD0(0)
-				nox_game_exit_xxx_43DE60()
+				nox_game_exit_xxx2()
 				sub_446060()
 				sub_46D6F0()
 				return nil

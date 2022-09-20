@@ -129,8 +129,7 @@ int nox_game_showWolLogin_44A560() {
 			} else {
 				nox_xxx_networkLog_printf_413D30("InitWolApiMenu: Quitting due to all players left");
 			}
-			nox_xxx_setContinueMenuOrHost_43DDD0(0);
-			nox_game_exit_xxx_43DE60();
+			nox_game_exit_xxx2();
 			return 0;
 		}
 		v15 = nox_strman_loadString_40F1D0("Discon", 0, "C:\\NoxPost\\src\\client\\shell\\WolApi\\wollogin.c", 495);

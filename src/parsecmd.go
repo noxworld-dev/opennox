@@ -226,8 +226,7 @@ var (
 			if noxflags.HasGame(noxflags.GameFlag26) {
 				nox_client_quit_4460C0()
 			}
-			nox_xxx_setContinueMenuOrHost_43DDD0(0)
-			nox_game_exit_xxx_43DE60()
+			nox_game_exit_xxx2()
 			return true
 		}},
 		{Token: "kick", HelpID: "kickhelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_kick)},

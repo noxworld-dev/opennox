@@ -1207,8 +1207,7 @@ void sub_446380() {
 		sub_41CEE0((int)getMemAt(0x85B3FC, 10980), 1);
 	}
 	nox_xxx_guiServerOptionsHide_4597E0(1);
-	nox_xxx_setContinueMenuOrHost_43DDD0(0);
-	nox_game_exit_xxx_43DE60();
+	nox_game_exit_xxx2();
 	sub_446060();
 }
 

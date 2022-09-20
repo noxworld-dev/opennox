@@ -205,8 +205,7 @@ func (s *Server) nox_xxx_replayTickMB(a1 bool) error {
 	if !replay.readHeader {
 		if _, err := io.ReadFull(replay.reader, buf[:5]); err == io.EOF {
 			s.nox_xxx_replayStopReadMB_4D3530()
-			nox_xxx_setContinueMenuOrHost_43DDD0(0)
-			nox_game_exit_xxx_43DE60()
+			nox_game_exit_xxx2()
 			return nil
 		} else if err != nil {
 			return fmt.Errorf("cannot read header: %w", err)
@@ -261,8 +260,7 @@ func (s *Server) nox_xxx_replayTickMB(a1 bool) error {
 			}
 			v7 := binary.LittleEndian.Uint32(buf[0:4])
 			if (v7 & 0xFF0000) != 0x10000 {
-				nox_xxx_setContinueMenuOrHost_43DDD0(0)
-				nox_game_exit_xxx_43DE60()
+				nox_game_exit_xxx2()
 				return errors.New("replay playback error")
 			}
 		case replayOpConsole:
@@ -286,8 +284,7 @@ func (s *Server) nox_xxx_replayTickMB(a1 bool) error {
 			if a1 {
 				return nil
 			}
-			nox_xxx_setContinueMenuOrHost_43DDD0(0)
-			nox_game_exit_xxx_43DE60()
+			nox_game_exit_xxx2()
 		}
 		if _, err := io.ReadFull(replay.reader, buf[:5]); err != nil {
 			replay.readHeader = false
@@ -302,8 +299,7 @@ func (s *Server) nox_xxx_replayTickMB_4D3580_net_playback(a1 bool) error {
 	if err := s.nox_xxx_replayTickMB(a1); err != nil {
 		replayLog.Println(err)
 		s.nox_xxx_replayStopReadMB_4D3530()
-		nox_xxx_setContinueMenuOrHost_43DDD0(0)
-		nox_game_exit_xxx_43DE60()
+		nox_game_exit_xxx2()
 		return err
 	}
 	return nil
