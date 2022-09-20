@@ -1119,7 +1119,7 @@ func nox_savegame_sub_46CBD0() {
 		return
 	}
 	v3 := datapath.SaveNameFromPath(GoString(&nox_savegame_arr_1064948[i].path[0]))
-	if sub4DB790(v3) == 0 {
+	if !sub4DB790(v3) {
 		v1 := strMan.GetStringInFile("SaveErrorTitle", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
 		NewDialogWindow(nil, v1, v1, 33, nil, nil)
 	}
