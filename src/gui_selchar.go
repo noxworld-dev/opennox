@@ -875,7 +875,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 					if err != nil {
 						v22 = datapath.Maps(mname, fbase)
 					}
-					C.nox_xxx_gameSetSoloSavePath_4DB270(internCStr(v22))
+					nox_xxx_gameSetSoloSavePath_4DB270(v22)
 					noxServer.nox_xxx_gameSetMapPath_409D70(fbase)
 					nox_xxx_mapLoadOrSaveMB_4DCC70(1)
 					v13, _ := sub41D090(GoString(&sv.path[0]))

@@ -194,6 +194,7 @@ int nox_xxx_saveDoAutosaveMB_4DB370_savegame(const char* a1) {
 }
 
 //----- (004DB7E0) --------------------------------------------------------
+void nox_xxx_gameSetSoloSavePath_4DB270_c(char* a1);
 int nox_xxx_soloLoadGame_4DB7E0_savegame(const char* a1) {
 	char* v1;            // ebp
 	char* result;        // eax
@@ -234,6 +235,7 @@ int nox_xxx_soloLoadGame_4DB7E0_savegame(const char* a1) {
 					v6 = nox_fs_root();
 					nox_sprintf((char*)getMemAt(0x5D4594, 1559960), "%s\\Save\\%s\\%s\\%s.map", v6,
 								getMemAt(0x587000, 199532), v1 + 4760, v1 + 4760);
+					nox_xxx_gameSetSoloSavePath_4DB270_c((char*)getMemAt(0x5D4594, 1559960));
 					nox_xxx_mapLoad_4D2450(v8);
 					nox_xxx_cliPlayMapIntro_44E0B0(0);
 					result = (char*)nox_xxx_plrLoad_41A480(FileName);
