@@ -32,7 +32,6 @@ extern unsigned int dword_5d4594_1569656;
 extern unsigned int dword_5d4594_2650652;
 extern unsigned int nox_xxx_questFlag_1556148;
 extern unsigned int dword_5d4594_2649712;
-extern unsigned int dword_5d4594_825768;
 extern unsigned int dword_5d4594_1548524;
 extern nox_object_t* nox_xxx_host_player_unit_3843628;
 extern unsigned int dword_5d4594_1563064;
@@ -53,7 +52,6 @@ unsigned int sub_50D890();
 void nox_xxx_gameTick_4D2580_server_D();
 int  nox_xxx_playerSomeWallsUpdate_5003B0(nox_object_t* obj);
 void sub_4139C0();
-//void sub_446190();
 int sub_4DCF20();
 int sub_4E76C0();
 bool sub_57B140();
@@ -256,7 +254,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 }
 
 func sub_446040() uint32 {
-	return uint32(C.dword_5d4594_825768)
+	return dword_5d4594_825768
 }
 
 func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
@@ -267,10 +265,10 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 		s.nox_xxx_gameTick_4D2580_server_D()
 	}
 	sub_4139C0()
-	if C.nox_xxx_serverIsClosing_446180() != 0 {
-		C.sub_446190()
+	if nox_xxx_serverIsClosing446180() {
+		sub_446190()
 	}
-	if C.sub_446030() != 0 && gameFrame() > 5*gameFPS()+sub_446040() {
+	if sub_446030() != 0 && gameFrame() > 5*gameFPS()+sub_446040() {
 		sub_446380()
 	}
 	if !noxflags.HasGame(noxflags.GamePause) {

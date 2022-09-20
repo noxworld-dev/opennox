@@ -37,7 +37,6 @@ extern void* dword_5d4594_830236;
 extern unsigned int dword_5d4594_831220;
 extern uint32_t dword_5d4594_831260;
 extern uint32_t dword_5d4594_1563096;
-extern unsigned int dword_5d4594_825768;
 extern uint32_t dword_5d4594_830872;
 extern uint32_t dword_5d4594_830972;
 extern uint32_t dword_5d4594_831224;
@@ -1124,10 +1123,6 @@ func nox_savegame_sub_46CBD0() {
 	}
 	sub_44A400()
 	sub_46D6F0()
-}
-
-func sub_446060() {
-	C.dword_5d4594_825768 = 0
 }
 
 func sub_4505B0() {
