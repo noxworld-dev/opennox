@@ -267,7 +267,7 @@ func (a *serverAbilities) Do(u *Unit, abil Ability) {
 			return
 		}
 	case AbilityWarcry:
-		if a.IsActive(u, AbilityWarcry) || a.IsActive(u, AbilityHarpoon) {
+		if a.IsActive(u, AbilityBerserk) || a.IsActive(u, AbilityHarpoon) {
 			nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 2)
 			nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
 			return
