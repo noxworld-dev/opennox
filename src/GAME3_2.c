@@ -6369,18 +6369,6 @@ int nox_xxx_gameGet_4DB1B0() { return dword_5d4594_1563080; }
 //----- (004DB1C0) --------------------------------------------------------
 int sub_4DB1C0() { return dword_5d4594_1563084; }
 
-//----- (004DB220) --------------------------------------------------------
-int nox_xxx_gameSetSwitchSolo_4DB220(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 1563056) = a1;
-	return result;
-}
-
-//----- (004DB240) --------------------------------------------------------
-int nox_xxx_gameIsSwitchToSolo_4DB240() { return *getMemU32Ptr(0x5D4594, 1563056); }
-
 //----- (004DB270) --------------------------------------------------------
 unsigned int nox_xxx_gameSetSoloSavePath_4DB270(const char* a1) {
 	unsigned int result; // eax
