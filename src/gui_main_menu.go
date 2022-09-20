@@ -410,7 +410,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 			}
 			// sub_4AA450();
 			nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showGameSel_4379F0)
-			C.sub_43AF50(0)
+			sub_43AF50(0)
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		case 121:
 			path, ok := nox_game_setMovieFile_4CB230("intro.vqa")
@@ -458,7 +458,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 			}
 			// sub_4AA450();
 			nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showGameSel_4379F0)
-			C.sub_43AF50(0)
+			sub_43AF50(0)
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		default:
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)

@@ -231,11 +231,11 @@ func sub_4A50D0() C.int {
 		nox_client_guiXxxDestroy_4A24A0()
 		return 1
 	}
-	if C.nox_xxx_check_flag_aaa_43AF70() == 0 {
+	if nox_xxx_check_flag_aaa_43AF70() == 0 {
 		nox_xxx_serverHost_43B4D0()
 		return 1
 	}
-	if C.nox_xxx_check_flag_aaa_43AF70() == 1 {
+	if nox_xxx_check_flag_aaa_43AF70() == 1 {
 		sub_43B670()
 		return 1
 	}
