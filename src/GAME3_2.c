@@ -33,7 +33,6 @@
 #include "server__network__playback.h"
 #include "server__network__sdecode.h"
 #include "server__system__server.h"
-#include "server__xfer__savegame__savegame.h"
 
 #include "client__gui__chathelp.h"
 #include "client__gui__conntype.h"
@@ -69,8 +68,6 @@ extern uint32_t dword_5d4594_1523040;
 extern uint32_t dword_5d4594_1563276;
 extern uint32_t dword_5d4594_3835392;
 extern uint32_t nox_server_sendMotd_108752;
-extern uint32_t dword_5d4594_1563084;
-extern uint32_t dword_5d4594_1563080;
 extern uint32_t dword_5d4594_1556856;
 extern uint32_t dword_5d4594_1548480;
 extern uint32_t dword_5d4594_1548704;
@@ -78,12 +75,10 @@ extern uint32_t dword_5d4594_1523048;
 extern uint32_t dword_5d4594_1563096;
 extern uint32_t dword_5d4594_1523044;
 extern uint32_t dword_5d4594_1523032;
-extern uint32_t dword_5d4594_1563088;
 extern uint32_t nox_server_sanctuaryHelp_54276;
 extern uint32_t dword_5d4594_3835312;
 extern uint32_t nox_xxx_questFlag_1556148;
 extern uint32_t dword_5d4594_3835388;
-extern uint32_t dword_5d4594_1563092;
 extern uint32_t dword_5d4594_3835348;
 extern uint32_t nox_client_gui_flag_1556112;
 extern uint32_t dword_5d4594_3835352;
@@ -6334,12 +6329,6 @@ unsigned int sub_4DB130(const char* a1) {
 	return result;
 }
 
-//----- (004DB1B0) --------------------------------------------------------
-int nox_xxx_gameGet_4DB1B0() { return dword_5d4594_1563080; }
-
-//----- (004DB1C0) --------------------------------------------------------
-int sub_4DB1C0() { return dword_5d4594_1563084; }
-
 //----- (004DC550) --------------------------------------------------------
 int nox_client_countSaveFiles_4DC550() {
 	int v0;              // ebx
@@ -6425,52 +6414,12 @@ int sub_4DCBF0(int a1) {
 	return result;
 }
 
-//----- (004DCC10) --------------------------------------------------------
-int sub_4DCC10(nox_object_t* a1p) {
-	int a1 = a1p;
-	int v1;     // esi
-	int v2;     // eax
-	int result; // eax
-
-	v1 = 1;
-	if (dword_5d4594_1563092 && (unsigned int)(dword_5d4594_1563092 + dword_5d4594_1563088) > nox_frame_xxx_2598000) {
-		v1 = 0;
-	}
-	if (*(uint32_t*)(*(uint32_t*)(a1 + 748) + 284)) {
-		v1 = 0;
-	}
-	v2 = *(uint32_t*)(a1 + 16);
-	if (v2 & 2) {
-		v1 = 0;
-	}
-	if ((v2 & 0x8000) != 0) {
-		v1 = 0;
-	}
-	if (sub_45D9B0() == 1) {
-		result = 0;
-	} else {
-		result = v1;
-	}
-	return result;
-}
-
 //----- (004DCC70) --------------------------------------------------------
 int nox_xxx_mapLoadOrSaveMB_4DCC70(int a1) {
 	int result; // eax
 
 	result = a1;
 	*getMemU32Ptr(0x5D4594, 1563072) = a1;
-	return result;
-}
-
-//----- (004DCC90) --------------------------------------------------------
-int sub_4DCC90() {
-	int result; // eax
-
-	result = 1;
-	if (dword_5d4594_1563080 != 1) {
-		result = dword_5d4594_1563092 != 0;
-	}
 	return result;
 }
 

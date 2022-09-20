@@ -8,15 +8,11 @@ package opennox
 #include "GAME2_1.h"
 #include "GAME3_3.h"
 #include "GAME4_2.h"
-#include "server__xfer__savegame__savegame.h"
 extern unsigned int dword_5d4594_825764;
 extern uint32_t dword_5d4594_1049844;
 extern unsigned int dword_5d4594_1563064;
-extern uint32_t dword_5d4594_1563080;
-extern uint32_t dword_5d4594_1563084;
-extern uint32_t dword_5d4594_1563088;
-extern uint32_t dword_5d4594_1563092;
 extern uint32_t dword_5d4594_1563096;
+void nox_xxx_monstersAllBelongToHost_4DB6A0();
 void nox_xxx_unitsNewAddToList_4DAC00();
 */
 import "C"
@@ -43,6 +39,10 @@ import (
 var (
 	dword_5d4594_1563044 = false
 	dword_5d4594_1563048 = false
+	dword_5d4594_1563080 = 0
+	dword_5d4594_1563084 unsafe.Pointer
+	dword_5d4594_1563092 uint32
+	dword_5d4594_1563088 uint32
 	dword_5d4594_1559960 string
 )
 
@@ -246,14 +246,33 @@ func nox_xxx_savePlayerMB_41C8F0(cdata *C.char, csz C.uint) C.int {
 }
 
 func sub_4DB100() {
-	C.dword_5d4594_1563080 = 0
-	C.dword_5d4594_1563084 = 0
+	dword_5d4594_1563080 = 0
+	dword_5d4594_1563084 = nil
 	C.dword_5d4594_1563096 = 0
 	C.dword_5d4594_1563064 = 0
-	C.dword_5d4594_1563092 = 0
-	C.dword_5d4594_1563088 = 0
+	dword_5d4594_1563092 = 0
+	dword_5d4594_1563088 = 0
 	*memmap.PtrUint32(0x5D4594, 1563072) = 0
 	*memmap.PtrUint32(0x5D4594, 1563068) = 0
+}
+
+//export nox_xxx_gameGet_4DB1B0
+func nox_xxx_gameGet_4DB1B0() C.int {
+	return C.int(dword_5d4594_1563080)
+}
+
+//export sub_4DCC90
+func sub_4DCC90() C.int {
+	v := 1
+	if dword_5d4594_1563080 != 1 {
+		v = bool2int(dword_5d4594_1563092 != 0)
+	}
+	return C.int(v)
+}
+
+//export sub_4DB1C0
+func sub_4DB1C0() unsafe.Pointer {
+	return dword_5d4594_1563084
 }
 
 //export sub_446140
@@ -289,6 +308,28 @@ func sub_419EB0(i, val C.int) {
 
 func sub_419EE0(a1 int) bool {
 	return (*memmap.PtrUint32(0x5D4594, 527716) & (1 << a1)) != 0
+}
+
+//export sub_4DCC10
+func sub_4DCC10(a1p *nox_object_t) C.int {
+	u := asUnitC(a1p)
+	v := true
+	if dword_5d4594_1563092 != 0 && dword_5d4594_1563092+dword_5d4594_1563088 > gameFrame() {
+		v = false
+	}
+	if *(*uint32)(unsafe.Add(u.updateDataPtr(), 284)) != 0 { // TODO: which type is expected here?
+		v = false
+	}
+	if u.Flags().Has(object.FlagNoUpdate) {
+		v = false
+	}
+	if u.Flags().Has(object.FlagDead) {
+		v = false
+	}
+	if C.sub_45D9B0() == 1 {
+		return 0
+	}
+	return C.int(bool2int(v))
 }
 
 //export sub_4DCE00
@@ -473,6 +514,74 @@ func sub_4DD0B0(a1p *nox_object_t) {
 
 func nox_xxx_player_4D7980(a1 int) bool {
 	return (*memmap.PtrUint32(0x5D4594, 1556300) & (1 << a1)) != 0
+}
+
+func sub_450750() byte {
+	return memmap.Uint8(0x5D4594, 831252)
+}
+
+func nox_xxx_saveDoAutosaveMB_4DB370_savegame(name string) int {
+	sub_478000()
+	C.nox_xxx_quickBarClose_4606B0()
+	pl := noxServer.getPlayerByInd(noxMaxPlayers - 1)
+	if pl == nil {
+		return 0
+	}
+	u := pl.UnitC()
+	if u == nil {
+		return 0
+	}
+	if name == "" {
+		return 0
+	}
+	if u.Flags().Has(object.FlagDead) {
+		return 0
+	}
+	if err := ifs.Mkdir(datapath.Save()); err != nil {
+		saveLog.Printf("cannot create common saves dir: %v", err)
+		return 0
+	}
+	if _, err := nox_client_makeSaveDir(common.SaveTmp); err != nil {
+		saveLog.Printf("cannot create temp save dir: %v", err)
+		return 0
+	}
+	mname := noxServer.getServerMap()
+	if err := ifs.Mkdir(datapath.Save(common.SaveTmp, mname)); err != nil {
+		saveLog.Printf("cannot create save dir: %v", err)
+		return 0
+	}
+	if !nox_xxx_saveMakePlayerLocation_4DB600(dword_5d4594_1563084) {
+		return 0
+	}
+	mname = noxServer.getServerMap()
+	path := datapath.Save(common.SaveTmp, mname, mname+".map")
+	if C.nox_xxx_mapSaveMap_51E010(internCStr(path), 0) == 0 {
+		return 0
+	}
+	C.nox_xxx_monstersAllBelongToHost_4DB6A0()
+	v14 := datapath.Save(common.SaveTmp, common.PlayerFile)
+	*memmap.PtrUint32(0x85B3FC, 10980) &= 0xFFFFFFF7
+	if memmap.Uint32(0x5D4594, 1563076) != 0 {
+		*memmap.PtrUint32(0x85B3FC, 10980) |= 8
+	}
+	*memmap.PtrUint8(0x85B3FC, 12257) = sub_450750()
+	if !nox_xxx_playerSaveToFile_41A140(v14, pl.Index()) {
+		return 0
+	}
+	if C.nox_xxx_mapSavePlayerDataMB_41A230(internCStr(v14)) == 0 {
+		return 0
+	}
+	if name != common.SaveTmp {
+		str := strMan.GetStringInFile("AutoSaveComplete", "SaveGame.c")
+		PrintToPlayers(str)
+		if err := nox_client_copySave(common.SaveTmp, name); err != nil {
+			saveLog.Printf("failed to copy save file: %v", err)
+			return 0
+		}
+	}
+	dword_5d4594_1563092 = 0
+	dword_5d4594_1563088 = 0
+	return 1
 }
 
 //export nox_xxx_saveMakePlayerLocation_4DB600

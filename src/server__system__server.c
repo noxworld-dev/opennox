@@ -36,7 +36,6 @@
 #include "server__network__mapsend.h"
 #include "server__network__playback.h"
 #include "server__network__sdecode.h"
-#include "server__xfer__savegame__savegame.h"
 
 extern uint32_t nox_xxx_respawnAllow_587000_205200;
 extern uint32_t dword_5d4594_1569656;
