@@ -45,7 +45,6 @@ int sub_419E60(int a1);
 int sub_419EA0();
 void sub_419EB0(int a1, int a2);
 int sub_419EE0(char a1);
-int sub_419F00();
 int sub_41A000(char* a1, nox_savegame_xxx* sv);
 int nox_xxx_playerSaveToFile_41A140(char* a1, int a2);
 int nox_xxx_mapSavePlayerDataMB_41A230(char* a1);
