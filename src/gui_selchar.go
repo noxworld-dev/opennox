@@ -36,10 +36,6 @@ extern void* dword_5d4594_830232;
 extern void* dword_5d4594_830236;
 extern unsigned int dword_5d4594_831220;
 extern uint32_t dword_5d4594_831260;
-extern uint32_t dword_5d4594_1563080;
-extern uint32_t dword_5d4594_1563084;
-extern uint32_t dword_5d4594_1563088;
-extern uint32_t dword_5d4594_1563092;
 extern uint32_t dword_5d4594_1563096;
 extern unsigned int dword_5d4594_825768;
 extern uint32_t dword_5d4594_830872;
@@ -1065,7 +1061,7 @@ func nox_savegame_sub_46C920(win1 *Window, ev WindowEvent) WindowEventResp {
 				v11 := strMan.GetStringInFile("GUISave.c:OverwriteSaveTitle", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
 				NewDialogWindow(dword_5d4594_1082856, v11, v13, 56, func() {
 					sub_4DB130(GoStringP(memmap.PtrOff(0x5D4594, 1082840)))
-					sub_4DB170(1, 0, 0)
+					sub_4DB170(1, nil, 0)
 					sub_46D6F0()
 				}, func() {
 					nox_xxx_wndSetCaptureMain(dword_5d4594_1082856)
@@ -1079,7 +1075,7 @@ func nox_savegame_sub_46C920(win1 *Window, ev WindowEvent) WindowEventResp {
 				v14 = common.SaveAuto
 			}
 			sub_4DB130(v14)
-			sub_4DB170(1, 0, 0)
+			sub_4DB170(1, nil, 0)
 			sub_46D6F0()
 			return nil
 		case 502:
@@ -1161,12 +1157,12 @@ func sub_4DB130(a1 string) {
 }
 
 //export sub_4DB170
-func sub_4DB170(a1, a2, a3 C.int) {
-	C.dword_5d4594_1563092 = C.uint(a3)
-	C.dword_5d4594_1563088 = C.uint(gameFrame())
-	C.dword_5d4594_1563084 = C.uint(a2)
-	C.dword_5d4594_1563080 = C.uint(a1)
-	C.dword_5d4594_1563096 = C.uint(bool2int(a2 != 0))
+func sub_4DB170(a1 C.int, a2 unsafe.Pointer, a3 C.int) {
+	dword_5d4594_1563092 = uint32(a3)
+	dword_5d4594_1563088 = gameFrame()
+	dword_5d4594_1563084 = a2
+	dword_5d4594_1563080 = int(a1)
+	C.dword_5d4594_1563096 = C.uint(bool2int(a2 != nil))
 	if a1 == 0 {
 		sub_4DCBD0(0)
 	}

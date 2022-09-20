@@ -879,7 +879,7 @@ func nox_script_IsAttackedBy_5161C0() int {
 func nox_script_ForceAutosave_516400() int {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		sub_4DB130("AUTOSAVE")
-		sub_4DB170(1, 0, 0)
+		sub_4DB170(1, nil, 0)
 	}
 	return 0
 }

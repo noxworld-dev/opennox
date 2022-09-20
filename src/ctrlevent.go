@@ -601,7 +601,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 				if C.nox_xxx_game_4DCCB0() != 0 {
 					clientPlaySoundSpecial(sound.SoundShellClick, 100)
 					sub_4DB130(common.SaveAuto)
-					sub_4DB170(1, 0, 0)
+					sub_4DB170(1, nil, 0)
 				} else {
 					clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 				}
