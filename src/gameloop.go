@@ -42,7 +42,6 @@ extern nox_window* dword_5d4594_1090048;
 extern nox_window* dword_5d4594_1090100;
 extern void* dword_5d4594_1307292;
 extern unsigned int dword_5d4594_251744;
-extern unsigned int dword_5d4594_825764;
 */
 import "C"
 import (
@@ -1304,7 +1303,7 @@ func nox_client_quit_4460C0() {
 			C.sub_4460A0(1)
 		}
 	} else {
-		C.dword_5d4594_825764 = 1
+		nox_xxx_serverIsClosing_825764 = true
 		if noxflags.HasGame(noxflags.GameModeQuest) {
 			if noxflags.HasGame(noxflags.GameHost) {
 				sub_4D6B10(false)

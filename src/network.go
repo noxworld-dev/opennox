@@ -1290,3 +1290,9 @@ func nox_xxx_netStatsMultiplier_4D9C20(a1p *nox_object_t) C.int {
 	}
 	return C.int(noxServer.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:17], 0, 1))
 }
+
+func netSendServerQuit() {
+	var buf [1]byte
+	buf[0] = byte(noxnet.MSG_SERVER_QUIT)
+	noxServer.nox_xxx_netSendPacket0_4E5420(159, buf[:1], 0, 1)
+}

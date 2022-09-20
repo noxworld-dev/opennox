@@ -179,7 +179,7 @@ func init() {
 			C.sub_41F4B0()
 			C.sub_41EC30()
 			C.sub_446490(0)
-			C.nox_xxx____setargv_4_44B000()
+			nox_xxx____setargv_4_44B000()
 			sub_44A400()
 			return true
 		}
@@ -1146,7 +1146,7 @@ func nox_game_guiInit_473680() error {
 	if C.nox_xxx_guiSummonCreatureLoad_4C1D80() == 0 {
 		return errors.New("nox_xxx_guiSummonCreatureLoad_4C1D80 failed")
 	}
-	if C.nox_xxx_wndLoadQuitMenu_445790() == 0 {
+	if nox_xxx_wndLoadQuitMenu_445790() == 0 {
 		return errors.New("nox_xxx_wndLoadQuitMenu_445790 failed")
 	}
 	if C.sub_4AB260() == 0 {

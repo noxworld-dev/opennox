@@ -8,7 +8,6 @@ package opennox
 #include "GAME2_1.h"
 #include "GAME3_3.h"
 #include "GAME4_2.h"
-extern unsigned int dword_5d4594_825764;
 extern uint32_t dword_5d4594_1049844;
 extern unsigned int dword_5d4594_1563064;
 extern uint32_t dword_5d4594_1563096;
@@ -37,13 +36,16 @@ import (
 )
 
 var (
-	dword_5d4594_1563044 = false
-	dword_5d4594_1563048 = false
-	dword_5d4594_1563080 = 0
-	dword_5d4594_1563084 unsafe.Pointer
-	dword_5d4594_1563092 uint32
-	dword_5d4594_1563088 uint32
-	dword_5d4594_1559960 string
+	dword_5d4594_1563044           = false
+	dword_5d4594_1563048           = false
+	nox_xxx_serverIsClosing_825764 = false
+	dword_5d4594_1563080           = 0
+	dword_5d4594_1563084           unsafe.Pointer
+	dword_5d4594_825752            = 0
+	dword_5d4594_1563092           uint32
+	dword_5d4594_825768            uint32
+	dword_5d4594_1563088           uint32
+	dword_5d4594_1559960           string
 )
 
 func nox_xxx_playerSaveToFile_41A140(path string, ind int) bool {
@@ -270,9 +272,41 @@ func sub_4DB1C0() unsafe.Pointer {
 	return dword_5d4594_1563084
 }
 
+//export sub_446060
+func sub_446060() {
+	dword_5d4594_825768 = 0
+}
+
+//export sub_446030
+func sub_446030() C.int {
+	return C.int(bool2int(dword_5d4594_825768 != 0))
+}
+
+//export sub_446090
+func sub_446090() C.int {
+	return C.int(bool2int(dword_5d4594_825752 == 0))
+}
+
+//export sub_446070
+func sub_446070() {
+	dword_5d4594_825752--
+	if dword_5d4594_825752 == 0 {
+		sub_446380()
+	}
+}
+
+//export nox_xxx_serverIsClosing_446180
+func nox_xxx_serverIsClosing_446180() C.int {
+	return C.int(bool2int(nox_xxx_serverIsClosing_825764))
+}
+
+func nox_xxx_serverIsClosing446180() bool {
+	return nox_xxx_serverIsClosing_825764
+}
+
 //export sub_446140
 func sub_446140() C.int {
-	C.dword_5d4594_825764 = 1
+	nox_xxx_serverIsClosing_825764 = true
 	if noxflags.HasGame(noxflags.GameModeQuest) {
 		if noxflags.HasGame(noxflags.GameHost) {
 			sub_4D6B10(false)

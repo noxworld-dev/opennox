@@ -779,8 +779,8 @@ func (c *Client) nox_video_drawAnimatedImageOrCursorAt(ref *noxImageRef, pos ima
 
 func (c *Client) nox_xxx_client_435F80_draw() bool {
 	mpos := c.inp.GetMousePos()
-	if C.nox_xxx_serverIsClosing_446180() != 0 {
-		C.sub_446190()
+	if nox_xxx_serverIsClosing446180() {
+		sub_446190()
 	}
 	if c.keyBindingsCheckActive() == 0 && !noxflags.HasGame(noxflags.GameFlag4) {
 		nox_xxx_setContinueMenuOrHost_43DDD0(0)
