@@ -39,7 +39,6 @@ package opennox
 #include "client__drawable__drawable.h"
 #include "client__gui__guimeter.h"
 #include "server__network__mapsend.h"
-#include "server__xfer__savegame__savegame.h"
 extern unsigned int nox_game_createOrJoin_815048;
 extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_client_gui_flag_1556112;
@@ -987,20 +986,20 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
 		s.scriptOnEvent("MapShutdown")
 		noxflags.SetGame(noxflags.GameFlag28)
 		v26 := GoString(C.sub_4DB160())
-		v23 = C.nox_xxx_saveDoAutosaveMB_4DB370_savegame(internCStr(v26)) != 0
+		v23 = nox_xxx_saveDoAutosaveMB_4DB370_savegame(v26) != 0
 		noxflags.UnsetGame(noxflags.GameFlag28)
 		if !v23 && noxflags.HasGame(noxflags.GameClient) {
 			v35 := strMan.GetStringInFile("GUISave.c:SaveErrorTitle", "C:\\NoxPost\\src\\Server\\System\\server.c")
 			NewDialogWindow(nil, v35, v35, 33, nil, nil)
 		}
 	}
-	v28 := uintptr(C.sub_4DB1C0())
+	v28 := sub_4DB1C0()
 	if v24 || !v23 {
-		if v28 != 0 && !v23 {
-			u.SetPos(asPointf(unsafe.Pointer(*(*uintptr)(unsafe.Pointer(v28 + 700)) + 80)))
+		if v28 != nil && !v23 {
+			u.SetPos(asPointf(unsafe.Pointer(*(*uintptr)(unsafe.Add(v28, 700)) + 80)))
 		}
-	} else if v28 != 0 {
-		v30 := GoString(*(**C.char)(unsafe.Pointer(v28 + 700)))
+	} else if v28 != nil {
+		v30 := GoString(*(**C.char)(unsafe.Add(v28, 700)))
 		v31, err := nox_client_checkSaveMapExistsTmp(v30)
 		if err == nil && v31 != "" {
 			nox_xxx_gameSetSwitchSolo_4DB220(1)
@@ -1011,7 +1010,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
 		}
 		s.switchMap(v30)
 	}
-	sub_4DB170(0, C.int(v28), 0)
+	sub_4DB170(0, v28, 0)
 }
 
 func (s *Server) nox_xxx_gameTick_4D2580_server_C() bool {
@@ -1420,7 +1419,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	}
 	if noxflags.HasGame(noxflags.GameModeCoop) && C.nox_xxx_mapLoadRequired_4DCC80() == 0 {
 		sub_4DB130(common.SaveAuto)
-		sub_4DB170(1, 0, 30)
+		sub_4DB170(1, nil, 30)
 	}
 	nox_xxx_mapLoadOrSaveMB_4DCC70(0)
 	if noxflags.HasGame(noxflags.GameModeCoop) {
