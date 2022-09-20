@@ -1438,7 +1438,7 @@ char* sub_40BC10(int a1, char a2) {
 }
 
 //----- (0040BC60) --------------------------------------------------------
-int sub_40BC60(int a1, int a2, const char* a3, int a4, int a5, int a6) {
+int sub_40BC60(int a1, int a2, const char* a3, void* a4, int a5, int a6) {
 	char* v6;         // ebx
 	int v7;           // esi
 	int v8;           // eax

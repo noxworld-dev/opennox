@@ -2638,45 +2638,6 @@ int sub_41CEE0(int a1, int a2) {
 // 41CF42: variable 'v5' is possibly undefined
 // 41CF51: variable 'v7' is possibly undefined
 
-//----- (0041CFA0) --------------------------------------------------------
-int sub_41CFA0(char* a1, int a2) {
-	unsigned short v2; // si
-	FILE* v3;          // eax
-	int result;        // eax
-	char* v5;          // edi
-
-	if (sub_419EE0(a2)) {
-		return 0;
-	}
-	v2 = nox_xxx_computeServerPlayerDataBufferSize_41CC50(a1);
-	if (!v2) {
-		return 0;
-	}
-	v3 = nox_binfile_open_408CC0(a1, 0);
-	nox_file_2 = v3;
-	if (!v3) {
-		nox_xxx_networkLog_printf_413D30("SendPlayerSaveDataToClient: Can't open file '%s'\n", a1);
-		return 0;
-	}
-	if (nox_binfile_cryptSet_408D40((int)v3, 27)) {
-		v5 = (char*)calloc(1, v2);
-		if (v5) {
-			nox_binfile_fread_408E40(v5, v2, 1, nox_file_2);
-			nox_binfile_close_408D90(nox_file_2);
-			sub_419EB0(a2, 1);
-			sub_40BC60(a2, 2, "SAVEDATA", (int)v5, v2, 1);
-			free(v5);
-		} else {
-			nox_binfile_close_408D90(nox_file_2);
-		}
-		result = 1;
-	} else {
-		nox_xxx_networkLog_printf_413D30("SavePlayerOnClient: Unable to key file '%s'\n", getMemAt(0x85B3FC, 10984));
-		result = 0;
-	}
-	return result;
-}
-
 //----- (0041D170) --------------------------------------------------------
 int sub_41D170() {
 	char v1[2]; // [esp+0h] [ebp-2h]

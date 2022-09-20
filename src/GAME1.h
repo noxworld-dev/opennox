@@ -101,7 +101,7 @@ int sub_40BA90(unsigned int a1, char a2, short a3, short a4, const void* a5);
 char* sub_40BB20(unsigned int a1, int a2, char a3);
 void sub_40BBC0(int a1, char a2);
 char* sub_40BC10(int a1, char a2);
-int sub_40BC60(int a1, int a2, const char* a3, int a4, int a5, int a6);
+int sub_40BC60(int a1, int a2, const char* a3, void* a4, int a5, int a6);
 int nox_xxx_netXferMsg_40BE80(unsigned int a1, char a2, const char* a3, int a4, char a5);
 char* sub_40BF10(uint8_t* a1);
 char* sub_40BF60(int a1, char a2, int a3);

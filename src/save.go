@@ -1,6 +1,7 @@
 package opennox
 
 /*
+#include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_3.h"
 #include "GAME2.h"
@@ -256,6 +257,10 @@ func sub_419EB0(i, val C.int) {
 	}
 }
 
+func sub_419EE0(a1 int) bool {
+	return (*memmap.PtrUint32(0x5D4594, 527716) & (1 << a1)) != 0
+}
+
 //export sub_4DB9C0
 func sub_4DB9C0() {
 	var next *Object
@@ -326,6 +331,73 @@ func nox_xxx_soloLoadGame_4DB7E0_savegame(a1 string) bool {
 
 func nox_xxx_gameSetSoloSavePath_4DB270(a1 string) {
 	dword_5d4594_1559960 = a1
+}
+
+//export sub_4DCFB0
+func sub_4DCFB0(a1p *C.nox_object_t) {
+	u := asUnitC(a1p)
+	if u == nil {
+		return
+	}
+	ud := u.updateDataPlayer()
+	pl := ud.Player()
+	if pl.Index() == noxMaxPlayers-1 {
+		return
+	}
+	if pl.field_4792 != 0 && ud.field_138 != 1 {
+		if sub_419EE0(pl.Index()) {
+			nox_xxx_player_4D7960(pl.Index())
+			return
+		}
+		FileName := datapath.Save("_temp_.dat")
+		v2 := true
+		if nox_xxx_playerSaveToFile_41A140(FileName, pl.Index()) {
+			v2 = sub41CFA0(FileName, pl.Index())
+		}
+		ifs.Remove(FileName)
+		if v2 {
+			nox_xxx_player_4D7960(pl.Index())
+		}
+	} else {
+		noxServer.getPlayerByInd(pl.Index()).Disconnect(4)
+	}
+}
+
+func nox_xxx_player_4D7960(a1 int) {
+	*memmap.PtrUint32(0x5D4594, 1556300) |= 1 << a1
+}
+
+//export sub_41CFA0
+func sub_41CFA0(a1 *C.char, a2 C.int) C.int {
+	return C.int(bool2int(sub41CFA0(GoString(a1), int(a2))))
+}
+
+func sub41CFA0(a1 string, a2 int) bool {
+	if sub_419EE0(a2) {
+		return false
+	}
+	sz := C.nox_xxx_computeServerPlayerDataBufferSize_41CC50(internCStr(a1))
+	if sz == 0 {
+		return false
+	}
+	f, err := BinfileOpen(a1, 0)
+	if err != nil {
+		saveLog.Printf("SendPlayerSaveDataToClient: Can't open file %q: %v\n", a1, err)
+		return false
+
+	}
+	defer f.Close()
+	if err := f.SetKey(crypt.SaveKey); err != nil {
+		saveLog.Printf("SavePlayerOnClient: Unable to key file %q: %v\n", a1, err)
+		return false
+	}
+	buf, free := alloc.Make([]byte{}, sz)
+	defer free()
+
+	f.Read(buf)
+	sub_419EB0(C.int(a2), 1)
+	C.sub_40BC60(C.int(a2), 2, internCStr("SAVEDATA"), unsafe.Pointer(&buf[0]), C.int(sz), 1)
+	return true
 }
 
 //export sub_4DD0B0

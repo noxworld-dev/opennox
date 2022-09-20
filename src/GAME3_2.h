@@ -127,7 +127,6 @@ int sub_4D75F0(int a1);
 void nox_server_checkWarpGate_4D7600();
 int sub_4D76E0(int a1);
 int sub_4D76F0();
-int nox_xxx_player_4D7960(char a1);
 int sub_4D79A0(char a1);
 int sub_4D79C0(int a1);
 int sub_4D7A60(int a1);
