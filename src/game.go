@@ -797,7 +797,7 @@ func (s *Server) nox_server_currentMapGetFilename_409B30() string {
 }
 
 func nox_xxx_mapFilenameGetSolo_4DB260() string {
-	return memmap.String(0x5D4594, 1559960)
+	return dword_5d4594_1559960
 }
 
 func (s *Server) nox_xxx_servInitialMapLoad_4D17F0() bool {
@@ -1006,7 +1006,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
 		if err == nil && v31 != "" {
 			nox_xxx_gameSetSwitchSolo_4DB220(1)
 			nox_xxx_gameSetNoMPFlag_4DB230(1)
-			C.nox_xxx_gameSetSoloSavePath_4DB270(internCStr(v31))
+			nox_xxx_gameSetSoloSavePath_4DB270(v31)
 		} else {
 			gameLog.Println("check tmp map exists:", err)
 		}

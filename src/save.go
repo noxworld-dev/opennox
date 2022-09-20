@@ -24,6 +24,10 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
+var (
+	dword_5d4594_1559960 string
+)
+
 func nox_xxx_playerSaveToFile_41A140(path string, ind int) bool {
 	return C.nox_xxx_playerSaveToFile_41A140(internCStr(path), C.int(ind)) != 0
 }
@@ -185,6 +189,15 @@ func sub_446140() C.int {
 		}
 	}
 	return 1
+}
+
+func nox_xxx_gameSetSoloSavePath_4DB270(a1 string) {
+	dword_5d4594_1559960 = a1
+}
+
+//export nox_xxx_gameSetSoloSavePath_4DB270_c
+func nox_xxx_gameSetSoloSavePath_4DB270_c(a1 *C.char) {
+	nox_xxx_gameSetSoloSavePath_4DB270(GoString(a1))
 }
 
 //export nox_xxx_saveMakePlayerLocation_4DB600
