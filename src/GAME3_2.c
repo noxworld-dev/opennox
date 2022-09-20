@@ -6378,20 +6378,8 @@ int nox_xxx_gameSetSwitchSolo_4DB220(int a1) {
 	return result;
 }
 
-//----- (004DB230) --------------------------------------------------------
-int nox_xxx_gameSetNoMPFlag_4DB230(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 1563060) = a1;
-	return result;
-}
-
 //----- (004DB240) --------------------------------------------------------
 int nox_xxx_gameIsSwitchToSolo_4DB240() { return *getMemU32Ptr(0x5D4594, 1563056); }
-
-//----- (004DB250) --------------------------------------------------------
-int nox_xxx_gameIsNotMultiplayer_4DB250() { return *getMemU32Ptr(0x5D4594, 1563060); }
 
 //----- (004DB270) --------------------------------------------------------
 unsigned int nox_xxx_gameSetSoloSavePath_4DB270(const char* a1) {

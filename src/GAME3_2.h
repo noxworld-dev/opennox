@@ -251,7 +251,7 @@ void sub_4DB170(int a1, int a2, int a3);
 int nox_xxx_gameGet_4DB1B0();
 int sub_4DB1C0();
 int nox_xxx_gameSetSwitchSolo_4DB220(int a1);
-int nox_xxx_gameSetNoMPFlag_4DB230(int a1);
+void nox_xxx_gameSetNoMPFlag_4DB230(int a1);
 int nox_xxx_gameIsSwitchToSolo_4DB240();
 int nox_xxx_gameIsNotMultiplayer_4DB250();
 unsigned int nox_xxx_gameSetSoloSavePath_4DB270(const char* a1);

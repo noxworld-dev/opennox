@@ -165,10 +165,6 @@ func nox_game_exit_xxx2() {
 	nox_game_exit_xxx_43DE60()
 }
 
-func nox_xxx_gameIsNotMultiplayer_4DB250() bool {
-	return C.nox_xxx_gameIsNotMultiplayer_4DB250() != 0
-}
-
 var gameLoopHooks = make(chan func())
 
 func addGameLoopHook(ctx context.Context, fnc func()) {
@@ -1168,7 +1164,7 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 		nox_client_setCursorType(gui.CursorBusy)
 
 		mapName := ""
-		if nox_xxx_gameIsNotMultiplayer_4DB250() {
+		if gameIsNotMultiplayer {
 			mapName = nox_xxx_mapFilenameGetSolo_4DB260()
 		} else {
 			mapName = noxServer.nox_server_currentMapGetFilename_409B30()

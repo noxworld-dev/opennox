@@ -17,7 +17,7 @@ func init() {
 }
 
 func clientGetServerMap() string {
-	if nox_xxx_gameIsNotMultiplayer_4DB250() {
+	if gameIsNotMultiplayer {
 		return nox_xxx_mapFilenameGetSolo_4DB260()
 	}
 	return noxServer.nox_server_currentMapGetFilename_409B30()

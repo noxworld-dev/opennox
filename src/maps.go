@@ -462,7 +462,7 @@ func nox_xxx_mapCliReadAll_4AC2B0(path string) error {
 	C.nox_xxx_tile_486060()
 	v2 := noxServer.getPlayerByID(int(C.nox_player_netCode_85319C))
 	sub_422140(v2)
-	C.nox_xxx_gameSetNoMPFlag_4DB230(0)
+	nox_xxx_gameSetNoMPFlag_4DB230(0)
 	if *memmap.PtrInt32(0x973F18, 3800) < 0 {
 		if C.sub_461450() == 1 {
 			C.sub_461400()
