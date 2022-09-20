@@ -3,7 +3,6 @@ package opennox
 /*
 #include "defs.h"
 #include "client__gui__window.h"
-extern unsigned int dword_587000_87404;
 extern unsigned int dword_5d4594_1064868;
 extern unsigned int dword_5d4594_1316972;
 extern unsigned int gameex_flags;

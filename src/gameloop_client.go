@@ -63,7 +63,7 @@ func (c *Client) mapDownloadLoop(first bool) (bool, error) {
 		return true, nil
 	}
 
-	if C.nox_xxx_check_flag_aaa_43AF70() == 1 {
+	if nox_xxx_check_flag_aaa_43AF70() == 1 {
 		C.sub_40D250()
 		C.sub_40DF90()
 	}

@@ -16,7 +16,6 @@ package opennox
 #endif
 extern unsigned int dword_5d4594_2660032;
 extern unsigned int dword_5d4594_814548;
-extern unsigned int dword_587000_87404;
 extern unsigned int dword_5d4594_3843632;
 extern unsigned int dword_5d4594_2496472;
 extern unsigned int dword_5d4594_2496988;
@@ -352,7 +351,7 @@ func sub_43AF90(v int) {
 }
 
 func nox_client_createSockAndJoin_43B440() error {
-	if C.dword_587000_87404 == 1 {
+	if dword_587000_87404 == 1 {
 		if err := nox_xxx_createSocketLocal(0); err != nil {
 			return err
 		}
