@@ -219,23 +219,6 @@ int nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
 	}
 	return result;
 }
-//----- (00445B40) --------------------------------------------------------
-void* sub_445B40() {
-	void* result; // eax
-	wchar_t* v1;  // eax
-	wchar_t* v2;  // [esp-10h] [ebp-10h]
-
-	sub_413A00(0);
-	result = sub_4DB790("AUTOSAVE");
-	if (!result) {
-		v2 =
-			nox_strman_loadString_40F1D0("GUISave.c:SaveErrorTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 88);
-		v1 =
-			nox_strman_loadString_40F1D0("GUISave.c:SaveErrorTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 87);
-		result = nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v1, (int)v2, 33, 0, 0);
-	}
-	return result;
-}
 
 //----- (00445C40) --------------------------------------------------------
 void sub_445C40() {
