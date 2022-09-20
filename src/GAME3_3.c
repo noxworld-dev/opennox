@@ -943,49 +943,6 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	return ob;
 }
 
-//----- (004E3810) --------------------------------------------------------
-nox_object_t* nox_xxx_newObjectByTypeID_4E3810(const char* id) {
-	nox_objectType_t* typ = nox_xxx_objectTypeByID_4E3830(id);
-	if (!typ) {
-		return 0;
-	}
-	return nox_xxx_newObjectWithType_4E3470(typ);
-}
-
-//----- (004E3830) --------------------------------------------------------
-nox_objectType_t* nox_xxx_objectTypeByID_4E3830(const char* id) {
-	if (!id) {
-		return 0;
-	}
-
-	int v1 = nox_xxx_keyFirstLetterNumber_4E30A0(id);
-	if (v1 < 0) {
-		return 0;
-	}
-
-	int bucketSz = *getMemU32Ptr(0x5D4594, 1563668 + 4 * v1);
-	if (bucketSz < 0) {
-		return 0;
-	}
-
-	void* bucket = *(void**)getMemAt(0x5D4594, 1563348 + 4 * v1);
-	if (!bucket) {
-		return 0;
-	}
-
-	nox_objectType_t** v4 = bsearch(id, bucket, bucketSz, 4, nox_xxx_objBsearchFn_4E3880);
-	if (!v4) {
-		return 0;
-	}
-
-	return *v4;
-}
-
-//----- (004E3880) --------------------------------------------------------
-int nox_xxx_objBsearchFn_4E3880(const void* a1, const void* a2) {
-	return _strcmpi((const char*)a1, *(const char**)(*(uint32_t*)a2 + 4));
-}
-
 //----- (004E38A0) --------------------------------------------------------
 int nox_xxx_objectFreeMem_4E38A0(int a1) {
 	int* v1; // esi
@@ -1049,23 +1006,6 @@ int nox_xxx_objectFreeMem_4E38A0(int a1) {
 	*(uint32_t*)(a1 + 36) = v6;
 	return --*getMemU32Ptr(0x5D4594, 1563900);
 }
-
-//----- (004E3AA0) --------------------------------------------------------
-int nox_xxx_getNameId_4E3AA0(char* a1) {
-	unsigned short* v1; // eax
-	int result;         // eax
-
-	v1 = (unsigned short*)nox_xxx_objectTypeByID_4E3830(a1);
-	if (v1) {
-		result = *v1;
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
-//----- (004E3B60) --------------------------------------------------------
-nox_objectType_t* nox_xxx_objectTypeByID_4E3B60(char* id) { return nox_xxx_objectTypeByID_4E3830(id); }
 
 //----- (004E3CA0) --------------------------------------------------------
 double sub_4E3CA0() { return *getMemFloatPtr(0x587000, 202024); }
