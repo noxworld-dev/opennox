@@ -277,7 +277,7 @@ func (s *noxScript) nox_xxx_scriptRunFirst_507290() {
 		sc[1] = -1
 		sc[2] = 1
 		sc[3] = 0
-		if C.nox_xxx_gameIsSwitchToSolo_4DB240() == 0 {
+		if nox_xxx_gameIsSwitchToSolo_4DB240() == 0 {
 			s.callByIndex(1, nil, nil)
 		}
 	} else {

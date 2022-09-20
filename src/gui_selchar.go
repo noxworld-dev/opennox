@@ -867,7 +867,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 					noxServer.nox_xxx_gameSetMapPath_409D70("con01a.map")
 				}
 				if noxflags.HasGame(noxflags.GameModeCoop) {
-					C.nox_xxx_gameSetSwitchSolo_4DB220(1)
+					nox_xxx_gameSetSwitchSolo_4DB220(1)
 					nox_xxx_gameSetNoMPFlag_4DB230(1)
 					mname := GoString(&sv.map_name[0])
 					fbase := fmt.Sprintf("%s.map", mname)

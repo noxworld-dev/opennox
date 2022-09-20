@@ -131,6 +131,7 @@ var (
 	dword_5d4594_2516476      byte
 	dword_587000_87404        = 2
 	gameIsNotMultiplayer      bool
+	gameIsSwitchToSolo        bool
 )
 
 const (
@@ -962,6 +963,16 @@ func nox_xxx_gameIsNotMultiplayer_4DB250() C.int {
 	return C.int(bool2int(gameIsNotMultiplayer))
 }
 
+//export nox_xxx_gameSetSwitchSolo_4DB220
+func nox_xxx_gameSetSwitchSolo_4DB220(a1 C.int) {
+	gameIsSwitchToSolo = a1 != 0
+}
+
+//export nox_xxx_gameIsSwitchToSolo_4DB240
+func nox_xxx_gameIsSwitchToSolo_4DB240() C.int {
+	return C.int(bool2int(gameIsSwitchToSolo))
+}
+
 func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
 	pl := s.getPlayerByInd(noxMaxPlayers - 1)
 	if pl == nil {
@@ -993,7 +1004,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
 		v30 := GoString(*(**C.char)(unsafe.Pointer(v28 + 700)))
 		v31, err := nox_client_checkSaveMapExistsTmp(v30)
 		if err == nil && v31 != "" {
-			C.nox_xxx_gameSetSwitchSolo_4DB220(1)
+			nox_xxx_gameSetSwitchSolo_4DB220(1)
 			nox_xxx_gameSetNoMPFlag_4DB230(1)
 			C.nox_xxx_gameSetSoloSavePath_4DB270(internCStr(v31))
 		} else {
@@ -1197,7 +1208,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		C.sub_4537F0()
 	}
 	var merr error
-	if C.nox_xxx_gameIsSwitchToSolo_4DB240() != 0 {
+	if nox_xxx_gameIsSwitchToSolo_4DB240() != 0 {
 		v5 := nox_xxx_mapFilenameGetSolo_4DB260()
 		merr = s.nox_server_loadMapFile_4CF5F0(v5, false)
 	} else {
@@ -1345,12 +1356,12 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	C.dword_5d4594_1548524 = 0
 	v41 := s.getServerMap()
 	C.sub_500510(internCStr(v41))
-	if C.nox_xxx_gameIsSwitchToSolo_4DB240() == 0 {
+	if nox_xxx_gameIsSwitchToSolo_4DB240() == 0 {
 		C.nox_xxx_resetMapInit_4FC570(1)
 	}
 	noxflags.SetGame(noxflags.GameFlag28)
 	noxAudioServeT(500)
-	v42 := C.nox_xxx_gameIsSwitchToSolo_4DB240()
+	v42 := nox_xxx_gameIsSwitchToSolo_4DB240()
 	C.sub_4DBA30(v42)
 	noxAudioServe()
 	noxflags.UnsetGame(noxflags.GameFlag28)
