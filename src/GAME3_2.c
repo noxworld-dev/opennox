@@ -3871,15 +3871,6 @@ int sub_4D76E0(int a1) {
 //----- (004D76F0) --------------------------------------------------------
 int sub_4D76F0() { return *getMemU32Ptr(0x5D4594, 1556124); }
 
-//----- (004D7960) --------------------------------------------------------
-int nox_xxx_player_4D7960(char a1) {
-	int result; // eax
-
-	result = 1 << a1;
-	*getMemU32Ptr(0x5D4594, 1556300) |= 1 << a1;
-	return result;
-}
-
 //----- (004D79A0) --------------------------------------------------------
 int sub_4D79A0(char a1) {
 	int result; // eax
@@ -6571,44 +6562,6 @@ int sub_4DCE30() {
 		sub_4169F0();
 	}
 	return sub_446140();
-}
-
-//----- (004DCFB0) --------------------------------------------------------
-void sub_4DCFB0(nox_object_t* a1p) {
-	int a1 = a1p;
-	char result;         // al
-	int v2;              // edi
-	int v3;              // esi
-	int v4;              // ecx
-	char* v5;            // eax
-	char FileName[1024]; // [esp+8h] [ebp-400h]
-
-	result = a1;
-	v2 = 1;
-	if (a1) {
-		v3 = *(uint32_t*)(a1 + 748);
-		v4 = *(uint32_t*)(v3 + 276);
-		result = *(uint8_t*)(v4 + 2064);
-		if (result != 31) {
-			if (*(uint32_t*)(v4 + 4792) && *(uint32_t*)(v3 + 552) != 1) {
-				if (sub_419EE0(*(uint8_t*)(v4 + 2064))) {
-					goto LABEL_13;
-				}
-				v5 = nox_fs_root();
-				nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v5);
-				if (nox_xxx_playerSaveToFile_41A140(FileName, *(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064))) {
-					v2 = sub_41CFA0(FileName, *(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064));
-				}
-				nox_fs_remove(FileName);
-				if (v2) {
-				LABEL_13:
-					nox_xxx_player_4D7960(*(uint8_t*)(*(uint32_t*)(v3 + 276) + 2064));
-				}
-			} else {
-				nox_xxx_playerCallDisconnect_4DEAB0(*(unsigned char*)(v4 + 2064), 4);
-			}
-		}
-	}
 }
 
 //----- (004DD140) --------------------------------------------------------
