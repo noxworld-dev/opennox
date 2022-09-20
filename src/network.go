@@ -1252,6 +1252,14 @@ func nox_xxx_netKillChat_528D00(u *Unit) {
 	}
 }
 
+func nox_xxx_sendGauntlet_4DCF80(ind int, v byte) {
+	var buf [3]byte
+	buf[0] = byte(noxnet.MSG_GAUNTLET)
+	buf[1] = 28
+	buf[2] = v
+	noxServer.nox_xxx_netSendPacket1_4E5390(ind, buf[:3], 0, 0)
+}
+
 //export nox_xxx_netStatsMultiplier_4D9C20
 func nox_xxx_netStatsMultiplier_4D9C20(a1p *nox_object_t) C.int {
 	u := asUnitC(a1p)

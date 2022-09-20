@@ -645,9 +645,9 @@ func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
 					pi := plx.Index()
 					if plx.field_4792 == 1 && ud.field_138 == 0 && nox_xxx_playerSaveToFile_41A140(fname, pi) {
 						v5 := C.sub_419EE0(C.char(pi))
-						C.nox_xxx_sendGauntlet_4DCF80(C.int(pi), 1)
+						nox_xxx_sendGauntlet_4DCF80(pi, 1)
 						if C.sub_41CFA0(internCStr(fname), C.int(pi)) == 0 && v5 == 0 {
-							C.nox_xxx_sendGauntlet_4DCF80(C.int(pi), 0)
+							nox_xxx_sendGauntlet_4DCF80(pi, 0)
 						}
 						ifs.Remove(fname)
 					}
