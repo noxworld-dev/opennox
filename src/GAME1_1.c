@@ -2588,7 +2588,8 @@ int nox_xxx_netSavePlayer_41CE00() {
 }
 
 //----- (0041CEE0) --------------------------------------------------------
-int sub_41CEE0(int a1, int a2) {
+int sub_41CEE0(void* a1p, int a2) {
+	int a1 = a1p;
 	int result;        // eax
 	int v3;            // ebx
 	unsigned char* v4; // esi

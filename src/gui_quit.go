@@ -1,9 +1,25 @@
 package opennox
 
 /*
-
- */
+#include "GAME1_1.h"
+int* nox_xxx_guiServerOptionsHide_4597E0(int a1);
+*/
 import "C"
+import (
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+)
+
+//export sub_446380
+func sub_446380() {
+	sub_44A400()
+	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(noxflags.GameModeQuest) && !sub4D6F30() {
+		C.sub_41CEE0(memmap.PtrOff(0x85B3FC, 10980), 1)
+	}
+	C.nox_xxx_guiServerOptionsHide_4597E0(1)
+	nox_game_exit_xxx2()
+	sub_446060()
+}
 
 //export sub_445B40
 func sub_445B40() C.int {
