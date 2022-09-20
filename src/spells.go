@@ -934,7 +934,7 @@ func (s *Server) castSpell(spellInd spell.ID, lvl int, u *Unit, a3 *spellAcceptA
 func (s *Server) castSpellBy(spellInd spell.ID, caster *Unit, targ noxObject, targPos types.Pointf) bool {
 	sa, freeArg := alloc.New(spellAcceptArg{})
 	defer freeArg()
-	sa.Obj = targ.CObj()
+	sa.Obj = toCObj(targ)
 	sa.Pos = targPos
 	return s.nox_xxx_castSpellByUser4FDD20(spellInd, caster, sa)
 }
