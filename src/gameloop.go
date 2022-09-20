@@ -1295,7 +1295,7 @@ func sub_4A1BD0() {
 func nox_client_quit_4460C0() {
 	if noxflags.HasGame(noxflags.GameModeQuest) {
 		if noxflags.HasGame(noxflags.GameHost) {
-			C.sub_4DCD40()
+			sub_4DCD40()
 		} else if C.sub_4460B0() != 0 {
 			C.sub_4460A0(0)
 			sub_446140()

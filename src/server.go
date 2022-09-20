@@ -35,7 +35,6 @@ extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_5d4594_825768;
 extern unsigned int dword_5d4594_1548524;
 extern nox_object_t* nox_xxx_host_player_unit_3843628;
-extern uint32_t dword_5d4594_1563044;
 extern unsigned int dword_5d4594_1563064;
 extern uint32_t dword_5d4594_1563080;
 extern uint32_t dword_5d4594_1563084;
@@ -884,8 +883,8 @@ func nox_xxx_moveUpdateSpecial_517970(cunit *nox_object_t) {
 
 func sub_4DB0A0() {
 	questPlayerFile = ""
-	C.dword_5d4594_1563044 = 0
-	*memmap.PtrUint32(0x5D4594, 1563048) = 0
+	dword_5d4594_1563044 = false
+	dword_5d4594_1563048 = false
 	C.dword_5d4594_1563080 = 0
 	C.dword_5d4594_1563084 = 0
 	C.dword_5d4594_1563088 = 0

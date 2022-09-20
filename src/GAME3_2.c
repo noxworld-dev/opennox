@@ -73,7 +73,6 @@ extern uint32_t dword_5d4594_1563084;
 extern uint32_t dword_5d4594_1563080;
 extern uint32_t dword_5d4594_1556856;
 extern uint32_t dword_5d4594_1548480;
-extern uint32_t dword_5d4594_1563044;
 extern uint32_t dword_5d4594_1548704;
 extern uint32_t dword_5d4594_1523048;
 extern uint32_t dword_5d4594_1563096;
@@ -6510,58 +6509,6 @@ int nox_xxx_game_4DCCB0() {
 		result = sub_4DCC10(v2) != 0;
 	}
 	return result;
-}
-
-//----- (004DCD40) --------------------------------------------------------
-int sub_4DCD40() {
-	char* v0;            // eax
-	int result;          // eax
-	int i;               // esi
-	int v3;              // eax
-	int v4;              // edi
-	char FileName[1024]; // [esp+4h] [ebp-400h]
-
-	*getMemU32Ptr(0x5D4594, 1563048) = sub_416A00();
-	sub_4169E0();
-	dword_5d4594_1563044 = 1;
-	v0 = nox_fs_root();
-	nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v0);
-	result = nox_xxx_getFirstPlayerUnit_4DA7C0();
-	for (i = result; result; i = result) {
-		v3 = *(uint32_t*)(i + 748);
-		v4 = *(uint32_t*)(v3 + 276);
-		if (*(uint32_t*)(v4 + 4792) && *(uint32_t*)(v3 + 552) != 1) {
-			if (nox_xxx_playerSaveToFile_41A140(FileName, *(unsigned char*)(v4 + 2064))) {
-				sub_41CFA0(FileName, *(unsigned char*)(v4 + 2064));
-			}
-			nox_fs_remove(FileName);
-		}
-		result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
-	}
-	return result;
-}
-
-//----- (004DCE00) --------------------------------------------------------
-int sub_4DCE00() {
-	int result; // eax
-
-	result = dword_5d4594_1563044;
-	if (dword_5d4594_1563044) {
-		result = sub_419F00();
-		if (!result) {
-			result = sub_4DCE30();
-			dword_5d4594_1563044 = 0;
-		}
-	}
-	return result;
-}
-
-//----- (004DCE30) --------------------------------------------------------
-int sub_4DCE30() {
-	if (!*getMemU32Ptr(0x5D4594, 1563048)) {
-		sub_4169F0();
-	}
-	return sub_446140();
 }
 
 //----- (004DD140) --------------------------------------------------------

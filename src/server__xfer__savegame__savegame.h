@@ -3,6 +3,4 @@
 
 int nox_xxx_saveDoAutosaveMB_4DB370_savegame(const char* a1);
 
-void sub_4DB9C0();
-
 #endif // NOX_PORT_SERVER_XFER_SAVEGAME_SAVEGAME
