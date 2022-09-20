@@ -25,8 +25,6 @@ extern uint32_t dword_5d4594_251568;
 extern uint32_t dword_5d4594_251572;
 extern uint32_t dword_5d4594_251600;
 extern uint32_t dword_5d4594_251608;
-extern uint32_t dword_5d4594_741676;
-extern uint32_t dword_5d4594_741680;
 
 bool nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value);
 bool nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value);
@@ -507,31 +505,6 @@ void nox_xxx_equipWeapon_4157C0() {
 	}
 }
 
-//----- (0042BF10) --------------------------------------------------------
-int nox_get_things_count();
-int sub_42BF10() {
-	int v1; // eax
-
-	if (dword_5d4594_741676) {
-		return 1;
-	}
-	if (nox_common_gameFlags_check_40A5C0(2097153)) {
-		v1 = nox_xxx_unitDefGetCount_4E3AC0();
-	} else {
-		if (!nox_common_gameFlags_check_40A5C0(2)) {
-			return 0;
-		}
-		v1 = nox_get_things_count();
-	}
-	dword_5d4594_741680 = v1;
-	dword_5d4594_741676 = calloc(v1, 2);
-	if (dword_5d4594_741676) {
-		sub_42BFB0();
-		return 1;
-	}
-	return 0;
-}
-
 //----- (004E2B30) --------------------------------------------------------
 void nox_xxx_unitDefByAlphabetFree_4E2B30() {
 	void** v0;    // esi
@@ -546,15 +519,6 @@ void nox_xxx_unitDefByAlphabetFree_4E2B30() {
 		*v0 = 0;
 		++v0;
 	} while ((int)v0 < (int)getMemAt(0x5D4594, 1563456));
-}
-
-//----- (0042BF80) --------------------------------------------------------
-void nox_xxx_free_42BF80() {
-	if (dword_5d4594_741676) {
-		free(*(void**)&dword_5d4594_741676);
-		dword_5d4594_741676 = 0;
-	}
-	dword_5d4594_741680 = 0;
 }
 
 //----- (004E3010) --------------------------------------------------------

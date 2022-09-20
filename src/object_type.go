@@ -6,7 +6,6 @@ package opennox
 #include "GAME4_3.h"
 char* nox_xxx_unitDefByAlphabetAdd_4E3080(char* a1);
 void nox_xxx_unitDefByAlphabetFree_4E2B30();
-void nox_xxx_free_42BF80();
 int sub_4E3010();
 */
 import "C"
@@ -134,7 +133,7 @@ func (s *serverObjTypes) nox_xxx_freeObjectTypes_4E2A20() {
 	s.first = nil
 	s.byInd = []*ObjectType{nil}
 	C.nox_xxx_unitDefByAlphabetFree_4E2B30()
-	C.nox_xxx_free_42BF80()
+	nox_xxx_free_42BF80()
 }
 
 func (s *serverObjTypes) Clear() {

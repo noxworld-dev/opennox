@@ -481,7 +481,7 @@ func nox_server_mapRWObjectData_504CF0_Read(a2 unsafe.Pointer, v16 unsafe.Pointe
 	}
 	for {
 		_, _ = cryptFileReadAlignedU32()
-		typInd := int(C.nox_xxx_objectTOCgetTT_42C2B0(C.short(v12)))
+		typInd := nox_xxx_objectTOCgetTT(v12)
 		typ := s.getObjectTypeByInd(typInd)
 		if typ == nil {
 			cryptFileClose()
