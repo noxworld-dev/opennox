@@ -336,11 +336,15 @@ func (p *Player) OrigName() string {
 }
 
 func (p *Player) SetName(v string) {
-	WStrCopy(&p.name_final[0], 30, v) // TODO: size is a wild guess
+	WStrCopy(&p.name_final[0], 28, v) // TODO: size is a wild guess
 }
 
 func (p *Player) Name() string {
-	return GoWStringN(&p.name_final[0], 30) // TODO: size is a wild guess
+	return GoWStringN(&p.name_final[0], 28) // TODO: size is a wild guess
+}
+
+func (p *Player) saveName() string {
+	return GoString(&p.field_4760[0])
 }
 
 func (p *Player) Serial() string {

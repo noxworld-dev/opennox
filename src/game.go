@@ -953,7 +953,6 @@ func nox_xxx_cliGamedataGet_416590(v int) []byte {
 	return unsafe.Slice((*byte)(unsafe.Pointer(C.nox_xxx_cliGamedataGet_416590(C.int(v)))), 60)
 }
 
-//export nox_xxx_gameSetNoMPFlag_4DB230
 func nox_xxx_gameSetNoMPFlag_4DB230(a1 C.int) {
 	gameIsNotMultiplayer = a1 != 0
 }
