@@ -102,7 +102,6 @@ extern uint32_t dword_5d4594_816348;
 extern uint32_t dword_5d4594_829488;
 extern uint32_t nox_game_createOrJoin_815048;
 extern uint32_t nox_client_gui_flag_815132;
-extern uint32_t dword_587000_87404;
 extern uint32_t dword_587000_87412;
 extern uint32_t dword_5d4594_829492;
 extern uint32_t dword_5d4594_830248;
@@ -157,7 +156,7 @@ void nox_client_xxx_switchChatMap_43B510() {
 	nox_xxx_setGameFlags_40A4D0(5);
 	nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
 	v6 = *getMemU32Ptr(0x5D4594, 814916);
-	if (dword_587000_87404 == 1) {
+	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 		v0 = *getMemU16Ptr(0x5D4594, 814916) - *getMemU16Ptr(0x587000, 87528 + 8 * dword_587000_87412);
 		HIWORD(v6) -= *getMemU16Ptr(0x587000, 87530 + 8 * dword_587000_87412);
 		LOWORD(v6) = v0;

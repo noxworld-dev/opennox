@@ -8,7 +8,6 @@ package opennox
 #include "GAME2_2.h"
 #include "GAME2_3.h"
 #include "MixPatch.h"
-extern unsigned int dword_587000_87404;
 extern int dword_587000_87412;
 extern unsigned int dword_5d4594_3844304;
 extern unsigned int dword_5d4594_2660652;
@@ -250,7 +249,7 @@ func nox_client_refreshServerList_4378B0() {
 	asWindow(C.dword_5d4594_815004).Func94(asWindowEvent(0x400F, 0, 0))
 	C.sub_49FFA0(1)
 	C.nox_wol_server_result_cnt_815088 = 0
-	if C.dword_587000_87404 != 0 {
+	if dword_587000_87404 != 0 {
 		C.sub_41F370(1)
 		v3 := sub_41E2F0()
 		C.sub_41DA70(C.int(v3), 12)
@@ -267,7 +266,7 @@ func nox_client_refreshServerList_4378B0() {
 
 //export sub_438770_waitList
 func sub_438770_waitList() {
-	if C.dword_5d4594_815060 != 0 || C.dword_587000_87404 != 0 {
+	if C.dword_5d4594_815060 != 0 || dword_587000_87404 != 0 {
 		return
 	}
 	timer := time.NewTimer(10 * time.Millisecond)
@@ -654,7 +653,7 @@ func sub_4373A0() {
 		} else {
 			nox_game_checkStateSwitch_43C1E0()
 			C.sub_49FF20()
-			if C.dword_587000_87404 == 1 {
+			if dword_587000_87404 == 1 {
 				*memmap.PtrUint32(0x5D4594, 815084) = 1
 				sub_41E300(7)
 				C.sub_4207F0(4)
@@ -672,7 +671,7 @@ func sub_4373A0() {
 		clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 	} else {
 		C.sub_49FF20()
-		if C.dword_587000_87404 != 0 {
+		if dword_587000_87404 != 0 {
 			C.dword_587000_87412 = -1
 			nox_xxx_wndClearCaptureMain(asWindowP(C.dword_5d4594_814984))
 			asWindowP(C.dword_5d4594_814984).Hide()

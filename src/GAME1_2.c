@@ -131,7 +131,6 @@ extern uint32_t dword_5d4594_815016;
 extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
 extern uint32_t nox_game_createOrJoin_815048;
 extern uint32_t dword_5d4594_3798804;
-extern uint32_t dword_587000_87404;
 extern uint32_t dword_587000_87412;
 extern uint32_t dword_5d4594_3798820;
 extern uint32_t dword_5d4594_3798824;
@@ -4241,7 +4240,7 @@ int sub_43A920() {
 	int result; // eax
 
 	nox_xxx_windowFocus_46B500(*(int*)&nox_wol_wnd_world_814980);
-	if (dword_587000_87404 == 1) {
+	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 		sub_554D10();
 		nox_game_SetCliDrawFunc(sub_41E210);
 	}
@@ -4330,7 +4329,7 @@ char* sub_43AA70() {
 	*((uint32_t*)v1 + 11) = *getMemU32Ptr(0x5D4594, 814916);
 	*(uint16_t*)(v1 + 109) = nox_xxx_servGetPort_40A430();
 	nox_client_setServerConnectAddr_435720("localhost");
-	if (dword_587000_87404 == 1) {
+	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
 		memset(v10, 0, sizeof(v10));
 		v6 = sub_41FA40();
 		nox_sprintf(v9, "%s%s", v6, getMemAt(0x587000, 90752));
@@ -4433,19 +4432,6 @@ int sub_43AF30() { return dword_5d4594_815052; }
 
 //----- (0043AF40) --------------------------------------------------------
 int sub_43AF40() { return nox_game_createOrJoin_815048; }
-
-//----- (0043AF50) --------------------------------------------------------
-int sub_43AF50(int a1) {
-	int result; // eax
-
-	result = a1;
-	dword_587000_87404 = a1;
-	dword_5d4594_2650652 = a1 == 1;
-	return result;
-}
-
-//----- (0043AF70) --------------------------------------------------------
-int nox_xxx_check_flag_aaa_43AF70() { return dword_587000_87404; }
 
 //----- (0043AF80) --------------------------------------------------------
 int sub_43AF80() { return dword_5d4594_814548; }
