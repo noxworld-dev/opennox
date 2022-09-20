@@ -166,7 +166,7 @@ func sub_44E320() {
 }
 
 func sub_4A2500() {
-	nox_xxx_setFrameLimit_43DDE0(1)
+	setEnableFrameLimit(true)
 	nox_win_main_bg.Show()
 	nox_win_main_menu.Show()
 	sub_4A24F0()
@@ -174,7 +174,7 @@ func sub_4A2500() {
 
 //export sub_4A2530
 func sub_4A2530() {
-	nox_xxx_setFrameLimit_43DDE0(0)
+	setEnableFrameLimit(false)
 	nox_win_main_bg.Hide()
 	nox_win_main_menu.Hide()
 }

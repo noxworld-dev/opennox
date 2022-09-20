@@ -141,9 +141,8 @@ func nox_xxx_setContinueMenuOrHost_43DDD0(v int) {
 	continueMenuOrHost = v != 0
 }
 
-//export nox_xxx_setFrameLimit_43DDE0
-func nox_xxx_setFrameLimit_43DDE0(v C.int) {
-	useFrameLimit = v != 0
+func setEnableFrameLimit(enable bool) {
+	useFrameLimit = enable
 }
 
 func nox_game_exit_xxx_43DE60() {
