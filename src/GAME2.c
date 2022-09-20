@@ -4557,14 +4557,14 @@ int sub_45A040(int a1) {
 }
 
 //----- (0045A060) --------------------------------------------------------
-int sub_45A060() { return nox_drawable_head_unk1; }
+nox_drawable* sub_45A060() { return nox_drawable_head_unk1; }
 
 //----- (0045A070) --------------------------------------------------------
-int sub_45A070(int a1) {
+nox_drawable* sub_45A070(nox_drawable* a1) {
 	int result; // eax
 
 	if (a1) {
-		result = *(uint32_t*)(a1 + 368);
+		result = *(uint32_t*)((int)a1 + 368);
 	} else {
 		result = 0;
 	}

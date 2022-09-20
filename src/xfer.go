@@ -5,7 +5,6 @@ package opennox
 #include "GAME3_3.h"
 #include "GAME4.h"
 #include "GAME4_2.h"
-short sub_42C2E0(int a1);
 int nox_xxx_mapReadWriteObjData_4F4530(nox_object_t* a1p, int a2);
 int nox_xxx_xfer_4F3E30(unsigned short a1, nox_object_t* a2, int a3);
 */
@@ -69,7 +68,7 @@ func nox_xxx_xfer_saveObj51DF90(a1p *Object) int {
 	if a1p.Flags().Has(object.FlagDestroyed) {
 		return 1
 	}
-	a1 := uint16(C.sub_42C2E0(C.int(a1p.objTypeInd())))
+	a1 := uint16(sub_42C2E0(C.int(a1p.objTypeInd())))
 	if a1 == 0 {
 		return 0
 	}

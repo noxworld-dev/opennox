@@ -16,7 +16,6 @@ int sub_485CF0();
 int sub_485F30();
 int sub_46A360();
 int sub_4F0640();
-int sub_42BF10();
 char* nox_xxx_equipWeapon_4131A0();
 void nox_xxx_equipArmor_415AB0();
 void nox_xxx_equipWeapon_4157C0();
@@ -41,9 +40,12 @@ import (
 )
 
 var (
-	thingsLog              = log.New("things")
-	noxLoadedThings        *MemFile
-	nox_images_arr1_787156 []*noxImageRef
+	thingsLog                 = log.New("things")
+	noxLoadedThings           *MemFile
+	nox_images_arr1_787156    []*noxImageRef
+	objectTypeCode16ByInd     []uint16
+	objectTypeCode16ByInd_len int
+	objectTypeCode16ByInd_cap int
 )
 
 func getThingName(i int) string {
@@ -279,10 +281,25 @@ func (s *Server) nox_read_things_alternative_4E2B60() error {
 	C.nox_xxx_equipArmor_415AB0()
 	C.nox_xxx_equipWeapon_4157C0()
 	C.sub_4F0640()
-	if C.sub_42BF10() == 0 {
-		return fmt.Errorf("sub_42BF10 failed")
-	}
+	sub_42BF10()
 	return nil
+}
+
+func sub_42BF10() {
+	if objectTypeCode16ByInd != nil {
+		return
+	}
+	var sz int
+	if nox_common_gameFlags_check_40A5C0(2097153) {
+		sz = int(nox_xxx_unitDefGetCount_4E3AC0())
+	} else {
+		if !nox_common_gameFlags_check_40A5C0(2) {
+			return
+		}
+		sz = len(nox_things.byInd)
+	}
+	objectTypeCode16ByInd_cap = sz
+	sub_42BFB0()
 }
 
 func nox_xxx_parseThingBinClient_44C840_read_things() error {
@@ -336,10 +353,112 @@ func nox_xxx_parseThingBinClient_44C840_read_things() error {
 	C.nox_xxx_equipWeapon_4131A0()
 	C.nox_xxx_equipArmor_415AB0()
 	C.nox_xxx_equipWeapon_4157C0()
-	if C.sub_42BF10() == 0 {
-		return fmt.Errorf("sub_42BF10 failed")
-	}
+	sub_42BF10()
 	return nil
+}
+
+//export sub_42BFB0
+func sub_42BFB0() {
+	objectTypeCode16ByInd = make([]uint16, objectTypeCode16ByInd_cap)
+	objectTypeCode16ByInd_len = 0
+}
+
+func nox_xxx_free_42BF80() {
+	objectTypeCode16ByInd = nil
+	objectTypeCode16ByInd_cap = 0
+}
+
+//export nox_xxx_objectTOCgetTT_42C2B0
+func nox_xxx_objectTOCgetTT_42C2B0(a1 C.ushort) C.int {
+	return C.int(nox_xxx_objectTOCgetTT(uint16(a1)))
+}
+
+func nox_xxx_objectTOCgetTT(a1 uint16) int {
+	for i, v := range objectTypeCode16ByInd {
+		if v == a1 {
+			return i
+		}
+	}
+	return 0
+}
+
+//export sub_42C310
+func sub_42C310(a1 C.int, a2 C.ushort) {
+	if objectTypeCode16ByInd == nil {
+		return
+	}
+	objectTypeCode16ByInd[int(a1)] = uint16(a2)
+}
+
+//export sub_42C2E0
+func sub_42C2E0(a1 C.int) C.ushort {
+	if objectTypeCode16ByInd == nil {
+		return 0
+	}
+	return C.ushort(objectTypeCode16ByInd[int(a1)])
+}
+
+//export sub_42C300
+func sub_42C300() C.ushort {
+	return C.ushort(objectTypeCode16ByInd_len)
+}
+
+//export sub_42BFE0
+func sub_42BFE0() {
+	if !noxflags.HasGame(noxflags.GameHost | noxflags.GameFlag22) {
+		return
+	}
+	sub_42BFB0()
+	last := uint16(1)
+	checkInd := func(ind int) {
+		if val := objectTypeCode16ByInd[ind]; val == 0 {
+			objectTypeCode16ByInd[ind] = last
+			objectTypeCode16ByInd_len++
+			last++
+		}
+	}
+	for it := noxServer.firstServerObject(); it != nil; it = it.Next() {
+		checkInd(it.objTypeInd())
+		for it2 := it.FirstItem(); it2 != nil; it2 = it2.NextItem() {
+			checkInd(it2.objTypeInd())
+		}
+		if it.Class().Has(object.ClassMonsterGenerator) {
+			checkTypesMonsterGen(it, checkInd)
+		}
+	}
+	for it := noxServer.firstServerObjectUninited(); it != nil; it = it.Next() {
+		checkInd(it.objTypeInd())
+		if it.Class().Has(object.ClassMonsterGenerator) {
+			checkTypesMonsterGen(it, checkInd)
+		}
+	}
+	for it := firstServerObjectUpdatable2(); it != nil; it = it.Next() {
+		checkInd(it.objTypeInd())
+	}
+	if !noxflags.HasGame(noxflags.GameFlag22) && noxflags.HasGame(noxflags.GameHost) &&
+		noxflags.HasGame(noxflags.GameClient) && !noxflags.HasGame(noxflags.GameFlag23) {
+		for it := asDrawable(C.sub_45A060()); it != nil; it = asDrawable(C.sub_45A070(it.C())) {
+			ind := int(it.field_27)
+			if sub_4E3AD0(C.int(ind)) == 0 && sub_4E3B80(C.int(ind)) != 0 {
+				checkInd(ind)
+			}
+		}
+	}
+}
+
+func checkTypesMonsterGen(obj *Object, checkInd func(int)) {
+	arr := unsafe.Slice((**nox_object_t)(obj.updateDataPtr()), 12)
+	for i := 0; i < 3; i++ {
+		for j := 0; j < 4; j++ {
+			obj4 := asObjectC(arr[4*i+j])
+			if obj4 != nil {
+				checkInd(obj4.objTypeInd())
+				for it2 := obj4.FirstItem(); it2 != nil; it2 = it2.NextItem() {
+					checkInd(it2.objTypeInd())
+				}
+			}
+		}
+	}
 }
 
 //export sub_4E3AD0

@@ -5,7 +5,6 @@ package opennox
 #include "client__drawable__drawdb.h"
 #include "client__draw__debugdraw.h"
 void nox_xxx_draw_44C650_free(void* lpMem, void* draw);
-void nox_xxx_free_42BF80();
 */
 import "C"
 import (
@@ -106,7 +105,7 @@ func (c *clientObjTypes) nox_things_free_44C580() {
 	c.byInd = []*nox_thing{nil}
 	c.byID = make(map[string]*nox_thing)
 	if !noxflags.HasGame(noxflags.GameHost) {
-		C.nox_xxx_free_42BF80()
+		nox_xxx_free_42BF80()
 	}
 }
 
@@ -150,11 +149,6 @@ func (c *clientObjTypes) TypeByID(id string) *nox_thing {
 
 func (c *clientObjTypes) IndByID(id string) int {
 	return c.TypeByID(id).Index()
-}
-
-//export nox_get_things_count
-func nox_get_things_count() C.int {
-	return C.int(len(nox_things.byInd))
 }
 
 //export nox_get_thing_name
