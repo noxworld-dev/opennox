@@ -81,33 +81,6 @@ void nox_xxx_monstersAllBelongToHost_4DB6A0() {
 	}
 }
 
-//----- (004DB9C0) --------------------------------------------------------
-void sub_4DB9C0() {
-	int v0; // esi
-	int v1; // edi
-
-	v0 = nox_server_getFirstObject_4DA790();
-	if (v0) {
-		do {
-			v1 = nox_server_getNextObject_4DA7A0(v0);
-			if (nox_xxx_isUnit_4E5B50(v0)) {
-				nox_xxx_delayedDeleteObject_4E5CC0(v0);
-			}
-			v0 = v1;
-		} while (v1);
-	}
-	nox_object_t* obj = nox_xxx_getFirstUpdatable2Object_4DA840();
-	if (obj) {
-		do {
-			nox_object_t* v3 = nox_xxx_getNextUpdatable2Object_4DA850(obj);
-			if (sub_4E5B80(obj)) {
-				nox_xxx_delayedDeleteObject_4E5CC0(obj);
-			}
-			obj = v3;
-		} while (obj);
-	}
-}
-
 //----- (004DB370) --------------------------------------------------------
 int nox_xxx_saveDoAutosaveMB_4DB370_savegame(const char* a1) {
 	char* v1;        // eax
