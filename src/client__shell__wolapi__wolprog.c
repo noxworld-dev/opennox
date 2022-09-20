@@ -78,7 +78,6 @@ void sub_4682B0_wol_prog() {
 		nox_window_set_hidden((int)v3, 1);
 		v4 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1064192, 1807);
 		nox_window_set_hidden((int)v4, 0);
-		nox_xxx_setContinueMenuOrHost_43DDD0(0);
-		nox_game_exit_xxx_43DE60();
+		nox_game_exit_xxx2();
 	}
 }

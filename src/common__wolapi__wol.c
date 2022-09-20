@@ -86,8 +86,7 @@ uint32_t* nox_xxx_wolApiError_41D1D0(int a1) {
 	sub_44A400();
 	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
 		nox_xxx_networkLog_printf_413D30("%S %S", v1, v6);
-		nox_xxx_setContinueMenuOrHost_43DDD0(0);
-		nox_game_exit_xxx_43DE60();
+		nox_game_exit_xxx2();
 	}
 	if (a1) {
 		result = sub_44AFB0((int)v1, (int)v6, *(int*)&dword_5d4594_2660652);
