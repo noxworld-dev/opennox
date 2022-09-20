@@ -50,11 +50,6 @@ func nox_xxx_playerSaveToFile_41A140(path string, ind int) bool {
 	return C.nox_xxx_playerSaveToFile_41A140(internCStr(path), C.int(ind)) != 0
 }
 
-//export sub_4DB790
-func sub_4DB790(a1 *C.char) C.int {
-	return C.int(bool2int(sub4DB790(GoString(a1))))
-}
-
 func sub4DB790(a1 string) bool {
 	nox_xxx_mapLoadOrSaveMB_4DCC70(1)
 	noxflags.SetGame(noxflags.GameFlag28)
