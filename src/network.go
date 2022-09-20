@@ -102,10 +102,13 @@ var (
 
 //export nox_xxx_networkLog_print
 func nox_xxx_networkLog_print(cstr *C.char) {
+	networkLogPrint(GoString(cstr))
+}
+
+func networkLogPrint(str string) {
 	if !noxflags.HasGame(noxflags.GameFlag3) {
 		return
 	}
-	str := GoString(cstr)
 	netLog.Println(str)
 	noxConsole.Print(console.ColorGreen, str)
 }

@@ -275,6 +275,8 @@ github.com/noxworld-dev/nat v0.1.0 h1:901X798aWD7HR7J4CAQ8+0C0Hk+zMPfwDqP6FSl1WG
 github.com/noxworld-dev/nat v0.1.0/go.mod h1:nuyzkNVgk/Eybj3dbJmm0vsX7xBxjqCczqN6cWkpfrM=
 github.com/noxworld-dev/noxcrypt v0.0.0-20220321183618-46f42bc13bf4 h1:Dz5AK38Vn8Diysic5o5ONiHiso/9gRAOhz/nLUxfBvk=
 github.com/noxworld-dev/noxcrypt v0.0.0-20220321183618-46f42bc13bf4/go.mod h1:LJpDABUOIGsHXO72pLYJgPpJQ9046Nn6Kqy/kN+xi0I=
+github.com/noxworld-dev/noxcrypt v0.0.0-20220809211245-2c69b67c4ae9 h1:VQTULCEWCAnvAeQ96lPs9ohsfExhDd4EDznu0U9Un1k=
+github.com/noxworld-dev/noxcrypt v0.0.0-20220809211245-2c69b67c4ae9/go.mod h1:LJpDABUOIGsHXO72pLYJgPpJQ9046Nn6Kqy/kN+xi0I=
 github.com/noxworld-dev/opennox-lib v0.0.0-20220728205116-6b0c3dec50fa h1:Zi/NYF3G4B5R6EDHl/awAEyMXNFACkqCnquB1uPHjR4=
 github.com/noxworld-dev/opennox-lib v0.0.0-20220728205116-6b0c3dec50fa/go.mod h1:wuvhrrgI58D4SWhzY7CNrlxWOQHoYvroUMhfDvRtixE=
 github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7 h1:RHk168W1N0o4FAcp2RIeNl5pzSeioH94OSL5cn2DV+4=
@@ -418,6 +420,8 @@ golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550/go.mod h1:yigFU9vqHzYiE8U
 golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
 golang.org/x/crypto v0.0.0-20220315160706-3147a52a75dd h1:XcWmESyNjXJMLahc3mqVQJcgSTDxFxhETVlfk9uGc38=
 golang.org/x/crypto v0.0.0-20220315160706-3147a52a75dd/go.mod h1:IxCIyHEi3zRg3s0A5j5BB6A9Jmi73HwBIUl50j+osU4=
+golang.org/x/crypto v0.0.0-20220829220503-c86fa9a7ed90 h1:Y/gsMcFOcR+6S6f3YeMKl5g+dZMEWqcz5Czj/GWYbkM=
+golang.org/x/crypto v0.0.0-20220829220503-c86fa9a7ed90/go.mod h1:IxCIyHEi3zRg3s0A5j5BB6A9Jmi73HwBIUl50j+osU4=
 golang.org/x/exp v0.0.0-20190121172915-509febef88a4/go.mod h1:CJ0aWSM057203Lf6IL+f9T1iT9GByDxfZKAQTCR3kQA=
 golang.org/x/exp v0.0.0-20190306152737-a1d7652674e8/go.mod h1:CJ0aWSM057203Lf6IL+f9T1iT9GByDxfZKAQTCR3kQA=
 golang.org/x/exp v0.0.0-20190510132918-efd6b22b2522/go.mod h1:ZjyILWgesfNpC6sMxTJOJm9Kp84zZh5NQWvqDGG3Qr8=
