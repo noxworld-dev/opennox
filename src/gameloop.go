@@ -134,10 +134,9 @@ func sub_43DE40(fnc unsafe.Pointer) C.int {
 	return 1
 }
 
-//export nox_xxx_setContinueMenuOrHost_43DDD0
-func nox_xxx_setContinueMenuOrHost_43DDD0(v C.int) {
+func nox_xxx_setContinueMenuOrHost_43DDD0(v int) {
 	if debugMainloop {
-		log.Println("nox_xxx_setContinueMenuOrHost_43DDD0 =", int(v))
+		log.Println("nox_xxx_setContinueMenuOrHost_43DDD0 =", v)
 	}
 	continueMenuOrHost = v != 0
 }
@@ -147,7 +146,6 @@ func nox_xxx_setFrameLimit_43DDE0(v C.int) {
 	useFrameLimit = v != 0
 }
 
-//export nox_game_exit_xxx_43DE60
 func nox_game_exit_xxx_43DE60() {
 	if debugMainloop {
 		log.Println("nox_game_exit_xxx_43DE60")
@@ -160,6 +158,12 @@ func nox_game_exit_xxx_43DE60() {
 	if !noxflags.HasGame(noxflags.GameFlag26) {
 		C.sub_40D380()
 	}
+}
+
+//export nox_game_exit_xxx2
+func nox_game_exit_xxx2() {
+	nox_xxx_setContinueMenuOrHost_43DDD0(0)
+	nox_game_exit_xxx_43DE60()
 }
 
 func nox_xxx_gameIsNotMultiplayer_4DB250() bool {
@@ -429,8 +433,7 @@ func nox_game_cdMaybeSwitchState_413800() {
 	initialStateSwitch = true
 	C.sub_4137E0()
 	if !nox_game_state.Switch() {
-		nox_xxx_setContinueMenuOrHost_43DDD0(0)
-		nox_game_exit_xxx_43DE60()
+		nox_game_exit_xxx2()
 	}
 }
 
@@ -1229,8 +1232,7 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 
 					sub_477530(false)
 					C.nox_xxx_gui_43E1A0(0)
-					nox_xxx_setContinueMenuOrHost_43DDD0(0)
-					nox_game_exit_xxx_43DE60()
+					nox_game_exit_xxx2()
 					sub_44A400()
 				})
 			}

@@ -2561,8 +2561,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 						}
 					}
 					if (!nox_common_gameFlags_check_40A5C0(0x20000) && nox_xxx_gameGetPlayState_4356B0() == 3) {
-						nox_xxx_setContinueMenuOrHost_43DDD0(0);
-						nox_game_exit_xxx_43DE60();
+						nox_game_exit_xxx2();
 					}
 				}
 			}
