@@ -21,9 +21,6 @@
 #include "common__log.h"
 #include "operators.h"
 
-extern uint32_t dword_5d4594_825764;
-extern uint32_t dword_5d4594_825752;
-extern uint32_t dword_5d4594_825768;
 extern uint32_t dword_5d4594_2650652;
 extern uint32_t nox_player_netCode_85319C;
 extern int nox_win_width;
@@ -41,28 +38,6 @@ extern uint32_t nox_color_black_2650656;
 extern uint32_t nox_color_orange_2614256;
 
 nox_window* nox_wnd_quitMenu_825760 = 0;
-
-//----- (00445790) --------------------------------------------------------
-int nox_xxx_wndLoadQuitMenu_445790() {
-	nox_wnd_quitMenu_825760 = nox_new_window_from_file("QuitMenu.wnd", nox_xxx_menuGameOnButton_445840);
-	if (!nox_wnd_quitMenu_825760) {
-		return 0;
-	}
-	nox_window_set_all_funcs(nox_wnd_quitMenu_825760, sub_445BB0, nox_xxx_wndDrawQuitMenu_445BC0, 0);
-	nox_wnd_quitMenu_825760->draw_data.bg_color = nox_color_black_2650656;
-	nox_wnd_quitMenu_825760->off_x = (nox_win_width - nox_wnd_quitMenu_825760->width) / 2;
-	nox_wnd_quitMenu_825760->end_x = nox_wnd_quitMenu_825760->off_x + nox_wnd_quitMenu_825760->width;
-	if (nox_win_height > 768) {
-		nox_wnd_quitMenu_825760->off_y = (nox_win_height - nox_wnd_quitMenu_825760->height - nox_win_height / 3) / 2;
-		nox_wnd_quitMenu_825760->end_y = nox_wnd_quitMenu_825760->off_y + nox_wnd_quitMenu_825760->height;
-	}
-	sub_445C40();
-	dword_5d4594_825752 = 0;
-	dword_5d4594_825768 = 0;
-	wchar_t* v1 = nox_strman_loadString_40F1D0("Vote", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 309);
-	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 825772), L"%s", v1);
-	return 1;
-}
 
 //----- (00445840) --------------------------------------------------------
 int nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
@@ -322,67 +297,5 @@ void sub_445C40() {
 		nox_window_set_hidden(nox_wnd_quitMenu_825760, 1);
 		nox_wnd_quitMenu_825760->flags &= 0xFFFFFFF7;
 		sub_413A00(0);
-	}
-}
-
-//----- (00446190) --------------------------------------------------------
-void sub_446190() {
-	wchar_t* v1; // eax
-	wchar_t* v2; // eax
-	wchar_t* v3; // [esp-12h] [ebp-14h]
-	char v4;     // [esp+1h] [ebp-1h]
-
-	dword_5d4594_825764 = 0;
-	if (nox_common_gameFlags_check_40A5C0(1)) {
-		v1 = nox_strman_loadString_40F1D0("ServerManualShutdown", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 667);
-		nox_xxx_networkLog_printf_413D30("%S", v1);
-	}
-	if (nox_common_gameFlags_check_40A5C0(0x2000000)) {
-		nox_game_checkStateWol_43C260();
-		sub_41E300(9);
-		nox_xxx____setargv_4_44B000();
-	} else if (nox_xxx_isQuest_4D6F50()) {
-		if (sub_4D6F30()) {
-			nox_game_checkStateMenu_43C2F0();
-		}
-		sub_4D70B0();
-		sub_4D6F40(0);
-		sub_4D6F90(0);
-	}
-	if (!dword_5d4594_825768) {
-		dword_5d4594_825752 = 0;
-		dword_5d4594_825768 = nox_frame_xxx_2598000;
-		if (nox_common_gameFlags_check_40A5C0(1)) {
-			if (nox_xxx_check_flag_aaa_43AF70() == 1 && nox_common_gameFlags_check_40A5C0(49152)) {
-				sub_416150(15, 0);
-			}
-			sub_509CB0();
-		}
-		if (nox_common_gameFlags_check_40A5C0(1)) {
-			dword_5d4594_825752 = nox_common_playerInfoCount_416F40() - 1;
-			sub_467440(0);
-			if (dword_5d4594_825752 > 0) {
-				v4 = -57;
-				nox_xxx_netSendPacket0_4E5420(159, &v4, 1, 0, 1);
-				v3 = nox_strman_loadString_40F1D0("ShuttingDown", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c", 737);
-				v2 = nox_strman_loadString_40F1D0("Wolchat.c:PleaseWait", 0, "C:\\NoxPost\\src\\client\\Gui\\guiquit.c",
-												  736);
-				nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v2, (int)v3, 0, 0, 0);
-				sub_44A360(1);
-				goto LABEL_20;
-			}
-		} else if (!nox_common_gameFlags_check_40A5C0(0x2000)) {
-			goto LABEL_20;
-		}
-		sub_446380();
-	}
-LABEL_20:
-	if (dword_5d4594_2650652) {
-		if (sub_41E2F0() == 9) {
-			sub_41F4B0();
-			sub_41EC30();
-			sub_446490(0);
-			nox_xxx____setargv_4_44B000();
-		}
 	}
 }

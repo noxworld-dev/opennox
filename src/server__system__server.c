@@ -52,7 +52,6 @@ extern uint32_t dword_5d4594_528260;
 extern uint32_t dword_5d4594_1548704;
 extern uint32_t dword_5d4594_1563096;
 extern uint32_t dword_5d4594_1563052;
-extern uint32_t dword_5d4594_825768;
 extern void* nox_alloc_springs_2386568;
 extern uint32_t dword_5d4594_608316;
 extern uint32_t dword_5d4594_1599060;
