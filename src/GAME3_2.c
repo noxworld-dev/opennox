@@ -6325,22 +6325,6 @@ uint32_t* nox_xxx_unitClearPendingMB_4DB030() {
 	return result;
 }
 
-//----- (004DB100) --------------------------------------------------------
-int sub_4DB100() {
-	int result; // eax
-
-	result = 0;
-	dword_5d4594_1563080 = 0;
-	dword_5d4594_1563084 = 0;
-	dword_5d4594_1563096 = 0;
-	dword_5d4594_1563064 = 0;
-	dword_5d4594_1563092 = 0;
-	dword_5d4594_1563088 = 0;
-	*getMemU32Ptr(0x5D4594, 1563072) = 0;
-	*getMemU32Ptr(0x5D4594, 1563068) = 0;
-	return result;
-}
-
 //----- (004DB130) --------------------------------------------------------
 unsigned int sub_4DB130(const char* a1) {
 	unsigned int result; // eax
