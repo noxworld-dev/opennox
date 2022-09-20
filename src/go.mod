@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/noxworld-dev/lobby v0.0.0-20220306183851-3877f0a7002d
 	github.com/noxworld-dev/nat v0.1.0
-	github.com/noxworld-dev/noxcrypt v0.0.0-20220321183618-46f42bc13bf4
+	github.com/noxworld-dev/noxcrypt v0.0.0-20220809211245-2c69b67c4ae9
 	github.com/noxworld-dev/opennox-lib v0.0.0-20220728205116-6b0c3dec50fa
 	github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7
 	github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e
@@ -16,7 +16,7 @@ require (
 	github.com/szhublox/opennoxcontrol v0.0.0-20211214215120-c4bc4281312f
 	github.com/timshannon/go-openal v0.0.0-20170220204755-e0ed4c67cffe
 	github.com/youpy/go-wav v0.3.2
-	golang.org/x/crypto v0.0.0-20220315160706-3147a52a75dd
+	golang.org/x/crypto v0.0.0-20220829220503-c86fa9a7ed90
 	golang.org/x/image v0.0.0-20220321031419-a8550c1d254a
 	golang.org/x/mod v0.5.1
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
