@@ -4,6 +4,7 @@ package opennox
 #include "GAME1_1.h"
 #include "server__xfer__savegame__savegame.h"
 extern unsigned int dword_5d4594_825764;
+void nox_xxx_unitsNewAddToList_4DAC00();
 */
 import "C"
 import (
@@ -15,6 +16,8 @@ import (
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/ifs"
+	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -182,4 +185,39 @@ func sub_446140() C.int {
 		}
 	}
 	return 1
+}
+
+//export nox_xxx_saveMakePlayerLocation_4DB600
+func nox_xxx_saveMakePlayerLocation_4DB600(a1 unsafe.Pointer) bool {
+	pl := noxServer.getPlayerByInd(noxMaxPlayers - 1)
+	if pl == nil {
+		return false
+	}
+	u := pl.UnitC()
+	if u == nil {
+		return false
+	}
+	obj := noxServer.newObjectByTypeID("SaveGameLocation")
+	if obj == nil {
+		return false
+	}
+	pos := u.Pos()
+	if a1 != nil {
+		ptr := *(*unsafe.Pointer)(unsafe.Add(a1, 700))
+		pos = types.Pointf{
+			X: *(*float32)(unsafe.Add(ptr, 80)),
+			Y: *(*float32)(unsafe.Add(ptr, 84)),
+		}
+	}
+	nox_xxx_createAt_4DAA50(obj, nil, pos)
+	C.nox_xxx_unitsNewAddToList_4DAC00()
+	obj.script_id = C.int(u.ScriptID())
+	var next *Object
+	for it := u.FirstOwned516(); it != nil; it = next {
+		next = it.NextOwned512()
+		if it.Flags().Has(object.FlagActive) {
+			it.SetOwner(obj)
+		}
+	}
+	return true
 }
