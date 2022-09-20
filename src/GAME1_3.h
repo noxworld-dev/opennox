@@ -63,7 +63,6 @@ int sub_43DC30();
 int sub_43DC40();
 int sub_43DD10(int* a1);
 void sub_43DD70(int a1, int a2);
-void nox_xxx_setFrameLimit_43DDE0(int a1);
 void nox_game_SetCliDrawFunc(void* a1);
 int sub_43DE40(void* a1);
 void nox_game_exit_xxx2();

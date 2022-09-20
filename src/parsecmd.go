@@ -33,8 +33,6 @@ int nox_cmd_mute(int, int, wchar_t**);
 int nox_cmd_exec_rul(int, int, wchar_t**);
 int nox_cmd_offonly1(int, int, wchar_t**);
 int nox_cmd_offonly2(int, int, wchar_t**);
-int nox_cmd_set_fr(int, int, wchar_t**);
-int nox_cmd_unset_fr(int, int, wchar_t**);
 int nox_cmd_set_net_debug(int, int, wchar_t**);
 int nox_cmd_unset_net_debug(int, int, wchar_t**);
 int nox_cmd_show_gui(int, int, wchar_t**);
@@ -124,7 +122,13 @@ var (
 	noxCmdSet = &console.Command{Token: "set", HelpID: "sethelp", Flags: console.ClientServer, Sub: []*console.Command{
 		{Token: "armor", HelpID: "setarmorhelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_set_armor)},
 		{Token: "cycle", HelpID: "setcyclehelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_set_cycle)},
-		{Token: "frameratelimiter", HelpID: "setfrhelp", Flags: console.Server | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_set_fr)},
+		{Token: "frameratelimiter", HelpID: "setfrhelp", Flags: console.Server | console.Cheat, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+			if len(tokens) != 0 {
+				return false
+			}
+			setEnableFrameLimit(true)
+			return true
+		}},
 		{Token: "lessons", HelpID: "setlessonshelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_set_lessons)},
 		{Token: "monsters", HelpID: "setmnstrshelp", Flags: console.Server | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_set_mnstrs)},
 		{Token: "name", HelpID: "setnamehelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_set_name)},
@@ -166,7 +170,13 @@ var (
 		{Token: "mode", HelpID: "officialonly", Flags: console.Server | console.Cheat | console.FlagDedicated, LegacyFunc: wrapCommandC(nox_cmd_offonly2)},
 	}}
 	noxCmdUnSet = &console.Command{Token: "unset", HelpID: "unsethelp", Flags: console.ClientServer, Sub: []*console.Command{
-		{Token: "frameratelimiter", HelpID: "unsetfrhelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_unset_fr)},
+		{Token: "frameratelimiter", HelpID: "unsetfrhelp", Flags: console.Server, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+			if len(tokens) != 0 {
+				return false
+			}
+			setEnableFrameLimit(false)
+			return true
+		}},
 		{Token: "netdebug", HelpID: "unsetnetdebug", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_unset_net_debug)},
 	}}
 	noxCmdShow = &console.Command{Token: "show", HelpID: "showhelp", Flags: console.ClientServer, Sub: []*console.Command{
@@ -327,12 +337,6 @@ func nox_cmd_offonly1(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_offonly2(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_offonly2(i, n, arr)
-}
-func nox_cmd_set_fr(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_set_fr(i, n, arr)
-}
-func nox_cmd_unset_fr(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_unset_fr(i, n, arr)
 }
 func nox_cmd_set_net_debug(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_set_net_debug(i, n, arr)
