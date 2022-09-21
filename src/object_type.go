@@ -21,7 +21,7 @@ import (
 
 //export nox_xxx_unitDefGetCount_4E3AC0
 func nox_xxx_unitDefGetCount_4E3AC0() C.int {
-	return C.int(len(noxServer.objs.byInd))
+	return C.int(len(noxServer.types.byInd))
 }
 
 //export nox_xxx_newObjectWithTypeInd_4E3450
@@ -83,16 +83,16 @@ func nox_xxx_getNameId_4E3AA0(cstr *C.char) C.int {
 //export sub_4E3BC0
 func sub_4E3BC0(a1 *C.nox_objectType_t) {
 	typ := asObjectType(a1)
-	noxServer.objs.crc ^= typ.field_4
+	noxServer.types.crc ^= typ.field_4
 	typ.field_4 = 0
 }
 
 //export sub_4E3BF0
 func sub_4E3BF0(a1 *C.nox_objectType_t) {
 	typ := asObjectType(a1)
-	noxServer.objs.crc ^= typ.field_4
+	noxServer.types.crc ^= typ.field_4
 	typ.field_4 = 1
-	noxServer.objs.crc ^= 1
+	noxServer.types.crc ^= 1
 }
 
 type serverObjTypes struct {
@@ -303,7 +303,7 @@ func (s *serverObjTypes) nox_xxx_protectUnitDefUpdateMB_4E3C20() {
 
 func (s *Server) getObjectTypeByID(id string) *ObjectType { // nox_xxx_objectTypeByID_4E3B60
 	id = strings.ToLower(id)
-	return s.objs.byID[id]
+	return s.types.byID[id]
 }
 
 func (s *Server) getObjectTypeID(id string) int { // nox_xxx_getNameId_4E3AA0
@@ -318,14 +318,14 @@ func (s *Server) getObjectTypeByInd(ind int) *ObjectType { // nox_xxx_objectType
 	if ind == math.MaxUint16 {
 		return nil
 	}
-	if ind < 0 || ind >= len(s.objs.byInd) {
+	if ind < 0 || ind >= len(s.types.byInd) {
 		return nil
 	}
-	return s.objs.byInd[ind]
+	return s.types.byInd[ind]
 }
 
 func (s *Server) getObjectTypes() (out []*ObjectType) {
-	for _, typ := range s.objs.byInd {
+	for _, typ := range s.types.byInd {
 		if typ == nil {
 			continue
 		}
