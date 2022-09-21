@@ -482,9 +482,9 @@ typedef struct nox_object_t {
 	uint32_t field_116;      // 116, 464
 	uint32_t field_117;      // 117, 468
 	uint32_t field_118;      // 118, 472
-	uint32_t field_119;      // 119, 476
-	uint32_t field_120;      // 120, 480
-	uint32_t field_121;      // 121, 484
+	nox_object_t* updatable_next; // 119, 476
+	nox_object_t* updatable_prev; // 120, 480
+	uint32_t is_updatable;   // 121, 484
 	uint8_t weight;          // 122, 488
 	uint8_t field_122_1;     // 122, 489
 	uint16_t carry_capacity; // 122, 490
