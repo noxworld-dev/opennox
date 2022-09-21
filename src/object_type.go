@@ -73,11 +73,7 @@ func nox_xxx_newObjectByTypeID_4E3810(cstr *C.char) *nox_object_t {
 
 //export nox_xxx_getNameId_4E3AA0
 func nox_xxx_getNameId_4E3AA0(cstr *C.char) C.int {
-	typ := noxServer.getObjectTypeByID(GoString(cstr))
-	if typ == nil {
-		return 0
-	}
-	return C.int(typ.ind)
+	return C.int(noxServer.getObjectTypeID(GoString(cstr)))
 }
 
 //export sub_4E3BC0
@@ -459,8 +455,8 @@ func (t *ObjectType) CreateObject(p types.Pointf) script.Object {
 	if obj == nil {
 		return nil
 	}
-	nox_xxx_createAt_4DAA50(obj, nil, p)
-	if obj.Class().Has(object.MaskUnits) {
+	noxServer.createObjectAt(obj, nil, p)
+	if obj.Class().HasAny(object.MaskUnits) {
 		return obj.AsUnit()
 	}
 	return obj

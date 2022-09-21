@@ -116,7 +116,7 @@ func (a *abilityHarpoon) createBolt(u *Unit) {
 	hpos := u.Pos().Add(types.Pointf{
 		X: r * cos, Y: r * sin,
 	})
-	nox_xxx_createAt_4DAA50(bolt, u, hpos)
+	a.s.createObjectAt(bolt, u, hpos)
 	bolt.vel_x = C.float(cos * float32(bolt.speed_cur))
 	bolt.vel_y = C.float(sin * float32(bolt.speed_cur))
 	dir := u.direction1

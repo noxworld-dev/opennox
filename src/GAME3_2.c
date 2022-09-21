@@ -101,8 +101,6 @@ extern unsigned int nox_frame_xxx_2598000;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 
-nox_object_t* nox_server_objects_uninited_1556860 = 0;
-
 nox_object_t* nox_xxx_host_player_unit_3843628 = 0;
 
 nox_list_item_t nox_common_maplist = {0};
@@ -5819,35 +5817,6 @@ nox_object_t* nox_xxx_getNextPlayerUnit_4DA7F0(const nox_object_t* obj) {
 	return *((uint32_t*)v1 + 514);
 }
 
-//----- (004DA850) --------------------------------------------------------
-nox_object_t* nox_xxx_getNextUpdatable2Object_4DA850(const nox_object_t* obj) {
-	int a1 = (int)obj;
-	int result; // eax
-
-	if (a1) {
-		result = *(uint32_t*)(a1 + 444);
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
-//----- (004DA870) --------------------------------------------------------
-nox_object_t* nox_server_getFirstObjectUninited_4DA870() { return nox_server_objects_uninited_1556860; }
-
-//----- (004DA880) --------------------------------------------------------
-nox_object_t* nox_server_getNextObjectUninited_4DA880(const nox_object_t* obj) {
-	const int a1 = obj;
-	int result; // eax
-
-	if (a1) {
-		result = *(uint32_t*)(a1 + 444);
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
 //----- (004DA9A0) --------------------------------------------------------
 uint32_t* nox_xxx_unitNewAddShadow_4DA9A0(nox_object_t* a1p) {
 	uint32_t* a1 = a1p;
@@ -5892,136 +5861,6 @@ uint32_t* nox_xxx_action_4DA9F0(nox_object_t* a1p) {
 		}
 	}
 	return result;
-}
-
-//----- (004DAA50) --------------------------------------------------------
-void nox_xxx_createAt_4DAA50(nox_object_t* obj, nox_object_t* owner, float a3, float a4) {
-	int a1 = obj;
-	int v4; // eax
-	int v5; // eax
-	int v6; // ecx
-	int v7; // eax
-
-	if (!*getMemU32Ptr(0x5D4594, 1556864)) {
-		*getMemU32Ptr(0x5D4594, 1556864) = nox_xxx_getNameId_4E3AA0("Gold");
-		*getMemU32Ptr(0x5D4594, 1556868) = nox_xxx_getNameId_4E3AA0("QuestGoldPile");
-		*getMemU32Ptr(0x5D4594, 1556872) = nox_xxx_getNameId_4E3AA0("QuestGoldChest");
-	}
-	v4 = *(uint32_t*)(a1 + 16);
-	if (v4 & 0x24) {
-		return;
-	}
-	*(uint32_t*)(a1 + 16) = v4 & 0x35E9FEDB;
-	*(float*)(a1 + 72) = a3;
-	*(float*)(a1 + 56) = a3;
-	*(float*)(a1 + 64) = a3;
-	*(float*)(a1 + 76) = a4;
-	*(float*)(a1 + 60) = a4;
-	v5 = *(uint32_t*)(a1 + 56);
-	*(float*)(a1 + 68) = a4;
-	*(uint32_t*)(a1 + 156) = v5;
-	*(float*)(a1 + 160) = a4;
-	nox_xxx_objectUnkUpdateCoords_4E7290(a1);
-	if (*(uint8_t*)(a1 + 8) & 6) {
-		nox_xxx_unitPostCreateNotify_4E7F10(a1);
-	}
-	if (owner) {
-		nox_xxx_unitSetOwner_4EC290(owner, a1);
-	}
-	v6 = *(uint32_t*)(a1 + 16);
-	*(uint32_t*)(a1 + 80) = 0;
-	*(uint32_t*)(a1 + 84) = 0;
-	*(uint32_t*)(a1 + 88) = 0;
-	*(uint32_t*)(a1 + 92) = 0;
-	*(uint32_t*)(a1 + 16) = v6 | 4;
-	*(uint32_t*)(a1 + 136) = nox_frame_xxx_2598000;
-	*(uint32_t*)(a1 + 128) = nox_frame_xxx_2598000;
-	if (nox_common_gameFlags_check_40A5C0(0x2000) && !nox_common_gameFlags_check_40A5C0(4096) &&
-		(*(unsigned short*)(a1 + 4) == *getMemU32Ptr(0x5D4594, 1556864) || *(uint32_t*)(a1 + 8) & 0x3001110) &&
-		!(*(uint8_t*)(a1 + 8) & 1)) {
-		v7 = *(uint32_t*)(a1 + 16);
-		LOBYTE(v7) = v7 | 0x40;
-		*(uint32_t*)(a1 + 16) = v7;
-	}
-	*(uint32_t*)(a1 + 448) = 0;
-	*(uint32_t*)(a1 + 444) = nox_server_objects_uninited_1556860;
-	if (nox_server_objects_uninited_1556860) {
-		*(uint32_t*)((uintptr_t)nox_server_objects_uninited_1556860 + 448) = a1;
-	}
-	nox_server_objects_uninited_1556860 = a1;
-	uint8_t v4b = *(uint8_t*)(a1 + 52);
-	*(uint32_t*)(a1 + 16) |= 0x2000000u;
-	if (v4b && (!(*(uint32_t*)(a1 + 8) & 0x10000000) || (int)*getMemU32Ptr(0x973F18, 3800) >= 0)) {
-		if (nox_common_gameFlags_check_40A5C0(2048) || nox_xxx_CheckGameplayFlags_417DA0(4) != 0) {
-			nox_xxx_createAtImpl_4191D0(*(uint8_t*)(a1 + 52), a1 + 48, 0, *(uint32_t*)(a1 + 36), 0);
-		}
-	}
-}
-
-//----- (004DAF10) --------------------------------------------------------
-void sub_4DAF10() {
-	uint32_t* v0; // edi
-	uint32_t* v1; // esi
-	int v2;       // eax
-	int v3;       // ecx
-	uint32_t* v4; // eax
-	int v5;       // edx
-	int v6;       // edx
-	int v7;       // ecx
-	int v8;       // edx
-	uint32_t* v9; // eax
-
-	v0 = *(uint32_t**)&nox_server_objects_uninited_1556860;
-	v1 = *(uint32_t**)&nox_server_objects_uninited_1556860;
-	if (nox_server_objects_uninited_1556860) {
-		do {
-			v2 = v1[2];
-			if (v2 & 0x4000) {
-				v3 = v1[187];
-				v4 = v0;
-				if (v0) {
-					while (1) {
-						v5 = v4[2];
-						if ((v5 & 0x8000) != 0) {
-							v6 = v4[187];
-							if (*(uint32_t*)(v3 + 8) == v4[10]) {
-								break;
-							}
-						}
-						v4 = (uint32_t*)v4[111];
-						if (!v4) {
-							goto LABEL_9;
-						}
-					}
-					*(uint32_t*)(v3 + 4) = v4;
-					*(uint32_t*)(v6 + 4) = v1;
-					v0 = *(uint32_t**)&nox_server_objects_uninited_1556860;
-				}
-			}
-		LABEL_9:
-			if (v1[2] & 0x400) {
-				v7 = v1[187];
-				v8 = *(uint32_t*)(v7 + 16);
-				*(uint32_t*)(v7 + 12) = 0;
-				v0 = *(uint32_t**)&nox_server_objects_uninited_1556860;
-				if (v8) {
-					v9 = *(uint32_t**)&nox_server_objects_uninited_1556860;
-					if (nox_server_objects_uninited_1556860) {
-						while (!(v9[2] & 0x400) || v8 != v9[10]) {
-							v9 = (uint32_t*)v9[111];
-							if (!v9) {
-								goto LABEL_17;
-							}
-						}
-						*(uint32_t*)(v7 + 12) = v9;
-						v0 = *(uint32_t**)&nox_server_objects_uninited_1556860;
-					}
-				}
-			}
-		LABEL_17:
-			v1 = (uint32_t*)v1[111];
-		} while (v1);
-	}
 }
 
 //----- (004DB130) --------------------------------------------------------

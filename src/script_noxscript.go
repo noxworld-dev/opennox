@@ -479,7 +479,7 @@ func nox_setImaginaryCaster() C.int {
 	if nox_xxx_imagCasterUnit_1569664 == nil {
 		return 0
 	}
-	nox_xxx_createAt_4DAA50(nox_xxx_imagCasterUnit_1569664, nil, types.Pointf{X: 128 * common.GridStep, Y: 128 * common.GridStep})
+	s.createObjectAt(nox_xxx_imagCasterUnit_1569664, nil, types.Pointf{X: 128 * common.GridStep, Y: 128 * common.GridStep})
 	return 1
 }
 
