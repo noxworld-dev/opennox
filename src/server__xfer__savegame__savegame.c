@@ -20,10 +20,6 @@
 #include "windows_compat.h"
 #endif
 
-bool nox_xxx_saveMakeFolder_0_4DB1D0();
-bool nox_client_makeSaveMapDir_4DB5A0(char* a1, char* a2);
-int nox_xxx_saveMakePlayerLocation_4DB600(void* a1);
-
 //----- (004DB6A0) --------------------------------------------------------
 void nox_xxx_monstersAllBelongToHost_4DB6A0() {
 	char* v0; // eax
