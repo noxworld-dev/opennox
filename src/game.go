@@ -922,7 +922,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_A2(v2 bool) {
 		u.dropAllItems()
 		C.nox_xxx_playerMakeDefItems_4EF7D0(C.int(uintptr(unsafe.Pointer(u.CObj()))), 1, 0)
 	}
-	C.nox_xxx_unitsNewAddToList_4DAC00()
+	s.objectsNewAdd()
 	if noxflags.HasGame(noxflags.GameModeSolo10) {
 		return
 	}
@@ -1196,7 +1196,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	for _, obj := range s.getObjects() {
 		obj.SetFlags(obj.Flags() | object.FlagMarked)
 	}
-	for _, obj := range getObjectsUpdatable2() {
+	for _, obj := range s.getObjectsUpdatable2() {
 		obj.SetFlags(obj.Flags() | object.FlagMarked)
 	}
 	if noxflags.HasGame(noxflags.GameModeCoop) {
@@ -1251,7 +1251,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		C.nox_xxx_netMapSendPrepair_519EB0_net_mapsend()
 	}
-	C.nox_xxx_unitsNewAddToList_4DAC00()
+	s.objectsNewAdd()
 	for _, k := range s.getPlayerUnits() {
 		C.sub_4EF660(k.CObj())
 		v61 := nox_xxx_mapFindPlayerStart_4F7AB0(k)
@@ -1404,7 +1404,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	for _, obj := range s.getObjects() {
 		obj.SetFlags(obj.Flags() & 0x7FFFFFFF)
 	}
-	for _, obj := range getObjectsUpdatable2() {
+	for _, obj := range s.getObjectsUpdatable2() {
 		obj.SetFlags(obj.Flags() & 0x7FFFFFFF)
 	}
 	if noxflags.HasGame(noxflags.GameModeKOTR) && checkGameplayFlags(4) {

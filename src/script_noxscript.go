@@ -431,7 +431,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 	}
 
 	var next *Object
-	for it := firstServerObjectUpdatable2(); it != nil; it = next {
+	for it := s.objs.updatableList2; it != nil; it = next {
 		next = it.Next()
 		if it.objTypeInd() != int(memmap.Uint32(0x5D4594, 2386900)) {
 			it.Delete()

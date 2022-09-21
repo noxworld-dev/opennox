@@ -238,7 +238,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 		gameLog.Println("update remote players:", err)
 		return false
 	}
-	C.nox_xxx_unitsNewAddToList_4DAC00()
+	s.objectsNewAdd()
 	if inputKeyCheckTimeoutLegacy(0x10, 10*gameFPS()) {
 		s.types.nox_xxx_protectUnitDefUpdateMB_4E3C20()
 		inputSetKeyTimeoutLegacy(16)
@@ -522,7 +522,7 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 	gameLog.Printf("loading map %q", mname)
 	cntGameMap.WithLabelValues(filepath.Base(mname)).Inc()
 	C.sub_481410()
-	C.nox_xxx_unitsNewAddToList_4DAC00()
+	s.objectsNewAdd()
 	C.nox_xxx_waypoint_5799C0()
 	if mname == "" {
 		return errors.New("empty map name")

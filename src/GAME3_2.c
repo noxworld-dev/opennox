@@ -102,7 +102,6 @@ extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 
 nox_object_t* nox_server_objects_uninited_1556860 = 0;
-nox_object_t* nox_server_objects_updatable2_1556848 = 0;
 nox_object_t* nox_server_objects_1556844 = 0;
 
 nox_object_t* nox_xxx_host_player_unit_3843628 = 0;
@@ -5588,7 +5587,7 @@ uint32_t* nox_get_and_zero_server_objects_4DA3C0(void) {
 }
 
 //----- (004DA3E0) --------------------------------------------------------
-void nox_set_server_objects_4DA3E0(void* p) { nox_server_objects_1556844 = p; }
+void nox_set_server_objects_4DA3E0(nox_object_t* p) { nox_server_objects_1556844 = p; }
 
 //----- (004DA3F0) --------------------------------------------------------
 int nox_server_strcmpWithoutMapname_4DA3F0(const char* a1, const char* a2) {
@@ -5847,9 +5846,6 @@ nox_object_t* nox_xxx_getNextPlayerUnit_4DA7F0(const nox_object_t* obj) {
 	return *((uint32_t*)v1 + 514);
 }
 
-//----- (004DA840) --------------------------------------------------------
-nox_object_t* nox_xxx_getFirstUpdatable2Object_4DA840() { return nox_server_objects_updatable2_1556848; }
-
 //----- (004DA850) --------------------------------------------------------
 nox_object_t* nox_xxx_getNextUpdatable2Object_4DA850(const nox_object_t* obj) {
 	int a1 = (int)obj;
@@ -5880,7 +5876,8 @@ nox_object_t* nox_server_getNextObjectUninited_4DA880(const nox_object_t* obj) {
 }
 
 //----- (004DA9A0) --------------------------------------------------------
-uint32_t* nox_xxx_unitNewAddShadow_4DA9A0(uint32_t* a1) {
+uint32_t* nox_xxx_unitNewAddShadow_4DA9A0(nox_object_t* a1p) {
+	uint32_t* a1 = a1p;
 	uint32_t* result; // eax
 	int v2;           // ecx
 
@@ -5899,7 +5896,8 @@ uint32_t* nox_xxx_unitNewAddShadow_4DA9A0(uint32_t* a1) {
 }
 
 //----- (004DA9F0) --------------------------------------------------------
-uint32_t* nox_xxx_action_4DA9F0(uint32_t* a1) {
+uint32_t* nox_xxx_action_4DA9F0(nox_object_t* a1p) {
+	uint32_t* a1 = a1p;
 	uint32_t* result; // eax
 	int v2;           // ecx
 	int v3;           // ecx
@@ -5985,134 +5983,6 @@ void nox_xxx_createAt_4DAA50(nox_object_t* obj, nox_object_t* owner, float a3, f
 			nox_xxx_createAtImpl_4191D0(*(uint8_t*)(a1 + 52), a1 + 48, 0, *(uint32_t*)(a1 + 36), 0);
 		}
 	}
-}
-
-//----- (004DAC00) --------------------------------------------------------
-void nox_xxx_unitsNewAddToList_4DAC00() {
-	int i;                     // ebp
-	int v3;                    // eax
-	void (*v4)(int, uint32_t); // eax
-	unsigned int v5;           // ecx
-	int v6;                    // eax
-
-	if (!nox_server_objects_uninited_1556860) {
-		nox_server_objects_uninited_1556860 = 0;
-		return;
-	}
-
-	for (int v0 = nox_server_objects_uninited_1556860; v0; v0 = i) {
-		i = *(uint32_t*)(v0 + 444);
-		for (int j = *(uint32_t*)(v0 + 508); j; j = *(uint32_t*)(v0 + 508)) {
-			if (!(*(uint8_t*)(j + 16) & 0x20)) {
-				break;
-			}
-			nox_xxx_unitSetOwner_4EC290(*(uint32_t*)(j + 508), v0);
-		}
-		if (*(uint8_t*)(v0 + 8) & 1) {
-			*(uint32_t*)(v0 + 448) = 0;
-			*(uint32_t*)(v0 + 444) = nox_server_objects_updatable2_1556848;
-			if (nox_server_objects_updatable2_1556848) {
-				*(uint32_t*)((uint32_t)nox_server_objects_updatable2_1556848 + 448) = v0;
-			}
-			nox_server_objects_updatable2_1556848 = v0;
-		} else {
-			v3 = *(uint32_t*)(v0 + 16);
-			if (v3 & 0x10000) {
-				*(uint32_t*)(v0 + 16) = v3 & 0xFFFEFFFF;
-				nox_xxx_unitNewAddShadow_4DA9A0((uint32_t*)v0);
-			}
-			if (*(uint32_t*)(v0 + 16) & 0x80000 && !nox_common_gameFlags_check_40A5C0(4096)) {
-				nox_xxx_respawnAdd_4EC5E0(v0);
-			}
-			if ((*(uint32_t*)(v0 + 744) || *(float*)(v0 + 80) != 0.0 || *(float*)(v0 + 84) != 0.0) &&
-				(signed char)*(uint8_t*)(v0 + 8) >= 0) {
-				nox_xxx_unitAddToUpdatable_4DA8D0(v0);
-			}
-			*(uint32_t*)(v0 + 448) = 0;
-			*(uint32_t*)(v0 + 444) = nox_server_objects_1556844;
-			if (nox_server_objects_1556844) {
-				*(uint32_t*)((uintptr_t)nox_server_objects_1556844 + 448) = v0;
-			}
-			nox_set_server_objects_4DA3E0(v0);
-		}
-		nox_xxx_unitCreateMissileSmth_517640(v0);
-		if (*(uint32_t*)(v0 + 696)) {
-			sub_5117F0(v0);
-		}
-		v4 = *(void (**)(int, uint32_t))(v0 + 688);
-		if (v4) {
-			v4(v0, 0);
-		}
-		v5 = *(uint32_t*)(v0 + 8);
-		if (v5 & 0x400000) {
-			if (*(uint32_t*)(v0 + 12) & 0x18) {
-				v6 = 0;
-			} else {
-				v6 = (unsigned char)~*(uint8_t*)(v0 + 12) >> 7;
-			}
-		} else {
-			v6 = (v5 >> 29) & 1;
-		}
-		if (0x800000 & v5 || !v6) {
-			nox_xxx_unitNeedSync_4E44F0(v0);
-			if (!(*(uint32_t*)(v0 + 8) & 0x20400000)) {
-				*(uint32_t*)(v0 + 148) = 0;
-			}
-		} else {
-			nox_xxx_objectMakeUnseenByNoone_4E44E0(v0);
-			sub_527E00(v0);
-			*(uint32_t*)(v0 + 148) = -1;
-		}
-		*(uint32_t*)(v0 + 16) &= 0xFDFFFFFF;
-	}
-	nox_server_objects_uninited_1556860 = 0;
-}
-
-//----- (004DAE50) --------------------------------------------------------
-int sub_4DAE50(nox_object_t* a1p) {
-	int a1 = a1p;
-	int v1;     // eax
-	int result; // eax
-	int v3;     // esi
-	int v4;     // eax
-	int v5;     // esi
-
-	nox_xxx_action_4DA9F0((uint32_t*)a1);
-	if (*(uint8_t*)(a1 + 8) & 1) {
-		v1 = *(uint32_t*)(a1 + 448);
-		if (v1) {
-			*(uint32_t*)(v1 + 444) = *(uint32_t*)(a1 + 444);
-			result = *(uint32_t*)(a1 + 444);
-			if (result) {
-				*(uint32_t*)(result + 448) = *(uint32_t*)(a1 + 448);
-			}
-		} else {
-			result = *(uint32_t*)(a1 + 444);
-			nox_server_objects_updatable2_1556848 = *(uint32_t*)(a1 + 444);
-			v3 = *(uint32_t*)(a1 + 444);
-			if (v3) {
-				*(uint32_t*)(v3 + 448) = 0;
-			}
-		}
-	} else {
-		nox_xxx_unitRemoveFromUpdatable_4DA920((uint32_t*)a1);
-		v4 = *(uint32_t*)(a1 + 448);
-		if (v4) {
-			*(uint32_t*)(v4 + 444) = *(uint32_t*)(a1 + 444);
-			result = *(uint32_t*)(a1 + 444);
-			if (result) {
-				*(uint32_t*)(result + 448) = *(uint32_t*)(a1 + 448);
-			}
-		} else {
-			result = *(uint32_t*)(a1 + 444);
-			nox_set_server_objects_4DA3E0(*(uint32_t*)(a1 + 444));
-			v5 = *(uint32_t*)(a1 + 444);
-			if (v5) {
-				*(uint32_t*)(v5 + 448) = 0;
-			}
-		}
-	}
-	return result;
 }
 
 //----- (004DAF10) --------------------------------------------------------

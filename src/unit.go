@@ -386,14 +386,6 @@ func (u *Unit) monsterActionIsScheduled(act ai.ActionType) bool { // nox_xxx_mon
 	return false
 }
 
-func (u *Unit) makeUnseen() { // nox_xxx_objectMakeUnseenByNoone_4E44E0
-	u.field_38 = 0
-}
-
-func (u *Unit) needSync() { // nox_xxx_unitNeedSync_4E44F0
-	u.field_38 = -1
-}
-
 func (u *Unit) countSubOfType(typ int) int { // nox_xxx_unitIsUnitTT_4E7C80
 	if u == nil {
 		return 0

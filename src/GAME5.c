@@ -4703,7 +4703,8 @@ uint32_t* sub_54C950(int a1) {
 int nox_xxx_createFnObelisk_54CA10(int a1) {
 	**(uint32_t**)(a1 + 748) = 50;
 	nullsub_35(a1, 1117782016);
-	return nox_xxx_unitNeedSync_4E44F0(a1);
+	nox_xxx_unitNeedSync_4E44F0(a1);
+	return 0;
 }
 // 4E4770: using guessed type void  nullsub_35(uint32_t, uint32_t);
 

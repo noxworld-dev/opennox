@@ -8412,7 +8412,7 @@ signed int nox_xxx_updateObelisk_53C580(int a1) {
 				if (!(result % 8)) {
 					v20 = (double)(80 * result / 50);
 					nullsub_35(v1, LODWORD(v20));
-					result = nox_xxx_unitNeedSync_4E44F0(v1);
+					nox_xxx_unitNeedSync_4E44F0(v1);
 				}
 				++*v2;
 			}
