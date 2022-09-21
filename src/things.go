@@ -224,7 +224,7 @@ func nox_thing_read_IMAG_one_42F660(f *MemFile) error {
 }
 
 func (s *Server) nox_read_things_alternative_4E2B60() error {
-	s.objs.Clear()
+	s.types.Clear()
 	buf, bfree := alloc.Make([]byte{}, 256*1024)
 	defer bfree()
 	thg, err := openThings()
@@ -260,12 +260,12 @@ func (s *Server) nox_read_things_alternative_4E2B60() error {
 		case 0x494D4147: // IMAG
 			C.nox_thing_read_image_415240(thg.C())
 		case 0x54484E47: // THNG
-			if err := s.objs.readType(thg, buf); err != nil {
+			if err := s.types.readType(thg, buf); err != nil {
 				return err
 			}
 		}
 	}
-	if err := s.objs.checkTypes(); err != nil {
+	if err := s.types.checkTypes(); err != nil {
 		return err
 	}
 	C.nox_xxx_equipWeapon_4131A0()

@@ -771,21 +771,21 @@ func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_533
 		return false
 	}
 	srv := obj.getServer()
-	if srv.objs.fast.plant == 0 {
-		srv.objs.fast.plant = srv.getObjectTypeID("CarnivorousPlant")
+	if srv.types.fast.plant == 0 {
+		srv.types.fast.plant = srv.getObjectTypeID("CarnivorousPlant")
 	}
-	if srv.objs.fast.polyp == 0 {
-		srv.objs.fast.polyp = srv.getObjectTypeID("Polyp")
+	if srv.types.fast.polyp == 0 {
+		srv.types.fast.polyp = srv.getObjectTypeID("Polyp")
 	}
-	if srv.objs.fast.wisp == 0 {
-		srv.objs.fast.wisp = srv.getObjectTypeID("WillOWisp")
+	if srv.types.fast.wisp == 0 {
+		srv.types.fast.wisp = srv.getObjectTypeID("WillOWisp")
 	}
 	if obj2.Class().HasAny(object.ClassMonster) {
 		if ud := obj2.AsUnit().updateDataMonster(); ud.field_360&0x40000 != 0 {
 			return false
 		}
 	}
-	if obj.Class().HasAny(object.ClassPlayer) && obj2.objTypeInd() == srv.objs.fast.polyp {
+	if obj.Class().HasAny(object.ClassPlayer) && obj2.objTypeInd() == srv.types.fast.polyp {
 		return true
 	}
 	if obj.Class().HasAny(object.ClassPlayer) && obj2.Class().HasAny(object.ClassMonsterGenerator) {
@@ -837,7 +837,7 @@ func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_533
 	if own1.Class().HasAny(object.ClassMonster) && own2.Class().HasAny(object.ClassMonsterGenerator) {
 		return false
 	}
-	if !noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().HasAny(object.ClassMonster) && obj2.objTypeInd() == srv.objs.fast.wisp {
+	if !noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().HasAny(object.ClassMonster) && obj2.objTypeInd() == srv.types.fast.wisp {
 		return nox_xxx_checkMobAction_50A0D0(obj2.AsUnit(), ai.ACTION_FIGHT)
 	}
 	if nox_xxx_servObjectHasTeam_419130(own1.teamPtr()) || nox_xxx_servObjectHasTeam_419130(own2.teamPtr()) {
@@ -854,11 +854,11 @@ func (obj *Object) isFish() bool {
 		return false
 	}
 	srv := obj.getServer()
-	if srv.objs.fast.fishSmall == 0 {
-		srv.objs.fast.fishSmall = srv.getObjectTypeID("FishSmall")
-		srv.objs.fast.fishBig = srv.getObjectTypeID("FishBig")
+	if srv.types.fast.fishSmall == 0 {
+		srv.types.fast.fishSmall = srv.getObjectTypeID("FishSmall")
+		srv.types.fast.fishBig = srv.getObjectTypeID("FishBig")
 	}
-	return obj.objTypeInd() == srv.objs.fast.fishSmall || obj.objTypeInd() == srv.objs.fast.fishBig
+	return obj.objTypeInd() == srv.types.fast.fishSmall || obj.objTypeInd() == srv.types.fast.fishBig
 }
 
 func (obj *Object) isRat() bool {
@@ -866,10 +866,10 @@ func (obj *Object) isRat() bool {
 		return false
 	}
 	srv := obj.getServer()
-	if srv.objs.fast.rat == 0 {
-		srv.objs.fast.rat = srv.getObjectTypeID("Rat")
+	if srv.types.fast.rat == 0 {
+		srv.types.fast.rat = srv.getObjectTypeID("Rat")
 	}
-	return obj.objTypeInd() == srv.objs.fast.rat
+	return obj.objTypeInd() == srv.types.fast.rat
 }
 
 func (obj *Object) isFrog() bool {
@@ -877,10 +877,10 @@ func (obj *Object) isFrog() bool {
 		return false
 	}
 	srv := obj.getServer()
-	if srv.objs.fast.frog == 0 {
-		srv.objs.fast.frog = srv.getObjectTypeID("GreenFrog")
+	if srv.types.fast.frog == 0 {
+		srv.types.fast.frog = srv.getObjectTypeID("GreenFrog")
 	}
-	return obj.objTypeInd() == srv.objs.fast.frog
+	return obj.objTypeInd() == srv.types.fast.frog
 }
 
 func (obj *Object) isPlant() bool {
@@ -888,10 +888,10 @@ func (obj *Object) isPlant() bool {
 		return false
 	}
 	srv := obj.getServer()
-	if srv.objs.fast.plant == 0 {
-		srv.objs.fast.plant = srv.getObjectTypeID("CarnivorousPlant")
+	if srv.types.fast.plant == 0 {
+		srv.types.fast.plant = srv.getObjectTypeID("CarnivorousPlant")
 	}
-	return obj.objTypeInd() == srv.objs.fast.plant
+	return obj.objTypeInd() == srv.types.fast.plant
 }
 
 func (obj *Object) findOwnerChainPlayer() *Object { // nox_xxx_findParentChainPlayer_4EC580
