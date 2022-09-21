@@ -2,6 +2,7 @@ package opennox
 
 /*
 #include "defs.h"
+#include "GAME1_1.h"
 #include "GAME3_2.h"
 #include "GAME3_3.h"
 #include "GAME4.h"
@@ -27,6 +28,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 )
 
@@ -70,6 +72,11 @@ func nox_xxx_unitIsAFrog_534B90(obj *nox_object_t) C.int {
 //export sub_548600
 func sub_548600(a1 *nox_object_t, a2, a3 C.float) {
 	asObjectC(a1).sub548600(types.Pointf{X: float32(a2), Y: float32(a3)})
+}
+
+//export nox_xxx_delayedDeleteObject_4E5CC0
+func nox_xxx_delayedDeleteObject_4E5CC0(obj *nox_object_t) {
+	asObjectC(obj).Delete()
 }
 
 type shapeKind uint32
@@ -224,6 +231,35 @@ func (s *Server) getObjectGroupByID(id string) *script.ObjectGroup {
 		}
 	}
 	return script.NewObjectGroup(id, list...)
+}
+
+func (s *Server) delayedDelete(obj *Object) {
+	if obj == nil || obj.Flags().Has(object.FlagDestroyed) {
+		return
+	}
+	if owner := obj.OwnerC(); owner != nil && owner.Class().Has(object.ClassPlayer) {
+		if obj.Class().Has(object.ClassMonster) && C.nox_xxx_creatureIsMonitored_500CC0(owner.CObj(), obj.CObj()) == 0 && (obj.SubClass()&0x80 != 0) {
+			C.nox_xxx_monsterRemoveMonitors_4E7B60(owner.CObj(), obj.CObj())
+		}
+	}
+
+	if v := obj.field_123; v != 0 {
+		C.sub_4ED0C0(C.int(v), obj.CObj())
+	}
+	C.nox_xxx_playerCancelSpells_4FEAE0(obj.CObj())
+	if noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().Has(object.ClassMonster) {
+		C.sub_50E210(obj.CObj())
+	}
+	if obj.Class().Has(object.ClassPlayer) {
+		C.sub_506740(obj.CObj())
+	}
+	obj.SetFlags(obj.Flags() | object.FlagDestroyed)
+	obj.field_113 = (*nox_object_t)(*memmap.PtrPtr(0x5D4594, 1565588))
+	*memmap.PtrPtr(0x5D4594, 1565588) = unsafe.Pointer(obj.CObj())
+	obj.destroyedAt = C.uint(gameFrame())
+	if nox_xxx_servObjectHasTeam_419130(obj.teamPtr()) {
+		C.nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(obj.teamPtr()), C.int(obj.net_code))
+	}
 }
 
 func nox_xxx_createAt_4DAA50(obj noxObject, owner noxObject, pos types.Pointf) {
@@ -656,7 +692,7 @@ func (obj *Object) Enable(enable bool) {
 }
 
 func (obj *Object) Delete() {
-	C.nox_xxx_delayedDeleteObject_4E5CC0(obj.CObj())
+	obj.getServer().delayedDelete(obj)
 }
 
 func (obj *Object) Destroy() {
