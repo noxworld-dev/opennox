@@ -700,7 +700,8 @@ func nox_xxx_saveDoAutosaveMB_4DB370_savegame(name string) int {
 }
 
 func nox_xxx_saveMakePlayerLocation_4DB600(a1 unsafe.Pointer) bool {
-	pl := noxServer.getPlayerByInd(noxMaxPlayers - 1)
+	s := noxServer
+	pl := s.getPlayerByInd(noxMaxPlayers - 1)
 	if pl == nil {
 		return false
 	}
@@ -708,7 +709,7 @@ func nox_xxx_saveMakePlayerLocation_4DB600(a1 unsafe.Pointer) bool {
 	if u == nil {
 		return false
 	}
-	obj := noxServer.newObjectByTypeID("SaveGameLocation")
+	obj := s.newObjectByTypeID("SaveGameLocation")
 	if obj == nil {
 		return false
 	}
@@ -720,8 +721,8 @@ func nox_xxx_saveMakePlayerLocation_4DB600(a1 unsafe.Pointer) bool {
 			Y: *(*float32)(unsafe.Add(ptr, 84)),
 		}
 	}
-	nox_xxx_createAt_4DAA50(obj, nil, pos)
-	noxServer.objectsNewAdd()
+	s.createObjectAt(obj, nil, pos)
+	s.objectsNewAdd()
 	obj.script_id = C.int(u.ScriptID())
 	var next *Object
 	for it := u.FirstOwned516(); it != nil; it = next {

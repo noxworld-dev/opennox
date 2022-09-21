@@ -110,7 +110,7 @@ func (s noxScriptImpl) ObjectByID(id string) script.Object {
 	if obj == nil {
 		return nil
 	}
-	if obj.Class().Has(object.MaskUnits) {
+	if obj.Class().HasAny(object.MaskUnits) {
 		return obj.AsUnit()
 	}
 	return obj

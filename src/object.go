@@ -9,7 +9,6 @@ package opennox
 #include "GAME4_1.h"
 #include "GAME4_2.h"
 #include "GAME4_3.h"
-extern nox_object_t* nox_server_objects_uninited_1556860;
 static void nox_call_obj_update_go(void (*fnc)(nox_object_t*), nox_object_t* obj) { fnc(obj); }
 static void nox_call_object_init(void (*fnc)(nox_object_t*, void*), nox_object_t* a1, void* a2) { fnc(a1, a2); }
 static int nox_call_object_xfer(int (*fnc)(nox_object_t*, void*), nox_object_t* a1, void* a2) { return fnc(a1, a2); }
@@ -28,6 +27,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 )
 
@@ -36,8 +36,23 @@ func nox_server_getFirstObject_4DA790() *nox_object_t {
 	return noxServer.firstServerObject().CObj()
 }
 
+//export nox_server_getFirstObjectUninited_4DA870
+func nox_server_getFirstObjectUninited_4DA870() *nox_object_t {
+	return noxServer.firstServerObjectUninited().CObj()
+}
+
 //export nox_server_getNextObject_4DA7A0
 func nox_server_getNextObject_4DA7A0(cobj *nox_object_t) *nox_object_t {
+	return asObjectC(cobj).Next().CObj()
+}
+
+//export nox_server_getNextObjectUninited_4DA880
+func nox_server_getNextObjectUninited_4DA880(cobj *nox_object_t) *nox_object_t {
+	return asObjectC(cobj).Next().CObj()
+}
+
+//export nox_xxx_getNextUpdatable2Object_4DA850
+func nox_xxx_getNextUpdatable2Object_4DA850(cobj *nox_object_t) *nox_object_t {
 	return asObjectC(cobj).Next().CObj()
 }
 
@@ -148,6 +163,15 @@ func nox_xxx_unitClearPendingMB_4DB030() {
 	noxServer.objectsClearPending()
 }
 
+//export nox_xxx_createAt_4DAA50
+func nox_xxx_createAt_4DAA50(cobj *nox_object_t, cowner *nox_object_t, x C.float, y C.float) {
+	var owner noxObject
+	if cowner != nil {
+		owner = asObjectC(cowner)
+	}
+	noxServer.createObjectAt(asObjectC(cobj), owner, types.Pointf{X: float32(x), Y: float32(y)})
+}
+
 type shapeKind uint32
 
 const (
@@ -231,7 +255,7 @@ func (s *Server) firstServerObject() *Object { // nox_server_getFirstObject_4DA7
 }
 
 func (s *Server) firstServerObjectUninited() *Object { // nox_server_getFirstObjectUninited_4DA870
-	return asObjectC(C.nox_server_objects_uninited_1556860)
+	return s.objs.pending
 }
 
 func (s *Server) getObjects() []*Object {
@@ -252,6 +276,7 @@ func (s *Server) getObjectsUpdatable2() []*Object {
 
 type serverObjects struct {
 	list           *Object
+	pending        *Object
 	updatableList  *Object
 	updatableList2 *Object
 	deletedList    *Object
@@ -486,7 +511,7 @@ func (s *Server) objectsNewAdd() {
 		}
 		it.obj_flags &^= C.uint(object.FlagPending)
 	}
-	C.nox_server_objects_uninited_1556860 = nil
+	s.objs.pending = nil
 }
 
 func (s *Server) sub_4DAE50(obj *Object) {
@@ -527,11 +552,86 @@ func (s *Server) objectsClearPending() {
 		it.object_prev = nil
 		s.objs.list = it
 	}
-	C.nox_server_objects_uninited_1556860 = nil
+	s.objs.pending = nil
 }
 
-func nox_xxx_createAt_4DAA50(obj noxObject, owner noxObject, pos types.Pointf) {
-	C.nox_xxx_createAt_4DAA50(obj.CObj(), toCObj(owner), C.float(pos.X), C.float(pos.Y))
+func (s *Server) attachPending() {
+	for it := s.objs.pending; it != nil; it = it.Next() {
+		if it.Class().Has(object.ClassElevator) {
+			ud := it.updateDataPtr()
+			// find elevator shaft and attach them to each other
+			for it2 := s.objs.pending; it2 != nil; it2 = it2.Next() {
+				if it2.Class().Has(object.ClassElevatorShaft) {
+					ud2 := it2.updateDataPtr()
+					if *(*uint32)(unsafe.Add(ud, 8)) == uint32(it2.extent) {
+						*(**nox_object_t)(unsafe.Add(ud, 4)) = it2.CObj()
+						*(**nox_object_t)(unsafe.Add(ud2, 4)) = it.CObj()
+						break
+					}
+				}
+			}
+		}
+		if it.Class().Has(object.ClassTransporter) {
+			ud := it.updateDataPtr()
+			*(**nox_object_t)(unsafe.Add(ud, 12)) = nil
+			// if transporter target is set - attach to it
+			if ext := *(*uint32)(unsafe.Add(ud, 16)); ext != 0 {
+				for it2 := s.objs.pending; it2 != nil; it2 = it2.Next() {
+					if it2.Class().Has(object.ClassTransporter) && ext == uint32(it2.extent) {
+						*(**nox_object_t)(unsafe.Add(ud, 12)) = it2.CObj()
+						break
+					}
+				}
+			}
+		}
+	}
+}
+
+func (s *Server) createObjectAt(a11 noxObject, owner noxObject, pos types.Pointf) {
+	obj := a11.AsObject()
+	if memmap.Uint32(0x5D4594, 1556864) == 0 {
+		*memmap.PtrUint32(0x5D4594, 1556864) = uint32(s.getObjectTypeID("Gold"))
+		*memmap.PtrUint32(0x5D4594, 1556868) = uint32(s.getObjectTypeID("QuestGoldPile"))
+		*memmap.PtrUint32(0x5D4594, 1556872) = uint32(s.getObjectTypeID("QuestGoldChest"))
+	}
+	if obj.Flags().HasAny(object.FlagActive | object.FlagDestroyed) {
+		return
+	}
+	obj.SetFlags(obj.Flags() & 0x35E9FEDB)
+	obj.setPrevPos(pos)
+	obj.setPos(pos)
+	obj.setNewPos(pos)
+	obj.float_39 = C.float(pos.X)
+	obj.float_40 = C.float(pos.Y)
+	C.nox_xxx_objectUnkUpdateCoords_4E7290(obj.CObj())
+	if obj.Class().HasAny(object.MaskUnits) {
+		C.nox_xxx_unitPostCreateNotify_4E7F10(obj.CObj())
+	}
+	if owner != nil {
+		obj.SetOwner(owner.AsObject())
+	}
+	obj.setVel(types.Pointf{})
+	obj.setForce(types.Pointf{})
+	obj.obj_flags |= C.uint(object.FlagActive)
+	obj.field_32 = C.uint(gameFrame())
+	obj.field_34 = C.uint(gameFrame())
+	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(noxflags.GameModeQuest) && !obj.Class().Has(object.ClassMissile) &&
+		(obj.objTypeInd() == int(memmap.Uint32(0x5D4594, 1556864)) ||
+			obj.Class().HasAny(object.ClassFood|object.ClassInfoBook|object.ClassWand|object.ClassWeapon|object.ClassArmor)) {
+		obj.obj_flags |= C.uint(object.FlagNoCollide)
+	}
+	obj.object_next = s.objs.pending.CObj()
+	obj.object_prev = nil
+	if s.objs.pending != nil {
+		s.objs.pending.object_prev = obj.CObj()
+	}
+	s.objs.pending = obj
+	obj.obj_flags |= C.uint(object.FlagPending)
+	if obj.field_13&0xff != 0 && (!obj.Class().Has(object.ClassFlag) || memmap.Int32(0x973F18, 3800) >= 0) {
+		if noxflags.HasGame(noxflags.GameModeCoop) || checkGameplayFlags(4) {
+			C.nox_xxx_createAtImpl_4191D0(C.uchar(obj.field_13), unsafe.Pointer(obj.teamPtr()), 0, C.int(obj.net_code), 0)
+		}
+	}
 }
 
 type nox_object_t = C.nox_object_t

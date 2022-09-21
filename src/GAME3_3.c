@@ -3441,7 +3441,8 @@ void sub_4E71F0(int a1) {
 }
 
 //----- (004E7290) --------------------------------------------------------
-int nox_xxx_objectUnkUpdateCoords_4E7290(int a1) {
+int nox_xxx_objectUnkUpdateCoords_4E7290(nox_object_t* a1p) {
+	int a1 = a1p;
 	int result; // eax
 	int v2;     // ecx
 	int v3;     // edx
@@ -3953,7 +3954,8 @@ int sub_4E7EC0(int a1, nox_object_t* item) {
 }
 
 //----- (004E7F10) --------------------------------------------------------
-char* nox_xxx_unitPostCreateNotify_4E7F10(int a1) {
+char* nox_xxx_unitPostCreateNotify_4E7F10(nox_object_t* a1p) {
+	int a1 = a1p;
 	char* result; // eax
 	int i;        // edi
 	int v3;       // eax

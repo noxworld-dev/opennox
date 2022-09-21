@@ -313,7 +313,7 @@ func (s *Server) nox_xxx_serverParseEntireMap_4CFCE0() error {
 	if C.sub_579CA0() == 0 {
 		return errors.New("sub_579CA0 failed")
 	}
-	C.sub_4DAF10()
+	s.attachPending()
 	if noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_waypoint_5799C0()
 		s.objectsNewAdd()

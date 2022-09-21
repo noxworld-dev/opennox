@@ -607,7 +607,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *Uni
 		gameLog.Printf("attempted to cast unsupported spell: %v", spellID)
 		return false
 	}
-	if s.spellHasFlags(spellID, things.SpellFlagUnk8) && obj5 != nil && !obj5.Class().Has(object.MaskUnits) {
+	if s.spellHasFlags(spellID, things.SpellFlagUnk8) && obj5 != nil && !obj5.Class().HasAny(object.MaskUnits) {
 		return false
 	}
 	if !(obj5 == nil || C.nox_xxx_gameCaptureMagic_4FDC10(C.int(spellID), obj5.CObj()) != 0) {
