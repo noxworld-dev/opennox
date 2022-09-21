@@ -115,12 +115,6 @@ func nox_server_mapRWWaypoints_506260(a1 unsafe.Pointer) error {
 	}
 	return nil
 }
-func nox_server_mapRWDebugData_5060D0(a1 unsafe.Pointer) error {
-	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWDebugData_5060D0, a1) == 0 {
-		return fmt.Errorf("%s failed", caller(0))
-	}
-	return nil
-}
 func nox_server_mapRWWindowWalls_4292C0(a1 unsafe.Pointer) error {
 	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWWindowWalls_4292C0, a1) == 0 {
 		return fmt.Errorf("%s failed", caller(0))
