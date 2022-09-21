@@ -1405,21 +1405,6 @@ char* sub_40BB20(unsigned int a1, int a2, char a3) {
 	return result;
 }
 
-//----- (0040BBC0) --------------------------------------------------------
-void sub_40BBC0(int a1, char a2) {
-	if (a2 == 2) {
-		if (sub_446030()) {
-			sub_446070();
-			if (sub_446090()) {
-				nox_game_exit_xxx2();
-				sub_446060();
-			}
-		}
-	} else if (a2 == 3) {
-		nox_game_exit_xxx2();
-	}
-}
-
 //----- (0040BC10) --------------------------------------------------------
 char* sub_40BC10(int a1, char a2) {
 	int v2; // ecx
