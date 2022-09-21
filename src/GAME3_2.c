@@ -71,7 +71,6 @@ extern uint32_t dword_5d4594_1556856;
 extern uint32_t dword_5d4594_1548480;
 extern uint32_t dword_5d4594_1548704;
 extern uint32_t dword_5d4594_1523048;
-extern uint32_t dword_5d4594_1563096;
 extern uint32_t dword_5d4594_1523044;
 extern uint32_t dword_5d4594_1523032;
 extern uint32_t nox_server_sanctuaryHelp_54276;

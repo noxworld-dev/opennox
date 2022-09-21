@@ -29,6 +29,7 @@
 #include "server__system__trade.h"
 
 void noxOnSrvPacketDebug(int op, unsigned char* data, int sz);
+void sub_446070();
 extern unsigned int nox_frame_xxx_2598000;
 extern uint32_t nox_player_netCode_85319C;
 //----- (0051BAD0) --------------------------------------------------------
