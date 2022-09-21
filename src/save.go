@@ -293,6 +293,21 @@ func sub_446070() {
 	}
 }
 
+//export sub_40BBC0
+func sub_40BBC0(a1, a2 C.int) {
+	if a2 == 2 {
+		if sub_446030() != 0 {
+			sub_446070()
+			if sub_446090() != 0 {
+				nox_game_exit_xxx2()
+				sub_446060()
+			}
+		}
+	} else if a2 == 3 {
+		nox_game_exit_xxx2()
+	}
+}
+
 //export nox_xxx_serverIsClosing_446180
 func nox_xxx_serverIsClosing_446180() C.int {
 	return C.int(bool2int(nox_xxx_serverIsClosing_825764))
