@@ -39,7 +39,6 @@
 
 extern uint32_t nox_xxx_respawnAllow_587000_205200;
 extern uint32_t dword_5d4594_1569656;
-extern uint32_t dword_5d4594_1563064;
 extern void* dword_5d4594_1548532;
 extern uint32_t dword_5d4594_1548524;
 extern uint32_t dword_5d4594_1568028;
