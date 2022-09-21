@@ -313,6 +313,12 @@ func sub_40B850(a1, act C.int) {
 	}
 }
 
+//export sub_40B810
+func sub_40B810(act C.int, cbuf unsafe.Pointer, sz C.uint) {
+	nox_xxx_soloGameEscMenuCallback_40AF90(noxMaxPlayers-1, 0, act, memmap.PtrOff(0x5D4594, 4664), cbuf, sz)
+	sub_40B850(0, act)
+}
+
 //export nox_xxx_serverIsClosing_446180
 func nox_xxx_serverIsClosing_446180() C.int {
 	return C.int(bool2int(nox_xxx_serverIsClosing_825764))
