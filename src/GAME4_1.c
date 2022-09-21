@@ -4676,8 +4676,8 @@ char sub_5117F0(int a1) {
 }
 
 //----- (00511810) --------------------------------------------------------
-void nox_xxx_unit_511810(int a1) {
-	if (!(*(uint8_t*)(a1 + 8) & 1)) {
+void nox_xxx_unit_511810(nox_object_t* a1) {
+	if (!(*(uint8_t*)((int)a1 + 8) & 1)) {
 		if (sub_537580(a1)) {
 			sub_5375A0(a1);
 		}
@@ -4919,7 +4919,7 @@ int sub_511DC0() {
 }
 
 //----- (00511DE0) --------------------------------------------------------
-int sub_511DE0(int a1) {
+int sub_511DE0(nox_object_t* a1) {
 	int result;   // eax
 	uint32_t* v2; // esi
 

@@ -7,6 +7,7 @@ package opennox
 #include "GAME3_3.h"
 #include "GAME4.h"
 #include "GAME4_1.h"
+#include "GAME4_2.h"
 #include "GAME4_3.h"
 extern nox_object_t* nox_server_objects_1556844;
 extern nox_object_t* nox_server_objects_uninited_1556860;
@@ -104,6 +105,11 @@ func nox_xxx_unitAddToUpdatable_4DA8D0(cobj *nox_object_t) {
 //export nox_xxx_unitRemoveFromUpdatable_4DA920
 func nox_xxx_unitRemoveFromUpdatable_4DA920(cobj *nox_object_t) {
 	noxServer.objs.removeFromUpdatable(asObjectC(cobj))
+}
+
+//export nox_xxx_servFinalizeDelObject_4DADE0
+func nox_xxx_servFinalizeDelObject_4DADE0(cobj *nox_object_t) {
+	noxServer.objectDeleteLast(asObjectC(cobj))
 }
 
 type shapeKind uint32
@@ -339,8 +345,29 @@ func (s *Server) objectDeleteFinish(obj *Object) {
 	s.noxScript.actClearObj(obj)
 	C.nox_xxx_decay_5116F0(obj.CObj())
 	obj.dropAllItems()
-	C.nox_xxx_servFinalizeDelObject_4DADE0(obj.CObj())
+	s.objectDeleteLast(obj)
 	C.nox_xxx_objectFreeMem_4E38A0(obj.CObj())
+}
+
+func (s *Server) objectDeleteLast(obj *Object) {
+	if !obj.Flags().Has(object.FlagActive) {
+		return
+	}
+	obj.obj_flags &^= C.uint(object.FlagActive)
+	C.nox_xxx_playerLeaveObsByObserved_4E60A0(obj.CObj())
+	if !noxflags.HasGame(noxflags.GameFlag20) {
+		C.nox_xxx_netReportDestroyObject_5289D0(obj.CObj())
+	}
+	C.nox_xxx_unit_511810(obj.CObj())
+	obj.SetOwner(nil)
+	C.nox_xxx_unitRemoveChild_4EC470(obj.CObj())
+	C.sub_517870(obj.CObj())
+	C.sub_4DAE50(obj.CObj())
+	C.sub_4ECFA0(obj.CObj())
+	C.sub_511DE0(obj.CObj())
+	if obj.Class().HasAny(object.MaskUnits) {
+		C.sub_528990(obj.CObj())
+	}
 }
 
 func (s *Server) deletedObjectsUpdate() {
