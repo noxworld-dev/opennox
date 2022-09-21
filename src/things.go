@@ -281,10 +281,10 @@ func sub_42BF10() {
 		return
 	}
 	var sz int
-	if nox_common_gameFlags_check_40A5C0(2097153) {
+	if noxflags.HasGame(noxflags.GameHost | noxflags.GameFlag22) {
 		sz = int(nox_xxx_unitDefGetCount_4E3AC0())
 	} else {
-		if !nox_common_gameFlags_check_40A5C0(2) {
+		if !noxflags.HasGame(noxflags.GameClient) {
 			return
 		}
 		sz = len(nox_things.byInd)

@@ -898,5 +898,5 @@ func nox_xxx_mapSwitchLevel_4D12E0_end() {
 	C.sub_50E360()
 	C.sub_50D7E0()
 	C.sub_4E4F80()
-	nox_common_gameFlags_unset_40A540(0x80000)
+	noxflags.UnsetGame(noxflags.GameFlag20)
 }

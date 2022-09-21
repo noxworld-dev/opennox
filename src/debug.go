@@ -8,6 +8,8 @@ import (
 	"errors"
 	"fmt"
 	"unsafe"
+
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 type serverDebug struct {
@@ -61,7 +63,7 @@ func mapReadDebugData() error {
 		if err != nil {
 			return err
 		}
-		if !nox_common_gameFlags_check_40A5C0(0x400000) && nox_common_gameFlags_check_40A5C0(1) {
+		if !noxflags.HasGame(noxflags.GameFlag23) && noxflags.HasGame(noxflags.GameHost) {
 			noxServer.debug.Add(key, val)
 		}
 	}
