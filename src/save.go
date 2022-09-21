@@ -9,7 +9,6 @@ package opennox
 #include "GAME3_3.h"
 #include "GAME4_2.h"
 extern uint32_t dword_5d4594_1049844;
-extern unsigned int dword_5d4594_1563064;
 extern uint32_t dword_5d4594_1563096;
 void nox_xxx_monstersAllBelongToHost_4DB6A0();
 void nox_xxx_unitsNewAddToList_4DAC00();
@@ -37,6 +36,7 @@ import (
 
 var (
 	dword_5d4594_1563044           = false
+	dword_5d4594_1563064           = false
 	dword_5d4594_1563048           = false
 	nox_xxx_serverIsClosing_825764 = false
 	dword_5d4594_1563080           = 0
@@ -228,7 +228,7 @@ func sub_4DB100() {
 	dword_5d4594_1563080 = 0
 	dword_5d4594_1563084 = nil
 	C.dword_5d4594_1563096 = 0
-	C.dword_5d4594_1563064 = 0
+	dword_5d4594_1563064 = false
 	dword_5d4594_1563092 = 0
 	dword_5d4594_1563088 = 0
 	*memmap.PtrUint32(0x5D4594, 1563072) = 0
@@ -252,6 +252,11 @@ func sub_4DCC90() C.int {
 //export sub_4DB1C0
 func sub_4DB1C0() unsafe.Pointer {
 	return dword_5d4594_1563084
+}
+
+//export sub_4DCBF0
+func sub_4DCBF0(a1 C.int) {
+	dword_5d4594_1563064 = a1 != 0
 }
 
 //export sub_446060

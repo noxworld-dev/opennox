@@ -56,7 +56,6 @@ extern uint32_t dword_5d4594_3835368;
 extern uint32_t dword_5d4594_3835360;
 extern uint32_t dword_5d4594_1549844;
 extern uint32_t dword_5d4594_3835364;
-extern uint32_t dword_5d4594_1563064;
 extern void* dword_5d4594_1548532;
 extern uint32_t dword_5d4594_1556128;
 extern uint32_t dword_5d4594_1556316;
@@ -6404,15 +6403,6 @@ int nox_client_countPlayerFiles02_4DC630() {
 	return v0;
 }
 // 4DC630: using guessed type char PathName[1024];
-
-//----- (004DCBF0) --------------------------------------------------------
-int sub_4DCBF0(int a1) {
-	int result; // eax
-
-	result = a1;
-	dword_5d4594_1563064 = a1;
-	return result;
-}
 
 //----- (004DCC70) --------------------------------------------------------
 int nox_xxx_mapLoadOrSaveMB_4DCC70(int a1) {

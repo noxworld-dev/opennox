@@ -255,7 +255,7 @@ int nox_client_copySave_4DC100(char* a1, char* saveName);
 int nox_client_countSaveFiles_4DC550();
 int nox_client_countPlayerFiles02_4DC630();
 int nox_client_countPlayerFiles04_4DC7D0();
-int sub_4DCBF0(int a1);
+void sub_4DCBF0(int a1);
 int sub_4DCC10(nox_object_t* a1p);
 int nox_xxx_mapLoadOrSaveMB_4DCC70(int a1);
 int sub_4DCC90();
