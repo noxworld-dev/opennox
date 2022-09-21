@@ -181,6 +181,11 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 	nox_xxx_aud_501960(sound.SoundHarpoonReel, owner, 0, 0)
 }
 
+func (a *abilityHarpoon) disable(u *Unit) {
+	ud := u.updateDataPlayer()
+	a.netHarpoonBreak(u, asUnitC(ud.harpoon_bolt))
+}
+
 func (a *abilityHarpoon) Update(bolt *Unit) {
 	if bolt == nil || bolt.OwnerC() == nil {
 		return
