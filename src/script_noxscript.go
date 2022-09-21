@@ -49,11 +49,6 @@ func nox_script_activatorCancelAll_51AC60() {
 	noxServer.noxScript.actCancelAll()
 }
 
-//export nox_script_activatorClearObj_51AE60
-func nox_script_activatorClearObj_51AE60(obj *C.nox_object_t) {
-	noxServer.noxScript.actClearObj(asObjectC(obj))
-}
-
 //export nox_script_activatorSave_51AEA0
 func nox_script_activatorSave_51AEA0() C.int {
 	return C.int(noxServer.noxScript.actSave())

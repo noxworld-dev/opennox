@@ -694,8 +694,8 @@ int nox_xxx_monsterCallDieFn_50A3D0(uint32_t* a1) {
 		v9 = a1[3];
 		BYTE1(v9) &= 0xFEu;
 		a1[3] = v9;
-		nox_xxx_unitTransferSlaves_4EC4B0((int)a1);
-		nox_xxx_unitClearOwner_4EC300((int)a1);
+		nox_xxx_unitTransferSlaves_4EC4B0(a1);
+		nox_xxx_unitClearOwner_4EC300(a1);
 		v10 = a1[3];
 		if (!(v10 & 0x2000)) {
 			nox_xxx_dropAllItems_4EDA40(a1);

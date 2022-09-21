@@ -947,7 +947,8 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 }
 
 //----- (004E38A0) --------------------------------------------------------
-int nox_xxx_objectFreeMem_4E38A0(int a1) {
+int nox_xxx_objectFreeMem_4E38A0(nox_object_t* a1p) {
+	int a1 = a1p;
 	int* v1; // esi
 	int v2;  // ebp
 	int v3;  // edi
@@ -2610,36 +2611,6 @@ void sub_4E5BF0(int a1) {
 			obj = v6;
 		} while (obj);
 	}
-}
-
-//----- (004E5E80) --------------------------------------------------------
-int nox_xxx_unitDeleteFinish_4E5E80(uint32_t* a1) {
-	nox_xxx_unitTransferSlaves_4EC4B0((int)a1);
-	nox_xxx_unitClearOwner_4EC300((int)a1);
-	nox_script_activatorClearObj_51AE60(a1);
-	nox_xxx_decay_5116F0((int)a1);
-	nox_xxx_dropAllItems_4EDA40(a1);
-	nox_xxx_servFinalizeDelObject_4DADE0((int)a1);
-	return nox_xxx_objectFreeMem_4E38A0((int)a1);
-}
-
-//----- (004E5EC0) --------------------------------------------------------
-uint32_t* nox_xxx_finalizeDeletingUnits_4E5EC0() {
-	uint32_t* result; // eax
-	uint32_t* v1;     // esi
-
-	result = *(uint32_t**)getMemAt(0x5D4594, 1565588);
-	if (*getMemU32Ptr(0x5D4594, 1565588)) {
-		do {
-			v1 = (uint32_t*)result[113];
-			nox_xxx_unitDeleteFinish_4E5E80(result);
-			result = v1;
-		} while (v1);
-		*getMemU32Ptr(0x5D4594, 1565588) = 0;
-	} else {
-		*getMemU32Ptr(0x5D4594, 1565588) = 0;
-	}
-	return result;
 }
 
 //----- (004E5F40) --------------------------------------------------------
@@ -7119,7 +7090,8 @@ void nox_xxx_unitRemoveChild_4EC470(int a1) {
 }
 
 //----- (004EC4B0) --------------------------------------------------------
-void nox_xxx_unitTransferSlaves_4EC4B0(int a1) {
+void nox_xxx_unitTransferSlaves_4EC4B0(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1; // eax
 	int v2; // esi
 

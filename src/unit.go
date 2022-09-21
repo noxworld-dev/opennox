@@ -360,10 +360,6 @@ func (u *Unit) Cast(sp spell.ID, lvl int, targ script.Positioner) bool {
 	return s.castSpell(sp, lvl, u, sa)
 }
 
-func (u *Unit) dropAllItems() {
-	C.nox_xxx_dropAllItems_4EDA40((*C.uint)(unsafe.Pointer(u.CObj())))
-}
-
 func (u *Unit) clearActionStack() { // aka nox_xxx_monsterClearActionStack_50A3A0
 	if u.Class().Has(object.ClassMonster) {
 		for C.sub_5341F0(u.CObj()) == 0 {
