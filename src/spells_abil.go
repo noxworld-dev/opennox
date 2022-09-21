@@ -152,13 +152,17 @@ type AbilityDef struct {
 	sound48  sound.ID // 12, 48
 }
 
-type serverAbilities struct {
-	s         *Server
+type unitAbilities struct {
+	cooldowns [abilityMax]int
 	execList  *execAbilityClass
-	curxxx    Ability
-	cooldowns [noxMaxPlayers][abilityMax]int
-	byName    map[string]Ability
-	defs      [abilityMax]AbilityDef
+}
+
+type serverAbilities struct {
+	s      *Server
+	curxxx Ability
+	byUnit map[*nox_object_t]*unitAbilities
+	byName map[string]Ability
+	defs   [abilityMax]AbilityDef
 
 	harpoon abilityHarpoon
 }
@@ -173,7 +177,7 @@ func (a *serverAbilities) Init(s *Server) {
 }
 
 func (a *serverAbilities) Reset() {
-	a.cooldowns = [noxMaxPlayers][abilityMax]int{}
+	a.byUnit = make(map[*nox_object_t]*unitAbilities)
 }
 
 func (a *serverAbilities) Free() {
@@ -212,11 +216,8 @@ var abilityNames = []string{
 	"ABILITY_HARPOON", "ABILITY_TREAD_LIGHTLY", "ABILITY_EYE_OF_THE_WOLF",
 }
 
-var _ = [1]struct{}{}[24-unsafe.Sizeof(execAbilityClass{})]
-
 type execAbilityClass struct {
 	abil   Ability           // 0, 0
-	unit   *Unit             // 1, 4
 	frame  uint32            // 2, 8
 	active uint32            // 3, 12
 	next   *execAbilityClass // 4, 16
@@ -230,6 +231,19 @@ func (a *serverAbilities) sub_4FC680() {
 			a.curxxx = 0
 		}
 	}
+}
+
+func (a *serverAbilities) getAbilitiesFor(u noxObject) *unitAbilities {
+	if u == nil {
+		return nil
+	}
+	d := a.byUnit[u.CObj()]
+	if d != nil {
+		return d
+	}
+	d = new(unitAbilities)
+	a.byUnit[u.CObj()] = d
+	return d
 }
 
 func (a *serverAbilities) Do(u *Unit, abil Ability) {
@@ -298,7 +312,8 @@ func (a *serverAbilities) Do(u *Unit, abil Ability) {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 7)
 		return
 	}
-	cd := &a.cooldowns[pl.Index()][abil]
+	ad := a.getAbilitiesFor(u)
+	cd := &ad.cooldowns[abil]
 	if *cd != 0 {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 2)
 		nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
@@ -311,15 +326,14 @@ func (a *serverAbilities) Do(u *Unit, abil Ability) {
 	if df := a.getDuration(abil); df > 0 {
 		ab := &execAbilityClass{
 			abil:   abil,
-			unit:   u,
 			frame:  gameFrame() + uint32(df),
 			active: 1,
 		}
-		ab.next = a.execList
-		if a.execList != nil {
-			a.execList.prev = ab
+		ab.next = ad.execList
+		if ad.execList != nil {
+			ad.execList.prev = ab
 		}
-		a.execList = ab
+		ad.execList = ab
 	}
 	a.do(u, abil)
 	snd := a.getSound(abil, 0)
@@ -327,42 +341,44 @@ func (a *serverAbilities) Do(u *Unit, abil Ability) {
 }
 
 func (a *serverAbilities) Update() {
-	for _, p := range a.s.getPlayers() {
-		if p.UnitC() != nil && p.PlayerClass() == player.Warrior {
-			for i := abilityInvalid; i < abilityMax; i++ {
-				ptr := &a.cooldowns[p.Index()][i]
-				if v := *ptr; v != 0 {
-					*ptr = v - 1
-					if *ptr == 0 {
-						a.netAbilReportState(p.UnitC(), i, 1)
-					}
+	for obj, ad := range a.byUnit {
+		u := asUnitC(obj)
+		for i := abilityInvalid; i < abilityMax; i++ {
+			ptr := &ad.cooldowns[i]
+			if v := *ptr; v != 0 {
+				*ptr = v - 1
+				if *ptr == 0 {
+					a.netAbilReportState(u, i, 1)
 				}
 			}
 		}
 	}
-	var next *execAbilityClass
-	for p := a.execList; p != nil; p = next {
-		next = p.next
-		if !p.unit.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
-			if gameFrame() <= p.frame {
-				continue
+	for obj, ad := range a.byUnit {
+		u := asUnitC(obj)
+		var next *execAbilityClass
+		for p := ad.execList; p != nil; p = next {
+			next = p.next
+			if !u.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
+				if gameFrame() <= p.frame {
+					continue
+				}
+				snd := a.getSound(p.abil, 2)
+				nox_xxx_aud_501960(snd, u, 0, 0)
+				a.netAbilReportActive(u, p.abil, false)
+				if p.abil == AbilityBerserk {
+					nox_xxx_playerSetState_4FA020(u, 13)
+				}
 			}
-			snd := a.getSound(p.abil, 2)
-			nox_xxx_aud_501960(snd, p.unit, 0, 0)
-			a.netAbilReportActive(p.unit, p.abil, false)
-			if p.abil == AbilityBerserk {
-				nox_xxx_playerSetState_4FA020(p.unit, 13)
+			if next != nil {
+				next.prev = p.prev
 			}
+			if prev := p.prev; prev != nil {
+				prev.next = p.next
+			} else {
+				ad.execList = p.next
+			}
+			*p = execAbilityClass{}
 		}
-		if next != nil {
-			next.prev = p.prev
-		}
-		if prev := p.prev; prev != nil {
-			prev.next = p.next
-		} else {
-			a.execList = p.next
-		}
-		*p = execAbilityClass{}
 	}
 }
 
@@ -370,27 +386,24 @@ func (a *serverAbilities) ResetAbility(u *Unit, abil Ability) {
 	if u == nil {
 		return
 	}
-	if !u.Class().Has(object.ClassPlayer) {
+	ad, ok := a.byUnit[u.CObj()]
+	if !ok {
 		return
 	}
-	pl := u.ControllingPlayer()
-	if pl.PlayerClass() != player.Warrior {
-		return
-	}
-	a.cooldowns[pl.Index()][abil] = 0
+	ad.cooldowns[abil] = 0
 	a.netAbilReset(u, abil)
 	var next *execAbilityClass
-	for it := a.execList; it != nil; it = next {
+	for it := ad.execList; it != nil; it = next {
 		next = it.next
-		if it.unit == u && it.abil == abil {
-			a.netAbilReportActive(it.unit, it.abil, false)
+		if it.abil == abil {
+			a.netAbilReportActive(u, it.abil, false)
 			if next != nil {
 				next.prev = it.prev
 			}
 			if prev := it.prev; prev != nil {
 				prev.next = it.next
 			} else {
-				a.execList = it.next
+				ad.execList = it.next
 			}
 			*it = execAbilityClass{}
 		}
@@ -401,33 +414,27 @@ func (a *serverAbilities) CancelAbilities(u *Unit) {
 	if u == nil {
 		return
 	}
-	if !u.Class().Has(object.ClassPlayer) {
-		return
-	}
-	ud := u.updateDataPlayer()
-	pl := ud.Player()
-	if pl.PlayerClass() != player.Warrior {
+	ad, ok := a.byUnit[u.CObj()]
+	if !ok {
 		return
 	}
 	for i := abilityInvalid; i < abilityMax; i++ {
-		a.cooldowns[pl.Index()][i] = 0
+		ad.cooldowns[i] = 0
 	}
 	a.netAbilReset(u, 6)
 	var next *execAbilityClass
-	for it := a.execList; it != nil; it = next {
+	for it := ad.execList; it != nil; it = next {
 		next = it.next
-		if it.unit == u {
-			a.netAbilReportActive(it.unit, it.abil, false)
-			if next != nil {
-				next.prev = it.prev
-			}
-			if prev := it.prev; prev != nil {
-				prev.next = it.next
-			} else {
-				a.execList = it.next
-			}
-			*it = execAbilityClass{}
+		a.netAbilReportActive(u, it.abil, false)
+		if next != nil {
+			next.prev = it.prev
 		}
+		if prev := it.prev; prev != nil {
+			prev.next = it.next
+		} else {
+			ad.execList = it.next
+		}
+		*it = execAbilityClass{}
 	}
 }
 
@@ -449,17 +456,21 @@ func (a *serverAbilities) DisableAbility(u *Unit, abil Ability) {
 		return
 	}
 	a.netAbilReportActive(u, abil, false)
+	ad, ok := a.byUnit[u.CObj()]
+	if !ok {
+		return
+	}
 	var next *execAbilityClass
-	for it := a.execList; it != nil; it = next {
+	for it := ad.execList; it != nil; it = next {
 		next = it.next
-		if it.unit == u && it.abil == abil {
+		if it.abil == abil {
 			if next != nil {
 				next.prev = it.prev
 			}
 			if prev := it.prev; prev != nil {
 				prev.next = it.next
 			} else {
-				a.execList = it.next
+				ad.execList = it.next
 			}
 			*it = execAbilityClass{}
 		}
@@ -485,8 +496,12 @@ func (a *serverAbilities) do(u *Unit, abil Ability) {
 }
 
 func (a *serverAbilities) sub4FC030(u *Unit, abil Ability) int {
-	for it := a.execList; it != nil; it = it.next {
-		if it.unit == u && it.abil == abil {
+	ad, ok := a.byUnit[u.CObj()]
+	if !ok {
+		return -1
+	}
+	for it := ad.execList; it != nil; it = it.next {
+		if it.abil == abil {
 			return int(it.frame - gameFrame())
 		}
 	}
@@ -494,8 +509,12 @@ func (a *serverAbilities) sub4FC030(u *Unit, abil Ability) int {
 }
 
 func (a *serverAbilities) sub4FC070(u *Unit, abil Ability, dt int) {
-	for it := a.execList; it != nil; it = it.next {
-		if it.unit == u && it.abil == abil {
+	ad, ok := a.byUnit[u.CObj()]
+	if !ok {
+		return
+	}
+	for it := ad.execList; it != nil; it = it.next {
+		if it.abil == abil {
 			it.frame = gameFrame() + uint32(dt)
 			break
 		}
@@ -503,16 +522,12 @@ func (a *serverAbilities) sub4FC070(u *Unit, abil Ability, dt int) {
 }
 
 func (a *serverAbilities) IsActive(u *Unit, abil Ability) bool {
-	if !u.Class().Has(object.ClassPlayer) {
+	ad, ok := a.byUnit[u.CObj()]
+	if !ok {
 		return false
 	}
-	if pl := u.ControllingPlayer(); pl != nil {
-		if pl.PlayerClass() != player.Warrior {
-			return false
-		}
-	}
-	for it := a.execList; it != nil; it = it.next {
-		if it.unit == u && it.abil == abil {
+	for it := ad.execList; it != nil; it = it.next {
+		if it.abil == abil {
 			return true
 		}
 	}
@@ -520,16 +535,12 @@ func (a *serverAbilities) IsActive(u *Unit, abil Ability) bool {
 }
 
 func (a *serverAbilities) IsActiveVal(u *Unit, abil Ability) bool {
-	if !u.Class().Has(object.ClassPlayer) {
+	ad, ok := a.byUnit[u.CObj()]
+	if !ok {
 		return false
 	}
-	if pl := u.ControllingPlayer(); pl != nil {
-		if pl.PlayerClass() != player.Warrior {
-			return false
-		}
-	}
-	for it := a.execList; it != nil; it = it.next {
-		if it.unit == u && it.abil == abil {
+	for it := ad.execList; it != nil; it = it.next {
+		if it.abil == abil {
 			return it.active != 0
 		}
 	}
@@ -537,20 +548,11 @@ func (a *serverAbilities) IsActiveVal(u *Unit, abil Ability) bool {
 }
 
 func (a *serverAbilities) IsAnyActive(u *Unit) bool {
-	if !u.Class().Has(object.ClassPlayer) {
+	ad, ok := a.byUnit[u.CObj()]
+	if !ok {
 		return false
 	}
-	if pl := u.ControllingPlayer(); pl != nil {
-		if pl.PlayerClass() != player.Warrior {
-			return false
-		}
-	}
-	for it := a.execList; it != nil; it = it.next {
-		if it.unit == u {
-			return true
-		}
-	}
-	return false
+	return ad.execList != nil
 }
 
 func (a *serverAbilities) netAbilReportActive(u *Unit, abil Ability, active bool) {
@@ -586,16 +588,12 @@ func (a *serverAbilities) netAbilReset(u *Unit, abil Ability) {
 }
 
 func (a *serverAbilities) sub4FC440(u *Unit, abil Ability) {
-	if !u.Class().Has(object.ClassPlayer) {
+	ad, ok := a.byUnit[u.CObj()]
+	if !ok {
 		return
 	}
-	if pl := u.ControllingPlayer(); pl != nil {
-		if pl.PlayerClass() != player.Warrior {
-			return
-		}
-	}
-	for it := a.execList; it != nil; it = it.next {
-		if it.unit == u && it.abil == abil {
+	for it := ad.execList; it != nil; it = it.next {
+		if it.abil == abil {
 			it.active = 0
 			break
 		}
@@ -607,15 +605,23 @@ func (a *serverAbilities) getCooldown(a1 unsafe.Pointer, abil Ability) int {
 	if pl == nil {
 		return 0
 	}
-	return a.cooldowns[pl.Index()][abil]
+	ad, ok := a.byUnit[pl.UnitC().CObj()]
+	if !ok {
+		return 0
+	}
+	return ad.cooldowns[abil]
 }
 
 func (a *serverAbilities) setCooldown(a1 unsafe.Pointer, abil Ability, cd int) {
-	pl := noxServer.getPlayerByID(int(*(*int32)(unsafe.Add(a1, 36))))
+	pl := a.s.getPlayerByID(int(*(*int32)(unsafe.Add(a1, 36))))
 	if pl == nil {
 		return
 	}
-	a.cooldowns[pl.Index()][abil] = cd
+	ad, ok := a.byUnit[pl.UnitC().CObj()]
+	if !ok {
+		return
+	}
+	ad.cooldowns[abil] = cd
 }
 
 func (a *serverAbilities) thingsReadAll(f *MemFile) error {
