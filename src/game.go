@@ -803,7 +803,8 @@ func (s *Server) nox_xxx_servInitialMapLoad_4D17F0() bool {
 		s.nox_xxx_gameSetMapPath_409D70("tutorial.map")
 	}
 	C.nox_xxx_netMapSendStop_519870()
-	if !s.nox_xxx_mapExitAndCheckNext_4D1860_server() {
+	if err := s.nox_xxx_mapExitAndCheckNext_4D1860_server(); err != nil {
+		gameLog.Println(err)
 		return false
 	}
 	if debugMainloop {
@@ -1024,11 +1025,12 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_C() bool {
 	}
 	noxflags.SetGame(noxflags.GameFlag28)
 	noxAudioServeT(500)
-	v13 := s.nox_xxx_mapExitAndCheckNext_4D1860_server()
+	err := s.nox_xxx_mapExitAndCheckNext_4D1860_server()
 	noxAudioServe()
 	noxflags.UnsetGame(noxflags.GameFlag28)
 	v37 := s.getServerMap()
-	if !v13 {
+	if err != nil {
+		gameLog.Println(err)
 		v14 := strMan.GetStringInFile("MapAccessError", "C:\\NoxPost\\src\\Server\\System\\server.c")
 		PrintToPlayers(fmt.Sprintf(v14, v37))
 		//v36 := strMan.GetStringInFile("Error", "C:\\NoxPost\\src\\Server\\System\\server.c")
@@ -1183,7 +1185,7 @@ func nox_xxx_mapFindPlayerStart_4F7AB0(a2 *Unit) types.Pointf {
 	}
 }
 
-func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
+func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	if noxflags.HasGame(noxflags.GameClient) {
 		nox_client_setCursorType(gui.CursorBusy)
 	}
@@ -1244,9 +1246,8 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		}
 	}
 	if merr != nil {
-		gameLog.Println(merr)
 		*memmap.PtrUint32(0x5D4594, 1548520) = 1
-		return false
+		return merr
 	}
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		C.nox_xxx_netMapSendPrepair_519EB0_net_mapsend()
@@ -1303,17 +1304,17 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	if starts.playerN == 0 {
 		v24 := strMan.GetStringInFile("StartingPositionError", "C:\\NoxPost\\src\\Server\\System\\server.c")
 		PrintToPlayers(v24)
-		return false
+		return errors.New("cannot find player starting position")
 	}
 	if noxflags.HasGame(noxflags.GameModeCTF|noxflags.GameModeFlagBall) && starts.flagN < 2 {
 		v24 := strMan.GetStringInFile("FlagCountError", "C:\\NoxPost\\src\\Server\\System\\server.c")
 		PrintToPlayers(v24)
-		return false
+		return errors.New("invalid flag starting position(s)")
 	}
 	if noxflags.HasGame(noxflags.GameModeFlagBall) && starts.ballN < 1 {
 		v24 := strMan.GetStringInFile("BallStartCountError", "C:\\NoxPost\\src\\Server\\System\\server.c")
 		PrintToPlayers(v24)
-		return false
+		return errors.New("invalid ball starting position(s)")
 	}
 
 	if checkGameplayFlags(4) || noxflags.HasGame(noxflags.GameFlag16) {
@@ -1437,7 +1438,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 			C.sub_4D7280(255, C.char(v57))
 		}
 	}
-	return true
+	return nil
 }
 
 func nox_xxx_mapLoadOrSaveMB_4DCC70(v int) {
