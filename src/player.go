@@ -823,7 +823,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 		C.sub_425F10(pl.C())
 	}
 	nox_xxx_createAt_4DAA50(punit, nil, types.Pointf{X: 2944.0, Y: 2944.0})
-	C.nox_xxx_unitsNewAddToList_4DAC00()
+	s.objectsNewAdd()
 	var p28 types.Pointf
 	if noxflags.HasGame(noxflags.GameModeQuest) {
 		if p, ok := s.sub_4E8210(punit); !ok {

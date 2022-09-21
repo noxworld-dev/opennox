@@ -7300,13 +7300,13 @@ int nox_xxx_mapGenFinishSpellbook_527DB0(int a1, char a2) {
 }
 
 //----- (00527E00) --------------------------------------------------------
-int* sub_527E00(int a1) {
+int* sub_527E00(nox_object_t* a1) {
 	int v1;      // ecx
 	int* result; // eax
 	int v3;      // edx
 
 	v1 = 32;
-	result = (int*)(a1 + 560);
+	result = (int*)((int)a1 + 560);
 	do {
 		v3 = *result;
 		++result;

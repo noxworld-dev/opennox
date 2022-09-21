@@ -1364,12 +1364,8 @@ int nox_xxx_objectMakeUnseenByNoone_4E44E0(int a1) {
 }
 
 //----- (004E44F0) --------------------------------------------------------
-int nox_xxx_unitNeedSync_4E44F0(int a1) {
-	int result; // eax
-
-	result = a1;
-	*(uint32_t*)(a1 + 152) = -1;
-	return result;
+void nox_xxx_unitNeedSync_4E44F0(nox_object_t* a1) {
+	*(uint32_t*)((int)a1 + 152) = -1;
 }
 
 //----- (004E4500) --------------------------------------------------------
@@ -7156,7 +7152,8 @@ void sub_4EC5B0() {
 }
 
 //----- (004EC5E0) --------------------------------------------------------
-uint32_t* nox_xxx_respawnAdd_4EC5E0(int a1) {
+uint32_t* nox_xxx_respawnAdd_4EC5E0(nox_object_t* a1p) {
+	int a1 = a1p;
 	uint32_t* result;  // eax
 	uint32_t* v2;      // ebx
 	unsigned short v3; // cx

@@ -457,15 +457,16 @@ func nox_xxx_SavePlayerDataFromClient_41CD70(path string, data []byte) bool {
 }
 
 func sub_4DB9C0() {
+	s := noxServer
 	var next *Object
-	for it := noxServer.firstServerObject(); it != nil; it = next {
+	for it := s.firstServerObject(); it != nil; it = next {
 		next = it.Next()
 		if C.nox_xxx_isUnit_4E5B50(it.CObj()) != 0 {
 			it.Delete()
 		}
 	}
 	next = nil
-	for it := firstServerObjectUpdatable2(); it != nil; it = next {
+	for it := s.objs.updatableList2; it != nil; it = next {
 		next = it.Next()
 		if C.sub_4E5B80(it.CObj()) != 0 {
 			it.Delete()
@@ -720,7 +721,7 @@ func nox_xxx_saveMakePlayerLocation_4DB600(a1 unsafe.Pointer) bool {
 		}
 	}
 	nox_xxx_createAt_4DAA50(obj, nil, pos)
-	C.nox_xxx_unitsNewAddToList_4DAC00()
+	noxServer.objectsNewAdd()
 	obj.script_id = C.int(u.ScriptID())
 	var next *Object
 	for it := u.FirstOwned516(); it != nil; it = next {

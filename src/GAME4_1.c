@@ -4665,11 +4665,11 @@ int nox_xxx_decayDestroy_5117B0() {
 }
 
 //----- (005117F0) --------------------------------------------------------
-char sub_5117F0(int a1) {
+char sub_5117F0(nox_object_t* a1) {
 	char result; // al
 
 	result = a1;
-	if (!(*(uint8_t*)(a1 + 8) & 1)) {
+	if (!(*(uint8_t*)((int)a1 + 8) & 1)) {
 		result = nox_xxx_unitHasCollideOrUpdateFn_537610(a1);
 	}
 	return result;

@@ -316,7 +316,7 @@ func (s *Server) nox_xxx_serverParseEntireMap_4CFCE0() error {
 	C.sub_4DAF10()
 	if noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_waypoint_5799C0()
-		C.nox_xxx_unitsNewAddToList_4DAC00()
+		s.objectsNewAdd()
 	}
 	return nil
 }
@@ -513,7 +513,8 @@ func nox_server_mapRWObjectData_504CF0_Read(a2 unsafe.Pointer, v16 unsafe.Pointe
 }
 
 func nox_server_mapRWObjectData_504CF0_Write(a2 unsafe.Pointer) error {
-	for it := noxServer.firstServerObject(); it != nil; it = it.Next() {
+	s := noxServer
+	for it := s.firstServerObject(); it != nil; it = it.Next() {
 		pos := it.Pos()
 		if a2 == nil || sub_4280E0(image.Point{X: int(pos.X), Y: int(pos.Y)}, a2) {
 			if sub_4E3B80(C.int(it.objTypeInd())) != 0 && nox_xxx_xfer_saveObj51DF90(it) == 0 {
@@ -521,7 +522,7 @@ func nox_server_mapRWObjectData_504CF0_Write(a2 unsafe.Pointer) error {
 			}
 		}
 	}
-	for obj := firstServerObjectUpdatable2(); obj != nil; obj = obj.Next() {
+	for obj := s.objs.updatableList2; obj != nil; obj = obj.Next() {
 		if a2 != nil {
 			pos := obj.Pos()
 			if !sub_4280E0(image.Point{X: int(pos.X), Y: int(pos.Y)}, a2) {
