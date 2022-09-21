@@ -50,7 +50,6 @@ extern uint32_t dword_5d4594_2523760;
 extern uint32_t dword_5d4594_2523776;
 extern void* nox_alloc_groupInfo_2523892;
 extern uint32_t dword_5d4594_2516356;
-extern void* nox_alloc_debugData_2523908;
 extern void* nox_alloc_itemGroupElem_2523896;
 extern uint32_t dword_5d4594_3844304;
 extern uint64_t qword_581450_9544;
@@ -68,7 +67,6 @@ extern unsigned int nox_frame_xxx_2598000;
 
 nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX] = {0};
 nox_net_struct2_t nox_net_struct2_arr[NOX_NET_STRUCT_MAX] = {0};
-void* dword_5d4594_2523912 = 0;
 uint32_t dword_5d4594_3843632 = 0;
 
 nox_net_struct_t* nox_xxx_makeNewNetStruct_553000(nox_net_struct_arg_t* arg);
@@ -3973,79 +3971,6 @@ int nox_server_addNewMapGroup_57C3B0(int a1) {
 	}
 	nox_server_mapGroupsHead_2523900 = a1;
 	return result;
-}
-
-//----- (0057C3E0) --------------------------------------------------------
-void* nox_xxx_getDebugData_57C3E0() { return dword_5d4594_2523912; }
-
-//----- (0057C3F0) --------------------------------------------------------
-void* nox_xxx_nextDebugObject_57C3F0(void* a1) {
-	int result; // eax
-
-	if (a1) {
-		result = *(uint32_t*)((uint32_t)a1 + 336);
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
-//----- (0057C410) --------------------------------------------------------
-int nox_xxx_allocDebugDataArray_57C410() {
-	nox_alloc_debugData_2523908 = nox_new_alloc_class("DebugData", 344, 256);
-	return nox_alloc_debugData_2523908 != 0;
-}
-
-//----- (0057C440) --------------------------------------------------------
-void sub_57C440() {
-	nox_alloc_class_free_all(*(uint32_t**)&nox_alloc_debugData_2523908);
-	dword_5d4594_2523912 = 0;
-}
-
-//----- (0057C460) --------------------------------------------------------
-int sub_57C460() {
-	if (nox_alloc_debugData_2523908) {
-		nox_free_alloc_class(*(void**)&nox_alloc_debugData_2523908);
-		nox_alloc_debugData_2523908 = 0;
-	}
-	dword_5d4594_2523912 = 0;
-	return 1;
-}
-
-//----- (0057C490) --------------------------------------------------------
-int sub_57C490(const char* a1) {
-	int v1; // edi
-
-	v1 = dword_5d4594_2523912;
-	if (!dword_5d4594_2523912) {
-		return 0;
-	}
-	while (strcmp(a1, (const char*)v1)) {
-		v1 = *(uint32_t*)(v1 + 336);
-		if (!v1) {
-			return 0;
-		}
-	}
-	return v1 + 80;
-}
-
-//----- (0057C500) --------------------------------------------------------
-int sub_57C500(const char* a1, const char* a2) {
-	char* v2; // edx
-
-	v2 = (char*)nox_alloc_class_new_obj_zero(*(uint32_t**)&nox_alloc_debugData_2523908);
-	if (!v2) {
-		return 0;
-	}
-	strcpy(v2, a1);
-	strcpy(v2 + 80, a2);
-	*((uint32_t*)v2 + 85) = 0;
-	*((uint32_t*)v2 + 84) = dword_5d4594_2523912;
-	if (dword_5d4594_2523912) {
-		*(uint32_t*)((uint32_t)dword_5d4594_2523912 + 340) = v2;
-	}
-	dword_5d4594_2523912 = v2;
-	return 1;
 }
 
 //----- (0057C790) --------------------------------------------------------

@@ -8621,58 +8621,6 @@ int nox_server_mapRWGroupData_505C30() {
 }
 // 505C30: using guessed type char var_E4[76];
 
-//----- (005060D0) --------------------------------------------------------
-int nox_server_mapRWDebugData_5060D0() {
-	int j;        // eax
-	char* v2;     // esi
-	int i;        // esi
-	size_t v4;    // [esp+0h] [ebp-15Ch]
-	int v5;       // [esp+4h] [ebp-158h]
-	int v6;       // [esp+8h] [ebp-154h]
-	char v7[80];  // [esp+Ch] [ebp-150h]
-	char v8[256]; // [esp+5Ch] [ebp-100h]
-
-	v6 = 1;
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&v6, 2u);
-	if ((short)v6 < 1) {
-		return 0;
-	}
-	if (nox_xxx_cryptGetXxx()) {
-		nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
-		for (i = 0; i < v5; ++i) {
-			nox_xxx_fileReadWrite_426AC0_file3_fread(&v4, 4u);
-			nox_xxx_fileReadWrite_426AC0_file3_fread(v7, v4);
-			nox_xxx_fileReadWrite_426AC0_file3_fread(&v4, 4u);
-			nox_xxx_fileReadWrite_426AC0_file3_fread(v8, v4);
-			if (!nox_common_gameFlags_check_40A5C0(0x400000) && nox_common_gameFlags_check_40A5C0(1)) {
-				sub_57C500(v7, v8);
-			}
-		}
-		return 1;
-	}
-	v5 = 0;
-	for (j = nox_xxx_getDebugData_57C3E0(); j; j = nox_xxx_nextDebugObject_57C3F0(j)) {
-		++v5;
-	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
-	v2 = (char*)nox_xxx_getDebugData_57C3E0();
-	if (!v2) {
-		return 1;
-	}
-	do {
-		v4 = strlen(v2);
-		++v4;
-		nox_xxx_fileReadWrite_426AC0_file3_fread(&v4, 4u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(v2, v4);
-		v4 = strlen(v2 + 80);
-		++v4;
-		nox_xxx_fileReadWrite_426AC0_file3_fread(&v4, 4u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(v2 + 80, v4);
-		v2 = (char*)nox_xxx_nextDebugObject_57C3F0((int)v2);
-	} while (v2);
-	return 1;
-}
-
 //----- (00506260) --------------------------------------------------------
 int nox_server_mapRWWaypoints_506260(uint32_t* a1) {
 	float* v2;        // esi

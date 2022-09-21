@@ -213,6 +213,25 @@ func cryptFileWriteU32(v uint32) error {
 	return err
 }
 
+func cryptFileWriteString8(s string) error {
+	if len(s) > 0xff {
+		s = s[:0xff]
+	}
+	if err := cryptFileWriteU8(uint8(len(s))); err != nil {
+		return err
+	}
+	_, err := cryptFileWrite([]byte(s))
+	return err
+}
+
+func cryptFileWriteString32(s string) error {
+	if err := cryptFileWriteU32(uint32(len(s))); err != nil {
+		return err
+	}
+	_, err := cryptFileWrite([]byte(s))
+	return err
+}
+
 func cryptFileReadWriteU16(v uint16) (uint16, error) {
 	if cryptFileMode != 0 {
 		v2, err := cryptFileReadU16()
@@ -268,6 +287,22 @@ func cryptFileReadU32() (uint32, error) {
 
 func cryptFileReadString8() (string, error) {
 	sz, err := cryptFileReadU8()
+	if err != nil {
+		return "", err
+	} else if sz == 0 {
+		return "", nil
+	}
+	buf := make([]byte, sz)
+	_, err = cryptFileRead(buf[:])
+	if err != nil {
+		return "", err
+	}
+	buf = bytes.TrimRight(buf, "\x00")
+	return string(buf), nil
+}
+
+func cryptFileReadString32() (string, error) {
+	sz, err := cryptFileReadU32()
 	if err != nil {
 		return "", err
 	} else if sz == 0 {
