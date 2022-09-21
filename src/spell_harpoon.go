@@ -33,6 +33,21 @@ func nox_xxx_updateHarpoon_54F380(a1c *nox_object_t) {
 	noxServer.abilities.harpoon.Update(asUnitC(a1c))
 }
 
+type harpoonData struct {
+	*harpoonPtr
+	getAim func() types.Pointf
+}
+
+var _ = [1]struct{}{}[24-unsafe.Sizeof(harpoonPtr{})]
+
+type harpoonPtr struct {
+	target  *nox_object_t // 33, 132
+	bolt    *nox_object_t // 34, 136
+	frame35 uint32        // 35, 140
+	targPos types.Pointf  // 36, 144
+	frame38 uint32        // 38, 152
+}
+
 type abilityHarpoon struct {
 	s         *Server
 	damage    int
@@ -49,32 +64,51 @@ func (a *abilityHarpoon) Init(s *Server) {
 func (a *abilityHarpoon) Free() {
 }
 
+func (a *abilityHarpoon) getHarpoonData(u *Unit) *harpoonData {
+	if u == nil {
+		return nil
+	}
+	switch {
+	case u.Class().Has(object.ClassPlayer):
+		ud := u.updateDataPlayer()
+		pl := ud.Player()
+		p := (*harpoonPtr)(unsafe.Pointer(&ud.harpoon_targ))
+		return &harpoonData{harpoonPtr: p, getAim: func() types.Pointf {
+			return types.Pointf{
+				X: float32(pl.field_2284),
+				Y: float32(pl.field_2288),
+			}
+		}}
+	default:
+		panic(u.Class().String())
+	}
+}
+
 func (a *abilityHarpoon) Do(u *Unit) {
 	nox_xxx_playerSetState_4FA020(u, 32)
 	if u == nil {
 		return
 	}
-	if !u.Class().Has(object.ClassPlayer) {
+	d := a.getHarpoonData(u)
+	if d == nil {
 		return
 	}
 	a.createBolt(u)
-	if ud := u.updateDataPlayer(); ud != nil {
-		ud.harpoon_35 = 0
-	}
+	d.frame35 = 0
 }
 
 func (a *abilityHarpoon) createBolt(u *Unit) {
 	if u == nil {
 		return
 	}
-	if !u.Class().Has(object.ClassPlayer) {
+	d := a.getHarpoonData(u)
+	if d == nil {
 		return
 	}
 	bolt := a.s.newObjectByTypeID("HarpoonBolt")
 	if bolt == nil {
 		return
 	}
-	ud := u.updateDataPlayer()
 	r := u.getShape().circle.R + 1.0
 	*(**nox_object_t)(unsafe.Add(bolt.collide_data, 4)) = u.CObj()
 	cos := memmap.Float32(0x587000, 194136+8*uintptr(u.direction1))
@@ -88,8 +122,8 @@ func (a *abilityHarpoon) createBolt(u *Unit) {
 	dir := u.direction1
 	bolt.direction1 = dir
 	bolt.direction2 = dir
-	ud.harpoon_bolt = bolt.CObj()
-	ud.harpoon_35 = 0
+	d.bolt = bolt.CObj()
+	d.frame35 = 0
 }
 
 func (a *abilityHarpoon) netHarpoonAttach(u1, u2 *Unit) {
@@ -117,8 +151,11 @@ func (a *abilityHarpoon) netHarpoonBreak(u1 *Unit, u2 *Unit) {
 }
 
 func (a *abilityHarpoon) UpdatePlayer(u *Unit) {
-	ud := u.updateDataPlayer()
-	if targ := asObjectC(ud.harpoon_targ); targ != nil {
+	d := a.getHarpoonData(u)
+	if d == nil {
+		return
+	}
+	if targ := asObjectC(d.target); targ != nil {
 		if targ.Flags().Has(object.FlagDestroyed) {
 			a.breakForPlayer(u)
 		} else {
@@ -138,15 +175,15 @@ func (a *abilityHarpoon) breakSilent(u *Unit) {
 	if u == nil {
 		return
 	}
-	ud := u.updateDataPlayer()
-	if ud == nil {
+	d := a.getHarpoonData(u)
+	if d == nil {
 		return
 	}
-	if ud.harpoon_bolt != nil {
-		ud.harpoon_targ = nil
+	if d.bolt != nil {
+		d.target = nil
 		a.s.abilities.DisableAbility(u, AbilityHarpoon)
-		asUnitC(ud.harpoon_bolt).Delete()
-		ud.harpoon_bolt = nil
+		asUnitC(d.bolt).Delete()
+		d.bolt = nil
 	}
 }
 
@@ -155,7 +192,6 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 	if a.damage == 0 {
 		a.damage = int(gamedataFloat("HarpoonDamage"))
 	}
-	ud := owner.updateDataPlayer()
 	if targ == nil {
 		npos := bolt.newPos()
 		C.nox_xxx_damageToMap_534BC0(C.int(npos.X/common.GridStep), C.int(npos.Y/common.GridStep), C.int(a.damage), 11, bolt.CObj())
@@ -171,11 +207,14 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 		a.breakSilent(owner)
 		return
 	}
-	ud.harpoon_targ = targ.CObj()
+	d := a.getHarpoonData(owner)
+	if d == nil {
+		return
+	}
+	d.target = targ.CObj()
 	tpos := targ.Pos()
-	ud.harpoon_targ_x = C.float(tpos.X)
-	ud.harpoon_targ_y = C.float(tpos.Y)
-	ud.harpoon_frame = C.uint(gameFrame())
+	d.targPos = tpos
+	d.frame38 = gameFrame()
 	bolt.SetFlags(bolt.Flags() | object.FlagNoCollide)
 	sub_4E7540(bolt.OwnerC(), targ)
 	nox_xxx_aud_501960(sound.SoundHarpoonReel, owner, 0, 0)
@@ -203,19 +242,18 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 		return
 	}
 	bud := bolt.updateDataPtr()
-	pud := owner.updateDataPlayer()
 	obj4 := asUnitC(*(**nox_object_t)(bud))
 	if obj4 != nil && obj4.Flags().HasAny(object.FlagDestroyed|object.FlagDead) {
 		a.breakForPlayer(owner)
 		return
 	}
-	if obj4 == nil {
-		if pud.harpoon_targ == nil {
-			pl := pud.Player()
-			v13 := types.Pointf{
-				X: float32(pl.field_2284),
-				Y: float32(pl.field_2288),
-			}
+	d := a.getHarpoonData(owner)
+	if d == nil {
+		return
+	}
+	if d.target == nil {
+		if obj4 == nil {
+			v13 := d.getAim()
 			obj6 := nox_xxx_spellFlySearchTarget(&v13, bolt, 32, a.maxDist, 0, owner)
 			*(**nox_object_t)(bud) = obj6.CObj()
 			if obj6 != nil {
@@ -223,14 +261,13 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 					*(**nox_object_t)(bud) = nil
 				}
 			}
+		} else {
+			vel := obj4.Pos().Sub(bolt.Pos())
+			bolt.setVel(vel.Normalize().Mul(float32(bolt.speed_cur)))
 		}
 	}
-	if obj4 != nil && pud.harpoon_targ == nil {
-		vel := obj4.Pos().Sub(bolt.Pos())
-		bolt.setVel(vel.Normalize().Mul(float32(bolt.speed_cur)))
-	}
 	dist := nox_xxx_calcDistance_4E6C00(bolt, owner)
-	if targ := asUnitC(pud.harpoon_targ); targ != nil {
+	if targ := asUnitC(d.target); targ != nil {
 		if dist > a.maxDist {
 			a.breakForPlayer(owner)
 			return
@@ -240,21 +277,20 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 			return
 		}
 
-		if df := gameFrame() - uint32(pud.harpoon_35); float32(df) > a.lifetime {
+		if df := gameFrame() - d.frame35; float32(df) > a.lifetime {
 			a.breakForPlayer(owner)
 			return
 		}
 		tpos := targ.Pos()
-		if gameFrame()-uint32(pud.harpoon_frame) > 30 {
-			pud.harpoon_frame = C.uint(gameFrame())
-			dx := float32(pud.harpoon_targ_x) - tpos.X
-			dy := float32(pud.harpoon_targ_y) - tpos.Y
+		if gameFrame()-d.frame38 > 30 {
+			d.frame38 = gameFrame()
+			dx := d.targPos.X - tpos.X
+			dy := d.targPos.Y - tpos.Y
 			if dx*dx+dy*dy < 1.0 {
 				a.breakForPlayer(owner)
 				return
 			}
-			pud.harpoon_targ_x = C.float(tpos.X)
-			pud.harpoon_targ_y = C.float(tpos.Y)
+			d.targPos = tpos
 		}
 		if !MapTraceRayAt(owner.Pos(), tpos, nil, nil, 9) {
 			a.breakForPlayer(owner)
@@ -275,8 +311,8 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 		a.breakForPlayer(owner)
 		return
 	}
-	if pud.harpoon_35 == 0 {
+	if d.frame35 == 0 {
 		a.netHarpoonAttach(owner, bolt)
-		pud.harpoon_35 = C.uint(gameFrame())
+		d.frame35 = gameFrame()
 	}
 }
