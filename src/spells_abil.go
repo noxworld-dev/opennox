@@ -440,8 +440,7 @@ func (a *serverAbilities) DisableAbility(u *Unit, abil Ability) {
 	}
 	switch abil {
 	case AbilityHarpoon:
-		ud := u.updateDataPlayer()
-		a.harpoon.netHarpoonBreak(u, asUnitC(ud.harpoon_bolt))
+		a.harpoon.disable(u)
 		break
 	case AbilityTreadLightly:
 		u.DisableEnchant(ENCHANT_SNEAK)
