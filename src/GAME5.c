@@ -2027,12 +2027,6 @@ int sub_5485B0(int a1, int a2) {
 	return 1;
 }
 
-//----- (00548600) --------------------------------------------------------
-void sub_548600(int a1, float a2, float a3) {
-	*(float*)(a1 + 96) = a2 / nox_xxx_objectGetMass_4E4A70(a1) + *(float*)(a1 + 96);
-	*(float*)(a1 + 100) = a3 / nox_xxx_objectGetMass_4E4A70(a1) + *(float*)(a1 + 100);
-}
-
 //----- (00548630) --------------------------------------------------------
 void nox_xxx_collSysAddCollision_548630(int a1, unsigned int a2, float2* a3) {
 	int v3;       // esi

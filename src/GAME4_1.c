@@ -50,14 +50,12 @@ extern uint32_t dword_5d4594_3835348;
 extern void* nox_alloc_tradeSession_2386492;
 extern uint32_t dword_5d4594_2386564;
 extern uint32_t dword_5d4594_2386920;
-extern void* nox_alloc_springs_2386568;
 extern void* nox_alloc_monsterList_2386220;
 extern uint32_t dword_5d4594_2388640;
 extern uint32_t dword_5d4594_2386160;
 extern uint32_t dword_5d4594_1599712;
 extern uint32_t dword_5d4594_2386924;
 extern uint32_t dword_5d4594_1599692;
-extern uint32_t dword_5d4594_2386572;
 extern uint32_t dword_5d4594_2386500;
 extern uint32_t dword_5d4594_2386576;
 extern uint32_t dword_5d4594_2386212;
@@ -4540,117 +4538,6 @@ int sub_511250(int a1, float* a2) {
 	return nox_netlist_addToMsgListCli_40EBC0(a1, 1, v7, 9);
 }
 
-//----- (005112C0) --------------------------------------------------------
-int nox_xxx_allocSpringsArray_5112C0() {
-	nox_alloc_springs_2386568 = nox_new_alloc_class("Springs", 52, 256);
-	return nox_alloc_springs_2386568 != 0;
-}
-
-//----- (005112F0) --------------------------------------------------------
-void sub_5112F0() {
-	dword_5d4594_2386572 = 0;
-	nox_alloc_class_free_all(*(uint32_t**)&nox_alloc_springs_2386568);
-}
-
-//----- (00511310) --------------------------------------------------------
-int sub_511310() {
-	nox_free_alloc_class(*(void**)&nox_alloc_springs_2386568);
-	dword_5d4594_2386572 = 0;
-	return 1;
-}
-
-//----- (00511360) --------------------------------------------------------
-void sub_511360(int a1) {
-	int v1; // ecx
-	int v2; // ecx
-
-	v1 = *(uint32_t*)(a1 + 48);
-	if (v1) {
-		*(uint32_t*)(v1 + 44) = *(uint32_t*)(a1 + 44);
-	} else {
-		dword_5d4594_2386572 = *(uint32_t*)(a1 + 44);
-	}
-	v2 = *(uint32_t*)(a1 + 44);
-	if (v2) {
-		*(uint32_t*)(v2 + 48) = *(uint32_t*)(a1 + 48);
-	}
-	nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_springs_2386568, (uint64_t*)a1);
-}
-
-//----- (005113A0) --------------------------------------------------------
-void nox_xxx_updateDebugObjects_5113A0() {
-	int v0;         // esi
-	int v1;         // eax
-	int v2;         // edi
-	int v3;         // ecx
-	int v4;         // eax
-	int v5;         // ecx
-	double v6;      // st7
-	long double v7; // st7
-	double v8;      // st7
-	double v9;      // st7
-	float v10;      // [esp+0h] [ebp-1Ch]
-	float v11;      // [esp+4h] [ebp-18h]
-	float v12;      // [esp+14h] [ebp-8h]
-	float v13;      // [esp+14h] [ebp-8h]
-	float v14;      // [esp+18h] [ebp-4h]
-	float v15;      // [esp+18h] [ebp-4h]
-
-	v0 = dword_5d4594_2386572;
-	if (dword_5d4594_2386572) {
-		do {
-			v1 = *(uint32_t*)(v0 + 8);
-			v2 = *(uint32_t*)(v0 + 44);
-			if (!v1) {
-				goto LABEL_16;
-			}
-			v3 = *(uint32_t*)(v0 + 12);
-			if (!v3) {
-				goto LABEL_16;
-			}
-			if (!(*(uint8_t*)(v1 + 16) & 0x20) && !(*(uint8_t*)(v3 + 16) & 0x20) &&
-				(v4 = *(uint32_t*)(v0 + 12), v5 = *(uint32_t*)(v0 + 8), v12 = *(float*)(v4 + 64) - *(float*)(v5 + 64),
-				 v6 = *(float*)(v4 + 68) - *(float*)(v5 + 68), v14 = v6, v7 = sqrt(v6 * v14 + v12 * v12),
-				 *(float*)(v0 + 32) = v7, v7 <= *(float*)(v0 + 28))) {
-				v8 = *(float*)(v0 + 32) - *(float*)(v0 + 24);
-				if (!(*(uint8_t*)(v0 + 40) & 1) || v8 >= 0.0) {
-					if (v8 > *(float*)(v0 + 24)) {
-						v8 = *(float*)(v0 + 24);
-					}
-					v9 = -(v8 * *(float*)(v0 + 16));
-					v15 = v9 * (v14 / *(float*)(v0 + 32));
-					v13 = v9 * (v12 / *(float*)(v0 + 32));
-					v11 = -v15;
-					v10 = -v13;
-					sub_548600(*(uint32_t*)(v0 + 8), v10, v11);
-					nox_xxx_unitHasCollideOrUpdateFn_537610(*(uint32_t*)(v0 + 8));
-					sub_548600(*(uint32_t*)(v0 + 12), v13, v15);
-					nox_xxx_unitHasCollideOrUpdateFn_537610(*(uint32_t*)(v0 + 12));
-					*(uint32_t*)(v0 + 36) = *(uint32_t*)(v0 + 32);
-				}
-			} else {
-			LABEL_16:
-				sub_511360(v0);
-			}
-			v0 = v2;
-		} while (v2);
-	}
-}
-
-//----- (00511560) --------------------------------------------------------
-int sub_511560(int a1) {
-	int result; // eax
-
-	result = a1;
-	*(uint32_t*)(a1 + 48) = 0;
-	*(uint32_t*)(a1 + 44) = dword_5d4594_2386572;
-	if (dword_5d4594_2386572) {
-		*(uint32_t*)(dword_5d4594_2386572 + 48) = a1;
-	}
-	dword_5d4594_2386572 = a1;
-	return result;
-}
-
 //----- (00511660) --------------------------------------------------------
 int nox_xxx_unitSetDecayTime_511660(nox_object_t* a1p, int a2) {
 	uint32_t* a1 = a1p;
@@ -4850,7 +4737,7 @@ int nox_xxx_updateObjectsVelocity_5118A0(float step) {
 	for (i = sub_537740(); i; i = sub_537750(i)) {
 		sub_5481C0(i);
 	}
-	nox_xxx_updateDebugObjects_5113A0();
+	nox_xxx_updateSprings_5113A0();
 	result = sub_537740();
 	for (j = result; result; j = result) {
 		if (*(uint8_t*)(j + 16) & 2 || *(uint8_t*)(j + 8) & 2 && nox_xxx_checkMobAction_50A0D0(j, 67)) {

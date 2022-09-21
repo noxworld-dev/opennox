@@ -67,6 +67,11 @@ func nox_xxx_unitIsAFrog_534B90(obj *nox_object_t) C.int {
 	return 0
 }
 
+//export sub_548600
+func sub_548600(a1 *nox_object_t, a2, a3 C.float) {
+	asObjectC(a1).sub548600(types.Pointf{X: float32(a2), Y: float32(a3)})
+}
+
 type shapeKind uint32
 
 const (
@@ -342,7 +347,7 @@ func (obj *Object) SetFlags(v object.Flags) {
 	obj.obj_flags = C.uint(v)
 }
 
-func (obj *Object) Mass() float32 {
+func (obj *Object) Mass() float32 { // nox_xxx_objectGetMass_4E4A70
 	return float32(obj.mass)
 }
 
@@ -837,4 +842,10 @@ func (obj *Object) findOwnerChainPlayer() *Object { // nox_xxx_findParentChainPl
 		res = it
 	}
 	return res
+}
+
+func (obj *Object) sub548600(dp types.Pointf) {
+	mass := obj.Mass()
+	obj.float_24 += C.float(dp.X / mass)
+	obj.float_25 += C.float(dp.Y / mass)
 }
