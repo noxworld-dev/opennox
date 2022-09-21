@@ -1096,6 +1096,9 @@ func nox_xxx_cliWaitServerResponse_5525B0(a1 int, a2 int, a3 int, a4 byte) int {
 }
 
 func nox_xxx_netInformTextMsg_4DA0F0(pid int, code byte, ind int) bool {
+	if pid < 0 {
+		return false
+	}
 	var buf [6]byte
 	buf[0] = byte(noxnet.MSG_INFORM)
 	buf[1] = code
