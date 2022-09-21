@@ -178,9 +178,7 @@ func sub_41A000_check0(path string) byte {
 	return save[0]
 }
 
-//export nox_xxx_savePlayerMB_41C8F0
-func nox_xxx_savePlayerMB_41C8F0(cdata *C.char, csz C.uint) C.int {
-	data := unsafe.Slice((*byte)(unsafe.Pointer(cdata)), int(csz))
+func nox_xxx_savePlayerMB_41C8F0(data []byte) C.int {
 	path := memmap.String(0x85B3FC, 10984)
 	const expSize = 216 // TODO: limit was *getMemIntPtr(0x587000, 55984) == 700, see #304
 	if !noxflags.HasGame(noxflags.GameHost) && len(data) < expSize {
@@ -260,24 +258,20 @@ func sub_4DCBF0(a1 C.int) {
 	dword_5d4594_1563064 = a1 != 0
 }
 
-//export sub_446060
 func sub_446060() {
 	dword_5d4594_825768 = 0
 }
 
-//export sub_446030
-func sub_446030() C.int {
-	return C.int(bool2int(dword_5d4594_825768 != 0))
+func sub_446030() bool {
+	return dword_5d4594_825768 != 0
 }
 
-//export sub_446090
-func sub_446090() C.int {
-	return C.int(bool2int(dword_5d4594_825752 == 0))
+func sub_446090() bool {
+	return dword_5d4594_825752 == 0
 }
 
-//export sub_4460B0
-func sub_4460B0() C.int {
-	return C.int(bool2int(dword_5d4594_825756))
+func sub_4460B0() bool {
+	return dword_5d4594_825756
 }
 
 //export sub_4460A0
@@ -296,9 +290,9 @@ func sub_446070() {
 //export sub_40BBC0
 func sub_40BBC0(a1, a2 C.int) {
 	if a2 == 2 {
-		if sub_446030() != 0 {
+		if sub_446030() {
 			sub_446070()
-			if sub_446090() != 0 {
+			if sub_446090() {
 				nox_game_exit_xxx2()
 				sub_446060()
 			}
@@ -310,9 +304,9 @@ func sub_40BBC0(a1, a2 C.int) {
 
 //export sub_40B850
 func sub_40B850(a1, act C.int) {
-	if act == 2 && sub_446030() != 0 {
+	if act == 2 && sub_446030() {
 		sub_446070()
-		if sub_446090() != 0 {
+		if sub_446090() {
 			nox_game_exit_xxx2()
 			sub_446060()
 		}
@@ -328,7 +322,6 @@ func nox_xxx_serverIsClosing446180() bool {
 	return nox_xxx_serverIsClosing_825764
 }
 
-//export sub_446140
 func sub_446140() {
 	nox_xxx_serverIsClosing_825764 = true
 	if noxflags.HasGame(noxflags.GameModeQuest) {
@@ -392,6 +385,69 @@ func sub_4DCE00() {
 			dword_5d4594_1563044 = false
 		}
 	}
+}
+
+//export nox_xxx_soloGameEscMenuCallback_40AF90
+func nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2 C.int, act C.int, a4 unsafe.Pointer, cbuf unsafe.Pointer, sz C.uint) {
+	switch act {
+	case 1:
+		C.sub_446520(1, cbuf, C.int(sz))
+	case 2:
+		data := unsafe.Slice((*byte)(cbuf), int(sz))
+		nox_xxx_savePlayerMB_41C8F0(data)
+		if noxflags.HasGame(noxflags.GameModeQuest) {
+			if sub_4460B0() {
+				sub_446140()
+			} else {
+				netSendGauntlet()
+			}
+		} else if sub_446030() && sub_446090() {
+			nox_game_exit_xxx2()
+			sub_446060()
+		}
+	case 3:
+		path := datapath.Save("_temp_.dat")
+		data := unsafe.Slice((*byte)(cbuf), int(sz))
+		if nox_xxx_SavePlayerDataFromClient_41CD70(path, data) {
+			if noxServer.nox_xxx_isQuest_4D6F50() && ind == noxMaxPlayers-1 {
+				sub4DCEE0(path)
+			} else {
+				res := C.nox_xxx_cliPlrInfoLoadFromFile_41A2E0(internCStr(path), C.int(ind))
+				if noxflags.HasGame(noxflags.GameModeQuest) {
+					if res != nil {
+						if pl := noxServer.getPlayerByInd(int(ind)); pl != nil {
+							if u := pl.UnitC(); u != nil {
+								ud := u.updateDataPlayer()
+								ud.field_138 = 0
+							}
+						}
+					} else {
+						noxServer.getPlayerByInd(int(ind)).Disconnect(4)
+					}
+				}
+				ifs.Remove(path)
+			}
+		} else if noxflags.HasGame(noxflags.GameModeQuest) && ind != noxMaxPlayers-1 {
+			nox_xxx_playerCallDisconnect_4DEAB0(ind, 4)
+		}
+	}
+}
+
+func nox_xxx_SavePlayerDataFromClient_41CD70(path string, data []byte) bool {
+	f, err := BinfileOpen(path, BinFileWO)
+	if err != nil {
+		saveLog.Printf("SavePlayerDataFromClient: Can't open file %q: %v\n", path, err)
+		return false
+	}
+	defer f.Close()
+	if err := f.SetKey(crypt.SaveKey); err != nil {
+		saveLog.Printf("SavePlayerDataFromClient: Can't key file %q: %v\n", path, err)
+		return false
+	}
+	if len(data) != 0 {
+		f.Write(data)
+	}
+	return true
 }
 
 func sub_4DB9C0() {
