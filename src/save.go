@@ -38,6 +38,7 @@ var (
 	dword_5d4594_1563044           = false
 	dword_5d4594_1563064           = false
 	dword_5d4594_1563048           = false
+	dword_5d4594_825756            = false
 	nox_xxx_serverIsClosing_825764 = false
 	dword_5d4594_1563080           = 0
 	dword_5d4594_1563084           unsafe.Pointer
@@ -272,6 +273,16 @@ func sub_446030() C.int {
 //export sub_446090
 func sub_446090() C.int {
 	return C.int(bool2int(dword_5d4594_825752 == 0))
+}
+
+//export sub_4460B0
+func sub_4460B0() C.int {
+	return C.int(bool2int(dword_5d4594_825756))
+}
+
+//export sub_4460A0
+func sub_4460A0(a1 C.int) {
+	dword_5d4594_825756 = a1 != 0
 }
 
 //export sub_446070

@@ -119,7 +119,7 @@ int sub_446030();
 void sub_446060();
 void sub_446070();
 int sub_446090();
-int sub_4460A0(int a1);
+void sub_4460A0(int a1);
 int sub_4460B0();
 void nox_client_quit_4460C0();
 void sub_446140();

@@ -1295,12 +1295,12 @@ func nox_client_quit_4460C0() {
 	if noxflags.HasGame(noxflags.GameModeQuest) {
 		if noxflags.HasGame(noxflags.GameHost) {
 			sub_4DCD40()
-		} else if C.sub_4460B0() != 0 {
-			C.sub_4460A0(0)
+		} else if sub_4460B0() != 0 {
+			sub_4460A0(0)
 			sub_446140()
 		} else {
 			C.nox_xxx_netSavePlayer_41CE00()
-			C.sub_4460A0(1)
+			sub_4460A0(1)
 		}
 	} else {
 		nox_xxx_serverIsClosing_825764 = true
