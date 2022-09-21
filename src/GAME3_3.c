@@ -2612,39 +2612,6 @@ void sub_4E5BF0(int a1) {
 	}
 }
 
-//----- (004E5CC0) --------------------------------------------------------
-void nox_xxx_delayedDeleteObject_4E5CC0(nox_object_t* obj) {
-	int object = obj;
-	int v1; // eax
-	int v2; // eax
-
-	if (object && !(*(uint8_t*)(object + 16) & 0x20)) {
-		v1 = *(uint32_t*)(object + 508);
-		if (v1 && *(uint8_t*)(v1 + 8) & 4 && *(uint8_t*)(object + 8) & 2 &&
-			!nox_xxx_creatureIsMonitored_500CC0(v1, object) && (*(uint8_t*)(object + 12) & 0x80)) {
-			nox_xxx_monsterRemoveMonitors_4E7B60(*(uint32_t*)(object + 508), (uint32_t*)object);
-		}
-		v2 = *(uint32_t*)(object + 492);
-		if (v2) {
-			sub_4ED0C0(v2, (int*)object);
-		}
-		nox_xxx_playerCancelSpells_4FEAE0(object);
-		if (nox_common_gameFlags_check_40A5C0(4096) && *(uint8_t*)(object + 8) & 2) {
-			sub_50E210(object);
-		}
-		if (*(uint8_t*)(object + 8) & 4) {
-			sub_506740(object);
-		}
-		*(uint32_t*)(object + 16) |= 0x20u;
-		*(uint32_t*)(object + 452) = *getMemU32Ptr(0x5D4594, 1565588);
-		*getMemU32Ptr(0x5D4594, 1565588) = object;
-		*(uint32_t*)(object + 456) = nox_frame_xxx_2598000;
-		if (nox_xxx_servObjectHasTeam_419130(object + 48)) {
-			nox_xxx_netChangeTeamMb_419570(object + 48, *(uint32_t*)(object + 36));
-		}
-	}
-}
-
 //----- (004E5E80) --------------------------------------------------------
 int nox_xxx_unitDeleteFinish_4E5E80(uint32_t* a1) {
 	nox_xxx_unitTransferSlaves_4EC4B0((int)a1);
@@ -3837,7 +3804,9 @@ void nox_xxx_unitBecomePet_4E7B00(int a1, int a2) {
 }
 
 //----- (004E7B60) --------------------------------------------------------
-void nox_xxx_monsterRemoveMonitors_4E7B60(int a1, uint32_t* a2) {
+void nox_xxx_monsterRemoveMonitors_4E7B60(nox_object_t* a1p, nox_object_t* a2p) {
+	int a1 = a1p;
+	uint32_t* a2 = a2p;
 	int v2; // edi
 	int v3; // edx
 

@@ -84,7 +84,7 @@ func (u *Unit) PushTo(p types.Pointf) {
 
 func (u *Unit) Destroy() {
 	panic("implement me")
-	C.nox_xxx_delayedDeleteObject_4E5CC0(u.CObj())
+	u.Delete()
 }
 
 func (u *Unit) CanSee(obj script.Object) bool {

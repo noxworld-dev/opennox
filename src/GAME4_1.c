@@ -2984,7 +2984,8 @@ void sub_50E1E0(int object) {
 }
 
 //----- (0050E210) --------------------------------------------------------
-void sub_50E210(int a1) {
+void sub_50E210(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1; // esi
 	int v2; // eax
 	int v3; // esi
