@@ -9,7 +9,6 @@ package opennox
 #include "GAME4_1.h"
 #include "GAME4_2.h"
 #include "GAME4_3.h"
-extern nox_object_t* nox_server_objects_1556844;
 extern nox_object_t* nox_server_objects_uninited_1556860;
 static void nox_call_obj_update_go(void (*fnc)(nox_object_t*), nox_object_t* obj) { fnc(obj); }
 static void nox_call_object_init(void (*fnc)(nox_object_t*, void*), nox_object_t* a1, void* a2) { fnc(a1, a2); }
@@ -31,6 +30,28 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 )
+
+//export nox_server_getFirstObject_4DA790
+func nox_server_getFirstObject_4DA790() *nox_object_t {
+	return noxServer.firstServerObject().CObj()
+}
+
+//export nox_server_getNextObject_4DA7A0
+func nox_server_getNextObject_4DA7A0(cobj *nox_object_t) *nox_object_t {
+	return asObjectC(cobj).Next().CObj()
+}
+
+//export nox_get_and_zero_server_objects_4DA3C0
+func nox_get_and_zero_server_objects_4DA3C0() *nox_object_t {
+	l := noxServer.objs.list
+	noxServer.objs.list = nil
+	return l.CObj()
+}
+
+//export nox_set_server_objects_4DA3E0
+func nox_set_server_objects_4DA3E0(list *nox_object_t) {
+	noxServer.objs.list = asObjectC(list)
+}
 
 //export nox_xxx_findParentChainPlayer_4EC580
 func nox_xxx_findParentChainPlayer_4EC580(obj *nox_object_t) *nox_object_t {
@@ -122,6 +143,11 @@ func nox_xxx_unitsNewAddToList_4DAC00() {
 	noxServer.objectsNewAdd()
 }
 
+//export nox_xxx_unitClearPendingMB_4DB030
+func nox_xxx_unitClearPendingMB_4DB030() {
+	noxServer.objectsClearPending()
+}
+
 type shapeKind uint32
 
 const (
@@ -201,7 +227,7 @@ func asObjectC(p *C.nox_object_t) *Object {
 }
 
 func (s *Server) firstServerObject() *Object { // nox_server_getFirstObject_4DA790
-	return asObjectC(C.nox_server_objects_1556844)
+	return s.objs.list
 }
 
 func (s *Server) firstServerObjectUninited() *Object { // nox_server_getFirstObjectUninited_4DA870
@@ -225,6 +251,7 @@ func (s *Server) getObjectsUpdatable2() []*Object {
 }
 
 type serverObjects struct {
+	list           *Object
 	updatableList  *Object
 	updatableList2 *Object
 	deletedList    *Object
@@ -423,12 +450,12 @@ func (s *Server) objectsNewAdd() {
 			if it.func_update != nil || it.vel_x != 0.0 || it.vel_y != 0.0 { // TODO: had a weird check: ... && *(*uint8)(&it.obj_class) >= 0
 				s.objs.addToUpdatable(it)
 			}
-			it.object_next = C.nox_server_objects_1556844
+			it.object_next = s.objs.list.CObj()
 			it.object_prev = nil
-			if C.nox_server_objects_1556844 != nil {
-				C.nox_server_objects_1556844.object_prev = it.CObj()
+			if s.objs.list != nil {
+				s.objs.list.object_prev = it.CObj()
 			}
-			C.nox_set_server_objects_4DA3E0(it.CObj())
+			s.objs.list = it
 		}
 		C.nox_xxx_unitCreateMissileSmth_517640(it.CObj())
 		if it.func_collide != nil {
@@ -480,12 +507,27 @@ func (s *Server) sub_4DAE50(obj *Object) {
 		if prev != nil {
 			prev.object_next = obj.object_next
 		} else {
-			C.nox_set_server_objects_4DA3E0(obj.object_next)
+			s.objs.list = asObjectC(obj.object_next)
 		}
 		if next := obj.object_next; next != nil {
 			next.object_prev = prev.CObj()
 		}
 	}
+}
+
+func (s *Server) objectsClearPending() {
+	var next *Object
+	for it := s.firstServerObjectUninited(); it != nil; it = next {
+		next = it.Next()
+		it.obj_flags &^= C.uint(object.FlagPending)
+		if s.objs.list != nil {
+			s.objs.list.object_prev = it.CObj()
+		}
+		it.object_next = s.objs.list.CObj()
+		it.object_prev = nil
+		s.objs.list = it
+	}
+	C.nox_server_objects_uninited_1556860 = nil
 }
 
 func nox_xxx_createAt_4DAA50(obj noxObject, owner noxObject, pos types.Pointf) {
