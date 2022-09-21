@@ -102,7 +102,6 @@ extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 
 nox_object_t* nox_server_objects_uninited_1556860 = 0;
-nox_object_t* nox_server_objects_1556844 = 0;
 
 nox_object_t* nox_xxx_host_player_unit_3843628 = 0;
 
@@ -5579,16 +5578,6 @@ int nox_xxx_netPrintLineToAll_4DA390(const char* a1) {
 	return result;
 }
 
-//----- (004DA3C0) --------------------------------------------------------
-uint32_t* nox_get_and_zero_server_objects_4DA3C0(void) {
-	uint32_t* p = nox_server_objects_1556844;
-	nox_server_objects_1556844 = 0;
-	return p;
-}
-
-//----- (004DA3E0) --------------------------------------------------------
-void nox_set_server_objects_4DA3E0(nox_object_t* p) { nox_server_objects_1556844 = p; }
-
 //----- (004DA3F0) --------------------------------------------------------
 int nox_server_strcmpWithoutMapname_4DA3F0(const char* a1, const char* a2) {
 	char* v2;       // eax
@@ -5794,22 +5783,6 @@ int sub_4DA660(int a1, const char* a2) {
 		}
 	}
 	return 0;
-}
-
-//----- (004DA790) --------------------------------------------------------
-nox_object_t* nox_server_getFirstObject_4DA790() { return nox_server_objects_1556844; }
-
-//----- (004DA7A0) --------------------------------------------------------
-nox_object_t* nox_server_getNextObject_4DA7A0(const nox_object_t* obj) {
-	const int a1 = obj;
-	int result; // eax
-
-	if (a1) {
-		result = *(uint32_t*)(a1 + 444);
-	} else {
-		result = 0;
-	}
-	return result;
 }
 
 //----- (004DA7C0) --------------------------------------------------------
@@ -6049,32 +6022,6 @@ void sub_4DAF10() {
 			v1 = (uint32_t*)v1[111];
 		} while (v1);
 	}
-}
-
-//----- (004DB030) --------------------------------------------------------
-uint32_t* nox_xxx_unitClearPendingMB_4DB030() {
-	uint32_t* result; // eax
-	uint32_t* v1;     // ecx
-	int v2;           // edx
-
-	result = *(uint32_t**)&nox_server_objects_uninited_1556860;
-	if (nox_server_objects_uninited_1556860) {
-		do {
-			v1 = (uint32_t*)result[111];
-			result[4] &= 0xFDFFFFFF;
-			v2 = nox_server_objects_1556844;
-			if (nox_server_objects_1556844) {
-				*(uint32_t*)((uintptr_t)nox_server_objects_1556844 + 448) = result;
-				v2 = nox_server_objects_1556844;
-			}
-			result[111] = v2;
-			result[112] = 0;
-			nox_set_server_objects_4DA3E0(result);
-			result = v1;
-		} while (v1);
-	}
-	nox_server_objects_uninited_1556860 = 0;
-	return result;
 }
 
 //----- (004DB130) --------------------------------------------------------
