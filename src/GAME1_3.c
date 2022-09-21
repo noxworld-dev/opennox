@@ -1154,18 +1154,6 @@ uint32_t* sub_445FF0() {
 	return result;
 }
 
-//----- (004460A0) --------------------------------------------------------
-int sub_4460A0(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 825756) = a1;
-	return result;
-}
-
-//----- (004460B0) --------------------------------------------------------
-int sub_4460B0() { return *getMemU32Ptr(0x5D4594, 825756); }
-
 //----- (00446360) --------------------------------------------------------
 unsigned int nox_gui_xxx_check_446360() {
 	unsigned int result; // eax
