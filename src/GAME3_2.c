@@ -1435,6 +1435,7 @@ int sub_4D12A0(int a1) {
 }
 
 //----- (004D12E0) --------------------------------------------------------
+void nox_xxx_mapSwitchLevel_4D12E0_end();
 void nox_xxx_mapSwitchLevel_4D12E0(int a1) {
 	int v1;       // edi
 	int v2;       // esi
@@ -1536,21 +1537,7 @@ void nox_xxx_mapSwitchLevel_4D12E0(int a1) {
 			nox_xxx_tileFreeTile_422200((uint32_t)(ptr_5D4594_2650668[k]) + j + 24);
 		}
 	}
-	sub_410730();
-	nox_xxx_wallBreackableListClear_410810();
-	nox_xxx_waypointDeleteAll_579DD0();
-	nox_xxx_j_allocHitArray_511840();
-	nox_xxx_decayDestroy_5117B0();
-	sub_5112F0();
-	sub_57C440();
-	sub_57C000();
-	sub_510E50();
-	sub_4D1610();
-	sub_4EC5B0();
-	sub_50E360();
-	sub_50D7E0();
-	sub_4E4F80();
-	nox_common_gameFlags_unset_40A540(0x80000);
+	nox_xxx_mapSwitchLevel_4D12E0_end();
 }
 // 511840: using guessed type int nox_xxx_j_allocHitArray_511840(void);
 
@@ -2006,8 +1993,8 @@ int nox_xxx_mapGenStart_4D4320() {
 }
 
 //----- (004D44E0) --------------------------------------------------------
+void sub_57C490_2(char* a1);
 int nox_xxx_mapGenStep_4D44E0() {
-	const char* v0; // eax
 	int result;     // eax
 	int v2;         // esi
 	int v3;         // esi
@@ -2019,10 +2006,7 @@ int nox_xxx_mapGenStep_4D44E0() {
 	float2 a2;      // [esp+4h] [ebp-8h]
 
 	dword_5d4594_1550916 = 0;
-	v0 = (const char*)sub_57C490("theme");
-	if (v0) {
-		sub_4D42E0(v0);
-	}
+	sub_57C490_2("theme");
 	sub_526C40(0);
 	sub_51D100(0);
 	result = nox_xxx_mapGenReadTheme_51E260(getMemIntPtr(0x5D4594, 1549796), (int)getMemAt(0x587000, 197860));

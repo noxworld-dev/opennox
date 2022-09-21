@@ -229,7 +229,6 @@ int sub_504A10(int a1);
 void* sub_505060();
 int nox_server_mapRWMapIntro_505080();
 int nox_server_mapRWGroupData_505C30();
-int nox_server_mapRWDebugData_5060D0();
 int nox_server_mapRWWaypoints_506260(uint32_t* a1);
 int nox_xxx_allocVoteArray_5066D0();
 int sub_506720();

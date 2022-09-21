@@ -1320,12 +1320,11 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 	if checkGameplayFlags(4) || noxflags.HasGame(noxflags.GameFlag16) {
 		nox_server_teamsResetYyy_417D00()
 	}
-	for l := C.nox_xxx_getDebugData_57C3E0(); l != nil; l = C.nox_xxx_nextDebugObject_57C3F0(l) {
-		switch str := GoString((*C.char)(l)); str {
+	s.debug.Each([]string{"spring", "SentryGlobe"}, func(key, val string) {
+		switch key {
 		case "spring":
-			str2 := GoString((*C.char)(unsafe.Add(l, 80)))
-			str2 = strings.TrimSpace(str2)
-			if sub := strings.Fields(str2); len(sub) >= 2 {
+			val = strings.TrimSpace(val)
+			if sub := strings.Fields(val); len(sub) >= 2 {
 				v28, _ := strconv.Atoi(sub[0])
 				v29 := s.getObjectByInd(v28)
 				v31, _ := strconv.Atoi(sub[1])
@@ -1335,9 +1334,8 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 				}
 			}
 		case "SentryGlobe":
-			str2 := GoString((*C.char)(unsafe.Add(l, 80)))
-			str2 = strings.TrimSpace(str2)
-			if sub := strings.Fields(str2); len(sub) >= 3 {
+			val = strings.TrimSpace(val)
+			if sub := strings.Fields(val); len(sub) >= 3 {
 				v34, _ := strconv.Atoi(sub[0])
 				if v35 := s.getObjectByInd(v34).AsUnit(); v35 != nil {
 					v36 := unsafe.Slice((*float32)(v35.updateDataPtr()), 3)
@@ -1349,7 +1347,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 				}
 			}
 		}
-	}
+	})
 	C.dword_5d4594_1548524 = 0
 	v41 := s.getServerMap()
 	C.sub_500510(internCStr(v41))

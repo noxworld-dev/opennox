@@ -119,6 +119,7 @@ type Server struct {
 	teams           serverTeams
 	ai              aiData
 	quest           questServer
+	debug           serverDebug
 	mapSwitchWPName string
 	announce        bool
 }
@@ -414,9 +415,6 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	if C.nox_xxx_allocSpringsArray_5112C0() == 0 {
 		return errors.New("nox_xxx_allocSpringsArray_5112C0 failed")
 	}
-	if C.nox_xxx_allocDebugDataArray_57C410() == 0 {
-		return errors.New("nox_xxx_allocDebugDataArray_57C410 failed")
-	}
 	if C.nox_xxx_allocGroupRelatedArrays_57BFB0() == 0 {
 		return errors.New("nox_xxx_allocGroupRelatedArrays_57BFB0 failed")
 	}
@@ -491,7 +489,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	C.nox_xxx_mapSwitchLevel_4D12E0(0)
 	s.nox_xxx_mapLoad_40A380()
 	C.sub_4E4DE0()
-	C.sub_57C460()
+	s.debug.Reset()
 	C.sub_57C030()
 	C.sub_511310()
 	s.abilities.Free()
@@ -882,4 +880,23 @@ func sub_4DB0A0() {
 	noxServer.quest.mapName = ""
 	dword_5d4594_1563064 = false
 	questPlayerSet = false
+}
+
+//export nox_xxx_mapSwitchLevel_4D12E0_end
+func nox_xxx_mapSwitchLevel_4D12E0_end() {
+	C.sub_410730()
+	C.nox_xxx_wallBreackableListClear_410810()
+	C.nox_xxx_waypointDeleteAll_579DD0()
+	C.nox_xxx_j_allocHitArray_511840()
+	C.nox_xxx_decayDestroy_5117B0()
+	C.sub_5112F0()
+	noxServer.debug.Reset()
+	C.sub_57C000()
+	C.sub_510E50()
+	C.sub_4D1610()
+	C.sub_4EC5B0()
+	C.sub_50E360()
+	C.sub_50D7E0()
+	C.sub_4E4F80()
+	nox_common_gameFlags_unset_40A540(0x80000)
 }

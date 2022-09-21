@@ -406,7 +406,6 @@ uint32_t dword_5d4594_1064864 = 0;
 uint32_t dword_5d4594_1096252 = 0;
 uint32_t dword_5d4594_741356 = 0;
 uint32_t dword_5d4594_1303468 = 0;
-void* nox_alloc_debugData_2523908 = 0;
 uint32_t dword_5d4594_1197356 = 0;
 uint32_t dword_5d4594_2388640 = 0;
 uint32_t dword_5d4594_1045436 = 0;
