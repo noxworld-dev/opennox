@@ -93,7 +93,7 @@ char* sub_40B720(int a1, unsigned char a2);
 void sub_40B740();
 int sub_40B790();
 void sub_40B810(int a1, int a2, int a3);
-void sub_40B850(int a1, char a2);
+void sub_40B850(int a1, int a2);
 void* sub_40B890(int a1);
 int sub_40B930(int a1);
 void sub_40B970();
