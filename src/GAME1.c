@@ -1167,12 +1167,6 @@ int sub_40B790() {
 	return result;
 }
 
-//----- (0040B810) --------------------------------------------------------
-void sub_40B810(int a1, int a2, int a3) {
-	nox_xxx_soloGameEscMenuCallback_40AF90(31, 0, a1, (int)getMemAt(0x5D4594, 4664), (uint8_t*)a2, a3);
-	sub_40B850(0, a1);
-}
-
 //----- (0040B890) --------------------------------------------------------
 void* sub_40B890(int a1) {
 	void* result; // eax
