@@ -2683,7 +2683,7 @@ int nox_xxx_playerCameraFollow_4E6060(int player, int unitId) {
 }
 
 //----- (004E60A0) --------------------------------------------------------
-char* nox_xxx_playerLeaveObsByObserved_4E60A0(int a1) {
+void nox_xxx_playerLeaveObsByObserved_4E60A0(nox_object_t* a1) {
 	char* result; // eax
 	int i;        // esi
 
@@ -2694,7 +2694,6 @@ char* nox_xxx_playerLeaveObsByObserved_4E60A0(int a1) {
 		}
 		result = nox_common_playerInfoGetNext_416EE0(i);
 	}
-	return result;
 }
 
 //----- (004E60E0) --------------------------------------------------------
@@ -7071,12 +7070,12 @@ int nox_xxx_playerObserverFindGoodSlave_4EC420(int a1) {
 }
 
 //----- (004EC470) --------------------------------------------------------
-void nox_xxx_unitRemoveChild_4EC470(int a1) {
+void nox_xxx_unitRemoveChild_4EC470(nox_object_t* a1) {
 	int v1; // eax
 	int v2; // ecx
 
 	if (a1) {
-		v1 = *(uint32_t*)(a1 + 516);
+		v1 = *(uint32_t*)((int)a1 + 516);
 		if (v1) {
 			do {
 				v2 = *(uint32_t*)(v1 + 512);
@@ -7085,7 +7084,7 @@ void nox_xxx_unitRemoveChild_4EC470(int a1) {
 				v1 = v2;
 			} while (v2);
 		}
-		*(uint32_t*)(a1 + 516) = 0;
+		*(uint32_t*)((int)a1 + 516) = 0;
 	}
 }
 
@@ -7504,7 +7503,7 @@ int sub_4ECF10(int a1) {
 }
 
 //----- (004ECFA0) --------------------------------------------------------
-int sub_4ECFA0(int a1) {
+int sub_4ECFA0(nox_object_t* a1) {
 	int result;   // eax
 	uint32_t* v2; // esi
 
