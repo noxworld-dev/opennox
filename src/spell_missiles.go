@@ -78,7 +78,7 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts 
 		}
 		msl := sp.s.newObjectByTypeID(opts.Projectile)
 		mud := msl.updateDataMissile()
-		nox_xxx_createAt_4DAA50(msl, owner, p2)
+		sp.s.createObjectAt(msl, owner, p2)
 		mspeed := float32(noxRndCounter1.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.curSpeed()))
 		msl.speed_cur = C.float(mspeed)
 		msl.setAllDirs(dir)
