@@ -1930,8 +1930,6 @@ int sub_465DE0(int a1) {
 }
 // 467460: using guessed type int nox_xxx_j_inventoryNameSignInit_467460(void);
 
-//----- (00465DF0) --------------------------------------------------------
-int sub_465DF0() { return dword_5d4594_1049844; }
 
 //----- (00465E00) --------------------------------------------------------
 int nox_xxx_wndCreateInventoryMB_465E00() {

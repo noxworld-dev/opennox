@@ -371,11 +371,6 @@ func (s *Server) getQuestMapName() string {
 	return s.quest.mapName
 }
 
-//export sub_4DCEE0
-func sub_4DCEE0(str *C.char) {
-	sub4DCEE0(GoString(str))
-}
-
 func sub4DCEE0(path string) {
 	if path != "" {
 		questPlayerFile = path
