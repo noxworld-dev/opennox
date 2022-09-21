@@ -71,7 +71,6 @@ int nox_xxx_SavePlayerDataFromClient_41CD70(char* a1, uint8_t* a2, int a3);
 int nox_xxx_netSavePlayer_41CE00();
 int sub_41CEE0(void* a1, int a2);
 int sub_41CFA0(char* a1, int a2);
-int sub_41D090(char* a1);
 int sub_41D170();
 int sub_41D1A0(int a1);
 int sub_41D1B0();

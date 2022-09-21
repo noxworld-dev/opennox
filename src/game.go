@@ -977,7 +977,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
 		return
 	}
 	u := pl.UnitC()
-	if u == nil || C.sub_4DCC10(u.CObj()) != 1 {
+	if u == nil || sub_4DCC10(u.CObj()) != 1 {
 		return
 	}
 	v23 := false

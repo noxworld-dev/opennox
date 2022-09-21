@@ -63,28 +63,10 @@ func sub4DB790(a1 string) bool {
 	return res
 }
 
-//export nox_xxx_saveMakeFolder_0_4DB1D0
-func nox_xxx_saveMakeFolder_0_4DB1D0() C.bool {
-	return ifs.Mkdir(datapath.Save()) == nil
-}
-
-//export nox_client_makeSaveDir_4DB540
-func nox_client_makeSaveDir_4DB540(cname *C.char) C.bool {
-	name := GoString(cname)
-	_, err := nox_client_makeSaveDir(name)
-	return err == nil
-}
-
 func nox_client_makeSaveDir(name string) (string, error) {
 	dir := datapath.Save(name)
 	err := ifs.Mkdir(dir)
 	return dir, err
-}
-
-//export nox_client_makeSaveMapDir_4DB5A0
-func nox_client_makeSaveMapDir_4DB5A0(a1c, a2c *C.char) C.bool {
-	a1, a2 := GoString(a1c), GoString(a2c)
-	return ifs.Mkdir(datapath.Save(a1, a2)) == nil
 }
 
 //export nox_savegame_rm_4DBE10
@@ -305,14 +287,13 @@ func nox_xxx_serverIsClosing446180() bool {
 }
 
 //export sub_446140
-func sub_446140() C.int {
+func sub_446140() {
 	nox_xxx_serverIsClosing_825764 = true
 	if noxflags.HasGame(noxflags.GameModeQuest) {
 		if noxflags.HasGame(noxflags.GameHost) {
 			sub_4D6B10(false)
 		}
 	}
-	return 1
 }
 
 func sub_4DCE30() {
@@ -613,7 +594,6 @@ func nox_xxx_saveDoAutosaveMB_4DB370_savegame(name string) int {
 	return 1
 }
 
-//export nox_xxx_saveMakePlayerLocation_4DB600
 func nox_xxx_saveMakePlayerLocation_4DB600(a1 unsafe.Pointer) bool {
 	pl := noxServer.getPlayerByInd(noxMaxPlayers - 1)
 	if pl == nil {

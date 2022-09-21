@@ -376,7 +376,7 @@ func sub_4DCEE0(str *C.char) {
 	sub4DCEE0(GoString(str))
 }
 
-func sub4DCEE0(path string) { // sub_4DCEE0
+func sub4DCEE0(path string) {
 	if path != "" {
 		questPlayerFile = path
 		questPlayerSet = true

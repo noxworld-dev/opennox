@@ -250,7 +250,6 @@ void* sub_4DB1C0();
 void nox_xxx_gameSetSwitchSolo_4DB220(int a1);
 int nox_xxx_gameIsSwitchToSolo_4DB240();
 int nox_xxx_gameIsNotMultiplayer_4DB250();
-bool nox_client_makeSaveDir_4DB540(char* saveName);
 void nox_savegame_rm_4DBE10(char* saveName, int rmDir);
 int nox_client_copySave_4DC100(char* a1, char* saveName);
 int nox_client_countSaveFiles_4DC550();

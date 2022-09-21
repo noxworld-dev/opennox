@@ -936,16 +936,6 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 	return nil
 }
 
-//export sub_41D090
-func sub_41D090(a1 *C.char) C.int {
-	v, err := sub41D090(GoString(a1))
-	if err != nil {
-		saveLog.Println(err)
-		return 0
-	}
-	return C.int(v)
-}
-
 func sub41D090(path string) (uint32, error) {
 	if err := cryptFileOpen(path, 1, 27); err != nil {
 		return 0, err
