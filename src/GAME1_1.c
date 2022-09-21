@@ -2542,41 +2542,6 @@ int nox_xxx_computeServerPlayerDataBufferSize_41CC50(char* a1) {
 	return result;
 }
 
-//----- (0041CD70) --------------------------------------------------------
-int nox_xxx_SavePlayerDataFromClient_41CD70(char* a1, uint8_t* a2, int a3) {
-	char* v3;    // esi
-	FILE* v4;    // eax
-	int result;  // eax
-	int v6;      // edi
-	uint8_t* v7; // esi
-
-	v3 = a1;
-	v4 = nox_binfile_open_408CC0(a1, 1);
-	nox_file_2 = v4;
-	if (v4) {
-		if (nox_binfile_cryptSet_408D40((int)v4, 27)) {
-			v6 = a3;
-			if (a3) {
-				v7 = a2;
-				do {
-					LOBYTE(a1) = *v7++;
-					nox_binfile_fwrite_409200((char*)&a1, 1, 1, nox_file_2);
-					--v6;
-				} while (v6);
-			}
-			nox_binfile_close_408D90(nox_file_2);
-			result = 1;
-		} else {
-			nox_xxx_networkLog_printf_413D30("SavePlayerDataFromClient: Can't key file '%s'\n", v3);
-			result = 0;
-		}
-	} else {
-		nox_xxx_networkLog_printf_413D30("SavePlayerDataFromClient: Can't open file '%s'\n");
-		result = 0;
-	}
-	return result;
-}
-
 //----- (0041CE00) --------------------------------------------------------
 int nox_xxx_netSavePlayer_41CE00() {
 	char v2[3]; // [esp+0h] [ebp-4h]
@@ -2635,15 +2600,6 @@ int sub_41CEE0(void* a1p, int a2) {
 }
 // 41CF42: variable 'v5' is possibly undefined
 // 41CF51: variable 'v7' is possibly undefined
-
-//----- (0041D170) --------------------------------------------------------
-int sub_41D170() {
-	char v1[2]; // [esp+0h] [ebp-2h]
-
-	v1[0] = -16;
-	v1[1] = 27;
-	return nox_xxx_netClientSend2_4E53C0(31, v1, 2, 0, 0);
-}
 
 //----- (0041D1A0) --------------------------------------------------------
 int sub_41D1A0(int a1) {

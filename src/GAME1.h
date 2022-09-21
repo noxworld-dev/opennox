@@ -78,7 +78,7 @@ int sub_40AA60(int a1);
 int sub_40AA70(nox_playerInfo* pl);
 int nox_xxx_utilFindSound_40AF50(char* a1);
 char* nox_xxx_getSndName_40AF80(int a1);
-void nox_xxx_soloGameEscMenuCallback_40AF90(int a1, int a2, char a3, int a4, uint8_t* a5, unsigned int a6);
+void nox_xxx_soloGameEscMenuCallback_40AF90(int a1, int a2, int a3, void* a4, void* a5, unsigned int a6);
 int sub_40B170(int a1);
 char* sub_40B1F0(unsigned char a1);
 void sub_40B250(int a1, unsigned char a2, unsigned short a3, const void* a4, size_t a5);
