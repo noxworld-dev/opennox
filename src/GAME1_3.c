@@ -1116,19 +1116,6 @@ int nox_xxx_quitDialogNo_445B30() { return nox_xxx_wndSetCaptureMain_46ADC0(nox_
 //----- (00445BA0) --------------------------------------------------------
 void sub_445BA0() { sub_413A00(0); }
 
-//----- (00445BB0) --------------------------------------------------------
-int sub_445BB0() { return 1; }
-
-//----- (00445BC0) --------------------------------------------------------
-int nox_xxx_wndDrawQuitMenu_445BC0(uint32_t* a1) {
-	int xLeft; // [esp+4h] [ebp-8h]
-	int yTop;  // [esp+8h] [ebp-4h]
-
-	nox_client_wndGetPosition_46AA60(a1, &xLeft, &yTop);
-	nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, a1[2], a1[3]);
-	return 1;
-}
-
 //----- (00445C20) --------------------------------------------------------
 void sub_445C20() {
 	int v = nox_xxx_wndGetFlags_46ADA0(nox_wnd_quitMenu_825760);

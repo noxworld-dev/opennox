@@ -1538,6 +1538,7 @@ char* sub_40BFF0(int a1, char a2, char* a3) {
 }
 
 //----- (0040C030) --------------------------------------------------------
+void sub_40B850(int a1, int a2);
 char* sub_40C030(int a1, char a2) {
 	char* result; // eax
 	char* v3;     // esi
@@ -6531,15 +6532,6 @@ char* sub_4169F0() {
 	result = sub_416640();
 	result[100] &= 0xEFu;
 	return result;
-}
-
-//----- (00416A00) --------------------------------------------------------
-unsigned int sub_416A00() {
-	char* v0; // eax
-
-	v0 = sub_416640();
-	LOBYTE(v0) = v0[100];
-	return ((unsigned int)v0 >> 4) & 1;
 }
 
 //----- (00416E50) --------------------------------------------------------

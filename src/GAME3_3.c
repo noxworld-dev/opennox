@@ -4861,6 +4861,7 @@ int sub_4E9010() {
 }
 
 //----- (004E9090) --------------------------------------------------------
+void sub_4DCBF0(int a1);
 void nox_xxx_collideExit_4E9090(int a1, int a2, int a3) {
 	int v4;           // ebp
 	int v5;           // esi

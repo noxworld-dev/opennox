@@ -68,7 +68,6 @@ int sub_465CA0();
 void sub_465CD0(uint32_t* a1, int a2, int a3, int a4);
 int sub_465D50_draw(int a1);
 int sub_465DE0(int a1);
-int sub_465DF0();
 int nox_xxx_wndCreateInventoryMB_465E00();
 int nox_xxx_movEax1Sub_4661C0();
 int sub_466220(int a1, int a2, int* a3, int a4);
