@@ -6068,36 +6068,9 @@ void nox_xxx_unitsNewAddToList_4DAC00() {
 	nox_server_objects_uninited_1556860 = 0;
 }
 
-//----- (004DADE0) --------------------------------------------------------
-char nox_xxx_servFinalizeDelObject_4DADE0(nox_object_t* item) {
-	const int a1 = (int)item;
-	int v1; // eax
-
-	v1 = item->obj_flags;
-	if (v1 & 4) {
-		LOBYTE(v1) = v1 & 0xFB;
-		item->obj_flags = v1;
-		nox_xxx_playerLeaveObsByObserved_4E60A0(a1);
-		if (!nox_common_gameFlags_check_40A5C0(0x80000)) {
-			nox_xxx_netReportDestroyObject_5289D0(a1);
-		}
-		nox_xxx_unit_511810(a1);
-		nox_xxx_unitClearOwner_4EC300(item);
-		nox_xxx_unitRemoveChild_4EC470(a1);
-		sub_517870(a1);
-		sub_4DAE50(a1);
-		sub_4ECFA0(a1);
-		sub_511DE0(a1);
-		LOBYTE(v1) = *(uint8_t*)&item->obj_class;
-		if (v1 & 6) {
-			LOBYTE(v1) = sub_528990(a1);
-		}
-	}
-	return v1;
-}
-
 //----- (004DAE50) --------------------------------------------------------
-int sub_4DAE50(int a1) {
+int sub_4DAE50(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;     // eax
 	int result; // eax
 	int v3;     // esi

@@ -7794,7 +7794,7 @@ int sub_528950(int a1, int a2) {
 }
 
 //----- (00528990) --------------------------------------------------------
-int sub_528990(int a1) {
+int sub_528990(nox_object_t* a1) {
 	int result; // eax
 	int i;      // esi
 
@@ -7812,7 +7812,8 @@ int sub_528990(int a1) {
 }
 
 //----- (005289D0) --------------------------------------------------------
-char* nox_xxx_netReportDestroyObject_5289D0(int a1) {
+void nox_xxx_netReportDestroyObject_5289D0(nox_object_t* a1p) {
+	int a1 = a1p;
 	char* result; // eax
 	int i;        // edi
 	int v4;       // [esp+0h] [ebp-4h]
@@ -7829,7 +7830,6 @@ char* nox_xxx_netReportDestroyObject_5289D0(int a1) {
 		}
 		result = nox_common_playerInfoGetNext_416EE0(i);
 	}
-	return result;
 }
 
 //----- (00528A60) --------------------------------------------------------
