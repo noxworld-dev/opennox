@@ -53,7 +53,7 @@ void sub_5481C0(int a1);
 void sub_548220(int* a1, float* a2);
 int sub_548360(int a1, int a2);
 int sub_5485B0(int a1, int a2);
-void sub_548600(int a1, float a2, float a3);
+void sub_548600(nox_object_t* a1, float a2, float a3);
 void nox_xxx_collSysAddCollision_548630(int a1, unsigned int a2, float2* a3);
 void nox_xxx_allocHitArray_5486D0();
 void sub_548830(int a1);

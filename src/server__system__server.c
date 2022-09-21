@@ -51,7 +51,6 @@ extern uint32_t dword_5d4594_528260;
 extern uint32_t dword_5d4594_1548704;
 extern uint32_t dword_5d4594_1563096;
 extern uint32_t dword_5d4594_1563052;
-extern void* nox_alloc_springs_2386568;
 extern uint32_t dword_5d4594_608316;
 extern uint32_t dword_5d4594_1599060;
 extern uint32_t dword_5d4594_2386160;
@@ -1195,52 +1194,6 @@ unsigned int sub_50D890() {
 		result = sub_50D960();
 	}
 	return result;
-}
-
-//----- (00511590) --------------------------------------------------------
-void nox_xxx_addDebugEntry_511590(void* a1p, void* a2p) {
-	int a1 = a1p;
-	int a2 = a2p;
-	int v2;         // ebx
-	uint32_t* v3;   // eax
-	int v4;         // esi
-	double v5;      // st7
-	double v6;      // st6
-	char v7;        // dl
-	long double v8; // st7
-	float v9;       // [esp+10h] [ebp+4h]
-
-	v2 = a1;
-	if (a1) {
-		if (a2) {
-			if (!(*(uint8_t*)(a1 + 16) & 0x20) && !(*(uint8_t*)(a2 + 16) & 0x20)) {
-				v3 = nox_alloc_class_new_obj_zero(*(uint32_t**)&nox_alloc_springs_2386568);
-				v4 = (int)v3;
-				if (v3) {
-					v3[2] = a1;
-					v3[3] = a2;
-					v3[4] = 1114636288;
-					v9 = nox_xxx_objectGetMass_4E4A70(a1);
-					if (nox_xxx_objectGetMass_4E4A70(a2) >= v9) {
-						nox_xxx_objectGetMass_4E4A70(a2);
-					} else {
-						nox_xxx_objectGetMass_4E4A70(v2);
-					}
-					*(uint32_t*)(v4 + 20) = 0;
-					v5 = *(float*)(a2 + 56) - *(float*)(v2 + 56);
-					v6 = *(float*)(a2 + 60) - *(float*)(v2 + 60);
-					v7 = *(uint8_t*)(v4 + 40) | 1;
-					*(uint32_t*)(v4 + 28) = 1132462080;
-					*(uint8_t*)(v4 + 40) = v7;
-					v8 = sqrt(v6 * v6 + v5 * v5);
-					*(float*)(v4 + 32) = v8;
-					*(float*)(v4 + 36) = v8;
-					*(float*)(v4 + 24) = v8;
-					sub_511560(v4);
-				}
-			}
-		}
-	}
 }
 
 //----- (00519990) --------------------------------------------------------

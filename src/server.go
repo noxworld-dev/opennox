@@ -119,6 +119,7 @@ type Server struct {
 	teams           serverTeams
 	ai              aiData
 	quest           questServer
+	springs         serverSprings
 	debug           serverDebug
 	mapSwitchWPName string
 	announce        bool
@@ -412,9 +413,6 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	if err := nox_xxx_allocSpellRelatedArrays_4FC9B0(); err != nil {
 		return err
 	}
-	if C.nox_xxx_allocSpringsArray_5112C0() == 0 {
-		return errors.New("nox_xxx_allocSpringsArray_5112C0 failed")
-	}
 	if C.nox_xxx_allocGroupRelatedArrays_57BFB0() == 0 {
 		return errors.New("nox_xxx_allocGroupRelatedArrays_57BFB0 failed")
 	}
@@ -491,7 +489,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	C.sub_4E4DE0()
 	s.debug.Reset()
 	C.sub_57C030()
-	C.sub_511310()
+	s.springs.Reset()
 	s.abilities.Free()
 	s.spells.Free()
 	nox_xxx_freeSpellRelated_4FCA80()
@@ -889,7 +887,7 @@ func nox_xxx_mapSwitchLevel_4D12E0_end() {
 	C.nox_xxx_waypointDeleteAll_579DD0()
 	C.nox_xxx_j_allocHitArray_511840()
 	C.nox_xxx_decayDestroy_5117B0()
-	C.sub_5112F0()
+	noxServer.springs.Reset()
 	noxServer.debug.Reset()
 	C.sub_57C000()
 	C.sub_510E50()
