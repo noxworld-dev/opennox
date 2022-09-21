@@ -839,64 +839,6 @@ LABEL_31:
 	return result;
 }
 
-//----- (0040AF90) --------------------------------------------------------
-int nox_xxx_savePlayerMB_41C8F0(char* a1, unsigned int a2);
-void nox_xxx_soloGameEscMenuCallback_40AF90(int a1, int a2, char a3, int a4, uint8_t* a5, unsigned int a6) {
-	char* v6;            // eax
-	char* v7;            // edi
-	char* v8;            // eax
-	int v9;              // eax
-	char FileName[1024]; // [esp+4h] [ebp-400h]
-
-	switch (a3) {
-	case 1:
-		sub_446520(1, a5, a6);
-		break;
-	case 2:
-		nox_xxx_savePlayerMB_41C8F0(a5, a6);
-		if (nox_common_gameFlags_check_40A5C0(4096)) {
-			if (sub_4460B0()) {
-				sub_446140();
-			} else {
-				sub_41D170();
-			}
-		} else if (sub_446030() && sub_446090()) {
-			nox_game_exit_xxx2();
-			sub_446060();
-		}
-		break;
-	case 3:
-		v6 = nox_fs_root();
-		nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v6);
-		if (nox_xxx_SavePlayerDataFromClient_41CD70(FileName, a5, a6)) {
-			if (nox_xxx_isQuest_4D6F50() && a1 == 31) {
-				sub_4DCEE0(FileName);
-			} else {
-				v7 = nox_xxx_cliPlrInfoLoadFromFile_41A2E0(FileName, a1);
-				if (nox_common_gameFlags_check_40A5C0(4096)) {
-					if (v7) {
-						v8 = nox_common_playerInfoFromNum_417090(a1);
-						if (v8) {
-							v9 = *((uint32_t*)v8 + 514);
-							if (v9) {
-								*(uint32_t*)(*(uint32_t*)(v9 + 748) + 552) = 0;
-							}
-						}
-					} else {
-						nox_xxx_playerCallDisconnect_4DEAB0(a1, 4);
-					}
-				}
-				nox_fs_remove(FileName);
-			}
-		} else if (nox_common_gameFlags_check_40A5C0(4096) && a1 != 31) {
-			nox_xxx_playerCallDisconnect_4DEAB0(a1, 4);
-		}
-		break;
-	default:
-		return;
-	}
-}
-
 //----- (0040B170) --------------------------------------------------------
 int sub_40B170(int a1) {
 	int v1;     // ecx

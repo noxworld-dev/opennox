@@ -262,7 +262,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	if nox_xxx_serverIsClosing446180() {
 		sub_446190()
 	}
-	if sub_446030() != 0 && gameFrame() > 5*gameFPS()+sub_446040() {
+	if sub_446030() && gameFrame() > 5*gameFPS()+sub_446040() {
 		sub_446380()
 	}
 	if !noxflags.HasGame(noxflags.GamePause) {

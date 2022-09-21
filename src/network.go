@@ -1252,6 +1252,13 @@ func nox_xxx_netKillChat_528D00(u *Unit) {
 	}
 }
 
+func netSendGauntlet() {
+	var buf [2]byte
+	buf[0] = byte(noxnet.MSG_GAUNTLET)
+	buf[1] = 27
+	nox_xxx_netClientSend2_4E53C0(noxMaxPlayers-1, buf[:2], 0, 0)
+}
+
 func nox_xxx_sendGauntlet_4DCF80(ind int, v byte) {
 	var buf [3]byte
 	buf[0] = byte(noxnet.MSG_GAUNTLET)
