@@ -395,6 +395,7 @@ func sub_42C300() C.ushort {
 
 //export sub_42BFE0
 func sub_42BFE0() {
+	s := noxServer
 	if !noxflags.HasGame(noxflags.GameHost | noxflags.GameFlag22) {
 		return
 	}
@@ -407,7 +408,7 @@ func sub_42BFE0() {
 			last++
 		}
 	}
-	for it := noxServer.firstServerObject(); it != nil; it = it.Next() {
+	for it := s.firstServerObject(); it != nil; it = it.Next() {
 		checkInd(it.objTypeInd())
 		for it2 := it.FirstItem(); it2 != nil; it2 = it2.NextItem() {
 			checkInd(it2.objTypeInd())
@@ -416,13 +417,13 @@ func sub_42BFE0() {
 			checkTypesMonsterGen(it, checkInd)
 		}
 	}
-	for it := noxServer.firstServerObjectUninited(); it != nil; it = it.Next() {
+	for it := s.firstServerObjectUninited(); it != nil; it = it.Next() {
 		checkInd(it.objTypeInd())
 		if it.Class().Has(object.ClassMonsterGenerator) {
 			checkTypesMonsterGen(it, checkInd)
 		}
 	}
-	for it := firstServerObjectUpdatable2(); it != nil; it = it.Next() {
+	for it := s.objs.updatableList2; it != nil; it = it.Next() {
 		checkInd(it.objTypeInd())
 	}
 	if !noxflags.HasGame(noxflags.GameFlag22) && noxflags.HasGame(noxflags.GameHost) &&

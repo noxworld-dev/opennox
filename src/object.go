@@ -11,8 +11,8 @@ package opennox
 #include "GAME4_3.h"
 extern nox_object_t* nox_server_objects_1556844;
 extern nox_object_t* nox_server_objects_uninited_1556860;
-extern nox_object_t* nox_server_objects_updatable2_1556848;
 static void nox_call_obj_update_go(void (*fnc)(nox_object_t*), nox_object_t* obj) { fnc(obj); }
+static void nox_call_object_init(void (*fnc)(nox_object_t*, void*), nox_object_t* a1, void* a2) { fnc(a1, a2); }
 static int nox_call_object_xfer(int (*fnc)(nox_object_t*, void*), nox_object_t* a1, void* a2) { return fnc(a1, a2); }
 static int nox_call_object_damage(int (*fnc)(nox_object_t*, nox_object_t*, nox_object_t*, int, int), nox_object_t* a1, nox_object_t* a2, nox_object_t* a3, int a4, int a5) { return fnc(a1, a2, a3, a4, a5); }
 */
@@ -112,6 +112,16 @@ func nox_xxx_servFinalizeDelObject_4DADE0(cobj *nox_object_t) {
 	noxServer.objectDeleteLast(asObjectC(cobj))
 }
 
+//export nox_xxx_getFirstUpdatable2Object_4DA840
+func nox_xxx_getFirstUpdatable2Object_4DA840() *nox_object_t {
+	return noxServer.objs.updatableList2.CObj()
+}
+
+//export nox_xxx_unitsNewAddToList_4DAC00
+func nox_xxx_unitsNewAddToList_4DAC00() {
+	noxServer.objectsNewAdd()
+}
+
 type shapeKind uint32
 
 const (
@@ -194,10 +204,6 @@ func (s *Server) firstServerObject() *Object { // nox_server_getFirstObject_4DA7
 	return asObjectC(C.nox_server_objects_1556844)
 }
 
-func firstServerObjectUpdatable2() *Object { // nox_xxx_getFirstUpdatable2Object_4DA840
-	return asObjectC(C.nox_server_objects_updatable2_1556848)
-}
-
 func (s *Server) firstServerObjectUninited() *Object { // nox_server_getFirstObjectUninited_4DA870
 	return asObjectC(C.nox_server_objects_uninited_1556860)
 }
@@ -210,17 +216,18 @@ func (s *Server) getObjects() []*Object {
 	return out
 }
 
-func getObjectsUpdatable2() []*Object {
+func (s *Server) getObjectsUpdatable2() []*Object {
 	var out []*Object
-	for p := firstServerObjectUpdatable2(); p != nil; p = p.Next() {
+	for p := s.objs.updatableList2; p != nil; p = p.Next() {
 		out = append(out, p)
 	}
 	return out
 }
 
 type serverObjects struct {
-	updatableList *Object
-	deletedList   *Object
+	updatableList  *Object
+	updatableList2 *Object
+	deletedList    *Object
 }
 
 func (s *serverObjects) addToUpdatable(obj *Object) {
@@ -362,7 +369,7 @@ func (s *Server) objectDeleteLast(obj *Object) {
 	obj.SetOwner(nil)
 	C.nox_xxx_unitRemoveChild_4EC470(obj.CObj())
 	C.sub_517870(obj.CObj())
-	C.sub_4DAE50(obj.CObj())
+	s.sub_4DAE50(obj)
 	C.sub_4ECFA0(obj.CObj())
 	C.sub_511DE0(obj.CObj())
 	if obj.Class().HasAny(object.MaskUnits) {
@@ -386,6 +393,99 @@ func (s *Server) deletedObjectsUpdate() {
 		}
 	}
 	s.objs.deletedList = list
+}
+
+func (s *Server) objectsNewAdd() {
+	var next *Object
+	for it := s.firstServerObjectUninited(); it != nil; it = next {
+		next = it.Next()
+		for it2 := it.OwnerC(); it2 != nil; it2 = it.OwnerC() {
+			if !it.Flags().Has(object.FlagDestroyed) {
+				break
+			}
+			it.SetOwner(it2.Owner())
+		}
+		if it.Class().Has(object.ClassMissile) {
+			it.object_next = s.objs.updatableList2.CObj()
+			it.object_prev = nil
+			if s.objs.updatableList2 != nil {
+				s.objs.updatableList2.object_prev = it.CObj()
+			}
+			s.objs.updatableList2 = it
+		} else {
+			if it.Flags().Has(object.FlagShadow) {
+				it.obj_flags &^= C.uint(object.FlagShadow)
+				C.nox_xxx_unitNewAddShadow_4DA9A0(it.CObj())
+			}
+			if it.Flags().Has(object.FlagRespawn) && !noxflags.HasGame(noxflags.GameModeQuest) {
+				C.nox_xxx_respawnAdd_4EC5E0(it.CObj())
+			}
+			if it.func_update != nil || it.vel_x != 0.0 || it.vel_y != 0.0 { // TODO: had a weird check: ... && *(*uint8)(&it.obj_class) >= 0
+				s.objs.addToUpdatable(it)
+			}
+			it.object_next = C.nox_server_objects_1556844
+			it.object_prev = nil
+			if C.nox_server_objects_1556844 != nil {
+				C.nox_server_objects_1556844.object_prev = it.CObj()
+			}
+			C.nox_set_server_objects_4DA3E0(it.CObj())
+		}
+		C.nox_xxx_unitCreateMissileSmth_517640(it.CObj())
+		if it.func_collide != nil {
+			C.sub_5117F0(it.CObj())
+		}
+		if it.func_init != nil {
+			C.nox_call_object_init((*[0]byte)(it.func_init), it.CObj(), nil)
+		}
+		var v6 bool
+		if it.Class().Has(object.ClassImmobile) {
+			if it.SubClass()&0x18 != 0 {
+				v6 = false
+			} else {
+				v6 = (^it.SubClass() >> 7) != 0
+			}
+		} else {
+			v6 = ((uint32(it.Class()) >> 29) & 1) != 0
+		}
+		if it.Class().Has(object.ClassVisibleEnable) || !v6 {
+			it.needSync()
+			if !it.Class().HasAny(object.ClassClientPersist | object.ClassImmobile) {
+				it.field_37 = 0
+			}
+		} else {
+			it.makeUnseen()
+			C.sub_527E00(it.CObj())
+			it.field_37 = -1
+		}
+		it.obj_flags &^= C.uint(object.FlagPending)
+	}
+	C.nox_server_objects_uninited_1556860 = nil
+}
+
+func (s *Server) sub_4DAE50(obj *Object) {
+	C.nox_xxx_action_4DA9F0(obj.CObj())
+	if obj.Class().Has(object.ClassMissile) {
+		prev := asObjectC(obj.object_prev)
+		if prev != nil {
+			prev.object_next = obj.object_next
+		} else {
+			s.objs.updatableList2 = asObjectC(obj.object_next)
+		}
+		if next := obj.object_next; next != nil {
+			next.object_prev = prev.CObj()
+		}
+	} else {
+		s.objs.removeFromUpdatable(obj)
+		prev := asObjectC(obj.object_prev)
+		if prev != nil {
+			prev.object_next = obj.object_next
+		} else {
+			C.nox_set_server_objects_4DA3E0(obj.object_next)
+		}
+		if next := obj.object_next; next != nil {
+			next.object_prev = prev.CObj()
+		}
+	}
 }
 
 func nox_xxx_createAt_4DAA50(obj noxObject, owner noxObject, pos types.Pointf) {
@@ -559,8 +659,16 @@ func (obj *Object) equalID(id2 string) bool {
 	return id == id2 || strings.HasSuffix(id, ":"+id2)
 }
 
+func (obj *Object) needSync() { // nox_xxx_unitNeedSync_4E44F0
+	obj.field_38 = -1
+}
+
+func (obj *Object) makeUnseen() { // nox_xxx_objectMakeUnseenByNoone_4E44E0
+	obj.field_38 = 0
+}
+
 func (obj *Object) Next() *Object { // nox_server_getNextObject_4DA7A0, nox_xxx_getNextUpdatable2Object_4DA850, nox_server_getNextObjectUninited_4DA880
-	return asObject(unsafe.Pointer(obj.field_111))
+	return asObject(unsafe.Pointer(obj.object_next))
 }
 
 func (obj *Object) FirstItem() *Object { // nox_xxx_inventoryGetFirst_4E7980

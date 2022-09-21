@@ -434,7 +434,7 @@ typedef struct nox_object_t {
 	uint32_t field_34;       // 34, 136, TODO: some frame/timestamp
 	uint32_t field_35;       // 35, 140
 	uint32_t field_36;       // 36, 144
-	uint32_t field_37;       // 37, 148
+	int field_37;            // 37, 148
 	int field_38;            // 38, 152
 	float float_39;          // 39, 156
 	float float_40;          // 40, 160
@@ -474,8 +474,8 @@ typedef struct nox_object_t {
 	uint16_t buffs_dur[32];  // 86, 344
 	uint8_t  buffs_power[32];// 102, 408
 	uint32_t field_110;      // 110, 440
-	void* field_111;         // 111, 444
-	uint32_t field_112;      // 112, 448
+	nox_object_t* object_next;  // 111, 444
+	nox_object_t* object_prev;  // 112, 448
 	nox_object_t* deleted_next; // 113, 452
 	uint32_t deleted_at;    // 114, 456
 	uint32_t field_115;      // 115, 460
