@@ -185,6 +185,9 @@ func (a *serverAbilities) Free() {
 }
 
 func (a *serverAbilities) nox_xxx_abilityNameToN_424D80(name string) Ability {
+	if len(a.byName) == 0 {
+		panic("not initialized yet")
+	}
 	return a.byName[name]
 }
 
