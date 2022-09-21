@@ -129,11 +129,6 @@ func nox_server_ResetObjectGIDs_4E3C70() {
 	noxServer.ResetObjectScriptIDs()
 }
 
-//export nox_server_SetFirstObjectScriptID_4E3C60
-func nox_server_SetFirstObjectScriptID_4E3C60(id C.int) {
-	noxServer.SetFirstObjectScriptID(server.ObjectScriptID(id))
-}
-
 //export nox_server_SetLastObjectScriptID
 func nox_server_SetLastObjectScriptID(id C.uint) {
 	noxServer.SetLastObjectScriptID(server.ObjectScriptID(id))
@@ -261,7 +256,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	if noxflags.HasEngine(noxflags.EngineReplayWrite | noxflags.EngineReplayRead) {
 		C.sub_4E76C0()
 	}
-	if C.nox_xxx_gameGet_4DB1B0() != 0 {
+	if nox_xxx_gameGet_4DB1B0() != 0 {
 		s.nox_xxx_gameTick_4D2580_server_D()
 	}
 	sub_4139C0()
@@ -637,9 +632,9 @@ func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
 					plx := ud.Player()
 					pi := plx.Index()
 					if plx.field_4792 == 1 && ud.field_138 == 0 && nox_xxx_playerSaveToFile_41A140(fname, pi) {
-						v5 := C.sub_419EE0(C.char(pi))
+						v5 := sub_419EE0(pi)
 						nox_xxx_sendGauntlet_4DCF80(pi, 1)
-						if C.sub_41CFA0(internCStr(fname), C.int(pi)) == 0 && v5 == 0 {
+						if !sub41CFA0(fname, pi) && !v5 {
 							nox_xxx_sendGauntlet_4DCF80(pi, 0)
 						}
 						ifs.Remove(fname)

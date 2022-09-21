@@ -65,7 +65,7 @@ func sub_4A1AA0(a1 *Window, ev WindowEvent) WindowEventResp {
 		clientPlaySoundSpecial(sound.SoundShellSelect, 100)
 		return RawEventResp(1)
 	case *WindowEvent0x4007:
-		if sub_43BE30() != 2 && sub_43BE30() != 3 || sub_4D6F30() != 0 {
+		if sub_43BE30() != 2 && sub_43BE30() != 3 || sub4D6F30() {
 			v3 := ev.Win.ID() - 151
 			if v3 != 0 {
 				if v3 == 1 {
@@ -74,7 +74,7 @@ func sub_4A1AA0(a1 *Window, ev WindowEvent) WindowEventResp {
 						v4 := strMan.GetStringInFile("GUIQuit.c:ReallyQuitTitle", "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
 						NewDialogWindow(asWindowP(C.dword_5d4594_1307292), v4, v6, 56, sub_4A19D0, nil)
 					} else {
-						if sub_4D6F30() != 0 {
+						if sub4D6F30() {
 							sub_4D6F90(2)
 						}
 						if gameGetStateCode() == gameStateColorSelect {
@@ -297,7 +297,7 @@ func sub4A18E0(a1 *Window, ev WindowEvent) WindowEventResp {
 			return RawEventResp(1)
 		}
 		if sub43BE30() {
-			if sub_4D6F30() != 0 {
+			if sub4D6F30() {
 				sub_4D6F90(2)
 			}
 			return RawEventResp(1)
@@ -315,7 +315,7 @@ func sub4A18E0(a1 *Window, ev WindowEvent) WindowEventResp {
 				}
 				nox_game_checkStateSwitch_43C1E0()
 			}
-			if sub_4D6F30() != 0 {
+			if sub4D6F30() {
 				sub_4D6F90(2)
 			}
 			return RawEventResp(1)

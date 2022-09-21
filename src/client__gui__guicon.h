@@ -24,7 +24,6 @@ enum {
 };
 
 int nox_gui_console_Hide_4512B0();
-void nox_gui_console_Clear_450B70();
 int nox_gui_console_flagXxx_451410();
 
 int nox_gui_console_Print_450B90(unsigned char cl, wchar_t* str);

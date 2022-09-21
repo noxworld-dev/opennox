@@ -64,11 +64,11 @@ func nox_xxx_objectTypeByID_4E3B60(cstr *C.char) *C.nox_objectType_t {
 
 //export nox_xxx_newObjectByTypeID_4E3810
 func nox_xxx_newObjectByTypeID_4E3810(cstr *C.char) *nox_object_t {
-	typ := noxServer.getObjectTypeByID(GoString(cstr))
-	if typ == nil {
+	obj := noxServer.newObjectByTypeID(GoString(cstr))
+	if obj == nil {
 		return nil
 	}
-	return typ.newObject().CObj()
+	return obj.CObj()
 }
 
 //export nox_xxx_getNameId_4E3AA0

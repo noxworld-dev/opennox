@@ -52,11 +52,6 @@ func nox_gui_console_flagXxx_451410() C.int {
 	return C.int((^(guiCon.root.Flags() >> 4)) & 1)
 }
 
-//export nox_gui_console_Clear_450B70
-func nox_gui_console_Clear_450B70() {
-	guiCon.Clear()
-}
-
 //export nox_gui_console_Print_450B90
 func nox_gui_console_Print_450B90(cl C.uchar, cstr *C.wchar_t) C.int {
 	// since legacy code still calls it, we redirect into global printer instead of GUI printer
