@@ -79,6 +79,16 @@ func nox_xxx_delayedDeleteObject_4E5CC0(obj *nox_object_t) {
 	asObjectC(obj).Delete()
 }
 
+//export nox_xxx_finalizeDeletingUnits_4E5EC0
+func nox_xxx_finalizeDeletingUnits_4E5EC0() {
+	noxServer.finalizeDeletingObjects()
+}
+
+//export nox_xxx_unitDeleteFinish_4E5E80
+func nox_xxx_unitDeleteFinish_4E5E80(obj *nox_object_t) {
+	noxServer.objectDeleteFinish(asObjectC(obj))
+}
+
 type shapeKind uint32
 
 const (
@@ -254,12 +264,31 @@ func (s *Server) delayedDelete(obj *Object) {
 		C.sub_506740(obj.CObj())
 	}
 	obj.SetFlags(obj.Flags() | object.FlagDestroyed)
-	obj.field_113 = (*nox_object_t)(*memmap.PtrPtr(0x5D4594, 1565588))
+	obj.deleted_next = (*nox_object_t)(*memmap.PtrPtr(0x5D4594, 1565588))
 	*memmap.PtrPtr(0x5D4594, 1565588) = unsafe.Pointer(obj.CObj())
-	obj.destroyedAt = C.uint(gameFrame())
+	obj.deleted_at = C.uint(gameFrame())
 	if nox_xxx_servObjectHasTeam_419130(obj.teamPtr()) {
 		C.nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(obj.teamPtr()), C.int(obj.net_code))
 	}
+}
+
+func (s *Server) finalizeDeletingObjects() {
+	var next *Object
+	for it := asObjectC((*nox_object_t)(*memmap.PtrPtr(0x5D4594, 1565588))); it != nil; it = next {
+		next = asObjectC(it.deleted_next)
+		s.objectDeleteFinish(it)
+	}
+	*memmap.PtrPtr(0x5D4594, 1565588) = nil
+}
+
+func (s *Server) objectDeleteFinish(obj *Object) {
+	C.nox_xxx_unitTransferSlaves_4EC4B0(obj.CObj())
+	obj.SetOwner(nil)
+	s.noxScript.actClearObj(obj)
+	C.nox_xxx_decay_5116F0(obj.CObj())
+	obj.dropAllItems()
+	C.nox_xxx_servFinalizeDelObject_4DADE0(obj.CObj())
+	C.nox_xxx_objectFreeMem_4E38A0(obj.CObj())
 }
 
 func nox_xxx_createAt_4DAA50(obj noxObject, owner noxObject, pos types.Pointf) {
@@ -878,6 +907,10 @@ func (obj *Object) findOwnerChainPlayer() *Object { // nox_xxx_findParentChainPl
 		res = it
 	}
 	return res
+}
+
+func (obj *Object) dropAllItems() {
+	C.nox_xxx_dropAllItems_4EDA40((*C.uint)(unsafe.Pointer(obj.CObj())))
 }
 
 func (obj *Object) sub548600(dp types.Pointf) {
