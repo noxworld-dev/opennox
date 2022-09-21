@@ -8993,7 +8993,7 @@ int* nox_xxx_updateBreak_53DB30(uint32_t* a1) {
 			result = nox_xxx_unitSetXStatus_4E4800((int)a1, (int*)8);
 		}
 	} else if ((unsigned char)result & 8) {
-		result = nox_xxx_unitRemoveFromUpdatable_4DA920(a1);
+		nox_xxx_unitRemoveFromUpdatable_4DA920(a1);
 	}
 	return result;
 }
@@ -9018,7 +9018,7 @@ int* nox_xxx_updateOpen_53DBB0(uint32_t* a1) {
 			result = nox_xxx_unitSetXStatus_4E4800((int)a1, (int*)8);
 		}
 	} else if ((unsigned char)result & 8) {
-		result = nox_xxx_unitRemoveFromUpdatable_4DA920(a1);
+		nox_xxx_unitRemoveFromUpdatable_4DA920(a1);
 	}
 	return result;
 }

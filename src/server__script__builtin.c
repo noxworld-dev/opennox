@@ -306,7 +306,8 @@ int nox_xxx_moverGoTo_5124C0(uint32_t* a1, uint32_t* a2) {
 	a1[21] = 0;
 	*(uint8_t*)v2 = 0;
 	*(uint32_t*)(v2 + 8) = *a2;
-	return nox_xxx_unitAddToUpdatable_4DA8D0((int)a1);
+	nox_xxx_unitAddToUpdatable_4DA8D0(a1);
+	return a1;
 }
 
 //----- (00512500) --------------------------------------------------------

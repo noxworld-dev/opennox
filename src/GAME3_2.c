@@ -101,7 +101,6 @@ extern unsigned int nox_frame_xxx_2598000;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 
-nox_object_t* nox_server_object_updateable_1556852 = 0;
 nox_object_t* nox_server_objects_uninited_1556860 = 0;
 nox_object_t* nox_server_objects_updatable2_1556848 = 0;
 nox_object_t* nox_server_objects_1556844 = 0;
@@ -5876,74 +5875,6 @@ nox_object_t* nox_server_getNextObjectUninited_4DA880(const nox_object_t* obj) {
 		result = *(uint32_t*)(a1 + 444);
 	} else {
 		result = 0;
-	}
-	return result;
-}
-
-//----- (004DA8A0) --------------------------------------------------------
-nox_object_t* nox_xxx_getFirstUpdatableObject_4DA8A0() { return nox_server_object_updateable_1556852; }
-
-//----- (004DA8B0) --------------------------------------------------------
-nox_object_t* nox_xxx_getNextUpdatableObject_4DA8B0(const nox_object_t* obj) {
-	const int a1 = obj;
-	int result; // eax
-
-	if (a1) {
-		result = *(uint32_t*)(a1 + 476);
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
-//----- (004DA8D0) --------------------------------------------------------
-nox_object_t* nox_xxx_unitAddToUpdatable_4DA8D0(const nox_object_t* obj) {
-	const int a1 = obj;
-	int result; // eax
-
-	result = a1;
-	if (!*(uint32_t*)(a1 + 484) && !(*(uint8_t*)(a1 + 8) & 1)) {
-		*(uint32_t*)(a1 + 480) = 0;
-		*(uint32_t*)(a1 + 476) = nox_server_object_updateable_1556852;
-		if (nox_server_object_updateable_1556852) {
-			nox_server_object_updateable_1556852->field_120 = a1;
-		}
-		nox_server_object_updateable_1556852 = a1;
-		*(uint32_t*)(a1 + 484) = 1;
-		*(uint32_t*)(a1 + 520) = 0;
-	}
-	return result;
-}
-
-//----- (004DA920) --------------------------------------------------------
-uint32_t* nox_xxx_unitRemoveFromUpdatable_4DA920(nox_object_t* a1p) {
-	uint32_t* a1 = a1p;
-	uint32_t* result; // eax
-	int v2;           // ecx
-	int v3;           // ecx
-	int v4;           // ecx
-
-	result = a1;
-	if (a1[121]) {
-		v2 = a1[120];
-		if (v2) {
-			*(uint32_t*)(v2 + 476) = a1[119];
-			v3 = a1[119];
-			if (v3) {
-				*(uint32_t*)(v3 + 480) = a1[120];
-				a1[121] = 0;
-				a1[130] = 0;
-				return result;
-			}
-		} else {
-			nox_server_object_updateable_1556852 = a1[119];
-			v4 = a1[119];
-			if (v4) {
-				*(uint32_t*)(v4 + 480) = 0;
-			}
-		}
-		a1[121] = 0;
-		a1[130] = 0;
 	}
 	return result;
 }
