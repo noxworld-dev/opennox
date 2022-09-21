@@ -546,7 +546,8 @@ int nox_xxx_teamCompare2_419180(int a1, unsigned char a2) {
 }
 
 //----- (00419570) --------------------------------------------------------
-void nox_xxx_netChangeTeamMb_419570(int a1, int a2) {
+void nox_xxx_netChangeTeamMb_419570(void* a1p, int a2) {
+	int a1 = a1p;
 	char* v2;   // esi
 	char* v3;   // ebx
 	char v4[6]; // [esp+8h] [ebp-8h]

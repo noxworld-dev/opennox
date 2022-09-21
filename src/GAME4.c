@@ -4431,7 +4431,8 @@ int sub_4FEA70(int a1, float2* a2) {
 }
 
 //----- (004FEAE0) --------------------------------------------------------
-int nox_xxx_playerCancelSpells_4FEAE0(int a1) {
+int nox_xxx_playerCancelSpells_4FEAE0(nox_object_t* a1p) {
+	int a1 = a1p;
 	int result; // eax
 	int v2;     // esi
 
@@ -6126,7 +6127,9 @@ int sub_500CA0(int a1, int a2) {
 }
 
 //----- (00500CC0) --------------------------------------------------------
-int nox_xxx_creatureIsMonitored_500CC0(int a1, int a2) {
+int nox_xxx_creatureIsMonitored_500CC0(nox_object_t* a1p, nox_object_t* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v2;     // eax
 	int result; // eax
 
@@ -8823,7 +8826,8 @@ int sub_506720() {
 }
 
 //----- (00506740) --------------------------------------------------------
-int sub_506740(int a1) {
+int sub_506740(nox_object_t* a1p) {
+	int a1 = a1p;
 	int result; // eax
 	int v2;     // esi
 	int v3;     // ecx
