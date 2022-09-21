@@ -83,6 +83,29 @@ func nox_xxx_finalizeDeletingUnits_4E5EC0() {
 	noxServer.finalizeDeletingObjects()
 }
 
+//export nox_xxx_getFirstUpdatableObject_4DA8A0
+func nox_xxx_getFirstUpdatableObject_4DA8A0() *nox_object_t {
+	return noxServer.objs.updatableList.CObj()
+}
+
+//export nox_xxx_getNextUpdatableObject_4DA8B0
+func nox_xxx_getNextUpdatableObject_4DA8B0(obj *nox_object_t) *nox_object_t {
+	if obj == nil {
+		return nil
+	}
+	return obj.updatable_next
+}
+
+//export nox_xxx_unitAddToUpdatable_4DA8D0
+func nox_xxx_unitAddToUpdatable_4DA8D0(cobj *nox_object_t) {
+	noxServer.objs.addToUpdatable(asObjectC(cobj))
+}
+
+//export nox_xxx_unitRemoveFromUpdatable_4DA920
+func nox_xxx_unitRemoveFromUpdatable_4DA920(cobj *nox_object_t) {
+	noxServer.objs.removeFromUpdatable(asObjectC(cobj))
+}
+
 type shapeKind uint32
 
 const (
@@ -190,7 +213,38 @@ func getObjectsUpdatable2() []*Object {
 }
 
 type serverObjects struct {
-	deletedList *Object
+	updatableList *Object
+	deletedList   *Object
+}
+
+func (s *serverObjects) addToUpdatable(obj *Object) {
+	if obj.is_updatable == 0 && !obj.Class().Has(object.ClassMissile) {
+		obj.updatable_prev = nil
+		obj.updatable_next = s.updatableList.CObj()
+		if s.updatableList != nil {
+			s.updatableList.updatable_prev = obj.CObj()
+		}
+		s.updatableList = obj
+		obj.is_updatable = 1
+		obj.obj_130 = nil
+	}
+}
+
+func (s *serverObjects) removeFromUpdatable(obj *Object) {
+	if obj.is_updatable == 0 {
+		return
+	}
+	prev := asObjectC(obj.updatable_prev)
+	if prev != nil {
+		prev.updatable_next = obj.updatable_next
+	} else {
+		s.updatableList = asObjectC(obj.updatable_next)
+	}
+	if next := obj.updatable_next; next != nil {
+		next.updatable_prev = prev.CObj()
+	}
+	obj.is_updatable = 0
+	obj.obj_130 = nil
 }
 
 func (s *Server) getObjectsUninited() []*Object {
@@ -299,7 +353,7 @@ func (s *Server) deletedObjectsUpdate() {
 		if uint32(it.deleted_at) == gameFrame() {
 			it.deleted_next = list.CObj()
 			list = it
-			C.nox_xxx_unitRemoveFromUpdatable_4DA920(it.CObj())
+			s.objs.removeFromUpdatable(it)
 		} else {
 			s.objectDeleteFinish(it)
 		}
