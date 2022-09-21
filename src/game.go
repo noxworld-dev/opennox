@@ -74,7 +74,6 @@ void nox_console_sendSysOpPass_4409D0(wchar_t* a1);
 unsigned int*  nox_xxx_netUseMap_4DEE00(const char* a1, int a2);
 char* nox_xxx_getSomeMapName_4D0CF0();
 int  nox_server_loadMapFile_4CF5F0(char* a1, int a2);
-void  nox_xxx_addDebugEntry_511590(void* a1, void* a2);
 int nox_xxx_mapLoadRequired_4DCC80();
 int  sub_4EF660(nox_object_t* a1p);
 void  sub_500510(const char* a1);
@@ -1325,12 +1324,12 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 		case "spring":
 			val = strings.TrimSpace(val)
 			if sub := strings.Fields(val); len(sub) >= 2 {
-				v28, _ := strconv.Atoi(sub[0])
-				v29 := s.getObjectByInd(v28)
-				v31, _ := strconv.Atoi(sub[1])
-				v32 := s.getObjectByInd(v31)
-				if v29 != nil && v32 != nil {
-					C.nox_xxx_addDebugEntry_511590(unsafe.Pointer(v29.CObj()), unsafe.Pointer(v32.CObj()))
+				ind1, _ := strconv.Atoi(sub[0])
+				obj1 := s.getObjectByInd(ind1)
+				ind2, _ := strconv.Atoi(sub[1])
+				obj2 := s.getObjectByInd(ind2)
+				if obj1 != nil && obj2 != nil {
+					s.springs.Add(obj1, obj2)
 				}
 			}
 		case "SentryGlobe":
