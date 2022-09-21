@@ -408,7 +408,7 @@ func sub_42BFE0() {
 			last++
 		}
 	}
-	for it := s.firstServerObject(); it != nil; it = it.Next() {
+	for it := s.objs.list; it != nil; it = it.Next() {
 		checkInd(it.objTypeInd())
 		for it2 := it.FirstItem(); it2 != nil; it2 = it2.NextItem() {
 			checkInd(it2.objTypeInd())
@@ -417,7 +417,7 @@ func sub_42BFE0() {
 			checkTypesMonsterGen(it, checkInd)
 		}
 	}
-	for it := s.firstServerObjectUninited(); it != nil; it = it.Next() {
+	for it := s.objs.pending; it != nil; it = it.Next() {
 		checkInd(it.objTypeInd())
 		if it.Class().Has(object.ClassMonsterGenerator) {
 			checkTypesMonsterGen(it, checkInd)
