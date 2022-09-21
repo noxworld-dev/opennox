@@ -632,6 +632,7 @@ void sub_4E4170() {
 }
 
 //----- (004E5E20) --------------------------------------------------------
+void nox_xxx_unitDeleteFinish_4E5E80(nox_object_t* a1);
 void nox_xxx_unitsUpdateDeletedList_4E5E20() {
 	uint32_t* result; // eax
 	uint32_t* v1;     // edi

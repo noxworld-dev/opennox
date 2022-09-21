@@ -476,8 +476,8 @@ typedef struct nox_object_t {
 	uint32_t field_110;      // 110, 440
 	void* field_111;         // 111, 444
 	uint32_t field_112;      // 112, 448
-	nox_object_t* field_113; // 113, 452
-	uint32_t destroyedAt;    // 114, 456
+	nox_object_t* deleted_next; // 113, 452
+	uint32_t deleted_at;    // 114, 456
 	uint32_t field_115;      // 115, 460
 	uint32_t field_116;      // 116, 464
 	uint32_t field_117;      // 117, 468
