@@ -38,7 +38,7 @@ func nox_server_getFirstObject_4DA790() *nox_object_t {
 
 //export nox_server_getFirstObjectUninited_4DA870
 func nox_server_getFirstObjectUninited_4DA870() *nox_object_t {
-	return noxServer.firstServerObjectUninited().CObj()
+	return noxServer.objs.pending.CObj()
 }
 
 //export nox_server_getNextObject_4DA7A0
@@ -254,10 +254,6 @@ func (s *Server) firstServerObject() *Object { // nox_server_getFirstObject_4DA7
 	return s.objs.list
 }
 
-func (s *Server) firstServerObjectUninited() *Object { // nox_server_getFirstObjectUninited_4DA870
-	return s.objs.pending
-}
-
 func (s *Server) getObjects() []*Object {
 	var out []*Object
 	for p := s.firstServerObject(); p != nil; p = p.Next() {
@@ -314,19 +310,19 @@ func (s *serverObjects) removeFromUpdatable(obj *Object) {
 
 func (s *Server) getObjectsUninited() []*Object {
 	var out []*Object
-	for p := s.firstServerObjectUninited(); p != nil; p = p.Next() {
+	for p := s.objs.pending; p != nil; p = p.Next() {
 		out = append(out, p)
 	}
 	return out
 }
 
 func (s *Server) getObjectByID(id string) *Object {
-	for obj := s.firstServerObject(); obj != nil; obj = obj.Next() {
+	for obj := s.objs.list; obj != nil; obj = obj.Next() {
 		if p := obj.findByID(id); p != nil {
 			return p
 		}
 	}
-	for obj := s.firstServerObjectUninited(); obj != nil; obj = obj.Next() {
+	for obj := s.objs.pending; obj != nil; obj = obj.Next() {
 		if p := obj.findByID(id); p != nil {
 			return p
 		}
@@ -449,7 +445,7 @@ func (s *Server) deletedObjectsUpdate() {
 
 func (s *Server) objectsNewAdd() {
 	var next *Object
-	for it := s.firstServerObjectUninited(); it != nil; it = next {
+	for it := s.objs.pending; it != nil; it = next {
 		next = it.Next()
 		for it2 := it.OwnerC(); it2 != nil; it2 = it.OwnerC() {
 			if !it.Flags().Has(object.FlagDestroyed) {
@@ -542,7 +538,7 @@ func (s *Server) sub_4DAE50(obj *Object) {
 
 func (s *Server) objectsClearPending() {
 	var next *Object
-	for it := s.firstServerObjectUninited(); it != nil; it = next {
+	for it := s.objs.pending; it != nil; it = next {
 		next = it.Next()
 		it.obj_flags &^= C.uint(object.FlagPending)
 		if s.objs.list != nil {

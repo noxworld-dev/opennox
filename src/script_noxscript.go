@@ -329,7 +329,7 @@ func (s *noxScript) scriptToObject(val int) *Object {
 		return obj
 	}
 
-	for obj := s.s.firstServerObject(); obj != nil; obj = obj.Next() {
+	for obj := s.s.objs.list; obj != nil; obj = obj.Next() {
 		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID() == val {
 			C.nox_xxx_scriptPrepareFoundUnit_511D70(obj.CObj())
 			return obj
@@ -341,7 +341,7 @@ func (s *noxScript) scriptToObject(val int) *Object {
 			}
 		}
 	}
-	for obj := s.s.firstServerObjectUninited(); obj != nil; obj = obj.Next() {
+	for obj := s.s.objs.pending; obj != nil; obj = obj.Next() {
 		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID() == val {
 			C.nox_xxx_scriptPrepareFoundUnit_511D70(obj.CObj())
 			return obj
