@@ -20,7 +20,7 @@ import (
 
 //export nox_xxx_harpoonBreakForPlr_537520
 func nox_xxx_harpoonBreakForPlr_537520(u *nox_object_t) {
-	noxServer.abilities.harpoon.breakForPlayer(asUnitC(u))
+	noxServer.abilities.harpoon.breakForOwner(asUnitC(u), true)
 }
 
 //export nox_xxx_collideHarpoon_4EB6A0
@@ -157,7 +157,7 @@ func (a *abilityHarpoon) UpdatePlayer(u *Unit) {
 	}
 	if targ := asObjectC(d.target); targ != nil {
 		if targ.Flags().Has(object.FlagDestroyed) {
-			a.breakForPlayer(u)
+			a.breakForOwner(u, true)
 		} else {
 			force := gamedataFloat("HarpoonForce")
 			sub_4E7540(u, targ)
@@ -166,12 +166,7 @@ func (a *abilityHarpoon) UpdatePlayer(u *Unit) {
 	}
 }
 
-func (a *abilityHarpoon) breakForPlayer(u *Unit) {
-	a.breakSilent(u)
-	nox_xxx_aud_501960(sound.SoundHarpoonBroken, u, 0, 0)
-}
-
-func (a *abilityHarpoon) breakSilent(u *Unit) {
+func (a *abilityHarpoon) breakForOwner(u *Unit, emitSound bool) {
 	if u == nil {
 		return
 	}
@@ -185,6 +180,9 @@ func (a *abilityHarpoon) breakSilent(u *Unit) {
 		asUnitC(d.bolt).Delete()
 		d.bolt = nil
 	}
+	if emitSound {
+		nox_xxx_aud_501960(sound.SoundHarpoonBroken, u, 0, 0)
+	}
 }
 
 func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
@@ -195,7 +193,7 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 	if targ == nil {
 		npos := bolt.newPos()
 		C.nox_xxx_damageToMap_534BC0(C.int(npos.X/common.GridStep), C.int(npos.Y/common.GridStep), C.int(a.damage), 11, bolt.CObj())
-		a.breakSilent(owner)
+		a.breakForOwner(owner, false)
 		return
 	}
 	if targ.Flags().HasAny(object.FlagDestroyed|object.FlagDead) || targ == owner {
@@ -204,7 +202,7 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 	u5 := bolt.findOwnerChainPlayer()
 	if targ.callDamage(u5, bolt, a.damage, 11) == 0 || !(owner.isEnemyTo(targ) || checkGameplayFlags(1) && targ.Class().HasAny(object.MaskUnits)) {
 		C.nox_xxx_soundDefaultDamageSound_532E20(targ.CObj(), bolt.CObj())
-		a.breakSilent(owner)
+		a.breakForOwner(owner, false)
 		return
 	}
 	d := a.getHarpoonData(owner)
@@ -238,13 +236,13 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 	}
 	owner := bolt.OwnerC().AsUnit()
 	if owner.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
-		a.breakForPlayer(owner)
+		a.breakForOwner(owner, true)
 		return
 	}
 	bud := bolt.updateDataPtr()
 	obj4 := asUnitC(*(**nox_object_t)(bud))
 	if obj4 != nil && obj4.Flags().HasAny(object.FlagDestroyed|object.FlagDead) {
-		a.breakForPlayer(owner)
+		a.breakForOwner(owner, true)
 		return
 	}
 	d := a.getHarpoonData(owner)
@@ -253,8 +251,8 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 	}
 	if d.target == nil {
 		if obj4 == nil {
-			v13 := d.getAim()
-			obj6 := nox_xxx_spellFlySearchTarget(&v13, bolt, 32, a.maxDist, 0, owner)
+			aim := d.getAim()
+			obj6 := nox_xxx_spellFlySearchTarget(&aim, bolt, 32, a.maxDist, 0, owner)
 			*(**nox_object_t)(bud) = obj6.CObj()
 			if obj6 != nil {
 				if nox_server_testTwoPointsAndDirection_4E6E50(bolt.Pos(), int16(bolt.direction1), obj6.Pos())&0x1 == 0 {
@@ -269,16 +267,16 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 	dist := nox_xxx_calcDistance_4E6C00(bolt, owner)
 	if targ := asUnitC(d.target); targ != nil {
 		if dist > a.maxDist {
-			a.breakForPlayer(owner)
+			a.breakForOwner(owner, true)
 			return
 		}
 		if dist < a.minDist {
-			a.breakSilent(owner)
+			a.breakForOwner(owner, false)
 			return
 		}
 
 		if df := gameFrame() - d.frame35; float32(df) > a.lifetime {
-			a.breakForPlayer(owner)
+			a.breakForOwner(owner, true)
 			return
 		}
 		tpos := targ.Pos()
@@ -287,17 +285,17 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 			dx := d.targPos.X - tpos.X
 			dy := d.targPos.Y - tpos.Y
 			if dx*dx+dy*dy < 1.0 {
-				a.breakForPlayer(owner)
+				a.breakForOwner(owner, true)
 				return
 			}
 			d.targPos = tpos
 		}
 		if !MapTraceRayAt(owner.Pos(), tpos, nil, nil, 9) {
-			a.breakForPlayer(owner)
+			a.breakForOwner(owner, true)
 			return
 		}
 		if targ.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
-			a.breakForPlayer(owner)
+			a.breakForOwner(owner, true)
 			return
 		}
 		bolt.setNewPos(tpos)
@@ -308,7 +306,7 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 		bolt.direction1 = targ.direction1
 		nox_xxx_moveUpdateSpecial_517970(bolt.CObj())
 	} else if dist > a.maxFlight {
-		a.breakForPlayer(owner)
+		a.breakForOwner(owner, true)
 		return
 	}
 	if d.frame35 == 0 {
