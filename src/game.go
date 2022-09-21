@@ -49,7 +49,6 @@ extern unsigned int dword_5d4594_2650652;
 extern void* dword_5d4594_1548532;
 extern unsigned int dword_5d4594_1548704;
 extern unsigned int dword_5d4594_1556144;
-extern unsigned int dword_5d4594_1563064;
 extern unsigned int dword_5d4594_251744;
 extern unsigned int dword_5d4594_815052;
 extern unsigned int dword_5d4594_1049508;
@@ -1402,7 +1401,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() bool {
 				}
 			}
 		}
-		C.sub_4DCBF0(0)
+		sub_4DCBF0(0)
 	}
 	_ = object.FlagMarked
 	for _, obj := range s.getObjects() {
@@ -1453,7 +1452,7 @@ func sub_4D7140(a1 uint32) {
 }
 
 func sub_4DCC00() bool {
-	return C.dword_5d4594_1563064 != 0
+	return dword_5d4594_1563064
 }
 
 func sub_413980(a1 int) {
