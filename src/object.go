@@ -28,7 +28,6 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 )
 
@@ -82,11 +81,6 @@ func nox_xxx_delayedDeleteObject_4E5CC0(obj *nox_object_t) {
 //export nox_xxx_finalizeDeletingUnits_4E5EC0
 func nox_xxx_finalizeDeletingUnits_4E5EC0() {
 	noxServer.finalizeDeletingObjects()
-}
-
-//export nox_xxx_unitDeleteFinish_4E5E80
-func nox_xxx_unitDeleteFinish_4E5E80(obj *nox_object_t) {
-	noxServer.objectDeleteFinish(asObjectC(obj))
 }
 
 type shapeKind uint32
@@ -195,6 +189,10 @@ func getObjectsUpdatable2() []*Object {
 	return out
 }
 
+type serverObjects struct {
+	deletedList *Object
+}
+
 func (s *Server) getObjectsUninited() []*Object {
 	var out []*Object
 	for p := s.firstServerObjectUninited(); p != nil; p = p.Next() {
@@ -264,8 +262,8 @@ func (s *Server) delayedDelete(obj *Object) {
 		C.sub_506740(obj.CObj())
 	}
 	obj.SetFlags(obj.Flags() | object.FlagDestroyed)
-	obj.deleted_next = (*nox_object_t)(*memmap.PtrPtr(0x5D4594, 1565588))
-	*memmap.PtrPtr(0x5D4594, 1565588) = unsafe.Pointer(obj.CObj())
+	obj.deleted_next = s.objs.deletedList.CObj()
+	s.objs.deletedList = obj
 	obj.deleted_at = C.uint(gameFrame())
 	if nox_xxx_servObjectHasTeam_419130(obj.teamPtr()) {
 		C.nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(obj.teamPtr()), C.int(obj.net_code))
@@ -274,11 +272,11 @@ func (s *Server) delayedDelete(obj *Object) {
 
 func (s *Server) finalizeDeletingObjects() {
 	var next *Object
-	for it := asObjectC((*nox_object_t)(*memmap.PtrPtr(0x5D4594, 1565588))); it != nil; it = next {
+	for it := s.objs.deletedList; it != nil; it = next {
 		next = asObjectC(it.deleted_next)
 		s.objectDeleteFinish(it)
 	}
-	*memmap.PtrPtr(0x5D4594, 1565588) = nil
+	s.objs.deletedList = nil
 }
 
 func (s *Server) objectDeleteFinish(obj *Object) {
@@ -289,6 +287,24 @@ func (s *Server) objectDeleteFinish(obj *Object) {
 	obj.dropAllItems()
 	C.nox_xxx_servFinalizeDelObject_4DADE0(obj.CObj())
 	C.nox_xxx_objectFreeMem_4E38A0(obj.CObj())
+}
+
+func (s *Server) deletedObjectsUpdate() {
+	var (
+		list *Object
+		next *Object
+	)
+	for it := s.objs.deletedList; it != nil; it = next {
+		next = asObjectC(it.deleted_next)
+		if uint32(it.deleted_at) == gameFrame() {
+			it.deleted_next = list.CObj()
+			list = it
+			C.nox_xxx_unitRemoveFromUpdatable_4DA920(it.CObj())
+		} else {
+			s.objectDeleteFinish(it)
+		}
+	}
+	s.objs.deletedList = list
 }
 
 func nox_xxx_createAt_4DAA50(obj noxObject, owner noxObject, pos types.Pointf) {
