@@ -5916,7 +5916,8 @@ nox_object_t* nox_xxx_unitAddToUpdatable_4DA8D0(const nox_object_t* obj) {
 }
 
 //----- (004DA920) --------------------------------------------------------
-uint32_t* nox_xxx_unitRemoveFromUpdatable_4DA920(uint32_t* a1) {
+uint32_t* nox_xxx_unitRemoveFromUpdatable_4DA920(nox_object_t* a1p) {
+	uint32_t* a1 = a1p;
 	uint32_t* result; // eax
 	int v2;           // ecx
 	int v3;           // ecx

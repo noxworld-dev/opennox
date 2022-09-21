@@ -631,33 +631,6 @@ void sub_4E4170() {
 	}
 }
 
-//----- (004E5E20) --------------------------------------------------------
-void nox_xxx_unitDeleteFinish_4E5E80(nox_object_t* a1);
-void nox_xxx_unitsUpdateDeletedList_4E5E20() {
-	uint32_t* result; // eax
-	uint32_t* v1;     // edi
-	uint32_t* v2;     // esi
-
-	result = *(uint32_t**)getMemAt(0x5D4594, 1565588);
-	v1 = 0;
-	if (*getMemU32Ptr(0x5D4594, 1565588)) {
-		do {
-			v2 = (uint32_t*)result[113];
-			if (result[114] == nox_frame_xxx_2598000) {
-				result[113] = v1;
-				v1 = result;
-				nox_xxx_unitRemoveFromUpdatable_4DA920(result);
-			} else {
-				nox_xxx_unitDeleteFinish_4E5E80(result);
-			}
-			result = v2;
-		} while (v2);
-		*getMemU32Ptr(0x5D4594, 1565588) = v1;
-	} else {
-		*getMemU32Ptr(0x5D4594, 1565588) = 0;
-	}
-}
-
 //----- (004E76C0) --------------------------------------------------------
 int sub_4E76C0() {
 	int v0;     // edi

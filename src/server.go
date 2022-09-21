@@ -116,6 +116,7 @@ type Server struct {
 	lua             scriptLUA
 	tickHooks       tickHooks
 	types           serverObjTypes
+	objs            serverObjects
 	teams           serverTeams
 	ai              aiData
 	quest           questServer
@@ -231,7 +232,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 		s.noxScript.actRun()
 		s.scriptTick()
 		C.nox_xxx_voteUptate_506F30()
-		C.nox_xxx_unitsUpdateDeletedList_4E5E20()
+		s.deletedObjectsUpdate()
 	}
 	if err := s.updateRemotePlayers(); err != nil {
 		gameLog.Println("update remote players:", err)
