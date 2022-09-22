@@ -3732,39 +3732,6 @@ int nox_xxx_parseHealth_535A60(int a1, int a2, char* a3) {
 	return result;
 }
 
-//----- (00535AD0) --------------------------------------------------------
-int nox_xxx_parseFlags_535AD0(int a1, int a2, const char* a3) {
-	*(uint32_t*)(a1 + 32) = 0;
-	set_bitmask_flags_from_plus_separated_names_423930(a3, (uint32_t*)(a1 + 32),
-													   (const char**)getMemAt(0x587000, 264368));
-	return 1;
-}
-
-//----- (00535B00) --------------------------------------------------------
-int nox_xxx_parseClass_535B00(int a1, int a2, const char* a3) {
-	*(uint32_t*)(a1 + 24) = 0;
-	set_bitmask_flags_from_plus_separated_names_423930(a3, (uint32_t*)(a1 + 24),
-													   (const char**)getMemAt(0x587000, 264500));
-	return 1;
-}
-
-//----- (00535B30) --------------------------------------------------------
-int nox_xxx_parseSubclass_535B30(int a1, int a2, const char* a3) {
-	*(uint32_t*)(a1 + 28) = 0;
-	set_bitmask_flags_from_plus_separated_names_multiple_423A10(a3, (uint32_t*)(a1 + 28));
-	return 1;
-}
-
-//----- (00535BE0) --------------------------------------------------------
-int nox_xxx_parseMaterial_535BE0(int a1, int a2, const char* a3) {
-	int v4; // [esp+0h] [ebp-4h]
-
-	v4 = 0;
-	set_bitmask_flags_from_plus_separated_names_423930(a3, &v4, (const char**)getMemAt(0x587000, 265912));
-	*(uint16_t*)(a1 + 40) = v4;
-	return 1;
-}
-
 //----- (00535C30) --------------------------------------------------------
 int nox_xxx_parseMenuIcon_535C30(int a1, int a2, char* a3) {
 	int v2; // edx
