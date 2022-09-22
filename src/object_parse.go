@@ -16,6 +16,8 @@ import (
 	"strconv"
 	"strings"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox-lib/object"
 )
 
 type objectFieldFunc func(objt *ObjectType, f *MemFile, str string, buf []byte) error
@@ -70,11 +72,39 @@ func firstWord(s string) string {
 }
 
 var noxObjectFieldByName = map[string]objectFieldFunc{
-	"CLASS":    wrapObjectFieldFuncC(C.nox_xxx_parseClass_535B00),
-	"SUBCLASS": wrapObjectFieldFuncC(C.nox_xxx_parseSubclass_535B30),
-	"EXTENT":   wrapObjectFieldFuncC(C.nox_xxx_parseExtent_535990),
-	"FLAGS":    wrapObjectFieldFuncC(C.nox_xxx_parseFlags_535AD0),
-	"MATERIAL": wrapObjectFieldFuncC(C.nox_xxx_parseMaterial_535BE0),
+	"CLASS": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
+		v, err := object.ParseClassSet(str)
+		if err != nil {
+			thingsLog.Printf("%q (%d): %v", objt.ID(), objt.Ind(), err)
+		}
+		objt.obj_class = uint32(v)
+		return nil
+	},
+	"SUBCLASS": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
+		v, err := object.ParseSubClassSet(str)
+		if err != nil {
+			thingsLog.Printf("%q (%d): %v", objt.ID(), objt.Ind(), err)
+		}
+		objt.obj_subclass = uint32(v)
+		return nil
+	},
+	"EXTENT": wrapObjectFieldFuncC(C.nox_xxx_parseExtent_535990),
+	"FLAGS": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
+		v, err := object.ParseFlagSet(str)
+		if err != nil {
+			thingsLog.Printf("%q (%d): %v", objt.ID(), objt.Ind(), err)
+		}
+		objt.obj_flags = uint32(v)
+		return nil
+	},
+	"MATERIAL": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
+		v, err := object.ParseMaterialSet(str)
+		if err != nil {
+			thingsLog.Printf("%q (%d): %v", objt.ID(), objt.Ind(), err)
+		}
+		objt.material = uint16(v)
+		return nil
+	},
 	"CARRYCAPACITY": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
 		v, err := strconv.ParseUint(firstWord(str), 10, 16)
 		if err != nil {

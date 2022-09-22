@@ -122,10 +122,6 @@ bool nox_xxx_mapDamageToWalls_534FC0(int4* a1, void* a2, float a3, int a4, int a
 int nox_xxx_mapTraceRay_535250(float4* a1, float2* a2, int2* a3, char a4);
 int nox_xxx_parseExtent_535990(int a1, int a2, char* a3);
 int nox_xxx_parseHealth_535A60(int a1, int a2, char* a3);
-int nox_xxx_parseFlags_535AD0(int a1, int a2, const char* a3);
-int nox_xxx_parseClass_535B00(int a1, int a2, const char* a3);
-int nox_xxx_parseSubclass_535B30(int a1, int a2, const char* a3);
-int nox_xxx_parseMaterial_535BE0(int a1, int a2, const char* a3);
 int nox_xxx_parseMenuIcon_535C30(int a1, int a2, char* a3);
 int nox_xxx_parsePrettyImage_0_535C80(int a1, int a2);
 int nox_xxx_parseDraw_535CD0(int a1, uint32_t* a2, void* a3);
