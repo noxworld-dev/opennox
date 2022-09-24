@@ -39,6 +39,15 @@ func nox_xxx_objectTypeByInd_4E3B70(ind C.int) *C.nox_objectType_t {
 	return noxServer.getObjectTypeByInd(int(ind)).C()
 }
 
+//export nox_xxx_objectTypeByIndHealthData
+func nox_xxx_objectTypeByIndHealthData(ind C.int) unsafe.Pointer {
+	t := noxServer.getObjectTypeByInd(int(ind))
+	if t == nil {
+		return nil
+	}
+	return unsafe.Pointer(t.health_data)
+}
+
 //export nox_xxx_getUnitDefDd10_4E3BA0
 func nox_xxx_getUnitDefDd10_4E3BA0(ind C.int) C.int {
 	return C.int(noxServer.getObjectTypeByInd(int(ind)).field_4)
