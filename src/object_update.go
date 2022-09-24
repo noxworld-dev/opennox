@@ -10,9 +10,6 @@ package opennox
 #include "GAME4_3.h"
 #include "GAME5.h"
 #include "server__magic__plyrspel.h"
-void nullsub_65();
-void nullsub_69();
-void nullsub_70();
 
 extern uint32_t dword_5d4594_1569672;
 extern void* nox_alloc_magicEnt_1569668;
@@ -43,32 +40,14 @@ var (
 	noxPixieObjID int
 )
 
-type noxObjectUpdateFuncs struct {
-	Name      string
-	Func      unsafe.Pointer
-	DataSize  uintptr
-	ParseFunc unsafe.Pointer
-}
-
-var (
-	noxObjectUpdateByName = make(map[string]*noxObjectUpdateFuncs)
-)
-
-func init() {
-	for i := range noxObjectUpdateTable {
-		t := &noxObjectUpdateTable[i]
-		noxObjectUpdateByName[t.Name] = t
-	}
-}
-
 func nox_xxx_parseUpdate_536620(objt *ObjectType, _ *MemFile, str string, _ []byte) error {
 	name := str
 	if i := strings.IndexAny(str, " \t\n\r"); i > 0 {
 		name = str[:i]
 		str = str[i+1:]
 	}
-	t := noxObjectUpdateByName[name]
-	if t == nil {
+	t, ok := noxObjectUpdateTable[name]
+	if !ok {
 		// TODO: add "unknown" updates as a nop update types (similar to NoUpdate)
 		return nil
 	}
@@ -90,65 +69,69 @@ func nox_xxx_parseUpdate_536620(objt *ObjectType, _ *MemFile, str string, _ []by
 	return nil
 }
 
-var noxObjectUpdateTable = []noxObjectUpdateFuncs{
-	{"NoUpdate", nil, 0, nil},
-	{"PlayerUpdate", C.nox_xxx_updatePlayer_4F8100, unsafe.Sizeof(C.nox_object_Player_data_t{}), nil},
-	{"ProjectileUpdate", C.nox_xxx_updateProjectile_53AC10, 0, nil},
-	{"HomingProjectileUpdate", C.nullsub_65, 4, nil},
-	{"SpellProjectileUpdate", C.nox_xxx_spellFlyUpdate_53B940, 28, nil},
-	{"AntiSpellProjectileUpdate", C.nox_xxx_updateAntiSpellProj_53BB00, 28, nil},
-	{"DoorUpdate", C.nox_xxx_updateDoor_53AC50, 52, nil},
-	{"SparkUpdate", C.nox_xxx_updateSpark_53ADC0, 16, nil},
-	{"ProjectileTrailUpdate", C.nox_xxx_updateProjTrail_53AEC0, 0, nil},
-	{"PushUpdate", C.nox_xxx_updatePush_53B030, 12, C.sub_536550},
-	{"TriggerUpdate", C.nox_xxx_updateTrigger_53B1B0, 60, C.sub_5365B0},
-	{"ToggleUpdate", C.nox_xxx_updateToggle_53B060, 60, C.sub_5365B0},
-	{"MonsterUpdate", C.nox_xxx_unitUpdateMonster_50A5C0, unsafe.Sizeof(C.nox_object_Monster_data_t{}), nil},
-	{"LoopAndDamageUpdate", C.sub_53B300, 16, C.sub_536580},
-	{"ElevatorUpdate", C.nox_xxx_updateElevator_53B5D0, 20, nil},
-	{"ElevatorShaftUpdate", C.nox_xxx_updateElevatorShaft_53B380, 16, nil},
-	{"PhantomPlayerUpdate", C.nox_xxx_updatePhantomPlayer_53B860, 0, nil},
-	{"ObeliskUpdate", C.nox_xxx_updateObelisk_53C580, 4, nil},
-	{"LifetimeUpdate", C.nox_xxx_updateLifetime_53B8F0, 4, C.sub_536600},
-	{"MagicMissileUpdate", C.nox_xxx_updateMagicMissile_53BDA0, 28, nil},
-	{"PixieUpdate", C.nox_xxx_updatePixie_53CD20, 28, nil},
-	{"SpikeBlockUpdate", C.nullsub_70, 2200, nil},
-	{"TowerUpdate", C.nullsub_69, 8, nil},
-	{"SkullUpdate", C.nox_xxx_updateShootingTrap_54F9A0, 52, C.sub_5364E0},
-	{"PentagramUpdate", C.nox_xxx_updateTeleportPentagram_53BEF0, 24, nil},
-	{"InvisiblePentagramUpdate", C.nox_xxx_updateInvisiblePentagram_53C0C0, 24, nil},
-	{"SwitchUpdate", C.nox_xxx_updateSwitch_53B320, 0, nil},
-	{"BlowUpdate", C.nox_xxx_updateBlow_53C160, 0, nil},
-	{"MoverUpdate", C.nox_xxx_unitUpdateMover_54F740, 36, nil},
-	{"BlackPowderBarrelUpdate", C.nox_xxx_updateBlackPowderBarrel_53C9A0, 0, nil},
-	{"OneSecondDieUpdate", C.nox_xxx_updateOneSecondDie_53CB60, 0, nil},
-	{"WaterBarrelUpdate", C.nox_xxx_updateWaterBarrel_53CB90, 0, nil},
-	{"SelfDestructUpdate", C.nox_xxx_updateSelfDestruct_53CC90, 0, nil},
-	{"BlackPowderBurnUpdate", C.nox_xxx_updateBlackPowderBurn_53CCB0, 0, nil},
-	{"DeathBallUpdate", C.nox_xxx_updateDeathBall_53D080, 0, nil},
-	{"DeathBallFragmentUpdate", C.nox_xxx_updateDeathBallFragment_53D220, 0, nil},
-	{"MoonglowUpdate", C.nox_xxx_updateMoonglow_53D270, 0, nil},
-	{"SentryGlobeUpdate", C.nox_xxx_updateSentryGlobe_510E60, 12, nil},
-	{"TelekinesisUpdate", C.nox_xxx_updateTelekinesis_53D330, 0, nil},
-	{"FistUpdate", C.nox_xxx_updateFist_53D400, 4, nil},
-	{"MeteorShowerUpdate", C.nox_xxx_updateMeteorShower_53D5A0, 4, nil},
-	{"MeteorUpdate", C.nox_xxx_meteorExplode_53D6E0, 4, nil},
-	{"ToxicCloudUpdate", C.nox_xxx_updateToxicCloud_53D850, 4, nil},
-	{"SmallToxicCloudUpdate", C.nox_xxx_updateSmallToxicCloud_53D960, 4, nil},
-	{"ArachnaphobiaUpdate", C.nox_xxx_updateArachnaphobia_53DA60, 0, nil},
-	{"ExpireUpdate", C.nox_xxx_updateExpire_53DB00, 0, nil},
-	{"BreakUpdate", C.nox_xxx_updateBreak_53DB30, 0, nil},
-	{"OpenUpdate", C.nox_xxx_updateOpen_53DBB0, 0, nil},
-	{"BreakAndRemoveUpdate", C.nox_xxx_updateBreakAndRemove_53DC30, 0, nil},
-	{"ChakramInMotionUpdate", C.nox_xxx_updateChakramInMotion_53DCC0, 28, nil},
-	{"FlagUpdate", C.nox_xxx_updateFlag_53DDF0, 12, nil},
-	{"TrapDoorUpdate", C.nox_xxx_updateTrapDoor_53DE80, 0, nil},
-	{"BallUpdate", C.nox_xxx_updateGameBall_53DF40, 32, nil},
-	{"CrownUpdate", C.nox_xxx_updateCrown_53E1D0, 12, nil},
-	{"UndeadKillerUpdate", C.nox_xxx_updateUndeadKiller_53E190, 0, nil},
-	{"HarpoonUpdate", C.nox_xxx_updateHarpoon_54F380, 4, nil},
-	{"WeaponArmorUpdate", nil, 8, nil},
-	{"MonsterGeneratorUpdate", C.nox_xxx_updateMonsterGenerator_54E930, 164, nil},
+var noxObjectUpdateTable = map[string]struct {
+	Func      unsafe.Pointer
+	DataSize  uintptr
+	ParseFunc unsafe.Pointer
+}{
+	"NoUpdate":                  {},
+	"PlayerUpdate":              {Func: C.nox_xxx_updatePlayer_4F8100, DataSize: unsafe.Sizeof(C.nox_object_Player_data_t{})},
+	"ProjectileUpdate":          {Func: C.nox_xxx_updateProjectile_53AC10},
+	"HomingProjectileUpdate":    {DataSize: 4},
+	"SpellProjectileUpdate":     {Func: C.nox_xxx_spellFlyUpdate_53B940, DataSize: 28},
+	"AntiSpellProjectileUpdate": {Func: C.nox_xxx_updateAntiSpellProj_53BB00, DataSize: 28},
+	"DoorUpdate":                {Func: C.nox_xxx_updateDoor_53AC50, DataSize: 52},
+	"SparkUpdate":               {Func: C.nox_xxx_updateSpark_53ADC0, DataSize: 16},
+	"ProjectileTrailUpdate":     {Func: C.nox_xxx_updateProjTrail_53AEC0},
+	"PushUpdate":                {Func: C.nox_xxx_updatePush_53B030, DataSize: 12, ParseFunc: C.sub_536550},
+	"TriggerUpdate":             {Func: C.nox_xxx_updateTrigger_53B1B0, DataSize: 60, ParseFunc: C.sub_5365B0},
+	"ToggleUpdate":              {Func: C.nox_xxx_updateToggle_53B060, DataSize: 60, ParseFunc: C.sub_5365B0},
+	"MonsterUpdate":             {Func: C.nox_xxx_unitUpdateMonster_50A5C0, DataSize: unsafe.Sizeof(C.nox_object_Monster_data_t{})},
+	"LoopAndDamageUpdate":       {Func: C.sub_53B300, DataSize: 16, ParseFunc: C.sub_536580},
+	"ElevatorUpdate":            {Func: C.nox_xxx_updateElevator_53B5D0, DataSize: 20},
+	"ElevatorShaftUpdate":       {Func: C.nox_xxx_updateElevatorShaft_53B380, DataSize: 16},
+	"PhantomPlayerUpdate":       {Func: C.nox_xxx_updatePhantomPlayer_53B860},
+	"ObeliskUpdate":             {Func: C.nox_xxx_updateObelisk_53C580, DataSize: 4},
+	"LifetimeUpdate":            {Func: C.nox_xxx_updateLifetime_53B8F0, DataSize: 4, ParseFunc: C.sub_536600},
+	"MagicMissileUpdate":        {Func: C.nox_xxx_updateMagicMissile_53BDA0, DataSize: 28},
+	"PixieUpdate":               {Func: C.nox_xxx_updatePixie_53CD20, DataSize: 28},
+	"SpikeBlockUpdate":          {DataSize: 2200},
+	"TowerUpdate":               {DataSize: 8},
+	"SkullUpdate":               {Func: C.nox_xxx_updateShootingTrap_54F9A0, DataSize: 52, ParseFunc: C.sub_5364E0},
+	"PentagramUpdate":           {Func: C.nox_xxx_updateTeleportPentagram_53BEF0, DataSize: 24},
+	"InvisiblePentagramUpdate":  {Func: C.nox_xxx_updateInvisiblePentagram_53C0C0, DataSize: 24},
+	"SwitchUpdate":              {Func: C.nox_xxx_updateSwitch_53B320},
+	"BlowUpdate":                {Func: C.nox_xxx_updateBlow_53C160},
+	"MoverUpdate":               {Func: C.nox_xxx_unitUpdateMover_54F740, DataSize: 36},
+	"BlackPowderBarrelUpdate":   {Func: C.nox_xxx_updateBlackPowderBarrel_53C9A0},
+	"OneSecondDieUpdate":        {Func: C.nox_xxx_updateOneSecondDie_53CB60},
+	"WaterBarrelUpdate":         {Func: C.nox_xxx_updateWaterBarrel_53CB90},
+	"SelfDestructUpdate":        {Func: C.nox_xxx_updateSelfDestruct_53CC90},
+	"BlackPowderBurnUpdate":     {Func: C.nox_xxx_updateBlackPowderBurn_53CCB0},
+	"DeathBallUpdate":           {Func: C.nox_xxx_updateDeathBall_53D080},
+	"DeathBallFragmentUpdate":   {Func: C.nox_xxx_updateDeathBallFragment_53D220},
+	"MoonglowUpdate":            {Func: C.nox_xxx_updateMoonglow_53D270},
+	"SentryGlobeUpdate":         {Func: C.nox_xxx_updateSentryGlobe_510E60, DataSize: 12},
+	"TelekinesisUpdate":         {Func: C.nox_xxx_updateTelekinesis_53D330},
+	"FistUpdate":                {Func: C.nox_xxx_updateFist_53D400, DataSize: 4},
+	"MeteorShowerUpdate":        {Func: C.nox_xxx_updateMeteorShower_53D5A0, DataSize: 4},
+	"MeteorUpdate":              {Func: C.nox_xxx_meteorExplode_53D6E0, DataSize: 4},
+	"ToxicCloudUpdate":          {Func: C.nox_xxx_updateToxicCloud_53D850, DataSize: 4},
+	"SmallToxicCloudUpdate":     {Func: C.nox_xxx_updateSmallToxicCloud_53D960, DataSize: 4},
+	"ArachnaphobiaUpdate":       {Func: C.nox_xxx_updateArachnaphobia_53DA60},
+	"ExpireUpdate":              {Func: C.nox_xxx_updateExpire_53DB00},
+	"BreakUpdate":               {Func: C.nox_xxx_updateBreak_53DB30},
+	"OpenUpdate":                {Func: C.nox_xxx_updateOpen_53DBB0},
+	"BreakAndRemoveUpdate":      {Func: C.nox_xxx_updateBreakAndRemove_53DC30},
+	"ChakramInMotionUpdate":     {Func: C.nox_xxx_updateChakramInMotion_53DCC0, DataSize: 28},
+	"FlagUpdate":                {Func: C.nox_xxx_updateFlag_53DDF0, DataSize: 12},
+	"TrapDoorUpdate":            {Func: C.nox_xxx_updateTrapDoor_53DE80},
+	"BallUpdate":                {Func: C.nox_xxx_updateGameBall_53DF40, DataSize: 32},
+	"CrownUpdate":               {Func: C.nox_xxx_updateCrown_53E1D0, DataSize: 12},
+	"UndeadKillerUpdate":        {Func: C.nox_xxx_updateUndeadKiller_53E190},
+	"HarpoonUpdate":             {Func: C.nox_xxx_updateHarpoon_54F380, DataSize: 4},
+	"WeaponArmorUpdate":         {DataSize: 8},
+	"MonsterGeneratorUpdate":    {Func: C.nox_xxx_updateMonsterGenerator_54E930, DataSize: 164},
 }
 
 type PlayerUpdateData C.nox_object_Player_data_t
