@@ -246,23 +246,6 @@ type Ptrs struct {
 	Ptr_sub_53F930                              unsafe.Pointer
 	Ptr_nox_xxx_usePotion_53EF70                unsafe.Pointer
 	Ptr_sub_5363C0                              unsafe.Pointer
-	Ptr_nox_xxx_pickupDefault_4F31E0            unsafe.Pointer
-	Ptr_nox_xxx_pickupFood_4F3350               unsafe.Pointer
-	Ptr_nox_xxx_pickupUse_4F34D0                unsafe.Pointer
-	Ptr_nox_xxx_pickupArmor_53E7F0              unsafe.Pointer
-	Ptr_sub_53A720                              unsafe.Pointer
-	Ptr_nox_xxx_sendMsgOblivionPickup_53A9C0    unsafe.Pointer
-	Ptr_nox_xxx_pickupTreasure_4F3580           unsafe.Pointer
-	Ptr_nox_xxx_pickupTrap_4F3510               unsafe.Pointer
-	Ptr_nox_xxx_pickupPotion_4F37D0             unsafe.Pointer
-	Ptr_nox_xxx_pickupGold_4F3A60_obj_pickup    unsafe.Pointer
-	Ptr_nox_xxx_pickupAmmo_4F3B00               unsafe.Pointer
-	Ptr_nox_xxx_pickupSpellbook_4F3C60          unsafe.Pointer
-	Ptr_nox_xxx_pickupAbilitybook_4F3CE0        unsafe.Pointer
-	Ptr_sub_4F3400                              unsafe.Pointer
-	Ptr_sub_4F3D50                              unsafe.Pointer
-	Ptr_sub_5367B0                              unsafe.Pointer
-	Ptr_sub_4F3DD0                              unsafe.Pointer
 	Ptr_nox_xxx_strikeOgre_549220               unsafe.Pointer
 	Ptr_nox_xxx_strikeScorpion_5495B0           unsafe.Pointer
 	Ptr_nox_xxx_strikeVileZombie_549700         unsafe.Pointer
