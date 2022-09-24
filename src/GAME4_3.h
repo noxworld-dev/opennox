@@ -132,8 +132,6 @@ int sub_536580(char* a1, int a2);
 int sub_5365B0(char* a1, int a2);
 int sub_536600(char* a1, int a2);
 void sub_5367B0(char* val, nox_objectType_t* a1);
-int sub_5368C0(char* a1, int a2);
-int sub_536910(int a1, int a2);
 void sub_536AC0(char* val, nox_objectType_t* a1);
 int sub_536B40(char* a1, int a2);
 int sub_536D80(char* a1, int a2);
