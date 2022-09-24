@@ -4,13 +4,15 @@ package opennox
 #include "defs.h"
 #include "GAME3_3.h"
 #include "GAME4_3.h"
-void sub_5367B0(char* val, nox_objectType_t* a1);
 int nox_xxx_pickupGold_4F3A60_obj_pickup(int a1, int a2, int a3);
+int nox_objectPickupAudEvent_4F3D50(nox_object_t* a1, nox_object_t* a2, int a3);
 */
 import "C"
 import (
 	"strings"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 func nox_xxx_parsePickup_536710(objt *ObjectType, _ *MemFile, str string, _ []byte) error {
@@ -49,10 +51,28 @@ var noxObjectPickupTable = map[string]struct {
 	"SpellBookPickup":   {Func: C.nox_xxx_pickupSpellbook_4F3C60},
 	"AbilityBookPickup": {Func: C.nox_xxx_pickupAbilitybook_4F3CE0},
 	"CrownPickup":       {Func: C.sub_4F3400},
-	"AudEventPickup": {Func: C.sub_4F3D50, ParseFunc: func(objt *ObjectType, val string) {
-		cstr := CString(val)
-		defer StrFree(cstr)
-		C.sub_5367B0(cstr, objt.C())
+	"AudEventPickup": {Func: C.nox_objectPickupAudEvent_4F3D50, ParseFunc: func(objt *ObjectType, val string) {
+		if snd := sound.ByName(val); snd != 0 {
+			objectPickupSoundTable[objt.ind] = snd
+		}
 	}},
 	"AnkhTradablePickup": {Func: C.sub_4F3DD0},
+}
+
+var objectPickupSoundTable = make(map[uint16]sound.ID)
+
+//export nox_objectPickupAudEvent_4F3D50
+func nox_objectPickupAudEvent_4F3D50(cobj1 *nox_object_t, cobj2 *nox_object_t, a3 C.int) C.int {
+	if cobj1 == nil || cobj2 == nil {
+		return 0
+	}
+	ok := C.nox_xxx_pickupDefault_4F31E0(cobj1, cobj2, a3)
+	if ok == 0 {
+		return ok
+	}
+	obj2 := asObjectC(cobj2)
+	if snd := objectPickupSoundTable[uint16(obj2.objTypeInd())]; snd != 0 {
+		nox_xxx_aud_501960(snd, asUnitC(cobj1), 0, 0)
+	}
+	return ok
 }

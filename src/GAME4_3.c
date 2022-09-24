@@ -4121,42 +4121,6 @@ int sub_536600(char* a1, int a2) {
 	return 1;
 }
 
-//----- (005367B0) --------------------------------------------------------
-void sub_5367B0(char* val, nox_objectType_t* a1) {
-	unsigned char* v1; // eax
-	int v2;            // ecx
-	char* result;      // eax
-	unsigned char* i;  // esi
-	short v5;          // dx
-
-	if (!*getMemU32Ptr(0x5D4594, 2488572)) {
-		v1 = getMemAt(0x973F18, 15976);
-		v2 = 51;
-		do {
-			*(uint16_t*)v1 = -1;
-			*((uint16_t*)v1 + 1) = 0;
-			v1 += 4;
-			--v2;
-		} while (v2);
-		*getMemU32Ptr(0x5D4594, 2488572) = 1;
-	}
-	result = 0;
-	for (i = getMemAt(0x973F18, 15976); *(short*)i != -1; i += 4) {
-		if ((int)++result >= 50) {
-			return;
-		}
-	}
-	result = val;
-	if (result && *result) {
-		result = (char*)nox_xxx_utilFindSound_40AF50(result);
-		if ((uint16_t)result) {
-			v5 = a1->ind;
-			*((uint16_t*)i + 1) = (uint16_t)result;
-			*(uint16_t*)i = v5;
-		}
-	}
-}
-
 //----- (00536B40) --------------------------------------------------------
 int sub_536B40(char* a1, int a2) {
 	char v3[64]; // [esp+4h] [ebp-40h]
