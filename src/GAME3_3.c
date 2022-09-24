@@ -1324,7 +1324,6 @@ int nox_xxx_unitSetHP_4E4560(nox_object_t* obj, unsigned short amount) {
 					*(v5 - 1) = v7 & 0xFFFFF000 | 0x20000;
 				} while (counter);
 			} else {
-				nox_xxx_objectTypeByInd_4E3B70(*(unsigned short*)(unit + 4));
 				v8 = sub_4E4C90(unit, 2u);
 				sub_4E4500(unit, 0x20000, 2, v8);
 			}
@@ -1368,7 +1367,6 @@ int* nox_xxx_unitSetOnOff_4E4670(int a1, int a2) {
 			*(result - 1) = v6 & 0xFFFFF000 | 0x40000;
 		} while (v5);
 	} else {
-		nox_xxx_objectTypeByInd_4E3B70(*(unsigned short*)(a1 + 4));
 		v7 = sub_4E4C90(a1, 4u);
 		result = sub_4E4500(a1, 0x40000, 4, v7);
 	}
@@ -1396,7 +1394,6 @@ void nox_xxx_unitRaise_4E46F0(nox_object_t* obj, float a2) {
 				*(v2 - 1) = v4 & 0xFFFFF000 | 0x400000;
 			} while (v3);
 		} else {
-			nox_xxx_objectTypeByInd_4E3B70(*(unsigned short*)(a1 + 4));
 			v5 = sub_4E4C90(a1, 0x40u);
 			sub_4E4500(a1, 0x400000, 64, v5);
 		}
@@ -1425,7 +1422,6 @@ int* nox_xxx_unitUnsetXStatus_4E4780(int a1, int a2) {
 					*(result - 1) = v4 & 0xFFFFF000 | 0x80000;
 				} while (v3);
 			} else {
-				nox_xxx_objectTypeByInd_4E3B70(*(unsigned short*)(a1 + 4));
 				v5 = sub_4E4C90(a1, 8u);
 				result = sub_4E4500(a1, 0x80000, 8, v5);
 			}
@@ -1455,7 +1451,6 @@ int* nox_xxx_unitSetXStatus_4E4800(int a1, int* a2) {
 				*(result - 1) = v4 & 0xFFFFF000 | 0x80000;
 			} while (v3);
 		} else {
-			nox_xxx_objectTypeByInd_4E3B70(*(unsigned short*)(a1 + 4));
 			v5 = sub_4E4C90(a1, 8u);
 			result = sub_4E4500(a1, 0x80000, 8, v5);
 		}
@@ -1482,7 +1477,6 @@ int* nox_xxx_servMarkObjAnimFrame_4E4880(int a1, int a2) {
 			*(result - 1) = v4 & 0xFFFFF000 | 0x10000;
 		} while (v3);
 	} else {
-		nox_xxx_objectTypeByInd_4E3B70(*(unsigned short*)(a1 + 4));
 		v5 = sub_4E4C90(a1, 1u);
 		result = sub_4E4500(a1, 0x10000, 1, v5);
 	}
@@ -1513,7 +1507,6 @@ int* nox_xxx_setUnitBuffFlags_4E48F0(int a1, int a2) {
 			*(result - 1) = 0x800000 | v5 & 0xFFFFF000;
 		} while (v4);
 	} else {
-		nox_xxx_objectTypeByInd_4E3B70(*(unsigned short*)(a1 + 4));
 		v6 = sub_4E4C90(a1, 0x80u);
 		result = sub_4E4500(a1, 0x800000, 128, v6);
 	}

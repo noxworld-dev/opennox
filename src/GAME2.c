@@ -2368,18 +2368,15 @@ void sub_4537F0() {
 	int v0;     // esi
 	int v1;     // edi
 	int v2;     // eax
-	int v3;     // eax
 	int v4;     // esi
 	int v5;     // edi
-	int v7;     // eax
 
 	v0 = 1;
 	v1 = 26;
 	do {
 		v2 = sub_415CD0((char*)v0);
 		if (v2) {
-			v3 = nox_xxx_objectTypeByInd_4E3B70(v2);
-			sub_4E3BF0(v3);
+			sub_4E3BF0(nox_xxx_objectTypeByInd_4E3B70(v2));
 		}
 		v0 *= 2;
 		--v1;
@@ -2389,8 +2386,7 @@ void sub_4537F0() {
 	do {
 		int result = sub_415840((char*)v4);
 		if (result) {
-			v7 = nox_xxx_objectTypeByInd_4E3B70(result);
-			sub_4E3BF0(v7);
+			sub_4E3BF0(nox_xxx_objectTypeByInd_4E3B70(result));
 		}
 		v4 *= 2;
 		--v5;
