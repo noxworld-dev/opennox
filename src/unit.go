@@ -117,19 +117,6 @@ func (u *Unit) ControllingPlayer() *Player {
 	return asPlayer(ud.player)
 }
 
-func (u *Unit) Health() (cur, max int) {
-	if u == nil {
-		return
-	}
-	p := u.ptrXxx()
-	if p == nil {
-		return
-	}
-	cur = int(*(*uint16)(unsafe.Add(p, 0)))
-	max = int(*(*uint16)(unsafe.Add(p, 4)))
-	return
-}
-
 func (u *Unit) SetHealth(v int) {
 	if u == nil {
 		return
@@ -160,13 +147,13 @@ func (u *Unit) SetMaxHealth(v int) {
 	if v < 0 {
 		v = 0
 	}
-	p := u.ptrXxx()
-	if p == nil {
+	h := u.healthData()
+	if h == nil {
 		return
 	}
 	// TODO: verify it works in MP
 	// TODO: if it's the player, we need to adjust GUI health bars
-	*(*uint16)(unsafe.Add(p, 4)) = uint16(v)
+	h.max = uint16(v)
 	u.SetHealth(v)
 }
 

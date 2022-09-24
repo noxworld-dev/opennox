@@ -368,7 +368,7 @@ typedef struct nox_objectType_t {
 	float speed;              // 31, 124
 	float speed_2;            // 32, 128
 	float float_33;           // 33, 132
-	void* data_34;            // 34, 136, TODO: data, *[20]byte
+	void* health_data;        // 34, 136
 	void* func_collide;       // 35, 140
 	void* collide_data;       // 36, 144
 	int   collide_data_size;  // 37, 148
@@ -504,7 +504,7 @@ typedef struct nox_object_t {
 	float speed_cur;         // 136, 544
 	float speed_2;           // 137, 548
 	float float_138;         // 138, 552
-	void* data_139;          // 139, 556, TODO: data, *[20]byte, related to health and damage
+	void* health_data;       // 139, 556
 	uint32_t field_140;      // 140, 560
 	uint32_t field_141;      // 141, 564
 	uint32_t field_142;      // 142, 568
