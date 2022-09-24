@@ -18,6 +18,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/things"
 )
 
 type objectFieldFunc func(objt *ObjectType, f *MemFile, str string, buf []byte) error
@@ -88,7 +89,32 @@ var noxObjectFieldByName = map[string]objectFieldFunc{
 		objt.obj_subclass = uint32(v)
 		return nil
 	},
-	"EXTENT": wrapObjectFieldFuncC(C.nox_xxx_parseExtent_535990),
+	"EXTENT": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
+		v, err := things.ParseExtent(str)
+		if err != nil {
+			return fmt.Errorf("cannot parse %q: %w", str, err)
+		}
+		s := &objt.shape
+		*s = noxShape{}
+		switch v := v.(type) {
+		case nil:
+			s.kind = shapeKindNone
+		case things.Center:
+			s.kind = shapeKindCenter
+		case things.Circle:
+			s.kind = shapeKindCircle
+			s.circle.R = v.R
+			s.circle.R2 = v.R * v.R
+		case things.Box:
+			s.kind = shapeKindBox
+			s.box.W = v.W
+			s.box.H = v.H
+			s.box.Calc()
+		default:
+			return fmt.Errorf("unsupported shape type: %T", v)
+		}
+		return nil
+	},
 	"FLAGS": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
 		v, err := object.ParseFlagSet(str)
 		if err != nil {
