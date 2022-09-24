@@ -4192,6 +4192,10 @@ int sub_4E8390(int a1) {
 	return sub_4D6A20(255, a1);
 }
 
+int nox_objectCollideDefault(int a1, int a2, float* a3) {
+	return 0;
+}
+
 //----- (004E83B0) --------------------------------------------------------
 unsigned char* nox_xxx_collideMonsterEventProc_4E83B0(int a1, int a2) {
 	return nox_xxx_scriptCallByEventBlock_502490((int*)(*(uint32_t*)(a1 + 748) + 1272), a2, a1, 22);
@@ -4825,7 +4829,6 @@ void nox_xxx_collideExit_4E9090(int a1, int a2, int a3) {
 		return;
 	}
 	if (!(*(uint8_t*)(a2 + 8) & 4)) {
-		nullsub_34(a1, a2, a3);
 		return;
 	}
 	v5 = *(uint32_t*)(a2 + 748);
@@ -4939,7 +4942,6 @@ void nox_xxx_collideExit_4E9090(int a1, int a2, int a3) {
 		}
 	}
 }
-// 4E87A0: using guessed type void  nullsub_34(uint32_t, uint32_t, uint32_t);
 
 //----- (004E9430) --------------------------------------------------------
 void nox_xxx_collideDamage_4E9430(int a1, int a2) {
