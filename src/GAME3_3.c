@@ -12015,7 +12015,8 @@ bool nox_xxx_playerCheckStrength_4F3180(nox_object_t* a1p, nox_object_t* item) {
 }
 
 //----- (004F31E0) --------------------------------------------------------
-int nox_xxx_pickupDefault_4F31E0(int a1, nox_object_t* item, int a3) {
+int nox_xxx_pickupDefault_4F31E0(nox_object_t* a1p, nox_object_t* item, int a3) {
+	int a1 = a1p;
 	int v3;     // eax
 	int v4;     // edi
 	char* v6;   // eax
@@ -12482,33 +12483,6 @@ int nox_xxx_pickupAbilitybook_4F3CE0(int a1, int a2, int a3) {
 		nox_xxx_aud_501960(826, a1, 0, 0);
 	}
 	return v4;
-}
-
-//----- (004F3D50) --------------------------------------------------------
-int sub_4F3D50(int a1, int a2, int a3) {
-	int v3;            // ebx
-	short v4;          // ax
-	unsigned char* v5; // ecx
-
-	if (!a1 || !a2) {
-		return 0;
-	}
-	v3 = nox_xxx_pickupDefault_4F31E0(a1, a2, a3);
-	if (v3) {
-		v4 = *getMemU16Ptr(0x973F18, 15976);
-		v5 = getMemAt(0x973F18, 15976);
-		if (*getMemI16Ptr(0x973F18, 15976) != -1) {
-			while (v4 != *(uint16_t*)(a2 + 4)) {
-				v4 = *((uint16_t*)v5 + 2);
-				v5 += 4;
-				if (v4 == -1) {
-					return v3;
-				}
-			}
-			nox_xxx_aud_501960(*((unsigned short*)v5 + 1), a1, 0, 0);
-		}
-	}
-	return v3;
 }
 
 //----- (004F3DD0) --------------------------------------------------------
