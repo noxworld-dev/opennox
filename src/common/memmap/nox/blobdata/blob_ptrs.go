@@ -263,23 +263,6 @@ type Ptrs struct {
 	Ptr_sub_4F3D50                              unsafe.Pointer
 	Ptr_sub_5367B0                              unsafe.Pointer
 	Ptr_sub_4F3DD0                              unsafe.Pointer
-	Ptr_nox_xxx_unitMonsterInit_4F0040          unsafe.Pointer
-	Ptr_nox_xxx_unitInitPlayer_4EFE80           unsafe.Pointer
-	Ptr_nullsub_47                              unsafe.Pointer
-	Ptr_nox_xxx_unitSparkInit_4F0390            unsafe.Pointer
-	Ptr_nox_xxx_initFrog_4F03B0                 unsafe.Pointer
-	Ptr_nox_xxx_initChest_4F0400                unsafe.Pointer
-	Ptr_nox_xxx_unitBoulderInit_4F0420          unsafe.Pointer
-	Ptr_nullsub_45                              unsafe.Pointer
-	Ptr_nullsub_46                              unsafe.Pointer
-	Ptr_nullsub_48                              unsafe.Pointer
-	Ptr_sub_4F0450                              unsafe.Pointer
-	Ptr_sub_5368C0                              unsafe.Pointer
-	Ptr_sub_4F0490                              unsafe.Pointer
-	Ptr_nox_xxx_unitInitGold_4F04B0             unsafe.Pointer
-	Ptr_nox_xxx_breakInit_4F0570                unsafe.Pointer
-	Ptr_sub_536910                              unsafe.Pointer
-	Ptr_nox_xxx_unitInitGenerator_4F0590        unsafe.Pointer
 	Ptr_nox_xxx_dropDefault_4ED290              unsafe.Pointer
 	Ptr_nox_xxx_dropArmor_53EB70                unsafe.Pointer
 	Ptr_nox_xxx_dropWeapon_53AB10               unsafe.Pointer

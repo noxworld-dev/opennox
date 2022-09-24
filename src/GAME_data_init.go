@@ -46,10 +46,6 @@ extern void* dword_587000_93164;
 extern void* dword_587000_122852;
 extern void* dword_587000_81128;
 void nox_xxx_unknown_libname_86_57F634();
-void nullsub_45();
-void nullsub_46();
-void nullsub_47();
-void nullsub_48();
 void nullsub_62();
 void nullsub_65();
 void nullsub_66();
@@ -323,23 +319,6 @@ func initBlobData() {
 		Ptr_sub_4F3D50:                              unsafe.Pointer(C.sub_4F3D50),
 		Ptr_sub_5367B0:                              unsafe.Pointer(C.sub_5367B0),
 		Ptr_sub_4F3DD0:                              unsafe.Pointer(C.sub_4F3DD0),
-		Ptr_nox_xxx_unitMonsterInit_4F0040:          unsafe.Pointer(C.nox_xxx_unitMonsterInit_4F0040),
-		Ptr_nox_xxx_unitInitPlayer_4EFE80:           unsafe.Pointer(C.nox_xxx_unitInitPlayer_4EFE80),
-		Ptr_nullsub_47:                              unsafe.Pointer(C.nullsub_47),
-		Ptr_nox_xxx_unitSparkInit_4F0390:            unsafe.Pointer(C.nox_xxx_unitSparkInit_4F0390),
-		Ptr_nox_xxx_initFrog_4F03B0:                 unsafe.Pointer(C.nox_xxx_initFrog_4F03B0),
-		Ptr_nox_xxx_initChest_4F0400:                unsafe.Pointer(C.nox_xxx_initChest_4F0400),
-		Ptr_nox_xxx_unitBoulderInit_4F0420:          unsafe.Pointer(C.nox_xxx_unitBoulderInit_4F0420),
-		Ptr_nullsub_45:                              unsafe.Pointer(C.nullsub_45),
-		Ptr_nullsub_46:                              unsafe.Pointer(C.nullsub_46),
-		Ptr_nullsub_48:                              unsafe.Pointer(C.nullsub_48),
-		Ptr_sub_4F0450:                              unsafe.Pointer(C.sub_4F0450),
-		Ptr_sub_5368C0:                              unsafe.Pointer(C.sub_5368C0),
-		Ptr_sub_4F0490:                              unsafe.Pointer(C.sub_4F0490),
-		Ptr_nox_xxx_unitInitGold_4F04B0:             unsafe.Pointer(C.nox_xxx_unitInitGold_4F04B0),
-		Ptr_nox_xxx_breakInit_4F0570:                unsafe.Pointer(C.nox_xxx_breakInit_4F0570),
-		Ptr_sub_536910:                              unsafe.Pointer(C.sub_536910),
-		Ptr_nox_xxx_unitInitGenerator_4F0590:        unsafe.Pointer(C.nox_xxx_unitInitGenerator_4F0590),
 		Ptr_nox_xxx_dropDefault_4ED290:              unsafe.Pointer(C.nox_xxx_dropDefault_4ED290),
 		Ptr_nox_xxx_dropArmor_53EB70:                unsafe.Pointer(C.nox_xxx_dropArmor_53EB70),
 		Ptr_nox_xxx_dropWeapon_53AB10:               unsafe.Pointer(C.nox_xxx_dropWeapon_53AB10),
