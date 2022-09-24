@@ -1,13 +1,12 @@
 package opennox
 
 /*
-#include "defs.h"
 #include "GAME3_3.h"
-int sub_5368C0(char* a1, nox_objectType_t* a2);
 */
 import "C"
 import (
-	"fmt"
+	"errors"
+	"strconv"
 	"strings"
 	"unsafe"
 
@@ -42,11 +41,21 @@ func nox_xxx_parseInitProc_536930(objt *ObjectType, _ *MemFile, str string, _ []
 }
 
 func objectDirectionInitParse(objt *ObjectType, val string) error {
-	cstr := CString(val)
-	defer StrFree(cstr)
-	if C.sub_5368C0(cstr, objt.C()) == 0 {
-		return fmt.Errorf("cannot parse direction init data")
+	p := unsafe.Slice((*int32)(objt.init_data), 2)
+	sub := strings.SplitN(val, " ", 2)
+	if len(sub) != 2 {
+		return errors.New("expected two values")
 	}
+	v1, err := strconv.Atoi(sub[0])
+	if err != nil {
+		return err
+	}
+	v2, err := strconv.Atoi(sub[1])
+	if err != nil {
+		return err
+	}
+	p[0] = int32(v1)
+	p[1] = int32(v2)
 	return nil
 }
 
