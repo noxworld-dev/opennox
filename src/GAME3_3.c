@@ -7542,7 +7542,9 @@ void sub_4ED0C0(int a1, nox_object_t* object) {
 }
 
 //----- (004ED290) --------------------------------------------------------
-int nox_xxx_dropDefault_4ED290(int a1, int a2, float2* a3) {
+int nox_xxx_dropDefault_4ED290(nox_object_t* a1p, nox_object_t* a2p, float2* a3) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v3;            // ebp
 	int result;        // eax
 	int* v5;           // edi
@@ -8286,33 +8288,6 @@ double sub_4EE2A0(int a1) {
 		return *(float*)(a1 + 188) * 0.5;
 	}
 	return *(float*)(a1 + 184) * 0.5;
-}
-
-//----- (004EE2F0) --------------------------------------------------------
-int sub_4EE2F0(int a1, int a2, int* a3) {
-	int v3;            // edi
-	short v4;          // ax
-	unsigned char* v5; // ecx
-
-	if (!a1 || !a2 || !a3) {
-		return 0;
-	}
-	v3 = nox_xxx_dropDefault_4ED290(a1, a2, (float2*)a3);
-	if (v3) {
-		v4 = *getMemU16Ptr(0x973F18, 15752);
-		v5 = getMemAt(0x973F18, 15752);
-		if (*getMemI16Ptr(0x973F18, 15752) != -1) {
-			while (v4 != *(uint16_t*)(a2 + 4)) {
-				v4 = *((uint16_t*)v5 + 2);
-				v5 += 4;
-				if (v4 == -1) {
-					return v3;
-				}
-			}
-			nox_xxx_aud_501960(*((unsigned short*)v5 + 1), a1, 0, 0);
-		}
-	}
-	return v3;
 }
 
 //----- (004EE370) --------------------------------------------------------
