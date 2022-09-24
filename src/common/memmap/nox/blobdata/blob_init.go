@@ -3359,30 +3359,6 @@ func Init(p *Ptrs) {
 	*memmap.PtrPtr(0x587000, 272532) = memmap.PtrOff(0x587000, 272772)
 	*memmap.PtrPtr(0x587000, 272536) = p.Ptr_sub_4F3DD0
 
-	*memmap.PtrPtr(0x587000, 273768) = memmap.PtrOff(0x587000, 273912)
-	*memmap.PtrPtr(0x587000, 273772) = p.Ptr_nox_xxx_dropDefault_4ED290
-	*memmap.PtrPtr(0x587000, 273780) = memmap.PtrOff(0x587000, 273924)
-	*memmap.PtrPtr(0x587000, 273784) = p.Ptr_nox_xxx_dropArmor_53EB70
-	*memmap.PtrPtr(0x587000, 273792) = memmap.PtrOff(0x587000, 273936)
-	*memmap.PtrPtr(0x587000, 273796) = p.Ptr_nox_xxx_dropWeapon_53AB10
-	*memmap.PtrPtr(0x587000, 273804) = memmap.PtrOff(0x587000, 273948)
-	*memmap.PtrPtr(0x587000, 273808) = p.Ptr_nox_xxx_dropTreasure_4ED710
-	*memmap.PtrPtr(0x587000, 273816) = memmap.PtrOff(0x587000, 273964)
-	*memmap.PtrPtr(0x587000, 273820) = p.Ptr_sub_4ED500
-	*memmap.PtrPtr(0x587000, 273828) = memmap.PtrOff(0x587000, 273976)
-	*memmap.PtrPtr(0x587000, 273832) = p.Ptr_sub_4EDDE0
-	*memmap.PtrPtr(0x587000, 273840) = memmap.PtrOff(0x587000, 273988)
-	*memmap.PtrPtr(0x587000, 273844) = p.Ptr_nox_xxx_dropTrap_4ED580
-	*memmap.PtrPtr(0x587000, 273852) = memmap.PtrOff(0x587000, 274000)
-	*memmap.PtrPtr(0x587000, 273856) = p.Ptr_nox_xxx_dropFood_4EDE50
-	*memmap.PtrPtr(0x587000, 273864) = memmap.PtrOff(0x587000, 274012)
-	*memmap.PtrPtr(0x587000, 273868) = p.Ptr_nox_xxx_dropCrown_4ED5E0
-	*memmap.PtrPtr(0x587000, 273876) = memmap.PtrOff(0x587000, 274024)
-	*memmap.PtrPtr(0x587000, 273880) = p.Ptr_sub_4EE2F0
-	*memmap.PtrPtr(0x587000, 273884) = p.Ptr_sub_536AC0
-	*memmap.PtrPtr(0x587000, 273888) = memmap.PtrOff(0x587000, 274040)
-	*memmap.PtrPtr(0x587000, 273892) = p.Ptr_nox_xxx_dropAnkhTradable_4EE370
-
 	*memmap.PtrPtr(0x587000, 276824) = memmap.PtrOff(0x587000, 276848)
 	*memmap.PtrPtr(0x587000, 276832) = memmap.PtrOff(0x587000, 276872)
 	*memmap.PtrPtr(0x587000, 276840) = memmap.PtrOff(0x587000, 276896)
