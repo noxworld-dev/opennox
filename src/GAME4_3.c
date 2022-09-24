@@ -4158,12 +4158,12 @@ void sub_5367B0(char* val, nox_objectType_t* a1) {
 }
 
 //----- (005368C0) --------------------------------------------------------
-int sub_5368C0(char* a1, int a2) {
+int sub_5368C0(char* a1, nox_objectType_t* a2) {
 	int* v2;  // esi
 	char* v3; // eax
 	char* v4; // eax
 
-	v2 = *(int**)(a2 + 176);
+	v2 = *(int**)((int)a2 + 176);
 	v3 = strtok(a1, " ");
 	*v2 = atoi(v3);
 	v4 = strtok(0, " ");
@@ -4172,8 +4172,8 @@ int sub_5368C0(char* a1, int a2) {
 }
 
 //----- (00536910) --------------------------------------------------------
-int sub_536910(int a1, int a2) {
-	*(uint32_t*)(a2 + 36) = 2;
+int sub_536910(char* a1, nox_objectType_t* a2) {
+	*(uint32_t*)((int)a2 + 36) = 2;
 	return 1;
 }
 

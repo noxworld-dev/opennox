@@ -3,8 +3,8 @@ package opennox
 /*
 #include "defs.h"
 #include "GAME3_3.h"
-#include "GAME4_3.h"
-static int nox_call_objectType_parseInit_go(int (*fnc)(char*, nox_objectType_t*), char* arg1, nox_objectType_t* arg2) { return fnc(arg1, arg2); }
+int sub_5368C0(char* a1, nox_objectType_t* a2);
+int sub_536910(char* a1, nox_objectType_t* a2);
 */
 import "C"
 import (
@@ -35,11 +35,27 @@ func nox_xxx_parseInitProc_536930(objt *ObjectType, _ *MemFile, str string, _ []
 	data, _ := alloc.Malloc(uintptr(t.DataSize))
 	objt.init_data = data
 	if t.ParseFunc != nil {
-		cstr := CString(str)
-		defer StrFree(cstr)
-		if C.nox_call_objectType_parseInit_go((*[0]byte)(t.ParseFunc), cstr, objt.C()) == 0 {
-			return fmt.Errorf("cannot parse init data for %q", name)
+		if err := t.ParseFunc(objt, str); err != nil {
+			return err
 		}
+	}
+	return nil
+}
+
+func objectDirectionInitParse(objt *ObjectType, val string) error {
+	cstr := CString(val)
+	defer StrFree(cstr)
+	if C.sub_5368C0(cstr, objt.C()) == 0 {
+		return fmt.Errorf("cannot parse direction init data")
+	}
+	return nil
+}
+
+func objectBreakInitParse(objt *ObjectType, val string) error {
+	cstr := CString(val)
+	defer StrFree(cstr)
+	if C.sub_536910(cstr, objt.C()) == 0 {
+		return fmt.Errorf("cannot parse break init data")
 	}
 	return nil
 }
@@ -47,7 +63,7 @@ func nox_xxx_parseInitProc_536930(objt *ObjectType, _ *MemFile, str string, _ []
 var noxObjectInitTable = map[string]struct {
 	Func      unsafe.Pointer
 	DataSize  int
-	ParseFunc unsafe.Pointer
+	ParseFunc func(objt *ObjectType, val string) error
 }{
 	"NoInit":               {},
 	"MonsterInit":          {Func: C.nox_xxx_unitMonsterInit_4F0040},
@@ -61,12 +77,12 @@ var noxObjectInitTable = map[string]struct {
 	"GruntInit":            {},
 	"SkeletonInit":         {},
 	"TowerInit":            {},
-	"SkullInit":            {Func: C.sub_4F0450, DataSize: 8, ParseFunc: C.sub_5368C0},
-	"DirectionInit":        {Func: C.sub_4F0490, DataSize: 8, ParseFunc: C.sub_5368C0},
+	"SkullInit":            {Func: C.sub_4F0450, DataSize: 8, ParseFunc: objectDirectionInitParse},
+	"DirectionInit":        {Func: C.sub_4F0490, DataSize: 8, ParseFunc: objectDirectionInitParse},
 	"GlyphInit":            {DataSize: 36},
 	"ModifierInit":         {DataSize: 20},
 	"GoldInit":             {Func: C.nox_xxx_unitInitGold_4F04B0, DataSize: 4},
-	"BreakInit":            {Func: C.nox_xxx_breakInit_4F0570, ParseFunc: C.sub_536910},
+	"BreakInit":            {Func: C.nox_xxx_breakInit_4F0570, ParseFunc: objectBreakInitParse},
 	"MonsterGeneratorInit": {Func: C.nox_xxx_unitInitGenerator_4F0590},
 	"RewardMarkerInit":     {DataSize: 220},
 	"AnkhInit":             {DataSize: 5124},
