@@ -212,7 +212,7 @@ var noxObjectFieldByName = map[string]objectFieldFunc{
 	"DAMAGE":      nox_xxx_parseDamageFn_536C60,
 	"DAMAGESOUND": nox_xxx_parseDamageSound_536CF0,
 	"DIE":         nox_xxx_parseDieProc_536B80,
-	"DROP":        wrapObjectFieldFuncC(C.nox_xxx_parseDrop_536A20),
+	"DROP":        nox_xxx_parseDrop_536A20,
 	"INIT":        nox_xxx_parseInitProc_536930,
 	"CREATE":      nox_xxx_parseCreateProc_536830,
 	"PICKUP":      wrapObjectFieldFuncC(C.nox_xxx_parsePickup_536710),
