@@ -290,8 +290,6 @@ type Ptrs struct {
 	Ptr_nox_xxx_dieBoulder_54E4B0               unsafe.Pointer
 	Ptr_nox_xxx_dieGameBall_54E620              unsafe.Pointer
 	Ptr_nox_xxx_dieMonsterGen_54E630            unsafe.Pointer
-	Ptr_nox_xxx_soundDefaultDamageSound_532E20  unsafe.Pointer
-	Ptr_nox_xxx_soundPlayerDamageSound_5328B0   unsafe.Pointer
 	Ptr_nox_xxx_strikeOgre_549220               unsafe.Pointer
 	Ptr_nox_xxx_strikeScorpion_5495B0           unsafe.Pointer
 	Ptr_nox_xxx_strikeVileZombie_549700         unsafe.Pointer
