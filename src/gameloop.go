@@ -1079,7 +1079,7 @@ func (s *Server) nox_xxx_mapLoad_40A380() {
 	s.nox_xxx_gameSetMapPath_409D70(name)
 	noxflags.SetGame(noxflags.GameHost | noxflags.GameClient)
 	noxflags.UnsetGame(noxflags.GameFlag3 | noxflags.GameFlag4 | noxflags.GameModeMask | noxflags.GameFlag18) // TODO
-	C.nox_server_gameSettingsUpdated = 1
+	nox_server_gameSettingsUpdated_40A670()
 }
 
 func (s *Server) nox_xxx_gameSetMapPath_409D70(path string) {

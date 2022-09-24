@@ -64,7 +64,7 @@ func cmdListObjectsWithClass(c *console.Console, class object.Class) bool {
 			c.Printf(console.ColorRed, "%d\t%s", typ.Ind(), typ.ID())
 		} else {
 			allow := allowed
-			if nox_xxx_getUnitDefDd10_4E3BA0(C.int(typ.Ind())) == 0 {
+			if noxServer.getObjectTypeByInd(typ.Ind()).allowed == 0 {
 				allow = disallowed
 			}
 			// TODO: print full name via sub_415E80/sub_4159F0/sub_4159F0

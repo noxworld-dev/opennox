@@ -188,6 +188,10 @@ func init() {
 	})
 }
 
+func nox_server_gameSettingsUpdated_40A670() {
+	C.nox_server_gameSettingsUpdated = 1
+}
+
 //export nox_xxx_check_flag_aaa_43AF70
 func nox_xxx_check_flag_aaa_43AF70() C.int {
 	return C.int(dword_587000_87404)
