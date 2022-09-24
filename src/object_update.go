@@ -187,7 +187,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	s := noxServer
 	u := asUnitC(up)
 	ud := u.updateDataPlayer()
-	v5 := (*C.ushort)(u.ptrXxx())
+	h := u.healthData()
 	for i := 0; i < 4; i++ {
 		p := asObjectC(ud.field_29[i])
 		if p != nil && p.Flags().Has(object.FlagDestroyed) {
@@ -212,9 +212,9 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 		ud.field_19_1--
 	} else {
 		if ud.field_19_0 != 0 {
-			v2 = 1000 * (int(ud.field_19_0) - int(*v5)) / int(ud.field_19_0)
+			v2 = 1000 * (int(ud.field_19_0) - int(h.cur)) / int(ud.field_19_0)
 		}
-		ud.field_19_0 = *v5
+		ud.field_19_0 = C.ushort(h.cur)
 		if v2 > 0 {
 			ud.field_19_1 = 7
 		}
@@ -328,21 +328,20 @@ func nox_xxx_aud_501960(snd sound.ID, u *Unit, a3, a4 int) {
 
 func playerSuddedDeath4F9E70(u *Unit) {
 	v1 := memmap.Uint32(0x5D4594, 1392)
-	v3 := unsafe.Slice((*uint16)(u.ptrXxx()), 3)
-	if !u.Flags().Has(object.FlagDead) && v3 != nil && v3[0] != 0 && (gameFrame()%(v1*gameFPS()/uint32(v3[2]))) == 0 {
+	h := u.healthData()
+	if !u.Flags().Has(object.FlagDead) && h != nil && h.cur != 0 && (gameFrame()%(v1*gameFPS()/uint32(h.max))) == 0 {
 		C.nox_xxx_unitDamageClear_4EE5E0(u.CObj(), 1)
 	}
 }
 
 func sub_4F9ED0(u *Unit) {
 	ud := u.updateDataPlayer()
-	v3 := unsafe.Slice((*uint16)(u.ptrXxx()), 3)
+	h := u.healthData()
 	if u.Flags().Has(object.FlagDead) {
 		return
 	}
-	if v3 != nil && (gameFrame()-uint32(u.field_134)) > gameFPS() {
-		v5 := v3[2]
-		if v3[0] < v5 && v5 != 0 && (gameFrame()%(300*gameFPS()/uint32(v3[2]))) == 0 {
+	if h != nil && (gameFrame()-uint32(u.field_134)) > gameFPS() {
+		if h.cur < h.max && h.max != 0 && (gameFrame()%(300*gameFPS()/uint32(h.max))) == 0 {
 			C.nox_xxx_unitAdjustHP_4EE460(u.CObj(), 1)
 		}
 	}

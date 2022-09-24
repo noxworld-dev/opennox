@@ -755,8 +755,21 @@ func (obj *Object) getShape() *noxShape {
 	return (*noxShape)(unsafe.Pointer(&obj.shape))
 }
 
-func (obj *Object) ptrXxx() unsafe.Pointer {
-	return unsafe.Pointer(obj.data_139)
+func (obj *Object) healthData() *objectHealthData {
+	return (*objectHealthData)(unsafe.Pointer(obj.health_data))
+}
+
+func (obj *Object) Health() (cur, max int) {
+	if obj == nil {
+		return
+	}
+	h := obj.healthData()
+	if h == nil {
+		return
+	}
+	cur = int(h.cur)
+	max = int(h.max)
+	return
 }
 
 func (obj *Object) IsMovable() bool {

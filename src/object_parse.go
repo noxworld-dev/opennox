@@ -19,6 +19,8 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/things"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
 type objectFieldFunc func(objt *ObjectType, f *MemFile, str string, buf []byte) error
@@ -205,7 +207,20 @@ var noxObjectFieldByName = map[string]objectFieldFunc{
 		objt.zsize2 = float32(v2)
 		return nil
 	},
-	"HEALTH":      wrapObjectFieldFuncC(C.nox_xxx_parseHealth_535A60),
+	"HEALTH": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
+		v, err := strconv.ParseInt(firstWord(str), 10, 32)
+		if err != nil {
+			return err
+		}
+		if objt.health_data != nil {
+			alloc.Free(unsafe.Pointer(objt.health_data))
+		}
+		data, _ := alloc.New(objectHealthData{})
+		objt.health_data = data
+		data.cur = uint16(v)
+		data.max = uint16(v)
+		return nil
+	},
 	"MENUICON":    wrapObjectFieldFuncC(C.nox_xxx_parseMenuIcon_535C30),
 	"PRETTYIMAGE": wrapObjectFieldFuncC(C.nox_xxx_parsePrettyImage_0_535C80),
 	"COLLIDE":     nox_xxx_parseCollide_536EC0,
