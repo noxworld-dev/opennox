@@ -6153,7 +6153,6 @@ void nullsub_30(uint32_t a1) {}
 void nullsub_36(void) {}
 void nullsub_29(void) {}
 void nullsub_35(uint32_t a1, uint32_t a2) {}
-void nullsub_34(uint32_t a1, uint32_t a2, uint32_t a3) {}
 void nullsub_24(uint32_t a1) {}
 void nullsub_31(uint32_t a1) {}
 void nullsub_22(void) {}

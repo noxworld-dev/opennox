@@ -303,64 +303,6 @@ type Ptrs struct {
 	Ptr_nox_xxx_damageMonsterGen_4E27D0         unsafe.Pointer
 	Ptr_nox_xxx_soundDefaultDamageSound_532E20  unsafe.Pointer
 	Ptr_nox_xxx_soundPlayerDamageSound_5328B0   unsafe.Pointer
-	Ptr_nullsub_34                              unsafe.Pointer
-	Ptr_nox_xxx_collideMonsterEventProc_4E83B0  unsafe.Pointer
-	Ptr_nox_xxx_collidePlayer_4E8460            unsafe.Pointer
-	Ptr_nox_xxx_collideProjectileGeneric_4E87B0 unsafe.Pointer
-	Ptr_sub_536D80                              unsafe.Pointer
-	Ptr_nox_xxx_collideProjectileSpark_4E8880   unsafe.Pointer
-	Ptr_nox_xxx_collideDoor_4E8AC0              unsafe.Pointer
-	Ptr_nox_xxx_collidePickup_4E8DF0            unsafe.Pointer
-	Ptr_nox_xxx_collideExit_4E9090              unsafe.Pointer
-	Ptr_nox_xxx_collideDamage_4E9430            unsafe.Pointer
-	Ptr_nox_xxx_collideDamageLoad_536E10        unsafe.Pointer
-	Ptr_nox_xxx_collideManadrain_4E9490         unsafe.Pointer
-	Ptr_sub_536E50                              unsafe.Pointer
-	Ptr_nox_xxx_collideBomb_4E96F0              unsafe.Pointer
-	Ptr_nox_xxx_fireballCollide_4E9AC0          unsafe.Pointer
-	Ptr_sub_536DE0                              unsafe.Pointer
-	Ptr_nox_xxx_collideChest_4E9C40             unsafe.Pointer
-	Ptr_nox_xxx_collideSulphurShot2_4E9D80      unsafe.Pointer
-	Ptr_nox_xxx_collideWallReflectSpark_4EA200  unsafe.Pointer
-	Ptr_nox_xxx_collidePixie_4EA080             unsafe.Pointer
-	Ptr_sub_4EA2C0                              unsafe.Pointer
-	Ptr_nox_xxx_collideSpark_4EA300             unsafe.Pointer
-	Ptr_sub_4EAAA0                              unsafe.Pointer
-	Ptr_sub_4EAAD0                              unsafe.Pointer
-	Ptr_sub_536DA0                              unsafe.Pointer
-	Ptr_nox_xxx_collideTrigger_54FCD0           unsafe.Pointer
-	Ptr_sub_4EACA0                              unsafe.Pointer
-	Ptr_nox_xxx_collideSpellPedestal_4EAD20     unsafe.Pointer
-	Ptr_nox_xxx_collideDie_4E99B0               unsafe.Pointer
-	Ptr_nox_xxx_collideGlyph_4E9A00             unsafe.Pointer
-	Ptr_nox_xxx_spellFlyCollide_4E9500          unsafe.Pointer
-	Ptr_nox_xxx_collideBoom_4E9770              unsafe.Pointer
-	Ptr_nox_xxx_collideSign_4EAB40              unsafe.Pointer
-	Ptr_nox_xxx_collidePentagram_4EAB20         unsafe.Pointer
-	Ptr_nox_xxx_collideWebbing_4EA380           unsafe.Pointer
-	Ptr_nox_xxx_collideDeathBall_4E9E90         unsafe.Pointer
-	Ptr_nox_xxx_collideDeathBallFragment_4E9FE0 unsafe.Pointer
-	Ptr_nullsub_62                              unsafe.Pointer
-	Ptr_nox_xxx_collideFist_4EADF0              unsafe.Pointer
-	Ptr_nox_xxx_collideTeleportWake_4EAE30      unsafe.Pointer
-	Ptr_sub_4EA400                              unsafe.Pointer
-	Ptr_nox_xxx_collideChakram_4EAF00           unsafe.Pointer
-	Ptr_nox_xxx_collideArrow_4EB490             unsafe.Pointer
-	Ptr_nox_xxx_collideMonsterArrow_4EB800      unsafe.Pointer
-	Ptr_sub_536E80                              unsafe.Pointer
-	Ptr_nox_xxx_collideBearTrap_4EB890          unsafe.Pointer
-	Ptr_nox_xxx_collidePoisonGasTrap_4EB910     unsafe.Pointer
-	Ptr_nox_xxx_collideTrapDoor_4EAB60          unsafe.Pointer
-	Ptr_nox_xxx_collideBall_4EBA00              unsafe.Pointer
-	Ptr_nox_xxx_collideHomeBase_4EBB80          unsafe.Pointer
-	Ptr_sub_4EBB50                              unsafe.Pointer
-	Ptr_nox_xxx_collideUndeadKiller_4EBD40      unsafe.Pointer
-	Ptr_nox_xxx_collideSulphurShot_4E9E50       unsafe.Pointer
-	Ptr_nox_xxx_collideMimic_4E83D0             unsafe.Pointer
-	Ptr_nox_xxx_collideHarpoon_4EB6A0           unsafe.Pointer
-	Ptr_nox_xxx_collideMonsterGen_4EBE10        unsafe.Pointer
-	Ptr_sub_4EBE40                              unsafe.Pointer
-	Ptr_nox_xxx_collideAnkhQuest_4EBF40         unsafe.Pointer
 	Ptr_nox_xxx_strikeOgre_549220               unsafe.Pointer
 	Ptr_nox_xxx_strikeScorpion_5495B0           unsafe.Pointer
 	Ptr_nox_xxx_strikeVileZombie_549700         unsafe.Pointer

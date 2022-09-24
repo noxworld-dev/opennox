@@ -4551,56 +4551,6 @@ int sub_536E80(char* a1, int* a2) {
 	return 1;
 }
 
-//----- (00536EC0) --------------------------------------------------------
-int nox_xxx_parseCollide_536EC0(uint32_t* a1, int a2, char* a3) {
-	char* v3;              // ebx
-	const char* v4;        // eax
-	int v5;                // ebp
-	unsigned char* v6;     // edi
-	int v7;                // ebp
-	int result;            // eax
-	int (*v9)(char*, int); // esi
-	char* v10;             // [esp+1Ch] [ebp+Ch]
-
-	v3 = strtok(a3, " \t\n\r");
-	v10 = strtok(0, (const char*)getMemAt(0x5D4594, 2488588));
-	v4 = *(const char**)getMemAt(0x587000, 274872);
-	v5 = 0;
-	if (*getMemU32Ptr(0x587000, 274872)) {
-		v6 = getMemAt(0x587000, 274872);
-		do {
-			if (!strcmp(v4, v3)) {
-				break;
-			}
-			v4 = (const char*)*((uint32_t*)v6 + 4);
-			v6 += 16;
-			++v5;
-		} while (v4);
-	}
-	v7 = 16 * v5;
-	if (!*getMemU32Ptr(0x587000, 274872 + v7)) {
-		return 0;
-	}
-	a1[35] = *getMemU32Ptr(0x587000, 274876 + v7);
-	a1[37] = *getMemU32Ptr(0x587000, 274880 + v7);
-	if (!*getMemU32Ptr(0x587000, 274880 + v7)) {
-		goto LABEL_14;
-	}
-	result = (int)calloc(1u, *getMemU32Ptr(0x587000, 274880 + v7));
-	a1[36] = result;
-	if (!result) {
-		return result;
-	}
-	v9 = *(int (**)(char*, int))getMemAt(0x587000, 274884 + v7);
-	if (v9) {
-		result = v9(v10, result);
-	} else {
-	LABEL_14:
-		result = 1;
-	}
-	return result;
-}
-
 //----- (00536FB0) --------------------------------------------------------
 int nox_xxx_unitCanSee_536FB0(int a1, int a2, char a3) {
 	int result; // eax

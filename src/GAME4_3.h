@@ -152,7 +152,6 @@ int sub_536DE0(char* a1, uint8_t* a2);
 int nox_xxx_collideDamageLoad_536E10(char* a1, int a2);
 int sub_536E50(char* a1, uint8_t* a2);
 int sub_536E80(char* a1, int* a2);
-int nox_xxx_parseCollide_536EC0(uint32_t* a1, int a2, char* a3);
 int nox_xxx_unitCanSee_536FB0(int a1, int a2, char a3);
 int nox_xxx_unitCanInteractWith_5370E0(nox_object_t* a1, nox_object_t* a2, char a3);
 int nox_xxx_mapCheck_537110(nox_object_t* a1, nox_object_t* a2);
