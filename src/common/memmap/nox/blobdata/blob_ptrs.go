@@ -275,21 +275,6 @@ type Ptrs struct {
 	Ptr_sub_4EE2F0                              unsafe.Pointer
 	Ptr_sub_536AC0                              unsafe.Pointer
 	Ptr_nox_xxx_dropAnkhTradable_4EE370         unsafe.Pointer
-	Ptr_nox_xxx_diePlayer_54D2B0                unsafe.Pointer
-	Ptr_nox_xxx_diePotion_54CBB0                unsafe.Pointer
-	Ptr_nox_xxx_dieImpEgg_54CAE0                unsafe.Pointer
-	Ptr_nox_xxx_dieGlyph_54DF30                 unsafe.Pointer
-	Ptr_nox_xxx_dieBarrel_54DFA0                unsafe.Pointer
-	Ptr_nox_xxx_dieCreateObject_54E010          unsafe.Pointer
-	Ptr_sub_536B40                              unsafe.Pointer
-	Ptr_nox_xxx_dieSpawnObject_54E070           unsafe.Pointer
-	Ptr_nox_xxx_diePolyp_54CB10                 unsafe.Pointer
-	Ptr_nox_xxx_dieMarker_54E460                unsafe.Pointer
-	Ptr_nox_xxx_dieWeapon_54E370_obj_die        unsafe.Pointer
-	Ptr_nox_xxx_dieArmor_54E170_obj_die         unsafe.Pointer
-	Ptr_nox_xxx_dieBoulder_54E4B0               unsafe.Pointer
-	Ptr_nox_xxx_dieGameBall_54E620              unsafe.Pointer
-	Ptr_nox_xxx_dieMonsterGen_54E630            unsafe.Pointer
 	Ptr_nox_xxx_strikeOgre_549220               unsafe.Pointer
 	Ptr_nox_xxx_strikeScorpion_5495B0           unsafe.Pointer
 	Ptr_nox_xxx_strikeVileZombie_549700         unsafe.Pointer
