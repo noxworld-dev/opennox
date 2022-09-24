@@ -1,12 +1,8 @@
 package opennox
 
 /*
-#include "GAME4.h"
-#include "GAME4_3.h"
-
-static int nox_call_objectType_parse_go(int (*fnc)(nox_objectType_t*, nox_memfile*, char*), nox_objectType_t* arg1, nox_memfile* arg2, char* arg3) {
-	return fnc(arg1, arg2, arg3);
-}
+#include "defs.h"
+int nox_xxx_parseDraw_535CD0(nox_objectType_t* a1p, nox_memfile* a2p, void* a3);
 */
 import "C"
 import (
@@ -52,18 +48,6 @@ func nox_thing_read_xxx_4E3220(f *MemFile, buf []byte, typ *ObjectType) error {
 		if err := parseFnc(typ, f, str, buf); err != nil {
 			return fmt.Errorf("parse of %q failed: %w", name, err)
 		}
-	}
-}
-
-func wrapObjectFieldFuncC(p unsafe.Pointer) objectFieldFunc {
-	return func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
-		n := copy(buf, str)
-		buf[n] = 0
-		ok := C.nox_call_objectType_parse_go((*[0]byte)(p), objt.C(), f.C(), (*C.char)(unsafe.Pointer(&buf[0])))
-		if ok == 0 {
-			return errors.New("parsing failed")
-		}
-		return nil
 	}
 }
 
@@ -248,5 +232,13 @@ var noxObjectFieldByName = map[string]objectFieldFunc{
 	"UPDATE":      nox_xxx_parseUpdate_536620,
 	"USE":         nox_xxx_parseUseFn_5363F0,
 	"XFER":        nox_xxx_parseXFer_5360A0,
-	"DRAW":        wrapObjectFieldFuncC(C.nox_xxx_parseDraw_535CD0),
+	"DRAW": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
+		n := copy(buf, str)
+		buf[n] = 0
+		ok := C.nox_xxx_parseDraw_535CD0(objt.C(), f.C(), unsafe.Pointer(&buf[0]))
+		if ok == 0 {
+			return errors.New("parsing draw data failed")
+		}
+		return nil
+	},
 }

@@ -120,7 +120,6 @@ int nox_xxx_damageToMap_534BC0(int a1, int a2, int a3, int a4, nox_object_t* a5)
 int nox_xxx_wallPreDestroy_534DA0(int* a1);
 bool nox_xxx_mapDamageToWalls_534FC0(int4* a1, void* a2, float a3, int a4, int a5, void* a6);
 int nox_xxx_mapTraceRay_535250(float4* a1, float2* a2, int2* a3, char a4);
-int nox_xxx_parseDraw_535CD0(int a1, uint32_t* a2, void* a3);
 char* sub_536130(char* a1, int* a2);
 char* sub_536180(char* a1, int* a2);
 char* sub_5361B0(char* a1, int a2);
