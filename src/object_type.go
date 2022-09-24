@@ -119,13 +119,21 @@ func nox_xxx_getNameId_4E3AA0(cstr *C.char) C.int {
 }
 
 //export sub_415A30
-func sub_415A30(a1 *C.char) *C.nox_objectType_t {
-	return sub415A30(GoString(a1)).C()
+func sub_415A30(a1 *C.char) C.int {
+	t := sub415A30(GoString(a1))
+	if t == nil {
+		return -1
+	}
+	return C.int(t.ind)
 }
 
 //export sub_415EC0
-func sub_415EC0(a1 *C.char) *C.nox_objectType_t {
-	return sub415EC0(GoString(a1)).C()
+func sub_415EC0(a1 *C.char) C.int {
+	t := sub415EC0(GoString(a1))
+	if t == nil {
+		return -1
+	}
+	return C.int(t.ind)
 }
 
 //export sub_4E3BC0
