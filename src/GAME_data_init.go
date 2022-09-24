@@ -20,7 +20,6 @@ package opennox
 #include "client__shell__wolapi__wolchat.h"
 #include "client__system__parsecmd.h"
 #include "common__object__modifier.h"
-#include "server__object__pickdrop__pickup.h"
 #include "server__system__cscrfunc.h"
 #include "server__script__script.h"
 #include "common__wolapi__wolstate.h"
@@ -297,23 +296,6 @@ func initBlobData() {
 		Ptr_sub_53F930:                              unsafe.Pointer(C.sub_53F930),
 		Ptr_nox_xxx_usePotion_53EF70:                unsafe.Pointer(C.nox_xxx_usePotion_53EF70),
 		Ptr_sub_5363C0:                              unsafe.Pointer(C.sub_5363C0),
-		Ptr_nox_xxx_pickupDefault_4F31E0:            unsafe.Pointer(C.nox_xxx_pickupDefault_4F31E0),
-		Ptr_nox_xxx_pickupFood_4F3350:               unsafe.Pointer(C.nox_xxx_pickupFood_4F3350),
-		Ptr_nox_xxx_pickupUse_4F34D0:                unsafe.Pointer(C.nox_xxx_pickupUse_4F34D0),
-		Ptr_nox_xxx_pickupArmor_53E7F0:              unsafe.Pointer(C.nox_xxx_pickupArmor_53E7F0),
-		Ptr_sub_53A720:                              unsafe.Pointer(C.sub_53A720),
-		Ptr_nox_xxx_sendMsgOblivionPickup_53A9C0:    unsafe.Pointer(C.nox_xxx_sendMsgOblivionPickup_53A9C0),
-		Ptr_nox_xxx_pickupTreasure_4F3580:           unsafe.Pointer(C.nox_xxx_pickupTreasure_4F3580),
-		Ptr_nox_xxx_pickupTrap_4F3510:               unsafe.Pointer(C.nox_xxx_pickupTrap_4F3510),
-		Ptr_nox_xxx_pickupPotion_4F37D0:             unsafe.Pointer(C.nox_xxx_pickupPotion_4F37D0),
-		Ptr_nox_xxx_pickupGold_4F3A60_obj_pickup:    unsafe.Pointer(C.nox_xxx_pickupGold_4F3A60_obj_pickup),
-		Ptr_nox_xxx_pickupAmmo_4F3B00:               unsafe.Pointer(C.nox_xxx_pickupAmmo_4F3B00),
-		Ptr_nox_xxx_pickupSpellbook_4F3C60:          unsafe.Pointer(C.nox_xxx_pickupSpellbook_4F3C60),
-		Ptr_nox_xxx_pickupAbilitybook_4F3CE0:        unsafe.Pointer(C.nox_xxx_pickupAbilitybook_4F3CE0),
-		Ptr_sub_4F3400:                              unsafe.Pointer(C.sub_4F3400),
-		Ptr_sub_4F3D50:                              unsafe.Pointer(C.sub_4F3D50),
-		Ptr_sub_5367B0:                              unsafe.Pointer(C.sub_5367B0),
-		Ptr_sub_4F3DD0:                              unsafe.Pointer(C.sub_4F3DD0),
 		Ptr_nox_xxx_strikeOgre_549220:               unsafe.Pointer(C.nox_xxx_strikeOgre_549220),
 		Ptr_nox_xxx_strikeScorpion_5495B0:           unsafe.Pointer(C.nox_xxx_strikeScorpion_5495B0),
 		Ptr_nox_xxx_strikeVileZombie_549700:         unsafe.Pointer(C.nox_xxx_strikeVileZombie_549700),
