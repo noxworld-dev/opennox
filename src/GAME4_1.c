@@ -7627,6 +7627,7 @@ char* sub_51A550() {
 }
 
 //----- (0051A5A0) --------------------------------------------------------
+void* nox_xxx_objectTypeByIndHealthData(int a1);
 void nox_xxx_spawnHecubahQuest_51A5A0(int* a1) {
 	uint32_t* v1;  // edi
 	uint32_t* v2;  // esi
@@ -7654,7 +7655,7 @@ void nox_xxx_spawnHecubahQuest_51A5A0(int* a1) {
 		if (v3) {
 			v4 = *(uint32_t*)(v3 + 72);
 		} else {
-			v4 = *(unsigned short*)(*(uint32_t*)(nox_xxx_objectTypeByInd_4E3B70(*((unsigned short*)v1 + 2)) + 136) + 4);
+			v4 = *(unsigned short*)((int)nox_xxx_objectTypeByIndHealthData(*((unsigned short*)v1 + 2)) + 4);
 		}
 		if (v16 < 1.0) {
 			v16 = 1.0;
@@ -7731,7 +7732,7 @@ void nox_xxx_spawnNecroQuest_51A7A0(int* a1) {
 		if (v3) {
 			v4 = *(uint32_t*)(v3 + 72);
 		} else {
-			v4 = *(unsigned short*)(*(uint32_t*)(nox_xxx_objectTypeByInd_4E3B70(*((unsigned short*)v1 + 2)) + 136) + 4);
+			v4 = *(unsigned short*)((int)nox_xxx_objectTypeByIndHealthData(*((unsigned short*)v1 + 2)) + 4);
 		}
 		if (v10 < 1.0) {
 			v10 = 1.0;

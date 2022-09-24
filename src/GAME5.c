@@ -6318,6 +6318,7 @@ int sub_54EF90(float a1, int a2, int a3, int a4) {
 }
 
 //----- (0054F070) --------------------------------------------------------
+void* nox_xxx_objectTypeByIndHealthData(int a1);
 uint32_t* nox_xxx_mobGeneratorSpawn_54F070(int a1, int a2, int a3) {
 	int v3;           // edi
 	uint32_t* result; // eax
@@ -6361,10 +6362,10 @@ uint32_t* nox_xxx_mobGeneratorSpawn_54F070(int a1, int a2, int a3) {
 				*(uint16_t*)v5[139] = nox_float2int(v15);
 				v16 = sub_4E40F0() * (double)*(int*)(v7 + 72);
 			} else {
-				v8 = nox_xxx_objectTypeByInd_4E3B70(*((unsigned short*)v5 + 2));
-				v17 = sub_4E40F0() * (double)**(unsigned short**)(v8 + 136);
+				v8 = nox_xxx_objectTypeByIndHealthData(*((unsigned short*)v5 + 2));
+				v17 = sub_4E40F0() * (double)*(unsigned short*)v8;
 				*(uint16_t*)v5[139] = nox_float2int(v17);
-				v16 = sub_4E40F0() * (double)*(unsigned short*)(*(uint32_t*)(v8 + 136) + 4);
+				v16 = sub_4E40F0() * (double)*(unsigned short*)(v8 + 4);
 			}
 			*(uint16_t*)(v5[139] + 4) = nox_float2int(v16);
 			v9 = (uint16_t*)v5[139];

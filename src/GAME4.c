@@ -6480,6 +6480,7 @@ int nox_xxx_charmCreature1_5011F0(int* a1) {
 }
 
 //----- (005013E0) --------------------------------------------------------
+void* nox_xxx_objectTypeByIndHealthData(int a1);
 int nox_xxx_charmCreatureFinish_5013E0(int* a1) {
 	int v1;             // eax
 	int v2;             // eax
@@ -6557,10 +6558,10 @@ int nox_xxx_charmCreatureFinish_5013E0(int* a1) {
 	LOBYTE(v11) = v11 | 0x80;
 	*(uint32_t*)(v10 + 1440) = v11;
 	if (nox_common_gameFlags_check_40A5C0(4096)) {
-		v12 = nox_xxx_objectTypeByInd_4E3B70(*(unsigned short*)(a1[12] + 4));
+		v12 = nox_xxx_objectTypeByIndHealthData(*(unsigned short*)(a1[12] + 4));
 		v13 = nox_xxx_unitGetHP_4EE780(a1[12]);
 		v14 = *(uint32_t*)(v10 + 484);
-		v15 = v14 ? *(uint16_t*)(v14 + 72) : *(uint16_t*)(*(uint32_t*)(v12 + 136) + 4);
+		v15 = v14 ? *(uint16_t*)(v14 + 72) : *(uint16_t*)(v12 + 4);
 		*(uint16_t*)(*(uint32_t*)(a1[12] + 556) + 4) = v15;
 		if (v13 > v15) {
 			nox_xxx_unitSetHP_4E4560(a1[12], v15);
