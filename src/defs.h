@@ -554,7 +554,7 @@ typedef struct nox_object_t {
 	void (*func_update)(nox_object_t*); // 186, 744
 	void* data_update;       // 187, 748
 	uint32_t field_188;      // 188, 752
-	uint32_t field_189;      // 189, 756
+	void* field_189;         // 189, 756
 	uint32_t field_190;      // 190, 760
 	uint32_t field_191;      // 191, 764
 	int field_192;           // 192, 768
