@@ -140,7 +140,6 @@ int nox_xxx_parsePickup_536710(int a1, int a2, char* a3);
 char* sub_5367B0(short* a1);
 int sub_5368C0(char* a1, int a2);
 int sub_536910(int a1, int a2);
-int nox_xxx_parseInitProc_536930(uint32_t* a1, int a2, char* a3);
 int nox_xxx_parseDrop_536A20(int a1, int a2, char* a3);
 char* sub_536AC0(short* a1);
 int sub_536B40(char* a1, int a2);
