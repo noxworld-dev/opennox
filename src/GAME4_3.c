@@ -4220,40 +4220,8 @@ int sub_536600(char* a1, int a2) {
 	return 1;
 }
 
-//----- (00536710) --------------------------------------------------------
-int nox_xxx_parsePickup_536710(int a1, int a2, char* a3) {
-	char* v3;          // eax
-	const char* v4;    // ecx
-	int v5;            // ebp
-	unsigned char* v6; // edi
-	void (*v7)(int);   // eax
-
-	v3 = strtok(a3, " \t\n\r");
-	v4 = *(const char**)getMemAt(0x587000, 272352);
-	v5 = 0;
-	if (*getMemU32Ptr(0x587000, 272352)) {
-		v6 = getMemAt(0x587000, 272352);
-		do {
-			if (!strcmp(v4, v3)) {
-				break;
-			}
-			v4 = (const char*)*((uint32_t*)v6 + 3);
-			v6 += 12;
-			++v5;
-		} while (v4);
-	}
-	if (*getMemU32Ptr(0x587000, 272352 + 12 * v5)) {
-		*(uint32_t*)(a1 + 184) = *getMemU32Ptr(0x587000, 272356 + 12 * v5);
-		v7 = *(void (**)(int))getMemAt(0x587000, 272360 + 12 * v5);
-		if (v7) {
-			v7(a1);
-		}
-	}
-	return 1;
-}
-
 //----- (005367B0) --------------------------------------------------------
-char* sub_5367B0(short* a1) {
+void sub_5367B0(char* val, nox_objectType_t* a1) {
 	unsigned char* v1; // eax
 	int v2;            // ecx
 	char* result;      // eax
@@ -4274,19 +4242,18 @@ char* sub_5367B0(short* a1) {
 	result = 0;
 	for (i = getMemAt(0x973F18, 15976); *(short*)i != -1; i += 4) {
 		if ((int)++result >= 50) {
-			return result;
+			return;
 		}
 	}
-	result = strtok(0, " \t\n\r");
+	result = val;
 	if (result && *result) {
 		result = (char*)nox_xxx_utilFindSound_40AF50(result);
 		if ((uint16_t)result) {
-			v5 = *a1;
+			v5 = a1->ind;
 			*((uint16_t*)i + 1) = (uint16_t)result;
 			*(uint16_t*)i = v5;
 		}
 	}
-	return result;
 }
 
 //----- (005368C0) --------------------------------------------------------
