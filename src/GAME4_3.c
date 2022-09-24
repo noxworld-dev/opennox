@@ -3712,7 +3712,9 @@ LABEL_10:
 // 535128: variable 'v34' is possibly undefined
 
 //----- (00535CD0) --------------------------------------------------------
-int nox_xxx_parseDraw_535CD0(int a1, uint32_t* a2, void* a3) {
+int nox_xxx_parseDraw_535CD0(nox_objectType_t* a1p, nox_memfile* a2p, void* a3) {
+	int a1 = a1p;
+	uint32_t* a2 = a2p;
 	uint32_t* v3;       // ebp
 	void* v4;           // ebx
 	unsigned char* v5;  // eax
