@@ -3711,24 +3711,6 @@ LABEL_10:
 }
 // 535128: variable 'v34' is possibly undefined
 
-//----- (00535A60) --------------------------------------------------------
-int nox_xxx_parseHealth_535A60(int a1, int a2, char* a3) {
-	int result; // eax
-
-	sscanf(a3, "%d", &a3);
-	if (*(uint32_t*)(a1 + 136)) {
-		free(*(void**)(a1 + 136));
-	}
-	result = (int)calloc(1u, 0x14u);
-	*(uint32_t*)(a1 + 136) = result;
-	if (result) {
-		*(uint16_t*)(result + 4) = (uint16_t)a3;
-		**(uint16_t**)(a1 + 136) = (uint16_t)a3;
-		result = 1;
-	}
-	return result;
-}
-
 //----- (00535C30) --------------------------------------------------------
 int nox_xxx_parseMenuIcon_535C30(int a1, int a2, char* a3) {
 	int v2; // edx

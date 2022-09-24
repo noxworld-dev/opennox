@@ -869,15 +869,15 @@ nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ) {
 	ob->speed_cur = typ->speed;
 	ob->speed_2 = typ->speed_2;
 	ob->float_138 = typ->float_33;
-	ob->data_139 = 0;
+	ob->health_data = 0;
 	ob->field_38 = -1;
 	ob->typ_ind = typ->ind;
-	if (typ->data_34) {
-		ob->data_139 = calloc(1, 20);
-		if (!ob->data_139) {
+	if (typ->health_data) {
+		ob->health_data = calloc(1, 20);
+		if (!ob->health_data) {
 			return 0;
 		}
-		memcpy(ob->data_139, typ->data_34, 20);
+		memcpy(ob->health_data, typ->health_data, 20);
 	}
 	ob->func_init = typ->func_init;
 	if (typ->init_data_size) {
@@ -8565,7 +8565,7 @@ short nox_xxx_unitGetHP_4EE780(nox_object_t* item) {
 	short* v1;    // eax
 	short result; // ax
 
-	if (item && (v1 = (short*)item->data_139) != 0) {
+	if (item && (v1 = (short*)item->health_data) != 0) {
 		result = *v1;
 	} else {
 		result = 0;

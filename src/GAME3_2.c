@@ -4431,12 +4431,12 @@ int nox_xxx_itemReportHealth_4D87A0(int a1, nox_object_t* item) {
 	uint16_t* v3; // eax
 	char v4[7];   // [esp+4h] [ebp-8h]
 
-	result = item->data_139;
+	result = item->health_data;
 	if (result) {
 		if (*(uint16_t*)(result + 4)) {
 			v4[0] = 68;
 			*(uint16_t*)&v4[1] = nox_xxx_netGetUnitCodeServ_578AC0(item);
-			v3 = item->data_139;
+			v3 = item->health_data;
 			*(uint16_t*)&v4[3] = v3[0];
 			*(uint16_t*)&v4[5] = v3[2];
 			result = nox_xxx_netSendPacket1_4E5390(a1, (int)v4, 7, 0, 0);

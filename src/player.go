@@ -770,10 +770,10 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	pl.netCode = punit.net_code
 	pl.field_2156 = C.uint(C.nox_xxx_scavengerTreasureMax_4D1600())
 	udata := punit.updateDataPlayer()
-	xxx := punit.ptrXxx()
+	h := punit.healthData()
 	udata.player = pl.C()
-	pl.prot_unit_hp_cur = C.uint(protectUint16(*(*uint16)(unsafe.Add(xxx, 0))))
-	pl.prot_unit_hp_max = C.uint(protectUint16(*(*uint16)(unsafe.Add(xxx, 4))))
+	pl.prot_unit_hp_cur = C.uint(protectUint16(h.cur))
+	pl.prot_unit_hp_max = C.uint(protectUint16(h.max))
 	pl.prot_unit_mana_cur = C.uint(protectUint16(uint16(udata.mana_cur)))
 	pl.prot_unit_mana_max = C.uint(protectUint16(uint16(udata.mana_max)))
 	pl.prot_unit_experience = C.uint(protectFloat32(float32(punit.experience)))

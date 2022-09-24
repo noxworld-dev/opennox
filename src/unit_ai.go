@@ -208,8 +208,8 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			ok = st.ArgU32(0) > gameFrame()
 		case ai.DEPENDENCY_ALIVE:
 			obj := st.ArgObj(0)
-			v13 := unsafe.Slice((*uint16)(obj.ptrXxx()), 3)
-			if obj == nil || !obj.Class().HasAny(object.MaskUnits) || (v13[0] == 0) && v13[2] != 0 {
+			h := obj.healthData()
+			if obj == nil || !obj.Class().HasAny(object.MaskUnits) || (h.cur == 0) && h.max != 0 {
 				ok = false
 				ud.field_97 = 0
 				ud.field_101 = C.uint(gameFrame() + gameFPS())
@@ -331,12 +331,12 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			enemy := asUnitC(ud.current_enemy)
 			ok = enemy != nil && nox_xxx_calcDistance_4E6C00(u, enemy) <= st.ArgF32(0)
 		case ai.DEPENDENCY_NOT_HEALTHY:
-			v34 := unsafe.Slice((*uint16)(u.ptrXxx()), 3)
-			v35 := float32(1.0)
-			if v34[2] != 0 {
-				v35 = float32(v34[0]) / float32(v34[2])
+			h := u.healthData()
+			perc := float32(1.0)
+			if h.max != 0 {
+				perc = float32(h.cur) / float32(h.max)
 			}
-			if v35 >= float32(ud.field_336) {
+			if perc >= float32(ud.field_336) {
 				ok = false
 			}
 		case ai.DEPENDENCY_WAIT_FOR_STAMINA:
