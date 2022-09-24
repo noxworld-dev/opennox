@@ -278,7 +278,7 @@ func RunArgs(args []string) (gerr error) {
 	noxflags.ResetGame()
 	noxflags.OnGameChange(func(f noxflags.GameFlag) {
 		if f.Has(noxflags.GameServerSettings) {
-			C.nox_server_gameSettingsUpdated = 1
+			nox_server_gameSettingsUpdated_40A670()
 		}
 	})
 	noxflags.OnGameSet(func(f noxflags.GameFlag) {

@@ -630,6 +630,23 @@ func (s *Server) createObjectAt(a11 noxObject, owner noxObject, pos types.Pointf
 	}
 }
 
+func (s *Server) deleteAllObjectsOfType(t *ObjectType) {
+	var next *Object
+	for it := s.firstServerObject(); it != nil; it = next {
+		next = it.Next()
+		var next2 *Object
+		for it2 := it.FirstItem(); it2 != nil; it2 = next2 {
+			next2 = it2.NextItem()
+			if it2.objTypeInd() == t.Ind() {
+				it2.Delete()
+			}
+		}
+		if it.objTypeInd() == t.Ind() {
+			it.Delete()
+		}
+	}
+}
+
 type nox_object_t = C.nox_object_t
 
 func toCObj(obj noxObject) *nox_object_t {
