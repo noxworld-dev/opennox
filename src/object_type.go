@@ -1,9 +1,13 @@
 package opennox
 
 /*
+#include "common/alloc/classes/alloc_class.h"
 #include "GAME3_2.h"
 #include "GAME3_3.h"
 #include "GAME4_3.h"
+extern nox_alloc_class* nox_alloc_gameObject_1563344;
+
+static void nox_call_objectType_new_go(void (*fnc)(nox_object_t*), nox_object_t* arg1) { fnc(arg1); }
 */
 import "C"
 import (
@@ -16,6 +20,8 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 //export nox_xxx_unitDefGetCount_4E3AC0
@@ -451,12 +457,96 @@ func (t *ObjectType) String() string {
 	return fmt.Sprintf("ObjectType(%d,%q)", t.Ind(), t.ID())
 }
 
-func (t *ObjectType) newObject() *Object { // nox_xxx_newObjectWithType_4E3470
-	cobj := C.nox_xxx_newObjectWithType_4E3470(t.C())
-	if cobj == nil {
-		return nil
+func (t *ObjectType) newObject() *Object {
+	s := noxServer
+	cobj := alloc.AsClassT[nox_object_t](unsafe.Pointer(C.nox_alloc_gameObject_1563344)).NewObject()
+	*cobj = nox_object_t{
+		net_code:     cobj.net_code,         // it is persisted by the allocator; so we basically reuse ID of the older object
+		typ_ind:      C.ushort(t.field_5_0), // TODO: why is it setting it and then overwriting again?
+		obj_class:    C.uint(t.obj_class),
+		obj_subclass: C.uint(t.obj_subclass),
+		obj_flags:    C.uint(t.obj_flags),
+		field_5:      C.uint(t.field_9),
+		material:     C.ushort(t.material),
+		experience:   C.float(t.experience),
+		worth:        C.uint(t.worth),
+		float_28:     C.float(t.field_13),
+		mass:         C.float(t.mass),
+		zsize1:       C.float(t.zsize1),
+		zsize2:       C.float(t.zsize2),
 	}
-	return asObjectC(cobj)
+	obj := asObjectC(cobj)
+	*obj.getShape() = t.shape
+	if !obj.Flags().Has(object.FlagNoCollide) {
+		C.nox_xxx_objectUnkUpdateCoords_4E7290(obj.CObj())
+	}
+	obj.weight = C.uchar(t.weight)
+	obj.carry_capacity = C.ushort(t.carry_capacity)
+	obj.speed_cur = C.float(t.speed)
+	obj.speed_2 = C.float(t.speed_2)
+	obj.float_138 = C.float(t.float_33)
+	obj.health_data = nil
+	obj.field_38 = -1
+	obj.typ_ind = C.ushort(t.ind)
+	if t.health_data != nil {
+		data, _ := alloc.New(objectHealthData{})
+		obj.health_data = unsafe.Pointer(data)
+		*data = *t.health_data
+	}
+	obj.func_init = t.func_init
+	if t.init_data_size != 0 {
+		data, _ := alloc.Make([]byte{}, t.init_data_size)
+		obj.init_data = unsafe.Pointer(&data[0])
+		copy(data, unsafe.Slice((*byte)(t.init_data), t.init_data_size))
+	}
+	obj.func_collide = t.func_collide
+	if t.collide_data_size != 0 {
+		data, _ := alloc.Make([]byte{}, t.collide_data_size)
+		obj.collide_data = unsafe.Pointer(&data[0])
+		copy(data, unsafe.Slice((*byte)(t.collide_data), t.collide_data_size))
+	}
+	obj.func_xfer = (*[0]byte)(t.func_xfer)
+	obj.func_use = t.func_use
+	if t.use_data_size != 0 {
+		data, _ := alloc.Make([]byte{}, t.use_data_size)
+		obj.use_data = unsafe.Pointer(&data[0])
+		copy(data, unsafe.Slice((*byte)(t.use_data), t.use_data_size))
+	}
+	obj.func_update = (*[0]byte)(t.func_update)
+	if t.data_update_size != 0 {
+		data, _ := alloc.Make([]byte{}, t.data_update_size)
+		obj.data_update = unsafe.Pointer(&data[0])
+		copy(data, unsafe.Slice((*byte)(t.data_update), t.data_update_size))
+	}
+	obj.func_pickup = t.func_pickup
+	obj.func_drop = t.func_drop
+	obj.func_damage = (*[0]byte)(t.func_damage)
+	obj.func_damage_sound = t.func_damage_sound
+	obj.func_die = t.func_die
+	obj.field_190 = 0
+	obj.die_data = t.die_data
+	obj.field_192 = -1
+	if noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) && (obj.Class().HasAny(0x20A02) || unsafe.Pointer(obj.func_xfer) == unsafe.Pointer(C.nox_xxx_XFerInvLight_4F5AA0) || obj.weight != 0xff) {
+		obj.field_189, _ = alloc.Malloc(2572)
+	}
+	if t.func_new != nil {
+		C.nox_call_objectType_new_go((*[0]byte)(t.func_new), obj.CObj())
+	}
+	if !noxflags.HasGame(noxflags.GameFlag22) {
+		obj.script_id = C.int(s.NextObjectScriptID())
+	}
+	if obj.Class().Has(object.ClassSimple) {
+		*memmap.PtrUint32(0x5D4594, 1563888)++
+	} else if obj.Class().Has(object.ClassImmobile) {
+		*memmap.PtrUint32(0x5D4594, 1563892)++
+	}
+	v8 := *memmap.PtrUint32(0x5D4594, 1563900) + 1
+	*memmap.PtrUint32(0x5D4594, 1563884)++
+	*memmap.PtrUint32(0x5D4594, 1563900)++
+	if *memmap.PtrInt32(0x5D4594, 1563900) > *memmap.PtrInt32(0x5D4594, 1563896) {
+		*memmap.PtrUint32(0x5D4594, 1563896) = v8
+	}
+	return obj
 }
 
 func (t *ObjectType) CreateObject(p types.Pointf) script.Object {
