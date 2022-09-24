@@ -3711,25 +3711,6 @@ LABEL_10:
 }
 // 535128: variable 'v34' is possibly undefined
 
-//----- (00535C80) --------------------------------------------------------
-int nox_xxx_parsePrettyImage_0_535C80(int a1, int a2) {
-	int* v2;           // ecx
-	int v3;            // edx
-	int v4;            // ecx
-	unsigned char* v5; // ecx
-
-	v2 = *(int**)(a2 + 8);
-	v3 = *v2;
-	v4 = (int)(v2 + 1);
-	*(uint32_t*)(a2 + 8) = v4;
-	if (v3 == -1) {
-		v5 = (unsigned char*)(v4 + 1);
-		*(uint32_t*)(a2 + 8) = v5;
-		*(uint32_t*)(a2 + 8) = &v5[*v5 + 1];
-	}
-	return 1;
-}
-
 //----- (00535CD0) --------------------------------------------------------
 int nox_xxx_parseDraw_535CD0(int a1, uint32_t* a2, void* a3) {
 	uint32_t* v3;       // ebp

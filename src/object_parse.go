@@ -229,7 +229,14 @@ var noxObjectFieldByName = map[string]objectFieldFunc{
 		}
 		return nil
 	},
-	"PRETTYIMAGE": wrapObjectFieldFuncC(C.nox_xxx_parsePrettyImage_0_535C80),
+	"PRETTYIMAGE": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
+		ind := f.ReadI32()
+		if ind == -1 {
+			f.Skip(1)
+			f.SkipString8()
+		}
+		return nil
+	},
 	"COLLIDE":     nox_xxx_parseCollide_536EC0,
 	"DAMAGE":      nox_xxx_parseDamageFn_536C60,
 	"DAMAGESOUND": nox_xxx_parseDamageSound_536CF0,
