@@ -2784,16 +2784,16 @@ void sub_57A4D0(wchar_t* a1, int a2, int a3, int a4) {
 // 57A4D0: using guessed type int var_280[32];
 
 //----- (0057A620) --------------------------------------------------------
+int sub_415EC0(char* a1);
+int sub_415A30(char* a1);
 int sub_57A620(unsigned char a1, const wchar_t** a2, int a3, int a4) {
 	const wchar_t** v4;  // ebp
 	unsigned char v5;    // dl
 	int v6;              // esi
-	unsigned short* v8;  // eax
 	int v9;              // eax
 	int v10;             // ebx
 	unsigned char v11;   // cl
 	int v12;             // eax
-	unsigned short* v13; // eax
 	int v14;             // esi
 	int v15;             // ecx
 	char v16[100];       // [esp+10h] [ebp-64h]
@@ -2826,11 +2826,11 @@ int sub_57A620(unsigned char a1, const wchar_t** a2, int a3, int a4) {
 				return 0;
 			}
 			nox_sprintf(v16, "%S", v4[2]);
-			v13 = (unsigned short*)sub_415EC0(v16);
-			if (!v13) {
+			int v13 = sub_415EC0(v16);
+			if (v13 < 0) {
 				return 0;
 			}
-			v14 = sub_415D10((char*)*v13);
+			v14 = sub_415D10(v13);
 			if (!v14) {
 				return 0;
 			}
@@ -2848,11 +2848,11 @@ int sub_57A620(unsigned char a1, const wchar_t** a2, int a3, int a4) {
 				return 0;
 			}
 			nox_sprintf(v16, "%S", v4[2]);
-			v8 = (unsigned short*)sub_415A30(v16);
-			if (!v8) {
+			int v8 = sub_415A30(v16);
+			if (v8 < 0) {
 				return 0;
 			}
-			v9 = nox_xxx_ammoCheck_415880((char*)*v8);
+			v9 = nox_xxx_ammoCheck_415880(v8);
 			v10 = v9;
 			if (!v9) {
 				return 0;
