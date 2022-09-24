@@ -4171,12 +4171,6 @@ int sub_5368C0(char* a1, nox_objectType_t* a2) {
 	return 1;
 }
 
-//----- (00536910) --------------------------------------------------------
-int sub_536910(char* a1, nox_objectType_t* a2) {
-	*(uint32_t*)((int)a2 + 36) = 2;
-	return 1;
-}
-
 //----- (00536AC0) --------------------------------------------------------
 void sub_536AC0(char* val, nox_objectType_t* a1) {
 	unsigned char* v1; // eax
