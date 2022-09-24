@@ -31,7 +31,6 @@ char* nox_xxx_getUnitNameByThingType_4E3A80(int a1);
 int nox_xxx_getNameId_4E3AA0(char* a1);
 int nox_xxx_unitDefGetCount_4E3AC0();
 int sub_4E3AD0(int a1);
-nox_objectType_t* nox_xxx_objectTypeByID_4E3B60(char* id);
 nox_objectType_t* nox_xxx_objectTypeByInd_4E3B70(int ind);
 int sub_4E3B80(int a1);
 int nox_xxx_getUnitDefDd10_4E3BA0(int a1);

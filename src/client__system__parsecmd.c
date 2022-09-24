@@ -513,44 +513,6 @@ int nox_cmd_set_armor(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 0;
 }
 
-//----- (00443050) --------------------------------------------------------
-int nox_cmd_set_staff(int tokInd, int tokCnt, wchar_t** tokens) {
-	int v3;       // edi
-	wchar_t* v4;  // eax
-	wchar_t* v6;  // eax
-	int v7;       // [esp-4h] [ebp-8Ch]
-	int v8;       // [esp-4h] [ebp-8Ch]
-	char v9[128]; // [esp+8h] [ebp-80h]
-
-	if (tokCnt == 4) {
-		nox_sprintf(v9, "%S", tokens[2]);
-		v3 = nox_xxx_objectTypeByID_4E3B60(v9);
-		if (v3) {
-			if (!_nox_wcsicmp(tokens[3], L"on")) {
-				sub_4E3BF0(v3);
-				v7 = tokens[2];
-				v4 = nox_strman_loadString_40F1D0("staffEnabled", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
-												  3535);
-				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v4, v7);
-				return 1;
-			}
-			if (!_nox_wcsicmp(tokens[3], L"off")) {
-				sub_4E3BC0(v3);
-				v7 = tokens[2];
-				v4 = nox_strman_loadString_40F1D0("staffDisabled", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c",
-												  3541);
-				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v4, v7);
-				return 1;
-			}
-		} else {
-			v8 = tokens[2];
-			v6 = nox_strman_loadString_40F1D0("invalidstaff", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 3548);
-			nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v6, v8);
-		}
-	}
-	return 0;
-}
-
 //----- (00443160) --------------------------------------------------------
 int nox_cmd_ban(int tokInd, int tokCnt, wchar_t** tokens) {
 	wchar_t* v4; // edi

@@ -68,6 +68,33 @@ func nox_xxx_objectTypeByID_4E3B60(cstr *C.char) *C.nox_objectType_t {
 	return noxServer.getObjectTypeByID(GoString(cstr)).C()
 }
 
+//export nox_objectTypeGetInd
+func nox_objectTypeGetInd(cstr *C.char) unsafe.Pointer {
+	t := noxServer.getObjectTypeByID(GoString(cstr))
+	if t == nil {
+		return nil
+	}
+	return t.func_xfer
+}
+
+//export nox_objectTypeGetXfer
+func nox_objectTypeGetXfer(cstr *C.char) unsafe.Pointer {
+	t := noxServer.getObjectTypeByID(GoString(cstr))
+	if t == nil {
+		return nil
+	}
+	return t.func_xfer
+}
+
+//export nox_objectTypeGetWorth
+func nox_objectTypeGetWorth(cstr *C.char) C.int {
+	t := noxServer.getObjectTypeByID(GoString(cstr))
+	if t == nil {
+		return -1
+	}
+	return C.int(t.worth)
+}
+
 //export nox_xxx_newObjectByTypeID_4E3810
 func nox_xxx_newObjectByTypeID_4E3810(cstr *C.char) *nox_object_t {
 	obj := noxServer.newObjectByTypeID(GoString(cstr))
@@ -84,17 +111,23 @@ func nox_xxx_getNameId_4E3AA0(cstr *C.char) C.int {
 
 //export sub_4E3BC0
 func sub_4E3BC0(a1 *C.nox_objectType_t) {
-	typ := asObjectType(a1)
-	noxServer.types.crc ^= typ.field_4
-	typ.field_4 = 0
+	noxServer.disableStaff(asObjectType(a1))
 }
 
 //export sub_4E3BF0
 func sub_4E3BF0(a1 *C.nox_objectType_t) {
-	typ := asObjectType(a1)
-	noxServer.types.crc ^= typ.field_4
+	noxServer.enableStaff(asObjectType(a1))
+}
+
+func (s *Server) disableStaff(typ *ObjectType) {
+	s.types.crc ^= typ.field_4
+	typ.field_4 = 0
+}
+
+func (s *Server) enableStaff(typ *ObjectType) {
+	s.types.crc ^= typ.field_4
 	typ.field_4 = 1
-	noxServer.types.crc ^= 1
+	s.types.crc ^= 1
 }
 
 type serverObjTypes struct {
@@ -302,7 +335,7 @@ func (s *serverObjTypes) nox_xxx_protectUnitDefUpdateMB_4E3C20() {
 	}
 }
 
-func (s *Server) getObjectTypeByID(id string) *ObjectType { // nox_xxx_objectTypeByID_4E3B60
+func (s *Server) getObjectTypeByID(id string) *ObjectType {
 	id = strings.ToLower(id)
 	return s.types.byID[id]
 }

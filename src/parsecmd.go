@@ -20,7 +20,6 @@ int nox_cmd_set_mnstrs(int, int, wchar_t**);
 int nox_cmd_set_spell(int, int, wchar_t**);
 int nox_cmd_set_weapon(int, int, wchar_t**);
 int nox_cmd_set_armor(int, int, wchar_t**);
-int nox_cmd_set_staff(int, int, wchar_t**);
 int nox_cmd_ban(int, int, wchar_t**);
 int nox_cmd_allow_user(int, int, wchar_t**);
 int nox_cmd_allow_ip(int, int, wchar_t**);
@@ -61,6 +60,7 @@ int nox_cmd_reenter(int, int, wchar_t**);
 import "C"
 import (
 	"context"
+	"strings"
 
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/strman"
@@ -160,7 +160,32 @@ var (
 		}},
 		{Token: "spell", HelpID: "setspellhelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_set_spell)},
 		{Token: "spellpoints", HelpID: "setspellptshelp", Flags: console.Server | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_set_spellpts)},
-		{Token: "staff", HelpID: "setstaffhelp", Flags: console.Server | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_set_staff)},
+		{Token: "staff", HelpID: "setstaffhelp", Flags: console.Server | console.Cheat, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+			if len(tokens) != 2 {
+				return false
+			}
+			s := noxServer
+			id := tokens[0]
+			t := s.getObjectTypeByID(id)
+			if t == nil {
+				str := c.Strings().GetStringInFile("invalidstaff", "parsecmd.c")
+				c.Printf(console.ColorRed, str, id)
+				return false
+			}
+			switch strings.ToLower(tokens[1]) {
+			case "on":
+				s.enableStaff(t)
+				str := c.Strings().GetStringInFile("staffEnabled", "parsecmd.c")
+				c.Printf(console.ColorRed, str, id)
+				return true
+			case "off":
+				s.disableStaff(t)
+				str := c.Strings().GetStringInFile("staffDisabled", "parsecmd.c")
+				c.Printf(console.ColorRed, str, id)
+				return true
+			}
+			return false
+		}},
 		{Token: "staffs", HelpID: "setstaffshelp", Flags: console.Server | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_set_staffs)},
 		{Token: "sysop", HelpID: "setsysophelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_set_sysop)},
 		{Token: "time", HelpID: "settimehelp", Flags: console.Server, LegacyFunc: wrapCommandC(nox_cmd_set_time)},
@@ -298,9 +323,6 @@ func nox_cmd_set_weapon(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_set_armor(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_set_armor(i, n, arr)
-}
-func nox_cmd_set_staff(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_set_staff(i, n, arr)
 }
 func nox_cmd_ban(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_ban(i, n, arr)

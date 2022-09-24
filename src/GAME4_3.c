@@ -10676,6 +10676,7 @@ char sub_541630(int a1, int a2) {
 }
 
 //----- (00542BF0) --------------------------------------------------------
+void* nox_objectTypeGetXfer(char* id);
 char* sub_542BF0(int a1, int a2, int a3) {
 	int** v3;         // eax
 	int* v4;          // ebx
@@ -10747,7 +10748,7 @@ char* sub_542BF0(int a1, int a2, int a3) {
 					v8 = a3;
 				}
 				v10 = (char*)nox_xxx_getUnitName_4E39D0((int)v4);
-				v11 = *(int (**)(int*))(nox_xxx_objectTypeByID_4E3B60(v10) + 212);
+				v11 = nox_objectTypeGetXfer(v10);
 				if (v11 == nox_xxx_unitTriggerXfer_4F4E50) {
 					v12 = (const char*)sub_508CB0(v4, 1);
 					if (strlen(v12)) {
