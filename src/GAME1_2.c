@@ -623,7 +623,7 @@ int nox_server_mapRWObjectTOC_428B30() {
 	unsigned short v2; // bp
 	int v3;            // esi
 	int v4;            // eax
-	int v5;            // esi
+	char* v5;            // esi
 	int i;             // esi
 	unsigned short v7; // ax
 	int v8;            // [esp+4h] [ebp-110h]
@@ -668,10 +668,10 @@ int nox_server_mapRWObjectTOC_428B30() {
 		v10 = v4;
 		if ((uint16_t)v4) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v10, 2u);
-			v5 = nox_xxx_objectTypeByInd_4E3B70(v3);
-			LOBYTE(v8) = strlen(*(const char**)(v5 + 4));
+			v5 = nox_xxx_getUnitNameByThingType_4E3A80(v3);
+			LOBYTE(v8) = strlen(v5);
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v8, 1u);
-			nox_xxx_fileReadWrite_426AC0_file3_fread(*(uint8_t**)(v5 + 4), (unsigned char)v8);
+			nox_xxx_fileReadWrite_426AC0_file3_fread(v5, (unsigned char)v8);
 		}
 		v3 = ++v2;
 	} while (v2 < (unsigned int)nox_xxx_unitDefGetCount_4E3AC0());
