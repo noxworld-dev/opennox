@@ -20,7 +20,6 @@ package opennox
 #include "client__shell__wolapi__wolchat.h"
 #include "client__system__parsecmd.h"
 #include "common__object__modifier.h"
-#include "server__object__die__die.h"
 #include "server__object__pickdrop__pickup.h"
 #include "server__system__cscrfunc.h"
 #include "server__script__script.h"
@@ -327,21 +326,6 @@ func initBlobData() {
 		Ptr_sub_4EE2F0:                              unsafe.Pointer(C.sub_4EE2F0),
 		Ptr_sub_536AC0:                              unsafe.Pointer(C.sub_536AC0),
 		Ptr_nox_xxx_dropAnkhTradable_4EE370:         unsafe.Pointer(C.nox_xxx_dropAnkhTradable_4EE370),
-		Ptr_nox_xxx_diePlayer_54D2B0:                unsafe.Pointer(C.nox_xxx_diePlayer_54D2B0),
-		Ptr_nox_xxx_diePotion_54CBB0:                unsafe.Pointer(C.nox_xxx_diePotion_54CBB0),
-		Ptr_nox_xxx_dieImpEgg_54CAE0:                unsafe.Pointer(C.nox_xxx_dieImpEgg_54CAE0),
-		Ptr_nox_xxx_dieGlyph_54DF30:                 unsafe.Pointer(C.nox_xxx_dieGlyph_54DF30),
-		Ptr_nox_xxx_dieBarrel_54DFA0:                unsafe.Pointer(C.nox_xxx_dieBarrel_54DFA0),
-		Ptr_nox_xxx_dieCreateObject_54E010:          unsafe.Pointer(C.nox_xxx_dieCreateObject_54E010),
-		Ptr_sub_536B40:                              unsafe.Pointer(C.sub_536B40),
-		Ptr_nox_xxx_dieSpawnObject_54E070:           unsafe.Pointer(C.nox_xxx_dieSpawnObject_54E070),
-		Ptr_nox_xxx_diePolyp_54CB10:                 unsafe.Pointer(C.nox_xxx_diePolyp_54CB10),
-		Ptr_nox_xxx_dieMarker_54E460:                unsafe.Pointer(C.nox_xxx_dieMarker_54E460),
-		Ptr_nox_xxx_dieWeapon_54E370_obj_die:        unsafe.Pointer(C.nox_xxx_dieWeapon_54E370_obj_die),
-		Ptr_nox_xxx_dieArmor_54E170_obj_die:         unsafe.Pointer(C.nox_xxx_dieArmor_54E170_obj_die),
-		Ptr_nox_xxx_dieBoulder_54E4B0:               unsafe.Pointer(C.nox_xxx_dieBoulder_54E4B0),
-		Ptr_nox_xxx_dieGameBall_54E620:              unsafe.Pointer(C.nox_xxx_dieGameBall_54E620),
-		Ptr_nox_xxx_dieMonsterGen_54E630:            unsafe.Pointer(C.nox_xxx_dieMonsterGen_54E630),
 		Ptr_nox_xxx_strikeOgre_549220:               unsafe.Pointer(C.nox_xxx_strikeOgre_549220),
 		Ptr_nox_xxx_strikeScorpion_5495B0:           unsafe.Pointer(C.nox_xxx_strikeScorpion_5495B0),
 		Ptr_nox_xxx_strikeVileZombie_549700:         unsafe.Pointer(C.nox_xxx_strikeVileZombie_549700),
