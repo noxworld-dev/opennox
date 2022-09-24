@@ -221,7 +221,14 @@ var noxObjectFieldByName = map[string]objectFieldFunc{
 		data.max = uint16(v)
 		return nil
 	},
-	"MENUICON":    wrapObjectFieldFuncC(C.nox_xxx_parseMenuIcon_535C30),
+	"MENUICON": func(objt *ObjectType, f *MemFile, str string, buf []byte) error {
+		objt.menu_icon = f.ReadI32()
+		if objt.menu_icon == -1 {
+			f.Skip(1)
+			f.SkipString8()
+		}
+		return nil
+	},
 	"PRETTYIMAGE": wrapObjectFieldFuncC(C.nox_xxx_parsePrettyImage_0_535C80),
 	"COLLIDE":     nox_xxx_parseCollide_536EC0,
 	"DAMAGE":      nox_xxx_parseDamageFn_536C60,
