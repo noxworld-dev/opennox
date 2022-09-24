@@ -208,7 +208,7 @@ var noxObjectFieldByName = map[string]objectFieldFunc{
 	"HEALTH":      wrapObjectFieldFuncC(C.nox_xxx_parseHealth_535A60),
 	"MENUICON":    wrapObjectFieldFuncC(C.nox_xxx_parseMenuIcon_535C30),
 	"PRETTYIMAGE": wrapObjectFieldFuncC(C.nox_xxx_parsePrettyImage_0_535C80),
-	"COLLIDE":     wrapObjectFieldFuncC(C.nox_xxx_parseCollide_536EC0),
+	"COLLIDE":     nox_xxx_parseCollide_536EC0,
 	"DAMAGE":      wrapObjectFieldFuncC(C.nox_xxx_parseDamageFn_536C60),
 	"DAMAGESOUND": wrapObjectFieldFuncC(C.nox_xxx_parseDamageSound_536CF0),
 	"DIE":         wrapObjectFieldFuncC(C.nox_xxx_parseDieProc_536B80),
