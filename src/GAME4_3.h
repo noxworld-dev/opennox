@@ -130,7 +130,6 @@ char* sub_5361B0(char* a1, int a2);
 char* sub_536260(char* a1, int a2);
 char* sub_536390(char* a1, int* a2);
 char* sub_5363C0(char* a1, int* a2);
-int nox_xxx_parseUseFn_5363F0(uint32_t* a1, int a2, char* a3);
 int sub_5364E0(char* a1, int a2);
 int sub_536550(char* a1, uint32_t* a2);
 int sub_536580(char* a1, int a2);

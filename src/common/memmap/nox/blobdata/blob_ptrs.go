@@ -226,26 +226,6 @@ type Ptrs struct {
 	Ptr_sub_544950                              unsafe.Pointer
 	Ptr_sub_544930                              unsafe.Pointer
 	Ptr_sub_544940                              unsafe.Pointer
-	Ptr_nox_xxx_useConsume_53EE10               unsafe.Pointer
-	Ptr_sub_536390                              unsafe.Pointer
-	Ptr_nox_xxx_useCiderConfuse_53EF00          unsafe.Pointer
-	Ptr_nox_xxx_useFireWand_53F670              unsafe.Pointer
-	Ptr_nox_xxx_useCast_53ED90                  unsafe.Pointer
-	Ptr_sub_536180                              unsafe.Pointer
-	Ptr_nox_xxx_useEnchant_53ED60               unsafe.Pointer
-	Ptr_sub_536130                              unsafe.Pointer
-	Ptr_nox_xxx_useMushroom_53ECE0              unsafe.Pointer
-	Ptr_nox_xxx_useRead_53F7C0                  unsafe.Pointer
-	Ptr_sub_53F830                              unsafe.Pointer
-	Ptr_nox_xxx_useLesserFireballStaff_53F290   unsafe.Pointer
-	Ptr_sub_536260                              unsafe.Pointer
-	Ptr_nox_xxx_useWandCastSpell_53F4F0         unsafe.Pointer
-	Ptr_sub_5361B0                              unsafe.Pointer
-	Ptr_nox_xxx_useSpellReward_53F9E0           unsafe.Pointer
-	Ptr_nox_xxx_useAbilityReward_53FAE0         unsafe.Pointer
-	Ptr_sub_53F930                              unsafe.Pointer
-	Ptr_nox_xxx_usePotion_53EF70                unsafe.Pointer
-	Ptr_sub_5363C0                              unsafe.Pointer
 	Ptr_nox_xxx_strikeOgre_549220               unsafe.Pointer
 	Ptr_nox_xxx_strikeScorpion_5495B0           unsafe.Pointer
 	Ptr_nox_xxx_strikeVileZombie_549700         unsafe.Pointer
