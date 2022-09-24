@@ -217,7 +217,7 @@ var noxObjectFieldByName = map[string]objectFieldFunc{
 	"CREATE":      nox_xxx_parseCreateProc_536830,
 	"PICKUP":      nox_xxx_parsePickup_536710,
 	"UPDATE":      nox_xxx_parseUpdate_536620,
-	"USE":         wrapObjectFieldFuncC(C.nox_xxx_parseUseFn_5363F0),
+	"USE":         nox_xxx_parseUseFn_5363F0,
 	"XFER":        nox_xxx_parseXFer_5360A0,
 	"DRAW":        wrapObjectFieldFuncC(C.nox_xxx_parseDraw_535CD0),
 }
