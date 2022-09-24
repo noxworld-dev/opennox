@@ -24,7 +24,6 @@ int nox_thing_read_xxx_4E3220(nox_memfile* a1, char* a2, nox_objectType_t* a3);
 int nox_xxx_allocClassArrayObjects_4E3360(unsigned int a1);
 int nox_xxx_freeGameObjectClass_4E3420();
 nox_object_t* nox_xxx_newObjectWithTypeInd_4E3450(int ind);
-nox_object_t* nox_xxx_newObjectWithType_4E3470(nox_objectType_t* typ);
 nox_object_t* nox_xxx_newObjectByTypeID_4E3810(char* id);
 int nox_xxx_objectFreeMem_4E38A0(nox_object_t* a1);
 char* nox_xxx_getUnitName_4E39D0(nox_object_t* a1);

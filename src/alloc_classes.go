@@ -27,11 +27,6 @@ func nox_free_alloc_class(p *C.nox_alloc_class) {
 	alloc.AsClass(unsafe.Pointer(p)).Free()
 }
 
-//export nox_alloc_class_new_obj
-func nox_alloc_class_new_obj(p *C.nox_alloc_class) unsafe.Pointer {
-	return alloc.AsClass(unsafe.Pointer(p)).NewObject()
-}
-
 //export nox_alloc_class_new_obj_zero
 func nox_alloc_class_new_obj_zero(p *C.nox_alloc_class) unsafe.Pointer {
 	return alloc.AsClass(unsafe.Pointer(p)).NewObject()
