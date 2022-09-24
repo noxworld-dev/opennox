@@ -3080,6 +3080,7 @@ int sub_50E360() {
 }
 
 //----- (0050E3D0) --------------------------------------------------------
+int nox_objectTypeGetWorth(char* a1);
 int nox_xxx_shopGetItemCost_50E3D0(int a1, int a2, float a3) {
 	float v3;            // ebp
 	int v4;              // edi
@@ -3088,7 +3089,6 @@ int nox_xxx_shopGetItemCost_50E3D0(int a1, int a2, float a3) {
 	int v7;              // eax
 	int v8;              // eax
 	double v9;           // st7
-	int v10;             // eax
 	int v11;             // esi
 	int v12;             // edi
 	double v13;          // st7
@@ -3138,9 +3138,9 @@ int nox_xxx_shopGetItemCost_50E3D0(int a1, int a2, float a3) {
 			goto LABEL_17;
 		}
 		if (v8 & 2) {
-			v10 = nox_xxx_objectTypeByID_4E3B60(*(char**)(LODWORD(v3) + 736));
-			if (v10) {
-				v31 = (double)*(unsigned int*)(v10 + 48);
+			int worth = nox_objectTypeGetWorth(*(char**)(LODWORD(v3) + 736));
+			if (worth >= 0) {
+				v31 = (double)worth;
 			}
 			if (nox_common_gameFlags_check_40A5C0(4096)) {
 				v9 = nox_xxx_gamedataGetFloat_419D40("QuestGuideWorthMultiplier") * v31;
