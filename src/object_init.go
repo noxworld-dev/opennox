@@ -4,7 +4,6 @@ package opennox
 #include "defs.h"
 #include "GAME3_3.h"
 int sub_5368C0(char* a1, nox_objectType_t* a2);
-int sub_536910(char* a1, nox_objectType_t* a2);
 */
 import "C"
 import (
@@ -51,38 +50,32 @@ func objectDirectionInitParse(objt *ObjectType, val string) error {
 	return nil
 }
 
-func objectBreakInitParse(objt *ObjectType, val string) error {
-	cstr := CString(val)
-	defer StrFree(cstr)
-	if C.sub_536910(cstr, objt.C()) == 0 {
-		return fmt.Errorf("cannot parse break init data")
-	}
-	return nil
-}
-
 var noxObjectInitTable = map[string]struct {
 	Func      unsafe.Pointer
 	DataSize  int
 	ParseFunc func(objt *ObjectType, val string) error
 }{
-	"NoInit":               {},
-	"MonsterInit":          {Func: C.nox_xxx_unitMonsterInit_4F0040},
-	"ShopkeeperInit":       {Func: C.nox_xxx_unitMonsterInit_4F0040, DataSize: 1724},
-	"PlayerInit":           {Func: C.nox_xxx_unitInitPlayer_4EFE80},
-	"ProjectileInit":       {},
-	"SparkInit":            {Func: C.nox_xxx_unitSparkInit_4F0390},
-	"FrogInit":             {Func: C.nox_xxx_initFrog_4F03B0},
-	"ChestInit":            {Func: C.nox_xxx_initChest_4F0400},
-	"BoulderInit":          {Func: C.nox_xxx_unitBoulderInit_4F0420},
-	"GruntInit":            {},
-	"SkeletonInit":         {},
-	"TowerInit":            {},
-	"SkullInit":            {Func: C.sub_4F0450, DataSize: 8, ParseFunc: objectDirectionInitParse},
-	"DirectionInit":        {Func: C.sub_4F0490, DataSize: 8, ParseFunc: objectDirectionInitParse},
-	"GlyphInit":            {DataSize: 36},
-	"ModifierInit":         {DataSize: 20},
-	"GoldInit":             {Func: C.nox_xxx_unitInitGold_4F04B0, DataSize: 4},
-	"BreakInit":            {Func: C.nox_xxx_breakInit_4F0570, ParseFunc: objectBreakInitParse},
+	"NoInit":         {},
+	"MonsterInit":    {Func: C.nox_xxx_unitMonsterInit_4F0040},
+	"ShopkeeperInit": {Func: C.nox_xxx_unitMonsterInit_4F0040, DataSize: 1724},
+	"PlayerInit":     {Func: C.nox_xxx_unitInitPlayer_4EFE80},
+	"ProjectileInit": {},
+	"SparkInit":      {Func: C.nox_xxx_unitSparkInit_4F0390},
+	"FrogInit":       {Func: C.nox_xxx_initFrog_4F03B0},
+	"ChestInit":      {Func: C.nox_xxx_initChest_4F0400},
+	"BoulderInit":    {Func: C.nox_xxx_unitBoulderInit_4F0420},
+	"GruntInit":      {},
+	"SkeletonInit":   {},
+	"TowerInit":      {},
+	"SkullInit":      {Func: C.sub_4F0450, DataSize: 8, ParseFunc: objectDirectionInitParse},
+	"DirectionInit":  {Func: C.sub_4F0490, DataSize: 8, ParseFunc: objectDirectionInitParse},
+	"GlyphInit":      {DataSize: 36},
+	"ModifierInit":   {DataSize: 20},
+	"GoldInit":       {Func: C.nox_xxx_unitInitGold_4F04B0, DataSize: 4},
+	"BreakInit": {Func: C.nox_xxx_breakInit_4F0570, ParseFunc: func(objt *ObjectType, val string) error {
+		objt.field_9 = 2
+		return nil
+	}},
 	"MonsterGeneratorInit": {Func: C.nox_xxx_unitInitGenerator_4F0590},
 	"RewardMarkerInit":     {DataSize: 220},
 	"AnkhInit":             {DataSize: 5124},
