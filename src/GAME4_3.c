@@ -3711,9 +3711,6 @@ LABEL_10:
 }
 // 535128: variable 'v34' is possibly undefined
 
-//----- (00535990) --------------------------------------------------------
-int nox_xxx_parseExtent_535990(int a1, int a2, char* a3) { return nox_parse_shape((nox_shape*)(a1 + 60), a3); }
-
 //----- (00535A60) --------------------------------------------------------
 int nox_xxx_parseHealth_535A60(int a1, int a2, char* a3) {
 	int result; // eax
