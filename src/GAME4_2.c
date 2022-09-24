@@ -294,7 +294,6 @@ int nox_xxx_mapCountWallsMB_51DEA0(int a1) {
 int sub_51DED0() {
 	int* v0;            // edi
 	char* v1;           // eax
-	unsigned short* v2; // eax
 	float* v3;          // esi
 	int v4;             // ebx
 	int v5;             // eax
@@ -306,8 +305,7 @@ int sub_51DED0() {
 	do {
 		if (!sub_4E3AD0(v0[27]) && sub_4E3B80(v0[27])) {
 			v1 = (char*)nox_get_thing_name(v0[27]);
-			v2 = (unsigned short*)nox_xxx_objectTypeByID_4E3B60(v1);
-			v3 = (float*)nox_xxx_newObjectWithTypeInd_4E3450(*v2);
+			v3 = (float*)nox_xxx_newObjectByTypeID_4E3810(v1);
 			v4 = *((uint32_t*)v3 + 9);
 			v3[14] = (double)v0[3] + 0.5;
 			v3[15] = (double)v0[4] + 0.5;
@@ -7191,6 +7189,7 @@ float* nox_xxx_mapGenPlaceObj_5279B0(float2* a1) {
 }
 
 //----- (00527A10) --------------------------------------------------------
+void* nox_objectTypeGetXfer(char* id);
 float* nox_xxx_mapGenMoveObject_527A10(float* a1, float2* a2) {
 	float v3;  // ecx
 	float v4;  // eax
@@ -7213,7 +7212,7 @@ float* nox_xxx_mapGenMoveObject_527A10(float* a1, float2* a2) {
 	a1[14] = v4;
 	*((uint32_t*)a1 + 4) = v5;
 	v6 = (char*)nox_xxx_getUnitName_4E39D0((int)a1);
-	if (*(int (**)(int))(nox_xxx_objectTypeByID_4E3B60(v6) + 212) == nox_xxx_XFerDoor_4F4CB0) {
+	if (nox_objectTypeGetXfer(v6) == nox_xxx_XFerDoor_4F4CB0) {
 		a1[14] = (double)(int)(23 * (unsigned long long)(long long)(v7.field_0 * 0.043478262 + 0.5));
 		a1[15] = (double)(int)(23 * (unsigned long long)(long long)(v7.field_4 * 0.043478262 + 0.5));
 	}
@@ -7285,6 +7284,7 @@ int nox_xxx_mapGenOrientObj_527C60(int a1, int a2) {
 }
 
 //----- (00527DB0) --------------------------------------------------------
+void* nox_objectTypeGetXfer(char* id);
 int nox_xxx_mapGenFinishSpellbook_527DB0(int a1, char a2) {
 	char* v3; // eax
 
@@ -7292,7 +7292,7 @@ int nox_xxx_mapGenFinishSpellbook_527DB0(int a1, char a2) {
 		return 0;
 	}
 	v3 = (char*)nox_xxx_getUnitName_4E39D0(a1);
-	if (*(int (**)(int*))(nox_xxx_objectTypeByID_4E3B60(v3) + 212) != nox_xxx_XFerSpellReward_4F5F30) {
+	if (nox_objectTypeGetXfer(v3) != nox_xxx_XFerSpellReward_4F5F30) {
 		return 0;
 	}
 	**(uint8_t**)(a1 + 736) = a2;
@@ -8887,6 +8887,7 @@ LABEL_13:
 }
 
 //----- (0052A840) --------------------------------------------------------
+nox_objectType_t* nox_xxx_objectTypeByID_4E3B60(char* id);
 int nox_xxx_XFer_ReadShopItem_52A840(int a1, int a2) {
 	bool v2;         // zf
 	int (*v3)(int*); // eax

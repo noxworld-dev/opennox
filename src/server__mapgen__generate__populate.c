@@ -102,6 +102,7 @@ float* nox_xxx_mapgen_522AD0(float* a1, int a2) {
 int sub_5259E0() { return dword_5d4594_2487576; }
 
 //----- (00527D50) --------------------------------------------------------
+void* nox_objectTypeGetXfer(char* id);
 int sub_527D50(int a1, char* a2) {
 	char* v3; // eax
 
@@ -112,7 +113,7 @@ int sub_527D50(int a1, char* a2) {
 		return 0;
 	}
 	v3 = (char*)nox_xxx_getUnitName_4E39D0(a1);
-	if (*(int (**)(int))(nox_xxx_objectTypeByID_4E3B60(v3) + 212) != nox_xxx_XFerExit_4F4B90) {
+	if (nox_objectTypeGetXfer(v3) != nox_xxx_XFerExit_4F4B90) {
 		return 0;
 	}
 	strncpy(*(char**)(a1 + 700), a2, 0x50u);

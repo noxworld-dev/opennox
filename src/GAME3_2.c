@@ -757,6 +757,7 @@ int sub_4CFFE0(int a1) {
 }
 
 //----- (004D0010) --------------------------------------------------------
+void* nox_objectTypeGetXfer(char* id);
 int nox_xxx_interesting_xfer_4D0010(uint32_t* a1, int a2) {
 	int i;          // eax
 	uint32_t* v3;   // edi
@@ -789,7 +790,7 @@ int nox_xxx_interesting_xfer_4D0010(uint32_t* a1, int a2) {
 	if (v3) {
 		while (1) {
 			v4 = (char*)nox_xxx_getUnitName_4E39D0((int)v3);
-			v5 = *(int (**)(int))(nox_xxx_objectTypeByID_4E3B60(v4) + 212);
+			v5 = nox_objectTypeGetXfer(v4);
 			if (v5 != nox_xxx_XFerElevator_4F53D0) {
 				break;
 			}
