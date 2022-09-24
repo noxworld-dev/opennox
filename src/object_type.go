@@ -50,7 +50,7 @@ func nox_xxx_objectTypeByIndHealthData(ind C.int) unsafe.Pointer {
 
 //export nox_xxx_getUnitDefDd10_4E3BA0
 func nox_xxx_getUnitDefDd10_4E3BA0(ind C.int) C.int {
-	return C.int(noxServer.getObjectTypeByInd(int(ind)).field_4)
+	return C.int(noxServer.getObjectTypeByInd(int(ind)).allowed)
 }
 
 //export nox_xxx_getUnitName_4E39D0
@@ -117,24 +117,34 @@ func nox_xxx_getNameId_4E3AA0(cstr *C.char) C.int {
 	return C.int(noxServer.getObjectTypeID(GoString(cstr)))
 }
 
+//export sub_415A30
+func sub_415A30(a1 *C.char) *C.nox_objectType_t {
+	return sub415A30(GoString(a1)).C()
+}
+
+//export sub_415EC0
+func sub_415EC0(a1 *C.char) *C.nox_objectType_t {
+	return sub415EC0(GoString(a1)).C()
+}
+
 //export sub_4E3BC0
 func sub_4E3BC0(a1 *C.nox_objectType_t) {
-	noxServer.disableStaff(asObjectType(a1))
+	noxServer.disableObject(asObjectType(a1))
 }
 
 //export sub_4E3BF0
 func sub_4E3BF0(a1 *C.nox_objectType_t) {
-	noxServer.enableStaff(asObjectType(a1))
+	noxServer.enableObject(asObjectType(a1))
 }
 
-func (s *Server) disableStaff(typ *ObjectType) {
-	s.types.crc ^= typ.field_4
-	typ.field_4 = 0
+func (s *Server) disableObject(typ *ObjectType) {
+	s.types.crc ^= typ.allowed
+	typ.allowed = 0
 }
 
-func (s *Server) enableStaff(typ *ObjectType) {
-	s.types.crc ^= typ.field_4
-	typ.field_4 = 1
+func (s *Server) enableObject(typ *ObjectType) {
+	s.types.crc ^= typ.allowed
+	typ.allowed = 1
 	s.types.crc ^= 1
 }
 
@@ -272,7 +282,7 @@ func (s *serverObjTypes) readType(thg *MemFile, buf []byte) error {
 			typ.health_data, _ = alloc.New(objectHealthData{})
 		}
 	}
-	typ.field_4 = 1
+	typ.allowed = 1
 	typ.mass *= 10.0
 	s.crc ^= s.nox_xxx_unitDefProtectMB_4E31A0(typ)
 	typ.next = s.first
@@ -327,7 +337,7 @@ func (s *serverObjTypes) nox_xxx_unitDefProtectMB_4E31A0(typ *ObjectType) uint32
 		return 0
 	}
 	val := uint32(typ.ind)
-	val ^= typ.field_4
+	val ^= typ.allowed
 	val ^= s.sub_4E31E0(typ)
 	val ^= protectBytes([]byte(typ.ID()))
 	return val
@@ -411,7 +421,7 @@ type ObjectType struct {
 	id                *C.char           // 1, 4
 	field_2           uint32            // 2, 8
 	menu_icon         int32             // 3, 12
-	field_4           uint32            // 4, 16
+	allowed           uint32            // 4, 16
 	field_5_0         uint16            // 5, 20
 	field_5_1         uint16            // 5, 22
 	obj_class         uint32            // 6, 24

@@ -5775,7 +5775,7 @@ int nox_xxx_weaponInventoryEquipFlags_415820(nox_object_t* item) {
 }
 
 //----- (00415840) --------------------------------------------------------
-int sub_415840(char* a1) {
+int sub_415840(int a1) {
 	int v1;           // ecx
 	unsigned char* i; // eax
 	int v3;           // esi
@@ -5904,21 +5904,6 @@ int sub_4159F0(int a1) {
 	return *getMemU32Ptr(0x587000, 33392 + 12 * v1);
 }
 
-//----- (00415A30) --------------------------------------------------------
-int sub_415A30(char* a1) {
-	char* v1;   // eax
-	int v2;     // eax
-	int result; // eax
-
-	v1 = (char*)sub_415910(a1);
-	if (v1 && (v2 = sub_415840(v1)) != 0) {
-		result = nox_xxx_objectTypeByInd_4E3B70(v2);
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
 //----- (00415BD0) --------------------------------------------------------
 double sub_415BD0(int a1) {
 	float* v1;     // eax
@@ -6005,7 +5990,7 @@ int sub_415C90(const nox_object_t* item) {
 }
 
 //----- (00415CD0) --------------------------------------------------------
-int sub_415CD0(char* a1) {
+int sub_415CD0(int a1) {
 	int v1;           // ecx
 	unsigned char* i; // eax
 	int v3;           // esi
@@ -6132,21 +6117,6 @@ int sub_415E80(int a1) {
 		}
 	}
 	return *getMemU32Ptr(0x587000, 35496 + 12 * v1);
-}
-
-//----- (00415EC0) --------------------------------------------------------
-int sub_415EC0(char* a1) {
-	char* v1;   // eax
-	int v2;     // eax
-	int result; // eax
-
-	v1 = (char*)sub_415DF0(a1);
-	if (v1 && (v2 = sub_415CD0(v1)) != 0) {
-		result = nox_xxx_objectTypeByInd_4E3B70(v2);
-	} else {
-		result = 0;
-	}
-	return result;
 }
 
 //----- (004161E0) --------------------------------------------------------
