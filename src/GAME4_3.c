@@ -4436,34 +4436,6 @@ int nox_xxx_parseDieProc_536B80(int a1, int a2, char* a3) {
 	return result;
 }
 
-//----- (00536C60) --------------------------------------------------------
-int nox_xxx_parseDamageFn_536C60(int a1, int a2, char* a3) {
-	char* v3;          // eax
-	const char* v4;    // ecx
-	int v5;            // ebp
-	unsigned char* v6; // edi
-
-	v3 = strtok(a3, " \t\n\r");
-	v4 = *(const char**)getMemAt(0x587000, 274520);
-	v5 = 0;
-	if (*getMemU32Ptr(0x587000, 274520)) {
-		v6 = getMemAt(0x587000, 274520);
-		do {
-			if (!strcmp(v4, v3)) {
-				break;
-			}
-			v4 = (const char*)*((uint32_t*)v6 + 2);
-			v6 += 8;
-			++v5;
-		} while (v4);
-	}
-	if (!*getMemU32Ptr(0x587000, 274520 + 8 * v5)) {
-		return 0;
-	}
-	*(uint32_t*)(a1 + 152) = *getMemU32Ptr(0x587000, 274524 + 8 * v5);
-	return 1;
-}
-
 //----- (00536CF0) --------------------------------------------------------
 int nox_xxx_parseDamageSound_536CF0(int a1, int a2, char* a3) {
 	char* v3;          // eax
