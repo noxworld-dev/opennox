@@ -3413,11 +3413,6 @@ func Init(p *Ptrs) {
 	*memmap.PtrPtr(0x587000, 274288) = memmap.PtrOff(0x587000, 274484)
 	*memmap.PtrPtr(0x587000, 274292) = p.Ptr_nox_xxx_dieMonsterGen_54E630
 
-	*memmap.PtrPtr(0x587000, 274616) = memmap.PtrOff(0x587000, 274816)
-	*memmap.PtrPtr(0x587000, 274620) = p.Ptr_nox_xxx_soundDefaultDamageSound_532E20
-	*memmap.PtrPtr(0x587000, 274624) = memmap.PtrOff(0x587000, 274836)
-	*memmap.PtrPtr(0x587000, 274628) = p.Ptr_nox_xxx_soundPlayerDamageSound_5328B0
-
 	*memmap.PtrPtr(0x587000, 276824) = memmap.PtrOff(0x587000, 276848)
 	*memmap.PtrPtr(0x587000, 276832) = memmap.PtrOff(0x587000, 276872)
 	*memmap.PtrPtr(0x587000, 276840) = memmap.PtrOff(0x587000, 276896)

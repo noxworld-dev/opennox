@@ -144,7 +144,6 @@ int nox_xxx_parseDrop_536A20(int a1, int a2, char* a3);
 char* sub_536AC0(short* a1);
 int sub_536B40(char* a1, int a2);
 int nox_xxx_parseDieProc_536B80(int a1, int a2, char* a3);
-int nox_xxx_parseDamageSound_536CF0(int a1, int a2, char* a3);
 int sub_536D80(char* a1, int a2);
 int sub_536DA0(char* a1, int* a2);
 int sub_536DE0(char* a1, uint8_t* a2);
