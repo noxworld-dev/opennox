@@ -960,6 +960,7 @@ int sub_4E3D50() {
 }
 
 //----- (004E3DD0) --------------------------------------------------------
+void* nox_xxx_objectTypeByIndHealthData(int a1);
 short sub_4E3DD0() {
 	int v0;             // eax
 	int v1;             // esi
@@ -1011,10 +1012,10 @@ short sub_4E3DD0() {
 					LOWORD(v0) = *(uint16_t*)v0;
 					if ((uint16_t)v0) {
 						if ((uint16_t)v0 == v4) {
-							v5 = nox_xxx_objectTypeByInd_4E3B70(*(unsigned short*)(v1 + 4));
-							v15 = sub_4E40F0() * (double)*(unsigned short*)(*(uint32_t*)(v5 + 136) + 4);
+							v5 = nox_xxx_objectTypeByIndHealthData(*(unsigned short*)(v1 + 4));
+							v15 = sub_4E40F0() * (double)*(unsigned short*)(v5 + 4);
 							v6 = nox_float2int16_abs(v15);
-							v16 = sub_4E40F0() * (double)**(unsigned short**)(v5 + 136);
+							v16 = sub_4E40F0() * (double)*(unsigned short*)(v5);
 							v7 = nox_float2int16_abs(v16);
 							if (!v7) {
 								v7 = 1;
@@ -1042,10 +1043,10 @@ short sub_4E3DD0() {
 						LOWORD(v0) = *(uint16_t*)v0;
 						if ((uint16_t)v0) {
 							if ((uint16_t)v0 == v8) {
-								v0 = nox_xxx_objectTypeByInd_4E3B70(*(unsigned short*)(v1 + 4));
+								int v0a = nox_xxx_objectTypeByIndHealthData(*(unsigned short*)(v1 + 4));
 								v9 = *(uint32_t*)(v1 + 748);
 								v10 = *(uint32_t*)(v9 + 484);
-								LOWORD(v0) = v10 ? *(uint16_t*)(v10 + 72) : *(uint16_t*)(*(uint32_t*)(v0 + 136) + 4);
+								LOWORD(v0) = v10 ? *(uint16_t*)(v10 + 72) : *(uint16_t*)(v0a + 4);
 								if ((signed char)*(uint8_t*)(v9 + 1440) >= 0) {
 									v22 = (double)(unsigned short)v0;
 									v17 = sub_4E40F0() * v22;
@@ -1743,7 +1744,7 @@ int sub_4E4C90(int a1, unsigned int a2) {
 		if (!v4) {
 			return 0;
 		}
-		v5 = (uint16_t*)v2[34];
+		v5 = (uint16_t*)nox_xxx_objectTypeByIndHealthData(*(unsigned short*)(a1 + 4));
 		if (!v5) {
 			return 0;
 		}
