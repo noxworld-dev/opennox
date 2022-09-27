@@ -349,6 +349,7 @@ var noxScriptBuiltins = []func() int{
 	84:  wrapScriptC(C.nox_script_getMaxHP_513DB0),
 	85:  wrapScriptC(C.nox_script_restoreHP_513DF0),
 	86:  wrapScriptC(C.nox_script_getDistance_513E20),
+	87:  wrapScriptC(C.nox_script_canInteract_513E80),
 	88:  nox_script_fn58_513F10,
 	89:  nox_script_fn59_513F20,
 	90:  nox_script_fn5A_513F30,
