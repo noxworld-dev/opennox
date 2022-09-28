@@ -7,7 +7,6 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
-	"strconv"
 	"strings"
 	"time"
 
@@ -130,8 +129,8 @@ func goBuild(cmd string, bin string, opts *buildOpts) error {
 		args = []string{
 			goBin, "build", "-v",
 			`-ldflags=` + strings.Join(LDFLAGS, " "),
-			"-gcflags=" + strconv.Quote(GCFLAGS),
-			"-asmflags=" + strconv.Quote(ASMFLAGS),
+			"-gcflags=" + GCFLAGS,
+			"-asmflags=" + ASMFLAGS,
 		}
 	)
 	envs = append(envs,
