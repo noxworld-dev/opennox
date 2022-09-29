@@ -142,9 +142,26 @@ func newMsgList(cnt int) *MsgList {
 
 func nox_netlist_init_40EA10() {
 	for i := 0; i < noxMaxPlayers; i++ {
-		C.nox_net_lists[1][i] = newMsgList(NOX_NETBUF_MAX_PACKETS).C()
 		C.nox_net_lists[0][i] = nil
+		C.nox_net_lists[1][i] = newMsgList(NOX_NETBUF_MAX_PACKETS).C()
 		C.nox_net_lists[2][i] = newMsgList(NOX_NETBUF_MAX_PACKETS).C()
 	}
 	C.nox_net_lists[0][noxMaxPlayers-1] = newMsgList(NOX_NETBUF_MAX_PACKETS).C()
+}
+
+func (l *MsgList) Free() {
+	alloc.AsClass(unsafe.Pointer(l.alloc)).Free()
+	l.alloc = nil
+	alloc.Free(unsafe.Pointer(l.C()))
+}
+
+func nox_netlist_free_40EA70() {
+	for i := 0; i < noxMaxPlayers; i++ {
+		for j := 0; j < 3; j++ {
+			if l := asNetList(C.nox_net_lists[j][i]); l != nil {
+				l.Free()
+				C.nox_net_lists[j][i] = nil
+			}
+		}
+	}
 }

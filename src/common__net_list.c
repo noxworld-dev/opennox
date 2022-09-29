@@ -46,27 +46,6 @@ int nox_netlist_countByInd2_40F0B0(int ind) { return nox_netlist_countByInd_40E9
 //----- (0040F0D0) --------------------------------------------------------
 int nox_netlist_sizeByInd2_40F0D0(int ind) { return nox_netlist_sizeByInd_40E9F0(ind, 2); }
 
-//----- (004208F0) --------------------------------------------------------
-void nox_netlist_freeMsgList_4208F0(nox_net_list_t* p) {
-	nox_free_alloc_class(p->alloc);
-	free(p);
-}
-
-//----- (0040EA70) --------------------------------------------------------
-void nox_netlist_free_40EA70() {
-	for (int i = 0; i < NOX_PLAYERINFO_MAX; i++) {
-		if (nox_net_lists[1][i]) {
-			nox_netlist_freeMsgList_4208F0(nox_net_lists[1][i]);
-		}
-		if (nox_net_lists[0][i]) {
-			nox_netlist_freeMsgList_4208F0(nox_net_lists[0][i]);
-		}
-		if (nox_net_lists[2][i]) {
-			nox_netlist_freeMsgList_4208F0(nox_net_lists[2][i]);
-		}
-	}
-}
-
 //----- (0040EAC0) --------------------------------------------------------
 bool nox_netlist_checkSizes_40EAC0(int ind1, int ind2, int sz) {
 	if (ind2 == 1) {
