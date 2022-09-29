@@ -536,7 +536,7 @@ func cleanup() {
 	C.sub_42EDC0()
 	ctrlEvent.Reset()
 	nox_strman_free_410020()
-	C.nox_netlist_free_40EA70()
+	nox_netlist_free_40EA70()
 	C.sub_40D0F0()
 	C.sub_4D11D0()
 	C.sub_4D0DA0()
