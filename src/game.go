@@ -2106,8 +2106,6 @@ func sub_460D40() bool {
 	return C.dword_5d4594_1049508 != 0
 }
 
-const netListsBufSize = 2048
-
 func (s *Server) nox_xxx_netlist_4DEB50() {
 	if !noxflags.HasGame(noxflags.GameClient) {
 		return
