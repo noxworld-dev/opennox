@@ -3,35 +3,49 @@
 package opennox
 
 /*
+#include "client__network__cdecode.h"
 #include "GAME1.h"
 #include "GAME1_2.h"
 #include "GAME1_3.h"
 #include "GAME2.h"
 #include "GAME2_1.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
 #include "GAME3_1.h"
+#include "GAME3_3.h"
+#include "GAME5.h"
+#include "GAME5_2.h"
 
 extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int nox_client_gui_flag_815132;
-extern int nox_win_width;
-extern int nox_win_height;
+extern unsigned int dword_5d4594_2650652;
+extern unsigned int dword_5d4594_815704;
+extern unsigned int dword_5d4594_815708;
 */
 import "C"
 import (
 	"context"
+	"encoding/binary"
 	"errors"
 	"fmt"
 	"image"
 	"math"
 	"strings"
+	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/client/seat"
 	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/maps"
+	"github.com/noxworld-dev/opennox-lib/noxnet"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+)
+
+var (
+	qword_5d4594_815724 uint64
 )
 
 func (c *Client) drawAndPresent() {
@@ -69,7 +83,7 @@ func (c *Client) mapDownloadLoop(first bool) (bool, error) {
 	}
 	nox_framerate_limit_416C70(30)
 	c.processInput()
-	C.sub_43CCA0()
+	sub_43CCA0()
 
 	if first {
 		ctx, cancel := context.WithCancel(context.Background())
@@ -238,5 +252,58 @@ func (c *Client) generateMouseSparks() {
 		}
 	} else {
 		*memmap.PtrUint32(0x5D4594, 816416) = 0
+	}
+}
+
+func sub_43CCA0() {
+	C.nox_xxx_spriteDeleteSomeList_49C4B0()
+	start := gameFrame()
+	C.nox_xxx_servNetInitialPackets_552A80(C.uint(nox_xxx_netGet_43C750()), 1)
+	if start != gameFrame() && C.dword_5d4594_2650652 == 1 && !noxflags.HasGame(noxflags.GameHost) {
+		if v1 := C.sub_40A710(1); C.sub_43C790() > v1 {
+			C.sub_43CEB0()
+			v2 := memmap.Uint64(0x5D4594, 815740) + memmap.Uint64(0x587000, 91880)/uint64(C.sub_43C790())
+			if platformTicks() >= v2 {
+				buf, free := alloc.Make([]byte{}, 8) // TODO: check if we need extra space
+				defer free()
+				buf[0] = byte(noxnet.MSG_FULL_TIMESTAMP)
+				binary.LittleEndian.PutUint32(buf[1:], gameFrame()+1)
+				C.nox_xxx_netOnPacketRecvCli_48EA70(noxMaxPlayers-1, (*C.uchar)(unsafe.Pointer(&buf[0])), 5)
+			}
+		}
+	}
+
+	if dt := platformTicks() - qword_5d4594_815724; dt >= 2000 {
+		qword_5d4594_815724 = platformTicks()
+		C.sub_552E70(C.uint(nox_xxx_netGet_43C750()))
+	}
+	if !noxflags.HasGame(noxflags.GameHost) {
+		C.nox_xxx_netImportant_4E5770(0x1F, 0)
+	}
+	nox_xxx_netSendBySock_40EE10(int(nox_xxx_netGet_43C750()), 31, 0)
+	nox_netlist_resetByInd_40ED10(31, 0)
+	C.nox_xxx_netMaybeSendAll_552460()
+	if !(memmap.Uint32(0x5D4594, 815720) != 0 || memmap.Uint32(0x5D4594, 815716) != 0) {
+		return
+	}
+	v5 := platformTicks() - *memmap.PtrUint64(0x5D4594, 815716)
+	if v5 > 2000 && C.dword_5d4594_815704 == 0 {
+		C.dword_5d4594_815704 = 1
+		C.sub_4AB4A0(1)
+		*memmap.PtrUint64(0x5D4594, 815732) = platformTicks()
+	}
+	if !(memmap.Uint32(0x5D4594, 815720) != 0 || memmap.Uint32(0x5D4594, 815716) != 0) {
+		return
+	}
+	v4 := platformTicks() - *memmap.PtrUint64(0x5D4594, 815716)
+	if v4 <= 20000 {
+		return
+	}
+	if C.dword_5d4594_815708 != 0 {
+		return
+	}
+	v4 = platformTicks() - *memmap.PtrUint64(0x5D4594, 815732)
+	if v4 > 20000 {
+		C.sub_43CF70()
 	}
 }
