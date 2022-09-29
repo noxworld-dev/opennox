@@ -208,11 +208,12 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 					c.nox_ctrlevent_action_42E670(player.CCAction, 0) // regular attack?
 				}
 			case keybind.EventMoveForward:
-				v5 := 1
+				var flags uint32
+				flags |= 0x1
 				if c.flags754064&0x8 != 0 {
-					v5 = 3
+					flags |= 0x2
 				}
-				c.nox_ctrlevent_action_42E670(player.CCMoveForward, uint32(v5))
+				c.nox_ctrlevent_action_42E670(player.CCMoveForward, flags)
 			case keybind.EventMoveBackward, keybind.EventMoveLeft, keybind.EventMoveRight:
 				var code player.CtrlCode
 				switch k {
@@ -223,11 +224,14 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 				case keybind.EventMoveRight:
 					code = player.CCMoveRight
 				}
-				v6 := uint32(bool2int(c.flags754064&0x1 != 0))
-				if c.flags754064&0x8 != 0 {
-					v6 |= 2
+				var flags uint32
+				if c.flags754064&0x1 != 0 {
+					flags |= 0x1
 				}
-				c.nox_ctrlevent_action_42E670(code, v6)
+				if c.flags754064&0x8 != 0 {
+					flags |= 0x2
+				}
+				c.nox_ctrlevent_action_42E670(code, flags)
 			case keybind.EventJump:
 				c.nox_ctrlevent_action_42E670(player.CCJump, 0)
 			case keybind.EventToggleInventory:
@@ -258,8 +262,8 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 				c.nox_ctrlevent_action_42E670(player.CCReadMap, 0)
 			case keybind.EventCastQueued:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					v13 := C.nox_xxx_packetGetMarshall_476F40()
-					c.nox_ctrlevent_action_42E780(player.CCCastQueuedSpell, uint32(v13))
+					targ := C.nox_xxx_packetGetMarshall_476F40()
+					c.nox_ctrlevent_action_42E780(player.CCCastQueuedSpell, uint32(targ))
 				}
 			case keybind.EventPhonemeUN:
 				if !nox_xxx_guiSpellTest_45D9C0() {
@@ -299,8 +303,8 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 				}
 			case keybind.EventCastRecent:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					v14 := C.nox_xxx_packetGetMarshall_476F40()
-					c.nox_ctrlevent_action_42E780(player.CCCastMostRecentSpell, uint32(v14))
+					targ := C.nox_xxx_packetGetMarshall_476F40()
+					c.nox_ctrlevent_action_42E780(player.CCCastMostRecentSpell, uint32(targ))
 				}
 			case keybind.EventInvokeSlot1:
 				c.nox_ctrlevent_action_42E780(player.CCCastSpell1, 0)
