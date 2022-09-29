@@ -7163,7 +7163,7 @@ int sub_4ECC00(const char** a1) {
 }
 
 //----- (004ECCB0) --------------------------------------------------------
-int nox_server_getObjectFromNetCode_4ECCB0(int a1) {
+nox_object_t* nox_server_getObjectFromNetCode_4ECCB0(int a1) {
 	int result; // eax
 	int v2;     // edi
 	int v3;     // esi

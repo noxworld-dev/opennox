@@ -623,7 +623,7 @@ typedef struct {
 	uint32_t field_51; // 51, 204
 	uint32_t field_52; // 52, 208
 	uint32_t field_53; // 53, 212
-	uint32_t field_54; // 54, 216, TODO: (manual?) casting timestamp
+	uint32_t spell_cast_start; // 54, 216
 	int field_55; // 55, 220, TODO: spell-related? x coord?
 	int field_56; // 56, 224, TODO: spell-related? y coord?
 	uint32_t field_57; // 57, 228

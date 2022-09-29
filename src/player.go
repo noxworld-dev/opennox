@@ -57,6 +57,69 @@ import (
 
 const noxMaxPlayers = 32
 
+//export nox_xxx_playerSpell_4FB2A0_magic_plyrspel
+func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
+	noxServer.playerSpell(asUnitC(up))
+}
+
+//export nox_xxx_updateSpellRelated_424830
+func nox_xxx_updateSpellRelated_424830(p unsafe.Pointer, ph C.int) unsafe.Pointer {
+	return unsafe.Pointer((*phonemeLeaf)(p).Next(spell.Phoneme(ph)))
+}
+
+//export nox_common_playerInfoGetFirst_416EA0
+func nox_common_playerInfoGetFirst_416EA0() *C.nox_playerInfo {
+	return noxServer.playerFirst().C()
+}
+
+//export nox_common_playerInfoGetNext_416EE0
+func nox_common_playerInfoGetNext_416EE0(it *C.nox_playerInfo) *C.nox_playerInfo {
+	return noxServer.playerNext(asPlayer(it)).C()
+}
+
+//export nox_common_playerInfoCount_416F40
+func nox_common_playerInfoCount_416F40() C.int {
+	return C.int(noxServer.cntPlayers())
+}
+
+//export nox_common_playerInfoNew_416F60
+func nox_common_playerInfoNew_416F60(id C.int) *C.nox_playerInfo {
+	return noxServer.newPlayerInfo(int(id)).C()
+}
+
+//export nox_common_playerInfoGetByID_417040
+func nox_common_playerInfoGetByID_417040(id C.int) *C.nox_playerInfo {
+	return noxServer.getPlayerByID(int(id)).C()
+}
+
+//export nox_common_playerInfoFromNum_417090
+func nox_common_playerInfoFromNum_417090(ind C.int) *C.nox_playerInfo {
+	return noxServer.getPlayerByInd(int(ind)).C()
+}
+
+//export nox_common_playerInfoFromNumRaw
+func nox_common_playerInfoFromNumRaw(ind C.int) *C.nox_playerInfo {
+	return noxServer.players.list[ind].C()
+}
+
+//export nox_xxx_playerNew_4DD320
+func nox_xxx_playerNew_4DD320(ind C.int, data *C.uchar) C.int {
+	return C.int(noxServer.newPlayerFromPacket(int(ind), unsafe.Slice((*byte)(unsafe.Pointer(data)), 153)))
+}
+
+//export nox_xxx_playerDisconnByPlrID_4DEB00
+func nox_xxx_playerDisconnByPlrID_4DEB00(id C.int) {
+	if p := noxServer.getPlayerByInd(int(id)); p != nil {
+		p.Disconnect(4)
+	}
+}
+
+//export nox_xxx_playerCallDisconnect_4DEAB0
+func nox_xxx_playerCallDisconnect_4DEAB0(ind C.int, v C.char) *C.char {
+	noxServer.getPlayerByInd(int(ind)).Disconnect(int(v))
+	return nil
+}
+
 type classStatMult struct {
 	// TODO: health and mana
 
@@ -131,50 +194,10 @@ func (s *Server) playerNext(it *Player) *Player {
 	return nil
 }
 
-//export nox_common_playerInfoGetFirst_416EA0
-func nox_common_playerInfoGetFirst_416EA0() *C.nox_playerInfo {
-	return noxServer.playerFirst().C()
-}
-
-//export nox_common_playerInfoGetNext_416EE0
-func nox_common_playerInfoGetNext_416EE0(it *C.nox_playerInfo) *C.nox_playerInfo {
-	return noxServer.playerNext(asPlayer(it)).C()
-}
-
-//export nox_common_playerInfoCount_416F40
-func nox_common_playerInfoCount_416F40() C.int {
-	return C.int(noxServer.cntPlayers())
-}
-
-//export nox_common_playerInfoNew_416F60
-func nox_common_playerInfoNew_416F60(id C.int) *C.nox_playerInfo {
-	return noxServer.newPlayerInfo(int(id)).C()
-}
-
 func (s *Server) playerResetInd(ind int) *Player {
 	p := &s.players.list[ind]
 	p.Reset(ind)
 	return p
-}
-
-//export nox_common_playerInfoGetByID_417040
-func nox_common_playerInfoGetByID_417040(id C.int) *C.nox_playerInfo {
-	return noxServer.getPlayerByID(int(id)).C()
-}
-
-//export nox_common_playerInfoFromNum_417090
-func nox_common_playerInfoFromNum_417090(ind C.int) *C.nox_playerInfo {
-	return noxServer.getPlayerByInd(int(ind)).C()
-}
-
-//export nox_common_playerInfoFromNumRaw
-func nox_common_playerInfoFromNumRaw(ind C.int) *C.nox_playerInfo {
-	return noxServer.players.list[ind].C()
-}
-
-//export nox_xxx_playerNew_4DD320
-func nox_xxx_playerNew_4DD320(ind C.int, data *C.uchar) C.int {
-	return C.int(noxServer.newPlayerFromPacket(int(ind), unsafe.Slice((*byte)(unsafe.Pointer(data)), 153)))
 }
 
 func (s *Server) newPlayerInfo(id int) *Player {
@@ -198,19 +221,6 @@ func (p *Player) Reset(ind int) {
 		active:     1,
 		field_3648: 4,
 	}
-}
-
-//export nox_xxx_playerDisconnByPlrID_4DEB00
-func nox_xxx_playerDisconnByPlrID_4DEB00(id C.int) {
-	if p := noxServer.getPlayerByInd(int(id)); p != nil {
-		p.Disconnect(4)
-	}
-}
-
-//export nox_xxx_playerCallDisconnect_4DEAB0
-func nox_xxx_playerCallDisconnect_4DEAB0(ind C.int, v C.char) *C.char {
-	noxServer.getPlayerByInd(int(ind)).Disconnect(int(v))
-	return nil
 }
 
 func getPlayerClass() player.Class {
@@ -902,10 +912,13 @@ func (s *Server) sub_4E8210(u *Unit) (types.Pointf, bool) {
 	return out, true
 }
 
-//export nox_xxx_playerSpell_4FB2A0_magic_plyrspel
-func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
-	u := asUnitC(up)
+func nox_xxx_plrSetSpellType_4F9B90(u *Unit) {
+	ud := u.updateDataPlayer()
+	ud.spell_phoneme_leaf = unsafe.Pointer(getPhonemeTree())
+	ud.spell_cast_start = C.uint(gameFrame())
+}
 
+func (s *Server) playerSpell(u *Unit) {
 	ok2 := true
 	ud := u.updateDataPlayer()
 	pl := ud.Player()
@@ -919,13 +932,13 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 		spellInd := spell.ID(leaf.Ind)
 		if !noxflags.HasGame(noxflags.GameModeQuest) {
 			targ := ud.CursorObj()
-			if noxServer.spellHasFlags(spellInd, things.SpellOffensive) {
+			if s.spellHasFlags(spellInd, things.SpellOffensive) {
 				if targ != nil && !u.isEnemyTo(targ) {
 					return
 				}
 			}
 		}
-		if pl.spell_lvl[spellInd] != 0 || spellInd == 34 {
+		if pl.spell_lvl[spellInd] != 0 || spellInd == spell.SPELL_GLYPH {
 			ok2 = false
 			a1 = int(C.sub_4FD0E0(u.CObj(), C.int(spellInd)))
 			if a1 == 0 {
@@ -944,13 +957,13 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 					arg, v14free := alloc.New(spellAcceptArg{})
 					defer v14free()
 					arg.Obj = pl.obj_3640
-					if noxflags.HasGame(noxflags.GameModeQuest) && noxServer.spellHasFlags(spellInd, 32) {
+					if noxflags.HasGame(noxflags.GameModeQuest) && s.spellHasFlags(spellInd, things.SpellOffensive) {
 						if pl.obj_3640 != nil && !u.isEnemyTo(asObjectC(pl.obj_3640)) {
 							arg.Obj = nil
 						}
 					}
 					arg.Pos = pl.CursorPos()
-					if noxServer.nox_xxx_castSpellByUser4FDD20(spellInd, u, arg) {
+					if s.nox_xxx_castSpellByUser4FDD20(spellInd, u, arg) {
 						nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 1, int(spellInd))
 					} else {
 						sub_4FD030(u, mana)
@@ -964,14 +977,14 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 		nox_xxx_playerSetState_4FA020(u, 13)
 	}
 	if ok2 {
-		v13 := noxServer.Strings().GetStringInFile("SpellUnknown", "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c")
+		v13 := s.Strings().GetStringInFile("SpellUnknown", "plyrspel.c")
 		nox_xxx_netSendLineMessage_4D9EB0(u, v13)
 	} else if a1 != 0 {
 		v4 := (*phonemeLeaf)(ud.spell_phoneme_leaf)
 		nox_xxx_netReportSpellStat_4D9630(pl.Index(), spell.ID(v4.Ind), 0)
 	} else {
 		v4 := (*phonemeLeaf)(ud.spell_phoneme_leaf)
-		if !noxServer.spellHasFlags(spell.ID(v4.Ind), things.SpellFlagUnk21) {
+		if !s.spellHasFlags(spell.ID(v4.Ind), things.SpellFlagUnk21) {
 			nox_xxx_netReportSpellStat_4D9630(pl.Index(), spell.ID(v4.Ind), 15)
 		}
 	}

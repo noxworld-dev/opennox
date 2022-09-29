@@ -61,6 +61,13 @@ type phonemeLeaf struct {
 	Pho [spell.PhonMax]*phonemeLeaf
 }
 
+func (p *phonemeLeaf) Next(ph spell.Phoneme) *phonemeLeaf { // nox_xxx_updateSpellRelated_424830
+	if p == nil || !ph.Valid() {
+		return nil
+	}
+	return p.Pho[ph]
+}
+
 //export nox_xxx_spellGetDefArrayPtr_424820
 func nox_xxx_spellGetDefArrayPtr_424820() unsafe.Pointer {
 	return unsafe.Pointer(getPhonemeTree())
