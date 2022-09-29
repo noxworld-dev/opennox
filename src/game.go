@@ -51,7 +51,6 @@ extern unsigned int dword_5d4594_1556144;
 extern unsigned int dword_5d4594_251744;
 extern unsigned int dword_5d4594_815052;
 extern unsigned int dword_5d4594_1049508;
-extern unsigned char nox_net_lists_buf[2048];
 extern uint32_t* dword_5D4594_251544;
 extern void* dword_5d4594_251548;
 extern uint32_t dword_5d4594_251552;
@@ -2114,9 +2113,9 @@ func (s *Server) nox_xxx_netlist_4DEB50() {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(false)
 		nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
 	} else if !isDedicatedServer {
-		buf := nox_netlist_copyPacketList_40ED60(noxMaxPlayers-1, 0)
+		buf := nox_netlist_copyPacketList(noxMaxPlayers-1, 0)
 		if len(buf) != 0 {
-			dst := unsafe.Slice((*byte)(unsafe.Pointer(&C.nox_net_lists_buf[0])), netListsBufSize)
+			dst := nox_net_lists_buf
 			n := copy(dst, buf)
 			nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(noxMaxPlayers-1, dst[:n])
 		}

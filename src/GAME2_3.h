@@ -46,7 +46,6 @@ char* sub_4947E0(int a1);
 int sub_4948B0(int a1);
 int nox_xxx_netCliProcUpdateStream_494A60(unsigned char* a1, int a2, uint32_t* a3);
 unsigned char* nox_xxx_netCliUpdateStream2_494C30(unsigned char* a1, int a2, int* a3);
-int nox_netlist_receiveCli_494E90(int ind);
 int sub_494F00();
 char* sub_494FF0();
 char* sub_495020(int a1);

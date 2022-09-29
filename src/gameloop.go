@@ -557,7 +557,7 @@ func CONNECT_OR_HOST() error {
 		}
 		C.nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE)
 		if !isDedicatedServer {
-			C.nox_netlist_receiveCli_494E90(noxMaxPlayers - 1)
+			nox_netlist_receiveCli_494E90(noxMaxPlayers - 1)
 		}
 		gameSetPlayState(2)
 	} else {

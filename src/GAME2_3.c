@@ -1831,29 +1831,6 @@ unsigned char* nox_xxx_netCliUpdateStream2_494C30(unsigned char* a1, int a2, int
 	return (unsigned char*)(v14 - (uint32_t)a1);
 }
 
-//----- (00494E90) --------------------------------------------------------
-int nox_netlist_receiveCli_494E90(int ind) {
-	int res = 0;
-
-	int n1 = 0;
-	unsigned char* buf1 = nox_netlist_copyPacketList2_40F120(ind, &n1);
-	if (buf1) {
-		res = nox_xxx_netOnPacketRecvCli_48EA70(ind, buf1, n1);
-	} else {
-		res = n1;
-	}
-
-	int n2 = 0;
-	unsigned char* buf2 = nox_netlist_copyPacketList_40ED60(ind, 1, &n2);
-	if (buf2) {
-		res = nox_xxx_netOnPacketRecvCli_48EA70(ind, buf2, n2);
-		if (res) {
-			sub_48D660();
-		}
-	}
-	return res;
-}
-
 //----- (00494F00) --------------------------------------------------------
 int sub_494F00() {
 	int result; // eax
