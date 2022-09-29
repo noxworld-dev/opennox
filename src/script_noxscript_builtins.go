@@ -176,6 +176,7 @@ import (
 	"strings"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/spell"
@@ -262,7 +263,7 @@ func (s *noxScript) builtinNeedsField36(fi int) bool {
 }
 
 var noxScriptBuiltins = []func() int{
-	0:   wrapScriptC(C.nox_script_getWall_511EB0),
+	0:   noxScriptCompare("nox_script_getWall_511EB0", wrapScriptC(C.nox_script_getWall_511EB0), nox_script_getWall_511EB0),
 	1:   wrapScriptC(C.nox_script_openSecretWall_511F50),
 	2:   wrapScriptC(C.nox_script_openWallGroup_512010),
 	3:   wrapScriptC(C.nox_script_closeWall_512040),
@@ -349,7 +350,7 @@ var noxScriptBuiltins = []func() int{
 	84:  wrapScriptC(C.nox_script_getMaxHP_513DB0),
 	85:  wrapScriptC(C.nox_script_restoreHP_513DF0),
 	86:  wrapScriptC(C.nox_script_getDistance_513E20),
-	87:  wrapScriptC(C.nox_script_canInteract_513E80),
+	87:  noxScriptCompare("nox_script_canInteract_513E80", wrapScriptC(C.nox_script_canInteract_513E80), nox_script_canInteract_513E80),
 	88:  nox_script_fn58_513F10,
 	89:  nox_script_fn59_513F20,
 	90:  nox_script_fn5A_513F30,
@@ -1043,5 +1044,76 @@ func nox_script_GetScore_516EA0() int {
 	}
 	pl := u.ControllingPlayer()
 	s.PushI32(int32(pl.lessons))
+	return 0
+}
+
+func sliceEqual(a, b []uint32) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i, v := range a {
+		if v != b[i] {
+			return false
+		}
+	}
+	return true
+}
+
+func noxScriptCompare(name string, orig func() int, updated func() int) func() int {
+	return func() int {
+		s := &noxServer.noxScript
+		origStack := append([]uint32{}, s.vm.stack...)
+		dryrunRet := updated()
+		dryrunStack := append([]uint32{}, s.vm.stack...)
+		s.vm.stack = origStack
+		ret := orig()
+
+		scriptLog.Printf("%s: test %v:%d vs %v:%d\n", name, dryrunStack, dryrunRet, s.vm.stack, ret)
+		if dryrunRet != ret || !sliceEqual(s.vm.stack, dryrunStack) {
+			scriptLog.Printf("%s: unexpected execution result: dry run %v:%d, not matching with %v:%d\n", name, dryrunStack, dryrunRet, s.vm.stack, ret)
+		}
+
+		return ret
+	}
+}
+
+func nox_script_getWall_511EB0() int {
+	s := &noxServer.noxScript
+
+	y := s.PopI32()
+	x := s.PopI32()
+
+	if s.f40 != 0 || s.f44 != 0 {
+		x = (int32(s.f40) + common.GridStep*x) / common.GridStep
+		y = (int32(s.f44) + common.GridStep*y) / common.GridStep
+	}
+
+	if nox_server_getWallAtGrid_410580(C.int(x), C.int(y)) != nil {
+		s.PushI32((x << 16) | y)
+	} else {
+		s.PushI32(0)
+	}
+
+	return 0
+}
+
+func nox_script_canInteract_513E80() int {
+	s := &noxServer.noxScript
+
+	v3 := s.PopObject()
+	v2 := s.PopObject()
+
+	v4 := 0
+	if v2 != nil && v3 != nil {
+		p2 := v2.Pos()
+		p3 := v3.Pos()
+		if abs(p2.X-p3.X) <= 512.0 && abs(p2.Y-p3.Y) <= 512.0 {
+			if nox_xxx_unitCanInteractWith_5370E0(v2, v3, 0) {
+				v4 = 1
+			}
+		}
+	}
+	s.PushI32(int32(v4))
+
 	return 0
 }
