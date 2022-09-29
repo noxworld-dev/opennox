@@ -374,7 +374,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				if err != nil {
 					return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 				}
-				C.sub_40A040_settings(C.short(configModeCodes[i]), C.uchar(v))
+				noxServer.sub40A040settings(int(configModeCodes[i]), v)
 			}
 		case "PlayerSkeletons":
 			v, err := strconv.Atoi(kv.Value)

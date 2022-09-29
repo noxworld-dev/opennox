@@ -47,7 +47,6 @@ extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 extern unsigned int dword_5d4594_1548524;
 extern unsigned int dword_5d4594_2650652;
 extern void* dword_5d4594_1548532;
-extern unsigned int dword_5d4594_1548704;
 extern unsigned int dword_5d4594_1556144;
 extern unsigned int dword_5d4594_251744;
 extern unsigned int dword_5d4594_815052;
@@ -1433,7 +1432,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	}
 	nox_ticks_reset_416D40()
 	C.sub_40A970()
-	C.dword_5d4594_1548704 = 0
+	s.flag1548704 = false
 	if noxflags.HasGame(noxflags.GameModeQuest) {
 		C.sub_4D71E0(0)
 		if C.sub_4D72C0() == 1 {
