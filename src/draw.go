@@ -809,7 +809,7 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_spriteDeleteSomeList_49C4B0()
-		if C.nox_netlist_receiveCli_494E90(noxMaxPlayers-1) == 0 {
+		if nox_netlist_receiveCli_494E90(noxMaxPlayers-1) == 0 {
 			return true
 		}
 	} else {

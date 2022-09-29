@@ -4,7 +4,6 @@
 #include "common/alloc/classes/alloc_class.h"
 #include <stdbool.h>
 
-#define NOX_NETBUF_MAX_PACKETS 512
 #define NOX_NETBUF_MAX_SIZE 2032
 
 typedef struct nox_net_list_item_t nox_net_list_item_t;
@@ -39,6 +38,5 @@ void nox_netlist_findAndFreeBuf_40F000(int ind, unsigned char* buf);
 void nox_netlist_initPlayerBufs_40F020(int a1);
 void nox_netlist_forEach2_40F0F0(int a1, int (*a2)(unsigned int, int), int a3);
 bool nox_netlist_addToMsgListSrv_40EF40(int ind, unsigned char* buf, int sz);
-unsigned char* nox_netlist_copyPacketList2_40F120(int a1, unsigned int* a2);
 
 #endif // NOX_COMMON_NET_LIST_H

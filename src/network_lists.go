@@ -3,12 +3,11 @@ package opennox
 /*
 #include "defs.h"
 #include "common__net_list.h"
-typedef struct {
-	unsigned char buf[2048];
-	unsigned int cur;
-} nox_net_lists_buf_t;
 extern nox_net_list_t* nox_net_lists[3][NOX_PLAYERINFO_MAX];
-extern nox_net_lists_buf_t nox_net_lists_buf_arr[3][NOX_PLAYERINFO_MAX];
+
+int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz);
+int nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2);
+int sub_48D660();
 */
 import "C"
 import (
@@ -16,6 +15,23 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
+
+var (
+	nox_net_lists_buf     []byte
+	nox_net_lists_buf_arr [3][]netBuf
+)
+
+type netBuf struct {
+	buf [netListsBufSize]byte
+	cur int
+}
+
+func init() {
+	nox_net_lists_buf, _ = alloc.Make([]byte{}, netListsBufSize)
+	nox_net_lists_buf_arr[0], _ = alloc.Make([]netBuf{}, noxMaxPlayers)
+	nox_net_lists_buf_arr[1], _ = alloc.Make([]netBuf{}, noxMaxPlayers)
+	nox_net_lists_buf_arr[2], _ = alloc.Make([]netBuf{}, noxMaxPlayers)
+}
 
 //export nox_netlist_addToMsgListCli_40EBC0
 func nox_netlist_addToMsgListCli_40EBC0(ind1, ind2 C.int, buf *C.uchar, sz C.int) C.int {
@@ -27,9 +43,44 @@ func nox_netlist_clientSend_0_40ECA0(ind1, ind2 C.int, buf *C.uchar, sz, sz2 C.i
 	return C.int(bool2int(nox_netlist_clientSend_0(int(ind1), int(ind2), unsafe.Slice((*byte)(unsafe.Pointer(buf)), int(sz)), int(sz2))))
 }
 
+//export nox_netlist_addToMsgListSrv_40EF40
+func nox_netlist_addToMsgListSrv_40EF40(ind C.int, buf *C.uchar, sz C.int) C.bool {
+	return C.bool(nox_netlist_addToMsgListSrv(int(ind), unsafe.Slice((*byte)(unsafe.Pointer(buf)), int(sz))))
+}
+
+//export nox_netlist_getInd_40EEB0
+func nox_netlist_getInd_40EEB0(ind1, ind2 C.int, outSz *C.uint) *C.uchar {
+	buf := netList(int(ind1), int(ind2)).get()
+	*outSz = C.uint(len(buf))
+	if len(buf) == 0 {
+		return nil
+	}
+	return (*C.uchar)(unsafe.Pointer(&buf[0]))
+}
+
+//export nox_netlist_getByInd2_40F080
+func nox_netlist_getByInd2_40F080(ind C.int, outSz *C.uint) *C.uchar {
+	buf := netList(int(ind), 2).get()
+	*outSz = C.uint(len(buf))
+	if len(buf) == 0 {
+		return nil
+	}
+	return (*C.uchar)(unsafe.Pointer(&buf[0]))
+}
+
+//export nox_netlist_copyPacketList_40ED60
+func nox_netlist_copyPacketList_40ED60(ind1, ind2 C.int, outSz *C.uint) *C.uchar {
+	buf := nox_netlist_copyPacketList(int(ind1), int(ind2))
+	sbuf := nox_net_lists_buf
+	copy(sbuf, make([]byte, len(sbuf)))
+	*outSz = C.uint(len(buf))
+	copy(sbuf, buf)
+	return (*C.uchar)(unsafe.Pointer(&sbuf[0]))
+}
+
 const (
-	netListsBufSize        = 2048
-	NOX_NETBUF_MAX_PACKETS = 512
+	netListsBufSize    = 2048
+	netListsMaxPackets = 512
 )
 
 func asNetList(p *C.nox_net_list_t) *MsgList {
@@ -100,7 +151,7 @@ func (l *MsgList) get() []byte { // nox_netlist_get_420A90
 	return buf
 }
 
-func nox_netlist_copyPacketList_40ED60(ind1, ind2 int) []byte {
+func nox_netlist_copyPacketList(ind1, ind2 int) []byte {
 	list := netList(ind1, ind2)
 	out := make([]byte, 0, netListsBufSize)
 	for {
@@ -162,10 +213,10 @@ func newMsgList(cnt int) *MsgList {
 func nox_netlist_init_40EA10() {
 	for i := 0; i < noxMaxPlayers; i++ {
 		C.nox_net_lists[0][i] = nil
-		C.nox_net_lists[1][i] = newMsgList(NOX_NETBUF_MAX_PACKETS).C()
-		C.nox_net_lists[2][i] = newMsgList(NOX_NETBUF_MAX_PACKETS).C()
+		C.nox_net_lists[1][i] = newMsgList(netListsMaxPackets).C()
+		C.nox_net_lists[2][i] = newMsgList(netListsMaxPackets).C()
 	}
-	C.nox_net_lists[0][noxMaxPlayers-1] = newMsgList(NOX_NETBUF_MAX_PACKETS).C()
+	C.nox_net_lists[0][noxMaxPlayers-1] = newMsgList(netListsMaxPackets).C()
 }
 
 func (l *MsgList) Free() {
@@ -196,7 +247,7 @@ func nox_netlist_checkSizes_40EAC0(ind1, ind2 int, sz int) bool {
 			return false
 		}
 	}
-	return netList(ind1, ind2).Count() < NOX_NETBUF_MAX_PACKETS
+	return netList(ind1, ind2).Count() < netListsMaxPackets
 }
 
 func nox_netlist_checkSizesExt_40EB60(ind1, ind2 int, sz, sz2 int) bool {
@@ -205,11 +256,11 @@ func nox_netlist_checkSizesExt_40EB60(ind1, ind2 int, sz, sz2 int) bool {
 	if sz+psz+sz2 > netListsBufSize {
 		return false
 	}
-	return l.Count() < NOX_NETBUF_MAX_PACKETS
+	return l.Count() < netListsMaxPackets
 }
 
 func nox_xxx_netBufsSetZero_40ED40(ind, ind2 int) {
-	C.nox_net_lists_buf_arr[ind2+1][ind].cur = 0
+	nox_net_lists_buf_arr[ind2+1][ind].cur = 0
 }
 
 func (l *MsgList) Reset() { // nox_netlist_resetList_420830
@@ -253,23 +304,35 @@ func nox_netlist_resetAll_40EE60() {
 }
 
 func sub_40F040(ind int) {
-	C.nox_net_lists_buf_arr[0][ind].cur = 0
+	nox_net_lists_buf_arr[0][ind].cur = 0
 }
 
 func nox_netlist_sendByInd_40EC30(ind1, ind2 int, buf []byte) *byte {
 	if len(buf) == 0 {
 		return nil
 	}
-	p := &C.nox_net_lists_buf_arr[ind2+1][ind1]
-	i := int(p.cur)
+	p := &nox_net_lists_buf_arr[ind2+1][ind1]
+	i := p.cur
 	if i+len(buf) > netListsBufSize {
 		return nil
 	}
-	ptr := (*byte)(unsafe.Pointer(&p.buf[i]))
-	dst := unsafe.Slice(ptr, len(buf))
-	copy(dst, buf)
-	p.cur += C.uint(len(buf))
-	return ptr
+	copy(p.buf[i:], buf)
+	p.cur += len(buf)
+	return &p.buf[i]
+}
+
+func nox_xxx_netlistAdd_40EFA0(ind int, buf []byte) *byte {
+	if len(buf) == 0 {
+		return nil
+	}
+	p := &nox_net_lists_buf_arr[0][ind]
+	i := p.cur
+	if i+len(buf) > netListsBufSize {
+		return nil
+	}
+	copy(p.buf[i:], buf)
+	p.cur += len(buf)
+	return &p.buf[i]
 }
 
 func nox_netlist_addToMsgListCli(ind1, ind2 int, buf []byte) bool {
@@ -302,6 +365,91 @@ func nox_netlist_clientSend_0(ind1, ind2 int, buf []byte, sz2 int) bool {
 	}
 	nox_netlist_add_420940(l, out, len(buf), true)
 	return true
+}
+
+func sub_40EEF0(ind, a2 int) bool {
+	l := netList(ind, 2)
+	if (a2 + l.Size()) > netListsBufSize {
+		return false
+	}
+	return l.Count() < netListsMaxPackets
+}
+
+func nox_netlist_addToMsgListSrv(ind int, buf []byte) bool {
+	if len(buf) == 0 {
+		return true
+	}
+	s := noxServer
+	// If there are too many updates, then we may run out of space in a single
+	// packet. Instead of fragmenting, we can instead send additional packets.
+	var out *byte
+	l := netList(ind, 2)
+	if !sub_40EEF0(ind, len(buf)) || !(func() bool { out = nox_xxx_netlistAdd_40EFA0(ind, buf); return out != nil }()) {
+		p := &nox_net_lists_buf_arr[0][ind]
+
+		// The new update packet needs to have correct bytes at the
+		// beginning. Save the length of the first two queued datas so we
+		// can replay them.
+		len1 := int(l.first.size)
+		len2 := int(l.first.next.size)
+
+		// Flush old data to network.
+		if ind == noxMaxPlayers-1 {
+			nox_netlist_receiveCli_494E90(ind)
+		} else {
+			C.nox_xxx_netSendReadPacket_5528B0(C.uint(s.getPlayerByInd(ind).Index())+1, 0)
+		}
+
+		// Set buffer length and re-queue updates.
+		p.cur = len1 + len2
+		nox_netlist_add_420940(l, &p.buf[0], len1, true)
+		nox_netlist_add_420940(l, &p.buf[len1], len2, true)
+
+		// Retry original allocation.
+		out = nox_xxx_netlistAdd_40EFA0(ind, buf)
+	}
+	if out == nil {
+		return false
+	}
+	nox_netlist_add_420940(l, out, len(buf), true)
+	return true
+}
+
+func nox_netlist_copyPacketList2_40F120(ind int) []byte {
+	l := netList(ind, 2)
+	cnt := 0
+	sbuf := nox_net_lists_buf
+	copy(sbuf, make([]byte, len(sbuf)))
+	for {
+		src := l.get()
+		if len(src) == 0 {
+			break // no more data
+		}
+		if cnt+len(src) > len(sbuf) {
+			// we cannot store it, so put it back
+			nox_netlist_add_420940(l, &src[0], len(src), false)
+			break
+		}
+		copy(sbuf[cnt:], src)
+		cnt += len(src)
+	}
+	return sbuf[:cnt]
+}
+
+func nox_netlist_receiveCli_494E90(ind int) int {
+	res := 0
+
+	if buf1 := nox_netlist_copyPacketList2_40F120(ind); len(buf1) != 0 {
+		res = int(C.nox_xxx_netOnPacketRecvCli_48EA70(C.int(ind), (*C.uchar)(unsafe.Pointer(&buf1[0])), C.int(len(buf1))))
+	}
+
+	if buf2 := nox_netlist_copyPacketList(ind, 1); len(buf2) != 0 {
+		res = int(C.nox_xxx_netOnPacketRecvCli_48EA70(C.int(ind), (*C.uchar)(unsafe.Pointer(&buf2[0])), C.int(len(buf2))))
+		if res != 0 {
+			C.sub_48D660()
+		}
+	}
+	return res
 }
 
 func nox_netlist_add_420940(l *MsgList, buf *byte, sz int, appnd bool) bool {
