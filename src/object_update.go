@@ -424,9 +424,10 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		v41 := int(C.nox_xxx_servGamedataGet_40A020(1024))
 		if !noxflags.HasGame(noxflags.GameModeElimination) || (v41 <= 0) || (int(pl.field_2140) < v41) {
 			if noxflags.HasGame(noxflags.GameOnline) && (pl.field_3680&1 == 0) {
-				for it := playerControlBufferFirst(pl.Index()); it != nil; it = playerGetControlBufferNext(pl.Index()) {
-					if it.field_2 == 6 {
-						nox_xxx_playerCmd(pl.Index())
+				cb := s.ctrlbuf.Player(pl.Index())
+				for it := cb.First(); it != nil; it = cb.Next() {
+					if it.code == 6 {
+						cb.Reset()
 						C.nox_xxx_playerRespawn_4F7EF0(u.CObj())
 						return a1, v68, true
 					}
@@ -648,7 +649,8 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 	ud := u.updateDataPlayer()
 	pl := ud.Player()
 	v69 := false
-	if nox_xxx_playerCmdGet(pl.Index()) {
+	cb := s.ctrlbuf.Player(pl.Index())
+	if cb.IsEmpty() {
 		goto LABEL_247
 	}
 	if (ud.field_22_0 == 0 || ud.field_22_0 == 5) && C.sub_4F9A80(u.CObj()) == 0 {
@@ -660,16 +662,16 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 		goto LABEL_247
 	}
 	v69 = C.sub_4FEE50(31, u.CObj()) != 0
-	for it := playerControlBufferFirst(pl.Index()); it != nil; it = playerGetControlBufferNext(pl.Index()) {
-		if v69 && it.field_2 != 1 {
+	for it := cb.First(); it != nil; it = cb.Next() {
+		if v69 && it.code != 1 {
 			continue
 		}
-		switch it.field_2 {
+		switch it.code {
 		case 1:
 			if !u.HasEnchant(ENCHANT_FREEZE) &&
 				(!noxflags.HasGame(noxflags.GameModeQuest) || ud.field_70 == 0) &&
 				!s.abilities.IsActive(u, AbilityBerserk) {
-				u.direction2 = C.ushort(binary.LittleEndian.Uint16(it.field_3[:]))
+				u.direction2 = C.ushort(binary.LittleEndian.Uint16(it.data[:]))
 			}
 		case 2, 3, 4, 5:
 			if C.nox_xxx_playerCanMove_4F9BC0(u.CObj()) != 0 {
@@ -685,12 +687,12 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 						} else {
 							nox_xxx_playerSetState_4FA020(u, 0)
 						}
-						if it.field_3[0]&2 != 0 {
+						if it.data[0]&2 != 0 {
 							ud.field_60 |= 0x1
 						} else {
 							ud.field_60 &^= 0x1
 						}
-						switch it.field_2 {
+						switch it.code {
 						case 2:
 							ud.field_60 |= 0x8
 						case 3:
@@ -814,7 +816,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 					s.playerSpell(u)
 					ud.spell_cast_start = 0
 				} else {
-					v61 := s.getObjectFromNetCode(int(binary.LittleEndian.Uint32(it.field_3[:])))
+					v61 := s.getObjectFromNetCode(int(binary.LittleEndian.Uint32(it.data[:])))
 					C.nox_xxx_playerDoSchedSpell_4FB0E0(u.CObj(), v61.CObj())
 				}
 			}
@@ -827,7 +829,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				}
 				ud.field_55 = pl.field_2284
 				ud.field_56 = pl.field_2288
-				v63 := s.getObjectFromNetCode(int(binary.LittleEndian.Uint32(it.field_3[:])))
+				v63 := s.getObjectFromNetCode(int(binary.LittleEndian.Uint32(it.data[:])))
 				C.nox_xxx_playerDoSchedSpell_4FB0E0(u.CObj(), v63.CObj())
 			}
 		case 0x1E:
@@ -838,7 +840,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				}
 				ud.field_55 = pl.field_2284
 				ud.field_56 = pl.field_2288
-				v65 := s.getObjectFromNetCode(int(binary.LittleEndian.Uint32(it.field_3[:])))
+				v65 := s.getObjectFromNetCode(int(binary.LittleEndian.Uint32(it.data[:])))
 				C.nox_xxx_playerDoSchedSpellQueue_4FB1D0(u.CObj(), v65.CObj())
 			}
 		}
@@ -1148,6 +1150,7 @@ func sub_5336D0(cobj *nox_object_t) C.double {
 
 //export nox_xxx_updatePlayerObserver_4E62F0
 func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
+	s := noxServer
 	u := asUnitC(a1p)
 	ud := u.updateDataPlayer()
 	pl := ud.Player()
@@ -1161,18 +1164,19 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 	if targ := pl.CameraTarget(); targ != nil {
 		pl.setPos3632(targ.Pos())
 	}
-	if playerControlBufferFirst(pl.Index()) == nil {
+	cb := s.ctrlbuf.Player(pl.Index())
+	if cb.First() == nil {
 		return
 	}
 	pl.field_3688 = 0
-	for it := playerControlBufferFirst(pl.Index()); it != nil; it = playerGetControlBufferNext(pl.Index()) {
-		if it.field_2 == 2 {
+	for it := cb.First(); it != nil; it = cb.Next() {
+		if it.code == 2 {
 			if pl.field_3672 == 0 {
 				pl.field_3688 = 1
 				if pl.field_3692 == 0 {
 					pl.leaveMonsterObserver()
 				}
-				it.field_4 = 0
+				it.active = false
 			} else if pl.field_3672 == 1 {
 				const max = 30
 				dp := pl.pos3632().Sub(pl.CursorPos())
@@ -1193,8 +1197,8 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 			}
 			continue
 		}
-		if it.field_2 != 6 {
-			if it.field_2 != 7 {
+		if it.code != 6 {
+			if it.code != 7 {
 				continue
 			}
 			if pl.ObserveTarget() == nil && !noxflags.HasGame(noxflags.GameModeQuest) {
@@ -1226,12 +1230,12 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 		}
 		if C.dword_5d4594_2650652 != 0 && noxflags.HasGame(noxflags.GameFlag15|noxflags.GameFlag16) && C.sub_509CF0(&pl.field_2096[0], C.char(pl.PlayerClass()), C.int(pl.field_2068)) == 0 {
 			nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 17, 0)
-			it.field_4 = 0
+			it.active = false
 			continue
 		}
 		if pl.field_3680&0x20 != 0 {
 			pl.leaveMonsterObserver()
-			it.field_4 = 0
+			it.active = false
 			continue
 		}
 		if noxflags.HasGame(noxflags.GameModeQuest) {
@@ -1253,12 +1257,12 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 			}
 			if ud.field_78 != 0 {
 				pl.leaveMonsterObserver()
-				it.field_4 = 0
+				it.active = false
 				continue
 			}
 			if pl.field_4792 == 0 {
 				pl.leaveMonsterObserver()
-				it.field_4 = 0
+				it.active = false
 				continue
 			}
 		}
@@ -1266,12 +1270,12 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 		if C.sub_40A740() != 0 || noxflags.HasGame(noxflags.GameFlag16) || (pl.field_3680&0x100 != 0) && v13 {
 			if C.sub_40AA70(pl.C()) == 0 {
 				pl.leaveMonsterObserver()
-				it.field_4 = 0
+				it.active = false
 				continue
 			}
 		}
 		if noxflags.HasEngine(noxflags.EngineNoRendering) && u.CObj() == HostPlayerUnit().CObj() {
-			it.field_4 = 0
+			it.active = false
 			continue
 		}
 		if pl.ObserveTarget() == nil {
@@ -1282,11 +1286,11 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 				v22 := nox_xxx_mapFindPlayerStart_4F7AB0(pl.UnitC())
 				pl.UnitC().SetPos(v22)
 			}
-			it.field_4 = 0
+			it.active = false
 			continue
 		}
 		u.observeClear()
-		it.field_4 = 0
+		it.active = false
 	}
 	pl.field_3692 = pl.field_3688
 }

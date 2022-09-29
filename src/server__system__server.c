@@ -262,7 +262,7 @@ void sub_4D22B0() {
 				nox_xxx_shopCancelSession_510DC0(*(uint32_t**)(v3 + 280));
 			}
 			*(uint32_t*)(v3 + 280) = 0;
-			nox_xxx_playerCmd_51AC30(*(unsigned char*)(i + 2064));
+			nox_xxx_playerResetControlBuffer_51AC30(*(unsigned char*)(i + 2064));
 			if (nox_common_gameFlags_check_40A5C0(4096)) {
 				v4 = *(uint32_t*)(i + 4676);
 				*(uint32_t*)(i + 4676) = 0;
@@ -1256,7 +1256,7 @@ void nox_xxx_updateUnits_51B100_B() {
 						if (!(*(uint8_t*)(v2 + 16) & 2)) {
 							v6(v2); // update function for the player
 						}
-						nox_xxx_playerCmd_51AC30(*(unsigned char*)(*(uint32_t*)(v7 + 276) + 2064));
+						nox_xxx_playerResetControlBuffer_51AC30(*(unsigned char*)(*(uint32_t*)(v7 + 276) + 2064));
 					} else if (!(*(uint8_t*)(v2 + 16) & 2)) {
 						v6(v2);
 					}
