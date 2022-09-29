@@ -4,8 +4,6 @@
 #include "common/alloc/classes/alloc_class.h"
 #include <stdbool.h>
 
-#define NOX_NETBUF_MAX_SIZE 2032
-
 typedef struct nox_net_list_item_t nox_net_list_item_t;
 typedef struct nox_net_list_item_t {
 	unsigned char* buf;        // 0, 0
@@ -25,7 +23,6 @@ typedef struct {
 	unsigned int field_7;       // 7, 28
 } nox_net_list_t;
 
-int nox_netlist_countByInd_40E9D0(int ind1, int ind2);
 int nox_netlist_countByInd2_40F0B0(int ind);
 
 int nox_netlist_addToMsgListCli_40EBC0(int ind1, int ind2, unsigned char* buf, int sz);

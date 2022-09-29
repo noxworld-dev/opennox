@@ -78,6 +78,11 @@ func nox_netlist_copyPacketList_40ED60(ind1, ind2 C.int, outSz *C.uint) *C.uchar
 	return (*C.uchar)(unsafe.Pointer(&sbuf[0]))
 }
 
+//export nox_netlist_findAndFreeBuf_40F000
+func nox_netlist_findAndFreeBuf_40F000(ind C.int, buf *C.uchar) {
+	netList(int(ind), 2).findAndFreeBuf((*byte)(unsafe.Pointer(buf)))
+}
+
 const (
 	netListsBufSize    = 2048
 	netListsMaxPackets = 512
@@ -94,10 +99,10 @@ func netList(ind1, ind2 int) *MsgList {
 var _ = [1]struct{}{}[16-unsafe.Sizeof(netListItem{})]
 
 type netListItem struct {
-	buf  unsafe.Pointer // 0, 0
-	size uint32         // 1, 4
-	prev *netListItem   // 2, 8
-	next *netListItem   // 3, 12
+	buf  *byte        // 0, 0
+	size uint32       // 1, 4
+	prev *netListItem // 2, 8
+	next *netListItem // 3, 12
 }
 
 var _ = [1]struct{}{}[32-unsafe.Sizeof(MsgList{})]
@@ -146,7 +151,7 @@ func (l *MsgList) get() []byte { // nox_netlist_get_420A90
 		l.first = item.next
 	}
 
-	buf := unsafe.Slice((*byte)(item.buf), sz)
+	buf := unsafe.Slice(item.buf, sz)
 	l.freeItem(item)
 	return buf
 }
@@ -188,6 +193,7 @@ func nox_netlist_sizeByInd_40E9F0(ind1, ind2 int) int {
 	return netList(ind1, ind2).Size()
 }
 
+//export nox_netlist_countByInd2_40F0B0
 func nox_netlist_countByInd2_40F0B0(ind int) int {
 	return nox_netlist_countByInd_40E9D0(ind, 2)
 }
@@ -457,7 +463,7 @@ func nox_netlist_add_420940(l *MsgList, buf *byte, sz int, appnd bool) bool {
 	if it == nil {
 		return false
 	}
-	it.buf = unsafe.Pointer(buf)
+	it.buf = buf
 	it.size = uint32(sz)
 	if appnd {
 		it.prev = l.last
@@ -481,4 +487,36 @@ func nox_netlist_add_420940(l *MsgList, buf *byte, sz int, appnd bool) bool {
 	l.count++
 	l.size += uint32(sz)
 	return true
+}
+
+func (l *MsgList) findAndFreeBuf(buf *byte) {
+	if l.first == nil {
+		return
+	}
+	var item *netListItem
+	for p := l.first; p != nil; p = p.next {
+		if p.buf == buf {
+			item = p
+			break
+		}
+	}
+	if item == nil {
+		return
+	}
+	l.count--
+	l.size -= item.size
+
+	if next := item.next; next != nil {
+		next.prev = item.prev
+	} else {
+		l.last = item.prev
+	}
+
+	if prev := item.prev; prev != nil {
+		prev.next = item.next
+	} else {
+		l.first = item.next
+	}
+
+	l.Alloc().FreeObjectFirst(item)
 }
