@@ -2,6 +2,7 @@ package opennox
 
 /*
 #include "defs.h"
+#include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_2.h"
 #include "GAME1_3.h"
@@ -40,6 +41,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script/noxscript"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -583,4 +585,11 @@ func nox_server_mapRWObjectData_504CF0(ptr unsafe.Pointer) error {
 		return nox_server_mapRWObjectData_504CF0_Read(ptr, v16p)
 	}
 	return nox_server_mapRWObjectData_504CF0_Write(ptr)
+}
+
+func nox_xxx_tileNFromPoint_411160(p types.Pointf) int {
+	cp, free := alloc.New(types.Pointf{})
+	defer free()
+	*cp = p
+	return int(C.nox_xxx_tileNFromPoint_411160((*C.float2)(unsafe.Pointer(cp))))
 }

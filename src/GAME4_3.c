@@ -2925,10 +2925,10 @@ unsigned char* nox_xxx_unitNPCActionToAnim_533D00(int a1) {
 }
 
 //----- (00533E70) --------------------------------------------------------
-int nox_xxx_monsterTestBlockShield_533E70(int a1) {
+int nox_xxx_monsterTestBlockShield_533E70(nox_object_t* a1) {
 	*getMemU32Ptr(0x5D4594, 2487956) = 0;
 	*getMemU32Ptr(0x5D4594, 2487988) = 1315859240; // fp32 100
-	sub_518170(a1 + 56, 100.0, sub_533EB0, a1);
+	sub_518170((int)a1 + 56, 100.0, sub_533EB0, a1);
 	return *getMemU32Ptr(0x5D4594, 2487956);
 }
 
@@ -5292,7 +5292,8 @@ int nox_xxx_itemApplyAttackEffect_538840(int a1, int a2, int a3) {
 }
 
 //----- (00538960) --------------------------------------------------------
-int nox_xxx_playerAttack_538960(int a1) {
+int nox_xxx_playerAttack_538960(nox_object_t* a1p) {
+	int a1 = a1p;
 	float* v1;         // edi
 	int v2;            // eax
 	int v3;            // eax
