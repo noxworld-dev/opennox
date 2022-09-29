@@ -407,7 +407,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 	case 3:
 		if (int(gameFrame()) - int(u.field_34)) > int(gameFPS()) {
 			nox_xxx_playerSetState_4FA020(u, 4)
-			ud.field_60 &= 0xFFFFFFDF
+			ud.field_60 &^= 0x20
 			u.field_34 = C.uint(gameFrame())
 			u.obj_flags |= C.uint(object.FlagShort | object.FlagAllowOverlap)
 			u.setVel(types.Pointf{})
@@ -657,7 +657,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 		nox_xxx_playerSetState_4FA020(u, 13)
 		u.field_34 = C.uint(gameFrame())
 	}
-	ud.field_60 &= 0xFFFFFFE1
+	ud.field_60 &^= 0x2 | 0x4 | 0x8 | 0x10
 	if pl.field_3680&3 != 0 {
 		goto LABEL_247
 	}
