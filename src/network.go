@@ -28,8 +28,7 @@ extern nox_net_list_t* nox_net_lists[3][NOX_PLAYERINFO_MAX];
 unsigned int nox_client_getServerAddr_43B300();
 int nox_client_getServerPort_43B320();
 int nox_client_getClientPort_40A420();
-int sub_43B6D0();
-int sub_43AF80();
+int sub_419E60(nox_object_t* a1);
 int sub_43AF90(int a1);
 int nox_xxx_netClientSend2_4E53C0(int a1, const void* a2, int a3, int a4, int a5);
 int  nox_netlist_addToMsgListCli_40EBC0(int ind1, int ind2, unsigned char* buf, int sz);
@@ -71,6 +70,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/platform"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/spell"
+	"github.com/noxworld-dev/opennox-lib/strman"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
@@ -1305,4 +1305,25 @@ func netSendServerQuit() {
 	var buf [1]byte
 	buf[0] = byte(noxnet.MSG_SERVER_QUIT)
 	noxServer.nox_xxx_netSendPacket0_4E5420(159, buf[:1], 0, 1)
+}
+
+func nox_xxx_netSendBallStatus_4D95F0(a1 int, a2 byte, a3 uint16) int {
+	var buf [4]byte
+	buf[0] = byte(noxnet.MSG_REPORT_BALL_STATUS)
+	buf[1] = a2
+	binary.LittleEndian.PutUint16(buf[2:], a3)
+	return noxServer.nox_xxx_netSendPacket1_4E5390(a1, buf[:4], 0, 1)
+}
+
+func nox_xxx_netPriMsgToPlayer_4DA2C0(u *Unit, id strman.ID, a3 byte) {
+	var buf [52]byte
+	if u == nil || !u.Class().Has(object.ClassPlayer) || id == "" || len(id) > len(buf)-4 || C.sub_419E60(u.CObj()) != 0 {
+		return
+	}
+	buf[0] = byte(noxnet.MSG_INFORM)
+	buf[1] = 15
+	buf[2] = a3
+	n := copy(buf[3:len(buf)-1], string(id))
+	buf[3+n] = 0
+	nox_netlist_addToMsgListCli_40EBC0(u.ControllingPlayer().Index(), 1, buf[:n+4])
 }

@@ -1958,7 +1958,7 @@ typedef struct nox_playerInfo {
 	uint32_t field_3660;
 	uint32_t field_3664;
 	uint32_t field_3668;
-	uint32_t field_3672;
+	uint32_t field_3672; // 3672
 	uint8_t field_3676; // 3676, TODO: status?
 	uint8_t field_3676_1;
 	uint16_t field_3676_2;

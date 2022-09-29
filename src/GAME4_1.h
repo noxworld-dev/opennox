@@ -238,8 +238,6 @@ void nox_xxx_spawnNecroQuest_51A7A0(int* a1);
 int nox_xxx_getQuestStage_51A930();
 int sub_51A940(int a1);
 int sub_51A950();
-nox_player_ctrl_t* nox_xxx_playerControlBufferFirst_51AB50(int a1);
-nox_player_ctrl_t* nox_xxx_playerGetControlBufferNext_51ABC0(int a1);
 void nox_xxx_playerCmd_51AC30(int a1);
 int nox_xxx_playerCmdGet_51AC40(int a1);
 void sub_51B810(nox_object_t* a1);
