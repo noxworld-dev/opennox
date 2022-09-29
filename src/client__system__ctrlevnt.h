@@ -31,6 +31,5 @@ char* nox_xxx_bindevent_bindNameByTitle_42EA40(wchar_t* title);
 void sub_42CD90();
 int nox_client_parseConfigHotkeysLine_42CF50(char* a1);
 wchar_t* sub_42E8E0(int a1, int a2);
-int nox_xxx_playerSaveInput_51A960(int a1, unsigned char* a2);
 
 #endif // NOX_PORT_CLIENT_SYSTEM_CTRLEVNT

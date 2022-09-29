@@ -44,23 +44,33 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
+//export nox_xxx_playerResetControlBuffer_51AC30
+func nox_xxx_playerResetControlBuffer_51AC30(pi C.int) {
+	noxServer.ctrlbuf.Player(int(pi)).Reset()
+}
+
+//export sub_42E8E0
+func sub_42E8E0(key, a2 C.int) *C.wchar_t {
+	s := ctrlEvent.sub_42E8E0_go(keybind.Event(key), int(a2))
+	return internWStr(s)
+}
+
+//export sub_42CD90
+func sub_42CD90() {
+	ctrlEvent.Reset()
+}
+
+//export noxOnSrvPacketPlayerInput
+func noxOnSrvPacketPlayerInput(pli C.int, ptr *C.uchar, sz C.int) C.int {
+	data := unsafe.Slice((*byte)(unsafe.Pointer(ptr)), int(sz))
+	return C.int(noxServer.netOnPlayerInput(int(pli), data))
+}
+
 var (
 	ctrlEvent = new(CtrlEventHandler)
 
-	nox_players_controlBuffer_2388932 [noxMaxPlayers][128]nox_player_ctrl_t
-	nox_players_controlBuffer_2388676 [noxMaxPlayers]int
-	nox_players_controlBuffer_2388804 [noxMaxPlayers]int
-	allowEmotionsInSolo               = true
+	allowEmotionsInSolo = true
 )
-
-type nox_player_ctrl_t struct {
-	field_0 uint32
-	field_1 uint32
-	field_2 uint32
-	field_3 [4]uint8
-	field_4 uint32
-	field_5 uint32
-}
 
 func init() {
 	configBoolPtr("game.extensions.solo_allow_emotes", "", true, &allowEmotionsInSolo)
@@ -751,12 +761,6 @@ func nox_ctrlevent_add_ticks_42E630() uint32 {
 	return 0
 }
 
-//export sub_42E8E0
-func sub_42E8E0(key, a2 C.int) *C.wchar_t {
-	s := ctrlEvent.sub_42E8E0_go(keybind.Event(key), int(a2))
-	return internWStr(s)
-}
-
 func (c *CtrlEventHandler) sub_42E8E0_go(ev keybind.Event, ind int) string {
 	for v2 := c.bindings; v2 != nil; v2 = v2.next {
 		for _, e := range v2.events {
@@ -871,11 +875,6 @@ func writeConfigHotkeys(sect *cfg.Section) {
 	}
 }
 
-//export sub_42CD90
-func sub_42CD90() {
-	ctrlEvent.Reset()
-}
-
 var (
 	noxCtrlEventNetbufSize byte
 	noxCtrlEventNetbuf     [256]byte // TODO: size is a guess
@@ -923,110 +922,6 @@ func (c *CtrlEventHandler) writeToNetBuffer() {
 	}
 }
 
-//export nox_xxx_playerSaveInput_51A960
-func nox_xxx_playerSaveInput_51A960(pli C.int, a2 *C.uchar) C.int {
-	return C.int(noxServer.nox_xxx_playerSaveInput(int(pli), unsafe.Pointer(a2)))
-}
-
-func (s *Server) nox_xxx_playerSaveInput(pli int, a2 unsafe.Pointer) int {
-	pl := s.getPlayerByInd(int(pli))
-	sz := int(*(*byte)(a2)) + 1
-	if pl != nil && *(*byte)(pl.field(3680))&0x10 == 0 {
-		return sz
-	}
-	a2s := unsafe.Slice((*byte)(a2), sz)
-	buf := sub_51AAA0(a2s[1:], nil)
-	ind := nox_players_controlBuffer_2388804[pli]
-	if ind+len(buf) < 128 {
-		dst := nox_players_controlBuffer_2388932[pli][ind:]
-		n := copy(dst, buf)
-		nox_players_controlBuffer_2388804[pli] = ind + n
-	}
-	sub_51AA20(pli)
-	return sz
-}
-
-func sub_51AA20(pi int) {
-	var v1, v2, v3 bool
-	for i := nox_players_controlBuffer_2388804[pi] - 1; i >= 0; i-- {
-		p := &nox_players_controlBuffer_2388932[pi][i]
-		if p.field_4 == 0 {
-			continue
-		}
-		if p.field_2 == 2 {
-			if v3 {
-				p.field_4 = 0
-			} else {
-				v3 = true
-			}
-		} else if p.field_2 == 4 {
-			if v1 {
-				p.field_4 = 0
-			} else {
-				v1 = true
-			}
-		} else if p.field_2 == 5 {
-			if v2 {
-				p.field_4 = 0
-			} else {
-				v2 = true
-			}
-		}
-	}
-}
-func playerControlBufferFirst(a1 int) *nox_player_ctrl_t {
-	nox_players_controlBuffer_2388676[a1] = 0
-	if nox_players_controlBuffer_2388804[a1] <= 0 {
-		return nil
-	}
-	for {
-		v2 := nox_players_controlBuffer_2388676[a1]
-		if nox_players_controlBuffer_2388932[a1][v2].field_4 != 0 {
-			break
-		}
-		nox_players_controlBuffer_2388676[a1] = v2 + 1
-		if v2+1 >= nox_players_controlBuffer_2388804[a1] {
-			return nil
-		}
-	}
-	ind := nox_players_controlBuffer_2388676[a1]
-	return &nox_players_controlBuffer_2388932[a1][ind]
-}
-
-func playerGetControlBufferNext(a1 int) *nox_player_ctrl_t {
-	v1 := nox_players_controlBuffer_2388676[a1] + 1
-	nox_players_controlBuffer_2388676[a1] = v1
-	v2 := v1
-	if v1 >= nox_players_controlBuffer_2388804[a1] {
-		return nil
-	}
-	for nox_players_controlBuffer_2388932[a1][v2].field_4 == 0 {
-		v2++
-		nox_players_controlBuffer_2388676[a1] = v2
-		if v2 >= nox_players_controlBuffer_2388804[a1] {
-			return nil
-		}
-	}
-	ind := nox_players_controlBuffer_2388676[a1]
-	return &nox_players_controlBuffer_2388932[a1][ind]
-}
-
-//export nox_xxx_playerCmd_51AC30
-func nox_xxx_playerCmd_51AC30(a1 C.int) {
-	nox_xxx_playerCmd(int(a1))
-}
-func nox_xxx_playerCmd(a1 int) {
-	nox_players_controlBuffer_2388804[a1] = 0
-}
-
-//export nox_xxx_playerCmdGet_51AC40
-func nox_xxx_playerCmdGet_51AC40(a1 C.int) C.int {
-	return C.int(bool2int(nox_xxx_playerCmdGet(int(a1))))
-}
-func nox_xxx_playerCmdGet(a1 int) bool {
-	return nox_players_controlBuffer_2388804[a1] == 0
-}
-
 func (c *CtrlEventHandler) hasDefBinding(ev keybind.Event, key keybind.Key) bool {
 	for it := c.bindings; it != nil; it = it.next {
 		if it.defEvent() == ev && it.defKey() == key {
@@ -1034,21 +929,4 @@ func (c *CtrlEventHandler) hasDefBinding(ev keybind.Event, key keybind.Key) bool
 		}
 	}
 	return false
-}
-
-func sub_51AAA0(data []byte, out []nox_player_ctrl_t) []nox_player_ctrl_t {
-	for len(data) > 0 {
-		code := player.CtrlCode(data[0])
-		data = data[4:]
-		v := nox_player_ctrl_t{
-			field_2: uint32(code),
-			field_4: 1,
-		}
-		if sz := code.DataSize(); sz != 0 {
-			copy(v.field_3[:], data[:sz])
-			data = data[sz:]
-		}
-		out = append(out, v)
-	}
-	return out
 }
