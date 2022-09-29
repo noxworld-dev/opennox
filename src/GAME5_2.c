@@ -361,6 +361,86 @@ int sub_552E70(unsigned int a1) {
 }
 
 //----- (00553210) --------------------------------------------------------
+int nox_xxx_netBigSwitch_553210_op_0(unsigned int id, uint8_t* out, int pid, char p1, nox_net_struct_t* ns1, unsigned char* v74, int v75, int v76) {
+	if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(8)) {
+		return 0;
+	}
+	out[0] = 0;
+	out[1] = p1;
+	if (ns1->field_21 >= nox_xxx_servGetPlrLimit_409FA0() + (unsigned int)getMemByte(0x5D4594, 2500076) - 1) {
+		out[2] = 2;
+		return 3;
+	}
+	if (pid != -1) {
+		// pid in the request must be -1 (0xff); fail if it's not
+		out[2] = 2;
+		return 3;
+	}
+	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
+		nox_net_struct_t* ns9 = nox_net_struct_arr[i];
+		if (!ns9) {
+			pid = i;
+			break;
+		}
+		if (*(uint16_t*)&v74[2] == ns9->addr.sin_port && *(uint32_t*)&v74[4] == ns9->addr.sin_addr) {
+			printf("%d %d\n", *(uint16_t*)&v74[2], *(uint32_t*)&v74[4]);
+			out[2] = 4; // already joined?
+			return 3;
+		}
+	}
+	if (pid == -1) {
+		out[2] = 2;
+		return 3;
+	}
+	nox_net_struct_arg_t narg;
+	memset(&narg, 0, sizeof(nox_net_struct_arg_t));
+	narg.data_3_size = 4;
+	narg.data_size = (int)(ns1->data_2_end) - (int)(ns1->data_2_base);
+	nox_net_struct_t* ns10 = nox_xxx_makeNewNetStruct_553000(&narg);
+	nox_net_struct_arr[pid] = ns10;
+	if (!ns10) {
+		// cannot allocate - fail
+		out[2] = 2;
+		return 3;
+	}
+	ns1->field_21++;
+	ns10->data_2_base[0] = id;
+	int v62 = ns10->data_2_base;
+	char v63 = *(uint8_t*)(v62 + 1);
+	if (v63 == p1) {
+		*(uint8_t*)(v62 + 1) = v63 + 1;
+	}
+	ns10->id = id;
+	ns10->sock = ns1->sock;
+	ns10->func_xxx = ns1->func_xxx;
+	ns10->func_yyy = ns1->func_yyy;
+	memset(getMemAt(0x5D4594, 2508788 + 32 * id), 0, 32);
+	*getMemU32Ptr(0x5D4594, 2508816 + 32 * id) = 1;
+	char key = nox_common_randomInt_415FA0(1, 255);
+	if (nox_net_no_xor) {
+		key = 0;
+	}
+	ns10->xor_key = 0; // send this packet without xor encoding
+
+	int v66 = &ns10->addr;
+	*(uint64_t*)v66 = *(uint64_t*)v74;
+	*(uint32_t*)(v66 + 8) = v75;
+	*(uint32_t*)(v66 + 12) = v76;
+
+	out[0] = 31;
+	out[1] = p1;
+	out[2] = 1;
+	*(uint32_t*)(&out[3]) = pid;
+	out[7] = key;
+	char v67 = nox_xxx_netSendSock_552640(pid, out, 8, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
+
+	ns10->xor_key = key;
+	ns10->field_38 = 1;
+	ns10->data_39[0] = v67;
+	ns10->field_40 = nox_frame_xxx_2598000;
+	return 0;
+}
+
 int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int packetSz, int a4) {
 	int out = a4;
 	int pid = (char)packet[0];
@@ -392,85 +472,8 @@ int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pack
 			printf("nox_xxx_netBigSwitch_553210: op=%d [%d]\n", op, packetSz);
 		}
 		switch (op) {
-		case 0: {
-			if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(8)) {
-				return 0;
-			}
-			*(uint8_t*)(out + 0) = 0;
-			*(uint8_t*)(out + 1) = p1;
-			if (ns1->field_21 >= nox_xxx_servGetPlrLimit_409FA0() + (unsigned int)getMemByte(0x5D4594, 2500076) - 1) {
-				*(uint8_t*)(out + 2) = 2;
-				return 3;
-			}
-			if (pid != -1) {
-				// pid in the request must be -1 (0xff); fail if it's not
-				*(uint8_t*)(out + 2) = 2;
-				return 3;
-			}
-			for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
-				nox_net_struct_t* ns9 = nox_net_struct_arr[i];
-				if (!ns9) {
-					pid = i;
-					break;
-				}
-				if (*(uint16_t*)&v74[2] == ns9->addr.sin_port && *(uint32_t*)&v74[4] == ns9->addr.sin_addr) {
-					printf("%d %d\n", *(uint16_t*)&v74[2], *(uint32_t*)&v74[4]);
-					*(uint8_t*)(out + 2) = 4; // already joined?
-					return 3;
-				}
-			}
-			if (pid == -1) {
-				*(uint8_t*)(out + 2) = 2;
-				return 3;
-			}
-			nox_net_struct_arg_t narg;
-			memset(&narg, 0, sizeof(nox_net_struct_arg_t));
-			narg.data_3_size = 4;
-			narg.data_size = (int)(ns1->data_2_end) - (int)(ns1->data_2_base);
-			nox_net_struct_t* ns10 = nox_xxx_makeNewNetStruct_553000(&narg);
-			nox_net_struct_arr[pid] = ns10;
-			if (!ns10) {
-				// cannot allocate - fail
-				*(uint8_t*)(out + 2) = 2;
-				return 3;
-			}
-			ns1->field_21++;
-			ns10->data_2_base[0] = id;
-			int v62 = ns10->data_2_base;
-			char v63 = *(uint8_t*)(v62 + 1);
-			if (v63 == p1) {
-				*(uint8_t*)(v62 + 1) = v63 + 1;
-			}
-			ns10->id = id;
-			ns10->sock = ns1->sock;
-			ns10->func_xxx = ns1->func_xxx;
-			ns10->func_yyy = ns1->func_yyy;
-			memset(getMemAt(0x5D4594, 2508788 + 32 * id), 0, 32);
-			*getMemU32Ptr(0x5D4594, 2508816 + 32 * id) = 1;
-			char key = nox_common_randomInt_415FA0(1, 255);
-			if (nox_net_no_xor) {
-				key = 0;
-			}
-			ns10->xor_key = 0; // send this packet without xor encoding
-
-			int v66 = &ns10->addr;
-			*(uint64_t*)v66 = *(uint64_t*)v74;
-			*(uint32_t*)(v66 + 8) = v75;
-			*(uint32_t*)(v66 + 12) = v76;
-
-			*(uint8_t*)(out + 0) = 31;
-			*(uint8_t*)(out + 1) = p1;
-			*(uint8_t*)(out + 2) = 1;
-			*(uint32_t*)(out + 3) = pid;
-			*(uint8_t*)(out + 7) = key;
-			char v67 = nox_xxx_netSendSock_552640(pid, out, 8, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
-
-			ns10->xor_key = key;
-			ns10->field_38 = 1;
-			ns10->data_39[0] = v67;
-			ns10->field_40 = nox_frame_xxx_2598000;
-			return 0;
-		}
+		case 0:
+			return nox_xxx_netBigSwitch_553210_op_0(id, out, pid, p1, ns1, v74, v75, v76);
 		case 1: {
 			int v11 = *(uint32_t*)packetCur;
 			uint8_t* v12 = ns1->data_2_base;
