@@ -109,15 +109,16 @@ func (c *CtrlEventBinding) defEvent() keybind.Event {
 }
 
 type CtrlEventHandler struct {
-	ticks     uint32
-	playerDir uint32
-	bufA      [ctrlEventCap]noxCtrlEvent
-	bufB      [ctrlEventCap]noxCtrlEvent // TODO: size a guess
-	bindings  *CtrlEventBinding
-	indA      int
-	indB      int
-	indC      int
-	indD      int
+	ticks       uint32
+	playerDir   uint32
+	bufA        [ctrlEventCap]noxCtrlEvent
+	bufB        [ctrlEventCap]noxCtrlEvent // TODO: size a guess
+	bindings    *CtrlEventBinding
+	indA        int
+	indB        int
+	indC        int
+	indD        int
+	flags754064 uint32
 }
 
 func (c *CtrlEventHandler) Reset() {
@@ -145,11 +146,11 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0(mpos image.Point, a4 *Ct
 	if memmap.Uint8(0x85B3FC, 12254) != 0 {
 		C.nox_xxx_guiSpellTargetClickCheckSend_45DBB0()
 	}
-	if memmap.Uint8(0x5D4594, 754064)&4 != 0 {
+	if c.flags754064&4 != 0 {
 		c.nox_ctrlevent_action_42E670(player.CCSpellPatternEnd, 0)
 	}
 	c.nox_xxx_clientControl_42D6B0_C()
-	*memmap.PtrUint32(0x5D4594, 754064) = 0
+	c.flags754064 = 0
 	c.nox_xxx_clientControl_42D6B0_B()
 }
 
@@ -208,7 +209,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 				}
 			case keybind.EventMoveForward:
 				v5 := 1
-				if memmap.Uint8(0x5D4594, 754064)&0x8 != 0 {
+				if c.flags754064&0x8 != 0 {
 					v5 = 3
 				}
 				c.nox_ctrlevent_action_42E670(player.CCMoveForward, uint32(v5))
@@ -222,8 +223,8 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 				case keybind.EventMoveRight:
 					code = player.CCMoveRight
 				}
-				v6 := uint32(bool2int(memmap.Uint8(0x5D4594, 754064)&0x1 != 0))
-				if memmap.Uint8(0x5D4594, 754064)&0x8 != 0 {
+				v6 := uint32(bool2int(c.flags754064&0x1 != 0))
+				if c.flags754064&0x8 != 0 {
 					v6 |= 2
 				}
 				c.nox_ctrlevent_action_42E670(code, v6)
