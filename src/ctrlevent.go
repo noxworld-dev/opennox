@@ -79,10 +79,8 @@ func init() {
 const ctrlEventCap = 128
 
 type noxCtrlEvent struct {
-	tick   uint32
-	code   player.CtrlCode
-	data   [4]byte
-	active bool
+	tick uint32
+	ctrlBufEvent
 }
 
 type CtrlEventBinding struct {
@@ -148,7 +146,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0(mpos image.Point, a4 *Ct
 		C.nox_xxx_guiSpellTargetClickCheckSend_45DBB0()
 	}
 	if memmap.Uint8(0x5D4594, 754064)&4 != 0 {
-		c.nox_ctrlevent_action_42E670(player.CCSpellPatternEnd, nil)
+		c.nox_ctrlevent_action_42E670(player.CCSpellPatternEnd, 0)
 	}
 	c.nox_xxx_clientControl_42D6B0_C()
 	*memmap.PtrUint32(0x5D4594, 754064) = 0
@@ -184,9 +182,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_orientation(mpos image.P
 		}
 		c.playerDir = uint32(ang)
 	}
-	var buf [4]byte
-	binary.LittleEndian.PutUint32(buf[:], c.playerDir)
-	c.nox_ctrlevent_action_42E670(player.CCOrientation, &buf)
+	c.nox_ctrlevent_action_42E670(player.CCOrientation, c.playerDir)
 }
 
 func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) {
@@ -208,16 +204,14 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 					v12 := nox_xxx_clientGetSpriteAtCursor_476F90()
 					C.nox_xxx_clientCollideOrUse_42E810(v12.C())
 				default:
-					c.nox_ctrlevent_action_42E670(player.CCAction, nil) // regular attack?
+					c.nox_ctrlevent_action_42E670(player.CCAction, 0) // regular attack?
 				}
 			case keybind.EventMoveForward:
 				v5 := 1
 				if memmap.Uint8(0x5D4594, 754064)&0x8 != 0 {
 					v5 = 3
 				}
-				var buf [4]byte
-				binary.LittleEndian.PutUint32(buf[:], uint32(v5))
-				c.nox_ctrlevent_action_42E670(player.CCMoveForward, &buf)
+				c.nox_ctrlevent_action_42E670(player.CCMoveForward, uint32(v5))
 			case keybind.EventMoveBackward, keybind.EventMoveLeft, keybind.EventMoveRight:
 				var code player.CtrlCode
 				switch k {
@@ -232,119 +226,113 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 				if memmap.Uint8(0x5D4594, 754064)&0x8 != 0 {
 					v6 |= 2
 				}
-				var buf [4]byte
-				binary.LittleEndian.PutUint32(buf[:], v6)
-				c.nox_ctrlevent_action_42E670(code, &buf)
+				c.nox_ctrlevent_action_42E670(code, v6)
 			case keybind.EventJump:
-				c.nox_ctrlevent_action_42E670(player.CCJump, nil)
+				c.nox_ctrlevent_action_42E670(player.CCJump, 0)
 			case keybind.EventToggleInventory:
-				c.nox_ctrlevent_action_42E670(player.CCInventory, nil)
+				c.nox_ctrlevent_action_42E670(player.CCInventory, 0)
 			case keybind.EventChat:
-				c.nox_ctrlevent_action_42E670(player.CCChat, nil)
+				c.nox_ctrlevent_action_42E670(player.CCChat, 0)
 			case keybind.EventTeamChat:
 				if *(*byte)(unsafe.Add(v2, 3680))&0x1 == 0 {
-					c.nox_ctrlevent_action_42E670(player.CCTeamChat, nil)
+					c.nox_ctrlevent_action_42E670(player.CCTeamChat, 0)
 				}
 			case keybind.EventToggleBook:
-				c.nox_ctrlevent_action_42E670(player.CCReadSpellbook, nil)
+				c.nox_ctrlevent_action_42E670(player.CCReadSpellbook, 0)
 			case keybind.EventToggleConsole:
-				c.nox_ctrlevent_action_42E670(player.CCToggleConsole, nil)
+				c.nox_ctrlevent_action_42E670(player.CCToggleConsole, 0)
 			case keybind.EventIncreaseWindowSize:
 				if !nox_xxx_checkGameFlagPause_413A50() {
-					c.nox_ctrlevent_action_42E670(player.CCIncreaseWindowSize, nil)
+					c.nox_ctrlevent_action_42E670(player.CCIncreaseWindowSize, 0)
 				}
 			case keybind.EventDecreaseWindowSize:
 				if !nox_xxx_checkGameFlagPause_413A50() {
-					c.nox_ctrlevent_action_42E670(player.CCDecreaseWindowSize, nil)
+					c.nox_ctrlevent_action_42E670(player.CCDecreaseWindowSize, 0)
 				}
 			case keybind.EventIncreaseGamma:
-				c.nox_ctrlevent_action_42E670(player.CCIncreaseGamma, nil)
+				c.nox_ctrlevent_action_42E670(player.CCIncreaseGamma, 0)
 			case keybind.EventDecreaseGamma:
-				c.nox_ctrlevent_action_42E670(player.CCDecreaseGamma, nil)
+				c.nox_ctrlevent_action_42E670(player.CCDecreaseGamma, 0)
 			case keybind.EventToggleMap:
-				c.nox_ctrlevent_action_42E670(player.CCReadMap, nil)
+				c.nox_ctrlevent_action_42E670(player.CCReadMap, 0)
 			case keybind.EventCastQueued:
 				if !nox_xxx_guiSpellTest_45D9C0() {
 					v13 := C.nox_xxx_packetGetMarshall_476F40()
-					var b [4]byte
-					binary.LittleEndian.PutUint32(b[:], uint32(v13))
-					c.nox_ctrlevent_action_42E780(player.CCCastQueuedSpell, &b)
+					c.nox_ctrlevent_action_42E780(player.CCCastQueuedSpell, uint32(v13))
 				}
 			case keybind.EventPhonemeUN:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					c.nox_ctrlevent_action_42E780(player.CCSpellGestureUp, nil)
+					c.nox_ctrlevent_action_42E780(player.CCSpellGestureUp, 0)
 				}
 			case keybind.EventPhonemeZO:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					c.nox_ctrlevent_action_42E780(player.CCSpellGestureDown, nil)
+					c.nox_ctrlevent_action_42E780(player.CCSpellGestureDown, 0)
 				}
 			case keybind.EventPhonemeET:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					c.nox_ctrlevent_action_42E780(player.CCSpellGestureLeft, nil)
+					c.nox_ctrlevent_action_42E780(player.CCSpellGestureLeft, 0)
 				}
 			case keybind.EventPhonemeCHA:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					c.nox_ctrlevent_action_42E780(player.CCSpellGestureRight, nil)
+					c.nox_ctrlevent_action_42E780(player.CCSpellGestureRight, 0)
 				}
 			case keybind.EventPhonemeIN:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					c.nox_ctrlevent_action_42E780(player.CCSpellGestureUpperRight, nil)
+					c.nox_ctrlevent_action_42E780(player.CCSpellGestureUpperRight, 0)
 				}
 			case keybind.EventPhonemeKA:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					c.nox_ctrlevent_action_42E780(player.CCSpellGestureUpperLeft, nil)
+					c.nox_ctrlevent_action_42E780(player.CCSpellGestureUpperLeft, 0)
 				}
 			case keybind.EventPhonemeDO:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					c.nox_ctrlevent_action_42E780(player.CCSpellGestureLowerRight, nil)
+					c.nox_ctrlevent_action_42E780(player.CCSpellGestureLowerRight, 0)
 				}
 			case keybind.EventPhonemeRO:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					c.nox_ctrlevent_action_42E780(player.CCSpellGestureLowerLeft, nil)
+					c.nox_ctrlevent_action_42E780(player.CCSpellGestureLowerLeft, 0)
 				}
 			case keybind.EventSpellEnd:
 				if !nox_xxx_guiSpellTest_45D9C0() {
-					c.nox_ctrlevent_action_42E780(player.CCSpellPatternEnd, nil)
+					c.nox_ctrlevent_action_42E780(player.CCSpellPatternEnd, 0)
 				}
 			case keybind.EventCastRecent:
 				if !nox_xxx_guiSpellTest_45D9C0() {
 					v14 := C.nox_xxx_packetGetMarshall_476F40()
-					var b [4]byte
-					binary.LittleEndian.PutUint32(b[:], uint32(v14))
-					c.nox_ctrlevent_action_42E780(player.CCCastMostRecentSpell, &b)
+					c.nox_ctrlevent_action_42E780(player.CCCastMostRecentSpell, uint32(v14))
 				}
 			case keybind.EventInvokeSlot1:
-				c.nox_ctrlevent_action_42E780(player.CCCastSpell1, nil)
+				c.nox_ctrlevent_action_42E780(player.CCCastSpell1, 0)
 			case keybind.EventInvokeSlot2:
-				c.nox_ctrlevent_action_42E780(player.CCCastSpell2, nil)
+				c.nox_ctrlevent_action_42E780(player.CCCastSpell2, 0)
 			case keybind.EventInvokeSlot3:
-				c.nox_ctrlevent_action_42E780(player.CCCastSpell3, nil)
+				c.nox_ctrlevent_action_42E780(player.CCCastSpell3, 0)
 			case keybind.EventInvokeSlot4:
-				c.nox_ctrlevent_action_42E780(player.CCCastSpell4, nil)
+				c.nox_ctrlevent_action_42E780(player.CCCastSpell4, 0)
 			case keybind.EventInvokeSlot5:
-				c.nox_ctrlevent_action_42E780(player.CCCastSpell5, nil)
+				c.nox_ctrlevent_action_42E780(player.CCCastSpell5, 0)
 			case keybind.EventSpellSet1, keybind.EventSpellSet2, keybind.EventSpellSet3, keybind.EventSpellSet4, keybind.EventSpellSet5:
 				C.nox_xxx_clientUpdateButtonRow_45E110(C.int(k - keybind.EventSpellSet1))
 			case keybind.EventMapZoomIn:
-				c.nox_ctrlevent_action_42E670(player.CCMapZoomIn, nil)
+				c.nox_ctrlevent_action_42E670(player.CCMapZoomIn, 0)
 			case keybind.EventMapZoomOut:
-				c.nox_ctrlevent_action_42E670(player.CCMapZoomOut, nil)
+				c.nox_ctrlevent_action_42E670(player.CCMapZoomOut, 0)
 			case keybind.EventSwapWeapons:
-				c.nox_ctrlevent_action_42E780(player.CCNextWeapon, nil)
+				c.nox_ctrlevent_action_42E780(player.CCNextWeapon, 0)
 			case keybind.EventQuickHealth:
-				c.nox_ctrlevent_action_42E780(player.CCQuickHealthPotion, nil)
+				c.nox_ctrlevent_action_42E780(player.CCQuickHealthPotion, 0)
 			case keybind.EventQuickMana:
-				c.nox_ctrlevent_action_42E780(player.CCQuickManaPotion, nil)
+				c.nox_ctrlevent_action_42E780(player.CCQuickManaPotion, 0)
 			case keybind.EventQuickCurePoison:
-				c.nox_ctrlevent_action_42E780(player.CCQuickCurePoisonPotion, nil)
+				c.nox_ctrlevent_action_42E780(player.CCQuickCurePoisonPotion, 0)
 			case keybind.EventNextSpellSet:
-				c.nox_ctrlevent_action_42E780(player.CCNextSpellSet, nil)
+				c.nox_ctrlevent_action_42E780(player.CCNextSpellSet, 0)
 			case keybind.EventPreviousSpellSet:
-				c.nox_ctrlevent_action_42E780(player.CCPreviousSpellSet, nil)
+				c.nox_ctrlevent_action_42E780(player.CCPreviousSpellSet, 0)
 			case keybind.EventSelectSpellSet:
-				c.nox_ctrlevent_action_42E780(player.CCSelectSpellSet, nil)
+				c.nox_ctrlevent_action_42E780(player.CCSelectSpellSet, 0)
 			case keybind.EventPlaceTrapBomber:
-				c.nox_ctrlevent_action_42E780(player.CCBuildTrap, nil)
+				c.nox_ctrlevent_action_42E780(player.CCBuildTrap, 0)
 			case keybind.EventTrapDrop:
 				if inputKeyCheckTimeout(k, gameFPS()/4) {
 					inputSetKeyTimeout(k)
@@ -357,48 +345,48 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 					clientPlaySoundSpecial(sound.SoundChangeSpellbar, 100)
 				}
 			case keybind.EventQuit:
-				c.nox_ctrlevent_action_42E670(player.CCQuit, nil)
+				c.nox_ctrlevent_action_42E670(player.CCQuit, 0)
 			case keybind.EventToggleQuitMenu:
-				c.nox_ctrlevent_action_42E670(player.CCQuitMenu, nil)
+				c.nox_ctrlevent_action_42E670(player.CCQuitMenu, 0)
 			case keybind.EventToggleServerMenu:
-				c.nox_ctrlevent_action_42E670(player.CCServerOptions, nil)
+				c.nox_ctrlevent_action_42E670(player.CCServerOptions, 0)
 			case keybind.EventTaunt:
 				if (allowEmotionsInSolo || noxflags.HasGame(noxflags.GameOnline)) && inputKeyCheckTimeoutLegacy(21, gameFPS()) {
 					inputSetKeyTimeoutLegacy(21)
-					c.nox_ctrlevent_action_42E670(player.CCTaunt, nil)
+					c.nox_ctrlevent_action_42E670(player.CCTaunt, 0)
 				}
 			case keybind.EventLaugh:
 				if (allowEmotionsInSolo || noxflags.HasGame(noxflags.GameOnline)) && inputKeyCheckTimeoutLegacy(20, 2*gameFPS()) {
 					inputSetKeyTimeoutLegacy(20)
-					c.nox_ctrlevent_action_42E670(player.CCLaugh, nil)
+					c.nox_ctrlevent_action_42E670(player.CCLaugh, 0)
 				}
 			case keybind.EventPoint:
 				if (allowEmotionsInSolo || noxflags.HasGame(noxflags.GameOnline)) && inputKeyCheckTimeoutLegacy(22, gameFPS()) {
 					inputSetKeyTimeoutLegacy(22)
-					c.nox_ctrlevent_action_42E670(player.CCPoint, nil)
+					c.nox_ctrlevent_action_42E670(player.CCPoint, 0)
 				}
 			case keybind.EventInvertSpellTarget:
-				c.nox_ctrlevent_action_42E670(player.CCInvertSpellTarget, nil)
+				c.nox_ctrlevent_action_42E670(player.CCInvertSpellTarget, 0)
 			case keybind.EventToggleRank:
 				if noxflags.HasGame(noxflags.GameOnline) {
-					c.nox_ctrlevent_action_42E670(player.CCToggleRank, nil)
+					c.nox_ctrlevent_action_42E670(player.CCToggleRank, 0)
 				}
 			case keybind.EventToggleNetstat:
 				if !nox_xxx_checkGameFlagPause_413A50() {
-					c.nox_ctrlevent_action_42E670(player.CCToggleNetstat, nil)
+					c.nox_ctrlevent_action_42E670(player.CCToggleNetstat, 0)
 				}
 			case keybind.EventToggleGUI:
-				c.nox_ctrlevent_action_42E670(player.CCToggleGUI, nil)
+				c.nox_ctrlevent_action_42E670(player.CCToggleGUI, 0)
 			case keybind.EventAutoSave:
 				if noxflags.HasGame(noxflags.GameModeCoop) && nox_xxx_guiCursor_477600() == 0 {
-					c.nox_ctrlevent_action_42E670(player.CCAutoSave, nil)
+					c.nox_ctrlevent_action_42E670(player.CCAutoSave, 0)
 				}
 			case keybind.EventAutoLoad:
 				if noxflags.HasGame(noxflags.GameModeCoop) && nox_xxx_guiCursor_477600() == 0 {
-					c.nox_ctrlevent_action_42E670(player.CCAutoLoad, nil)
+					c.nox_ctrlevent_action_42E670(player.CCAutoLoad, 0)
 				}
 			case keybind.EventScreenShot:
-				c.nox_ctrlevent_action_42E670(player.CCScreenShot, nil)
+				c.nox_ctrlevent_action_42E670(player.CCScreenShot, 0)
 			case keybind.EventCreaturesBanish:
 				if inputKeyCheckTimeout(k, gameFPS()/4) {
 					inputSetKeyTimeout(k)
@@ -705,7 +693,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_C() {
 	}
 }
 
-func (c *CtrlEventHandler) nox_ctrlevent_action_42E670(code player.CtrlCode, data *[4]byte) {
+func (c *CtrlEventHandler) nox_ctrlevent_action_42E670(code player.CtrlCode, data uint32) {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		if c.indA >= cap(c.bufA) {
 			return
@@ -726,13 +714,9 @@ func (c *CtrlEventHandler) nox_ctrlevent_action_42E670(code player.CtrlCode, dat
 		}
 		p := &c.bufA[j]
 		p.tick = c.ticks
-		p.code = code
-		if data != nil {
-			p.data = *data
-		} else {
-			p.data = [4]byte{}
+		p.ctrlBufEvent = ctrlBufEvent{
+			code: code, data: data, active: true,
 		}
-		p.active = true
 		c.indA = j + 1
 		if noxflags.HasGame(noxflags.GameHost) {
 			c.indA %= cap(c.bufA)
@@ -740,7 +724,7 @@ func (c *CtrlEventHandler) nox_ctrlevent_action_42E670(code player.CtrlCode, dat
 	}
 }
 
-func (c *CtrlEventHandler) nox_ctrlevent_action_42E780(code player.CtrlCode, data *[4]byte) {
+func (c *CtrlEventHandler) nox_ctrlevent_action_42E780(code player.CtrlCode, data uint32) {
 	if p := *memmap.PtrPtr(0x852978, 8); p != nil && *(*byte)(unsafe.Add(p, 120))&2 == 0 {
 		if !nox_xxx_checkGameFlagPause_413A50() {
 			c.nox_ctrlevent_action_42E670(code, data)
@@ -898,8 +882,10 @@ func (c *CtrlEventHandler) writeToNetBuffer() {
 			buf[off] = byte(p.code)
 			*bufSize = off + 4
 			if sz := p.code.DataSize(); sz != 0 {
+				var b [4]byte
+				binary.LittleEndian.PutUint32(b[:], p.data)
 				off = *bufSize
-				copy(buf[off:], p.data[:sz])
+				copy(buf[off:], b[:sz])
 				*bufSize += byte(sz)
 			}
 		}
@@ -914,8 +900,10 @@ func (c *CtrlEventHandler) writeToNetBuffer() {
 			buf[off] = byte(p.code)
 			*bufSize = off + 4
 			if sz := p.code.DataSize(); sz != 0 {
+				var b [4]byte
+				binary.LittleEndian.PutUint32(b[:], p.data)
 				off = *bufSize
-				copy(buf[off:], p.data[:sz])
+				copy(buf[off:], b[:sz])
 				*bufSize += byte(sz)
 			}
 		}
