@@ -29,7 +29,6 @@ int nox_xxx_weaponGetStaminaByType_4F7E80(int a1);
 short nox_xxx_playerRespawn_4F7EF0(int a1);
 int sub_4F80C0(int a1, float2* a3);
 void nox_xxx_updatePlayer_4F8100(nox_object_t* a1);
-void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* a1);
 int sub_4F9A80(int a1);
 int sub_4F9AB0(int a1);
 void* nox_xxx_plrSetSpellType_4F9B90(int a1);
