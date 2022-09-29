@@ -458,37 +458,36 @@ func nox_xxx_netClientSend2_4E53C0(a1 int, buf []byte, a4, a5 int) {
 	C.nox_xxx_netClientSend2_4E53C0(C.int(a1), unsafe.Pointer(&p[0]), C.int(len(buf)), C.int(a4), C.int(a5))
 }
 
-func clientSendInput(a1 int, a2 uint16, a3 uint16) bool {
-	v3 := nox_xxx_spriteGetMB_476F80()
-	v4 := noxCtrlEventNetbuf[:noxCtrlEventNetbufSize]
-	if len(v4) == 0 {
+func clientSendInput(pli int, mp image.Point) bool {
+	sp := nox_xxx_spriteGetMB_476F80()
+	nbuf := ctrlEvent.netBuf
+	if len(nbuf) == 0 {
 		return true
 	}
 	var buf [5]byte
 	buf[0] = byte(noxnet.MSG_PLAYER_INPUT)
-	if !nox_netlist_addToMsgListCli_40EBC0(a1, 0, buf[:1]) {
+	if !nox_netlist_addToMsgListCli_40EBC0(pli, 0, buf[:1]) {
 		return false
 	}
-	buf[0] = byte(len(v4))
-	if !nox_netlist_addToMsgListCli_40EBC0(a1, 0, buf[:1]) {
+	buf[0] = byte(len(nbuf))
+	if !nox_netlist_addToMsgListCli_40EBC0(pli, 0, buf[:1]) {
 		return false
 	}
-	if !nox_netlist_addToMsgListCli_40EBC0(a1, 0, v4) {
+	if !nox_netlist_addToMsgListCli_40EBC0(pli, 0, nbuf) {
 		return false
 	}
-	v6 := a3
-	if v3 != nil {
-		v6 = uint16(v3.Pos().Y)
+	if sp != nil {
+		mp.Y = sp.Pos().Y
 	}
-	if a2 == memmap.Uint16(0x5D4594, 815768) && v6 == memmap.Uint16(0x5D4594, 815770) {
+	if uint16(mp.X) == memmap.Uint16(0x5D4594, 815768) && uint16(mp.Y) == memmap.Uint16(0x5D4594, 815770) {
 		return true
 	}
-	*memmap.PtrUint16(0x5D4594, 815768) = a2
-	*memmap.PtrUint16(0x5D4594, 815770) = v6
+	*memmap.PtrUint16(0x5D4594, 815768) = uint16(mp.X)
+	*memmap.PtrUint16(0x5D4594, 815770) = uint16(mp.Y)
 	buf[0] = byte(noxnet.MSG_MOUSE)
-	binary.LittleEndian.PutUint16(buf[1:], a2)
-	binary.LittleEndian.PutUint16(buf[3:], v6)
-	if !nox_netlist_addToMsgListCli_40EBC0(a1, 0, buf[:5]) {
+	binary.LittleEndian.PutUint16(buf[1:], uint16(mp.X))
+	binary.LittleEndian.PutUint16(buf[3:], uint16(mp.Y))
+	if !nox_netlist_addToMsgListCli_40EBC0(pli, 0, buf[:5]) {
 		return false
 	}
 	return true
