@@ -458,6 +458,10 @@ func nox_xxx_netClientSend2_4E53C0(a1 int, buf []byte, a4, a5 int) {
 	C.nox_xxx_netClientSend2_4E53C0(C.int(a1), unsafe.Pointer(&p[0]), C.int(len(buf)), C.int(a4), C.int(a5))
 }
 
+var (
+	clientNetPrevMouse image.Point
+)
+
 func clientSendInput(pli int, mp image.Point) bool {
 	sp := nox_xxx_spriteGetMB_476F80()
 	nbuf := ctrlEvent.netBuf
@@ -476,11 +480,10 @@ func clientSendInput(pli int, mp image.Point) bool {
 	if sp != nil {
 		mp.Y = sp.Pos().Y
 	}
-	if uint16(mp.X) == memmap.Uint16(0x5D4594, 815768) && uint16(mp.Y) == memmap.Uint16(0x5D4594, 815770) {
+	if mp == clientNetPrevMouse {
 		return true
 	}
-	*memmap.PtrUint16(0x5D4594, 815768) = uint16(mp.X)
-	*memmap.PtrUint16(0x5D4594, 815770) = uint16(mp.Y)
+	clientNetPrevMouse = mp
 	buf[0] = byte(noxnet.MSG_MOUSE)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(mp.X))
 	binary.LittleEndian.PutUint16(buf[3:], uint16(mp.Y))
