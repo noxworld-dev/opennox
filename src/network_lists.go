@@ -2,23 +2,23 @@ package opennox
 
 /*
 #include "defs.h"
-#include "common__net_list.h"
-extern nox_net_list_t* nox_net_lists[3][NOX_PLAYERINFO_MAX];
-
 int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz);
 int nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2);
 int sub_48D660();
 */
 import "C"
 import (
+	"encoding/binary"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var (
 	nox_net_lists_buf     []byte
 	nox_net_lists_buf_arr [3][]netBuf
+	nox_net_lists         [3][noxMaxPlayers]*MsgList
 )
 
 type netBuf struct {
@@ -88,46 +88,25 @@ const (
 	netListsMaxPackets = 512
 )
 
-func asNetList(p *C.nox_net_list_t) *MsgList {
-	return (*MsgList)(unsafe.Pointer(p))
-}
-
 func netList(ind1, ind2 int) *MsgList {
-	return asNetList(C.nox_net_lists[ind2][ind1])
+	return nox_net_lists[ind2][ind1]
 }
-
-var _ = [1]struct{}{}[16-unsafe.Sizeof(netListItem{})]
 
 type netListItem struct {
-	buf  *byte        // 0, 0
-	size uint32       // 1, 4
-	prev *netListItem // 2, 8
-	next *netListItem // 3, 12
+	buf  []byte
+	prev *netListItem
+	next *netListItem
 }
-
-var _ = [1]struct{}{}[32-unsafe.Sizeof(MsgList{})]
 
 type MsgList struct {
-	first   *netListItem       // 0, 0
-	last    *netListItem       // 1, 4
-	field_2 uint32             // 2, 8
-	alloc   *C.nox_alloc_class // 3, 12
-	count   uint32             // 4, 16
-	size    uint32             // 5, 20
-	field_6 uint32             // 6, 24
-	field_7 uint32             // 7, 28
-}
-
-func (l *MsgList) C() *C.nox_net_list_t {
-	return (*C.nox_net_list_t)(unsafe.Pointer(l))
-}
-
-func (l *MsgList) Alloc() alloc.ClassT[netListItem] {
-	return alloc.AsClassT[netListItem](unsafe.Pointer(l.alloc))
+	first *netListItem
+	last  *netListItem
+	count int
+	size  int
 }
 
 func (l *MsgList) freeItem(item *netListItem) {
-	l.Alloc().FreeObjectFirst(item)
+	*item = netListItem{}
 }
 
 func (l *MsgList) get() []byte { // nox_netlist_get_420A90
@@ -135,10 +114,9 @@ func (l *MsgList) get() []byte { // nox_netlist_get_420A90
 		return nil
 	}
 	item := l.first
-	sz := int(item.size)
 
 	l.count--
-	l.size -= item.size
+	l.size -= len(item.buf)
 
 	if next := item.next; next != nil {
 		next.prev = item.prev
@@ -151,7 +129,7 @@ func (l *MsgList) get() []byte { // nox_netlist_get_420A90
 		l.first = item.next
 	}
 
-	buf := unsafe.Slice(item.buf, sz)
+	buf := item.buf
 	l.freeItem(item)
 	return buf
 }
@@ -175,14 +153,14 @@ func (l *MsgList) Count() int { // nox_netlist_count_420BC0
 	if l == nil {
 		return 0
 	}
-	return int(l.count)
+	return l.count
 }
 
 func (l *MsgList) Size() int { // nox_netlist_size_420BD0
 	if l == nil {
 		return 0
 	}
-	return int(l.size)
+	return l.size
 }
 
 func nox_netlist_countByInd_40E9D0(ind1, ind2 int) int {
@@ -203,40 +181,28 @@ func nox_netlist_sizeByInd2_40F0D0(ind int) int {
 }
 
 func newMsgList(cnt int) *MsgList {
-	p, _ := alloc.New(MsgList{})
-	aclass := alloc.NewClass("CreateMsgList", unsafe.Sizeof(netListItem{}), cnt)
-	p.first = nil
-	p.last = nil
-	p.field_2 = 0
-	p.alloc = (*C.nox_alloc_class)(aclass.UPtr())
-	p.count = 0
-	p.size = 0
-	p.field_6 = 0
-	p.field_7 = 0
-	return p
+	return &MsgList{}
 }
 
 func nox_netlist_init_40EA10() {
 	for i := 0; i < noxMaxPlayers; i++ {
-		C.nox_net_lists[0][i] = nil
-		C.nox_net_lists[1][i] = newMsgList(netListsMaxPackets).C()
-		C.nox_net_lists[2][i] = newMsgList(netListsMaxPackets).C()
+		nox_net_lists[0][i] = nil
+		nox_net_lists[1][i] = newMsgList(netListsMaxPackets)
+		nox_net_lists[2][i] = newMsgList(netListsMaxPackets)
 	}
-	C.nox_net_lists[0][noxMaxPlayers-1] = newMsgList(netListsMaxPackets).C()
+	nox_net_lists[0][noxMaxPlayers-1] = newMsgList(netListsMaxPackets)
 }
 
 func (l *MsgList) Free() {
-	l.Alloc().Free()
-	l.alloc = nil
-	alloc.Free(unsafe.Pointer(l.C()))
+	*l = MsgList{}
 }
 
 func nox_netlist_free_40EA70() {
 	for i := 0; i < noxMaxPlayers; i++ {
 		for j := 0; j < 3; j++ {
-			if l := asNetList(C.nox_net_lists[j][i]); l != nil {
+			if l := nox_net_lists[j][i]; l != nil {
 				l.Free()
-				C.nox_net_lists[j][i] = nil
+				nox_net_lists[j][i] = nil
 			}
 		}
 	}
@@ -270,12 +236,7 @@ func nox_xxx_netBufsSetZero_40ED40(ind, ind2 int) {
 }
 
 func (l *MsgList) Reset() { // nox_netlist_resetList_420830
-	l.first = nil
-	l.last = nil
-	l.field_2 = 0
-	l.count = 0
-	l.size = 0
-	l.Alloc().FreeAllObjects()
+	*l = MsgList{}
 }
 
 //export nox_netlist_resetByInd_40ED10
@@ -353,7 +314,7 @@ func nox_netlist_addToMsgListCli(ind1, ind2 int, buf []byte) bool {
 	if out == nil {
 		return false
 	}
-	nox_netlist_add_420940(l, out, len(buf), true)
+	l.add(out, len(buf), true)
 	return true
 }
 
@@ -369,7 +330,7 @@ func nox_netlist_clientSend_0(ind1, ind2 int, buf []byte, sz2 int) bool {
 	if out == nil {
 		return false
 	}
-	nox_netlist_add_420940(l, out, len(buf), true)
+	l.add(out, len(buf), true)
 	return true
 }
 
@@ -396,8 +357,8 @@ func nox_netlist_addToMsgListSrv(ind int, buf []byte) bool {
 		// The new update packet needs to have correct bytes at the
 		// beginning. Save the length of the first two queued datas so we
 		// can replay them.
-		len1 := int(l.first.size)
-		len2 := int(l.first.next.size)
+		len1 := len(l.first.buf)
+		len2 := len(l.first.next.buf)
 
 		// Flush old data to network.
 		if ind == noxMaxPlayers-1 {
@@ -408,8 +369,8 @@ func nox_netlist_addToMsgListSrv(ind int, buf []byte) bool {
 
 		// Set buffer length and re-queue updates.
 		p.cur = len1 + len2
-		nox_netlist_add_420940(l, &p.buf[0], len1, true)
-		nox_netlist_add_420940(l, &p.buf[len1], len2, true)
+		l.add(&p.buf[0], len1, true)
+		l.add(&p.buf[len1], len2, true)
 
 		// Retry original allocation.
 		out = nox_xxx_netlistAdd_40EFA0(ind, buf)
@@ -417,7 +378,7 @@ func nox_netlist_addToMsgListSrv(ind int, buf []byte) bool {
 	if out == nil {
 		return false
 	}
-	nox_netlist_add_420940(l, out, len(buf), true)
+	l.add(out, len(buf), true)
 	return true
 }
 
@@ -433,7 +394,7 @@ func nox_netlist_copyPacketList2_40F120(ind int) []byte {
 		}
 		if cnt+len(src) > len(sbuf) {
 			// we cannot store it, so put it back
-			nox_netlist_add_420940(l, &src[0], len(src), false)
+			l.add(&src[0], len(src), false)
 			break
 		}
 		copy(sbuf[cnt:], src)
@@ -458,13 +419,8 @@ func nox_netlist_receiveCli_494E90(ind int) int {
 	return res
 }
 
-func nox_netlist_add_420940(l *MsgList, buf *byte, sz int, appnd bool) bool {
-	it := l.Alloc().NewObject()
-	if it == nil {
-		return false
-	}
-	it.buf = buf
-	it.size = uint32(sz)
+func (l *MsgList) add(buf *byte, sz int, appnd bool) bool {
+	it := &netListItem{buf: unsafe.Slice(buf, sz)}
 	if appnd {
 		it.prev = l.last
 		it.next = nil
@@ -485,7 +441,7 @@ func nox_netlist_add_420940(l *MsgList, buf *byte, sz int, appnd bool) bool {
 		l.first = it
 	}
 	l.count++
-	l.size += uint32(sz)
+	l.size += sz
 	return true
 }
 
@@ -495,7 +451,7 @@ func (l *MsgList) findAndFreeBuf(buf *byte) {
 	}
 	var item *netListItem
 	for p := l.first; p != nil; p = p.next {
-		if p.buf == buf {
+		if &p.buf[0] == buf {
 			item = p
 			break
 		}
@@ -504,7 +460,7 @@ func (l *MsgList) findAndFreeBuf(buf *byte) {
 		return
 	}
 	l.count--
-	l.size -= item.size
+	l.size -= len(item.buf)
 
 	if next := item.next; next != nil {
 		next.prev = item.prev
@@ -517,6 +473,49 @@ func (l *MsgList) findAndFreeBuf(buf *byte) {
 	} else {
 		l.first = item.next
 	}
+	*item = netListItem{}
+}
 
-	l.Alloc().FreeObjectFirst(item)
+func (l *MsgList) each(fnc func(b []byte) bool) {
+	if fnc == nil {
+		return
+	}
+	for p := l.first; p != nil; p = p.next {
+		if fnc(p.buf) {
+			break
+		}
+	}
+}
+
+//export sub_4DF5E0
+func sub_4DF5E0(ind, max C.int) unsafe.Pointer {
+	a1 := memmap.Int32(0x5D4594, 1563292)
+	a2 := memmap.Int32(0x5D4594, 1563296)
+	var found *byte
+	netList(int(ind), 2).each(func(b []byte) bool {
+		if len(b) < 9 {
+			return false
+		}
+		var v1 int32
+		if v := int32(binary.LittleEndian.Uint16(b[5:])); v-a1 >= 0 {
+			v1 = v - a1
+		} else {
+			v1 = a1 - v
+		}
+		if v1 >= int32(max) {
+			return false
+		}
+		var v2 int32
+		if v := int32(binary.LittleEndian.Uint16(b[7:])); v-a2 >= 0 {
+			v2 = v - a2
+		} else {
+			v2 = a2 - v
+		}
+		if v2 >= int32(max) {
+			return false
+		}
+		found = &b[0]
+		return true
+	})
+	return unsafe.Pointer(found)
 }
