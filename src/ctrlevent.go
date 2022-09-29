@@ -121,6 +121,7 @@ type CtrlEventHandler struct {
 	flags747848 byte
 	flags750956 bool
 	flags754064 uint32
+	netBuf      []byte
 }
 
 func (c *CtrlEventHandler) Reset() {
@@ -859,16 +860,9 @@ func writeConfigHotkeys(sect *cfg.Section) {
 	}
 }
 
-var (
-	noxCtrlEventNetbufSize byte
-	noxCtrlEventNetbuf     [256]byte // TODO: size is a guess
-)
-
 func (c *CtrlEventHandler) writeToNetBuffer() {
-	bufSize := &noxCtrlEventNetbufSize
-	buf := noxCtrlEventNetbuf[:]
+	buf := c.netBuf[:0]
 	ticks := uint32(platformTicks())
-	*bufSize = 0
 	if noxflags.HasGame(noxflags.GameHost) {
 		for i := c.indB; i != c.indA; i = (i + 1) % cap(c.bufA) {
 			p := &c.bufA[i]
@@ -878,15 +872,11 @@ func (c *CtrlEventHandler) writeToNetBuffer() {
 			if !p.active {
 				continue
 			}
-			off := *bufSize
-			buf[off] = byte(p.code)
-			*bufSize = off + 4
+			buf = append(buf, byte(p.code), 0, 0, 0)
 			if sz := p.code.DataSize(); sz != 0 {
 				var b [4]byte
 				binary.LittleEndian.PutUint32(b[:], p.data)
-				off = *bufSize
-				copy(buf[off:], b[:sz])
-				*bufSize += byte(sz)
+				buf = append(buf, b[:sz]...)
 			}
 		}
 		c.indB = c.indA
@@ -896,18 +886,15 @@ func (c *CtrlEventHandler) writeToNetBuffer() {
 			if !p.active {
 				continue
 			}
-			off := *bufSize
-			buf[off] = byte(p.code)
-			*bufSize = off + 4
+			buf = append(buf, byte(p.code), 0, 0, 0)
 			if sz := p.code.DataSize(); sz != 0 {
 				var b [4]byte
 				binary.LittleEndian.PutUint32(b[:], p.data)
-				off = *bufSize
-				copy(buf[off:], b[:sz])
-				*bufSize += byte(sz)
+				buf = append(buf, b[:sz]...)
 			}
 		}
 	}
+	c.netBuf = buf
 }
 
 func (c *CtrlEventHandler) hasDefBinding(ev keybind.Event, key keybind.Key) bool {
