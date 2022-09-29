@@ -493,7 +493,7 @@ func (p *Player) CameraTarget() *Object {
 	return asObjectC(p.camera_follow)
 }
 
-func (p *Player) CameraUnlock() {
+func (p *Player) CameraUnlock() { // nox_xxx_playerCameraUnlock_4E6040
 	if p == nil {
 		return
 	}
@@ -1098,9 +1098,7 @@ func nox_client_onClassStats(cbuf *C.uchar, sz C.int) {
 	nox_xxx_loadBaseValues_57B200()
 }
 
-func nox_xxx_animPlayerGetFrameRange_4F9F90(a1 int) (_, _ int) {
-	out, free := alloc.Make([]C.int{}, 2)
-	defer free()
-	C.nox_xxx_animPlayerGetFrameRange_4F9F90(C.int(a1), &out[0], &out[1])
-	return int(out[0]), int(out[1])
+func nox_xxx_animPlayerGetFrameRange_4F9F90(i int) (_, _ int) {
+	return int(memmap.Uint32(0x5D4594, 1568412+8*uintptr(i))),
+		int(memmap.Uint32(0x5D4594, 1568416+8*uintptr(i)))
 }
