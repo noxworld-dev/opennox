@@ -443,7 +443,7 @@ func RunArgs(args []string) (gerr error) {
 	C.nox_xxx_initSinCosTables_414C90()
 	C.nox_xxx_loadMapCycle_4D0A30()
 	C.nox_xxx_mapSelectFirst_4D0E00()
-	C.nox_netlist_init_40EA10()
+	nox_netlist_init_40EA10()
 	C.sub_40B890(32)
 	C.sub_40B170(32)
 	C.sub_4134D0()
