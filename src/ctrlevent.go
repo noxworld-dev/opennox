@@ -125,7 +125,6 @@ type CtrlEventHandler struct {
 
 func (c *CtrlEventHandler) Reset() {
 	c.bindings = nil
-	c.flags747848 = 0
 	c.flags750956 = false
 	c.indA = 0
 	c.indB = 0
@@ -155,34 +154,32 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0(mpos image.Point, a4 *Ct
 }
 
 func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_orientation(mpos image.Point) {
-	if c.flags747848 != 2 {
-		// calculates player orientation
-		x := mpos.X
-		y := mpos.Y
-		if v15 := nox_xxx_spriteGetMB_476F80(); v15 != nil {
-			y = int(sub_4739D0(C.int(v15.Pos().Y)))
-		}
-		wsz := videoGetWindowSize()
-		cx := x - wsz.X/2
-		cy := y - wsz.Y/2
-		rad := math.Atan2(float64(cy), float64(cx))
-
-		// TODO: support gamepad again
-		//if inpHandler.Gamepad().InRelative() {
-		//	p := inpHandler.Gamepad().StickRel().Posf()
-		//	rad = math.Atan2(float64(p.Y), float64(p.X))
-		//}
-
-		// represent as integer
-		ang := int((rad+2*math.Pi)*128.0/math.Pi + 0.5)
-		if ang < 0 {
-			ang += int((uint(255-ang) >> 8) << 8)
-		}
-		if ang >= 256 {
-			ang -= int((uint(ang) >> 8) << 8)
-		}
-		c.playerDir = uint32(ang)
+	// calculates player orientation
+	x := mpos.X
+	y := mpos.Y
+	if v15 := nox_xxx_spriteGetMB_476F80(); v15 != nil {
+		y = int(sub_4739D0(C.int(v15.Pos().Y)))
 	}
+	wsz := videoGetWindowSize()
+	cx := x - wsz.X/2
+	cy := y - wsz.Y/2
+	rad := math.Atan2(float64(cy), float64(cx))
+
+	// TODO: support gamepad again
+	//if inpHandler.Gamepad().InRelative() {
+	//	p := inpHandler.Gamepad().StickRel().Posf()
+	//	rad = math.Atan2(float64(p.Y), float64(p.X))
+	//}
+
+	// represent as integer
+	ang := int((rad+2*math.Pi)*128.0/math.Pi + 0.5)
+	if ang < 0 {
+		ang += int((uint(255-ang) >> 8) << 8)
+	}
+	if ang >= 256 {
+		ang -= int((uint(ang) >> 8) << 8)
+	}
+	c.playerDir = uint32(ang)
 	c.nox_ctrlevent_action_42E670(player.CCOrientation, c.playerDir)
 }
 
@@ -793,7 +790,6 @@ func (c *CtrlEventHandler) listBindings() []*CtrlEventBinding {
 
 //export nox_client_parseConfigHotkeysLine_42CF50
 func nox_client_parseConfigHotkeysLine_42CF50(a1 *C.char) C.int {
-	ctrlEvent.flags747848 = 0
 	r := strings.NewReader(GoString(a1))
 	sc := bufio.NewScanner(r)
 	for sc.Scan() {
