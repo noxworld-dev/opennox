@@ -46,41 +46,10 @@ int nox_netlist_countByInd2_40F0B0(int ind) { return nox_netlist_countByInd_40E9
 //----- (0040F0D0) --------------------------------------------------------
 int nox_netlist_sizeByInd2_40F0D0(int ind) { return nox_netlist_sizeByInd_40E9F0(ind, 2); }
 
-//----- (00420890) --------------------------------------------------------
-nox_net_list_t* nox_netlist_newMsgList_420890(int cnt) {
-	nox_net_list_t* p = calloc(1, sizeof(nox_net_list_t));
-	if (!p) {
-		return 0;
-	}
-	nox_alloc_class* aclass = nox_new_alloc_class("CreateMsgList", sizeof(nox_net_list_item_t), cnt);
-	if (!aclass) {
-		return 0;
-	}
-	p->first = 0;
-	p->last = 0;
-	p->field_2 = 0;
-	p->alloc = aclass;
-	p->count = 0;
-	p->size = 0;
-	p->field_6 = 0;
-	p->field_7 = 0;
-	return p;
-}
-
 //----- (004208F0) --------------------------------------------------------
 void nox_netlist_freeMsgList_4208F0(nox_net_list_t* p) {
 	nox_free_alloc_class(p->alloc);
 	free(p);
-}
-
-//----- (0040EA10) --------------------------------------------------------
-void nox_netlist_init_40EA10() {
-	for (int i = 0; i < NOX_PLAYERINFO_MAX; i++) {
-		nox_net_lists[1][i] = nox_netlist_newMsgList_420890(NOX_NETBUF_MAX_PACKETS);
-		nox_net_lists[0][i] = 0;
-		nox_net_lists[2][i] = nox_netlist_newMsgList_420890(NOX_NETBUF_MAX_PACKETS);
-	}
-	nox_net_lists[0][NOX_PLAYERINFO_MAX - 1] = nox_netlist_newMsgList_420890(NOX_NETBUF_MAX_PACKETS);
 }
 
 //----- (0040EA70) --------------------------------------------------------
