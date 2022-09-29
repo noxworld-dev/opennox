@@ -23,7 +23,6 @@ static int nox_call_objectType_parseUpdate_go(int (*fnc)(char*, void*), char* ar
 */
 import "C"
 import (
-	"encoding/binary"
 	"errors"
 	"fmt"
 	"math"
@@ -662,7 +661,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 	if pl.field_3680&3 != 0 {
 		goto LABEL_247
 	}
-	orientationOnly = C.sub_4FEE50(31, u.CObj()) != 0
+	orientationOnly = C.sub_4FEE50(noxMaxPlayers-1, u.CObj()) != 0
 	for it := cb.First(); it != nil; it = cb.Next() {
 		if orientationOnly && it.code != player.CCOrientation {
 			continue
@@ -672,7 +671,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 			if !u.HasEnchant(ENCHANT_FREEZE) &&
 				(!noxflags.HasGame(noxflags.GameModeQuest) || ud.field_70 == 0) &&
 				!s.abilities.IsActive(u, AbilityBerserk) {
-				u.direction2 = C.ushort(binary.LittleEndian.Uint16(it.data[:]))
+				u.direction2 = C.ushort(it.Uint16())
 			}
 		case player.CCMoveForward, player.CCMoveBackward, player.CCMoveLeft, player.CCMoveRight:
 			if C.nox_xxx_playerCanMove_4F9BC0(u.CObj()) != 0 {
@@ -688,7 +687,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 						} else {
 							nox_xxx_playerSetState_4FA020(u, 0)
 						}
-						if it.data[0]&2 != 0 {
+						if it.Uint8()&2 != 0 {
 							ud.field_60 |= 0x1
 						} else {
 							ud.field_60 &^= 0x1
@@ -817,8 +816,8 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 					s.playerSpell(u)
 					ud.spell_cast_start = 0
 				} else {
-					v61 := s.getObjectFromNetCode(int(binary.LittleEndian.Uint32(it.data[:])))
-					C.nox_xxx_playerDoSchedSpell_4FB0E0(u.CObj(), v61.CObj())
+					targ := s.getObjectFromNetCode(int(it.Uint32()))
+					C.nox_xxx_playerDoSchedSpell_4FB0E0(u.CObj(), targ.CObj())
 				}
 			}
 		case player.CCCastQueuedSpell:
@@ -830,8 +829,8 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				}
 				ud.field_55 = pl.field_2284
 				ud.field_56 = pl.field_2288
-				v63 := s.getObjectFromNetCode(int(binary.LittleEndian.Uint32(it.data[:])))
-				C.nox_xxx_playerDoSchedSpell_4FB0E0(u.CObj(), v63.CObj())
+				targ := s.getObjectFromNetCode(int(it.Uint32()))
+				C.nox_xxx_playerDoSchedSpell_4FB0E0(u.CObj(), targ.CObj())
 			}
 		case player.CCCastMostRecentSpell:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
@@ -841,8 +840,8 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				}
 				ud.field_55 = pl.field_2284
 				ud.field_56 = pl.field_2288
-				v65 := s.getObjectFromNetCode(int(binary.LittleEndian.Uint32(it.data[:])))
-				C.nox_xxx_playerDoSchedSpellQueue_4FB1D0(u.CObj(), v65.CObj())
+				targ := s.getObjectFromNetCode(int(it.Uint32()))
+				C.nox_xxx_playerDoSchedSpellQueue_4FB1D0(u.CObj(), targ.CObj())
 			}
 		}
 	}

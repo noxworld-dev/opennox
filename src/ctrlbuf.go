@@ -1,6 +1,10 @@
 package opennox
 
-import "github.com/noxworld-dev/opennox-lib/player"
+import (
+	"encoding/binary"
+
+	"github.com/noxworld-dev/opennox-lib/player"
+)
 
 const ctrlBufCap = 128
 
@@ -12,16 +16,28 @@ func (s *serverCtrlBuf) Player(pi int) *ctrlBuf {
 	return &s.byPlayer[pi]
 }
 
+type ctrlBufEvent struct {
+	code   player.CtrlCode
+	data   uint32
+	active bool
+}
+
+func (e *ctrlBufEvent) Uint8() byte {
+	return byte(e.data)
+}
+
+func (e *ctrlBufEvent) Uint16() uint16 {
+	return uint16(e.data)
+}
+
+func (e *ctrlBufEvent) Uint32() uint32 {
+	return e.data
+}
+
 type ctrlBuf struct {
 	events [ctrlBufCap]ctrlBufEvent
 	read   int
 	write  int
-}
-
-type ctrlBufEvent struct {
-	code   player.CtrlCode
-	data   [4]uint8
-	active bool
 }
 
 func (cb *ctrlBuf) Append(buf []ctrlBufEvent) {
@@ -119,7 +135,9 @@ func netDecodePlayerInput(data []byte, out []ctrlBufEvent) []ctrlBufEvent {
 			active: true,
 		}
 		if sz := code.DataSize(); sz != 0 {
-			copy(v.data[:], data[:sz])
+			var b [4]byte
+			copy(b[:], data[:sz])
+			v.data = binary.LittleEndian.Uint32(b[:4])
 			data = data[sz:]
 		}
 		out = append(out, v)
