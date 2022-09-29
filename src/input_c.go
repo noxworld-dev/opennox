@@ -397,7 +397,7 @@ func (c *CtrlEventHandler) nox_xxx_input_42D220_A(inp *input.Handler) *CtrlEvent
 				if inp.MouseAction(key, it.events[0]) {
 					break
 				}
-			} else if key.IsJoystick() && (memmap.Uint8(0x5D4594, 750956) != 0 || (1<<uint32(key))&memmap.Uint32(0x5D4594, 747844) == 0) {
+			} else if key.IsJoystick() && (c.flags750956 || (1<<uint32(key))&memmap.Uint32(0x5D4594, 747844) == 0) {
 				break
 			}
 			li = i + 1
