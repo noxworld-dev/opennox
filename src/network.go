@@ -1249,3 +1249,11 @@ func nox_xxx_netPriMsgToPlayer_4DA2C0(u *Unit, id strman.ID, a3 byte) {
 	buf[3+n] = 0
 	nox_netlist_addToMsgListCli(u.ControllingPlayer().Index(), 1, buf[:n+4])
 }
+
+func nox_xxx_netSendBySock_40EE10(a1 int, a2 int, a3 int) {
+	v3 := nox_netlist_copyPacketList(a2, a3)
+	if len(v3) != 0 {
+		nox_xxx_netSendSock_552640(a1, v3, 0)
+		C.nox_xxx_netSendReadPacket_5528B0(C.uint(a1), 1)
+	}
+}

@@ -813,7 +813,7 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 			return true
 		}
 	} else {
-		C.sub_43CCA0()
+		sub_43CCA0()
 	}
 	C.sub_49BD70(vp.C())
 	C.sub_49BBC0()

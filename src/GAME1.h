@@ -211,7 +211,6 @@ void sub_40E7C0(uint32_t* a1);
 int sub_40E850(volatile int* lpMem);
 int sub_40E890(int a1, uint32_t* a2, int* a3);
 void sub_40E990(uint32_t* a1);
-int nox_xxx_netSendBySock_40EE10(unsigned int a1, int a2, unsigned int a3);
 int nox_xxx_cliCanTalkMB_4100F0(short* a1);
 void nox_xxx_wall_410160();
 void* nox_xxx_wallCreateAt_410250(int a1, int a2);
