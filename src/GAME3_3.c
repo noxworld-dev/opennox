@@ -2543,19 +2543,19 @@ void sub_4E5FC0(int a1) {
 }
 
 //----- (004E6040) --------------------------------------------------------
-int nox_xxx_playerCameraUnlock_4E6040(int player) {
+int nox_xxx_playerCameraUnlock_4E6040(nox_object_t* player) {
 	int result; // eax
 
 	result = player;
-	*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(player + 748) + 276) + 3628) = 0;
+	*(uint32_t*)(*(uint32_t*)(*(uint32_t*)((int)player + 748) + 276) + 3628) = 0;
 	return result;
 }
 
 //----- (004E6060) --------------------------------------------------------
-int nox_xxx_playerCameraFollow_4E6060(int player, int unitId) {
+int nox_xxx_playerCameraFollow_4E6060(nox_object_t* player, nox_object_t* unitId) {
 	int result; // eax
 
-	result = *(uint32_t*)(*(uint32_t*)(player + 748) + 276);
+	result = *(uint32_t*)(*(uint32_t*)((int)player + 748) + 276);
 	if (*(uint32_t*)(result + 3628) == unitId) {
 		return nox_xxx_playerCameraUnlock_4E6040(player);
 	}

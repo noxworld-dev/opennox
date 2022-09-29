@@ -6750,7 +6750,8 @@ char* nox_xxx_netMarkMinimapForAll_4174B0(int a1, int a2) {
 }
 
 //----- (004174F0) --------------------------------------------------------
-int nox_xxx_netNeedTimestampStatus_4174F0(int a1, int a2) {
+int nox_xxx_netNeedTimestampStatus_4174F0(nox_playerInfo* a1p, int a2) {
+	int a1 = a1p;
 	int result; // eax
 
 	*(uint32_t*)(a1 + 3680) |= a2;
