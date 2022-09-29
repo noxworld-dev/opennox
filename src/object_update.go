@@ -352,10 +352,10 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			if u.HasEnchant(ENCHANT_CONFUSED) {
 				u.direction2 = C.ushort(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
 			}
-			dir := 8 * int(u.direction2)
 			// update force based on direction, speed, etc
-			u.force_x += C.float(memmap.Float32(0x587000, 194136+uintptr(dir))) * u.speed_cur
-			u.force_y += C.float(memmap.Float32(0x587000, 194140+uintptr(dir))) * u.speed_cur
+			cos, sin := sincosDir(byte(u.direction2))
+			u.force_x += C.float(cos) * u.speed_cur
+			u.force_y += C.float(sin) * u.speed_cur
 		}
 		if ud.field_22_0 == 0 {
 			v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(4)
@@ -478,9 +478,9 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			}
 		}
 		if !found {
-			dir := 8 * int(u.direction1)
-			u.force_x = 2 * u.speed_cur * C.float(memmap.Float32(0x587000, 194136+uintptr(dir)))
-			u.force_y = 2 * u.speed_cur * C.float(memmap.Float32(0x587000, 194140+uintptr(dir)))
+			cos, sin := sincosDir(byte(u.direction1))
+			u.force_x = 2 * u.speed_cur * C.float(cos)
+			u.force_y = 2 * u.speed_cur * C.float(sin)
 		}
 		if v49 >= v67 {
 			// stop hovering after a jump?
@@ -999,9 +999,10 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 		}
 	}
 	u.float_28 = 0.9
+	cos, sin := sincosDir(byte(u.Dir()))
 	u.setForce(types.Pointf{
-		X: memmap.Float32(0x587000, 194136+8*uintptr(u.Dir())) * u.curSpeed(),
-		Y: memmap.Float32(0x587000, 194140+8*uintptr(u.Dir())) * u.curSpeed(),
+		X: cos * u.curSpeed(),
+		Y: sin * u.curSpeed(),
 	})
 	if (gameFrame()&8 == 0) && owner != nil {
 		if C.nox_xxx_mapCheck_537110(u.CObj(), owner.CObj()) == 1 {
@@ -1016,8 +1017,7 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 
 func nox_xxx_pixieIdleAnimate_53CF90(obj *Unit, vec types.Pointf, ddir int) {
 	dir := int(obj.Dir())
-	cos := memmap.Float32(0x587000, 194136+8*uintptr(dir))
-	sin := memmap.Float32(0x587000, 194140+8*uintptr(dir))
+	cos, sin := sincosDir(byte(dir))
 	if cos*vec.Y-sin*vec.X >= 0.0 {
 		dir += ddir
 		for dir >= 256 {
@@ -1108,8 +1108,7 @@ func nox_xxx_enemyAggro(self *Unit, r, max float32) *Object {
 		}
 		vec := it.Pos().Sub(self.Pos())
 		dist := float32(math.Sqrt(float64(vec.X*vec.X+vec.Y*vec.Y)) + 0.001)
-		cos := memmap.Float32(0x587000, 194136+8*uintptr(self.direction1))
-		sin := memmap.Float32(0x587000, 194140+8*uintptr(self.direction1))
+		cos, sin := sincosDir(byte(self.direction1))
 		if !someFlag || vec.Y/dist*sin+vec.X/dist*cos > 0.5 {
 			dist2 := dist
 			if it.HasEnchant(ENCHANT_VILLAIN) {
