@@ -69,7 +69,6 @@ extern uint32_t dword_5d4594_3835392;
 extern uint32_t nox_server_sendMotd_108752;
 extern uint32_t dword_5d4594_1556856;
 extern uint32_t dword_5d4594_1548480;
-extern uint32_t dword_5d4594_1548704;
 extern uint32_t dword_5d4594_1523048;
 extern uint32_t dword_5d4594_1523044;
 extern uint32_t dword_5d4594_1523032;
@@ -1566,27 +1565,6 @@ int nox_xxx_servResetPlayers_4D23C0() {
 	nox_xxx_netGameSettings_4DEF00();
 	nox_server_gameUnsetMapLoad_40A690();
 	return 1;
-}
-
-//----- (004D2FF0) --------------------------------------------------------
-char* sub_4D2FF0() {
-	char* result; // eax
-	int v1;       // esi
-
-	result = (char*)sub_40AA70(0);
-	if (result || (result = nox_common_playerInfoGetFirst_416EA0(), (v1 = (int)result) == 0)) {
-		dword_5d4594_1548704 = 1;
-	} else {
-		do {
-			if (*(uint8_t*)(v1 + 3680) & 1) {
-				nox_xxx_netNeedTimestampStatus_4174F0(v1, 256);
-			}
-			result = nox_common_playerInfoGetNext_416EE0(v1);
-			v1 = (int)result;
-		} while (result);
-		dword_5d4594_1548704 = 1;
-	}
-	return result;
 }
 
 //----- (004D3050) --------------------------------------------------------
@@ -4701,7 +4679,7 @@ int nox_xxx_scavengerHuntReport_4D8CD0(int a1) {
 }
 
 //----- (004D8D40) --------------------------------------------------------
-char* nox_xxx_playerIncrementElimDeath_4D8D40(int a1) {
+void nox_xxx_playerIncrementElimDeath_4D8D40(int a1) {
 	char* result;      // eax
 	char* i;           // esi
 	char* v3;          // esi
@@ -4735,7 +4713,7 @@ char* nox_xxx_playerIncrementElimDeath_4D8D40(int a1) {
 							v5 = sub_40A770();
 							result = (char*)sub_40AA40();
 							if (v5 >= (int)result) {
-								return result;
+								return;
 							}
 							v8 = getMemAt(0x587000, 198928);
 							v4 = nox_xxx_gamedataGetFloat_419D40("SuddenDeathCountdown");
@@ -4751,7 +4729,7 @@ char* nox_xxx_playerIncrementElimDeath_4D8D40(int a1) {
 									result = nox_server_teamNext_418B60((int)v3);
 									v3 = result;
 									if (!result) {
-										return result;
+										return;
 									}
 								}
 								v8 = getMemAt(0x587000, 198872);
@@ -4759,7 +4737,8 @@ char* nox_xxx_playerIncrementElimDeath_4D8D40(int a1) {
 							LABEL_22:
 								v7 = v4;
 								v6 = nox_float2int(v7);
-								return (char*)nox_xxx_servStartCountdown_40A2A0(v6, (const char*)v8);
+								nox_xxx_servStartCountdown_40A2A0(v6, (const char*)v8);
+								return;
 							}
 						}
 					}
@@ -4767,7 +4746,6 @@ char* nox_xxx_playerIncrementElimDeath_4D8D40(int a1) {
 			}
 		}
 	}
-	return result;
 }
 
 //----- (004D8E90) --------------------------------------------------------
@@ -5149,30 +5127,6 @@ int nox_xxx_netMsgInventoryLoaded_4D96E0(int a1) {
 
 	v2[0] = 113;
 	return nox_xxx_netSendPacket1_4E5390(a1, (int)v2, 1, 0, 0);
-}
-
-//----- (004D9700) --------------------------------------------------------
-int sub_4D9700(int a1) {
-	int result; // eax
-
-	result = a1;
-	switch (a1) {
-	case 0:
-		result = nox_xxx_netPrintLineToAll_4DA390("report.c:NoComp");
-		break;
-	case 1:
-		result = nox_xxx_netPrintLineToAll_4DA390("report.c:MinComp");
-		break;
-	case 2:
-		result = nox_xxx_netPrintLineToAll_4DA390("report.c:AveComp");
-		break;
-	case 3:
-		result = nox_xxx_netPrintLineToAll_4DA390("report.c:UserComp");
-		break;
-	default:
-		return result;
-	}
-	return result;
 }
 
 //----- (004D97A0) --------------------------------------------------------

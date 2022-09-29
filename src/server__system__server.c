@@ -48,7 +48,6 @@ extern uint32_t dword_5d4594_2386164;
 extern uint32_t dword_5d4594_1568300;
 extern uint32_t dword_5d4594_1548480;
 extern uint32_t dword_5d4594_528260;
-extern uint32_t dword_5d4594_1548704;
 extern uint32_t dword_5d4594_1563096;
 extern uint32_t dword_5d4594_1563052;
 extern uint32_t dword_5d4594_608316;
@@ -284,118 +283,6 @@ void sub_4D22B0() {
 		}
 		result = nox_common_playerInfoGetNext_416EE0(i);
 	}
-}
-
-//----- (004D2DA0) --------------------------------------------------------
-int nox_xxx_updateServer_4D2DA0(long long a1) {
-	int result;         // eax
-	char* v2;           // eax
-	int v3;             // ebx
-	char* v4;           // esi
-	double v5;          // st7
-	int v6;             // esi
-	int v7;             // eax
-	char* v8;           // eax
-	float v9;           // [esp+0h] [ebp-10h]
-	unsigned char* v10; // [esp+4h] [ebp-Ch]
-
-	if (dword_5d4594_528252 == 1 && nox_frame_xxx_2598000 == dword_5d4594_528260) {
-		nox_xxx_reconAttempt_41E390();
-	}
-	sub_5096F0();
-	result = nox_common_gameFlags_check_40A5C0(8);
-	if (result) {
-		return result;
-	}
-	if (nox_common_gameFlags_check_40A5C0(0x2000)) {
-		sub_416720();
-		if (!nox_common_gameFlags_check_40A5C0(128)) {
-			if (sub_409F40(0x2000)) {
-				sub_4D7CC0();
-			}
-		}
-	}
-	if (!nox_common_gameFlags_check_40A5C0(1024)) {
-		goto LABEL_31;
-	}
-	if (sub_40AA00()) {
-		if (!dword_5d4594_1548704) {
-			sub_4D2FF0();
-		}
-	} else {
-		dword_5d4594_1548704 = 0;
-	}
-	if (nox_common_gameFlags_check_40A5C0(0x4000000)) {
-		goto LABEL_31;
-	}
-	if (sub_40A300()) {
-		goto LABEL_31;
-	}
-	v2 = nox_common_playerInfoGetFirst_416EA0();
-	if (!v2) {
-		goto LABEL_31;
-	}
-	while (*((int*)v2 + 535) <= 0) {
-		v2 = nox_common_playerInfoGetNext_416EE0((int)v2);
-		if (!v2) {
-			goto LABEL_31;
-		}
-	}
-	if (!sub_40AA00()) {
-		goto LABEL_31;
-	}
-	if (nox_xxx_CheckGameplayFlags_417DA0(4)) {
-		v3 = nox_xxx_getTeamCounter_417DD0();
-		if (v3 >= sub_40AA40()) {
-			goto LABEL_31;
-		}
-		v4 = nox_server_teamFirst_418B10();
-		if (v4) {
-			while (nox_xxx_countNonEliminatedPlayersInTeam_40A830((int)v4) != 1) {
-				v4 = nox_server_teamNext_418B60((int)v4);
-				if (!v4) {
-					goto LABEL_31;
-				}
-			}
-			v10 = getMemAt(0x587000, 197200);
-			v5 = nox_xxx_gamedataGetFloat_419D40("SuddenDeathCountdown");
-			v9 = v5;
-			v7 = nox_float2int(v9);
-			nox_xxx_servStartCountdown_40A2A0(v7, (const char*)v10);
-		}
-	} else {
-		v6 = sub_40A770();
-		if (v6 < sub_40AA40()) {
-			v10 = getMemAt(0x587000, 197256);
-			v5 = nox_xxx_gamedataGetFloat_419D40("SuddenDeathCountdown");
-			v9 = v5;
-			v7 = nox_float2int(v9);
-			nox_xxx_servStartCountdown_40A2A0(v7, (const char*)v10);
-		}
-	}
-LABEL_31:
-	if (sub_40A6B0()) {
-		v8 = sub_416640();
-		sub_4D9700(*(uint32_t*)(v8 + 66));
-		sub_40A6A0(0);
-	}
-	if ((unsigned long long)(a1 - *getMemU64Ptr(0x5D4594, 1548692)) > 0x1F4) {
-		nox_xxx_netReportAllLatency_4D3050();
-		*getMemU64Ptr(0x5D4594, 1548692) = a1;
-	}
-	if (nox_common_gameFlags_check_40A5C0(128) && !sub_40A740() && nox_xxx_getTeamCounter_417DD0() &&
-		!nox_xxx_CheckGameplayFlags_417DA0(2)) {
-		sub_4183C0();
-	}
-	result = nox_common_gameFlags_check_40A5C0(4096);
-	if (result) {
-		sub_4D7150();
-		sub_4D71F0();
-		nox_server_checkWarpGate_4D7600();
-		sub_4DCE00();
-		result = sub_4D7A80();
-	}
-	return result;
 }
 
 //----- (004DB160) --------------------------------------------------------
