@@ -441,7 +441,7 @@ func nox_xxx_clientResetSpriteAndGui_4357D0(noSkip bool) bool {
 		*memmap.PtrUint32(0x587000, 85724) = 0
 	}
 	*memmap.PtrUint32(0x5D4594, 811064) = uint32(C.nox_client_renderGUI_80828)
-	C.nox_netlist_resetAll_40EE60()
+	nox_netlist_resetAll_40EE60()
 	if !noxflags.HasGame(noxflags.GameHost) {
 		noxServer.resetAllPlayers()
 	}
@@ -764,7 +764,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		C.dword_5d4594_2649712 |= 0x80000000
 	}
-	C.nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
+	nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
 	C.nox_xxx_set3512_40A340(0)
 	nox_xxx_setMapCRC_40A360(0)
 
@@ -785,7 +785,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 		}
 		C.nox_xxx_servNetInitialPackets_552A80(C.uint(dword_5D4594_815700), 1)
 		C.nox_xxx_netSendBySock_40EE10(C.uint(dword_5D4594_815700), noxMaxPlayers-1, 0)
-		C.nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
+		nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
 		C.nox_xxx_netMaybeSendAll_552460()
 		if nox_xxx_getMapCRC_40A370() != 0 {
 			break
@@ -1009,7 +1009,7 @@ func nox_xxx_cliSetupSession_437190() {
 	C.sub_446580(1)
 	C.sub_48D760()
 	if !noxflags.HasGame(noxflags.GameHost) {
-		C.nox_netlist_resetAll_40EE60()
+		nox_netlist_resetAll_40EE60()
 	}
 	C.sub_417CF0()
 	clientSetPlayerNetCode(0)

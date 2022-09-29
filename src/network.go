@@ -465,10 +465,10 @@ func (c *Client) clientSendInput(pli int) bool {
 	var buf [2]byte
 	buf[0] = byte(noxnet.MSG_PLAYER_INPUT)
 	buf[1] = byte(len(nbuf))
-	if !nox_netlist_addToMsgListCli_40EBC0(pli, 0, buf[:2]) {
+	if !nox_netlist_addToMsgListCli(pli, 0, buf[:2]) {
 		return false
 	}
-	if !nox_netlist_addToMsgListCli_40EBC0(pli, 0, nbuf) {
+	if !nox_netlist_addToMsgListCli(pli, 0, nbuf) {
 		return false
 	}
 	return true
@@ -488,13 +488,7 @@ func (c *Client) clientSendInputMouse(pli int, mp image.Point) bool {
 	buf[0] = byte(noxnet.MSG_MOUSE)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(mp.X))
 	binary.LittleEndian.PutUint16(buf[3:], uint16(mp.Y))
-	return nox_netlist_addToMsgListCli_40EBC0(pli, 0, buf[:5])
-}
-
-func nox_netlist_addToMsgListCli_40EBC0(ind1, ind2 int, buf []byte) bool {
-	cbuf, bufFree := alloc.CloneSlice(buf)
-	defer bufFree()
-	return C.nox_netlist_addToMsgListCli_40EBC0(C.int(ind1), C.int(ind2), (*C.uchar)(unsafe.Pointer(&cbuf[0])), C.int(len(cbuf))) != 0
+	return nox_netlist_addToMsgListCli(pli, 0, buf[:5])
 }
 
 type netStructOpt struct {
@@ -960,7 +954,7 @@ func nox_xxx_cliSendCancelMap_43CAB0() int {
 	if nox_xxx_cliWaitServerResponse_5525B0(id, v0, 20, 6) != 0 {
 		return 0
 	}
-	C.nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
+	nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
 	return 1
 }
 
@@ -972,7 +966,7 @@ func nox_xxx_netSendIncomingClient_43CB00() int {
 	if nox_xxx_cliWaitServerResponse_5525B0(id, v0, 20, 6) != 0 {
 		return 0
 	}
-	C.nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
+	nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
 	return 1
 }
 
@@ -985,7 +979,7 @@ func nox_xxx_cliSendOutgoingClient_43CB50() int {
 		return 0
 	}
 	C.nox_xxx_servNetInitialPackets_552A80(C.uint(id), 3)
-	C.nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
+	nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
 	return 1
 }
 
@@ -1027,9 +1021,9 @@ func nox_xxx_netInformTextMsg_4DA0F0(pid int, code byte, ind int) bool {
 	switch code {
 	case 0, 1, 2, 12, 13, 16, 20, 21:
 		binary.LittleEndian.PutUint32(buf[2:], uint32(ind))
-		return nox_netlist_addToMsgListCli_40EBC0(pid, 1, buf[:6])
+		return nox_netlist_addToMsgListCli(pid, 1, buf[:6])
 	case 17:
-		return nox_netlist_addToMsgListCli_40EBC0(pid, 1, buf[:2])
+		return nox_netlist_addToMsgListCli(pid, 1, buf[:2])
 	default:
 		return true
 	}
@@ -1173,7 +1167,7 @@ func nox_xxx_netKillChat_528D00(u *Unit) {
 		if u == nil {
 			continue
 		}
-		nox_netlist_addToMsgListCli_40EBC0(pl.Index(), 1, buf[:3])
+		nox_netlist_addToMsgListCli(pl.Index(), 1, buf[:3])
 	}
 }
 
@@ -1253,5 +1247,5 @@ func nox_xxx_netPriMsgToPlayer_4DA2C0(u *Unit, id strman.ID, a3 byte) {
 	buf[2] = a3
 	n := copy(buf[3:len(buf)-1], string(id))
 	buf[3+n] = 0
-	nox_netlist_addToMsgListCli_40EBC0(u.ControllingPlayer().Index(), 1, buf[:n+4])
+	nox_netlist_addToMsgListCli(u.ControllingPlayer().Index(), 1, buf[:n+4])
 }
