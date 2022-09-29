@@ -79,7 +79,6 @@ extern uint32_t dword_5d4594_815708;
 extern void* dword_587000_81128;
 extern uint32_t dword_5d4594_2649712;
 extern uint32_t nox_client_translucentFrontWalls_805844;
-extern uint64_t qword_5d4594_815724;
 extern uint64_t qword_581450_9552;
 extern uint64_t qword_581450_9544;
 extern uint32_t dword_5d4594_830148;
@@ -280,67 +279,6 @@ int sub_43CC80() {
 	result = sub_5549F0(nox_xxx_netGet_43C750());
 	dword_5d4594_2649712 = 0;
 	return result;
-}
-
-//----- (0043CCA0) --------------------------------------------------------
-void sub_43CCA0() {
-	int v0;                // esi
-	int v1;                // esi
-	unsigned long long v2; // rdi
-	unsigned long long v3; // rax
-	unsigned long long v4; // rax
-	unsigned long long v5; // rax
-
-	nox_xxx_spriteDeleteSomeList_49C4B0();
-	v0 = nox_frame_xxx_2598000;
-	nox_xxx_servNetInitialPackets_552A80(nox_xxx_netGet_43C750(), 1);
-	if (v0 != nox_frame_xxx_2598000 && dword_5d4594_2650652 == 1 && !nox_common_gameFlags_check_40A5C0(1)) {
-		v1 = sub_40A710(1);
-		if (sub_43C790() > v1) {
-			sub_43CEB0();
-			v2 = *getMemU64Ptr(0x5D4594, 815740) + *getMemU64Ptr(0x587000, 91880) / (unsigned long long)sub_43C790();
-			if (nox_platform_get_ticks() >= v2) {
-				char v7[8];
-				v7[0] = 40;
-				*(uint32_t*)&v7[1] = nox_frame_xxx_2598000 + 1;
-				nox_xxx_netOnPacketRecvCli_48EA70(31, (unsigned int)v7, 5);
-			}
-		}
-	}
-	v3 = nox_platform_get_ticks() - *(uint64_t*)&qword_5d4594_815724;
-	if (v3 >= 2000) {
-		*(uint64_t*)&qword_5d4594_815724 = nox_platform_get_ticks();
-		sub_552E70(nox_xxx_netGet_43C750());
-	}
-	if (!nox_common_gameFlags_check_40A5C0(1)) {
-		nox_xxx_netImportant_4E5770(0x1Fu, 0);
-	}
-	nox_xxx_netSendBySock_40EE10(nox_xxx_netGet_43C750(), 31, 0);
-	nox_netlist_resetByInd_40ED10(31, 0);
-	nox_xxx_netMaybeSendAll_552460();
-	if (!(*getMemU32Ptr(0x5D4594, 815720) || (*getMemU32Ptr(0x5D4594, 815716) != 0))) {
-		return;
-	}
-	v5 = nox_platform_get_ticks() - *getMemU64Ptr(0x5D4594, 815716);
-	if (v5 > 2000 && !dword_5d4594_815704) {
-		dword_5d4594_815704 = 1;
-		sub_4AB4A0(1);
-		*getMemU64Ptr(0x5D4594, 815732) = nox_platform_get_ticks();
-	}
-	if (!(*getMemU32Ptr(0x5D4594, 815720) || (*getMemU32Ptr(0x5D4594, 815716) != 0))) {
-		return;
-	}
-	v4 = nox_platform_get_ticks() - *getMemU64Ptr(0x5D4594, 815716);
-	if (v4 <= 20000) {
-		return;
-	}
-	if (dword_5d4594_815708) {
-		return;
-	}
-	v4 = nox_platform_get_ticks() - *getMemU64Ptr(0x5D4594, 815732);
-	if (v4 > 20000) {
-		sub_43CF70();
-	}
 }
 
 //----- (0043CEB0) --------------------------------------------------------

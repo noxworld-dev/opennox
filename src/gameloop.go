@@ -784,7 +784,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 			return newConnectFailErr(-19, errors.New("timeout 2"))
 		}
 		C.nox_xxx_servNetInitialPackets_552A80(C.uint(dword_5D4594_815700), 1)
-		C.nox_xxx_netSendBySock_40EE10(C.uint(dword_5D4594_815700), noxMaxPlayers-1, 0)
+		nox_xxx_netSendBySock_40EE10(dword_5D4594_815700, noxMaxPlayers-1, 0)
 		nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
 		C.nox_xxx_netMaybeSendAll_552460()
 		if nox_xxx_getMapCRC_40A370() != 0 {

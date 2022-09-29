@@ -3058,18 +3058,6 @@ void sub_40E990(uint32_t* a1) {
 	InterlockedDecrement((volatile int*)getMemAt(0x5D4594, 4696));
 }
 
-//----- (0040EE10) --------------------------------------------------------
-int nox_xxx_netSendBySock_40EE10(unsigned int a1, int a2, unsigned int a3) {
-	unsigned char* v3; // eax
-
-	v3 = nox_netlist_copyPacketList_40ED60(a2, a3, &a3);
-	if (v3) {
-		nox_xxx_netSendSock_552640(a1, v3, a3, 0);
-		nox_xxx_netSendReadPacket_5528B0(a1, 1);
-	}
-	return 1;
-}
-
 //----- (004100F0) --------------------------------------------------------
 int nox_xxx_cliCanTalkMB_4100F0(short* a1) {
 	short v1;  // ax
