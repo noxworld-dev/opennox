@@ -15,6 +15,8 @@ extern uint32_t dword_5d4594_1569672;
 extern void* nox_alloc_magicEnt_1569668;
 extern void* nox_alloc_spellDur_1569724;
 
+bool nox_xxx_unitUpdatePlayerImpl_4F8460_A(nox_object_t* u, int* a1, int* v68);
+void nox_xxx_unitUpdatePlayerImpl_4F8460_B(nox_object_t* u, int a1, int v68);
 void nox_xxx_maybeAnimatePixie_53D010(nox_object_t* a1, nox_object_t* a2);
 static int nox_call_objectType_parseUpdate_go(int (*fnc)(char*, void*), char* arg1, void* arg2) { return fnc(arg1, arg2); }
 */
@@ -275,7 +277,13 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 		ud.field_54 = 0
 	}
 	nox_xxx_playerInventory_4F8420(u)
-	C.nox_xxx_unitUpdatePlayerImpl_4F8460(u.CObj())
+	var (
+		oa1  C.int
+		ov68 C.int
+	)
+	if C.nox_xxx_unitUpdatePlayerImpl_4F8460_A(u.CObj(), &oa1, &ov68) {
+		C.nox_xxx_unitUpdatePlayerImpl_4F8460_B(u.CObj(), oa1, ov68)
+	}
 	if u.HasEnchant(ENCHANT_RUN) && ud.field_22_0 != 1 {
 		nox_xxx_playerSetState_4FA020(u, 5)
 	}

@@ -1535,10 +1535,7 @@ int sub_4F80C0(int a1, float2* a3) {
 }
 
 //----- (004F8460) --------------------------------------------------------
-void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
-	char v3;            // al
-	int v4;             // edx
-	unsigned char* v5;  // ebp
+bool nox_xxx_unitUpdatePlayerImpl_4F8460_A(nox_object_t* u, int* a1, int* v68) {
 	int v6;             // ecx
 	int v7;             // eax
 	unsigned char v8;   // al
@@ -1582,24 +1579,11 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 	int v52;            // eax
 	unsigned char v54;  // al
 	int v55;            // ecx
-	int v56;            // eax
-	int v57;            // eax
-	int v58;            // eax
-	int v59;            // eax
-	int v60;            // ecx
-	int v61;            // eax
-	int v63;            // eax
-	int v65;            // eax
-	char v66;           // al
-	int v67;            // [esp+10h] [ebp-Ch]
-	int v68;            // [esp+14h] [ebp-8h]
-	int v69;            // [esp+18h] [ebp-4h]
+	int v67;            // ecx
+	int v69;            // ecx
 
 	nox_object_Player_data_t* ud = u->data_update;
 	nox_playerInfo* pl = ud->player;
-	int v1 = u;
-	int a1 = 0;
-	v68 = 0;
 	switch (ud->field_22_0) {
 	case 0u:
 	case 5u:
@@ -1618,17 +1602,19 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 			break;
 		}
 		v21 = pl;
-		v68 = 1;
+		*v68 = 1;
 		if (ud->field_22_0 != 5 &&
 				(v23 = (double)*(int*)(v21 + 2288) - u->y,
 				 v22 = (double)*(int*)(v21 + 2284) - u->x, v23 * v23 + v22 * v22 <= 10000.0) ||
 			nox_common_playerIsAbilityActive_4FC250(u, 4)) {
-			a1 = 0;
+			*a1 = 0;
 			goto LABEL_93;
 		}
 		// switch from walking to running
-		a1 = 1;
+		*a1 = 1;
 		u->speed_cur *= 2;
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(6, &v67, &v69);
 		v25 = (u->net_code + nox_frame_xxx_2598000) / (unsigned int)(v69 + 1) % v67;
 		if (v25 <= (int)((u->net_code + nox_frame_xxx_2598000 - 1) / (unsigned int)(v69 + 1) % v67) ||
@@ -1692,11 +1678,13 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		if (ud->field_22_0) {
 			break;
 		}
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(4, &v67, &v69);
 		v31 = u->net_code + nox_frame_xxx_2598000; // TODO: this doesn't look right
 		v32 = (v31 - 1) / (v69 + 1) % v67;
 		v33 = v31 / (v69 + 1) % v67;
-		if (!((!nox_common_playerIsAbilityActive_4FC250(u, 4) || a1) && v33 != v32 && (v33 == 3 || v33 == 9))) {
+		if (!((!nox_common_playerIsAbilityActive_4FC250(u, 4) || *a1) && v33 != v32 && (v33 == 3 || v33 == 9))) {
 			break;
 		}
 		v34 = nox_xxx_tileNFromPoint_411160(&u->x);
@@ -1751,6 +1739,8 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		}
 		break;
 	case 2u:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(21, &v67, &v69);
 		v54 = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
 		v55 = v67;
@@ -1773,10 +1763,10 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 			u->float_25 = 0;
 			nox_script_callOnEvent("PlayerDeath", 0, 0);
 		}
-		return;
+		return false;
 	case 4u:
 		if ((unsigned int)(nox_frame_xxx_2598000 - u->field_34) <= (int)nox_gameFPS/2) {
-			return;
+			return false;
 		}
 		if (!nox_common_gameFlags_check_40A5C0(1024) || (v41 = nox_xxx_servGamedataGet_40A020(1024), v41 <= 0) ||
 			(v42 = pl, *(uint32_t*)(v42 + 2140) < v41)) {
@@ -1794,14 +1784,14 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 			} else {
 			LABEL_149:
 				if (!nox_server_doPlayersAutoRespawn_40A5F0()) {
-					return;
+					return false;
 				}
 				nox_xxx_playerRespawn_4F7EF0(u);
 			}
 			break;
 		}
 		if (*(uint8_t*)(v42 + 3680) & 1) {
-			a1 = *(uint32_t*)(v42 + 3628);
+			*a1 = *(uint32_t*)(v42 + 3628);
 			nox_xxx_playerCameraUnlock_4E6040(u);
 			for (i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
 				v46 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(i + 36));
@@ -1823,13 +1813,14 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 				}
 			}
 		}
-		return;
+		return false;
 	case 0xAu:
 		ud->field_59_0 = 0;
 		break;
-	case 0xCu:
-		nox_xxx_animPlayerGetFrameRange_4F9F90(3, &v69, &a1);
-		v49 = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(a1 + 1);
+	case 0xCu:;
+		v69 = 0;
+		nox_xxx_animPlayerGetFrameRange_4F9F90(3, &v69, a1);
+		v49 = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(*a1 + 1);
 		v50 = nox_xxx_getFirstPlayerUnit_4DA7C0();
 		if (!v50) {
 			goto LABEL_155;
@@ -1851,7 +1842,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 			u->obj_flags &= 0xFFFFBFFFu;
 			u->field_34 = nox_frame_xxx_2598000;
 		}
-		return;
+		return false;
 	case 0xDu:
 		u->obj_flags &= 0xFFFFBFFE;
 		if (sub_4F9A80(u)) {
@@ -1866,6 +1857,8 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		ud->field_59_0 = 0;
 		break;
 	case 0xEu:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(33, &v69, &v67);
 		ud->field_59_0 = v69 - 1;
 		if ((unsigned int)(nox_frame_xxx_2598000 - u->field_34) > (int)nox_gameFPS) {
@@ -1873,6 +1866,8 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		}
 		break;
 	case 0xFu:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(40, &v67, &v69);
 		v8 = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
 		v9 = v67;
@@ -1883,10 +1878,14 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		}
 		break;
 	case 0x10u:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(40, &v69, &v67);
 		ud->field_59_0 = v69 - 1;
 		break;
 	case 0x11u:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(40, &v67, &v69);
 		v10 = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
 		v11 = v67 - v10;
@@ -1901,6 +1900,8 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		}
 		break;
 	case 0x12u:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(48, &v67, &v69);
 		LOBYTE(v7) = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
 		v6 = v67;
@@ -1908,6 +1909,8 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		v7 = (unsigned char)v7;
 		goto LABEL_56;
 	case 0x13u:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(49, &v67, &v69);
 		LOBYTE(v7) = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
 		v6 = v67;
@@ -1915,6 +1918,8 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		v7 = (unsigned char)v7;
 		goto LABEL_56;
 	case 0x14u:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(47, &v67, &v69);
 		LOBYTE(v7) = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
 		v6 = v67;
@@ -1922,6 +1927,8 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		v7 = (unsigned char)v7;
 		goto LABEL_56;
 	case 0x15u:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(30, &v69, &v67);
 		LOBYTE(v7) = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v67 + 1);
 		v6 = v69;
@@ -1929,10 +1936,14 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		v7 = (unsigned char)v7;
 		goto LABEL_56;
 	case 0x16u:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(31, &v69, &v67);
 		ud->field_59_0 = v69 - 1;
 		break;
 	case 0x17u:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(50, &v67, &v69);
 		LOBYTE(v7) = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
 		v6 = v67;
@@ -1940,6 +1951,8 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		v7 = (unsigned char)v7;
 		goto LABEL_56;
 	case 0x18u:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(19, &v67, &v69);
 		LOBYTE(v7) = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
 		v6 = v67;
@@ -1947,6 +1960,8 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		v7 = (unsigned char)v7;
 		goto LABEL_56;
 	case 0x19u:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(20, &v67, &v69);
 		LOBYTE(v7) = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
 		v6 = v67;
@@ -1954,6 +1969,8 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		v7 = (unsigned char)v7;
 		goto LABEL_56;
 	case 0x1Au:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(15, &v67, &v69);
 		LOBYTE(v7) = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
 		v6 = v67;
@@ -1966,6 +1983,8 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		}
 		break;
 	case 0x1Bu:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(16, &v67, &v69);
 		v14 = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
 		v15 = v67;
@@ -1976,6 +1995,8 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		}
 		break;
 	case 0x1Cu:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(16, &v67, &v69);
 		ud->field_59_0 = v67 / 2;
 		if ((unsigned int)(nox_frame_xxx_2598000 - u->field_34) > 0x14) {
@@ -1984,11 +2005,15 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		}
 		break;
 	case 0x1Du:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(16, &v67, &v69);
 		v16 = v67;
 		v17 = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
 		goto LABEL_51;
 	case 0x1Eu:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(52, &v67, &v69);
 		v12 = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
 		v13 = v67;
@@ -1999,6 +2024,8 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		}
 		break;
 	case 0x20u:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(54, &v67, &v69);
 		ud->field_59_0 = v67 / 2;
 		if ((unsigned int)(nox_frame_xxx_2598000 - u->field_34) > 0x14) {
@@ -2007,6 +2034,8 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 		}
 		break;
 	case 0x21u:
+		v67 = 0;
+		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(54, &v67, &v69);
 		v16 = v67;
 		v17 = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
@@ -2021,22 +2050,31 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 	default:
 		break;
 	}
+	return true;
+}
+void nox_xxx_unitUpdatePlayerImpl_4F8460_B(nox_object_t* u, int a1, int v68) {
+	nox_object_Player_data_t* ud = u->data_update;
+	nox_playerInfo* pl = ud->player;
+	int v1 = u;
+	int v4 = pl;
+	int v69 = 0;
+	int v60 = 0;
 	if (nox_xxx_playerCmdGet_51AC40(pl->playerInd)) {
 		goto LABEL_247;
 	}
-	v3 = ud->field_22_0;
+	char v3 = ud->field_22_0;
 	if ((!v3 || v3 == 5) && !sub_4F9A80(u)) {
 		nox_xxx_playerSetState_4FA020(u, 13);
 		u->field_34 = nox_frame_xxx_2598000;
 	}
-	v4 = pl;
+	unsigned char* v5 = 0;
 	ud->field_60 &= 0xFFFFFFE1;
 	if (*(uint8_t*)(v4 + 3680) & 3 ||
 		(v69 = sub_4FEE50(31, u),
 		 (v5 = nox_xxx_playerControlBufferFirst_51AB50(pl->playerInd)) == 0)) {
 	LABEL_247:
 		if (v68) {
-			v66 = ud->field_22_0;
+			char v66 = ud->field_22_0;
 			if (v66) {
 				if (v66 != 5) {
 					if (nox_common_playerIsAbilityActive_4FC250(u, 4)) {
@@ -2074,7 +2112,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 							} else {
 								nox_xxx_playerSetState_4FA020(u, 0);
 							}
-							v56 = ud->field_60;
+							int v56 = ud->field_60;
 							if (v5[12] & 2) {
 								LOBYTE(v56) = v56 | 1;
 							} else {
@@ -2085,17 +2123,17 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 								ud->field_60 |= 4u;
 							}
 							if (*((uint32_t*)v5 + 2) == 5) {
-								v57 = ud->field_60;
+								int v57 = ud->field_60;
 								LOBYTE(v57) = v57 | 2;
 								ud->field_60 = v57;
 							}
 							if (*((uint32_t*)v5 + 2) == 2) {
-								v58 = ud->field_60;
+								int v58 = ud->field_60;
 								LOBYTE(v58) = v58 | 8;
 								ud->field_60 = v58;
 							}
 							if (*((uint32_t*)v5 + 2) == 3) {
-								v59 = ud->field_60;
+								int v59 = ud->field_60;
 								LOBYTE(v59) = v59 | 0x10;
 								ud->field_60 = v59;
 							}
@@ -2122,7 +2160,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 				nox_xxx_cancelAllSpells_4FEE90(u);
 				v60 = pl;
 				if (*(uint32_t*)(v60 + 3656)) {
-					v67 = 3;
+					int v67 = 3;
 					if (*(uint8_t*)(v60 + 2252)) {
 						nox_xxx_aud_501960(333, u, 0, 0);
 					} else {
@@ -2226,7 +2264,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 						nox_xxx_playerSpell_4FB2A0_magic_plyrspel(u);
 						ud->field_54 = 0;
 					} else {
-						v61 = nox_server_getObjectFromNetCode_4ECCB0(*((uint32_t*)v5 + 3));
+						int v61 = nox_server_getObjectFromNetCode_4ECCB0(*((uint32_t*)v5 + 3));
 						nox_xxx_playerDoSchedSpell_4FB0E0(u, v61);
 					}
 				}
@@ -2240,7 +2278,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 					}
 					ud->field_55 = pl->field_2284;
 					ud->field_56 = pl->field_2288;
-					v63 = nox_server_getObjectFromNetCode_4ECCB0(*((uint32_t*)v5 + 3));
+					int v63 = nox_server_getObjectFromNetCode_4ECCB0(*((uint32_t*)v5 + 3));
 					nox_xxx_playerDoSchedSpell_4FB0E0(u, v63);
 				}
 				break;
@@ -2252,7 +2290,7 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460(nox_object_t* u) {
 					}
 					ud->field_55 = pl->field_2284;
 					ud->field_56 = pl->field_2288;
-					v65 = nox_server_getObjectFromNetCode_4ECCB0(*((uint32_t*)v5 + 3));
+					int v65 = nox_server_getObjectFromNetCode_4ECCB0(*((uint32_t*)v5 + 3));
 					nox_xxx_playerDoSchedSpellQueue_4FB1D0(u, v65);
 				}
 				break;
