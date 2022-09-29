@@ -69,7 +69,6 @@ void sub_4FC070(nox_object_t* a1, int a2, int a3);
 void sub_4FC0B0(nox_object_t* a1, int a2);
 void nox_xxx_playerCancelAbils_4FC180(nox_object_t* a1);
 int nox_common_playerIsAbilityActive_4FC250(nox_object_t* a1, int a2);
-int nox_xxx_playerIsExecutingAbility_4FC2B0(nox_object_t* a1);
 void sub_4FC300(nox_object_t* a1, int a2);
 int nox_xxx_probablyWarcryCheck_4FC3E0(nox_object_t* a1, int a2);
 void sub_4FC440(nox_object_t* a1, int a2);

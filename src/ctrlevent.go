@@ -974,11 +974,6 @@ func sub_51AA20(pi int) {
 		}
 	}
 }
-
-//export nox_xxx_playerControlBufferFirst_51AB50
-func nox_xxx_playerControlBufferFirst_51AB50(a1 C.int) *C.nox_player_ctrl_t {
-	return (*C.nox_player_ctrl_t)(unsafe.Pointer(playerControlBufferFirst(int(a1))))
-}
 func playerControlBufferFirst(a1 int) *nox_player_ctrl_t {
 	nox_players_controlBuffer_2388676[a1] = 0
 	if nox_players_controlBuffer_2388804[a1] <= 0 {
@@ -998,10 +993,6 @@ func playerControlBufferFirst(a1 int) *nox_player_ctrl_t {
 	return &nox_players_controlBuffer_2388932[a1][ind]
 }
 
-//export nox_xxx_playerGetControlBufferNext_51ABC0
-func nox_xxx_playerGetControlBufferNext_51ABC0(a1 C.int) *C.nox_player_ctrl_t {
-	return (*C.nox_player_ctrl_t)(unsafe.Pointer(playerGetControlBufferNext(int(a1))))
-}
 func playerGetControlBufferNext(a1 int) *nox_player_ctrl_t {
 	v1 := nox_players_controlBuffer_2388676[a1] + 1
 	nox_players_controlBuffer_2388676[a1] = v1

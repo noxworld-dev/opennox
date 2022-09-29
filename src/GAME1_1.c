@@ -754,7 +754,8 @@ int sub_419E10(int a1, int a2) {
 }
 
 //----- (00419E60) --------------------------------------------------------
-int sub_419E60(int a1) {
+int sub_419E60(nox_object_t* a1p) {
+	int a1 = a1p;
 	int result; // eax
 
 	if (a1 && *(uint8_t*)(a1 + 8) & 4) {

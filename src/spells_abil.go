@@ -86,11 +86,6 @@ func nox_xxx_probablyWarcryCheck_4FC3E0(a1 *nox_object_t, a2 C.int) C.int {
 	return C.int(bool2int(noxServer.abilities.IsActiveVal(asUnitC(a1), Ability(a2))))
 }
 
-//export nox_xxx_playerIsExecutingAbility_4FC2B0
-func nox_xxx_playerIsExecutingAbility_4FC2B0(a1 *nox_object_t) C.int {
-	return C.int(bool2int(noxServer.abilities.IsAnyActive(asUnitC(a1))))
-}
-
 //export nox_xxx_abilityCooldown_4252D0
 func nox_xxx_abilityCooldown_4252D0(ca C.int) C.int {
 	return C.int(noxServer.abilities.getDelay(Ability(ca)))

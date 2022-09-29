@@ -49,7 +49,7 @@ func (sp *spellMissiles) Cast(spellID spell.ID, a2, owner, caster *Unit, a5 *spe
 		cnt = maxCnt - curCnt
 	}
 	if cnt <= 0 {
-		C.nox_xxx_netPriMsgToPlayer_4DA2C0(owner.CObj(), internCStr("mmissile.c:TooManyMissiles"), 0)
+		nox_xxx_netPriMsgToPlayer_4DA2C0(owner, "mmissile.c:TooManyMissiles", 0)
 		return 0
 	}
 	opts.Count = cnt

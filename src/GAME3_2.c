@@ -3722,7 +3722,8 @@ int sub_4D7450(int a1, short a2) {
 }
 
 //----- (004D7480) --------------------------------------------------------
-void sub_4D7480(int a1) {
+void sub_4D7480(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;     // edi
 	int v2;     // eax
 	float2* v3; // ebx
@@ -3853,7 +3854,8 @@ int sub_4D79A0(char a1) {
 }
 
 //----- (004D79C0) --------------------------------------------------------
-int sub_4D79C0(int a1) {
+int sub_4D79C0(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;     // esi
 	int result; // eax
 	int v3;     // ecx
@@ -4044,7 +4046,8 @@ int sub_4D7CC0() {
 }
 
 //----- (004D7E50) --------------------------------------------------------
-int sub_4D7E50(int a1) {
+int sub_4D7E50(nox_object_t* a1p) {
+	int a1 = a1p;
 	int result;   // eax
 	uint32_t* v2; // esi
 
@@ -6155,52 +6158,6 @@ uint32_t* sub_4DDE10(int a1, int a2) {
 			}
 			result = sub_4D82F0(a1, (uint32_t*)i);
 		}
-	}
-	return result;
-}
-
-//----- (004DDE80) --------------------------------------------------------
-int nox_xxx_playerObserveMonster_4DDE80(int player, int unit) {
-	int v2;     // edi
-	int result; // eax
-
-	v2 = *(uint32_t*)(player + 748);
-	if (*(uint8_t*)(*(uint32_t*)(v2 + 276) + 3680) & 1) {
-		nox_xxx_playerLeaveObserver_0_4E6AA0(*(uint32_t*)(v2 + 276));
-	}
-	if (*(uint8_t*)(*(uint32_t*)(v2 + 276) + 3680) & 2) {
-		nox_xxx_playerObserveClear_4DDEF0(player);
-	}
-	nox_xxx_netNeedTimestampStatus_4174F0(*(uint32_t*)(v2 + 276), 2);
-	nox_xxx_playerCameraUnlock_4E6040(player);
-	result = nox_xxx_playerCameraFollow_4E6060(player, unit);
-	*(uint32_t*)(player + 744) = nox_xxx_updatePlayerObserver_4E62F0;
-	return result;
-}
-
-//----- (004DDEF0) --------------------------------------------------------
-int nox_xxx_playerObserveClear_4DDEF0(int player) {
-	int result; // eax
-
-	result = *(uint32_t*)(*(uint32_t*)(player + 748) + 276);
-	if (*(uint8_t*)(result + 3680) & 2) {
-		nox_xxx_playerUnsetStatus_417530(result, 2);
-		result = nox_xxx_playerCameraUnlock_4E6040(player);
-		*(uint32_t*)(player + 744) = nox_xxx_updatePlayer_4F8100;
-	}
-	return result;
-}
-
-//----- (004DDF30) --------------------------------------------------------
-int nox_xxx_playerGetPossess_4DDF30(int a1) {
-	int v1;     // eax
-	int result; // eax
-
-	v1 = *(uint32_t*)(*(uint32_t*)(a1 + 748) + 276);
-	if (*(uint8_t*)(v1 + 3680) & 2) {
-		result = *(uint32_t*)(v1 + 3628);
-	} else {
-		result = 0;
 	}
 	return result;
 }

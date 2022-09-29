@@ -9,9 +9,12 @@ package opennox
 #include "GAME4_1.h"
 #include "GAME4_2.h"
 #include "GAME4_3.h"
+void nox_xxx_updateHarpoon_54F380(nox_object_t* a1);
+int nox_objectDropAudEvent_4EE2F0(nox_object_t* a1, nox_object_t* a2, float2* a3);
 static void nox_call_obj_update_go(void (*fnc)(nox_object_t*), nox_object_t* obj) { fnc(obj); }
 static void nox_call_object_init(void (*fnc)(nox_object_t*, void*), nox_object_t* a1, void* a2) { fnc(a1, a2); }
 static int nox_call_object_xfer(int (*fnc)(nox_object_t*, void*), nox_object_t* a1, void* a2) { return fnc(a1, a2); }
+static int nox_call_object_drop(int (*fnc)(nox_object_t*, nox_object_t*, float2*), nox_object_t* a1, nox_object_t* a2, float2* a3) { return fnc(a1, a2, a3); }
 static int nox_call_object_damage(int (*fnc)(nox_object_t*, nox_object_t*, nox_object_t*, int, int), nox_object_t* a1, nox_object_t* a2, nox_object_t* a3, int a4, int a5) { return fnc(a1, a2, a3, a4, a5); }
 */
 import "C"
@@ -413,7 +416,7 @@ func (s *Server) objectDeleteLast(obj *Object) {
 		return
 	}
 	obj.obj_flags &^= C.uint(object.FlagActive)
-	C.nox_xxx_playerLeaveObsByObserved_4E60A0(obj.CObj())
+	s.nox_xxx_playerLeaveObsByObserved_4E60A0(obj)
 	if !noxflags.HasGame(noxflags.GameFlag20) {
 		C.nox_xxx_netReportDestroyObject_5289D0(obj.CObj())
 	}
@@ -1106,7 +1109,19 @@ func (obj *Object) Destroy() {
 }
 
 func (obj *Object) callUpdate() {
-	if obj.func_update != nil {
+	if obj.func_update == nil {
+		return
+	}
+	switch unsafe.Pointer(obj.func_update) {
+	case unsafe.Pointer(C.nox_xxx_updatePlayer_4F8100):
+		nox_xxx_updatePlayer_4F8100(obj.CObj())
+	case unsafe.Pointer(C.nox_xxx_updatePlayerObserver_4E62F0):
+		nox_xxx_updatePlayerObserver_4E62F0(obj.CObj())
+	case unsafe.Pointer(C.nox_xxx_updateHarpoon_54F380):
+		nox_xxx_updateHarpoon_54F380(obj.CObj())
+	case unsafe.Pointer(C.nox_xxx_updatePixie_53CD20):
+		nox_xxx_updatePixie_53CD20(obj.CObj())
+	default:
 		C.nox_call_obj_update_go((*[0]byte)(obj.func_update), obj.CObj())
 	}
 }
@@ -1129,14 +1144,33 @@ func (obj *Object) callDamage(who noxObject, a3 noxObject, dmg, a5 int) int {
 	return 0
 }
 
+func (obj *Object) callDrop(it noxObject, pos types.Pointf) int {
+	if obj.func_drop == nil {
+		return 0
+	}
+	cpos, free := alloc.New(types.Pointf{})
+	defer free()
+	*cpos = pos
+	ptr := (*C.float2)(unsafe.Pointer(cpos))
+
+	switch unsafe.Pointer(obj.func_drop) {
+	case unsafe.Pointer(C.nox_objectDropAudEvent_4EE2F0):
+		return int(nox_objectDropAudEvent_4EE2F0(obj.CObj(), toCObj(it), ptr))
+	default:
+		return int(C.nox_call_object_drop((*[0]byte)(obj.func_drop), obj.CObj(), toCObj(it), ptr))
+	}
+}
+
 func (obj *Object) forceDrop(item *Object) { // nox_xxx_invForceDropItem_4ED930
 	pos := randomReachablePointAround(50.0, obj.Pos())
-	ptr, free := alloc.Malloc(8)
+	obj.forceDropAt(item, pos)
+}
+
+func (obj *Object) forceDropAt(item *Object, pos types.Pointf) { // nox_xxx_drop_4ED790
+	cpos, free := alloc.New(types.Pointf{})
 	defer free()
-	cpos := (*C.float2)(ptr)
-	cpos.field_0 = C.float(pos.X)
-	cpos.field_4 = C.float(pos.Y)
-	C.nox_xxx_drop_4ED790(obj.CObj(), item.CObj(), cpos)
+	*cpos = pos
+	C.nox_xxx_drop_4ED790(obj.CObj(), item.CObj(), (*C.float2)(unsafe.Pointer(cpos)))
 }
 
 func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_5330C0
