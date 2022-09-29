@@ -1,27 +1,7 @@
 #ifndef NOX_COMMON_NET_LIST_H
 #define NOX_COMMON_NET_LIST_H
 
-#include "common/alloc/classes/alloc_class.h"
 #include <stdbool.h>
-
-typedef struct nox_net_list_item_t nox_net_list_item_t;
-typedef struct nox_net_list_item_t {
-	unsigned char* buf;        // 0, 0
-	unsigned int size;         // 1, 4
-	nox_net_list_item_t* prev; // 2, 8
-	nox_net_list_item_t* next; // 3, 12
-} nox_net_list_item_t;
-
-typedef struct {
-	nox_net_list_item_t* first; // 0, 0
-	nox_net_list_item_t* last;  // 1, 4
-	unsigned int field_2;       // 2, 8
-	nox_alloc_class* alloc;     // 3, 12
-	unsigned int count;         // 4, 16
-	unsigned int size;          // 5, 20
-	unsigned int field_6;       // 6, 24
-	unsigned int field_7;       // 7, 28
-} nox_net_list_t;
 
 int nox_netlist_countByInd2_40F0B0(int ind);
 
@@ -33,7 +13,6 @@ unsigned char* nox_netlist_getInd_40EEB0(int ind1, int ind2, unsigned int* outSz
 unsigned char* nox_netlist_getByInd2_40F080(int ind, unsigned int* outSz);
 void nox_netlist_findAndFreeBuf_40F000(int ind, unsigned char* buf);
 void nox_netlist_initPlayerBufs_40F020(int a1);
-void nox_netlist_forEach2_40F0F0(int a1, int (*a2)(unsigned int, int), int a3);
 bool nox_netlist_addToMsgListSrv_40EF40(int ind, unsigned char* buf, int sz);
 
 #endif // NOX_COMMON_NET_LIST_H
