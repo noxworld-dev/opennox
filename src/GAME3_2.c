@@ -6831,47 +6831,6 @@ void sub_4DF3C0(nox_playerInfo* pl) {
 //----- (004DF550) --------------------------------------------------------
 int sub_4DF550() { return *getMemU32Ptr(0x5D4594, 1563148); }
 
-//----- (004DF580) --------------------------------------------------------
-int sub_4DF580(int a1, uint32_t* a2) {
-	int v2; // eax
-	int v3; // ecx
-	int v4; // ebx
-	int v5; // ecx
-	int v6; // eax
-	int v7; // ecx
-
-	v2 = *(unsigned short*)(a1 + 5);
-	if ((unsigned short)v2 - (int)*a2 >= 0) {
-		v3 = (unsigned short)v2 - *a2;
-	} else {
-		v3 = *a2 - v2;
-	}
-	v4 = a2[2];
-	if (v3 >= v4) {
-		return 0;
-	}
-	v5 = a2[1];
-	v6 = *(unsigned short*)(a1 + 7);
-	v7 = (unsigned short)v6 - v5 >= 0 ? (unsigned short)v6 - v5 : v5 - v6;
-	if (v7 >= v4) {
-		return 0;
-	}
-	*getMemU32Ptr(0x5D4594, 1563300) = a1;
-	return 1;
-}
-
-//----- (004DF5E0) --------------------------------------------------------
-int sub_4DF5E0(int a1, int a2) {
-	int v3[3]; // [esp+0h] [ebp-Ch]
-
-	v3[0] = *getMemU32Ptr(0x5D4594, 1563292);
-	v3[1] = *getMemU32Ptr(0x5D4594, 1563296);
-	v3[2] = a2;
-	*getMemU32Ptr(0x5D4594, 1563300) = 0;
-	nox_netlist_forEach2_40F0F0(a1, sub_4DF580, (int)v3);
-	return *getMemU32Ptr(0x5D4594, 1563300);
-}
-
 //----- (004DF630) --------------------------------------------------------
 int nox_xxx_netFn_UpdateStream_4DF630(int a1, char* a2, unsigned int a3, void* a4) {
 	char* v3;        // edi
