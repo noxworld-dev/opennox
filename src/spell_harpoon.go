@@ -14,7 +14,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
@@ -111,8 +110,7 @@ func (a *abilityHarpoon) createBolt(u *Unit) {
 	}
 	r := u.getShape().circle.R + 1.0
 	*(**nox_object_t)(unsafe.Add(bolt.collide_data, 4)) = u.CObj()
-	cos := memmap.Float32(0x587000, 194136+8*uintptr(u.direction1))
-	sin := memmap.Float32(0x587000, 194140+8*uintptr(u.direction1))
+	cos, sin := sincosDir(byte(u.direction1))
 	hpos := u.Pos().Add(types.Pointf{
 		X: r * cos, Y: r * sin,
 	})
