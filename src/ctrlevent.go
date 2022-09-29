@@ -119,13 +119,14 @@ type CtrlEventHandler struct {
 	indC        int
 	indD        int
 	flags747848 byte
+	flags750956 bool
 	flags754064 uint32
 }
 
 func (c *CtrlEventHandler) Reset() {
 	c.bindings = nil
 	c.flags747848 = 0
-	*memmap.PtrUint8(0x5D4594, 750956) = 0
+	c.flags750956 = false
 	c.indA = 0
 	c.indB = 0
 	c.indC = 0
