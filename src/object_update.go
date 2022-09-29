@@ -17,12 +17,12 @@ extern uint32_t dword_5d4594_251568;
 extern void* nox_alloc_magicEnt_1569668;
 extern void* nox_alloc_spellDur_1569724;
 
-void nox_xxx_unitUpdatePlayerImpl_4F8460_B(nox_object_t* u, int a1, int v68);
 void nox_xxx_maybeAnimatePixie_53D010(nox_object_t* a1, nox_object_t* a2);
 static int nox_call_objectType_parseUpdate_go(int (*fnc)(char*, void*), char* arg1, void* arg2) { return fnc(arg1, arg2); }
 */
 import "C"
 import (
+	"encoding/binary"
 	"errors"
 	"fmt"
 	"math"
@@ -274,13 +274,13 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 			ud.field_22_3 += C.uchar(100 / gameFPS())
 		}
 	}
-	if ud.field_54 != 0 && ud.field_47_0 == 0 && (gameFrame()-uint32(ud.field_54)) > memmap.Uint32(0x852978, 16) {
-		nox_xxx_playerSpell_4FB2A0_magic_plyrspel(u.CObj()) // (manual?) spell casting
-		ud.field_54 = 0
+	if ud.spell_cast_start != 0 && ud.field_47_0 == 0 && (gameFrame()-uint32(ud.spell_cast_start)) > memmap.Uint32(0x852978, 16) {
+		s.playerSpell(u) // (manual?) spell casting
+		ud.spell_cast_start = 0
 	}
 	nox_xxx_playerInventory_4F8420(u)
 	if oa1, ov68, ok := s.unitUpdatePlayerImplA(u); ok {
-		C.nox_xxx_unitUpdatePlayerImpl_4F8460_B(u.CObj(), C.int(bool2int(oa1)), C.int(bool2int(ov68)))
+		s.unitUpdatePlayerImplB(u, oa1, ov68)
 	}
 	if u.HasEnchant(ENCHANT_RUN) && ud.field_22_0 != 1 {
 		nox_xxx_playerSetState_4FA020(u, 5)
@@ -641,6 +641,214 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
+	}
+}
+
+func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
+	ud := u.updateDataPlayer()
+	pl := ud.Player()
+	v69 := false
+	if nox_xxx_playerCmdGet(pl.Index()) {
+		goto LABEL_247
+	}
+	if (ud.field_22_0 == 0 || ud.field_22_0 == 5) && C.sub_4F9A80(u.CObj()) == 0 {
+		nox_xxx_playerSetState_4FA020(u, 13)
+		u.field_34 = C.uint(gameFrame())
+	}
+	ud.field_60 &= 0xFFFFFFE1
+	if pl.field_3680&3 != 0 {
+		goto LABEL_247
+	}
+	v69 = C.sub_4FEE50(31, u.CObj()) != 0
+	for it := playerControlBufferFirst(pl.Index()); it != nil; it = playerGetControlBufferNext(pl.Index()) {
+		if v69 && it.field_2 != 1 {
+			continue
+		}
+		switch it.field_2 {
+		case 1:
+			if !u.HasEnchant(ENCHANT_FREEZE) &&
+				(!noxflags.HasGame(noxflags.GameModeQuest) || ud.field_70 == 0) &&
+				!s.abilities.IsActive(u, AbilityBerserk) {
+				u.direction2 = C.ushort(binary.LittleEndian.Uint16(it.field_3[:]))
+			}
+		case 2, 3, 4, 5:
+			if C.nox_xxx_playerCanMove_4F9BC0(u.CObj()) != 0 {
+				C.nox_xxx_cancelAllSpells_4FEE90(u.CObj())
+				if !s.abilities.IsActive(u, AbilityBerserk) &&
+					(ud.field_22_0 != 1 || (pl.field_4&0x47F0000 != 0) &&
+						C.nox_common_mapPlrActionToStateId_4FA2B0(u.CObj()) != 29) {
+					if ud.field_22_0 == 16 {
+						nox_xxx_playerSetState_4FA020(u, 17)
+					} else {
+						if a1 {
+							nox_xxx_playerSetState_4FA020(u, 5)
+						} else {
+							nox_xxx_playerSetState_4FA020(u, 0)
+						}
+						if it.field_3[0]&2 != 0 {
+							ud.field_60 |= 0x1
+						} else {
+							ud.field_60 &^= 0x1
+						}
+						switch it.field_2 {
+						case 2:
+							ud.field_60 |= 0x8
+						case 3:
+							ud.field_60 |= 0x10
+						case 4:
+							ud.field_60 |= 0x4
+						case 5:
+							ud.field_60 |= 0x2
+						}
+						u.field_34 = C.uint(gameFrame())
+					}
+				}
+			}
+		case 6:
+			if C.nox_xxx_playerCanAttack_4F9C40(u.CObj()) != 0 {
+				if !noxflags.HasGame(noxflags.GameModeChat) && C.nox_xxx_checkWinkFlags_4F7DF0(u.CObj()) == 0 {
+					C.nox_xxx_playerInputAttack_4F9C70(u.CObj())
+				}
+				if ud.field_22_0 == 10 {
+					nox_xxx_playerSetState_4FA020(u, 13)
+				}
+			}
+		case 7:
+			if C.nox_xxx_playerCanMove_4F9BC0(u.CObj()) == 0 || s.abilities.IsActive(u, AbilityBerserk) ||
+				s.abilities.IsActiveVal(u, AbilityWarcry) {
+				break
+			}
+			C.nox_xxx_cancelAllSpells_4FEE90(u.CObj())
+			if pl.field_3656 != 0 {
+				if pl.Info().IsFemale() {
+					nox_xxx_aud_501960(sound.SoundHumanFemaleExertionHeavy, u, 0, 0)
+				} else {
+					nox_xxx_aud_501960(sound.SoundHumanMaleExertionHeavy, u, 0, 0)
+				}
+				nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 13, 3)
+			} else if C.nox_xxx_playerSubStamina_4F7D30(u.CObj(), 90) != 0 {
+				if u.HasEnchant(ENCHANT_CONFUSED) {
+					u.direction2 = C.ushort(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
+				}
+				u.obj_flags |= 0x4000
+				nox_xxx_playerSetState_4FA020(u, 12)
+				u.field_34 = C.uint(gameFrame())
+				return
+			}
+		case 0x14:
+			if !noxflags.HasGame(noxflags.GameModeChat) {
+				if ud.spell_cast_start == 0 {
+					nox_xxx_plrSetSpellType_4F9B90(u)
+				}
+				ud.spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud.spell_phoneme_leaf, 1)
+				nox_xxx_aud_501960(sound.SoundSpellPhonemeUp, u, 0, 0)
+				ud.field_47_0 = 0
+			}
+		case 0x15:
+			if !noxflags.HasGame(noxflags.GameModeChat) {
+				if ud.spell_cast_start == 0 {
+					nox_xxx_plrSetSpellType_4F9B90(u)
+				}
+				ud.spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud.spell_phoneme_leaf, 7)
+				nox_xxx_aud_501960(sound.SoundSpellPhonemeDown, u, 0, 0)
+				ud.field_47_0 = 0
+			}
+		case 0x16:
+			if !noxflags.HasGame(noxflags.GameModeChat) {
+				if ud.spell_cast_start == 0 {
+					nox_xxx_plrSetSpellType_4F9B90(u)
+				}
+				ud.spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud.spell_phoneme_leaf, 3)
+				nox_xxx_aud_501960(sound.SoundSpellPhonemeLeft, u, 0, 0)
+				ud.field_47_0 = 0
+			}
+		case 0x17:
+			if !noxflags.HasGame(noxflags.GameModeChat) {
+				if ud.spell_cast_start == 0 {
+					nox_xxx_plrSetSpellType_4F9B90(u)
+				}
+				ud.spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud.spell_phoneme_leaf, 5)
+				nox_xxx_aud_501960(sound.SoundSpellPhonemeRight, u, 0, 0)
+				ud.field_47_0 = 0
+			}
+		case 0x18:
+			if !noxflags.HasGame(noxflags.GameModeChat) {
+				if ud.spell_cast_start == 0 {
+					nox_xxx_plrSetSpellType_4F9B90(u)
+				}
+				ud.spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud.spell_phoneme_leaf, 2)
+				nox_xxx_aud_501960(sound.SoundSpellPhonemeUpRight, u, 0, 0)
+				ud.field_47_0 = 0
+			}
+		case 0x19:
+			if !noxflags.HasGame(noxflags.GameModeChat) {
+				if ud.spell_cast_start == 0 {
+					nox_xxx_plrSetSpellType_4F9B90(u)
+				}
+				ud.spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud.spell_phoneme_leaf, 0)
+				nox_xxx_aud_501960(sound.SoundSpellPhonemeUpLeft, u, 0, 0)
+				ud.field_47_0 = 0
+			}
+		case 0x1A:
+			if !noxflags.HasGame(noxflags.GameModeChat) {
+				if ud.spell_cast_start == 0 {
+					nox_xxx_plrSetSpellType_4F9B90(u)
+				}
+				ud.spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud.spell_phoneme_leaf, 8)
+				nox_xxx_aud_501960(sound.SoundSpellPhonemeDownRight, u, 0, 0)
+				ud.field_47_0 = 0
+			}
+		case 0x1B:
+			if !noxflags.HasGame(noxflags.GameModeChat) {
+				if ud.spell_cast_start == 0 {
+					nox_xxx_plrSetSpellType_4F9B90(u)
+				}
+				ud.spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud.spell_phoneme_leaf, 6)
+				nox_xxx_aud_501960(sound.SoundSpellPhonemeDownLeft, u, 0, 0)
+				ud.field_47_0 = 0
+			}
+		case 0x1C:
+			nox_xxx_playerSetState_4FA020(u, 13)
+			if !noxflags.HasGame(noxflags.GameModeChat) {
+				if ud.spell_cast_start != 0 {
+					s.playerSpell(u)
+					ud.spell_cast_start = 0
+				} else {
+					v61 := s.getObjectFromNetCode(int(binary.LittleEndian.Uint32(it.field_3[:])))
+					C.nox_xxx_playerDoSchedSpell_4FB0E0(u.CObj(), v61.CObj())
+				}
+			}
+		case 0x1D:
+			nox_xxx_playerSetState_4FA020(u, 13)
+			if !noxflags.HasGame(noxflags.GameModeChat) {
+				if ud.spell_cast_start != 0 {
+					s.playerSpell(u)
+					ud.spell_cast_start = 0
+				}
+				ud.field_55 = pl.field_2284
+				ud.field_56 = pl.field_2288
+				v63 := s.getObjectFromNetCode(int(binary.LittleEndian.Uint32(it.field_3[:])))
+				C.nox_xxx_playerDoSchedSpell_4FB0E0(u.CObj(), v63.CObj())
+			}
+		case 0x1E:
+			if !noxflags.HasGame(noxflags.GameModeChat) {
+				if ud.spell_cast_start != 0 {
+					s.playerSpell(u)
+					ud.spell_cast_start = 0
+				}
+				ud.field_55 = pl.field_2284
+				ud.field_56 = pl.field_2288
+				v65 := s.getObjectFromNetCode(int(binary.LittleEndian.Uint32(it.field_3[:])))
+				C.nox_xxx_playerDoSchedSpellQueue_4FB1D0(u.CObj(), v65.CObj())
+			}
+		}
+	}
+
+LABEL_247:
+	if v68 && ud.field_22_0 != 0 && ud.field_22_0 != 5 {
+		if s.abilities.IsActive(u, AbilityTreadLightly) {
+			s.abilities.DisableAbility(u, AbilityTreadLightly)
+		}
 	}
 }
 

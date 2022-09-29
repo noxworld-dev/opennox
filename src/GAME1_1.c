@@ -6992,21 +6992,6 @@ const char** nox_xxx_getDefaultSoundSet_424350(const char* a1) {
 	return (const char**)v1;
 }
 
-// 424460: using guessed type char var_20[32];
-// 424460: using guessed type char var_120[256];
-
-//----- (00424830) --------------------------------------------------------
-int nox_xxx_updateSpellRelated_424830(int a1, int a2) {
-	int result; // eax
-
-	if (a1 && a2 >= 0 && a2 <= 8) {
-		result = *(uint32_t*)(a1 + 4 * a2 + 4);
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
 //----- (00424CB0) --------------------------------------------------------
 char sub_424CB0(int a1) {
 	char v1;           // bl
