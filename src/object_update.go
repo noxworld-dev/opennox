@@ -30,6 +30,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
@@ -278,7 +279,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 		ud.field_54 = 0
 	}
 	nox_xxx_playerInventory_4F8420(u)
-	if oa1, ov68, ok := nox_xxx_unitUpdatePlayerImpl_4F8460_A(u); ok {
+	if oa1, ov68, ok := s.unitUpdatePlayerImplA(u); ok {
 		C.nox_xxx_unitUpdatePlayerImpl_4F8460_B(u.CObj(), C.int(bool2int(oa1)), C.int(bool2int(ov68)))
 	}
 	if u.HasEnchant(ENCHANT_RUN) && ud.field_22_0 != 1 {
@@ -288,8 +289,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	s.abilities.harpoon.UpdatePlayer(u)
 }
 
-func nox_xxx_unitUpdatePlayerImpl_4F8460_A(u *Unit) (a1, v68 bool, _ bool) {
-	s := noxServer
+func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 	ud := u.updateDataPlayer()
 	pl := ud.Player()
 	switch ud.field_22_0 {
@@ -313,13 +313,15 @@ func nox_xxx_unitUpdatePlayerImpl_4F8460_A(u *Unit) (a1, v68 bool, _ bool) {
 		dx := float64(dp.X)
 		dy := float64(dp.Y)
 		a1 = false
-		if !(ud.field_22_0 != 5 && (dy*dy+dx*dx <= 10000.0) || s.abilities.IsActive(u, AbilityTreadLightly)) {
+		const runCursorDist = 100
+		if !(ud.field_22_0 != 5 && (dy*dy+dx*dx <= runCursorDist*runCursorDist) || s.abilities.IsActive(u, AbilityTreadLightly)) {
 			// switch from walking to running
 			a1 = true
 			u.speed_cur *= 2
 			v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(6)
-			v25 := (int(u.net_code) + int(gameFrame())) / (v69 + 1) % v67
-			if !(v25 <= ((int(u.net_code)+int(gameFrame())-1)/(v69+1)%v67) || v25 != 2 && v25 != 8) {
+			v25a := int(u.net_code) + int(gameFrame())
+			v25 := v25a / (v69 + 1) % v67
+			if !(v25 <= ((v25a-1)/(v69+1)%v67) || v25 != 2 && v25 != 8) {
 				if v26 := nox_xxx_tileNFromPoint_411160(u.Pos()); v26 >= 0 && v26 < int(C.dword_5d4594_251568) {
 					// emit sound based on the tile material
 					switch memmap.Uint32(0x85B3FC, 32520+60*uintptr(v26)) {
@@ -407,14 +409,12 @@ func nox_xxx_unitUpdatePlayerImpl_4F8460_A(u *Unit) (a1, v68 bool, _ bool) {
 			nox_xxx_playerSetState_4FA020(u, 4)
 			ud.field_60 &= 0xFFFFFFDF
 			u.field_34 = C.uint(gameFrame())
-			u.obj_flags |= 0x18
-			u.vel_x = 0
-			u.vel_y = 0
-			u.force_x = 0
-			u.force_y = 0
+			u.obj_flags |= C.uint(object.FlagShort | object.FlagAllowOverlap)
+			u.setVel(types.Pointf{})
+			u.setForce(types.Pointf{})
 			u.float_24 = 0
 			u.float_25 = 0
-			s.scriptOnEvent("PlayerDeath")
+			s.scriptOnEvent(script.EventPlayerDeath)
 		}
 		return a1, v68, false
 	case 4:
@@ -440,7 +440,7 @@ func nox_xxx_unitUpdatePlayerImpl_4F8460_A(u *Unit) (a1, v68 bool, _ bool) {
 		}
 		if pl.field_3680&1 != 0 {
 			a1 = pl.camera_follow != nil
-			C.nox_xxx_playerCameraUnlock_4E6040(u.CObj())
+			pl.CameraUnlock()
 			for _, it := range s.getPlayerUnits() {
 				pl2 := s.getPlayerByID(int(it.net_code))
 				if !it.Flags().Has(object.FlagDead) && (pl2.field_3680&1 == 0) {
@@ -450,7 +450,7 @@ func nox_xxx_unitUpdatePlayerImpl_4F8460_A(u *Unit) (a1, v68 bool, _ bool) {
 		} else {
 			C.nox_xxx_netNeedTimestampStatus_4174F0(pl.C(), 32)
 			pl.GoObserver(false, false)
-			C.nox_xxx_playerCameraUnlock_4E6040(u.CObj())
+			pl.CameraUnlock()
 			C.nox_xxx_playerLeaveObsByObserved_4E60A0(u.CObj())
 			if C.sub_4F9E10(u.CObj()) == 0 {
 				for _, it := range s.getPlayerUnits() {
