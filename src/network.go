@@ -466,11 +466,8 @@ func clientSendInput(pli int, mp image.Point) bool {
 	}
 	var buf [5]byte
 	buf[0] = byte(noxnet.MSG_PLAYER_INPUT)
-	if !nox_netlist_addToMsgListCli_40EBC0(pli, 0, buf[:1]) {
-		return false
-	}
-	buf[0] = byte(len(nbuf))
-	if !nox_netlist_addToMsgListCli_40EBC0(pli, 0, buf[:1]) {
+	buf[1] = byte(len(nbuf))
+	if !nox_netlist_addToMsgListCli_40EBC0(pli, 0, buf[:2]) {
 		return false
 	}
 	if !nox_netlist_addToMsgListCli_40EBC0(pli, 0, nbuf) {
