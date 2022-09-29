@@ -118,12 +118,13 @@ type CtrlEventHandler struct {
 	indB        int
 	indC        int
 	indD        int
+	flags747848 byte
 	flags754064 uint32
 }
 
 func (c *CtrlEventHandler) Reset() {
 	c.bindings = nil
-	*memmap.PtrUint8(0x5D4594, 747848) = 0
+	c.flags747848 = 0
 	*memmap.PtrUint8(0x5D4594, 750956) = 0
 	c.indA = 0
 	c.indB = 0
@@ -155,7 +156,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0(mpos image.Point, a4 *Ct
 }
 
 func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_orientation(mpos image.Point) {
-	if memmap.Uint8(0x5D4594, 747848) != 2 && memmap.Uint32(0x5D4594, 747868) == 4 {
+	if c.flags747848 != 2 && memmap.Uint32(0x5D4594, 747868) == 4 {
 		// calculates player orientation
 		x := mpos.X
 		y := mpos.Y
@@ -794,7 +795,7 @@ func (c *CtrlEventHandler) listBindings() []*CtrlEventBinding {
 //export nox_client_parseConfigHotkeysLine_42CF50
 func nox_client_parseConfigHotkeysLine_42CF50(a1 *C.char) C.int {
 	*memmap.PtrUint32(0x5D4594, 747868) = 4
-	*memmap.PtrUint8(0x5D4594, 747848) = 0
+	ctrlEvent.flags747848 = 0
 	r := strings.NewReader(GoString(a1))
 	sc := bufio.NewScanner(r)
 	for sc.Scan() {
