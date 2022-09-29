@@ -1030,7 +1030,10 @@ func nox_xxx_playerCmd(a1 int) {
 
 //export nox_xxx_playerCmdGet_51AC40
 func nox_xxx_playerCmdGet_51AC40(a1 C.int) C.int {
-	return C.int(bool2int(nox_players_controlBuffer_2388804[a1] == 0))
+	return C.int(bool2int(nox_xxx_playerCmdGet(int(a1))))
+}
+func nox_xxx_playerCmdGet(a1 int) bool {
+	return nox_players_controlBuffer_2388804[a1] == 0
 }
 
 func (c *CtrlEventHandler) hasDefBinding(ev keybind.Event, key keybind.Key) bool {

@@ -243,7 +243,7 @@ int nox_xxx_parseSoundSetBin_424170(char* a1);
 int nox_xxx_monsterGetSoundSet_424300(int a1);
 int nox_xxx_setNPCVoiceSet_424320(int a1, int a2);
 const char** nox_xxx_getDefaultSoundSet_424350(const char* a1);
-int nox_xxx_updateSpellRelated_424830(int a1, int a2);
+void* nox_xxx_updateSpellRelated_424830(void* a1, int a2);
 int nox_xxx_enchantByName_424880(char* a1);
 char* nox_xxx_getEnchantName_4248F0(int a1);
 int nox_xxx_getEnchantSpell_424920(int a1);

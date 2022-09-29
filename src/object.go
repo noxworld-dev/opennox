@@ -356,6 +356,10 @@ func (s *Server) getObjectGroupByID(id string) *script.ObjectGroup {
 	return script.NewObjectGroup(id, list...)
 }
 
+func (s *Server) getObjectFromNetCode(code int) *Object { // nox_server_getObjectFromNetCode_4ECCB0
+	return asObjectC(C.nox_server_getObjectFromNetCode_4ECCB0(C.int(code)))
+}
+
 func (s *Server) delayedDelete(obj *Object) {
 	if obj == nil || obj.Flags().Has(object.FlagDestroyed) {
 		return
