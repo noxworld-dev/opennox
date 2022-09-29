@@ -631,7 +631,7 @@ typedef struct {
 	uint8_t field_59_0; // 59, 236, TODO: frame index?
 	uint8_t field_59_1; // 59, 237
 	uint16_t field_59_2; // 59, 238
-	uint32_t field_60; // 60, 240, TODO: some flags?
+	uint32_t field_60; // 60, 240, TODO: movement flags?
 	uint32_t field_61; // 61, 244
 	uint32_t field_62; // 62, 248
 	uint32_t field_63; // 63, 252
