@@ -1220,7 +1220,8 @@ void nox_xxx_playerSetCustomWP_4F79A0(int a1, int a2, int a3) {
 }
 
 //----- (004F7A40) --------------------------------------------------------
-int nox_xxx_playerConfusedGetDirection_4F7A40(int a1) {
+int nox_xxx_playerConfusedGetDirection_4F7A40(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;        // edi
 	int v2;        // ecx
 	signed int v3; // edx
@@ -1452,7 +1453,8 @@ int nox_xxx_weaponGetStaminaByType_4F7E80(int a1) {
 }
 
 //----- (004F7EF0) --------------------------------------------------------
-short nox_xxx_playerRespawn_4F7EF0(int a1) {
+short nox_xxx_playerRespawn_4F7EF0(nox_object_t* a1p) {
+	int a1 = a1p;
 	char* v1;     // eax
 	char* v2;     // ebp
 	uint32_t* v3; // edi
@@ -1534,520 +1536,6 @@ int sub_4F80C0(int a1, float2* a3) {
 	return result;
 }
 
-//----- (004F8460) --------------------------------------------------------
-bool nox_xxx_unitUpdatePlayerImpl_4F8460_A(nox_object_t* u, int* a1, int* v68) {
-	int v6;             // ecx
-	int v7;             // eax
-	unsigned char v8;   // al
-	int v9;             // ecx
-	unsigned int v10;   // eax
-	int v11;            // ebx
-	unsigned char v12;  // al
-	int v13;            // ecx
-	unsigned char v14;  // cl
-	int v15;            // kr00_4
-	int v16;            // ebx
-	unsigned int v17;   // ecx
-	unsigned char v18;  // cl
-	bool v19;           // cc
-	int v20;            // ecx
-	int v21;            // eax
-	double v22;         // st7
-	double v23;         // st6
-	signed int v25;     // ebx
-	int v26;            // eax
-	unsigned int v27;   // eax
-	int v28;            // eax
-	int v29;            // eax
-	unsigned int v31;   // ecx
-	unsigned int v32;   // ebx
-	unsigned int v33;   // ebp
-	int v34;            // eax
-	unsigned int v35;   // eax
-	int v36;            // eax
-	int v37;            // eax
-	short v41;          // ax
-	int j;              // edi
-	char* v44;          // eax
-	int i;              // edi
-	char* v46;          // eax
-	unsigned char* v48; // eax
-	signed int v49;     // edi
-	int v50;            // eax
-	int v52;            // eax
-	unsigned char v54;  // al
-	int v55;            // ecx
-	int v67;            // ecx
-	int v69;            // ecx
-
-	nox_object_Player_data_t* ud = u->data_update;
-	nox_playerInfo* pl = ud->player;
-	switch (ud->field_22_0) {
-	case 0u:
-	case 5u:
-		if (!nox_xxx_playerCanMove_4F9BC0(u)) {
-			break;
-		}
-		v20 = pl;
-		if (*(uint32_t*)(v20 + 3656)) {
-			v69 = 3;
-			if (*(uint8_t*)(v20 + 2252)) {
-				nox_xxx_aud_501960(333, u, 0, 0);
-			} else {
-				nox_xxx_aud_501960(323, u, 0, 0);
-			}
-			nox_xxx_netInformTextMsg_4DA0F0(*(unsigned char*)((uint32_t)pl + 2064), 13, &v69);
-			break;
-		}
-		v21 = pl;
-		*v68 = 1;
-		v22 = (double)*(int*)(v21 + 2284) - u->x;
-		v23 = (double)*(int*)(v21 + 2288) - u->y;
-		if (ud->field_22_0 != 5 && (v23 * v23 + v22 * v22 <= 10000.0) || nox_common_playerIsAbilityActive_4FC250(u, 4)) {
-			*a1 = 0;
-			goto LABEL_93;
-		}
-		// switch from walking to running
-		*a1 = 1;
-		u->speed_cur *= 2;
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(6, &v67, &v69);
-		v25 = (u->net_code + nox_frame_xxx_2598000) / (unsigned int)(v69 + 1) % v67;
-		if (v25 <= (int)((u->net_code + nox_frame_xxx_2598000 - 1) / (unsigned int)(v69 + 1) % v67) || v25 != 2 && v25 != 8) {
-			goto LABEL_90;
-		}
-		v26 = nox_xxx_tileNFromPoint_411160(&u->x);
-		if (v26 < 0 || v26 >= *(int*)&dword_5d4594_251568) {
-			goto LABEL_90;
-		}
-		// emit sound based on the tile material?
-		v27 = *getMemU32Ptr(0x85B3FC, 32520 + 60 * v26);
-		if (v27 <= 0x80) {
-			if (v27 == 128) {
-				nox_xxx_aud_501960(278, u, 0, 0);
-				goto LABEL_90;
-			}
-			v28 = v27 - 2;
-			if (!v28) {
-				goto LABEL_90;
-			}
-			v29 = v28 - 6;
-			if (!v29) {
-				nox_xxx_aud_501960(277, u, 0, 0);
-				goto LABEL_90;
-			}
-			if (v29 == 56) {
-				nox_xxx_aud_501960(276, u, 0, 0);
-				goto LABEL_90;
-			}
-			nox_xxx_aud_501960(275, u, 0, 0);
-			goto LABEL_90;
-		}
-		switch (v27) {
-		case 0x400u:
-			nox_xxx_aud_501960(274, u, 0, 0);
-			break;
-		case 0x800u:
-			nox_xxx_aud_501960(279, u, 0, 0);
-			break;
-		case 0x4000u:
-			break;
-		default:
-			nox_xxx_aud_501960(275, u, 0, 0);
-			break;
-		}
-	LABEL_90:
-		if (nox_common_randomInt_415FA0(0, 100) <= 1) {
-			nox_xxx_aud_501960(322, u, 0, 0);
-		}
-	LABEL_93:
-		if (!sub_4F9AB0(u)) {
-			if (nox_xxx_testUnitBuffs_4FF350(u, 3)) {
-				u->direction2 = nox_xxx_playerConfusedGetDirection_4F7A40(u);
-			}
-			int dir = 8 * (int)u->direction2;
-			// update force based on direction, speed, etc
-			u->force_x += *getMemFloatPtr(0x587000, 194136 + dir) * u->speed_cur;
-			u->force_y += *getMemFloatPtr(0x587000, 194140 + dir) * u->speed_cur;
-		}
-		if (ud->field_22_0) {
-			break;
-		}
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(4, &v67, &v69);
-		v31 = u->net_code + nox_frame_xxx_2598000; // TODO: this doesn't look right
-		v32 = (v31 - 1) / (v69 + 1) % v67;
-		v33 = v31 / (v69 + 1) % v67;
-		if (!((!nox_common_playerIsAbilityActive_4FC250(u, 4) || *a1) && v33 != v32 && (v33 == 3 || v33 == 9))) {
-			break;
-		}
-		v34 = nox_xxx_tileNFromPoint_411160(&u->x);
-		if (v34 < 0 || v34 >= *(int*)&dword_5d4594_251568) {
-			break;
-		}
-		v35 = *getMemU32Ptr(0x85B3FC, 32520 + 60 * v34);
-		if (v35 <= 0x80) {
-			if (v35 == 128) {
-				nox_xxx_aud_501960(272, u, 0, 0);
-				break;
-			}
-			v36 = v35 - 2;
-			if (!v36) {
-				break;
-			}
-			v37 = v36 - 6;
-			if (!v37) {
-				nox_xxx_aud_501960(271, u, 0, 0);
-				break;
-			}
-			if (v37 == 56) {
-				nox_xxx_aud_501960(270, u, 0, 0);
-				break;
-			}
-			nox_xxx_aud_501960(269, u, 0, 0);
-			break;
-		}
-		switch (v35) {
-		case 0x400u:
-			nox_xxx_aud_501960(268, u, 0, 0);
-			break;
-		case 0x800u:
-			nox_xxx_aud_501960(273, u, 0, 0);
-			break;
-		case 0x4000u:
-			break;
-		default:
-			nox_xxx_aud_501960(269, u, 0, 0);
-			break;
-		}
-		break;
-	case 1u:
-		if (!nox_xxx_playerAttack_538960(u)) {
-			if (pl->field_4 & 4) {
-				nox_xxx_playerSetState_4FA020(u, 14);
-				u->field_34 = nox_frame_xxx_2598000;
-			} else {
-				nox_xxx_playerSetState_4FA020(u, 13);
-				*(uint8_t*)((uint32_t)pl + 8) = 0;
-			}
-		}
-		break;
-	case 2u:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(21, &v67, &v69);
-		v54 = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
-		v55 = v67;
-		ud->field_59_0 = v54;
-		if (v54 >= v55) {
-			ud->field_59_0 = v55 - 1;
-		}
-		break;
-	case 3u:
-		if ((unsigned int)(nox_frame_xxx_2598000 - u->field_34) > (int)nox_gameFPS) {
-			nox_xxx_playerSetState_4FA020(u, 4);
-			ud->field_60 &= 0xFFFFFFDF;
-			u->field_34 = nox_frame_xxx_2598000;
-			u->obj_flags |= 0x18;
-			u->vel_x = 0;
-			u->vel_y = 0;
-			u->force_x = 0;
-			u->force_y = 0;
-			u->float_24 = 0;
-			u->float_25 = 0;
-			nox_script_callOnEvent("PlayerDeath", 0, 0);
-		}
-		return false;
-	case 4u:
-		if ((unsigned int)(nox_frame_xxx_2598000 - u->field_34) <= (int)nox_gameFPS/2) {
-			return false;
-		}
-		v41 = nox_xxx_servGamedataGet_40A020(1024);
-		if (!nox_common_gameFlags_check_40A5C0(1024) || (v41 <= 0) || (*(uint32_t*)((int)pl + 2140) < v41)) {
-			if (nox_common_gameFlags_check_40A5C0(0x2000) && (!(*(uint8_t*)((int)pl + 3680) & 1)) &&
-				nox_xxx_playerControlBufferFirst_51AB50(*(unsigned char*)((int)pl + 2064)) != 0) {
-				v48 = nox_xxx_playerControlBufferFirst_51AB50(*(unsigned char*)((int)pl + 2064));
-				while (*((uint32_t*)v48 + 2) != 6) {
-					v48 = nox_xxx_playerGetControlBufferNext_51ABC0(pl->playerInd);
-					if (!v48) {
-						goto LABEL_149;
-					}
-				}
-				nox_xxx_playerCmd_51AC30(pl->playerInd);
-				nox_xxx_playerRespawn_4F7EF0(u);
-			} else {
-			LABEL_149:
-				if (!nox_server_doPlayersAutoRespawn_40A5F0()) {
-					return false;
-				}
-				nox_xxx_playerRespawn_4F7EF0(u);
-			}
-			break;
-		}
-		if (*(uint8_t*)((int)pl + 3680) & 1) {
-			*a1 = *(uint32_t*)((int)pl + 3628);
-			nox_xxx_playerCameraUnlock_4E6040(u);
-			for (i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
-				v46 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(i + 36));
-				if (!(*(uint32_t*)(i + 16) & 0x8000) && !(v46[3680] & 1)) {
-					nox_xxx_playerCameraFollow_4E6060(u, i);
-				}
-			}
-		} else {
-			nox_xxx_netNeedTimestampStatus_4174F0(pl, 32);
-			nox_xxx_playerGoObserver_4E6860(pl, 0, 0);
-			nox_xxx_playerCameraUnlock_4E6040(u);
-			nox_xxx_playerLeaveObsByObserved_4E60A0(u);
-			if (!sub_4F9E10(u)) {
-				for (j = nox_xxx_getFirstPlayerUnit_4DA7C0(); j; j = nox_xxx_getNextPlayerUnit_4DA7F0(j)) {
-					v44 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(j + 36));
-					if (!(*(uint32_t*)(j + 16) & 0x8000) && !(v44[3680] & 1)) {
-						nox_xxx_playerCameraFollow_4E6060(u, j);
-					}
-				}
-			}
-		}
-		return false;
-	case 0xAu:
-		ud->field_59_0 = 0;
-		break;
-	case 0xCu:;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(3, &v69, a1);
-		v49 = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(*a1 + 1);
-		v50 = nox_xxx_getFirstPlayerUnit_4DA7C0();
-		if (!v50) {
-			goto LABEL_155;
-		}
-		while (*(uint32_t*)(*(uint32_t*)(v50 + 748) + 132) != u) {
-			v50 = nox_xxx_getNextPlayerUnit_4DA7F0(v50);
-			if (!v50) {
-			LABEL_155:;
-				double v51 = 2 * u->speed_cur;
-				v52 = 8 * (int)u->direction1;
-				u->force_x = v51 * *getMemFloatPtr(0x587000, 194136 + v52);
-				u->force_y = v51 * *getMemFloatPtr(0x587000, 194140 + v52);
-				break;
-			}
-		}
-		if (v49 >= v69) {
-			// stop hovering after a jump?
-			nox_xxx_playerSetState_4FA020(u, 0);
-			u->obj_flags &= 0xFFFFBFFFu;
-			u->field_34 = nox_frame_xxx_2598000;
-		}
-		return false;
-	case 0xDu:
-		u->obj_flags &= 0xFFFFBFFE;
-		if (sub_4F9A80(u)) {
-			nox_xxx_playerSetState_4FA020(u, 0);
-		}
-		if (nox_common_gameFlags_check_40A5C0(128) || !(pl->field_0 & 0x3000000) ||
-			!nox_xxx_monsterTestBlockShield_533E70(u) &&
-				(unsigned int)(nox_frame_xxx_2598000 - u->field_34) <= (int)nox_gameFPS >> 2) {
-			break;
-		}
-		nox_xxx_playerSetState_4FA020(u, 15);
-		ud->field_59_0 = 0;
-		break;
-	case 0xEu:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(33, &v69, &v67);
-		ud->field_59_0 = v69 - 1;
-		if ((unsigned int)(nox_frame_xxx_2598000 - u->field_34) > (int)nox_gameFPS) {
-			nox_xxx_playerSetState_4FA020(u, 13);
-		}
-		break;
-	case 0xFu:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(40, &v67, &v69);
-		v8 = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
-		v9 = v67;
-		ud->field_59_0 = v8;
-		if (v8 >= v9) {
-			nox_xxx_playerSetState_4FA020(u, 16);
-			ud->field_59_0 = v67 - 1;
-		}
-		break;
-	case 0x10u:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(40, &v69, &v67);
-		ud->field_59_0 = v69 - 1;
-		break;
-	case 0x11u:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(40, &v67, &v69);
-		v10 = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
-		v11 = v67 - v10;
-		if ((int)(v67 - v10) < v67) {
-			if (v11 <= 0) {
-				LOBYTE(v11) = 0;
-				nox_xxx_playerSetState_4FA020(u, 13);
-			}
-			ud->field_59_0 = v11;
-		} else {
-			ud->field_59_0 = v67 - 1;
-		}
-		break;
-	case 0x12u:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(48, &v67, &v69);
-		LOBYTE(v7) = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
-		v6 = v67;
-		ud->field_59_0 = v7;
-		v7 = (unsigned char)v7;
-		goto LABEL_56;
-	case 0x13u:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(49, &v67, &v69);
-		LOBYTE(v7) = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
-		v6 = v67;
-		ud->field_59_0 = v7;
-		v7 = (unsigned char)v7;
-		goto LABEL_56;
-	case 0x14u:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(47, &v67, &v69);
-		LOBYTE(v7) = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
-		v6 = v67;
-		ud->field_59_0 = v7;
-		v7 = (unsigned char)v7;
-		goto LABEL_56;
-	case 0x15u:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(30, &v69, &v67);
-		LOBYTE(v7) = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v67 + 1);
-		v6 = v69;
-		ud->field_59_0 = v7;
-		v7 = (unsigned char)v7;
-		goto LABEL_56;
-	case 0x16u:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(31, &v69, &v67);
-		ud->field_59_0 = v69 - 1;
-		break;
-	case 0x17u:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(50, &v67, &v69);
-		LOBYTE(v7) = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
-		v6 = v67;
-		ud->field_59_0 = v7;
-		v7 = (unsigned char)v7;
-		goto LABEL_56;
-	case 0x18u:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(19, &v67, &v69);
-		LOBYTE(v7) = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
-		v6 = v67;
-		ud->field_59_0 = v7;
-		v7 = (unsigned char)v7;
-		goto LABEL_56;
-	case 0x19u:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(20, &v67, &v69);
-		LOBYTE(v7) = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
-		v6 = v67;
-		ud->field_59_0 = v7;
-		v7 = (unsigned char)v7;
-		goto LABEL_56;
-	case 0x1Au:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(15, &v67, &v69);
-		LOBYTE(v7) = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
-		v6 = v67;
-		ud->field_59_0 = v7;
-		v7 = (unsigned char)v7;
-	LABEL_56:
-		v19 = v7 < v6;
-		if (!v19) {
-			nox_xxx_playerSetState_4FA020(u, 13);
-		}
-		break;
-	case 0x1Bu:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(16, &v67, &v69);
-		v14 = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
-		v15 = v67;
-		ud->field_59_0 = v14;
-		if (v14 >= v15 / 2) {
-			nox_xxx_playerSetState_4FA020(u, 28);
-			ud->field_59_0 = v67 / 2;
-		}
-		break;
-	case 0x1Cu:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(16, &v67, &v69);
-		ud->field_59_0 = v67 / 2;
-		if ((unsigned int)(nox_frame_xxx_2598000 - u->field_34) > 0x14) {
-			nox_xxx_playerSetState_4FA020(u, 29);
-			ud->field_59_0 = v67 / 2;
-		}
-		break;
-	case 0x1Du:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(16, &v67, &v69);
-		v16 = v67;
-		v17 = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
-		goto LABEL_51;
-	case 0x1Eu:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(52, &v67, &v69);
-		v12 = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
-		v13 = v67;
-		ud->field_59_0 = v12;
-		if (v12 >= v13) {
-			nox_xxx_playerSetState_4FA020(u, 13);
-			ud->field_41 = 0;
-		}
-		break;
-	case 0x20u:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(54, &v67, &v69);
-		ud->field_59_0 = v67 / 2;
-		if ((unsigned int)(nox_frame_xxx_2598000 - u->field_34) > 0x14) {
-			nox_xxx_playerSetState_4FA020(u, 33);
-			ud->field_59_0 = v67 / 2;
-		}
-		break;
-	case 0x21u:
-		v67 = 0;
-		v69 = 0;
-		nox_xxx_animPlayerGetFrameRange_4F9F90(54, &v67, &v69);
-		v16 = v67;
-		v17 = (nox_frame_xxx_2598000 - u->field_34) / (unsigned int)(v69 + 1);
-	LABEL_51:
-		v18 = v16 / 2 + v17;
-		ud->field_59_0 = v18;
-		v19 = v18 < v16;
-		if (!v19) {
-			nox_xxx_playerSetState_4FA020(u, 13);
-		}
-		break;
-	default:
-		break;
-	}
-	return true;
-}
 void nox_xxx_unitUpdatePlayerImpl_4F8460_B(nox_object_t* u, int a1, int v68) {
 	nox_object_Player_data_t* ud = u->data_update;
 	nox_playerInfo* pl = ud->player;
@@ -2302,12 +1790,13 @@ void nox_xxx_unitUpdatePlayerImpl_4F8460_B(nox_object_t* u, int a1, int v68) {
 }
 
 //----- (004F9A80) --------------------------------------------------------
-int sub_4F9A80(int a1) {
-	return *(uint32_t*)(*(uint32_t*)(a1 + 748) + 4 * *(unsigned char*)(*(uint32_t*)(a1 + 748) + 181) + 168) != 0;
+int sub_4F9A80(nox_object_t* a1) {
+	return *(uint32_t*)(*(uint32_t*)((int)a1 + 748) + 4 * *(unsigned char*)(*(uint32_t*)((int)a1 + 748) + 181) + 168) != 0;
 }
 
 //----- (004F9AB0) --------------------------------------------------------
-int sub_4F9AB0(int a1) {
+int sub_4F9AB0(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;     // edi
 	int v2;     // ecx
 	int result; // eax
@@ -2355,7 +1844,8 @@ void* nox_xxx_plrSetSpellType_4F9B90(int a1) {
 }
 
 //----- (004F9BC0) --------------------------------------------------------
-int nox_xxx_playerCanMove_4F9BC0(int a1) {
+int nox_xxx_playerCanMove_4F9BC0(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1; // esi
 	int v3; // eax
 
@@ -2458,7 +1948,8 @@ int nox_xxx_playerAimsAtEnemy_4F9DC0(int a1) {
 }
 
 //----- (004F9E10) --------------------------------------------------------
-int sub_4F9E10(int a1) {
+int sub_4F9E10(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1; // eax
 	int v2; // ecx
 
@@ -2481,7 +1972,7 @@ int sub_4F9E10(int a1) {
 }
 
 //----- (004F9F90) --------------------------------------------------------
-int nox_xxx_animPlayerGetFrameRange_4F9F90(int a1, uint32_t* a2, int* a3) {
+int nox_xxx_animPlayerGetFrameRange_4F9F90(int a1, int* a2, int* a3) {
 	int result; // eax
 
 	*a2 = *getMemU32Ptr(0x5D4594, 1568412 + 8 * a1);

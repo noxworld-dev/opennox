@@ -2,6 +2,7 @@ package opennox
 
 /*
 #include "defs.h"
+#include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME3_2.h"
 #include "GAME3_3.h"
@@ -12,10 +13,10 @@ package opennox
 #include "server__magic__plyrspel.h"
 
 extern uint32_t dword_5d4594_1569672;
+extern uint32_t dword_5d4594_251568;
 extern void* nox_alloc_magicEnt_1569668;
 extern void* nox_alloc_spellDur_1569724;
 
-bool nox_xxx_unitUpdatePlayerImpl_4F8460_A(nox_object_t* u, int* a1, int* v68);
 void nox_xxx_unitUpdatePlayerImpl_4F8460_B(nox_object_t* u, int a1, int v68);
 void nox_xxx_maybeAnimatePixie_53D010(nox_object_t* a1, nox_object_t* a2);
 static int nox_call_objectType_parseUpdate_go(int (*fnc)(char*, void*), char* arg1, void* arg2) { return fnc(arg1, arg2); }
@@ -277,18 +278,370 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 		ud.field_54 = 0
 	}
 	nox_xxx_playerInventory_4F8420(u)
-	var (
-		oa1  C.int
-		ov68 C.int
-	)
-	if C.nox_xxx_unitUpdatePlayerImpl_4F8460_A(u.CObj(), &oa1, &ov68) {
-		C.nox_xxx_unitUpdatePlayerImpl_4F8460_B(u.CObj(), oa1, ov68)
+	if oa1, ov68, ok := nox_xxx_unitUpdatePlayerImpl_4F8460_A(u); ok {
+		C.nox_xxx_unitUpdatePlayerImpl_4F8460_B(u.CObj(), C.int(bool2int(oa1)), C.int(bool2int(ov68)))
 	}
 	if u.HasEnchant(ENCHANT_RUN) && ud.field_22_0 != 1 {
 		nox_xxx_playerSetState_4FA020(u, 5)
 	}
 	C.nox_xxx_questCheckSecretArea_421C70(u.CObj())
 	s.abilities.harpoon.UpdatePlayer(u)
+}
+
+func nox_xxx_unitUpdatePlayerImpl_4F8460_A(u *Unit) (a1, v68 bool, _ bool) {
+	s := noxServer
+	ud := u.updateDataPlayer()
+	pl := ud.Player()
+	switch ud.field_22_0 {
+	default:
+		return a1, v68, true
+	case 0, 5:
+		if C.nox_xxx_playerCanMove_4F9BC0(u.CObj()) == 0 {
+			return a1, v68, true
+		}
+		if pl.field_3656 != 0 {
+			if pl.Info().IsFemale() {
+				nox_xxx_aud_501960(sound.SoundHumanFemaleExertionHeavy, u, 0, 0)
+			} else {
+				nox_xxx_aud_501960(sound.SoundHumanMaleExertionHeavy, u, 0, 0)
+			}
+			nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 13, 3)
+			return a1, v68, true
+		}
+		v68 = true
+		dp := pl.CursorPos().Sub(u.Pos())
+		dx := float64(dp.X)
+		dy := float64(dp.Y)
+		a1 = false
+		if !(ud.field_22_0 != 5 && (dy*dy+dx*dx <= 10000.0) || s.abilities.IsActive(u, AbilityTreadLightly)) {
+			// switch from walking to running
+			a1 = true
+			u.speed_cur *= 2
+			v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(6)
+			v25 := (int(u.net_code) + int(gameFrame())) / (v69 + 1) % v67
+			if !(v25 <= ((int(u.net_code)+int(gameFrame())-1)/(v69+1)%v67) || v25 != 2 && v25 != 8) {
+				if v26 := nox_xxx_tileNFromPoint_411160(u.Pos()); v26 >= 0 && v26 < int(C.dword_5d4594_251568) {
+					// emit sound based on the tile material
+					switch memmap.Uint32(0x85B3FC, 32520+60*uintptr(v26)) {
+					case 2:
+						// nop
+					case 8:
+						nox_xxx_aud_501960(sound.SoundRunOnWood, u, 0, 0)
+					case 64:
+						nox_xxx_aud_501960(sound.SoundRunOnDirt, u, 0, 0)
+					case 128:
+						nox_xxx_aud_501960(sound.SoundRunOnWater, u, 0, 0)
+					case 0x400:
+						nox_xxx_aud_501960(sound.SoundRunOnSnow, u, 0, 0)
+					case 0x800:
+						nox_xxx_aud_501960(sound.SoundRunOnMud, u, 0, 0)
+					case 0x4000:
+						// nop
+					default:
+						nox_xxx_aud_501960(sound.SoundRunOnStone, u, 0, 0)
+					}
+				}
+			}
+			if noxRndCounter1.IntClamp(0, 100) <= 1 {
+				nox_xxx_aud_501960(sound.SoundHumanMaleExertionLight, u, 0, 0)
+			}
+		}
+		if C.sub_4F9AB0(u.CObj()) == 0 {
+			if u.HasEnchant(ENCHANT_CONFUSED) {
+				u.direction2 = C.ushort(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
+			}
+			dir := 8 * int(u.direction2)
+			// update force based on direction, speed, etc
+			u.force_x += C.float(memmap.Float32(0x587000, 194136+uintptr(dir))) * u.speed_cur
+			u.force_y += C.float(memmap.Float32(0x587000, 194140+uintptr(dir))) * u.speed_cur
+		}
+		if ud.field_22_0 == 0 {
+			v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(4)
+			v31 := int(u.net_code) + int(gameFrame())
+			v32 := (v31 - 1) / (v69 + 1) % v67
+			v33 := v31 / (v69 + 1) % v67
+			if (!s.abilities.IsActive(u, AbilityTreadLightly) || a1) && v33 != v32 && (v33 == 3 || v33 == 9) {
+				if v34 := nox_xxx_tileNFromPoint_411160(u.Pos()); v34 >= 0 && v34 < int(C.dword_5d4594_251568) {
+					switch memmap.Uint32(0x85B3FC, 32520+60*uintptr(v34)) {
+					case 2:
+						// nop
+					case 8:
+						nox_xxx_aud_501960(sound.SoundWalkOnWood, u, 0, 0)
+					case 64:
+						nox_xxx_aud_501960(sound.SoundWalkOnDirt, u, 0, 0)
+					case 128:
+						nox_xxx_aud_501960(sound.SoundWalkOnWater, u, 0, 0)
+					case 0x400:
+						nox_xxx_aud_501960(sound.SoundWalkOnSnow, u, 0, 0)
+					case 0x800:
+						nox_xxx_aud_501960(sound.SoundWalkOnMud, u, 0, 0)
+					case 0x4000:
+						// nop
+					default:
+						nox_xxx_aud_501960(sound.SoundWalkOnStone, u, 0, 0)
+					}
+				}
+			}
+		}
+		return a1, v68, true
+	case 1:
+		if C.nox_xxx_playerAttack_538960(u.CObj()) == 0 {
+			if pl.field_4&4 != 0 {
+				nox_xxx_playerSetState_4FA020(u, 14)
+				u.field_34 = C.uint(gameFrame())
+			} else {
+				nox_xxx_playerSetState_4FA020(u, 13)
+				pl.field_8 &^= 0xff
+			}
+		}
+		return a1, v68, true
+	case 2:
+		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(21)
+		ud.field_59_0 = C.uchar((int(gameFrame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.field_59_0) >= v67 {
+			ud.field_59_0 = C.uchar(v67 - 1)
+		}
+		return a1, v68, true
+	case 3:
+		if (int(gameFrame()) - int(u.field_34)) > int(gameFPS()) {
+			nox_xxx_playerSetState_4FA020(u, 4)
+			ud.field_60 &= 0xFFFFFFDF
+			u.field_34 = C.uint(gameFrame())
+			u.obj_flags |= 0x18
+			u.vel_x = 0
+			u.vel_y = 0
+			u.force_x = 0
+			u.force_y = 0
+			u.float_24 = 0
+			u.float_25 = 0
+			s.scriptOnEvent("PlayerDeath")
+		}
+		return a1, v68, false
+	case 4:
+		if (int(gameFrame()) - int(u.field_34)) <= int(gameFPS())/2 {
+			return a1, v68, false
+		}
+		v41 := int(C.nox_xxx_servGamedataGet_40A020(1024))
+		if !noxflags.HasGame(noxflags.GameModeElimination) || (v41 <= 0) || (int(pl.field_2140) < v41) {
+			if noxflags.HasGame(noxflags.GameOnline) && (pl.field_3680&1 == 0) {
+				for it := playerControlBufferFirst(pl.Index()); it != nil; it = playerGetControlBufferNext(pl.Index()) {
+					if it.field_2 == 6 {
+						nox_xxx_playerCmd(pl.Index())
+						C.nox_xxx_playerRespawn_4F7EF0(u.CObj())
+						return a1, v68, true
+					}
+				}
+			}
+			if C.nox_server_doPlayersAutoRespawn_40A5F0() == 0 {
+				return a1, v68, false
+			}
+			C.nox_xxx_playerRespawn_4F7EF0(u.CObj())
+			return a1, v68, true
+		}
+		if pl.field_3680&1 != 0 {
+			a1 = pl.camera_follow != nil
+			C.nox_xxx_playerCameraUnlock_4E6040(u.CObj())
+			for _, it := range s.getPlayerUnits() {
+				pl2 := s.getPlayerByID(int(it.net_code))
+				if !it.Flags().Has(object.FlagDead) && (pl2.field_3680&1 == 0) {
+					C.nox_xxx_playerCameraFollow_4E6060(u.CObj(), it.CObj())
+				}
+			}
+		} else {
+			C.nox_xxx_netNeedTimestampStatus_4174F0(pl.C(), 32)
+			pl.GoObserver(false, false)
+			C.nox_xxx_playerCameraUnlock_4E6040(u.CObj())
+			C.nox_xxx_playerLeaveObsByObserved_4E60A0(u.CObj())
+			if C.sub_4F9E10(u.CObj()) == 0 {
+				for _, it := range s.getPlayerUnits() {
+					pl2 := s.getPlayerByID(int(it.net_code))
+					if !it.Flags().Has(object.FlagDead) && (pl2.field_3680&1 == 0) {
+						C.nox_xxx_playerCameraFollow_4E6060(u.CObj(), it.CObj())
+					}
+				}
+			}
+		}
+		return a1, v68, false
+	case 0xA:
+		ud.field_59_0 = 0
+		return a1, v68, true
+	case 0xC:
+		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(3)
+		v49 := (int(gameFrame()) - int(u.field_34)) / (v69 + 1)
+
+		found := false
+		for _, it := range s.getPlayerUnits() {
+			ud2 := it.updateDataPlayer()
+			if ud2.harpoon_targ == u.CObj() {
+				found = true
+				break
+			}
+		}
+		if !found {
+			dir := 8 * int(u.direction1)
+			u.force_x = 2 * u.speed_cur * C.float(memmap.Float32(0x587000, 194136+uintptr(dir)))
+			u.force_y = 2 * u.speed_cur * C.float(memmap.Float32(0x587000, 194140+uintptr(dir)))
+		}
+		if v49 >= v67 {
+			// stop hovering after a jump?
+			nox_xxx_playerSetState_4FA020(u, 0)
+			u.obj_flags &= 0xFFFFBFFF
+			u.field_34 = C.uint(gameFrame())
+		}
+		a1 = v69 != 0
+		return a1, v68, false
+	case 0xD:
+		u.obj_flags &= 0xFFFFBFFE
+		if C.sub_4F9A80(u.CObj()) != 0 {
+			nox_xxx_playerSetState_4FA020(u, 0)
+		}
+		if noxflags.HasGame(noxflags.GameModeChat) || (pl.field_0&0x3000000 == 0) ||
+			C.nox_xxx_monsterTestBlockShield_533E70(u.CObj()) == 0 &&
+				(int(gameFrame())-int(u.field_34)) <= int(gameFPS())/4 {
+			return a1, v68, true
+		}
+		nox_xxx_playerSetState_4FA020(u, 15)
+		ud.field_59_0 = 0
+		return a1, v68, true
+	case 0xE:
+		_, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(33)
+		ud.field_59_0 = C.uchar(v69 - 1)
+		if int(gameFrame())-int(u.field_34) > int(gameFPS()) {
+			nox_xxx_playerSetState_4FA020(u, 13)
+		}
+		return a1, v68, true
+	case 0xF:
+		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(40)
+		ud.field_59_0 = C.uchar((int(gameFrame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.field_59_0) >= v67 {
+			nox_xxx_playerSetState_4FA020(u, 16)
+			ud.field_59_0 = C.uchar(v67 - 1)
+		}
+		return a1, v68, true
+	case 0x10:
+		_, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(40)
+		ud.field_59_0 = C.uchar(v69 - 1)
+		return a1, v68, true
+	case 0x11:
+		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(40)
+		v11 := v67 - (int(gameFrame())-int(u.field_34))/(v69+1)
+		if v11 >= v67 {
+			ud.field_59_0 = C.uchar(v67 - 1)
+		} else {
+			if v11 <= 0 {
+				v11 = 0
+				nox_xxx_playerSetState_4FA020(u, 13)
+			}
+			ud.field_59_0 = C.uchar(v11)
+		}
+		return a1, v68, true
+	case 0x12:
+		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(48)
+		ud.field_59_0 = C.uchar((int(gameFrame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.field_59_0) >= v67 {
+			nox_xxx_playerSetState_4FA020(u, 13)
+		}
+		return a1, v68, true
+	case 0x13:
+		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(49)
+		ud.field_59_0 = C.uchar((int(gameFrame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.field_59_0) >= v67 {
+			nox_xxx_playerSetState_4FA020(u, 13)
+		}
+		return a1, v68, true
+	case 0x14:
+		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(47)
+		ud.field_59_0 = C.uchar((int(gameFrame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.field_59_0) >= v67 {
+			nox_xxx_playerSetState_4FA020(u, 13)
+		}
+		return a1, v68, true
+	case 0x15:
+		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(30)
+		ud.field_59_0 = C.uchar((int(gameFrame()) - int(u.field_34)) / (v67 + 1))
+		if int(ud.field_59_0) >= v69 {
+			nox_xxx_playerSetState_4FA020(u, 13)
+		}
+		return a1, v68, true
+	case 0x16:
+		_, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(31)
+		ud.field_59_0 = C.uchar(v69 - 1)
+		return a1, v68, true
+	case 0x17:
+		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(50)
+		ud.field_59_0 = C.uchar((int(gameFrame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.field_59_0) >= v67 {
+			nox_xxx_playerSetState_4FA020(u, 13)
+		}
+		return a1, v68, true
+	case 0x18:
+		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(19)
+		ud.field_59_0 = C.uchar((int(gameFrame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.field_59_0) >= v67 {
+			nox_xxx_playerSetState_4FA020(u, 13)
+		}
+		return a1, v68, true
+	case 0x19:
+		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(20)
+		ud.field_59_0 = C.uchar((int(gameFrame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.field_59_0) >= v67 {
+			nox_xxx_playerSetState_4FA020(u, 13)
+		}
+		return a1, v68, true
+	case 0x1A:
+		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(15)
+		ud.field_59_0 = C.uchar((int(gameFrame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.field_59_0) >= v67 {
+			nox_xxx_playerSetState_4FA020(u, 13)
+		}
+		return a1, v68, true
+	case 0x1B:
+		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(16)
+		ud.field_59_0 = C.uchar((int(gameFrame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.field_59_0) >= v67/2 {
+			nox_xxx_playerSetState_4FA020(u, 28)
+			ud.field_59_0 = C.uchar(v67 / 2)
+		}
+		return a1, v68, true
+	case 0x1C:
+		v67, _ := nox_xxx_animPlayerGetFrameRange_4F9F90(16)
+		ud.field_59_0 = C.uchar(v67 / 2)
+		if (int(gameFrame()) - int(u.field_34)) > 0x14 {
+			nox_xxx_playerSetState_4FA020(u, 29)
+			ud.field_59_0 = C.uchar(v67 / 2)
+		}
+		return a1, v68, true
+	case 0x1D:
+		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(16)
+		ud.field_59_0 = C.uchar(v67/2 + (int(gameFrame())-int(u.field_34))/(v69+1))
+		if int(ud.field_59_0) >= v67 {
+			nox_xxx_playerSetState_4FA020(u, 13)
+		}
+		return a1, v68, true
+	case 0x1E:
+		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(52)
+		ud.field_59_0 = C.uchar((int(gameFrame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.field_59_0) >= v67 {
+			nox_xxx_playerSetState_4FA020(u, 13)
+			ud.field_41 = 0
+		}
+		return a1, v68, true
+	case 0x20:
+		v67, _ := nox_xxx_animPlayerGetFrameRange_4F9F90(54)
+		ud.field_59_0 = C.uchar(v67 / 2)
+		if (int(gameFrame()) - int(u.field_34)) > 0x14 {
+			nox_xxx_playerSetState_4FA020(u, 33)
+			ud.field_59_0 = C.uchar(v67 / 2)
+		}
+		return a1, v68, true
+	case 0x21:
+		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(54)
+		ud.field_59_0 = C.uchar(v67/2 + (int(gameFrame())-int(u.field_34))/(v69+1))
+		if int(ud.field_59_0) >= v67 {
+			nox_xxx_playerSetState_4FA020(u, 13)
+		}
+		return a1, v68, true
+	}
 }
 
 func sub_4FF310(a1 noxObject) {

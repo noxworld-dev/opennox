@@ -331,6 +331,16 @@ func (p *Player) SetPos(pos types.Pointf) {
 	u.SetPos(pos)
 }
 
+func (p *Player) CursorPos() types.Pointf {
+	if p == nil {
+		return types.Pointf{}
+	}
+	return types.Pointf{
+		X: float32(p.field_2284),
+		Y: float32(p.field_2288),
+	}
+}
+
 func (p *Player) OrigName() string {
 	return p.Info().Name()
 }
@@ -939,7 +949,7 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 							arg.Obj = nil
 						}
 					}
-					arg.Pos = types.Pointf{X: float32(pl.field_2284), Y: float32(pl.field_2288)}
+					arg.Pos = pl.CursorPos()
 					if noxServer.nox_xxx_castSpellByUser4FDD20(spellInd, u, arg) {
 						nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 1, int(spellInd))
 					} else {
@@ -1086,4 +1096,11 @@ func nox_client_onClassStats(cbuf *C.uchar, sz C.int) {
 		noxServer.players.mult.conjurer.speed = math.Float32frombits(binary.LittleEndian.Uint32(data[13:]))
 	}
 	nox_xxx_loadBaseValues_57B200()
+}
+
+func nox_xxx_animPlayerGetFrameRange_4F9F90(a1 int) (_, _ int) {
+	out, free := alloc.Make([]C.int{}, 2)
+	defer free()
+	C.nox_xxx_animPlayerGetFrameRange_4F9F90(C.int(a1), &out[0], &out[1])
+	return int(out[0]), int(out[1])
 }
