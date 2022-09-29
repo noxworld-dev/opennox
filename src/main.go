@@ -18,7 +18,6 @@ extern int nox_enable_audio;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern unsigned int nox_gameFPS;
 
-extern unsigned int dword_5d4594_3592;
 extern unsigned int dword_5d4594_2650652;
 extern void* dword_587000_81128;
 extern unsigned int dword_5d4594_1193336;
@@ -285,13 +284,13 @@ func RunArgs(args []string) (gerr error) {
 		log.Printf("game flag set: %v", f)
 		C.nox_xxx_guiChatShowHide_445730(C.int(bool2int(noxflags.GetGame().Mode() != noxflags.GameModeChat)))
 		if f.Has(noxflags.GameSuddenDeath) && noxflags.HasGame(noxflags.GameHost) {
-			C.nox_xxx_netPrintLineToAll_4DA390(CString("Settings.c:SuddenDeathStart"))
+			noxServer.netPrintLineToAll("Settings.c:SuddenDeathStart")
 		}
 	})
 	noxflags.OnGameUnset(func(f noxflags.GameFlag) {
 		log.Printf("game flag unset: %v", f)
 		if f.Has(noxflags.GameSuddenDeath) {
-			C.dword_5d4594_3592 = 0
+			noxServer.flag3592 = false
 		}
 	})
 	noxflags.SetGame(noxflags.GameHost | noxflags.GameClient)

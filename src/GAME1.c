@@ -39,7 +39,6 @@ void nullsub_67() {}
 
 extern uint32_t dword_5d4594_10988;
 extern uint32_t dword_5d4594_527656;
-extern uint32_t dword_5d4594_3592;
 extern uint32_t dword_5d4594_526276;
 extern uint32_t dword_5d4594_251712;
 extern uint32_t dword_5d4594_251708;
@@ -380,15 +379,6 @@ short nox_xxx_servGamedataGet_40A020(short a1) { return *getMemU16Ptr(0x5D4594, 
 //----- (0040A180) --------------------------------------------------------
 unsigned char sub_40A180(short a1) { return getMemByte(0x5D4594, 3500 + sub_409A70(a1)); }
 
-//----- (0040A1A0) --------------------------------------------------------
-int sub_40A1A0() {
-	short v0; // ax
-
-	v0 = nox_common_gameFlags_getVal_40A5B0();
-	return (sub_40A180(v0) || dword_5d4594_3592) && *getMemU32Ptr(0x587000, 4660) &&
-		   (unsigned long long)nox_platform_get_ticks() > *getMemU64Ptr(0x5D4594, 3468);
-}
-
 //----- (0040A1F0) --------------------------------------------------------
 int sub_40A1F0(int a1) {
 	int result; // eax
@@ -421,23 +411,6 @@ long long sub_40A250() {
 	*getMemU64Ptr(0x5D4594, 3468) = result + v2;
 	return result;
 }
-
-//----- (0040A2A0) --------------------------------------------------------
-const char* nox_xxx_servStartCountdown_40A2A0(int a1, const char* a2) {
-	const char* result; // eax
-
-	*getMemU64Ptr(0x5D4594, 3468) = 1000 * a1 + nox_platform_get_ticks();
-	sub_40A1F0(1);
-	result = a2;
-	if (a2) {
-		result = (const char*)nox_xxx_netPrintLineToAll_4DA390(a2);
-	}
-	dword_5d4594_3592 = 1;
-	return result;
-}
-
-//----- (0040A300) --------------------------------------------------------
-int sub_40A300() { return dword_5d4594_3592; }
 
 //----- (0040A310) --------------------------------------------------------
 long long sub_40A310(int a1) {
@@ -634,7 +607,8 @@ int sub_40A770() {
 }
 
 //----- (0040A830) --------------------------------------------------------
-int nox_xxx_countNonEliminatedPlayersInTeam_40A830(int a1) {
+int nox_xxx_countNonEliminatedPlayersInTeam_40A830(nox_team_t* a1p) {
+	int a1 = a1p;
 	int v1; // edi
 	int v2; // esi
 	int v3; // eax

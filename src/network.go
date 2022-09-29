@@ -1315,6 +1315,12 @@ func nox_xxx_netSendBallStatus_4D95F0(a1 int, a2 byte, a3 uint16) int {
 	return noxServer.nox_xxx_netSendPacket1_4E5390(a1, buf[:4], 0, 1)
 }
 
+func (s *Server) netPrintLineToAll(id strman.ID) { // nox_xxx_netPrintLineToAll_4DA390
+	for _, u := range s.getPlayerUnits() {
+		nox_xxx_netPriMsgToPlayer_4DA2C0(u, id, 0)
+	}
+}
+
 func nox_xxx_netPriMsgToPlayer_4DA2C0(u *Unit, id strman.ID, a3 byte) {
 	var buf [52]byte
 	if u == nil || !u.Class().Has(object.ClassPlayer) || id == "" || len(id) > len(buf)-4 || C.sub_419E60(u.CObj()) != 0 {

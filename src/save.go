@@ -383,7 +383,6 @@ func sub_4DCC10(a1p *nox_object_t) C.int {
 	return C.int(bool2int(v))
 }
 
-//export sub_4DCE00
 func sub_4DCE00() {
 	if dword_5d4594_1563044 {
 		if !sub_419F00() {
