@@ -31,6 +31,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/types"
 
@@ -426,7 +427,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			if noxflags.HasGame(noxflags.GameOnline) && (pl.field_3680&1 == 0) {
 				cb := s.ctrlbuf.Player(pl.Index())
 				for it := cb.First(); it != nil; it = cb.Next() {
-					if it.code == 6 {
+					if it.code == player.CCAction {
 						cb.Reset()
 						C.nox_xxx_playerRespawn_4F7EF0(u.CObj())
 						return a1, v68, true
@@ -648,7 +649,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 	ud := u.updateDataPlayer()
 	pl := ud.Player()
-	v69 := false
+	orientationOnly := false
 	cb := s.ctrlbuf.Player(pl.Index())
 	if cb.IsEmpty() {
 		goto LABEL_247
@@ -661,19 +662,19 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 	if pl.field_3680&3 != 0 {
 		goto LABEL_247
 	}
-	v69 = C.sub_4FEE50(31, u.CObj()) != 0
+	orientationOnly = C.sub_4FEE50(31, u.CObj()) != 0
 	for it := cb.First(); it != nil; it = cb.Next() {
-		if v69 && it.code != 1 {
+		if orientationOnly && it.code != player.CCOrientation {
 			continue
 		}
 		switch it.code {
-		case 1:
+		case player.CCOrientation:
 			if !u.HasEnchant(ENCHANT_FREEZE) &&
 				(!noxflags.HasGame(noxflags.GameModeQuest) || ud.field_70 == 0) &&
 				!s.abilities.IsActive(u, AbilityBerserk) {
 				u.direction2 = C.ushort(binary.LittleEndian.Uint16(it.data[:]))
 			}
-		case 2, 3, 4, 5:
+		case player.CCMoveForward, player.CCMoveBackward, player.CCMoveLeft, player.CCMoveRight:
 			if C.nox_xxx_playerCanMove_4F9BC0(u.CObj()) != 0 {
 				C.nox_xxx_cancelAllSpells_4FEE90(u.CObj())
 				if !s.abilities.IsActive(u, AbilityBerserk) &&
@@ -693,20 +694,20 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 							ud.field_60 &^= 0x1
 						}
 						switch it.code {
-						case 2:
+						case player.CCMoveForward:
 							ud.field_60 |= 0x8
-						case 3:
+						case player.CCMoveBackward:
 							ud.field_60 |= 0x10
-						case 4:
+						case player.CCMoveLeft:
 							ud.field_60 |= 0x4
-						case 5:
+						case player.CCMoveRight:
 							ud.field_60 |= 0x2
 						}
 						u.field_34 = C.uint(gameFrame())
 					}
 				}
 			}
-		case 6:
+		case player.CCAction:
 			if C.nox_xxx_playerCanAttack_4F9C40(u.CObj()) != 0 {
 				if !noxflags.HasGame(noxflags.GameModeChat) && C.nox_xxx_checkWinkFlags_4F7DF0(u.CObj()) == 0 {
 					C.nox_xxx_playerInputAttack_4F9C70(u.CObj())
@@ -715,7 +716,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 					nox_xxx_playerSetState_4FA020(u, 13)
 				}
 			}
-		case 7:
+		case player.CCJump:
 			if C.nox_xxx_playerCanMove_4F9BC0(u.CObj()) == 0 || s.abilities.IsActive(u, AbilityBerserk) ||
 				s.abilities.IsActiveVal(u, AbilityWarcry) {
 				break
@@ -737,7 +738,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				u.field_34 = C.uint(gameFrame())
 				return
 			}
-		case 0x14:
+		case player.CCSpellGestureUp:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
 				if ud.spell_cast_start == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
@@ -746,7 +747,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				nox_xxx_aud_501960(sound.SoundSpellPhonemeUp, u, 0, 0)
 				ud.field_47_0 = 0
 			}
-		case 0x15:
+		case player.CCSpellGestureDown:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
 				if ud.spell_cast_start == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
@@ -755,7 +756,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				nox_xxx_aud_501960(sound.SoundSpellPhonemeDown, u, 0, 0)
 				ud.field_47_0 = 0
 			}
-		case 0x16:
+		case player.CCSpellGestureLeft:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
 				if ud.spell_cast_start == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
@@ -764,7 +765,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				nox_xxx_aud_501960(sound.SoundSpellPhonemeLeft, u, 0, 0)
 				ud.field_47_0 = 0
 			}
-		case 0x17:
+		case player.CCSpellGestureRight:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
 				if ud.spell_cast_start == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
@@ -773,7 +774,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				nox_xxx_aud_501960(sound.SoundSpellPhonemeRight, u, 0, 0)
 				ud.field_47_0 = 0
 			}
-		case 0x18:
+		case player.CCSpellGestureUpperRight:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
 				if ud.spell_cast_start == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
@@ -782,7 +783,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				nox_xxx_aud_501960(sound.SoundSpellPhonemeUpRight, u, 0, 0)
 				ud.field_47_0 = 0
 			}
-		case 0x19:
+		case player.CCSpellGestureUpperLeft:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
 				if ud.spell_cast_start == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
@@ -791,7 +792,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				nox_xxx_aud_501960(sound.SoundSpellPhonemeUpLeft, u, 0, 0)
 				ud.field_47_0 = 0
 			}
-		case 0x1A:
+		case player.CCSpellGestureLowerRight:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
 				if ud.spell_cast_start == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
@@ -800,7 +801,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				nox_xxx_aud_501960(sound.SoundSpellPhonemeDownRight, u, 0, 0)
 				ud.field_47_0 = 0
 			}
-		case 0x1B:
+		case player.CCSpellGestureLowerLeft:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
 				if ud.spell_cast_start == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
@@ -809,7 +810,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				nox_xxx_aud_501960(sound.SoundSpellPhonemeDownLeft, u, 0, 0)
 				ud.field_47_0 = 0
 			}
-		case 0x1C:
+		case player.CCSpellPatternEnd:
 			nox_xxx_playerSetState_4FA020(u, 13)
 			if !noxflags.HasGame(noxflags.GameModeChat) {
 				if ud.spell_cast_start != 0 {
@@ -820,7 +821,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 					C.nox_xxx_playerDoSchedSpell_4FB0E0(u.CObj(), v61.CObj())
 				}
 			}
-		case 0x1D:
+		case player.CCCastQueuedSpell:
 			nox_xxx_playerSetState_4FA020(u, 13)
 			if !noxflags.HasGame(noxflags.GameModeChat) {
 				if ud.spell_cast_start != 0 {
@@ -832,7 +833,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				v63 := s.getObjectFromNetCode(int(binary.LittleEndian.Uint32(it.data[:])))
 				C.nox_xxx_playerDoSchedSpell_4FB0E0(u.CObj(), v63.CObj())
 			}
-		case 0x1E:
+		case player.CCCastMostRecentSpell:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
 				if ud.spell_cast_start != 0 {
 					s.playerSpell(u)
@@ -1170,7 +1171,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 	}
 	pl.field_3688 = 0
 	for it := cb.First(); it != nil; it = cb.Next() {
-		if it.code == 2 {
+		if it.code == player.CCMoveForward {
 			if pl.field_3672 == 0 {
 				pl.field_3688 = 1
 				if pl.field_3692 == 0 {
@@ -1197,8 +1198,8 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 			}
 			continue
 		}
-		if it.code != 6 {
-			if it.code != 7 {
+		if it.code != player.CCAction {
+			if it.code != player.CCJump {
 				continue
 			}
 			if pl.ObserveTarget() == nil && !noxflags.HasGame(noxflags.GameModeQuest) {

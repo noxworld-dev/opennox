@@ -19,7 +19,7 @@ type ctrlBuf struct {
 }
 
 type ctrlBufEvent struct {
-	code   uint32
+	code   player.CtrlCode
 	data   [4]uint8
 	active bool
 }
@@ -40,19 +40,19 @@ func (cb *ctrlBuf) dedup() {
 		if !p.active {
 			continue
 		}
-		if p.code == 2 {
+		if p.code == player.CCMoveForward {
 			if code2 {
 				p.active = false
 			} else {
 				code2 = true
 			}
-		} else if p.code == 4 {
+		} else if p.code == player.CCMoveLeft {
 			if code4 {
 				p.active = false
 			} else {
 				code4 = true
 			}
-		} else if p.code == 5 {
+		} else if p.code == player.CCMoveRight {
 			if code5 {
 				p.active = false
 			} else {
@@ -115,7 +115,7 @@ func netDecodePlayerInput(data []byte, out []ctrlBufEvent) []ctrlBufEvent {
 		code := player.CtrlCode(data[0])
 		data = data[4:]
 		v := ctrlBufEvent{
-			code:   uint32(code),
+			code:   code,
 			active: true,
 		}
 		if sz := code.DataSize(); sz != 0 {
