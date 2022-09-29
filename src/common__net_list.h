@@ -26,8 +26,6 @@ typedef struct {
 	unsigned int field_7;       // 7, 28
 } nox_net_list_t;
 
-void nox_netlist_free_40EA70();
-
 int nox_netlist_countByInd_40E9D0(int ind1, int ind2);
 int nox_netlist_sizeByInd_40E9F0(int ind1, int ind2);
 int nox_netlist_countByInd2_40F0B0(int ind);
