@@ -393,7 +393,7 @@ func (c *CtrlEventHandler) nox_xxx_input_42D220_A(inp *input.Handler) *CtrlEvent
 				if inp.IsReleased(key) {
 					break
 				}
-			} else if key.IsMouse() && c.flags747848 != 2 {
+			} else if key.IsMouse() {
 				if inp.MouseAction(key, it.events[0]) {
 					break
 				}
