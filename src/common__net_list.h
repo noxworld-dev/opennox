@@ -27,15 +27,11 @@ typedef struct {
 } nox_net_list_t;
 
 int nox_netlist_countByInd_40E9D0(int ind1, int ind2);
-int nox_netlist_sizeByInd_40E9F0(int ind1, int ind2);
 int nox_netlist_countByInd2_40F0B0(int ind);
-int nox_netlist_sizeByInd2_40F0D0(int ind);
 
 int nox_netlist_addToMsgListCli_40EBC0(int ind1, int ind2, unsigned char* buf, int sz);
 int nox_netlist_clientSend_0_40ECA0(int ind1, int ind2, unsigned char* buf, int sz, int sz2);
 void nox_netlist_resetByInd_40ED10(int ind1, int ind2);
-void nox_netlist_resetAllInList_40EE90(int a1);
-void nox_netlist_resetAll_40EE60();
 unsigned char* nox_netlist_copyPacketList_40ED60(int ind1, int ind2, unsigned int* outSz);
 unsigned char* nox_netlist_getInd_40EEB0(int ind1, int ind2, unsigned int* outSz);
 unsigned char* nox_netlist_getByInd2_40F080(int ind, unsigned int* outSz);

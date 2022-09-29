@@ -526,7 +526,7 @@ func (s *Server) updateRemotePlayers() error {
 			var buf [3]byte
 			buf[0] = 39
 			binary.LittleEndian.PutUint16(buf[1:], uint16(gameFrame()))
-			nox_netlist_addToMsgListCli_40EBC0(pl.Index(), 1, buf[:])
+			nox_netlist_addToMsgListCli(pl.Index(), 1, buf[:])
 		} else {
 			if uint32(pl.UnitC().Ind()) == DeadWord { // see #401
 				pl.playerUnit = nil
@@ -554,7 +554,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	s.ResetObjectScriptIDs()
 	C.sub_56F1C0()
 	s.resetAllPlayers()
-	C.nox_netlist_resetAll_40EE60()
+	nox_netlist_resetAll_40EE60()
 	C.sub_4E4EF0()
 	C.sub_4E4ED0()
 	if C.nox_xxx_allocAudEventArray_501860() == 0 {
@@ -679,7 +679,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 		s.nox_server_netCloseHandler_4DEC60(int(memmap.Uint32(0x5D4594, 1548516)))
 	}
 	C.sub_56F3B0()
-	C.nox_netlist_resetAll_40EE60()
+	nox_netlist_resetAll_40EE60()
 	_ = ifs.Remove(datapath.Save("_temp_.dat"))
 }
 

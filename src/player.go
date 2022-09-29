@@ -864,7 +864,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 		}
 	}
 	v5 := sub_416640()
-	C.nox_netlist_resetByInd_40ED10(C.int(ind), 1)
+	nox_netlist_resetByInd_40ED10(ind, 1)
 	C.nox_xxx_playerResetImportantCtr_4E4F40(C.int(ind))
 	sub_4E4F30(ind)
 

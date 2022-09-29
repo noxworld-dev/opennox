@@ -177,5 +177,5 @@ func noxPerfMonPacketSize() int {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		return int(memmap.Uint32(0x5D4594, 815712))
 	}
-	return int(C.nox_netlist_sizeByInd_40E9F0(noxMaxPlayers-1, 1) + C.nox_netlist_sizeByInd2_40F0D0(noxMaxPlayers-1))
+	return nox_netlist_sizeByInd_40E9F0(noxMaxPlayers-1, 1) + nox_netlist_sizeByInd2_40F0D0(noxMaxPlayers-1)
 }
