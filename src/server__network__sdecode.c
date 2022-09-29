@@ -29,11 +29,12 @@
 #include "server__system__trade.h"
 
 void noxOnSrvPacketDebug(int op, unsigned char* data, int sz);
+int noxOnSrvPacketPlayerInput(int a1, unsigned char* data, int sz);
 void sub_446070();
 extern unsigned int nox_frame_xxx_2598000;
 extern uint32_t nox_player_netCode_85319C;
 //----- (0051BAD0) --------------------------------------------------------
-int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operationId, signed int a3) {
+int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* pdata, signed int dsz) {
 	unsigned char* data;             // esi
 	char* v5;                        // eax
 	char* v6;                        // eax
@@ -116,7 +117,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 	char v88[4];                     // [esp+24h] [ebp-630h]
 	char* v89;                       // [esp+28h] [ebp-62Ch]
 	char v90[6];                     // [esp+2Ch] [ebp-628h]
-	unsigned char* v91;              // [esp+34h] [ebp-620h]
+	unsigned char* end;              // [esp+34h] [ebp-620h]
 	char v92[5];                     // [esp+38h] [ebp-61Ch]
 	int v93;                         // [esp+40h] [ebp-614h]
 	float2 v94;                      // [esp+44h] [ebp-610h]
@@ -124,22 +125,22 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 	wchar_t v97[256];                // [esp+54h] [ebp-600h]
 	char FileName[1024];             // [esp+254h] [ebp-400h]
 
-	if (a3) {
+	if (dsz) {
 		//	OutputDebugStringA("S -> ");
 	}
 
-	if (a3 <= 0) {
+	if (dsz <= 0) {
 		*((uint32_t*)nox_common_playerInfoFromNum_417090(a1) + 899) = nox_frame_xxx_2598000;
 		return 1;
 	}
-	data = operationId;
+	data = pdata;
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE)) {
 		v5 = nox_common_playerInfoFromNum_417090(a1);
-		nox_xxx_replayWriteMSgMB_4D3450(v5, operationId, a3);
+		nox_xxx_replayWriteMSgMB_4D3450(v5, pdata, dsz);
 	}
-	switch (*operationId) {
+	switch (*pdata) {
 	case 0x20u:
-		if (!nox_xxx_playerNew_4DD320(a1, (int)(operationId + 1))) {
+		if (!nox_xxx_playerNew_4DD320(a1, (int)(pdata + 1))) {
 			nox_xxx_netStructReadPackets_5545B0(a1 + 1);
 		}
 		return 1;
@@ -150,7 +151,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 		*((uint32_t*)nox_common_playerInfoFromNum_417090(a1) + 899) = nox_frame_xxx_2598000;
 		return 1;
 	}
-	v91 = &operationId[a3];
+	end = &pdata[dsz];
 	v6 = nox_common_playerInfoFromNum_417090(a1);
 	v8 = (int)v6;
 	v89 = v6;
@@ -164,11 +165,11 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 	}
 	v10 = *(int**)(v93 + 748);
 	v85 = *(uint32_t*)(v93 + 748);
-	if (operationId >= v91) {
+	if (pdata >= end) {
 		*(uint32_t*)(v8 + 3596) = nox_frame_xxx_2598000;
 		return 1;
 	}
-	while (data < v91) {
+	while (data < end) {
 		unsigned char* old = data;
 		v11 = 0;
 		int op = data[0];
@@ -181,7 +182,8 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* operat
 			++data;
 			break;
 		case 0x3Fu: // MSG_PLAYER_INPUT
-			data += nox_xxx_playerSaveInput_51A960(*(unsigned char*)(v10[69] + 2064), data + 1) + 1;
+			data++;
+			data += noxOnSrvPacketPlayerInput(*(unsigned char*)(v10[69] + 2064), data, (int)end - (int)data);
 			break;
 		case 0x40u: // MSG_PLAYER_SET_WAYPOINT
 			v84 = (double)*(unsigned short*)(data + 5);

@@ -164,6 +164,7 @@ type Server struct {
 	*server.Server
 	port            int
 	players         serverPlayers
+	ctrlbuf         serverCtrlBuf
 	spells          serverSpells
 	abilities       serverAbilities
 	srvReg          srvReg
