@@ -36,16 +36,17 @@ func NewClient(pr console.Printer, srv *Server) (*Client, error) {
 }
 
 type Client struct {
-	pr          console.Printer
-	srv         *Server
-	seat        seat.Seat
-	win         *render.Renderer
-	r           *NoxRender
-	vp          *Viewport
-	inp         *input.Handler
-	mapsend     clientMapDownload
-	guiAdv      guiAdvOptions
-	screenshots screenshots
+	pr           console.Printer
+	srv          *Server
+	seat         seat.Seat
+	win          *render.Renderer
+	r            *NoxRender
+	vp           *Viewport
+	inp          *input.Handler
+	mapsend      clientMapDownload
+	guiAdv       guiAdvOptions
+	screenshots  screenshots
+	netPrevMouse image.Point
 }
 
 func (c *Client) Close() error {

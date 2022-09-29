@@ -458,17 +458,12 @@ func nox_xxx_netClientSend2_4E53C0(a1 int, buf []byte, a4, a5 int) {
 	C.nox_xxx_netClientSend2_4E53C0(C.int(a1), unsafe.Pointer(&p[0]), C.int(len(buf)), C.int(a4), C.int(a5))
 }
 
-var (
-	clientNetPrevMouse image.Point
-)
-
-func clientSendInput(pli int, mp image.Point) bool {
-	sp := nox_xxx_spriteGetMB_476F80()
+func (c *Client) clientSendInput(pli int) bool {
 	nbuf := ctrlEvent.netBuf
 	if len(nbuf) == 0 {
 		return true
 	}
-	var buf [5]byte
+	var buf [2]byte
 	buf[0] = byte(noxnet.MSG_PLAYER_INPUT)
 	buf[1] = byte(len(nbuf))
 	if !nox_netlist_addToMsgListCli_40EBC0(pli, 0, buf[:2]) {
@@ -477,20 +472,24 @@ func clientSendInput(pli int, mp image.Point) bool {
 	if !nox_netlist_addToMsgListCli_40EBC0(pli, 0, nbuf) {
 		return false
 	}
+	return true
+}
+
+func (c *Client) clientSendInputMouse(pli int, mp image.Point) bool {
+	sp := nox_xxx_spriteGetMB_476F80()
 	if sp != nil {
 		mp.Y = sp.Pos().Y
 	}
-	if mp == clientNetPrevMouse {
+	if mp == c.netPrevMouse {
 		return true
 	}
-	clientNetPrevMouse = mp
+	c.netPrevMouse = mp
+
+	var buf [5]byte
 	buf[0] = byte(noxnet.MSG_MOUSE)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(mp.X))
 	binary.LittleEndian.PutUint16(buf[3:], uint16(mp.Y))
-	if !nox_netlist_addToMsgListCli_40EBC0(pli, 0, buf[:5]) {
-		return false
-	}
-	return true
+	return nox_netlist_addToMsgListCli_40EBC0(pli, 0, buf[:5])
 }
 
 func nox_netlist_addToMsgListCli_40EBC0(ind1, ind2 int, buf []byte) bool {
