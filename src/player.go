@@ -120,6 +120,31 @@ func nox_xxx_playerCallDisconnect_4DEAB0(ind C.int, v C.char) *C.char {
 	return nil
 }
 
+//export nox_xxx_playerCameraUnlock_4E6040
+func nox_xxx_playerCameraUnlock_4E6040(cplayer *nox_object_t) {
+	asUnitC(cplayer).ControllingPlayer().CameraUnlock()
+}
+
+//export nox_xxx_playerCameraFollow_4E6060
+func nox_xxx_playerCameraFollow_4E6060(cplayer, cunit *nox_object_t) {
+	asUnitC(cplayer).ControllingPlayer().CameraToggle(asObjectC(cunit))
+}
+
+//export nox_xxx_playerGetPossess_4DDF30
+func nox_xxx_playerGetPossess_4DDF30(cplayer *nox_object_t) *nox_object_t {
+	return asUnitC(cplayer).ControllingPlayer().ObserveTarget().CObj()
+}
+
+//export nox_xxx_playerGoObserver_4E6860
+func nox_xxx_playerGoObserver_4E6860(pl *C.nox_playerInfo, a2 C.int, a3 C.int) C.int {
+	return C.int(bool2int(asPlayer(pl).GoObserver(a2 != 0, a3 != 0)))
+}
+
+//export nox_xxx_playerObserveClear_4DDEF0
+func nox_xxx_playerObserveClear_4DDEF0(cplayer *nox_object_t) {
+	asUnitC(cplayer).observeClear()
+}
+
 type classStatMult struct {
 	// TODO: health and mana
 
@@ -351,6 +376,21 @@ func (p *Player) CursorPos() types.Pointf {
 	}
 }
 
+func (p *Player) pos3632() types.Pointf {
+	if p == nil {
+		return types.Pointf{}
+	}
+	return types.Pointf{
+		X: float32(p.pos_x_3632),
+		Y: float32(p.pos_y_3636),
+	}
+}
+
+func (p *Player) setPos3632(pt types.Pointf) {
+	p.pos_x_3632 = C.float(pt.X)
+	p.pos_y_3636 = C.float(pt.Y)
+}
+
 func (p *Player) OrigName() string {
 	return p.Info().Name()
 }
@@ -503,6 +543,16 @@ func (p *Player) CameraTarget() *Object {
 	return asObjectC(p.camera_follow)
 }
 
+func (p *Player) ObserveTarget() *Object { // nox_xxx_playerGetPossess_4DDF30
+	if p == nil {
+		return nil
+	}
+	if p.field_3680&2 == 0 {
+		return nil
+	}
+	return asObjectC(p.camera_follow)
+}
+
 func (p *Player) CameraUnlock() { // nox_xxx_playerCameraUnlock_4E6040
 	if p == nil {
 		return
@@ -510,29 +560,115 @@ func (p *Player) CameraUnlock() { // nox_xxx_playerCameraUnlock_4E6040
 	p.camera_follow = nil
 }
 
-func (p *Player) CameraFollow(obj *Object) {
+func (p *Player) CameraFollow(obj noxObject) {
 	if p == nil {
 		return
 	}
-	p.camera_follow = obj.CObj()
+	p.camera_follow = toCObj(obj)
 }
 
-func (p *Player) CameraToggle(obj *Object) {
+func (p *Player) CameraToggle(obj noxObject) { // nox_xxx_playerCameraFollow_4E6060
 	if p == nil {
 		return
 	}
-	if p.CameraTarget() == obj {
+	if p.camera_follow == toCObj(obj) {
 		p.CameraUnlock()
 	} else {
-		p.CameraFollow(obj)
+		p.CameraFollow(toObject(obj))
 	}
 }
 
-func (p *Player) GoObserver(notify, keepPlayer bool) bool {
+func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoObserver_4E6860
 	if p == nil {
 		return true
 	}
-	return C.nox_xxx_playerGoObserver_4E6860(p.C(), C.int(bool2int(notify)), C.int(bool2int(keepPlayer))) != 0
+	u := p.UnitC()
+	if u == nil {
+		return true
+	}
+	s := u.getServer()
+	if !keepPlayer && s.abilities.IsAnyActive(u) {
+		return false
+	}
+	if unsafe.Pointer(u.func_update) == unsafe.Pointer(C.nox_xxx_updatePlayerMonsterBot_4FAB20) {
+		return false
+	}
+	ud := u.updateDataPlayer()
+	if noxflags.HasGame(noxflags.GameModeKOTR | noxflags.GameModeCTF | noxflags.GameModeFlagBall) {
+		crown := s.getObjectTypeID("Crown")
+		ball := s.getObjectTypeID("GameBall")
+		for it := u.FirstOwned516(); it != nil; it = it.NextOwned512() {
+			typ := it.objTypeInd()
+			if typ == crown {
+				u.callDrop(it, u.Pos())
+			} else if typ == ball {
+				it.obj_130 = nil
+				it.obj_flags &= 0xFFFFFFBF
+				it.SetOwner(nil)
+				sub_4E8290(1, 0)
+			} else if it.Class().Has(object.ClassFlag) {
+				u.forceDropAt(it, u.Pos())
+			}
+		}
+	}
+	if p.ObserveTarget() != nil {
+		u.observeClear()
+	}
+	C.nox_xxx_netNeedTimestampStatus_4174F0(p.C(), 1)
+	v10 := C.nox_xxx_gamePlayIsAnyPlayers_40A8A0() != 0
+	if !v10 && !noxflags.HasGame(noxflags.GameModeQuest) {
+		C.sub_40A1F0(0)
+		C.nox_xxx_playerForceSendLessons_416E50(1)
+		nox_server_teamsResetYyy_417D00()
+		C.sub_40A970()
+	}
+	nox_xxx_netInformTextMsg_4DA0F0(p.Index(), 12, bool2int(notify))
+	u.ApplyEnchant(ENCHANT_INVISIBLE, 0, 5)
+	u.obj_flags |= C.uint(object.FlagNoCollide)
+	p.setPos3632(u.Pos())
+	p.CameraUnlock()
+	if noxflags.HasGame(noxflags.GameModeCoop) {
+		p.field_3672 = 1
+		p.camera_follow = nil
+	} else if noxflags.HasGame(noxflags.GameModeFlagBall) {
+		if !keepPlayer {
+			p.leaveMonsterObserver()
+		}
+	}
+	C.nox_xxx_playerRemoveSpawnedStuff_4E5AD0(u.CObj())
+	ud.field_61 = 0
+	_ = nox_xxx_updatePlayerObserver_4E62F0
+	u.func_update = (*[0]byte)(C.nox_xxx_updatePlayerObserver_4E62F0)
+	C.sub_4D7E50(u.CObj())
+	return true
+}
+
+func (p *Player) leaveMonsterObserver() {
+	u := p.UnitC()
+	if u == nil {
+		return
+	}
+	var targ *Object
+	if p.ObserveTarget() != nil {
+		targ = asObjectC(C.nox_xxx_playerObserverFindGoodSlave0_4E6280(p.C()))
+		if targ == nil {
+			u.observeClear()
+			return
+		}
+	} else {
+		targ = asObjectC(C.sub_4E6150(p.C()))
+	}
+	p.CameraFollow(targ)
+}
+
+func (u *Unit) observeClear() {
+	pl := u.ControllingPlayer()
+	if pl.field_3680&2 != 0 {
+		C.nox_xxx_playerUnsetStatus_417530(pl.C(), 2)
+		pl.CameraUnlock()
+		_ = nox_xxx_updatePlayer_4F8100
+		u.func_update = (*[0]byte)(C.nox_xxx_updatePlayer_4F8100)
+	}
 }
 
 func (s *Server) cntPlayers() (n int) {
@@ -1114,4 +1250,33 @@ func nox_client_onClassStats(cbuf *C.uchar, sz C.int) {
 func nox_xxx_animPlayerGetFrameRange_4F9F90(i int) (_, _ int) {
 	return int(memmap.Uint32(0x5D4594, 1568412+8*uintptr(i))),
 		int(memmap.Uint32(0x5D4594, 1568416+8*uintptr(i)))
+}
+
+//export nox_xxx_playerObserveMonster_4DDE80
+func nox_xxx_playerObserveMonster_4DDE80(cplayer, cunit *nox_object_t) {
+	pu := asUnitC(cplayer)
+	ud := pu.updateDataPlayer()
+	pl := ud.Player()
+
+	targ := asObjectC(cunit)
+
+	if pl.field_3680&0x1 != 0 {
+		C.nox_xxx_playerLeaveObserver_0_4E6AA0(pl.C())
+	}
+	if pl.field_3680&0x2 != 0 {
+		pu.observeClear()
+	}
+	C.nox_xxx_netNeedTimestampStatus_4174F0(pl.C(), 2)
+	pl.CameraFollow(targ)
+	_ = nox_xxx_updatePlayerObserver_4E62F0
+	pu.func_update = (*[0]byte)(C.nox_xxx_updatePlayerObserver_4E62F0)
+}
+
+func (s *Server) nox_xxx_playerLeaveObsByObserved_4E60A0(obj noxObject) {
+	cobj := toCObj(obj)
+	for pl := s.playerFirst(); pl != nil; pl = s.playerNext(pl) {
+		if pl.CameraTarget().CObj() == cobj {
+			pl.leaveMonsterObserver()
+		}
+	}
 }

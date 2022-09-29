@@ -14,6 +14,7 @@ package opennox
 
 extern uint32_t dword_5d4594_1569672;
 extern uint32_t dword_5d4594_251568;
+extern unsigned int dword_5d4594_2650652;
 extern void* nox_alloc_magicEnt_1569668;
 extern void* nox_alloc_spellDur_1569724;
 
@@ -207,7 +208,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 		u.vel_x = 0
 		u.vel_y = 0
 	}
-	if noxflags.HasGame(noxflags.GameModeQuest) && ud.field_137 != 0 && ud.player.playerInd != noxMaxPlayers-1 && (gameFrame()-uint32(ud.field_137) > (30 * gameFPS())) {
+	if noxflags.HasGame(noxflags.GameModeQuest) && ud.field_137 != 0 && ud.Player().Index() != noxMaxPlayers-1 && (gameFrame()-uint32(ud.field_137) > (30 * gameFPS())) {
 		sub_4DCFB0(u.CObj())
 		return
 	}
@@ -232,8 +233,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	if u2 == nil {
 		u2 = pl.UnitC()
 	}
-	pl.pos_x_3632 = u2.x
-	pl.pos_y_3636 = u2.y
+	pl.setPos3632(u2.Pos())
 	if ud.field_40_0 != 0 {
 		ud.field_40_0--
 	}
@@ -439,24 +439,24 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			return a1, v68, true
 		}
 		if pl.field_3680&1 != 0 {
-			a1 = pl.camera_follow != nil
+			a1 = pl.CameraTarget() != nil
 			pl.CameraUnlock()
 			for _, it := range s.getPlayerUnits() {
 				pl2 := s.getPlayerByID(int(it.net_code))
 				if !it.Flags().Has(object.FlagDead) && (pl2.field_3680&1 == 0) {
-					C.nox_xxx_playerCameraFollow_4E6060(u.CObj(), it.CObj())
+					pl.CameraToggle(it)
 				}
 			}
 		} else {
 			C.nox_xxx_netNeedTimestampStatus_4174F0(pl.C(), 32)
 			pl.GoObserver(false, false)
 			pl.CameraUnlock()
-			C.nox_xxx_playerLeaveObsByObserved_4E60A0(u.CObj())
+			s.nox_xxx_playerLeaveObsByObserved_4E60A0(u)
 			if C.sub_4F9E10(u.CObj()) == 0 {
 				for _, it := range s.getPlayerUnits() {
 					pl2 := s.getPlayerByID(int(it.net_code))
 					if !it.Flags().Has(object.FlagDead) && (pl2.field_3680&1 == 0) {
-						C.nox_xxx_playerCameraFollow_4E6060(u.CObj(), it.CObj())
+						pl.CameraToggle(it)
 					}
 				}
 			}
@@ -1145,4 +1145,149 @@ func sub_5336D0(cobj *nox_object_t) C.double {
 		return -1.0
 	}
 	return C.double(math.Sqrt(float64(minR2)))
+}
+
+//export nox_xxx_updatePlayerObserver_4E62F0
+func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
+	u := asUnitC(a1p)
+	ud := u.updateDataPlayer()
+	pl := ud.Player()
+	for i := range ud.field_29 {
+		it := asObjectC(ud.field_29[i])
+		if it != nil && it.Flags().Has(object.FlagDestroyed) {
+			ud.field_29[i] = nil
+		}
+	}
+	u.needSync()
+	if targ := pl.CameraTarget(); targ != nil {
+		pl.setPos3632(targ.Pos())
+	}
+	if playerControlBufferFirst(pl.Index()) == nil {
+		return
+	}
+	pl.field_3688 = 0
+	for it := playerControlBufferFirst(pl.Index()); it != nil; it = playerGetControlBufferNext(pl.Index()) {
+		if it.field_2 == 2 {
+			if pl.field_3672 == 0 {
+				pl.field_3688 = 1
+				if pl.field_3692 == 0 {
+					pl.leaveMonsterObserver()
+				}
+				it.field_4 = 0
+			} else if pl.field_3672 == 1 {
+				const max = 30
+				dp := pl.pos3632().Sub(pl.CursorPos())
+				opos := pl.pos3632()
+				if dp.X > max {
+					opos.X -= (dp.X - max) * 0.1
+				} else if dp.X < -max {
+					opos.X -= (dp.X + max) * 0.1
+				}
+				if dp.Y > max {
+					opos.Y -= (dp.Y - max) * 0.1
+				} else if dp.Y < -max {
+					opos.Y -= (dp.Y + max) * 0.1
+				}
+				if C.sub_517590(C.float(opos.X), C.float(opos.Y)) != 0 {
+					pl.setPos3632(opos)
+				}
+			}
+			continue
+		}
+		if it.field_2 != 6 {
+			if it.field_2 != 7 {
+				continue
+			}
+			if pl.ObserveTarget() == nil && !noxflags.HasGame(noxflags.GameModeQuest) {
+				pos2 := pl.pos3632()
+				var (
+					found *Object
+					min   = float32(1e+08)
+				)
+				rect := types.RectFromPointsf(pos2.Sub(types.Pointf{X: 100, Y: 100}), pos2.Add(types.Pointf{X: 100, Y: 100}))
+				getUnitsInRect(rect, func(obj *Object) {
+					if obj.Class().Has(object.ClassMonster) && obj.OwnerC() != nil && obj.OwnerC().CObj() == u.CObj() {
+						dp := obj.Pos().Sub(pos2)
+						dist := dp.X*dp.X + dp.Y*dp.Y
+						if dist < min {
+							found = obj
+							min = dist
+						}
+					}
+				})
+				if found != nil && found.CObj() != pl.CameraTarget().CObj() {
+					pl.CameraToggle(found)
+					pl.field_3672 = 0
+				} else {
+					pl.CameraUnlock()
+					pl.field_3672 = 1
+				}
+				continue
+			}
+		}
+		if C.dword_5d4594_2650652 != 0 && noxflags.HasGame(noxflags.GameFlag15|noxflags.GameFlag16) && C.sub_509CF0(&pl.field_2096[0], C.char(pl.PlayerClass()), C.int(pl.field_2068)) == 0 {
+			nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 17, 0)
+			it.field_4 = 0
+			continue
+		}
+		if pl.field_3680&0x20 != 0 {
+			pl.leaveMonsterObserver()
+			it.field_4 = 0
+			continue
+		}
+		if noxflags.HasGame(noxflags.GameModeQuest) {
+			if pl.field_4792 == 0 {
+				if ud.field_138 == 1 {
+					nox_xxx_netPriMsgToPlayer_4DA2C0(u, "MainBG.wnd:Loading", 0)
+				} else {
+					pl.field_4792 = C.uint(C.sub_4E4100())
+					if pl.field_4792 == 1 {
+						C.sub_4D79C0(u.CObj())
+					} else {
+						nox_xxx_netPriMsgToPlayer_4DA2C0(u, "GeneralPrint:QuestGameFull", 0)
+					}
+				}
+			}
+			if ud.field_79 != 0 {
+				C.sub_4D7480(u.CObj())
+				continue
+			}
+			if ud.field_78 != 0 {
+				pl.leaveMonsterObserver()
+				it.field_4 = 0
+				continue
+			}
+			if pl.field_4792 == 0 {
+				pl.leaveMonsterObserver()
+				it.field_4 = 0
+				continue
+			}
+		}
+		v13 := C.nox_xxx_gamePlayIsAnyPlayers_40A8A0() != 0
+		if C.sub_40A740() != 0 || noxflags.HasGame(noxflags.GameFlag16) || (pl.field_3680&0x100 != 0) && v13 {
+			if C.sub_40AA70(pl.C()) == 0 {
+				pl.leaveMonsterObserver()
+				it.field_4 = 0
+				continue
+			}
+		}
+		if noxflags.HasEngine(noxflags.EngineNoRendering) && u.CObj() == HostPlayerUnit().CObj() {
+			it.field_4 = 0
+			continue
+		}
+		if pl.ObserveTarget() == nil {
+			C.sub_4DF3C0(pl.C())
+			C.nox_xxx_playerLeaveObserver_0_4E6AA0(pl.C())
+			pl.CameraUnlock()
+			if !noxflags.HasGame(noxflags.GameModeQuest) {
+				v22 := nox_xxx_mapFindPlayerStart_4F7AB0(pl.UnitC())
+				pl.UnitC().SetPos(v22)
+			}
+			it.field_4 = 0
+			continue
+		}
+		u.observeClear()
+		it.field_4 = 0
+	}
+	pl.field_3692 = pl.field_3688
 }
