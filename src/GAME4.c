@@ -1567,12 +1567,10 @@ bool nox_xxx_unitUpdatePlayerImpl_4F8460_A(nox_object_t* u, int* a1, int* v68) {
 	int v36;            // eax
 	int v37;            // eax
 	short v41;          // ax
-	int v42;            // ecx
 	int j;              // edi
 	char* v44;          // eax
 	int i;              // edi
 	char* v46;          // eax
-	int v47;            // eax
 	unsigned char* v48; // eax
 	signed int v49;     // edi
 	int v50;            // eax
@@ -1603,10 +1601,9 @@ bool nox_xxx_unitUpdatePlayerImpl_4F8460_A(nox_object_t* u, int* a1, int* v68) {
 		}
 		v21 = pl;
 		*v68 = 1;
-		if (ud->field_22_0 != 5 &&
-				(v23 = (double)*(int*)(v21 + 2288) - u->y,
-				 v22 = (double)*(int*)(v21 + 2284) - u->x, v23 * v23 + v22 * v22 <= 10000.0) ||
-			nox_common_playerIsAbilityActive_4FC250(u, 4)) {
+		v22 = (double)*(int*)(v21 + 2284) - u->x;
+		v23 = (double)*(int*)(v21 + 2288) - u->y;
+		if (ud->field_22_0 != 5 && (v23 * v23 + v22 * v22 <= 10000.0) || nox_common_playerIsAbilityActive_4FC250(u, 4)) {
 			*a1 = 0;
 			goto LABEL_93;
 		}
@@ -1617,8 +1614,7 @@ bool nox_xxx_unitUpdatePlayerImpl_4F8460_A(nox_object_t* u, int* a1, int* v68) {
 		v69 = 0;
 		nox_xxx_animPlayerGetFrameRange_4F9F90(6, &v67, &v69);
 		v25 = (u->net_code + nox_frame_xxx_2598000) / (unsigned int)(v69 + 1) % v67;
-		if (v25 <= (int)((u->net_code + nox_frame_xxx_2598000 - 1) / (unsigned int)(v69 + 1) % v67) ||
-			v25 != 2 && v25 != 8) {
+		if (v25 <= (int)((u->net_code + nox_frame_xxx_2598000 - 1) / (unsigned int)(v69 + 1) % v67) || v25 != 2 && v25 != 8) {
 			goto LABEL_90;
 		}
 		v26 = nox_xxx_tileNFromPoint_411160(&u->x);
@@ -1768,11 +1764,11 @@ bool nox_xxx_unitUpdatePlayerImpl_4F8460_A(nox_object_t* u, int* a1, int* v68) {
 		if ((unsigned int)(nox_frame_xxx_2598000 - u->field_34) <= (int)nox_gameFPS/2) {
 			return false;
 		}
-		if (!nox_common_gameFlags_check_40A5C0(1024) || (v41 = nox_xxx_servGamedataGet_40A020(1024), v41 <= 0) ||
-			(v42 = pl, *(uint32_t*)(v42 + 2140) < v41)) {
-			if (nox_common_gameFlags_check_40A5C0(0x2000) &&
-				(v47 = pl, !(*(uint8_t*)(v47 + 3680) & 1)) &&
-				(v48 = nox_xxx_playerControlBufferFirst_51AB50(*(unsigned char*)(v47 + 2064))) != 0) {
+		v41 = nox_xxx_servGamedataGet_40A020(1024);
+		if (!nox_common_gameFlags_check_40A5C0(1024) || (v41 <= 0) || (*(uint32_t*)((int)pl + 2140) < v41)) {
+			if (nox_common_gameFlags_check_40A5C0(0x2000) && (!(*(uint8_t*)((int)pl + 3680) & 1)) &&
+				nox_xxx_playerControlBufferFirst_51AB50(*(unsigned char*)((int)pl + 2064)) != 0) {
+				v48 = nox_xxx_playerControlBufferFirst_51AB50(*(unsigned char*)((int)pl + 2064));
 				while (*((uint32_t*)v48 + 2) != 6) {
 					v48 = nox_xxx_playerGetControlBufferNext_51ABC0(pl->playerInd);
 					if (!v48) {
@@ -1790,8 +1786,8 @@ bool nox_xxx_unitUpdatePlayerImpl_4F8460_A(nox_object_t* u, int* a1, int* v68) {
 			}
 			break;
 		}
-		if (*(uint8_t*)(v42 + 3680) & 1) {
-			*a1 = *(uint32_t*)(v42 + 3628);
+		if (*(uint8_t*)((int)pl + 3680) & 1) {
+			*a1 = *(uint32_t*)((int)pl + 3628);
 			nox_xxx_playerCameraUnlock_4E6040(u);
 			for (i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
 				v46 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(i + 36));
@@ -1800,7 +1796,7 @@ bool nox_xxx_unitUpdatePlayerImpl_4F8460_A(nox_object_t* u, int* a1, int* v68) {
 				}
 			}
 		} else {
-			nox_xxx_netNeedTimestampStatus_4174F0(v42, 32);
+			nox_xxx_netNeedTimestampStatus_4174F0(pl, 32);
 			nox_xxx_playerGoObserver_4E6860(pl, 0, 0);
 			nox_xxx_playerCameraUnlock_4E6040(u);
 			nox_xxx_playerLeaveObsByObserved_4E60A0(u);
