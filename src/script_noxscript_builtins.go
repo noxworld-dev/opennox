@@ -6,7 +6,6 @@ int nox_script_getWall_511EB0();
 int nox_script_openWallGroup_512010();
 int nox_script_closeWallGroup_512100();
 int nox_script_toggleWallGroup_512260();
-int nox_script_wallBreak_512290();
 int nox_script_wallGroupBreak_5122F0();
 int nox_script_moverOrMonsterGo_512370();
 int nox_script_groupGoTo_512500();
@@ -267,7 +266,7 @@ var noxScriptBuiltins = []func() int{
 	4:   wrapScriptC(C.nox_script_closeWallGroup_512100),
 	5:   nox_script_toggleWall_512130,
 	6:   wrapScriptC(C.nox_script_toggleWallGroup_512260),
-	7:   wrapScriptC(C.nox_script_wallBreak_512290),
+	7:   nox_script_wallBreak_512290,
 	8:   wrapScriptC(C.nox_script_wallGroupBreak_5122F0),
 	9:   nox_script_secondTimer_512320,
 	10:  nox_script_frameTimer_512350,
