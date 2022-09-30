@@ -40,3 +40,14 @@ func nox_script_toggleWall_512130() int {
 	}
 	return 0
 }
+
+func nox_script_wallBreak_512290() int {
+	s := &noxServer.noxScript
+
+	grid := pointUnpack(s.PopI32())
+	wall := noxServer.getWallAtGrid(grid)
+	if wall != nil {
+		wall.Destroy()
+	}
+	return 0
+}
