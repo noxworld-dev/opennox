@@ -18,3 +18,14 @@ func nox_script_openSecretWall_511F50() int {
 	}
 	return 0
 }
+
+func nox_script_closeWall_512040() int {
+	s := &noxServer.noxScript
+
+	grid := pointUnpack(s.PopI32())
+	wall := noxServer.getWallAtGrid(grid)
+	if wall != nil {
+		wall.Enable(false)
+	}
+	return 0
+}
