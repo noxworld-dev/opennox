@@ -151,19 +151,6 @@ int nox_script_closeWallGroup_512100() {
 	return 0;
 }
 
-//----- (00512130) --------------------------------------------------------
-int nox_script_toggleWall_512130() {
-	int v0; // eax
-	int v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_getWallAtGrid_410580(v0 >> 16, (unsigned short)v0);
-	if (v1) {
-		nox_xxx_wallToggle_512160(v1);
-	}
-	return 0;
-}
-
 //----- (00512260) --------------------------------------------------------
 int nox_script_toggleWallGroup_512260() {
 	int v0;            // eax
