@@ -129,19 +129,6 @@ int nox_script_getWall_511EB0() {
 	return 0;
 }
 
-//----- (00511F50) --------------------------------------------------------
-int nox_script_openSecretWall_511F50() {
-	int v0; // eax
-	int v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_getWallAtGrid_410580(v0 >> 16, (unsigned short)v0);
-	if (v1) {
-		nox_xxx_wallOpen_511F80(v1);
-	}
-	return 0;
-}
-
 //----- (00512010) --------------------------------------------------------
 int nox_script_openWallGroup_512010() {
 	int v0;            // eax
