@@ -5,7 +5,6 @@ package opennox
 int nox_script_getWall_511EB0();
 int nox_script_openWallGroup_512010();
 int nox_script_closeWallGroup_512100();
-int nox_script_toggleWall_512130();
 int nox_script_toggleWallGroup_512260();
 int nox_script_wallBreak_512290();
 int nox_script_wallGroupBreak_5122F0();
@@ -266,7 +265,7 @@ var noxScriptBuiltins = []func() int{
 	2:   wrapScriptC(C.nox_script_openWallGroup_512010),
 	3:   nox_script_closeWall_512040,
 	4:   wrapScriptC(C.nox_script_closeWallGroup_512100),
-	5:   wrapScriptC(C.nox_script_toggleWall_512130),
+	5:   nox_script_toggleWall_512130,
 	6:   wrapScriptC(C.nox_script_toggleWallGroup_512260),
 	7:   wrapScriptC(C.nox_script_wallBreak_512290),
 	8:   wrapScriptC(C.nox_script_wallGroupBreak_5122F0),
