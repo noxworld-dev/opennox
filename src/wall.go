@@ -206,6 +206,10 @@ func (w *Wall) Enable(close bool) {
 	}
 }
 
+func (w *Wall) Toggle() {
+	C.nox_xxx_wallToggle_512160(C.int(uintptr(w.C())))
+}
+
 // Destroy (break) the wall.
 func (w *Wall) Destroy() {
 	C.nox_xxx_wallPreDestroyByPtr_5122C0(C.int(uintptr(w.C())))
