@@ -4,7 +4,6 @@ package opennox
 #include "defs.h"
 int nox_script_getWall_511EB0();
 int nox_script_openWallGroup_512010();
-int nox_script_closeWall_512040();
 int nox_script_closeWallGroup_512100();
 int nox_script_toggleWall_512130();
 int nox_script_toggleWallGroup_512260();
@@ -265,7 +264,7 @@ var noxScriptBuiltins = []func() int{
 	0:   noxScriptCompare("nox_script_getWall_511EB0", wrapScriptC(C.nox_script_getWall_511EB0), nox_script_getWall_511EB0),
 	1:   nox_script_openSecretWall_511F50,
 	2:   wrapScriptC(C.nox_script_openWallGroup_512010),
-	3:   wrapScriptC(C.nox_script_closeWall_512040),
+	3:   nox_script_closeWall_512040,
 	4:   wrapScriptC(C.nox_script_closeWallGroup_512100),
 	5:   wrapScriptC(C.nox_script_toggleWall_512130),
 	6:   wrapScriptC(C.nox_script_toggleWallGroup_512260),
