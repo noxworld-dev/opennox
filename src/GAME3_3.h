@@ -122,7 +122,7 @@ void nox_xxx_spawnSomeBarrel_4E7470(int a1, int a2);
 void sub_4E7540(nox_object_t* a1, nox_object_t* a2);
 char nox_xxx_objectSetOn_4E75B0(nox_object_t* obj);
 int nox_xxx_objectSetOff_4E7600(nox_object_t* obj);
-char nox_xxx_objectToggle_4E7650(int a1);
+char nox_xxx_objectToggle_4E7650(nox_object_t* obj);
 int sub_4E7700(int a1);
 int nox_xxx_inventoryGetFirst_4E7980(int a1);
 int nox_xxx_inventoryGetNext_4E7990(int a1);
