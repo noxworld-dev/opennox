@@ -478,24 +478,6 @@ int nox_script_audioEven_512AC0() {
 	return 0;
 }
 
-//----- (00512CA0) --------------------------------------------------------
-int nox_script_isOn_512CA0() {
-	int v0;     // eax
-	int v1;     // eax
-	int result; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1 && *(uint32_t*)(v1 + 16) & 0x1000000) {
-		nox_script_push(1);
-		result = 0;
-	} else {
-		nox_script_push(0);
-		result = 0;
-	}
-	return result;
-}
-
 //----- (00512CE0) --------------------------------------------------------
 int nox_script_wpIsEnabled_512CE0() {
 	int v0;       // eax
