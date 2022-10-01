@@ -7,7 +7,6 @@ int nox_script_openWallGroup_512010();
 int nox_script_closeWallGroup_512100();
 int nox_script_toggleWallGroup_512260();
 int nox_script_wallGroupBreak_5122F0();
-int nox_script_moverOrMonsterGo_512370();
 int nox_script_groupGoTo_512500();
 int nox_script_lookAtDirection_512560();
 int nox_script_groupLookAtDirection_512610();
@@ -165,6 +164,8 @@ const char* nox_xxx_waypointByName_579E30(const char* a1);
 void sub_43D9B0(int a1, int a2);
 int sub_43DA80();
 void sub_43DAD0();
+uint32_t* nox_server_getWaypointById_579C40(int a1);
+int* nox_server_scriptMoveTo_5123C0(int a1, int a2);
 */
 import "C"
 import (
@@ -270,7 +271,7 @@ var noxScriptBuiltins = []func() int{
 	8:   wrapScriptC(C.nox_script_wallGroupBreak_5122F0),
 	9:   nox_script_secondTimer_512320,
 	10:  nox_script_frameTimer_512350,
-	11:  wrapScriptC(C.nox_script_moverOrMonsterGo_512370),
+	11:  nox_script_moverOrMonsterGo_512370,
 	12:  wrapScriptC(C.nox_script_groupGoTo_512500),
 	13:  wrapScriptC(C.nox_script_lookAtDirection_512560),
 	14:  wrapScriptC(C.nox_script_groupLookAtDirection_512610),
@@ -1158,6 +1159,22 @@ func nox_script_wallBreak_512290() int {
 	wall := noxServer.getWallAtGrid(grid)
 	if wall != nil {
 		wall.Destroy()
+	}
+	return 0
+}
+
+func nox_script_moverOrMonsterGo_512370() int {
+	s := &noxServer.noxScript
+
+	waypointId := s.PopI32()
+	obj := s.PopObject()
+	if obj != nil {
+		if !obj.Flags().Has(object.FlagDead) {
+			waypoint := C.nox_server_getWaypointById_579C40(C.int(waypointId))
+			if waypoint != nil {
+				C.nox_server_scriptMoveTo_5123C0(C.int(uintptr(unsafe.Pointer(obj))), C.int(uintptr(unsafe.Pointer(waypoint))))
+			}
+		}
 	}
 	return 0
 }
