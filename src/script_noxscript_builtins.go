@@ -22,8 +22,6 @@ int nox_script_groupRoam_512990();
 int nox_script_gotoHome_512A00();
 int nox_script_audioEven_512AC0();
 int nox_script_sayChat_512B90();
-int nox_script_unlockDoor_512C20();
-int nox_script_lockDoor_512C60();
 int nox_script_isOn_512CA0();
 int nox_script_wpIsEnabled_512CE0();
 int nox_script_doorIsLocked_512D20();
@@ -292,8 +290,8 @@ var noxScriptBuiltins = []func() int{
 	36:  nox_script_printToAll_512B60,
 	37:  wrapScriptC(C.nox_script_sayChat_512B90),
 	38:  nox_script_returnOne_512C10,
-	39:  wrapScriptC(C.nox_script_unlockDoor_512C20),
-	40:  wrapScriptC(C.nox_script_lockDoor_512C60),
+	39:  nox_script_unlockDoor_512C20,
+	40:  nox_script_lockDoor_512C60,
 	41:  wrapScriptC(C.nox_script_isOn_512CA0),
 	42:  wrapScriptC(C.nox_script_wpIsEnabled_512CE0),
 	43:  wrapScriptC(C.nox_script_doorIsLocked_512D20),
@@ -1251,6 +1249,28 @@ func nox_script_Hunt_515780() int {
 	v1 := s.PopObject()
 	if v1 != nil {
 		v1.AsUnit().Hunt()
+	}
+	return 0
+}
+
+func nox_script_unlockDoor_512C20() int {
+	s := &noxServer.noxScript
+
+	obj := s.PopObject()
+	if obj != nil && obj.Class().Has(object.ClassDoor) {
+		(*(*uint8)(unsafe.Add(obj.updateDataPtr(), 1))) = 0
+		nox_xxx_aud_501960(234, obj.AsUnit(), 0, 0)
+	}
+	return 0
+}
+
+func nox_script_lockDoor_512C60() int {
+	s := &noxServer.noxScript
+
+	obj := s.PopObject()
+	if obj != nil && obj.Class().Has(object.ClassDoor) {
+		(*(*uint8)(unsafe.Add(obj.updateDataPtr(), 1))) = 5
+		nox_xxx_aud_501960(233, obj.AsUnit(), 0, 0)
 	}
 	return 0
 }
