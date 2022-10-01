@@ -478,34 +478,6 @@ int nox_script_audioEven_512AC0() {
 	return 0;
 }
 
-//----- (00512C20) --------------------------------------------------------
-int nox_script_unlockDoor_512C20() {
-	int v0; // eax
-	int v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1 && (*(uint8_t*)(v1 + 8) & 0x80)) {
-		*(uint8_t*)(*(uint32_t*)(v1 + 748) + 1) = 0;
-		nox_xxx_aud_501960(234, v1, 0, 0);
-	}
-	return 0;
-}
-
-//----- (00512C60) --------------------------------------------------------
-int nox_script_lockDoor_512C60() {
-	int v0; // eax
-	int v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1 && (*(uint8_t*)(v1 + 8) & 0x80)) {
-		*(uint8_t*)(*(uint32_t*)(v1 + 748) + 1) = 5;
-		nox_xxx_aud_501960(233, v1, 0, 0);
-	}
-	return 0;
-}
-
 //----- (00512CA0) --------------------------------------------------------
 int nox_script_isOn_512CA0() {
 	int v0;     // eax
