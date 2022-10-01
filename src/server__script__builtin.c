@@ -1994,19 +1994,6 @@ int nox_script_GuardGroup_515700() {
 	return 0;
 }
 
-//----- (00515780) --------------------------------------------------------
-int nox_script_Hunt_515780() {
-	int v0; // eax
-	int v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		nox_xxx_unitHunt_5157A0(v1);
-	}
-	return 0;
-}
-
 //----- (005157D0) --------------------------------------------------------
 int nox_script_HuntGroup_5157D0() {
 	int v0;            // eax
