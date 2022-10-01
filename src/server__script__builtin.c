@@ -319,19 +319,6 @@ int nox_script_objGroupOff_512750() {
 	return 0;
 }
 
-//----- (00512790) --------------------------------------------------------
-int nox_script_waypointOff_512790() {
-	int v0;       // eax
-	uint32_t* v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_getWaypointById_579C40(v0);
-	if (v1) {
-		v1[120] &= 0xFFFFFFFE;
-	}
-	return 0;
-}
-
 //----- (005127B0) --------------------------------------------------------
 int nox_script_waypointGroupOff_5127B0() {
 	int v0;            // eax
