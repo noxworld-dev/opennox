@@ -278,7 +278,7 @@ var noxScriptBuiltins = []func() int{
 	20:  wrapScriptC(C.nox_script_objGroupOff_512750),
 	21:  nox_script_waypointOff_512790,
 	22:  wrapScriptC(C.nox_script_waypointGroupOff_5127B0),
-	23:  wrapScriptC(C.nox_script_toggleObject_5127F0),
+	23:  nox_script_toggleObject_5127F0,
 	24:  wrapScriptC(C.nox_script_toggleObjectGroup_512810),
 	25:  wrapScriptC(C.nox_script_toggleWaypoint_512850),
 	26:  wrapScriptC(C.nox_script_toggleWaypointGroup_512870),
@@ -1223,6 +1223,16 @@ func nox_script_waypointOff_512790() int {
 	waypoint := C.nox_server_getWaypointById_579C40(C.int(s.PopI32()))
 	if waypoint != nil {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(waypoint), 120*4)) &= 0xFFFFFFFE
+	}
+	return 0
+}
+
+func nox_script_toggleObject_5127F0() int {
+	s := &noxServer.noxScript
+
+	obj := s.PopObject()
+	if obj != nil {
+		obj.Toggle()
 	}
 	return 0
 }

@@ -175,6 +175,12 @@ func nox_xxx_createAt_4DAA50(cobj *nox_object_t, cowner *nox_object_t, x C.float
 	noxServer.createObjectAt(asObjectC(cobj), owner, types.Pointf{X: float32(x), Y: float32(y)})
 }
 
+//export nox_xxx_objectToggle_4E7650
+func nox_xxx_objectToggle_4E7650(cobj *nox_object_t) C.char {
+	obj := asObjectC(cobj)
+	return C.char(obj.Toggle())
+}
+
 type shapeKind uint32
 
 const (
@@ -1086,7 +1092,15 @@ func (obj *Object) IsEnabled() bool {
 	if obj == nil {
 		return false
 	}
-	return *(*uint32)(obj.field(16))&0x1000000 != 0
+	return obj.Flags().Has(object.FlagEnabled)
+}
+
+func (obj *Object) Toggle() int {
+	if obj.IsEnabled() {
+		return int(C.nox_xxx_objectSetOff_4E7600(obj.CObj()))
+	} else {
+		return int(C.nox_xxx_objectSetOn_4E75B0(obj.CObj()))
+	}
 }
 
 func (obj *Object) Enable(enable bool) {
