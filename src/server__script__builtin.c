@@ -259,26 +259,6 @@ int nox_script_groupGoTo_512500() {
 	return 0;
 }
 
-//----- (00512560) --------------------------------------------------------
-int nox_script_lookAtDirection_512560() {
-	int v0; // esi
-	int v1; // eax
-	int v2; // eax
-	int v3; // ecx
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
-	if (v2) {
-		if (*(uint8_t*)(v2 + 8) & 2) {
-			v3 = *(uint32_t*)(v2 + 16);
-			if ((v3 & 0x8000) == 0) {
-				nox_xxx_monsterLookAt_5125A0(v2, v0);
-			}
-		}
-	}
-	return 0;
-}
 //----- (00512610) --------------------------------------------------------
 int nox_script_groupLookAtDirection_512610() {
 	int v0;     // edi
