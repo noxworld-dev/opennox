@@ -341,19 +341,6 @@ int nox_script_toggleObjectGroup_512810() {
 	return 0;
 }
 
-//----- (00512850) --------------------------------------------------------
-int nox_script_toggleWaypoint_512850() {
-	int v0;       // eax
-	uint32_t* v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_getWaypointById_579C40(v0);
-	if (v1) {
-		v1[120] ^= 1u;
-	}
-	return 0;
-}
-
 //----- (00512870) --------------------------------------------------------
 int nox_script_toggleWaypointGroup_512870() {
 	int v0;            // eax
