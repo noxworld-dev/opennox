@@ -330,19 +330,6 @@ int nox_script_waypointGroupOff_5127B0() {
 	return 0;
 }
 
-//----- (005127F0) --------------------------------------------------------
-int nox_script_toggleObject_5127F0() {
-	int v0; // eax
-	int v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		nox_xxx_objectToggle_4E7650(v1);
-	}
-	return 0;
-}
-
 //----- (00512810) --------------------------------------------------------
 int nox_script_toggleObjectGroup_512810() {
 	int v0;            // eax

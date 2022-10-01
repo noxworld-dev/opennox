@@ -3148,18 +3148,6 @@ int nox_xxx_objectSetOff_4E7600(nox_object_t* obj) {
 	return result;
 }
 
-//----- (004E7650) --------------------------------------------------------
-char nox_xxx_objectToggle_4E7650(int a1) {
-	char result; // al
-
-	if ((*(uint32_t*)(a1 + 16) & 0x1000000) == 0x1000000) {
-		result = nox_xxx_objectSetOff_4E7600(a1);
-	} else {
-		result = nox_xxx_objectSetOn_4E75B0(a1);
-	}
-	return result;
-}
-
 //----- (004E7700) --------------------------------------------------------
 int sub_4E7700(int a1) {
 	unsigned short* v1; // ecx
