@@ -22,7 +22,6 @@ int nox_script_groupRoam_512990();
 int nox_script_gotoHome_512A00();
 int nox_script_audioEven_512AC0();
 int nox_script_sayChat_512B90();
-int nox_script_doorIsLocked_512D20();
 int nox_script_intToString_512EA0();
 int nox_script_floatToString_512ED0();
 int nox_script_create_512F10();
@@ -292,7 +291,7 @@ var noxScriptBuiltins = []func() int{
 	40:  nox_script_lockDoor_512C60,
 	41:  nox_script_isOn_512CA0,
 	42:  nox_script_wpIsEnabled_512CE0,
-	43:  wrapScriptC(C.nox_script_doorIsLocked_512D20),
+	43:  nox_script_doorIsLocked_512D20,
 	44:  nox_script_randomFloat_512D70,
 	45:  nox_script_randomInt_512DB0,
 	46:  nox_script_timerSecSpecial_512DE0,
@@ -1290,6 +1289,18 @@ func nox_script_wpIsEnabled_512CE0() int {
 
 	waypoint := C.nox_server_getWaypointById_579C40(C.int(s.PopI32()))
 	if waypoint != nil && (*(*uint32)(unsafe.Add(unsafe.Pointer(waypoint), 120*4)))&1 != 0 {
+		s.PushI32(1)
+	} else {
+		s.PushI32(0)
+	}
+	return 0
+}
+
+func nox_script_doorIsLocked_512D20() int {
+	s := &noxServer.noxScript
+
+	obj := s.PopObject()
+	if obj != nil && obj.Class().Has(object.ClassDoor) && (*(*uint8)(unsafe.Add(obj.updateDataPtr(), 1))) != 0 {
 		s.PushI32(1)
 	} else {
 		s.PushI32(0)
