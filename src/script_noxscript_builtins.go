@@ -12,7 +12,6 @@ int nox_script_groupLookAtDirection_512610();
 int nox_script_objGroupOn_512690();
 int nox_script_waypointGroupOn_5126F0();
 int nox_script_objGroupOff_512750();
-int nox_script_waypointOff_512790();
 int nox_script_waypointGroupOff_5127B0();
 int nox_script_toggleObject_5127F0();
 int nox_script_toggleObjectGroup_512810();
@@ -277,7 +276,7 @@ var noxScriptBuiltins = []func() int{
 	18:  wrapScriptC(C.nox_script_waypointGroupOn_5126F0),
 	19:  nox_script_objectOff_512730,
 	20:  wrapScriptC(C.nox_script_objGroupOff_512750),
-	21:  wrapScriptC(C.nox_script_waypointOff_512790),
+	21:  nox_script_waypointOff_512790,
 	22:  wrapScriptC(C.nox_script_waypointGroupOff_5127B0),
 	23:  wrapScriptC(C.nox_script_toggleObject_5127F0),
 	24:  wrapScriptC(C.nox_script_toggleObjectGroup_512810),
@@ -1214,6 +1213,16 @@ func nox_script_objectOff_512730() int {
 	obj := s.PopObject()
 	if obj != nil {
 		obj.Enable(false)
+	}
+	return 0
+}
+
+func nox_script_waypointOff_512790() int {
+	s := &noxServer.noxScript
+
+	waypoint := C.nox_server_getWaypointById_579C40(C.int(s.PopI32()))
+	if waypoint != nil {
+		*(*uint32)(unsafe.Add(unsafe.Pointer(waypoint), 120*4)) &= 0xFFFFFFFE
 	}
 	return 0
 }
