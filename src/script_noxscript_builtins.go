@@ -9,7 +9,6 @@ int nox_script_toggleWallGroup_512260();
 int nox_script_wallGroupBreak_5122F0();
 int nox_script_groupGoTo_512500();
 int nox_script_groupLookAtDirection_512610();
-int nox_script_objectOn_512670();
 int nox_script_objGroupOn_512690();
 int nox_script_waypointOn_5126D0();
 int nox_script_waypointGroupOn_5126F0();
@@ -274,7 +273,7 @@ var noxScriptBuiltins = []func() int{
 	12:  wrapScriptC(C.nox_script_groupGoTo_512500),
 	13:  nox_script_lookAtDirection_512560,
 	14:  wrapScriptC(C.nox_script_groupLookAtDirection_512610),
-	15:  wrapScriptC(C.nox_script_objectOn_512670),
+	15:  nox_script_objectOn_512670,
 	16:  wrapScriptC(C.nox_script_objGroupOn_512690),
 	17:  wrapScriptC(C.nox_script_waypointOn_5126D0),
 	18:  wrapScriptC(C.nox_script_waypointGroupOn_5126F0),
@@ -1187,6 +1186,16 @@ func nox_script_lookAtDirection_512560() int {
 		if monster.Class().Has(object.ClassMonster) && !monster.Flags().Has(object.FlagDead) {
 			monster.AsUnit().LookAtDir(int(direction))
 		}
+	}
+	return 0
+}
+
+func nox_script_objectOn_512670() int {
+	s := &noxServer.noxScript
+
+	obj := s.PopObject()
+	if obj != nil {
+		obj.Enable(true)
 	}
 	return 0
 }

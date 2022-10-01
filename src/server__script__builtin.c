@@ -286,19 +286,6 @@ int nox_script_groupLookAtDirection_512610() {
 	return result;
 }
 
-//----- (00512670) --------------------------------------------------------
-int nox_script_objectOn_512670() {
-	int v0; // eax
-	int v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		nox_xxx_objectSetOn_4E75B0(v1);
-	}
-	return 0;
-}
-
 //----- (00512690) --------------------------------------------------------
 int nox_script_objGroupOn_512690() {
 	int v0;            // eax
