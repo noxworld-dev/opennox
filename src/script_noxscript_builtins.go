@@ -94,7 +94,6 @@ int nox_script_StartDialog_514ED0();
 int nox_script_GetElevatorStat_5154A0();
 int nox_script_Guard_515600();
 int nox_script_GuardGroup_515700();
-int nox_script_Hunt_515780();
 int nox_script_HuntGroup_5157D0();
 int nox_script_Idle_515800();
 int nox_script_GroupIdle_515850();
@@ -395,7 +394,7 @@ var noxScriptBuiltins = []func() int{
 	138: wrapScriptC(C.nox_script_GetElevatorStat_5154A0),
 	139: wrapScriptC(C.nox_script_Guard_515600),
 	140: wrapScriptC(C.nox_script_GuardGroup_515700),
-	141: wrapScriptC(C.nox_script_Hunt_515780),
+	141: nox_script_Hunt_515780,
 	142: wrapScriptC(C.nox_script_HuntGroup_5157D0),
 	143: wrapScriptC(C.nox_script_Idle_515800),
 	144: wrapScriptC(C.nox_script_GroupIdle_515850),
@@ -1242,6 +1241,16 @@ func nox_script_toggleWaypoint_512850() int {
 	waypoint := C.nox_server_getWaypointById_579C40(C.int(s.PopI32()))
 	if waypoint != nil {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(waypoint), 120*4)) ^= 1
+	}
+	return 0
+}
+
+func nox_script_Hunt_515780() int {
+	s := &noxServer.noxScript
+
+	v1 := s.PopObject()
+	if v1 != nil {
+		v1.AsUnit().Hunt()
 	}
 	return 0
 }
