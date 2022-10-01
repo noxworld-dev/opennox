@@ -173,31 +173,6 @@ int nox_script_wallGroupBreak_5122F0() {
 	return 0;
 }
 
-//----- (00512370) --------------------------------------------------------
-int nox_script_moverOrMonsterGo_512370() {
-	int v0;       // edi
-	int v1;       // eax
-	int v2;       // eax
-	int v3;       // esi
-	int v4;       // eax
-	uint32_t* v5; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
-	v3 = v2;
-	if (v2) {
-		v4 = *(uint32_t*)(v2 + 16);
-		if ((v4 & 0x8000) == 0) {
-			v5 = nox_server_getWaypointById_579C40(v0);
-			if (v5) {
-				nox_server_scriptMoveTo_5123C0(v3, (int)v5);
-			}
-		}
-	}
-	return 0;
-}
-
 //----- (005123C0) --------------------------------------------------------
 int* nox_server_scriptMoveTo_5123C0(int a1, int a2) {
 	int* result; // eax
