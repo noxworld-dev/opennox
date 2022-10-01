@@ -478,24 +478,6 @@ int nox_script_audioEven_512AC0() {
 	return 0;
 }
 
-//----- (00512D20) --------------------------------------------------------
-int nox_script_doorIsLocked_512D20() {
-	int v0;     // eax
-	int v1;     // eax
-	int result; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1 && (*(uint8_t*)(v1 + 8) & 0x80)) {
-		nox_script_push(*(uint8_t*)(*(uint32_t*)(v1 + 748) + 1) != 0);
-		result = 0;
-	} else {
-		nox_script_push(0);
-		result = 0;
-	}
-	return result;
-}
-
 //----- (00512EA0) --------------------------------------------------------
 int nox_script_intToString_512EA0() {
 	int v0; // eax
