@@ -104,7 +104,6 @@ int nox_script_SetRoamFlag_515C40();
 int nox_script_SetRoamFlagGroup_515CB0();
 int nox_script_Attack_515CF0();
 int nox_script_AttackGroup_515DB0();
-int nox_script_JournalEntry_5154E0();
 int nox_script_JournalDelete_515550();
 int nox_script_JournalEdit_5155A0();
 int nox_script_RetreatLevel_515DF0();
@@ -154,6 +153,8 @@ int sub_43DA80();
 void sub_43DAD0();
 uint32_t* nox_server_getWaypointById_579C40(int a1);
 int* nox_server_scriptMoveTo_5123C0(int a1, int a2);
+void nox_xxx_comJournalEntryAdd_427500(int a1, char* a2, short a3);
+int nox_xxx_comAddEntryAll_427550(char* a1, short a2);
 */
 import "C"
 import (
@@ -405,7 +406,7 @@ var noxScriptBuiltins = []func() int{
 	154: wrapScriptC(C.nox_script_SetRoamFlagGroup_515CB0),
 	155: wrapScriptC(C.nox_script_Attack_515CF0),
 	156: wrapScriptC(C.nox_script_AttackGroup_515DB0),
-	157: wrapScriptC(C.nox_script_JournalEntry_5154E0),
+	157: nox_script_JournalEntry_5154E0,
 	158: wrapScriptC(C.nox_script_JournalDelete_515550),
 	159: wrapScriptC(C.nox_script_JournalEdit_5155A0),
 	160: wrapScriptC(C.nox_script_RetreatLevel_515DF0),
@@ -1304,6 +1305,26 @@ func nox_script_doorIsLocked_512D20() int {
 		s.PushI32(1)
 	} else {
 		s.PushI32(0)
+	}
+	return 0
+}
+
+func nox_script_JournalEntry_5154E0() int {
+	s := &noxServer.noxScript
+
+	v0 := s.PopI32()
+	v1 := s.PopString()
+	v2 := s.PopI32()
+	if v2 != 0 {
+		v3 := s.scriptToObject(int(v2))
+		if v3 != nil {
+			C.nox_xxx_comJournalEntryAdd_427500(C.int(uintptr(unsafe.Pointer(v3.CObj()))), CString(v1), C.short(v0))
+			if (v0 & 0xB) != 0 {
+				nox_xxx_aud_501960(903, v3.AsUnit(), 0, 0)
+			}
+		}
+	} else {
+		C.nox_xxx_comAddEntryAll_427550(CString(v1), C.short(v0))
 	}
 	return 0
 }

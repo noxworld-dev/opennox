@@ -1789,31 +1789,6 @@ int nox_script_GetElevatorStat_5154A0() {
 	return 0;
 }
 
-//----- (005154E0) --------------------------------------------------------
-int nox_script_JournalEntry_5154E0() {
-	short v0; // bx
-	int v1;   // edi
-	int v2;   // eax
-	int v3;   // esi
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_script_pop();
-	if (v2) {
-		v3 = nox_server_scriptValToObjectPtr_511B60(v2);
-		if (v3) {
-			nox_xxx_comJournalEntryAdd_427500(v3, nox_script_getString_512E40(v1), v0);
-			if (v0 & 0xB) {
-				nox_xxx_aud_501960(903, v3, 0, 0);
-				return 0;
-			}
-		}
-	} else {
-		nox_xxx_comAddEntryAll_427550(nox_script_getString_512E40(v1), v0);
-	}
-	return 0;
-}
-
 //----- (00515550) --------------------------------------------------------
 int nox_script_JournalDelete_515550() {
 	int v0; // esi
