@@ -681,7 +681,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 		}
 		cport++
 	}
-	C.dword_5d4594_3844304 = 0
+	dword_5d4594_3844304 = false
 	var v12 [1]byte
 	v11, err := nox_xxx_netSendSock_552640(ind, v12[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
 	if err != nil {
@@ -733,7 +733,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	}
 
 	ns = getNetStructByInd(id)
-	if C.dword_5d4594_3844304 != 0 && ns.ID() >= 0 {
+	if dword_5d4594_3844304 && ns.ID() >= 0 {
 		vs := unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2512892)), 1024)
 		copy(vs, make([]byte, 1024))
 		data, err := opts.MarshalBinary()

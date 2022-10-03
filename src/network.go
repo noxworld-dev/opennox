@@ -49,6 +49,16 @@ extern float nox_xxx_wizardMaxHealth_587000_312816;
 extern float nox_xxx_wizardMaximumMana_587000_312820;
 
 static int nox_call_net_xxxyyy_go(int (*fnc)(unsigned int, char*, int, void*), unsigned int a1, void* a2, int a3, void* a4) { return fnc(a1, a2, a3, a4); }
+
+int nox_xxx_netBigSwitch_553210_op_0(unsigned int id, uint8_t* out, int pid, char p1, nox_net_struct_t* ns1, struct nox_net_sockaddr_in* from);
+int nox_xxx_netBigSwitch_553210_op_6(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb, unsigned char* packetCur);
+int nox_xxx_netBigSwitch_553210_op_7(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb);
+int nox_xxx_netBigSwitch_553210_op_8(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb, unsigned char* packetCur);
+int nox_xxx_netBigSwitch_553210_op_9(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb, unsigned char* packetCur);
+int nox_xxx_netBigSwitch_553210_op_10(unsigned int id, int pid, uint8_t* out, nox_net_struct_t* ns1);
+int nox_xxx_netBigSwitch_553210_op_14(int pid, uint8_t* out, unsigned char* packet, nox_net_struct_t* ns1, char p1, struct nox_net_sockaddr_in* from);
+int nox_xxx_netBigSwitch_553210_op_17(uint8_t* out, unsigned char* packet, char p1, struct nox_net_sockaddr_in* from);
+int nox_xxx_netBigSwitch_553210_op_18(uint8_t* out, unsigned char* packet, struct nox_net_sockaddr_in* from);
 */
 import "C"
 import (
@@ -94,6 +104,7 @@ var (
 	dword_5D4594_815700  int
 	dword_5d4594_2496472 int
 	dword_5d4594_2496988 int
+	dword_5d4594_3844304 bool
 )
 
 var (
@@ -1340,8 +1351,6 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 	}
 	buf, bfree := alloc.Make([]byte{}, 256)
 	defer bfree()
-	caddr, afree := alloc.New(C.struct_nox_net_sockaddr_in{})
-	defer afree()
 
 	v26 := 1
 	for {
@@ -1437,8 +1446,7 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 			} else if id2 == 255 {
 				if op == 0 {
 					data := ns.Data1yyy()
-					setAddr(caddr, src)
-					n = int(C.nox_xxx_netBigSwitch_553210(C.uint(id), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), unsafe.Pointer(&buf[0]), caddr))
+					n = nox_xxx_netBigSwitch_553210(id, data, buf, src)
 					if n > 0 {
 						n, _ = nox_xxx_sendto_551F90(nsock, buf[:n], ip, port)
 						sub_553F40(n, 1)
@@ -1464,8 +1472,7 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 		}
 		if op < 32 {
 			data := ns.Data1yyy()
-			setAddr(caddr, src)
-			n = int(C.nox_xxx_netBigSwitch_553210(C.uint(id), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), unsafe.Pointer(&buf[0]), caddr))
+			n = nox_xxx_netBigSwitch_553210(id, data, buf, src)
 			if n > 0 {
 				n, _ = nox_xxx_sendto_551F90(nsock, buf[:n], ip, port)
 				sub_553F40(n, 1)
@@ -1554,4 +1561,114 @@ func MixRecvFromReplacer(cs nox_socket_t, buf []byte, from net.Addr) int {
 	defer afree()
 	setAddr(caddr, from)
 	return int(C.MixRecvFromReplacer(cs, (*C.char)(unsafe.Pointer(&buf[0])), C.int(len(buf)), caddr))
+}
+
+func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Addr) int {
+	if len(packet) < 2 {
+		return 0
+	}
+	pid := int(int8(packet[0]))
+	p1 := int8(packet[1])
+	packetCur := packet[2:]
+
+	ns1 := getNetStructByInd(id)
+	if ns1 == nil {
+		return 0
+	}
+
+	caddr, afree := alloc.New(C.struct_nox_net_sockaddr_in{})
+	defer afree()
+	setAddr(caddr, from)
+
+	pidb := pid // TODO: some of the functions assume it's different from pid, check what's wrong
+	for len(packetCur) != 0 {
+		op := packetCur[0]
+		packetCur = packetCur[1:]
+		if debugNet {
+			netLog.Printf("nox_xxx_netBigSwitch_553210: op=%d [%d]\n", op, len(packetCur))
+		}
+		switch op {
+		default:
+			return 0
+		case 0:
+			return int(C.nox_xxx_netBigSwitch_553210_op_0(C.uint(id), (*C.uchar)(unsafe.Pointer(&out[0])), C.int(pidb), C.char(p1), ns1.C(), caddr))
+		case 1:
+			if len(packetCur) < 5 {
+				return 0
+			}
+			v11 := binary.LittleEndian.Uint32(packetCur[:4])
+			xor := packetCur[4]
+			packetCur = packetCur[5:]
+
+			ns1.id = C.int(v11)
+			*ns1.data_2_base = C.char(v11)
+			ns1.xor_key = C.uchar(xor)
+			dword_5d4594_3844304 = true
+		case 2:
+			ns1.id = -18
+			dword_5d4594_3844304 = true
+		case 3: // ack?
+			ns1.id = -12
+			dword_5d4594_3844304 = true
+		case 4:
+			ns1.id = -13
+			dword_5d4594_3844304 = true
+		case 5:
+			if len(packetCur) < 4 {
+				return 0
+			}
+			v := binary.LittleEndian.Uint32(packetCur[:4])
+			out[0] = byte(ns1.xor_key)
+			out[1] = 0
+			out[2] = 7
+			binary.LittleEndian.PutUint32(out[3:], v)
+			return 7
+		case 6:
+			return int(C.nox_xxx_netBigSwitch_553210_op_6(C.int(pid), (*C.uchar)(unsafe.Pointer(&out[0])), ns1.C(), C.uint(pidb), (*C.uchar)(unsafe.Pointer(&packetCur[0]))))
+		case 7:
+			return int(C.nox_xxx_netBigSwitch_553210_op_7(C.int(pid), (*C.uchar)(unsafe.Pointer(&out[0])), ns1.C(), C.uint(pidb)))
+		case 8:
+			return int(C.nox_xxx_netBigSwitch_553210_op_8(C.int(pid), (*C.uchar)(unsafe.Pointer(&out[0])), ns1.C(), C.uint(pidb), (*C.uchar)(unsafe.Pointer(&packetCur[0]))))
+		case 9:
+			return int(C.nox_xxx_netBigSwitch_553210_op_9(C.int(pid), (*C.uchar)(unsafe.Pointer(&out[0])), ns1.C(), C.uint(pidb), (*C.uchar)(unsafe.Pointer(&packetCur[0]))))
+		case 10:
+			return int(C.nox_xxx_netBigSwitch_553210_op_10(C.uint(id), C.int(pid), (*C.uchar)(unsafe.Pointer(&out[0])), ns1.C()))
+		case 11:
+			ns7 := getNetStructByInd(pid)
+			if ns7 == nil {
+				return 0
+			}
+			out[0] = 33
+			ns1.callYyy(pid, out[:1], ns7.data_3)
+			C.sub_554A50(C.uint(id))
+			return 0
+		case 14: // join game request?
+			return int(C.nox_xxx_netBigSwitch_553210_op_14(C.int(pid), (*C.uchar)(unsafe.Pointer(&out[0])), (*C.uchar)(unsafe.Pointer(&packet[0])), ns1.C(), C.char(p1), caddr))
+		case 17:
+			return int(C.nox_xxx_netBigSwitch_553210_op_17((*C.uchar)(unsafe.Pointer(&out[0])), (*C.uchar)(unsafe.Pointer(&packet[0])), C.char(p1), caddr))
+		case 18:
+			return int(C.nox_xxx_netBigSwitch_553210_op_18((*C.uchar)(unsafe.Pointer(&out[0])), (*C.uchar)(unsafe.Pointer(&packet[0])), caddr))
+		case 31:
+			if len(packetCur) < 1 {
+				return 0
+			}
+			v14 := packetCur[0]
+			packetCur = packetCur[1:]
+
+			ns8 := getNetStructByInd(pidb)
+			if ns8 == nil {
+				return 0
+			}
+			netLog.Printf("switch 31: 0x%x 0x%x\n", v14, ns8.field_28_1)
+			if v14 != byte(ns8.field_28_1) {
+				C.sub_5551F0(C.uint(pid), C.char(v14), 1)
+				C.sub_555360(C.uint(pid), C.uchar(v14), 1)
+				ns8.field_28_1 = C.char(v14)
+				out[0] = 38
+				out[1] = v14
+				ns1.callYyy(pid, out[:2], ns8.data_3)
+			}
+		}
+	}
+	return 0
 }
