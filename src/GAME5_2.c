@@ -263,6 +263,30 @@ int nox_xxx_netBigSwitch_553210_op_0(unsigned int id, uint8_t* out, int pid, cha
 	return 0;
 }
 
+int nox_xxx_netBigSwitch_553210_op_6(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb, unsigned char* packetCur) {
+	if (pidb > NOX_NET_STRUCT_MAX) {
+		printf("nox_net_struct_arr overflow (2): %d\n", (int)(pidb));
+		abort();
+	}
+	nox_net_struct_t* ns2 = nox_net_struct_arr[pidb];
+	nox_net_struct_t* ns3 = nox_net_struct_arr[pid];
+	uint8_t a2b3 = 37;
+	ns1->func_yyy(pid, &a2b3, 1, ns3->data_3);
+	int v18 = 0;
+	if (ns1->id == -1) {
+		*(uint8_t*)(out + 0) = ns2->id;
+		v18 = ns2->data_2_base;
+	} else {
+		*(uint8_t*)(out + 0) = ns1->id;
+		v18 = ns1->data_2_base;
+	}
+	*(uint8_t*)(out + 1) = *(uint8_t*)(v18 + 1);
+	*getMemU32Ptr(0x5D4594, 2508792 + 32 * pid) = *(uint32_t*)packetCur;
+	*(uint8_t*)(out + 2) = 8;
+	*(uint32_t*)(out + 3) = *(uint32_t*)packetCur;
+	return 7;
+}
+
 int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int packetSz, void* outb, struct nox_net_sockaddr_in* from) {
 	int out = outb;
 	int pid = (char)packet[0];
@@ -321,29 +345,8 @@ int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pack
 			*(uint8_t*)(out + 2) = 7;
 			*(uint32_t*)(out + 3) = *(uint32_t*)packetCur;
 			return 7;
-		case 6: {
-			if (pidb > NOX_NET_STRUCT_MAX) {
-				printf("nox_net_struct_arr overflow (2): %d\n", (int)(pidb));
-				abort();
-			}
-			nox_net_struct_t* ns2 = nox_net_struct_arr[pidb];
-			nox_net_struct_t* ns3 = nox_net_struct_arr[pid];
-			uint8_t a2b3 = 37;
-			ns1->func_yyy(pid, &a2b3, 1, ns3->data_3);
-			int v18 = 0;
-			if (ns1->id == -1) {
-				*(uint8_t*)(out + 0) = ns2->id;
-				v18 = ns2->data_2_base;
-			} else {
-				*(uint8_t*)(out + 0) = ns1->id;
-				v18 = ns1->data_2_base;
-			}
-			*(uint8_t*)(out + 1) = *(uint8_t*)(v18 + 1);
-			*getMemU32Ptr(0x5D4594, 2508792 + 32 * pid) = *(uint32_t*)packetCur;
-			*(uint8_t*)(out + 2) = 8;
-			*(uint32_t*)(out + 3) = *(uint32_t*)packetCur;
-			return 7;
-		}
+		case 6:
+			return nox_xxx_netBigSwitch_553210_op_6(pid, out, ns1, pidb, packetCur);
 		case 7: {
 			if (pidb > NOX_NET_STRUCT_MAX) {
 				printf("nox_net_struct_arr overflow (2): %d\n", (int)(pidb));
