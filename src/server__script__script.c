@@ -28,13 +28,6 @@ char* nox_script_strings[1024] = {0};
 unsigned int nox_script_strings_xxx = 0;
 unsigned int nox_script_strings_cnt = 0;
 
-void nox_script_pushf(float val) { nox_script_push(*((int*)&val)); }
-
-float nox_script_popf() {
-	int v = nox_script_pop();
-	return *((float*)&v);
-}
-
 //----- (00507270) --------------------------------------------------------
 int nox_script_nextInt(int** p) {
 	int v = **p;
