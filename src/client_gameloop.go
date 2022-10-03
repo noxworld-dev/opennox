@@ -258,7 +258,7 @@ func (c *Client) generateMouseSparks() {
 func sub_43CCA0() {
 	C.nox_xxx_spriteDeleteSomeList_49C4B0()
 	start := gameFrame()
-	C.nox_xxx_servNetInitialPackets_552A80(C.uint(nox_xxx_netGet_43C750()), 1)
+	nox_xxx_servNetInitialPackets_552A80(int(nox_xxx_netGet_43C750()), 1)
 	if start != gameFrame() && C.dword_5d4594_2650652 == 1 && !noxflags.HasGame(noxflags.GameHost) {
 		if v1 := C.sub_40A710(1); C.sub_43C790() > v1 {
 			C.sub_43CEB0()

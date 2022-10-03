@@ -447,9 +447,7 @@ func sub_554D70(conn net.PacketConn, sock *Socket, csock nox_socket_t, a1 byte) 
 		buf = buf[:n]
 		fromIP, fromPort := getAddr(from)
 		if len(buf) > 2 && binary.LittleEndian.Uint16(buf) == 0xF13A { // extension packet code
-			var cfrom C.struct_nox_net_sockaddr_in
-			setAddr(&cfrom, from)
-			n = int(C.MixRecvFromReplacer(csock, (*C.char)(unsafe.Pointer(&buf[0])), C.int(cap(buf)), &cfrom))
+			n = MixRecvFromReplacer(csock, buf, from)
 			if n < 0 {
 				return 0, sock.err
 			}

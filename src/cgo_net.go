@@ -99,6 +99,9 @@ func netCanReadConn(pc net.PacketConn) (int, syscall.Errno, error) {
 }
 
 func (s *Socket) CanRead() (int, error) {
+	if s == nil {
+		return 0, errors.New("nil socket")
+	}
 	if s.pc == nil {
 		panic("TODO")
 	}
@@ -339,28 +342,6 @@ func getSocket(fd nox_socket_t) *Socket {
 	return s
 }
 
-func nox_net_recv(fd nox_socket_t, buffer unsafe.Pointer, length C.uint) C.int {
-	s := getSocket(fd)
-	if s == nil {
-		s.setErrno(123456, errors.New("no socket")) // TODO
-		return -1
-	}
-	if s.udp || s.c == nil {
-		err := errors.New("recv on UDP connection")
-		netLog.Printf("warning: %v", err)
-		s.setErrno(123456, err) // TODO
-		return -1
-	}
-	buf := unsafe.Slice((*byte)(buffer), int(length))
-	n, err := s.c.Read(buf)
-	if err != nil {
-		netLog.Println(err)
-		s.setErrno(123456, err) // TODO
-		return -1
-	}
-	return C.int(n)
-}
-
 //export nox_net_sendto
 func nox_net_sendto(fd nox_socket_t, buffer unsafe.Pointer, length C.uint, addr *C.struct_nox_net_sockaddr_in) C.int {
 	s := getSocket(fd)
@@ -383,50 +364,4 @@ func nox_net_sendto(fd nox_socket_t, buffer unsafe.Pointer, length C.uint, addr 
 		return -1
 	}
 	return C.int(n)
-}
-
-//export nox_net_recvfrom
-func nox_net_recvfrom(fd nox_socket_t, buffer unsafe.Pointer, length C.uint, addr *C.struct_nox_net_sockaddr_in) C.int {
-	if addr == nil {
-		return nox_net_recv(fd, buffer, length)
-	}
-	s := getSocket(fd)
-	if s == nil {
-		s.setErrno(123456, errors.New("no socket")) // TODO
-		return -1
-	}
-	if !s.udp || s.pc == nil {
-		err := errors.New("recv on UDP connection")
-		netLog.Printf("warning: %v", err)
-		s.setErrno(123456, err) // TODO
-		return -1
-	}
-	buf := unsafe.Slice((*byte)(buffer), int(length))
-	n, src, err := s.pc.ReadFrom(buf)
-	if err != nil {
-		netLog.Println(err)
-		s.setErrno(123456, err) // TODO
-		return -1
-	}
-	ip, port := setAddr(addr, src)
-	if debugNet {
-		netLog.Printf("recv %s:%d -> %s [%d]\n%x", ip, port, s.pc.LocalAddr(), n, buf[:n])
-	}
-	return C.int(n)
-}
-
-//export nox_net_recv_available
-func nox_net_recv_available(fd nox_socket_t, out *C.uint) C.int {
-	s := getSocket(fd)
-	if s == nil {
-		s.setErrno(123456, errors.New("no socket")) // TODO
-		return -1
-	}
-	n, err := s.CanRead()
-	if err != nil {
-		netLog.Println(err)
-		return -1
-	}
-	*out = C.uint(n)
-	return 0
 }

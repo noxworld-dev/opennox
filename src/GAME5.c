@@ -8030,20 +8030,6 @@ void sub_551C40(int a1, int a2) {
 	}
 }
 
-//----- (00551E00) --------------------------------------------------------
-bool sub_551E00(unsigned char a1, int a2) {
-	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
-		nox_net_struct_t* ns = nox_net_struct_arr[i];
-		if (!ns) {
-			continue;
-		}
-		if (*(uint16_t*)(a2 + 2) == ns->addr.sin_port && *(uint32_t*)(a2 + 4) == ns->addr.sin_addr && a1 == i) {
-			return 1;
-		}
-	}
-	return 0;
-}
-
 //----- (00551E60) --------------------------------------------------------
 nox_net_struct_t* nox_xxx_netStructByAddr_551E60(struct nox_net_sockaddr_in* addr) {
 	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
@@ -8056,28 +8042,6 @@ nox_net_struct_t* nox_xxx_netStructByAddr_551E60(struct nox_net_sockaddr_in* add
 		}
 	}
 	return 0;
-}
-
-//----- (00551EB0) --------------------------------------------------------
-int nox_xxx_netRead2Xxx_551EB0(unsigned int id1, unsigned int id2, unsigned char a3, int a4, int a5) {
-	nox_net_struct_t* ns2 = nox_net_struct_arr[id2];
-	// fprintf(stderr, "551EB0: %d %d %d %d %d %d %d %d %d\n", ns2, ns2->field_38, ns2->data_39[0], id1,
-	// a3, *(uint8_t *)(a4 + 4), a5,  nox_net_struct_arr[id1]->field_21, nox_xxx_servGetPlrLimit_409FA0());
-	if (!ns2 || ns2->field_38 != 1 || ns2->data_39[0] > a3) {
-		return 0;
-	}
-	nox_net_struct_t* ns1 = nox_net_struct_arr[id1];
-	if (ns1->field_21 > (unsigned int)(nox_xxx_servGetPlrLimit_409FA0() - 1)) {
-		nox_xxx_netStructReadPackets_5545B0(id2);
-		return 1;
-	}
-	if (a5 > 3 && *(uint8_t*)(a4 + 4) == 32) {
-		ns2->field_38 = 2;
-		ns2->data_39[0] = -1;
-		ns2->field_40 = 0;
-		ns1->func_yyy(id2, a4 + 4, a5 - 4, ns2->data_3);
-	}
-	return 1;
 }
 
 //----- (00551F90) --------------------------------------------------------
