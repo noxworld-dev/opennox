@@ -2035,4 +2035,4 @@ typedef struct nox_gui_server_ent_t {
 #pragma pack(pop)
 _Static_assert(sizeof(nox_gui_server_ent_t) == 169, "wrong size of nox_gui_server_ent_t structure!");
 
-#endif
+#endif // NOX_DEFS_H
