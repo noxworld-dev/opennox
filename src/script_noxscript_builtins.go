@@ -1334,8 +1334,7 @@ func nox_script_intToString_512EA0() int {
 
 	v0 := s.PopI32()
 	str := strconv.FormatInt(int64(v0), 10)
-	v1 := C.nox_script_addString_512E40(CString(str))
-	s.PushI32(v1)
+	s.PushString(str)
 	return 0
 }
 
@@ -1344,8 +1343,7 @@ func nox_script_floatToString_512ED0() int {
 
 	v0 := s.PopF32()
 	str := strconv.FormatFloat(float64(v0), 'f', -1, 32)
-	v1 := C.nox_script_addString_512E40(CString(str))
-	s.PushI32(v1)
+	s.PushString(str)
 	return 0
 }
 

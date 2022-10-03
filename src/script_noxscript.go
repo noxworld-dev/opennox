@@ -232,6 +232,10 @@ func (s *noxScript) PushBool(v bool) {
 	s.vm.stack = append(s.vm.stack, uint32(bool2int(v)))
 }
 
+func (s *noxScript) PushString(str string) {
+	s.vm.stack = append(s.vm.stack, uint32(C.nox_script_addString_512E40(CString(str))))
+}
+
 func (s *noxScript) PopI32() int32 {
 	n := len(s.vm.stack)
 	if n == 0 {
