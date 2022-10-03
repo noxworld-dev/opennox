@@ -23,7 +23,6 @@ int nox_script_gotoHome_512A00();
 int nox_script_audioEven_512AC0();
 int nox_script_sayChat_512B90();
 int nox_script_create_512F10();
-int nox_script_damage_512F80();
 int nox_script_groupDamage_513010();
 int nox_script_Wander_513070();
 int nox_script_WanderGroup_513160();
@@ -301,7 +300,7 @@ var noxScriptBuiltins = []func() int{
 	48:  nox_script_intToString_512EA0,
 	49:  nox_script_floatToString_512ED0,
 	50:  wrapScriptC(C.nox_script_create_512F10),
-	51:  wrapScriptC(C.nox_script_damage_512F80),
+	51:  nox_script_damage_512F80,
 	52:  wrapScriptC(C.nox_script_groupDamage_513010),
 	53:  wrapScriptC(C.nox_script_Wander_513070),
 	54:  wrapScriptC(C.nox_script_WanderGroup_513160),
@@ -1347,5 +1346,30 @@ func nox_script_floatToString_512ED0() int {
 	str := strconv.FormatFloat(float64(v0), 'f', -1, 32)
 	v1 := C.nox_script_addString_512E40(CString(str))
 	s.PushI32(v1)
+	return 0
+}
+
+// create_sub_512FE0 creates anonymous function to call damage function with params
+// TODO: Deprecate sub_512FE0 after remove all the usages
+func create_sub_512FE0(a20 *Object, dmg, unknown int) func(*Object) {
+	return func(obj *Object) {
+		if dmg > 0 {
+			owner := a20.findOwnerChainPlayer()
+			obj.callDamage(owner, a20, dmg, unknown)
+		}
+	}
+}
+
+// Cause damage from src to dest
+func nox_script_damage_512F80() int {
+	s := &noxServer.noxScript
+
+	param1 := s.PopI32()
+	param0 := s.PopI32()
+	src := s.PopObject()
+	dest := s.PopObject()
+	if dest != nil {
+		create_sub_512FE0(src, int(param0), int(param1))(dest)
+	}
 	return 0
 }
