@@ -287,6 +287,30 @@ int nox_xxx_netBigSwitch_553210_op_6(int pid, uint8_t* out, nox_net_struct_t* ns
 	return 7;
 }
 
+int nox_xxx_netBigSwitch_553210_op_7(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb) {
+	if (pidb > NOX_NET_STRUCT_MAX) {
+		printf("nox_net_struct_arr overflow (2): %d\n", (int)(pidb));
+		abort();
+	}
+	nox_net_struct_t* ns4 = nox_net_struct_arr[pidb];
+	if (!ns4->field_25) {
+		return 0;
+	}
+	int v31 = dword_5d4594_2495920 - (int)(ns4->field_26) - (int)(ns4->field_24);
+	int v32 = -1;
+	if (v31 >= 1) {
+		v32 = 256000 / v31;
+	}
+	*(uint8_t*)(out + 0) = 35;
+	*(uint32_t*)(out + 1) = v32;
+	if (ns1->id == -1) {
+		ns1->func_yyy(pid, out, 5, ns4->data_3);
+	} else {
+		ns1->func_yyy(pid, out, 5, ns1->data_3);
+	}
+	return 0;
+}
+
 int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int packetSz, void* outb, struct nox_net_sockaddr_in* from) {
 	int out = outb;
 	int pid = (char)packet[0];
@@ -347,29 +371,8 @@ int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pack
 			return 7;
 		case 6:
 			return nox_xxx_netBigSwitch_553210_op_6(pid, out, ns1, pidb, packetCur);
-		case 7: {
-			if (pidb > NOX_NET_STRUCT_MAX) {
-				printf("nox_net_struct_arr overflow (2): %d\n", (int)(pidb));
-				abort();
-			}
-			nox_net_struct_t* ns4 = nox_net_struct_arr[pidb];
-			if (!ns4->field_25) {
-				return 0;
-			}
-			int v31 = dword_5d4594_2495920 - (int)(ns4->field_26) - (int)(ns4->field_24);
-			int v32 = -1;
-			if (v31 >= 1) {
-				v32 = 256000 / v31;
-			}
-			*(uint8_t*)(out + 0) = 35;
-			*(uint32_t*)(out + 1) = v32;
-			if (ns1->id == -1) {
-				ns1->func_yyy(pid, out, 5, ns4->data_3);
-			} else {
-				ns1->func_yyy(pid, out, 5, ns1->data_3);
-			}
-			return 0;
-		}
+		case 7:
+			return nox_xxx_netBigSwitch_553210_op_7(pid, out, ns1, pidb);
 		case 8: {
 			if (pidb > NOX_NET_STRUCT_MAX) {
 				printf("nox_net_struct_arr overflow (2): %d\n", (int)(pidb));
