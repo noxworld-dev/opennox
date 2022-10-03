@@ -79,7 +79,7 @@ char playerInfoStructParser_0(char* a1) {
 }
 
 //----- (10001E10) --------------------------------------------------------
-char playerInfoStructParser_1(int a1, int a2, int* a3) {
+char playerInfoStructParser_1(int a1, int* a3) {
 	char* v3;     // eax
 	char* v4;     // eax
 	uint32_t* v6; // eax
@@ -88,22 +88,22 @@ char playerInfoStructParser_1(int a1, int a2, int* a3) {
 	if (a1 == -2)
 		return 0;
 	v3 = nox_common_playerInfoGetFirst_416EA0();
-	*(uint32_t*)a2 = v3;
+	int a2 = v3;
 	if (!v3)
 		return 0;
 	while (1) {
-		nox_CharToOemW((const wchar_t*)(*(uint32_t*)a2 + 4704), &pDst);
+		nox_CharToOemW((const wchar_t*)(a2 + 4704), &pDst);
 		if (!strcmp(&pDst, (const char*)(a1 + 2)))
 			break;
 		v4 = nox_common_playerInfoGetNext_416EE0(a2);
-		*(uint32_t*)a2 = v4;
+		a2 = v4;
 		if (!v4)
 			return 0;
 	}
-	v6 = nox_xxx_objGetTeamByNetCode_418C80(*(uint32_t*)(*(uint32_t*)a2 + 2060));
+	v6 = nox_xxx_objGetTeamByNetCode_418C80(*(uint32_t*)(a2 + 2060));
 	*a3 = (int)v6;
 	*(uint8_t*)(a1 + 1) = *((uint8_t*)v6 + 4);
-	*(uint8_t*)a1 = *(uint8_t*)(*(uint32_t*)a2 + 2251);
+	*(uint8_t*)a1 = *(uint8_t*)(a2 + 2251);
 	return 1;
 }
 
@@ -318,7 +318,7 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 				v27[(char*)v43 + 2 - (buf + 4)] = *v27;
 				++v27;
 			} while (v28);
-			if (playerInfoStructParser_1((int)v43, (int)&to, &v39)) {
+			if (playerInfoStructParser_1((int)v43, &v39)) {
 				buf[2] = 7;
 				v29 = strlen((const char*)v43 + 2);
 				v30 = &buf[v29 + 4];
