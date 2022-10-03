@@ -502,29 +502,6 @@ int nox_script_create_512F10() {
 	return 0;
 }
 
-//----- (00512F80) --------------------------------------------------------
-int nox_script_damage_512F80() {
-	int v0;    // edi
-	int v1;    // ebx
-	int v2;    // ebp
-	int v3;    // eax
-	int v4;    // esi
-	int v6[3]; // [esp+10h] [ebp-Ch]
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_script_pop();
-	v3 = nox_script_pop();
-	v4 = nox_server_scriptValToObjectPtr_511B60(v3);
-	if (v4) {
-		v6[0] = nox_server_scriptValToObjectPtr_511B60(v2);
-		v6[1] = v1;
-		v6[2] = v0;
-		sub_512FE0(v4, v6);
-	}
-	return 0;
-}
-
 //----- (00513010) --------------------------------------------------------
 int nox_script_groupDamage_513010() {
 	int v0;            // esi
