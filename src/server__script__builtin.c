@@ -478,30 +478,6 @@ int nox_script_audioEven_512AC0() {
 	return 0;
 }
 
-//----- (00512EA0) --------------------------------------------------------
-int nox_script_intToString_512EA0() {
-	int v0; // eax
-	int v1; // eax
-
-	v0 = nox_script_pop();
-	_itoa(v0, (char*)getMemAt(0x973F18, 22280), 10);
-	v1 = nox_script_addString_512E40((char*)getMemAt(0x973F18, 22280));
-	nox_script_push(v1);
-	return 0;
-}
-
-//----- (00512ED0) --------------------------------------------------------
-int nox_script_floatToString_512ED0() {
-	float v0; // eax
-	int v1;   // eax
-
-	v0 = nox_script_popf();
-	nox_sprintf((char*)getMemAt(0x973F18, 22280), "%f", v0, v0);
-	v1 = nox_script_addString_512E40((char*)getMemAt(0x973F18, 22280));
-	nox_script_push(v1);
-	return 0;
-}
-
 //----- (00512F10) --------------------------------------------------------
 int nox_script_create_512F10() {
 	int v0;       // esi
