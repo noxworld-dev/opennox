@@ -28,7 +28,7 @@ nox_object_t* sub_9805EB(nox_object_t* unit) {
 	return 0;
 }
 
-int mix_recvfrom(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from) {
+int mix_recvfrom(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* from) {
 	int result = nox_net_recvfrom(s, buf, len, from);
 	if (*(uint16_t*)buf != 0xF13A) { // extension packet code
 		return result;

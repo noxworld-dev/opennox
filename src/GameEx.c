@@ -202,7 +202,7 @@ char playerDropATrap(int playerObj) {
 }
 
 //----- (10002680) --------------------------------------------------------
-int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr* from) {
+int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* from) {
 	uint32_t* v8; // esi
 	char v9;      // al
 	int v10;      // esi
@@ -232,14 +232,12 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 	uint32_t* v35;      // eax
 	char v36;           // [esp+17h] [ebp-CDh]
 	// int a1[2]; // [esp+1Ch] [ebp-C8h]
-	struct nox_net_sockaddr* to; // [esp+24h] [ebp-C0h]
 	int v39;                     // [esp+28h] [ebp-BCh]
 	// int a2[2]; // [esp+34h] [ebp-B0h]
 	int v43[6];              // [esp+3Ch] [ebp-A8h]
 	unsigned char v44[0x80]; // [esp+54h] [ebp-90h]
 	// int v45; // [esp+E0h] [ebp-4h]
 
-	to = from;
 	int op = *((unsigned short*)buf + 1);
 	switch (op) {
 	case 0: // warrior weapon scroll
