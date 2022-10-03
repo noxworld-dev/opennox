@@ -844,10 +844,10 @@ int sub_553D10() {
 }
 
 //----- (00553D30) --------------------------------------------------------
-int sub_553D30(int a1) {
+int sub_553D30(struct nox_net_sockaddr_in* addr) {
 	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
 		nox_net_struct2_t* nx = &nox_net_struct2_arr[i];
-		if (nx->addr.sin_addr == *(uint32_t*)(a1 + 4) && nx->addr.sin_port == *(uint16_t*)(a1 + 2)) {
+		if ((nx->addr.sin_addr == addr->sin_addr) && (nx->addr.sin_port == addr->sin_port)) {
 			return i;
 		}
 	}
