@@ -9,7 +9,6 @@ package opennox
 #include "GAME2_3.h"
 #include "MixPatch.h"
 extern int dword_587000_87412;
-extern unsigned int dword_5d4594_3844304;
 extern unsigned int dword_5d4594_2660652;
 extern unsigned int dword_5d4594_527988;
 extern unsigned int nox_client_connError_814552;
@@ -256,7 +255,7 @@ func nox_client_refreshServerList_4378B0() {
 	} else {
 		ctx := context.Background()
 		asWindow(C.nox_wol_wnd_world_814980).NewDialogID("Wolchat.c:PleaseWait", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
-		C.dword_5d4594_3844304 = 0
+		dword_5d4594_3844304 = false
 		go discoverAndPingServers(ctx)
 	}
 	C.dword_5d4594_815104 = 0
