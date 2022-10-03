@@ -282,6 +282,9 @@ int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pack
 	nox_net_struct_t* ns1 = nox_net_struct_arr[id];
 	unsigned int pidb = pid;
 	while (2) {
+		if ((unsigned int)packetCur >= packetEnd) {
+			return 0;
+		}
 		int op = packetCur[0];
 		packetCur = &packetCur[1];
 		if (debugNet) {
@@ -299,31 +302,19 @@ int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pack
 			packetCur = v13 + 1;
 			ns1->xor_key = (uint8_t)*v13;
 			dword_5d4594_3844304 = 1;
-			if ((unsigned int)packetCur >= packetEnd) {
-				return 0;
-			}
 			break;
 		}
 		case 2:
 			ns1->id = -18;
 			dword_5d4594_3844304 = 1;
-			if ((unsigned int)packetCur >= packetEnd) {
-				return 0;
-			}
 			break;
 		case 3: // ack?
 			ns1->id = -12;
 			dword_5d4594_3844304 = 1;
-			if ((unsigned int)packetCur >= packetEnd) {
-				return 0;
-			}
 			break;
 		case 4:
 			ns1->id = -13;
 			dword_5d4594_3844304 = 1;
-			if ((unsigned int)packetCur >= packetEnd) {
-				return 0;
-			}
 			break;
 		case 5:
 			*(uint8_t*)(out + 0) = ns1->xor_key;
@@ -648,9 +639,6 @@ int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pack
 				*(uint8_t*)(out + 0) = 38;
 				*(uint8_t*)(out + 1) = ns8->field_28_1;
 				ns1->func_yyy(pid, out, 2, ns8->data_3);
-			}
-			if ((unsigned int)packetCur >= packetEnd) {
-				return 0;
 			}
 			break;
 		}
