@@ -178,7 +178,7 @@ func nox_xxx_createAt_4DAA50(cobj *nox_object_t, cowner *nox_object_t, x C.float
 //export nox_xxx_objectToggle_4E7650
 func nox_xxx_objectToggle_4E7650(cobj *nox_object_t) C.char {
 	obj := asObjectC(cobj)
-	return C.char(obj.Toggle())
+	return C.char(bool2int(obj.Toggle()))
 }
 
 type shapeKind uint32
@@ -1095,11 +1095,15 @@ func (obj *Object) IsEnabled() bool {
 	return obj.Flags().Has(object.FlagEnabled)
 }
 
-func (obj *Object) Toggle() int {
+// Toggle the object's enable state.
+// The returning boolean represents the enabled state of the object before toggled.
+func (obj *Object) Toggle() bool {
 	if obj.IsEnabled() {
-		return int(C.nox_xxx_objectSetOff_4E7600(obj.CObj()))
+		C.nox_xxx_objectSetOff_4E7600(obj.CObj())
+		return true
 	} else {
-		return int(C.nox_xxx_objectSetOn_4E75B0(obj.CObj()))
+		C.nox_xxx_objectSetOn_4E75B0(obj.CObj())
+		return false
 	}
 }
 
