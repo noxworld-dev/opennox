@@ -48,7 +48,6 @@ extern uint32_t dword_5d4594_2523776;
 extern void* nox_alloc_groupInfo_2523892;
 extern uint32_t dword_5d4594_2516356;
 extern void* nox_alloc_itemGroupElem_2523896;
-extern uint32_t dword_5d4594_3844304;
 extern uint64_t qword_581450_9544;
 extern uint32_t dword_5d4594_2523780;
 extern uint32_t dword_5d4594_2495920;
@@ -363,7 +362,7 @@ int nox_xxx_netBigSwitch_553210_op_9(int pid, uint8_t* out, nox_net_struct_t* ns
 	return 0;
 }
 
-int nox_xxx_netBigSwitch_553210_op_10(unsigned int id, int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb) {
+int nox_xxx_netBigSwitch_553210_op_10(unsigned int id, int pid, uint8_t* out, nox_net_struct_t* ns1) {
 	if (pid == 255) {
 		return 0;
 	}
@@ -384,7 +383,7 @@ int nox_xxx_netBigSwitch_553210_op_10(unsigned int id, int pid, uint8_t* out, no
 	return 0;
 }
 
-int nox_xxx_netBigSwitch_553210_op_14(int pid, uint8_t* out, unsigned char* packet, nox_net_struct_t* ns1, unsigned int pidb, char p1, struct nox_net_sockaddr_in* from) {
+int nox_xxx_netBigSwitch_553210_op_14(int pid, uint8_t* out, unsigned char* packet, nox_net_struct_t* ns1, char p1, struct nox_net_sockaddr_in* from) {
 	int v43 = 0;
 	char* v78 = sub_416640();
 	nox_xxx_cliGamedataGet_416590(0);
@@ -561,114 +560,6 @@ int nox_xxx_netBigSwitch_553210_op_18(uint8_t* out, unsigned char* packet, struc
 		return 0;
 	}
 	return nox_xxx_makePacketTime_552340(id40, out);
-}
-
-int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int packetSz, void* outb, struct nox_net_sockaddr_in* from) {
-	int out = outb;
-	int pid = (char)packet[0];
-	char p1 = packet[1];
-
-	unsigned char* packetEnd = &packet[packetSz];
-
-	if (packetSz <= 2) {
-		return 0;
-	}
-	unsigned char* packetCur = &packet[2];
-
-	if (id > NOX_NET_STRUCT_MAX) {
-		printf("nox_net_struct_arr overflow (1): %d\n", (int)(id));
-		abort();
-	}
-	nox_net_struct_t* ns1 = nox_net_struct_arr[id];
-	unsigned int pidb = pid;
-	while (2) {
-		if ((unsigned int)packetCur >= packetEnd) {
-			return 0;
-		}
-		int op = packetCur[0];
-		packetCur = &packetCur[1];
-		if (debugNet) {
-			printf("nox_xxx_netBigSwitch_553210: op=%d [%d]\n", op, packetSz);
-		}
-		switch (op) {
-		case 0:
-			return nox_xxx_netBigSwitch_553210_op_0(id, out, pid, p1, ns1, from);
-		case 1: {
-			int v11 = *(uint32_t*)packetCur;
-			uint8_t* v12 = ns1->data_2_base;
-			uint8_t* v13 = packetCur + 4;
-			ns1->id = v11;
-			*v12 = v11;
-			packetCur = v13 + 1;
-			ns1->xor_key = (uint8_t)*v13;
-			dword_5d4594_3844304 = 1;
-			break;
-		}
-		case 2:
-			ns1->id = -18;
-			dword_5d4594_3844304 = 1;
-			break;
-		case 3: // ack?
-			ns1->id = -12;
-			dword_5d4594_3844304 = 1;
-			break;
-		case 4:
-			ns1->id = -13;
-			dword_5d4594_3844304 = 1;
-			break;
-		case 5:
-			*(uint8_t*)(out + 0) = ns1->xor_key;
-			*(uint8_t*)(out + 2) = 7;
-			*(uint32_t*)(out + 3) = *(uint32_t*)packetCur;
-			return 7;
-		case 6:
-			return nox_xxx_netBigSwitch_553210_op_6(pid, out, ns1, pidb, packetCur);
-		case 7:
-			return nox_xxx_netBigSwitch_553210_op_7(pid, out, ns1, pidb);
-		case 8:
-			return nox_xxx_netBigSwitch_553210_op_8(pid, out, ns1, pidb, packetCur);
-		case 9:
-			return nox_xxx_netBigSwitch_553210_op_9(pid, out, ns1, pidb, packetCur);
-		case 10:
-			return nox_xxx_netBigSwitch_553210_op_10(id, pid, out, ns1, pidb);
-		case 11: {
-			nox_net_struct_t* ns7 = nox_net_struct_arr[pid];
-			uint8_t a2b = 33;
-			ns1->func_yyy(pid, &a2b, 1, ns7->data_3);
-			sub_554A50(id);
-			return 0;
-		}
-		case 14: // join game request?
-			return nox_xxx_netBigSwitch_553210_op_14(pid, out, packet, ns1, pidb, p1, from);
-		case 17:
-			return nox_xxx_netBigSwitch_553210_op_17(out, packet, p1, from);
-		case 18:
-			return nox_xxx_netBigSwitch_553210_op_18(out, packet, from);
-		case 31: {
-			if (pidb > NOX_NET_STRUCT_MAX) {
-				printf("nox_net_struct_arr overflow (2): %d\n", (int)(pidb));
-				abort();
-			}
-			nox_net_struct_t* ns8 = nox_net_struct_arr[pidb];
-			uint8_t v14 = packetCur[0];
-			uint8_t v15 = ns8->field_28_1;
-			packetCur = &packetCur[1];
-			uint8_t a4b = v14;
-			printf("foo 0x%x 0x%x\n", v14, v15);
-			if (v14 != v15) {
-				sub_5551F0(pid, a4b, 1);
-				sub_555360(pid, a4b, 1);
-				ns8->field_28_1 = a4b;
-				*(uint8_t*)(out + 0) = 38;
-				*(uint8_t*)(out + 1) = ns8->field_28_1;
-				ns1->func_yyy(pid, out, 2, ns8->data_3);
-			}
-			break;
-		}
-		default:
-			return 0;
-		}
-	}
 }
 
 //----- (00553D10) --------------------------------------------------------

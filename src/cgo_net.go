@@ -25,7 +25,6 @@ const (
 )
 
 func nox_net_init() {
-	C.debugNet = C.bool(debugNet)
 	C.nox_net_no_xor = C.bool(!noxNetXor)
 }
 
