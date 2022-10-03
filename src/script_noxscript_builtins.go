@@ -18,7 +18,6 @@ int nox_script_toggleObjectGroup_512810();
 int nox_script_toggleWaypointGroup_512870();
 int nox_script_deleteObjectGroup_5128D0();
 int nox_script_groupRoam_512990();
-int nox_script_gotoHome_512A00();
 int nox_script_audioEven_512AC0();
 int nox_script_sayChat_512B90();
 int nox_script_create_512F10();
@@ -281,7 +280,7 @@ var noxScriptBuiltins = []func() int{
 	30:  wrapScriptC(C.nox_script_groupRoam_512990),
 	31:  nox_script_getObject2_5129C0,
 	32:  nox_script_getObject3_5129E0,
-	33:  wrapScriptC(C.nox_script_gotoHome_512A00),
+	33:  nox_script_gotoHome_512A00,
 	34:  wrapScriptC(C.nox_script_audioEven_512AC0),
 	35:  nox_script_printToCaller_512B10,
 	36:  nox_script_printToAll_512B60,
@@ -1377,6 +1376,16 @@ func nox_script_followNearestWaypoint_512910() int {
 	obj := s.PopObject()
 	if obj != nil {
 		obj.AsUnit().Wander()
+	}
+	return 0
+}
+
+func nox_script_gotoHome_512A00() int {
+	s := &noxServer.noxScript
+
+	obj := s.PopObject()
+	if obj != nil {
+		obj.AsUnit().Return()
 	}
 	return 0
 }
