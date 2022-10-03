@@ -545,6 +545,24 @@ int nox_xxx_netBigSwitch_553210_op_17(uint8_t* out, unsigned char* packet, char 
 	return nox_xxx_makePacketTime_552340(id53, out);
 }
 
+int nox_xxx_netBigSwitch_553210_op_18(uint8_t* out, unsigned char* packet, struct nox_net_sockaddr_in* from) {
+	int v39 = nox_platform_get_ticks() - *((uint32_t*)packet + 1);
+	int id40 = sub_553D30(from);
+	if (id40 < 0) {
+		return 0;
+	}
+	nox_net_struct2_t* nx1 = &nox_net_struct2_arr[id40];
+	if (*((unsigned char*)packet + 3) != nx1->field_1_1) {
+		return 0;
+	}
+	nx1->field_6[nx1->field_1_1] = v39;
+	nx1->field_1_1++;
+	if (nx1->field_1_1 >= 10) {
+		return 0;
+	}
+	return nox_xxx_makePacketTime_552340(id40, out);
+}
+
 int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int packetSz, void* outb, struct nox_net_sockaddr_in* from) {
 	int out = outb;
 	int pid = (char)packet[0];
@@ -624,23 +642,8 @@ int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pack
 			return nox_xxx_netBigSwitch_553210_op_14(pid, out, packet, ns1, pidb, p1, from);
 		case 17:
 			return nox_xxx_netBigSwitch_553210_op_17(out, packet, p1, from);
-		case 18: {
-			int v39 = nox_platform_get_ticks() - *((uint32_t*)packet + 1);
-			int id40 = sub_553D30(from);
-			if (id40 < 0) {
-				return 0;
-			}
-			nox_net_struct2_t* nx1 = &nox_net_struct2_arr[id40];
-			if (*((unsigned char*)packet + 3) != nx1->field_1_1) {
-				return 0;
-			}
-			nx1->field_6[nx1->field_1_1] = v39;
-			nx1->field_1_1++;
-			if (nx1->field_1_1 >= 10) {
-				return 0;
-			}
-			return nox_xxx_makePacketTime_552340(id40, out);
-		}
+		case 18:
+			return nox_xxx_netBigSwitch_553210_op_18(out, packet, from);
 		case 31: {
 			if (pidb > NOX_NET_STRUCT_MAX) {
 				printf("nox_net_struct_arr overflow (2): %d\n", (int)(pidb));
