@@ -431,20 +431,6 @@ void nox_server_gotoHome(nox_object_t* obj) {
 		}
 	}
 }
-int nox_script_gotoHome_512A00() {
-	int v0;     // eax
-	int result; // eax
-	int v2;     // esi
-
-	v0 = nox_script_pop();
-	result = nox_server_scriptValToObjectPtr_511B60(v0);
-	v2 = result;
-	if (v2) {
-		nox_server_gotoHome(v2);
-		result = 0;
-	}
-	return result;
-}
 
 //----- (00512AC0) --------------------------------------------------------
 int nox_script_audioEven_512AC0() {
