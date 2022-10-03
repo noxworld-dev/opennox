@@ -363,19 +363,6 @@ int nox_script_deleteObjectGroup_5128D0() {
 	return 0;
 }
 
-//----- (00512910) --------------------------------------------------------
-int nox_script_followNearestWaypoint_512910() {
-	int v0; // eax
-	int v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		nox_xxx_scriptMonsterRoam_512930(v1);
-	}
-	return 0;
-}
-
 //----- (00512930) --------------------------------------------------------
 void nox_xxx_scriptMonsterRoam_512930(nox_object_t* obj) {
 	int a1 = obj;
