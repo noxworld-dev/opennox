@@ -23,7 +23,7 @@ void nullsub_30(uint32_t a1);
 int nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2);
 int nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags);
 int sub_552E70(unsigned int a1);
-int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int packetSz, int a4);
+int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int packetSz, void* outb, struct nox_net_sockaddr_in* from);
 int sub_553D10();
 int sub_553D30(int a1);
 void sub_553F40(int a1, int a2);
