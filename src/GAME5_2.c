@@ -517,6 +517,34 @@ int nox_xxx_netBigSwitch_553210_op_14(int pid, uint8_t* out, unsigned char* pack
 	return nox_xxx_makePacketTime_552340(id53, out);
 }
 
+int nox_xxx_netBigSwitch_553210_op_17(uint8_t* out, unsigned char* packet, char p1, struct nox_net_sockaddr_in* from) {
+	char* v33 = sub_416640();
+	char* v35 = v33;
+	*(uint8_t*)(out + 0) = 0;
+	*(uint8_t*)(out + 1) = p1;
+	if (nox_wcscmp((const wchar_t*)(packet + 4), (const wchar_t*)v33 + 39)) {
+		*(uint8_t*)(out + 2) = 19;
+		*(uint8_t*)(out + 3) = 6;
+		return 4;
+	}
+	if (*(short*)(v35 + 105) == -1 && *(short*)(v35 + 107) == -1) {
+		*(uint8_t*)(out + 2) = 20;
+		return 3;
+	}
+	int id53 = sub_553D10();
+	if (id53 < 0) {
+		*(uint8_t*)(out + 2) = 20;
+		return 3;
+	}
+	nox_net_struct2_t* nx1 = &nox_net_struct2_arr[id53];
+	nx1->field_0 = 1;
+	nx1->field_1_1 = 0;
+	nx1->field_1_0 = 0;
+
+	memcpy(&nx1->addr, from, sizeof(nx1->addr));
+	return nox_xxx_makePacketTime_552340(id53, out);
+}
+
 int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int packetSz, void* outb, struct nox_net_sockaddr_in* from) {
 	int out = outb;
 	int pid = (char)packet[0];
@@ -594,33 +622,8 @@ int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pack
 		}
 		case 14: // join game request?
 			return nox_xxx_netBigSwitch_553210_op_14(pid, out, packet, ns1, pidb, p1, from);
-		case 17: {
-			char* v33 = sub_416640();
-			char* v35 = v33;
-			*(uint8_t*)(out + 0) = 0;
-			*(uint8_t*)(out + 1) = p1;
-			if (nox_wcscmp((const wchar_t*)(packet + 4), (const wchar_t*)v33 + 39)) {
-				*(uint8_t*)(out + 2) = 19;
-				*(uint8_t*)(out + 3) = 6;
-				return 4;
-			}
-			if (*(short*)(v35 + 105) == -1 && *(short*)(v35 + 107) == -1) {
-				*(uint8_t*)(out + 2) = 20;
-				return 3;
-			}
-			int id53 = sub_553D10();
-			if (id53 < 0) {
-				*(uint8_t*)(out + 2) = 20;
-				return 3;
-			}
-			nox_net_struct2_t* nx1 = &nox_net_struct2_arr[id53];
-			nx1->field_0 = 1;
-			nx1->field_1_1 = 0;
-			nx1->field_1_0 = 0;
-
-			memcpy(&nx1->addr, from, sizeof(nx1->addr));
-			return nox_xxx_makePacketTime_552340(id53, out);
-		}
+		case 17:
+			return nox_xxx_netBigSwitch_553210_op_17(out, packet, p1, from);
 		case 18: {
 			int v39 = nox_platform_get_ticks() - *((uint32_t*)packet + 1);
 			int id40 = sub_553D30(from);
