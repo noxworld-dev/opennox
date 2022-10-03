@@ -84,6 +84,16 @@ func nox_script_pop() C.int {
 	return C.int(noxServer.noxScript.PopI32())
 }
 
+//export nox_script_pushf
+func nox_script_pushf(v C.float) {
+	noxServer.noxScript.PushF32(float32(v))
+}
+
+//export nox_script_popf
+func nox_script_popf() C.float {
+	return C.float(noxServer.noxScript.PopF32())
+}
+
 //export nox_script_saveStack
 func nox_script_saveStack() C.int {
 	return C.int(noxServer.noxScript.saveStack())
