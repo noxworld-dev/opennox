@@ -269,7 +269,7 @@ int nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
 				if (op == 0) {
 					memcpy(buf, &to, sizeof(to));
 					n = nox_xxx_netBigSwitch_553210(id, ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy),
-													(int)buf);
+													(int)buf, &to);
 					if (n > 0) {
 						n = nox_xxx_sendto_551F90(ns->sock, buf, n, &to);
 						sub_553F40(n, 1);
@@ -295,7 +295,7 @@ int nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
 		if (op < 32) {
 			memcpy(buf, &to, sizeof(to));
 			n = nox_xxx_netBigSwitch_553210(id, ns->data_1_yyy, (int)(ns->data_1_xxx) - (int)(ns->data_1_yyy),
-											(int)buf);
+											(int)buf, &to);
 			if (n > 0) {
 				n = nox_xxx_sendto_551F90(ns->sock, buf, n, &to);
 				sub_553F40(n, 1);
@@ -359,7 +359,7 @@ int sub_552E70(unsigned int a1) {
 }
 
 //----- (00553210) --------------------------------------------------------
-int nox_xxx_netBigSwitch_553210_op_0(unsigned int id, uint8_t* out, int pid, char p1, nox_net_struct_t* ns1, unsigned char* v74, int v75, int v76) {
+int nox_xxx_netBigSwitch_553210_op_0(unsigned int id, uint8_t* out, int pid, char p1, nox_net_struct_t* ns1, struct nox_net_sockaddr_in* from) {
 	if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(8)) {
 		return 0;
 	}
@@ -380,8 +380,8 @@ int nox_xxx_netBigSwitch_553210_op_0(unsigned int id, uint8_t* out, int pid, cha
 			pid = i;
 			break;
 		}
-		if (*(uint16_t*)&v74[2] == ns9->addr.sin_port && *(uint32_t*)&v74[4] == ns9->addr.sin_addr) {
-			printf("%d %d\n", *(uint16_t*)&v74[2], *(uint32_t*)&v74[4]);
+		if (from->sin_port == ns9->addr.sin_port && from->sin_addr == ns9->addr.sin_addr) {
+			printf("%d %d\n", from->sin_port, from->sin_addr);
 			out[2] = 4; // already joined?
 			return 3;
 		}
@@ -420,10 +420,7 @@ int nox_xxx_netBigSwitch_553210_op_0(unsigned int id, uint8_t* out, int pid, cha
 	}
 	ns10->xor_key = 0; // send this packet without xor encoding
 
-	int v66 = &ns10->addr;
-	*(uint64_t*)v66 = *(uint64_t*)v74;
-	*(uint32_t*)(v66 + 8) = v75;
-	*(uint32_t*)(v66 + 12) = v76;
+	memcpy(&ns10->addr, from, sizeof(ns10->addr));
 
 	out[0] = 31;
 	out[1] = p1;
@@ -439,18 +436,12 @@ int nox_xxx_netBigSwitch_553210_op_0(unsigned int id, uint8_t* out, int pid, cha
 	return 0;
 }
 
-int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int packetSz, int a4) {
-	int out = a4;
+int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int packetSz, void* outb, struct nox_net_sockaddr_in* from) {
+	int out = outb;
 	int pid = (char)packet[0];
 	char p1 = packet[1];
 
 	unsigned char* packetEnd = &packet[packetSz];
-
-	unsigned char v74[8];
-	*(uint32_t*)&v74[0] = *(uint32_t*)(a4 + 0);
-	*(uint32_t*)&v74[4] = *(uint32_t*)(a4 + 4);
-	int v75 = *(uint32_t*)(a4 + 8);
-	int v76 = *(uint32_t*)(a4 + 12);
 
 	if (packetSz <= 2) {
 		return 0;
@@ -471,7 +462,7 @@ int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pack
 		}
 		switch (op) {
 		case 0:
-			return nox_xxx_netBigSwitch_553210_op_0(id, out, pid, p1, ns1, v74, v75, v76);
+			return nox_xxx_netBigSwitch_553210_op_0(id, out, pid, p1, ns1, from);
 		case 1: {
 			int v11 = *(uint32_t*)packetCur;
 			uint8_t* v12 = ns1->data_2_base;
@@ -765,9 +756,7 @@ int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pack
 			nx->field_0 = 1;
 			nx->field_1_1 = 0;
 			nx->field_1_0 = 0;
-			*(uint64_t*)(&nx->addr) = *(uint64_t*)v74;
-			*((uint32_t*)(&nx->addr) + 1) = v75;
-			*((uint32_t*)(&nx->addr) + 2) = v76;
+			memcpy(&nx->addr, from, sizeof(nx->addr));
 			return nox_xxx_makePacketTime_552340(id53, out);
 		}
 		case 17: {
@@ -793,14 +782,13 @@ int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pack
 			nx1->field_0 = 1;
 			nx1->field_1_1 = 0;
 			nx1->field_1_0 = 0;
-			*(uint64_t*)(&nx1->addr) = *(uint64_t*)v74;
-			*((uint32_t*)(&nx1->addr) + 1) = v75;
-			*((uint32_t*)(&nx1->addr) + 2) = v76;
+
+			memcpy(&nx1->addr, from, sizeof(nx1->addr));
 			return nox_xxx_makePacketTime_552340(id53, out);
 		}
 		case 18: {
 			int v39 = nox_platform_get_ticks() - *((uint32_t*)packet + 1);
-			int id40 = sub_553D30((int)v74);
+			int id40 = sub_553D30(from);
 			if (id40 < 0) {
 				return 0;
 			}
