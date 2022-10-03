@@ -17,8 +17,6 @@ package opennox
 extern unsigned int dword_5d4594_2660032;
 extern unsigned int dword_5d4594_814548;
 extern unsigned int dword_5d4594_3843632;
-extern unsigned int dword_5d4594_2496472;
-extern unsigned int dword_5d4594_2496988;
 extern unsigned int dword_5d4594_2495920;
 extern unsigned long long qword_5d4594_814956;
 extern nox_alloc_class* nox_alloc_gQueue_3844300;
@@ -88,10 +86,12 @@ func init() {
 }
 
 var (
-	noxNetXor           bool
-	debugNet            bool
-	netLog              = log.New("network")
-	dword_5D4594_815700 int
+	noxNetXor            bool
+	debugNet             bool
+	netLog               = log.New("network")
+	dword_5D4594_815700  int
+	dword_5d4594_2496472 int
+	dword_5d4594_2496988 int
 )
 
 var (
@@ -828,6 +828,7 @@ func nox_xxx_netCountData_554030(n int, ind int) {
 	*memmap.PtrUint32(0x5D4594, 2498024+4*uintptr(ind)) += uint32(n)
 }
 
+//export sub_553F40
 func sub_553F40(a1, a2 int) {
 	*memmap.PtrUint32(0x5D4594, 2495952) += uint32(a1)
 	*memmap.PtrUint32(0x5D4594, 2495956) += uint32(a2)
@@ -835,8 +836,8 @@ func sub_553F40(a1, a2 int) {
 	j := memmap.Uint32(0x5D4594, 2498020)
 	*memmap.PtrUint32(0x5D4594, 2496992+4*uintptr(i)) = uint32(a1)
 	*memmap.PtrUint32(0x5D4594, 2497508+4*uintptr(j)) = uint32(a2)
-	*memmap.PtrUint32(0x5D4594, 2497504) = uint32(C.dword_5d4594_2496472+1) % 128
-	*memmap.PtrUint32(0x5D4594, 2498020) = uint32(C.dword_5d4594_2496988+1) % 128
+	*memmap.PtrUint32(0x5D4594, 2497504) = uint32(dword_5d4594_2496472+1) % 128
+	*memmap.PtrUint32(0x5D4594, 2498020) = uint32(dword_5d4594_2496988+1) % 128
 }
 
 func sub_555130(a1 int, buf []byte) (int, error) {
@@ -1256,4 +1257,14 @@ func nox_xxx_netSendBySock_40EE10(a1 int, a2 int, a3 int) {
 		nox_xxx_netSendSock_552640(a1, v3, 0)
 		C.nox_xxx_netSendReadPacket_5528B0(C.uint(a1), 1)
 	}
+}
+
+//export sub_553FC0
+func sub_553FC0(a1, a2 int) {
+	*memmap.PtrUint32(0x5D4594, 2495944) += uint32(a1)
+	*memmap.PtrUint32(0x5D4594, 2495948) += uint32(a2)
+	*memmap.PtrUint32(0x5D4594, 2495960+4*uintptr(dword_5d4594_2496472)) = uint32(a1)
+	*memmap.PtrUint32(0x5D4594, 2496476+4*uintptr(dword_5d4594_2496988)) = uint32(a2)
+	dword_5d4594_2496472 = (dword_5d4594_2496472 + 1) % 128
+	dword_5d4594_2496988 = (dword_5d4594_2496988 + 1) % 128
 }
