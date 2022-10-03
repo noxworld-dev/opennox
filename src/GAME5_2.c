@@ -36,10 +36,8 @@
 #include "nox_net.h"
 #include "operators.h"
 
-extern uint32_t dword_5d4594_2496988;
 extern uint32_t dword_5d4594_2516352;
 extern uint32_t dword_5d4594_2523888;
-extern uint32_t dword_5d4594_2496472;
 extern uint32_t dword_5d4594_2523904;
 extern uint32_t dword_5d4594_2516380;
 extern uint32_t dword_5d4594_2523804;
@@ -866,31 +864,6 @@ int sub_553D30(int a1) {
 		}
 	}
 	return -1;
-}
-
-//----- (00553F40) --------------------------------------------------------
-void sub_553F40(int a1, int a2) {
-	*getMemU32Ptr(0x5D4594, 2495952) += a1;
-	*getMemU32Ptr(0x5D4594, 2495956) += a2;
-	*getMemU32Ptr(0x5D4594, 2496992 + 4 * *getMemU32Ptr(0x5D4594, 2497504)) = a1;
-	*getMemU32Ptr(0x5D4594, 2497508 + 4 * *getMemU32Ptr(0x5D4594, 2498020)) = a2;
-	*getMemU32Ptr(0x5D4594, 2497504) = (dword_5d4594_2496472 + 1) % 128;
-	*getMemU32Ptr(0x5D4594, 2498020) = (dword_5d4594_2496988 + 1) % 128;
-}
-
-//----- (00553FC0) --------------------------------------------------------
-void sub_553FC0(int a1, int a2) {
-	int v2; // edx
-	int v3; // eax
-
-	*getMemU32Ptr(0x5D4594, 2495944) += a1;
-	*getMemU32Ptr(0x5D4594, 2495948) += a2;
-	v2 = dword_5d4594_2496472;
-	*getMemU32Ptr(0x5D4594, 2495960 + 4 * dword_5d4594_2496472) = a1;
-	v3 = dword_5d4594_2496988;
-	*getMemU32Ptr(0x5D4594, 2496476 + 4 * dword_5d4594_2496988) = a2;
-	dword_5d4594_2496472 = (v2 + 1) % 128;
-	dword_5d4594_2496988 = (v3 + 1) % 128;
 }
 
 //----- (00554030) --------------------------------------------------------
