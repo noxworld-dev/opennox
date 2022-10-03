@@ -384,6 +384,139 @@ int nox_xxx_netBigSwitch_553210_op_10(unsigned int id, int pid, uint8_t* out, no
 	return 0;
 }
 
+int nox_xxx_netBigSwitch_553210_op_14(int pid, uint8_t* out, unsigned char* packet, nox_net_struct_t* ns1, unsigned int pidb, char p1, struct nox_net_sockaddr_in* from) {
+	int v43 = 0;
+	char* v78 = sub_416640();
+	nox_xxx_cliGamedataGet_416590(0);
+	bool a4a = 0;
+	*(uint8_t*)(out + 0) = 0;
+	*(uint8_t*)(out + 1) = p1;
+	// TODO: This code is disabled because it causes issues with players reconnecting to the server.
+	//       For some reason the player record gets stuck in the server's player list, so this check fails.
+
+	//			if (!nox_xxx_check_flag_aaa_43AF70()) {
+	//				char* v45 = nox_common_playerInfoGetFirst_416EA0();
+	//				while (v45) {
+	//					if (v45[2135] == packet[98]) {
+	//						if (!strcmp(v45 + 2112, (const char*)packet + 56)) {
+	//							*(uint8_t*)(out + 2) = 19;
+	//							*(uint8_t*)(out + 3) = 12;
+	//							return 4;
+	//						}
+	//						v43 = 0;
+	//					}
+	//					v45 = nox_common_playerInfoGetNext_416EE0((int)v45);
+	//				}
+	//			}
+	if (*((uint32_t*)packet + 20) != NOX_CLIENT_VERS_CODE) {
+		*(uint8_t*)(out + 2) = 19;
+		*(uint8_t*)(out + 3) = 13;
+		return 4;
+	}
+	if (ns1->field_21 >= (unsigned int)(nox_xxx_servGetPlrLimit_409FA0() - 1)) {
+		a4a = 1;
+	}
+	if (sub_40A740()) {
+		int v46 = nox_xxx_countObserverPlayers_425BF0();
+		if (!*((uint32_t*)packet + 21)) {
+			if (v46 >= (unsigned char)v78[53]) {
+				*(uint8_t*)(out + 2) = 19;
+				*(uint8_t*)(out + 3) = 11;
+				return 4;
+			}
+		} else if (nox_server_teamByXxx_418AE0(*((uint32_t*)packet + 21))) {
+			if (v46 > 0) {
+				v43 = 1;
+			}
+		} else {
+			if ((unsigned char)sub_417DE0() >= (unsigned char)v78[52]) {
+				if (v46 >= (unsigned char)v78[53]) {
+					*(uint8_t*)(out + 2) = 19;
+					*(uint8_t*)(out + 3) = 11;
+					return 4;
+				}
+			} else if (v46 > 0) {
+				v43 = 1;
+			}
+		}
+	}
+	if (a4a) {
+		if (!v43 || !*(uint32_t*)(v78 + 54)) {
+			*(uint8_t*)(out + 2) = 19;
+			*(uint8_t*)(out + 3) = 11;
+			return 4;
+		}
+		for (char* i = nox_xxx_firstReplaceablePlayer_425C40(); i;
+			 i = nox_xxx_nextReplaceablePlayer_425C70((int)i)) {
+			if (!nox_xxx_findPlayerID_5541D0((unsigned char)i[2064] + 1)) {
+				nox_xxx_playerCallDisconnect_4DEAB0((unsigned char)i[2064], 4);
+				uint32_t* v50 = calloc(1, 0x10u);
+				v50[3] = (unsigned char)i[2064] + 1;
+				nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 2495908), v50);
+				++*getMemU8Ptr(0x5D4594, 2500076);
+				*(uint8_t*)(out + 2) = 21;
+				return 3;
+			}
+		}
+	}
+	if (v78[100] & 0x10) {
+		int* v48 = sub_4168E0();
+		if (!v48) {
+			*(uint8_t*)(out + 2) = 19;
+			*(uint8_t*)(out + 3) = 4;
+			return 4;
+		}
+		while (_nox_wcsicmp((const wchar_t*)v48 + 6, (const wchar_t*)(packet + 4))) {
+			v48 = sub_4168F0(v48);
+			if (!v48) {
+				*(uint8_t*)(out + 2) = 19;
+				*(uint8_t*)(out + 3) = 4;
+				return 4;
+			}
+		}
+	} else {
+		for (int* j = sub_416900(); j; j = sub_416910(j)) {
+			if (!strcmp((const char*)j + 72, "0")) {
+				if (!_nox_wcsicmp((const wchar_t*)j + 6, (const wchar_t*)packet + 2)) {
+					*(uint8_t*)(out + 2) = 19;
+					*(uint8_t*)(out + 3) = 5;
+					return 4;
+				}
+			} else if (!_strcmpi((const char*)j + 72, (const char*)packet + 56)) {
+				*(uint8_t*)(out + 2) = 19;
+				*(uint8_t*)(out + 3) = 5;
+				return 4;
+			}
+		}
+	}
+	char* v35 = v78;
+	char v52 = v78[100];
+	if (v52 && (unsigned char)(1 << packet[54]) & (unsigned char)v52) {
+		*(uint8_t*)(out + 2) = 19;
+		*(uint8_t*)(out + 3) = 7;
+		return 4;
+	}
+	if (v52 & 0x20) {
+		*(uint8_t*)(out + 2) = 15;
+		return 3;
+	}
+	if (*(short*)(v78 + 105) == -1 && *(short*)(v35 + 107) == -1) {
+		*(uint8_t*)(out + 2) = 20; // OK
+		return 3;
+	}
+	int id53 = sub_553D10();
+	if (id53 < 0) {
+		*(uint8_t*)(out + 2) = 20; // OK
+		return 3;
+	}
+	nox_net_struct2_t* nx = &nox_net_struct2_arr[id53];
+	nx->field_0 = 1;
+	nx->field_1_1 = 0;
+	nx->field_1_0 = 0;
+	memcpy(&nx->addr, from, sizeof(nx->addr));
+	return nox_xxx_makePacketTime_552340(id53, out);
+}
+
 int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int packetSz, void* outb, struct nox_net_sockaddr_in* from) {
 	int out = outb;
 	int pid = (char)packet[0];
@@ -460,138 +593,7 @@ int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pack
 			return 0;
 		}
 		case 14: // join game request?
-		{
-			int v43 = 0;
-			char* v78 = sub_416640();
-			nox_xxx_cliGamedataGet_416590(0);
-			bool a4a = 0;
-			*(uint8_t*)(out + 0) = 0;
-			*(uint8_t*)(out + 1) = p1;
-			// TODO: This code is disabled because it causes issues with players reconnecting to the server.
-			//       For some reason the player record gets stuck in the server's player list, so this check fails.
-
-			//			if (!nox_xxx_check_flag_aaa_43AF70()) {
-			//				char* v45 = nox_common_playerInfoGetFirst_416EA0();
-			//				while (v45) {
-			//					if (v45[2135] == packet[98]) {
-			//						if (!strcmp(v45 + 2112, (const char*)packet + 56)) {
-			//							*(uint8_t*)(out + 2) = 19;
-			//							*(uint8_t*)(out + 3) = 12;
-			//							return 4;
-			//						}
-			//						v43 = 0;
-			//					}
-			//					v45 = nox_common_playerInfoGetNext_416EE0((int)v45);
-			//				}
-			//			}
-			if (*((uint32_t*)packet + 20) != NOX_CLIENT_VERS_CODE) {
-				*(uint8_t*)(out + 2) = 19;
-				*(uint8_t*)(out + 3) = 13;
-				return 4;
-			}
-			if (ns1->field_21 >= (unsigned int)(nox_xxx_servGetPlrLimit_409FA0() - 1)) {
-				a4a = 1;
-			}
-			if (sub_40A740()) {
-				int v46 = nox_xxx_countObserverPlayers_425BF0();
-				if (!*((uint32_t*)packet + 21)) {
-					if (v46 >= (unsigned char)v78[53]) {
-						*(uint8_t*)(out + 2) = 19;
-						*(uint8_t*)(out + 3) = 11;
-						return 4;
-					}
-				} else if (nox_server_teamByXxx_418AE0(*((uint32_t*)packet + 21))) {
-					if (v46 > 0) {
-						v43 = 1;
-					}
-				} else {
-					if ((unsigned char)sub_417DE0() >= (unsigned char)v78[52]) {
-						if (v46 >= (unsigned char)v78[53]) {
-							*(uint8_t*)(out + 2) = 19;
-							*(uint8_t*)(out + 3) = 11;
-							return 4;
-						}
-					} else if (v46 > 0) {
-						v43 = 1;
-					}
-				}
-			}
-			if (a4a) {
-				if (!v43 || !*(uint32_t*)(v78 + 54)) {
-					*(uint8_t*)(out + 2) = 19;
-					*(uint8_t*)(out + 3) = 11;
-					return 4;
-				}
-				for (char* i = nox_xxx_firstReplaceablePlayer_425C40(); i;
-					 i = nox_xxx_nextReplaceablePlayer_425C70((int)i)) {
-					if (!nox_xxx_findPlayerID_5541D0((unsigned char)i[2064] + 1)) {
-						nox_xxx_playerCallDisconnect_4DEAB0((unsigned char)i[2064], 4);
-						uint32_t* v50 = calloc(1, 0x10u);
-						v50[3] = (unsigned char)i[2064] + 1;
-						nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 2495908), v50);
-						++*getMemU8Ptr(0x5D4594, 2500076);
-						*(uint8_t*)(out + 2) = 21;
-						return 3;
-					}
-				}
-			}
-			if (v78[100] & 0x10) {
-				int* v48 = sub_4168E0();
-				if (!v48) {
-					*(uint8_t*)(out + 2) = 19;
-					*(uint8_t*)(out + 3) = 4;
-					return 4;
-				}
-				while (_nox_wcsicmp((const wchar_t*)v48 + 6, (const wchar_t*)(packet + 4))) {
-					v48 = sub_4168F0(v48);
-					if (!v48) {
-						*(uint8_t*)(out + 2) = 19;
-						*(uint8_t*)(out + 3) = 4;
-						return 4;
-					}
-				}
-			} else {
-				for (int* j = sub_416900(); j; j = sub_416910(j)) {
-					if (!strcmp((const char*)j + 72, "0")) {
-						if (!_nox_wcsicmp((const wchar_t*)j + 6, (const wchar_t*)packet + 2)) {
-							*(uint8_t*)(out + 2) = 19;
-							*(uint8_t*)(out + 3) = 5;
-							return 4;
-						}
-					} else if (!_strcmpi((const char*)j + 72, (const char*)packet + 56)) {
-						*(uint8_t*)(out + 2) = 19;
-						*(uint8_t*)(out + 3) = 5;
-						return 4;
-					}
-				}
-			}
-			char* v35 = v78;
-			char v52 = v78[100];
-			if (v52 && (unsigned char)(1 << packet[54]) & (unsigned char)v52) {
-				*(uint8_t*)(out + 2) = 19;
-				*(uint8_t*)(out + 3) = 7;
-				return 4;
-			}
-			if (v52 & 0x20) {
-				*(uint8_t*)(out + 2) = 15;
-				return 3;
-			}
-			if (*(short*)(v78 + 105) == -1 && *(short*)(v35 + 107) == -1) {
-				*(uint8_t*)(out + 2) = 20; // OK
-				return 3;
-			}
-			int id53 = sub_553D10();
-			if (id53 < 0) {
-				*(uint8_t*)(out + 2) = 20; // OK
-				return 3;
-			}
-			nox_net_struct2_t* nx = &nox_net_struct2_arr[id53];
-			nx->field_0 = 1;
-			nx->field_1_1 = 0;
-			nx->field_1_0 = 0;
-			memcpy(&nx->addr, from, sizeof(nx->addr));
-			return nox_xxx_makePacketTime_552340(id53, out);
-		}
+			return nox_xxx_netBigSwitch_553210_op_14(pid, out, packet, ns1, pidb, p1, from);
 		case 17: {
 			char* v33 = sub_416640();
 			char* v35 = v33;
