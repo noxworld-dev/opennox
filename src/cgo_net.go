@@ -240,7 +240,7 @@ func init() {
 
 type nox_socket_t = C.nox_socket_t
 
-func newSocketHandle(s *Socket) C.nox_socket_t {
+func newSocketHandle(s *Socket) nox_socket_t {
 	if s == nil {
 		return 0
 	}
@@ -248,7 +248,7 @@ func newSocketHandle(s *Socket) C.nox_socket_t {
 	sockets.Lock()
 	sockets.byHandle[h] = s
 	sockets.Unlock()
-	return C.nox_socket_t(h)
+	return nox_socket_t(h)
 }
 
 func int2port(v uint16) int {
@@ -318,7 +318,7 @@ func setAddr(dst *C.struct_nox_net_sockaddr_in, addr net.Addr) (net.IP, int) {
 }
 
 //export nox_net_close
-func nox_net_close(fd C.nox_socket_t) {
+func nox_net_close(fd nox_socket_t) {
 	h := uintptr(fd)
 	handles.AssertValid(h)
 	sockets.Lock()
@@ -328,7 +328,7 @@ func nox_net_close(fd C.nox_socket_t) {
 	_ = s.Close()
 }
 
-func getSocket(fd C.nox_socket_t) *Socket {
+func getSocket(fd nox_socket_t) *Socket {
 	h := uintptr(fd)
 	if !handles.IsValid(h) {
 		return nil
@@ -339,7 +339,7 @@ func getSocket(fd C.nox_socket_t) *Socket {
 	return s
 }
 
-func nox_net_recv(fd C.nox_socket_t, buffer unsafe.Pointer, length C.uint) C.int {
+func nox_net_recv(fd nox_socket_t, buffer unsafe.Pointer, length C.uint) C.int {
 	s := getSocket(fd)
 	if s == nil {
 		s.setErrno(123456, errors.New("no socket")) // TODO
@@ -362,7 +362,7 @@ func nox_net_recv(fd C.nox_socket_t, buffer unsafe.Pointer, length C.uint) C.int
 }
 
 //export nox_net_sendto
-func nox_net_sendto(fd C.nox_socket_t, buffer unsafe.Pointer, length C.uint, addr *C.struct_nox_net_sockaddr_in) C.int {
+func nox_net_sendto(fd nox_socket_t, buffer unsafe.Pointer, length C.uint, addr *C.struct_nox_net_sockaddr_in) C.int {
 	s := getSocket(fd)
 	if s == nil {
 		s.setErrno(123456, errors.New("no socket")) // TODO
@@ -386,7 +386,7 @@ func nox_net_sendto(fd C.nox_socket_t, buffer unsafe.Pointer, length C.uint, add
 }
 
 //export nox_net_recvfrom
-func nox_net_recvfrom(fd C.nox_socket_t, buffer unsafe.Pointer, length C.uint, addr *C.struct_nox_net_sockaddr_in) C.int {
+func nox_net_recvfrom(fd nox_socket_t, buffer unsafe.Pointer, length C.uint, addr *C.struct_nox_net_sockaddr_in) C.int {
 	if addr == nil {
 		return nox_net_recv(fd, buffer, length)
 	}
@@ -416,7 +416,7 @@ func nox_net_recvfrom(fd C.nox_socket_t, buffer unsafe.Pointer, length C.uint, a
 }
 
 //export nox_net_recv_available
-func nox_net_recv_available(fd C.nox_socket_t, out *C.uint) C.int {
+func nox_net_recv_available(fd nox_socket_t, out *C.uint) C.int {
 	s := getSocket(fd)
 	if s == nil {
 		s.setErrno(123456, errors.New("no socket")) // TODO
