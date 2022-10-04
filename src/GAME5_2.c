@@ -319,23 +319,6 @@ unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz,
 	return 72 + strlen(srvName) + 1;
 }
 
-//----- (005541D0) --------------------------------------------------------
-void* nox_xxx_findPlayerID_5541D0(int a1) {
-	int* result; // eax
-
-	result = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 2495908));
-	if (!result) {
-		return 0;
-	}
-	while (result[3] != a1) {
-		result = nox_common_list_getNextSafe_4258A0(result);
-		if (!result) {
-			return 0;
-		}
-	}
-	return result;
-}
-
 //----- (00554200) --------------------------------------------------------
 int nox_xxx_net_getIP_554200(unsigned int a1) {
 	if (a1 > NOX_NET_STRUCT_MAX) {

@@ -1857,7 +1857,7 @@ func nox_xxx_netBigSwitch_553210_op_10(id int, pid int, out []byte, ns1 *netStru
 
 	arr2508788[id] = netTimingStruct{}
 
-	v69 := C.nox_xxx_findPlayerID_5541D0(C.int(pid))
+	v69 := nox_xxx_findPlayerID_5541D0(pid)
 	if v69 != nil {
 		C.sub_425920(v69)
 		C.free(unsafe.Pointer(v69))
@@ -2138,4 +2138,14 @@ func nox_xxx_allocNetGQueue_5520B0() {
 	cnt2495952 = 0
 	cnt2495956 = 0
 	flag2495924 = true
+}
+
+//export nox_xxx_findPlayerID_5541D0
+func nox_xxx_findPlayerID_5541D0(a1 int) unsafe.Pointer {
+	for it := nox_common_list_getFirstSafe_425890(memmap.PtrOff(0x5D4594, 2495908)); it != nil; it = nox_common_list_getNextSafe_4258A0(it) {
+		if *(*int32)(unsafe.Add(it, 3*4)) == int32(a1) {
+			return it
+		}
+	}
+	return nil
 }
