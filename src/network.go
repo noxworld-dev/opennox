@@ -24,6 +24,7 @@ extern unsigned long long qword_5d4594_814956;
 extern nox_alloc_class* nox_alloc_gQueue_3844300;
 extern nox_socket_t nox_xxx_sockLocalBroadcast_2513920;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
+extern nox_net_struct2_t nox_net_struct2_arr[NOX_NET_STRUCT_MAX];
 unsigned int nox_client_getServerAddr_43B300();
 int nox_client_getServerPort_43B320();
 int nox_client_getClientPort_40A420();
@@ -1959,4 +1960,29 @@ func sub_5551F0(a1 int, a2 byte, a3 int) int {
 		}
 	}
 	return 0
+}
+
+func sub_4DF550() int {
+	return int(memmap.Uint32(0x5D4594, 1563148))
+}
+
+//export sub_5522E0
+func sub_5522E0(id int) {
+	i := sub_4DF550()
+	ns := asNetStruct(C.nox_net_struct_arr[i])
+	buf := nox_xxx_makePacketTime_552340(id)
+	ns2 := &C.nox_net_struct2_arr[id]
+	ip, port := toIPPort(&ns2.addr)
+	n, _ := nox_xxx_sendto551F90(ns.Socket(), buf, ip, port)
+	sub_553F40(n, 1)
+}
+
+func nox_xxx_makePacketTime_552340(id int) []byte {
+	var buf [8]byte
+	nx := &C.nox_net_struct2_arr[id]
+	nx.ticks = C.uint(platformTicks())
+	buf[2] = 16
+	buf[3] = byte(nx.field_1_1)
+	binary.LittleEndian.PutUint32(buf[4:], uint32(nx.ticks))
+	return buf[:]
 }
