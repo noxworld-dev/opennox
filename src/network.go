@@ -53,7 +53,6 @@ static int nox_call_net_xxxyyy_go(int (*fnc)(unsigned int, char*, int, void*), u
 int nox_xxx_netBigSwitch_553210_op_6(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb, unsigned char* packetCur);
 int nox_xxx_netBigSwitch_553210_op_7(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb);
 int nox_xxx_netBigSwitch_553210_op_8(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb, unsigned char* packetCur);
-int nox_xxx_netBigSwitch_553210_op_9(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb, unsigned char* packetCur);
 int nox_xxx_netBigSwitch_553210_op_10(unsigned int id, int pid, uint8_t* out, nox_net_struct_t* ns1);
 int nox_xxx_netBigSwitch_553210_op_14(int pid, uint8_t* out, unsigned char* packet, nox_net_struct_t* ns1, char p1, struct nox_net_sockaddr_in* from);
 int nox_xxx_netBigSwitch_553210_op_17(uint8_t* out, unsigned char* packet, char p1, struct nox_net_sockaddr_in* from);
@@ -1607,7 +1606,7 @@ func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Add
 		case 8:
 			return int(C.nox_xxx_netBigSwitch_553210_op_8(C.int(pid), (*C.uchar)(unsafe.Pointer(&out[0])), ns1.C(), C.uint(pidb), (*C.uchar)(unsafe.Pointer(&packetCur[0]))))
 		case 9:
-			return int(C.nox_xxx_netBigSwitch_553210_op_9(C.int(pid), (*C.uchar)(unsafe.Pointer(&out[0])), ns1.C(), C.uint(pidb), (*C.uchar)(unsafe.Pointer(&packetCur[0]))))
+			return nox_xxx_netBigSwitch_553210_op_9(pid, packetCur)
 		case 10:
 			return int(C.nox_xxx_netBigSwitch_553210_op_10(C.uint(id), C.int(pid), (*C.uchar)(unsafe.Pointer(&out[0])), ns1.C()))
 		case 11:
@@ -1725,5 +1724,28 @@ func nox_xxx_netBigSwitch_553210_op_0(id int, out []byte, pid int, p1 byte, ns1 
 	ns10.field_38 = 1
 	ns10.data_39[0] = C.uchar(v67)
 	ns10.field_40 = C.uint(gameFrame())
+	return 0
+}
+
+func nox_xxx_netBigSwitch_553210_op_9(pid int, packetCur []byte) int {
+	if len(packetCur) < 4 {
+		return 0
+	}
+	v := binary.LittleEndian.Uint32(packetCur[:4])
+	dv := v - memmap.Uint32(0x5D4594, 2508792+32*uintptr(pid))
+	if dv <= 0 || dv >= 1000 {
+		return 0
+	}
+	ind := memmap.Uint32(0x5D4594, 2508788+32*uintptr(pid))
+	*memmap.PtrUint32(0x5D4594, 2508796+32*uintptr(pid)+4*uintptr(ind)) = dv
+	v26 := (ind + 1) % 5
+	v27 := v26
+	if v26 == 0 {
+		for i := 0; i < 5; i++ {
+			v26 += memmap.Uint32(0x5D4594, 2508796+32*uintptr(pid)+4*uintptr(i))
+		}
+		*memmap.PtrUint32(0x5D4594, 2508816+32*uintptr(pid)) = v26 / 5
+	}
+	*memmap.PtrUint32(0x5D4594, 2508788+32*uintptr(pid)) = v27
 	return 0
 }
