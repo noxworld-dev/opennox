@@ -575,23 +575,6 @@ int sub_554300() {
 	return result;
 }
 
-//----- (005549F0) --------------------------------------------------------
-int sub_5549F0(unsigned int a1) {
-	char v2; // [esp+7h] [ebp-1h]
-
-	v2 = 10;
-	if (a1 >= NOX_NET_STRUCT_MAX) {
-		return -3;
-	}
-	if (nox_net_struct_arr[a1]) {
-		nox_xxx_netSendReadPacket_5528B0(a1, 0);
-		nox_xxx_netSendSock_552640(a1, &v2, 1, 0);
-		nox_xxx_netSendReadPacket_5528B0(a1, 0);
-		sub_554A50(a1);
-	}
-	return 0;
-}
-
 //----- (00555130) --------------------------------------------------------
 int sub_555130(unsigned int a1, const void* a2, signed int a3) {
 	uint32_t* v5; // eax
