@@ -22,7 +22,6 @@ extern unsigned int dword_5d4594_814548;
 extern unsigned int dword_5d4594_2495920;
 extern unsigned long long qword_5d4594_814956;
 extern nox_socket_t nox_xxx_sockLocalBroadcast_2513920;
-extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
 unsigned int nox_client_getServerAddr_43B300();
 int nox_client_getServerPort_43B320();
 int nox_client_getClientPort_40A420();
@@ -97,8 +96,10 @@ var (
 	dword_5d4594_2496988 int
 	dword_5d4594_2495920 uint32
 	dword_5d4594_3843632 uint32
+	dword_5d4594_2513932 *gQueueItem
 	dword_5d4594_3844304 bool
 
+	nox_net_struct_arr       [NOX_NET_STRUCT_MAX]*netStruct
 	nox_net_struct2_arr      [NOX_NET_STRUCT_MAX]netStruct2
 	netPacketDrop            int
 	arr2508788               [NOX_NET_STRUCT_MAX]netTimingStruct
@@ -155,31 +156,23 @@ func networkLogPrint(str string) {
 //export nox_xxx_netGet_43C750
 func nox_xxx_netGet_43C750() C.int { return C.int(dword_5D4594_815700) }
 
-func newNetStruct() (*netStruct, func()) {
-	return alloc.New(netStruct{})
-}
-
-func asNetStruct(ptr *C.nox_net_struct_t) *netStruct {
-	return (*netStruct)(unsafe.Pointer(ptr))
-}
-
 func getNetStructByInd(i int) *netStruct {
 	if i < 0 || i >= NOX_NET_STRUCT_MAX {
 		return nil
 	}
-	return asNetStruct(C.nox_net_struct_arr[i])
+	return nox_net_struct_arr[i]
 }
 
 func setNetStructByInd(i int, ns *netStruct) {
 	if i < 0 || i >= NOX_NET_STRUCT_MAX {
 		panic("out of bounds")
 	}
-	C.nox_net_struct_arr[i] = ns.C()
+	nox_net_struct_arr[i] = ns
 }
 
 func getFreeNetStruct() int {
 	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
-		if C.nox_net_struct_arr[i] == nil {
+		if nox_net_struct_arr[i] == nil {
 			return i
 		}
 	}
@@ -188,7 +181,7 @@ func getFreeNetStruct() int {
 
 func nox_xxx_netStructByAddr_551E60(ip net.IP, port int) *netStruct {
 	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
-		ns := asNetStruct(C.nox_net_struct_arr[i])
+		ns := nox_net_struct_arr[i]
 		if ns == nil {
 			continue
 		}
@@ -217,7 +210,7 @@ func (ns *netStruct) FreeXxx() {
 	alloc.Free(unsafe.Pointer(ns.data_2_base))
 	C.CloseHandle(C.HANDLE(ns.mutex_yyy))
 	C.CloseHandle(C.HANDLE(ns.mutex_xxx))
-	alloc.Free(unsafe.Pointer(ns.C()))
+	alloc.Free(unsafe.Pointer(ns))
 }
 
 func (ns *netStruct) Socket() *Socket {
@@ -662,7 +655,7 @@ func nox_xxx_netInit_554380(narg *netStructOpt) (ind int, _ error) {
 var zeroHandle C.HANDLE
 
 func nox_xxx_makeNewNetStruct(arg *netStructOpt) *netStruct {
-	ns, _ := newNetStruct()
+	ns, _ := alloc.New(netStruct{})
 
 	my := C.CreateMutexA(nil, 0, nil)
 	if my == zeroHandle {
@@ -1328,7 +1321,7 @@ func sub_553FC0(a1, a2 int) {
 
 func sub_551E00(ind int, ip net.IP, port int) bool {
 	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
-		ns := asNetStruct(C.nox_net_struct_arr[i])
+		ns := nox_net_struct_arr[i]
 		if ns == nil {
 			continue
 		}
@@ -1716,7 +1709,7 @@ func nox_xxx_netBigSwitch_553210_op_0(id int, out []byte, pid int, p1 byte, ns1 
 	ip, port := getAddr(from)
 	// now, find free net struct index and use it as pid
 	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
-		ns9 := asNetStruct(C.nox_net_struct_arr[i])
+		ns9 := nox_net_struct_arr[i]
 		if ns9 == nil {
 			pid = i
 			break
@@ -2151,7 +2144,7 @@ func sub_43CC80() {
 func sub_5524C0() {
 	dword_5d4594_2495920 = uint32(platformTicks())
 	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
-		ns := asNetStruct(C.nox_net_struct_arr[i])
+		ns := nox_net_struct_arr[i]
 		if ns != nil && ns.field_38 == 1 {
 			if uint32(ns.field_40+300) < gameFrame() {
 				noxServer.nox_xxx_netStructReadPackets(i)
@@ -2167,7 +2160,7 @@ func nox_xxx_netMaybeSendAll_552460() {
 		return
 	}
 	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
-		if C.nox_net_struct_arr[i] != nil {
+		if nox_net_struct_arr[i] != nil {
 			sub_5551F0(i, 0, 0)
 			nox_xxx_netSend_5552D0(i, 0, false)
 		}
@@ -2195,7 +2188,7 @@ func nox_xxx_netSendReadPacket_5528B0(ind int, a2 byte) int {
 		find = int(ns.id)
 	}
 	for j := min; j < max; j++ {
-		ns2 := asNetStruct(C.nox_net_struct_arr[j])
+		ns2 := nox_net_struct_arr[j]
 		if ns2 == nil || int(ns2.id) != find {
 			continue
 		}
@@ -2254,7 +2247,7 @@ func sub_4DF550() int {
 
 func sub_5522E0(id int) {
 	i := sub_4DF550()
-	ns := asNetStruct(C.nox_net_struct_arr[i])
+	ns := nox_net_struct_arr[i]
 	buf := nox_xxx_makePacketTime_552340(id)
 	ns2 := &nox_net_struct2_arr[id]
 	ip, port := getAddr(ns2.addr)
@@ -2275,7 +2268,7 @@ func nox_xxx_makePacketTime_552340(id int) []byte {
 
 func sub_552380(a1 int) {
 	i := sub_4DF550()
-	ns := asNetStruct(C.nox_net_struct_arr[i])
+	ns := nox_net_struct_arr[i]
 	var buf [3]byte
 	buf[0] = 0
 	buf[1] = 0
@@ -2291,7 +2284,7 @@ func sub_552380(a1 int) {
 
 func sub_5523E0(a1 byte, ind int) {
 	i := sub_4DF550()
-	ns := asNetStruct(C.nox_net_struct_arr[i])
+	ns := nox_net_struct_arr[i]
 	var buf [4]byte
 	buf[0] = 0
 	buf[1] = 0
@@ -2328,7 +2321,7 @@ func sub_552E70(ind int) int {
 	}
 	buf[0] = 6
 	for i := min; i < max; i++ {
-		ns2 := asNetStruct(C.nox_net_struct_arr[i])
+		ns2 := nox_net_struct_arr[i]
 		if ns2 != nil && int(ns2.id) == find {
 			ns2.field_22 = C.uint(dword_5d4594_2495920)
 			ns2.field_23 = ns2.field_22
@@ -2399,8 +2392,8 @@ func nox_xxx_allocNetGQueue_5520B0() {
 		return
 	}
 	nox_alloc_gQueue_3844300.FreeAllObjects()
-	for i := range C.nox_net_struct_arr {
-		C.nox_net_struct_arr[i] = nil
+	for i := range nox_net_struct_arr {
+		nox_net_struct_arr[i] = nil
 	}
 	for i := range nox_net_struct2_arr {
 		nox_net_struct2_arr[i] = netStruct2{}
@@ -2490,4 +2483,46 @@ func nox_xxx_net_getIP_554200(a1 int) uint32 {
 		return 0
 	}
 	return uint32(ns.addr.sin_addr)
+}
+
+//export sub_519930
+func sub_519930(a1 int) int {
+	cnt := 0
+	v2 := int(memmap.Uint32(0x5D4594, 2387148+48*uintptr(a1)))
+	if v2 != 0 {
+		if a1 < 32 {
+			for it := sub_555250(v2); it != nil; it = sub_555290(v2) {
+				if op := noxnet.Op(it[0]); op == noxnet.MSG_MAP_SEND_START || op == noxnet.MSG_MAP_SEND_PACKET {
+					cnt++
+				}
+			}
+		}
+	}
+	return cnt
+}
+
+func sub_555250(a1 int) []byte {
+	ns := getNetStructByInd(a1)
+	if ns == nil {
+		return nil
+	}
+	it := (*gQueueItem)(ns.field_29)
+	if it == nil {
+		return nil
+	}
+	dword_5d4594_2513932 = it.next
+	return it.data[2:it.size4]
+}
+
+func sub_555290(a1 int) []byte {
+	if dword_5d4594_2513932 == nil {
+		return nil
+	}
+	ns := getNetStructByInd(a1)
+	if ns == nil {
+		return nil
+	}
+	next := dword_5d4594_2513932
+	dword_5d4594_2513932 = next
+	return next.data[2:next.size4]
 }

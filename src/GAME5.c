@@ -43,7 +43,6 @@ extern uint32_t dword_5d4594_2650652;
 extern uint32_t nox_player_netCode_85319C;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
-extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
 
 //-------------------------------------------------------------------------
 // Function declarations
