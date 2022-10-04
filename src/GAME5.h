@@ -193,10 +193,6 @@ void sub_551C40(int a1, int a2);
 int nox_xxx_netRead2Xxx_551EB0(unsigned int id1, unsigned int id2, unsigned char a3, int a4, int a5);
 int nox_xxx_sendto_551F90(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* to);
 int nox_net_setPacketDrop_552010(int a1);
-int sub_5521A0();
-void sub_5522E0(int id);
-void sub_552380(int a1);
-void sub_5523E0(unsigned char a1, int a2);
 int nox_xxx_netSendSock_552640(int id, unsigned char* buf, int sz, int flags);
 
 #endif // NOX_PORT_GAME5

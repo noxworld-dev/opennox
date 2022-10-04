@@ -2229,7 +2229,6 @@ func sub_4DF550() int {
 	return int(memmap.Uint32(0x5D4594, 1563148))
 }
 
-//export sub_5522E0
 func sub_5522E0(id int) {
 	i := sub_4DF550()
 	ns := asNetStruct(C.nox_net_struct_arr[i])
@@ -2250,7 +2249,6 @@ func nox_xxx_makePacketTime_552340(id int) []byte {
 	return buf[:]
 }
 
-//export sub_552380
 func sub_552380(a1 int) {
 	i := sub_4DF550()
 	ns := asNetStruct(C.nox_net_struct_arr[i])
@@ -2265,7 +2263,6 @@ func sub_552380(a1 int) {
 	nx.field_0 = 0
 }
 
-//export sub_5523E0
 func sub_5523E0(a1 byte, a2 int) {
 	i := sub_4DF550()
 	ns := asNetStruct(C.nox_net_struct_arr[i])
@@ -2320,12 +2317,58 @@ var (
 	cnt2495948  uint32
 	cnt2495952  uint32
 	cnt2495956  uint32
+	val292940   uint32 = 3
 )
 
+func sub_5521A0() bool {
+	v13 := sub_416640()
+	start := platformTicks()
+	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
+		nx := &C.nox_net_struct2_arr[i]
+		if nx.field_0 == 0 {
+			continue
+		}
+		v2 := nx.field_1_1
+		if v2 >= 10 {
+			if uint32(nx.field_1_0) > val292940 {
+				sub_5523E0(1, i)
+				sub_552380(i)
+				continue
+			}
+			cnt := 0
+			sum := 0
+			for i = 0; i < 10; i++ {
+				if nx.field_6[i] > 0 {
+					cnt++
+					sum += int(nx.field_6[i])
+				}
+			}
+			avg := sum / cnt
+			if *(*int16)(unsafe.Pointer(&v13[105])) != -1 && avg < int(*(*int16)(unsafe.Pointer(&v13[105]))) {
+				sub_5523E0(0, i)
+			}
+			if *(*int16)(unsafe.Pointer(&v13[107])) != -1 && avg > int(*(*int16)(unsafe.Pointer(&v13[107]))) {
+				sub_5523E0(1, i)
+			}
+			sub_552380(i)
+		} else if start-uint64(nx.ticks) > 2000 {
+			v3 := val292940
+			C.nox_net_struct2_arr[i].field_6[v2] = math.MaxUint32
+			v4 := nx.field_1_0 + 1
+			nx.field_1_0 = v4
+			if uint32(v4) <= v3 {
+				nx.field_1_1++
+				sub_5522E0(i)
+			} else {
+				sub_5523E0(1, i)
+			}
+		}
+	}
+	return true
+}
+
 func nox_xxx_allocNetGQueue_5520B0() {
-	gameSet816392Func(func() bool {
-		return C.sub_5521A0() != 0
-	})
+	gameSet816392Func(sub_5521A0)
 	if flag2495924 {
 		return
 	}
