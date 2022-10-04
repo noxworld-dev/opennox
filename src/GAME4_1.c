@@ -275,7 +275,7 @@ int* sub_509CB0() {
 		if (result) {
 			do {
 				v2 = nox_common_list_getNextSafe_4258A0(v1);
-				sub_425920((uint32_t**)v1);
+				nox_common_list_remove_425920((uint32_t**)v1);
 				free(v1);
 				v1 = v2;
 			} while (v2);

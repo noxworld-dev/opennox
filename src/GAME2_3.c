@@ -577,7 +577,7 @@ int sub_48D660() {
 			}
 			nox_xxx_netOnPacketRecvCli_48EA70(31, (unsigned int)(v1 + 8), *((unsigned short*)v1 + 12));
 			++*getMemU16Ptr(0x5D4594, 1197360);
-			sub_425920((uint32_t**)v1);
+			nox_common_list_remove_425920((uint32_t**)v1);
 			free(v1);
 			v1 = v2;
 		} while (v2);
@@ -608,7 +608,7 @@ void sub_48D760() {
 	if (v0) {
 		do {
 			v1 = nox_common_list_getNextSafe_4258A0(v0);
-			sub_425920((uint32_t**)v0);
+			nox_common_list_remove_425920((uint32_t**)v0);
 			free(v0);
 			v0 = v1;
 		} while (v1);
@@ -6282,7 +6282,7 @@ int* sub_49FFA0(int a1) {
 	if (result) {
 		do {
 			v3 = nox_common_list_getNextSafe_4258A0(v2);
-			sub_425920((uint32_t**)v2);
+			nox_common_list_remove_425920((uint32_t**)v2);
 			if (a1) {
 				nox_xxx_windowDestroyMB_46C4E0((uint32_t*)v2[7]);
 			}
@@ -6574,7 +6574,7 @@ int* sub_4A04F0(char* a1) {
 
 //----- (004A0540) --------------------------------------------------------
 void sub_4A0540(void* lpMem) {
-	sub_425920((uint32_t**)lpMem);
+	nox_common_list_remove_425920((uint32_t**)lpMem);
 	nox_xxx_windowDestroyMB_46C4E0(*((uint32_t**)lpMem + 7));
 	free(lpMem);
 }

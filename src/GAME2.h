@@ -62,7 +62,7 @@ int sub_451FE0(int a1);
 int sub_452010();
 void sub_452050(uint32_t* a1);
 int* sub_452120(int a1);
-uint32_t** sub_452190(int a1);
+void sub_452190(int a1);
 int* sub_4521A0(int a1);
 int sub_4521F0();
 int***** sub_452230();

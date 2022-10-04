@@ -992,7 +992,7 @@ void nox_common_maplist_free_4D0970() {
 	if (result) {
 		do {
 			v2 = nox_common_list_getNextSafe_4258A0(v1);
-			sub_425920((uint32_t**)v1);
+			nox_common_list_remove_425920((uint32_t**)v1);
 			free(v1);
 			v1 = v2;
 		} while (v2);
@@ -1366,7 +1366,7 @@ void sub_4D11D0() {
 	if (result) {
 		do {
 			v2 = nox_common_list_getNextSafe_4258A0(v1);
-			sub_425920((uint32_t**)v1);
+			nox_common_list_remove_425920((uint32_t**)v1);
 			free(v1);
 			v1 = v2;
 		} while (v2);
@@ -1406,7 +1406,7 @@ int* sub_4D1250(int a1) {
 				return result;
 			}
 		}
-		sub_425920((uint32_t**)v2);
+		nox_common_list_remove_425920((uint32_t**)v2);
 		free(v2);
 	}
 	return result;

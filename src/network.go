@@ -103,7 +103,18 @@ var (
 	nox_net_struct2_arr [NOX_NET_STRUCT_MAX]netStruct2
 	netPacketDrop       int
 	arr2508788          [NOX_NET_STRUCT_MAX]netTimingStruct
+	list2495908         listHead[netPlayerIDList, *netPlayerIDList]
+	cnt2500076          int
 )
+
+type netPlayerIDList struct {
+	listItem
+	Ind int
+}
+
+func (l *netPlayerIDList) Next() *netPlayerIDList {
+	return (*netPlayerIDList)(unsafe.Pointer(l.Next()))
+}
 
 var (
 	noxMapCRC     = 0
@@ -1689,7 +1700,7 @@ func nox_xxx_netBigSwitch_553210_op_0(id int, out []byte, pid int, p1 byte, ns1 
 	}
 	out[0] = 0
 	out[1] = p1
-	if int(ns1.field_21) >= noxServer.getServerMaxPlayers()+int(memmap.Uint8(0x5D4594, 2500076)-1) {
+	if int(ns1.field_21) >= noxServer.getServerMaxPlayers()+(cnt2500076-1) {
 		out[2] = 2
 		return 3
 	}
@@ -1869,9 +1880,9 @@ func nox_xxx_netBigSwitch_553210_op_10(id int, pid int, out []byte, ns1 *netStru
 
 	v69 := nox_xxx_findPlayerID_5541D0(pid)
 	if v69 != nil {
-		C.sub_425920(v69)
-		C.free(unsafe.Pointer(v69))
-		*memmap.PtrUint8(0x5D4594, 2500076)--
+		v69.Remove()
+		alloc.Free(unsafe.Pointer(v69))
+		cnt2500076--
 	}
 	noxServer.nox_xxx_netStructReadPackets(pid)
 	return 0
@@ -1961,10 +1972,10 @@ func nox_xxx_netBigSwitch_553210_op_14(out []byte, packet []byte, ns1 *netStruct
 		for it := s.firstReplaceablePlayer(); it != nil; it = s.nextReplaceablePlayer(it) {
 			if nox_xxx_findPlayerID_5541D0(it.Index()+1) == nil {
 				s.getPlayerByInd(it.Index()).Disconnect(4)
-				v50, _ := alloc.Make([]uint32{}, 4)
-				v50[3] = uint32(it.Index() + 1)
-				nox_common_list_append_4258E0(memmap.PtrOff(0x5D4594, 2495908), unsafe.Pointer(&v50[0]))
-				*memmap.PtrUint8(0x5D4594, 2500076)++
+				item, _ := alloc.New(netPlayerIDList{})
+				item.Ind = it.Index() + 1
+				list2495908.Append(item)
+				cnt2500076++
 				out[2] = 21
 				return 3
 			}
@@ -2396,15 +2407,15 @@ func nox_xxx_allocNetGQueue_5520B0() {
 	*memmap.PtrUint32(0x5D4594, 2512884) = 1024
 	C.nox_alloc_gQueue_3844300 = (*C.nox_alloc_class)(alloc.NewClass("GQueue", 1024, 200).UPtr())
 	if flag2495924 {
-		var next unsafe.Pointer
-		for it := nox_common_list_getFirstSafe_425890(*memmap.PtrPtr(0x5D4594, 2495908)); it != nil; it = next {
-			next = nox_common_list_getNextSafe_4258A0(it)
-			C.sub_425920(it)
-			C.free(unsafe.Pointer(it))
-			*memmap.PtrUint8(0x5D4594, 2500076)--
+		var next *netPlayerIDList
+		for it := list2495908.First(); it != nil; it = next {
+			next = it.Next()
+			it.Remove()
+			alloc.Free(unsafe.Pointer(it))
+			cnt2500076--
 		}
 	} else {
-		nox_common_list_clear_425760(memmap.PtrOff(0x5D4594, 2495908))
+		list2495908.Clear()
 	}
 	cnt2495944 = 0
 	cnt2495948 = 0
@@ -2413,9 +2424,9 @@ func nox_xxx_allocNetGQueue_5520B0() {
 	flag2495924 = true
 }
 
-func nox_xxx_findPlayerID_5541D0(a1 int) unsafe.Pointer {
-	for it := nox_common_list_getFirstSafe_425890(memmap.PtrOff(0x5D4594, 2495908)); it != nil; it = nox_common_list_getNextSafe_4258A0(it) {
-		if *(*int32)(unsafe.Add(it, 3*4)) == int32(a1) {
+func nox_xxx_findPlayerID_5541D0(a1 int) *netPlayerIDList {
+	for it := list2495908.First(); it != nil; it = it.Next() {
+		if it.Ind == a1 {
 			return it
 		}
 	}
