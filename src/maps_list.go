@@ -30,7 +30,7 @@ func scanMaps() (maps.MapList, error) {
 }
 
 func nox_common_scanAllMaps_4D07F0() error {
-	C.nox_common_list_clear_425760(&C.nox_common_maplist)
+	nox_common_list_clear_425760(unsafe.Pointer(&C.nox_common_maplist))
 	list, err := scanMaps()
 	if err != nil && len(list) == 0 {
 		return err
