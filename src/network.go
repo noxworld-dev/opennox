@@ -86,7 +86,7 @@ import (
 )
 
 const (
-	NOX_NET_STRUCT_MAX = C.NOX_NET_STRUCT_MAX
+	NOX_NET_STRUCT_MAX = 128
 )
 
 func init() {
