@@ -193,10 +193,52 @@ func nox_xxx_netStructByAddr_551E60(ip net.IP, port int) *netStruct {
 	return nil
 }
 
-type netStruct C.nox_net_struct_t
+type netStruct struct {
+	sock    nox_socket_t                 // 0, 0
+	addr    C.struct_nox_net_sockaddr_in // 1, 4
+	id      int                          // 5, 20
+	field_6 uint32
+	field_7 uint32
 
-func (ns *netStruct) C() *C.nox_net_struct_t {
-	return (*C.nox_net_struct_t)(unsafe.Pointer(ns))
+	data_1_base *C.char //  8, 32
+	data_1_xxx  *C.char //  9, 36
+	data_1_yyy  *C.char // 10, 40
+	data_1_end  *C.char // 11, 44
+
+	data_2_base *C.char // 12, 48
+	data_2_xxx  *C.char // 13, 52
+	data_2_yyy  *C.char // 14, 56
+	data_2_end  *C.char // 15, 60
+
+	field_16   uint32
+	field_17   uint32
+	field_18   uint32
+	field_19   uint32 // 76
+	field_20   uint32
+	field_21   uint32         // 84
+	field_22   uint32         // 88
+	field_23   uint32         // 92
+	field_24   uint32         // 96
+	field_25   uint32         // 100
+	field_26   uint32         // 104
+	field_27   uint32         // 108
+	field_28_0 uint8          // 112
+	field_28_1 int8           // 113
+	field_28_2 uint16         // 114
+	field_29   unsafe.Pointer // 116
+	data_3     unsafe.Pointer // 30, 120
+	mutex_xxx  unsafe.Pointer // 31, 124
+	mutex_yyy  unsafe.Pointer // 32, 128
+	field_33   uint32
+	field_34   uint32         // 136
+	func_xxx   unsafe.Pointer // 35, 140, func(i, data_2_xxx, sz, data_3)
+	func_yyy   unsafe.Pointer // 36, 144, last arg is data_3
+	xor_key    byte           // 37, 148
+	field_37_1 byte           // 37, 149
+	field_37_2 uint16         // 37, 150
+	field_38   uint32         // 152
+	data_39    [4]byte        // 156
+	field_40   uint32         // 160
 }
 
 func (ns *netStruct) FreeXxx() {
@@ -691,16 +733,16 @@ func nox_xxx_makeNewNetStruct(arg *netStructOpt) *netStruct {
 	ns.data_2_yyy = (*C.char)(unsafe.Pointer(&data2[2]))
 	ns.data_2_end = (*C.char)(unsafe.Add(unsafe.Pointer(&data2[0]), len(data2)))
 
-	ns.field_20 = C.uint(arg.field4)
+	ns.field_20 = uint32(arg.field4)
 	if arg.funcxxx != nil {
-		ns.func_xxx = (*[0]byte)(arg.funcxxx)
+		ns.func_xxx = arg.funcxxx
 	} else {
-		ns.func_xxx = (*[0]byte)(C.nox_xxx_netHandlerDefXxx_553D60)
+		ns.func_xxx = unsafe.Pointer(C.nox_xxx_netHandlerDefXxx_553D60)
 	}
 	if arg.funcyyy != nil {
-		ns.func_yyy = (*[0]byte)(arg.funcyyy)
+		ns.func_yyy = arg.funcyyy
 	} else {
-		ns.func_yyy = (*[0]byte)(C.nox_xxx_netHandlerDefYyy_553D70)
+		ns.func_yyy = unsafe.Pointer(C.nox_xxx_netHandlerDefYyy_553D70)
 	}
 	ns.field_28_1 = -1
 	ns.xor_key = 0
@@ -1439,7 +1481,7 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 				if v9 != byte(ns2.field_28_1) {
 					sub_5551F0(id2, v9, 1)
 					sub_555360(id2, v9, 1)
-					ns2.field_28_1 = C.char(v9)
+					ns2.field_28_1 = int8(v9)
 					v20 := 0
 					if nox_xxx_netRead2Xxx_551EB0(id, id2, v9, ns.Data1yyy()) {
 						v20 = 0
@@ -1610,9 +1652,9 @@ func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Add
 			xor := packetCur[4]
 			packetCur = packetCur[5:]
 
-			ns1.id = C.int(v11)
+			ns1.id = int(v11)
 			*ns1.data_2_base = C.char(v11)
-			ns1.xor_key = C.uchar(xor)
+			ns1.xor_key = xor
 			dword_5d4594_3844304 = true
 		case 2:
 			ns1.id = -18
@@ -1673,7 +1715,7 @@ func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Add
 			if v14 != byte(ns8.field_28_1) {
 				sub_5551F0(pid, v14, 1)
 				sub_555360(pid, v14, 1)
-				ns8.field_28_1 = C.char(v14)
+				ns8.field_28_1 = int8(v14)
 				out[0] = 38
 				out[1] = v14
 				ns1.callYyy(pid, out[:2], ns8.data_3)
@@ -1738,7 +1780,7 @@ func nox_xxx_netBigSwitch_553210_op_0(id int, out []byte, pid int, p1 byte, ns1 
 	if data1[1] == p1 {
 		data1[1]++
 	}
-	ns10.id = C.int(id)
+	ns10.id = id
 	ns10.sock = ns1.sock
 	ns10.func_xxx = ns1.func_xxx
 	ns10.func_yyy = ns1.func_yyy
@@ -1759,10 +1801,10 @@ func nox_xxx_netBigSwitch_553210_op_0(id int, out []byte, pid int, p1 byte, ns1 
 	out[7] = key
 	v67, _ := nox_xxx_netSendSock552640(pid, out[:8], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
 
-	ns10.xor_key = C.uchar(key)
+	ns10.xor_key = key
 	ns10.field_38 = 1
-	ns10.data_39[0] = C.uchar(v67)
-	ns10.field_40 = C.uint(gameFrame())
+	ns10.data_39[0] = byte(v67)
+	ns10.field_40 = gameFrame()
 	return 0
 }
 
@@ -1816,12 +1858,12 @@ func nox_xxx_netBigSwitch_553210_op_7(pid int, out []byte, ns1 *netStruct) int {
 
 func nox_xxx_netBigSwitch_553210_op_8(pid int, out []byte, ns1 *netStruct, packetCur []byte) int {
 	ns5 := getNetStructByInd(pid)
-	if ns5 == nil && binary.LittleEndian.Uint32(packetCur) != uint32(ns5.field_22) {
+	if ns5 == nil && binary.LittleEndian.Uint32(packetCur) != ns5.field_22 {
 		return 0
 	}
-	ns5.field_24 = C.uint(int(dword_5d4594_2495920) - int(ns5.field_23))
+	ns5.field_24 = uint32(int(dword_5d4594_2495920) - int(ns5.field_23))
 	out[0] = 36
-	binary.LittleEndian.PutUint32(out[1:], uint32(ns5.field_24))
+	binary.LittleEndian.PutUint32(out[1:], ns5.field_24)
 	var v19 unsafe.Pointer
 	if ns1.id == -1 {
 		v19 = ns5.data_3
@@ -2146,7 +2188,7 @@ func sub_5524C0() {
 	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
 		ns := nox_net_struct_arr[i]
 		if ns != nil && ns.field_38 == 1 {
-			if uint32(ns.field_40+300) < gameFrame() {
+			if ns.field_40+300 < gameFrame() {
 				noxServer.nox_xxx_netStructReadPackets(i)
 			}
 		}
@@ -2185,11 +2227,11 @@ func nox_xxx_netSendReadPacket_5528B0(ind int, a2 byte) int {
 	} else {
 		min = ind
 		max = ind + 1
-		find = int(ns.id)
+		find = ns.id
 	}
 	for j := min; j < max; j++ {
 		ns2 := nox_net_struct_arr[j]
-		if ns2 == nil || int(ns2.id) != find {
+		if ns2 == nil || ns2.id != find {
 			continue
 		}
 		nox_xxx_netSend_5552D0(j, 0, false)
@@ -2317,15 +2359,15 @@ func sub_552E70(ind int) int {
 	} else {
 		min = ind
 		max = ind + 1
-		find = int(ns.id)
+		find = ns.id
 	}
 	buf[0] = 6
 	for i := min; i < max; i++ {
 		ns2 := nox_net_struct_arr[i]
-		if ns2 != nil && int(ns2.id) == find {
-			ns2.field_22 = C.uint(dword_5d4594_2495920)
+		if ns2 != nil && ns2.id == find {
+			ns2.field_22 = dword_5d4594_2495920
 			ns2.field_23 = ns2.field_22
-			binary.LittleEndian.PutUint32(buf[1:], uint32(ns2.field_22))
+			binary.LittleEndian.PutUint32(buf[1:], ns2.field_22)
 			nox_xxx_netSendSock552640(i, buf[:5], NOX_NET_SEND_FLAG2)
 		}
 	}

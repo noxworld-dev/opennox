@@ -1158,58 +1158,6 @@ typedef struct nox_server_xxx {
 } nox_server_xxx;
 _Static_assert(sizeof(nox_server_xxx) == 12, "wrong size of nox_server_xxx structure!");
 
-#define NOX_NET_STRUCT_MAX 128
-typedef struct nox_net_struct_t {
-	nox_socket_t sock;               // 0, 0
-	struct nox_net_sockaddr_in addr; // 1, 4
-	int id;                          // 5, 20
-	uint32_t field_6;
-	uint32_t field_7;
-
-	char* data_1_base; //  8, 32
-	char* data_1_xxx;  //  9, 36
-	char* data_1_yyy;  // 10, 40
-	char* data_1_end;  // 11, 44
-
-	char* data_2_base; // 12, 48
-	char* data_2_xxx;  // 13, 52
-	char* data_2_yyy;  // 14, 56
-	char* data_2_end;  // 15, 60
-
-	uint32_t field_16;
-	uint32_t field_17;
-	uint32_t field_18;
-	uint32_t field_19; // 76
-	uint32_t field_20;
-	uint32_t field_21;   // 84
-	uint32_t field_22;   // 88
-	uint32_t field_23;   // 92
-	uint32_t field_24;   // 96
-	uint32_t field_25;   // 100
-	uint32_t field_26;   // 104
-	uint32_t field_27;   // 108
-	uint8_t field_28_0;  // 112
-	char field_28_1;     // 113
-	uint16_t field_28_2; // 114
-	void* field_29;      // 116
-	void* data_3;        // 30, 120
-	void* mutex_xxx;     // 31, 124
-	void* mutex_yyy;     // 32, 128
-	uint32_t field_33;
-	uint32_t field_34;                                // 136
-	int (*func_xxx)(unsigned int, char*, int, void*); // 35, 140, func(i, data_2_xxx, sz, data_3)
-	int (*func_yyy)(unsigned int, char*, int, void*); // 36, 144, last arg is data_3
-	uint8_t xor_key;                                  // 37, 148
-	uint8_t field_37_1;                               // 37, 149
-	uint16_t field_37_2;                              // 37, 150
-	uint32_t field_38;                                // 152
-	uint8_t data_39[4];                               // 156
-	uint32_t field_40;                                // 160
-} nox_net_struct_t;
-_Static_assert(sizeof(struct nox_net_sockaddr) == 16, "wrong size of nox_net_sockaddr structure!");
-_Static_assert(sizeof(struct nox_net_sockaddr_in) == 16, "wrong size of nox_net_sockaddr_in structure!");
-_Static_assert(sizeof(nox_net_struct_t) == 164, "wrong size of nox_net_struct_t structure!");
-
 typedef struct nox_things_imageRef_t {
 	char name[32];    // 0, 0
 	char name2[64];   // 8, 32
