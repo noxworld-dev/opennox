@@ -44,7 +44,6 @@ extern uint32_t nox_player_netCode_85319C;
 extern unsigned int nox_gameFPS;
 extern unsigned int nox_frame_xxx_2598000;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
-extern nox_net_struct2_t nox_net_struct2_arr[NOX_NET_STRUCT_MAX];
 
 nox_alloc_class* nox_alloc_gQueue_3844300 = 0;
 

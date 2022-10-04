@@ -25,7 +25,6 @@ extern unsigned long long qword_5d4594_814956;
 extern nox_alloc_class* nox_alloc_gQueue_3844300;
 extern nox_socket_t nox_xxx_sockLocalBroadcast_2513920;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
-extern nox_net_struct2_t nox_net_struct2_arr[NOX_NET_STRUCT_MAX];
 unsigned int nox_client_getServerAddr_43B300();
 int nox_client_getServerPort_43B320();
 int nox_client_getClientPort_40A420();
@@ -100,14 +99,25 @@ var (
 	dword_5d4594_2496988 int
 	dword_5d4594_2495920 uint32
 	dword_5d4594_3844304 bool
-	netPacketDrop        int
-	arr2508788           [NOX_NET_STRUCT_MAX]netTimingStruct
+
+	nox_net_struct2_arr [NOX_NET_STRUCT_MAX]netStruct2
+	netPacketDrop       int
+	arr2508788          [NOX_NET_STRUCT_MAX]netTimingStruct
 )
 
 var (
 	noxMapCRC     = 0
 	noxServerHost = "localhost"
 )
+
+type netStruct2 struct {
+	flag  bool
+	cnt   uint8
+	addr  net.Addr
+	cur   uint8 // index into arr
+	arr   [10]int
+	ticks uint32
+}
 
 //export nox_xxx_networkLog_print
 func nox_xxx_networkLog_print(cstr *C.char) {
@@ -2004,23 +2014,23 @@ func nox_xxx_netBigSwitch_553210_op_14(out []byte, packet []byte, ns1 *netStruct
 		out[2] = 20 // OK
 		return 3
 	}
-	id53 := sub_553D10()
+	id53 := getFreeNetStruct2Ind()
 	if id53 < 0 {
 		out[2] = 20 // OK
 		return 3
 	}
-	nx := &C.nox_net_struct2_arr[id53]
-	nx.field_0 = 1
-	nx.field_1_1 = 0
-	nx.field_1_0 = 0
-	setAddr(&nx.addr, from)
+	nx := &nox_net_struct2_arr[id53]
+	nx.flag = true
+	nx.cur = 0
+	nx.cnt = 0
+	nx.addr = from
 
 	return copy(out, nox_xxx_makePacketTime_552340(id53))
 }
 
-func sub_553D10() int {
+func getFreeNetStruct2Ind() int {
 	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
-		if C.nox_net_struct2_arr[i].field_0 == 0 {
+		if !nox_net_struct2_arr[i].flag {
 			return i
 		}
 	}
@@ -2040,16 +2050,16 @@ func nox_xxx_netBigSwitch_553210_op_17(out []byte, packet []byte, p1 byte, from 
 		out[2] = 20
 		return 3
 	}
-	id53 := sub_553D10()
+	id53 := getFreeNetStruct2Ind()
 	if id53 < 0 {
 		out[2] = 20
 		return 3
 	}
-	nx1 := &C.nox_net_struct2_arr[id53]
-	nx1.field_0 = 1
-	nx1.field_1_1 = 0
-	nx1.field_1_0 = 0
-	setAddr(&nx1.addr, from)
+	nx := &nox_net_struct2_arr[id53]
+	nx.flag = true
+	nx.cur = 0
+	nx.cnt = 0
+	nx.addr = from
 
 	return copy(out, nox_xxx_makePacketTime_552340(id53))
 }
@@ -2057,8 +2067,8 @@ func nox_xxx_netBigSwitch_553210_op_17(out []byte, packet []byte, p1 byte, from 
 func sub_553D30(addr net.Addr) int {
 	ip, port := getAddr(addr)
 	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
-		nx := &C.nox_net_struct2_arr[i]
-		ip2, port2 := toIPPort(&nx.addr)
+		nx := &nox_net_struct2_arr[i]
+		ip2, port2 := getAddr(nx.addr)
 		if ip.Equal(ip2) && port == port2 {
 			return i
 		}
@@ -2067,21 +2077,21 @@ func sub_553D30(addr net.Addr) int {
 }
 
 func nox_xxx_netBigSwitch_553210_op_18(out []byte, packet []byte, from net.Addr) int {
-	v39 := uint32(platformTicks()) - binary.LittleEndian.Uint32(packet[4:])
-	id40 := sub_553D30(from)
-	if id40 < 0 {
+	dt := int(platformTicks()) - int(binary.LittleEndian.Uint32(packet[4:]))
+	ind := sub_553D30(from)
+	if ind < 0 {
 		return 0
 	}
-	nx1 := &C.nox_net_struct2_arr[id40]
-	if packet[3] != byte(nx1.field_1_1) {
+	nx := &nox_net_struct2_arr[ind]
+	if packet[3] != nx.cur {
 		return 0
 	}
-	nx1.field_6[nx1.field_1_1] = C.uint(v39)
-	nx1.field_1_1++
-	if nx1.field_1_1 >= 10 {
+	nx.arr[nx.cur] = dt
+	nx.cur++
+	if int(nx.cur) >= len(nx.arr) {
 		return 0
 	}
-	return copy(out, nox_xxx_makePacketTime_552340(id40))
+	return copy(out, nox_xxx_makePacketTime_552340(ind))
 }
 
 //export sub_554240
@@ -2234,19 +2244,20 @@ func sub_5522E0(id int) {
 	i := sub_4DF550()
 	ns := asNetStruct(C.nox_net_struct_arr[i])
 	buf := nox_xxx_makePacketTime_552340(id)
-	ns2 := &C.nox_net_struct2_arr[id]
-	ip, port := toIPPort(&ns2.addr)
+	ns2 := &nox_net_struct2_arr[id]
+	ip, port := getAddr(ns2.addr)
 	n, _ := nox_xxx_sendto551F90(ns.Socket(), buf, ip, port)
 	sub_553F40(n, 1)
 }
 
 func nox_xxx_makePacketTime_552340(id int) []byte {
+	nx := &nox_net_struct2_arr[id]
+	nx.ticks = uint32(platformTicks())
+
 	var buf [8]byte
-	nx := &C.nox_net_struct2_arr[id]
-	nx.ticks = C.uint(platformTicks())
 	buf[2] = 16
-	buf[3] = byte(nx.field_1_1)
-	binary.LittleEndian.PutUint32(buf[4:], uint32(nx.ticks))
+	buf[3] = nx.cur
+	binary.LittleEndian.PutUint32(buf[4:], nx.ticks)
 	return buf[:]
 }
 
@@ -2257,14 +2268,16 @@ func sub_552380(a1 int) {
 	buf[0] = 0
 	buf[1] = 0
 	buf[2] = 20
-	nx := &C.nox_net_struct2_arr[a1]
-	ip, port := toIPPort(&nx.addr)
+
+	nx := &nox_net_struct2_arr[a1]
+	nx.flag = false
+
+	ip, port := getAddr(nx.addr)
 	n, _ := nox_xxx_sendto551F90(ns.Socket(), buf[:], ip, port)
 	sub_553F40(n, 1)
-	nx.field_0 = 0
 }
 
-func sub_5523E0(a1 byte, a2 int) {
+func sub_5523E0(a1 byte, ind int) {
 	i := sub_4DF550()
 	ns := asNetStruct(C.nox_net_struct_arr[i])
 	var buf [4]byte
@@ -2272,11 +2285,13 @@ func sub_5523E0(a1 byte, a2 int) {
 	buf[1] = 0
 	buf[2] = 19
 	buf[3] = a1
-	nx := &C.nox_net_struct2_arr[a2]
-	ip, port := toIPPort(&nx.addr)
+
+	nx := &nox_net_struct2_arr[ind]
+	nx.flag = false
+
+	ip, port := getAddr(nx.addr)
 	v4, _ := nox_xxx_sendto551F90(ns.Socket(), buf[:], ip, port)
 	sub_553F40(v4, 1)
-	nx.field_0 = 0
 }
 
 func sub_552E70(ind int) int {
@@ -2325,13 +2340,13 @@ func sub_5521A0() bool {
 	v13 := sub_416640()
 	start := platformTicks()
 	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
-		nx := &C.nox_net_struct2_arr[i]
-		if nx.field_0 == 0 {
+		nx := &nox_net_struct2_arr[i]
+		if !nx.flag {
 			continue
 		}
-		v2 := nx.field_1_1
-		if v2 >= 10 {
-			if uint32(nx.field_1_0) > val292940 {
+		v2 := nx.cur
+		if int(v2) >= len(nx.arr) {
+			if uint32(nx.cnt) > val292940 {
 				sub_5523E0(1, i)
 				sub_552380(i)
 				continue
@@ -2339,9 +2354,9 @@ func sub_5521A0() bool {
 			cnt := 0
 			sum := 0
 			for i = 0; i < 10; i++ {
-				if nx.field_6[i] > 0 {
+				if nx.arr[i] > 0 {
 					cnt++
-					sum += int(nx.field_6[i])
+					sum += int(nx.arr[i])
 				}
 			}
 			avg := sum / cnt
@@ -2353,12 +2368,10 @@ func sub_5521A0() bool {
 			}
 			sub_552380(i)
 		} else if start-uint64(nx.ticks) > 2000 {
-			v3 := val292940
-			C.nox_net_struct2_arr[i].field_6[v2] = math.MaxUint32
-			v4 := nx.field_1_0 + 1
-			nx.field_1_0 = v4
-			if uint32(v4) <= v3 {
-				nx.field_1_1++
+			nox_net_struct2_arr[i].arr[v2] = -1
+			nx.cnt++
+			if uint32(nx.cnt) <= val292940 {
+				nx.cur++
 				sub_5522E0(i)
 			} else {
 				sub_5523E0(1, i)
@@ -2377,8 +2390,8 @@ func nox_xxx_allocNetGQueue_5520B0() {
 	for i := range C.nox_net_struct_arr {
 		C.nox_net_struct_arr[i] = nil
 	}
-	for i := range C.nox_net_struct2_arr {
-		C.nox_net_struct2_arr[i] = C.nox_net_struct2_t{}
+	for i := range nox_net_struct2_arr {
+		nox_net_struct2_arr[i] = netStruct2{}
 	}
 	*memmap.PtrUint32(0x5D4594, 2512884) = 1024
 	C.nox_alloc_gQueue_3844300 = (*C.nox_alloc_class)(alloc.NewClass("GQueue", 1024, 200).UPtr())
