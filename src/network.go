@@ -785,7 +785,7 @@ func nox_xxx_netSendSock_552640(id int, buf []byte, flags int) (int, error) {
 		for i := si; i < ei; i++ {
 			ns2 := getNetStructByInd(i)
 			if ns2 != nil && ns2.ID() == idd {
-				v12, err := sub_555130(i, buf)
+				v12, err := sub555130(i, buf)
 				if v12 == -1 {
 					return -1, err
 				}
@@ -853,7 +853,13 @@ func sub_553F40(a1, a2 int) {
 	*memmap.PtrUint32(0x5D4594, 2498020) = uint32(dword_5d4594_2496988+1) % 128
 }
 
-func sub_555130(a1 int, buf []byte) (int, error) {
+//export sub_555130
+func sub_555130(a1 int, a2 unsafe.Pointer, a3 int) int {
+	n, _ := sub555130(a1, unsafe.Slice((*byte)(a2), a3))
+	return n
+}
+
+func sub555130(a1 int, buf []byte) (int, error) {
 	if len(buf) > int(memmap.Int32(0x5D4594, 2512884)) {
 		return -1, errors.New("buffer too large")
 	}

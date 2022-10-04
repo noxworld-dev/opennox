@@ -501,37 +501,6 @@ int sub_554300() {
 	return result;
 }
 
-//----- (00555130) --------------------------------------------------------
-int sub_555130(unsigned int a1, const void* a2, signed int a3) {
-	uint32_t* v5; // eax
-
-	if (a3 > *getMemIntPtr(0x5D4594, 2512884)) {
-		return -1;
-	}
-	if (!a2) {
-		return -1;
-	}
-	if (a1 >= NOX_NET_STRUCT_MAX) {
-		return -3;
-	}
-	nox_net_struct_t* ns = nox_net_struct_arr[a1];
-	if (!ns) {
-		return -3;
-	}
-	v5 = nox_alloc_class_new_obj_zero(nox_alloc_gQueue_3844300);
-	if (!v5) {
-		return -1;
-	}
-	*v5 = ns->field_29;
-	ns->field_29 = v5;
-	v5[3] = 1;
-	*((uint8_t*)v5 + 20) = ns->data_2_base[0] | 0x80;
-	*((uint8_t*)v5 + 21) = ns->field_28_0++;
-	v5[4] = a3 + 2;
-	memcpy((char*)v5 + 22, a2, a3);
-	return *((unsigned char*)v5 + 21);
-}
-
 //----- (00555250) --------------------------------------------------------
 int sub_555250(unsigned int a1, uint32_t* a2) {
 	int v3;     // eax
