@@ -609,7 +609,9 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	narg := &netStructOpt{
 		datasize: 2048,
 		port:     port,
-		funcyyy:  C.nox_xxx_netHandleCliPacket_43C860,
+		funcyyy: func(a1 int, a2 []byte, a3 unsafe.Pointer) int {
+			return int(C.nox_xxx_netHandleCliPacket_43C860(C.int(a1), (*C.uchar)(unsafe.Pointer(&a2[0])), C.int(len(a2)), a3))
+		},
 	}
 	C.dword_5d4594_815704 = 0
 	C.dword_5d4594_815708 = 0
@@ -714,7 +716,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 		}
 		nox_xxx_servNetInitialPackets_552A80(id, flags|1)
 		nox_xxx_netMaybeSendAll_552460()
-		f28 := int(int8(ns.field_28_1))
+		f28 := int(int8(ns.ind28))
 		if debugMainloop {
 			log.Printf("NET_CONNECT_WAIT_LOOP: state %d\n", f28)
 		}
