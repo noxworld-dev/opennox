@@ -275,7 +275,7 @@ func sub_43CCA0() {
 
 	if dt := platformTicks() - qword_5d4594_815724; dt >= 2000 {
 		qword_5d4594_815724 = platformTicks()
-		C.sub_552E70(C.uint(nox_xxx_netGet_43C750()))
+		sub_552E70(int(nox_xxx_netGet_43C750()))
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_netImportant_4E5770(0x1F, 0)

@@ -50,7 +50,6 @@ extern uint32_t dword_5d4594_2516356;
 extern void* nox_alloc_itemGroupElem_2523896;
 extern uint64_t qword_581450_9544;
 extern uint32_t dword_5d4594_2523780;
-extern uint32_t dword_5d4594_2495920;
 extern uint32_t dword_5d4594_2516344;
 extern uint32_t nox_server_mapGroupsHead_2523900;
 extern uint32_t dword_5d4594_2523756;
@@ -64,48 +63,12 @@ extern unsigned int nox_frame_xxx_2598000;
 nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX] = {0};
 nox_net_struct2_t nox_net_struct2_arr[NOX_NET_STRUCT_MAX] = {0};
 uint32_t dword_5d4594_3843632 = 0;
+uint32_t dword_5d4594_2495920 = 0;
 
 //----- (00553D60) --------------------------------------------------------
 int nox_xxx_netHandlerDefXxx_553D60(unsigned int a1, char* a2, int a3, void* a4) { return 0; }
 //----- (00553D70) --------------------------------------------------------
 int nox_xxx_netHandlerDefYyy_553D70(unsigned int a1, char* a2, int a3, void* a4) { return 0; }
-
-//----- (00552E70) --------------------------------------------------------
-int sub_552E70(unsigned int a1) {
-	unsigned int v3; // esi
-	unsigned int v4; // edi
-	unsigned int v5; // ebp
-	char v9[5];      // [esp+0h] [ebp-8h]
-
-	if (a1 >= NOX_NET_STRUCT_MAX) {
-		return -3;
-	}
-	nox_net_struct_t* ns = nox_net_struct_arr[a1];
-	if (!ns) {
-		return -3;
-	}
-	if (ns->id == -1) {
-		v3 = 0;
-		v4 = NOX_NET_STRUCT_MAX;
-		v5 = a1;
-	} else {
-		v5 = ns->id;
-		v3 = a1;
-		v4 = a1 + 1;
-	}
-	v9[0] = 6;
-	for (; v3 < v4; v3++) {
-		nox_net_struct_t* ns2 = nox_net_struct_arr[v3];
-		if (ns2 && ns2->id == v5) {
-			int v8 = dword_5d4594_2495920;
-			ns2->field_22 = dword_5d4594_2495920;
-			ns2->field_23 = dword_5d4594_2495920;
-			*(uint32_t*)&v9[1] = v8;
-			nox_xxx_netSendSock_552640(v3, v9, 5, NOX_NET_SEND_FLAG2);
-		}
-	}
-	return 0;
-}
 
 int nox_xxx_netBigSwitch_553210_op_7(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb) {
 	if (pidb > NOX_NET_STRUCT_MAX) {

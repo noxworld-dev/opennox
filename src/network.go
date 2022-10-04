@@ -2023,3 +2023,36 @@ func sub_5523E0(a1 byte, a2 int) {
 	sub_553F40(v4, 1)
 	nx.field_0 = 0
 }
+
+func sub_552E70(ind int) int {
+	var buf [5]byte
+
+	ns := getNetStructByInd(ind)
+	if ns == nil {
+		return -3
+	}
+	var (
+		min, max int
+		find     int
+	)
+	if ns.id == -1 {
+		min = 0
+		max = NOX_NET_STRUCT_MAX
+		find = ind
+	} else {
+		min = ind
+		max = ind + 1
+		find = int(ns.id)
+	}
+	buf[0] = 6
+	for i := min; i < max; i++ {
+		ns2 := asNetStruct(C.nox_net_struct_arr[i])
+		if ns2 != nil && int(ns2.id) == find {
+			ns2.field_22 = C.dword_5d4594_2495920
+			ns2.field_23 = ns2.field_22
+			binary.LittleEndian.PutUint32(buf[1:], uint32(ns2.field_22))
+			nox_xxx_netSendSock552640(i, buf[:5], NOX_NET_SEND_FLAG2)
+		}
+	}
+	return 0
+}

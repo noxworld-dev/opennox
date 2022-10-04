@@ -174,7 +174,6 @@ uint32_t nox_xxx_lightningTargetArrayIndex_5d4594_2487904 = 0;
 void* dword_587000_127004 = 0;
 void* nox_alloc_visitNode_2386184 = 0;
 uint32_t nox_wol_server_result_cnt_815088 = 0;
-uint32_t dword_5d4594_2495920 = 0;
 uint32_t dword_5d4594_1046924 = 0;
 uint32_t dword_5d4594_1312484 = 0;
 uint32_t dword_5d4594_3798156 = 0;
