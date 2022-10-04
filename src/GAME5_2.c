@@ -70,30 +70,6 @@ int nox_xxx_netHandlerDefXxx_553D60(unsigned int a1, char* a2, int a3, void* a4)
 //----- (00553D70) --------------------------------------------------------
 int nox_xxx_netHandlerDefYyy_553D70(unsigned int a1, char* a2, int a3, void* a4) { return 0; }
 
-int nox_xxx_netBigSwitch_553210_op_7(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb) {
-	if (pidb > NOX_NET_STRUCT_MAX) {
-		printf("nox_net_struct_arr overflow (2): %d\n", (int)(pidb));
-		abort();
-	}
-	nox_net_struct_t* ns4 = nox_net_struct_arr[pidb];
-	if (!ns4->field_25) {
-		return 0;
-	}
-	int v31 = dword_5d4594_2495920 - (int)(ns4->field_26) - (int)(ns4->field_24);
-	int v32 = -1;
-	if (v31 >= 1) {
-		v32 = 256000 / v31;
-	}
-	*(uint8_t*)(out + 0) = 35;
-	*(uint32_t*)(out + 1) = v32;
-	if (ns1->id == -1) {
-		ns1->func_yyy(pid, out, 5, ns4->data_3);
-	} else {
-		ns1->func_yyy(pid, out, 5, ns1->data_3);
-	}
-	return 0;
-}
-
 int nox_xxx_netBigSwitch_553210_op_8(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb, unsigned char* packetCur) {
 	if (pidb > NOX_NET_STRUCT_MAX) {
 		printf("nox_net_struct_arr overflow (2): %d\n", (int)(pidb));
