@@ -219,6 +219,24 @@ func (s *Server) playerNext(it *Player) *Player {
 	return nil
 }
 
+func (s *Server) firstReplaceablePlayer() *Player {
+	for it := s.playerFirst(); it != nil; it = s.playerNext(it) {
+		if it.field_3680&1 != 0 && it.Index() != -1 {
+			return it
+		}
+	}
+	return nil
+}
+
+func (s *Server) nextReplaceablePlayer(it *Player) *Player {
+	for ; it != nil; it = s.playerNext(it) {
+		if it.field_3680&1 != 0 && it.Index() != -1 {
+			return it
+		}
+	}
+	return nil
+}
+
 func (s *Server) playerResetInd(ind int) *Player {
 	p := &s.players.list[ind]
 	p.Reset(ind)
