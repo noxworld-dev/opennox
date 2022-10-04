@@ -577,32 +577,6 @@ int sub_554300() {
 	return result;
 }
 
-//----- (00554240) --------------------------------------------------------
-int sub_554240(int a1) {
-	char* v1;   // eax
-	int result; // eax
-
-	if (a1 != 31) {
-		return *getMemU32Ptr(0x5D4594, 2508788 + 32*(1 + a1) + 28);
-	}
-	v1 = sub_416640();
-	switch (*(uint32_t*)(v1 + 66)) {
-	case 1:
-		result = sub_554290();
-		break;
-	case 2:
-		result = sub_554300();
-		break;
-	case 3:
-		result = *(uint32_t*)(v1 + 70);
-		break;
-	default:
-		result = 0;
-		break;
-	}
-	return result;
-}
-
 //----- (005549F0) --------------------------------------------------------
 int sub_5549F0(unsigned int a1) {
 	char v2; // [esp+7h] [ebp-1h]

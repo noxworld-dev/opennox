@@ -1800,3 +1800,11 @@ func nox_xxx_netBigSwitch_553210_op_10(id int, pid int, out []byte, ns1 *netStru
 	noxServer.nox_xxx_netStructReadPackets(pid)
 	return 0
 }
+
+//export sub_554240
+func sub_554240(a1 int) int {
+	if a1 != 31 {
+		return int(memmap.Uint32(0x5D4594, 2508788+32*uintptr(1+a1)+28))
+	}
+	return int(nox_ctrlevent_add_ticks_42E630())
+}
