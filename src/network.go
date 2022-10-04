@@ -33,7 +33,7 @@ int nox_xxx_netSendPacket_4E5030(int a1, const void* a2, signed int a3, int a4, 
 static int nox_xxx_netSendLineMessage_go(nox_object_t* a1, wchar_t* str) {
 	return nox_xxx_netSendLineMessage_4D9EB0(a1, str);
 }
-int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* from);
+void MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* from);
 
 extern float nox_xxx_warriorMaxHealth_587000_312784;
 extern float nox_xxx_warriorMaxMana_587000_312788;
@@ -1526,17 +1526,17 @@ func mix_recvfrom(cs nox_socket_t, s *Socket, buf []byte) (int, net.Addr, error)
 		netLog.Printf("recv %s:%d -> %s [%d]\n%x", ip, port, s.pc.LocalAddr(), n, buf[:n])
 	}
 	if n >= 2 && binary.LittleEndian.Uint16(buf[:2]) == 0xF13A { // extension packet code
-		n = MixRecvFromReplacer(cs, buf, src)
-		return n, src, nil
+		MixRecvFromReplacer(cs, buf, src)
+		return 0, src, nil
 	}
 	return n, src, nil
 }
 
-func MixRecvFromReplacer(cs nox_socket_t, buf []byte, from net.Addr) int {
+func MixRecvFromReplacer(cs nox_socket_t, buf []byte, from net.Addr) {
 	caddr, afree := alloc.New(C.struct_nox_net_sockaddr_in{})
 	defer afree()
 	setAddr(caddr, from)
-	return int(C.MixRecvFromReplacer(cs, (*C.char)(unsafe.Pointer(&buf[0])), C.int(len(buf)), caddr))
+	C.MixRecvFromReplacer(cs, (*C.char)(unsafe.Pointer(&buf[0])), C.int(len(buf)), caddr)
 }
 
 func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Addr) int {
