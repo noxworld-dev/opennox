@@ -1463,19 +1463,6 @@ void nox_xxx_updateUnits_51B100_D() {
 	}
 }
 
-//----- (005524C0) --------------------------------------------------------
-void sub_5524C0() {
-	dword_5d4594_2495920 = nox_platform_get_ticks();
-	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
-		nox_net_struct_t* ns = nox_net_struct_arr[i];
-		if (ns && ns->field_38 == 1) {
-			if (ns->field_40 + 300 < nox_frame_xxx_2598000) {
-				nox_xxx_netStructReadPackets_5545B0(i);
-			}
-		}
-	}
-}
-
 //----- (0057B140) --------------------------------------------------------
 bool sub_57B140() {
 	unsigned long long v0; // rdi
