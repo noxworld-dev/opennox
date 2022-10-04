@@ -53,7 +53,6 @@ extern float nox_xxx_wizardMaximumMana_587000_312820;
 static int nox_call_net_xxxyyy_go(int (*fnc)(unsigned int, char*, int, void*), unsigned int a1, void* a2, int a3, void* a4) { return fnc(a1, a2, a3, a4); }
 
 int nox_xxx_netBigSwitch_553210_op_14(int pid, uint8_t* out, unsigned char* packet, nox_net_struct_t* ns1, char p1, struct nox_net_sockaddr_in* from);
-int nox_xxx_netBigSwitch_553210_op_18(uint8_t* out, unsigned char* packet, struct nox_net_sockaddr_in* from);
 */
 import "C"
 import (
@@ -1639,7 +1638,7 @@ func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Add
 		case 17:
 			return nox_xxx_netBigSwitch_553210_op_17(out, packet, p1, from)
 		case 18:
-			return int(C.nox_xxx_netBigSwitch_553210_op_18((*C.uchar)(unsafe.Pointer(&out[0])), (*C.uchar)(unsafe.Pointer(&packet[0])), caddr))
+			return nox_xxx_netBigSwitch_553210_op_18(out, packet, from)
 		case 31:
 			if len(packetCur) < 1 {
 				return 0
@@ -1901,6 +1900,36 @@ func nox_xxx_netBigSwitch_553210_op_17(out []byte, packet []byte, p1 byte, from 
 	setAddr(&nx1.addr, from)
 
 	return copy(out, nox_xxx_makePacketTime_552340(id53))
+}
+
+func sub_553D30(addr net.Addr) int {
+	ip, port := getAddr(addr)
+	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
+		nx := &C.nox_net_struct2_arr[i]
+		ip2, port2 := toIPPort(&nx.addr)
+		if ip.Equal(ip2) && port == port2 {
+			return i
+		}
+	}
+	return -1
+}
+
+func nox_xxx_netBigSwitch_553210_op_18(out []byte, packet []byte, from net.Addr) int {
+	v39 := uint32(platformTicks()) - binary.LittleEndian.Uint32(packet[4:])
+	id40 := sub_553D30(from)
+	if id40 < 0 {
+		return 0
+	}
+	nx1 := &C.nox_net_struct2_arr[id40]
+	if packet[3] != byte(nx1.field_1_1) {
+		return 0
+	}
+	nx1.field_6[nx1.field_1_1] = C.uint(v39)
+	nx1.field_1_1++
+	if nx1.field_1_1 >= 10 {
+		return 0
+	}
+	return copy(out, nox_xxx_makePacketTime_552340(id40))
 }
 
 //export sub_554240
