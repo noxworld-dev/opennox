@@ -38,7 +38,6 @@ int sub_5550D0(int a1, uint16_t hostshort, char* buf);
 int sub_555130(int a1, void* a2, int a3);
 int sub_555250(unsigned int a1, uint32_t* a2);
 int sub_555290(unsigned int a1, uint32_t* a2);
-int sub_555360(unsigned int a1, unsigned char a2, int a3);
 void nullsub_31(uint32_t a1);
 int sub_56F1C0();
 int nox_xxx_protect_56F240();
