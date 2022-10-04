@@ -29,7 +29,7 @@ int sub_553D30(struct nox_net_sockaddr_in* addr);
 void sub_553F40(int a1, int a2);
 void nox_xxx_netCountData_554030(int a1, int a2);
 unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out);
-int* nox_xxx_findPlayerID_5541D0(int a1);
+void* nox_xxx_findPlayerID_5541D0(int a1);
 int nox_xxx_net_getIP_554200(unsigned int a1);
 char* sub_554230();
 int sub_554240(int a1);
