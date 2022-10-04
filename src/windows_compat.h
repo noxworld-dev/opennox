@@ -95,7 +95,6 @@ enum {
 #define ShellExecuteA compatShellExecuteA
 #define CreateMutexA compatCreateMutexA
 #define ReleaseMutex compatReleaseMutex
-#define SetEvent compatSetEvent
 #define WaitForSingleObject compatWaitForSingleObject
 #define _rotl compat_rotl
 #define _itoa compat_itoa
@@ -121,7 +120,6 @@ HINSTANCE ShellExecuteA(HWND hwnd, const char* lpOperation, const char* lpFile, 
 						const char* lpDirectory, int nShowCmd);
 HANDLE CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, int bInitialOwner, const char* lpName);
 int ReleaseMutex(HANDLE hMutex);
-int SetEvent(HANDLE hEvent);
 uint32_t WaitForSingleObject(HANDLE hHandle, uint32_t dwMilliseconds);
 
 int InterlockedExchange(volatile int* Target, int Value);

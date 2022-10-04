@@ -3,7 +3,6 @@ package opennox
 /*
 #include "defs.h"
 int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz);
-int nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2);
 int sub_48D660();
 */
 import "C"
@@ -364,7 +363,7 @@ func nox_netlist_addToMsgListSrv(ind int, buf []byte) bool {
 		if ind == noxMaxPlayers-1 {
 			nox_netlist_receiveCli_494E90(ind)
 		} else {
-			C.nox_xxx_netSendReadPacket_5528B0(C.uint(s.getPlayerByInd(ind).Index())+1, 0)
+			nox_xxx_netSendReadPacket_5528B0(s.getPlayerByInd(ind).Index()+1, 0)
 		}
 
 		// Set buffer length and re-queue updates.
