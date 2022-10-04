@@ -20,7 +20,6 @@
 
 extern nox_object_t* nox_xxx_host_player_unit_3843628;
 extern uint32_t nox_player_netCode_85319C;
-extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
 
 //-------------------------------------------------------------------------
 // Data declarations
@@ -30,27 +29,6 @@ unsigned int gameex_flags = 0x1E;
 int DefaultPacket[4] = {171901697, 1, 347, 44391266}; // weak
 
 int nox_CharToOemW(const wchar_t* pSrc, char* pDst) { return nox_sprintf(pDst, "%S", pSrc); }
-
-//----- (10001A20) --------------------------------------------------------
-int gameex_sendPacket(char* buf, int len, int smth) {
-	if (!buf || !len || nox_xxx_netGet_43C750() >= NOX_NET_STRUCT_MAX) {
-		return 0;
-	}
-	// 0x69B7E8 = netSocketData
-	nox_net_struct_t* ns = nox_net_struct_arr[nox_xxx_netGet_43C750()];
-	if (!ns) {
-		return 0;
-	}
-	return nox_net_sendto(ns->sock, buf, len, &ns->addr);
-}
-
-//----- (10001AD0) --------------------------------------------------------
-void gameex_makeExtensionPacket(int ptr, short opcode, bool needsPlayer) {
-	*(uint16_t*)(ptr + 0) = 0xF13A; // extension packet code
-	*(uint16_t*)(ptr + 2) = opcode;
-	if (needsPlayer)
-		*(uint32_t*)(ptr + 4) = (nox_player_netCode_85319C); // playerNetCode
-}
 
 //----- (10001C20) --------------------------------------------------------
 char getPlayerClassFromObjPtr(int a1) { return *(uint8_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 2251); }
@@ -108,7 +86,8 @@ char playerInfoStructParser_1(int a1, int* a3) {
 }
 
 //----- (10001EE0) --------------------------------------------------------
-char mix_MouseKeyboardWeaponRoll(int playerObj, char a2) {
+char mix_MouseKeyboardWeaponRoll(nox_object_t* playerObjP, char a2) {
+	int playerObj = playerObjP;
 	int v2;        // esi
 	signed int v4; // edi
 	int i;         // esi MAPDST
@@ -352,32 +331,6 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 
 void OnLibraryNotice_263(uint32_t arg1) { nox_common_gameFlags_check_40A5C0(1); }
 void OnLibraryNotice_264(uint32_t arg1) { nox_common_gameFlags_check_40A5C0(1); }
-bool gameexSomeWeirdCheckFixmePlease();
-void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, int arg3) {
-	// toggles weapons by mouse wheel
-	// autoshield is actually implemented in appendix of nox_xxx_playerDequipWeapon_53A140
-	// a2a = (*(uint32_t*)(vaArg3 + 4) >> 7) & 1;
-	char a2a = arg3 > 0; // scroll weapons back or forth
-	if (arg2 == 2 && gameexSomeWeirdCheckFixmePlease()) {
-		if ((gameex_flags >> 3) & 1) {
-			if (nox_common_gameFlags_check_40A5C0(516)) {
-				if (nox_common_gameFlags_check_40A5C0(1)) {
-					if (nox_xxx_host_player_unit_3843628) { // playerObjServerHost
-						if (!getPlayerClassFromObjPtr(nox_xxx_host_player_unit_3843628)) {
-							if (mix_MouseKeyboardWeaponRoll(nox_xxx_host_player_unit_3843628, a2a))
-								nox_xxx_clientPlaySoundSpecial_452D80(895, 100); // clientPlaySound
-						}
-					}
-				} else {
-					char buf[10];
-					gameex_makeExtensionPacket((int)&buf, 0, 1);
-					buf[8] = a2a;
-					gameex_sendPacket(&buf, 9, 0);
-				}
-			}
-		}
-	}
-}
 void OnLibraryNotice_420(uint32_t arg1, uint32_t arg2, uint32_t arg3, uint32_t arg4) {
 	int v23 = arg1;
 	int v19 = arg2;
