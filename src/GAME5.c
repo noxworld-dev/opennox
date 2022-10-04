@@ -8204,21 +8204,6 @@ void sub_5523E0(char a1, int a2) {
 	nox_net_struct2_arr[a2].field_0 = 0;
 }
 
-//----- (00552460) --------------------------------------------------------
-void nox_xxx_netMaybeSendAll_552460() {
-	dword_5d4594_2495920 = nox_platform_get_ticks();
-	if (dword_5d4594_2495920 - *getMemU32Ptr(0x5D4594, 2512888) <= 1000) {
-		return;
-	}
-	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
-		if (nox_net_struct_arr[i]) {
-			sub_5551F0(i, 0, 0);
-			nox_xxx_netSend_5552D0(i, 0, 0);
-		}
-	}
-	*getMemU32Ptr(0x5D4594, 2512888) = dword_5d4594_2495920;
-}
-
 //----- (00552640) --------------------------------------------------------
 int nox_xxx_netSendSock_552640(unsigned int id, const char* buf, signed int sz, char flags) {
 	unsigned int v7;  // edi

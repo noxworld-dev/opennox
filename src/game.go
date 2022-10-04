@@ -867,7 +867,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 	}
 	C.sub_502100()
 	sub_5524C0()
-	C.nox_xxx_netMaybeSendAll_552460()
+	nox_xxx_netMaybeSendAll_552460()
 	if noxflags.HasEngine(noxflags.EngineReplayRead) {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(true)
 	}
