@@ -50,7 +50,6 @@ extern float nox_xxx_wizardMaximumMana_587000_312820;
 
 static int nox_call_net_xxxyyy_go(int (*fnc)(unsigned int, char*, int, void*), unsigned int a1, void* a2, int a3, void* a4) { return fnc(a1, a2, a3, a4); }
 
-int nox_xxx_netBigSwitch_553210_op_6(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb, unsigned char* packetCur);
 int nox_xxx_netBigSwitch_553210_op_7(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb);
 int nox_xxx_netBigSwitch_553210_op_8(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb, unsigned char* packetCur);
 int nox_xxx_netBigSwitch_553210_op_10(unsigned int id, int pid, uint8_t* out, nox_net_struct_t* ns1);
@@ -1600,7 +1599,7 @@ func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Add
 			binary.LittleEndian.PutUint32(out[3:], v)
 			return 7
 		case 6:
-			return int(C.nox_xxx_netBigSwitch_553210_op_6(C.int(pid), (*C.uchar)(unsafe.Pointer(&out[0])), ns1.C(), C.uint(pidb), (*C.uchar)(unsafe.Pointer(&packetCur[0]))))
+			return nox_xxx_netBigSwitch_553210_op_6(pid, out, ns1, packetCur)
 		case 7:
 			return int(C.nox_xxx_netBigSwitch_553210_op_7(C.int(pid), (*C.uchar)(unsafe.Pointer(&out[0])), ns1.C(), C.uint(pidb)))
 		case 8:
@@ -1725,6 +1724,34 @@ func nox_xxx_netBigSwitch_553210_op_0(id int, out []byte, pid int, p1 byte, ns1 
 	ns10.data_39[0] = C.uchar(v67)
 	ns10.field_40 = C.uint(gameFrame())
 	return 0
+}
+
+func nox_xxx_netBigSwitch_553210_op_6(pid int, out []byte, ns1 *netStruct, packetCur []byte) int {
+	if len(packetCur) < 4 {
+		return 0
+	}
+	v := binary.LittleEndian.Uint32(packetCur[:4])
+
+	ns2 := getNetStructByInd(pid)
+	if ns2 == nil {
+		return 0
+	}
+	out[0] = 37
+	ns1.callYyy(pid, out[:1], ns2.data_3)
+
+	var v18 []byte
+	if ns1.id == -1 {
+		out[0] = byte(ns2.id)
+		v18 = ns2.Data2()
+	} else {
+		out[0] = byte(ns1.id)
+		v18 = ns1.Data2()
+	}
+	out[1] = v18[0]
+	*memmap.PtrUint32(0x5D4594, 2508792+32*uintptr(pid)) = v
+	out[2] = 8
+	binary.LittleEndian.PutUint32(out[3:], v)
+	return 7
 }
 
 func nox_xxx_netBigSwitch_553210_op_9(pid int, packetCur []byte) int {
