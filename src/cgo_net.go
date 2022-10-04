@@ -24,11 +24,6 @@ const (
 	NOX_NET_EADDRINUSE = C.NOX_NET_EADDRINUSE
 )
 
-//export nox_net_stop
-func nox_net_stop() C.int {
-	return 0
-}
-
 //export nox_net_ip2str
 func nox_net_ip2str(addr C.nox_net_in_addr) *C.char {
 	ip := int2ip(uint32(addr))

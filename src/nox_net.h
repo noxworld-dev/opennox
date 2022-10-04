@@ -27,10 +27,7 @@ struct nox_net_sockaddr_in {
 
 char* nox_net_ip2str(nox_net_in_addr addr);
 
-int nox_net_stop();
-
 nox_socket_t nox_net_socket_udp_broadcast();
-void nox_net_close(nox_socket_t sockfd);
 
 int nox_net_sendto(nox_socket_t sockfd, void* buffer, unsigned int length, struct nox_net_sockaddr_in* addr);
 

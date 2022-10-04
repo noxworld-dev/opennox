@@ -693,11 +693,6 @@ func (s *Server) nox_server_netClose_5546A0(i int) {
 	}
 }
 
-//export nox_xxx_netStructFree_5531C0
-func nox_xxx_netStructFree_5531C0(ns *C.nox_net_struct_t) {
-	asNetStruct(ns).FreeXxx()
-}
-
 //export nox_xxx_netStructReadPackets_5545B0
 func nox_xxx_netStructReadPackets_5545B0(ind C.uint) C.int {
 	return C.int(noxServer.nox_xxx_netStructReadPackets(int(ind)))
@@ -1616,7 +1611,7 @@ func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Add
 			}
 			out[0] = 33
 			ns1.callYyy(pid, out[:1], ns7.data_3)
-			C.sub_554A50(C.uint(id))
+			sub_554A50(id)
 			return 0
 		case 14: // join game request?
 			return int(C.nox_xxx_netBigSwitch_553210_op_14(C.int(pid), (*C.uchar)(unsafe.Pointer(&out[0])), (*C.uchar)(unsafe.Pointer(&packet[0])), ns1.C(), C.char(p1), caddr))
@@ -1813,4 +1808,17 @@ func sub_554240(a1 int) int {
 		return int(arr2508788[1+a1].field28)
 	}
 	return int(nox_ctrlevent_add_ticks_42E630())
+}
+
+//export sub_554A50
+func sub_554A50(ind int) int {
+	if ind >= NOX_NET_STRUCT_MAX {
+		return -3
+	}
+	if ns := getNetStructByInd(ind); ns != nil {
+		_ = ns.Socket().Close()
+		ns.FreeXxx()
+		setNetStructByInd(ind, nil)
+	}
+	return 0
 }

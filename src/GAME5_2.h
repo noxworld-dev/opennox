@@ -38,7 +38,7 @@ int sub_554300();
 short sub_5545A0();
 int nox_xxx_netStructReadPackets_5545B0(unsigned int a1);
 int sub_5549F0(unsigned int a1);
-int sub_554A50(unsigned int a1);
+int sub_554A50(int a1);
 int nox_xxx_createSocketLocal_554B40(uint16_t hostshort);
 int sub_554D10();
 int sub_5550D0(int a1, uint16_t hostshort, char* buf);
