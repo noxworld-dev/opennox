@@ -538,7 +538,7 @@ func (s *Server) updateRemotePlayers() error {
 		if pl.UnitC() == HostPlayerUnit() {
 			C.nox_xxx_netImportant_4E5770(C.uchar(pl.Index()), 1)
 		} else if C.dword_5d4594_2650652 == 0 || (gameFrame()%uint32(C.nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
-			C.nox_xxx_netSendReadPacket_5528B0(C.uint(pl.Index()+1), 0)
+			nox_xxx_netSendReadPacket_5528B0(pl.Index()+1, 0)
 		}
 	}
 	return nil

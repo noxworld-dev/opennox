@@ -226,11 +226,6 @@ int ReleaseMutex(HANDLE hMutex) {
 	return true;
 }
 
-int SetEvent(HANDLE hEvent) {
-	abort();
-	return 0;
-}
-
 #if defined(__APPLE__) || defined(__CXGO__)
 #else
 int pthread_timedjoin_np(void*, void*, void*);

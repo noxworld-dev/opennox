@@ -1258,7 +1258,7 @@ int sub_40BA90(unsigned int a1, char a2, short a3, short a4, const void* a5) {
 	*getMemU32Ptr(0x5D4594, 3636) = v6;
 	memcpy(getMemAt(0x5D4594, 3644), a5, a4);
 	nox_xxx_netSendSock_552640(a1, getMemAt(0x5D4594, 3636), a4 + 8, 0);
-	return nox_xxx_netSendReadPacket_5528B0(a1, 1);
+	return nox_xxx_netSendReadPacket_5528B0(a1, 1);;
 }
 // 40BACC: variable 'v6' is possibly undefined
 
