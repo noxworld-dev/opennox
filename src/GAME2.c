@@ -1106,7 +1106,7 @@ int sub_451BE0(int a1) {
 	if (result) {
 		if (v9 > result) {
 			v10 = (uint32_t*)(*(uint32_t*)(v2 + 92) - 12);
-			sub_425920(*(uint32_t***)(v2 + 92));
+			nox_common_list_remove_425920(*(uint32_t***)(v2 + 92));
 			sub_4523D0(v10);
 			result = *(uint32_t*)(v2 + 52) - 1;
 			*(uint32_t*)(v2 + 52) = result;
@@ -1181,7 +1181,7 @@ int sub_451F90(int a1) {
 
 //----- (00451FE0) --------------------------------------------------------
 int sub_451FE0(int a1) {
-	sub_425920((uint32_t**)a1);
+	nox_common_list_remove_425920((uint32_t**)a1);
 	*(uint32_t*)(a1 + 280) = 0;
 	return sub_4BD300(*(uint32_t**)&dword_5d4594_1045436, a1);
 }
@@ -1227,14 +1227,14 @@ void sub_452050(uint32_t* a1) {
 			if ((uint32_t*)v2 == result && v3 > v1[31]) {
 				v1[31] = v3;
 				v7 = (uint32_t**)(v1 + 28);
-				sub_425920(v7);
+				nox_common_list_remove_425920(v7);
 				nox_common_list_append_4258E0((int)&v4[12 * v3], v7);
 			}
 		} else {
 			v1[27] = v2;
 			v1[31] = v3;
 			v6 = (uint32_t**)(v1 + 28);
-			sub_425920(v6);
+			nox_common_list_remove_425920(v6);
 			nox_common_list_append_4258E0((int)&v4[12 * v3], v6);
 		}
 	} else {
@@ -1278,7 +1278,7 @@ int* sub_452120(int a1) {
 }
 
 //----- (00452190) --------------------------------------------------------
-uint32_t** sub_452190(int a1) { return sub_425920((uint32_t**)(a1 + 112)); }
+void sub_452190(int a1) { nox_common_list_remove_425920((uint32_t**)(a1 + 112)); }
 
 //----- (004521A0) --------------------------------------------------------
 int* sub_4521A0(int a1) {
@@ -3620,7 +3620,7 @@ int* sub_456D60(int a1) {
 	if (v1) {
 		do {
 			v2 = nox_common_list_getNextSafe_4258A0(v1);
-			sub_425920((uint32_t**)v1);
+			nox_common_list_remove_425920((uint32_t**)v1);
 			free(v1);
 			v1 = v2;
 		} while (v2);
@@ -3630,7 +3630,7 @@ int* sub_456D60(int a1) {
 	if (result) {
 		do {
 			v5 = nox_common_list_getNextSafe_4258A0(v4);
-			sub_425920((uint32_t**)v4);
+			nox_common_list_remove_425920((uint32_t**)v4);
 			free(v4);
 			v4 = v5;
 		} while (v5);
@@ -3675,7 +3675,7 @@ int sub_456E40(int a1, int a2) {
 		}
 	}
 	if (a2) {
-		sub_425920((uint32_t**)v2);
+		nox_common_list_remove_425920((uint32_t**)v2);
 		free(v2);
 	}
 	return v3;
@@ -3728,7 +3728,7 @@ int sub_456F10(wchar_t* a1, int a2) {
 		}
 	}
 	if (a2) {
-		sub_425920((uint32_t**)v2);
+		nox_common_list_remove_425920((uint32_t**)v2);
 		free(v2);
 	}
 	return v3;
@@ -3746,7 +3746,7 @@ int sub_456FA0() {
 		if (v1) {
 			do {
 				v2 = nox_common_list_getNextSafe_4258A0(v1);
-				sub_425920((uint32_t**)v1);
+				nox_common_list_remove_425920((uint32_t**)v1);
 				free(v1);
 				v1 = v2;
 			} while (v2);

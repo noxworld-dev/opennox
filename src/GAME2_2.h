@@ -132,7 +132,7 @@ uint32_t* sub_486FE0(int a1);
 void sub_487030(void* lpMem);
 void sub_487050(uint32_t* a1);
 void sub_487070(void* lpMem);
-uint32_t** sub_487090(uint32_t** a1);
+void sub_487090(uint32_t** a1);
 void sub_4870A0();
 int* sub_4870E0(int* a1);
 int* sub_487100(int** a1);

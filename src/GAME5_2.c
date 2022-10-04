@@ -2053,7 +2053,7 @@ int* sub_57ADF0(int* a1) {
 	if (result) {
 		do {
 			v3 = nox_common_list_getNextSafe_4258A0(v2);
-			sub_425920((uint32_t**)v2);
+			nox_common_list_remove_425920((uint32_t**)v2);
 			free(v2);
 			v2 = v3;
 		} while (v3);

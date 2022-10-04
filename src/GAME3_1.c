@@ -601,7 +601,7 @@ uint32_t* sub_4BD470(uint32_t** a1, int a2) {
 	v2 = sub_4BD420((int)a1, a2);
 	v3 = v2;
 	if (v2) {
-		sub_425920((uint32_t**)v2);
+		nox_common_list_remove_425920((uint32_t**)v2);
 		sub_425900(a1 + 3, v3);
 		return v3;
 	}
@@ -714,11 +714,11 @@ int sub_4BD690(int a1) {
 	uint32_t** i; // esi
 
 	if (*(uint32_t*)(a1 + 4) != a1) {
-		sub_425920((uint32_t**)a1);
+		nox_common_list_remove_425920((uint32_t**)a1);
 	}
 	for (i = (uint32_t**)nox_common_list_getNext_425940((int*)(a1 + 32)); i;
 		 i = (uint32_t**)nox_common_list_getNext_425940((int*)(a1 + 32))) {
-		sub_425920(i);
+		nox_common_list_remove_425920(i);
 		sub_487D60((int)i);
 		sub_4BD300(*(uint32_t**)(*(uint32_t*)(a1 + 52) + 4), (int)i);
 	}
