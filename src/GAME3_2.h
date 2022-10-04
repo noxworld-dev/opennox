@@ -294,7 +294,6 @@ int* sub_4DF2A0(char a1);
 void sub_4DF2E0(int a1);
 int nox_xxx_netSendSimpleObject2_4DF360(int a1, int a2);
 void sub_4DF3C0(nox_playerInfo* pl);
-int sub_4DF550();
 void* sub_4DF5E0(int a1, int a2);
 int nox_xxx_netFn_UpdateStream_4DF630(int a1, char* a2, unsigned int a3, void* a4);
 int nox_xxx_chkIsMsgTimestamp_4DF7F0(uint8_t* a1);

@@ -2001,3 +2001,19 @@ func sub_552380(a1 int) {
 	sub_553F40(n, 1)
 	nx.field_0 = 0
 }
+
+//export sub_5523E0
+func sub_5523E0(a1 byte, a2 int) {
+	i := sub_4DF550()
+	ns := asNetStruct(C.nox_net_struct_arr[i])
+	var buf [4]byte
+	buf[0] = 0
+	buf[1] = 0
+	buf[2] = 19
+	buf[3] = a1
+	nx := &C.nox_net_struct2_arr[a2]
+	ip, port := toIPPort(&nx.addr)
+	v4, _ := nox_xxx_sendto551F90(ns.Socket(), buf[:], ip, port)
+	sub_553F40(v4, 1)
+	nx.field_0 = 0
+}
