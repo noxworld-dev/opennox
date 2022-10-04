@@ -318,7 +318,7 @@ func RunArgs(args []string) (gerr error) {
 		noxflags.SetEngine(noxflags.EngineSleep)
 	}
 	if v := *fDrop; v != 0 {
-		C.nox_net_setPacketDrop_552010(C.int(v))
+		netPacketDrop = v
 	}
 	if *fNoText {
 		noxflags.SetEngine(noxflags.EngineNoTextRendering)
