@@ -181,7 +181,7 @@ char playerDropATrap(int playerObj) {
 }
 
 //----- (10002680) --------------------------------------------------------
-int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* from) {
+void MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* from) {
 	uint32_t* v8; // esi
 	char v9;      // al
 	int v10;      // esi
@@ -320,14 +320,7 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 		}
 		break;
 	}
-	// replace Mix packet with a placeholder
-	*((uint32_t*)buf + 0) = DefaultPacket[0];
-	*((uint32_t*)buf + 1) = DefaultPacket[1];
-	*((uint32_t*)buf + 2) = DefaultPacket[2];
-	*((uint32_t*)buf + 3) = DefaultPacket[3];
-	return 16;
 }
-// 1000EF00: using guessed type int DefaultPacket[4];
 
 void OnLibraryNotice_263(uint32_t arg1) { nox_common_gameFlags_check_40A5C0(1); }
 void OnLibraryNotice_264(uint32_t arg1) { nox_common_gameFlags_check_40A5C0(1); }
