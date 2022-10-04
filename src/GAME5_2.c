@@ -203,35 +203,6 @@ int nox_xxx_netBigSwitch_553210_op_14(int pid, uint8_t* out, unsigned char* pack
 	return nox_xxx_makePacketTime_552340(id53, out);
 }
 
-int nox_xxx_netBigSwitch_553210_op_18(uint8_t* out, unsigned char* packet, struct nox_net_sockaddr_in* from) {
-	int v39 = nox_platform_get_ticks() - *((uint32_t*)packet + 1);
-	int id40 = sub_553D30(from);
-	if (id40 < 0) {
-		return 0;
-	}
-	nox_net_struct2_t* nx1 = &nox_net_struct2_arr[id40];
-	if (*((unsigned char*)packet + 3) != nx1->field_1_1) {
-		return 0;
-	}
-	nx1->field_6[nx1->field_1_1] = v39;
-	nx1->field_1_1++;
-	if (nx1->field_1_1 >= 10) {
-		return 0;
-	}
-	return nox_xxx_makePacketTime_552340(id40, out);
-}
-
-//----- (00553D30) --------------------------------------------------------
-int sub_553D30(struct nox_net_sockaddr_in* addr) {
-	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
-		nox_net_struct2_t* nx = &nox_net_struct2_arr[i];
-		if ((nx->addr.sin_addr == addr->sin_addr) && (nx->addr.sin_port == addr->sin_port)) {
-			return i;
-		}
-	}
-	return -1;
-}
-
 //----- (00554040) --------------------------------------------------------
 unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out) {
 	char buf[72];
