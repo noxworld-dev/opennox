@@ -60,7 +60,6 @@ int sub_4EDD70();
 void sub_426060();
 void sub_417160();
 void sub_502100();
-void sub_5524C0();
 char* sub_4DB160();
 void sub_4D2160();
 void sub_4D22B0();
@@ -867,7 +866,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 		}
 	}
 	C.sub_502100()
-	C.sub_5524C0()
+	sub_5524C0()
 	C.nox_xxx_netMaybeSendAll_552460()
 	if noxflags.HasEngine(noxflags.EngineReplayRead) {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(true)

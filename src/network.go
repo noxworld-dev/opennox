@@ -1842,3 +1842,15 @@ func sub_43CC80() {
 	sub_5549F0(int(nox_xxx_netGet_43C750()))
 	C.dword_5d4594_2649712 = 0
 }
+
+func sub_5524C0() {
+	C.dword_5d4594_2495920 = C.uint(platformTicks())
+	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
+		ns := asNetStruct(C.nox_net_struct_arr[i])
+		if ns != nil && ns.field_38 == 1 {
+			if uint32(ns.field_40+300) < gameFrame() {
+				noxServer.nox_xxx_netStructReadPackets(i)
+			}
+		}
+	}
+}
