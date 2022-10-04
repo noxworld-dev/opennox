@@ -257,32 +257,6 @@ int nox_xxx_netBigSwitch_553210_op_8(int pid, uint8_t* out, nox_net_struct_t* ns
 	return 7;
 }
 
-int nox_xxx_netBigSwitch_553210_op_9(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb, unsigned char* packetCur) {
-	int v21 = 32 * pid;
-	int v22 = *(uint32_t*)packetCur - *getMemU32Ptr(0x5D4594, 2508792 + 32 * pid);
-	if (v22 <= 0 || v22 >= 1000) {
-		return 0;
-	}
-	int v23 = *getMemU32Ptr(0x5D4594, 2508788 + 32 * pid);
-	int v24 = v23 + 8 * pid;
-	int v25 = 5;
-	*getMemU32Ptr(0x5D4594, 2508796 + 4 * v24) = v22;
-	int v26 = (v23 + 1) % 5;
-	int v27 = v26;
-	if (!v26) {
-		unsigned char* v28 = getMemAt(0x5D4594, 2508796 + v21);
-		do {
-			int v29 = *(uint32_t*)v28;
-			v28 += 4;
-			v26 += v29;
-			--v25;
-		} while (v25);
-		*getMemU32Ptr(0x5D4594, 2508816 + v21) = v26 / 5;
-	}
-	*getMemU32Ptr(0x5D4594, 2508788 + v21) = v27;
-	return 0;
-}
-
 int nox_xxx_netBigSwitch_553210_op_10(unsigned int id, int pid, uint8_t* out, nox_net_struct_t* ns1) {
 	if (pid == 255) {
 		return 0;
