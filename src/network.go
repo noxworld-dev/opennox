@@ -549,7 +549,7 @@ func (s *Server) nox_xxx_netAddPlayerHandler_4DEBC0(port int) (ind, cport int, _
 		funcyyy:   C.nox_xxx_netlist_ServRecv_4DEC30,
 		funcxxx:   C.nox_xxx_netFn_UpdateStream_4DF630,
 	}
-	C.nox_xxx_allocNetGQueue_5520B0(200, 1024)
+	nox_xxx_allocNetGQueue_5520B0()
 	ind, err := nox_xxx_netInit_554380(narg)
 	if err != nil {
 		return ind, 0, err
@@ -848,8 +848,8 @@ func nox_xxx_netCountData_554030(n int, ind int) {
 
 //export sub_553F40
 func sub_553F40(a1, a2 int) {
-	*memmap.PtrUint32(0x5D4594, 2495952) += uint32(a1)
-	*memmap.PtrUint32(0x5D4594, 2495956) += uint32(a2)
+	cnt2495952 += uint32(a1)
+	cnt2495956 += uint32(a2)
 	i := memmap.Uint32(0x5D4594, 2497504)
 	j := memmap.Uint32(0x5D4594, 2498020)
 	*memmap.PtrUint32(0x5D4594, 2496992+4*uintptr(i)) = uint32(a1)
@@ -1294,8 +1294,8 @@ func nox_xxx_netSendBySock_40EE10(a1 int, a2 int, a3 int) {
 }
 
 func sub_553FC0(a1, a2 int) {
-	*memmap.PtrUint32(0x5D4594, 2495944) += uint32(a1)
-	*memmap.PtrUint32(0x5D4594, 2495948) += uint32(a2)
+	cnt2495944 += uint32(a1)
+	cnt2495948 += uint32(a2)
 	*memmap.PtrUint32(0x5D4594, 2495960+4*uintptr(dword_5d4594_2496472)) = uint32(a1)
 	*memmap.PtrUint32(0x5D4594, 2496476+4*uintptr(dword_5d4594_2496988)) = uint32(a2)
 	dword_5d4594_2496472 = (dword_5d4594_2496472 + 1) % 128
@@ -2096,4 +2096,46 @@ func sub_552E70(ind int) int {
 		}
 	}
 	return 0
+}
+
+var (
+	flag2495924 bool
+	cnt2495944  uint32
+	cnt2495948  uint32
+	cnt2495952  uint32
+	cnt2495956  uint32
+)
+
+func nox_xxx_allocNetGQueue_5520B0() {
+	gameSet816392Func(func() bool {
+		return C.sub_5521A0() != 0
+	})
+	if flag2495924 {
+		return
+	}
+	C.nox_alloc_gQueue_3844300 = nil
+	for i := range C.nox_net_struct_arr {
+		C.nox_net_struct_arr[i] = nil
+	}
+	for i := range C.nox_net_struct2_arr {
+		C.nox_net_struct2_arr[i] = C.nox_net_struct2_t{}
+	}
+	*memmap.PtrUint32(0x5D4594, 2512884) = 1024
+	C.nox_alloc_gQueue_3844300 = (*C.nox_alloc_class)(alloc.NewClass("GQueue", 1024, 200).UPtr())
+	if flag2495924 {
+		var next unsafe.Pointer
+		for it := nox_common_list_getFirstSafe_425890(*memmap.PtrPtr(0x5D4594, 2495908)); it != nil; it = next {
+			next = nox_common_list_getNextSafe_4258A0(it)
+			C.sub_425920(it)
+			C.free(unsafe.Pointer(it))
+			*memmap.PtrUint8(0x5D4594, 2500076)--
+		}
+	} else {
+		nox_common_list_clear_425760(memmap.PtrOff(0x5D4594, 2495908))
+	}
+	cnt2495944 = 0
+	cnt2495948 = 0
+	cnt2495952 = 0
+	cnt2495956 = 0
+	flag2495924 = true
 }

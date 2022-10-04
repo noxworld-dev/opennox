@@ -193,7 +193,6 @@ void sub_551C40(int a1, int a2);
 int nox_xxx_netRead2Xxx_551EB0(unsigned int id1, unsigned int id2, unsigned char a3, int a4, int a5);
 int nox_xxx_sendto_551F90(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* to);
 int nox_net_setPacketDrop_552010(int a1);
-int nox_xxx_allocNetGQueue_5520B0(int a1, int a2);
 int sub_5521A0();
 void sub_5522E0(int id);
 int nox_xxx_makePacketTime_552340(int id, unsigned char* buf);
