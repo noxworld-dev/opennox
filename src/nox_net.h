@@ -11,10 +11,6 @@ typedef int32_t nox_socket_t;
 
 #define NOX_AF_INET 2
 
-#ifndef _NOX_IN_NET_C
-extern bool nox_net_no_xor;
-#endif // _NOX_IN_NET_C
-
 typedef uint32_t nox_net_in_addr;
 
 struct nox_net_sockaddr {
