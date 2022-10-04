@@ -8038,45 +8038,6 @@ int nox_net_setPacketDrop_552010(int a1) {
 	return result;
 }
 
-//----- (005520B0) --------------------------------------------------------
-int nox_xxx_allocNetGQueue_5520B0(int a1, int a2) {
-	int* v3; // esi
-	int* v4; // edi
-
-	sub_43DE40((int)sub_5521A0);
-	if (*getMemU32Ptr(0x5D4594, 2495924)) {
-		return -14;
-	}
-	nox_alloc_gQueue_3844300 = 0;
-	memset(nox_net_struct_arr, 0, sizeof(nox_net_struct_t*) * NOX_NET_STRUCT_MAX);
-	memset(nox_net_struct2_arr, 0, sizeof(nox_net_struct2_t) * NOX_NET_STRUCT_MAX);
-	*getMemU32Ptr(0x5D4594, 2512884) = a2;
-	nox_alloc_gQueue_3844300 = nox_new_alloc_class("GQueue", a2, a1);
-	if (!nox_alloc_gQueue_3844300) {
-		return -1;
-	}
-	if (*getMemU32Ptr(0x5D4594, 2495924)) {
-		v3 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 2495908));
-		if (v3) {
-			do {
-				v4 = nox_common_list_getNextSafe_4258A0(v3);
-				sub_425920((uint32_t**)v3);
-				free(v3);
-				--*getMemU8Ptr(0x5D4594, 2500076);
-				v3 = v4;
-			} while (v4);
-		}
-	} else {
-		nox_common_list_clear_425760(getMemAt(0x5D4594, 2495908));
-	}
-	*getMemU32Ptr(0x5D4594, 2495944) = 0;
-	*getMemU32Ptr(0x5D4594, 2495948) = 0;
-	*getMemU32Ptr(0x5D4594, 2495952) = 0;
-	*getMemU32Ptr(0x5D4594, 2495956) = 0;
-	*getMemU32Ptr(0x5D4594, 2495924) = 1;
-	return 0;
-}
-
 //----- (005521A0) --------------------------------------------------------
 int sub_5521A0() {
 	int v2;           // eax
