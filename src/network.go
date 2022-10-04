@@ -1350,11 +1350,11 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 		hdr := ns.Data1yyy()[:3]
 		id2 := int(hdr[0])
 		v9 := hdr[1]
-		op := hdr[2]
+		op := noxnet.Op(hdr[2])
 		if debugNet {
-			netLog.Printf("servNetInitialPackets: op=%d\n", op)
+			netLog.Printf("servNetInitialPackets: op=%d (%s)\n", int(op), op.String())
 		}
-		if op == 12 {
+		if op == noxnet.MSG_SERVER_DISCOVER {
 			// received a lobby info request from the client
 			if nox_xxx_check_flag_aaa_43AF70() == 0 {
 				// send server info packet
@@ -1377,7 +1377,7 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 			}
 			continue
 		}
-		if op >= 14 && op <= 20 {
+		if op >= noxnet.MSG_SERVER_JOIN && op <= noxnet.MSG_SERVER_JOIN_OK {
 			v26 = 1
 		} else {
 			if id2 == 255 {
