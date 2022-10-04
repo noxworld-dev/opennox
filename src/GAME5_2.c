@@ -270,9 +270,6 @@ int sub_553D30(struct nox_net_sockaddr_in* addr) {
 	return -1;
 }
 
-//----- (00554030) --------------------------------------------------------
-void nox_xxx_netCountData_554030(int a1, int a2) { *getMemU32Ptr(0x5D4594, 2498024 + 4 * a2) += a1; }
-
 //----- (00554040) --------------------------------------------------------
 unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out) {
 	char buf[72];
