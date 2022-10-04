@@ -1701,9 +1701,9 @@ func nox_xxx_netBigSwitch_553210_op_0(id int, out []byte, pid int, p1 byte, ns1 
 	ns10.func_xxx = ns1.func_xxx
 	ns10.func_yyy = ns1.func_yyy
 
-	arr32 := unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2508788+32*uintptr(id))), 32)
+	arr32 := unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2508788+32*uintptr(id)+0)), 32)
 	copy(arr32, make([]byte, len(arr32)))
-	*memmap.PtrUint32(0x5D4594, 2508816+32*uintptr(id)) = 1
+	*memmap.PtrUint32(0x5D4594, 2508788+32*uintptr(id)+28) = 1
 	key := byte(noxRndCounter1.IntClamp(1, 255))
 	if !noxNetXor {
 		key = 0
@@ -1748,7 +1748,7 @@ func nox_xxx_netBigSwitch_553210_op_6(pid int, out []byte, ns1 *netStruct, packe
 		v18 = ns1.Data2()
 	}
 	out[1] = v18[0]
-	*memmap.PtrUint32(0x5D4594, 2508792+32*uintptr(pid)) = v
+	*memmap.PtrUint32(0x5D4594, 2508788+32*uintptr(pid)+4) = v
 	out[2] = 8
 	binary.LittleEndian.PutUint32(out[3:], v)
 	return 7
@@ -1759,21 +1759,21 @@ func nox_xxx_netBigSwitch_553210_op_9(pid int, packetCur []byte) int {
 		return 0
 	}
 	v := binary.LittleEndian.Uint32(packetCur[:4])
-	dv := v - memmap.Uint32(0x5D4594, 2508792+32*uintptr(pid))
+	dv := v - memmap.Uint32(0x5D4594, 2508788+32*uintptr(pid)+4)
 	if dv <= 0 || dv >= 1000 {
 		return 0
 	}
-	ind := memmap.Uint32(0x5D4594, 2508788+32*uintptr(pid))
-	*memmap.PtrUint32(0x5D4594, 2508796+32*uintptr(pid)+4*uintptr(ind)) = dv
+	ind := memmap.Uint32(0x5D4594, 2508788+32*uintptr(pid)+0)
+	*memmap.PtrUint32(0x5D4594, 2508788+32*uintptr(pid)+4*uintptr(ind)+8) = dv
 	v26 := (ind + 1) % 5
 	v27 := v26
 	if v26 == 0 {
 		for i := 0; i < 5; i++ {
-			v26 += memmap.Uint32(0x5D4594, 2508796+32*uintptr(pid)+4*uintptr(i))
+			v26 += memmap.Uint32(0x5D4594, 2508788+32*uintptr(pid)+4*uintptr(i)+8)
 		}
-		*memmap.PtrUint32(0x5D4594, 2508816+32*uintptr(pid)) = v26 / 5
+		*memmap.PtrUint32(0x5D4594, 2508788+32*uintptr(pid)+28) = v26 / 5
 	}
-	*memmap.PtrUint32(0x5D4594, 2508788+32*uintptr(pid)) = v27
+	*memmap.PtrUint32(0x5D4594, 2508788+32*uintptr(pid)+0) = v27
 	return 0
 }
 
@@ -1788,7 +1788,7 @@ func nox_xxx_netBigSwitch_553210_op_10(id int, pid int, out []byte, ns1 *netStru
 	out[0] = 34
 	ns1.callYyy(pid, out[:1], ns6.data_3)
 
-	arr32 := unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2508788+32*uintptr(id))), 32)
+	arr32 := unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2508788+32*uintptr(id)+0)), 32)
 	copy(arr32, make([]byte, len(arr32)))
 
 	v69 := C.nox_xxx_findPlayerID_5541D0(C.int(pid))
