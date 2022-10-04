@@ -451,37 +451,6 @@ int sub_555290(unsigned int a1, uint32_t* a2) {
 	return result;
 }
 
-//----- (005552D0) --------------------------------------------------------
-int nox_xxx_netSend_5552D0(unsigned int a1, char a2, int a3) {
-	int* i; // esi
-	int v6; // eax
-
-	if (a1 >= NOX_NET_STRUCT_MAX) {
-		return -3;
-	}
-	nox_net_struct_t* ns = nox_net_struct_arr[a1];
-	if (!ns) {
-		return -3;
-	}
-	for (i = ns->field_29; i; i = (int*)*i) {
-		if (a3) {
-			if (*((uint8_t*)i + 21) == a2) {
-				goto LABEL_10;
-			}
-		} else if (i[3]) {
-		LABEL_10:
-			v6 = i[4];
-			i[3] = 0;
-			i[1] = dword_5d4594_2495920 + 2000;
-			if (nox_xxx_sendto_551F90(ns->sock, (char*)i + 20, v6, &ns->addr) == -1) {
-				return 0;
-			}
-			continue;
-		}
-	}
-	return 0;
-}
-
 //----- (00555360) --------------------------------------------------------
 int sub_555360(unsigned int a1, unsigned char a2, int a3) {
 	char* v5;     // esi
