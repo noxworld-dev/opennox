@@ -997,7 +997,7 @@ func nox_xxx_cliSetupSession_437190() {
 	sub_46C5D0()
 	noxClient.r.FadeDisable()
 	if !noxflags.HasGame(noxflags.GameHost) {
-		C.sub_43CC80()
+		sub_43CC80()
 	}
 	gameSetPlayState(0)
 	if !noxflags.HasGame(noxflags.GameHost) {

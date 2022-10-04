@@ -272,15 +272,6 @@ int nox_xxx_netHandleCliPacket_43C860(int a1, unsigned char* a2, int a3, void* a
 	return 1;
 }
 
-//----- (0043CC80) --------------------------------------------------------
-int sub_43CC80() {
-	int result; // eax
-
-	result = sub_5549F0(nox_xxx_netGet_43C750());
-	dword_5d4594_2649712 = 0;
-	return result;
-}
-
 //----- (0043CEB0) --------------------------------------------------------
 void sub_43CEB0() {
 	unsigned int v1;           // esi
