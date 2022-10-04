@@ -5,6 +5,7 @@ package opennox
 #include "nox_net.h"
 #include "common__net_list.h"
 #include "server__network__sdecode.h"
+#include "GAME1_1.h"
 #include "GAME5.h"
 #include "GAME3_2.h"
 #include "GAME4_2.h"
@@ -52,7 +53,6 @@ static int nox_call_net_xxxyyy_go(int (*fnc)(unsigned int, char*, int, void*), u
 
 int nox_xxx_netBigSwitch_553210_op_7(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb);
 int nox_xxx_netBigSwitch_553210_op_8(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb, unsigned char* packetCur);
-int nox_xxx_netBigSwitch_553210_op_10(unsigned int id, int pid, uint8_t* out, nox_net_struct_t* ns1);
 int nox_xxx_netBigSwitch_553210_op_14(int pid, uint8_t* out, unsigned char* packet, nox_net_struct_t* ns1, char p1, struct nox_net_sockaddr_in* from);
 int nox_xxx_netBigSwitch_553210_op_17(uint8_t* out, unsigned char* packet, char p1, struct nox_net_sockaddr_in* from);
 int nox_xxx_netBigSwitch_553210_op_18(uint8_t* out, unsigned char* packet, struct nox_net_sockaddr_in* from);
@@ -1607,7 +1607,7 @@ func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Add
 		case 9:
 			return nox_xxx_netBigSwitch_553210_op_9(pid, packetCur)
 		case 10:
-			return int(C.nox_xxx_netBigSwitch_553210_op_10(C.uint(id), C.int(pid), (*C.uchar)(unsafe.Pointer(&out[0])), ns1.C()))
+			return nox_xxx_netBigSwitch_553210_op_10(id, pid, out, ns1)
 		case 11:
 			ns7 := getNetStructByInd(pid)
 			if ns7 == nil {
@@ -1774,5 +1774,29 @@ func nox_xxx_netBigSwitch_553210_op_9(pid int, packetCur []byte) int {
 		*memmap.PtrUint32(0x5D4594, 2508816+32*uintptr(pid)) = v26 / 5
 	}
 	*memmap.PtrUint32(0x5D4594, 2508788+32*uintptr(pid)) = v27
+	return 0
+}
+
+func nox_xxx_netBigSwitch_553210_op_10(id int, pid int, out []byte, ns1 *netStruct) int {
+	if pid == -1 {
+		return 0
+	}
+	ns6 := getNetStructByInd(pid)
+	if ns6 == nil || ns6.field_38 == 1 {
+		return 0
+	}
+	out[0] = 34
+	ns1.callYyy(pid, out[:1], ns6.data_3)
+
+	arr32 := unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2508788+32*uintptr(id))), 32)
+	copy(arr32, make([]byte, len(arr32)))
+
+	v69 := C.nox_xxx_findPlayerID_5541D0(C.int(pid))
+	if v69 != nil {
+		C.sub_425920(v69)
+		C.free(unsafe.Pointer(v69))
+		*memmap.PtrUint8(0x5D4594, 2500076)--
+	}
+	noxServer.nox_xxx_netStructReadPackets(pid)
 	return 0
 }

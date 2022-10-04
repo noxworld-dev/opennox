@@ -7374,7 +7374,8 @@ uint32_t* sub_425900(uint32_t* a1, uint32_t* a2) {
 }
 
 //----- (00425920) --------------------------------------------------------
-uint32_t** sub_425920(uint32_t** a1) {
+uint32_t** sub_425920(void* a1p) {
+	uint32_t** a1 = a1p;
 	uint32_t** result; // eax
 
 	result = a1;

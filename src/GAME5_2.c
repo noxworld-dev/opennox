@@ -233,27 +233,6 @@ int nox_xxx_netBigSwitch_553210_op_8(int pid, uint8_t* out, nox_net_struct_t* ns
 	return 7;
 }
 
-int nox_xxx_netBigSwitch_553210_op_10(unsigned int id, int pid, uint8_t* out, nox_net_struct_t* ns1) {
-	if (pid == 255) {
-		return 0;
-	}
-	nox_net_struct_t* ns6 = nox_net_struct_arr[pid];
-	if (ns6->field_38 == 1) {
-		return 0;
-	}
-	uint8_t a2b2 = 34;
-	ns1->func_yyy(pid, &a2b2, 1, ns6->data_3);
-	memset(getMemAt(0x5D4594, 2508788 + 32 * id), 0, 0x20u);
-	int* v69 = nox_xxx_findPlayerID_5541D0(pid);
-	if (v69) {
-		sub_425920((uint32_t**)v69);
-		free(v69);
-		--*getMemU8Ptr(0x5D4594, 2500076);
-	}
-	nox_xxx_netStructReadPackets_5545B0(pid);
-	return 0;
-}
-
 int nox_xxx_netBigSwitch_553210_op_14(int pid, uint8_t* out, unsigned char* packet, nox_net_struct_t* ns1, char p1, struct nox_net_sockaddr_in* from) {
 	int v43 = 0;
 	char* v78 = sub_416640();
@@ -504,7 +483,7 @@ unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz,
 }
 
 //----- (005541D0) --------------------------------------------------------
-int* nox_xxx_findPlayerID_5541D0(int a1) {
+void* nox_xxx_findPlayerID_5541D0(int a1) {
 	int* result; // eax
 
 	result = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 2495908));
