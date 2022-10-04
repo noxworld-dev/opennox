@@ -651,7 +651,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 		}
 		return newConnectFailErr(-22, errors.New("cannot create socket"))
 	}
-	ns.SetSocket(sock)
+	ns.sock = sock
 	var ip net.IP
 	if host[0] < '0' || host[0] > '9' {
 		list, err := net.LookupIP(host)

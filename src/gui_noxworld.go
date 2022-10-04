@@ -49,9 +49,8 @@ import (
 
 var (
 	lobbyBroadcast struct {
-		Conn  *net.UDPConn
-		Sock  *Socket
-		SockC nox_socket_t
+		Conn *net.UDPConn
+		Sock *Socket
 	}
 	errLobbyNoSocket = errors.New("no broadcast socket")
 	discoverDone     = make(chan []discover.Server, 1)
@@ -326,7 +325,6 @@ func nox_xxx_createSocketLocal(port int) error {
 	}
 	lobbyBroadcast.Conn = conn
 	lobbyBroadcast.Sock = sock
-	lobbyBroadcast.SockC = newSocketHandle(sock)
 	gameSetCliDrawFunc(sub_554FF0)
 	return nil
 }
@@ -337,7 +335,6 @@ func sub_554D10() C.int {
 		_ = lobbyBroadcast.Conn.Close()
 		lobbyBroadcast.Conn = nil
 		lobbyBroadcast.Sock = nil
-		lobbyBroadcast.SockC = 0
 		gameSetCliDrawFunc(nil)
 	}
 	return 0
@@ -412,11 +409,11 @@ func clientOnLobbyServer(info *LobbyServerInfo) int {
 }
 
 func sub_554FF0() bool {
-	sub_554D70(lobbyBroadcast.Conn, lobbyBroadcast.Sock, lobbyBroadcast.SockC, 1)
+	sub_554D70(lobbyBroadcast.Conn, lobbyBroadcast.Sock, 1)
 	return true
 }
 
-func sub_554D70(conn net.PacketConn, sock *Socket, csock nox_socket_t, a1 byte) (int, error) {
+func sub_554D70(conn net.PacketConn, sock *Socket, a1 byte) (int, error) {
 	if conn == nil {
 		return 0, errLobbyNoSocket
 	}
@@ -445,7 +442,7 @@ func sub_554D70(conn net.PacketConn, sock *Socket, csock nox_socket_t, a1 byte) 
 		buf = buf[:n]
 		fromIP, fromPort := getAddr(from)
 		if len(buf) > 2 && binary.LittleEndian.Uint16(buf) == 0xF13A { // extension packet code
-			MixRecvFromReplacer(csock, buf, from)
+			MixRecvFromReplacer(sock, buf, from)
 			continue
 		}
 		op := buf[2]

@@ -9,19 +9,10 @@ import (
 	"errors"
 	"fmt"
 	"net"
-	"sync"
 	"syscall"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/log"
-
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
-)
-
-const (
-	NOX_AF_INET        = C.NOX_AF_INET
-	NOX_NET_EADDRINUSE = C.NOX_NET_EADDRINUSE
 )
 
 //export nox_net_ip2str
@@ -51,13 +42,10 @@ type Socket struct {
 	err error
 }
 
-func (s *Socket) setErrno(v int, err error) {
+func (s *Socket) setErr(err error) {
 	if s != nil {
 		s.err = err
 	}
-	sockets.Lock()
-	sockets.errno = v
-	sockets.Unlock()
 }
 
 func netCanReadConn(pc net.PacketConn) (int, syscall.Errno, error) {
@@ -97,10 +85,10 @@ func (s *Socket) CanRead() (int, error) {
 	}
 	cnt, ierr, err := netCanReadConn(s.pc)
 	if ierr != 0 {
-		s.setErrno(int(ierr), err)
+		s.setErr(err)
 		return cnt, err
 	} else if err != nil {
-		s.setErrno(12345, err)
+		s.setErr(err)
 		log.Println(err)
 		return cnt, err
 	}
@@ -116,27 +104,27 @@ func (s *Socket) Bind(ip net.IP, port int) error {
 		netLog.Printf("bind udp %s:%d", ip, port)
 		l, err := net.ListenUDP("udp4", &net.UDPAddr{IP: ip, Port: port})
 		if ErrIsInUse(err) {
-			s.setErrno(NOX_NET_EADDRINUSE, err)
+			s.setErr(err)
 			return err
 		} else if err != nil {
-			s.setErrno(123456, err) // TODO
+			s.setErr(err) // TODO
 			return err
 		}
 		s.pc = l
-		s.setErrno(0, nil)
+		s.setErr(nil)
 		return nil
 	}
 	netLog.Printf("bind tcp %s:%d", ip, port)
 	l, err := net.ListenTCP("tcp4", &net.TCPAddr{IP: ip, Port: port})
 	if ErrIsInUse(err) {
-		s.setErrno(NOX_NET_EADDRINUSE, err)
+		s.setErr(err)
 		return err
 	} else if err != nil {
-		s.setErrno(123456, err) // TODO
+		s.setErr(err)
 		return err
 	}
 	s.l = l
-	s.setErrno(0, nil)
+	s.setErr(nil)
 	return nil
 }
 
@@ -144,13 +132,13 @@ func (s *Socket) ReadFrom(buf []byte) (int, net.Addr, error) {
 	if !s.udp || s.pc == nil {
 		err := errors.New("recv on TCP connection")
 		netLog.Printf("warning: %v", err)
-		s.setErrno(123456, err) // TODO
+		s.setErr(err)
 		return 0, nil, err
 	}
 	n, src, err := s.pc.ReadFrom(buf)
 	if err != nil {
 		netLog.Println(err)
-		s.setErrno(123456, err) // TODO
+		s.setErr(err)
 		return n, src, err
 	}
 	ip, port := getAddr(src)
@@ -171,13 +159,13 @@ func (s *Socket) Write(buf []byte) (int, error) {
 	if s.udp || s.c == nil {
 		err := errors.New("send on UDP connection")
 		netLog.Printf("warning: %v", err)
-		s.setErrno(123456, err) // TODO
+		s.setErr(err)
 		return 0, err
 	}
 	n, err := s.c.Write(buf)
 	if err != nil {
 		netLog.Println(err)
-		s.setErrno(123456, err) // TODO
+		s.setErr(err)
 		return 0, err
 	}
 	return n, nil
@@ -187,7 +175,7 @@ func (s *Socket) WriteTo(buf []byte, addr *net.UDPAddr) (int, error) {
 	if !s.udp || s.pc == nil {
 		err := errors.New("send on UDP connection")
 		netLog.Printf("warning: %v", err)
-		s.setErrno(123456, err) // TODO
+		s.setErr(err)
 		return 0, err
 	}
 	if debugNet {
@@ -196,7 +184,7 @@ func (s *Socket) WriteTo(buf []byte, addr *net.UDPAddr) (int, error) {
 	n, err := s.pc.WriteTo(buf, addr)
 	if err != nil {
 		netLog.Println(err)
-		s.setErrno(123456, err) // TODO
+		s.setErr(err)
 		return 0, err
 	}
 	return n, nil
@@ -219,29 +207,6 @@ func (s *Socket) Close() error {
 		s.pc = nil
 	}
 	return nil
-}
-
-var sockets struct {
-	sync.RWMutex
-	errno    int
-	byHandle map[uintptr]*Socket
-}
-
-func init() {
-	sockets.byHandle = make(map[uintptr]*Socket)
-}
-
-type nox_socket_t = C.nox_socket_t
-
-func newSocketHandle(s *Socket) nox_socket_t {
-	if s == nil {
-		return 0
-	}
-	h := handles.New()
-	sockets.Lock()
-	sockets.byHandle[h] = s
-	sockets.Unlock()
-	return nox_socket_t(h)
 }
 
 func int2port(v uint16) int {
@@ -270,23 +235,6 @@ func ip2int(ip net.IP) uint32 {
 	return v
 }
 
-func toIPPort(addr *C.struct_nox_net_sockaddr_in) (net.IP, int) {
-	if addr == nil {
-		return nil, 0
-	}
-	return int2ip(uint32(addr.sin_addr)), int2port(uint16(addr.sin_port))
-}
-
-func setIPPort(dst *C.struct_nox_net_sockaddr_in, ip net.IP, port int) {
-	if dst == nil {
-		return
-	}
-	dst.sin_family = NOX_AF_INET
-	dst.sin_addr = C.uint(ip2int(ip))
-	dst.sin_port = C.ushort(port2int(port))
-	alloc.Memset(unsafe.Pointer(&dst.sin_zero[0]), 0, 8)
-}
-
 func getAddr(addr net.Addr) (net.IP, int) {
 	var (
 		ip   net.IP
@@ -302,56 +250,4 @@ func getAddr(addr net.Addr) (net.IP, int) {
 		log.Printf("unsupported address type: %T", a)
 	}
 	return ip, port
-}
-
-func setAddr(dst *C.struct_nox_net_sockaddr_in, addr net.Addr) (net.IP, int) {
-	ip, port := getAddr(addr)
-	setIPPort(dst, ip, port)
-	return ip, port
-}
-
-//export nox_net_close
-func nox_net_close(fd nox_socket_t) {
-	h := uintptr(fd)
-	handles.AssertValid(h)
-	sockets.Lock()
-	s := sockets.byHandle[h]
-	delete(sockets.byHandle, h)
-	sockets.Unlock()
-	_ = s.Close()
-}
-
-func getSocket(fd nox_socket_t) *Socket {
-	h := uintptr(fd)
-	if !handles.IsValid(h) {
-		return nil
-	}
-	sockets.RLock()
-	s := sockets.byHandle[h]
-	sockets.RUnlock()
-	return s
-}
-
-//export nox_net_sendto
-func nox_net_sendto(fd nox_socket_t, buffer unsafe.Pointer, length C.uint, addr *C.struct_nox_net_sockaddr_in) C.int {
-	s := getSocket(fd)
-	if s == nil {
-		s.setErrno(123456, errors.New("no socket")) // TODO
-		return -1
-	}
-	buf := unsafe.Slice((*byte)(buffer), int(length))
-	var (
-		n   int
-		err error
-	)
-	if addr == nil {
-		n, err = s.Write(buf)
-	} else {
-		ip, port := toIPPort(addr)
-		n, err = s.WriteTo(buf, &net.UDPAddr{IP: ip, Port: port})
-	}
-	if err != nil {
-		return -1
-	}
-	return C.int(n)
 }
