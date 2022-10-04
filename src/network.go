@@ -1678,7 +1678,6 @@ func nox_xxx_netBigSwitch_553210_op_0(id int, out []byte, pid int, p1 byte, ns1 
 		}
 		ip2, port2 := ns9.Addr()
 		if port == port2 && ip.Equal(ip2) {
-			netLog.Printf("already joined: %s\n", from.String())
 			out[2] = 4 // already joined?
 			return 3
 		}
