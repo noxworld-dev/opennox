@@ -8140,19 +8140,6 @@ int nox_xxx_makePacketTime_552340(int id, unsigned char* buf) {
 	return 8;
 }
 
-//----- (00552380) --------------------------------------------------------
-void sub_552380(int a1) {
-	int i = sub_4DF550();
-	nox_net_struct_t* ns = nox_net_struct_arr[i];
-	char buf[4];
-	buf[0] = 0;
-	buf[1] = 0;
-	buf[2] = 20;
-	int v3 = nox_xxx_sendto_551F90(ns->sock, (char*)&buf, 3, &nox_net_struct2_arr[a1].addr);
-	sub_553F40(v3, 1);
-	nox_net_struct2_arr[a1].field_0 = 0;
-}
-
 //----- (005523E0) --------------------------------------------------------
 void sub_5523E0(char a1, int a2) {
 	int i = sub_4DF550();
