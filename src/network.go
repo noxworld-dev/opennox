@@ -15,6 +15,7 @@ package opennox
 #else
 #include "windows_compat.h"
 #endif
+extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_5d4594_2660032;
 extern unsigned int dword_5d4594_814548;
 extern unsigned int dword_5d4594_3843632;
@@ -1810,7 +1811,6 @@ func sub_554240(a1 int) int {
 	return int(nox_ctrlevent_add_ticks_42E630())
 }
 
-//export sub_554A50
 func sub_554A50(ind int) int {
 	if ind >= NOX_NET_STRUCT_MAX {
 		return -3
@@ -1821,4 +1821,24 @@ func sub_554A50(ind int) int {
 		setNetStructByInd(ind, nil)
 	}
 	return 0
+}
+
+func sub_5549F0(ind int) int {
+	if ind >= NOX_NET_STRUCT_MAX {
+		return -3
+	}
+	if getNetStructByInd(ind) != nil {
+		C.nox_xxx_netSendReadPacket_5528B0(C.uint(ind), 0)
+		var buf [1]byte
+		buf[0] = 10
+		nox_xxx_netSendSock_552640(ind, buf[:1], 0)
+		C.nox_xxx_netSendReadPacket_5528B0(C.uint(ind), 0)
+		sub_554A50(ind)
+	}
+	return 0
+}
+
+func sub_43CC80() {
+	sub_5549F0(int(nox_xxx_netGet_43C750()))
+	C.dword_5d4594_2649712 = 0
 }

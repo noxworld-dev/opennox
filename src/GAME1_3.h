@@ -32,7 +32,6 @@ int nox_xxx_netGet_43C750();
 int sub_43C790();
 int sub_43C7A0(int a1);
 int nox_xxx_netHandleCliPacket_43C860(int a1, unsigned char* a2, int a3, void* a4);
-int sub_43CC80();
 void sub_43CEB0();
 int sub_43CF40();
 int sub_43CF70();
