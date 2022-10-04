@@ -642,7 +642,6 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 		}
 		return newConnectFailErr(-15, errors.New("invalid port"))
 	}
-	nox_net_init()
 	sock := newSocketUDP()
 	if sock == nil {
 		if debugMainloop {

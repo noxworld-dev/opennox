@@ -50,7 +50,6 @@ extern float nox_xxx_wizardMaximumMana_587000_312820;
 
 static int nox_call_net_xxxyyy_go(int (*fnc)(unsigned int, char*, int, void*), unsigned int a1, void* a2, int a3, void* a4) { return fnc(a1, a2, a3, a4); }
 
-int nox_xxx_netBigSwitch_553210_op_0(unsigned int id, uint8_t* out, int pid, char p1, nox_net_struct_t* ns1, struct nox_net_sockaddr_in* from);
 int nox_xxx_netBigSwitch_553210_op_6(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb, unsigned char* packetCur);
 int nox_xxx_netBigSwitch_553210_op_7(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb);
 int nox_xxx_netBigSwitch_553210_op_8(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb, unsigned char* packetCur);
@@ -603,7 +602,6 @@ func nox_xxx_netInit_554380(narg *netStructOpt) (ind int, _ error) {
 	setNetStructByInd(v2, ns)
 	ns.Data2()[0] = byte(v2)
 	ns.id = -1
-	nox_net_init()
 	sock := newSocketUDP()
 	ns.SetSocket(sock)
 
@@ -630,27 +628,6 @@ func nox_xxx_netInit_554380(narg *netStructOpt) (ind int, _ error) {
 		StrCopyP(memmap.PtrOff(0x973F18, 44216), 16, ip.String())
 	}
 	return v2, nil
-}
-
-func toNetStructOpt(arg *C.nox_net_struct_arg_t) *netStructOpt {
-	return &netStructOpt{
-		field0:    uint32(arg.field_0),
-		field1:    uint32(arg.field_1),
-		port:      int(arg.port),
-		data3size: int(arg.data_3_size),
-		field4:    int(arg.field_4),
-		datasize:  int(arg.data_size),
-		field6:    uint32(arg.field_6),
-		field7:    uint32(arg.field_7),
-		funcxxx:   unsafe.Pointer(arg.func_xxx),
-		funcyyy:   unsafe.Pointer(arg.func_yyy),
-	}
-}
-
-//export nox_xxx_makeNewNetStruct_553000
-func nox_xxx_makeNewNetStruct_553000(arg *C.nox_net_struct_arg_t) *C.nox_net_struct_t {
-	narg := toNetStructOpt(arg)
-	return nox_xxx_makeNewNetStruct(narg).C()
 }
 
 var zeroHandle C.HANDLE
@@ -1568,7 +1545,7 @@ func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Add
 		return 0
 	}
 	pid := int(int8(packet[0]))
-	p1 := int8(packet[1])
+	p1 := packet[1]
 	packetCur := packet[2:]
 
 	ns1 := getNetStructByInd(id)
@@ -1591,7 +1568,7 @@ func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Add
 		default:
 			return 0
 		case 0:
-			return int(C.nox_xxx_netBigSwitch_553210_op_0(C.uint(id), (*C.uchar)(unsafe.Pointer(&out[0])), C.int(pidb), C.char(p1), ns1.C(), caddr))
+			return nox_xxx_netBigSwitch_553210_op_0(id, out, pidb, p1, ns1, from)
 		case 1:
 			if len(packetCur) < 5 {
 				return 0
@@ -1670,5 +1647,83 @@ func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Add
 			}
 		}
 	}
+	return 0
+}
+
+func nox_xxx_netBigSwitch_553210_op_0(id int, out []byte, pid int, p1 byte, ns1 *netStruct, from net.Addr) int {
+	if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag4) {
+		return 0
+	}
+	out[0] = 0
+	out[1] = p1
+	if int(ns1.field_21) >= noxServer.getServerMaxPlayers()+int(memmap.Uint8(0x5D4594, 2500076)-1) {
+		out[2] = 2
+		return 3
+	}
+	if pid != -1 {
+		netLog.Printf("pid must be set to -1 when joining: was %d (%s)\n", pid, from.String())
+		// pid in the request must be -1 (0xff); fail if it's not
+		out[2] = 2
+		return 3
+	}
+	ip, port := getAddr(from)
+	// now, find free net struct index and use it as pid
+	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
+		ns9 := asNetStruct(C.nox_net_struct_arr[i])
+		if ns9 == nil {
+			pid = i
+			break
+		}
+		ip2, port2 := ns9.Addr()
+		if port == port2 && ip.Equal(ip2) {
+			netLog.Printf("already joined: %s\n", from.String())
+			out[2] = 4 // already joined?
+			return 3
+		}
+	}
+	if pid == -1 {
+		out[2] = 2
+		return 3
+	}
+	data1 := ns1.Data2()
+	ns10 := nox_xxx_makeNewNetStruct(&netStructOpt{
+		data3size: 4,
+		datasize:  len(data1),
+	})
+	setNetStructByInd(pid, ns10)
+	ns1.field_21++
+
+	data1 = ns10.Data2()
+	data1[0] = byte(id)
+	if data1[1] == p1 {
+		data1[1]++
+	}
+	ns10.id = C.int(id)
+	ns10.sock = ns1.sock
+	ns10.func_xxx = ns1.func_xxx
+	ns10.func_yyy = ns1.func_yyy
+
+	arr32 := unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2508788+32*uintptr(id))), 32)
+	copy(arr32, make([]byte, len(arr32)))
+	*memmap.PtrUint32(0x5D4594, 2508816+32*uintptr(id)) = 1
+	key := byte(noxRndCounter1.IntClamp(1, 255))
+	if !noxNetXor {
+		key = 0
+	}
+	ns10.xor_key = 0 // send this packet without xor encoding
+
+	ns10.SetAddr(ip, port)
+
+	out[0] = 31
+	out[1] = p1
+	out[2] = 1
+	binary.LittleEndian.PutUint32(out[3:], uint32(pid))
+	out[7] = key
+	v67, _ := nox_xxx_netSendSock_552640(pid, out[:8], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+
+	ns10.xor_key = C.uchar(key)
+	ns10.field_38 = 1
+	ns10.data_39[0] = C.uchar(v67)
+	ns10.field_40 = C.uint(gameFrame())
 	return 0
 }
