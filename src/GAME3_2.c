@@ -6828,9 +6828,6 @@ void sub_4DF3C0(nox_playerInfo* pl) {
 	return;
 }
 
-//----- (004DF550) --------------------------------------------------------
-int sub_4DF550() { return *getMemU32Ptr(0x5D4594, 1563148); }
-
 //----- (004DF630) --------------------------------------------------------
 int nox_xxx_netFn_UpdateStream_4DF630(int a1, char* a2, unsigned int a3, void* a4) {
 	char* v3;        // edi
