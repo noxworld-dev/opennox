@@ -52,7 +52,6 @@ extern float nox_xxx_wizardMaximumMana_587000_312820;
 
 static int nox_call_net_xxxyyy_go(int (*fnc)(unsigned int, char*, int, void*), unsigned int a1, void* a2, int a3, void* a4) { return fnc(a1, a2, a3, a4); }
 
-int nox_xxx_netBigSwitch_553210_op_8(int pid, uint8_t* out, nox_net_struct_t* ns1, unsigned int pidb, unsigned char* packetCur);
 int nox_xxx_netBigSwitch_553210_op_14(int pid, uint8_t* out, unsigned char* packet, nox_net_struct_t* ns1, char p1, struct nox_net_sockaddr_in* from);
 int nox_xxx_netBigSwitch_553210_op_17(uint8_t* out, unsigned char* packet, char p1, struct nox_net_sockaddr_in* from);
 int nox_xxx_netBigSwitch_553210_op_18(uint8_t* out, unsigned char* packet, struct nox_net_sockaddr_in* from);
@@ -1622,7 +1621,7 @@ func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Add
 		case 7:
 			return nox_xxx_netBigSwitch_553210_op_7(pid, out, ns1)
 		case 8:
-			return int(C.nox_xxx_netBigSwitch_553210_op_8(C.int(pid), (*C.uchar)(unsafe.Pointer(&out[0])), ns1.C(), C.uint(pidb), (*C.uchar)(unsafe.Pointer(&packetCur[0]))))
+			return nox_xxx_netBigSwitch_553210_op_8(pid, out, ns1, packetCur)
 		case 9:
 			return nox_xxx_netBigSwitch_553210_op_9(pid, packetCur)
 		case 10:
@@ -1796,6 +1795,29 @@ func nox_xxx_netBigSwitch_553210_op_7(pid int, out []byte, ns1 *netStruct) int {
 		ns1.callYyy(pid, out[:5], ns1.data_3)
 	}
 	return 0
+}
+
+func nox_xxx_netBigSwitch_553210_op_8(pid int, out []byte, ns1 *netStruct, packetCur []byte) int {
+	ns5 := getNetStructByInd(pid)
+	if ns5 == nil && binary.LittleEndian.Uint32(packetCur) != uint32(ns5.field_22) {
+		return 0
+	}
+	ns5.field_24 = C.uint(int(C.dword_5d4594_2495920) - int(ns5.field_23))
+	out[0] = 36
+	binary.LittleEndian.PutUint32(out[1:], uint32(ns5.field_24))
+	var v19 unsafe.Pointer
+	if ns1.id == -1 {
+		v19 = ns5.data_3
+	} else {
+		v19 = ns1.data_3
+	}
+	ns1.callYyy(pid, out[:5], v19)
+
+	out[0] = ns1.Data2()[0]
+	out[1] = ns5.Data2()[1]
+	out[2] = 9
+	binary.LittleEndian.PutUint32(out[3:], uint32(C.dword_5d4594_2495920))
+	return 7
 }
 
 func nox_xxx_netBigSwitch_553210_op_9(pid int, packetCur []byte) int {
