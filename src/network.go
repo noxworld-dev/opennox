@@ -100,6 +100,7 @@ var (
 	dword_5d4594_2496988 int
 	dword_5d4594_2495920 uint32
 	dword_5d4594_3844304 bool
+	netPacketDrop        int
 	arr2508788           [NOX_NET_STRUCT_MAX]netTimingStruct
 )
 
@@ -1526,7 +1527,7 @@ func nox_xxx_netRecv_552020(cs nox_socket_t, s *Socket, buf []byte) (int, net.Ad
 	}
 
 	r := randomIntMinMax(1, 99)
-	if r >= int(memmap.Int32(0x5D4594, 2495940)) {
+	if r >= netPacketDrop {
 		return n, src
 	}
 	return 0, src

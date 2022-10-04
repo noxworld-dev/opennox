@@ -8028,12 +8028,3 @@ void sub_551C40(int a1, int a2) {
 		}
 	}
 }
-
-//----- (00552010) --------------------------------------------------------
-int nox_net_setPacketDrop_552010(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 2495940) = a1;
-	return result;
-}
