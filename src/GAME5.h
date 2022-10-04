@@ -198,7 +198,7 @@ int sub_5521A0();
 void sub_5522E0(int id);
 int nox_xxx_makePacketTime_552340(int id, unsigned char* buf);
 void sub_552380(int a1);
-void sub_5523E0(char a1, int a2);
+void sub_5523E0(unsigned char a1, int a2);
 int nox_xxx_netSendSock_552640(unsigned int id, const char* buf, signed int sz, char flags);
 
 #endif // NOX_PORT_GAME5
