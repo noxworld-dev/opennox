@@ -217,7 +217,7 @@ func gameex_sendPacket(buf []byte) int {
 		return 0
 	}
 	ip, port := ns.Addr()
-	n, _ := ns.Socket().WriteTo(buf, &net.UDPAddr{IP: ip, Port: port})
+	n, _ := ns.sock.WriteTo(buf, &net.UDPAddr{IP: ip, Port: port})
 	return n
 }
 

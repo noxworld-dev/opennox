@@ -58,11 +58,6 @@ extern uint32_t dword_5d4594_2516348;
 extern uint32_t dword_5d4594_2650652;
 extern unsigned int nox_frame_xxx_2598000;
 
-//----- (00553D60) --------------------------------------------------------
-int nox_xxx_netHandlerDefXxx_553D60(unsigned int a1, char* a2, int a3, void* a4) { return 0; }
-//----- (00553D70) --------------------------------------------------------
-int nox_xxx_netHandlerDefYyy_553D70(unsigned int a1, char* a2, int a3, void* a4) { return 0; }
-
 //----- (00554040) --------------------------------------------------------
 unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out) {
 	char buf[72];
