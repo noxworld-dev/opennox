@@ -168,7 +168,7 @@ func setNetStructByInd(i int, ns *netStruct) {
 }
 
 func getFreeNetStruct() int {
-	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
+	for i := range nox_net_struct_arr {
 		if nox_net_struct_arr[i] == nil {
 			return i
 		}
@@ -177,7 +177,7 @@ func getFreeNetStruct() int {
 }
 
 func nox_xxx_netStructByAddr_551E60(ip net.IP, port int) *netStruct {
-	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
+	for i := range nox_net_struct_arr {
 		ns := nox_net_struct_arr[i]
 		if ns == nil {
 			continue
@@ -1315,7 +1315,7 @@ func sub_553FC0(a1, a2 int) {
 }
 
 func sub_551E00(ind int, ip net.IP, port int) bool {
-	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
+	for i := range nox_net_struct_arr {
 		ns := nox_net_struct_arr[i]
 		if ns == nil {
 			continue
@@ -1698,7 +1698,7 @@ func nox_xxx_netBigSwitch_553210_op_0(id int, out []byte, pid int, p1 byte, ns1 
 	}
 	ip, port := getAddr(from)
 	// now, find free net struct index and use it as pid
-	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
+	for i := range nox_net_struct_arr {
 		ns9 := nox_net_struct_arr[i]
 		if ns9 == nil {
 			pid = i
@@ -2026,7 +2026,7 @@ func nox_xxx_netBigSwitch_553210_op_14(out []byte, packet []byte, ns1 *netStruct
 }
 
 func getFreeNetStruct2Ind() int {
-	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
+	for i := range nox_net_struct_arr {
 		if !nox_net_struct2_arr[i].flag {
 			return i
 		}
@@ -2063,7 +2063,7 @@ func nox_xxx_netBigSwitch_553210_op_17(out []byte, packet []byte, p1 byte, from 
 
 func sub_553D30(addr net.Addr) int {
 	ip, port := getAddr(addr)
-	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
+	for i := range nox_net_struct_arr {
 		nx := &nox_net_struct2_arr[i]
 		ip2, port2 := getAddr(nx.addr)
 		if ip.Equal(ip2) && port == port2 {
@@ -2133,7 +2133,7 @@ func sub_43CC80() {
 
 func sub_5524C0() {
 	ticks2495920 = uint32(platformTicks())
-	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
+	for i := range nox_net_struct_arr {
 		ns := nox_net_struct_arr[i]
 		if ns != nil && ns.field38 == 1 {
 			if ns.frame40+300 < gameFrame() {
@@ -2149,7 +2149,7 @@ func nox_xxx_netMaybeSendAll_552460() {
 	if uint32(ticks)-*memmap.PtrUint32(0x5D4594, 2512888) <= 1000 {
 		return
 	}
-	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
+	for i := range nox_net_struct_arr {
 		if nox_net_struct_arr[i] != nil {
 			sub_5551F0(i, 0, 0)
 			nox_xxx_netSend_5552D0(i, 0, false)
@@ -2329,7 +2329,7 @@ var (
 func sub_5521A0() bool {
 	v13 := sub_416640()
 	start := platformTicks()
-	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
+	for i := range nox_net_struct_arr {
 		nx := &nox_net_struct2_arr[i]
 		if !nx.flag {
 			continue
