@@ -7,8 +7,7 @@ extern unsigned int dword_5d4594_1064868;
 extern unsigned int dword_5d4594_1316972;
 extern unsigned int gameex_flags;
 int sub_4BDFD0();
-int  gameex_sendPacket(char* buf, int len, int smth);
-char  mix_MouseKeyboardWeaponRoll(int playerObj, char a2);
+char  mix_MouseKeyboardWeaponRoll(nox_object_t* playerObj, char a2);
 int getFlagValueFromFlagIndex(signed int a1);
 int  modifyWndInputHandler(int a1, int a2, int a3, int a4);
 int  nox_xxx_clientUpdateButtonRow_45E110(int a1);
@@ -21,11 +20,13 @@ import (
 	"bufio"
 	"encoding/binary"
 	"image"
+	"net"
 	"os"
 	"strconv"
 	"strings"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/spf13/viper"
 
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
@@ -38,8 +39,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
-//export gameexSomeWeirdCheckFixmePlease
-func gameexSomeWeirdCheckFixmePlease() C.bool {
+func gameexSomeWeirdCheckFixmePlease() bool {
 	// FIXME: no idea what is supposed to do... just checking if both are nil?
 	//        previously checked in asm: (cmp ds:6D8555, eax)
 	//        although we now know that offsets in Mix was wrong compared to our base binary
@@ -203,8 +203,48 @@ func gameexDropTrap() {
 			buf, freeBuf := alloc.Make([]byte{}, 10)
 			defer freeBuf()
 			gameex_makeExtensionPacket(buf, 9, true)
-			C.gameex_sendPacket((*C.char)(unsafe.Pointer(&buf[0])), 8, 0)
+			gameex_sendPacket(buf[:8])
 		}
+	}
+}
+
+func gameex_sendPacket(buf []byte) int {
+	if len(buf) == 0 {
+		return 0
+	}
+	ns := getNetStructByInd(int(nox_xxx_netGet_43C750()))
+	if ns == nil {
+		return 0
+	}
+	ip, port := ns.Addr()
+	n, _ := ns.Socket().WriteTo(buf, &net.UDPAddr{IP: ip, Port: port})
+	return n
+}
+
+func call_OnLibraryNotice_265(arg3 int) {
+	// toggles weapons by mouse wheel
+	// autoshield is actually implemented in appendix of nox_xxx_playerDequipWeapon_53A140
+	a2a := bool2int(arg3 > 0) // scroll weapons back or forth
+	if !gameexSomeWeirdCheckFixmePlease() {
+		return
+	}
+	if (C.gameex_flags>>3)&1 == 0 {
+		return
+	}
+	if !noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
+		return
+	}
+	if noxflags.HasGame(noxflags.GameHost) {
+		if u := HostPlayerUnit(); u != nil && u.ControllingPlayer().PlayerClass() == player.Warrior {
+			if C.mix_MouseKeyboardWeaponRoll(u.CObj(), C.char(a2a)) != 0 {
+				clientPlaySoundSpecial(895, 100)
+			}
+		}
+	} else {
+		var buf [10]byte
+		gameex_makeExtensionPacket(buf[:], 0, true)
+		buf[8] = byte(a2a)
+		gameex_sendPacket(buf[:9])
 	}
 }
 
@@ -217,7 +257,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 				return
 			}
 			if noxflags.HasGame(noxflags.GameHost) { // isServer
-				if u := HostPlayerUnit(); u != nil && C.mix_MouseKeyboardWeaponRoll(C.int(uintptr(unsafe.Pointer(u.CObj()))), C.char(v8)) != 0 {
+				if u := HostPlayerUnit(); u != nil && C.mix_MouseKeyboardWeaponRoll(u.CObj(), C.char(v8)) != 0 {
 					clientPlaySoundSpecial(sound.SoundNextWeapon, 100)
 				}
 			} else {
@@ -225,7 +265,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 				defer freeBuf()
 				gameex_makeExtensionPacket(buf, 0, true)
 				buf[8] = v8 | 0x10 // TODO: should it be just v8?
-				C.gameex_sendPacket((*C.char)(unsafe.Pointer(&buf[0])), 9, 0)
+				gameex_sendPacket(buf[:9])
 			}
 		}
 	}

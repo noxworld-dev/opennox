@@ -189,10 +189,6 @@ func noxInputOnChar(c uint16) {
 	C.nox_xxx_onChar_488BD0(C.wchar_t(c))
 }
 
-func call_OnLibraryNotice_265(dv int) {
-	C.OnLibraryNotice_265(0, 2, C.int(dv))
-}
-
 var keybindTitles struct {
 	sync.Once
 	byTitle map[string]keybind.Key
