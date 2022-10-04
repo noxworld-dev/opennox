@@ -282,7 +282,7 @@ func sub_43CCA0() {
 	}
 	nox_xxx_netSendBySock_40EE10(int(nox_xxx_netGet_43C750()), 31, 0)
 	nox_netlist_resetByInd_40ED10(31, 0)
-	C.nox_xxx_netMaybeSendAll_552460()
+	nox_xxx_netMaybeSendAll_552460()
 	if !(memmap.Uint32(0x5D4594, 815720) != 0 || memmap.Uint32(0x5D4594, 815716) != 0) {
 		return
 	}

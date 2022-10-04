@@ -1015,7 +1015,7 @@ func nox_xxx_cliWaitServerResponse_5525B0(a1 int, a2 int, a3 int, flags int) int
 	for v6 := 0; v6 <= 20*a3; v6++ {
 		platform.Sleep(50 * time.Millisecond)
 		nox_xxx_servNetInitialPackets_552A80(a1, flags|1)
-		C.nox_xxx_netMaybeSendAll_552460()
+		nox_xxx_netMaybeSendAll_552460()
 		if int(ns.field_28_1) >= a2 {
 			return 0
 		}
@@ -1853,4 +1853,19 @@ func sub_5524C0() {
 			}
 		}
 	}
+}
+
+func nox_xxx_netMaybeSendAll_552460() {
+	ticks := platformTicks()
+	C.dword_5d4594_2495920 = C.uint(ticks)
+	if uint32(ticks)-*memmap.PtrUint32(0x5D4594, 2512888) <= 1000 {
+		return
+	}
+	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
+		if C.nox_net_struct_arr[i] != nil {
+			C.sub_5551F0(C.uint(i), 0, 0)
+			nox_xxx_netSend_5552D0(i, 0, false)
+		}
+	}
+	*memmap.PtrUint32(0x5D4594, 2512888) = uint32(ticks)
 }
