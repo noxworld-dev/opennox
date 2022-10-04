@@ -3,7 +3,6 @@
 
 #include "defs.h"
 
-void OnLibraryNotice_259(uint32_t arg1);
 void OnLibraryNotice_263(uint32_t arg1);
 void OnLibraryNotice_264(uint32_t arg1);
 void OnLibraryNotice_265(unsigned int arg1, unsigned int arg2, int arg3);

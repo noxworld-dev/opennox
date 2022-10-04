@@ -350,9 +350,6 @@ int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_socka
 }
 // 1000EF00: using guessed type int DefaultPacket[4];
 
-//----- (10002C30) --------------------------------------------------------
-void OnLibraryNotice_259(uint32_t arg1) {}
-
 void OnLibraryNotice_263(uint32_t arg1) { nox_common_gameFlags_check_40A5C0(1); }
 void OnLibraryNotice_264(uint32_t arg1) { nox_common_gameFlags_check_40A5C0(1); }
 bool gameexSomeWeirdCheckFixmePlease();
