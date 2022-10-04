@@ -57,7 +57,6 @@ extern uint32_t nox_xxx_waypointsHead_2523752;
 extern uint32_t dword_5d4594_2516328;
 extern uint32_t dword_5d4594_2516348;
 extern uint32_t dword_5d4594_2650652;
-extern nox_alloc_class* nox_alloc_gQueue_3844300;
 extern unsigned int nox_frame_xxx_2598000;
 
 nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX] = {0};
@@ -227,52 +226,6 @@ int sub_555290(unsigned int a1, uint32_t* a2) {
 	*a2 = *(uint32_t*)(dword_5d4594_2513932 + 16);
 	dword_5d4594_2513932 = *(uint32_t*)(result - 22);
 	return result;
-}
-
-//----- (00555360) --------------------------------------------------------
-int sub_555360(unsigned int a1, unsigned char a2, int a3) {
-	char* v5;     // esi
-	uint64_t* v6; // eax
-	uint32_t* v7; // ecx
-	char v8[24];  // [esp+4h] [ebp-18h]
-
-	if (a1 >= NOX_NET_STRUCT_MAX) {
-		return -3;
-	}
-	nox_net_struct_t* ns = nox_net_struct_arr[a1];
-	if (!ns) {
-		return -3;
-	}
-	*(uint32_t*)v8 = ns->field_29;
-	v5 = v8;
-	while (*(uint32_t*)v5) {
-		if (a3) {
-			if (a3 == 1) {
-				if (a2 < 0x20u || a2 > 0xE0u) {
-					if (*(uint8_t*)(*(uint32_t*)v5 + 21) < (char)a2) {
-						goto LABEL_17;
-					}
-				} else if (*(uint8_t*)(*(uint32_t*)v5 + 21) < a2) {
-					goto LABEL_17;
-				}
-			} else if (a3 == 2) {
-			LABEL_17:
-				v6 = *(uint64_t**)v5;
-				v7 = ns->field_29;
-				if (*(uint32_t**)v5 == v7) {
-					ns->field_29 = *v7;
-				}
-				*(uint32_t*)v5 = **(uint32_t**)v5;
-				*(uint32_t*)v6 = 0;
-				nox_alloc_class_free_obj_first(nox_alloc_gQueue_3844300, v6);
-				continue;
-			}
-		} else if (*(uint8_t*)(*(uint32_t*)v5 + 21) == a2) {
-			goto LABEL_17;
-		}
-		v5 = *(char**)v5;
-	}
-	return 0;
 }
 
 //----- (0056F1C0) --------------------------------------------------------

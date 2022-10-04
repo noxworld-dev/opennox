@@ -22,7 +22,6 @@ extern unsigned int dword_5d4594_814548;
 extern unsigned int dword_5d4594_3843632;
 extern unsigned int dword_5d4594_2495920;
 extern unsigned long long qword_5d4594_814956;
-extern nox_alloc_class* nox_alloc_gQueue_3844300;
 extern nox_socket_t nox_xxx_sockLocalBroadcast_2513920;
 extern nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX];
 unsigned int nox_client_getServerAddr_43B300();
@@ -100,12 +99,22 @@ var (
 	dword_5d4594_2495920 uint32
 	dword_5d4594_3844304 bool
 
-	nox_net_struct2_arr [NOX_NET_STRUCT_MAX]netStruct2
-	netPacketDrop       int
-	arr2508788          [NOX_NET_STRUCT_MAX]netTimingStruct
-	list2495908         listHead[netPlayerIDList, *netPlayerIDList]
-	cnt2500076          int
+	nox_net_struct2_arr      [NOX_NET_STRUCT_MAX]netStruct2
+	netPacketDrop            int
+	arr2508788               [NOX_NET_STRUCT_MAX]netTimingStruct
+	list2495908              listHead[netPlayerIDList, *netPlayerIDList]
+	cnt2500076               int
+	nox_alloc_gQueue_3844300 alloc.ClassT[gQueueItem]
 )
+
+type gQueueItem struct {
+	next    *gQueueItem
+	field1  uint32
+	field2  uint32
+	active3 uint32
+	size4   uint32
+	data    [1024]byte
+}
 
 type netPlayerIDList struct {
 	listItem
@@ -753,7 +762,7 @@ func (s *Server) nox_xxx_netStructReadPackets(ind int) int {
 		nox_xxx_netSendSock552640(i, buf[:], 0)
 		nox_xxx_netSendReadPacket_5528B0(i, 1)
 		getNetStructByInd(v4).field_21--
-		C.sub_555360(C.uint(v1), 0, 2)
+		sub_555360(v1, 0, 2)
 		ns2.FreeXxx()
 		setNetStructByInd(i, nil)
 	}
@@ -886,7 +895,7 @@ func sub_555130(a1 int, a2 unsafe.Pointer, a3 int) int {
 }
 
 func sub555130(a1 int, buf []byte) (int, error) {
-	if len(buf) > int(memmap.Int32(0x5D4594, 2512884)) {
+	if len(buf) > 1024-2 {
 		return -1, errors.New("buffer too large")
 	}
 	if len(buf) == 0 {
@@ -896,22 +905,20 @@ func sub555130(a1 int, buf []byte) (int, error) {
 	if ns == nil {
 		return -3, errors.New("no net struct")
 	}
-	v5p := alloc.AsClass(unsafe.Pointer(C.nox_alloc_gQueue_3844300)).NewObject()
-	if v5p == nil {
+	v5 := nox_alloc_gQueue_3844300.NewObject()
+	if v5 == nil {
 		return -1, errors.New("cannot alloc gqueue")
 	}
-	v5 := unsafe.Slice((*uint32)(v5p), 5)
-	v5b := unsafe.Slice((*byte)(v5p), 22+len(buf))
-	v5[0] = uint32(uintptr(ns.field_29))
-	ns.field_29 = v5p
+	v5.next = (*gQueueItem)(ns.field_29)
+	ns.field_29 = unsafe.Pointer(v5)
 
-	v5[3] = 1
-	v5[4] = uint32(len(buf) + 2)
-	v5b[20] = ns.Data2()[0] | 0x80
-	v5b[21] = byte(ns.field_28_0)
+	v5.active3 = 1
+	v5.size4 = uint32(len(buf) + 2)
+	v5.data[0] = ns.Data2()[0] | 0x80
+	v5.data[1] = byte(ns.field_28_0)
 	ns.field_28_0++
-	copy(v5b[22:], buf)
-	return int(v5b[21]), nil
+	copy(v5.data[2:], buf)
+	return int(v5.data[1]), nil
 }
 
 //export nox_xxx_sendto_551F90
@@ -944,28 +951,24 @@ func nox_xxx_netSend_5552D0(ind int, a2 byte, a3 bool) int {
 	if ns == nil {
 		return -3
 	}
-	for it := unsafe.Pointer(ns.field_29); it != nil; it = *(*unsafe.Pointer)(it) {
-		gb := unsafe.Slice((*byte)(it), 22)
-		gi := unsafe.Slice((*uint32)(it), 5)
+	for it := (*gQueueItem)(ns.field_29); it != nil; it = it.next {
 		if a3 {
-			if gb[21] == a2 {
-				sz := int(gi[4])
-				gi[3] = 0
-				gi[1] = dword_5d4594_2495920 + 2000
-				gb := unsafe.Slice((*byte)(it), 22+sz)
+			if it.data[1] == a2 {
+				sz := int(it.size4)
+				it.active3 = 0
+				it.field1 = dword_5d4594_2495920 + 2000
 				ip, port := ns.Addr()
-				if _, err := nox_xxx_sendto551F90(ns.Socket(), gb[20:20+sz], ip, port); err != nil {
+				if _, err := nox_xxx_sendto551F90(ns.Socket(), it.data[:sz], ip, port); err != nil {
 					netLog.Println(err)
 					return 0
 				}
 			}
-		} else if gi[3] != 0 {
-			sz := int(gi[4])
-			gi[3] = 0
-			gi[1] = dword_5d4594_2495920 + 2000
-			gb := unsafe.Slice((*byte)(it), 22+sz)
+		} else if it.active3 != 0 {
+			sz := int(it.size4)
+			it.active3 = 0
+			it.field1 = dword_5d4594_2495920 + 2000
 			ip, port := ns.Addr()
-			if _, err := nox_xxx_sendto551F90(ns.Socket(), gb[20:20+sz], ip, port); err != nil {
+			if _, err := nox_xxx_sendto551F90(ns.Socket(), it.data[:sz], ip, port); err != nil {
 				netLog.Println(err)
 				return 0
 			}
@@ -1442,7 +1445,7 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 				}
 				if v9 != byte(ns2.field_28_1) {
 					sub_5551F0(id2, v9, 1)
-					C.sub_555360(C.uint(id2), C.uchar(v9), 1)
+					sub_555360(id2, v9, 1)
 					ns2.field_28_1 = C.char(v9)
 					v20 := 0
 					if nox_xxx_netRead2Xxx_551EB0(id, id2, v9, ns.Data1yyy()) {
@@ -1676,7 +1679,7 @@ func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Add
 			netLog.Printf("switch 31: 0x%x 0x%x\n", v14, ns8.field_28_1)
 			if v14 != byte(ns8.field_28_1) {
 				sub_5551F0(pid, v14, 1)
-				C.sub_555360(C.uint(pid), C.uchar(v14), 1)
+				sub_555360(pid, v14, 1)
 				ns8.field_28_1 = C.char(v14)
 				out[0] = 38
 				out[1] = v14
@@ -2231,16 +2234,14 @@ func sub_5551F0(a1 int, a2 byte, a3 int) int {
 	if ns == nil {
 		return -3
 	}
-	for it := unsafe.Pointer(ns.field_29); it != nil; it = *(*unsafe.Pointer)(it) {
-		gb := unsafe.Slice((*byte)(it), 22)
-		gi := unsafe.Slice((*uint32)(it), 5)
+	for it := (*gQueueItem)(ns.field_29); it != nil; it = it.next {
 		if a3 != 0 {
-			if gb[21] == a2 {
-				gi[3] = 1
+			if it.data[1] == a2 {
+				it.active3 = 1
 				continue
 			}
-		} else if gi[1] <= dword_5d4594_2495920 {
-			gi[3] = 1
+		} else if it.field1 <= dword_5d4594_2495920 {
+			it.active3 = 1
 			continue
 		}
 	}
@@ -2397,15 +2398,14 @@ func nox_xxx_allocNetGQueue_5520B0() {
 	if flag2495924 {
 		return
 	}
-	C.nox_alloc_gQueue_3844300 = nil
+	nox_alloc_gQueue_3844300.FreeAllObjects()
 	for i := range C.nox_net_struct_arr {
 		C.nox_net_struct_arr[i] = nil
 	}
 	for i := range nox_net_struct2_arr {
 		nox_net_struct2_arr[i] = netStruct2{}
 	}
-	*memmap.PtrUint32(0x5D4594, 2512884) = 1024
-	C.nox_alloc_gQueue_3844300 = (*C.nox_alloc_class)(alloc.NewClass("GQueue", 1024, 200).UPtr())
+	nox_alloc_gQueue_3844300 = alloc.NewClassT("GQueue", gQueueItem{}, 200)
 	if flag2495924 {
 		var next *netPlayerIDList
 		for it := list2495908.First(); it != nil; it = next {
@@ -2431,4 +2431,30 @@ func nox_xxx_findPlayerID_5541D0(a1 int) *netPlayerIDList {
 		}
 	}
 	return nil
+}
+
+func sub_555360(a1 int, a2 byte, a3 int) int {
+	ns := getNetStructByInd(a1)
+	if ns == nil {
+		return -3
+	}
+	var next *gQueueItem
+	for it := (*gQueueItem)(ns.field_29); it.next != nil; it = next {
+		next = it.next
+		if a3 == 0 || a3 == 1 {
+			if it.data[1] != a2 {
+				continue
+			}
+		} else if a3 == 2 {
+			// nop
+		} else {
+			continue
+		}
+		if cur := (*gQueueItem)(ns.field_29); it == cur {
+			ns.field_29 = unsafe.Pointer(cur.next)
+		}
+		it.next = nil
+		nox_alloc_gQueue_3844300.FreeObjectFirst(it)
+	}
+	return 0
 }
