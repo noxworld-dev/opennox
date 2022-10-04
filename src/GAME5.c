@@ -8130,16 +8130,6 @@ int sub_5521A0() {
 	return 1;
 }
 
-//----- (005522E0) --------------------------------------------------------
-void sub_5522E0(int id) {
-	int i = sub_4DF550();
-	nox_net_struct_t* ns = nox_net_struct_arr[i];
-	char buf[8];
-	int v2 = nox_xxx_makePacketTime_552340(id, buf);
-	int v3 = nox_xxx_sendto_551F90(ns->sock, buf, v2, &nox_net_struct2_arr[id].addr);
-	sub_553F40(v3, 1);
-}
-
 //----- (00552340) --------------------------------------------------------
 int nox_xxx_makePacketTime_552340(int id, unsigned char* buf) {
 	nox_net_struct2_t* nx = &nox_net_struct2_arr[id];
