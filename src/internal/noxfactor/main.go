@@ -991,6 +991,10 @@ func (r *Refactorer) visitExpr(n ast.Expr) ast.Expr {
 		n.Value = r.visitExpr(n.Value)
 	case *ast.FuncLit:
 		n.Body = r.visitStmt(n.Body).(*ast.BlockStmt)
+	case *ast.IndexListExpr:
+		for i, a := range n.Indices {
+			n.Indices[i] = r.visitExpr(a)
+		}
 	default:
 		panic(fmt.Errorf("unsupported expr type: %T", n))
 	}
