@@ -1210,18 +1210,6 @@ _Static_assert(sizeof(struct nox_net_sockaddr) == 16, "wrong size of nox_net_soc
 _Static_assert(sizeof(struct nox_net_sockaddr_in) == 16, "wrong size of nox_net_sockaddr_in structure!");
 _Static_assert(sizeof(nox_net_struct_t) == 164, "wrong size of nox_net_struct_t structure!");
 
-typedef struct nox_net_struct2_t {
-	uint32_t field_0;   // 0, 0
-	uint8_t field_1_0;  // 1, 4
-	uint8_t field_1_1;  // 1, 5
-	uint16_t field_1_2; // 1, 6
-	// TODO: check usages, looks like it reuses sin_zero for something else
-	struct nox_net_sockaddr_in addr; // 2, 8
-	uint32_t field_6[10];            // 6, 24
-	uint32_t ticks;                  // 16, 64
-} nox_net_struct2_t;
-_Static_assert(sizeof(nox_net_struct2_t) == 68, "wrong size of nox_net_struct2_t structure!");
-
 typedef struct nox_things_imageRef_t {
 	char name[32];    // 0, 0
 	char name2[64];   // 8, 32

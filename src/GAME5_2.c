@@ -61,7 +61,6 @@ extern nox_alloc_class* nox_alloc_gQueue_3844300;
 extern unsigned int nox_frame_xxx_2598000;
 
 nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX] = {0};
-nox_net_struct2_t nox_net_struct2_arr[NOX_NET_STRUCT_MAX] = {0};
 uint32_t dword_5d4594_3843632 = 0;
 
 //----- (00553D60) --------------------------------------------------------
