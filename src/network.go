@@ -102,6 +102,7 @@ var (
 	dword_5d4594_2496472 int
 	dword_5d4594_2496988 int
 	dword_5d4594_3844304 bool
+	arr2508788           [NOX_NET_STRUCT_MAX]netTimingStruct
 )
 
 var (
@@ -1648,6 +1649,13 @@ func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Add
 	return 0
 }
 
+type netTimingStruct struct {
+	field0  uint32
+	field4  uint32
+	field8  [5]uint32
+	field28 uint32
+}
+
 func nox_xxx_netBigSwitch_553210_op_0(id int, out []byte, pid int, p1 byte, ns1 *netStruct, from net.Addr) int {
 	if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag4) {
 		return 0
@@ -1701,9 +1709,7 @@ func nox_xxx_netBigSwitch_553210_op_0(id int, out []byte, pid int, p1 byte, ns1 
 	ns10.func_xxx = ns1.func_xxx
 	ns10.func_yyy = ns1.func_yyy
 
-	arr32 := unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2508788+32*uintptr(id)+0)), 32)
-	copy(arr32, make([]byte, len(arr32)))
-	*memmap.PtrUint32(0x5D4594, 2508788+32*uintptr(id)+28) = 1
+	arr2508788[id] = netTimingStruct{field28: 1}
 	key := byte(noxRndCounter1.IntClamp(1, 255))
 	if !noxNetXor {
 		key = 0
@@ -1739,6 +1745,7 @@ func nox_xxx_netBigSwitch_553210_op_6(pid int, out []byte, ns1 *netStruct, packe
 	out[0] = 37
 	ns1.callYyy(pid, out[:1], ns2.data_3)
 
+	arr2508788[pid].field4 = v
 	var v18 []byte
 	if ns1.id == -1 {
 		out[0] = byte(ns2.id)
@@ -1748,7 +1755,6 @@ func nox_xxx_netBigSwitch_553210_op_6(pid int, out []byte, ns1 *netStruct, packe
 		v18 = ns1.Data2()
 	}
 	out[1] = v18[0]
-	*memmap.PtrUint32(0x5D4594, 2508788+32*uintptr(pid)+4) = v
 	out[2] = 8
 	binary.LittleEndian.PutUint32(out[3:], v)
 	return 7
@@ -1759,21 +1765,22 @@ func nox_xxx_netBigSwitch_553210_op_9(pid int, packetCur []byte) int {
 		return 0
 	}
 	v := binary.LittleEndian.Uint32(packetCur[:4])
-	dv := v - memmap.Uint32(0x5D4594, 2508788+32*uintptr(pid)+4)
+	p := &arr2508788[pid]
+	dv := v - p.field4
 	if dv <= 0 || dv >= 1000 {
 		return 0
 	}
-	ind := memmap.Uint32(0x5D4594, 2508788+32*uintptr(pid)+0)
-	*memmap.PtrUint32(0x5D4594, 2508788+32*uintptr(pid)+4*uintptr(ind)+8) = dv
+	ind := p.field0
+	p.field8[ind] = dv
 	v26 := (ind + 1) % 5
 	v27 := v26
 	if v26 == 0 {
-		for i := 0; i < 5; i++ {
-			v26 += memmap.Uint32(0x5D4594, 2508788+32*uintptr(pid)+4*uintptr(i)+8)
+		for _, vv := range p.field8 {
+			v26 += vv
 		}
-		*memmap.PtrUint32(0x5D4594, 2508788+32*uintptr(pid)+28) = v26 / 5
+		p.field28 = v26 / uint32(len(p.field8))
 	}
-	*memmap.PtrUint32(0x5D4594, 2508788+32*uintptr(pid)+0) = v27
+	p.field0 = v27
 	return 0
 }
 
@@ -1788,8 +1795,7 @@ func nox_xxx_netBigSwitch_553210_op_10(id int, pid int, out []byte, ns1 *netStru
 	out[0] = 34
 	ns1.callYyy(pid, out[:1], ns6.data_3)
 
-	arr32 := unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2508788+32*uintptr(id)+0)), 32)
-	copy(arr32, make([]byte, len(arr32)))
+	arr2508788[id] = netTimingStruct{}
 
 	v69 := C.nox_xxx_findPlayerID_5541D0(C.int(pid))
 	if v69 != nil {
@@ -1804,7 +1810,7 @@ func nox_xxx_netBigSwitch_553210_op_10(id int, pid int, out []byte, ns1 *netStru
 //export sub_554240
 func sub_554240(a1 int) int {
 	if a1 != 31 {
-		return int(memmap.Uint32(0x5D4594, 2508788+32*uintptr(1+a1)+28))
+		return int(arr2508788[1+a1].field28)
 	}
 	return int(nox_ctrlevent_add_ticks_42E630())
 }
