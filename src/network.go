@@ -197,15 +197,13 @@ type netStruct struct {
 	port  int
 	id    int // 5, 20
 
-	data1base *byte //  8, 32
-	data1xxx  *byte //  9, 36
-	data1yyy  *byte // 10, 40
-	data1end  *byte // 11, 44
+	data1    []byte //  8, 32
+	data1xxx int    //  9, 36
+	data1yyy int    // 10, 40
 
-	data2base *byte // 12, 48
-	data2xxx  *byte // 13, 52
-	data2yyy  *byte // 14, 56
-	data2end  *byte // 15, 60
+	data2    []byte // 12, 48
+	data2xxx int    // 13, 52
+	data2yyy int    // 14, 56
 
 	field20     uint32
 	playerInd21 uint32                                         // 84
@@ -233,8 +231,8 @@ func (ns *netStruct) FreeXxx() {
 	if ns.data3 != nil {
 		alloc.Free(ns.data3)
 	}
-	alloc.Free(unsafe.Pointer(ns.data1base))
-	alloc.Free(unsafe.Pointer(ns.data2base))
+	alloc.FreeSlice(ns.data1)
+	alloc.FreeSlice(ns.data2)
 	C.CloseHandle(ns.mutex2)
 	C.CloseHandle(ns.mutex1)
 	*ns = netStruct{}
@@ -267,66 +265,42 @@ func (ns *netStruct) Data1() []byte {
 	if ns == nil {
 		return nil
 	}
-	sz := int(uintptr(unsafe.Pointer(ns.data1end)) - uintptr(unsafe.Pointer(ns.data1base)))
-	if sz < 0 {
-		panic("negative size")
-	}
-	return unsafe.Slice((*byte)(unsafe.Pointer(ns.data1base)), sz)
+	return ns.data1
 }
 
 func (ns *netStruct) Data2() []byte {
 	if ns == nil {
 		return nil
 	}
-	sz := int(uintptr(unsafe.Pointer(ns.data2end)) - uintptr(unsafe.Pointer(ns.data2base)))
-	if sz < 0 {
-		panic("negative size")
-	}
-	return unsafe.Slice((*byte)(unsafe.Pointer(ns.data2base)), sz)
+	return ns.data2
 }
 
 func (ns *netStruct) Datax2() []byte {
 	if ns == nil {
 		return nil
 	}
-	sz := int(uintptr(unsafe.Pointer(ns.data2xxx)) - uintptr(unsafe.Pointer(ns.data2base)))
-	if sz < 0 {
-		panic("negative size")
-	}
-	return unsafe.Slice((*byte)(unsafe.Pointer(ns.data2base)), sz)
+	return ns.data2[:ns.data2xxx]
 }
 
 func (ns *netStruct) Data1xxx() []byte {
 	if ns == nil {
 		return nil
 	}
-	sz := int(uintptr(unsafe.Pointer(ns.data1end)) - uintptr(unsafe.Pointer(ns.data1xxx)))
-	if sz < 0 {
-		panic("negative size")
-	}
-	return unsafe.Slice((*byte)(unsafe.Pointer(ns.data1xxx)), sz)
+	return ns.data1[ns.data1xxx:]
 }
 
 func (ns *netStruct) Data1yyy() []byte {
 	if ns == nil {
 		return nil
 	}
-	sz := int(uintptr(unsafe.Pointer(ns.data1xxx)) - uintptr(unsafe.Pointer(ns.data1yyy)))
-	if sz < 0 {
-		panic("negative size")
-	}
-	return unsafe.Slice((*byte)(unsafe.Pointer(ns.data1yyy)), sz)
+	return ns.data1[ns.data1yyy:ns.data1xxx]
 }
 
 func (ns *netStruct) Data2xxx() []byte {
 	if ns == nil {
 		return nil
 	}
-	sz := int(uintptr(unsafe.Pointer(ns.data2end)) - uintptr(unsafe.Pointer(ns.data2xxx)))
-	if sz < 0 {
-		panic("negative size")
-	}
-	return unsafe.Slice((*byte)(unsafe.Pointer(ns.data2xxx)), sz)
+	return ns.data2[ns.data2xxx:]
 }
 
 func (ns *netStruct) callXxx(id int, buf []byte, data3 unsafe.Pointer) int {
@@ -703,17 +677,15 @@ func newNetStruct(arg *netStructOpt) *netStruct {
 		arg.datasize = 1024
 	}
 	data1, _ := alloc.Make([]byte{}, arg.datasize+2)
-	ns.data1base = &data1[0]
-	ns.data1xxx = &data1[0]
-	ns.data1yyy = &data1[0]
-	ns.data1end = (*byte)(unsafe.Add(unsafe.Pointer(&data1[0]), len(data1)))
+	ns.data1 = data1
+	ns.data1xxx = 0
+	ns.data1yyy = 0
 
 	data2, _ := alloc.Make([]byte{}, arg.datasize+2)
 	data2[0] = 0xff
-	ns.data2base = &data2[0]
-	ns.data2xxx = &data2[2]
-	ns.data2yyy = &data2[2]
-	ns.data2end = (*byte)(unsafe.Add(unsafe.Pointer(&data2[0]), len(data2)))
+	ns.data2 = data2
+	ns.data2xxx = 2
+	ns.data2yyy = 2
 
 	ns.field20 = uint32(arg.field4)
 	ns.funcxxx = arg.funcxxx
@@ -869,7 +841,7 @@ func nox_xxx_netSendSock552640(id int, buf []byte, flags int) (int, error) {
 			return n2, nil
 		}
 		copy(d2x[:n], buf)
-		ns2.data2xxx = &d2x[n]
+		ns2.data2xxx += n
 		if C.ReleaseMutex(ns2.mutex2) == 0 {
 			C.ReleaseMutex(ns2.mutex2)
 		}
@@ -1365,8 +1337,8 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 		ip, port := getAddr(src)
 		sub_553FC0(n, 1)
 		if n < 3 {
-			ns.data1yyy = ns.data1base
-			ns.data1xxx = ns.data1base
+			ns.data1xxx = 0
+			ns.data1yyy = 0
 			if flags&1 == 0 || flags&4 != 0 {
 				return n
 			}
@@ -1378,7 +1350,7 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 			}
 			continue
 		}
-		ns.data1xxx = (*byte)(unsafe.Add(unsafe.Pointer(ns.data1xxx), n))
+		ns.data1xxx += n
 		hdr := ns.Data1yyy()[:3]
 		id2 := int(hdr[0])
 		v9 := hdr[1]
@@ -1396,8 +1368,8 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 					sub_553F40(n, 1)
 				}
 			}
-			ns.data1yyy = ns.data1base
-			ns.data1xxx = ns.data1base
+			ns.data1xxx = 0
+			ns.data1yyy = 0
 			if flags&1 == 0 || flags&4 != 0 {
 				return n
 			}
@@ -1488,8 +1460,8 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 			}
 		}
 	LABEL_48:
-		ns.data1yyy = ns.data1base
-		ns.data1xxx = ns.data1base
+		ns.data1xxx = 0
+		ns.data1yyy = 0
 		if flags&1 == 0 || flags&4 != 0 {
 			return n
 		}
@@ -1601,7 +1573,7 @@ func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Add
 			packetCur = packetCur[5:]
 
 			ns1.id = int(v11)
-			*ns1.data2base = byte(v11)
+			ns1.data2[0] = byte(v11)
 			ns1.xorKey = xor
 			dword_5d4594_3844304 = true
 		case 2:
@@ -2186,7 +2158,7 @@ func nox_xxx_netSendReadPacket_5528B0(ind int, a2 byte) int {
 			data2 := ns2.Data2xxx()
 			n := ns2.callXxx(j, data2, ns2.data3)
 			if n > 0 && n <= len(data2) {
-				ns2.data2xxx = (*byte)(unsafe.Add(unsafe.Pointer(ns2.data2xxx), n))
+				ns2.data2xxx += n
 			}
 		}
 		v13 := ns2.Datax2()
