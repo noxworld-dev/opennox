@@ -32,7 +32,6 @@ int sub_43AF90(int a1);
 int nox_xxx_netClientSend2_4E53C0(int a1, const void* a2, int a3, int a4, int a5);
 void* nox_xxx_spriteGetMB_476F80();
 int nox_xxx_netSendPacket_4E5030(int a1, const void* a2, signed int a3, int a4, int a5, char a6);
-int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2);
 static int nox_xxx_netSendLineMessage_go(nox_object_t* a1, wchar_t* str) {
 	return nox_xxx_netSendLineMessage_4D9EB0(a1, str);
 }
@@ -237,6 +236,17 @@ func (ns *netStruct) Data2() []byte {
 		return nil
 	}
 	sz := int(uintptr(unsafe.Pointer(ns.data_2_end)) - uintptr(unsafe.Pointer(ns.data_2_base)))
+	if sz < 0 {
+		panic("negative size")
+	}
+	return unsafe.Slice((*byte)(unsafe.Pointer(ns.data_2_base)), sz)
+}
+
+func (ns *netStruct) Datax2() []byte {
+	if ns == nil {
+		return nil
+	}
+	sz := int(uintptr(unsafe.Pointer(ns.data_2_xxx)) - uintptr(unsafe.Pointer(ns.data_2_base)))
 	if sz < 0 {
 		panic("negative size")
 	}
@@ -727,11 +737,11 @@ func (s *Server) nox_xxx_netStructReadPackets(ind int) int {
 		if ns2 == nil || ns2.ID() != v4 {
 			continue
 		}
-		C.nox_xxx_netSendReadPacket_5528B0(C.uint(i), 1)
+		nox_xxx_netSendReadPacket_5528B0(i, 1)
 		var buf [1]byte
 		buf[0] = 11
 		nox_xxx_netSendSock_552640(i, buf[:], 0)
-		C.nox_xxx_netSendReadPacket_5528B0(C.uint(i), 1)
+		nox_xxx_netSendReadPacket_5528B0(i, 1)
 		getNetStructByInd(v4).field_21--
 		C.sub_555360(C.uint(v1), 0, 2)
 		ns2.FreeXxx()
@@ -1268,7 +1278,7 @@ func nox_xxx_netSendBySock_40EE10(a1 int, a2 int, a3 int) {
 	v3 := nox_netlist_copyPacketList(a2, a3)
 	if len(v3) != 0 {
 		nox_xxx_netSendSock_552640(a1, v3, 0)
-		C.nox_xxx_netSendReadPacket_5528B0(C.uint(a1), 1)
+		nox_xxx_netSendReadPacket_5528B0(a1, 1)
 	}
 }
 
@@ -1828,11 +1838,11 @@ func sub_5549F0(ind int) int {
 		return -3
 	}
 	if getNetStructByInd(ind) != nil {
-		C.nox_xxx_netSendReadPacket_5528B0(C.uint(ind), 0)
+		nox_xxx_netSendReadPacket_5528B0(ind, 0)
 		var buf [1]byte
 		buf[0] = 10
 		nox_xxx_netSendSock_552640(ind, buf[:1], 0)
-		C.nox_xxx_netSendReadPacket_5528B0(C.uint(ind), 0)
+		nox_xxx_netSendReadPacket_5528B0(ind, 0)
 		sub_554A50(ind)
 	}
 	return 0
@@ -1868,4 +1878,58 @@ func nox_xxx_netMaybeSendAll_552460() {
 		}
 	}
 	*memmap.PtrUint32(0x5D4594, 2512888) = uint32(ticks)
+}
+
+//export nox_xxx_netSendReadPacket_5528B0
+func nox_xxx_netSendReadPacket_5528B0(ind int, a2 byte) int {
+	ns := getNetStructByInd(ind)
+	if ns == nil {
+		return -3
+	}
+	find := ind
+	min := 0
+	max := NOX_NET_STRUCT_MAX
+	if ns.id == -1 {
+		if ns.field_19 != 0 {
+			panic(ns.field_34)
+			return 0
+		}
+	} else {
+		min = ind
+		max = ind + 1
+		find = int(ns.id)
+	}
+	for j := min; j < max; j++ {
+		ns2 := asNetStruct(C.nox_net_struct_arr[j])
+		if ns2 == nil || int(ns2.id) != find {
+			continue
+		}
+		nox_xxx_netSend_5552D0(j, 0, false)
+		v10 := int(C.WaitForSingleObject(C.HANDLE(ns2.mutex_yyy), 0x3E8))
+		if v10 == -1 || v10 == 258 {
+			return -16
+		}
+		if a2&1 == 0 {
+			data2 := ns2.Data2xxx()
+			n := ns2.callXxx(j, data2, ns2.data_3)
+			if n > 0 && n <= len(data2) {
+				ns2.data_2_xxx = (*C.char)(unsafe.Add(unsafe.Pointer(ns2.data_2_xxx), n))
+			}
+		}
+		v13 := ns2.Datax2()
+		if len(v13) > 2 {
+			ip, port := ns2.Addr()
+			_, err := nox_xxx_sendto_551F90(ns.Socket(), v13, ip, port)
+			if err != nil {
+				return -1
+			}
+			sub_553F40(len(v13), 1)
+			nox_xxx_netCountData_554030(len(v13), j)
+			ns2.data_2_xxx = ns2.data_2_yyy
+		}
+		if C.ReleaseMutex(C.HANDLE(ns2.mutex_yyy)) == 0 {
+			C.ReleaseMutex(C.HANDLE(ns2.mutex_yyy))
+		}
+	}
+	return 0
 }
