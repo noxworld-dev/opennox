@@ -34,7 +34,8 @@ int nox_CharToOemW(const wchar_t* pSrc, char* pDst) { return nox_sprintf(pDst, "
 char getPlayerClassFromObjPtr(int a1) { return *(uint8_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 2251); }
 
 //----- (10001D40) --------------------------------------------------------
-char playerInfoStructParser_0(char* a1) {
+char playerInfoStructParser_0(void* a1p) {
+	char* a1 = a1p;
 	char* v1;  // esi
 	char pDst; // [esp+10h] [ebp-18h]
 
@@ -57,7 +58,8 @@ char playerInfoStructParser_0(char* a1) {
 }
 
 //----- (10001E10) --------------------------------------------------------
-char playerInfoStructParser_1(int a1, int* a3) {
+char playerInfoStructParser_1(void* a1p, int* a3) {
+	int a1 = a1p;
 	char* v3;     // eax
 	char* v4;     // eax
 	uint32_t* v6; // eax
@@ -178,148 +180,6 @@ char playerDropATrap(int playerObj) {
 		}
 	}
 	return v8;
-}
-
-//----- (10002680) --------------------------------------------------------
-void MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* from) {
-	uint32_t* v8; // esi
-	char v9;      // al
-	int v10;      // esi
-	int v11;      // edx
-	// uint32_t *v12; // esi
-	char* v13; // edi
-	// int v14; // eax
-	// unsigned int v15; // esi
-	// int *v16; // eax
-	// int v17; // eax
-	char* v18;          // eax
-	char v19;           // cl
-	char* v20;          // eax
-	char* v21;          // edx
-	char v22;           // cl
-	int v23;            // edx
-	int v24;            // eax
-	int v25;            // ecx
-	char* v26;          // edi
-	char* v27;          // eax
-	char v28;           // cl
-	unsigned int v29;   // kr00_4
-	char* v30;          // edx
-	unsigned int v31;   // ecx
-	unsigned char* v32; // esi
-	char v33;           // bl
-	uint32_t* v35;      // eax
-	char v36;           // [esp+17h] [ebp-CDh]
-	// int a1[2]; // [esp+1Ch] [ebp-C8h]
-	int v39;                     // [esp+28h] [ebp-BCh]
-	// int a2[2]; // [esp+34h] [ebp-B0h]
-	int v43[6];              // [esp+3Ch] [ebp-A8h]
-	unsigned char v44[0x80]; // [esp+54h] [ebp-90h]
-	// int v45; // [esp+E0h] [ebp-4h]
-
-	int op = *((unsigned short*)buf + 1);
-	switch (op) {
-	case 0: // warrior weapon scroll
-		if ((gameex_flags >> 3) & 1) {
-			v8 = nox_xxx_objGetTeamByNetCode_418C80(*((uint32_t*)buf + 1));
-			v9 = buf[8];
-			v10 = (int)(v8 - 12);
-			v36 = ((unsigned int)v9 >> 4) & 1;
-			if (v36)
-				buf[8] = v9 & 0xEF;
-			if (!getPlayerClassFromObjPtr(v10) || v36) {
-				if (mix_MouseKeyboardWeaponRoll(v10, buf[8])) {
-					*((uint16_t*)buf + 1) = 2;
-					nox_net_sendto(s, buf, 4, from);
-				}
-			}
-		}
-		break;
-	case 1u:
-	case 6u:
-		break;
-	case 2u: // clientPlaySoundSpecial
-		nox_xxx_clientPlaySoundSpecial_452D80(895, 100);
-		break;
-	case 4u:
-		if (nox_common_gameFlags_check_40A5C0(1)) {
-			if ((gameex_flags >> 5) & 1) {
-				v18 = buf + 4;
-				do {
-					v19 = *v18;
-					v18[(char*)v43 + 2 - (buf + 4)] = *v18;
-					++v18;
-				} while (v19);
-				if (playerInfoStructParser_0((char*)v43)) {
-					buf[2] = 6;
-					v20 = nox_xxx_serverOptionsGetServername_40A4C0();
-					v21 = (char*)v43 + 2;
-					do {
-						v22 = *v20;
-						*v21++ = *v20++;
-					} while (v22);
-					v23 = v43[1];
-					v24 = v43[2];
-					*((uint32_t*)buf + 1) = v43[0];
-					v25 = v43[3];
-					*((uint32_t*)buf + 2) = v23;
-					LOWORD(v23) = v43[4];
-					*((uint32_t*)buf + 3) = v24;
-					*((uint32_t*)buf + 4) = v25;
-					*((uint16_t*)buf + 10) = v23;
-					nox_net_sendto(s, buf, 22, from);
-				}
-			}
-		}
-		break;
-	case 5u:
-		if ((gameex_flags >> 5) & 1) {
-			memset(v44, 0, 0x80u);
-			mbstowcs((wchar_t*)v44, buf + 4, strlen(buf + 4));
-			nox_xxx_printCentered_445490((wchar_t*)v44);
-			nox_xxx_clientPlaySoundSpecial_452D80(901, 100);
-		}
-		break;
-	case 7u:
-		memset(v44, 0, 0x80u);
-		mbstowcs((wchar_t*)v44, buf + 4, strlen(buf + 4));
-		nox_xxx_printCentered_445490((wchar_t*)v44);
-		nox_xxx_clientPlaySoundSpecial_452D80(901, 100);
-		break;
-	case 8u:
-		if (nox_common_gameFlags_check_40A5C0(1) && (gameex_flags >> 5) & 1) {
-			v26 = buf + 4;
-			v27 = buf + 4;
-			do {
-				v28 = *v27;
-				v27[(char*)v43 + 2 - (buf + 4)] = *v27;
-				++v27;
-			} while (v28);
-			if (playerInfoStructParser_1((int)v43, &v39)) {
-				buf[2] = 7;
-				v29 = strlen((const char*)v43 + 2);
-				v30 = &buf[v29 + 4];
-				v31 = strlen(v30);
-				if (v31) {
-					v32 = (unsigned char*)(v44 - (unsigned char*)v30);
-					do {
-						v33 = *v30;
-						v30[(uint32_t)v32] = *v30;
-						++v30;
-					} while (v33);
-					memset(v26, 0, v29 + v31);
-					strcpy(v26, (const char*)v44);
-				}
-			}
-		}
-		break;
-	case 9u:
-		if ((gameex_flags >> 3) & 1) {
-			v35 = nox_xxx_objGetTeamByNetCode_418C80(*((uint32_t*)buf + 1));
-			playerDropATrap((int)(v35 - 12));
-		}
-		break;
-	}
 }
 
 void OnLibraryNotice_263(uint32_t arg1) { nox_common_gameFlags_check_40A5C0(1); }

@@ -265,13 +265,28 @@ func (s *Server) teamCount() int {
 	return int(memmap.Uint8(0x5D4594, 526280))
 }
 
+func nox_xxx_objGetTeamByNetCode_418C80(code int) unsafe.Pointer {
+	if noxflags.HasGame(noxflags.GameHost) {
+		p := noxServer.getObjectFromNetCode(code)
+		if p != nil {
+			return unsafe.Pointer(p.teamPtr())
+		}
+	} else {
+		p := asDrawable(C.nox_xxx_netSpriteByCodeDynamic_45A6F0(C.int(code)))
+		if p != nil {
+			return unsafe.Pointer(&p.field_6)
+		}
+	}
+	return nil
+}
+
 func (s *Server) nox_xxx_createCoopTeam_417E10() {
 	noxflags.SetGame(noxflags.GameModeSolo10)
 	t := s.teamByYyy(1)
 	if t == nil {
 		t = s.teamCreate(1)
 	}
-	if v1 := C.nox_xxx_objGetTeamByNetCode_418C80(C.int(C.nox_player_netCode_85319C)); v1 != nil {
+	if v1 := nox_xxx_objGetTeamByNetCode_418C80(int(C.nox_player_netCode_85319C)); v1 != nil {
 		C.nox_xxx_createAtImpl_4191D0(t.field_57, unsafe.Pointer(v1), 0, C.int(C.nox_player_netCode_85319C), 0)
 	}
 	if t != nil {

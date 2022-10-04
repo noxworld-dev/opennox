@@ -22,7 +22,6 @@ void nullsub_29(void);
 void nullsub_30(uint32_t a1);
 int nox_xxx_netSendReadPacket_5528B0(int a1, unsigned char a2);
 int nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags);
-int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int packetSz, void* outb, struct nox_net_sockaddr_in* from);
 unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out);
 unsigned int nox_xxx_net_getIP_554200(int a1);
 char* sub_554230();

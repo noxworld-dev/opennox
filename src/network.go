@@ -21,7 +21,6 @@ extern unsigned int dword_5d4594_2660032;
 extern unsigned int dword_5d4594_814548;
 extern unsigned int dword_5d4594_2495920;
 extern unsigned long long qword_5d4594_814956;
-extern nox_socket_t nox_xxx_sockLocalBroadcast_2513920;
 unsigned int nox_client_getServerAddr_43B300();
 int nox_client_getServerPort_43B320();
 int nox_client_getClientPort_40A420();
@@ -33,7 +32,6 @@ int nox_xxx_netSendPacket_4E5030(int a1, const void* a2, signed int a3, int a4, 
 static int nox_xxx_netSendLineMessage_go(nox_object_t* a1, wchar_t* str) {
 	return nox_xxx_netSendLineMessage_4D9EB0(a1, str);
 }
-void MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* from);
 
 extern float nox_xxx_warriorMaxHealth_587000_312784;
 extern float nox_xxx_warriorMaxMana_587000_312788;
@@ -191,11 +189,10 @@ func nox_xxx_netStructByAddr_551E60(ip net.IP, port int) *netStruct {
 }
 
 type netStruct struct {
-	csock nox_socket_t // 0, 0
-	sock  *Socket      // 0, 0
-	ip    net.IP       // 1, 4
-	port  int
-	id    int // 5, 20
+	sock *Socket // 0, 0
+	ip   net.IP  // 1, 4
+	port int
+	id   int // 5, 20
 
 	data1    []byte //  8, 32
 	data1xxx int    //  9, 36
@@ -240,7 +237,6 @@ func (ns *netStruct) FreeXxx() {
 
 func (ns *netStruct) SetSocket(s *Socket) {
 	ns.sock = s
-	ns.csock = newSocketHandle(s)
 }
 
 func (ns *netStruct) Addr() (net.IP, int) {
@@ -624,7 +620,7 @@ func nox_xxx_netInit_554380(narg *netStructOpt) (ind int, _ error) {
 	ns.Data2()[0] = byte(v2)
 	ns.id = -1
 	sock := newSocketUDP()
-	ns.SetSocket(sock)
+	ns.sock = sock
 
 	if narg.port < 1024 || narg.port > 0x10000 {
 		narg.port = 18590
@@ -698,7 +694,7 @@ func newNetStruct(arg *netStructOpt) *netStruct {
 func (s *Server) nox_server_netClose_5546A0(i int) {
 	if ns := getNetStructByInd(i); ns != nil {
 		_ = ns.sock.Close()
-		ns.SetSocket(nil)
+		ns.sock = nil
 		ns.FreeXxx()
 		setNetStructByInd(i, nil)
 	}
@@ -1330,7 +1326,7 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 
 	v26 := 1
 	for {
-		n, src := nox_xxx_netRecv_552020(ns.csock, ns.sock, ns.Data1xxx())
+		n, src := nox_xxx_netRecv_552020(ns.sock, ns.Data1xxx())
 		if n == -1 {
 			return -1
 		}
@@ -1494,8 +1490,8 @@ func nox_xxx_netRead2Xxx_551EB0(id1, id2 int, a3 byte, buf []byte) bool {
 	return true
 }
 
-func nox_xxx_netRecv_552020(cs nox_socket_t, s *Socket, buf []byte) (int, net.Addr) {
-	n, src, err := mix_recvfrom(cs, s, buf)
+func nox_xxx_netRecv_552020(s *Socket, buf []byte) (int, net.Addr) {
+	n, src, err := mix_recvfrom(s, buf)
 	if err == nil {
 		ip, port := getAddr(src)
 		ns := nox_xxx_netStructByAddr_551E60(ip, port)
@@ -1516,7 +1512,7 @@ func nox_xxx_netRecv_552020(cs nox_socket_t, s *Socket, buf []byte) (int, net.Ad
 	return 0, src
 }
 
-func mix_recvfrom(cs nox_socket_t, s *Socket, buf []byte) (int, net.Addr, error) {
+func mix_recvfrom(s *Socket, buf []byte) (int, net.Addr, error) {
 	n, src, err := s.pc.ReadFrom(buf)
 	if err != nil {
 		return n, src, err
@@ -1526,17 +1522,10 @@ func mix_recvfrom(cs nox_socket_t, s *Socket, buf []byte) (int, net.Addr, error)
 		netLog.Printf("recv %s:%d -> %s [%d]\n%x", ip, port, s.pc.LocalAddr(), n, buf[:n])
 	}
 	if n >= 2 && binary.LittleEndian.Uint16(buf[:2]) == 0xF13A { // extension packet code
-		MixRecvFromReplacer(cs, buf, src)
+		MixRecvFromReplacer(s, buf, src)
 		return 0, src, nil
 	}
 	return n, src, nil
-}
-
-func MixRecvFromReplacer(cs nox_socket_t, buf []byte, from net.Addr) {
-	caddr, afree := alloc.New(C.struct_nox_net_sockaddr_in{})
-	defer afree()
-	setAddr(caddr, from)
-	C.MixRecvFromReplacer(cs, (*C.char)(unsafe.Pointer(&buf[0])), C.int(len(buf)), caddr)
 }
 
 func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Addr) int {

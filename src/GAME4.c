@@ -3258,7 +3258,7 @@ int nox_xxx_spellGetPhoneme_4FE1C0(int a1, char a2) {
 			}
 			return result;
 		}
-	} else if (nox_xxx_netSpriteByCodeDynamic_45A6F0(a1)[28] & 4) {
+	} else if (((uint32_t*)nox_xxx_netSpriteByCodeDynamic_45A6F0(a1))[28] & 4) {
 		goto LABEL_5;
 	}
 	switch (a2) {
