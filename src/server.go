@@ -516,7 +516,7 @@ func (s *Server) updateRemotePlayers() error {
 			C.nox_xxx_netInformTextMsg2_4DA180(3, (*C.uchar)(unsafe.Pointer(&m)))
 			var buf [1]byte
 			buf[0] = 198
-			nox_xxx_netSendSock_552640(pl.Index()+1, buf[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+			nox_xxx_netSendSock552640(pl.Index()+1, buf[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
 			pl.Disconnect(3)
 		}
 		if pl.field_3680&0x80 != 0 {

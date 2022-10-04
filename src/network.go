@@ -731,7 +731,7 @@ func (s *Server) nox_xxx_netStructReadPackets(ind int) int {
 		nox_xxx_netSendReadPacket_5528B0(i, 1)
 		var buf [1]byte
 		buf[0] = 11
-		nox_xxx_netSendSock_552640(i, buf[:], 0)
+		nox_xxx_netSendSock552640(i, buf[:], 0)
 		nox_xxx_netSendReadPacket_5528B0(i, 1)
 		getNetStructByInd(v4).field_21--
 		C.sub_555360(C.uint(v1), 0, 2)
@@ -760,7 +760,13 @@ const (
 	NOX_NET_SEND_FLAG2   = 0x2
 )
 
-func nox_xxx_netSendSock_552640(id int, buf []byte, flags int) (int, error) {
+//export nox_xxx_netSendSock_552640
+func nox_xxx_netSendSock_552640(id int, ptr *byte, sz int, flags int) int {
+	n, _ := nox_xxx_netSendSock552640(id, unsafe.Slice(ptr, sz), flags)
+	return n
+}
+
+func nox_xxx_netSendSock552640(id int, buf []byte, flags int) (int, error) {
 	ns := getNetStructByInd(id)
 	if ns == nil {
 		return -3, errors.New("no net struct")
@@ -952,28 +958,28 @@ func nox_xxx_netSend_5552D0(ind int, a2 byte, a3 bool) int {
 func nox_xxx_netSendClientReady_43C9F0() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_CLIENT_READY)
-	nox_xxx_netSendSock_552640(dword_5D4594_815700, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	nox_xxx_netSendSock552640(dword_5D4594_815700, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
 	return 1
 }
 
 func nox_xxx_netKeepAliveSocket_43CA20() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_KEEP_ALIVE)
-	nox_xxx_netSendSock_552640(dword_5D4594_815700, data[:], NOX_NET_SEND_FLAG2)
+	nox_xxx_netSendSock552640(dword_5D4594_815700, data[:], NOX_NET_SEND_FLAG2)
 	return 1
 }
 
 func nox_xxx_netRequestMap_43CA50() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_REQUEST_MAP)
-	nox_xxx_netSendSock_552640(dword_5D4594_815700, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	nox_xxx_netSendSock552640(dword_5D4594_815700, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
 	return 1
 }
 
 func nox_xxx_netMapReceived_43CA80() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_RECEIVED_MAP)
-	nox_xxx_netSendSock_552640(dword_5D4594_815700, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	nox_xxx_netSendSock552640(dword_5D4594_815700, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
 	return 1
 }
 
@@ -981,7 +987,7 @@ func nox_xxx_cliSendCancelMap_43CAB0() int {
 	id := dword_5D4594_815700
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_CANCEL_MAP)
-	v0, _ := nox_xxx_netSendSock_552640(id, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	v0, _ := nox_xxx_netSendSock552640(id, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
 	if nox_xxx_cliWaitServerResponse_5525B0(id, v0, 20, 6) != 0 {
 		return 0
 	}
@@ -993,7 +999,7 @@ func nox_xxx_netSendIncomingClient_43CB00() int {
 	id := dword_5D4594_815700
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_INCOMING_CLIENT)
-	v0, _ := nox_xxx_netSendSock_552640(id, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	v0, _ := nox_xxx_netSendSock552640(id, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
 	if nox_xxx_cliWaitServerResponse_5525B0(id, v0, 20, 6) != 0 {
 		return 0
 	}
@@ -1005,7 +1011,7 @@ func nox_xxx_cliSendOutgoingClient_43CB50() int {
 	id := dword_5D4594_815700
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_OUTGOING_CLIENT)
-	v0, _ := nox_xxx_netSendSock_552640(id, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	v0, _ := nox_xxx_netSendSock552640(id, data[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
 	if nox_xxx_cliWaitServerResponse_5525B0(id, v0, 20, 6) != 0 {
 		return 0
 	}
@@ -1284,7 +1290,7 @@ func nox_xxx_netPriMsgToPlayer_4DA2C0(u *Unit, id strman.ID, a3 byte) {
 func nox_xxx_netSendBySock_40EE10(a1 int, a2 int, a3 int) {
 	v3 := nox_netlist_copyPacketList(a2, a3)
 	if len(v3) != 0 {
-		nox_xxx_netSendSock_552640(a1, v3, 0)
+		nox_xxx_netSendSock552640(a1, v3, 0)
 		nox_xxx_netSendReadPacket_5528B0(a1, 1)
 	}
 }
@@ -1736,7 +1742,7 @@ func nox_xxx_netBigSwitch_553210_op_0(id int, out []byte, pid int, p1 byte, ns1 
 	out[2] = 1
 	binary.LittleEndian.PutUint32(out[3:], uint32(pid))
 	out[7] = key
-	v67, _ := nox_xxx_netSendSock_552640(pid, out[:8], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	v67, _ := nox_xxx_netSendSock552640(pid, out[:8], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
 
 	ns10.xor_key = C.uchar(key)
 	ns10.field_38 = 1
@@ -1848,7 +1854,7 @@ func sub_5549F0(ind int) int {
 		nox_xxx_netSendReadPacket_5528B0(ind, 0)
 		var buf [1]byte
 		buf[0] = 10
-		nox_xxx_netSendSock_552640(ind, buf[:1], 0)
+		nox_xxx_netSendSock552640(ind, buf[:1], 0)
 		nox_xxx_netSendReadPacket_5528B0(ind, 0)
 		sub_554A50(ind)
 	}
