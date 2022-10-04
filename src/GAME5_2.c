@@ -583,7 +583,7 @@ int sub_554240(int a1) {
 	int result; // eax
 
 	if (a1 != 31) {
-		return *getMemU32Ptr(0x5D4594, 2508848 + 32 * a1);
+		return *getMemU32Ptr(0x5D4594, 2508788 + 32*(1 + a1) + 28);
 	}
 	v1 = sub_416640();
 	switch (*(uint32_t*)(v1 + 66)) {
