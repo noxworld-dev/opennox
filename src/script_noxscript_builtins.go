@@ -171,6 +171,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 func wrapScriptC(fnc unsafe.Pointer) func() int {
@@ -1257,7 +1258,7 @@ func nox_script_unlockDoor_512C20() int {
 	obj := s.PopObject()
 	if obj != nil && obj.Class().Has(object.ClassDoor) {
 		(*(*uint8)(unsafe.Add(obj.updateDataPtr(), 1))) = 0
-		nox_xxx_aud_501960(234, obj.AsUnit(), 0, 0)
+		nox_xxx_aud_501960(sound.SoundUnlock, obj.AsUnit(), 0, 0)
 	}
 	return 0
 }
@@ -1268,7 +1269,7 @@ func nox_script_lockDoor_512C60() int {
 	obj := s.PopObject()
 	if obj != nil && obj.Class().Has(object.ClassDoor) {
 		(*(*uint8)(unsafe.Add(obj.updateDataPtr(), 1))) = 5
-		nox_xxx_aud_501960(233, obj.AsUnit(), 0, 0)
+		nox_xxx_aud_501960(sound.SoundLock, obj.AsUnit(), 0, 0)
 	}
 	return 0
 }
@@ -1320,7 +1321,7 @@ func nox_script_JournalEntry_5154E0() int {
 		if v3 != nil {
 			C.nox_xxx_comJournalEntryAdd_427500(C.int(uintptr(unsafe.Pointer(v3.CObj()))), CString(v1), C.short(v0))
 			if (v0 & 0xB) != 0 {
-				nox_xxx_aud_501960(903, v3.AsUnit(), 0, 0)
+				nox_xxx_aud_501960(sound.SoundJournalEntryAdd, v3.AsUnit(), 0, 0)
 			}
 		}
 	} else {

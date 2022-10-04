@@ -237,7 +237,7 @@ func call_OnLibraryNotice_265(arg3 int) {
 	if noxflags.HasGame(noxflags.GameHost) {
 		if u := HostPlayerUnit(); u != nil && u.ControllingPlayer().PlayerClass() == player.Warrior {
 			if C.mix_MouseKeyboardWeaponRoll(u.CObj(), C.char(a2a)) != 0 {
-				clientPlaySoundSpecial(895, 100)
+				clientPlaySoundSpecial(sound.SoundNextWeapon, 100)
 			}
 		}
 	} else {
