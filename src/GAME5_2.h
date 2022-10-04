@@ -25,7 +25,7 @@ int nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags);
 int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int packetSz, void* outb, struct nox_net_sockaddr_in* from);
 void sub_553F40(int a1, int a2);
 unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out);
-int nox_xxx_net_getIP_554200(unsigned int a1);
+unsigned int nox_xxx_net_getIP_554200(int a1);
 char* sub_554230();
 int sub_554240(int a1);
 unsigned int sub_554290();
