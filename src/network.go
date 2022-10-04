@@ -53,7 +53,6 @@ extern float nox_xxx_wizardMaximumMana_587000_312820;
 static int nox_call_net_xxxyyy_go(int (*fnc)(unsigned int, char*, int, void*), unsigned int a1, void* a2, int a3, void* a4) { return fnc(a1, a2, a3, a4); }
 
 int nox_xxx_netBigSwitch_553210_op_14(int pid, uint8_t* out, unsigned char* packet, nox_net_struct_t* ns1, char p1, struct nox_net_sockaddr_in* from);
-int nox_xxx_netBigSwitch_553210_op_17(uint8_t* out, unsigned char* packet, char p1, struct nox_net_sockaddr_in* from);
 int nox_xxx_netBigSwitch_553210_op_18(uint8_t* out, unsigned char* packet, struct nox_net_sockaddr_in* from);
 */
 import "C"
@@ -1638,7 +1637,7 @@ func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Add
 		case 14: // join game request?
 			return int(C.nox_xxx_netBigSwitch_553210_op_14(C.int(pid), (*C.uchar)(unsafe.Pointer(&out[0])), (*C.uchar)(unsafe.Pointer(&packet[0])), ns1.C(), C.char(p1), caddr))
 		case 17:
-			return int(C.nox_xxx_netBigSwitch_553210_op_17((*C.uchar)(unsafe.Pointer(&out[0])), (*C.uchar)(unsafe.Pointer(&packet[0])), C.char(p1), caddr))
+			return nox_xxx_netBigSwitch_553210_op_17(out, packet, p1, from)
 		case 18:
 			return int(C.nox_xxx_netBigSwitch_553210_op_18((*C.uchar)(unsafe.Pointer(&out[0])), (*C.uchar)(unsafe.Pointer(&packet[0])), caddr))
 		case 31:
@@ -1865,6 +1864,43 @@ func nox_xxx_netBigSwitch_553210_op_10(id int, pid int, out []byte, ns1 *netStru
 	}
 	noxServer.nox_xxx_netStructReadPackets(pid)
 	return 0
+}
+
+//export sub_553D10
+func sub_553D10() int {
+	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
+		if C.nox_net_struct2_arr[i].field_0 == 0 {
+			return i
+		}
+	}
+	return -1
+}
+
+func nox_xxx_netBigSwitch_553210_op_17(out []byte, packet []byte, p1 byte, from net.Addr) int {
+	v33 := sub_416640()
+	out[0] = 0
+	out[1] = p1
+	if GoWStringBytes(packet[4:]) != GoWStringBytes(v33[39:]) {
+		out[2] = 19
+		out[3] = 6
+		return 4
+	}
+	if *(*int16)(unsafe.Pointer(&v33[105])) == -1 && *(*int16)(unsafe.Pointer(&v33[107])) == -1 {
+		out[2] = 20
+		return 3
+	}
+	id53 := sub_553D10()
+	if id53 < 0 {
+		out[2] = 20
+		return 3
+	}
+	nx1 := &C.nox_net_struct2_arr[id53]
+	nx1.field_0 = 1
+	nx1.field_1_1 = 0
+	nx1.field_1_0 = 0
+	setAddr(&nx1.addr, from)
+
+	return copy(out, nox_xxx_makePacketTime_552340(id53))
 }
 
 //export sub_554240
