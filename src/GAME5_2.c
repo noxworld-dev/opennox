@@ -65,8 +65,6 @@ nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX] = {0};
 nox_net_struct2_t nox_net_struct2_arr[NOX_NET_STRUCT_MAX] = {0};
 uint32_t dword_5d4594_3843632 = 0;
 
-void nox_xxx_netStructFree_5531C0(nox_net_struct_t* ns);
-
 //----- (00553D60) --------------------------------------------------------
 int nox_xxx_netHandlerDefXxx_553D60(unsigned int a1, char* a2, int a3, void* a4) { return 0; }
 //----- (00553D70) --------------------------------------------------------
@@ -590,22 +588,6 @@ int sub_5549F0(unsigned int a1) {
 		nox_xxx_netSendSock_552640(a1, &v2, 1, 0);
 		nox_xxx_netSendReadPacket_5528B0(a1, 0);
 		sub_554A50(a1);
-	}
-	return 0;
-}
-
-//----- (00554A50) --------------------------------------------------------
-int sub_554A50(unsigned int a1) {
-	if (a1 >= NOX_NET_STRUCT_MAX) {
-		return -3;
-	}
-	nox_net_struct_t* ns = nox_net_struct_arr[a1];
-	if (ns) {
-		nox_net_close(ns->sock);
-		OnLibraryNotice_259(ns);
-		nox_xxx_netStructFree_5531C0(nox_net_struct_arr[a1]);
-		nox_net_struct_arr[a1] = 0;
-		nox_net_stop();
 	}
 	return 0;
 }
