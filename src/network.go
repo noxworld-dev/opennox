@@ -320,16 +320,6 @@ func nox_client_setServerConnectAddr_435720(addr *C.char) {
 	clientSetServerHost(GoString(addr))
 }
 
-//export nox_xxx_cryptXorDst_56FE00
-func nox_xxx_cryptXorDst_56FE00(key C.char, src *C.uchar, n C.int, dst *C.uchar) {
-	if src == nil || dst == nil || n == 0 {
-		return
-	}
-	sbuf := unsafe.Slice((*byte)(unsafe.Pointer(src)), int(n))
-	dbuf := unsafe.Slice((*byte)(unsafe.Pointer(dst)), int(n))
-	nox_xxx_cryptXorDst(byte(key), sbuf, dbuf)
-}
-
 func nox_xxx_cryptXorDst(key byte, src, dst []byte) {
 	if len(src) == 0 || len(dst) == 0 {
 		return
@@ -829,7 +819,7 @@ func nox_xxx_netSendSock_552640(id int, buf []byte, flags int) (int, error) {
 			copy(d2x[:2], d2b[:2])
 			copy(d2x[2:2+n], buf)
 			ip, port := ns2.Addr()
-			n2, err := nox_xxx_sendto_551F90(ns2.Socket(), d2x[:n+2], ip, port)
+			n2, err := nox_xxx_sendto551F90(ns2.Socket(), d2x[:n+2], ip, port)
 			if n2 == -1 {
 				return -1, err
 			}
@@ -892,9 +882,19 @@ func sub_555130(a1 int, buf []byte) (int, error) {
 	return int(v5b[21]), nil
 }
 
+//export nox_xxx_sendto_551F90
+func nox_xxx_sendto_551F90(s nox_socket_t, buf *C.char, sz C.int, to *C.struct_nox_net_sockaddr_in) C.int {
+	ip, port := toIPPort(to)
+	n, err := nox_xxx_sendto551F90(getSocket(s), unsafe.Slice((*byte)(unsafe.Pointer(buf)), int(sz)), ip, port)
+	if err != nil {
+		return -1
+	}
+	return C.int(n)
+}
+
 var sendXorBuf [4096]byte
 
-func nox_xxx_sendto_551F90(s *Socket, buf []byte, ip net.IP, port int) (int, error) {
+func nox_xxx_sendto551F90(s *Socket, buf []byte, ip net.IP, port int) (int, error) {
 	ns := nox_xxx_netStructByAddr_551E60(ip, port)
 	if ns == nil {
 		return s.SendTo(buf, ip, port)
@@ -922,7 +922,7 @@ func nox_xxx_netSend_5552D0(ind int, a2 byte, a3 bool) int {
 				gi[1] = uint32(C.dword_5d4594_2495920) + 2000
 				gb := unsafe.Slice((*byte)(it), 22+sz)
 				ip, port := ns.Addr()
-				if _, err := nox_xxx_sendto_551F90(ns.Socket(), gb[20:20+sz], ip, port); err != nil {
+				if _, err := nox_xxx_sendto551F90(ns.Socket(), gb[20:20+sz], ip, port); err != nil {
 					netLog.Println(err)
 					return 0
 				}
@@ -933,7 +933,7 @@ func nox_xxx_netSend_5552D0(ind int, a2 byte, a3 bool) int {
 			gi[1] = uint32(C.dword_5d4594_2495920) + 2000
 			gb := unsafe.Slice((*byte)(it), 22+sz)
 			ip, port := ns.Addr()
-			if _, err := nox_xxx_sendto_551F90(ns.Socket(), gb[20:20+sz], ip, port); err != nil {
+			if _, err := nox_xxx_sendto551F90(ns.Socket(), gb[20:20+sz], ip, port); err != nil {
 				netLog.Println(err)
 				return 0
 			}
@@ -1430,7 +1430,7 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 					data := ns.Data1yyy()
 					n = nox_xxx_netBigSwitch_553210(id, data, buf, src)
 					if n > 0 {
-						n, _ = nox_xxx_sendto_551F90(nsock, buf[:n], ip, port)
+						n, _ = nox_xxx_sendto551F90(nsock, buf[:n], ip, port)
 						sub_553F40(n, 1)
 					}
 					goto LABEL_48
@@ -1456,7 +1456,7 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 			data := ns.Data1yyy()
 			n = nox_xxx_netBigSwitch_553210(id, data, buf, src)
 			if n > 0 {
-				n, _ = nox_xxx_sendto_551F90(nsock, buf[:n], ip, port)
+				n, _ = nox_xxx_sendto551F90(nsock, buf[:n], ip, port)
 				sub_553F40(n, 1)
 			}
 		} else {
@@ -1919,7 +1919,7 @@ func nox_xxx_netSendReadPacket_5528B0(ind int, a2 byte) int {
 		v13 := ns2.Datax2()
 		if len(v13) > 2 {
 			ip, port := ns2.Addr()
-			_, err := nox_xxx_sendto_551F90(ns.Socket(), v13, ip, port)
+			_, err := nox_xxx_sendto551F90(ns.Socket(), v13, ip, port)
 			if err != nil {
 				return -1
 			}
