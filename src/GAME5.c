@@ -39,7 +39,6 @@ extern uint32_t dword_5d4594_2491552;
 extern uint32_t dword_5d4594_2491616;
 extern uint32_t dword_587000_292492;
 extern nox_object_t* nox_xxx_host_player_unit_3843628;
-extern uint32_t dword_5d4594_2495920;
 extern uint32_t dword_5d4594_2650652;
 extern uint32_t nox_player_netCode_85319C;
 extern unsigned int nox_gameFPS;

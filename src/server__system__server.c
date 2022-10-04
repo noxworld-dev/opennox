@@ -59,7 +59,6 @@ extern uint64_t qword_581450_10392;
 extern uint64_t qword_581450_10256;
 extern uint32_t dword_5d4594_1569756;
 extern nox_object_t* nox_xxx_host_player_unit_3843628;
-extern uint32_t dword_5d4594_2495920;
 extern uint32_t dword_5d4594_1568024;
 extern uint32_t dword_5d4594_2388648;
 extern uint32_t dword_5d4594_1548476;
