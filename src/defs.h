@@ -1158,20 +1158,6 @@ typedef struct nox_server_xxx {
 } nox_server_xxx;
 _Static_assert(sizeof(nox_server_xxx) == 12, "wrong size of nox_server_xxx structure!");
 
-typedef struct nox_net_struct_arg_t {
-	uint32_t field_0;
-	uint32_t field_1;
-	int port;
-	int data_3_size;
-	int field_4;
-	int data_size;
-	uint32_t field_6;
-	uint32_t field_7;
-	int (*func_xxx)(unsigned int, char*, int, void*);
-	int (*func_yyy)(unsigned int, char*, int, void*);
-} nox_net_struct_arg_t;
-_Static_assert(sizeof(nox_net_struct_arg_t) == 40, "wrong size of nox_net_struct_arg_t structure!");
-
 #define NOX_NET_STRUCT_MAX 128
 typedef struct nox_net_struct_t {
 	nox_socket_t sock;               // 0, 0

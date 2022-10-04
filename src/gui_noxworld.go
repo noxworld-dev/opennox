@@ -319,7 +319,6 @@ func nox_xxx_createSocketLocal(port int) error {
 	if lobbyBroadcast.Conn != nil {
 		return nil
 	}
-	nox_net_init()
 	conn, sock, err := listenUDPBroadcast(nil, port)
 	if err != nil {
 		netLog.Println("cannot bind broadcast socket:", err)

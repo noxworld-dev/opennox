@@ -24,10 +24,6 @@ const (
 	NOX_NET_EADDRINUSE = C.NOX_NET_EADDRINUSE
 )
 
-func nox_net_init() {
-	C.nox_net_no_xor = C.bool(!noxNetXor)
-}
-
 //export nox_net_stop
 func nox_net_stop() C.int {
 	return 0
