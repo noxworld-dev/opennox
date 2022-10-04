@@ -19,7 +19,6 @@ package opennox
 extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_5d4594_2660032;
 extern unsigned int dword_5d4594_814548;
-extern unsigned int dword_5d4594_3843632;
 extern unsigned int dword_5d4594_2495920;
 extern unsigned long long qword_5d4594_814956;
 extern nox_socket_t nox_xxx_sockLocalBroadcast_2513920;
@@ -97,6 +96,7 @@ var (
 	dword_5d4594_2496472 int
 	dword_5d4594_2496988 int
 	dword_5d4594_2495920 uint32
+	dword_5d4594_3843632 uint32
 	dword_5d4594_3844304 bool
 
 	nox_net_struct2_arr      [NOX_NET_STRUCT_MAX]netStruct2
@@ -649,11 +649,11 @@ func nox_xxx_netInit_554380(narg *netStructOpt) (ind int, _ error) {
 		narg.port++
 	}
 	if ip, err := nat.ExternalIP(context.Background()); err == nil {
-		C.dword_5d4594_3843632 = C.uint(ip2int(ip))
+		dword_5d4594_3843632 = ip2int(ip)
 		StrCopyP(memmap.PtrOff(0x973F18, 44216), 16, ip.String())
 	} else if ips, err := nat.InternalIPs(context.Background()); err == nil && len(ips) != 0 {
 		ip = ips[0].IP
-		C.dword_5d4594_3843632 = C.uint(ip2int(ip))
+		dword_5d4594_3843632 = ip2int(ip)
 		StrCopyP(memmap.PtrOff(0x973F18, 44216), 16, ip.String())
 	}
 	return v2, nil
@@ -2457,4 +2457,19 @@ func sub_555360(a1 int, a2 byte, a3 int) int {
 		nox_alloc_gQueue_3844300.FreeObjectFirst(it)
 	}
 	return 0
+}
+
+//export nox_xxx_net_getIP_554200
+func nox_xxx_net_getIP_554200(a1 int) uint32 {
+	if a1 > NOX_NET_STRUCT_MAX {
+		return 0
+	}
+	if a1 == 0 {
+		return dword_5d4594_3843632
+	}
+	ns := getNetStructByInd(a1)
+	if ns == nil {
+		return 0
+	}
+	return uint32(ns.addr.sin_addr)
 }

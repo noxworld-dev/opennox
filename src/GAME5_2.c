@@ -60,7 +60,6 @@ extern uint32_t dword_5d4594_2650652;
 extern unsigned int nox_frame_xxx_2598000;
 
 nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX] = {0};
-uint32_t dword_5d4594_3843632 = 0;
 
 //----- (00553D60) --------------------------------------------------------
 int nox_xxx_netHandlerDefXxx_553D60(unsigned int a1, char* a2, int a3, void* a4) { return 0; }
@@ -111,21 +110,6 @@ unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz,
 	memcpy(&out[0], buf, 72);
 	strcpy(&out[72], srvName);
 	return 72 + strlen(srvName) + 1;
-}
-
-//----- (00554200) --------------------------------------------------------
-int nox_xxx_net_getIP_554200(unsigned int a1) {
-	if (a1 > NOX_NET_STRUCT_MAX) {
-		return 0;
-	}
-	if (!a1) {
-		return dword_5d4594_3843632;
-	}
-	nox_net_struct_t* ns = nox_net_struct_arr[a1];
-	if (!ns) {
-		return 0;
-	}
-	return ns->addr.sin_addr;
 }
 
 //----- (00554230) --------------------------------------------------------
