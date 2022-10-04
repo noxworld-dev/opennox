@@ -8030,33 +8030,6 @@ void sub_551C40(int a1, int a2) {
 	}
 }
 
-//----- (00551E60) --------------------------------------------------------
-nox_net_struct_t* nox_xxx_netStructByAddr_551E60(struct nox_net_sockaddr_in* addr) {
-	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
-		nox_net_struct_t* ns = nox_net_struct_arr[i];
-		if (!ns) {
-			continue;
-		}
-		if (addr->sin_port == ns->addr.sin_port && addr->sin_addr == ns->addr.sin_addr) {
-			return ns;
-		}
-	}
-	return 0;
-}
-
-//----- (00551F90) --------------------------------------------------------
-int nox_xxx_sendto_551F90(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* to) {
-	nox_net_struct_t* ns = nox_xxx_netStructByAddr_551E60(to);
-	if (!ns) {
-		return nox_net_sendto(s, buf, len, to);
-	}
-	if (!ns->xor_key) {
-		return nox_net_sendto(s, buf, len, to);
-	}
-	nox_xxx_cryptXorDst_56FE00(ns->xor_key, buf, len, getMemAt(0x5D4594, 2491812));
-	return nox_net_sendto(s, (const char*)getMemAt(0x5D4594, 2491812), len, to);
-}
-
 //----- (00552010) --------------------------------------------------------
 int nox_net_setPacketDrop_552010(int a1) {
 	int result; // eax
