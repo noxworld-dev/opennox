@@ -682,7 +682,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	}
 	dword_5d4594_3844304 = false
 	var v12 [1]byte
-	v11, err := nox_xxx_netSendSock_552640(ind, v12[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+	v11, err := nox_xxx_netSendSock552640(ind, v12[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
 	if err != nil {
 		return fmt.Errorf("cannot send data: %w", err)
 	}
@@ -747,7 +747,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 		if len(data) > 0 {
 			copy(vs[3:], data[:153])
 		}
-		nox_xxx_netSendSock_552640(id, vs, NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+		nox_xxx_netSendSock552640(id, vs, NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
 	}
 
 	if ns.ID() < 0 {
