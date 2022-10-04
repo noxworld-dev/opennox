@@ -1986,3 +1986,18 @@ func nox_xxx_makePacketTime_552340(id int) []byte {
 	binary.LittleEndian.PutUint32(buf[4:], uint32(nx.ticks))
 	return buf[:]
 }
+
+//export sub_552380
+func sub_552380(a1 int) {
+	i := sub_4DF550()
+	ns := asNetStruct(C.nox_net_struct_arr[i])
+	var buf [3]byte
+	buf[0] = 0
+	buf[1] = 0
+	buf[2] = 20
+	nx := &C.nox_net_struct2_arr[a1]
+	ip, port := toIPPort(&nx.addr)
+	n, _ := nox_xxx_sendto551F90(ns.Socket(), buf[:], ip, port)
+	sub_553F40(n, 1)
+	nx.field_0 = 0
+}
