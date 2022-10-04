@@ -613,7 +613,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	}
 	C.dword_5d4594_815704 = 0
 	C.dword_5d4594_815708 = 0
-	C.nox_xxx_allocNetGQueue_5520B0(200, 1024)
+	nox_xxx_allocNetGQueue_5520B0()
 	ind, err := nox_xxx_netPreStructToFull(narg)
 	if err != nil {
 		return newConnectFailErr(0, err)
