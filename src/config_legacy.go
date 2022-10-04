@@ -300,7 +300,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 			*memmap.PtrUint32(0x587000, 81280) = uint32(v)
-			*memmap.PtrUint32(0x587000, 292940) = uint32(float64(v) * 0.0099999998 * 10.0)
+			val292940 = uint32(float64(v) * 0.0099999998 * 10.0)
 		case "SendMessageOfTheDay":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
