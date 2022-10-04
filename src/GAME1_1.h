@@ -291,8 +291,6 @@ char* sub_425B60(void* lpMem, int a2);
 int* sub_425BC0(int a1);
 int* sub_425BE0(int* a1);
 int nox_xxx_countObserverPlayers_425BF0();
-char* nox_xxx_firstReplaceablePlayer_425C40();
-char* nox_xxx_nextReplaceablePlayer_425C70(int a1);
 char* sub_425CA0(int a1, int a2);
 int sub_425E90(int a1, char a2);
 int sub_425ED0(int a1, char a2);

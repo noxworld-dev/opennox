@@ -195,7 +195,6 @@ int nox_xxx_sendto_551F90(nox_socket_t s, char* buf, int len, struct nox_net_soc
 int nox_net_setPacketDrop_552010(int a1);
 int sub_5521A0();
 void sub_5522E0(int id);
-int nox_xxx_makePacketTime_552340(int id, unsigned char* buf);
 void sub_552380(int a1);
 void sub_5523E0(unsigned char a1, int a2);
 int nox_xxx_netSendSock_552640(int id, unsigned char* buf, int sz, int flags);
