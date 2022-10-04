@@ -7525,30 +7525,6 @@ void nox_xxx_mapSendCancelAll_5198B0(unsigned char a1) {
 }
 // 519920: using guessed type void  nullsub_27(uint32_t);
 
-//----- (00519930) --------------------------------------------------------
-int sub_519930(int a1) {
-	int v1;            // edi
-	unsigned char* v2; // esi
-	char* i;           // eax
-	char v4;           // al
-	int v6;            // [esp+8h] [ebp-4h]
-
-	v1 = 0;
-	v6 = 0;
-	v2 = getMemAt(0x5D4594, 2387148 + 48 * a1);
-	if (v2) {
-		if (a1 < 32) {
-			for (i = (char*)sub_555250(*v2, &v6); i; i = (char*)sub_555290(*v2, &v6)) {
-				v4 = *i;
-				if (v4 == -72 || v4 == -71) {
-					++v1;
-				}
-			}
-		}
-	}
-	return v1;
-}
-
 //----- (00519E80) --------------------------------------------------------
 uint32_t* sub_519E80(int a1) {
 	nox_common_playerInfoFromNum_417090(a1);
