@@ -1409,7 +1409,7 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 					goto LABEL_48
 				}
 				if v9 != byte(ns2.field_28_1) {
-					C.sub_5551F0(C.uint(id2), C.char(v9), 1)
+					sub_5551F0(id2, v9, 1)
 					C.sub_555360(C.uint(id2), C.uchar(v9), 1)
 					ns2.field_28_1 = C.char(v9)
 					v20 := 0
@@ -1643,7 +1643,7 @@ func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Add
 			}
 			netLog.Printf("switch 31: 0x%x 0x%x\n", v14, ns8.field_28_1)
 			if v14 != byte(ns8.field_28_1) {
-				C.sub_5551F0(C.uint(pid), C.char(v14), 1)
+				sub_5551F0(pid, v14, 1)
 				C.sub_555360(C.uint(pid), C.uchar(v14), 1)
 				ns8.field_28_1 = C.char(v14)
 				out[0] = 38
@@ -1873,7 +1873,7 @@ func nox_xxx_netMaybeSendAll_552460() {
 	}
 	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
 		if C.nox_net_struct_arr[i] != nil {
-			C.sub_5551F0(C.uint(i), 0, 0)
+			sub_5551F0(i, 0, 0)
 			nox_xxx_netSend_5552D0(i, 0, false)
 		}
 	}
@@ -1929,6 +1929,27 @@ func nox_xxx_netSendReadPacket_5528B0(ind int, a2 byte) int {
 		}
 		if C.ReleaseMutex(C.HANDLE(ns2.mutex_yyy)) == 0 {
 			C.ReleaseMutex(C.HANDLE(ns2.mutex_yyy))
+		}
+	}
+	return 0
+}
+
+func sub_5551F0(a1 int, a2 byte, a3 int) int {
+	ns := getNetStructByInd(a1)
+	if ns == nil {
+		return -3
+	}
+	for it := unsafe.Pointer(ns.field_29); it != nil; it = *(*unsafe.Pointer)(it) {
+		gb := unsafe.Slice((*byte)(it), 22)
+		gi := unsafe.Slice((*uint32)(it), 5)
+		if a3 != 0 {
+			if gb[21] == a2 {
+				gi[3] = 1
+				continue
+			}
+		} else if gi[1] <= uint32(C.dword_5d4594_2495920) {
+			gi[3] = 1
+			continue
 		}
 	}
 	return 0

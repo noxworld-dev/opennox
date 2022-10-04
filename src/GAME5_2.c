@@ -532,31 +532,6 @@ int sub_555130(unsigned int a1, const void* a2, signed int a3) {
 	return *((unsigned char*)v5 + 21);
 }
 
-//----- (005551F0) --------------------------------------------------------
-int sub_5551F0(unsigned int a1, char a2, int a3) {
-	int* i; // eax
-
-	if (a1 >= NOX_NET_STRUCT_MAX) {
-		return -3;
-	}
-	nox_net_struct_t* ns = nox_net_struct_arr[a1];
-	if (!ns) {
-		return -3;
-	}
-	for (i = ns->field_29; i; i = (int*)*i) {
-		if (a3) {
-			if (*((uint8_t*)i + 21) == a2) {
-				i[3] = 1;
-				continue;
-			}
-		} else if (i[1] <= (int)dword_5d4594_2495920) {
-			i[3] = 1;
-			continue;
-		}
-	}
-	return 0;
-}
-
 //----- (00555250) --------------------------------------------------------
 int sub_555250(unsigned int a1, uint32_t* a2) {
 	int v3;     // eax
