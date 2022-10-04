@@ -41,7 +41,6 @@ int nox_xxx_createSocketLocal_554B40(uint16_t hostshort);
 int sub_554D10();
 int sub_5550D0(int a1, uint16_t hostshort, char* buf);
 int sub_555130(unsigned int a1, const void* a2, signed int a3);
-int sub_5551F0(unsigned int a1, char a2, int a3);
 int sub_555250(unsigned int a1, uint32_t* a2);
 int sub_555290(unsigned int a1, uint32_t* a2);
 int nox_xxx_netSend_5552D0(unsigned int a1, char a2, int a3);
