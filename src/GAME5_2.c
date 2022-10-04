@@ -42,7 +42,6 @@ extern uint32_t dword_5d4594_2516380;
 extern uint32_t dword_5d4594_2523804;
 extern uint32_t dword_5d4594_2516372;
 extern uint32_t dword_5d4594_2523764;
-extern uint32_t dword_5d4594_2513932;
 extern uint32_t dword_5d4594_2523760;
 extern uint32_t dword_5d4594_2523776;
 extern void* nox_alloc_groupInfo_2523892;
@@ -58,8 +57,6 @@ extern uint32_t dword_5d4594_2516328;
 extern uint32_t dword_5d4594_2516348;
 extern uint32_t dword_5d4594_2650652;
 extern unsigned int nox_frame_xxx_2598000;
-
-nox_net_struct_t* nox_net_struct_arr[NOX_NET_STRUCT_MAX] = {0};
 
 //----- (00553D60) --------------------------------------------------------
 int nox_xxx_netHandlerDefXxx_553D60(unsigned int a1, char* a2, int a3, void* a4) { return 0; }
@@ -172,43 +169,6 @@ int sub_554300() {
 	LABEL_11:
 		result = 0;
 	}
-	return result;
-}
-
-//----- (00555250) --------------------------------------------------------
-int sub_555250(unsigned int a1, uint32_t* a2) {
-	int v3;     // eax
-	int v4;     // ecx
-	int result; // eax
-
-	if (a1 >= NOX_NET_STRUCT_MAX) {
-		return 0;
-	}
-	nox_net_struct_t* ns = nox_net_struct_arr[a1];
-	if (!ns) {
-		return 0;
-	}
-	v3 = ns->field_29;
-	if (!v3) {
-		return 0;
-	}
-	v4 = *(uint32_t*)(v3 + 16);
-	result = v3 + 22;
-	*a2 = v4;
-	dword_5d4594_2513932 = *(uint32_t*)(result - 22);
-	return result;
-}
-
-//----- (00555290) --------------------------------------------------------
-int sub_555290(unsigned int a1, uint32_t* a2) {
-	int result; // eax
-
-	if (!dword_5d4594_2513932 || a1 >= NOX_NET_STRUCT_MAX || !nox_net_struct_arr[a1]) {
-		return 0;
-	}
-	result = dword_5d4594_2513932 + 22;
-	*a2 = *(uint32_t*)(dword_5d4594_2513932 + 16);
-	dword_5d4594_2513932 = *(uint32_t*)(result - 22);
 	return result;
 }
 
