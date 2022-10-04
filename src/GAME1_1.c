@@ -7556,40 +7556,6 @@ int nox_xxx_countObserverPlayers_425BF0() {
 	return v0;
 }
 
-//----- (00425C40) --------------------------------------------------------
-char* nox_xxx_firstReplaceablePlayer_425C40() {
-	char* result; // eax
-
-	result = nox_common_playerInfoGetFirst_416EA0();
-	if (!result) {
-		return 0;
-	}
-	while (!(result[3680] & 1) || result[2064] == -1) {
-		result = nox_common_playerInfoGetNext_416EE0((int)result);
-		if (!result) {
-			return 0;
-		}
-	}
-	return result;
-}
-
-//----- (00425C70) --------------------------------------------------------
-char* nox_xxx_nextReplaceablePlayer_425C70(int a1) {
-	char* result; // eax
-
-	result = (char*)a1;
-	if (!a1) {
-		return 0;
-	}
-	while (!(result[3680] & 1) || result[2064] == -1) {
-		result = nox_common_playerInfoGetNext_416EE0((int)result);
-		if (!result) {
-			return 0;
-		}
-	}
-	return result;
-}
-
 //----- (00425CA0) --------------------------------------------------------
 char* sub_425CA0(int a1, int a2) {
 	char* result; // eax

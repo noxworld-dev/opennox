@@ -5,6 +5,7 @@ package opennox
 #include "nox_net.h"
 #include "common__net_list.h"
 #include "server__network__sdecode.h"
+#include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME5.h"
 #include "GAME3_2.h"
@@ -51,8 +52,6 @@ extern float nox_xxx_wizardMaxHealth_587000_312816;
 extern float nox_xxx_wizardMaximumMana_587000_312820;
 
 static int nox_call_net_xxxyyy_go(int (*fnc)(unsigned int, char*, int, void*), unsigned int a1, void* a2, int a3, void* a4) { return fnc(a1, a2, a3, a4); }
-
-int nox_xxx_netBigSwitch_553210_op_14(int pid, uint8_t* out, unsigned char* packet, nox_net_struct_t* ns1, char p1, struct nox_net_sockaddr_in* from);
 */
 import "C"
 import (
@@ -62,6 +61,7 @@ import (
 	"image"
 	"math"
 	"net"
+	"strings"
 	"time"
 	"unsafe"
 
@@ -98,6 +98,7 @@ var (
 	dword_5D4594_815700  int
 	dword_5d4594_2496472 int
 	dword_5d4594_2496988 int
+	dword_5d4594_2495920 uint32
 	dword_5d4594_3844304 bool
 	arr2508788           [NOX_NET_STRUCT_MAX]netTimingStruct
 )
@@ -928,7 +929,7 @@ func nox_xxx_netSend_5552D0(ind int, a2 byte, a3 bool) int {
 			if gb[21] == a2 {
 				sz := int(gi[4])
 				gi[3] = 0
-				gi[1] = uint32(C.dword_5d4594_2495920) + 2000
+				gi[1] = dword_5d4594_2495920 + 2000
 				gb := unsafe.Slice((*byte)(it), 22+sz)
 				ip, port := ns.Addr()
 				if _, err := nox_xxx_sendto551F90(ns.Socket(), gb[20:20+sz], ip, port); err != nil {
@@ -939,7 +940,7 @@ func nox_xxx_netSend_5552D0(ind int, a2 byte, a3 bool) int {
 		} else if gi[3] != 0 {
 			sz := int(gi[4])
 			gi[3] = 0
-			gi[1] = uint32(C.dword_5d4594_2495920) + 2000
+			gi[1] = dword_5d4594_2495920 + 2000
 			gb := unsafe.Slice((*byte)(it), 22+sz)
 			ip, port := ns.Addr()
 			if _, err := nox_xxx_sendto551F90(ns.Socket(), gb[20:20+sz], ip, port); err != nil {
@@ -1634,7 +1635,7 @@ func nox_xxx_netBigSwitch_553210(id int, packet []byte, out []byte, from net.Add
 			sub_554A50(id)
 			return 0
 		case 14: // join game request?
-			return int(C.nox_xxx_netBigSwitch_553210_op_14(C.int(pid), (*C.uchar)(unsafe.Pointer(&out[0])), (*C.uchar)(unsafe.Pointer(&packet[0])), ns1.C(), C.char(p1), caddr))
+			return nox_xxx_netBigSwitch_553210_op_14(out, packet, ns1, p1, from)
 		case 17:
 			return nox_xxx_netBigSwitch_553210_op_17(out, packet, p1, from)
 		case 18:
@@ -1780,7 +1781,7 @@ func nox_xxx_netBigSwitch_553210_op_7(pid int, out []byte, ns1 *netStruct) int {
 	if ns4 == nil && ns4.field_25 == 0 {
 		return 0
 	}
-	v31 := int(C.dword_5d4594_2495920) - int(ns4.field_26) - int(ns4.field_24)
+	v31 := int(dword_5d4594_2495920) - int(ns4.field_26) - int(ns4.field_24)
 	v32 := -1
 	if v31 >= 1 {
 		v32 = 256000 / v31
@@ -1800,7 +1801,7 @@ func nox_xxx_netBigSwitch_553210_op_8(pid int, out []byte, ns1 *netStruct, packe
 	if ns5 == nil && binary.LittleEndian.Uint32(packetCur) != uint32(ns5.field_22) {
 		return 0
 	}
-	ns5.field_24 = C.uint(int(C.dword_5d4594_2495920) - int(ns5.field_23))
+	ns5.field_24 = C.uint(int(dword_5d4594_2495920) - int(ns5.field_23))
 	out[0] = 36
 	binary.LittleEndian.PutUint32(out[1:], uint32(ns5.field_24))
 	var v19 unsafe.Pointer
@@ -1814,7 +1815,7 @@ func nox_xxx_netBigSwitch_553210_op_8(pid int, out []byte, ns1 *netStruct, packe
 	out[0] = ns1.Data2()[0]
 	out[1] = ns5.Data2()[1]
 	out[2] = 9
-	binary.LittleEndian.PutUint32(out[3:], uint32(C.dword_5d4594_2495920))
+	binary.LittleEndian.PutUint32(out[3:], dword_5d4594_2495920)
 	return 7
 }
 
@@ -1865,7 +1866,157 @@ func nox_xxx_netBigSwitch_553210_op_10(id int, pid int, out []byte, ns1 *netStru
 	return 0
 }
 
-//export sub_553D10
+func sub_4168E0() unsafe.Pointer {
+	return nox_common_list_getFirstSafe_425890(memmap.PtrOff(0x5D4594, 371364))
+}
+
+func sub_4168F0(a1 unsafe.Pointer) unsafe.Pointer {
+	return nox_common_list_getNextSafe_4258A0(a1)
+}
+
+func sub_416900() unsafe.Pointer {
+	return nox_common_list_getFirstSafe_425890(memmap.PtrOff(0x5D4594, 371500))
+}
+
+func sub_416910(a1 unsafe.Pointer) unsafe.Pointer {
+	return nox_common_list_getNextSafe_4258A0(a1)
+}
+
+func nox_xxx_netBigSwitch_553210_op_14(out []byte, packet []byte, ns1 *netStruct, p1 byte, from net.Addr) int {
+	s := noxServer
+	v43 := false
+	v78 := sub_416640()
+	nox_xxx_cliGamedataGet_416590(0)
+	out[0] = 0
+	out[1] = p1
+
+	// TODO: This code is disabled because it causes issues with players reconnecting to the server.
+	//       For some reason the player record gets stuck in the server's player list, so this check fails.
+	if false {
+		if nox_xxx_check_flag_aaa_43AF70() == 0 {
+			serial := GoStringS(packet[56:])
+			for it := s.playerFirst(); it != nil; it = s.playerNext(it) {
+				if byte(it.field_2135) == packet[98] {
+					if it.Serial() == serial {
+						out[2] = 19
+						out[3] = 12
+						return 4
+					}
+				}
+			}
+		}
+	}
+
+	if binary.LittleEndian.Uint32(packet[80:]) != NOX_CLIENT_VERS_CODE {
+		out[2] = 19
+		out[3] = 13
+		return 4
+	}
+	a4a := false
+	if int(ns1.field_21) >= s.getServerMaxPlayers()-1 {
+		a4a = true
+	}
+	if C.sub_40A740() != 0 {
+		v46 := int(C.nox_xxx_countObserverPlayers_425BF0())
+		f21 := binary.LittleEndian.Uint32(packet[84:])
+		if f21 == 0 {
+			if byte(v46) >= v78[53] {
+				out[2] = 19
+				out[3] = 11
+				return 4
+			}
+		} else if s.teamByXxx(int(f21)) != nil {
+			if v46 > 0 {
+				v43 = true
+			}
+		} else {
+			if byte(C.sub_417DE0()) >= v78[52] {
+				if byte(v46) >= v78[53] {
+					out[2] = 19
+					out[3] = 11
+					return 4
+				}
+			} else if v46 > 0 {
+				v43 = true
+			}
+		}
+	}
+	if a4a {
+		if !v43 || *(*uint32)(unsafe.Pointer(&v78[54])) == 0 {
+			out[2] = 19
+			out[3] = 11
+			return 4
+		}
+		for it := s.firstReplaceablePlayer(); it != nil; it = s.nextReplaceablePlayer(it) {
+			if nox_xxx_findPlayerID_5541D0(it.Index()+1) == nil {
+				s.getPlayerByInd(it.Index()).Disconnect(4)
+				v50, _ := alloc.Make([]uint32{}, 4)
+				v50[3] = uint32(it.Index() + 1)
+				nox_common_list_append_4258E0(memmap.PtrOff(0x5D4594, 2495908), unsafe.Pointer(&v50[0]))
+				*memmap.PtrUint8(0x5D4594, 2500076)++
+				out[2] = 21
+				return 3
+			}
+		}
+	}
+	if v78[100]&0x10 != 0 {
+		var found bool
+		for it := sub_4168E0(); it != nil; it = sub_4168F0(it) {
+			if strings.ToLower(GoWStringP(unsafe.Add(it, 12))) == strings.ToLower(GoWStringBytes(packet[4:])) {
+				found = true
+				break
+			}
+		}
+		if !found {
+			out[2] = 19
+			out[3] = 4
+			return 4
+		}
+	} else {
+		for it := sub_416900(); it != nil; it = sub_416910(it) {
+			if GoStringP(unsafe.Add(it, 72)) == "0" {
+				if strings.ToLower(GoWStringP(unsafe.Add(it, 12))) == strings.ToLower(GoWStringBytes(packet[4:])) {
+					out[2] = 19
+					out[3] = 5
+					return 4
+				}
+			} else {
+				if strings.ToLower(GoStringP(unsafe.Add(it, 72))) == strings.ToLower(GoStringS(packet[56:])) {
+					out[2] = 19
+					out[3] = 5
+					return 4
+				}
+			}
+		}
+	}
+	v52 := v78[100]
+	if v52 != 0 && (1<<packet[54])&v52 != 0 {
+		out[2] = 19
+		out[3] = 7
+		return 4
+	}
+	if v52&0x20 != 0 {
+		out[2] = 15
+		return 3
+	}
+	if *(*int16)(unsafe.Pointer(&v78[105])) == -1 && *(*int16)(unsafe.Pointer(&v78[107])) == -1 {
+		out[2] = 20 // OK
+		return 3
+	}
+	id53 := sub_553D10()
+	if id53 < 0 {
+		out[2] = 20 // OK
+		return 3
+	}
+	nx := &C.nox_net_struct2_arr[id53]
+	nx.field_0 = 1
+	nx.field_1_1 = 0
+	nx.field_1_0 = 0
+	setAddr(&nx.addr, from)
+
+	return copy(out, nox_xxx_makePacketTime_552340(id53))
+}
+
 func sub_553D10() int {
 	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
 		if C.nox_net_struct2_arr[i].field_0 == 0 {
@@ -1973,7 +2124,7 @@ func sub_43CC80() {
 }
 
 func sub_5524C0() {
-	C.dword_5d4594_2495920 = C.uint(platformTicks())
+	dword_5d4594_2495920 = uint32(platformTicks())
 	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
 		ns := asNetStruct(C.nox_net_struct_arr[i])
 		if ns != nil && ns.field_38 == 1 {
@@ -1986,7 +2137,7 @@ func sub_5524C0() {
 
 func nox_xxx_netMaybeSendAll_552460() {
 	ticks := platformTicks()
-	C.dword_5d4594_2495920 = C.uint(ticks)
+	dword_5d4594_2495920 = uint32(ticks)
 	if uint32(ticks)-*memmap.PtrUint32(0x5D4594, 2512888) <= 1000 {
 		return
 	}
@@ -2066,7 +2217,7 @@ func sub_5551F0(a1 int, a2 byte, a3 int) int {
 				gi[3] = 1
 				continue
 			}
-		} else if gi[1] <= uint32(C.dword_5d4594_2495920) {
+		} else if gi[1] <= dword_5d4594_2495920 {
 			gi[3] = 1
 			continue
 		}
@@ -2154,7 +2305,7 @@ func sub_552E70(ind int) int {
 	for i := min; i < max; i++ {
 		ns2 := asNetStruct(C.nox_net_struct_arr[i])
 		if ns2 != nil && int(ns2.id) == find {
-			ns2.field_22 = C.dword_5d4594_2495920
+			ns2.field_22 = C.uint(dword_5d4594_2495920)
 			ns2.field_23 = ns2.field_22
 			binary.LittleEndian.PutUint32(buf[1:], uint32(ns2.field_22))
 			nox_xxx_netSendSock552640(i, buf[:5], NOX_NET_SEND_FLAG2)
@@ -2205,7 +2356,6 @@ func nox_xxx_allocNetGQueue_5520B0() {
 	flag2495924 = true
 }
 
-//export nox_xxx_findPlayerID_5541D0
 func nox_xxx_findPlayerID_5541D0(a1 int) unsafe.Pointer {
 	for it := nox_common_list_getFirstSafe_425890(memmap.PtrOff(0x5D4594, 2495908)); it != nil; it = nox_common_list_getNextSafe_4258A0(it) {
 		if *(*int32)(unsafe.Add(it, 3*4)) == int32(a1) {

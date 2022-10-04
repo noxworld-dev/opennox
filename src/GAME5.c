@@ -8089,13 +8089,3 @@ int sub_5521A0() {
 	}
 	return 1;
 }
-
-//----- (00552340) --------------------------------------------------------
-int nox_xxx_makePacketTime_552340(int id, unsigned char* buf) {
-	nox_net_struct2_t* nx = &nox_net_struct2_arr[id];
-	nx->ticks = nox_platform_get_ticks();
-	buf[2] = 16;
-	buf[3] = nx->field_1_1;
-	*(unsigned int*)(&buf[4]) = nx->ticks;
-	return 8;
-}
