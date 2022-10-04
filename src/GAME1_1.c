@@ -7374,16 +7374,13 @@ uint32_t* sub_425900(uint32_t* a1, uint32_t* a2) {
 }
 
 //----- (00425920) --------------------------------------------------------
-uint32_t** sub_425920(void* a1p) {
+void nox_common_list_remove_425920(void* a1p) {
 	uint32_t** a1 = a1p;
-	uint32_t** result; // eax
 
-	result = a1;
 	*a1[1] = *a1;
 	(*a1)[1] = a1[1];
 	*a1 = a1;
 	a1[1] = a1;
-	return result;
 }
 
 //----- (00425940) --------------------------------------------------------
@@ -7425,12 +7422,12 @@ int* sub_4259F0() {
 			if (v3) {
 				do {
 					v4 = sub_425BE0(v3);
-					sub_425920((uint32_t**)v3);
+					nox_common_list_remove_425920((uint32_t**)v3);
 					free(v3);
 					v3 = v4;
 				} while (v4);
 			}
-			sub_425920((uint32_t**)v1);
+			nox_common_list_remove_425920((uint32_t**)v1);
 			free(v1);
 			v1 = v2;
 		} while (v2);
@@ -7520,13 +7517,13 @@ char* sub_425B60(void* lpMem, int a2) {
 				goto LABEL_6;
 			}
 		}
-		sub_425920((uint32_t**)v2);
+		nox_common_list_remove_425920((uint32_t**)v2);
 		free(v2);
 	}
 LABEL_6:
 	result = (char*)lpMem + 40;
 	if (*((void**)lpMem + 11) == (char*)lpMem + 40) {
-		sub_425920((uint32_t**)lpMem);
+		nox_common_list_remove_425920((uint32_t**)lpMem);
 		free(lpMem);
 	}
 	return result;

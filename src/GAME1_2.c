@@ -4517,7 +4517,7 @@ void nox_xxx_failconn_43B0E0(int a1) {
 							nox_window_call_field_94(*(int*)&dword_5d4594_815028, 16407,
 													 (int)getMemAt(0x5D4594, 814756), v5);
 							if (nox_xxx_getConnResult_4A0560() == 6 || nox_xxx_getConnResult_4A0560() == 7) {
-								sub_425920((uint32_t**)v3);
+								nox_common_list_remove_425920((uint32_t**)v3);
 								v6 = nox_wol_servers_addResult_4A0030((const void*)v3);
 								nox_window_call_field_94(*(int*)&nox_wol_wnd_gameList_815012, 16398, v5, 0);
 								sub_43B2A0(v6);

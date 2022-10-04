@@ -4936,10 +4936,10 @@ int sub_486E90(int a1) {
 	int result; // eax
 
 	v1 = *(uint32_t*)(a1 + 132);
-	sub_425920((uint32_t**)a1);
+	nox_common_list_remove_425920((uint32_t**)a1);
 	--*(uint32_t*)(v1 + 192);
 	++*(uint32_t*)(v1 + 212);
-	sub_425920((uint32_t**)a1);
+	nox_common_list_remove_425920((uint32_t**)a1);
 	result = *(uint32_t*)(v1 + 212) - 1;
 	*(uint32_t*)(v1 + 212) = result;
 	if (result < 0) {
@@ -5037,7 +5037,7 @@ void sub_487070(void* lpMem) {
 }
 
 //----- (00487090) --------------------------------------------------------
-uint32_t** sub_487090(uint32_t** a1) { return sub_425920(a1); }
+void sub_487090(uint32_t** a1) { nox_common_list_remove_425920(a1); }
 
 //----- (004870A0) --------------------------------------------------------
 void sub_4870A0() {
@@ -5339,7 +5339,7 @@ void* sub_4876A0(uint32_t** a1) {
 	void* result; // eax
 
 	++*(uint32_t*)((uint32_t)dword_587000_155144 + 24);
-	sub_425920(a1);
+	nox_common_list_remove_425920(a1);
 	result = (void*)(*(uint32_t*)((uint32_t)dword_587000_155144 + 24) - 1);
 	*(uint32_t*)((uint32_t)dword_587000_155144 + 24) = result;
 	if ((int)result < 0) {

@@ -6335,7 +6335,7 @@ void sub_416820(int a1) {
 			return;
 		}
 	}
-	sub_425920((uint32_t**)v2);
+	nox_common_list_remove_425920((uint32_t**)v2);
 	free(v2);
 }
 
@@ -6361,7 +6361,7 @@ int* sub_416860(int a1) {
 				return result;
 			}
 		}
-		sub_425920((uint32_t**)v2);
+		nox_common_list_remove_425920((uint32_t**)v2);
 		free(v2);
 	}
 	return result;
@@ -6410,7 +6410,7 @@ int* sub_416950() {
 	if (v0) {
 		do {
 			v1 = sub_4168F0(v0);
-			sub_425920((uint32_t**)v0);
+			nox_common_list_remove_425920((uint32_t**)v0);
 			free(v0);
 			v0 = v1;
 		} while (v1);
@@ -6420,7 +6420,7 @@ int* sub_416950() {
 	if (result) {
 		do {
 			v4 = sub_416910(v3);
-			sub_425920((uint32_t**)v3);
+			nox_common_list_remove_425920((uint32_t**)v3);
 			free(v3);
 			v3 = v4;
 		} while (v4);
