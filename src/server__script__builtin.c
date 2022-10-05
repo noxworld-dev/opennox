@@ -477,29 +477,6 @@ int nox_script_groupDamage_513010() {
 	return 0;
 }
 
-//----- (00513070) --------------------------------------------------------
-int nox_script_Wander_513070() {
-	int v0;    // edi
-	int v1;    // eax
-	int v2;    // esi
-	float v4;  // [esp+8h] [ebp-10h]
-	int v5[3]; // [esp+Ch] [ebp-Ch]
-
-	v4 = nox_script_popf();
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
-	if (v2) {
-		v5[1] = v0;
-		v5[0] = (long long)v4;
-		sub_5130E0(v2, v5);
-		nox_script_push(v5[2]);
-	} else {
-		nox_script_push(0);
-	}
-	return 0;
-}
-
 //----- (00513160) --------------------------------------------------------
 int nox_script_WanderGroup_513160() {
 	int v0;            // esi
