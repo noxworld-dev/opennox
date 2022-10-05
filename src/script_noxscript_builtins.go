@@ -21,7 +21,6 @@ int nox_script_groupRoam_512990();
 int nox_script_create_512F10();
 int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
-int nox_script_awardSpell_5131C0();
 int nox_script_awardSpellGroup_513230();
 int nox_script_enchant_5132E0();
 int nox_script_groupEnchant_5133B0();
@@ -151,6 +150,7 @@ void nox_xxx_audCreate_501A30(int a1, float2* a2, int a3, int a4);
 int nox_xxx_netSendChat_528AC0(nox_object_t* a1, wchar_t* a2, wchar_t a3);
 int nox_xxx_playDialogFile_44D900(int a1, int a2);
 uint32_t* sub_5130E0(int a1, uint32_t* a2);
+int nox_xxx_spellGrantToPlayer_4FB550(nox_object_t* a1, int a2, int a3, int a4, int a5);
 */
 import "C"
 import (
@@ -302,7 +302,7 @@ var noxScriptBuiltins = []func() int{
 	52:  wrapScriptC(C.nox_script_groupDamage_513010),
 	53:  nox_script_Wander_513070,
 	54:  wrapScriptC(C.nox_script_WanderGroup_513160),
-	55:  wrapScriptC(C.nox_script_awardSpell_5131C0),
+	55:  nox_script_awardSpell_5131C0,
 	56:  wrapScriptC(C.nox_script_awardSpellGroup_513230),
 	57:  wrapScriptC(C.nox_script_enchant_5132E0),
 	58:  wrapScriptC(C.nox_script_groupEnchant_5133B0),
@@ -1429,6 +1429,26 @@ func nox_script_Wander_513070() int {
 		v5 := [3]C.int{C.int(int64(v4)), C.int(v0), 0}
 		C.sub_5130E0(C.int(uintptr(unsafe.Pointer(obj.CObj()))), (*C.uint32_t)(unsafe.Pointer(&v5[0])))
 		s.PushI32(int32(v5[2]))
+	} else {
+		s.PushI32(0)
+	}
+	return 0
+}
+
+func nox_script_awardSpell_5131C0() int {
+	s := &noxServer.noxScript
+
+	spellName := s.PopString()
+	v4 := s.PopObject()
+
+	spl := spell.ParseID(spellName)
+	if spl != spell.SPELL_INVALID {
+		if v4 != nil {
+			v5 := C.nox_xxx_spellGrantToPlayer_4FB550(v4.CObj(), C.int(spl), 1, 0, 0)
+			s.PushI32(int32(v5))
+		} else {
+			s.PushI32(0)
+		}
 	} else {
 		s.PushI32(0)
 	}
