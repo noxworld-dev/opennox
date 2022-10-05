@@ -1192,23 +1192,6 @@ float* sub_579AD0(float a1, float a2) {
 	return (float*)v3;
 }
 
-//----- (00579C40) --------------------------------------------------------
-uint32_t* nox_server_getWaypointById_579C40(int a1) {
-	uint32_t* result; // eax
-
-	result = *(uint32_t**)&nox_xxx_waypointsHead_2523752;
-	if (!nox_xxx_waypointsHead_2523752) {
-		return 0;
-	}
-	while (*result != a1) {
-		result = (uint32_t*)result[121];
-		if (!result) {
-			return 0;
-		}
-	}
-	return result;
-}
-
 //----- (00579C60) --------------------------------------------------------
 int sub_579C60(int a1) {
 	int result; // eax
@@ -1691,18 +1674,18 @@ void sub_57A4D0(wchar_t* a1, int a2, int a3, int a4) {
 int sub_415EC0(char* a1);
 int sub_415A30(char* a1);
 int sub_57A620(unsigned char a1, const wchar_t** a2, int a3, int a4) {
-	const wchar_t** v4;  // ebp
-	unsigned char v5;    // dl
-	int v6;              // esi
-	int v9;              // eax
-	int v10;             // ebx
-	unsigned char v11;   // cl
-	int v12;             // eax
-	int v14;             // esi
-	int v15;             // ecx
-	char v16[100];       // [esp+10h] [ebp-64h]
-	unsigned char v17;   // [esp+7Ch] [ebp+8h]
-	unsigned char v18;   // [esp+7Ch] [ebp+8h]
+	const wchar_t** v4; // ebp
+	unsigned char v5;   // dl
+	int v6;             // esi
+	int v9;             // eax
+	int v10;            // ebx
+	unsigned char v11;  // cl
+	int v12;            // eax
+	int v14;            // esi
+	int v15;            // ecx
+	char v16[100];      // [esp+10h] [ebp-64h]
+	unsigned char v17;  // [esp+7Ch] [ebp+8h]
+	unsigned char v18;  // [esp+7Ch] [ebp+8h]
 
 	v4 = a2;
 	nox_sprintf(v16, "%S", *a2);
@@ -1811,8 +1794,8 @@ int sub_57A950(char* a1) {
 	char v2[256]; // [esp+Ch] [ebp-100h]
 
 	strcpy(v2, "maps\\");
-	strncat(v2, a1, 256-6);
-	v2[strlen(v2)-4] = 0;
+	strncat(v2, a1, 256 - 6);
+	v2[strlen(v2) - 4] = 0;
 	*(uint16_t*)&v2[strlen(v2)] = *getMemU16Ptr(0x587000, 312564);
 	strcat(v2, a1);
 	return sub_4D0550(v2);
@@ -2098,8 +2081,8 @@ int nox_xxx_playerClassCanUseItem_57B3D0(nox_object_t* item, char a2) {
 	if (nox_cheat_allowall) {
 		return 1;
 	}
-	return ((unsigned char)(1 << a2) & (unsigned char)sub_57B370(item->obj_class, item->obj_subclass,
-																 *(unsigned short*)&item->typ_ind)) != 0;
+	return ((unsigned char)(1 << a2) &
+			(unsigned char)sub_57B370(item->obj_class, item->obj_subclass, *(unsigned short*)&item->typ_ind)) != 0;
 }
 
 //----- (0057B400) --------------------------------------------------------
@@ -5062,4 +5045,3 @@ void nullsub_31(uint32_t a1) {}
 void nullsub_22(void) {}
 void nullsub_9(uint32_t a1) {}
 void nox_xxx_j_allocHitArray_511840(void) { nox_xxx_allocHitArray_5486D0(); }
-
