@@ -2050,7 +2050,8 @@ typedef struct nox_waypoint_t {
 	char name[76];                 // 4, 16
 	nox_waypoint_inner points[32]; // 5, 92
 	uint32_t field_6[32];          // 6, 348
-	uint8_t points_cnt;            // 7, 476, padded to 4 bytes
+	uint8_t points_cnt;            // 7, 476
+	uint8_t padding_7[3];          // to pad field 7 to 4 bytes
 	uint32_t flags;                // 8, 480
 	nox_waypoint_t* next;          // 9, 484
 	nox_waypoint_t* prev;          // 10, 488
