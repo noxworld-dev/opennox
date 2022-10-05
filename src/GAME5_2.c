@@ -52,7 +52,7 @@ extern uint32_t dword_5d4594_2523780;
 extern uint32_t dword_5d4594_2516344;
 extern uint32_t nox_server_mapGroupsHead_2523900;
 extern uint32_t dword_5d4594_2523756;
-extern uint32_t nox_xxx_waypointsHead_2523752;
+extern nox_waypoint_t* nox_xxx_waypointsHead_2523752;
 extern uint32_t dword_5d4594_2516328;
 extern uint32_t dword_5d4594_2516348;
 extern uint32_t dword_5d4594_2650652;

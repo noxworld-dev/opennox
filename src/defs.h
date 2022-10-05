@@ -2035,4 +2035,28 @@ typedef struct nox_gui_server_ent_t {
 #pragma pack(pop)
 _Static_assert(sizeof(nox_gui_server_ent_t) == 169, "wrong size of nox_gui_server_ent_t structure!");
 
+typedef struct nox_waypoint_t nox_waypoint_t;
+
+typedef struct nox_waypoint_inner {
+	nox_waypoint_t* waypoint;
+	uint8_t ind;
+} nox_waypoint_inner;
+
+typedef struct nox_waypoint_t {
+	uint32_t ind;                  // 0, 0
+	uint32_t field_1;              // 1, 4
+	float x;                       // 2, 8
+	float y;                       // 3, 12
+	char name[76];                 // 4, 16
+	nox_waypoint_inner points[32]; // 5, 92
+	uint32_t field_6[32];          // 6, 348
+	uint8_t points_cnt;            // 7, 476, padded to 4 bytes
+	uint32_t flags;                // 8, 480
+	nox_waypoint_t* next;          // 9, 484
+	nox_waypoint_t* prev;          // 10, 488
+	uint16_t field_11[2];          // 11, 492
+	uint32_t field_12[5];          // 12, 496
+} nox_waypoint_t;
+_Static_assert(sizeof(nox_waypoint_t) == 0x204u, "wrong size of nox_waypoint_t structure!");
+
 #endif // NOX_DEFS_H
