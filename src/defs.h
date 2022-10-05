@@ -2045,8 +2045,7 @@ typedef struct nox_waypoint_inner {
 typedef struct nox_waypoint_t {
 	uint32_t ind;                  // 0, 0
 	uint32_t field_1;              // 1, 4
-	float x;                       // 2, 8
-	float y;                       // 3, 12
+	float2 pos;                    // 2, 8
 	char name[76];                 // 4, 16
 	nox_waypoint_inner points[32]; // 5, 92
 	uint32_t field_6[32];          // 6, 348
