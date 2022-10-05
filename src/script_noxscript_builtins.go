@@ -144,7 +144,6 @@ const char* nox_xxx_waypointByName_579E30(const char* a1);
 void sub_43D9B0(int a1, int a2);
 int sub_43DA80();
 void sub_43DAD0();
-uint32_t* nox_server_getWaypointById_579C40(int a1);
 int* nox_server_scriptMoveTo_5123C0(int a1, int a2);
 void nox_xxx_comJournalEntryAdd_427500(int a1, char* a2, short a3);
 int nox_xxx_comAddEntryAll_427550(char* a1, short a2);
@@ -1154,11 +1153,11 @@ func nox_script_wallBreak_512290() int {
 func nox_script_moverOrMonsterGo_512370() int {
 	s := &noxServer.noxScript
 
-	waypointId := s.PopI32()
+	waypointId := int(s.PopI32())
 	obj := s.PopObject()
 	if obj != nil {
 		if !obj.Flags().Has(object.FlagDead) {
-			waypoint := C.nox_server_getWaypointById_579C40(C.int(waypointId))
+			waypoint := noxServer.getWaypointByInd(waypointId)
 			if waypoint != nil {
 				C.nox_server_scriptMoveTo_5123C0(C.int(uintptr(unsafe.Pointer(obj))), C.int(uintptr(unsafe.Pointer(waypoint))))
 			}
@@ -1193,7 +1192,7 @@ func nox_script_objectOn_512670() int {
 func nox_script_waypointOn_5126D0() int {
 	s := &noxServer.noxScript
 
-	waypoint := C.nox_server_getWaypointById_579C40(C.int(s.PopI32()))
+	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
 	if waypoint != nil {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(waypoint), 120*4)) |= 1
 	}
@@ -1213,7 +1212,7 @@ func nox_script_objectOff_512730() int {
 func nox_script_waypointOff_512790() int {
 	s := &noxServer.noxScript
 
-	waypoint := C.nox_server_getWaypointById_579C40(C.int(s.PopI32()))
+	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
 	if waypoint != nil {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(waypoint), 120*4)) &= 0xFFFFFFFE
 	}
@@ -1233,7 +1232,7 @@ func nox_script_toggleObject_5127F0() int {
 func nox_script_toggleWaypoint_512850() int {
 	s := &noxServer.noxScript
 
-	waypoint := C.nox_server_getWaypointById_579C40(C.int(s.PopI32()))
+	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
 	if waypoint != nil {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(waypoint), 120*4)) ^= 1
 	}
@@ -1287,7 +1286,7 @@ func nox_script_isOn_512CA0() int {
 func nox_script_wpIsEnabled_512CE0() int {
 	s := &noxServer.noxScript
 
-	waypoint := C.nox_server_getWaypointById_579C40(C.int(s.PopI32()))
+	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
 	if waypoint != nil && (*(*uint32)(unsafe.Add(unsafe.Pointer(waypoint), 120*4)))&1 != 0 {
 		s.PushI32(1)
 	} else {
@@ -1394,7 +1393,7 @@ func nox_script_gotoHome_512A00() int {
 func nox_script_audioEven_512AC0() int {
 	s := &noxServer.noxScript
 
-	waypoint := asWaypoint(unsafe.Pointer(C.nox_server_getWaypointById_579C40(C.int(s.PopI32()))))
+	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
 	soundName := s.PopString()
 	if waypoint != nil {
 		pos := waypoint.PosC()
