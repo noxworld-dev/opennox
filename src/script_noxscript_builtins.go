@@ -24,7 +24,6 @@ int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
 int nox_script_groupEnchant_5133B0();
 int nox_script_unitHeight_513630();
-int nox_script_getUnitLook_513670();
 int nox_script_moveObject_5136A0();
 int nox_script_moveWaypoint_513700();
 int nox_script_raise_513750();
@@ -309,7 +308,7 @@ var noxScriptBuiltins = []func() int{
 	63:  nox_script_getObjectY_5135B0,
 	64:  nox_script_getWaypointY_5135F0,
 	65:  wrapScriptC(C.nox_script_unitHeight_513630),
-	66:  wrapScriptC(C.nox_script_getUnitLook_513670),
+	66:  nox_script_getUnitLook_513670,
 	67:  wrapScriptC(C.nox_script_moveObject_5136A0),
 	68:  wrapScriptC(C.nox_script_moveWaypoint_513700),
 	69:  wrapScriptC(C.nox_script_raise_513750),
@@ -1499,6 +1498,18 @@ func nox_script_getWaypointY_5135F0() int {
 		s.PushF32(waypoint.Pos().Y)
 	} else {
 		s.PushI32(0) // f32 0 == i32 0
+	}
+	return 0
+}
+
+func nox_script_getUnitLook_513670() int {
+	s := &noxServer.noxScript
+
+	v1 := s.PopObject()
+	if v1 != nil {
+		s.PushI32(int32(v1.Dir1()))
+	} else {
+		s.PushI32(0)
 	}
 	return 0
 }
