@@ -76,7 +76,7 @@ func (w *Waypoint) C() unsafe.Pointer {
 }
 
 func (w *Waypoint) Next() *Waypoint {
-	return (*Waypoint)(w.next)
+	return asWaypointC(w.next)
 }
 
 func (w *Waypoint) Ind() int {
