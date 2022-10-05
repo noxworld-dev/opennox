@@ -550,21 +550,6 @@ int nox_script_unitHeight_513630() {
 	return 0;
 }
 
-//----- (00513670) --------------------------------------------------------
-int nox_script_getUnitLook_513670() {
-	int v0; // eax
-	int v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		nox_script_push(*(short*)(v1 + 124));
-	} else {
-		nox_script_push(0);
-	}
-	return 0;
-}
-
 //----- (005136A0) --------------------------------------------------------
 int nox_script_moveObject_5136A0() {
 	int v0;    // eax
