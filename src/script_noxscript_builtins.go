@@ -23,8 +23,6 @@ int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
 int nox_script_groupEnchant_5133B0();
-int nox_script_getWaypointX_513570();
-int nox_script_getWaypointY_5135F0();
 int nox_script_unitHeight_513630();
 int nox_script_getUnitLook_513670();
 int nox_script_moveObject_5136A0();
@@ -307,9 +305,9 @@ var noxScriptBuiltins = []func() int{
 	59:  nox_script_getHost_513460,
 	60:  nox_script_objectGet_513490,
 	61:  nox_script_getObjectX_513530,
-	62:  wrapScriptC(C.nox_script_getWaypointX_513570),
+	62:  nox_script_getWaypointX_513570,
 	63:  nox_script_getObjectY_5135B0,
-	64:  wrapScriptC(C.nox_script_getWaypointY_5135F0),
+	64:  nox_script_getWaypointY_5135F0,
 	65:  wrapScriptC(C.nox_script_unitHeight_513630),
 	66:  wrapScriptC(C.nox_script_getUnitLook_513670),
 	67:  wrapScriptC(C.nox_script_moveObject_5136A0),
@@ -1477,6 +1475,30 @@ func nox_script_getHost_513460() int {
 		s.PushI32(int32(v0.ScriptID()))
 	} else {
 		s.PushI32(0)
+	}
+	return 0
+}
+
+func nox_script_getWaypointX_513570() int {
+	s := &noxServer.noxScript
+
+	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
+	if waypoint != nil {
+		s.PushF32(waypoint.Pos().X)
+	} else {
+		s.PushI32(0) // f32 0 == i32 0
+	}
+	return 0
+}
+
+func nox_script_getWaypointY_5135F0() int {
+	s := &noxServer.noxScript
+
+	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
+	if waypoint != nil {
+		s.PushF32(waypoint.Pos().Y)
+	} else {
+		s.PushI32(0) // f32 0 == i32 0
 	}
 	return 0
 }
