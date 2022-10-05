@@ -17,8 +17,12 @@ func asWaypoint(p unsafe.Pointer) *Waypoint {
 	return (*Waypoint)(p)
 }
 
+func asWaypointC(p *C.nox_waypoint_t) *Waypoint {
+	return asWaypoint(unsafe.Pointer(p))
+}
+
 func (s *Server) firstWaypoint() *Waypoint {
-	return (*Waypoint)(C.nox_xxx_waypointsHead_2523752)
+	return asWaypointC(C.nox_xxx_waypointsHead_2523752)
 }
 
 func (s *Server) getWaypointByID(id string) *Waypoint {
@@ -69,10 +73,6 @@ type Waypoint nox_waypoint_t
 
 func (w *Waypoint) C() unsafe.Pointer {
 	return unsafe.Pointer(w)
-}
-
-func (w *Waypoint) field(dp uintptr) unsafe.Pointer {
-	return unsafe.Add(unsafe.Pointer(w), dp)
 }
 
 func (w *Waypoint) Next() *Waypoint {
