@@ -495,34 +495,6 @@ int nox_script_WanderGroup_513160() {
 	return 0;
 }
 
-//----- (005131C0) --------------------------------------------------------
-int nox_script_awardSpell_5131C0() {
-	int v0;     // esi
-	int v1;     // edi
-	int v2;     // esi
-	int result; // eax
-	int v4;     // eax
-	int v5;     // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_xxx_spellNameToN_4243F0(nox_script_getString_512E40(v0));
-	if (v2) {
-		v4 = nox_server_scriptValToObjectPtr_511B60(v1);
-		if (v4) {
-			v5 = nox_xxx_spellGrantToPlayer_4FB550(v4, v2, 1, 0, 0);
-			nox_script_push(v5);
-		} else {
-			nox_script_push(0);
-		}
-		result = 0;
-	} else {
-		nox_script_push(0);
-		result = 0;
-	}
-	return result;
-}
-
 //----- (00513230) --------------------------------------------------------
 int nox_script_awardSpellGroup_513230() {
 	int v0;            // esi
