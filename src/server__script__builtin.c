@@ -363,19 +363,6 @@ int nox_script_deleteObjectGroup_5128D0() {
 	return 0;
 }
 
-//----- (00512910) --------------------------------------------------------
-int nox_script_followNearestWaypoint_512910() {
-	int v0; // eax
-	int v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		nox_xxx_scriptMonsterRoam_512930(v1);
-	}
-	return 0;
-}
-
 //----- (00512930) --------------------------------------------------------
 void nox_xxx_scriptMonsterRoam_512930(nox_object_t* obj) {
 	int a1 = obj;
@@ -444,20 +431,6 @@ void nox_server_gotoHome(nox_object_t* obj) {
 		}
 	}
 }
-int nox_script_gotoHome_512A00() {
-	int v0;     // eax
-	int result; // eax
-	int v2;     // esi
-
-	v0 = nox_script_pop();
-	result = nox_server_scriptValToObjectPtr_511B60(v0);
-	v2 = result;
-	if (v2) {
-		nox_server_gotoHome(v2);
-		result = 0;
-	}
-	return result;
-}
 
 //----- (00512AC0) --------------------------------------------------------
 int nox_script_audioEven_512AC0() {
@@ -475,30 +448,6 @@ int nox_script_audioEven_512AC0() {
 		v3 = nox_xxx_utilFindSound_40AF50(nox_script_getString_512E40(v1));
 		nox_xxx_audCreate_501A30(v3, v5, 0, 0);
 	}
-	return 0;
-}
-
-//----- (00512EA0) --------------------------------------------------------
-int nox_script_intToString_512EA0() {
-	int v0; // eax
-	int v1; // eax
-
-	v0 = nox_script_pop();
-	_itoa(v0, (char*)getMemAt(0x973F18, 22280), 10);
-	v1 = nox_script_addString_512E40((char*)getMemAt(0x973F18, 22280));
-	nox_script_push(v1);
-	return 0;
-}
-
-//----- (00512ED0) --------------------------------------------------------
-int nox_script_floatToString_512ED0() {
-	float v0; // eax
-	int v1;   // eax
-
-	v0 = nox_script_popf();
-	nox_sprintf((char*)getMemAt(0x973F18, 22280), "%f", v0, v0);
-	v1 = nox_script_addString_512E40((char*)getMemAt(0x973F18, 22280));
-	nox_script_push(v1);
 	return 0;
 }
 
@@ -522,29 +471,6 @@ int nox_script_create_512F10() {
 		}
 		nox_xxx_createAt_4DAA50((int)v3, 0, v2[2], v2[3]);
 		nox_script_push(v4[11]);
-	}
-	return 0;
-}
-
-//----- (00512F80) --------------------------------------------------------
-int nox_script_damage_512F80() {
-	int v0;    // edi
-	int v1;    // ebx
-	int v2;    // ebp
-	int v3;    // eax
-	int v4;    // esi
-	int v6[3]; // [esp+10h] [ebp-Ch]
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_script_pop();
-	v3 = nox_script_pop();
-	v4 = nox_server_scriptValToObjectPtr_511B60(v3);
-	if (v4) {
-		v6[0] = nox_server_scriptValToObjectPtr_511B60(v2);
-		v6[1] = v1;
-		v6[2] = v0;
-		sub_512FE0(v4, v6);
 	}
 	return 0;
 }

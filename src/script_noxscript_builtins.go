@@ -17,15 +17,10 @@ int nox_script_toggleObject_5127F0();
 int nox_script_toggleObjectGroup_512810();
 int nox_script_toggleWaypointGroup_512870();
 int nox_script_deleteObjectGroup_5128D0();
-int nox_script_followNearestWaypoint_512910();
 int nox_script_groupRoam_512990();
-int nox_script_gotoHome_512A00();
 int nox_script_audioEven_512AC0();
 int nox_script_sayChat_512B90();
-int nox_script_intToString_512EA0();
-int nox_script_floatToString_512ED0();
 int nox_script_create_512F10();
-int nox_script_damage_512F80();
 int nox_script_groupDamage_513010();
 int nox_script_Wander_513070();
 int nox_script_WanderGroup_513160();
@@ -155,10 +150,12 @@ uint32_t* nox_server_getWaypointById_579C40(int a1);
 int* nox_server_scriptMoveTo_5123C0(int a1, int a2);
 void nox_xxx_comJournalEntryAdd_427500(int a1, char* a2, short a3);
 int nox_xxx_comAddEntryAll_427550(char* a1, short a2);
+int nox_script_addString_512E40(char* a1);
 */
 import "C"
 import (
 	"image"
+	"strconv"
 	"strings"
 	"unsafe"
 
@@ -279,11 +276,11 @@ var noxScriptBuiltins = []func() int{
 	26:  wrapScriptC(C.nox_script_toggleWaypointGroup_512870),
 	27:  nox_script_deleteObject_5128B0,
 	28:  wrapScriptC(C.nox_script_deleteObjectGroup_5128D0),
-	29:  wrapScriptC(C.nox_script_followNearestWaypoint_512910),
+	29:  nox_script_followNearestWaypoint_512910,
 	30:  wrapScriptC(C.nox_script_groupRoam_512990),
 	31:  nox_script_getObject2_5129C0,
 	32:  nox_script_getObject3_5129E0,
-	33:  wrapScriptC(C.nox_script_gotoHome_512A00),
+	33:  nox_script_gotoHome_512A00,
 	34:  wrapScriptC(C.nox_script_audioEven_512AC0),
 	35:  nox_script_printToCaller_512B10,
 	36:  nox_script_printToAll_512B60,
@@ -298,10 +295,10 @@ var noxScriptBuiltins = []func() int{
 	45:  nox_script_randomInt_512DB0,
 	46:  nox_script_timerSecSpecial_512DE0,
 	47:  nox_script_specialTimer_512E10,
-	48:  wrapScriptC(C.nox_script_intToString_512EA0),
-	49:  wrapScriptC(C.nox_script_floatToString_512ED0),
+	48:  nox_script_intToString_512EA0,
+	49:  nox_script_floatToString_512ED0,
 	50:  wrapScriptC(C.nox_script_create_512F10),
-	51:  wrapScriptC(C.nox_script_damage_512F80),
+	51:  nox_script_damage_512F80,
 	52:  wrapScriptC(C.nox_script_groupDamage_513010),
 	53:  wrapScriptC(C.nox_script_Wander_513070),
 	54:  wrapScriptC(C.nox_script_WanderGroup_513160),
@@ -1326,6 +1323,69 @@ func nox_script_JournalEntry_5154E0() int {
 		}
 	} else {
 		C.nox_xxx_comAddEntryAll_427550(CString(v1), C.short(v0))
+	}
+	return 0
+}
+
+func nox_script_intToString_512EA0() int {
+	s := &noxServer.noxScript
+
+	v0 := s.PopI32()
+	str := strconv.FormatInt(int64(v0), 10)
+	s.PushString(str)
+	return 0
+}
+
+func nox_script_floatToString_512ED0() int {
+	s := &noxServer.noxScript
+
+	v0 := s.PopF32()
+	str := strconv.FormatFloat(float64(v0), 'f', -1, 32)
+	s.PushString(str)
+	return 0
+}
+
+// create_sub_512FE0 creates anonymous function to call damage function with params
+// TODO: Deprecate sub_512FE0 after remove all the usages
+func create_sub_512FE0(a20 *Object, dmg, unknown int) func(*Object) {
+	return func(obj *Object) {
+		if dmg > 0 {
+			owner := a20.findOwnerChainPlayer()
+			obj.callDamage(owner, a20, dmg, unknown)
+		}
+	}
+}
+
+// Cause damage from src to dest
+func nox_script_damage_512F80() int {
+	s := &noxServer.noxScript
+
+	param1 := s.PopI32()
+	param0 := s.PopI32()
+	src := s.PopObject()
+	dest := s.PopObject()
+	if dest != nil {
+		create_sub_512FE0(src, int(param0), int(param1))(dest)
+	}
+	return 0
+}
+
+func nox_script_followNearestWaypoint_512910() int {
+	s := &noxServer.noxScript
+
+	obj := s.PopObject()
+	if obj != nil {
+		obj.AsUnit().Wander()
+	}
+	return 0
+}
+
+func nox_script_gotoHome_512A00() int {
+	s := &noxServer.noxScript
+
+	obj := s.PopObject()
+	if obj != nil {
+		obj.AsUnit().Return()
 	}
 	return 0
 }
