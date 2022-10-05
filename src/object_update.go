@@ -1001,7 +1001,7 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 		}
 	}
 	u.float_28 = 0.9
-	cos, sin := sincosDir(byte(u.Dir()))
+	cos, sin := sincosDir(byte(u.Dir2()))
 	u.setForce(types.Pointf{
 		X: cos * u.curSpeed(),
 		Y: sin * u.curSpeed(),
@@ -1018,7 +1018,7 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 }
 
 func nox_xxx_pixieIdleAnimate_53CF90(obj *Unit, vec types.Pointf, ddir int) {
-	dir := int(obj.Dir())
+	dir := int(obj.Dir2())
 	cos, sin := sincosDir(byte(dir))
 	if cos*vec.Y-sin*vec.X >= 0.0 {
 		dir += ddir

@@ -25,7 +25,8 @@ type debugObject struct {
 	Class      object.Class      `json:"class"`
 	Flags      object.Flags      `json:"flags,omitempty"`
 	ArmorClass object.ArmorClass `json:"armor_class,omitempty"`
-	Dir        uint16            `json:"dir,omitempty"`
+	Dir1       uint16            `json:"dir1,omitempty"`
+	Dir2       uint16            `json:"dir2,omitempty"`
 	Pos        types.Pointf      `json:"pos"`
 	Vel        types.Pointf      `json:"vel,omitempty"`
 	Force      types.Pointf      `json:"force,omitempty"`
@@ -73,7 +74,8 @@ func (obj *Object) dump() *debugObject {
 		Class:      obj.Class(),
 		Flags:      obj.Flags(),
 		ArmorClass: obj.ArmorClass(),
-		Dir:        obj.Dir(),
+		Dir1:       obj.Dir1(),
+		Dir2:       obj.Dir2(),
 		Pos:        obj.Pos(),
 		Vel:        obj.Vel(),
 		Force:      obj.Force(),
