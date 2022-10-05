@@ -535,19 +535,6 @@ int nox_script_groupEnchant_5133B0() {
 	return 0;
 }
 
-//----- (00513460) --------------------------------------------------------
-int nox_script_getHost_513460() {
-	int v0; // eax
-
-	v0 = *((uint32_t*)nox_common_playerInfoFromNum_417090(31) + 514);
-	if (v0) {
-		nox_script_push(*(uint32_t*)(v0 + 44));
-	} else {
-		nox_script_push(0);
-	}
-	return 0;
-}
-
 //----- (00513570) --------------------------------------------------------
 int nox_script_getWaypointX_513570() {
 	int v0;       // eax
