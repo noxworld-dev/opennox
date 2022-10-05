@@ -52,7 +52,7 @@ extern uint32_t dword_5d4594_2523780;
 extern uint32_t dword_5d4594_2516344;
 extern uint32_t nox_server_mapGroupsHead_2523900;
 extern uint32_t dword_5d4594_2523756;
-extern uint32_t nox_xxx_waypointsHead_2523752;
+extern nox_waypoint_t* nox_xxx_waypointsHead_2523752;
 extern uint32_t dword_5d4594_2516328;
 extern uint32_t dword_5d4594_2516348;
 extern uint32_t dword_5d4594_2650652;
@@ -1078,7 +1078,7 @@ uint32_t* nox_xxx_waypointNew_5798F0(float a1, float a2) {
 	v2[120] = v4 | 1;
 	v2[121] = nox_xxx_waypointsHead_2523752;
 	if (nox_xxx_waypointsHead_2523752) {
-		*(uint32_t*)(nox_xxx_waypointsHead_2523752 + 488) = v2;
+		*(uint32_t*)((uint32_t)nox_xxx_waypointsHead_2523752 + 488) = v2;
 	}
 	nox_xxx_waypointsHead_2523752 = v2;
 	if (nox_common_gameFlags_check_40A5C0(1)) {
@@ -1114,7 +1114,7 @@ char* nox_xxx_waypoint_5799C0() {
 			v1 = *(uint32_t*)(v0 + 484);
 			*(uint32_t*)(v0 + 484) = nox_xxx_waypointsHead_2523752;
 			if (nox_xxx_waypointsHead_2523752) {
-				*(uint32_t*)(nox_xxx_waypointsHead_2523752 + 488) = v0;
+				*(uint32_t*)((uint32_t)nox_xxx_waypointsHead_2523752 + 488) = v0;
 			}
 			nox_xxx_waypointsHead_2523752 = v0;
 			if (nox_common_gameFlags_check_40A5C0(1)) {
