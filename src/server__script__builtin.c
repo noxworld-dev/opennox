@@ -535,36 +535,6 @@ int nox_script_groupEnchant_5133B0() {
 	return 0;
 }
 
-//----- (00513570) --------------------------------------------------------
-int nox_script_getWaypointX_513570() {
-	int v0;       // eax
-	uint32_t* v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_getWaypointById_579C40(v0);
-	if (v1) {
-		nox_script_push(v1[2]);
-	} else {
-		nox_script_push(0);
-	}
-	return 0;
-}
-
-//----- (005135F0) --------------------------------------------------------
-int nox_script_getWaypointY_5135F0() {
-	int v0;       // eax
-	uint32_t* v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_getWaypointById_579C40(v0);
-	if (v1) {
-		nox_script_push(v1[3]);
-	} else {
-		nox_script_push(0);
-	}
-	return 0;
-}
-
 //----- (00513630) --------------------------------------------------------
 int nox_script_unitHeight_513630() {
 	int v0; // eax
