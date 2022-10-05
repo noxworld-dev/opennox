@@ -18,7 +18,6 @@ int nox_script_toggleObjectGroup_512810();
 int nox_script_toggleWaypointGroup_512870();
 int nox_script_deleteObjectGroup_5128D0();
 int nox_script_groupRoam_512990();
-int nox_script_sayChat_512B90();
 int nox_script_create_512F10();
 int nox_script_groupDamage_513010();
 int nox_script_Wander_513070();
@@ -151,6 +150,8 @@ void nox_xxx_comJournalEntryAdd_427500(int a1, char* a2, short a3);
 int nox_xxx_comAddEntryAll_427550(char* a1, short a2);
 int nox_script_addString_512E40(char* a1);
 void nox_xxx_audCreate_501A30(int a1, float2* a2, int a3, int a4);
+int nox_xxx_netSendChat_528AC0(nox_object_t* a1, wchar_t* a2, wchar_t a3);
+int nox_xxx_playDialogFile_44D900(int a1, int a2);
 */
 import "C"
 import (
@@ -284,7 +285,7 @@ var noxScriptBuiltins = []func() int{
 	34:  nox_script_audioEven_512AC0,
 	35:  nox_script_printToCaller_512B10,
 	36:  nox_script_printToAll_512B60,
-	37:  wrapScriptC(C.nox_script_sayChat_512B90),
+	37:  nox_script_sayChat_512B90,
 	38:  nox_script_returnOne_512C10,
 	39:  nox_script_unlockDoor_512C20,
 	40:  nox_script_lockDoor_512C60,
@@ -1399,6 +1400,22 @@ func nox_script_audioEven_512AC0() int {
 		pos := waypoint.PosC()
 		soundId := C.int(sound.ByName(soundName))
 		C.nox_xxx_audCreate_501A30(soundId, pos, 0, 0)
+	}
+	return 0
+}
+
+func nox_script_sayChat_512B90() int {
+	s := &noxServer.noxScript
+
+	messageId := s.PopString()
+	obj := s.PopObject()
+	if obj != nil {
+		var str2 *C.char
+		str := nox_strman_loadString_40F1D0(CString(messageId), &str2, CString("C:\\NoxPost\\src\\Server\\System\\CScrFunc.c"), 1342)
+		C.nox_xxx_netSendChat_528AC0(obj.CObj(), str, 0)
+		if noxflags.HasGame(noxflags.GameModeCoop) {
+			C.nox_xxx_playDialogFile_44D900(C.int(uintptr(unsafe.Pointer(str2))), 100)
+		}
 	}
 	return 0
 }
