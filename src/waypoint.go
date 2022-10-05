@@ -111,14 +111,18 @@ func (w *Waypoint) Enable(enable bool) {
 	}
 }
 
+func (w *Waypoint) PosC() *C.float2 {
+	return &w.pos
+}
+
 func (w *Waypoint) Pos() types.Pointf {
 	return types.Pointf{
-		X: float32(w.x),
-		Y: float32(w.y),
+		X: float32(w.pos.field_0),
+		Y: float32(w.pos.field_4),
 	}
 }
 
 func (w *Waypoint) SetPos(p types.Pointf) {
-	w.x = C.float(p.X)
-	w.y = C.float(p.Y)
+	w.pos.field_0 = C.float(p.X)
+	w.pos.field_4 = C.float(p.Y)
 }
