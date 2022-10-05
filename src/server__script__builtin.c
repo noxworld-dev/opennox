@@ -512,31 +512,6 @@ int nox_script_awardSpellGroup_513230() {
 	return 0;
 }
 
-//----- (005132E0) --------------------------------------------------------
-int nox_script_enchant_5132E0() {
-	int v0;    // esi
-	int v1;    // ebx
-	int v2;    // esi
-	int v3;    // edi
-	float v5;  // [esp+Ch] [ebp-54h]
-	int v6[2]; // [esp+18h] [ebp-48h]
-
-	v5 = nox_script_popf();
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	const char* v8 = nox_script_getString_512E40(v0);
-	v2 = nox_xxx_enchantByName_424880(v8);
-	if (v2 != -1) {
-		v3 = nox_server_scriptValToObjectPtr_511B60(v1);
-		if (v3) {
-			v6[0] = v2;
-			v6[1] = (long long)((double)nox_gameFPS * v5);
-			nox_xxx_enchantUnit_513390(v3, v6);
-		}
-	}
-	return 0;
-}
-
 //----- (005133B0) --------------------------------------------------------
 int nox_script_groupEnchant_5133B0() {
 	int v0;            // esi
