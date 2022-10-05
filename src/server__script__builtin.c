@@ -432,25 +432,6 @@ void nox_server_gotoHome(nox_object_t* obj) {
 	}
 }
 
-//----- (00512AC0) --------------------------------------------------------
-int nox_script_audioEven_512AC0() {
-	int v0;     // esi
-	int v1;     // edi
-	float2* v2; // eax
-	int v3;     // eax
-	float2* v5; // [esp-Ch] [ebp-14h]
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = (float2*)nox_server_getWaypointById_579C40(v0);
-	if (v2) {
-		v5 = v2 + 1;
-		v3 = nox_xxx_utilFindSound_40AF50(nox_script_getString_512E40(v1));
-		nox_xxx_audCreate_501A30(v3, v5, 0, 0);
-	}
-	return 0;
-}
-
 //----- (00512F10) --------------------------------------------------------
 int nox_script_create_512F10() {
 	int v0;       // esi
