@@ -4,7 +4,8 @@
 #include "common__net_list.h"
 
 //----- (00528AC0) --------------------------------------------------------
-int nox_xxx_netSendChat_528AC0(int a1, wchar_t* a2, wchar_t a3) {
+int nox_xxx_netSendChat_528AC0(nox_object_t* a1p, wchar_t* a2, wchar_t a3) {
+	int a1 = a1p;
 	char v3;       // al
 	short v4;      // ax
 	double v5;     // st7
