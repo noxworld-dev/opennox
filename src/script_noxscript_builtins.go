@@ -22,7 +22,6 @@ int nox_script_create_512F10();
 int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
-int nox_script_enchant_5132E0();
 int nox_script_groupEnchant_5133B0();
 int nox_script_getHost_513460();
 int nox_script_getWaypointX_513570();
@@ -304,7 +303,7 @@ var noxScriptBuiltins = []func() int{
 	54:  wrapScriptC(C.nox_script_WanderGroup_513160),
 	55:  nox_script_awardSpell_5131C0,
 	56:  wrapScriptC(C.nox_script_awardSpellGroup_513230),
-	57:  wrapScriptC(C.nox_script_enchant_5132E0),
+	57:  nox_script_enchant_5132E0,
 	58:  wrapScriptC(C.nox_script_groupEnchant_5133B0),
 	59:  wrapScriptC(C.nox_script_getHost_513460),
 	60:  nox_script_objectGet_513490,
@@ -1451,6 +1450,22 @@ func nox_script_awardSpell_5131C0() int {
 		}
 	} else {
 		s.PushI32(0)
+	}
+	return 0
+}
+
+func nox_script_enchant_5132E0() int {
+	s := &noxServer.noxScript
+
+	v5 := s.PopF32()
+	v8 := s.PopString()
+	v3 := s.PopObject()
+	id, ok := enchantByName[v8]
+	if ok {
+		if v3 != nil {
+			dur := int(float32(gameFPS()) * v5)
+			v3.ApplyEnchant(id, dur, 5)
+		}
 	}
 	return 0
 }
