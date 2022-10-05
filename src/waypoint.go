@@ -1,7 +1,8 @@
 package opennox
 
 /*
-extern unsigned int nox_xxx_waypointsHead_2523752;
+#include "defs.h"
+extern nox_waypoint_t* nox_xxx_waypointsHead_2523752;
 */
 import "C"
 import (
@@ -17,7 +18,7 @@ func asWaypoint(p unsafe.Pointer) *Waypoint {
 }
 
 func (s *Server) firstWaypoint() *Waypoint {
-	return asWaypoint(unsafe.Pointer(uintptr(C.nox_xxx_waypointsHead_2523752)))
+	return (*Waypoint)(C.nox_xxx_waypointsHead_2523752)
 }
 
 func (s *Server) getWaypointByID(id string) *Waypoint {
@@ -63,7 +64,8 @@ func (s *Server) getWaypoints() []*Waypoint {
 	return out
 }
 
-type Waypoint [0]byte
+type nox_waypoint_t = C.nox_waypoint_t
+type Waypoint nox_waypoint_t
 
 func (w *Waypoint) C() unsafe.Pointer {
 	return unsafe.Pointer(w)
@@ -74,16 +76,15 @@ func (w *Waypoint) field(dp uintptr) unsafe.Pointer {
 }
 
 func (w *Waypoint) Next() *Waypoint {
-	p := *(*unsafe.Pointer)(w.field(484))
-	return asWaypoint(p)
+	return (*Waypoint)(w.next)
 }
 
 func (w *Waypoint) Ind() int {
-	return int(*(*int32)(w.field(0)))
+	return int(w.ind)
 }
 
 func (w *Waypoint) ID() string {
-	return GoString((*C.char)(w.field(16)))
+	return GoString(&w.name[0])
 }
 
 func (w *Waypoint) equalID(id2 string) bool {
@@ -99,25 +100,25 @@ func (w *Waypoint) String() string {
 }
 
 func (w *Waypoint) IsEnabled() bool {
-	return w != nil && *(*byte)(w.field(480))&0x1 != 0
+	return w != nil && w.flags&0x1 != 0
 }
 
 func (w *Waypoint) Enable(enable bool) {
 	if enable {
-		*(*byte)(w.field(480)) |= 0x1
+		w.flags |= 0x1
 	} else {
-		*(*byte)(w.field(480)) &^= 0x1
+		w.flags &^= 0x1
 	}
 }
 
 func (w *Waypoint) Pos() types.Pointf {
 	return types.Pointf{
-		X: float32(*(*C.float)(w.field(8))),
-		Y: float32(*(*C.float)(w.field(12))),
+		X: float32(w.x),
+		Y: float32(w.y),
 	}
 }
 
 func (w *Waypoint) SetPos(p types.Pointf) {
-	*(*C.float)(w.field(8)) = C.float(p.X)
-	*(*C.float)(w.field(12)) = C.float(p.Y)
+	w.x = C.float(p.X)
+	w.y = C.float(p.Y)
 }
