@@ -18,7 +18,6 @@ int nox_script_toggleObjectGroup_512810();
 int nox_script_toggleWaypointGroup_512870();
 int nox_script_deleteObjectGroup_5128D0();
 int nox_script_groupRoam_512990();
-int nox_script_audioEven_512AC0();
 int nox_script_sayChat_512B90();
 int nox_script_create_512F10();
 int nox_script_groupDamage_513010();
@@ -151,6 +150,7 @@ int* nox_server_scriptMoveTo_5123C0(int a1, int a2);
 void nox_xxx_comJournalEntryAdd_427500(int a1, char* a2, short a3);
 int nox_xxx_comAddEntryAll_427550(char* a1, short a2);
 int nox_script_addString_512E40(char* a1);
+void nox_xxx_audCreate_501A30(int a1, float2* a2, int a3, int a4);
 */
 import "C"
 import (
@@ -281,7 +281,7 @@ var noxScriptBuiltins = []func() int{
 	31:  nox_script_getObject2_5129C0,
 	32:  nox_script_getObject3_5129E0,
 	33:  nox_script_gotoHome_512A00,
-	34:  wrapScriptC(C.nox_script_audioEven_512AC0),
+	34:  nox_script_audioEven_512AC0,
 	35:  nox_script_printToCaller_512B10,
 	36:  nox_script_printToAll_512B60,
 	37:  wrapScriptC(C.nox_script_sayChat_512B90),
@@ -1386,6 +1386,19 @@ func nox_script_gotoHome_512A00() int {
 	obj := s.PopObject()
 	if obj != nil {
 		obj.AsUnit().Return()
+	}
+	return 0
+}
+
+func nox_script_audioEven_512AC0() int {
+	s := &noxServer.noxScript
+
+	waypoint := asWaypoint(unsafe.Pointer(C.nox_server_getWaypointById_579C40(C.int(s.PopI32()))))
+	soundName := s.PopString()
+	if waypoint != nil {
+		pos := waypoint.PosC()
+		soundId := C.int(sound.ByName(soundName))
+		C.nox_xxx_audCreate_501A30(soundId, pos, 0, 0)
 	}
 	return 0
 }
