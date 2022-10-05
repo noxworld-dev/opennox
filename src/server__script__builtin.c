@@ -21,17 +21,17 @@
 #include "common__magic__speltree.h"
 #include "common__random.h"
 #include "common__strman.h"
+#include "common__system__team.h"
 #include "operators.h"
 #include "server__gamemech__explevel.h"
 #include "server__magic__plyrspel.h"
+#include "server__script__activator.h"
 #include "server__script__builtin.h"
 #include "server__script__internal.h"
 #include "server__script__script.h"
-#include "server__script__activator.h"
-#include "common__system__team.h"
 
 // TODO: move somewhere else
-int nox_xxx_netSendChat_528AC0(int a1, wchar_t* a2, wchar_t a3);
+int nox_xxx_netSendChat_528AC0(nox_object_t* a1, wchar_t* a2, wchar_t a3);
 
 extern unsigned int dword_5d4594_2386836;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
@@ -2730,30 +2730,6 @@ int nox_script_ChatTimerFrames_514B10() {
 			if (nox_common_gameFlags_check_40A5C0(2048)) {
 				nox_xxx_playDialogFile_44D900(v7, 100);
 			}
-		}
-	}
-	return 0;
-}
-
-//----- (00512B90) --------------------------------------------------------
-int nox_script_sayChat_512B90() {
-	int v0;      // edi
-	int v1;      // eax
-	int v2;      // esi
-	char* v3;    // ecx
-	wchar_t* v4; // eax
-	int v6;      // [esp+8h] [ebp-4h]
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
-	if (v2) {
-		v3 = nox_script_getString_512E40(v0);
-		v6 = 0;
-		v4 = nox_strman_loadString_40F1D0(v3, &v6, "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 1342);
-		nox_xxx_netSendChat_528AC0(v2, v4, 0);
-		if (nox_common_gameFlags_check_40A5C0(2048)) {
-			nox_xxx_playDialogFile_44D900(v6, 100);
 		}
 	}
 	return 0;
