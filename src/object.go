@@ -1006,7 +1006,14 @@ func (obj *Object) Force() types.Pointf {
 	}
 }
 
-func (obj *Object) Dir() uint16 {
+func (obj *Object) Dir1() uint16 {
+	if obj == nil {
+		return 0
+	}
+	return uint16(obj.direction1)
+}
+
+func (obj *Object) Dir2() uint16 {
 	if obj == nil {
 		return 0
 	}
