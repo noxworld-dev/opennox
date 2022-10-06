@@ -535,25 +535,6 @@ int nox_script_groupEnchant_5133B0() {
 	return 0;
 }
 
-//----- (005136A0) --------------------------------------------------------
-int nox_script_moveObject_5136A0() {
-	int v0;    // eax
-	int v1;    // eax
-	float2 v3; // [esp+0h] [ebp-Ch]
-	float v4;  // [esp+8h] [ebp-4h]
-
-	v4 = nox_script_popf();
-	LODWORD(v3.field_0) = nox_script_pop();
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		v3.field_0 = (double)nox_script_builtinGetF40() + v3.field_0;
-		v3.field_4 = (double)nox_script_builtinGetF44() + v4;
-		nox_xxx_unitMove_4E7010(v1, &v3);
-	}
-	return 0;
-}
-
 //----- (00513700) --------------------------------------------------------
 int nox_script_moveWaypoint_513700() {
 	int v0;    // eax
