@@ -23,7 +23,6 @@ int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
 int nox_script_groupEnchant_5133B0();
-int nox_script_moveObject_5136A0();
 int nox_script_moveWaypoint_513700();
 int nox_script_raise_513750();
 int nox_script_faceAngle_513780();
@@ -308,7 +307,7 @@ var noxScriptBuiltins = []func() int{
 	64:  nox_script_getWaypointY_5135F0,
 	65:  nox_script_unitHeight_513630,
 	66:  nox_script_getUnitLook_513670,
-	67:  wrapScriptC(C.nox_script_moveObject_5136A0),
+	67:  nox_script_moveObject_5136A0,
 	68:  wrapScriptC(C.nox_script_moveWaypoint_513700),
 	69:  wrapScriptC(C.nox_script_raise_513750),
 	70:  wrapScriptC(C.nox_script_faceAngle_513780),
@@ -1521,6 +1520,22 @@ func nox_script_unitHeight_513630() int {
 		s.PushU32(*(*uint32)(v1.field(104))) // FIXME: Need raw value, but v1.Z() converts field value into float32
 	} else {
 		s.PushI32(0)
+	}
+	return 0
+}
+
+func nox_script_moveObject_5136A0() int {
+	s := &noxServer.noxScript
+
+	var v3 C.float2
+
+	y := s.PopF32()
+	x := s.PopF32()
+	obj := s.PopObject()
+	if obj != nil {
+		v3.field_0 = C.float(float32(s.builtinGetF40()) + x)
+		v3.field_4 = C.float(float32(s.builtinGetF44()) + y)
+		obj.AsUnit().move(&v3)
 	}
 	return 0
 }
