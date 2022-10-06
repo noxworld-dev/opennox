@@ -23,7 +23,6 @@ int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
 int nox_script_groupEnchant_5133B0();
-int nox_script_unitHeight_513630();
 int nox_script_moveObject_5136A0();
 int nox_script_moveWaypoint_513700();
 int nox_script_raise_513750();
@@ -307,7 +306,7 @@ var noxScriptBuiltins = []func() int{
 	62:  nox_script_getWaypointX_513570,
 	63:  nox_script_getObjectY_5135B0,
 	64:  nox_script_getWaypointY_5135F0,
-	65:  wrapScriptC(C.nox_script_unitHeight_513630),
+	65:  nox_script_unitHeight_513630,
 	66:  nox_script_getUnitLook_513670,
 	67:  wrapScriptC(C.nox_script_moveObject_5136A0),
 	68:  wrapScriptC(C.nox_script_moveWaypoint_513700),
@@ -1508,6 +1507,18 @@ func nox_script_getUnitLook_513670() int {
 	v1 := s.PopObject()
 	if v1 != nil {
 		s.PushI32(int32(v1.Dir1()))
+	} else {
+		s.PushI32(0)
+	}
+	return 0
+}
+
+func nox_script_unitHeight_513630() int {
+	s := &noxServer.noxScript
+
+	v1 := s.PopObject()
+	if v1 != nil {
+		s.PushU32(*(*uint32)(v1.field(104))) // FIXME: Need raw value, but v1.Z() converts field value into float32
 	} else {
 		s.PushI32(0)
 	}
