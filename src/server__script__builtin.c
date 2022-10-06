@@ -535,21 +535,6 @@ int nox_script_groupEnchant_5133B0() {
 	return 0;
 }
 
-//----- (00513630) --------------------------------------------------------
-int nox_script_unitHeight_513630() {
-	int v0; // eax
-	int v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		nox_script_push(*(uint32_t*)(v1 + 104));
-	} else {
-		nox_script_push(0);
-	}
-	return 0;
-}
-
 //----- (005136A0) --------------------------------------------------------
 int nox_script_moveObject_5136A0() {
 	int v0;    // eax
