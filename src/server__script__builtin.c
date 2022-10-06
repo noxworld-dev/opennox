@@ -535,24 +535,6 @@ int nox_script_groupEnchant_5133B0() {
 	return 0;
 }
 
-//----- (00513700) --------------------------------------------------------
-int nox_script_moveWaypoint_513700() {
-	int v0;    // eax
-	float* v1; // eax
-	float v3;  // [esp+0h] [ebp-8h]
-	float v4;  // [esp+4h] [ebp-4h]
-
-	v4 = nox_script_popf();
-	v3 = nox_script_popf();
-	v0 = nox_script_pop();
-	v1 = (float*)nox_server_getWaypointById_579C40(v0);
-	if (v1) {
-		v1[2] = (double)nox_script_builtinGetF40() + v3;
-		v1[3] = (double)nox_script_builtinGetF44() + v4;
-	}
-	return 0;
-}
-
 //----- (00513750) --------------------------------------------------------
 int nox_script_raise_513750() {
 	int v0; // esi
