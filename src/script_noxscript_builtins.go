@@ -146,6 +146,7 @@ int nox_xxx_spellGrantToPlayer_4FB550(nox_object_t* a1, int a2, int a3, int a4, 
 */
 import "C"
 import (
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"image"
 	"strconv"
 	"strings"
@@ -1401,11 +1402,10 @@ func nox_script_sayChat_512B90() int {
 	messageId := s.PopString()
 	obj := s.PopObject()
 	if obj != nil {
-		var str2 *C.char
-		str := nox_strman_loadString_40F1D0(CString(messageId), &str2, CString("C:\\NoxPost\\src\\Server\\System\\CScrFunc.c"), 1342)
-		C.nox_xxx_netSendChat_528AC0(obj.CObj(), str, 0)
+		v, _ := s.s.Strings().GetVariantInFile(strman.ID(messageId), "CScrFunc.c")
+		C.nox_xxx_netSendChat_528AC0(obj.CObj(), internWStr(v.Str), 0)
 		if noxflags.HasGame(noxflags.GameModeCoop) {
-			C.nox_xxx_playDialogFile_44D900(C.int(uintptr(unsafe.Pointer(str2))), 100)
+			C.nox_xxx_playDialogFile_44D900(C.int(uintptr(unsafe.Pointer(internCStr(v.Str2)))), 100)
 		}
 	}
 	return 0
@@ -1418,7 +1418,11 @@ func nox_script_Wander_513070() int {
 	v0 := s.PopI32()
 	obj := s.PopObject()
 	if obj != nil {
-		v5 := [3]C.int{C.int(int64(v4)), C.int(v0), 0}
+		v5, free5 := alloc.Make([]C.int{}, 3)
+		defer free5()
+		v5[0] = C.int(int64(v4))
+		v5[1] = C.int(v0)
+		v5[2] = 0
 		C.sub_5130E0(C.int(uintptr(unsafe.Pointer(obj.CObj()))), (*C.uint32_t)(unsafe.Pointer(&v5[0])))
 		s.PushI32(int32(v5[2]))
 	} else {
@@ -1466,7 +1470,8 @@ func nox_script_enchant_5132E0() int {
 func nox_script_getHost_513460() int {
 	s := &noxServer.noxScript
 
-	v0 := asPlayer(nox_common_playerInfoFromNum_417090(31)).AsObject()
+	// Note: original C code got the player from `noxServer.getPlayerByInd(noxMaxPlayers - 1)`
+	v0 := HostPlayerUnit()
 	if v0 != nil {
 		s.PushI32(int32(v0.ScriptID()))
 	} else {
@@ -1516,7 +1521,7 @@ func nox_script_unitHeight_513630() int {
 
 	v1 := s.PopObject()
 	if v1 != nil {
-		s.PushU32(*(*uint32)(v1.field(104))) // FIXME: Need raw value, but v1.Z() converts field value into float32
+		s.PushU32(v1.RawZ())
 	} else {
 		s.PushI32(0)
 	}
@@ -1526,15 +1531,12 @@ func nox_script_unitHeight_513630() int {
 func nox_script_moveObject_5136A0() int {
 	s := &noxServer.noxScript
 
-	var v3 C.float2
-
-	y := s.PopF32()
-	x := s.PopF32()
+	dy := s.PopF32()
+	dx := s.PopF32()
 	obj := s.PopObject()
 	if obj != nil {
-		v3.field_0 = C.float(float32(s.builtinGetF40()) + x)
-		v3.field_4 = C.float(float32(s.builtinGetF44()) + y)
-		obj.AsUnit().move(&v3)
+		pos := types.Pointf{X: float32(s.builtinGetF40()) + dx, Y: float32(s.builtinGetF44()) + dy}
+		obj.SetPos(pos)
 	}
 	return 0
 }
