@@ -1079,6 +1079,10 @@ func (obj *Object) setForce(p types.Pointf) {
 	obj.force_y = C.float(p.Y)
 }
 
+func (obj *Object) RawZ() uint32 {
+	return uint32(obj.field_26)
+}
+
 func (obj *Object) Z() float32 {
 	return float32(*(*C.int)(obj.field(104)))
 }
