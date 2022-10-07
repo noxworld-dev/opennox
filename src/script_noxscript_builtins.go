@@ -619,6 +619,72 @@ func nox_script_Fn5D_513F60() int {
 	return 0
 }
 
+// TODO: migrate all usage of `nox_server_scriptExecuteFnForEachGroupObj_502670` to use these funcs below.
+func scriptExecuteFnForObjectGroup(group *mapGroup, fn func(*Object)) {
+	if group == nil {
+		return
+	}
+	groupType := group.GroupType()
+	switch groupType {
+	case 0:
+		for item := group.FirstItem(); item != nil; item = item.Next() {
+			ind := item.Ind()
+			obj := noxServer.getObjectByInd(ind)
+			if obj != nil {
+				fn(obj)
+			}
+		}
+	case 3:
+		for item := group.FirstItem(); item != nil; item = item.Next() {
+			childMapGroup := getMapGroupByInd(item.Ind())
+			scriptExecuteFnForObjectGroup(childMapGroup, fn)
+		}
+	}
+}
+
+func scriptExecuteFnForWaypointGroup(group *mapGroup, fn func(*Waypoint)) {
+	if group == nil {
+		return
+	}
+	groupType := group.GroupType()
+	switch groupType {
+	case 1:
+		for item := group.FirstItem(); item != nil; item = item.Next() {
+			ind := item.Ind()
+			wp := noxServer.getWaypointByInd(ind)
+			if wp != nil {
+				fn(wp)
+			}
+		}
+	case 3:
+		for item := group.FirstItem(); item != nil; item = item.Next() {
+			childMapGroup := getMapGroupByInd(item.Ind())
+			scriptExecuteFnForWaypointGroup(childMapGroup, fn)
+		}
+	}
+}
+
+func scriptExecuteFnForWallGroup(group *mapGroup, fn func(*Wall)) {
+	if group == nil {
+		return
+	}
+	groupType := group.GroupType()
+	switch groupType {
+	case 2:
+		for item := group.FirstItem(); item != nil; item = item.Next() {
+			wall := noxServer.getWallAtGrid(image.Pt(item.Ind(), item.Ind2()))
+			if wall != nil {
+				fn(wall)
+			}
+		}
+	case 3:
+		for item := group.FirstItem(); item != nil; item = item.Next() {
+			childMapGroup := getMapGroupByInd(item.Ind())
+			scriptExecuteFnForWallGroup(childMapGroup, fn)
+		}
+	}
+}
+
 func nox_script_CancelTimer_5141F0() int {
 	s := &noxServer.noxScript
 	act := s.PopU32()
