@@ -2718,23 +2718,6 @@ int nox_server_getNextMapGroup_57C090(int a1) {
 	return result;
 }
 
-//----- (0057C0A0) --------------------------------------------------------
-int nox_server_scriptGetGroup_57C0A0(int a1) {
-	int result; // eax
-
-	result = nox_server_mapGroupsHead_2523900;
-	if (!nox_server_mapGroupsHead_2523900) {
-		return 0;
-	}
-	while (*(uint32_t*)(result + 4) != a1) {
-		result = *(uint32_t*)(result + 88);
-		if (!result) {
-			return 0;
-		}
-	}
-	return result;
-}
-
 //----- (0057C0C0) --------------------------------------------------------
 int nox_server_mapLoadAddGroup_57C0C0(char* a1, int a2, char a3) {
 	int result; // eax
