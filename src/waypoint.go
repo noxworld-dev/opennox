@@ -45,7 +45,7 @@ func (s *Server) getWaypointByInd(ind int) *Waypoint {
 
 //export nox_server_getWaypointById_579C40
 func nox_server_getWaypointById_579C40(a1 C.int) *C.uint32_t {
-	return (*C.uint32_t)(unsafe.Pointer(noxServer.getWaypointByInd(int(a1))))
+	return (*C.uint32_t)(noxServer.getWaypointByInd(int(a1)).C())
 }
 
 func (s *Server) getWaypointGroupByID(id string) *script.WaypointGroup {
