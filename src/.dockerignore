@@ -14,3 +14,9 @@ logs/
 *.png
 *.exe
 *.so
+*.yml
+*.yaml
+*.html
+*.csv
+/noxtools
+/opennox*

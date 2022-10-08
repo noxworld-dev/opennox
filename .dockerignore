@@ -1,3 +1,8 @@
 /src/build/
 /src/includes/
 /src/CMakeLists.txt.user
+/build/
+/gonox/
+/gonoxh/
+/testdata/
+*.log
