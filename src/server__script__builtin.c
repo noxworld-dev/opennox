@@ -129,17 +129,6 @@ int nox_script_getWall_511EB0() {
 	return 0;
 }
 
-//----- (00512010) --------------------------------------------------------
-int nox_script_openWallGroup_512010() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, nox_xxx_wallOpen_511F80, 0);
-	return 0;
-}
-
 //----- (00512100) --------------------------------------------------------
 int nox_script_closeWallGroup_512100() {
 	int v0;            // eax
@@ -297,17 +286,6 @@ int nox_script_objGroupOn_512690() {
 	return 0;
 }
 
-//----- (005126F0) --------------------------------------------------------
-int nox_script_waypointGroupOn_5126F0() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 1, sub_512720, 0);
-	return 0;
-}
-
 //----- (00512750) --------------------------------------------------------
 int nox_script_objGroupOff_512750() {
 	int v0;            // eax
@@ -327,17 +305,6 @@ int nox_script_waypointGroupOff_5127B0() {
 	v0 = nox_script_pop();
 	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
 	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 1, sub_5127E0, 0);
-	return 0;
-}
-
-//----- (00512810) --------------------------------------------------------
-int nox_script_toggleObjectGroup_512810() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_512840, 0);
 	return 0;
 }
 
