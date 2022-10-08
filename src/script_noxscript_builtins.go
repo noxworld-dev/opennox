@@ -3,18 +3,15 @@ package opennox
 /*
 #include "defs.h"
 int nox_script_getWall_511EB0();
-int nox_script_openWallGroup_512010();
 int nox_script_closeWallGroup_512100();
 int nox_script_toggleWallGroup_512260();
 int nox_script_wallGroupBreak_5122F0();
 int nox_script_groupGoTo_512500();
 int nox_script_groupLookAtDirection_512610();
 int nox_script_objGroupOn_512690();
-int nox_script_waypointGroupOn_5126F0();
 int nox_script_objGroupOff_512750();
 int nox_script_waypointGroupOff_5127B0();
 int nox_script_toggleObject_5127F0();
-int nox_script_toggleObjectGroup_512810();
 int nox_script_toggleWaypointGroup_512870();
 int nox_script_deleteObjectGroup_5128D0();
 int nox_script_groupRoam_512990();
@@ -242,7 +239,7 @@ func (s *noxScript) builtinNeedsField36(fi int) bool {
 var noxScriptBuiltins = []func() int{
 	0:   noxScriptCompare("nox_script_getWall_511EB0", wrapScriptC(C.nox_script_getWall_511EB0), nox_script_getWall_511EB0),
 	1:   nox_script_openSecretWall_511F50,
-	2:   wrapScriptC(C.nox_script_openWallGroup_512010),
+	2:   nox_script_openWallGroup_512010,
 	3:   nox_script_closeWall_512040,
 	4:   wrapScriptC(C.nox_script_closeWallGroup_512100),
 	5:   nox_script_toggleWall_512130,
@@ -258,13 +255,13 @@ var noxScriptBuiltins = []func() int{
 	15:  nox_script_objectOn_512670,
 	16:  wrapScriptC(C.nox_script_objGroupOn_512690),
 	17:  nox_script_waypointOn_5126D0,
-	18:  wrapScriptC(C.nox_script_waypointGroupOn_5126F0),
+	18:  nox_script_waypointGroupOn_5126F0,
 	19:  nox_script_objectOff_512730,
 	20:  wrapScriptC(C.nox_script_objGroupOff_512750),
 	21:  nox_script_waypointOff_512790,
 	22:  wrapScriptC(C.nox_script_waypointGroupOff_5127B0),
 	23:  nox_script_toggleObject_5127F0,
-	24:  wrapScriptC(C.nox_script_toggleObjectGroup_512810),
+	24:  nox_script_toggleObjectGroup_512810,
 	25:  nox_script_toggleWaypoint_512850,
 	26:  wrapScriptC(C.nox_script_toggleWaypointGroup_512870),
 	27:  nox_script_deleteObject_5128B0,
@@ -1617,5 +1614,39 @@ func nox_script_moveWaypoint_513700() int {
 		pos := types.Pointf{X: float32(s.builtinGetF40()) + dx, Y: float32(s.builtinGetF44()) + dy}
 		waypoint.SetPos(pos)
 	}
+	return 0
+}
+
+func nox_script_openWallGroup_512010() int {
+	s := &noxServer.noxScript
+
+	v0 := s.PopI32()
+	mapGroup := getMapGroupByInd(int(v0))
+
+	scriptExecuteFnForWallGroup(mapGroup, func(wall *Wall) {
+		wall.Enable(false)
+	})
+	return 0
+}
+
+func nox_script_waypointGroupOn_5126F0() int {
+	s := &noxServer.noxScript
+
+	v0 := s.PopI32()
+	mapGroup := getMapGroupByInd(int(v0))
+	scriptExecuteFnForWaypointGroup(mapGroup, func(wp *Waypoint) {
+		wp.Enable(true)
+	})
+	return 0
+}
+
+func nox_script_toggleObjectGroup_512810() int {
+	s := &noxServer.noxScript
+
+	v0 := s.PopI32()
+	mapGroup := getMapGroupByInd(int(v0))
+	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
+		obj.Toggle()
+	})
 	return 0
 }

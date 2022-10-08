@@ -5097,15 +5097,6 @@ float* nox_xxx_monsterLookAt_5125A0(nox_object_t* obj, int a2) {
 //----- (005126C0) --------------------------------------------------------
 char sub_5126C0(int a1) { return nox_xxx_objectSetOn_4E75B0(a1); }
 
-//----- (00512720) --------------------------------------------------------
-int sub_512720(int a1) {
-	int result; // eax
-
-	result = a1;
-	*(uint32_t*)(a1 + 480) |= 1u;
-	return result;
-}
-
 //----- (00512780) --------------------------------------------------------
 int sub_512780(int a1) { return nox_xxx_objectSetOff_4E7600(a1); }
 
@@ -5117,9 +5108,6 @@ int sub_5127E0(int a1) {
 	*(uint32_t*)(a1 + 480) &= 0xFFFFFFFE;
 	return result;
 }
-
-//----- (00512840) --------------------------------------------------------
-char sub_512840(int a1) { return nox_xxx_objectToggle_4E7650(a1); }
 
 //----- (005128A0) --------------------------------------------------------
 int sub_5128A0(int a1) {
