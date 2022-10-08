@@ -37,7 +37,12 @@ func Version() (string, string) {
 	if sha == "" {
 		return defVersion, ""
 	}
-	vers, _ := do("git", "name-rev", "--tags", "--name-only", sha)
+	var vers string
+	if v := os.Getenv("GIT_TAG"); v != "" {
+		vers = v
+	} else {
+		vers, _ = do("git", "name-rev", "--tags", "--name-only", sha)
+	}
 	if vers == "" || vers == "undefined" {
 		return defVersion, sha
 	}
@@ -45,11 +50,17 @@ func Version() (string, string) {
 }
 
 func SHA() string {
+	if v := os.Getenv("GIT_SHA"); v != "" {
+		return v
+	}
 	v, _ := do("git", "rev-parse", "HEAD")
 	return v
 }
 
 func ShortSHA() string {
+	if v := os.Getenv("GIT_SHA"); v != "" {
+		return v
+	}
 	v, _ := do("git", "rev-parse", "--short", "HEAD")
 	return v
 }

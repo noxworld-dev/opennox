@@ -2,6 +2,7 @@ name: Build and release
 on:
   push:
     branches:
+      - main
       - master
       - dev
       - ci_tests
@@ -10,6 +11,7 @@ on:
       - '*'
   pull_request:
     branches:
+      - main
       - master
       - dev
 
@@ -119,9 +121,8 @@ jobs:
 
   docker_server:
     name: Docker server build
-    runs-on: 'ubuntu-20.04'
+    runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/') || (github.ref == 'refs/heads/dev') || (github.ref == 'refs/heads/ci_tests')
-    needs: [linux_docker]
     strategy:
       fail-fast: true
 
@@ -131,27 +132,9 @@ jobs:
           fetch-depth: 0
           submodules: true
 
-      - name: Cleanup
-        run: |
-          rm -rf /tmp/linux-tmp
-          mkdir -p /tmp/linux-tmp
-
-      - uses: actions/download-artifact@v2
-        with:
-          name: opennox-linux
-          path: /tmp/linux-tmp
-
-      - name: Extract server binary
-        run: |
-          ls -lh /tmp/linux-tmp
-          cp /tmp/linux-tmp/opennox-server ./docker/opennox-server/opennox-server
-          rm -rf /tmp/linux-tmp
-
       - name: Docker build
         run: |
-          cd ./docker/opennox-server
-          chmod +x opennox-server
-          docker build -t $DOCKER_IMAGE_NAME:tmp .
+          make build-server-docker
 
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
@@ -164,20 +147,19 @@ jobs:
       - name: Push latest
         if: github.ref == 'refs/heads/dev'
         run: |
-          docker tag $DOCKER_IMAGE_NAME:tmp $DOCKER_IMAGE_NAME:dev
           docker push $DOCKER_IMAGE_NAME:dev
 
       - name: Push tagged
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           export VERSION=$(git name-rev --tags --name-only $(git rev-parse HEAD))
-          docker tag $DOCKER_IMAGE_NAME:tmp $DOCKER_IMAGE_NAME:$VERSION
+          docker tag $DOCKER_IMAGE_NAME:dev $DOCKER_IMAGE_NAME:$VERSION
           docker push $DOCKER_IMAGE_NAME:$VERSION
 
       - name: Push latest
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          docker tag $DOCKER_IMAGE_NAME:tmp $DOCKER_IMAGE_NAME:latest
+          docker tag $DOCKER_IMAGE_NAME:dev $DOCKER_IMAGE_NAME:latest
           docker push $DOCKER_IMAGE_NAME:latest
 
   release_repackage_linux:
