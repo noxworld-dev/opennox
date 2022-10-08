@@ -25,7 +25,7 @@ sudo apt install gcc
 ```bash
 sudo dpkg --add-architecture i386
 sudo apt update
-sudo apt install libsdl2-dev:i386 libopenal-dev:i386
+sudo apt install libsdl2-dev libsdl2-dev:i386 libopenal-dev libopenal-dev:i386
 ```
 
 ## Building

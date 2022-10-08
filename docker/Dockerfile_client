@@ -1,0 +1,25 @@
+FROM golang:1.18
+
+ARG UID=1000
+ARG GID=1000
+ARG GIT_SHA=""
+ARG GIT_TAG=""
+
+RUN dpkg --add-architecture i386 && \
+    apt-get update && \
+    apt-get install -y \
+                        gcc gcc-multilib \
+                        libsdl2-dev libsdl2-dev:i386 libopenal-dev libopenal-dev:i386
+
+RUN groupadd --gid $GID runner && \
+    useradd --home-dir /home/runner --no-create-home --gid runner --uid $UID --shell /bin/sh runner
+
+WORKDIR /home/runner/opennox
+
+ADD ./go.* ./
+
+RUN go mod download
+
+ADD . .
+
+RUN go run ./internal/noxbuild client client-hd && ./opennox -h && ./opennox-hd -h
