@@ -15,7 +15,6 @@ int nox_script_toggleObject_5127F0();
 int nox_script_toggleWaypointGroup_512870();
 int nox_script_deleteObjectGroup_5128D0();
 int nox_script_groupRoam_512990();
-int nox_script_create_512F10();
 int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
@@ -287,7 +286,7 @@ var noxScriptBuiltins = []func() int{
 	47:  nox_script_specialTimer_512E10,
 	48:  nox_script_intToString_512EA0,
 	49:  nox_script_floatToString_512ED0,
-	50:  wrapScriptC(C.nox_script_create_512F10),
+	50:  nox_script_create_512F10,
 	51:  nox_script_damage_512F80,
 	52:  wrapScriptC(C.nox_script_groupDamage_513010),
 	53:  nox_script_Wander_513070,
@@ -1648,5 +1647,27 @@ func nox_script_toggleObjectGroup_512810() int {
 	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
 		obj.Toggle()
 	})
+	return 0
+}
+
+func nox_script_create_512F10() int {
+	s := &noxServer.noxScript
+
+	waypointInd := s.PopI32()
+	wp := noxServer.getWaypointByInd(int(waypointInd))
+	objectTypeId := s.PopString()
+
+	if wp != nil {
+		obj := noxServer.newObjectByTypeID(objectTypeId)
+		if obj == nil {
+			s.PushI32(0)
+			return 0
+		}
+		noxServer.createObjectAt(obj, nil, wp.Pos())
+		s.PushI32(int32(obj.ScriptID()))
+	} else {
+		scriptLog.Printf("noxscript: cannot find waypoint from idx: %v", waypointInd)
+		s.PushI32(0)
+	}
 	return 0
 }
