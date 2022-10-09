@@ -478,21 +478,6 @@ int nox_script_groupEnchant_5133B0() {
 	return 0;
 }
 
-//----- (00513750) --------------------------------------------------------
-int nox_script_raise_513750() {
-	int v0; // esi
-	int v1; // eax
-	int v2; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
-	if (v2) {
-		nox_xxx_unitRaise_4E46F0(v2, *(float*)&v0);
-	}
-	return 0;
-}
-
 //----- (00513780) --------------------------------------------------------
 int nox_script_faceAngle_513780() {
 	int v0;          // esi
