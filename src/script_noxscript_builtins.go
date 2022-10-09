@@ -19,7 +19,6 @@ int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
 int nox_script_groupEnchant_5133B0();
-int nox_script_raise_513750();
 int nox_script_faceAngle_513780();
 int nox_script_pushObject_5137D0();
 int nox_script_pushObjectTo_513820();
@@ -305,7 +304,7 @@ var noxScriptBuiltins = []func() int{
 	66:  nox_script_getUnitLook_513670,
 	67:  nox_script_moveObject_5136A0,
 	68:  nox_script_moveWaypoint_513700,
-	69:  wrapScriptC(C.nox_script_raise_513750),
+	69:  nox_script_raise_513750,
 	70:  wrapScriptC(C.nox_script_faceAngle_513780),
 	71:  wrapScriptC(C.nox_script_pushObject_5137D0),
 	72:  wrapScriptC(C.nox_script_pushObjectTo_513820),
@@ -1668,6 +1667,17 @@ func nox_script_create_512F10() int {
 	} else {
 		scriptLog.Printf("noxscript: cannot find waypoint from idx: %v", waypointInd)
 		s.PushI32(0)
+	}
+	return 0
+}
+
+func nox_script_raise_513750() int {
+	s := &noxServer.noxScript
+
+	zValue := s.PopF32()
+	obj := s.PopObject()
+	if obj != nil {
+		obj.SetZ(zValue)
 	}
 	return 0
 }
