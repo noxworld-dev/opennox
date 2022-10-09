@@ -478,30 +478,6 @@ int nox_script_groupEnchant_5133B0() {
 	return 0;
 }
 
-//----- (00513780) --------------------------------------------------------
-int nox_script_faceAngle_513780() {
-	int v0;          // esi
-	int v1;          // eax
-	int v2;          // eax
-	unsigned int v3; // ecx
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
-	if (v2) {
-		v3 = v0;
-		if (v0 < 0) {
-			v3 = v0 + ((unsigned int)(255 - v0) >> 8 << 8);
-		}
-		if ((int)v3 >= 256) {
-			LOWORD(v3) = -256 * (v3 >> 8) + v3;
-		}
-		*(uint16_t*)(v2 + 126) = v3;
-		*(uint16_t*)(v2 + 124) = v3;
-	}
-	return 0;
-}
-
 //----- (005137D0) --------------------------------------------------------
 int nox_script_pushObject_5137D0() {
 	int v0;   // eax
