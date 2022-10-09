@@ -399,30 +399,6 @@ void nox_server_gotoHome(nox_object_t* obj) {
 	}
 }
 
-//----- (00512F10) --------------------------------------------------------
-int nox_script_create_512F10() {
-	int v0;       // esi
-	int v1;       // edi
-	float* v2;    // esi
-	uint32_t* v3; // eax
-	uint32_t* v4; // edi
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = (float*)nox_server_getWaypointById_579C40(v0);
-	if (v2) {
-		v3 = nox_xxx_newObjectByTypeID_4E3810(nox_script_getString_512E40(v1));
-		v4 = v3;
-		if (!v3) {
-			nox_script_push(0);
-			return 0;
-		}
-		nox_xxx_createAt_4DAA50((int)v3, 0, v2[2], v2[3]);
-		nox_script_push(v4[11]);
-	}
-	return 0;
-}
-
 //----- (00513010) --------------------------------------------------------
 int nox_script_groupDamage_513010() {
 	int v0;            // esi
