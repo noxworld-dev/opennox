@@ -462,7 +462,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 
 func nox_server_netMaybeSendInitialPackets_4DEB30() {
 	if !noxflags.HasEngine(noxflags.EngineReplayRead) {
-		nox_xxx_servNetInitialPackets_552A80(int(memmap.Uint32(0x5D4594, 1563148)), 1)
+		nox_xxx_servNetInitialPackets_552A80(dword_5d4594_1563148, 1)
 	}
 }
 
