@@ -211,8 +211,6 @@ type netStruct struct {
 	ind28       int8                                           // 113
 	queue       *gQueueItem                                    // 116
 	data3       unsafe.Pointer                                 // 30, 120
-	mutex1      C.HANDLE                                       // 31, 124
-	mutex2      C.HANDLE                                       // 32, 128
 	funcxxx     func(a1 int, a2 []byte, a3 unsafe.Pointer) int // 35, 140
 	funcyyy     func(a1 int, a2 []byte, a3 unsafe.Pointer) int // 36, 144
 	xorKey      byte                                           // 37, 148
@@ -230,8 +228,6 @@ func (ns *netStruct) FreeXxx() {
 	}
 	alloc.FreeSlice(ns.data1)
 	alloc.FreeSlice(ns.data2)
-	C.CloseHandle(ns.mutex2)
-	C.CloseHandle(ns.mutex1)
 	*ns = netStruct{}
 }
 
@@ -647,22 +643,9 @@ func nox_xxx_netInit_554380(narg *netStructOpt) (ind int, _ error) {
 	return v2, nil
 }
 
-var zeroHandle C.HANDLE
-
 func newNetStruct(arg *netStructOpt) *netStruct {
 	ns := new(netStruct)
 
-	my := C.CreateMutexA(nil, 0, nil)
-	if my == zeroHandle {
-		panic("cannot create mutex")
-	}
-	ns.mutex2 = my
-
-	mx := C.CreateMutexA(nil, 0, nil)
-	if mx == zeroHandle {
-		panic("cannot create mutex")
-	}
-	ns.mutex1 = mx
 	if arg.data3size > 0 {
 		ns.data3, _ = alloc.Malloc(uintptr(arg.data3size))
 	}
@@ -819,10 +802,6 @@ func nox_xxx_netSendSock552640(id int, buf []byte, flags int) (int, error) {
 		if n+1 > len(d2x) {
 			return -7, errors.New("buffer too short")
 		}
-		v14 := int32(C.WaitForSingleObject(ns2.mutex2, 0x3E8))
-		if v14 == -1 || v14 == 258 {
-			return -16, errors.New("cannot wait for object")
-		}
 		if flags&NOX_NET_SEND_FLAG2 != 0 {
 			copy(d2x[:2], d2b[:2])
 			copy(d2x[2:2+n], buf)
@@ -833,14 +812,10 @@ func nox_xxx_netSendSock552640(id int, buf []byte, flags int) (int, error) {
 			}
 			sub_553F40(n+2, 1)
 			nox_xxx_netCountData_554030(n+2, i)
-			C.ReleaseMutex(ns2.mutex2)
 			return n2, nil
 		}
 		copy(d2x[:n], buf)
 		ns2.data2xxx += n
-		if C.ReleaseMutex(ns2.mutex2) == 0 {
-			C.ReleaseMutex(ns2.mutex2)
-		}
 	}
 	return n, nil
 }
@@ -2138,10 +2113,6 @@ func nox_xxx_netSendReadPacket_5528B0(ind int, a2 byte) int {
 			continue
 		}
 		nox_xxx_netSend_5552D0(j, 0, false)
-		v10 := int(C.WaitForSingleObject(ns2.mutex2, 0x3E8))
-		if v10 == -1 || v10 == 258 {
-			return -16
-		}
 		if a2&1 == 0 {
 			data2 := ns2.Data2xxx()
 			n := ns2.callXxx(j, data2, ns2.data3)
@@ -2159,9 +2130,6 @@ func nox_xxx_netSendReadPacket_5528B0(ind int, a2 byte) int {
 			sub_553F40(len(v13), 1)
 			nox_xxx_netCountData_554030(len(v13), j)
 			ns2.data2xxx = ns2.data2yyy
-		}
-		if C.ReleaseMutex(ns2.mutex2) == 0 {
-			C.ReleaseMutex(ns2.mutex2)
 		}
 	}
 	return 0
