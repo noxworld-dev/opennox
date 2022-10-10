@@ -3,8 +3,6 @@ package opennox
 /*
 #include <stdint.h>
 
-int sub_436AA0(int a1);
-
 extern uint32_t nox_perfmon_latePackets_2618900;
 */
 import "C"
@@ -30,11 +28,11 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 		m.nextCnt = m.cnt + 10
 		ticks := platform.Ticks()
 		dt := (ticks - m.prevTicks) / time.Millisecond
-		m.fps = 10000 / uint64(dt)
+		m.fps = int(10000 / uint64(dt))
 		m.prevTicks = ticks
 	}
 
-	C.sub_436AA0(C.int(m.fps))
+	c.drawFPS(m)
 	c.drawProfile(m)
 	c.drawPing(m)
 	y += 10
@@ -188,5 +186,50 @@ func (c *Client) drawProfile(m *Perfmon) {
 		p1 = image.Pt((i+0)*dx, 90-m.profServerHist[(j+0)%n])
 		p2 = image.Pt((i+1)*dx, 90-m.profServerHist[(j+1)%n])
 		c.r.DrawLine(p1, p2, nox_color_red)
+	}
+}
+
+func (c *Client) drawFPS(m *Perfmon) {
+	wsz := videoGetWindowSize()
+
+	c.r.Data().SetTextColor(nox_color_white_2523948)
+	str := c.Strings().GetStringInFile("FPS", "C:\\NoxPost\\src\\client\\System\\client.c")
+	c.r.DrawString(nil, str, image.Pt(0, 0))
+
+	th := c.r.FontHeight(nil)
+	for i := 0; i < 4; i++ {
+		y := th + 10*i
+		p1 := image.Pt(0, y)
+		p2 := image.Pt(wsz.X, y)
+		c.r.DrawLine(p1, p2, nox_color_gray2)
+	}
+	p1 := image.Pt(0, th)
+	p2 := image.Pt(0, th+30)
+	c.r.DrawLine(p1, p2, nox_color_gray2)
+
+	p1 = image.Pt(wsz.X-1, th)
+	p2 = image.Pt(wsz.X-1, th+30)
+	c.r.DrawLine(p1, p2, nox_color_gray2)
+
+	si := m.fpsInd
+	m.fpsHistory[si] = 10 * m.fps / 10
+
+	n := len(m.fpsHistory)
+	m.fpsInd = (si + 1) % n
+	dx := wsz.X / n
+	for i := 0; i < n; i++ {
+		j := si + i + 1
+
+		var cl color.Color
+		if v := m.fpsHistory[(j+0)%n]; v < 10 {
+			cl = nox_color_red
+		} else if v < 20 {
+			cl = nox_color_yellow_2589772
+		} else {
+			cl = nox_color_green
+		}
+		p1 := image.Pt((i+0)*dx, th+30-m.fpsHistory[(j+0)%n])
+		p2 := image.Pt((i+1)*dx, th+30-m.fpsHistory[(j+1)%n])
+		c.r.DrawLine(p1, p2, cl)
 	}
 }
