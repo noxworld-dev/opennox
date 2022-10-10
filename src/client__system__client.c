@@ -1,5 +1,3 @@
-#include "client__system__client.h"
-
 #include "GAME1.h"
 #include "GAME1_2.h"
 #include "GAME1_3.h"
@@ -13,7 +11,6 @@
 #include "common__strman.h"
 
 extern uint32_t dword_5d4594_811904;
-extern uint32_t nox_perfmon_latePackets_2618900;
 extern uint32_t nox_player_netCode_85319C;
 extern uint32_t nox_client_gui_flag_815132;
 extern int nox_win_width;

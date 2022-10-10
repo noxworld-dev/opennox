@@ -20,7 +20,6 @@ package opennox
 #include "common__net_list.h"
 #include "client__drawable__drawdb.h"
 #include "client__gui__guimsg.h"
-#include "client__system__client.h"
 #include "client__drawable__drawable.h"
 
 extern unsigned int dword_5d4594_2660032;
@@ -39,6 +38,8 @@ extern nox_window* dword_5d4594_1090048;
 extern nox_window* dword_5d4594_1090100;
 extern void* dword_5d4594_1307292;
 extern unsigned int dword_5d4594_251744;
+
+char* nox_xxx_getRandomName_4358A0();
 */
 import "C"
 import (

@@ -30,7 +30,6 @@
 #include "client__gui__window.h"
 #include "client__shell__noxworld.h"
 #include "client__shell__selchar.h"
-#include "client__system__client.h"
 #include "client__system__ctrlevnt.h"
 #include "client__video__draw_common.h"
 

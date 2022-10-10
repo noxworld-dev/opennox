@@ -48,7 +48,6 @@
 #include "client__network__inform.h"
 #include "client__shell__noxworld.h"
 extern uint32_t dword_5d4594_1200832;
-extern uint32_t nox_perfmon_latePackets_2618900;
 extern uint32_t dword_5d4594_1200776;
 extern uint32_t dword_5d4594_1200796;
 extern uint32_t dword_5d4594_1200768;
@@ -78,6 +77,7 @@ void nox_client_onJoinData();
 void sub_456140(unsigned char a1);
 
 uint32_t nox_client_fadeObjects_80836 = 1;
+uint32_t nox_perfmon_latePackets_2618900 = 0;
 
 //----- (0048EA70) --------------------------------------------------------
 void sub_470A80();

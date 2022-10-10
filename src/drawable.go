@@ -2,6 +2,7 @@ package opennox
 
 /*
 #include "defs.h"
+extern int nox_drawable_count;
 int  nox_xxx_client_4984B0_drawable(nox_drawable* dr);
 nox_drawable* nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a3);
 static int go_nox_drawable_call_draw_func(nox_draw_viewport_t* vp, nox_drawable* dr) {
@@ -20,6 +21,10 @@ import (
 var (
 	drawableExts = make(map[unsafe.Pointer]*drawableExt)
 )
+
+func drawableCount() int {
+	return int(C.nox_drawable_count)
+}
 
 type drawableExt struct {
 	Field99 **Drawable

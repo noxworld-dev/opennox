@@ -2,12 +2,11 @@ package opennox
 
 /*
 #include <stdint.h>
-#include <GAME1_3.h>
-#include <GAME2.h>
-#include <GAME3_3.h>
-#include <GAME5_2.h>
-#include <client__system__client.h>
-#include <common__net_list.h>
+
+int sub_436AA0(int a1);
+int nox_xxx_drawTimingMB_436C40();
+int nox_xxx_drawPing_436DF0(int a1);
+int nox_xxx_drawBandwith_436970(int a1);
 
 extern uint32_t nox_perfmon_latePackets_2618900;
 */
@@ -56,16 +55,15 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 	C.nox_xxx_drawBandwith_436970(C.int(packSz))
 	y += 10
 
-	dcnt := C.nox_get_drawable_count()
 	format = c.Strings().GetStringInFile("DrawCount", "client.c")
 	c.r.Data().SetTextColor(color.White)
-	c.r.DrawString(nil, fmt.Sprintf(format, dcnt), image.Pt(x, y))
+	c.r.DrawString(nil, fmt.Sprintf(format, drawableCount()), image.Pt(x, y))
 	y += 10
 
-	oop := *memmap.PtrUint32(0x85B3FC, 120)
-	lp := C.nox_perfmon_latePackets_2618900
+	tsOps := *memmap.PtrUint32(0x85B3FC, 120)
+	lp := int(C.nox_perfmon_latePackets_2618900)
 	format = c.Strings().GetStringInFile("LatePackets", "client.c")
-	c.r.DrawString(nil, fmt.Sprintf(format, lp, oop), image.Pt(x, y))
+	c.r.DrawString(nil, fmt.Sprintf(format, lp, tsOps), image.Pt(x, y))
 	y += 10
 
 	format = c.Strings().GetStringInFile("Latency", "client.c")
@@ -73,7 +71,7 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 	c.r.DrawString(nil, fmt.Sprintf(format, m.ping, m.fps), image.Pt(x, y))
 
 	y = 200
-	for _, pl := range noxServer.getPlayers() {
+	for _, pl := range c.srv.getPlayers() {
 		var str string
 		if pl.field_3680&8 != 0 {
 			format = c.Strings().GetStringInFile("Muted", "client.c")
