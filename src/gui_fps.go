@@ -5,6 +5,7 @@ import (
 	"image"
 	"image/color"
 	"strconv"
+	"time"
 
 	"golang.org/x/image/font"
 )
@@ -87,14 +88,14 @@ func (c *Client) guiDrawFPS(win *Window, _ *WindowData) int {
 		}
 	}
 	var cl color.Color
-	if noxPerfmon.ping < 250 {
+	if noxPerfmon.ping < 250*time.Millisecond {
 		cl = nox_color_green
-	} else if noxPerfmon.ping < 500 {
+	} else if noxPerfmon.ping < 500*time.Millisecond {
 		cl = nox_color_yellow_2589772
 	} else {
 		cl = nox_color_red
 	}
-	str = strconv.Itoa(noxPerfmon.ping)
+	str = strconv.Itoa(int(noxPerfmon.ping.Milliseconds()))
 	tsz = c.r.GetStringSizeWrapped(g.font, str, 0)
 	c.r.Data().SetTextColor(cl)
 	c.r.DrawString(g.font, str, pos.Add(image.Pt((wsz.X-tsz.X)/2, 22)))
