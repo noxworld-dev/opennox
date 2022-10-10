@@ -407,11 +407,11 @@ func nox_netlist_receiveCli_494E90(ind int) int {
 	res := 0
 
 	if buf1 := nox_netlist_copyPacketList2_40F120(ind); len(buf1) != 0 {
-		res = int(C.nox_xxx_netOnPacketRecvCli_48EA70(C.int(ind), (*C.uchar)(unsafe.Pointer(&buf1[0])), C.int(len(buf1))))
+		res = nox_xxx_netOnPacketRecvCli_48EA70(ind, buf1)
 	}
 
 	if buf2 := nox_netlist_copyPacketList(ind, 1); len(buf2) != 0 {
-		res = int(C.nox_xxx_netOnPacketRecvCli_48EA70(C.int(ind), (*C.uchar)(unsafe.Pointer(&buf2[0])), C.int(len(buf2))))
+		res = nox_xxx_netOnPacketRecvCli_48EA70(ind, buf2)
 		if res != 0 {
 			C.sub_48D660()
 		}
