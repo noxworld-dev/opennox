@@ -87,8 +87,6 @@ var (
 	debugNet             bool
 	netLog               = log.New("network")
 	dword_5D4594_815700  int
-	dword_5d4594_2496472 int
-	dword_5d4594_2496988 int
 	dword_5d4594_1563148 int
 	dword_973f18_44216   string
 	ticks2495920         uint32
@@ -1243,15 +1241,6 @@ func nox_xxx_netSendBySock_40EE10(a1 int, a2 int, a3 int) {
 	}
 }
 
-func sub_553FC0(a1, a2 int) {
-	cnt2495944 += uint32(a1)
-	cnt2495948 += uint32(a2)
-	*memmap.PtrUint32(0x5D4594, 2495960+4*uintptr(dword_5d4594_2496472)) = uint32(a1)
-	*memmap.PtrUint32(0x5D4594, 2496476+4*uintptr(dword_5d4594_2496988)) = uint32(a2)
-	dword_5d4594_2496472 = (dword_5d4594_2496472 + 1) % 128
-	dword_5d4594_2496988 = (dword_5d4594_2496988 + 1) % 128
-}
-
 func sub_551E00(ind int, ip net.IP, port int) bool {
 	for i := range nox_net_struct_arr {
 		ns := nox_net_struct_arr[i]
@@ -1301,7 +1290,6 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 			return -1
 		}
 		ip, port := getAddr(src)
-		sub_553FC0(n, 1)
 		if n < 3 {
 			ns.data1xxx = 0
 			ns.data1yyy = 0
@@ -2235,8 +2223,6 @@ func sub_552E70(ind int) int {
 
 var (
 	flag2495924 bool
-	cnt2495944  uint32
-	cnt2495948  uint32
 	val292940   uint32 = 3
 )
 
@@ -2309,8 +2295,6 @@ func nox_xxx_allocNetGQueue_5520B0() {
 	} else {
 		list2495908.Clear()
 	}
-	cnt2495944 = 0
-	cnt2495948 = 0
 	flag2495924 = true
 }
 
