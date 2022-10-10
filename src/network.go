@@ -90,6 +90,7 @@ var (
 	dword_5d4594_1563148 int
 	dword_973f18_44216   string
 	ticks2495920         uint32
+	ticks2512888         uint32
 	dword_5d4594_3843632 net.IP
 	dword_5d4594_2513932 *gQueueItem
 	dword_5d4594_3844304 bool
@@ -2061,7 +2062,7 @@ func sub_5524C0() {
 func nox_xxx_netMaybeSendAll_552460() {
 	ticks := platformTicks()
 	ticks2495920 = uint32(ticks)
-	if uint32(ticks)-*memmap.PtrUint32(0x5D4594, 2512888) <= 1000 {
+	if uint32(ticks)-ticks2512888 <= 1000 {
 		return
 	}
 	for i := range nox_net_struct_arr {
@@ -2070,7 +2071,7 @@ func nox_xxx_netMaybeSendAll_552460() {
 			nox_xxx_netSend_5552D0(i, 0, false)
 		}
 	}
-	*memmap.PtrUint32(0x5D4594, 2512888) = uint32(ticks)
+	ticks2512888 = uint32(ticks)
 }
 
 //export nox_xxx_netSendReadPacket_5528B0
