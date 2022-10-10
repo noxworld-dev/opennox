@@ -139,7 +139,6 @@ func RunArgs(args []string) (gerr error) {
 		fFullScreen = flags.Bool("fullscreen", false, "fullscreen")
 		fMinimize   = flags.Bool("minimize", false, "minimize")
 		fNoLimit    = flags.Bool("nolimit", false, "nolimit")
-		fSleep      = flags.Bool("sleep", false, "sleep")
 		fDrop       = flags.Int("drop", 0, "drop given percent of network packets")
 		fNoText     = flags.Bool("notext", false, "notext")
 		fLock       = flags.Bool("lock", false, "lock")
@@ -313,11 +312,7 @@ func RunArgs(args []string) (gerr error) {
 		C.nox_enable_audio = 0
 		noxflags.SetEngine(noxflags.EngineNoRendering |
 			noxflags.EngineNoTextRendering |
-			noxflags.EngineNoFloorRendering |
-			noxflags.EngineSleep)
-	}
-	if *fSleep {
-		noxflags.SetEngine(noxflags.EngineSleep)
+			noxflags.EngineNoFloorRendering)
 	}
 	if v := *fDrop; v != 0 {
 		netstr.PacketDrop = v
