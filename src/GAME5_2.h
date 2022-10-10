@@ -135,7 +135,7 @@ float2* sub_57B770(float2* a1, float2* a2);
 int nox_xxx_collideReflect_57B810(float* a1, int a2);
 int nox_xxx_map_57B850(float2* a1, float* a2, float2* a3);
 int sub_57B920(void* a1);
-char sub_57B930(int a1, int a2, int a3, unsigned int a4);
+unsigned char sub_57B930(void* a1, int a2, int a3, unsigned int a4);
 char nox_xxx_cliGenerateAlias_57B9A0(int a1, int a2, int a3, unsigned int a4);
 int sub_57BA10(int a1, short a2, short a3, int a4);
 int sub_57BA30(int2* a1, int2* a2, int4* a3);
