@@ -320,11 +320,10 @@ func (c *Client) clientSendInputMouse(pli int, mp image.Point) bool {
 
 func (s *Server) nox_xxx_netAddPlayerHandler_4DEBC0(port int) (ind, cport int, _ error) {
 	narg := &netstr.Options{
-		Port:      port,
-		Data3Size: 0,
-		Max:       s.getServerMaxPlayers(),
-		DataSize:  2048,
-		Func2:     nox_xxx_netlist_ServRecv,
+		Port:     port,
+		Max:      s.getServerMaxPlayers(),
+		DataSize: 2048,
+		Func2:    nox_xxx_netlist_ServRecv,
 		Func1: func(a1 int, a2 []byte, a3 unsafe.Pointer) int {
 			return int(C.nox_xxx_netFn_UpdateStream_4DF630(C.int(a1), (*C.char)(unsafe.Pointer(&a2[0])), C.uint(len(a2)), a3))
 		},
