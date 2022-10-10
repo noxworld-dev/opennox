@@ -2376,20 +2376,38 @@ func sub_555360(a1 int, a2 byte, a3 int) int {
 	if ns == nil {
 		return -3
 	}
-	var next *gQueueItem
-	for it := ns.queue; it.next != nil; it = next {
+	var (
+		next *gQueueItem
+		prev *gQueueItem
+	)
+	for it := ns.queue; it != nil; it = next {
 		next = it.next
-		if a3 == 0 || a3 == 1 {
+		if a3 == 0 {
 			if it.data[1] != a2 {
+				prev = it
 				continue
 			}
-		} else if a3 == 2 {
-			// nop
-		} else {
+		} else if a3 == 1 {
+			if a2 < 0x20 || a2 > 0xE0 {
+				if it.data[1] >= a2 {
+					prev = it
+					continue
+				}
+			} else {
+				if it.data[1] >= a2 {
+					prev = it
+					continue
+				}
+			}
+		} else if a3 != 2 {
+			prev = it
 			continue
 		}
-		if cur := ns.queue; it == cur {
-			ns.queue = cur.next
+		if head := ns.queue; it == head {
+			ns.queue = head.next
+		}
+		if prev != nil {
+			prev.next = next
 		}
 		it.next = nil
 		nox_alloc_gQueue_3844300.FreeObjectFirst(it)
