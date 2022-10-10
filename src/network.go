@@ -89,6 +89,7 @@ var (
 	dword_5D4594_815700  int
 	dword_5d4594_2496472 int
 	dword_5d4594_2496988 int
+	dword_5d4594_1563148 int
 	ticks2495920         uint32
 	dword_5d4594_3843632 net.IP
 	dword_5d4594_2513932 *gQueueItem
@@ -568,7 +569,7 @@ func (s *Server) nox_xxx_netAddPlayerHandler_4DEBC0(port int) (ind, cport int, _
 	if err != nil {
 		return ind, 0, err
 	}
-	*memmap.PtrInt32(0x5D4594, 1563148) = int32(ind)
+	dword_5d4594_1563148 = ind
 	return ind, narg.port, err
 }
 
@@ -2155,7 +2156,7 @@ func sub_5551F0(a1 int, a2 byte, a3 int) int {
 }
 
 func sub_4DF550() int {
-	return int(memmap.Uint32(0x5D4594, 1563148))
+	return dword_5d4594_1563148
 }
 
 func sub_5522E0(id int) {
