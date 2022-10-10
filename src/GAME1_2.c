@@ -3696,42 +3696,6 @@ wchar_t* sub_435700(wchar_t* a1, int a2) {
 	return result;
 }
 
-//----- (00435740) --------------------------------------------------------
-uint32_t sub_435740() {
-	uint32_t result; // eax
-
-	result = nox_platform_get_ticks();
-	*getMemU32Ptr(0x5D4594, 811924) = result;
-	return result;
-}
-
-//----- (00435750) --------------------------------------------------------
-uint32_t sub_435750() {
-	uint32_t result; // eax
-
-	result = nox_platform_get_ticks() - *getMemU32Ptr(0x5D4594, 811924);
-	*getMemU32Ptr(0x5D4594, 811928) = result;
-	return result;
-}
-
-//----- (00435770) --------------------------------------------------------
-uint32_t nox_xxx_time_startProfile_435770() {
-	uint32_t result; // eax
-
-	result = nox_platform_get_ticks();
-	*getMemU32Ptr(0x5D4594, 811932) = result;
-	return result;
-}
-
-//----- (00435780) --------------------------------------------------------
-uint32_t nox_xxx_time_endProfile_435780() {
-	uint32_t result; // eax
-
-	result = nox_platform_get_ticks() - *getMemU32Ptr(0x5D4594, 811932);
-	*getMemU32Ptr(0x5D4594, 811936) = result;
-	return result;
-}
-
 //----- (004357A0) --------------------------------------------------------
 int nox_xxx_cliToggleObsWindow_4357A0() {
 	int result; // eax

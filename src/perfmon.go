@@ -41,6 +41,16 @@ type Perfmon struct {
 	ping        int
 	pingInd     int
 	pingHistory [128]int
+
+	profInd int
+
+	profClientStart uint64
+	profClient      int
+	profClientHist  [128]int
+
+	profServerStart uint64
+	profServer      int
+	profServerHist  [128]int
 }
 
 func (m *Perfmon) Toggle() {
@@ -103,4 +113,20 @@ func (m *Perfmon) packetSize() int {
 		return m.packetSizeCli
 	}
 	return netList(noxMaxPlayers-1, 1).Size() + netList(noxMaxPlayers-1, 2).Size()
+}
+
+func (m *Perfmon) startProfileClient() {
+	m.profClientStart = platformTicks()
+}
+
+func (m *Perfmon) endProfileClient() {
+	m.profClient = int(platformTicks() - m.profClientStart)
+}
+
+func (m *Perfmon) startProfileServer() {
+	m.profServerStart = platformTicks()
+}
+
+func (m *Perfmon) endProfileServer() {
+	m.profServer = int(platformTicks() - m.profServerStart)
 }
