@@ -57,18 +57,18 @@ var (
 	streams    [maxStructs]*stream
 	streams2   [maxStructs]stream2
 	timing     [maxStructs]timingStruct
-	stats      [maxStructs]uint32
+	transfer   [maxStructs]uint32
 	allocQueue alloc.ClassT[queueItem]
 	playerIDs  = make(map[int]struct{})
 )
 
-func addStats(n int, ind int) {
-	stats[ind] += uint32(n)
+func addTransferStats(n int, ind int) {
+	transfer[ind] += uint32(n)
 }
 
-func GetStats(ind int) uint32 {
-	v := stats[ind]
-	stats[ind] = 0
+func TransferStats(ind int) uint32 {
+	v := transfer[ind]
+	transfer[ind] = 0
 	return v
 }
 
@@ -545,7 +545,7 @@ func Send(id int, buf []byte, flags int) (int, error) {
 			if n2 == -1 {
 				return -1, err
 			}
-			addStats(n+2, i)
+			addTransferStats(n+2, i)
 			return n2, nil
 		}
 		copy(d2x[:n], buf)
@@ -709,7 +709,7 @@ func SendReadPacket(ind int, flags byte) int {
 			if err != nil {
 				return -1
 			}
-			addStats(len(datax2), j)
+			addTransferStats(len(datax2), j)
 			ns2.data2xxx = ns2.data2yyy
 		}
 	}
