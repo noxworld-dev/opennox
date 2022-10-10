@@ -9,7 +9,6 @@ package opennox
 #include <client__system__client.h>
 #include <common__net_list.h>
 
-extern uint32_t nox_perfmon_ping_2614264;
 extern uint32_t nox_perfmon_latePackets_2618900;
 */
 import "C"
@@ -42,6 +41,7 @@ type Perfmon struct {
 	nextCnt       uint
 	cnt           uint
 	fps           uint64
+	ping          int
 	prevTicks     time.Duration
 	transfer      [noxMaxPlayers]uint32
 	transferTick  [noxMaxPlayers]time.Duration
@@ -72,7 +72,7 @@ func (m *Perfmon) Draw(r *NoxRender, wsz image.Point) {
 
 	C.sub_436AA0(C.int(m.fps))
 	C.nox_xxx_drawTimingMB_436C40()
-	C.nox_xxx_drawPing_436DF0(C.int(C.nox_perfmon_ping_2614264))
+	C.nox_xxx_drawPing_436DF0(C.int(m.ping))
 	y += 10
 
 	frame := gameFrame()
@@ -100,10 +100,9 @@ func (m *Perfmon) Draw(r *NoxRender, wsz image.Point) {
 	r.DrawString(nil, fmt.Sprintf(format, lp, oop), image.Pt(x, y))
 	y += 10
 
-	latency := C.nox_perfmon_ping_2614264
 	format = strMan.GetStringInFile("Latency", "client.c")
 	r.DrawRectFilledOpaque(x+80, y, 16, 8, color.Black)
-	r.DrawString(nil, fmt.Sprintf(format, latency, m.fps), image.Pt(x, y))
+	r.DrawString(nil, fmt.Sprintf(format, m.ping, m.fps), image.Pt(x, y))
 
 	y = 200
 	for _, pl := range noxServer.getPlayers() {

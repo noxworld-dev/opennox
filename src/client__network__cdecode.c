@@ -54,7 +54,6 @@ extern uint32_t dword_5d4594_1200796;
 extern uint32_t dword_5d4594_1200768;
 extern uint32_t nox_server_sanctuaryHelp_54276;
 extern uint32_t nox_client_gui_flag_1556112;
-extern uint32_t nox_perfmon_ping_2614264;
 extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
 extern uint32_t dword_5d4594_1200804;
 extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
@@ -75,11 +74,13 @@ void clientPacketFade(bool a1, int fnc);
 void nox_client_onDeathRay(int p1x, int p1y, int p2x, int p2y);
 void nox_client_onParticleFx(int code, nox_drawable* a1, int a2, int a3, int a4);
 void nox_client_onClassStats(unsigned char* data, int sz);
+void nox_client_onJoinData();
 void sub_456140(unsigned char a1);
 
 uint32_t nox_client_fadeObjects_80836 = 1;
 
 //----- (0048EA70) --------------------------------------------------------
+void sub_470A80();
 int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 	long long v5;           // rax
 	int k;                  // ecx
@@ -576,7 +577,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			dword_5d4594_1200804 = 0;
 			nox_perfmon_latePackets_2618900 = 0;
 			*getMemU32Ptr(0x85B3FC, 120) = 0;
-			nox_perfmon_ping_2614264 = 0;
+			nox_client_onJoinData();
 			dword_5d4594_1200832 = 0;
 			nox_xxx_cliSetSettingsAcquired_4169D0(0);
 			data += 7;
