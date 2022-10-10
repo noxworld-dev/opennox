@@ -17,6 +17,8 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
+const perfmonSz = 30
+
 func (c *Client) DrawPerfmon(m *Perfmon) {
 	if !m.enabled {
 		return
@@ -43,11 +45,10 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 	c.r.DrawString(nil, fmt.Sprintf(format, frame), image.Pt(x, y))
 	y += 10
 
-	packSz := m.packetSize()
 	format = c.Strings().GetStringInFile("PacketSize", "client.c")
 	c.r.Data().SetTextColor(color.White)
-	c.r.DrawString(nil, fmt.Sprintf(format, packSz), image.Pt(x, y))
-	c.drawBandwidth(m, packSz)
+	c.r.DrawString(nil, fmt.Sprintf(format, m.packetSize()), image.Pt(x, y))
+	c.drawBandwidth(m)
 	y += 10
 
 	format = c.Strings().GetStringInFile("DrawCount", "client.c")
@@ -63,7 +64,7 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 
 	format = c.Strings().GetStringInFile("Latency", "client.c")
 	c.r.DrawRectFilledOpaque(x+80, y, 16, 8, color.Black)
-	c.r.DrawString(nil, fmt.Sprintf(format, m.ping, m.fps), image.Pt(x, y))
+	c.r.DrawString(nil, fmt.Sprintf(format, m.ping.Milliseconds(), m.fps), image.Pt(x, y))
 
 	y = 200
 	for _, pl := range c.srv.getPlayers() {
@@ -90,18 +91,21 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 	m.cnt++
 }
 
-func (c *Client) drawBandwidth(m *Perfmon, psz int) {
+func (c *Client) drawBandwidth(m *Perfmon) {
 	wsz := videoGetWindowSize()
-	str := c.Strings().GetStringInFile("Bandwidth", "C:\\NoxPost\\src\\client\\System\\client.c")
-	th := wsz.Y - 31 - c.r.FontHeight(nil)
+	str := c.Strings().GetStringInFile("Bandwidth", "client.c")
+	th := wsz.Y - (perfmonSz + 1) - c.r.FontHeight(nil)
 	c.r.Data().SetTextColor(nox_color_white_2523948)
 	c.r.DrawString(nil, str, image.Pt(0, th))
-	c.r.DrawBorder(0, wsz.Y-31, wsz.X, 31, nox_color_gray2)
+	c.r.DrawBorder(0, wsz.Y-(perfmonSz+1), wsz.X, perfmonSz+1, nox_color_gray2)
 	si := m.bandInd
-	m.bandHistory[si] = psz / 4
-	if psz/4 > 30 {
-		m.bandHistory[si] = 30
+
+	cur := perfmonSz * m.packetSize() / 120
+	if cur > perfmonSz {
+		cur = perfmonSz
 	}
+	m.bandHistory[si] = cur
+
 	n := len(m.bandHistory)
 	m.bandInd = (si + 1) % n
 
@@ -118,15 +122,15 @@ func (c *Client) drawPing(m *Perfmon) {
 	wsz := videoGetWindowSize()
 
 	th := wsz.Y - 80 - c.r.FontHeight(nil)
-	str := c.Strings().GetStringInFile("Ping", "C:\\NoxPost\\src\\client\\System\\client.c")
+	str := c.Strings().GetStringInFile("Ping", "client.c")
 	c.r.Data().SetTextColor(nox_color_white_2523948)
 	c.r.DrawString(nil, str, image.Pt(0, th))
-	c.r.DrawBorder(0, wsz.Y-80, wsz.X, 31, nox_color_gray2)
+	c.r.DrawBorder(0, wsz.Y-80, wsz.X, perfmonSz+1, nox_color_gray2)
 
 	si := m.pingInd
-	cur := 30 * m.ping / 500
-	if cur > 30 {
-		cur = 30
+	cur := int(perfmonSz * m.ping / (500 * time.Millisecond))
+	if cur > perfmonSz {
+		cur = perfmonSz
 	}
 	m.pingHistory[si] = cur
 
@@ -144,8 +148,8 @@ func (c *Client) drawPing(m *Perfmon) {
 		} else {
 			cl = nox_color_red
 		}
-		p1 := image.Pt((i+0)*dx, wsz.Y-80+30-m.pingHistory[(j+0)%n])
-		p2 := image.Pt((i+1)*dx, wsz.Y-80+30-m.pingHistory[(j+1)%n])
+		p1 := image.Pt((i+0)*dx, wsz.Y-80+perfmonSz-m.pingHistory[(j+0)%n])
+		p2 := image.Pt((i+1)*dx, wsz.Y-80+perfmonSz-m.pingHistory[(j+1)%n])
 		c.r.DrawLine(p1, p2, cl)
 	}
 }
@@ -153,23 +157,24 @@ func (c *Client) drawPing(m *Perfmon) {
 func (c *Client) drawProfile(m *Perfmon) {
 	wsz := videoGetWindowSize()
 
-	th := 60 - c.r.FontHeight(nil)
-	str := c.Strings().GetStringInFile("CSTiming", "C:\\NoxPost\\src\\client\\System\\client.c")
+	th := 2*perfmonSz - c.r.FontHeight(nil)
+	str := c.Strings().GetStringInFile("CSTiming", "client.c")
 	c.r.Data().SetTextColor(nox_color_white_2523948)
-	c.r.DrawString(nil, str, image.Pt(0, th))
+	c.r.DrawString(nil, fmt.Sprintf("%s: %3d / %3d",
+		str, m.profClient.Milliseconds(), m.profServer.Milliseconds()), image.Pt(0, th))
 
-	c.r.DrawBorder(0, 60, wsz.X, 31, nox_color_gray2)
+	c.r.DrawBorder(0, 2*perfmonSz, wsz.X, perfmonSz+1, nox_color_gray2)
 	si := m.profInd
 
-	pcli := 30 * m.profClient / 100
-	if pcli > 30 {
-		pcli = 30
+	pcli := int(perfmonSz * m.profClient / (100 * time.Millisecond))
+	if pcli > perfmonSz {
+		pcli = perfmonSz
 	}
 	m.profClientHist[si] = pcli
 
-	psrv := 30 * m.profServer / 100
-	if psrv > 30 {
-		psrv = 30
+	psrv := int(perfmonSz * m.profServer / (100 * time.Millisecond))
+	if psrv > perfmonSz {
+		psrv = perfmonSz
 	}
 	m.profServerHist[si] = psrv
 
@@ -179,12 +184,12 @@ func (c *Client) drawProfile(m *Perfmon) {
 	for i := 0; i < n; i++ {
 		j := si + i + 1
 
-		p1 := image.Pt((i+0)*dx, 90-m.profClientHist[(j+0)%n])
-		p2 := image.Pt((i+1)*dx, 90-m.profClientHist[(j+1)%n])
+		p1 := image.Pt((i+0)*dx, 3*perfmonSz-m.profClientHist[(j+0)%n])
+		p2 := image.Pt((i+1)*dx, 3*perfmonSz-m.profClientHist[(j+1)%n])
 		c.r.DrawLine(p1, p2, nox_color_blue_2650684)
 
-		p1 = image.Pt((i+0)*dx, 90-m.profServerHist[(j+0)%n])
-		p2 = image.Pt((i+1)*dx, 90-m.profServerHist[(j+1)%n])
+		p1 = image.Pt((i+0)*dx, 3*perfmonSz-m.profServerHist[(j+0)%n])
+		p2 = image.Pt((i+1)*dx, 3*perfmonSz-m.profServerHist[(j+1)%n])
 		c.r.DrawLine(p1, p2, nox_color_red)
 	}
 }
@@ -193,8 +198,8 @@ func (c *Client) drawFPS(m *Perfmon) {
 	wsz := videoGetWindowSize()
 
 	c.r.Data().SetTextColor(nox_color_white_2523948)
-	str := c.Strings().GetStringInFile("FPS", "C:\\NoxPost\\src\\client\\System\\client.c")
-	c.r.DrawString(nil, str, image.Pt(0, 0))
+	str := c.Strings().GetStringInFile("FPS", "client.c")
+	c.r.DrawString(nil, fmt.Sprintf("%s: %d", str, m.fps), image.Pt(0, 0))
 
 	th := c.r.FontHeight(nil)
 	for i := 0; i < 4; i++ {
@@ -204,15 +209,15 @@ func (c *Client) drawFPS(m *Perfmon) {
 		c.r.DrawLine(p1, p2, nox_color_gray2)
 	}
 	p1 := image.Pt(0, th)
-	p2 := image.Pt(0, th+30)
+	p2 := image.Pt(0, th+perfmonSz)
 	c.r.DrawLine(p1, p2, nox_color_gray2)
 
 	p1 = image.Pt(wsz.X-1, th)
-	p2 = image.Pt(wsz.X-1, th+30)
+	p2 = image.Pt(wsz.X-1, th+perfmonSz)
 	c.r.DrawLine(p1, p2, nox_color_gray2)
 
 	si := m.fpsInd
-	m.fpsHistory[si] = 10 * m.fps / 10
+	m.fpsHistory[si] = perfmonSz * m.fps / 30
 
 	n := len(m.fpsHistory)
 	m.fpsInd = (si + 1) % n
@@ -228,8 +233,8 @@ func (c *Client) drawFPS(m *Perfmon) {
 		} else {
 			cl = nox_color_green
 		}
-		p1 := image.Pt((i+0)*dx, th+30-m.fpsHistory[(j+0)%n])
-		p2 := image.Pt((i+1)*dx, th+30-m.fpsHistory[(j+1)%n])
+		p1 := image.Pt((i+0)*dx, th+perfmonSz-m.fpsHistory[(j+0)%n])
+		p2 := image.Pt((i+1)*dx, th+perfmonSz-m.fpsHistory[(j+1)%n])
 		c.r.DrawLine(p1, p2, cl)
 	}
 }

@@ -37,18 +37,18 @@ type Perfmon struct {
 	bandInd     int
 	bandHistory [128]int
 
-	ping        int
+	ping        time.Duration
 	pingInd     int
 	pingHistory [128]int
 
 	profInd int
 
-	profClientStart uint64
-	profClient      int
+	profClientStart time.Duration
+	profClient      time.Duration
 	profClientHist  [128]int
 
-	profServerStart uint64
-	profServer      int
+	profServerStart time.Duration
+	profServer      time.Duration
 	profServerHist  [128]int
 
 	fps        int
@@ -119,17 +119,17 @@ func (m *Perfmon) packetSize() int {
 }
 
 func (m *Perfmon) startProfileClient() {
-	m.profClientStart = platformTicks()
+	m.profClientStart = platform.Ticks()
 }
 
 func (m *Perfmon) endProfileClient() {
-	m.profClient = int(platformTicks() - m.profClientStart)
+	m.profClient = platform.Ticks() - m.profClientStart
 }
 
 func (m *Perfmon) startProfileServer() {
-	m.profServerStart = platformTicks()
+	m.profServerStart = platform.Ticks()
 }
 
 func (m *Perfmon) endProfileServer() {
-	m.profServer = int(platformTicks() - m.profServerStart)
+	m.profServer = platform.Ticks() - m.profServerStart
 }
