@@ -267,15 +267,17 @@ mainloop:
 		nox_framerate_limit_416C70(30)
 		noxClient.processInput()
 		nox_game_cdMaybeSwitchState_413800()
-		C.nox_xxx_time_startProfile_435770()
+
+		noxPerfmon.startProfileServer()
 		if !gameStateFunc() {
 			if debugMainloop {
 				log.Println("gameStateFunc exit")
 			}
 			goto MAINLOOP_EXIT
 		}
-		C.nox_xxx_time_endProfile_435780()
-		C.sub_435740()
+		noxPerfmon.endProfileServer()
+
+		noxPerfmon.startProfileClient()
 		if !isDedicatedServer {
 			C.sub_430880(1)
 			if nox_draw_unk1 != nil && !nox_draw_unk1() {
@@ -299,7 +301,8 @@ mainloop:
 			mainloopMaybeSwitchMapXXX()
 		}
 		noxClient.drawAndPresent()
-		C.sub_435750()
+		noxPerfmon.endProfileClient()
+
 		mainloopFrameLimit()
 		if mainloopContinue && !mainloopStopError {
 			// unwind the stack and continue the mainloop
