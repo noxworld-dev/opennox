@@ -23,6 +23,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
 var (
@@ -167,9 +168,7 @@ func noxPerfmonTransferStats(ind int) uint32 {
 		return memmap.Uint32(0x5D4594, 2498536+4*uintptr(ind))
 	}
 	*prevPtr = ticks
-	valPtr := &arr2498024[ind]
-	*memmap.PtrUint32(0x5D4594, 2498536+4*uintptr(ind)) = *valPtr
-	*valPtr = 0
+	*memmap.PtrUint32(0x5D4594, 2498536+4*uintptr(ind)) = netstr.GetStat(ind)
 	return 0
 }
 

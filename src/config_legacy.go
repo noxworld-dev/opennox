@@ -41,6 +41,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
 var (
@@ -300,7 +301,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 			*memmap.PtrUint32(0x587000, 81280) = uint32(v)
-			val292940 = uint32(float64(v) * 0.0099999998 * 10.0)
+			netstr.MaxPacketLoss = int(float64(v) * 0.0099999998 * 10.0)
 		case "SendMessageOfTheDay":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {

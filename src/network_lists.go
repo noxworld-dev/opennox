@@ -12,6 +12,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
 var (
@@ -363,7 +364,7 @@ func nox_netlist_addToMsgListSrv(ind int, buf []byte) bool {
 		if ind == noxMaxPlayers-1 {
 			nox_netlist_receiveCli_494E90(ind)
 		} else {
-			nox_xxx_netSendReadPacket_5528B0(s.getPlayerByInd(ind).Index()+1, 0)
+			netstr.SendReadPacket(s.getPlayerByInd(ind).Index()+1, 0)
 		}
 
 		// Set buffer length and re-queue updates.

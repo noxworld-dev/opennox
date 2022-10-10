@@ -27,7 +27,6 @@ extern unsigned int dword_5d4594_2660032;
 extern void* dword_5d4594_814624;
 extern unsigned int dword_5d4594_815704;
 extern unsigned int dword_5d4594_815708;
-extern unsigned int dword_5d4594_3844304;
 extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_587000_145664;
 extern unsigned int dword_587000_145668;
@@ -49,7 +48,6 @@ import (
 	"errors"
 	"fmt"
 	"image/color"
-	"net"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -59,14 +57,13 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/env"
 	"github.com/noxworld-dev/opennox-lib/log"
-	"github.com/noxworld-dev/opennox-lib/noxnet"
-	"github.com/noxworld-dev/opennox-lib/platform"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/serial"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
 var (
@@ -574,31 +571,6 @@ func CONNECT_OR_HOST() error {
 	return nil
 }
 
-func newConnectFailErr(code int, err error) *connectFailErr {
-	if code == 0 {
-		code = -1
-	}
-	return &connectFailErr{
-		Err:    err,
-		Code:   code,
-		Caller: caller(1),
-	}
-}
-
-type connectFailErr struct {
-	Err    error
-	Code   int
-	Caller string
-}
-
-func (e *connectFailErr) Error() string {
-	return fmt.Sprintf("CONNECT_SERVER failed: %s (code=%d, %s)", e.Err, e.Code, e.Caller)
-}
-
-func (e *connectFailErr) Unwrap() error {
-	return e.Err
-}
-
 func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	if debugMainloop {
 		log.Println("CONNECT_SERVER", host, port)
@@ -606,160 +578,26 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 			log.Printf("CONNECT_SERVER exit (%s -> %s)\n", caller(1), caller(2))
 		}()
 	}
-	narg := &netStructOpt{
-		datasize: 2048,
-		port:     port,
-		funcyyy: func(a1 int, a2 []byte, a3 unsafe.Pointer) int {
+	narg := &netstr.Options{
+		DataSize: 2048,
+		Port:     port,
+		Func2: func(a1 int, a2 []byte, a3 unsafe.Pointer) int {
 			return int(C.nox_xxx_netHandleCliPacket_43C860(C.int(a1), (*C.uchar)(unsafe.Pointer(&a2[0])), C.int(len(a2)), a3))
 		},
+		Check14: nox_xxx_netBigSwitch_553210_op_14_check,
+		Check17: nox_xxx_netBigSwitch_553210_op_17_check,
 	}
 	C.dword_5d4594_815704 = 0
 	C.dword_5d4594_815708 = 0
 	nox_xxx_allocNetGQueue_5520B0()
-	ind, err := nox_xxx_netPreStructToFull(narg)
+	ind, err := netstr.NewClient(narg)
 	if err != nil {
-		return newConnectFailErr(0, err)
+		return err
 	}
 	dword_5D4594_815700 = ind
 
-	if debugMainloop {
-		log.Println("NET_CONNECT", ind, host, port)
-	}
-	ns := getNetStructByInd(ind)
-	if ns == nil {
-		if debugMainloop {
-			log.Println("NET_CONNECT_THEN_FAIL", -3)
-		}
-		return newConnectFailErr(-3, errors.New("no net struct"))
-	}
-	if len(host) == 0 {
-		if debugMainloop {
-			log.Println("NET_CONNECT_THEN_FAIL", -4)
-		}
-		return newConnectFailErr(-4, errors.New("empty hostname"))
-	}
-	if port < 1024 || port > 0x10000 {
-		if debugMainloop {
-			log.Println("NET_CONNECT_THEN_FAIL", -15)
-		}
-		return newConnectFailErr(-15, errors.New("invalid port"))
-	}
-	sock := newSocketUDP()
-	if sock == nil {
-		if debugMainloop {
-			log.Println("NET_CONNECT_THEN_FAIL", -22)
-		}
-		return newConnectFailErr(-22, errors.New("cannot create socket"))
-	}
-	ns.sock = sock
-	var ip net.IP
-	if host[0] < '0' || host[0] > '9' {
-		list, err := net.LookupIP(host)
-		if err != nil || len(list) == 0 {
-			log.Printf("error: cannot find ip for a host %q: %v", host, err)
-
-			if debugMainloop {
-				log.Println("NET_CONNECT_THEN_FAIL", -4)
-			}
-			return newConnectFailErr(-4, err)
-		}
-		ip = list[0]
-	} else {
-		ip = net.ParseIP(host)
-	}
-	ns.SetAddr(ip, port)
-
-	cport := clientGetClientPort()
-	for {
-		err := sock.Bind(nil, cport)
-		if err == nil {
-			break
-		} else if !ErrIsInUse(err) {
-			if debugMainloop {
-				log.Println("NET_CONNECT_THEN_FAIL", -1)
-			}
-			return newConnectFailErr(-1, err)
-		}
-		cport++
-	}
-	dword_5d4594_3844304 = false
-	var v12 [1]byte
-	v11, err := nox_xxx_netSendSock552640(ind, v12[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
-	if err != nil {
-		return fmt.Errorf("cannot send data: %w", err)
-	}
-
-	if debugMainloop {
-		log.Println("start NET_CONNECT_WAIT_LOOP")
-	}
-	id, retries, flags, counter := ind, 60, 6, 0
-	for {
-		if debugMainloop {
-			log.Println("NET_CONNECT_WAIT_LOOP", id, v11, retries, flags, counter)
-		}
-		ns := getNetStructByInd(id)
-		if ns == nil {
-			if debugMainloop {
-				log.Println("NET_CONNECT_WAIT_THEN_FAIL", -3)
-				log.Println("NET_CONNECT_THEN_FAIL", -23)
-			}
-			return newConnectFailErr(-23, errors.New("no net struct"))
-		}
-		//counter = 0 // TODO: is this correct?
-		counter++
-		if counter > 20*retries {
-			if debugMainloop {
-				log.Println("NET_CONNECT_WAIT_THEN_FAIL", -23)
-				log.Println("NET_CONNECT_THEN_FAIL", -23)
-			}
-			return newConnectFailErr(-23, errors.New("timeout"))
-		}
-		nox_xxx_servNetInitialPackets_552A80(id, flags|1)
-		nox_xxx_netMaybeSendAll_552460()
-		f28 := int(int8(ns.ind28))
-		if debugMainloop {
-			log.Printf("NET_CONNECT_WAIT_LOOP: state %d\n", f28)
-		}
-		if f28 >= v11 {
-			break
-		}
-		platform.Sleep(30 * time.Millisecond)
-		if debugMainloop {
-			log.Println("continue NET_CONNECT_WAIT_LOOP")
-		}
-	}
-
-	if debugMainloop {
-		log.Println("NET_CONNECT_WAIT_THEN_OK", id)
-	}
-
-	ns = getNetStructByInd(id)
-	if dword_5d4594_3844304 && ns.ID() >= 0 {
-		vs := unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2512892)), 1024)
-		copy(vs, make([]byte, 1024))
-		data, err := opts.MarshalBinary()
-		if err != nil {
-			return err
-		}
-		vs = vs[:3+len(data)]
-
-		vs[0] = byte(noxnet.MSG_ACCEPTED)
-		vs[1] = ns.Data2()[1]
-		vs[2] = 32
-		if len(data) > 0 {
-			copy(vs[3:], data[:153])
-		}
-		nox_xxx_netSendSock552640(id, vs, NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
-	}
-
-	if ns.ID() < 0 {
-		if debugMainloop {
-			log.Println("NET_CONNECT_THEN_FAIL", -1)
-		}
-		return newConnectFailErr(-1, errors.New("invalid net struct id"))
-	}
-	if debugMainloop {
-		log.Println("NET_CONNECT_THEN_OK")
+	if err := netstr.Dial(ind, host, port, clientGetClientPort(), opts); err != nil {
+		return err
 	}
 
 	if !noxflags.HasGame(noxflags.GameHost) {
@@ -769,40 +607,19 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	C.nox_xxx_set3512_40A340(0)
 	nox_xxx_setMapCRC_40A360(0)
 
-	deadline := platform.Ticks() + 10*time.Second
-	if debugMainloop {
-		log.Println("CONNECT_WAIT_LOOP_START", deadline)
-	}
-	for {
-		now := platform.Ticks()
-		if debugMainloop {
-			log.Println("CONNECT_WAIT_LOOP", now, deadline, deadline-now)
-		}
-		if now >= deadline {
-			if debugMainloop {
-				log.Println("CONNECT_WAIT_THEN_DEADLINE")
-			}
-			return newConnectFailErr(-19, errors.New("timeout 2"))
-		}
-		nox_xxx_servNetInitialPackets_552A80(dword_5D4594_815700, 1)
-		nox_xxx_netSendBySock_40EE10(dword_5D4594_815700, noxMaxPlayers-1, 0)
+	if err := netstr.DialWait(ind, 10*time.Second, func() {
+		nox_xxx_netSendBySock_40EE10(ind, noxMaxPlayers-1, 0)
 		nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
-		nox_xxx_netMaybeSendAll_552460()
-		if nox_xxx_getMapCRC_40A370() != 0 {
-			break
-		}
-		platform.Sleep(5 * time.Millisecond)
-		if debugMainloop {
-			log.Println("continue CONNECT_WAIT_LOOP")
-		}
+	}, func() bool {
+		return nox_xxx_getMapCRC_40A370() != 0
+	}); err != nil {
+		return err
 	}
-	if debugMainloop {
-		log.Println("CONNECT_WAIT_THEN_SUCCESS")
-	}
+
 	if vers := C.nox_client_getVersionCode_409AD0(); vers != NOX_CLIENT_VERS_CODE {
 		err := fmt.Errorf("invalid client version: %x", int(vers))
 		log.Println(err)
-		return newConnectFailErr(-20, err)
+		return netstr.NewConnectFailErr(-20, err)
 	}
 	gameSetPlayState(2)
 	if !noxflags.HasGame(noxflags.GameHost) {
@@ -813,7 +630,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 
 func CONNECT_RESULT_FAIL(err error) {
 	errcode := 0
-	if e, ok := err.(*connectFailErr); ok {
+	if e, ok := err.(*netstr.ConnectFailErr); ok {
 		errcode = e.Code
 	}
 	if debugMainloop {

@@ -109,6 +109,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/internal/version"
 )
 
@@ -866,8 +867,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 		}
 	}
 	C.sub_502100()
-	sub_5524C0()
-	nox_xxx_netMaybeSendAll_552460()
+	netstr.Update()
 	if noxflags.HasEngine(noxflags.EngineReplayRead) {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(true)
 	}
@@ -904,7 +904,7 @@ func nox_xxx_gameTick_4D2580_server_A1() {
 				C.sub_41D650()
 			}
 		}
-		netLog.Println("EndGame")
+		netstr.Log.Println("EndGame")
 		C.sub_46DCC0()
 	}
 }

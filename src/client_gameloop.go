@@ -42,6 +42,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
 var (
@@ -275,14 +276,14 @@ func sub_43CCA0() {
 
 	if dt := platformTicks() - qword_5d4594_815724; dt >= 2000 {
 		qword_5d4594_815724 = platformTicks()
-		sub_552E70(int(nox_xxx_netGet_43C750()))
+		netstr.Sub552E70(int(nox_xxx_netGet_43C750()))
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_netImportant_4E5770(0x1F, 0)
 	}
 	nox_xxx_netSendBySock_40EE10(int(nox_xxx_netGet_43C750()), 31, 0)
 	nox_netlist_resetByInd_40ED10(31, 0)
-	nox_xxx_netMaybeSendAll_552460()
+	netstr.MaybeSendAll()
 	if !(memmap.Uint32(0x5D4594, 815720) != 0 || memmap.Uint32(0x5D4594, 815716) != 0) {
 		return
 	}
