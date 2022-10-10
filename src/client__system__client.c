@@ -14,7 +14,6 @@
 
 extern uint32_t dword_5d4594_811904;
 extern uint32_t nox_perfmon_latePackets_2618900;
-extern uint32_t nox_perfmon_ping_2614264;
 extern uint32_t nox_player_netCode_85319C;
 extern uint32_t nox_client_gui_flag_815132;
 extern int nox_win_width;

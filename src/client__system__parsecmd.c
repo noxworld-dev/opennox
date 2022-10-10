@@ -874,12 +874,6 @@ int nox_cmd_show_gui(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
-//----- (004414D0) --------------------------------------------------------
-int nox_cmd_show_netstat(int tokInd, int tokCnt, wchar_t** tokens) {
-	sub_470A60();
-	return 1;
-}
-
 //----- (004414E0) --------------------------------------------------------
 int nox_cmd_show_info(int tokInd, int tokCnt, wchar_t** tokens) {
 	nox_xxx_clientPlaySoundSpecial_452D80(921, 100);

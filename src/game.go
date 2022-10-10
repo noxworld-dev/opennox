@@ -1067,7 +1067,7 @@ func nox_game_guiInit_473680() error {
 	if C.sub_456070() == 0 {
 		return errors.New("sub_456070 failed")
 	}
-	if C.sub_470710() == 0 {
+	if noxClient.initGuiFPS() == 0 {
 		return errors.New("sub_470710 failed")
 	}
 	if C.nox_xxx_guiHealthManaInit_4714E0() == 0 {
