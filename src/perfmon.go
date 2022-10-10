@@ -35,6 +35,9 @@ type Perfmon struct {
 	logger      *log.Logger
 	loggerHdr   bool
 	logBandLast time.Duration
+
+	bandInd     int
+	bandHistory [128]int
 }
 
 func (m *Perfmon) Toggle() {
