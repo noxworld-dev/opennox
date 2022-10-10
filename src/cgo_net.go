@@ -7,6 +7,7 @@ import "C"
 import (
 	"encoding/binary"
 	"net"
+	"net/netip"
 	"unsafe"
 )
 
@@ -29,18 +30,18 @@ func port2int(v int) uint16 {
 	return vi
 }
 
-func int2ip(v uint32) net.IP {
+func int2ip(v uint32) netip.Addr {
 	b := (*[4]byte)(unsafe.Pointer(&v))[:]
 	ip := net.IPv4(b[0], b[1], b[2], b[3])
-	return ip
+	addr, _ := netip.AddrFromSlice(ip.To4())
+	return addr
 }
 
-func ip2int(ip net.IP) uint32 {
-	if ip == nil {
+func ip2int(ip netip.Addr) uint32 {
+	if !ip.IsValid() {
 		return 0
 	}
-	var b [4]byte
-	copy(b[:], ip.To4())
+	b := ip.As4()
 	v := *(*uint32)(unsafe.Pointer(&b[0]))
 	return v
 }

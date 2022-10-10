@@ -50,7 +50,7 @@ import (
 	"encoding/binary"
 	"image"
 	"math"
-	"net"
+	"net/netip"
 	"strings"
 	"unsafe"
 
@@ -90,7 +90,7 @@ func init() {
 var (
 	dword_5D4594_815700  int
 	dword_973f18_44216   string
-	dword_5d4594_3843632 net.IP
+	dword_5d4594_3843632 netip.Addr
 )
 
 var (
@@ -221,29 +221,29 @@ func nox_client_joinGame() error {
 	addr := nox_client_getServerAddr_43B300()
 	port := clientGetServerPort()
 	netstr.Log.Printf("join server: %s:%d", addr.String(), port)
-	_, err := sendJoinGame(addr, port, buf)
+	_, err := sendJoinGame(netip.AddrPortFrom(addr, uint16(port)), buf)
 	return err
 }
 
 //export sub_5550D0
 func sub_5550D0(addr C.int, port C.uint16_t, cdata *C.char) C.int {
 	buf := unsafe.Slice((*byte)(unsafe.Pointer(cdata)), 22)
-	n, err := sendXXX_5550D0(int2ip(uint32(addr)), int(port), buf)
+	n, err := sendXXX_5550D0(netip.AddrPortFrom(int2ip(uint32(addr)), uint16(port)), buf)
 	return convSendToServerErr(n, err)
 }
 
-func sendJoinGame(addr net.IP, port int, data []byte) (int, error) {
+func sendJoinGame(addr netip.AddrPort, data []byte) (int, error) {
 	data[0] = 0
 	data[1] = 0
 	data[2] = 14 // 0x0E
-	return sendToServer(addr, port, data)
+	return sendToServer(addr, data)
 }
 
-func sendXXX_5550D0(addr net.IP, port int, data []byte) (int, error) {
+func sendXXX_5550D0(addr netip.AddrPort, data []byte) (int, error) {
 	data[0] = 0
 	data[1] = 0
 	data[2] = 17 // 0x11
-	return sendToServer(addr, port, data)
+	return sendToServer(addr, data)
 }
 
 func (s *Server) nox_xxx_netSendPacket_4E5030(a1 int, buf []byte, a4, a5, a6 int) int {
@@ -267,7 +267,7 @@ func (s *Server) nox_xxx_netMsgFadeBegin_4D9800(a1, a2 bool) int {
 	return s.nox_xxx_netSendPacket1_4E5390(255, p[:], 0, 1)
 }
 
-func nox_client_getServerAddr_43B300() net.IP {
+func nox_client_getServerAddr_43B300() netip.Addr {
 	return int2ip(uint32(C.nox_client_getServerAddr_43B300()))
 }
 
@@ -359,11 +359,11 @@ func nox_xxx_netInit_554380(narg *netstr.Options) (ind int, _ error) {
 		return v2, err
 	}
 	if ip, err := nat.ExternalIP(context.Background()); err == nil {
-		dword_5d4594_3843632 = ip
+		dword_5d4594_3843632, _ = netip.AddrFromSlice(ip.To4())
 		dword_973f18_44216 = ip.String()
 	} else if ips, err := nat.InternalIPs(context.Background()); err == nil && len(ips) != 0 {
 		ip = ips[0].IP
-		dword_5d4594_3843632 = ip
+		dword_5d4594_3843632, _ = netip.AddrFromSlice(ip.To4())
 		dword_973f18_44216 = ip.String()
 	}
 	return v2, nil

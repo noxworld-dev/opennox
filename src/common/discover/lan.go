@@ -4,6 +4,7 @@ import (
 	"context"
 	"math/rand"
 	"net"
+	"net/netip"
 	"time"
 
 	"github.com/noxworld-dev/opennox-lib/common"
@@ -51,12 +52,13 @@ func init() {
 					return
 				}
 				buf = buf[:n]
-				if g := decodeGameInfo(token, addr, buf); g != nil {
+				ip, _ := netip.AddrFromSlice(addr.IP.To4())
+				if g := decodeGameInfo(token, getAddr(addr), buf); g != nil {
 					select {
 					case <-ctx.Done():
 						return
 					case out <- Server{
-						IP:       addr.IP,
+						IP:       ip,
 						Source:   backend,
 						Priority: priorityLAN,
 						Ping:     time.Since(start),

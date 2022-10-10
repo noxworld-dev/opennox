@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"net"
+	"net/netip"
 	"sync"
 	"time"
 
@@ -34,8 +35,8 @@ var (
 type Server struct {
 	lobby.Game
 	Source   string
-	IP       net.IP // only IPv4 for now
-	Priority int    // lower values mean higher priority
+	IP       netip.Addr // only IPv4 for now
+	Priority int        // lower values mean higher priority
 	Ping     time.Duration
 	NoPing   bool // server doesn't support UDP pings
 }
@@ -189,7 +190,7 @@ func eachServerWith(ctx context.Context, pc *net.UDPConn, fnc ServerFunc, blist 
 					if !s.NoPing {
 						s.NoPing = true
 						start := time.Now()
-						g, err := pinger.Ping(ctx, &net.UDPAddr{IP: s.IP, Port: s.Port})
+						g, err := pinger.Ping(ctx, netip.AddrPortFrom(s.IP, uint16(s.Port)))
 						if err != nil {
 							Log.Printf("ping error: %s: %v", s.Source, err)
 						} else {
@@ -240,7 +241,7 @@ func ListServers(ctx context.Context) ([]Server, error) {
 	return listServersWith(ctx, l)
 }
 
-func ListServersWith(ctx context.Context, pc *net.UDPConn) ([]Server, error) {
+func ListServersWith(ctx context.Context, pc net.PacketConn) ([]Server, error) {
 	return listServersWith(ctx, pc)
 }
 
@@ -253,7 +254,7 @@ type serverKey struct {
 	Port int
 }
 
-func listServersWith(ctx context.Context, pc *net.UDPConn) ([]Server, error) {
+func listServersWith(ctx context.Context, pc net.PacketConn) ([]Server, error) {
 	if _, ok := ctx.Deadline(); !ok {
 		var cancel func()
 		ctx, cancel = context.WithTimeout(ctx, discoverTimeout)
@@ -297,7 +298,7 @@ func listServersWith(ctx context.Context, pc *net.UDPConn) ([]Server, error) {
 				if !ok {
 					break pingLoop
 				}
-				if err := ping.SendPing(pingOut, &net.UDPAddr{IP: s.IP, Port: s.Port}); err != nil {
+				if err := ping.SendPing(pingOut, netip.AddrPortFrom(s.IP, uint16(s.Port))); err != nil {
 					Log.Printf("ping: cannot ping server %s:%d: %v", s.IP, s.Port, err)
 				} else {
 					remaining++
