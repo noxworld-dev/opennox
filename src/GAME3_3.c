@@ -7092,7 +7092,8 @@ void sub_4ED050(int a1, int a2) {
 }
 
 //----- (004ED0C0) --------------------------------------------------------
-void sub_4ED0C0(int a1, nox_object_t* object) {
+void sub_4ED0C0(nox_object_t* a1p, nox_object_t* object) {
+	int a1 = a1p;
 	int v2;  // ebx
 	int v3;  // eax
 	int v4;  // ebp
@@ -7142,7 +7143,7 @@ void sub_4ED0C0(int a1, nox_object_t* object) {
 		if (v6) {
 			*(uint32_t*)(v6 + 500) = object->field_125;
 		}
-		object->field_123 = 0;
+		object->inv_holder = 0;
 		nox_xxx_unitClearOwner_4EC300(object);
 		if (*(uint8_t*)(a1 + 8) & 4) {
 			v7 = *(uint32_t*)(a1 + 504);
@@ -11585,7 +11586,7 @@ void nox_xxx_inventoryPutImpl_4F3070(int a1, nox_object_t* item, int a3) {
 			*(uint32_t*)(v4 + 500) = item;
 		}
 		*(uint32_t*)(a1 + 504) = item;
-		*(uint32_t*)&item->field_123 = a1;
+		*(uint32_t*)&item->inv_holder = a1;
 		nox_xxx_unitSetOwner_4EC290(a1, item);
 		if (*(uint8_t*)(a1 + 8) & 4) {
 			v5 = *(uint32_t*)(*(uint32_t*)(a1 + 748) + 276);
@@ -11648,7 +11649,7 @@ int nox_xxx_pickupDefault_4F31E0(nox_object_t* a1p, nox_object_t* item, int a3) 
 	if (v3 || !nox_xxx_servObjectHasTeam_419130(&item->field_12) ||
 		nox_xxx_servCompareTeams_419150(v4 + 48, &item->field_12) ||
 		(v6 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)&item->field_13)) == 0) {
-		if (*(uint32_t*)&item->field_123) {
+		if (*(uint32_t*)&item->inv_holder) {
 			result = 0;
 		} else if (*(uint16_t*)(v4 + 490)) {
 			v9 = *(uint32_t*)(v4 + 504);

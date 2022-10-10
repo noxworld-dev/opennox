@@ -243,7 +243,7 @@ int sub_4ECFA0(nox_object_t* a1);
 int sub_4ECFE0();
 int nox_xxx_netGetUnitByExtent_4ED020(int a1);
 void sub_4ED050(int a1, int a2);
-void sub_4ED0C0(int a1, nox_object_t* object);
+void sub_4ED0C0(nox_object_t* a1p, nox_object_t* object);
 int nox_xxx_dropDefault_4ED290(nox_object_t* a1p, nox_object_t* a2p, float2* a3);
 int sub_4ED500(int a1, int a2, float2* a3);
 int nox_xxx_dropTrap_4ED580(int a1, int a2, float2* a3);
