@@ -100,6 +100,7 @@ var (
 	nox_net_struct2_arr      [NOX_NET_STRUCT_MAX]netStruct2
 	netPacketDrop            int
 	arr2508788               [NOX_NET_STRUCT_MAX]netTimingStruct
+	arr2498024               [NOX_NET_STRUCT_MAX]uint32
 	list2495908              listHead[netPlayerIDList, *netPlayerIDList]
 	cnt2500076               int
 	nox_alloc_gQueue_3844300 alloc.ClassT[gQueueItem]
@@ -827,7 +828,7 @@ func nox_xxx_netSendSock552640(id int, buf []byte, flags int) (int, error) {
 }
 
 func nox_xxx_netCountData_554030(n int, ind int) {
-	*memmap.PtrUint32(0x5D4594, 2498024+4*uintptr(ind)) += uint32(n)
+	arr2498024[ind] += uint32(n)
 }
 
 func sub_553F40(a1, a2 int) {
