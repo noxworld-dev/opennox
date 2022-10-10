@@ -275,7 +275,7 @@ func Dial(ind int, host string, port int, cport int, opts encoding.BinaryMarshal
 
 			return NewConnectFailErr(-4, err)
 		}
-		ip, _ = netip.AddrFromSlice(list[0])
+		ip, _ = netip.AddrFromSlice(list[0].To4())
 	} else {
 		var err error
 		ip, err = netip.ParseAddr(host)
@@ -288,7 +288,7 @@ func Dial(ind int, host string, port int, cport int, opts encoding.BinaryMarshal
 	ns.SetAddr(addr)
 
 	for {
-		sock, err := Listen(netip.AddrPortFrom(netip.Addr{}, uint16(cport)))
+		sock, err := Listen(netip.AddrPortFrom(netip.IPv4Unspecified(), uint16(cport)))
 		if err == nil {
 			ns.pc = sock
 			break
@@ -664,7 +664,7 @@ func InitNew(narg *Options) (ind int, _ error) {
 	}
 
 	for {
-		sock, err := Listen(netip.AddrPortFrom(netip.Addr{}, uint16(narg.Port)))
+		sock, err := Listen(netip.AddrPortFrom(netip.IPv4Unspecified(), uint16(narg.Port)))
 		if err == nil {
 			ns.pc = sock
 			break

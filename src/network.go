@@ -358,11 +358,11 @@ func nox_xxx_netInit_554380(narg *netstr.Options) (ind int, _ error) {
 		return v2, err
 	}
 	if ip, err := nat.ExternalIP(context.Background()); err == nil {
-		dword_5d4594_3843632, _ = netip.AddrFromSlice(ip)
+		dword_5d4594_3843632, _ = netip.AddrFromSlice(ip.To4())
 		dword_973f18_44216 = ip.String()
 	} else if ips, err := nat.InternalIPs(context.Background()); err == nil && len(ips) != 0 {
 		ip = ips[0].IP
-		dword_5d4594_3843632, _ = netip.AddrFromSlice(ip)
+		dword_5d4594_3843632, _ = netip.AddrFromSlice(ip.To4())
 		dword_973f18_44216 = ip.String()
 	}
 	return v2, nil

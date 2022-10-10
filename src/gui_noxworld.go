@@ -317,7 +317,7 @@ func nox_xxx_createSocketLocal(port int) error {
 	if lobbyBroadcast != nil {
 		return nil
 	}
-	conn, err := netstr.Listen(netip.AddrPortFrom(netip.Addr{}, uint16(port)))
+	conn, err := netstr.Listen(netip.AddrPortFrom(netip.IPv4Unspecified(), uint16(port)))
 	if err != nil {
 		netstr.Log.Println("cannot bind broadcast socket:", err)
 		return err

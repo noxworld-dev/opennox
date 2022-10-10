@@ -52,7 +52,7 @@ func init() {
 					return
 				}
 				buf = buf[:n]
-				ip, _ := netip.AddrFromSlice(addr.IP)
+				ip, _ := netip.AddrFromSlice(addr.IP.To4())
 				if g := decodeGameInfo(token, getAddr(addr), buf); g != nil {
 					select {
 					case <-ctx.Done():
