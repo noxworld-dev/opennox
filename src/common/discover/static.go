@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"context"
 	"fmt"
-	"net"
+	"net/netip"
 	"os"
 	"path/filepath"
 	"strings"
@@ -59,9 +59,9 @@ func staticIPs(path string) ([]Server, error) {
 		}
 		// TODO: support server ports
 		const port = common.GamePort
-		ip := net.ParseIP(line).To4()
-		if ip == nil {
-			last = fmt.Errorf("cannot parse server IP in %s: %q", name, line)
+		ip, err := netip.ParseAddr(line)
+		if err != nil {
+			last = fmt.Errorf("cannot parse server IP in %s: %q: %v", name, line, err)
 			Log.Println(last)
 			continue
 		}

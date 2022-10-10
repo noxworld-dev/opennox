@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"math/rand"
 	"net"
+	"net/netip"
 	"sync"
 	"time"
 	"unsafe"
@@ -38,7 +39,7 @@ var (
 	GameFrame     func() uint32
 	GetMaxPlayers func() int
 	OnDiscover    func(src, dst []byte) int
-	OnExtPacket   func(s *Socket, buf1 []byte, from net.Addr)
+	OnExtPacket   func(pc net.PacketConn, buf1 []byte, from netip.AddrPort)
 	KeyRand       = func(min, max int) int {
 		return min + rand.Intn(max-min)
 	}
@@ -103,7 +104,7 @@ type queueItem struct {
 type netStruct2 struct {
 	flag  bool
 	cnt   uint8
-	addr  net.Addr
+	addr  netip.AddrPort
 	cur   uint8 // index into arr
 	arr   [10]int
 	ticks uint32
@@ -134,40 +135,36 @@ func getFreeNetStruct2Ind() int {
 	return -1
 }
 
-func structByAddr(ip net.IP, port int) *netStruct {
+func structByAddr(addr netip.AddrPort) *netStruct {
 	for i := range structs {
 		ns := structs[i]
 		if ns == nil {
 			continue
 		}
-		ip2, port2 := ns.Addr()
-		if port == port2 && ip.Equal(ip2) {
+		if addr == ns.addr {
 			return ns
 		}
 	}
 	return nil
 }
 
-func struct2IndByAddr(addr net.Addr) int {
-	ip, port := GetAddr(addr)
+func struct2IndByAddr(addr netip.AddrPort) int {
 	for i := range structs2 {
 		nx := &structs2[i]
-		ip2, port2 := GetAddr(nx.addr)
-		if ip.Equal(ip2) && port == port2 {
+		if addr == nx.addr {
 			return i
 		}
 	}
 	return -1
 }
 
-func hasStructWithIndAndAddr(ind int, ip net.IP, port int) bool {
+func hasStructWithIndAndAddr(ind int, addr netip.AddrPort) bool {
 	for i := range structs {
 		ns := structs[i]
 		if ns == nil {
 			continue
 		}
-		ip2, port2 := ns.Addr()
-		if port == port2 && ip.Equal(ip2) && ind == i {
+		if addr == ns.addr && ind == i {
 			return true
 		}
 	}
@@ -223,8 +220,8 @@ func newStruct(opt *Options) *netStruct {
 
 func CloseByInd(ind int) {
 	if ns := structByInd(ind); ns != nil {
-		_ = ns.sock.Close()
-		ns.sock = nil
+		_ = ns.pc.Close()
+		ns.pc = nil
 		ns.FreeXxx()
 		structs[ind] = nil
 	}
@@ -257,7 +254,7 @@ func Dial(ind int, host string, port int, cport int, opts encoding.BinaryMarshal
 	if port < 1024 || port > 0x10000 {
 		return NewConnectFailErr(-15, errors.New("invalid port"))
 	}
-	var ip net.IP
+	var ip netip.Addr
 	if host[0] < '0' || host[0] > '9' {
 		list, err := net.LookupIP(host)
 		if err != nil || len(list) == 0 {
@@ -265,16 +262,22 @@ func Dial(ind int, host string, port int, cport int, opts encoding.BinaryMarshal
 
 			return NewConnectFailErr(-4, err)
 		}
-		ip = list[0]
+		ip, _ = netip.AddrFromSlice(list[0].To4())
 	} else {
-		ip = net.ParseIP(host)
+		var err error
+		ip, err = netip.ParseAddr(host)
+		if err != nil {
+			log.Printf("error: cannot parse host %q: %v", host, err)
+			return NewConnectFailErr(-4, err)
+		}
 	}
-	ns.SetAddr(ip, port)
+	addr := netip.AddrPortFrom(ip, uint16(port))
+	ns.SetAddr(addr)
 
 	for {
-		sock, err := udpListen(nil, cport)
+		sock, err := Listen(netip.AddrPortFrom(netip.IPv4Unspecified(), uint16(cport)))
 		if err == nil {
-			ns.sock = sock
+			ns.pc = sock
 			break
 		} else if !ErrIsInUse(err) {
 			return NewConnectFailErr(-1, err)
@@ -355,9 +358,8 @@ func DialWait(ind int, timeout time.Duration, send func(), check func() bool) er
 }
 
 type netStruct struct {
-	sock *Socket
-	ip   net.IP
-	port int
+	pc   net.PacketConn
+	addr netip.AddrPort
 	id   int
 
 	data1    []byte
@@ -399,15 +401,15 @@ func (ns *netStruct) FreeXxx() {
 	*ns = netStruct{}
 }
 
-func (ns *netStruct) Addr() (net.IP, int) {
+func (ns *netStruct) Addr() netip.AddrPort {
 	if ns == nil {
-		return nil, 0
+		return netip.AddrPort{}
 	}
-	return ns.ip, ns.port
+	return ns.addr
 }
 
-func (ns *netStruct) SetAddr(ip net.IP, port int) {
-	ns.ip, ns.port = ip, port
+func (ns *netStruct) SetAddr(addr netip.AddrPort) {
+	ns.addr = addr
 }
 
 func (ns *netStruct) ID() int {
@@ -526,8 +528,7 @@ func Send(id int, buf []byte, flags int) (int, error) {
 		if flags&SendFlagFlush != 0 {
 			copy(d2x[:2], d2b[:2])
 			copy(d2x[2:2+n], buf)
-			ip, port := ns2.Addr()
-			n2, err := SendToAddr(ns2.sock, d2x[:n+2], ip, port)
+			n2, err := SendToAddr(ns2.pc, d2x[:n+2], ns2.addr)
 			if n2 == -1 {
 				return -1, err
 			}
@@ -564,17 +565,17 @@ func netCryptDst(key byte, src, dst []byte) {
 
 var sendXorBuf [4096]byte
 
-func SendToAddr(s *Socket, buf []byte, ip net.IP, port int) (int, error) {
-	ns := structByAddr(ip, port)
+func SendToAddr(pc net.PacketConn, buf []byte, addr netip.AddrPort) (int, error) {
+	ns := structByAddr(addr)
 	if ns == nil {
-		return s.SendTo(buf, ip, port)
+		return WriteTo(pc, buf, addr)
 	}
 	if ns.xorKey == 0 {
-		return s.SendTo(buf, ip, port)
+		return WriteTo(pc, buf, addr)
 	}
 	dst := sendXorBuf[:len(buf)]
 	netCryptDst(ns.xorKey, buf, dst)
-	return s.SendTo(dst, ip, port)
+	return WriteTo(pc, dst, addr)
 }
 
 func addStats(n int, ind int) {
@@ -619,8 +620,7 @@ func maybeSendQueue(ind int, hdrByte byte, checkHdr bool) int {
 				sz := int(it.size)
 				it.active = false
 				it.ticks = ticks2 + 2000
-				ip, port := ns.Addr()
-				if _, err := SendToAddr(ns.sock, it.data[:sz], ip, port); err != nil {
+				if _, err := SendToAddr(ns.pc, it.data[:sz], ns.addr); err != nil {
 					Log.Println(err)
 					return 0
 				}
@@ -630,8 +630,7 @@ func maybeSendQueue(ind int, hdrByte byte, checkHdr bool) int {
 				sz := int(it.size)
 				it.active = false
 				it.ticks = ticks2 + 2000
-				ip, port := ns.Addr()
-				if _, err := SendToAddr(ns.sock, it.data[:sz], ip, port); err != nil {
+				if _, err := SendToAddr(ns.pc, it.data[:sz], ns.addr); err != nil {
 					Log.Println(err)
 					return 0
 				}
@@ -687,9 +686,9 @@ func InitNew(narg *Options) (ind int, _ error) {
 	}
 
 	for {
-		sock, err := udpListen(nil, narg.Port)
+		sock, err := Listen(netip.AddrPortFrom(netip.IPv4Unspecified(), uint16(narg.Port)))
 		if err == nil {
-			ns.sock = sock
+			ns.pc = sock
 			break
 		} else if !ErrIsInUse(err) {
 			return 0, err
@@ -728,8 +727,7 @@ func SendReadPacket(ind int, flags byte) int {
 		}
 		datax2 := ns2.Datax2()
 		if len(datax2) > 2 {
-			ip, port := ns2.Addr()
-			_, err := SendToAddr(ns.sock, datax2, ip, port)
+			_, err := SendToAddr(ns.pc, datax2, ns2.addr)
 			if err != nil {
 				return -1
 			}
@@ -863,12 +861,12 @@ func GetTimingByInd1(ind int) int {
 	return int(timing[1+ind].field28)
 }
 
-func GetIPByInd(ind int) net.IP {
+func GetIPByInd(ind int) netip.Addr {
 	ns := structByInd(ind)
 	if ns == nil {
-		return nil
+		return netip.Addr{}
 	}
-	return ns.ip
+	return ns.addr.Addr()
 }
 
 func SendClose(ind int) {
@@ -883,7 +881,7 @@ func SendClose(ind int) {
 	CloseByInd(ind)
 }
 
-func processStreamOp0(id int, out []byte, pid int, p1 byte, ns1 *netStruct, from net.Addr) int {
+func processStreamOp0(id int, out []byte, pid int, p1 byte, ns1 *netStruct, from netip.AddrPort) int {
 	if noxflags.HasGame(noxflags.GameHost) && noxflags.HasGame(noxflags.GameFlag4) {
 		return 0
 	}
@@ -899,7 +897,6 @@ func processStreamOp0(id int, out []byte, pid int, p1 byte, ns1 *netStruct, from
 		out[2] = 2
 		return 3
 	}
-	ip, port := GetAddr(from)
 	// now, find free net struct index and use it as pid
 	for i := range structs {
 		ns9 := structs[i]
@@ -907,8 +904,7 @@ func processStreamOp0(id int, out []byte, pid int, p1 byte, ns1 *netStruct, from
 			pid = i
 			break
 		}
-		ip2, port2 := ns9.Addr()
-		if port == port2 && ip.Equal(ip2) {
+		if from == ns9.addr {
 			out[2] = 4 // already joined?
 			return 3
 		}
@@ -933,7 +929,7 @@ func processStreamOp0(id int, out []byte, pid int, p1 byte, ns1 *netStruct, from
 		data1[1]++
 	}
 	ns10.id = id
-	ns10.sock = ns1.sock
+	ns10.pc = ns1.pc
 	ns10.func1 = ns1.func1
 	ns10.func2 = ns1.func2
 
@@ -944,7 +940,7 @@ func processStreamOp0(id int, out []byte, pid int, p1 byte, ns1 *netStruct, from
 	}
 	ns10.xorKey = 0 // send this packet without xor encoding
 
-	ns10.SetAddr(ip, port)
+	ns10.SetAddr(from)
 
 	out[0] = 31
 	out[1] = p1
@@ -1057,7 +1053,7 @@ func processStreamOp9(pid int, packetCur []byte) int {
 
 type Check14 func(out []byte, packet []byte, a4a bool, add func(pid int) bool) int
 
-func processStreamOp14(out []byte, packet []byte, ns1 *netStruct, p1 byte, from net.Addr, check Check14) int {
+func processStreamOp14(out []byte, packet []byte, ns1 *netStruct, p1 byte, from netip.AddrPort, check Check14) int {
 	out[0] = 0
 	out[1] = p1
 
@@ -1142,7 +1138,7 @@ func readXxx(id1, id2 int, a3 byte, buf []byte) bool {
 	return true
 }
 
-func processStreamOp(id int, packet []byte, out []byte, from net.Addr) int {
+func processStreamOp(id int, packet []byte, out []byte, from netip.AddrPort) int {
 	if len(packet) < 2 {
 		return 0
 	}
@@ -1248,11 +1244,10 @@ func processStreamOp(id int, packet []byte, out []byte, from net.Addr) int {
 	return 0
 }
 
-func recvRoot(s *Socket, buf []byte) (int, net.Addr) {
-	n, src, err := recvRaw(s, buf)
+func recvRoot(pc net.PacketConn, buf []byte) (int, netip.AddrPort) {
+	n, src, err := recvRaw(pc, buf)
 	if err == nil {
-		ip, port := GetAddr(src)
-		ns := structByAddr(ip, port)
+		ns := structByAddr(src)
 		if ns != nil {
 			if ns.xorKey != 0 {
 				netCrypt(ns.xorKey, buf[:n])
@@ -1270,17 +1265,13 @@ func recvRoot(s *Socket, buf []byte) (int, net.Addr) {
 	return 0, src
 }
 
-func recvRaw(s *Socket, buf []byte) (int, net.Addr, error) {
-	n, src, err := s.pc.ReadFrom(buf)
+func recvRaw(pc net.PacketConn, buf []byte) (int, netip.AddrPort, error) {
+	n, src, err := ReadFrom(pc, buf)
 	if err != nil {
 		return n, src, err
 	}
-	ip, port := GetAddr(src)
-	if Debug {
-		Log.Printf("recv %s:%d -> %s [%d]\n%x", ip, port, s.pc.LocalAddr(), n, buf[:n])
-	}
 	if n >= 2 && binary.LittleEndian.Uint16(buf[:2]) == 0xF13A { // extension packet code
-		OnExtPacket(s, buf, src)
+		OnExtPacket(pc, buf, src)
 		return 0, src, nil
 	}
 	return n, src, nil
@@ -1310,7 +1301,7 @@ func processStreamOp10(id int, pid int, out []byte, ns1 *netStruct) int {
 
 type Check17 func(out []byte, packet []byte) int
 
-func processStreamOp17(out []byte, packet []byte, p1 byte, from net.Addr, check Check17) int {
+func processStreamOp17(out []byte, packet []byte, p1 byte, from netip.AddrPort, check Check17) int {
 	out[0] = 0
 	out[1] = p1
 	if n := check(out, packet); n != 0 {
@@ -1330,7 +1321,7 @@ func processStreamOp17(out []byte, packet []byte, p1 byte, from net.Addr, check 
 	return copy(out, makeTimePacket(id2))
 }
 
-func processStreamOp18(out []byte, packet []byte, from net.Addr) int {
+func processStreamOp18(out []byte, packet []byte, from netip.AddrPort) int {
 	dt := int(platformTicks()) - int(binary.LittleEndian.Uint32(packet[4:]))
 	ind := struct2IndByAddr(from)
 	if ind < 0 {
@@ -1361,7 +1352,7 @@ func ServeInitialPackets(id int, flags int) int {
 	argp := 1
 	var err error
 	if flags&1 != 0 {
-		argp, err = ns.sock.CanRead()
+		argp, err = CanReadConn(ns.pc)
 		if err != nil || argp == 0 {
 			return -1
 		}
@@ -1371,18 +1362,17 @@ func ServeInitialPackets(id int, flags int) int {
 
 	v26 := 1
 	for {
-		n, src := recvRoot(ns.sock, ns.Data1xxx())
+		n, src := recvRoot(ns.pc, ns.Data1xxx())
 		if n == -1 {
 			return -1
 		}
-		ip, port := GetAddr(src)
 		if n < 3 {
 			ns.data1xxx = 0
 			ns.data1yyy = 0
 			if flags&1 == 0 || flags&4 != 0 {
 				return n
 			}
-			argp, err = ns.sock.CanRead()
+			argp, err = CanReadConn(ns.pc)
 			if err != nil {
 				return -1
 			} else if argp == 0 {
@@ -1401,14 +1391,14 @@ func ServeInitialPackets(id int, flags int) int {
 		if op == noxnet.MSG_SERVER_DISCOVER {
 			n = OnDiscover(ns.Data1yyy(), buf)
 			if n > 0 {
-				n, _ = ns.sock.WriteTo(buf[:n], &net.UDPAddr{IP: ip, Port: port})
+				n, _ = WriteTo(ns.pc, buf[:n], src)
 			}
 			ns.data1xxx = 0
 			ns.data1yyy = 0
 			if flags&1 == 0 || flags&4 != 0 {
 				return n
 			}
-			argp, err = ns.sock.CanRead()
+			argp, err = CanReadConn(ns.pc)
 			if err != nil {
 				return -1
 			} else if argp == 0 {
@@ -1425,7 +1415,7 @@ func ServeInitialPackets(id int, flags int) int {
 				}
 			} else {
 				v26 = 0
-				if !hasStructWithIndAndAddr(id2&127, ip, port) {
+				if !hasStructWithIndAndAddr(id2&127, src) {
 					goto continueX
 				}
 				v26 = 1
@@ -1459,7 +1449,7 @@ func ServeInitialPackets(id int, flags int) int {
 					data := ns.Data1yyy()
 					n = processStreamOp(id, data, buf, src)
 					if n > 0 {
-						n, _ = SendToAddr(ns.sock, buf[:n], ip, port)
+						n, _ = SendToAddr(ns.pc, buf[:n], src)
 					}
 					goto continueX
 				}
@@ -1484,7 +1474,7 @@ func ServeInitialPackets(id int, flags int) int {
 			data := ns.Data1yyy()
 			n = processStreamOp(id, data, buf, src)
 			if n > 0 {
-				n, _ = SendToAddr(ns.sock, buf[:n], ip, port)
+				n, _ = SendToAddr(ns.pc, buf[:n], src)
 			}
 		} else {
 			if ns2 != nil && flags&2 == 0 {
@@ -1498,7 +1488,7 @@ func ServeInitialPackets(id int, flags int) int {
 		if flags&1 == 0 || flags&4 != 0 {
 			return n
 		}
-		argp, err = ns.sock.CanRead()
+		argp, err = CanReadConn(ns.pc)
 		if err != nil {
 			return -1
 		} else if argp == 0 {
@@ -1523,8 +1513,7 @@ func sendTime(ind2 int) (int, error) {
 	ns := structs[initIndex]
 	buf := makeTimePacket(ind2)
 	ns2 := &structs2[ind2]
-	ip, port := GetAddr(ns2.addr)
-	return SendToAddr(ns.sock, buf, ip, port)
+	return SendToAddr(ns.pc, buf, ns2.addr)
 }
 
 func sendCode20(ind2 int) (int, error) {
@@ -1537,8 +1526,7 @@ func sendCode20(ind2 int) (int, error) {
 	nx := &structs2[ind2]
 	nx.flag = false
 
-	ip, port := GetAddr(nx.addr)
-	return SendToAddr(ns.sock, buf[:], ip, port)
+	return SendToAddr(ns.pc, buf[:], nx.addr)
 }
 
 func sendCode19(code byte, ind2 int) (int, error) {
@@ -1552,8 +1540,7 @@ func sendCode19(code byte, ind2 int) (int, error) {
 	nx := &structs2[ind2]
 	nx.flag = false
 
-	ip, port := GetAddr(nx.addr)
-	return SendToAddr(ns.sock, buf[:], ip, port)
+	return SendToAddr(ns.pc, buf[:], nx.addr)
 }
 
 func ProcessStats(v105, v107 int) {
@@ -1665,7 +1652,6 @@ func SendRaw(ind int, buf []byte) int {
 	if ns == nil {
 		return 0
 	}
-	ip, port := ns.Addr()
-	n, _ := ns.sock.WriteTo(buf, &net.UDPAddr{IP: ip, Port: port})
+	n, _ := WriteTo(ns.pc, buf, ns.addr)
 	return n
 }

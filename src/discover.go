@@ -25,7 +25,7 @@ func isCtxTimeout(err error) bool {
 // It should run in a goroutine, and will communicate via discoverDone channel.
 func discoverAndPingServers(ctx context.Context) {
 	start := time.Now()
-	list, err := discover.ListServersWith(ctx, lobbyBroadcast.Conn)
+	list, err := discover.ListServersWith(ctx, lobbyBroadcast)
 	if err != nil && !isCtxTimeout(err) {
 		discover.Log.Println(err)
 	}
