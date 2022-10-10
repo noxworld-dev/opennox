@@ -478,26 +478,6 @@ int nox_script_groupEnchant_5133B0() {
 	return 0;
 }
 
-//----- (00513910) --------------------------------------------------------
-int nox_script_hasItem_513910() {
-	int v0; // edi
-	int v1; // eax
-	int v2; // esi
-	int v3; // eax
-	int v4; // edi
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
-	v3 = nox_server_scriptValToObjectPtr_511B60(v0);
-	v4 = 0;
-	if (v2 && v3 && nox_xxx_unitInventoryContains_4F78E0(v2, v3)) {
-		v4 = 1;
-	}
-	nox_script_push(v4);
-	return 0;
-}
-
 //----- (00513960) --------------------------------------------------------
 int nox_script_getInvHolder_513960() {
 	int v0; // eax

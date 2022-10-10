@@ -860,6 +860,22 @@ func (obj *Object) NextItem() *Object {
 	return asObject(unsafe.Pointer(obj.field_124))
 }
 
+func (obj *Object) InventoryHolder() *Object {
+	return asObject(unsafe.Pointer(obj.field_123))
+}
+
+func (obj *Object) HasItem(item *Object) bool {
+	if item == nil || item.InventoryHolder() != obj {
+		return false
+	}
+	for p := obj.FirstItem(); p != nil; p = p.NextItem() {
+		if p == item {
+			return true
+		}
+	}
+	return false
+}
+
 func (obj *Object) updateDataPtr() unsafe.Pointer {
 	return unsafe.Pointer(obj.data_update)
 }
