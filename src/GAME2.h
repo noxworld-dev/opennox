@@ -185,7 +185,6 @@ int sub_459F40_drawable(int a1);
 uint32_t* sub_459F70(nox_drawable* dr);
 nox_drawable* nox_xxx_cliGetSpritePlayer_45A000();
 nox_drawable* sub_45A010(nox_drawable* dr);
-int nox_get_drawable_count();
 int nox_xxx_sprite_45A030();
 int sub_45A040(int a1);
 nox_drawable* sub_45A060();
