@@ -19,7 +19,6 @@ int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
 int nox_script_groupEnchant_5133B0();
-int nox_script_pushObject_5137D0();
 int nox_script_pushObjectTo_513820();
 int nox_script_getFirstInvItem_5138B0();
 int nox_script_getNextInvItem_5138E0();
@@ -305,7 +304,7 @@ var noxScriptBuiltins = []func() int{
 	68:  nox_script_moveWaypoint_513700,
 	69:  nox_script_raise_513750,
 	70:  nox_script_faceAngle_513780,
-	71:  wrapScriptC(C.nox_script_pushObject_5137D0),
+	71:  nox_script_pushObject_5137D0,
 	72:  wrapScriptC(C.nox_script_pushObjectTo_513820),
 	73:  wrapScriptC(C.nox_script_getFirstInvItem_5138B0),
 	74:  wrapScriptC(C.nox_script_getNextInvItem_5138E0),
@@ -1689,6 +1688,21 @@ func nox_script_faceAngle_513780() int {
 	if obj != nil {
 		v3 := uint16(nox_xxx_math_roundDir(dir))
 		obj.setAllDirs(v3)
+	}
+	return 0
+}
+
+func nox_script_pushObject_5137D0() int {
+	s := &noxServer.noxScript
+
+	dy := s.PopF32()
+	dx := s.PopF32()
+	obj := s.PopObject()
+	if obj != nil {
+		force := obj.Force()
+		force.X += dx
+		force.Y += dy
+		obj.setForce(force)
 	}
 	return 0
 }
