@@ -168,7 +168,7 @@ func noxPerfmonTransferStats(ind int) uint32 {
 		return memmap.Uint32(0x5D4594, 2498536+4*uintptr(ind))
 	}
 	*prevPtr = ticks
-	*memmap.PtrUint32(0x5D4594, 2498536+4*uintptr(ind)) = netstr.GetStat(ind)
+	*memmap.PtrUint32(0x5D4594, 2498536+4*uintptr(ind)) = netstr.GetStats(ind)
 	return 0
 }
 
