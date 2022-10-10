@@ -25,7 +25,6 @@ type Perfmon struct {
 	enabled       bool
 	nextCnt       uint
 	cnt           uint
-	fps           uint64
 	prevTicks     time.Duration
 	transfer      [noxMaxPlayers]uint32
 	transferTick  [noxMaxPlayers]time.Duration
@@ -51,6 +50,10 @@ type Perfmon struct {
 	profServerStart uint64
 	profServer      int
 	profServerHist  [128]int
+
+	fps        int
+	fpsInd     int
+	fpsHistory [128]int
 }
 
 func (m *Perfmon) Toggle() {
