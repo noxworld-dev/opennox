@@ -141,6 +141,15 @@ func nox_xxx_fileReadWrite_426AC0_file3_fread(a1 *C.uchar, a2 C.size_t) C.size_t
 	return 1
 }
 
+func fileCryptXor(key byte, p []byte) {
+	if len(p) == 0 {
+		return
+	}
+	for i := range p {
+		p[i] ^= key
+	}
+}
+
 type cryptFileReader struct{}
 
 func (cryptFileReader) Read(p []byte) (int, error) {
@@ -157,7 +166,7 @@ func cryptFileRead(p []byte) (int, error) {
 	)
 	if cryptFileXOREnabled {
 		n, err = cryptFile.file.Read(p)
-		netCryptXor(126, p)
+		fileCryptXor(126, p)
 	} else {
 		n, err = cryptFile.Read(p)
 	}
@@ -181,7 +190,7 @@ func cryptFileWrite(p []byte) (int, error) {
 	if cryptFileXOREnabled {
 		v2 := make([]byte, len(p))
 		copy(v2, p)
-		netCryptXor(126, v2)
+		fileCryptXor(126, v2)
 		return cryptFile.file.Write(v2)
 	}
 	return cryptFile.Write(p)
@@ -329,7 +338,7 @@ func cryptFileReadMaybeAlign(p []byte) error {
 	}
 	if cryptFileXOREnabled {
 		_, err := cryptFile.file.Read(p)
-		netCryptXor(126, p)
+		fileCryptXor(126, p)
 		return err
 	}
 	if cryptFileNoKey {
@@ -356,7 +365,7 @@ func nox_xxx_crypt_426C90() {
 			})
 			var b [4]byte
 			binary.LittleEndian.PutUint32(b[:], uint32(v2))
-			netCryptXor(126, b[:])
+			fileCryptXor(126, b[:])
 			cryptFile.file.Write(b[:])
 		} else {
 			off1, _ := cryptFile.FileFlush()
@@ -389,7 +398,7 @@ func nox_xxx_crypt_426D40() {
 		cryptFile.FileSeek(int64(offs.After), io.SeekStart)
 		var b [4]byte
 		binary.LittleEndian.PutUint32(b[:], v3)
-		netCryptXor(126, b[:])
+		fileCryptXor(126, b[:])
 		cryptFile.file.Write(b[:])
 		cryptFile.FileSeek(v1, io.SeekStart)
 	} else {

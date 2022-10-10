@@ -59,6 +59,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/internal/version"
 )
 
@@ -318,7 +319,7 @@ func RunArgs(args []string) (gerr error) {
 		noxflags.SetEngine(noxflags.EngineSleep)
 	}
 	if v := *fDrop; v != 0 {
-		netPacketDrop = v
+		netstr.PacketDrop = v
 	}
 	if *fNoText {
 		noxflags.SetEngine(noxflags.EngineNoTextRendering)

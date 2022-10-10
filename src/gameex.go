@@ -39,6 +39,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
 func gameexSomeWeirdCheckFixmePlease() bool {
@@ -182,7 +183,7 @@ func gameex_makeExtensionPacket(buf []byte, opcode uint16, needsPlayer bool) {
 	}
 }
 
-func MixRecvFromReplacer(s *Socket, buf1 []byte, from net.Addr) {
+func MixRecvFromReplacer(s *netstr.Socket, buf1 []byte, from net.Addr) {
 	op := binary.LittleEndian.Uint16(buf1[2:])
 	buf1 = buf1[4:]
 	switch op {
@@ -202,7 +203,7 @@ func MixRecvFromReplacer(s *Socket, buf1 []byte, from net.Addr) {
 					var buf [4]byte
 					binary.LittleEndian.PutUint16(buf[0:], 0xF13A)
 					binary.LittleEndian.PutUint16(buf[2:], 2)
-					ip, port := getAddr(from)
+					ip, port := netstr.GetAddr(from)
 					s.WriteTo(buf[:4], &net.UDPAddr{IP: ip, Port: port})
 				}
 			}
@@ -221,7 +222,7 @@ func MixRecvFromReplacer(s *Socket, buf1 []byte, from net.Addr) {
 					binary.LittleEndian.PutUint16(buf[0:], 0xF13A)
 					binary.LittleEndian.PutUint16(buf[2:], 6)
 					StrNCopyBytes(buf[4:22], noxServer.getServerName())
-					ip, port := getAddr(from)
+					ip, port := netstr.GetAddr(from)
 					s.WriteTo(buf[:22], &net.UDPAddr{IP: ip, Port: port})
 				}
 			}
@@ -305,13 +306,7 @@ func gameex_sendPacket(buf []byte) int {
 	if len(buf) == 0 {
 		return 0
 	}
-	ns := getNetStructByInd(int(nox_xxx_netGet_43C750()))
-	if ns == nil {
-		return 0
-	}
-	ip, port := ns.Addr()
-	n, _ := ns.sock.WriteTo(buf, &net.UDPAddr{IP: ip, Port: port})
-	return n
+	return netstr.SendRaw(int(nox_xxx_netGet_43C750()), buf)
 }
 
 func call_OnLibraryNotice_265(arg3 int) {

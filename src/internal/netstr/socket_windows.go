@@ -1,8 +1,10 @@
 //go:build windows
 
-package opennox
+package netstr
 
 /*
+#cgo windows LDFLAGS: -lws2_32
+
 #include <winsock2.h>
 */
 import "C"

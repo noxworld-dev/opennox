@@ -45,12 +45,13 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
 var (
 	lobbyBroadcast struct {
 		Conn *net.UDPConn
-		Sock *Socket
+		Sock *netstr.Socket
 	}
 	errLobbyNoSocket = errors.New("no broadcast socket")
 	discoverDone     = make(chan []discover.Server, 1)
@@ -254,7 +255,7 @@ func nox_client_refreshServerList_4378B0() {
 	} else {
 		ctx := context.Background()
 		asWindow(C.nox_wol_wnd_world_814980).NewDialogID("Wolchat.c:PleaseWait", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
-		dword_5d4594_3844304 = false
+		netstr.Flag1 = false
 		go discoverAndPingServers(ctx)
 	}
 	C.dword_5d4594_815104 = 0
@@ -318,9 +319,9 @@ func nox_xxx_createSocketLocal(port int) error {
 	if lobbyBroadcast.Conn != nil {
 		return nil
 	}
-	conn, sock, err := listenUDPBroadcast(nil, port)
+	conn, sock, err := netstr.ListenUDPBroadcast(nil, port)
 	if err != nil {
-		netLog.Println("cannot bind broadcast socket:", err)
+		netstr.Log.Println("cannot bind broadcast socket:", err)
 		return err
 	}
 	lobbyBroadcast.Conn = conn
@@ -413,7 +414,7 @@ func sub_554FF0() bool {
 	return true
 }
 
-func sub_554D70(conn net.PacketConn, sock *Socket, a1 byte) (int, error) {
+func sub_554D70(conn net.PacketConn, sock *netstr.Socket, a1 byte) (int, error) {
 	if conn == nil {
 		return 0, errLobbyNoSocket
 	}
@@ -421,7 +422,7 @@ func sub_554D70(conn net.PacketConn, sock *Socket, a1 byte) (int, error) {
 	argp := 0
 	if a1&1 != 0 {
 		var err error
-		argp, _, err = netCanReadConn(conn)
+		argp, _, err = netstr.NetCanReadConn(conn)
 		if err != nil {
 			return 0, err
 		} else if argp == 0 {
@@ -440,7 +441,7 @@ func sub_554D70(conn net.PacketConn, sock *Socket, a1 byte) (int, error) {
 			return 0, err
 		}
 		buf = buf[:n]
-		fromIP, fromPort := getAddr(from)
+		fromIP, fromPort := netstr.GetAddr(from)
 		if len(buf) > 2 && binary.LittleEndian.Uint16(buf) == 0xF13A { // extension packet code
 			MixRecvFromReplacer(sock, buf, from)
 			continue
@@ -494,7 +495,7 @@ func sub_554D70(conn net.PacketConn, sock *Socket, a1 byte) (int, error) {
 		if v11 == 0 || (a1&4) != 0 {
 			return n, nil
 		}
-		argp, _, err = netCanReadConn(conn)
+		argp, _, err = netstr.NetCanReadConn(conn)
 		if err != nil {
 			return n, err
 		} else if argp == 0 {
