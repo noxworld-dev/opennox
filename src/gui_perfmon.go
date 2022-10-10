@@ -5,7 +5,6 @@ package opennox
 
 int sub_436AA0(int a1);
 int nox_xxx_drawTimingMB_436C40();
-int nox_xxx_drawPing_436DF0(int a1);
 
 extern uint32_t nox_perfmon_latePackets_2618900;
 */
@@ -38,7 +37,7 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 
 	C.sub_436AA0(C.int(m.fps))
 	C.nox_xxx_drawTimingMB_436C40()
-	C.nox_xxx_drawPing_436DF0(C.int(m.ping))
+	c.drawPing(m)
 	y += 10
 
 	frame := gameFrame()
@@ -115,5 +114,41 @@ func (c *Client) drawBandwidth(m *Perfmon, psz int) {
 		p1 := image.Pt((i+0)*dx, wsz.Y-1-m.bandHistory[(j+0)%n])
 		p2 := image.Pt((i+1)*dx, wsz.Y-1-m.bandHistory[(j+1)%n])
 		c.r.DrawLine(p1, p2, nox_color_yellow_2589772)
+	}
+}
+
+func (c *Client) drawPing(m *Perfmon) {
+	wsz := videoGetWindowSize()
+
+	th := wsz.Y - 80 - c.r.FontHeight(nil)
+	str := c.Strings().GetStringInFile("Ping", "C:\\NoxPost\\src\\client\\System\\client.c")
+	c.r.Data().SetTextColor(nox_color_white_2523948)
+	c.r.DrawString(nil, str, image.Pt(0, th))
+	c.r.DrawBorder(0, wsz.Y-80, wsz.X, 31, nox_color_gray2)
+
+	si := m.pingInd
+	cur := 30 * m.ping / 500
+	if cur > 30 {
+		cur = 30
+	}
+	m.pingHistory[si] = cur
+
+	n := len(m.pingHistory)
+	m.pingInd = (si + 1) % n
+	dx := wsz.X / n
+	for i := 0; i < n; i++ {
+		j := si + i + 1
+		v := m.pingHistory[(j+0)%n]
+		var cl color.Color
+		if v < 100 {
+			cl = nox_color_green
+		} else if v < 350 {
+			cl = nox_color_yellow_2589772
+		} else {
+			cl = nox_color_red
+		}
+		p1 := image.Pt((i+0)*dx, wsz.Y-80+30-m.pingHistory[(j+0)%n])
+		p2 := image.Pt((i+1)*dx, wsz.Y-80+30-m.pingHistory[(j+1)%n])
+		c.r.DrawLine(p1, p2, cl)
 	}
 }
