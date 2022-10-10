@@ -69,30 +69,6 @@ wchar_t* _itow(int val, wchar_t* s, int radix) {
 	return s;
 }
 
-// Misc functions
-int CloseHandle(HANDLE hObject) {
-	switch ((uint32_t)hObject >> 16) {
-	case 0:
-		close((uint16_t)hObject);
-		break;
-	case HANDLE_THREAD:
-		handles[(uint16_t)hObject] = NULL;
-		break;
-	case HANDLE_MUTEX: {
-		pthread_mutex_t* m = lookup_handle(HANDLE_MUTEX, hObject);
-		pthread_mutex_destroy(m);
-		free(m);
-	}
-		handles[(uint16_t)hObject] = NULL;
-		break;
-	default:
-		abort();
-		return false;
-	}
-
-	return true;
-}
-
 int InterlockedExchange(volatile int* Target, int Value) { return __sync_lock_test_and_set(Target, Value); }
 
 int InterlockedDecrement(volatile int* Addend) { return __sync_fetch_and_sub(Addend, 1); }
@@ -199,83 +175,6 @@ int FindClose(HANDLE hFindFile) {
 	globfree(&ff->globbuf);
 	free(ff);
 	return true;
-}
-
-// Synchronization functions
-
-HANDLE CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, int bInitialOwner, const char* lpName) {
-	pthread_mutex_t* m = calloc(1, sizeof(pthread_mutex_t));
-	pthread_mutexattr_t attr;
-
-	pthread_mutexattr_init(&attr);
-	pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
-	pthread_mutex_init(m, &attr);
-	pthread_mutexattr_destroy(&attr);
-
-	if (bInitialOwner)
-		pthread_mutex_lock(m);
-
-	return new_handle(HANDLE_MUTEX, m);
-}
-
-int ReleaseMutex(HANDLE hMutex) {
-	pthread_mutex_t* m = lookup_handle(HANDLE_MUTEX, hMutex);
-	if (m == NULL)
-		return false;
-	pthread_mutex_unlock(m);
-	return true;
-}
-
-#if defined(__APPLE__) || defined(__CXGO__)
-#else
-int pthread_timedjoin_np(void*, void*, void*);
-#endif
-
-uint32_t WaitForSingleObject(HANDLE hHandle, uint32_t dwMilliseconds) {
-	uint32_t result = (uint32_t)-1;
-	struct timespec tv;
-
-	clock_gettime(CLOCK_REALTIME, &tv);
-	tv.tv_sec += dwMilliseconds / 1000;
-	tv.tv_nsec += (dwMilliseconds % 1000) * 1000000;
-	while (tv.tv_nsec >= 1000000000) {
-		tv.tv_sec++;
-		tv.tv_nsec -= 1000000000;
-	}
-
-	switch ((uint32_t)hHandle >> 16) {
-	case HANDLE_THREAD: {
-		pthread_t thr = lookup_handle(HANDLE_THREAD, hHandle);
-		result = 0;
-		if (dwMilliseconds == INFINITE)
-			pthread_join(thr, NULL);
-#if defined(__APPLE__)
-		else
-			pthread_join(thr, NULL);
-#else
-		else if (pthread_timedjoin_np(thr, NULL, &tv) == ETIMEDOUT)
-			result = 0x102;
-#endif
-	} break;
-	case HANDLE_MUTEX: {
-		pthread_mutex_t* m = lookup_handle(HANDLE_MUTEX, hHandle);
-		result = 0;
-		if (dwMilliseconds == INFINITE)
-			pthread_mutex_lock(m);
-#if defined(__APPLE__)
-		else
-			pthread_mutex_lock(m);
-#else
-		else if (pthread_mutex_timedlock(m, &tv) == ETIMEDOUT)
-			result = 0x102;
-#endif
-	} break;
-	default:
-		abort();
-		break;
-	}
-
-	return result;
 }
 
 #endif // _WIN32

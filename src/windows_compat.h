@@ -8,7 +8,6 @@ extern "C" {
 #include <arpa/inet.h>
 #include <fcntl.h>
 #include <netdb.h>
-#include <pthread.h>
 #include <stdarg.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -20,10 +19,8 @@ extern "C" {
 #include <unistd.h>
 
 #define MAX_PATH 260
-#define INFINITE ((uint32_t)-1)
 
 typedef void* HANDLE;
-typedef int HIMC;
 typedef void* HINSTANCE;
 typedef int HWND;
 typedef int LCID;
@@ -43,9 +40,6 @@ typedef struct _FILETIME {
 	uint32_t dwLowDateTime;
 	uint32_t dwHighDateTime;
 } FILETIME, *LPFILETIME;
-
-typedef struct _SECURITY_ATTRIBUTES {
-} SECURITY_ATTRIBUTES, *LPSECURITY_ATTRIBUTES;
 
 typedef struct _WIN32_FIND_DATAA {
 	uint32_t dwFileAttributes;
@@ -83,7 +77,6 @@ enum {
 	FILE_ATTRIBUTE_NORMAL = 0x80,
 };
 
-#define CloseHandle compatCloseHandle
 #define GetLocalTime compatGetLocalTime
 #define FindFirstFileA compatFindFirstFileA
 #define FindNextFileA compatFindNextFileA
@@ -93,9 +86,6 @@ enum {
 #define HeapDestroy compatHeapDestroy
 #define OutputDebugStringA compatOutputDebugStringA
 #define ShellExecuteA compatShellExecuteA
-#define CreateMutexA compatCreateMutexA
-#define ReleaseMutex compatReleaseMutex
-#define WaitForSingleObject compatWaitForSingleObject
 #define _rotl compat_rotl
 #define _itoa compat_itoa
 #define _itow compat_itow
@@ -106,7 +96,6 @@ enum {
 #define _strcmpi strcasecmp
 #define _strnicmp strncasecmp
 
-int CloseHandle(HANDLE hObject);
 void GetLocalTime(LPSYSTEMTIME lpSystemTime);
 HANDLE FindFirstFileA(const char* lpFileName, LPWIN32_FIND_DATAA lpFindFileData);
 int FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData);
@@ -118,9 +107,6 @@ int HeapDestroy(HANDLE hHeap);
 void OutputDebugStringA(const char* lpOutputString);
 HINSTANCE ShellExecuteA(HWND hwnd, const char* lpOperation, const char* lpFile, const char* lpParameters,
 						const char* lpDirectory, int nShowCmd);
-HANDLE CreateMutexA(LPSECURITY_ATTRIBUTES lpSecurityAttributes, int bInitialOwner, const char* lpName);
-int ReleaseMutex(HANDLE hMutex);
-uint32_t WaitForSingleObject(HANDLE hHandle, uint32_t dwMilliseconds);
 
 int InterlockedExchange(volatile int* Target, int Value);
 int InterlockedDecrement(volatile int* Addend);
