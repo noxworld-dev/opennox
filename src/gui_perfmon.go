@@ -4,7 +4,6 @@ package opennox
 #include <stdint.h>
 
 int sub_436AA0(int a1);
-int nox_xxx_drawTimingMB_436C40();
 
 extern uint32_t nox_perfmon_latePackets_2618900;
 */
@@ -36,7 +35,7 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 	}
 
 	C.sub_436AA0(C.int(m.fps))
-	C.nox_xxx_drawTimingMB_436C40()
+	c.drawProfile(m)
 	c.drawPing(m)
 	y += 10
 
@@ -150,5 +149,44 @@ func (c *Client) drawPing(m *Perfmon) {
 		p1 := image.Pt((i+0)*dx, wsz.Y-80+30-m.pingHistory[(j+0)%n])
 		p2 := image.Pt((i+1)*dx, wsz.Y-80+30-m.pingHistory[(j+1)%n])
 		c.r.DrawLine(p1, p2, cl)
+	}
+}
+
+func (c *Client) drawProfile(m *Perfmon) {
+	wsz := videoGetWindowSize()
+
+	th := 60 - c.r.FontHeight(nil)
+	str := c.Strings().GetStringInFile("CSTiming", "C:\\NoxPost\\src\\client\\System\\client.c")
+	c.r.Data().SetTextColor(nox_color_white_2523948)
+	c.r.DrawString(nil, str, image.Pt(0, th))
+
+	c.r.DrawBorder(0, 60, wsz.X, 31, nox_color_gray2)
+	si := m.profInd
+
+	pcli := 30 * m.profClient / 100
+	if pcli > 30 {
+		pcli = 30
+	}
+	m.profClientHist[si] = pcli
+
+	psrv := 30 * m.profServer / 100
+	if psrv > 30 {
+		psrv = 30
+	}
+	m.profServerHist[si] = psrv
+
+	n := len(m.profClientHist)
+	m.profInd = (si + 1) % n
+	dx := wsz.X / n
+	for i := 0; i < n; i++ {
+		j := si + i + 1
+
+		p1 := image.Pt((i+0)*dx, 90-m.profClientHist[(j+0)%n])
+		p2 := image.Pt((i+1)*dx, 90-m.profClientHist[(j+1)%n])
+		c.r.DrawLine(p1, p2, nox_color_blue_2650684)
+
+		p1 = image.Pt((i+0)*dx, 90-m.profServerHist[(j+0)%n])
+		p2 = image.Pt((i+1)*dx, 90-m.profServerHist[(j+1)%n])
+		c.r.DrawLine(p1, p2, nox_color_red)
 	}
 }
