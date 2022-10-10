@@ -53,9 +53,6 @@ nox_drawable* nox_drawable_head_unk2 = 0;
 nox_drawable* nox_drawable_head_unk3 = 0;
 nox_drawable* nox_drawable_head_unk4 = 0;
 
-//----- (0045A020) --------------------------------------------------------
-int nox_get_drawable_count() { return nox_drawable_count; }
-
 //----- (0045A030) --------------------------------------------------------
 int nox_xxx_sprite_45A030() { return nox_drawable_head_unk2; }
 

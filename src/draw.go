@@ -13,7 +13,6 @@ package opennox
 #include "GAME3_1.h"
 #include "GAME5_2.h"
 #include "common__system__team.h"
-#include "client__system__client.h"
 #include "client__gui__guiquit.h"
 #include "client__draw__debugdraw.h"
 #include "client__draw__fx.h"

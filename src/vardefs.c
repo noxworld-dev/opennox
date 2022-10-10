@@ -709,7 +709,6 @@ uint32_t dword_5d4594_741652 = 0;
 uint32_t dword_5d4594_1308096 = 0;
 uint32_t dword_5d4594_600116 = 0;
 uint32_t dword_5d4594_805980 = 0;
-uint32_t nox_perfmon_latePackets_2618900 = 0;
 uint32_t dword_5d4594_2487884 = 0;
 uint32_t dword_5d4594_1313564 = 0;
 uint32_t dword_5d4594_1568028 = 0;

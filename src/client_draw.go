@@ -13,7 +13,6 @@ package opennox
 #include "GAME2_2.h"
 #include "GAME2_3.h"
 #include "GAME3_1.h"
-#include "client__system__client.h"
 #include "client__draw__glowdraw.h"
 #include "client__draw__selectdw.h"
 #include "client__gui__guiggovr.h"
@@ -47,6 +46,7 @@ void nox_xxx_clientDrawAll_436100_draw_B();
 void nox_xxx_drawAllMB_475810_draw_A(nox_draw_viewport_t* vp);
 int nox_xxx_drawAllMB_475810_draw_B(nox_draw_viewport_t* vp);
 void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7);
+int sub_436F50();
 extern uint32_t nox_arr_956A00[NOX_MAX_HEIGHT + 150];
 extern unsigned char nox_arr_957820[128 * (NOX_MAX_HEIGHT + 150)];
 */
