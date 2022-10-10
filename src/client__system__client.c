@@ -211,67 +211,6 @@ int nox_xxx_drawTimingMB_436C40() {
 	return result;
 }
 
-//----- (00436DF0) --------------------------------------------------------
-int nox_xxx_drawPing_436DF0(int a1) {
-	int v1;     // esi
-	short* v2;  // eax
-	int v3;     // eax
-	int v4;     // edx
-	int v5;     // edi
-	int v6;     // ebp
-	int v7;     // ebx
-	int v8;     // eax
-	int v9;     // eax
-	bool v10;   // cc
-	bool v11;   // zf
-	int result; // eax
-	int v13;    // [esp-4h] [ebp-18h]
-	int v14;    // [esp+10h] [ebp-4h]
-	int v15;    // [esp+18h] [ebp+4h]
-
-	v1 = nox_win_height - 80;
-	v14 = nox_win_height - 80 + 30;
-	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
-	v13 = v1 - nox_xxx_guiFontHeightMB_43F320(0);
-	v2 = (short*)nox_strman_loadString_40F1D0("Ping", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 478);
-	nox_xxx_drawString_43F6E0(0, v2, 0, v13);
-	nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 956));
-	nox_client_drawBorderLines_49CC70(0, v1, nox_win_width, 31);
-	v3 = *getMemU32Ptr(0x5D4594, 814512);
-	v4 = 30 * a1 / 500;
-	*getMemU32Ptr(0x5D4594, 814000 + 4 * *getMemU32Ptr(0x5D4594, 814512)) = v4;
-	if (v4 > 30) {
-		*getMemU32Ptr(0x5D4594, 814000 + 4 * v3) = 30;
-	}
-	v5 = (v3 + 1) % 128;
-	*getMemU32Ptr(0x5D4594, 814512) = (v3 + 1) % 128;
-	v15 = 127;
-	v6 = nox_win_width / 128;
-	v7 = 0;
-	do {
-		v8 = *getMemU32Ptr(0x5D4594, 814000 + 4 * v5);
-		if (v8 >= 100) {
-			v10 = v8 < 350;
-			v9 = nox_color_yellow_2589772;
-			if (!v10) {
-				v9 = *getMemU32Ptr(0x85B3FC, 940);
-			}
-		} else {
-			v9 = *getMemU32Ptr(0x8531A0, 2572);
-		}
-		nox_client_drawSetColor_434460(v9);
-		nox_client_drawAddPoint_49F500(v7, v14 - *getMemU32Ptr(0x5D4594, 814000 + 4 * v5));
-		nox_client_drawAddPoint_49F500(v7 + v6, v14 - *getMemU32Ptr(0x5D4594, 814000 + 4 * ((v5 + 1) % 128)));
-		nox_client_drawLineFromPoints_49E4B0();
-		v7 += v6;
-		result = v15 - 1;
-		v11 = v15 == 1;
-		v5 = (v5 + 1) % 128;
-		--v15;
-	} while (!v11);
-	return result;
-}
-
 //----- (00436F50) --------------------------------------------------------
 int sub_436F50() {
 	int v0;      // ebx

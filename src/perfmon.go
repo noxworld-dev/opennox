@@ -26,7 +26,6 @@ type Perfmon struct {
 	nextCnt       uint
 	cnt           uint
 	fps           uint64
-	ping          int
 	prevTicks     time.Duration
 	transfer      [noxMaxPlayers]uint32
 	transferTick  [noxMaxPlayers]time.Duration
@@ -38,6 +37,10 @@ type Perfmon struct {
 
 	bandInd     int
 	bandHistory [128]int
+
+	ping        int
+	pingInd     int
+	pingHistory [128]int
 }
 
 func (m *Perfmon) Toggle() {
