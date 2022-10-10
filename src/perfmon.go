@@ -17,9 +17,11 @@ import (
 	"fmt"
 	"image"
 	"image/color"
+	"time"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/log"
+	"github.com/noxworld-dev/opennox-lib/platform"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -38,11 +40,13 @@ func newPerfmon() *Perfmon {
 }
 
 type Perfmon struct {
-	enabled   bool
-	nextCnt   uint
-	cnt       uint
-	fps       uint64
-	prevTicks uint64
+	enabled      bool
+	nextCnt      uint
+	cnt          uint
+	fps          uint64
+	prevTicks    uint64
+	transfer     [noxMaxPlayers]uint32
+	transferTick [noxMaxPlayers]time.Duration
 }
 
 func (m *Perfmon) Toggle() {
@@ -111,10 +115,10 @@ func (m *Perfmon) Draw(r *NoxRender) {
 		d := noxPerfmonBandData(pl.Index())
 		var bps uint32
 		if pl.Index() == noxMaxPlayers-1 {
-			bps = noxPerfmonTransferStats(0)
+			bps = m.TransferStats(0)
 			format = strMan.GetStringInFile("TransferStats", "client.c")
 		} else {
-			bps = noxPerfmonTransferStats(pl.Index() + 1)
+			bps = m.TransferStats(pl.Index() + 1)
 			format = strMan.GetStringInFile("TransferStats", "client.c")
 		}
 		r.DrawString(nil, fmt.Sprintf(format, bps, d.th, d.ri, d.rpu), image.Pt(70, y))
@@ -139,9 +143,9 @@ func noxLogBandwidth(ticks uint64) {
 		v4 := gameFrame()
 		var bps uint32
 		if pl.Index() == noxMaxPlayers-1 {
-			bps = noxPerfmonTransferStats(0)
+			bps = noxPerfmon.TransferStats(0)
 		} else {
-			bps = noxPerfmonTransferStats(pl.Index() + 1)
+			bps = noxPerfmon.TransferStats(pl.Index() + 1)
 		}
 		bandLog.Printf("%s, %d, %d, %d, %d, %d\n", pl.Name(), bps, v4, d.th, d.ri, d.rpu)
 	}
@@ -161,15 +165,16 @@ func noxPerfmonBandData(ind int) playerBandData {
 	}
 }
 
-func noxPerfmonTransferStats(ind int) uint32 {
-	ticks := platformTicks()
-	prevPtr := memmap.PtrUint64(0x5D4594, 2499052+8*uintptr(ind))
-	if ticks < *prevPtr+1000 {
-		return memmap.Uint32(0x5D4594, 2498536+4*uintptr(ind))
+func (m *Perfmon) TransferStats(ind int) uint32 {
+	ticks := platform.Ticks()
+	prev := m.transferTick[ind]
+	if ticks < prev+time.Second {
+		return m.transfer[ind]
 	}
-	*prevPtr = ticks
-	*memmap.PtrUint32(0x5D4594, 2498536+4*uintptr(ind)) = netstr.GetStats(ind)
-	return 0
+	m.transferTick[ind] = ticks
+	stat := netstr.TransferStats(ind)
+	m.transfer[ind] = stat
+	return stat
 }
 
 func noxPerfMonPacketSize() int {
