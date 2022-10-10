@@ -76,49 +76,6 @@ void nox_xxx_clientDrawAll_436100_draw_B() {
 	}
 }
 
-//----- (00436970) --------------------------------------------------------
-int nox_xxx_drawBandwith_436970(int a1) {
-	int v1;     // esi
-	short* v2;  // eax
-	int v3;     // ecx
-	int v4;     // ebx
-	int v5;     // edi
-	int v6;     // ebp
-	int result; // eax
-	int v8;     // [esp-4h] [ebp-18h]
-	int v9;     // [esp+10h] [ebp-4h]
-	int v10;    // [esp+18h] [ebp+4h]
-
-	v9 = nox_win_height - 1;
-	v1 = nox_win_height - 31;
-	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
-	v8 = v1 - nox_xxx_guiFontHeightMB_43F320(0);
-	v2 = (short*)nox_strman_loadString_40F1D0("Bandwidth", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 323);
-	nox_xxx_drawString_43F6E0(0, v2, 0, v8);
-	nox_client_drawSetColor_434460(*getMemIntPtr(0x85B3FC, 956));
-	nox_client_drawBorderLines_49CC70(0, v1, nox_win_width, 31);
-	v3 = *getMemU32Ptr(0x5D4594, 812452);
-	*getMemU32Ptr(0x5D4594, 811940 + 4 * *getMemU32Ptr(0x5D4594, 812452)) = a1 / 4;
-	if (a1 / 4 > 30) {
-		*getMemU32Ptr(0x5D4594, 811940 + 4 * v3) = 30;
-	}
-	v4 = (v3 + 1) % 128;
-	*getMemU32Ptr(0x5D4594, 812452) = (v3 + 1) % 128;
-	v5 = 0;
-	v6 = nox_win_width / 128;
-	nox_client_drawSetColor_434460(nox_color_yellow_2589772);
-	v10 = 127;
-	do {
-		nox_client_drawAddPoint_49F500(v5, v9 - *getMemU32Ptr(0x5D4594, 811940 + 4 * v4));
-		v5 += v6;
-		nox_client_drawAddPoint_49F500(v5, v9 - *getMemU32Ptr(0x5D4594, 811940 + 4 * ((v4 + 1) % 128)));
-		nox_client_drawLineFromPoints_49E4B0();
-		v4 = (v4 + 1) % 128;
-		result = --v10;
-	} while (v10);
-	return result;
-}
-
 //----- (00436AA0) --------------------------------------------------------
 int sub_436AA0(int a1) {
 	int v1;     // esi

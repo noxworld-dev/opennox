@@ -6,7 +6,6 @@ package opennox
 int sub_436AA0(int a1);
 int nox_xxx_drawTimingMB_436C40();
 int nox_xxx_drawPing_436DF0(int a1);
-int nox_xxx_drawBandwith_436970(int a1);
 
 extern uint32_t nox_perfmon_latePackets_2618900;
 */
@@ -52,7 +51,7 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 	format = c.Strings().GetStringInFile("PacketSize", "client.c")
 	c.r.Data().SetTextColor(color.White)
 	c.r.DrawString(nil, fmt.Sprintf(format, packSz), image.Pt(x, y))
-	C.nox_xxx_drawBandwith_436970(C.int(packSz))
+	c.drawBandwidth(m, packSz)
 	y += 10
 
 	format = c.Strings().GetStringInFile("DrawCount", "client.c")
@@ -93,4 +92,28 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 		y += 10
 	}
 	m.cnt++
+}
+
+func (c *Client) drawBandwidth(m *Perfmon, psz int) {
+	wsz := videoGetWindowSize()
+	str := c.Strings().GetStringInFile("Bandwidth", "C:\\NoxPost\\src\\client\\System\\client.c")
+	th := wsz.Y - 31 - c.r.FontHeight(nil)
+	c.r.Data().SetTextColor(nox_color_white_2523948)
+	c.r.DrawString(nil, str, image.Pt(0, th))
+	c.r.DrawBorder(0, wsz.Y-31, wsz.X, 31, nox_color_gray2)
+	si := m.bandInd
+	m.bandHistory[si] = psz / 4
+	if psz/4 > 30 {
+		m.bandHistory[si] = 30
+	}
+	n := len(m.bandHistory)
+	m.bandInd = (si + 1) % n
+
+	dx := wsz.X / n
+	for i := 0; i < n; i++ {
+		j := si + i + 1
+		p1 := image.Pt((i+0)*dx, wsz.Y-1-m.bandHistory[(j+0)%n])
+		p2 := image.Pt((i+1)*dx, wsz.Y-1-m.bandHistory[(j+1)%n])
+		c.r.DrawLine(p1, p2, nox_color_yellow_2589772)
+	}
 }
