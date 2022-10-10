@@ -20,7 +20,6 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 const (
@@ -252,6 +251,8 @@ func NewClient(narg *Options) (ind int, _ error) {
 	return ind, nil
 }
 
+var optionsBuffer [1024]byte
+
 func Dial(ind int, host string, port int, cport int, opts encoding.BinaryMarshaler) error {
 	if Debug {
 		Log.Println("NET_CONNECT", ind, host, port)
@@ -325,8 +326,8 @@ func Dial(ind int, host string, port int, cport int, opts encoding.BinaryMarshal
 
 	ns = structByInd(id)
 	if Flag1 && ns.ID() >= 0 {
-		vs := unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 2512892)), 1024)
-		copy(vs, make([]byte, 1024))
+		vs := optionsBuffer[:]
+		copy(vs, make([]byte, len(vs)))
 		data, err := opts.MarshalBinary()
 		if err != nil {
 			return err
