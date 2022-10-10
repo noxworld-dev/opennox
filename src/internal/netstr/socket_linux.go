@@ -1,6 +1,6 @@
 //go:build linux
 
-package opennox
+package netstr
 
 /*
 #include <sys/ioctl.h>

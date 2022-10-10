@@ -82,6 +82,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -462,7 +463,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 
 func nox_server_netMaybeSendInitialPackets_4DEB30() {
 	if !noxflags.HasEngine(noxflags.EngineReplayRead) {
-		nox_xxx_servNetInitialPackets_552A80(dword_5d4594_1563148, 1)
+		nox_xxx_servNetInitialPackets_552A80(netstr.GetInitInd(), 1)
 	}
 }
 
@@ -516,7 +517,7 @@ func (s *Server) updateRemotePlayers() error {
 			C.nox_xxx_netInformTextMsg2_4DA180(3, (*C.uchar)(unsafe.Pointer(&m)))
 			var buf [1]byte
 			buf[0] = 198
-			nox_xxx_netSendSock552640(pl.Index()+1, buf[:], NOX_NET_SEND_NO_LOCK|NOX_NET_SEND_FLAG2)
+			netstr.Send(pl.Index()+1, buf[:], netstr.SendNoLock|netstr.SendFlagFlush)
 			pl.Disconnect(3)
 		}
 		if pl.field_3680&0x80 != 0 {
@@ -538,7 +539,7 @@ func (s *Server) updateRemotePlayers() error {
 		if pl.UnitC() == HostPlayerUnit() {
 			C.nox_xxx_netImportant_4E5770(C.uchar(pl.Index()), 1)
 		} else if C.dword_5d4594_2650652 == 0 || (gameFrame()%uint32(C.nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
-			nox_xxx_netSendReadPacket_5528B0(pl.Index()+1, 0)
+			netstr.SendReadPacket(pl.Index()+1, 0)
 		}
 	}
 	return nil
@@ -637,7 +638,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 }
 
 func (s *Server) nox_server_netCloseHandler_4DEC60(ind int) {
-	s.nox_xxx_netStructReadPackets(ind)
+	netstr.ReadPackets(ind)
 	s.nox_server_netClose_5546A0(ind)
 	C.nox_xxx_host_player_unit_3843628 = nil
 	sub_43DE40(nil)

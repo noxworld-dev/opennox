@@ -15,6 +15,7 @@ import "C"
 import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
 func nox_xxx_wndLoadQuitMenu_445790() int {
@@ -60,7 +61,7 @@ func sub_446190() {
 	nox_xxx_serverIsClosing_825764 = false
 	if noxflags.HasGame(noxflags.GameHost) {
 		str := strMan.GetStringInFile("ServerManualShutdown", "guiquit.c")
-		netLog.Println(str)
+		netstr.Log.Println(str)
 	}
 	if noxflags.HasGame(noxflags.GameFlag26) {
 		nox_game_checkStateWol_43C260()
