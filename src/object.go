@@ -379,8 +379,8 @@ func (s *Server) delayedDelete(obj *Object) {
 		}
 	}
 
-	if v := obj.field_123; v != 0 {
-		C.sub_4ED0C0(C.int(v), obj.CObj())
+	if v := obj.InventoryHolder(); v != nil {
+		C.sub_4ED0C0(v.CObj(), obj.CObj())
 	}
 	C.nox_xxx_playerCancelSpells_4FEAE0(obj.CObj())
 	if noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().Has(object.ClassMonster) {
@@ -861,7 +861,7 @@ func (obj *Object) NextItem() *Object {
 }
 
 func (obj *Object) InventoryHolder() *Object {
-	return asObject(unsafe.Pointer(obj.field_123))
+	return asObject(unsafe.Pointer(obj.inv_holder))
 }
 
 func (obj *Object) HasItem(item *Object) bool {

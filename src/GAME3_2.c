@@ -4266,7 +4266,7 @@ int nox_xxx_netReportDequip_4D84C0(int a1, const nox_object_t* object) {
 	result = object;
 	v3 = object->obj_class;
 	if (v3 & 0x11001000) {
-		v4 = object->field_123;
+		v4 = object->inv_holder;
 		v7[0] = 84;
 		*(uint16_t*)&v7[1] = *(uint16_t*)(v4 + 36);
 		v5 = nox_xxx_weaponInventoryEquipFlags_415820(object);
@@ -4274,7 +4274,7 @@ int nox_xxx_netReportDequip_4D84C0(int a1, const nox_object_t* object) {
 		if (!(v3 & 0x2000000)) {
 			return result;
 		}
-		v6 = object->field_123;
+		v6 = object->inv_holder;
 		v7[0] = 83;
 		*(uint16_t*)&v7[1] = *(uint16_t*)(v6 + 36);
 		v5 = nox_xxx_unitArmorInventoryEquipFlags_415C70(object);
