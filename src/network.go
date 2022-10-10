@@ -835,11 +835,11 @@ func sub_553F40(a1, a2 int) {
 	cnt2495952 += uint32(a1)
 	cnt2495956 += uint32(a2)
 	i := cnt2497504
-	j := memmap.Uint32(0x5D4594, 2498020)
+	j := cnt2498020
 	*memmap.PtrUint32(0x5D4594, 2496992+4*uintptr(i)) = uint32(a1)
 	*memmap.PtrUint32(0x5D4594, 2497508+4*uintptr(j)) = uint32(a2)
 	cnt2497504 = uint32(dword_5d4594_2496472+1) % 128
-	*memmap.PtrUint32(0x5D4594, 2498020) = uint32(dword_5d4594_2496988+1) % 128
+	cnt2498020 = uint32(dword_5d4594_2496988+1) % 128
 }
 
 func sub555130(a1 int, buf []byte) (int, error) {
@@ -2259,6 +2259,7 @@ var (
 	cnt2495952  uint32
 	cnt2495956  uint32
 	cnt2497504  uint32
+	cnt2498020  uint32
 	val292940   uint32 = 3
 )
 
