@@ -22,7 +22,6 @@ extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_5d4594_2660032;
 extern unsigned int dword_5d4594_814548;
 extern unsigned int dword_5d4594_2495920;
-extern uint32_t nox_perfmon_ping_2614264;
 extern unsigned long long qword_5d4594_814956;
 unsigned int nox_client_getServerAddr_43B300();
 int nox_client_getServerPort_43B320();
@@ -945,7 +944,7 @@ func nox_xxx_netHandleCliPacket_43C860(_ int, data []byte, _ unsafe.Pointer) int
 	if op == noxnet.MSG_XXX_STOP {
 		sub_446380()
 	} else if op == noxnet.MSG_PING {
-		C.nox_perfmon_ping_2614264 = C.uint(binary.LittleEndian.Uint32(data[1:]))
+		noxPerfmon.ping = int(binary.LittleEndian.Uint32(data[1:]))
 	} else if op >= noxnet.MSG_TIMESTAMP {
 		nox_xxx_netOnPacketRecvCli_48EA70(noxMaxPlayers-1, data)
 		if nox_client_isConnected() {
@@ -982,4 +981,9 @@ func sub_43CF70() {
 			nox_xxx_netClientSend2_4E53C0(noxMaxPlayers-1, buf[:1], 0, 1)
 		}
 	}
+}
+
+//export nox_client_onJoinData
+func nox_client_onJoinData() {
+	noxPerfmon.ping = 0
 }

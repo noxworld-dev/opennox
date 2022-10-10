@@ -30,7 +30,6 @@ int nox_cmd_offonly2(int, int, wchar_t**);
 int nox_cmd_set_net_debug(int, int, wchar_t**);
 int nox_cmd_unset_net_debug(int, int, wchar_t**);
 int nox_cmd_show_gui(int, int, wchar_t**);
-int nox_cmd_show_netstat(int, int, wchar_t**);
 int nox_cmd_show_info(int, int, wchar_t**);
 int nox_cmd_show_mem(int, int, wchar_t**);
 int nox_cmd_show_rank(int, int, wchar_t**);
@@ -197,7 +196,10 @@ var (
 		}},
 		{Token: "info", HelpID: "showinfohelp", Flags: console.ClientServer | console.NoHelp, LegacyFunc: wrapCommandC(nox_cmd_show_info)},
 		{Token: "mem", HelpID: "showmemhelp", Flags: console.ClientServer | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_show_mem)},
-		{Token: "netstat", HelpID: "shownetstathelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_netstat)},
+		{Token: "netstat", HelpID: "shownetstathelp", Flags: console.ClientServer, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+			sub_470A60()
+			return true
+		}},
 		{Token: "seq", HelpID: "showseqhelp", Flags: console.ClientServer | console.Cheat, LegacyFunc: wrapCommandC(nox_cmd_show_seq)},
 	}}
 	noxCmdCheat = &console.Command{Token: "cheat", HelpID: "cheathelp", Flags: console.Server | console.Cheat, Sub: []*console.Command{
@@ -328,9 +330,6 @@ func nox_cmd_unset_net_debug(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_show_gui(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_show_gui(i, n, arr)
-}
-func nox_cmd_show_netstat(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_show_netstat(i, n, arr)
 }
 func nox_cmd_show_info(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_show_info(i, n, arr)

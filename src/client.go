@@ -45,6 +45,7 @@ type Client struct {
 	inp          *input.Handler
 	mapsend      clientMapDownload
 	guiAdv       guiAdvOptions
+	guiFPS       guiFPS
 	screenshots  screenshots
 	netPrevMouse image.Point
 }

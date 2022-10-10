@@ -61,7 +61,6 @@ extern uint32_t dword_5d4594_830204;
 extern uint32_t dword_5d4594_830208;
 extern uint32_t dword_587000_111668;
 extern uint32_t dword_5d4594_825736;
-extern uint32_t nox_perfmon_ping_2614264;
 extern uint32_t dword_5d4594_830292;
 extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
 extern uint32_t dword_5d4594_826036;
