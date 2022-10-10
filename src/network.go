@@ -55,6 +55,7 @@ import (
 	"math"
 	"net/netip"
 	"strings"
+	"time"
 	"unsafe"
 
 	"github.com/noxworld-dev/nat"
@@ -944,7 +945,7 @@ func nox_xxx_netHandleCliPacket_43C860(_ int, data []byte, _ unsafe.Pointer) int
 	if op == noxnet.MSG_XXX_STOP {
 		sub_446380()
 	} else if op == noxnet.MSG_PING {
-		noxPerfmon.ping = int(binary.LittleEndian.Uint32(data[1:]))
+		noxPerfmon.ping = time.Duration(binary.LittleEndian.Uint32(data[1:])) * time.Millisecond
 	} else if op >= noxnet.MSG_TIMESTAMP {
 		nox_xxx_netOnPacketRecvCli_48EA70(noxMaxPlayers-1, data)
 		if nox_client_isConnected() {
