@@ -19,7 +19,6 @@ int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
 int nox_script_groupEnchant_5133B0();
-int nox_script_getFirstInvItem_5138B0();
 int nox_script_getNextInvItem_5138E0();
 int nox_script_hasItem_513910();
 int nox_script_getInvHolder_513960();
@@ -306,7 +305,7 @@ var noxScriptBuiltins = []func() int{
 	70:  nox_script_faceAngle_513780,
 	71:  nox_script_pushObject_5137D0,
 	72:  nox_script_pushObjectTo_513820,
-	73:  wrapScriptC(C.nox_script_getFirstInvItem_5138B0),
+	73:  nox_script_getFirstInvItem_5138B0,
 	74:  wrapScriptC(C.nox_script_getNextInvItem_5138E0),
 	75:  wrapScriptC(C.nox_script_hasItem_513910),
 	76:  wrapScriptC(C.nox_script_getInvHolder_513960),
@@ -1720,5 +1719,20 @@ func nox_script_pushObjectTo_513820() int {
 		dirLength := float32(math.Hypot(float64(xDir), float64(yDir)))
 		obj.ApplyForce(types.Pointf{X: force * xDir / dirLength, Y: force * yDir / dirLength})
 	}
+	return 0
+}
+
+func nox_script_getFirstInvItem_5138B0() int {
+	s := &noxServer.noxScript
+
+	v2 := s.PopObject()
+	if v2 != nil {
+		v3 := v2.FirstItem()
+		if v3 != nil {
+			s.PushI32(int32(v3.ScriptID()))
+			return 0
+		}
+	}
+	s.PushI32(0)
 	return 0
 }
