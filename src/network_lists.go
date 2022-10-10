@@ -519,3 +519,38 @@ func sub_4DF5E0(ind, max C.int) unsafe.Pointer {
 	})
 	return unsafe.Pointer(found)
 }
+
+var _ = [1]struct{}{}[8-unsafe.Sizeof(item57B930{})]
+
+type item57B930 struct {
+	field0 uint16
+	field2 uint16
+	frame4 uint32
+}
+
+//export sub_57B930
+func sub_57B930(ptr unsafe.Pointer, a2, a3 int, frame uint32) byte {
+	si := int(byte(a2))
+	if si == 255 || si == 0 {
+		si = 1
+	}
+	arr := unsafe.Slice((*item57B930)(ptr), 256)
+	i := si
+	for {
+		v := &arr[i]
+		if int(v.field0) == a2 && int(v.field2) == a3 {
+			if v.frame4 >= frame {
+				return byte(i)
+			}
+			break
+		}
+		i++
+		if i == 255 {
+			i = 1
+		}
+		if i == si {
+			break
+		}
+	}
+	return 0xff
+}
