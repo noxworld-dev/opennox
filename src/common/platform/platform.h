@@ -3,7 +3,6 @@
 
 int nox_platform_rand();
 void nox_platform_srand(unsigned int seed);
-void nox_platform_srand_time();
 
 unsigned int nox_platform_get_ticks();
 
