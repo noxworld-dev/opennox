@@ -3,7 +3,6 @@
 package opennox
 
 /*
-#include "client__network__cdecode.h"
 #include "GAME1.h"
 #include "GAME1_2.h"
 #include "GAME1_3.h"
@@ -19,8 +18,6 @@ package opennox
 extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int dword_5d4594_2650652;
-extern unsigned int dword_5d4594_815704;
-extern unsigned int dword_5d4594_815708;
 */
 import "C"
 import (
@@ -31,7 +28,6 @@ import (
 	"image"
 	"math"
 	"strings"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/client/seat"
 	"github.com/noxworld-dev/opennox-lib/datapath"
@@ -269,7 +265,7 @@ func sub_43CCA0() {
 				defer free()
 				buf[0] = byte(noxnet.MSG_FULL_TIMESTAMP)
 				binary.LittleEndian.PutUint32(buf[1:], gameFrame()+1)
-				C.nox_xxx_netOnPacketRecvCli_48EA70(noxMaxPlayers-1, (*C.uchar)(unsafe.Pointer(&buf[0])), 5)
+				nox_xxx_netOnPacketRecvCli_48EA70(noxMaxPlayers-1, buf[:5])
 			}
 		}
 	}
@@ -288,8 +284,8 @@ func sub_43CCA0() {
 		return
 	}
 	v5 := platformTicks() - *memmap.PtrUint64(0x5D4594, 815716)
-	if v5 > 2000 && C.dword_5d4594_815704 == 0 {
-		C.dword_5d4594_815704 = 1
+	if v5 > 2000 && !dword_5d4594_815704 {
+		dword_5d4594_815704 = true
 		C.sub_4AB4A0(1)
 		*memmap.PtrUint64(0x5D4594, 815732) = platformTicks()
 	}
@@ -300,11 +296,11 @@ func sub_43CCA0() {
 	if v4 <= 20000 {
 		return
 	}
-	if C.dword_5d4594_815708 != 0 {
+	if dword_5d4594_815708 {
 		return
 	}
 	v4 = platformTicks() - *memmap.PtrUint64(0x5D4594, 815732)
 	if v4 > 20000 {
-		C.sub_43CF70()
+		sub_43CF70()
 	}
 }

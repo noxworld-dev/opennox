@@ -7,9 +7,11 @@ package opennox
 #include "server__network__sdecode.h"
 #include "GAME1.h"
 #include "GAME1_1.h"
-#include "GAME5.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
 #include "GAME3_2.h"
 #include "GAME4_2.h"
+#include "GAME5.h"
 #include "GAME5_2.h"
 #ifdef _WIN32
 #include <windows.h>
@@ -20,6 +22,7 @@ extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_5d4594_2660032;
 extern unsigned int dword_5d4594_814548;
 extern unsigned int dword_5d4594_2495920;
+extern uint32_t nox_perfmon_ping_2614264;
 extern unsigned long long qword_5d4594_814956;
 unsigned int nox_client_getServerAddr_43B300();
 int nox_client_getServerPort_43B320();
@@ -29,6 +32,7 @@ int sub_43AF90(int a1);
 int nox_xxx_netClientSend2_4E53C0(int a1, const void* a2, int a3, int a4, int a5);
 void* nox_xxx_spriteGetMB_476F80();
 int nox_xxx_netSendPacket_4E5030(int a1, const void* a2, signed int a3, int a4, int a5, char a6);
+int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz);
 static int nox_xxx_netSendLineMessage_go(nox_object_t* a1, wchar_t* str) {
 	return nox_xxx_netSendLineMessage_4D9EB0(a1, str);
 }
@@ -89,6 +93,8 @@ func init() {
 
 var (
 	dword_5D4594_815700  int
+	dword_5d4594_815704  bool
+	dword_5d4594_815708  bool
 	dword_973f18_44216   string
 	dword_5d4594_3843632 netip.Addr
 )
@@ -920,4 +926,58 @@ func sub_519930(a1 int) int {
 		}
 	}
 	return cnt
+}
+
+func nox_xxx_netOnPacketRecvCli_48EA70(ind int, buf []byte) int {
+	return int(C.nox_xxx_netOnPacketRecvCli_48EA70(C.int(ind), (*C.uchar)(unsafe.Pointer(&buf[0])), C.int(len(buf))))
+}
+
+//export sub_43C6E0
+func sub_43C6E0() int {
+	return bool2int(!dword_5d4594_815704 && !dword_5d4594_815708)
+}
+
+func nox_xxx_netHandleCliPacket_43C860(_ int, data []byte, _ unsafe.Pointer) int {
+	op := noxnet.Op(data[0])
+	noxPerfmon.packetSizeCli = len(data)
+	if op == noxnet.MSG_XXX_STOP {
+		sub_446380()
+	} else if op == noxnet.MSG_PING {
+		C.nox_perfmon_ping_2614264 = C.uint(binary.LittleEndian.Uint32(data[1:]))
+	} else if op >= noxnet.MSG_TIMESTAMP {
+		nox_xxx_netOnPacketRecvCli_48EA70(noxMaxPlayers-1, data)
+		if nox_client_isConnected() {
+			C.sub_48D660()
+		}
+	}
+	*memmap.PtrUint64(0x5D4594, 815716) = platformTicks()
+	if dword_5d4594_815704 {
+		C.sub_4AB4A0(0)
+		dword_5d4594_815704 = false
+	}
+	if dword_5d4594_815708 {
+		sub_43CF40()
+	}
+	return 1
+}
+
+//export sub_43CF40
+func sub_43CF40() {
+	*memmap.PtrUint64(0x5D4594, 815732) = platformTicks()
+	dword_5d4594_815708 = false
+	C.sub_4AB4D0(0)
+}
+
+//export sub_43CF70
+func sub_43CF70() {
+	if !dword_5d4594_815708 {
+		C.sub_4AB4D0(1)
+		dword_5d4594_815708 = true
+		if pl := asPlayer((*C.nox_playerInfo)(*memmap.PtrPtr(0x8531A0, 2576))); pl != nil {
+			C.nox_xxx_netNeedTimestampStatus_4174F0(pl.C(), 64)
+			var buf [1]byte
+			buf[0] = byte(noxnet.MSG_NEED_TIMESTAMP)
+			nox_xxx_netClientSend2_4E53C0(noxMaxPlayers-1, buf[:1], 0, 1)
+		}
+	}
 }

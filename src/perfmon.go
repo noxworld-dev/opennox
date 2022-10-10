@@ -38,13 +38,14 @@ func newPerfmon() *Perfmon {
 }
 
 type Perfmon struct {
-	enabled      bool
-	nextCnt      uint
-	cnt          uint
-	fps          uint64
-	prevTicks    time.Duration
-	transfer     [noxMaxPlayers]uint32
-	transferTick [noxMaxPlayers]time.Duration
+	enabled       bool
+	nextCnt       uint
+	cnt           uint
+	fps           uint64
+	prevTicks     time.Duration
+	transfer      [noxMaxPlayers]uint32
+	transferTick  [noxMaxPlayers]time.Duration
+	packetSizeCli int
 
 	logger      *log.Logger
 	loggerHdr   bool
@@ -182,7 +183,7 @@ func (m *Perfmon) TransferStats(ind int) uint32 {
 
 func (m *Perfmon) packetSize() int {
 	if !noxflags.HasGame(noxflags.GameHost) {
-		return int(memmap.Uint32(0x5D4594, 815712))
+		return m.packetSizeCli
 	}
 	return netList(noxMaxPlayers-1, 1).Size() + netList(noxMaxPlayers-1, 2).Size()
 }
