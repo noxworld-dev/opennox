@@ -93,6 +93,8 @@ func init() {
 
 var (
 	dword_5D4594_815700  int
+	lastCliHandlePackets uint64
+	ticks815732          uint64
 	dword_5d4594_815704  bool
 	dword_5d4594_815708  bool
 	dword_973f18_44216   string
@@ -950,7 +952,7 @@ func nox_xxx_netHandleCliPacket_43C860(_ int, data []byte, _ unsafe.Pointer) int
 			C.sub_48D660()
 		}
 	}
-	*memmap.PtrUint64(0x5D4594, 815716) = platformTicks()
+	lastCliHandlePackets = platformTicks()
 	if dword_5d4594_815704 {
 		C.sub_4AB4A0(0)
 		dword_5d4594_815704 = false
@@ -963,7 +965,7 @@ func nox_xxx_netHandleCliPacket_43C860(_ int, data []byte, _ unsafe.Pointer) int
 
 //export sub_43CF40
 func sub_43CF40() {
-	*memmap.PtrUint64(0x5D4594, 815732) = platformTicks()
+	ticks815732 = platformTicks()
 	dword_5d4594_815708 = false
 	C.sub_4AB4D0(0)
 }
