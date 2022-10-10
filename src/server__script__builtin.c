@@ -478,34 +478,6 @@ int nox_script_groupEnchant_5133B0() {
 	return 0;
 }
 
-//----- (00513820) --------------------------------------------------------
-int nox_script_pushObjectTo_513820() {
-	int v0;    // eax
-	float* v1; // eax
-	double v2; // st7
-	double v3; // st6
-	float v5;  // [esp+0h] [ebp-Ch]
-	float v6;  // [esp+0h] [ebp-Ch]
-	float v7;  // [esp+4h] [ebp-8h]
-	float v8;  // [esp+8h] [ebp-4h]
-	float v9;  // [esp+8h] [ebp-4h]
-
-	v5 = nox_script_popf();
-	v8 = nox_script_popf();
-	v7 = nox_script_popf();
-	v0 = nox_script_pop();
-	v1 = (float*)nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		v2 = v1[14] - v8 + (double)nox_script_builtinGetF40();
-		v3 = v1[15] - v5 + (double)nox_script_builtinGetF44();
-		v6 = v3;
-		v9 = sqrt(v3 * v6 + v2 * v2);
-		v1[22] = v7 * v2 / v9 + v1[22];
-		v1[23] = v7 * v6 / v9 + v1[23];
-	}
-	return 0;
-}
-
 //----- (005138B0) --------------------------------------------------------
 int nox_script_getFirstInvItem_5138B0() {
 	int v0; // eax
