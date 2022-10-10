@@ -200,12 +200,6 @@ func mainloopFrameLimit() {
 		}
 		return
 	}
-	if !noxflags.HasEngine(noxflags.EngineSleep) {
-		for !nox_ticks_should_update_416CD0() {
-			mainloopSleep(time.Microsecond)
-		}
-		return
-	}
 	if dt := nox_ticks_until_next_416D00(); dt > 0 {
 		mainloopSleep(dt)
 	}
