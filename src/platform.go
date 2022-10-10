@@ -52,11 +52,6 @@ func nox_framerate_limit_416C70(fps int) {
 	nox_framerate_next_ticks = ticks + nox_framerate_step_ticks
 }
 
-func nox_ticks_should_update_416CD0() bool {
-	nox_framerate_cur_ticks = platformTicks()
-	return nox_framerate_cur_ticks >= nox_framerate_next_ticks
-}
-
 func nox_ticks_until_next_416D00() time.Duration {
 	ticks := platformTicks()
 	if nox_framerate_next_ticks < ticks {
