@@ -161,7 +161,7 @@ func (c *Client) nox_xxx_clientDrawAll_436100_draw() {
 	} else {
 		c.r.ClearScreen(color.Black)
 	}
-	noxPerfmon.Draw(c.r)
+	noxPerfmon.Draw(c.r, videoGetWindowSize())
 	if C.dword_5d4594_811904 != 0 {
 		C.sub_436F50()
 	}

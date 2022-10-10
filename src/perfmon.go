@@ -31,12 +31,10 @@ import (
 var (
 	noxPerfmon = newPerfmon()
 	bandLog    = log.New("bandwidth")
-	bandFirst  = true
-	bandLast   uint64
 )
 
 func newPerfmon() *Perfmon {
-	return &Perfmon{nextCnt: 10}
+	return &Perfmon{nextCnt: 10, logger: bandLog}
 }
 
 type Perfmon struct {
@@ -44,26 +42,30 @@ type Perfmon struct {
 	nextCnt      uint
 	cnt          uint
 	fps          uint64
-	prevTicks    uint64
+	prevTicks    time.Duration
 	transfer     [noxMaxPlayers]uint32
 	transferTick [noxMaxPlayers]time.Duration
+
+	logger      *log.Logger
+	loggerHdr   bool
+	logBandLast time.Duration
 }
 
 func (m *Perfmon) Toggle() {
 	m.enabled = !m.enabled
 }
 
-func (m *Perfmon) Draw(r *NoxRender) {
+func (m *Perfmon) Draw(r *NoxRender, wsz image.Point) {
 	if !m.enabled {
 		return
 	}
-	wsz := videoGetWindowSize()
 	x := wsz.X - 177
 	y := wsz.Y - 80
 	if m.cnt >= m.nextCnt {
 		m.nextCnt = m.cnt + 10
-		ticks := platformTicks()
-		m.fps = 10000 / (ticks - m.prevTicks)
+		ticks := platform.Ticks()
+		dt := (ticks - m.prevTicks) / time.Millisecond
+		m.fps = 10000 / uint64(dt)
 		m.prevTicks = ticks
 	}
 
@@ -78,7 +80,7 @@ func (m *Perfmon) Draw(r *NoxRender) {
 	r.DrawString(nil, fmt.Sprintf(format, frame), image.Pt(x, y))
 	y += 10
 
-	packSz := noxPerfMonPacketSize()
+	packSz := m.packetSize()
 	format = strMan.GetStringInFile("PacketSize", "client.c")
 	r.Data().SetTextColor(color.White)
 	r.DrawString(nil, fmt.Sprintf(format, packSz), image.Pt(x, y))
@@ -112,7 +114,7 @@ func (m *Perfmon) Draw(r *NoxRender) {
 			str = pl.Name()
 		}
 		r.DrawString(nil, str, image.Pt(10, y))
-		d := noxPerfmonBandData(pl.Index())
+		d := m.bandData(pl.Index())
 		var bps uint32
 		if pl.Index() == noxMaxPlayers-1 {
 			bps = m.TransferStats(0)
@@ -127,19 +129,20 @@ func (m *Perfmon) Draw(r *NoxRender) {
 	m.cnt++
 }
 
-func noxLogBandwidth(ticks uint64) {
-	if ticks-bandLast <= 1000 {
+func (m *Perfmon) LogBandwidth() {
+	ticks := platform.Ticks()
+	if ticks-m.logBandLast <= time.Second {
 		return
 	}
-	bandLast = ticks
+	m.logBandLast = ticks
 
-	if bandFirst {
-		bandFirst = false
-		bandLog.Print("Player,\tBPS, Frame, Threshold, Resend Interval, Resends Per Update, Sleep Interval\n\n")
+	if !m.loggerHdr {
+		m.loggerHdr = true
+		m.logger.Print("Player,\tBPS, Frame, Threshold, Resend Interval, Resends Per Update, Sleep Interval\n\n")
 	}
-	bandLog.Print("\n")
+	m.logger.Print("\n")
 	for _, pl := range noxServer.getPlayers() {
-		d := noxPerfmonBandData(pl.Index())
+		d := m.bandData(pl.Index())
 		v4 := gameFrame()
 		var bps uint32
 		if pl.Index() == noxMaxPlayers-1 {
@@ -147,7 +150,7 @@ func noxLogBandwidth(ticks uint64) {
 		} else {
 			bps = noxPerfmon.TransferStats(pl.Index() + 1)
 		}
-		bandLog.Printf("%s, %d, %d, %d, %d, %d\n", pl.Name(), bps, v4, d.th, d.ri, d.rpu)
+		m.logger.Printf("%s, %d, %d, %d, %d, %d\n", pl.Name(), bps, v4, d.th, d.ri, d.rpu)
 	}
 }
 
@@ -155,7 +158,7 @@ type playerBandData struct {
 	rpu, ri, th uint32
 }
 
-func noxPerfmonBandData(ind int) playerBandData {
+func (m *Perfmon) bandData(ind int) playerBandData {
 	arr := unsafe.Slice((*uint32)(memmap.PtrOff(0x5D4594, 1565124)), 3*noxMaxPlayers)
 	arr = arr[3*ind : 3*(ind+1)]
 	return playerBandData{
@@ -177,9 +180,9 @@ func (m *Perfmon) TransferStats(ind int) uint32 {
 	return stat
 }
 
-func noxPerfMonPacketSize() int {
+func (m *Perfmon) packetSize() int {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		return int(memmap.Uint32(0x5D4594, 815712))
 	}
-	return nox_netlist_sizeByInd_40E9F0(noxMaxPlayers-1, 1) + nox_netlist_sizeByInd2_40F0D0(noxMaxPlayers-1)
+	return netList(noxMaxPlayers-1, 1).Size() + netList(noxMaxPlayers-1, 2).Size()
 }

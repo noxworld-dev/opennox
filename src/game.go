@@ -872,7 +872,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(true)
 	}
 	if noxflags.HasEngine(noxflags.EngineLogBand) {
-		noxLogBandwidth(ticks)
+		noxPerfmon.LogBandwidth()
 	}
 	if noxflags.HasGame(noxflags.GameFlag4) {
 		nox_xxx_gameTick_4D2580_server_A1()
