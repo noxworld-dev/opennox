@@ -1178,7 +1178,6 @@ int nox_xxx_mapSelectFirst_4D0E00() {
 	int v12;            // esi
 	int v13;            // [esp+10h] [ebp-4h]
 
-	nox_platform_srand_time();
 	dword_5d4594_1548476 = 0;
 	for (i = nox_common_maplist_first_4D09B0(); i; i = nox_common_maplist_next_4D09C0(i)) {
 		if (i[6]) {

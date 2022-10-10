@@ -29,11 +29,6 @@ func nox_platform_srand(seed C.uint) {
 	platform.RandSeed(int64(seed))
 }
 
-//export nox_platform_srand_time
-func nox_platform_srand_time() {
-	platform.RandSeedTime()
-}
-
 //export nox_platform_get_ticks
 func nox_platform_get_ticks() C.uint {
 	return C.uint(platformTicks())
