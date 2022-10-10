@@ -613,7 +613,6 @@ func nox_xxx_netInit_554380(narg *netStructOpt) (ind int, _ error) {
 		return -2, errors.New("max limit reached")
 	}
 	dword_973f18_44216 = ""
-	*memmap.PtrUint8(0x973F18, 44232) = 0
 	v2 := getFreeNetStruct()
 	if v2 < 0 {
 		return -8, errors.New("no more slots for net structs")
