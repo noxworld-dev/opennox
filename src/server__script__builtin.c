@@ -478,26 +478,6 @@ int nox_script_groupEnchant_5133B0() {
 	return 0;
 }
 
-//----- (005138B0) --------------------------------------------------------
-int nox_script_getFirstInvItem_5138B0() {
-	int v0; // eax
-	int v1; // esi
-	int v2; // eax
-	int v3; // eax
-
-	v0 = nox_script_pop();
-	v1 = 0;
-	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v2) {
-		v3 = *(uint32_t*)(v2 + 504);
-		if (v3) {
-			v1 = *(uint32_t*)(v3 + 44);
-		}
-	}
-	nox_script_push(v1);
-	return 0;
-}
-
 //----- (005138E0) --------------------------------------------------------
 int nox_script_getNextInvItem_5138E0() {
 	int v0; // eax
