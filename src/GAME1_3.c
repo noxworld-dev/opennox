@@ -63,7 +63,6 @@ extern uint32_t dword_587000_111668;
 extern uint32_t dword_5d4594_825736;
 extern uint32_t nox_perfmon_ping_2614264;
 extern uint32_t dword_5d4594_830292;
-extern uint32_t dword_5d4594_815704;
 extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
 extern uint32_t dword_5d4594_826036;
 extern uint32_t dword_5d4594_816356;
@@ -75,7 +74,6 @@ extern uint32_t dword_5d4594_829504;
 extern uint32_t dword_5d4594_825744;
 extern uint32_t dword_5d4594_816372;
 extern uint32_t nox_client_lockHighResFloors_1193152;
-extern uint32_t dword_5d4594_815708;
 extern void* dword_587000_81128;
 extern uint32_t dword_5d4594_2649712;
 extern uint32_t nox_client_translucentFrontWalls_805844;
@@ -226,9 +224,6 @@ int sub_43C650() {
 	return result;
 }
 
-//----- (0043C6E0) --------------------------------------------------------
-int sub_43C6E0() { return !dword_5d4594_815704 && !dword_5d4594_815708; }
-
 //----- (0043C790) --------------------------------------------------------
 int sub_43C790() { return *getMemU32Ptr(0x587000, 91876); }
 
@@ -239,37 +234,6 @@ int sub_43C7A0(int a1) {
 	result = a1;
 	*getMemU32Ptr(0x587000, 91876) = a1;
 	return result;
-}
-
-//----- (0043C860) --------------------------------------------------------
-int nox_xxx_netHandleCliPacket_43C860(int a1, unsigned char* a2, int a3, void* a4) {
-	unsigned char v3; // cl
-	int v4;           // ecx
-
-	v3 = *a2;
-	*getMemU32Ptr(0x5D4594, 815712) = a3;
-	if (v3 < 0x27u) {
-		v4 = *a2;
-		if (v4 == 33) {
-			sub_446380();
-		} else if (v4 == 36) {
-			nox_perfmon_ping_2614264 = *(uint32_t*)(a2 + 1);
-		}
-	} else {
-		nox_xxx_netOnPacketRecvCli_48EA70(31, (unsigned int)a2, a3);
-		if (nox_client_isConnected_43C700()) {
-			sub_48D660();
-		}
-	}
-	*getMemU64Ptr(0x5D4594, 815716) = nox_platform_get_ticks();
-	if (dword_5d4594_815704 == 1) {
-		sub_4AB4A0(0);
-		dword_5d4594_815704 = 0;
-	}
-	if (dword_5d4594_815708 == 1) {
-		sub_43CF40();
-	}
-	return 1;
 }
 
 //----- (0043CEB0) --------------------------------------------------------
@@ -311,32 +275,6 @@ void sub_43CEB0() {
 	} while (v1 <= HIDWORD(v4) && v7 < v9);
 	long long v0a = __PAIR64__(v3, v6) / v4;
 	*getMemU64Ptr(0x587000, 91880) = v0a;
-}
-
-//----- (0043CF40) --------------------------------------------------------
-int sub_43CF40() {
-	*getMemU64Ptr(0x5D4594, 815732) = nox_platform_get_ticks();
-	dword_5d4594_815708 = 0;
-	return sub_4AB4D0(0);
-}
-
-//----- (0043CF70) --------------------------------------------------------
-int sub_43CF70() {
-	int result; // eax
-	char v2;    // [esp+1h] [ebp-1h]
-
-	result = dword_5d4594_815708;
-	if (!dword_5d4594_815708) {
-		sub_4AB4D0(1);
-		dword_5d4594_815708 = 1;
-		result = *getMemU32Ptr(0x8531A0, 2576);
-		if (*getMemU32Ptr(0x8531A0, 2576)) {
-			nox_xxx_netNeedTimestampStatus_4174F0(*getMemIntPtr(0x8531A0, 2576), 64);
-			v2 = 41;
-			result = nox_xxx_netClientSend2_4E53C0(31, &v2, 1, 0, 1);
-		}
-	}
-	return result;
 }
 // 43CFA0: variable 'v1' is possibly undefined
 

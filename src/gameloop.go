@@ -25,8 +25,6 @@ package opennox
 
 extern unsigned int dword_5d4594_2660032;
 extern void* dword_5d4594_814624;
-extern unsigned int dword_5d4594_815704;
-extern unsigned int dword_5d4594_815708;
 extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_587000_145664;
 extern unsigned int dword_587000_145668;
@@ -575,14 +573,12 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	narg := &netstr.Options{
 		DataSize: 2048,
 		Port:     port,
-		Func2: func(a1 int, a2 []byte, a3 unsafe.Pointer) int {
-			return int(C.nox_xxx_netHandleCliPacket_43C860(C.int(a1), (*C.uchar)(unsafe.Pointer(&a2[0])), C.int(len(a2)), a3))
-		},
-		Check14: nox_xxx_netBigSwitch_553210_op_14_check,
-		Check17: nox_xxx_netBigSwitch_553210_op_17_check,
+		Func2:    nox_xxx_netHandleCliPacket_43C860,
+		Check14:  nox_xxx_netBigSwitch_553210_op_14_check,
+		Check17:  nox_xxx_netBigSwitch_553210_op_17_check,
 	}
-	C.dword_5d4594_815704 = 0
-	C.dword_5d4594_815708 = 0
+	dword_5d4594_815704 = false
+	dword_5d4594_815708 = false
 	nox_xxx_allocNetGQueue_5520B0()
 	ind, err := netstr.NewClient(narg)
 	if err != nil {
