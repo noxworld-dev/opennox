@@ -1074,6 +1074,12 @@ func (obj *Object) setVel(p types.Pointf) {
 	obj.vel_y = C.float(p.Y)
 }
 
+// ApplyForce adds a new force vector to the object. If another force in effect, it will adds up.
+func (obj *Object) ApplyForce(p types.Pointf) {
+	obj.force_x += C.float(p.X)
+	obj.force_y += C.float(p.Y)
+}
+
 func (obj *Object) setForce(p types.Pointf) {
 	obj.force_x = C.float(p.X)
 	obj.force_y = C.float(p.Y)
