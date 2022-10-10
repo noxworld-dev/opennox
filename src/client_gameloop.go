@@ -42,7 +42,7 @@ import (
 )
 
 var (
-	qword_5d4594_815724 uint64
+	ticks815724 uint64
 )
 
 func (c *Client) drawAndPresent() {
@@ -270,8 +270,8 @@ func sub_43CCA0() {
 		}
 	}
 
-	if dt := platformTicks() - qword_5d4594_815724; dt >= 2000 {
-		qword_5d4594_815724 = platformTicks()
+	if dt := platformTicks() - ticks815724; dt >= 2000 {
+		ticks815724 = platformTicks()
 		netstr.Sub552E70(int(nox_xxx_netGet_43C750()))
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
@@ -280,27 +280,24 @@ func sub_43CCA0() {
 	nox_xxx_netSendBySock_40EE10(int(nox_xxx_netGet_43C750()), 31, 0)
 	nox_netlist_resetByInd_40ED10(31, 0)
 	netstr.MaybeSendAll()
-	if !(memmap.Uint32(0x5D4594, 815720) != 0 || memmap.Uint32(0x5D4594, 815716) != 0) {
+	if lastCliHandlePackets == 0 {
 		return
 	}
-	v5 := platformTicks() - *memmap.PtrUint64(0x5D4594, 815716)
-	if v5 > 2000 && !dword_5d4594_815704 {
+
+	if dt := platformTicks() - lastCliHandlePackets; dt > 2000 && !dword_5d4594_815704 {
 		dword_5d4594_815704 = true
 		C.sub_4AB4A0(1)
-		*memmap.PtrUint64(0x5D4594, 815732) = platformTicks()
+		ticks815732 = platformTicks()
 	}
-	if !(memmap.Uint32(0x5D4594, 815720) != 0 || memmap.Uint32(0x5D4594, 815716) != 0) {
+	if lastCliHandlePackets == 0 {
 		return
 	}
-	v4 := platformTicks() - *memmap.PtrUint64(0x5D4594, 815716)
-	if v4 <= 20000 {
+
+	if dt := platformTicks() - lastCliHandlePackets; dt <= 20000 || dword_5d4594_815708 {
 		return
 	}
-	if dword_5d4594_815708 {
-		return
-	}
-	v4 = platformTicks() - *memmap.PtrUint64(0x5D4594, 815732)
-	if v4 > 20000 {
+
+	if dt := platformTicks() - ticks815732; dt > 20000 {
 		sub_43CF70()
 	}
 }
