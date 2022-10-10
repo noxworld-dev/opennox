@@ -90,6 +90,7 @@ var (
 	dword_5d4594_2496472 int
 	dword_5d4594_2496988 int
 	dword_5d4594_1563148 int
+	dword_973f18_44216   string
 	ticks2495920         uint32
 	dword_5d4594_3843632 net.IP
 	dword_5d4594_2513932 *gQueueItem
@@ -596,6 +597,11 @@ func sub_5545A0() C.short {
 	return C.short(netSomePort)
 }
 
+//export sub_554230
+func sub_554230() *C.char {
+	return internCStr(dword_973f18_44216)
+}
+
 func nox_xxx_netInit_554380(narg *netStructOpt) (ind int, _ error) {
 	if narg == nil {
 		return -2, errors.New("empty options")
@@ -606,7 +612,7 @@ func nox_xxx_netInit_554380(narg *netStructOpt) (ind int, _ error) {
 	if narg.field4 > 128 {
 		return -2, errors.New("max limit reached")
 	}
-	*memmap.PtrUint8(0x973F18, 44216) = 0
+	dword_973f18_44216 = ""
 	*memmap.PtrUint8(0x973F18, 44232) = 0
 	v2 := getFreeNetStruct()
 	if v2 < 0 {
@@ -635,11 +641,11 @@ func nox_xxx_netInit_554380(narg *netStructOpt) (ind int, _ error) {
 	}
 	if ip, err := nat.ExternalIP(context.Background()); err == nil {
 		dword_5d4594_3843632 = ip
-		StrCopyP(memmap.PtrOff(0x973F18, 44216), 16, ip.String())
+		dword_973f18_44216 = ip.String()
 	} else if ips, err := nat.InternalIPs(context.Background()); err == nil && len(ips) != 0 {
 		ip = ips[0].IP
 		dword_5d4594_3843632 = ip
-		StrCopyP(memmap.PtrOff(0x973F18, 44216), 16, ip.String())
+		dword_973f18_44216 = ip.String()
 	}
 	return v2, nil
 }

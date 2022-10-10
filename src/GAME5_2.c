@@ -104,9 +104,6 @@ unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz,
 	return 72 + strlen(srvName) + 1;
 }
 
-//----- (00554230) --------------------------------------------------------
-char* sub_554230() { return (char*)getMemAt(0x973F18, 44216); }
-
 unsigned int sub_554290() {
 	unsigned int v0;     // edi
 	int v1;              // ebx
