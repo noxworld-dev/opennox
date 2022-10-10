@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"math/rand"
-	"net"
+	"net/netip"
 	"time"
 
 	"github.com/noxworld-dev/lobby"
@@ -32,8 +32,9 @@ func init() {
 			if r.Game == nil {
 				continue
 			}
-			ip := net.ParseIP(r.Game.Addr).To4()
-			if ip == nil {
+			ip, err := netip.ParseAddr(r.Game.Addr)
+			if err != nil {
+				Log.Printf(backend+": %q (%s): %v", r.Game.Addr, r.Game.Name, err)
 				continue
 			}
 			Log.Printf(backend+": %s (%s)", ip, r.Game.Name)

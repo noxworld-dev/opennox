@@ -6,6 +6,7 @@ import (
 	"encoding/binary"
 	"math/rand"
 	"net"
+	"net/netip"
 	"strings"
 	"sync"
 	"time"
@@ -39,7 +40,7 @@ func PingAll(ctx context.Context, pc *net.UDPConn, arr []Server) error {
 	for i := range arr {
 		s := &arr[i]
 		byKey[s.key()] = s
-		if err := p.SendPing(out, &net.UDPAddr{IP: s.IP, Port: s.Port}); err != nil {
+		if err := p.SendPing(out, netip.AddrPortFrom(s.IP, uint16(s.Port))); err != nil {
 			Log.Printf("ping: cannot ping server %s:%d: %v", s.IP, s.Port, err)
 			last = err
 		} else {
@@ -67,7 +68,7 @@ loop:
 }
 
 // NewPinger creates a pinger for game servers with an existing net.PacketConn.
-func NewPinger(pc *net.UDPConn) *Pinger {
+func NewPinger(pc net.PacketConn) *Pinger {
 	p := &Pinger{
 		pc:      pc,
 		stop:    make(chan struct{}),
@@ -80,7 +81,7 @@ func NewPinger(pc *net.UDPConn) *Pinger {
 }
 
 type Pinger struct {
-	pc   *net.UDPConn
+	pc   net.PacketConn
 	stop chan struct{}
 	done chan struct{}
 
@@ -107,7 +108,7 @@ func (p *Pinger) read() {
 	buf := make([]byte, 256)
 	for {
 		buf = buf[:cap(buf)]
-		n, addr, err := p.pc.ReadFromUDP(buf)
+		n, addr, err := p.pc.ReadFrom(buf)
 		if err != nil {
 			select {
 			case <-p.stop:
@@ -133,7 +134,7 @@ func (p *Pinger) read() {
 		if ch == nil {
 			continue
 		}
-		g := decodeGameInfo(token, addr, buf)
+		g := decodeGameInfo(token, getAddr(addr), buf)
 		if g == nil {
 			continue
 		}
@@ -145,7 +146,7 @@ func (p *Pinger) read() {
 	}
 }
 
-func (p *Pinger) SendPing(out chan<- *lobby.Game, addr *net.UDPAddr) error {
+func (p *Pinger) SendPing(out chan<- *lobby.Game, addr netip.AddrPort) error {
 	Log.Printf("pinging %s", addr)
 	p.mu.Lock()
 	if err := p.err; err != nil {
@@ -156,11 +157,11 @@ func (p *Pinger) SendPing(out chan<- *lobby.Game, addr *net.UDPAddr) error {
 	p.byToken[token] = out
 	p.mu.Unlock()
 	data := encodeGameDiscovery(token)
-	_, err := p.pc.WriteTo(data, addr)
+	_, err := p.pc.WriteTo(data, net.UDPAddrFromAddrPort(addr))
 	return err
 }
 
-func (p *Pinger) Ping(ctx context.Context, addr *net.UDPAddr) (*lobby.Game, error) {
+func (p *Pinger) Ping(ctx context.Context, addr netip.AddrPort) (*lobby.Game, error) {
 	out := make(chan *lobby.Game, 1)
 	err := p.SendPing(out, addr)
 	if err != nil {
@@ -199,7 +200,22 @@ func decodeGameInfoToken(buf []byte) (uint32, bool) {
 	return token, true
 }
 
-func decodeGameInfo(exp uint32, addr *net.UDPAddr, buf []byte) *lobby.Game {
+func getAddr(addr net.Addr) netip.AddrPort {
+	switch a := addr.(type) {
+	case nil:
+	case interface{ AddrPort() netip.AddrPort }:
+		return a.AddrPort()
+	case *net.TCPAddr:
+		return a.AddrPort()
+	case *net.UDPAddr:
+		return a.AddrPort()
+	default:
+		Log.Printf("unsupported address type: %T", a)
+	}
+	return netip.AddrPort{}
+}
+
+func decodeGameInfo(exp uint32, addr netip.AddrPort, buf []byte) *lobby.Game {
 	if len(buf) < 72 {
 		return nil
 	}
@@ -234,8 +250,8 @@ func decodeGameInfo(exp uint32, addr *net.UDPAddr, buf []byte) *lobby.Game {
 	// TODO: more fields
 	return &lobby.Game{
 		Name:    string(name),
-		Address: addr.IP.String(),
-		Port:    addr.Port,
+		Address: addr.Addr().String(),
+		Port:    int(addr.Port()),
 		Map:     strings.ToLower(string(mname)),
 		Mode:    gameFlagsToMode(flags),
 		Access:  access,

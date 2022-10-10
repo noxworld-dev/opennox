@@ -35,6 +35,7 @@ import (
 	"fmt"
 	"image"
 	"net"
+	"net/netip"
 	"time"
 	"unsafe"
 
@@ -49,10 +50,7 @@ import (
 )
 
 var (
-	lobbyBroadcast struct {
-		Conn *net.UDPConn
-		Sock *netstr.Socket
-	}
+	lobbyBroadcast   net.PacketConn
 	errLobbyNoSocket = errors.New("no broadcast socket")
 	discoverDone     = make(chan []discover.Server, 1)
 )
@@ -316,26 +314,24 @@ func nox_xxx_createSocketLocal_554B40(port uint16) int {
 }
 
 func nox_xxx_createSocketLocal(port int) error {
-	if lobbyBroadcast.Conn != nil {
+	if lobbyBroadcast != nil {
 		return nil
 	}
-	conn, sock, err := netstr.ListenUDPBroadcast(nil, port)
+	conn, err := netstr.Listen(netip.AddrPortFrom(netip.Addr{}, uint16(port)))
 	if err != nil {
 		netstr.Log.Println("cannot bind broadcast socket:", err)
 		return err
 	}
-	lobbyBroadcast.Conn = conn
-	lobbyBroadcast.Sock = sock
+	lobbyBroadcast = conn
 	gameSetCliDrawFunc(sub_554FF0)
 	return nil
 }
 
 //export sub_554D10
 func sub_554D10() C.int {
-	if lobbyBroadcast.Conn != nil {
-		_ = lobbyBroadcast.Conn.Close()
-		lobbyBroadcast.Conn = nil
-		lobbyBroadcast.Sock = nil
+	if lobbyBroadcast != nil {
+		_ = lobbyBroadcast.Close()
+		lobbyBroadcast = nil
 		gameSetCliDrawFunc(nil)
 	}
 	return 0
@@ -410,11 +406,11 @@ func clientOnLobbyServer(info *LobbyServerInfo) int {
 }
 
 func sub_554FF0() bool {
-	sub_554D70(lobbyBroadcast.Conn, lobbyBroadcast.Sock, 1)
+	sub_554D70(lobbyBroadcast, 1)
 	return true
 }
 
-func sub_554D70(conn net.PacketConn, sock *netstr.Socket, a1 byte) (int, error) {
+func sub_554D70(conn net.PacketConn, a1 byte) (int, error) {
 	if conn == nil {
 		return 0, errLobbyNoSocket
 	}
@@ -422,7 +418,7 @@ func sub_554D70(conn net.PacketConn, sock *netstr.Socket, a1 byte) (int, error) 
 	argp := 0
 	if a1&1 != 0 {
 		var err error
-		argp, _, err = netstr.NetCanReadConn(conn)
+		argp, err = netstr.CanReadConn(conn)
 		if err != nil {
 			return 0, err
 		} else if argp == 0 {
@@ -436,25 +432,24 @@ func sub_554D70(conn net.PacketConn, sock *netstr.Socket, a1 byte) (int, error) 
 	defer freeBuf()
 	for {
 		buf = buf[:cap(buf)]
-		n, from, err := sock.ReadFrom(buf)
+		n, from, err := netstr.ReadFrom(conn, buf)
 		if err != nil {
 			return 0, err
 		}
 		buf = buf[:n]
-		fromIP, fromPort := netstr.GetAddr(from)
 		if len(buf) > 2 && binary.LittleEndian.Uint16(buf) == 0xF13A { // extension packet code
-			MixRecvFromReplacer(sock, buf, from)
+			MixRecvFromReplacer(conn, buf, from)
 			continue
 		}
 		op := buf[2]
 		if op < 32 {
-			inIP, inPort := fromIP, fromPort
-			if op == 13 || fromIP.Equal(nox_client_getServerAddr_43B300()) {
+			in := from
+			if op == 13 || nox_client_getServerAddr_43B300() == from.Addr() {
 				switch op {
 				case 13:
-					if inIP != nil {
-						saddr := inIP.String()
-						port := inPort
+					if in.Addr().IsValid() {
+						saddr := in.Addr().String()
+						port := int(in.Port())
 						name := buf[72:]
 						name = name[:StrLenBytes(name)]
 						onLobbyServerPacket(saddr, port, string(name), buf)
@@ -467,7 +462,7 @@ func sub_554D70(conn net.PacketConn, sock *netstr.Socket, a1 byte) (int, error) 
 					if C.sub_43B6D0() != 0 {
 						sub_43AF90(4)
 						buf[2] = 18
-						sendToServer(fromIP, fromPort, buf[:8])
+						sendToServer(from, buf[:8])
 					}
 				case 19:
 					errcode := ConnectError(buf[3])
@@ -495,7 +490,7 @@ func sub_554D70(conn net.PacketConn, sock *netstr.Socket, a1 byte) (int, error) 
 		if v11 == 0 || (a1&4) != 0 {
 			return n, nil
 		}
-		argp, _, err = netstr.NetCanReadConn(conn)
+		argp, err = netstr.CanReadConn(conn)
 		if err != nil {
 			return n, err
 		} else if argp == 0 {
@@ -504,17 +499,17 @@ func sub_554D70(conn net.PacketConn, sock *netstr.Socket, a1 byte) (int, error) 
 	}
 }
 
-func sendToServer(addr net.IP, port int, data []byte) (int, error) {
-	if lobbyBroadcast.Conn == nil {
+func sendToServer(addr netip.AddrPort, data []byte) (int, error) {
+	if lobbyBroadcast == nil {
 		return 0, errLobbyNoSocket
 	}
 	if len(data) < 2 {
 		return 0, nil
 	}
-	if lobbyBroadcast.Conn == nil {
+	if lobbyBroadcast == nil {
 		return 0, errors.New("no broadcast socket")
 	}
-	return lobbyBroadcast.Conn.WriteTo(data, &net.UDPAddr{IP: addr, Port: port})
+	return lobbyBroadcast.WriteTo(data, net.UDPAddrFromAddrPort(addr))
 }
 
 //export sub_41D4C0

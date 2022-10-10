@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net"
+	"net/netip"
 	"syscall"
 )
 
@@ -34,84 +35,48 @@ func (e *ConnectFailErr) Unwrap() error {
 	return e.Err
 }
 
-func GetAddr(addr net.Addr) (net.IP, int) {
-	var (
-		ip   net.IP
-		port int
-	)
+func GetAddr(addr net.Addr) netip.AddrPort {
 	switch a := addr.(type) {
 	case nil:
+	case interface{ AddrPort() netip.AddrPort }:
+		return a.AddrPort()
 	case *net.TCPAddr:
-		ip, port = a.IP, a.Port
+		return a.AddrPort()
 	case *net.UDPAddr:
-		ip, port = a.IP, a.Port
+		return a.AddrPort()
 	default:
 		Log.Printf("unsupported address type: %T", a)
 	}
-	return ip, port
+	return netip.AddrPort{}
 }
 
-func ListenUDPBroadcast(ip net.IP, port int) (*net.UDPConn, *Socket, error) {
-	Log.Printf("listen udp broadcast %s:%d", ip, port)
-	l, err := net.ListenUDP("udp4", &net.UDPAddr{IP: ip, Port: port})
-	if err != nil {
-		return nil, nil, err
-	}
-	return l, &Socket{pc: l}, nil
-}
-
-type Socket struct {
-	pc net.PacketConn
-}
-
-func (s *Socket) CanRead() (int, error) {
-	if s == nil {
-		return 0, errors.New("nil socket")
-	}
-	if s.pc == nil {
-		panic("TODO")
-	}
-	cnt, ierr, err := NetCanReadConn(s.pc)
-	if ierr != 0 {
-		return cnt, err
-	} else if err != nil {
-		Log.Println(err)
-		return cnt, err
-	}
-	return cnt, nil
-}
-
-func udpListen(ip net.IP, port int) (*Socket, error) {
-	Log.Printf("listen udp %s:%d", ip, port)
-	l, err := net.ListenUDP("udp4", &net.UDPAddr{IP: ip, Port: port})
+func Listen(addr netip.AddrPort) (net.PacketConn, error) {
+	Log.Printf("listen udp %s", addr)
+	l, err := net.ListenUDP("udp4", net.UDPAddrFromAddrPort(addr))
 	if err != nil {
 		return nil, err
 	}
-	return &Socket{pc: l}, nil
+	return l, nil
 }
 
-func (s *Socket) ReadFrom(buf []byte) (int, net.Addr, error) {
-	n, src, err := s.pc.ReadFrom(buf)
+func ReadFrom(pc net.PacketConn, buf []byte) (int, netip.AddrPort, error) {
+	n, src, err := pc.ReadFrom(buf)
+	ap := GetAddr(src)
 	if err != nil {
 		Log.Println(err)
-		return n, src, err
+		return n, ap, err
 	}
-	ip, port := GetAddr(src)
 	if Debug {
-		Log.Printf("recv %s:%d -> %s [%d]\n%x", ip, port, s.pc.LocalAddr(), n, buf[:n])
+		Log.Printf("recv %s -> %s [%d]\n%x", ap, pc.LocalAddr(), n, buf[:n])
 	}
-	return n, src, nil
+	return n, ap, nil
 }
 
-func (s *Socket) SendTo(buf []byte, ip net.IP, port int) (int, error) {
-	return s.WriteTo(buf, &net.UDPAddr{IP: ip, Port: port})
-}
-
-func (s *Socket) WriteTo(buf []byte, addr *net.UDPAddr) (int, error) {
+func WriteTo(pc net.PacketConn, buf []byte, addr netip.AddrPort) (int, error) {
 	if Debug {
-		Log.Printf("send %s -> %s [%d]\n%x", s.pc.LocalAddr(), addr, len(buf), buf)
+		Log.Printf("send %s -> %s [%d]\n%x", pc.LocalAddr(), addr, len(buf), buf)
 	}
-	n, err := s.pc.WriteTo(buf, addr)
+	n, err := pc.WriteTo(buf, net.UDPAddrFromAddrPort(addr))
 	if err != nil {
 		Log.Println(err)
 		return 0, err
@@ -119,18 +84,7 @@ func (s *Socket) WriteTo(buf []byte, addr *net.UDPAddr) (int, error) {
 	return n, nil
 }
 
-func (s *Socket) Close() error {
-	if s == nil {
-		return nil
-	}
-	if s.pc != nil {
-		_ = s.pc.Close()
-		s.pc = nil
-	}
-	return nil
-}
-
-func NetCanReadConn(pc net.PacketConn) (int, syscall.Errno, error) {
+func CanReadConn(pc net.PacketConn) (int, error) {
 	sc, ok := pc.(syscall.Conn)
 	if !ok {
 		panic(fmt.Errorf("unexpected type: %T", pc))
@@ -147,13 +101,13 @@ func NetCanReadConn(pc net.PacketConn) (int, syscall.Errno, error) {
 		cnt, ierr = netCanRead(fd)
 	})
 	if err != nil {
-		return 0, 0, err
+		return 0, err
 	}
 	if ierr == 0 {
-		return int(cnt), 0, nil
+		return int(cnt), nil
 	}
 	if Debug {
 		Log.Printf("can read: %d", cnt)
 	}
-	return int(cnt), ierr, ierr
+	return int(cnt), ierr
 }
