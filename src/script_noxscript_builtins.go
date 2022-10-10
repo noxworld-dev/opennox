@@ -19,7 +19,6 @@ int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
 int nox_script_groupEnchant_5133B0();
-int nox_script_pushObjectTo_513820();
 int nox_script_getFirstInvItem_5138B0();
 int nox_script_getNextInvItem_5138E0();
 int nox_script_hasItem_513910();
@@ -141,6 +140,7 @@ import "C"
 import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"image"
+	"math"
 	"strconv"
 	"strings"
 	"unsafe"
@@ -305,7 +305,7 @@ var noxScriptBuiltins = []func() int{
 	69:  nox_script_raise_513750,
 	70:  nox_script_faceAngle_513780,
 	71:  nox_script_pushObject_5137D0,
-	72:  wrapScriptC(C.nox_script_pushObjectTo_513820),
+	72:  nox_script_pushObjectTo_513820,
 	73:  wrapScriptC(C.nox_script_getFirstInvItem_5138B0),
 	74:  wrapScriptC(C.nox_script_getNextInvItem_5138E0),
 	75:  wrapScriptC(C.nox_script_hasItem_513910),
@@ -1703,6 +1703,22 @@ func nox_script_pushObject_5137D0() int {
 		force.X += dx
 		force.Y += dy
 		obj.setForce(force)
+	}
+	return 0
+}
+
+func nox_script_pushObjectTo_513820() int {
+	s := &noxServer.noxScript
+
+	yPos := s.PopF32()
+	xPos := s.PopF32()
+	force := s.PopF32()
+	obj := s.PopObject()
+	if obj != nil {
+		xDir := obj.Pos().X - xPos + float32(s.builtinGetF40())
+		yDir := obj.Pos().Y - yPos + float32(s.builtinGetF44())
+		dirLength := float32(math.Hypot(float64(xDir), float64(yDir)))
+		obj.ApplyForce(types.Pointf{X: force * xDir / dirLength, Y: force * yDir / dirLength})
 	}
 	return 0
 }
