@@ -817,7 +817,6 @@ func nox_xxx_netSendSock552640(id int, buf []byte, flags int) (int, error) {
 			if n2 == -1 {
 				return -1, err
 			}
-			sub_553F40(n+2, 1)
 			nox_xxx_netCountData_554030(n+2, i)
 			return n2, nil
 		}
@@ -829,17 +828,6 @@ func nox_xxx_netSendSock552640(id int, buf []byte, flags int) (int, error) {
 
 func nox_xxx_netCountData_554030(n int, ind int) {
 	arr2498024[ind] += uint32(n)
-}
-
-func sub_553F40(a1, a2 int) {
-	cnt2495952 += uint32(a1)
-	cnt2495956 += uint32(a2)
-	i := cnt2497504
-	j := cnt2498020
-	*memmap.PtrUint32(0x5D4594, 2496992+4*uintptr(i)) = uint32(a1)
-	*memmap.PtrUint32(0x5D4594, 2497508+4*uintptr(j)) = uint32(a2)
-	cnt2497504 = uint32(dword_5d4594_2496472+1) % 128
-	cnt2498020 = uint32(dword_5d4594_2496988+1) % 128
 }
 
 func sub555130(a1 int, buf []byte) (int, error) {
@@ -1343,7 +1331,6 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 				n = nox_server_makeServerInfoPacket_554040(ns.Data1yyy(), buf)
 				if n > 0 {
 					n, _ = ns.sock.WriteTo(buf[:n], &net.UDPAddr{IP: ip, Port: port})
-					sub_553F40(n, 1)
 				}
 			}
 			ns.data1xxx = 0
@@ -1403,7 +1390,6 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 					n = nox_xxx_netBigSwitch_553210(id, data, buf, src)
 					if n > 0 {
 						n, _ = nox_xxx_sendto551F90(ns.sock, buf[:n], ip, port)
-						sub_553F40(n, 1)
 					}
 					goto LABEL_48
 				}
@@ -1429,7 +1415,6 @@ func nox_xxx_servNetInitialPackets_552A80(id int, flags int) int {
 			n = nox_xxx_netBigSwitch_553210(id, data, buf, src)
 			if n > 0 {
 				n, _ = nox_xxx_sendto551F90(ns.sock, buf[:n], ip, port)
-				sub_553F40(n, 1)
 			}
 		} else {
 			if ns2 != nil && flags&2 == 0 {
@@ -2134,7 +2119,6 @@ func nox_xxx_netSendReadPacket_5528B0(ind int, a2 byte) int {
 			if err != nil {
 				return -1
 			}
-			sub_553F40(len(v13), 1)
 			nox_xxx_netCountData_554030(len(v13), j)
 			ns2.data2xxx = ns2.data2yyy
 		}
@@ -2171,8 +2155,7 @@ func sub_5522E0(id int) {
 	buf := nox_xxx_makePacketTime_552340(id)
 	ns2 := &nox_net_struct2_arr[id]
 	ip, port := getAddr(ns2.addr)
-	n, _ := nox_xxx_sendto551F90(ns.sock, buf, ip, port)
-	sub_553F40(n, 1)
+	nox_xxx_sendto551F90(ns.sock, buf, ip, port)
 }
 
 func nox_xxx_makePacketTime_552340(id int) []byte {
@@ -2198,8 +2181,7 @@ func sub_552380(a1 int) {
 	nx.flag = false
 
 	ip, port := getAddr(nx.addr)
-	n, _ := nox_xxx_sendto551F90(ns.sock, buf[:], ip, port)
-	sub_553F40(n, 1)
+	nox_xxx_sendto551F90(ns.sock, buf[:], ip, port)
 }
 
 func sub_5523E0(a1 byte, ind int) {
@@ -2215,8 +2197,7 @@ func sub_5523E0(a1 byte, ind int) {
 	nx.flag = false
 
 	ip, port := getAddr(nx.addr)
-	v4, _ := nox_xxx_sendto551F90(ns.sock, buf[:], ip, port)
-	sub_553F40(v4, 1)
+	nox_xxx_sendto551F90(ns.sock, buf[:], ip, port)
 }
 
 func sub_552E70(ind int) int {
@@ -2256,10 +2237,6 @@ var (
 	flag2495924 bool
 	cnt2495944  uint32
 	cnt2495948  uint32
-	cnt2495952  uint32
-	cnt2495956  uint32
-	cnt2497504  uint32
-	cnt2498020  uint32
 	val292940   uint32 = 3
 )
 
@@ -2334,8 +2311,6 @@ func nox_xxx_allocNetGQueue_5520B0() {
 	}
 	cnt2495944 = 0
 	cnt2495948 = 0
-	cnt2495952 = 0
-	cnt2495956 = 0
 	flag2495924 = true
 }
 
