@@ -3130,7 +3130,9 @@ int sub_534340(int a1) {
 }
 
 //----- (00534390) --------------------------------------------------------
-int nox_xxx_monsterCanAttackAtWill_534390(nox_object_t* a1) { return *(float*)(*(uint32_t*)((int)a1 + 748) + 1304) > 0.66000003; }
+int nox_xxx_monsterCanAttackAtWill_534390(nox_object_t* a1) {
+	return *(float*)(*(uint32_t*)((int)a1 + 748) + 1304) > 0.66000003;
+}
 
 //----- (005343C0) --------------------------------------------------------
 int sub_5343C0(int a1) {
@@ -6094,7 +6096,7 @@ int sub_539FB0(uint32_t* a1) {
 		return 0;
 	}
 	while (nox_xxx_weaponInventoryEquipFlags_415820(item) != 128) {
-		item = item->field_124;
+		item = item->inv_next_item;
 		if (!item) {
 			return 0;
 		}
@@ -6111,7 +6113,7 @@ int nox_xxx_playerTryReloadQuiver_539FF0(uint32_t* a1) {
 		return 0;
 	}
 	while (nox_xxx_weaponInventoryEquipFlags_415820(item) != 2) {
-		item = item->field_124;
+		item = item->inv_next_item;
 		if (!item) {
 			return 0;
 		}
@@ -6410,13 +6412,11 @@ int nox_xxx_playerEquipWeapon_53A420(uint32_t* a1, nox_object_t* item, int a3, i
 	const int v12 = item->obj_class;
 	if (v12 & 0x1000 && (item->obj_subclass & 0x47F0000)) {
 		nox_xxx_netReportCharges_4D82B0(*(unsigned char*)(*(uint32_t*)(v8 + 276) + 2064), (uint32_t*)item,
-										*(uint8_t*)((int)item->use_data + 108),
-										*(uint8_t*)((int)item->use_data + 109));
+										*(uint8_t*)((int)item->use_data + 108), *(uint8_t*)((int)item->use_data + 109));
 	} else if (v12 & 0x1000000) {
 		if (v4 & 0x82) {
 			nox_xxx_netReportCharges_4D82B0(*(unsigned char*)(*(uint32_t*)(v8 + 276) + 2064), (uint32_t*)item,
-											*(uint8_t*)((int)item->use_data + 1),
-											*(uint8_t*)item->use_data);
+											*(uint8_t*)((int)item->use_data + 1), *(uint8_t*)item->use_data);
 		} else if (v4 & 0xC) {
 			*(uint8_t*)item->use_data = 0;
 		}
@@ -6438,7 +6438,7 @@ int sub_53A680(int a1) {
 		return 0;
 	}
 	while (!(nox_xxx_weaponInventoryEquipFlags_415820(item) & 0xC)) {
-		item = item->field_124;
+		item = item->inv_next_item;
 		if (!item) {
 			return 0;
 		}
@@ -6551,8 +6551,7 @@ int sub_53A720(int a1, nox_object_t* item, int a3, int a4) {
 												*(uint8_t*)((int)item->use_data + 109));
 			} else if (v11 & 0x1000000 && (item->obj_subclass & 0x82)) {
 				nox_xxx_netReportCharges_4D82B0(*(unsigned char*)(*(uint32_t*)(v13 + 276) + 2064), item,
-												*(uint8_t*)((int)item->use_data + 1),
-												*(uint8_t*)item->use_data);
+												*(uint8_t*)((int)item->use_data + 1), *(uint8_t*)item->use_data);
 			}
 		}
 	}
