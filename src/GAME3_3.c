@@ -7107,11 +7107,11 @@ void sub_4ED0C0(nox_object_t* a1p, nox_object_t* object) {
 		}
 		v5 = object->field_125;
 		if (v5) {
-			*(uint32_t*)(v5 + 496) = object->field_124;
+			*(uint32_t*)(v5 + 496) = object->inv_next_item;
 		} else {
-			*(uint32_t*)(a1 + 504) = object->field_124;
+			*(uint32_t*)(a1 + 504) = object->inv_next_item;
 		}
-		v6 = object->field_124;
+		v6 = object->inv_next_item;
 		if (v6) {
 			*(uint32_t*)(v6 + 500) = object->field_125;
 		}
@@ -11552,7 +11552,7 @@ void nox_xxx_inventoryPutImpl_4F3070(int a1, nox_object_t* item, int a3) {
 	v3 = 0;
 	if (a1 && item && !(*(uint8_t*)(a1 + 16) & 0x20) && !(item->obj_flags & 0x20)) {
 		*(uint32_t*)&item->field_125 = 0;
-		*(uint32_t*)&item->field_124 = *(uint32_t*)(a1 + 504);
+		*(uint32_t*)&item->inv_next_item = *(uint32_t*)(a1 + 504);
 		v4 = *(uint32_t*)(a1 + 504);
 		if (v4) {
 			*(uint32_t*)(v4 + 500) = item;

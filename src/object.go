@@ -847,11 +847,11 @@ func (obj *Object) Next() *Object { // nox_server_getNextObject_4DA7A0, nox_xxx_
 }
 
 func (obj *Object) FirstItem() *Object { // nox_xxx_inventoryGetFirst_4E7980
-	return asObject(unsafe.Pointer(obj.field_126))
+	return asObject(unsafe.Pointer(obj.inv_first_item))
 }
 
 func (obj *Object) NextItem() *Object {
-	return asObject(unsafe.Pointer(obj.field_124))
+	return asObject(unsafe.Pointer(obj.inv_next_item))
 }
 
 func (obj *Object) InventoryHolder() *Object {
