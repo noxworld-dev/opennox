@@ -472,9 +472,9 @@ typedef struct nox_object_t {
 	uint8_t field_122_1;     // 122, 489
 	uint16_t carry_capacity; // 122, 490
 	nox_object_t* inv_holder; // 123, 492 // Also health data, possibly same as 556, see 4E4560
-	nox_object_t* field_124; // 124, 496, TODO: next item
-	void* field_125;         // 125, 500, TODO: a nox_object_t*? see 4ED0C0
-	nox_object_t* field_126; // 126, 504, TODO: first item
+	nox_object_t* inv_next_item; // 124, 496, TODO: next item
+	nox_object_t* field_125; // 125, 500, TODO: a nox_object_t*? see 4ED0C0
+	nox_object_t* inv_first_item; // 126, 504, TODO: first item
 	nox_object_t* owner;     // 127, 508
 	void* field_128;         // 128, 512
 	void* field_129;         // 129, 516
