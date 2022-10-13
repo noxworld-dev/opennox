@@ -6174,7 +6174,7 @@ int sub_489870() {
 	char v6;           // cl
 	int v7;            // eax
 
-	v0 = nox_xxx_check_flag_aaa_43AF70();
+	v0 = 0;
 	v1 = getMemAt(0x5D4594, 1193388 + 44 * v0);
 	if (*getMemU32Ptr(0x5D4594, 1193372 + 4 * v0) == 2) {
 		*(uint32_t*)v1 =
@@ -6227,7 +6227,7 @@ int nox_xxx_checkSomeFlagsOnJoin_4899C0(nox_gui_server_ent_t* srv) {
 	unsigned char v14; // [esp+4Ch] [ebp+4h]
 	unsigned char v15; // [esp+4Ch] [ebp+4h]
 
-	v1 = nox_xxx_check_flag_aaa_43AF70();
+	v1 = 0;
 	v2 = 11 * v1;
 	v3 = *getMemU32Ptr(0x5D4594, 1193372 + 4 * v1);
 	v4 = getMemAt(0x5D4594, 1193388 + 4 * v2);
@@ -6315,7 +6315,7 @@ uint32_t* sub_489B80(int a1) {
 	dword_5d4594_1193380 = result;
 	if (result) {
 		dword_5d4594_1193384 = nox_xxx_wndGetChildByID_46B0C0(result, 10012);
-		v2 = nox_xxx_check_flag_aaa_43AF70();
+		v2 = 0;
 		v3 = getMemAt(0x5D4594, 1193388 + 44 * v2);
 		sub_46B120(*(uint32_t**)&dword_5d4594_1193380, a1);
 		sub_46B120(*(uint32_t**)&dword_5d4594_1193384, *(int*)&dword_5d4594_1193380);
@@ -6405,7 +6405,7 @@ int nox_xxx_windowMplayFilterProc_489E70(int a1, int a2, int* a3, int a4) {
 	int v7;       // [esp-Ch] [ebp-10h]
 	int v8;       // [esp-Ch] [ebp-10h]
 
-	v3 = nox_xxx_check_flag_aaa_43AF70();
+	v3 = 0;
 	if (a2 == 23) {
 		return 1;
 	}

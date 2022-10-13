@@ -392,7 +392,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 		s.types.nox_xxx_protectUnitDefUpdateMB_4E3C20()
 		inputSetKeyTimeoutLegacy(16)
 	}
-	if noxflags.HasGame(noxflags.GameOnline) && nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(noxflags.GameModeChat) && inputKeyCheckTimeoutLegacy(0xF, 60*s.TickRate()) {
+	if noxflags.HasGame(noxflags.GameOnline) && false && !noxflags.HasGame(noxflags.GameModeChat) && inputKeyCheckTimeoutLegacy(0xF, 60*s.TickRate()) {
 		C.nox_xxx_net_4263C0()
 		inputSetKeyTimeoutLegacy(15)
 	}
@@ -742,7 +742,7 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 	cryptFileClose()
 	if !noxflags.HasGame(noxflags.GameFlag22) {
 		s.nox_xxx_mapReadSetFlags_4CF990()
-		if nox_xxx_check_flag_aaa_43AF70() == 1 {
+		if false {
 			C.sub_416690()
 		}
 		noxflags.UnsetGame(noxflags.GameSuddenDeath)

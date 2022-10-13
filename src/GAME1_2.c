@@ -533,7 +533,7 @@ int sub_428810(int a1, int a2) {
 	free(v2);
 	v4 = 1;
 	if (sub_420360(v6, &a2)) {
-		v4 = sub_40DEA0((int)v6, (short)a2, (int)v3, *getMemIntPtr(0x5D4594, 741312));
+		abort();
 	}
 	free(v3);
 	return v4;
@@ -551,7 +551,7 @@ int sub_428890(short* a1) {
 	free(v1);
 	v3 = 1;
 	if (sub_420360(v5, &a1)) {
-		v3 = sub_40DEA0((int)v5, (short)a1, (int)v2, *getMemIntPtr(0x5D4594, 741300));
+		abort();
 	}
 	free(v2);
 	return v3;
@@ -4185,10 +4185,6 @@ int sub_43A920() {
 	int result; // eax
 
 	nox_xxx_windowFocus_46B500(*(int*)&nox_wol_wnd_world_814980);
-	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
-		sub_554D10();
-		nox_game_SetCliDrawFunc(sub_41E210);
-	}
 	if (!sub_43BE30() || !*getMemU32Ptr(0x5D4594, 815084)) {
 		sub_44A400();
 	}
@@ -4274,7 +4270,7 @@ char* sub_43AA70() {
 	*((uint32_t*)v1 + 11) = *getMemU32Ptr(0x5D4594, 814916);
 	*(uint16_t*)(v1 + 109) = nox_xxx_servGetPort_40A430();
 	nox_client_setServerConnectAddr_435720("localhost");
-	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
+	if (0) {
 		memset(v10, 0, sizeof(v10));
 		v6 = sub_41FA40();
 		nox_sprintf(v9, "%s%s", v6, getMemAt(0x587000, 90752));
@@ -4291,7 +4287,6 @@ char* sub_43AA70() {
 		*(uint32_t*)&v10[224] = NOX_CLIENT_VERS_CODE;
 		*(uint32_t*)&v10[32] = *getMemU32Ptr(0x5D4594, 814916);
 		v10[sub_425550(v1 + 100, &v10[69], 552) + 69] = 0;
-		sub_40D320((int)v10);
 	}
 	result = nox_xxx_cliGamedataGet_416590(1);
 	v8 = *((uint16_t*)result + 26) & 0xE90F;

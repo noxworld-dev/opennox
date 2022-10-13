@@ -3920,7 +3920,7 @@ int sub_457B60(int a1) {
 		nox_window_call_field_94(*(int*)&dword_5d4594_1046516, 16414, (int)WideCharStr, 0);
 		_itow(*(unsigned char*)(a1 + 56), WideCharStr, 10);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1046520, 16414, (int)WideCharStr, 0);
-		if (nox_xxx_check_flag_aaa_43AF70() == 1) {
+		if (0) {
 			v10 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1046492, 10210);
 			nox_window_set_hidden((int)v10, 0);
 			sub_457FE0();
@@ -4062,10 +4062,9 @@ char sub_459150() {
 			sub_409FB0_settings(*((uint16_t*)v9 + 26), *((uint16_t*)v9 + 27));
 			sub_40A040_settings(*((uint16_t*)v9 + 26), v9[56]);
 		}
-		if (v8 && nox_xxx_check_flag_aaa_43AF70() == 1) {
+		if (v8 && 0) {
 			if (!nox_common_gameFlags_check_40A5C0(128)) {
 				nox_xxx_net_4263C0();
-				sub_40DF90();
 				sub_4264D0();
 				sub_416150(15, 0);
 			}
@@ -4343,7 +4342,7 @@ int sub_459C30() {
 		sub_4BDF70((int*)v0);
 		nox_client_guiserv_updateMapList_458230(*((unsigned short*)v0 + 26), v0, 0);
 		sub_457460((int)v0);
-		if (nox_xxx_check_flag_aaa_43AF70() == 1) {
+		if (0) {
 			sub_457FE0();
 		}
 		v2 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1046492, 10119);

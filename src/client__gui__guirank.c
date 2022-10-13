@@ -105,14 +105,11 @@ int nox_xxx_guiDrawRank_46E870() {
 	v0 = nox_xxx_guiFontHeightMB_43F320(0);
 	v46 = v0;
 	*getMemU32Ptr(0x5D4594, 1084036) = 80;
-	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
-		nox_swprintf(v50, L"%S", getMemAt(0x587000, 145768));
-		nox_xxx_drawGetStringSize_43F840(0, v50, &v41, &v44, nox_win_width);
-	} else {
-		v32 = nox_win_width;
-		v1 = nox_strman_loadString_40F1D0("Flag", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1641);
-		nox_xxx_drawGetStringSize_43F840(0, v1, &v41, &v44, v32);
-	}
+
+	v32 = nox_win_width;
+	v1 = nox_strman_loadString_40F1D0("Flag", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1641);
+	nox_xxx_drawGetStringSize_43F840(0, v1, &v41, &v44, v32);
+
 	v2 = v41;
 	if (v41 < 18) {
 		v2 = 18;

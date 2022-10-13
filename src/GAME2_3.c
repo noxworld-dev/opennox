@@ -6202,7 +6202,7 @@ void sub_49FDB0(int a1) {
 	char v8[140];      // [esp+4h] [ebp-8Ch]
 
 	if (!dword_5d4594_1305788) {
-		if (nox_xxx_check_flag_aaa_43AF70()) {
+		if (0) {
 			v7 = 0;
 			if (*getMemU32Ptr(0x587000, 166016 + 4 * a1) > 0) {
 				v4 = getMemAt(0x587000, 166032 + 80 * a1);

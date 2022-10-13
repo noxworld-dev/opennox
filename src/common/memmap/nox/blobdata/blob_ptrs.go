@@ -12,65 +12,9 @@ type Ptrs struct {
 	Ptr_dword_587000_122852                   *unsafe.Pointer
 	Ptr_dword_587000_81128                    *unsafe.Pointer
 
-	Ptr_nox_xxx_parseWeapColor_411C40         unsafe.Pointer
-	Ptr_sub_411D90                            unsafe.Pointer
-	Ptr_sub_40E4F0                            unsafe.Pointer
-	Ptr_sub_40E490                            unsafe.Pointer
-	Ptr_sub_40E4B0                            unsafe.Pointer
-	Ptr_sub_40C960                            unsafe.Pointer
-	Ptr_sub_40C140                            unsafe.Pointer
-	Ptr_sub_40C1B0                            unsafe.Pointer
-	Ptr_sub_40CA60                            unsafe.Pointer
-	Ptr_sub_40C1F0                            unsafe.Pointer
-	Ptr_nox_xxx_somejoinproc_40CD60           unsafe.Pointer
-	Ptr_sub_40C240                            unsafe.Pointer
-	Ptr_sub_40C2E0                            unsafe.Pointer
-	Ptr_sub_40C420                            unsafe.Pointer
-	Ptr_sub_40C4E0                            unsafe.Pointer
-	Ptr_sub_40C530                            unsafe.Pointer
-	Ptr_sub_40C580                            unsafe.Pointer
-	Ptr_sub_40CDC0                            unsafe.Pointer
-	Ptr_sub_40C5C0                            unsafe.Pointer
-	Ptr_sub_40C600                            unsafe.Pointer
-	Ptr_sub_40CBA0                            unsafe.Pointer
-	Ptr_sub_40CBE0                            unsafe.Pointer
-	Ptr_sub_40C9D0                            unsafe.Pointer
-	Ptr_sub_40C650                            unsafe.Pointer
-	Ptr_sub_40C660                            unsafe.Pointer
-	Ptr_sub_40C670                            unsafe.Pointer
-	Ptr_sub_40C690                            unsafe.Pointer
-	Ptr_sub_40C710                            unsafe.Pointer
-	Ptr_sub_40C720                            unsafe.Pointer
-	Ptr_sub_40C7A0                            unsafe.Pointer
-	Ptr_sub_40C7D0                            unsafe.Pointer
-	Ptr_sub_40C830                            unsafe.Pointer
-	Ptr_sub_40C880                            unsafe.Pointer
-	Ptr_sub_40C8C0                            unsafe.Pointer
-	Ptr_sub_40C8F0                            unsafe.Pointer
-	Ptr_sub_40C4F0                            unsafe.Pointer
-	Ptr_sub_40C510                            unsafe.Pointer
-	Ptr_sub_40C500                            unsafe.Pointer
-	Ptr_sub_40C520                            unsafe.Pointer
-	Ptr_sub_40CA40                            unsafe.Pointer
-	Ptr_sub_40CD50                            unsafe.Pointer
-	Ptr_sub_40CB90                            unsafe.Pointer
-	Ptr_sub_40CA50                            unsafe.Pointer
-	Ptr_sub_40E6C0                            unsafe.Pointer
-	Ptr_sub_40E680                            unsafe.Pointer
-	Ptr_sub_40DBB0                            unsafe.Pointer
-	Ptr_sub_40DBE0                            unsafe.Pointer
-	Ptr_sub_40DC10                            unsafe.Pointer
-	Ptr_sub_40DC60                            unsafe.Pointer
-	Ptr_sub_40DC50                            unsafe.Pointer
-	Ptr_sub_40E890                            unsafe.Pointer
-	Ptr_sub_40E850                            unsafe.Pointer
-	Ptr_sub_40DD00                            unsafe.Pointer
-	Ptr_sub_40DD10                            unsafe.Pointer
-	Ptr_sub_40DD60                            unsafe.Pointer
-	Ptr_sub_40DD70                            unsafe.Pointer
-	Ptr_sub_40DE10                            unsafe.Pointer
-	Ptr_sub_40DE90                            unsafe.Pointer
-	Ptr_nox_xxx_unknown_libname_86_57F634     unsafe.Pointer
+	Ptr_nox_xxx_parseWeapColor_411C40 unsafe.Pointer
+	Ptr_sub_411D90                    unsafe.Pointer
+
 	Ptr_sub_4DFB50                            unsafe.Pointer
 	Ptr_nox_xxx_effectSpeedEngage_4DFC30      unsafe.Pointer
 	Ptr_sub_4DFD10                            unsafe.Pointer
@@ -112,7 +56,6 @@ type Ptrs struct {
 	Ptr_sub_43E9F0                              unsafe.Pointer
 	Ptr_sub_43EA20                              unsafe.Pointer
 	Ptr_sub_43EC10                              unsafe.Pointer
-	Ptr_sub_446AE0_wol_chat                     unsafe.Pointer
 	Ptr_sub_4A7A80                              unsafe.Pointer
 	Ptr_sub_4A7AC0                              unsafe.Pointer
 	Ptr_sub_4A7B00                              unsafe.Pointer

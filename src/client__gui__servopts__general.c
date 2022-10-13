@@ -32,13 +32,9 @@ int nox_xxx_gui_4AD320(int a1) {
 	if (dword_5d4594_1309812) {
 		return 0;
 	}
-	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
-		v3 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 173596 + 4 * v1),
-									  nox_xxx_windowServerOptionsGeneralProc_4AD5D0);
-	} else {
-		v3 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 173556 + 4 * v1),
-									  nox_xxx_windowServerOptionsGeneralProc_4AD5D0);
-	}
+
+	v3 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 173556 + 4 * v1), nox_xxx_windowServerOptionsGeneralProc_4AD5D0);
+
 	dword_5d4594_1309812 = v3;
 	sub_46B120(v3, a1);
 	nox_xxx_wndSetDrawFn_46B340(*(int*)&dword_5d4594_1309812, sub_4AD570);
@@ -48,7 +44,7 @@ int nox_xxx_gui_4AD320(int a1) {
 	}
 	nox_xxx_wndRetNULL_46A8A0();
 	sub_4AD840();
-	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
+	if (0) {
 		sub_4AD4B0();
 		v5 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1309812, 10310);
 		nox_xxx_wnd_46B280((int)v5, *(int*)&dword_5d4594_1309812);
@@ -148,8 +144,7 @@ int sub_4AD840() {
 			v5 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1309812, 10306);
 			v5[9] |= 4u;
 		}
-		result = nox_xxx_check_flag_aaa_43AF70();
-		if (result == 1) {
+		if (0) {
 			v6 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1309812, 10316);
 			v7 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 173536 + 4 * nox_server_connectionType_3596),
 											  0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c", 391);
