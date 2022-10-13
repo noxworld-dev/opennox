@@ -708,8 +708,8 @@ int sub_57E4C0(uint32_t** this, unsigned int a2, int a3, unsigned int a4, unsign
 			}
 		} else {
 			v13 = *nxz_getMemU16Ptr(0x587000, 314640 + 12 * ((a4 - 8) >> 1));
-			v14 = (a4 - 8) & 1 | *nxz_getMemU16Ptr(0x587000, 314648 + 12 * ((a4 - 8) >> 1));
-			v15 = *nxz_getMemU32Ptr(0x587000, 314644 + 12 * ((a4 - 8) >> 1));
+			v14 = (a4 - 8) & 1 | *nxz_getMemU16Ptr(0x587000, 314640 + 12 * ((a4 - 8) >> 1) + 8);
+			v15 = *nxz_getMemU32Ptr(0x587000, 314640 + 12 * ((a4 - 8) >> 1) + 4);
 			if ((int)--*v5[2] <= 0) {
 				sub_57E2C0(v5);
 			}
