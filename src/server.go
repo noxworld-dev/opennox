@@ -82,6 +82,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/cnxz"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -708,12 +709,12 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 		fname = filepath.Join("maps", dir, mname)
 	}
 	if _, err := ifs.Stat(fname); err != nil {
-		tname := strings.TrimSuffix(fname, filepath.Ext(mname)) + ".nxz"
-		if _, err := ifs.Stat(tname); err != nil {
+		zname := strings.TrimSuffix(fname, filepath.Ext(mname)) + ".nxz"
+		if _, err := ifs.Stat(zname); err != nil {
 			return err
 		}
-		if C.nox_xxx_mapNxzDecompress_57BC50(internCStr(tname), internCStr(fname)) == 0 {
-			return fmt.Errorf("cannot decompress map: %q", fname)
+		if err := cnxz.DecompressFile(zname, fname); err != nil {
+			return fmt.Errorf("cannot decompress map %q: %w", zname, err)
 		}
 	}
 	v8 := s.getServerMap()
