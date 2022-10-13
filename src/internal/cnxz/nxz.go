@@ -18,16 +18,10 @@ import (
 	"github.com/noxworld-dev/opennox-lib/ifs"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 // only works on 32bit
 var _ = [1]struct{}{}[unsafe.Sizeof(int(0))-4]
-
-//export nxz_getMemAt
-func nxz_getMemAt(base, off uint) unsafe.Pointer {
-	return memmap.PtrOff(uintptr(base), uintptr(off))
-}
 
 func DecompressFile(src, dst string) error {
 	if src == "" {
