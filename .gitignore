@@ -3,7 +3,9 @@ CMakeFiles/
 .tmp
 .testOut
 tmp/
+docs-dev/
 logs
+*.log
 *.user
 *.o
 *.exe
@@ -13,7 +15,8 @@ src/*.dat
 src/*.dat.gz
 cmake-*
 
-# For IntelliJ IDE
+# For JetBrains IDEs
+.idea
 src/.idea
 src/cmake-build-*
 
@@ -24,3 +27,6 @@ src/cmake-build-*
 src/external
 # Omit include replacements made for source analysis
 src/includes
+# Omit other source analysis dirs
+gonox/
+gonoxh/
