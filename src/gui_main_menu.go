@@ -22,6 +22,7 @@ extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern uint32_t dword_5d4594_831260;
 int sub_4A1D40();
 int sub_4A1D80();
+int nox_client_drawGeneralCallback_4A2200();
 */
 import "C"
 import (
@@ -331,7 +332,11 @@ func nox_xxx_unknown_libname_11_4D1650() {
 
 //export nox_client_drawGeneralCallback_4A2200
 func nox_client_drawGeneralCallback_4A2200() C.int {
-	return C.int(nox_client_drawGeneral_4B0340(0))
+	if err := noxClient.drawGeneral(false); err != nil {
+		videoLog.Println(err)
+		return 0
+	}
+	return 1
 }
 
 func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventResp {

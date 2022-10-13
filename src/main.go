@@ -25,7 +25,6 @@ extern unsigned int dword_5d4594_805980;
 extern unsigned int dword_587000_93156;
 extern unsigned int dword_5d4594_816340;
 extern unsigned int dword_5d4594_816348;
-extern unsigned int dword_5d4594_805988;
 
 extern nox_gui_animation* nox_wnd_xxx_1309740;
 */
@@ -300,9 +299,9 @@ func RunArgs(args []string) (gerr error) {
 	gameFPSSet(30)
 	gameFrameSetFromFlags()
 	nox_ticks_reset_416D40()
-	nox_xxx_setGameState_43DDF0(nil)
-	gameSetCliDrawFunc(nil)
-	gameSet816392Func(nil)
+	noxServer.setUpdateFunc(nil)
+	noxClient.setDrawFunc(nil)
+	noxClient.setUpdateFunc2(nil)
 	noxflags.SetGame(noxflags.GameModeArena)
 	if *fNoLimit {
 		useFrameLimit = false
@@ -588,22 +587,6 @@ func sub_43DCC0() {
 			sub_43D650()
 			C.dword_5d4594_816348 = 0
 		}
-		sub_4312C0()
+		noxClient.sub4312C0()
 	}
-}
-
-func sub_4312C0() {
-	ail.Serve()
-	if C.dword_5d4594_805988 != 0 {
-		return
-	}
-	C.dword_5d4594_805988 = 1
-	v1 := platformTicks()
-	v3 := int64(v1) - int64(memmap.Uint64(0x5D4594, 805996))
-	if v3 > 33 {
-		C.sub_44D3A0()
-		C.sub_43D440()
-		*memmap.PtrUint64(0x5D4594, 805996) = v1
-	}
-	C.dword_5d4594_805988 = 0
 }

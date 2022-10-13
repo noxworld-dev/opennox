@@ -163,6 +163,7 @@ func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 
 type Server struct {
 	*server.Server
+	updateFunc      func() bool
 	port            int
 	players         serverPlayers
 	ctrlbuf         serverCtrlBuf
@@ -187,6 +188,15 @@ type Server struct {
 
 	flag1548704 bool
 	flag3592    bool
+}
+
+func (s *Server) setUpdateFunc(fnc func() bool) {
+	s.updateFunc = fnc
+	if fnc == nil {
+		if debugMainloop {
+			gameLog.Println("server update = nil")
+		}
+	}
 }
 
 func inferHTTPPort(port int) int {
@@ -233,6 +243,20 @@ func gameFrameSetFromFlags() {
 
 func gameFrameInc() {
 	C.nox_frame_xxx_2598000++
+}
+
+func (s *Server) Update() bool {
+	defer noxPerfmon.startProfileServer()()
+	if s.updateFunc == nil {
+		return true
+	}
+	if !s.updateFunc() {
+		if debugMainloop {
+			gameLog.Println("gameStateFunc exit")
+		}
+		return false
+	}
+	return true
 }
 
 func (s *Server) updateUnits() { // nox_xxx_updateUnits_51B100

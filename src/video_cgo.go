@@ -363,45 +363,6 @@ func nox_xxx_makeFillerColor_48BDE0() {
 	*memmap.PtrUint32(0x5D4594, 1193592) = noxcolor.RGB5551Color(255, 0, 255).Color32()
 }
 
-func nox_client_drawGeneral_4B0340(a1 int) int {
-	if err := drawGeneral_4B0340(a1); err != nil {
-		videoLog.Println(err)
-		return 0
-	}
-	return 1
-}
-
-func drawGeneral_4B0340(a1 int) error {
-	dword_5d4594_1311936 = true
-	*memmap.PtrUint32(0x5D4594, 1311932) = uint32(a1)
-	// FIXME
-	v1 := false
-	videoLog.Println("DrawGeneralStart")
-	if /*noxflags.HasEngine(noxflags.EngineWindowed) ||*/ v1 /*|| nox_video_renderTargetFlags&0x10 != 0*/ {
-		videoLog.Println("DrawGeneralSkip")
-		sub_4B05D0()
-		return nil
-	}
-	C.sub_431290()
-	C.sub_43DBD0()
-	sub_44D8F0()
-	for C.sub_43DC40() != 0 || sub_44D930() {
-		sub_4312C0()
-	}
-	sub_43E8E0(0)
-	v12 := sub_48B3E0(false)
-	//inpHandler.UnacquireMouse()
-
-	playMovieFile(movieFilesStack[0])
-
-	sub_43E910(0)
-	C.sub_43DBE0()
-	//inpHandler.AcquireMouse()
-	sub_48B3E0(v12)
-	sub_4B05D0()
-	return nil
-}
-
 func nox_xxx_loadDefColor_4A94A0() {
 	C.nox_color_black_2650656 = C.uint(nox_color_black_2650656.Color32())
 	*memmap.PtrUint32(0x852978, 4) = nox_color_gray1.Color32()

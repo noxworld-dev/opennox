@@ -286,7 +286,9 @@ func sub_578CD0() {
 		if path, ok := nox_game_setMovieFile_4CB230(name); ok {
 			pushMovieFile(path)
 			sub4B0640(sub_578C60)
-			nox_client_drawGeneral_4B0340(1)
+			if err := noxClient.drawGeneral(true); err != nil {
+				videoLog.Println(err)
+			}
 		} else {
 			sub_578C60()
 		}
@@ -317,7 +319,7 @@ func nox_game_rollLogoAndStart_4AB1F0() bool {
 	}
 	pushMovieFile(path)
 	sub4B0640(nox_game_rollIntroAndStart_4AB170)
-	if err := drawGeneral_4B0340(0); err != nil {
+	if err := noxClient.drawGeneral(false); err != nil {
 		videoLog.Println(err)
 	}
 	return true
@@ -335,7 +337,7 @@ func nox_game_rollIntroAndStart_4AB170() {
 	}
 	pushMovieFile(path)
 	sub4B0640(nox_game_rollNoxLogoAndStart_4AB0F0)
-	if err := drawGeneral_4B0340(1); err != nil {
+	if err := noxClient.drawGeneral(true); err != nil {
 		videoLog.Println(err)
 	}
 	sub_578DE0(sub_578DF0() | 0x80)
@@ -353,7 +355,7 @@ func nox_game_rollNoxLogoAndStart_4AB0F0() {
 	}
 	pushMovieFile(path)
 	sub4B0640(nox_game_showLegal_4CC4E0)
-	if err := drawGeneral_4B0340(0); err != nil {
+	if err := noxClient.drawGeneral(false); err != nil {
 		videoLog.Println(err)
 	}
 }
@@ -677,7 +679,7 @@ func initGameSession435CC0() error {
 	} else {
 		nox_xxx_netSendIncomingClient_43CB00()
 	}
-	gameSetCliDrawFunc(noxClient.clientDraw)
+	noxClient.setDrawFunc(noxClient.clientDraw)
 	gameSetPlayState(3)
 	*memmap.PtrUint32(0x587000, 85720) = 1
 	sz := videoGetWindowSize()
@@ -812,7 +814,7 @@ func (s *Server) nox_xxx_servInitialMapLoad_4D17F0() bool {
 	if debugMainloop {
 		log.Println("gameStateFunc = nox_xxx_gameTick_4D2580_server")
 	}
-	nox_xxx_setGameState_43DDF0(noxServer.nox_xxx_gameTick_4D2580_server)
+	s.setUpdateFunc(s.nox_xxx_gameTick_4D2580_server)
 	nox_netlist_resetAllInList_40EE90(1)
 	noxflags.SetGame(noxflags.GameFlag18)
 	C.nox_xxx_netGameSettings_4DEF00()

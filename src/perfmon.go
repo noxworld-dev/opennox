@@ -43,13 +43,11 @@ type Perfmon struct {
 
 	profInd int
 
-	profClientStart time.Duration
-	profClient      time.Duration
-	profClientHist  [128]int
+	profClient     time.Duration
+	profClientHist [128]int
 
-	profServerStart time.Duration
-	profServer      time.Duration
-	profServerHist  [128]int
+	profServer     time.Duration
+	profServerHist [128]int
 
 	fps        int
 	fpsInd     int
@@ -118,18 +116,16 @@ func (m *Perfmon) packetSize() int {
 	return netList(noxMaxPlayers-1, 1).Size() + netList(noxMaxPlayers-1, 2).Size()
 }
 
-func (m *Perfmon) startProfileClient() {
-	m.profClientStart = platform.Ticks()
+func (m *Perfmon) startProfileClient() func() {
+	start := platform.Ticks()
+	return func() {
+		m.profClient = platform.Ticks() - start
+	}
 }
 
-func (m *Perfmon) endProfileClient() {
-	m.profClient = platform.Ticks() - m.profClientStart
-}
-
-func (m *Perfmon) startProfileServer() {
-	m.profServerStart = platform.Ticks()
-}
-
-func (m *Perfmon) endProfileServer() {
-	m.profServer = platform.Ticks() - m.profServerStart
+func (m *Perfmon) startProfileServer() func() {
+	start := platform.Ticks()
+	return func() {
+		m.profServer = platform.Ticks() - start
+	}
 }

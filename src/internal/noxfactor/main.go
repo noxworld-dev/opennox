@@ -388,10 +388,10 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 			n.Args[0] = stringExpr(n.Args[0], &r.fileChanged)
 		}
 	case "nox_game_SetCliDrawFunc":
-		n.Fun = ident("gameSetCliDrawFunc")
+		n.Fun = ident("noxClient.setDrawFunc")
 		r.fileChanged = true
 		fallthrough
-	case "gameSetCliDrawFunc":
+	case "setDrawFunc":
 		if len(n.Args) == 1 {
 			n.Args[0] = unwrapFunc(n.Args[0], &r.fileChanged)
 		}

@@ -77,7 +77,6 @@
 
 extern uint32_t nox_xxx_useAudio_587000_80772;
 extern uint32_t dword_5d4594_811904;
-extern uint32_t dword_5d4594_805988;
 extern uint32_t dword_5d4594_805820;
 extern uint32_t dword_5d4594_741648;
 extern uint32_t dword_5d4594_815060;
@@ -3283,18 +3282,6 @@ int sub_42FFF0(FILE* a1) {
 }
 // 42FFF0: using guessed type char var_20[32];
 
-//----- (00430880) --------------------------------------------------------
-int sub_430880(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 805808) = a1;
-	return result;
-}
-
-//----- (00430890) --------------------------------------------------------
-int nox_xxx_get_430890() { return *getMemU32Ptr(0x5D4594, 805808); }
-
 //----- (00430AA0) --------------------------------------------------------
 int sub_430AA0(int a1) {
 	int result; // eax
@@ -3408,14 +3395,10 @@ void sub_431270() {
 }
 
 //----- (00431290) --------------------------------------------------------
-int* sub_431290() {
-	int* result; // eax
-
-	result = *(int**)&dword_5d4594_805984;
+void sub_431290() {
 	if (dword_5d4594_805984) {
-		result = sub_487970(*(int*)&dword_5d4594_805984, -1);
+		sub_487970(dword_5d4594_805984, -1);
 	}
-	return result;
 }
 
 //----- (00431370) --------------------------------------------------------

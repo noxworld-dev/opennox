@@ -120,7 +120,7 @@ func sub_468480(win *Window, ev WindowEvent) WindowEventResp {
 
 //export sub_4683B0
 func sub_4683B0() C.int {
-	gameSetCliDrawFunc(func() bool {
+	noxClient.setDrawFunc(func() bool {
 		return C.sub_41E210() != 0
 	})
 	win := newWindowFromFile("wolreg.wnd", wrapWindowFuncC(C.sub_4685D0))
