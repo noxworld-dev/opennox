@@ -348,7 +348,7 @@ int nox_xxx_mapSaveMap_51E010(char* a1, int a2) {
 		if (nox_xxx_map_51E140()) {
 			sub_4268F0(v5);
 			nox_xxx_cryptClose_4269F0();
-			if (!a2 || (result = nox_xxx_mapFile_57BDD0(Mem, (int)v8)) != 0) {
+			if (!a2 || (result = nox_xxx_nxzCompressFile_57BDD0(Mem, (int)v8)) != 0) {
 				result = 1;
 			}
 		} else {
