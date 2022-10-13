@@ -6,15 +6,6 @@ import (
 
 func Init(p *Ptrs) {
 	initData()
-	*memmap.PtrPtr(0x587000, 28620) = p.Ptr_nox_xxx_parseWeapColor_411C40
-	*memmap.PtrPtr(0x587000, 28628) = p.Ptr_nox_xxx_parseWeapColor_411C40
-	*memmap.PtrPtr(0x587000, 28636) = p.Ptr_nox_xxx_parseWeapColor_411C40
-	*memmap.PtrPtr(0x587000, 28644) = p.Ptr_nox_xxx_parseWeapColor_411C40
-	*memmap.PtrPtr(0x587000, 28652) = p.Ptr_nox_xxx_parseWeapColor_411C40
-	*memmap.PtrPtr(0x587000, 28668) = p.Ptr_sub_411D90
-	*memmap.PtrPtr(0x587000, 28676) = p.Ptr_sub_411D90
-	*memmap.PtrPtr(0x587000, 28684) = p.Ptr_sub_411D90
-	*memmap.PtrPtr(0x587000, 94028) = memmap.PtrOff(0x587000, 93952)
 
 	*memmap.PtrPtr(0x581450, 7220) = memmap.PtrOff(0x587000, 54416)
 	*memmap.PtrPtr(0x581450, 7224) = memmap.PtrOff(0x587000, 54420)
@@ -50,48 +41,7 @@ func Init(p *Ptrs) {
 	*memmap.PtrPtr(0x581450, 11956) = memmap.PtrOff(0x581450, 11936)
 	*memmap.PtrPtr(0x581450, 11972) = memmap.PtrOff(0x587000, 316784)
 	*memmap.PtrPtr(0x581450, 11976) = memmap.PtrOff(0x581450, 11944)
-	*memmap.PtrUint32(0x587000, 32) = 0xDEADBEEF
-	*memmap.PtrUint32(0x587000, 36) = 0xDEADBEEF
-	*memmap.PtrUint32(0x587000, 40) = 0xDEADBEEF
-	*memmap.PtrUint32(0x587000, 44) = 0xDEADBEEF
-	*memmap.PtrUint32(0x587000, 48) = 0xDEADBEEF
-	*memmap.PtrUint32(0x587000, 60) = 0xDEADBEEF
-	*memmap.PtrUint32(0x587000, 72) = 0xDEADBEEF
-	*memmap.PtrPtr(0x587000, 420) = memmap.PtrOff(0x587000, 492)
-	*memmap.PtrUint32(0x587000, 580) = 0xDEADBEEF
-	*memmap.PtrPtr(0x587000, 596) = memmap.PtrOff(0x5D4594, 444)
-	*memmap.PtrPtr(0x587000, 628) = memmap.PtrOff(0x5D4594, 492)
-	*memmap.PtrPtr(0x587000, 644) = memmap.PtrOff(0x5D4594, 516)
-	*memmap.PtrPtr(0x587000, 660) = memmap.PtrOff(0x5D4594, 468)
-	*memmap.PtrPtr(0x587000, 1144) = memmap.PtrOff(0x587000, 1154)
-	*memmap.PtrPtr(0x587000, 1148) = memmap.PtrOff(0x587000, 1154)
-	*memmap.PtrPtr(0x587000, 1860) = memmap.PtrOff(0x581450, 640)
-	*memmap.PtrPtr(0x587000, 1868) = memmap.PtrOff(0x581450, 596)
-	*memmap.PtrPtr(0x587000, 1876) = memmap.PtrOff(0x581450, 552)
-	*memmap.PtrPtr(0x587000, 1884) = memmap.PtrOff(0x581450, 516)
-	*memmap.PtrPtr(0x587000, 1892) = memmap.PtrOff(0x581450, 472)
-	*memmap.PtrPtr(0x587000, 1900) = memmap.PtrOff(0x581450, 424)
-	*memmap.PtrPtr(0x587000, 1908) = memmap.PtrOff(0x581450, 388)
-	*memmap.PtrPtr(0x587000, 1916) = memmap.PtrOff(0x581450, 344)
-	*memmap.PtrPtr(0x587000, 1924) = memmap.PtrOff(0x581450, 288)
-	*memmap.PtrPtr(0x587000, 1932) = memmap.PtrOff(0x581450, 248)
-	*memmap.PtrPtr(0x587000, 1940) = memmap.PtrOff(0x581450, 192)
-	*memmap.PtrPtr(0x587000, 1948) = memmap.PtrOff(0x581450, 136)
-	*memmap.PtrPtr(0x587000, 1956) = memmap.PtrOff(0x581450, 96)
-	*memmap.PtrPtr(0x587000, 1964) = memmap.PtrOff(0x581450, 80)
-	*memmap.PtrPtr(0x587000, 1972) = memmap.PtrOff(0x581450, 64)
-	*memmap.PtrPtr(0x587000, 1980) = memmap.PtrOff(0x581450, 48)
-	*memmap.PtrPtr(0x587000, 1996) = memmap.PtrOff(0x581450, 28)
-	*memmap.PtrPtr(0x587000, 2000) = memmap.PtrOff(0x85B3FC, 1604)
-	*memmap.PtrPtr(0x587000, 2008) = memmap.PtrOff(0x85B3FC, 1604)
-	*memmap.PtrPtr(0x587000, 2640) = memmap.PtrOff(0x581450, 888)
-	*memmap.PtrPtr(0x587000, 2644) = memmap.PtrOff(0x581450, 872)
-	*memmap.PtrUint32(0x587000, 2648) = 0xDEADBEEF
-	*memmap.PtrUint32(0x587000, 2652) = 0xDEADBEEF
-	*memmap.PtrUint32(0x587000, 2656) = 0xDEADBEEF
-	*memmap.PtrUint32(0x587000, 2660) = 0xDEADBEEF
-	*memmap.PtrUint32(0x587000, 2664) = 0xDEADBEEF
-	*memmap.PtrUint32(0x587000, 2668) = 0xDEADBEEF
+
 	*memmap.PtrPtr(0x587000, 3208) = memmap.PtrOff(0x581450, 1288)
 	*memmap.PtrPtr(0x587000, 3212) = memmap.PtrOff(0x581450, 1284)
 	*memmap.PtrPtr(0x587000, 3216) = memmap.PtrOff(0x581450, 1280)
@@ -193,6 +143,14 @@ func Init(p *Ptrs) {
 	*memmap.PtrPtr(0x587000, 27444) = memmap.PtrOff(0x587000, 28580)
 	*memmap.PtrPtr(0x587000, 28604) = p.Ptr_nox_xxx_parseWeapDescription_411B90
 	*memmap.PtrPtr(0x587000, 28612) = p.Ptr_nox_xxx_parseWeapColor_411C40
+	*memmap.PtrPtr(0x587000, 28620) = p.Ptr_nox_xxx_parseWeapColor_411C40
+	*memmap.PtrPtr(0x587000, 28628) = p.Ptr_nox_xxx_parseWeapColor_411C40
+	*memmap.PtrPtr(0x587000, 28636) = p.Ptr_nox_xxx_parseWeapColor_411C40
+	*memmap.PtrPtr(0x587000, 28644) = p.Ptr_nox_xxx_parseWeapColor_411C40
+	*memmap.PtrPtr(0x587000, 28652) = p.Ptr_nox_xxx_parseWeapColor_411C40
+	*memmap.PtrPtr(0x587000, 28668) = p.Ptr_sub_411D90
+	*memmap.PtrPtr(0x587000, 28676) = p.Ptr_sub_411D90
+	*memmap.PtrPtr(0x587000, 28684) = p.Ptr_sub_411D90
 	*memmap.PtrPtr(0x587000, 28660) = p.Ptr_sub_411D90
 	*memmap.PtrPtr(0x587000, 28692) = p.Ptr_sub_411E60
 	*memmap.PtrPtr(0x587000, 28700) = p.Ptr_sub_411ED0
@@ -795,6 +753,7 @@ func Init(p *Ptrs) {
 	*memmap.PtrPtr(0x587000, 94016) = p.Ptr_sub_43E9F0
 	*memmap.PtrPtr(0x587000, 94020) = p.Ptr_sub_43EA20
 	*memmap.PtrPtr(0x587000, 94024) = p.Ptr_sub_43EC10
+	*memmap.PtrPtr(0x587000, 94028) = memmap.PtrOff(0x587000, 93952)
 	*memmap.PtrPtr(0x587000, 94032) = memmap.PtrOff(0x587000, 93992)
 	*memmap.PtrPtr(0x587000, 94112) = memmap.PtrOff(0x587000, 94236)
 	*memmap.PtrPtr(0x587000, 94116) = memmap.PtrOff(0x587000, 94244)
