@@ -287,6 +287,9 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 		return
 	}
 	switch fnc.Name {
+	case "gameFrame":
+		n.Fun = selExpr("noxServer", "Frame")
+		r.fileChanged = true
 	case "getMemIntPtr":
 		n.Fun = selExpr("memmap", "PtrInt32")
 		r.fileChanged = true

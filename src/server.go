@@ -26,7 +26,6 @@ package opennox
 #include "common__log.h"
 
 extern unsigned int nox_gameFPS;
-extern unsigned int nox_frame_xxx_2598000;
 extern unsigned int nox_xxx_resetMapInit_1569652;
 extern unsigned int dword_5d4594_1569656;
 extern unsigned int dword_5d4594_2650652;
@@ -157,6 +156,7 @@ func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 	s.http.init()
 	s.initMetrics()
 	s.abilities.Init(s)
+	s.ai.Init(s)
 	s.noxScript.Init(s)
 	return s
 }
@@ -225,24 +225,22 @@ func gameFPSSet(fps uint32) {
 	C.nox_gameFPS = C.uint(fps)
 }
 
+//export gameFrame
 func gameFrame() uint32 {
-	return uint32(C.nox_frame_xxx_2598000)
+	return noxServer.Frame()
 }
 
+//export gameFrameSet
 func gameFrameSet(v uint32) {
-	C.nox_frame_xxx_2598000 = C.uint(v)
+	noxServer.SetFrame(v)
 }
 
 func gameFrameSetFromFlags() {
 	if noxflags.HasGame(noxflags.GameHost) {
-		gameFrameSet(1)
+		noxServer.SetFrame(1)
 	} else {
-		gameFrameSet(0)
+		noxServer.SetFrame(0)
 	}
-}
-
-func gameFrameInc() {
-	C.nox_frame_xxx_2598000++
 }
 
 func (s *Server) Update() bool {
@@ -271,7 +269,7 @@ func (s *Server) updateUnits() { // nox_xxx_updateUnits_51B100
 }
 
 func (s *Server) nox_xxx_updateServer_4D2DA0(a1 uint64) {
-	if C.dword_5d4594_528252 == 1 && gameFrame() == uint32(C.dword_5d4594_528260) {
+	if C.dword_5d4594_528252 == 1 && s.Frame() == uint32(C.dword_5d4594_528260) {
 		C.nox_xxx_reconAttempt_41E390()
 	}
 	C.sub_5096F0()
@@ -411,7 +409,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 	if !mainloopContinue {
 		return false
 	}
-	if gameFrame()%2 == 0 {
+	if s.Frame()%2 == 0 {
 		C.nox_xxx_serverLoopSendMap_519990()
 	}
 	C.sub_40B970()
@@ -461,11 +459,11 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	if nox_xxx_serverIsClosing446180() {
 		sub_446190()
 	}
-	if sub_446030() && gameFrame() > 5*gameFPS()+sub_446040() {
+	if sub_446030() && s.Frame() > 5*gameFPS()+sub_446040() {
 		sub_446380()
 	}
 	if !noxflags.HasGame(noxflags.GamePause) {
-		gameFrameInc()
+		s.IncFrame()
 	}
 	C.nox_xxx_protectData_56F5C0()
 	s.nox_server_xxxInitPlayerUnits_4FC6D0()
@@ -535,7 +533,7 @@ func (s *Server) updateRemotePlayers() error {
 		if pl.field_3680&0x10 != 0 {
 			fr = 90
 		}
-		if gameFrame()-uint32(pl.frame_3596) > uint32(fr)*gameFPS() {
+		if s.Frame()-uint32(pl.frame_3596) > uint32(fr)*gameFPS() {
 			m := uint32(pl.netCode)
 			// TODO: passing Go pointer
 			C.nox_xxx_netInformTextMsg2_4DA180(3, (*C.uchar)(unsafe.Pointer(&m)))
@@ -550,7 +548,7 @@ func (s *Server) updateRemotePlayers() error {
 		if (pl.field_3676 != 3) || (pl.field_3680&0x10 == 0) {
 			var buf [3]byte
 			buf[0] = 39
-			binary.LittleEndian.PutUint16(buf[1:], uint16(gameFrame()))
+			binary.LittleEndian.PutUint16(buf[1:], uint16(s.Frame()))
 			nox_netlist_addToMsgListCli(pl.Index(), 1, buf[:])
 		} else {
 			if uint32(pl.UnitC().Ind()) == DeadWord { // see #401
@@ -562,7 +560,7 @@ func (s *Server) updateRemotePlayers() error {
 		}
 		if pl.UnitC() == HostPlayerUnit() {
 			C.nox_xxx_netImportant_4E5770(C.uchar(pl.Index()), 1)
-		} else if C.dword_5d4594_2650652 == 0 || (gameFrame()%uint32(C.nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
+		} else if C.dword_5d4594_2650652 == 0 || (s.Frame()%uint32(C.nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
 			netstr.SendReadPacket(pl.Index()+1, 0)
 		}
 	}

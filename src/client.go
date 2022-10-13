@@ -35,7 +35,7 @@ func NewClient(pr console.Printer, srv *Server) (*Client, error) {
 	c := &Client{
 		pr:  pr,
 		srv: srv,
-		r:   NewNoxRender(),
+		r:   NewNoxRender(srv),
 	}
 	c.vp, _ = alloc.New(Viewport{})
 	c.guiAdv.Init(c)

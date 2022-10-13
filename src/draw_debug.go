@@ -24,12 +24,13 @@ import (
 
 //export nox_thing_debug_draw
 func nox_thing_debug_draw(cvp *nox_draw_viewport_t, cdr *nox_drawable) C.int {
-	r := noxClient.r
+	c := noxClient
+	r := c.r
 	vp := asViewport(cvp)
 	dr := asDrawable(cdr)
 
 	cl := nox_color_green
-	if uint32(dr.field_72) >= gameFrame() {
+	if uint32(dr.field_72) >= c.srv.Frame() {
 		cl = nox_color_yellow_2589772
 	}
 	r.Data().SetColor2(cl)

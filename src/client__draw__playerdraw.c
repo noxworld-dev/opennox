@@ -22,7 +22,6 @@ extern uint32_t dword_5d4594_1313792;
 extern uint32_t dword_5d4594_1313796;
 extern uint32_t dword_5d4594_1313800;
 extern uint32_t nox_player_netCode_85319C;
-extern unsigned int nox_frame_xxx_2598000;
 
 extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_red_2589776;
@@ -138,7 +137,7 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	colors[4] = 0;
 	colors[5] = 0;
 	if (nox_client_drawable_testBuff_4356C0(dr, 23)) { // ENCHANT_INVULNERABLE
-		if (!((unsigned char)nox_frame_xxx_2598000 & 1)) {
+		if (!((unsigned char)gameFrame() & 1)) {
 			for (int i = 0; i < 6; i++) {
 				colors[i] = nox_color_blue_2650684;
 			}
@@ -290,7 +289,7 @@ int nox_thing_player_waypoint_draw(int a1, nox_drawable* dr) {
 									  *(uint32_t*)(a2 + 16) - *(uint32_t*)(a1 + 20), 10, *getMemIntPtr(0x85B3FC, 940));
 	v3 = *(uint32_t*)(a2 + 16) - *(uint32_t*)(a1 + 20);
 	v4 = *(uint32_t*)(a2 + 12) - *(uint32_t*)(a1 + 16);
-	v5 = (unsigned char)(2 * (unsigned char)nox_frame_xxx_2598000);
+	v5 = (unsigned char)(2 * (unsigned char)gameFrame());
 	nox_client_drawEnableAlpha_434560(1);
 	nox_client_drawSetColor_434460(v2);
 	v7 = 5;

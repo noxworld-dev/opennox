@@ -15,7 +15,6 @@ extern uint32_t dword_5d4594_1313692;
 extern uint32_t dword_5d4594_1313532;
 extern uint32_t dword_5d4594_1313536;
 extern uint32_t dword_5d4594_1313540;
-extern unsigned int nox_frame_xxx_2598000;
 extern uint32_t nox_color_white_2523948;
 
 //----- (004B6770) --------------------------------------------------------
@@ -41,7 +40,7 @@ int sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4) {
 	v4 = a2;
 	v5 = *(uint32_t*)(a2 + 444);
 	v6 = *(uint32_t*)(a2 + 448) - v5;
-	v7 = *(uint32_t*)(a2 + 448) - nox_frame_xxx_2598000;
+	v7 = *(uint32_t*)(a2 + 448) - gameFrame();
 	v16 = *(uint32_t*)(a2 + 448) - v5;
 	v18 = v7;
 	if (v7 == v6) {
@@ -181,9 +180,9 @@ int nox_thing_blue_rain_spark_draw(uint32_t* a1, nox_drawable* dr) {
 				*(uint32_t*)(v5 + 440) =
 					nox_common_randomIntMinMax_415FF0(1, 1611, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 608);
 				*(uint32_t*)(v5 + 448) =
-					nox_frame_xxx_2598000 +
+					gameFrame() +
 					nox_common_randomIntMinMax_415FF0(10, 96, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 611);
-				*(uint32_t*)(v5 + 444) = nox_frame_xxx_2598000;
+				*(uint32_t*)(v5 + 444) = gameFrame();
 			}
 			*(uint16_t*)(v5 + 104) =
 				nox_common_randomIntMinMax_415FF0(5, 15, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 618);

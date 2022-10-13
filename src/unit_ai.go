@@ -29,10 +29,15 @@ import (
 )
 
 type aiData struct {
+	s                  *Server
 	allocListen        alloc.ClassT[MonsterListen]
 	listenHead         *MonsterListen
 	soundMuteThreshold int
 	lastHeard          types.Pointf
+}
+
+func (a *aiData) Init(s *Server) {
+	a.s = s
 }
 
 //export nox_ai_debug_print
@@ -205,25 +210,25 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			okPrev = false
 			continue
 		case ai.DEPENDENCY_TIME:
-			ok = st.ArgU32(0) > gameFrame()
+			ok = st.ArgU32(0) > a.s.Frame()
 		case ai.DEPENDENCY_ALIVE:
 			obj := st.ArgObj(0)
 			h := obj.healthData()
 			if obj == nil || !obj.Class().HasAny(object.MaskUnits) || (h.cur == 0) && h.max != 0 {
 				ok = false
 				ud.field_97 = 0
-				ud.field_101 = C.uint(gameFrame() + gameFPS())
+				ud.field_101 = C.uint(a.s.Frame() + gameFPS())
 			}
 		case ai.DEPENDENCY_UNDER_ATTACK:
 			if C.sub_5347A0(u.CObj()) != 0 {
 				if u.obj_130 != nil {
 					v26 := getOwnerUnit(asObjectC(u.obj_130))
 					if v26 != nil && v26.Class().HasAny(object.MaskUnits) {
-						st.arg_1 = gameFrame()
+						st.arg_1 = a.s.Frame()
 					}
 				}
 			}
-			ok = gameFrame()-st.ArgU32(0) <= 10*gameFPS()
+			ok = a.s.Frame()-st.ArgU32(0) <= 10*gameFPS()
 		case ai.DEPENDENCY_NOT_UNDER_ATTACK:
 			if C.sub_5347A0(u.CObj()) == 0 {
 				break
@@ -297,7 +302,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			}
 			ok = C.nox_xxx_mobSearchEdible_544A00(u.CObj(), C.float(r)) == 0
 		case ai.DEPENDENCY_NO_INTERESTING_SOUND:
-			if ud.field_97 != 0 && gameFrame()-uint32(ud.field_101) < 3*gameFPS() {
+			if ud.field_97 != 0 && a.s.Frame()-uint32(ud.field_101) < 3*gameFPS() {
 				ok = false
 			}
 		case ai.DEPENDENCY_NO_NEW_ENEMY:
@@ -388,7 +393,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			}
 		}
 		if noxflags.HasEngine(noxflags.EngineShowAI) {
-			ai.Log.Printf("%d: %s DEPENDENCY '%s'@%d failed, popping:\n", gameFrame(), u.String(), typ.String(), i)
+			ai.Log.Printf("%d: %s DEPENDENCY '%s'@%d failed, popping:\n", a.s.Frame(), u.String(), typ.String(), i)
 		}
 		for {
 			nox_xxx_monsterPopAction_50A160(u)
@@ -421,7 +426,7 @@ func sub_545E60(a1c *nox_object_t) C.int {
 
 	ud := u.updateDataMonster()
 	ts := uint32(u.field_134)
-	if uint32(ud.field_129) >= ts || gameFrame()-ts >= 10*gameFPS() {
+	if uint32(ud.field_129) >= ts || noxServer.Frame()-ts >= 10*gameFPS() {
 		return 0
 	}
 	ud.field_129 = C.uint(ts)
@@ -437,9 +442,9 @@ func sub_545E60(a1c *nox_object_t) C.int {
 				}
 				u.monsterPushAction(ai.DEPENDENCY_ENEMY_CLOSER_THAN, float32(ud.field_328)*1.05)
 			} else {
-				u.monsterPushAction(ai.DEPENDENCY_UNDER_ATTACK, gameFrame())
+				u.monsterPushAction(ai.DEPENDENCY_UNDER_ATTACK, noxServer.Frame())
 			}
-			u.monsterPushAction(ai.ACTION_FIGHT, obj4.Pos(), gameFrame())
+			u.monsterPushAction(ai.ACTION_FIGHT, obj4.Pos(), noxServer.Frame())
 			if !canInteract {
 				u.monsterPushAction(ai.DEPENDENCY_NO_VISIBLE_ENEMY)
 				if C.nox_xxx_monsterCanAttackAtWill_534390(u.CObj()) != 0 {
@@ -513,7 +518,7 @@ func (a *aiData) NewSound(snd sound.ID, obj *Object, pos types.Pointf) {
 		snd:   snd,
 		obj:   obj,
 		pos:   pos,
-		frame: gameFrame(),
+		frame: a.s.Frame(),
 	}
 	p.next = a.listenHead
 	a.listenHead = p
@@ -554,7 +559,7 @@ func (a *aiData) aiListenToSounds(u *Unit) {
 	ud := u.updateDataMonster()
 	for it := a.listenHead; it != nil; it = next {
 		next = it.next
-		if gameFrame() < it.frame || gameFrame()-it.frame > 2 {
+		if a.s.Frame() < it.frame || a.s.Frame()-it.frame > 2 {
 			if prev != nil {
 				prev.next = next
 			} else {
@@ -651,7 +656,7 @@ func (a *aiData) shouldUnitListen(u *Unit, lis *MonsterListen) bool {
 	ud := u.updateDataMonster()
 	punit := lis.obj.findOwnerChainPlayer()
 	flags := getSoundFlags(lis.snd)
-	if uint32(ud.field_101) > gameFrame() {
+	if uint32(ud.field_101) > a.s.Frame() {
 		return false
 	}
 	if punit == nil {
@@ -687,7 +692,7 @@ func (a *aiData) shouldUnitListen(u *Unit, lis *MonsterListen) bool {
 func (a *aiData) nox_xxx_unitEmitHearEvent_50D110(u *Unit, lis *MonsterListen, dist int) {
 	ud := u.updateDataMonster()
 	ud.field_97 = C.uint(lis.snd)
-	ud.field_101 = C.uint(gameFrame())
+	ud.field_101 = C.uint(a.s.Frame())
 	ud.field_102 = C.uint(dist)
 	if lis.obj != nil {
 		ud.field_98 = lis.obj.net_code

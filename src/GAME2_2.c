@@ -103,7 +103,6 @@ extern int nox_win_height;
 extern int nox_video_pauseThreadedDrawCursor;
 extern int nox_video_drawCursorThreadOk;
 extern int nox_video_allowCursorDrawThread;
-extern unsigned int nox_frame_xxx_2598000;
 
 extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_red_2589776;
@@ -421,7 +420,7 @@ int nox_client_setPhonemeFrame_476E00(int a1) {
 	int result; // eax
 
 	result = a1;
-	*getMemU32Ptr(0x5D4594, 1096596 + 4 * a1) = nox_frame_xxx_2598000;
+	*getMemU32Ptr(0x5D4594, 1096596 + 4 * a1) = gameFrame();
 	return result;
 }
 
@@ -460,7 +459,7 @@ int sub_476E90() {
 			nox_client_drawImageAt_47D2C0(*getMemU32Ptr(0x5D4594, 1096564 + v1),
 										  nox_win_width / 2 + *(uint32_t*)v0 - 16,
 										  *((uint32_t*)v0 + 1) + nox_win_height / 2 - 41);
-			if ((unsigned int)(nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 1096596 + v1)) > 3) {
+			if ((unsigned int)(gameFrame() - *getMemU32Ptr(0x5D4594, 1096596 + v1)) > 3) {
 				*getMemU32Ptr(0x5D4594, 1096596 + v1) = 0;
 			}
 		}

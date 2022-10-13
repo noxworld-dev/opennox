@@ -60,7 +60,7 @@ func sub4DB790(a1 string) bool {
 	res := nox_xxx_soloLoadGame_4DB7E0_savegame(a1)
 	noxAudioServe()
 	noxflags.UnsetGame(noxflags.GameFlag28)
-	*memmap.PtrUint32(0x5D4594, 1563068) = gameFrame()
+	*memmap.PtrUint32(0x5D4594, 1563068) = noxServer.Frame()
 	return res
 }
 
@@ -365,7 +365,7 @@ func sub_419EE0(a1 int) bool {
 func sub_4DCC10(a1p *nox_object_t) C.int {
 	u := asUnitC(a1p)
 	v := true
-	if dword_5d4594_1563092 != 0 && dword_5d4594_1563092+dword_5d4594_1563088 > gameFrame() {
+	if dword_5d4594_1563092 != 0 && dword_5d4594_1563092+dword_5d4594_1563088 > noxServer.Frame() {
 		v = false
 	}
 	if *(*uint32)(unsafe.Add(u.updateDataPtr(), 284)) != 0 { // TODO: which type is expected here?

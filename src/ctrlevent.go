@@ -433,7 +433,7 @@ func clientAcceptTradeOrDrop() {
 }
 
 func clientSetPhonemeFrame(a1 int) {
-	*memmap.PtrUint32(0x5D4594, 1096596+4*uintptr(a1)) = gameFrame()
+	*memmap.PtrUint32(0x5D4594, 1096596+4*uintptr(a1)) = noxServer.Frame()
 }
 
 func (c *Client) nox_client_increaseViewport_4766E0() {

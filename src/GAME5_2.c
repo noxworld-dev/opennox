@@ -56,7 +56,6 @@ extern nox_waypoint_t* nox_xxx_waypointsHead_2523752;
 extern uint32_t dword_5d4594_2516328;
 extern uint32_t dword_5d4594_2516348;
 extern uint32_t dword_5d4594_2650652;
-extern unsigned int nox_frame_xxx_2598000;
 
 //----- (00554040) --------------------------------------------------------
 unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out) {
@@ -172,7 +171,7 @@ int sub_56F1C0() {
 	v0 = time(0);
 	sub_56FF00(v0);
 	dword_5d4594_2516352 = 0;
-	dword_5d4594_2516348 = nox_frame_xxx_2598000;
+	dword_5d4594_2516348 = gameFrame();
 	dword_5d4594_2516344 = 0;
 	*getMemU16Ptr(0x587000, 311204) = 0;
 	dword_5d4594_2516356 = 657757279;
@@ -406,7 +405,7 @@ int nox_xxx_protectData_56F5C0() {
 	if (!dword_5d4594_2516348) {
 		nullsub_31(1);
 	}
-	v0 = nox_frame_xxx_2598000;
+	v0 = gameFrame();
 	v1 = dword_5d4594_2516348;
 	v2 = nox_xxx_protect_56F240() ^ v0;
 	v3 = v2 ^ v1;

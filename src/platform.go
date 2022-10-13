@@ -72,14 +72,14 @@ var (
 //export nox_ticks_reset_416D40
 func nox_ticks_reset_416D40() {
 	nox_gameTicks_371764 = platformTicks()
-	nox_gameFrame_371772 = gameFrame()
+	nox_gameFrame_371772 = noxServer.Frame()
 	noxflags.UnsetEngine(noxflags.EnginePause)
 }
 
 func nox_ticks_getNext() time.Duration {
 	const mul = 1000.0 / 30.0
 
-	df := int(gameFrame()) - int(nox_gameFrame_371772)
+	df := int(noxServer.Frame()) - int(nox_gameFrame_371772)
 	dt := int64(platformTicks()) - int64(nox_gameTicks_371764)
 
 	ms := int64(float64(df)*mul) - dt

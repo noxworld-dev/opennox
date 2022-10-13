@@ -5,7 +5,6 @@
 #include "client__draw__glowdraw.h"
 #include "common__random.h"
 
-extern unsigned int nox_frame_xxx_2598000;
 //----- (004CDBF0) --------------------------------------------------------
 int nox_xxx_updDrawSparkleTrail_4CDBF0(int a1, uint32_t* a2) {
 	uint32_t* v2; // ebx
@@ -43,9 +42,9 @@ int nox_xxx_updDrawSparkleTrail_4CDBF0(int a1, uint32_t* a2) {
 			*(uint8_t*)(v5 + 299) = 0;
 			*(uint32_t*)(v5 + 440) = 0;
 			*(uint32_t*)(v5 + 448) =
-				nox_frame_xxx_2598000 +
+				gameFrame() +
 				nox_common_randomIntMinMax_415FF0(2, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\sparklup.c", 51);
-			*(uint32_t*)(v5 + 444) = nox_frame_xxx_2598000;
+			*(uint32_t*)(v5 + 444) = gameFrame();
 			*(uint16_t*)(v5 + 104) = *((uint16_t*)v2 + 52);
 			*(uint16_t*)(v5 + 106) = *((uint16_t*)v2 + 53);
 			*(uint8_t*)(v5 + 296) = 0;

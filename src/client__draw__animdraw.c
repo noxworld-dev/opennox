@@ -7,7 +7,6 @@
 #include "common__random.h"
 #include "operators.h"
 
-extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004BBD60) --------------------------------------------------------
 int nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
@@ -21,14 +20,14 @@ int nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 	v2 = dr->field_76;
 	switch (*(unsigned int*)(v2 + 12)) {
 	case 0:
-		v3 = (nox_frame_xxx_2598000 - dr->field_79) / ((unsigned int)*(unsigned char*)(v2 + 9) + 1);
+		v3 = (gameFrame() - dr->field_79) / ((unsigned int)*(unsigned char*)(v2 + 9) + 1);
 		v7 = *(unsigned char*)(v2 + 8);
 		if (v3 >= v7) {
 			v3 = v7 - 1;
 		}
 		goto LABEL_12;
 	case 1:
-		v3 = (nox_frame_xxx_2598000 - dr->field_79) / ((unsigned int)*(unsigned char*)(v2 + 9) + 1);
+		v3 = (gameFrame() - dr->field_79) / ((unsigned int)*(unsigned char*)(v2 + 9) + 1);
 		if (v3 < *(unsigned char*)(v2 + 8)) {
 			goto LABEL_12;
 		}
@@ -43,7 +42,7 @@ int nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 		}
 		if (nox_common_gameFlags_check_40A5C0(32)) {
 		LABEL_9:
-			v3 = (nox_frame_xxx_2598000 + dr->field_32) / ((unsigned int)*(unsigned char*)(v2 + 9) + 1);
+			v3 = (gameFrame() + dr->field_32) / ((unsigned int)*(unsigned char*)(v2 + 9) + 1);
 			goto LABEL_10;
 		}
 		if (dr->flags28 & 0x10000000) {
@@ -55,7 +54,7 @@ int nox_thing_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 	case 3:
 		v6 = 2 * *(unsigned char*)(v2 + 8);
 		nox_client_drawEnableAlpha_434560(1);
-		v3 = (nox_frame_xxx_2598000 - dr->field_79) / ((unsigned int)*(unsigned char*)(v2 + 9) + 1);
+		v3 = (gameFrame() - dr->field_79) / ((unsigned int)*(unsigned char*)(v2 + 9) + 1);
 		if (v3 < v6) {
 			nox_client_drawSetAlpha_434580(-56 - 200 * v3 / v6);
 		LABEL_10:
@@ -98,7 +97,7 @@ int nox_thing_animate_state_draw(uint32_t* a1, nox_drawable* dr) {
 	v2 = dr->flags70;
 	v3 = dr->field_76;
 	if (v2 & 2) {
-		dr->field_79 = nox_frame_xxx_2598000;
+		dr->field_79 = gameFrame();
 		v4 = 0;
 	} else if (v2 & 4) {
 		v4 = 1;
@@ -107,7 +106,7 @@ int nox_thing_animate_state_draw(uint32_t* a1, nox_drawable* dr) {
 	}
 	v5 = 48 * v4 + v3 + 4;
 	if (*(uint32_t*)(v5 + 44) == 2) {
-		dr->field_79 = nox_frame_xxx_2598000;
+		dr->field_79 = gameFrame();
 	}
 	if (*(uint16_t*)(v5 + 40)) {
 		result = sub_4BC6B0(a1, dr, v5);

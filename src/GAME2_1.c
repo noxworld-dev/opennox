@@ -131,7 +131,6 @@ extern uint32_t dword_5d4594_1063116;
 extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_1062480;
 extern uint32_t nox_player_netCode_85319C;
-extern unsigned int nox_frame_xxx_2598000;
 extern void* nox_xxx_aClosewoodengat_587000_133480;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -278,7 +277,7 @@ char* sub_461090(int a1, int a2) {
 	int v2;       // edx
 	char* result; // eax
 
-	v2 = nox_frame_xxx_2598000;
+	v2 = gameFrame();
 	result = (char*)getMemAt(0x5D4594, 1047764 + 24*1 + 20);
 	do {
 		if (*((uint32_t*)result - 5) == a1) {
@@ -1325,7 +1324,7 @@ int nox_xxx_inventoryDrawAllMB_463430(int a1) {
 		v3 += 6;
 		nox_client_drawImageAt_47D2C0(
 			*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(dword_5d4594_1050008 + 96) + 4) +
-						 4 * (nox_frame_xxx_2598000 %
+						 4 * (gameFrame() %
 							  (unsigned int)*(unsigned char*)(*(uint32_t*)(dword_5d4594_1050008 + 96) + 8))),
 			v3 - 58, v4 - 53);
 		nox_swprintf(v17, L"X %d", *getMemU32Ptr(0x5D4594, 1050012));

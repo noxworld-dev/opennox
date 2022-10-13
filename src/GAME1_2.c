@@ -141,7 +141,6 @@ extern uint32_t dword_5d4594_2650652;
 extern uint32_t nox_player_netCode_85319C;
 extern nox_window* nox_wol_wnd_world_814980;
 extern int nox_enable_audio;
-extern unsigned int nox_frame_xxx_2598000;
 extern uint32_t nox_color_white_2523948;
 
 int nox_win_width = 0;
@@ -3706,11 +3705,11 @@ int sub_436550() {
 
 	if (sub_459DA0() || nox_gui_xxx_check_446360() || sub_49CB40() || sub_49C810() || sub_446950() || sub_4706A0() ||
 		nox_gui_console_flagXxx_451410()) {
-		v0 = nox_frame_xxx_2598000;
+		v0 = gameFrame();
 	} else {
-		v0 = nox_frame_xxx_2598000;
-		if (nox_frame_xxx_2598000 != 2) {
-			return nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 811920) == 1;
+		v0 = gameFrame();
+		if (gameFrame() != 2) {
+			return gameFrame() - *getMemU32Ptr(0x5D4594, 811920) == 1;
 		}
 	}
 	*getMemU32Ptr(0x5D4594, 811920) = v0;

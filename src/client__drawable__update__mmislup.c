@@ -5,7 +5,6 @@
 #include "common__random.h"
 
 extern unsigned int nox_gameFPS;
-extern unsigned int nox_frame_xxx_2598000;
 //----- (004CD9E0) --------------------------------------------------------
 int nox_xxx_updDrawMagicMissile_4CD9E0(int a1, uint32_t* a2) {
 	uint32_t* v2;  // ebp
@@ -54,9 +53,9 @@ int nox_xxx_updDrawMagicMissile_4CD9E0(int a1, uint32_t* a2) {
 					0, 255, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c", 52);
 				*(uint32_t*)(v10 + 440) = 0;
 				*(uint32_t*)(v10 + 448) =
-					nox_frame_xxx_2598000 + nox_common_randomIntMinMax_415FF0(
+					gameFrame() + nox_common_randomIntMinMax_415FF0(
 												3, 10, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c", 59);
-				*(uint32_t*)(v10 + 444) = nox_frame_xxx_2598000;
+				*(uint32_t*)(v10 + 444) = gameFrame();
 				*(uint16_t*)(v10 + 104) = 20;
 				*(uint8_t*)(v10 + 296) = nox_common_randomIntMinMax_415FF0(
 					0, 6, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mmislup.c", 65);

@@ -5,7 +5,6 @@
 #include "GAME1.h"
 #include "GAME2.h"
 
-extern unsigned int nox_frame_xxx_2598000;
 //----- (004B7810) --------------------------------------------------------
 int nox_thing_blue_rain_draw(int a1, nox_drawable* dr) {
 	int v3; // ebx
@@ -39,9 +38,9 @@ int nox_thing_blue_rain_draw(int a1, nox_drawable* dr) {
 			*(uint8_t*)(v7 + 299) = 0;
 			*(uint32_t*)(v7 + 440) = 0;
 			*(uint32_t*)(v7 + 448) =
-				nox_frame_xxx_2598000 +
+				gameFrame() +
 				nox_common_randomIntMinMax_415FF0(90, 120, "C:\\NoxPost\\src\\client\\Draw\\PartRain.c", 63);
-			*(uint32_t*)(v8 + 444) = nox_frame_xxx_2598000;
+			*(uint32_t*)(v8 + 444) = gameFrame();
 			*(uint16_t*)(v8 + 106) = 0;
 			*(uint8_t*)(v8 + 296) = -5;
 			*(uint16_t*)(v8 + 104) = v6 - *(uint16_t*)(a1 + 20);

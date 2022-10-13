@@ -707,10 +707,10 @@ func mainloopMaybeSwitchMapXXX() {
 		}
 		C.sub_459D50(0)
 	}
-	if gameFrame() >= memmap.Uint32(0x5D4594, 816400) {
+	if noxServer.Frame() >= memmap.Uint32(0x5D4594, 816400) {
 		C.sub_4161E0()
 		C.sub_416690()
-		*memmap.PtrUint32(0x5D4594, 816400) = gameFrame() + 60*gameFPS()
+		*memmap.PtrUint32(0x5D4594, 816400) = noxServer.Frame() + 60*gameFPS()
 	}
 }
 
@@ -733,7 +733,7 @@ func nox_xxx_cliWaitForJoinData_43BFE0() bool {
 }
 
 func nox_xxx_gameStateWait_43C020() bool {
-	gameFrameInc()
+	noxServer.IncFrame()
 	if C.nox_client_gui_flag_815132 != 0 {
 		return true
 	}

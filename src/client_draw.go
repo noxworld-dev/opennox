@@ -138,7 +138,7 @@ func (c *Client) nox_xxx_clientDrawAll_436100_draw() {
 	}
 	noxflags.UnsetEngine(noxflags.EnginePause)
 	*memmap.PtrUint64(0x5D4594, 814532) = v0
-	*memmap.PtrUint32(0x5D4594, 811916) = gameFrame()
+	*memmap.PtrUint32(0x5D4594, 811916) = c.srv.Frame()
 	vp := c.Viewport()
 	if memmap.Uint32(0x587000, 85744) != 0 {
 		vp.Size.Y = vp.Size.X * nox_win_height / nox_win_width
@@ -339,7 +339,7 @@ func (c *Client) sub_475F10(vp *Viewport) {
 		}
 		dr.field_33 = 0
 		if dr.field_120 == 0 && dr.field_122 == 0 {
-			dr.field_85 = C.uint(gameFrame())
+			dr.field_85 = C.uint(c.srv.Frame())
 		}
 	}
 	nox_drawable_list_3 = nox_drawable_list_3[:0]
@@ -355,7 +355,7 @@ func (c *Client) sub_475FE0(vp *Viewport) {
 			}
 			dr.field_33 = 0
 			if dr.field_120 == 0 && dr.field_122 == 0 {
-				dr.field_85 = C.uint(gameFrame())
+				dr.field_85 = C.uint(c.srv.Frame())
 			}
 		}
 	}
@@ -434,7 +434,7 @@ LOOP:
 			}
 		}
 		v26 := dr.Flags28()
-		if !((v26&6 == 0) || gameFrame()-uint32(dr.field_72) <= 5) {
+		if !((v26&6 == 0) || c.srv.Frame()-uint32(dr.field_72) <= 5) {
 			if v26&2 != 0 {
 				v27 := dr.field_69
 				if !(v27 == 9 || v27 == 10) {
@@ -458,7 +458,7 @@ LOOP:
 		c.drawCreatureFrontEffects(vp, dr)
 		C.sub_495BB0(dr.C(), vp.C())
 		if dr.field_120 == 0 && dr.field_122 == 0 {
-			dr.field_85 = C.uint(gameFrame())
+			dr.field_85 = C.uint(c.srv.Frame())
 		}
 		if C.sub_459DB0(dr.C()) != 0 {
 			C.sub_459DD0(dr.C(), 1)
@@ -510,7 +510,7 @@ func (c *Client) nox_xxx_spriteAddQueue_475560_draw(dr *Drawable) {
 					dr.field_120 = 1
 				}
 			}
-			if (dr.field_120 != 0 || dr.field_122 != 0) && (gameFrame()-uint32(dr.field_85)) > gameFPS() {
+			if (dr.field_120 != 0 || dr.field_122 != 0) && (c.srv.Frame()-uint32(dr.field_85)) > gameFPS() {
 				dr.field_120 = 0
 			} else {
 				nox_drawable_objects_queue = append(nox_drawable_objects_queue, dr)
@@ -724,7 +724,7 @@ func (c *Client) nox_xxx_tileDrawMB_481C20(vp *Viewport) {
 		nox_client_texturedFloors_154956 = true
 		nox_xxx_tileSetDrawFn_481420()
 	}
-	if C.dword_5d4594_1193156 == 1 && !nox_client_texturedFloors2_154960 && gameFrame()%30 == 0 && C.nox_xxx_tileCheckRedrawMB_482570(vp.C()) == 0 {
+	if C.dword_5d4594_1193156 == 1 && !nox_client_texturedFloors2_154960 && c.srv.Frame()%30 == 0 && C.nox_xxx_tileCheckRedrawMB_482570(vp.C()) == 0 {
 		C.dword_5d4594_1193156 = 0
 		nox_client_texturedFloors_154956 = nox_client_texturedFloors2_154960
 		nox_xxx_tileSetDrawFn_481420()

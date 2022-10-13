@@ -31,7 +31,6 @@
 void noxOnSrvPacketDebug(int op, unsigned char* data, int sz);
 int noxOnSrvPacketPlayerInput(int a1, unsigned char* data, int sz);
 void sub_446070();
-extern unsigned int nox_frame_xxx_2598000;
 extern uint32_t nox_player_netCode_85319C;
 //----- (0051BAD0) --------------------------------------------------------
 int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* pdata, signed int dsz) {
@@ -130,7 +129,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* pdata,
 	}
 
 	if (dsz <= 0) {
-		*((uint32_t*)nox_common_playerInfoFromNum_417090(a1) + 899) = nox_frame_xxx_2598000;
+		*((uint32_t*)nox_common_playerInfoFromNum_417090(a1) + 899) = gameFrame();
 		return 1;
 	}
 	data = pdata;
@@ -148,7 +147,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* pdata,
 		nox_xxx_playerForceDisconnect_4DE7C0(a1);
 		return 1;
 	case 0x25u:
-		*((uint32_t*)nox_common_playerInfoFromNum_417090(a1) + 899) = nox_frame_xxx_2598000;
+		*((uint32_t*)nox_common_playerInfoFromNum_417090(a1) + 899) = gameFrame();
 		return 1;
 	}
 	end = &pdata[dsz];
@@ -166,7 +165,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* pdata,
 	v10 = *(int**)(v93 + 748);
 	v85 = *(uint32_t*)(v93 + 748);
 	if (pdata >= end) {
-		*(uint32_t*)(v8 + 3596) = nox_frame_xxx_2598000;
+		*(uint32_t*)(v8 + 3596) = gameFrame();
 		return 1;
 	}
 	while (data < end) {
@@ -862,7 +861,7 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* pdata,
 		}
 		noxOnSrvPacketDebug(op, old, data - old);
 	}
-	*(uint32_t*)(v8 + 3596) = nox_frame_xxx_2598000;
+	*(uint32_t*)(v8 + 3596) = gameFrame();
 	return 1;
 }
 // 51C788: variable 'v7' is possibly undefined

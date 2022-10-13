@@ -89,7 +89,7 @@ func nox_xxx_replaySaveConsole(cmd string) {
 		return
 	}
 	var buf [9]byte
-	binary.LittleEndian.PutUint32(buf[0:4], gameFrame())
+	binary.LittleEndian.PutUint32(buf[0:4], noxServer.Frame())
 	buf[4] = replayOpConsole
 	binary.LittleEndian.PutUint32(buf[5:9], uint32(len(cmd)))
 	replay.writer.Write(buf[:])
@@ -111,7 +111,7 @@ func nox_xxx_replayWriteMSgMB(pl *Player, data []byte) {
 		return
 	}
 	var buf [10]byte
-	binary.LittleEndian.PutUint32(buf[0:4], gameFrame())
+	binary.LittleEndian.PutUint32(buf[0:4], noxServer.Frame())
 	buf[4] = replayOpMsg
 	buf[5] = byte(pl.Index())
 	binary.LittleEndian.PutUint32(buf[6:10], uint32(len(data)))
@@ -171,7 +171,7 @@ func nox_xxx_replayReadeRndCounter_415F50(r io.Reader) {
 func (s *Server) nox_xxx_replayStartReadingOrSaving_4D38D0() error {
 	if noxflags.HasEngine(noxflags.EngineReplayWrite) && replay.writer != nil {
 		var buf [6]byte
-		binary.LittleEndian.PutUint32(buf[0:4], gameFrame())
+		binary.LittleEndian.PutUint32(buf[0:4], s.Frame())
 		buf[4] = replayOpInit
 		mapname := s.nox_server_currentMapGetFilename_409B30()
 		buf[5] = byte(len(mapname))
@@ -190,7 +190,7 @@ func (s *Server) nox_xxx_replayStartReadingOrSaving_4D38D0() error {
 func nox_xxx_replayWriteFrame_4D39B0() {
 	if noxflags.HasEngine(noxflags.EngineReplayWrite) && replay.writer != nil {
 		var buf [5]byte
-		binary.LittleEndian.PutUint32(buf[0:4], gameFrame())
+		binary.LittleEndian.PutUint32(buf[0:4], noxServer.Frame())
 		buf[4] = replayOpFrame
 		replay.writer.Write(buf[:])
 	}
@@ -216,7 +216,7 @@ func (s *Server) nox_xxx_replayTickMB(a1 bool) error {
 	}
 	var data []byte
 	for {
-		if gameFrame() == replay.frame {
+		if s.Frame() == replay.frame {
 			return nil
 		}
 		switch replay.op {

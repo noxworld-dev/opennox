@@ -1144,7 +1144,7 @@ func sub_4DB130(a1 string) {
 //export sub_4DB170
 func sub_4DB170(a1 C.int, a2 unsafe.Pointer, a3 C.int) {
 	dword_5d4594_1563092 = uint32(a3)
-	dword_5d4594_1563088 = gameFrame()
+	dword_5d4594_1563088 = noxServer.Frame()
 	dword_5d4594_1563084 = a2
 	dword_5d4594_1563080 = int(a1)
 	C.dword_5d4594_1563096 = C.uint(bool2int(a2 != nil))

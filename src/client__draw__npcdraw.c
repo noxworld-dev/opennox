@@ -13,7 +13,6 @@
 
 extern uint32_t dword_5d4594_1313796;
 extern uint32_t dword_5d4594_1313800;
-extern unsigned int nox_frame_xxx_2598000;
 
 extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_red_2589776;
@@ -79,7 +78,7 @@ int nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 		v33 = v5;
 		if (v36 && v5) {
 			if (nox_client_drawable_testBuff_4356C0(v4, 23)) {
-				if ((unsigned char)nox_frame_xxx_2598000 & 1) {
+				if ((unsigned char)gameFrame() & 1) {
 					v6 = 0;
 					do {
 						v7 = v6 + 1;

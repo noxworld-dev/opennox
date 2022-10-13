@@ -15,7 +15,6 @@ extern uint32_t nox_player_netCode_85319C;
 extern uint32_t nox_client_gui_flag_815132;
 extern int nox_win_width;
 extern int nox_win_height;
-extern unsigned int nox_frame_xxx_2598000;
 
 extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_red_2589776;

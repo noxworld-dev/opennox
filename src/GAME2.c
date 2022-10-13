@@ -182,7 +182,6 @@ extern uint32_t dword_5d4594_1046492;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_gameFPS;
-extern unsigned int nox_frame_xxx_2598000;
 
 extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_red_2589776;
@@ -4637,7 +4636,7 @@ nox_drawable* nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a3
 	dr->field_8 = a2;
 	dr->pos.y = a3;
 	dr->field_9 = a3;
-	dr->field_80 = nox_frame_xxx_2598000;
+	dr->field_80 = gameFrame();
 	dr->field_92 = nox_drawable_head_unk1;
 	dr->field_93 = 0;
 	if (nox_drawable_head_unk1) {
@@ -6204,7 +6203,7 @@ void nox_client_invokeSpellSlot_45DA50(int a1) {
 //----- (0045DAD0) --------------------------------------------------------
 void nox_xxx_clientStoreLastButton_45DAD0(int a1) {
 	*getMemU32Ptr(0x587000, 133484) = a1;
-	*getMemU32Ptr(0x5D4594, 1049540) = nox_frame_xxx_2598000;
+	*getMemU32Ptr(0x5D4594, 1049540) = gameFrame();
 }
 
 //----- (0045DAF0) --------------------------------------------------------

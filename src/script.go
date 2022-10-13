@@ -59,12 +59,12 @@ type noxScriptImpl struct {
 	s *Server
 }
 
-func (noxScriptImpl) Frame() int {
-	return int(gameFrame())
+func (s noxScriptImpl) Frame() int {
+	return int(s.s.Frame())
 }
 
-func (noxScriptImpl) Time() time.Duration {
-	sec := float64(gameFrame()) / float64(gameFPS())
+func (s noxScriptImpl) Time() time.Duration {
+	sec := float64(s.s.Frame()) / float64(gameFPS())
 	return time.Duration(sec) * time.Second
 }
 
