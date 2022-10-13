@@ -1796,8 +1796,7 @@ char sub_57AAA0(const char* a1, char* a2, int* a3) {
 					nox_xxx_spellFlags_424A70(v7) & 0x7000000 &&
 					(!dword_5d4594_2650652 || sub_454000((int)v22, v7) || !sub_454000((int)v20, v7))) {
 					v9 = nox_xxx_spellNameByN_424870(v7);
-					nox_sprintf(v23, "%s %s \"%s\" %s\n", getMemAt(0x587000, 312616), getMemAt(0x587000, 312608), v9,
-								getMemAt(0x587000, 312604));
+					nox_sprintf(v23, "%s %s \"%s\" %s\n", "set", "spell", v9, "off");
 					nox_fs_fputs(v4, v23);
 				}
 				++v7;
@@ -1809,8 +1808,7 @@ char sub_57AAA0(const char* a1, char* a2, int* a3) {
 				if (!(v10 & *((uint32_t*)a2 + 12))) {
 					v12 = sub_415E40((char*)v10);
 					if (v12) {
-						nox_sprintf(v23, "%s %s \"%s\" %s\n", getMemAt(0x587000, 312648), getMemAt(0x587000, 312640),
-									v12, getMemAt(0x587000, 312636));
+						nox_sprintf(v23, "%s %s \"%s\" %s\n", "set", "Armor", v12, "off");
 						nox_fs_fputs(v4, v23);
 					}
 				}
@@ -1825,8 +1823,7 @@ char sub_57AAA0(const char* a1, char* a2, int* a3) {
 				if (!((unsigned char)v13 & (unsigned char)*v15)) {
 					v16 = sub_4159B0((char*)v14);
 					if (v16) {
-						nox_sprintf(v23, "%s %s \"%s\" %s\n", getMemAt(0x587000, 312680), getMemAt(0x587000, 312672),
-									v16, getMemAt(0x587000, 312668));
+						nox_sprintf(v23, "%s %s \"%s\" %s\n", "set", "weapon", v16, "off");
 						nox_fs_fputs(v4, v23);
 					}
 				}
