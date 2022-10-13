@@ -6,16 +6,6 @@
 uint32_t* sub57DD90(uint32_t* this);
 void sub57DDC0(void** this);
 
-#define FILE void
-
-FILE* nxz_fs_open(char* path);
-FILE* nxz_fs_create(char* path);
-int nxz_fs_fwrite(FILE* f, void* src, int sz);
-void nxz_fs_close(FILE* f);
-int nxz_fs_fsize(FILE* f);
-
-int nxz_binfile_fread_raw_40ADD0(char* buf, size_t size, size_t count, FILE* file);
-
 void* nxz_getMemAt(uintptr_t base, uintptr_t off);
 uint16_t* nxz_getMemU16Ptr(uintptr_t base, uintptr_t off);
 uint32_t* nxz_getMemU32Ptr(uintptr_t base, uintptr_t off);
@@ -52,7 +42,7 @@ uint32_t* sub_57DF00(uint32_t* this) {
 }
 
 //----- (00578B80) --------------------------------------------------------
-uint32_t* sub578B80() {
+void* nxz_compress_new() {
 	uint32_t* v0; // eax
 	uint32_t* v2; // esi
 	int v3;       // eax
@@ -95,7 +85,7 @@ void sub57D150(void** this) {
 }
 
 //----- (00578BD0) --------------------------------------------------------
-void sub578BD0(void* lpMem) {
+void nxz_compress_free(void* lpMem) {
 	if (lpMem) {
 		sub57D150((void**)lpMem);
 		free(lpMem);
@@ -822,7 +812,11 @@ LABEL_15:
 }
 
 //----- (0057D1C0) --------------------------------------------------------
-int nox_xxx_nxzCompressImpl_57D1C0(void** this, int a2, unsigned char* a3, int a4) {
+int nxz_compress(void* a1p, uint8_t* a2p, uint8_t* a3p, int a4p) {
+	void** this = a1p;
+	int a2 = a2p;
+	unsigned char* a3 = a3p;
+	int a4 = a4p;
 	void** v4;           // ebx
 	void* v5;            // ecx
 	int v6;              // eax
@@ -1461,76 +1455,4 @@ LABEL_144:
 		sub_57E3F0((uint32_t**)v135, (unsigned int)v107, v108);
 	}
 	return sub_57E7D0((uint32_t**)v135);
-}
-
-//----- (00578BB0) --------------------------------------------------------
-int nox_xxx_nxzCompress_578BB0(void** a1, int a2, unsigned char* a3, int a4) {
-	return nox_xxx_nxzCompressImpl_57D1C0(a1, a2, a3, a4);
-}
-
-//----- (00578BA0) --------------------------------------------------------
-unsigned int sub_578BA0(unsigned int a1) { return (a1 >> 1) + a1 + 32; }
-
-//----- (0057BDD0) --------------------------------------------------------
-int nxz_compress_file(char* src, char* dst) {
-	size_t v2;        // ebx
-	FILE* v3;         // eax
-	FILE* v4;         // esi
-	char* v5;         // edi
-	unsigned int v6;  // eax
-	void* v7;         // eax
-	void** v8;        // ebp
-	size_t v9;        // eax
-	size_t i;         // esi
-	unsigned int v11; // eax
-	FILE* v12;        // eax
-	FILE* v13;        // esi
-	size_t v15;       // [esp+Ch] [ebp-4h]
-	void* lpMema;     // [esp+14h] [ebp+4h]
-
-	v2 = 0;
-	v15 = 0;
-	if (!src) {
-		return 0;
-	}
-	if (!dst) {
-		return 0;
-	}
-	v3 = nxz_fs_open(src);
-	v4 = v3;
-	if (!v3) {
-		return 0;
-	}
-	v15 = nxz_fs_fsize(v4);
-	v5 = (char*)calloc(1, v15);
-	v6 = sub_578BA0(v15);
-	v7 = calloc(1, v6);
-	lpMema = v7;
-	if (!v5 || !v7) {
-		return 0;
-	}
-	nxz_binfile_fread_raw_40ADD0(v5, 1u, v15, v4);
-	nxz_fs_close(v4);
-	v8 = (void**)sub578B80();
-	v9 = v15;
-	for (i = 0; i < v15; i += 500000) {
-		v11 = v9 - i;
-		if (v11 > 0x7A120) {
-			v11 = 500000;
-		}
-		v2 += nox_xxx_nxzCompress_578BB0(v8, (int)lpMema + v2, (unsigned char*)&v5[i], v11);
-		v9 = v15;
-	}
-	sub578BD0(v8);
-	v12 = nxz_fs_create(dst);
-	v13 = v12;
-	if (!v12) {
-		return 0;
-	}
-	nxz_fs_fwrite(v12, &v15, 4);
-	nxz_fs_fwrite(v13, lpMema, v2);
-	nxz_fs_close(v13);
-	free(v5);
-	free(lpMema);
-	return 1;
 }
