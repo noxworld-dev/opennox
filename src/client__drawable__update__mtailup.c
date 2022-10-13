@@ -6,7 +6,6 @@
 #include "client__draw__glowdraw.h"
 #include "common__random.h"
 
-extern unsigned int nox_gameFPS;
 //----- (004CDD80) --------------------------------------------------------
 void nox_xxx_updDrawMagic_4CDD80(int a1, uint32_t* a2) {
 	uint32_t* v2; // edi
@@ -37,7 +36,7 @@ void nox_xxx_updDrawMagic_4CDD80(int a1, uint32_t* a2) {
 		nox_xxx_sprite_45A110_drawable(v5);
 		a2[108] = a2[3];
 		a2[109] = a2[4];
-		nox_xxx_spriteTransparentDecay_49B950(v5, (int)nox_gameFPS);
+		nox_xxx_spriteTransparentDecay_49B950(v5, (int)gameFPS());
 	}
 	v13 = a2[3] - a2[8];
 	v14 = a2[4] - a2[9];

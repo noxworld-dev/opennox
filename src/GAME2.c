@@ -181,7 +181,6 @@ extern void* nox_xxx_aClosewoodengat_587000_133480;
 extern uint32_t dword_5d4594_1046492;
 extern int nox_win_width;
 extern int nox_win_height;
-extern unsigned int nox_gameFPS;
 
 extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_red_2589776;
@@ -7150,7 +7149,7 @@ void nox_client_spellSetSelect_460590() {
 	if (!*getMemU32Ptr(0x5D4594, 1049476)) {
 		result = dword_5d4594_1049496;
 		if (!dword_5d4594_1049496) {
-			if (nox_xxx_checkKeybTimeout_4160F0(7u, nox_gameFPS >> 1)) {
+			if (nox_xxx_checkKeybTimeout_4160F0(7u, gameFPS() >> 1)) {
 				LOBYTE(result) = 0;
 				*getMemU32Ptr(0x5D4594, 1049712) = 0;
 			} else {

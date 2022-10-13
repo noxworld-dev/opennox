@@ -2061,5 +2061,6 @@ _Static_assert(sizeof(nox_waypoint_t) == 0x204u, "wrong size of nox_waypoint_t s
 
 uint32_t gameFrame();
 void gameFrameSet(uint32_t v);
+uint32_t gameFPS();
 
 #endif // NOX_DEFS_H

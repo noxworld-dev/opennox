@@ -9,7 +9,6 @@
 #include "client__video__draw_common.h"
 
 extern uint32_t dword_5d4594_1313804;
-extern unsigned int nox_gameFPS;
 extern uint32_t nox_color_white_2523948;
 
 //----- (004B98A0) --------------------------------------------------------
@@ -111,8 +110,8 @@ int nox_thing_magic_missle_tail_link_draw(uint32_t* a1, nox_drawable* dr) {
 	v11 = *a1 - a1[4] + *(uint32_t*)(a2 + 432);
 	v14 = v5;
 	if (v5 > 0) {
-		v6 = (v5 << 6) / (int)(nox_gameFPS / 3u);
-		v13 = nox_gameFPS / 3u;
+		v6 = (v5 << 6) / (int)(gameFPS() / 3u);
+		v13 = gameFPS() / 3u;
 		if (v6 >= 64) {
 			v6 = 63;
 		}
@@ -160,14 +159,14 @@ int nox_thing_magic_tail_link_draw(uint32_t* a1, nox_drawable* dr) {
 	v15 = v5;
 	if (v5 >= 0 && !v6) {
 		v8 = v5 << 6;
-		v7 = (unsigned int)(v5 << 6) / nox_gameFPS;
-		if ((int)(v8 / nox_gameFPS) >= 64) {
+		v7 = (unsigned int)(v5 << 6) / gameFPS();
+		if ((int)(v8 / gameFPS()) >= 64) {
 			v7 = 63;
 		}
 		v9 = *getMemU32Ptr(0x5D4594, 1312500 + 4 * v7);
 		v10 = v2 + 136;
 		nox_xxx_spriteChangeLightColor_484BE0((uint32_t*)(v2 + 136), 128, 128, 255);
-		v12 = (double)v15 * 20.0 / (double)(int)nox_gameFPS;
+		v12 = (double)v15 * 20.0 / (double)(int)gameFPS();
 		nox_xxx_spriteChangeIntensity_484D70_light_intensity(v10, v12);
 		nox_client_drawSetColor_434460(v9);
 		nox_client_drawEnableAlpha_434560(1);

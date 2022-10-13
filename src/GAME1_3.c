@@ -119,7 +119,6 @@ extern uint32_t nox_color_orange_2614256;
 extern int nox_win_width;
 extern int nox_win_height;
 
-extern unsigned int nox_gameFPS;
 
 extern nox_video_mode nox_video_modes[];
 extern int nox_video_modes_cnt;
@@ -2098,12 +2097,12 @@ int sub_448FC0(int a1, int a2) {
 		nox_client_drawImageAt_47D2C0(*(uint32_t*)(a2 + 24), xLeft, yTop);
 	}
 	if (dword_587000_111668) {
-		if (dword_5d4594_830204 && nox_xxx_checkKeybTimeout_4160F0(0x12u, 10 * nox_gameFPS)) {
+		if (dword_5d4594_830204 && nox_xxx_checkKeybTimeout_4160F0(0x12u, 10 * gameFPS())) {
 			nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_830148, 1);
 			dword_5d4594_830204 = 0;
 			return 1;
 		}
-	} else if (dword_5d4594_830208 && nox_xxx_checkKeybTimeout_4160F0(0x13u, 10 * nox_gameFPS)) {
+	} else if (dword_5d4594_830208 && nox_xxx_checkKeybTimeout_4160F0(0x13u, 10 * gameFPS())) {
 		nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_830148, 1);
 		dword_5d4594_830208 = 0;
 	}

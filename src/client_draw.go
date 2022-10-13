@@ -510,7 +510,7 @@ func (c *Client) nox_xxx_spriteAddQueue_475560_draw(dr *Drawable) {
 					dr.field_120 = 1
 				}
 			}
-			if (dr.field_120 != 0 || dr.field_122 != 0) && (c.srv.Frame()-uint32(dr.field_85)) > gameFPS() {
+			if (dr.field_120 != 0 || dr.field_122 != 0) && (c.srv.Frame()-uint32(dr.field_85)) > c.srv.TickRate() {
 				dr.field_120 = 0
 			} else {
 				nox_drawable_objects_queue = append(nox_drawable_objects_queue, dr)

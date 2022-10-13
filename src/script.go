@@ -64,7 +64,7 @@ func (s noxScriptImpl) Frame() int {
 }
 
 func (s noxScriptImpl) Time() time.Duration {
-	sec := float64(s.s.Frame()) / float64(gameFPS())
+	sec := float64(s.s.Frame()) / float64(s.s.TickRate())
 	return time.Duration(sec) * time.Second
 }
 

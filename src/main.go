@@ -16,7 +16,6 @@ package opennox
 
 extern int nox_enable_audio;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
-extern unsigned int nox_gameFPS;
 
 extern unsigned int dword_5d4594_2650652;
 extern void* dword_587000_81128;
@@ -296,7 +295,7 @@ func RunArgs(args []string) (gerr error) {
 	noxflags.SetGame(noxflags.GameHost | noxflags.GameClient)
 	noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
 	C.dword_5d4594_2650652 = 0
-	gameFPSSet(30)
+	noxServer.SetTickRate(30)
 	gameFrameSetFromFlags()
 	nox_ticks_reset_416D40()
 	noxServer.setUpdateFunc(nil)
@@ -377,7 +376,7 @@ func RunArgs(args []string) (gerr error) {
 	// manual spell cast timeout (in seconds)
 	msmul := viper.GetFloat64(configManualSpellCastDelay)
 	// manual spell cast timeout (in frames)
-	*memmap.PtrUint32(0x852978, 16) = uint32(float64(gameFPS()) * msmul)
+	*memmap.PtrUint32(0x852978, 16) = uint32(float64(noxServer.TickRate()) * msmul)
 
 	if err := nox_common_scanAllMaps_4D07F0(); err != nil {
 		return fmt.Errorf("cannot find maps: %w", err)

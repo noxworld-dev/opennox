@@ -20,10 +20,11 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 type ObjectScriptID uint32
 
 type Server struct {
-	pr      console.Printer
-	sm      *strman.StringManager
-	frame   uint32
-	objects struct {
+	pr       console.Printer
+	sm       *strman.StringManager
+	frame    uint32
+	tickRate uint32
+	objects  struct {
 		firstScriptID ObjectScriptID
 		lastScriptID  ObjectScriptID
 	}
@@ -76,4 +77,12 @@ func (s *Server) SetFrame(v uint32) {
 
 func (s *Server) IncFrame() {
 	atomic.AddUint32(&s.frame, 1)
+}
+
+func (s *Server) TickRate() uint32 {
+	return atomic.LoadUint32(&s.tickRate)
+}
+
+func (s *Server) SetTickRate(v uint32) {
+	atomic.StoreUint32(&s.tickRate, v)
 }

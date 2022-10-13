@@ -28,7 +28,6 @@ extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_587000_145664;
 extern unsigned int dword_587000_145668;
 extern unsigned int nox_client_gui_flag_815132;
-extern unsigned int nox_gameFPS;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern void* nox_alloc_chat_1197364;
 extern unsigned int nox_client_renderGUI_80828;
@@ -208,7 +207,7 @@ func mainloop_43E290(exitPath bool) {
 	mainloopStopError = false
 	mainloopContinue = true
 	continueMenuOrHost = true
-	*memmap.PtrUint32(0x5D4594, 816400) = 60 * gameFPS()
+	*memmap.PtrUint32(0x5D4594, 816400) = 60 * noxServer.TickRate()
 
 	// XXX
 	noxClient.mapsend.setDownloading(false)
@@ -710,7 +709,7 @@ func mainloopMaybeSwitchMapXXX() {
 	if noxServer.Frame() >= memmap.Uint32(0x5D4594, 816400) {
 		C.sub_4161E0()
 		C.sub_416690()
-		*memmap.PtrUint32(0x5D4594, 816400) = noxServer.Frame() + 60*gameFPS()
+		*memmap.PtrUint32(0x5D4594, 816400) = noxServer.Frame() + 60*noxServer.TickRate()
 	}
 }
 

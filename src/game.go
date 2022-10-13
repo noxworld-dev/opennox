@@ -1346,7 +1346,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 					v36[0] = float32(v38 * memmap.Float64(0x581450, 10008))
 					v36[1] = v36[0]
 					v40, _ := strconv.ParseFloat(sub[2], 64)
-					v36[2] = float32(v40 * memmap.Float64(0x581450, 10000) / float64(gameFPS()))
+					v36[2] = float32(v40 * memmap.Float64(0x581450, 10000) / float64(s.TickRate()))
 				}
 			}
 		}
@@ -1426,7 +1426,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		sub_413980(30)
 	}
 	if noxflags.HasGame(noxflags.GameModeQuest) {
-		sub_4D7140(s.Frame() + gameFPS())
+		sub_4D7140(s.Frame() + s.TickRate())
 	} else {
 		sub_4D7140(0)
 	}

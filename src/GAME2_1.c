@@ -149,7 +149,6 @@ extern uint32_t nox_color_orange_2614256;
 extern nox_window* nox_win_xxx1_first;
 extern nox_window* nox_win_xxx1_last;
 
-extern unsigned int nox_gameFPS;
 
 nox_window* nox_win_unk5 = 0;
 nox_window* dword_5d4594_1062452 = 0;
@@ -4955,7 +4954,7 @@ int sub_470DE0() {
 			v3 = v2;
 			if (nox_windows_arr_1093036[0].field_1 < v2) {
 				*getMemU32Ptr(0x5D4594, 1091960) =
-					nox_gameFPS / 3u + nox_windows_arr_1093036[0].field_1 * ((unsigned int)(3 * nox_gameFPS) >> 2) / v2;
+					gameFPS() / 3u + nox_windows_arr_1093036[0].field_1 * ((unsigned int)(3 * gameFPS()) >> 2) / v2;
 				result = nox_xxx_checkKeybTimeout_4160F0(4u, *getMemU32Ptr(0x5D4594, 1091960) - 1);
 				if (result) {
 					nox_xxx_clientPlaySoundSpecial_452D80(896, 66 * (v3 - v1) / v3 + 33);
@@ -5291,8 +5290,8 @@ int sub_472080() {
 	if (nox_windows_arr_1093036[4].field_1 != nox_windows_arr_1093036[4].field_2) {
 		result = sub_416120(0x11u);
 		if (result) {
-			result = 0x64u / (int)nox_gameFPS;
-			nox_windows_arr_1093036[4].field_1 += 0x64u / (int)nox_gameFPS;
+			result = 0x64u / (int)gameFPS();
+			nox_windows_arr_1093036[4].field_1 += 0x64u / (int)gameFPS();
 		}
 	}
 	return result;

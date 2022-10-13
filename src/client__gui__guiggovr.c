@@ -8,7 +8,6 @@
 extern uint32_t dword_5d4594_1303452;
 extern int nox_win_width;
 extern int nox_win_height;
-extern unsigned int nox_gameFPS;
 
 //----- (0049B4B0) --------------------------------------------------------
 int sub_49B4B0(unsigned short* a1) {
@@ -75,14 +74,14 @@ int sub_49B6E0() {
 	if (dword_5d4594_1303452) {
 		result = wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1303452);
 		if (!result) {
-			v1 = *getMemU32Ptr(0x5D4594, 1303456) + 30 * nox_gameFPS - gameFrame();
+			v1 = *getMemU32Ptr(0x5D4594, 1303456) + 30 * gameFPS() - gameFrame();
 			if (v1 < 0) {
 				v1 = 0;
 			}
 			if (*getMemU32Ptr(0x8531A0, 2576) && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2064) == 31) {
 				nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1301852), (const wchar_t*)getMemAt(0x5D4594, 1303464));
 			} else {
-				v4 = (unsigned int)v1 / nox_gameFPS;
+				v4 = (unsigned int)v1 / gameFPS();
 				v2 = nox_strman_loadString_40F1D0("Rules.c:Time", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 265);
 				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1301852), L"%s - %d", v2, v4);
 			}
