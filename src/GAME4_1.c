@@ -5690,13 +5690,8 @@ int nox_xxx_readStr_517090(FILE* a1, uint8_t* a2) {
 			if (nox_binfile_lastErr_409370(a1) == -1) {
 				return 0;
 			}
-			if (*getMemU32Ptr(0x587000, 1668) <= 1) {
-				v3 = *(uint32_t*)CharType;
-				v6 = isspace(CharType[0]);
-			} else {
-				v6 = isspace(CharType[0]);
-				v3 = *(uint32_t*)CharType;
-			}
+			v3 = *(uint32_t*)CharType;
+			v6 = isspace(CharType[0]);
 			if (v6) {
 				break;
 			}

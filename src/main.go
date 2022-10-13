@@ -144,7 +144,6 @@ func RunArgs(args []string) (gerr error) {
 		fNoAudio    = flags.Bool("noaudio", false, "disable audio")
 		fNoMMX      = flags.Bool("noMMX", false, "noMMX")
 		fNoThreads  = flags.Bool("nothread", false, "nothread")
-		fVol        = flags.Int("vol", -1, "vol")
 		fNoFloor    = flags.Bool("noFloor", false, "noFloor")
 		fNoDraw     = flags.Bool("noDraw", false, "noDraw")
 		fPort       = flags.Int("port", common.GamePort, "server port number to use")
@@ -304,7 +303,6 @@ func RunArgs(args []string) (gerr error) {
 	noxflags.SetGame(noxflags.GameModeArena)
 	if *fNoLimit {
 		useFrameLimit = false
-		*memmap.PtrUint32(0x587000, 84) = 0
 	}
 	if *fServer {
 		C.nox_enable_audio = 0
@@ -343,9 +341,6 @@ func RunArgs(args []string) (gerr error) {
 	}
 	if *fNoThreads {
 		nox_enable_threads = false
-	}
-	if v := *fVol; v >= 0 {
-		*memmap.PtrUint8(0x587000, 88) = byte(v)
 	}
 	if *fNoFloor {
 		noxflags.SetEngine(noxflags.EngineNoFloorRendering)
