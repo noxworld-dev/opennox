@@ -930,7 +930,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 		}
 		C.sub_425B30(v12, C.int(ind))
 	}
-	pl.frame_3596 = C.uint(gameFrame())
+	pl.frame_3596 = C.uint(s.Frame())
 	pl.field_3676 = 2
 	pl.field_3680 = 0
 	info := pl.Info()
@@ -1069,7 +1069,7 @@ func (s *Server) sub_4E8210(u *Unit) (types.Pointf, bool) {
 func nox_xxx_plrSetSpellType_4F9B90(u *Unit) {
 	ud := u.updateDataPlayer()
 	ud.spell_phoneme_leaf = unsafe.Pointer(getPhonemeTree())
-	ud.spell_cast_start = C.uint(gameFrame())
+	ud.spell_cast_start = C.uint(noxServer.Frame())
 }
 
 func (s *Server) playerSpell(u *Unit) {

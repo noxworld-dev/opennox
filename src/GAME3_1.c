@@ -119,7 +119,6 @@ extern uint32_t nox_player_netCode_85319C;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_gameFPS;
-extern unsigned int nox_frame_xxx_2598000;
 
 extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_red_2589776;
@@ -4552,7 +4551,7 @@ void nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 		nox_draw_setColorMultAndIntensityRGB_433CD0(v35, v33, v34);
 	}
 	if (*((uint32_t*)a2 + 120)) {
-		v60 = (unsigned int)(nox_frame_xxx_2598000 - *((uint32_t*)a2 + 85));
+		v60 = (unsigned int)(gameFrame() - *((uint32_t*)a2 + 85));
 		v36 = (double)v60;
 		v60 = nox_gameFPS;
 		v37 = 1.0 - v36 / (double)(int)nox_gameFPS;
@@ -4670,7 +4669,7 @@ void nox_xxx_drawObject_4C4770_draw(int* a1, nox_drawable* dr, int a3) {
 	}
 	if (!(v3[112] & 4) && nox_client_drawable_testBuff_4356C0((int)v3, 23) && !nox_common_gameFlags_check_40A5C0(2048)) {
 		nox_xxx_draw_434600(1);
-		if ((unsigned char)nox_frame_xxx_2598000 & 1) {
+		if ((unsigned char)gameFrame() & 1) {
 			nox_draw_setColorMultAndIntensity_433E40(nox_color_white_2523948);
 		} else {
 			nox_draw_setColorMultAndIntensity_433E40(nox_color_blue_2650684);
@@ -4740,8 +4739,8 @@ short nox_xxx_drawShinySpot_4C4F40(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	}
 	v3 = *((uint32_t*)v2 + 24);
 	v4 = *(unsigned char*)(v3 + 8);
-	v5 = (nox_frame_xxx_2598000 + *(uint32_t*)(a2 + 128)) / (unsigned int)(8 * v4);
-	v6 = ((nox_frame_xxx_2598000 + *(uint32_t*)(a2 + 128)) % (unsigned int)(8 * v4)) >> 1;
+	v5 = (gameFrame() + *(uint32_t*)(a2 + 128)) / (unsigned int)(8 * v4);
+	v6 = ((gameFrame() + *(uint32_t*)(a2 + 128)) % (unsigned int)(8 * v4)) >> 1;
 	if (v6 < v4) {
 		nox_client_drawImageAt_47D2C0(
 			*(uint32_t*)(*(uint32_t*)(v3 + 4) + 4 * v6), *(uint32_t*)(a2 + 12) - a1[4] + *a1 - 64,
@@ -5157,7 +5156,7 @@ int nox_xxx_sprite_4CA540(uint32_t* a1, int a2) {
 	v4 = *(float*)(a2 + 468);
 	v5 = *(float*)(a2 + 472);
 	v6 = 0.0;
-	v7 = nox_frame_xxx_2598000 - *(uint32_t*)(a2 + 316) + 1;
+	v7 = gameFrame() - *(uint32_t*)(a2 + 316) + 1;
 	do {
 		--v7;
 		v13 = -(v5 * *(float*)(a2 + 476));
@@ -5239,7 +5238,7 @@ int sub_4CA720(int a1, int a2) {
 	int v8;     // ebx
 	int result; // eax
 
-	v2 = nox_frame_xxx_2598000 - *(uint32_t*)(a2 + 316);
+	v2 = gameFrame() - *(uint32_t*)(a2 + 316);
 	if (v2 >= 60 || (v3 = *(unsigned short*)(a2 + 432), abs32(*(uint32_t*)(a2 + 12) - (unsigned short)v3) < 10) &&
 						abs32(*(uint32_t*)(a2 + 16) - *(unsigned short*)(a2 + 434)) < 10) {
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(a2);
@@ -5954,7 +5953,7 @@ int nox_xxx_updDrawUndeadKiller_4CCCF0() { return 1; }
 int sub_4CCD00(int a1, int a2) {
 	unsigned int i; // ecx
 
-	for (i = *(uint32_t*)(a2 + 432); i < nox_frame_xxx_2598000; ++i) {
+	for (i = *(uint32_t*)(a2 + 432); i < gameFrame(); ++i) {
 		if (*(float*)(a2 + 436) > 0.0) {
 			*(float*)(a2 + 436) = *(float*)(a2 + 440) + *(float*)(a2 + 436);
 			*(float*)(a2 + 440) = *(float*)(a2 + 440) - 1.0;
@@ -5966,7 +5965,7 @@ int sub_4CCD00(int a1, int a2) {
 	}
 	*(uint16_t*)(a2 + 104) = (long long)*(float*)(a2 + 436);
 	*(uint8_t*)(a2 + 296) = (long long)*(float*)(a2 + 440);
-	*(uint32_t*)(a2 + 432) = nox_frame_xxx_2598000;
+	*(uint32_t*)(a2 + 432) = gameFrame();
 	return 1;
 }
 
@@ -5977,7 +5976,7 @@ int nox_xxx_updDrawFist_4CCDB0(int a1, int a2) {
 	double v4;      // st7
 	double v5;      // st7
 
-	for (i = *(uint32_t*)(a2 + 432); i < nox_frame_xxx_2598000; ++i) {
+	for (i = *(uint32_t*)(a2 + 432); i < gameFrame(); ++i) {
 		v3 = *(float*)(a2 + 436) + *(float*)(a2 + 440);
 		*(float*)(a2 + 436) = v3;
 		if (v3 >= 0.0) {
@@ -5995,7 +5994,7 @@ int nox_xxx_updDrawFist_4CCDB0(int a1, int a2) {
 	}
 	*(uint16_t*)(a2 + 104) = (long long)*(float*)(a2 + 436);
 	*(uint8_t*)(a2 + 296) = (long long)*(float*)(a2 + 440);
-	*(uint32_t*)(a2 + 432) = nox_frame_xxx_2598000;
+	*(uint32_t*)(a2 + 432) = gameFrame();
 	return 1;
 }
 

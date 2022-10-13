@@ -7,7 +7,6 @@
 #include "client__draw__fx.h"
 #include "client__video__draw_common.h"
 
-extern unsigned int nox_frame_xxx_2598000;
 //----- (004B7A80) --------------------------------------------------------
 int nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
 	int result;   // eax
@@ -32,7 +31,7 @@ int nox_thing_undead_killer_draw(int* a1, nox_drawable* dr) {
 		*getMemU32Ptr(0x5D4594, 1313732) = nox_color_rgb_4344A0(100, 100, 255);
 		*getMemU32Ptr(0x5D4594, 1313728) = 1;
 	}
-	if ((unsigned int)(nox_frame_xxx_2598000 - *(uint32_t*)(a2 + 316)) <= 0x46) {
+	if ((unsigned int)(gameFrame() - *(uint32_t*)(a2 + 316)) <= 0x46) {
 		if (nox_common_randomIntMinMax_415FF0(0, 100, "C:\\NoxPost\\src\\client\\Draw\\UDedDraw.c", 54) > 85) {
 			v3 = *(uint16_t*)(a2 + 328);
 			v14[0] = *(uint16_t*)(a2 + 324);

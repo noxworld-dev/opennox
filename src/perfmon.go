@@ -72,7 +72,7 @@ func (m *Perfmon) LogBandwidth() {
 	m.logger.Print("\n")
 	for _, pl := range noxServer.getPlayers() {
 		d := m.bandData(pl.Index())
-		v4 := gameFrame()
+		v4 := noxServer.Frame()
 		var bps uint32
 		if pl.Index() == noxMaxPlayers-1 {
 			bps = noxPerfmon.TransferStats(0)

@@ -324,7 +324,7 @@ func (a *serverAbilities) Do(u *Unit, abil Ability) {
 	if df := a.getDuration(abil); df > 0 {
 		ab := &execAbilityClass{
 			abil:   abil,
-			frame:  gameFrame() + uint32(df),
+			frame:  a.s.Frame() + uint32(df),
 			active: 1,
 		}
 		ab.next = ad.execList
@@ -357,7 +357,7 @@ func (a *serverAbilities) Update() {
 		for p := ad.execList; p != nil; p = next {
 			next = p.next
 			if !u.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
-				if gameFrame() <= p.frame {
+				if a.s.Frame() <= p.frame {
 					continue
 				}
 				snd := a.getSound(p.abil, 2)
@@ -500,7 +500,7 @@ func (a *serverAbilities) sub4FC030(u *Unit, abil Ability) int {
 	}
 	for it := ad.execList; it != nil; it = it.next {
 		if it.abil == abil {
-			return int(it.frame - gameFrame())
+			return int(it.frame - a.s.Frame())
 		}
 	}
 	return -1
@@ -513,7 +513,7 @@ func (a *serverAbilities) sub4FC070(u *Unit, abil Ability, dt int) {
 	}
 	for it := ad.execList; it != nil; it = it.next {
 		if it.abil == abil {
-			it.frame = gameFrame() + uint32(dt)
+			it.frame = a.s.Frame() + uint32(dt)
 			break
 		}
 	}

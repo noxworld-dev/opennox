@@ -14,7 +14,6 @@ extern uint32_t dword_5d4594_2386552;
 extern uint32_t dword_5d4594_2386548;
 extern uint32_t dword_5d4594_2386560;
 extern void* nox_alloc_tradeItems_2386496;
-extern unsigned int nox_frame_xxx_2598000;
 
 //----- (0050E7A0) --------------------------------------------------------
 int sub_50E7A0(uint32_t* a1, int a2) {
@@ -393,7 +392,7 @@ LABEL_18:
 	if (!v9) {
 		return 0;
 	}
-	v9[1] = nox_frame_xxx_2598000;
+	v9[1] = gameFrame();
 	nox_xxx_tradeSetPlayer_50F370(v9, a1);
 	nox_xxx_tradeSetPlayer_50F370(v9, a2);
 	v10 = *(uint8_t*)(a1 + 8);

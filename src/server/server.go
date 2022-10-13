@@ -1,6 +1,8 @@
 package server
 
 import (
+	"sync/atomic"
+
 	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox-lib/console"
@@ -20,6 +22,7 @@ type ObjectScriptID uint32
 type Server struct {
 	pr      console.Printer
 	sm      *strman.StringManager
+	frame   uint32
 	objects struct {
 		firstScriptID ObjectScriptID
 		lastScriptID  ObjectScriptID
@@ -61,4 +64,16 @@ func (s *Server) ResetObjectScriptIDs() {
 	if s.objects.firstScriptID != 0 {
 		s.SetLastObjectScriptID(s.objects.firstScriptID)
 	}
+}
+
+func (s *Server) Frame() uint32 {
+	return atomic.LoadUint32(&s.frame)
+}
+
+func (s *Server) SetFrame(v uint32) {
+	atomic.StoreUint32(&s.frame, v)
+}
+
+func (s *Server) IncFrame() {
+	atomic.AddUint32(&s.frame, 1)
 }

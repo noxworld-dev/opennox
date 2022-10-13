@@ -29,7 +29,6 @@ extern uint32_t dword_5d4594_832476;
 extern uint32_t dword_5d4594_832484;
 extern int nox_win_width;
 extern int nox_win_height;
-extern unsigned int nox_frame_xxx_2598000;
 
 extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_red_2589776;
@@ -300,15 +299,15 @@ int sub_44E8E0(int a1, int a2) {
 	v31 = v50 + 2 * (225 - v38);
 	nox_xxx_drawSetTextColor_434390(nox_color_orange_2614256);
 	nox_xxx_drawString_43F6E0(*(uint32_t*)(a2 + 200), (short*)v57, v30, v31);
-	result = nox_frame_xxx_2598000 / 0x1Eu;
-	if (nox_frame_xxx_2598000 % 0x1Eu) {
+	result = gameFrame() / 0x1Eu;
+	if (gameFrame() % 0x1Eu) {
 		if (dword_587000_122956 != 1) {
 			return result;
 		}
 	} else {
 		result = 1;
 		if (dword_587000_122956 == 1) {
-			dword_587000_122956 = nox_frame_xxx_2598000 % 0x1Eu;
+			dword_587000_122956 = gameFrame() % 0x1Eu;
 			return result;
 		}
 		dword_587000_122956 = 1;
@@ -354,15 +353,15 @@ int sub_44F0F0(int a1, int a2) {
 		nox_xxx_drawString_43F6E0(*(uint32_t*)(a2 + 200), *(short**)getMemAt(0x5D4594, 832464), v2 - v10 / 2,
 								  v3 + 2 * (80 - v11) + 80 - v11);
 	}
-	result = nox_frame_xxx_2598000 / 0x1Eu;
-	if (nox_frame_xxx_2598000 % 0x1Eu) {
+	result = gameFrame() / 0x1Eu;
+	if (gameFrame() % 0x1Eu) {
 		if (nox_xxx_aSpellphoneme_3_587000_123008 != 1) {
 			return result;
 		}
 	} else {
 		result = 1;
 		if (nox_xxx_aSpellphoneme_3_587000_123008 == 1) {
-			nox_xxx_aSpellphoneme_3_587000_123008 = nox_frame_xxx_2598000 % 0x1Eu;
+			nox_xxx_aSpellphoneme_3_587000_123008 = gameFrame() % 0x1Eu;
 			return result;
 		}
 		nox_xxx_aSpellphoneme_3_587000_123008 = 1;
@@ -645,15 +644,15 @@ int sub_44F300(int a1, int a2) {
 	v34.field_0 += v27 + 4;
 	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_832484, (short*)v22, v34.field_0, v34.field_4);
-	result = nox_frame_xxx_2598000 / 0x1Eu;
-	if (nox_frame_xxx_2598000 % 0x1Eu) {
+	result = gameFrame() / 0x1Eu;
+	if (gameFrame() % 0x1Eu) {
 		if (*getMemU32Ptr(0x587000, 123012) != 1) {
 			return result;
 		}
 	} else {
 		result = 1;
 		if (*getMemU32Ptr(0x587000, 123012) == 1) {
-			*getMemU32Ptr(0x587000, 123012) = nox_frame_xxx_2598000 % 0x1Eu;
+			*getMemU32Ptr(0x587000, 123012) = gameFrame() % 0x1Eu;
 			return result;
 		}
 		*getMemU32Ptr(0x587000, 123012) = 1;

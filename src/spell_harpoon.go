@@ -210,7 +210,7 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 	d.target = targ.CObj()
 	tpos := targ.Pos()
 	d.targPos = tpos
-	d.frame38 = gameFrame()
+	d.frame38 = a.s.Frame()
 	bolt.SetFlags(bolt.Flags() | object.FlagNoCollide)
 	sub_4E7540(bolt.OwnerC(), targ)
 	nox_xxx_aud_501960(sound.SoundHarpoonReel, owner, 0, 0)
@@ -273,13 +273,13 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 			return
 		}
 
-		if df := gameFrame() - d.frame35; float32(df) > a.lifetime {
+		if df := a.s.Frame() - d.frame35; float32(df) > a.lifetime {
 			a.breakForOwner(owner, true)
 			return
 		}
 		tpos := targ.Pos()
-		if gameFrame()-d.frame38 > 30 {
-			d.frame38 = gameFrame()
+		if a.s.Frame()-d.frame38 > 30 {
+			d.frame38 = a.s.Frame()
 			dx := d.targPos.X - tpos.X
 			dy := d.targPos.Y - tpos.Y
 			if dx*dx+dy*dy < 1.0 {
@@ -309,6 +309,6 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 	}
 	if d.frame35 == 0 {
 		a.netHarpoonAttach(owner, bolt)
-		d.frame35 = gameFrame()
+		d.frame35 = a.s.Frame()
 	}
 }

@@ -77,7 +77,9 @@ import (
 func init() {
 	configBoolPtr("network.xor", "NOX_NET_XOR", true, &netstr.Xor)
 	configHiddenBoolPtr("debug.network", "NOX_DEBUG_NET", &netstr.Debug)
-	netstr.GameFrame = gameFrame
+	netstr.GameFrame = func() uint32 {
+		return noxServer.Frame()
+	}
 	netstr.OnDiscover = nox_xxx_servNetInitialPackets_552A80_discover
 	netstr.OnExtPacket = MixRecvFromReplacer
 	netstr.GetMaxPlayers = func() int {

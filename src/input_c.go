@@ -69,7 +69,7 @@ func nox_xxx_checkKeybTimeout_4160F0(key C.uchar, dt C.uint) C.bool {
 
 //export sub_416120
 func sub_416120(key C.uchar) C.bool {
-	return inputKeyTimeoutsOld[byte(key)] != gameFrame()
+	return inputKeyTimeoutsOld[byte(key)] != noxServer.Frame()
 }
 
 //export sub_416170
@@ -106,19 +106,19 @@ func nox_xxx_guiSpellTest_45D9C0() bool {
 }
 
 func inputKeyCheckTimeoutLegacy(key byte, dt uint32) bool {
-	return int(gameFrame())-int(inputKeyTimeoutsOld[key]) > int(dt)
+	return int(noxServer.Frame())-int(inputKeyTimeoutsOld[key]) > int(dt)
 }
 
 func inputSetKeyTimeoutLegacy(key byte) {
-	inputKeyTimeoutsOld[key] = gameFrame()
+	inputKeyTimeoutsOld[key] = noxServer.Frame()
 }
 
 func inputKeyCheckTimeout(ev keybind.Event, dt uint32) bool {
-	return int(gameFrame())-int(inputKeyTimeoutsNew[ev]) > int(dt)
+	return int(noxServer.Frame())-int(inputKeyTimeoutsNew[ev]) > int(dt)
 }
 
 func inputSetKeyTimeout(ev keybind.Event) {
-	inputKeyTimeoutsNew[ev] = gameFrame()
+	inputKeyTimeoutsNew[ev] = noxServer.Frame()
 }
 
 func nox_xxx_guiCursor_477600() uint32 {
@@ -369,7 +369,7 @@ func (c *CtrlEventHandler) nox_xxx_input_42D220(inp *input.Handler) {
 	for it := first; it != nil; it = it.field20 {
 		if it.flag22 {
 			it.field21 = res
-			it.frame = gameFrame()
+			it.frame = noxServer.Frame()
 			res = it
 		}
 	}

@@ -42,7 +42,7 @@ func (s *Server) initMetrics() {
 	var ticks uint64
 	s.addGameTickHook(func() {
 		cntPlatformTick.Set(float64(platformTicks()))
-		cntGameTick.Set(float64(gameFrame()))
+		cntGameTick.Set(float64(noxServer.Frame()))
 		if ticks%uint64(gameFPS()/2) == 0 {
 			s.updateMetrics()
 		}

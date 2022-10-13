@@ -3,7 +3,6 @@
 #include "GAME2.h"
 #include "common__random.h"
 
-extern unsigned int nox_frame_xxx_2598000;
 //----- (004CD8D0) --------------------------------------------------------
 int nox_xxx_updDrawTeleportWake_4CD8D0(int a1, int a2) {
 	int v2; // esi
@@ -27,9 +26,9 @@ int nox_xxx_updDrawTeleportWake_4CD8D0(int a1, int a2) {
 		*(uint32_t*)(v5 + 440) =
 			nox_common_randomIntMinMax_415FF0(1, 100, "C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c", 46);
 		*(uint32_t*)(v5 + 448) =
-			nox_frame_xxx_2598000 +
+			gameFrame() +
 			nox_common_randomIntMinMax_415FF0(10, 32, "C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c", 49);
-		*(uint32_t*)(v5 + 444) = nox_frame_xxx_2598000;
+		*(uint32_t*)(v5 + 444) = gameFrame();
 		*(uint16_t*)(v5 + 104) = 0;
 		*(uint8_t*)(v5 + 296) =
 			nox_common_randomIntMinMax_415FF0(3, 8, "C:\\NoxPost\\src\\client\\Drawable\\Update\\telwake.c", 55);

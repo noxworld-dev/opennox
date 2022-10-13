@@ -5,7 +5,6 @@
 #include "client__draw__slavedraw.h"
 
 extern unsigned int nox_gameFPS;
-extern unsigned int nox_frame_xxx_2598000;
 //----- (004B7920) --------------------------------------------------------
 int nox_thing_arrow_draw(int* a1, nox_drawable* dr) {
 	int v2;       // eax
@@ -78,8 +77,8 @@ int nox_thing_arrow_tail_link_draw(uint32_t* a1, nox_drawable* dr) {
 	v4 = v2 + a1[1] - *(short*)(a2 + 106) - *(short*)(a2 + 104) - a1[5];
 	v5 = *(uint32_t*)(a2 + 436) - v2;
 	v6 = *(uint32_t*)(a2 + 432) + *a1 - a1[4];
-	if (*(uint32_t*)(a2 + 356) - nox_frame_xxx_2598000 > 0) {
-		v7 = ((*(uint32_t*)(a2 + 356) - nox_frame_xxx_2598000) << 6) / (int)(nox_gameFPS / 3u);
+	if (*(uint32_t*)(a2 + 356) - gameFrame() > 0) {
+		v7 = ((*(uint32_t*)(a2 + 356) - gameFrame()) << 6) / (int)(nox_gameFPS / 3u);
 		if (v7 >= 64) {
 			v7 = 63;
 		}
@@ -110,8 +109,8 @@ int nox_thing_weak_arrow_tail_link_draw(uint32_t* a1, nox_drawable* dr) {
 	v4 = v2 + a1[1] - *(short*)(a2 + 106) - *(short*)(a2 + 104) - a1[5];
 	v5 = *(uint32_t*)(a2 + 436) - v2;
 	v6 = *(uint32_t*)(a2 + 432) + *a1 - a1[4];
-	if (*(uint32_t*)(a2 + 356) - nox_frame_xxx_2598000 > 0) {
-		v7 = ((*(uint32_t*)(a2 + 356) - nox_frame_xxx_2598000) << 6) / (int)(nox_gameFPS / 3u);
+	if (*(uint32_t*)(a2 + 356) - gameFrame() > 0) {
+		v7 = ((*(uint32_t*)(a2 + 356) - gameFrame()) << 6) / (int)(nox_gameFPS / 3u);
 		if (v7 >= 64) {
 			v7 = 63;
 		}

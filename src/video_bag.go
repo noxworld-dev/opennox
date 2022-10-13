@@ -187,7 +187,7 @@ func readVideobag(path string) error {
 	return nil
 }
 
-func nox_video_read_videobag() error {
+func ReadVideoBag() error {
 	return readVideobag("video.bag")
 }
 

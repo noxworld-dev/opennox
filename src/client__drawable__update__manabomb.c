@@ -7,7 +7,6 @@
 #include "operators.h"
 
 extern uint32_t dword_5d4594_1522956;
-extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004CCAC0) --------------------------------------------------------
 int nox_xxx_updDrawManabombCharge_4CCAC0(int a1, uint32_t* a2) {
@@ -31,19 +30,19 @@ int nox_xxx_updDrawManabombCharge_4CCAC0(int a1, uint32_t* a2) {
 			*(uint32_t*)(v7 + 436) = *(uint32_t*)(v7 + 16) << 12;
 			*(uint8_t*)(v7 + 299) = 0;
 			*(uint32_t*)(v7 + 440) = 0;
-			*(uint32_t*)(v7 + 448) = nox_frame_xxx_2598000 + nox_common_randomIntMinMax_415FF0(10, 30, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 88);
-			*(uint32_t*)(v7 + 444) = nox_frame_xxx_2598000;
+			*(uint32_t*)(v7 + 448) = gameFrame() + nox_common_randomIntMinMax_415FF0(10, 30, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 88);
+			*(uint32_t*)(v7 + 444) = gameFrame();
 			*(uint16_t*)(v7 + 104) = 0;
 			*(uint8_t*)(v7 + 296) = nox_common_randomIntMinMax_415FF0(2, 8, "C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c", 94);
 			nox_xxx_sprite_45A110_drawable(v7);
 		}
 	}
-	if (nox_frame_xxx_2598000 & 1) {
-		if ((unsigned int)(nox_frame_xxx_2598000 - a2[80]) < 10) {
+	if (gameFrame() & 1) {
+		if ((unsigned int)(gameFrame() - a2[80]) < 10) {
 			short vv1[4];
 			vv1[0] = *((int16_t*)a2 + 6);
 			vv1[1] = *((int16_t*)a2 + 8);
-			for (int v10 = nox_frame_xxx_2598000 % 51; v10 < 256; v10 += 51) {
+			for (int v10 = gameFrame() % 51; v10 < 256; v10 += 51) {
 				int16_t* tbl = getMemAt(0x587000, 192088 + 8 * v10);
 				vv1[2] = vv1[0] + (rad / 16) * tbl[0];
 				vv1[3] = vv1[1] + (rad / 16) * tbl[2];

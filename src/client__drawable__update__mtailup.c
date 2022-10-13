@@ -7,7 +7,6 @@
 #include "common__random.h"
 
 extern unsigned int nox_gameFPS;
-extern unsigned int nox_frame_xxx_2598000;
 //----- (004CDD80) --------------------------------------------------------
 void nox_xxx_updDrawMagic_4CDD80(int a1, uint32_t* a2) {
 	uint32_t* v2; // edi
@@ -62,9 +61,9 @@ void nox_xxx_updDrawMagic_4CDD80(int a1, uint32_t* a2) {
 			*(uint8_t*)(v11 + 299) = 0;
 			*(uint32_t*)(v11 + 440) = 0;
 			*(uint32_t*)(v11 + 448) =
-				nox_frame_xxx_2598000 +
+				gameFrame() +
 				nox_common_randomIntMinMax_415FF0(10, 20, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\mtailup.c", 90);
-			*(uint32_t*)(v11 + 444) = nox_frame_xxx_2598000;
+			*(uint32_t*)(v11 + 444) = gameFrame();
 			*(uint16_t*)(v11 + 104) = *((uint16_t*)v2 + 52);
 			*(uint16_t*)(v11 + 106) = *((uint16_t*)v2 + 53);
 			*(uint8_t*)(v11 + 296) = 0;

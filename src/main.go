@@ -414,7 +414,7 @@ func RunArgs(args []string) (gerr error) {
 		enableGUIDrawing(false)
 		videoInitStub()
 	}
-	if err := nox_video_read_videobag(); err != nil {
+	if err := ReadVideoBag(); err != nil {
 		return err
 	}
 	if C.sub_431370() == 0 {

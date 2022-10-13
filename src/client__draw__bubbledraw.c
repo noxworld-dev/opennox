@@ -5,7 +5,6 @@
 #include "GAME3.h"
 
 extern unsigned int nox_gameFPS;
-extern unsigned int nox_frame_xxx_2598000;
 //----- (004B7540) --------------------------------------------------------
 int nox_thing_bubble_draw(uint32_t* a1, nox_drawable* dr) {
 	unsigned int v2;  // eax
@@ -30,7 +29,7 @@ int nox_thing_bubble_draw(uint32_t* a1, nox_drawable* dr) {
 		goto LABEL_29;
 	}
 	v2 = *(uint32_t*)(a2 + 356);
-	if (v2 && v2 <= nox_frame_xxx_2598000) {
+	if (v2 && v2 <= gameFrame()) {
 		*(uint8_t*)(a2 + 441) = 3;
 		*(uint8_t*)(a2 + 442) = 4;
 		*(uint8_t*)(a2 + 443) = 4;
@@ -50,7 +49,7 @@ int nox_thing_bubble_draw(uint32_t* a1, nox_drawable* dr) {
 	sub_4B6720(&xLeft, *(uint32_t*)(a2 + 432), v5, v5 + 3);
 	nox_client_drawSetColor_434460(*(uint32_t*)(a2 + 436));
 	nox_xxx_drawPointMB_499B70(xLeft.field_0, xLeft.field_4, *(unsigned char*)(a2 + 440) >> 1);
-	if ((unsigned char)nox_frame_xxx_2598000 & 3) {
+	if ((unsigned char)gameFrame() & 3) {
 		*(uint16_t*)(a2 + 104) += *(char*)(a2 + 446);
 	}
 	v6 = *(uint8_t*)(a2 + 442);

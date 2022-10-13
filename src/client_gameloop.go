@@ -125,7 +125,7 @@ func (c *Client) mapDownloadLoop(first bool) (bool, error) {
 		if first {
 			nox_xxx_netRequestMap_43CA50()
 		}
-		if gameFrame()%30 != 0 { // TODO: shouldn't it be == 0?
+		if c.srv.Frame()%30 != 0 { // TODO: shouldn't it be == 0?
 			nox_xxx_netKeepAliveSocket_43CA20()
 		}
 	} else {
@@ -254,9 +254,9 @@ func (c *Client) generateMouseSparks() {
 
 func sub_43CCA0() {
 	C.nox_xxx_spriteDeleteSomeList_49C4B0()
-	start := gameFrame()
+	start := noxServer.Frame()
 	nox_xxx_servNetInitialPackets_552A80(int(nox_xxx_netGet_43C750()), 1)
-	if start != gameFrame() && C.dword_5d4594_2650652 == 1 && !noxflags.HasGame(noxflags.GameHost) {
+	if start != noxServer.Frame() && C.dword_5d4594_2650652 == 1 && !noxflags.HasGame(noxflags.GameHost) {
 		if v1 := C.sub_40A710(1); C.sub_43C790() > v1 {
 			C.sub_43CEB0()
 			v2 := memmap.Uint64(0x5D4594, 815740) + memmap.Uint64(0x587000, 91880)/uint64(C.sub_43C790())
@@ -264,7 +264,7 @@ func sub_43CCA0() {
 				buf, free := alloc.Make([]byte{}, 8) // TODO: check if we need extra space
 				defer free()
 				buf[0] = byte(noxnet.MSG_FULL_TIMESTAMP)
-				binary.LittleEndian.PutUint32(buf[1:], gameFrame()+1)
+				binary.LittleEndian.PutUint32(buf[1:], noxServer.Frame()+1)
 				nox_xxx_netOnPacketRecvCli_48EA70(noxMaxPlayers-1, buf[:5])
 			}
 		}

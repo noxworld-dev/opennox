@@ -103,7 +103,6 @@ extern uint32_t nox_client_renderGUI_80828;
 extern nox_window* nox_wnd_quitMenu_825760;
 extern uint32_t dword_5d4594_2650652;
 extern uint32_t nox_player_netCode_85319C;
-extern unsigned int nox_frame_xxx_2598000;
 void* dword_5d4594_830236 = 0;
 void* dword_5d4594_830232 = 0;
 
@@ -902,9 +901,9 @@ int nox_xxx_drawMessageLines_445530() {
 	v2 = dword_5d4594_825736;
 	for (i = dword_5d4594_825736;; v2 = i) {
 		v3 = 161 * v2;
-		result = nox_frame_xxx_2598000;
+		result = gameFrame();
 		v5 = 4 * v3;
-		if (*getMemU32Ptr(0x5D4594, 824440 + v5) < nox_frame_xxx_2598000) {
+		if (*getMemU32Ptr(0x5D4594, 824440 + v5) < gameFrame()) {
 			break;
 		}
 		nox_xxx_drawSetTextColor_434390(nox_color_black_2650656);

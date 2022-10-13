@@ -1315,7 +1315,7 @@ var noxMemmap = []struct {
 	{0x5D4594, 2523948, 4, "nox_color_white_2523948"},
 	{0x5D4594, 2589772, 4, "nox_color_yellow_2589772"},
 	{0x5D4594, 2589776, 4, "nox_color_red_2589776"},
-	{0x5D4594, 2598000, 4, "nox_frame_xxx_2598000"}, // 0x84EA04
+	{0x5D4594, 2598000, 4, "gameFrame()"}, // 0x84EA04
 	{0x5D4594, 2598268, 4, "nox_color_violet_2598268"},
 	{0x852978, 12, 4, "nox_color_orange_2614256"},
 	{0x852978, 24, 4, "nox_color_green_2614268"},
