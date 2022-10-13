@@ -14,7 +14,6 @@
 #include "common__system__team.h"
 #include "operators.h"
 
-extern unsigned int nox_gameFPS;
 extern uint32_t dword_5d4594_1313796;
 
 //----- (004BC490) --------------------------------------------------------
@@ -129,7 +128,7 @@ int nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 		if (*(uint8_t*)(v2 + 297) != v4) {
 			v5 = *(uint32_t*)(v2 + 276);
 			if (v5 != 1 && v5 != 3 && v5 != 5) {
-				if ((unsigned int)(gameFrame() - *(uint32_t*)(v2 + 436)) >= (int)nox_gameFPS >> 2) {
+				if ((unsigned int)(gameFrame() - *(uint32_t*)(v2 + 436)) >= (int)gameFPS() >> 2) {
 					*(uint32_t*)(v2 + 436) = gameFrame();
 					*(uint8_t*)(v2 + 432) = *(uint8_t*)(v2 + 297);
 				} else {

@@ -72,7 +72,6 @@ extern uint32_t dword_5d4594_2386944;
 extern uint32_t dword_5d4594_2650652;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern nox_server_xxx nox_server_xxx_1599716[NOX_SERVER_XXX_SIZE * NOX_SERVER_XXX_SIZE];
-extern unsigned int nox_gameFPS;
 
 uint32_t nox_xxx_wallSounds_2386840 = 0;
 void* dword_5d4594_2386176 = 0;
@@ -679,7 +678,7 @@ int nox_xxx_monsterCallDieFn_50A3D0(uint32_t* a1) {
 		} else {
 			v5 = nox_common_randomInt_415FA0(10, 20);
 		}
-		nox_xxx_unitSetDecayTime_511660(a1, nox_gameFPS * v5);
+		nox_xxx_unitSetDecayTime_511660(a1, gameFPS() * v5);
 	LABEL_13:
 		v6 = a1[127];
 		if (v6 && *(uint8_t*)(v6 + 8) & 4) {
@@ -776,7 +775,7 @@ int nox_xxx_unitUpdateMonster_50A5C0(float a1) {
 											   *(unsigned short*)(*(uint32_t*)(LODWORD(a1) + 556) + 4));
 				}
 				v8 = *(uint32_t*)(v2 + 520);
-				if (v8 && (unsigned int)(gameFrame() - v8) >= (int)nox_gameFPS) {
+				if (v8 && (unsigned int)(gameFrame() - v8) >= (int)gameFPS()) {
 					nox_xxx_monsterPlayHurtSound_532800(SLODWORD(a1));
 					*(uint32_t*)(v2 + 520) = 0;
 				}
@@ -786,9 +785,9 @@ int nox_xxx_unitUpdateMonster_50A5C0(float a1) {
 			if (v9) {
 				v10 = *(uint32_t*)(LODWORD(a1) + 16);
 				if ((v10 & 0x8000) == 0 &&
-					(unsigned int)(gameFrame() - *(uint32_t*)(LODWORD(a1) + 536)) > (int)nox_gameFPS) {
+					(unsigned int)(gameFrame() - *(uint32_t*)(LODWORD(a1) + 536)) > (int)gameFPS()) {
 					v11 = v9[2];
-					if (*v9 < v11 && v11 && !(gameFrame() % (180 * nox_gameFPS / (unsigned int)v9[2]))) {
+					if (*v9 < v11 && v11 && !(gameFrame() % (180 * gameFPS() / (unsigned int)v9[2]))) {
 						nox_xxx_unitAdjustHP_4EE460(SLODWORD(a1), 1);
 					}
 				}
@@ -837,13 +836,13 @@ int nox_xxx_unitUpdateMonster_50A5C0(float a1) {
 			nox_xxx_monsterPolygonEnter_421FF0(v1);
 			v20 = *(uint8_t*)(v2 + 1128);
 			if (v20 < 0x64u) {
-				*(uint8_t*)(v2 + 1128) = v20 + 0x64u / nox_gameFPS;
+				*(uint8_t*)(v2 + 1128) = v20 + 0x64u / gameFPS();
 			}
 			if (nox_xxx_unitIsMimic_534840(v1)) {
 				nox_xxx_monsterMimicCheckMorph_534950(v1);
 			}
-			result = nox_gameFPS;
-			if (gameFrame() - *(uint32_t*)(v1 + 536) > (unsigned int)(3 * nox_gameFPS)) {
+			result = gameFPS();
+			if (gameFrame() - *(uint32_t*)(v1 + 536) > (unsigned int)(3 * gameFPS())) {
 				*(uint32_t*)(v2 + 1440) &= 0xFFF7FFFF;
 			}
 		}
@@ -7147,7 +7146,7 @@ int nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
 	v2 = obj->data_update;
 	v3 = *(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064);
 	nox_netlist_initPlayerBufs_40F020(v3);
-	if (v3 != 31 && !((gameFrame() + v3) % (unsigned int)(15 * nox_gameFPS))) {
+	if (v3 != 31 && !((gameFrame() + v3) % (unsigned int)(15 * gameFPS()))) {
 		nox_xxx_netReportUnitHeight_4D9020(v3, (int)obj);
 	}
 	if (!dword_5d4594_2650652 || !(gameFrame() % (unsigned int)nox_xxx_rateGet_40A6C0()) ||

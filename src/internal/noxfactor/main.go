@@ -287,6 +287,9 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 		return
 	}
 	switch fnc.Name {
+	case "gameFPS":
+		n.Fun = selExpr("noxServer", "TickRate")
+		r.fileChanged = true
 	case "gameFrame":
 		n.Fun = selExpr("noxServer", "Frame")
 		r.fileChanged = true

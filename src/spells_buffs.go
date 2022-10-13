@@ -35,7 +35,7 @@ func castBuffSpell(spellID spell.ID, enc EnchantID, lvl int, targ *Unit, opts sp
 		dur = int(float64(dur) * gamedataFloat(opts.DurOptMulQuest))
 	}
 	if opts.DurFPSMul {
-		dur *= int(gameFPS())
+		dur *= int(noxServer.TickRate())
 	}
 	if opts.DurLevelMul {
 		dur *= lvl

@@ -217,7 +217,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			if obj == nil || !obj.Class().HasAny(object.MaskUnits) || (h.cur == 0) && h.max != 0 {
 				ok = false
 				ud.field_97 = 0
-				ud.field_101 = C.uint(a.s.Frame() + gameFPS())
+				ud.field_101 = C.uint(a.s.Frame() + a.s.TickRate())
 			}
 		case ai.DEPENDENCY_UNDER_ATTACK:
 			if C.sub_5347A0(u.CObj()) != 0 {
@@ -228,7 +228,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 					}
 				}
 			}
-			ok = a.s.Frame()-st.ArgU32(0) <= 10*gameFPS()
+			ok = a.s.Frame()-st.ArgU32(0) <= 10*a.s.TickRate()
 		case ai.DEPENDENCY_NOT_UNDER_ATTACK:
 			if C.sub_5347A0(u.CObj()) == 0 {
 				break
@@ -302,7 +302,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			}
 			ok = C.nox_xxx_mobSearchEdible_544A00(u.CObj(), C.float(r)) == 0
 		case ai.DEPENDENCY_NO_INTERESTING_SOUND:
-			if ud.field_97 != 0 && a.s.Frame()-uint32(ud.field_101) < 3*gameFPS() {
+			if ud.field_97 != 0 && a.s.Frame()-uint32(ud.field_101) < 3*a.s.TickRate() {
 				ok = false
 			}
 		case ai.DEPENDENCY_NO_NEW_ENEMY:
@@ -423,10 +423,11 @@ func nox_xxx_checkMobAction_50A0D0(u *Unit, act ai.ActionType) bool {
 //export sub_545E60
 func sub_545E60(a1c *nox_object_t) C.int {
 	u := asUnitC(a1c)
+	s := u.getServer()
 
 	ud := u.updateDataMonster()
 	ts := uint32(u.field_134)
-	if uint32(ud.field_129) >= ts || noxServer.Frame()-ts >= 10*gameFPS() {
+	if uint32(ud.field_129) >= ts || s.Frame()-ts >= 10*s.TickRate() {
 		return 0
 	}
 	ud.field_129 = C.uint(ts)
@@ -442,9 +443,9 @@ func sub_545E60(a1c *nox_object_t) C.int {
 				}
 				u.monsterPushAction(ai.DEPENDENCY_ENEMY_CLOSER_THAN, float32(ud.field_328)*1.05)
 			} else {
-				u.monsterPushAction(ai.DEPENDENCY_UNDER_ATTACK, noxServer.Frame())
+				u.monsterPushAction(ai.DEPENDENCY_UNDER_ATTACK, s.Frame())
 			}
-			u.monsterPushAction(ai.ACTION_FIGHT, obj4.Pos(), noxServer.Frame())
+			u.monsterPushAction(ai.ACTION_FIGHT, obj4.Pos(), s.Frame())
 			if !canInteract {
 				u.monsterPushAction(ai.DEPENDENCY_NO_VISIBLE_ENEMY)
 				if C.nox_xxx_monsterCanAttackAtWill_534390(u.CObj()) != 0 {
@@ -456,7 +457,7 @@ func sub_545E60(a1c *nox_object_t) C.int {
 		}
 	}
 	if !nox_xxx_checkMobAction_50A0D0(u, ai.ACTION_ROAM) {
-		u.monsterPushAction(ai.DEPENDENCY_TIME, 5*gameFPS())
+		u.monsterPushAction(ai.DEPENDENCY_TIME, 5*s.TickRate())
 		u.monsterPushAction(ai.DEPENDENCY_NO_VISIBLE_ENEMY)
 		if C.nox_xxx_monsterCanAttackAtWill_534390(u.CObj()) != 0 {
 			u.monsterPushAction(ai.DEPENDENCY_NO_INTERESTING_SOUND)

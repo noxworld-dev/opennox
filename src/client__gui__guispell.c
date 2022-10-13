@@ -31,7 +31,6 @@ extern uint32_t dword_5d4594_1049504;
 extern void* nox_xxx_aClosewoodengat_587000_133480;
 extern int nox_win_width;
 extern int nox_win_height;
-extern unsigned int nox_gameFPS;
 extern uint32_t nox_color_white_2523948;
 
 //----- (0045DEB0) --------------------------------------------------------
@@ -636,12 +635,12 @@ int nox_xxx_quickBarDrawFn_45FBD0(int yTop) {
 				if (*getMemU32Ptr(0x5D4594, 1047764 + 12 + v13) || !*getMemU32Ptr(0x5D4594, 1047764 + 8 + v13) ||
 					nox_xxx_playerAnimCheck_4372B0()) {
 					v14 = nox_xxx_abilityCooldown_4252D0(*v7);
-					if (v14 / nox_gameFPS) {
+					if (v14 / gameFPS()) {
 						if (!v19) {
 							nox_client_drawRectFilledAlpha_49CF10(
 								xLeft, yTop, 34,
 								34 - (gameFrame() - *getMemU32Ptr(0x5D4594, 1047764 + 20 + 24 * *v7)) /
-										 (v14 / nox_gameFPS));
+										 (v14 / gameFPS()));
 						}
 					}
 				}

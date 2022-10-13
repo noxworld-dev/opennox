@@ -4,7 +4,6 @@
 #include "GAME2_3.h"
 #include "GAME3.h"
 
-extern unsigned int nox_gameFPS;
 //----- (004B7540) --------------------------------------------------------
 int nox_thing_bubble_draw(uint32_t* a1, nox_drawable* dr) {
 	unsigned int v2;  // eax
@@ -33,7 +32,7 @@ int nox_thing_bubble_draw(uint32_t* a1, nox_drawable* dr) {
 		*(uint8_t*)(a2 + 441) = 3;
 		*(uint8_t*)(a2 + 442) = 4;
 		*(uint8_t*)(a2 + 443) = 4;
-		nox_xxx_spriteTransparentDecay_49B950((uint32_t*)a2, (int)nox_gameFPS);
+		nox_xxx_spriteTransparentDecay_49B950((uint32_t*)a2, (int)gameFPS());
 	}
 	if (*(uint8_t*)(a2 + 441) == 3) {
 	LABEL_29:

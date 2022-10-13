@@ -87,7 +87,6 @@ extern uint32_t dword_5d4594_529316;
 extern uint32_t nox_player_netCode_85319C;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
-extern unsigned int nox_gameFPS;
 extern nox_team_t nox_server_teams_526292[NOX_TEAMS_MAX];
 
 //----- (00418800) --------------------------------------------------------
@@ -1994,8 +1993,8 @@ int nox_xxx_guiEnchantment_41B9C0(uint32_t* a1) {
 					nox_xxx_spellAccept_4FD400(v8, (int)a1, a1, (int)a1, (int*)&v24, v13);
 					v9 = v17;
 					if (!(uint16_t)v17) {
-						v9 = (uint16_t)nox_gameFPS;
-						v17 = nox_gameFPS;
+						v9 = (uint16_t)gameFPS();
+						v17 = gameFPS();
 					}
 					*((uint16_t*)a1 + v6 + 172) = v9;
 					if (v6 == 26 && (short)v18 >= 3) {
@@ -3205,7 +3204,7 @@ int sub_41E370() {
 int nox_xxx_reconAttempt_41E390() {
 	int result; // eax
 
-	if (gameFrame() - dword_5d4594_528264 <= (unsigned int)(3600 * nox_gameFPS)) {
+	if (gameFrame() - dword_5d4594_528264 <= (unsigned int)(3600 * gameFPS())) {
 		result = dword_5d4594_528252;
 		if (dword_5d4594_528252) {
 			result = dword_5d4594_528256;
@@ -3237,7 +3236,7 @@ void nox_xxx_reconStart_41E400() {
 				dword_5d4594_528252 = 1;
 				dword_5d4594_528256 = 0;
 				dword_5d4594_528264 = gameFrame();
-				dword_5d4594_528260 = gameFrame() + 120 * nox_gameFPS;
+				dword_5d4594_528260 = gameFrame() + 120 * gameFPS();
 			}
 		}
 	}
@@ -3249,8 +3248,8 @@ int sub_41E470() {
 
 	nox_xxx_networkLog_printf_413D30("RECON: TryReconnectAgain called on frame (%d)", gameFrame());
 	dword_5d4594_528256 = 0;
-	result = gameFrame() + 120 * nox_gameFPS;
-	dword_5d4594_528260 = gameFrame() + 120 * nox_gameFPS;
+	result = gameFrame() + 120 * gameFPS();
+	dword_5d4594_528260 = gameFrame() + 120 * gameFPS();
 	return result;
 }
 

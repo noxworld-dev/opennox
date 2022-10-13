@@ -670,11 +670,11 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *Uni
 	case spell.SPELL_FIREBALL:
 		cfnc = C.nox_xxx_castFireball_52C790
 	case spell.SPELL_FIREWALK:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, nil, C.nox_xxx_firewalkTick_52ED40, nil, 3*gameFPS())
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, nil, C.nox_xxx_firewalkTick_52ED40, nil, 3*s.TickRate())
 	case spell.SPELL_FIST:
 		cfnc = C.nox_xxx_castFist_52D3C0
 	case spell.SPELL_FORCE_OF_NATURE:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.sub_52EF30, C.sub_52EFD0, C.sub_52F1D0, 2*gameFPS()/3)
+		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.sub_52EF30, C.sub_52EFD0, C.sub_52F1D0, 2*s.TickRate()/3)
 	case spell.SPELL_FREEZE:
 		fnc = castFreeze
 	case spell.SPELL_FUMBLE:
