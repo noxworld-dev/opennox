@@ -2,7 +2,6 @@
 #define NOX_DEFS_H
 
 #include "memfile.h"
-#include "nox_net.h"
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -71,12 +70,6 @@ enum {
 
 void nox_exit(int exitCode);
 
-// saturating 8-bit addition
-static uint8_t SADD8(uint8_t x, uint8_t y) {
-	unsigned int z = x + y;
-	return z > 0xFF ? 0xFF : (uint8_t)z;
-}
-
 #define abs32 abs
 
 static void memset32(uint32_t* x, uint32_t y, size_t z) {
@@ -89,14 +82,6 @@ static void memset32(uint32_t* x, uint32_t y, size_t z) {
 static void* operator_new(size_t x) { return calloc(1, x); }
 
 static void operator_delete(void* x) { free(x); }
-
-static uint16_t __ROL2__(uint16_t x, int shift) {
-	if (shift == 0)
-		return x;
-	if (shift == 16)
-		return x;
-	return (uint16_t)((x << shift) | (x >> (16 - shift)));
-}
 
 static float COERCE_FLOAT(uint32_t x) { return *(float*)&x; }
 

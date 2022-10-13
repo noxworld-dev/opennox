@@ -3,7 +3,6 @@
 
 #include "defs.h"
 
-int nox_xxx_keyFirstLetterNumberCli_44CD30(char* a1);
 char* nox_get_thing_name(int i);
 nox_thing* nox_get_thing(int i);
 wchar_t* nox_get_thing_pretty_name(int i);
@@ -28,7 +27,6 @@ void sub_44D960();
 int sub_44D970();
 int sub_44D990();
 void nox_video_stopAllFades_44E040();
-void nox_xxx_cliPlayMapIntro_44E0B0(int a1);
 int nox_video_inFadeTransition_44E0D0();
 uint32_t* sub_44E110();
 void sub_44E320();

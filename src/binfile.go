@@ -376,18 +376,3 @@ func nox_binfile_fseek_409050(cfile *C.FILE, coff, cwhence C.int) C.int {
 	}
 	return 0
 }
-
-//export nox_binfile_fwrite_409200
-func nox_binfile_fwrite_409200(cbuf *C.char, sz, cnt C.int, cfile *C.FILE) C.size_t {
-	if sz*cnt == 0 {
-		return 0
-	}
-	file := fileByHandle(cfile)
-	bin := file.bin
-	buf := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), int(sz*cnt))
-	n, err := bin.Write(buf)
-	if err != nil {
-		file.err = err
-	}
-	return C.size_t(n / int(sz))
-}

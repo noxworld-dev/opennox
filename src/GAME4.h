@@ -15,7 +15,6 @@ int nox_xxx_XFerObelisk_4F6F60(int* a1);
 int nox_xxx_XFerToxicCloud_4F70A0(int a1);
 int nox_xxx_XFerMonsterGen_4F7130(int* a1);
 int nox_xxx_XFerRewardMarker_4F74D0(int* a1);
-int nox_xxx_unitInventoryContains_4F78E0(int a1, int a2);
 int nox_xxx_equipedItemByCode_4F7920(int a1, int a2);
 void sub_4F7950(int a1);
 void nox_xxx_playerSetCustomWP_4F79A0(int a1, int a2, int a3);

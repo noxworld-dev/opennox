@@ -199,7 +199,6 @@ int sub_4CC140(uint32_t* a1, unsigned int a2, unsigned int a3, int a4);
 int sub_4CC170(int a1, int a2, char* a3, int a4);
 int sub_4CC280(unsigned int a1);
 int sub_4CC3C0(unsigned int a1);
-int nox_xxx_guiDownloadClose_4CC930();
 int nox_xxx_updDrawUndeadKiller_4CCCF0();
 int sub_4CCD00(int a1, int a2);
 int nox_xxx_updDrawFist_4CCDB0(int a1, int a2);

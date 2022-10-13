@@ -76,10 +76,7 @@ extern uint32_t dword_5d4594_1308160;
 extern uint32_t dword_5d4594_1309824;
 extern uint32_t dword_5d4594_1307720;
 extern uint32_t dword_5d4594_1308164;
-extern uint32_t dword_5d4594_1312476;
 extern uint32_t dword_5d4594_1307736;
-extern uint32_t dword_5d4594_1309708;
-extern uint32_t dword_5d4594_1312472;
 extern uint32_t nox_server_connectionType_3596;
 extern uint32_t nox_win_onlineOrLAN_1309716;
 extern uint32_t dword_5d4594_1313792;
@@ -91,10 +88,8 @@ extern uint32_t dword_5d4594_1309732;
 extern uint64_t qword_581450_9552;
 extern void* dword_587000_93164;
 extern uint32_t dword_5d4594_1307716;
-extern uint32_t dword_5d4594_1312484;
 extern void* dword_587000_127004;
 extern uint32_t dword_5d4594_1308088;
-extern uint32_t dword_5d4594_1312480;
 extern uint32_t dword_5d4594_1309748;
 extern uint32_t dword_5d4594_1313796;
 extern uint32_t dword_5d4594_1313800;
@@ -2663,15 +2658,6 @@ int sub_4A7D50(char* a1) {
 //----- (004A7EF0) --------------------------------------------------------
 char* sub_4A7EF0() { return (char*)getMemAt(0x5D4594, 1308732); }
 
-//----- (004A7F00) --------------------------------------------------------
-int sub_4A7F00() { return *getMemU32Ptr(0x5D4594, 1308728); }
-
-//----- (004A7F10) --------------------------------------------------------
-char* sub_4A7F10() { return (char*)getMemAt(0x5D4594, 1308192); }
-
-//----- (004A7F20) --------------------------------------------------------
-int sub_4A7F20() { return *getMemU32Ptr(0x5D4594, 1308348); }
-
 //----- (004A7F50) --------------------------------------------------------
 int nox_xxx_wndButtonProc_4A7F50(nox_window* win, int ev, int a3, int a4) {
 	switch (ev) {
@@ -3487,15 +3473,6 @@ int nox_xxx_compassGenStrings_4A9C80() {
 		*(uint32_t*)v3 = nox_xxx_gLoadImg_42F970(v5);
 		v3 += 4;
 	} while ((int)v3 < (int)getMemAt(0x5D4594, 1309644));
-	return 1;
-}
-
-//----- (004AA450) --------------------------------------------------------
-int sub_4AA450() {
-	*(uint8_t*)(dword_5d4594_1309708 + 64) = 2;
-	*(uint8_t*)(*getMemU32Ptr(0x5D4594, 1309712) + 64) = 2;
-	sub_43BE40(2);
-	nox_xxx_clientPlaySoundSpecial_452D80(923, 100);
 	return 1;
 }
 

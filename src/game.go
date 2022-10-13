@@ -2165,7 +2165,6 @@ func nox_game_checkStateOptions_43C220() {
 	}
 }
 
-//export nox_game_checkStateMenu_43C2F0
 func nox_game_checkStateMenu_43C2F0() {
 	if gameGetStateCode() < 0 {
 		return

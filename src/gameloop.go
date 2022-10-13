@@ -14,7 +14,6 @@ package opennox
 #include "GAME3_3.h"
 #include "GAME5.h"
 #include "GAME5_2.h"
-#include "client__network__netclint.h"
 #include "GAME2_3.h"
 #include "common__system__team.h"
 #include "common__net_list.h"

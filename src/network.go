@@ -2,7 +2,6 @@ package opennox
 
 /*
 #include "defs.h"
-#include "nox_net.h"
 #include "common__net_list.h"
 #include "server__network__sdecode.h"
 #include "GAME1.h"

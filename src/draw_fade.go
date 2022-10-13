@@ -43,8 +43,7 @@ func stopFadeInScreen() {
 	noxClient.r.StopFade(noxrender.FadeInScreenKey)
 }
 
-//export nox_xxx_cliPlayMapIntro_44E0B0
-func nox_xxx_cliPlayMapIntro_44E0B0(menu C.int) {
+func nox_xxx_cliPlayMapIntro_44E0B0(menu int) {
 	stopFadeOutScreen()
 	stopFadeInScreen()
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 1

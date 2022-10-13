@@ -4,7 +4,6 @@
 #include "defs.h"
 
 int sub_42CC50(void** this);
-void sub_448640(void);
 int nox_xxx_j_inventoryNameSignInit_467460(void);
 int nullsub_8(int a1, int a2);
 void nullsub_9(uint32_t a1);
@@ -21,7 +20,6 @@ void nullsub_28(uint32_t a1);
 void nullsub_29(void);
 void nullsub_30(uint32_t a1);
 int nox_xxx_netSendReadPacket_5528B0(int a1, unsigned char a2);
-int nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags);
 unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out);
 unsigned int nox_xxx_net_getIP_554200(int a1);
 char* sub_554230();
@@ -33,8 +31,6 @@ int nox_xxx_netStructReadPackets_5545B0(unsigned int a1);
 int nox_xxx_createSocketLocal_554B40(uint16_t hostshort);
 int sub_554D10();
 int sub_5550D0(int a1, uint16_t hostshort, char* buf);
-int sub_555250(unsigned int a1, uint32_t* a2);
-int sub_555290(unsigned int a1, uint32_t* a2);
 void nullsub_31(uint32_t a1);
 int sub_56F1C0();
 int nox_xxx_protect_56F240();

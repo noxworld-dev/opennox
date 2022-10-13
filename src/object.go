@@ -175,12 +175,6 @@ func nox_xxx_createAt_4DAA50(cobj *nox_object_t, cowner *nox_object_t, x C.float
 	noxServer.createObjectAt(asObjectC(cobj), owner, types.Pointf{X: float32(x), Y: float32(y)})
 }
 
-//export nox_xxx_objectToggle_4E7650
-func nox_xxx_objectToggle_4E7650(cobj *nox_object_t) C.char {
-	obj := asObjectC(cobj)
-	return C.char(bool2int(obj.Toggle()))
-}
-
 type shapeKind uint32
 
 const (

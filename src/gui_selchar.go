@@ -23,11 +23,6 @@ package opennox
 #include "client__shell__mainmenu.h"
 
 extern void* dword_5d4594_1307292;
-extern uint32_t dword_5d4594_1064296;
-extern void* dword_5d4594_1064816;
-extern void* dword_5d4594_1064820;
-extern void* dword_5d4594_1064824;
-extern void* dword_5d4594_1064828;
 extern void* dword_5d4594_814624;
 extern uint32_t dword_5d4594_10984;
 extern unsigned int dword_5d4594_527988;
@@ -102,36 +97,6 @@ func sub_4A1BE0(a1 C.int) C.int {
 	return C.int(nox_xxx_wnd_46ABB0(asWindowP(C.dword_5d4594_1307292), int(a1)))
 }
 
-//export sub_4684C0
-func sub_4684C0() {
-	v0 := GUIChildByID(1700)
-	switch C.dword_5d4594_1064296 {
-	case 0:
-		sub_41E300(5)
-		C.sub_4207F0(1)
-		nox_xxx_wnd_46ABB0(v0, 1)
-		sub_4A1BE0(1)
-		C.sub_4A1A40(0)
-	case 1:
-		C.dword_5d4594_1064296 = 0
-		asWindowP(C.dword_5d4594_1064824).Hide()
-		asWindowP(C.dword_5d4594_1064820).Show()
-	case 2:
-		C.dword_5d4594_1064296 = 0
-		asWindowP(C.dword_5d4594_1064828).Hide()
-		asWindowP(C.dword_5d4594_1064820).Show()
-	case 3:
-		C.dword_5d4594_1064296 = 1
-		asWindowP(C.dword_5d4594_1064828).Hide()
-		asWindowP(C.dword_5d4594_1064824).Show()
-	case 4:
-		sub_41E300(5)
-		C.sub_4207F0(1)
-		nox_xxx_wnd_46ABB0(v0, 1)
-		sub_4A1BE0(1)
-	}
-}
-
 //export sub_41E300
 func sub_41E300(a1 C.int) C.int {
 	if a1 == 11 && noxflags.HasGame(noxflags.GameFlag29) {
@@ -152,17 +117,8 @@ func sub_41E300(a1 C.int) C.int {
 	return 1
 }
 
-//export sub_43C710
-func sub_43C710() C.int {
-	return C.int(bool2int(noxflags.HasGame(noxflags.GameFlag29)))
-}
-
 func sub_40E0A0() {
 	C.dword_5d4594_10984 = 1
-}
-
-func sub_40E090() {
-	C.dword_5d4594_10984 = 0
 }
 
 //export sub_4A50A0
@@ -243,7 +199,6 @@ func nox_client_resetScreenParticles_431510() {
 	nox_xxx_particlesLoadColor_4313E0()
 }
 
-//export sub_43B670
 func sub_43B670() {
 	v0 := sub_416640()
 	if C.nox_game_createOrJoin_815048 != 0 {
@@ -285,9 +240,6 @@ func sub_413A00(a1 C.int) {
 		}
 	}
 }
-
-//export sub_448640
-func sub_448640() { sub_44A400() }
 
 func sub_477530(a1 bool) {
 	if a1 {

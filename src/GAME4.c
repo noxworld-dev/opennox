@@ -1137,26 +1137,6 @@ int nox_xxx_XFerRewardMarker_4F74D0(int* a1) {
 }
 // 4F74D0: using guessed type char var_100[256];
 
-//----- (004F78E0) --------------------------------------------------------
-int nox_xxx_unitInventoryContains_4F78E0(int a1, int a2) {
-	int v2; // eax
-
-	if (*(uint32_t*)(a2 + 492) != a1) {
-		return 0;
-	}
-	v2 = *(uint32_t*)(a1 + 504);
-	if (!v2) {
-		return 0;
-	}
-	while (v2 != a2) {
-		v2 = *(uint32_t*)(v2 + 496);
-		if (!v2) {
-			return 0;
-		}
-	}
-	return 1;
-}
-
 //----- (004F7920) --------------------------------------------------------
 int nox_xxx_equipedItemByCode_4F7920(int a1, int a2) {
 	int result; // eax

@@ -100,8 +100,7 @@ func partOffsetPos(p image.Point) image.Point {
 	return p.Sub(partViewportOff)
 }
 
-//export sub_4739D0
-func sub_4739D0(a1 C.int) C.int { return a1 - C.int(partViewportOff.Y) }
+func sub_4739D0(a1 int) int { return a1 - partViewportOff.Y }
 
 //export get_nox_client_texturedFloors_154956
 func get_nox_client_texturedFloors_154956() C.bool {
@@ -935,7 +934,6 @@ func nox_xxx_tileInitBuf_430DB0(width, height int) {
 	C.nox_video_tileBuf_end_3798844 = unsafe.Add(unsafe.Pointer(&noxTileBuf[0]), sz)
 }
 
-//export nox_video_freeFloorBuffer_430EC0
 func nox_video_freeFloorBuffer_430EC0() {
 	if noxTileBuf != nil {
 		noxTileBufFree()

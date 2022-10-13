@@ -1,8 +1,0 @@
-#ifndef NOX_PORT_CLIENT_NETWORK_NETCLINT
-#define NOX_PORT_CLIENT_NETWORK_NETCLINT
-
-#include "defs.h"
-
-void sub_43D260(int a1, int a2);
-
-#endif // NOX_PORT_CLIENT_NETWORK_NETCLINT

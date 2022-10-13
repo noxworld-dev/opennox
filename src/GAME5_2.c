@@ -32,7 +32,6 @@
 #include "client__video__draw_common.h"
 #include "common/fs/nox_fs.h"
 #include "common__magic__speltree.h"
-#include "nox_net.h"
 #include "operators.h"
 
 extern uint32_t dword_5d4594_2516352;

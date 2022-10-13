@@ -1604,9 +1604,6 @@ char* nox_xxx_netReportAllLatency_4D3050() {
 	return result;
 }
 
-//----- (004D3320) --------------------------------------------------------
-int sub_4D3320() { return *getMemU32Ptr(0x5D4594, 1548716); }
-
 //----- (004D39F0) --------------------------------------------------------
 int sub_4D39F0(const char* a3) {
 	unsigned int v1;    // ecx
@@ -3469,15 +3466,6 @@ int sub_4D6F80(int a1) {
 
 	result = a1;
 	*getMemU32Ptr(0x5D4594, 1556164) = a1;
-	return result;
-}
-
-//----- (004D6F90) --------------------------------------------------------
-int sub_4D6F90(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 1556104) = a1;
 	return result;
 }
 

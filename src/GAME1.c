@@ -19,7 +19,6 @@ void nullsub_67() {}
 #include "common__system__team.h"
 
 #include "client__gui__servopts__playrlst.h"
-#include "client__network__netclint.h"
 #include "client__system__ctrlevnt.h"
 #include "client__video__draw_common.h"
 #include "common__binfile.h"
@@ -34,7 +33,6 @@ void nullsub_67() {}
 #include "input_common.h"
 #include "operators.h"
 
-extern uint32_t dword_5d4594_10988;
 extern uint32_t dword_5d4594_527656;
 extern uint32_t dword_5d4594_526276;
 extern uint32_t dword_5d4594_251712;
@@ -46,7 +44,6 @@ extern uint32_t dword_5d4594_251720;
 extern uint32_t dword_5d4594_3620;
 extern uint32_t dword_5d4594_251744;
 extern uint32_t dword_5d4594_251556;
-extern uint32_t dword_5d4594_4808;
 extern uint32_t dword_5d4594_251552;
 extern uint32_t dword_5d4594_251564;
 extern uint32_t dword_5d4594_528252;
@@ -1541,12 +1538,6 @@ void sub_40C0E0(int a1) {
 
 //----- (0040E090) --------------------------------------------------------
 void sub_40E090() { dword_5d4594_10984 = 0; }
-
-//----- (0040E0A0) --------------------------------------------------------
-void sub_40E0A0() { dword_5d4594_10984 = 1; }
-
-//----- (0040E0B0) --------------------------------------------------------
-int sub_40E0B0() { return dword_5d4594_10984 == 0; }
 
 //----- (004100F0) --------------------------------------------------------
 int nox_xxx_cliCanTalkMB_4100F0(short* a1) {
@@ -3671,17 +3662,6 @@ void nox_xxx_gameLoopMemDump_413E30() {
 //----- (00413F60) --------------------------------------------------------
 int sub_413F60(const void* a1, const void* a2) { return *((uint32_t*)a1 + 20) - *((uint32_t*)a2 + 20); }
 
-//----- (00413F90) --------------------------------------------------------
-char* nox_clone_str(const char* a1) {
-	char* result; // eax
-
-	result = (char*)calloc(strlen(a1) + 1, 1);
-	if (result) {
-		strcpy(result, a1);
-	}
-	return result;
-}
-
 //----- (00414BD0) --------------------------------------------------------
 int sub_414BD0(signed int a1) {
 	signed int v1; // ecx
@@ -4919,15 +4899,6 @@ int nox_xxx_cliSetSettingsAcquired_4169D0(int a1) {
 	return result;
 }
 
-//----- (004169E0) --------------------------------------------------------
-char* sub_4169E0() {
-	char* result; // eax
-
-	result = sub_416640();
-	result[100] |= 0x10u;
-	return result;
-}
-
 //----- (004169F0) --------------------------------------------------------
 char* sub_4169F0() {
 	char* result; // eax
@@ -5518,21 +5489,6 @@ char* sub_417B80(char a1, int a2, int a3) {
 			}
 			*(uint32_t*)&result[24 * v9 + 2972] = 0;
 		}
-	}
-	return result;
-}
-
-//----- (00417C00) --------------------------------------------------------
-char* sub_417C00(char* a1, int a2) {
-	char* result; // eax
-	int i;        // esi
-
-	result = nox_common_playerInfoGetFirst_416EA0();
-	for (i = (int)result; result; i = (int)result) {
-		if (!_strcmpi((const char*)(i + 2096), a1)) {
-			*(uint32_t*)(i + 2108) = a2;
-		}
-		result = nox_common_playerInfoGetNext_416EE0(i);
 	}
 	return result;
 }

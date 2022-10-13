@@ -2212,9 +2212,6 @@ int sub_50CB20(int a1, float* a2) {
 	return 0;
 }
 
-//----- (0050D210) --------------------------------------------------------
-int sub_50D210() { return *getMemU32Ptr(0x5D4594, 2386204); }
-
 //----- (0050D220) --------------------------------------------------------
 int nox_xxx_creatureSetDetailedPath_50D220(int a1, int a2) {
 	int result; // eax

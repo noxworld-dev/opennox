@@ -207,23 +207,6 @@ uint32_t dword_5d4594_831088 = 0;
 uint32_t dword_5d4594_831092 = 0;
 uint32_t nox_player_netCode_85319C = 0;
 
-//----- (0044CD30) --------------------------------------------------------
-int nox_xxx_keyFirstLetterNumberCli_44CD30(char* a1) {
-	int result; // eax
-	int v2;     // eax
-
-	if (!a1) {
-		return -1;
-	}
-	v2 = toupper(*a1);
-	if (v2 < 65 || v2 > 90) {
-		result = 26;
-	} else {
-		result = v2 - 65;
-	}
-	return result;
-}
-
 //----- (0044D040) --------------------------------------------------------
 int sub_44D040(int i) {
 	nox_thing* obj = nox_get_thing(i);

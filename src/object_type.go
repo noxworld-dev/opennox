@@ -77,15 +77,6 @@ func nox_xxx_objectTypeByID_4E3B60(cstr *C.char) *C.nox_objectType_t {
 	return noxServer.getObjectTypeByID(GoString(cstr)).C()
 }
 
-//export nox_objectTypeGetInd
-func nox_objectTypeGetInd(cstr *C.char) unsafe.Pointer {
-	t := noxServer.getObjectTypeByID(GoString(cstr))
-	if t == nil {
-		return nil
-	}
-	return t.func_xfer
-}
-
 //export nox_objectTypeGetXfer
 func nox_objectTypeGetXfer(cstr *C.char) unsafe.Pointer {
 	t := noxServer.getObjectTypeByID(GoString(cstr))
@@ -134,11 +125,6 @@ func sub_415EC0(a1 *C.char) C.int {
 		return -1
 	}
 	return C.int(t.ind)
-}
-
-//export sub_4E3BC0
-func sub_4E3BC0(a1 *C.nox_objectType_t) {
-	noxServer.disableObject(asObjectType(a1))
 }
 
 //export sub_4E3BF0
