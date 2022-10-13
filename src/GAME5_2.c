@@ -1446,7 +1446,6 @@ char sub_57A1E0(int* a1, const char* a2, int* a3, char a4, short a5) {
 	char* v8;          // edi
 	int v9;            // ecx
 	int v10;           // eax
-	char* v11;         // edi
 	unsigned char v12; // cl
 	char result;       // al
 	char v14[256];     // [esp+14h] [ebp-200h]
@@ -1468,18 +1467,13 @@ char sub_57A1E0(int* a1, const char* a2, int* a3, char a4, short a5) {
 		v15[0] = 0;
 		strcpy(v14, "maps\\");
 		strncat(v14, (const char*)a1, 8u);
-		*(uint16_t*)&v14[strlen(v14)] = *getMemU16Ptr(0x587000, 312376);
+		strcat(v14, "\\");
 		if (a4 & 2) {
 			strcpy(v15, v14);
 			if (a2) {
 				strcat(v15, a2);
 			} else {
-				v7 = getMemByte(0x587000, 312388);
-				v8 = &v15[strlen(v15) + 1];
-				v9 = *getMemU32Ptr(0x587000, 312384);
-				*(uint32_t*)--v8 = *getMemU32Ptr(0x587000, 312380);
-				*((uint32_t*)v8 + 1) = v9;
-				v8[8] = v7;
+				strcat(v15, "user.rul");
 			}
 			v10 = sub_57A3F0(v15, (int)a1, (int)a3, v6);
 			v5 = a3;
@@ -1488,15 +1482,12 @@ char sub_57A1E0(int* a1, const char* a2, int* a3, char a4, short a5) {
 		}
 		if (a4 & 1 && !v10) {
 			strncat(v14, (const char*)a1, 8u);
-			v11 = &v14[strlen(v14) + 1];
-			v12 = getMemByte(0x587000, 312396);
-			*(uint32_t*)--v11 = *getMemU32Ptr(0x587000, 312392);
-			v11[4] = v12;
+			strncat(v14, ".rul", 255);
 			sub_57A3F0(v14, (int)a1, (int)v5, v6);
 		}
 	}
 	if (dword_5d4594_2650652 && a4 & 4) {
-		sub_57A3F0((char*)getMemAt(0x587000, 312400), (int)a1, (int)v5, v6);
+		sub_57A3F0("internet.rul", (int)a1, (int)v5, v6);
 	}
 	result = a5;
 	if (a5 & 0x40) {
@@ -1725,7 +1716,7 @@ int sub_57A950(char* a1) {
 	strcpy(v2, "maps\\");
 	strncat(v2, a1, 256 - 6);
 	v2[strlen(v2) - 4] = 0;
-	*(uint16_t*)&v2[strlen(v2)] = *getMemU16Ptr(0x587000, 312564);
+	strncat(v2, "\\", 256 - 4);
 	strcat(v2, a1);
 	return sub_4D0550(v2);
 }
@@ -1736,7 +1727,7 @@ int sub_57A9F0(const char* a1, const char* a2) {
 
 	strcpy(FileName, "maps\\");
 	strcat(FileName, a1);
-	*(uint16_t*)&FileName[strlen(FileName)] = *getMemU16Ptr(0x587000, 312576);
+	strcat(FileName, "\\");
 	strcat(FileName, a2);
 	return nox_fs_remove(FileName);
 }
@@ -1769,7 +1760,7 @@ char sub_57AAA0(const char* a1, char* a2, int* a3) {
 	if ((char)v3 >= 0) {
 		strcpy(FileName, "maps\\");
 		strncat(FileName, a2, 8u);
-		*(uint16_t*)&FileName[strlen(FileName)] = *getMemU16Ptr(0x587000, 312588);
+		strncat(FileName, "\\", 10u);
 		strcat(FileName, a1);
 		v3 = nox_fs_create_text(FileName);
 		v4 = v3;
