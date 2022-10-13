@@ -8,15 +8,15 @@ void* nxz_decompress_new();
 void nxz_decompress_free(void* p);
 int nxz_decompress(void* p, uint8_t* a2, int* a3, uint8_t* a4, int* a5);
 
-int nxz_compress_file(char* src, char* dst);
+void* nxz_compress_new();
+void nxz_compress_free(void* p);
+int nxz_compress(void* a1p, uint8_t* a2p, uint8_t* a3p, int a4p);
 */
 import "C"
 import (
 	"encoding/binary"
 	"errors"
 	"io"
-	"os"
-	"runtime/cgo"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/ifs"
@@ -46,8 +46,7 @@ func DecompressFile(src, dst string) error {
 	}
 	srcSz := int(fi.Size() - 4)
 	var buf [4]byte
-	_, err = io.ReadFull(r, buf[:4])
-	if err != nil {
+	if _, err = io.ReadFull(r, buf[:4]); err != nil {
 		return err
 	}
 	dstSz := int(binary.LittleEndian.Uint32(buf[:]))
@@ -81,92 +80,10 @@ func DecompressFile(src, dst string) error {
 		return err
 	}
 	defer w.Close()
-	_, err = w.Write(dbuf)
-	return err
-}
-
-var (
-	testOpen   string
-	testCreate string
-)
-
-//export nxz_fs_open
-func nxz_fs_open(cpath *C.char) unsafe.Pointer {
-	path := C.GoString(cpath)
-	if path != testOpen {
-		panic(path)
+	if _, err = w.Write(dbuf); err != nil {
+		return err
 	}
-	f, err := ifs.Open(path)
-	if err != nil {
-		return nil
-	}
-	return unsafe.Pointer(cgo.NewHandle(f))
-}
-
-//export nxz_fs_create
-func nxz_fs_create(cpath *C.char) unsafe.Pointer {
-	path := C.GoString(cpath)
-	if path != testCreate {
-		panic(path)
-	}
-	f, err := ifs.Create(path)
-	if err != nil {
-		return nil
-	}
-	return unsafe.Pointer(cgo.NewHandle(f))
-}
-
-//export nxz_fs_fsize
-func nxz_fs_fsize(fd unsafe.Pointer) int {
-	f, ok := cgo.Handle(fd).Value().(*os.File)
-	if !ok {
-		return 0
-	}
-	fi, err := f.Stat()
-	if err != nil {
-		return 0
-	}
-	return int(fi.Size())
-}
-
-//export nxz_fs_fwrite
-func nxz_fs_fwrite(fd unsafe.Pointer, src unsafe.Pointer, sz int) int {
-	f, ok := cgo.Handle(fd).Value().(*os.File)
-	if !ok {
-		return 0
-	}
-	buf := unsafe.Slice((*byte)(src), sz)
-	n, _ := f.Write(buf)
-	return n
-}
-
-//export nxz_fs_close
-func nxz_fs_close(fd unsafe.Pointer) {
-	h := cgo.Handle(fd)
-	f, ok := h.Value().(*os.File)
-	if !ok {
-		return
-	}
-	f.Close()
-	h.Delete()
-}
-
-//export nxz_binfile_fread_raw_40ADD0
-func nxz_binfile_fread_raw_40ADD0(dst *C.char, sz, cnt uint, fd unsafe.Pointer) int {
-	if sz*cnt == 0 {
-		return 0
-	}
-	f, ok := cgo.Handle(fd).Value().(*os.File)
-	if !ok {
-		return 0
-	}
-	buf := unsafe.Slice((*byte)(unsafe.Pointer(dst)), sz*cnt)
-	n, _ := f.Read(buf)
-	if n >= 0 {
-		n /= int(sz)
-		return n
-	}
-	return -1
+	return w.Close()
 }
 
 //export nxz_getMemAt
@@ -184,14 +101,65 @@ func nxz_getMemU32Ptr(base, off uint) *uint32 {
 	return memmap.PtrUint32(uintptr(base), uintptr(off))
 }
 
+func compBufferSize(sz int) int {
+	return sz + sz/2 + 32
+}
+
 func CompressFile(src, dst string) error {
-	c1, c2 := C.CString(src), C.CString(dst)
-	defer func() {
-		C.free(unsafe.Pointer(c1))
-		C.free(unsafe.Pointer(c2))
-	}()
-	if C.nxz_compress_file(c1, c2) == 0 {
-		return errors.New("compression failed")
+	if src == "" {
+		return errors.New("empty source path")
 	}
-	return nil
+	if dst == "" {
+		return errors.New("empty destination path")
+	}
+	r, err := ifs.Open(src)
+	if err != nil {
+		return err
+	}
+	defer r.Close()
+	fi, err := r.Stat()
+	if err != nil {
+		return err
+	}
+
+	srcSz := int(fi.Size())
+	sbuf, sfree := alloc.Make([]byte{}, srcSz)
+	defer sfree()
+	if _, err = io.ReadFull(r, sbuf); err != nil {
+		return err
+	}
+
+	dbuf, dfree := alloc.Make([]byte{}, compBufferSize(srcSz))
+	defer dfree()
+
+	ptr := C.nxz_compress_new()
+	cnt := 0
+	for i := 0; i < srcSz; i += 500000 {
+		v := srcSz - i
+		if v > 500000 {
+			v = 500000
+		}
+		cnt += int(C.nxz_compress(ptr,
+			(*C.uchar)(unsafe.Pointer(&dbuf[cnt])),
+			(*C.uchar)(unsafe.Pointer(&sbuf[i])),
+			C.int(v),
+		))
+	}
+	C.nxz_compress_free(ptr)
+
+	w, err := ifs.Create(dst)
+	if err != nil {
+		return err
+	}
+	defer w.Close()
+
+	var buf [4]byte
+	binary.LittleEndian.PutUint32(buf[:4], uint32(srcSz))
+	if _, err := w.Write(buf[:4]); err != nil {
+		return err
+	}
+	if _, err := w.Write(dbuf[:cnt]); err != nil {
+		return err
+	}
+	return w.Close()
 }

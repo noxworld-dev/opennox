@@ -78,11 +78,7 @@ func decompressC(t testing.TB, path string) (string, int) {
 func compressC(t testing.TB, path string) (string, int) {
 	out, err := os.CreateTemp("", "nxzmap_*.nxz")
 	require.NoError(t, err)
-	testOpen = path
-	testCreate = out.Name()
 	defer func() {
-		testOpen = ""
-		testCreate = ""
 		out.Close()
 		_ = os.Remove(out.Name())
 	}()
