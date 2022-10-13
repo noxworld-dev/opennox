@@ -134,12 +134,6 @@ func nox_game_exit_xxx_43DE60() {
 	}
 	mainloopContinue = false
 	nox_xxx_gameSetCliConnected(false)
-	if nox_xxx_check_flag_aaa_43AF70() != 1 {
-		return
-	}
-	if !noxflags.HasGame(noxflags.GameFlag26) {
-		C.sub_40D380()
-	}
 }
 
 //export nox_game_exit_xxx2
@@ -219,10 +213,6 @@ mainloop:
 				}
 				goto MAINLOOP_EXIT
 			}
-		}
-		if nox_xxx_check_flag_aaa_43AF70() == 1 {
-			C.sub_40D250()
-			C.sub_40DF90()
 		}
 		noxServer.SetRateLimit(30)
 		noxClient.processInput()
@@ -712,9 +702,6 @@ func nox_xxx_cliWaitForJoinData_43BFE0() bool {
 }
 
 func nox_xxx_cliSetupSession_437190() {
-	if nox_xxx_check_flag_aaa_43AF70() == 1 {
-		C.sub_40D380()
-	}
 	C.sub_473960()
 	noxServer.resetAllPlayers()
 	C.sub_455EE0()
@@ -768,7 +755,7 @@ func sub_470550() {
 func sub_4703F0() {
 	C.dword_5d4594_1090120 = (C.dword_5d4594_1090120 + 1) % 6
 	v1 := int32(C.dword_5d4594_1090120)
-	if nox_xxx_check_flag_aaa_43AF70() != 0 || v1 != 5 {
+	if false || v1 != 5 {
 		if v1 == 1 {
 			if !noxflags.HasGame(noxflags.GameModeQuest) {
 				v1 = int32((C.dword_5d4594_1090120 + 1) % 6)

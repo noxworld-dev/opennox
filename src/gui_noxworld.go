@@ -246,16 +246,12 @@ func nox_client_refreshServerList_4378B0() {
 	asWindow(C.dword_5d4594_815004).Func94(asWindowEvent(0x400F, 0, 0))
 	C.sub_49FFA0(1)
 	C.nox_wol_server_result_cnt_815088 = 0
-	if dword_587000_87404 != 0 {
-		C.sub_41F370(1)
-		v3 := sub_41E2F0()
-		C.sub_41DA70(C.int(v3), 12)
-	} else {
-		ctx := context.Background()
-		asWindow(C.nox_wol_wnd_world_814980).NewDialogID("Wolchat.c:PleaseWait", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
-		netstr.Flag1 = false
-		go discoverAndPingServers(ctx)
-	}
+
+	ctx := context.Background()
+	asWindow(C.nox_wol_wnd_world_814980).NewDialogID("Wolchat.c:PleaseWait", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
+	netstr.Flag1 = false
+	go discoverAndPingServers(ctx)
+
 	C.dword_5d4594_815104 = 0
 	// next auto-refresh
 	C.qword_5d4594_815068 = C.ulonglong(*memmap.PtrUint64(0x5D4594, 815076) + 120000)
@@ -263,7 +259,7 @@ func nox_client_refreshServerList_4378B0() {
 
 //export sub_438770_waitList
 func sub_438770_waitList() {
-	if C.dword_5d4594_815060 != 0 || dword_587000_87404 != 0 {
+	if C.dword_5d4594_815060 != 0 {
 		return
 	}
 	timer := time.NewTimer(10 * time.Millisecond)
@@ -517,7 +513,6 @@ func sub_41D4C0() C.int {
 	C.sub_41EB40()
 	C.sub_41F4B0()
 	noxClient.setDrawFunc(nil)
-	C.sub_40D0F0()
 	return 1
 }
 
@@ -584,43 +579,6 @@ func nox_client_setConnError_43AFA0(err ConnectError) {
 	sub_43AF90(2)
 }
 
-//export sub_41E0D0
-func sub_41E0D0() C.int {
-	for v0 := memmap.Uint32(0x587000, 58264); v0 != 0; v0-- {
-		v1 := sub_41E2F0()
-		switch C.sub_41DCC0(C.int(v1)) {
-		case 5:
-			if C.dword_5d4594_2660652 == 0x8004006E {
-				nox_client_setConnError_43AFA0(ErrFull)
-			}
-		case 10:
-			C.sub_43ACC0()
-		case 12:
-			v2 := sub_420100()
-			sub_41F3A0(v2, 1)
-		case 19:
-			nox_client_createSockAndJoin_43B440()
-		}
-		v0--
-	}
-	C.sub_40D250()
-	return 1
-}
-
-func sub_41F3A0(a1, a2 int) bool {
-	var v2, v4 string
-	if sub_41E2F0() == 7 {
-		v4 = strMan.GetStringInFile("wolchat.c:LoadingChannels", "C:\\NoxPost\\src\\common\\WolAPI\\wolchnl.c")
-		v2 = strMan.GetStringInFile("wolchat.c:PleaseWait", "C:\\NoxPost\\src\\common\\WolAPI\\wolchnl.c")
-	} else {
-		v4 = strMan.GetStringInFile("noxworld.c:LoadingGames", "C:\\NoxPost\\src\\common\\WolAPI\\wolchnl.c")
-		v2 = strMan.GetStringInFile("wolchat.c:PleaseWait", "C:\\NoxPost\\src\\common\\WolAPI\\wolchnl.c")
-	}
-	NewDialogWindow(nil, v2, v4, 288, nil, nil)
-	sub_44A4B0()
-	return C.sub_40D2F0(C.int(a1), C.int(a2)) != 0
-}
-
 //export sub_4373A0
 func sub_4373A0() {
 	if win := asWindowP(C.dword_5d4594_815000); !win.Flags().IsHidden() {
@@ -639,12 +597,6 @@ func sub_4373A0() {
 		} else {
 			nox_game_checkStateSwitch_43C1E0()
 			C.sub_49FF20()
-			if dword_587000_87404 == 1 {
-				*memmap.PtrUint32(0x5D4594, 815084) = 1
-				sub_41E300(7)
-				C.sub_4207F0(4)
-				C.sub_40D380()
-			}
 			clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 		}
 	} else if C.nox_game_createOrJoin_815048 == 1 {
@@ -657,17 +609,6 @@ func sub_4373A0() {
 		clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 	} else {
 		C.sub_49FF20()
-		if dword_587000_87404 != 0 {
-			C.dword_587000_87412 = -1
-			nox_xxx_wndClearCaptureMain(asWindowP(C.dword_5d4594_814984))
-			asWindowP(C.dword_5d4594_814984).Hide()
-			asWindowP(C.dword_5d4594_814988).Show()
-			v1 := strMan.GetStringInFile("ChooseArea", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
-			asWindowP(C.dword_5d4594_814996).Func94(&WindowEvent0x4001{Str: v1})
-			nox_client_refreshServerList_4378B0()
-			clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
-		} else {
-			nox_game_checkStateSwitch_43C1E0()
-		}
+		nox_game_checkStateSwitch_43C1E0()
 	}
 }

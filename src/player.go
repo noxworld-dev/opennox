@@ -993,7 +993,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	nox_xxx_netNewPlayerMakePacket_4DDA90(v30[:], pl)
 	s.nox_xxx_netSendPacket_4E5030(ind|0x80, v30[:129], 0, 0, 0)
 	pl.field_3676 = 2
-	if nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(noxflags.GameModeChat) {
+	if false && !noxflags.HasGame(noxflags.GameModeChat) {
 		C.sub_425F10(pl.C())
 	}
 	s.createObjectAt(punit, nil, types.Pointf{X: 2944.0, Y: 2944.0})

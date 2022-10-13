@@ -64,7 +64,6 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox-lib/client/keybind"
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/ifs"
@@ -101,41 +100,6 @@ var (
 //export sub_4A1BE0
 func sub_4A1BE0(a1 C.int) C.int {
 	return C.int(nox_xxx_wnd_46ABB0(asWindowP(C.dword_5d4594_1307292), int(a1)))
-}
-
-func sub_468480(win *Window, ev WindowEvent) WindowEventResp {
-	ekey, ok := ev.(WindowKeyPress)
-	if !ok {
-		return nil
-	}
-	if ekey.Key != keybind.KeyEsc {
-		return nil
-	}
-	if ekey.Pressed {
-		clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
-		sub_4684C0()
-	}
-	return RawEventResp(1)
-}
-
-//export sub_4683B0
-func sub_4683B0() C.int {
-	noxClient.setDrawFunc(func() bool {
-		return C.sub_41E210() != 0
-	})
-	win := newWindowFromFile("wolreg.wnd", wrapWindowFuncC(C.sub_4685D0))
-	C.dword_5d4594_1064816 = unsafe.Pointer(win.C())
-	win.SetAllFuncs(sub_468480, nil, nil)
-	C.dword_5d4594_1064820 = unsafe.Pointer(win.ChildByID(1755).C())
-	C.dword_5d4594_1064824 = unsafe.Pointer(win.ChildByID(1756).C())
-	C.dword_5d4594_1064828 = unsafe.Pointer(win.ChildByID(1754).C())
-	v0 := win.ChildByID(1766)
-	v0.DrawData().field0 |= 4
-	v1 := win.ChildByID(1767)
-	v1.DrawData().field0 |= 4
-	C.dword_5d4594_1064296 = 0
-	nox_xxx_wnd_46ABB0(win, 1)
-	return 1
 }
 
 //export sub_4684C0
@@ -226,11 +190,11 @@ func sub_4A50D0() C.int {
 		nox_client_guiXxxDestroy_4A24A0()
 		return 1
 	}
-	if nox_xxx_check_flag_aaa_43AF70() == 0 {
+	if true {
 		nox_xxx_serverHost_43B4D0()
 		return 1
 	}
-	if nox_xxx_check_flag_aaa_43AF70() == 1 {
+	if false {
 		sub_43B670()
 		return 1
 	}
@@ -290,7 +254,6 @@ func sub_43B670() {
 		noxServer.ai.nox_xxx_gameSetAudioFadeoutMb(int(*(*uint32)(unsafe.Pointer(&v0[74]))))
 	} else {
 		C.sub_43B630()
-		C.sub_40D350(C.int(*(*uint32)(unsafe.Add(C.dword_5d4594_814624, 32))))
 	}
 	C.sub_49FF20()
 }

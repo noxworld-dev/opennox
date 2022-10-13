@@ -64,7 +64,6 @@ func sub_446190() {
 		netstr.Log.Println(str)
 	}
 	if noxflags.HasGame(noxflags.GameFlag26) {
-		nox_game_checkStateWol_43C260()
 		sub_41E300(9)
 		nox_xxx____setargv_4_44B000()
 	} else if noxServer.nox_xxx_isQuest_4D6F50() {
@@ -79,7 +78,7 @@ func sub_446190() {
 		dword_5d4594_825752 = 0
 		dword_5d4594_825768 = noxServer.Frame()
 		if noxflags.HasGame(noxflags.GameHost) {
-			if nox_xxx_check_flag_aaa_43AF70() == 1 && noxflags.HasGame(noxflags.GameFlag15|noxflags.GameFlag16) {
+			if false && noxflags.HasGame(noxflags.GameFlag15|noxflags.GameFlag16) {
 				sub_416150(15, 0)
 			}
 			C.sub_509CB0()

@@ -13,7 +13,6 @@ void sub_439370(int2* a1, int a2);
 int sub_4394D0(int a1);
 int nox_xxx_windowMultiplayerSub_439E70(int a1, unsigned int a2, int* a3, int a4);
 void sub_43A810();
-int sub_43A980();
 uint32_t* sub_43B630();
 void sub_43B6E0();
 void sub_43B750();
