@@ -42,8 +42,28 @@ extern nox_object_t* nox_xxx_host_player_unit_3843628;
 extern uint32_t dword_5d4594_2650652;
 extern uint32_t nox_player_netCode_85319C;
 
-//-------------------------------------------------------------------------
-// Function declarations
+typedef struct {
+	uint32_t f0;
+	float f4;
+	float f8;
+	uint32_t f12;
+	float f16;
+	float f20;
+} struct313272;
+
+struct313272 table_313272[11] = {
+	{f0:0x0, f4:0, f8:0, f12:0x1, f16:0, f20:23},
+	{f0:0x1, f4:0, f8:23, f12:0x0, f16:0, f20:0},
+	{f0:0x1, f4:0, f8:23, f12:0x1, f16:0, f20:23},
+	{f0:0x1, f4:0, f8:11.5, f12:0x1, f16:0, f20:23},
+	{f0:0x1, f4:0, f8:23, f12:0x1, f16:11.5, f20:23},
+	{f0:0x1, f4:11.5, f8:23, f12:0x1, f16:0, f20:23},
+	{f0:0x1, f4:0, f8:23, f12:0x1, f16:0, f20:11.5},
+	{f0:0x1, f4:0, f8:11.5, f12:0x1, f16:11.5, f20:23},
+	{f0:0x1, f4:11.5, f8:23, f12:0x1, f16:11.5, f20:23},
+	{f0:0x1, f4:11.5, f8:23, f12:0x1, f16:0, f20:11.5},
+	{f0:0x1, f4:0, f8:11.5, f12:0x1, f16:0, f20:11.5},
+};
 
 //----- (00545020) --------------------------------------------------------
 char nox_xxx_mobActionRandomWalk_545020(int a1) {
@@ -6883,7 +6903,7 @@ int sub_54FFC0(int2* a1, int a2) {
 	v6 = a1->field_0;
 	v7 = a1->field_4;
 	a1a.field_0 = (double)(23 * a1->field_0);
-	v8 = getMemByte(0x587000, 313272 + 24*v4);
+	v8 = table_313272[v4].f0;
 	a1a.field_4 = (double)(23 * v7);
 	if (v8) {
 		if (getMemByte(0x587000, 292496 + v4) & 2 && sub_57B500(v6 - 1, v7 - 1, v13) == -1) {
@@ -6896,12 +6916,10 @@ int sub_54FFC0(int2* a1, int a2) {
 			a5 = 1;
 		} else if (v4 == 8 || v4 == 9) {
 			a4 = 1;
-			v9 = sub_550280((int)&a1a, *getMemFloatPtr(0x587000, 313272 + 24*v4 + 4),
-							*getMemFloatPtr(0x587000, 313272 + 24*v4 + 8), 1, a5, a2 + 64, (int)&a7);
+			v9 = sub_550280((int)&a1a, table_313272[v4].f4, table_313272[v4].f8, 1, a5, a2 + 64, (int)&a7);
 			goto LABEL_21;
 		}
-		v9 = sub_550280((int)&a1a, *getMemFloatPtr(0x587000, 313272 + 24*v4 + 4),
-						*getMemFloatPtr(0x587000, 313272 + 24*v4 + 8), a4, a5, a2 + 64, (int)&a7);
+		v9 = sub_550280((int)&a1a, table_313272[v4].f4, table_313272[v4].f8, a4, a5, a2 + 64, (int)&a7);
 	LABEL_21:
 		if (v9) {
 			if (*(uint8_t*)(a2 + 8) & 4) {
@@ -6916,7 +6934,7 @@ int sub_54FFC0(int2* a1, int a2) {
 			}
 		}
 	}
-	if (getMemByte(0x587000, 313272 + 24*v4 + 12)) {
+	if (table_313272[v4].f12) {
 		if (getMemByte(0x587000, 292496 + v4) & 8 && sub_57B500(a1->field_0 - 1, a1->field_4 + 1, v13) == -1) {
 			a4 = 1;
 		}
@@ -6926,12 +6944,10 @@ int sub_54FFC0(int2* a1, int a2) {
 		if (v4 == 7 || v4 == 8) {
 			a4 = 1;
 		} else if (v4 == 9 || v4 == 10) {
-			v11 = sub_5502F0(&a1a, *getMemFloatPtr(0x587000, 313272 + 24*v4 + 16),
-							 *getMemFloatPtr(0x587000, 313272 + 24*v4 + 20), a4, 1, (float2*)(v2 + 64), &a7);
+			v11 = sub_5502F0(&a1a, table_313272[v4].f16, table_313272[v4].f20, a4, 1, (float2*)(v2 + 64), &a7);
 			goto LABEL_42;
 		}
-		v11 = sub_5502F0(&a1a, *getMemFloatPtr(0x587000, 313272 + 24*v4 + 16), *getMemFloatPtr(0x587000, 313272 + 24*v4 + 20),
-						 a4, a5, (float2*)(v2 + 64), &a7);
+		v11 = sub_5502F0(&a1a, table_313272[v4].f16, table_313272[v4].f20, a4, a5, (float2*)(v2 + 64), &a7);
 	LABEL_42:
 		if (v11) {
 			if (*(uint8_t*)(v2 + 8) & 4) {
