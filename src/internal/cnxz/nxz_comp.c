@@ -758,7 +758,7 @@ int sub_57E4C0(uint32_t** this, unsigned int a2, int a3, unsigned int a4, unsign
 	}
 LABEL_15:
 	v34 = *nxz_getMemU32Ptr(0x587000, 314824 + 8 * (a5 >> 9)) + 9;
-	v35 = a5 & 0x1FF | (*nxz_getMemU16Ptr(0x587000, 314828 + 8 * (a5 >> 9)) << 9);
+	v35 = a5 & 0x1FF | (*nxz_getMemU16Ptr(0x587000, 314824 + 8 * (a5 >> 9) + 4) << 9);
 	if (v34 <= 16) {
 		v47 = v5[6];
 		v48 = 32 - (uint8_t)v47 - v34;
