@@ -10,6 +10,10 @@ func (c *Client) initSeat(sz image.Point) error {
 	return nil
 }
 
+func (c *Client) drawGeneral(a1 bool) error {
+	return nil
+}
+
 func (c *Client) freeSeat() {
 }
 

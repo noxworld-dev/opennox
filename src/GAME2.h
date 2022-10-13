@@ -53,7 +53,6 @@ int nox_gui_getQuestStage_450B10();
 int sub_451850(int a2, int a3);
 int sub_451920(uint32_t* a2);
 void sub_451970();
-int sub_4519C0();
 int sub_451BE0(int a1);
 int sub_451CA0(uint32_t* a1);
 int sub_451F30(int a1, int a2);

@@ -780,7 +780,6 @@ uint32_t dword_5d4594_1098456 = 0;
 uint32_t dword_5d4594_2487804 = 0;
 uint32_t dword_5d4594_1062552 = 0;
 uint32_t nox_xxx_aSpellphoneme_3_587000_123008 = 0x1;
-uint32_t dword_5d4594_805988 = 0;
 uint32_t dword_5d4594_2488648 = 0;
 uint32_t dword_5d4594_811904 = 0;
 uint32_t dword_5d4594_534768 = 0;

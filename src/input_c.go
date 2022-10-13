@@ -328,7 +328,7 @@ func nox_input_reset_430140(a1 C.int) {
 }
 
 func nox_xxx_freeKeyboard_430210() {
-	*memmap.PtrUint32(0x5D4594, 805808) = 0
+	noxClient.inDraw1 = false
 }
 
 func get_obj_5D4594_754104_switch() bool {

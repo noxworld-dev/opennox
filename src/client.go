@@ -1,5 +1,12 @@
 package opennox
 
+/*
+int sub_4519C0();
+int sub_495430();
+void sub_44D3A0();
+void sub_43D440();
+*/
+import "C"
 import (
 	"image"
 
@@ -8,9 +15,11 @@ import (
 	"github.com/noxworld-dev/opennox-lib/strman"
 	"github.com/spf13/viper"
 
+	"github.com/noxworld-dev/opennox/v1/client/audio/ail"
 	"github.com/noxworld-dev/opennox/v1/client/input"
 	"github.com/noxworld-dev/opennox/v1/client/render"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 var (
@@ -43,11 +52,16 @@ type Client struct {
 	r            *NoxRender
 	vp           *Viewport
 	inp          *input.Handler
+	drawFunc     func() bool
+	updateFunc2  func() bool
 	mapsend      clientMapDownload
 	guiAdv       guiAdvOptions
 	guiFPS       guiFPS
 	screenshots  screenshots
 	netPrevMouse image.Point
+	inSub4312C0  bool
+	ticks805996  uint64
+	inDraw1      bool
 }
 
 func (c *Client) Close() error {
@@ -212,5 +226,59 @@ func (c *Client) mainloopKeysUpdate() {
 	}
 	for _, key := range c.inp.KeyboardKeys() {
 		nox_xxx_windowUpdateKeysMB_46B6B0(c.inp, key)
+	}
+}
+
+func (c *Client) setDrawFunc(fnc func() bool) {
+	c.drawFunc = fnc
+}
+
+func (c *Client) setUpdateFunc2(fnc func() bool) {
+	c.updateFunc2 = fnc
+}
+
+func (c *Client) Update() bool {
+	defer noxPerfmon.startProfileClient()()
+	if !isDedicatedServer {
+		c.inDraw1 = true
+		if c.drawFunc != nil && !c.drawFunc() {
+			if debugMainloop {
+				gameLog.Println("call_nox_draw_unk1 exit")
+			}
+			return false
+		}
+		c.inDraw1 = false
+	}
+	if c.updateFunc2 != nil && !c.updateFunc2() {
+		if debugMainloop {
+			gameLog.Println("call_func_5D4594_816392 exit")
+		}
+		return false
+	}
+	C.sub_4519C0()
+	c.sub4312C0()
+	C.sub_495430()
+	if noxflags.HasGame(noxflags.GameHost) && continueMenuOrHost && !mainloopStopError {
+		mainloopMaybeSwitchMapXXX()
+	}
+	c.drawAndPresent()
+	return true
+}
+
+func (c *Client) sub4312C0() {
+	ail.Serve()
+	if c.inSub4312C0 {
+		return
+	}
+	c.inSub4312C0 = true
+	defer func() {
+		c.inSub4312C0 = false
+	}()
+	ticks := platformTicks()
+
+	if ticks-c.ticks805996 > 33 {
+		C.sub_44D3A0()
+		C.sub_43D440()
+		c.ticks805996 = ticks
 	}
 }

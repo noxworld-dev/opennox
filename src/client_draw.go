@@ -79,8 +79,8 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 		C.sub_470DE0()
 	}
 	ctrlEvent.nox_xxx_input_42D220(c.inp)
-	if C.nox_xxx_get_430890() == 1 {
-		C.sub_430880(0)
+	if c.inDraw1 {
+		c.inDraw1 = false
 	}
 	C.nox_xxx_clientEnumHover_476FA0()
 	if !c.clientSendInput(noxMaxPlayers - 1) {
