@@ -4731,7 +4731,7 @@ int nox_xxx_nxzDecompressImpl_57EA80(uint32_t* this, uint8_t* a2, uint32_t* a3, 
 			v28 = v13 - 256;
 			goto LABEL_43;
 		}
-		v29 = *getMemU32Ptr(0x587000, 314416 + 8 * v13);
+		v29 = *getMemU32Ptr(0x587000, 314416 + 8*v13);
 		v30 = v6[37];
 		if (v30 >= v29) {
 			goto LABEL_41;
@@ -4751,7 +4751,7 @@ int nox_xxx_nxzDecompressImpl_57EA80(uint32_t* this, uint8_t* a2, uint32_t* a3, 
 		v6[37] = 0;
 		v31 = -1;
 	LABEL_42:
-		v28 = v31 + *getMemU32Ptr(0x587000, 314420 + 8 * v13);
+		v28 = v31 + *getMemU32Ptr(0x587000, 314416 + 8*v13 + 4);
 	LABEL_43:
 		v34 = v6[37];
 		v67 = v28;
