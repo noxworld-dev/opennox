@@ -480,7 +480,7 @@ func CONNECT_OR_HOST() error {
 		if !isDedicatedServer {
 			clientSetPlayerNetCode(noxServer.newPlayer(noxMaxPlayers-1, &popts))
 		}
-		C.nox_client_setVersion_409AE0(NOX_CLIENT_VERS_CODE)
+		setVersionCode(NOX_CLIENT_VERS_CODE)
 		if !isDedicatedServer {
 			nox_netlist_receiveCli_494E90(noxMaxPlayers - 1)
 		}
@@ -542,7 +542,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 		return err
 	}
 
-	if vers := C.nox_client_getVersionCode_409AD0(); vers != NOX_CLIENT_VERS_CODE {
+	if vers := getVersionCode(); vers != NOX_CLIENT_VERS_CODE {
 		err := fmt.Errorf("invalid client version: %x", int(vers))
 		log.Println(err)
 		return netstr.NewConnectFailErr(-20, err)

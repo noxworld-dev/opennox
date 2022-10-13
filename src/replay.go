@@ -177,7 +177,7 @@ func (s *Server) nox_xxx_replayStartReadingOrSaving_4D38D0() error {
 		buf[5] = byte(len(mapname))
 		replay.writer.Write(buf[:])
 		replay.writer.Write([]byte(mapname))
-		binary.LittleEndian.PutUint32(buf[0:4], NOX_CLIENT_VERS_CODE)
+		binary.LittleEndian.PutUint32(buf[0:4], uint32(NOX_CLIENT_VERS_CODE))
 		replay.writer.Write(buf[:4])
 		return nil
 	}

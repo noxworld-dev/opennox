@@ -50,56 +50,6 @@ int nox_cmd_set_sysop(int tokInd, int tokCnt, wchar_t** tokens) {
 	return 1;
 }
 
-//----- (00441550) --------------------------------------------------------
-extern char nox_version_string_102944[7];
-int nox_cmd_show_game(int tokInd, int tokCnt, wchar_t** tokens) {
-	char* v2;        // esi
-	int v4;          // edi
-	int v5;          // eax
-	wchar_t* v6;     // eax
-	short v7;        // ax
-	wchar_t* v8;     // eax
-	wchar_t* v9;     // eax
-	char* v11;       // eax
-	char* v12;       // [esp-18h] [ebp-5Ch]
-	int v13;         // [esp-10h] [ebp-54h]
-	int v14;         // [esp-Ch] [ebp-50h]
-	char* v15;       // [esp-8h] [ebp-4Ch]
-	int v16;         // [esp-8h] [ebp-4Ch]
-	int v17;         // [esp-8h] [ebp-4Ch]
-	wchar_t v18[32]; // [esp+4h] [ebp-40h]
-
-	v2 = sub_4165B0();
-	if (tokCnt != 2) {
-		return 0;
-	}
-	v4 = nox_common_playerInfoCount_416F40();
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-		--v4;
-	}
-	v5 = nox_client_getVersionBuild_409AC0();
-	nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (wchar_t*)getMemAt(0x587000, 102952), nox_version_string_102944, v5);
-	if (nox_common_gameFlags_check_40A5C0(0x2000)) {
-		v15 = nox_xxx_serverOptionsGetServername_40A4C0();
-		v6 = nox_strman_loadString_40F1D0("Name", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1801);
-		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (wchar_t*)getMemAt(0x587000, 103028), v6, v15);
-		v7 = nox_common_gameFlags_getVal_40A5B0();
-		v16 = nox_xxx_guiServerOptionsGetGametypeName_4573C0(v7);
-		v8 = nox_strman_loadString_40F1D0("Type", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1802);
-		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (wchar_t*)getMemAt(0x587000, 103088), v8, v16);
-		v17 = sub_40A180(*((uint16_t*)v2 + 26));
-		v14 = (unsigned short)nox_xxx_servGamedataGet_40A020(*((uint16_t*)v2 + 26));
-		v13 = nox_xxx_servGetPlrLimit_409FA0();
-		v12 = nox_server_currentMapGetFilename_409B30();
-		v9 = nox_strman_loadString_40F1D0("GameInfo", 0, "C:\\NoxPost\\src\\Client\\System\\parsecmd.c", 1803);
-		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v9, v12, v4, v13, v14, v17);
-		v11 = nox_net_ip2str(nox_xxx_net_getIP_554200(0));
-		nox_swprintf(v18, L"%S", v11);
-		nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (wchar_t*)getMemAt(0x587000, 103160), v18);
-	}
-	return 1;
-}
-
 //----- (00440A20) --------------------------------------------------------
 void sub_440A20(wchar_t* a1, ...) {
 	va_list va; // [esp+8h] [ebp+8h]
