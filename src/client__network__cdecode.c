@@ -59,7 +59,6 @@ extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
 extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_2650652;
 extern uint32_t nox_player_netCode_85319C;
-extern unsigned int nox_gameFPS;
 
 void noxOnCliPacketDebug(int op, unsigned char* data, int sz);
 int nox_client_getFadeDuration();
@@ -795,7 +794,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			*(uint32_t*)(v5 + 488) = 1;
 			if (nox_client_fadeObjects_80836) {
 				if ((uint32_t)v5 != *getMemU32Ptr(0x852978, 8)) {
-					nox_xxx_spriteTransparentDecay_49B950((uint32_t*)v5, (int)nox_gameFPS);
+					nox_xxx_spriteTransparentDecay_49B950((uint32_t*)v5, (int)gameFPS());
 				}
 			} else if (*(int (**)(int*, int))(v5 + 300) != nox_thing_animate_draw ||
 					   (v56 = *(uint32_t*)(v5 + 304)) == 0 || *(uint32_t*)(v56 + 12) != 1) {

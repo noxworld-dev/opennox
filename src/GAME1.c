@@ -73,7 +73,6 @@ int nox_enable_audio = 1;
 
 int nox_server_gameSettingsUpdated; // If you define it as 1-byte bool, the game will crash
 
-extern unsigned int nox_gameFPS;
 
 uint32_t* dword_5D4594_251544 = 0;
 
@@ -706,7 +705,7 @@ void sub_40A970() {
 }
 
 //----- (0040AA00) --------------------------------------------------------
-int sub_40AA00() { return 20 * nox_gameFPS < (unsigned int)(gameFrame() - *getMemU32Ptr(0x5D4594, 3520)); }
+int sub_40AA00() { return 20 * gameFPS() < (unsigned int)(gameFrame() - *getMemU32Ptr(0x5D4594, 3520)); }
 
 //----- (0040AA20) --------------------------------------------------------
 int sub_40AA20() { return *getMemU32Ptr(0x5D4594, 3536); }

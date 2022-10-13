@@ -185,6 +185,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_orientation(mpos image.P
 }
 
 func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) {
+	fps := noxServer.TickRate()
 	v2 := *memmap.PtrPtr(0x8531A0, 2576)
 	for it := a4; it != nil; it = it.field21 {
 		for _, k := range it.events {
@@ -337,12 +338,12 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 			case keybind.EventPlaceTrapBomber:
 				c.nox_ctrlevent_action_42E780(player.CCBuildTrap, 0)
 			case keybind.EventTrapDrop:
-				if inputKeyCheckTimeout(k, gameFPS()/4) {
+				if inputKeyCheckTimeout(k, fps/4) {
 					inputSetKeyTimeout(k)
 					gameexDropTrap()
 				}
 			case keybind.EventTrapBomber1, keybind.EventTrapBomber2, keybind.EventTrapBomber3:
-				if inputKeyCheckTimeout(k, gameFPS()/4) {
+				if inputKeyCheckTimeout(k, fps/4) {
 					inputSetKeyTimeout(k)
 					C.nox_client_trapSetSelect_4604B0(C.int(k - keybind.EventTrapBomber1))
 					clientPlaySoundSpecial(sound.SoundChangeSpellbar, 100)
@@ -354,17 +355,17 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 			case keybind.EventToggleServerMenu:
 				c.nox_ctrlevent_action_42E670(player.CCServerOptions, 0)
 			case keybind.EventTaunt:
-				if (allowEmotionsInSolo || noxflags.HasGame(noxflags.GameOnline)) && inputKeyCheckTimeoutLegacy(21, gameFPS()) {
+				if (allowEmotionsInSolo || noxflags.HasGame(noxflags.GameOnline)) && inputKeyCheckTimeoutLegacy(21, fps) {
 					inputSetKeyTimeoutLegacy(21)
 					c.nox_ctrlevent_action_42E670(player.CCTaunt, 0)
 				}
 			case keybind.EventLaugh:
-				if (allowEmotionsInSolo || noxflags.HasGame(noxflags.GameOnline)) && inputKeyCheckTimeoutLegacy(20, 2*gameFPS()) {
+				if (allowEmotionsInSolo || noxflags.HasGame(noxflags.GameOnline)) && inputKeyCheckTimeoutLegacy(20, 2*fps) {
 					inputSetKeyTimeoutLegacy(20)
 					c.nox_ctrlevent_action_42E670(player.CCLaugh, 0)
 				}
 			case keybind.EventPoint:
-				if (allowEmotionsInSolo || noxflags.HasGame(noxflags.GameOnline)) && inputKeyCheckTimeoutLegacy(22, gameFPS()) {
+				if (allowEmotionsInSolo || noxflags.HasGame(noxflags.GameOnline)) && inputKeyCheckTimeoutLegacy(22, fps) {
 					inputSetKeyTimeoutLegacy(22)
 					c.nox_ctrlevent_action_42E670(player.CCPoint, 0)
 				}
@@ -391,27 +392,27 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 			case keybind.EventScreenShot:
 				c.nox_ctrlevent_action_42E670(player.CCScreenShot, 0)
 			case keybind.EventCreaturesBanish:
-				if inputKeyCheckTimeout(k, gameFPS()/4) {
+				if inputKeyCheckTimeout(k, fps/4) {
 					inputSetKeyTimeout(k)
 					C.nox_client_orderCreature(0, 0)
 				}
 			case keybind.EventCreaturesGuard:
-				if inputKeyCheckTimeout(k, gameFPS()/4) {
+				if inputKeyCheckTimeout(k, fps/4) {
 					inputSetKeyTimeout(k)
 					C.nox_client_orderCreature(0, 3)
 				}
 			case keybind.EventCreaturesEscort:
-				if inputKeyCheckTimeout(k, gameFPS()/4) {
+				if inputKeyCheckTimeout(k, fps/4) {
 					inputSetKeyTimeout(k)
 					C.nox_client_orderCreature(0, 4)
 				}
 			case keybind.EventCreaturesHunt:
-				if inputKeyCheckTimeout(k, gameFPS()/4) {
+				if inputKeyCheckTimeout(k, fps/4) {
 					inputSetKeyTimeout(k)
 					C.nox_client_orderCreature(0, 5)
 				}
 			case keybind.EventAcceptItemsBatch:
-				if inputKeyCheckTimeout(k, gameFPS()/4) {
+				if inputKeyCheckTimeout(k, fps/4) {
 					inputSetKeyTimeout(k)
 					clientAcceptTradeOrDrop()
 				}

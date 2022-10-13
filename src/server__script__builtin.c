@@ -35,7 +35,6 @@ int nox_xxx_netSendChat_528AC0(nox_object_t* a1, wchar_t* a2, wchar_t a3);
 
 extern unsigned int dword_5d4594_2386836;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
-extern unsigned int nox_gameFPS;
 
 unsigned int dword_5d4594_1599628 = 0;
 void* nox_script_objGold = 0;
@@ -470,7 +469,7 @@ int nox_script_groupEnchant_5133B0() {
 	v2 = nox_xxx_enchantByName_424880(v7);
 	if (v2 != -1) {
 		v6[0] = v2;
-		v6[1] = (long long)((double)nox_gameFPS * v5);
+		v6[1] = (long long)((double)gameFPS() * v5);
 		v3 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v1);
 		nox_server_scriptExecuteFnForEachGroupObj_502670(v3, 0, nox_xxx_enchantUnit_513390, (int)v6);
 	}
@@ -2307,7 +2306,7 @@ int nox_script_ChatTimerSeconds_514A80() {
 	v3 = nox_server_scriptValToObjectPtr_511B60(v2);
 	if (v3) {
 		v4 = nox_script_getString_512E40(v1);
-		v7 = v0 * (uint16_t)nox_gameFPS;
+		v7 = v0 * (uint16_t)gameFPS();
 		v8 = 0;
 		v5 = nox_strman_loadString_40F1D0(v4, &v8, "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 3629);
 		nox_xxx_netSendChat_528AC0(v3, v5, v7);

@@ -25,7 +25,6 @@ package opennox
 #include "common__crypt.h"
 #include "common__log.h"
 
-extern unsigned int nox_gameFPS;
 extern unsigned int nox_xxx_resetMapInit_1569652;
 extern unsigned int dword_5d4594_1569656;
 extern unsigned int dword_5d4594_2650652;
@@ -217,12 +216,9 @@ func (s *Server) getServerPort() int {
 	return s.port
 }
 
+//export gameFPS
 func gameFPS() uint32 {
-	return uint32(C.nox_gameFPS)
-}
-
-func gameFPSSet(fps uint32) {
-	C.nox_gameFPS = C.uint(fps)
+	return noxServer.TickRate()
 }
 
 //export gameFrame
@@ -433,11 +429,11 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 		return false
 	}
 	s.objectsNewAdd()
-	if inputKeyCheckTimeoutLegacy(0x10, 10*gameFPS()) {
+	if inputKeyCheckTimeoutLegacy(0x10, 10*s.TickRate()) {
 		s.types.nox_xxx_protectUnitDefUpdateMB_4E3C20()
 		inputSetKeyTimeoutLegacy(16)
 	}
-	if noxflags.HasGame(noxflags.GameOnline) && nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(noxflags.GameModeChat) && inputKeyCheckTimeoutLegacy(0xF, 60*gameFPS()) {
+	if noxflags.HasGame(noxflags.GameOnline) && nox_xxx_check_flag_aaa_43AF70() == 1 && !noxflags.HasGame(noxflags.GameModeChat) && inputKeyCheckTimeoutLegacy(0xF, 60*s.TickRate()) {
 		C.nox_xxx_net_4263C0()
 		inputSetKeyTimeoutLegacy(15)
 	}
@@ -459,7 +455,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	if nox_xxx_serverIsClosing446180() {
 		sub_446190()
 	}
-	if sub_446030() && s.Frame() > 5*gameFPS()+sub_446040() {
+	if sub_446030() && s.Frame() > 5*s.TickRate()+sub_446040() {
 		sub_446380()
 	}
 	if !noxflags.HasGame(noxflags.GamePause) {
@@ -533,7 +529,7 @@ func (s *Server) updateRemotePlayers() error {
 		if pl.field_3680&0x10 != 0 {
 			fr = 90
 		}
-		if s.Frame()-uint32(pl.frame_3596) > uint32(fr)*gameFPS() {
+		if s.Frame()-uint32(pl.frame_3596) > uint32(fr)*s.TickRate() {
 			m := uint32(pl.netCode)
 			// TODO: passing Go pointer
 			C.nox_xxx_netInformTextMsg2_4DA180(3, (*C.uchar)(unsafe.Pointer(&m)))

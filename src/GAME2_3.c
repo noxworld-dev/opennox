@@ -92,7 +92,6 @@ extern uint32_t dword_5d4594_1217448;
 extern uint32_t nox_player_netCode_85319C;
 extern int nox_win_width;
 extern int nox_win_height;
-extern unsigned int nox_gameFPS;
 extern uint32_t dword_5d4594_3799476;
 
 extern uint32_t nox_color_white_2523948;
@@ -690,7 +689,7 @@ wchar_t* nox_xxx_createTextBubble_48D880(int a1, wchar_t* a2) {
 		if (v5 >= 8) {
 			v5 = 8;
 		}
-		v6 = nox_gameFPS * (v5 + 2);
+		v6 = gameFPS() * (v5 + 2);
 	}
 	result = (wchar_t*)(gameFrame() + v6);
 	*((uint32_t*)v2 + 160) = result;

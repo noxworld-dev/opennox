@@ -135,12 +135,13 @@ int nox_xxx_spellGrantToPlayer_4FB550(nox_object_t* a1, int a2, int a3, int a4, 
 */
 import "C"
 import (
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"image"
 	"math"
 	"strconv"
 	"strings"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
@@ -447,7 +448,7 @@ func nox_script_secondTimer_512320() int {
 	s := &noxServer.noxScript
 	fnc := int(s.PopU32())
 	dt := s.PopU32()
-	s.PushU32(s.newScriptTimer(int(dt*gameFPS()), fnc, 0))
+	s.PushU32(s.newScriptTimer(int(dt*s.s.TickRate()), fnc, 0))
 	return 0
 }
 
@@ -522,7 +523,7 @@ func nox_script_timerSecSpecial_512DE0() int {
 	fnc := int(s.PopU32())
 	arg := s.PopU32()
 	dt := s.PopU32()
-	s.PushU32(s.newScriptTimer(int(dt*gameFPS()), fnc, arg))
+	s.PushU32(s.newScriptTimer(int(dt*s.s.TickRate()), fnc, arg))
 	return 0
 }
 
@@ -1516,7 +1517,7 @@ func nox_script_enchant_5132E0() int {
 	id, ok := enchantByName[v8]
 	if ok {
 		if v3 != nil {
-			dur := int(float32(gameFPS()) * v5)
+			dur := int(float32(s.s.TickRate()) * v5)
 			v3.ApplyEnchant(id, dur, 5)
 		}
 	}

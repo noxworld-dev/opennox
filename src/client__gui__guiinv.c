@@ -46,7 +46,6 @@ extern uint32_t dword_5d4594_1062480;
 extern uint32_t array_5D4594_1049872[9];
 extern int nox_win_width;
 extern int nox_win_height;
-extern unsigned int nox_gameFPS;
 
 extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_red_2589776;
@@ -1234,7 +1233,7 @@ int sub_464BD0(int a1, int a2, unsigned int a3) {
 		}
 		v32 = *getMemU32Ptr(0x5D4594, 1062572) - v56.field_0;
 		v33 = *getMemU32Ptr(0x5D4594, 1062576) - v56.field_4;
-		if (!nox_xxx_checkKeybTimeout_4160F0(0, nox_gameFPS / 3u) && v32 * v32 + v33 * v33 < 100) {
+		if (!nox_xxx_checkKeybTimeout_4160F0(0, gameFPS() / 3u) && v32 * v32 + v33 * v33 < 100) {
 			v34 = nox_xxx_pointInRect_4281F0(&v56, (int4*)getMemAt(0x587000, 136352));
 			if (!v34) {
 				goto LABEL_121;

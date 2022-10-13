@@ -1326,7 +1326,7 @@ var noxMemmap = []struct {
 	{0x85319C, 0, 4, "nox_player_netCode_85319C"},               // 0x85319C
 	{0x8531A0, 2568, 4, "nox_perfmon_latePackets_2618900"},      // 0x853BA8
 	{0x8531A0, 2580, 4, "dword_5d4594_2618912"},                 // 0x853BB4
-	{0x85B3FC, 0, 4, "nox_gameFPS"},                             // 0x85B3FC
+	{0x85B3FC, 0, 4, "gameFPS()"},                               // 0x85B3FC
 	{0x85B3FC, 8, 4, "dword_5d4594_2649712"},                    // 0x85B404
 	{0x85B3FC, 932, 4, "nox_common_engineFlags"},                // 0x85B7A0
 	{0x85B3FC, 936, 4, "nox_video_bag_var_2650640"},             // 0x85B7A4

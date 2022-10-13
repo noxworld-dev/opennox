@@ -37,7 +37,6 @@ extern uint32_t dword_5d4594_1047516;
 extern uint32_t dword_5d4594_1046868;
 extern int nox_win_width;
 extern int nox_win_height;
-extern unsigned int nox_gameFPS;
 
 //----- (0045AD70) --------------------------------------------------------
 void nox_xxx_bookShowMB_45AD70(int a1) {
@@ -442,7 +441,7 @@ int nox_xxx_bookDrawFn_45C7D0(uint32_t* a1) {
 		return 1;
 	}
 	if (dword_5d4594_1046648 &&
-		nox_xxx_bookGet_430B40_get_mouse_prev_seq() - dword_5d4594_1046648 < (unsigned int)(2 * nox_gameFPS)) {
+		nox_xxx_bookGet_430B40_get_mouse_prev_seq() - dword_5d4594_1046648 < (unsigned int)(2 * gameFPS())) {
 		return 1;
 	}
 	nox_client_wndGetPosition_46AA60(a1, &v25, &v24);
