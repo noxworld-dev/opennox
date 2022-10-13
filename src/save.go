@@ -97,16 +97,6 @@ func nox_savegame_rm(name string, rmdir bool) error {
 	return nil
 }
 
-//export nox_client_copySave_4DC100
-func nox_client_copySave_4DC100(cfrom, cto *C.char) C.int {
-	from, to := GoString(cfrom), GoString(cto)
-	err := nox_client_copySave(from, to)
-	if err != nil {
-		return 0
-	}
-	return 1
-}
-
 func nox_client_copySave(from, to string) error {
 	fromDir := datapath.Save(from)
 	if err := nox_savegame_rm(to, true); err != nil {

@@ -508,14 +508,6 @@ func sendToServer(addr netip.AddrPort, data []byte) (int, error) {
 	return lobbyBroadcast.WriteTo(data, net.UDPAddrFromAddrPort(addr))
 }
 
-//export sub_41D4C0
-func sub_41D4C0() C.int {
-	C.sub_41EB40()
-	C.sub_41F4B0()
-	noxClient.setDrawFunc(nil)
-	return 1
-}
-
 func sub_41E2F0() int { return int(C.dword_5d4594_527988) }
 
 func sub_420100() int { return int(memmap.Uint32(0x587000, 60072) >> 8) }

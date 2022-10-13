@@ -26,8 +26,6 @@ extern uint32_t nox_player_netCode_85319C;
 
 unsigned int gameex_flags = 0x1E;
 
-int DefaultPacket[4] = {171901697, 1, 347, 44391266}; // weak
-
 int nox_CharToOemW(const wchar_t* pSrc, char* pDst) { return nox_sprintf(pDst, "%S", pSrc); }
 
 //----- (10001C20) --------------------------------------------------------

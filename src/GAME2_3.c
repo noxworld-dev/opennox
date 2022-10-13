@@ -70,7 +70,6 @@ extern uint32_t dword_5d4594_1203864;
 extern uint32_t dword_5d4594_1217452;
 extern uint32_t dword_5d4594_1193712;
 extern uint32_t nox_server_connectionType_3596;
-extern uint32_t dword_5d4594_810636;
 extern uint32_t dword_5d4594_1301776;
 extern uint32_t dword_5d4594_1197316;
 extern uint32_t dword_5d4594_1217460;
@@ -86,7 +85,6 @@ extern uint32_t dword_5d4594_1303452;
 extern uint32_t nox_client_gui_flag_815132;
 extern uint32_t dword_5d4594_1305684;
 extern uint32_t dword_5d4594_1217464;
-extern uint32_t dword_5d4594_810632;
 extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_1217448;
 extern uint32_t nox_player_netCode_85319C;
@@ -6146,12 +6144,6 @@ int sub_49F860() {
 	return result;
 }
 
-//----- (0049F8E0) --------------------------------------------------------
-bool sub_49F8E0(int x, int y, int d) {
-	return x - d < nox_draw_curDrawData_3799572->clip.min_x || x + d >= nox_draw_curDrawData_3799572->clip.max_x ||
-		   y - d < nox_draw_curDrawData_3799572->clip.min_y || y + d >= nox_draw_curDrawData_3799572->clip.max_y;
-}
-
 //----- (0049F930) --------------------------------------------------------
 int4* nox_xxx_utilRect_49F930(int4* a1, int4* a2, int4* a3) {
 	int v3;       // ecx
@@ -6439,22 +6431,6 @@ void nox_wol_servers_sortBtnHandler_4A0290(int id) {
 	}
 }
 
-//----- (004A0330) --------------------------------------------------------
-int sub_4A0330(int* a1) {
-	int v1; // esi
-	int* i; // eax
-
-	v1 = 0;
-	for (i = nox_common_list_getFirstSafe_425890(&nox_gui_wol_servers_list); i;
-		 i = nox_common_list_getNextSafe_4258A0(i)) {
-		if (i == a1) {
-			break;
-		}
-		++v1;
-	}
-	return v1;
-}
-
 //----- (004A0360) --------------------------------------------------------
 int* sub_4A0360() {
 	int* result; // eax
@@ -6552,30 +6528,3 @@ int* sub_4A04C0(int a1) {
 	}
 	return result;
 }
-
-//----- (004A04F0) --------------------------------------------------------
-int* sub_4A04F0(char* a1) {
-	int* v1; // esi
-
-	v1 = nox_common_list_getFirstSafe_425890(&nox_gui_wol_servers_list);
-	if (!v1) {
-		return 0;
-	}
-	while (_strcmpi((const char*)(v1[8] + 52), a1)) {
-		v1 = nox_common_list_getNextSafe_4258A0(v1);
-		if (!v1) {
-			return 0;
-		}
-	}
-	return v1;
-}
-
-//----- (004A0540) --------------------------------------------------------
-void sub_4A0540(void* lpMem) {
-	nox_common_list_remove_425920((uint32_t**)lpMem);
-	nox_xxx_windowDestroyMB_46C4E0(*((uint32_t**)lpMem + 7));
-	free(lpMem);
-}
-
-//----- (004A0560) --------------------------------------------------------
-int nox_xxx_getConnResult_4A0560() { return nox_wol_servers_sorting_166704; }

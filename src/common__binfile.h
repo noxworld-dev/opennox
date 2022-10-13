@@ -15,7 +15,6 @@ int nox_binfile_close_408D90(FILE* a1);
 int nox_binfile_fread_408E40(char* a1, int a2, int a3, FILE* a4);
 int nox_binfile_fread_align_408FE0(char* a1, int a2, int a3, FILE* a4);
 int nox_binfile_fseek_409050(FILE* a1, int a2, int a3);
-size_t nox_binfile_fwrite_409200(char* a1, int a2, int a3, FILE* a4);
 int nox_binfile_cryptSet_408D40(FILE* f, int key);
 int nox_binfile_skipLine_409520(FILE* f);
 int nox_binfile_fread_raw_40ADD0(char* buf, size_t size, size_t count, FILE* file);

@@ -109,15 +109,6 @@ func nox_script_adjustStack(prev, sz C.int) {
 	noxServer.noxScript.adjustStack(int(prev), int(sz))
 }
 
-//export nox_script_callOnEvent
-func nox_script_callOnEvent(cevent *C.char, a1, a2 unsafe.Pointer) {
-	if a1 != nil || a2 != nil { // these are never set to anything
-		panic("unexpected argument to nox_script_callOnEvent")
-	}
-	event := script.EventType(GoString(cevent))
-	noxServer.scriptOnEvent(event)
-}
-
 var (
 	nox_script_objTelekinesisHand  int
 	nox_script_objCinemaRemove     []int

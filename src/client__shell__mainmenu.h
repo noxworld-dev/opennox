@@ -3,7 +3,6 @@
 
 #include "defs.h"
 
-void sub_4A2530();
 int sub_4A24C0(int a1);
 int nox_game_showMainMenu_4A1C00();
 

@@ -26,8 +26,6 @@
 #include "client__video__draw_common.h"
 #include "common__magic__speltree.h"
 
-void sub_4E3BC0(nox_objectType_t* a1);
-
 extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
 extern uint32_t nox_server_connectionType_3596;
 extern uint32_t nox_client_renderGUI_80828;

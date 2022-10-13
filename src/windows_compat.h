@@ -82,16 +82,11 @@ enum {
 #define FindNextFileA compatFindNextFileA
 #define FindClose compatFindClose
 #define GetDateFormatA compatGetDateFormatA
-#define MulDiv compatMulDiv
-#define HeapDestroy compatHeapDestroy
 #define OutputDebugStringA compatOutputDebugStringA
-#define ShellExecuteA compatShellExecuteA
 #define _rotl compat_rotl
 #define _itoa compat_itoa
 #define _itow compat_itow
 #define InterlockedExchange compatInterlockedExchange
-#define InterlockedDecrement compatInterlockedDecrement
-#define InterlockedIncrement compatInterlockedIncrement
 
 #define _strcmpi strcasecmp
 #define _strnicmp strncasecmp
@@ -102,15 +97,9 @@ int FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData);
 int FindClose(HANDLE hFindFile);
 int GetDateFormatA(LCID Locale, uint32_t dwFlags, const SYSTEMTIME* lpDate, const char* lpFormat, char* lpDateStr,
 				   int cchDate);
-int MulDiv(int nNumber, int nNumerator, int nDenominator);
-int HeapDestroy(HANDLE hHeap);
 void OutputDebugStringA(const char* lpOutputString);
-HINSTANCE ShellExecuteA(HWND hwnd, const char* lpOperation, const char* lpFile, const char* lpParameters,
-						const char* lpDirectory, int nShowCmd);
 
 int InterlockedExchange(volatile int* Target, int Value);
-int InterlockedDecrement(volatile int* Addend);
-int InterlockedIncrement(volatile int* Addend);
 
 char* _itoa(int val, char* s, int radix);
 wchar_t* _itow(int val, wchar_t* s, int radix);

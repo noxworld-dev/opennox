@@ -4,8 +4,6 @@
 #include "static_assert.h"
 #include "defs.h"
 
-#define NOX_TEAMS_MAX 17
-
 typedef struct {
 	wchar_t name[21]; // 0, 0
 	uint16_t field_42; // 10, 42
