@@ -74,19 +74,9 @@ var (
 	initialStateSwitch      = false
 	mainloopStopError       bool
 	mainloopNoSkip          bool
-	nox_draw_unk1           func() bool
-	func_5D4594_816392      func() bool
 	useFrameLimit           = true
 	mainloopHook            func()
 )
-
-func gameSetCliDrawFunc(fnc func() bool) {
-	nox_draw_unk1 = fnc
-}
-
-func gameSet816392Func(fnc func() bool) {
-	func_5D4594_816392 = fnc
-}
 
 //export nox_client_getIntroScreenDuration_44E3B0
 func nox_client_getIntroScreenDuration_44E3B0() C.int {
@@ -109,9 +99,9 @@ func nox_client_getBriefDuration() C.int {
 //export nox_game_SetCliDrawFunc
 func nox_game_SetCliDrawFunc(fnc unsafe.Pointer) {
 	if fnc == nil {
-		gameSetCliDrawFunc(nil)
+		noxClient.setDrawFunc(nil)
 	} else {
-		gameSetCliDrawFunc(func() bool {
+		noxClient.setDrawFunc(func() bool {
 			return cgoCallIntVoidFunc(fnc) != 0
 		})
 	}
@@ -120,9 +110,9 @@ func nox_game_SetCliDrawFunc(fnc unsafe.Pointer) {
 //export sub_43DE40
 func sub_43DE40(fnc unsafe.Pointer) C.int {
 	if fnc == nil {
-		gameSet816392Func(nil)
+		noxClient.setUpdateFunc2(nil)
 	} else {
-		gameSet816392Func(func() bool {
+		noxClient.setUpdateFunc2(func() bool {
 			return cgoCallIntVoidFunc(fnc) != 0
 		})
 	}
@@ -268,40 +258,12 @@ mainloop:
 		noxClient.processInput()
 		nox_game_cdMaybeSwitchState_413800()
 
-		noxPerfmon.startProfileServer()
-		if !gameStateFunc() {
-			if debugMainloop {
-				log.Println("gameStateFunc exit")
-			}
+		if !noxServer.Update() {
 			goto MAINLOOP_EXIT
 		}
-		noxPerfmon.endProfileServer()
-
-		noxPerfmon.startProfileClient()
-		if !isDedicatedServer {
-			C.sub_430880(1)
-			if nox_draw_unk1 != nil && !nox_draw_unk1() {
-				if debugMainloop {
-					log.Println("call_nox_draw_unk1 exit")
-				}
-				goto MAINLOOP_EXIT
-			}
-			C.sub_430880(0)
-		}
-		if func_5D4594_816392 != nil && !func_5D4594_816392() {
-			if debugMainloop {
-				log.Println("call_func_5D4594_816392 exit")
-			}
+		if !noxClient.Update() {
 			goto MAINLOOP_EXIT
 		}
-		C.sub_4519C0()
-		sub_4312C0()
-		C.sub_495430()
-		if noxflags.HasGame(noxflags.GameHost) && continueMenuOrHost && !mainloopStopError {
-			mainloopMaybeSwitchMapXXX()
-		}
-		noxClient.drawAndPresent()
-		noxPerfmon.endProfileClient()
 
 		mainloopFrameLimit()
 		if mainloopContinue && !mainloopStopError {
@@ -697,12 +659,12 @@ func CONNECT_RESULT_OK() error {
 		return fmt.Errorf("nox_xxx_replayStartReadingOrSaving_4D38D0: %w", err)
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
-		nox_xxx_setGameState_43DDF0(nil)
+		noxServer.setUpdateFunc(nil)
 	} else if !noxServer.nox_xxx_servInitialMapLoad_4D17F0() {
 		return errors.New("nox_xxx_servInitialMapLoad_4D17F0 exit")
 	}
 	if !noxflags.HasGame(noxflags.GameClient) {
-		gameSetCliDrawFunc(nil)
+		noxClient.setDrawFunc(nil)
 	} else {
 		if !noxflags.HasGame(noxflags.GameFlag21) {
 			if mode := noxClient.videoGetGameMode(); mode.X == 0 || mode.Y == 0 {
@@ -752,27 +714,12 @@ func mainloopMaybeSwitchMapXXX() {
 	}
 }
 
-var gameStateFunc func() bool
-
-func nox_xxx_setGameState_43DDF0(fnc func() bool) {
-	if fnc != nil {
-		gameStateFunc = fnc
-	} else {
-		if debugMainloop {
-			log.Println("gameStateFunc = nil")
-		}
-		gameStateFunc = func() bool {
-			return true
-		}
-	}
-}
-
 func nox_xxx_cliWaitForJoinData_43BFE0() bool {
 	if debugMainloop {
 		log.Println("gameStateFunc = nox_xxx_gameStateWait_43C020")
 	}
-	nox_xxx_setGameState_43DDF0(nox_xxx_gameStateWait_43C020)
-	gameSetCliDrawFunc(nil)
+	noxServer.setUpdateFunc(nox_xxx_gameStateWait_43C020)
+	noxClient.setDrawFunc(nil)
 	if memmap.Uint32(0x587000, 91840) != 0 {
 		*memmap.PtrUint32(0x587000, 91840) = 0
 		C.nox_client_gui_flag_815132 = 1

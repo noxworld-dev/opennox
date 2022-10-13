@@ -323,7 +323,7 @@ func nox_xxx_createSocketLocal(port int) error {
 		return err
 	}
 	lobbyBroadcast = conn
-	gameSetCliDrawFunc(sub_554FF0)
+	noxClient.setDrawFunc(sub_554FF0)
 	return nil
 }
 
@@ -332,7 +332,7 @@ func sub_554D10() C.int {
 	if lobbyBroadcast != nil {
 		_ = lobbyBroadcast.Close()
 		lobbyBroadcast = nil
-		gameSetCliDrawFunc(nil)
+		noxClient.setDrawFunc(nil)
 	}
 	return 0
 }
@@ -516,7 +516,7 @@ func sendToServer(addr netip.AddrPort, data []byte) (int, error) {
 func sub_41D4C0() C.int {
 	C.sub_41EB40()
 	C.sub_41F4B0()
-	gameSetCliDrawFunc(nil)
+	noxClient.setDrawFunc(nil)
 	C.sub_40D0F0()
 	return 1
 }
