@@ -542,21 +542,7 @@ func Init(p *Ptrs) {
 	*memmap.PtrPtr(0x587000, 55956) = p.Ptr_nox_xxx_parseFileInfoData_41C3B0
 	*memmap.PtrPtr(0x587000, 55960) = memmap.PtrOff(0x587000, 56148)
 	*memmap.PtrPtr(0x587000, 55968) = p.Ptr_sub_41C780
-	*memmap.PtrPtr(0x587000, 58172) = p.Ptr_sub_41DB90
-	*memmap.PtrPtr(0x587000, 58188) = p.Ptr_sub_41E080
-	*memmap.PtrPtr(0x587000, 58204) = p.Ptr_sub_41DD40
-	*memmap.PtrPtr(0x587000, 58220) = p.Ptr_sub_41DD10
-	*memmap.PtrPtr(0x587000, 58236) = p.Ptr_sub_41DDB0
-	*memmap.PtrPtr(0x587000, 58252) = p.Ptr_sub_41DFC0
-	*memmap.PtrPtr(0x587000, 58268) = p.Ptr_sub_41E0D0
-	*memmap.PtrPtr(0x587000, 58284) = p.Ptr_sub_41E170
-	*memmap.PtrPtr(0x587000, 58316) = p.Ptr_sub_41E1B0
-	*memmap.PtrPtr(0x587000, 60296) = p.Ptr_sub_468060
-	*memmap.PtrPtr(0x587000, 60300) = p.Ptr_sub_467F30
-	*memmap.PtrPtr(0x587000, 60308) = p.Ptr_sub_44AF70
-	*memmap.PtrPtr(0x587000, 60324) = p.Ptr_sub_446A90
-	*memmap.PtrPtr(0x587000, 60328) = p.Ptr_sub_468DC0
-	*memmap.PtrPtr(0x587000, 60332) = p.Ptr_sub_4683B0
+
 	*memmap.PtrPtr(0x587000, 60832) = memmap.PtrOff(0x587000, 62440)
 	*memmap.PtrPtr(0x587000, 60836) = memmap.PtrOff(0x587000, 62448)
 	*memmap.PtrPtr(0x587000, 60840) = memmap.PtrOff(0x587000, 62460)
