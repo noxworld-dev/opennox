@@ -83,7 +83,6 @@ enum {
 #define FindClose compatFindClose
 #define GetDateFormatA compatGetDateFormatA
 #define OutputDebugStringA compatOutputDebugStringA
-#define _rotl compat_rotl
 #define _itoa compat_itoa
 #define _itow compat_itow
 #define InterlockedExchange compatInterlockedExchange
@@ -103,13 +102,6 @@ int InterlockedExchange(volatile int* Target, int Value);
 
 char* _itoa(int val, char* s, int radix);
 wchar_t* _itow(int val, wchar_t* s, int radix);
-
-static inline unsigned int _rotl(unsigned int value, int shift) {
-	unsigned int c = shift & 31;
-	if (c == 0)
-		return value;
-	return (value << c) | (value >> (32 - c));
-}
 
 #ifdef __cplusplus
 }

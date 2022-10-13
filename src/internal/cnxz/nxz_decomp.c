@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+uint32_t* sub57DD90(uint32_t* this);
+void sub57DDC0(void** this);
+
 #define SHIWORD(x) (((short*)(&x))[1])
 
 typedef struct {
@@ -455,18 +458,6 @@ uint32_t nxz_table_4[32] = {
 	5, 244,
 };
 
-//----- (0057DD90) --------------------------------------------------------
-uint32_t* sub57DD90(uint32_t* this) {
-	uint32_t* v1; // esi
-	void* v2;     // eax
-
-	v1 = this;
-	v2 = calloc(1, 0x224u);
-	*v1 = v2;
-	memset(v2, 0, 0x224u);
-	return v1;
-}
-
 //----- (0057E8A0) --------------------------------------------------------
 uint32_t* sub57E8A0(uint32_t* this) {
 	uint32_t* v1;      // ebx
@@ -507,9 +498,6 @@ void* nxz_decompress_new() {
 	}
 	return result;
 }
-
-//----- (0057DDC0) --------------------------------------------------------
-void sub57DDC0(void** this) { free(*this); }
 
 //----- (0057E910) --------------------------------------------------------
 void sub57E910(void** this) {
