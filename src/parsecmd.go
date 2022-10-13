@@ -8,7 +8,6 @@ extern int nox_cheat_charmall;
 extern int nox_cheat_summon_nolimit;
 
 int nox_cmd_set_sysop(int, int, wchar_t**);
-int nox_cmd_show_game(int, int, wchar_t**);
 int nox_cmd_set_cycle(int, int, wchar_t**);
 int nox_cmd_set_weapons(int, int, wchar_t**);
 int nox_cmd_set_staffs(int, int, wchar_t**);
@@ -181,7 +180,6 @@ var (
 				return c.Exec(ctx, "bindings")
 			},
 		},
-		{Token: "game", HelpID: "showgamehelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_game)},
 		{Token: "motd", HelpID: "showmotdhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_motd)},
 		{Token: "rank", HelpID: "showrankhelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_rank)},
 		{Token: "extents", HelpID: "showextentshelp", Flags: console.ClientServer | console.Cheat, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
@@ -264,9 +262,6 @@ var (
 
 func nox_cmd_set_sysop(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_set_sysop(i, n, arr)
-}
-func nox_cmd_show_game(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_show_game(i, n, arr)
 }
 func nox_cmd_set_cycle(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_set_cycle(i, n, arr)

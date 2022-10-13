@@ -200,27 +200,6 @@ int sub_409A70(short a1) {
 	return result;
 }
 
-//----- (00409AC0) --------------------------------------------------------
-unsigned int nox_version_code = 0;
-unsigned short nox_client_getVersionBuild_409AC0() { return nox_version_code & 0xffff; }
-
-//----- (00409AA0) --------------------------------------------------------
-unsigned char nox_client_getVersionMajor_409AA0() { return (nox_version_code >> 24) & 0xff; }
-
-//----- (00409AB0) --------------------------------------------------------
-unsigned char nox_client_getVersionMinor_409AB0() { return (nox_version_code >> 16) & 0xff; }
-
-//----- (00409AD0) --------------------------------------------------------
-unsigned int nox_client_getVersionCode_409AD0() { return nox_version_code; }
-
-//----- (00409AE0) --------------------------------------------------------
-void nox_client_setVersion_409AE0(unsigned int vers) {
-	if (nox_version_code != vers) {
-		nox_version_code = vers;
-		nox_server_gameSettingsUpdated = 1;
-	}
-}
-
 //----- (00409B00) --------------------------------------------------------
 int nox_xxx_mapCrcGetMB_409B00() { return *getMemU32Ptr(0x5D4594, 3604); }
 

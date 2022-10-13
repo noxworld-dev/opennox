@@ -78,6 +78,7 @@ int nox_xxx_guiChatIconLoad_445650();
 int nox_xxx_loadGuides_427070();
 
 void nox_xxx_getUnitsInRect_517C10_go(nox_object_t* obj, void* payload);
+wchar_t* nox_xxx_guiServerOptionsGetGametypeName_4573C0(short mode);
 */
 import "C"
 import (
@@ -182,6 +183,45 @@ func init() {
 	})
 	gui.RegisterState(gameStateXxx, "StateXxx", func() bool {
 		return C.nox_game_showGameSel_4379F0() != 0
+	})
+	noxCmdShow.Register(&console.Command{
+		Token:  "game",
+		HelpID: "showgamehelp",
+		Flags:  console.ClientServer,
+		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+			if len(tokens) != 0 {
+				return false
+			}
+			players := noxServer.cntPlayers()
+			if noxflags.HasEngine(noxflags.EngineNoRendering) {
+				players--
+			}
+			subVer := ""
+			if noxHighRes {
+				subVer = " HD"
+			}
+			c.Printf(console.ColorRed, "OpenNox%s %s", subVer, version.ClientVersion())
+			if noxflags.HasGame(noxflags.GameOnline) {
+				sname := noxServer.getServerName()
+				str := c.Strings().GetStringInFile("Name", "parsecmd.c")
+				c.Printf(console.ColorRed, "%s %s", str, sname)
+
+				v16 := GoWString(C.nox_xxx_guiServerOptionsGetGametypeName_4573C0(C.short(noxflags.GetGame())))
+				str = c.Strings().GetStringInFile("Type", "parsecmd.c")
+				c.Printf(console.ColorRed, "%s %s", str, v16)
+
+				p := unsafe.Pointer(C.sub_4165B0())
+				ind := C.short(*(*uint16)(unsafe.Add(p, 52)))
+				timeLimit := int(C.sub_40A180(ind))
+				lessons := int(C.nox_xxx_servGamedataGet_40A020(ind))
+				maxPlayers := noxServer.getServerMaxPlayers()
+				mname := noxServer.nox_server_currentMapGetFilename_409B30()
+				format := c.Strings().GetStringInFile("GameInfo", "parsecmd.c")
+				c.Printf(console.ColorRed, format, mname, players, maxPlayers, lessons, timeLimit)
+				c.Print(console.ColorRed, netGetIP(0).String())
+			}
+			return true
+		},
 	})
 }
 

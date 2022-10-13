@@ -287,7 +287,7 @@ func sub_438770_waitList() {
 			status |= 0x20
 		}
 		// TODO: should propagate this via lobby
-		v := uint32(noxProtoVersionLegacy)
+		v := noxProtoVersionLegacy
 		if g.Res.HighRes || g.Res.Width > 1024 || g.Res.Height > 768 {
 			v = noxProtoVersionHighRes
 		}
@@ -296,7 +296,7 @@ func sub_438770_waitList() {
 			Flags:   gameModeToFlags(g.Mode),
 			Status:  status,
 			Level:   uint16(level),
-			Version: v,
+			Version: uint32(v),
 		})
 	}
 	sub_44A400()

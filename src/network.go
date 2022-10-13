@@ -219,7 +219,7 @@ func nox_client_joinGame() error {
 	}
 	buf[54] = memmap.Uint8(0x85B3FC, 12254)
 	buf[55] = memmap.Uint8(0x85B3FC, 12256)
-	endianess.PutUint32(buf[80:], NOX_CLIENT_VERS_CODE)
+	endianess.PutUint32(buf[80:], uint32(NOX_CLIENT_VERS_CODE))
 	endianess.PutUint32(buf[84:], uint32(C.dword_5d4594_2660032))
 
 	copy(buf[88:98], GoStringP(memmap.PtrOff(0x85B3FC, 10344)))
@@ -788,7 +788,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 		}
 	}
 
-	if binary.LittleEndian.Uint32(packet[80:]) != NOX_CLIENT_VERS_CODE {
+	if vers := NoxVersion(binary.LittleEndian.Uint32(packet[80:])); vers != NOX_CLIENT_VERS_CODE {
 		out[2] = 19
 		out[3] = 13
 		return 4
@@ -910,10 +910,14 @@ func nox_xxx_allocNetGQueue_5520B0() {
 
 //export nox_xxx_net_getIP_554200
 func nox_xxx_net_getIP_554200(a1 int) uint32 {
-	if a1 == 0 {
-		return ip2int(dword_5d4594_3843632)
+	return ip2int(netGetIP(a1))
+}
+
+func netGetIP(ind int) netip.Addr {
+	if ind == 0 {
+		return dword_5d4594_3843632
 	}
-	return ip2int(netstr.GetIPByInd(a1))
+	return netstr.GetIPByInd(ind)
 }
 
 //export sub_519930

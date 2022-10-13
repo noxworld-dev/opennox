@@ -91,6 +91,3 @@ table_28760_t table_28760[] = {
 	{"ALLOWED_POSITION", &nox_xxx_parseAllowedPosition_4128C0_parse_allowed_pos},
 };
 int table_28760_cnt = sizeof(table_28760) / sizeof(table_28760_t);
-
-#define NOX_VERSION_STRING "1.2b"
-char nox_version_string_102944[7] = NOX_VERSION_STRING;
