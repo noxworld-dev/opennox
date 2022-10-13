@@ -864,7 +864,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 		if C.sub_416650() != 0 && sub_41E2F0() == 8 {
 			v2 = true
 		}
-		if v4 == 1 || noxflags.HasGame(noxflags.GameFlag4) || gameFrame()%uint32(v4) == 1 {
+		if v4 == 1 || noxflags.HasGame(noxflags.GameFlag4) || s.Frame()%uint32(v4) == 1 {
 			nox_netlist_resetAllInList_40EE90(1)
 		}
 	}
@@ -1271,7 +1271,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 			plx := k.ControllingPlayer()
 			plx.lessons = 0
 			plx.field_2140 = 0
-			plx.field_2144 = C.uint(gameFrame())
+			plx.field_2144 = C.uint(s.Frame())
 			nox_xxx_netReportLesson_4D8EF0(k)
 		}
 	}
@@ -1426,7 +1426,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		sub_413980(30)
 	}
 	if noxflags.HasGame(noxflags.GameModeQuest) {
-		sub_4D7140(gameFrame() + gameFPS())
+		sub_4D7140(s.Frame() + gameFPS())
 	} else {
 		sub_4D7140(0)
 	}

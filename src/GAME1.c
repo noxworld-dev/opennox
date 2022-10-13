@@ -68,7 +68,6 @@ extern uint32_t dword_5d4594_10956;
 extern uint32_t dword_5d4594_2660652;
 extern uint32_t dword_5d4594_4668;
 extern uint32_t nox_player_netCode_85319C;
-extern unsigned int nox_frame_xxx_2598000;
 
 int nox_enable_audio = 1;
 
@@ -691,7 +690,7 @@ void sub_40A970() {
 	float v3; // [esp+0h] [ebp-8h]
 	float v4; // [esp+0h] [ebp-8h]
 
-	*getMemU32Ptr(0x5D4594, 3520) = nox_frame_xxx_2598000;
+	*getMemU32Ptr(0x5D4594, 3520) = gameFrame();
 	*getMemU32Ptr(0x5D4594, 3536) = 0;
 	v3 = nox_xxx_gamedataGetFloat_419D40("SuddenDeathPlayerThreshold");
 	*getMemU32Ptr(0x5D4594, 3476) = nox_float2int(v3);
@@ -707,7 +706,7 @@ void sub_40A970() {
 }
 
 //----- (0040AA00) --------------------------------------------------------
-int sub_40AA00() { return 20 * nox_gameFPS < (unsigned int)(nox_frame_xxx_2598000 - *getMemU32Ptr(0x5D4594, 3520)); }
+int sub_40AA00() { return 20 * nox_gameFPS < (unsigned int)(gameFrame() - *getMemU32Ptr(0x5D4594, 3520)); }
 
 //----- (0040AA20) --------------------------------------------------------
 int sub_40AA20() { return *getMemU32Ptr(0x5D4594, 3536); }
@@ -883,7 +882,7 @@ void sub_40B250(int a1, unsigned char a2, unsigned short a3, const void* a4, siz
 	if (!*(uint32_t*)(v5 + 16)) {
 		return;
 	}
-	*(uint32_t*)(v5 + 156) = nox_frame_xxx_2598000;
+	*(uint32_t*)(v5 + 156) = gameFrame();
 	if (a3 == *(uint32_t*)(v5 + 8)) {
 		memcpy((void*)(*(uint32_t*)(v5 + 12) + *(uint32_t*)(v5 + 20)), a4, a5);
 		v6 = *(uint32_t*)(v5 + 8) + 1;
@@ -1040,7 +1039,7 @@ int sub_40B5D0(unsigned int a1, char a2, const char* a3, size_t a4, char a5) {
 	*((uint32_t*)v6 + 4) = v5;
 	v6[5] = v9;
 	*((uint32_t*)v6 + 5) = calloc(v5, 1u);
-	*((uint32_t*)v7 + 39) = nox_frame_xxx_2598000;
+	*((uint32_t*)v7 + 39) = gameFrame();
 	++*getMemU8Ptr(0x5D4594, 3628);
 	sub_40B690(a1, v9, a5);
 	return 1;
@@ -1121,7 +1120,7 @@ int sub_40B790() {
 		do {
 			v3 = dword_5d4594_3620 + 168 * v2;
 			if (*(uint32_t*)(v3 + 16)) {
-				if (nox_frame_xxx_2598000 > (unsigned int)(*(uint32_t*)(v3 + 156) + 900)) {
+				if (gameFrame() > (unsigned int)(*(uint32_t*)(v3 + 156) + 900)) {
 					sub_40B530(v1, 3);
 				}
 			}
@@ -1208,8 +1207,8 @@ void sub_40B970() {
 						while (v3 < 2) {
 							v4 = *(uint32_t*)(v2 + 12);
 							if (v4) {
-								v5 = nox_frame_xxx_2598000;
-								if ((unsigned int)(v4 + 90) < nox_frame_xxx_2598000) {
+								v5 = gameFrame();
+								if ((unsigned int)(v4 + 90) < gameFrame()) {
 									if (*(uint16_t*)(v2 + 16) >= 20) {
 										if (*(uint16_t*)(v1 + 6) == 2) {
 											LOBYTE(v5) = *(uint8_t*)(v1 + 4);
@@ -1219,7 +1218,7 @@ void sub_40B970() {
 									} else {
 										sub_40BA90(*(uint32_t*)v1, *(uint8_t*)(v1 + 4), *(uint16_t*)v2,
 												   *(uint16_t*)(v2 + 8), *(const void**)(v2 + 4));
-										v6 = nox_frame_xxx_2598000;
+										v6 = gameFrame();
 										++*(uint16_t*)(v2 + 16);
 										*(uint32_t*)(v2 + 12) = v6;
 									}
@@ -1227,7 +1226,7 @@ void sub_40B970() {
 							} else {
 								sub_40BA90(*(uint32_t*)v1, *(uint8_t*)(v1 + 4), *(uint16_t*)v2, *(uint16_t*)(v2 + 8),
 										   *(const void**)(v2 + 4));
-								*(uint32_t*)(v2 + 12) = nox_frame_xxx_2598000;
+								*(uint32_t*)(v2 + 12) = gameFrame();
 								++*(uint32_t*)(v1 + 12);
 							}
 							v2 = *(uint32_t*)(v2 + 20);

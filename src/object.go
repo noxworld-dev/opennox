@@ -392,7 +392,7 @@ func (s *Server) delayedDelete(obj *Object) {
 	obj.SetFlags(obj.Flags() | object.FlagDestroyed)
 	obj.deleted_next = s.objs.deletedList.CObj()
 	s.objs.deletedList = obj
-	obj.deleted_at = C.uint(gameFrame())
+	obj.deleted_at = C.uint(s.Frame())
 	if nox_xxx_servObjectHasTeam_419130(obj.teamPtr()) {
 		C.nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(obj.teamPtr()), C.int(obj.net_code))
 	}
@@ -445,7 +445,7 @@ func (s *Server) deletedObjectsUpdate() {
 	)
 	for it := s.objs.deletedList; it != nil; it = next {
 		next = asObjectC(it.deleted_next)
-		if uint32(it.deleted_at) == gameFrame() {
+		if uint32(it.deleted_at) == s.Frame() {
 			it.deleted_next = list.CObj()
 			list = it
 			s.objs.removeFromUpdatable(it)
@@ -622,8 +622,8 @@ func (s *Server) createObjectAt(a11 noxObject, owner noxObject, pos types.Pointf
 	obj.setVel(types.Pointf{})
 	obj.setForce(types.Pointf{})
 	obj.obj_flags |= C.uint(object.FlagActive)
-	obj.field_32 = C.uint(gameFrame())
-	obj.field_34 = C.uint(gameFrame())
+	obj.field_32 = C.uint(s.Frame())
+	obj.field_34 = C.uint(s.Frame())
 	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(noxflags.GameModeQuest) && !obj.Class().Has(object.ClassMissile) &&
 		(obj.objTypeInd() == int(memmap.Uint32(0x5D4594, 1556864)) ||
 			obj.Class().HasAny(object.ClassFood|object.ClassInfoBook|object.ClassWand|object.ClassWeapon|object.ClassArmor)) {

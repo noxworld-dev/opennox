@@ -58,7 +58,7 @@ func (s *noxScript) actCancelAll() {
 func (s *noxScript) newScriptTimer(df int, callback int, arg uint32) uint32 {
 	act := &Activator{
 		id:       s.actNextHandle(),
-		frame:    gameFrame() + uint32(df),
+		frame:    s.s.Frame() + uint32(df),
 		callback: callback, arg: arg,
 	}
 	s.actAppend(act)
@@ -82,7 +82,7 @@ func (s *noxScript) actSave() int {
 	var buf [4]byte
 	binary.LittleEndian.PutUint16(buf[:], 1)
 	cryptFileReadWrite(buf[:2])
-	binary.LittleEndian.PutUint32(buf[:], gameFrame())
+	binary.LittleEndian.PutUint32(buf[:], s.s.Frame())
 	cryptFileReadWrite(buf[:4])
 
 	cnt := 0
@@ -139,7 +139,7 @@ func (s *noxScript) actLoad() int {
 
 		act := &Activator{
 			id:       s.actNextHandle(),
-			frame:    gameFrame() + (frame - saveFrame),
+			frame:    s.s.Frame() + (frame - saveFrame),
 			callback: int(callback), arg: arg,
 			triggerID: trigger, callerID: caller,
 		}
@@ -151,7 +151,7 @@ func (s *noxScript) actLoad() int {
 func (s *noxScript) actRun() {
 	scripts := s.scripts()
 	for it := s.activators.head; it != nil; {
-		if it.frame > gameFrame() {
+		if it.frame > s.s.Frame() {
 			it = it.next
 		} else {
 			callback := it.callback

@@ -3,7 +3,6 @@
 #include "common__random.h"
 #include "operators.h"
 
-extern unsigned int nox_frame_xxx_2598000;
 //----- (004BC750) --------------------------------------------------------
 int nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 	int v2;             // esi
@@ -46,7 +45,7 @@ int nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 		v7 = v5 + v4 + 29;
 		goto LABEL_12;
 	case 2:
-		v7 = (nox_frame_xxx_2598000 + *(unsigned int*)(v2 + 128)) / ((unsigned int)*(unsigned char*)(v5 + v4 + 29) + 1);
+		v7 = (gameFrame() + *(unsigned int*)(v2 + 128)) / ((unsigned int)*(unsigned char*)(v5 + v4 + 29) + 1);
 		if (v7 >= v6) {
 			v7 %= v6;
 		}
@@ -85,7 +84,7 @@ int nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 		v13 = *(unsigned int*)(v2 + 280);
 		if (!(v13 & 0xC00)) {
 			v14 = *(unsigned char*)(v4 + 28);
-			v15 = (nox_frame_xxx_2598000 + *(unsigned int*)(v2 + 128)) / ((unsigned int)*(unsigned char*)(v4 + 33) + 1);
+			v15 = (gameFrame() + *(unsigned int*)(v2 + 128)) / ((unsigned int)*(unsigned char*)(v4 + 33) + 1);
 			if (v15 >= v14) {
 				v15 %= v14;
 			}

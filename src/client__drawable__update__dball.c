@@ -4,7 +4,6 @@
 #include "GAME2.h"
 #include "client__draw__fx.h"
 
-extern unsigned int nox_frame_xxx_2598000;
 //----- (004CDFA0) --------------------------------------------------------
 uint32_t* nox_xxx_updDrawAddRndSpark_4CDFA0(int a1, uint32_t* a2) {
 	uint32_t* result; // eax
@@ -28,10 +27,10 @@ uint32_t* nox_xxx_updDrawAddRndSpark_4CDFA0(int a1, uint32_t* a2) {
 					0, 255, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 37);
 				v4[110] = nox_common_randomIntMinMax_415FF0(1000, 3000,
 															"C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 40);
-				v4[112] = nox_frame_xxx_2598000 +
+				v4[112] = gameFrame() +
 						  nox_common_randomIntMinMax_415FF0(10, 40,
 															"C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 43);
-				v4[111] = nox_frame_xxx_2598000;
+				v4[111] = gameFrame();
 				*((uint16_t*)v4 + 52) = 22;
 				*((uint8_t*)v4 + 296) =
 					nox_common_randomIntMinMax_415FF0(0, 4, "C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c", 49);

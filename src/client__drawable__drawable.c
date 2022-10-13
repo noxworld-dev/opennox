@@ -44,7 +44,6 @@
 
 uint32_t* sub_495B50(uint32_t* a1);
 
-extern unsigned int nox_frame_xxx_2598000;
 
 int nox_drawable_count = 0;
 nox_alloc_class* nox_alloc_drawable = 0;
@@ -213,8 +212,8 @@ nox_drawable* nox_new_drawable_for_thing(int i) {
 	} else {
 		nox_xxx_spriteSetFrameMB_45AB80(v1, 0);
 	}
-	v1->field_79 = nox_frame_xxx_2598000;
-	v1->field_85 = nox_frame_xxx_2598000;
+	v1->field_79 = gameFrame();
+	v1->field_85 = gameFrame();
 	nox_drawable_count++;
 	v1->field_120 = 0;
 	v1->field_121 = 0;

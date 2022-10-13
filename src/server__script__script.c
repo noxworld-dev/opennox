@@ -15,7 +15,6 @@
 #include "server__script__activator.h"
 
 extern unsigned int dword_5d4594_1599628;
-extern unsigned int nox_frame_xxx_2598000;
 
 _Static_assert(sizeof(nox_script_xxx_t) == 48, "wrong size of nox_script_xxx_t structure!");
 

@@ -4,7 +4,6 @@
 #include "GAME4_1.h"
 #include "common__random.h"
 
-extern unsigned int nox_frame_xxx_2598000;
 //----- (004CCEA0) --------------------------------------------------------
 void sub_4CCEA0(uint32_t* a1, int a2) {
 	uint32_t* v2; // ebp
@@ -57,9 +56,9 @@ void sub_4CCEA0(uint32_t* a1, int a2) {
 					a2 * nox_common_randomIntMinMax_415FF0(
 							 100, 300, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 74);
 				*(uint32_t*)(v12 + 448) =
-					nox_frame_xxx_2598000 + nox_common_randomIntMinMax_415FF0(
+					gameFrame() + nox_common_randomIntMinMax_415FF0(
 												30, 45, "C:\\NoxPost\\src\\client\\Drawable\\Update\\Fireball.c", 77);
-				*(uint32_t*)(v12 + 444) = nox_frame_xxx_2598000;
+				*(uint32_t*)(v12 + 444) = gameFrame();
 				*(uint16_t*)(v12 + 104) = 28;
 				*(uint16_t*)(v12 + 106) = 0;
 				*(uint8_t*)(v12 + 296) = nox_common_randomIntMinMax_415FF0(

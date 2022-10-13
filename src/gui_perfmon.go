@@ -39,7 +39,7 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 	c.drawPing(m)
 	y += 10
 
-	frame := gameFrame()
+	frame := c.srv.Frame()
 	format := c.Strings().GetStringInFile("Frame", "client.c")
 	c.r.Data().SetTextColor(color.White)
 	c.r.DrawString(nil, fmt.Sprintf(format, frame), image.Pt(x, y))

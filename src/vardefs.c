@@ -4,7 +4,6 @@ void nox_xxx_unknown_libname_86_57F634();
 void nullsub_66();
 void nullsub_67();
 void nullsub_68();
-unsigned int nox_frame_xxx_2598000 = 0;
 uint32_t dword_5d4594_4668 = 0;
 uint32_t dword_5d4594_1046492 = 0;
 void* nox_xxx_aClosewoodengat_587000_133480 = 0;

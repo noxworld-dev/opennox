@@ -9,7 +9,6 @@ extern uint32_t dword_5d4594_1303452;
 extern int nox_win_width;
 extern int nox_win_height;
 extern unsigned int nox_gameFPS;
-extern unsigned int nox_frame_xxx_2598000;
 
 //----- (0049B4B0) --------------------------------------------------------
 int sub_49B4B0(unsigned short* a1) {
@@ -59,8 +58,8 @@ int sub_49B4B0(unsigned short* a1) {
 	sub_46AEE0((int)v8, (int)getMemAt(0x5D4594, 1302428));
 	v9 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1303452, 10711);
 	sub_46AEE0((int)v9, (int)getMemAt(0x5D4594, 1303196));
-	result = nox_frame_xxx_2598000;
-	*getMemU32Ptr(0x5D4594, 1303456) = nox_frame_xxx_2598000;
+	result = gameFrame();
+	*getMemU32Ptr(0x5D4594, 1303456) = gameFrame();
 	return result;
 }
 
@@ -76,7 +75,7 @@ int sub_49B6E0() {
 	if (dword_5d4594_1303452) {
 		result = wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1303452);
 		if (!result) {
-			v1 = *getMemU32Ptr(0x5D4594, 1303456) + 30 * nox_gameFPS - nox_frame_xxx_2598000;
+			v1 = *getMemU32Ptr(0x5D4594, 1303456) + 30 * nox_gameFPS - gameFrame();
 			if (v1 < 0) {
 				v1 = 0;
 			}

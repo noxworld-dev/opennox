@@ -36,7 +36,6 @@ int nox_xxx_netSendChat_528AC0(nox_object_t* a1, wchar_t* a2, wchar_t a3);
 extern unsigned int dword_5d4594_2386836;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern unsigned int nox_gameFPS;
-extern unsigned int nox_frame_xxx_2598000;
 
 unsigned int dword_5d4594_1599628 = 0;
 void* nox_script_objGold = 0;
@@ -515,8 +514,8 @@ int nox_script_pickup_5139A0() {
 	v4 = v3;
 	if (v2 && v3) {
 		if (nox_common_gameFlags_check_40A5C0(2048) && (*(uint8_t*)(v2 + 8) & 4) == 4 &&
-			*getMemU32Ptr(0x5D4594, 2386844) != nox_frame_xxx_2598000) {
-			*getMemU32Ptr(0x5D4594, 2386844) = nox_frame_xxx_2598000;
+			*getMemU32Ptr(0x5D4594, 2386844) != gameFrame()) {
+			*getMemU32Ptr(0x5D4594, 2386844) = gameFrame();
 			dword_5d4594_2386848 = 0;
 			dword_5d4594_2386852 = 0;
 		}

@@ -10,7 +10,6 @@
 
 extern uint32_t dword_5d4594_1313804;
 extern unsigned int nox_gameFPS;
-extern unsigned int nox_frame_xxx_2598000;
 extern uint32_t nox_color_white_2523948;
 
 //----- (004B98A0) --------------------------------------------------------
@@ -108,7 +107,7 @@ int nox_thing_magic_missle_tail_link_draw(uint32_t* a1, nox_drawable* dr) {
 	v3 = *(uint32_t*)(a2 + 12) + *a1 - a1[4];
 	v4 = *(uint32_t*)(a2 + 16) + a1[1] - *(short*)(a2 + 106) - *(short*)(a2 + 104) - a1[5];
 	v12 = a1[1] - *(short*)(a2 + 106) - *(short*)(a2 + 104) - a1[5] + *(uint32_t*)(a2 + 436);
-	v5 = *(uint32_t*)(a2 + 356) - nox_frame_xxx_2598000;
+	v5 = *(uint32_t*)(a2 + 356) - gameFrame();
 	v11 = *a1 - a1[4] + *(uint32_t*)(a2 + 432);
 	v14 = v5;
 	if (v5 > 0) {
@@ -155,8 +154,8 @@ int nox_thing_magic_tail_link_draw(uint32_t* a1, nox_drawable* dr) {
 	v3 = *(uint32_t*)(a2 + 12) + *a1 - a1[4];
 	v4 = *(uint32_t*)(a2 + 16) + a1[1] - *(short*)(a2 + 106) - *(short*)(a2 + 104) - a1[5];
 	v13 = *a1 - a1[4] + *(uint32_t*)(a2 + 432);
-	v5 = *(uint32_t*)(a2 + 356) - nox_frame_xxx_2598000;
-	v6 = *(uint32_t*)(a2 + 356) == nox_frame_xxx_2598000;
+	v5 = *(uint32_t*)(a2 + 356) - gameFrame();
+	v6 = *(uint32_t*)(a2 + 356) == gameFrame();
 	v14 = a1[1] - *(short*)(a2 + 106) - *(short*)(a2 + 104) - a1[5] + *(uint32_t*)(a2 + 436);
 	v15 = v5;
 	if (v5 >= 0 && !v6) {

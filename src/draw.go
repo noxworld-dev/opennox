@@ -585,6 +585,7 @@ func setRect(cr *C.nox_rect, r image.Rectangle) {
 type NoxRender struct {
 	*noxrender.NoxRender
 	p *RenderData
+	f Framer
 
 	colors struct {
 		R [256]uint16
@@ -606,9 +607,14 @@ func newNoxRenderData() (*RenderData, func()) {
 	return d, free
 }
 
-func NewNoxRender() *NoxRender {
+type Framer interface {
+	Frame() uint32
+}
+
+func NewNoxRender(f Framer) *NoxRender {
 	r := &NoxRender{
 		NoxRender:  noxrender.NewRender(),
+		f:          f,
 		renderGlow: true,
 	}
 	r.NoxRender.SetData(renderDataAdapter{r: r, RenderData: r.p})
@@ -617,7 +623,7 @@ func NewNoxRender() *NoxRender {
 }
 
 func (r *NoxRender) Frame() uint32 {
-	return gameFrame()
+	return r.f.Frame()
 }
 
 func (r *NoxRender) Data() *RenderData {
@@ -1018,7 +1024,7 @@ func (c *Client) sub4745F0(vp *Viewport) {
 		}
 		dr.field_33 = 0
 		if dr.field_120 == 0 && dr.field_122 == 0 {
-			dr.field_85 = C.uint(gameFrame())
+			dr.field_85 = C.uint(c.srv.Frame())
 		}
 	}
 	nox_drawable_list_2 = nox_drawable_list_2[:0]

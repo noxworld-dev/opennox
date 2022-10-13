@@ -14,7 +14,6 @@
 
 extern uint32_t dword_5d4594_1316412;
 extern uint32_t dword_5d4594_1316408;
-extern unsigned int nox_frame_xxx_2598000;
 
 //----- (004BA230) --------------------------------------------------------
 int sub_4BA230(int a1, int a2, int a3, int a4, int a5) {
@@ -215,9 +214,9 @@ char sub_4BA8B0(int* a1, int* a2, int* a3) {
 	*getMemU32Ptr(0x5D4594, 1313888 + v6) = a1[1];
 	*getMemU32Ptr(0x5D4594, 1313912 + v6) = *a2;
 	*getMemU32Ptr(0x5D4594, 1313916 + v6) = a2[1];
-	LOBYTE(v6) = (unsigned char)nox_frame_xxx_2598000;
+	LOBYTE(v6) = (unsigned char)gameFrame();
 	dword_5d4594_1316412 = v5;
-	if ((unsigned char)nox_frame_xxx_2598000 & 4) {
+	if ((unsigned char)gameFrame() & 4) {
 		v6 = nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\client\\Draw\\Plasma.c", 135);
 		if (v6 > 5) {
 			LOBYTE(v6) = nox_xxx_drawEnergyBolt_499710(*a2 + *((uint32_t*)v4 + 4) - *(uint32_t*)v4,

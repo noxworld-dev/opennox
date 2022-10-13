@@ -77,7 +77,7 @@ func sub_446190() {
 	}
 	if dword_5d4594_825768 == 0 {
 		dword_5d4594_825752 = 0
-		dword_5d4594_825768 = gameFrame()
+		dword_5d4594_825768 = noxServer.Frame()
 		if noxflags.HasGame(noxflags.GameHost) {
 			if nox_xxx_check_flag_aaa_43AF70() == 1 && noxflags.HasGame(noxflags.GameFlag15|noxflags.GameFlag16) {
 				sub_416150(15, 0)

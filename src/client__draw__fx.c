@@ -8,7 +8,6 @@
 #include "GAME3_1.h"
 #include "operators.h"
 
-extern unsigned int nox_frame_xxx_2598000;
 //----- (00499490) --------------------------------------------------------
 void sub_499490(int a1, uint16_t* a2, int a3, int a4, char a5, char a6) {
 	uint32_t* result; // eax
@@ -74,9 +73,9 @@ int nox_xxx_makePointFxCli_499610(int a1, int a2, int a3, int a4, int a5, int a6
 				*(uint32_t*)(v8 + 440) =
 					nox_common_randomIntMinMax_415FF0(1, a3, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 230);
 				*(uint32_t*)(v8 + 448) =
-					nox_frame_xxx_2598000 +
+					gameFrame() +
 					nox_common_randomIntMinMax_415FF0(a4, 64, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 233);
-				*(uint32_t*)(v8 + 444) = nox_frame_xxx_2598000;
+				*(uint32_t*)(v8 + 444) = gameFrame();
 				*(uint16_t*)(v8 + 104) = 0;
 				*(uint8_t*)(v8 + 296) =
 					nox_common_randomIntMinMax_415FF0(2, 10, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 239);
@@ -106,9 +105,9 @@ int nox_xxx_drawEnergyBolt_499710(int a1, int a2, short a3, int a4) {
 				nox_common_randomIntMinMax_415FF0(0, 255, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 268);
 			*(uint32_t*)(v5 + 440) =
 				nox_common_randomIntMinMax_415FF0(1, 3000, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 271);
-			*(uint32_t*)(v5 + 448) = nox_frame_xxx_2598000 + nox_common_randomIntMinMax_415FF0(
+			*(uint32_t*)(v5 + 448) = gameFrame() + nox_common_randomIntMinMax_415FF0(
 																 5, 20, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 274);
-			*(uint32_t*)(v5 + 444) = nox_frame_xxx_2598000;
+			*(uint32_t*)(v5 + 444) = gameFrame();
 			*(uint16_t*)(v5 + 104) =
 				a3 + nox_common_randomIntMinMax_415FF0(0, 20, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 279);
 			*(uint8_t*)(v5 + 296) =
@@ -183,9 +182,9 @@ int nox_xxx_makeLightningParticles_4999D0(int a1, int2* a2, int2* a3) {
 						*(uint32_t*)(v12 + 440) =
 							nox_common_randomIntMinMax_415FF0(1, 3000, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 461);
 						*(uint32_t*)(v12 + 448) =
-							nox_frame_xxx_2598000 +
+							gameFrame() +
 							nox_common_randomIntMinMax_415FF0(5, 20, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 464);
-						*(uint32_t*)(v12 + 444) = nox_frame_xxx_2598000;
+						*(uint32_t*)(v12 + 444) = gameFrame();
 					}
 					*(uint16_t*)(v12 + 104) =
 						nox_common_randomIntMinMax_415FF0(15, 30, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 471);
@@ -267,9 +266,9 @@ int sub_49A150(int2* a1, int a2, unsigned char a3) {
 					*(uint32_t*)(v7 + 440) =
 						nox_common_randomIntMinMax_415FF0(1, v3, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 825);
 					*(uint32_t*)(v7 + 448) =
-						nox_frame_xxx_2598000 +
+						gameFrame() +
 						nox_common_randomIntMinMax_415FF0(v5, 96, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 828);
-					*(uint32_t*)(v7 + 444) = nox_frame_xxx_2598000;
+					*(uint32_t*)(v7 + 444) = gameFrame();
 				}
 				*(uint16_t*)(v7 + 104) =
 					nox_common_randomIntMinMax_415FF0(5, 15, "C:\\NoxPost\\src\\client\\Draw\\Fx.c", 834);

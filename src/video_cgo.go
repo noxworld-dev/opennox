@@ -600,7 +600,7 @@ func (c *Client) nox_video_cursorDrawImpl_477A30(pos image.Point) {
 		dword_5d4594_3798728 = false
 	}()
 	dword_5d4594_1097212 = pos
-	if gameFrame()&1 != 0 {
+	if c.srv.Frame()&1 != 0 {
 		*memmap.PtrUint32(0x5D4594, 1097288)++
 	}
 	c.r.Data().SetTextColor(nox_color_yellow_2589772)

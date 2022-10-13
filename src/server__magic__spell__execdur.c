@@ -5,7 +5,6 @@
 #include "GAME4_3.h"
 #include "common__strman.h"
 
-extern unsigned int nox_frame_xxx_2598000;
 //----- (00530A30) --------------------------------------------------------
 int sub_530A30_spell_execdur(int a1) {
 	int v1;      // esi
@@ -47,11 +46,11 @@ int sub_530A30_spell_execdur(int a1) {
 		if (!v9 || (unsigned char)nox_xxx_traceRay_5374B0((float4*)&v12)) {
 			if (nox_common_gameFlags_check_40A5C0(2048)) {
 				v11 = nox_xxx_gamedataGetFloatTable_419D70("TeleportDelay", *(uint32_t*)(v1 + 8) - 1);
-				*(uint32_t*)(v1 + 68) = nox_frame_xxx_2598000 + nox_float2int(v11);
+				*(uint32_t*)(v1 + 68) = gameFrame() + nox_float2int(v11);
 				result = 0;
 			} else {
 				result = 0;
-				*(uint32_t*)(v1 + 68) = nox_frame_xxx_2598000 + 1;
+				*(uint32_t*)(v1 + 68) = gameFrame() + 1;
 			}
 		} else {
 			if (v2) {

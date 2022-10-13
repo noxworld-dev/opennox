@@ -14,11 +14,12 @@ import (
 )
 
 func (u *Unit) monsterCast(spellInd spell.ID, target *Object) {
+	s := u.getServer()
 	ud := u.updateDataMonster()
 	u.monsterPushAction(ai.DEPENDENCY_UNINTERRUPTABLE)
-	sp := u.getServer().SpellDefByInd(spellInd)
+	sp := s.SpellDefByInd(spellInd)
 	if sp.Def.Flags.Has(things.SpellDuration) {
-		ts := gameFrame() + uint32(noxRndCounter1.IntClamp(int(gameFPS()/2), int(2*gameFPS())))
+		ts := s.Frame() + uint32(noxRndCounter1.IntClamp(int(gameFPS()/2), int(2*gameFPS())))
 		u.monsterPushAction(ai.DEPENDENCY_TIME, ts)
 		u.monsterPushAction(ai.ACTION_CAST_DURATION_SPELL, uint32(spellInd), 0, target)
 	} else {

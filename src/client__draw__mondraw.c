@@ -15,7 +15,6 @@
 #include "operators.h"
 
 extern unsigned int nox_gameFPS;
-extern unsigned int nox_frame_xxx_2598000;
 extern uint32_t dword_5d4594_1313796;
 
 //----- (004BC490) --------------------------------------------------------
@@ -29,8 +28,8 @@ char sub_4BC490(int a1) {
 	int v7;          // eax
 	int v8;          // eax
 
-	LOBYTE(v1) = (unsigned char)nox_frame_xxx_2598000;
-	if (!((unsigned char)nox_frame_xxx_2598000 & 3) && *(uint32_t*)(a1 + 276) == 8 &&
+	LOBYTE(v1) = (unsigned char)gameFrame();
+	if (!((unsigned char)gameFrame() & 3) && *(uint32_t*)(a1 + 276) == 8 &&
 		*(uint32_t*)(a1 + 116) & 0x40000) {
 		v2 = *(uint32_t*)(a1 + 308);
 		v3 = *(uint32_t*)(a1 + 308);
@@ -130,8 +129,8 @@ int nox_thing_monster_draw(int* a1, nox_drawable* dr) {
 		if (*(uint8_t*)(v2 + 297) != v4) {
 			v5 = *(uint32_t*)(v2 + 276);
 			if (v5 != 1 && v5 != 3 && v5 != 5) {
-				if ((unsigned int)(nox_frame_xxx_2598000 - *(uint32_t*)(v2 + 436)) >= (int)nox_gameFPS >> 2) {
-					*(uint32_t*)(v2 + 436) = nox_frame_xxx_2598000;
+				if ((unsigned int)(gameFrame() - *(uint32_t*)(v2 + 436)) >= (int)nox_gameFPS >> 2) {
+					*(uint32_t*)(v2 + 436) = gameFrame();
 					*(uint8_t*)(v2 + 432) = *(uint8_t*)(v2 + 297);
 				} else {
 					*(uint8_t*)(v2 + 297) = v4;

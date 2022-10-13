@@ -5,7 +5,6 @@
 #include "common__random.h"
 #include "operators.h"
 
-extern unsigned int nox_frame_xxx_2598000;
 //----- (004BC930) --------------------------------------------------------
 int nox_thing_cond_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 	int v2;         // eax
@@ -41,7 +40,7 @@ int nox_thing_cond_animate_draw(unsigned int* a1, struct nox_drawable* dr) {
 			v10 = nox_common_randomIntMinMax_415FF0(0, v4, "C:\\NoxPost\\src\\client\\Draw\\CAniDraw.c", 57);
 		}
 	} else {
-		v10 = (nox_frame_xxx_2598000 + dr->field_32) / (unsigned int)(v5 + 1);
+		v10 = (gameFrame() + dr->field_32) / (unsigned int)(v5 + 1);
 		if (v10 >= v4) {
 			v10 %= v4;
 		}
