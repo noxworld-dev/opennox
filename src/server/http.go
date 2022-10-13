@@ -1,11 +1,10 @@
-package opennox
+package server
 
 import (
 	"fmt"
 	"net"
 	"net/http"
 
-	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/log"
 )
 
@@ -21,14 +20,18 @@ type httpService struct {
 
 func (s *httpService) init() {
 	s.mux = http.NewServeMux()
-	s.srv = &http.Server{Addr: fmt.Sprintf(":%d", common.GameHTTPPort), Handler: s.mux}
+	s.srv = &http.Server{Handler: s.mux}
 }
 
-func (s *Server) gameStartHTTP(port int) error {
+func (s *Server) HTTP() *http.ServeMux {
+	return s.http.mux
+}
+
+func (s *Server) StartHTTP() error {
 	if s.http.lis != nil {
 		return nil
 	}
-	addr := fmt.Sprintf(":%d", port)
+	addr := fmt.Sprintf(":%d", s.HTTPPort())
 	s.http.srv.Addr = addr
 	ln, err := net.Listen("tcp", addr)
 	if err != nil {
@@ -40,7 +43,7 @@ func (s *Server) gameStartHTTP(port int) error {
 	return nil
 }
 
-func (s *Server) gameStopHTTP() {
+func (s *Server) StopHTTP() {
 	if s.http.lis != nil {
 		_ = s.http.lis.Close()
 		s.http.lis = nil

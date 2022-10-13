@@ -89,7 +89,6 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
-	"sync"
 	"unsafe"
 
 	"github.com/noxworld-dev/lobby"
@@ -499,7 +498,7 @@ func (s *Server) getGameInfo() xwisInfoShort {
 		res = noxClient.videoGetGameMode()
 	}
 	return xwisInfoShort{
-		Port:       s.getServerPort(),
+		Port:       s.ServerPort(),
 		Name:       s.getServerName(),
 		Map:        s.getServerMap(),
 		Flags:      noxflags.GetGame(),
@@ -814,7 +813,7 @@ func (s *Server) nox_xxx_servInitialMapLoad_4D17F0() bool {
 	if debugMainloop {
 		log.Println("gameStateFunc = nox_xxx_gameTick_4D2580_server")
 	}
-	s.setUpdateFunc(s.nox_xxx_gameTick_4D2580_server)
+	s.SetUpdateFunc(s.nox_xxx_gameTick_4D2580_server)
 	nox_netlist_resetAllInList_40EE90(1)
 	noxflags.SetGame(noxflags.GameFlag18)
 	C.nox_xxx_netGameSettings_4DEF00()
@@ -822,39 +821,8 @@ func (s *Server) nox_xxx_servInitialMapLoad_4D17F0() bool {
 	return true
 }
 
-type tickHooks struct {
-	gameTickMu        sync.Mutex
-	gameTickCallbacks []func() // one time
-	gameTickHooks     []func() // persistent
-}
-
-func (s *Server) addGameTickCallback(fnc func()) {
-	s.tickHooks.gameTickMu.Lock()
-	s.tickHooks.gameTickCallbacks = append(s.tickHooks.gameTickCallbacks, fnc)
-	s.tickHooks.gameTickMu.Unlock()
-}
-
-func (s *Server) addGameTickHook(fnc func()) {
-	s.tickHooks.gameTickMu.Lock()
-	s.tickHooks.gameTickHooks = append(s.tickHooks.gameTickHooks, fnc)
-	s.tickHooks.gameTickMu.Unlock()
-}
-
-func (s *Server) runGameTickHooks() {
-	s.tickHooks.gameTickMu.Lock()
-	defer s.tickHooks.gameTickMu.Unlock()
-	for _, fnc := range s.tickHooks.gameTickHooks {
-		fnc()
-	}
-	for i, fnc := range s.tickHooks.gameTickCallbacks {
-		fnc()
-		s.tickHooks.gameTickCallbacks[i] = nil
-	}
-	s.tickHooks.gameTickCallbacks = s.tickHooks.gameTickCallbacks[:0]
-}
-
 func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
-	defer s.runGameTickHooks()
+	defer s.RunTickHooks()
 	ticks := platformTicks()
 	v2 := false
 	if C.dword_5d4594_2650652 == 0 {

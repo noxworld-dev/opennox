@@ -39,6 +39,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
@@ -78,14 +79,14 @@ func (c *Client) mapDownloadLoop(first bool) (bool, error) {
 		C.sub_40D250()
 		C.sub_40DF90()
 	}
-	nox_framerate_limit_416C70(30)
+	c.srv.SetRateLimit(30)
 	c.processInput()
 	sub_43CCA0()
 
 	if first {
 		ctx, cancel := context.WithCancel(context.Background())
 
-		hport := inferHTTPPort(clientGetServerPort())
+		hport := server.InferHTTPPort(clientGetServerPort())
 		srv := fmt.Sprintf("%s:%d", clientGetServerHost(), hport)
 		c.mapsend.log.Printf("checking map download API on server %q", srv)
 		cli, err := maps.NewClient(ctx, srv)
