@@ -762,23 +762,6 @@ int nox_xxx_damageMonsterGen_4E27D0(int a1, int a2, int a3, int a4, int a5) {
 	return v17;
 }
 
-//----- (004E30A0) --------------------------------------------------------
-int nox_xxx_keyFirstLetterNumber_4E30A0(char* a1) {
-	int result; // eax
-	int v2;     // eax
-
-	if (!a1) {
-		return -1;
-	}
-	v2 = toupper(*a1);
-	if (v2 < 65 || v2 > 90) {
-		result = 26;
-	} else {
-		result = v2 - 65;
-	}
-	return result;
-}
-
 //----- (004E3360) --------------------------------------------------------
 int nox_xxx_allocClassArrayObjects_4E3360(unsigned int a1) {
 	uint32_t* v1; // esi
@@ -1239,15 +1222,6 @@ FILE* sub_4E43F0(char* a1) {
 		nox_fs_close(v2);
 		result = (FILE*)1;
 	}
-	return result;
-}
-
-//----- (004E44E0) --------------------------------------------------------
-int nox_xxx_objectMakeUnseenByNoone_4E44E0(int a1) {
-	int result; // eax
-
-	result = a1;
-	*(uint32_t*)(a1 + 152) = 0;
 	return result;
 }
 

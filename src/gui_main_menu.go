@@ -173,7 +173,6 @@ func sub_4A2500() {
 	sub_4A24F0()
 }
 
-//export sub_4A2530
 func sub_4A2530() {
 	setEnableFrameLimit(false)
 	nox_win_main_bg.Hide()
@@ -413,7 +412,6 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 				C.nox_client_gui_flag_815132 = 0
 				return nil
 			}
-			// sub_4AA450();
 			nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showGameSel_4379F0)
 			sub_43AF50()
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
@@ -461,7 +459,6 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 				C.nox_client_gui_flag_815132 = 0
 				return nil
 			}
-			// sub_4AA450();
 			nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showGameSel_4379F0)
 			sub_43AF50()
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)

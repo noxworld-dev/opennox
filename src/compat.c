@@ -17,44 +17,9 @@
 #include "common/fs/nox_fs.h"
 #include "windows_compat.h"
 
-enum {
-	HANDLE_FILE,
-	HANDLE_PROCESS,
-	HANDLE_THREAD,
-	HANDLE_MUTEX,
-};
-
-void* handles[1024];
-
-static inline HANDLE new_handle(unsigned int type, void* data) {
-	unsigned int i;
-	for (i = 0; i < 1024; i++) {
-		if (!handles[i]) {
-			handles[i] = data;
-			return (HANDLE)((type << 16) | i);
-		}
-	}
-	return (HANDLE)-1;
-}
-
-static inline void* lookup_handle(unsigned int type, HANDLE h) {
-	if (type != ((uint32_t)h >> 16))
-		return NULL;
-	if ((uint16_t)h >= 1024)
-		return NULL;
-	return handles[(uint16_t)h];
-}
-
 void OutputDebugStringA(const char* lpOutputString) { fprintf(stderr, "%s", lpOutputString); }
 
-// Memory functions
-int HeapDestroy(HANDLE hHeap) {
-	abort();
-	return 0;
-}
-
 char* nox_itoa(int val, char* s, int radix);
-char* nox_utoa(int val, char* s, int radix);
 char* _itoa(int val, char* s, int radix) { return nox_itoa(val, s, radix); }
 
 wchar_t* _itow(int val, wchar_t* s, int radix) {
@@ -70,21 +35,6 @@ wchar_t* _itow(int val, wchar_t* s, int radix) {
 }
 
 int InterlockedExchange(volatile int* Target, int Value) { return __sync_lock_test_and_set(Target, Value); }
-
-int InterlockedDecrement(volatile int* Addend) { return __sync_fetch_and_sub(Addend, 1); }
-
-int InterlockedIncrement(volatile int* Addend) { return __sync_fetch_and_add(Addend, 1); }
-
-int MulDiv(int nNumber, int nNumerator, int nDenominator) {
-	abort();
-	return 0;
-}
-
-HINSTANCE ShellExecuteA(HWND hwnd, const char* lpOperation, const char* lpFile, const char* lpParameters,
-						const char* lpDirectory, int nShowCmd) {
-	abort();
-	return 0;
-}
 
 // Time functions
 // compatGetDateFormatA(Locale=2048, dwFlags=1, lpDate=0x1708c6a4, lpFormat=0x00000000, lpDateStr="nox.str:Warrior",

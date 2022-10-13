@@ -3824,20 +3824,6 @@ int nox_xxx_netSendVampFx_523270(char a1, short* a2, short a3) {
 	return nox_xxx_netSendFxAllCli_523030(&a1a, a2a, 11);
 }
 
-//----- (005232F0) --------------------------------------------------------
-int nox_xxx_netSendRayFx_5232F0(char a1, int a2) {
-	short v2;   // dx
-	char v4[9]; // [esp+0h] [ebp-Ch]
-
-	v4[0] = a1;
-	v2 = *(uint16_t*)(a2 + 4);
-	*(uint16_t*)&v4[1] = *(uint16_t*)a2;
-	*(uint16_t*)&v4[5] = *(uint16_t*)(a2 + 8);
-	*(uint16_t*)&v4[3] = v2;
-	*(uint16_t*)&v4[7] = *(uint16_t*)(a2 + 12);
-	return nox_xxx_servCode_523340((int*)a2, v4, 9);
-}
-
 //----- (00523340) --------------------------------------------------------
 int nox_xxx_servCode_523340(int* a1, const void* a2, int a3) {
 	int result; // eax
