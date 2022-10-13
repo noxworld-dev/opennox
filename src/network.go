@@ -190,11 +190,6 @@ func sub_43AF90(v int) {
 }
 
 func nox_client_createSockAndJoin_43B440() error {
-	if dword_587000_87404 == 1 {
-		if err := nox_xxx_createSocketLocal(0); err != nil {
-			return err
-		}
-	}
 	return nox_client_joinGame()
 }
 
@@ -457,7 +452,7 @@ func nox_xxx_netSendIncomingClient_43CB00() int {
 
 func nox_xxx_servNetInitialPackets_552A80_discover(src, dst []byte) int {
 	// received a lobby info request from the client
-	if nox_xxx_check_flag_aaa_43AF70() == 0 {
+	if true {
 		// send server info packet
 		return nox_server_makeServerInfoPacket_554040(src, dst)
 	}
@@ -774,7 +769,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 	// TODO: This code is disabled because it causes issues with players reconnecting to the server.
 	//       For some reason the player record gets stuck in the server's player list, so this check fails.
 	if false {
-		if nox_xxx_check_flag_aaa_43AF70() == 0 {
+		if true {
 			serial := GoStringS(packet[56:])
 			for it := s.playerFirst(); it != nil; it = s.playerNext(it) {
 				if byte(it.field_2135) == packet[98] {

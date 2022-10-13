@@ -1165,7 +1165,7 @@ int sub_4BDFD0() {
 	if (nox_xxx_guiFontHeightMB_43F320(0) > 10) {
 		v1 = 2;
 	}
-	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
+	if (0) {
 		v3 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 180088 + 4 * v1), sub_4BE330);
 	} else {
 		v3 = nox_new_window_from_file(*(const char**)getMemAt(0x587000, 180048 + 4 * v1), sub_4BE330);
@@ -1178,7 +1178,7 @@ int sub_4BDFD0() {
 	nox_xxx_wndSetWindowProc_46B300(*(int*)&dword_5d4594_1316972, sub_4BE320);
 	v4 = nox_xxx_wndGetChildByID_46B0C0(0, 10100);
 	nox_gui_getWindowOffs_46AA20((int)v4, &v10, &v9);
-	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
+	if (0) {
 		v5 = v9 + 55;
 	} else {
 		v5 = v9 + 80;
@@ -1187,7 +1187,7 @@ int sub_4BDFD0() {
 	v6 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1316972, 2104);
 	nox_xxx_wnd_46B280((int)v6, *(int*)&dword_5d4594_1316972);
 	nox_xxx_wndSetProc_46B2C0((int)v6, sub_4BE330);
-	if (nox_xxx_check_flag_aaa_43AF70() == 1) {
+	if (0) {
 		v7 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1316972, 2119);
 		nox_xxx_wnd_46B280((int)v7, *(int*)&dword_5d4594_1316972);
 	}
@@ -1260,13 +1260,12 @@ int sub_4BE120(int a1) {
 	default:
 		break;
 	}
-	result = nox_xxx_check_flag_aaa_43AF70();
-	if (result == 1) {
+	if (0) {
 		v14 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1316972, 2119);
 		nox_window_call_field_94((int)v14, 16394, *(uint32_t*)(a1 + 74), 0);
 		result = sub_4BE2C0(*(uint32_t*)(a1 + 74));
 	}
-	return result;
+	return 0;
 }
 
 //----- (004BE320) --------------------------------------------------------

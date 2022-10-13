@@ -1,8 +1,0 @@
-#ifndef NOX_PORT_CLIENT_SHELL_WOLAPI_WOLLOGIN
-#define NOX_PORT_CLIENT_SHELL_WOLAPI_WOLLOGIN
-
-#include "defs.h"
-
-int nox_game_showWolLogin_44A560();
-
-#endif // NOX_PORT_CLIENT_SHELL_WOLAPI_WOLLOGIN

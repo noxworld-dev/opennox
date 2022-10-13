@@ -17,12 +17,10 @@ package opennox
 #include "GAME4_3.h"
 #include "GAME5.h"
 #include "GAME5_2.h"
-#include "client__shell__wolapi__wolchat.h"
 #include "client__system__parsecmd.h"
 #include "common__object__modifier.h"
 #include "server__system__cscrfunc.h"
 #include "server__script__script.h"
-#include "common__wolapi__wolstate.h"
 #include "client__draw__animdraw.h"
 #include "client__draw__canidraw.h"
 #include "client__draw__slavedraw.h"
@@ -43,7 +41,6 @@ extern void* dword_587000_127004;
 extern void* dword_587000_93164;
 extern void* dword_587000_122852;
 extern void* dword_587000_81128;
-void nox_xxx_unknown_libname_86_57F634();
 void nullsub_66();
 void nullsub_67();
 */
@@ -64,68 +61,12 @@ func initBlobData() {
 		Ptr_dword_587000_81128:                    &C.dword_587000_81128,
 		Ptr_nox_xxx_parseWeapColor_411C40:         unsafe.Pointer(C.nox_xxx_parseWeapColor_411C40),
 		Ptr_sub_411D90:                            unsafe.Pointer(C.sub_411D90),
-		Ptr_sub_40E4F0:                            unsafe.Pointer(C.sub_40E4F0),
-		Ptr_sub_40E490:                            unsafe.Pointer(C.sub_40E490),
-		Ptr_sub_40E4B0:                            unsafe.Pointer(C.sub_40E4B0),
-		Ptr_sub_40C960:                            unsafe.Pointer(C.sub_40C960),
-		Ptr_sub_40C140:                            unsafe.Pointer(C.sub_40C140),
-		Ptr_sub_40C1B0:                            unsafe.Pointer(C.sub_40C1B0),
-		Ptr_sub_40CA60:                            unsafe.Pointer(C.sub_40CA60),
-		Ptr_sub_40C1F0:                            unsafe.Pointer(C.sub_40C1F0),
-		Ptr_nox_xxx_somejoinproc_40CD60:           unsafe.Pointer(C.nox_xxx_somejoinproc_40CD60),
-		Ptr_sub_40C240:                            unsafe.Pointer(C.sub_40C240),
-		Ptr_sub_40C2E0:                            unsafe.Pointer(C.sub_40C2E0),
-		Ptr_sub_40C420:                            unsafe.Pointer(C.sub_40C420),
-		Ptr_sub_40C4E0:                            unsafe.Pointer(C.sub_40C4E0),
-		Ptr_sub_40C530:                            unsafe.Pointer(C.sub_40C530),
-		Ptr_sub_40C580:                            unsafe.Pointer(C.sub_40C580),
-		Ptr_sub_40CDC0:                            unsafe.Pointer(C.sub_40CDC0),
-		Ptr_sub_40C5C0:                            unsafe.Pointer(C.sub_40C5C0),
-		Ptr_sub_40C600:                            unsafe.Pointer(C.sub_40C600),
-		Ptr_sub_40CBA0:                            unsafe.Pointer(C.sub_40CBA0),
-		Ptr_sub_40CBE0:                            unsafe.Pointer(C.sub_40CBE0),
-		Ptr_sub_40C9D0:                            unsafe.Pointer(C.sub_40C9D0),
-		Ptr_sub_40C650:                            unsafe.Pointer(C.sub_40C650),
-		Ptr_sub_40C660:                            unsafe.Pointer(C.sub_40C660),
-		Ptr_sub_40C670:                            unsafe.Pointer(C.sub_40C670),
-		Ptr_sub_40C690:                            unsafe.Pointer(C.sub_40C690),
-		Ptr_sub_40C710:                            unsafe.Pointer(C.sub_40C710),
-		Ptr_sub_40C720:                            unsafe.Pointer(C.sub_40C720),
-		Ptr_sub_40C7A0:                            unsafe.Pointer(C.sub_40C7A0),
-		Ptr_sub_40C7D0:                            unsafe.Pointer(C.sub_40C7D0),
-		Ptr_sub_40C830:                            unsafe.Pointer(C.sub_40C830),
-		Ptr_sub_40C880:                            unsafe.Pointer(C.sub_40C880),
-		Ptr_sub_40C8C0:                            unsafe.Pointer(C.sub_40C8C0),
-		Ptr_sub_40C8F0:                            unsafe.Pointer(C.sub_40C8F0),
-		Ptr_sub_40C4F0:                            unsafe.Pointer(C.sub_40C4F0),
-		Ptr_sub_40C510:                            unsafe.Pointer(C.sub_40C510),
-		Ptr_sub_40C500:                            unsafe.Pointer(C.sub_40C500),
-		Ptr_sub_40C520:                            unsafe.Pointer(C.sub_40C520),
-		Ptr_sub_40CA40:                            unsafe.Pointer(C.sub_40CA40),
-		Ptr_sub_40CD50:                            unsafe.Pointer(C.sub_40CD50),
-		Ptr_sub_40CB90:                            unsafe.Pointer(C.sub_40CB90),
-		Ptr_sub_40CA50:                            unsafe.Pointer(C.sub_40CA50),
-		Ptr_sub_40E6C0:                            unsafe.Pointer(C.sub_40E6C0),
-		Ptr_sub_40E680:                            unsafe.Pointer(C.sub_40E680),
-		Ptr_sub_40DBB0:                            unsafe.Pointer(C.sub_40DBB0),
-		Ptr_sub_40DBE0:                            unsafe.Pointer(C.sub_40DBE0),
-		Ptr_sub_40DC10:                            unsafe.Pointer(C.sub_40DC10),
-		Ptr_sub_40DC60:                            unsafe.Pointer(C.sub_40DC60),
-		Ptr_sub_40DC50:                            unsafe.Pointer(C.sub_40DC50),
-		Ptr_sub_40E890:                            unsafe.Pointer(C.sub_40E890),
-		Ptr_sub_40E850:                            unsafe.Pointer(C.sub_40E850),
-		Ptr_sub_40DD00:                            unsafe.Pointer(C.sub_40DD00),
-		Ptr_sub_40DD10:                            unsafe.Pointer(C.sub_40DD10),
-		Ptr_sub_40DD60:                            unsafe.Pointer(C.sub_40DD60),
-		Ptr_sub_40DD70:                            unsafe.Pointer(C.sub_40DD70),
-		Ptr_sub_40DE10:                            unsafe.Pointer(C.sub_40DE10),
-		Ptr_sub_40DE90:                            unsafe.Pointer(C.sub_40DE90),
-		Ptr_nox_xxx_unknown_libname_86_57F634:     unsafe.Pointer(C.nox_xxx_unknown_libname_86_57F634),
-		Ptr_sub_4DFB50:                            unsafe.Pointer(C.sub_4DFB50),
-		Ptr_nox_xxx_effectSpeedEngage_4DFC30:      unsafe.Pointer(C.nox_xxx_effectSpeedEngage_4DFC30),
-		Ptr_sub_4DFD10:                            unsafe.Pointer(C.sub_4DFD10),
-		Ptr_nox_xxx_buff_4DFD80:                   unsafe.Pointer(C.nox_xxx_buff_4DFD80),
-		Ptr_nox_xxx_checkPoisonProtectEnch_4DFDE0: unsafe.Pointer(C.nox_xxx_checkPoisonProtectEnch_4DFDE0),
+
+		Ptr_sub_4DFB50:                              unsafe.Pointer(C.sub_4DFB50),
+		Ptr_nox_xxx_effectSpeedEngage_4DFC30:        unsafe.Pointer(C.nox_xxx_effectSpeedEngage_4DFC30),
+		Ptr_sub_4DFD10:                              unsafe.Pointer(C.sub_4DFD10),
+		Ptr_nox_xxx_buff_4DFD80:                     unsafe.Pointer(C.nox_xxx_buff_4DFD80),
+		Ptr_nox_xxx_checkPoisonProtectEnch_4DFDE0:   unsafe.Pointer(C.nox_xxx_checkPoisonProtectEnch_4DFDE0),
 		Ptr_sub_4E0140:                              unsafe.Pointer(C.sub_4E0140),
 		Ptr_nox_xxx_parseWeapDescription_411B90:     unsafe.Pointer(C.nox_xxx_parseWeapDescription_411B90),
 		Ptr_sub_411E60:                              unsafe.Pointer(C.sub_411E60),
@@ -161,7 +102,6 @@ func initBlobData() {
 		Ptr_sub_43E9F0:                              unsafe.Pointer(C.sub_43E9F0),
 		Ptr_sub_43EA20:                              unsafe.Pointer(C.sub_43EA20),
 		Ptr_sub_43EC10:                              unsafe.Pointer(C.sub_43EC10),
-		Ptr_sub_446AE0_wol_chat:                     unsafe.Pointer(C.sub_446AE0_wol_chat),
 		Ptr_sub_4A7A80:                              unsafe.Pointer(C.sub_4A7A80),
 		Ptr_sub_4A7AC0:                              unsafe.Pointer(C.sub_4A7AC0),
 		Ptr_sub_4A7B00:                              unsafe.Pointer(C.sub_4A7B00),

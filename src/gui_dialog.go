@@ -304,7 +304,6 @@ func nox_xxx_windowDlgProc_449CA0(a1 *Window, ev WindowEvent) WindowEventResp {
 			sub_41E300(9)
 			v5 := sub_41E2F0()
 			C.sub_41DA70(C.int(v5), 8)
-			nox_game_checkStateWol_43C260()
 			nox_gui_dialogUnsetFlags_830224(gui.DialogDisconnectButton)
 			sub_44A400()
 		case guiDialogHelpID: // Help

@@ -1,10 +1,8 @@
 #include "client__system__parsecmd.h"
 
-void nox_xxx_unknown_libname_86_57F634();
 void nullsub_66();
 void nullsub_67();
 void nullsub_68();
-uint32_t dword_5d4594_4668 = 0;
 uint32_t dword_5d4594_1046492 = 0;
 void* nox_xxx_aClosewoodengat_587000_133480 = 0;
 nox_window* nox_wol_wnd_world_814980 = 0;
@@ -72,7 +70,6 @@ uint32_t nox_game_createOrJoin_815048 = 0;
 uint32_t dword_5d4594_829488 = 0;
 uint32_t dword_5d4594_1063636 = 0;
 uint32_t nox_xxx_polygonNextIdx_587000_60352 = 0x1;
-uint32_t dword_5d4594_10956 = 0;
 uint32_t dword_5d4594_1062456 = 0;
 uint32_t dword_5d4594_816348 = 0;
 uint32_t nox_gameDisableMapDraw_5d4594_2650672 = 0;
@@ -290,7 +287,6 @@ float nox_xxx_wizardMaximumMana_587000_312820 = 1.0f;
 
 uint32_t dword_5d4594_1599692 = 0;
 uint32_t dword_5d4594_2487532 = 0;
-uint32_t nox_win_onlineOrLAN_1309716 = 0;
 uint32_t dword_5d4594_805984 = 0;
 uint32_t nox_server_connectionType_3596 = 0;
 uint32_t dword_5d4594_2386924 = 0;
