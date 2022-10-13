@@ -22,7 +22,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/ifs"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 // only works on 32bit
@@ -84,21 +83,6 @@ func DecompressFile(src, dst string) error {
 		return err
 	}
 	return w.Close()
-}
-
-//export nxz_getMemAt
-func nxz_getMemAt(base, off uint) unsafe.Pointer {
-	return memmap.PtrOff(uintptr(base), uintptr(off))
-}
-
-//export nxz_getMemU16Ptr
-func nxz_getMemU16Ptr(base, off uint) *uint16 {
-	return memmap.PtrUint16(uintptr(base), uintptr(off))
-}
-
-//export nxz_getMemU32Ptr
-func nxz_getMemU32Ptr(base, off uint) *uint32 {
-	return memmap.PtrUint32(uintptr(base), uintptr(off))
 }
 
 func compBufferSize(sz int) int {
