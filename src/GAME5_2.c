@@ -972,7 +972,7 @@ uint32_t* sub_578B80() {
 unsigned int sub_578BA0(unsigned int a1) { return (a1 >> 1) + a1 + 32; }
 
 //----- (00578BB0) --------------------------------------------------------
-int sub_578BB0(void** a1, int a2, unsigned char* a3, int a4) { return sub_57D1C0(a1, a2, a3, a4); }
+int nox_xxx_nxzCompress_578BB0(void** a1, int a2, unsigned char* a3, int a4) { return nox_xxx_nxzCompressImpl_57D1C0(a1, a2, a3, a4); }
 
 //----- (00578BD0) --------------------------------------------------------
 void sub_578BD0(void* lpMem) {
@@ -2474,7 +2474,7 @@ LABEL_30:
 
 
 //----- (0057BDD0) --------------------------------------------------------
-int nox_xxx_mapFile_57BDD0(void* lpMem, int a2) {
+int nox_xxx_nxzCompressFile_57BDD0(void* lpMem, int a2) {
 	size_t v2;        // ebx
 	FILE* v3;         // eax
 	FILE* v4;         // esi
@@ -2520,7 +2520,7 @@ int nox_xxx_mapFile_57BDD0(void* lpMem, int a2) {
 		if (v11 > 0x7A120) {
 			v11 = 500000;
 		}
-		v2 += sub_578BB0(v8, (int)lpMema + v2, (unsigned char*)&v5[i], v11);
+		v2 += nox_xxx_nxzCompress_578BB0(v8, (int)lpMema + v2, (unsigned char*)&v5[i], v11);
 		v9 = v15;
 	}
 	sub_578BD0(v8);
@@ -3015,7 +3015,7 @@ void sub_57D150(void** this) {
 }
 
 //----- (0057D1C0) --------------------------------------------------------
-int sub_57D1C0(void** this, int a2, unsigned char* a3, int a4) {
+int nox_xxx_nxzCompressImpl_57D1C0(void** this, int a2, unsigned char* a3, int a4) {
 	void** v4;           // ebx
 	void* v5;            // ecx
 	int v6;              // eax
