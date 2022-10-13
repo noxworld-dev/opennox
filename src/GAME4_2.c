@@ -529,12 +529,7 @@ int sub_51E570(FILE* a1, uint8_t* a2) {
 			if (*(uint32_t*)CharType == 10) {
 				++*getMemU32Ptr(0x5D4594, 2487520);
 			}
-			if (*getMemU32Ptr(0x587000, 1668) <= 1) {
-				v6 = isspace(CharType[0]);
-			} else {
-				v6 = isspace(CharType[0]);
-				v3 = *(uint32_t*)CharType;
-			}
+			v6 = isspace(CharType[0]);
 			if (v6) {
 				break;
 			}
