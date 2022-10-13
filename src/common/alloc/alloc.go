@@ -48,6 +48,9 @@ func New[T comparable](zero T) (*T, func()) {
 // Since passing types as parameters is not supported, the first argument must be a slice value, instead of a type.
 // If the slice value is not empty, the content of it will be copied to the beginning of a new slice.
 func Make[T comparable, N number](src []T, n N) ([]T, func()) {
+	if n < 0 {
+		panic("negative size")
+	}
 	var elem T
 	ptr, free := Calloc(int(n), unsafe.Sizeof(elem))
 	out := unsafe.Slice((*T)(ptr), n)
