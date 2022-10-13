@@ -42,7 +42,6 @@ char* nox_xxx_getRandomName_4358A0();
 */
 import "C"
 import (
-	"context"
 	"errors"
 	"fmt"
 	"image/color"
@@ -149,32 +148,6 @@ func nox_game_exit_xxx2() {
 	nox_game_exit_xxx_43DE60()
 }
 
-var gameLoopHooks = make(chan func())
-
-func addGameLoopHook(ctx context.Context, fnc func()) {
-	select {
-	case <-ctx.Done():
-	case gameLoopHooks <- fnc:
-	}
-}
-
-func runGameLoopHooks() {
-	mainloopSleep(time.Millisecond)
-}
-
-func mainloopSleep(dt time.Duration) {
-	tm := time.NewTimer(dt)
-	defer tm.Stop()
-	for {
-		select {
-		case <-tm.C:
-			return
-		case fnc := <-gameLoopHooks:
-			fnc()
-		}
-	}
-}
-
 func mainloopFrameLimit() {
 	if !useFrameLimit {
 		return
@@ -184,13 +157,11 @@ func mainloopFrameLimit() {
 			return
 		}
 		if dt := nox_ticks_getNext(); dt > 0 {
-			mainloopSleep(dt)
+			noxServer.LoopSleep(dt)
 		}
 		return
 	}
-	if dt := nox_ticks_until_next_416D00(); dt > 0 {
-		mainloopSleep(dt)
-	}
+	noxServer.RateWait()
 }
 
 func mainloopStop() {
@@ -218,7 +189,7 @@ mainloop:
 		if mainloopHook != nil {
 			mainloopHook()
 		}
-		runGameLoopHooks()
+		noxServer.RunLoopHooks()
 		if noxClient.mapsend.Downloading() {
 			if done, err := noxClient.mapDownloadLoop(false); !done {
 				continue mainloop
@@ -253,7 +224,7 @@ mainloop:
 			C.sub_40D250()
 			C.sub_40DF90()
 		}
-		nox_framerate_limit_416C70(30)
+		noxServer.SetRateLimit(30)
 		noxClient.processInput()
 		nox_game_cdMaybeSwitchState_413800()
 
@@ -308,7 +279,7 @@ func mainloopConnectOrHost() (again bool, _ error) {
 	g_v20 = true
 	noxAudioServeT(800)
 	noxCommonInitRandom()
-	gameFrameSetFromFlags()
+	noxServer.SetInitialFrame()
 	if mainloopConnectResultOK {
 		if debugMainloop {
 			log.Println("CONNECT_RESULT_OK retry")
@@ -658,7 +629,7 @@ func CONNECT_RESULT_OK() error {
 		return fmt.Errorf("nox_xxx_replayStartReadingOrSaving_4D38D0: %w", err)
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
-		noxServer.setUpdateFunc(nil)
+		noxServer.SetUpdateFunc(nil)
 	} else if !noxServer.nox_xxx_servInitialMapLoad_4D17F0() {
 		return errors.New("nox_xxx_servInitialMapLoad_4D17F0 exit")
 	}
@@ -717,7 +688,16 @@ func nox_xxx_cliWaitForJoinData_43BFE0() bool {
 	if debugMainloop {
 		log.Println("gameStateFunc = nox_xxx_gameStateWait_43C020")
 	}
-	noxServer.setUpdateFunc(nox_xxx_gameStateWait_43C020)
+	noxServer.SetUpdateFunc(func() bool {
+		noxServer.IncFrame()
+		if C.nox_client_gui_flag_815132 != 0 {
+			return true
+		}
+		if !isDedicatedServer {
+			noxClient.r.ClearScreen(color.Black)
+		}
+		return false
+	})
 	noxClient.setDrawFunc(nil)
 	if memmap.Uint32(0x587000, 91840) != 0 {
 		*memmap.PtrUint32(0x587000, 91840) = 0
@@ -729,17 +709,6 @@ func nox_xxx_cliWaitForJoinData_43BFE0() bool {
 	}
 	C.nox_client_gui_flag_815132 = 1
 	return true
-}
-
-func nox_xxx_gameStateWait_43C020() bool {
-	noxServer.IncFrame()
-	if C.nox_client_gui_flag_815132 != 0 {
-		return true
-	}
-	if !isDedicatedServer {
-		noxClient.r.ClearScreen(color.Black)
-	}
-	return false
 }
 
 func nox_xxx_cliSetupSession_437190() {

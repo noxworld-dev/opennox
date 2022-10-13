@@ -296,9 +296,9 @@ func RunArgs(args []string) (gerr error) {
 	noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
 	C.dword_5d4594_2650652 = 0
 	noxServer.SetTickRate(30)
-	gameFrameSetFromFlags()
+	noxServer.SetInitialFrame()
 	nox_ticks_reset_416D40()
-	noxServer.setUpdateFunc(nil)
+	noxServer.SetUpdateFunc(nil)
 	noxClient.setDrawFunc(nil)
 	noxClient.setUpdateFunc2(nil)
 	noxflags.SetGame(noxflags.GameModeArena)
@@ -354,7 +354,7 @@ func RunArgs(args []string) (gerr error) {
 		noxflags.SetEngine(noxflags.EngineNoRendering)
 	}
 	if v := *fPort; v > 0 {
-		noxServer.setServerPort(v)
+		noxServer.SetServerPort(v)
 	}
 	if v := *fClientPort; v > 0 {
 		C.nox_xxx_setClientNetPort_40A410(C.int(v))

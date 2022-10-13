@@ -68,10 +68,12 @@ import (
 	"strings"
 	"unsafe"
 
+	"github.com/noxworld-dev/nat"
 	"github.com/noxworld-dev/noxcrypt"
-	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/env"
 	"github.com/noxworld-dev/opennox-lib/ifs"
+	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/strman"
@@ -94,11 +96,6 @@ func sub_40A040_settings(a1 C.short, a2 C.uchar) {
 	noxServer.sub40A040settings(int(a1), int(a2))
 }
 
-//export nox_server_ResetObjectGIDs_4E3C70
-func nox_server_ResetObjectGIDs_4E3C70() {
-	noxServer.ResetObjectScriptIDs()
-}
-
 //export nox_server_SetLastObjectScriptID
 func nox_server_SetLastObjectScriptID(id C.uint) {
 	noxServer.SetLastObjectScriptID(server.ObjectScriptID(id))
@@ -116,7 +113,7 @@ func nox_server_NextObjectScriptID() C.uint {
 
 //export nox_xxx_servGetPort_40A430
 func nox_xxx_servGetPort_40A430() C.int {
-	return C.int(noxServer.getServerPort())
+	return C.int(noxServer.ServerPort())
 }
 
 //export sub_40A1A0
@@ -143,16 +140,21 @@ func nox_mapToGameFlags_4CFF50(v C.int) C.int {
 
 var (
 	noxServer *Server
+	useNAT    = true
 )
+
+func init() {
+	nat.Log = log.New("nat")
+	nat.LogUPNP = log.New("nat-upnp")
+	configBoolPtr("network.port_forward", "NOX_NET_NAT", true, &useNAT)
+}
 
 func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 	s := &Server{
-		port:   common.GamePort,
 		Server: server.New(pr, sm),
 	}
 	s.allocTeams()
 	s.initPlayers()
-	s.http.init()
 	s.initMetrics()
 	s.abilities.Init(s)
 	s.ai.Init(s)
@@ -162,19 +164,14 @@ func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 
 type Server struct {
 	*server.Server
-	updateFunc      func() bool
-	port            int
 	players         serverPlayers
 	ctrlbuf         serverCtrlBuf
 	spells          serverSpells
 	abilities       serverAbilities
 	srvReg          srvReg
 	scriptEvents    scriptEvents
-	nat             natService
-	http            httpService
 	noxScript       noxScript
 	lua             scriptLUA
-	tickHooks       tickHooks
 	types           serverObjTypes
 	objs            serverObjects
 	teams           serverTeams
@@ -187,33 +184,6 @@ type Server struct {
 
 	flag1548704 bool
 	flag3592    bool
-}
-
-func (s *Server) setUpdateFunc(fnc func() bool) {
-	s.updateFunc = fnc
-	if fnc == nil {
-		if debugMainloop {
-			gameLog.Println("server update = nil")
-		}
-	}
-}
-
-func inferHTTPPort(port int) int {
-	return common.GameHTTPPort + (port - common.GamePort)
-}
-
-func (s *Server) setServerPort(port int) {
-	if port <= 0 {
-		port = common.GamePort
-	}
-	s.port = port
-}
-
-func (s *Server) getServerPort() int {
-	if s.port <= 0 {
-		return common.GamePort
-	}
-	return s.port
 }
 
 //export gameFPS
@@ -231,20 +201,9 @@ func gameFrameSet(v uint32) {
 	noxServer.SetFrame(v)
 }
 
-func gameFrameSetFromFlags() {
-	if noxflags.HasGame(noxflags.GameHost) {
-		noxServer.SetFrame(1)
-	} else {
-		noxServer.SetFrame(0)
-	}
-}
-
 func (s *Server) Update() bool {
 	defer noxPerfmon.startProfileServer()()
-	if s.updateFunc == nil {
-		return true
-	}
-	if !s.updateFunc() {
+	if !s.Server.Update() {
 		if debugMainloop {
 			gameLog.Println("gameStateFunc exit")
 		}
@@ -627,12 +586,12 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	}
 	C.sub_416920()
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
-		ind, nport, err := s.nox_xxx_netAddPlayerHandler_4DEBC0(s.getServerPort())
+		ind, nport, err := s.nox_xxx_netAddPlayerHandler_4DEBC0(s.ServerPort())
 		*memmap.PtrInt32(0x5D4594, 1548516) = int32(ind)
 		if err != nil {
 			return err
 		}
-		s.setServerPort(nport)
+		s.SetServerPort(nport)
 	}
 	if C.nox_xxx_allocPendingOwnsArray_516EE0() == 0 {
 		return errors.New("nox_xxx_allocPendingOwnsArray_516EE0 failed")
@@ -640,19 +599,24 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	C.sub_421B10()
 	sub_4DB0A0()
 	C.sub_4D0F30()
-	srvPort := s.getServerPort()
-	httpPort := inferHTTPPort(srvPort)
-	if err := s.gameStartHTTP(httpPort); err != nil {
+	if err := s.StartHTTP(); err != nil {
 		return err
 	}
 	if isDedicatedServer || s.announce {
-		if err := s.gameStartNAT(srvPort, httpPort); err != nil {
+		if err := s.StartNAT(); err != nil {
 			return err
 		}
 	} else {
-		s.gameStopNAT()
+		s.StopNAT()
 	}
 	return nil
+}
+
+func (s *Server) StartNAT() error {
+	if !useNAT || !noxflags.HasGame(noxflags.GameOnline) || env.IsE2E() {
+		return nil
+	}
+	return s.Server.StartNAT()
 }
 
 func (s *Server) nox_server_netCloseHandler_4DEC60(ind int) {
@@ -660,8 +624,8 @@ func (s *Server) nox_server_netCloseHandler_4DEC60(ind int) {
 	s.nox_server_netClose_5546A0(ind)
 	C.nox_xxx_host_player_unit_3843628 = nil
 	sub_43DE40(nil)
-	s.gameStopNAT()
-	s.gameStopHTTP()
+	s.StopNAT()
+	s.StopHTTP()
 }
 
 func (s *Server) nox_xxx_servEndSession_4D3200() {

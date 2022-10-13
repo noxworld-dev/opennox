@@ -13,12 +13,6 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
-var (
-	nox_framerate_cur_ticks  uint64
-	nox_framerate_next_ticks uint64
-	nox_framerate_step_ticks uint64
-)
-
 //export nox_platform_rand
 func nox_platform_rand() C.int {
 	return C.int(platform.RandInt())
@@ -39,29 +33,6 @@ func platformTicks() uint64 {
 		return uint64(platform.Ticks())
 	}
 	return uint64(platform.Ticks() / time.Millisecond)
-}
-
-func nox_framerate_limit_416C70(fps int) {
-	if fps != 0 {
-		nox_framerate_step_ticks = 1000 / uint64(fps)
-	} else {
-		nox_framerate_step_ticks = 0
-	}
-	ticks := platformTicks()
-	nox_framerate_cur_ticks = ticks
-	nox_framerate_next_ticks = ticks + nox_framerate_step_ticks
-}
-
-func nox_ticks_until_next_416D00() time.Duration {
-	ticks := platformTicks()
-	if nox_framerate_next_ticks < ticks {
-		return 0
-	}
-	diff := nox_framerate_next_ticks - ticks
-	if diff > nox_framerate_next_ticks {
-		return 0
-	}
-	return time.Duration(diff) * time.Millisecond
 }
 
 var (

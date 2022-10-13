@@ -12,7 +12,7 @@ var mapsend struct {
 func init() {
 	registerOnDataPathSet(func() {
 		mapsend.srv = maps.NewServer(datapath.Maps())
-		mapsend.srv.RegisterOnMux(noxServer.http.mux)
+		mapsend.srv.RegisterOnMux(noxServer.HTTP())
 	})
 }
 
