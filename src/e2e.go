@@ -412,16 +412,34 @@ var (
 	e2eJobs = make(chan *e2eScenario)
 )
 
+func e2eAbsPath(s string) string {
+	if filepath.IsAbs(s) {
+		return s
+	}
+	if _, err := os.Stat(s); err != nil {
+		s = filepath.Join(filepath.Dir(os.Args[0]), s)
+	}
+	p, err := filepath.Abs(s)
+	if err != nil {
+		panic(err)
+	}
+	return p
+}
+
 func e2eInit() {
-	e2e.path = filepath.Join(filepath.Dir(os.Args[0]), "e2e")
+	opennoxDir := filepath.Dir(os.Args[0])
+	e2e.path = filepath.Join(opennoxDir, "e2e")
 	fname := filepath.Join(e2e.path, "e2e.yaml")
 	if s := os.Getenv("NOX_E2E_RECORD"); s != "" {
 		if filepath.Ext(s) == "" {
 			s = filepath.Join(s, "e2e.yaml")
 		}
+		s = e2eAbsPath(s)
 		e2e.recording = true
+		fname = s
 		e2e.path = s
 	} else if s = os.Getenv("NOX_E2E"); s != "" && s != "true" {
+		s = e2eAbsPath(s)
 		fname = s
 		e2e.path = filepath.Dir(s)
 	}
