@@ -11,19 +11,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/ifs"
 	"github.com/noxworld-dev/opennox-lib/noxtest"
 	"github.com/stretchr/testify/require"
-
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/common/memmap/nox/blobdata"
 )
-
-func init() {
-	byte581450, _ := alloc.Make([]byte{}, 23472)
-	byte587000, _ := alloc.Make([]byte{}, 316820)
-	memmap.RegisterBlobData(0x581450, "byte_581450", byte581450)
-	memmap.RegisterBlobData(0x587000, "byte_587000", byte587000)
-	blobdata.InitData()
-}
 
 func TestDecompress(t *testing.T) {
 	maps := noxtest.DataPath(t, "maps")

@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-void* nxz_getMemAt(uintptr_t base, uintptr_t off);
-
 #define SHIWORD(x) (((short*)(&x))[1])
 
 typedef struct {
@@ -438,6 +436,25 @@ uint8_t nxz_table_3[548] = {
 	0x10, 0x1, 0x11, 0x1,
 };
 
+uint32_t nxz_table_4[32] = {
+	2, 0,
+	3, 4,
+	3, 12,
+	4, 20,
+	4, 36,
+	4, 52,
+	4, 68,
+	4, 84,
+	4, 100,
+	4, 116,
+	4, 132,
+	4, 148,
+	4, 164,
+	5, 180,
+	5, 212,
+	5, 244,
+};
+
 //----- (0057DD90) --------------------------------------------------------
 uint32_t* sub57DD90(uint32_t* this) {
 	uint32_t* v1; // esi
@@ -460,7 +477,7 @@ uint32_t* sub57E8A0(uint32_t* this) {
 	v2 = calloc(1, sizeof(nxz_table_3));
 	v1[33] = v2;
 	memcpy(v2, nxz_table_3, sizeof(nxz_table_3));
-	memcpy(v1 + 1, nxz_getMemAt(0x587000, 315848), 128);
+	memcpy(v1 + 1, nxz_table_4, sizeof(nxz_table_4));
 	return v1;
 }
 
