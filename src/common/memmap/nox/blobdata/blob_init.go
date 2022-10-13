@@ -5,7 +5,7 @@ import (
 )
 
 func Init(p *Ptrs) {
-	initData()
+	InitData()
 
 	*memmap.PtrPtr(0x581450, 7220) = memmap.PtrOff(0x587000, 54416)
 	*memmap.PtrPtr(0x581450, 7224) = memmap.PtrOff(0x587000, 54420)
