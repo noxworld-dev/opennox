@@ -497,7 +497,7 @@ func nox_xxx_soloLoadGame_4DB7E0_savegame(a1 string) bool {
 	}
 	v5, _ := sub41D090(path)
 	noxServer.SetFirstObjectScriptID(server.ObjectScriptID(v5))
-	nox_server_ResetObjectGIDs_4E3C70()
+	noxServer.ResetObjectScriptIDs()
 	nox_xxx_gameSetSwitchSolo_4DB220(1)
 	nox_xxx_gameSetNoMPFlag_4DB230(1)
 	if C.nox_xxx_cliPlrInfoLoadFromFile_41A2E0(internCStr(path), noxMaxPlayers-1) == nil {

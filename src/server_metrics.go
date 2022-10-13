@@ -40,7 +40,7 @@ var (
 
 func (s *Server) initMetrics() {
 	var ticks uint64
-	s.addGameTickHook(func() {
+	s.TickHook(func() {
 		cntPlatformTick.Set(float64(platformTicks()))
 		cntGameTick.Set(float64(s.Frame()))
 		if ticks%uint64(s.TickRate()/2) == 0 {

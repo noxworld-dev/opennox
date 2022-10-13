@@ -28,7 +28,7 @@ func init() {
 	var token string
 	configStrPtr("server.api_token", "NOX_API_TOKEN", "", &token)
 	registerOnConfigRead(func() {
-		mux := noxServer.http.mux
+		mux := noxServer.HTTP()
 		mux.HandleFunc(pref+"/info", handleServerInfo)
 		mux.HandleFunc(pref+"/map", handleChangeMap)
 		mux.HandleFunc(pref+"/cmd", handleRunCmd)
@@ -65,7 +65,7 @@ type gameInfoResp struct {
 
 func getGameInfo(ctx context.Context) (*gameInfoResp, error) {
 	ch := make(chan *gameInfoResp, 1)
-	addGameLoopHook(ctx, func() {
+	noxServer.QueueInLoop(ctx, func() {
 		s := noxServer
 		v := &gameInfoResp{
 			Name: s.getServerName(),
@@ -100,7 +100,7 @@ func getGameInfo(ctx context.Context) (*gameInfoResp, error) {
 func queueServerMapLoad(name string) {
 	name = strings.TrimSpace(name)
 	apiLog.Printf("load map: %q", name)
-	addGameLoopHook(context.Background(), func() {
+	noxServer.QueueInLoop(context.Background(), func() {
 		serverCmdLoadMap(name)
 	})
 }
@@ -108,7 +108,7 @@ func queueServerMapLoad(name string) {
 func queueServerCmd(cmd string) {
 	cmd = strings.TrimSpace(cmd)
 	apiLog.Printf("run command: %q", cmd)
-	addGameLoopHook(context.Background(), func() {
+	noxServer.QueueInLoop(context.Background(), func() {
 		execServerCmd(cmd)
 	})
 }
@@ -116,7 +116,7 @@ func queueServerCmd(cmd string) {
 func queueMapLUA(code string) {
 	code = strings.TrimSpace(code)
 	apiLog.Printf("run lua: %q", code)
-	addGameLoopHook(context.Background(), func() {
+	noxServer.QueueInLoop(context.Background(), func() {
 		noxServer.runMapLUA(code)
 	})
 }
