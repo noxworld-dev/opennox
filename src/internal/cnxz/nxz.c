@@ -3,7 +3,6 @@
 #include <string.h>
 
 void* nxz_getMemAt(uintptr_t base, uintptr_t off);
-uint32_t* nxz_getMemU32Ptr(uintptr_t base, uintptr_t off);
 
 #define SHIWORD(x) (((short*)(&x))[1])
 
@@ -11,6 +10,18 @@ typedef struct {
 	uint32_t v1;
 	uint32_t v2;
 } uint32_vec2;
+
+uint32_vec2 nxz_table_2[9] = {
+	{0x8, 0x106},
+	{0x0, 0x0},
+	{0x0, 0x1},
+	{0x1, 0x2},
+	{0x2, 0x4},
+	{0x3, 0x8},
+	{0x4, 0x10},
+	{0x5, 0x20},
+	{0x6, 0x40},
+};
 
 uint32_vec2 nxz_table_1[272] = {
 	{0x1d70009, 0x1d80009},
@@ -697,12 +708,12 @@ int nxz_decompress(void* a1p, uint8_t* a2p, int* a3p, uint8_t* a4p, int* a5p) {
 		v6[37] -= 3;
 	LABEL_48:
 		v65 = 0;
-		v37 = *nxz_getMemU32Ptr(0x587000, 316592 + 8*v71) + 9;
+		v37 = nxz_table_2[v71+1].v1 + 9;
 		if (v37 <= 8) {
 			goto LABEL_55;
 		}
 		v38 = v6[37];
-		v37 = *nxz_getMemU32Ptr(0x587000, 316592 + 8*v71) + 1;
+		v37 = nxz_table_2[v71+1].v1 + 1;
 		if (v38 >= 8) {
 			goto LABEL_53;
 		}
@@ -742,7 +753,7 @@ int nxz_decompress(void* a1p, uint8_t* a2p, int* a3p, uint8_t* a4p, int* a5p) {
 		v43 = -1;
 	LABEL_60:
 		v45 = a2;
-		v46 = (*nxz_getMemU32Ptr(0x587000, 316592 + 8*v71 + 4) << 9) + (v65 | v43);
+		v46 = (nxz_table_2[v71+1].v2 << 9) + (v65 | v43);
 		v47 = v67 + 4;
 		v68 = &a2[v67 + 4];
 		// _dprintf("length: %d, distance: %d", v47, v46);

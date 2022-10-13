@@ -29,11 +29,6 @@ func nxz_getMemAt(base, off uint) unsafe.Pointer {
 	return memmap.PtrOff(uintptr(base), uintptr(off))
 }
 
-//export nxz_getMemU32Ptr
-func nxz_getMemU32Ptr(base, off uint) *uint32 {
-	return memmap.PtrUint32(uintptr(base), uintptr(off))
-}
-
 func DecompressFile(src, dst string) error {
 	if src == "" {
 		return errors.New("empty source path")
