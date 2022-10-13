@@ -6,10 +6,6 @@
 uint32_t* sub57DD90(uint32_t* this);
 void sub57DDC0(void** this);
 
-void* nxz_getMemAt(uintptr_t base, uintptr_t off);
-uint16_t* nxz_getMemU16Ptr(uintptr_t base, uintptr_t off);
-uint32_t* nxz_getMemU32Ptr(uintptr_t base, uintptr_t off);
-
 #define HIBYTE(x) (((uint8_t*)(&x))[sizeof(x) - 1])
 #define BYTE2(x) (((uint8_t*)(&x))[2])
 #define LOWORD(x) (((uint16_t*)(&x))[0])
@@ -27,6 +23,12 @@ typedef struct {
 	uint32_t v1;
 	uint32_t v2;
 } uint32_vec2;
+
+typedef struct {
+	uint32_t v1;
+	uint32_t v2;
+	uint32_t v3;
+} uint32_vec3;
 
 uint32_vec2 nxz_table_5[128] = {
 	{0x3, 0x0},
@@ -434,6 +436,25 @@ uint32_t nxz_table_6[274] = {
 	0x130007,
 	0x1fc0009,
 	0x1fd0009,
+};
+
+uint32_vec3 nxz_table_7[16] = {
+	{0x108, 0x1, 0x0},
+	{0x109, 0x2, 0x0},
+	{0x109, 0x2, 0x2},
+	{0x10a, 0x3, 0x0},
+	{0x10a, 0x3, 0x2},
+	{0x10a, 0x3, 0x4},
+	{0x10a, 0x3, 0x6},
+	{0x10b, 0x4, 0x0},
+	{0x10b, 0x4, 0x2},
+	{0x10b, 0x4, 0x4},
+	{0x10b, 0x4, 0x6},
+	{0x10b, 0x4, 0x8},
+	{0x10b, 0x4, 0xa},
+	{0x10b, 0x4, 0xc},
+	{0x10b, 0x4, 0xe},
+	{0x0, 0x3, 0x0},
 };
 
 //----- (0057DF00) --------------------------------------------------------
@@ -1102,8 +1123,8 @@ int sub_57E4C0(uint32_t** this, unsigned int a2, int a3, unsigned int a4, unsign
 	sub_57E3F0(this, a2, a3);
 	if (a4 >= 8) {
 		if (a4 >= 0x26) {
-			v23 = nxz_getMemAt(0x587000, 314640 + 12 * ((a4 - 38) >> 5));
-			v24 = *nxz_getMemU16Ptr(0x587000, 314640 + 12 * ((a4 - 38) >> 5)) + 4;
+			v23 = &nxz_table_7[(a4 - 38) >> 5];
+			v24 = nxz_table_7[(a4 - 38) >> 5].v1 + 4;
 			if ((int)--*v5[2] <= 0) {
 				sub_57E2C0(v5);
 			}
@@ -1120,9 +1141,9 @@ int sub_57E4C0(uint32_t** this, unsigned int a2, int a3, unsigned int a4, unsign
 				goto LABEL_14;
 			}
 		} else {
-			v13 = *nxz_getMemU16Ptr(0x587000, 314640 + 12 * ((a4 - 8) >> 1));
-			v14 = (a4 - 8) & 1 | *nxz_getMemU16Ptr(0x587000, 314640 + 12 * ((a4 - 8) >> 1) + 8);
-			v15 = *nxz_getMemU32Ptr(0x587000, 314640 + 12 * ((a4 - 8) >> 1) + 4);
+			v13 = nxz_table_7[(a4 - 8) >> 1].v1;
+			v14 = (a4 - 8) & 1 | nxz_table_7[(a4 - 8) >> 1].v3;
+			v15 = nxz_table_7[(a4 - 8) >> 1].v2;
 			if ((int)--*v5[2] <= 0) {
 				sub_57E2C0(v5);
 			}
