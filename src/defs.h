@@ -77,8 +77,6 @@ static void memset32(uint32_t* x, uint32_t y, size_t z) {
 		*x++ = y;
 }
 
-#define __ROL4__ _rotl
-
 static void* operator_new(size_t x) { return calloc(1, x); }
 
 static void operator_delete(void* x) { free(x); }

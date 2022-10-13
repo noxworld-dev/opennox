@@ -594,3 +594,12 @@ func nox_xxx_tileNFromPoint_411160(p types.Pointf) int {
 	*cp = p
 	return int(C.nox_xxx_tileNFromPoint_411160((*C.float2)(unsafe.Pointer(cp))))
 }
+
+//export nox_xxx_nxzCompressFile_57BDD0
+func nox_xxx_nxzCompressFile_57BDD0(a1, a2 *C.char) int {
+	if err := cnxz.CompressFile(GoString(a1), GoString(a2)); err != nil {
+		mapLog.Println(err)
+		return 0
+	}
+	return 1
+}
