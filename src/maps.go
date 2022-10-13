@@ -46,6 +46,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/cnxz"
 )
 
 var (
@@ -432,14 +433,14 @@ func nox_xxx_mapCliReadAll_4AC2B0(path string) error {
 	_, err := ifs.Stat(fpath)
 	if os.IsNotExist(err) {
 		err1 := err
-		v15 := filepath.Join(dir, name+".nxz")
-		if _, err := ifs.Stat(v15); os.IsNotExist(err) {
+		zname := filepath.Join(dir, name+".nxz")
+		if _, err := ifs.Stat(zname); os.IsNotExist(err) {
 			return err1
 		} else if err != nil {
 			return err
 		}
-		if C.nox_xxx_mapNxzDecompress_57BC50(internCStr(v15), internCStr(fpath)) == 0 {
-			return errors.New("cannot decompress map")
+		if err := cnxz.DecompressFile(zname, fpath); err != nil {
+			return fmt.Errorf("cannot decompress map %q: %w", zname, err)
 		}
 	} else if err != nil {
 		return err
