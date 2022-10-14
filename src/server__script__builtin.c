@@ -37,8 +37,7 @@ extern unsigned int dword_5d4594_2386836;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 
 unsigned int dword_5d4594_1599628 = 0;
-void* nox_script_objGold = 0;
-unsigned int dword_5d4594_2386848 = 0;
+int dword_5d4594_2386848 = 0;
 unsigned int dword_5d4594_2386852 = 0;
 
 //----- (00512E80) --------------------------------------------------------
@@ -66,7 +65,9 @@ void sub_511E60() {
 }
 
 //----- (00513B00) --------------------------------------------------------
-void nox_xxx_playerCanCarryItem_513B00(int a1, int a2) {
+void nox_xxx_playerCanCarryItem_513B00(nox_object_t* a1p, nox_object_t* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	uint32_t* v2; // ebp
 	int v3;       // edi
 	int v4;       // esi
@@ -473,56 +474,6 @@ int nox_script_groupEnchant_5133B0() {
 		v3 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v1);
 		nox_server_scriptExecuteFnForEachGroupObj_502670(v3, 0, nox_xxx_enchantUnit_513390, (int)v6);
 	}
-	return 0;
-}
-
-//----- (005139A0) --------------------------------------------------------
-int nox_script_pickup_5139A0() {
-	int v0; // edi
-	int v1; // eax
-	int v2; // esi
-	int v3; // eax
-	int v4; // ebp
-	int v5; // eax
-	int v6; // edi
-
-	if (!nox_script_objGold) {
-		nox_script_objGold = nox_xxx_getNameId_4E3AA0("Gold");
-		*getMemU32Ptr(0x5D4594, 2386864) = nox_xxx_getNameId_4E3AA0("QuestGoldPile");
-		*getMemU32Ptr(0x5D4594, 2386868) = nox_xxx_getNameId_4E3AA0("QuestGoldChest");
-	}
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
-	v3 = nox_server_scriptValToObjectPtr_511B60(v0);
-	v4 = v3;
-	if (v2 && v3) {
-		if (nox_common_gameFlags_check_40A5C0(2048) && (*(uint8_t*)(v2 + 8) & 4) == 4 &&
-			*getMemU32Ptr(0x5D4594, 2386844) != gameFrame()) {
-			*getMemU32Ptr(0x5D4594, 2386844) = gameFrame();
-			dword_5d4594_2386848 = 0;
-			dword_5d4594_2386852 = 0;
-		}
-		if (*(uint8_t*)(v2 + 8) & 4) {
-			if (nox_common_gameFlags_check_40A5C0(2048)) {
-				v5 = *(unsigned short*)(v2 + 4);
-				if ((unsigned short)v5 != nox_script_objGold && v5 != *getMemU32Ptr(0x5D4594, 2386864) &&
-					v5 != *getMemU32Ptr(0x5D4594, 2386868)) {
-					nox_xxx_playerCanCarryItem_513B00(v2, v4);
-				}
-			}
-		}
-		v6 = nox_xxx_inventoryServPlace_4F36F0(v2, v4, 1, 1);
-		if (v6 == 1 && *(uint8_t*)(v2 + 8) & 4 && nox_common_gameFlags_check_40A5C0(2048) &&
-			*(unsigned short*)(v4 + 4) != nox_script_objGold) {
-			++dword_5d4594_2386848;
-			nox_script_push(1);
-			return 0;
-		}
-	} else {
-		v6 = 0;
-	}
-	nox_script_push(v6);
 	return 0;
 }
 

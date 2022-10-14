@@ -19,7 +19,6 @@ int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
 int nox_script_groupEnchant_5133B0();
-int nox_script_pickup_5139A0();
 int nox_script_drop_513C10();
 int nox_script_HasClass_516210();
 int nox_script_TestBuffs_513C70();
@@ -115,6 +114,9 @@ int nox_script_ObjIsCrown_516DC0();
 
 extern unsigned int nox_xxx_wallSounds_2386840;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
+extern int dword_5d4594_2386848;
+extern unsigned int dword_5d4594_2386852;
+
 nox_object_t* nox_xxx_getObjectByScrName_4DA4F0(char* a1);
 void* nox_server_scriptGetMapGroupByName_57C280(const char* a1, int a2);
 int nox_xxx_destroyEveryChatMB_528D60();
@@ -131,6 +133,8 @@ int nox_xxx_netSendChat_528AC0(nox_object_t* a1, wchar_t* a2, wchar_t a3);
 int nox_xxx_playDialogFile_44D900(int a1, int a2);
 uint32_t* sub_5130E0(int a1, uint32_t* a2);
 int nox_xxx_spellGrantToPlayer_4FB550(nox_object_t* a1, int a2, int a3, int a4, int a5);
+int nox_xxx_inventoryServPlace_4F36F0(nox_object_t* a1p, nox_object_t* a2p, int a3, int a4);
+void nox_xxx_playerCanCarryItem_513B00(nox_object_t* a1p, nox_object_t* a2p);
 */
 import "C"
 import (
@@ -307,7 +311,7 @@ var noxScriptBuiltins = []func() int{
 	74:  nox_script_getNextInvItem_5138E0,
 	75:  nox_script_hasItem_513910,
 	76:  nox_script_getInvHolder_513960,
-	77:  wrapScriptC(C.nox_script_pickup_5139A0),
+	77:  nox_script_pickup_5139A0,
 	78:  wrapScriptC(C.nox_script_drop_513C10),
 	79:  wrapScriptC(C.nox_script_HasClass_516210),
 	80:  nox_script_builtin_513C60,
@@ -1772,5 +1776,42 @@ func nox_script_getInvHolder_513960() int {
 	} else {
 		s.PushI32(0)
 	}
+	return 0
+}
+
+func nox_script_pickup_5139A0() int {
+	s := &noxServer.noxScript
+
+	objGold := noxServer.getObjectTypeID("Gold")
+	objQuestGoldPile := noxServer.getObjectTypeID("QuestGoldPile")
+	objQuestGoldChest := noxServer.getObjectTypeID("QuestGoldChest")
+
+	item := s.PopObject()
+	picker := s.PopObject()
+	if picker == nil || item == nil {
+		s.PushI32(0)
+		return 0
+	}
+	if noxflags.HasGame(noxflags.GameModeCoop) && picker.Class().Has(object.ClassPlayer) &&
+		*memmap.PtrUint32(0x5D4594, 2386844) != gameFrame() {
+		*memmap.PtrUint32(0x5D4594, 2386844) = gameFrame()
+		C.dword_5d4594_2386848 = 0
+		C.dword_5d4594_2386852 = 0
+	}
+
+	if noxflags.HasGame(noxflags.GameModeCoop) && picker.Class().Has(object.ClassPlayer) {
+		v5 := picker.objTypeInd()
+		if v5 != objGold && v5 != objQuestGoldPile && v5 != objQuestGoldChest {
+			C.nox_xxx_playerCanCarryItem_513B00(picker.CObj(), item.CObj())
+		}
+	}
+
+	v6 := int32(C.nox_xxx_inventoryServPlace_4F36F0(picker.CObj(), item.CObj(), 1, 1))
+	if v6 == 1 && picker.Class().Has(object.ClassPlayer) && noxflags.HasGame(noxflags.GameModeCoop) && item.objTypeInd() != objGold {
+		C.dword_5d4594_2386848 += 1
+		s.PushI32(1)
+		return 0
+	}
+	s.PushI32(v6)
 	return 0
 }

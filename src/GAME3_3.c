@@ -11807,7 +11807,9 @@ int nox_xxx_pickupTreasure_4F3580(int a1, int a2, int a3) {
 }
 
 //----- (004F36F0) --------------------------------------------------------
-int nox_xxx_inventoryServPlace_4F36F0(int a1, int a2, int a3, int a4) {
+int nox_xxx_inventoryServPlace_4F36F0(nox_object_t* a1p, nox_object_t* a2p, int a3, int a4) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v4;                        // eax
 	int (*v5)(int, int, int, int); // eax
 	int v6;                        // eax
