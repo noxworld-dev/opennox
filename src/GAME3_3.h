@@ -337,7 +337,7 @@ int sub_4F3400(int a1, int a2, int a3);
 int nox_xxx_pickupUse_4F34D0(int a1, int a2, int a3);
 int nox_xxx_pickupTrap_4F3510(int a1, int a2, int a3);
 int nox_xxx_pickupTreasure_4F3580(int a1, int a2, int a3);
-int nox_xxx_inventoryServPlace_4F36F0(int a1, int a2, int a3, int a4);
+int nox_xxx_inventoryServPlace_4F36F0(nox_object_t* a1p, nox_object_t* a2p, int a3, int a4);
 int nox_xxx_pickupPotion_4F37D0(int a1, int a2, int a3);
 int nox_xxx_pickupAmmo_4F3B00(int a1, nox_object_t* item, int a3, int a4);
 int nox_xxx_pickupSpellbook_4F3C60(int a1, int a2, int a3);
