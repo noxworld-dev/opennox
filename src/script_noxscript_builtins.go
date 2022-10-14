@@ -19,7 +19,6 @@ int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
 int nox_script_groupEnchant_5133B0();
-int nox_script_getInvHolder_513960();
 int nox_script_pickup_5139A0();
 int nox_script_drop_513C10();
 int nox_script_HasClass_516210();
@@ -307,7 +306,7 @@ var noxScriptBuiltins = []func() int{
 	73:  nox_script_getFirstInvItem_5138B0,
 	74:  nox_script_getNextInvItem_5138E0,
 	75:  nox_script_hasItem_513910,
-	76:  wrapScriptC(C.nox_script_getInvHolder_513960),
+	76:  nox_script_getInvHolder_513960,
 	77:  wrapScriptC(C.nox_script_pickup_5139A0),
 	78:  wrapScriptC(C.nox_script_drop_513C10),
 	79:  wrapScriptC(C.nox_script_HasClass_516210),
@@ -1758,6 +1757,18 @@ func nox_script_hasItem_513910() int {
 	holder := s.PopObject()
 	if holder != nil && item != nil && holder.HasItem(item) {
 		s.PushI32(1)
+	} else {
+		s.PushI32(0)
+	}
+	return 0
+}
+
+func nox_script_getInvHolder_513960() int {
+	s := &noxServer.noxScript
+
+	obj := s.PopObject()
+	if obj != nil {
+		s.PushI32(int32(obj.InventoryHolder().ScriptID()))
 	} else {
 		s.PushI32(0)
 	}

@@ -476,21 +476,6 @@ int nox_script_groupEnchant_5133B0() {
 	return 0;
 }
 
-//----- (00513960) --------------------------------------------------------
-int nox_script_getInvHolder_513960() {
-	int v0; // eax
-	int v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		nox_script_push(*(uint32_t*)(*(uint32_t*)(v1 + 492) + 44));
-	} else {
-		nox_script_push(0);
-	}
-	return 0;
-}
-
 //----- (005139A0) --------------------------------------------------------
 int nox_script_pickup_5139A0() {
 	int v0; // edi
