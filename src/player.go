@@ -12,7 +12,6 @@ package opennox
 #include "GAME4_1.h"
 #include "common__net_list.h"
 #include "defs.h"
-extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern unsigned int dword_5d4594_1046492;
 extern unsigned int dword_5d4594_2650652;
 extern unsigned int nox_player_netCode_85319C;

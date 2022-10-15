@@ -28,7 +28,6 @@ package opennox
 extern unsigned int nox_xxx_resetMapInit_1569652;
 extern unsigned int dword_5d4594_1569656;
 extern unsigned int dword_5d4594_2650652;
-extern unsigned int nox_xxx_questFlag_1556148;
 extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_5d4594_1548524;
 extern nox_object_t* nox_xxx_host_player_unit_3843628;

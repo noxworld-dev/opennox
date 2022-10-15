@@ -23,7 +23,6 @@ package opennox
 #include "client__shell__mainmenu.h"
 
 extern void* dword_5d4594_1307292;
-extern void* dword_5d4594_814624;
 extern uint32_t dword_5d4594_10984;
 extern unsigned int dword_5d4594_527988;
 extern uint32_t dword_5d4594_528256;

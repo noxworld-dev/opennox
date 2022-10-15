@@ -27,7 +27,6 @@ extern nox_window* dword_5d4594_1522628;
 extern nox_window* nox_win_xxx1_last;
 extern nox_window* dword_5d4594_1062452;
 
-extern unsigned int dword_5d4594_1193132;
 extern unsigned int nox_client_gui_flag_815132;
 
 extern int obj_5D4594_754104_switch;

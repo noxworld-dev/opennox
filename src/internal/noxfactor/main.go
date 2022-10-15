@@ -83,16 +83,98 @@ func (r *Refactorer) ProcessDir(path string) error {
 	return nil
 }
 
+type SrcDecl struct {
+	Name string
+	Src  string
+}
+
+func findExterns(data []byte) (out []SrcDecl) {
+	const (
+		extern = "extern "
+	)
+	for {
+		i := bytes.Index(data, []byte(extern))
+		if i < 0 {
+			return
+		}
+		data = data[i:]
+		i = bytes.IndexByte(data, ';')
+		if i < 0 {
+			return
+		}
+		line := bytes.TrimSpace(data[:i])
+		if j := bytes.IndexByte(data[i+1:], '\n'); j >= 0 {
+			i += j + 1
+		}
+		src := data[:i+1]
+		data = data[i+1:]
+		if i = bytes.IndexByte(line, '['); i > 0 {
+			line = bytes.TrimSpace(line[:i])
+			line = bytes.TrimSpace(line)
+		}
+		i = bytes.LastIndexAny(line, " \t")
+		if i < 0 {
+			continue
+		}
+		name := line[i+1:]
+		if bytes.ContainsAny(name, "();,") {
+			continue // TODO: support function vars
+		}
+		if i = bytes.IndexByte(name, '['); i > 0 {
+			name = bytes.TrimSpace(name[:i])
+		}
+		name = bytes.TrimLeft(name, "*")
+		out = append(out, SrcDecl{
+			Name: string(name),
+			Src:  string(src),
+		})
+	}
+}
+
+func removeUnusedExterns(data []byte) []byte {
+	exts := findExterns(data)
+	if len(exts) == 0 {
+		return data
+	}
+	externUsages := make(map[int]int, len(exts))
+	for ind, e := range exts {
+		for cur := data; len(cur) > 0; {
+			i := bytes.Index(cur, []byte(e.Name))
+			if i < 0 {
+				break
+			}
+			externUsages[ind]++
+			cur = cur[i+len(e.Name):]
+		}
+		if n := externUsages[ind]; n > 1 || n == 0 {
+			delete(externUsages, ind)
+		}
+	}
+	if len(externUsages) == 0 {
+		return data
+	}
+	var (
+		replace []string
+	)
+	for ind := range externUsages {
+		e := exts[ind]
+		replace = append(replace, e.Src, "")
+	}
+	return []byte(strings.NewReplacer(replace...).Replace(string(data)))
+}
+
 func (r *Refactorer) reformatC(path string) error {
-	data, err := os.ReadFile(path)
+	src, err := os.ReadFile(path)
 	if err != nil {
 		return err
 	}
+	data := src
+	data = removeUnusedExterns(data)
 	toks := c2gotok.Tokenize(data)
 	toks = c2gotok.C2Go(toks)
 	var buf bytes.Buffer
 	c2gotok.Print(&buf, toks)
-	if bytes.Equal(data, buf.Bytes()) {
+	if bytes.Equal(src, buf.Bytes()) {
 		return nil
 	}
 	return os.WriteFile(path, buf.Bytes(), 0644)

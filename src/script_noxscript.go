@@ -8,8 +8,6 @@ extern int nox_script_count_xxx_1599640;
 extern void* nox_script_caller_3821964;
 extern void* nox_script_trigger_3821968;
 extern nox_script_xxx_t* nox_script_arr_xxx_1599636;
-extern unsigned int dword_5d4594_3821636;
-extern unsigned int dword_5d4594_3821640;
 int sub_516570();
 int nox_xxx_gameIsSwitchToSolo_4DB240();
 size_t nox_script_readWriteWww_5417C0(FILE* a1, FILE* a2, FILE* a3);
