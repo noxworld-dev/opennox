@@ -713,12 +713,14 @@ func nox_xxx_netPriMsgToPlayer_4DA2C0(u *Unit, id strman.ID, a3 byte) {
 	netlist.AddToMsgListCli(u.ControllingPlayer().Index(), netlist.Kind1, buf[:n+4])
 }
 
-func nox_xxx_netSendBySock_40EE10(a1 int, a2 int, kind netlist.Kind) {
-	v3 := netlist.CopyPacketsA(a2, kind)
-	if len(v3) != 0 {
-		netstr.Send(a1, v3, 0)
-		netstr.SendReadPacket(a1, 1)
-	}
+func nox_xxx_netSendBySock_40EE10(nind int, ind int, kind netlist.Kind) {
+	netlist.HandlePacketsA(ind, kind, func(data []byte) {
+		if len(data) == 0 {
+			return
+		}
+		netstr.Send(nind, data, 0)
+		netstr.SendReadPacket(nind, 1)
+	})
 }
 
 func nox_server_makeServerInfoPacket_554040(src, dst []byte) int {
@@ -991,11 +993,11 @@ func nox_client_onJoinData() {
 //export nox_xxx_netSendBySock_4DDDC0
 func nox_xxx_netSendBySock_4DDDC0(ind int) {
 	if !noxflags.HasGame(noxflags.GameClient) || ind != common.MaxPlayers-1 {
-		if buf := netlist.CopyPacketsA(ind, netlist.Kind1); len(buf) != 0 {
-			copy(netlist.Buffer, buf)
-			buf = netlist.Buffer[:len(buf)]
-			netstr.Send(ind+1, buf, netstr.SendNoLock|netstr.SendFlagFlush)
-		}
-		netlist.ResetByInd(ind, netlist.Kind1)
+		netlist.HandlePacketsA(ind, netlist.Kind1, func(data []byte) {
+			if len(data) == 0 {
+				return
+			}
+			netstr.Send(ind+1, data, netstr.SendNoLock|netstr.SendFlagFlush)
+		})
 	}
 }

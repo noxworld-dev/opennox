@@ -170,6 +170,28 @@ func CopyPacketsA(ind int, kind Kind) []byte {
 	}
 }
 
+func HandlePacketsA(ind int, kind Kind, fnc func(data []byte)) {
+	list := ByInd(ind, kind)
+
+	out, free := alloc.Make([]byte{}, bufSize)
+	defer free()
+	out = out[:0]
+	for {
+		buf := list.Get()
+		if len(buf) == 0 {
+			break
+		} else if len(out)+len(buf) > cap(out) {
+			// TODO: is it okay that it discards data?
+			break
+		}
+		out = append(out, buf...)
+	}
+
+	fnc(out)
+
+	ResetByInd(ind, kind)
+}
+
 func CopyPacketsB(ind int) []byte {
 	l := ByInd(ind, Kind2)
 	cnt := 0
