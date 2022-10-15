@@ -26,7 +26,6 @@
 #include "server__network__playback.h"
 #include "server__system__trade.h"
 
-int noxOnSrvPacketPlayerInput(int a1, unsigned char* data, int sz);
 void sub_446070();
 extern uint32_t nox_player_netCode_85319C;
 //----- (0051BAD0) --------------------------------------------------------
@@ -122,8 +121,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 	case 0x29u: // MSG_NEED_TIMESTAMP
 		nox_xxx_netNeedTimestampStatus_4174F0(v8, 64);
 		return 1;
-	case 0x3Fu: // MSG_PLAYER_INPUT
-		return 1 + noxOnSrvPacketPlayerInput(*(unsigned char*)(v10[69] + 2064), data, dsz);
 	case 0x40u: // MSG_PLAYER_SET_WAYPOINT
 		v84 = (double)*(unsigned short*)(data + 5);
 		v83 = (double)*(unsigned short*)(data + 3);
