@@ -6,16 +6,9 @@ package opennox
 void nox_xxx_draw_44C650_free(void* lpMem, void* draw);
 
 bool nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_zsize(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_light_color(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_audio_loop(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_value);
 
 static bool go_nox_drawable_call_parse_func(bool (*fnc)(nox_thing*, nox_memfile*, char*), nox_thing* a1, nox_memfile* a2, void* a3) {
@@ -24,6 +17,7 @@ static bool go_nox_drawable_call_parse_func(bool (*fnc)(nox_thing*, nox_memfile*
 */
 import "C"
 import (
+	"errors"
 	"fmt"
 	"io"
 	"strconv"
@@ -36,6 +30,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 //export nox_xxx_getTTByNameSpriteMB_44CFC0
@@ -395,14 +390,90 @@ var clientThingParseFuncs = map[string]clientThingFieldFunc{
 		typ.z = uint16(v)
 		return nil
 	},
-	"ZSIZE":          wrapClientThingFuncC(C.nox_parse_thing_zsize),
-	"SIZE":           wrapClientThingFuncC(C.nox_parse_thing_size),
-	"MENUICON":       wrapClientThingFuncC(C.nox_parse_thing_menu_icon),
-	"LIGHTCOLOR":     wrapClientThingFuncC(C.nox_parse_thing_light_color),
+	"ZSIZE": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
+		sub := strings.SplitN(str, " ", 2)
+		if len(sub) != 2 {
+			return errors.New("expected two values")
+		}
+		min, err := strconv.Atoi(sub[0])
+		if err != nil {
+			return err
+		}
+		max, err := strconv.Atoi(sub[1])
+		if err != nil {
+			return err
+		}
+		if max < min {
+			max = min
+		}
+		typ.zsize_min = float32(min)
+		typ.zsize_max = float32(max)
+		return nil
+	},
+	"SIZE": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
+		sub := strings.SplitN(str, " ", 2)
+		if len(sub) != 2 {
+			return errors.New("expected two values")
+		}
+		w, err := strconv.Atoi(sub[0])
+		if err != nil {
+			return err
+		}
+		h, err := strconv.Atoi(sub[1])
+		if err != nil {
+			return err
+		}
+		typ.hwidth = uint8(w / 2)
+		typ.hheight = uint8(h / 2)
+		return nil
+	},
+	"MENUICON": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
+		typ.menuicon = f.ReadI32()
+		if typ.menuicon == -1 {
+			f.Skip(1)
+			f.SkipString8()
+		}
+		return nil
+	},
+	"LIGHTCOLOR": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
+		sub := strings.SplitN(str, " ", 3)
+		if len(sub) != 3 {
+			return errors.New("expected RGB values")
+		}
+		r, err := strconv.Atoi(sub[0])
+		if err != nil {
+			return err
+		}
+		g, err := strconv.Atoi(sub[1])
+		if err != nil {
+			return err
+		}
+		b, err := strconv.Atoi(sub[2])
+		if err != nil {
+			return err
+		}
+		if r > 255 {
+			r = 255
+		}
+		if g > 255 {
+			g = 255
+		}
+		if b > 255 {
+			b = 255
+		}
+		typ.field_f = 2
+		typ.light_color_r = int32(r)
+		typ.light_color_g = int32(g)
+		typ.light_color_b = int32(b)
+		return nil
+	},
 	"LIGHTDIRECTION": wrapClientThingFuncC(C.nox_parse_thing_light_dir),
 	"LIGHTPENUMBRA":  wrapClientThingFuncC(C.nox_parse_thing_light_penumbra),
-	"AUDIOLOOP":      wrapClientThingFuncC(C.nox_parse_thing_audio_loop),
-	"CLIENTUPDATE":   wrapClientThingFuncC(C.nox_parse_thing_client_update),
+	"AUDIOLOOP": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
+		typ.audio_loop = uint32(sound.ByName(str))
+		return nil
+	},
+	"CLIENTUPDATE": wrapClientThingFuncC(C.nox_parse_thing_client_update),
 	"LIFETIME": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
 		v, err := strconv.ParseInt(firstWord(str), 10, 32)
 		if err != nil {
@@ -420,8 +491,14 @@ var clientThingParseFuncs = map[string]clientThingFieldFunc{
 		typ.pri_class |= uint32(object.ClassPickup)
 		return nil
 	},
-	"PRETTYNAME":  wrapClientThingFuncC(C.nox_parse_thing_pretty_name),
-	"DESCRIPTION": wrapClientThingFuncC(C.nox_parse_thing_desc),
+	"PRETTYNAME": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
+		typ.pretty_name = internWStr(noxClient.Strings().GetStringInFile(strman.ID(str), "drawdb.c"))
+		return nil
+	},
+	"DESCRIPTION": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
+		typ.desc = internWStr(noxClient.Strings().GetStringInFile(strman.ID(str), "drawdb.c"))
+		return nil
+	},
 	"PRETTYIMAGE": wrapClientThingFuncC(C.nox_parse_thing_pretty_image),
 	"HEALTH": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
 		v, err := strconv.ParseInt(firstWord(str), 10, 32)
