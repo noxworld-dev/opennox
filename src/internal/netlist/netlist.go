@@ -1,8 +1,6 @@
 package netlist
 
 import (
-	"unsafe"
-
 	"github.com/noxworld-dev/opennox-lib/common"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
@@ -11,6 +9,14 @@ import (
 const (
 	bufSize    = 2048
 	maxPackets = 512
+)
+
+type Kind byte
+
+const (
+	Kind0 = Kind(iota)
+	Kind1
+	Kind2
 )
 
 var (
@@ -51,112 +57,106 @@ func Free() {
 	}
 }
 
-func checkSizesA(ind1, ind2 int, sz int) bool {
-	if ind2 == 1 {
-		psz := ByInd(ind1, 1).Size()
-		if psz+sz+ByInd(ind1, 2).Size() > bufSize {
+func checkSizesA(ind int, kind Kind, sz int) bool {
+	if kind == Kind1 {
+		psz := ByInd(ind, Kind1).Size()
+		if psz+sz+ByInd(ind, Kind2).Size() > bufSize {
 			return false
 		}
 	} else {
-		if sz+ByInd(ind1, ind2).Size() > bufSize {
+		if sz+ByInd(ind, kind).Size() > bufSize {
 			return false
 		}
 	}
-	return ByInd(ind1, ind2).Count() < maxPackets
+	return ByInd(ind, kind).Count() < maxPackets
 }
 
-func checkSizesB(ind1, ind2 int, sz, sz2 int) bool {
-	l := ByInd(ind1, ind2)
+func checkSizesB(ind int, kind Kind, sz, sz2 int) bool {
+	l := ByInd(ind, kind)
 	psz := l.Size()
-	if sz+psz+sz2 > bufSize {
+	if psz+sz+sz2 > bufSize {
 		return false
 	}
 	return l.Count() < maxPackets
 }
 
-func checkSizesC(ind, a2 int) bool {
-	l := ByInd(ind, 2)
-	if (a2 + l.Size()) > bufSize {
+func checkSizesC(ind int, sz int) bool {
+	l := ByInd(ind, Kind2)
+	if (sz + l.Size()) > bufSize {
 		return false
 	}
 	return l.Count() < maxPackets
 }
 
-func ResetByInd(ind1, ind2 int) {
-	l := ByInd(ind1, ind2)
+func ResetByInd(ind int, kind Kind) {
+	l := ByInd(ind, kind)
 	if l == nil {
 		return
 	}
 	l.Reset()
-	buffersList[ind2+1][ind1].cur = 0
+	buffersList[kind+1][ind].cur = 0
 }
 
 func InitByInd(ind int) {
-	l := ByInd(ind, 2)
+	l := ByInd(ind, Kind2)
 	l.Reset()
 	buffersList[0][ind].cur = 0
 }
 
-func ResetAllInd(ind int) {
+func ResetAllInd(kind Kind) {
 	for i := 0; i < common.MaxPlayers; i++ {
-		ResetByInd(i, ind)
+		ResetByInd(i, kind)
 	}
 }
 
 func ResetAll() {
 	for i := 0; i < common.MaxPlayers; i++ {
-		ResetByInd(i, 1)
-		ResetByInd(i, 0)
+		ResetByInd(i, Kind1)
+		ResetByInd(i, Kind0)
 		InitByInd(i)
 	}
 }
 
-func sendByInd(ind1, ind2 int, buf []byte) *byte {
+func allocBufferRaw(ind int, kind Kind, buf []byte) []byte {
 	if len(buf) == 0 {
 		return nil
 	}
-	p := &buffersList[ind2+1][ind1]
+	p := &buffersList[kind][ind]
 	i := p.cur
 	if i+len(buf) > bufSize {
 		return nil
 	}
 	copy(p.buf[i:], buf)
 	p.cur += len(buf)
-	return &p.buf[i]
+	return p.buf[i : i+len(buf)]
 }
 
-func addToInd(ind int, buf []byte) *byte {
-	if len(buf) == 0 {
-		return nil
-	}
-	p := &buffersList[0][ind]
-	i := p.cur
-	if i+len(buf) > bufSize {
-		return nil
-	}
-	copy(p.buf[i:], buf)
-	p.cur += len(buf)
-	return &p.buf[i]
+func allocBuffer(ind int, kind Kind, buf []byte) []byte {
+	return allocBufferRaw(ind, kind+1, buf)
 }
 
-func AddToMsgListCli(ind1, ind2 int, buf []byte) bool {
-	l := ByInd(ind1, ind2)
+func allocBuffer0(ind int, buf []byte) []byte {
+	return allocBufferRaw(ind, Kind0, buf)
+}
+
+func AddToMsgListCli(ind int, kind Kind, buf []byte) bool {
+	l := ByInd(ind, kind)
 	if len(buf) == 0 {
 		return true
 	}
-	if !checkSizesA(ind1, ind2, len(buf)) {
+	if !checkSizesA(ind, kind, len(buf)) {
 		return false
 	}
-	out := sendByInd(ind1, ind2, buf)
+	out := allocBuffer(ind, kind, buf)
 	if out == nil {
 		return false
 	}
-	l.add(out, len(buf), true)
+	l.add(out[:len(buf)], true)
 	return true
 }
 
-func CopyPacketsA(ind1, ind2 int) []byte {
-	list := ByInd(ind1, ind2)
+func CopyPacketsA(ind int, kind Kind) []byte {
+	list := ByInd(ind, kind)
 	out := make([]byte, 0, bufSize)
 	for {
 		buf := list.Get()
@@ -171,7 +171,7 @@ func CopyPacketsA(ind1, ind2 int) []byte {
 }
 
 func CopyPacketsB(ind int) []byte {
-	l := ByInd(ind, 2)
+	l := ByInd(ind, Kind2)
 	cnt := 0
 	sbuf := Buffer
 	copy(sbuf, make([]byte, len(sbuf)))
@@ -182,7 +182,7 @@ func CopyPacketsB(ind int) []byte {
 		}
 		if cnt+len(src) > len(sbuf) {
 			// we cannot store it, so put it back
-			l.add(&src[0], len(src), false)
+			l.add(src, false)
 			break
 		}
 		copy(sbuf[cnt:], src)
@@ -191,19 +191,19 @@ func CopyPacketsB(ind int) []byte {
 	return sbuf[:cnt]
 }
 
-func ClientSend0(ind1, ind2 int, buf []byte, sz2 int) bool {
-	l := ByInd(ind1, ind2)
+func ClientSend0(ind int, kind Kind, buf []byte, sz2 int) bool {
+	l := ByInd(ind, kind)
 	if len(buf) == 0 {
 		return true
 	}
-	if !checkSizesB(ind1, ind2, len(buf), sz2) {
+	if !checkSizesB(ind, kind, len(buf), sz2) {
 		return false
 	}
-	out := sendByInd(ind1, ind2, buf)
+	out := allocBuffer(ind, kind, buf)
 	if out == nil {
 		return false
 	}
-	l.add(out, len(buf), true)
+	l.add(out[:len(buf)], true)
 	return true
 }
 
@@ -213,9 +213,9 @@ func AddToMsgListSrv(ind int, buf []byte, flush func(ind int)) bool {
 	}
 	// If there are too many updates, then we may run out of space in a single
 	// packet. Instead of fragmenting, we can instead send additional packets.
-	var out *byte
-	l := ByInd(ind, 2)
-	if !checkSizesC(ind, len(buf)) || !(func() bool { out = addToInd(ind, buf); return out != nil }()) {
+	var out []byte
+	l := ByInd(ind, Kind2)
+	if !checkSizesC(ind, len(buf)) || !(func() bool { out = allocBuffer0(ind, buf); return out != nil }()) {
 		p := &buffersList[0][ind]
 
 		// The new update packet needs to have correct bytes at the
@@ -229,21 +229,21 @@ func AddToMsgListSrv(ind int, buf []byte, flush func(ind int)) bool {
 
 		// Set buffer length and re-queue updates.
 		p.cur = len1 + len2
-		l.add(&p.buf[0], len1, true)
-		l.add(&p.buf[len1], len2, true)
+		l.add(p.buf[0:len1], true)
+		l.add(p.buf[len1:len2], true)
 
 		// Retry original allocation.
-		out = addToInd(ind, buf)
+		out = allocBuffer0(ind, buf)
 	}
 	if out == nil {
 		return false
 	}
-	l.add(out, len(buf), true)
+	l.add(out[:len(buf)], true)
 	return true
 }
 
-func ByInd(ind1, ind2 int) *MsgList {
-	return messageList[ind2][ind1]
+func ByInd(ind int, kind Kind) *MsgList {
+	return messageList[kind][ind]
 }
 
 func newMsgList() *MsgList {
@@ -314,8 +314,8 @@ func (l *MsgList) Get() []byte {
 	return buf
 }
 
-func (l *MsgList) add(buf *byte, sz int, appnd bool) bool {
-	it := &netListItem{buf: unsafe.Slice(buf, sz)}
+func (l *MsgList) add(buf []byte, appnd bool) bool {
+	it := &netListItem{buf: buf}
 	if appnd {
 		it.prev = l.last
 		it.next = nil
@@ -336,17 +336,18 @@ func (l *MsgList) add(buf *byte, sz int, appnd bool) bool {
 		l.first = it
 	}
 	l.count++
-	l.size += sz
+	l.size += len(buf)
 	return true
 }
 
-func (l *MsgList) FindAndFreeBuf(buf *byte) {
+func (l *MsgList) FindAndFreeBuf(buf []byte) {
 	if l.first == nil {
 		return
 	}
+	buf = buf[:1]
 	var item *netListItem
 	for p := l.first; p != nil; p = p.next {
-		if &p.buf[0] == buf {
+		if &p.buf[0] == &buf[0] {
 			item = p
 			break
 		}

@@ -885,7 +885,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 		}
 	}
 	v5 := sub_416640()
-	netlist.ResetByInd(ind, 1)
+	netlist.ResetByInd(ind, netlist.Kind1)
 	C.nox_xxx_playerResetImportantCtr_4E4F40(C.int(ind))
 	sub_4E4F30(ind)
 

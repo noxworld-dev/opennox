@@ -24,12 +24,12 @@ import (
 
 //export nox_netlist_addToMsgListCli_40EBC0
 func nox_netlist_addToMsgListCli_40EBC0(ind1, ind2 C.int, buf *C.uchar, sz C.int) C.int {
-	return C.int(bool2int(netlist.AddToMsgListCli(int(ind1), int(ind2), unsafe.Slice((*byte)(unsafe.Pointer(buf)), int(sz)))))
+	return C.int(bool2int(netlist.AddToMsgListCli(int(ind1), netlist.Kind(ind2), unsafe.Slice((*byte)(unsafe.Pointer(buf)), int(sz)))))
 }
 
 //export nox_netlist_clientSendWrap_40ECA0
 func nox_netlist_clientSendWrap_40ECA0(ind1, ind2 C.int, buf *C.uchar, sz C.int) C.int {
-	return C.int(bool2int(netlist.ClientSend0(int(ind1), int(ind2), unsafe.Slice((*byte)(unsafe.Pointer(buf)), int(sz)), netPlayerBufSize)))
+	return C.int(bool2int(netlist.ClientSend0(int(ind1), netlist.Kind(ind2), unsafe.Slice((*byte)(unsafe.Pointer(buf)), int(sz)), netPlayerBufSize)))
 }
 
 //export nox_netlist_addToMsgListSrv_40EF40
@@ -39,7 +39,7 @@ func nox_netlist_addToMsgListSrv_40EF40(ind C.int, buf *C.uchar, sz C.int) C.boo
 
 //export nox_netlist_copyPacketList_40ED60
 func nox_netlist_copyPacketList_40ED60(ind1, ind2 C.int, outSz *C.uint) *C.uchar {
-	buf := netlist.CopyPacketsA(int(ind1), int(ind2))
+	buf := netlist.CopyPacketsA(int(ind1), netlist.Kind(ind2))
 	sbuf := netlist.Buffer
 	copy(sbuf, make([]byte, len(sbuf)))
 	*outSz = C.uint(len(buf))
@@ -75,7 +75,7 @@ func nox_netlist_receiveCli_494E90(ind int) int {
 		res = nox_xxx_netOnPacketRecvCli_48EA70(ind, buf1)
 	}
 
-	if buf2 := netlist.CopyPacketsA(ind, 1); len(buf2) != 0 {
+	if buf2 := netlist.CopyPacketsA(ind, netlist.Kind1); len(buf2) != 0 {
 		res = nox_xxx_netOnPacketRecvCli_48EA70(ind, buf2)
 		if res != 0 {
 			C.sub_48D660()
@@ -85,7 +85,7 @@ func nox_netlist_receiveCli_494E90(ind int) int {
 }
 
 func sub_4DF8F0(ind int, p1 []byte) int {
-	if netlist.ByInd(ind, 2).Count() == 0 {
+	if netlist.ByInd(ind, netlist.Kind2).Count() == 0 {
 		return 0
 	}
 	v4 := 127
@@ -114,7 +114,7 @@ func sub_4DF8F0(ind int, p1 []byte) int {
 	if v8 == -1 {
 		return off
 	}
-	netlist.ByInd(ind, 2).FindAndFreeBuf(&v6[0])
+	netlist.ByInd(ind, netlist.Kind2).FindAndFreeBuf(v6)
 	return off + v8
 }
 
@@ -122,7 +122,7 @@ func sub_4DF5E0(ind, max int) []byte {
 	k1a := netPlayerK1
 	k2a := netPlayerK2
 	var found []byte
-	netlist.ByInd(ind, 2).Each(func(b []byte) bool {
+	netlist.ByInd(ind, netlist.Kind2).Each(func(b []byte) bool {
 		if len(b) < 9 {
 			return false
 		}
@@ -217,11 +217,11 @@ func nox_xxx_netFn_UpdateStream_4DF630(ind int, b1 []byte, _ unsafe.Pointer) int
 	*memmap.PtrUint32(0x5D4594, 1563308) = 0
 	netPlayerBufSize = 0
 	netPlayerPlus16 = pl.net16()
-	v7 := netlist.ByInd(ind-1, 2).Get()
+	v7 := netlist.ByInd(ind-1, netlist.Kind2).Get()
 	var off int
 	if nox_xxx_chkIsMsgTimestamp_4DF7F0(v7) {
 		off += copy(b1[off:off+len(v7)], v7)
-		if v9 := netlist.ByInd(ind-1, 2).Get(); len(v9) != 0 {
+		if v9 := netlist.ByInd(ind-1, netlist.Kind2).Get(); len(v9) != 0 {
 			b1[off] = byte(noxnet.MSG_UPDATE_STREAM)
 			off++
 			n := sub_4DF810(b1[off:], v9)
@@ -240,7 +240,7 @@ func nox_xxx_netFn_UpdateStream_4DF630(ind int, b1 []byte, _ unsafe.Pointer) int
 			off += zero3full(b1[off:])
 		}
 	}
-	for b := netlist.ByInd(ind-1, 1).Get(); len(b) != 0; b = netlist.ByInd(ind-1, 1).Get() {
+	for b := netlist.ByInd(ind-1, netlist.Kind1).Get(); len(b) != 0; b = netlist.ByInd(ind-1, netlist.Kind1).Get() {
 		if b[0] != byte(noxnet.MSG_FX_SENTRY_RAY) || C.dword_5d4594_2650652 != 1 || (noxServer.Frame()%uint32(nox_xxx_rateGet_40A6C0()) == 0) {
 			n := copyFull(b1[off:], b)
 			if n == 0 {
@@ -252,7 +252,7 @@ func nox_xxx_netFn_UpdateStream_4DF630(ind int, b1 []byte, _ unsafe.Pointer) int
 	netPlayerBufSize = off
 	if C.dword_5d4594_2650652 == 0 || (noxServer.Frame()%uint32(nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
 		C.nox_xxx_netImportant_4E5770(C.uchar(ind-1), 1)
-		for b := netlist.ByInd(ind-1, 1).Get(); len(b) != 0; b = netlist.ByInd(ind-1, 1).Get() {
+		for b := netlist.ByInd(ind-1, netlist.Kind1).Get(); len(b) != 0; b = netlist.ByInd(ind-1, netlist.Kind1).Get() {
 			n := copyFull(b1[off:], b)
 			if n == 0 {
 				break

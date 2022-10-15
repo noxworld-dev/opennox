@@ -276,8 +276,8 @@ func sub_43CCA0() {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_netImportant_4E5770(0x1F, 0)
 	}
-	nox_xxx_netSendBySock_40EE10(int(nox_xxx_netGet_43C750()), common.MaxPlayers-1, 0)
-	netlist.ResetByInd(common.MaxPlayers-1, 0)
+	nox_xxx_netSendBySock_40EE10(int(nox_xxx_netGet_43C750()), common.MaxPlayers-1, netlist.Kind0)
+	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	netstr.MaybeSendAll()
 	if lastCliHandlePackets == 0 {
 		return
