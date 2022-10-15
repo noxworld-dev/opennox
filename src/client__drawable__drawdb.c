@@ -27,17 +27,6 @@ extern uint32_t dword_5d4594_251608;
 
 extern int nox_parse_thing_draw_funcs_cnt;
 
-//----- (0044B1F0) --------------------------------------------------------
-bool nox_parse_thing_extent(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	nox_shape s;
-	bool res = nox_parse_shape(&s, attr_value);
-	obj->shape_kind = s.kind;
-	obj->shape_r = s.circle_r;
-	obj->shape_w = s.box_w;
-	obj->shape_h = s.box_h;
-	return res;
-}
-
 //----- (0044B230) --------------------------------------------------------
 bool nox_parse_thing_light_intensity(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	sscanf(attr_value, "%f", &obj->light_intensity);
