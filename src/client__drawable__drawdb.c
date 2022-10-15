@@ -2,7 +2,6 @@
 
 #include "client__draw__debugdraw.h"
 #include "client__drawable__drawable.h"
-#include "client__drawable__drawdb.h"
 
 #include "GAME1.h"
 #include "GAME1_1.h"
@@ -27,53 +26,6 @@ extern uint32_t dword_5d4594_251600;
 extern uint32_t dword_5d4594_251608;
 
 extern int nox_parse_thing_draw_funcs_cnt;
-
-bool nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value);
-bool nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value);
-bool nox_parse_thing_subclass(nox_thing* obj, nox_memfile* f, const char* attr_value);
-bool nox_parse_thing_extent(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_light_intensity(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_z(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_zsize(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_light_color(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_audio_loop(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_lifetime(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_health(nox_thing* obj, nox_memfile* f, char* attr_value);
-
-nox_parse_thing_funcs_t nox_parse_thing_funcs[] = {
-	{"FLAGS", &nox_parse_thing_flags},
-	{"CLASS", &nox_parse_thing_class},
-	{"SUBCLASS", &nox_parse_thing_subclass},
-	{"EXTENT", &nox_parse_thing_extent},
-	{"LIGHTINTENSITY", &nox_parse_thing_light_intensity},
-	{"DRAW", &nox_parse_thing_draw},
-	{"Z", &nox_parse_thing_z},
-	{"ZSIZE", &nox_parse_thing_zsize},
-	{"SIZE", &nox_parse_thing_size},
-	{"MENUICON", &nox_parse_thing_menu_icon},
-	{"LIGHTCOLOR", &nox_parse_thing_light_color},
-	{"LIGHTDIRECTION", &nox_parse_thing_light_dir},
-	{"LIGHTPENUMBRA", &nox_parse_thing_light_penumbra},
-	{"AUDIOLOOP", &nox_parse_thing_audio_loop},
-	{"CLIENTUPDATE", &nox_parse_thing_client_update},
-	{"LIFETIME", &nox_parse_thing_lifetime},
-	{"WEIGHT", &nox_parse_thing_weight},
-	{"PRETTYNAME", &nox_parse_thing_pretty_name},
-	{"DESCRIPTION", &nox_parse_thing_desc},
-	{"PRETTYIMAGE", &nox_parse_thing_pretty_image},
-	{"HEALTH", &nox_parse_thing_health},
-};
-int nox_parse_thing_funcs_cnt = sizeof(nox_parse_thing_funcs) / sizeof(nox_parse_thing_funcs_t);
 
 //----- (0044B160) --------------------------------------------------------
 bool nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value) {
@@ -328,31 +280,6 @@ bool nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_val
 //----- (0044C4E0) --------------------------------------------------------
 bool nox_parse_thing_health(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->health = atoi(attr_value);
-	return 1;
-}
-
-//----- (0044CE00) --------------------------------------------------------
-int nox_parse_thing(nox_memfile* thing_file, char* scratch_buffer, nox_thing* thing) {
-	unsigned char entry_len;
-	while ((entry_len = nox_memfile_read_u8(thing_file))) {
-		nox_memfile_read(scratch_buffer, 1u, entry_len, thing_file);
-		scratch_buffer[entry_len] = 0;
-		const char* attr_name = strtok(scratch_buffer, " \t\n\r");
-		for (int i = 0; i < nox_parse_thing_funcs_cnt; i++) {
-			const nox_parse_thing_funcs_t* attr_parser = &nox_parse_thing_funcs[i];
-			if (strcmp(attr_name, attr_parser->name) != 0) {
-				continue;
-			}
-
-			const char* attr_value = strtok(0, "=");
-			if (attr_value) {
-				memmove(scratch_buffer, attr_value + 1, strlen(attr_value + 1) + 1);
-			}
-			attr_parser->parse_func(thing, thing_file, scratch_buffer);
-			break;
-		}
-	}
-
 	return 1;
 }
 

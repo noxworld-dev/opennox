@@ -14,7 +14,6 @@ package opennox
 #include "GAME4_1.h"
 #include "GAME5.h"
 #include "GAME5_2.h"
-#include "client__drawable__drawdb.h"
 #include "client__gui__guiquit.h"
 #include "common__system__team.h"
 #include "server__system__server.h"
