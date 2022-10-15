@@ -26,7 +26,6 @@ extern uint32_t nox_player_netCode_85319C;
 extern int dword_5d4594_3799524;
 extern uint32_t dword_5d4594_1090120;
 extern int nox_win_width;
-extern int nox_win_height;
 extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_yellow_2589772;
 

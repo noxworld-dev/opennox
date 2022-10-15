@@ -48,20 +48,31 @@ func (r *Refactorer) ProcessDir(path string) error {
 	if err != nil {
 		return err
 	}
-	var filtered []string
+	var (
+		filtered  []string
+		filteredC []string
+	)
 	for _, fi := range list {
 		if fi.IsDir() {
 			continue
 		}
-		if filepath.Ext(fi.Name()) != ".go" {
-			continue
+		switch filepath.Ext(fi.Name()) {
+		case ".go":
+			filtered = append(filtered, filepath.Join(path, fi.Name()))
+		case ".c", ".h":
+			filteredC = append(filteredC, filepath.Join(path, fi.Name()))
 		}
-		filtered = append(filtered, filepath.Join(path, fi.Name()))
 	}
 	list = nil
 	r.defined = make(map[string]struct{})
 	var eg errgroup.Group
 	for _, fpath := range filtered {
+		fpath := fpath
+		eg.Go(func() error {
+			return r.reformatC2Go(fpath)
+		})
+	}
+	for _, fpath := range filteredC {
 		fpath := fpath
 		eg.Go(func() error {
 			return r.reformatC(fpath)
@@ -96,6 +107,14 @@ func findExterns(data []byte) (out []SrcDecl) {
 		i := bytes.Index(data, []byte(extern))
 		if i < 0 {
 			return
+		}
+		if j := bytes.LastIndex(data[:i], []byte("//")); j >= 0 && !bytes.ContainsAny(data[j:i], "\n") {
+			k := bytes.IndexByte(data[j:], '\n')
+			if k < 0 {
+				return
+			}
+			data = data[j+k+1:]
+			continue
 		}
 		data = data[i:]
 		i = bytes.IndexByte(data, ';')
@@ -164,6 +183,19 @@ func removeUnusedExterns(data []byte) []byte {
 }
 
 func (r *Refactorer) reformatC(path string) error {
+	src, err := os.ReadFile(path)
+	if err != nil {
+		return err
+	}
+	data := src
+	data = removeUnusedExterns(data)
+	if bytes.Equal(src, data) {
+		return nil
+	}
+	return os.WriteFile(path, data, 0644)
+}
+
+func (r *Refactorer) reformatC2Go(path string) error {
 	src, err := os.ReadFile(path)
 	if err != nil {
 		return err

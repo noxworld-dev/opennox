@@ -54,7 +54,6 @@ extern uint32_t dword_5d4594_741256;
 extern uint32_t dword_5d4594_741252;
 extern uint32_t dword_5d4594_741248;
 extern uint32_t dword_5d4594_529336;
-extern uint32_t dword_5d4594_2660032;
 extern uint32_t dword_5d4594_531656;
 extern uint32_t dword_5d4594_741292;
 extern uint32_t dword_5d4594_588068;

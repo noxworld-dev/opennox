@@ -26,6 +26,8 @@ extern uint32_t dword_5d4594_251572;
 extern uint32_t dword_5d4594_251600;
 extern uint32_t dword_5d4594_251608;
 
+extern int nox_parse_thing_draw_funcs_cnt;
+
 bool nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value);
 bool nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value);
 bool nox_parse_thing_subclass(nox_thing* obj, nox_memfile* f, const char* attr_value);

@@ -15,6 +15,8 @@
 #include "operators.h"
 
 extern uint32_t dword_5d4594_1313796;
+extern int nox_win_width;
+extern int nox_win_height;
 
 //----- (004BC490) --------------------------------------------------------
 char sub_4BC490(int a1) {

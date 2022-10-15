@@ -34,7 +34,6 @@
 int nox_xxx_netSendChat_528AC0(nox_object_t* a1, wchar_t* a2, wchar_t a3);
 
 extern unsigned int dword_5d4594_2386836;
-extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 
 unsigned int dword_5d4594_1599628 = 0;
 int dword_5d4594_2386848 = 0;

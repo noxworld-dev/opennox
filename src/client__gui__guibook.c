@@ -36,7 +36,6 @@ extern uint32_t dword_5d4594_1046872;
 extern uint32_t dword_5d4594_1047516;
 extern uint32_t dword_5d4594_1046868;
 extern int nox_win_width;
-extern int nox_win_height;
 
 //----- (0045AD70) --------------------------------------------------------
 void nox_xxx_bookShowMB_45AD70(int a1) {

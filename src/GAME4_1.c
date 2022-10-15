@@ -28,7 +28,6 @@
 #include "common__magic__speltree.h"
 #include "server__script__script.h"
 
-extern uint32_t dword_5d4594_2386836;
 extern uint32_t dword_5d4594_2386172;
 extern uint32_t dword_5d4594_3835364;
 extern uint32_t dword_5d4594_1599708;
@@ -70,7 +69,6 @@ extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
 extern uint32_t dword_5d4594_2386940;
 extern uint32_t dword_5d4594_2386944;
 extern uint32_t dword_5d4594_2650652;
-extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern nox_server_xxx nox_server_xxx_1599716[NOX_SERVER_XXX_SIZE * NOX_SERVER_XXX_SIZE];
 
 uint32_t nox_xxx_wallSounds_2386840 = 0;

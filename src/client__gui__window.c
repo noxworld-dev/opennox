@@ -14,8 +14,6 @@ void nox_client_drawSetColor_434460(int a1);
 void nox_client_drawRectFilledOpaque_49CE30(int xLeft, int yTop, int a3, int a4);
 nox_video_bag_image_t* nox_xxx_gLoadImg_42F970(const char* a1);
 
-extern unsigned int dword_5d4594_3799468;
-extern nox_window* nox_win_1064916;
 
 int dword_5d4594_3799524 = 0;
 

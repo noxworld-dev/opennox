@@ -23,7 +23,6 @@
 #include "input_common.h"
 #include "operators.h"
 
-extern uint32_t nox_client_gui_flag_815132;
 
 //----- (004A22A0) --------------------------------------------------------
 int sub_4A22A0(int a1, int* a2) {

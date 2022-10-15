@@ -5,7 +5,6 @@
 #include "defs.h"
 
 extern nox_parse_thing_draw_funcs_t nox_parse_thing_draw_funcs[];
-extern int nox_parse_thing_draw_funcs_cnt;
 
 int nox_alloc_drawable_init(int cnt);
 void nox_drawable_free();

@@ -38,32 +38,22 @@
 #include "server__network__sdecode.h"
 
 extern uint32_t nox_xxx_respawnAllow_587000_205200;
-extern uint32_t dword_5d4594_1569656;
-extern void* dword_5d4594_1548532;
-extern uint32_t dword_5d4594_1548524;
 extern uint32_t dword_5d4594_1568028;
 extern uint32_t dword_5d4594_600116;
-extern uint32_t dword_5d4594_1556144;
 extern uint32_t dword_5d4594_2386164;
 extern uint32_t dword_5d4594_1568300;
 extern uint32_t dword_5d4594_1548480;
-extern uint32_t dword_5d4594_528260;
 extern uint32_t dword_5d4594_1563096;
-extern uint32_t dword_5d4594_1563052;
 extern uint32_t dword_5d4594_608316;
 extern uint32_t dword_5d4594_1599060;
 extern uint32_t dword_5d4594_2386160;
-extern uint32_t dword_5d4594_251744;
-extern uint32_t dword_5d4594_528252;
 extern uint64_t qword_581450_10392;
 extern uint64_t qword_581450_10256;
 extern uint32_t dword_5d4594_1569756;
-extern nox_object_t* nox_xxx_host_player_unit_3843628;
 extern uint32_t dword_5d4594_1568024;
 extern uint32_t dword_5d4594_2388648;
 extern uint32_t dword_5d4594_1548476;
 extern uint32_t dword_5d4594_1599656;
-extern uint32_t dword_5d4594_2650652;
 
 
 uint32_t nox_xxx_resetMapInit_1569652 = 0;

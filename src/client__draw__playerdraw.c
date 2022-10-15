@@ -24,14 +24,7 @@ extern uint32_t dword_5d4594_1313800;
 extern uint32_t nox_player_netCode_85319C;
 
 extern uint32_t nox_color_white_2523948;
-extern uint32_t nox_color_red_2589776;
 extern uint32_t nox_color_blue_2650684;
-extern uint32_t nox_color_green_2614268;
-extern uint32_t nox_color_cyan_2649820;
-extern uint32_t nox_color_yellow_2589772;
-extern uint32_t nox_color_violet_2598268;
-extern uint32_t nox_color_black_2650656;
-extern uint32_t nox_color_orange_2614256;
 
 //----- (004B8270) --------------------------------------------------------
 int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
