@@ -2082,13 +2082,12 @@ func (s *Server) nox_xxx_netlist_4DEB50() {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(false)
 		netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	} else if !isDedicatedServer {
-		buf := netlist.CopyPacketsA(common.MaxPlayers-1, netlist.Kind0)
-		if len(buf) != 0 {
-			dst := netlist.Buffer
-			n := copy(dst, buf)
-			nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(common.MaxPlayers-1, dst[:n])
-		}
-		netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
+		netlist.HandlePacketsA(common.MaxPlayers-1, netlist.Kind0, func(data []byte) {
+			if len(data) == 0 {
+				return
+			}
+			nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(common.MaxPlayers-1, data)
+		})
 	}
 }
 

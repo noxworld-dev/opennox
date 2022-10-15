@@ -524,7 +524,6 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 
 	if err := netstr.DialWait(ind, 10*time.Second, func() {
 		nox_xxx_netSendBySock_40EE10(ind, common.MaxPlayers-1, netlist.Kind0)
-		netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	}, func() bool {
 		return nox_xxx_getMapCRC_40A370() != 0
 	}); err != nil {
