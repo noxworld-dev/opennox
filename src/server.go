@@ -505,7 +505,7 @@ func (s *Server) updateRemotePlayers() error {
 			var buf [3]byte
 			buf[0] = 39
 			binary.LittleEndian.PutUint16(buf[1:], uint16(s.Frame()))
-			netlist.AddToMsgListCli(pl.Index(), 1, buf[:])
+			netlist.AddToMsgListCli(pl.Index(), netlist.Kind1, buf[:])
 		} else {
 			if uint32(pl.UnitC().Ind()) == DeadWord { // see #401
 				pl.playerUnit = nil

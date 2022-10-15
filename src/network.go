@@ -297,10 +297,10 @@ func (c *Client) clientSendInput(pli int) bool {
 	var buf [2]byte
 	buf[0] = byte(noxnet.MSG_PLAYER_INPUT)
 	buf[1] = byte(len(nbuf))
-	if !netlist.AddToMsgListCli(pli, 0, buf[:2]) {
+	if !netlist.AddToMsgListCli(pli, netlist.Kind0, buf[:2]) {
 		return false
 	}
-	if !netlist.AddToMsgListCli(pli, 0, nbuf) {
+	if !netlist.AddToMsgListCli(pli, netlist.Kind0, nbuf) {
 		return false
 	}
 	return true
@@ -320,7 +320,7 @@ func (c *Client) clientSendInputMouse(pli int, mp image.Point) bool {
 	buf[0] = byte(noxnet.MSG_MOUSE)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(mp.X))
 	binary.LittleEndian.PutUint16(buf[3:], uint16(mp.Y))
-	return netlist.AddToMsgListCli(pli, 0, buf[:5])
+	return netlist.AddToMsgListCli(pli, netlist.Kind0, buf[:5])
 }
 
 func (s *Server) nox_xxx_netAddPlayerHandler_4DEBC0(port int) (ind, cport int, _ error) {
@@ -432,7 +432,7 @@ func nox_xxx_cliSendCancelMap_43CAB0() int {
 	if netstr.WaitServerResponse(id, v0, 20, 6) != 0 {
 		return 0
 	}
-	netlist.ResetByInd(common.MaxPlayers-1, 0)
+	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	return 1
 }
 
@@ -444,7 +444,7 @@ func nox_xxx_netSendIncomingClient_43CB00() int {
 	if netstr.WaitServerResponse(id, v0, 20, 6) != 0 {
 		return 0
 	}
-	netlist.ResetByInd(common.MaxPlayers-1, 0)
+	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	return 1
 }
 
@@ -470,7 +470,7 @@ func nox_xxx_cliSendOutgoingClient_43CB50() int {
 		return 0
 	}
 	nox_xxx_servNetInitialPackets_552A80(id, 3)
-	netlist.ResetByInd(common.MaxPlayers-1, 0)
+	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	return 1
 }
 
@@ -484,9 +484,9 @@ func nox_xxx_netInformTextMsg_4DA0F0(pid int, code byte, ind int) bool {
 	switch code {
 	case 0, 1, 2, 12, 13, 16, 20, 21:
 		binary.LittleEndian.PutUint32(buf[2:], uint32(ind))
-		return netlist.AddToMsgListCli(pid, 1, buf[:6])
+		return netlist.AddToMsgListCli(pid, netlist.Kind1, buf[:6])
 	case 17:
-		return netlist.AddToMsgListCli(pid, 1, buf[:2])
+		return netlist.AddToMsgListCli(pid, netlist.Kind1, buf[:2])
 	default:
 		return true
 	}
@@ -630,7 +630,7 @@ func nox_xxx_netKillChat_528D00(u *Unit) {
 		if u == nil {
 			continue
 		}
-		netlist.AddToMsgListCli(pl.Index(), 1, buf[:3])
+		netlist.AddToMsgListCli(pl.Index(), netlist.Kind1, buf[:3])
 	}
 }
 
@@ -710,11 +710,11 @@ func nox_xxx_netPriMsgToPlayer_4DA2C0(u *Unit, id strman.ID, a3 byte) {
 	buf[2] = a3
 	n := copy(buf[3:len(buf)-1], string(id))
 	buf[3+n] = 0
-	netlist.AddToMsgListCli(u.ControllingPlayer().Index(), 1, buf[:n+4])
+	netlist.AddToMsgListCli(u.ControllingPlayer().Index(), netlist.Kind1, buf[:n+4])
 }
 
-func nox_xxx_netSendBySock_40EE10(a1 int, a2 int, a3 int) {
-	v3 := netlist.CopyPacketsA(a2, a3)
+func nox_xxx_netSendBySock_40EE10(a1 int, a2 int, kind netlist.Kind) {
+	v3 := netlist.CopyPacketsA(a2, kind)
 	if len(v3) != 0 {
 		netstr.Send(a1, v3, 0)
 		netstr.SendReadPacket(a1, 1)
@@ -991,11 +991,11 @@ func nox_client_onJoinData() {
 //export nox_xxx_netSendBySock_4DDDC0
 func nox_xxx_netSendBySock_4DDDC0(ind int) {
 	if !noxflags.HasGame(noxflags.GameClient) || ind != common.MaxPlayers-1 {
-		if buf := netlist.CopyPacketsA(ind, 1); len(buf) != 0 {
+		if buf := netlist.CopyPacketsA(ind, netlist.Kind1); len(buf) != 0 {
 			copy(netlist.Buffer, buf)
 			buf = netlist.Buffer[:len(buf)]
 			netstr.Send(ind+1, buf, netstr.SendNoLock|netstr.SendFlagFlush)
 		}
-		netlist.ResetByInd(ind, 1)
+		netlist.ResetByInd(ind, netlist.Kind1)
 	}
 }

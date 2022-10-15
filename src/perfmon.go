@@ -115,7 +115,7 @@ func (m *Perfmon) packetSize() int {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		return m.packetSizeCli
 	}
-	return netlist.ByInd(common.MaxPlayers-1, 1).Size() + netlist.ByInd(common.MaxPlayers-1, 2).Size()
+	return netlist.ByInd(common.MaxPlayers-1, netlist.Kind1).Size() + netlist.ByInd(common.MaxPlayers-1, netlist.Kind2).Size()
 }
 
 func (m *Perfmon) startProfileClient() func() {

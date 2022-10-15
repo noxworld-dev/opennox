@@ -824,7 +824,7 @@ func (s *Server) nox_xxx_servInitialMapLoad_4D17F0() bool {
 		log.Println("gameStateFunc = nox_xxx_gameTick_4D2580_server")
 	}
 	s.SetUpdateFunc(s.nox_xxx_gameTick_4D2580_server)
-	netlist.ResetAllInd(1)
+	netlist.ResetAllInd(netlist.Kind1)
 	noxflags.SetGame(noxflags.GameFlag18)
 	C.nox_xxx_netGameSettings_4DEF00()
 	C.nox_server_gameUnsetMapLoad_40A690()
@@ -836,14 +836,14 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 	ticks := platformTicks()
 	v2 := false
 	if C.dword_5d4594_2650652 == 0 {
-		netlist.ResetAllInd(1)
+		netlist.ResetAllInd(netlist.Kind1)
 	} else {
 		v4 := nox_xxx_rateGet_40A6C0()
 		if C.sub_416650() != 0 && sub_41E2F0() == 8 {
 			v2 = true
 		}
 		if v4 == 1 || noxflags.HasGame(noxflags.GameFlag4) || s.Frame()%uint32(v4) == 1 {
-			netlist.ResetAllInd(1)
+			netlist.ResetAllInd(netlist.Kind1)
 		}
 	}
 	C.sub_502100()
@@ -2080,15 +2080,15 @@ func (s *Server) nox_xxx_netlist_4DEB50() {
 	}
 	if noxflags.HasEngine(noxflags.EngineReplayRead) {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(false)
-		netlist.ResetByInd(common.MaxPlayers-1, 0)
+		netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	} else if !isDedicatedServer {
-		buf := netlist.CopyPacketsA(common.MaxPlayers-1, 0)
+		buf := netlist.CopyPacketsA(common.MaxPlayers-1, netlist.Kind0)
 		if len(buf) != 0 {
 			dst := netlist.Buffer
 			n := copy(dst, buf)
 			nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(common.MaxPlayers-1, dst[:n])
 		}
-		netlist.ResetByInd(common.MaxPlayers-1, 0)
+		netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	}
 }
 
