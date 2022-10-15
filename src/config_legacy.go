@@ -315,7 +315,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 			C.nox_xxx_rateUpdate_40A6D0(C.int(v))
-			if C.nox_xxx_rateGet_40A6C0() <= 0 || C.nox_xxx_rateGet_40A6C0() > 3 {
+			if nox_xxx_rateGet_40A6C0() <= 0 || nox_xxx_rateGet_40A6C0() > 3 {
 				C.nox_xxx_rateUpdate_40A6D0(1)
 			}
 		case "ConnectionType":
@@ -712,7 +712,7 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 	sect.Set("SendMessageOfTheDay", strconv.Itoa(int(C.nox_server_sendMotd_108752)))
 	sect.Set("MapCycle", strconv.Itoa(int(C.sub_4D0D70())))
 	sect.Set("ConnectionType", strconv.Itoa(int(C.nox_server_connectionType_3596)))
-	sect.Set("InternetUpdateRate", strconv.Itoa(int(C.nox_xxx_rateGet_40A6C0())))
+	sect.Set("InternetUpdateRate", strconv.Itoa(nox_xxx_rateGet_40A6C0()))
 	sect.Set("LessonLimit", sub_4337B0())
 	sect.Set("TimeLimit", sub_433820())
 	sect.Set("PlayerSkeletons", strconv.Itoa(int(*(*uint32)(unsafe.Pointer(&v1[58])))))
