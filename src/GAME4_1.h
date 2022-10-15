@@ -211,7 +211,7 @@ int nox_xxx_netSendPhantomPlrMb_5187E0(int a1, int a2);
 int nox_xxx_netSendSimpleObj_5188A0(int a1, int a2);
 int nox_xxx_netSendComplexObject_518960(int a1, uint32_t* a2, int a3);
 int nox_xxx_netSpriteUpdate_518AE0(int a1, int a2, uint32_t* a3);
-int nox_xxx_netPlayerObjSend_518C30(int a1, uint32_t* a2, int a3, signed int a4);
+int nox_xxx_netPlayerObjSend_518C30(nox_object_t* a1, nox_object_t* a2, int a3, signed int a4);
 int nox_xxx_netUpdate_518EE0(nox_object_t* obj);
 int nox_xxx_netPlayerObjSendCamera_519330(int a1);
 char nox_xxx_unitAroundPlayerFn_5193B0(uint32_t* a1, int a2);

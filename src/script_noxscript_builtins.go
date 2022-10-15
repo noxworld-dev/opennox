@@ -1793,8 +1793,8 @@ func nox_script_pickup_5139A0() int {
 		return 0
 	}
 	if noxflags.HasGame(noxflags.GameModeCoop) && picker.Class().Has(object.ClassPlayer) &&
-		*memmap.PtrUint32(0x5D4594, 2386844) != gameFrame() {
-		*memmap.PtrUint32(0x5D4594, 2386844) = gameFrame()
+		*memmap.PtrUint32(0x5D4594, 2386844) != noxServer.Frame() {
+		*memmap.PtrUint32(0x5D4594, 2386844) = noxServer.Frame()
 		C.dword_5d4594_2386848 = 0
 		C.dword_5d4594_2386852 = 0
 	}

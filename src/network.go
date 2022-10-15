@@ -44,6 +44,7 @@ extern float nox_xxx_wizardMaxHealth_587000_312816;
 extern float nox_xxx_wizardMaximumMana_587000_312820;
 
 static int nox_call_net_xxxyyy_go(int (*fnc)(unsigned int, char*, int, void*), unsigned int a1, void* a2, int a3, void* a4) { return fnc(a1, a2, a3, a4); }
+int nox_xxx_netPlayerObjSend_518C30(nox_object_t* a1, nox_object_t* a2, int a3, signed int a4);
 */
 import "C"
 import (
@@ -999,5 +1000,28 @@ func nox_xxx_netSendBySock_4DDDC0(ind int) {
 			}
 			netstr.Send(ind+1, data, netstr.SendNoLock|netstr.SendFlagFlush)
 		})
+	}
+}
+
+func nox_xxx_netUseMap_4DEE00(mname string, crc uint32) {
+	var pck [41]byte
+	pck[0] = byte(noxnet.MSG_USE_MAP)
+	copy(pck[1:33], mname)
+	binary.LittleEndian.PutUint32(pck[33:], crc)
+	binary.LittleEndian.PutUint32(pck[37:], noxServer.Frame())
+
+	for pl := noxServer.playerFirst(); pl != nil; pl = noxServer.playerNext(pl) {
+		u := pl.UnitC()
+		if u == nil {
+			continue
+		}
+		netlist.AddToMsgListCli(pl.Index(), netlist.Kind1, pck[:41])
+		C.nox_xxx_netPlayerObjSend_518C30(u.CObj(), u.CObj(), 0, 0)
+		if !noxflags.HasGame(noxflags.GameClient) || pl.Index() != common.MaxPlayers-1 {
+			buf := netlist.CopyPacketsA(pl.Index(), netlist.Kind1)
+			if len(buf) != 0 {
+				netstr.Send(pl.Index()+1, buf, netstr.SendNoLock|netstr.SendFlagFlush)
+			}
+		}
 	}
 }

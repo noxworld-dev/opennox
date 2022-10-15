@@ -66,7 +66,6 @@ void sub_4DBA30(int a1);
 void sub_50AFA0();
 int sub_48C980();
 void nox_console_sendSysOpPass_4409D0(wchar_t* a1);
-unsigned int*  nox_xxx_netUseMap_4DEE00(const char* a1, int a2);
 char* nox_xxx_getSomeMapName_4D0CF0();
 int  nox_server_loadMapFile_4CF5F0(char* a1, int a2);
 int nox_xxx_mapLoadRequired_4DCC80();
@@ -999,19 +998,18 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_C() bool {
 	err := s.nox_xxx_mapExitAndCheckNext_4D1860_server()
 	noxAudioServe()
 	noxflags.UnsetGame(noxflags.GameFlag28)
-	v37 := s.getServerMap()
+	mname := s.getServerMap()
 	if err != nil {
 		gameLog.Println(err)
-		v14 := strMan.GetStringInFile("MapAccessError", "C:\\NoxPost\\src\\Server\\System\\server.c")
-		PrintToPlayers(fmt.Sprintf(v14, v37))
+		format := strMan.GetStringInFile("MapAccessError", "C:\\NoxPost\\src\\Server\\System\\server.c")
+		PrintToPlayers(fmt.Sprintf(format, mname))
 		//v36 := strMan.GetStringInFile("Error", "C:\\NoxPost\\src\\Server\\System\\server.c")
 		//v15 := strMan.GetStringInFile("MapCorrupt", "C:\\NoxPost\\src\\Server\\System\\server.c")
 		nox_xxx_setContinueMenuOrHost_43DDD0(0)
 		return false
 	}
-	v39 := v37 + ".map"
-	v18 := C.nox_xxx_mapCrcGetMB_409B00()
-	C.nox_xxx_netUseMap_4DEE00(internCStr(v39), v18)
+	crc := uint32(C.nox_xxx_mapCrcGetMB_409B00())
+	nox_xxx_netUseMap_4DEE00(mname+".map", crc)
 	if false {
 		C.sub_416690()
 		if noxflags.HasGame(noxflags.GameModeChat) {

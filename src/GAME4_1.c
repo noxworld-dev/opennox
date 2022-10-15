@@ -7012,7 +7012,9 @@ int nox_xxx_netSpriteUpdate_518AE0(int a1, int a2, uint32_t* a3) {
 }
 
 //----- (00518C30) --------------------------------------------------------
-int nox_xxx_netPlayerObjSend_518C30(int a1, uint32_t* a2, int a3, signed int a4) {
+int nox_xxx_netPlayerObjSend_518C30(nox_object_t* a1p, nox_object_t* a2p, int a3, signed int a4) {
+	int a1 = a1p;
+	uint32_t* a2 = a2p;
 	int v4;         // ebx
 	uint32_t* v5;   // esi
 	int v6;         // edi

@@ -37,16 +37,6 @@ func nox_netlist_addToMsgListSrv_40EF40(ind C.int, buf *C.uchar, sz C.int) C.boo
 	return C.bool(nox_netlist_addToMsgListSrv(int(ind), unsafe.Slice((*byte)(unsafe.Pointer(buf)), int(sz))))
 }
 
-//export nox_netlist_copyPacketList_40ED60
-func nox_netlist_copyPacketList_40ED60(ind1, ind2 C.int, outSz *C.uint) *C.uchar {
-	buf := netlist.CopyPacketsA(int(ind1), netlist.Kind(ind2))
-	sbuf := netlist.Buffer
-	copy(sbuf, make([]byte, len(sbuf)))
-	*outSz = C.uint(len(buf))
-	copy(sbuf, buf)
-	return (*C.uchar)(unsafe.Pointer(&sbuf[0]))
-}
-
 //export nox_netlist_initPlayerBufs_40F020
 func nox_netlist_initPlayerBufs_40F020(ind int) {
 	netlist.InitByInd(ind)
