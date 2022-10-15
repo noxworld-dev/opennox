@@ -6917,50 +6917,11 @@ int sub_4DF8C0(uint8_t* a1, int a2) {
 	return 3;
 }
 
-//----- (004DF8F0) --------------------------------------------------------
-uint8_t* sub_4DF8F0(int a1, uint8_t* a2, int a3) {
-	uint8_t* v3; // ebp
-	int v4;      // edi
-	int v6;      // esi
-	int v7;      // eax
-	int v8;      // edi
-
-	v3 = a2;
-	v4 = 127;
-	if (!nox_netlist_countByInd2_40F0B0(a1)) {
-		return 0;
-	}
-	v6 = sub_4DF5E0(a1, 127);
-	if (!v6) {
-		while (1) {
-			v4 += 127;
-			if (v4 > 4064) {
-				return 0;
-			}
-			v6 = sub_4DF5E0(a1, v4);
-			if (v6) {
-				if (v4 <= 127) {
-					break;
-				}
-				*a2 = 0;
-				v7 = 1;
-				v3 = a2 + 1;
-				goto LABEL_9;
-			}
-		}
-	}
-	v7 = 0;
-LABEL_9:
-	v8 = sub_4DF9B0((int)v3, a3, v6, v7);
-	if (v8 == -1) {
-		return (uint8_t*)(v3 - a2);
-	}
-	nox_netlist_findAndFreeBuf_40F000(a1, v6);
-	return &v3[v8 - (uint32_t)a2];
-}
-
 //----- (004DF9B0) --------------------------------------------------------
-int sub_4DF9B0(int a1, int a2, int a3, int a4) {
+int sub_4DF9B0(void* a1p, void* a2p, void* a3p, int a4) {
+	int a1 = a1p;
+	int a2 = a2p;
+	int a3 = a3p;
 	char v4;            // al
 	unsigned short* v5; // esi
 	unsigned short v6;  // ax
