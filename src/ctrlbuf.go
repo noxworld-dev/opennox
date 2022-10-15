@@ -3,13 +3,14 @@ package opennox
 import (
 	"encoding/binary"
 
+	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/player"
 )
 
 const ctrlBufCap = 128
 
 type serverCtrlBuf struct {
-	byPlayer [noxMaxPlayers]ctrlBuf
+	byPlayer [common.MaxPlayers]ctrlBuf
 }
 
 func (s *serverCtrlBuf) Player(pi int) *ctrlBuf {

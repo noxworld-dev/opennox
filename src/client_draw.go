@@ -83,12 +83,12 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 		c.inDraw1 = false
 	}
 	C.nox_xxx_clientEnumHover_476FA0()
-	if !c.clientSendInput(noxMaxPlayers - 1) {
+	if !c.clientSendInput(common.MaxPlayers - 1) {
 		return true
 	}
 	vp := c.Viewport()
 	ipos := vp.ToWorldPos(mpos)
-	if !c.clientSendInputMouse(noxMaxPlayers-1, ipos) {
+	if !c.clientSendInputMouse(common.MaxPlayers-1, ipos) {
 		return true
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
@@ -97,7 +97,7 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_spriteDeleteSomeList_49C4B0()
-		if nox_netlist_receiveCli_494E90(noxMaxPlayers-1) == 0 {
+		if nox_netlist_receiveCli_494E90(common.MaxPlayers-1) == 0 {
 			return true
 		}
 	} else {

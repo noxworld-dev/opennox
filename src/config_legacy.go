@@ -36,6 +36,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/cfg"
+	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/ifs"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
@@ -450,8 +451,8 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if v < 1 {
 				v = 1
 			}
-			if v > noxMaxPlayers {
-				v = noxMaxPlayers
+			if v > common.MaxPlayers {
+				v = common.MaxPlayers
 			}
 			v1 := sub_416640()
 			v1[104] = byte(v)

@@ -30,6 +30,7 @@ import (
 	"strings"
 
 	"github.com/noxworld-dev/opennox-lib/client/seat"
+	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/maps"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
@@ -262,7 +263,7 @@ func sub_43CCA0() {
 				defer free()
 				buf[0] = byte(noxnet.MSG_FULL_TIMESTAMP)
 				binary.LittleEndian.PutUint32(buf[1:], noxServer.Frame()+1)
-				nox_xxx_netOnPacketRecvCli_48EA70(noxMaxPlayers-1, buf[:5])
+				nox_xxx_netOnPacketRecvCli_48EA70(common.MaxPlayers-1, buf[:5])
 			}
 		}
 	}
@@ -274,8 +275,8 @@ func sub_43CCA0() {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		C.nox_xxx_netImportant_4E5770(0x1F, 0)
 	}
-	nox_xxx_netSendBySock_40EE10(int(nox_xxx_netGet_43C750()), noxMaxPlayers-1, 0)
-	nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
+	nox_xxx_netSendBySock_40EE10(int(nox_xxx_netGet_43C750()), common.MaxPlayers-1, 0)
+	nox_netlist_resetByInd_40ED10(common.MaxPlayers-1, 0)
 	netstr.MaybeSendAll()
 	if lastCliHandlePackets == 0 {
 		return

@@ -4,6 +4,7 @@ import (
 	"time"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/platform"
 
@@ -26,8 +27,8 @@ type Perfmon struct {
 	nextCnt       uint
 	cnt           uint
 	prevTicks     time.Duration
-	transfer      [noxMaxPlayers]uint32
-	transferTick  [noxMaxPlayers]time.Duration
+	transfer      [common.MaxPlayers]uint32
+	transferTick  [common.MaxPlayers]time.Duration
 	packetSizeCli int
 
 	logger      *log.Logger
@@ -74,7 +75,7 @@ func (m *Perfmon) LogBandwidth() {
 		d := m.bandData(pl.Index())
 		v4 := noxServer.Frame()
 		var bps uint32
-		if pl.Index() == noxMaxPlayers-1 {
+		if pl.Index() == common.MaxPlayers-1 {
 			bps = noxPerfmon.TransferStats(0)
 		} else {
 			bps = noxPerfmon.TransferStats(pl.Index() + 1)
@@ -88,7 +89,7 @@ type playerBandData struct {
 }
 
 func (m *Perfmon) bandData(ind int) playerBandData {
-	arr := unsafe.Slice((*uint32)(memmap.PtrOff(0x5D4594, 1565124)), 3*noxMaxPlayers)
+	arr := unsafe.Slice((*uint32)(memmap.PtrOff(0x5D4594, 1565124)), 3*common.MaxPlayers)
 	arr = arr[3*ind : 3*(ind+1)]
 	return playerBandData{
 		rpu: arr[0] & 0xff,
@@ -113,7 +114,7 @@ func (m *Perfmon) packetSize() int {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		return m.packetSizeCli
 	}
-	return netList(noxMaxPlayers-1, 1).Size() + netList(noxMaxPlayers-1, 2).Size()
+	return netList(common.MaxPlayers-1, 1).Size() + netList(common.MaxPlayers-1, 2).Size()
 }
 
 func (m *Perfmon) startProfileClient() func() {

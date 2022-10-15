@@ -29,6 +29,7 @@ import (
 	"strings"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/script"
@@ -208,7 +209,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 		u.vel_x = 0
 		u.vel_y = 0
 	}
-	if noxflags.HasGame(noxflags.GameModeQuest) && ud.field_137 != 0 && ud.Player().Index() != noxMaxPlayers-1 && (s.Frame()-uint32(ud.field_137) > (30 * s.TickRate())) {
+	if noxflags.HasGame(noxflags.GameModeQuest) && ud.field_137 != 0 && ud.Player().Index() != common.MaxPlayers-1 && (s.Frame()-uint32(ud.field_137) > (30 * s.TickRate())) {
 		sub_4DCFB0(u.CObj())
 		return
 	}
@@ -661,7 +662,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 	if pl.field_3680&3 != 0 {
 		goto LABEL_247
 	}
-	orientationOnly = C.sub_4FEE50(noxMaxPlayers-1, u.CObj()) != 0
+	orientationOnly = C.sub_4FEE50(common.MaxPlayers-1, u.CObj()) != 0
 	for it := cb.First(); it != nil; it = cb.Next() {
 		if orientationOnly && it.code != player.CCOrientation {
 			continue

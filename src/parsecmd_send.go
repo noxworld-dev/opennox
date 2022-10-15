@@ -9,6 +9,7 @@ import "C"
 import (
 	"encoding/binary"
 
+	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 )
 
@@ -23,7 +24,7 @@ func nox_xxx_netServerCmd_440950(id byte, cmd string) {
 		WStrCopyBytes(buf[5:], cmd)
 	}
 	binary.LittleEndian.PutUint16(buf[5+2*len(cmd):], 0)
-	nox_xxx_netClientSend2_4E53C0(noxMaxPlayers-1, buf, 0, 1)
+	nox_xxx_netClientSend2_4E53C0(common.MaxPlayers-1, buf, 0, 1)
 }
 
 func nox_xxx_serverHandleClientConsole_443E90(pl *Player, a2 byte, cmd string) {
@@ -44,5 +45,5 @@ func nox_console_sendSysOpPass_4409D0(pass string) {
 	WStrCopyBytes(buf[1:17], pass)
 	binary.LittleEndian.PutUint16(buf[17:], 0)
 	binary.LittleEndian.PutUint16(buf[19:], uint16(clientPlayerNetCode()))
-	nox_xxx_netClientSend2_4E53C0(noxMaxPlayers-1, buf, 0, 1)
+	nox_xxx_netClientSend2_4E53C0(common.MaxPlayers-1, buf, 0, 1)
 }

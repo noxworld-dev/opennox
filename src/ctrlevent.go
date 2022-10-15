@@ -586,11 +586,11 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			}
 			ce.active = false
 		case player.CCLaugh:
-			nox_xxx_netClientSendSocial(noxMaxPlayers-1, 1, 0, 1)
+			nox_xxx_netClientSendSocial(common.MaxPlayers-1, 1, 0, 1)
 		case player.CCTaunt:
-			nox_xxx_netClientSendSocial(noxMaxPlayers-1, 2, 0, 1)
+			nox_xxx_netClientSendSocial(common.MaxPlayers-1, 2, 0, 1)
 		case player.CCPoint:
-			nox_xxx_netClientSendSocial(noxMaxPlayers-1, 4, 0, 1)
+			nox_xxx_netClientSendSocial(common.MaxPlayers-1, 4, 0, 1)
 		case player.CCInvertSpellTarget:
 			C.sub_460630()
 			ce.active = false

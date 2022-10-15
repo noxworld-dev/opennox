@@ -1530,7 +1530,7 @@ func nox_script_enchant_5132E0() int {
 func nox_script_getHost_513460() int {
 	s := &noxServer.noxScript
 
-	// Note: original C code got the player from `noxServer.getPlayerByInd(noxMaxPlayers - 1)`
+	// Note: original C code got the player from `noxServer.getPlayerByInd(MaxPlayers - 1)`
 	v0 := HostPlayerUnit()
 	if v0 != nil {
 		s.PushI32(int32(v0.ScriptID()))

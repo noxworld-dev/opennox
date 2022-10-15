@@ -58,6 +58,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/nat"
+	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/console"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
@@ -433,7 +434,7 @@ func nox_xxx_cliSendCancelMap_43CAB0() int {
 	if netstr.WaitServerResponse(id, v0, 20, 6) != 0 {
 		return 0
 	}
-	nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
+	nox_netlist_resetByInd_40ED10(common.MaxPlayers-1, 0)
 	return 1
 }
 
@@ -445,7 +446,7 @@ func nox_xxx_netSendIncomingClient_43CB00() int {
 	if netstr.WaitServerResponse(id, v0, 20, 6) != 0 {
 		return 0
 	}
-	nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
+	nox_netlist_resetByInd_40ED10(common.MaxPlayers-1, 0)
 	return 1
 }
 
@@ -471,7 +472,7 @@ func nox_xxx_cliSendOutgoingClient_43CB50() int {
 		return 0
 	}
 	nox_xxx_servNetInitialPackets_552A80(id, 3)
-	nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
+	nox_netlist_resetByInd_40ED10(common.MaxPlayers-1, 0)
 	return 1
 }
 
@@ -639,7 +640,7 @@ func netSendGauntlet() {
 	var buf [2]byte
 	buf[0] = byte(noxnet.MSG_GAUNTLET)
 	buf[1] = 27
-	nox_xxx_netClientSend2_4E53C0(noxMaxPlayers-1, buf[:2], 0, 0)
+	nox_xxx_netClientSend2_4E53C0(common.MaxPlayers-1, buf[:2], 0, 0)
 }
 
 func nox_xxx_sendGauntlet_4DCF80(ind int, v byte) {
@@ -947,7 +948,7 @@ func nox_xxx_netHandleCliPacket_43C860(_ int, data []byte, _ unsafe.Pointer) int
 	} else if op == noxnet.MSG_PING {
 		noxPerfmon.ping = time.Duration(binary.LittleEndian.Uint32(data[1:])) * time.Millisecond
 	} else if op >= noxnet.MSG_TIMESTAMP {
-		nox_xxx_netOnPacketRecvCli_48EA70(noxMaxPlayers-1, data)
+		nox_xxx_netOnPacketRecvCli_48EA70(common.MaxPlayers-1, data)
 		if nox_client_isConnected() {
 			C.sub_48D660()
 		}
@@ -979,7 +980,7 @@ func sub_43CF70() {
 			C.nox_xxx_netNeedTimestampStatus_4174F0(pl.C(), 64)
 			var buf [1]byte
 			buf[0] = byte(noxnet.MSG_NEED_TIMESTAMP)
-			nox_xxx_netClientSend2_4E53C0(noxMaxPlayers-1, buf[:1], 0, 1)
+			nox_xxx_netClientSend2_4E53C0(common.MaxPlayers-1, buf[:1], 0, 1)
 		}
 	}
 }

@@ -682,7 +682,7 @@ func initGameSession435CC0() error {
 	noxflags.SetGame(noxflags.GameFlag24)
 	if noxflags.HasGame(noxflags.GameHost) {
 		if !isDedicatedServer {
-			C.nox_xxx_netPlayerIncomingServ_4DDF60(noxMaxPlayers - 1)
+			C.nox_xxx_netPlayerIncomingServ_4DDF60(common.MaxPlayers - 1)
 		}
 	} else {
 		nox_xxx_netSendIncomingClient_43CB00()
@@ -941,7 +941,7 @@ func nox_xxx_gameIsSwitchToSolo_4DB240() C.int {
 }
 
 func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
-	pl := s.getPlayerByInd(noxMaxPlayers - 1)
+	pl := s.getPlayerByInd(common.MaxPlayers - 1)
 	if pl == nil {
 		return
 	}
@@ -2079,15 +2079,15 @@ func (s *Server) nox_xxx_netlist_4DEB50() {
 	}
 	if noxflags.HasEngine(noxflags.EngineReplayRead) {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(false)
-		nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
+		nox_netlist_resetByInd_40ED10(common.MaxPlayers-1, 0)
 	} else if !isDedicatedServer {
-		buf := nox_netlist_copyPacketList(noxMaxPlayers-1, 0)
+		buf := nox_netlist_copyPacketList(common.MaxPlayers-1, 0)
 		if len(buf) != 0 {
 			dst := nox_net_lists_buf
 			n := copy(dst, buf)
-			nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(noxMaxPlayers-1, dst[:n])
+			nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(common.MaxPlayers-1, dst[:n])
 		}
-		nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
+		nox_netlist_resetByInd_40ED10(common.MaxPlayers-1, 0)
 	}
 }
 

@@ -10,6 +10,8 @@ import (
 	"encoding/binary"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/common"
+
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
@@ -18,7 +20,7 @@ import (
 var (
 	nox_net_lists_buf     []byte
 	nox_net_lists_buf_arr [3][]netBuf
-	nox_net_lists         [3][noxMaxPlayers]*MsgList
+	nox_net_lists         [3][common.MaxPlayers]*MsgList
 )
 
 type netBuf struct {
@@ -28,9 +30,9 @@ type netBuf struct {
 
 func init() {
 	nox_net_lists_buf, _ = alloc.Make([]byte{}, netListsBufSize)
-	nox_net_lists_buf_arr[0], _ = alloc.Make([]netBuf{}, noxMaxPlayers)
-	nox_net_lists_buf_arr[1], _ = alloc.Make([]netBuf{}, noxMaxPlayers)
-	nox_net_lists_buf_arr[2], _ = alloc.Make([]netBuf{}, noxMaxPlayers)
+	nox_net_lists_buf_arr[0], _ = alloc.Make([]netBuf{}, common.MaxPlayers)
+	nox_net_lists_buf_arr[1], _ = alloc.Make([]netBuf{}, common.MaxPlayers)
+	nox_net_lists_buf_arr[2], _ = alloc.Make([]netBuf{}, common.MaxPlayers)
 }
 
 //export nox_netlist_addToMsgListCli_40EBC0
@@ -185,12 +187,12 @@ func newMsgList(cnt int) *MsgList {
 }
 
 func nox_netlist_init_40EA10() {
-	for i := 0; i < noxMaxPlayers; i++ {
+	for i := 0; i < common.MaxPlayers; i++ {
 		nox_net_lists[0][i] = nil
 		nox_net_lists[1][i] = newMsgList(netListsMaxPackets)
 		nox_net_lists[2][i] = newMsgList(netListsMaxPackets)
 	}
-	nox_net_lists[0][noxMaxPlayers-1] = newMsgList(netListsMaxPackets)
+	nox_net_lists[0][common.MaxPlayers-1] = newMsgList(netListsMaxPackets)
 }
 
 func (l *MsgList) Free() {
@@ -198,7 +200,7 @@ func (l *MsgList) Free() {
 }
 
 func nox_netlist_free_40EA70() {
-	for i := 0; i < noxMaxPlayers; i++ {
+	for i := 0; i < common.MaxPlayers; i++ {
 		for j := 0; j < 3; j++ {
 			if l := nox_net_lists[j][i]; l != nil {
 				l.Free()
@@ -257,13 +259,13 @@ func nox_netlist_initPlayerBufs_40F020(ind int) {
 }
 
 func nox_netlist_resetAllInList_40EE90(ind int) {
-	for i := 0; i < noxMaxPlayers; i++ {
+	for i := 0; i < common.MaxPlayers; i++ {
 		nox_netlist_resetByInd_40ED10(i, ind)
 	}
 }
 
 func nox_netlist_resetAll_40EE60() {
-	for i := 0; i < noxMaxPlayers; i++ {
+	for i := 0; i < common.MaxPlayers; i++ {
 		nox_netlist_resetByInd_40ED10(i, 1)
 		nox_netlist_resetByInd_40ED10(i, 0)
 		nox_netlist_initPlayerBufs_40F020(i)
@@ -361,7 +363,7 @@ func nox_netlist_addToMsgListSrv(ind int, buf []byte) bool {
 		len2 := len(l.first.next.buf)
 
 		// Flush old data to network.
-		if ind == noxMaxPlayers-1 {
+		if ind == common.MaxPlayers-1 {
 			nox_netlist_receiveCli_494E90(ind)
 		} else {
 			netstr.SendReadPacket(s.getPlayerByInd(ind).Index()+1, 0)
