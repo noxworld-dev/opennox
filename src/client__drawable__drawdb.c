@@ -65,57 +65,6 @@ bool nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	return 1;
 }
 
-//----- (0044C320) --------------------------------------------------------
-bool nox_parse_thing_zsize(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	int min = 0;
-	int max = 0;
-	sscanf(attr_value, "%d %d", &min, &max);
-	if (max < min) {
-		max = min;
-	}
-	obj->zsize_min = (double)min;
-	obj->zsize_max = (double)max;
-	return 1;
-}
-
-//----- (0044C370) --------------------------------------------------------
-bool nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	int w = 0;
-	int h = 0;
-	sscanf(attr_value, "%d %d", &w, &h);
-	obj->hwidth = w / 2;
-	obj->hheight = h / 2;
-	return 1;
-}
-
-//----- (0044C3B0) --------------------------------------------------------
-bool nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	obj->menuicon = nox_memfile_read_u32(f);
-	if (obj->menuicon == -1) {
-		// TODO: This branch doesnt seem to ever be taken. The meaning is not clear. Is this reading (and dropping) a
-		// string?
-		nox_memfile_skip(f, 1);
-		int n = nox_memfile_read_u8(f);
-		nox_memfile_skip(f, n);
-	}
-	return 1;
-}
-
-//----- (0044B250) --------------------------------------------------------
-bool nox_parse_thing_light_color(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	int r;
-	int g;
-	int b;
-	if (sscanf(attr_value, "%d %d %d", &r, &g, &b) != 3) {
-		return 0;
-	}
-	obj->field_f = 2;
-	obj->light_color_r = (r <= 255 ? r : 255);
-	obj->light_color_g = (g <= 255 ? g : 255);
-	obj->light_color_b = (b <= 255 ? b : 255);
-	return 1;
-}
-
 //----- (0044B2D0) --------------------------------------------------------
 bool nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	int deg = 0;
@@ -145,14 +94,6 @@ bool nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_v
 	return 1;
 }
 
-// 44C200: using guessed type char var_100[256];
-
-//----- (0044C3F0) --------------------------------------------------------
-bool nox_parse_thing_audio_loop(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	obj->audio_loop = nox_xxx_utilFindSound_40AF50(attr_value);
-	return 1;
-}
-
 //----- (004B5C40) --------------------------------------------------------
 bool nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	char* v3;          // eax
@@ -178,19 +119,6 @@ bool nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_va
 		return 0;
 	}
 	obj->client_update = *getMemU32Ptr(0x587000, 175076 + 8 * v5);
-	return 1;
-}
-
-//----- (0044C480) --------------------------------------------------------
-bool nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	obj->pretty_name =
-		nox_strman_loadString_40F1D0(attr_value, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1396);
-	return 1;
-}
-
-//----- (0044C4B0) --------------------------------------------------------
-bool nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	obj->desc = nox_strman_loadString_40F1D0(attr_value, 0, "C:\\NoxPost\\src\\Client\\Drawable\\drawdb.c", 1403);
 	return 1;
 }
 
