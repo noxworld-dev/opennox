@@ -186,12 +186,8 @@ func (c *clientObjTypes) parseThing(f *MemFile, buf []byte, typ *nox_thing) erro
 		if fnc == nil {
 			continue
 		}
-		buf[0] = 0
-		if i := strings.IndexByte(line, '='); i >= 0 {
-			StrNCopyBytes(buf, strings.TrimSpace(line[i+1:]))
-		}
-		if !C.go_nox_drawable_call_parse_func((*[0]byte)(fnc), typ.C(), f.C(), unsafe.Pointer(&buf[0])) {
-			thingsLog.Printf("failed to parse %q", line)
+		if err = fnc(typ, f, line, buf); err != nil {
+			thingsLog.Println(err)
 		}
 	}
 }
@@ -315,26 +311,41 @@ func nox_drawable_link_thing(a1c *nox_drawable, i C.int) C.int {
 	return 1
 }
 
-var clientThingParseFuncs = map[string]unsafe.Pointer{
-	"FLAGS":          C.nox_parse_thing_flags,
-	"CLASS":          C.nox_parse_thing_class,
-	"SUBCLASS":       C.nox_parse_thing_subclass,
-	"EXTENT":         C.nox_parse_thing_extent,
-	"LIGHTINTENSITY": C.nox_parse_thing_light_intensity,
-	"DRAW":           C.nox_parse_thing_draw,
-	"Z":              C.nox_parse_thing_z,
-	"ZSIZE":          C.nox_parse_thing_zsize,
-	"SIZE":           C.nox_parse_thing_size,
-	"MENUICON":       C.nox_parse_thing_menu_icon,
-	"LIGHTCOLOR":     C.nox_parse_thing_light_color,
-	"LIGHTDIRECTION": C.nox_parse_thing_light_dir,
-	"LIGHTPENUMBRA":  C.nox_parse_thing_light_penumbra,
-	"AUDIOLOOP":      C.nox_parse_thing_audio_loop,
-	"CLIENTUPDATE":   C.nox_parse_thing_client_update,
-	"LIFETIME":       C.nox_parse_thing_lifetime,
-	"WEIGHT":         C.nox_parse_thing_weight,
-	"PRETTYNAME":     C.nox_parse_thing_pretty_name,
-	"DESCRIPTION":    C.nox_parse_thing_desc,
-	"PRETTYIMAGE":    C.nox_parse_thing_pretty_image,
-	"HEALTH":         C.nox_parse_thing_health,
+type clientThingFieldFunc func(typ *nox_thing, f *MemFile, str string, buf []byte) error
+
+func wrapClientThingFuncC(fnc unsafe.Pointer) clientThingFieldFunc {
+	return func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
+		buf[0] = 0
+		if i := strings.IndexByte(str, '='); i >= 0 {
+			StrNCopyBytes(buf, strings.TrimSpace(str[i+1:]))
+		}
+		if !C.go_nox_drawable_call_parse_func((*[0]byte)(fnc), typ.C(), f.C(), unsafe.Pointer(&buf[0])) {
+			return fmt.Errorf("failed to parse %q", str)
+		}
+		return nil
+	}
+}
+
+var clientThingParseFuncs = map[string]clientThingFieldFunc{
+	"FLAGS":          wrapClientThingFuncC(C.nox_parse_thing_flags),
+	"CLASS":          wrapClientThingFuncC(C.nox_parse_thing_class),
+	"SUBCLASS":       wrapClientThingFuncC(C.nox_parse_thing_subclass),
+	"EXTENT":         wrapClientThingFuncC(C.nox_parse_thing_extent),
+	"LIGHTINTENSITY": wrapClientThingFuncC(C.nox_parse_thing_light_intensity),
+	"DRAW":           wrapClientThingFuncC(C.nox_parse_thing_draw),
+	"Z":              wrapClientThingFuncC(C.nox_parse_thing_z),
+	"ZSIZE":          wrapClientThingFuncC(C.nox_parse_thing_zsize),
+	"SIZE":           wrapClientThingFuncC(C.nox_parse_thing_size),
+	"MENUICON":       wrapClientThingFuncC(C.nox_parse_thing_menu_icon),
+	"LIGHTCOLOR":     wrapClientThingFuncC(C.nox_parse_thing_light_color),
+	"LIGHTDIRECTION": wrapClientThingFuncC(C.nox_parse_thing_light_dir),
+	"LIGHTPENUMBRA":  wrapClientThingFuncC(C.nox_parse_thing_light_penumbra),
+	"AUDIOLOOP":      wrapClientThingFuncC(C.nox_parse_thing_audio_loop),
+	"CLIENTUPDATE":   wrapClientThingFuncC(C.nox_parse_thing_client_update),
+	"LIFETIME":       wrapClientThingFuncC(C.nox_parse_thing_lifetime),
+	"WEIGHT":         wrapClientThingFuncC(C.nox_parse_thing_weight),
+	"PRETTYNAME":     wrapClientThingFuncC(C.nox_parse_thing_pretty_name),
+	"DESCRIPTION":    wrapClientThingFuncC(C.nox_parse_thing_desc),
+	"PRETTYIMAGE":    wrapClientThingFuncC(C.nox_parse_thing_pretty_image),
+	"HEALTH":         wrapClientThingFuncC(C.nox_parse_thing_health),
 }
