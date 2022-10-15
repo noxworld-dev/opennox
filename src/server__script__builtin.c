@@ -2124,30 +2124,6 @@ int nox_script_IsSummoned_516C30() {
 	return 0;
 }
 
-//----- (00516C70) --------------------------------------------------------
-int nox_script_ZombieStayDown_516C70() {
-	int v0; // eax
-	int v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		nox_xxx_zombieSetStayDead_516C90(v1);
-	}
-	return 0;
-}
-
-//----- (00516CB0) --------------------------------------------------------
-int nox_script_ZombieStayDownGroup_516CB0() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, nox_xxx_zombieSetStayDead_516C90, 0);
-	return 0;
-}
-
 //----- (00516CE0) --------------------------------------------------------
 int nox_script_RaiseZombie_516CE0() {
 	int v0; // eax
