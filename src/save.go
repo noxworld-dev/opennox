@@ -305,7 +305,7 @@ func sub_40B850(a1, act C.int) {
 
 //export sub_40B810
 func sub_40B810(act C.int, cbuf unsafe.Pointer, sz C.uint) {
-	nox_xxx_soloGameEscMenuCallback_40AF90(noxMaxPlayers-1, 0, act, memmap.PtrOff(0x5D4594, 4664), cbuf, sz)
+	nox_xxx_soloGameEscMenuCallback_40AF90(common.MaxPlayers-1, 0, act, memmap.PtrOff(0x5D4594, 4664), cbuf, sz)
 	sub_40B850(0, act)
 }
 
@@ -404,7 +404,7 @@ func nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2 C.int, act C.int, a4 unsafe.
 		path := datapath.Save("_temp_.dat")
 		data := unsafe.Slice((*byte)(cbuf), int(sz))
 		if nox_xxx_SavePlayerDataFromClient_41CD70(path, data) {
-			if noxServer.nox_xxx_isQuest_4D6F50() && ind == noxMaxPlayers-1 {
+			if noxServer.nox_xxx_isQuest_4D6F50() && ind == common.MaxPlayers-1 {
 				sub4DCEE0(path)
 			} else {
 				res := C.nox_xxx_cliPlrInfoLoadFromFile_41A2E0(internCStr(path), C.int(ind))
@@ -422,7 +422,7 @@ func nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2 C.int, act C.int, a4 unsafe.
 				}
 				ifs.Remove(path)
 			}
-		} else if noxflags.HasGame(noxflags.GameModeQuest) && ind != noxMaxPlayers-1 {
+		} else if noxflags.HasGame(noxflags.GameModeQuest) && ind != common.MaxPlayers-1 {
 			nox_xxx_playerCallDisconnect_4DEAB0(ind, 4)
 		}
 	}
@@ -490,12 +490,12 @@ func nox_xxx_soloLoadGame_4DB7E0_savegame(a1 string) bool {
 	noxServer.ResetObjectScriptIDs()
 	nox_xxx_gameSetSwitchSolo_4DB220(1)
 	nox_xxx_gameSetNoMPFlag_4DB230(1)
-	if C.nox_xxx_cliPlrInfoLoadFromFile_41A2E0(internCStr(path), noxMaxPlayers-1) == nil {
+	if C.nox_xxx_cliPlrInfoLoadFromFile_41A2E0(internCStr(path), common.MaxPlayers-1) == nil {
 		return false
 	}
 	C.nox_xxx_cliPrepareGameplay1_460E60()
 	C.nox_xxx_cliPrepareGameplay2_4721D0()
-	pl := noxServer.getPlayerByInd(noxMaxPlayers - 1)
+	pl := noxServer.getPlayerByInd(common.MaxPlayers - 1)
 	pl.Name()
 	mname := pl.saveName()
 	noxServer.nox_xxx_gameSetMapPath_409D70(mname + ".map")
@@ -542,7 +542,7 @@ func sub_4DCFB0(a1p *C.nox_object_t) {
 	}
 	ud := u.updateDataPlayer()
 	pl := ud.Player()
-	if pl.Index() == noxMaxPlayers-1 {
+	if pl.Index() == common.MaxPlayers-1 {
 		return
 	}
 	if pl.field_4792 != 0 && ud.field_138 != 1 {
@@ -627,7 +627,7 @@ func sub_450750() byte {
 func nox_xxx_saveDoAutosaveMB_4DB370_savegame(name string) int {
 	sub_478000()
 	C.nox_xxx_quickBarClose_4606B0()
-	pl := noxServer.getPlayerByInd(noxMaxPlayers - 1)
+	pl := noxServer.getPlayerByInd(common.MaxPlayers - 1)
 	if pl == nil {
 		return 0
 	}
@@ -690,7 +690,7 @@ func nox_xxx_saveDoAutosaveMB_4DB370_savegame(name string) int {
 
 func nox_xxx_saveMakePlayerLocation_4DB600(a1 unsafe.Pointer) bool {
 	s := noxServer
-	pl := s.getPlayerByInd(noxMaxPlayers - 1)
+	pl := s.getPlayerByInd(common.MaxPlayers - 1)
 	if pl == nil {
 		return false
 	}
