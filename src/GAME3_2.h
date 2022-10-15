@@ -285,7 +285,6 @@ int* sub_4DF2A0(char a1);
 void sub_4DF2E0(int a1);
 int nox_xxx_netSendSimpleObject2_4DF360(int a1, int a2);
 void sub_4DF3C0(nox_playerInfo* pl);
-int nox_xxx_netFn_UpdateStream_4DF630(int a1, char* a2, unsigned int a3, void* a4);
 uint32_t* sub_4DFB50(int a1, int a2);
 uint32_t* sub_4DFB80(int a1, int a2);
 int nox_xxx_enchantItemTestInventory_4DFBB0(int a1, char a2);
