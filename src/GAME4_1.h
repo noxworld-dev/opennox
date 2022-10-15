@@ -174,7 +174,6 @@ int sub_515EB0(int a1, uint32_t* a2);
 void nox_server_scriptFleeFrom_515F70(int a1, uint32_t* a2);
 void sub_516090(int a1, uint32_t* a2);
 void sub_516A80(int a1, int a2, int a3, int a4);
-int nox_xxx_zombieSetStayDead_516C90(int a1);
 unsigned int sub_516D00(int a1);
 int nox_xxx_allocPendingOwnsArray_516EE0();
 int sub_516F10();

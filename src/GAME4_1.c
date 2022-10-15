@@ -5559,19 +5559,6 @@ LABEL_8:
 	}
 }
 
-//----- (00516C90) --------------------------------------------------------
-int nox_xxx_zombieSetStayDead_516C90(int a1) {
-	int result; // eax
-
-	result = a1;
-	if (a1) {
-		if (*(uint8_t*)(a1 + 8) & 2) {
-			*(uint32_t*)(*(uint32_t*)(a1 + 748) + 1440) |= 0x100000u;
-		}
-	}
-	return result;
-}
-
 //----- (00516D00) --------------------------------------------------------
 unsigned int sub_516D00(int a1) {
 	unsigned int result; // eax
