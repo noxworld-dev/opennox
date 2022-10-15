@@ -5,9 +5,6 @@ package opennox
 #include "client__draw__debugdraw.h"
 void nox_xxx_draw_44C650_free(void* lpMem, void* draw);
 
-bool nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value);
-bool nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value);
-bool nox_parse_thing_subclass(nox_thing* obj, nox_memfile* f, const char* attr_value);
 bool nox_parse_thing_extent(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_light_intensity(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value);
@@ -38,6 +35,7 @@ import (
 	"strings"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
@@ -109,6 +107,13 @@ type nox_thing struct {
 
 func (t *nox_thing) C() *C.nox_thing {
 	return (*C.nox_thing)(unsafe.Pointer(t))
+}
+
+func (t *nox_thing) ID() string {
+	if t == nil {
+		return ""
+	}
+	return GoString(t.name)
 }
 
 func (t *nox_thing) Index() int {
@@ -186,7 +191,11 @@ func (c *clientObjTypes) parseThing(f *MemFile, buf []byte, typ *nox_thing) erro
 		if fnc == nil {
 			continue
 		}
-		if err = fnc(typ, f, line, buf); err != nil {
+		val := ""
+		if i := strings.IndexByte(line, '='); i >= 0 {
+			val = strings.TrimSpace(line[i+1:])
+		}
+		if err = fnc(typ, f, val, buf); err != nil {
 			thingsLog.Println(err)
 		}
 	}
@@ -315,10 +324,7 @@ type clientThingFieldFunc func(typ *nox_thing, f *MemFile, str string, buf []byt
 
 func wrapClientThingFuncC(fnc unsafe.Pointer) clientThingFieldFunc {
 	return func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
-		buf[0] = 0
-		if i := strings.IndexByte(str, '='); i >= 0 {
-			StrNCopyBytes(buf, strings.TrimSpace(str[i+1:]))
-		}
+		StrNCopyBytes(buf, str)
 		if !C.go_nox_drawable_call_parse_func((*[0]byte)(fnc), typ.C(), f.C(), unsafe.Pointer(&buf[0])) {
 			return fmt.Errorf("failed to parse %q", str)
 		}
@@ -327,9 +333,30 @@ func wrapClientThingFuncC(fnc unsafe.Pointer) clientThingFieldFunc {
 }
 
 var clientThingParseFuncs = map[string]clientThingFieldFunc{
-	"FLAGS":          wrapClientThingFuncC(C.nox_parse_thing_flags),
-	"CLASS":          wrapClientThingFuncC(C.nox_parse_thing_class),
-	"SUBCLASS":       wrapClientThingFuncC(C.nox_parse_thing_subclass),
+	"CLASS": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
+		v, err := object.ParseClassSet(str)
+		if err != nil {
+			thingsLog.Printf("%q (%d): %v", typ.ID(), typ.Index(), err)
+		}
+		typ.pri_class = uint32(v)
+		return nil
+	},
+	"SUBCLASS": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
+		v, err := object.ParseSubClassSet(str)
+		if err != nil {
+			thingsLog.Printf("%q (%d): %v", typ.ID(), typ.Index(), err)
+		}
+		typ.sub_class = uint32(v)
+		return nil
+	},
+	"FLAGS": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
+		v, err := object.ParseFlagSet(str)
+		if err != nil {
+			thingsLog.Printf("%q (%d): %v", typ.ID(), typ.Index(), err)
+		}
+		typ.flags = int32(v)
+		return nil
+	},
 	"EXTENT":         wrapClientThingFuncC(C.nox_parse_thing_extent),
 	"LIGHTINTENSITY": wrapClientThingFuncC(C.nox_parse_thing_light_intensity),
 	"DRAW":           wrapClientThingFuncC(C.nox_parse_thing_draw),
