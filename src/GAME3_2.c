@@ -6053,21 +6053,6 @@ void nox_xxx_servSendSettings_4DDB40(nox_object_t* punit) {
 	sub_4DDE10(*(unsigned char*)(*(uint32_t*)(v1 + 276) + 2064), *(uint32_t*)(v1 + 276));
 }
 
-//----- (004DDDC0) --------------------------------------------------------
-void nox_xxx_netSendBySock_4DDDC0(int a1) {
-	int v2;            // esi
-	unsigned char* v3; // eax
-
-	v2 = a1;
-	if (!nox_common_gameFlags_check_40A5C0(2) || a1 != 31) {
-		v3 = nox_netlist_copyPacketList_40ED60(a1, 1u, &a1);
-		if (v3) {
-			nox_xxx_netSendSock_552640(v2 + 1, v3, a1, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
-		}
-		nox_netlist_resetByInd_40ED10(v2, 1);
-	}
-}
-
 //----- (004DDE10) --------------------------------------------------------
 uint32_t* sub_4DDE10(int a1, int a2) {
 	uint32_t* result; // eax

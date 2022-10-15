@@ -53,6 +53,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 )
 
 //export nox_xxx_playerSpell_4FB2A0_magic_plyrspel
@@ -880,7 +881,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 		}
 	}
 	v5 := sub_416640()
-	nox_netlist_resetByInd_40ED10(ind, 1)
+	netlist.ResetByInd(ind, 1)
 	C.nox_xxx_playerResetImportantCtr_4E4F40(C.int(ind))
 	sub_4E4F30(ind)
 

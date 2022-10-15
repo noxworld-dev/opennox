@@ -518,13 +518,13 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		C.dword_5d4594_2649712 |= 0x80000000
 	}
-	nox_netlist_resetByInd_40ED10(common.MaxPlayers-1, 0)
+	netlist.ResetByInd(common.MaxPlayers-1, 0)
 	C.nox_xxx_set3512_40A340(0)
 	nox_xxx_setMapCRC_40A360(0)
 
 	if err := netstr.DialWait(ind, 10*time.Second, func() {
 		nox_xxx_netSendBySock_40EE10(ind, common.MaxPlayers-1, 0)
-		nox_netlist_resetByInd_40ED10(common.MaxPlayers-1, 0)
+		netlist.ResetByInd(common.MaxPlayers-1, 0)
 	}, func() bool {
 		return nox_xxx_getMapCRC_40A370() != 0
 	}); err != nil {

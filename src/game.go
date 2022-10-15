@@ -2080,7 +2080,7 @@ func (s *Server) nox_xxx_netlist_4DEB50() {
 	}
 	if noxflags.HasEngine(noxflags.EngineReplayRead) {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(false)
-		nox_netlist_resetByInd_40ED10(common.MaxPlayers-1, 0)
+		netlist.ResetByInd(common.MaxPlayers-1, 0)
 	} else if !isDedicatedServer {
 		buf := netlist.CopyPacketsA(common.MaxPlayers-1, 0)
 		if len(buf) != 0 {
@@ -2088,7 +2088,7 @@ func (s *Server) nox_xxx_netlist_4DEB50() {
 			n := copy(dst, buf)
 			nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(common.MaxPlayers-1, dst[:n])
 		}
-		nox_netlist_resetByInd_40ED10(common.MaxPlayers-1, 0)
+		netlist.ResetByInd(common.MaxPlayers-1, 0)
 	}
 }
 

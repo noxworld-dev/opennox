@@ -39,6 +39,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -276,7 +277,7 @@ func sub_43CCA0() {
 		C.nox_xxx_netImportant_4E5770(0x1F, 0)
 	}
 	nox_xxx_netSendBySock_40EE10(int(nox_xxx_netGet_43C750()), common.MaxPlayers-1, 0)
-	nox_netlist_resetByInd_40ED10(common.MaxPlayers-1, 0)
+	netlist.ResetByInd(common.MaxPlayers-1, 0)
 	netstr.MaybeSendAll()
 	if lastCliHandlePackets == 0 {
 		return
