@@ -460,37 +460,6 @@ void sub_4DBA30(int a1) {
 //----- (004DCC80) --------------------------------------------------------
 int nox_xxx_mapLoadRequired_4DCC80() { return *getMemU32Ptr(0x5D4594, 1563072); }
 
-//----- (004DEE00) --------------------------------------------------------
-uint32_t* nox_xxx_netUseMap_4DEE00(const char* a1, int a2) {
-	int v2;            // edx
-	uint32_t* result;  // eax
-	uint32_t* i;       // esi
-	int v5;            // edi
-	unsigned char* v6; // eax
-	char v7[41];       // [esp+8h] [ebp-2Ch]
-
-	v7[0] = 43;
-	v2 = gameFrame();
-	strcpy(&v7[1], a1);
-	*(uint32_t*)&v7[37] = v2;
-	*(uint32_t*)&v7[33] = a2;
-	result = (uint32_t*)nox_xxx_getFirstPlayerUnit_4DA7C0();
-	for (i = result; result; i = result) {
-		v5 = i[187];
-		nox_netlist_addToMsgListCli_40EBC0(*(unsigned char*)(*(uint32_t*)(v5 + 276) + 2064), 1, v7, 41);
-		nox_xxx_netPlayerObjSend_518C30((int)i, i, 0, 0);
-		if (!nox_common_gameFlags_check_40A5C0(2) || *(uint8_t*)(*(uint32_t*)(v5 + 276) + 2064) != 31) {
-			v6 = nox_netlist_copyPacketList_40ED60(*(unsigned char*)(*(uint32_t*)(v5 + 276) + 2064), 1u, &a1);
-			if (v6) {
-				nox_xxx_netSendSock_552640(*(unsigned char*)(*(uint32_t*)(v5 + 276) + 2064) + 1, v6, (signed int)a1,
-										   NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
-			}
-		}
-		result = (uint32_t*)nox_xxx_getNextPlayerUnit_4DA7F0((int)i);
-	}
-	return result;
-}
-
 //----- (004E4170) --------------------------------------------------------
 void sub_4E4170() {
 	float v0; // [esp+0h] [ebp-4h]
