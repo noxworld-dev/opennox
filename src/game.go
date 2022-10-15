@@ -838,7 +838,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 	if C.dword_5d4594_2650652 == 0 {
 		netlist.ResetAllInd(1)
 	} else {
-		v4 := int(C.nox_xxx_rateGet_40A6C0())
+		v4 := nox_xxx_rateGet_40A6C0()
 		if C.sub_416650() != 0 && sub_41E2F0() == 8 {
 			v2 = true
 		}

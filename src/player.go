@@ -361,6 +361,10 @@ func (p *Player) field(off uintptr) unsafe.Pointer {
 	return unsafe.Add(unsafe.Pointer(p), off)
 }
 
+func (p *Player) net16() *[255]playerNetData {
+	return (*[255]playerNetData)(unsafe.Pointer(&p.netData16[0]))
+}
+
 func (p *Player) Pos() types.Pointf {
 	if p == nil {
 		return types.Pointf{}

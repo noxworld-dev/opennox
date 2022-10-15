@@ -290,7 +290,7 @@ func (l *MsgList) Size() int {
 }
 
 func (l *MsgList) Get() []byte {
-	if l.first == nil {
+	if l == nil || l.first == nil {
 		return nil
 	}
 	item := l.first

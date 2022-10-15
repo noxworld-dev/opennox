@@ -1787,6 +1787,12 @@ typedef struct {
 _Static_assert(sizeof(nox_playerInfo2) == 97, "wrong size of nox_playerInfo2 structure!");
 _Static_assert(offsetof(nox_playerInfo2, name_suff) == 89, "wrong offset of nox_playerInfo2.name_suff field!");
 
+typedef struct {
+	uint16_t field_0; // 0, 0
+	uint16_t field_4; // 0, 2
+	uint32_t field_8; // 1, 4
+} nox_playerInfo_net;
+
 #pragma pack(push,1)
 typedef struct nox_playerInfo {
 	uint32_t field_0; // 0, 0
@@ -1795,19 +1801,7 @@ typedef struct nox_playerInfo {
 	uint16_t field_10; // 2, 10
 	uint16_t field_12; // 3, 12
 	uint16_t field_14; // 3, 14
-	uint32_t data_16[96];
-	uint32_t data_400[100];
-	uint32_t data_800[50];
-	uint32_t data_1000[25];
-	uint32_t data_1100[25];
-	uint32_t data_1200[25];
-	uint32_t data_1300[25];
-	uint32_t data_1400[25];
-	uint32_t data_1500[25];
-	uint32_t data_1600[100];
-	uint32_t data_2000[8];
-	uint32_t data_2032[4];
-	uint32_t data_2048[2];
+	nox_playerInfo_net netData16[255]; // 4, 16
 	nox_object_t* playerUnit; // 514, 2056
 	unsigned int netCode;     // 515, 2060
 	unsigned char playerInd;  // 516, 2064

@@ -516,7 +516,7 @@ func (s *Server) updateRemotePlayers() error {
 		}
 		if pl.UnitC() == HostPlayerUnit() {
 			C.nox_xxx_netImportant_4E5770(C.uchar(pl.Index()), 1)
-		} else if C.dword_5d4594_2650652 == 0 || (s.Frame()%uint32(C.nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
+		} else if C.dword_5d4594_2650652 == 0 || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
 			netstr.SendReadPacket(pl.Index()+1, 0)
 		}
 	}
