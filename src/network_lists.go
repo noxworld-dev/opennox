@@ -72,11 +72,6 @@ func nox_netlist_countByInd2_40F0B0(ind int) int {
 	return netlist.ByInd(ind, 2).Count()
 }
 
-//export nox_netlist_resetByInd_40ED10
-func nox_netlist_resetByInd_40ED10(ind1, ind2 int) {
-	netlist.ResetByInd(ind1, ind2)
-}
-
 //export nox_netlist_initPlayerBufs_40F020
 func nox_netlist_initPlayerBufs_40F020(ind int) {
 	netlist.InitByInd(ind)

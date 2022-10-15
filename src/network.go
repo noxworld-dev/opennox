@@ -434,7 +434,7 @@ func nox_xxx_cliSendCancelMap_43CAB0() int {
 	if netstr.WaitServerResponse(id, v0, 20, 6) != 0 {
 		return 0
 	}
-	nox_netlist_resetByInd_40ED10(common.MaxPlayers-1, 0)
+	netlist.ResetByInd(common.MaxPlayers-1, 0)
 	return 1
 }
 
@@ -446,7 +446,7 @@ func nox_xxx_netSendIncomingClient_43CB00() int {
 	if netstr.WaitServerResponse(id, v0, 20, 6) != 0 {
 		return 0
 	}
-	nox_netlist_resetByInd_40ED10(common.MaxPlayers-1, 0)
+	netlist.ResetByInd(common.MaxPlayers-1, 0)
 	return 1
 }
 
@@ -472,7 +472,7 @@ func nox_xxx_cliSendOutgoingClient_43CB50() int {
 		return 0
 	}
 	nox_xxx_servNetInitialPackets_552A80(id, 3)
-	nox_netlist_resetByInd_40ED10(common.MaxPlayers-1, 0)
+	netlist.ResetByInd(common.MaxPlayers-1, 0)
 	return 1
 }
 
@@ -988,4 +988,16 @@ func sub_43CF70() {
 //export nox_client_onJoinData
 func nox_client_onJoinData() {
 	noxPerfmon.ping = 0
+}
+
+//export nox_xxx_netSendBySock_4DDDC0
+func nox_xxx_netSendBySock_4DDDC0(ind int) {
+	if !noxflags.HasGame(noxflags.GameClient) || ind != common.MaxPlayers-1 {
+		if buf := netlist.CopyPacketsA(ind, 1); len(buf) != 0 {
+			copy(netlist.Buffer, buf)
+			buf = netlist.Buffer[:len(buf)]
+			netstr.Send(ind+1, buf, netstr.SendNoLock|netstr.SendFlagFlush)
+		}
+		netlist.ResetByInd(ind, 1)
+	}
 }
