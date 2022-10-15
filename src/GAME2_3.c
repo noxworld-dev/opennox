@@ -39,10 +39,8 @@
 #include "input_common.h"
 #include "operators.h"
 
-extern uint32_t dword_5d4594_1301808;
 extern uint32_t dword_5d4594_1303508;
 extern uint32_t dword_5d4594_1200776;
-extern uint32_t dword_5d4594_1301796;
 extern uint32_t dword_5d4594_1203832;
 extern uint32_t dword_5d4594_1200796;
 extern uint32_t dword_5d4594_1305788;
@@ -51,9 +49,7 @@ extern uint32_t nox_server_sanctuaryHelp_54276;
 extern uint32_t dword_5d4594_1303536;
 extern uint32_t dword_5d4594_1197308;
 extern uint32_t dword_5d4594_1197372;
-extern uint32_t dword_5d4594_1301816;
 extern void* nox_alloc_friendList_1203860;
-extern uint32_t dword_5d4594_1301812;
 extern uint32_t dword_5d4594_1305748;
 extern uint32_t dword_5d4594_1197328;
 extern uint32_t dword_5d4594_1303472;
@@ -82,7 +78,6 @@ extern uint32_t dword_5d4594_1305680;
 extern uint32_t dword_5d4594_1301848;
 extern uint32_t dword_5d4594_1197312;
 extern uint32_t dword_5d4594_1303452;
-extern uint32_t nox_client_gui_flag_815132;
 extern uint32_t dword_5d4594_1305684;
 extern uint32_t dword_5d4594_1217464;
 extern uint32_t nox_client_renderGUI_80828;
@@ -90,17 +85,10 @@ extern uint32_t dword_5d4594_1217448;
 extern uint32_t nox_player_netCode_85319C;
 extern int nox_win_width;
 extern int nox_win_height;
-extern uint32_t dword_5d4594_3799476;
 
 extern uint32_t nox_color_white_2523948;
-extern uint32_t nox_color_red_2589776;
-extern uint32_t nox_color_blue_2650684;
-extern uint32_t nox_color_green_2614268;
-extern uint32_t nox_color_cyan_2649820;
 extern uint32_t nox_color_yellow_2589772;
-extern uint32_t nox_color_violet_2598268;
 extern uint32_t nox_color_black_2650656;
-extern uint32_t nox_color_orange_2614256;
 
 const int nox_max_npcs = 1024;
 nox_npc* npc_array;

@@ -27,7 +27,6 @@
 #include "client__shell__selchar.h"
 
 extern uint32_t dword_5d4594_815096;
-extern uint32_t dword_5d4594_815060;
 extern uint32_t dword_5d4594_815052;
 extern uint32_t dword_5d4594_815100;
 extern uint32_t dword_5d4594_814548;
@@ -54,10 +53,6 @@ extern uint32_t dword_5d4594_815000;
 extern uint32_t nox_wol_wnd_gameList_815012;
 extern nox_window* dword_5d4594_815004;
 extern nox_window* nox_wol_wnd_world_814980;
-extern int nox_win_width;
-extern int nox_win_height;
-extern int nox_video_modes_cnt;
-extern nox_video_mode nox_video_modes[7];
 
 int dword_5d4594_815104 = 0;
 nox_gui_animation* nox_wnd_xxx_815040 = 0;

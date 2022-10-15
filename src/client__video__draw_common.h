@@ -7,13 +7,7 @@
 int nox_getBackbufWidth();
 int nox_getBackbufHeight();
 
-extern uint32_t dword_5d4594_823776;
-extern uint8_t* nox_pixbuffer_3798780;
-extern int nox_backbuffer_pitch_3801808;
-extern int nox_enable_audio;
 
-extern int nox_win_width;
-extern int nox_win_height;
 
 void nox_video_setGammaSlider(int v);
 int nox_video_getFullScreen();

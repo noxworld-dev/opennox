@@ -78,7 +78,6 @@ extern uint32_t dword_5d4594_1307720;
 extern uint32_t dword_5d4594_1308164;
 extern uint32_t dword_5d4594_1307736;
 extern uint32_t nox_server_connectionType_3596;
-extern uint32_t nox_win_onlineOrLAN_1309716;
 extern uint32_t dword_5d4594_1313792;
 extern void* dword_587000_122852;
 extern uint32_t dword_5d4594_1309828;

@@ -9,7 +9,6 @@ typedef struct nox_parse_thing_funcs_t {
 } nox_parse_thing_funcs_t;
 
 extern nox_parse_thing_funcs_t nox_parse_thing_funcs[];
-extern int nox_parse_thing_funcs_cnt;
 
 int nox_parse_thing(nox_memfile* thing_file, char* scratch_buffer, nox_thing* thing);
 

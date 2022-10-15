@@ -19,7 +19,6 @@ extern uint32_t dword_5d4594_1321252;
 extern uint32_t dword_5d4594_1321232;
 extern uint32_t dword_5d4594_1321228;
 extern int nox_win_width;
-extern int nox_win_height;
 
 //----- (004C3620) --------------------------------------------------------
 char* sub_4C3620() {

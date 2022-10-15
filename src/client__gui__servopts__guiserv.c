@@ -43,7 +43,6 @@ extern uint32_t dword_5d4594_1046496;
 extern uint32_t dword_5d4594_1046492;
 extern int nox_win_width;
 extern uint32_t nox_color_white_2523948;
-extern int nox_win_height;
 
 typedef struct {
 	const char* name;

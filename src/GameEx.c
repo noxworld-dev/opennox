@@ -18,8 +18,6 @@
 #include "client__shell__noxworld.h"
 #include "operators.h"
 
-extern nox_object_t* nox_xxx_host_player_unit_3843628;
-extern uint32_t nox_player_netCode_85319C;
 
 //-------------------------------------------------------------------------
 // Data declarations

@@ -10,21 +10,10 @@
 #include "common__random.h"
 #include "common__strman.h"
 
-extern uint32_t dword_5d4594_811904;
-extern uint32_t nox_player_netCode_85319C;
-extern uint32_t nox_client_gui_flag_815132;
 extern int nox_win_width;
 extern int nox_win_height;
 
 extern uint32_t nox_color_white_2523948;
-extern uint32_t nox_color_red_2589776;
-extern uint32_t nox_color_blue_2650684;
-extern uint32_t nox_color_green_2614268;
-extern uint32_t nox_color_cyan_2649820;
-extern uint32_t nox_color_yellow_2589772;
-extern uint32_t nox_color_violet_2598268;
-extern uint32_t nox_color_black_2650656;
-extern uint32_t nox_color_orange_2614256;
 
 void nox_xxx_clientDrawAll_436100_draw_A() {
 	if (!sub_436550()) {

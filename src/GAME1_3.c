@@ -35,51 +35,28 @@
 #include "input_common.h"
 #include "operators.h"
 
-extern uint32_t dword_587000_122856;
-extern uint32_t dword_5d4594_830272;
 extern uint32_t dword_5d4594_815748;
-extern uint32_t dword_5d4594_816444;
 extern uint32_t dword_5d4594_816412;
 extern uint32_t dword_5d4594_825736;
-extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
 extern uint32_t dword_5d4594_826036;
 extern uint32_t dword_5d4594_816356;
 extern uint32_t dword_5d4594_826032;
-extern uint32_t nox_client_renderBubbles_80844;
 extern uint32_t dword_5d4594_825744;
 extern uint32_t dword_5d4594_816372;
-extern uint32_t nox_client_lockHighResFloors_1193152;
 extern void* dword_587000_81128;
-extern uint32_t dword_5d4594_2649712;
-extern uint32_t nox_client_translucentFrontWalls_805844;
-extern uint64_t qword_581450_9552;
-extern uint64_t qword_581450_9544;
 extern uint32_t dword_5d4594_816368;
 extern uint32_t dword_5d4594_816340;
 extern uint32_t dword_5d4594_815044;
 extern uint32_t dword_587000_93156;
-extern void* dword_587000_127004;
-extern void* dword_5d4594_814624;
 extern uint32_t dword_5d4594_826028;
-extern uint32_t nox_client_highResFrontWalls_80820;
 extern uint32_t dword_5d4594_816348;
-extern uint32_t nox_game_createOrJoin_815048;
 extern uint32_t nox_client_gui_flag_815132;
 extern uint32_t dword_587000_87412;
-extern uint32_t nox_client_renderGUI_80828;
 extern nox_window* nox_wnd_quitMenu_825760;
-extern uint32_t dword_5d4594_2650652;
-extern uint32_t nox_player_netCode_85319C;
 void* dword_5d4594_830236 = 0;
 void* dword_5d4594_830232 = 0;
 
 extern uint32_t nox_color_white_2523948;
-extern uint32_t nox_color_red_2589776;
-extern uint32_t nox_color_blue_2650684;
-extern uint32_t nox_color_green_2614268;
-extern uint32_t nox_color_cyan_2649820;
-extern uint32_t nox_color_yellow_2589772;
-extern uint32_t nox_color_violet_2598268;
 extern uint32_t nox_color_black_2650656;
 extern uint32_t nox_color_orange_2614256;
 
@@ -87,11 +64,8 @@ extern int nox_win_width;
 extern int nox_win_height;
 
 
-extern nox_video_mode nox_video_modes[];
-extern int nox_video_modes_cnt;
 
 extern nox_parse_thing_draw_funcs_t nox_parse_thing_draw_funcs[];
-extern int nox_parse_thing_draw_funcs_cnt;
 
 uint32_t dword_5d4594_816364 = 0;
 uint32_t dword_5d4594_816376 = 0;

@@ -8,12 +8,7 @@
 #include "common__strman.h"
 
 extern uint32_t nox_color_white_2523948;
-extern uint32_t nox_color_red_2589776;
-extern uint32_t nox_color_blue_2650684;
-extern uint32_t nox_color_green_2614268;
-extern uint32_t nox_color_cyan_2649820;
 extern uint32_t nox_color_yellow_2589772;
-extern uint32_t nox_color_violet_2598268;
 extern uint32_t nox_color_black_2650656;
 extern uint32_t nox_color_orange_2614256;
 
