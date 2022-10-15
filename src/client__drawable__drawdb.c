@@ -27,29 +27,6 @@ extern uint32_t dword_5d4594_251608;
 
 extern int nox_parse_thing_draw_funcs_cnt;
 
-//----- (0044B160) --------------------------------------------------------
-bool nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value) {
-	obj->flags = 0;
-	set_bitmask_flags_from_plus_separated_names_423930(attr_value, &obj->flags,
-													   (const char**)getMemAt(0x587000, 114076));
-	return 1;
-}
-
-//----- (0044B190) --------------------------------------------------------
-bool nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value) {
-	obj->pri_class = 0;
-	set_bitmask_flags_from_plus_separated_names_423930(attr_value, &obj->pri_class,
-													   (const char**)getMemAt(0x587000, 114208));
-	return 1;
-}
-
-//----- (0044B1C0) --------------------------------------------------------
-bool nox_parse_thing_subclass(nox_thing* obj, nox_memfile* f, const char* attr_value) {
-	obj->sub_class = 0;
-	set_bitmask_flags_from_plus_separated_names_multiple_423A10(attr_value, &obj->sub_class);
-	return 1;
-}
-
 //----- (0044B1F0) --------------------------------------------------------
 bool nox_parse_thing_extent(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	nox_shape s;
