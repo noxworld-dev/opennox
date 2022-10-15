@@ -82,6 +82,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/cnxz"
+	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -504,7 +505,7 @@ func (s *Server) updateRemotePlayers() error {
 			var buf [3]byte
 			buf[0] = 39
 			binary.LittleEndian.PutUint16(buf[1:], uint16(s.Frame()))
-			nox_netlist_addToMsgListCli(pl.Index(), 1, buf[:])
+			netlist.AddToMsgListCli(pl.Index(), 1, buf[:])
 		} else {
 			if uint32(pl.UnitC().Ind()) == DeadWord { // see #401
 				pl.playerUnit = nil
@@ -532,7 +533,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	s.ResetObjectScriptIDs()
 	C.sub_56F1C0()
 	s.resetAllPlayers()
-	nox_netlist_resetAll_40EE60()
+	netlist.ResetAll()
 	C.sub_4E4EF0()
 	C.sub_4E4ED0()
 	if C.nox_xxx_allocAudEventArray_501860() == 0 {
@@ -662,7 +663,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 		s.nox_server_netCloseHandler_4DEC60(int(memmap.Uint32(0x5D4594, 1548516)))
 	}
 	C.sub_56F3B0()
-	nox_netlist_resetAll_40EE60()
+	netlist.ResetAll()
 	_ = ifs.Remove(datapath.Save("_temp_.dat"))
 }
 

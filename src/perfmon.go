@@ -10,6 +10,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
@@ -114,7 +115,7 @@ func (m *Perfmon) packetSize() int {
 	if !noxflags.HasGame(noxflags.GameHost) {
 		return m.packetSizeCli
 	}
-	return netList(common.MaxPlayers-1, 1).Size() + netList(common.MaxPlayers-1, 2).Size()
+	return netlist.ByInd(common.MaxPlayers-1, 1).Size() + netlist.ByInd(common.MaxPlayers-1, 2).Size()
 }
 
 func (m *Perfmon) startProfileClient() func() {
