@@ -44,7 +44,7 @@ extern float nox_xxx_wizardMaximumMana_587000_312820;
 
 static int nox_call_net_xxxyyy_go(int (*fnc)(unsigned int, char*, int, void*), unsigned int a1, void* a2, int a3, void* a4) { return fnc(a1, a2, a3, a4); }
 int nox_xxx_netPlayerObjSend_518C30(nox_object_t* a1, nox_object_t* a2, int a3, signed int a4);
-unsigned char* nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char* data, int dsz, nox_playerInfo* v8p, nox_object_t* unitp, void* v10p);
+int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char* data, int dsz, nox_playerInfo* v8p, nox_object_t* unitp, void* v10p);
 */
 import "C"
 import (
@@ -1053,11 +1053,11 @@ func (s *Server) onPacketRaw(pli int, data []byte) bool {
 	ud := u.updateDataPtr()
 	for len(data) > 0 {
 		op = noxnet.Op(data[0])
-		out := C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), ud)
-		if out == nil {
+		n := int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), ud))
+		if n <= 0 || n >= len(data) {
+			netstr.Log.Printf("SERVER: ERR: op=%d (%s) [%d:???]\n%02x %x", int(op), op.String(), op.Len(), data[0], data[1:])
 			return false
 		}
-		n := uintptr(unsafe.Pointer(out)) - uintptr(unsafe.Pointer(&data[0]))
 		if netstr.Debug && n != 0 {
 			netstr.Log.Printf("SERVER: op=%d (%s) [%d:%d]\n%02x %x", int(op), op.String(), int(n)-1, op.Len(), data[0], data[1:])
 		}
