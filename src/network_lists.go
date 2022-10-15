@@ -22,9 +22,13 @@ func nox_netlist_addToMsgListCli_40EBC0(ind1, ind2 C.int, buf *C.uchar, sz C.int
 	return C.int(bool2int(netlist.AddToMsgListCli(int(ind1), int(ind2), unsafe.Slice((*byte)(unsafe.Pointer(buf)), int(sz)))))
 }
 
-//export nox_netlist_clientSend_0_40ECA0
-func nox_netlist_clientSend_0_40ECA0(ind1, ind2 C.int, buf *C.uchar, sz, sz2 C.int) C.int {
-	return C.int(bool2int(netlist.ClientSend0(int(ind1), int(ind2), unsafe.Slice((*byte)(unsafe.Pointer(buf)), int(sz)), int(sz2))))
+func sub_4DFB20() int {
+	return int(memmap.Uint32(0x5D4594, 1563312))
+}
+
+//export nox_netlist_clientSendWrap_40ECA0
+func nox_netlist_clientSendWrap_40ECA0(ind1, ind2 C.int, buf *C.uchar, sz C.int) C.int {
+	return C.int(bool2int(netlist.ClientSend0(int(ind1), int(ind2), unsafe.Slice((*byte)(unsafe.Pointer(buf)), int(sz)), sub_4DFB20())))
 }
 
 //export nox_netlist_addToMsgListSrv_40EF40

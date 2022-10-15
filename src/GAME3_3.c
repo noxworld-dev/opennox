@@ -2222,13 +2222,6 @@ unsigned int nox_xxx_importantCheckRate2_4E5670(unsigned char a1) {
 	return result;
 }
 
-//----- (004DFB20) --------------------------------------------------------
-int sub_4DFB20() { return *getMemU32Ptr(0x5D4594, 1563312); }
-
-int nox_netlist_clientSendWrap_40ECA0(int ind1, int ind2, unsigned char* buf, int sz) {
-	return nox_netlist_clientSend_0_40ECA0(ind1, ind2, buf, sz, sub_4DFB20());
-}
-
 //----- (004E5770) --------------------------------------------------------
 void nox_xxx_netImportant_4E5770(unsigned char a1, int a2) {
 	int v2;                                    // edi
