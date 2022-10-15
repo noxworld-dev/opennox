@@ -4,6 +4,7 @@ package opennox
 #include "defs.h"
 int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz);
 int sub_48D660();
+int sub_4DF9B0(void* a1, void* a2, void* a3, int a4);
 */
 import "C"
 import (
@@ -66,16 +67,6 @@ func nox_netlist_copyPacketList_40ED60(ind1, ind2 C.int, outSz *C.uint) *C.uchar
 	return (*C.uchar)(unsafe.Pointer(&sbuf[0]))
 }
 
-//export nox_netlist_findAndFreeBuf_40F000
-func nox_netlist_findAndFreeBuf_40F000(ind C.int, buf *C.uchar) {
-	netlist.ByInd(int(ind), 2).FindAndFreeBuf((*byte)(unsafe.Pointer(buf)))
-}
-
-//export nox_netlist_countByInd2_40F0B0
-func nox_netlist_countByInd2_40F0B0(ind int) int {
-	return netlist.ByInd(ind, 2).Count()
-}
-
 //export nox_netlist_initPlayerBufs_40F020
 func nox_netlist_initPlayerBufs_40F020(ind int) {
 	netlist.InitByInd(ind)
@@ -109,12 +100,47 @@ func nox_netlist_receiveCli_494E90(ind int) int {
 	return res
 }
 
-//export sub_4DF5E0
-func sub_4DF5E0(ind, max C.int) unsafe.Pointer {
+//export sub_4DF8F0
+func sub_4DF8F0(ind int, p1 *byte, p2 *byte) int {
+	if netlist.ByInd(ind, 2).Count() == 0 {
+		return 0
+	}
+	v4 := 127
+	v6 := sub_4DF5E0(ind, 127)
+	v7 := false
+	v3 := p1
+	if v6 == nil {
+		for {
+			v4 += 127
+			if v4 > 4064 {
+				return 0
+			}
+			v6 = sub_4DF5E0(ind, v4)
+			if v6 != nil {
+				if v4 <= 127 {
+					break
+				}
+				*p1 = 0
+				v7 = true
+				v3 = (*byte)(unsafe.Add(unsafe.Pointer(p1), 1))
+				break
+			}
+		}
+	}
+	v8 := int(C.sub_4DF9B0(unsafe.Pointer(v3), unsafe.Pointer(p2), unsafe.Pointer(v6), C.int(bool2int(v7))))
+	dp := int(uintptr(unsafe.Pointer(v3)) - uintptr(unsafe.Pointer(p1)))
+	if v8 == -1 {
+		return dp
+	}
+	netlist.ByInd(ind, 2).FindAndFreeBuf(v6)
+	return dp + v8
+}
+
+func sub_4DF5E0(ind, max int) *byte {
 	a1 := memmap.Int32(0x5D4594, 1563292)
 	a2 := memmap.Int32(0x5D4594, 1563296)
 	var found *byte
-	netlist.ByInd(int(ind), 2).Each(func(b []byte) bool {
+	netlist.ByInd(ind, 2).Each(func(b []byte) bool {
 		if len(b) < 9 {
 			return false
 		}
@@ -139,7 +165,7 @@ func sub_4DF5E0(ind, max C.int) unsafe.Pointer {
 		found = &b[0]
 		return true
 	})
-	return unsafe.Pointer(found)
+	return found
 }
 
 var _ = [1]struct{}{}[8-unsafe.Sizeof(item57B930{})]
