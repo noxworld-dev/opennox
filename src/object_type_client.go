@@ -5,7 +5,6 @@ package opennox
 #include "client__draw__debugdraw.h"
 void nox_xxx_draw_44C650_free(void* lpMem, void* draw);
 
-bool nox_parse_thing_extent(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_light_intensity(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_z(nox_thing* obj, nox_memfile* f, char* attr_value);
@@ -37,6 +36,7 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/strman"
+	"github.com/noxworld-dev/opennox-lib/things"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -357,7 +357,31 @@ var clientThingParseFuncs = map[string]clientThingFieldFunc{
 		typ.flags = int32(v)
 		return nil
 	},
-	"EXTENT":         wrapClientThingFuncC(C.nox_parse_thing_extent),
+	"EXTENT": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
+		v, err := things.ParseExtent(str)
+		if err != nil {
+			return fmt.Errorf("cannot parse %q: %w", str, err)
+		}
+		typ.shape_r = 0
+		typ.shape_w = 0
+		typ.shape_h = 0
+		switch v := v.(type) {
+		case nil:
+			typ.shape_kind = uint16(shapeKindNone)
+		case things.Center:
+			typ.shape_kind = uint16(shapeKindCenter)
+		case things.Circle:
+			typ.shape_kind = uint16(shapeKindCircle)
+			typ.shape_r = v.R
+		case things.Box:
+			typ.shape_kind = uint16(shapeKindBox)
+			typ.shape_w = v.W
+			typ.shape_h = v.H
+		default:
+			return fmt.Errorf("unsupported shape type: %T", v)
+		}
+		return nil
+	},
 	"LIGHTINTENSITY": wrapClientThingFuncC(C.nox_parse_thing_light_intensity),
 	"DRAW":           wrapClientThingFuncC(C.nox_parse_thing_draw),
 	"Z":              wrapClientThingFuncC(C.nox_parse_thing_z),
