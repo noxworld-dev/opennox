@@ -60,12 +60,6 @@ func sub_42CD90() {
 	ctrlEvent.Reset()
 }
 
-//export noxOnSrvPacketPlayerInput
-func noxOnSrvPacketPlayerInput(pli C.int, ptr *C.uchar, sz C.int) C.int {
-	data := unsafe.Slice((*byte)(unsafe.Pointer(ptr)), int(sz))
-	return C.int(noxServer.netOnPlayerInput(int(pli), data))
-}
-
 var (
 	ctrlEvent = new(CtrlEventHandler)
 
