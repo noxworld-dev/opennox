@@ -73,6 +73,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/env"
 	"github.com/noxworld-dev/opennox-lib/ifs"
 	"github.com/noxworld-dev/opennox-lib/log"
+	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/strman"
@@ -494,7 +495,7 @@ func (s *Server) updateRemotePlayers() error {
 			// TODO: passing Go pointer
 			C.nox_xxx_netInformTextMsg2_4DA180(3, (*C.uchar)(unsafe.Pointer(&m)))
 			var buf [1]byte
-			buf[0] = 198
+			buf[0] = byte(noxnet.MSG_TIMEOUT_NOTIFICATION)
 			netstr.Send(pl.Index()+1, buf[:], netstr.SendNoLock|netstr.SendFlagFlush)
 			pl.Disconnect(3)
 		}
@@ -503,7 +504,7 @@ func (s *Server) updateRemotePlayers() error {
 		}
 		if (pl.field_3676 != 3) || (pl.field_3680&0x10 == 0) {
 			var buf [3]byte
-			buf[0] = 39
+			buf[0] = byte(noxnet.MSG_TIMESTAMP)
 			binary.LittleEndian.PutUint16(buf[1:], uint16(s.Frame()))
 			netlist.AddToMsgListCli(pl.Index(), netlist.Kind1, buf[:])
 		} else {

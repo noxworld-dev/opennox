@@ -298,7 +298,7 @@ func Dial(ind int, host string, port int, cport int, opts encoding.BinaryMarshal
 		cport++
 	}
 	Flag1 = false
-	var v12 [1]byte
+	var v12 [1]byte // TODO: sending zero, is that correct? if so, set explicitly here
 	v11, err := Send(ind, v12[:], SendNoLock|SendFlagFlush)
 	if err != nil {
 		return fmt.Errorf("cannot send data: %w", err)
