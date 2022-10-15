@@ -1,8 +1,6 @@
 package opennox
 
 import (
-	"encoding/binary"
-
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/player"
 )
@@ -113,35 +111,4 @@ func (cb *ctrlBuf) Reset() {
 
 func (cb *ctrlBuf) IsEmpty() bool {
 	return cb.write == 0
-}
-
-func (s *Server) netOnPlayerInput(pi int, data []byte) int {
-	pl := s.getPlayerByInd(pi)
-	sz := int(data[0])
-	data = data[1 : 1+sz]
-	if pl != nil && *(*byte)(pl.field(3680))&0x10 == 0 {
-		return 1 + sz
-	}
-	buf := netDecodePlayerInput(data, nil)
-	s.ctrlbuf.Player(pi).Append(buf)
-	return 1 + sz
-}
-
-func netDecodePlayerInput(data []byte, out []ctrlBufEvent) []ctrlBufEvent {
-	for len(data) > 0 {
-		code := player.CtrlCode(data[0])
-		data = data[4:]
-		v := ctrlBufEvent{
-			code:   code,
-			active: true,
-		}
-		if sz := code.DataSize(); sz != 0 {
-			var b [4]byte
-			copy(b[:], data[:sz])
-			v.data = binary.LittleEndian.Uint32(b[:4])
-			data = data[sz:]
-		}
-		out = append(out, v)
-	}
-	return out
 }

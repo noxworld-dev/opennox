@@ -1050,11 +1050,10 @@ func (s *Server) onPacketRaw(pli int, data []byte) bool {
 	if u == nil {
 		return true
 	}
-	ud := u.updateDataPtr()
 	for len(data) > 0 {
 		op = noxnet.Op(data[0])
-		n := int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), ud))
-		if n <= 0 || n > len(data) {
+		n, ok := s.onPacketOp(pli, op, data, pl, u)
+		if !ok {
 			netstr.Log.Printf("SERVER: ERR: op=%d (%s) [%d:???]\n%02x %x", int(op), op.String(), op.Len(), data[0], data[1:])
 			return false
 		}
@@ -1065,4 +1064,47 @@ func (s *Server) onPacketRaw(pli int, data []byte) bool {
 	}
 	pl.frame_3596 = C.uint(s.Frame())
 	return true
+}
+
+func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *Unit) (int, bool) {
+	switch op {
+	case noxnet.MSG_PLAYER_INPUT:
+		n := s.netOnPlayerInput(pl, data[1:])
+		return 1 + n, true
+	}
+	res := int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), u.updateDataPtr()))
+	if res <= 0 || res > len(data) {
+		return 0, false
+	}
+	return res, true
+}
+
+func (s *Server) netOnPlayerInput(pl *Player, data []byte) int {
+	sz := int(data[0])
+	data = data[1 : 1+sz]
+	if pl.field_3680&0x10 == 0 {
+		return 1 + sz
+	}
+	buf := netDecodePlayerInput(data, nil)
+	s.ctrlbuf.Player(pl.Index()).Append(buf)
+	return 1 + sz
+}
+
+func netDecodePlayerInput(data []byte, out []ctrlBufEvent) []ctrlBufEvent {
+	for len(data) > 0 {
+		code := player.CtrlCode(data[0])
+		data = data[4:]
+		v := ctrlBufEvent{
+			code:   code,
+			active: true,
+		}
+		if sz := code.DataSize(); sz != 0 {
+			var b [4]byte
+			copy(b[:], data[:sz])
+			v.data = binary.LittleEndian.Uint32(b[:4])
+			data = data[sz:]
+		}
+		out = append(out, v)
+	}
+	return out
 }
