@@ -105,8 +105,6 @@ int nox_script_TrapSpells_516B40();
 int nox_script_PlayerIsTrading_5166E0();
 int nox_script_SetShopkeeperGreet_516BE0();
 int nox_script_IsSummoned_516C30();
-int nox_script_ZombieStayDown_516C70();
-int nox_script_ZombieStayDownGroup_516CB0();
 int nox_script_RaiseZombie_516CE0();
 int nox_script_RaiseZombieGroup_516D40();
 int nox_script_ObjIsGameball_516D70();
@@ -432,8 +430,8 @@ var noxScriptBuiltins = []func() int{
 	195: wrapScriptC(C.nox_script_SetShopkeeperGreet_516BE0),
 	196: nox_script_StopAllFades_516C10,
 	197: wrapScriptC(C.nox_script_IsSummoned_516C30),
-	198: wrapScriptC(C.nox_script_ZombieStayDown_516C70),
-	199: wrapScriptC(C.nox_script_ZombieStayDownGroup_516CB0),
+	198: nox_script_ZombieStayDown_516C70,
+	199: nox_script_ZombieStayDownGroup_516CB0,
 	200: wrapScriptC(C.nox_script_RaiseZombie_516CE0),
 	201: wrapScriptC(C.nox_script_RaiseZombieGroup_516D40),
 	202: nox_script_MusicPushEvent_5164A0,
@@ -1751,6 +1749,34 @@ func nox_script_getNextInvItem_5138E0() int {
 		}
 	}
 	s.PushI32(0)
+	return 0
+}
+
+func zombieSetStayDead(obj *Object) {
+	if obj != nil {
+		if obj.Class().Has(object.ClassMonster) {
+			*(*uint32)(unsafe.Add(obj.updateDataPtr(), 1440)) |= 0x100000
+		}
+	}
+}
+
+func nox_script_ZombieStayDown_516C70() int {
+	s := &noxServer.noxScript
+
+	v1 := s.PopObject()
+	if v1 != nil {
+		zombieSetStayDead(v1)
+	}
+	return 0
+}
+
+func nox_script_ZombieStayDownGroup_516CB0() int {
+	s := &noxServer.noxScript
+
+	v0 := s.PopI32()
+	mapGroup := getMapGroupByInd(int(v0))
+	scriptExecuteFnForObjectGroup(mapGroup, zombieSetStayDead)
+
 	return 0
 }
 
