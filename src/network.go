@@ -70,6 +70,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/serial"
+	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
@@ -296,10 +297,10 @@ func (c *Client) clientSendInput(pli int) bool {
 	var buf [2]byte
 	buf[0] = byte(noxnet.MSG_PLAYER_INPUT)
 	buf[1] = byte(len(nbuf))
-	if !nox_netlist_addToMsgListCli(pli, 0, buf[:2]) {
+	if !netlist.AddToMsgListCli(pli, 0, buf[:2]) {
 		return false
 	}
-	if !nox_netlist_addToMsgListCli(pli, 0, nbuf) {
+	if !netlist.AddToMsgListCli(pli, 0, nbuf) {
 		return false
 	}
 	return true
@@ -319,7 +320,7 @@ func (c *Client) clientSendInputMouse(pli int, mp image.Point) bool {
 	buf[0] = byte(noxnet.MSG_MOUSE)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(mp.X))
 	binary.LittleEndian.PutUint16(buf[3:], uint16(mp.Y))
-	return nox_netlist_addToMsgListCli(pli, 0, buf[:5])
+	return netlist.AddToMsgListCli(pli, 0, buf[:5])
 }
 
 func (s *Server) nox_xxx_netAddPlayerHandler_4DEBC0(port int) (ind, cport int, _ error) {
@@ -485,9 +486,9 @@ func nox_xxx_netInformTextMsg_4DA0F0(pid int, code byte, ind int) bool {
 	switch code {
 	case 0, 1, 2, 12, 13, 16, 20, 21:
 		binary.LittleEndian.PutUint32(buf[2:], uint32(ind))
-		return nox_netlist_addToMsgListCli(pid, 1, buf[:6])
+		return netlist.AddToMsgListCli(pid, 1, buf[:6])
 	case 17:
-		return nox_netlist_addToMsgListCli(pid, 1, buf[:2])
+		return netlist.AddToMsgListCli(pid, 1, buf[:2])
 	default:
 		return true
 	}
@@ -631,7 +632,7 @@ func nox_xxx_netKillChat_528D00(u *Unit) {
 		if u == nil {
 			continue
 		}
-		nox_netlist_addToMsgListCli(pl.Index(), 1, buf[:3])
+		netlist.AddToMsgListCli(pl.Index(), 1, buf[:3])
 	}
 }
 
@@ -711,11 +712,11 @@ func nox_xxx_netPriMsgToPlayer_4DA2C0(u *Unit, id strman.ID, a3 byte) {
 	buf[2] = a3
 	n := copy(buf[3:len(buf)-1], string(id))
 	buf[3+n] = 0
-	nox_netlist_addToMsgListCli(u.ControllingPlayer().Index(), 1, buf[:n+4])
+	netlist.AddToMsgListCli(u.ControllingPlayer().Index(), 1, buf[:n+4])
 }
 
 func nox_xxx_netSendBySock_40EE10(a1 int, a2 int, a3 int) {
-	v3 := nox_netlist_copyPacketList(a2, a3)
+	v3 := netlist.CopyPacketsA(a2, a3)
 	if len(v3) != 0 {
 		netstr.Send(a1, v3, 0)
 		netstr.SendReadPacket(a1, 1)

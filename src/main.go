@@ -58,6 +58,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/internal/version"
 )
@@ -434,7 +435,7 @@ func RunArgs(args []string) (gerr error) {
 	C.nox_xxx_loadMapCycle_4D0A30()
 	platform.RandSeedTime()
 	C.nox_xxx_mapSelectFirst_4D0E00()
-	nox_netlist_init_40EA10()
+	netlist.Init()
 	C.sub_40B890(32)
 	C.sub_40B170(32)
 	C.sub_4134D0()
@@ -527,7 +528,7 @@ func cleanup() {
 	C.sub_42EDC0()
 	ctrlEvent.Reset()
 	nox_strman_free_410020()
-	nox_netlist_free_40EA70()
+	netlist.Free()
 	C.sub_4D11D0()
 	C.sub_4D0DA0()
 	C.sub_40C0D0()

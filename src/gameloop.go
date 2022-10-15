@@ -58,6 +58,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/serial"
+	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
@@ -354,7 +355,7 @@ func nox_xxx_clientResetSpriteAndGui_4357D0(noSkip bool) bool {
 		*memmap.PtrUint32(0x587000, 85724) = 0
 	}
 	*memmap.PtrUint32(0x5D4594, 811064) = uint32(C.nox_client_renderGUI_80828)
-	nox_netlist_resetAll_40EE60()
+	netlist.ResetAll()
 	if !noxflags.HasGame(noxflags.GameHost) {
 		noxServer.resetAllPlayers()
 	}
@@ -721,7 +722,7 @@ func nox_xxx_cliSetupSession_437190() {
 	C.sub_446580(1)
 	C.sub_48D760()
 	if !noxflags.HasGame(noxflags.GameHost) {
-		nox_netlist_resetAll_40EE60()
+		netlist.ResetAll()
 	}
 	C.sub_417CF0()
 	clientSetPlayerNetCode(0)
