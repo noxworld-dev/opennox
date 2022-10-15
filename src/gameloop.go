@@ -17,7 +17,6 @@ package opennox
 #include "GAME2_3.h"
 #include "common__system__team.h"
 #include "common__net_list.h"
-#include "client__drawable__drawdb.h"
 #include "client__gui__guimsg.h"
 #include "client__drawable__drawable.h"
 

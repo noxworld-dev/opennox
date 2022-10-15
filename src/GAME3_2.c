@@ -39,7 +39,6 @@
 #include "client__gui__servopts__guiserv.h"
 #include "client__gui__window.h"
 
-#include "client__drawable__drawdb.h"
 #include "client__drawable__update__cloud.h"
 #include "client__drawable__update__dball.h"
 

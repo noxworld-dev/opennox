@@ -12,7 +12,6 @@
 #include "GAME4_3.h"
 #include "GAME5.h"
 #include "GAME5_2.h"
-#include "client__drawable__drawdb.h"
 #include "client__gui__guigen.h"
 #include "common__binfile.h"
 #include "common__crypt.h"

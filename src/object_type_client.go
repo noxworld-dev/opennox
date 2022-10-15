@@ -2,13 +2,39 @@ package opennox
 
 /*
 #include "GAME2_3.h"
-#include "client__drawable__drawdb.h"
 #include "client__draw__debugdraw.h"
 void nox_xxx_draw_44C650_free(void* lpMem, void* draw);
+
+bool nox_parse_thing_flags(nox_thing* obj, nox_memfile* f, const char* attr_value);
+bool nox_parse_thing_class(nox_thing* obj, nox_memfile* f, const char* attr_value);
+bool nox_parse_thing_subclass(nox_thing* obj, nox_memfile* f, const char* attr_value);
+bool nox_parse_thing_extent(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_light_intensity(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_z(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_zsize(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_light_color(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_audio_loop(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_lifetime(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_value);
+bool nox_parse_thing_health(nox_thing* obj, nox_memfile* f, char* attr_value);
+
+static bool go_nox_drawable_call_parse_func(bool (*fnc)(nox_thing*, nox_memfile*, char*), nox_thing* a1, nox_memfile* a2, void* a3) {
+	return fnc(a1, a2, a3);
+}
 */
 import "C"
 import (
 	"fmt"
+	"io"
 	"strings"
 	"unsafe"
 
@@ -126,8 +152,8 @@ func (c *clientObjTypes) readType(thg *MemFile, buf []byte) error {
 	typ.draw_func = C.nox_thing_debug_draw
 	typ.zsize_min = 0
 	typ.zsize_max = 30.0
-	if C.nox_parse_thing(thg.C(), (*C.char)(unsafe.Pointer(&buf[0])), typ.C()) == 0 {
-		return fmt.Errorf("cannot parse object type %q", id)
+	if err := c.parseThing(thg, buf, typ); err != nil {
+		return fmt.Errorf("cannot parse object type %q: %w", id, err)
 	}
 	typ.next = c.first
 	c.first = typ
@@ -141,6 +167,33 @@ func (c *clientObjTypes) readType(thg *MemFile, buf []byte) error {
 		}
 	}
 	return nil
+}
+
+func (c *clientObjTypes) parseThing(f *MemFile, buf []byte, typ *nox_thing) error {
+	for {
+		line, err := f.ReadString8()
+		if err == io.EOF {
+			return nil
+		} else if err != nil {
+			thingsLog.Println(err)
+			return nil
+		}
+		if len(line) == 0 {
+			return nil
+		}
+		attr := firstWord(line)
+		fnc := clientThingParseFuncs[attr]
+		if fnc == nil {
+			continue
+		}
+		buf[0] = 0
+		if i := strings.IndexByte(line, '='); i >= 0 {
+			StrNCopyBytes(buf, strings.TrimSpace(line[i+1:]))
+		}
+		if !C.go_nox_drawable_call_parse_func((*[0]byte)(fnc), typ.C(), f.C(), unsafe.Pointer(&buf[0])) {
+			thingsLog.Printf("failed to parse %q", line)
+		}
+	}
 }
 
 func (c *clientObjTypes) TypeByID(id string) *nox_thing {
@@ -260,4 +313,28 @@ func nox_drawable_link_thing(a1c *nox_drawable, i C.int) C.int {
 		C.nox_xxx_spriteTransparentDecay_49B950(dr.C(), C.int(typ.lifetime))
 	}
 	return 1
+}
+
+var clientThingParseFuncs = map[string]unsafe.Pointer{
+	"FLAGS":          C.nox_parse_thing_flags,
+	"CLASS":          C.nox_parse_thing_class,
+	"SUBCLASS":       C.nox_parse_thing_subclass,
+	"EXTENT":         C.nox_parse_thing_extent,
+	"LIGHTINTENSITY": C.nox_parse_thing_light_intensity,
+	"DRAW":           C.nox_parse_thing_draw,
+	"Z":              C.nox_parse_thing_z,
+	"ZSIZE":          C.nox_parse_thing_zsize,
+	"SIZE":           C.nox_parse_thing_size,
+	"MENUICON":       C.nox_parse_thing_menu_icon,
+	"LIGHTCOLOR":     C.nox_parse_thing_light_color,
+	"LIGHTDIRECTION": C.nox_parse_thing_light_dir,
+	"LIGHTPENUMBRA":  C.nox_parse_thing_light_penumbra,
+	"AUDIOLOOP":      C.nox_parse_thing_audio_loop,
+	"CLIENTUPDATE":   C.nox_parse_thing_client_update,
+	"LIFETIME":       C.nox_parse_thing_lifetime,
+	"WEIGHT":         C.nox_parse_thing_weight,
+	"PRETTYNAME":     C.nox_parse_thing_pretty_name,
+	"DESCRIPTION":    C.nox_parse_thing_desc,
+	"PRETTYIMAGE":    C.nox_parse_thing_pretty_image,
+	"HEALTH":         C.nox_parse_thing_health,
 }
