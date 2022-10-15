@@ -35,7 +35,6 @@
 #include "operators.h"
 #include "server__network__mapsend.h"
 #include "server__network__playback.h"
-#include "server__network__sdecode.h"
 
 extern uint32_t nox_xxx_respawnAllow_587000_205200;
 extern uint32_t dword_5d4594_1568028;

@@ -33,7 +33,6 @@ package opennox
 #include "client__shell__selchar.h"
 #include "client__shell__selcolor.h"
 #include "server__network__playback.h"
-#include "server__network__sdecode.h"
 #include "client__drawable__drawable.h"
 #include "client__gui__guimeter.h"
 #include "server__network__mapsend.h"
@@ -2084,19 +2083,9 @@ func (s *Server) nox_xxx_netlist_4DEB50() {
 			if len(data) == 0 {
 				return
 			}
-			nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(common.MaxPlayers-1, data)
+			s.onPacketRaw(common.MaxPlayers-1, data)
 		})
 	}
-}
-
-func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(ind int, data []byte) int {
-	cdata, cfree := alloc.Make([]byte{}, len(data))
-	defer cfree()
-	return nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(ind, cdata)
-}
-
-func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(ind int, data []byte) int {
-	return int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(C.int(ind), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data))))
 }
 
 //export nox_game_addStateCode_43BDD0

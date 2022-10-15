@@ -1,5 +1,3 @@
-#include "server__network__sdecode.h"
-
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_3.h"
@@ -28,12 +26,14 @@
 #include "server__network__playback.h"
 #include "server__system__trade.h"
 
-void noxOnSrvPacketDebug(int op, unsigned char* data, int sz);
 int noxOnSrvPacketPlayerInput(int a1, unsigned char* data, int sz);
 void sub_446070();
 extern uint32_t nox_player_netCode_85319C;
 //----- (0051BAD0) --------------------------------------------------------
-unsigned char* nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char* data, int dsz, int v8, int unit, int* v10) {
+unsigned char* nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char* data, int dsz, nox_playerInfo* v8p, nox_object_t* unitp, void* v10p) {
+	int v8 = v8p;
+	int unit = unitp;
+	int* v10 = v10p;
 	int v85 = v10;
 	int v7;                          // edx
 	char* v11 = 0;                       // ecx
@@ -800,58 +800,3 @@ unsigned char* nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, uns
 	}
 	return data;
 }
-
-int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(int a1, unsigned char* pdata, signed int dsz) {
-	if (dsz <= 0) {
-		*((uint32_t*)nox_common_playerInfoFromNum_417090(a1) + 899) = gameFrame();
-		return 1;
-	}
-	unsigned char* data = pdata;
-	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_WRITE)) {
-		char* v5 = nox_common_playerInfoFromNum_417090(a1);
-		nox_xxx_replayWriteMSgMB_4D3450(v5, pdata, dsz);
-	}
-	switch (*pdata) {
-	case 0x20u:
-		if (!nox_xxx_playerNew_4DD320(a1, (int)(pdata + 1))) {
-			nox_xxx_netStructReadPackets_5545B0(a1 + 1);
-		}
-		return 1;
-	case 0x22u:
-		nox_xxx_playerForceDisconnect_4DE7C0(a1);
-		return 1;
-	case 0x25u:
-		*((uint32_t*)nox_common_playerInfoFromNum_417090(a1) + 899) = gameFrame();
-		return 1;
-	}
-
-	unsigned char* end = &pdata[dsz];
-	char* v6 = nox_common_playerInfoFromNum_417090(a1);
-	int v8 = (int)v6;
-	if (!v6) {
-		return 1;
-	}
-	int v93 = *((uint32_t*)v6 + 514);
-	int unit = v93;
-	if (!v93) {
-		return 1;
-	}
-	int* v10 = *(int**)(v93 + 748);
-	if (pdata >= end) {
-		*(uint32_t*)(v8 + 3596) = gameFrame();
-		return 1;
-	}
-	while (data < end) {
-		unsigned char* old = data;
-		int op = data[0];
-		unsigned char* out = nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1, data, (int)end - (int)data, v8, unit, v10);
-		if (!out) {
-			return 0;
-		}
-		data = out;
-		noxOnSrvPacketDebug(op, old, data - old);
-	}
-	*(uint32_t*)(v8 + 3596) = gameFrame();
-	return 1;
-}
-// 51C788: variable 'v7' is possibly undefined
