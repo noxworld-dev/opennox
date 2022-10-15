@@ -17,7 +17,6 @@ extern void* dword_5d4594_1307292;
 extern void* dword_5d4594_831236;
 extern unsigned int dword_5d4594_831220;
 extern unsigned int nox_client_gui_flag_815132;
-extern unsigned int nox_game_createOrJoin_815048;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern uint32_t dword_5d4594_831260;
 int sub_4A1D40();

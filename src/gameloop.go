@@ -30,7 +30,6 @@ extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern void* nox_alloc_chat_1197364;
 extern unsigned int nox_client_renderGUI_80828;
-extern char nox_clientServerAddr[32];
 extern uint32_t dword_5d4594_1090120;
 extern nox_window* dword_5d4594_1090048;
 extern nox_window* dword_5d4594_1090100;

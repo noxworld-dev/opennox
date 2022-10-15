@@ -20,7 +20,6 @@ package opennox
 extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_5d4594_2660032;
 extern unsigned int dword_5d4594_814548;
-extern unsigned int dword_5d4594_2495920;
 extern unsigned long long qword_5d4594_814956;
 unsigned int nox_client_getServerAddr_43B300();
 int nox_client_getServerPort_43B320();

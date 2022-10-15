@@ -9,7 +9,6 @@ package opennox
 #include "GAME2_3.h"
 #include "MixPatch.h"
 extern int dword_587000_87412;
-extern unsigned int dword_5d4594_2660652;
 extern unsigned int dword_5d4594_527988;
 extern unsigned int nox_client_connError_814552;
 extern nox_window* dword_5d4594_815004;
@@ -22,7 +21,6 @@ extern unsigned long long qword_5d4594_815068;
 extern unsigned int nox_game_createOrJoin_815048;
 extern uint32_t dword_587000_87408;
 extern void* dword_5d4594_814984;
-extern void* dword_5d4594_814988;
 extern void* dword_5d4594_814996;
 extern void* dword_5d4594_815000;
 extern uint32_t dword_5d4594_815056;
