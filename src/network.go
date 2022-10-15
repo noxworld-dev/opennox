@@ -3,7 +3,6 @@ package opennox
 /*
 #include "defs.h"
 #include "common__net_list.h"
-#include "server__network__sdecode.h"
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME2_3.h"
@@ -45,6 +44,7 @@ extern float nox_xxx_wizardMaximumMana_587000_312820;
 
 static int nox_call_net_xxxyyy_go(int (*fnc)(unsigned int, char*, int, void*), unsigned int a1, void* a2, int a3, void* a4) { return fnc(a1, a2, a3, a4); }
 int nox_xxx_netPlayerObjSend_518C30(nox_object_t* a1, nox_object_t* a2, int a3, signed int a4);
+unsigned char* nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char* data, int dsz, nox_playerInfo* v8p, nox_object_t* unitp, void* v10p);
 */
 import "C"
 import (
@@ -165,15 +165,6 @@ func noxOnCliPacketDebug(op C.int, data *C.uchar, sz C.int) {
 	if netstr.Debug && sz != 0 {
 		op := noxnet.Op(op)
 		netstr.Log.Printf("CLIENT: op=%d (%s) [%d:%d]\n%02x %x", int(op), op.String(), int(sz)-1, op.Len(), buf[0], buf[1:])
-	}
-}
-
-//export noxOnSrvPacketDebug
-func noxOnSrvPacketDebug(op C.int, data *C.uchar, sz C.int) {
-	buf := unsafe.Slice((*byte)(unsafe.Pointer(data)), int(sz))
-	if netstr.Debug && sz != 0 {
-		op := noxnet.Op(op)
-		netstr.Log.Printf("SERVER: op=%d (%s) [%d:%d]\n%02x %x", int(op), op.String(), int(sz)-1, op.Len(), buf[0], buf[1:])
 	}
 }
 
@@ -329,10 +320,14 @@ func (s *Server) nox_xxx_netAddPlayerHandler_4DEBC0(port int) (ind, cport int, _
 		Port:     port,
 		Max:      s.getServerMaxPlayers(),
 		DataSize: 2048,
-		Func2:    nox_xxx_netlist_ServRecv,
-		Func1:    nox_xxx_netFn_UpdateStream_4DF630,
-		Check14:  nox_xxx_netBigSwitch_553210_op_14_check,
-		Check17:  nox_xxx_netBigSwitch_553210_op_17_check,
+		Func2: func(a1 int, a2 []byte, _ unsafe.Pointer) int {
+			// should pass the pointer unchanged, otherwise expect bugs!
+			s.onPacketRaw(a1-1, a2)
+			return 1
+		},
+		Func1:   nox_xxx_netFn_UpdateStream_4DF630,
+		Check14: nox_xxx_netBigSwitch_553210_op_14_check,
+		Check17: nox_xxx_netBigSwitch_553210_op_17_check,
 	}
 	nox_xxx_allocNetGQueue_5520B0()
 	ind, err := nox_xxx_netInit_554380(narg)
@@ -376,19 +371,8 @@ func (s *Server) nox_server_netClose_5546A0(i int) {
 	netstr.CloseByInd(i)
 }
 
-//export nox_xxx_netStructReadPackets_5545B0
-func nox_xxx_netStructReadPackets_5545B0(ind C.uint) C.int {
-	return C.int(netstr.ReadPackets(int(ind)))
-}
-
 func (s *Server) nox_xxx_netStructReadPackets2_4DEC50(a1 int) int {
 	return netstr.ReadPackets(a1 + 1)
-}
-
-func nox_xxx_netlist_ServRecv(a1 int, a2 []byte, _ unsafe.Pointer) int {
-	// should pass the pointer unchanged, otherwise expect bugs!
-	nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(a1-1, a2)
-	return 1
 }
 
 //export nox_xxx_netSendSock_552640
@@ -1024,4 +1008,61 @@ func nox_xxx_netUseMap_4DEE00(mname string, crc uint32) {
 			}
 		}
 	}
+}
+
+func (s *Server) onPacket(ind int, data []byte) bool {
+	cdata, cfree := alloc.Make([]byte{}, len(data))
+	defer cfree()
+	return s.onPacketRaw(ind, cdata)
+}
+
+func (s *Server) onPacketRaw(pli int, data []byte) bool {
+	pl := s.getPlayerByInd(pli)
+	if len(data) == 0 {
+		if pl != nil {
+			pl.frame_3596 = C.uint(s.Frame())
+		}
+		return true
+	}
+	if noxflags.HasEngine(noxflags.EngineReplayWrite) {
+		s.nox_xxx_replayWriteMSgMB(pl, data)
+	}
+	op := noxnet.Op(data[0])
+	switch op {
+	case 0x20:
+		if s.newPlayerFromPacket(pli, data[1:]) == 0 {
+			netstr.ReadPackets(pli + 1)
+		}
+		return true
+	case 0x22:
+		C.nox_xxx_playerForceDisconnect_4DE7C0(C.int(pli))
+		return true
+	case 0x25:
+		if pl != nil {
+			pl.frame_3596 = C.uint(s.Frame())
+		}
+		return true
+	}
+	if pl == nil {
+		return true
+	}
+	u := pl.UnitC()
+	if u == nil {
+		return true
+	}
+	ud := u.updateDataPtr()
+	for len(data) > 0 {
+		op = noxnet.Op(data[0])
+		out := C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), ud)
+		if out == nil {
+			return false
+		}
+		n := uintptr(unsafe.Pointer(out)) - uintptr(unsafe.Pointer(&data[0]))
+		if netstr.Debug && n != 0 {
+			netstr.Log.Printf("SERVER: op=%d (%s) [%d:%d]\n%02x %x", int(op), op.String(), int(n)-1, op.Len(), data[0], data[1:])
+		}
+		data = data[n:]
+	}
+	pl.frame_3596 = C.uint(s.Frame())
+	return true
 }

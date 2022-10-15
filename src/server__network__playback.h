@@ -5,7 +5,6 @@
 
 int nox_xxx_replayStartSave_4D3370(char* a1);
 void nox_xxx_replayStopSave_4D33B0();
-void nox_xxx_replayWriteMSgMB_4D3450(nox_playerInfo* pl, void* a2, unsigned int a3);
 int nox_xxx_replayFileOpen_4D34C0(char* a1);
 void nox_xxx_replayStopReadMB_4D3530();
 void nox_xxx_replay_4D3860(void* a1);

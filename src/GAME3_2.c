@@ -31,7 +31,6 @@
 #include "common__system__team.h"
 #include "server__mapgen__generate__populate.h"
 #include "server__network__playback.h"
-#include "server__network__sdecode.h"
 #include "server__system__server.h"
 
 #include "client__gui__chathelp.h"

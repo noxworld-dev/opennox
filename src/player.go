@@ -101,11 +101,6 @@ func nox_common_playerInfoFromNumRaw(ind C.int) *C.nox_playerInfo {
 	return noxServer.players.list[ind].C()
 }
 
-//export nox_xxx_playerNew_4DD320
-func nox_xxx_playerNew_4DD320(ind C.int, data *C.uchar) C.int {
-	return C.int(noxServer.newPlayerFromPacket(int(ind), unsafe.Slice((*byte)(unsafe.Pointer(data)), 153)))
-}
-
 //export nox_xxx_playerDisconnByPlrID_4DEB00
 func nox_xxx_playerDisconnByPlrID_4DEB00(id C.int) {
 	if p := noxServer.getPlayerByInd(int(id)); p != nil {

@@ -12,7 +12,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/log"
 
@@ -99,19 +98,12 @@ func nox_xxx_replaySaveConsole(cmd string) {
 	replay.writer.Write([]byte(cmd))
 }
 
-//export nox_xxx_replayWriteMSgMB_4D3450
-func nox_xxx_replayWriteMSgMB_4D3450(p *C.nox_playerInfo, a2 unsafe.Pointer, a3 C.uint) {
-	pl := asPlayer(p)
-	data := unsafe.Slice((*byte)(a2), int(a3))
-	nox_xxx_replayWriteMSgMB(pl, data)
-}
-
-func nox_xxx_replayWriteMSgMB(pl *Player, data []byte) {
+func (s *Server) nox_xxx_replayWriteMSgMB(pl *Player, data []byte) {
 	if replay.writer == nil {
 		return
 	}
 	var buf [10]byte
-	binary.LittleEndian.PutUint32(buf[0:4], noxServer.Frame())
+	binary.LittleEndian.PutUint32(buf[0:4], s.Frame())
 	buf[4] = replayOpMsg
 	buf[5] = byte(pl.Index())
 	binary.LittleEndian.PutUint32(buf[6:10], uint32(len(data)))
@@ -237,7 +229,7 @@ func (s *Server) nox_xxx_replayTickMB(a1 bool) error {
 			if _, err := io.ReadFull(replay.reader, data); err != nil {
 				return fmt.Errorf("cannot read packet: %w", err)
 			}
-			nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode(ind, data)
+			s.onPacket(ind, data)
 		case replayOpInit:
 			if a1 {
 				return nil
