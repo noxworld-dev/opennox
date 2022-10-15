@@ -27,12 +27,6 @@ extern uint32_t dword_5d4594_251608;
 
 extern int nox_parse_thing_draw_funcs_cnt;
 
-//----- (0044B230) --------------------------------------------------------
-bool nox_parse_thing_light_intensity(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	sscanf(attr_value, "%f", &obj->light_intensity);
-	return 1;
-}
-
 //----- (0044C200) --------------------------------------------------------
 bool nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	const uint8_t read_len = nox_memfile_read_u8(f);
@@ -68,14 +62,6 @@ bool nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	}
 	obj->draw_func = item->draw;
 
-	return 1;
-}
-
-//----- (0044C2F0) --------------------------------------------------------
-bool nox_parse_thing_z(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	int z = 0;
-	sscanf(attr_value, "%d", &z);
-	obj->z = z;
 	return 1;
 }
 
@@ -195,23 +181,6 @@ bool nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_va
 	return 1;
 }
 
-//----- (0044C410) --------------------------------------------------------
-bool nox_parse_thing_lifetime(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	int v = 0;
-	sscanf(attr_value, "%d", &v);
-	obj->lifetime = v;
-	return 1;
-}
-
-//----- (0044C440) --------------------------------------------------------
-bool nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	int v = 0;
-	sscanf(attr_value, "%d", &v);
-	obj->weight = (uint8_t)v;
-	obj->pri_class |= 0x80000000;
-	return 1;
-}
-
 //----- (0044C480) --------------------------------------------------------
 bool nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	obj->pretty_name =
@@ -240,12 +209,6 @@ bool nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_val
 	const int n = nox_memfile_read_u8(f);
 	nox_memfile_read(v10, 1u, n, f);
 	obj->pretty_image = nox_xxx_readImgMB_42FAA0(known_idx, v8, v10);
-	return 1;
-}
-
-//----- (0044C4E0) --------------------------------------------------------
-bool nox_parse_thing_health(nox_thing* obj, nox_memfile* f, char* attr_value) {
-	obj->health = atoi(attr_value);
 	return 1;
 }
 

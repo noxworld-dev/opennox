@@ -5,9 +5,7 @@ package opennox
 #include "client__draw__debugdraw.h"
 void nox_xxx_draw_44C650_free(void* lpMem, void* draw);
 
-bool nox_parse_thing_light_intensity(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_z(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_zsize(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_size(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_menu_icon(nox_thing* obj, nox_memfile* f, char* attr_value);
@@ -16,12 +14,9 @@ bool nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value)
 bool nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_audio_loop(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_lifetime(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_weight(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_pretty_name(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_desc(nox_thing* obj, nox_memfile* f, char* attr_value);
 bool nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_health(nox_thing* obj, nox_memfile* f, char* attr_value);
 
 static bool go_nox_drawable_call_parse_func(bool (*fnc)(nox_thing*, nox_memfile*, char*), nox_thing* a1, nox_memfile* a2, void* a3) {
 	return fnc(a1, a2, a3);
@@ -31,6 +26,7 @@ import "C"
 import (
 	"fmt"
 	"io"
+	"strconv"
 	"strings"
 	"unsafe"
 
@@ -382,9 +378,23 @@ var clientThingParseFuncs = map[string]clientThingFieldFunc{
 		}
 		return nil
 	},
-	"LIGHTINTENSITY": wrapClientThingFuncC(C.nox_parse_thing_light_intensity),
-	"DRAW":           wrapClientThingFuncC(C.nox_parse_thing_draw),
-	"Z":              wrapClientThingFuncC(C.nox_parse_thing_z),
+	"LIGHTINTENSITY": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
+		v, err := strconv.ParseFloat(firstWord(str), 32)
+		if err != nil {
+			return err
+		}
+		typ.light_intensity = float32(v)
+		return nil
+	},
+	"DRAW": wrapClientThingFuncC(C.nox_parse_thing_draw),
+	"Z": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
+		v, err := strconv.ParseInt(firstWord(str), 10, 32)
+		if err != nil {
+			return err
+		}
+		typ.z = uint16(v)
+		return nil
+	},
 	"ZSIZE":          wrapClientThingFuncC(C.nox_parse_thing_zsize),
 	"SIZE":           wrapClientThingFuncC(C.nox_parse_thing_size),
 	"MENUICON":       wrapClientThingFuncC(C.nox_parse_thing_menu_icon),
@@ -393,10 +403,32 @@ var clientThingParseFuncs = map[string]clientThingFieldFunc{
 	"LIGHTPENUMBRA":  wrapClientThingFuncC(C.nox_parse_thing_light_penumbra),
 	"AUDIOLOOP":      wrapClientThingFuncC(C.nox_parse_thing_audio_loop),
 	"CLIENTUPDATE":   wrapClientThingFuncC(C.nox_parse_thing_client_update),
-	"LIFETIME":       wrapClientThingFuncC(C.nox_parse_thing_lifetime),
-	"WEIGHT":         wrapClientThingFuncC(C.nox_parse_thing_weight),
-	"PRETTYNAME":     wrapClientThingFuncC(C.nox_parse_thing_pretty_name),
-	"DESCRIPTION":    wrapClientThingFuncC(C.nox_parse_thing_desc),
-	"PRETTYIMAGE":    wrapClientThingFuncC(C.nox_parse_thing_pretty_image),
-	"HEALTH":         wrapClientThingFuncC(C.nox_parse_thing_health),
+	"LIFETIME": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
+		v, err := strconv.ParseInt(firstWord(str), 10, 32)
+		if err != nil {
+			return err
+		}
+		typ.lifetime = int32(v)
+		return nil
+	},
+	"WEIGHT": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
+		v, err := strconv.ParseUint(firstWord(str), 10, 8)
+		if err != nil {
+			return err
+		}
+		typ.weight = byte(v)
+		typ.pri_class |= uint32(object.ClassPickup)
+		return nil
+	},
+	"PRETTYNAME":  wrapClientThingFuncC(C.nox_parse_thing_pretty_name),
+	"DESCRIPTION": wrapClientThingFuncC(C.nox_parse_thing_desc),
+	"PRETTYIMAGE": wrapClientThingFuncC(C.nox_parse_thing_pretty_image),
+	"HEALTH": func(typ *nox_thing, f *MemFile, str string, buf []byte) error {
+		v, err := strconv.ParseInt(firstWord(str), 10, 32)
+		if err != nil {
+			return err
+		}
+		typ.health = uint16(v)
+		return nil
+	},
 }
