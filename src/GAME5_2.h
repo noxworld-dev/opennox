@@ -27,7 +27,6 @@ int nox_xxx_netBigSwitch_553210(unsigned int id, unsigned char* packet, int pack
 int sub_553D10();
 int sub_553D30(struct nox_net_sockaddr_in* addr);
 void sub_553F40(int a1, int a2);
-void sub_553FC0(int a1, int a2);
 void nox_xxx_netCountData_554030(int a1, int a2);
 unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out);
 int* nox_xxx_findPlayerID_5541D0(int a1);
