@@ -342,28 +342,6 @@ func getSocket(fd nox_socket_t) *Socket {
 	return s
 }
 
-func nox_net_recv(fd nox_socket_t, buffer unsafe.Pointer, length C.uint) C.int {
-	s := getSocket(fd)
-	if s == nil {
-		s.setErrno(123456, errors.New("no socket")) // TODO
-		return -1
-	}
-	if s.udp || s.c == nil {
-		err := errors.New("recv on UDP connection")
-		netLog.Printf("warning: %v", err)
-		s.setErrno(123456, err) // TODO
-		return -1
-	}
-	buf := unsafe.Slice((*byte)(buffer), int(length))
-	n, err := s.c.Read(buf)
-	if err != nil {
-		netLog.Println(err)
-		s.setErrno(123456, err) // TODO
-		return -1
-	}
-	return C.int(n)
-}
-
 //export nox_net_sendto
 func nox_net_sendto(fd nox_socket_t, buffer unsafe.Pointer, length C.uint, addr *C.struct_nox_net_sockaddr_in) C.int {
 	s := getSocket(fd)
