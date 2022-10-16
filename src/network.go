@@ -35,10 +35,10 @@ int  nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2);
 static int nox_xxx_netSendLineMessage_go(nox_object_t* a1, wchar_t* str) {
 	return nox_xxx_netSendLineMessage_4D9EB0(a1, str);
 }
+int MixRecvFromReplacer(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* from);
 
 int nox_xxx_netHandlerDefXxx_553D60(unsigned int a1, char* a2, int a3, void* a4);
 int nox_xxx_netHandlerDefYyy_553D70(unsigned int a1, char* a2, int a3, void* a4);
-int mix_recvfrom(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* from);
 
 extern float nox_xxx_warriorMaxHealth_587000_312784;
 extern float nox_xxx_warriorMaxMana_587000_312788;
@@ -263,15 +263,6 @@ func clientGetClientPort() int {
 //export nox_client_setServerConnectAddr_435720
 func nox_client_setServerConnectAddr_435720(addr *C.char) {
 	clientSetServerHost(GoString(addr))
-}
-
-//export nox_xxx_cryptXor_56FDD0
-func nox_xxx_cryptXor_56FDD0(key C.char, p *C.uchar, n C.int) {
-	if p == nil || n == 0 || !noxNetXor {
-		return
-	}
-	buf := unsafe.Slice((*byte)(unsafe.Pointer(p)), int(n))
-	netCryptXor(byte(key), buf)
 }
 
 //export nox_xxx_cryptXorDst_56FE00
@@ -1273,9 +1264,10 @@ func sub_553FC0(a1, a2 int) {
 //export nox_xxx_netRecv_552020
 func nox_xxx_netRecv_552020(cs nox_socket_t, ptr *byte, psz int, from *C.struct_nox_net_sockaddr_in) int {
 	buf := unsafe.Slice(ptr, psz)
-	n := int(C.mix_recvfrom(cs, (*C.char)(unsafe.Pointer(ptr)), C.int(psz), from))
-	if n > 0 {
-		ip, port := toIPPort(from)
+	s := getSocket(cs)
+	n, src, err := mix_recvfrom(cs, s, buf)
+	if err == nil {
+		ip, port := getAddr(src)
 		ns := nox_xxx_netStructByAddr_551E60(ip, port)
 		if ns != nil {
 			if ns.xor_key != 0 {
@@ -1283,6 +1275,7 @@ func nox_xxx_netRecv_552020(cs nox_socket_t, ptr *byte, psz int, from *C.struct_
 			}
 		}
 	}
+	setAddr(from, src)
 	if noxflags.HasGame(noxflags.GameHost) {
 		return n
 	}
@@ -1292,4 +1285,27 @@ func nox_xxx_netRecv_552020(cs nox_socket_t, ptr *byte, psz int, from *C.struct_
 		return n
 	}
 	return 0
+}
+
+func mix_recvfrom(cs nox_socket_t, s *Socket, buf []byte) (int, net.Addr, error) {
+	n, src, err := s.pc.ReadFrom(buf)
+	if err != nil {
+		return n, src, err
+	}
+	ip, port := getAddr(src)
+	if debugNet {
+		netLog.Printf("recv %s:%d -> %s [%d]\n%x", ip, port, s.pc.LocalAddr(), n, buf[:n])
+	}
+	if n >= 2 && binary.LittleEndian.Uint16(buf[:2]) == 0xF13A { // extension packet code
+		n = MixRecvFromReplacer(cs, buf, src)
+		return n, src, nil
+	}
+	return n, src, nil
+}
+
+func MixRecvFromReplacer(cs nox_socket_t, buf []byte, from net.Addr) int {
+	caddr, afree := alloc.New(C.struct_nox_net_sockaddr_in{})
+	defer afree()
+	setAddr(caddr, from)
+	return int(C.MixRecvFromReplacer(cs, (*C.char)(unsafe.Pointer(&buf[0])), C.int(len(buf)), caddr))
 }
