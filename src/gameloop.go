@@ -713,7 +713,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 			}
 			return newConnectFailErr(-23, errors.New("timeout"))
 		}
-		C.nox_xxx_servNetInitialPackets_552A80(C.uint(id), C.char(flags|1))
+		nox_xxx_servNetInitialPackets_552A80(id, flags|1)
 		C.nox_xxx_netMaybeSendAll_552460()
 		f28 := int(int8(ns.field_28_1))
 		if debugMainloop {
@@ -783,7 +783,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 			}
 			return newConnectFailErr(-19, errors.New("timeout 2"))
 		}
-		C.nox_xxx_servNetInitialPackets_552A80(C.uint(dword_5D4594_815700), 1)
+		nox_xxx_servNetInitialPackets_552A80(dword_5D4594_815700, 1)
 		nox_xxx_netSendBySock_40EE10(dword_5D4594_815700, noxMaxPlayers-1, 0)
 		nox_netlist_resetByInd_40ED10(noxMaxPlayers-1, 0)
 		C.nox_xxx_netMaybeSendAll_552460()

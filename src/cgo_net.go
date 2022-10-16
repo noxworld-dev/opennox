@@ -365,19 +365,3 @@ func nox_net_sendto(fd nox_socket_t, buffer unsafe.Pointer, length C.uint, addr 
 	}
 	return C.int(n)
 }
-
-//export nox_net_recv_available
-func nox_net_recv_available(fd nox_socket_t, out *C.uint) C.int {
-	s := getSocket(fd)
-	if s == nil {
-		s.setErrno(123456, errors.New("no socket")) // TODO
-		return -1
-	}
-	n, err := s.CanRead()
-	if err != nil {
-		netLog.Println(err)
-		return -1
-	}
-	*out = C.uint(n)
-	return 0
-}
