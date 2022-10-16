@@ -250,6 +250,10 @@ func (ns *netStruct) callXxx(id int, buf []byte, data3 unsafe.Pointer) int {
 }
 
 func (ns *netStruct) callYyy(id int, buf []byte, data3 unsafe.Pointer) int {
+	switch unsafe.Pointer(ns.func_yyy) {
+	case unsafe.Pointer(C.nox_xxx_netlist_ServRecv_4DEC30):
+		return nox_xxx_netlist_ServRecv(id, buf)
+	}
 	return int(C.nox_call_net_xxxyyy_go((*[0]byte)(ns.func_yyy), C.uint(id), unsafe.Pointer(&buf[0]), C.int(len(buf)), data3))
 }
 
@@ -738,8 +742,11 @@ func (s *Server) nox_xxx_netStructReadPackets2_4DEC50(a1 int) int {
 
 //export nox_xxx_netlist_ServRecv_4DEC30
 func nox_xxx_netlist_ServRecv_4DEC30(a1 C.int, a2 *C.uchar, a3 C.int, a4 unsafe.Pointer) C.int {
+	return C.int(nox_xxx_netlist_ServRecv(int(a1), unsafe.Slice((*byte)(a2), int(a3))))
+}
+func nox_xxx_netlist_ServRecv(a1 int, a2 []byte) int {
 	// should pass the pointer unchanged, otherwise expect bugs!
-	nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(int(a1-1), unsafe.Slice((*byte)(a2), int(a3)))
+	nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_raw(a1-1, a2)
 	return 1
 }
 
