@@ -48,6 +48,8 @@ extern float nox_xxx_conjurerMaxMana_587000_312804;
 
 extern float nox_xxx_wizardMaxHealth_587000_312816;
 extern float nox_xxx_wizardMaximumMana_587000_312820;
+
+static int nox_call_net_xxxyyy_go(int (*fnc)(unsigned int, char*, int, void*), unsigned int a1, void* a2, int a3, void* a4) { return fnc(a1, a2, a3, a4); }
 */
 import "C"
 import (
@@ -241,6 +243,14 @@ func (ns *netStruct) Data2xxx() []byte {
 		panic("negative size")
 	}
 	return unsafe.Slice((*byte)(unsafe.Pointer(ns.data_2_xxx)), sz)
+}
+
+func (ns *netStruct) callXxx(id int, buf []byte, data3 unsafe.Pointer) int {
+	return int(C.nox_call_net_xxxyyy_go((*[0]byte)(ns.func_xxx), C.uint(id), unsafe.Pointer(&buf[0]), C.int(len(buf)), data3))
+}
+
+func (ns *netStruct) callYyy(id int, buf []byte, data3 unsafe.Pointer) int {
+	return int(C.nox_call_net_xxxyyy_go((*[0]byte)(ns.func_yyy), C.uint(id), unsafe.Pointer(&buf[0]), C.int(len(buf)), data3))
 }
 
 func clientSetServerHost(host string) {
@@ -1275,6 +1285,27 @@ func sub_551E00(ind int, addr *C.struct_nox_net_sockaddr_in) int {
 		}
 	}
 	return 0
+}
+
+//export nox_xxx_netRead2Xxx_551EB0
+func nox_xxx_netRead2Xxx_551EB0(id1, id2 int, a3 byte, ptr *byte, psz int) int {
+	buf := unsafe.Slice(ptr, psz)
+	ns2 := getNetStructByInd(id2)
+	if ns2 == nil || ns2.field_38 != 1 || byte(ns2.data_39[0]) > a3 {
+		return 0
+	}
+	ns1 := getNetStructByInd(id1)
+	if int(ns1.field_21) > (noxServer.getServerMaxPlayers() - 1) {
+		noxServer.nox_xxx_netStructReadPackets(id2)
+		return 1
+	}
+	if len(buf) >= 4 && buf[4] == 32 {
+		ns2.field_38 = 2
+		ns2.data_39[0] = 0xff
+		ns2.field_40 = 0
+		ns1.callYyy(id2, buf[4:], ns2.data_3)
+	}
+	return 1
 }
 
 //export nox_xxx_netRecv_552020
