@@ -8030,20 +8030,6 @@ void sub_551C40(int a1, int a2) {
 	}
 }
 
-//----- (00551E00) --------------------------------------------------------
-bool sub_551E00(unsigned char a1, int a2) {
-	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {
-		nox_net_struct_t* ns = nox_net_struct_arr[i];
-		if (!ns) {
-			continue;
-		}
-		if (*(uint16_t*)(a2 + 2) == ns->addr.sin_port && *(uint32_t*)(a2 + 4) == ns->addr.sin_addr && a1 == i) {
-			return 1;
-		}
-	}
-	return 0;
-}
-
 //----- (00551E60) --------------------------------------------------------
 nox_net_struct_t* nox_xxx_netStructByAddr_551E60(struct nox_net_sockaddr_in* addr) {
 	for (int i = 0; i < NOX_NET_STRUCT_MAX; i++) {

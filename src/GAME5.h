@@ -190,7 +190,7 @@ int sub_551A90(float2* a1, float4* a2);
 void sub_551AE0(int a1, int a2, int a3);
 void sub_551BF0();
 void sub_551C40(int a1, int a2);
-bool sub_551E00(unsigned char a1, int a2);
+int sub_551E00(int a1, struct nox_net_sockaddr_in* a2);
 nox_net_struct_t* nox_xxx_netStructByAddr_551E60(struct nox_net_sockaddr_in* addr);
 int nox_xxx_netRead2Xxx_551EB0(unsigned int id1, unsigned int id2, unsigned char a3, int a4, int a5);
 int nox_xxx_sendto_551F90(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* to);

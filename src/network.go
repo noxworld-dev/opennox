@@ -1261,6 +1261,22 @@ func sub_553FC0(a1, a2 int) {
 	dword_5d4594_2496988 = (dword_5d4594_2496988 + 1) % 128
 }
 
+//export sub_551E00
+func sub_551E00(ind int, addr *C.struct_nox_net_sockaddr_in) int {
+	ip, port := toIPPort(addr)
+	for i := 0; i < NOX_NET_STRUCT_MAX; i++ {
+		ns := asNetStruct(C.nox_net_struct_arr[i])
+		if ns == nil {
+			continue
+		}
+		ip2, port2 := ns.Addr()
+		if port == port2 && ip.Equal(ip2) && ind == i {
+			return 1
+		}
+	}
+	return 0
+}
+
 //export nox_xxx_netRecv_552020
 func nox_xxx_netRecv_552020(cs nox_socket_t, ptr *byte, psz int, from *C.struct_nox_net_sockaddr_in) int {
 	buf := unsafe.Slice(ptr, psz)
