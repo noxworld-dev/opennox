@@ -38,6 +38,7 @@ static int nox_xxx_netSendLineMessage_go(nox_object_t* a1, wchar_t* str) {
 
 int nox_xxx_netHandlerDefXxx_553D60(unsigned int a1, char* a2, int a3, void* a4);
 int nox_xxx_netHandlerDefYyy_553D70(unsigned int a1, char* a2, int a3, void* a4);
+int mix_recvfrom(nox_socket_t s, char* buf, int len, struct nox_net_sockaddr_in* from);
 
 extern float nox_xxx_warriorMaxHealth_587000_312784;
 extern float nox_xxx_warriorMaxMana_587000_312788;
@@ -1267,4 +1268,28 @@ func sub_553FC0(a1, a2 int) {
 	*memmap.PtrUint32(0x5D4594, 2496476+4*uintptr(dword_5d4594_2496988)) = uint32(a2)
 	dword_5d4594_2496472 = (dword_5d4594_2496472 + 1) % 128
 	dword_5d4594_2496988 = (dword_5d4594_2496988 + 1) % 128
+}
+
+//export nox_xxx_netRecv_552020
+func nox_xxx_netRecv_552020(cs nox_socket_t, ptr *byte, psz int, from *C.struct_nox_net_sockaddr_in) int {
+	buf := unsafe.Slice(ptr, psz)
+	n := int(C.mix_recvfrom(cs, (*C.char)(unsafe.Pointer(ptr)), C.int(psz), from))
+	if n > 0 {
+		ip, port := toIPPort(from)
+		ns := nox_xxx_netStructByAddr_551E60(ip, port)
+		if ns != nil {
+			if ns.xor_key != 0 {
+				netCryptXor(byte(ns.xor_key), buf[:n])
+			}
+		}
+	}
+	if noxflags.HasGame(noxflags.GameHost) {
+		return n
+	}
+
+	r := randomIntMinMax(1, 99)
+	if r >= int(memmap.Int32(0x5D4594, 2495940)) {
+		return n
+	}
+	return 0
 }

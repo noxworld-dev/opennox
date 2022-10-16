@@ -99,6 +99,9 @@ func netCanReadConn(pc net.PacketConn) (int, syscall.Errno, error) {
 }
 
 func (s *Socket) CanRead() (int, error) {
+	if s == nil {
+		return 0, errors.New("nil socket")
+	}
 	if s.pc == nil {
 		panic("TODO")
 	}

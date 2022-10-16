@@ -27,7 +27,6 @@
 #include "client__shell__mainmenu.h"
 #include "common__system__group.h"
 #include "common__system__team.h"
-#include "comw32__comlib.h"
 
 #include "MixPatch.h"
 #include "client__video__draw_common.h"
@@ -150,6 +149,7 @@ int nox_xxx_netSendReadPacket_5528B0(unsigned int a1, char a2) {
 }
 
 //----- (00552A80) --------------------------------------------------------
+int nox_xxx_netRecv_552020(nox_socket_t cs, unsigned char* ptr, int psz, struct nox_net_sockaddr_in* from);
 int nox_xxx_servNetInitialPackets_552A80(unsigned int id, char flags) {
 	struct nox_net_sockaddr_in to;
 	char buf[256];
