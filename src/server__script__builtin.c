@@ -1350,25 +1350,6 @@ int nox_script_HuntGroup_5157D0() {
 	return 0;
 }
 
-//----- (00515880) --------------------------------------------------------
-int nox_script_Follow_515880() {
-	int v0; // edi
-	int v1; // eax
-	int v2; // esi
-	int v3; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
-	if (v2) {
-		v3 = nox_server_scriptValToObjectPtr_511B60(v0);
-		if (v3) {
-			nox_xxx_unitSetFollow_5158C0(v2, v3);
-		}
-	}
-	return 0;
-}
-
 //----- (00515910) --------------------------------------------------------
 int nox_script_FollowGroup_515910() {
 	int v0;            // esi
