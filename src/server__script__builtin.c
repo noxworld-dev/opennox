@@ -1350,25 +1350,6 @@ int nox_script_HuntGroup_5157D0() {
 	return 0;
 }
 
-//----- (00515910) --------------------------------------------------------
-int nox_script_FollowGroup_515910() {
-	int v0;            // esi
-	int v1;            // edi
-	int v2;            // eax
-	unsigned char* v3; // eax
-	int v5;            // [esp-4h] [ebp-Ch]
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v2) {
-		v5 = v2;
-		v3 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v1);
-		nox_server_scriptExecuteFnForEachGroupObj_502670(v3, 0, nox_xxx_unitSetFollow_5158C0, v5);
-	}
-	return 0;
-}
-
 //----- (00515950) --------------------------------------------------------
 int nox_script_AgressionLevel_515950() {
 	int v0; // eax
