@@ -2062,19 +2062,6 @@ int nox_script_IsSummoned_516C30() {
 	return 0;
 }
 
-//----- (00516CE0) --------------------------------------------------------
-int nox_script_RaiseZombie_516CE0() {
-	int v0; // eax
-	int v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		sub_516D00(v1);
-	}
-	return 0;
-}
-
 //----- (00516D40) --------------------------------------------------------
 int nox_script_RaiseZombieGroup_516D40() {
 	int v0;            // eax
