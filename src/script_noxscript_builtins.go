@@ -60,7 +60,6 @@ int nox_script_GetElevatorStat_5154A0();
 int nox_script_Guard_515600();
 int nox_script_GuardGroup_515700();
 int nox_script_HuntGroup_5157D0();
-int nox_script_Follow_515880();
 int nox_script_FollowGroup_515910();
 int nox_script_AgressionLevel_515950();
 int nox_script_AggressionLevelGroup_5159B0();
@@ -375,7 +374,7 @@ var noxScriptBuiltins = []func() int{
 	142: wrapScriptC(C.nox_script_HuntGroup_5157D0),
 	143: nox_script_Idle_515800,
 	144: nox_script_GroupIdle_515850,
-	145: wrapScriptC(C.nox_script_Follow_515880),
+	145: nox_script_Follow_515880,
 	146: wrapScriptC(C.nox_script_FollowGroup_515910),
 	147: wrapScriptC(C.nox_script_AgressionLevel_515950),
 	148: wrapScriptC(C.nox_script_AggressionLevelGroup_5159B0),
@@ -1858,5 +1857,16 @@ func nox_script_GroupIdle_515850() int {
 	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
 		obj.AsUnit().Idle()
 	})
+	return 0
+}
+
+func nox_script_Follow_515880() int {
+	s := &noxServer.noxScript
+
+	v3 := s.PopObject()
+	v2 := s.PopObject()
+	if v2 != nil && v3 != nil {
+		v2.AsUnit().Follow(v3)
+	}
 	return 0
 }
