@@ -2062,17 +2062,6 @@ int nox_script_IsSummoned_516C30() {
 	return 0;
 }
 
-//----- (00516D40) --------------------------------------------------------
-int nox_script_RaiseZombieGroup_516D40() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_516D00, 0);
-	return 0;
-}
-
 //----- (00516D70) --------------------------------------------------------
 int nox_script_ObjIsGameball_516D70() {
 	int v0; // eax

@@ -101,7 +101,6 @@ int nox_script_TrapSpells_516B40();
 int nox_script_PlayerIsTrading_5166E0();
 int nox_script_SetShopkeeperGreet_516BE0();
 int nox_script_IsSummoned_516C30();
-int nox_script_RaiseZombieGroup_516D40();
 int nox_script_ObjIsGameball_516D70();
 int nox_script_ObjIsCrown_516DC0();
 
@@ -429,7 +428,7 @@ var noxScriptBuiltins = []func() int{
 	198: nox_script_ZombieStayDown_516C70,
 	199: nox_script_ZombieStayDownGroup_516CB0,
 	200: nox_script_RaiseZombie_516CE0,
-	201: wrapScriptC(C.nox_script_RaiseZombieGroup_516D40),
+	201: nox_script_RaiseZombieGroup_516D40,
 	202: nox_script_MusicPushEvent_5164A0,
 	203: nox_script_MusicPopEvent_5164E0,
 	204: nox_script_ClearMusic_516520,
@@ -1891,5 +1890,16 @@ func nox_script_RaiseZombie_516CE0() int {
 	if v1 != nil {
 		C.sub_516D00(v1.CObj())
 	}
+	return 0
+}
+
+func nox_script_RaiseZombieGroup_516D40() int {
+	s := &noxServer.noxScript
+
+	v0 := s.PopI32()
+	mapGroup := getMapGroupByInd(int(v0))
+	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
+		C.sub_516D00(obj.CObj())
+	})
 	return 0
 }
