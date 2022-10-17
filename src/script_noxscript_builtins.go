@@ -101,7 +101,6 @@ int nox_script_TrapSpells_516B40();
 int nox_script_PlayerIsTrading_5166E0();
 int nox_script_SetShopkeeperGreet_516BE0();
 int nox_script_IsSummoned_516C30();
-int nox_script_RaiseZombie_516CE0();
 int nox_script_RaiseZombieGroup_516D40();
 int nox_script_ObjIsGameball_516D70();
 int nox_script_ObjIsCrown_516DC0();
@@ -129,6 +128,7 @@ uint32_t* sub_5130E0(int a1, uint32_t* a2);
 int nox_xxx_spellGrantToPlayer_4FB550(nox_object_t* a1, int a2, int a3, int a4, int a5);
 int nox_xxx_inventoryServPlace_4F36F0(nox_object_t* a1p, nox_object_t* a2p, int a3, int a4);
 void nox_xxx_playerCanCarryItem_513B00(nox_object_t* a1p, nox_object_t* a2p);
+unsigned int sub_516D00(nox_object_t* a1);
 */
 import "C"
 import (
@@ -428,7 +428,7 @@ var noxScriptBuiltins = []func() int{
 	197: wrapScriptC(C.nox_script_IsSummoned_516C30),
 	198: nox_script_ZombieStayDown_516C70,
 	199: nox_script_ZombieStayDownGroup_516CB0,
-	200: wrapScriptC(C.nox_script_RaiseZombie_516CE0),
+	200: nox_script_RaiseZombie_516CE0,
 	201: wrapScriptC(C.nox_script_RaiseZombieGroup_516D40),
 	202: nox_script_MusicPushEvent_5164A0,
 	203: nox_script_MusicPopEvent_5164E0,
@@ -1880,6 +1880,16 @@ func nox_script_FollowGroup_515910() int {
 		scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
 			obj.AsUnit().Follow(v2)
 		})
+	}
+	return 0
+}
+
+func nox_script_RaiseZombie_516CE0() int {
+	s := &noxServer.noxScript
+
+	v1 := s.PopObject()
+	if v1 != nil {
+		C.sub_516D00(v1.CObj())
 	}
 	return 0
 }

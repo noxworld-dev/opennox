@@ -5560,7 +5560,8 @@ LABEL_8:
 }
 
 //----- (00516D00) --------------------------------------------------------
-unsigned int sub_516D00(int a1) {
+unsigned int sub_516D00(nox_object_t* a1p) {
+	int a1 = a1p;
 	unsigned int result; // eax
 	int v2;              // edx
 
