@@ -60,7 +60,6 @@ int nox_script_GetElevatorStat_5154A0();
 int nox_script_Guard_515600();
 int nox_script_GuardGroup_515700();
 int nox_script_HuntGroup_5157D0();
-int nox_script_Idle_515800();
 int nox_script_GroupIdle_515850();
 int nox_script_Follow_515880();
 int nox_script_FollowGroup_515910();
@@ -375,7 +374,7 @@ var noxScriptBuiltins = []func() int{
 	140: wrapScriptC(C.nox_script_GuardGroup_515700),
 	141: nox_script_Hunt_515780,
 	142: wrapScriptC(C.nox_script_HuntGroup_5157D0),
-	143: wrapScriptC(C.nox_script_Idle_515800),
+	143: nox_script_Idle_515800,
 	144: wrapScriptC(C.nox_script_GroupIdle_515850),
 	145: wrapScriptC(C.nox_script_Follow_515880),
 	146: wrapScriptC(C.nox_script_FollowGroup_515910),
@@ -1839,5 +1838,15 @@ func nox_script_pickup_5139A0() int {
 		return 0
 	}
 	s.PushI32(v6)
+	return 0
+}
+
+func nox_script_Idle_515800() int {
+	s := &noxServer.noxScript
+
+	unit := s.PopObject()
+	if unit != nil {
+		unit.AsUnit().Idle()
+	}
 	return 0
 }
