@@ -19,7 +19,6 @@ int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
 int nox_script_groupEnchant_5133B0();
-int nox_script_HasClass_516210();
 int nox_script_cancelBuff_513D00();
 int nox_script_getCurrentHP_513D70();
 int nox_script_getMaxHP_513DB0();
@@ -304,7 +303,7 @@ var noxScriptBuiltins = []func() int{
 	76:  nox_script_getInvHolder_513960,
 	77:  nox_script_pickup_5139A0,
 	78:  nox_script_drop_513C10,
-	79:  wrapScriptC(C.nox_script_HasClass_516210),
+	79:  nox_script_HasClass_516210,
 	80:  nox_script_builtin_513C60,
 	81:  nox_script_TestBuffs_513C70,
 	82:  wrapScriptC(C.nox_script_cancelBuff_513D00),
@@ -1925,6 +1924,23 @@ func nox_script_TestBuffs_513C70() int {
 	if obj != nil && ok {
 		hasEnchant := obj.HasEnchant(enchantId)
 		s.PushI32(int32(bool2int(hasEnchant)))
+	} else {
+		s.PushI32(0)
+	}
+	return 0
+}
+
+func nox_script_HasClass_516210() int {
+	s := &noxServer.noxScript
+
+	v5 := s.PopString()
+	v7 := s.PopObject()
+	if v7 != nil {
+		cls, err := object.ParseClass(v5)
+		if err != nil {
+			panic(err)
+		}
+		s.PushI32(int32(bool2int(v7.Class().Has(cls))))
 	} else {
 		s.PushI32(0)
 	}
