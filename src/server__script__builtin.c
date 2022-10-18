@@ -476,30 +476,6 @@ int nox_script_groupEnchant_5133B0() {
 	return 0;
 }
 
-//----- (00513C10) --------------------------------------------------------
-int nox_script_drop_513C10() {
-	int v0;       // edi
-	int v1;       // eax
-	int v2;       // esi
-	uint32_t* v3; // eax
-	int v4;       // eax
-	int result;   // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
-	v3 = (uint32_t*)nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v2 && v3) {
-		v4 = nox_xxx_invForceDropItem_4ED930(v2, v3);
-		nox_script_push(v4);
-		result = 0;
-	} else {
-		nox_script_push(0);
-		result = 0;
-	}
-	return result;
-}
-
 //----- (00513C70) --------------------------------------------------------
 int nox_script_TestBuffs_513C70() {
 	int v0;     // esi
