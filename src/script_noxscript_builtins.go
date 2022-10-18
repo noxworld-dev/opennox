@@ -19,7 +19,6 @@ int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
 int nox_script_groupEnchant_5133B0();
-int nox_script_drop_513C10();
 int nox_script_HasClass_516210();
 int nox_script_TestBuffs_513C70();
 int nox_script_cancelBuff_513D00();
@@ -305,7 +304,7 @@ var noxScriptBuiltins = []func() int{
 	75:  nox_script_hasItem_513910,
 	76:  nox_script_getInvHolder_513960,
 	77:  nox_script_pickup_5139A0,
-	78:  wrapScriptC(C.nox_script_drop_513C10),
+	78:  nox_script_drop_513C10,
 	79:  wrapScriptC(C.nox_script_HasClass_516210),
 	80:  nox_script_builtin_513C60,
 	81:  wrapScriptC(C.nox_script_TestBuffs_513C70),
@@ -1901,5 +1900,19 @@ func nox_script_RaiseZombieGroup_516D40() int {
 	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
 		C.sub_516D00(obj.CObj())
 	})
+	return 0
+}
+
+func nox_script_drop_513C10() int {
+	s := &noxServer.noxScript
+
+	item := s.PopObject()
+	holder := s.PopObject()
+	if holder != nil && item != nil {
+		v4 := int32(holder.forceDrop(item))
+		s.PushI32(v4)
+	} else {
+		s.PushI32(0)
+	}
 	return 0
 }

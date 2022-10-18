@@ -1206,16 +1206,16 @@ func (obj *Object) callDrop(it noxObject, pos types.Pointf) int {
 	}
 }
 
-func (obj *Object) forceDrop(item *Object) { // nox_xxx_invForceDropItem_4ED930
+func (obj *Object) forceDrop(item *Object) int { // nox_xxx_invForceDropItem_4ED930
 	pos := randomReachablePointAround(50.0, obj.Pos())
-	obj.forceDropAt(item, pos)
+	return obj.forceDropAt(item, pos)
 }
 
-func (obj *Object) forceDropAt(item *Object, pos types.Pointf) { // nox_xxx_drop_4ED790
+func (obj *Object) forceDropAt(item *Object, pos types.Pointf) int { // nox_xxx_drop_4ED790
 	cpos, free := alloc.New(types.Pointf{})
 	defer free()
 	*cpos = pos
-	C.nox_xxx_drop_4ED790(obj.CObj(), item.CObj(), (*C.float2)(unsafe.Pointer(cpos)))
+	return int(C.nox_xxx_drop_4ED790(obj.CObj(), item.CObj(), (*C.float2)(unsafe.Pointer(cpos))))
 }
 
 func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_5330C0
