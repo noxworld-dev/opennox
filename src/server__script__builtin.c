@@ -1636,44 +1636,6 @@ int nox_script_GiveExp_516190() {
 	return 0;
 }
 
-//----- (00516210) --------------------------------------------------------
-int nox_script_HasClass_516210() {
-	int v0;            // esi
-	int v1;            // eax
-	int result;        // eax
-	const char* v3;    // ecx
-	int v4;            // ebp
-	const char* v5;    // ebx
-	unsigned char* v6; // edi
-	int v7;            // [esp+10h] [ebp-4h]
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v7 = nox_server_scriptValToObjectPtr_511B60(v1);
-	if (v7) {
-		v3 = *(const char**)getMemAt(0x587000, 237172);
-		v4 = 1;
-		if (*getMemU32Ptr(0x587000, 237172)) {
-			v5 = nox_script_getString_512E40(v0);
-			v6 = getMemAt(0x587000, 237172);
-			while (strcmp(v3, v5)) {
-				v3 = (const char*)*((uint32_t*)v6 + 1);
-				v6 += 4;
-				v4 *= 2;
-				if (!v3) {
-					return 0;
-				}
-			}
-			nox_script_push((v4 & *(uint32_t*)(v7 + 8)) != 0);
-		}
-		result = 0;
-	} else {
-		nox_script_push(0);
-		result = 0;
-	}
-	return result;
-}
-
 //----- (005162D0) --------------------------------------------------------
 int nox_script_HasSubclass_5162D0() {
 	int v0;            // eax
