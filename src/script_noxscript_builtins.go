@@ -1750,7 +1750,7 @@ func nox_script_getNextInvItem_5138E0() int {
 func zombieSetStayDead(obj *Object) {
 	if obj != nil {
 		if obj.Class().Has(object.ClassMonster) {
-			*(*uint32)(unsafe.Add(obj.updateDataPtr(), 1440)) |= 0x100000
+			obj.AsUnit().updateDataMonster().field_360 |= 0x100000
 		}
 	}
 }
