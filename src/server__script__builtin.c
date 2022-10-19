@@ -476,25 +476,6 @@ int nox_script_groupEnchant_5133B0() {
 	return 0;
 }
 
-//----- (00513D70) --------------------------------------------------------
-int nox_script_getCurrentHP_513D70() {
-	int v0;             // eax
-	int v1;             // eax
-	unsigned short* v2; // ecx
-	int result;         // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1 && (v2 = *(unsigned short**)(v1 + 556)) != 0) {
-		nox_script_push(*v2);
-		result = 0;
-	} else {
-		nox_script_push(0);
-		result = 0;
-	}
-	return result;
-}
-
 //----- (00513DB0) --------------------------------------------------------
 int nox_script_getMaxHP_513DB0() {
 	int v0;     // eax
