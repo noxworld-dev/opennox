@@ -19,7 +19,6 @@ int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
 int nox_script_groupEnchant_5133B0();
-int nox_script_getDistance_513E20();
 int nox_script_canInteract_513E80();
 int nox_script_Fn5E_513F70();
 int nox_script_GetHostInfo_513FA0();
@@ -307,7 +306,7 @@ var noxScriptBuiltins = []func() int{
 	83:  nox_script_getCurrentHP_513D70,
 	84:  nox_script_getMaxHP_513DB0,
 	85:  nox_script_restoreHP_513DF0,
-	86:  wrapScriptC(C.nox_script_getDistance_513E20),
+	86:  nox_script_getDistance_513E20,
 	87:  noxScriptCompare("nox_script_canInteract_513E80", wrapScriptC(C.nox_script_canInteract_513E80), nox_script_canInteract_513E80),
 	88:  nox_script_fn58_513F10,
 	89:  nox_script_fn59_513F20,
@@ -1990,5 +1989,18 @@ func nox_script_restoreHP_513DF0() int {
 	if obj != nil && delta > 0 {
 		C.nox_xxx_unitAdjustHP_4EE460(obj.CObj(), C.int(delta))
 	}
+	return 0
+}
+
+func nox_script_getDistance_513E20() int {
+	s := &noxServer.noxScript
+
+	y2 := s.PopF32()
+	x2 := s.PopF32()
+	y1 := s.PopF32()
+	x1 := s.PopF32()
+
+	v5 := float32(math.Hypot(float64(y1-y2), float64(x1-x2)))
+	s.PushF32(v5)
 	return 0
 }
