@@ -476,23 +476,6 @@ int nox_script_groupEnchant_5133B0() {
 	return 0;
 }
 
-//----- (00513E20) --------------------------------------------------------
-int nox_script_getDistance_513E20() {
-	float v0; // eax
-	float v2; // [esp+4h] [ebp-Ch]
-	float v3; // [esp+8h] [ebp-8h]
-	float v4; // [esp+Ch] [ebp-4h]
-	int v5;   // [esp+Ch] [ebp-4h]
-
-	v4 = nox_script_popf();
-	v2 = nox_script_popf();
-	v3 = nox_script_popf();
-	v0 = nox_script_popf();
-	*(float*)&v5 = sqrt((v3 - v4) * (v3 - v4) + (v0 - v2) * (v0 - v2));
-	nox_script_push(v5);
-	return 0;
-}
-
 //----- (00513E80) --------------------------------------------------------
 int nox_script_canInteract_513E80() {
 	int v0;    // edi
