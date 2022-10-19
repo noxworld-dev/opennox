@@ -19,7 +19,6 @@ int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
 int nox_script_groupEnchant_5133B0();
-int nox_script_restoreHP_513DF0();
 int nox_script_getDistance_513E20();
 int nox_script_canInteract_513E80();
 int nox_script_Fn5E_513F70();
@@ -122,6 +121,7 @@ int nox_xxx_spellGrantToPlayer_4FB550(nox_object_t* a1, int a2, int a3, int a4, 
 int nox_xxx_inventoryServPlace_4F36F0(nox_object_t* a1p, nox_object_t* a2p, int a3, int a4);
 void nox_xxx_playerCanCarryItem_513B00(nox_object_t* a1p, nox_object_t* a2p);
 unsigned int sub_516D00(nox_object_t* a1);
+void nox_xxx_unitAdjustHP_4EE460(nox_object_t* unit, int dv);
 */
 import "C"
 import (
@@ -306,7 +306,7 @@ var noxScriptBuiltins = []func() int{
 	82:  nox_script_cancelBuff_513D00,
 	83:  nox_script_getCurrentHP_513D70,
 	84:  nox_script_getMaxHP_513DB0,
-	85:  wrapScriptC(C.nox_script_restoreHP_513DF0),
+	85:  nox_script_restoreHP_513DF0,
 	86:  wrapScriptC(C.nox_script_getDistance_513E20),
 	87:  noxScriptCompare("nox_script_canInteract_513E80", wrapScriptC(C.nox_script_canInteract_513E80), nox_script_canInteract_513E80),
 	88:  nox_script_fn58_513F10,
@@ -1978,6 +1978,17 @@ func nox_script_getMaxHP_513DB0() int {
 		s.PushI32(int32(max))
 	} else {
 		s.PushI32(0)
+	}
+	return 0
+}
+
+func nox_script_restoreHP_513DF0() int {
+	s := &noxServer.noxScript
+
+	delta := s.PopI32()
+	obj := s.PopObject()
+	if obj != nil && delta > 0 {
+		C.nox_xxx_unitAdjustHP_4EE460(obj.CObj(), C.int(delta))
 	}
 	return 0
 }
