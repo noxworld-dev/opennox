@@ -476,26 +476,6 @@ int nox_script_groupEnchant_5133B0() {
 	return 0;
 }
 
-//----- (00513D00) --------------------------------------------------------
-int nox_script_cancelBuff_513D00() {
-	int v0; // esi
-	int v1; // ebx
-	int v2; // esi
-	int v3; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	const char* v5 = nox_script_getString_512E40(v0);
-	v2 = nox_xxx_enchantByName_424880(v5);
-	if (v2 != -1) {
-		v3 = nox_server_scriptValToObjectPtr_511B60(v1);
-		if (v3) {
-			nox_xxx_spellBuffOff_4FF5B0(v3, v2);
-		}
-	}
-	return 0;
-}
-
 //----- (00513D70) --------------------------------------------------------
 int nox_script_getCurrentHP_513D70() {
 	int v0;             // eax
