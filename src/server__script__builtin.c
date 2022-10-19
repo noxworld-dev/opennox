@@ -476,21 +476,6 @@ int nox_script_groupEnchant_5133B0() {
 	return 0;
 }
 
-//----- (00513DF0) --------------------------------------------------------
-int nox_script_restoreHP_513DF0() {
-	int v0; // esi
-	int v1; // eax
-	int v2; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
-	if (v2 && v0 > 0) {
-		nox_xxx_unitAdjustHP_4EE460(v2, v0);
-	}
-	return 0;
-}
-
 //----- (00513E20) --------------------------------------------------------
 int nox_script_getDistance_513E20() {
 	float v0; // eax
