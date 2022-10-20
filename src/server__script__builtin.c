@@ -551,29 +551,6 @@ int nox_script_GetHostInfo_513FA0() {
 	return result;
 }
 
-//----- (00514050) --------------------------------------------------------
-int nox_script_FaceObject_514050() {
-	int v0;    // edi
-	int v1;    // eax
-	int v2;    // esi
-	int v3;    // eax
-	short v4;  // ax
-	float2 v6; // [esp+8h] [ebp-8h]
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
-	v3 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v2 && v3) {
-		v6.field_0 = *(float*)(v3 + 56) - *(float*)(v2 + 56);
-		v6.field_4 = *(float*)(v3 + 60) - *(float*)(v2 + 60);
-		v4 = nox_xxx_math_509ED0(&v6);
-		*(uint16_t*)(v2 + 126) = v4;
-		*(uint16_t*)(v2 + 124) = v4;
-	}
-	return 0;
-}
-
 //----- (005140B0) --------------------------------------------------------
 int nox_script_Walk_5140B0() {
 	int v0;   // eax
