@@ -551,27 +551,6 @@ int nox_script_GetHostInfo_513FA0() {
 	return result;
 }
 
-//----- (005140B0) --------------------------------------------------------
-int nox_script_Walk_5140B0() {
-	int v0;   // eax
-	int v1;   // eax
-	float v3; // [esp+0h] [ebp-10h]
-	float v4; // [esp+4h] [ebp-Ch]
-	float v5; // [esp+8h] [ebp-8h]
-	float v6; // [esp+Ch] [ebp-4h]
-
-	v5 = nox_script_popf();
-	v6 = nox_script_popf();
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		v4 = (double)nox_script_builtinGetF44() + v5;
-		v3 = (double)nox_script_builtinGetF40() + v6;
-		nox_xxx_monsterWalkTo_514110(v1, v3, v4);
-	}
-	return 0;
-}
-
 //----- (00514170) --------------------------------------------------------
 int nox_script_GroupWalk_514170() {
 	int v0;     // eax
