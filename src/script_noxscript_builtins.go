@@ -22,7 +22,6 @@ int nox_script_groupEnchant_5133B0();
 int nox_script_canInteract_513E80();
 int nox_script_Fn5E_513F70();
 int nox_script_GetHostInfo_513FA0();
-int nox_script_Walk_5140B0();
 int nox_script_GroupWalk_514170();
 int nox_script_SetOwner_514490();
 int nox_script_SetOwnerGroup_5144C0();
@@ -316,7 +315,7 @@ var noxScriptBuiltins = []func() int{
 	94:  wrapScriptC(C.nox_script_Fn5E_513F70),
 	95:  wrapScriptC(C.nox_script_GetHostInfo_513FA0),
 	96:  nox_script_FaceObject_514050,
-	97:  wrapScriptC(C.nox_script_Walk_5140B0),
+	97:  nox_script_Walk_5140B0,
 	98:  wrapScriptC(C.nox_script_GroupWalk_514170),
 	99:  nox_script_CancelTimer_5141F0,
 	100: nox_script_Effect_514210,
@@ -2014,6 +2013,20 @@ func nox_script_FaceObject_514050() int {
 		vec := tgt.Pos()
 		dir := nox_xxx_math_509ED0(vec.Sub(obj.Pos()))
 		obj.setAllDirs(uint16(dir))
+	}
+	return 0
+}
+
+func nox_script_Walk_5140B0() int {
+	s := &noxServer.noxScript
+
+	dy := s.PopF32()
+	dx := s.PopF32()
+	obj := s.PopObject()
+	if obj != nil {
+		posy := float32(s.builtinGetF44()) + dy
+		posx := float32(s.builtinGetF40()) + dx
+		obj.AsUnit().WalkTo(types.Pointf{X: posx, Y: posy})
 	}
 	return 0
 }
