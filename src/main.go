@@ -372,7 +372,7 @@ func RunArgs(args []string) (gerr error) {
 	// manual spell cast timeout (in seconds)
 	msmul := viper.GetFloat64(configManualSpellCastDelay)
 	// manual spell cast timeout (in frames)
-	*memmap.PtrUint32(0x852978, 16) = uint32(float64(noxServer.TickRate()) * msmul)
+	spellTimeout = uint32(float64(noxServer.TickRate()) * msmul)
 
 	if err := nox_common_scanAllMaps_4D07F0(); err != nil {
 		return fmt.Errorf("cannot find maps: %w", err)
