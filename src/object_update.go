@@ -44,6 +44,7 @@ import (
 
 var (
 	noxPixieObjID int
+	spellTimeout  uint32
 )
 
 func nox_xxx_parseUpdate_536620(objt *ObjectType, _ *MemFile, str string, _ []byte) error {
@@ -275,7 +276,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 			ud.field_22_3 += C.uchar(100 / s.TickRate())
 		}
 	}
-	if ud.spell_cast_start != 0 && ud.field_47_0 == 0 && (s.Frame()-uint32(ud.spell_cast_start)) > memmap.Uint32(0x852978, 16) {
+	if ud.spell_cast_start != 0 && ud.field_47_0 == 0 && (s.Frame()-uint32(ud.spell_cast_start)) > spellTimeout {
 		s.playerSpell(u) // (manual?) spell casting
 		ud.spell_cast_start = 0
 	}
