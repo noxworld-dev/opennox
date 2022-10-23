@@ -2,6 +2,7 @@ package opennox
 
 /*
 #include "defs.h"
+#include "GAME1.h"
 #include "GAME3_3.h"
 #include "GAME4.h"
 #include "GAME4_2.h"
@@ -14,6 +15,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/spell"
 )
 
 type XferFunc func(obj *Object, a2 unsafe.Pointer) error
@@ -112,4 +114,53 @@ func nox_xxx_XFerDefault4F49A0(v1 *Object, a2 unsafe.Pointer) error {
 	}
 	v1.field_34 = v2
 	return nil
+}
+
+//export nox_xxx_XFer_ReadShopItem_52A840
+func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
+	s := noxServer
+	if a2 < 50 {
+		// TODO: why it's unused?
+		_, _ = cryptFileReadU32()
+	}
+	b1, _ := cryptFileReadU8()
+	*(*uint8)(unsafe.Add(a1, 4)) = b1
+
+	tname, _ := cryptFileReadString8()
+	var typ *ObjectType
+	if tname != "" {
+		typ = s.getObjectTypeByID(tname)
+		*(**C.nox_objectType_t)(unsafe.Add(a1, 0)) = typ.C()
+	}
+	if a2 >= 47 {
+		name, _ := cryptFileReadString8()
+		if name != "" {
+			var v4 int
+			switch typ.func_xfer {
+			case C.nox_xxx_XFerFieldGuide_4F6390:
+				v4 = s.getObjectTypeID(name)
+			case C.nox_xxx_XFerAbilityReward_4F6240:
+				v4 = int(s.abilities.nox_xxx_abilityNameToN_424D80(name))
+			default:
+				v4 = int(spell.ParseID(name))
+			}
+			*(*uint32)(unsafe.Add(a1, 8)) = uint32(v4)
+		}
+	}
+	var mods [4]*C.obj_412ae0_t
+	for i := range mods {
+		mname, _ := cryptFileReadString8()
+		if mname == "" {
+			continue
+		}
+		mod := C.nox_xxx_modifGetIdByName_413290(internCStr(mname))
+		if mod >= 0 && mod != 255 {
+			mods[i] = C.nox_xxx_modifGetDescById_413330(mod)
+		}
+	}
+
+	*(**C.obj_412ae0_t)(unsafe.Add(a1, 12)) = mods[0]
+	*(**C.obj_412ae0_t)(unsafe.Add(a1, 16)) = mods[1]
+	*(**C.obj_412ae0_t)(unsafe.Add(a1, 20)) = mods[2]
+	*(**C.obj_412ae0_t)(unsafe.Add(a1, 24)) = mods[3]
 }
