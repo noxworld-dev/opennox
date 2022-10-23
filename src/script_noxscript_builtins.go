@@ -1563,7 +1563,7 @@ func nox_script_unitHeight_513630() int {
 
 	v1 := s.PopObject()
 	if v1 != nil {
-		s.PushU32(v1.RawZ())
+		s.PushF32(v1.Z())
 	} else {
 		s.PushI32(0)
 	}

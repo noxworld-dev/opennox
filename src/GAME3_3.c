@@ -1660,64 +1660,6 @@ int sub_4E4C80(nox_object_t* item) {
 	return result;
 }
 
-//----- (004E4C90) --------------------------------------------------------
-int sub_4E4C90(int a1, unsigned int a2) {
-	uint32_t* v2; // eax
-	int result;   // eax
-	uint16_t* v4; // esi
-	uint16_t* v5; // eax
-
-	v2 = (uint32_t*)nox_xxx_objectTypeByInd_4E3B70(*(unsigned short*)(a1 + 4));
-	if (a2 > 0x20) {
-		if (a2 > 0x200) {
-			if (a2 == 1024 && *(uint8_t*)(a1 + 8) & 2 && *(uint8_t*)(a1 + 12) & 0x30) {
-				return 1;
-			}
-		} else {
-			switch (a2) {
-			case 0x200u:
-				return (*(uint32_t*)(a1 + 8) & 0x13001000) != 0;
-			case 0x40u:
-				if (*(float*)(a1 + 104) != 0.0) {
-					return 1;
-				}
-				break;
-			case 0x80u:
-				return *(uint32_t*)(a1 + 340) != 0;
-			}
-		}
-		return 0;
-	}
-	if (a2 == 32) {
-		return 0;
-	}
-	switch (a2) {
-	case 1u:
-		result = *(uint32_t*)(a1 + 132) != 0;
-		break;
-	case 2u:
-		v4 = *(uint16_t**)(a1 + 556);
-		if (!v4) {
-			return 0;
-		}
-		v5 = (uint16_t*)nox_xxx_objectTypeByIndHealthData(*(unsigned short*)(a1 + 4));
-		if (!v5) {
-			return 0;
-		}
-		result = *v5 != *v4;
-		break;
-	case 4u:
-		result = ((unsigned int)(*(uint32_t*)(a1 + 16) ^ v2[8]) >> 24) & 1;
-		break;
-	case 8u:
-		result = v2[9] != *(uint32_t*)(a1 + 20);
-		break;
-	default:
-		return 0;
-	}
-	return result;
-}
-
 //----- (004E4DE0) --------------------------------------------------------
 int sub_4E4DE0() {
 	int v0;            // edi
