@@ -3952,6 +3952,7 @@ int nox_xxx_guiServerOptionsProc_458590(int a1, int a2, int a3, int a4) {
 // 458F5A: variable 'v34' is possibly undefined
 
 //----- (00459150) --------------------------------------------------------
+void sub_4537F0();
 char sub_459150() {
 	char* v0;          // ebp
 	int i;             // edi

@@ -453,6 +453,7 @@ void nox_client_guiserv_updateMapList_458230(int mode, char* current, bool a3) {
 	sub_459880((int)v11);
 }
 //----- (004585D0) --------------------------------------------------------
+void sub_4537F0();
 int nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int a4) {
 	uint32_t* v4;           // esi
 	char* v5;               // ebp

@@ -8236,7 +8236,7 @@ int nox_xxx_XFerMonster_528DB0(int a1) {
 					if (nox_xxx_cryptGetXxx() == 1) {
 						nox_xxx_XFer_ReadShopItem_52A840(v27 + 28 * (unsigned char)v44 + 4, (short)v45);
 					} else {
-						sub_52A5F0(v27 + 28 * (unsigned char)v44 + 4);
+						nox_xxx_XFer_WriteShopItem_52A5F0(v27 + 28 * (unsigned char)v44 + 4);
 					}
 					LOBYTE(v44) = v44 + 1;
 				} while ((unsigned char)v44 < *(uint8_t*)v27);
@@ -8771,7 +8771,7 @@ int sub_52A440(int a1, int a2, int a3) {
 // 52A440: using guessed type char var_100[256];
 
 //----- (0052A5F0) --------------------------------------------------------
-size_t sub_52A5F0(int a1) {
+size_t nox_xxx_XFer_WriteShopItem_52A5F0(int a1) {
 	int* v1;         // esi
 	int (*v2)(int*); // eax
 	char* v3;        // ebp
@@ -8863,96 +8863,6 @@ LABEL_13:
 	}
 	return result;
 }
-
-//----- (0052A840) --------------------------------------------------------
-nox_objectType_t* nox_xxx_objectTypeByID_4E3B60(char* id);
-int nox_xxx_XFer_ReadShopItem_52A840(int a1, int a2) {
-	bool v2;         // zf
-	int (*v3)(int*); // eax
-	int v4;          // eax
-	int v5;          // edi
-	int v6;          // eax
-	int v7;          // edi
-	int v8;          // eax
-	int v9;          // edi
-	int v10;         // eax
-	int result;      // eax
-	int v12;         // [esp+Ch] [ebp-D0h]
-	int v13;         // [esp+10h] [ebp-CCh]
-	char v14[200];   // [esp+14h] [ebp-C8h]
-
-	if (a2 < 50) {
-		nox_xxx_fileReadWrite_426AC0_file3_fread(&v13, 4u);
-	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(a1 + 4), 1u);
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&v12, 1u);
-	if ((uint8_t)v12) {
-		nox_xxx_fileReadWrite_426AC0_file3_fread(v14, (unsigned char)v12);
-		v14[(unsigned char)v12] = 0;
-		*(uint32_t*)a1 = nox_xxx_objectTypeByID_4E3B60(v14);
-	}
-	if (a2 >= 47) {
-		nox_xxx_fileReadWrite_426AC0_file3_fread(&v12, 1u);
-		nox_xxx_fileReadWrite_426AC0_file3_fread(v14, (unsigned char)v12);
-		v2 = (uint8_t)v12 == 0;
-		v14[(unsigned char)v12] = 0;
-		if (!v2) {
-			v3 = *(int (**)(int*))(*(uint32_t*)a1 + 212);
-			if (v3 == nox_xxx_XFerFieldGuide_4F6390) {
-				v4 = nox_xxx_getNameId_4E3AA0(v14);
-			} else if (v3 == nox_xxx_XFerAbilityReward_4F6240) {
-				v4 = nox_xxx_abilityNameToN_424D80(v14);
-			} else {
-				v4 = nox_xxx_spellNameToN_4243F0(v14);
-			}
-			*(uint32_t*)(a1 + 8) = v4;
-		}
-	}
-	v5 = 0;
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&v12, 1u);
-	if ((uint8_t)v12) {
-		nox_xxx_fileReadWrite_426AC0_file3_fread(v14, (unsigned char)v12);
-		v14[(unsigned char)v12] = 0;
-		v6 = nox_xxx_modifGetIdByName_413290(v14);
-		if (v6 != 255) {
-			v5 = nox_xxx_modifGetDescById_413330(v6);
-		}
-	}
-	*(uint32_t*)(a1 + 12) = v5;
-	v7 = 0;
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&v12, 1u);
-	if ((uint8_t)v12) {
-		nox_xxx_fileReadWrite_426AC0_file3_fread(v14, (unsigned char)v12);
-		v14[(unsigned char)v12] = 0;
-		v8 = nox_xxx_modifGetIdByName_413290(v14);
-		if (v8 != 255) {
-			v7 = nox_xxx_modifGetDescById_413330(v8);
-		}
-	}
-	*(uint32_t*)(a1 + 16) = v7;
-	v9 = 0;
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&v12, 1u);
-	if ((uint8_t)v12) {
-		nox_xxx_fileReadWrite_426AC0_file3_fread(v14, (unsigned char)v12);
-		v14[(unsigned char)v12] = 0;
-		v10 = nox_xxx_modifGetIdByName_413290(v14);
-		if (v10 != 255) {
-			v9 = nox_xxx_modifGetDescById_413330(v10);
-		}
-	}
-	*(uint32_t*)(a1 + 20) = v9;
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&v12, 1u);
-	result = v12;
-	if ((uint8_t)v12 && (nox_xxx_fileReadWrite_426AC0_file3_fread(v14, (unsigned char)v12), v14[(unsigned char)v12] = 0,
-						 result = nox_xxx_modifGetIdByName_413290(v14), result != 255)) {
-		result = nox_xxx_modifGetDescById_413330(result);
-		*(uint32_t*)(a1 + 24) = result;
-	} else {
-		*(uint32_t*)(a1 + 24) = 0;
-	}
-	return result;
-}
-// 52A840: using guessed type char var_C8[200];
 
 //----- (0052AAB0) --------------------------------------------------------
 int nox_xxx_XFer_ReadMonsterBuffs_52AAB0(uint32_t* a1) {
