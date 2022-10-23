@@ -915,7 +915,7 @@ func processStreamOp0(id int, out []byte, pid int, p1 byte, ns1 *stream, from ne
 
 	ns2.SetAddr(from)
 
-	out[0] = 31
+	out[0] = byte(noxnet.MSG_ACCEPTED)
 	out[1] = p1
 	out[2] = 1
 	binary.LittleEndian.PutUint32(out[3:], uint32(pid))
@@ -1047,7 +1047,7 @@ func processStreamOp14(out []byte, packet []byte, ns1 *stream, p1 byte, from net
 
 	ind2 := getFreeNetStruct2Ind()
 	if ind2 < 0 {
-		out[2] = 20 // OK
+		out[2] = byte(noxnet.MSG_SERVER_JOIN_OK) // OK
 		return 3
 	}
 	nx := &streams2[ind2]
@@ -1131,7 +1131,7 @@ func processStreamOp(id int, packet []byte, out []byte, from netip.AddrPort) int
 		if Debug {
 			Log.Printf("processStreamOp: op=%d [%d]\n", op, len(packetCur))
 		}
-		switch op {
+		switch noxnet.Op(op) {
 		default:
 			return 0
 		case 0:
@@ -1186,13 +1186,13 @@ func processStreamOp(id int, packet []byte, out []byte, from netip.AddrPort) int
 			ns1.callFunc2(pid, out[:1], ns7.data3)
 			CloseByInd(id)
 			return 0
-		case 14: // join game request?
+		case noxnet.MSG_SERVER_JOIN: // join game request?
 			return processStreamOp14(out, packet, ns1, p1, from, ns1.check14)
 		case 17:
 			return processStreamOp17(out, packet, p1, from, ns1.check17)
 		case 18:
 			return processStreamOp18(out, packet, from)
-		case 31:
+		case noxnet.MSG_ACCEPTED:
 			if len(packetCur) < 1 {
 				return 0
 			}
