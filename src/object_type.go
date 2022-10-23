@@ -62,6 +62,42 @@ func sub_4E4C50(cobj *nox_object_t) int {
 	return int(typ.init_data_size)
 }
 
+//export sub_4F40A0
+func sub_4F40A0(a1 *nox_object_t) C.char {
+	obj := asObjectC(a1)
+	if obj == nil {
+		return 0
+	}
+	if obj.ID() != "" {
+		return -1
+	}
+	if obj.inv_first_item != nil {
+		return -1
+	}
+	if obj.field_129 != nil {
+		return -1
+	}
+	if byte(obj.field_13) != 0 {
+		return -1
+	}
+	typ := noxServer.getObjectTypeByInd(obj.objTypeInd())
+	if (uint32(obj.obj_flags)^typ.obj_flags)&0x11408162 != 0 {
+		return -1
+	}
+	if (byte(obj.field_5)^byte(typ.field_9))&0x5E != 0 {
+		return -1
+	}
+	if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+		v3 := GoString((*C.char)(obj.field_189))
+		if v3 != "" {
+			return -1
+		}
+	} else if noxflags.HasGame(noxflags.GameHost) && obj.field_192 != -1 {
+		return -1
+	}
+	return 0
+}
+
 //export nox_xxx_getUnitDefDd10_4E3BA0
 func nox_xxx_getUnitDefDd10_4E3BA0(ind C.int) C.int {
 	return C.int(noxServer.getObjectTypeByInd(int(ind)).allowed)
