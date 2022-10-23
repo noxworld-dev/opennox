@@ -405,7 +405,7 @@ typedef struct nox_object_t {
 	float force_y;           // 23, 92
 	float float_24;          // 24, 96, // TODO: something related to acceleration/direction
 	float float_25;          // 25, 100, // TODO: something related to acceleration/direction
-	uint32_t field_26;       // 26, 104
+	float z;          // 26, 104
 	uint32_t field_27;       // 27, 108
 	float float_28;          // 28, 112, // TODO: damping/drag?
 	uint32_t field_29;       // 29, 116

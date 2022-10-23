@@ -35,11 +35,6 @@ func nox_xxx_newObjectWithTypeInd_4E3450(ind C.int) *nox_object_t {
 	return noxServer.getObjectTypeByInd(int(ind)).newObject().CObj()
 }
 
-//export nox_xxx_objectTypeByInd_4E3B70
-func nox_xxx_objectTypeByInd_4E3B70(ind C.int) *C.nox_objectType_t {
-	return noxServer.getObjectTypeByInd(int(ind)).C()
-}
-
 //export nox_xxx_objectTypeByIndHealthData
 func nox_xxx_objectTypeByIndHealthData(ind C.int) unsafe.Pointer {
 	t := noxServer.getObjectTypeByInd(int(ind))
@@ -96,6 +91,39 @@ func sub_4F40A0(a1 *nox_object_t) C.char {
 		return -1
 	}
 	return 0
+}
+
+//export sub_4E4C90
+func sub_4E4C90(a1 *nox_object_t, a2 uint) int {
+	obj := asObjectC(a1)
+	typ := noxServer.getObjectTypeByInd(obj.objTypeInd())
+	switch a2 {
+	case 0x1:
+		return bool2int(obj.field_33 != 0)
+	case 0x2:
+		health := obj.healthData()
+		if health == nil {
+			return 0
+		}
+		if typ == nil || typ.health_data == nil {
+			return 0
+		}
+		return bool2int(typ.health_data.cur != health.cur)
+	case 0x4:
+		return bool2int((uint32(obj.obj_flags)^typ.obj_flags>>24)&1 != 0)
+	case 0x8:
+		return bool2int(typ.field_9 != uint32(obj.field_5))
+	case 0x40:
+		return bool2int(obj.Z() != 0.0)
+	case 0x80:
+		return bool2int(obj.buffs != 0)
+	case 0x200:
+		return bool2int(obj.obj_class&0x13001000 != 0)
+	case 0x400:
+		return bool2int(obj.obj_class&2 != 0 && obj.obj_subclass&0x30 != 0)
+	default:
+		return 0
+	}
 }
 
 //export nox_xxx_getUnitDefDd10_4E3BA0
@@ -400,7 +428,7 @@ func (s *Server) getObjectTypeID(id string) int { // nox_xxx_getNameId_4E3AA0
 	return typ.Ind()
 }
 
-func (s *Server) getObjectTypeByInd(ind int) *ObjectType { // nox_xxx_objectTypeByInd_4E3B70
+func (s *Server) getObjectTypeByInd(ind int) *ObjectType {
 	if ind == math.MaxUint16 {
 		return nil
 	}
