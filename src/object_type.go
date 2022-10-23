@@ -49,6 +49,19 @@ func nox_xxx_objectTypeByIndHealthData(ind C.int) unsafe.Pointer {
 	return unsafe.Pointer(t.health_data)
 }
 
+//export sub_4E4C50
+func sub_4E4C50(cobj *nox_object_t) int {
+	item := asObjectC(cobj)
+	if item == nil {
+		return 0
+	}
+	typ := noxServer.getObjectTypeByInd(item.objTypeInd())
+	if typ == nil {
+		return 0
+	}
+	return int(typ.init_data_size)
+}
+
 //export nox_xxx_getUnitDefDd10_4E3BA0
 func nox_xxx_getUnitDefDd10_4E3BA0(ind C.int) C.int {
 	return C.int(noxServer.getObjectTypeByInd(int(ind)).allowed)

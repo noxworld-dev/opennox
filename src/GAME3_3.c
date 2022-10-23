@@ -1647,19 +1647,6 @@ int nox_object_getInitData_4E4C30(nox_object_t* item) {
 	return result;
 }
 
-//----- (004E4C50) --------------------------------------------------------
-int sub_4E4C50(nox_object_t* item) {
-	int v1;     // eax
-	int result; // eax
-
-	if (item && (v1 = nox_xxx_objectTypeByInd_4E3B70(*(unsigned short*)&item->typ_ind)) != 0) {
-		result = *(uint32_t*)(v1 + 180);
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
 //----- (004E4C80) --------------------------------------------------------
 int sub_4E4C80(nox_object_t* item) {
 	const int* a1 = (int*)item;
