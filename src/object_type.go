@@ -72,11 +72,6 @@ func nox_xxx_getUnitNameByThingType_4E3A80(ind C.int) *C.char {
 	return noxServer.getObjectTypeByInd(int(ind)).id
 }
 
-//export nox_xxx_objectTypeByID_4E3B60
-func nox_xxx_objectTypeByID_4E3B60(cstr *C.char) *C.nox_objectType_t {
-	return noxServer.getObjectTypeByID(GoString(cstr)).C()
-}
-
 //export nox_objectTypeGetXfer
 func nox_objectTypeGetXfer(cstr *C.char) unsafe.Pointer {
 	t := noxServer.getObjectTypeByID(GoString(cstr))
