@@ -1171,7 +1171,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	}
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		nox_xxx_spellEnableAll_424BD0()
-		C.sub_4537F0()
+		sub_4537F0()
 	}
 	var merr error
 	if nox_xxx_gameIsSwitchToSolo_4DB240() != 0 {
@@ -1192,7 +1192,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 				C.sub_57AAA0(internCStr("user.rul"), (*C.char)(v7p), (*C.int)(unsafe.Pointer(v9)))
 			}
 			nox_xxx_spellEnableAll_424BD0()
-			C.sub_4537F0()
+			sub_4537F0()
 		}
 		v10 := s.nox_server_currentMapGetFilename_409B30()
 		merr = s.nox_server_loadMapFile_4CF5F0(v10, false)
@@ -2217,5 +2217,20 @@ func nox_xxx_wall_410160() {
 	C.dword_5d4594_251552 = 0
 	for i := 0; i < 256; i++ {
 		dword_5d4594_251556[i] = nil
+	}
+}
+
+//export sub_4537F0
+func sub_4537F0() {
+	s := noxServer
+	for i := 0; i < 26; i++ {
+		if ind := int(C.sub_415CD0(C.int(1 << i))); ind != 0 {
+			s.enableObject(s.getObjectTypeByInd(ind))
+		}
+	}
+	for i := 0; i < 27; i++ {
+		if ind := int(C.sub_415840(C.int(1 << i))); ind != 0 {
+			s.enableObject(s.getObjectTypeByInd(ind))
+		}
 	}
 }

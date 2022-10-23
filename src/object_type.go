@@ -127,11 +127,6 @@ func sub_415EC0(a1 *C.char) C.int {
 	return C.int(t.ind)
 }
 
-//export sub_4E3BF0
-func sub_4E3BF0(a1 *C.nox_objectType_t) {
-	noxServer.enableObject(asObjectType(a1))
-}
-
 func (s *Server) disableObject(typ *ObjectType) {
 	s.types.crc ^= typ.allowed
 	typ.allowed = 0
