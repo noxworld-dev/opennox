@@ -2335,36 +2335,6 @@ char sub_453750() {
 	return v4;
 }
 
-//----- (004537F0) --------------------------------------------------------
-void sub_4537F0() {
-	int v0;     // esi
-	int v1;     // edi
-	int v2;     // eax
-	int v4;     // esi
-	int v5;     // edi
-
-	v0 = 1;
-	v1 = 26;
-	do {
-		v2 = sub_415CD0((char*)v0);
-		if (v2) {
-			sub_4E3BF0(nox_xxx_objectTypeByInd_4E3B70(v2));
-		}
-		v0 *= 2;
-		--v1;
-	} while (v1);
-	v4 = 1;
-	v5 = 27;
-	do {
-		int result = sub_415840((char*)v4);
-		if (result) {
-			sub_4E3BF0(nox_xxx_objectTypeByInd_4E3B70(result));
-		}
-		v4 *= 2;
-		--v5;
-	} while (v5);
-}
-
 //----- (00453B00) --------------------------------------------------------
 uint32_t* sub_453B00() {
 	int v0;           // esi
