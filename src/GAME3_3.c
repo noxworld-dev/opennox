@@ -12174,43 +12174,6 @@ int nox_xxx_servMapLoadPlaceObj_4F3F50(nox_object_t* a1p, int a2, void* a3p) {
 	return result;
 }
 
-//----- (004F40A0) --------------------------------------------------------
-char sub_4F40A0(int a1) {
-	int v2;         // eax
-	const char* v3; // esi
-
-	if (a1) {
-		if (*(uint32_t*)a1) {
-			return -1;
-		}
-		if (*(uint32_t*)(a1 + 504)) {
-			return -1;
-		}
-		if (*(uint32_t*)(a1 + 516)) {
-			return -1;
-		}
-		if (*(uint8_t*)(a1 + 52)) {
-			return -1;
-		}
-		v2 = nox_xxx_objectTypeByInd_4E3B70(*(unsigned short*)(a1 + 4));
-		if ((*(uint32_t*)(a1 + 16) ^ *(uint32_t*)(v2 + 32)) & 0x11408162) {
-			return -1;
-		}
-		if ((*(uint8_t*)(a1 + 20) ^ *(uint8_t*)(v2 + 36)) & 0x5E) {
-			return -1;
-		}
-		if (nox_common_gameFlags_check_40A5C0(6291456)) {
-			v3 = *(const char**)(a1 + 756);
-			if (v3 && strlen(v3)) {
-				return -1;
-			}
-		} else if (nox_common_gameFlags_check_40A5C0(1) && *(int*)(a1 + 768) != -1) {
-			return -1;
-		}
-	}
-	return 0;
-}
-
 //----- (004F4170) --------------------------------------------------------
 int nox_xxx_readObjectOldVer_4F4170(int a1, int a2, int a3) {
 	uint8_t** v3;       // esi
