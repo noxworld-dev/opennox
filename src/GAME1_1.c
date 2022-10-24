@@ -6100,7 +6100,7 @@ int sub_427430(int a1) {
 unsigned char nox_xxx_guideGetUnitSize_427460(int a1) { return getMemByte(0x5D4594, 740100 + 28 * a1); }
 
 //----- (00427490) --------------------------------------------------------
-void* nox_xxx_journalEntryAdd_427490(nox_playerInfo* a1p, char* a2, short a3) {
+nox_playerInfo_journal* nox_xxx_journalEntryAdd_427490(nox_playerInfo* a1p, char* a2, short a3) {
 	int a1 = a1p;
 	uint8_t* result; // eax
 	uint8_t* v4;     // esi
