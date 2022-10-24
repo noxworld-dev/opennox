@@ -6100,7 +6100,8 @@ int sub_427430(int a1) {
 unsigned char nox_xxx_guideGetUnitSize_427460(int a1) { return getMemByte(0x5D4594, 740100 + 28 * a1); }
 
 //----- (00427490) --------------------------------------------------------
-uint8_t* nox_xxx_journalEntryAdd_427490(int a1, char* a2, short a3) {
+void* nox_xxx_journalEntryAdd_427490(nox_playerInfo* a1p, char* a2, short a3) {
+	int a1 = a1p;
 	uint8_t* result; // eax
 	uint8_t* v4;     // esi
 	int v5;          // eax
@@ -6125,7 +6126,8 @@ uint8_t* nox_xxx_journalEntryAdd_427490(int a1, char* a2, short a3) {
 }
 
 //----- (00427500) --------------------------------------------------------
-void nox_xxx_comJournalEntryAdd_427500(int a1, char* a2, short a3) {
+void nox_xxx_comJournalEntryAdd_427500(nox_object_t* a1p, char* a2, short a3) {
+	int a1 = a1p;
 	int v3;      // esi
 	uint8_t* v4; // eax
 
@@ -6154,7 +6156,8 @@ int nox_xxx_comAddEntryAll_427550(char* a1, short a2) {
 }
 
 //----- (00427590) --------------------------------------------------------
-int nox_xxx_journalEntryRemove_427590(int a1, const char* a2) {
+int nox_xxx_journalEntryRemove_427590(nox_playerInfo* a1p, const char* a2) {
+	int a1 = a1p;
 	int v2; // edi
 	int v4; // eax
 	int v5; // eax
@@ -6212,7 +6215,8 @@ int nox_xxx_comRemoveEntryAll_427680(const char* a1) {
 }
 
 //----- (004276B0) --------------------------------------------------------
-int nox_xxx_journalUpdateEntry_4276B0(int a1, const char* a2, short a3) {
+int nox_xxx_journalUpdateEntry_4276B0(nox_playerInfo* a1p, const char* a2, short a3) {
+	int a1 = a1p;
 	int v3;     // edi
 	int result; // eax
 
@@ -6260,7 +6264,9 @@ int nox_xxx_comUpdateEntryAll_427770(const char* a1, short a2) {
 }
 
 //----- (004277B0) --------------------------------------------------------
-int sub_4277B0(int a1, unsigned short a2) {
+// This removes player's journal with matching bitmask
+int sub_4277B0(nox_object_t* a1p, unsigned short a2) {
+	int a1 = a1p;
 	int v2;     // edi
 	int result; // eax
 	int v4;     // esi

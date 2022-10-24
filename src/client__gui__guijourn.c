@@ -28,10 +28,10 @@ void nox_xxx_cliBuildJournalString_469BC0() {
 	char v13[76];      // [esp+Ch] [ebp-104Ch]
 	wchar_t v14[2048]; // [esp+58h] [ebp-1000h]
 
-	v0 = *getMemU32Ptr(0x8531A0, 2576);
+	v0 = *getMemU32Ptr(0x8531A0, 2576); // Likely v0 is nox_playerInfo*
 	if (*getMemU32Ptr(0x8531A0, 2576)) {
 		v1 = nox_xxx_guiFontHeightMB_43F320(0);
-		v2 = *(uint32_t*)(v0 + 3644);
+		v2 = *(uint32_t*)(v0 + 3644); // Likely v2 is nox_playerInfo_journal*
 		v11 = v1;
 		for (i = -v1; v2; i += v11 + v12) {
 			strcpy(v13, "Journal:");
@@ -92,7 +92,7 @@ void nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 	if (*getMemU32Ptr(0x8531A0, 2576)) {
 		nox_client_drawSetColor_434460(nox_color_black_2650656);
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 260, 150);
-		v5 = *(uint32_t*)(v3 + 3644);
+		v5 = *(uint32_t*)(v3 + 3644); // Likely v5 is nox_playerInfo_journal*
 		if (v5) {
 			for (i = *(uint32_t*)(v5 + 64); i; i = *(uint32_t*)(i + 64)) {
 				v5 = i;
