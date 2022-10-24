@@ -2,8 +2,8 @@ package opennox
 
 type number interface {
 	~int | ~int8 | ~int16 | ~int32 | ~int64 |
-		~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 |
-		~uintptr | ~float64 | ~float32
+	~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64 |
+	~uintptr | ~float64 | ~float32
 }
 
 func abs[T number](v T) T {
@@ -45,4 +45,8 @@ func rotl16(x uint16, shift int) uint16 {
 		return x
 	}
 	return (x << shift) | (x >> (16 - shift))
+}
+
+func swap4(p []byte) {
+	p[0], p[1], p[2], p[3] = p[3], p[2], p[1], p[0]
 }

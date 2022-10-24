@@ -91,13 +91,17 @@ func (f *MemFile) Data() []byte {
 	return unsafe.Slice((*byte)(f.cur), int(ep-sp))
 }
 
+func (f *MemFile) offset() int {
+	sp, ep := uintptr(f.data), uintptr(f.cur)
+	return int(ep - sp)
+}
+
 func (f *MemFile) Seek(offset int64, whence int) (int64, error) {
 	switch whence {
 	case io.SeekStart:
 		// nop
 	case io.SeekCurrent:
-		sp, ep := uintptr(f.data), uintptr(f.cur)
-		offset += int64(ep - sp)
+		offset += int64(f.offset())
 	case io.SeekEnd:
 		offset = int64(f.size) + offset
 	default:
@@ -173,9 +177,29 @@ func (f *MemFile) ReadI32() int32 {
 	return int32(f.ReadU32())
 }
 
+func (f *MemFile) ReadU64() uint64 {
+	var buf [8]byte
+	_, _ = f.Read(buf[:])
+	return binary.LittleEndian.Uint64(buf[:])
+}
+
+func (f *MemFile) ReadI64() int64 {
+	return int64(f.ReadU64())
+}
+
 func (f *MemFile) SkipString8() {
 	n := f.ReadU8()
 	f.Skip(int(n))
+}
+
+func (f *MemFile) ReadBytes8() ([]byte, error) {
+	n := f.ReadU8()
+	buf := make([]byte, n)
+	_, err := io.ReadFull(f, buf)
+	if err != nil {
+		return nil, err
+	}
+	return buf, nil
 }
 
 func (f *MemFile) ReadString8() (string, error) {
@@ -196,4 +220,12 @@ func (f *MemFile) ReadString16() (string, error) {
 		return "", err
 	}
 	return string(buf), nil
+}
+
+func (f *MemFile) ReadU64Align() uint64 {
+	off := f.offset()
+	if over := off % 8; over != 0 {
+		f.Skip(8 - over)
+	}
+	return f.ReadU64()
 }

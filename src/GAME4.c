@@ -1688,26 +1688,6 @@ int sub_4F9E10(nox_object_t* a1p) {
 	return 1;
 }
 
-//----- (004F9F90) --------------------------------------------------------
-int nox_xxx_animPlayerGetFrameRange_4F9F90(int a1, int* a2, int* a3) {
-	int result; // eax
-
-	*a2 = *getMemU32Ptr(0x5D4594, 1568412 + 8 * a1);
-	result = *getMemU32Ptr(0x5D4594, 1568416 + 8 * a1);
-	*a3 = result;
-	return result;
-}
-
-//----- (004F9FB0) --------------------------------------------------------
-int nox_xxx_anim_4F9FB0(int a1, int a2, int a3) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 1568412 + 8 * a1) = a2;
-	*getMemU32Ptr(0x5D4594, 1568416 + 8 * a1) = a3;
-	return result;
-}
-
 //----- (004F9FD0) --------------------------------------------------------
 int nox_xxx_unitGetStrength_4F9FD0(int a1) {
 	int v1; // ecx
