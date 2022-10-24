@@ -1263,11 +1263,6 @@ func nox_client_onClassStats(cbuf *C.uchar, sz C.int) {
 	nox_xxx_loadBaseValues_57B200()
 }
 
-func nox_xxx_animPlayerGetFrameRange_4F9F90(i int) (_, _ int) {
-	return int(memmap.Uint32(0x5D4594, 1568412+8*uintptr(i))),
-		int(memmap.Uint32(0x5D4594, 1568416+8*uintptr(i)))
-}
-
 //export nox_xxx_playerObserveMonster_4DDE80
 func nox_xxx_playerObserveMonster_4DDE80(cplayer, cunit *nox_object_t) {
 	pu := asUnitC(cplayer)

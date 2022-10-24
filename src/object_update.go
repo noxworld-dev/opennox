@@ -320,7 +320,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			// switch from walking to running
 			a1 = true
 			u.speed_cur *= 2
-			v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(6)
+			v67, v69 := playerAnimGetFrameRange(6)
 			v25a := int(u.net_code) + int(noxServer.Frame())
 			v25 := v25a / (v69 + 1) % v67
 			if !(v25 <= ((v25a-1)/(v69+1)%v67) || v25 != 2 && v25 != 8) {
@@ -360,7 +360,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			u.force_y += C.float(sin) * u.speed_cur
 		}
 		if ud.field_22_0 == 0 {
-			v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(4)
+			v67, v69 := playerAnimGetFrameRange(4)
 			v31 := int(u.net_code) + int(noxServer.Frame())
 			v32 := (v31 - 1) / (v69 + 1) % v67
 			v33 := v31 / (v69 + 1) % v67
@@ -400,7 +400,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		}
 		return a1, v68, true
 	case 2:
-		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(21)
+		v67, v69 := playerAnimGetFrameRange(21)
 		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
 		if int(ud.field_59_0) >= v67 {
 			ud.field_59_0 = C.uchar(v67 - 1)
@@ -469,7 +469,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		ud.field_59_0 = 0
 		return a1, v68, true
 	case 0xC:
-		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(3)
+		v67, v69 := playerAnimGetFrameRange(3)
 		v49 := (int(s.Frame()) - int(u.field_34)) / (v69 + 1)
 
 		found := false
@@ -507,14 +507,14 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		ud.field_59_0 = 0
 		return a1, v68, true
 	case 0xE:
-		_, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(33)
+		_, v69 := playerAnimGetFrameRange(33)
 		ud.field_59_0 = C.uchar(v69 - 1)
 		if int(s.Frame())-int(u.field_34) > int(s.TickRate()) {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0xF:
-		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(40)
+		v67, v69 := playerAnimGetFrameRange(40)
 		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
 		if int(ud.field_59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 16)
@@ -522,11 +522,11 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		}
 		return a1, v68, true
 	case 0x10:
-		_, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(40)
+		_, v69 := playerAnimGetFrameRange(40)
 		ud.field_59_0 = C.uchar(v69 - 1)
 		return a1, v68, true
 	case 0x11:
-		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(40)
+		v67, v69 := playerAnimGetFrameRange(40)
 		v11 := v67 - (int(s.Frame())-int(u.field_34))/(v69+1)
 		if v11 >= v67 {
 			ud.field_59_0 = C.uchar(v67 - 1)
@@ -539,67 +539,67 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		}
 		return a1, v68, true
 	case 0x12:
-		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(48)
+		v67, v69 := playerAnimGetFrameRange(48)
 		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
 		if int(ud.field_59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x13:
-		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(49)
+		v67, v69 := playerAnimGetFrameRange(49)
 		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
 		if int(ud.field_59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x14:
-		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(47)
+		v67, v69 := playerAnimGetFrameRange(47)
 		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
 		if int(ud.field_59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x15:
-		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(30)
+		v67, v69 := playerAnimGetFrameRange(30)
 		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v67 + 1))
 		if int(ud.field_59_0) >= v69 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x16:
-		_, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(31)
+		_, v69 := playerAnimGetFrameRange(31)
 		ud.field_59_0 = C.uchar(v69 - 1)
 		return a1, v68, true
 	case 0x17:
-		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(50)
+		v67, v69 := playerAnimGetFrameRange(50)
 		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
 		if int(ud.field_59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x18:
-		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(19)
+		v67, v69 := playerAnimGetFrameRange(19)
 		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
 		if int(ud.field_59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x19:
-		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(20)
+		v67, v69 := playerAnimGetFrameRange(20)
 		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
 		if int(ud.field_59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x1A:
-		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(15)
+		v67, v69 := playerAnimGetFrameRange(15)
 		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
 		if int(ud.field_59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x1B:
-		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(16)
+		v67, v69 := playerAnimGetFrameRange(16)
 		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
 		if int(ud.field_59_0) >= v67/2 {
 			nox_xxx_playerSetState_4FA020(u, 28)
@@ -607,7 +607,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		}
 		return a1, v68, true
 	case 0x1C:
-		v67, _ := nox_xxx_animPlayerGetFrameRange_4F9F90(16)
+		v67, _ := playerAnimGetFrameRange(16)
 		ud.field_59_0 = C.uchar(v67 / 2)
 		if (int(s.Frame()) - int(u.field_34)) > 0x14 {
 			nox_xxx_playerSetState_4FA020(u, 29)
@@ -615,14 +615,14 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		}
 		return a1, v68, true
 	case 0x1D:
-		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(16)
+		v67, v69 := playerAnimGetFrameRange(16)
 		ud.field_59_0 = C.uchar(v67/2 + (int(s.Frame())-int(u.field_34))/(v69+1))
 		if int(ud.field_59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x1E:
-		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(52)
+		v67, v69 := playerAnimGetFrameRange(52)
 		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
 		if int(ud.field_59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
@@ -630,7 +630,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		}
 		return a1, v68, true
 	case 0x20:
-		v67, _ := nox_xxx_animPlayerGetFrameRange_4F9F90(54)
+		v67, _ := playerAnimGetFrameRange(54)
 		ud.field_59_0 = C.uchar(v67 / 2)
 		if (int(s.Frame()) - int(u.field_34)) > 0x14 {
 			nox_xxx_playerSetState_4FA020(u, 33)
@@ -638,7 +638,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		}
 		return a1, v68, true
 	case 0x21:
-		v67, v69 := nox_xxx_animPlayerGetFrameRange_4F9F90(54)
+		v67, v69 := playerAnimGetFrameRange(54)
 		ud.field_59_0 = C.uchar(v67/2 + (int(s.Frame())-int(u.field_34))/(v69+1))
 		if int(ud.field_59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
