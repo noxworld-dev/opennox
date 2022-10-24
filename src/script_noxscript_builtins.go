@@ -105,7 +105,7 @@ void sub_43D9B0(int a1, int a2);
 int sub_43DA80();
 void sub_43DAD0();
 int* nox_server_scriptMoveTo_5123C0(int a1, int a2);
-void nox_xxx_comJournalEntryAdd_427500(int a1, char* a2, short a3);
+void nox_xxx_comJournalEntryAdd_427500(nox_object_t* a1, char* a2, short a3);
 int nox_xxx_comAddEntryAll_427550(char* a1, short a2);
 int nox_script_addString_512E40(char* a1);
 void nox_xxx_audCreate_501A30(int a1, float2* a2, int a3, int a4);
@@ -1351,7 +1351,7 @@ func nox_script_JournalEntry_5154E0() int {
 	if v2 != 0 {
 		v3 := s.scriptToObject(int(v2))
 		if v3 != nil {
-			C.nox_xxx_comJournalEntryAdd_427500(C.int(uintptr(unsafe.Pointer(v3.CObj()))), CString(v1), C.short(v0))
+			C.nox_xxx_comJournalEntryAdd_427500(v3.CObj(), CString(v1), C.short(v0))
 			if (v0 & 0xB) != 0 {
 				nox_xxx_aud_501960(sound.SoundJournalEntryAdd, v3.AsUnit(), 0, 0)
 			}

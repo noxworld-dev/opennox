@@ -1756,7 +1756,17 @@ _Static_assert(sizeof(nox_draw_viewport_t) == 52, "wrong size of nox_draw_viewpo
 #define NOX_SPELLS_MAX 137
 #define NOX_PLAYERINFO_MAX 32
 
-#pragma pack(push,1)
+typedef struct nox_playerInfo_journal nox_playerInfo_journal;
+typedef struct nox_playerInfo_journal {
+	char entry[64];               // 0, 0
+	nox_playerInfo_journal* next; // 1, 64
+	nox_playerInfo_journal* prev; // 2, 68
+	uint16_t field_3;             // 3, 72
+	uint16_t field_4;             // 4, 74, likely just padding
+} nox_playerInfo_journal;
+_Static_assert(sizeof(nox_playerInfo_journal) == 76, "wrong size of nox_playerInfo_journal structure!");
+
+#pragma pack(push, 1)
 typedef struct {
 	wchar_t name[25]; // 2185 (+0) // TODO: size is a guess
 	uint32_t field_2235; // 2235 (+50)
@@ -1850,7 +1860,7 @@ typedef struct nox_playerInfo {
 	float pos_x_3632; // 908, 3632
 	float pos_y_3636; // 909, 3636
 	nox_object_t* obj_3640; // 910, 3640
-	uint32_t field_3644; // 911, 3644
+	nox_playerInfo_journal* field_3644; // 911, 3644, pointer to journal
 	uint32_t field_3648;
 	uint32_t field_3652;
 	uint32_t field_3656;
