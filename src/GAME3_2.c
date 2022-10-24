@@ -5007,7 +5007,8 @@ uint32_t* nox_xxx_netSendReportNPC_4D93A0(int a1, int a2) {
 }
 
 //----- (004D9440) --------------------------------------------------------
-int nox_xxx_netSendJournalAdd_4D9440(int a1, int a2) {
+int nox_xxx_netSendJournalAdd_4D9440(int a1, nox_playerInfo_journal* a2p) {
+	int a2 = a2p;
 	char v3[68]; // [esp+Ch] [ebp-44h]
 
 	v3[0] = -43;
