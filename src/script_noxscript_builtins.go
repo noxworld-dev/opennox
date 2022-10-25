@@ -22,7 +22,6 @@ int nox_script_groupEnchant_5133B0();
 int nox_script_canInteract_513E80();
 int nox_script_Fn5E_513F70();
 int nox_script_GetHostInfo_513FA0();
-int nox_script_SetOwnerGroup_5144C0();
 int nox_script_SetOwners_514510();
 int nox_script_SetOwnersGroup_514570();
 int nox_script_IsOwnedBy_5145F0();
@@ -117,6 +116,7 @@ int nox_xxx_inventoryServPlace_4F36F0(nox_object_t* a1p, nox_object_t* a2p, int 
 void nox_xxx_playerCanCarryItem_513B00(nox_object_t* a1p, nox_object_t* a2p);
 unsigned int sub_516D00(nox_object_t* a1);
 void nox_xxx_unitAdjustHP_4EE460(nox_object_t* unit, int dv);
+void nox_xxx_unitSetOwner_4EC290(nox_object_t* obj1, nox_object_t* obj2);
 */
 import "C"
 import (
@@ -318,7 +318,7 @@ var noxScriptBuiltins = []func() int{
 	99:  nox_script_CancelTimer_5141F0,
 	100: nox_script_Effect_514210,
 	101: nox_script_SetOwner_514490,
-	102: wrapScriptC(C.nox_script_SetOwnerGroup_5144C0),
+	102: nox_script_SetOwnerGroup_5144C0,
 	103: wrapScriptC(C.nox_script_SetOwners_514510),
 	104: wrapScriptC(C.nox_script_SetOwnersGroup_514570),
 	105: wrapScriptC(C.nox_script_IsOwnedBy_5145F0),
@@ -2059,5 +2059,23 @@ func nox_script_SetOwner_514490() int {
 	owner := s.PopObject()
 
 	obj.SetOwner(owner)
+	return 0
+}
+
+func nox_script_SetOwnerGroup_5144C0() int {
+	s := &noxServer.noxScript
+
+	v0 := s.PopI32()
+	mapGroup := getMapGroupByInd(int(v0))
+	v2 := s.PopObject()
+
+	if mapGroup != nil {
+		for item := mapGroup.FirstItem(); item != nil; item = item.Next() {
+			obj := noxServer.getObjectByInd(item.Ind())
+			if obj != nil {
+				C.nox_xxx_unitSetOwner_4EC290(v2.CObj(), obj.CObj())
+			}
+		}
+	}
 	return 0
 }
