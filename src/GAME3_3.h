@@ -213,7 +213,7 @@ int nox_xxx_playerObserverFindGoodSlave2_4EC3E0(int a1);
 int nox_xxx_playerObserverFindGoodSlave_4EC420(int a1);
 void nox_xxx_unitRemoveChild_4EC470(nox_object_t* a1);
 void nox_xxx_unitTransferSlaves_4EC4B0(nox_object_t* a1);
-int nox_xxx_unitHasThatParent_4EC4F0(int a1, int a2);
+int nox_xxx_unitHasThatParent_4EC4F0(nox_object_t* a1, nox_object_t* a2);
 int nox_xxx_unitsHaveSameTeam_4EC520(int a1, int a2);
 nox_object_t* nox_xxx_findParentChainPlayer_4EC580(nox_object_t* unit);
 void sub_4EC5B0();

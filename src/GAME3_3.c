@@ -6505,23 +6505,6 @@ void nox_xxx_unitTransferSlaves_4EC4B0(nox_object_t* a1p) {
 	}
 }
 
-//----- (004EC4F0) --------------------------------------------------------
-int nox_xxx_unitHasThatParent_4EC4F0(int a1, int a2) {
-	int v2; // eax
-
-	v2 = a1;
-	if (!a1 || !a2) {
-		return 0;
-	}
-	while (v2 != a2) {
-		v2 = *(uint32_t*)(v2 + 508);
-		if (!v2) {
-			return 0;
-		}
-	}
-	return 1;
-}
-
 //----- (004EC520) --------------------------------------------------------
 int nox_xxx_unitsHaveSameTeam_4EC520(int a1, int a2) {
 	int v2; // edi
