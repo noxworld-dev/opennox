@@ -22,7 +22,6 @@ int nox_script_groupEnchant_5133B0();
 int nox_script_canInteract_513E80();
 int nox_script_Fn5E_513F70();
 int nox_script_GetHostInfo_513FA0();
-int nox_script_SetOwners_514510();
 int nox_script_SetOwnersGroup_514570();
 int nox_script_IsOwnedBy_5145F0();
 int nox_script_IsOwnedByGroup_514630();
@@ -319,7 +318,7 @@ var noxScriptBuiltins = []func() int{
 	100: nox_script_Effect_514210,
 	101: nox_script_SetOwner_514490,
 	102: nox_script_SetOwnerGroup_5144C0,
-	103: wrapScriptC(C.nox_script_SetOwners_514510),
+	103: nox_script_SetOwners_514510,
 	104: wrapScriptC(C.nox_script_SetOwnersGroup_514570),
 	105: wrapScriptC(C.nox_script_IsOwnedBy_5145F0),
 	106: wrapScriptC(C.nox_script_IsOwnedByGroup_514630),
@@ -2074,6 +2073,24 @@ func nox_script_SetOwnerGroup_5144C0() int {
 			obj := noxServer.getObjectByInd(item.Ind())
 			if obj != nil {
 				C.nox_xxx_unitSetOwner_4EC290(v2.CObj(), obj.CObj())
+			}
+		}
+	}
+	return 0
+}
+
+func nox_script_SetOwners_514510() int {
+	s := &noxServer.noxScript
+
+	v3 := s.PopObject()
+	v1 := s.PopI32()
+	mapGroup := getMapGroupByInd(int(v1))
+
+	if mapGroup != nil {
+		for item := mapGroup.FirstItem(); item != nil; item = item.Next() {
+			obj := noxServer.getObjectByInd(item.Ind())
+			if obj != nil {
+				C.nox_xxx_unitSetOwner_4EC290(obj.CObj(), v3.CObj())
 			}
 		}
 	}
