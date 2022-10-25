@@ -22,7 +22,6 @@ int nox_script_groupEnchant_5133B0();
 int nox_script_canInteract_513E80();
 int nox_script_Fn5E_513F70();
 int nox_script_GetHostInfo_513FA0();
-int nox_script_IsOwnedBy_5145F0();
 int nox_script_IsOwnedByGroup_514630();
 int nox_script_IsOwnedByAny_5146B0();
 int nox_script_IsOwnedByAnyGroup_514730();
@@ -319,7 +318,7 @@ var noxScriptBuiltins = []func() int{
 	102: nox_script_SetOwnerGroup_5144C0,
 	103: nox_script_SetOwners_514510,
 	104: nox_script_SetOwnersGroup_514570,
-	105: wrapScriptC(C.nox_script_IsOwnedBy_5145F0),
+	105: nox_script_IsOwnedBy_5145F0,
 	106: wrapScriptC(C.nox_script_IsOwnedByGroup_514630),
 	107: wrapScriptC(C.nox_script_IsOwnedByAny_5146B0),
 	108: wrapScriptC(C.nox_script_IsOwnedByAnyGroup_514730),
@@ -2117,5 +2116,14 @@ func nox_script_SetOwnersGroup_514570() int {
 			}
 		}
 	}
+	return 0
+}
+
+func nox_script_IsOwnedBy_5145F0() int {
+	s := &noxServer.noxScript
+
+	owner := s.PopObject()
+	obj := s.PopObject()
+	s.PushBool(obj.HasOwner(owner))
 	return 0
 }
