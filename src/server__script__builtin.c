@@ -551,32 +551,6 @@ int nox_script_GetHostInfo_513FA0() {
 	return result;
 }
 
-//----- (00514510) --------------------------------------------------------
-int nox_script_SetOwners_514510() {
-	int v0;  // edi
-	int v1;  // eax
-	int v2;  // esi
-	int v3;  // eax
-	int* v4; // esi
-	int i;   // edi
-	int v6;  // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptGetGroup_57C0A0(v1);
-	if (v2) {
-		v3 = nox_server_scriptValToObjectPtr_511B60(v0);
-		v4 = *(int**)(v2 + 84);
-		for (i = v3; v4; v4 = (int*)v4[2]) {
-			v6 = nox_xxx_netGetUnitByExtent_4ED020(*v4);
-			if (v6) {
-				nox_xxx_unitSetOwner_4EC290(v6, i);
-			}
-		}
-	}
-	return 0;
-}
-
 //----- (00514570) --------------------------------------------------------
 int nox_script_SetOwnersGroup_514570() {
 	int v0; // edi
