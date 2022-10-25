@@ -76,6 +76,11 @@ func nox_xxx_findParentChainPlayer_4EC580(obj *nox_object_t) *nox_object_t {
 	return asObjectC(obj).findOwnerChainPlayer().CObj()
 }
 
+//export nox_xxx_unitHasThatParent_4EC4F0
+func nox_xxx_unitHasThatParent_4EC4F0(obj, owner *nox_object_t) C.int {
+	return C.int(bool2int(asObjectC(obj).HasOwner(asObjectC(owner))))
+}
+
 //export nox_xxx_unitIsEnemyTo_5330C0
 func nox_xxx_unitIsEnemyTo_5330C0(a, b *nox_object_t) C.int {
 	if asObjectC(a).isEnemyTo(asObjectC(b)) {
@@ -1359,6 +1364,15 @@ func (obj *Object) findOwnerChainPlayer() *Object { // nox_xxx_findParentChainPl
 		res = it
 	}
 	return res
+}
+
+func (obj *Object) HasOwner(owner *Object) bool {
+	for it := owner; it != nil; it = it.OwnerC() {
+		if it == owner {
+			return true
+		}
+	}
+	return false
 }
 
 func (obj *Object) dropAllItems() {
