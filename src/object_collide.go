@@ -14,16 +14,13 @@ import (
 	"strings"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/things"
+
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
-func nox_xxx_parseCollide_536EC0(objt *ObjectType, _ *MemFile, str string, _ []byte) error {
-	name := str
-	if i := strings.IndexAny(str, " \t\n\r"); i > 0 {
-		name = str[:i]
-		str = str[i+1:]
-	}
-	t, ok := noxObjectCollideTable[name]
+func nox_xxx_parseCollide_536EC0(objt *ObjectType, d *things.ProcFunc) error {
+	t, ok := noxObjectCollideTable[d.Name]
 	if !ok {
 		// TODO: add "unknown" collide as a nop types (similar to NoCollide)
 		return nil
@@ -37,10 +34,10 @@ func nox_xxx_parseCollide_536EC0(objt *ObjectType, _ *MemFile, str string, _ []b
 	data, _ := alloc.Malloc(uintptr(t.DataSize))
 	objt.collide_data = data
 	if t.ParseFunc != nil {
-		cstr := CString(str)
+		cstr := CString(strings.Join(d.Args, " "))
 		defer StrFree(cstr)
 		if C.nox_call_objectType_parseCollide_go((*[0]byte)(t.ParseFunc), cstr, data) == 0 {
-			return fmt.Errorf("cannot parse collide data for %q", name)
+			return fmt.Errorf("cannot parse collide data for %q", d.Name)
 		}
 	}
 	return nil

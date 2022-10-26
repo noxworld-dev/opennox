@@ -7,27 +7,18 @@ package opennox
 */
 import "C"
 import (
-	"strings"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox-lib/things"
 )
 
-func nox_xxx_parseDamageFn_536C60(objt *ObjectType, _ *MemFile, str string, _ []byte) error {
-	name := str
-	if i := strings.IndexAny(str, " \t\n\r"); i > 0 {
-		name = str[:i]
-		str = str[i+1:]
-	}
-	fnc := noxObjectDamageTable[name]
+func nox_xxx_parseDamageFn_536C60(objt *ObjectType, d *things.ProcFunc) error {
+	fnc := noxObjectDamageTable[d.Name]
 	objt.func_damage = fnc
 	return nil
 }
 
-func nox_xxx_parseDamageSound_536CF0(objt *ObjectType, _ *MemFile, str string, _ []byte) error {
-	name := str
-	if i := strings.IndexAny(str, " \t\n\r"); i > 0 {
-		name = str[:i]
-		str = str[i+1:]
-	}
+func nox_xxx_parseDamageSound_536CF0(objt *ObjectType, name string) error {
 	fnc := noxObjectDamageSoundTable[name]
 	objt.func_damage_sound = fnc
 	return nil

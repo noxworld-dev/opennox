@@ -9,33 +9,29 @@ int nox_objectPickupAudEvent_4F3D50(nox_object_t* a1, nox_object_t* a2, int a3);
 */
 import "C"
 import (
-	"strings"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox-lib/things"
 
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
-func nox_xxx_parsePickup_536710(objt *ObjectType, _ *MemFile, str string, _ []byte) error {
-	name := str
-	if i := strings.IndexAny(str, " \t\n\r"); i > 0 {
-		name = str[:i]
-		str = str[i+1:]
-	}
-	t, ok := noxObjectPickupTable[name]
+func nox_xxx_parsePickup_536710(objt *ObjectType, d *things.ProcFunc) error {
+	t, ok := noxObjectPickupTable[d.Name]
 	if !ok {
 		// TODO: add "unknown" pickup as a nop types
 		return nil
 	}
 	objt.func_pickup = t.Func
 	if t.ParseFunc != nil {
-		t.ParseFunc(objt, str)
+		t.ParseFunc(objt, d.Args)
 	}
 	return nil
 }
 
 var noxObjectPickupTable = map[string]struct {
 	Func      unsafe.Pointer
-	ParseFunc func(objt *ObjectType, val string)
+	ParseFunc func(objt *ObjectType, args []string)
 }{
 	"DefaultPickup":     {Func: C.nox_xxx_pickupDefault_4F31E0},
 	"FoodPickup":        {Func: C.nox_xxx_pickupFood_4F3350},
@@ -51,9 +47,11 @@ var noxObjectPickupTable = map[string]struct {
 	"SpellBookPickup":   {Func: C.nox_xxx_pickupSpellbook_4F3C60},
 	"AbilityBookPickup": {Func: C.nox_xxx_pickupAbilitybook_4F3CE0},
 	"CrownPickup":       {Func: C.sub_4F3400},
-	"AudEventPickup": {Func: C.nox_objectPickupAudEvent_4F3D50, ParseFunc: func(objt *ObjectType, val string) {
-		if snd := sound.ByName(val); snd != 0 {
-			objectPickupSoundTable[objt.ind] = snd
+	"AudEventPickup": {Func: C.nox_objectPickupAudEvent_4F3D50, ParseFunc: func(objt *ObjectType, args []string) {
+		if len(args) != 0 {
+			if snd := sound.ByName(args[0]); snd != 0 {
+				objectPickupSoundTable[objt.ind] = snd
+			}
 		}
 	}},
 	"AnkhTradablePickup": {Func: C.sub_4F3DD0},
