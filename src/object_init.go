@@ -7,19 +7,15 @@ import "C"
 import (
 	"errors"
 	"strconv"
-	"strings"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox-lib/things"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
-func nox_xxx_parseInitProc_536930(objt *ObjectType, _ *MemFile, str string, _ []byte) error {
-	name := str
-	if i := strings.IndexAny(str, " \t\n\r"); i > 0 {
-		name = str[:i]
-		str = str[i+1:]
-	}
-	t, ok := noxObjectInitTable[name]
+func nox_xxx_parseInitProc_536930(objt *ObjectType, d *things.ProcFunc) error {
+	t, ok := noxObjectInitTable[d.Name]
 	if !ok {
 		// TODO: add "unknown" init as a nop init types (similar to NoInit)
 		return nil
@@ -33,24 +29,23 @@ func nox_xxx_parseInitProc_536930(objt *ObjectType, _ *MemFile, str string, _ []
 	data, _ := alloc.Malloc(uintptr(t.DataSize))
 	objt.init_data = data
 	if t.ParseFunc != nil {
-		if err := t.ParseFunc(objt, str); err != nil {
+		if err := t.ParseFunc(objt, d.Args); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-func objectDirectionInitParse(objt *ObjectType, val string) error {
+func objectDirectionInitParse(objt *ObjectType, args []string) error {
 	p := unsafe.Slice((*int32)(objt.init_data), 2)
-	sub := strings.SplitN(val, " ", 2)
-	if len(sub) != 2 {
+	if len(args) != 2 {
 		return errors.New("expected two values")
 	}
-	v1, err := strconv.Atoi(sub[0])
+	v1, err := strconv.Atoi(args[0])
 	if err != nil {
 		return err
 	}
-	v2, err := strconv.Atoi(sub[1])
+	v2, err := strconv.Atoi(args[1])
 	if err != nil {
 		return err
 	}
@@ -62,7 +57,7 @@ func objectDirectionInitParse(objt *ObjectType, val string) error {
 var noxObjectInitTable = map[string]struct {
 	Func      unsafe.Pointer
 	DataSize  int
-	ParseFunc func(objt *ObjectType, val string) error
+	ParseFunc func(objt *ObjectType, args []string) error
 }{
 	"NoInit":         {},
 	"MonsterInit":    {Func: C.nox_xxx_unitMonsterInit_4F0040},
@@ -81,7 +76,7 @@ var noxObjectInitTable = map[string]struct {
 	"GlyphInit":      {DataSize: 36},
 	"ModifierInit":   {DataSize: 20},
 	"GoldInit":       {Func: C.nox_xxx_unitInitGold_4F04B0, DataSize: 4},
-	"BreakInit": {Func: C.nox_xxx_breakInit_4F0570, ParseFunc: func(objt *ObjectType, val string) error {
+	"BreakInit": {Func: C.nox_xxx_breakInit_4F0570, ParseFunc: func(objt *ObjectType, _ []string) error {
 		objt.field_9 = 2
 		return nil
 	}},

@@ -33,6 +33,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
@@ -47,13 +48,8 @@ var (
 	spellTimeout  uint32
 )
 
-func nox_xxx_parseUpdate_536620(objt *ObjectType, _ *MemFile, str string, _ []byte) error {
-	name := str
-	if i := strings.IndexAny(str, " \t\n\r"); i > 0 {
-		name = str[:i]
-		str = str[i+1:]
-	}
-	t, ok := noxObjectUpdateTable[name]
+func nox_xxx_parseUpdate_536620(objt *ObjectType, d *things.ProcFunc) error {
+	t, ok := noxObjectUpdateTable[d.Name]
 	if !ok {
 		// TODO: add "unknown" updates as a nop update types (similar to NoUpdate)
 		return nil
@@ -67,10 +63,10 @@ func nox_xxx_parseUpdate_536620(objt *ObjectType, _ *MemFile, str string, _ []by
 	data, _ := alloc.Malloc(t.DataSize)
 	objt.data_update = data
 	if t.ParseFunc != nil {
-		cstr := CString(str)
+		cstr := CString(strings.Join(d.Args, " "))
 		defer StrFree(cstr)
 		if C.nox_call_objectType_parseUpdate_go((*[0]byte)(t.ParseFunc), cstr, data) == 0 {
-			return fmt.Errorf("cannot parse update data for %q", name)
+			return fmt.Errorf("cannot parse update data for %q", d.Name)
 		}
 	}
 	return nil
