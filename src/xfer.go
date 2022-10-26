@@ -16,6 +16,7 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/spell"
+	"github.com/noxworld-dev/opennox-lib/things"
 )
 
 type XferFunc func(obj *Object, a2 unsafe.Pointer) error
@@ -51,11 +52,10 @@ var noxObjectXfers = map[string]unsafe.Pointer{
 	"RewardMarkerXfer":      C.nox_xxx_XFerRewardMarker_4F74D0,
 }
 
-func nox_xxx_parseXFer_5360A0(objt *ObjectType, _ *MemFile, str string, _ []byte) error {
-	name := firstWord(str)
-	xfer := noxObjectXfers[name]
+func nox_xxx_parseXFer_5360A0(objt *ObjectType, d *things.ProcFunc) error {
+	xfer := noxObjectXfers[d.Name]
 	if xfer == nil {
-		return fmt.Errorf("unsupported xfer: %q", name)
+		return fmt.Errorf("unsupported xfer: %q", d.Name)
 	}
 	objt.func_xfer = xfer
 	return nil

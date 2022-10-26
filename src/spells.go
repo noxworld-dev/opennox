@@ -17,7 +17,6 @@ static int nox_spells_call_intint6_go(int (*f)(int, void*, nox_object_t*, nox_ob
 */
 import "C"
 import (
-	"bufio"
 	"fmt"
 	"io"
 	"os"
@@ -348,9 +347,9 @@ func (s *Server) nox_thing_read_SPEL_4156B0(f *MemFile, isClient bool) error {
 	spells, err := things.ReadSpellsYAML(datapath.Data(yamlFile))
 	if os.IsNotExist(err) {
 		// no new file - read bag instead
-		br := bufio.NewReader(f)
-		spells, err = things.ReadSpellsSection(br)
-		if n := br.Buffered(); n != 0 {
+		rd := things.NewReader(f)
+		spells, err = rd.ReadSpellsSect()
+		if n := rd.Buffered(); n != 0 {
 			f.Seek(-int64(n), io.SeekCurrent)
 		}
 		if err != nil {
@@ -358,9 +357,9 @@ func (s *Server) nox_thing_read_SPEL_4156B0(f *MemFile, isClient bool) error {
 		}
 	} else if err == nil {
 		// ok, need to skip bag section
-		br := bufio.NewReader(f)
-		err = things.SkipSpellsSection(br)
-		if n := br.Buffered(); n != 0 {
+		rd := things.NewReader(f)
+		err = rd.SkipSpellsSect()
+		if n := rd.Buffered(); n != 0 {
 			f.Seek(-int64(n), io.SeekCurrent)
 		}
 		if err != nil {

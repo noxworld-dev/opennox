@@ -7,33 +7,29 @@ int nox_objectDropAudEvent_4EE2F0(nox_object_t* a1, nox_object_t* a2, float2* a3
 */
 import "C"
 import (
-	"strings"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox-lib/things"
 
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
-func nox_xxx_parseDrop_536A20(objt *ObjectType, _ *MemFile, str string, _ []byte) error {
-	name := str
-	if i := strings.IndexAny(str, " \t\n\r"); i > 0 {
-		name = str[:i]
-		str = str[i+1:]
-	}
-	t, ok := noxObjectDropTable[name]
+func nox_xxx_parseDrop_536A20(objt *ObjectType, d *things.ProcFunc) error {
+	t, ok := noxObjectDropTable[d.Name]
 	if !ok {
 		// TODO: add "unknown" drop as a nop types
 		return nil
 	}
 	objt.func_drop = t.Func
 	if t.ParseFunc != nil {
-		t.ParseFunc(objt, str)
+		t.ParseFunc(objt, d.Args)
 	}
 	return nil
 }
 
 var noxObjectDropTable = map[string]struct {
 	Func      unsafe.Pointer
-	ParseFunc func(objt *ObjectType, val string)
+	ParseFunc func(objt *ObjectType, args []string)
 }{
 	"DefaultDrop":  {Func: C.nox_xxx_dropDefault_4ED290},
 	"ArmorDrop":    {Func: C.nox_xxx_dropArmor_53EB70},
@@ -44,9 +40,11 @@ var noxObjectDropTable = map[string]struct {
 	"TrapDrop":     {Func: C.nox_xxx_dropTrap_4ED580},
 	"FoodDrop":     {Func: C.nox_xxx_dropFood_4EDE50},
 	"CrownDrop":    {Func: C.nox_xxx_dropCrown_4ED5E0},
-	"AudEventDrop": {Func: C.nox_objectDropAudEvent_4EE2F0, ParseFunc: func(objt *ObjectType, val string) {
-		if snd := sound.ByName(val); snd != 0 {
-			objectDropSoundTable[objt.ind] = snd
+	"AudEventDrop": {Func: C.nox_objectDropAudEvent_4EE2F0, ParseFunc: func(objt *ObjectType, args []string) {
+		if len(args) != 0 {
+			if snd := sound.ByName(args[0]); snd != 0 {
+				objectDropSoundTable[objt.ind] = snd
+			}
 		}
 	}},
 	"AnkhTradableDrop": {Func: C.nox_xxx_dropAnkhTradable_4EE370},

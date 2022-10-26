@@ -6,18 +6,15 @@ package opennox
 import "C"
 import (
 	"fmt"
-	"strings"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox-lib/things"
 )
 
-func nox_xxx_parseCreateProc_536830(objt *ObjectType, _ *MemFile, str string, _ []byte) error {
-	name := str
-	if i := strings.IndexAny(str, " \t\n\r"); i > 0 {
-		name = str[:i]
-	}
-	fnc, ok := noxObjectCreateTable[name]
+func nox_xxx_parseCreateProc_536830(objt *ObjectType, d *things.ProcFunc) error {
+	fnc, ok := noxObjectCreateTable[d.Name]
 	if !ok {
-		return fmt.Errorf("unsupported create func: %q", name)
+		return fmt.Errorf("unsupported create func: %q", d.Name)
 	}
 	objt.func_new = fnc
 	return nil

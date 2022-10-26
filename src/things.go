@@ -260,7 +260,15 @@ func (s *Server) nox_read_things_alternative_4E2B60() error {
 		case 0x494D4147: // IMAG
 			C.nox_thing_read_image_415240(thg.C())
 		case 0x54484E47: // THNG
-			if err := s.types.readType(thg, buf); err != nil {
+			rd := things.NewReader(thg)
+			th, err := rd.ReadThingSect()
+			if n := rd.Buffered(); n != 0 {
+				thg.Seek(-int64(n), io.SeekCurrent)
+			}
+			if err != nil {
+				return err
+			}
+			if err = s.types.readType(th); err != nil {
 				return err
 			}
 		}

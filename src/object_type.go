@@ -18,6 +18,7 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
@@ -280,19 +281,18 @@ func (s *serverObjTypes) Clear() {
 	s.nox_xxx_freeObjectTypes_4E2A20()
 }
 
-func (s *serverObjTypes) readType(thg *MemFile, buf []byte) error {
+func (s *serverObjTypes) readType(thg *things.Thing) error {
 	typ, _ := alloc.New(ObjectType{})
-	id, err := thg.ReadString8()
-	if err != nil {
-		return fmt.Errorf("cannot read object type: %w", err)
-	}
-	typ.id = CString(id)
+	typ.id = CString(thg.Name)
 
 	typ.ind = uint16(len(s.byInd))
 	s.byInd = append(s.byInd, typ)
 
 	typ.field_2 = 0
 	typ.menu_icon = -1
+	typ.obj_class = 0
+	typ.obj_subclass = 0
+	typ.obj_flags = 0
 	typ.material = 0x4000
 	typ.mass = 1.0
 	typ.zsize1 = 0
@@ -301,8 +301,152 @@ func (s *serverObjTypes) readType(thg *MemFile, buf []byte) error {
 	typ.func_damage_sound = C.nox_xxx_soundDefaultDamageSound_532E20
 	typ.func_xfer = C.nox_xxx_XFerDefault_4F49A0
 	typ.weight = 255
-	if err := nox_thing_read_xxx_4E3220(thg, buf, typ); err != nil {
-		return err
+	typ.carry_capacity = uint16(thg.CarryCap)
+	typ.shape = noxShape{}
+	if thg.Mass != 0 {
+		typ.mass = float32(thg.Mass)
+	}
+	if thg.Weight != 0 {
+		typ.weight = byte(thg.Weight)
+	}
+	if thg.Price != nil {
+		typ.worth = uint32(*thg.Price)
+	}
+	if thg.Experience != 0 {
+		typ.experience = float32(thg.Experience)
+	}
+	if thg.ZSize != nil {
+		v1, v2 := thg.ZSize.Bottom, thg.ZSize.Top
+		if v2 < v1 {
+			v2 = v1
+		}
+		typ.zsize1 = float32(v1)
+		typ.zsize2 = float32(v2)
+	}
+	if thg.Speed != nil {
+		fv := float32(float64(*thg.Speed) / 32)
+		typ.float_33 = 0
+		typ.speed = fv
+		typ.speed_2 = fv
+	}
+	for _, s := range thg.Class {
+		v, err := object.ParseClass(string(s))
+		if err != nil {
+			thingsLog.Printf("%q (%d): %v", typ.ID(), typ.Ind(), err)
+		}
+		typ.obj_class |= uint32(v)
+	}
+	for _, s := range thg.SubClass {
+		v, err := object.ParseSubClass(string(s))
+		if err != nil {
+			thingsLog.Printf("%q (%d): %v", typ.ID(), typ.Ind(), err)
+		}
+		typ.obj_subclass |= uint32(v)
+	}
+	for _, s := range thg.Flags {
+		v, err := object.ParseFlag(string(s))
+		if err != nil {
+			thingsLog.Printf("%q (%d): %v", typ.ID(), typ.Ind(), err)
+		}
+		typ.obj_flags |= uint32(v)
+	}
+	if len(thg.Material) != 0 {
+		for _, s := range thg.Material {
+			v, err := object.ParseMaterial(string(s))
+			if err != nil {
+				thingsLog.Printf("%q (%d): %v", typ.ID(), typ.Ind(), err)
+			}
+			typ.material |= uint16(v)
+		}
+	}
+	if thg.Health != nil {
+		if typ.health_data != nil {
+			alloc.Free(unsafe.Pointer(typ.health_data))
+		}
+		data, _ := alloc.New(objectHealthData{})
+		typ.health_data = data
+		data.cur = uint16(*thg.Health)
+		data.max = uint16(*thg.Health)
+	}
+	if thg.Menu != nil {
+		typ.menu_icon = int32(thg.Menu.Ind)
+	}
+	switch v := thg.Extent.(type) {
+	case nil:
+		typ.shape.kind = shapeKindNone
+	case things.Center:
+		typ.shape.kind = shapeKindCenter
+	case things.Circle:
+		typ.shape.kind = shapeKindCircle
+		typ.shape.circle.R = v.R
+		typ.shape.circle.R2 = v.R * v.R
+	case things.Box:
+		typ.shape.kind = shapeKindBox
+		typ.shape.box.W = v.W
+		typ.shape.box.H = v.H
+		typ.shape.box.Calc()
+	default:
+		return fmt.Errorf("unsupported shape type: %T", v)
+	}
+	if d := thg.OnCreate; d != nil {
+		if err := nox_xxx_parseCreateProc_536830(typ, d); err != nil {
+			return err
+		}
+	}
+	if d := thg.OnInit; d != nil {
+		if err := nox_xxx_parseInitProc_536930(typ, d); err != nil {
+			return err
+		}
+	}
+	if d := thg.OnUpdate; d != nil {
+		if err := nox_xxx_parseUpdate_536620(typ, d); err != nil {
+			return err
+		}
+	}
+	if d := thg.OnCollide; d != nil {
+		if err := nox_xxx_parseCollide_536EC0(typ, d); err != nil {
+			return err
+		}
+	}
+	if d := thg.OnUse; d != nil {
+		if err := nox_xxx_parseUseFn_5363F0(typ, d); err != nil {
+			return err
+		}
+	}
+	if d := thg.OnDamage; d != nil {
+		if err := nox_xxx_parseDamageFn_536C60(typ, d); err != nil {
+			return err
+		}
+	}
+	if d := thg.DamageSound; d != "" {
+		if err := nox_xxx_parseDamageSound_536CF0(typ, d); err != nil {
+			return err
+		}
+	}
+	if d := thg.OnDie; d != nil {
+		if err := nox_xxx_parseDieProc_536B80(typ, d); err != nil {
+			return err
+		}
+	}
+	if d := thg.OnDrop; d != nil {
+		if err := nox_xxx_parseDrop_536A20(typ, d); err != nil {
+			return err
+		}
+	}
+	if d := thg.OnPickup; d != nil {
+		if err := nox_xxx_parsePickup_536710(typ, d); err != nil {
+			return err
+		}
+	}
+	if d := thg.OnXfer; d != nil {
+		if err := nox_xxx_parseXFer_5360A0(typ, d); err != nil {
+			return err
+		}
+	}
+	if d := thg.Draw; d != nil {
+		if err := nox_xxx_parseDraw_535CD0(typ, d); err != nil {
+			return err
+		}
 	}
 	if typ.func_collide == nil {
 		typ.obj_flags |= uint32(object.FlagNoCollide)
@@ -319,7 +463,7 @@ func (s *serverObjTypes) readType(thg *MemFile, buf []byte) error {
 	} else {
 		typ.field_13 = 0.5
 	}
-	switch id {
+	switch thg.Name {
 	case "Boulder", "RollingBoulder", "BoulderIndestructible":
 		typ.field_13 = 0.01
 		typ.mass = 100.0
@@ -349,7 +493,7 @@ func (s *serverObjTypes) readType(thg *MemFile, buf []byte) error {
 	s.crc ^= s.nox_xxx_unitDefProtectMB_4E31A0(typ)
 	typ.next = s.first
 	s.first = typ
-	s.byID[strings.ToLower(id)] = typ
+	s.byID[strings.ToLower(thg.Name)] = typ
 	return nil
 }
 
