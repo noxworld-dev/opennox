@@ -551,17 +551,6 @@ int nox_script_GetHostInfo_513FA0() {
 	return result;
 }
 
-//----- (005147E0) --------------------------------------------------------
-int nox_script_ClearOwner_5147E0() {
-	int v0; // eax
-	int v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	nox_xxx_unitClearOwner_4EC300(v1);
-	return 0;
-}
-
 //----- (00514BE0) --------------------------------------------------------
 int nox_script_SetQuestInt_514BE0() {
 	int v0; // esi

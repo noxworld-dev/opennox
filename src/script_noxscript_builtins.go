@@ -22,7 +22,6 @@ int nox_script_groupEnchant_5133B0();
 int nox_script_canInteract_513E80();
 int nox_script_Fn5E_513F70();
 int nox_script_GetHostInfo_513FA0();
-int nox_script_ClearOwner_5147E0();
 int nox_script_ChatTimerSeconds_514A80();
 int nox_script_ChatTimerFrames_514B10();
 int nox_script_SetQuestInt_514BE0();
@@ -319,7 +318,7 @@ var noxScriptBuiltins = []func() int{
 	106: nox_script_IsOwnedByGroup_514630,
 	107: nox_script_IsOwnedByAny_5146B0,
 	108: nox_script_IsOwnedByAnyGroup_514730,
-	109: wrapScriptC(C.nox_script_ClearOwner_5147E0),
+	109: nox_script_ClearOwner_5147E0,
 	110: nox_script_Waypoint_514800,
 	111: nox_script_GetWaypointGroup_5148A0,
 	112: nox_script_GetObjectGroup_514940,
@@ -2192,5 +2191,13 @@ func nox_script_IsOwnedByAnyGroup_514730() int {
 		}
 	}
 	s.PushI32(1)
+	return 0
+}
+
+func nox_script_ClearOwner_5147E0() int {
+	s := &noxServer.noxScript
+
+	v1 := s.PopObject()
+	v1.SetOwner(nil)
 	return 0
 }
