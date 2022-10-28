@@ -22,7 +22,6 @@ int nox_script_groupEnchant_5133B0();
 int nox_script_canInteract_513E80();
 int nox_script_Fn5E_513F70();
 int nox_script_GetHostInfo_513FA0();
-int nox_script_IsOwnedByAnyGroup_514730();
 int nox_script_ClearOwner_5147E0();
 int nox_script_ChatTimerSeconds_514A80();
 int nox_script_ChatTimerFrames_514B10();
@@ -319,7 +318,7 @@ var noxScriptBuiltins = []func() int{
 	105: nox_script_IsOwnedBy_5145F0,
 	106: nox_script_IsOwnedByGroup_514630,
 	107: nox_script_IsOwnedByAny_5146B0,
-	108: wrapScriptC(C.nox_script_IsOwnedByAnyGroup_514730),
+	108: nox_script_IsOwnedByAnyGroup_514730,
 	109: wrapScriptC(C.nox_script_ClearOwner_5147E0),
 	110: nox_script_Waypoint_514800,
 	111: nox_script_GetWaypointGroup_5148A0,
@@ -2126,7 +2125,7 @@ func nox_script_IsOwnedBy_5145F0() int {
 	return 0
 }
 
-// From (object, object group), return 1 if all object group is parent of input obj
+// From (object, object group), push 1 if all object group is parent of input obj, otherwise push 0
 func nox_script_IsOwnedByGroup_514630() int {
 	s := &noxServer.noxScript
 
@@ -2146,7 +2145,7 @@ func nox_script_IsOwnedByGroup_514630() int {
 	return 0
 }
 
-// From (object, object group), return 1 if obj is parent of all object group
+// From (object, object group), push 1 if obj is parent of all object group, otherwise push 0
 func nox_script_IsOwnedByAny_5146B0() int {
 	s := &noxServer.noxScript
 
@@ -2159,6 +2158,36 @@ func nox_script_IsOwnedByAny_5146B0() int {
 			if !item.HasOwner(obj) {
 				s.PushI32(0)
 				return 0
+			}
+		}
+	}
+	s.PushI32(1)
+	return 0
+}
+
+// From (object group A, object group B), push 1 if all in A is owned by all in B, otherwise push 0
+func nox_script_IsOwnedByAnyGroup_514730() int {
+	s := &noxServer.noxScript
+
+	groupIndB := s.PopI32()
+	groupIndA := s.PopI32()
+	groupB := getMapGroupByInd(int(groupIndB))
+	groupA := getMapGroupByInd(int(groupIndA))
+	if groupB == nil || groupA == nil {
+		s.PushI32(1)
+		return 0
+	}
+	for iterB := groupB.FirstItem(); iterB != nil; iterB = iterB.Next() {
+		itemB := noxServer.getObjectByInd(iterB.Ind())
+		if itemB != nil {
+			for iterA := groupA.FirstItem(); iterA != nil; iterA = iterA.Next() {
+				itemA := noxServer.getObjectByInd(iterA.Ind())
+				if itemA != nil {
+					if !itemA.HasOwner(itemB) {
+						s.PushI32(0)
+						return 0
+					}
+				}
 			}
 		}
 	}
