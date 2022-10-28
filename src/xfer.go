@@ -130,7 +130,7 @@ func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
 	var typ *ObjectType
 	if tname != "" {
 		typ = s.getObjectTypeByID(tname)
-		*(**C.nox_objectType_t)(unsafe.Add(a1, 0)) = typ.C()
+		*(*int32)(unsafe.Add(a1, 0)) = int32(typ.Ind())
 	}
 	if a2 >= 47 {
 		name, _ := cryptFileReadString8()
@@ -168,7 +168,7 @@ func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
 //export nox_xxx_XFer_WriteShopItem_52A5F0
 func nox_xxx_XFer_WriteShopItem_52A5F0(a1 unsafe.Pointer) {
 	cryptFileWriteU8(*(*uint8)(unsafe.Add(a1, 4)))
-	typ := asObjectType(*(**C.nox_objectType_t)(unsafe.Add(a1, 0)))
+	typ := noxServer.getObjectTypeByInd(int(*(*int32)(unsafe.Add(a1, 0))))
 	cryptFileWriteString8(typ.ID())
 	pind := int(*(*int32)(unsafe.Add(a1, 8)))
 	var pname string

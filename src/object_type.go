@@ -674,18 +674,6 @@ type ObjectType struct {
 	next              *ObjectType       // 55, 220
 }
 
-func asObjectType(p *C.nox_objectType_t) *ObjectType {
-	return asObjectTypeP(unsafe.Pointer(p))
-}
-
-func asObjectTypeP(p unsafe.Pointer) *ObjectType {
-	return (*ObjectType)(p)
-}
-
-func (t *ObjectType) C() *C.nox_objectType_t {
-	return (*C.nox_objectType_t)(unsafe.Pointer(t))
-}
-
 func (t *ObjectType) ID() string {
 	return GoString(t.id)
 }
