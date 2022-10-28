@@ -551,57 +551,6 @@ int nox_script_GetHostInfo_513FA0() {
 	return result;
 }
 
-//----- (00514730) --------------------------------------------------------
-int nox_script_IsOwnedByAnyGroup_514730() {
-	int v0;  // esi
-	int v1;  // edi
-	int v2;  // esi
-	int v3;  // eax
-	int* v4; // ebx
-	int i;   // ebp
-	int v6;  // edi
-	int* v7; // esi
-	int v8;  // eax
-	int v10; // [esp+8h] [ebp-4h]
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptGetGroup_57C0A0(v0);
-	v3 = nox_server_scriptGetGroup_57C0A0(v1);
-	v10 = v3;
-	if (!v2 || !v3) {
-		return 0;
-	}
-	v4 = *(int**)(v2 + 84);
-	for (i = 1; v4; v4 = (int*)v4[2]) {
-		if (!i) {
-			break;
-		}
-		v6 = nox_xxx_netGetUnitByExtent_4ED020(*v4);
-		if (v6) {
-			v7 = *(int**)(v10 + 84);
-			if (v7) {
-				while (1) {
-					v8 = nox_xxx_netGetUnitByExtent_4ED020(*v7);
-					if (v8) {
-						if (!nox_xxx_unitHasThatParent_4EC4F0(v8, v6)) {
-							break;
-						}
-					}
-					v7 = (int*)v7[2];
-					if (!v7) {
-						goto LABEL_12;
-					}
-				}
-				i = 0;
-			}
-		}
-	LABEL_12:;
-	}
-	nox_script_push(i);
-	return 0;
-}
-
 //----- (005147E0) --------------------------------------------------------
 int nox_script_ClearOwner_5147E0() {
 	int v0; // eax
