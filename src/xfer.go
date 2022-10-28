@@ -164,3 +164,34 @@ func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
 	*(**C.obj_412ae0_t)(unsafe.Add(a1, 20)) = mods[2]
 	*(**C.obj_412ae0_t)(unsafe.Add(a1, 24)) = mods[3]
 }
+
+//export nox_xxx_XFer_WriteShopItem_52A5F0
+func nox_xxx_XFer_WriteShopItem_52A5F0(a1 unsafe.Pointer) {
+	cryptFileWriteU8(*(*uint8)(unsafe.Add(a1, 4)))
+	typ := asObjectType(*(**C.nox_objectType_t)(unsafe.Add(a1, 0)))
+	cryptFileWriteString8(typ.ID())
+	pind := int(*(*int32)(unsafe.Add(a1, 8)))
+	var pname string
+	switch typ.func_xfer {
+	case C.nox_xxx_XFerFieldGuide_4F6390:
+		pname = noxServer.getObjectTypeByInd(pind).ID()
+	case C.nox_xxx_XFerAbilityReward_4F6240:
+		pname = Ability(pind).String()
+	default:
+		pname = spell.ID(pind).String()
+	}
+	cryptFileWriteString8(pname)
+	mods := [4]*C.obj_412ae0_t{
+		*(**C.obj_412ae0_t)(unsafe.Add(a1, 12)),
+		*(**C.obj_412ae0_t)(unsafe.Add(a1, 16)),
+		*(**C.obj_412ae0_t)(unsafe.Add(a1, 20)),
+		*(**C.obj_412ae0_t)(unsafe.Add(a1, 24)),
+	}
+	for _, m := range mods {
+		if m != nil {
+			cryptFileWriteString8(GoString(m.field_0))
+		} else {
+			cryptFileWriteString8("")
+		}
+	}
+}
