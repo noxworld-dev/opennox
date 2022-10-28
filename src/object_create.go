@@ -16,7 +16,7 @@ func nox_xxx_parseCreateProc_536830(objt *ObjectType, d *things.ProcFunc) error 
 	if !ok {
 		return fmt.Errorf("unsupported create func: %q", d.Name)
 	}
-	objt.func_new = fnc
+	objt.create = fnc
 	return nil
 }
 

@@ -57,7 +57,7 @@ func noxCmdSetArmor(ctx context.Context, c *console.Console, tokens []string) bo
 	}
 	switch strings.ToLower(tokens[1]) {
 	case "on":
-		if s.getObjectTypeByInd(t.Ind()).allowed == 0 {
+		if !s.getObjectTypeByInd(t.Ind()).Allowed() {
 			s.enableObject(t)
 			nox_server_gameSettingsUpdated_40A670()
 			str := c.Strings().GetStringInFile("armorEnabled", "parsecmd.c")
@@ -65,7 +65,7 @@ func noxCmdSetArmor(ctx context.Context, c *console.Console, tokens []string) bo
 		}
 		return true
 	case "off":
-		if s.getObjectTypeByInd(t.Ind()).allowed != 0 {
+		if s.getObjectTypeByInd(t.Ind()).Allowed() {
 			s.disableObject(t)
 			s.deleteAllObjectsOfType(t)
 			nox_server_gameSettingsUpdated_40A670()
@@ -143,7 +143,7 @@ func noxCmdSetWeapon(ctx context.Context, c *console.Console, tokens []string) b
 	}
 	switch strings.ToLower(tokens[1]) {
 	case "on":
-		if s.getObjectTypeByInd(t.Ind()).allowed != 0 {
+		if s.getObjectTypeByInd(t.Ind()).Allowed() {
 			return true
 		}
 		s.enableObject(t)
@@ -152,7 +152,7 @@ func noxCmdSetWeapon(ctx context.Context, c *console.Console, tokens []string) b
 		c.Printf(console.ColorRed, str, id)
 		return true
 	case "off":
-		if s.getObjectTypeByInd(t.Ind()).allowed == 0 || C.nox_xxx_ammoCheck_415880(C.ushort(t.Ind())) == 1 {
+		if !s.getObjectTypeByInd(t.Ind()).Allowed() || C.nox_xxx_ammoCheck_415880(C.ushort(t.Ind())) == 1 {
 			return true
 		}
 		s.disableObject(t)

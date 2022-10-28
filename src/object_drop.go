@@ -20,7 +20,7 @@ func nox_xxx_parseDrop_536A20(objt *ObjectType, d *things.ProcFunc) error {
 		// TODO: add "unknown" drop as a nop types
 		return nil
 	}
-	objt.func_drop = t.Func
+	objt.drop = t.Func
 	if t.ParseFunc != nil {
 		t.ParseFunc(objt, d.Args)
 	}

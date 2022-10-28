@@ -57,7 +57,7 @@ func nox_xxx_parseXFer_5360A0(objt *ObjectType, d *things.ProcFunc) error {
 	if xfer == nil {
 		return fmt.Errorf("unsupported xfer: %q", d.Name)
 	}
-	objt.func_xfer = xfer
+	objt.xfer = xfer
 	return nil
 }
 
@@ -136,7 +136,7 @@ func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
 		name, _ := cryptFileReadString8()
 		if name != "" {
 			var v4 int
-			switch typ.func_xfer {
+			switch typ.xfer {
 			case C.nox_xxx_XFerFieldGuide_4F6390:
 				v4 = s.getObjectTypeID(name)
 			case C.nox_xxx_XFerAbilityReward_4F6240:
@@ -172,7 +172,7 @@ func nox_xxx_XFer_WriteShopItem_52A5F0(a1 unsafe.Pointer) {
 	cryptFileWriteString8(typ.ID())
 	pind := int(*(*int32)(unsafe.Add(a1, 8)))
 	var pname string
-	switch typ.func_xfer {
+	switch typ.xfer {
 	case C.nox_xxx_XFerFieldGuide_4F6390:
 		pname = noxServer.getObjectTypeByInd(pind).ID()
 	case C.nox_xxx_XFerAbilityReward_4F6240:

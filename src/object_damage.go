@@ -14,13 +14,13 @@ import (
 
 func nox_xxx_parseDamageFn_536C60(objt *ObjectType, d *things.ProcFunc) error {
 	fnc := noxObjectDamageTable[d.Name]
-	objt.func_damage = fnc
+	objt.damage = fnc
 	return nil
 }
 
 func nox_xxx_parseDamageSound_536CF0(objt *ObjectType, name string) error {
 	fnc := noxObjectDamageSoundTable[name]
-	objt.func_damage_sound = fnc
+	objt.damageSound = fnc
 	return nil
 }
 

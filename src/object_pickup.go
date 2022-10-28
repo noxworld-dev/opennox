@@ -22,7 +22,7 @@ func nox_xxx_parsePickup_536710(objt *ObjectType, d *things.ProcFunc) error {
 		// TODO: add "unknown" pickup as a nop types
 		return nil
 	}
-	objt.func_pickup = t.Func
+	objt.pickup = t.Func
 	if t.ParseFunc != nil {
 		t.ParseFunc(objt, d.Args)
 	}
