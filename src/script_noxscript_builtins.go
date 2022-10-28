@@ -22,7 +22,6 @@ int nox_script_groupEnchant_5133B0();
 int nox_script_canInteract_513E80();
 int nox_script_Fn5E_513F70();
 int nox_script_GetHostInfo_513FA0();
-int nox_script_IsOwnedByGroup_514630();
 int nox_script_IsOwnedByAny_5146B0();
 int nox_script_IsOwnedByAnyGroup_514730();
 int nox_script_ClearOwner_5147E0();
@@ -319,7 +318,7 @@ var noxScriptBuiltins = []func() int{
 	103: nox_script_SetOwners_514510,
 	104: nox_script_SetOwnersGroup_514570,
 	105: nox_script_IsOwnedBy_5145F0,
-	106: wrapScriptC(C.nox_script_IsOwnedByGroup_514630),
+	106: nox_script_IsOwnedByGroup_514630,
 	107: wrapScriptC(C.nox_script_IsOwnedByAny_5146B0),
 	108: wrapScriptC(C.nox_script_IsOwnedByAnyGroup_514730),
 	109: wrapScriptC(C.nox_script_ClearOwner_5147E0),
@@ -2125,5 +2124,25 @@ func nox_script_IsOwnedBy_5145F0() int {
 	owner := s.PopObject()
 	obj := s.PopObject()
 	s.PushBool(obj.HasOwner(owner))
+	return 0
+}
+
+// From (object, object group), return 1 if all object group is parent of input obj
+func nox_script_IsOwnedByGroup_514630() int {
+	s := &noxServer.noxScript
+
+	groupInd := s.PopI32()
+	obj := s.PopObject()
+	mapGroup := getMapGroupByInd(int(groupInd))
+	if mapGroup != nil {
+		for it := mapGroup.FirstItem(); it != nil; it = it.Next() {
+			item := noxServer.getObjectByInd(it.Ind())
+			if !obj.HasOwner(item) {
+				s.PushI32(0)
+				return 0
+			}
+		}
+	}
+	s.PushI32(1)
 	return 0
 }
