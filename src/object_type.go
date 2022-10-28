@@ -42,7 +42,7 @@ func nox_xxx_objectTypeByIndHealthData(ind C.int) unsafe.Pointer {
 	if t == nil {
 		return nil
 	}
-	return unsafe.Pointer(t.health_data)
+	return unsafe.Pointer(t.health)
 }
 
 //export sub_4E4C50
@@ -55,7 +55,7 @@ func sub_4E4C50(cobj *nox_object_t) int {
 	if typ == nil {
 		return 0
 	}
-	return int(typ.init_data_size)
+	return int(typ.initDataSize)
 }
 
 //export sub_4F40A0
@@ -77,10 +77,10 @@ func sub_4F40A0(a1 *nox_object_t) C.char {
 		return -1
 	}
 	typ := noxServer.getObjectTypeByInd(obj.objTypeInd())
-	if (uint32(obj.obj_flags)^typ.obj_flags)&0x11408162 != 0 {
+	if (uint32(obj.obj_flags)^uint32(typ.flags))&0x11408162 != 0 {
 		return -1
 	}
-	if (byte(obj.field_5)^byte(typ.field_9))&0x5E != 0 {
+	if (byte(obj.field_5)^byte(typ.field9))&0x5E != 0 {
 		return -1
 	}
 	if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
@@ -106,14 +106,14 @@ func sub_4E4C90(a1 *nox_object_t, a2 uint) int {
 		if health == nil {
 			return 0
 		}
-		if typ == nil || typ.health_data == nil {
+		if typ == nil || typ.health == nil {
 			return 0
 		}
-		return bool2int(typ.health_data.cur != health.cur)
+		return bool2int(typ.health.cur != health.cur)
 	case 0x4:
-		return bool2int((uint32(obj.obj_flags)^typ.obj_flags>>24)&1 != 0)
+		return bool2int((uint32(obj.obj_flags)^uint32(typ.flags)>>24)&1 != 0)
 	case 0x8:
-		return bool2int(typ.field_9 != uint32(obj.field_5))
+		return bool2int(typ.field9 != uint32(obj.field_5))
 	case 0x40:
 		return bool2int(obj.Z() != 0.0)
 	case 0x80:
@@ -129,17 +129,17 @@ func sub_4E4C90(a1 *nox_object_t, a2 uint) int {
 
 //export nox_xxx_getUnitDefDd10_4E3BA0
 func nox_xxx_getUnitDefDd10_4E3BA0(ind C.int) C.int {
-	return C.int(noxServer.getObjectTypeByInd(int(ind)).allowed)
+	return C.int(bool2int(noxServer.getObjectTypeByInd(int(ind)).Allowed()))
 }
 
 //export nox_xxx_getUnitName_4E39D0
 func nox_xxx_getUnitName_4E39D0(cobj *nox_object_t) *C.char {
-	return asObjectC(cobj).ObjectTypeC().id
+	return internCStr(asObjectC(cobj).ObjectTypeC().id)
 }
 
 //export sub_4E3B80
 func sub_4E3B80(ind C.int) C.int {
-	return C.int(bool2int(noxServer.getObjectTypeByInd(int(ind)).menu_icon != -1))
+	return C.int(bool2int(noxServer.getObjectTypeByInd(int(ind)).icon != -1))
 }
 
 //export nox_xxx_getUnitNameByThingType_4E3A80
@@ -147,7 +147,7 @@ func nox_xxx_getUnitNameByThingType_4E3A80(ind C.int) *C.char {
 	if ind == 0 {
 		return nil
 	}
-	return noxServer.getObjectTypeByInd(int(ind)).id
+	return internCStr(noxServer.getObjectTypeByInd(int(ind)).id)
 }
 
 //export nox_objectTypeGetXfer
@@ -156,7 +156,7 @@ func nox_objectTypeGetXfer(cstr *C.char) unsafe.Pointer {
 	if t == nil {
 		return nil
 	}
-	return t.func_xfer
+	return t.xfer
 }
 
 //export nox_objectTypeGetWorth
@@ -201,13 +201,13 @@ func sub_415EC0(a1 *C.char) C.int {
 }
 
 func (s *Server) disableObject(typ *ObjectType) {
-	s.types.crc ^= typ.allowed
-	typ.allowed = 0
+	s.types.crc ^= uint32(bool2int(typ.allowed))
+	typ.allowed = false
 }
 
 func (s *Server) enableObject(typ *ObjectType) {
-	s.types.crc ^= typ.allowed
-	typ.allowed = 1
+	s.types.crc ^= uint32(bool2int(typ.allowed))
+	typ.allowed = true
 	s.types.crc ^= 1
 }
 
@@ -234,41 +234,38 @@ func (s *serverObjTypes) nox_xxx_freeObjectTypes_4E2A20() {
 	var next *ObjectType
 	for typ := s.first; typ != nil; typ = next {
 		next = typ.next
-		if typ.id != nil {
-			StrFree(typ.id)
-			typ.id = nil
+		typ.id = ""
+		if typ.health != nil {
+			alloc.Free(unsafe.Pointer(typ.health))
+			typ.health = nil
 		}
-		if typ.health_data != nil {
-			alloc.Free(unsafe.Pointer(typ.health_data))
-			typ.health_data = nil
+		if typ.collideData != nil {
+			C.free(unsafe.Pointer(typ.collideData))
+			typ.collideData = nil
 		}
-		if typ.collide_data != nil {
-			C.free(unsafe.Pointer(typ.collide_data))
-			typ.collide_data = nil
+		if typ.dieData != nil {
+			C.free(unsafe.Pointer(typ.dieData))
+			typ.dieData = nil
 		}
-		if typ.die_data != nil {
-			C.free(unsafe.Pointer(typ.die_data))
-			typ.die_data = nil
+		if typ.initData != nil {
+			C.free(unsafe.Pointer(typ.initData))
+			typ.initData = nil
 		}
-		if typ.init_data != nil {
-			C.free(unsafe.Pointer(typ.init_data))
-			typ.init_data = nil
-		}
-		if typ.data_update != nil {
+		if typ.updateData != nil {
 			if typ.Class().Has(object.ClassMonster) {
 				ud := typ.updateDataMonster()
 				if ud.field_119 != nil {
 					C.free(unsafe.Pointer(ud.field_119))
 				}
 			}
-			C.free(unsafe.Pointer(typ.data_update))
-			typ.data_update = nil
+			C.free(unsafe.Pointer(typ.updateData))
+			typ.updateData = nil
 		}
-		if typ.use_data != nil {
-			C.free(unsafe.Pointer(typ.use_data))
-			typ.use_data = nil
+		if typ.useData != nil {
+			C.free(unsafe.Pointer(typ.useData))
+			typ.useData = nil
 		}
-		alloc.Free(unsafe.Pointer(typ))
+		*typ = ObjectType{}
 	}
 	s.first = nil
 	s.byInd = []*ObjectType{nil}
@@ -282,27 +279,21 @@ func (s *serverObjTypes) Clear() {
 }
 
 func (s *serverObjTypes) readType(thg *things.Thing) error {
-	typ, _ := alloc.New(ObjectType{})
-	typ.id = CString(thg.Name)
-
+	typ := &ObjectType{
+		id:       thg.Name,
+		icon:     -1,
+		material: object.MaterialNone,
+		mass:     1,
+		zsize1:   0, zsize2: 30,
+		damage:      C.nox_xxx_damageDefaultProc_4E0B30,
+		damageSound: C.nox_xxx_soundDefaultDamageSound_532E20,
+		xfer:        C.nox_xxx_XFerDefault_4F49A0,
+		weight:      255,
+		carryCap:    thg.CarryCap,
+	}
 	typ.ind = uint16(len(s.byInd))
 	s.byInd = append(s.byInd, typ)
 
-	typ.field_2 = 0
-	typ.menu_icon = -1
-	typ.obj_class = 0
-	typ.obj_subclass = 0
-	typ.obj_flags = 0
-	typ.material = 0x4000
-	typ.mass = 1.0
-	typ.zsize1 = 0
-	typ.zsize2 = 30.0
-	typ.func_damage = C.nox_xxx_damageDefaultProc_4E0B30
-	typ.func_damage_sound = C.nox_xxx_soundDefaultDamageSound_532E20
-	typ.func_xfer = C.nox_xxx_XFerDefault_4F49A0
-	typ.weight = 255
-	typ.carry_capacity = uint16(thg.CarryCap)
-	typ.shape = noxShape{}
 	if thg.Mass != 0 {
 		typ.mass = float32(thg.Mass)
 	}
@@ -310,7 +301,7 @@ func (s *serverObjTypes) readType(thg *things.Thing) error {
 		typ.weight = byte(thg.Weight)
 	}
 	if thg.Price != nil {
-		typ.worth = uint32(*thg.Price)
+		typ.worth = *thg.Price
 	}
 	if thg.Experience != 0 {
 		typ.experience = float32(thg.Experience)
@@ -325,30 +316,30 @@ func (s *serverObjTypes) readType(thg *things.Thing) error {
 	}
 	if thg.Speed != nil {
 		fv := float32(float64(*thg.Speed) / 32)
-		typ.float_33 = 0
+		typ.float33 = 0
 		typ.speed = fv
-		typ.speed_2 = fv
+		typ.speed2 = fv
 	}
 	for _, s := range thg.Class {
 		v, err := object.ParseClass(string(s))
 		if err != nil {
 			thingsLog.Printf("%q (%d): %v", typ.ID(), typ.Ind(), err)
 		}
-		typ.obj_class |= uint32(v)
+		typ.class |= v
 	}
 	for _, s := range thg.SubClass {
 		v, err := object.ParseSubClass(string(s))
 		if err != nil {
 			thingsLog.Printf("%q (%d): %v", typ.ID(), typ.Ind(), err)
 		}
-		typ.obj_subclass |= uint32(v)
+		typ.subclass |= v
 	}
 	for _, s := range thg.Flags {
 		v, err := object.ParseFlag(string(s))
 		if err != nil {
 			thingsLog.Printf("%q (%d): %v", typ.ID(), typ.Ind(), err)
 		}
-		typ.obj_flags |= uint32(v)
+		typ.flags |= v
 	}
 	if len(thg.Material) != 0 {
 		for _, s := range thg.Material {
@@ -356,20 +347,20 @@ func (s *serverObjTypes) readType(thg *things.Thing) error {
 			if err != nil {
 				thingsLog.Printf("%q (%d): %v", typ.ID(), typ.Ind(), err)
 			}
-			typ.material |= uint16(v)
+			typ.material |= v
 		}
 	}
 	if thg.Health != nil {
-		if typ.health_data != nil {
-			alloc.Free(unsafe.Pointer(typ.health_data))
+		if typ.health != nil {
+			alloc.Free(unsafe.Pointer(typ.health))
 		}
 		data, _ := alloc.New(objectHealthData{})
-		typ.health_data = data
+		typ.health = data
 		data.cur = uint16(*thg.Health)
 		data.max = uint16(*thg.Health)
 	}
 	if thg.Menu != nil {
-		typ.menu_icon = int32(thg.Menu.Ind)
+		typ.icon = thg.Menu.Ind
 	}
 	switch v := thg.Extent.(type) {
 	case nil:
@@ -448,24 +439,24 @@ func (s *serverObjTypes) readType(thg *things.Thing) error {
 			return err
 		}
 	}
-	if typ.func_collide == nil {
-		typ.obj_flags |= uint32(object.FlagNoCollide)
+	if typ.collide == nil {
+		typ.flags |= object.FlagNoCollide
 	}
-	typ.field_5_0 = typ.ind
-	typ.obj_flags |= uint32(object.FlagEnabled)
+	typ.ind2 = typ.ind
+	typ.flags |= object.FlagEnabled
 	if typ.Class().Has(object.ClassImmobile) {
 		typ.mass = 1e10
 	}
 	if typ.Class().Has(object.ClassMissile) {
-		typ.field_13 = 1.0
+		typ.field13 = 1.0
 		typ.speed *= 2
-		typ.speed_2 *= 2
+		typ.speed2 *= 2
 	} else {
-		typ.field_13 = 0.5
+		typ.field13 = 0.5
 	}
 	switch thg.Name {
 	case "Boulder", "RollingBoulder", "BoulderIndestructible":
-		typ.field_13 = 0.01
+		typ.field13 = 0.01
 		typ.mass = 100.0
 	case "Rock7":
 		typ.mass = 0.25
@@ -476,19 +467,19 @@ func (s *serverObjTypes) readType(thg *things.Thing) error {
 		ud.script_looking_for_enemy_cb = -1
 		ud.script_death_cb = -1
 	} else if typ.Class().Has(object.ClassTrigger) {
-		ud := unsafe.Slice((*int32)(typ.data_update), 9)
+		ud := unsafe.Slice((*int32)(typ.updateData), 9)
 		ud[6] = -1
 		ud[8] = -1
 		ud[4] = -1
 	} else if typ.Class().Has(object.ClassHole) {
-		*(*int32)(unsafe.Add(typ.collide_data, 4)) = -1
+		*(*int32)(unsafe.Add(typ.collideData, 4)) = -1
 	}
 	if typ.Class().HasAny(object.ClassWeapon | object.ClassArmor | object.ClassPlayer | object.ClassMonster) {
-		if typ.health_data == nil {
-			typ.health_data, _ = alloc.New(objectHealthData{})
+		if typ.health == nil {
+			typ.health, _ = alloc.New(objectHealthData{})
 		}
 	}
-	typ.allowed = 1
+	typ.allowed = true
 	typ.mass *= 10.0
 	s.crc ^= s.nox_xxx_unitDefProtectMB_4E31A0(typ)
 	typ.next = s.first
@@ -531,8 +522,8 @@ func (s *serverObjTypes) checkObjSizes() error {
 func (s *serverObjTypes) sub_4E31E0(typ *ObjectType) uint32 {
 	//unsigned short* v1;
 
-	val := uint32(typ.field_5_0) ^ typ.obj_flags ^ typ.field_9 ^ math.Float32bits(typ.mass)
-	if h := typ.health_data; h != nil {
+	val := uint32(typ.ind2) ^ uint32(typ.flags) ^ typ.field9 ^ math.Float32bits(typ.mass)
+	if h := typ.health; h != nil {
 		val ^= uint32(h.cur ^ h.max)
 	}
 	return val
@@ -543,7 +534,7 @@ func (s *serverObjTypes) nox_xxx_unitDefProtectMB_4E31A0(typ *ObjectType) uint32
 		return 0
 	}
 	val := uint32(typ.ind)
-	val ^= typ.allowed
+	val ^= uint32(bool2int(typ.allowed))
 	val ^= s.sub_4E31E0(typ)
 	val ^= protectBytes([]byte(typ.ID()))
 	return val
@@ -620,62 +611,55 @@ type objectHealthData struct {
 	field16 uint32
 }
 
-var _ = [1]struct{}{}[224-unsafe.Sizeof(ObjectType{})]
-
 type ObjectType struct {
-	ind               uint16            // 0, 0
-	field_0_1         uint16            // 0, 2
-	id                *C.char           // 1, 4
-	field_2           uint32            // 2, 8
-	menu_icon         int32             // 3, 12
-	allowed           uint32            // 4, 16
-	field_5_0         uint16            // 5, 20
-	field_5_1         uint16            // 5, 22
-	obj_class         uint32            // 6, 24
-	obj_subclass      uint32            // 7, 28
-	obj_flags         uint32            // 8, 32
-	field_9           uint32            // 9, 36
-	material          uint16            // 10, 40
-	field_10_1        uint16            // 10, 42
-	experience        float32           // 11, 44
-	worth             uint32            // 12, 48
-	field_13          float32           // 13, 52
-	mass              float32           // 14, 56
-	shape             noxShape          // 15, 60
-	zsize1            float32           // 28, 112
-	zsize2            float32           // 29, 116
-	weight            byte              // 30, 120
-	field_30_1        byte              // 30, 121
-	carry_capacity    uint16            // 30, 122
-	speed             float32           // 31, 124
-	speed_2           float32           // 32, 128
-	float_33          float32           // 33, 132
-	health_data       *objectHealthData // 34, 136
-	func_collide      unsafe.Pointer    // 35, 140
-	collide_data      unsafe.Pointer    // 36, 144
-	collide_data_size int32             // 37, 148
-	func_damage       unsafe.Pointer    // 38, 152
-	func_damage_sound unsafe.Pointer    // 39, 156
-	func_die          unsafe.Pointer    // 40, 160
-	die_data          unsafe.Pointer    // 41, 164
-	func_drop         unsafe.Pointer    // 42, 168
-	func_init         unsafe.Pointer    // 43, 172
-	init_data         unsafe.Pointer    // 44, 176
-	init_data_size    int32             // 45, 180
-	func_pickup       unsafe.Pointer    // 46, 184
-	func_update       unsafe.Pointer    // 47, 188
-	data_update       unsafe.Pointer    // 48, 192
-	data_update_size  int32             // 49, 196
-	func_use          unsafe.Pointer    // 50, 200
-	use_data          unsafe.Pointer    // 51, 204
-	use_data_size     int32             // 52, 208
-	func_xfer         unsafe.Pointer    // 53, 212
-	func_new          unsafe.Pointer    // 54, 216
-	next              *ObjectType       // 55, 220
+	ind             uint16            // 0, 0
+	id              string            // 1, 4
+	icon            int               // 3, 12
+	allowed         bool              // 4, 16
+	ind2            uint16            // 5, 20
+	class           object.Class      // 6, 24
+	subclass        object.SubClass   // 7, 28
+	flags           object.Flags      // 8, 32
+	field9          uint32            // 9, 36
+	material        object.Material   // 10, 40
+	experience      float32           // 11, 44
+	worth           int               // 12, 48
+	field13         float32           // 13, 52
+	mass            float32           // 14, 56
+	shape           noxShape          // 15, 60
+	zsize1          float32           // 28, 112
+	zsize2          float32           // 29, 116
+	weight          byte              // 30, 120
+	carryCap        int               // 30, 122
+	speed           float32           // 31, 124
+	speed2          float32           // 32, 128
+	float33         float32           // 33, 132
+	health          *objectHealthData // 34, 136
+	collide         unsafe.Pointer    // 35, 140
+	collideData     unsafe.Pointer    // 36, 144
+	collideDataSize int               // 37, 148
+	damage          unsafe.Pointer    // 38, 152
+	damageSound     unsafe.Pointer    // 39, 156
+	die             unsafe.Pointer    // 40, 160
+	dieData         unsafe.Pointer    // 41, 164
+	drop            unsafe.Pointer    // 42, 168
+	init            unsafe.Pointer    // 43, 172
+	initData        unsafe.Pointer    // 44, 176
+	initDataSize    int               // 45, 180
+	pickup          unsafe.Pointer    // 46, 184
+	update          unsafe.Pointer    // 47, 188
+	updateData      unsafe.Pointer    // 48, 192
+	updateDataSize  int               // 49, 196
+	use             unsafe.Pointer    // 50, 200
+	useData         unsafe.Pointer    // 51, 204
+	useDataSize     int               // 52, 208
+	xfer            unsafe.Pointer    // 53, 212
+	create          unsafe.Pointer    // 54, 216
+	next            *ObjectType       // 55, 220
 }
 
 func (t *ObjectType) ID() string {
-	return GoString(t.id)
+	return t.id
 }
 
 func (t *ObjectType) Ind() int {
@@ -686,18 +670,26 @@ func (t *ObjectType) Ind() int {
 }
 
 func (t *ObjectType) Class() object.Class {
-	return object.Class(t.obj_class)
+	return t.class
 }
 
 func (t *ObjectType) ArmorClass() object.ArmorClass {
 	if !t.Class().Has(object.ClassArmor) {
 		return 0
 	}
-	return object.ArmorClass(t.obj_subclass)
+	return object.ArmorClass(t.subclass)
 }
 
 func (t *ObjectType) Flags() object.Flags {
-	return object.Flags(t.obj_flags)
+	return t.flags
+}
+
+func (t *ObjectType) Material() object.Material {
+	return t.material
+}
+
+func (t *ObjectType) Allowed() bool {
+	return t.allowed
 }
 
 func (t *ObjectType) String() string {
@@ -708,16 +700,16 @@ func (t *ObjectType) newObject() *Object {
 	s := noxServer
 	cobj := alloc.AsClassT[nox_object_t](unsafe.Pointer(C.nox_alloc_gameObject_1563344)).NewObject()
 	*cobj = nox_object_t{
-		net_code:     cobj.net_code,         // it is persisted by the allocator; so we basically reuse ID of the older object
-		typ_ind:      C.ushort(t.field_5_0), // TODO: why is it setting it and then overwriting again?
-		obj_class:    C.uint(t.obj_class),
-		obj_subclass: C.uint(t.obj_subclass),
-		obj_flags:    C.uint(t.obj_flags),
-		field_5:      C.uint(t.field_9),
+		net_code:     cobj.net_code,    // it is persisted by the allocator; so we basically reuse ID of the older object
+		typ_ind:      C.ushort(t.ind2), // TODO: why is it setting it and then overwriting again?
+		obj_class:    C.uint(t.class),
+		obj_subclass: C.uint(t.subclass),
+		obj_flags:    C.uint(t.flags),
+		field_5:      C.uint(t.field9),
 		material:     C.ushort(t.material),
 		experience:   C.float(t.experience),
 		worth:        C.uint(t.worth),
-		float_28:     C.float(t.field_13),
+		float_28:     C.float(t.field13),
 		mass:         C.float(t.mass),
 		zsize1:       C.float(t.zsize1),
 		zsize2:       C.float(t.zsize2),
@@ -728,56 +720,56 @@ func (t *ObjectType) newObject() *Object {
 		C.nox_xxx_objectUnkUpdateCoords_4E7290(obj.CObj())
 	}
 	obj.weight = C.uchar(t.weight)
-	obj.carry_capacity = C.ushort(t.carry_capacity)
+	obj.carry_capacity = C.ushort(t.carryCap)
 	obj.speed_cur = C.float(t.speed)
-	obj.speed_2 = C.float(t.speed_2)
-	obj.float_138 = C.float(t.float_33)
+	obj.speed_2 = C.float(t.speed2)
+	obj.float_138 = C.float(t.float33)
 	obj.health_data = nil
 	obj.field_38 = -1
 	obj.typ_ind = C.ushort(t.ind)
-	if t.health_data != nil {
+	if t.health != nil {
 		data, _ := alloc.New(objectHealthData{})
 		obj.health_data = unsafe.Pointer(data)
-		*data = *t.health_data
+		*data = *t.health
 	}
-	obj.func_init = t.func_init
-	if t.init_data_size != 0 {
-		data, _ := alloc.Make([]byte{}, t.init_data_size)
+	obj.func_init = t.init
+	if t.initDataSize != 0 {
+		data, _ := alloc.Make([]byte{}, t.initDataSize)
 		obj.init_data = unsafe.Pointer(&data[0])
-		copy(data, unsafe.Slice((*byte)(t.init_data), t.init_data_size))
+		copy(data, unsafe.Slice((*byte)(t.initData), t.initDataSize))
 	}
-	obj.func_collide = t.func_collide
-	if t.collide_data_size != 0 {
-		data, _ := alloc.Make([]byte{}, t.collide_data_size)
+	obj.func_collide = t.collide
+	if t.collideDataSize != 0 {
+		data, _ := alloc.Make([]byte{}, t.collideDataSize)
 		obj.collide_data = unsafe.Pointer(&data[0])
-		copy(data, unsafe.Slice((*byte)(t.collide_data), t.collide_data_size))
+		copy(data, unsafe.Slice((*byte)(t.collideData), t.collideDataSize))
 	}
-	obj.func_xfer = (*[0]byte)(t.func_xfer)
-	obj.func_use = t.func_use
-	if t.use_data_size != 0 {
-		data, _ := alloc.Make([]byte{}, t.use_data_size)
+	obj.func_xfer = (*[0]byte)(t.xfer)
+	obj.func_use = t.use
+	if t.useDataSize != 0 {
+		data, _ := alloc.Make([]byte{}, t.useDataSize)
 		obj.use_data = unsafe.Pointer(&data[0])
-		copy(data, unsafe.Slice((*byte)(t.use_data), t.use_data_size))
+		copy(data, unsafe.Slice((*byte)(t.useData), t.useDataSize))
 	}
-	obj.func_update = (*[0]byte)(t.func_update)
-	if t.data_update_size != 0 {
-		data, _ := alloc.Make([]byte{}, t.data_update_size)
+	obj.func_update = (*[0]byte)(t.update)
+	if t.updateDataSize != 0 {
+		data, _ := alloc.Make([]byte{}, t.updateDataSize)
 		obj.data_update = unsafe.Pointer(&data[0])
-		copy(data, unsafe.Slice((*byte)(t.data_update), t.data_update_size))
+		copy(data, unsafe.Slice((*byte)(t.updateData), t.updateDataSize))
 	}
-	obj.func_pickup = t.func_pickup
-	obj.func_drop = t.func_drop
-	obj.func_damage = (*[0]byte)(t.func_damage)
-	obj.func_damage_sound = t.func_damage_sound
-	obj.func_die = t.func_die
+	obj.func_pickup = t.pickup
+	obj.func_drop = t.drop
+	obj.func_damage = (*[0]byte)(t.damage)
+	obj.func_damage_sound = t.damageSound
+	obj.func_die = t.die
 	obj.field_190 = 0
-	obj.die_data = t.die_data
+	obj.die_data = t.dieData
 	obj.field_192 = -1
 	if noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) && (obj.Class().HasAny(0x20A02) || unsafe.Pointer(obj.func_xfer) == unsafe.Pointer(C.nox_xxx_XFerInvLight_4F5AA0) || obj.weight != 0xff) {
 		obj.field_189, _ = alloc.Malloc(2572)
 	}
-	if t.func_new != nil {
-		C.nox_call_objectType_new_go((*[0]byte)(t.func_new), obj.CObj())
+	if t.create != nil {
+		C.nox_call_objectType_new_go((*[0]byte)(t.create), obj.CObj())
 	}
 	if !noxflags.HasGame(noxflags.GameFlag22) {
 		obj.script_id = C.int(s.NextObjectScriptID())
@@ -809,11 +801,11 @@ func (t *ObjectType) CreateObject(p types.Pointf) script.Object {
 }
 
 func (t *ObjectType) updateDataPtr() unsafe.Pointer {
-	return t.data_update
+	return t.updateData
 }
 
 func (t *ObjectType) updateDataRaw() []byte {
-	return unsafe.Slice((*byte)(t.data_update), int(t.data_update_size))
+	return unsafe.Slice((*byte)(t.updateData), int(t.updateDataSize))
 }
 
 func (t *ObjectType) updateDataMonster() *MonsterUpdateData {

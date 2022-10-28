@@ -24,13 +24,13 @@ func nox_xxx_parseDieProc_536B80(objt *ObjectType, d *things.ProcFunc) error {
 		// TODO: add "unknown" death as a nop types
 		return nil
 	}
-	objt.func_die = t.Func
-	objt.die_data = nil
+	objt.die = t.Func
+	objt.dieData = nil
 	if t.DataSize == 0 {
 		return nil
 	}
 	data, _ := alloc.Malloc(uintptr(t.DataSize))
-	objt.die_data = data
+	objt.dieData = data
 	if t.ParseFunc != nil {
 		cstr := CString(strings.Join(d.Args, " "))
 		defer StrFree(cstr)

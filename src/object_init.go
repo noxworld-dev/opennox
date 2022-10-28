@@ -20,14 +20,14 @@ func nox_xxx_parseInitProc_536930(objt *ObjectType, d *things.ProcFunc) error {
 		// TODO: add "unknown" init as a nop init types (similar to NoInit)
 		return nil
 	}
-	objt.func_init = t.Func
-	objt.init_data = nil
-	objt.init_data_size = int32(t.DataSize)
+	objt.init = t.Func
+	objt.initData = nil
+	objt.initDataSize = t.DataSize
 	if t.DataSize == 0 {
 		return nil
 	}
 	data, _ := alloc.Malloc(uintptr(t.DataSize))
-	objt.init_data = data
+	objt.initData = data
 	if t.ParseFunc != nil {
 		if err := t.ParseFunc(objt, d.Args); err != nil {
 			return err
@@ -37,7 +37,7 @@ func nox_xxx_parseInitProc_536930(objt *ObjectType, d *things.ProcFunc) error {
 }
 
 func objectDirectionInitParse(objt *ObjectType, args []string) error {
-	p := unsafe.Slice((*int32)(objt.init_data), 2)
+	p := unsafe.Slice((*int32)(objt.initData), 2)
 	if len(args) != 2 {
 		return errors.New("expected two values")
 	}
@@ -77,7 +77,7 @@ var noxObjectInitTable = map[string]struct {
 	"ModifierInit":   {DataSize: 20},
 	"GoldInit":       {Func: C.nox_xxx_unitInitGold_4F04B0, DataSize: 4},
 	"BreakInit": {Func: C.nox_xxx_breakInit_4F0570, ParseFunc: func(objt *ObjectType, _ []string) error {
-		objt.field_9 = 2
+		objt.field9 = 2
 		return nil
 	}},
 	"MonsterGeneratorInit": {Func: C.nox_xxx_unitInitGenerator_4F0590},

@@ -25,14 +25,14 @@ func nox_xxx_parseCollide_536EC0(objt *ObjectType, d *things.ProcFunc) error {
 		// TODO: add "unknown" collide as a nop types (similar to NoCollide)
 		return nil
 	}
-	objt.func_collide = t.Func
-	objt.collide_data = nil
-	objt.collide_data_size = int32(t.DataSize)
+	objt.collide = t.Func
+	objt.collideData = nil
+	objt.collideDataSize = t.DataSize
 	if t.DataSize == 0 {
 		return nil
 	}
 	data, _ := alloc.Malloc(uintptr(t.DataSize))
-	objt.collide_data = data
+	objt.collideData = data
 	if t.ParseFunc != nil {
 		cstr := CString(strings.Join(d.Args, " "))
 		defer StrFree(cstr)

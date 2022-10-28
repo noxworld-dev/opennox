@@ -22,14 +22,14 @@ func nox_xxx_parseUseFn_5363F0(objt *ObjectType, d *things.ProcFunc) error {
 		// TODO: add "unknown" use as a nop types
 		return nil
 	}
-	objt.func_use = t.Func
-	objt.use_data = nil
-	objt.use_data_size = int32(t.DataSize)
+	objt.use = t.Func
+	objt.useData = nil
+	objt.useDataSize = t.DataSize
 	if t.DataSize == 0 {
 		return nil
 	}
 	data, _ := alloc.Malloc(uintptr(t.DataSize))
-	objt.use_data = data
+	objt.useData = data
 	if t.ParseFunc != nil {
 		cstr := CString(strings.Join(d.Args, " "))
 		defer StrFree(cstr)

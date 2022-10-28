@@ -54,14 +54,14 @@ func nox_xxx_parseUpdate_536620(objt *ObjectType, d *things.ProcFunc) error {
 		// TODO: add "unknown" updates as a nop update types (similar to NoUpdate)
 		return nil
 	}
-	objt.func_update = t.Func
-	objt.data_update = nil
-	objt.data_update_size = int32(t.DataSize)
+	objt.update = t.Func
+	objt.updateData = nil
+	objt.updateDataSize = int(t.DataSize)
 	if t.DataSize == 0 {
 		return nil
 	}
 	data, _ := alloc.Malloc(t.DataSize)
-	objt.data_update = data
+	objt.updateData = data
 	if t.ParseFunc != nil {
 		cstr := CString(strings.Join(d.Args, " "))
 		defer StrFree(cstr)
