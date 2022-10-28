@@ -73,7 +73,7 @@ func (g *mapGroup) Next() *mapGroup {
 }
 
 func (g *mapGroup) FirstItem() *mapGroupItem {
-	return *(**mapGroupItem)(unsafe.Add(g.C(), 21*4))
+	return *(**mapGroupItem)(unsafe.Add(g.C(), 21*4)) // 84
 }
 
 type mapGroupItem [0]byte
