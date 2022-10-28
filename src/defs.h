@@ -319,62 +319,8 @@ typedef struct nox_thing {
 } nox_thing;
 _Static_assert(sizeof(nox_thing) == 128, "wrong size of nox_thing structure!");
 
-typedef struct nox_objectType_t nox_objectType_t;
 typedef struct nox_object_t nox_object_t;
 typedef struct nox_playerInfo nox_playerInfo;
-
-typedef struct nox_objectType_t {
-	unsigned short ind;       // 0, 0
-	unsigned short field_0_1; // 0, 2
-	const char* id;           // 1, 4
-	uint32_t field_2;         // 2, 8
-	int menu_icon;            // 3, 12
-	unsigned int field_4;     // 4, 16
-	uint16_t field_5_0;       // 5, 20
-	uint16_t field_5_1;       // 5, 22
-	unsigned int obj_class;   // 6, 24
-	unsigned int obj_subclass;// 7, 28
-	unsigned int obj_flags;   // 8, 32
-	uint32_t field_9;         // 9, 36
-	uint16_t material;        // 10, 40
-	uint16_t field_10_1;      // 10, 42
-	float experience;         // 11, 44
-	uint32_t worth;           // 12, 48
-	float field_13;           // 13, 52
-	float mass;               // 14, 56
-	nox_shape shape;          // 15, 60
-	float zsize1;             // 28, 112
-	float zsize2;             // 29, 116
-	uint8_t weight;           // 30, 120
-	uint8_t field_30_1;       // 30, 121
-	uint16_t carry_capacity;  // 30, 122
-	float speed;              // 31, 124
-	float speed_2;            // 32, 128
-	float float_33;           // 33, 132
-	void* health_data;        // 34, 136
-	void* func_collide;       // 35, 140
-	void* collide_data;       // 36, 144
-	int   collide_data_size;  // 37, 148
-	void* func_damage;        // 38, 152
-	void* func_damage_sound;  // 39, 156
-	void* func_die;           // 40, 160
-	void* die_data;           // 41, 164
-	void* func_drop;          // 42, 168
-	void* func_init;          // 43, 172
-	void* init_data;          // 44, 176
-	int   init_data_size;     // 45, 180
-	void* func_pickup;        // 46, 184
-	void (*func_update)(nox_object_t*); // 47, 188
-	void* data_update;          // 48, 192
-	int   data_update_size;     // 49, 196
-	void* func_use;             // 50, 200
-	void* use_data;             // 51, 204
-	int   use_data_size;        // 52, 208
-	void* func_xfer;          // 53, 212
-	void (*func_new)(void*);  // 54, 216
-	nox_objectType_t* next;   // 55, 220
-} nox_objectType_t;
-_Static_assert(sizeof(nox_objectType_t) == 224, "wrong size of nox_objectType_t structure!");
 
 typedef struct nox_object_t {
 	const char* id;          // 0, 0

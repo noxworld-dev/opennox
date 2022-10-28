@@ -3456,7 +3456,8 @@ void nox_xxx_loadShopItems_50E970(int a1) {
 							v41 = 0;
 							if (*v34) {
 								do {
-									v35 = nox_xxx_newObjectByTypeID_4E3810(*(char**)(*((uint32_t*)v34 - 1) + 4));
+									uint32_t v34p = *((uint32_t*)v34 - 1);
+									v35 = nox_xxx_newObjectWithTypeInd_4E3450(v34p);
 									v36 = (int)v35;
 									if (v35) {
 										if (v35[2] & 0x13001000) {
@@ -4142,7 +4143,7 @@ int sub_5103F0(int a1, int a2) {
 	if (!a1 || !a2) {
 		return 0;
 	}
-	if (*(uint16_t*)(a1 + 4) == **(uint16_t**)a2) {
+	if (*(uint16_t*)(a1 + 4) == *(uint32_t*)a2) {
 		v3 = *(uint32_t*)(a1 + 8);
 		v2 = 1;
 		if (v3 & 0x13001000) {
