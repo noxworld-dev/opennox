@@ -213,9 +213,11 @@ func noxCheatGold(ctx context.Context, c *console.Console, tokens []string) bool
 		return false
 	}
 	v, err := strconv.Atoi(tokens[0])
-	if _, err2 := strconv.ParseUint(tokens[0], 10, 64); err2 == nil {
-		err = nil
-		v = 999999999 // a lot, but still some space before overflowing int32
+	if err != nil {
+		if _, err2 := strconv.ParseUint(tokens[0], 10, 64); err2 == nil {
+			err = nil
+			v = 999999999 // a lot, but still some space before overflowing int32
+		}
 	}
 	if err != nil {
 		c.Print(console.ColorLightRed, "failed to parse the value")
