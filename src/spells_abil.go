@@ -258,7 +258,7 @@ func (a *serverAbilities) Do(u *Unit, abil Ability) {
 		return
 	}
 	ud := u.updateDataPlayer()
-	pl := ud.Player()
+	pl := asPlayerS(ud.Player)
 	if pl.PlayerClass() != player.Warrior {
 		return
 	}
@@ -296,7 +296,7 @@ func (a *serverAbilities) Do(u *Unit, abil Ability) {
 		nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
-	if ud.field_22_0 == 12 || !noxflags.HasGame(noxflags.GameModeCoop) && u.Flags().Has(object.FlagAirborne) {
+	if ud.Field22_0 == 12 || !noxflags.HasGame(noxflags.GameModeCoop) && u.Flags().Has(object.FlagAirborne) {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 6)
 		nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
 		return

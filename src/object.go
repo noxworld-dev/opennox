@@ -201,6 +201,9 @@ func asObject(p unsafe.Pointer) *Object {
 func asObjectC(p *C.nox_object_t) *Object {
 	return asObject(unsafe.Pointer(p))
 }
+func asObjectS(p *server.Object) *Object {
+	return (*Object)(unsafe.Pointer(p))
+}
 
 func (s *Server) firstServerObject() *Object { // nox_server_getFirstObject_4DA790
 	return s.objs.list
@@ -621,6 +624,7 @@ func toObject(obj noxObject) *Object {
 
 type noxObject interface {
 	CObj() *nox_object_t
+	server.Obj
 	AsObject() *Object
 }
 
@@ -636,6 +640,10 @@ func (obj *Object) UniqueKey() uintptr {
 
 func (obj *Object) CObj() *nox_object_t {
 	return (*nox_object_t)(unsafe.Pointer(obj))
+}
+
+func (obj *Object) SObj() *server.Object {
+	return (*server.Object)(unsafe.Pointer(obj))
 }
 
 func (obj *Object) AsObject() *Object {

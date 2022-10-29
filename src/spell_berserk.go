@@ -21,7 +21,7 @@ func nox_xxx_warriorBerserker_53FEB0(u *Unit) {
 	}
 	if u.Class().Has(object.ClassPlayer) {
 		if ud := u.updateDataPlayer(); ud != nil {
-			ud.field_59_0 = 0
+			ud.Field59_0 = 0
 		}
 	}
 	nox_xxx_playerSetState_4FA020(u, 1)

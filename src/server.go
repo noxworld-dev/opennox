@@ -781,9 +781,9 @@ func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
 				fname := datapath.Save("_temp_.dat")
 				for _, u := range s.getPlayerUnits() {
 					ud := u.updateDataPlayer()
-					plx := ud.Player()
+					plx := asPlayerS(ud.Player)
 					pi := plx.Index()
-					if plx.field_4792 == 1 && ud.field_138 == 0 && nox_xxx_playerSaveToFile_41A140(fname, pi) {
+					if plx.field_4792 == 1 && ud.Field138 == 0 && nox_xxx_playerSaveToFile_41A140(fname, pi) {
 						v5 := sub_419EE0(pi)
 						nox_xxx_sendGauntlet_4DCF80(pi, 1)
 						if !sub41CFA0(fname, pi) && !v5 {
