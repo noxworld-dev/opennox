@@ -937,7 +937,7 @@ func nox_script_NoWallSound_516960() int {
 
 func nox_script_SetCallback_516970() int {
 	s := &noxServer.noxScript
-	fnc := C.int(s.PopU32())
+	fnc := int32(s.PopU32())
 	ev := s.PopU32()
 	u := s.PopObject().AsUnit()
 	if u == nil || !u.Class().Has(object.ClassMonster) {
@@ -946,25 +946,25 @@ func nox_script_SetCallback_516970() int {
 	ud := u.updateDataMonster()
 	switch ev {
 	case 3: // Enemy sighted
-		ud.script_enemy_sighted_cb = fnc
+		ud.ScriptEnemySightedCB = fnc
 	case 4: // Looking for enemy
-		ud.script_looking_for_enemy_cb = fnc
+		ud.ScriptLookingForEnemyCB = fnc
 	case 5: // Death
-		ud.script_death_cb = fnc
+		ud.ScriptDeathCB = fnc
 	case 6: // Change focus
-		ud.script_change_focus_cb = fnc
+		ud.ScriptChangeFocusCB = fnc
 	case 7: // Is hit
-		ud.script_is_hit_cb = fnc
+		ud.ScriptIsHitCB = fnc
 	case 8: // Retreat
-		ud.script_retreat_cb = fnc
+		ud.ScriptRetreatCB = fnc
 	case 9: // Collision
-		ud.script_collision_cb = fnc
+		ud.ScriptCollisionCB = fnc
 	case 10: // Enemy heard
-		ud.script_hear_enemy_cb = fnc
+		ud.ScriptHearEnemyCB = fnc
 	case 11: // End of waypoint
-		ud.script_end_of_waypoint_cb = fnc
+		ud.ScriptEndOfWaypointCB = fnc
 	case 13: // Lost sight of enemy
-		ud.script_lost_enemy_cb = fnc
+		ud.ScriptLostEnemyCB = fnc
 	}
 	return 0
 }
@@ -1732,7 +1732,7 @@ func nox_script_getNextInvItem_5138E0() int {
 func zombieSetStayDead(obj *Object) {
 	if obj != nil {
 		if obj.Class().Has(object.ClassMonster) {
-			obj.AsUnit().updateDataMonster().field_360 |= 0x100000
+			obj.AsUnit().updateDataMonster().Field360 |= 0x100000
 		}
 	}
 }
@@ -1785,9 +1785,9 @@ func nox_script_getInvHolder_513960() int {
 func nox_script_pickup_5139A0() int {
 	s := &noxServer.noxScript
 
-	objGold := noxServer.getObjectTypeID("Gold")
-	objQuestGoldPile := noxServer.getObjectTypeID("QuestGoldPile")
-	objQuestGoldChest := noxServer.getObjectTypeID("QuestGoldChest")
+	objGold := noxServer.ObjectTypeID("Gold")
+	objQuestGoldPile := noxServer.ObjectTypeID("QuestGoldPile")
+	objQuestGoldChest := noxServer.ObjectTypeID("QuestGoldChest")
 
 	item := s.PopObject()
 	picker := s.PopObject()

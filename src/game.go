@@ -108,6 +108,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/internal/version"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
@@ -1245,10 +1246,10 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	*memmap.PtrUint32(0x5D4594, 1548528) = 0
 	C.dword_5d4594_1548532 = nil
 	if memmap.Uint32(0x5D4594, 1548708) == 0 {
-		*memmap.PtrUint32(0x5D4594, 1548708) = uint32(s.getObjectTypeByID("PlayerStart").Ind())
+		*memmap.PtrUint32(0x5D4594, 1548708) = uint32(s.ObjectTypeByID("PlayerStart").Ind())
 	}
 	if memmap.Uint32(0x5D4594, 1548712) == 0 {
-		*memmap.PtrUint32(0x5D4594, 1548712) = uint32(s.getObjectTypeByID("GameBallStart").Ind())
+		*memmap.PtrUint32(0x5D4594, 1548712) = uint32(s.ObjectTypeByID("GameBallStart").Ind())
 	}
 	var starts struct {
 		playerN int
@@ -1350,17 +1351,17 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 					ud := n.updateDataMonster()
 					v61 := randomReachablePointAround(50.0, m.Pos())
 					n.SetPos(v61)
-					ud.field_97 = 0
+					ud.Field97 = 0
 					n.clearActionStack()
 					n.obj_130 = nil
-					ud.current_enemy = nil
-					ud.field_304 = 0
+					ud.CurrentEnemy = nil
+					ud.Field304 = 0
 					*(*byte)(unsafe.Add(unsafe.Pointer(ud), 1129)) = 0
-					ud.field_0 = 0xDEADFACE
+					ud.Field0 = 0xDEADFACE
 					p := m.Pos()
 					n.monsterPushAction(ai.ACTION_ESCORT, p.X, p.Y, m)
 					if n.Class().Has(2) && n.SubClass()&0x30 != 0 {
-						C.nox_xxx_setNPCColor_4E4A90(n.CObj(), 0, C.int(ud.field_519))
+						C.nox_xxx_setNPCColor_4E4A90(n.CObj(), 0, C.int(ud.Field519))
 					}
 				} else if m.Class().Has(1) && C.sub_4E5B80(m.CObj()) != 0 {
 					C.sub_4E81D0(m.CObj())
@@ -1836,38 +1837,38 @@ func nox_xxx_mapTraceObstacles(from *Unit, p1, p2 types.Pointf) bool { // nox_xx
 		}
 		pos := obj.Pos()
 		sh := obj.getShape()
-		switch sh.kind {
-		case shapeKindCircle:
+		switch sh.Kind {
+		case server.ShapeKindCircle:
 			a3p, a3Free := alloc.Malloc(8)
 			defer a3Free()
 			a3 := unsafe.Slice((*float32)(a3p), 2)
 			if C.nox_xxx_mathPointOnTheLine_57C8A0((*C.float4)(pp), (*C.float2)(unsafe.Pointer(&obj.x)), (*C.float2)(a3p)) != 0 {
 				dx := a3[0] - pos.X
 				dy := a3[1] - pos.Y
-				if dy*dy+dx*dx <= sh.circle.R2 {
+				if dy*dy+dx*dx <= sh.Circle.R2 {
 					searching = false
 				}
 			}
-		case shapeKindBox:
+		case server.ShapeKindBox:
 			a2p, a2Free := alloc.Malloc(16)
 			defer a2Free()
 			a2 := unsafe.Slice((*float32)(a2p), 4)
 
-			v12 := sh.box.LeftTop + pos.X
-			v5 := sh.box.LeftBottom + pos.Y
+			v12 := sh.Box.LeftTop + pos.X
+			v5 := sh.Box.LeftBottom + pos.Y
 			a2[0] = v12
 			v13 := v5
-			v6 := sh.box.LeftBottom2 + pos.X
+			v6 := sh.Box.LeftBottom2 + pos.X
 			a2[1] = v13
 			v9 := v6
-			v7 := sh.box.LeftTop2 + pos.Y
+			v7 := sh.Box.LeftTop2 + pos.Y
 			a2[2] = v9
 			v10 := v7
-			v8 := sh.box.RightTop + pos.X
+			v8 := sh.Box.RightTop + pos.X
 			a2[3] = v10
-			v11 := sh.box.RightBottom + pos.Y
-			xx := sh.box.RightBottom2 + pos.X
-			yy := sh.box.RightTop2 + pos.Y
+			v11 := sh.Box.RightBottom + pos.Y
+			xx := sh.Box.RightBottom2 + pos.X
+			yy := sh.Box.RightTop2 + pos.Y
 			if C.sub_427980((*C.float4)(pp), (*C.float4)(a2p)) != 0 {
 				searching = false
 				return
@@ -2225,12 +2226,12 @@ func sub_4537F0() {
 	s := noxServer
 	for i := 0; i < 26; i++ {
 		if ind := int(C.sub_415CD0(C.int(1 << i))); ind != 0 {
-			s.enableObject(s.getObjectTypeByInd(ind))
+			s.ObjectTypeByInd(ind).SetAllowed(true)
 		}
 	}
 	for i := 0; i < 27; i++ {
 		if ind := int(C.sub_415840(C.int(1 << i))); ind != 0 {
-			s.enableObject(s.getObjectTypeByInd(ind))
+			s.ObjectTypeByInd(ind).SetAllowed(true)
 		}
 	}
 }

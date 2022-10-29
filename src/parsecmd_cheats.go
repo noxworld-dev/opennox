@@ -407,6 +407,7 @@ func noxCheatGoto(ctx context.Context, c *console.Console, tokens []string) bool
 }
 
 func noxCheatSpawn(ctx context.Context, c *console.Console, tokens []string) bool {
+	s := noxServer
 	cnt := 1
 	switch len(tokens) {
 	default:
@@ -421,14 +422,14 @@ func noxCheatSpawn(ctx context.Context, c *console.Console, tokens []string) boo
 		}
 	case 1:
 	}
-	typ := noxServer.getObjectTypeByID(tokens[0])
+	typ := s.ObjectTypeByID(tokens[0])
 	if typ == nil {
 		c.Printf(console.ColorLightRed, "unknown object: %q", tokens[0])
 		return true
 	}
 	pos := HostPlayer().Pos()
 	for i := 0; i < cnt; i++ {
-		typ.CreateObject(pos)
+		s.createObject(typ, pos)
 	}
 	c.Printf(console.ColorLightYellow, "created %q at (%d, %d)", typ.ID(), int(pos.X), int(pos.Y))
 	return true

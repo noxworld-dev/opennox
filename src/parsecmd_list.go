@@ -57,7 +57,7 @@ func cmdListObjectsWithClass(c *console.Console, class object.Class) bool {
 	s := noxServer
 	allowed := c.Strings().GetStringInFile("allowed", "parsecmd.c")
 	disallowed := c.Strings().GetStringInFile("disallowed", "parsecmd.c")
-	for _, typ := range s.getObjectTypes() {
+	for _, typ := range s.ObjectTypes() {
 		if !typ.Class().Has(class) {
 			continue
 		}
@@ -65,7 +65,7 @@ func cmdListObjectsWithClass(c *console.Console, class object.Class) bool {
 			c.Printf(console.ColorRed, "%d\t%s", typ.Ind(), typ.ID())
 		} else {
 			allow := allowed
-			if !s.getObjectTypeByInd(typ.Ind()).Allowed() {
+			if !s.ObjectTypeByInd(typ.Ind()).Allowed() {
 				allow = disallowed
 			}
 			// TODO: print full name via sub_415E80/sub_4159F0/sub_4159F0

@@ -32,6 +32,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 //export nox_server_getFirstObject_4DA790
@@ -178,63 +179,6 @@ func nox_xxx_createAt_4DAA50(cobj *nox_object_t, cowner *nox_object_t, x C.float
 		owner = asObjectC(cowner)
 	}
 	noxServer.createObjectAt(asObjectC(cobj), owner, types.Pointf{X: float32(x), Y: float32(y)})
-}
-
-type shapeKind uint32
-
-const (
-	shapeKindNone   = shapeKind(0)
-	shapeKindCenter = shapeKind(1)
-	shapeKindCircle = shapeKind(2)
-	shapeKindBox    = shapeKind(3)
-)
-
-var _ = ([1]struct{}{})[52-unsafe.Sizeof(noxShape{})]
-
-type noxShape struct {
-	kind   shapeKind // 0, 0x0, (43)
-	circle struct {
-		R  float32 // 1, 0x4, (44)
-		R2 float32 // 2, 0x8, (45)
-	}
-	box noxShapeBox
-}
-
-type noxShapeBox struct {
-	W            float32 // 3, 0xC, (46)
-	H            float32 // 4, 0x10, (47)
-	LeftTop      float32 // 5, 0x14, (48)
-	LeftBottom   float32 // 6, 0x18, (49)
-	LeftBottom2  float32 // 7, 0x1C, (50)
-	LeftTop2     float32 // 8, 0x20, (51)
-	RightTop     float32 // 9, 0x24, (52)
-	RightBottom  float32 // 10, 0x28, (53)
-	RightBottom2 float32 // 11, 0x2C, (54)
-	RightTop2    float32 // 12, 0x30, (55)
-}
-
-func (s *noxShapeBox) Calc() {
-	const mul = 0.35354999 // cos(Pi/4) / 2
-	px := s.W * mul
-	py := s.H * mul
-
-	v := float32(0.0)
-
-	v = -px + py
-	s.LeftTop = v
-	s.LeftTop2 = v
-
-	v = -px - py
-	s.LeftBottom = v
-	s.LeftBottom2 = v
-
-	v = +px + py
-	s.RightTop = v
-	s.RightTop2 = v
-
-	v = +px - py
-	s.RightBottom = v
-	s.RightBottom2 = v
 }
 
 func asPointf(p unsafe.Pointer) types.Pointf {
@@ -598,9 +542,9 @@ func (s *Server) attachPending() {
 func (s *Server) createObjectAt(a11 noxObject, owner noxObject, pos types.Pointf) {
 	obj := a11.AsObject()
 	if memmap.Uint32(0x5D4594, 1556864) == 0 {
-		*memmap.PtrUint32(0x5D4594, 1556864) = uint32(s.getObjectTypeID("Gold"))
-		*memmap.PtrUint32(0x5D4594, 1556868) = uint32(s.getObjectTypeID("QuestGoldPile"))
-		*memmap.PtrUint32(0x5D4594, 1556872) = uint32(s.getObjectTypeID("QuestGoldChest"))
+		*memmap.PtrUint32(0x5D4594, 1556864) = uint32(s.ObjectTypeID("Gold"))
+		*memmap.PtrUint32(0x5D4594, 1556868) = uint32(s.ObjectTypeID("QuestGoldPile"))
+		*memmap.PtrUint32(0x5D4594, 1556872) = uint32(s.ObjectTypeID("QuestGoldChest"))
 	}
 	if obj.Flags().HasAny(object.FlagActive | object.FlagDestroyed) {
 		return
@@ -642,7 +586,7 @@ func (s *Server) createObjectAt(a11 noxObject, owner noxObject, pos types.Pointf
 	}
 }
 
-func (s *Server) deleteAllObjectsOfType(t *ObjectType) {
+func (s *Server) deleteAllObjectsOfType(t *server.ObjectType) {
 	var next *Object
 	for it := s.firstServerObject(); it != nil; it = next {
 		next = it.Next()
@@ -780,12 +724,12 @@ func (obj *Object) Mass() float32 { // nox_xxx_objectGetMass_4E4A70
 	return float32(obj.mass)
 }
 
-func (obj *Object) getShape() *noxShape {
-	return (*noxShape)(unsafe.Pointer(&obj.shape))
+func (obj *Object) getShape() *server.Shape {
+	return (*server.Shape)(unsafe.Pointer(&obj.shape))
 }
 
-func (obj *Object) healthData() *objectHealthData {
-	return (*objectHealthData)(unsafe.Pointer(obj.health_data))
+func (obj *Object) healthData() *server.HealthData {
+	return (*server.HealthData)(unsafe.Pointer(obj.health_data))
 }
 
 func (obj *Object) Health() (cur, max int) {
@@ -796,8 +740,8 @@ func (obj *Object) Health() (cur, max int) {
 	if h == nil {
 		return
 	}
-	cur = int(h.cur)
-	max = int(h.max)
+	cur = int(h.Cur)
+	max = int(h.Max)
 	return
 }
 
@@ -947,12 +891,12 @@ func (obj *Object) AsUnit() *Unit {
 	return asUnit(unsafe.Pointer(obj))
 }
 
-func (obj *Object) ObjectTypeC() *ObjectType {
+func (obj *Object) ObjectTypeC() *server.ObjectType {
 	if obj == nil {
 		return nil
 	}
 	ind := obj.objTypeInd()
-	return obj.getServer().getObjectTypeByInd(ind)
+	return obj.getServer().ObjectTypeByInd(ind)
 }
 
 func (obj *Object) ObjectType() script.ObjectType {
@@ -960,7 +904,7 @@ func (obj *Object) ObjectType() script.ObjectType {
 	if t == nil {
 		return nil
 	}
-	return t
+	return noxScriptObjType{t}
 }
 
 func (obj *Object) teamPtr() *objectTeam {
@@ -1228,21 +1172,12 @@ func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_533
 		return false
 	}
 	srv := obj.getServer()
-	if srv.types.fast.plant == 0 {
-		srv.types.fast.plant = srv.getObjectTypeID("CarnivorousPlant")
-	}
-	if srv.types.fast.polyp == 0 {
-		srv.types.fast.polyp = srv.getObjectTypeID("Polyp")
-	}
-	if srv.types.fast.wisp == 0 {
-		srv.types.fast.wisp = srv.getObjectTypeID("WillOWisp")
-	}
 	if obj2.Class().HasAny(object.ClassMonster) {
-		if ud := obj2.AsUnit().updateDataMonster(); ud.field_360&0x40000 != 0 {
+		if ud := obj2.AsUnit().updateDataMonster(); ud.Field360&0x40000 != 0 {
 			return false
 		}
 	}
-	if obj.Class().HasAny(object.ClassPlayer) && obj2.objTypeInd() == srv.types.fast.polyp {
+	if obj.Class().HasAny(object.ClassPlayer) && obj2.objTypeInd() == srv.PolypID() {
 		return true
 	}
 	if obj.Class().HasAny(object.ClassPlayer) && obj2.Class().HasAny(object.ClassMonsterGenerator) {
@@ -1294,7 +1229,7 @@ func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_533
 	if own1.Class().HasAny(object.ClassMonster) && own2.Class().HasAny(object.ClassMonsterGenerator) {
 		return false
 	}
-	if !noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().HasAny(object.ClassMonster) && obj2.objTypeInd() == srv.types.fast.wisp {
+	if !noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().HasAny(object.ClassMonster) && obj2.objTypeInd() == srv.WillOWispID() {
 		return nox_xxx_checkMobAction_50A0D0(obj2.AsUnit(), ai.ACTION_FIGHT)
 	}
 	if nox_xxx_servObjectHasTeam_419130(own1.teamPtr()) || nox_xxx_servObjectHasTeam_419130(own2.teamPtr()) {
@@ -1311,11 +1246,7 @@ func (obj *Object) isFish() bool {
 		return false
 	}
 	srv := obj.getServer()
-	if srv.types.fast.fishSmall == 0 {
-		srv.types.fast.fishSmall = srv.getObjectTypeID("FishSmall")
-		srv.types.fast.fishBig = srv.getObjectTypeID("FishBig")
-	}
-	return obj.objTypeInd() == srv.types.fast.fishSmall || obj.objTypeInd() == srv.types.fast.fishBig
+	return obj.objTypeInd() == srv.FishSmallID() || obj.objTypeInd() == srv.FishBigID()
 }
 
 func (obj *Object) isRat() bool {
@@ -1323,10 +1254,7 @@ func (obj *Object) isRat() bool {
 		return false
 	}
 	srv := obj.getServer()
-	if srv.types.fast.rat == 0 {
-		srv.types.fast.rat = srv.getObjectTypeID("Rat")
-	}
-	return obj.objTypeInd() == srv.types.fast.rat
+	return obj.objTypeInd() == srv.RatID()
 }
 
 func (obj *Object) isFrog() bool {
@@ -1334,10 +1262,7 @@ func (obj *Object) isFrog() bool {
 		return false
 	}
 	srv := obj.getServer()
-	if srv.types.fast.frog == 0 {
-		srv.types.fast.frog = srv.getObjectTypeID("GreenFrog")
-	}
-	return obj.objTypeInd() == srv.types.fast.frog
+	return obj.objTypeInd() == srv.GreenFrogID()
 }
 
 func (obj *Object) isPlant() bool {
@@ -1345,10 +1270,7 @@ func (obj *Object) isPlant() bool {
 		return false
 	}
 	srv := obj.getServer()
-	if srv.types.fast.plant == 0 {
-		srv.types.fast.plant = srv.getObjectTypeID("CarnivorousPlant")
-	}
-	return obj.objTypeInd() == srv.types.fast.plant
+	return obj.objTypeInd() == srv.CarnivorousPlantID()
 }
 
 func (obj *Object) findOwnerChainPlayer() *Object { // nox_xxx_findParentChainPlayer_4EC580

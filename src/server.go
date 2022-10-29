@@ -174,7 +174,6 @@ type Server struct {
 	scriptEvents    scriptEvents
 	noxScript       noxScript
 	lua             scriptLUA
-	types           serverObjTypes
 	objs            serverObjects
 	teams           serverTeams
 	ai              aiData
@@ -391,7 +390,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 	}
 	s.objectsNewAdd()
 	if inputKeyCheckTimeoutLegacy(0x10, 10*s.TickRate()) {
-		s.types.nox_xxx_protectUnitDefUpdateMB_4E3C20()
+		s.ProtectTypeCheck()
 		inputSetKeyTimeoutLegacy(16)
 	}
 	if noxflags.HasGame(noxflags.GameOnline) && false && !noxflags.HasGame(noxflags.GameModeChat) && inputKeyCheckTimeoutLegacy(0xF, 60*s.TickRate()) {
@@ -659,7 +658,8 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	C.nox_xxx_deleteShopInventories_50E300()
 	C.sub_416950()
 	C.nox_xxx_freeGameObjectClass_4E3420()
-	s.types.nox_xxx_freeObjectTypes_4E2A20()
+	s.FreeObjectTypes()
+	nox_xxx_free_42BF80()
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		s.nox_server_netCloseHandler_4DEC60(int(memmap.Uint32(0x5D4594, 1548516)))
 	}

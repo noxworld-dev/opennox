@@ -31,7 +31,7 @@ func (u *Unit) monsterCast(spellInd spell.ID, target *Object) {
 			u.monsterPushAction(ai.DEPENDENCY_BLOCKED_LINE_OF_FIRE, target)
 		}
 
-		v9 := *(*uint32)(unsafe.Add(ud.field_121, 212))
+		v9 := *(*uint32)(unsafe.Add(ud.Field121, 212))
 		u.monsterPushAction(ai.DEPENDENCY_OBJECT_FARTHER_THAN, v9, 0, target)
 		u.monsterPushAction(ai.DEPENDENCY_OR)
 		pos2 := target.Pos()

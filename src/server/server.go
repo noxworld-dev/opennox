@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/noxworld-dev/opennox-lib/common"
+	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/platform"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
@@ -18,12 +19,15 @@ const (
 	defaultFirstObjectScriptID = ObjectScriptID(1000000000)
 )
 
+var Log = log.New("server")
+
 func New(pr console.Printer, sm *strman.StringManager) *Server {
 	s := &Server{
 		pr: pr, sm: sm,
 		loopHooks: make(chan func()),
 		port:      common.GamePort,
 	}
+	s.types.Init()
 	s.http.init()
 	return s
 }
@@ -40,6 +44,7 @@ type Server struct {
 	tickHooks  tickHooks
 	loopHooks  chan func()
 
+	types   serverObjTypes
 	objects struct {
 		firstScriptID ObjectScriptID
 		lastScriptID  ObjectScriptID

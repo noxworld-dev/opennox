@@ -398,7 +398,7 @@ func sub_5165D0() {
 
 func (s *Server) CinemaPlayers(enable bool) {
 	if nox_script_objTelekinesisHand == 0 {
-		nox_script_objTelekinesisHand = s.getObjectTypeID("TelekinesisHand")
+		nox_script_objTelekinesisHand = s.ObjectTypeID("TelekinesisHand")
 	}
 	const (
 		perc       = 0.16
@@ -429,7 +429,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 		for _, name := range []string{
 			"ToxicCloud", "SmallToxicCloud", "Meteor", "SmallFist", "MediumFist", "LargeFist", "Pixie",
 		} {
-			nox_script_objCinemaRemove = append(nox_script_objCinemaRemove, s.getObjectTypeID(name))
+			nox_script_objCinemaRemove = append(nox_script_objCinemaRemove, s.ObjectTypeID(name))
 		}
 	}
 

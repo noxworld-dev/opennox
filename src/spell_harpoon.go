@@ -108,7 +108,7 @@ func (a *abilityHarpoon) createBolt(u *Unit) {
 	if bolt == nil {
 		return
 	}
-	r := u.getShape().circle.R + 1.0
+	r := u.getShape().Circle.R + 1.0
 	*(**nox_object_t)(unsafe.Add(bolt.collide_data, 4)) = u.CObj()
 	cos, sin := sincosDir(byte(u.direction1))
 	hpos := u.Pos().Add(types.Pointf{

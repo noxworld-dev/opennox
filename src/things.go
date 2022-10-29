@@ -224,7 +224,7 @@ func nox_thing_read_IMAG_one_42F660(f *MemFile) error {
 }
 
 func (s *Server) nox_read_things_alternative_4E2B60() error {
-	s.types.Clear()
+	s.Server.FreeObjectTypes()
 	buf, bfree := alloc.Make([]byte{}, 256*1024)
 	defer bfree()
 	thg, err := openThings()
@@ -268,12 +268,12 @@ func (s *Server) nox_read_things_alternative_4E2B60() error {
 			if err != nil {
 				return err
 			}
-			if err = s.types.readType(th); err != nil {
+			if err = s.ReadObjectType(th); err != nil {
 				return err
 			}
 		}
 	}
-	if err := s.types.checkTypes(); err != nil {
+	if err := s.CheckTypes(); err != nil {
 		return err
 	}
 	C.nox_xxx_equipWeapon_4131A0()
@@ -463,9 +463,9 @@ func checkTypesMonsterGen(obj *Object, checkInd func(int)) {
 //export sub_4E3AD0
 func sub_4E3AD0(ind C.int) C.int {
 	if memmap.Uint32(0x5D4594, 1563904) == 0 {
-		*memmap.PtrUint32(0x5D4594, 1563904) = uint32(noxServer.getObjectTypeID("Pixie"))
+		*memmap.PtrUint32(0x5D4594, 1563904) = uint32(noxServer.ObjectTypeID("Pixie"))
 	}
-	typ := noxServer.getObjectTypeByInd(int(ind))
+	typ := noxServer.ObjectTypeByInd(int(ind))
 	if cl := typ.Class(); !cl.Has(object.ClassMissile) && cl.Has(object.ClassImmobile) && !cl.Has(object.ClassVisibleEnable) {
 		if f := typ.Flags(); f.Has(object.FlagNoCollide) && !f.Has(object.FlagShadow) {
 			return 0

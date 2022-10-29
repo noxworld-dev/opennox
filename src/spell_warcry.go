@@ -47,7 +47,7 @@ func nox_xxx_warriorWarcry_53FF40(u *Unit) {
 			}
 		} else if u2.Class().Has(object.ClassMonster) {
 			ud := u2.updateDataMonster()
-			if ud.field_360&0x20 == 0 {
+			if ud.Field360&0x20 == 0 {
 				return
 			}
 		}

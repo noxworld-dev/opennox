@@ -7,38 +7,22 @@ package opennox
 */
 import "C"
 import (
-	"unsafe"
-
-	"github.com/noxworld-dev/opennox-lib/things"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nox_xxx_parseDamageFn_536C60(objt *ObjectType, d *things.ProcFunc) error {
-	fnc := noxObjectDamageTable[d.Name]
-	objt.damage = fnc
-	return nil
-}
+func init() {
+	server.RegisterObjectDamage("DefaultDamage", C.nox_xxx_damageDefaultProc_4E0B30)
+	server.RegisterObjectDamage("SkeletonDamage", C.sub_4E23C0)
+	server.RegisterObjectDamage("PlayerDamage", C.nox_server_handler_PlayerDamage_4E17B0)
+	server.RegisterObjectDamage("StoneDamage", C.sub_4E24B0)
+	server.RegisterObjectDamage("MechGolemDamage", C.sub_4E24E0)
+	server.RegisterObjectDamage("FlammableDamage", C.nox_xxx_damageFlammable_4E2520)
+	server.RegisterObjectDamage("BlackPowderDamage", C.nox_xxx_damageBlackPowder_4E2560)
+	server.RegisterObjectDamage("ArmorDamage", C.nox_xxx_damageArmor_4E1500)
+	server.RegisterObjectDamage("WeaponDamage", C.sub_4E14B0)
+	server.RegisterObjectDamage("BallDamage", C.sub_4E14A0)
+	server.RegisterObjectDamage("MonsterGeneratorDamage", C.nox_xxx_damageMonsterGen_4E27D0)
 
-func nox_xxx_parseDamageSound_536CF0(objt *ObjectType, name string) error {
-	fnc := noxObjectDamageSoundTable[name]
-	objt.damageSound = fnc
-	return nil
-}
-
-var noxObjectDamageTable = map[string]unsafe.Pointer{
-	"DefaultDamage":          C.nox_xxx_damageDefaultProc_4E0B30,
-	"SkeletonDamage":         C.sub_4E23C0,
-	"PlayerDamage":           C.nox_server_handler_PlayerDamage_4E17B0,
-	"StoneDamage":            C.sub_4E24B0,
-	"MechGolemDamage":        C.sub_4E24E0,
-	"FlammableDamage":        C.nox_xxx_damageFlammable_4E2520,
-	"BlackPowderDamage":      C.nox_xxx_damageBlackPowder_4E2560,
-	"ArmorDamage":            C.nox_xxx_damageArmor_4E1500,
-	"WeaponDamage":           C.sub_4E14B0,
-	"BallDamage":             C.sub_4E14A0,
-	"MonsterGeneratorDamage": C.nox_xxx_damageMonsterGen_4E27D0,
-}
-
-var noxObjectDamageSoundTable = map[string]unsafe.Pointer{
-	"DefaultDamageSound": C.nox_xxx_soundDefaultDamageSound_532E20,
-	"PlayerDamageSound":  C.nox_xxx_soundPlayerDamageSound_5328B0,
+	server.RegisterObjectDamageSound("DefaultDamageSound", C.nox_xxx_soundDefaultDamageSound_532E20)
+	server.RegisterObjectDamageSound("PlayerDamageSound", C.nox_xxx_soundPlayerDamageSound_5328B0)
 }
