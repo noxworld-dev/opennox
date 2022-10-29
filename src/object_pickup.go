@@ -9,55 +9,27 @@ int nox_objectPickupAudEvent_4F3D50(nox_object_t* a1, nox_object_t* a2, int a3);
 */
 import "C"
 import (
-	"unsafe"
-
-	"github.com/noxworld-dev/opennox-lib/things"
-
-	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nox_xxx_parsePickup_536710(objt *ObjectType, d *things.ProcFunc) error {
-	t, ok := noxObjectPickupTable[d.Name]
-	if !ok {
-		// TODO: add "unknown" pickup as a nop types
-		return nil
-	}
-	objt.pickup = t.Func
-	if t.ParseFunc != nil {
-		t.ParseFunc(objt, d.Args)
-	}
-	return nil
+func init() {
+	server.RegisterObjectPickup("DefaultPickup", C.nox_xxx_pickupDefault_4F31E0)
+	server.RegisterObjectPickup("FoodPickup", C.nox_xxx_pickupFood_4F3350)
+	server.RegisterObjectPickup("UsePickup", C.nox_xxx_pickupUse_4F34D0)
+	server.RegisterObjectPickup("ArmorPickup", C.nox_xxx_pickupArmor_53E7F0)
+	server.RegisterObjectPickup("WeaponPickup", C.sub_53A720)
+	server.RegisterObjectPickup("OblivionPickup", C.nox_xxx_sendMsgOblivionPickup_53A9C0)
+	server.RegisterObjectPickup("TreasurePickup", C.nox_xxx_pickupTreasure_4F3580)
+	server.RegisterObjectPickup("TrapPickup", C.nox_xxx_pickupTrap_4F3510)
+	server.RegisterObjectPickup("PotionPickup", C.nox_xxx_pickupPotion_4F37D0)
+	server.RegisterObjectPickup("GoldPickup", C.nox_xxx_pickupGold_4F3A60_obj_pickup)
+	server.RegisterObjectPickup("AmmoPickup", C.nox_xxx_pickupAmmo_4F3B00)
+	server.RegisterObjectPickup("SpellBookPickup", C.nox_xxx_pickupSpellbook_4F3C60)
+	server.RegisterObjectPickup("AbilityBookPickup", C.nox_xxx_pickupAbilitybook_4F3CE0)
+	server.RegisterObjectPickup("CrownPickup", C.sub_4F3400)
+	server.RegisterObjectPickup("AudEventPickup", C.nox_objectPickupAudEvent_4F3D50)
+	server.RegisterObjectPickup("AnkhTradablePickup", C.sub_4F3DD0)
 }
-
-var noxObjectPickupTable = map[string]struct {
-	Func      unsafe.Pointer
-	ParseFunc func(objt *ObjectType, args []string)
-}{
-	"DefaultPickup":     {Func: C.nox_xxx_pickupDefault_4F31E0},
-	"FoodPickup":        {Func: C.nox_xxx_pickupFood_4F3350},
-	"UsePickup":         {Func: C.nox_xxx_pickupUse_4F34D0},
-	"ArmorPickup":       {Func: C.nox_xxx_pickupArmor_53E7F0},
-	"WeaponPickup":      {Func: C.sub_53A720},
-	"OblivionPickup":    {Func: C.nox_xxx_sendMsgOblivionPickup_53A9C0},
-	"TreasurePickup":    {Func: C.nox_xxx_pickupTreasure_4F3580},
-	"TrapPickup":        {Func: C.nox_xxx_pickupTrap_4F3510},
-	"PotionPickup":      {Func: C.nox_xxx_pickupPotion_4F37D0},
-	"GoldPickup":        {Func: C.nox_xxx_pickupGold_4F3A60_obj_pickup},
-	"AmmoPickup":        {Func: C.nox_xxx_pickupAmmo_4F3B00},
-	"SpellBookPickup":   {Func: C.nox_xxx_pickupSpellbook_4F3C60},
-	"AbilityBookPickup": {Func: C.nox_xxx_pickupAbilitybook_4F3CE0},
-	"CrownPickup":       {Func: C.sub_4F3400},
-	"AudEventPickup": {Func: C.nox_objectPickupAudEvent_4F3D50, ParseFunc: func(objt *ObjectType, args []string) {
-		if len(args) != 0 {
-			if snd := sound.ByName(args[0]); snd != 0 {
-				objectPickupSoundTable[objt.ind] = snd
-			}
-		}
-	}},
-	"AnkhTradablePickup": {Func: C.sub_4F3DD0},
-}
-
-var objectPickupSoundTable = make(map[uint16]sound.ID)
 
 //export nox_objectPickupAudEvent_4F3D50
 func nox_objectPickupAudEvent_4F3D50(cobj1 *nox_object_t, cobj2 *nox_object_t, a3 C.int) C.int {
@@ -69,7 +41,7 @@ func nox_objectPickupAudEvent_4F3D50(cobj1 *nox_object_t, cobj2 *nox_object_t, a
 		return ok
 	}
 	obj2 := asObjectC(cobj2)
-	if snd := objectPickupSoundTable[uint16(obj2.objTypeInd())]; snd != 0 {
+	if snd := noxServer.PickupSound(uint16(obj2.objTypeInd())); snd != 0 {
 		nox_xxx_aud_501960(snd, asUnitC(cobj1), 0, 0)
 	}
 	return ok

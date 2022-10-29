@@ -21,6 +21,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 //export nox_xxx_unitIsUnitTT_4E7C80
@@ -33,6 +34,13 @@ func asUnit(p unsafe.Pointer) *Unit {
 		return nil
 	}
 	return (*Unit)(p)
+}
+
+func asUnitS(p *server.Object) *Unit {
+	if p == nil {
+		return nil
+	}
+	return (*Unit)(unsafe.Pointer(p))
 }
 
 func asUnitC(p *C.nox_object_t) *Unit {
@@ -100,13 +108,12 @@ func (u *Unit) updateDataPlayer() *PlayerUpdateData {
 	return (*PlayerUpdateData)(unsafe.Pointer(p))
 }
 
-func (u *Unit) updateDataMonster() *MonsterUpdateData {
+func (u *Unit) updateDataMonster() *server.MonsterUpdateData {
 	if !u.Class().Has(object.ClassMonster) {
 		panic(u.Class().String())
 	}
 	// TODO: verify this conversion by checking ObjectType
-	p := (*C.nox_object_Monster_data_t)(u.updateDataPtr())
-	return (*MonsterUpdateData)(unsafe.Pointer(p))
+	return (*server.MonsterUpdateData)(u.updateDataPtr())
 }
 
 func (u *Unit) ControllingPlayer() *Player {
@@ -153,7 +160,7 @@ func (u *Unit) SetMaxHealth(v int) {
 	}
 	// TODO: verify it works in MP
 	// TODO: if it's the player, we need to adjust GUI health bars
-	h.max = uint16(v)
+	h.Max = uint16(v)
 	u.SetHealth(v)
 }
 
@@ -355,16 +362,16 @@ func (u *Unit) clearActionStack() { // aka nox_xxx_monsterClearActionStack_50A3A
 	}
 }
 
-func (u *Unit) monsterPushAction(act ai.ActionType, args ...any) *aiStack { // aka nox_xxx_monsterPushAction_50A260
-	st := (*aiStack)(unsafe.Pointer(C.nox_xxx_monsterPushAction_50A260_impl(u.CObj(), C.int(act), internCStr("go"), 0)))
+func (u *Unit) monsterPushAction(act ai.ActionType, args ...any) *server.AIStackItem { // aka nox_xxx_monsterPushAction_50A260
+	st := (*server.AIStackItem)(unsafe.Pointer(C.nox_xxx_monsterPushAction_50A260_impl(u.CObj(), C.int(act), internCStr("go"), 0)))
 	if len(args) != 0 {
-		st.SetArgs(args...)
+		aiStackSetArgs(st, args...)
 	}
 	return st
 }
 
 func (u *Unit) monsterActionIsScheduled(act ai.ActionType) bool { // nox_xxx_monsterIsActionScheduled_50A090
-	stack := u.updateDataMonster().getAIStack()
+	stack := u.updateDataMonster().GetAIStack()
 	for _, v := range stack {
 		if v.Type() == act {
 			return true

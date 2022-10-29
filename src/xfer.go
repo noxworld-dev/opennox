@@ -16,49 +16,41 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/spell"
-	"github.com/noxworld-dev/opennox-lib/things"
+
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 type XferFunc func(obj *Object, a2 unsafe.Pointer) error
 
-var noxObjectXfers = map[string]unsafe.Pointer{
-	"DefaultXfer":           C.nox_xxx_XFerDefault_4F49A0,
-	"SpellPagePedestalXfer": C.nox_xxx_XFerSpellPagePedistal_4F4A20,
-	"SpellRewardXfer":       C.nox_xxx_XFerSpellReward_4F5F30,
-	"AbilityRewardXfer":     C.nox_xxx_XFerAbilityReward_4F6240,
-	"FieldGuideXfer":        C.nox_xxx_XFerFieldGuide_4F6390,
-	"ReadableXfer":          C.nox_xxx_XFerReadable_4F4AB0,
-	"ExitXfer":              C.nox_xxx_XFerExit_4F4B90,
-	"DoorXfer":              C.nox_xxx_XFerDoor_4F4CB0,
-	"TriggerXfer":           C.nox_xxx_unitTriggerXfer_4F4E50,
-	"MonsterXfer":           C.nox_xxx_XFerMonster_528DB0,
-	"HoleXfer":              C.nox_xxx_XFerHole_4F51D0,
-	"TransporterXfer":       C.nox_xxx_XFerTransporter_4F5300,
-	"ElevatorXfer":          C.nox_xxx_XFerElevator_4F53D0,
-	"ElevatorShaftXfer":     C.nox_xxx_XFerElevatorShaft_4F54A0,
-	"MoverXfer":             C.nox_xxx_XFerMover_4F5730,
-	"GlyphXfer":             C.nox_xxx_XFerGlyph_4F5890,
-	"InvisibleLightXfer":    C.nox_xxx_XFerInvLight_4F5AA0,
-	"SentryXfer":            C.nox_xxx_XFerSentry_4F5E50,
-	"WeaponXfer":            C.nox_xxx_XFerWeapon_4F64A0,
-	"ArmorXfer":             C.nox_xxx_XFerArmor_4F6860,
-	"TeamXfer":              C.nox_xxx_XFerTeam_4F6D20,
-	"GoldXfer":              C.nox_xxx_XFerGold_4F6EC0,
-	"AmmoXfer":              C.nox_xxx_XFerAmmo_4F6B20,
-	"NPCXfer":               C.nox_xxx_XFerNPC_52ADE0,
-	"ObeliskXfer":           C.nox_xxx_XFerObelisk_4F6F60,
-	"ToxicCloudXfer":        C.nox_xxx_XFerToxicCloud_4F70A0,
-	"MonsterGeneratorXfer":  C.nox_xxx_XFerMonsterGen_4F7130,
-	"RewardMarkerXfer":      C.nox_xxx_XFerRewardMarker_4F74D0,
-}
-
-func nox_xxx_parseXFer_5360A0(objt *ObjectType, d *things.ProcFunc) error {
-	xfer := noxObjectXfers[d.Name]
-	if xfer == nil {
-		return fmt.Errorf("unsupported xfer: %q", d.Name)
-	}
-	objt.xfer = xfer
-	return nil
+func init() {
+	server.RegisterObjectXfer("DefaultXfer", C.nox_xxx_XFerDefault_4F49A0)
+	server.RegisterObjectXfer("SpellPagePedestalXfer", C.nox_xxx_XFerSpellPagePedistal_4F4A20)
+	server.RegisterObjectXfer("SpellRewardXfer", C.nox_xxx_XFerSpellReward_4F5F30)
+	server.RegisterObjectXfer("AbilityRewardXfer", C.nox_xxx_XFerAbilityReward_4F6240)
+	server.RegisterObjectXfer("FieldGuideXfer", C.nox_xxx_XFerFieldGuide_4F6390)
+	server.RegisterObjectXfer("ReadableXfer", C.nox_xxx_XFerReadable_4F4AB0)
+	server.RegisterObjectXfer("ExitXfer", C.nox_xxx_XFerExit_4F4B90)
+	server.RegisterObjectXfer("DoorXfer", C.nox_xxx_XFerDoor_4F4CB0)
+	server.RegisterObjectXfer("TriggerXfer", C.nox_xxx_unitTriggerXfer_4F4E50)
+	server.RegisterObjectXfer("MonsterXfer", C.nox_xxx_XFerMonster_528DB0)
+	server.RegisterObjectXfer("HoleXfer", C.nox_xxx_XFerHole_4F51D0)
+	server.RegisterObjectXfer("TransporterXfer", C.nox_xxx_XFerTransporter_4F5300)
+	server.RegisterObjectXfer("ElevatorXfer", C.nox_xxx_XFerElevator_4F53D0)
+	server.RegisterObjectXfer("ElevatorShaftXfer", C.nox_xxx_XFerElevatorShaft_4F54A0)
+	server.RegisterObjectXfer("MoverXfer", C.nox_xxx_XFerMover_4F5730)
+	server.RegisterObjectXfer("GlyphXfer", C.nox_xxx_XFerGlyph_4F5890)
+	server.RegisterObjectXfer("InvisibleLightXfer", C.nox_xxx_XFerInvLight_4F5AA0)
+	server.RegisterObjectXfer("SentryXfer", C.nox_xxx_XFerSentry_4F5E50)
+	server.RegisterObjectXfer("WeaponXfer", C.nox_xxx_XFerWeapon_4F64A0)
+	server.RegisterObjectXfer("ArmorXfer", C.nox_xxx_XFerArmor_4F6860)
+	server.RegisterObjectXfer("TeamXfer", C.nox_xxx_XFerTeam_4F6D20)
+	server.RegisterObjectXfer("GoldXfer", C.nox_xxx_XFerGold_4F6EC0)
+	server.RegisterObjectXfer("AmmoXfer", C.nox_xxx_XFerAmmo_4F6B20)
+	server.RegisterObjectXfer("NPCXfer", C.nox_xxx_XFerNPC_52ADE0)
+	server.RegisterObjectXfer("ObeliskXfer", C.nox_xxx_XFerObelisk_4F6F60)
+	server.RegisterObjectXfer("ToxicCloudXfer", C.nox_xxx_XFerToxicCloud_4F70A0)
+	server.RegisterObjectXfer("MonsterGeneratorXfer", C.nox_xxx_XFerMonsterGen_4F7130)
+	server.RegisterObjectXfer("RewardMarkerXfer", C.nox_xxx_XFerRewardMarker_4F74D0)
 }
 
 //export nox_xxx_xfer_saveObj_51DF90
@@ -127,18 +119,18 @@ func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
 	*(*uint8)(unsafe.Add(a1, 4)) = b1
 
 	tname, _ := cryptFileReadString8()
-	var typ *ObjectType
+	var typ *server.ObjectType
 	if tname != "" {
-		typ = s.getObjectTypeByID(tname)
+		typ = s.ObjectTypeByID(tname)
 		*(*int32)(unsafe.Add(a1, 0)) = int32(typ.Ind())
 	}
 	if a2 >= 47 {
 		name, _ := cryptFileReadString8()
 		if name != "" {
 			var v4 int
-			switch typ.xfer {
+			switch typ.Xfer {
 			case C.nox_xxx_XFerFieldGuide_4F6390:
-				v4 = s.getObjectTypeID(name)
+				v4 = s.ObjectTypeID(name)
 			case C.nox_xxx_XFerAbilityReward_4F6240:
 				v4 = int(s.abilities.nox_xxx_abilityNameToN_424D80(name))
 			default:
@@ -168,13 +160,13 @@ func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
 //export nox_xxx_XFer_WriteShopItem_52A5F0
 func nox_xxx_XFer_WriteShopItem_52A5F0(a1 unsafe.Pointer) {
 	cryptFileWriteU8(*(*uint8)(unsafe.Add(a1, 4)))
-	typ := noxServer.getObjectTypeByInd(int(*(*int32)(unsafe.Add(a1, 0))))
+	typ := noxServer.ObjectTypeByInd(int(*(*int32)(unsafe.Add(a1, 0))))
 	cryptFileWriteString8(typ.ID())
 	pind := int(*(*int32)(unsafe.Add(a1, 8)))
 	var pname string
-	switch typ.xfer {
+	switch typ.Xfer {
 	case C.nox_xxx_XFerFieldGuide_4F6390:
-		pname = noxServer.getObjectTypeByInd(pind).ID()
+		pname = noxServer.ObjectTypeByInd(pind).ID()
 	case C.nox_xxx_XFerAbilityReward_4F6240:
 		pname = Ability(pind).String()
 	default:

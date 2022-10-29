@@ -26,6 +26,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 type aiData struct {
@@ -50,136 +51,42 @@ func nox_ai_debug_printStack_509F60(cu *C.nox_object_t, event *C.char) {
 	asUnitC(cu).maybePrintAIStack(GoString(event))
 }
 
-var _ = ([1]struct{}{})[24-unsafe.Sizeof(aiStack{})]
-
-type aiStack struct {
-	action  uint32 // 0, 0
-	arg_1   uint32 // 1, 4
-	arg_2   uint32 // 2, 8
-	arg_3   uint32 // 3, 12
-	arg_4   uint32 // 4, 16
-	field_5 uint32 // 5, 20
-}
-
-func (s *aiStack) Type() ai.ActionType {
-	return ai.ActionType(s.action)
-}
-
-func (s *aiStack) SetArgs(args ...any) {
+func aiStackSetArgs(s *server.AIStackItem, args ...any) {
 	if s == nil {
 		return
 	}
 	for i, v := range args {
-		p := s.ptr(i)
 		switch v := v.(type) {
 		case int:
-			*(*int32)(p) = int32(v)
+			s.Args[i] = uintptr(uint32(int32(v)))
 		case uint32:
-			*(*uint32)(p) = v
+			s.Args[i] = uintptr(v)
 		case unsafe.Pointer:
-			*(*unsafe.Pointer)(p) = v
+			s.Args[i] = uintptr(v)
 		case float32:
-			*(*float32)(p) = v
+			s.Args[i] = uintptr(math.Float32bits(v))
 		case noxObject:
-			*(*unsafe.Pointer)(p) = unsafe.Pointer(toCObj(v))
+			s.Args[i] = uintptr(unsafe.Pointer(toCObj(v)))
 		case types.Pointf:
-			if i == 3 {
-				panic(i)
-			}
-			*(*types.Pointf)(p) = v
+			s.Args[i+0] = uintptr(math.Float32bits(v.X))
+			s.Args[i+1] = uintptr(math.Float32bits(v.Y))
 		default:
 			panic(fmt.Errorf("unsupported arg: %T", v))
 		}
 	}
 }
 
-func (s *aiStack) ArgU32(i int) uint32 {
-	switch i {
-	case 0:
-		return s.arg_1
-	case 1:
-		return s.arg_2
-	case 2:
-		return s.arg_3
-	case 3:
-		return s.arg_4
-	default:
-		panic(i)
-	}
+func aiStackArgObj(s *server.AIStackItem, i int) *Object {
+	return asObject(unsafe.Pointer(s.Args[i]))
 }
 
-func (s *aiStack) ArgF32(i int) float32 {
-	switch i {
-	case 0:
-		return *(*float32)(unsafe.Pointer(&s.arg_1))
-	case 1:
-		return *(*float32)(unsafe.Pointer(&s.arg_2))
-	case 2:
-		return *(*float32)(unsafe.Pointer(&s.arg_3))
-	case 3:
-		return *(*float32)(unsafe.Pointer(&s.arg_4))
-	default:
-		panic(i)
-	}
-}
-
-func (s *aiStack) argPtr(i int) unsafe.Pointer {
-	switch i {
-	case 0:
-		return *(*unsafe.Pointer)(unsafe.Pointer(&s.arg_1))
-	case 1:
-		return *(*unsafe.Pointer)(unsafe.Pointer(&s.arg_2))
-	case 2:
-		return *(*unsafe.Pointer)(unsafe.Pointer(&s.arg_3))
-	case 3:
-		return *(*unsafe.Pointer)(unsafe.Pointer(&s.arg_4))
-	default:
-		panic(i)
-	}
-}
-
-func (s *aiStack) ptr(i int) unsafe.Pointer {
-	switch i {
-	case 0:
-		return unsafe.Pointer(&s.arg_1)
-	case 1:
-		return unsafe.Pointer(&s.arg_2)
-	case 2:
-		return unsafe.Pointer(&s.arg_3)
-	case 3:
-		return unsafe.Pointer(&s.arg_4)
-	default:
-		panic(i)
-	}
-}
-
-func (s *aiStack) ArgPos(i int) types.Pointf {
-	switch i {
-	case 0:
-		p := *(*[2]float32)(unsafe.Pointer(&s.arg_1))
-		return types.Pointf{X: p[0], Y: p[1]}
-	case 1:
-		p := *(*[2]float32)(unsafe.Pointer(&s.arg_2))
-		return types.Pointf{X: p[0], Y: p[1]}
-	case 2:
-		p := *(*[2]float32)(unsafe.Pointer(&s.arg_3))
-		return types.Pointf{X: p[0], Y: p[1]}
-	default:
-		panic(i)
-	}
-}
-
-func (s *aiStack) ArgObj(i int) *Object {
-	return asObject(s.argPtr(i))
-}
-
-func (s *aiStack) ArgUnit(i int) *Unit {
-	return asUnit(s.argPtr(i))
+func aiStackArgUnit(s *server.AIStackItem, i int) *Unit {
+	return asUnit(unsafe.Pointer(s.Args[i]))
 }
 
 func (u *Unit) maybePrintAIStack(event string) {
 	if noxflags.HasEngine(noxflags.EngineShowAI) {
-		u.updateDataMonster().printAIStack(event)
+		u.updateDataMonster().PrintAIStack(u.getServer().Frame(), event)
 	}
 }
 
@@ -190,7 +97,7 @@ func nox_xxx_mobActionDependency_546A70(uc *C.nox_object_t) {
 
 func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 	ud := u.updateDataMonster()
-	stack := ud.getAIStack()
+	stack := ud.GetAIStack()
 	if len(stack) == 0 {
 		return
 	}
@@ -212,19 +119,19 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 		case ai.DEPENDENCY_TIME:
 			ok = st.ArgU32(0) > a.s.Frame()
 		case ai.DEPENDENCY_ALIVE:
-			obj := st.ArgObj(0)
+			obj := aiStackArgObj(st, 0)
 			h := obj.healthData()
-			if obj == nil || !obj.Class().HasAny(object.MaskUnits) || (h.cur == 0) && h.max != 0 {
+			if obj == nil || !obj.Class().HasAny(object.MaskUnits) || (h.Cur == 0) && h.Max != 0 {
 				ok = false
-				ud.field_97 = 0
-				ud.field_101 = C.uint(a.s.Frame() + a.s.TickRate())
+				ud.Field97 = 0
+				ud.Field101 = a.s.Frame() + a.s.TickRate()
 			}
 		case ai.DEPENDENCY_UNDER_ATTACK:
 			if C.sub_5347A0(u.CObj()) != 0 {
 				if u.obj_130 != nil {
 					v26 := getOwnerUnit(asObjectC(u.obj_130))
 					if v26 != nil && v26.Class().HasAny(object.MaskUnits) {
-						st.arg_1 = a.s.Frame()
+						st.Args[0] = uintptr(a.s.Frame())
 					}
 				}
 			}
@@ -244,17 +151,17 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 				ok = false
 			}
 		case ai.DEPENDENCY_CAN_SEE:
-			obj := st.ArgObj(0)
+			obj := aiStackArgObj(st, 0)
 			if obj == nil || !nox_xxx_unitCanInteractWith_5370E0(u, obj, 0) {
 				ok = false
 			}
 		case ai.DEPENDENCY_CANNOT_SEE:
-			obj := st.ArgObj(0)
+			obj := aiStackArgObj(st, 0)
 			if obj == nil || C.sub_533360(u.CObj(), obj.CObj()) != 0 {
 				ok = false
 			}
 		case ai.DEPENDENCY_BLOCKED_LINE_OF_FIRE:
-			obj := st.ArgObj(0)
+			obj := aiStackArgObj(st, 0)
 			if obj == nil {
 				ok = false
 				break
@@ -262,22 +169,22 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			pos, pos2 := u.Pos(), obj.Pos()
 			ok = !nox_xxx_mapTraceObstacles(u, pos, pos2)
 		case ai.DEPENDENCY_OBJECT_AT_VISIBLE_LOCATION:
-			v28 := st.ArgObj(2)
+			v28 := aiStackArgObj(st, 2)
 			v29 := false
 			if v28 != nil && nox_xxx_unitCanInteractWith_5370E0(u, v28, 0) {
 				v29 = true
 				pos := v28.Pos()
-				*(*float32)(unsafe.Pointer(&st.arg_1)) = pos.X
-				*(*float32)(unsafe.Pointer(&st.arg_2)) = pos.Y
+				st.Args[0] = uintptr(math.Float32bits(pos.X))
+				st.Args[1] = uintptr(math.Float32bits(pos.Y))
 			}
 			if MapTraceRay(u.Pos(), st.ArgPos(0), MapTraceFlag1); !v29 {
 				ok = false
 			}
 		case ai.DEPENDENCY_OBJECT_FARTHER_THAN:
-			obj, r := st.ArgObj(2), st.ArgF32(0)
+			obj, r := aiStackArgObj(st, 2), st.ArgF32(0)
 			ok = obj != nil && nox_xxx_calcDistance_4E6C00(u, obj) > r
 		case ai.DEPENDENCY_OBJECT_CLOSER_THAN:
-			obj, r := st.ArgObj(2), st.ArgF32(0)
+			obj, r := aiStackArgObj(st, 2), st.ArgF32(0)
 			ok = obj != nil && nox_xxx_calcDistance_4E6C00(u, obj) <= r
 		case ai.DEPENDENCY_LOCATION_FARTHER_THAN:
 			pos := u.Pos()
@@ -292,9 +199,9 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			dy := pos2.Y - pos.Y
 			ok = float32(math.Sqrt(float64(dy*dy+dx*dx))) <= st.ArgF32(0)
 		case ai.DEPENDENCY_VISIBLE_ENEMY:
-			ok = ud.current_enemy != nil
+			ok = ud.CurrentEnemy != nil
 		case ai.DEPENDENCY_NO_VISIBLE_ENEMY:
-			ok = ud.current_enemy == nil
+			ok = ud.CurrentEnemy == nil
 		case ai.DEPENDENCY_NO_VISIBLE_FOOD:
 			r := 250.0
 			if noxflags.HasGame(noxflags.GameModeQuest) {
@@ -302,16 +209,16 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			}
 			ok = C.nox_xxx_mobSearchEdible_544A00(u.CObj(), C.float(r)) == 0
 		case ai.DEPENDENCY_NO_INTERESTING_SOUND:
-			if ud.field_97 != 0 && a.s.Frame()-uint32(ud.field_101) < 3*a.s.TickRate() {
+			if ud.Field97 != 0 && a.s.Frame()-ud.Field101 < 3*a.s.TickRate() {
 				ok = false
 			}
 		case ai.DEPENDENCY_NO_NEW_ENEMY:
-			old := st.ArgUnit(0)
+			old := aiStackArgUnit(st, 0)
 			if old == nil {
 				ok = false
 				break
 			}
-			enemy := asUnitC(ud.current_enemy)
+			enemy := asUnitS(ud.CurrentEnemy)
 			if enemy == nil {
 				break
 			}
@@ -331,25 +238,25 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 		case ai.DEPENDENCY_UNINTERRUPTABLE:
 			return
 		case ai.DEPENDENCY_IS_ENCHANTED:
-			ok = u.HasEnchant(EnchantID(st.arg_1))
+			ok = u.HasEnchant(EnchantID(st.Args[0]))
 		case ai.DEPENDENCY_ENEMY_CLOSER_THAN:
-			enemy := asUnitC(ud.current_enemy)
+			enemy := asUnitS(ud.CurrentEnemy)
 			ok = enemy != nil && nox_xxx_calcDistance_4E6C00(u, enemy) <= st.ArgF32(0)
 		case ai.DEPENDENCY_NOT_HEALTHY:
 			h := u.healthData()
 			perc := float32(1.0)
-			if h.max != 0 {
-				perc = float32(h.cur) / float32(h.max)
+			if h.Max != 0 {
+				perc = float32(h.Cur) / float32(h.Max)
 			}
-			if perc >= float32(ud.field_336) {
+			if perc >= ud.Field336 {
 				ok = false
 			}
 		case ai.DEPENDENCY_WAIT_FOR_STAMINA:
-			if C.int(ud.field_282_0) >= C.nox_xxx_weaponGetStaminaByType_4F7E80(C.int(ud.field_514)) {
+			if C.int(ud.Field282_0) >= C.nox_xxx_weaponGetStaminaByType_4F7E80(C.int(ud.Field514)) {
 				ok = false
 			}
 		case ai.DEPENDENCY_ENEMY_FARTHER_THAN:
-			enemy := asUnitC(ud.current_enemy)
+			enemy := asUnitS(ud.CurrentEnemy)
 			if enemy != nil && nox_xxx_calcDistance_4E6C00(u, enemy) < st.ArgF32(0) {
 				ok = false
 			}
@@ -362,14 +269,14 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			ok = C.nox_xxx_mobGetMoveAttemptTime_534810(u.CObj()) == 0
 		case ai.DEPENDENCY_LOCATION_IS_SAFE:
 			C.dword_5d4594_2489460 = 1
-			C.nox_xxx_unitsGetInCircle_517F90((*C.float2)(unsafe.Pointer(&st.arg_1)), 50.0, C.nox_xxx_unitIsDangerous_547120, u.CObj())
+			C.nox_xxx_unitsGetInCircle_517F90((*C.float2)(unsafe.Pointer(&st.Args[0])), 50.0, C.nox_xxx_unitIsDangerous_547120, u.CObj())
 			if C.dword_5d4594_2489460 == 0 {
 				ok = false
 			}
 		case ai.DEPENDENCY_NOT_FRUSTRATED:
-			if ud.field_360&0x200000 != 0 {
+			if ud.Field360&0x200000 != 0 {
 				ok = false
-				ud.field_360 &= 0xFFDFFFFF
+				ud.Field360 &= 0xFFDFFFFF
 			}
 		case ai.DEPENDENCY_NOT_MOVED:
 			ok = u.Pos() == u.prevPos()
@@ -397,11 +304,11 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 		}
 		for {
 			nox_xxx_monsterPopAction_50A160(u)
-			if !(ud.getAIStackInd() >= i && C.sub_5341F0(u.CObj()) == 0) {
+			if !(int(ud.AIStackInd) >= i && C.sub_5341F0(u.CObj()) == 0) {
 				break
 			}
 		}
-		stack = ud.getAIStack()
+		stack = ud.GetAIStack()
 		i = len(stack) - 1
 		nox_xxx_monsterActionReset_50A110(u)
 		u.maybePrintAIStack("procDep")
@@ -427,10 +334,10 @@ func sub_545E60(a1c *nox_object_t) C.int {
 
 	ud := u.updateDataMonster()
 	ts := uint32(u.field_134)
-	if uint32(ud.field_129) >= ts || s.Frame()-ts >= 10*s.TickRate() {
+	if ud.Field129 >= ts || s.Frame()-ts >= 10*s.TickRate() {
 		return 0
 	}
-	ud.field_129 = C.uint(ts)
+	ud.Field129 = ts
 	if u.obj_130 != nil {
 		if obj4 := getOwnerUnit(asObjectC(u.obj_130)); obj4 != nil {
 			if !u.isEnemyTo(obj4) {
@@ -441,7 +348,7 @@ func sub_545E60(a1c *nox_object_t) C.int {
 				if !canInteract {
 					return 0
 				}
-				u.monsterPushAction(ai.DEPENDENCY_ENEMY_CLOSER_THAN, float32(ud.field_328)*1.05)
+				u.monsterPushAction(ai.DEPENDENCY_ENEMY_CLOSER_THAN, float32(ud.Field328)*1.05)
 			} else {
 				u.monsterPushAction(ai.DEPENDENCY_UNDER_ATTACK, s.Frame())
 			}
@@ -571,7 +478,7 @@ func (a *aiData) aiListenToSounds(u *Unit) {
 			if it.obj != nil && it.obj.Flags().Has(object.FlagDestroyed) {
 				it.obj = nil
 			}
-			if uint32(ud.field_101) <= it.frame && a.shouldUnitListen(u, it) {
+			if ud.Field101 <= it.frame && a.shouldUnitListen(u, it) {
 				dist := a.traceSound(u, it)
 				// This finds the farthest?
 				if dist > 0 && dist > maxDist {
@@ -582,7 +489,7 @@ func (a *aiData) aiListenToSounds(u *Unit) {
 			prev = it
 		}
 	}
-	if maxHeard != nil && (maxHeard.frame > uint32(ud.field_101) || maxDist > int(ud.field_102)) {
+	if maxHeard != nil && (maxHeard.frame > ud.Field101 || maxDist > int(ud.Field102)) {
 		a.nox_xxx_unitEmitHearEvent_50D110(u, maxHeard, maxDist)
 	}
 }
@@ -657,7 +564,7 @@ func (a *aiData) shouldUnitListen(u *Unit, lis *MonsterListen) bool {
 	ud := u.updateDataMonster()
 	punit := lis.obj.findOwnerChainPlayer()
 	flags := getSoundFlags(lis.snd)
-	if uint32(ud.field_101) > a.s.Frame() {
+	if ud.Field101 > a.s.Frame() {
 		return false
 	}
 	if punit == nil {
@@ -692,20 +599,20 @@ func (a *aiData) shouldUnitListen(u *Unit, lis *MonsterListen) bool {
 
 func (a *aiData) nox_xxx_unitEmitHearEvent_50D110(u *Unit, lis *MonsterListen, dist int) {
 	ud := u.updateDataMonster()
-	ud.field_97 = C.uint(lis.snd)
-	ud.field_101 = C.uint(a.s.Frame())
-	ud.field_102 = C.uint(dist)
+	ud.Field97 = uint32(lis.snd)
+	ud.Field101 = a.s.Frame()
+	ud.Field102 = uint32(dist)
 	if lis.obj != nil {
-		ud.field_98 = lis.obj.net_code
+		ud.Field98 = uint32(lis.obj.net_code)
 	} else {
-		ud.field_98 = 0
+		ud.Field98 = 0
 	}
-	ud.field_99_x = C.float(lis.pos.X)
-	ud.field_99_y = C.float(lis.pos.Y)
+	ud.Field99X = lis.pos.X
+	ud.Field99Y = lis.pos.Y
 	a.lastHeard = lis.pos
 	obj5 := lis.obj.findOwnerChainPlayer()
 	// EventID 16 is MonsterHearsEnemy
-	C.nox_xxx_scriptCallByEventBlock_502490((*C.int)(unsafe.Pointer(&ud.field_320)), C.int(uintptr(unsafe.Pointer(obj5.CObj()))), C.int(uintptr(unsafe.Pointer(u.CObj()))), 16)
+	C.nox_xxx_scriptCallByEventBlock_502490((*C.int)(unsafe.Pointer(&ud.Field320)), C.int(uintptr(unsafe.Pointer(obj5.CObj()))), C.int(uintptr(unsafe.Pointer(u.CObj()))), 16)
 }
 
 func (a *aiData) lastHeardEvent() types.Pointf {

@@ -16,6 +16,8 @@ import "C"
 import (
 	"image"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
@@ -142,8 +144,8 @@ func (s *Drawable) Field104() *Drawable { // sub_45A010
 	return asDrawable(s.field_104)
 }
 
-func (s *Drawable) getShape() *noxShape {
-	return (*noxShape)(unsafe.Pointer(&s.shape))
+func (s *Drawable) getShape() *server.Shape {
+	return (*server.Shape)(unsafe.Pointer(&s.shape))
 }
 
 func (s *Drawable) DrawFunc(vp *Viewport) int {

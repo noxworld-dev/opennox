@@ -611,8 +611,8 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 	}
 	ud := u.updateDataPlayer()
 	if noxflags.HasGame(noxflags.GameModeKOTR | noxflags.GameModeCTF | noxflags.GameModeFlagBall) {
-		crown := s.getObjectTypeID("Crown")
-		ball := s.getObjectTypeID("GameBall")
+		crown := s.ObjectTypeID("Crown")
+		ball := s.ObjectTypeID("GameBall")
 		for it := u.FirstOwned516(); it != nil; it = it.NextOwned512() {
 			typ := it.objTypeInd()
 			if typ == crown {
@@ -944,8 +944,8 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	udata := punit.updateDataPlayer()
 	h := punit.healthData()
 	udata.player = pl.C()
-	pl.prot_unit_hp_cur = C.uint(protectUint16(h.cur))
-	pl.prot_unit_hp_max = C.uint(protectUint16(h.max))
+	pl.prot_unit_hp_cur = C.uint(protectUint16(h.Cur))
+	pl.prot_unit_hp_max = C.uint(protectUint16(h.Max))
 	pl.prot_unit_mana_cur = C.uint(protectUint16(uint16(udata.mana_cur)))
 	pl.prot_unit_mana_max = C.uint(protectUint16(uint16(udata.mana_max)))
 	pl.prot_unit_experience = C.uint(protectFloat32(float32(punit.experience)))

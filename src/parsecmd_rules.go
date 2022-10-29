@@ -12,6 +12,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/console"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func init() {
@@ -57,16 +58,16 @@ func noxCmdSetArmor(ctx context.Context, c *console.Console, tokens []string) bo
 	}
 	switch strings.ToLower(tokens[1]) {
 	case "on":
-		if !s.getObjectTypeByInd(t.Ind()).Allowed() {
-			s.enableObject(t)
+		if !s.ObjectTypeByInd(t.Ind()).Allowed() {
+			t.SetAllowed(true)
 			nox_server_gameSettingsUpdated_40A670()
 			str := c.Strings().GetStringInFile("armorEnabled", "parsecmd.c")
 			c.Printf(console.ColorRed, str, id)
 		}
 		return true
 	case "off":
-		if s.getObjectTypeByInd(t.Ind()).Allowed() {
-			s.disableObject(t)
+		if s.ObjectTypeByInd(t.Ind()).Allowed() {
+			t.SetAllowed(false)
 			s.deleteAllObjectsOfType(t)
 			nox_server_gameSettingsUpdated_40A670()
 			str := c.Strings().GetStringInFile("armorDisabled", "parsecmd.c")
@@ -83,7 +84,7 @@ func noxCmdSetStaff(ctx context.Context, c *console.Console, tokens []string) bo
 	}
 	s := noxServer
 	id := tokens[0]
-	t := s.getObjectTypeByID(id)
+	t := s.ObjectTypeByID(id)
 	if t == nil {
 		str := c.Strings().GetStringInFile("invalidstaff", "parsecmd.c")
 		c.Printf(console.ColorRed, str, id)
@@ -91,12 +92,12 @@ func noxCmdSetStaff(ctx context.Context, c *console.Console, tokens []string) bo
 	}
 	switch strings.ToLower(tokens[1]) {
 	case "on":
-		s.enableObject(t)
+		t.SetAllowed(true)
 		str := c.Strings().GetStringInFile("staffEnabled", "parsecmd.c")
 		c.Printf(console.ColorRed, str, id)
 		return true
 	case "off":
-		s.disableObject(t)
+		t.SetAllowed(false)
 		str := c.Strings().GetStringInFile("staffDisabled", "parsecmd.c")
 		c.Printf(console.ColorRed, str, id)
 		return true
@@ -143,19 +144,19 @@ func noxCmdSetWeapon(ctx context.Context, c *console.Console, tokens []string) b
 	}
 	switch strings.ToLower(tokens[1]) {
 	case "on":
-		if s.getObjectTypeByInd(t.Ind()).Allowed() {
+		if s.ObjectTypeByInd(t.Ind()).Allowed() {
 			return true
 		}
-		s.enableObject(t)
+		t.SetAllowed(true)
 		nox_server_gameSettingsUpdated_40A670()
 		str := c.Strings().GetStringInFile("weaponEnabled", "parsecmd.c")
 		c.Printf(console.ColorRed, str, id)
 		return true
 	case "off":
-		if !s.getObjectTypeByInd(t.Ind()).Allowed() || C.nox_xxx_ammoCheck_415880(C.ushort(t.Ind())) == 1 {
+		if !s.ObjectTypeByInd(t.Ind()).Allowed() || C.nox_xxx_ammoCheck_415880(C.ushort(t.Ind())) == 1 {
 			return true
 		}
-		s.disableObject(t)
+		t.SetAllowed(false)
 		s.deleteAllObjectsOfType(t)
 		nox_server_gameSettingsUpdated_40A670()
 		str := c.Strings().GetStringInFile("weaponDisabled", "parsecmd.c")
@@ -165,7 +166,7 @@ func noxCmdSetWeapon(ctx context.Context, c *console.Console, tokens []string) b
 	return false
 }
 
-func sub_415A60(id string) *ObjectType {
+func sub_415A60(id string) *server.ObjectType {
 	v1 := C.sub_415960(internWStr(id))
 	if v1 == 0 {
 		return nil
@@ -174,10 +175,10 @@ func sub_415A60(id string) *ObjectType {
 	if v2 == 0 {
 		return nil
 	}
-	return noxServer.getObjectTypeByInd(int(v2))
+	return noxServer.ObjectTypeByInd(int(v2))
 }
 
-func sub415A30(a1 string) *ObjectType {
+func sub415A30(a1 string) *server.ObjectType {
 	v1 := C.sub_415910(internCStr(a1))
 	if v1 == 0 {
 		return nil
@@ -186,10 +187,10 @@ func sub415A30(a1 string) *ObjectType {
 	if v2 == 0 {
 		return nil
 	}
-	return noxServer.getObjectTypeByInd(int(v2))
+	return noxServer.ObjectTypeByInd(int(v2))
 }
 
-func sub_415EF0(id string) *ObjectType {
+func sub_415EF0(id string) *server.ObjectType {
 	v1 := C.sub_415DA0(internWStr(id))
 	if v1 == 0 {
 		return nil
@@ -198,10 +199,10 @@ func sub_415EF0(id string) *ObjectType {
 	if v2 == 0 {
 		return nil
 	}
-	return noxServer.getObjectTypeByInd(int(v2))
+	return noxServer.ObjectTypeByInd(int(v2))
 }
 
-func sub415EC0(id string) *ObjectType {
+func sub415EC0(id string) *server.ObjectType {
 	v1 := C.sub_415DF0(internCStr(id))
 	if v1 == 0 {
 		return nil
@@ -210,5 +211,5 @@ func sub415EC0(id string) *ObjectType {
 	if v2 == 0 {
 		return nil
 	}
-	return noxServer.getObjectTypeByInd(int(v2))
+	return noxServer.ObjectTypeByInd(int(v2))
 }

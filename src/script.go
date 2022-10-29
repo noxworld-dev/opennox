@@ -11,6 +11,8 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox-lib/console"
+
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var scriptLog = log.New("script")
@@ -97,12 +99,20 @@ func (s noxScriptImpl) OnPlayerLeave(fnc func(p script.Player)) {
 	s.s.OnPlayerLeave(fnc)
 }
 
+type noxScriptObjType struct {
+	*server.ObjectType
+}
+
+func (t noxScriptObjType) CreateObject(p types.Pointf) script.Object {
+	return noxServer.createObject(t.ObjectType, p)
+}
+
 func (s noxScriptImpl) ObjectTypeByID(id string) script.ObjectType {
-	tp := s.s.getObjectTypeByID(id)
+	tp := s.s.ObjectTypeByID(id)
 	if tp == nil {
 		return nil
 	}
-	return tp
+	return noxScriptObjType{tp}
 }
 
 func (s noxScriptImpl) ObjectByID(id string) script.Object {

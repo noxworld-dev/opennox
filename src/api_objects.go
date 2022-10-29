@@ -8,6 +8,8 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 type debugObjectType struct {
@@ -36,9 +38,7 @@ type debugObject struct {
 	Field516   []*debugObject    `json:"field_516,omitempty"`
 }
 
-var _ json.Marshaler = &ObjectType{}
-
-func (t *ObjectType) dump() *debugObjectType {
+func dumpObjectType(t *server.ObjectType) *debugObjectType {
 	if t == nil {
 		return nil
 	}
@@ -48,10 +48,6 @@ func (t *ObjectType) dump() *debugObjectType {
 		Class:      t.Class(),
 		ArmorClass: t.ArmorClass(),
 	}
-}
-
-func (t *ObjectType) MarshalJSON() ([]byte, error) {
-	return json.Marshal(t.dump())
 }
 
 func (obj *Object) dump() *debugObject {
@@ -79,7 +75,7 @@ func (obj *Object) dump() *debugObject {
 		Pos:        obj.Pos(),
 		Vel:        obj.Vel(),
 		Force:      obj.Force(),
-		Type:       obj.ObjectTypeC().dump(),
+		Type:       dumpObjectType(obj.ObjectTypeC()),
 		Team:       obj.Team().dump(),
 		Inventory:  inv,
 		Field516:   f516,
@@ -92,7 +88,11 @@ func (obj *Object) MarshalJSON() ([]byte, error) {
 
 func init() {
 	http.HandleFunc("/debug/nox/types", func(w http.ResponseWriter, r *http.Request) {
-		writeJSONResp(w, noxServer.getObjectTypes())
+		var out []*debugObjectType
+		for _, t := range noxServer.ObjectTypes() {
+			out = append(out, dumpObjectType(t))
+		}
+		writeJSONResp(w, out)
 	})
 	http.HandleFunc("/debug/nox/objects", func(w http.ResponseWriter, r *http.Request) {
 		qu := r.URL.Query()

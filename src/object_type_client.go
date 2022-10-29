@@ -31,6 +31,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 //export nox_xxx_getTTByNameSpriteMB_44CFC0
@@ -275,8 +276,8 @@ func nox_drawable_link_thing(a1c *nox_drawable, i C.int) C.int {
 	dr.shape.circle_r2 = C.float(typ.shape_r * typ.shape_r)
 	dr.shape.box_w = C.float(typ.shape_w)
 	dr.shape.box_h = C.float(typ.shape_h)
-	if shapeKind(dr.shape.kind) == shapeKindBox {
-		dr.getShape().box.Calc()
+	if server.ShapeKind(dr.shape.kind) == server.ShapeKindBox {
+		dr.getShape().Box.Calc()
 	}
 
 	dr.field_24 = C.float(typ.zsize_min)
@@ -358,14 +359,14 @@ var clientThingParseFuncs = map[string]clientThingFieldFunc{
 		typ.shape_h = 0
 		switch v := v.(type) {
 		case nil:
-			typ.shape_kind = uint16(shapeKindNone)
+			typ.shape_kind = uint16(server.ShapeKindNone)
 		case things.Center:
-			typ.shape_kind = uint16(shapeKindCenter)
+			typ.shape_kind = uint16(server.ShapeKindCenter)
 		case things.Circle:
-			typ.shape_kind = uint16(shapeKindCircle)
+			typ.shape_kind = uint16(server.ShapeKindCircle)
 			typ.shape_r = v.R
 		case things.Box:
-			typ.shape_kind = uint16(shapeKindBox)
+			typ.shape_kind = uint16(server.ShapeKindBox)
 			typ.shape_w = v.W
 			typ.shape_h = v.H
 		default:

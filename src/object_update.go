@@ -33,14 +33,13 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/script"
-	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
-	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
@@ -48,93 +47,78 @@ var (
 	spellTimeout  uint32
 )
 
-func nox_xxx_parseUpdate_536620(objt *ObjectType, d *things.ProcFunc) error {
-	t, ok := noxObjectUpdateTable[d.Name]
-	if !ok {
-		// TODO: add "unknown" updates as a nop update types (similar to NoUpdate)
-		return nil
-	}
-	objt.update = t.Func
-	objt.updateData = nil
-	objt.updateDataSize = int(t.DataSize)
-	if t.DataSize == 0 {
-		return nil
-	}
-	data, _ := alloc.Malloc(t.DataSize)
-	objt.updateData = data
-	if t.ParseFunc != nil {
-		cstr := CString(strings.Join(d.Args, " "))
-		defer StrFree(cstr)
-		if C.nox_call_objectType_parseUpdate_go((*[0]byte)(t.ParseFunc), cstr, data) == 0 {
-			return fmt.Errorf("cannot parse update data for %q", d.Name)
-		}
-	}
-	return nil
+func init() {
+	server.RegisterObjectUpdate("PlayerUpdate", C.nox_xxx_updatePlayer_4F8100, unsafe.Sizeof(C.nox_object_Player_data_t{}))
+	server.RegisterObjectUpdate("ProjectileUpdate", C.nox_xxx_updateProjectile_53AC10, 0)
+	server.RegisterObjectUpdate("SpellProjectileUpdate", C.nox_xxx_spellFlyUpdate_53B940, 28)
+	server.RegisterObjectUpdate("AntiSpellProjectileUpdate", C.nox_xxx_updateAntiSpellProj_53BB00, 28)
+	server.RegisterObjectUpdate("DoorUpdate", C.nox_xxx_updateDoor_53AC50, 52)
+	server.RegisterObjectUpdate("SparkUpdate", C.nox_xxx_updateSpark_53ADC0, 16)
+	server.RegisterObjectUpdate("ProjectileTrailUpdate", C.nox_xxx_updateProjTrail_53AEC0, 0)
+	server.RegisterObjectUpdate("PushUpdate", C.nox_xxx_updatePush_53B030, 12)
+	server.RegisterObjectUpdate("TriggerUpdate", C.nox_xxx_updateTrigger_53B1B0, 60)
+	server.RegisterObjectUpdate("ToggleUpdate", C.nox_xxx_updateToggle_53B060, 60)
+	server.RegisterObjectUpdate("MonsterUpdate", C.nox_xxx_unitUpdateMonster_50A5C0, unsafe.Sizeof(server.MonsterUpdateData{}))
+	server.RegisterObjectUpdate("LoopAndDamageUpdate", C.sub_53B300, 16)
+	server.RegisterObjectUpdate("ElevatorUpdate", C.nox_xxx_updateElevator_53B5D0, 20)
+	server.RegisterObjectUpdate("ElevatorShaftUpdate", C.nox_xxx_updateElevatorShaft_53B380, 16)
+	server.RegisterObjectUpdate("PhantomPlayerUpdate", C.nox_xxx_updatePhantomPlayer_53B860, 0)
+	server.RegisterObjectUpdate("ObeliskUpdate", C.nox_xxx_updateObelisk_53C580, 4)
+	server.RegisterObjectUpdate("LifetimeUpdate", C.nox_xxx_updateLifetime_53B8F0, 4)
+	server.RegisterObjectUpdate("MagicMissileUpdate", C.nox_xxx_updateMagicMissile_53BDA0, 28)
+	server.RegisterObjectUpdate("PixieUpdate", C.nox_xxx_updatePixie_53CD20, 28)
+	server.RegisterObjectUpdate("SkullUpdate", C.nox_xxx_updateShootingTrap_54F9A0, 52)
+	server.RegisterObjectUpdate("PentagramUpdate", C.nox_xxx_updateTeleportPentagram_53BEF0, 24)
+	server.RegisterObjectUpdate("InvisiblePentagramUpdate", C.nox_xxx_updateInvisiblePentagram_53C0C0, 24)
+	server.RegisterObjectUpdate("SwitchUpdate", C.nox_xxx_updateSwitch_53B320, 0)
+	server.RegisterObjectUpdate("BlowUpdate", C.nox_xxx_updateBlow_53C160, 0)
+	server.RegisterObjectUpdate("MoverUpdate", C.nox_xxx_unitUpdateMover_54F740, 36)
+	server.RegisterObjectUpdate("BlackPowderBarrelUpdate", C.nox_xxx_updateBlackPowderBarrel_53C9A0, 0)
+	server.RegisterObjectUpdate("OneSecondDieUpdate", C.nox_xxx_updateOneSecondDie_53CB60, 0)
+	server.RegisterObjectUpdate("WaterBarrelUpdate", C.nox_xxx_updateWaterBarrel_53CB90, 0)
+	server.RegisterObjectUpdate("SelfDestructUpdate", C.nox_xxx_updateSelfDestruct_53CC90, 0)
+	server.RegisterObjectUpdate("BlackPowderBurnUpdate", C.nox_xxx_updateBlackPowderBurn_53CCB0, 0)
+	server.RegisterObjectUpdate("DeathBallUpdate", C.nox_xxx_updateDeathBall_53D080, 0)
+	server.RegisterObjectUpdate("DeathBallFragmentUpdate", C.nox_xxx_updateDeathBallFragment_53D220, 0)
+	server.RegisterObjectUpdate("MoonglowUpdate", C.nox_xxx_updateMoonglow_53D270, 0)
+	server.RegisterObjectUpdate("SentryGlobeUpdate", C.nox_xxx_updateSentryGlobe_510E60, 12)
+	server.RegisterObjectUpdate("TelekinesisUpdate", C.nox_xxx_updateTelekinesis_53D330, 0)
+	server.RegisterObjectUpdate("FistUpdate", C.nox_xxx_updateFist_53D400, 4)
+	server.RegisterObjectUpdate("MeteorShowerUpdate", C.nox_xxx_updateMeteorShower_53D5A0, 4)
+	server.RegisterObjectUpdate("MeteorUpdate", C.nox_xxx_meteorExplode_53D6E0, 4)
+	server.RegisterObjectUpdate("ToxicCloudUpdate", C.nox_xxx_updateToxicCloud_53D850, 4)
+	server.RegisterObjectUpdate("SmallToxicCloudUpdate", C.nox_xxx_updateSmallToxicCloud_53D960, 4)
+	server.RegisterObjectUpdate("ArachnaphobiaUpdate", C.nox_xxx_updateArachnaphobia_53DA60, 0)
+	server.RegisterObjectUpdate("ExpireUpdate", C.nox_xxx_updateExpire_53DB00, 0)
+	server.RegisterObjectUpdate("BreakUpdate", C.nox_xxx_updateBreak_53DB30, 0)
+	server.RegisterObjectUpdate("OpenUpdate", C.nox_xxx_updateOpen_53DBB0, 0)
+	server.RegisterObjectUpdate("BreakAndRemoveUpdate", C.nox_xxx_updateBreakAndRemove_53DC30, 0)
+	server.RegisterObjectUpdate("ChakramInMotionUpdate", C.nox_xxx_updateChakramInMotion_53DCC0, 28)
+	server.RegisterObjectUpdate("FlagUpdate", C.nox_xxx_updateFlag_53DDF0, 12)
+	server.RegisterObjectUpdate("TrapDoorUpdate", C.nox_xxx_updateTrapDoor_53DE80, 0)
+	server.RegisterObjectUpdate("BallUpdate", C.nox_xxx_updateGameBall_53DF40, 32)
+	server.RegisterObjectUpdate("CrownUpdate", C.nox_xxx_updateCrown_53E1D0, 12)
+	server.RegisterObjectUpdate("UndeadKillerUpdate", C.nox_xxx_updateUndeadKiller_53E190, 0)
+	server.RegisterObjectUpdate("HarpoonUpdate", C.nox_xxx_updateHarpoon_54F380, 4)
+	server.RegisterObjectUpdate("MonsterGeneratorUpdate", C.nox_xxx_updateMonsterGenerator_54E930, 164)
+
+	server.RegisterObjectUpdateParse("PushUpdate", wrapObjectUpdateParseC(C.sub_536550))
+	server.RegisterObjectUpdateParse("TriggerUpdate", wrapObjectUpdateParseC(C.sub_5365B0))
+	server.RegisterObjectUpdateParse("ToggleUpdate", wrapObjectUpdateParseC(C.sub_5365B0))
+	server.RegisterObjectUpdateParse("LoopAndDamageUpdate", wrapObjectUpdateParseC(C.sub_536580))
+	server.RegisterObjectUpdateParse("LifetimeUpdate", wrapObjectUpdateParseC(C.sub_536600))
+	server.RegisterObjectUpdateParse("SkullUpdate", wrapObjectUpdateParseC(C.sub_5364E0))
 }
 
-var noxObjectUpdateTable = map[string]struct {
-	Func      unsafe.Pointer
-	DataSize  uintptr
-	ParseFunc unsafe.Pointer
-}{
-	"NoUpdate":                  {},
-	"PlayerUpdate":              {Func: C.nox_xxx_updatePlayer_4F8100, DataSize: unsafe.Sizeof(C.nox_object_Player_data_t{})},
-	"ProjectileUpdate":          {Func: C.nox_xxx_updateProjectile_53AC10},
-	"HomingProjectileUpdate":    {DataSize: 4},
-	"SpellProjectileUpdate":     {Func: C.nox_xxx_spellFlyUpdate_53B940, DataSize: 28},
-	"AntiSpellProjectileUpdate": {Func: C.nox_xxx_updateAntiSpellProj_53BB00, DataSize: 28},
-	"DoorUpdate":                {Func: C.nox_xxx_updateDoor_53AC50, DataSize: 52},
-	"SparkUpdate":               {Func: C.nox_xxx_updateSpark_53ADC0, DataSize: 16},
-	"ProjectileTrailUpdate":     {Func: C.nox_xxx_updateProjTrail_53AEC0},
-	"PushUpdate":                {Func: C.nox_xxx_updatePush_53B030, DataSize: 12, ParseFunc: C.sub_536550},
-	"TriggerUpdate":             {Func: C.nox_xxx_updateTrigger_53B1B0, DataSize: 60, ParseFunc: C.sub_5365B0},
-	"ToggleUpdate":              {Func: C.nox_xxx_updateToggle_53B060, DataSize: 60, ParseFunc: C.sub_5365B0},
-	"MonsterUpdate":             {Func: C.nox_xxx_unitUpdateMonster_50A5C0, DataSize: unsafe.Sizeof(C.nox_object_Monster_data_t{})},
-	"LoopAndDamageUpdate":       {Func: C.sub_53B300, DataSize: 16, ParseFunc: C.sub_536580},
-	"ElevatorUpdate":            {Func: C.nox_xxx_updateElevator_53B5D0, DataSize: 20},
-	"ElevatorShaftUpdate":       {Func: C.nox_xxx_updateElevatorShaft_53B380, DataSize: 16},
-	"PhantomPlayerUpdate":       {Func: C.nox_xxx_updatePhantomPlayer_53B860},
-	"ObeliskUpdate":             {Func: C.nox_xxx_updateObelisk_53C580, DataSize: 4},
-	"LifetimeUpdate":            {Func: C.nox_xxx_updateLifetime_53B8F0, DataSize: 4, ParseFunc: C.sub_536600},
-	"MagicMissileUpdate":        {Func: C.nox_xxx_updateMagicMissile_53BDA0, DataSize: 28},
-	"PixieUpdate":               {Func: C.nox_xxx_updatePixie_53CD20, DataSize: 28},
-	"SpikeBlockUpdate":          {DataSize: 2200},
-	"TowerUpdate":               {DataSize: 8},
-	"SkullUpdate":               {Func: C.nox_xxx_updateShootingTrap_54F9A0, DataSize: 52, ParseFunc: C.sub_5364E0},
-	"PentagramUpdate":           {Func: C.nox_xxx_updateTeleportPentagram_53BEF0, DataSize: 24},
-	"InvisiblePentagramUpdate":  {Func: C.nox_xxx_updateInvisiblePentagram_53C0C0, DataSize: 24},
-	"SwitchUpdate":              {Func: C.nox_xxx_updateSwitch_53B320},
-	"BlowUpdate":                {Func: C.nox_xxx_updateBlow_53C160},
-	"MoverUpdate":               {Func: C.nox_xxx_unitUpdateMover_54F740, DataSize: 36},
-	"BlackPowderBarrelUpdate":   {Func: C.nox_xxx_updateBlackPowderBarrel_53C9A0},
-	"OneSecondDieUpdate":        {Func: C.nox_xxx_updateOneSecondDie_53CB60},
-	"WaterBarrelUpdate":         {Func: C.nox_xxx_updateWaterBarrel_53CB90},
-	"SelfDestructUpdate":        {Func: C.nox_xxx_updateSelfDestruct_53CC90},
-	"BlackPowderBurnUpdate":     {Func: C.nox_xxx_updateBlackPowderBurn_53CCB0},
-	"DeathBallUpdate":           {Func: C.nox_xxx_updateDeathBall_53D080},
-	"DeathBallFragmentUpdate":   {Func: C.nox_xxx_updateDeathBallFragment_53D220},
-	"MoonglowUpdate":            {Func: C.nox_xxx_updateMoonglow_53D270},
-	"SentryGlobeUpdate":         {Func: C.nox_xxx_updateSentryGlobe_510E60, DataSize: 12},
-	"TelekinesisUpdate":         {Func: C.nox_xxx_updateTelekinesis_53D330},
-	"FistUpdate":                {Func: C.nox_xxx_updateFist_53D400, DataSize: 4},
-	"MeteorShowerUpdate":        {Func: C.nox_xxx_updateMeteorShower_53D5A0, DataSize: 4},
-	"MeteorUpdate":              {Func: C.nox_xxx_meteorExplode_53D6E0, DataSize: 4},
-	"ToxicCloudUpdate":          {Func: C.nox_xxx_updateToxicCloud_53D850, DataSize: 4},
-	"SmallToxicCloudUpdate":     {Func: C.nox_xxx_updateSmallToxicCloud_53D960, DataSize: 4},
-	"ArachnaphobiaUpdate":       {Func: C.nox_xxx_updateArachnaphobia_53DA60},
-	"ExpireUpdate":              {Func: C.nox_xxx_updateExpire_53DB00},
-	"BreakUpdate":               {Func: C.nox_xxx_updateBreak_53DB30},
-	"OpenUpdate":                {Func: C.nox_xxx_updateOpen_53DBB0},
-	"BreakAndRemoveUpdate":      {Func: C.nox_xxx_updateBreakAndRemove_53DC30},
-	"ChakramInMotionUpdate":     {Func: C.nox_xxx_updateChakramInMotion_53DCC0, DataSize: 28},
-	"FlagUpdate":                {Func: C.nox_xxx_updateFlag_53DDF0, DataSize: 12},
-	"TrapDoorUpdate":            {Func: C.nox_xxx_updateTrapDoor_53DE80},
-	"BallUpdate":                {Func: C.nox_xxx_updateGameBall_53DF40, DataSize: 32},
-	"CrownUpdate":               {Func: C.nox_xxx_updateCrown_53E1D0, DataSize: 12},
-	"UndeadKillerUpdate":        {Func: C.nox_xxx_updateUndeadKiller_53E190},
-	"HarpoonUpdate":             {Func: C.nox_xxx_updateHarpoon_54F380, DataSize: 4},
-	"WeaponArmorUpdate":         {DataSize: 8},
-	"MonsterGeneratorUpdate":    {Func: C.nox_xxx_updateMonsterGenerator_54E930, DataSize: 164},
+func wrapObjectUpdateParseC(ptr unsafe.Pointer) server.ObjectParseFunc {
+	return func(objt *server.ObjectType, args []string) error {
+		cstr := CString(strings.Join(args, " "))
+		defer StrFree(cstr)
+		if C.nox_call_objectType_parseUpdate_go((*[0]byte)(ptr), cstr, objt.UpdateData) == 0 {
+			return fmt.Errorf("cannot parse update data for %q", objt.ID())
+		}
+		return nil
+	}
 }
 
 type PlayerUpdateData C.nox_object_Player_data_t
@@ -153,37 +137,7 @@ func (ud *PlayerUpdateData) CursorObj() *Object {
 	return asObjectC(ud.cursor_obj)
 }
 
-type MonsterUpdateData C.nox_object_Monster_data_t
-
-func (ud *MonsterUpdateData) getAIStackInd() int {
-	if ud == nil {
-		return -1
-	}
-	return int(int8(ud.ai_stack_ind))
-}
-
-func (ud *MonsterUpdateData) getAIStack() []aiStack {
-	ind := ud.getAIStackInd()
-	if ind < 0 {
-		return nil
-	}
-	ptr := (*aiStack)(unsafe.Pointer(&ud.ai_stack[0]))
-	stack := unsafe.Slice(ptr, cap(ud.ai_stack))
-	return stack[:ind+1]
-}
-
-func (ud *MonsterUpdateData) printAIStack(event string) {
-	ai.Log.Printf("%d: stack (%s):\n", noxServer.Frame(), event)
-	defer ai.Log.Println("----------------------------------------")
-	stack := ud.getAIStack()
-	if len(stack) == 0 {
-		return
-	}
-	for i := len(stack) - 1; i >= 0; i-- {
-		typ := stack[i].Type()
-		ai.Log.Printf("  %s", typ.String())
-	}
-}
+var _ = [1]struct{}{}[2200-unsafe.Sizeof(server.MonsterUpdateData{})]
 
 //export nox_xxx_updatePlayer_4F8100
 func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
@@ -215,9 +169,9 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 		ud.field_19_1--
 	} else {
 		if ud.field_19_0 != 0 {
-			v2 = 1000 * (int(ud.field_19_0) - int(h.cur)) / int(ud.field_19_0)
+			v2 = 1000 * (int(ud.field_19_0) - int(h.Cur)) / int(ud.field_19_0)
 		}
-		ud.field_19_0 = C.ushort(h.cur)
+		ud.field_19_0 = C.ushort(h.Cur)
 		if v2 > 0 {
 			ud.field_19_1 = 7
 		}
@@ -898,7 +852,7 @@ func nox_xxx_aud_501960(snd sound.ID, u *Unit, a3, a4 int) {
 func playerSuddedDeath4F9E70(u *Unit) {
 	v1 := memmap.Uint32(0x5D4594, 1392)
 	h := u.healthData()
-	if !u.Flags().Has(object.FlagDead) && h != nil && h.cur != 0 && (noxServer.Frame()%(v1*noxServer.TickRate()/uint32(h.max))) == 0 {
+	if !u.Flags().Has(object.FlagDead) && h != nil && h.Cur != 0 && (noxServer.Frame()%(v1*noxServer.TickRate()/uint32(h.Max))) == 0 {
 		C.nox_xxx_unitDamageClear_4EE5E0(u.CObj(), 1)
 	}
 }
@@ -911,7 +865,7 @@ func sub_4F9ED0(u *Unit) {
 		return
 	}
 	if h != nil && (s.Frame()-uint32(u.field_134)) > s.TickRate() {
-		if h.cur < h.max && h.max != 0 && (s.Frame()%(300*s.TickRate()/uint32(h.max))) == 0 {
+		if h.Cur < h.Max && h.Max != 0 && (s.Frame()%(300*s.TickRate()/uint32(h.Max))) == 0 {
 			C.nox_xxx_unitAdjustHP_4EE460(u.CObj(), 1)
 		}
 	}
@@ -928,14 +882,14 @@ func nox_xxx_allocSpellRelatedArrays_4FC9B0() error {
 		return errors.New("cannot find ImaginaryCaster object type")
 	}
 	noxServer.createObjectAt(nox_xxx_imagCasterUnit_1569664, nil, types.Pointf{X: 2944.0, Y: 2944.0})
-	noxPixieObjID = noxServer.getObjectTypeID("Pixie")
+	noxPixieObjID = noxServer.ObjectTypeID("Pixie")
 	*memmap.PtrUint32(0x5D4594, 1569676) = uint32(noxPixieObjID)
-	*memmap.PtrUint32(0x5D4594, 1569680) = uint32(noxServer.getObjectTypeID("MagicMissile"))
-	*memmap.PtrUint32(0x5D4594, 1569684) = uint32(noxServer.getObjectTypeID("SmallFist"))
-	*memmap.PtrUint32(0x5D4594, 1569688) = uint32(noxServer.getObjectTypeID("MediumFist"))
-	*memmap.PtrUint32(0x5D4594, 1569692) = uint32(noxServer.getObjectTypeID("LargeFist"))
-	*memmap.PtrUint32(0x5D4594, 1569696) = uint32(noxServer.getObjectTypeID("DeathBall"))
-	*memmap.PtrUint32(0x5D4594, 1569700) = uint32(noxServer.getObjectTypeID("Meteor"))
+	*memmap.PtrUint32(0x5D4594, 1569680) = uint32(noxServer.ObjectTypeID("MagicMissile"))
+	*memmap.PtrUint32(0x5D4594, 1569684) = uint32(noxServer.ObjectTypeID("SmallFist"))
+	*memmap.PtrUint32(0x5D4594, 1569688) = uint32(noxServer.ObjectTypeID("MediumFist"))
+	*memmap.PtrUint32(0x5D4594, 1569692) = uint32(noxServer.ObjectTypeID("LargeFist"))
+	*memmap.PtrUint32(0x5D4594, 1569696) = uint32(noxServer.ObjectTypeID("DeathBall"))
+	*memmap.PtrUint32(0x5D4594, 1569700) = uint32(noxServer.ObjectTypeID("Meteor"))
 	return nil
 }
 
@@ -1039,7 +993,7 @@ func nox_xxx_maybeAnimatePixie_53D010(cit *nox_object_t, cu *nox_object_t) {
 	it := asObjectC(cit)
 	u := asUnitC(cu)
 	if noxPixieObjID == 0 {
-		noxPixieObjID = noxServer.getObjectTypeID("Pixie")
+		noxPixieObjID = noxServer.ObjectTypeID("Pixie")
 	}
 	if it.objTypeInd() != noxPixieObjID {
 		return

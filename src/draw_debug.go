@@ -20,6 +20,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 //export nox_thing_debug_draw
@@ -97,9 +98,9 @@ func nox_thing_debug_draw(cvp *nox_draw_viewport_t, cdr *nox_drawable) C.int {
 
 func debugDrawShape(r *NoxRender, dr *Drawable, p image.Point, cl color.Color) {
 	sh := dr.getShape()
-	switch sh.kind {
-	case shapeKindCircle:
-		rad := int(sh.circle.R)
+	switch sh.Kind {
+	case server.ShapeKindCircle:
+		rad := int(sh.Circle.R)
 		z := int16(dr.z)
 		y1 := p.Y - int(float32(dr.field_24)-float32(z))
 		y2 := p.Y - int(float32(dr.field_25)-float32(z))
@@ -119,8 +120,8 @@ func debugDrawShape(r *NoxRender, dr *Drawable, p image.Point, cl color.Color) {
 			image.Pt(p.X+rad, y2),
 			cl,
 		)
-	case shapeKindBox:
-		box := &sh.box
+	case server.ShapeKindBox:
+		box := &sh.Box
 		z := int16(dr.z)
 		p1 := image.Point{
 			X: p.X,
@@ -154,7 +155,7 @@ func debugDrawShape(r *NoxRender, dr *Drawable, p image.Point, cl color.Color) {
 	}
 }
 
-func drawDebugBox(r *NoxRender, b *noxShapeBox, p image.Point, cl color.Color) {
+func drawDebugBox(r *NoxRender, b *server.ShapeBox, p image.Point, cl color.Color) {
 	p1 := p.Add(image.Point{
 		X: int(b.LeftTop),
 		Y: int(b.LeftBottom),
