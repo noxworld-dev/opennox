@@ -54,6 +54,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 //export nox_xxx_playerSpell_4FB2A0_magic_plyrspel
@@ -268,6 +269,10 @@ func asPlayer(p *C.nox_playerInfo) *Player {
 	return (*Player)(p)
 }
 
+func asPlayerS(p *server.Player) *Player {
+	return (*Player)(unsafe.Pointer(p))
+}
+
 func BlindPlayers(blind bool) {
 	noxServer.nox_xxx_netMsgFadeBegin_4D9800(!blind, false)
 }
@@ -473,6 +478,14 @@ func (p *Player) CObj() *nox_object_t {
 	return u.CObj()
 }
 
+func (p *Player) SObj() *server.Object {
+	u := p.UnitC()
+	if u == nil {
+		return nil
+	}
+	return u.SObj()
+}
+
 func (p *Player) AsObject() *Object {
 	u := p.UnitC()
 	if u == nil {
@@ -502,6 +515,10 @@ func HostPlayerUnit() *Unit {
 
 func (p *Player) C() *C.nox_playerInfo {
 	return (*C.nox_playerInfo)(p)
+}
+
+func (p *Player) S() *server.Player {
+	return (*server.Player)(unsafe.Pointer(p))
 }
 
 func (p *Player) Index() int {
@@ -652,7 +669,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 		}
 	}
 	C.nox_xxx_playerRemoveSpawnedStuff_4E5AD0(u.CObj())
-	ud.field_61 = 0
+	ud.Field61 = 0
 	_ = nox_xxx_updatePlayerObserver_4E62F0
 	u.func_update = (*[0]byte)(C.nox_xxx_updatePlayerObserver_4E62F0)
 	C.sub_4D7E50(u.CObj())
@@ -943,11 +960,11 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	pl.field_2156 = C.uint(C.nox_xxx_scavengerTreasureMax_4D1600())
 	udata := punit.updateDataPlayer()
 	h := punit.healthData()
-	udata.player = pl.C()
+	udata.Player = pl.S()
 	pl.prot_unit_hp_cur = C.uint(protectUint16(h.Cur))
 	pl.prot_unit_hp_max = C.uint(protectUint16(h.Max))
-	pl.prot_unit_mana_cur = C.uint(protectUint16(uint16(udata.mana_cur)))
-	pl.prot_unit_mana_max = C.uint(protectUint16(uint16(udata.mana_max)))
+	pl.prot_unit_mana_cur = C.uint(protectUint16(udata.ManaCur))
+	pl.prot_unit_mana_max = C.uint(protectUint16(udata.ManaMax))
 	pl.prot_unit_experience = C.uint(protectFloat32(float32(punit.experience)))
 	pl.prot_unit_mass = C.uint(protectFloat32(punit.Mass()))
 	pl.prot_unit_buffs = C.uint(protectInt(int(punit.buffs)))
@@ -1046,7 +1063,7 @@ func (s *Server) sub_4E8210(u *Unit) (types.Pointf, bool) {
 	)
 	for _, u2 := range s.getPlayerUnits() {
 		ptr := u2.updateDataPlayer()
-		ptr2 := ptr.field_77
+		ptr2 := ptr.Field77
 		if ptr2 == nil {
 			continue
 		}
@@ -1059,31 +1076,31 @@ func (s *Server) sub_4E8210(u *Unit) (types.Pointf, bool) {
 		return types.Pointf{}, false
 	}
 	ud := u.updateDataPlayer()
-	ud.field_77 = v2
+	ud.Field77 = v2
 	out := randomReachablePointAround(60.0, asPointf(unsafe.Add(v2, 7*8)))
 	return out, true
 }
 
 func nox_xxx_plrSetSpellType_4F9B90(u *Unit) {
 	ud := u.updateDataPlayer()
-	ud.spell_phoneme_leaf = unsafe.Pointer(getPhonemeTree())
-	ud.spell_cast_start = C.uint(noxServer.Frame())
+	ud.SpellPhonemeLeaf = unsafe.Pointer(getPhonemeTree())
+	ud.SpellCastStart = noxServer.Frame()
 }
 
 func (s *Server) playerSpell(u *Unit) {
 	ok2 := true
 	ud := u.updateDataPlayer()
-	pl := ud.Player()
+	pl := asPlayerS(ud.Player)
 	var a1 int
 	if u != nil {
 		a1 = 1
 	}
-	if leaf := (*phonemeLeaf)(ud.spell_phoneme_leaf); leaf == getPhonemeTree() {
+	if leaf := (*phonemeLeaf)(ud.SpellPhonemeLeaf); leaf == getPhonemeTree() {
 		ok2 = false
 	} else if leaf != nil && leaf.Ind != 0 {
 		spellInd := spell.ID(leaf.Ind)
 		if !noxflags.HasGame(noxflags.GameModeQuest) {
-			targ := ud.CursorObj()
+			targ := asObjectS(ud.CursorObj)
 			if s.spellHasFlags(spellInd, things.SpellOffensive) {
 				if targ != nil && !u.isEnemyTo(targ) {
 					return
@@ -1125,17 +1142,17 @@ func (s *Server) playerSpell(u *Unit) {
 			}
 		}
 	}
-	if ud.field_22_0 == 2 {
+	if ud.Field22_0 == 2 {
 		nox_xxx_playerSetState_4FA020(u, 13)
 	}
 	if ok2 {
 		v13 := s.Strings().GetStringInFile("SpellUnknown", "plyrspel.c")
 		nox_xxx_netSendLineMessage_4D9EB0(u, v13)
 	} else if a1 != 0 {
-		v4 := (*phonemeLeaf)(ud.spell_phoneme_leaf)
+		v4 := (*phonemeLeaf)(ud.SpellPhonemeLeaf)
 		nox_xxx_netReportSpellStat_4D9630(pl.Index(), spell.ID(v4.Ind), 0)
 	} else {
-		v4 := (*phonemeLeaf)(ud.spell_phoneme_leaf)
+		v4 := (*phonemeLeaf)(ud.SpellPhonemeLeaf)
 		if !s.spellHasFlags(spell.ID(v4.Ind), things.SpellFlagUnk21) {
 			nox_xxx_netReportSpellStat_4D9630(pl.Index(), spell.ID(v4.Ind), 15)
 		}
@@ -1267,7 +1284,7 @@ func nox_client_onClassStats(cbuf *C.uchar, sz C.int) {
 func nox_xxx_playerObserveMonster_4DDE80(cplayer, cunit *nox_object_t) {
 	pu := asUnitC(cplayer)
 	ud := pu.updateDataPlayer()
-	pl := ud.Player()
+	pl := asPlayerS(ud.Player)
 
 	targ := asObjectC(cunit)
 

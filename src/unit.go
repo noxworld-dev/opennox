@@ -99,13 +99,12 @@ func (u *Unit) CanSee(obj script.Object) bool {
 	panic("implement me")
 }
 
-func (u *Unit) updateDataPlayer() *PlayerUpdateData {
+func (u *Unit) updateDataPlayer() *server.PlayerUpdateData {
 	if !u.Class().Has(object.ClassPlayer) {
 		panic(u.Class().String())
 	}
 	// TODO: verify this conversion by checking ObjectType
-	p := (*C.nox_object_Player_data_t)(u.updateDataPtr())
-	return (*PlayerUpdateData)(unsafe.Pointer(p))
+	return (*server.PlayerUpdateData)(u.updateDataPtr())
 }
 
 func (u *Unit) updateDataMonster() *server.MonsterUpdateData {
@@ -121,7 +120,7 @@ func (u *Unit) ControllingPlayer() *Player {
 		return nil
 	}
 	ud := u.updateDataPlayer()
-	return asPlayer(ud.player)
+	return asPlayerS(ud.Player)
 }
 
 func (u *Unit) SetHealth(v int) {
@@ -173,8 +172,8 @@ func (u *Unit) Mana() (cur, max int) {
 	if p == nil {
 		return
 	}
-	cur = int(p.mana_cur)
-	max = int(p.mana_max)
+	cur = int(p.ManaCur)
+	max = int(p.ManaMax)
 	return
 }
 
@@ -192,10 +191,10 @@ func (u *Unit) SetMana(v int) {
 	if _, max := u.Mana(); v > max {
 		v = max
 	}
-	cur := int(p.mana_cur)
-	p.mana_prev = C.ushort(cur)
-	p.mana_cur = C.ushort(v)
-	pt := asPlayer(p.player)
+	cur := int(p.ManaCur)
+	p.ManaPrev = uint16(cur)
+	p.ManaCur = uint16(v)
+	pt := asPlayerS(p.Player)
 	C.nox_xxx_protectMana_56F9E0(C.int(pt.prot_unit_mana_cur), C.short(v-cur))
 }
 
@@ -210,7 +209,7 @@ func (u *Unit) SetMaxMana(v int) {
 	if p == nil {
 		return
 	}
-	p.mana_max = C.ushort(v)
+	p.ManaMax = uint16(v)
 	u.SetMana(v)
 }
 

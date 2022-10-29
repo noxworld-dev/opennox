@@ -47,8 +47,11 @@ var (
 	spellTimeout  uint32
 )
 
+var _ = [1]struct{}{}[2200-unsafe.Sizeof(server.MonsterUpdateData{})]
+var _ = [1]struct{}{}[556-unsafe.Sizeof(server.PlayerUpdateData{})]
+
 func init() {
-	server.RegisterObjectUpdate("PlayerUpdate", C.nox_xxx_updatePlayer_4F8100, unsafe.Sizeof(C.nox_object_Player_data_t{}))
+	server.RegisterObjectUpdate("PlayerUpdate", C.nox_xxx_updatePlayer_4F8100, unsafe.Sizeof(server.PlayerUpdateData{}))
 	server.RegisterObjectUpdate("ProjectileUpdate", C.nox_xxx_updateProjectile_53AC10, 0)
 	server.RegisterObjectUpdate("SpellProjectileUpdate", C.nox_xxx_spellFlyUpdate_53B940, 28)
 	server.RegisterObjectUpdate("AntiSpellProjectileUpdate", C.nox_xxx_updateAntiSpellProj_53BB00, 28)
@@ -121,24 +124,6 @@ func wrapObjectUpdateParseC(ptr unsafe.Pointer) server.ObjectParseFunc {
 	}
 }
 
-type PlayerUpdateData C.nox_object_Player_data_t
-
-func (ud *PlayerUpdateData) Player() *Player {
-	if ud == nil {
-		return nil
-	}
-	return asPlayer(ud.player)
-}
-
-func (ud *PlayerUpdateData) CursorObj() *Object {
-	if ud == nil {
-		return nil
-	}
-	return asObjectC(ud.cursor_obj)
-}
-
-var _ = [1]struct{}{}[2200-unsafe.Sizeof(server.MonsterUpdateData{})]
-
 //export nox_xxx_updatePlayer_4F8100
 func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	s := noxServer
@@ -146,52 +131,52 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	ud := u.updateDataPlayer()
 	h := u.healthData()
 	for i := 0; i < 4; i++ {
-		p := asObjectC(ud.field_29[i])
+		p := asObjectS(ud.Field29[i])
 		if p != nil && p.Flags().Has(object.FlagDestroyed) {
-			ud.field_29[i] = nil
+			ud.Field29[i] = nil
 		}
 	}
 	if u.Flags().Has(object.FlagDestroyed) {
 		return
 	}
-	if noxflags.HasGame(noxflags.GameModeQuest) && ud.field_70 != 0 {
+	if noxflags.HasGame(noxflags.GameModeQuest) && ud.Field70 != 0 {
 		u.force_x = 0
 		u.force_y = 0
 		u.vel_x = 0
 		u.vel_y = 0
 	}
-	if noxflags.HasGame(noxflags.GameModeQuest) && ud.field_137 != 0 && ud.Player().Index() != common.MaxPlayers-1 && (s.Frame()-uint32(ud.field_137) > (30 * s.TickRate())) {
+	if noxflags.HasGame(noxflags.GameModeQuest) && ud.Field137 != 0 && asPlayerS(ud.Player).Index() != common.MaxPlayers-1 && (s.Frame()-ud.Field137 > (30 * s.TickRate())) {
 		sub_4DCFB0(u.CObj())
 		return
 	}
 	v2 := 0
-	if ud.field_19_1 != 0 {
-		ud.field_19_1--
+	if ud.Field19_1 != 0 {
+		ud.Field19_1--
 	} else {
-		if ud.field_19_0 != 0 {
-			v2 = 1000 * (int(ud.field_19_0) - int(h.Cur)) / int(ud.field_19_0)
+		if ud.Field19_0 != 0 {
+			v2 = 1000 * (int(ud.Field19_0) - int(h.Cur)) / int(ud.Field19_0)
 		}
-		ud.field_19_0 = C.ushort(h.Cur)
+		ud.Field19_0 = uint16(h.Cur)
 		if v2 > 0 {
-			ud.field_19_1 = 7
+			ud.Field19_1 = 7
 		}
 	}
 	if noxflags.HasGame(noxflags.GameSuddenDeath) {
 		playerSuddedDeath4F9E70(u)
 	}
 	sub_4F9ED0(u)
-	pl := ud.Player()
+	pl := asPlayerS(ud.Player)
 	u2 := pl.CameraTarget().AsUnit()
 	if u2 == nil {
 		u2 = pl.UnitC()
 	}
 	pl.setPos3632(u2.Pos())
-	if ud.field_40_0 != 0 {
-		ud.field_40_0--
+	if ud.Field40_0 != 0 {
+		ud.Field40_0--
 	}
 	u.needSync()
-	if ud.field_20_1 != 0 {
-		ud.field_20_1--
+	if ud.Field20_1 != 0 {
+		ud.Field20_1--
 	}
 	if !u.Flags().Has(object.FlagDead) {
 		if v2 > 0 {
@@ -222,19 +207,19 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 				}
 			}
 		}
-		if ud.field_22_3 < 100 {
-			ud.field_22_3 += C.uchar(100 / s.TickRate())
+		if ud.Field22_3 < 100 {
+			ud.Field22_3 += uint8(100 / s.TickRate())
 		}
 	}
-	if ud.spell_cast_start != 0 && ud.field_47_0 == 0 && (s.Frame()-uint32(ud.spell_cast_start)) > spellTimeout {
+	if ud.SpellCastStart != 0 && ud.Field47_0 == 0 && (s.Frame()-ud.SpellCastStart) > spellTimeout {
 		s.playerSpell(u) // (manual?) spell casting
-		ud.spell_cast_start = 0
+		ud.SpellCastStart = 0
 	}
 	nox_xxx_playerInventory_4F8420(u)
 	if oa1, ov68, ok := s.unitUpdatePlayerImplA(u); ok {
 		s.unitUpdatePlayerImplB(u, oa1, ov68)
 	}
-	if u.HasEnchant(ENCHANT_RUN) && ud.field_22_0 != 1 {
+	if u.HasEnchant(ENCHANT_RUN) && ud.Field22_0 != 1 {
 		nox_xxx_playerSetState_4FA020(u, 5)
 	}
 	C.nox_xxx_questCheckSecretArea_421C70(u.CObj())
@@ -243,8 +228,8 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 
 func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 	ud := u.updateDataPlayer()
-	pl := ud.Player()
-	switch ud.field_22_0 {
+	pl := asPlayerS(ud.Player)
+	switch ud.Field22_0 {
 	default:
 		return a1, v68, true
 	case 0, 5:
@@ -266,7 +251,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		dy := float64(dp.Y)
 		a1 = false
 		const runCursorDist = 100
-		if !(ud.field_22_0 != 5 && (dy*dy+dx*dx <= runCursorDist*runCursorDist) || s.abilities.IsActive(u, AbilityTreadLightly)) {
+		if !(ud.Field22_0 != 5 && (dy*dy+dx*dx <= runCursorDist*runCursorDist) || s.abilities.IsActive(u, AbilityTreadLightly)) {
 			// switch from walking to running
 			a1 = true
 			u.speed_cur *= 2
@@ -309,7 +294,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			u.force_x += C.float(cos) * u.speed_cur
 			u.force_y += C.float(sin) * u.speed_cur
 		}
-		if ud.field_22_0 == 0 {
+		if ud.Field22_0 == 0 {
 			v67, v69 := playerAnimGetFrameRange(4)
 			v31 := int(u.net_code) + int(noxServer.Frame())
 			v32 := (v31 - 1) / (v69 + 1) % v67
@@ -351,15 +336,15 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		return a1, v68, true
 	case 2:
 		v67, v69 := playerAnimGetFrameRange(21)
-		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
-		if int(ud.field_59_0) >= v67 {
-			ud.field_59_0 = C.uchar(v67 - 1)
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.Field59_0) >= v67 {
+			ud.Field59_0 = uint8(v67 - 1)
 		}
 		return a1, v68, true
 	case 3:
 		if (int(s.Frame()) - int(u.field_34)) > int(s.TickRate()) {
 			nox_xxx_playerSetState_4FA020(u, 4)
-			ud.field_60 &^= 0x20
+			ud.Field60 &^= 0x20
 			u.field_34 = C.uint(s.Frame())
 			u.obj_flags |= C.uint(object.FlagShort | object.FlagAllowOverlap)
 			u.setVel(types.Pointf{})
@@ -416,7 +401,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		}
 		return a1, v68, false
 	case 0xA:
-		ud.field_59_0 = 0
+		ud.Field59_0 = 0
 		return a1, v68, true
 	case 0xC:
 		v67, v69 := playerAnimGetFrameRange(3)
@@ -425,7 +410,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		found := false
 		for _, it := range s.getPlayerUnits() {
 			ud2 := it.updateDataPlayer()
-			if ud2.harpoon_targ == u.CObj() {
+			if asObjectS(ud2.HarpoonTarg).CObj() == u.CObj() {
 				found = true
 				break
 			}
@@ -454,143 +439,143 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			return a1, v68, true
 		}
 		nox_xxx_playerSetState_4FA020(u, 15)
-		ud.field_59_0 = 0
+		ud.Field59_0 = 0
 		return a1, v68, true
 	case 0xE:
 		_, v69 := playerAnimGetFrameRange(33)
-		ud.field_59_0 = C.uchar(v69 - 1)
+		ud.Field59_0 = uint8(v69 - 1)
 		if int(s.Frame())-int(u.field_34) > int(s.TickRate()) {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0xF:
 		v67, v69 := playerAnimGetFrameRange(40)
-		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
-		if int(ud.field_59_0) >= v67 {
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 16)
-			ud.field_59_0 = C.uchar(v67 - 1)
+			ud.Field59_0 = uint8(v67 - 1)
 		}
 		return a1, v68, true
 	case 0x10:
 		_, v69 := playerAnimGetFrameRange(40)
-		ud.field_59_0 = C.uchar(v69 - 1)
+		ud.Field59_0 = uint8(v69 - 1)
 		return a1, v68, true
 	case 0x11:
 		v67, v69 := playerAnimGetFrameRange(40)
 		v11 := v67 - (int(s.Frame())-int(u.field_34))/(v69+1)
 		if v11 >= v67 {
-			ud.field_59_0 = C.uchar(v67 - 1)
+			ud.Field59_0 = uint8(v67 - 1)
 		} else {
 			if v11 <= 0 {
 				v11 = 0
 				nox_xxx_playerSetState_4FA020(u, 13)
 			}
-			ud.field_59_0 = C.uchar(v11)
+			ud.Field59_0 = uint8(v11)
 		}
 		return a1, v68, true
 	case 0x12:
 		v67, v69 := playerAnimGetFrameRange(48)
-		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
-		if int(ud.field_59_0) >= v67 {
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x13:
 		v67, v69 := playerAnimGetFrameRange(49)
-		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
-		if int(ud.field_59_0) >= v67 {
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x14:
 		v67, v69 := playerAnimGetFrameRange(47)
-		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
-		if int(ud.field_59_0) >= v67 {
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x15:
 		v67, v69 := playerAnimGetFrameRange(30)
-		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v67 + 1))
-		if int(ud.field_59_0) >= v69 {
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v67 + 1))
+		if int(ud.Field59_0) >= v69 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x16:
 		_, v69 := playerAnimGetFrameRange(31)
-		ud.field_59_0 = C.uchar(v69 - 1)
+		ud.Field59_0 = uint8(v69 - 1)
 		return a1, v68, true
 	case 0x17:
 		v67, v69 := playerAnimGetFrameRange(50)
-		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
-		if int(ud.field_59_0) >= v67 {
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x18:
 		v67, v69 := playerAnimGetFrameRange(19)
-		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
-		if int(ud.field_59_0) >= v67 {
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x19:
 		v67, v69 := playerAnimGetFrameRange(20)
-		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
-		if int(ud.field_59_0) >= v67 {
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x1A:
 		v67, v69 := playerAnimGetFrameRange(15)
-		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
-		if int(ud.field_59_0) >= v67 {
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x1B:
 		v67, v69 := playerAnimGetFrameRange(16)
-		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
-		if int(ud.field_59_0) >= v67/2 {
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.Field59_0) >= v67/2 {
 			nox_xxx_playerSetState_4FA020(u, 28)
-			ud.field_59_0 = C.uchar(v67 / 2)
+			ud.Field59_0 = uint8(v67 / 2)
 		}
 		return a1, v68, true
 	case 0x1C:
 		v67, _ := playerAnimGetFrameRange(16)
-		ud.field_59_0 = C.uchar(v67 / 2)
+		ud.Field59_0 = uint8(v67 / 2)
 		if (int(s.Frame()) - int(u.field_34)) > 0x14 {
 			nox_xxx_playerSetState_4FA020(u, 29)
-			ud.field_59_0 = C.uchar(v67 / 2)
+			ud.Field59_0 = uint8(v67 / 2)
 		}
 		return a1, v68, true
 	case 0x1D:
 		v67, v69 := playerAnimGetFrameRange(16)
-		ud.field_59_0 = C.uchar(v67/2 + (int(s.Frame())-int(u.field_34))/(v69+1))
-		if int(ud.field_59_0) >= v67 {
+		ud.Field59_0 = uint8(v67/2 + (int(s.Frame())-int(u.field_34))/(v69+1))
+		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x1E:
 		v67, v69 := playerAnimGetFrameRange(52)
-		ud.field_59_0 = C.uchar((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
-		if int(ud.field_59_0) >= v67 {
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
-			ud.field_41 = 0
+			ud.Field41 = 0
 		}
 		return a1, v68, true
 	case 0x20:
 		v67, _ := playerAnimGetFrameRange(54)
-		ud.field_59_0 = C.uchar(v67 / 2)
+		ud.Field59_0 = uint8(v67 / 2)
 		if (int(s.Frame()) - int(u.field_34)) > 0x14 {
 			nox_xxx_playerSetState_4FA020(u, 33)
-			ud.field_59_0 = C.uchar(v67 / 2)
+			ud.Field59_0 = uint8(v67 / 2)
 		}
 		return a1, v68, true
 	case 0x21:
 		v67, v69 := playerAnimGetFrameRange(54)
-		ud.field_59_0 = C.uchar(v67/2 + (int(s.Frame())-int(u.field_34))/(v69+1))
-		if int(ud.field_59_0) >= v67 {
+		ud.Field59_0 = uint8(v67/2 + (int(s.Frame())-int(u.field_34))/(v69+1))
+		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
@@ -599,17 +584,17 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 
 func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 	ud := u.updateDataPlayer()
-	pl := ud.Player()
+	pl := asPlayerS(ud.Player)
 	orientationOnly := false
 	cb := s.ctrlbuf.Player(pl.Index())
 	if cb.IsEmpty() {
 		goto LABEL_247
 	}
-	if (ud.field_22_0 == 0 || ud.field_22_0 == 5) && C.sub_4F9A80(u.CObj()) == 0 {
+	if (ud.Field22_0 == 0 || ud.Field22_0 == 5) && C.sub_4F9A80(u.CObj()) == 0 {
 		nox_xxx_playerSetState_4FA020(u, 13)
 		u.field_34 = C.uint(s.Frame())
 	}
-	ud.field_60 &^= 0x2 | 0x4 | 0x8 | 0x10
+	ud.Field60 &^= 0x2 | 0x4 | 0x8 | 0x10
 	if pl.field_3680&3 != 0 {
 		goto LABEL_247
 	}
@@ -621,7 +606,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 		switch it.code {
 		case player.CCOrientation:
 			if !u.HasEnchant(ENCHANT_FREEZE) &&
-				(!noxflags.HasGame(noxflags.GameModeQuest) || ud.field_70 == 0) &&
+				(!noxflags.HasGame(noxflags.GameModeQuest) || ud.Field70 == 0) &&
 				!s.abilities.IsActive(u, AbilityBerserk) {
 				u.direction2 = C.ushort(it.Uint16())
 			}
@@ -629,9 +614,9 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 			if C.nox_xxx_playerCanMove_4F9BC0(u.CObj()) != 0 {
 				C.nox_xxx_cancelAllSpells_4FEE90(u.CObj())
 				if !s.abilities.IsActive(u, AbilityBerserk) &&
-					(ud.field_22_0 != 1 || (pl.field_4&0x47F0000 != 0) &&
+					(ud.Field22_0 != 1 || (pl.field_4&0x47F0000 != 0) &&
 						C.nox_common_mapPlrActionToStateId_4FA2B0(u.CObj()) != 29) {
-					if ud.field_22_0 == 16 {
+					if ud.Field22_0 == 16 {
 						nox_xxx_playerSetState_4FA020(u, 17)
 					} else {
 						if a1 {
@@ -640,19 +625,19 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 							nox_xxx_playerSetState_4FA020(u, 0)
 						}
 						if it.Uint8()&2 != 0 {
-							ud.field_60 |= 0x1
+							ud.Field60 |= 0x1
 						} else {
-							ud.field_60 &^= 0x1
+							ud.Field60 &^= 0x1
 						}
 						switch it.code {
 						case player.CCMoveForward:
-							ud.field_60 |= 0x8
+							ud.Field60 |= 0x8
 						case player.CCMoveBackward:
-							ud.field_60 |= 0x10
+							ud.Field60 |= 0x10
 						case player.CCMoveLeft:
-							ud.field_60 |= 0x4
+							ud.Field60 |= 0x4
 						case player.CCMoveRight:
-							ud.field_60 |= 0x2
+							ud.Field60 |= 0x2
 						}
 						u.field_34 = C.uint(s.Frame())
 					}
@@ -663,7 +648,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				if !noxflags.HasGame(noxflags.GameModeChat) && C.nox_xxx_checkWinkFlags_4F7DF0(u.CObj()) == 0 {
 					C.nox_xxx_playerInputAttack_4F9C70(u.CObj())
 				}
-				if ud.field_22_0 == 10 {
+				if ud.Field22_0 == 10 {
 					nox_xxx_playerSetState_4FA020(u, 13)
 				}
 			}
@@ -691,82 +676,82 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 			}
 		case player.CCSpellGestureUp:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.spell_cast_start == 0 {
+				if ud.SpellCastStart == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
-				ud.spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud.spell_phoneme_leaf, 1)
+				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 1)
 				nox_xxx_aud_501960(sound.SoundSpellPhonemeUp, u, 0, 0)
-				ud.field_47_0 = 0
+				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureDown:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.spell_cast_start == 0 {
+				if ud.SpellCastStart == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
-				ud.spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud.spell_phoneme_leaf, 7)
+				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 7)
 				nox_xxx_aud_501960(sound.SoundSpellPhonemeDown, u, 0, 0)
-				ud.field_47_0 = 0
+				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureLeft:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.spell_cast_start == 0 {
+				if ud.SpellCastStart == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
-				ud.spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud.spell_phoneme_leaf, 3)
+				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 3)
 				nox_xxx_aud_501960(sound.SoundSpellPhonemeLeft, u, 0, 0)
-				ud.field_47_0 = 0
+				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureRight:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.spell_cast_start == 0 {
+				if ud.SpellCastStart == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
-				ud.spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud.spell_phoneme_leaf, 5)
+				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 5)
 				nox_xxx_aud_501960(sound.SoundSpellPhonemeRight, u, 0, 0)
-				ud.field_47_0 = 0
+				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureUpperRight:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.spell_cast_start == 0 {
+				if ud.SpellCastStart == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
-				ud.spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud.spell_phoneme_leaf, 2)
+				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 2)
 				nox_xxx_aud_501960(sound.SoundSpellPhonemeUpRight, u, 0, 0)
-				ud.field_47_0 = 0
+				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureUpperLeft:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.spell_cast_start == 0 {
+				if ud.SpellCastStart == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
-				ud.spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud.spell_phoneme_leaf, 0)
+				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 0)
 				nox_xxx_aud_501960(sound.SoundSpellPhonemeUpLeft, u, 0, 0)
-				ud.field_47_0 = 0
+				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureLowerRight:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.spell_cast_start == 0 {
+				if ud.SpellCastStart == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
-				ud.spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud.spell_phoneme_leaf, 8)
+				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 8)
 				nox_xxx_aud_501960(sound.SoundSpellPhonemeDownRight, u, 0, 0)
-				ud.field_47_0 = 0
+				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureLowerLeft:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.spell_cast_start == 0 {
+				if ud.SpellCastStart == 0 {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
-				ud.spell_phoneme_leaf = nox_xxx_updateSpellRelated_424830(ud.spell_phoneme_leaf, 6)
+				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 6)
 				nox_xxx_aud_501960(sound.SoundSpellPhonemeDownLeft, u, 0, 0)
-				ud.field_47_0 = 0
+				ud.Field47_0 = 0
 			}
 		case player.CCSpellPatternEnd:
 			nox_xxx_playerSetState_4FA020(u, 13)
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.spell_cast_start != 0 {
+				if ud.SpellCastStart != 0 {
 					s.playerSpell(u)
-					ud.spell_cast_start = 0
+					ud.SpellCastStart = 0
 				} else {
 					targ := s.getObjectFromNetCode(int(it.Uint32()))
 					C.nox_xxx_playerDoSchedSpell_4FB0E0(u.CObj(), targ.CObj())
@@ -775,23 +760,23 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 		case player.CCCastQueuedSpell:
 			nox_xxx_playerSetState_4FA020(u, 13)
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.spell_cast_start != 0 {
+				if ud.SpellCastStart != 0 {
 					s.playerSpell(u)
-					ud.spell_cast_start = 0
+					ud.SpellCastStart = 0
 				}
-				ud.field_55 = pl.field_2284
-				ud.field_56 = pl.field_2288
+				ud.Field55 = int(pl.field_2284)
+				ud.Field56 = int(pl.field_2288)
 				targ := s.getObjectFromNetCode(int(it.Uint32()))
 				C.nox_xxx_playerDoSchedSpell_4FB0E0(u.CObj(), targ.CObj())
 			}
 		case player.CCCastMostRecentSpell:
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				if ud.spell_cast_start != 0 {
+				if ud.SpellCastStart != 0 {
 					s.playerSpell(u)
-					ud.spell_cast_start = 0
+					ud.SpellCastStart = 0
 				}
-				ud.field_55 = pl.field_2284
-				ud.field_56 = pl.field_2288
+				ud.Field55 = int(pl.field_2284)
+				ud.Field56 = int(pl.field_2288)
 				targ := s.getObjectFromNetCode(int(it.Uint32()))
 				C.nox_xxx_playerDoSchedSpellQueue_4FB1D0(u.CObj(), targ.CObj())
 			}
@@ -799,7 +784,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 	}
 
 LABEL_247:
-	if v68 && ud.field_22_0 != 0 && ud.field_22_0 != 5 {
+	if v68 && ud.Field22_0 != 0 && ud.Field22_0 != 5 {
 		if s.abilities.IsActive(u, AbilityTreadLightly) {
 			s.abilities.DisableAbility(u, AbilityTreadLightly)
 		}
@@ -869,7 +854,7 @@ func sub_4F9ED0(u *Unit) {
 			C.nox_xxx_unitAdjustHP_4EE460(u.CObj(), 1)
 		}
 	}
-	if ud.mana_cur < ud.mana_max && (s.Frame()%(300*s.TickRate()/uint32(ud.mana_max))) == 0 {
+	if ud.ManaCur < ud.ManaMax && (s.Frame()%(300*s.TickRate()/uint32(ud.ManaMax))) == 0 {
 		C.nox_xxx_playerManaAdd_4EEB80(u.CObj(), 1)
 	}
 }
@@ -1107,11 +1092,11 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 	s := noxServer
 	u := asUnitC(a1p)
 	ud := u.updateDataPlayer()
-	pl := ud.Player()
-	for i := range ud.field_29 {
-		it := asObjectC(ud.field_29[i])
+	pl := asPlayerS(ud.Player)
+	for i := range ud.Field29 {
+		it := asObjectS(ud.Field29[i])
 		if it != nil && it.Flags().Has(object.FlagDestroyed) {
-			ud.field_29[i] = nil
+			ud.Field29[i] = nil
 		}
 	}
 	u.needSync()
@@ -1194,7 +1179,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 		}
 		if noxflags.HasGame(noxflags.GameModeQuest) {
 			if pl.field_4792 == 0 {
-				if ud.field_138 == 1 {
+				if ud.Field138 == 1 {
 					nox_xxx_netPriMsgToPlayer_4DA2C0(u, "MainBG.wnd:Loading", 0)
 				} else {
 					pl.field_4792 = C.uint(C.sub_4E4100())
@@ -1205,11 +1190,11 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 					}
 				}
 			}
-			if ud.field_79 != 0 {
+			if ud.Field79 != 0 {
 				C.sub_4D7480(u.CObj())
 				continue
 			}
-			if ud.field_78 != 0 {
+			if ud.Field78 != 0 {
 				pl.leaveMonsterObserver()
 				it.active = false
 				continue

@@ -413,7 +413,7 @@ func nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2 C.int, act C.int, a4 unsafe.
 						if pl := noxServer.getPlayerByInd(int(ind)); pl != nil {
 							if u := pl.UnitC(); u != nil {
 								ud := u.updateDataPlayer()
-								ud.field_138 = 0
+								ud.Field138 = 0
 							}
 						}
 					} else {
@@ -524,8 +524,8 @@ func sub_4DCD40() {
 	path := datapath.Save("_temp_.dat")
 	for _, u := range noxServer.getPlayerUnits() {
 		ud := u.updateDataPlayer()
-		pl := ud.Player()
-		if pl.field_4792 != 0 && ud.field_138 != 1 {
+		pl := asPlayerS(ud.Player)
+		if pl.field_4792 != 0 && ud.Field138 != 1 {
 			if nox_xxx_playerSaveToFile_41A140(path, pl.Index()) {
 				sub41CFA0(path, pl.Index())
 			}
@@ -541,11 +541,11 @@ func sub_4DCFB0(a1p *C.nox_object_t) {
 		return
 	}
 	ud := u.updateDataPlayer()
-	pl := ud.Player()
+	pl := asPlayerS(ud.Player)
 	if pl.Index() == common.MaxPlayers-1 {
 		return
 	}
-	if pl.field_4792 != 0 && ud.field_138 != 1 {
+	if pl.field_4792 != 0 && ud.Field138 != 1 {
 		if sub_419EE0(pl.Index()) {
 			nox_xxx_player_4D7960(pl.Index())
 			return

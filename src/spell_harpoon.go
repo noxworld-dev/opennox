@@ -70,8 +70,8 @@ func (a *abilityHarpoon) getHarpoonData(u *Unit) *harpoonData {
 	switch {
 	case u.Class().Has(object.ClassPlayer):
 		ud := u.updateDataPlayer()
-		pl := ud.Player()
-		p := (*harpoonPtr)(unsafe.Pointer(&ud.harpoon_targ))
+		pl := asPlayerS(ud.Player)
+		p := (*harpoonPtr)(unsafe.Pointer(&ud.HarpoonTarg))
 		return &harpoonData{harpoonPtr: p, getAim: func() types.Pointf {
 			return types.Pointf{
 				X: float32(pl.field_2284),
@@ -218,7 +218,7 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 
 func (a *abilityHarpoon) disable(u *Unit) {
 	ud := u.updateDataPlayer()
-	a.netHarpoonBreak(u, asUnitC(ud.harpoon_bolt))
+	a.netHarpoonBreak(u, asUnitS(ud.HarpoonBolt))
 }
 
 func (a *abilityHarpoon) Update(bolt *Unit) {

@@ -15,10 +15,10 @@ func nox_xxx_warriorTreadLightly_5400B0(u *Unit, dur int) {
 	}
 	s := noxServer
 	if ud := u.updateDataPlayer(); ud != nil {
-		if ud.field_22_0 == 5 {
+		if ud.Field22_0 == 5 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
-		u.ApplyEnchant(ENCHANT_SNEAK, dur, int(ud.Player().spell_lvl[AbilityTreadLightly]))
+		u.ApplyEnchant(ENCHANT_SNEAK, dur, int(asPlayerS(ud.Player).spell_lvl[AbilityTreadLightly]))
 		s.abilities.netAbilReportActive(u, AbilityTreadLightly, true)
 		C.nox_xxx_frameCounterSetCopyToNextFrame_5281D0()
 	}
