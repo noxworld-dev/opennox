@@ -21,7 +21,7 @@ int sub_44D660(char* a1);
 int sub_44D7E0(int a1);
 void sub_44D8C0();
 void sub_44D8F0();
-int nox_xxx_playDialogFile_44D900(int a1, int a2);
+int nox_xxx_playDialogFile_44D900(char* a1, int a2);
 int sub_44D930();
 void sub_44D960();
 int sub_44D970();
