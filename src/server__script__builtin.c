@@ -1598,34 +1598,6 @@ int nox_script_Fn5E_513F70() {
 	return 0;
 }
 
-//----- (00514A80) --------------------------------------------------------
-int nox_script_ChatTimerSeconds_514A80() {
-	short v0;    // di
-	int v1;      // ebx
-	int v2;      // eax
-	int v3;      // esi
-	char* v4;    // edx
-	wchar_t* v5; // eax
-	wchar_t v7;  // [esp-4h] [ebp-14h]
-	int v8;      // [esp+Ch] [ebp-4h]
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_script_pop();
-	v3 = nox_server_scriptValToObjectPtr_511B60(v2);
-	if (v3) {
-		v4 = nox_script_getString_512E40(v1);
-		v7 = v0 * (uint16_t)gameFPS();
-		v8 = 0;
-		v5 = nox_strman_loadString_40F1D0(v4, &v8, "C:\\NoxPost\\src\\Server\\System\\CScrFunc.c", 3629);
-		nox_xxx_netSendChat_528AC0(v3, v5, v7);
-		if (nox_common_gameFlags_check_40A5C0(2048)) {
-			nox_xxx_playDialogFile_44D900(v8, 100);
-		}
-	}
-	return 0;
-}
-
 //----- (00514B10) --------------------------------------------------------
 int nox_script_ChatTimerFrames_514B10() {
 	wchar_t v0;  // di
