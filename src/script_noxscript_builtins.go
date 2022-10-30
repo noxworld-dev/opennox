@@ -102,7 +102,7 @@ int nox_xxx_comAddEntryAll_427550(char* a1, short a2);
 int nox_script_addString_512E40(char* a1);
 void nox_xxx_audCreate_501A30(int a1, float2* a2, int a3, int a4);
 int nox_xxx_netSendChat_528AC0(nox_object_t* a1, wchar_t* a2, wchar_t a3);
-int nox_xxx_playDialogFile_44D900(int a1, int a2);
+int nox_xxx_playDialogFile_44D900(char* a1, int a2);
 uint32_t* sub_5130E0(int a1, uint32_t* a2);
 int nox_xxx_spellGrantToPlayer_4FB550(nox_object_t* a1, int a2, int a3, int a4, int a5);
 int nox_xxx_inventoryServPlace_4F36F0(nox_object_t* a1p, nox_object_t* a2p, int a3, int a4);

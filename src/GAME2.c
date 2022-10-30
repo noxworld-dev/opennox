@@ -322,7 +322,8 @@ void sub_44D8C0() {
 }
 
 //----- (0044D900) --------------------------------------------------------
-int nox_xxx_playDialogFile_44D900(int a1, int a2) {
+int nox_xxx_playDialogFile_44D900(char* a1p, int a2) {
+	int a1 = a1p;
 	int v2; // eax
 
 	if (dword_587000_122848 && a1) {
