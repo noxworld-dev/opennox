@@ -22,7 +22,6 @@ int nox_script_groupEnchant_5133B0();
 int nox_script_canInteract_513E80();
 int nox_script_Fn5E_513F70();
 int nox_script_GetHostInfo_513FA0();
-int nox_script_ChatTimerFrames_514B10();
 int nox_script_SetQuestInt_514BE0();
 int nox_script_SetQuestFloat_514C10();
 int nox_script_GetQuestInt_514C40();
@@ -323,7 +322,7 @@ var noxScriptBuiltins = []func() int{
 	112: nox_script_GetObjectGroup_514940,
 	113: nox_script_GetWallGroup_5149E0,
 	114: nox_script_ChatTimerSeconds_514A80,
-	115: wrapScriptC(C.nox_script_ChatTimerFrames_514B10),
+	115: nox_script_ChatTimerFrames_514B10,
 	116: nox_script_Pop2_74_514BA0,
 	117: nox_script_RemoveChat_514BB0,
 	118: nox_script_NoChatAll_514BD0,
@@ -2201,6 +2200,15 @@ func nox_script_ClearOwner_5147E0() int {
 	return 0
 }
 
+func chatTimerFrames(mgr *strman.StringManager, msgId string, obj *Object, durationTicks uint16) {
+		v, _ := strMan.GetVariantInFile(strman.ID(msgId), "CScrFunc.c")
+
+		C.nox_xxx_netSendChat_528AC0(obj.CObj(), internWStr(v.Str), C.ushort(durationTicks))
+		if noxflags.HasGame(noxflags.GameModeCoop) {
+			C.nox_xxx_playDialogFile_44D900(internCStr(v.Str2), 100)
+		}
+}
+
 func nox_script_ChatTimerSeconds_514A80() int {
 	s := &noxServer.noxScript
 
@@ -2208,13 +2216,20 @@ func nox_script_ChatTimerSeconds_514A80() int {
 	msgId := s.PopString()
 	obj := s.PopObject()
 	if obj != nil {
-		v7 := durationSecs * gameFPS()
-		v, _ := s.s.Strings().GetVariantInFile(strman.ID(msgId), "CScrFunc.c")
+		durationFrames := uint16(durationSecs * gameFPS())
+		chatTimerFrames(s.s.Strings(), msgId, obj, durationFrames)
+	}
+	return 0
+}
 
-		C.nox_xxx_netSendChat_528AC0(obj.CObj(), internWStr(v.Str), C.ushort(v7))
-		if noxflags.HasGame(noxflags.GameModeCoop) {
-			C.nox_xxx_playDialogFile_44D900(internCStr(v.Str2), 100)
-		}
+func nox_script_ChatTimerFrames_514B10() int {
+	s := &noxServer.noxScript
+
+	durationFrames := s.PopU32()
+	msgId := s.PopString()
+	obj := s.PopObject()
+	if obj != nil {
+		chatTimerFrames(s.s.Strings(), msgId, obj, uint16(durationFrames))
 	}
 	return 0
 }
