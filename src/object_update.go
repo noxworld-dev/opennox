@@ -287,12 +287,12 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		}
 		if C.sub_4F9AB0(u.CObj()) == 0 {
 			if u.HasEnchant(server.ENCHANT_CONFUSED) {
-				u.direction2 = C.ushort(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
+				u.direction2 = uint16(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
 			}
 			// update force based on direction, speed, etc
 			cos, sin := sincosDir(byte(u.direction2))
-			u.force_x += C.float(cos) * u.speed_cur
-			u.force_y += C.float(sin) * u.speed_cur
+			u.force_x += cos * u.speed_cur
+			u.force_y += sin * u.speed_cur
 		}
 		if ud.Field22_0 == 0 {
 			v67, v69 := playerAnimGetFrameRange(4)
@@ -327,7 +327,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		if C.nox_xxx_playerAttack_538960(u.CObj()) == 0 {
 			if pl.field_4&4 != 0 {
 				nox_xxx_playerSetState_4FA020(u, 14)
-				u.field_34 = C.uint(noxServer.Frame())
+				u.field_34 = s.Frame()
 			} else {
 				nox_xxx_playerSetState_4FA020(u, 13)
 				pl.field_8 &^= 0xff
@@ -345,8 +345,8 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		if (int(s.Frame()) - int(u.field_34)) > int(s.TickRate()) {
 			nox_xxx_playerSetState_4FA020(u, 4)
 			ud.Field60 &^= 0x20
-			u.field_34 = C.uint(s.Frame())
-			u.obj_flags |= C.uint(object.FlagShort | object.FlagAllowOverlap)
+			u.field_34 = s.Frame()
+			u.obj_flags |= uint32(object.FlagShort | object.FlagAllowOverlap)
 			u.setVel(types.Pointf{})
 			u.setForce(types.Pointf{})
 			u.float_24 = 0
@@ -417,14 +417,14 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		}
 		if !found {
 			cos, sin := sincosDir(byte(u.direction1))
-			u.force_x = 2 * u.speed_cur * C.float(cos)
-			u.force_y = 2 * u.speed_cur * C.float(sin)
+			u.force_x = 2 * u.speed_cur * cos
+			u.force_y = 2 * u.speed_cur * sin
 		}
 		if v49 >= v67 {
 			// stop hovering after a jump?
 			nox_xxx_playerSetState_4FA020(u, 0)
 			u.obj_flags &= 0xFFFFBFFF
-			u.field_34 = C.uint(s.Frame())
+			u.field_34 = s.Frame()
 		}
 		a1 = v69 != 0
 		return a1, v68, false
@@ -592,7 +592,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 	}
 	if (ud.Field22_0 == 0 || ud.Field22_0 == 5) && C.sub_4F9A80(u.CObj()) == 0 {
 		nox_xxx_playerSetState_4FA020(u, 13)
-		u.field_34 = C.uint(s.Frame())
+		u.field_34 = s.Frame()
 	}
 	ud.Field60 &^= 0x2 | 0x4 | 0x8 | 0x10
 	if pl.field_3680&3 != 0 {
@@ -608,7 +608,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 			if !u.HasEnchant(server.ENCHANT_FREEZE) &&
 				(!noxflags.HasGame(noxflags.GameModeQuest) || ud.Field70 == 0) &&
 				!s.abilities.IsActive(u, AbilityBerserk) {
-				u.direction2 = C.ushort(it.Uint16())
+				u.direction2 = it.Uint16()
 			}
 		case player.CCMoveForward, player.CCMoveBackward, player.CCMoveLeft, player.CCMoveRight:
 			if C.nox_xxx_playerCanMove_4F9BC0(u.CObj()) != 0 {
@@ -639,7 +639,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 						case player.CCMoveRight:
 							ud.Field60 |= 0x2
 						}
-						u.field_34 = C.uint(s.Frame())
+						u.field_34 = s.Frame()
 					}
 				}
 			}
@@ -667,11 +667,11 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 13, 3)
 			} else if C.nox_xxx_playerSubStamina_4F7D30(u.CObj(), 90) != 0 {
 				if u.HasEnchant(server.ENCHANT_CONFUSED) {
-					u.direction2 = C.ushort(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
+					u.direction2 = uint16(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
 				}
 				u.obj_flags |= 0x4000
 				nox_xxx_playerSetState_4FA020(u, 12)
-				u.field_34 = C.uint(s.Frame())
+				u.field_34 = s.Frame()
 				return
 			}
 		case player.CCSpellGestureUp:
@@ -823,8 +823,8 @@ func (obj *Object) applyForce(vec types.Pointf, force float64) { // nox_xxx_obje
 	f := 10.0 * float32(force) / obj.Mass()
 	// This weird conversion is how Nox is doing it.
 	// Be aware that changing it may cause minor deviation in physics.
-	obj.force_x += C.float(float64(dp.X) * float64(f) / float64(r))
-	obj.force_y += C.float(float64(dp.Y) * float64(f) / float64(r))
+	obj.force_x += float32(float64(dp.X) * float64(f) / float64(r))
+	obj.force_y += float32(float64(dp.Y) * float64(f) / float64(r))
 	if !obj.Class().Has(object.ClassMissile) {
 		C.nox_xxx_unitHasCollideOrUpdateFn_537610(obj.CObj())
 	}
@@ -914,7 +914,7 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 			if targ == owner {
 				ud[1] = 0
 			}
-			u.field_34 = C.uint(s.Frame())
+			u.field_34 = s.Frame()
 		}
 	} else {
 		ud[1] = 0
@@ -970,7 +970,7 @@ func nox_xxx_pixieIdleAnimate_53CF90(obj *Unit, vec types.Pointf, ddir int) {
 			dir += 256
 		}
 	}
-	obj.direction2 = C.ushort(dir)
+	obj.direction2 = uint16(dir)
 }
 
 //export nox_xxx_maybeAnimatePixie_53D010

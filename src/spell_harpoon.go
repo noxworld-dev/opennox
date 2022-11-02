@@ -115,8 +115,8 @@ func (a *abilityHarpoon) createBolt(u *Unit) {
 		X: r * cos, Y: r * sin,
 	})
 	a.s.createObjectAt(bolt, u, hpos)
-	bolt.vel_x = C.float(cos * float32(bolt.speed_cur))
-	bolt.vel_y = C.float(sin * float32(bolt.speed_cur))
+	bolt.vel_x = cos * bolt.speed_cur
+	bolt.vel_y = sin * bolt.speed_cur
 	dir := u.direction1
 	bolt.direction1 = dir
 	bolt.direction2 = dir

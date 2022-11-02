@@ -58,7 +58,7 @@ func (sp *spellMissiles) Cast(spellID spell.ID, a2, owner, caster *Unit, a5 *spe
 func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts things.MissilesSpell) {
 	cpos := caster.Pos()
 	cvel := caster.Vel()
-	rdist := float32(caster.shape.circle_r) + opts.Offset
+	rdist := caster.shape.Circle.R + opts.Offset
 	for i := 0; i < opts.Count; i++ {
 		doff := int16(opts.Spread * uint16((i+1)/2))
 		if i%2 == 1 {
@@ -77,7 +77,7 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts 
 		mud := msl.updateDataMissile()
 		sp.s.createObjectAt(msl, owner, p2)
 		mspeed := float32(noxRndCounter1.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.curSpeed()))
-		msl.speed_cur = C.float(mspeed)
+		msl.speed_cur = mspeed
 		msl.setAllDirs(dir)
 		msl.setVel(types.Pointf{
 			X: cvel.X + mspeed*cos*opts.VelMult,

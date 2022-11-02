@@ -129,7 +129,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 		case ai.DEPENDENCY_UNDER_ATTACK:
 			if C.sub_5347A0(u.CObj()) != 0 {
 				if u.obj_130 != nil {
-					v26 := getOwnerUnit(asObjectC(u.obj_130))
+					v26 := getOwnerUnit(u.obj_130)
 					if v26 != nil && v26.Class().HasAny(object.MaskUnits) {
 						st.Args[0] = uintptr(a.s.Frame())
 					}
@@ -143,7 +143,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			if u.obj_130 == nil {
 				break
 			}
-			attacker := getOwnerUnit(asObjectC(u.obj_130))
+			attacker := getOwnerUnit(u.obj_130)
 			if attacker == nil {
 				break
 			}
@@ -339,7 +339,7 @@ func sub_545E60(a1c *nox_object_t) C.int {
 	}
 	ud.Field129 = ts
 	if u.obj_130 != nil {
-		if obj4 := getOwnerUnit(asObjectC(u.obj_130)); obj4 != nil {
+		if obj4 := getOwnerUnit(u.obj_130); obj4 != nil {
 			if !u.isEnemyTo(obj4) {
 				return 0
 			}
