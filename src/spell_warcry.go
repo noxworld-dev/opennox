@@ -21,7 +21,7 @@ func nox_xxx_warriorWarcry_53FF40(u *Unit) {
 	const dist = 300.0
 	s := noxServer
 	if u.Class().Has(object.ClassPlayer) {
-		if ud := u.updateDataPlayer(); ud != nil {
+		if ud := u.UpdateDataPlayer(); ud != nil {
 			ud.Field59_0 = 0
 		}
 	}
@@ -47,7 +47,7 @@ func nox_xxx_warriorWarcry_53FF40(u *Unit) {
 				return
 			}
 		} else if u2.Class().Has(object.ClassMonster) {
-			ud := u2.updateDataMonster()
+			ud := u2.UpdateDataMonster()
 			if ud.Field360&0x20 == 0 {
 				return
 			}

@@ -941,7 +941,7 @@ func nox_script_SetCallback_516970() int {
 	if u == nil || !u.Class().Has(object.ClassMonster) {
 		return 0
 	}
-	ud := u.updateDataMonster()
+	ud := u.UpdateDataMonster()
 	switch ev {
 	case 3: // Enemy sighted
 		ud.ScriptEnemySightedCB = fnc
@@ -1730,7 +1730,7 @@ func nox_script_getNextInvItem_5138E0() int {
 func zombieSetStayDead(obj *Object) {
 	if obj != nil {
 		if obj.Class().Has(object.ClassMonster) {
-			obj.AsUnit().updateDataMonster().Field360 |= 0x100000
+			obj.AsUnit().UpdateDataMonster().Field360 |= 0x100000
 		}
 	}
 }
