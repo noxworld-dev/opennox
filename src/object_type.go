@@ -104,7 +104,7 @@ func sub_4F40A0(a1 *nox_object_t) C.char {
 		return -1
 	}
 	typ := noxServer.ObjectTypeByInd(obj.objTypeInd())
-	if (uint32(obj.obj_flags)^uint32(typ.Flags()))&0x11408162 != 0 {
+	if (obj.Flags()^typ.Flags())&0x11408162 != 0 {
 		return -1
 	}
 	if (byte(obj.field_5)^byte(typ.Field9))&0x5E != 0 {
@@ -272,17 +272,17 @@ func (s *Server) newObject(t *server.ObjectType) *Object {
 	if !obj.Flags().Has(object.FlagNoCollide) {
 		C.nox_xxx_objectUnkUpdateCoords_4E7290(obj.CObj())
 	}
-	obj.weight = C.uchar(t.Weight)
-	obj.carry_capacity = C.ushort(t.CarryCap)
-	obj.speed_cur = C.float(t.Speed)
-	obj.speed_2 = C.float(t.Speed2)
-	obj.float_138 = C.float(t.Float33)
+	obj.weight = t.Weight
+	obj.carry_capacity = uint16(t.CarryCap)
+	obj.speed_cur = t.Speed
+	obj.speed_2 = t.Speed2
+	obj.float_138 = t.Float33
 	obj.health_data = nil
 	obj.field_38 = -1
-	obj.typ_ind = C.ushort(t.Ind())
+	obj.typ_ind = uint16(t.Ind())
 	if t.Health() != nil {
 		data, _ := alloc.New(server.HealthData{})
-		obj.health_data = unsafe.Pointer(data)
+		obj.health_data = data
 		*data = *t.Health()
 	}
 	obj.func_init = t.Init
@@ -297,14 +297,14 @@ func (s *Server) newObject(t *server.ObjectType) *Object {
 		obj.collide_data = unsafe.Pointer(&data[0])
 		copy(data, unsafe.Slice((*byte)(t.CollideData), t.CollideDataSize))
 	}
-	obj.func_xfer = (*[0]byte)(t.Xfer)
+	obj.func_xfer = t.Xfer
 	obj.func_use = t.Use
 	if t.UseDataSize != 0 {
 		data, _ := alloc.Make([]byte{}, t.UseDataSize)
 		obj.use_data = unsafe.Pointer(&data[0])
 		copy(data, unsafe.Slice((*byte)(t.UseData), t.UseDataSize))
 	}
-	obj.func_update = (*[0]byte)(t.Update)
+	obj.func_update = t.Update
 	if t.UpdateDataSize != 0 {
 		data, _ := alloc.Make([]byte{}, t.UpdateDataSize)
 		obj.data_update = unsafe.Pointer(&data[0])
@@ -312,7 +312,7 @@ func (s *Server) newObject(t *server.ObjectType) *Object {
 	}
 	obj.func_pickup = t.Pickup
 	obj.func_drop = t.Drop
-	obj.func_damage = (*[0]byte)(t.Damage)
+	obj.func_damage = t.Damage
 	obj.func_damage_sound = t.DamageSound
 	obj.func_die = t.Death
 	obj.field_190 = 0
@@ -325,7 +325,7 @@ func (s *Server) newObject(t *server.ObjectType) *Object {
 		C.nox_call_objectType_new_go((*[0]byte)(t.Create), obj.CObj())
 	}
 	if !noxflags.HasGame(noxflags.GameFlag22) {
-		obj.script_id = C.int(s.NextObjectScriptID())
+		obj.script_id = int(s.NextObjectScriptID())
 	}
 	if obj.Class().Has(object.ClassSimple) {
 		*memmap.PtrUint32(0x5D4594, 1563888)++

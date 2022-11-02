@@ -712,7 +712,7 @@ func nox_xxx_saveMakePlayerLocation_4DB600(a1 unsafe.Pointer) bool {
 	}
 	s.createObjectAt(obj, nil, pos)
 	s.objectsNewAdd()
-	obj.script_id = C.int(u.ScriptID())
+	obj.script_id = u.ScriptID()
 	var next *Object
 	for it := u.FirstOwned516(); it != nil; it = next {
 		next = it.NextOwned512()

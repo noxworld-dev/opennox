@@ -19,7 +19,7 @@ func nox_xxx_warriorBerserker_53FEB0(u *Unit) {
 	s := noxServer
 	C.nox_xxx_cancelAllSpells_4FEE90(u.CObj())
 	if u.HasEnchant(server.ENCHANT_CONFUSED) {
-		u.direction2 = C.ushort(int16(int(u.direction1) + 4*noxRndCounter1.IntClamp(-8, 8)))
+		u.direction2 = uint16(int16(int(u.direction1) + 4*noxRndCounter1.IntClamp(-8, 8)))
 	}
 	if u.Class().Has(object.ClassPlayer) {
 		if ud := u.updateDataPlayer(); ud != nil {

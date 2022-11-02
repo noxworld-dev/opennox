@@ -657,7 +657,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 	}
 	nox_xxx_netInformTextMsg_4DA0F0(p.Index(), 12, bool2int(notify))
 	u.ApplyEnchant(server.ENCHANT_INVISIBLE, 0, 5)
-	u.obj_flags |= C.uint(object.FlagNoCollide)
+	u.obj_flags |= uint32(object.FlagNoCollide)
 	p.setPos3632(u.Pos())
 	p.CameraUnlock()
 	if noxflags.HasGame(noxflags.GameModeCoop) {
@@ -671,7 +671,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 	C.nox_xxx_playerRemoveSpawnedStuff_4E5AD0(u.CObj())
 	ud.Field61 = 0
 	_ = nox_xxx_updatePlayerObserver_4E62F0
-	u.func_update = (*[0]byte)(C.nox_xxx_updatePlayerObserver_4E62F0)
+	u.func_update = C.nox_xxx_updatePlayerObserver_4E62F0
 	C.sub_4D7E50(u.CObj())
 	return true
 }
@@ -700,7 +700,7 @@ func (u *Unit) observeClear() {
 		C.nox_xxx_playerUnsetStatus_417530(pl.C(), 2)
 		pl.CameraUnlock()
 		_ = nox_xxx_updatePlayer_4F8100
-		u.func_update = (*[0]byte)(C.nox_xxx_updatePlayer_4F8100)
+		u.func_update = C.nox_xxx_updatePlayer_4F8100
 	}
 }
 
@@ -956,7 +956,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	C.nox_xxx_playerInitColors_461460(pl.C())
 	pl.playerUnit = punit.CObj()
 	pl.field_2152 = 0
-	pl.netCode = punit.net_code
+	pl.netCode = C.uint(punit.net_code)
 	pl.field_2156 = C.uint(C.nox_xxx_scavengerTreasureMax_4D1600())
 	udata := punit.updateDataPlayer()
 	h := punit.healthData()
@@ -1297,7 +1297,7 @@ func nox_xxx_playerObserveMonster_4DDE80(cplayer, cunit *nox_object_t) {
 	C.nox_xxx_netNeedTimestampStatus_4174F0(pl.C(), 2)
 	pl.CameraFollow(targ)
 	_ = nox_xxx_updatePlayerObserver_4E62F0
-	pu.func_update = (*[0]byte)(C.nox_xxx_updatePlayerObserver_4E62F0)
+	pu.func_update = C.nox_xxx_updatePlayerObserver_4E62F0
 }
 
 func (s *Server) nox_xxx_playerLeaveObsByObserved_4E60A0(obj noxObject) {
