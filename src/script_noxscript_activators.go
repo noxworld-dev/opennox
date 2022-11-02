@@ -100,13 +100,13 @@ func (s *noxScript) actSave() int {
 		cryptFileReadWrite(buf[:4])
 		oid := 0
 		if it.trigger != nil {
-			oid = it.trigger.ScriptID()
+			oid = it.trigger.ScriptID
 		}
 		binary.LittleEndian.PutUint32(buf[:], uint32(oid))
 		cryptFileReadWrite(buf[:4])
 		oid = 0
 		if it.caller != nil {
-			oid = it.caller.ScriptID()
+			oid = it.caller.ScriptID
 		}
 		binary.LittleEndian.PutUint32(buf[:], uint32(oid))
 		cryptFileReadWrite(buf[:4])

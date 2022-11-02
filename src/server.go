@@ -1000,7 +1000,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 func nox_xxx_moveUpdateSpecial_517970(cunit *nox_object_t) {
 	unit := asUnitC(cunit)
 	C.sub_517870(cunit)
-	if C.sub_517590(C.float(unit.new_x), C.float(unit.new_y)) != 0 {
+	if C.sub_517590(C.float(unit.NewPosX), C.float(unit.NewPosY)) != 0 {
 		C.nox_xxx_unitCreateMissileSmth_517640(cunit)
 	} else {
 		if unit.Class().Has(object.ClassPlayer) {

@@ -34,7 +34,7 @@ func nox_objectDropAudEvent_4EE2F0(cobj1 *nox_object_t, cobj2 *nox_object_t, a3 
 		return ok
 	}
 	obj2 := asObjectC(cobj2)
-	if snd := noxServer.DropSound(uint16(obj2.objTypeInd())); snd != 0 {
+	if snd := noxServer.DropSound(obj2.TypeInd); snd != 0 {
 		nox_xxx_aud_501960(snd, asUnitC(cobj1), 0, 0)
 	}
 	return ok

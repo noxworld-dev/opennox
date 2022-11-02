@@ -299,15 +299,15 @@ func (s *Server) getUnitNetCode(p noxObject) int {
 	if obj == nil {
 		return 0
 	}
-	if obj.net_code >= 0x8000 {
+	if obj.NetCode >= 0x8000 {
 		return 0
 	}
-	ext := int(obj.extent)
+	ext := int(obj.Extent)
 	if ext >= 0x8000 {
 		return 0
 	}
 	if !obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile) {
-		return int(obj.net_code)
+		return int(obj.NetCode)
 	}
 	ext |= 0x8000
 	return ext
@@ -333,19 +333,19 @@ func (s *noxScript) scriptToObject(val int) *Object {
 	}
 
 	for obj := s.s.objs.list; obj != nil; obj = obj.Next() {
-		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID() == val {
+		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID == val {
 			C.nox_xxx_scriptPrepareFoundUnit_511D70(obj.CObj())
 			return obj
 		}
 		for sub := obj.FirstItem(); sub != nil; sub = sub.NextItem() {
-			if !sub.Flags().Has(object.FlagDestroyed) && sub.ScriptID() == val {
+			if !sub.Flags().Has(object.FlagDestroyed) && sub.ScriptID == val {
 				C.nox_xxx_scriptPrepareFoundUnit_511D70(sub.CObj())
 				return sub
 			}
 		}
 	}
 	for obj := s.s.objs.pending; obj != nil; obj = obj.Next() {
-		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID() == val {
+		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID == val {
 			C.nox_xxx_scriptPrepareFoundUnit_511D70(obj.CObj())
 			return obj
 		}
@@ -410,7 +410,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 			sub_477530(false)
 		}
 		for it := s.firstServerObject(); it != nil; it = it.Next() {
-			if it.objTypeInd() == nox_script_objTelekinesisHand {
+			if int(it.TypeInd) == nox_script_objTelekinesisHand {
 				if f := it.Flags(); f.Has(object.FlagNoCollide) {
 					it.SetFlags(f &^ object.FlagNoCollide)
 				}
@@ -436,7 +436,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 	var next *Object
 	for it := s.objs.updatableList2; it != nil; it = next {
 		next = it.Next()
-		if it.objTypeInd() != int(memmap.Uint32(0x5D4594, 2386900)) {
+		if int(it.TypeInd) != int(memmap.Uint32(0x5D4594, 2386900)) {
 			it.Delete()
 		}
 	}
@@ -446,13 +446,13 @@ func (s *Server) CinemaPlayers(enable bool) {
 		next = it.Next()
 		if it.OwnerC() != nil {
 			for _, id := range nox_script_objCinemaRemove {
-				if it.objTypeInd() == id {
+				if int(it.TypeInd) == id {
 					it.Delete()
 					break
 				}
 			}
 		} else {
-			if it.objTypeInd() == nox_script_objTelekinesisHand {
+			if int(it.TypeInd) == nox_script_objTelekinesisHand {
 				if f := it.Flags(); !f.Has(object.FlagNoCollide) {
 					it.SetFlags(f | object.FlagNoCollide)
 				}

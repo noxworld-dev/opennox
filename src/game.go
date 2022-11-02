@@ -1258,11 +1258,11 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	}
 	for _, v22 := range s.getObjects() {
 		if v22.Class().Has(0x10000000) {
-			v22.field_34 = 0
+			v22.Field34 = 0
 			C.dword_5d4594_1548532 = unsafe.Pointer(v22.CObj())
 			starts.flagN++
 		}
-		ti := uint32(v22.objTypeInd())
+		ti := uint32(v22.TypeInd)
 		if ti == memmap.Uint32(0x5D4594, 1548712) {
 			starts.ballN++
 		}
@@ -1307,7 +1307,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 			if sub := strings.Fields(val); len(sub) >= 3 {
 				v34, _ := strconv.Atoi(sub[0])
 				if v35 := s.getObjectByInd(v34).AsUnit(); v35 != nil {
-					v36 := unsafe.Slice((*float32)(v35.updateDataPtr()), 3)
+					v36 := unsafe.Slice((*float32)(v35.UpdateData), 3)
 					v38, _ := strconv.ParseFloat(sub[1], 64)
 					v36[0] = float32(v38 * memmap.Float64(0x581450, 10008))
 					v36[1] = v36[0]
@@ -1353,7 +1353,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 					n.SetPos(v61)
 					ud.Field97 = 0
 					n.clearActionStack()
-					n.obj_130 = nil
+					n.Obj130 = nil
 					ud.CurrentEnemy = nil
 					ud.Field304 = 0
 					*(*byte)(unsafe.Add(unsafe.Pointer(ud), 1129)) = 0
@@ -1842,7 +1842,7 @@ func nox_xxx_mapTraceObstacles(from *Unit, p1, p2 types.Pointf) bool { // nox_xx
 			a3p, a3Free := alloc.Malloc(8)
 			defer a3Free()
 			a3 := unsafe.Slice((*float32)(a3p), 2)
-			if C.nox_xxx_mathPointOnTheLine_57C8A0((*C.float4)(pp), (*C.float2)(unsafe.Pointer(&obj.x)), (*C.float2)(a3p)) != 0 {
+			if C.nox_xxx_mathPointOnTheLine_57C8A0((*C.float4)(pp), (*C.float2)(unsafe.Pointer(&obj.PosVecX)), (*C.float2)(a3p)) != 0 {
 				dx := a3[0] - pos.X
 				dy := a3[1] - pos.Y
 				if dy*dy+dx*dx <= sh.Circle.R2 {

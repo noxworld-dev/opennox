@@ -623,7 +623,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 	if !keepPlayer && s.abilities.IsAnyActive(u) {
 		return false
 	}
-	if unsafe.Pointer(u.func_update) == unsafe.Pointer(C.nox_xxx_updatePlayerMonsterBot_4FAB20) {
+	if u.Update == unsafe.Pointer(C.nox_xxx_updatePlayerMonsterBot_4FAB20) {
 		return false
 	}
 	ud := u.updateDataPlayer()
@@ -631,12 +631,12 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 		crown := s.ObjectTypeID("Crown")
 		ball := s.ObjectTypeID("GameBall")
 		for it := u.FirstOwned516(); it != nil; it = it.NextOwned512() {
-			typ := it.objTypeInd()
+			typ := int(it.TypeInd)
 			if typ == crown {
 				u.callDrop(it, u.Pos())
 			} else if typ == ball {
-				it.obj_130 = nil
-				it.obj_flags &= 0xFFFFFFBF
+				it.Obj130 = nil
+				it.ObjFlags &= 0xFFFFFFBF
 				it.SetOwner(nil)
 				sub_4E8290(1, 0)
 			} else if it.Class().Has(object.ClassFlag) {
@@ -657,7 +657,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 	}
 	nox_xxx_netInformTextMsg_4DA0F0(p.Index(), 12, bool2int(notify))
 	u.ApplyEnchant(server.ENCHANT_INVISIBLE, 0, 5)
-	u.obj_flags |= uint32(object.FlagNoCollide)
+	u.ObjFlags |= uint32(object.FlagNoCollide)
 	p.setPos3632(u.Pos())
 	p.CameraUnlock()
 	if noxflags.HasGame(noxflags.GameModeCoop) {
@@ -671,7 +671,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 	C.nox_xxx_playerRemoveSpawnedStuff_4E5AD0(u.CObj())
 	ud.Field61 = 0
 	_ = nox_xxx_updatePlayerObserver_4E62F0
-	u.func_update = C.nox_xxx_updatePlayerObserver_4E62F0
+	u.Update = C.nox_xxx_updatePlayerObserver_4E62F0
 	C.sub_4D7E50(u.CObj())
 	return true
 }
@@ -700,7 +700,7 @@ func (u *Unit) observeClear() {
 		C.nox_xxx_playerUnsetStatus_417530(pl.C(), 2)
 		pl.CameraUnlock()
 		_ = nox_xxx_updatePlayer_4F8100
-		u.func_update = C.nox_xxx_updatePlayer_4F8100
+		u.Update = C.nox_xxx_updatePlayer_4F8100
 	}
 }
 
@@ -956,7 +956,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	C.nox_xxx_playerInitColors_461460(pl.C())
 	pl.playerUnit = punit.CObj()
 	pl.field_2152 = 0
-	pl.netCode = C.uint(punit.net_code)
+	pl.netCode = C.uint(punit.NetCode)
 	pl.field_2156 = C.uint(C.nox_xxx_scavengerTreasureMax_4D1600())
 	udata := punit.updateDataPlayer()
 	h := punit.healthData()
@@ -965,9 +965,9 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	pl.prot_unit_hp_max = C.uint(protectUint16(h.Max))
 	pl.prot_unit_mana_cur = C.uint(protectUint16(udata.ManaCur))
 	pl.prot_unit_mana_max = C.uint(protectUint16(udata.ManaMax))
-	pl.prot_unit_experience = C.uint(protectFloat32(float32(punit.experience)))
+	pl.prot_unit_experience = C.uint(protectFloat32(punit.Experience))
 	pl.prot_unit_mass = C.uint(protectFloat32(punit.Mass()))
-	pl.prot_unit_buffs = C.uint(protectInt(int(punit.buffs)))
+	pl.prot_unit_buffs = C.uint(protectInt(int(punit.Buffs)))
 	pl.prot_player_class = C.uint(protectInt(int(pl.PlayerClass())))
 	pl.prot_player_field_2235 = C.uint(protectUint32(pl.Info().Field2235()))
 	pl.prot_player_field_2239 = C.uint(protectUint32(pl.Info().Field2239()))
@@ -1044,7 +1044,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		if noxflags.HasGame(noxflags.GameModeQuest) {
 			C.nox_game_sendQuestStage_4D6960(C.int(ind))
-			return int(punit.net_code)
+			return int(punit.NetCode)
 		}
 		var buf [3]byte
 		buf[0] = byte(noxnet.MSG_FADE_BEGIN)
@@ -1053,7 +1053,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 		s.nox_xxx_netSendPacket_4E5030(ind, buf[:], 0, 0, 0)
 	}
 	s.callOnPlayerJoin(pl)
-	return int(punit.net_code)
+	return int(punit.NetCode)
 }
 
 func (s *Server) sub_4E8210(u *Unit) (types.Pointf, bool) {
@@ -1297,7 +1297,7 @@ func nox_xxx_playerObserveMonster_4DDE80(cplayer, cunit *nox_object_t) {
 	C.nox_xxx_netNeedTimestampStatus_4174F0(pl.C(), 2)
 	pl.CameraFollow(targ)
 	_ = nox_xxx_updatePlayerObserver_4E62F0
-	pu.func_update = C.nox_xxx_updatePlayerObserver_4E62F0
+	pu.Update = C.nox_xxx_updatePlayerObserver_4E62F0
 }
 
 func (s *Server) nox_xxx_playerLeaveObsByObserved_4E60A0(obj noxObject) {

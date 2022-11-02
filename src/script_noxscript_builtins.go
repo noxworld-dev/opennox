@@ -520,7 +520,7 @@ func nox_script_objectGet_513490() int {
 	defer StrFree(cstr)
 	obj := asObjectC(C.nox_xxx_getObjectByScrName_4DA4F0(cstr))
 	if obj != nil {
-		s.PushU32(uint32(obj.script_id))
+		s.PushU32(uint32(obj.ScriptID))
 	} else {
 		scriptLog.Printf("noxscript: cannot find object: %q", str)
 		s.PushU32(0)
@@ -810,7 +810,7 @@ func nox_script_CastObject2_514F10() int {
 	if targ == nil {
 		return 0
 	}
-	caster.direction1 = uint16(nox_xxx_math_509ED0(targ.Pos().Sub(caster.Pos())))
+	caster.Direction1 = uint16(nox_xxx_math_509ED0(targ.Pos().Sub(caster.Pos())))
 	s.s.castSpellBy(sp, caster, targ, targ.Pos())
 	return 0
 }
@@ -826,7 +826,7 @@ func nox_script_CastObjectLocation_514FC0() int {
 	if caster == nil {
 		return 0
 	}
-	caster.direction1 = uint16(nox_xxx_math_509ED0(targPos.Sub(caster.Pos())))
+	caster.Direction1 = uint16(nox_xxx_math_509ED0(targPos.Sub(caster.Pos())))
 	s.s.castSpellBy(sp, caster, nil, targPos)
 	return 0
 }
@@ -843,7 +843,7 @@ func nox_script_CastLocationObject_515060() int {
 		return 0
 	}
 	nox_xxx_imagCasterUnit_1569664.SetPos(srcPos)
-	nox_xxx_imagCasterUnit_1569664.direction1 = uint16(nox_xxx_math_509ED0(targ.Pos().Sub(srcPos)))
+	nox_xxx_imagCasterUnit_1569664.Direction1 = uint16(nox_xxx_math_509ED0(targ.Pos().Sub(srcPos)))
 	s.s.castSpellBy(sp, nox_xxx_imagCasterUnit_1569664, targ, targ.Pos())
 	return 0
 }
@@ -857,7 +857,7 @@ func nox_script_CastLocation2_515130() int {
 		return 0
 	}
 	nox_xxx_imagCasterUnit_1569664.SetPos(srcPos)
-	nox_xxx_imagCasterUnit_1569664.direction1 = uint16(nox_xxx_math_509ED0(targPos.Sub(srcPos)))
+	nox_xxx_imagCasterUnit_1569664.Direction1 = uint16(nox_xxx_math_509ED0(targPos.Sub(srcPos)))
 	s.s.castSpellBy(sp, nox_xxx_imagCasterUnit_1569664, nil, targPos)
 	return 0
 }
@@ -1280,7 +1280,7 @@ func nox_script_unlockDoor_512C20() int {
 
 	obj := s.PopObject()
 	if obj != nil && obj.Class().Has(object.ClassDoor) {
-		(*(*uint8)(unsafe.Add(obj.updateDataPtr(), 1))) = 0
+		(*(*uint8)(unsafe.Add(obj.UpdateData, 1))) = 0
 		nox_xxx_aud_501960(sound.SoundUnlock, obj.AsUnit(), 0, 0)
 	}
 	return 0
@@ -1291,7 +1291,7 @@ func nox_script_lockDoor_512C60() int {
 
 	obj := s.PopObject()
 	if obj != nil && obj.Class().Has(object.ClassDoor) {
-		(*(*uint8)(unsafe.Add(obj.updateDataPtr(), 1))) = 5
+		(*(*uint8)(unsafe.Add(obj.UpdateData, 1))) = 5
 		nox_xxx_aud_501960(sound.SoundLock, obj.AsUnit(), 0, 0)
 	}
 	return 0
@@ -1325,7 +1325,7 @@ func nox_script_doorIsLocked_512D20() int {
 	s := &noxServer.noxScript
 
 	obj := s.PopObject()
-	if obj != nil && obj.Class().Has(object.ClassDoor) && (*(*uint8)(unsafe.Add(obj.updateDataPtr(), 1))) != 0 {
+	if obj != nil && obj.Class().Has(object.ClassDoor) && (*(*uint8)(unsafe.Add(obj.UpdateData, 1))) != 0 {
 		s.PushI32(1)
 	} else {
 		s.PushI32(0)
@@ -1506,7 +1506,7 @@ func nox_script_getHost_513460() int {
 	// Note: original C code got the player from `noxServer.getPlayerByInd(MaxPlayers - 1)`
 	v0 := HostPlayerUnit()
 	if v0 != nil {
-		s.PushI32(int32(v0.ScriptID()))
+		s.PushI32(int32(v0.ScriptID))
 	} else {
 		s.PushI32(0)
 	}
@@ -1635,7 +1635,7 @@ func nox_script_create_512F10() int {
 			return 0
 		}
 		noxServer.createObjectAt(obj, nil, wp.Pos())
-		s.PushI32(int32(obj.ScriptID()))
+		s.PushI32(int32(obj.ScriptID))
 	} else {
 		scriptLog.Printf("noxscript: cannot find waypoint from idx: %v", waypointInd)
 		s.PushI32(0)
@@ -1704,7 +1704,7 @@ func nox_script_getFirstInvItem_5138B0() int {
 	if v2 != nil {
 		v3 := v2.FirstItem()
 		if v3 != nil {
-			s.PushI32(int32(v3.ScriptID()))
+			s.PushI32(int32(v3.ScriptID))
 			return 0
 		}
 	}
@@ -1719,7 +1719,7 @@ func nox_script_getNextInvItem_5138E0() int {
 	if v2 != nil {
 		v3 := v2.NextItem()
 		if v3 != nil {
-			s.PushI32(int32(v3.ScriptID()))
+			s.PushI32(int32(v3.ScriptID))
 			return 0
 		}
 	}
@@ -1773,7 +1773,7 @@ func nox_script_getInvHolder_513960() int {
 
 	obj := s.PopObject()
 	if obj != nil {
-		s.PushI32(int32(obj.InventoryHolder().ScriptID()))
+		s.PushI32(int32(obj.InventoryHolder().ScriptID))
 	} else {
 		s.PushI32(0)
 	}
@@ -1801,14 +1801,14 @@ func nox_script_pickup_5139A0() int {
 	}
 
 	if noxflags.HasGame(noxflags.GameModeCoop) && picker.Class().Has(object.ClassPlayer) {
-		v5 := picker.objTypeInd()
+		v5 := int(picker.TypeInd)
 		if v5 != objGold && v5 != objQuestGoldPile && v5 != objQuestGoldChest {
 			C.nox_xxx_playerCanCarryItem_513B00(picker.CObj(), item.CObj())
 		}
 	}
 
 	v6 := int32(C.nox_xxx_inventoryServPlace_4F36F0(picker.CObj(), item.CObj(), 1, 1))
-	if v6 == 1 && picker.Class().Has(object.ClassPlayer) && noxflags.HasGame(noxflags.GameModeCoop) && item.objTypeInd() != objGold {
+	if v6 == 1 && picker.Class().Has(object.ClassPlayer) && noxflags.HasGame(noxflags.GameModeCoop) && int(item.TypeInd) != objGold {
 		C.dword_5d4594_2386848 += 1
 		s.PushI32(1)
 		return 0
