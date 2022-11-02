@@ -63,6 +63,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func (c *Client) nox_xxx_client_435F80_draw() bool {
@@ -231,7 +232,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	nox_wallsYyy = nox_wallsYyy[:0]
 	C.nox_xxx_drawBlack_496150(vp.C())
 	disableDraw := false
-	if asDrawable((*nox_drawable)(*memmap.PtrPtr(0x852978, 8))).HasEnchant(ENCHANT_BLINDED) || C.nox_gameDisableMapDraw_5d4594_2650672 != 0 {
+	if asDrawable((*nox_drawable)(*memmap.PtrPtr(0x852978, 8))).HasEnchant(server.ENCHANT_BLINDED) || C.nox_gameDisableMapDraw_5d4594_2650672 != 0 {
 		disableDraw = true
 	}
 	if C.nox_client_gui_flag_1556112 != 0 || disableDraw {
@@ -428,7 +429,7 @@ LOOP:
 		}
 		if uint32(dr.field_27) == memmap.Uint32(0x5D4594, 1096448) && nox_server_teamFirst_418B10() != nil {
 			for v25 := nox_xxx_cliGetSpritePlayer_45A000(); v25 != nil; v25 = v25.Field104() {
-				if v25.HasEnchant(ENCHANT_CROWN) {
+				if v25.HasEnchant(server.ENCHANT_CROWN) {
 					continue LOOP
 				}
 			}
@@ -557,11 +558,11 @@ func sub_467430() byte {
 }
 
 func (c *Client) drawableUpdateLight(dr *Drawable) bool {
-	if dr.HasEnchant(ENCHANT_INVULNERABLE) {
+	if dr.HasEnchant(server.ENCHANT_INVULNERABLE) {
 		dr.SetLightColor(128, 128, 255)
 		dr.SetLightIntensity(300.0)
 		return true
-	} else if dr.HasEnchant(ENCHANT_LIGHT) || unsafe.Pointer(dr.C()) == *memmap.PtrPtr(0x852978, 8) && sub_467430()&8 != 0 {
+	} else if dr.HasEnchant(server.ENCHANT_LIGHT) || unsafe.Pointer(dr.C()) == *memmap.PtrPtr(0x852978, 8) && sub_467430()&8 != 0 {
 		dr.SetLightColor(255, 255, 255)
 		dr.SetLightIntensity(200.0)
 		return true

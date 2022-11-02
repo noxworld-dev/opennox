@@ -1,10 +1,15 @@
-package opennox
+package server
 
 import (
 	"fmt"
 
 	"github.com/noxworld-dev/opennox-lib/spell"
 )
+
+func ParseEnchant(name string) (EnchantID, bool) {
+	v, ok := enchantByName[name]
+	return v, ok
+}
 
 type EnchantID byte
 
@@ -14,6 +19,10 @@ func (id EnchantID) String() string {
 		return name
 	}
 	return fmt.Sprintf("EnchantID(%d)", int(id))
+}
+
+func (id EnchantID) Spell() spell.ID {
+	return enchantSpells[id]
 }
 
 var enchantByName = make(map[string]EnchantID)

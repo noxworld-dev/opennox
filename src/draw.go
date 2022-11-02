@@ -62,6 +62,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 const (
@@ -1320,14 +1321,14 @@ func sub_499F60(p int, pos image.Point, a4 int, a5, a6, a7, a8, a9 int, a10 int)
 }
 
 func (c *Client) drawCreatureBackEffects(vp *Viewport, dr *Drawable) {
-	if dr.HasEnchant(ENCHANT_INVISIBLE) && C.sub_474B40(dr.C()) == 0 {
+	if dr.HasEnchant(server.ENCHANT_INVISIBLE) && C.sub_474B40(dr.C()) == 0 {
 		return
 	}
-	if dr.HasEnchant(ENCHANT_ANCHORED) {
+	if dr.HasEnchant(server.ENCHANT_ANCHORED) {
 		pos := vp.ToScreenPos(dr.Pos())
 		c.r.DrawGlow(pos, nox_color_blue_2650684, 30, 31)
 	}
-	if dr.HasEnchant(ENCHANT_HASTED) && !nox_xxx_checkGameFlagPause_413A50() {
+	if dr.HasEnchant(server.ENCHANT_HASTED) && !nox_xxx_checkGameFlagPause_413A50() {
 		if drawWhiteBubbleParticle == 0 {
 			drawWhiteBubbleParticle = nox_things.IndByID("WhiteBubbleParticle")
 			drawLightBlueBubbleParticle = nox_things.IndByID("LightBlueBubbleParticle")
@@ -1357,7 +1358,7 @@ func (c *Client) drawCreatureBackEffects(vp *Viewport, dr *Drawable) {
 			sub_499F60(drawLightBlueBubbleParticle, pos.Add(pos3), 1, v15, v19, 0, 0, 0, v23)
 		}
 	}
-	if dr.HasEnchant(ENCHANT_RUN) && !nox_xxx_checkGameFlagPause_413A50() {
+	if dr.HasEnchant(server.ENCHANT_RUN) && !nox_xxx_checkGameFlagPause_413A50() {
 		if drawRedBubbleParticle == 0 {
 			drawRedBubbleParticle = nox_things.IndByID("RedBubbleParticle")
 			drawOrangeBubbleParticle = nox_things.IndByID("OrangeBubbleParticle")
@@ -1388,16 +1389,16 @@ func (c *Client) drawCreatureBackEffects(vp *Viewport, dr *Drawable) {
 		}
 	}
 	// Protection effects
-	if dr.HasEnchant(ENCHANT_PROTECT_FROM_FIRE) {
+	if dr.HasEnchant(server.ENCHANT_PROTECT_FROM_FIRE) {
 		c.r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, nox_color_red, nox_color_red_2589776, true)
 	}
-	if dr.HasEnchant(ENCHANT_PROTECT_FROM_POISON) {
+	if dr.HasEnchant(server.ENCHANT_PROTECT_FROM_POISON) {
 		c.r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, nox_color_green, nox_color_green_2614268, true)
 	}
-	if dr.HasEnchant(ENCHANT_PROTECT_FROM_ELECTRICITY) {
+	if dr.HasEnchant(server.ENCHANT_PROTECT_FROM_ELECTRICITY) {
 		c.r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, nox_color_blue_2650684, nox_color_white_2523948, true)
 	}
-	if dr.HasEnchant(ENCHANT_REFLECTIVE_SHIELD) { // Shield effects
+	if dr.HasEnchant(server.ENCHANT_REFLECTIVE_SHIELD) { // Shield effects
 		switch *(*byte)(dr.field(297)) {
 		case 0, 1, 2:
 			C.nox_xxx_drawShield_499810(vp.C(), dr.C())
@@ -1406,17 +1407,17 @@ func (c *Client) drawCreatureBackEffects(vp *Viewport, dr *Drawable) {
 }
 
 func (c *Client) drawCreatureFrontEffects(vp *Viewport, dr *Drawable) {
-	if dr.HasEnchant(ENCHANT_INVISIBLE) && C.sub_474B40(dr.C()) == 0 {
+	if dr.HasEnchant(server.ENCHANT_INVISIBLE) && C.sub_474B40(dr.C()) == 0 {
 		return
 	}
-	if dr.HasEnchant(ENCHANT_SHOCK) {
+	if dr.HasEnchant(server.ENCHANT_SHOCK) {
 		if drawWhiteSpark == 0 {
 			drawWhiteSpark = nox_things.IndByID("WhiteSpark")
 		}
 		pos := dr.Pos()
 		C.nox_xxx_drawEnergyBolt_499710(C.int(pos.X), C.int(pos.Y), C.short(*(*int16)(dr.field(104))), C.int(drawWhiteSpark))
 	}
-	if dr.HasEnchant(ENCHANT_CONFUSED) || dr.HasEnchant(ENCHANT_HELD) || dr.HasEnchant(ENCHANT_ANTI_MAGIC) || dr.HasEnchant(ENCHANT_CHARMING) {
+	if dr.HasEnchant(server.ENCHANT_CONFUSED) || dr.HasEnchant(server.ENCHANT_HELD) || dr.HasEnchant(server.ENCHANT_ANTI_MAGIC) || dr.HasEnchant(server.ENCHANT_CHARMING) {
 		pos := vp.ToScreenPos(dr.Pos())
 		v5 := 5 - int(*(*int16)(dr.field(106))) - int(*(*int16)(dr.field(104))) - int(dr.Field25())
 		v6 := *(*byte)(dr.field(112))
@@ -1426,14 +1427,14 @@ func (c *Client) drawCreatureFrontEffects(vp *Viewport, dr *Drawable) {
 			pos.X += int(memmap.Int32(0x587000, 149432+v8))
 			pos.Y += int(memmap.Int32(0x587000, 149436+v8))
 		}
-		if dr.HasEnchant(ENCHANT_ANTI_MAGIC) {
+		if dr.HasEnchant(server.ENCHANT_ANTI_MAGIC) {
 			c.r.Data().setColorize17(1)
 			sub433E40(nox_color_blue_2650684)
 		}
 		c.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(*memmap.PtrPtr(0x5D4594, 1096456)), pos.Add(image.Point{X: -64, Y: -64}))
 		c.r.Data().setColorize17(0)
 	}
-	if dr.HasEnchant(ENCHANT_SLOWED) && !nox_xxx_checkGameFlagPause_413A50() {
+	if dr.HasEnchant(server.ENCHANT_SLOWED) && !nox_xxx_checkGameFlagPause_413A50() {
 		v11 := int(*(*float32)(dr.field(48)))
 		v44 := int(dr.Field25() * 0.5)
 		if drawYellowBubbleParticle == 0 {
@@ -1452,7 +1453,7 @@ func (c *Client) drawCreatureFrontEffects(vp *Viewport, dr *Drawable) {
 			sub_499F60(drawYellowBubbleParticle, pos.Add(pos2), v32, v34, v36, -5, 0, 0, v40)
 		}
 	}
-	if dr.HasEnchant(ENCHANT_INFRAVISION) && !nox_xxx_checkGameFlagPause_413A50() {
+	if dr.HasEnchant(server.ENCHANT_INFRAVISION) && !nox_xxx_checkGameFlagPause_413A50() {
 		if drawGreenBubbleParticle == 0 {
 			drawGreenBubbleParticle = nox_things.IndByID("GreenBubbleParticle")
 		}
@@ -1469,7 +1470,7 @@ func (c *Client) drawCreatureFrontEffects(vp *Viewport, dr *Drawable) {
 		}
 		sub_499F60(drawGreenBubbleParticle, pos.Add(pos2), v33, v35, v37, 1, 0, 0, v41)
 	}
-	if dr.HasEnchant(ENCHANT_VAMPIRISM) && !nox_xxx_checkGameFlagPause_413A50() {
+	if dr.HasEnchant(server.ENCHANT_VAMPIRISM) && !nox_xxx_checkGameFlagPause_413A50() {
 		pos := vp.ToScreenPos(dr.Pos())
 
 		for v16 := 0; v16 < 10; v16++ {
@@ -1486,16 +1487,16 @@ func (c *Client) drawCreatureFrontEffects(vp *Viewport, dr *Drawable) {
 			c.r.DrawPoint(pos2, v17, drawColorDarkPurple)
 		}
 	}
-	if dr.HasEnchant(ENCHANT_PROTECT_FROM_FIRE) {
+	if dr.HasEnchant(server.ENCHANT_PROTECT_FROM_FIRE) {
 		c.r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, nox_color_red, nox_color_red_2589776, false)
 	}
-	if dr.HasEnchant(ENCHANT_PROTECT_FROM_POISON) {
+	if dr.HasEnchant(server.ENCHANT_PROTECT_FROM_POISON) {
 		c.r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, nox_color_green, nox_color_green_2614268, false)
 	}
-	if dr.HasEnchant(ENCHANT_PROTECT_FROM_ELECTRICITY) {
+	if dr.HasEnchant(server.ENCHANT_PROTECT_FROM_ELECTRICITY) {
 		c.r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, nox_color_blue_2650684, nox_color_white_2523948, false)
 	}
-	if dr.HasEnchant(ENCHANT_SHIELD) {
+	if dr.HasEnchant(server.ENCHANT_SHIELD) {
 		pos := vp.ToScreenPos(dr.Pos())
 		v23 := *(*uint32)(dr.field(276))
 		v24 := -90 - int(*(*int16)(dr.field(104)))
@@ -1511,7 +1512,7 @@ func (c *Client) drawCreatureFrontEffects(vp *Viewport, dr *Drawable) {
 		c.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(*memmap.PtrPtr(0x5D4594, 1096460)), pos)
 		c.r.Data().SetAlphaEnabled(false)
 	}
-	if dr.HasEnchant(ENCHANT_REFLECTIVE_SHIELD) {
+	if dr.HasEnchant(server.ENCHANT_REFLECTIVE_SHIELD) {
 		switch *(*byte)(dr.field(297)) {
 		default:
 			C.nox_xxx_drawShield_499810(vp.C(), dr.C())

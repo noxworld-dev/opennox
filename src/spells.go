@@ -33,6 +33,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
@@ -74,17 +75,17 @@ func nox_xxx_spellGetDefArrayPtr_424820() unsafe.Pointer {
 
 //export nox_xxx_getEnchantSpell_424920
 func nox_xxx_getEnchantSpell_424920(enc C.int) C.int {
-	return C.int(enchantSpells[EnchantID(enc)])
+	return C.int(server.EnchantID(enc).Spell())
 }
 
 //export nox_xxx_getEnchantName_4248F0
 func nox_xxx_getEnchantName_4248F0(enc C.int) *C.char {
-	return internCStr(enchantNames[EnchantID(enc)])
+	return internCStr(server.EnchantID(enc).String())
 }
 
 //export nox_xxx_enchantByName_424880
 func nox_xxx_enchantByName_424880(cname *C.char) C.int {
-	id, ok := enchantByName[GoString(cname)]
+	id, ok := server.ParseEnchant(GoString(cname))
 	if !ok {
 		return -1
 	}
@@ -926,8 +927,8 @@ func nox_xxx_spellCancelDurSpell_4FEB10(spell spell.ID, obj noxObject) {
 
 func (s *Server) castSpell(spellInd spell.ID, lvl int, u *Unit, a3 *spellAcceptArg) bool {
 	if s.spellHasFlags(spellInd, things.SpellOffensive) {
-		u.DisableEnchant(ENCHANT_INVISIBLE)
-		u.DisableEnchant(ENCHANT_INVULNERABLE)
+		u.DisableEnchant(server.ENCHANT_INVISIBLE)
+		u.DisableEnchant(server.ENCHANT_INVULNERABLE)
 		nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_OVAL_SHIELD, u)
 	}
 	if !s.spellHasFlags(spellInd, things.SpellTargeted) || u.CObj() == a3.Obj {

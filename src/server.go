@@ -809,7 +809,7 @@ func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
 		for _, u := range s.getPlayerUnits() {
 			plx := u.ControllingPlayer()
 			if plx.Index() != common.MaxPlayers-1 && plx.field_3680&1 == 0 {
-				u.ApplyEnchant(ENCHANT_INVULNERABLE, 0, 5)
+				u.ApplyEnchant(server.ENCHANT_INVULNERABLE, 0, 5)
 			}
 		}
 	}

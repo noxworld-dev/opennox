@@ -14,6 +14,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 //export sub_4FC670
@@ -448,7 +449,7 @@ func (a *serverAbilities) DisableAbility(u *Unit, abil Ability) {
 		a.harpoon.disable(u)
 		break
 	case AbilityTreadLightly:
-		u.DisableEnchant(ENCHANT_SNEAK)
+		u.DisableEnchant(server.ENCHANT_SNEAK)
 		break
 	case AbilityInfravis:
 		return
