@@ -99,7 +99,7 @@ func (u *Unit) CanSee(obj script.Object) bool {
 	panic("implement me")
 }
 
-func (u *Unit) updateDataPlayer() *server.PlayerUpdateData {
+func (u *Unit) UpdateDataPlayer() *server.PlayerUpdateData {
 	if !u.Class().Has(object.ClassPlayer) {
 		panic(u.Class().String())
 	}
@@ -107,7 +107,7 @@ func (u *Unit) updateDataPlayer() *server.PlayerUpdateData {
 	return (*server.PlayerUpdateData)(u.UpdateData)
 }
 
-func (u *Unit) updateDataMonster() *server.MonsterUpdateData {
+func (u *Unit) UpdateDataMonster() *server.MonsterUpdateData {
 	if !u.Class().Has(object.ClassMonster) {
 		panic(u.Class().String())
 	}
@@ -119,7 +119,7 @@ func (u *Unit) ControllingPlayer() *Player {
 	if u == nil {
 		return nil
 	}
-	ud := u.updateDataPlayer()
+	ud := u.UpdateDataPlayer()
 	return asPlayerS(ud.Player)
 }
 
@@ -168,7 +168,7 @@ func (u *Unit) Mana() (cur, max int) {
 		return
 	}
 	// TODO: check if offsets are the same for monsters
-	p := u.updateDataPlayer()
+	p := u.UpdateDataPlayer()
 	if p == nil {
 		return
 	}
@@ -184,7 +184,7 @@ func (u *Unit) SetMana(v int) {
 	if v < 0 {
 		v = 0
 	}
-	p := u.updateDataPlayer()
+	p := u.UpdateDataPlayer()
 	if p == nil {
 		return
 	}
@@ -205,7 +205,7 @@ func (u *Unit) SetMaxMana(v int) {
 	if v < 0 {
 		v = 0
 	}
-	p := u.updateDataPlayer()
+	p := u.UpdateDataPlayer()
 	if p == nil {
 		return
 	}
@@ -370,7 +370,7 @@ func (u *Unit) monsterPushAction(act ai.ActionType, args ...any) *server.AIStack
 }
 
 func (u *Unit) monsterActionIsScheduled(act ai.ActionType) bool { // nox_xxx_monsterIsActionScheduled_50A090
-	stack := u.updateDataMonster().GetAIStack()
+	stack := u.UpdateDataMonster().GetAIStack()
 	for _, v := range stack {
 		if v.Type() == act {
 			return true

@@ -258,7 +258,7 @@ func (a *serverAbilities) Do(u *Unit, abil Ability) {
 	if !u.Class().Has(object.ClassPlayer) {
 		return
 	}
-	ud := u.updateDataPlayer()
+	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	if pl.PlayerClass() != player.Warrior {
 		return

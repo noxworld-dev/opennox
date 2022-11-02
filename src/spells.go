@@ -835,7 +835,7 @@ func nox_xxx_spellDurationBased_4FEBA0(spellID spell.ID, a2, a3, a4 *Unit, a5 *s
 func nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo noxObject, sflags things.SpellFlags, dist float32, a5 int, self *Unit) *Object {
 	msl := mslo.AsObject()
 	if self != nil && self.Class().Has(object.ClassPlayer) && sflags.Has(things.SpellOffensive) {
-		if curTarg := asObjectS(self.updateDataPlayer().CursorObj); curTarg != nil {
+		if curTarg := asObjectS(self.UpdateDataPlayer().CursorObj); curTarg != nil {
 			if self.isEnemyTo(curTarg) && ((a5 == 1) || (a5 == 0) && msl != curTarg) {
 				return curTarg
 			}

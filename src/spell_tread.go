@@ -18,7 +18,7 @@ func nox_xxx_warriorTreadLightly_5400B0(u *Unit, dur int) {
 		return
 	}
 	s := noxServer
-	if ud := u.updateDataPlayer(); ud != nil {
+	if ud := u.UpdateDataPlayer(); ud != nil {
 		if ud.Field22_0 == 5 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}

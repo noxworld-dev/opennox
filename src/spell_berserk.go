@@ -22,7 +22,7 @@ func nox_xxx_warriorBerserker_53FEB0(u *Unit) {
 		u.Direction2 = uint16(int16(int(u.Direction1) + 4*noxRndCounter1.IntClamp(-8, 8)))
 	}
 	if u.Class().Has(object.ClassPlayer) {
-		if ud := u.updateDataPlayer(); ud != nil {
+		if ud := u.UpdateDataPlayer(); ud != nil {
 			ud.Field59_0 = 0
 		}
 	}

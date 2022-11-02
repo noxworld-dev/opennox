@@ -15,7 +15,7 @@ import (
 
 func (u *Unit) monsterCast(spellInd spell.ID, target *Object) {
 	s := u.getServer()
-	ud := u.updateDataMonster()
+	ud := u.UpdateDataMonster()
 	u.monsterPushAction(ai.DEPENDENCY_UNINTERRUPTABLE)
 	sp := s.SpellDefByInd(spellInd)
 	if sp.Def.Flags.Has(things.SpellDuration) {

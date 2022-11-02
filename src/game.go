@@ -1348,7 +1348,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 				var np *Object = np
 				if C.nox_xxx_isUnit_4E5B50(np.CObj()) != 0 {
 					n := np.AsUnit()
-					ud := n.updateDataMonster()
+					ud := n.UpdateDataMonster()
 					v61 := randomReachablePointAround(50.0, m.Pos())
 					n.SetPos(v61)
 					ud.Field97 = 0

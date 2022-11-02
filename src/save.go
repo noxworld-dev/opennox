@@ -412,7 +412,7 @@ func nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2 C.int, act C.int, a4 unsafe.
 					if res != nil {
 						if pl := noxServer.getPlayerByInd(int(ind)); pl != nil {
 							if u := pl.UnitC(); u != nil {
-								ud := u.updateDataPlayer()
+								ud := u.UpdateDataPlayer()
 								ud.Field138 = 0
 							}
 						}
@@ -523,7 +523,7 @@ func sub_4DCD40() {
 	dword_5d4594_1563044 = true
 	path := datapath.Save("_temp_.dat")
 	for _, u := range noxServer.getPlayerUnits() {
-		ud := u.updateDataPlayer()
+		ud := u.UpdateDataPlayer()
 		pl := asPlayerS(ud.Player)
 		if pl.field_4792 != 0 && ud.Field138 != 1 {
 			if nox_xxx_playerSaveToFile_41A140(path, pl.Index()) {
@@ -540,7 +540,7 @@ func sub_4DCFB0(a1p *C.nox_object_t) {
 	if u == nil {
 		return
 	}
-	ud := u.updateDataPlayer()
+	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	if pl.Index() == common.MaxPlayers-1 {
 		return

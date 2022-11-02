@@ -128,7 +128,7 @@ func wrapObjectUpdateParseC(ptr unsafe.Pointer) server.ObjectParseFunc {
 func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	s := noxServer
 	u := asUnitC(up)
-	ud := u.updateDataPlayer()
+	ud := u.UpdateDataPlayer()
 	h := u.healthData()
 	for i := 0; i < 4; i++ {
 		p := asObjectS(ud.Field29[i])
@@ -227,7 +227,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 }
 
 func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
-	ud := u.updateDataPlayer()
+	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	switch ud.Field22_0 {
 	default:
@@ -409,7 +409,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 
 		found := false
 		for _, it := range s.getPlayerUnits() {
-			ud2 := it.updateDataPlayer()
+			ud2 := it.UpdateDataPlayer()
 			if asObjectS(ud2.HarpoonTarg).CObj() == u.CObj() {
 				found = true
 				break
@@ -583,7 +583,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 }
 
 func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
-	ud := u.updateDataPlayer()
+	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	orientationOnly := false
 	cb := s.ctrlbuf.Player(pl.Index())
@@ -844,7 +844,7 @@ func playerSuddedDeath4F9E70(u *Unit) {
 
 func sub_4F9ED0(u *Unit) {
 	s := u.getServer()
-	ud := u.updateDataPlayer()
+	ud := u.UpdateDataPlayer()
 	h := u.healthData()
 	if u.Flags().Has(object.FlagDead) {
 		return
@@ -1091,7 +1091,7 @@ func sub_5336D0(cobj *nox_object_t) C.double {
 func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 	s := noxServer
 	u := asUnitC(a1p)
-	ud := u.updateDataPlayer()
+	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	for i := range ud.Field29 {
 		it := asObjectS(ud.Field29[i])

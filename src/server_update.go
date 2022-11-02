@@ -16,7 +16,7 @@ import (
 
 func (s *Server) updateUnitsAAA() { // nox_xxx_updateUnits_51B100_A
 	for _, u := range s.getPlayerUnits() {
-		ud := u.updateDataPlayer()
+		ud := u.UpdateDataPlayer()
 		C.nox_xxx_itemApplyUpdateEffect_4FA490(u.CObj())
 		ud.CursorObj = asObjectC(C.nox_xxx_findObjectAtCursor_54AF40(u.CObj())).SObj()
 	}

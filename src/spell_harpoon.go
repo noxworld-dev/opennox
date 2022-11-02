@@ -69,7 +69,7 @@ func (a *abilityHarpoon) getHarpoonData(u *Unit) *harpoonData {
 	}
 	switch {
 	case u.Class().Has(object.ClassPlayer):
-		ud := u.updateDataPlayer()
+		ud := u.UpdateDataPlayer()
 		pl := asPlayerS(ud.Player)
 		p := (*harpoonPtr)(unsafe.Pointer(&ud.HarpoonTarg))
 		return &harpoonData{harpoonPtr: p, getAim: func() types.Pointf {
@@ -217,7 +217,7 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 }
 
 func (a *abilityHarpoon) disable(u *Unit) {
-	ud := u.updateDataPlayer()
+	ud := u.UpdateDataPlayer()
 	a.netHarpoonBreak(u, asUnitS(ud.HarpoonBolt))
 }
 

@@ -626,7 +626,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 	if u.Update == unsafe.Pointer(C.nox_xxx_updatePlayerMonsterBot_4FAB20) {
 		return false
 	}
-	ud := u.updateDataPlayer()
+	ud := u.UpdateDataPlayer()
 	if noxflags.HasGame(noxflags.GameModeKOTR | noxflags.GameModeCTF | noxflags.GameModeFlagBall) {
 		crown := s.ObjectTypeID("Crown")
 		ball := s.ObjectTypeID("GameBall")
@@ -958,7 +958,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	pl.field_2152 = 0
 	pl.netCode = C.uint(punit.NetCode)
 	pl.field_2156 = C.uint(C.nox_xxx_scavengerTreasureMax_4D1600())
-	udata := punit.updateDataPlayer()
+	udata := punit.UpdateDataPlayer()
 	h := punit.healthData()
 	udata.Player = pl.S()
 	pl.prot_unit_hp_cur = C.uint(protectUint16(h.Cur))
@@ -1062,7 +1062,7 @@ func (s *Server) sub_4E8210(u *Unit) (types.Pointf, bool) {
 		v2  unsafe.Pointer
 	)
 	for _, u2 := range s.getPlayerUnits() {
-		ptr := u2.updateDataPlayer()
+		ptr := u2.UpdateDataPlayer()
 		ptr2 := ptr.Field77
 		if ptr2 == nil {
 			continue
@@ -1075,21 +1075,21 @@ func (s *Server) sub_4E8210(u *Unit) (types.Pointf, bool) {
 	if v2 == nil {
 		return types.Pointf{}, false
 	}
-	ud := u.updateDataPlayer()
+	ud := u.UpdateDataPlayer()
 	ud.Field77 = v2
 	out := randomReachablePointAround(60.0, asPointf(unsafe.Add(v2, 7*8)))
 	return out, true
 }
 
 func nox_xxx_plrSetSpellType_4F9B90(u *Unit) {
-	ud := u.updateDataPlayer()
+	ud := u.UpdateDataPlayer()
 	ud.SpellPhonemeLeaf = unsafe.Pointer(getPhonemeTree())
 	ud.SpellCastStart = noxServer.Frame()
 }
 
 func (s *Server) playerSpell(u *Unit) {
 	ok2 := true
-	ud := u.updateDataPlayer()
+	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	var a1 int
 	if u != nil {
@@ -1283,7 +1283,7 @@ func nox_client_onClassStats(cbuf *C.uchar, sz C.int) {
 //export nox_xxx_playerObserveMonster_4DDE80
 func nox_xxx_playerObserveMonster_4DDE80(cplayer, cunit *nox_object_t) {
 	pu := asUnitC(cplayer)
-	ud := pu.updateDataPlayer()
+	ud := pu.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 
 	targ := asObjectC(cunit)

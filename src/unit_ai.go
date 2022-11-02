@@ -86,7 +86,7 @@ func aiStackArgUnit(s *server.AIStackItem, i int) *Unit {
 
 func (u *Unit) maybePrintAIStack(event string) {
 	if noxflags.HasEngine(noxflags.EngineShowAI) {
-		u.updateDataMonster().PrintAIStack(u.getServer().Frame(), event)
+		u.UpdateDataMonster().PrintAIStack(u.getServer().Frame(), event)
 	}
 }
 
@@ -96,7 +96,7 @@ func nox_xxx_mobActionDependency_546A70(uc *C.nox_object_t) {
 }
 
 func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
-	ud := u.updateDataMonster()
+	ud := u.UpdateDataMonster()
 	stack := ud.GetAIStack()
 	if len(stack) == 0 {
 		return
@@ -332,7 +332,7 @@ func sub_545E60(a1c *nox_object_t) C.int {
 	u := asUnitC(a1c)
 	s := u.getServer()
 
-	ud := u.updateDataMonster()
+	ud := u.UpdateDataMonster()
 	ts := uint32(u.Field134)
 	if ud.Field129 >= ts || s.Frame()-ts >= 10*s.TickRate() {
 		return 0
@@ -464,7 +464,7 @@ func (a *aiData) aiListenToSounds(u *Unit) {
 		maxHeard *MonsterListen
 		maxDist  int
 	)
-	ud := u.updateDataMonster()
+	ud := u.UpdateDataMonster()
 	for it := a.listenHead; it != nil; it = next {
 		next = it.next
 		if a.s.Frame() < it.frame || a.s.Frame()-it.frame > 2 {
@@ -561,7 +561,7 @@ func (a *aiData) checkSoundThreshold(flags, perc int) bool {
 }
 
 func (a *aiData) shouldUnitListen(u *Unit, lis *MonsterListen) bool {
-	ud := u.updateDataMonster()
+	ud := u.UpdateDataMonster()
 	punit := lis.obj.findOwnerChainPlayer()
 	flags := getSoundFlags(lis.snd)
 	if ud.Field101 > a.s.Frame() {
@@ -598,7 +598,7 @@ func (a *aiData) shouldUnitListen(u *Unit, lis *MonsterListen) bool {
 }
 
 func (a *aiData) nox_xxx_unitEmitHearEvent_50D110(u *Unit, lis *MonsterListen, dist int) {
-	ud := u.updateDataMonster()
+	ud := u.UpdateDataMonster()
 	ud.Field97 = uint32(lis.snd)
 	ud.Field101 = a.s.Frame()
 	ud.Field102 = uint32(dist)
