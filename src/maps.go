@@ -498,7 +498,7 @@ func nox_server_mapRWObjectData_504CF0_Read(a2 unsafe.Pointer, v16 unsafe.Pointe
 			v7  int
 		)
 		if obj.Flags().Has(object.FlagTransient) {
-			v7 = int(obj.field_32)
+			v7 = int(obj.Field32)
 			v11 = true
 		}
 		var v16a2 unsafe.Pointer
@@ -520,7 +520,7 @@ func nox_server_mapRWObjectData_504CF0_Write(a2 unsafe.Pointer) error {
 	for it := s.firstServerObject(); it != nil; it = it.Next() {
 		pos := it.Pos()
 		if a2 == nil || sub_4280E0(image.Point{X: int(pos.X), Y: int(pos.Y)}, a2) {
-			if sub_4E3B80(C.int(it.objTypeInd())) != 0 && nox_xxx_xfer_saveObj51DF90(it) == 0 {
+			if sub_4E3B80(C.int(it.TypeInd)) != 0 && nox_xxx_xfer_saveObj51DF90(it) == 0 {
 				return fmt.Errorf("cannot write object %s", it.String())
 			}
 		}
@@ -537,7 +537,7 @@ func nox_server_mapRWObjectData_504CF0_Write(a2 unsafe.Pointer) error {
 			v6 := obj.FirstItem()
 			v6.setPos(pos)
 			nox_xxx_xfer_saveObj51DF90(v6)
-		} else if sub_4E3B80(C.int(obj.objTypeInd())) != 0 && nox_xxx_xfer_saveObj51DF90(obj) == 0 {
+		} else if sub_4E3B80(C.int(obj.TypeInd)) != 0 && nox_xxx_xfer_saveObj51DF90(obj) == 0 {
 			return fmt.Errorf("cannot write upd object %s", obj.String())
 		}
 	}

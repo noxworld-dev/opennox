@@ -409,7 +409,7 @@ func sub_42BFE0() {
 	}
 	sub_42BFB0()
 	last := uint16(1)
-	checkInd := func(ind int) {
+	checkInd := func(ind uint16) {
 		if val := objectTypeCode16ByInd[ind]; val == 0 {
 			objectTypeCode16ByInd[ind] = last
 			objectTypeCode16ByInd_len++
@@ -417,43 +417,43 @@ func sub_42BFE0() {
 		}
 	}
 	for it := s.objs.list; it != nil; it = it.Next() {
-		checkInd(it.objTypeInd())
+		checkInd(it.TypeInd)
 		for it2 := it.FirstItem(); it2 != nil; it2 = it2.NextItem() {
-			checkInd(it2.objTypeInd())
+			checkInd(it2.TypeInd)
 		}
 		if it.Class().Has(object.ClassMonsterGenerator) {
 			checkTypesMonsterGen(it, checkInd)
 		}
 	}
 	for it := s.objs.pending; it != nil; it = it.Next() {
-		checkInd(it.objTypeInd())
+		checkInd(it.TypeInd)
 		if it.Class().Has(object.ClassMonsterGenerator) {
 			checkTypesMonsterGen(it, checkInd)
 		}
 	}
 	for it := s.objs.updatableList2; it != nil; it = it.Next() {
-		checkInd(it.objTypeInd())
+		checkInd(it.TypeInd)
 	}
 	if !noxflags.HasGame(noxflags.GameFlag22) && noxflags.HasGame(noxflags.GameHost) &&
 		noxflags.HasGame(noxflags.GameClient) && !noxflags.HasGame(noxflags.GameFlag23) {
 		for it := asDrawable(C.sub_45A060()); it != nil; it = asDrawable(C.sub_45A070(it.C())) {
 			ind := int(it.field_27)
 			if sub_4E3AD0(C.int(ind)) == 0 && sub_4E3B80(C.int(ind)) != 0 {
-				checkInd(ind)
+				checkInd(uint16(ind))
 			}
 		}
 	}
 }
 
-func checkTypesMonsterGen(obj *Object, checkInd func(int)) {
-	arr := unsafe.Slice((**nox_object_t)(obj.updateDataPtr()), 12)
+func checkTypesMonsterGen(obj *Object, checkInd func(uint162 uint16)) {
+	arr := unsafe.Slice((**nox_object_t)(obj.UpdateData), 12)
 	for i := 0; i < 3; i++ {
 		for j := 0; j < 4; j++ {
 			obj4 := asObjectC(arr[4*i+j])
 			if obj4 != nil {
-				checkInd(obj4.objTypeInd())
+				checkInd(obj4.TypeInd)
 				for it2 := obj4.FirstItem(); it2 != nil; it2 = it2.NextItem() {
-					checkInd(it2.objTypeInd())
+					checkInd(it2.TypeInd)
 				}
 			}
 		}

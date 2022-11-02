@@ -590,7 +590,7 @@ func nox_xxx_netReportLesson_4D8EF0(u *Unit) {
 	var buf [11]byte
 	buf[0] = byte(noxnet.MSG_REPORT_LESSON)
 	pl := u.ControllingPlayer()
-	binary.LittleEndian.PutUint16(buf[1:], uint16(u.net_code))
+	binary.LittleEndian.PutUint16(buf[1:], uint16(u.NetCode))
 	binary.LittleEndian.PutUint32(buf[3:], uint32(pl.lessons))
 	binary.LittleEndian.PutUint32(buf[7:], uint32(pl.field_2140))
 	noxServer.nox_xxx_netSendPacket1_4E5390(255, buf[:11], 0, 1)
@@ -1072,7 +1072,7 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 		n := s.netOnPlayerInput(pl, data[1:])
 		return 1 + n, true
 	}
-	res := int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), u.updateDataPtr()))
+	res := int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), u.UpdateData))
 	if res <= 0 || res > len(data) {
 		return 0, false
 	}

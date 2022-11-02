@@ -109,17 +109,17 @@ func (a *abilityHarpoon) createBolt(u *Unit) {
 		return
 	}
 	r := u.getShape().Circle.R + 1.0
-	*(**nox_object_t)(unsafe.Add(bolt.collide_data, 4)) = u.CObj()
-	cos, sin := sincosDir(byte(u.direction1))
+	*(**nox_object_t)(unsafe.Add(bolt.CollideData, 4)) = u.CObj()
+	cos, sin := sincosDir(byte(u.Direction1))
 	hpos := u.Pos().Add(types.Pointf{
 		X: r * cos, Y: r * sin,
 	})
 	a.s.createObjectAt(bolt, u, hpos)
-	bolt.vel_x = cos * bolt.speed_cur
-	bolt.vel_y = sin * bolt.speed_cur
-	dir := u.direction1
-	bolt.direction1 = dir
-	bolt.direction2 = dir
+	bolt.VelVecX = cos * bolt.SpeedCur
+	bolt.VelVecY = sin * bolt.SpeedCur
+	dir := u.Direction1
+	bolt.Direction1 = dir
+	bolt.Direction2 = dir
 	d.bolt = bolt.CObj()
 	d.frame35 = 0
 }
@@ -237,7 +237,7 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 		a.breakForOwner(owner, true)
 		return
 	}
-	bud := bolt.updateDataPtr()
+	bud := bolt.UpdateData
 	obj4 := asUnitC(*(**nox_object_t)(bud))
 	if obj4 != nil && obj4.Flags().HasAny(object.FlagDestroyed|object.FlagDead) {
 		a.breakForOwner(owner, true)
@@ -253,13 +253,13 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 			obj6 := nox_xxx_spellFlySearchTarget(&aim, bolt, 32, a.maxDist, 0, owner)
 			*(**nox_object_t)(bud) = obj6.CObj()
 			if obj6 != nil {
-				if nox_server_testTwoPointsAndDirection_4E6E50(bolt.Pos(), int16(bolt.direction1), obj6.Pos())&0x1 == 0 {
+				if nox_server_testTwoPointsAndDirection_4E6E50(bolt.Pos(), int16(bolt.Direction1), obj6.Pos())&0x1 == 0 {
 					*(**nox_object_t)(bud) = nil
 				}
 			}
 		} else {
 			vel := obj4.Pos().Sub(bolt.Pos())
-			bolt.setVel(vel.Normalize().Mul(float32(bolt.speed_cur)))
+			bolt.setVel(vel.Normalize().Mul(float32(bolt.SpeedCur)))
 		}
 	}
 	dist := nox_xxx_calcDistance_4E6C00(bolt, owner)
@@ -301,7 +301,7 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 		bolt.setPrevPos(tpos)
 		bolt.setVel(types.Pointf{})
 		bolt.setForce(types.Pointf{})
-		bolt.direction1 = targ.direction1
+		bolt.Direction1 = targ.Direction1
 		nox_xxx_moveUpdateSpecial_517970(bolt.CObj())
 	} else if dist > a.maxFlight {
 		a.breakForOwner(owner, true)

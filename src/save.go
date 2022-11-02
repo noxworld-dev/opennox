@@ -358,7 +358,7 @@ func sub_4DCC10(a1p *nox_object_t) C.int {
 	if dword_5d4594_1563092 != 0 && dword_5d4594_1563092+dword_5d4594_1563088 > noxServer.Frame() {
 		v = false
 	}
-	if *(*uint32)(unsafe.Add(u.updateDataPtr(), 284)) != 0 { // TODO: which type is expected here?
+	if *(*uint32)(unsafe.Add(u.UpdateData, 284)) != 0 { // TODO: which type is expected here?
 		v = false
 	}
 	if u.Flags().Has(object.FlagNoUpdate) {
@@ -712,7 +712,7 @@ func nox_xxx_saveMakePlayerLocation_4DB600(a1 unsafe.Pointer) bool {
 	}
 	s.createObjectAt(obj, nil, pos)
 	s.objectsNewAdd()
-	obj.script_id = u.ScriptID()
+	obj.ScriptID = u.ScriptID
 	var next *Object
 	for it := u.FirstOwned516(); it != nil; it = next {
 		next = it.NextOwned512()

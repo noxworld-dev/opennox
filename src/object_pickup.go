@@ -41,7 +41,7 @@ func nox_objectPickupAudEvent_4F3D50(cobj1 *nox_object_t, cobj2 *nox_object_t, a
 		return ok
 	}
 	obj2 := asObjectC(cobj2)
-	if snd := noxServer.PickupSound(uint16(obj2.objTypeInd())); snd != 0 {
+	if snd := noxServer.PickupSound(obj2.TypeInd); snd != 0 {
 		nox_xxx_aud_501960(snd, asUnitC(cobj1), 0, 0)
 	}
 	return ok

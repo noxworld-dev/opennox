@@ -64,7 +64,7 @@ func (obj *Object) dump() *debugObject {
 	}
 	return &debugObject{
 		Ind:        obj.Ind(),
-		ScriptID:   obj.ScriptID(),
+		ScriptID:   obj.ScriptID,
 		ID:         obj.ID(),
 		Enabled:    obj.IsEnabled(),
 		Class:      obj.Class(),

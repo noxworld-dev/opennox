@@ -128,8 +128,8 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			}
 		case ai.DEPENDENCY_UNDER_ATTACK:
 			if C.sub_5347A0(u.CObj()) != 0 {
-				if u.obj_130 != nil {
-					v26 := getOwnerUnit(u.obj_130)
+				if u.Obj130 != nil {
+					v26 := getOwnerUnit(u.Obj130)
 					if v26 != nil && v26.Class().HasAny(object.MaskUnits) {
 						st.Args[0] = uintptr(a.s.Frame())
 					}
@@ -140,10 +140,10 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			if C.sub_5347A0(u.CObj()) == 0 {
 				break
 			}
-			if u.obj_130 == nil {
+			if u.Obj130 == nil {
 				break
 			}
-			attacker := getOwnerUnit(u.obj_130)
+			attacker := getOwnerUnit(u.Obj130)
 			if attacker == nil {
 				break
 			}
@@ -333,13 +333,13 @@ func sub_545E60(a1c *nox_object_t) C.int {
 	s := u.getServer()
 
 	ud := u.updateDataMonster()
-	ts := uint32(u.field_134)
+	ts := uint32(u.Field134)
 	if ud.Field129 >= ts || s.Frame()-ts >= 10*s.TickRate() {
 		return 0
 	}
 	ud.Field129 = ts
-	if u.obj_130 != nil {
-		if obj4 := getOwnerUnit(u.obj_130); obj4 != nil {
+	if u.Obj130 != nil {
+		if obj4 := getOwnerUnit(u.Obj130); obj4 != nil {
 			if !u.isEnemyTo(obj4) {
 				return 0
 			}
@@ -603,7 +603,7 @@ func (a *aiData) nox_xxx_unitEmitHearEvent_50D110(u *Unit, lis *MonsterListen, d
 	ud.Field101 = a.s.Frame()
 	ud.Field102 = uint32(dist)
 	if lis.obj != nil {
-		ud.Field98 = uint32(lis.obj.net_code)
+		ud.Field98 = uint32(lis.obj.NetCode)
 	} else {
 		ud.Field98 = 0
 	}

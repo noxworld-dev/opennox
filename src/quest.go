@@ -304,7 +304,7 @@ func (s *Server) setupQuestGame() {
 					it.Delete()
 				}
 			} else {
-				if it.Class().HasAny(object.ClassArmor) && C.sub_415D10(C.int(it.objTypeInd()))&0x405 == 0 {
+				if it.Class().HasAny(object.ClassArmor) && C.sub_415D10(C.int(it.TypeInd))&0x405 == 0 {
 					it.Delete()
 				}
 			}
@@ -337,7 +337,7 @@ func (s *Server) setupQuestGame() {
 	C.sub_4184D0(t.C())
 	for _, u := range s.getPlayerUnits() {
 		if u.ControllingPlayer().field_4792 == 1 {
-			C.nox_xxx_createAtImpl_4191D0(C.uchar(t.Ind57()), unsafe.Pointer(u.teamPtr()), 1, C.int(u.net_code), 0)
+			C.nox_xxx_createAtImpl_4191D0(C.uchar(t.Ind57()), unsafe.Pointer(u.teamPtr()), 1, C.int(u.NetCode), 0)
 		}
 	}
 	sub_4D6BE0()

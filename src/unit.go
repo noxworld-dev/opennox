@@ -86,8 +86,8 @@ func (u *Unit) Push(vec types.Pointf, force float32) {
 }
 
 func (u *Unit) PushTo(p types.Pointf) {
-	u.force_x += p.X
-	u.force_y += p.Y
+	u.ForceVecX += p.X
+	u.ForceVecY += p.Y
 }
 
 func (u *Unit) Destroy() {
@@ -104,7 +104,7 @@ func (u *Unit) updateDataPlayer() *server.PlayerUpdateData {
 		panic(u.Class().String())
 	}
 	// TODO: verify this conversion by checking ObjectType
-	return (*server.PlayerUpdateData)(u.updateDataPtr())
+	return (*server.PlayerUpdateData)(u.UpdateData)
 }
 
 func (u *Unit) updateDataMonster() *server.MonsterUpdateData {
@@ -112,7 +112,7 @@ func (u *Unit) updateDataMonster() *server.MonsterUpdateData {
 		panic(u.Class().String())
 	}
 	// TODO: verify this conversion by checking ObjectType
-	return (*server.MonsterUpdateData)(u.updateDataPtr())
+	return (*server.MonsterUpdateData)(u.UpdateData)
 }
 
 func (u *Unit) ControllingPlayer() *Player {
@@ -385,7 +385,7 @@ func (u *Unit) countSubOfType(typ int) int { // nox_xxx_unitIsUnitTT_4E7C80
 	}
 	cnt := 0
 	for it := u.FirstOwned516(); it != nil; it = it.NextOwned512() {
-		if it.objTypeInd() == typ && !it.Flags().Has(object.FlagDestroyed) {
+		if int(it.TypeInd) == typ && !it.Flags().Has(object.FlagDestroyed) {
 			cnt++
 		}
 	}

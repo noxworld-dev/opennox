@@ -62,7 +62,7 @@ func nox_xxx_xfer_saveObj51DF90(a1p *Object) int {
 	if a1p.Flags().Has(object.FlagDestroyed) {
 		return 1
 	}
-	a1 := uint16(sub_42C2E0(C.int(a1p.objTypeInd())))
+	a1 := uint16(sub_42C2E0(C.int(a1p.TypeInd)))
 	if a1 == 0 {
 		return 0
 	}
@@ -93,18 +93,18 @@ func nox_xxx_XFerDefault4F49A0(v1 *Object, a2 unsafe.Pointer) error {
 	if int16(a1) > 60 {
 		return fmt.Errorf("default xfer: unexpected value 1: %d", a1)
 	}
-	v2 := v1.field_34
+	v2 := v1.Field34
 	if C.nox_xxx_mapReadWriteObjData_4F4530(v1.CObj(), C.int(a1)) == 0 {
 		return fmt.Errorf("default xfer: nox_xxx_mapReadWriteObjData_4F4530 failed")
 	}
-	if v1.field_34 == 0 || nox_xxx_cryptGetXxx() != 1 {
-		v1.field_34 = v2
+	if v1.Field34 == 0 || nox_xxx_cryptGetXxx() != 1 {
+		v1.Field34 = v2
 		return nil
 	}
-	if C.nox_xxx_xfer_4F3E30(C.ushort(a1), v1.CObj(), C.int(v1.field_34)) == 0 {
+	if C.nox_xxx_xfer_4F3E30(C.ushort(a1), v1.CObj(), C.int(v1.Field34)) == 0 {
 		return fmt.Errorf("default xfer: nox_xxx_xfer_4F3E30 failed")
 	}
-	v1.field_34 = v2
+	v1.Field34 = v2
 	return nil
 }
 

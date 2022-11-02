@@ -234,33 +234,33 @@ type serverObjects struct {
 }
 
 func (s *serverObjects) addToUpdatable(obj *Object) {
-	if obj.is_updatable == 0 && !obj.Class().Has(object.ClassMissile) {
-		obj.updatable_prev = nil
-		obj.updatable_next = s.updatableList
+	if obj.IsUpdatable == 0 && !obj.Class().Has(object.ClassMissile) {
+		obj.UpdatablePrev = nil
+		obj.UpdatableNext = s.updatableList
 		if s.updatableList != nil {
-			s.updatableList.updatable_prev = obj
+			s.updatableList.UpdatablePrev = obj
 		}
 		s.updatableList = obj
-		obj.is_updatable = 1
-		obj.obj_130 = nil
+		obj.IsUpdatable = 1
+		obj.Obj130 = nil
 	}
 }
 
 func (s *serverObjects) removeFromUpdatable(obj *Object) {
-	if obj.is_updatable == 0 {
+	if obj.IsUpdatable == 0 {
 		return
 	}
-	prev := obj.updatable_prev
+	prev := obj.UpdatablePrev
 	if prev != nil {
-		prev.updatable_next = obj.updatable_next
+		prev.UpdatableNext = obj.UpdatableNext
 	} else {
-		s.updatableList = obj.updatable_next
+		s.updatableList = obj.UpdatableNext
 	}
-	if next := obj.updatable_next; next != nil {
-		next.updatable_prev = prev
+	if next := obj.UpdatableNext; next != nil {
+		next.UpdatablePrev = prev
 	}
-	obj.is_updatable = 0
-	obj.obj_130 = nil
+	obj.IsUpdatable = 0
+	obj.Obj130 = nil
 }
 
 func (s *Server) getObjectsUninited() []*Object {
@@ -336,18 +336,18 @@ func (s *Server) delayedDelete(obj *Object) {
 		C.sub_506740(obj.CObj())
 	}
 	obj.SetFlags(obj.Flags() | object.FlagDestroyed)
-	obj.deleted_next = s.objs.deletedList
+	obj.DeletedNext = s.objs.deletedList
 	s.objs.deletedList = obj
-	obj.deleted_at = s.Frame()
+	obj.DeletedAt = s.Frame()
 	if nox_xxx_servObjectHasTeam_419130(obj.teamPtr()) {
-		C.nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(obj.teamPtr()), C.int(obj.net_code))
+		C.nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(obj.teamPtr()), C.int(obj.NetCode))
 	}
 }
 
 func (s *Server) finalizeDeletingObjects() {
 	var next *Object
 	for it := s.objs.deletedList; it != nil; it = next {
-		next = it.deleted_next
+		next = it.DeletedNext
 		s.objectDeleteFinish(it)
 	}
 	s.objs.deletedList = nil
@@ -367,7 +367,7 @@ func (s *Server) objectDeleteLast(obj *Object) {
 	if !obj.Flags().Has(object.FlagActive) {
 		return
 	}
-	obj.obj_flags &^= uint32(object.FlagActive)
+	obj.ObjFlags &^= uint32(object.FlagActive)
 	s.nox_xxx_playerLeaveObsByObserved_4E60A0(obj)
 	if !noxflags.HasGame(noxflags.GameFlag20) {
 		C.nox_xxx_netReportDestroyObject_5289D0(obj.CObj())
@@ -390,9 +390,9 @@ func (s *Server) deletedObjectsUpdate() {
 		next *Object
 	)
 	for it := s.objs.deletedList; it != nil; it = next {
-		next = it.deleted_next
-		if it.deleted_at == s.Frame() {
-			it.deleted_next = list
+		next = it.DeletedNext
+		if it.DeletedAt == s.Frame() {
+			it.DeletedNext = list
 			list = it
 			s.objs.removeFromUpdatable(it)
 		} else {
@@ -413,36 +413,36 @@ func (s *Server) objectsNewAdd() {
 			it.SetOwner(it2.Owner())
 		}
 		if it.Class().Has(object.ClassMissile) {
-			it.object_next = s.objs.updatableList2
-			it.object_prev = nil
+			it.ObjNext = s.objs.updatableList2
+			it.ObjPrev = nil
 			if s.objs.updatableList2 != nil {
-				s.objs.updatableList2.object_prev = it
+				s.objs.updatableList2.ObjPrev = it
 			}
 			s.objs.updatableList2 = it
 		} else {
 			if it.Flags().Has(object.FlagShadow) {
-				it.obj_flags &^= uint32(object.FlagShadow)
+				it.ObjFlags &^= uint32(object.FlagShadow)
 				C.nox_xxx_unitNewAddShadow_4DA9A0(it.CObj())
 			}
 			if it.Flags().Has(object.FlagRespawn) && !noxflags.HasGame(noxflags.GameModeQuest) {
 				C.nox_xxx_respawnAdd_4EC5E0(it.CObj())
 			}
-			if it.func_update != nil || it.vel_x != 0.0 || it.vel_y != 0.0 { // TODO: had a weird check: ... && *(*uint8)(&it.obj_class) >= 0
+			if it.Update != nil || it.VelVecX != 0.0 || it.VelVecY != 0.0 { // TODO: had a weird check: ... && *(*uint8)(&it.obj_class) >= 0
 				s.objs.addToUpdatable(it)
 			}
-			it.object_next = s.objs.list
-			it.object_prev = nil
+			it.ObjNext = s.objs.list
+			it.ObjPrev = nil
 			if s.objs.list != nil {
-				s.objs.list.object_prev = it
+				s.objs.list.ObjPrev = it
 			}
 			s.objs.list = it
 		}
 		C.nox_xxx_unitCreateMissileSmth_517640(it.CObj())
-		if it.func_collide != nil {
+		if it.Collide != nil {
 			C.sub_5117F0(it.CObj())
 		}
-		if it.func_init != nil {
-			C.nox_call_object_init((*[0]byte)(it.func_init), it.CObj(), nil)
+		if it.Init != nil {
+			C.nox_call_object_init((*[0]byte)(it.Init), it.CObj(), nil)
 		}
 		var v6 bool
 		if it.Class().Has(object.ClassImmobile) {
@@ -457,14 +457,14 @@ func (s *Server) objectsNewAdd() {
 		if it.Class().Has(object.ClassVisibleEnable) || !v6 {
 			it.needSync()
 			if !it.Class().HasAny(object.ClassClientPersist | object.ClassImmobile) {
-				it.field_37 = 0
+				it.Field37 = 0
 			}
 		} else {
 			it.makeUnseen()
 			C.sub_527E00(it.CObj())
-			it.field_37 = -1
+			it.Field37 = -1
 		}
-		it.obj_flags &^= uint32(object.FlagPending)
+		it.ObjFlags &^= uint32(object.FlagPending)
 	}
 	s.objs.pending = nil
 }
@@ -472,25 +472,25 @@ func (s *Server) objectsNewAdd() {
 func (s *Server) sub_4DAE50(obj *Object) {
 	C.nox_xxx_action_4DA9F0(obj.CObj())
 	if obj.Class().Has(object.ClassMissile) {
-		prev := obj.object_prev
+		prev := obj.ObjPrev
 		if prev != nil {
-			prev.object_next = obj.object_next
+			prev.ObjNext = obj.ObjNext
 		} else {
-			s.objs.updatableList2 = obj.object_next
+			s.objs.updatableList2 = obj.ObjNext
 		}
-		if next := obj.object_next; next != nil {
-			next.object_prev = prev
+		if next := obj.ObjNext; next != nil {
+			next.ObjPrev = prev
 		}
 	} else {
 		s.objs.removeFromUpdatable(obj)
-		prev := obj.object_prev
+		prev := obj.ObjPrev
 		if prev != nil {
-			prev.object_next = obj.object_next
+			prev.ObjNext = obj.ObjNext
 		} else {
-			s.objs.list = obj.object_next
+			s.objs.list = obj.ObjNext
 		}
-		if next := obj.object_next; next != nil {
-			next.object_prev = prev
+		if next := obj.ObjNext; next != nil {
+			next.ObjPrev = prev
 		}
 	}
 }
@@ -499,12 +499,12 @@ func (s *Server) objectsClearPending() {
 	var next *Object
 	for it := s.objs.pending; it != nil; it = next {
 		next = it.Next()
-		it.obj_flags &^= uint32(object.FlagPending)
+		it.ObjFlags &^= uint32(object.FlagPending)
 		if s.objs.list != nil {
-			s.objs.list.object_prev = it
+			s.objs.list.ObjPrev = it
 		}
-		it.object_next = s.objs.list
-		it.object_prev = nil
+		it.ObjNext = s.objs.list
+		it.ObjPrev = nil
 		s.objs.list = it
 	}
 	s.objs.pending = nil
@@ -513,12 +513,12 @@ func (s *Server) objectsClearPending() {
 func (s *Server) attachPending() {
 	for it := s.objs.pending; it != nil; it = it.Next() {
 		if it.Class().Has(object.ClassElevator) {
-			ud := it.updateDataPtr()
+			ud := it.UpdateData
 			// find elevator shaft and attach them to each other
 			for it2 := s.objs.pending; it2 != nil; it2 = it2.Next() {
 				if it2.Class().Has(object.ClassElevatorShaft) {
-					ud2 := it2.updateDataPtr()
-					if *(*uint32)(unsafe.Add(ud, 8)) == uint32(it2.extent) {
+					ud2 := it2.UpdateData
+					if *(*uint32)(unsafe.Add(ud, 8)) == uint32(it2.Extent) {
 						*(**nox_object_t)(unsafe.Add(ud, 4)) = it2.CObj()
 						*(**nox_object_t)(unsafe.Add(ud2, 4)) = it.CObj()
 						break
@@ -527,12 +527,12 @@ func (s *Server) attachPending() {
 			}
 		}
 		if it.Class().Has(object.ClassTransporter) {
-			ud := it.updateDataPtr()
+			ud := it.UpdateData
 			*(**nox_object_t)(unsafe.Add(ud, 12)) = nil
 			// if transporter target is set - attach to it
 			if ext := *(*uint32)(unsafe.Add(ud, 16)); ext != 0 {
 				for it2 := s.objs.pending; it2 != nil; it2 = it2.Next() {
-					if it2.Class().Has(object.ClassTransporter) && ext == uint32(it2.extent) {
+					if it2.Class().Has(object.ClassTransporter) && ext == uint32(it2.Extent) {
 						*(**nox_object_t)(unsafe.Add(ud, 12)) = it2.CObj()
 						break
 					}
@@ -556,8 +556,8 @@ func (s *Server) createObjectAt(a11 noxObject, owner noxObject, pos types.Pointf
 	obj.setPrevPos(pos)
 	obj.setPos(pos)
 	obj.setNewPos(pos)
-	obj.float_39 = pos.X
-	obj.float_40 = pos.Y
+	obj.Pos39X = pos.X
+	obj.Pos39Y = pos.Y
 	C.nox_xxx_objectUnkUpdateCoords_4E7290(obj.CObj())
 	if obj.Class().HasAny(object.MaskUnits) {
 		C.nox_xxx_unitPostCreateNotify_4E7F10(obj.CObj())
@@ -567,24 +567,24 @@ func (s *Server) createObjectAt(a11 noxObject, owner noxObject, pos types.Pointf
 	}
 	obj.setVel(types.Pointf{})
 	obj.setForce(types.Pointf{})
-	obj.obj_flags |= uint32(object.FlagActive)
-	obj.field_32 = s.Frame()
-	obj.field_34 = s.Frame()
+	obj.ObjFlags |= uint32(object.FlagActive)
+	obj.Field32 = s.Frame()
+	obj.Field34 = s.Frame()
 	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(noxflags.GameModeQuest) && !obj.Class().Has(object.ClassMissile) &&
-		(obj.objTypeInd() == int(memmap.Uint32(0x5D4594, 1556864)) ||
+		(int(obj.TypeInd) == int(memmap.Uint32(0x5D4594, 1556864)) ||
 			obj.Class().HasAny(object.ClassFood|object.ClassInfoBook|object.ClassWand|object.ClassWeapon|object.ClassArmor)) {
-		obj.obj_flags |= uint32(object.FlagNoCollide)
+		obj.ObjFlags |= uint32(object.FlagNoCollide)
 	}
-	obj.object_next = s.objs.pending
-	obj.object_prev = nil
+	obj.ObjNext = s.objs.pending
+	obj.ObjPrev = nil
 	if s.objs.pending != nil {
-		s.objs.pending.object_prev = obj
+		s.objs.pending.ObjPrev = obj
 	}
 	s.objs.pending = obj
-	obj.obj_flags |= uint32(object.FlagPending)
-	if obj.field_13&0xff != 0 && (!obj.Class().Has(object.ClassFlag) || memmap.Int32(0x973F18, 3800) >= 0) {
+	obj.ObjFlags |= uint32(object.FlagPending)
+	if obj.Field13&0xff != 0 && (!obj.Class().Has(object.ClassFlag) || memmap.Int32(0x973F18, 3800) >= 0) {
 		if noxflags.HasGame(noxflags.GameModeCoop) || checkGameplayFlags(4) {
-			C.nox_xxx_createAtImpl_4191D0(C.uchar(obj.field_13), unsafe.Pointer(obj.teamPtr()), 0, C.int(obj.net_code), 0)
+			C.nox_xxx_createAtImpl_4191D0(C.uchar(obj.Field13), unsafe.Pointer(obj.teamPtr()), 0, C.int(obj.NetCode), 0)
 		}
 	}
 }
@@ -596,11 +596,11 @@ func (s *Server) deleteAllObjectsOfType(t *server.ObjectType) {
 		var next2 *Object
 		for it2 := it.FirstItem(); it2 != nil; it2 = next2 {
 			next2 = it2.NextItem()
-			if it2.objTypeInd() == t.Ind() {
+			if int(it2.TypeInd) == t.Ind() {
 				it2.Delete()
 			}
 		}
-		if it.objTypeInd() == t.Ind() {
+		if int(it.TypeInd) == t.Ind() {
 			it.Delete()
 		}
 	}
@@ -629,170 +629,170 @@ type noxObject interface {
 }
 
 type Object struct {
-	id                unsafe.Pointer     // 0, 0
-	typ_ind           uint16             // 1, 4
-	field_1_2         uint16             // 1, 6
-	obj_class         uint32             // 2, 8
-	obj_subclass      uint32             // 3, 12
-	obj_flags         uint32             // 4, 16
-	field_5           uint32             // 5, 20
-	material          uint16             // 6, 24
-	field_6_2         uint16             // 6, 26
-	experience        float32            // 7, 28
-	worth             uint32             // 8, 32
-	net_code          uint32             // 9, 36
-	extent            uint32             // 10, 40
-	script_id         int                // 11, 44
-	field_12          uint32             // 12, 48
-	field_13          uint32             // 13, 52, // TODO: first byte is team?
-	x                 float32            // 14, 56
-	y                 float32            // 15, 60
-	new_x             float32            // 16, 64
-	new_y             float32            // 17, 68
-	prev_x            float32            // 18, 72
-	prev_y            float32            // 19, 76
-	vel_x             float32            // 20, 80
-	vel_y             float32            // 21, 84
-	force_x           float32            // 22, 88
-	force_y           float32            // 23, 92
-	float_24          float32            // 24, 96, // TODO: something related to acceleration/direction
-	float_25          float32            // 25, 100, // TODO: something related to acceleration/direction
-	z                 float32            // 26, 104
-	field_27          uint32             // 27, 108
-	float_28          float32            // 28, 112, // TODO: damping/drag?
-	field_29          uint32             // 29, 116
-	mass              float32            // 30, 120
-	direction1        uint16             // 31, 124
-	direction2        uint16             // 31, 126
-	field_32          uint32             // 32, 128, TODO: some frame/timestamp
-	field_33          uint32             // 33, 132
-	field_34          uint32             // 34, 136, TODO: some frame/timestamp
-	field_35          uint32             // 35, 140
-	field_36          uint32             // 36, 144
-	field_37          int                // 37, 148
-	field_38          int                // 38, 152
-	float_39          float32            // 39, 156
-	float_40          float32            // 40, 160
-	field_41          uint32             // 41, 164
-	field_42          uint32             // 42, 168
-	shape             server.Shape       // 43, 172
-	zsize1            float32            // 56, 224
-	zsize2            float32            // 57, 228
-	collide_x1        float32            // 58, 232
-	collide_y1        float32            // 59, 236
-	collide_x2        float32            // 60, 240
-	collide_y2        float32            // 61, 244
-	field_62          uint32             // 62, 248
-	field_63          uint32             // 63, 252
-	field_64          uint32             // 64, 256
-	field_65          uint32             // 65, 260
-	field_66          uint32             // 66, 264
-	field_67          uint32             // 67, 268
-	field_68          uint32             // 68, 272
-	field_69          uint32             // 69, 276
-	field_70          uint32             // 70, 280
-	field_71          uint32             // 71, 284
-	field_72          uint32             // 72, 288
-	field_73          uint32             // 73, 292
-	field_74          uint32             // 74, 296
-	field_75          uint32             // 75, 300
-	field_76          uint32             // 76, 304
-	field_77          uint32             // 77, 308
-	field_78          uint32             // 78, 312
-	field_79          uint32             // 79, 316
-	field_80          uint32             // 80, 320
-	field_81          uint32             // 81, 324
-	field_82          uint32             // 82, 328
-	field_83          uint32             // 83, 332
-	field_84          uint32             // 84, 336
-	buffs             uint32             // 85, 340
-	buffs_dur         [32]uint16         // 86, 344
-	buffs_power       [32]uint8          // 102, 408
-	field_110         uint32             // 110, 440
-	object_next       *Object            // 111, 444
-	object_prev       *Object            // 112, 448
-	deleted_next      *Object            // 113, 452
-	deleted_at        uint32             // 114, 456
-	field_115         uint32             // 115, 460
-	field_116         uint32             // 116, 464
-	field_117         uint32             // 117, 468
-	field_118         uint32             // 118, 472
-	updatable_next    *Object            // 119, 476
-	updatable_prev    *Object            // 120, 480
-	is_updatable      uint32             // 121, 484
-	weight            uint8              // 122, 488
-	field_122_1       uint8              // 122, 489
-	carry_capacity    uint16             // 122, 490
-	inv_holder        *Object            // 123, 492 // Also health data, possibly same as 556, see 4E4560
-	inv_next_item     *Object            // 124, 496, TODO: next item
-	field_125         *Object            // 125, 500, TODO: a nox_object_t*? see 4ED0C0
-	inv_first_item    *Object            // 126, 504, TODO: first item
-	owner             *Object            // 127, 508
-	field_128         *Object            // 128, 512
-	field_129         *Object            // 129, 516
-	obj_130           *Object            // 130, 520
-	field_131         uint32             // 131, 524
-	field_132         uint32             // 132, 528
-	field_133         uint32             // 133, 532
-	field_134         uint32             // 134, 536, TODO: some timestamp
-	field_135         uint32             // 135, 540, TODO: 541 accessed as byte
-	speed_cur         float32            // 136, 544
-	speed_2           float32            // 137, 548
-	float_138         float32            // 138, 552
-	health_data       *server.HealthData // 139, 556
-	field_140         uint32             // 140, 560
-	field_141         uint32             // 141, 564
-	field_142         uint32             // 142, 568
-	field_143         uint32             // 143, 572
-	field_144         uint32             // 144, 576
-	field_145         uint32             // 145, 580
-	field_146         uint32             // 146, 584
-	field_147         uint32             // 147, 588
-	field_148         uint32             // 148, 592
-	field_149         uint32             // 149, 596
-	field_150         uint32             // 150, 600
-	field_151         uint32             // 151, 604
-	field_152         uint32             // 152, 608
-	field_153         uint32             // 153, 612
-	field_154         uint32             // 154, 616
-	field_155         uint32             // 155, 620
-	field_156         uint32             // 156, 624
-	field_157         uint32             // 157, 628
-	field_158         uint32             // 158, 632
-	field_159         uint32             // 159, 636
-	field_160         uint32             // 160, 640
-	field_161         uint32             // 161, 644
-	field_162         uint32             // 162, 648
-	field_163         uint32             // 163, 652
-	field_164         uint32             // 164, 656
-	field_165         uint32             // 165, 660
-	field_166         uint32             // 166, 664
-	field_167         uint32             // 167, 668
-	field_168         uint32             // 168, 672
-	field_169         uint32             // 169, 676
-	field_170         uint32             // 170, 680
-	field_171         uint32             // 171, 684
-	func_init         unsafe.Pointer     // 172, 688
-	init_data         unsafe.Pointer     // 173, 692, // TODO: struct pointer; struct at least 8 bytes wide. see 4F3030.
-	func_collide      unsafe.Pointer     // 174, 696
-	collide_data      unsafe.Pointer     // 175, 700
-	func_xfer         unsafe.Pointer     // 176, 704; func(*Object, int) int
-	func_pickup       unsafe.Pointer     // 177, 708
-	func_drop         unsafe.Pointer     // 178, 712
-	func_damage       unsafe.Pointer     // 179, 716; func(*Object, *Object, int, int, int) int
-	func_damage_sound unsafe.Pointer     // 180, 720
-	func_die          unsafe.Pointer     // 181, 724
-	die_data          unsafe.Pointer     // 182, 728
-	func_use          unsafe.Pointer     // 183, 732
-	use_data          unsafe.Pointer     // 184, 736
-	field_185         uint32             // 185, 740
-	func_update       unsafe.Pointer     // 186, 744; func(*Object)
-	data_update       unsafe.Pointer     // 187, 748
-	field_188         uint32             // 188, 752
-	field_189         unsafe.Pointer     // 189, 756
-	field_190         uint32             // 190, 760
-	field_191         uint32             // 191, 764
-	field_192         int                // 192, 768
+	IDPtr         unsafe.Pointer     // 0, 0
+	TypeInd       uint16             // 1, 4
+	Field1_2      uint16             // 1, 6
+	ObjClass      uint32             // 2, 8
+	ObjSubClass   uint32             // 3, 12
+	ObjFlags      uint32             // 4, 16
+	Field5        uint32             // 5, 20
+	Material      uint16             // 6, 24
+	Field6_2      uint16             // 6, 26
+	Experience    float32            // 7, 28
+	Worth         uint32             // 8, 32
+	NetCode       uint32             // 9, 36
+	Extent        uint32             // 10, 40
+	ScriptID      int                // 11, 44
+	Field12       uint32             // 12, 48
+	Field13       uint32             // 13, 52, // TODO: first byte is team?
+	PosVecX       float32            // 14, 56
+	PosVecY       float32            // 15, 60
+	NewPosX       float32            // 16, 64
+	NewPosY       float32            // 17, 68
+	PrevPosX      float32            // 18, 72
+	PrevPosY      float32            // 19, 76
+	VelVecX       float32            // 20, 80
+	VelVecY       float32            // 21, 84
+	ForceVecX     float32            // 22, 88
+	ForceVecY     float32            // 23, 92
+	Pos24X        float32            // 24, 96, // TODO: something related to acceleration/direction
+	Pos24Y        float32            // 25, 100, // TODO: something related to acceleration/direction
+	ZVal          float32            // 26, 104
+	Field27       uint32             // 27, 108
+	Float28       float32            // 28, 112, // TODO: damping/drag?
+	Field29       uint32             // 29, 116
+	MassVal       float32            // 30, 120
+	Direction1    uint16             // 31, 124
+	Direction2    uint16             // 31, 126
+	Field32       uint32             // 32, 128, TODO: some frame/timestamp
+	Field33       uint32             // 33, 132
+	Field34       uint32             // 34, 136, TODO: some frame/timestamp
+	Field35       uint32             // 35, 140
+	Field36       uint32             // 36, 144
+	Field37       int                // 37, 148
+	Field38       int                // 38, 152
+	Pos39X        float32            // 39, 156
+	Pos39Y        float32            // 40, 160
+	Field41       uint32             // 41, 164
+	Field42       uint32             // 42, 168
+	Shape         server.Shape       // 43, 172
+	ZSize1        float32            // 56, 224
+	ZSize2        float32            // 57, 228
+	CollideP1X    float32            // 58, 232
+	CollideP1Y    float32            // 59, 236
+	CollideP2X    float32            // 60, 240
+	CollideP2Y    float32            // 61, 244
+	Field62       uint32             // 62, 248
+	Field63       uint32             // 63, 252
+	Field64       uint32             // 64, 256
+	Field65       uint32             // 65, 260
+	Field66       uint32             // 66, 264
+	Field67       uint32             // 67, 268
+	Field68       uint32             // 68, 272
+	Field69       uint32             // 69, 276
+	Field70       uint32             // 70, 280
+	Field71       uint32             // 71, 284
+	Field72       uint32             // 72, 288
+	Field73       uint32             // 73, 292
+	Field74       uint32             // 74, 296
+	Field75       uint32             // 75, 300
+	Field76       uint32             // 76, 304
+	Field77       uint32             // 77, 308
+	Field78       uint32             // 78, 312
+	Field79       uint32             // 79, 316
+	Field80       uint32             // 80, 320
+	Field81       uint32             // 81, 324
+	Field82       uint32             // 82, 328
+	Field83       uint32             // 83, 332
+	Field84       uint32             // 84, 336
+	Buffs         uint32             // 85, 340
+	BuffsDur      [32]uint16         // 86, 344
+	BuffsPower    [32]uint8          // 102, 408
+	Field110      uint32             // 110, 440
+	ObjNext       *Object            // 111, 444
+	ObjPrev       *Object            // 112, 448
+	DeletedNext   *Object            // 113, 452
+	DeletedAt     uint32             // 114, 456
+	Field115      uint32             // 115, 460
+	Field116      uint32             // 116, 464
+	Field117      uint32             // 117, 468
+	Field118      uint32             // 118, 472
+	UpdatableNext *Object            // 119, 476
+	UpdatablePrev *Object            // 120, 480
+	IsUpdatable   uint32             // 121, 484
+	Weight        uint8              // 122, 488
+	Field122_1    uint8              // 122, 489
+	CarryCapacity uint16             // 122, 490
+	InvHolder     *Object            // 123, 492 // Also health data, possibly same as 556, see 4E4560
+	InvNextItem   *Object            // 124, 496, TODO: next item
+	Field125      *Object            // 125, 500, TODO: a nox_object_t*? see 4ED0C0
+	InvFirstItem  *Object            // 126, 504, TODO: first item
+	OwnerPtr      *Object            // 127, 508
+	Field128      *Object            // 128, 512
+	Field129      *Object            // 129, 516
+	Obj130        *Object            // 130, 520
+	Field131      uint32             // 131, 524
+	Field132      uint32             // 132, 528
+	Field133      uint32             // 133, 532
+	Field134      uint32             // 134, 536, TODO: some timestamp
+	Field135      uint32             // 135, 540, TODO: 541 accessed as byte
+	SpeedCur      float32            // 136, 544
+	Speed2        float32            // 137, 548
+	Float138      float32            // 138, 552
+	HealthData    *server.HealthData // 139, 556
+	Field140      uint32             // 140, 560
+	Field141      uint32             // 141, 564
+	Field142      uint32             // 142, 568
+	Field143      uint32             // 143, 572
+	Field144      uint32             // 144, 576
+	Field145      uint32             // 145, 580
+	Field146      uint32             // 146, 584
+	Field147      uint32             // 147, 588
+	Field148      uint32             // 148, 592
+	Field149      uint32             // 149, 596
+	Field150      uint32             // 150, 600
+	Field151      uint32             // 151, 604
+	Field152      uint32             // 152, 608
+	Field153      uint32             // 153, 612
+	Field154      uint32             // 154, 616
+	Field155      uint32             // 155, 620
+	Field156      uint32             // 156, 624
+	Field157      uint32             // 157, 628
+	Field158      uint32             // 158, 632
+	Field159      uint32             // 159, 636
+	Field160      uint32             // 160, 640
+	Field161      uint32             // 161, 644
+	Field162      uint32             // 162, 648
+	Field163      uint32             // 163, 652
+	Field164      uint32             // 164, 656
+	Field165      uint32             // 165, 660
+	Field166      uint32             // 166, 664
+	Field167      uint32             // 167, 668
+	Field168      uint32             // 168, 672
+	Field169      uint32             // 169, 676
+	Field170      uint32             // 170, 680
+	Field171      uint32             // 171, 684
+	Init          unsafe.Pointer     // 172, 688
+	InitData      unsafe.Pointer     // 173, 692, // TODO: struct pointer; struct at least 8 bytes wide. see 4F3030.
+	Collide       unsafe.Pointer     // 174, 696
+	CollideData   unsafe.Pointer     // 175, 700
+	Xfer          unsafe.Pointer     // 176, 704; func(*Object, int) int
+	Pickup        unsafe.Pointer     // 177, 708
+	Drop          unsafe.Pointer     // 178, 712
+	Damage        unsafe.Pointer     // 179, 716; func(*Object, *Object, int, int, int) int
+	DamageSound   unsafe.Pointer     // 180, 720
+	Death         unsafe.Pointer     // 181, 724
+	DeathData     unsafe.Pointer     // 182, 728
+	Use           unsafe.Pointer     // 183, 732
+	UseData       unsafe.Pointer     // 184, 736
+	Field185      uint32             // 185, 740
+	Update        unsafe.Pointer     // 186, 744; func(*Object)
+	UpdateData    unsafe.Pointer     // 187, 748
+	Field188      uint32             // 188, 752
+	Field189      unsafe.Pointer     // 189, 756
+	Field190      uint32             // 190, 760
+	Field191      uint32             // 191, 764
+	Field192      int                // 192, 768
 }
 
 func (obj *Object) getServer() *Server {
@@ -820,19 +820,11 @@ func (obj *Object) field(dp uintptr) unsafe.Pointer {
 }
 
 func (obj *Object) ID() string {
-	return GoString((*C.char)(obj.id))
+	return GoString((*C.char)(obj.IDPtr))
 }
 
 func (obj *Object) Ind() int { // aka "extent"
-	return int(obj.extent)
-}
-
-func (obj *Object) ScriptID() int {
-	return obj.script_id
-}
-
-func (obj *Object) objTypeInd() int {
-	return int(obj.typ_ind)
+	return int(obj.Extent)
 }
 
 func (obj *Object) stringAs(typ string) string {
@@ -871,11 +863,11 @@ func (obj *Object) GetObject() script.Object {
 }
 
 func (obj *Object) Class() object.Class {
-	return object.Class(obj.obj_class)
+	return object.Class(obj.ObjClass)
 }
 
 func (obj *Object) SubClass() uint32 {
-	return uint32(obj.obj_subclass)
+	return uint32(obj.ObjSubClass)
 }
 
 func (obj *Object) ArmorClass() object.ArmorClass {
@@ -886,23 +878,23 @@ func (obj *Object) ArmorClass() object.ArmorClass {
 }
 
 func (obj *Object) Flags() object.Flags {
-	return object.Flags(obj.obj_flags)
+	return object.Flags(obj.ObjFlags)
 }
 
 func (obj *Object) SetFlags(v object.Flags) {
-	obj.obj_flags = uint32(v)
+	obj.ObjFlags = uint32(v)
 }
 
 func (obj *Object) Mass() float32 { // nox_xxx_objectGetMass_4E4A70
-	return obj.mass
+	return obj.MassVal
 }
 
 func (obj *Object) getShape() *server.Shape {
-	return &obj.shape
+	return &obj.Shape
 }
 
 func (obj *Object) healthData() *server.HealthData {
-	return obj.health_data
+	return obj.HealthData
 }
 
 func (obj *Object) Health() (cur, max int) {
@@ -957,27 +949,27 @@ func (obj *Object) equalID(id2 string) bool {
 }
 
 func (obj *Object) needSync() { // nox_xxx_unitNeedSync_4E44F0
-	obj.field_38 = -1
+	obj.Field38 = -1
 }
 
 func (obj *Object) makeUnseen() { // nox_xxx_objectMakeUnseenByNoone_4E44E0
-	obj.field_38 = 0
+	obj.Field38 = 0
 }
 
 func (obj *Object) Next() *Object { // nox_server_getNextObject_4DA7A0, nox_xxx_getNextUpdatable2Object_4DA850, nox_server_getNextObjectUninited_4DA880
-	return asObject(unsafe.Pointer(obj.object_next))
+	return asObject(unsafe.Pointer(obj.ObjNext))
 }
 
 func (obj *Object) FirstItem() *Object { // nox_xxx_inventoryGetFirst_4E7980
-	return asObject(unsafe.Pointer(obj.inv_first_item))
+	return asObject(unsafe.Pointer(obj.InvFirstItem))
 }
 
 func (obj *Object) NextItem() *Object {
-	return asObject(unsafe.Pointer(obj.inv_next_item))
+	return asObject(unsafe.Pointer(obj.InvNextItem))
 }
 
 func (obj *Object) InventoryHolder() *Object {
-	return asObject(unsafe.Pointer(obj.inv_holder))
+	return asObject(unsafe.Pointer(obj.InvHolder))
 }
 
 func (obj *Object) HasItem(item *Object) bool {
@@ -992,16 +984,12 @@ func (obj *Object) HasItem(item *Object) bool {
 	return false
 }
 
-func (obj *Object) updateDataPtr() unsafe.Pointer {
-	return obj.data_update
-}
-
 func (obj *Object) updateDataMissile() *C.nox_object_Missile_data_t {
-	return (*C.nox_object_Missile_data_t)(obj.data_update)
+	return (*C.nox_object_Missile_data_t)(obj.UpdateData)
 }
 
 func (obj *Object) updateDataElevator() *C.nox_object_Elevator_data_t {
-	return (*C.nox_object_Elevator_data_t)(unsafe.Pointer(obj.data_update))
+	return (*C.nox_object_Elevator_data_t)(obj.UpdateData)
 }
 
 func (obj *Object) Inventory() []*Object {
@@ -1013,11 +1001,11 @@ func (obj *Object) Inventory() []*Object {
 }
 
 func (obj *Object) NextOwned512() *Object {
-	return asObject(unsafe.Pointer(obj.field_128))
+	return asObject(unsafe.Pointer(obj.Field128))
 }
 
 func (obj *Object) FirstOwned516() *Object {
-	return asObject(unsafe.Pointer(obj.field_129))
+	return asObject(unsafe.Pointer(obj.Field129))
 }
 
 func (obj *Object) GetOwned516() []*Object {
@@ -1032,21 +1020,21 @@ func (obj *Object) HasEnchant(v server.EnchantID) bool { // nox_xxx_testUnitBuff
 	if obj == nil || v >= 32 {
 		return false
 	}
-	return obj.buffs&(uint32(1)<<v) != 0
+	return obj.Buffs&(uint32(1)<<v) != 0
 }
 
 func (obj *Object) EnchantDur(v server.EnchantID) int { // nox_xxx_unitGetBuffTimer_4FF550
 	if obj == nil || v >= 32 {
 		return 0
 	}
-	return int(obj.buffs_dur[v])
+	return int(obj.BuffsDur[v])
 }
 
 func (obj *Object) EnchantPower(v server.EnchantID) int { // nox_xxx_buffGetPower_4FF570
 	if obj == nil || v >= 32 {
 		return 0
 	}
-	return int(obj.buffs_dur[v])
+	return int(obj.BuffsDur[v])
 }
 
 func (obj *Object) ApplyEnchant(v server.EnchantID, dur, power int) { // nox_xxx_buffApplyTo_4FF380
@@ -1072,8 +1060,7 @@ func (obj *Object) ObjectTypeC() *server.ObjectType {
 	if obj == nil {
 		return nil
 	}
-	ind := obj.objTypeInd()
-	return obj.getServer().ObjectTypeByInd(ind)
+	return obj.getServer().ObjectTypeByInd(int(obj.TypeInd))
 }
 
 func (obj *Object) ObjectType() script.ObjectType {
@@ -1088,11 +1075,11 @@ func (obj *Object) teamPtr() *objectTeam {
 	if obj == nil {
 		return nil
 	}
-	return (*objectTeam)(unsafe.Pointer(&obj.field_12))
+	return (*objectTeam)(unsafe.Pointer(&obj.Field12))
 }
 
 func (obj *Object) OwnerC() *Object {
-	return obj.owner
+	return obj.OwnerPtr
 }
 
 func (obj *Object) Owner() script.Object {
@@ -1117,8 +1104,8 @@ func (obj *Object) Pos() types.Pointf {
 		return types.Pointf{}
 	}
 	return types.Pointf{
-		X: obj.x,
-		Y: obj.y,
+		X: obj.PosVecX,
+		Y: obj.PosVecY,
 	}
 }
 
@@ -1127,8 +1114,8 @@ func (obj *Object) Vel() types.Pointf {
 		return types.Pointf{}
 	}
 	return types.Pointf{
-		X: obj.vel_x,
-		Y: obj.vel_y,
+		X: obj.VelVecX,
+		Y: obj.VelVecY,
 	}
 }
 
@@ -1137,8 +1124,8 @@ func (obj *Object) Force() types.Pointf {
 		return types.Pointf{}
 	}
 	return types.Pointf{
-		X: obj.force_x,
-		Y: obj.force_y,
+		X: obj.ForceVecX,
+		Y: obj.ForceVecY,
 	}
 }
 
@@ -1146,39 +1133,39 @@ func (obj *Object) Dir1() uint16 {
 	if obj == nil {
 		return 0
 	}
-	return obj.direction1
+	return obj.Direction1
 }
 
 func (obj *Object) Dir2() uint16 {
 	if obj == nil {
 		return 0
 	}
-	return obj.direction2
+	return obj.Direction2
 }
 
 func (obj *Object) curSpeed() float32 {
 	if obj == nil {
 		return 0
 	}
-	return obj.speed_cur
+	return obj.SpeedCur
 }
 
 func (obj *Object) setAllDirs(dir uint16) {
-	obj.direction1 = dir
-	obj.direction2 = dir
+	obj.Direction1 = dir
+	obj.Direction2 = dir
 }
 
 func (obj *Object) prevPos() types.Pointf {
 	return types.Pointf{
-		X: obj.prev_x,
-		Y: obj.prev_y,
+		X: obj.PrevPosX,
+		Y: obj.PrevPosY,
 	}
 }
 
 func (obj *Object) newPos() types.Pointf {
 	return types.Pointf{
-		X: obj.new_x,
-		Y: obj.new_y,
+		X: obj.NewPosX,
+		Y: obj.NewPosY,
 	}
 }
 
@@ -1191,38 +1178,38 @@ func (obj *Object) SetPos(p types.Pointf) {
 }
 
 func (obj *Object) setPos(p types.Pointf) {
-	obj.x = p.X
-	obj.y = p.Y
+	obj.PosVecX = p.X
+	obj.PosVecY = p.Y
 }
 
 func (obj *Object) setPrevPos(p types.Pointf) {
-	obj.prev_x = p.X
-	obj.prev_y = p.Y
+	obj.PrevPosX = p.X
+	obj.PrevPosY = p.Y
 }
 
 func (obj *Object) setNewPos(p types.Pointf) {
-	obj.new_x = p.X
-	obj.new_y = p.Y
+	obj.NewPosX = p.X
+	obj.NewPosY = p.Y
 }
 
 func (obj *Object) setVel(p types.Pointf) {
-	obj.vel_x = p.X
-	obj.vel_y = p.Y
+	obj.VelVecX = p.X
+	obj.VelVecY = p.Y
 }
 
 // ApplyForce adds a new force vector to the object. If another force in effect, it will adds up.
 func (obj *Object) ApplyForce(p types.Pointf) {
-	obj.force_x += p.X
-	obj.force_y += p.Y
+	obj.ForceVecX += p.X
+	obj.ForceVecY += p.Y
 }
 
 func (obj *Object) setForce(p types.Pointf) {
-	obj.force_x = p.X
-	obj.force_y = p.Y
+	obj.ForceVecX = p.X
+	obj.ForceVecY = p.Y
 }
 
 func (obj *Object) Z() float32 {
-	return obj.z
+	return obj.ZVal
 }
 
 func (obj *Object) SetZ(z float32) {
@@ -1276,10 +1263,10 @@ func (obj *Object) Destroy() {
 }
 
 func (obj *Object) callUpdate() {
-	if obj.func_update == nil {
+	if obj.Update == nil {
 		return
 	}
-	switch obj.func_update {
+	switch obj.Update {
 	case unsafe.Pointer(C.nox_xxx_updatePlayer_4F8100):
 		nox_xxx_updatePlayer_4F8100(obj.CObj())
 	case unsafe.Pointer(C.nox_xxx_updatePlayerObserver_4E62F0):
@@ -1289,30 +1276,30 @@ func (obj *Object) callUpdate() {
 	case unsafe.Pointer(C.nox_xxx_updatePixie_53CD20):
 		nox_xxx_updatePixie_53CD20(obj.CObj())
 	default:
-		C.nox_call_obj_update_go((*[0]byte)(obj.func_update), obj.CObj())
+		C.nox_call_obj_update_go((*[0]byte)(obj.Update), obj.CObj())
 	}
 }
 
 func (obj *Object) callXfer(a2 unsafe.Pointer) error {
-	switch obj.func_xfer {
+	switch obj.Xfer {
 	case unsafe.Pointer(C.nox_xxx_XFerDefault_4F49A0):
 		return nox_xxx_XFerDefault4F49A0(obj, a2)
 	}
-	if C.nox_call_object_xfer((*[0]byte)(obj.func_xfer), obj.CObj(), a2) == 0 {
+	if C.nox_call_object_xfer((*[0]byte)(obj.Xfer), obj.CObj(), a2) == 0 {
 		return fmt.Errorf("xfer for %s failed", obj.String())
 	}
 	return nil
 }
 
 func (obj *Object) callDamage(who noxObject, a3 noxObject, dmg, a5 int) int {
-	if obj.func_damage != nil {
-		return int(C.nox_call_object_damage((*[0]byte)(obj.func_damage), obj.CObj(), toCObj(who), toCObj(a3), C.int(dmg), C.int(a5)))
+	if obj.Damage != nil {
+		return int(C.nox_call_object_damage((*[0]byte)(obj.Damage), obj.CObj(), toCObj(who), toCObj(a3), C.int(dmg), C.int(a5)))
 	}
 	return 0
 }
 
 func (obj *Object) callDrop(it noxObject, pos types.Pointf) int {
-	if obj.func_drop == nil {
+	if obj.Drop == nil {
 		return 0
 	}
 	cpos, free := alloc.New(types.Pointf{})
@@ -1320,11 +1307,11 @@ func (obj *Object) callDrop(it noxObject, pos types.Pointf) int {
 	*cpos = pos
 	ptr := (*C.float2)(unsafe.Pointer(cpos))
 
-	switch obj.func_drop {
+	switch obj.Drop {
 	case unsafe.Pointer(C.nox_objectDropAudEvent_4EE2F0):
 		return int(nox_objectDropAudEvent_4EE2F0(obj.CObj(), toCObj(it), ptr))
 	default:
-		return int(C.nox_call_object_drop((*[0]byte)(obj.func_drop), obj.CObj(), toCObj(it), ptr))
+		return int(C.nox_call_object_drop((*[0]byte)(obj.Drop), obj.CObj(), toCObj(it), ptr))
 	}
 }
 
@@ -1354,7 +1341,7 @@ func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_533
 			return false
 		}
 	}
-	if obj.Class().HasAny(object.ClassPlayer) && obj2.objTypeInd() == srv.PolypID() {
+	if obj.Class().HasAny(object.ClassPlayer) && int(obj2.TypeInd) == srv.PolypID() {
 		return true
 	}
 	if obj.Class().HasAny(object.ClassPlayer) && obj2.Class().HasAny(object.ClassMonsterGenerator) {
@@ -1406,7 +1393,7 @@ func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_533
 	if own1.Class().HasAny(object.ClassMonster) && own2.Class().HasAny(object.ClassMonsterGenerator) {
 		return false
 	}
-	if !noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().HasAny(object.ClassMonster) && obj2.objTypeInd() == srv.WillOWispID() {
+	if !noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().HasAny(object.ClassMonster) && int(obj2.TypeInd) == srv.WillOWispID() {
 		return nox_xxx_checkMobAction_50A0D0(obj2.AsUnit(), ai.ACTION_FIGHT)
 	}
 	if nox_xxx_servObjectHasTeam_419130(own1.teamPtr()) || nox_xxx_servObjectHasTeam_419130(own2.teamPtr()) {
@@ -1423,7 +1410,7 @@ func (obj *Object) isFish() bool {
 		return false
 	}
 	srv := obj.getServer()
-	return obj.objTypeInd() == srv.FishSmallID() || obj.objTypeInd() == srv.FishBigID()
+	return int(obj.TypeInd) == srv.FishSmallID() || int(obj.TypeInd) == srv.FishBigID()
 }
 
 func (obj *Object) isRat() bool {
@@ -1431,7 +1418,7 @@ func (obj *Object) isRat() bool {
 		return false
 	}
 	srv := obj.getServer()
-	return obj.objTypeInd() == srv.RatID()
+	return int(obj.TypeInd) == srv.RatID()
 }
 
 func (obj *Object) isFrog() bool {
@@ -1439,7 +1426,7 @@ func (obj *Object) isFrog() bool {
 		return false
 	}
 	srv := obj.getServer()
-	return obj.objTypeInd() == srv.GreenFrogID()
+	return int(obj.TypeInd) == srv.GreenFrogID()
 }
 
 func (obj *Object) isPlant() bool {
@@ -1447,7 +1434,7 @@ func (obj *Object) isPlant() bool {
 		return false
 	}
 	srv := obj.getServer()
-	return obj.objTypeInd() == srv.CarnivorousPlantID()
+	return int(obj.TypeInd) == srv.CarnivorousPlantID()
 }
 
 func (obj *Object) findOwnerChainPlayer() *Object { // nox_xxx_findParentChainPlayer_4EC580
@@ -1480,6 +1467,6 @@ func (obj *Object) dropAllItems() {
 
 func (obj *Object) sub548600(dp types.Pointf) {
 	mass := obj.Mass()
-	obj.float_24 += dp.X / mass
-	obj.float_25 += dp.Y / mass
+	obj.Pos24X += dp.X / mass
+	obj.Pos24Y += dp.Y / mass
 }

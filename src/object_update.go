@@ -140,10 +140,10 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 		return
 	}
 	if noxflags.HasGame(noxflags.GameModeQuest) && ud.Field70 != 0 {
-		u.force_x = 0
-		u.force_y = 0
-		u.vel_x = 0
-		u.vel_y = 0
+		u.ForceVecX = 0
+		u.ForceVecY = 0
+		u.VelVecX = 0
+		u.VelVecY = 0
 	}
 	if noxflags.HasGame(noxflags.GameModeQuest) && ud.Field137 != 0 && asPlayerS(ud.Player).Index() != common.MaxPlayers-1 && (s.Frame()-ud.Field137 > (30 * s.TickRate())) {
 		sub_4DCFB0(u.CObj())
@@ -180,7 +180,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	}
 	if !u.Flags().Has(object.FlagDead) {
 		if v2 > 0 {
-			v14 := u.field_131
+			v14 := u.Field131
 			if pl.Info().IsFemale() {
 				if v14 == 5 {
 					nox_xxx_aud_501960(sound.SoundHumanFemaleHurtPoison, u, 0, 0)
@@ -254,9 +254,9 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		if !(ud.Field22_0 != 5 && (dy*dy+dx*dx <= runCursorDist*runCursorDist) || s.abilities.IsActive(u, AbilityTreadLightly)) {
 			// switch from walking to running
 			a1 = true
-			u.speed_cur *= 2
+			u.SpeedCur *= 2
 			v67, v69 := playerAnimGetFrameRange(6)
-			v25a := int(u.net_code) + int(noxServer.Frame())
+			v25a := int(u.NetCode) + int(noxServer.Frame())
 			v25 := v25a / (v69 + 1) % v67
 			if !(v25 <= ((v25a-1)/(v69+1)%v67) || v25 != 2 && v25 != 8) {
 				if v26 := nox_xxx_tileNFromPoint_411160(u.Pos()); v26 >= 0 && v26 < int(C.dword_5d4594_251568) {
@@ -287,16 +287,16 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		}
 		if C.sub_4F9AB0(u.CObj()) == 0 {
 			if u.HasEnchant(server.ENCHANT_CONFUSED) {
-				u.direction2 = uint16(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
+				u.Direction2 = uint16(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
 			}
 			// update force based on direction, speed, etc
-			cos, sin := sincosDir(byte(u.direction2))
-			u.force_x += cos * u.speed_cur
-			u.force_y += sin * u.speed_cur
+			cos, sin := sincosDir(byte(u.Direction2))
+			u.ForceVecX += cos * u.SpeedCur
+			u.ForceVecY += sin * u.SpeedCur
 		}
 		if ud.Field22_0 == 0 {
 			v67, v69 := playerAnimGetFrameRange(4)
-			v31 := int(u.net_code) + int(noxServer.Frame())
+			v31 := int(u.NetCode) + int(noxServer.Frame())
 			v32 := (v31 - 1) / (v69 + 1) % v67
 			v33 := v31 / (v69 + 1) % v67
 			if (!s.abilities.IsActive(u, AbilityTreadLightly) || a1) && v33 != v32 && (v33 == 3 || v33 == 9) {
@@ -327,7 +327,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		if C.nox_xxx_playerAttack_538960(u.CObj()) == 0 {
 			if pl.field_4&4 != 0 {
 				nox_xxx_playerSetState_4FA020(u, 14)
-				u.field_34 = s.Frame()
+				u.Field34 = s.Frame()
 			} else {
 				nox_xxx_playerSetState_4FA020(u, 13)
 				pl.field_8 &^= 0xff
@@ -336,26 +336,26 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		return a1, v68, true
 	case 2:
 		v67, v69 := playerAnimGetFrameRange(21)
-		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
 			ud.Field59_0 = uint8(v67 - 1)
 		}
 		return a1, v68, true
 	case 3:
-		if (int(s.Frame()) - int(u.field_34)) > int(s.TickRate()) {
+		if (int(s.Frame()) - int(u.Field34)) > int(s.TickRate()) {
 			nox_xxx_playerSetState_4FA020(u, 4)
 			ud.Field60 &^= 0x20
-			u.field_34 = s.Frame()
-			u.obj_flags |= uint32(object.FlagShort | object.FlagAllowOverlap)
+			u.Field34 = s.Frame()
+			u.ObjFlags |= uint32(object.FlagShort | object.FlagAllowOverlap)
 			u.setVel(types.Pointf{})
 			u.setForce(types.Pointf{})
-			u.float_24 = 0
-			u.float_25 = 0
+			u.Pos24X = 0
+			u.Pos24Y = 0
 			s.scriptOnEvent(script.EventPlayerDeath)
 		}
 		return a1, v68, false
 	case 4:
-		if (int(s.Frame()) - int(u.field_34)) <= int(s.TickRate())/2 {
+		if (int(s.Frame()) - int(u.Field34)) <= int(s.TickRate())/2 {
 			return a1, v68, false
 		}
 		v41 := int(C.nox_xxx_servGamedataGet_40A020(1024))
@@ -380,7 +380,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			a1 = pl.CameraTarget() != nil
 			pl.CameraUnlock()
 			for _, it := range s.getPlayerUnits() {
-				pl2 := s.getPlayerByID(int(it.net_code))
+				pl2 := s.getPlayerByID(int(it.NetCode))
 				if !it.Flags().Has(object.FlagDead) && (pl2.field_3680&1 == 0) {
 					pl.CameraToggle(it)
 				}
@@ -392,7 +392,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			s.nox_xxx_playerLeaveObsByObserved_4E60A0(u)
 			if C.sub_4F9E10(u.CObj()) == 0 {
 				for _, it := range s.getPlayerUnits() {
-					pl2 := s.getPlayerByID(int(it.net_code))
+					pl2 := s.getPlayerByID(int(it.NetCode))
 					if !it.Flags().Has(object.FlagDead) && (pl2.field_3680&1 == 0) {
 						pl.CameraToggle(it)
 					}
@@ -405,7 +405,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		return a1, v68, true
 	case 0xC:
 		v67, v69 := playerAnimGetFrameRange(3)
-		v49 := (int(s.Frame()) - int(u.field_34)) / (v69 + 1)
+		v49 := (int(s.Frame()) - int(u.Field34)) / (v69 + 1)
 
 		found := false
 		for _, it := range s.getPlayerUnits() {
@@ -416,26 +416,26 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			}
 		}
 		if !found {
-			cos, sin := sincosDir(byte(u.direction1))
-			u.force_x = 2 * u.speed_cur * cos
-			u.force_y = 2 * u.speed_cur * sin
+			cos, sin := sincosDir(byte(u.Direction1))
+			u.ForceVecX = 2 * u.SpeedCur * cos
+			u.ForceVecY = 2 * u.SpeedCur * sin
 		}
 		if v49 >= v67 {
 			// stop hovering after a jump?
 			nox_xxx_playerSetState_4FA020(u, 0)
-			u.obj_flags &= 0xFFFFBFFF
-			u.field_34 = s.Frame()
+			u.ObjFlags &= 0xFFFFBFFF
+			u.Field34 = s.Frame()
 		}
 		a1 = v69 != 0
 		return a1, v68, false
 	case 0xD:
-		u.obj_flags &= 0xFFFFBFFE
+		u.ObjFlags &= 0xFFFFBFFE
 		if C.sub_4F9A80(u.CObj()) != 0 {
 			nox_xxx_playerSetState_4FA020(u, 0)
 		}
 		if noxflags.HasGame(noxflags.GameModeChat) || (pl.field_0&0x3000000 == 0) ||
 			C.nox_xxx_monsterTestBlockShield_533E70(u.CObj()) == 0 &&
-				(int(s.Frame())-int(u.field_34)) <= int(s.TickRate())/4 {
+				(int(s.Frame())-int(u.Field34)) <= int(s.TickRate())/4 {
 			return a1, v68, true
 		}
 		nox_xxx_playerSetState_4FA020(u, 15)
@@ -444,13 +444,13 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 	case 0xE:
 		_, v69 := playerAnimGetFrameRange(33)
 		ud.Field59_0 = uint8(v69 - 1)
-		if int(s.Frame())-int(u.field_34) > int(s.TickRate()) {
+		if int(s.Frame())-int(u.Field34) > int(s.TickRate()) {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0xF:
 		v67, v69 := playerAnimGetFrameRange(40)
-		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 16)
 			ud.Field59_0 = uint8(v67 - 1)
@@ -462,7 +462,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		return a1, v68, true
 	case 0x11:
 		v67, v69 := playerAnimGetFrameRange(40)
-		v11 := v67 - (int(s.Frame())-int(u.field_34))/(v69+1)
+		v11 := v67 - (int(s.Frame())-int(u.Field34))/(v69+1)
 		if v11 >= v67 {
 			ud.Field59_0 = uint8(v67 - 1)
 		} else {
@@ -475,28 +475,28 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		return a1, v68, true
 	case 0x12:
 		v67, v69 := playerAnimGetFrameRange(48)
-		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x13:
 		v67, v69 := playerAnimGetFrameRange(49)
-		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x14:
 		v67, v69 := playerAnimGetFrameRange(47)
-		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x15:
 		v67, v69 := playerAnimGetFrameRange(30)
-		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v67 + 1))
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v67 + 1))
 		if int(ud.Field59_0) >= v69 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
@@ -507,35 +507,35 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		return a1, v68, true
 	case 0x17:
 		v67, v69 := playerAnimGetFrameRange(50)
-		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x18:
 		v67, v69 := playerAnimGetFrameRange(19)
-		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x19:
 		v67, v69 := playerAnimGetFrameRange(20)
-		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x1A:
 		v67, v69 := playerAnimGetFrameRange(15)
-		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x1B:
 		v67, v69 := playerAnimGetFrameRange(16)
-		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67/2 {
 			nox_xxx_playerSetState_4FA020(u, 28)
 			ud.Field59_0 = uint8(v67 / 2)
@@ -544,21 +544,21 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 	case 0x1C:
 		v67, _ := playerAnimGetFrameRange(16)
 		ud.Field59_0 = uint8(v67 / 2)
-		if (int(s.Frame()) - int(u.field_34)) > 0x14 {
+		if (int(s.Frame()) - int(u.Field34)) > 0x14 {
 			nox_xxx_playerSetState_4FA020(u, 29)
 			ud.Field59_0 = uint8(v67 / 2)
 		}
 		return a1, v68, true
 	case 0x1D:
 		v67, v69 := playerAnimGetFrameRange(16)
-		ud.Field59_0 = uint8(v67/2 + (int(s.Frame())-int(u.field_34))/(v69+1))
+		ud.Field59_0 = uint8(v67/2 + (int(s.Frame())-int(u.Field34))/(v69+1))
 		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x1E:
 		v67, v69 := playerAnimGetFrameRange(52)
-		ud.Field59_0 = uint8((int(s.Frame()) - int(u.field_34)) / (v69 + 1))
+		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v69 + 1))
 		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 			ud.Field41 = 0
@@ -567,14 +567,14 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 	case 0x20:
 		v67, _ := playerAnimGetFrameRange(54)
 		ud.Field59_0 = uint8(v67 / 2)
-		if (int(s.Frame()) - int(u.field_34)) > 0x14 {
+		if (int(s.Frame()) - int(u.Field34)) > 0x14 {
 			nox_xxx_playerSetState_4FA020(u, 33)
 			ud.Field59_0 = uint8(v67 / 2)
 		}
 		return a1, v68, true
 	case 0x21:
 		v67, v69 := playerAnimGetFrameRange(54)
-		ud.Field59_0 = uint8(v67/2 + (int(s.Frame())-int(u.field_34))/(v69+1))
+		ud.Field59_0 = uint8(v67/2 + (int(s.Frame())-int(u.Field34))/(v69+1))
 		if int(ud.Field59_0) >= v67 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
@@ -592,7 +592,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 	}
 	if (ud.Field22_0 == 0 || ud.Field22_0 == 5) && C.sub_4F9A80(u.CObj()) == 0 {
 		nox_xxx_playerSetState_4FA020(u, 13)
-		u.field_34 = s.Frame()
+		u.Field34 = s.Frame()
 	}
 	ud.Field60 &^= 0x2 | 0x4 | 0x8 | 0x10
 	if pl.field_3680&3 != 0 {
@@ -608,7 +608,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 			if !u.HasEnchant(server.ENCHANT_FREEZE) &&
 				(!noxflags.HasGame(noxflags.GameModeQuest) || ud.Field70 == 0) &&
 				!s.abilities.IsActive(u, AbilityBerserk) {
-				u.direction2 = it.Uint16()
+				u.Direction2 = it.Uint16()
 			}
 		case player.CCMoveForward, player.CCMoveBackward, player.CCMoveLeft, player.CCMoveRight:
 			if C.nox_xxx_playerCanMove_4F9BC0(u.CObj()) != 0 {
@@ -639,7 +639,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 						case player.CCMoveRight:
 							ud.Field60 |= 0x2
 						}
-						u.field_34 = s.Frame()
+						u.Field34 = s.Frame()
 					}
 				}
 			}
@@ -667,11 +667,11 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 13, 3)
 			} else if C.nox_xxx_playerSubStamina_4F7D30(u.CObj(), 90) != 0 {
 				if u.HasEnchant(server.ENCHANT_CONFUSED) {
-					u.direction2 = uint16(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
+					u.Direction2 = uint16(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
 				}
-				u.obj_flags |= 0x4000
+				u.ObjFlags |= 0x4000
 				nox_xxx_playerSetState_4FA020(u, 12)
-				u.field_34 = s.Frame()
+				u.Field34 = s.Frame()
 				return
 			}
 		case player.CCSpellGestureUp:
@@ -823,8 +823,8 @@ func (obj *Object) applyForce(vec types.Pointf, force float64) { // nox_xxx_obje
 	f := 10.0 * float32(force) / obj.Mass()
 	// This weird conversion is how Nox is doing it.
 	// Be aware that changing it may cause minor deviation in physics.
-	obj.force_x += float32(float64(dp.X) * float64(f) / float64(r))
-	obj.force_y += float32(float64(dp.Y) * float64(f) / float64(r))
+	obj.ForceVecX += float32(float64(dp.X) * float64(f) / float64(r))
+	obj.ForceVecY += float32(float64(dp.Y) * float64(f) / float64(r))
 	if !obj.Class().Has(object.ClassMissile) {
 		C.nox_xxx_unitHasCollideOrUpdateFn_537610(obj.CObj())
 	}
@@ -849,7 +849,7 @@ func sub_4F9ED0(u *Unit) {
 	if u.Flags().Has(object.FlagDead) {
 		return
 	}
-	if h != nil && (s.Frame()-uint32(u.field_134)) > s.TickRate() {
+	if h != nil && (s.Frame()-uint32(u.Field134)) > s.TickRate() {
 		if h.Cur < h.Max && h.Max != 0 && (s.Frame()%(300*s.TickRate()/uint32(h.Max))) == 0 {
 			C.nox_xxx_unitAdjustHP_4EE460(u.CObj(), 1)
 		}
@@ -890,7 +890,7 @@ func nox_xxx_freeSpellRelated_4FCA80() {
 func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 	u := asUnitC(cobj)
 	s := u.getServer()
-	ud := unsafe.Slice((*uint32)(u.updateDataPtr()), 7)
+	ud := unsafe.Slice((*uint32)(u.UpdateData), 7)
 	if memmap.Uint32(0x5D4594, 2488696) == 0 {
 		dt := gamedataFloat("PixieReturnTimeout")
 		*memmap.PtrUint32(0x5D4594, 2488696) = uint32(float64(s.TickRate()) * dt)
@@ -908,13 +908,13 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 	}
 	var owner *Object = u.OwnerC()
 	if u.Flags().Has(object.FlagEnabled) {
-		if s.Frame()-uint32(u.field_34) > s.TickRate()/4 {
+		if s.Frame()-uint32(u.Field34) > s.TickRate()/4 {
 			targ := nox_xxx_pixieFindTarget_533570(u)
 			*(**nox_object_t)(unsafe.Pointer(&ud[1])) = targ.CObj()
 			if targ == owner {
 				ud[1] = 0
 			}
-			u.field_34 = s.Frame()
+			u.Field34 = s.Frame()
 		}
 	} else {
 		ud[1] = 0
@@ -926,20 +926,20 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 		nox_xxx_pixieIdleAnimate_53CF90(u, targ.Pos().Sub(u.Pos()), 32)
 	} else {
 		_ = nox_xxx_maybeAnimatePixie_53D010
-		C.sub_518170(unsafe.Pointer(&u.x), 200.0, C.nox_xxx_maybeAnimatePixie_53D010, u.CObj())
+		C.sub_518170(unsafe.Pointer(&u.PosVecX), 200.0, C.nox_xxx_maybeAnimatePixie_53D010, u.CObj())
 		if owner != nil {
 			pos1, pos2 := u.Pos(), owner.Pos()
 			if MapTraceRay9(pos1, pos2) {
 				nox_xxx_pixieIdleAnimate_53CF90(u, pos2.Sub(pos1), 25)
 			}
 		} else {
-			pos1, pos2 := u.Pos(), types.Pointf{X: float32(u.float_39), Y: float32(u.float_40)}
+			pos1, pos2 := u.Pos(), types.Pointf{X: float32(u.Pos39X), Y: float32(u.Pos39Y)}
 			if MapTraceRay9(pos1, pos2) {
 				nox_xxx_pixieIdleAnimate_53CF90(u, pos2.Sub(pos1), 25)
 			}
 		}
 	}
-	u.float_28 = 0.9
+	u.Float28 = 0.9
 	cos, sin := sincosDir(byte(u.Dir2()))
 	u.setForce(types.Pointf{
 		X: cos * u.curSpeed(),
@@ -970,7 +970,7 @@ func nox_xxx_pixieIdleAnimate_53CF90(obj *Unit, vec types.Pointf, ddir int) {
 			dir += 256
 		}
 	}
-	obj.direction2 = uint16(dir)
+	obj.Direction2 = uint16(dir)
 }
 
 //export nox_xxx_maybeAnimatePixie_53D010
@@ -980,7 +980,7 @@ func nox_xxx_maybeAnimatePixie_53D010(cit *nox_object_t, cu *nox_object_t) {
 	if noxPixieObjID == 0 {
 		noxPixieObjID = noxServer.ObjectTypeID("Pixie")
 	}
-	if it.objTypeInd() != noxPixieObjID {
+	if int(it.TypeInd) != noxPixieObjID {
 		return
 	}
 	if it != u.AsObject() && u.OwnerC() == it.OwnerC() {
@@ -1008,13 +1008,13 @@ func nox_xxx_pixieFindTarget_533570(u *Unit) *Object {
 func nox_xxx_teleportAllPixies_4FD090(cobj *nox_object_t) {
 	u := asUnitC(cobj)
 	for it := u.FirstOwned516(); it != nil; it = it.NextOwned512() {
-		if it.objTypeInd() != noxPixieObjID {
+		if int(it.TypeInd) != noxPixieObjID {
 			continue
 		}
 		if it.Flags().HasAny(object.FlagDead) {
 			continue
 		}
-		if *(*uint32)(unsafe.Add(it.updateDataPtr(), 4)) == 0 {
+		if *(*uint32)(unsafe.Add(it.UpdateData, 4)) == 0 {
 			nox_xxx_teleportPixie_4FD050(it.AsUnit(), u.AsObject())
 		}
 	}
@@ -1049,7 +1049,7 @@ func nox_xxx_enemyAggro(self *Unit, r, max float32) *Object {
 		}
 		vec := it.Pos().Sub(self.Pos())
 		dist := float32(math.Sqrt(float64(vec.X*vec.X+vec.Y*vec.Y)) + 0.001)
-		cos, sin := sincosDir(byte(self.direction1))
+		cos, sin := sincosDir(byte(self.Direction1))
 		if !someFlag || vec.Y/dist*sin+vec.X/dist*cos > 0.5 {
 			dist2 := dist
 			if it.HasEnchant(server.ENCHANT_VILLAIN) {

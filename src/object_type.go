@@ -78,7 +78,7 @@ func sub_4E4C50(cobj *nox_object_t) int {
 	if item == nil {
 		return 0
 	}
-	typ := noxServer.ObjectTypeByInd(item.objTypeInd())
+	typ := noxServer.ObjectTypeByInd(int(item.TypeInd))
 	if typ == nil {
 		return 0
 	}
@@ -94,28 +94,28 @@ func sub_4F40A0(a1 *nox_object_t) C.char {
 	if obj.ID() != "" {
 		return -1
 	}
-	if obj.inv_first_item != nil {
+	if obj.InvFirstItem != nil {
 		return -1
 	}
-	if obj.field_129 != nil {
+	if obj.Field129 != nil {
 		return -1
 	}
-	if byte(obj.field_13) != 0 {
+	if byte(obj.Field13) != 0 {
 		return -1
 	}
-	typ := noxServer.ObjectTypeByInd(obj.objTypeInd())
+	typ := noxServer.ObjectTypeByInd(int(obj.TypeInd))
 	if (obj.Flags()^typ.Flags())&0x11408162 != 0 {
 		return -1
 	}
-	if (byte(obj.field_5)^byte(typ.Field9))&0x5E != 0 {
+	if (byte(obj.Field5)^byte(typ.Field9))&0x5E != 0 {
 		return -1
 	}
 	if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
-		v3 := GoString((*C.char)(obj.field_189))
+		v3 := GoString((*C.char)(obj.Field189))
 		if v3 != "" {
 			return -1
 		}
-	} else if noxflags.HasGame(noxflags.GameHost) && obj.field_192 != -1 {
+	} else if noxflags.HasGame(noxflags.GameHost) && obj.Field192 != -1 {
 		return -1
 	}
 	return 0
@@ -124,10 +124,10 @@ func sub_4F40A0(a1 *nox_object_t) C.char {
 //export sub_4E4C90
 func sub_4E4C90(a1 *nox_object_t, a2 uint) int {
 	obj := asObjectC(a1)
-	typ := noxServer.ObjectTypeByInd(obj.objTypeInd())
+	typ := noxServer.ObjectTypeByInd(int(obj.TypeInd))
 	switch a2 {
 	case 0x1:
-		return bool2int(obj.field_33 != 0)
+		return bool2int(obj.Field33 != 0)
 	case 0x2:
 		health := obj.healthData()
 		if health == nil {
@@ -138,17 +138,17 @@ func sub_4E4C90(a1 *nox_object_t, a2 uint) int {
 		}
 		return bool2int(typ.Health().Cur != health.Cur)
 	case 0x4:
-		return bool2int((uint32(obj.obj_flags)^uint32(typ.Flags())>>24)&1 != 0)
+		return bool2int(((obj.Flags()^typ.Flags())>>24)&1 != 0)
 	case 0x8:
-		return bool2int(typ.Field9 != uint32(obj.field_5))
+		return bool2int(typ.Field9 != uint32(obj.Field5))
 	case 0x40:
 		return bool2int(obj.Z() != 0.0)
 	case 0x80:
-		return bool2int(obj.buffs != 0)
+		return bool2int(obj.Buffs != 0)
 	case 0x200:
-		return bool2int(obj.obj_class&0x13001000 != 0)
+		return bool2int(obj.ObjClass&0x13001000 != 0)
 	case 0x400:
-		return bool2int(obj.obj_class&2 != 0 && obj.obj_subclass&0x30 != 0)
+		return bool2int(obj.ObjClass&2 != 0 && obj.ObjSubClass&0x30 != 0)
 	default:
 		return 0
 	}
@@ -272,60 +272,60 @@ func (s *Server) newObject(t *server.ObjectType) *Object {
 	if !obj.Flags().Has(object.FlagNoCollide) {
 		C.nox_xxx_objectUnkUpdateCoords_4E7290(obj.CObj())
 	}
-	obj.weight = t.Weight
-	obj.carry_capacity = uint16(t.CarryCap)
-	obj.speed_cur = t.Speed
-	obj.speed_2 = t.Speed2
-	obj.float_138 = t.Float33
-	obj.health_data = nil
-	obj.field_38 = -1
-	obj.typ_ind = uint16(t.Ind())
+	obj.Weight = t.Weight
+	obj.CarryCapacity = uint16(t.CarryCap)
+	obj.SpeedCur = t.Speed
+	obj.Speed2 = t.Speed2
+	obj.Float138 = t.Float33
+	obj.HealthData = nil
+	obj.Field38 = -1
+	obj.TypeInd = uint16(t.Ind())
 	if t.Health() != nil {
 		data, _ := alloc.New(server.HealthData{})
-		obj.health_data = data
+		obj.HealthData = data
 		*data = *t.Health()
 	}
-	obj.func_init = t.Init
+	obj.Init = t.Init
 	if t.InitDataSize != 0 {
 		data, _ := alloc.Make([]byte{}, t.InitDataSize)
-		obj.init_data = unsafe.Pointer(&data[0])
+		obj.InitData = unsafe.Pointer(&data[0])
 		copy(data, unsafe.Slice((*byte)(t.InitData), t.InitDataSize))
 	}
-	obj.func_collide = t.Collide
+	obj.Collide = t.Collide
 	if t.CollideDataSize != 0 {
 		data, _ := alloc.Make([]byte{}, t.CollideDataSize)
-		obj.collide_data = unsafe.Pointer(&data[0])
+		obj.CollideData = unsafe.Pointer(&data[0])
 		copy(data, unsafe.Slice((*byte)(t.CollideData), t.CollideDataSize))
 	}
-	obj.func_xfer = t.Xfer
-	obj.func_use = t.Use
+	obj.Xfer = t.Xfer
+	obj.Use = t.Use
 	if t.UseDataSize != 0 {
 		data, _ := alloc.Make([]byte{}, t.UseDataSize)
-		obj.use_data = unsafe.Pointer(&data[0])
+		obj.UseData = unsafe.Pointer(&data[0])
 		copy(data, unsafe.Slice((*byte)(t.UseData), t.UseDataSize))
 	}
-	obj.func_update = t.Update
+	obj.Update = t.Update
 	if t.UpdateDataSize != 0 {
 		data, _ := alloc.Make([]byte{}, t.UpdateDataSize)
-		obj.data_update = unsafe.Pointer(&data[0])
+		obj.UpdateData = unsafe.Pointer(&data[0])
 		copy(data, unsafe.Slice((*byte)(t.UpdateData), t.UpdateDataSize))
 	}
-	obj.func_pickup = t.Pickup
-	obj.func_drop = t.Drop
-	obj.func_damage = t.Damage
-	obj.func_damage_sound = t.DamageSound
-	obj.func_die = t.Death
-	obj.field_190 = 0
-	obj.die_data = t.DeathData
-	obj.field_192 = -1
-	if noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) && (obj.Class().HasAny(0x20A02) || unsafe.Pointer(obj.func_xfer) == unsafe.Pointer(C.nox_xxx_XFerInvLight_4F5AA0) || obj.weight != 0xff) {
-		obj.field_189, _ = alloc.Malloc(2572)
+	obj.Pickup = t.Pickup
+	obj.Drop = t.Drop
+	obj.Damage = t.Damage
+	obj.DamageSound = t.DamageSound
+	obj.Death = t.Death
+	obj.Field190 = 0
+	obj.DeathData = t.DeathData
+	obj.Field192 = -1
+	if noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) && (obj.Class().HasAny(0x20A02) || unsafe.Pointer(obj.Xfer) == unsafe.Pointer(C.nox_xxx_XFerInvLight_4F5AA0) || obj.Weight != 0xff) {
+		obj.Field189, _ = alloc.Malloc(2572)
 	}
 	if t.Create != nil {
 		C.nox_call_objectType_new_go((*[0]byte)(t.Create), obj.CObj())
 	}
 	if !noxflags.HasGame(noxflags.GameFlag22) {
-		obj.script_id = int(s.NextObjectScriptID())
+		obj.ScriptID = int(s.NextObjectScriptID())
 	}
 	if obj.Class().Has(object.ClassSimple) {
 		*memmap.PtrUint32(0x5D4594, 1563888)++
