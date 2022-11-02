@@ -427,7 +427,7 @@ func (s *Server) objectsNewAdd() {
 			if it.Flags().Has(object.FlagRespawn) && !noxflags.HasGame(noxflags.GameModeQuest) {
 				C.nox_xxx_respawnAdd_4EC5E0(it.CObj())
 			}
-			if it.Update != nil || it.VelVecX != 0.0 || it.VelVecY != 0.0 { // TODO: had a weird check: ... && *(*uint8)(&it.obj_class) >= 0
+			if it.Update != nil || it.VelVec != (types.Pointf{}) { // TODO: had a weird check: ... && *(*uint8)(&it.obj_class) >= 0
 				s.objs.addToUpdatable(it)
 			}
 			it.ObjNext = s.objs.list
@@ -553,11 +553,10 @@ func (s *Server) createObjectAt(a11 noxObject, owner noxObject, pos types.Pointf
 		return
 	}
 	obj.SetFlags(obj.Flags() & 0x35E9FEDB)
-	obj.setPrevPos(pos)
-	obj.setPos(pos)
-	obj.setNewPos(pos)
-	obj.Pos39X = pos.X
-	obj.Pos39Y = pos.Y
+	obj.PrevPos = pos
+	obj.PosVec = pos
+	obj.NewPos = pos
+	obj.Pos39 = pos
 	C.nox_xxx_objectUnkUpdateCoords_4E7290(obj.CObj())
 	if obj.Class().HasAny(object.MaskUnits) {
 		C.nox_xxx_unitPostCreateNotify_4E7F10(obj.CObj())
@@ -565,8 +564,8 @@ func (s *Server) createObjectAt(a11 noxObject, owner noxObject, pos types.Pointf
 	if owner != nil {
 		obj.SetOwner(owner.AsObject())
 	}
-	obj.setVel(types.Pointf{})
-	obj.setForce(types.Pointf{})
+	obj.VelVec = types.Pointf{}
+	obj.ForceVec = types.Pointf{}
 	obj.ObjFlags |= uint32(object.FlagActive)
 	obj.Field32 = s.Frame()
 	obj.Field34 = s.Frame()
@@ -645,18 +644,12 @@ type Object struct {
 	ScriptID      int                // 11, 44
 	Field12       uint32             // 12, 48
 	Field13       uint32             // 13, 52, // TODO: first byte is team?
-	PosVecX       float32            // 14, 56
-	PosVecY       float32            // 15, 60
-	NewPosX       float32            // 16, 64
-	NewPosY       float32            // 17, 68
-	PrevPosX      float32            // 18, 72
-	PrevPosY      float32            // 19, 76
-	VelVecX       float32            // 20, 80
-	VelVecY       float32            // 21, 84
-	ForceVecX     float32            // 22, 88
-	ForceVecY     float32            // 23, 92
-	Pos24X        float32            // 24, 96, // TODO: something related to acceleration/direction
-	Pos24Y        float32            // 25, 100, // TODO: something related to acceleration/direction
+	PosVec        types.Pointf       // 14, 56
+	NewPos        types.Pointf       // 16, 64
+	PrevPos       types.Pointf       // 18, 72
+	VelVec        types.Pointf       // 20, 80
+	ForceVec      types.Pointf       // 22, 88
+	Pos24         types.Pointf       // 24, 96, // TODO: something related to acceleration/direction
 	ZVal          float32            // 26, 104
 	Field27       uint32             // 27, 108
 	Float28       float32            // 28, 112, // TODO: damping/drag?
@@ -671,17 +664,14 @@ type Object struct {
 	Field36       uint32             // 36, 144
 	Field37       int                // 37, 148
 	Field38       int                // 38, 152
-	Pos39X        float32            // 39, 156
-	Pos39Y        float32            // 40, 160
+	Pos39         types.Pointf       // 39, 156
 	Field41       uint32             // 41, 164
 	Field42       uint32             // 42, 168
 	Shape         server.Shape       // 43, 172
 	ZSize1        float32            // 56, 224
 	ZSize2        float32            // 57, 228
-	CollideP1X    float32            // 58, 232
-	CollideP1Y    float32            // 59, 236
-	CollideP2X    float32            // 60, 240
-	CollideP2Y    float32            // 61, 244
+	CollideP1     types.Pointf       // 58, 232
+	CollideP2     types.Pointf       // 60, 240
 	Field62       uint32             // 62, 248
 	Field63       uint32             // 63, 252
 	Field64       uint32             // 64, 256
@@ -1103,30 +1093,21 @@ func (obj *Object) Pos() types.Pointf {
 	if obj == nil {
 		return types.Pointf{}
 	}
-	return types.Pointf{
-		X: obj.PosVecX,
-		Y: obj.PosVecY,
-	}
+	return obj.PosVec
 }
 
 func (obj *Object) Vel() types.Pointf {
 	if obj == nil {
 		return types.Pointf{}
 	}
-	return types.Pointf{
-		X: obj.VelVecX,
-		Y: obj.VelVecY,
-	}
+	return obj.VelVec
 }
 
 func (obj *Object) Force() types.Pointf {
 	if obj == nil {
 		return types.Pointf{}
 	}
-	return types.Pointf{
-		X: obj.ForceVecX,
-		Y: obj.ForceVecY,
-	}
+	return obj.ForceVec
 }
 
 func (obj *Object) Dir1() uint16 {
@@ -1155,20 +1136,6 @@ func (obj *Object) setAllDirs(dir uint16) {
 	obj.Direction2 = dir
 }
 
-func (obj *Object) prevPos() types.Pointf {
-	return types.Pointf{
-		X: obj.PrevPosX,
-		Y: obj.PrevPosY,
-	}
-}
-
-func (obj *Object) newPos() types.Pointf {
-	return types.Pointf{
-		X: obj.NewPosX,
-		Y: obj.NewPosY,
-	}
-}
-
 func (obj *Object) SetPos(p types.Pointf) {
 	cp, free := alloc.New(C.float2{})
 	defer free()
@@ -1177,35 +1144,9 @@ func (obj *Object) SetPos(p types.Pointf) {
 	C.nox_xxx_unitMove_4E7010(obj.CObj(), cp)
 }
 
-func (obj *Object) setPos(p types.Pointf) {
-	obj.PosVecX = p.X
-	obj.PosVecY = p.Y
-}
-
-func (obj *Object) setPrevPos(p types.Pointf) {
-	obj.PrevPosX = p.X
-	obj.PrevPosY = p.Y
-}
-
-func (obj *Object) setNewPos(p types.Pointf) {
-	obj.NewPosX = p.X
-	obj.NewPosY = p.Y
-}
-
-func (obj *Object) setVel(p types.Pointf) {
-	obj.VelVecX = p.X
-	obj.VelVecY = p.Y
-}
-
 // ApplyForce adds a new force vector to the object. If another force in effect, it will adds up.
 func (obj *Object) ApplyForce(p types.Pointf) {
-	obj.ForceVecX += p.X
-	obj.ForceVecY += p.Y
-}
-
-func (obj *Object) setForce(p types.Pointf) {
-	obj.ForceVecX = p.X
-	obj.ForceVecY = p.Y
+	obj.ForceVec = obj.ForceVec.Add(p)
 }
 
 func (obj *Object) Z() float32 {
@@ -1467,6 +1408,6 @@ func (obj *Object) dropAllItems() {
 
 func (obj *Object) sub548600(dp types.Pointf) {
 	mass := obj.Mass()
-	obj.Pos24X += dp.X / mass
-	obj.Pos24Y += dp.Y / mass
+	obj.Pos24.X += dp.X / mass
+	obj.Pos24.Y += dp.Y / mass
 }

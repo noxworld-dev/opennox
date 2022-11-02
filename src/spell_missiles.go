@@ -79,10 +79,10 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts 
 		mspeed := float32(noxRndCounter1.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.curSpeed()))
 		msl.SpeedCur = mspeed
 		msl.setAllDirs(dir)
-		msl.setVel(types.Pointf{
+		msl.VelVec = types.Pointf{
 			X: cvel.X + mspeed*cos*opts.VelMult,
 			Y: cvel.Y + mspeed*sin*opts.VelMult,
-		})
+		}
 		var ppos *types.Pointf
 		if caster.Class().Has(object.ClassPlayer) {
 			pl := caster.ControllingPlayer()

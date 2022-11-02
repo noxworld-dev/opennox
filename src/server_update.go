@@ -33,10 +33,10 @@ func (s *Server) updateUnitsCallUpdate() { // nox_xxx_updateUnits_51B100_callUpd
 		C.sub_537770(obj.CObj())
 		prev := obj.Pos()
 		obj.Direction1 = obj.Direction2
-		npos := obj.newPos()
-		obj.setPrevPos(prev)
-		obj.setPos(npos)
-		obj.setForce(types.Pointf{})
+		npos := obj.NewPos
+		obj.PrevPos = prev
+		obj.PosVec = npos
+		obj.ForceVec = types.Pointf{}
 		nox_xxx_moveUpdateSpecial_517970(obj.CObj())
 	}
 }

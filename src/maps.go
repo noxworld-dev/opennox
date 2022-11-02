@@ -535,7 +535,7 @@ func nox_server_mapRWObjectData_504CF0_Write(a2 unsafe.Pointer) error {
 		if obj.Class().Has(object.ClassWeapon) && obj.SubClass()&0x40 != 0 {
 			pos := obj.Pos()
 			v6 := obj.FirstItem()
-			v6.setPos(pos)
+			v6.PosVec = pos
 			nox_xxx_xfer_saveObj51DF90(v6)
 		} else if sub_4E3B80(C.int(obj.TypeInd)) != 0 && nox_xxx_xfer_saveObj51DF90(obj) == 0 {
 			return fmt.Errorf("cannot write upd object %s", obj.String())

@@ -140,10 +140,8 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 		return
 	}
 	if noxflags.HasGame(noxflags.GameModeQuest) && ud.Field70 != 0 {
-		u.ForceVecX = 0
-		u.ForceVecY = 0
-		u.VelVecX = 0
-		u.VelVecY = 0
+		u.ForceVec = types.Pointf{}
+		u.VelVec = types.Pointf{}
 	}
 	if noxflags.HasGame(noxflags.GameModeQuest) && ud.Field137 != 0 && asPlayerS(ud.Player).Index() != common.MaxPlayers-1 && (s.Frame()-ud.Field137 > (30 * s.TickRate())) {
 		sub_4DCFB0(u.CObj())
@@ -291,8 +289,8 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			}
 			// update force based on direction, speed, etc
 			cos, sin := sincosDir(byte(u.Direction2))
-			u.ForceVecX += cos * u.SpeedCur
-			u.ForceVecY += sin * u.SpeedCur
+			u.ForceVec.X += cos * u.SpeedCur
+			u.ForceVec.Y += sin * u.SpeedCur
 		}
 		if ud.Field22_0 == 0 {
 			v67, v69 := playerAnimGetFrameRange(4)
@@ -347,10 +345,9 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			ud.Field60 &^= 0x20
 			u.Field34 = s.Frame()
 			u.ObjFlags |= uint32(object.FlagShort | object.FlagAllowOverlap)
-			u.setVel(types.Pointf{})
-			u.setForce(types.Pointf{})
-			u.Pos24X = 0
-			u.Pos24Y = 0
+			u.VelVec = types.Pointf{}
+			u.ForceVec = types.Pointf{}
+			u.Pos24 = types.Pointf{}
 			s.scriptOnEvent(script.EventPlayerDeath)
 		}
 		return a1, v68, false
@@ -417,8 +414,8 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		}
 		if !found {
 			cos, sin := sincosDir(byte(u.Direction1))
-			u.ForceVecX = 2 * u.SpeedCur * cos
-			u.ForceVecY = 2 * u.SpeedCur * sin
+			u.ForceVec.X = 2 * u.SpeedCur * cos
+			u.ForceVec.Y = 2 * u.SpeedCur * sin
 		}
 		if v49 >= v67 {
 			// stop hovering after a jump?
@@ -823,8 +820,8 @@ func (obj *Object) applyForce(vec types.Pointf, force float64) { // nox_xxx_obje
 	f := 10.0 * float32(force) / obj.Mass()
 	// This weird conversion is how Nox is doing it.
 	// Be aware that changing it may cause minor deviation in physics.
-	obj.ForceVecX += float32(float64(dp.X) * float64(f) / float64(r))
-	obj.ForceVecY += float32(float64(dp.Y) * float64(f) / float64(r))
+	obj.ForceVec.X += float32(float64(dp.X) * float64(f) / float64(r))
+	obj.ForceVec.Y += float32(float64(dp.Y) * float64(f) / float64(r))
 	if !obj.Class().Has(object.ClassMissile) {
 		C.nox_xxx_unitHasCollideOrUpdateFn_537610(obj.CObj())
 	}
@@ -926,14 +923,14 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 		nox_xxx_pixieIdleAnimate_53CF90(u, targ.Pos().Sub(u.Pos()), 32)
 	} else {
 		_ = nox_xxx_maybeAnimatePixie_53D010
-		C.sub_518170(unsafe.Pointer(&u.PosVecX), 200.0, C.nox_xxx_maybeAnimatePixie_53D010, u.CObj())
+		C.sub_518170(unsafe.Pointer(&u.PosVec), 200.0, C.nox_xxx_maybeAnimatePixie_53D010, u.CObj())
 		if owner != nil {
 			pos1, pos2 := u.Pos(), owner.Pos()
 			if MapTraceRay9(pos1, pos2) {
 				nox_xxx_pixieIdleAnimate_53CF90(u, pos2.Sub(pos1), 25)
 			}
 		} else {
-			pos1, pos2 := u.Pos(), types.Pointf{X: float32(u.Pos39X), Y: float32(u.Pos39Y)}
+			pos1, pos2 := u.Pos(), u.Pos39
 			if MapTraceRay9(pos1, pos2) {
 				nox_xxx_pixieIdleAnimate_53CF90(u, pos2.Sub(pos1), 25)
 			}
@@ -941,10 +938,10 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 	}
 	u.Float28 = 0.9
 	cos, sin := sincosDir(byte(u.Dir2()))
-	u.setForce(types.Pointf{
+	u.ForceVec = types.Pointf{
 		X: cos * u.curSpeed(),
 		Y: sin * u.curSpeed(),
-	})
+	}
 	if (s.Frame()&8 == 0) && owner != nil {
 		if C.nox_xxx_mapCheck_537110(u.CObj(), owner.CObj()) == 1 {
 			ud[6] = s.Frame()
@@ -990,9 +987,9 @@ func nox_xxx_maybeAnimatePixie_53D010(cit *nox_object_t, cu *nox_object_t) {
 
 func nox_xxx_teleportPixie_4FD050(u *Unit, owner *Object) {
 	pos := owner.Pos()
-	u.setPos(pos)
-	u.setPrevPos(pos)
-	u.setNewPos(pos)
+	u.PosVec = pos
+	u.PrevPos = pos
+	u.NewPos = pos
 	nox_xxx_moveUpdateSpecial_517970(u.CObj())
 }
 
