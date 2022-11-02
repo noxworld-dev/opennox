@@ -108,7 +108,7 @@ func (a *abilityHarpoon) createBolt(u *Unit) {
 	if bolt == nil {
 		return
 	}
-	r := u.getShape().Circle.R + 1.0
+	r := u.Shape.Circle.R + 1.0
 	*(**nox_object_t)(unsafe.Add(bolt.CollideData, 4)) = u.CObj()
 	cos, sin := sincosDir(byte(u.Direction1))
 	hpos := u.Pos().Add(types.Pointf{
@@ -197,7 +197,7 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 	if targ.Flags().HasAny(object.FlagDestroyed|object.FlagDead) || targ == owner {
 		return
 	}
-	u5 := bolt.findOwnerChainPlayer()
+	u5 := bolt.FindOwnerChainPlayer()
 	if targ.callDamage(u5, bolt, a.damage, 11) == 0 || !(owner.isEnemyTo(targ) || checkGameplayFlags(1) && targ.Class().HasAny(object.MaskUnits)) {
 		C.nox_xxx_soundDefaultDamageSound_532E20(targ.CObj(), bolt.CObj())
 		a.breakForOwner(owner, false)

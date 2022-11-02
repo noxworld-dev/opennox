@@ -596,7 +596,7 @@ func scriptExecuteFnForObjectGroup(group *mapGroup, fn func(*Object)) {
 	case 0:
 		for item := group.FirstItem(); item != nil; item = item.Next() {
 			ind := item.Ind()
-			obj := noxServer.getObjectByInd(ind)
+			obj := noxServer.GetObjectByInd(ind)
 			if obj != nil {
 				fn(obj)
 			}
@@ -1280,7 +1280,7 @@ func nox_script_unlockDoor_512C20() int {
 
 	obj := s.PopObject()
 	if obj != nil && obj.Class().Has(object.ClassDoor) {
-		(*(*uint8)(unsafe.Add(obj.UpdateData, 1))) = 0
+		*(*uint8)(unsafe.Add(obj.UpdateData, 1)) = 0
 		nox_xxx_aud_501960(sound.SoundUnlock, obj.AsUnit(), 0, 0)
 	}
 	return 0
@@ -1291,7 +1291,7 @@ func nox_script_lockDoor_512C60() int {
 
 	obj := s.PopObject()
 	if obj != nil && obj.Class().Has(object.ClassDoor) {
-		(*(*uint8)(unsafe.Add(obj.UpdateData, 1))) = 5
+		*(*uint8)(unsafe.Add(obj.UpdateData, 1)) = 5
 		nox_xxx_aud_501960(sound.SoundLock, obj.AsUnit(), 0, 0)
 	}
 	return 0
@@ -1376,7 +1376,7 @@ func nox_script_floatToString_512ED0() int {
 func create_sub_512FE0(a20 *Object, dmg, unknown int) func(*Object) {
 	return func(obj *Object) {
 		if dmg > 0 {
-			owner := a20.findOwnerChainPlayer()
+			owner := a20.FindOwnerChainPlayer()
 			obj.callDamage(owner, a20, dmg, unknown)
 		}
 	}
@@ -2034,7 +2034,7 @@ func nox_script_GroupWalk_514170() int {
 	if mapGroup != nil {
 		// Unlike scriptExecuteFnForObjectGroup, it does not nest into child groups.
 		for item := mapGroup.FirstItem(); item != nil; item = item.Next() {
-			obj := noxServer.getObjectByInd(item.Ind())
+			obj := noxServer.GetObjectByInd(item.Ind())
 			if obj != nil {
 				obj.AsUnit().WalkTo(dstPoint)
 			}
@@ -2062,7 +2062,7 @@ func nox_script_SetOwnerGroup_5144C0() int {
 
 	if mapGroup != nil {
 		for item := mapGroup.FirstItem(); item != nil; item = item.Next() {
-			obj := noxServer.getObjectByInd(item.Ind())
+			obj := noxServer.GetObjectByInd(item.Ind())
 			if obj != nil {
 				C.nox_xxx_unitSetOwner_4EC290(v2.CObj(), obj.CObj())
 			}
@@ -2080,7 +2080,7 @@ func nox_script_SetOwners_514510() int {
 
 	if mapGroup != nil {
 		for item := mapGroup.FirstItem(); item != nil; item = item.Next() {
-			obj := noxServer.getObjectByInd(item.Ind())
+			obj := noxServer.GetObjectByInd(item.Ind())
 			if obj != nil {
 				C.nox_xxx_unitSetOwner_4EC290(obj.CObj(), v3.CObj())
 			}
@@ -2099,10 +2099,10 @@ func nox_script_SetOwnersGroup_514570() int {
 
 	if v2 != nil && v3 != nil {
 		for i := v2.FirstItem(); i != nil; i = i.Next() {
-			v6 := noxServer.getObjectByInd(i.Ind())
+			v6 := noxServer.GetObjectByInd(i.Ind())
 			if v6 != nil {
 				for j := v3.FirstItem(); j != nil; j = j.Next() {
-					v8 := noxServer.getObjectByInd(j.Ind())
+					v8 := noxServer.GetObjectByInd(j.Ind())
 					if v8 != nil {
 						C.nox_xxx_unitSetOwner_4EC290(v6.CObj(), v8.CObj())
 					}
@@ -2131,7 +2131,7 @@ func nox_script_IsOwnedByGroup_514630() int {
 	mapGroup := getMapGroupByInd(int(groupInd))
 	if mapGroup != nil {
 		for it := mapGroup.FirstItem(); it != nil; it = it.Next() {
-			item := noxServer.getObjectByInd(it.Ind())
+			item := noxServer.GetObjectByInd(it.Ind())
 			if !obj.HasOwner(item) {
 				s.PushI32(0)
 				return 0
@@ -2151,7 +2151,7 @@ func nox_script_IsOwnedByAny_5146B0() int {
 	mapGroup := getMapGroupByInd(int(groupInd))
 	if mapGroup != nil {
 		for it := mapGroup.FirstItem(); it != nil; it = it.Next() {
-			item := noxServer.getObjectByInd(it.Ind())
+			item := noxServer.GetObjectByInd(it.Ind())
 			if !item.HasOwner(obj) {
 				s.PushI32(0)
 				return 0
@@ -2175,10 +2175,10 @@ func nox_script_IsOwnedByAnyGroup_514730() int {
 		return 0
 	}
 	for iterB := groupB.FirstItem(); iterB != nil; iterB = iterB.Next() {
-		itemB := noxServer.getObjectByInd(iterB.Ind())
+		itemB := noxServer.GetObjectByInd(iterB.Ind())
 		if itemB != nil {
 			for iterA := groupA.FirstItem(); iterA != nil; iterA = iterA.Next() {
-				itemA := noxServer.getObjectByInd(iterA.Ind())
+				itemA := noxServer.GetObjectByInd(iterA.Ind())
 				if itemA != nil {
 					if !itemA.HasOwner(itemB) {
 						s.PushI32(0)

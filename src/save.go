@@ -448,14 +448,14 @@ func nox_xxx_SavePlayerDataFromClient_41CD70(path string, data []byte) bool {
 func sub_4DB9C0() {
 	s := noxServer
 	var next *Object
-	for it := s.firstServerObject(); it != nil; it = next {
+	for it := s.FirstServerObject(); it != nil; it = next {
 		next = it.Next()
 		if C.nox_xxx_isUnit_4E5B50(it.CObj()) != 0 {
 			it.Delete()
 		}
 	}
 	next = nil
-	for it := s.objs.updatableList2; it != nil; it = next {
+	for it := s.Objs.UpdatableList2; it != nil; it = next {
 		next = it.Next()
 		if C.sub_4E5B80(it.CObj()) != 0 {
 			it.Delete()

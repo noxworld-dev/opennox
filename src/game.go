@@ -1164,10 +1164,10 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	v2 := s.getServerMap()
 	C.sub_500510(internCStr(v2))
 	C.nox_xxx_mapSwitchLevel_4D12E0(1)
-	for _, obj := range s.getObjects() {
+	for _, obj := range s.GetObjects() {
 		obj.SetFlags(obj.Flags() | object.FlagMarked)
 	}
-	for _, obj := range s.getObjectsUpdatable2() {
+	for _, obj := range s.GetObjectsUpdatable2() {
 		obj.SetFlags(obj.Flags() | object.FlagMarked)
 	}
 	if noxflags.HasGame(noxflags.GameModeCoop) {
@@ -1256,7 +1256,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		flagN   int
 		ballN   int
 	}
-	for _, v22 := range s.getObjects() {
+	for _, v22 := range s.GetObjects() {
 		if v22.Class().Has(0x10000000) {
 			v22.Field34 = 0
 			C.dword_5d4594_1548532 = unsafe.Pointer(v22.CObj())
@@ -1295,9 +1295,9 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 			val = strings.TrimSpace(val)
 			if sub := strings.Fields(val); len(sub) >= 2 {
 				ind1, _ := strconv.Atoi(sub[0])
-				obj1 := s.getObjectByInd(ind1)
+				obj1 := s.GetObjectByInd(ind1)
 				ind2, _ := strconv.Atoi(sub[1])
-				obj2 := s.getObjectByInd(ind2)
+				obj2 := s.GetObjectByInd(ind2)
 				if obj1 != nil && obj2 != nil {
 					s.springs.Add(obj1, obj2)
 				}
@@ -1306,7 +1306,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 			val = strings.TrimSpace(val)
 			if sub := strings.Fields(val); len(sub) >= 3 {
 				v34, _ := strconv.Atoi(sub[0])
-				if v35 := s.getObjectByInd(v34).AsUnit(); v35 != nil {
+				if v35 := s.GetObjectByInd(v34).AsUnit(); v35 != nil {
 					v36 := unsafe.Slice((*float32)(v35.UpdateData), 3)
 					v38, _ := strconv.ParseFloat(sub[1], 64)
 					v36[0] = float32(v38 * memmap.Float64(0x581450, 10008))
@@ -1371,10 +1371,10 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		sub_4DCBF0(0)
 	}
 	_ = object.FlagMarked
-	for _, obj := range s.getObjects() {
+	for _, obj := range s.GetObjects() {
 		obj.SetFlags(obj.Flags() & 0x7FFFFFFF)
 	}
-	for _, obj := range s.getObjectsUpdatable2() {
+	for _, obj := range s.GetObjectsUpdatable2() {
 		obj.SetFlags(obj.Flags() & 0x7FFFFFFF)
 	}
 	if noxflags.HasGame(noxflags.GameModeKOTR) && checkGameplayFlags(4) {
@@ -1836,7 +1836,7 @@ func nox_xxx_mapTraceObstacles(from *Unit, p1, p2 types.Pointf) bool { // nox_xx
 			return
 		}
 		pos := obj.Pos()
-		sh := obj.getShape()
+		sh := &obj.Shape
 		switch sh.Kind {
 		case server.ShapeKindCircle:
 			a3p, a3Free := alloc.Malloc(8)

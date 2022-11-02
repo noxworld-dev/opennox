@@ -129,7 +129,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	s := noxServer
 	u := asUnitC(up)
 	ud := u.UpdateDataPlayer()
-	h := u.healthData()
+	h := u.HealthData
 	for i := 0; i < 4; i++ {
 		p := asObjectS(ud.Field29[i])
 		if p != nil && p.Flags().Has(object.FlagDestroyed) {
@@ -154,7 +154,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 		if ud.Field19_0 != 0 {
 			v2 = 1000 * (int(ud.Field19_0) - int(h.Cur)) / int(ud.Field19_0)
 		}
-		ud.Field19_0 = uint16(h.Cur)
+		ud.Field19_0 = h.Cur
 		if v2 > 0 {
 			ud.Field19_1 = 7
 		}
@@ -833,7 +833,7 @@ func nox_xxx_aud_501960(snd sound.ID, u *Unit, a3, a4 int) {
 
 func playerSuddedDeath4F9E70(u *Unit) {
 	v1 := memmap.Uint32(0x5D4594, 1392)
-	h := u.healthData()
+	h := u.HealthData
 	if !u.Flags().Has(object.FlagDead) && h != nil && h.Cur != 0 && (noxServer.Frame()%(v1*noxServer.TickRate()/uint32(h.Max))) == 0 {
 		C.nox_xxx_unitDamageClear_4EE5E0(u.CObj(), 1)
 	}
@@ -842,11 +842,11 @@ func playerSuddedDeath4F9E70(u *Unit) {
 func sub_4F9ED0(u *Unit) {
 	s := u.getServer()
 	ud := u.UpdateDataPlayer()
-	h := u.healthData()
+	h := u.HealthData
 	if u.Flags().Has(object.FlagDead) {
 		return
 	}
-	if h != nil && (s.Frame()-uint32(u.Field134)) > s.TickRate() {
+	if h != nil && (s.Frame()-u.Field134) > s.TickRate() {
 		if h.Cur < h.Max && h.Max != 0 && (s.Frame()%(300*s.TickRate()/uint32(h.Max))) == 0 {
 			C.nox_xxx_unitAdjustHP_4EE460(u.CObj(), 1)
 		}
@@ -905,7 +905,7 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 	}
 	var owner *Object = u.OwnerC()
 	if u.Flags().Has(object.FlagEnabled) {
-		if s.Frame()-uint32(u.Field34) > s.TickRate()/4 {
+		if s.Frame()-u.Field34 > s.TickRate()/4 {
 			targ := nox_xxx_pixieFindTarget_533570(u)
 			*(**nox_object_t)(unsafe.Pointer(&ud[1])) = targ.CObj()
 			if targ == owner {

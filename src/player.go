@@ -959,7 +959,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	pl.netCode = C.uint(punit.NetCode)
 	pl.field_2156 = C.uint(C.nox_xxx_scavengerTreasureMax_4D1600())
 	udata := punit.UpdateDataPlayer()
-	h := punit.healthData()
+	h := punit.HealthData
 	udata.Player = pl.S()
 	pl.prot_unit_hp_cur = C.uint(protectUint16(h.Cur))
 	pl.prot_unit_hp_max = C.uint(protectUint16(h.Max))
