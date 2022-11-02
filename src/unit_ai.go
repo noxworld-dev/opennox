@@ -279,7 +279,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 				ud.Field360 &= 0xFFDFFFFF
 			}
 		case ai.DEPENDENCY_NOT_MOVED:
-			ok = u.Pos() == u.prevPos()
+			ok = u.Pos() == u.PrevPos
 		}
 		if !isOR {
 			if ok {

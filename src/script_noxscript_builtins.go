@@ -1676,7 +1676,7 @@ func nox_script_pushObject_5137D0() int {
 		force := obj.Force()
 		force.X += dx
 		force.Y += dy
-		obj.setForce(force)
+		obj.ForceVec = force
 	}
 	return 0
 }

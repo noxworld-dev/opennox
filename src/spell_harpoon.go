@@ -115,8 +115,8 @@ func (a *abilityHarpoon) createBolt(u *Unit) {
 		X: r * cos, Y: r * sin,
 	})
 	a.s.createObjectAt(bolt, u, hpos)
-	bolt.VelVecX = cos * bolt.SpeedCur
-	bolt.VelVecY = sin * bolt.SpeedCur
+	bolt.VelVec.X = cos * bolt.SpeedCur
+	bolt.VelVec.Y = sin * bolt.SpeedCur
 	dir := u.Direction1
 	bolt.Direction1 = dir
 	bolt.Direction2 = dir
@@ -189,7 +189,7 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 		a.damage = int(gamedataFloat("HarpoonDamage"))
 	}
 	if targ == nil {
-		npos := bolt.newPos()
+		npos := bolt.NewPos
 		C.nox_xxx_damageToMap_534BC0(C.int(npos.X/common.GridStep), C.int(npos.Y/common.GridStep), C.int(a.damage), 11, bolt.CObj())
 		a.breakForOwner(owner, false)
 		return
@@ -259,7 +259,7 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 			}
 		} else {
 			vel := obj4.Pos().Sub(bolt.Pos())
-			bolt.setVel(vel.Normalize().Mul(float32(bolt.SpeedCur)))
+			bolt.VelVec = vel.Normalize().Mul(bolt.SpeedCur)
 		}
 	}
 	dist := nox_xxx_calcDistance_4E6C00(bolt, owner)
@@ -296,11 +296,11 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 			a.breakForOwner(owner, true)
 			return
 		}
-		bolt.setNewPos(tpos)
-		bolt.setPos(tpos)
-		bolt.setPrevPos(tpos)
-		bolt.setVel(types.Pointf{})
-		bolt.setForce(types.Pointf{})
+		bolt.NewPos = tpos
+		bolt.PosVec = tpos
+		bolt.PrevPos = tpos
+		bolt.VelVec = types.Pointf{}
+		bolt.ForceVec = types.Pointf{}
 		bolt.Direction1 = targ.Direction1
 		nox_xxx_moveUpdateSpecial_517970(bolt.CObj())
 	} else if dist > a.maxFlight {

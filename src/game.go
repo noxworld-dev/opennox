@@ -1842,7 +1842,7 @@ func nox_xxx_mapTraceObstacles(from *Unit, p1, p2 types.Pointf) bool { // nox_xx
 			a3p, a3Free := alloc.Malloc(8)
 			defer a3Free()
 			a3 := unsafe.Slice((*float32)(a3p), 2)
-			if C.nox_xxx_mathPointOnTheLine_57C8A0((*C.float4)(pp), (*C.float2)(unsafe.Pointer(&obj.PosVecX)), (*C.float2)(a3p)) != 0 {
+			if C.nox_xxx_mathPointOnTheLine_57C8A0((*C.float4)(pp), (*C.float2)(unsafe.Pointer(&obj.PosVec)), (*C.float2)(a3p)) != 0 {
 				dx := a3[0] - pos.X
 				dy := a3[1] - pos.Y
 				if dy*dy+dx*dx <= sh.Circle.R2 {
