@@ -416,7 +416,7 @@ func sub_42BFE0() {
 			last++
 		}
 	}
-	for it := s.objs.list; it != nil; it = it.Next() {
+	for it := s.Objs.List; it != nil; it = it.Next() {
 		checkInd(it.TypeInd)
 		for it2 := it.FirstItem(); it2 != nil; it2 = it2.NextItem() {
 			checkInd(it2.TypeInd)
@@ -425,13 +425,13 @@ func sub_42BFE0() {
 			checkTypesMonsterGen(it, checkInd)
 		}
 	}
-	for it := s.objs.pending; it != nil; it = it.Next() {
+	for it := s.Objs.Pending; it != nil; it = it.Next() {
 		checkInd(it.TypeInd)
 		if it.Class().Has(object.ClassMonsterGenerator) {
 			checkTypesMonsterGen(it, checkInd)
 		}
 	}
-	for it := s.objs.updatableList2; it != nil; it = it.Next() {
+	for it := s.Objs.UpdatableList2; it != nil; it = it.Next() {
 		checkInd(it.TypeInd)
 	}
 	if !noxflags.HasGame(noxflags.GameFlag22) && noxflags.HasGame(noxflags.GameHost) &&

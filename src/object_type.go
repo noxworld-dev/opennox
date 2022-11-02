@@ -129,7 +129,7 @@ func sub_4E4C90(a1 *nox_object_t, a2 uint) int {
 	case 0x1:
 		return bool2int(obj.Field33 != 0)
 	case 0x2:
-		health := obj.healthData()
+		health := obj.HealthData
 		if health == nil {
 			return 0
 		}
@@ -140,7 +140,7 @@ func sub_4E4C90(a1 *nox_object_t, a2 uint) int {
 	case 0x4:
 		return bool2int(((obj.Flags()^typ.Flags())>>24)&1 != 0)
 	case 0x8:
-		return bool2int(typ.Field9 != uint32(obj.Field5))
+		return bool2int(typ.Field9 != obj.Field5)
 	case 0x40:
 		return bool2int(obj.Z() != 0.0)
 	case 0x80:
@@ -268,7 +268,7 @@ func (s *Server) newObject(t *server.ObjectType) *Object {
 		zsize2:       C.float(t.ZSize2),
 	}
 	obj := asObjectC(cobj)
-	*obj.getShape() = t.Shape
+	obj.Shape = t.Shape
 	if !obj.Flags().Has(object.FlagNoCollide) {
 		C.nox_xxx_objectUnkUpdateCoords_4E7290(obj.CObj())
 	}

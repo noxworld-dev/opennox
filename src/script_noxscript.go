@@ -332,7 +332,7 @@ func (s *noxScript) scriptToObject(val int) *Object {
 		return obj
 	}
 
-	for obj := s.s.objs.list; obj != nil; obj = obj.Next() {
+	for obj := s.s.Objs.List; obj != nil; obj = obj.Next() {
 		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID == val {
 			C.nox_xxx_scriptPrepareFoundUnit_511D70(obj.CObj())
 			return obj
@@ -344,7 +344,7 @@ func (s *noxScript) scriptToObject(val int) *Object {
 			}
 		}
 	}
-	for obj := s.s.objs.pending; obj != nil; obj = obj.Next() {
+	for obj := s.s.Objs.Pending; obj != nil; obj = obj.Next() {
 		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID == val {
 			C.nox_xxx_scriptPrepareFoundUnit_511D70(obj.CObj())
 			return obj
@@ -409,7 +409,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 		if noxClient.r.FadeOutCinema(perc, fadeOutDur, color.Black) {
 			sub_477530(false)
 		}
-		for it := s.firstServerObject(); it != nil; it = it.Next() {
+		for it := s.FirstServerObject(); it != nil; it = it.Next() {
 			if int(it.TypeInd) == nox_script_objTelekinesisHand {
 				if f := it.Flags(); f.Has(object.FlagNoCollide) {
 					it.SetFlags(f &^ object.FlagNoCollide)
@@ -434,7 +434,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 	}
 
 	var next *Object
-	for it := s.objs.updatableList2; it != nil; it = next {
+	for it := s.Objs.UpdatableList2; it != nil; it = next {
 		next = it.Next()
 		if int(it.TypeInd) != int(memmap.Uint32(0x5D4594, 2386900)) {
 			it.Delete()
@@ -442,7 +442,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 	}
 
 	next = nil
-	for it := s.firstServerObject(); it != nil; it = next {
+	for it := s.FirstServerObject(); it != nil; it = next {
 		next = it.Next()
 		if it.OwnerC() != nil {
 			for _, id := range nox_script_objCinemaRemove {

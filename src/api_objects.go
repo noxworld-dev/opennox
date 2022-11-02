@@ -98,7 +98,7 @@ func init() {
 		qu := r.URL.Query()
 		indStr := qu.Get("ind")
 		if indStr == "" {
-			writeJSONResp(w, noxServer.getObjects())
+			writeJSONResp(w, noxServer.GetObjects())
 			return
 		}
 		ind, err := strconv.ParseInt(indStr, 10, 32)
@@ -106,7 +106,7 @@ func init() {
 			http.Error(w, "Bad index", http.StatusBadRequest)
 			return
 		}
-		obj := noxServer.getObjectByInd(int(ind))
+		obj := noxServer.GetObjectByInd(int(ind))
 		if obj == nil {
 			http.Error(w, "Not found", http.StatusFound)
 			return

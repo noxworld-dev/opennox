@@ -858,7 +858,7 @@ func nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo noxObject, sflags thin
 		center = *pos
 	}
 	dist2 := dist * dist
-	owner := msl.findOwnerChainPlayer()
+	owner := msl.FindOwnerChainPlayer()
 	rect := types.Rectf{
 		Left:   center.X - dist,
 		Top:    center.Y - dist,
@@ -888,7 +888,7 @@ func nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo noxObject, sflags thin
 		if it.Class().Has(object.ClassMonster) && (it.SubClass()&0x4000 != 0) {
 			return
 		}
-		it.findOwnerChainPlayer() // FIXME: result unused!
+		it.FindOwnerChainPlayer() // FIXME: result unused!
 		if sflags.Has(things.SpellOffensive) && !msl.isEnemyTo(it) {
 			return
 		}

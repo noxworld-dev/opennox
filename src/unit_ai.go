@@ -120,7 +120,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			ok = st.ArgU32(0) > a.s.Frame()
 		case ai.DEPENDENCY_ALIVE:
 			obj := aiStackArgObj(st, 0)
-			h := obj.healthData()
+			h := obj.HealthData
 			if obj == nil || !obj.Class().HasAny(object.MaskUnits) || (h.Cur == 0) && h.Max != 0 {
 				ok = false
 				ud.Field97 = 0
@@ -243,7 +243,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			enemy := asUnitS(ud.CurrentEnemy)
 			ok = enemy != nil && nox_xxx_calcDistance_4E6C00(u, enemy) <= st.ArgF32(0)
 		case ai.DEPENDENCY_NOT_HEALTHY:
-			h := u.healthData()
+			h := u.HealthData
 			perc := float32(1.0)
 			if h.Max != 0 {
 				perc = float32(h.Cur) / float32(h.Max)
@@ -333,7 +333,7 @@ func sub_545E60(a1c *nox_object_t) C.int {
 	s := u.getServer()
 
 	ud := u.UpdateDataMonster()
-	ts := uint32(u.Field134)
+	ts := u.Field134
 	if ud.Field129 >= ts || s.Frame()-ts >= 10*s.TickRate() {
 		return 0
 	}
@@ -562,7 +562,7 @@ func (a *aiData) checkSoundThreshold(flags, perc int) bool {
 
 func (a *aiData) shouldUnitListen(u *Unit, lis *MonsterListen) bool {
 	ud := u.UpdateDataMonster()
-	punit := lis.obj.findOwnerChainPlayer()
+	punit := lis.obj.FindOwnerChainPlayer()
 	flags := getSoundFlags(lis.snd)
 	if ud.Field101 > a.s.Frame() {
 		return false
@@ -603,14 +603,14 @@ func (a *aiData) nox_xxx_unitEmitHearEvent_50D110(u *Unit, lis *MonsterListen, d
 	ud.Field101 = a.s.Frame()
 	ud.Field102 = uint32(dist)
 	if lis.obj != nil {
-		ud.Field98 = uint32(lis.obj.NetCode)
+		ud.Field98 = lis.obj.NetCode
 	} else {
 		ud.Field98 = 0
 	}
 	ud.Field99X = lis.pos.X
 	ud.Field99Y = lis.pos.Y
 	a.lastHeard = lis.pos
-	obj5 := lis.obj.findOwnerChainPlayer()
+	obj5 := lis.obj.FindOwnerChainPlayer()
 	// EventID 16 is MonsterHearsEnemy
 	C.nox_xxx_scriptCallByEventBlock_502490((*C.int)(unsafe.Pointer(&ud.Field320)), C.int(uintptr(unsafe.Pointer(obj5.CObj()))), C.int(uintptr(unsafe.Pointer(u.CObj()))), 16)
 }

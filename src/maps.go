@@ -517,7 +517,7 @@ func nox_server_mapRWObjectData_504CF0_Read(a2 unsafe.Pointer, v16 unsafe.Pointe
 
 func nox_server_mapRWObjectData_504CF0_Write(a2 unsafe.Pointer) error {
 	s := noxServer
-	for it := s.firstServerObject(); it != nil; it = it.Next() {
+	for it := s.FirstServerObject(); it != nil; it = it.Next() {
 		pos := it.Pos()
 		if a2 == nil || sub_4280E0(image.Point{X: int(pos.X), Y: int(pos.Y)}, a2) {
 			if sub_4E3B80(C.int(it.TypeInd)) != 0 && nox_xxx_xfer_saveObj51DF90(it) == 0 {
@@ -525,7 +525,7 @@ func nox_server_mapRWObjectData_504CF0_Write(a2 unsafe.Pointer) error {
 			}
 		}
 	}
-	for obj := s.objs.updatableList2; obj != nil; obj = obj.Next() {
+	for obj := s.Objs.UpdatableList2; obj != nil; obj = obj.Next() {
 		if a2 != nil {
 			pos := obj.Pos()
 			if !sub_4280E0(image.Point{X: int(pos.X), Y: int(pos.Y)}, a2) {

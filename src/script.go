@@ -116,7 +116,7 @@ func (s noxScriptImpl) ObjectTypeByID(id string) script.ObjectType {
 }
 
 func (s noxScriptImpl) ObjectByID(id string) script.Object {
-	obj := s.s.getObjectByID(id)
+	obj := s.s.GetObjectByID(id)
 	if obj == nil {
 		return nil
 	}

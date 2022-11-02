@@ -153,7 +153,7 @@ func (u *Unit) SetMaxHealth(v int) {
 	if v < 0 {
 		v = 0
 	}
-	h := u.healthData()
+	h := u.HealthData
 	if h == nil {
 		return
 	}
