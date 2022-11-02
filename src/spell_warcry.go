@@ -11,6 +11,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/spell"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func nox_xxx_warriorWarcry_53FF40(u *Unit) {
@@ -64,8 +65,8 @@ func nox_xxx_warriorWarcry_53FF40(u *Unit) {
 			}
 		}
 	})
-	u.DisableEnchant(ENCHANT_INVISIBLE)
-	u.DisableEnchant(ENCHANT_INVULNERABLE)
+	u.DisableEnchant(server.ENCHANT_INVISIBLE)
+	u.DisableEnchant(server.ENCHANT_INVULNERABLE)
 	nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_OVAL_SHIELD, u)
 	s.abilities.netAbilReportActive(u, AbilityWarcry, true)
 }

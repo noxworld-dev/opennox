@@ -117,6 +117,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/server"
 
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
@@ -1489,7 +1490,7 @@ func nox_script_enchant_5132E0() int {
 	v5 := s.PopF32()
 	v8 := s.PopString()
 	v3 := s.PopObject()
-	id, ok := enchantByName[v8]
+	id, ok := server.ParseEnchant(v8)
 	if ok {
 		if v3 != nil {
 			dur := int(float32(s.s.TickRate()) * v5)
@@ -1902,7 +1903,7 @@ func nox_script_TestBuffs_513C70() int {
 
 	enchantName := s.PopString()
 	obj := s.PopObject()
-	enchantId, ok := enchantByName[enchantName]
+	enchantId, ok := server.ParseEnchant(enchantName)
 	if obj != nil && ok {
 		hasEnchant := obj.HasEnchant(enchantId)
 		s.PushI32(int32(bool2int(hasEnchant)))
@@ -1934,7 +1935,7 @@ func nox_script_cancelBuff_513D00() int {
 
 	enchantName := s.PopString()
 	obj := s.PopObject()
-	enchantId, ok := enchantByName[enchantName]
+	enchantId, ok := server.ParseEnchant(enchantName)
 	if ok && obj != nil {
 		obj.DisableEnchant(enchantId)
 	}

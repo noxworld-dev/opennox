@@ -238,7 +238,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 		case ai.DEPENDENCY_UNINTERRUPTABLE:
 			return
 		case ai.DEPENDENCY_IS_ENCHANTED:
-			ok = u.HasEnchant(EnchantID(st.Args[0]))
+			ok = u.HasEnchant(server.EnchantID(st.Args[0]))
 		case ai.DEPENDENCY_ENEMY_CLOSER_THAN:
 			enemy := asUnitS(ud.CurrentEnemy)
 			ok = enemy != nil && nox_xxx_calcDistance_4E6C00(u, enemy) <= st.ArgF32(0)

@@ -95,7 +95,7 @@ func (s *Drawable) Flags30() uint {
 	return uint(s.flags30)
 }
 
-func (s *Drawable) HasEnchant(v EnchantID) bool { // nox_client_drawable_testBuff_4356C0
+func (s *Drawable) HasEnchant(v server.EnchantID) bool { // nox_client_drawable_testBuff_4356C0
 	if s == nil || v >= 32 {
 		return false
 	}

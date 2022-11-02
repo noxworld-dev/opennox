@@ -219,7 +219,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	if oa1, ov68, ok := s.unitUpdatePlayerImplA(u); ok {
 		s.unitUpdatePlayerImplB(u, oa1, ov68)
 	}
-	if u.HasEnchant(ENCHANT_RUN) && ud.Field22_0 != 1 {
+	if u.HasEnchant(server.ENCHANT_RUN) && ud.Field22_0 != 1 {
 		nox_xxx_playerSetState_4FA020(u, 5)
 	}
 	C.nox_xxx_questCheckSecretArea_421C70(u.CObj())
@@ -286,7 +286,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			}
 		}
 		if C.sub_4F9AB0(u.CObj()) == 0 {
-			if u.HasEnchant(ENCHANT_CONFUSED) {
+			if u.HasEnchant(server.ENCHANT_CONFUSED) {
 				u.direction2 = C.ushort(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
 			}
 			// update force based on direction, speed, etc
@@ -605,7 +605,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 		}
 		switch it.code {
 		case player.CCOrientation:
-			if !u.HasEnchant(ENCHANT_FREEZE) &&
+			if !u.HasEnchant(server.ENCHANT_FREEZE) &&
 				(!noxflags.HasGame(noxflags.GameModeQuest) || ud.Field70 == 0) &&
 				!s.abilities.IsActive(u, AbilityBerserk) {
 				u.direction2 = C.ushort(it.Uint16())
@@ -666,7 +666,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				}
 				nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 13, 3)
 			} else if C.nox_xxx_playerSubStamina_4F7D30(u.CObj(), 90) != 0 {
-				if u.HasEnchant(ENCHANT_CONFUSED) {
+				if u.HasEnchant(server.ENCHANT_CONFUSED) {
 					u.direction2 = C.ushort(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
 				}
 				u.obj_flags |= 0x4000
@@ -1052,7 +1052,7 @@ func nox_xxx_enemyAggro(self *Unit, r, max float32) *Object {
 		cos, sin := sincosDir(byte(self.direction1))
 		if !someFlag || vec.Y/dist*sin+vec.X/dist*cos > 0.5 {
 			dist2 := dist
-			if it.HasEnchant(ENCHANT_VILLAIN) {
+			if it.HasEnchant(server.ENCHANT_VILLAIN) {
 				dist2 /= 3
 			}
 			if dist2 < min {

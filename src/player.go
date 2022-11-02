@@ -656,7 +656,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 		C.sub_40A970()
 	}
 	nox_xxx_netInformTextMsg_4DA0F0(p.Index(), 12, bool2int(notify))
-	u.ApplyEnchant(ENCHANT_INVISIBLE, 0, 5)
+	u.ApplyEnchant(server.ENCHANT_INVISIBLE, 0, 5)
 	u.obj_flags |= C.uint(object.FlagNoCollide)
 	p.setPos3632(u.Pos())
 	p.CameraUnlock()

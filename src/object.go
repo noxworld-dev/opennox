@@ -863,35 +863,35 @@ func (obj *Object) GetOwned516() []*Object {
 	return out
 }
 
-func (obj *Object) HasEnchant(v EnchantID) bool { // nox_xxx_testUnitBuffs_4FF350
+func (obj *Object) HasEnchant(v server.EnchantID) bool { // nox_xxx_testUnitBuffs_4FF350
 	if obj == nil || v >= 32 {
 		return false
 	}
 	return uint32(obj.buffs)&(uint32(1)<<v) != 0
 }
 
-func (obj *Object) EnchantDur(v EnchantID) int { // nox_xxx_unitGetBuffTimer_4FF550
+func (obj *Object) EnchantDur(v server.EnchantID) int { // nox_xxx_unitGetBuffTimer_4FF550
 	if obj == nil || v >= 32 {
 		return 0
 	}
 	return int(obj.buffs_dur[v])
 }
 
-func (obj *Object) EnchantPower(v EnchantID) int { // nox_xxx_buffGetPower_4FF570
+func (obj *Object) EnchantPower(v server.EnchantID) int { // nox_xxx_buffGetPower_4FF570
 	if obj == nil || v >= 32 {
 		return 0
 	}
 	return int(obj.buffs_dur[v])
 }
 
-func (obj *Object) ApplyEnchant(v EnchantID, dur, power int) { // nox_xxx_buffApplyTo_4FF380
+func (obj *Object) ApplyEnchant(v server.EnchantID, dur, power int) { // nox_xxx_buffApplyTo_4FF380
 	if obj == nil || v >= 32 {
 		return
 	}
 	C.nox_xxx_buffApplyTo_4FF380(obj.CObj(), C.int(v), C.short(dur), C.char(power))
 }
 
-func (obj *Object) DisableEnchant(v EnchantID) { // nox_xxx_spellBuffOff_4FF5B0
+func (obj *Object) DisableEnchant(v server.EnchantID) { // nox_xxx_spellBuffOff_4FF5B0
 	if obj == nil || v >= 32 {
 		return
 	}
@@ -1219,7 +1219,7 @@ func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_533
 	if obj.Class().HasAny(2) && (obj.SubClass()&0x8 != 0) {
 		return false
 	}
-	if obj.HasEnchant(ENCHANT_CHARMING) || obj2.HasEnchant(ENCHANT_CHARMING) {
+	if obj.HasEnchant(server.ENCHANT_CHARMING) || obj2.HasEnchant(server.ENCHANT_CHARMING) {
 		return false
 	}
 	if obj2.Class().HasAny(object.ClassPlayer) {
