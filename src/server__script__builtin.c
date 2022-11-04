@@ -743,26 +743,6 @@ int nox_script_StartDialog_514ED0() {
 	return 0;
 }
 
-//----- (005154A0) --------------------------------------------------------
-int nox_script_GetElevatorStat_5154A0() {
-	int v0; // esi
-	int v1; // eax
-	int v2; // eax
-	int v3; // ecx
-
-	v0 = -1;
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
-	if (v2) {
-		v3 = *(uint32_t*)(v2 + 8);
-		if (v3 & 0x4000) {
-			v0 = *(unsigned char*)(*(uint32_t*)(v2 + 748) + 12);
-		}
-	}
-	nox_script_push(v0);
-	return 0;
-}
-
 //----- (00515550) --------------------------------------------------------
 int nox_script_JournalDelete_515550() {
 	int v0; // esi
