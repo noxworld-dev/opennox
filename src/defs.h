@@ -501,6 +501,16 @@ typedef struct {
 } nox_object_Missile_data_t;
 _Static_assert(sizeof(nox_object_Missile_data_t) == 28, "wrong size of nox_object_Missile_data_t structure!");
 
+typedef struct {
+	uint32_t field_0;     // 0, 0
+	uint32_t field_1;     // 1, 4
+	uint32_t field_2;     // 2, 8
+	uint8_t field_3;      // 3, 12
+	uint8_t padding_3[3]; // 3, 13
+
+} nox_object_Elevator_data_t;
+// Size unknown
+
 #define NOX_SERVER_XXX_SIZE 256
 typedef struct nox_server_xxx {
 	uint32_t field_0;

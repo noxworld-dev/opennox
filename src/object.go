@@ -835,6 +835,10 @@ func (obj *Object) updateDataMissile() *C.nox_object_Missile_data_t {
 	return (*C.nox_object_Missile_data_t)(unsafe.Pointer(obj.data_update))
 }
 
+func (obj *Object) updateDataElevator() *C.nox_object_Elevator_data_t {
+	return (*C.nox_object_Elevator_data_t)(unsafe.Pointer(obj.data_update))
+}
+
 func (obj *Object) Inventory() []*Object {
 	var out []*Object
 	for p := obj.FirstItem(); p != nil; p = p.NextItem() {
