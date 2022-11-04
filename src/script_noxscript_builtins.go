@@ -34,7 +34,6 @@ int nox_script_CancelDialog_514DF0();
 int nox_script_DialogPortrait_514E30();
 int nox_script_TellStory_514E90();
 int nox_script_StartDialog_514ED0();
-int nox_script_GetElevatorStat_5154A0();
 int nox_script_Guard_515600();
 int nox_script_GuardGroup_515700();
 int nox_script_HuntGroup_5157D0();
@@ -345,7 +344,7 @@ var noxScriptBuiltins = []func() int{
 	135: nox_script_UnBlind_515200,
 	136: nox_script_Blind_515220,
 	137: nox_script_WideScreen_515240,
-	138: wrapScriptC(C.nox_script_GetElevatorStat_5154A0),
+	138: nox_script_GetElevatorStat_5154A0,
 	139: wrapScriptC(C.nox_script_Guard_515600),
 	140: wrapScriptC(C.nox_script_GuardGroup_515700),
 	141: nox_script_Hunt_515780,
@@ -2231,5 +2230,19 @@ func nox_script_ChatTimerFrames_514B10() int {
 	if obj != nil {
 		chatTimerFrames(s.s.Strings(), msgId, obj, uint16(durationFrames))
 	}
+	return 0
+}
+
+func nox_script_GetElevatorStat_5154A0() int {
+	s := &noxServer.noxScript
+
+	v2 := s.PopObject()
+	if v2 != nil {
+		if v2.Class().Has(object.ClassElevator) {
+			s.PushI32(int32(v2.updateDataElevator().field_3))
+			return 0
+		}
+	}
+	s.PushI32(-1)
 	return 0
 }
