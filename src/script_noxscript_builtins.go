@@ -1772,8 +1772,13 @@ func nox_script_getInvHolder_513960() int {
 	s := &noxServer.noxScript
 
 	obj := s.PopObject()
-	if obj != nil {
-		s.PushI32(int32(obj.InventoryHolder().ScriptID))
+	if obj == nil {
+		s.PushI32(0)
+		return 0
+	}
+	holder := obj.InventoryHolder()
+	if holder != nil {
+		s.PushI32(int32(holder.ScriptID))
 	} else {
 		s.PushI32(0)
 	}
