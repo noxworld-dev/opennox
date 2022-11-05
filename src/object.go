@@ -21,7 +21,6 @@ import "C"
 import (
 	"fmt"
 	"image"
-	"strings"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
@@ -42,7 +41,7 @@ func nox_server_getFirstObject_4DA790() *nox_object_t {
 
 //export nox_server_getFirstObjectUninited_4DA870
 func nox_server_getFirstObjectUninited_4DA870() *nox_object_t {
-	return noxServer.Objs.Pending.CObj()
+	return asObjectS(noxServer.Objs.Pending).CObj()
 }
 
 //export nox_server_getNextObject_4DA7A0
@@ -64,12 +63,12 @@ func nox_xxx_getNextUpdatable2Object_4DA850(cobj *nox_object_t) *nox_object_t {
 func nox_get_and_zero_server_objects_4DA3C0() *nox_object_t {
 	l := noxServer.Objs.List
 	noxServer.Objs.List = nil
-	return l.CObj()
+	return asObjectS(l).CObj()
 }
 
 //export nox_set_server_objects_4DA3E0
 func nox_set_server_objects_4DA3E0(list *nox_object_t) {
-	noxServer.Objs.List = asObjectC(list)
+	noxServer.Objs.List = asObjectC(list).SObj()
 }
 
 //export nox_xxx_findParentChainPlayer_4EC580
@@ -131,7 +130,7 @@ func nox_xxx_finalizeDeletingUnits_4E5EC0() {
 
 //export nox_xxx_getFirstUpdatableObject_4DA8A0
 func nox_xxx_getFirstUpdatableObject_4DA8A0() *nox_object_t {
-	return noxServer.Objs.UpdatableList.CObj()
+	return asObjectS(noxServer.Objs.UpdatableList).CObj()
 }
 
 //export nox_xxx_getNextUpdatableObject_4DA8B0
@@ -144,12 +143,12 @@ func nox_xxx_getNextUpdatableObject_4DA8B0(obj *nox_object_t) *nox_object_t {
 
 //export nox_xxx_unitAddToUpdatable_4DA8D0
 func nox_xxx_unitAddToUpdatable_4DA8D0(cobj *nox_object_t) {
-	noxServer.Objs.AddToUpdatable(asObjectC(cobj))
+	noxServer.Objs.AddToUpdatable(asObjectC(cobj).SObj())
 }
 
 //export nox_xxx_unitRemoveFromUpdatable_4DA920
 func nox_xxx_unitRemoveFromUpdatable_4DA920(cobj *nox_object_t) {
-	noxServer.Objs.RemoveFromUpdatable(asObjectC(cobj))
+	noxServer.Objs.RemoveFromUpdatable(asObjectC(cobj).SObj())
 }
 
 //export nox_xxx_servFinalizeDelObject_4DADE0
@@ -159,7 +158,7 @@ func nox_xxx_servFinalizeDelObject_4DADE0(cobj *nox_object_t) {
 
 //export nox_xxx_getFirstUpdatable2Object_4DA840
 func nox_xxx_getFirstUpdatable2Object_4DA840() *nox_object_t {
-	return noxServer.Objs.UpdatableList2.CObj()
+	return asObjectS(noxServer.Objs.UpdatableList2).CObj()
 }
 
 //export nox_xxx_unitsNewAddToList_4DAC00
@@ -206,7 +205,7 @@ func asObjectS(p *server.Object) *Object {
 }
 
 func (s *Server) FirstServerObject() *Object { // nox_server_getFirstObject_4DA790
-	return s.Objs.List
+	return asObjectS(s.Server.FirstServerObject())
 }
 
 func (s *Server) GetObjects() []*Object {
@@ -219,79 +218,18 @@ func (s *Server) GetObjects() []*Object {
 
 func (s *Server) GetObjectsUpdatable2() []*Object {
 	var out []*Object
-	for p := s.Objs.UpdatableList2; p != nil; p = p.Next() {
-		out = append(out, p)
-	}
-	return out
-}
-
-type serverObjects struct {
-	List           *Object
-	Pending        *Object
-	UpdatableList  *Object
-	UpdatableList2 *Object
-	DeletedList    *Object
-}
-
-func (s *serverObjects) AddToUpdatable(obj *Object) {
-	if obj.IsUpdatable == 0 && !obj.Class().Has(object.ClassMissile) {
-		obj.UpdatablePrev = nil
-		obj.UpdatableNext = s.UpdatableList.SObj()
-		if s.UpdatableList != nil {
-			s.UpdatableList.UpdatablePrev = obj.SObj()
-		}
-		s.UpdatableList = obj
-		obj.IsUpdatable = 1
-		obj.Obj130 = nil
-	}
-}
-
-func (s *serverObjects) RemoveFromUpdatable(obj *Object) {
-	if obj.IsUpdatable == 0 {
-		return
-	}
-	prev := obj.UpdatablePrev
-	if prev != nil {
-		prev.UpdatableNext = obj.UpdatableNext
-	} else {
-		s.UpdatableList = asObjectS(obj.UpdatableNext)
-	}
-	if next := obj.UpdatableNext; next != nil {
-		next.UpdatablePrev = prev
-	}
-	obj.IsUpdatable = 0
-	obj.Obj130 = nil
-}
-
-func (s *Server) getObjectsUninited() []*Object {
-	var out []*Object
-	for p := s.Objs.Pending; p != nil; p = p.Next() {
+	for p := asObjectS(s.Objs.UpdatableList2); p != nil; p = p.Next() {
 		out = append(out, p)
 	}
 	return out
 }
 
 func (s *Server) GetObjectByID(id string) *Object {
-	for obj := s.Objs.List; obj != nil; obj = obj.Next() {
-		if p := obj.FindByID(id); p != nil {
-			return p
-		}
-	}
-	for obj := s.Objs.Pending; obj != nil; obj = obj.Next() {
-		if p := obj.FindByID(id); p != nil {
-			return p
-		}
-	}
-	return nil
+	return asObjectS(s.Server.GetObjectByID(id))
 }
 
 func (s *Server) GetObjectByInd(ind int) *Object { // aka nox_xxx_netGetUnitByExtent_4ED020
-	for p := s.FirstServerObject(); p != nil; p = p.Next() {
-		if !p.Flags().Has(object.FlagDestroyed) && p.Ind() == ind {
-			return p
-		}
-	}
-	return nil
+	return asObjectS(s.Server.GetObjectByInd(ind))
 }
 
 func (s *Server) getObjectGroupByID(id string) *script.ObjectGroup {
@@ -337,7 +275,7 @@ func (s *Server) delayedDelete(obj *Object) {
 	}
 	obj.SetFlags(obj.Flags() | object.FlagDestroyed)
 	obj.DeletedNext = s.Objs.DeletedList.SObj()
-	s.Objs.DeletedList = obj
+	s.Objs.DeletedList = obj.SObj()
 	obj.DeletedAt = s.Frame()
 	if nox_xxx_servObjectHasTeam_419130(obj.teamPtr()) {
 		C.nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(obj.teamPtr()), C.int(obj.NetCode))
@@ -346,7 +284,7 @@ func (s *Server) delayedDelete(obj *Object) {
 
 func (s *Server) finalizeDeletingObjects() {
 	var next *Object
-	for it := s.Objs.DeletedList; it != nil; it = next {
+	for it := asObjectS(s.Objs.DeletedList); it != nil; it = next {
 		next = asObjectS(it.DeletedNext)
 		s.objectDeleteFinish(it)
 	}
@@ -389,22 +327,22 @@ func (s *Server) deletedObjectsUpdate() {
 		list *Object
 		next *Object
 	)
-	for it := s.Objs.DeletedList; it != nil; it = next {
+	for it := asObjectS(s.Objs.DeletedList); it != nil; it = next {
 		next = asObjectS(it.DeletedNext)
 		if it.DeletedAt == s.Frame() {
 			it.DeletedNext = list.SObj()
 			list = it
-			s.Objs.RemoveFromUpdatable(it)
+			s.Objs.RemoveFromUpdatable(it.SObj())
 		} else {
 			s.objectDeleteFinish(it)
 		}
 	}
-	s.Objs.DeletedList = list
+	s.Objs.DeletedList = list.SObj()
 }
 
 func (s *Server) objectsNewAdd() {
 	var next *Object
-	for it := s.Objs.Pending; it != nil; it = next {
+	for it := asObjectS(s.Objs.Pending); it != nil; it = next {
 		next = it.Next()
 		for it2 := it.OwnerC(); it2 != nil; it2 = it.OwnerC() {
 			if !it.Flags().Has(object.FlagDestroyed) {
@@ -418,7 +356,7 @@ func (s *Server) objectsNewAdd() {
 			if s.Objs.UpdatableList2 != nil {
 				s.Objs.UpdatableList2.ObjPrev = it.SObj()
 			}
-			s.Objs.UpdatableList2 = it
+			s.Objs.UpdatableList2 = it.SObj()
 		} else {
 			if it.Flags().Has(object.FlagShadow) {
 				it.ObjFlags &^= uint32(object.FlagShadow)
@@ -428,14 +366,14 @@ func (s *Server) objectsNewAdd() {
 				C.nox_xxx_respawnAdd_4EC5E0(it.CObj())
 			}
 			if it.Update != nil || it.Vel() != (types.Pointf{}) { // TODO: had a weird check: ... && *(*uint8)(&it.obj_class) >= 0
-				s.Objs.AddToUpdatable(it)
+				s.Objs.AddToUpdatable(it.SObj())
 			}
 			it.ObjNext = s.Objs.List.SObj()
 			it.ObjPrev = nil
 			if s.Objs.List != nil {
 				s.Objs.List.ObjPrev = it.SObj()
 			}
-			s.Objs.List = it
+			s.Objs.List = it.SObj()
 		}
 		C.nox_xxx_unitCreateMissileSmth_517640(it.CObj())
 		if it.Collide != nil {
@@ -476,46 +414,31 @@ func (s *Server) sub_4DAE50(obj *Object) {
 		if prev != nil {
 			prev.ObjNext = obj.ObjNext
 		} else {
-			s.Objs.UpdatableList2 = asObjectS(obj.ObjNext)
+			s.Objs.UpdatableList2 = obj.ObjNext
 		}
 		if next := obj.ObjNext; next != nil {
 			next.ObjPrev = prev.SObj()
 		}
 	} else {
-		s.Objs.RemoveFromUpdatable(obj)
-		prev := obj.ObjPrev
+		s.Objs.RemoveFromUpdatable(obj.SObj())
+		prev := asObjectS(obj.ObjPrev)
 		if prev != nil {
 			prev.ObjNext = obj.ObjNext
 		} else {
-			s.Objs.List = asObjectS(obj.ObjNext)
+			s.Objs.List = obj.ObjNext
 		}
 		if next := obj.ObjNext; next != nil {
-			next.ObjPrev = prev
+			next.ObjPrev = prev.SObj()
 		}
 	}
-}
-
-func (s *Server) ObjectsClearPending() {
-	var next *Object
-	for it := s.Objs.Pending; it != nil; it = next {
-		next = it.Next()
-		it.ObjFlags &^= uint32(object.FlagPending)
-		if s.Objs.List != nil {
-			s.Objs.List.ObjPrev = it.SObj()
-		}
-		it.ObjNext = s.Objs.List.SObj()
-		it.ObjPrev = nil
-		s.Objs.List = it
-	}
-	s.Objs.Pending = nil
 }
 
 func (s *Server) attachPending() {
-	for it := s.Objs.Pending; it != nil; it = it.Next() {
+	for it := asObjectS(s.Objs.Pending); it != nil; it = it.Next() {
 		if it.Class().Has(object.ClassElevator) {
 			ud := it.UpdateData
 			// find elevator shaft and attach them to each other
-			for it2 := s.Objs.Pending; it2 != nil; it2 = it2.Next() {
+			for it2 := asObjectS(s.Objs.Pending); it2 != nil; it2 = it2.Next() {
 				if it2.Class().Has(object.ClassElevatorShaft) {
 					ud2 := it2.UpdateData
 					if *(*uint32)(unsafe.Add(ud, 8)) == it2.Extent {
@@ -531,7 +454,7 @@ func (s *Server) attachPending() {
 			*(**nox_object_t)(unsafe.Add(ud, 12)) = nil
 			// if transporter target is set - attach to it
 			if ext := *(*uint32)(unsafe.Add(ud, 16)); ext != 0 {
-				for it2 := s.Objs.Pending; it2 != nil; it2 = it2.Next() {
+				for it2 := asObjectS(s.Objs.Pending); it2 != nil; it2 = it2.Next() {
 					if it2.Class().Has(object.ClassTransporter) && ext == it2.Extent {
 						*(**nox_object_t)(unsafe.Add(ud, 12)) = it2.CObj()
 						break
@@ -579,7 +502,7 @@ func (s *Server) createObjectAt(a11 noxObject, owner noxObject, pos types.Pointf
 	if s.Objs.Pending != nil {
 		s.Objs.Pending.ObjPrev = obj.SObj()
 	}
-	s.Objs.Pending = obj
+	s.Objs.Pending = obj.SObj()
 	obj.ObjFlags |= uint32(object.FlagPending)
 	if obj.Field13&0xff != 0 && (!obj.Class().Has(object.ClassFlag) || memmap.Int32(0x973F18, 3800) >= 0) {
 		if noxflags.HasGame(noxflags.GameModeCoop) || checkGameplayFlags(4) {
@@ -741,14 +664,6 @@ func (obj *Object) FindByID(id string) *Object {
 	return asObjectS(obj.SObj().FindByID(id))
 }
 
-func (obj *Object) equalID(id2 string) bool {
-	id := obj.ID()
-	if id == "" {
-		return false
-	}
-	return id == id2 || strings.HasSuffix(id, ":"+id2)
-}
-
 func (obj *Object) needSync() { // nox_xxx_unitNeedSync_4E44F0
 	obj.Field38 = -1
 }
@@ -794,11 +709,11 @@ func (obj *Object) Inventory() []*Object {
 }
 
 func (obj *Object) NextOwned512() *Object {
-	return asObjectS(obj.Field128.SObj())
+	return asObjectS(obj.Field128)
 }
 
 func (obj *Object) FirstOwned516() *Object {
-	return asObjectS(obj.Field129.SObj())
+	return asObjectS(obj.Field129)
 }
 
 func (obj *Object) GetOwned516() []*Object {

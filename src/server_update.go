@@ -23,7 +23,7 @@ func (s *Server) updateUnitsAAA() { // nox_xxx_updateUnits_51B100_A
 }
 
 func (s *Server) updateUnitsCallUpdate() { // nox_xxx_updateUnits_51B100_callUpdate
-	for obj := s.Objs.UpdatableList2; obj != nil; obj = obj.Next() {
+	for obj := asObjectS(s.Objs.UpdatableList2); obj != nil; obj = obj.Next() {
 		if obj.Flags().HasAny(object.FlagNoUpdateMask) {
 			continue
 		}

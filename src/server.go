@@ -174,7 +174,6 @@ type Server struct {
 	scriptEvents    scriptEvents
 	noxScript       noxScript
 	lua             scriptLUA
-	Objs            serverObjects
 	teams           serverTeams
 	ai              aiData
 	quest           questServer

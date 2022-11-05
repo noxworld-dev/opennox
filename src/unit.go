@@ -107,19 +107,11 @@ func (u *Unit) CanSee(obj script.Object) bool {
 }
 
 func (u *Unit) UpdateDataPlayer() *server.PlayerUpdateData {
-	if !u.Class().Has(object.ClassPlayer) {
-		panic(u.Class().String())
-	}
-	// TODO: verify this conversion by checking ObjectType
-	return (*server.PlayerUpdateData)(u.UpdateData)
+	return u.SObj().UpdateDataPlayer()
 }
 
 func (u *Unit) UpdateDataMonster() *server.MonsterUpdateData {
-	if !u.Class().Has(object.ClassMonster) {
-		panic(u.Class().String())
-	}
-	// TODO: verify this conversion by checking ObjectType
-	return (*server.MonsterUpdateData)(u.UpdateData)
+	return u.SObj().UpdateDataMonster()
 }
 
 func (u *Unit) ControllingPlayer() *Player {
@@ -171,17 +163,7 @@ func (u *Unit) SetMaxHealth(v int) {
 }
 
 func (u *Unit) Mana() (cur, max int) {
-	if u == nil {
-		return
-	}
-	// TODO: check if offsets are the same for monsters
-	p := u.UpdateDataPlayer()
-	if p == nil {
-		return
-	}
-	cur = int(p.ManaCur)
-	max = int(p.ManaMax)
-	return
+	return u.SObj().Mana()
 }
 
 func (u *Unit) SetMana(v int) {

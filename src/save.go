@@ -455,7 +455,7 @@ func sub_4DB9C0() {
 		}
 	}
 	next = nil
-	for it := s.Objs.UpdatableList2; it != nil; it = next {
+	for it := asObjectS(s.Objs.UpdatableList2); it != nil; it = next {
 		next = it.Next()
 		if C.sub_4E5B80(it.CObj()) != 0 {
 			it.Delete()
