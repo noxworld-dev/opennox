@@ -273,7 +273,7 @@ func (s *Server) delayedDelete(obj *Object) {
 	if obj.Class().Has(object.ClassPlayer) {
 		C.sub_506740(obj.CObj())
 	}
-	obj.SetFlags(obj.Flags() | object.FlagDestroyed)
+	obj.ObjFlags |= uint32(object.FlagDestroyed)
 	obj.DeletedNext = s.Objs.DeletedList.SObj()
 	s.Objs.DeletedList = obj.SObj()
 	obj.DeletedAt = s.Frame()
@@ -475,7 +475,7 @@ func (s *Server) createObjectAt(a11 noxObject, owner noxObject, pos types.Pointf
 	if obj.Flags().HasAny(object.FlagActive | object.FlagDestroyed) {
 		return
 	}
-	obj.SetFlags(obj.Flags() & 0x35E9FEDB)
+	obj.ObjFlags &= 0x35E9FEDB
 	obj.PrevPos = pos
 	obj.PosVec = pos
 	obj.NewPos = pos
@@ -635,10 +635,6 @@ func (obj *Object) ArmorClass() object.ArmorClass {
 
 func (obj *Object) Flags() object.Flags {
 	return obj.SObj().Flags()
-}
-
-func (obj *Object) SetFlags(v object.Flags) {
-	obj.ObjFlags = uint32(v)
 }
 
 func (obj *Object) Health() (cur, max int) {

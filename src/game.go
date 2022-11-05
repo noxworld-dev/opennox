@@ -1165,10 +1165,10 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	C.sub_500510(internCStr(v2))
 	C.nox_xxx_mapSwitchLevel_4D12E0(1)
 	for _, obj := range s.GetObjects() {
-		obj.SetFlags(obj.Flags() | object.FlagMarked)
+		obj.ObjFlags |= uint32(object.FlagMarked)
 	}
 	for _, obj := range s.GetObjectsUpdatable2() {
-		obj.SetFlags(obj.Flags() | object.FlagMarked)
+		obj.ObjFlags |= uint32(object.FlagMarked)
 	}
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		nox_xxx_spellEnableAll_424BD0()
@@ -1372,10 +1372,10 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	}
 	_ = object.FlagMarked
 	for _, obj := range s.GetObjects() {
-		obj.SetFlags(obj.Flags() & 0x7FFFFFFF)
+		obj.ObjFlags &= 0x7FFFFFFF
 	}
 	for _, obj := range s.GetObjectsUpdatable2() {
-		obj.SetFlags(obj.Flags() & 0x7FFFFFFF)
+		obj.ObjFlags &= 0x7FFFFFFF
 	}
 	if noxflags.HasGame(noxflags.GameModeKOTR) && checkGameplayFlags(4) {
 		C.sub_4D2160()

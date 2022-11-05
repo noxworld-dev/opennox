@@ -146,9 +146,9 @@ func sub_4E4C90(a1 *nox_object_t, a2 uint) int {
 	case 0x80:
 		return bool2int(obj.Buffs != 0)
 	case 0x200:
-		return bool2int(obj.ObjClass&0x13001000 != 0)
+		return bool2int(obj.Class()&0x13001000 != 0)
 	case 0x400:
-		return bool2int(obj.ObjClass&2 != 0 && obj.ObjSubClass&0x30 != 0)
+		return bool2int(obj.Class()&2 != 0 && obj.SubClass()&0x30 != 0)
 	default:
 		return 0
 	}
