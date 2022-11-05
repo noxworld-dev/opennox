@@ -3,7 +3,6 @@ package opennox
 /*
 #include "defs.h"
 int nox_script_getWall_511EB0();
-int nox_script_closeWallGroup_512100();
 int nox_script_toggleWallGroup_512260();
 int nox_script_wallGroupBreak_5122F0();
 int nox_script_groupGoTo_512500();
@@ -211,7 +210,7 @@ var noxScriptBuiltins = []func() int{
 	1:   nox_script_openSecretWall_511F50,
 	2:   nox_script_openWallGroup_512010,
 	3:   nox_script_closeWall_512040,
-	4:   wrapScriptC(C.nox_script_closeWallGroup_512100),
+	4:   nox_script_closeWallGroup_512100,
 	5:   nox_script_toggleWall_512130,
 	6:   wrapScriptC(C.nox_script_toggleWallGroup_512260),
 	7:   nox_script_wallBreak_512290,
@@ -1595,6 +1594,18 @@ func nox_script_openWallGroup_512010() int {
 
 	scriptExecuteFnForWallGroup(mapGroup, func(wall *Wall) {
 		wall.Enable(false)
+	})
+	return 0
+}
+
+func nox_script_closeWallGroup_512100() int {
+	s := &noxServer.noxScript
+
+	groupInd := s.PopI32()
+	mapGroup := getMapGroupByInd(int(groupInd))
+
+	scriptExecuteFnForWallGroup(mapGroup, func (wall *Wall) {
+		wall.Enable(true)
 	})
 	return 0
 }
