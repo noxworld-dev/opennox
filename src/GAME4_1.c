@@ -5088,9 +5088,6 @@ float* nox_xxx_monsterLookAt_5125A0(nox_object_t* obj, int a2) {
 	return result;
 }
 
-//----- (005126C0) --------------------------------------------------------
-char sub_5126C0(int a1) { return nox_xxx_objectSetOn_4E75B0(a1); }
-
 //----- (00512780) --------------------------------------------------------
 int sub_512780(int a1) { return nox_xxx_objectSetOff_4E7600(a1); }
 
