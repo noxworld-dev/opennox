@@ -3,7 +3,6 @@ package opennox
 /*
 #include "defs.h"
 int nox_script_getWall_511EB0();
-int nox_script_toggleWallGroup_512260();
 int nox_script_wallGroupBreak_5122F0();
 int nox_script_groupGoTo_512500();
 int nox_script_groupLookAtDirection_512610();
@@ -212,7 +211,7 @@ var noxScriptBuiltins = []func() int{
 	3:   nox_script_closeWall_512040,
 	4:   nox_script_closeWallGroup_512100,
 	5:   nox_script_toggleWall_512130,
-	6:   wrapScriptC(C.nox_script_toggleWallGroup_512260),
+	6:   nox_script_toggleWallGroup_512260,
 	7:   nox_script_wallBreak_512290,
 	8:   wrapScriptC(C.nox_script_wallGroupBreak_5122F0),
 	9:   nox_script_secondTimer_512320,
@@ -1161,6 +1160,18 @@ func nox_script_toggleWall_512130() int {
 	if wall != nil {
 		wall.Toggle()
 	}
+	return 0
+}
+
+func nox_script_toggleWallGroup_512260() int {
+	s := &noxServer.noxScript
+
+	v0 := s.PopI32()
+	mapGroup := getMapGroupByInd(int(v0))
+
+	scriptExecuteFnForWallGroup(mapGroup, func (wall *Wall) {
+		wall.Toggle()
+	})
 	return 0
 }
 
