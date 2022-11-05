@@ -3,7 +3,6 @@ package opennox
 /*
 #include "defs.h"
 int nox_script_getWall_511EB0();
-int nox_script_wallGroupBreak_5122F0();
 int nox_script_groupGoTo_512500();
 int nox_script_groupLookAtDirection_512610();
 int nox_script_objGroupOn_512690();
@@ -213,7 +212,7 @@ var noxScriptBuiltins = []func() int{
 	5:   nox_script_toggleWall_512130,
 	6:   nox_script_toggleWallGroup_512260,
 	7:   nox_script_wallBreak_512290,
-	8:   wrapScriptC(C.nox_script_wallGroupBreak_5122F0),
+	8:   nox_script_wallGroupBreak_5122F0,
 	9:   nox_script_secondTimer_512320,
 	10:  nox_script_frameTimer_512350,
 	11:  nox_script_moverOrMonsterGo_512370,
@@ -1183,6 +1182,18 @@ func nox_script_wallBreak_512290() int {
 	if wall != nil {
 		wall.Destroy()
 	}
+	return 0
+}
+
+func nox_script_wallGroupBreak_5122F0() int {
+	s := &noxServer.noxScript
+
+	v0 := s.PopI32()
+	mapGroup := getMapGroupByInd(int(v0))
+
+	scriptExecuteFnForWallGroup(mapGroup, func (wall *Wall) {
+		wall.Destroy()
+	})
 	return 0
 }
 
