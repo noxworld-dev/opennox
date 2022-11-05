@@ -525,7 +525,7 @@ func nox_server_mapRWObjectData_504CF0_Write(a2 unsafe.Pointer) error {
 			}
 		}
 	}
-	for obj := s.Objs.UpdatableList2; obj != nil; obj = obj.Next() {
+	for obj := asObjectS(s.Objs.UpdatableList2); obj != nil; obj = obj.Next() {
 		if a2 != nil {
 			pos := obj.Pos()
 			if !sub_4280E0(image.Point{X: int(pos.X), Y: int(pos.Y)}, a2) {

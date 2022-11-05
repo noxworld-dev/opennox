@@ -45,6 +45,7 @@ type Server struct {
 	loopHooks  chan func()
 
 	types   serverObjTypes
+	Objs    serverObjects
 	objects struct {
 		firstScriptID ObjectScriptID
 		lastScriptID  ObjectScriptID

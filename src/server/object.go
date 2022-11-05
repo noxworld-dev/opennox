@@ -20,6 +20,110 @@ type Obj interface {
 	SObj() *Object
 }
 
+type serverObjects struct {
+	List           *Object
+	Pending        *Object
+	UpdatableList  *Object
+	UpdatableList2 *Object
+	DeletedList    *Object
+}
+
+func (s *Server) FirstServerObject() *Object { // nox_server_getFirstObject_4DA790
+	return s.Objs.List
+}
+
+func (s *Server) GetObjects() []*Object {
+	var out []*Object
+	for p := s.FirstServerObject(); p != nil; p = p.ObjNext {
+		out = append(out, p)
+	}
+	return out
+}
+
+func (s *Server) GetObjectsUpdatable2() []*Object {
+	var out []*Object
+	for p := s.Objs.UpdatableList2; p != nil; p = p.ObjNext {
+		out = append(out, p)
+	}
+	return out
+}
+
+func (s *serverObjects) AddToUpdatable(obj *Object) {
+	if obj.IsUpdatable == 0 && !obj.Class().Has(object.ClassMissile) {
+		obj.UpdatablePrev = nil
+		obj.UpdatableNext = s.UpdatableList
+		if s.UpdatableList != nil {
+			s.UpdatableList.UpdatablePrev = obj
+		}
+		s.UpdatableList = obj
+		obj.IsUpdatable = 1
+		obj.Obj130 = nil
+	}
+}
+
+func (s *serverObjects) RemoveFromUpdatable(obj *Object) {
+	if obj.IsUpdatable == 0 {
+		return
+	}
+	prev := obj.UpdatablePrev
+	if prev != nil {
+		prev.UpdatableNext = obj.UpdatableNext
+	} else {
+		s.UpdatableList = obj.UpdatableNext
+	}
+	if next := obj.UpdatableNext; next != nil {
+		next.UpdatablePrev = prev
+	}
+	obj.IsUpdatable = 0
+	obj.Obj130 = nil
+}
+
+func (s *Server) getObjectsUninited() []*Object {
+	var out []*Object
+	for p := s.Objs.Pending; p != nil; p = p.ObjNext {
+		out = append(out, p)
+	}
+	return out
+}
+
+func (s *Server) GetObjectByInd(ind int) *Object { // aka nox_xxx_netGetUnitByExtent_4ED020
+	for p := s.FirstServerObject(); p != nil; p = p.ObjNext {
+		if !p.Flags().Has(object.FlagDestroyed) && p.Ind() == ind {
+			return p
+		}
+	}
+	return nil
+}
+
+func (s *Server) GetObjectByID(id string) *Object {
+	for obj := s.Objs.List; obj != nil; obj = obj.ObjNext {
+		if p := obj.FindByID(id); p != nil {
+			return p
+		}
+	}
+	for obj := s.Objs.Pending; obj != nil; obj = obj.ObjNext {
+		if p := obj.FindByID(id); p != nil {
+			return p
+		}
+	}
+	return nil
+}
+
+func (s *Server) ObjectsClearPending() {
+	var next *Object
+	for it := s.Objs.Pending; it != nil; it = next {
+		next = it.ObjNext
+		it.ObjFlags &^= uint32(object.FlagPending)
+		if s.Objs.List != nil {
+			s.Objs.List.ObjPrev = it
+		}
+		it.ObjNext = s.Objs.List
+		it.ObjPrev = nil
+		s.Objs.List = it
+	}
+	s.Objs.Pending = nil
+}
+
 type Dir16 uint16
 
 func (v Dir16) Vec() types.Pointf {

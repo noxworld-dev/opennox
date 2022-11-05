@@ -318,7 +318,7 @@ func (s *Server) newObject(t *server.ObjectType) *Object {
 	obj.Field190 = 0
 	obj.DeathData = t.DeathData
 	obj.Field192 = -1
-	if noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) && (obj.Class().HasAny(0x20A02) || unsafe.Pointer(obj.Xfer) == unsafe.Pointer(C.nox_xxx_XFerInvLight_4F5AA0) || obj.Weight != 0xff) {
+	if noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) && (obj.Class().HasAny(0x20A02) || obj.Xfer == unsafe.Pointer(C.nox_xxx_XFerInvLight_4F5AA0) || obj.Weight != 0xff) {
 		obj.Field189, _ = alloc.Malloc(2572)
 	}
 	if t.Create != nil {

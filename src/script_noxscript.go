@@ -332,7 +332,7 @@ func (s *noxScript) scriptToObject(val int) *Object {
 		return obj
 	}
 
-	for obj := s.s.Objs.List; obj != nil; obj = obj.Next() {
+	for obj := asObjectS(s.s.Objs.List); obj != nil; obj = obj.Next() {
 		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID == val {
 			C.nox_xxx_scriptPrepareFoundUnit_511D70(obj.CObj())
 			return obj
@@ -344,7 +344,7 @@ func (s *noxScript) scriptToObject(val int) *Object {
 			}
 		}
 	}
-	for obj := s.s.Objs.Pending; obj != nil; obj = obj.Next() {
+	for obj := asObjectS(s.s.Objs.Pending); obj != nil; obj = obj.Next() {
 		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID == val {
 			C.nox_xxx_scriptPrepareFoundUnit_511D70(obj.CObj())
 			return obj
@@ -434,7 +434,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 	}
 
 	var next *Object
-	for it := s.Objs.UpdatableList2; it != nil; it = next {
+	for it := asObjectS(s.Objs.UpdatableList2); it != nil; it = next {
 		next = it.Next()
 		if int(it.TypeInd) != int(memmap.Uint32(0x5D4594, 2386900)) {
 			it.Delete()
