@@ -116,6 +116,10 @@ func (w *Waypoint) Enable(enable bool) {
 	}
 }
 
+func (w *Waypoint) Toggle() { 
+	w.flags ^= 0x1
+}
+
 func (w *Waypoint) PosC() *C.float2 {
 	return &w.pos
 }
