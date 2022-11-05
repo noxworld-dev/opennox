@@ -810,7 +810,7 @@ func nox_script_CastObject2_514F10() int {
 	if targ == nil {
 		return 0
 	}
-	caster.Direction1 = uint16(nox_xxx_math_509ED0(targ.Pos().Sub(caster.Pos())))
+	caster.Direction1 = server.DirFromVec(targ.Pos().Sub(caster.Pos()))
 	s.s.castSpellBy(sp, caster, targ, targ.Pos())
 	return 0
 }
@@ -826,7 +826,7 @@ func nox_script_CastObjectLocation_514FC0() int {
 	if caster == nil {
 		return 0
 	}
-	caster.Direction1 = uint16(nox_xxx_math_509ED0(targPos.Sub(caster.Pos())))
+	caster.Direction1 = server.DirFromVec(targPos.Sub(caster.Pos()))
 	s.s.castSpellBy(sp, caster, nil, targPos)
 	return 0
 }
@@ -843,7 +843,7 @@ func nox_script_CastLocationObject_515060() int {
 		return 0
 	}
 	nox_xxx_imagCasterUnit_1569664.SetPos(srcPos)
-	nox_xxx_imagCasterUnit_1569664.Direction1 = uint16(nox_xxx_math_509ED0(targ.Pos().Sub(srcPos)))
+	nox_xxx_imagCasterUnit_1569664.Direction1 = server.DirFromVec(targ.Pos().Sub(srcPos))
 	s.s.castSpellBy(sp, nox_xxx_imagCasterUnit_1569664, targ, targ.Pos())
 	return 0
 }
@@ -857,7 +857,7 @@ func nox_script_CastLocation2_515130() int {
 		return 0
 	}
 	nox_xxx_imagCasterUnit_1569664.SetPos(srcPos)
-	nox_xxx_imagCasterUnit_1569664.Direction1 = uint16(nox_xxx_math_509ED0(targPos.Sub(srcPos)))
+	nox_xxx_imagCasterUnit_1569664.Direction1 = server.DirFromVec(targPos.Sub(srcPos))
 	s.s.castSpellBy(sp, nox_xxx_imagCasterUnit_1569664, nil, targPos)
 	return 0
 }
@@ -1660,7 +1660,7 @@ func nox_script_faceAngle_513780() int {
 	dir := s.PopI32()
 	obj := s.PopObject()
 	if obj != nil {
-		v3 := uint16(nox_xxx_math_roundDir(dir))
+		v3 := server.Dir16(nox_xxx_math_roundDir(dir))
 		obj.setAllDirs(v3)
 	}
 	return 0
@@ -2000,8 +2000,8 @@ func nox_script_FaceObject_514050() int {
 
 	if obj != nil && tgt != nil {
 		vec := tgt.Pos()
-		dir := nox_xxx_math_509ED0(vec.Sub(obj.Pos()))
-		obj.setAllDirs(uint16(dir))
+		dir := server.DirFromVec(vec.Sub(obj.Pos()))
+		obj.setAllDirs(dir)
 	}
 	return 0
 }

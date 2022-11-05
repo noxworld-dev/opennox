@@ -9,6 +9,8 @@ import (
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 type spellMissiles struct {
@@ -64,11 +66,11 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts 
 		if i%2 == 1 {
 			doff = -doff
 		}
-		dir := nox_xxx_math_roundDirI16(int16(caster.Direction1) + doff)
-		cos, sin := sincosDir(byte(dir))
+		dir := server.Dir16(nox_xxx_math_roundDirI16(int16(caster.Direction1) + doff))
+		dv := dir.Vec()
 		p2 := types.Pointf{
-			X: cpos.X + cvel.X + rdist*cos,
-			Y: cpos.Y + cvel.Y + rdist*sin,
+			X: cpos.X + cvel.X + rdist*dv.X,
+			Y: cpos.Y + cvel.Y + rdist*dv.Y,
 		}
 		if !MapTraceRay(cpos, p2, MapTraceFlag1|MapTraceFlag3) {
 			continue
@@ -80,8 +82,8 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts 
 		msl.SpeedCur = mspeed
 		msl.setAllDirs(dir)
 		msl.VelVec = types.Pointf{
-			X: cvel.X + mspeed*cos*opts.VelMult,
-			Y: cvel.Y + mspeed*sin*opts.VelMult,
+			X: cvel.X + mspeed*dv.X*opts.VelMult,
+			Y: cvel.Y + mspeed*dv.Y*opts.VelMult,
 		}
 		var ppos *types.Pointf
 		if caster.Class().Has(object.ClassPlayer) {

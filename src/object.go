@@ -657,8 +657,8 @@ type Object struct {
 	Float28       float32            // 28, 112, // TODO: damping/drag?
 	Field29       uint32             // 29, 116
 	MassVal       float32            // 30, 120
-	Direction1    uint16             // 31, 124
-	Direction2    uint16             // 31, 126
+	Direction1    server.Dir16       // 31, 124
+	Direction2    server.Dir16       // 31, 126
 	Field32       uint32             // 32, 128, TODO: some frame/timestamp
 	Field33       uint32             // 33, 132
 	Field34       uint32             // 34, 136, TODO: some frame/timestamp
@@ -1104,14 +1104,14 @@ func (obj *Object) Force() types.Pointf {
 	return obj.ForceVec
 }
 
-func (obj *Object) Dir1() uint16 {
+func (obj *Object) Dir1() server.Dir16 {
 	if obj == nil {
 		return 0
 	}
 	return obj.Direction1
 }
 
-func (obj *Object) Dir2() uint16 {
+func (obj *Object) Dir2() server.Dir16 {
 	if obj == nil {
 		return 0
 	}
@@ -1125,7 +1125,7 @@ func (obj *Object) curSpeed() float32 {
 	return obj.SpeedCur
 }
 
-func (obj *Object) setAllDirs(dir uint16) {
+func (obj *Object) setAllDirs(dir server.Dir16) {
 	obj.Direction1 = dir
 	obj.Direction2 = dir
 }
