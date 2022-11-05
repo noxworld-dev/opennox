@@ -231,7 +231,7 @@ func (u *Unit) look(v int16) {
 
 func (u *Unit) LookAt(p types.Pointf) {
 	p = p.Sub(u.Pos())
-	v := nox_xxx_math_509ED0(p)
+	v := server.DirFromVec(p)
 	u.look(int16(v))
 }
 

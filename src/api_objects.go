@@ -27,8 +27,8 @@ type debugObject struct {
 	Class      object.Class      `json:"class"`
 	Flags      object.Flags      `json:"flags,omitempty"`
 	ArmorClass object.ArmorClass `json:"armor_class,omitempty"`
-	Dir1       uint16            `json:"dir1,omitempty"`
-	Dir2       uint16            `json:"dir2,omitempty"`
+	Dir1       server.Dir16      `json:"dir1,omitempty"`
+	Dir2       server.Dir16      `json:"dir2,omitempty"`
 	Pos        types.Pointf      `json:"pos"`
 	Vel        types.Pointf      `json:"vel,omitempty"`
 	Force      types.Pointf      `json:"force,omitempty"`

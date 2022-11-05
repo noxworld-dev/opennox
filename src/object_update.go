@@ -285,12 +285,12 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		}
 		if C.sub_4F9AB0(u.CObj()) == 0 {
 			if u.HasEnchant(server.ENCHANT_CONFUSED) {
-				u.Direction2 = uint16(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
+				u.Direction2 = server.Dir16(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
 			}
 			// update force based on direction, speed, etc
-			cos, sin := sincosDir(byte(u.Direction2))
-			u.ForceVec.X += cos * u.SpeedCur
-			u.ForceVec.Y += sin * u.SpeedCur
+			dv := u.Direction2.Vec()
+			u.ForceVec.X += dv.X * u.SpeedCur
+			u.ForceVec.Y += dv.Y * u.SpeedCur
 		}
 		if ud.Field22_0 == 0 {
 			v67, v69 := playerAnimGetFrameRange(4)
@@ -413,9 +413,9 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			}
 		}
 		if !found {
-			cos, sin := sincosDir(byte(u.Direction1))
-			u.ForceVec.X = 2 * u.SpeedCur * cos
-			u.ForceVec.Y = 2 * u.SpeedCur * sin
+			dv := u.Direction1.Vec()
+			u.ForceVec.X = 2 * u.SpeedCur * dv.X
+			u.ForceVec.Y = 2 * u.SpeedCur * dv.Y
 		}
 		if v49 >= v67 {
 			// stop hovering after a jump?
@@ -605,7 +605,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 			if !u.HasEnchant(server.ENCHANT_FREEZE) &&
 				(!noxflags.HasGame(noxflags.GameModeQuest) || ud.Field70 == 0) &&
 				!s.abilities.IsActive(u, AbilityBerserk) {
-				u.Direction2 = it.Uint16()
+				u.Direction2 = server.Dir16(it.Uint16())
 			}
 		case player.CCMoveForward, player.CCMoveBackward, player.CCMoveLeft, player.CCMoveRight:
 			if C.nox_xxx_playerCanMove_4F9BC0(u.CObj()) != 0 {
@@ -664,7 +664,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 13, 3)
 			} else if C.nox_xxx_playerSubStamina_4F7D30(u.CObj(), 90) != 0 {
 				if u.HasEnchant(server.ENCHANT_CONFUSED) {
-					u.Direction2 = uint16(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
+					u.Direction2 = server.Dir16(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
 				}
 				u.ObjFlags |= 0x4000
 				nox_xxx_playerSetState_4FA020(u, 12)
@@ -937,10 +937,10 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 		}
 	}
 	u.Float28 = 0.9
-	cos, sin := sincosDir(byte(u.Dir2()))
+	dv := u.Direction2.Vec()
 	u.ForceVec = types.Pointf{
-		X: cos * u.curSpeed(),
-		Y: sin * u.curSpeed(),
+		X: dv.X * u.curSpeed(),
+		Y: dv.Y * u.curSpeed(),
 	}
 	if (s.Frame()&8 == 0) && owner != nil {
 		if C.nox_xxx_mapCheck_537110(u.CObj(), owner.CObj()) == 1 {
@@ -954,9 +954,9 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 }
 
 func nox_xxx_pixieIdleAnimate_53CF90(obj *Unit, vec types.Pointf, ddir int) {
-	dir := int(obj.Dir2())
-	cos, sin := sincosDir(byte(dir))
-	if cos*vec.Y-sin*vec.X >= 0.0 {
+	dv := obj.Direction2.Vec()
+	dir := int(obj.Direction2)
+	if dv.X*vec.Y-dv.Y*vec.X >= 0.0 {
 		dir += ddir
 		for dir >= 256 {
 			dir -= 256
@@ -967,7 +967,7 @@ func nox_xxx_pixieIdleAnimate_53CF90(obj *Unit, vec types.Pointf, ddir int) {
 			dir += 256
 		}
 	}
-	obj.Direction2 = uint16(dir)
+	obj.Direction2 = server.Dir16(dir)
 }
 
 //export nox_xxx_maybeAnimatePixie_53D010
@@ -1046,8 +1046,8 @@ func nox_xxx_enemyAggro(self *Unit, r, max float32) *Object {
 		}
 		vec := it.Pos().Sub(self.Pos())
 		dist := float32(math.Sqrt(float64(vec.X*vec.X+vec.Y*vec.Y)) + 0.001)
-		cos, sin := sincosDir(byte(self.Direction1))
-		if !someFlag || vec.Y/dist*sin+vec.X/dist*cos > 0.5 {
+		dv := self.Direction1.Vec()
+		if !someFlag || vec.Y/dist*dv.Y+vec.X/dist*dv.X > 0.5 {
 			dist2 := dist
 			if it.HasEnchant(server.ENCHANT_VILLAIN) {
 				dist2 /= 3
