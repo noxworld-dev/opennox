@@ -187,17 +187,6 @@ int nox_xxx_moverGoTo_5124C0(uint32_t* a1, uint32_t* a2) {
 	return a1;
 }
 
-//----- (005127B0) --------------------------------------------------------
-int nox_script_waypointGroupOff_5127B0() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 1, sub_5127E0, 0);
-	return 0;
-}
-
 //----- (00512870) --------------------------------------------------------
 int nox_script_toggleWaypointGroup_512870() {
 	int v0;            // eax

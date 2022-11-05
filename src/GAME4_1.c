@@ -5088,15 +5088,6 @@ float* nox_xxx_monsterLookAt_5125A0(nox_object_t* obj, int a2) {
 	return result;
 }
 
-//----- (005127E0) --------------------------------------------------------
-int sub_5127E0(int a1) {
-	int result; // eax
-
-	result = a1;
-	*(uint32_t*)(a1 + 480) &= 0xFFFFFFFE;
-	return result;
-}
-
 //----- (005128A0) --------------------------------------------------------
 int sub_5128A0(int a1) {
 	int result; // eax
