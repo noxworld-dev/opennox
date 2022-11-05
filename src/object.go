@@ -236,9 +236,9 @@ type serverObjects struct {
 func (s *serverObjects) AddToUpdatable(obj *Object) {
 	if obj.IsUpdatable == 0 && !obj.Class().Has(object.ClassMissile) {
 		obj.UpdatablePrev = nil
-		obj.UpdatableNext = s.UpdatableList
+		obj.UpdatableNext = s.UpdatableList.SObj()
 		if s.UpdatableList != nil {
-			s.UpdatableList.UpdatablePrev = obj
+			s.UpdatableList.UpdatablePrev = obj.SObj()
 		}
 		s.UpdatableList = obj
 		obj.IsUpdatable = 1
@@ -254,7 +254,7 @@ func (s *serverObjects) RemoveFromUpdatable(obj *Object) {
 	if prev != nil {
 		prev.UpdatableNext = obj.UpdatableNext
 	} else {
-		s.UpdatableList = obj.UpdatableNext
+		s.UpdatableList = asObjectS(obj.UpdatableNext)
 	}
 	if next := obj.UpdatableNext; next != nil {
 		next.UpdatablePrev = prev
@@ -273,12 +273,12 @@ func (s *Server) getObjectsUninited() []*Object {
 
 func (s *Server) GetObjectByID(id string) *Object {
 	for obj := s.Objs.List; obj != nil; obj = obj.Next() {
-		if p := obj.findByID(id); p != nil {
+		if p := obj.FindByID(id); p != nil {
 			return p
 		}
 	}
 	for obj := s.Objs.Pending; obj != nil; obj = obj.Next() {
-		if p := obj.findByID(id); p != nil {
+		if p := obj.FindByID(id); p != nil {
 			return p
 		}
 	}
@@ -336,7 +336,7 @@ func (s *Server) delayedDelete(obj *Object) {
 		C.sub_506740(obj.CObj())
 	}
 	obj.SetFlags(obj.Flags() | object.FlagDestroyed)
-	obj.DeletedNext = s.Objs.DeletedList
+	obj.DeletedNext = s.Objs.DeletedList.SObj()
 	s.Objs.DeletedList = obj
 	obj.DeletedAt = s.Frame()
 	if nox_xxx_servObjectHasTeam_419130(obj.teamPtr()) {
@@ -347,7 +347,7 @@ func (s *Server) delayedDelete(obj *Object) {
 func (s *Server) finalizeDeletingObjects() {
 	var next *Object
 	for it := s.Objs.DeletedList; it != nil; it = next {
-		next = it.DeletedNext
+		next = asObjectS(it.DeletedNext)
 		s.objectDeleteFinish(it)
 	}
 	s.Objs.DeletedList = nil
@@ -390,9 +390,9 @@ func (s *Server) deletedObjectsUpdate() {
 		next *Object
 	)
 	for it := s.Objs.DeletedList; it != nil; it = next {
-		next = it.DeletedNext
+		next = asObjectS(it.DeletedNext)
 		if it.DeletedAt == s.Frame() {
-			it.DeletedNext = list
+			it.DeletedNext = list.SObj()
 			list = it
 			s.Objs.RemoveFromUpdatable(it)
 		} else {
@@ -413,10 +413,10 @@ func (s *Server) objectsNewAdd() {
 			it.SetOwner(it2.Owner())
 		}
 		if it.Class().Has(object.ClassMissile) {
-			it.ObjNext = s.Objs.UpdatableList2
+			it.ObjNext = s.Objs.UpdatableList2.SObj()
 			it.ObjPrev = nil
 			if s.Objs.UpdatableList2 != nil {
-				s.Objs.UpdatableList2.ObjPrev = it
+				s.Objs.UpdatableList2.ObjPrev = it.SObj()
 			}
 			s.Objs.UpdatableList2 = it
 		} else {
@@ -430,10 +430,10 @@ func (s *Server) objectsNewAdd() {
 			if it.Update != nil || it.Vel() != (types.Pointf{}) { // TODO: had a weird check: ... && *(*uint8)(&it.obj_class) >= 0
 				s.Objs.AddToUpdatable(it)
 			}
-			it.ObjNext = s.Objs.List
+			it.ObjNext = s.Objs.List.SObj()
 			it.ObjPrev = nil
 			if s.Objs.List != nil {
-				s.Objs.List.ObjPrev = it
+				s.Objs.List.ObjPrev = it.SObj()
 			}
 			s.Objs.List = it
 		}
@@ -472,14 +472,14 @@ func (s *Server) objectsNewAdd() {
 func (s *Server) sub_4DAE50(obj *Object) {
 	C.nox_xxx_action_4DA9F0(obj.CObj())
 	if obj.Class().Has(object.ClassMissile) {
-		prev := obj.ObjPrev
+		prev := asObjectS(obj.ObjPrev)
 		if prev != nil {
 			prev.ObjNext = obj.ObjNext
 		} else {
-			s.Objs.UpdatableList2 = obj.ObjNext
+			s.Objs.UpdatableList2 = asObjectS(obj.ObjNext)
 		}
 		if next := obj.ObjNext; next != nil {
-			next.ObjPrev = prev
+			next.ObjPrev = prev.SObj()
 		}
 	} else {
 		s.Objs.RemoveFromUpdatable(obj)
@@ -487,7 +487,7 @@ func (s *Server) sub_4DAE50(obj *Object) {
 		if prev != nil {
 			prev.ObjNext = obj.ObjNext
 		} else {
-			s.Objs.List = obj.ObjNext
+			s.Objs.List = asObjectS(obj.ObjNext)
 		}
 		if next := obj.ObjNext; next != nil {
 			next.ObjPrev = prev
@@ -501,9 +501,9 @@ func (s *Server) ObjectsClearPending() {
 		next = it.Next()
 		it.ObjFlags &^= uint32(object.FlagPending)
 		if s.Objs.List != nil {
-			s.Objs.List.ObjPrev = it
+			s.Objs.List.ObjPrev = it.SObj()
 		}
-		it.ObjNext = s.Objs.List
+		it.ObjNext = s.Objs.List.SObj()
 		it.ObjPrev = nil
 		s.Objs.List = it
 	}
@@ -574,10 +574,10 @@ func (s *Server) createObjectAt(a11 noxObject, owner noxObject, pos types.Pointf
 			obj.Class().HasAny(object.ClassFood|object.ClassInfoBook|object.ClassWand|object.ClassWeapon|object.ClassArmor)) {
 		obj.ObjFlags |= uint32(object.FlagNoCollide)
 	}
-	obj.ObjNext = s.Objs.Pending
+	obj.ObjNext = s.Objs.Pending.SObj()
 	obj.ObjPrev = nil
 	if s.Objs.Pending != nil {
-		s.Objs.Pending.ObjPrev = obj
+		s.Objs.Pending.ObjPrev = obj.SObj()
 	}
 	s.Objs.Pending = obj
 	obj.ObjFlags |= uint32(object.FlagPending)
@@ -629,163 +629,7 @@ type noxObject interface {
 
 var _ = [1]struct{}{}[772-unsafe.Sizeof(Object{})]
 
-type Object struct {
-	IDPtr         unsafe.Pointer     // 0, 0
-	TypeInd       uint16             // 1, 4
-	Field1_2      uint16             // 1, 6
-	ObjClass      uint32             // 2, 8
-	ObjSubClass   uint32             // 3, 12
-	ObjFlags      uint32             // 4, 16
-	Field5        uint32             // 5, 20
-	Material      uint16             // 6, 24
-	Field6_2      uint16             // 6, 26
-	Experience    float32            // 7, 28
-	Worth         uint32             // 8, 32
-	NetCode       uint32             // 9, 36
-	Extent        uint32             // 10, 40
-	ScriptID      int                // 11, 44
-	Field12       uint32             // 12, 48
-	Field13       uint32             // 13, 52, // TODO: first byte is team?
-	PosVec        types.Pointf       // 14, 56
-	NewPos        types.Pointf       // 16, 64
-	PrevPos       types.Pointf       // 18, 72
-	VelVec        types.Pointf       // 20, 80
-	ForceVec      types.Pointf       // 22, 88
-	Pos24         types.Pointf       // 24, 96, // TODO: something related to acceleration/direction
-	ZVal          float32            // 26, 104
-	Field27       uint32             // 27, 108
-	Float28       float32            // 28, 112, // TODO: damping/drag?
-	Field29       uint32             // 29, 116
-	MassVal       float32            // 30, 120
-	Direction1    server.Dir16       // 31, 124
-	Direction2    server.Dir16       // 31, 126
-	Field32       uint32             // 32, 128, TODO: some frame/timestamp
-	Field33       uint32             // 33, 132
-	Field34       uint32             // 34, 136, TODO: some frame/timestamp
-	Field35       uint32             // 35, 140
-	Field36       uint32             // 36, 144
-	Field37       int                // 37, 148
-	Field38       int                // 38, 152
-	Pos39         types.Pointf       // 39, 156
-	Field41       uint32             // 41, 164
-	Field42       uint32             // 42, 168
-	Shape         server.Shape       // 43, 172
-	ZSize1        float32            // 56, 224
-	ZSize2        float32            // 57, 228
-	CollideP1     types.Pointf       // 58, 232
-	CollideP2     types.Pointf       // 60, 240
-	Field62       uint32             // 62, 248
-	Field63       uint32             // 63, 252
-	Field64       uint32             // 64, 256
-	Field65       uint32             // 65, 260
-	Field66       uint32             // 66, 264
-	Field67       uint32             // 67, 268
-	Field68       uint32             // 68, 272
-	Field69       uint32             // 69, 276
-	Field70       uint32             // 70, 280
-	Field71       uint32             // 71, 284
-	Field72       uint32             // 72, 288
-	Field73       uint32             // 73, 292
-	Field74       uint32             // 74, 296
-	Field75       uint32             // 75, 300
-	Field76       uint32             // 76, 304
-	Field77       uint32             // 77, 308
-	Field78       uint32             // 78, 312
-	Field79       uint32             // 79, 316
-	Field80       uint32             // 80, 320
-	Field81       uint32             // 81, 324
-	Field82       uint32             // 82, 328
-	Field83       uint32             // 83, 332
-	Field84       uint32             // 84, 336
-	Buffs         uint32             // 85, 340
-	BuffsDur      [32]uint16         // 86, 344
-	BuffsPower    [32]uint8          // 102, 408
-	Field110      uint32             // 110, 440
-	ObjNext       *Object            // 111, 444
-	ObjPrev       *Object            // 112, 448
-	DeletedNext   *Object            // 113, 452
-	DeletedAt     uint32             // 114, 456
-	Field115      uint32             // 115, 460
-	Field116      uint32             // 116, 464
-	Field117      uint32             // 117, 468
-	Field118      uint32             // 118, 472
-	UpdatableNext *Object            // 119, 476
-	UpdatablePrev *Object            // 120, 480
-	IsUpdatable   uint32             // 121, 484
-	Weight        uint8              // 122, 488
-	Field122_1    uint8              // 122, 489
-	CarryCapacity uint16             // 122, 490
-	InvHolder     *Object            // 123, 492 // Also health data, possibly same as 556, see 4E4560
-	InvNextItem   *Object            // 124, 496, TODO: next item
-	Field125      *Object            // 125, 500, TODO: a nox_object_t*? see 4ED0C0
-	InvFirstItem  *Object            // 126, 504, TODO: first item
-	OwnerPtr      *Object            // 127, 508
-	Field128      *Object            // 128, 512
-	Field129      *Object            // 129, 516
-	Obj130        *Object            // 130, 520
-	Field131      uint32             // 131, 524
-	Field132      uint32             // 132, 528
-	Field133      uint32             // 133, 532
-	Field134      uint32             // 134, 536, TODO: some timestamp
-	Field135      uint32             // 135, 540, TODO: 541 accessed as byte
-	SpeedCur      float32            // 136, 544
-	Speed2        float32            // 137, 548
-	Float138      float32            // 138, 552
-	HealthData    *server.HealthData // 139, 556
-	Field140      uint32             // 140, 560
-	Field141      uint32             // 141, 564
-	Field142      uint32             // 142, 568
-	Field143      uint32             // 143, 572
-	Field144      uint32             // 144, 576
-	Field145      uint32             // 145, 580
-	Field146      uint32             // 146, 584
-	Field147      uint32             // 147, 588
-	Field148      uint32             // 148, 592
-	Field149      uint32             // 149, 596
-	Field150      uint32             // 150, 600
-	Field151      uint32             // 151, 604
-	Field152      uint32             // 152, 608
-	Field153      uint32             // 153, 612
-	Field154      uint32             // 154, 616
-	Field155      uint32             // 155, 620
-	Field156      uint32             // 156, 624
-	Field157      uint32             // 157, 628
-	Field158      uint32             // 158, 632
-	Field159      uint32             // 159, 636
-	Field160      uint32             // 160, 640
-	Field161      uint32             // 161, 644
-	Field162      uint32             // 162, 648
-	Field163      uint32             // 163, 652
-	Field164      uint32             // 164, 656
-	Field165      uint32             // 165, 660
-	Field166      uint32             // 166, 664
-	Field167      uint32             // 167, 668
-	Field168      uint32             // 168, 672
-	Field169      uint32             // 169, 676
-	Field170      uint32             // 170, 680
-	Field171      uint32             // 171, 684
-	Init          unsafe.Pointer     // 172, 688
-	InitData      unsafe.Pointer     // 173, 692, // TODO: struct pointer; struct at least 8 bytes wide. see 4F3030.
-	Collide       unsafe.Pointer     // 174, 696
-	CollideData   unsafe.Pointer     // 175, 700
-	Xfer          unsafe.Pointer     // 176, 704; func(*Object, int) int
-	Pickup        unsafe.Pointer     // 177, 708
-	Drop          unsafe.Pointer     // 178, 712
-	Damage        unsafe.Pointer     // 179, 716; func(*Object, *Object, int, int, int) int
-	DamageSound   unsafe.Pointer     // 180, 720
-	Death         unsafe.Pointer     // 181, 724
-	DeathData     unsafe.Pointer     // 182, 728
-	Use           unsafe.Pointer     // 183, 732
-	UseData       unsafe.Pointer     // 184, 736
-	Field185      uint32             // 185, 740
-	Update        unsafe.Pointer     // 186, 744; func(*Object)
-	UpdateData    unsafe.Pointer     // 187, 748
-	Field188      uint32             // 188, 752
-	Field189      unsafe.Pointer     // 189, 756
-	Field190      uint32             // 190, 760
-	Field191      uint32             // 191, 764
-	Field192      int                // 192, 768
-}
+type Object server.Object
 
 func (obj *Object) getServer() *Server {
 	return noxServer // TODO: attach to object
@@ -800,7 +644,7 @@ func (obj *Object) CObj() *nox_object_t {
 }
 
 func (obj *Object) SObj() *server.Object {
-	return (*server.Object)(unsafe.Pointer(obj))
+	return (*server.Object)(obj)
 }
 
 func (obj *Object) AsObject() *Object {
@@ -855,50 +699,31 @@ func (obj *Object) GetObject() script.Object {
 }
 
 func (obj *Object) Class() object.Class {
-	return object.Class(obj.ObjClass)
+	return obj.SObj().Class()
 }
 
-func (obj *Object) SubClass() uint32 {
-	return uint32(obj.ObjSubClass)
+func (obj *Object) SubClass() object.SubClass {
+	return obj.SObj().SubClass()
 }
 
 func (obj *Object) ArmorClass() object.ArmorClass {
-	if !obj.Class().Has(object.ClassArmor) {
-		return 0
-	}
-	return object.ArmorClass(obj.SubClass())
+	return obj.SObj().ArmorClass()
 }
 
 func (obj *Object) Flags() object.Flags {
-	return object.Flags(obj.ObjFlags)
+	return obj.SObj().Flags()
 }
 
 func (obj *Object) SetFlags(v object.Flags) {
 	obj.ObjFlags = uint32(v)
 }
 
-func (obj *Object) Mass() float32 { // nox_xxx_objectGetMass_4E4A70
-	return obj.MassVal
-}
-
 func (obj *Object) Health() (cur, max int) {
-	if obj == nil {
-		return
-	}
-	h := obj.HealthData
-	if h == nil {
-		return
-	}
-	cur = int(h.Cur)
-	max = int(h.Max)
-	return
+	return obj.SObj().Health()
 }
 
 func (obj *Object) IsMovable() bool {
-	if obj.Flags().HasAny(object.FlagNotMovableMask) {
-		return false
-	}
-	return !obj.Class().Has(object.ClassImmobile)
+	return obj.SObj().IsMovable()
 }
 
 func (obj *Object) team() byte {
@@ -912,16 +737,8 @@ func (obj *Object) Team() *Team {
 	return obj.getServer().teamByYyy(obj.team())
 }
 
-func (obj *Object) findByID(id string) *Object {
-	if obj.equalID(id) {
-		return obj
-	}
-	for p := obj.FirstItem(); p != nil; p = p.NextItem() {
-		if p.equalID(id) {
-			return p
-		}
-	}
-	return nil
+func (obj *Object) FindByID(id string) *Object {
+	return asObjectS(obj.SObj().FindByID(id))
 }
 
 func (obj *Object) equalID(id2 string) bool {
@@ -941,31 +758,23 @@ func (obj *Object) makeUnseen() { // nox_xxx_objectMakeUnseenByNoone_4E44E0
 }
 
 func (obj *Object) Next() *Object { // nox_server_getNextObject_4DA7A0, nox_xxx_getNextUpdatable2Object_4DA850, nox_server_getNextObjectUninited_4DA880
-	return asObject(unsafe.Pointer(obj.ObjNext))
+	return asObjectS(obj.ObjNext.SObj())
 }
 
 func (obj *Object) FirstItem() *Object { // nox_xxx_inventoryGetFirst_4E7980
-	return asObject(unsafe.Pointer(obj.InvFirstItem))
+	return asObjectS(obj.InvFirstItem.SObj())
 }
 
 func (obj *Object) NextItem() *Object {
-	return asObject(unsafe.Pointer(obj.InvNextItem))
+	return asObjectS(obj.InvNextItem.SObj())
 }
 
 func (obj *Object) InventoryHolder() *Object {
-	return asObject(unsafe.Pointer(obj.InvHolder))
+	return asObjectS(obj.InvHolder.SObj())
 }
 
 func (obj *Object) HasItem(item *Object) bool {
-	if item == nil || item.InventoryHolder() != obj {
-		return false
-	}
-	for p := obj.FirstItem(); p != nil; p = p.NextItem() {
-		if p == item {
-			return true
-		}
-	}
-	return false
+	return obj.SObj().HasItem(item.SObj())
 }
 
 func (obj *Object) updateDataMissile() *C.nox_object_Missile_data_t {
@@ -985,11 +794,11 @@ func (obj *Object) Inventory() []*Object {
 }
 
 func (obj *Object) NextOwned512() *Object {
-	return asObject(unsafe.Pointer(obj.Field128))
+	return asObjectS(obj.Field128.SObj())
 }
 
 func (obj *Object) FirstOwned516() *Object {
-	return asObject(unsafe.Pointer(obj.Field129))
+	return asObjectS(obj.Field129.SObj())
 }
 
 func (obj *Object) GetOwned516() []*Object {
@@ -1001,24 +810,15 @@ func (obj *Object) GetOwned516() []*Object {
 }
 
 func (obj *Object) HasEnchant(v server.EnchantID) bool { // nox_xxx_testUnitBuffs_4FF350
-	if obj == nil || v >= 32 {
-		return false
-	}
-	return obj.Buffs&(uint32(1)<<v) != 0
+	return obj.SObj().HasEnchant(v)
 }
 
 func (obj *Object) EnchantDur(v server.EnchantID) int { // nox_xxx_unitGetBuffTimer_4FF550
-	if obj == nil || v >= 32 {
-		return 0
-	}
-	return int(obj.BuffsDur[v])
+	return obj.SObj().EnchantDur(v)
 }
 
 func (obj *Object) EnchantPower(v server.EnchantID) int { // nox_xxx_buffGetPower_4FF570
-	if obj == nil || v >= 32 {
-		return 0
-	}
-	return int(obj.BuffsDur[v])
+	return obj.SObj().EnchantPower(v)
 }
 
 func (obj *Object) ApplyEnchant(v server.EnchantID, dur, power int) { // nox_xxx_buffApplyTo_4FF380
@@ -1036,6 +836,9 @@ func (obj *Object) DisableEnchant(v server.EnchantID) { // nox_xxx_spellBuffOff_
 }
 
 func (obj *Object) AsUnit() *Unit {
+	if obj == nil {
+		return nil
+	}
 	// TODO: check somehow
 	return asUnit(unsafe.Pointer(obj))
 }
@@ -1063,10 +866,16 @@ func (obj *Object) teamPtr() *objectTeam {
 }
 
 func (obj *Object) OwnerC() *Object {
-	return obj.OwnerPtr
+	if obj == nil {
+		return nil
+	}
+	return asObjectS(obj.ObjOwner)
 }
 
 func (obj *Object) Owner() script.Object {
+	if obj == nil {
+		return nil
+	}
 	p := obj.OwnerC()
 	if p == nil {
 		return nil
@@ -1084,38 +893,27 @@ func (obj *Object) SetOwner(owner script.ObjectWrapper) {
 }
 
 func (obj *Object) Pos() types.Pointf {
-	if obj == nil {
-		return types.Pointf{}
-	}
-	return obj.PosVec
+	return obj.SObj().Pos()
 }
 
 func (obj *Object) Vel() types.Pointf {
-	if obj == nil {
-		return types.Pointf{}
-	}
-	return obj.VelVec
+	return obj.SObj().Vel()
 }
 
 func (obj *Object) Force() types.Pointf {
-	if obj == nil {
-		return types.Pointf{}
-	}
-	return obj.ForceVec
+	return obj.SObj().Force()
 }
 
 func (obj *Object) Dir1() server.Dir16 {
-	if obj == nil {
-		return 0
-	}
-	return obj.Direction1
+	return obj.SObj().Dir1()
 }
 
 func (obj *Object) Dir2() server.Dir16 {
-	if obj == nil {
-		return 0
-	}
-	return obj.Direction2
+	return obj.SObj().Dir2()
+}
+
+func (obj *Object) Z() float32 {
+	return obj.ZVal
 }
 
 func (obj *Object) curSpeed() float32 {
@@ -1143,10 +941,6 @@ func (obj *Object) ApplyForce(p types.Pointf) {
 	obj.ForceVec = obj.ForceVec.Add(p)
 }
 
-func (obj *Object) Z() float32 {
-	return obj.ZVal
-}
-
 func (obj *Object) SetZ(z float32) {
 	C.nox_xxx_unitRaise_4E46F0(obj.CObj(), C.float(z))
 }
@@ -1160,10 +954,7 @@ func (obj *Object) PushTo(p types.Pointf) {
 }
 
 func (obj *Object) IsEnabled() bool {
-	if obj == nil {
-		return false
-	}
-	return obj.Flags().Has(object.FlagEnabled)
+	return obj.SObj().IsEnabled()
 }
 
 // Toggle the object's enable state.
@@ -1373,27 +1164,11 @@ func (obj *Object) isPlant() bool {
 }
 
 func (obj *Object) FindOwnerChainPlayer() *Object { // nox_xxx_findParentChainPlayer_4EC580
-	if obj == nil {
-		return nil
-	}
-	res := obj
-	for it := obj.OwnerC(); it != nil; it = it.OwnerC() {
-		if it.Class().Has(object.ClassPlayer) {
-			res = it
-			break
-		}
-		res = it
-	}
-	return res
+	return asObjectS(obj.SObj().FindOwnerChainPlayer())
 }
 
 func (obj *Object) HasOwner(owner *Object) bool {
-	for it := owner; it != nil; it = it.OwnerC() {
-		if it == owner {
-			return true
-		}
-	}
-	return false
+	return obj.SObj().HasOwner(owner.SObj())
 }
 
 func (obj *Object) dropAllItems() {
@@ -1401,7 +1176,7 @@ func (obj *Object) dropAllItems() {
 }
 
 func (obj *Object) sub548600(dp types.Pointf) {
-	mass := obj.Mass()
+	mass := obj.Mass
 	obj.Pos24.X += dp.X / mass
 	obj.Pos24.Y += dp.Y / mass
 }

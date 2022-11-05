@@ -54,6 +54,13 @@ type Unit struct {
 	Object
 }
 
+func (u *Unit) SObj() *server.Object {
+	if u == nil {
+		return nil
+	}
+	return u.Object.SObj()
+}
+
 func (u *Unit) AsObject() *Object {
 	if u == nil {
 		return nil
