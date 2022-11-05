@@ -187,17 +187,6 @@ int nox_xxx_moverGoTo_5124C0(uint32_t* a1, uint32_t* a2) {
 	return a1;
 }
 
-//----- (00512690) --------------------------------------------------------
-int nox_script_objGroupOn_512690() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_5126C0, 0);
-	return 0;
-}
-
 //----- (00512750) --------------------------------------------------------
 int nox_script_objGroupOff_512750() {
 	int v0;            // eax
