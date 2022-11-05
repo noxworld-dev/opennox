@@ -150,7 +150,6 @@ void nox_xxx_wallClose_512070(int a1);
 void nox_xxx_wallToggle_512160(int a1);
 int nox_xxx_wallPreDestroyByPtr_5122C0(int a1);
 float* nox_xxx_monsterLookAt_5125A0(nox_object_t* obj, int a2);
-int sub_5128A0(int a1);
 void sub_512900(int a1);
 void sub_512FE0(int a1, int* a2);
 uint32_t* sub_5130E0(int a1, uint32_t* a2);

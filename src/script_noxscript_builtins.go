@@ -4,7 +4,6 @@ package opennox
 #include "defs.h"
 int nox_script_getWall_511EB0();
 int nox_script_toggleObject_5127F0();
-int nox_script_toggleWaypointGroup_512870();
 int nox_script_deleteObjectGroup_5128D0();
 int nox_script_groupRoam_512990();
 int nox_script_groupDamage_513010();
@@ -225,7 +224,7 @@ var noxScriptBuiltins = []func() int{
 	23:  nox_script_toggleObject_5127F0,
 	24:  nox_script_toggleObjectGroup_512810,
 	25:  nox_script_toggleWaypoint_512850,
-	26:  wrapScriptC(C.nox_script_toggleWaypointGroup_512870),
+	26:  nox_script_toggleWaypointGroup_512870,
 	27:  nox_script_deleteObject_5128B0,
 	28:  wrapScriptC(C.nox_script_deleteObjectGroup_5128D0),
 	29:  nox_script_followNearestWaypoint_512910,
@@ -1345,8 +1344,19 @@ func nox_script_toggleWaypoint_512850() int {
 
 	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
 	if waypoint != nil {
-		*(*uint32)(unsafe.Add(unsafe.Pointer(waypoint), 120*4)) ^= 1
+		waypoint.Toggle()
 	}
+	return 0
+}
+
+func nox_script_toggleWaypointGroup_512870() int {
+	s := &noxServer.noxScript
+
+	v0 := s.PopI32()
+	mapGroup := getMapGroupByInd(int(v0))
+	scriptExecuteFnForWaypointGroup(mapGroup, func(wp *Waypoint) {
+		wp.Toggle()
+	})
 	return 0
 }
 
