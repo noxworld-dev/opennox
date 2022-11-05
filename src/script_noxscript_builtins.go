@@ -3,7 +3,6 @@ package opennox
 /*
 #include "defs.h"
 int nox_script_getWall_511EB0();
-int nox_script_groupLookAtDirection_512610();
 int nox_script_objGroupOn_512690();
 int nox_script_objGroupOff_512750();
 int nox_script_waypointGroupOff_5127B0();
@@ -217,7 +216,7 @@ var noxScriptBuiltins = []func() int{
 	11:  nox_script_moverOrMonsterGo_512370,
 	12:  nox_script_groupGoTo_512500,
 	13:  nox_script_lookAtDirection_512560,
-	14:  wrapScriptC(C.nox_script_groupLookAtDirection_512610),
+	14:  nox_script_groupLookAtDirection_512610,
 	15:  nox_script_objectOn_512670,
 	16:  wrapScriptC(C.nox_script_objGroupOn_512690),
 	17:  nox_script_waypointOn_5126D0,
@@ -1239,6 +1238,23 @@ func nox_script_lookAtDirection_512560() int {
 	if monster != nil {
 		if monster.Class().Has(object.ClassMonster) && !monster.Flags().Has(object.FlagDead) {
 			monster.AsUnit().LookAtDir(int(direction))
+		}
+	}
+	return 0
+}
+
+func nox_script_groupLookAtDirection_512610() int {
+	s := &noxServer.noxScript
+	
+	direction := int(s.PopI32())
+	v1 := s.PopI32()
+	mapGroup := getMapGroupByInd(int(v1))
+	if mapGroup != nil {
+		for it := mapGroup.FirstItem(); it != nil; it = it.Next() {
+			monster := noxServer.GetObjectByInd(it.Ind())
+			if monster != nil && monster.Class().Has(object.ClassMonster) && !monster.Flags().Has(object.FlagDead) {
+				monster.AsUnit().LookAtDir(direction)
+			}
 		}
 	}
 	return 0
