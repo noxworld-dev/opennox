@@ -84,19 +84,6 @@ func (u *Unit) SetPos(p types.Pointf) {
 	u.move(cp)
 }
 
-func (u *Unit) Push(vec types.Pointf, force float32) {
-	p := u.Pos().Sub(vec)
-	l := float32(p.Len())
-	p.X = force * p.X / l
-	p.Y = force * p.Y / l
-	u.PushTo(p)
-}
-
-func (u *Unit) PushTo(p types.Pointf) {
-	u.ForceVec.X += p.X
-	u.ForceVec.Y += p.Y
-}
-
 func (u *Unit) Destroy() {
 	panic("implement me")
 	u.Delete()
@@ -213,15 +200,12 @@ func (u *Unit) WalkTo(p types.Pointf) {
 	C.nox_xxx_monsterWalkTo_514110(u.CObj(), C.float(p.X), C.float(p.Y))
 }
 
-func (u *Unit) look(v int16) {
-	*(*int16)(u.field(124)) = v
-	*(*int16)(u.field(126)) = v
+func (u *Unit) SetDir(v server.Dir16) {
+	u.SObj().SetDir(v)
 }
 
 func (u *Unit) LookAt(p types.Pointf) {
-	p = p.Sub(u.Pos())
-	v := server.DirFromVec(p)
-	u.look(int16(v))
+	u.SObj().LookAt(p)
 }
 
 func (u *Unit) LookAtDir(dir int) {
@@ -230,7 +214,7 @@ func (u *Unit) LookAtDir(dir int) {
 
 func (u *Unit) LookAngle(ang int) {
 	v := nox_xxx_math_roundDir(int32(ang))
-	u.look(int16(v))
+	u.SetDir(server.Dir16(v))
 }
 
 func (u *Unit) Freeze(freeze bool) {

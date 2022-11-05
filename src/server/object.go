@@ -448,9 +448,32 @@ func (obj *Object) UpdateDataMonster() *MonsterUpdateData {
 	return (*MonsterUpdateData)(obj.UpdateData)
 }
 
+func (obj *Object) Push(vec types.Pointf, force float32) {
+	p := obj.Pos().Sub(vec)
+	l := float32(p.Len())
+	p.X = force * p.X / l
+	p.Y = force * p.Y / l
+	obj.PushTo(p)
+}
+
+// ApplyForce adds a new force vector to the object. If another force in effect, it will adds up.
+func (obj *Object) ApplyForce(p types.Pointf) {
+	obj.ForceVec = obj.ForceVec.Add(p)
+}
+
+func (obj *Object) PushTo(p types.Pointf) {
+	obj.ForceVec = obj.ForceVec.Add(p)
+}
+
 func (obj *Object) SetDir(v Dir16) {
 	obj.Direction1 = v
 	obj.Direction2 = v
+}
+
+func (obj *Object) LookAt(p types.Pointf) {
+	p = p.Sub(obj.Pos())
+	v := DirFromVec(p)
+	obj.SetDir(v)
 }
 
 func (obj *Object) Health() (cur, max int) {

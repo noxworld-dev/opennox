@@ -111,12 +111,9 @@ func (a *abilityHarpoon) createBolt(u *Unit) {
 	r := u.Shape.Circle.R + 1.0
 	*(**nox_object_t)(unsafe.Add(bolt.CollideData, 4)) = u.CObj()
 	dv := u.Direction1.Vec()
-	hpos := u.Pos().Add(types.Pointf{
-		X: r * dv.X, Y: r * dv.Y,
-	})
+	hpos := u.Pos().Add(dv.Mul(r))
 	a.s.createObjectAt(bolt, u, hpos)
-	bolt.VelVec.X = dv.X * bolt.SpeedCur
-	bolt.VelVec.Y = dv.Y * bolt.SpeedCur
+	bolt.VelVec = dv.Mul(bolt.SpeedCur)
 	dir := u.Direction1
 	bolt.Direction1 = dir
 	bolt.Direction2 = dir

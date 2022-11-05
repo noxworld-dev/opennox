@@ -288,9 +288,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 				u.Direction2 = server.Dir16(C.nox_xxx_playerConfusedGetDirection_4F7A40(u.CObj()))
 			}
 			// update force based on direction, speed, etc
-			dv := u.Direction2.Vec()
-			u.ForceVec.X += dv.X * u.SpeedCur
-			u.ForceVec.Y += dv.Y * u.SpeedCur
+			u.ForceVec = u.ForceVec.Add(u.Direction2.Vec().Mul(u.SpeedCur))
 		}
 		if ud.Field22_0 == 0 {
 			v67, v69 := playerAnimGetFrameRange(4)
@@ -413,9 +411,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			}
 		}
 		if !found {
-			dv := u.Direction1.Vec()
-			u.ForceVec.X = 2 * u.SpeedCur * dv.X
-			u.ForceVec.Y = 2 * u.SpeedCur * dv.Y
+			u.ForceVec = u.Direction1.Vec().Mul(2 * u.SpeedCur)
 		}
 		if v49 >= v67 {
 			// stop hovering after a jump?
@@ -937,11 +933,7 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 		}
 	}
 	u.Float28 = 0.9
-	dv := u.Direction2.Vec()
-	u.ForceVec = types.Pointf{
-		X: dv.X * u.curSpeed(),
-		Y: dv.Y * u.curSpeed(),
-	}
+	u.ForceVec = u.Direction2.Vec().Mul(u.curSpeed())
 	if (s.Frame()&8 == 0) && owner != nil {
 		if C.nox_xxx_mapCheck_537110(u.CObj(), owner.CObj()) == 1 {
 			ud[6] = s.Frame()

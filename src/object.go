@@ -849,7 +849,7 @@ func (obj *Object) SetPos(p types.Pointf) {
 
 // ApplyForce adds a new force vector to the object. If another force in effect, it will adds up.
 func (obj *Object) ApplyForce(p types.Pointf) {
-	obj.ForceVec = obj.ForceVec.Add(p)
+	obj.SObj().ApplyForce(p)
 }
 
 func (obj *Object) SetZ(z float32) {
@@ -1087,7 +1087,5 @@ func (obj *Object) dropAllItems() {
 }
 
 func (obj *Object) sub548600(dp types.Pointf) {
-	mass := obj.Mass
-	obj.Pos24.X += dp.X / mass
-	obj.Pos24.Y += dp.Y / mass
+	obj.Pos24 = obj.Pos24.Add(dp.Div(obj.Mass))
 }
