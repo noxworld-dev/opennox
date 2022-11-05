@@ -68,10 +68,7 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts 
 		}
 		dir := server.Dir16(nox_xxx_math_roundDirI16(int16(caster.Direction1) + doff))
 		dv := dir.Vec()
-		p2 := types.Pointf{
-			X: cpos.X + cvel.X + rdist*dv.X,
-			Y: cpos.Y + cvel.Y + rdist*dv.Y,
-		}
+		p2 := cpos.Add(cvel).Add(dv.Mul(rdist))
 		if !MapTraceRay(cpos, p2, MapTraceFlag1|MapTraceFlag3) {
 			continue
 		}
@@ -81,10 +78,7 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts 
 		mspeed := float32(noxRndCounter1.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.curSpeed()))
 		msl.SpeedCur = mspeed
 		msl.setAllDirs(dir)
-		msl.VelVec = types.Pointf{
-			X: cvel.X + mspeed*dv.X*opts.VelMult,
-			Y: cvel.Y + mspeed*dv.Y*opts.VelMult,
-		}
+		msl.VelVec = cvel.Add(dv.Mul(mspeed * opts.VelMult))
 		var ppos *types.Pointf
 		if caster.Class().Has(object.ClassPlayer) {
 			pl := caster.ControllingPlayer()
