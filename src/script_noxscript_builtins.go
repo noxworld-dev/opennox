@@ -3,7 +3,6 @@ package opennox
 /*
 #include "defs.h"
 int nox_script_getWall_511EB0();
-int nox_script_groupGoTo_512500();
 int nox_script_groupLookAtDirection_512610();
 int nox_script_objGroupOn_512690();
 int nox_script_objGroupOff_512750();
@@ -216,7 +215,7 @@ var noxScriptBuiltins = []func() int{
 	9:   nox_script_secondTimer_512320,
 	10:  nox_script_frameTimer_512350,
 	11:  nox_script_moverOrMonsterGo_512370,
-	12:  wrapScriptC(C.nox_script_groupGoTo_512500),
+	12:  nox_script_groupGoTo_512500,
 	13:  nox_script_lookAtDirection_512560,
 	14:  wrapScriptC(C.nox_script_groupLookAtDirection_512610),
 	15:  nox_script_objectOn_512670,
@@ -1207,6 +1206,25 @@ func nox_script_moverOrMonsterGo_512370() int {
 			waypoint := noxServer.getWaypointByInd(waypointId)
 			if waypoint != nil {
 				C.nox_server_scriptMoveTo_5123C0(C.int(uintptr(unsafe.Pointer(obj))), C.int(uintptr(unsafe.Pointer(waypoint))))
+			}
+		}
+	}
+	return 0
+}
+
+func nox_script_groupGoTo_512500() int {
+	s := &noxServer.noxScript
+
+	waypointId := int(s.PopI32())
+	v1 := s.PopI32()
+	mapGroup := getMapGroupByInd(int(v1))
+	waypoint := noxServer.getWaypointByInd(waypointId)
+
+	if mapGroup != nil && waypoint != nil {
+		for it := mapGroup.FirstItem(); it != nil; it = it.Next() {
+			item := noxServer.GetObjectByInd(it.Ind())
+			if item != nil {
+				C.nox_server_scriptMoveTo_5123C0(C.int(uintptr(unsafe.Pointer(item))), C.int(uintptr(unsafe.Pointer(waypoint))))
 			}
 		}
 	}
