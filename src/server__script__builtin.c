@@ -187,33 +187,6 @@ int nox_xxx_moverGoTo_5124C0(uint32_t* a1, uint32_t* a2) {
 	return a1;
 }
 
-//----- (00512610) --------------------------------------------------------
-int nox_script_groupLookAtDirection_512610() {
-	int v0;     // edi
-	int v1;     // eax
-	int result; // eax
-	int* i;     // esi
-	int v4;     // eax
-	int v5;     // ecx
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	result = nox_server_scriptGetGroup_57C0A0(v1);
-	if (result) {
-		for (i = *(int**)(result + 84); i; i = (int*)i[2]) {
-			v4 = nox_xxx_netGetUnitByExtent_4ED020(*i);
-			if (v4 && *(uint8_t*)(v4 + 8) & 2) {
-				v5 = *(uint32_t*)(v4 + 16);
-				if ((v5 & 0x8000) == 0) {
-					nox_xxx_monsterLookAt_5125A0(v4, v0);
-				}
-			}
-		}
-		result = 0;
-	}
-	return result;
-}
-
 //----- (00512690) --------------------------------------------------------
 int nox_script_objGroupOn_512690() {
 	int v0;            // eax
