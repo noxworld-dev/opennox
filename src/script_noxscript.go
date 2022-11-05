@@ -412,7 +412,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 		for it := s.FirstServerObject(); it != nil; it = it.Next() {
 			if int(it.TypeInd) == nox_script_objTelekinesisHand {
 				if f := it.Flags(); f.Has(object.FlagNoCollide) {
-					it.SetFlags(f &^ object.FlagNoCollide)
+					it.ObjFlags = uint32(f &^ object.FlagNoCollide)
 				}
 			}
 		}
@@ -454,7 +454,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 		} else {
 			if int(it.TypeInd) == nox_script_objTelekinesisHand {
 				if f := it.Flags(); !f.Has(object.FlagNoCollide) {
-					it.SetFlags(f | object.FlagNoCollide)
+					it.ObjFlags = uint32(f | object.FlagNoCollide)
 				}
 			}
 			nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_WALL, it)

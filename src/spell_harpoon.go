@@ -211,7 +211,7 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 	tpos := targ.Pos()
 	d.targPos = tpos
 	d.frame38 = a.s.Frame()
-	bolt.SetFlags(bolt.Flags() | object.FlagNoCollide)
+	bolt.ObjFlags |= uint32(object.FlagNoCollide)
 	sub_4E7540(bolt.OwnerC(), targ)
 	nox_xxx_aud_501960(sound.SoundHarpoonReel, owner, 0, 0)
 }

@@ -130,7 +130,7 @@ func init() {
 				all |= fl
 			}
 		}
-		obj.SetFlags(all)
+		obj.ObjFlags = uint32(all)
 		writeJSONResp(w, obj)
 	})
 }
