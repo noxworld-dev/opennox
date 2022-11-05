@@ -3,7 +3,6 @@ package opennox
 /*
 #include "defs.h"
 int nox_script_getWall_511EB0();
-int nox_script_objGroupOff_512750();
 int nox_script_waypointGroupOff_5127B0();
 int nox_script_toggleObject_5127F0();
 int nox_script_toggleWaypointGroup_512870();
@@ -221,7 +220,7 @@ var noxScriptBuiltins = []func() int{
 	17:  nox_script_waypointOn_5126D0,
 	18:  nox_script_waypointGroupOn_5126F0,
 	19:  nox_script_objectOff_512730,
-	20:  wrapScriptC(C.nox_script_objGroupOff_512750),
+	20:  nox_script_objGroupOff_512750,
 	21:  nox_script_waypointOff_512790,
 	22:  wrapScriptC(C.nox_script_waypointGroupOff_5127B0),
 	23:  nox_script_toggleObject_5127F0,
@@ -1297,6 +1296,17 @@ func nox_script_objectOff_512730() int {
 	if obj != nil {
 		obj.Enable(false)
 	}
+	return 0
+}
+
+func nox_script_objGroupOff_512750() int {
+	s := &noxServer.noxScript
+	
+	v0 := s.PopI32()
+	mapGroup := getMapGroupByInd(int(v0))
+	scriptExecuteFnForObjectGroup(mapGroup, func (obj *Object) {
+		obj.Enable(false)
+	})
 	return 0
 }
 
