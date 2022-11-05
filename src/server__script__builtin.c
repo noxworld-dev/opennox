@@ -187,32 +187,6 @@ int nox_xxx_moverGoTo_5124C0(uint32_t* a1, uint32_t* a2) {
 	return a1;
 }
 
-//----- (00512500) --------------------------------------------------------
-int nox_script_groupGoTo_512500() {
-	int v0;       // esi
-	int v1;       // eax
-	int v2;       // edi
-	uint32_t* v3; // ebx
-	int* i;       // esi
-	int v5;       // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptGetGroup_57C0A0(v1);
-	v3 = nox_server_getWaypointById_579C40(v0);
-	if (v3) {
-		if (v2) {
-			for (i = *(int**)(v2 + 84); i; i = (int*)i[2]) {
-				v5 = nox_xxx_netGetUnitByExtent_4ED020(*i);
-				if (v5) {
-					nox_server_scriptMoveTo_5123C0(v5, (int)v3);
-				}
-			}
-		}
-	}
-	return 0;
-}
-
 //----- (00512610) --------------------------------------------------------
 int nox_script_groupLookAtDirection_512610() {
 	int v0;     // edi
