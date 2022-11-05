@@ -2200,7 +2200,7 @@ func nox_script_ClearOwner_5147E0() int {
 }
 
 func chatTimerFrames(mgr *strman.StringManager, msgId string, obj *Object, durationTicks uint16) {
-		v, _ := strMan.GetVariantInFile(strman.ID(msgId), "CScrFunc.c")
+		v, _ := mgr.GetVariantInFile(strman.ID(msgId), "CScrFunc.c")
 
 		C.nox_xxx_netSendChat_528AC0(obj.CObj(), internWStr(v.Str), C.ushort(durationTicks))
 		if noxflags.HasGame(noxflags.GameModeCoop) {
