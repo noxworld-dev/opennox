@@ -127,17 +127,6 @@ int nox_script_getWall_511EB0() {
 	return 0;
 }
 
-//----- (00512260) --------------------------------------------------------
-int nox_script_toggleWallGroup_512260() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 2, nox_xxx_wallToggle_512160, 0);
-	return 0;
-}
-
 //----- (005122F0) --------------------------------------------------------
 int nox_script_wallGroupBreak_5122F0() {
 	int v0;            // eax
