@@ -1957,7 +1957,7 @@ char nox_xxx_monsterShieldBlockStop_5320E0(int a1) {
 }
 
 //----- (00532100) --------------------------------------------------------
-char sub_532100(int a1) { return nox_xxx_monsterPopAction_50A160(a1); }
+char nox_ai_action_pop_532100(int a1) { return nox_xxx_monsterPopAction_50A160(a1); }
 
 //----- (00532110) --------------------------------------------------------
 char sub_532110(int a1) {
@@ -11284,17 +11284,6 @@ int sub_544940(int a1) { return sub_534780(a1); }
 
 //----- (00544950) --------------------------------------------------------
 char sub_544950(int a1) { return nox_xxx_mobActionMoveTo_5443F0(a1); }
-
-//----- (00544960) --------------------------------------------------------
-char nox_xxx_mobActionWait_544960(int a1) {
-	unsigned int v1; // eax
-
-	v1 = *(uint32_t*)(*(uint32_t*)(a1 + 748) + 24 * *(char*)(*(uint32_t*)(a1 + 748) + 544) + 556);
-	if (v1 <= gameFrame()) {
-		LOBYTE(v1) = nox_xxx_monsterPopAction_50A160(a1);
-	}
-	return v1;
-}
 
 //----- (00544990) --------------------------------------------------------
 char nox_xxx_mobActionWaitRelative_544990(int a1) {
