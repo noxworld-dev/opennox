@@ -226,7 +226,7 @@ var noxScriptBuiltins = []func() int{
 	25:  nox_script_toggleWaypoint_512850,
 	26:  nox_script_toggleWaypointGroup_512870,
 	27:  nox_script_deleteObject_5128B0,
-	28:  wrapScriptC(C.nox_script_deleteObjectGroup_5128D0),
+	28:  nox_script_deleteObjectGroup_5128D0,
 	29:  nox_script_followNearestWaypoint_512910,
 	30:  wrapScriptC(C.nox_script_groupRoam_512990),
 	31:  nox_script_getObject2_5129C0,
@@ -432,6 +432,17 @@ func nox_script_deleteObject_5128B0() int {
 	if obj := s.PopObject(); obj != nil {
 		obj.Delete()
 	}
+	return 0
+}
+
+func nox_script_deleteObjectGroup_5128D0() int {
+	s := &noxServer.noxScript
+
+	v0 := s.PopI32()
+	mapGroup := getMapGroupByInd(int(v0))
+	scriptExecuteFnForObjectGroup(mapGroup, func (obj *Object) {
+		obj.Delete()
+	})
 	return 0
 }
 

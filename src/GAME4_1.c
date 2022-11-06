@@ -5088,9 +5088,6 @@ float* nox_xxx_monsterLookAt_5125A0(nox_object_t* obj, int a2) {
 	return result;
 }
 
-//----- (00512900) --------------------------------------------------------
-void sub_512900(int a1) { nox_xxx_delayedDeleteObject_4E5CC0(a1); }
-
 //----- (00512FE0) --------------------------------------------------------
 void sub_512FE0(int a1, int* a2) {
 	int v2; // eax
