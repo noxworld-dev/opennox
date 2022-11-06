@@ -54,7 +54,6 @@ extern uint32_t dword_5d4594_2388640;
 extern uint32_t dword_5d4594_2386160;
 extern uint32_t dword_5d4594_1599712;
 extern uint32_t dword_5d4594_2386924;
-extern uint32_t dword_5d4594_1599692;
 extern uint32_t dword_5d4594_2386500;
 extern uint32_t dword_5d4594_2386576;
 extern uint32_t dword_5d4594_2386212;
@@ -471,147 +470,6 @@ int nox_xxx_checkMobAction_50A0D0(nox_object_t* a1p, int a2) {
 	return 1;
 }
 
-//----- (0050A110) --------------------------------------------------------
-void nox_xxx_monsterActionReset_50A110(nox_object_t* a1p) {
-	int a1 = a1p;
-	int result; // eax
-
-	result = *(uint32_t*)(a1 + 748);
-	*(uint8_t*)(result + 481) = 0;
-	*(uint8_t*)(result + 482) = 0;
-	*(uint8_t*)(result + 483) = 0;
-	*(uint32_t*)(result + 8) = 0;
-	*(uint32_t*)(result + 268) = 0;
-	*(uint32_t*)(result + 296) = 0;
-	*(uint32_t*)(result + 364) = 0;
-	*(uint32_t*)(result + 548) = gameFrame();
-	*(uint32_t*)(result + 496) = gameFrame();
-}
-
-//----- (0050A160) --------------------------------------------------------
-char nox_xxx_monsterPopAction_50A160(nox_object_t* a1p) {
-	int a1 = a1p;
-	int v1;          // esi
-	int v2;          // eax
-	int v3;          // eax
-	char v4;         // al
-	uint32_t* v5;    // edi
-	int v6;          // eax
-	void (*v7)(int); // eax
-	char v8;         // cl
-	int v9;          // edi
-	int* v10;        // ebp
-	int v11;         // eax
-	char result;     // al
-	int v13;         // [esp-Ch] [ebp-1Ch]
-	int v14;         // [esp-8h] [ebp-18h]
-	int v15;         // [esp-4h] [ebp-14h]
-
-	v1 = *(uint32_t*)(a1 + 748);
-	v2 = *(char*)(v1 + 544);
-	v15 = v2;
-	v14 = *getMemU32Ptr(0x587000, 230096 + 4 * *(uint32_t*)(v1 + 8 * (3 * v2 + 69)));
-	v13 = *(uint32_t*)(a1 + 36);
-	v3 = nox_xxx_getUnitName_4E39D0(a1);
-	nox_ai_debug_printf_5341A0("%d: PopActionStack( %s(#%d) ) = %s@%d:\n", gameFrame(), v3, v13, v14, v15);
-	v4 = *(uint8_t*)(v1 + 544);
-	if (v4 >= 0) {
-		v5 = (uint32_t*)(v1 + 24 * (v4 + 23));
-		v6 = nox_xxx_monsterActionIsCondition_50A010(*(uint32_t*)(v1 + 24 * (v4 + 23)));
-		if (!v6) {
-			if (v5[5]) {
-				v7 = *(void (**)(int))getMemAt(0x587000, 233168 + 16 * *v5);
-				if (v7) {
-					v7(a1);
-				}
-			}
-		}
-	}
-	dword_5d4594_1599692 = 1;
-	v8 = *(uint8_t*)(v1 + 544) - 1;
-	v9 = v8;
-	*(uint8_t*)(v1 + 544) = v8;
-	if (v8 >= 0) {
-		v10 = (int*)(v1 + 8 * (3 * v8 + 69));
-		do {
-			v11 = nox_xxx_monsterActionIsCondition_50A010(*v10);
-			if (!v11) {
-				break;
-			}
-			v10 -= 6;
-			--v9;
-			--*(uint8_t*)(v1 + 544);
-		} while (v9 >= 0);
-	}
-	nox_xxx_monsterActionReset_50A110(a1);
-	result = *(uint8_t*)(v1 + 544);
-	if (result < 0) {
-		*(uint8_t*)(v1 + 544) = 0;
-		*(uint32_t*)(v1 + 552) = 0;
-	}
-	return result;
-}
-// 50A1CB: variable 'v6' is possibly undefined
-// 50A21D: variable 'v11' is possibly undefined
-
-//----- (0050A260) --------------------------------------------------------
-int* nox_xxx_monsterPushAction_50A260_impl(nox_object_t* a1p, int a2, const char* file, int line) {
-	int a1 = a1p;
-	int v2;          // esi
-	int* result;     // eax
-	char v4;         // cl
-	uint32_t* v5;    // edi
-	int v6;          // eax
-	void (*v7)(int); // eax
-	char v8;         // al
-	int* v9;         // esi
-	int v10;         // eax
-	int v11;         // [esp-8h] [ebp-18h]
-	int v12;         // [esp-4h] [ebp-14h]
-
-	v2 = *(uint32_t*)(a1 + 748);
-	if (!(*(uint8_t*)(a1 + 8) & 2)) {
-		return 0;
-	}
-	v4 = *(uint8_t*)(v2 + 544);
-	if (v4 == 23) {
-		return 0;
-	}
-	if (v4 < 0) {
-		goto LABEL_19;
-	}
-	if (*(uint32_t*)(v2 + 552) == 31 && a2 != 30) {
-		return 0;
-	}
-	v5 = (uint32_t*)(v2 + 552 + 24 * v4);
-	if (*(uint32_t*)(v2 + 552 + 24 * v4) || v4) {
-		v6 = nox_xxx_monsterActionIsCondition_50A010(*(uint32_t*)(v2 + 552 + 24 * v4));
-		if (!v6 && v5[5]) {
-			v7 = *(void (**)(int))getMemAt(0x587000, 233172 + 16 * *v5);
-			if (v7) {
-				v7(a1);
-			}
-		}
-	} else {
-	LABEL_19:
-		*(uint8_t*)(v2 + 544) = -1;
-	}
-	v8 = *(uint8_t*)(v2 + 544) + 1;
-	*(uint8_t*)(v2 + 544) = v8;
-	v9 = (int*)(v2 + 552 + 24 * v8);
-	*v9 = a2;
-	v9[5] = 0;
-	nox_xxx_monsterActionReset_50A110(a1);
-	v12 = *getMemU32Ptr(0x587000, 230096 + 4 * a2);
-	v11 = *(uint32_t*)(a1 + 36);
-	v10 = nox_xxx_getUnitName_4E39D0(a1);
-	nox_ai_debug_printf_5341A0("%d: PushActionStack( %s(#%d), %s ), result: (%s:%d)\n", gameFrame(), v10, v11, v12, file, line);
-	result = v9;
-	dword_5d4594_1599692 = 1;
-	return result;
-}
-// 50A2CD: variable 'v6' is possibly undefined
-
 //----- (0050A360) --------------------------------------------------------
 int* nox_xxx_monsterAction_50A360(int a1, int a2) {
 	int* result; // eax
@@ -718,138 +576,9 @@ int nox_xxx_monsterCallDieFn_50A3D0(uint32_t* a1) {
 	return result;
 }
 
-//----- (0050A5C0) --------------------------------------------------------
-int nox_xxx_unitUpdateMonster_50A5C0(float a1) {
-	int v1;             // esi
-	int v2;             // edi
-	char v3;            // al
-	int v4;             // eax
-	int result;         // eax
-	int v6;             // eax
-	int v7;             // eax
-	int v8;             // eax
-	unsigned short* v9; // eax
-	int v10;            // ecx
-	unsigned short v11; // cx
-	int v12;            // ecx
-	int v13;            // eax
-	int v14;            // edx
-	int v15;            // ebp
-	int v16;            // edx
-	uint32_t* v17;      // eax
-	void (*v18)(int);   // eax
-	int v19;            // ebx
-	unsigned char v20;  // cl
-	int v21;            // [esp+14h] [ebp+4h]
-
-	v1 = LODWORD(a1);
-	v2 = *(uint32_t*)(LODWORD(a1) + 748);
-	v3 = *(uint8_t*)(v2 + 2094);
-	if (v3) {
-		*(uint8_t*)(v2 + 2094) = v3 - 1;
-	}
-	v4 = *(uint32_t*)(v2 + 2192);
-	if (v4 && *(uint32_t*)(v4 + 16) & 0x8020) {
-		*(uint32_t*)(v2 + 2192) = 0;
-	}
-	nox_xxx_mobAction_50A910(SLODWORD(a1));
-	nox_xxx_unitListenRoutine_50CDD0(SLODWORD(a1));
-	result = *(uint32_t*)(LODWORD(a1) + 16);
-	if (result & 0x1000000) {
-		dword_5d4594_1599692 = 0;
-		result = *(uint32_t*)(v2 + 484);
-		if (result) {
-			if (!(*(uint32_t*)(LODWORD(a1) + 16) & 0x8020)) {
-				v6 = *(uint32_t*)(v2 + 1440);
-				if (v6 & 0x200) {
-					v7 = nox_xxx_monsterGetSoundSet_424300(SLODWORD(a1));
-					if (v7) {
-						nox_xxx_aud_501960(*(uint32_t*)(v7 + 64), SLODWORD(a1), 0, 0);
-					}
-					nox_xxx_scriptCallByEventBlock_502490((int*)(v2 + 1248), *(uint32_t*)(LODWORD(a1) + 520),
-														  SLODWORD(a1), 17);
-					nox_ai_debug_printf_5341A0("%d: HP = %d/%d\n", gameFrame(),
-											   **(unsigned short**)(LODWORD(a1) + 556),
-											   *(unsigned short*)(*(uint32_t*)(LODWORD(a1) + 556) + 4));
-				}
-				v8 = *(uint32_t*)(v2 + 520);
-				if (v8 && (unsigned int)(gameFrame() - v8) >= (int)gameFPS()) {
-					nox_xxx_monsterPlayHurtSound_532800(SLODWORD(a1));
-					*(uint32_t*)(v2 + 520) = 0;
-				}
-				nox_xxx_mobAction_5469B0(SLODWORD(a1));
-			}
-			v9 = *(unsigned short**)(LODWORD(a1) + 556);
-			if (v9) {
-				v10 = *(uint32_t*)(LODWORD(a1) + 16);
-				if ((v10 & 0x8000) == 0 &&
-					(unsigned int)(gameFrame() - *(uint32_t*)(LODWORD(a1) + 536)) > (int)gameFPS()) {
-					v11 = v9[2];
-					if (*v9 < v11 && v11 && !(gameFrame() % (180 * gameFPS() / (unsigned int)v9[2]))) {
-						nox_xxx_unitAdjustHP_4EE460(SLODWORD(a1), 1);
-					}
-				}
-			}
-			nox_xxx_unitUpdateSightMB_5281F0(a1);
-			nox_xxx_monsterMainAIFn_547210(SLODWORD(a1));
-			nox_xxx_mobActionDependency_546A70(SLODWORD(a1));
-			nox_xxx_updateNPCAnimData_50A850(SLODWORD(a1));
-			v12 = dword_5d4594_1599692;
-			v21 = dword_5d4594_1599692;
-			while (1) {
-				v13 = *(char*)(v2 + 544);
-				v14 = 3 * v13 + 69;
-				v13 *= 3;
-				v15 = *(uint32_t*)(v2 + 8 * v14);
-				v16 = *(uint32_t*)(v2 + 8 * v13 + 572);
-				v17 = (uint32_t*)(v2 + 8 * v13 + 572);
-				if (v16) {
-					break;
-				}
-				*v17 = 1;
-				dword_5d4594_1599692 = 0;
-				v18 = *(void (**)(int))getMemAt(0x587000, 233160 + 16 * v15);
-				if (v18) {
-					v18(v1);
-					v12 = dword_5d4594_1599692;
-					if (dword_5d4594_1599692) {
-						continue;
-					}
-				}
-				goto LABEL_30;
-			}
-			if (v12) {
-				goto LABEL_31;
-			}
-		LABEL_30:
-			dword_5d4594_1599692 = v21;
-		LABEL_31:
-			(*(void (**)(int))getMemAt(0x587000, 233164 + 16 * v15))(v1);
-			if (dword_5d4594_1599692) {
-				nox_ai_debug_printStack_509F60(v1, "stack changed");
-			}
-			v19 = *(uint32_t*)(v2 + 1440);
-			BYTE1(v19) &= 0xFDu;
-			*(uint32_t*)(v2 + 1440) = v19;
-			nox_xxx_monsterPolygonEnter_421FF0(v1);
-			v20 = *(uint8_t*)(v2 + 1128);
-			if (v20 < 0x64u) {
-				*(uint8_t*)(v2 + 1128) = v20 + 0x64u / gameFPS();
-			}
-			if (nox_xxx_unitIsMimic_534840(v1)) {
-				nox_xxx_monsterMimicCheckMorph_534950(v1);
-			}
-			result = gameFPS();
-			if (gameFrame() - *(uint32_t*)(v1 + 536) > (unsigned int)(3 * gameFPS())) {
-				*(uint32_t*)(v2 + 1440) &= 0xFFF7FFFF;
-			}
-		}
-	}
-	return result;
-}
-
 //----- (0050A850) --------------------------------------------------------
-char nox_xxx_updateNPCAnimData_50A850(int a1) {
+char nox_xxx_updateNPCAnimData_50A850(nox_object_t* a1p) {
+	int a1 = a1p;
 	uint8_t* v1;       // esi
 	unsigned char* v2; // eax
 	unsigned char v3;  // cl
@@ -898,7 +627,8 @@ char nox_xxx_updateNPCAnimData_50A850(int a1) {
 }
 
 //----- (0050A910) --------------------------------------------------------
-int nox_xxx_mobAction_50A910(int a1) {
+int nox_xxx_mobAction_50A910(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;       // ecx
 	int v2;       // eax
 	int result;   // eax

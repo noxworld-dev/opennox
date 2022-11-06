@@ -1,7 +1,5 @@
 #include "client__system__parsecmd.h"
 
-void nullsub_66();
-void nullsub_67();
 void nullsub_68();
 uint32_t dword_5d4594_1046492 = 0;
 void* nox_xxx_aClosewoodengat_587000_133480 = 0;
@@ -264,7 +262,6 @@ float nox_xxx_conjurerMaxMana_587000_312804 = 1.0f;
 float nox_xxx_wizardMaxHealth_587000_312816 = 1.0f;
 float nox_xxx_wizardMaximumMana_587000_312820 = 1.0f;
 
-uint32_t dword_5d4594_1599692 = 0;
 uint32_t dword_5d4594_2487532 = 0;
 uint32_t dword_5d4594_805984 = 0;
 uint32_t nox_server_connectionType_3596 = 0;

@@ -188,7 +188,7 @@ short sub_528030(int a1);
 int nox_xxx_checkIsKillable_528190(nox_object_t* a1);
 int nox_xxx_frameCounterSetCopyToNextFrame_5281D0();
 int nox_xxx_frameCounterSetCopy_5281E0();
-void nox_xxx_unitUpdateSightMB_5281F0(float a1);
+void nox_xxx_unitUpdateSightMB_5281F0(nox_object_t* a1);
 int nox_xxx_aiLostSight_528560(int a1, int a2);
 void sub_528610(int a1);
 void nox_xxx_monsterUpdateSeenEnemies_5286D0(int a1, int a2);

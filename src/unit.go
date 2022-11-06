@@ -329,13 +329,13 @@ func (u *Unit) Cast(sp spell.ID, lvl int, targ script.Positioner) bool {
 func (u *Unit) clearActionStack() { // aka nox_xxx_monsterClearActionStack_50A3A0
 	if u.Class().Has(object.ClassMonster) {
 		for C.sub_5341F0(u.CObj()) == 0 {
-			nox_xxx_monsterPopAction_50A160(u)
+			u.monsterPopAction()
 		}
 	}
 }
 
 func (u *Unit) monsterPushAction(act ai.ActionType, args ...any) *server.AIStackItem { // aka nox_xxx_monsterPushAction_50A260
-	st := (*server.AIStackItem)(unsafe.Pointer(C.nox_xxx_monsterPushAction_50A260_impl(u.CObj(), C.int(act), internCStr("go"), 0)))
+	st := u.monsterPushActionImpl(act, "go", 0)
 	if len(args) != 0 {
 		aiStackSetArgs(st, args...)
 	}

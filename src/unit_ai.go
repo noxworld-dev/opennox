@@ -3,6 +3,7 @@ package opennox
 /*
 #include "defs.h"
 #include "GAME1_1.h"
+#include "GAME3_3.h"
 #include "GAME4.h"
 #include "GAME4_1.h"
 #include "GAME4_2.h"
@@ -10,6 +11,9 @@ package opennox
 #include "GAME5.h"
 #include "server__script__script.h"
 extern unsigned int dword_5d4594_2489460;
+
+void nullsub_66();
+void nullsub_67();
 */
 import "C"
 
@@ -35,6 +39,7 @@ type aiData struct {
 	listenHead         *MonsterListen
 	soundMuteThreshold int
 	lastHeard          types.Pointf
+	stackChanged       bool
 }
 
 func (a *aiData) Init(s *Server) {
@@ -44,11 +49,6 @@ func (a *aiData) Init(s *Server) {
 //export nox_ai_debug_print
 func nox_ai_debug_print(str *C.char) {
 	ai.Log.Printf("%s", GoString(str))
-}
-
-//export nox_ai_debug_printStack_509F60
-func nox_ai_debug_printStack_509F60(cu *C.nox_object_t, event *C.char) {
-	asUnitC(cu).maybePrintAIStack(GoString(event))
 }
 
 func aiStackSetArgs(s *server.AIStackItem, args ...any) {
@@ -88,11 +88,6 @@ func (u *Unit) maybePrintAIStack(event string) {
 	if noxflags.HasEngine(noxflags.EngineShowAI) {
 		u.UpdateDataMonster().PrintAIStack(u.getServer().Frame(), event)
 	}
-}
-
-//export nox_xxx_mobActionDependency_546A70
-func nox_xxx_mobActionDependency_546A70(uc *C.nox_object_t) {
-	noxServer.ai.nox_xxx_mobActionDependency(asUnitC(uc))
 }
 
 func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
@@ -303,24 +298,16 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			ai.Log.Printf("%d: %s DEPENDENCY '%s'@%d failed, popping:\n", a.s.Frame(), u.String(), typ.String(), i)
 		}
 		for {
-			nox_xxx_monsterPopAction_50A160(u)
+			u.monsterPopAction()
 			if !(int(ud.AIStackInd) >= i && C.sub_5341F0(u.CObj()) == 0) {
 				break
 			}
 		}
 		stack = ud.GetAIStack()
 		i = len(stack) - 1
-		nox_xxx_monsterActionReset_50A110(u)
+		u.monsterActionReset()
 		u.maybePrintAIStack("procDep")
 	}
-}
-
-func nox_xxx_monsterActionReset_50A110(u *Unit) {
-	C.nox_xxx_monsterActionReset_50A110(u.CObj())
-}
-
-func nox_xxx_monsterPopAction_50A160(u *Unit) {
-	C.nox_xxx_monsterPopAction_50A160(u.CObj())
 }
 
 func nox_xxx_checkMobAction_50A0D0(u *Unit, act ai.ActionType) bool {
@@ -439,11 +426,6 @@ func getOwnerUnit(obj *Object) *Object {
 		}
 	}
 	return nil
-}
-
-//export nox_xxx_unitListenRoutine_50CDD0
-func nox_xxx_unitListenRoutine_50CDD0(unit *nox_object_t) {
-	noxServer.ai.aiListenToSounds(asUnitC(unit))
 }
 
 func (a *aiData) aiListenToSounds(u *Unit) {
@@ -617,4 +599,234 @@ func (a *aiData) nox_xxx_unitEmitHearEvent_50D110(u *Unit, lis *MonsterListen, d
 
 func (a *aiData) lastHeardEvent() types.Pointf {
 	return a.lastHeard
+}
+
+//export nox_xxx_monsterPopAction_50A160
+func nox_xxx_monsterPopAction_50A160(a1 *nox_object_t) int {
+	return asUnitC(a1).monsterPopAction()
+}
+
+func (u *Unit) monsterPopAction() int {
+	s := u.getServer()
+	ud := u.UpdateDataMonster()
+	if noxflags.HasEngine(noxflags.EngineShowAI) {
+		typ := ud.AIStackHead().Type()
+		ai.Log.Printf("%d: PopActionStack( %s(#%d) ) = %s@%d:\n", s.Frame(), u, u.NetCode, typ, ud.AIStackInd)
+	}
+	if cur := ud.AIStackHead(); cur != nil {
+		if act := cur.Type(); !act.IsCondition() && cur.Field5 != 0 {
+			if fnc := aiActions[act].End; fnc != nil {
+				cgoCallVoidPtrFunc(fnc, unsafe.Pointer(u.CObj()))
+			}
+		}
+	}
+	s.ai.stackChanged = true
+	// pop action
+	ud.AIStackInd--
+	// pop related conditions (if any)
+	for ; ud.AIStackInd >= 0; ud.AIStackInd-- {
+		cur := &ud.AIStack[ud.AIStackInd]
+		if !cur.Type().IsCondition() {
+			break
+		}
+	}
+	u.monsterActionReset()
+	si := ud.AIStackInd
+	if si < 0 {
+		ud.AIStackInd = 0
+		ud.AIStack[0].Action = 0
+	}
+	return int(si)
+}
+
+//export nox_xxx_monsterPushAction_50A260_impl
+func nox_xxx_monsterPushAction_50A260_impl(u *nox_object_t, act int, file *C.char, line int) unsafe.Pointer {
+	return unsafe.Pointer(asUnitC(u).monsterPushActionImpl(ai.ActionType(act), GoString(file), line))
+}
+
+func (u *Unit) monsterPushActionImpl(act ai.ActionType, file string, line int) *server.AIStackItem {
+	if !u.Class().Has(object.ClassMonster) {
+		return nil
+	}
+	s := u.getServer()
+	ud := u.UpdateDataMonster()
+	if int(ud.AIStackInd) >= len(ud.AIStack)-1 {
+		return nil
+	}
+	if cur := ud.AIStackHead(); cur == nil {
+		ud.AIStackInd = -1
+	} else {
+		if ud.AIStackHead().Type() == ai.ACTION_DEAD && act != ai.ACTION_DYING {
+			return nil
+		}
+		if curAct := cur.Type(); curAct == ai.ACTION_IDLE && ud.AIStackInd == 0 {
+			ud.AIStackInd = -1
+		} else if !curAct.IsCondition() && cur.Field5 != 0 {
+			if fnc := aiActions[curAct].Cancel; fnc != nil {
+				cgoCallVoidPtrFunc(fnc, unsafe.Pointer(u.CObj()))
+			}
+		}
+	}
+	ud.AIStackInd++
+	ud.AIStack[ud.AIStackInd] = server.AIStackItem{
+		Action: uint32(act), Field5: 0,
+	}
+	u.monsterActionReset()
+	if noxflags.HasEngine(noxflags.EngineShowAI) {
+		ai.Log.Printf("%d: PushActionStack( %s(#%d), %s ), result: (%s:%d)\n", s.Frame(), u, u.NetCode, act, file, line)
+	}
+	s.ai.stackChanged = true
+	return ud.AIStackHead()
+}
+
+func (u *Unit) monsterActionReset() {
+	ud := u.UpdateDataMonster()
+	ud.Field2 = 0
+	ud.Field67 = 0
+	ud.Field74 = 0
+	ud.Field91 = 0
+	ud.Field120_1 = 0
+	ud.Field120_2 = 0
+	ud.Field120_3 = 0
+	ud.Field124 = noxServer.Frame()
+	ud.Field137 = noxServer.Frame()
+}
+
+//export nox_xxx_unitUpdateMonster_50A5C0
+func nox_xxx_unitUpdateMonster_50A5C0(a1 *nox_object_t) {
+	u := asUnitC(a1)
+	s := u.getServer()
+	ud := u.UpdateDataMonster()
+
+	if ud.Field523_2 != 0 {
+		ud.Field523_2--
+	}
+
+	if obj4 := ud.Field548; obj4 != nil && obj4.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
+		ud.Field548 = nil
+	}
+	C.nox_xxx_mobAction_50A910(u.CObj())
+	s.ai.aiListenToSounds(u)
+	if !u.Flags().Has(object.FlagEnabled) {
+		return
+	}
+	s.ai.stackChanged = false
+	if ud.Field121 == nil {
+		return
+	}
+	if !u.Flags().HasAny(object.FlagDead | object.FlagDestroyed) {
+		if ud.Field360&0x200 != 0 {
+			if v7 := C.nox_xxx_monsterGetSoundSet_424300(u.CObj()); v7 != nil {
+				nox_xxx_aud_501960(sound.ID(*(*uint32)(unsafe.Add(v7, 64))), u, 0, 0)
+			}
+			C.nox_xxx_scriptCallByEventBlock_502490((*C.int)(unsafe.Pointer(&ud.Field312)),
+				C.int(uintptr(unsafe.Pointer(asObjectS(u.Obj130).CObj()))),
+				C.int(uintptr(unsafe.Pointer(u.CObj()))), 17)
+			if noxflags.HasEngine(noxflags.EngineShowAI) {
+				cur, max := u.Health()
+				ai.Log.Printf("%d: HP = %d/%d\n", s.Frame(), cur, max)
+			}
+		}
+		if v8 := ud.Field130; v8 != 0 && int(s.Frame()-v8) >= int(s.TickRate()) {
+			C.nox_xxx_monsterPlayHurtSound_532800(u.CObj())
+			ud.Field130 = 0
+		}
+		C.nox_xxx_mobAction_5469B0(u.CObj())
+	}
+
+	if h := u.HealthData; h != nil {
+		if !u.Flags().Has(object.FlagDead) && int(s.Frame()-u.Field134) > int(s.TickRate()) {
+			if h.Cur < h.Max && h.Max != 0 && s.Frame()%(180*s.TickRate()/uint32(h.Max)) == 0 {
+				C.nox_xxx_unitAdjustHP_4EE460(u.CObj(), 1)
+			}
+		}
+	}
+	C.nox_xxx_unitUpdateSightMB_5281F0(u.CObj())
+	C.nox_xxx_monsterMainAIFn_547210(u.CObj())
+	s.ai.nox_xxx_mobActionDependency(u)
+	C.nox_xxx_updateNPCAnimData_50A850(u.CObj())
+	changedPrev := s.ai.stackChanged
+	curAct := ai.ACTION_IDLE
+	for {
+		cur := ud.AIStackHead()
+		act := cur.Type()
+		curAct = act
+		if cur.Field5 != 0 {
+			if !s.ai.stackChanged {
+				s.ai.stackChanged = changedPrev
+			}
+			break
+		}
+		cur.Field5 = 1
+		s.ai.stackChanged = false
+		if fnc := aiActions[act].Start; fnc != nil {
+			cgoCallVoidPtrFunc(fnc, unsafe.Pointer(u.CObj()))
+		}
+		if !s.ai.stackChanged {
+			s.ai.stackChanged = changedPrev
+			break
+		}
+	}
+	cgoCallVoidPtrFunc(aiActions[curAct].Update, unsafe.Pointer(u.CObj()))
+	if s.ai.stackChanged {
+		u.maybePrintAIStack("stack changed")
+	}
+	ud.Field360 &= 0xFFFFFDFF
+	C.nox_xxx_monsterPolygonEnter_421FF0(u.CObj())
+
+	if v := ud.Field282_0; v < 100 {
+		ud.Field282_0 = v + uint8(100/s.TickRate())
+	}
+	if u.isMimic() {
+		C.nox_xxx_monsterMimicCheckMorph_534950(u.CObj())
+	}
+	if s.Frame()-u.Field134 > 3*s.TickRate() {
+		ud.Field360 &= 0xFFF7FFFF
+	}
+}
+
+var aiActions = map[ai.ActionType]struct {
+	Start  unsafe.Pointer
+	Update unsafe.Pointer
+	End    unsafe.Pointer
+	Cancel unsafe.Pointer
+}{
+	ai.ACTION_IDLE:                   {Start: C.nox_xxx_monsterIdleStarted_546820, Update: C.nox_xxx_monsterUpdateIdleLogic_546850},
+	ai.ACTION_WAIT:                   {Update: C.nox_xxx_mobActionWait_544960, Cancel: C.sub_532100},
+	ai.ACTION_WAIT_RELATIVE:          {Update: C.nox_xxx_mobActionWaitRelative_544990, Cancel: C.sub_532100},
+	ai.ACTION_ESCORT:                 {Update: C.nox_xxx_mobActionEscort_546430, End: C.sub_546410, Cancel: C.sub_546420},
+	ai.ACTION_GUARD:                  {Update: C.nox_xxx_mobActionGuard_546010},
+	ai.ACTION_HUNT:                   {Update: C.nox_xxx_mobActionHunt_5449D0},
+	ai.ACTION_RETREAT:                {Update: C.nox_xxx_mobActionRetreat_545440},
+	ai.ACTION_MOVE_TO:                {Update: C.nox_xxx_mobActionMoveTo_5443F0},
+	ai.ACTION_FAR_MOVE_TO:            {Update: C.nox_xxx_mobActionMoveToFar_5445C0},
+	ai.ACTION_DODGE:                  {Update: C.nox_xxx_mobActionDodge_544640},
+	ai.ACTION_ROAM:                   {Start: C.sub_545790, Update: C.nox_xxx_mobActionRoam_5457E0, Cancel: C.sub_5457C0},
+	ai.ACTION_PICKUP_OBJECT:          {Update: C.nox_xxx_mobActionPickupObject_544B90},
+	ai.ACTION_DROP_OBJECT:            {Update: C.nullsub_66},
+	ai.ACTION_FIND_OBJECT:            {Update: C.nullsub_67},
+	ai.ACTION_RETREAT_TO_MASTER:      {Start: C.sub_5456B0, Update: C.sub_5456D0, End: C.sub_5456C0},
+	ai.ACTION_FIGHT:                  {Start: C.nox_xxx_mobActionFightStart_531E20, Update: C.nox_xxx_mobActionFight_531EC0, End: C.sub_531E90},
+	ai.ACTION_MELEE_ATTACK:           {Start: C.nox_xxx_mobActionMelee1_532130, Update: C.nox_xxx_mobActionMeleeAtt_532440, Cancel: C.sub_532100},
+	ai.ACTION_MISSILE_ATTACK:         {Start: C.sub_532540, Update: C.nox_xxx_mobActionMissileAtt_532610, Cancel: C.sub_532100},
+	ai.ACTION_CAST_SPELL_ON_OBJECT:   {Update: C.nox_xxx_mobActionCastOnObj_541360},
+	ai.ACTION_CAST_SPELL_ON_LOCATION: {Update: C.nox_xxx_mobActionCastOnPoint_541560},
+	ai.ACTION_CAST_DURATION_SPELL:    {Update: C.nox_xxx_mobActionCastStart_5415F0, End: C.nox_xxx_mobActionCastStopMB_541590, Cancel: C.nox_xxx_mobActionCastFinishMB_5415C0},
+	ai.ACTION_BLOCK_ATTACK:           {Update: C.nox_xxx_monsterShieldBlockStart_532070, Cancel: C.sub_532100},
+	ai.ACTION_BLOCK_FINISH:           {Update: C.nox_xxx_monsterShieldBlockStop_5320E0, Cancel: C.sub_532100},
+	ai.ACTION_WEAPON_BLOCK:           {Update: C.sub_532110, Cancel: C.sub_532100},
+	ai.ACTION_FLEE:                   {Start: C.sub_544740, Update: C.nox_xxx_mobActionFlee_544760, End: C.sub_544750},
+	ai.ACTION_FACE_LOCATION:          {Update: C.sub_545210, Cancel: C.sub_532100},
+	ai.ACTION_FACE_OBJECT:            {Update: C.sub_545300, Cancel: C.sub_532100},
+	ai.ACTION_FACE_ANGLE:             {Update: C.sub_545340, Cancel: C.sub_532100},
+	ai.ACTION_SET_ANGLE:              {Update: C.sub_5453E0, Cancel: C.sub_532100},
+	ai.ACTION_RANDOM_WALK:            {Update: C.nox_xxx_mobActionRandomWalk_545020},
+	ai.ACTION_DYING:                  {Start: C.nox_xxx_mobGenericDeath_544C40, Update: C.sub_544D60, End: C.nox_xxx_zombieBurnDeleteCheck_544CA0},
+	ai.ACTION_DEAD:                   {Start: C.nox_xxx_mobActionDead1_544D80, Update: C.nox_xxx_mobActionDead2_544EC0},
+	ai.ACTION_REPORT:                 {Update: C.nox_xxx_mobActionReportComplete_544FF0},
+	ai.ACTION_MORPH_INTO_CHEST:       {Update: C.nox_xxx_mobActionMorphToChest_5348D0},
+	ai.ACTION_MORPH_BACK_TO_SELF:     {Update: C.nox_xxx_mobActionMorphBackToSelf_534910},
+	ai.ACTION_GET_UP:                 {Update: C.nox_xxx_mobActionGetUp_534A90},
+	ai.ACTION_CONFUSED:               {Update: C.nox_xxx_mobActionConfuse_545140},
+	ai.ACTION_MOVE_TO_HOME:           {Start: C.nox_xxx_mobActionReturnToHome_544920, Update: C.sub_544950, End: C.sub_544930, Cancel: C.sub_544940},
 }

@@ -125,7 +125,7 @@ int sub_421B40(uint32_t* a1);
 void nox_xxx_polygonDrawColor_421B80();
 void nox_xxx_questCheckSecretArea_421C70(nox_object_t* a1);
 unsigned char* sub_421F10(int* a1, int a2);
-void nox_xxx_monsterPolygonEnter_421FF0(int a1);
+void nox_xxx_monsterPolygonEnter_421FF0(nox_object_t* a1);
 int sub_422140(int a1);
 int* nox_xxx_tileListAddNewSubtile_422160(int a1, int a2, int a3, int a4);
 int nox_xxx_tileFreeTileOne_4221E0(int a1);
@@ -144,7 +144,7 @@ void set_bitmask_flags_from_plus_separated_names_multiple_423A10(const char* inp
 int nox_parse_shape(nox_shape* s, char* buf);
 int sub_4240F0(int a1, const char* a2, int a3);
 int nox_xxx_parseSoundSetBin_424170(char* a1);
-int nox_xxx_monsterGetSoundSet_424300(int a1);
+void* nox_xxx_monsterGetSoundSet_424300(nox_object_t* a1);
 int nox_xxx_setNPCVoiceSet_424320(int a1, int a2);
 const char** nox_xxx_getDefaultSoundSet_424350(const char* a1);
 void* nox_xxx_updateSpellRelated_424830(void* a1, int a2);

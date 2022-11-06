@@ -3914,7 +3914,8 @@ unsigned char* sub_421F10(int* a1, int a2) {
 // 421FBE: variable 'v7' is possibly undefined
 
 //----- (00421FF0) --------------------------------------------------------
-void nox_xxx_monsterPolygonEnter_421FF0(int a1) {
+void nox_xxx_monsterPolygonEnter_421FF0(nox_object_t* a1p) {
+	int a1 = a1p;
 	int* v1;           // ebp
 	int v2;            // eax
 	float v3;          // ecx
@@ -5127,7 +5128,8 @@ int nox_xxx_parseSoundSetBin_424170(char* a1) {
 }
 
 //----- (00424300) --------------------------------------------------------
-int nox_xxx_monsterGetSoundSet_424300(int a1) {
+void* nox_xxx_monsterGetSoundSet_424300(nox_object_t* a1p) {
+	int a1 = a1p;
 	int result; // eax
 
 	result = a1;

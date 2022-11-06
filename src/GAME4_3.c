@@ -1821,23 +1821,23 @@ int* sub_531D50(int a1, int a2) {
 }
 
 //----- (00531E20) --------------------------------------------------------
-int nox_xxx_mobActionFightStart_531E20(float a1) {
+int nox_xxx_mobActionFightStart_531E20(uint32_t a1) {
 	int* v1; // edi
 	int v2;  // eax
 	int v3;  // eax
 
-	v1 = *(int**)(LODWORD(a1) + 748);
-	v2 = nox_xxx_monsterGetSoundSet_424300(SLODWORD(a1));
+	v1 = *(int**)(a1 + 748);
+	v2 = nox_xxx_monsterGetSoundSet_424300(a1);
 	if (v2) {
-		nox_xxx_aud_501960(*(uint32_t*)(v2 + 20), SLODWORD(a1), 0, 0);
+		nox_xxx_aud_501960(*(uint32_t*)(v2 + 20), a1, 0, 0);
 	}
-	nox_xxx_scriptCallByEventBlock_502490(v1 + 310, v1[299], SLODWORD(a1), 13);
+	nox_xxx_scriptCallByEventBlock_502490(v1 + 310, v1[299], a1, 13);
 	v3 = v1[360];
 	BYTE1(v3) |= 1u;
 	v1[360] = v3;
 	nox_xxx_frameCounterSetCopy_5281E0();
 	nox_xxx_unitUpdateSightMB_5281F0(a1);
-	return sub_534750(SLODWORD(a1));
+	return sub_534750(a1);
 }
 
 //----- (00531E90) --------------------------------------------------------
@@ -2257,7 +2257,8 @@ char nox_xxx_mobActionMissileAtt_532610(int a1) {
 }
 
 //----- (00532800) --------------------------------------------------------
-char nox_xxx_monsterPlayHurtSound_532800(int a1) {
+char nox_xxx_monsterPlayHurtSound_532800(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1; // eax
 	int v2; // edi
 
@@ -3359,7 +3360,8 @@ char nox_xxx_mobActionMorphBackToSelf_534910(int a1) {
 }
 
 //----- (00534950) --------------------------------------------------------
-void nox_xxx_monsterMimicCheckMorph_534950(int a1) {
+void nox_xxx_monsterMimicCheckMorph_534950(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;    // ecx
 	int v2;    // edx
 	int v3;    // eax

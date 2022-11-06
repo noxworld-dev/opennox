@@ -1074,6 +1074,14 @@ func (obj *Object) isPlant() bool {
 	return int(obj.TypeInd) == srv.CarnivorousPlantID()
 }
 
+func (obj *Object) isMimic() bool {
+	if obj == nil {
+		return false
+	}
+	srv := obj.getServer()
+	return int(obj.TypeInd) == srv.MimicID()
+}
+
 func (obj *Object) FindOwnerChainPlayer() *Object { // nox_xxx_findParentChainPlayer_4EC580
 	return asObjectS(obj.SObj().FindOwnerChainPlayer())
 }

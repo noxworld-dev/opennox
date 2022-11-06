@@ -16,6 +16,9 @@ type AIStackItem struct {
 }
 
 func (s *AIStackItem) Type() ai.ActionType {
+	if s == nil {
+		return ai.ACTION_INVALID
+	}
 	return ai.ActionType(s.Action)
 }
 
@@ -155,7 +158,10 @@ type MonsterUpdateData struct {
 	Field117                uint32           // 117, 468
 	Field118                uint32           // 118, 472
 	Field119                *[16]MonsterAnim // 119, 476
-	Field120                uint32           // 120, 480
+	Field120_0              uint8            // 120, 480
+	Field120_1              uint8            // 120, 481
+	Field120_2              uint8            // 120, 482
+	Field120_3              uint8            // 120, 483
 	Field121                unsafe.Pointer   // 121, 484
 	Field122                uint32           // 122, 488
 	Field123                uint32           // 123, 492
@@ -419,7 +425,9 @@ type MonsterUpdateData struct {
 	Field520                uint32           // 520, 2080
 	Field521                uint32           // 521, 2084
 	Field522                uint32           // 522, 2088
-	Field523                uint32           // 523, 2092
+	Field523_0              uint16           // 523, 2092
+	Field523_2              uint8            // 523, 2094
+	Field523_3              uint8            // 523, 2095
 	Field524                uint32           // 524, 2096
 	Field525                uint32           // 525, 2100
 	Field526                uint32           // 526, 2104
@@ -444,7 +452,7 @@ type MonsterUpdateData struct {
 	Field545                uint32           // 545, 2180
 	Field546                uint32           // 546, 2184
 	Field547                uint32           // 547, 2188
-	Field548                uint32           // 548, 2192
+	Field548                *Object          // 548, 2192
 	Field549                uint32           // 549, 2196
 }
 
@@ -454,6 +462,14 @@ func (ud *MonsterUpdateData) GetAIStack() []AIStackItem {
 		return nil
 	}
 	return ud.AIStack[:ind+1]
+}
+
+func (ud *MonsterUpdateData) AIStackHead() *AIStackItem {
+	ind := ud.AIStackInd
+	if ind < 0 {
+		return nil
+	}
+	return &ud.AIStack[ind]
 }
 
 func (ud *MonsterUpdateData) PrintAIStack(frame uint32, event string) {

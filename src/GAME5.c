@@ -1175,7 +1175,8 @@ int* nox_xxx_monsterUpdateIdleLogic_546850(int a1) {
 }
 
 //----- (005469B0) --------------------------------------------------------
-void nox_xxx_mobAction_5469B0(int a1) {
+void nox_xxx_mobAction_5469B0(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1; // edi
 	int v2; // eax
 	int v3; // eax
@@ -1249,7 +1250,8 @@ void nox_xxx_monsterPopAttackActions_5471B0(int a1) {
 }
 
 //----- (00547210) --------------------------------------------------------
-char nox_xxx_monsterMainAIFn_547210(int a1) {
+char nox_xxx_monsterMainAIFn_547210(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;          // esi
 	int v2;          // ebp
 	int* v3;         // eax

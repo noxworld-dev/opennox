@@ -223,6 +223,7 @@ type serverObjTypes struct {
 		plant     int
 		polyp     int
 		wisp      int
+		mimic     int
 	}
 }
 
@@ -237,6 +238,10 @@ func (s *Server) cacheObjectTypeID(vr *int, id string) int {
 		*vr = s.ObjectTypeID(id)
 	}
 	return *vr
+}
+
+func (s *Server) MimicID() int {
+	return s.cacheObjectTypeID(&s.types.fast.mimic, "Mimic")
 }
 
 func (s *Server) CarnivorousPlantID() int {

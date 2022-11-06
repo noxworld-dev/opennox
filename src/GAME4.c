@@ -2258,7 +2258,7 @@ int nox_xxx_updatePlayerMonsterBot_4FAB20(uint32_t* a1) {
 			BYTE1(v4) |= 1u;
 			*(uint32_t*)(v3 + 1440) = v4;
 			nox_xxx_mobMorphFromPlayer_4FAAC0(a1);
-			nox_xxx_unitUpdateMonster_50A5C0(*(float*)&a1);
+			nox_xxx_unitUpdateMonster_50A5C0(a1);
 			nox_xxx_mobMorphToPlayer_4FAAF0(a1);
 			v5 = nox_xxx_monsterActionToPlrState_4FABC0((int)a1);
 			v6 = *(uint32_t*)(v1 + 276);
