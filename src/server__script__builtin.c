@@ -187,17 +187,6 @@ int nox_xxx_moverGoTo_5124C0(uint32_t* a1, uint32_t* a2) {
 	return a1;
 }
 
-//----- (005128D0) --------------------------------------------------------
-int nox_script_deleteObjectGroup_5128D0() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_512900, 0);
-	return 0;
-}
-
 //----- (00512930) --------------------------------------------------------
 void nox_xxx_scriptMonsterRoam_512930(nox_object_t* obj) {
 	int a1 = obj;
