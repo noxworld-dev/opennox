@@ -10388,20 +10388,6 @@ void nox_xxx_mobCastRandomRecoil_541490(int a1, float* a2, float2* a3) {
 	a3->field_4 = nox_common_randomFloat_416030(-60.0, 60.0) * v6 + a3->field_4;
 }
 
-//----- (00541560) --------------------------------------------------------
-char nox_xxx_mobActionCastOnPoint_541560(uint32_t* a1) {
-	int v1;      // edi
-	char result; // al
-
-	v1 = a1[187];
-	nox_xxx_mobActionCast_5413B0(a1, 1);
-	result = *(uint8_t*)(v1 + 483);
-	if (result) {
-		result = nox_xxx_monsterPopAction_50A160((int)a1);
-	}
-	return result;
-}
-
 //----- (00541590) --------------------------------------------------------
 uint32_t* nox_xxx_mobActionCastStopMB_541590(int a1) {
 	return nox_xxx_spellCancelDurSpell_4FEB10(
