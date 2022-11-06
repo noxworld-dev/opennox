@@ -329,7 +329,6 @@ int nox_xxx_mobActionReturnToHome_544920(int a1);
 int sub_544930(int a1);
 int sub_544940(int a1);
 char sub_544950(int a1);
-char nox_xxx_mobActionWaitRelative_544990(int a1);
 int* nox_xxx_mobActionHunt_5449D0(int a1);
 int nox_xxx_mobSearchEdible_544A00(nox_object_t* a1, float a2);
 void nox_xxx_mobSearchEdible2_544A40(int a1, int a2);

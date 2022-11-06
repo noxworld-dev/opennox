@@ -33,12 +33,12 @@ import (
 func init() {
 	server.RegisterAIAction(AIActionIdle{})
 	server.RegisterAIAction(AIActionWait{})
+	server.RegisterAIAction(AIActionWaitRel{})
 	server.RegisterAIAction(AIActionDropObj{})
 	server.RegisterAIAction(AIActionFindObj{})
 	for typ, a := range map[ai.ActionType]struct {
 		Start, Update, End, Cancel unsafe.Pointer
 	}{
-		ai.ACTION_WAIT_RELATIVE:          {Update: C.nox_xxx_mobActionWaitRelative_544990, Cancel: C.nox_ai_action_pop_532100},
 		ai.ACTION_ESCORT:                 {Update: C.nox_xxx_mobActionEscort_546430, End: C.sub_546410, Cancel: C.sub_546420},
 		ai.ACTION_GUARD:                  {Update: C.nox_xxx_mobActionGuard_546010},
 		ai.ACTION_HUNT:                   {Update: C.nox_xxx_mobActionHunt_5449D0},
@@ -972,12 +972,34 @@ func (AIActionWait) Update(obj *server.Object) {
 	u := asUnitS(obj)
 	s := u.getServer()
 	ud := u.UpdateDataMonster()
-	if ud.AIStackHead().ArgU32(0) <= s.Frame() {
+	if s.Frame() >= ud.AIStackHead().ArgU32(0) {
 		u.monsterPopAction()
 	}
 }
 
 func (AIActionWait) Cancel(obj *server.Object) {
+	u := asUnitS(obj)
+	u.monsterPopAction()
+}
+
+type AIActionWaitRel struct{}
+
+func (AIActionWaitRel) Type() ai.ActionType {
+	return ai.ACTION_WAIT_RELATIVE
+}
+func (AIActionWaitRel) Start(_ *server.Object) {}
+func (AIActionWaitRel) End(_ *server.Object)   {}
+
+func (AIActionWaitRel) Update(obj *server.Object) {
+	u := asUnitS(obj)
+	s := u.getServer()
+	ud := u.UpdateDataMonster()
+	if s.Frame() > ud.Field137+ud.AIStackHead().ArgU32(0) {
+		u.monsterPopAction()
+	}
+}
+
+func (AIActionWaitRel) Cancel(obj *server.Object) {
 	u := asUnitS(obj)
 	u.monsterPopAction()
 }

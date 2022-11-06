@@ -11285,23 +11285,6 @@ int sub_544940(int a1) { return sub_534780(a1); }
 //----- (00544950) --------------------------------------------------------
 char sub_544950(int a1) { return nox_xxx_mobActionMoveTo_5443F0(a1); }
 
-//----- (00544990) --------------------------------------------------------
-char nox_xxx_mobActionWaitRelative_544990(int a1) {
-	int v1;      // eax
-	int v2;      // esi
-	int v3;      // ecx
-	char result; // al
-
-	v1 = *(uint32_t*)(a1 + 748);
-	v2 = *(uint32_t*)(v1 + 548);
-	v3 = *(uint32_t*)(v1 + 24 * *(char*)(v1 + 544) + 556);
-	result = (unsigned char)gameFrame();
-	if (gameFrame() > (unsigned int)(v2 + v3)) {
-		result = nox_xxx_monsterPopAction_50A160(a1);
-	}
-	return result;
-}
-
 //----- (005449D0) --------------------------------------------------------
 int* nox_xxx_mobActionHunt_5449D0(int a1) {
 	int* result; // eax
