@@ -440,7 +440,7 @@ func nox_script_deleteObjectGroup_5128D0() int {
 
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
-	scriptExecuteFnForObjectGroup(mapGroup, func (obj *Object) {
+	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
 		obj.Delete()
 	})
 	return 0
@@ -1173,7 +1173,7 @@ func nox_script_toggleWallGroup_512260() int {
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
 
-	scriptExecuteFnForWallGroup(mapGroup, func (wall *Wall) {
+	scriptExecuteFnForWallGroup(mapGroup, func(wall *Wall) {
 		wall.Toggle()
 	})
 	return 0
@@ -1196,7 +1196,7 @@ func nox_script_wallGroupBreak_5122F0() int {
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
 
-	scriptExecuteFnForWallGroup(mapGroup, func (wall *Wall) {
+	scriptExecuteFnForWallGroup(mapGroup, func(wall *Wall) {
 		wall.Destroy()
 	})
 	return 0
@@ -1252,7 +1252,7 @@ func nox_script_lookAtDirection_512560() int {
 
 func nox_script_groupLookAtDirection_512610() int {
 	s := &noxServer.noxScript
-	
+
 	direction := int(s.PopI32())
 	v1 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v1))
@@ -1279,10 +1279,10 @@ func nox_script_objectOn_512670() int {
 
 func nox_script_objGroupOn_512690() int {
 	s := &noxServer.noxScript
-	
+
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
-	scriptExecuteFnForObjectGroup(mapGroup, func (obj *Object) {
+	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
 		obj.Enable(true)
 	})
 	return 0
@@ -1310,10 +1310,10 @@ func nox_script_objectOff_512730() int {
 
 func nox_script_objGroupOff_512750() int {
 	s := &noxServer.noxScript
-	
+
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
-	scriptExecuteFnForObjectGroup(mapGroup, func (obj *Object) {
+	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
 		obj.Enable(false)
 	})
 	return 0
@@ -1711,7 +1711,7 @@ func nox_script_closeWallGroup_512100() int {
 	groupInd := s.PopI32()
 	mapGroup := getMapGroupByInd(int(groupInd))
 
-	scriptExecuteFnForWallGroup(mapGroup, func (wall *Wall) {
+	scriptExecuteFnForWallGroup(mapGroup, func(wall *Wall) {
 		wall.Enable(true)
 	})
 	return 0
@@ -2324,12 +2324,12 @@ func nox_script_ClearOwner_5147E0() int {
 }
 
 func chatTimerFrames(mgr *strman.StringManager, msgId string, obj *Object, durationTicks uint16) {
-		v, _ := mgr.GetVariantInFile(strman.ID(msgId), "CScrFunc.c")
+	v, _ := mgr.GetVariantInFile(strman.ID(msgId), "CScrFunc.c")
 
-		C.nox_xxx_netSendChat_528AC0(obj.CObj(), internWStr(v.Str), C.ushort(durationTicks))
-		if noxflags.HasGame(noxflags.GameModeCoop) {
-			C.nox_xxx_playDialogFile_44D900(internCStr(v.Str2), 100)
-		}
+	C.nox_xxx_netSendChat_528AC0(obj.CObj(), internWStr(v.Str), C.ushort(durationTicks))
+	if noxflags.HasGame(noxflags.GameModeCoop) {
+		C.nox_xxx_playDialogFile_44D900(internCStr(v.Str2), 100)
+	}
 }
 
 func nox_script_ChatTimerSeconds_514A80() int {
