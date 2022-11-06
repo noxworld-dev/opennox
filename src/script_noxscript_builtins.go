@@ -2339,7 +2339,7 @@ func nox_script_ChatTimerSeconds_514A80() int {
 	msgId := s.PopString()
 	obj := s.PopObject()
 	if obj != nil {
-		durationFrames := uint16(durationSecs * gameFPS())
+		durationFrames := uint16(durationSecs * noxServer.TickRate())
 		chatTimerFrames(s.s.Strings(), msgId, obj, durationFrames)
 	}
 	return 0
