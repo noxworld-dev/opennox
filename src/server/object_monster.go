@@ -228,7 +228,7 @@ type MonsterUpdateData struct {
 	ScriptEndOfWaypointCB   int32            // 323, 1292
 	Field324                uint32           // 324, 1296
 	ScriptLostEnemyCB       int32            // 325, 1300
-	Field326                uint32           // 326, 1304
+	Field326                float32          // 326, 1304
 	Field327                uint32           // 327, 1308
 	Field328                float32          // 328, 1312
 	Field329                uint32           // 329, 1316

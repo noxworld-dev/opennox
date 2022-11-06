@@ -226,8 +226,7 @@ type Object struct {
 	Field129      *Object        // 129, 516
 	Obj130        *Object        // 130, 520
 	Field131      uint32         // 131, 524
-	Field132      uint32         // 132, 528
-	Field133      uint32         // 133, 532
+	Pos132        types.Pointf   // 132, 528
 	Field134      uint32         // 134, 536, TODO: some timestamp
 	Field135      uint32         // 135, 540, TODO: 541 accessed as byte
 	SpeedCur      float32        // 136, 544

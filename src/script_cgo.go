@@ -2,6 +2,7 @@ package opennox
 
 /*
 #include "defs.h"
+#include "server__script__script.h"
 */
 import "C"
 import (
@@ -110,6 +111,10 @@ func (ev noxEventType) String() string {
 	default:
 		return fmt.Sprintf("noxEventType(%d)", int(ev))
 	}
+}
+
+func nox_xxx_scriptCallByEventBlock_502490(ptr *uint32, obj1 noxObject, obj2 noxObject, ev noxEventType) {
+	C.nox_xxx_scriptCallByEventBlock_502490((*C.int)(unsafe.Pointer(ptr)), C.int(uintptr(unsafe.Pointer(toCObj(obj1)))), C.int(uintptr(unsafe.Pointer(toCObj(obj2)))), C.int(ev))
 }
 
 //export nox_script_callByEvent_cgo

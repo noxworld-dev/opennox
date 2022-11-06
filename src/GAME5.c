@@ -1061,7 +1061,8 @@ int nox_xxx_monsterLookAtDamager_5466B0(int a1) {
 }
 
 //----- (005466F0) --------------------------------------------------------
-int sub_5466F0(uint32_t* a1) {
+int sub_5466F0(nox_object_t* a1p) {
+	uint32_t* a1 = a1p;
 	int v1;    // ebx
 	float* v2; // edi
 	float v3;  // ecx
@@ -1107,71 +1108,6 @@ int sub_5466F0(uint32_t* a1) {
 	}
 	*(uint32_t*)(v1 + 388) = 0;
 	return 1;
-}
-
-//----- (00546820) --------------------------------------------------------
-int nox_xxx_monsterIdleStarted_546820(int a1) {
-	int result; // eax
-
-	result = *(uint32_t*)(a1 + 748);
-	*(uint32_t*)(result + 24 * *(char*)(result + 544) + 556) = gameFrame();
-	return result;
-}
-
-//----- (00546850) --------------------------------------------------------
-int* nox_xxx_monsterUpdateIdleLogic_546850(int a1) {
-	int v1;      // edi
-	int* result; // eax
-	int v3;      // ecx
-
-	v1 = *(uint32_t*)(a1 + 748);
-	if (gameFrame() - *(uint32_t*)(v1 + 24 * *(char*)(v1 + 544) + 556) == *(short*)(v1 + 1220)) {
-		nox_xxx_scriptCallByEventBlock_502490((int*)(v1 + 1224), 0, a1, 5);
-	}
-	if (!(*(uint32_t*)(a1 + 16) & 0x1000000)) {
-		goto LABEL_23;
-	}
-	if (sub_5343C0(a1) || nox_xxx_monsterCanAttackAtWill_534390(a1)) {
-		if (*(uint32_t*)(v1 + 1196)) {
-			result = nox_xxx_monsterPushAction_50A260(a1, 15);
-			if (result) {
-				v3 = *(uint32_t*)(v1 + 1196);
-				result[1] = *(uint32_t*)(v3 + 56);
-				result[2] = *(uint32_t*)(v3 + 60);
-				result[3] = gameFrame();
-			}
-			return result;
-		}
-		result = (int*)sub_5466F0((uint32_t*)a1);
-		if (result) {
-			return result;
-		}
-	}
-	if (sub_534440(a1) || (result = (int*)sub_545E60((int*)a1)) == 0) {
-	LABEL_23:
-		if (nox_xxx_unitIsMimic_534840(a1)) {
-			goto LABEL_24;
-		}
-		result = (int*)nox_xxx_monsterLookAtDamager_5466B0(a1);
-		if (result) {
-			return result;
-		}
-		if ((unsigned int)(gameFrame() - *(uint32_t*)(v1 + 548)) <= (int)gameFPS() >> 1 ||
-			*(float*)(a1 + 56) == *(float*)(a1 + 72) && *(float*)(a1 + 60) == *(float*)(a1 + 76)) {
-		LABEL_24:
-			result = (int*)nox_xxx_testUnitBuffs_4FF350(a1, 29);
-			if (!result) {
-				result = (int*)nox_xxx_mobHealSomeone_5411A0(a1);
-			}
-		} else {
-			result = nox_xxx_monsterPushAction_50A260(a1, 25);
-			if (result) {
-				result[1] = *(uint32_t*)(a1 + 72);
-				result[2] = *(uint32_t*)(a1 + 76);
-			}
-		}
-	}
-	return result;
 }
 
 //----- (005469B0) --------------------------------------------------------

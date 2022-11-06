@@ -33,6 +33,58 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
+func init() {
+	aiActions = map[ai.ActionType]aiActionType{
+		ai.ACTION_IDLE:                   {Start: nox_xxx_monsterIdleStarted_546820, Update: nox_xxx_monsterUpdateIdleLogic_546850},
+		ai.ACTION_WAIT:                   {Update: wrapAIFuncC(C.nox_xxx_mobActionWait_544960), Cancel: wrapAIFuncC(C.sub_532100)},
+		ai.ACTION_WAIT_RELATIVE:          {Update: wrapAIFuncC(C.nox_xxx_mobActionWaitRelative_544990), Cancel: wrapAIFuncC(C.sub_532100)},
+		ai.ACTION_ESCORT:                 {Update: wrapAIFuncC(C.nox_xxx_mobActionEscort_546430), End: wrapAIFuncC(C.sub_546410), Cancel: wrapAIFuncC(C.sub_546420)},
+		ai.ACTION_GUARD:                  {Update: wrapAIFuncC(C.nox_xxx_mobActionGuard_546010)},
+		ai.ACTION_HUNT:                   {Update: wrapAIFuncC(C.nox_xxx_mobActionHunt_5449D0)},
+		ai.ACTION_RETREAT:                {Update: wrapAIFuncC(C.nox_xxx_mobActionRetreat_545440)},
+		ai.ACTION_MOVE_TO:                {Update: wrapAIFuncC(C.nox_xxx_mobActionMoveTo_5443F0)},
+		ai.ACTION_FAR_MOVE_TO:            {Update: wrapAIFuncC(C.nox_xxx_mobActionMoveToFar_5445C0)},
+		ai.ACTION_DODGE:                  {Update: wrapAIFuncC(C.nox_xxx_mobActionDodge_544640)},
+		ai.ACTION_ROAM:                   {Start: wrapAIFuncC(C.sub_545790), Update: wrapAIFuncC(C.nox_xxx_mobActionRoam_5457E0), Cancel: wrapAIFuncC(C.sub_5457C0)},
+		ai.ACTION_PICKUP_OBJECT:          {Update: wrapAIFuncC(C.nox_xxx_mobActionPickupObject_544B90)},
+		ai.ACTION_DROP_OBJECT:            {Update: wrapAIFuncC(C.nullsub_66)},
+		ai.ACTION_FIND_OBJECT:            {Update: wrapAIFuncC(C.nullsub_67)},
+		ai.ACTION_RETREAT_TO_MASTER:      {Start: wrapAIFuncC(C.sub_5456B0), Update: wrapAIFuncC(C.sub_5456D0), End: wrapAIFuncC(C.sub_5456C0)},
+		ai.ACTION_FIGHT:                  {Start: wrapAIFuncC(C.nox_xxx_mobActionFightStart_531E20), Update: wrapAIFuncC(C.nox_xxx_mobActionFight_531EC0), End: wrapAIFuncC(C.sub_531E90)},
+		ai.ACTION_MELEE_ATTACK:           {Start: wrapAIFuncC(C.nox_xxx_mobActionMelee1_532130), Update: wrapAIFuncC(C.nox_xxx_mobActionMeleeAtt_532440), Cancel: wrapAIFuncC(C.sub_532100)},
+		ai.ACTION_MISSILE_ATTACK:         {Start: wrapAIFuncC(C.sub_532540), Update: wrapAIFuncC(C.nox_xxx_mobActionMissileAtt_532610), Cancel: wrapAIFuncC(C.sub_532100)},
+		ai.ACTION_CAST_SPELL_ON_OBJECT:   {Update: wrapAIFuncC(C.nox_xxx_mobActionCastOnObj_541360)},
+		ai.ACTION_CAST_SPELL_ON_LOCATION: {Update: wrapAIFuncC(C.nox_xxx_mobActionCastOnPoint_541560)},
+		ai.ACTION_CAST_DURATION_SPELL:    {Update: wrapAIFuncC(C.nox_xxx_mobActionCastStart_5415F0), End: wrapAIFuncC(C.nox_xxx_mobActionCastStopMB_541590), Cancel: wrapAIFuncC(C.nox_xxx_mobActionCastFinishMB_5415C0)},
+		ai.ACTION_BLOCK_ATTACK:           {Update: wrapAIFuncC(C.nox_xxx_monsterShieldBlockStart_532070), Cancel: wrapAIFuncC(C.sub_532100)},
+		ai.ACTION_BLOCK_FINISH:           {Update: wrapAIFuncC(C.nox_xxx_monsterShieldBlockStop_5320E0), Cancel: wrapAIFuncC(C.sub_532100)},
+		ai.ACTION_WEAPON_BLOCK:           {Update: wrapAIFuncC(C.sub_532110), Cancel: wrapAIFuncC(C.sub_532100)},
+		ai.ACTION_FLEE:                   {Start: wrapAIFuncC(C.sub_544740), Update: wrapAIFuncC(C.nox_xxx_mobActionFlee_544760), End: wrapAIFuncC(C.sub_544750)},
+		ai.ACTION_FACE_LOCATION:          {Update: wrapAIFuncC(C.sub_545210), Cancel: wrapAIFuncC(C.sub_532100)},
+		ai.ACTION_FACE_OBJECT:            {Update: wrapAIFuncC(C.sub_545300), Cancel: wrapAIFuncC(C.sub_532100)},
+		ai.ACTION_FACE_ANGLE:             {Update: wrapAIFuncC(C.sub_545340), Cancel: wrapAIFuncC(C.sub_532100)},
+		ai.ACTION_SET_ANGLE:              {Update: wrapAIFuncC(C.sub_5453E0), Cancel: wrapAIFuncC(C.sub_532100)},
+		ai.ACTION_RANDOM_WALK:            {Update: wrapAIFuncC(C.nox_xxx_mobActionRandomWalk_545020)},
+		ai.ACTION_DYING:                  {Start: wrapAIFuncC(C.nox_xxx_mobGenericDeath_544C40), Update: wrapAIFuncC(C.sub_544D60), End: wrapAIFuncC(C.nox_xxx_zombieBurnDeleteCheck_544CA0)},
+		ai.ACTION_DEAD:                   {Start: wrapAIFuncC(C.nox_xxx_mobActionDead1_544D80), Update: wrapAIFuncC(C.nox_xxx_mobActionDead2_544EC0)},
+		ai.ACTION_REPORT:                 {Update: wrapAIFuncC(C.nox_xxx_mobActionReportComplete_544FF0)},
+		ai.ACTION_MORPH_INTO_CHEST:       {Update: wrapAIFuncC(C.nox_xxx_mobActionMorphToChest_5348D0)},
+		ai.ACTION_MORPH_BACK_TO_SELF:     {Update: wrapAIFuncC(C.nox_xxx_mobActionMorphBackToSelf_534910)},
+		ai.ACTION_GET_UP:                 {Update: wrapAIFuncC(C.nox_xxx_mobActionGetUp_534A90)},
+		ai.ACTION_CONFUSED:               {Update: wrapAIFuncC(C.nox_xxx_mobActionConfuse_545140)},
+		ai.ACTION_MOVE_TO_HOME:           {Start: wrapAIFuncC(C.nox_xxx_mobActionReturnToHome_544920), Update: wrapAIFuncC(C.sub_544950), End: wrapAIFuncC(C.sub_544930), Cancel: wrapAIFuncC(C.sub_544940)},
+	}
+}
+
+type aiActionType struct {
+	Start  AIFunc
+	Update AIFunc
+	End    AIFunc
+	Cancel AIFunc
+}
+
+var aiActions map[ai.ActionType]aiActionType
+
 type aiData struct {
 	s                  *Server
 	allocListen        alloc.ClassT[MonsterListen]
@@ -55,24 +107,27 @@ func aiStackSetArgs(s *server.AIStackItem, args ...any) {
 	if s == nil {
 		return
 	}
-	for i, v := range args {
+	off := 0
+	for _, v := range args {
 		switch v := v.(type) {
 		case int:
-			s.Args[i] = uintptr(uint32(int32(v)))
+			s.Args[off] = uintptr(uint32(int32(v)))
 		case uint32:
-			s.Args[i] = uintptr(v)
+			s.Args[off] = uintptr(v)
 		case unsafe.Pointer:
-			s.Args[i] = uintptr(v)
+			s.Args[off] = uintptr(v)
 		case float32:
-			s.Args[i] = uintptr(math.Float32bits(v))
+			s.Args[off] = uintptr(math.Float32bits(v))
 		case noxObject:
-			s.Args[i] = uintptr(unsafe.Pointer(toCObj(v)))
+			s.Args[off] = uintptr(unsafe.Pointer(toCObj(v)))
 		case types.Pointf:
-			s.Args[i+0] = uintptr(math.Float32bits(v.X))
-			s.Args[i+1] = uintptr(math.Float32bits(v.Y))
+			s.Args[off+0] = uintptr(math.Float32bits(v.X))
+			off++
+			s.Args[off+1] = uintptr(math.Float32bits(v.Y))
 		default:
 			panic(fmt.Errorf("unsupported arg: %T", v))
 		}
+		off++
 	}
 }
 
@@ -122,7 +177,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 				ud.Field101 = a.s.Frame() + a.s.TickRate()
 			}
 		case ai.DEPENDENCY_UNDER_ATTACK:
-			if C.sub_5347A0(u.CObj()) != 0 {
+			if sub_5347A0(u) {
 				if u.Obj130 != nil {
 					v26 := getOwnerUnit(asObjectS(u.Obj130))
 					if v26 != nil && v26.Class().HasAny(object.MaskUnits) {
@@ -132,7 +187,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			}
 			ok = a.s.Frame()-st.ArgU32(0) <= 10*a.s.TickRate()
 		case ai.DEPENDENCY_NOT_UNDER_ATTACK:
-			if C.sub_5347A0(u.CObj()) == 0 {
+			if !sub_5347A0(u) {
 				break
 			}
 			if u.Obj130 == nil {
@@ -342,7 +397,7 @@ func sub_545E60(a1c *nox_object_t) C.int {
 			u.monsterPushAction(ai.ACTION_FIGHT, obj4.Pos(), s.Frame())
 			if !canInteract {
 				u.monsterPushAction(ai.DEPENDENCY_NO_VISIBLE_ENEMY)
-				if C.nox_xxx_monsterCanAttackAtWill_534390(u.CObj()) != 0 {
+				if nox_xxx_monsterCanAttackAtWill_534390(u) {
 					u.monsterPushAction(ai.DEPENDENCY_NO_INTERESTING_SOUND)
 				}
 				u.monsterPushAction(ai.ACTION_MOVE_TO, obj4.Pos(), 0)
@@ -353,7 +408,7 @@ func sub_545E60(a1c *nox_object_t) C.int {
 	if !nox_xxx_checkMobAction_50A0D0(u, ai.ACTION_ROAM) {
 		u.monsterPushAction(ai.DEPENDENCY_TIME, 5*s.TickRate())
 		u.monsterPushAction(ai.DEPENDENCY_NO_VISIBLE_ENEMY)
-		if C.nox_xxx_monsterCanAttackAtWill_534390(u.CObj()) != 0 {
+		if nox_xxx_monsterCanAttackAtWill_534390(u) {
 			u.monsterPushAction(ai.DEPENDENCY_NO_INTERESTING_SOUND)
 		}
 		u.monsterPushAction(ai.ACTION_ROAM, 0, 0, -128)
@@ -594,7 +649,7 @@ func (a *aiData) nox_xxx_unitEmitHearEvent_50D110(u *Unit, lis *MonsterListen, d
 	a.lastHeard = lis.pos
 	obj5 := lis.obj.FindOwnerChainPlayer()
 	// EventID 16 is MonsterHearsEnemy
-	C.nox_xxx_scriptCallByEventBlock_502490((*C.int)(unsafe.Pointer(&ud.Field320)), C.int(uintptr(unsafe.Pointer(obj5.CObj()))), C.int(uintptr(unsafe.Pointer(u.CObj()))), 16)
+	nox_xxx_scriptCallByEventBlock_502490(&ud.Field320, obj5, u, noxEventMonsterHearEnemy)
 }
 
 func (a *aiData) lastHeardEvent() types.Pointf {
@@ -719,9 +774,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *nox_object_t) {
 			if v7 := C.nox_xxx_monsterGetSoundSet_424300(u.CObj()); v7 != nil {
 				nox_xxx_aud_501960(sound.ID(*(*uint32)(unsafe.Add(v7, 64))), u, 0, 0)
 			}
-			C.nox_xxx_scriptCallByEventBlock_502490((*C.int)(unsafe.Pointer(&ud.Field312)),
-				C.int(uintptr(unsafe.Pointer(asObjectS(u.Obj130).CObj()))),
-				C.int(uintptr(unsafe.Pointer(u.CObj()))), 17)
+			nox_xxx_scriptCallByEventBlock_502490(&ud.Field312, asObjectS(u.Obj130), u, noxEventMonsterZZZ)
 			if noxflags.HasEngine(noxflags.EngineShowAI) {
 				cur, max := u.Health()
 				ai.Log.Printf("%d: HP = %d/%d\n", s.Frame(), cur, max)
@@ -798,48 +851,68 @@ func wrapAIFuncC(ptr unsafe.Pointer) AIFunc {
 	}
 }
 
-var aiActions = map[ai.ActionType]struct {
-	Start  AIFunc
-	Update AIFunc
-	End    AIFunc
-	Cancel AIFunc
-}{
-	ai.ACTION_IDLE:                   {Start: wrapAIFuncC(C.nox_xxx_monsterIdleStarted_546820), Update: wrapAIFuncC(C.nox_xxx_monsterUpdateIdleLogic_546850)},
-	ai.ACTION_WAIT:                   {Update: wrapAIFuncC(C.nox_xxx_mobActionWait_544960), Cancel: wrapAIFuncC(C.sub_532100)},
-	ai.ACTION_WAIT_RELATIVE:          {Update: wrapAIFuncC(C.nox_xxx_mobActionWaitRelative_544990), Cancel: wrapAIFuncC(C.sub_532100)},
-	ai.ACTION_ESCORT:                 {Update: wrapAIFuncC(C.nox_xxx_mobActionEscort_546430), End: wrapAIFuncC(C.sub_546410), Cancel: wrapAIFuncC(C.sub_546420)},
-	ai.ACTION_GUARD:                  {Update: wrapAIFuncC(C.nox_xxx_mobActionGuard_546010)},
-	ai.ACTION_HUNT:                   {Update: wrapAIFuncC(C.nox_xxx_mobActionHunt_5449D0)},
-	ai.ACTION_RETREAT:                {Update: wrapAIFuncC(C.nox_xxx_mobActionRetreat_545440)},
-	ai.ACTION_MOVE_TO:                {Update: wrapAIFuncC(C.nox_xxx_mobActionMoveTo_5443F0)},
-	ai.ACTION_FAR_MOVE_TO:            {Update: wrapAIFuncC(C.nox_xxx_mobActionMoveToFar_5445C0)},
-	ai.ACTION_DODGE:                  {Update: wrapAIFuncC(C.nox_xxx_mobActionDodge_544640)},
-	ai.ACTION_ROAM:                   {Start: wrapAIFuncC(C.sub_545790), Update: wrapAIFuncC(C.nox_xxx_mobActionRoam_5457E0), Cancel: wrapAIFuncC(C.sub_5457C0)},
-	ai.ACTION_PICKUP_OBJECT:          {Update: wrapAIFuncC(C.nox_xxx_mobActionPickupObject_544B90)},
-	ai.ACTION_DROP_OBJECT:            {Update: wrapAIFuncC(C.nullsub_66)},
-	ai.ACTION_FIND_OBJECT:            {Update: wrapAIFuncC(C.nullsub_67)},
-	ai.ACTION_RETREAT_TO_MASTER:      {Start: wrapAIFuncC(C.sub_5456B0), Update: wrapAIFuncC(C.sub_5456D0), End: wrapAIFuncC(C.sub_5456C0)},
-	ai.ACTION_FIGHT:                  {Start: wrapAIFuncC(C.nox_xxx_mobActionFightStart_531E20), Update: wrapAIFuncC(C.nox_xxx_mobActionFight_531EC0), End: wrapAIFuncC(C.sub_531E90)},
-	ai.ACTION_MELEE_ATTACK:           {Start: wrapAIFuncC(C.nox_xxx_mobActionMelee1_532130), Update: wrapAIFuncC(C.nox_xxx_mobActionMeleeAtt_532440), Cancel: wrapAIFuncC(C.sub_532100)},
-	ai.ACTION_MISSILE_ATTACK:         {Start: wrapAIFuncC(C.sub_532540), Update: wrapAIFuncC(C.nox_xxx_mobActionMissileAtt_532610), Cancel: wrapAIFuncC(C.sub_532100)},
-	ai.ACTION_CAST_SPELL_ON_OBJECT:   {Update: wrapAIFuncC(C.nox_xxx_mobActionCastOnObj_541360)},
-	ai.ACTION_CAST_SPELL_ON_LOCATION: {Update: wrapAIFuncC(C.nox_xxx_mobActionCastOnPoint_541560)},
-	ai.ACTION_CAST_DURATION_SPELL:    {Update: wrapAIFuncC(C.nox_xxx_mobActionCastStart_5415F0), End: wrapAIFuncC(C.nox_xxx_mobActionCastStopMB_541590), Cancel: wrapAIFuncC(C.nox_xxx_mobActionCastFinishMB_5415C0)},
-	ai.ACTION_BLOCK_ATTACK:           {Update: wrapAIFuncC(C.nox_xxx_monsterShieldBlockStart_532070), Cancel: wrapAIFuncC(C.sub_532100)},
-	ai.ACTION_BLOCK_FINISH:           {Update: wrapAIFuncC(C.nox_xxx_monsterShieldBlockStop_5320E0), Cancel: wrapAIFuncC(C.sub_532100)},
-	ai.ACTION_WEAPON_BLOCK:           {Update: wrapAIFuncC(C.sub_532110), Cancel: wrapAIFuncC(C.sub_532100)},
-	ai.ACTION_FLEE:                   {Start: wrapAIFuncC(C.sub_544740), Update: wrapAIFuncC(C.nox_xxx_mobActionFlee_544760), End: wrapAIFuncC(C.sub_544750)},
-	ai.ACTION_FACE_LOCATION:          {Update: wrapAIFuncC(C.sub_545210), Cancel: wrapAIFuncC(C.sub_532100)},
-	ai.ACTION_FACE_OBJECT:            {Update: wrapAIFuncC(C.sub_545300), Cancel: wrapAIFuncC(C.sub_532100)},
-	ai.ACTION_FACE_ANGLE:             {Update: wrapAIFuncC(C.sub_545340), Cancel: wrapAIFuncC(C.sub_532100)},
-	ai.ACTION_SET_ANGLE:              {Update: wrapAIFuncC(C.sub_5453E0), Cancel: wrapAIFuncC(C.sub_532100)},
-	ai.ACTION_RANDOM_WALK:            {Update: wrapAIFuncC(C.nox_xxx_mobActionRandomWalk_545020)},
-	ai.ACTION_DYING:                  {Start: wrapAIFuncC(C.nox_xxx_mobGenericDeath_544C40), Update: wrapAIFuncC(C.sub_544D60), End: wrapAIFuncC(C.nox_xxx_zombieBurnDeleteCheck_544CA0)},
-	ai.ACTION_DEAD:                   {Start: wrapAIFuncC(C.nox_xxx_mobActionDead1_544D80), Update: wrapAIFuncC(C.nox_xxx_mobActionDead2_544EC0)},
-	ai.ACTION_REPORT:                 {Update: wrapAIFuncC(C.nox_xxx_mobActionReportComplete_544FF0)},
-	ai.ACTION_MORPH_INTO_CHEST:       {Update: wrapAIFuncC(C.nox_xxx_mobActionMorphToChest_5348D0)},
-	ai.ACTION_MORPH_BACK_TO_SELF:     {Update: wrapAIFuncC(C.nox_xxx_mobActionMorphBackToSelf_534910)},
-	ai.ACTION_GET_UP:                 {Update: wrapAIFuncC(C.nox_xxx_mobActionGetUp_534A90)},
-	ai.ACTION_CONFUSED:               {Update: wrapAIFuncC(C.nox_xxx_mobActionConfuse_545140)},
-	ai.ACTION_MOVE_TO_HOME:           {Start: wrapAIFuncC(C.nox_xxx_mobActionReturnToHome_544920), Update: wrapAIFuncC(C.sub_544950), End: wrapAIFuncC(C.sub_544930), Cancel: wrapAIFuncC(C.sub_544940)},
+func nox_xxx_monsterIdleStarted_546820(u *Unit) {
+	ud := u.UpdateDataMonster()
+	cur := ud.AIStackHead()
+	cur.Args[0] = uintptr(noxServer.Frame())
+}
+
+func sub_5343C0(u *Unit) bool {
+	ud := u.UpdateDataMonster()
+	return ud.Field326 < 0.66000003 && ud.Field326 > 0.33000001
+}
+
+func nox_xxx_monsterCanAttackAtWill_534390(u *Unit) bool {
+	return u.UpdateDataMonster().Field326 > 0.66000003
+}
+
+func sub_534440(u *Unit) bool {
+	return u.UpdateDataMonster().Field326 < 0.079999998
+}
+
+func sub_5347A0(u *Unit) bool {
+	return (u.UpdateDataMonster().Field360>>9)&1 != 0
+}
+
+func nox_xxx_monsterLookAtDamager_5466B0(u *Unit) bool {
+	if !sub_5347A0(u) {
+		return false
+	}
+	u.monsterPushAction(ai.ACTION_FACE_LOCATION, u.Pos132)
+	return true
+}
+
+func nox_xxx_monsterUpdateIdleLogic_546850(u *Unit) {
+	s := u.getServer()
+	ud := u.UpdateDataMonster()
+	if uint16(s.Frame()-ud.AIStackHead().ArgU32(0)) == uint16(ud.Field305) {
+		nox_xxx_scriptCallByEventBlock_502490(&ud.Field306, nil, u, noxEventMonsterIdle)
+	}
+	if u.Flags().Has(object.FlagEnabled) && (sub_5343C0(u) || nox_xxx_monsterCanAttackAtWill_534390(u)) {
+		if enemy := asObjectS(ud.CurrentEnemy); enemy != nil {
+			u.monsterPushAction(ai.ACTION_FIGHT, enemy.Pos(), s.Frame())
+			return
+		}
+		if C.sub_5466F0(u.CObj()) != 0 {
+			return
+		}
+	}
+	if !u.Flags().Has(object.FlagEnabled) || sub_534440(u) || sub_545E60(u.CObj()) == 0 {
+		if u.isMimic() {
+			if !u.HasEnchant(server.ENCHANT_ANTI_MAGIC) {
+				C.nox_xxx_mobHealSomeone_5411A0(u.CObj())
+			}
+		} else {
+			if nox_xxx_monsterLookAtDamager_5466B0(u) {
+				return
+			}
+			if s.Frame()-ud.Field137 <= s.TickRate()/2 || u.PosVec == u.PrevPos {
+				if !u.HasEnchant(server.ENCHANT_ANTI_MAGIC) {
+					C.nox_xxx_mobHealSomeone_5411A0(u.CObj())
+				}
+			} else {
+				u.monsterPushAction(ai.ACTION_FACE_LOCATION, u.PrevPos)
+			}
+		}
+	}
 }

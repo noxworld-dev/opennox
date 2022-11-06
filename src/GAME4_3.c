@@ -10246,7 +10246,8 @@ LABEL_17:
 // 541050: using guessed type int var_224[137];
 
 //----- (005411A0) --------------------------------------------------------
-int nox_xxx_mobHealSomeone_5411A0(int a3) {
+int nox_xxx_mobHealSomeone_5411A0(nox_object_t* a3p) {
+	int a3 = a3p;
 	int v1;            // edi
 	int v2;            // edx
 	uint16_t* v3;      // ecx

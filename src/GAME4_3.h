@@ -294,7 +294,7 @@ int sub_540D40(int a1);
 int nox_xxx_mobCastRelated2_540D90(int a1, int a2);
 int nox_xxx_monsterCastOffensive_540F20(int a1, int a2);
 int nox_xxx_mobCastRelated_541050(int a1);
-int nox_xxx_mobHealSomeone_5411A0(int a3);
+int nox_xxx_mobHealSomeone_5411A0(nox_object_t* a3);
 void nox_xxx_mobMayHealThis_5412A0(float* a1, int a2);
 char nox_xxx_mobCast_541300(int a1, uint32_t* a2, int a3);
 char nox_xxx_mobActionCastOnObj_541360(uint32_t* a1);
