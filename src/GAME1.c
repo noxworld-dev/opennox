@@ -1,8 +1,5 @@
 #include <math.h>
 
-void nullsub_66() {}
-void nullsub_67() {}
-
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_2.h"
