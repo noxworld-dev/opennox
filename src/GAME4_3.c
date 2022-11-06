@@ -10326,21 +10326,9 @@ char nox_xxx_mobCast_541300(int a1, uint32_t* a2, int a3) {
 	return v4;
 }
 
-//----- (00541360) --------------------------------------------------------
-char nox_xxx_mobActionCastOnObj_541360(uint32_t* a1) {
-	int v1;      // esi
-	char result; // al
-
-	v1 = a1[187];
-	if (!*(uint32_t*)(v1 + 24 * *(char*)(v1 + 544) + 564) ||
-		(nox_xxx_mobActionCast_5413B0(a1, 0), (result = *(uint8_t*)(v1 + 483)) != 0)) {
-		result = nox_xxx_monsterPopAction_50A160((int)a1);
-	}
-	return result;
-}
-
 //----- (005413B0) --------------------------------------------------------
-char nox_xxx_mobActionCast_5413B0(uint32_t* a1, int a2) {
+char nox_xxx_mobActionCast_5413B0(nox_object_t* a1p, int a2) {
+	uint32_t* a1 = a1p;
 	int v2;    // ecx
 	int* v3;   // edi
 	int v4;    // eax

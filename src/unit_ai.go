@@ -34,6 +34,7 @@ func init() {
 	server.RegisterAIAction(AIActionIdle{})
 	server.RegisterAIAction(AIActionWait{})
 	server.RegisterAIAction(AIActionWaitRel{})
+	server.RegisterAIAction(AIActionCastOnObj{})
 	server.RegisterAIAction(AIActionDropObj{})
 	server.RegisterAIAction(AIActionFindObj{})
 	for typ, a := range map[ai.ActionType]struct {
@@ -52,7 +53,6 @@ func init() {
 		ai.ACTION_FIGHT:                  {Start: C.nox_xxx_mobActionFightStart_531E20, Update: C.nox_xxx_mobActionFight_531EC0, End: C.sub_531E90},
 		ai.ACTION_MELEE_ATTACK:           {Start: C.nox_xxx_mobActionMelee1_532130, Update: C.nox_xxx_mobActionMeleeAtt_532440, Cancel: C.nox_ai_action_pop_532100},
 		ai.ACTION_MISSILE_ATTACK:         {Start: C.sub_532540, Update: C.nox_xxx_mobActionMissileAtt_532610, Cancel: C.nox_ai_action_pop_532100},
-		ai.ACTION_CAST_SPELL_ON_OBJECT:   {Update: C.nox_xxx_mobActionCastOnObj_541360},
 		ai.ACTION_CAST_SPELL_ON_LOCATION: {Update: C.nox_xxx_mobActionCastOnPoint_541560},
 		ai.ACTION_CAST_DURATION_SPELL:    {Update: C.nox_xxx_mobActionCastStart_5415F0, End: C.nox_xxx_mobActionCastStopMB_541590, Cancel: C.nox_xxx_mobActionCastFinishMB_5415C0},
 		ai.ACTION_BLOCK_ATTACK:           {Update: C.nox_xxx_monsterShieldBlockStart_532070, Cancel: C.nox_ai_action_pop_532100},
@@ -1002,4 +1002,26 @@ func (AIActionWaitRel) Update(obj *server.Object) {
 func (AIActionWaitRel) Cancel(obj *server.Object) {
 	u := asUnitS(obj)
 	u.monsterPopAction()
+}
+
+type AIActionCastOnObj struct{}
+
+func (AIActionCastOnObj) Type() ai.ActionType {
+	return ai.ACTION_CAST_SPELL_ON_OBJECT
+}
+func (AIActionCastOnObj) Start(_ *server.Object)  {}
+func (AIActionCastOnObj) End(_ *server.Object)    {}
+func (AIActionCastOnObj) Cancel(_ *server.Object) {}
+
+func (AIActionCastOnObj) Update(obj *server.Object) {
+	u := asUnitS(obj)
+	ud := u.UpdateDataMonster()
+	if ud.AIStackHead().ArgU32(2) == 0 {
+		u.monsterPopAction()
+		return
+	}
+	C.nox_xxx_mobActionCast_5413B0(u.CObj(), 0)
+	if ud.Field120_3 != 0 {
+		u.monsterPopAction()
+	}
 }
