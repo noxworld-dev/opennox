@@ -3329,36 +3329,6 @@ int nox_xxx_unitIsMimic_534840(int a1) {
 	return *(unsigned short*)(a1 + 4) == v1;
 }
 
-//----- (005348D0) --------------------------------------------------------
-char nox_xxx_mobActionMorphToChest_5348D0(int a1) {
-	int v1;      // esi
-	char result; // al
-
-	v1 = *(uint32_t*)(a1 + 748);
-	result = *(uint8_t*)(v1 + 483);
-	if (result) {
-		nox_xxx_monsterPopAction_50A160(a1);
-		*(uint32_t*)(v1 + 1440) |= 0x40000u;
-		result = (unsigned int)nox_xxx_monsterMarkUpdate_4E8020(a1);
-	}
-	return result;
-}
-
-//----- (00534910) --------------------------------------------------------
-char nox_xxx_mobActionMorphBackToSelf_534910(int a1) {
-	int v1;      // esi
-	char result; // al
-
-	v1 = *(uint32_t*)(a1 + 748);
-	result = *(uint8_t*)(v1 + 483);
-	if (result) {
-		nox_xxx_monsterPopAction_50A160(a1);
-		*(uint32_t*)(v1 + 1440) &= 0xFFFBFFFF;
-		result = (unsigned int)nox_xxx_monsterMarkUpdate_4E8020(a1);
-	}
-	return result;
-}
-
 //----- (00534950) --------------------------------------------------------
 void nox_xxx_monsterMimicCheckMorph_534950(nox_object_t* a1p) {
 	int a1 = a1p;

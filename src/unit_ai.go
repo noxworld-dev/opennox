@@ -40,39 +40,39 @@ func init() {
 	server.RegisterAIAction(AIActionCastDuration{})
 	server.RegisterAIAction(AIActionDropObj{})
 	server.RegisterAIAction(AIActionFindObj{})
+	server.RegisterAIAction(AIActionMorphIntoChest{})
+	server.RegisterAIAction(AIActionMorphBackToSelf{})
 	for typ, a := range map[ai.ActionType]struct {
 		Start, Update, End, Cancel unsafe.Pointer
 	}{
-		ai.ACTION_ESCORT:             {Update: C.nox_xxx_mobActionEscort_546430, End: C.sub_546410, Cancel: C.sub_546420},
-		ai.ACTION_GUARD:              {Update: C.nox_xxx_mobActionGuard_546010},
-		ai.ACTION_HUNT:               {Update: C.nox_xxx_mobActionHunt_5449D0},
-		ai.ACTION_RETREAT:            {Update: C.nox_xxx_mobActionRetreat_545440},
-		ai.ACTION_MOVE_TO:            {Update: C.nox_xxx_mobActionMoveTo_5443F0},
-		ai.ACTION_FAR_MOVE_TO:        {Update: C.nox_xxx_mobActionMoveToFar_5445C0},
-		ai.ACTION_DODGE:              {Update: C.nox_xxx_mobActionDodge_544640},
-		ai.ACTION_ROAM:               {Start: C.sub_545790, Update: C.nox_xxx_mobActionRoam_5457E0, Cancel: C.sub_5457C0},
-		ai.ACTION_PICKUP_OBJECT:      {Update: C.nox_xxx_mobActionPickupObject_544B90},
-		ai.ACTION_RETREAT_TO_MASTER:  {Start: C.sub_5456B0, Update: C.sub_5456D0, End: C.sub_5456C0},
-		ai.ACTION_FIGHT:              {Start: C.nox_xxx_mobActionFightStart_531E20, Update: C.nox_xxx_mobActionFight_531EC0, End: C.sub_531E90},
-		ai.ACTION_MELEE_ATTACK:       {Start: C.nox_xxx_mobActionMelee1_532130, Update: C.nox_xxx_mobActionMeleeAtt_532440, Cancel: C.nox_ai_action_pop_532100},
-		ai.ACTION_MISSILE_ATTACK:     {Start: C.sub_532540, Update: C.nox_xxx_mobActionMissileAtt_532610, Cancel: C.nox_ai_action_pop_532100},
-		ai.ACTION_BLOCK_ATTACK:       {Update: C.nox_xxx_monsterShieldBlockStart_532070, Cancel: C.nox_ai_action_pop_532100},
-		ai.ACTION_BLOCK_FINISH:       {Update: C.nox_xxx_monsterShieldBlockStop_5320E0, Cancel: C.nox_ai_action_pop_532100},
-		ai.ACTION_WEAPON_BLOCK:       {Update: C.sub_532110, Cancel: C.nox_ai_action_pop_532100},
-		ai.ACTION_FLEE:               {Start: C.sub_544740, Update: C.nox_xxx_mobActionFlee_544760, End: C.sub_544750},
-		ai.ACTION_FACE_LOCATION:      {Update: C.sub_545210, Cancel: C.nox_ai_action_pop_532100},
-		ai.ACTION_FACE_OBJECT:        {Update: C.sub_545300, Cancel: C.nox_ai_action_pop_532100},
-		ai.ACTION_FACE_ANGLE:         {Update: C.sub_545340, Cancel: C.nox_ai_action_pop_532100},
-		ai.ACTION_SET_ANGLE:          {Update: C.sub_5453E0, Cancel: C.nox_ai_action_pop_532100},
-		ai.ACTION_RANDOM_WALK:        {Update: C.nox_xxx_mobActionRandomWalk_545020},
-		ai.ACTION_DYING:              {Start: C.nox_xxx_mobGenericDeath_544C40, Update: C.sub_544D60, End: C.nox_xxx_zombieBurnDeleteCheck_544CA0},
-		ai.ACTION_DEAD:               {Start: C.nox_xxx_mobActionDead1_544D80, Update: C.nox_xxx_mobActionDead2_544EC0},
-		ai.ACTION_REPORT:             {Update: C.nox_xxx_mobActionReportComplete_544FF0},
-		ai.ACTION_MORPH_INTO_CHEST:   {Update: C.nox_xxx_mobActionMorphToChest_5348D0},
-		ai.ACTION_MORPH_BACK_TO_SELF: {Update: C.nox_xxx_mobActionMorphBackToSelf_534910},
-		ai.ACTION_GET_UP:             {Update: C.nox_xxx_mobActionGetUp_534A90},
-		ai.ACTION_CONFUSED:           {Update: C.nox_xxx_mobActionConfuse_545140},
-		ai.ACTION_MOVE_TO_HOME:       {Start: C.nox_xxx_mobActionReturnToHome_544920, Update: C.sub_544950, End: C.sub_544930, Cancel: C.sub_544940},
+		ai.ACTION_ESCORT:            {Update: C.nox_xxx_mobActionEscort_546430, End: C.sub_546410, Cancel: C.sub_546420},
+		ai.ACTION_GUARD:             {Update: C.nox_xxx_mobActionGuard_546010},
+		ai.ACTION_HUNT:              {Update: C.nox_xxx_mobActionHunt_5449D0},
+		ai.ACTION_RETREAT:           {Update: C.nox_xxx_mobActionRetreat_545440},
+		ai.ACTION_MOVE_TO:           {Update: C.nox_xxx_mobActionMoveTo_5443F0},
+		ai.ACTION_FAR_MOVE_TO:       {Update: C.nox_xxx_mobActionMoveToFar_5445C0},
+		ai.ACTION_DODGE:             {Update: C.nox_xxx_mobActionDodge_544640},
+		ai.ACTION_ROAM:              {Start: C.sub_545790, Update: C.nox_xxx_mobActionRoam_5457E0, Cancel: C.sub_5457C0},
+		ai.ACTION_PICKUP_OBJECT:     {Update: C.nox_xxx_mobActionPickupObject_544B90},
+		ai.ACTION_RETREAT_TO_MASTER: {Start: C.sub_5456B0, Update: C.sub_5456D0, End: C.sub_5456C0},
+		ai.ACTION_FIGHT:             {Start: C.nox_xxx_mobActionFightStart_531E20, Update: C.nox_xxx_mobActionFight_531EC0, End: C.sub_531E90},
+		ai.ACTION_MELEE_ATTACK:      {Start: C.nox_xxx_mobActionMelee1_532130, Update: C.nox_xxx_mobActionMeleeAtt_532440, Cancel: C.nox_ai_action_pop_532100},
+		ai.ACTION_MISSILE_ATTACK:    {Start: C.sub_532540, Update: C.nox_xxx_mobActionMissileAtt_532610, Cancel: C.nox_ai_action_pop_532100},
+		ai.ACTION_BLOCK_ATTACK:      {Update: C.nox_xxx_monsterShieldBlockStart_532070, Cancel: C.nox_ai_action_pop_532100},
+		ai.ACTION_BLOCK_FINISH:      {Update: C.nox_xxx_monsterShieldBlockStop_5320E0, Cancel: C.nox_ai_action_pop_532100},
+		ai.ACTION_WEAPON_BLOCK:      {Update: C.sub_532110, Cancel: C.nox_ai_action_pop_532100},
+		ai.ACTION_FLEE:              {Start: C.sub_544740, Update: C.nox_xxx_mobActionFlee_544760, End: C.sub_544750},
+		ai.ACTION_FACE_LOCATION:     {Update: C.sub_545210, Cancel: C.nox_ai_action_pop_532100},
+		ai.ACTION_FACE_OBJECT:       {Update: C.sub_545300, Cancel: C.nox_ai_action_pop_532100},
+		ai.ACTION_FACE_ANGLE:        {Update: C.sub_545340, Cancel: C.nox_ai_action_pop_532100},
+		ai.ACTION_SET_ANGLE:         {Update: C.sub_5453E0, Cancel: C.nox_ai_action_pop_532100},
+		ai.ACTION_RANDOM_WALK:       {Update: C.nox_xxx_mobActionRandomWalk_545020},
+		ai.ACTION_DYING:             {Start: C.nox_xxx_mobGenericDeath_544C40, Update: C.sub_544D60, End: C.nox_xxx_zombieBurnDeleteCheck_544CA0},
+		ai.ACTION_DEAD:              {Start: C.nox_xxx_mobActionDead1_544D80, Update: C.nox_xxx_mobActionDead2_544EC0},
+		ai.ACTION_REPORT:            {Update: C.nox_xxx_mobActionReportComplete_544FF0},
+		ai.ACTION_GET_UP:            {Update: C.nox_xxx_mobActionGetUp_534A90},
+		ai.ACTION_CONFUSED:          {Update: C.nox_xxx_mobActionConfuse_545140},
+		ai.ACTION_MOVE_TO_HOME:      {Start: C.nox_xxx_mobActionReturnToHome_544920, Update: C.sub_544950, End: C.sub_544930, Cancel: C.sub_544940},
 	} {
 		server.RegisterAIAction(cgoAIAction{typ: typ, start: a.Start, update: a.Update, end: a.End, cancel: a.Cancel})
 	}
@@ -1074,4 +1074,44 @@ func (AIActionCastDuration) Cancel(obj *server.Object) {
 	ud := u.UpdateDataMonster()
 	nox_xxx_spellCancelDurSpell_4FEB10(spell.ID(ud.AIStackHead().ArgU32(0)), u)
 	u.monsterPopAction()
+}
+
+type AIActionMorphIntoChest struct{}
+
+func (AIActionMorphIntoChest) Type() ai.ActionType {
+	return ai.ACTION_MORPH_INTO_CHEST
+}
+
+func (AIActionMorphIntoChest) Start(_ *server.Object)  {}
+func (AIActionMorphIntoChest) End(_ *server.Object)    {}
+func (AIActionMorphIntoChest) Cancel(_ *server.Object) {}
+
+func (AIActionMorphIntoChest) Update(obj *server.Object) {
+	u := asUnitS(obj)
+	ud := u.UpdateDataMonster()
+	if ud.Field120_3 != 0 {
+		u.monsterPopAction()
+		ud.Field360 |= 0x40000
+		C.nox_xxx_monsterMarkUpdate_4E8020(u.CObj())
+	}
+}
+
+type AIActionMorphBackToSelf struct{}
+
+func (AIActionMorphBackToSelf) Type() ai.ActionType {
+	return ai.ACTION_MORPH_BACK_TO_SELF
+}
+
+func (AIActionMorphBackToSelf) Start(_ *server.Object)  {}
+func (AIActionMorphBackToSelf) End(_ *server.Object)    {}
+func (AIActionMorphBackToSelf) Cancel(_ *server.Object) {}
+
+func (AIActionMorphBackToSelf) Update(obj *server.Object) {
+	u := asUnitS(obj)
+	ud := u.UpdateDataMonster()
+	if ud.Field120_3 != 0 {
+		u.monsterPopAction()
+		ud.Field360 &^= 0x40000
+		C.nox_xxx_monsterMarkUpdate_4E8020(u.CObj())
+	}
 }

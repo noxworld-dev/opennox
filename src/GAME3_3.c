@@ -3408,7 +3408,8 @@ int nox_xxx_unitIsHostileMimic_4E7F90(int a1, int a2) {
 }
 
 //----- (004E8020) --------------------------------------------------------
-char* nox_xxx_monsterMarkUpdate_4E8020(int a1) {
+char* nox_xxx_monsterMarkUpdate_4E8020(nox_object_t* a1p) {
+	int a1 = a1p;
 	char* result; // eax
 	int v2;       // ebx
 	int v3;       // eax

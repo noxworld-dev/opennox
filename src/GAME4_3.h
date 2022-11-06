@@ -106,8 +106,6 @@ int sub_5347C0(int a1);
 int nox_xxx_isNotPoisoned_5347F0(int a1);
 int nox_xxx_mobGetMoveAttemptTime_534810(nox_object_t* a1);
 int nox_xxx_unitIsMimic_534840(int a1);
-char nox_xxx_mobActionMorphToChest_5348D0(int a1);
-char nox_xxx_mobActionMorphBackToSelf_534910(int a1);
 void nox_xxx_monsterMimicCheckMorph_534950(nox_object_t* a1);
 int nox_xxx_unitIsPlant_534A10(int a1);
 int nox_xxx_unitIsZombie_534A40(int a1);
