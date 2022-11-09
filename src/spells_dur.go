@@ -15,7 +15,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var (
@@ -119,8 +118,9 @@ func (sp *noxDurSpell) C() unsafe.Pointer {
 }
 
 type spellsDuration struct {
-	s    *Server
-	list *noxDurSpell
+	s      *Server
+	lastID uint16
+	list   *noxDurSpell
 }
 
 func (sp *spellsDuration) Init(s *Server) {
@@ -133,8 +133,8 @@ func (sp *spellsDuration) Free() {
 func (sp *spellsDuration) newDur() *noxDurSpell {
 	p := nox_alloc_spellDur_1569724.NewObject()
 	if p != nil {
-		*memmap.PtrUint16(0x5D4594, 1569732)++
-		p.id = *memmap.PtrUint16(0x5D4594, 1569732)
+		sp.lastID++
+		p.id = sp.lastID
 	}
 	return p
 }
