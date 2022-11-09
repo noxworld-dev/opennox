@@ -116,8 +116,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 
 	int op = data[0];
 	switch (op) {
-	case 0x26u:
-		return 2;
 	case 0x40u: // MSG_PLAYER_SET_WAYPOINT
 		v84 = (double)*(unsigned short*)(data + 5);
 		v83 = (double)*(unsigned short*)(data + 3);
