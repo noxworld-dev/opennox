@@ -1113,6 +1113,10 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 	case noxnet.MSG_OUTGOING_CLIENT:
 		C.nox_xxx_playerDisconnFinish_4DE530(C.int(pl.Index()), 2)
 		return 1, true
+	case noxnet.MSG_REQUEST_TIMER_STATUS:
+		v41 := int(C.sub_40A220())
+		nox_xxx_netTimerStatus_4D8F50(pli, v41)
+		return 1, true
 	case noxnet.MSG_CANCEL_MAP:
 		C.nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(C.int(pl.Index()))
 		return 1, true
@@ -1207,4 +1211,14 @@ func netDecodePlayerInput(data []byte, out []ctrlBufEvent) []ctrlBufEvent {
 		out = append(out, v)
 	}
 	return out
+}
+
+func nox_xxx_netTimerStatus_4D8F50(a1, a2 int) {
+	var buf [13]byte
+
+	buf[0] = byte(noxnet.MSG_TIMER_STATUS)
+	binary.LittleEndian.PutUint32(buf[1:], uint32(a2))
+	binary.LittleEndian.PutUint32(buf[5:], uint32(C.sub_40A230()))
+	binary.LittleEndian.PutUint32(buf[9:], noxServer.Frame())
+	noxServer.nox_xxx_netSendPacket1_4E5390(a1, buf[:13], 0, 1)
 }

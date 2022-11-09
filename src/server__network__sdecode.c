@@ -440,10 +440,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 		} else {
 			return -1;
 		}
-	case 0xD4u: // MSG_REQUEST_TIMER_STATUS
-		v41 = sub_40A220();
-		nox_xxx_netTimerStatus_4D8F50(a1, v41);
-		return 1;
 	case 0xE0u: // MSG_REPORT_SECONDARY_WEAPON
 		v58 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
