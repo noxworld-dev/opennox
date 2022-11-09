@@ -363,19 +363,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 		}
 		nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(v8 + 2064), v87, 2, 0, 1);
 		return 21;
-	case 0xC1u: // MSG_REQUEST_SAVE_PLAYER
-		if (nox_common_gameFlags_check_40A5C0(4096) && *(uint8_t*)(v8 + 2064) != 31 && *(uint32_t*)(v8 + 2092) &&
-			*(uint32_t*)(v8 + 2056) && v10[138] == 1) {
-			nox_xxx_playerCallDisconnect_4DEAB0(*(unsigned char*)(v8 + 2064), 2);
-		} else {
-			v52 = nox_fs_root();
-			nox_sprintf(FileName, "%s\\Save\\_temp_.dat", v52);
-			if (nox_xxx_playerSaveToFile_41A140(FileName, *(unsigned char*)(v8 + 2064))) {
-				sub_41CFA0(FileName, *(unsigned char*)(v8 + 2064));
-			}
-			nox_fs_remove(FileName);
-		}
-		return 3;
 	case 0xC2u: // MSG_XFER_MSG
 		switch (data[1]) {
 		case 0u:

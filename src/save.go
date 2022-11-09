@@ -567,11 +567,6 @@ func nox_xxx_player_4D7960(a1 int) {
 	*memmap.PtrUint32(0x5D4594, 1556300) |= 1 << a1
 }
 
-//export sub_41CFA0
-func sub_41CFA0(a1 *C.char, a2 C.int) C.int {
-	return C.int(bool2int(sub41CFA0(GoString(a1), int(a2))))
-}
-
 func sub41CFA0(a1 string, a2 int) bool {
 	if sub_419EE0(a2) {
 		return false

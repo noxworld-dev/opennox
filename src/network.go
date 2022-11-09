@@ -64,6 +64,8 @@ import (
 	"github.com/noxworld-dev/nat"
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/console"
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/ifs"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
@@ -1155,6 +1157,20 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 		}
 		C.nox_xxx_netMapSend_519D20(C.int(pl.Index()))
 		return 1, true
+	case noxnet.MSG_REQUEST_SAVE_PLAYER:
+		if len(data) < 3 {
+			return 0, false
+		}
+		if noxflags.HasGame(noxflags.GameModeQuest) && pl.Index() != common.MaxPlayers-1 && pl.IsActive() && u != nil && u.UpdateDataPlayer().Field138 == 1 {
+			pl.Disconnect(2)
+		} else {
+			fname := datapath.Save(common.SaveDir, "_temp_.dat")
+			defer ifs.Remove(fname)
+			if nox_xxx_playerSaveToFile_41A140(fname, pl.Index()) {
+				sub41CFA0(fname, pl.Index())
+			}
+		}
+		return 3, true
 	}
 	res := int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), u.UpdateData))
 	if res <= 0 || res > len(data) {
