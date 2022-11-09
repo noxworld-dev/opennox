@@ -1065,14 +1065,16 @@ func (AIActionCastDuration) Update(obj *server.Object) {
 
 func (AIActionCastDuration) End(obj *server.Object) {
 	u := asUnitS(obj)
+	s := u.getServer()
 	ud := u.UpdateDataMonster()
-	nox_xxx_spellCancelDurSpell4FEB10(spell.ID(ud.AIStackHead().ArgU32(0)), u)
+	s.spells.duration.CancelFor(spell.ID(ud.AIStackHead().ArgU32(0)), u)
 }
 
 func (AIActionCastDuration) Cancel(obj *server.Object) {
 	u := asUnitS(obj)
+	s := u.getServer()
 	ud := u.UpdateDataMonster()
-	nox_xxx_spellCancelDurSpell4FEB10(spell.ID(ud.AIStackHead().ArgU32(0)), u)
+	s.spells.duration.CancelFor(spell.ID(ud.AIStackHead().ArgU32(0)), u)
 	u.monsterPopAction()
 }
 

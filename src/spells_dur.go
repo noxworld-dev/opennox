@@ -20,17 +20,66 @@ import (
 
 var (
 	nox_alloc_spellDur_1569724 alloc.ClassT[noxDurSpell]
-	dword_5d4594_1569728       *noxDurSpell
 )
 
 //export nox_xxx_spellCastedFirst_4FE930
 func nox_xxx_spellCastedFirst_4FE930() unsafe.Pointer {
-	return dword_5d4594_1569728.C()
+	return noxServer.spells.duration.list.C()
 }
 
 //export nox_xxx_spellCastedNext_4FE940
 func nox_xxx_spellCastedNext_4FE940(a1 unsafe.Pointer) unsafe.Pointer {
 	return (*noxDurSpell)(a1).next.C()
+}
+
+//export sub_4FE8A0
+func sub_4FE8A0(a1 int) {
+	noxServer.spells.duration.sub4FE8A0(a1)
+}
+
+//export sub_4FE900
+func sub_4FE900(a1 unsafe.Pointer) {
+	noxServer.spells.duration.unlink((*noxDurSpell)(a1))
+}
+
+//export sub_4FEE50
+func sub_4FEE50(a1 uint32, a2 *nox_object_t) int {
+	return noxServer.spells.duration.sub4FEE50(spell.ID(a1), asUnitC(a2))
+}
+
+//export nox_xxx_spellCastByPlayer_4FEEF0
+func nox_xxx_spellCastByPlayer_4FEEF0() {
+	noxServer.spells.duration.spellCastByPlayer()
+}
+
+//export nox_xxx_spellCancelDurSpell_4FEB10
+func nox_xxx_spellCancelDurSpell_4FEB10(a1 int, a2 *nox_object_t) {
+	noxServer.spells.duration.CancelFor(spell.ID(a1), asUnitC(a2))
+}
+
+//export sub_4FE980
+func sub_4FE980(a1 unsafe.Pointer) {
+	noxServer.spells.duration.freeRecursive((*noxDurSpell)(a1))
+}
+
+//export sub_4FED70
+func sub_4FED70() {
+	noxServer.spells.duration.newHook()
+}
+
+//export sub_4FF310
+func sub_4FF310(a1 *nox_object_t) {
+	noxServer.spells.duration.nox_spell_cancelOffensiveFor_4FF310(asUnitC(a1))
+}
+
+//export sub_4FED40
+func sub_4FED40(a1 unsafe.Pointer) {
+	noxServer.spells.duration.add((*noxDurSpell)(a1))
+}
+
+//export nox_xxx_newSpellDuration_4FE950
+func nox_xxx_newSpellDuration_4FE950() unsafe.Pointer {
+	return noxServer.spells.duration.newDur().C()
 }
 
 type noxDurSpell struct {
@@ -69,25 +118,35 @@ func (sp *noxDurSpell) C() unsafe.Pointer {
 	return unsafe.Pointer(sp)
 }
 
-//export nox_xxx_newSpellDuration_4FE950
-func nox_xxx_newSpellDuration_4FE950() unsafe.Pointer {
+type spellsDuration struct {
+	s    *Server
+	list *noxDurSpell
+}
+
+func (sp *spellsDuration) Init(s *Server) {
+	sp.s = s
+}
+
+func (sp *spellsDuration) Free() {
+}
+
+func (sp *spellsDuration) newDur() *noxDurSpell {
 	p := nox_alloc_spellDur_1569724.NewObject()
 	if p != nil {
 		*memmap.PtrUint16(0x5D4594, 1569732)++
 		p.id = *memmap.PtrUint16(0x5D4594, 1569732)
 	}
-	return p.C()
+	return p
 }
 
-//export sub_4FE8A0
-func sub_4FE8A0(a1 int) {
+func (sp *spellsDuration) sub4FE8A0(a1 int) {
 	if a1 == 0 {
 		nox_alloc_spellDur_1569724.FreeAllObjects()
-		dword_5d4594_1569728 = nil
+		sp.list = nil
 		return
 	}
 	var next *noxDurSpell
-	for it := dword_5d4594_1569728; it != nil; it = next {
+	for it := sp.list; it != nil; it = next {
 		u := asUnitC(it.obj48)
 		next = it.next
 		if u == nil || !u.Class().Has(object.ClassPlayer) {
@@ -97,39 +156,34 @@ func sub_4FE8A0(a1 int) {
 	}
 }
 
-//export sub_4FE980
-func sub_4FE980(a1 unsafe.Pointer) {
-	sp := (*noxDurSpell)(a1)
+func (sp *spellsDuration) freeRecursive(p *noxDurSpell) {
 	var next1 *noxDurSpell
-	for it := sp.sub108; it != nil; it = next1 {
+	for it := p.sub108; it != nil; it = next1 {
 		next1 = it.next
-		sub_4FE980(it.C())
+		sp.freeRecursive(it)
 	}
 	var next2 *noxDurSpell
-	for it := sp.sub104; it != nil; it = next2 {
+	for it := p.sub104; it != nil; it = next2 {
 		next2 = it.next
-		sub_4FE980(it.C())
+		sp.freeRecursive(it)
 	}
-	nox_alloc_spellDur_1569724.FreeObjectFirst(sp)
+	nox_alloc_spellDur_1569724.FreeObjectFirst(p)
 }
 
-//export sub_4FE900
-func sub_4FE900(a1 unsafe.Pointer) {
-	sp := (*noxDurSpell)(a1)
-	if prev := sp.prev; prev != nil {
-		prev.next = sp.next
+func (sp *spellsDuration) unlink(p *noxDurSpell) {
+	if prev := p.prev; prev != nil {
+		prev.next = p.next
 	} else {
-		dword_5d4594_1569728 = sp.next
+		sp.list = p.next
 	}
-	if next := sp.next; next != nil {
-		next.prev = sp.prev
+	if next := p.next; next != nil {
+		next.prev = p.prev
 	}
 }
 
-//export sub_4FED70
-func sub_4FED70() {
+func (sp *spellsDuration) newHook() {
 	var next *noxDurSpell
-	for it := dword_5d4594_1569728; it != nil; it = next {
+	for it := sp.list; it != nil; it = next {
 		next = it.next
 		if it.flags88&0x1 != 0 {
 			C.nox_xxx_plrCastSmth_4FEDA0(it.C())
@@ -137,63 +191,52 @@ func sub_4FED70() {
 	}
 }
 
-//export sub_4FED40
-func sub_4FED40(a1 unsafe.Pointer) {
-	sp := (*noxDurSpell)(a1)
-	head := dword_5d4594_1569728
-	if head != nil {
-		head.prev = sp
+func (sp *spellsDuration) add(p *noxDurSpell) {
+	if sp.list != nil {
+		sp.list.prev = p
 	}
-	sp.prev = nil
-	sp.next = head
-	dword_5d4594_1569728 = sp
+	p.prev = nil
+	p.next = sp.list
+	sp.list = p
 }
 
-//export nox_xxx_spellCancelDurSpell_4FEB10
-func nox_xxx_spellCancelDurSpell_4FEB10(a1 int, a2 *nox_object_t) {
-	nox_xxx_spellCancelDurSpell4FEB10(spell.ID(a1), asUnitC(a2))
+func spellIsSummon(sp spell.ID) bool {
+	return sp >= spell.SPELL_SUMMON_BAT && sp <= spell.SPELL_SUMMON_URCHIN_SHAMAN
 }
 
-func nox_xxx_spellCancelDurSpell4FEB10(sid spell.ID, obj noxObject) {
+func (sp *spellsDuration) CancelFor(sid spell.ID, obj noxObject) {
 	var next *noxDurSpell
-	for it := dword_5d4594_1569728; it != nil; it = next {
+	for it := sp.list; it != nil; it = next {
 		sid2 := spell.ID(it.spell)
 		next = it.next
-		if sid2 == sid && it.obj16 == toCObj(obj) ||
-			sid >= spell.SPELL_SUMMON_BAT && sid <= spell.SPELL_SUMMON_URCHIN_SHAMAN &&
-				sid2 >= spell.SPELL_SUMMON_BAT && sid2 <= spell.SPELL_SUMMON_URCHIN_SHAMAN && it.obj16 == toCObj(obj) {
+		if sid2 == sid && it.obj16 == toCObj(obj) || spellIsSummon(sid) && spellIsSummon(sid2) && it.obj16 == toCObj(obj) {
 			C.nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
 		}
 	}
 }
 
-//export sub_4FEE50
-func sub_4FEE50(a1 uint32, a2 *nox_object_t) int {
-	for it := dword_5d4594_1569728; it != nil; it = it.next {
-		if it.flag20 == 0 && it.spell == a1 && it.obj16 == a2 && it.flags88&0x1 == 0 {
+func (sp *spellsDuration) sub4FEE50(a1 spell.ID, a2 *Unit) int {
+	for it := sp.list; it != nil; it = it.next {
+		if it.flag20 == 0 && spell.ID(it.spell) == a1 && it.obj16 == a2.CObj() && it.flags88&0x1 == 0 {
 			return 1
 		}
 	}
 	return 0
 }
 
-//export sub_4FF310
-func sub_4FF310(a1 *nox_object_t) {
+func (sp *spellsDuration) nox_spell_cancelOffensiveFor_4FF310(u *Unit) {
 	var next *noxDurSpell
-	for it := dword_5d4594_1569728; it != nil; it = next {
+	for it := sp.list; it != nil; it = next {
 		next = it.next
-		if it.obj16 == a1 {
-			if noxServer.spellFlags(spell.ID(it.spell)).Has(things.SpellOffensive) {
-				C.nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
-			}
+		if it.obj16 == u.CObj() && sp.s.spellFlags(spell.ID(it.spell)).Has(things.SpellOffensive) {
+			C.nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
 		}
 	}
 }
 
-//export nox_xxx_spellCastByPlayer_4FEEF0
-func nox_xxx_spellCastByPlayer_4FEEF0() {
+func (sp *spellsDuration) spellCastByPlayer() {
 	var next *noxDurSpell
-	for it := dword_5d4594_1569728; it != nil; it = next {
+	for it := sp.list; it != nil; it = next {
 		next = it.next
 		if it.flags88&0x1 != 0 {
 			C.nox_xxx_plrCastSmth_4FEDA0(it.C())

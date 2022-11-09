@@ -48,15 +48,18 @@ var (
 type serverSpells struct {
 	byID     map[spell.ID]*SpellDef
 	allowAll bool // a cheat to allow all spells
+	duration spellsDuration
 	missiles spellMissiles
 }
 
 func (sp *serverSpells) Init(s *Server) {
+	sp.duration.Init(s)
 	sp.missiles.Init(s)
 }
 
 func (sp *serverSpells) Free() {
 	sp.missiles.Free()
+	sp.duration.Free()
 }
 
 var _ = [1]struct{}{}[40-unsafe.Sizeof(phonemeLeaf{})]
@@ -957,7 +960,7 @@ func (s *Server) castSpell(spellInd spell.ID, lvl int, u *Unit, a3 *spellAcceptA
 	if s.spellHasFlags(spellInd, things.SpellOffensive) {
 		u.DisableEnchant(server.ENCHANT_INVISIBLE)
 		u.DisableEnchant(server.ENCHANT_INVULNERABLE)
-		nox_xxx_spellCancelDurSpell4FEB10(spell.SPELL_OVAL_SHIELD, u)
+		s.spells.duration.CancelFor(spell.SPELL_OVAL_SHIELD, u)
 	}
 	if !s.spellHasFlags(spellInd, things.SpellTargeted) || u.CObj() == a3.Obj {
 		return s.nox_xxx_spellAccept4FD400(spellInd, u, u, u, a3, lvl)
