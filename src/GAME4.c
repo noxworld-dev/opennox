@@ -70,8 +70,6 @@ FILE* nox_file_8 = 0;
 
 int nox_cheat_charmall = 0;
 
-void* dword_5d4594_1569728 = 0;
-
 //----- (004F5F30) --------------------------------------------------------
 int nox_xxx_XFerSpellReward_4F5F30(int* a1) {
 	unsigned char* v1; // esi
@@ -3514,12 +3512,6 @@ int nox_xxx_spellGetPower_4FE7B0(int a1, nox_object_t* a2p) {
 	}
 	return result;
 }
-
-//----- (004FE930) --------------------------------------------------------
-int nox_xxx_spellCastedFirst_4FE930() { return dword_5d4594_1569728; }
-
-//----- (004FE940) --------------------------------------------------------
-int nox_xxx_spellCastedNext_4FE940(int a1) { return *(uint32_t*)(a1 + 116); }
 
 //----- (004FE9D0) --------------------------------------------------------
 char nox_xxx_spellCancelSpellDo_4FE9D0(void* a1p) {

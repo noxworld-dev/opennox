@@ -2,7 +2,6 @@ package opennox
 
 /*
 #include <stdint.h>
-extern void* dword_5d4594_1569728;
 void nox_xxx_plrCastSmth_4FEDA0(void* a1);
 char nox_xxx_spellCancelSpellDo_4FE9D0(void* a1);
 */
@@ -21,7 +20,18 @@ import (
 
 var (
 	nox_alloc_spellDur_1569724 alloc.ClassT[noxDurSpell]
+	dword_5d4594_1569728       *noxDurSpell
 )
+
+//export nox_xxx_spellCastedFirst_4FE930
+func nox_xxx_spellCastedFirst_4FE930() unsafe.Pointer {
+	return dword_5d4594_1569728.C()
+}
+
+//export nox_xxx_spellCastedNext_4FE940
+func nox_xxx_spellCastedNext_4FE940(a1 unsafe.Pointer) unsafe.Pointer {
+	return (*noxDurSpell)(a1).next.C()
+}
 
 type noxDurSpell struct {
 	id      uint16         // 0, 0
@@ -73,11 +83,11 @@ func nox_xxx_newSpellDuration_4FE950() unsafe.Pointer {
 func sub_4FE8A0(a1 int) {
 	if a1 == 0 {
 		nox_alloc_spellDur_1569724.FreeAllObjects()
-		C.dword_5d4594_1569728 = nil
+		dword_5d4594_1569728 = nil
 		return
 	}
 	var next *noxDurSpell
-	for it := (*noxDurSpell)(C.dword_5d4594_1569728); it != nil; it = next {
+	for it := dword_5d4594_1569728; it != nil; it = next {
 		u := asUnitC(it.obj48)
 		next = it.next
 		if u == nil || !u.Class().Has(object.ClassPlayer) {
@@ -109,7 +119,7 @@ func sub_4FE900(a1 unsafe.Pointer) {
 	if prev := sp.prev; prev != nil {
 		prev.next = sp.next
 	} else {
-		C.dword_5d4594_1569728 = sp.next.C()
+		dword_5d4594_1569728 = sp.next
 	}
 	if next := sp.next; next != nil {
 		next.prev = sp.prev
@@ -119,7 +129,7 @@ func sub_4FE900(a1 unsafe.Pointer) {
 //export sub_4FED70
 func sub_4FED70() {
 	var next *noxDurSpell
-	for it := (*noxDurSpell)(C.dword_5d4594_1569728); it != nil; it = next {
+	for it := dword_5d4594_1569728; it != nil; it = next {
 		next = it.next
 		if it.flags88&0x1 != 0 {
 			C.nox_xxx_plrCastSmth_4FEDA0(it.C())
@@ -130,13 +140,13 @@ func sub_4FED70() {
 //export sub_4FED40
 func sub_4FED40(a1 unsafe.Pointer) {
 	sp := (*noxDurSpell)(a1)
-	head := (*noxDurSpell)(C.dword_5d4594_1569728)
+	head := dword_5d4594_1569728
 	if head != nil {
 		head.prev = sp
 	}
 	sp.prev = nil
 	sp.next = head
-	C.dword_5d4594_1569728 = sp.C()
+	dword_5d4594_1569728 = sp
 }
 
 //export nox_xxx_spellCancelDurSpell_4FEB10
@@ -146,7 +156,7 @@ func nox_xxx_spellCancelDurSpell_4FEB10(a1 int, a2 *nox_object_t) {
 
 func nox_xxx_spellCancelDurSpell4FEB10(sid spell.ID, obj noxObject) {
 	var next *noxDurSpell
-	for it := (*noxDurSpell)(C.dword_5d4594_1569728); it != nil; it = next {
+	for it := dword_5d4594_1569728; it != nil; it = next {
 		sid2 := spell.ID(it.spell)
 		next = it.next
 		if sid2 == sid && it.obj16 == toCObj(obj) ||
@@ -159,7 +169,7 @@ func nox_xxx_spellCancelDurSpell4FEB10(sid spell.ID, obj noxObject) {
 
 //export sub_4FEE50
 func sub_4FEE50(a1 uint32, a2 *nox_object_t) int {
-	for it := (*noxDurSpell)(C.dword_5d4594_1569728); it != nil; it = it.next {
+	for it := dword_5d4594_1569728; it != nil; it = it.next {
 		if it.flag20 == 0 && it.spell == a1 && it.obj16 == a2 && it.flags88&0x1 == 0 {
 			return 1
 		}
@@ -170,7 +180,7 @@ func sub_4FEE50(a1 uint32, a2 *nox_object_t) int {
 //export sub_4FF310
 func sub_4FF310(a1 *nox_object_t) {
 	var next *noxDurSpell
-	for it := (*noxDurSpell)(C.dword_5d4594_1569728); it != nil; it = next {
+	for it := dword_5d4594_1569728; it != nil; it = next {
 		next = it.next
 		if it.obj16 == a1 {
 			if noxServer.spellFlags(spell.ID(it.spell)).Has(things.SpellOffensive) {
@@ -183,7 +193,7 @@ func sub_4FF310(a1 *nox_object_t) {
 //export nox_xxx_spellCastByPlayer_4FEEF0
 func nox_xxx_spellCastByPlayer_4FEEF0() {
 	var next *noxDurSpell
-	for it := (*noxDurSpell)(C.dword_5d4594_1569728); it != nil; it = next {
+	for it := dword_5d4594_1569728; it != nil; it = next {
 		next = it.next
 		if it.flags88&0x1 != 0 {
 			C.nox_xxx_plrCastSmth_4FEDA0(it.C())
