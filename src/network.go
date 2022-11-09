@@ -1068,6 +1068,9 @@ func (s *Server) onPacketRaw(pli int, data []byte) bool {
 
 func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *Unit) (int, bool) {
 	switch op {
+	case noxnet.MSG_NEED_TIMESTAMP:
+		C.nox_xxx_netNeedTimestampStatus_4174F0(pl.C(), 64)
+		return 1, true
 	case noxnet.MSG_PLAYER_INPUT:
 		n := s.netOnPlayerInput(pl, data[1:])
 		return 1 + n, true

@@ -118,9 +118,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 	switch (op) {
 	case 0x26u:
 		return 2;
-	case 0x29u: // MSG_NEED_TIMESTAMP
-		nox_xxx_netNeedTimestampStatus_4174F0(v8, 64);
-		return 1;
 	case 0x40u: // MSG_PLAYER_SET_WAYPOINT
 		v84 = (double)*(unsigned short*)(data + 5);
 		v83 = (double)*(unsigned short*)(data + 3);
