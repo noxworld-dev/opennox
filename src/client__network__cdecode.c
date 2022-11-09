@@ -2507,7 +2507,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz) {
 			break;
 		case 171: // MSG_IMPORTANT_ACK
 			if (nox_client_isConnected_43C700()) {
-				sub_4E55A0(a1, *(uint32_t*)(data + 1));
+				nox_net_importantACK_4E55A0(a1, *(uint32_t*)(data + 1));
 			}
 			data += 5;
 			break;

@@ -348,9 +348,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 			}
 		}
 		return v45;
-	case 0xABu: // MSG_IMPORTANT_ACK
-		sub_4E55A0(*(uint8_t*)(v10[69] + 2064), *(uint32_t*)(data + 1));
-		return 5;
 	case 0xB6u: // MSG_REQUEST_MAP
 		nox_xxx_playerGoObserver_4E6860(v8, 1, 1);
 		v51 = *(uint32_t*)(v8 + 2056);

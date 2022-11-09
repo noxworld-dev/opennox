@@ -80,7 +80,7 @@ int nox_xxx_netClientSend2_4E53C0(int a1, const void* a2, int a3, int a4, int a5
 int nox_xxx_netSendPacket0_4E5420(int a1, const void* a2, signed int a3, int a4, int a5);
 int sub_4E5450(int a1, char* a2, signed int a3, int a4, int a5);
 void sub_4E54D0(int a1, int a2, int a3);
-int sub_4E55A0(unsigned char a1, int a2);
+int nox_net_importantACK_4E55A0(int a1, int a2);
 int sub_4E55F0(unsigned char a1);
 unsigned int nox_xxx_importantCheckRate2_4E5670(unsigned char a1);
 void nox_xxx_netImportant_4E5770(unsigned char a1, int a2);

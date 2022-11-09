@@ -2047,7 +2047,7 @@ void sub_4E54D0(int a1, int a2, int a3) {
 }
 
 //----- (004E55A0) --------------------------------------------------------
-int sub_4E55A0(unsigned char a1, int a2) {
+int nox_net_importantACK_4E55A0(int a1, int a2) {
 	int result; // eax
 	int v3;     // edi
 
