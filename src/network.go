@@ -1095,6 +1095,9 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 			Y: int(binary.LittleEndian.Uint16(data[3:])),
 		})
 		return 5, true
+	case noxnet.MSG_CLIENT_READY:
+		C.nox_xxx_gameServerReadyMB_4DD180(C.int(pl.Index()))
+		return 1, true
 	}
 	res := int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), u.UpdateData))
 	if res <= 0 || res > len(data) {
