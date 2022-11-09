@@ -1068,6 +1068,8 @@ func (s *Server) onPacketRaw(pli int, data []byte) bool {
 
 func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *Unit) (int, bool) {
 	switch op {
+	case noxnet.MSG_KEEP_ALIVE:
+		return 1, true
 	case 0x26: // TODO: what this opcode is for?
 		return 2, true
 	case noxnet.MSG_NEED_TIMESTAMP:
