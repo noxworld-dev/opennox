@@ -1104,6 +1104,9 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 	case noxnet.MSG_INCOMING_CLIENT:
 		C.nox_xxx_netPlayerIncomingServ_4DDF60(C.int(pl.Index()))
 		return 1, true
+	case noxnet.MSG_OUTGOING_CLIENT:
+		C.nox_xxx_playerDisconnFinish_4DE530(C.int(pl.Index()), 2)
+		return 1, true
 	}
 	res := int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), u.UpdateData))
 	if res <= 0 || res > len(data) {
