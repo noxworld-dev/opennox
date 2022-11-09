@@ -13,10 +13,14 @@ package opennox
 void nox_xxx_spellCastByBook_4FCB80();
 void nox_xxx_spellCastByPlayer_4FEEF0();
 
+extern void* nox_alloc_magicEnt_1569668;
+extern uint32_t dword_5d4594_1569672;
+
 static int nox_spells_call_intint6_go(int (*f)(int, void*, nox_object_t*, nox_object_t*, void*, int), int a1, nox_object_t* a2, nox_object_t* a3, nox_object_t* a4, void* a5, int a6) { return f(a1, a2, a3, a4, a5, a6); }
 */
 import "C"
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -32,6 +36,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -341,6 +346,33 @@ func (s *Server) spellEnableAll() {
 	for _, sp := range s.spells.byID {
 		sp.Enabled = true
 	}
+}
+
+func nox_xxx_allocSpellRelatedArrays_4FC9B0() error {
+	nox_alloc_spellDur_1569724 = alloc.NewClass("spellDuration", 120, 512)
+	C.nox_alloc_magicEnt_1569668 = alloc.NewClass("magicEntityClass", 60, 64).UPtr()
+	nox_xxx_imagCasterUnit_1569664 = noxServer.newObjectByTypeID("ImaginaryCaster").AsUnit()
+	if nox_xxx_imagCasterUnit_1569664 == nil {
+		return errors.New("cannot find ImaginaryCaster object type")
+	}
+	noxServer.createObjectAt(nox_xxx_imagCasterUnit_1569664, nil, types.Pointf{X: 2944.0, Y: 2944.0})
+	noxPixieObjID = noxServer.ObjectTypeID("Pixie")
+	*memmap.PtrUint32(0x5D4594, 1569676) = uint32(noxPixieObjID)
+	*memmap.PtrUint32(0x5D4594, 1569680) = uint32(noxServer.ObjectTypeID("MagicMissile"))
+	*memmap.PtrUint32(0x5D4594, 1569684) = uint32(noxServer.ObjectTypeID("SmallFist"))
+	*memmap.PtrUint32(0x5D4594, 1569688) = uint32(noxServer.ObjectTypeID("MediumFist"))
+	*memmap.PtrUint32(0x5D4594, 1569692) = uint32(noxServer.ObjectTypeID("LargeFist"))
+	*memmap.PtrUint32(0x5D4594, 1569696) = uint32(noxServer.ObjectTypeID("DeathBall"))
+	*memmap.PtrUint32(0x5D4594, 1569700) = uint32(noxServer.ObjectTypeID("Meteor"))
+	return nil
+}
+
+func nox_xxx_freeSpellRelated_4FCA80() {
+	nox_alloc_spellDur_1569724.Free()
+	alloc.AsClass(C.nox_alloc_magicEnt_1569668).Free()
+	C.dword_5d4594_1569672 = 0
+	nox_xxx_imagCasterUnit_1569664.Delete()
+	nox_xxx_imagCasterUnit_1569664 = nil
 }
 
 func (s *Server) nox_thing_read_SPEL_4156B0(f *MemFile, isClient bool) error {

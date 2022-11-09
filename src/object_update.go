@@ -12,18 +12,14 @@ package opennox
 #include "GAME5.h"
 #include "server__magic__plyrspel.h"
 
-extern uint32_t dword_5d4594_1569672;
 extern uint32_t dword_5d4594_251568;
 extern unsigned int dword_5d4594_2650652;
-extern void* nox_alloc_magicEnt_1569668;
-extern void* nox_alloc_spellDur_1569724;
 
 void nox_xxx_maybeAnimatePixie_53D010(nox_object_t* a1, nox_object_t* a2);
 static int nox_call_objectType_parseUpdate_go(int (*fnc)(char*, void*), char* arg1, void* arg2) { return fnc(arg1, arg2); }
 */
 import "C"
 import (
-	"errors"
 	"fmt"
 	"math"
 	"strings"
@@ -35,7 +31,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/types"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
@@ -850,33 +845,6 @@ func sub_4F9ED0(u *Unit) {
 	if ud.ManaCur < ud.ManaMax && (s.Frame()%(300*s.TickRate()/uint32(ud.ManaMax))) == 0 {
 		C.nox_xxx_playerManaAdd_4EEB80(u.CObj(), 1)
 	}
-}
-
-func nox_xxx_allocSpellRelatedArrays_4FC9B0() error {
-	C.nox_alloc_spellDur_1569724 = alloc.NewClass("spellDuration", 120, 512).UPtr()
-	C.nox_alloc_magicEnt_1569668 = alloc.NewClass("magicEntityClass", 60, 64).UPtr()
-	nox_xxx_imagCasterUnit_1569664 = noxServer.newObjectByTypeID("ImaginaryCaster").AsUnit()
-	if nox_xxx_imagCasterUnit_1569664 == nil {
-		return errors.New("cannot find ImaginaryCaster object type")
-	}
-	noxServer.createObjectAt(nox_xxx_imagCasterUnit_1569664, nil, types.Pointf{X: 2944.0, Y: 2944.0})
-	noxPixieObjID = noxServer.ObjectTypeID("Pixie")
-	*memmap.PtrUint32(0x5D4594, 1569676) = uint32(noxPixieObjID)
-	*memmap.PtrUint32(0x5D4594, 1569680) = uint32(noxServer.ObjectTypeID("MagicMissile"))
-	*memmap.PtrUint32(0x5D4594, 1569684) = uint32(noxServer.ObjectTypeID("SmallFist"))
-	*memmap.PtrUint32(0x5D4594, 1569688) = uint32(noxServer.ObjectTypeID("MediumFist"))
-	*memmap.PtrUint32(0x5D4594, 1569692) = uint32(noxServer.ObjectTypeID("LargeFist"))
-	*memmap.PtrUint32(0x5D4594, 1569696) = uint32(noxServer.ObjectTypeID("DeathBall"))
-	*memmap.PtrUint32(0x5D4594, 1569700) = uint32(noxServer.ObjectTypeID("Meteor"))
-	return nil
-}
-
-func nox_xxx_freeSpellRelated_4FCA80() {
-	alloc.AsClass(C.nox_alloc_spellDur_1569724).Free()
-	alloc.AsClass(C.nox_alloc_magicEnt_1569668).Free()
-	C.dword_5d4594_1569672 = 0
-	nox_xxx_imagCasterUnit_1569664.Delete()
-	nox_xxx_imagCasterUnit_1569664 = nil
 }
 
 //export nox_xxx_updatePixie_53CD20

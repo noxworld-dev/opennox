@@ -70,8 +70,7 @@ FILE* nox_file_8 = 0;
 
 int nox_cheat_charmall = 0;
 
-void* nox_alloc_spellDur_1569724 = 0;
-uint32_t dword_5d4594_1569728 = 0;
+void* dword_5d4594_1569728 = 0;
 
 //----- (004F5F30) --------------------------------------------------------
 int nox_xxx_XFerSpellReward_4F5F30(int* a1) {
@@ -3516,93 +3515,11 @@ int nox_xxx_spellGetPower_4FE7B0(int a1, nox_object_t* a2p) {
 	return result;
 }
 
-//----- (004FE8A0) --------------------------------------------------------
-void sub_4FE8A0(int a1) {
-	int v1; // esi
-	int v2; // eax
-	int v3; // edi
-
-	if (a1) {
-		v1 = dword_5d4594_1569728;
-		if (dword_5d4594_1569728) {
-			do {
-				v2 = *(uint32_t*)(v1 + 48);
-				v3 = *(uint32_t*)(v1 + 116);
-				if (!v2 || !(*(uint8_t*)(v2 + 8) & 4)) {
-					sub_4FE900(v1);
-					sub_4FE980(v1);
-				}
-				v1 = v3;
-			} while (v3);
-		}
-	} else {
-		nox_alloc_class_free_all(nox_alloc_spellDur_1569724);
-		dword_5d4594_1569728 = 0;
-	}
-}
-
-//----- (004FE900) --------------------------------------------------------
-int sub_4FE900(int a1) {
-	int result; // eax
-	int v2;     // ecx
-	int v3;     // ecx
-
-	result = a1;
-	v2 = *(uint32_t*)(a1 + 112);
-	if (v2) {
-		*(uint32_t*)(v2 + 116) = *(uint32_t*)(a1 + 116);
-	} else {
-		dword_5d4594_1569728 = *(uint32_t*)(a1 + 116);
-	}
-	v3 = *(uint32_t*)(a1 + 116);
-	if (v3) {
-		*(uint32_t*)(v3 + 112) = *(uint32_t*)(a1 + 112);
-	}
-	return result;
-}
-
 //----- (004FE930) --------------------------------------------------------
 int nox_xxx_spellCastedFirst_4FE930() { return dword_5d4594_1569728; }
 
 //----- (004FE940) --------------------------------------------------------
 int nox_xxx_spellCastedNext_4FE940(int a1) { return *(uint32_t*)(a1 + 116); }
-
-//----- (004FE950) --------------------------------------------------------
-uint16_t* nox_xxx_newSpellDuration_4FE950() {
-	uint16_t* result; // eax
-
-	result = nox_alloc_class_new_obj_zero(nox_alloc_spellDur_1569724);
-	if (result) {
-		*result = ++*getMemU16Ptr(0x5D4594, 1569732);
-	}
-	return result;
-}
-
-//----- (004FE980) --------------------------------------------------------
-void sub_4FE980(int a1) {
-	int v1; // eax
-	int v2; // esi
-	int v3; // eax
-	int v4; // esi
-
-	v1 = *(uint32_t*)(a1 + 108);
-	if (v1) {
-		do {
-			v2 = *(uint32_t*)(v1 + 116);
-			sub_4FE980(v1);
-			v1 = v2;
-		} while (v2);
-	}
-	v3 = *(uint32_t*)(a1 + 104);
-	if (v3) {
-		do {
-			v4 = *(uint32_t*)(v3 + 116);
-			sub_4FE980(v3);
-			v3 = v4;
-		} while (v4);
-	}
-	nox_alloc_class_free_obj_first(nox_alloc_spellDur_1569724, a1);
-}
 
 //----- (004FE9D0) --------------------------------------------------------
 char nox_xxx_spellCancelSpellDo_4FE9D0(int a1) {
@@ -3796,7 +3713,7 @@ int sub_4FED40(int a1) {
 
 	result = a1;
 	if (dword_5d4594_1569728) {
-		*(uint32_t*)(dword_5d4594_1569728 + 112) = a1;
+		*(uint32_t*)((uint32_t)dword_5d4594_1569728 + 112) = a1;
 	}
 	*(uint32_t*)(a1 + 112) = 0;
 	*(uint32_t*)(a1 + 116) = dword_5d4594_1569728;
@@ -3823,6 +3740,7 @@ int sub_4FED70() {
 }
 
 //----- (004FEDA0) --------------------------------------------------------
+void sub_4FE900(int a1);
 void nox_xxx_plrCastSmth_4FEDA0(int* a1) {
 	int v1;           // eax
 	void (*v2)(int*); // eax
@@ -3846,16 +3764,16 @@ void nox_xxx_plrCastSmth_4FEDA0(int* a1) {
 			if (*(uint8_t*)(*(uint32_t*)(*(uint32_t*)(v3 + 748) + 276) + 2251) ||
 				!nox_common_playerIsAbilityActive_4FC250(v3, 1)) {
 				nox_xxx_playerSetState_4FA020((uint32_t*)a1[4], 13);
-				sub_4FE900((int)a1);
-				sub_4FE980((int)a1);
+				sub_4FE900(a1);
+				sub_4FE980(a1);
 				return;
 			}
 		} else if (v4 & 2) {
 			sub_541630(v3, a1[1]);
 		}
 	}
-	sub_4FE900((int)a1);
-	sub_4FE980((int)a1);
+	sub_4FE900(a1);
+	sub_4FE980(a1);
 }
 
 //----- (004FEE50) --------------------------------------------------------
