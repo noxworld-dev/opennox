@@ -365,9 +365,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 		}
 		nox_xxx_netMapSend_519D20(*(unsigned char*)(v8 + 2064));
 		return 1;
-	case 0xBBu: // MSG_SERVER_CMD
-		nox_xxx_serverHandleClientConsole_443E90(v8, data[1], (wchar_t*)(data + 5));
-		return 2 * data[4] + 7;
 	case 0xBCu: // MSG_SYSOP_PW
 		v87[0] = 0xBDu; // MSG_SYSOP_RESULT
 		v42 = nox_xxx_sysopGetPass_40A630();

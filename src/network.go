@@ -1116,6 +1116,18 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 		pl.field_3676 = 3
 		C.sub_519E80(C.int(pl.Index()))
 		return 1, true
+	case noxnet.MSG_SERVER_CMD:
+		if len(data) < 7 {
+			return 0, false
+		}
+		sz := int(data[4])
+		wtext := data[5:]
+		if len(wtext) < 2*sz {
+			return 0, false
+		}
+		wtext = wtext[:2*sz]
+		nox_xxx_serverHandleClientConsole_443E90(pl, data[1], GoWStringBytes(wtext))
+		return 5 + 2*sz + 2, true
 	}
 	res := int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), u.UpdateData))
 	if res <= 0 || res > len(data) {
