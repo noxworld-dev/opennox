@@ -3750,46 +3750,6 @@ void nox_xxx_cancelAllSpells_4FEE90(nox_object_t* a1p) {
 	}
 }
 
-//----- (004FEEF0) --------------------------------------------------------
-void nox_xxx_plrCastSmth_4FEDA0(void* a1);
-void nox_xxx_spellCastByPlayer_4FEEF0() {
-	int v1;          // ebp
-	int v2;          // eax
-	int v3;          // eax
-	int v4;          // eax
-	unsigned int v5; // eax
-	int (*v6)(int);  // eax
-
-	for (int v0 = dword_5d4594_1569728; v0; v0 = v1) {
-		v1 = *(uint32_t*)(v0 + 116);
-		if (*(uint8_t*)(v0 + 88) & 1) {
-			nox_xxx_plrCastSmth_4FEDA0(v0);
-			continue;
-		}
-		v2 = *(uint32_t*)(v0 + 16);
-		if (v2 && *(uint32_t*)(v2 + 16) & 0x8020) {
-			*(uint32_t*)(v0 + 16) = 0;
-		}
-		v3 = *(uint32_t*)(v0 + 12);
-		if (v3 && *(uint8_t*)(v3 + 16) & 0x20) {
-			*(uint32_t*)(v0 + 12) = 0;
-		}
-		if (!*(uint32_t*)(v0 + 16) && !*(uint32_t*)(v0 + 20)) {
-			nox_xxx_spellCancelSpellDo_4FE9D0(v0);
-			continue;
-		}
-		v4 = *(uint32_t*)(v0 + 24);
-		if (v4 && *(uint8_t*)(v4 + 16) & 0x20) {
-			*(uint32_t*)(v0 + 24) = 0;
-		}
-		v5 = *(uint32_t*)(v0 + 68);
-		if (v5 != *(uint32_t*)(v0 + 60) && v5 <= gameFrame() ||
-			(v6 = *(int (**)(int))(v0 + 96)) != 0 && v6(v0)) {
-			nox_xxx_spellCancelSpellDo_4FE9D0(v0);
-		}
-	}
-}
-
 //----- (004FEF90) --------------------------------------------------------
 void nox_xxx_netStopRaySpell_4FEF90(int a1, uint32_t* a2) {
 	int v2;      // ecx

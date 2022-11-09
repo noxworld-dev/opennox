@@ -179,3 +179,33 @@ func sub_4FF310(a1 *nox_object_t) {
 		}
 	}
 }
+
+//export nox_xxx_spellCastByPlayer_4FEEF0
+func nox_xxx_spellCastByPlayer_4FEEF0() {
+	var next *noxDurSpell
+	for it := (*noxDurSpell)(C.dword_5d4594_1569728); it != nil; it = next {
+		next = it.next
+		if it.flags88&0x1 != 0 {
+			C.nox_xxx_plrCastSmth_4FEDA0(it.C())
+			continue
+		}
+		if obj16 := asObjectC(it.obj16); obj16 != nil && obj16.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
+			it.obj16 = nil
+		}
+
+		if obj12 := asObjectC(it.obj12); obj12 != nil && obj12.Flags().Has(object.FlagDestroyed) {
+			it.obj12 = nil
+		}
+		if it.obj16 == nil && it.flag20 == 0 {
+			C.nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
+			continue
+		}
+		if obj24 := asObjectC(it.obj24); obj24 != nil && obj24.Flags().Has(object.FlagDestroyed) {
+			it.obj24 = nil
+		}
+		if it.frame68 != it.frame60 && it.frame68 <= noxServer.Frame() ||
+			it.update != nil && cgoCallIntVoidPtrFunc(it.update, it.C()) != 0 {
+			C.nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
+		}
+	}
+}

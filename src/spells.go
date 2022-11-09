@@ -549,7 +549,7 @@ func serverSetAllWarriorAbilities(p *Player, enable bool, max int) {
 
 func nox_xxx_spellBookReact_4FCB70() {
 	C.nox_xxx_spellCastByBook_4FCB80()
-	C.nox_xxx_spellCastByPlayer_4FEEF0()
+	nox_xxx_spellCastByPlayer_4FEEF0()
 }
 
 func (s *Server) SpellDefs() []*SpellDef {
