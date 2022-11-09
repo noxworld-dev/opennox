@@ -155,3 +155,13 @@ func nox_xxx_spellCancelDurSpell4FEB10(sid spell.ID, obj noxObject) {
 		}
 	}
 }
+
+//export sub_4FEE50
+func sub_4FEE50(a1 uint32, a2 *nox_object_t) int {
+	for it := (*noxDurSpell)(C.dword_5d4594_1569728); it != nil; it = it.next {
+		if it.flag20 == 0 && it.spell == a1 && it.obj16 == a2 && it.flags88&0x1 == 0 {
+			return 1
+		}
+	}
+	return 0
+}

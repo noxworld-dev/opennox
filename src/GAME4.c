@@ -3726,27 +3726,6 @@ void nox_xxx_plrCastSmth_4FEDA0(void* a1p) {
 	sub_4FE980(a1);
 }
 
-//----- (004FEE50) --------------------------------------------------------
-int sub_4FEE50(int a1, nox_object_t* a2p) {
-	int a2 = a2p;
-	int v2;     // ecx
-	int result; // eax
-
-	v2 = dword_5d4594_1569728;
-	if (!dword_5d4594_1569728) {
-		return 0;
-	}
-	result = 1;
-	while (*(uint32_t*)(v2 + 20) || *(uint32_t*)(v2 + 4) != a1 || *(uint32_t*)(v2 + 16) != a2 ||
-		   *(uint8_t*)(v2 + 88) & 1) {
-		v2 = *(uint32_t*)(v2 + 116);
-		if (!v2) {
-			return 0;
-		}
-	}
-	return result;
-}
-
 //----- (004FEE90) --------------------------------------------------------
 void nox_xxx_cancelAllSpells_4FEE90(nox_object_t* a1p) {
 	int a1 = a1p;

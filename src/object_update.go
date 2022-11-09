@@ -586,7 +586,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 	if pl.field_3680&3 != 0 {
 		goto LABEL_247
 	}
-	orientationOnly = C.sub_4FEE50(common.MaxPlayers-1, u.CObj()) != 0
+	orientationOnly = sub_4FEE50(common.MaxPlayers-1, u.CObj()) != 0
 	for it := cb.First(); it != nil; it = cb.Next() {
 		if orientationOnly && it.code != player.CCOrientation {
 			continue
