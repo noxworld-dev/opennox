@@ -365,9 +365,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 		}
 		nox_xxx_netMapSend_519D20(*(unsigned char*)(v8 + 2064));
 		return 1;
-	case 0xB7u: // MSG_CANCEL_MAP
-		nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(*(unsigned char*)(v8 + 2064));
-		return 1;
 	case 0xBBu: // MSG_SERVER_CMD
 		nox_xxx_serverHandleClientConsole_443E90(v8, data[1], (wchar_t*)(data + 5));
 		return 2 * data[4] + 7;
