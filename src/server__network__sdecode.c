@@ -34,8 +34,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 	int v85 = v10;
 	int v7;                          // edx
 	char* v11 = 0;                       // ecx
-	unsigned short v12;              // ax
-	int v13;                         // ecx
 	int v14;                         // ecx
 	int v15;                         // edi
 	int v16;                         // eax
@@ -54,7 +52,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 	void (*v30)(int, int, uint32_t); // ecx
 	int v31;                         // edi
 	int v32;                         // eax
-	int v33;                         // edi
 	int v34;                         // edi
 	int v35;                         // eax
 	int* v36;                        // edi
@@ -62,17 +59,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 	uint32_t* v38;                   // eax
 	int v39;                         // ecx
 	int v40;                         // ebx
-	int v41;                         // eax
-	wchar_t* v42;                    // eax
-	wchar_t* v43;                    // eax
-	int v44;                         // eax
-	int v45;                         // edi
-	char* v49;                       // ebp
-	char* v52;                       // eax
-	int v53;                         // edi
-	char* v54;                       // eax
-	char* v55;                       // edi
-	int v56;                         // eax
 	int v57;                         // eax
 	int v58;                         // edi
 	int v59;                         // eax
@@ -101,15 +87,9 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 	unsigned int v82;                // [esp-8h] [ebp-65Ch]
 	float v83;                       // [esp+0h] [ebp-654h]
 	float v84;                       // [esp+4h] [ebp-650h]
-	char* v86;                       // [esp+1Ch] [ebp-638h]
-	char v87[2];                     // [esp+22h] [ebp-632h]
 	char v88[4];                     // [esp+24h] [ebp-630h]
 	char v90[6];                     // [esp+2Ch] [ebp-628h]
-	char v92[5];                     // [esp+38h] [ebp-61Ch]
 	float2 v94;                      // [esp+44h] [ebp-610h]
-	float2 v96;                      // [esp+4Ch] [ebp-608h]
-	wchar_t v97[256];                // [esp+54h] [ebp-600h]
-	char FileName[1024];             // [esp+254h] [ebp-400h]
 
 	int op = data[0];
 	switch (op) {
