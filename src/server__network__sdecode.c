@@ -69,7 +69,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 	int v44;                         // eax
 	int v45;                         // edi
 	char* v49;                       // ebp
-	int v51;                         // eax
 	char* v52;                       // eax
 	int v53;                         // edi
 	char* v54;                       // eax
@@ -348,14 +347,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 			}
 		}
 		return v45;
-	case 0xB6u: // MSG_REQUEST_MAP
-		nox_xxx_playerGoObserver_4E6860(v8, 1, 1);
-		v51 = *(uint32_t*)(v8 + 2056);
-		if (v51) {
-			nox_xxx_netChangeTeamMb_419570(v51 + 48, *(uint32_t*)(v8 + 2060));
-		}
-		nox_xxx_netMapSend_519D20(*(unsigned char*)(v8 + 2064));
-		return 1;
 	case 0xBCu: // MSG_SYSOP_PW
 		v87[0] = 0xBDu; // MSG_SYSOP_RESULT
 		v42 = nox_xxx_sysopGetPass_40A630();

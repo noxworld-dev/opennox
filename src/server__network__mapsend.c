@@ -137,7 +137,7 @@ void nox_xxx_netSendMapAbort_519C80_net_mapsend(unsigned char* a1, unsigned char
 }
 
 //----- (00519D20) --------------------------------------------------------
-char* nox_xxx_netMapSend_519D20(int a1) {
+void nox_xxx_netMapSend_519D20(int a1) {
 	unsigned char* v1; // esi
 	wchar_t* v2;       // eax
 	char* result;      // eax
@@ -150,7 +150,7 @@ char* nox_xxx_netMapSend_519D20(int a1) {
 		} else {
 			v2 = nox_strman_loadString_40F1D0("BadState", 0, "C:\\NoxPost\\src\\Server\\Network\\mapsend.c", 397);
 		}
-		result = (char*)nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v2);
+		nox_gui_console_Print_450B90(NOX_CONSOLE_RED, (int)v2);
 	} else {
 		++*getMemU16Ptr(0x5D4594, 2388636);
 		*((uint16_t*)v1 + 1) = 1;
@@ -159,9 +159,8 @@ char* nox_xxx_netMapSend_519D20(int a1) {
 		*((uint16_t*)v1 + 10) = 512;
 		*((uint32_t*)v1 + 3) = *getMemU32Ptr(0x5D4594, 2388644);
 		*((uint64_t*)v1 + 5) = nox_platform_get_ticks();
-		result = nox_common_playerInfoFromNum_417090(a1);
+		nox_common_playerInfoFromNum_417090(a1);
 	}
-	return result;
 }
 
 //----- (00519DE0) --------------------------------------------------------

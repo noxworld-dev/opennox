@@ -27,6 +27,7 @@ int sub_419E60(nox_object_t* a1);
 int sub_43AF90(int a1);
 void sub_519E80(int a1);
 int nox_net_importantACK_4E55A0(int a1, int a2);
+void nox_xxx_netMapSend_519D20(int a1);
 int nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1);
 int nox_xxx_netClientSend2_4E53C0(int a1, const void* a2, int a3, int a4, int a5);
 void* nox_xxx_spriteGetMB_476F80();
@@ -1147,6 +1148,13 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 		id := binary.LittleEndian.Uint32(data[1:])
 		C.nox_net_importantACK_4E55A0(C.int(pl.Index()), C.int(id))
 		return 5, true
+	case noxnet.MSG_REQUEST_MAP:
+		pl.GoObserver(true, true)
+		if u != nil {
+			C.nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(u.teamPtr()), C.int(pl.NetCode()))
+		}
+		C.nox_xxx_netMapSend_519D20(C.int(pl.Index()))
+		return 1, true
 	}
 	res := int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), u.UpdateData))
 	if res <= 0 || res > len(data) {
