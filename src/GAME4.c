@@ -31,7 +31,6 @@
 extern uint32_t dword_5d4594_3835368;
 extern uint32_t dword_5d4594_1569656;
 extern uint32_t nox_server_kickQuestPlayerMinVotes_229992;
-extern uint32_t dword_5d4594_1569736;
 extern uint32_t nox_server_resetQuestMinVotes_229988;
 extern uint32_t dword_5d4594_1599644;
 extern uint32_t dword_5d4594_3835392;
@@ -3602,84 +3601,6 @@ void sub_4FEB60(int a1, int a2) {
 	}
 }
 
-//----- (004FEBA0) --------------------------------------------------------
-void sub_4FED70();
-void sub_4FED40(int a1);
-int nox_xxx_spellDurationBased_4FEBA0(int a1, nox_object_t* a2p, nox_object_t* a3p, nox_object_t* a4p, void* a5p, int a6, void* a7p, void* a8p, void* a9p, int a10) {
-	int a2 = a2p;
-	uint32_t* a3 = a3p;
-	int a4 = a4p;
-	uint32_t* a5 = a5p;
-	int (*a7)(uint16_t*) = a7p;
-	int a8 = a8p;
-	int a9 = a9p;
-	int v10;       // eax
-	uint16_t* v12; // esi
-	int v13;       // edx
-	int v14;       // ecx
-	int v15;       // ecx
-	int v16;       // eax
-	int v17;       // eax
-
-	v10 = dword_5d4594_1569736;
-	if (!dword_5d4594_1569736) {
-		v10 = nox_xxx_getNameId_4E3AA0("Glyph");
-		dword_5d4594_1569736 = v10;
-	}
-	if (a3 && !(a3[4] & 0x8020) || !a4 || *(unsigned short*)(a4 + 4) == v10) {
-		if (a3) {
-			if ((a1 == 59 || a1 == 43) && sub_4FEE50(a1, (int)a3) == 1) {
-				return 1;
-			}
-			nox_xxx_spellCancelDurSpell_4FEB10(a1, (int)a3);
-		}
-		sub_4FED70();
-		v12 = nox_xxx_newSpellDuration_4FE950();
-		if (v12) {
-			*((uint32_t*)v12 + 1) = a1;
-			*((uint32_t*)v12 + 2) = a6;
-			*((uint32_t*)v12 + 4) = a3;
-			*((uint32_t*)v12 + 3) = a2;
-			*((uint32_t*)v12 + 27) = 0;
-			*((uint32_t*)v12 + 26) = 0;
-			if (a4 && *(unsigned short*)(a4 + 4) == dword_5d4594_1569736) {
-				*((uint32_t*)v12 + 5) = 1;
-				*((uint32_t*)v12 + 6) = a4;
-				*((uint32_t*)v12 + 7) = *(uint32_t*)(a4 + 56);
-				v13 = *(uint32_t*)(a4 + 60);
-			} else {
-				*((uint32_t*)v12 + 5) = 0;
-				*((uint32_t*)v12 + 6) = 0;
-				*((uint32_t*)v12 + 7) = a3[14];
-				v13 = a3[15];
-			}
-			*((uint32_t*)v12 + 9) = 0;
-			*((uint32_t*)v12 + 8) = v13;
-			*((uint32_t*)v12 + 12) = *a5;
-			*((uint32_t*)v12 + 13) = a5[1];
-			v14 = a5[2];
-			*((uint32_t*)v12 + 23) = a7;
-			*((uint32_t*)v12 + 14) = v14;
-			*((uint32_t*)v12 + 24) = a8;
-			*((uint32_t*)v12 + 25) = a9;
-			*((uint32_t*)v12 + 15) = gameFrame();
-			*((uint32_t*)v12 + 16) = gameFrame();
-			v15 = a10 + gameFrame();
-			*((uint8_t*)v12 + 88) = 0;
-			*((uint32_t*)v12 + 17) = v15;
-			sub_4FED40((int)v12);
-			v16 = nox_xxx_spellHasFlags_424A50(a1, 4);
-			v17 = nox_xxx_spellGetAud44_424800(a1, v16);
-			nox_xxx_aud_501960(v17, (int)a3, 0, 0);
-			if (!a7 || !a7(v12)) {
-				return 1;
-			}
-			nox_xxx_spellCancelSpellDo_4FE9D0((int)v12);
-		}
-	}
-	return 0;
-}
-
 //----- (004FEDA0) --------------------------------------------------------
 void sub_4FE900(int a1);
 void nox_xxx_plrCastSmth_4FEDA0(void* a1p) {
@@ -4640,6 +4561,7 @@ int nox_xxx_spellWallDestroy_500080(int a1) {
 }
 
 //----- (005000B0) --------------------------------------------------------
+void sub_5002D0(nox_object_t* a1);
 int sub_5000B0(uint32_t* a1) {
 	int v1;  // eax
 	int v2;  // esi
@@ -4708,18 +4630,6 @@ int sub_5000B0(uint32_t* a1) {
 		v2 = *(uint32_t*)(v2 + 24);
 	} while (v2);
 	return 1;
-}
-
-//----- (005002D0) --------------------------------------------------------
-int sub_5002D0(uint32_t* a1) {
-	int v1;    // ecx
-	int v3[3]; // [esp+0h] [ebp-Ch]
-
-	v3[0] = (int)a1;
-	v1 = a1[187];
-	*(float*)&v3[1] = (double)*(int*)(*(uint32_t*)(v1 + 276) + 2284);
-	*(float*)&v3[2] = (double)*(int*)(*(uint32_t*)(v1 + 276) + 2288);
-	return nox_xxx_spellDurationBased_4FEBA0(132, (int)a1, a1, (int)a1, v3, 3, 0, 0, 0, 0);
 }
 
 //----- (00500330) --------------------------------------------------------

@@ -669,13 +669,13 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *Uni
 	case spell.SPELL_BLIND:
 		fnc = castBlind
 	case spell.SPELL_BLINK:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_spellBlink2_530310, C.nox_xxx_spellBlink1_530380, nil, 0)
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_spellBlink2_530310, C.nox_xxx_spellBlink1_530380, nil, 0)
 	case spell.SPELL_BURN:
 		cfnc = C.nox_xxx_castBurn_52C3E0
 	case spell.SPELL_CHANNEL_LIFE:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, nil, C.sub_52F460, nil, 0)
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, nil, C.sub_52F460, nil, 0)
 	case spell.SPELL_CHARM:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_charmCreature1_5011F0, C.nox_xxx_charmCreatureFinish_5013E0, C.nox_xxx_charmCreature2_501690, 0)
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_charmCreature1_5011F0, C.nox_xxx_charmCreatureFinish_5013E0, C.nox_xxx_charmCreature2_501690, 0)
 	case spell.SPELL_CLEANSING_FLAME, spell.SPELL_CLEANSING_MANA_FLAME:
 		cfnc = C.nox_xxx_spellCastCleansingFlame_52D5C0
 	case spell.SPELL_CONFUSE:
@@ -693,23 +693,23 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *Uni
 	case spell.SPELL_DETONATE_GLYPHS:
 		cfnc = C.sub_537E60
 	case spell.SPELL_TURN_UNDEAD:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_spellTurnUndeadCreate_531310, C.nox_xxx_spellTurnUndeadUpdate_531410, C.nox_xxx_spellTurnUndeadDelete_531420, 70)
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_spellTurnUndeadCreate_531310, C.nox_xxx_spellTurnUndeadUpdate_531410, C.nox_xxx_spellTurnUndeadDelete_531420, 70)
 	case spell.SPELL_DRAIN_MANA:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, nil, C.nox_xxx_spellDrainMana_52E210, nil, 0)
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, nil, C.nox_xxx_spellDrainMana_52E210, nil, 0)
 	case spell.SPELL_EARTHQUAKE:
 		cfnc = C.nox_xxx_castEquake_52DE40
 	case spell.SPELL_LIGHTNING:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_spellEnergyBoltStop_52E820, C.nox_xxx_spellEnergyBoltTick_52E850, C.nullsub_29, 30)
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_spellEnergyBoltStop_52E820, C.nox_xxx_spellEnergyBoltTick_52E850, C.nullsub_29, 30)
 	case spell.SPELL_FEAR:
 		fnc = castFear
 	case spell.SPELL_FIREBALL:
 		cfnc = C.nox_xxx_castFireball_52C790
 	case spell.SPELL_FIREWALK:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, nil, C.nox_xxx_firewalkTick_52ED40, nil, 3*s.TickRate())
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, nil, C.nox_xxx_firewalkTick_52ED40, nil, 3*s.TickRate())
 	case spell.SPELL_FIST:
 		cfnc = C.nox_xxx_castFist_52D3C0
 	case spell.SPELL_FORCE_OF_NATURE:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.sub_52EF30, C.sub_52EFD0, C.sub_52F1D0, 2*s.TickRate()/3)
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, C.sub_52EF30, C.sub_52EFD0, C.sub_52F1D0, 2*s.TickRate()/3)
 	case spell.SPELL_FREEZE:
 		fnc = castFreeze
 	case spell.SPELL_FUMBLE:
@@ -717,7 +717,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *Uni
 	case spell.SPELL_GLYPH:
 		cfnc = C.nox_xxx_castGlyph_537FA0
 	case spell.SPELL_GREATER_HEAL:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.sub_52F220, C.sub_52F2E0, nil, 0)
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, C.sub_52F220, C.sub_52F2E0, nil, 0)
 	case spell.SPELL_HASTE:
 		fnc = castHaste
 	case spell.SPELL_INFRAVISION:
@@ -733,7 +733,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *Uni
 	case spell.SPELL_LIGHT:
 		fnc = castLight
 	case spell.SPELL_CHAIN_LIGHTNING:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_onStartLightning_52F820, C.nox_xxx_onFrameLightning_52F8A0, C.sub_530100, 30)
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_onStartLightning_52F820, C.nox_xxx_onFrameLightning_52F8A0, C.sub_530100, 30)
 	case spell.SPELL_LOCK:
 		cfnc = C.nox_xxx_castLock_52CE90
 	case spell.SPELL_MARK:
@@ -743,22 +743,22 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *Uni
 	case spell.SPELL_MAGIC_MISSILE:
 		fnc = s.spells.missiles.Cast
 	case spell.SPELL_SHIELD:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj5, obj4, sa, lvl, C.nox_xxx_castShield1_52F5A0, C.sub_52F650, C.sub_52F670, 0)
+		return s.spells.duration.New(spellID, a2, obj5, obj4, sa, lvl, C.nox_xxx_castShield1_52F5A0, C.sub_52F650, C.sub_52F670, 0)
 	case spell.SPELL_METEOR:
 		cfnc = C.nox_xxx_castMeteor_52D9D0
 	case spell.SPELL_METEOR_SHOWER:
 		cfnc = C.nox_xxx_castMeteorShower_52D8A0
 	case spell.SPELL_MOONGLOW:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj5, obj4, sa, lvl, C.nox_xxx_spellCreateMoonglow_531A00, nil, C.sub_531AF0, 0)
+		return s.spells.duration.New(spellID, a2, obj5, obj4, sa, lvl, C.nox_xxx_spellCreateMoonglow_531A00, nil, C.sub_531AF0, 0)
 	case spell.SPELL_NULLIFY:
 		fnc = castNullify
 	case spell.SPELL_MANA_BOMB:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_manaBomb_530F90, C.nox_xxx_manaBombBoom_5310C0, C.sub_531290, 0)
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_manaBomb_530F90, C.nox_xxx_manaBombBoom_5310C0, C.sub_531290, 0)
 	case spell.SPELL_PIXIE_SWARM:
 		cfnc = C.nox_xxx_castPixies_540440
 	case spell.SPELL_PLASMA:
 		v8 := gamedataFloat("PlasmaSearchTime")
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_plasmaSmth_531580, C.nox_xxx_plasmaShot_531600, C.sub_5319E0, uint32(v8))
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_plasmaSmth_531580, C.nox_xxx_plasmaShot_531600, C.sub_5319E0, uint32(v8))
 	case spell.SPELL_POISON:
 		cfnc = C.nox_xxx_castPoison_52C720
 	case spell.SPELL_PROTECTION_FROM_ELECTRICITY:
@@ -772,7 +772,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *Uni
 	case spell.SPELL_PUSH:
 		cfnc = C.nox_xxx_castPush_52C000
 	case spell.SPELL_OVAL_SHIELD:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj5, obj4, sa, lvl, C.sub_531490, C.sub_5314F0, C.sub_531560, 0)
+		return s.spells.duration.New(spellID, a2, obj5, obj4, sa, lvl, C.sub_531490, C.sub_5314F0, C.sub_531560, 0)
 	case spell.SPELL_RESTORE_HEALTH, spell.SPELL_WINK:
 		cfnc = C.nox_xxx_castSpellWinkORrestoreHealth_52BF20
 	case spell.SPELL_RESTORE_MANA:
@@ -824,18 +824,18 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *Uni
 		spell.SPELL_SUMMON_LICH,
 		spell.SPELL_SUMMON_DRYAD,
 		spell.SPELL_SUMMON_URCHIN_SHAMAN:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_summonStart_500DA0, C.nox_xxx_summonFinish_5010D0, C.nox_xxx_summonCancel_5011C0, 0)
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_summonStart_500DA0, C.nox_xxx_summonFinish_5010D0, C.nox_xxx_summonCancel_5011C0, 0)
 	case spell.SPELL_SWAP:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.sub_530CA0, C.sub_530D30, nil, 0)
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, C.sub_530CA0, C.sub_530D30, nil, 0)
 	case spell.SPELL_TAG:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_spellTagCreature_530160, C.sub_530250, C.sub_530270, 0)
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_spellTagCreature_530160, C.sub_530250, C.sub_530270, 0)
 	case spell.SPELL_TELEPORT_OTHER_TO_MARK_1, spell.SPELL_TELEPORT_OTHER_TO_MARK_2, spell.SPELL_TELEPORT_OTHER_TO_MARK_3, spell.SPELL_TELEPORT_OTHER_TO_MARK_4,
 		spell.SPELL_TELEPORT_TO_MARK_1, spell.SPELL_TELEPORT_TO_MARK_2, spell.SPELL_TELEPORT_TO_MARK_3, spell.SPELL_TELEPORT_TO_MARK_4:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.sub_5305D0, C.sub_530650, nil, 0)
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, C.sub_5305D0, C.sub_530650, nil, 0)
 	case spell.SPELL_TELEPORT_POP:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_castTele_530820, C.sub_530880, nil, 0)
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_castTele_530820, C.sub_530880, nil, 0)
 	case spell.SPELL_TELEPORT_TO_TARGET:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.sub_530A30_spell_execdur, C.nox_xxx_castTTT_530B70, nil, 0)
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, C.sub_530A30_spell_execdur, C.nox_xxx_castTTT_530B70, nil, 0)
 	case spell.SPELL_TELEKINESIS:
 		cfnc = C.nox_xxx_castTelekinesis_52D330
 	case spell.SPELL_TOXIC_CLOUD:
@@ -847,7 +847,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *Uni
 	case spell.SPELL_VILLAIN:
 		fnc = castVillain
 	case spell.SPELL_WALL:
-		return nox_xxx_spellDurationBased_4FEBA0(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_spellWallCreate_4FFA90, C.nox_xxx_spellWallUpdate_500070, C.nox_xxx_spellWallDestroy_500080, 0)
+		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, C.nox_xxx_spellWallCreate_4FFA90, C.nox_xxx_spellWallUpdate_500070, C.nox_xxx_spellWallDestroy_500080, 0)
 	default:
 		return true
 	}
@@ -861,10 +861,6 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *Uni
 		nox_xxx_aud_501960(sound.SoundPermanentFizzle, obj4, 0, 0)
 	}
 	return v9 != 0
-}
-
-func nox_xxx_spellDurationBased_4FEBA0(spellID spell.ID, a2, a3, a4 *Unit, a5 *spellAcceptArg, a6 int, a7, a8, a9 unsafe.Pointer, a10 uint32) bool {
-	return C.nox_xxx_spellDurationBased_4FEBA0(C.int(spellID), a2.CObj(), a3.CObj(), a4.CObj(), unsafe.Pointer(a5), C.int(a6), a7, a8, a9, C.int(a10)) != 0
 }
 
 func nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo noxObject, sflags things.SpellFlags, dist float32, a5 int, self *Unit) *Object {

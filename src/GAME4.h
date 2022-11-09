@@ -95,14 +95,12 @@ int nox_xxx_spellGetPower_4FE7B0(int a1, nox_object_t* a2);
 void sub_4FE8A0(int a1);
 void* nox_xxx_spellCastedFirst_4FE930();
 void* nox_xxx_spellCastedNext_4FE940(void* a1);
-void* nox_xxx_newSpellDuration_4FE950();
 void sub_4FE980(void* a1);
 char nox_xxx_spellCancelSpellDo_4FE9D0(void* a1);
 int sub_4FEA70(int a1, float2* a2);
 int nox_xxx_playerCancelSpells_4FEAE0(nox_object_t* a1);
 void nox_xxx_spellCancelDurSpell_4FEB10(int a1, nox_object_t* a2);
 void sub_4FEB60(int a1, int a2);
-int sub_4FEE50(uint32_t a1, nox_object_t* a2);
 void nox_xxx_cancelAllSpells_4FEE90(nox_object_t* a1);
 void nox_xxx_spellCastByPlayer_4FEEF0();
 void nox_xxx_netStopRaySpell_4FEF90(int a1, uint32_t* a2);
@@ -134,7 +132,6 @@ char nox_xxx_spellWallCreateCalcYMB_4FFFB0(int a1, int a2, int a3, char a4);
 int nox_xxx_spellWallUpdate_500070();
 int nox_xxx_spellWallDestroy_500080(int a1);
 int sub_5000B0(uint32_t* a1);
-int sub_5002D0(uint32_t* a1);
 void sub_500330(char a1, char a2, int a3, char a4, char a5, char a6, char a7, char a8, char a9, char a10);
 int nox_xxx_mapSetWallInGlobalDir0pr1_5004D0();
 int nox_xxx_map_5004F0();
@@ -247,7 +244,6 @@ void sub_509120(uint32_t* a1, int a2, const char* a3);
 int sub_5095E0();
 int sub_5096F0();
 
-int nox_xxx_spellDurationBased_4FEBA0(int a1, nox_object_t* a2p, nox_object_t* a3p, nox_object_t* a4p, void* a5p, int a6, void* a7p, void* a8p, void* a9p, int a10);
 void nox_server_scriptExecuteFnForEachGroupObj_502670(unsigned char* groupPtr, int expectedType, void (*a3)(int, int),
 													  int a4);
 

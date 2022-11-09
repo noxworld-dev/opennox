@@ -29,6 +29,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -586,7 +587,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 	if pl.field_3680&3 != 0 {
 		goto LABEL_247
 	}
-	orientationOnly = sub_4FEE50(common.MaxPlayers-1, u.CObj()) != 0
+	orientationOnly = s.spells.duration.sub4FEE50(spell.SPELL_FORCE_OF_NATURE, u)
 	for it := cb.First(); it != nil; it = cb.Next() {
 		if orientationOnly && it.code != player.CCOrientation {
 			continue
