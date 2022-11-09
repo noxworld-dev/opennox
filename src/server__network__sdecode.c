@@ -384,10 +384,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 		}
 		nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(v8 + 2064), v87, 2, 0, 1);
 		return 21;
-	case 0xBFu: // MSG_RECEIVED_MAP
-		*(uint8_t*)(v8 + 3676) = 3;
-		sub_519E80(*(unsigned char*)(v8 + 2064));
-		return 1;
 	case 0xC1u: // MSG_REQUEST_SAVE_PLAYER
 		if (nox_common_gameFlags_check_40A5C0(4096) && *(uint8_t*)(v8 + 2064) != 31 && *(uint32_t*)(v8 + 2092) &&
 			*(uint32_t*)(v8 + 2056) && v10[138] == 1) {

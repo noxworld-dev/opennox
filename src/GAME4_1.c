@@ -7196,9 +7196,9 @@ void nox_xxx_mapSendCancelAll_5198B0(unsigned char a1) {
 // 519920: using guessed type void  nullsub_27(uint32_t);
 
 //----- (00519E80) --------------------------------------------------------
-uint32_t* sub_519E80(int a1) {
+void sub_519E80(int a1) {
 	nox_common_playerInfoFromNum_417090(a1);
-	return sub_4DE410(getMemByte(0x5D4594, 2387148 + 48 * a1));
+	sub_4DE410(getMemByte(0x5D4594, 2387148 + 48 * a1));
 }
 
 //----- (0051A100) --------------------------------------------------------

@@ -25,6 +25,7 @@ int nox_client_getServerPort_43B320();
 int nox_client_getClientPort_40A420();
 int sub_419E60(nox_object_t* a1);
 int sub_43AF90(int a1);
+void sub_519E80(int a1);
 int nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1);
 int nox_xxx_netClientSend2_4E53C0(int a1, const void* a2, int a3, int a4, int a5);
 void* nox_xxx_spriteGetMB_476F80();
@@ -1110,6 +1111,10 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 		return 1, true
 	case noxnet.MSG_CANCEL_MAP:
 		C.nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(C.int(pl.Index()))
+		return 1, true
+	case noxnet.MSG_RECEIVED_MAP:
+		pl.field_3676 = 3
+		C.sub_519E80(C.int(pl.Index()))
 		return 1, true
 	}
 	res := int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), u.UpdateData))

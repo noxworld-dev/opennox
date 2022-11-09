@@ -214,7 +214,6 @@ int nox_xxx_netMapSendClear_519830(int a1, char a2);
 int nox_xxx_netMapSendStop_519870();
 void nox_xxx_mapSendCancelAll_5198B0(unsigned char a1);
 int sub_519930(int a1);
-uint32_t* sub_519E80(int a1);
 void* sub_51A100();
 int sub_51A130();
 int sub_51A500(int a1);
