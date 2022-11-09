@@ -5,7 +5,6 @@
 
 int nox_xxx_onFrameLightning_52F8A0(float a1);
 void nox_xxx_lightningCanAttackCheck_52FF10(int a1, int a2);
-uint32_t* nox_xxx_lightningSpellDuration_52FFD0(int a1, int a2, int a3);
 void nox_xxx_lightningSpellTrapEffect_530020(int a1, int a2);
 char sub_530100(uint32_t* a1);
 int nox_xxx_spellTagCreature_530160(uint32_t* a1);

@@ -76,6 +76,7 @@ extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern unsigned int gameex_flags;
 
 //----- (0052F8A0) --------------------------------------------------------
+void nox_xxx_lightningSpellDuration_52FFD0(int a1, int a2, int a3);
 int nox_xxx_onFrameLightning_52F8A0(float a1) {
 	int source;                // esi
 	int v2;                    // eax
@@ -440,30 +441,6 @@ void nox_xxx_lightningCanAttackCheck_52FF10(int target, int source) {
 			}
 		}
 	}
-}
-//----- (0052FFD0) --------------------------------------------------------
-uint32_t* nox_xxx_lightningSpellDuration_52FFD0(int source, int from, int to) {
-	uint32_t* result; // eax
-	int v4;           // ecx
-	int v5;           // ecx
-
-	result = nox_xxx_newSpellDuration_4FE950();
-	if (result) {
-		result[12] = to;
-		result[4] = from;
-		result[1] = 7;
-		result[27] = 0;
-		result[26] = 0;
-		v4 = *(uint32_t*)(source + 108);
-		result[28] = 0;
-		result[29] = v4;
-		v5 = *(uint32_t*)(source + 108);
-		if (v5) {
-			*(uint32_t*)(v5 + 112) = result;
-		}
-		*(uint32_t*)(source + 108) = result;
-	}
-	return result;
 }
 
 //----- (00530020) --------------------------------------------------------
