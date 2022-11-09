@@ -502,7 +502,8 @@ int nox_xxx_servCompareTeams_419150(int a1, int a2) {
 }
 
 //----- (00419180) --------------------------------------------------------
-int nox_xxx_teamCompare2_419180(int a1, unsigned char a2) {
+int nox_xxx_teamCompare2_419180(void* a1p, unsigned char a2) {
+	int a1 = a1p;
 	char* v2;     // eax
 	uint32_t* v3; // eax
 

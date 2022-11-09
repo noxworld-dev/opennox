@@ -1124,6 +1124,70 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 		pl.field_3676 = 3
 		C.sub_519E80(C.int(pl.Index()))
 		return 1, true
+	case noxnet.MSG_TEXT_MESSAGE:
+		if len(data) < 11 {
+			return 0, false
+		}
+		sz := int(data[8])
+		flags := data[3]
+		rtext := data[11:]
+		var text string
+		if flags&0x2 != 0 { // ASCII or UTF-8
+			sz *= 1
+			if sz > len(rtext) {
+				return 0, false
+			}
+			rtext = rtext[:sz]
+			text = GoStringS(rtext)
+		} else { // UTF-16
+			sz *= 2
+			if sz > len(rtext) {
+				return 0, false
+			}
+			rtext = rtext[:sz]
+			text = GoWStringBytes(rtext)
+		}
+		_ = text
+		msz := 11 + sz
+		if pl != nil && (pl.field_3680>>2)&0x1 != 0 {
+			return msz, true
+		}
+		if flags&0x1 == 0 { // global chat
+			for it := s.playerFirst(); it != nil; it = s.playerNext(it) {
+				if noxflags.HasGame(noxflags.GameClient) && it.Index() == common.MaxPlayers-1 {
+					nox_xxx_netOnPacketRecvCli_48EA70(common.MaxPlayers-1, data[:msz])
+				} else {
+					netstr.Send(it.Index()+1, data[:msz], 0)
+					netstr.SendReadPacket(it.Index()+1, 1)
+				}
+			}
+			return msz, true
+		}
+		// team message
+		netcode := int(binary.LittleEndian.Uint16(data[1:]))
+		tm := nox_xxx_objGetTeamByNetCode_418C80(netcode)
+		if tm == nil || !nox_xxx_servObjectHasTeam_419130(tm) {
+			return msz, true
+		}
+		tcl := s.teamByYyy(tm.field1)
+		if tcl == nil {
+			return msz, true
+		}
+		for it := s.playerFirst(); it != nil; it = s.playerNext(it) {
+			uit := it.UnitC()
+			if uit == nil {
+				continue
+			}
+			if C.nox_xxx_teamCompare2_419180(unsafe.Pointer(uit.teamPtr()), C.uchar(tcl.Ind57())) != 0 {
+				if noxflags.HasGame(noxflags.GameClient) && int(uit.NetCode) == clientPlayerNetCode() {
+					nox_xxx_netOnPacketRecvCli_48EA70(it.Index(), data[:msz])
+				} else {
+					netstr.Send(it.Index()+1, data[:msz], 0)
+					netstr.SendReadPacket(it.Index()+1, 1)
+				}
+			}
+		}
+		return msz, true
 	case noxnet.MSG_SYSOP_PW:
 		if len(data) < 21 {
 			return 0, false

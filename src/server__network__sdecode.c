@@ -26,7 +26,6 @@
 #include "server__network__playback.h"
 #include "server__system__trade.h"
 
-extern uint32_t nox_player_netCode_85319C;
 //----- (0051BAD0) --------------------------------------------------------
 int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char* data, int dsz, nox_playerInfo* v8p, nox_object_t* unitp, void* v10p) {
 	int v8 = v8p;
@@ -301,52 +300,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 		v7 = *(uint32_t*)(data + 6);
 		*(uint32_t*)(v8 + 8 * v14 + 20) = v7;
 		return 10;
-	case 0xA8u: // MSG_TEXT_MESSAGE
-		if (data[3] & 2) {
-			nox_swprintf(v97, L"%S", data + 11);
-			v44 = 1;
-		} else {
-			nox_wcscpy(v97, (const wchar_t*)(data + 11));
-			v44 = 2;
-		}
-		v45 = v44 * data[8] + 11;
-		if (!nox_xxx_giant_57A190(v8)) {
-			if (!(data[3] & 1)) {
-				for (char* j = nox_common_playerInfoGetFirst_416EA0(); j;
-					 j = nox_common_playerInfoGetNext_416EE0((int)j)) {
-					if (nox_common_gameFlags_check_40A5C0(2) && j[2064] == 31) {
-						nox_xxx_netOnPacketRecvCli_48EA70(31, (unsigned int)data, v45);
-					} else {
-						nox_xxx_netSendSock_552640((unsigned char)j[2064] + 1, data, v45, 0);
-						nox_xxx_netSendReadPacket_5528B0((unsigned char)j[2064] + 1, 1);
-					}
-				}
-			} else {
-				uint32_t* v47 = nox_xxx_objGetTeamByNetCode_418C80(*(unsigned short*)(data + 1));
-				if (v47) {
-					if (nox_xxx_servObjectHasTeam_419130((int)v47)) {
-						v86 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)v47 + 4));
-						if (v86) {
-							for (int j = nox_xxx_getFirstPlayerUnit_4DA7C0(); j;
-								 j = nox_xxx_getNextPlayerUnit_4DA7F0(j)) {
-								v49 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(j + 36));
-								if (v49 && nox_xxx_teamCompare2_419180(j + 48, v86[57])) {
-									if (nox_common_gameFlags_check_40A5C0(2) &&
-										*(uint32_t*)(j + 36) == nox_player_netCode_85319C) {
-										nox_xxx_netOnPacketRecvCli_48EA70((unsigned char)v49[2064],
-																		  (unsigned int)data, v45);
-									} else {
-										nox_xxx_netSendSock_552640((unsigned char)v49[2064] + 1, data, v45, 0);
-										nox_xxx_netSendReadPacket_5528B0((unsigned char)v49[2064] + 1, 1);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		return v45;
 	case 0xC2u: // MSG_XFER_MSG
 		switch (data[1]) {
 		case 0u:

@@ -93,7 +93,6 @@ void sub_579E90(int a1);
 int sub_579EE0(int a1, unsigned char a2);
 int nox_xxx_waypoint_579F00(uint32_t* a1, int a2);
 int nox_xxx_playerCanTalkMB_57A160(int a1);
-int nox_xxx_giant_57A190(int a1);
 char* sub_57A1B0(short a1);
 char sub_57A1E0(int* a1, const char* a2, int* a3, char a4, short a5);
 int sub_57A3F0(char* a1, int a2, int a3, int a4);

@@ -1409,18 +1409,6 @@ int nox_xxx_playerCanTalkMB_57A160(int a1) {
 	return result;
 }
 
-//----- (0057A190) --------------------------------------------------------
-int nox_xxx_giant_57A190(int a1) {
-	int result; // eax
-
-	if (a1) {
-		result = (*(uint32_t*)(a1 + 3680) >> 2) & 1;
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
 //----- (0057A1B0) --------------------------------------------------------
 char* sub_57A1B0(short a1) {
 	int v1;            // ecx

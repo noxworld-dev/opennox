@@ -265,16 +265,16 @@ func (s *Server) teamCount() int {
 	return int(memmap.Uint8(0x5D4594, 526280))
 }
 
-func nox_xxx_objGetTeamByNetCode_418C80(code int) unsafe.Pointer {
+func nox_xxx_objGetTeamByNetCode_418C80(code int) *objectTeam {
 	if noxflags.HasGame(noxflags.GameHost) {
 		p := noxServer.getObjectFromNetCode(code)
 		if p != nil {
-			return unsafe.Pointer(p.teamPtr())
+			return p.teamPtr()
 		}
 	} else {
 		p := asDrawable(C.nox_xxx_netSpriteByCodeDynamic_45A6F0(C.int(code)))
 		if p != nil {
-			return unsafe.Pointer(&p.field_6)
+			return (*objectTeam)(unsafe.Pointer(&p.field_6))
 		}
 	}
 	return nil
