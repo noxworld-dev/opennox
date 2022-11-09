@@ -3632,6 +3632,7 @@ unsigned int sub_4FEB60(int a1, int a2) {
 }
 
 //----- (004FEBA0) --------------------------------------------------------
+void sub_4FED70();
 int nox_xxx_spellDurationBased_4FEBA0(int a1, nox_object_t* a2p, nox_object_t* a3p, nox_object_t* a4p, void* a5p, int a6, void* a7p, void* a8p, void* a9p, int a10) {
 	int a2 = a2p;
 	uint32_t* a3 = a3p;
@@ -3721,27 +3722,10 @@ int sub_4FED40(int a1) {
 	return result;
 }
 
-//----- (004FED70) --------------------------------------------------------
-int sub_4FED70() {
-	int result; // eax
-	int v1;     // esi
-
-	result = dword_5d4594_1569728;
-	if (dword_5d4594_1569728) {
-		do {
-			v1 = *(uint32_t*)(result + 116);
-			if (*(uint8_t*)(result + 88) & 1) {
-				nox_xxx_plrCastSmth_4FEDA0((int*)result);
-			}
-			result = v1;
-		} while (v1);
-	}
-	return result;
-}
-
 //----- (004FEDA0) --------------------------------------------------------
 void sub_4FE900(int a1);
-void nox_xxx_plrCastSmth_4FEDA0(int* a1) {
+void nox_xxx_plrCastSmth_4FEDA0(void* a1p) {
+	int* a1 = a1p;
 	int v1;           // eax
 	void (*v2)(int*); // eax
 	int v3;           // eax
@@ -3822,6 +3806,7 @@ void nox_xxx_cancelAllSpells_4FEE90(nox_object_t* a1p) {
 }
 
 //----- (004FEEF0) --------------------------------------------------------
+void nox_xxx_plrCastSmth_4FEDA0(void* a1);
 void nox_xxx_spellCastByPlayer_4FEEF0() {
 	int v1;          // ebp
 	int v2;          // eax
@@ -3833,7 +3818,7 @@ void nox_xxx_spellCastByPlayer_4FEEF0() {
 	for (int v0 = dword_5d4594_1569728; v0; v0 = v1) {
 		v1 = *(uint32_t*)(v0 + 116);
 		if (*(uint8_t*)(v0 + 88) & 1) {
-			nox_xxx_plrCastSmth_4FEDA0((int*)v0);
+			nox_xxx_plrCastSmth_4FEDA0(v0);
 			continue;
 		}
 		v2 = *(uint32_t*)(v0 + 16);

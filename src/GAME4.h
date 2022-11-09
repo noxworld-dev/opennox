@@ -103,8 +103,6 @@ int nox_xxx_playerCancelSpells_4FEAE0(nox_object_t* a1);
 uint32_t* nox_xxx_spellCancelDurSpell_4FEB10(int a1, nox_object_t* a2);
 unsigned int sub_4FEB60(int a1, int a2);
 int sub_4FED40(int a1);
-int sub_4FED70();
-void nox_xxx_plrCastSmth_4FEDA0(int* a1);
 int sub_4FEE50(int a1, nox_object_t* a2);
 void nox_xxx_cancelAllSpells_4FEE90(nox_object_t* a1);
 void nox_xxx_spellCastByPlayer_4FEEF0();

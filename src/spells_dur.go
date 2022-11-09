@@ -3,6 +3,7 @@ package opennox
 /*
 #include <stdint.h>
 extern void* dword_5d4594_1569728;
+void nox_xxx_plrCastSmth_4FEDA0(void* a1);
 */
 import "C"
 import (
@@ -109,5 +110,16 @@ func sub_4FE900(a1 unsafe.Pointer) {
 	}
 	if next := sp.next; next != nil {
 		next.prev = sp.prev
+	}
+}
+
+//export sub_4FED70
+func sub_4FED70() {
+	var next *noxDurSpell
+	for it := (*noxDurSpell)(C.dword_5d4594_1569728); it != nil; it = next {
+		next = it.next
+		if it.flags88&0x1 != 0 {
+			C.nox_xxx_plrCastSmth_4FEDA0(it.C())
+		}
 	}
 }
