@@ -26,7 +26,6 @@
 #include "server__network__playback.h"
 #include "server__system__trade.h"
 
-void sub_446070();
 extern uint32_t nox_player_netCode_85319C;
 //----- (0051BAD0) --------------------------------------------------------
 int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char* data, int dsz, nox_playerInfo* v8p, nox_object_t* unitp, void* v10p) {
@@ -474,9 +473,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 		} else {
 			return -1;
 		}
-	case 0xC8u: // MSG_SERVER_QUIT_ACK
-		sub_446070();
-		return 1;
 	case 0xD0u: // MSG_DIALOG
 		if (data[1] == 1) {
 			if (nox_xxx_gameGet_4DB1B0() || (v7 = v10[69], *(uint8_t*)(v7 + 3680) & 3) ||

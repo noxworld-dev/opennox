@@ -269,8 +269,7 @@ func sub_4460A0(a1 C.int) {
 	dword_5d4594_825756 = a1 != 0
 }
 
-//export sub_446070
-func sub_446070() {
+func serverQuitAck() {
 	dword_5d4594_825752--
 	if dword_5d4594_825752 == 0 {
 		sub_446380()
@@ -281,7 +280,7 @@ func sub_446070() {
 func sub_40BBC0(a1, a2 C.int) {
 	if a2 == 2 {
 		if sub_446030() {
-			sub_446070()
+			serverQuitAck()
 			if sub_446090() {
 				nox_game_exit_xxx2()
 				sub_446060()
@@ -295,7 +294,7 @@ func sub_40BBC0(a1, a2 C.int) {
 //export sub_40B850
 func sub_40B850(a1, act C.int) {
 	if act == 2 && sub_446030() {
-		sub_446070()
+		serverQuitAck()
 		if sub_446090() {
 			nox_game_exit_xxx2()
 			sub_446060()
