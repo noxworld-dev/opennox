@@ -953,15 +953,11 @@ func nox_xxx_castSpellByUser_4FDD20(a1 C.int, a2 *nox_object_t, a3 unsafe.Pointe
 	return 0
 }
 
-func nox_xxx_spellCancelDurSpell_4FEB10(spell spell.ID, obj noxObject) {
-	C.nox_xxx_spellCancelDurSpell_4FEB10(C.int(spell), obj.CObj())
-}
-
 func (s *Server) castSpell(spellInd spell.ID, lvl int, u *Unit, a3 *spellAcceptArg) bool {
 	if s.spellHasFlags(spellInd, things.SpellOffensive) {
 		u.DisableEnchant(server.ENCHANT_INVISIBLE)
 		u.DisableEnchant(server.ENCHANT_INVULNERABLE)
-		nox_xxx_spellCancelDurSpell_4FEB10(spell.SPELL_OVAL_SHIELD, u)
+		nox_xxx_spellCancelDurSpell4FEB10(spell.SPELL_OVAL_SHIELD, u)
 	}
 	if !s.spellHasFlags(spellInd, things.SpellTargeted) || u.CObj() == a3.Obj {
 		return s.nox_xxx_spellAccept4FD400(spellInd, u, u, u, a3, lvl)

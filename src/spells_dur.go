@@ -4,12 +4,14 @@ package opennox
 #include <stdint.h>
 extern void* dword_5d4594_1569728;
 void nox_xxx_plrCastSmth_4FEDA0(void* a1);
+char nox_xxx_spellCancelSpellDo_4FE9D0(void* a1);
 */
 import "C"
 import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
@@ -134,4 +136,22 @@ func sub_4FED40(a1 unsafe.Pointer) {
 	sp.prev = nil
 	sp.next = head
 	C.dword_5d4594_1569728 = sp.C()
+}
+
+//export nox_xxx_spellCancelDurSpell_4FEB10
+func nox_xxx_spellCancelDurSpell_4FEB10(a1 int, a2 *nox_object_t) {
+	nox_xxx_spellCancelDurSpell4FEB10(spell.ID(a1), asUnitC(a2))
+}
+
+func nox_xxx_spellCancelDurSpell4FEB10(sid spell.ID, obj noxObject) {
+	var next *noxDurSpell
+	for it := (*noxDurSpell)(C.dword_5d4594_1569728); it != nil; it = next {
+		sid2 := spell.ID(it.spell)
+		next = it.next
+		if sid2 == sid && it.obj16 == toCObj(obj) ||
+			sid >= spell.SPELL_SUMMON_BAT && sid <= spell.SPELL_SUMMON_URCHIN_SHAMAN &&
+				sid2 >= spell.SPELL_SUMMON_BAT && sid2 <= spell.SPELL_SUMMON_URCHIN_SHAMAN && it.obj16 == toCObj(obj) {
+			C.nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
+		}
+	}
 }

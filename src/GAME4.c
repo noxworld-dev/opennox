@@ -3522,7 +3522,8 @@ int nox_xxx_spellCastedFirst_4FE930() { return dword_5d4594_1569728; }
 int nox_xxx_spellCastedNext_4FE940(int a1) { return *(uint32_t*)(a1 + 116); }
 
 //----- (004FE9D0) --------------------------------------------------------
-char nox_xxx_spellCancelSpellDo_4FE9D0(int a1) {
+char nox_xxx_spellCancelSpellDo_4FE9D0(void* a1p) {
+	int a1 = a1p;
 	int v1;      // eax
 	int v2;      // ecx
 	int v3;      // eax
@@ -3593,42 +3594,20 @@ int nox_xxx_playerCancelSpells_4FEAE0(nox_object_t* a1p) {
 	return result;
 }
 
-//----- (004FEB10) --------------------------------------------------------
-uint32_t* nox_xxx_spellCancelDurSpell_4FEB10(int a1, nox_object_t* a2p) {
-	int a2 = a2p;
-	uint32_t* result; // eax
-	int v3;           // ecx
-	uint32_t* v4;     // esi
-
-	result = *(uint32_t**)&dword_5d4594_1569728;
-	if (dword_5d4594_1569728) {
-		do {
-			v3 = result[1];
-			v4 = (uint32_t*)result[29];
-			if (v3 == a1 && result[4] == a2 || a1 >= 75 && a1 <= 114 && v3 >= 75 && v3 <= 114 && result[4] == a2) {
-				nox_xxx_spellCancelSpellDo_4FE9D0((int)result);
-			}
-			result = v4;
-		} while (v4);
-	}
-	return result;
-}
-
 //----- (004FEB60) --------------------------------------------------------
-unsigned int sub_4FEB60(int a1, int a2) {
+void sub_4FEB60(int a1, int a2) {
 	unsigned int result; // eax
 
 	result = *(uint32_t*)(a2 + 8);
 	if (result & 0x1000) {
 		result = *(uint32_t*)(a2 + 12);
 		if (result & 0x40000) {
-			result = (unsigned int)nox_xxx_spellCancelDurSpell_4FEB10(43, a1);
+			nox_xxx_spellCancelDurSpell_4FEB10(43, a1);
 		}
 		if (*(uint32_t*)(a2 + 12) & 0x4000000) {
-			result = (unsigned int)nox_xxx_spellCancelDurSpell_4FEB10(59, a1);
+			nox_xxx_spellCancelDurSpell_4FEB10(59, a1);
 		}
 	}
-	return result;
 }
 
 //----- (004FEBA0) --------------------------------------------------------
