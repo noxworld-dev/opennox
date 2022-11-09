@@ -1124,6 +1124,26 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 		pl.field_3676 = 3
 		C.sub_519E80(C.int(pl.Index()))
 		return 1, true
+	case noxnet.MSG_SYSOP_PW:
+		if len(data) < 21 {
+			return 0, false
+		}
+		var buf [2]byte
+		buf[0] = byte(noxnet.MSG_SYSOP_RESULT)
+		pass := GoWString(C.nox_xxx_sysopGetPass_40A630())
+		got := GoWStringBytes(data[1:])
+		if pass == "" || pass != got {
+			buf[1] = 0
+		} else {
+			buf[1] = 1
+			if C.sub_4D12A0(C.int(pl.Index())) == 0 {
+				C.sub_4D1210(C.int(pl.Index()))
+				str := s.Strings().GetStringInFile("sysopAccessGranted", "sdecode.c")
+				s.Printf(console.ColorRed, str, pl.Name())
+			}
+		}
+		s.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:2], 0, 1)
+		return 1 + 20, true
 	case noxnet.MSG_SERVER_CMD:
 		if len(data) < 7 {
 			return 0, false

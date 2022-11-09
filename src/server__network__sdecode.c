@@ -347,22 +347,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 			}
 		}
 		return v45;
-	case 0xBCu: // MSG_SYSOP_PW
-		v87[0] = 0xBDu; // MSG_SYSOP_RESULT
-		v42 = nox_xxx_sysopGetPass_40A630();
-		if (!*v42 || _nox_wcsicmp((const wchar_t*)(data + 1), v42)) {
-			v87[1] = 0;
-		} else {
-			v87[1] = 1;
-			if (!sub_4D12A0(*(unsigned char*)(v8 + 2064))) {
-				sub_4D1210(*(unsigned char*)(v8 + 2064));
-				v43 = nox_strman_loadString_40F1D0("sysopAccessGranted", 0,
-												   "C:\\NoxPost\\src\\Server\\Network\\sdecode.c", 735);
-				nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, v43, v8 + 4704);
-			}
-		}
-		nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(v8 + 2064), v87, 2, 0, 1);
-		return 21;
 	case 0xC2u: // MSG_XFER_MSG
 		switch (data[1]) {
 		case 0u:
