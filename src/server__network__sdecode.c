@@ -448,21 +448,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 		}
 		v10 = (int*)v85;
 		return 4;
-	case 0xE3u: // MSG_SOCIAL
-		switch (data[1]) {
-		case 1u:
-			nox_xxx_playerSetState_4FA020((uint32_t*)unit, 26);
-			break;
-		case 2u:
-			nox_xxx_playerSetState_4FA020((uint32_t*)unit, 25);
-			break;
-		case 4u:
-			nox_xxx_playerSetState_4FA020((uint32_t*)unit, 27);
-			break;
-		default:
-			break;
-		}
-		return 2;
 	case 0xEEu: // MSG_VOTE
 		switch (data[1]) {
 		case 0u:;

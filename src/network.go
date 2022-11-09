@@ -1210,6 +1210,19 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 		default:
 			return 0, false
 		}
+	case noxnet.MSG_SOCIAL:
+		if len(data) < 2 {
+			return 0, false
+		}
+		switch data[1] {
+		case 1:
+			nox_xxx_playerSetState_4FA020(u, 26)
+		case 2:
+			nox_xxx_playerSetState_4FA020(u, 25)
+		case 4:
+			nox_xxx_playerSetState_4FA020(u, 27)
+		}
+		return 2, true
 	default:
 		res := int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), u.UpdateData))
 		if res <= 0 || res > len(data) {
