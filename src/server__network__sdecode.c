@@ -278,13 +278,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 		}
 		v10 = (int*)v85;
 		return 22;
-	case 0x7Au: // MSG_TRY_ABILITY
-		v33 = (*(uint8_t*)(*(uint32_t*)(v85 + 276) + 3680) & 3) == 0;
-		if (!nox_common_gameFlags_check_40A5C0(128) && v33) {
-			nox_xxx_playerExecuteAbil_4FBB70(unit, data[1]);
-		}
-		v10 = (int*)v85;
-		return 2;
 	case 0x7Bu: // MSG_TRY_COLLIDE
 		v28 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {

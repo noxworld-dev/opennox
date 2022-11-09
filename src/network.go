@@ -1076,6 +1076,14 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 	case noxnet.MSG_PLAYER_INPUT:
 		n := s.netOnPlayerInput(pl, data[1:])
 		return 1 + n, true
+	case noxnet.MSG_TRY_ABILITY:
+		if len(data) < 2 {
+			return 0, false
+		}
+		if !noxflags.HasGame(noxflags.GameModeChat) && pl.field_3680&0x3 == 0 {
+			s.abilities.Do(u, Ability(data[1]))
+		}
+		return 2, true
 	}
 	res := int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), u.UpdateData))
 	if res <= 0 || res > len(data) {
