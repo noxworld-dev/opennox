@@ -349,7 +349,7 @@ func (s *Server) spellEnableAll() {
 }
 
 func nox_xxx_allocSpellRelatedArrays_4FC9B0() error {
-	nox_alloc_spellDur_1569724 = alloc.NewClass("spellDuration", 120, 512)
+	nox_alloc_spellDur_1569724 = alloc.NewClassT("spellDuration", noxDurSpell{}, 512)
 	C.nox_alloc_magicEnt_1569668 = alloc.NewClass("magicEntityClass", 60, 64).UPtr()
 	nox_xxx_imagCasterUnit_1569664 = noxServer.newObjectByTypeID("ImaginaryCaster").AsUnit()
 	if nox_xxx_imagCasterUnit_1569664 == nil {
