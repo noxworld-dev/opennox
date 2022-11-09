@@ -123,3 +123,15 @@ func sub_4FED70() {
 		}
 	}
 }
+
+//export sub_4FED40
+func sub_4FED40(a1 unsafe.Pointer) {
+	sp := (*noxDurSpell)(a1)
+	head := (*noxDurSpell)(C.dword_5d4594_1569728)
+	if head != nil {
+		head.prev = sp
+	}
+	sp.prev = nil
+	sp.next = head
+	C.dword_5d4594_1569728 = sp.C()
+}

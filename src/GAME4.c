@@ -3633,6 +3633,7 @@ unsigned int sub_4FEB60(int a1, int a2) {
 
 //----- (004FEBA0) --------------------------------------------------------
 void sub_4FED70();
+void sub_4FED40(int a1);
 int nox_xxx_spellDurationBased_4FEBA0(int a1, nox_object_t* a2p, nox_object_t* a3p, nox_object_t* a4p, void* a5p, int a6, void* a7p, void* a8p, void* a9p, int a10) {
 	int a2 = a2p;
 	uint32_t* a3 = a3p;
@@ -3706,20 +3707,6 @@ int nox_xxx_spellDurationBased_4FEBA0(int a1, nox_object_t* a2p, nox_object_t* a
 		}
 	}
 	return 0;
-}
-
-//----- (004FED40) --------------------------------------------------------
-int sub_4FED40(int a1) {
-	int result; // eax
-
-	result = a1;
-	if (dword_5d4594_1569728) {
-		*(uint32_t*)((uint32_t)dword_5d4594_1569728 + 112) = a1;
-	}
-	*(uint32_t*)(a1 + 112) = 0;
-	*(uint32_t*)(a1 + 116) = dword_5d4594_1569728;
-	dword_5d4594_1569728 = a1;
-	return result;
 }
 
 //----- (004FEDA0) --------------------------------------------------------
