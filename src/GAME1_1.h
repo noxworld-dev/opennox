@@ -26,7 +26,7 @@ int nox_xxx_servObjectHasTeam_419130(int a1);
 int nox_xxx_servCompareTeams_419150(int a1, int a2);
 int nox_xxx_teamCompare2_419180(int a1, unsigned char a2);
 void nox_xxx_netChangeTeamMb_419570(void* a1, int a2);
-int sub_4196D0(int a1, int a2, int a3, int a4);
+int sub_4196D0(void* a1, void* a2, int a3, int a4);
 void sub_4197C0(wchar_t* a1, int a2);
 void sub_4198A0(int a1, int a2, int a3);
 char sub_419900(int a1, int a2, short a3);

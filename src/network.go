@@ -1175,12 +1175,48 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 			}
 		}
 		return 3, true
+	case noxnet.MSG_TEAM_MSG:
+		if len(data) < 10 {
+			return 0, false
+		}
+		switch data[1] {
+		case 10:
+			ti := int(binary.LittleEndian.Uint32(data[2:]))
+			tm := s.teamByYyy(byte(ti))
+			if tm == nil {
+				return 10, true
+			}
+			netcode := int(binary.LittleEndian.Uint16(data[6:]))
+			obj := s.getObjectFromNetCode(netcode)
+			C.nox_xxx_createAtImpl_4191D0(C.uchar(tm.Ind57()), unsafe.Pointer(obj.teamPtr()), 1, C.int(netcode), 1)
+			return 10, true
+		case 11:
+			netcode := int(binary.LittleEndian.Uint16(data[6:]))
+			u2 := s.getObjectFromNetCode(netcode).AsUnit()
+			if u2 == nil {
+				return 10, true
+			}
+			if !noxflags.HasGame(noxflags.GameModeChat) {
+				pos := nox_xxx_mapFindPlayerStart_4F7AB0(u2)
+				u2.SetPos(pos)
+			}
+			ti := int(binary.LittleEndian.Uint32(data[2:]))
+			tm := s.teamByYyy(byte(ti))
+			if tm == nil {
+				return 10, true
+			}
+			C.sub_4196D0(unsafe.Pointer(u2.teamPtr()), unsafe.Pointer(tm.C()), C.int(netcode), 1)
+			return 10, true
+		default:
+			return 0, false
+		}
+	default:
+		res := int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), u.UpdateData))
+		if res <= 0 || res > len(data) {
+			return 0, false
+		}
+		return res, true
 	}
-	res := int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), u.UpdateData))
-	if res <= 0 || res > len(data) {
-		return 0, false
-	}
-	return res, true
 }
 
 func (s *Server) netOnPlayerInput(pl *Player, data []byte) int {

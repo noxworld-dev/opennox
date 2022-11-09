@@ -568,7 +568,9 @@ void nox_xxx_netChangeTeamMb_419570(void* a1p, int a2) {
 }
 
 //----- (004196D0) --------------------------------------------------------
-int sub_4196D0(int a1, int a2, int a3, int a4) {
+int sub_4196D0(void* a1p, void* a2p, int a3, int a4) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v4;      // ecx
 	char* v5;    // eax
 	char v7[10]; // [esp+8h] [ebp-Ch]

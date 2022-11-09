@@ -400,32 +400,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 		default:
 			return -1;
 		}
-	case 0xC4u: // MSG_TEAM_MSG
-		if (data[1] == 10) {
-			v55 = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));
-			if (v55) {
-				v56 = nox_server_getObjectFromNetCode_4ECCB0(*((unsigned short*)data + 3));
-				nox_xxx_createAtImpl_4191D0(v55[57], v56 + 48, 1, *((unsigned short*)data + 3), 1);
-			}
-			v10 = (int*)v85;
-			return 10;
-		} else if (data[1] == 11) {
-			v53 = nox_server_getObjectFromNetCode_4ECCB0(*((unsigned short*)data + 3));
-			if (v53) {
-				if (!nox_common_gameFlags_check_40A5C0(128)) {
-					nox_xxx_mapFindPlayerStart_4F7AB0(&v96, v53);
-					nox_xxx_unitMove_4E7010(v53, &v96);
-				}
-				v54 = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));
-				if (v54) {
-					sub_4196D0(v53 + 48, (int)v54, *((unsigned short*)data + 3), 1);
-				}
-			}
-			v10 = (int*)v85;
-			return 10;
-		} else {
-			return -1;
-		}
 	case 0xD0u: // MSG_DIALOG
 		if (data[1] == 1) {
 			if (nox_xxx_gameGet_4DB1B0() || (v7 = v10[69], *(uint8_t*)(v7 + 3680) & 3) ||
