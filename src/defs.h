@@ -1215,8 +1215,8 @@ typedef struct nox_playerInfo {
 	uint8_t data_2168[17];
 	nox_playerInfo2 info; // 2185
 	uint16_t field_2282;
-	int field_2284; // 2284, TODO: x coordinate of something? cursor? spell target?
-	int field_2288; // 2288, TODO: y coordinate of something? cursor? spell target?
+	int cursor_x; // 2284
+	int cursor_y; // 2288
 	uint32_t data_2292[30];
 	uint32_t data_2412[97];
 	uint32_t data_2800[100];

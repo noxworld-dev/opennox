@@ -73,10 +73,7 @@ func (a *abilityHarpoon) getHarpoonData(u *Unit) *harpoonData {
 		pl := asPlayerS(ud.Player)
 		p := (*harpoonPtr)(unsafe.Pointer(&ud.HarpoonTarg))
 		return &harpoonData{harpoonPtr: p, getAim: func() types.Pointf {
-			return types.Pointf{
-				X: float32(pl.field_2284),
-				Y: float32(pl.field_2288),
-			}
+			return pl.CursorPos()
 		}}
 	default:
 		panic(u.Class().String())

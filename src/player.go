@@ -392,9 +392,14 @@ func (p *Player) CursorPos() types.Pointf {
 		return types.Pointf{}
 	}
 	return types.Pointf{
-		X: float32(p.field_2284),
-		Y: float32(p.field_2288),
+		X: float32(p.cursor_x),
+		Y: float32(p.cursor_y),
 	}
+}
+
+func (p *Player) setCursorPos(pos image.Point) {
+	p.cursor_x = C.int(pos.X)
+	p.cursor_y = C.int(pos.Y)
 }
 
 func (p *Player) pos3632() types.Pointf {

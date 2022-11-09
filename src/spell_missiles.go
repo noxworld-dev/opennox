@@ -82,10 +82,8 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts 
 		var ppos *types.Pointf
 		if caster.Class().Has(object.ClassPlayer) {
 			pl := caster.ControllingPlayer()
-			ppos = &types.Pointf{
-				X: float32(pl.field_2284),
-				Y: float32(pl.field_2288),
-			}
+			cur := pl.CursorPos()
+			ppos = &cur
 		}
 		targ := nox_xxx_spellFlySearchTarget(ppos, msl, 0x20, opts.SearchDist, 0, owner)
 		mud.owner = owner.CObj()

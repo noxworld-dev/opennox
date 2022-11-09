@@ -753,8 +753,8 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 					s.playerSpell(u)
 					ud.SpellCastStart = 0
 				}
-				ud.Field55 = int(pl.field_2284)
-				ud.Field56 = int(pl.field_2288)
+				ud.Field55 = int(pl.cursor_x)
+				ud.Field56 = int(pl.cursor_y)
 				targ := s.getObjectFromNetCode(int(it.Uint32()))
 				C.nox_xxx_playerDoSchedSpell_4FB0E0(u.CObj(), targ.CObj())
 			}
@@ -764,8 +764,8 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 					s.playerSpell(u)
 					ud.SpellCastStart = 0
 				}
-				ud.Field55 = int(pl.field_2284)
-				ud.Field56 = int(pl.field_2288)
+				ud.Field55 = int(pl.cursor_x)
+				ud.Field56 = int(pl.cursor_y)
 				targ := s.getObjectFromNetCode(int(it.Uint32()))
 				C.nox_xxx_playerDoSchedSpellQueue_4FB1D0(u.CObj(), targ.CObj())
 			}
