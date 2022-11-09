@@ -42,7 +42,7 @@ func castBuffSpell(spellID spell.ID, enc server.EnchantID, lvl int, targ *Unit, 
 		dur *= lvl
 	}
 	if opts.Defensive {
-		sub_4FF310(targ)
+		sub_4FF310(targ.CObj())
 	}
 	targ.ApplyEnchant(enc, dur, lvl)
 	if opts.Orig != nil && opts.Offensive {

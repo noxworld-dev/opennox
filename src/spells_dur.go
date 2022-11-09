@@ -12,6 +12,7 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/spell"
+	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
@@ -164,4 +165,17 @@ func sub_4FEE50(a1 uint32, a2 *nox_object_t) int {
 		}
 	}
 	return 0
+}
+
+//export sub_4FF310
+func sub_4FF310(a1 *nox_object_t) {
+	var next *noxDurSpell
+	for it := (*noxDurSpell)(C.dword_5d4594_1569728); it != nil; it = next {
+		next = it.next
+		if it.obj16 == a1 {
+			if noxServer.spellFlags(spell.ID(it.spell)).Has(things.SpellOffensive) {
+				C.nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
+			}
+		}
+	}
 }

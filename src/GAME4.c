@@ -3970,26 +3970,6 @@ int sub_4FF2D0(int a1, int a2) {
 	return result;
 }
 
-//----- (004FF310) --------------------------------------------------------
-void sub_4FF310(nox_object_t* a1p) {
-	int a1 = a1p;
-	int* v1; // esi
-	int* v2; // edi
-
-	v1 = *(int**)&dword_5d4594_1569728;
-	if (dword_5d4594_1569728) {
-		do {
-			v2 = (int*)v1[29];
-			if (v1[4] == a1) {
-				if (nox_xxx_spellFlags_424A70(v1[1]) & 0x20) {
-					nox_xxx_spellCancelSpellDo_4FE9D0((int)v1);
-				}
-			}
-			v1 = v2;
-		} while (v2);
-	}
-}
-
 //----- (004FF350) --------------------------------------------------------
 int nox_xxx_testUnitBuffs_4FF350(nox_object_t* unit, char buff) {
 	if ((!unit) || (buff < 0) || (buff >= 32)) {

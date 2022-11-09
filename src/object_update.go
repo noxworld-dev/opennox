@@ -779,10 +779,6 @@ LABEL_247:
 	}
 }
 
-func sub_4FF310(a1 noxObject) {
-	C.sub_4FF310(a1.CObj())
-}
-
 func sub_4E7540(a1, a2 noxObject) {
 	C.sub_4E7540(a1.CObj(), a2.CObj())
 }
