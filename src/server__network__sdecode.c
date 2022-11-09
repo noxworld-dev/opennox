@@ -348,12 +348,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 			}
 		}
 		return v45;
-	case 0xAAu: // MSG_IMPORTANT
-		v13 = v10[69];
-		*(uint32_t*)&v92[1] = *(uint32_t*)(data + 1);
-		v92[0] = -85;
-		nox_netlist_addToMsgListCli_40EBC0(*(unsigned char*)(v13 + 2064), 1, v92, 5);
-		return 5;
 	case 0xABu: // MSG_IMPORTANT_ACK
 		sub_4E55A0(*(uint8_t*)(v10[69] + 2064), *(uint32_t*)(data + 1));
 		return 5;

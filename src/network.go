@@ -1128,6 +1128,17 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 		wtext = wtext[:2*sz]
 		nox_xxx_serverHandleClientConsole_443E90(pl, data[1], GoWStringBytes(wtext))
 		return 5 + 2*sz + 2, true
+	case noxnet.MSG_IMPORTANT:
+		if len(data) < 5 {
+			return 0, false
+		}
+		id := binary.LittleEndian.Uint32(data[1:])
+
+		var buf [5]byte
+		buf[0] = byte(noxnet.MSG_IMPORTANT_ACK)
+		binary.LittleEndian.PutUint32(buf[1:], id)
+		netlist.AddToMsgListCli(pl.Index(), netlist.Kind1, buf[:5])
+		return 5, true
 	}
 	res := int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(pli), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), pl.C(), u.CObj(), u.UpdateData))
 	if res <= 0 || res > len(data) {
