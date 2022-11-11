@@ -4818,22 +4818,6 @@ float* nox_xxx_monsterLookAt_5125A0(nox_object_t* obj, int a2) {
 	return result;
 }
 
-//----- (00512FE0) --------------------------------------------------------
-void sub_512FE0(int a1, int* a2) {
-	int v2; // eax
-	int v3; // [esp-Ch] [ebp-Ch]
-	int v4; // [esp-8h] [ebp-8h]
-	int v5; // [esp-4h] [ebp-4h]
-
-	if (a2[1] > 0) {
-		v5 = a2[2];
-		v4 = a2[1];
-		v3 = *a2;
-		v2 = nox_xxx_findParentChainPlayer_4EC580(*a2);
-		(*(void (**)(int, int, int, int, int))(a1 + 716))(a1, v2, v3, v4, v5);
-	}
-}
-
 //----- (005130E0) --------------------------------------------------------
 uint32_t* sub_5130E0(int a1, uint32_t* a2) {
 	uint32_t* v2;     // eax
