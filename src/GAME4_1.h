@@ -147,7 +147,6 @@ void nox_xxx_wallClose_512070(int a1);
 void nox_xxx_wallToggle_512160(int a1);
 int nox_xxx_wallPreDestroyByPtr_5122C0(int a1);
 float* nox_xxx_monsterLookAt_5125A0(nox_object_t* obj, int a2);
-short nox_xxx_enchantUnit_513390(int a1, int* a2);
 void nox_xxx_monsterWalkTo_514110(nox_object_t* obj, float x, float y);
 void nox_xxx_monsterGoPatrol_515680(int a1, int a2);
 void nox_xxx_unitHunt_5157A0(nox_object_t* obj);
