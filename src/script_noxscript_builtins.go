@@ -5,7 +5,6 @@ package opennox
 int nox_script_getWall_511EB0();
 int nox_script_toggleObject_5127F0();
 int nox_script_deleteObjectGroup_5128D0();
-int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
 int nox_script_groupEnchant_5133B0();
@@ -249,7 +248,7 @@ var noxScriptBuiltins = []func() int{
 	49:  nox_script_floatToString_512ED0,
 	50:  nox_script_create_512F10,
 	51:  nox_script_damage_512F80,
-	52:  wrapScriptC(C.nox_script_groupDamage_513010),
+	52:  nox_script_groupDamage_513010,
 	53:  nox_script_Wander_513070,
 	54:  wrapScriptC(C.nox_script_WanderGroup_513160),
 	55:  nox_script_awardSpell_5131C0,
@@ -1487,7 +1486,8 @@ func create_sub_512FE0(a20 *Object, dmg, unknown int) func(*Object) {
 	}
 }
 
-// Cause damage from src to dest
+// Before: [Target Object] [Damage Source] [Damage] [Unknown]
+// Cause damage from src to target
 func nox_script_damage_512F80() int {
 	s := &noxServer.noxScript
 
@@ -1498,6 +1498,20 @@ func nox_script_damage_512F80() int {
 	if dest != nil {
 		create_sub_512FE0(src, int(param0), int(param1))(dest)
 	}
+	return 0
+}
+
+// Before: [Target Group] [Damage Source] [Damage] [Unknown]
+// Cause damage from src to all objects in group
+func nox_script_groupDamage_513010() int {
+	s := &noxServer.noxScript
+
+	param1 := s.PopI32()
+	param0 := s.PopI32()
+	src := s.PopObject()
+	destGroupInd := s.PopI32()
+	mapGroup := getMapGroupByInd(int(destGroupInd))
+	scriptExecuteFnForObjectGroup(mapGroup, create_sub_512FE0(src, int(param0), int(param1)))
 	return 0
 }
 

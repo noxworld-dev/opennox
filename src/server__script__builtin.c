@@ -245,27 +245,6 @@ void nox_server_gotoHome(nox_object_t* obj) {
 	}
 }
 
-//----- (00513010) --------------------------------------------------------
-int nox_script_groupDamage_513010() {
-	int v0;            // esi
-	int v1;            // edi
-	int v2;            // ebx
-	int v3;            // ebp
-	unsigned char* v4; // eax
-	int v6[3];
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_script_pop();
-	v3 = nox_script_pop();
-	v6[0] = nox_server_scriptValToObjectPtr_511B60(v2);
-	v6[1] = v1;
-	v6[2] = v0;
-	v4 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v3);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v4, 0, sub_512FE0, (int)v6);
-	return 0;
-}
-
 //----- (00513160) --------------------------------------------------------
 int nox_script_WanderGroup_513160() {
 	int v0;            // esi
