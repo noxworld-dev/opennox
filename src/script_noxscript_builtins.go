@@ -5,7 +5,6 @@ package opennox
 int nox_script_getWall_511EB0();
 int nox_script_toggleObject_5127F0();
 int nox_script_deleteObjectGroup_5128D0();
-int nox_script_groupEnchant_5133B0();
 int nox_script_canInteract_513E80();
 int nox_script_Fn5E_513F70();
 int nox_script_GetHostInfo_513FA0();
@@ -250,7 +249,7 @@ var noxScriptBuiltins = []func() int{
 	55:  nox_script_awardSpell_5131C0,
 	56:  nox_script_awardSpellGroup_513230,
 	57:  nox_script_enchant_5132E0,
-	58:  wrapScriptC(C.nox_script_groupEnchant_5133B0),
+	58:  nox_script_groupEnchant_5133B0,
 	59:  nox_script_getHost_513460,
 	60:  nox_script_objectGet_513490,
 	61:  nox_script_getObjectX_513530,
@@ -1672,6 +1671,24 @@ func nox_script_enchant_5132E0() int {
 			dur := int(float32(s.s.TickRate()) * v5)
 			v3.ApplyEnchant(id, dur, 5)
 		}
+	}
+	return 0
+}
+
+func nox_script_groupEnchant_5133B0() int {
+	s := &noxServer.noxScript
+
+	durationSecs := s.PopF32()
+	enchantName := s.PopString()
+	groupInd := s.PopI32()
+
+	id, ok := server.ParseEnchant(enchantName)
+	mapGroup := getMapGroupByInd(int(groupInd))
+	if ok {
+		dur := int(float32(s.s.TickRate()) * durationSecs)
+		scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
+			obj.ApplyEnchant(id, dur, 5)
+		})
 	}
 	return 0
 }

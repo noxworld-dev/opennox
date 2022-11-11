@@ -245,29 +245,6 @@ void nox_server_gotoHome(nox_object_t* obj) {
 	}
 }
 
-//----- (005133B0) --------------------------------------------------------
-int nox_script_groupEnchant_5133B0() {
-	int v0;            // esi
-	int v1;            // ebx
-	int v2;            // eax
-	unsigned char* v3; // eax
-	float v5;          // [esp+Ch] [ebp-54h]
-	int v6[2];         // [esp+18h] [ebp-48h]
-
-	v5 = nox_script_popf();
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	const char* v7 = nox_script_getString_512E40(v0);
-	v2 = nox_xxx_enchantByName_424880(v7);
-	if (v2 != -1) {
-		v6[0] = v2;
-		v6[1] = (long long)((double)gameFPS() * v5);
-		v3 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v1);
-		nox_server_scriptExecuteFnForEachGroupObj_502670(v3, 0, nox_xxx_enchantUnit_513390, (int)v6);
-	}
-	return 0;
-}
-
 //----- (00513E80) --------------------------------------------------------
 int nox_script_canInteract_513E80() {
 	int v0;    // edi

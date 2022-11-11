@@ -4818,12 +4818,6 @@ float* nox_xxx_monsterLookAt_5125A0(nox_object_t* obj, int a2) {
 	return result;
 }
 
-//----- (00513390) --------------------------------------------------------
-short nox_xxx_enchantUnit_513390(int a1, int* a2) {
-	nox_xxx_buffApplyTo_4FF380(a1, *a2, a2[1], 5);
-	return 0;
-}
-
 //----- (00514110) --------------------------------------------------------
 void nox_xxx_monsterWalkTo_514110(nox_object_t* obj, float x, float y) {
 	int a1 = obj;
