@@ -4818,18 +4818,6 @@ float* nox_xxx_monsterLookAt_5125A0(nox_object_t* obj, int a2) {
 	return result;
 }
 
-//----- (00513280) --------------------------------------------------------
-int sub_513280(int a1, int* a2) {
-	int v2; // esi
-
-	v2 = 0;
-	if (nox_common_gameFlags_check_40A5C0(2048) && *(uint8_t*)(a1 + 8) & 4 &&
-		!*(uint32_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 4 * *a2 + 3696)) {
-		v2 = 1;
-	}
-	return nox_xxx_spellGrantToPlayer_4FB550(a1, *a2, 1, v2, 0);
-}
-
 //----- (00513390) --------------------------------------------------------
 short nox_xxx_enchantUnit_513390(int a1, int* a2) {
 	nox_xxx_buffApplyTo_4FF380(a1, *a2, a2[1], 5);

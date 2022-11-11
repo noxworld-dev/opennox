@@ -5,7 +5,6 @@ package opennox
 int nox_script_getWall_511EB0();
 int nox_script_toggleObject_5127F0();
 int nox_script_deleteObjectGroup_5128D0();
-int nox_script_awardSpellGroup_513230();
 int nox_script_groupEnchant_5133B0();
 int nox_script_canInteract_513E80();
 int nox_script_Fn5E_513F70();
@@ -249,7 +248,7 @@ var noxScriptBuiltins = []func() int{
 	53:  nox_script_Wander_513070,
 	54:  nox_script_WanderGroup_513160,
 	55:  nox_script_awardSpell_5131C0,
-	56:  wrapScriptC(C.nox_script_awardSpellGroup_513230),
+	56:  nox_script_awardSpellGroup_513230,
 	57:  nox_script_enchant_5132E0,
 	58:  wrapScriptC(C.nox_script_groupEnchant_5133B0),
 	59:  nox_script_getHost_513460,
@@ -1636,6 +1635,27 @@ func nox_script_awardSpell_5131C0() int {
 		}
 	} else {
 		s.PushI32(0)
+	}
+	return 0
+}
+
+func nox_script_awardSpellGroup_513230() int {
+	s := &noxServer.noxScript
+
+	spellName := s.PopString()
+	v1 := s.PopI32()
+	mapGroup := getMapGroupByInd(int(v1))
+	spl := spell.ParseID(spellName)
+	if spl != spell.SPELL_INVALID {
+		scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
+			var v2 int
+			if noxflags.HasGame(noxflags.GameModeCoop) && obj.Class().Has(object.ClassPlayer) && asPlayerS(obj.SObj().UpdateDataPlayer().Player).spell_lvl[spl] == 0 {
+				v2 = 1
+			} else {
+				v2 = 0
+			}
+			C.nox_xxx_spellGrantToPlayer_4FB550(obj.CObj(), C.int(spl), 1, C.int(v2), 0)
+		})
 	}
 	return 0
 }
