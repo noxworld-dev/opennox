@@ -245,23 +245,6 @@ void nox_server_gotoHome(nox_object_t* obj) {
 	}
 }
 
-//----- (00513230) --------------------------------------------------------
-int nox_script_awardSpellGroup_513230() {
-	int v0;            // esi
-	int v1;            // edi
-	unsigned char* v2; // eax
-	int v4;            // [esp+8h] [ebp-4h]
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v4 = nox_xxx_spellNameToN_4243F0(nox_script_getString_512E40(v0));
-	if (v4) {
-		v2 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v1);
-		nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, sub_513280, (int)&v4);
-	}
-	return 0;
-}
-
 //----- (005133B0) --------------------------------------------------------
 int nox_script_groupEnchant_5133B0() {
 	int v0;            // esi
