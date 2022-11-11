@@ -5,7 +5,6 @@ package opennox
 int nox_script_getWall_511EB0();
 int nox_script_toggleObject_5127F0();
 int nox_script_deleteObjectGroup_5128D0();
-int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
 int nox_script_groupEnchant_5133B0();
 int nox_script_canInteract_513E80();
@@ -89,7 +88,6 @@ int nox_script_addString_512E40(char* a1);
 void nox_xxx_audCreate_501A30(int a1, float2* a2, int a3, int a4);
 int nox_xxx_netSendChat_528AC0(nox_object_t* a1, wchar_t* a2, wchar_t a3);
 int nox_xxx_playDialogFile_44D900(char* a1, int a2);
-uint32_t* sub_5130E0(int a1, uint32_t* a2);
 int nox_xxx_spellGrantToPlayer_4FB550(nox_object_t* a1, int a2, int a3, int a4, int a5);
 int nox_xxx_inventoryServPlace_4F36F0(nox_object_t* a1p, nox_object_t* a2p, int a3, int a4);
 void nox_xxx_playerCanCarryItem_513B00(nox_object_t* a1p, nox_object_t* a2p);
@@ -105,7 +103,6 @@ import (
 	"strings"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 
 	"github.com/noxworld-dev/opennox-lib/common"
@@ -250,7 +247,7 @@ var noxScriptBuiltins = []func() int{
 	51:  nox_script_damage_512F80,
 	52:  nox_script_groupDamage_513010,
 	53:  nox_script_Wander_513070,
-	54:  wrapScriptC(C.nox_script_WanderGroup_513160),
+	54:  nox_script_WanderGroup_513160,
 	55:  nox_script_awardSpell_5131C0,
 	56:  wrapScriptC(C.nox_script_awardSpellGroup_513230),
 	57:  nox_script_enchant_5132E0,
@@ -1582,17 +1579,45 @@ func nox_script_Wander_513070() int {
 	v0 := s.PopI32()
 	obj := s.PopObject()
 	if obj != nil {
-		v5, free5 := alloc.Make([]C.int{}, 3)
-		defer free5()
-		v5[0] = C.int(int64(v4))
-		v5[1] = C.int(v0)
-		v5[2] = 0
-		C.sub_5130E0(C.int(uintptr(unsafe.Pointer(obj.CObj()))), (*C.uint32_t)(unsafe.Pointer(&v5[0])))
-		s.PushI32(int32(v5[2]))
+		s.PushI32(int32(create_sub_5130E0(v4, v0)(obj)))
 	} else {
 		s.PushI32(0)
 	}
 	return 0
+}
+
+func nox_script_WanderGroup_513160() int {
+	s := &noxServer.noxScript
+
+	v4 := s.PopF32()
+	v0 := s.PopI32()
+	v1 := s.PopI32()
+	mapGroup := getMapGroupByInd(int(v1))
+	fn := create_sub_5130E0(v4, v0)
+	scriptExecuteFnForObjectGroup(mapGroup, func (obj *Object) { fn(obj) })
+	return 0
+}
+
+func create_sub_5130E0(v5_0 float32, v5_1 int32) func(*Object) int{
+	return func(obj *Object) int {
+		v2 := noxServer.newObjectByTypeID("Mover")
+		if v2 != nil {
+			noxServer.createObjectAt(v2, nil, obj.Pos())
+			v5 := v2.updateDataMover()
+
+			v5.field_7 = obj.CObj()
+			v5.field_2 = C.int32_t(v5_1)
+			v5.field_1 = C.float(v5_0)
+			v5.field_0 = 0
+			v2.VelVec = types.Pointf { 0, 0}
+
+			v2.Enable(true)
+			noxServer.Objs.AddToUpdatable(v2.SObj())
+			return v2.ScriptID
+		} else {
+			return 0
+		}
+	}
 }
 
 func nox_script_awardSpell_5131C0() int {

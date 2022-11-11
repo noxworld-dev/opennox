@@ -245,24 +245,6 @@ void nox_server_gotoHome(nox_object_t* obj) {
 	}
 }
 
-//----- (00513160) --------------------------------------------------------
-int nox_script_WanderGroup_513160() {
-	int v0;            // esi
-	int v1;            // edi
-	unsigned char* v2; // eax
-	float v4;          // [esp+8h] [ebp-10h]
-	int v5[3];         // [esp+Ch] [ebp-Ch]
-
-	v4 = nox_script_popf();
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v5[1] = v0;
-	v5[0] = (long long)v4;
-	v2 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v1);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, sub_5130E0, (int)v5);
-	return 0;
-}
-
 //----- (00513230) --------------------------------------------------------
 int nox_script_awardSpellGroup_513230() {
 	int v0;            // esi
