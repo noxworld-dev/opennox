@@ -696,6 +696,10 @@ func (obj *Object) updateDataElevator() *C.nox_object_Elevator_data_t {
 	return (*C.nox_object_Elevator_data_t)(obj.UpdateData)
 }
 
+func (obj *Object) updateDataMover() *C.nox_object_Mover_data_t {
+	return (*C.nox_object_Mover_data_t)(obj.UpdateData)
+}
+
 func (obj *Object) Inventory() []*Object {
 	var out []*Object
 	for p := obj.FirstItem(); p != nil; p = p.NextItem() {

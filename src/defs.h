@@ -511,6 +511,20 @@ typedef struct {
 } nox_object_Elevator_data_t;
 _Static_assert(sizeof(nox_object_Elevator_data_t) == 20, "wrong size of nox_object_Elevator_data_t structure!");
 
+typedef struct {
+	uint8_t field_0;       // 0, 0
+	uint8_t padding_0[3];  // 0, 1
+	float field_1;         // 1, 4
+	int32_t field_2;       // 2, 8
+	uint32_t field_3;      // 3, 12
+	uint32_t field_4;      // 4, 16
+	uint32_t field_5;      // 5, 20
+	uint32_t field_6;      // 6, 24
+	nox_object_t* field_7; // 7, 28
+	uint32_t field_8;      // 8, 32
+} nox_object_Mover_data_t;
+_Static_assert(sizeof(nox_object_Mover_data_t) == 36, "wrong size of nox_object_Mover_data_t structure!");
+
 #define NOX_SERVER_XXX_SIZE 256
 typedef struct nox_server_xxx {
 	uint32_t field_0;

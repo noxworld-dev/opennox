@@ -4818,35 +4818,6 @@ float* nox_xxx_monsterLookAt_5125A0(nox_object_t* obj, int a2) {
 	return result;
 }
 
-//----- (005130E0) --------------------------------------------------------
-uint32_t* sub_5130E0(int a1, uint32_t* a2) {
-	uint32_t* v2;     // eax
-	uint32_t* v3;     // esi
-	uint32_t* result; // eax
-	int v5;           // eax
-
-	v2 = nox_xxx_newObjectByTypeID_4E3810("Mover");
-	v3 = v2;
-	if (v2) {
-		nox_xxx_createAt_4DAA50((int)v2, 0, *(float*)(a1 + 56), *(float*)(a1 + 60));
-		v5 = v3[187];
-		*(uint32_t*)(v5 + 28) = a1;
-		*(uint32_t*)(v5 + 8) = a2[1];
-		*(uint32_t*)(v5 + 4) = *a2;
-		*(uint8_t*)v5 = 0;
-		v3[20] = 0;
-		v3[21] = 0;
-		nox_xxx_objectSetOn_4E75B0((int)v3);
-		nox_xxx_unitAddToUpdatable_4DA8D0((int)v3);
-		result = (uint32_t*)v3[11];
-		a2[2] = result;
-	} else {
-		result = a2;
-		a2[2] = 0;
-	}
-	return result;
-}
-
 //----- (00513280) --------------------------------------------------------
 int sub_513280(int a1, int* a2) {
 	int v2; // esi
