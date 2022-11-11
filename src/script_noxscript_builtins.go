@@ -5,7 +5,6 @@ package opennox
 int nox_script_getWall_511EB0();
 int nox_script_toggleObject_5127F0();
 int nox_script_deleteObjectGroup_5128D0();
-int nox_script_groupRoam_512990();
 int nox_script_groupDamage_513010();
 int nox_script_WanderGroup_513160();
 int nox_script_awardSpellGroup_513230();
@@ -228,7 +227,7 @@ var noxScriptBuiltins = []func() int{
 	27:  nox_script_deleteObject_5128B0,
 	28:  nox_script_deleteObjectGroup_5128D0,
 	29:  nox_script_followNearestWaypoint_512910,
-	30:  wrapScriptC(C.nox_script_groupRoam_512990),
+	30:  nox_script_groupRoam_512990,
 	31:  nox_script_getObject2_5129C0,
 	32:  nox_script_getObject3_5129E0,
 	33:  nox_script_gotoHome_512A00,
@@ -1502,6 +1501,7 @@ func nox_script_damage_512F80() int {
 	return 0
 }
 
+// TODO: Rename to Roam
 func nox_script_followNearestWaypoint_512910() int {
 	s := &noxServer.noxScript
 
@@ -1509,6 +1509,17 @@ func nox_script_followNearestWaypoint_512910() int {
 	if obj != nil {
 		obj.AsUnit().Wander()
 	}
+	return 0
+}
+
+func nox_script_groupRoam_512990() int {
+	s := &noxServer.noxScript
+
+	v0 := s.PopI32()
+	mapGroup := getMapGroupByInd(int(v0))
+	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
+		obj.AsUnit().Wander()
+	})
 	return 0
 }
 

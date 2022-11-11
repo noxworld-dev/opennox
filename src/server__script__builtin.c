@@ -213,17 +213,6 @@ void nox_xxx_scriptMonsterRoam_512930(nox_object_t* obj) {
 	}
 }
 
-//----- (00512990) --------------------------------------------------------
-int nox_script_groupRoam_512990() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, nox_xxx_scriptMonsterRoam_512930, 0);
-	return 0;
-}
-
 //----- (00512A00) --------------------------------------------------------
 void nox_server_gotoHome(nox_object_t* obj) {
 	int v2 = obj;
