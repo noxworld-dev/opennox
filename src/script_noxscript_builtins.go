@@ -1481,7 +1481,7 @@ func create_sub_512FE0(a20 *Object, dmg, unknown int) func(*Object) {
 	}
 }
 
-// Before: [Target Object] [Damage Source] [Damage] [Unknown]
+// Before: [Target Object] [Damage Source] [Damage] [Damage Type]
 // Cause damage from src to target
 func nox_script_damage_512F80() int {
 	s := &noxServer.noxScript
@@ -1496,7 +1496,7 @@ func nox_script_damage_512F80() int {
 	return 0
 }
 
-// Before: [Target Group] [Damage Source] [Damage] [Unknown]
+// Before: [Target Group] [Damage Source] [Damage] [Damage Type]
 // Cause damage from src to all objects in group
 func nox_script_groupDamage_513010() int {
 	s := &noxServer.noxScript
@@ -1599,22 +1599,21 @@ func nox_script_WanderGroup_513160() int {
 func create_sub_5130E0(v5_0 float32, v5_1 int32) func(*Object) int{
 	return func(obj *Object) int {
 		v2 := noxServer.newObjectByTypeID("Mover")
-		if v2 != nil {
-			noxServer.createObjectAt(v2, nil, obj.Pos())
-			v5 := v2.updateDataMover()
-
-			v5.field_7 = obj.CObj()
-			v5.field_2 = C.int32_t(v5_1)
-			v5.field_1 = C.float(v5_0)
-			v5.field_0 = 0
-			v2.VelVec = types.Pointf { 0, 0}
-
-			v2.Enable(true)
-			noxServer.Objs.AddToUpdatable(v2.SObj())
-			return v2.ScriptID
-		} else {
+		if v2 == nil {
 			return 0
 		}
+		noxServer.createObjectAt(v2, nil, obj.Pos())
+		v5 := v2.updateDataMover()
+
+		v5.field_7 = obj.CObj()
+		v5.field_2 = C.int32_t(v5_1)
+		v5.field_1 = C.float(v5_0)
+		v5.field_0 = 0
+		v2.VelVec = types.Pointf { 0, 0}
+
+		v2.Enable(true)
+		noxServer.Objs.AddToUpdatable(v2.SObj())
+		return v2.ScriptID
 	}
 }
 
@@ -1645,17 +1644,18 @@ func nox_script_awardSpellGroup_513230() int {
 	v1 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v1))
 	spl := spell.ParseID(spellName)
-	if spl != spell.SPELL_INVALID {
-		scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
-			var v2 int
-			if noxflags.HasGame(noxflags.GameModeCoop) && obj.Class().Has(object.ClassPlayer) && asPlayerS(obj.SObj().UpdateDataPlayer().Player).spell_lvl[spl] == 0 {
-				v2 = 1
-			} else {
-				v2 = 0
-			}
-			C.nox_xxx_spellGrantToPlayer_4FB550(obj.CObj(), C.int(spl), 1, C.int(v2), 0)
-		})
+	if spl == spell.SPELL_INVALID {
+		return 0
 	}
+	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
+		var v2 int
+		if noxflags.HasGame(noxflags.GameModeCoop) && obj.Class().Has(object.ClassPlayer) && asPlayerS(obj.SObj().UpdateDataPlayer().Player).spell_lvl[spl] == 0 {
+			v2 = 1
+		} else {
+			v2 = 0
+		}
+		C.nox_xxx_spellGrantToPlayer_4FB550(obj.CObj(), C.int(spl), 1, C.int(v2), 0)
+	})
 	return 0
 }
 
