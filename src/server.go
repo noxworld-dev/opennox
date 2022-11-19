@@ -173,7 +173,7 @@ type Server struct {
 	srvReg          srvReg
 	scriptEvents    scriptEvents
 	noxScript       noxScript
-	lua             scriptLUA
+	vms             scriptVMs
 	teams           serverTeams
 	ai              aiData
 	quest           questServer

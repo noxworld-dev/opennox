@@ -1,24 +1,135 @@
 package opennox
 
 import (
+	"context"
 	"image"
+	"net/http"
+	"path/filepath"
+	"strings"
 	"time"
 
+	"github.com/noxworld-dev/opennox-lib/console"
+	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/log"
-
+	"github.com/noxworld-dev/opennox-lib/maps"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/strman"
 	"github.com/noxworld-dev/opennox-lib/types"
 
-	"github.com/noxworld-dev/opennox-lib/console"
+	// register script runtimes
+	_ "github.com/noxworld-dev/opennox-lib/script/eval"
+	_ "github.com/noxworld-dev/opennox-lib/script/lua"
 
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var scriptLog = log.New("script")
 
+func init() {
+	for _, rt := range script.VMRuntimes() {
+		rt := rt
+		noxConsole.Register(&console.Command{
+			Token: rt.Name, HelpID: strman.ID(rt.Name + "help"),
+			Help:  "execute " + rt.Title + " command",
+			Flags: console.Server | console.Cheat,
+			Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+				if len(tokens) == 0 {
+					return false
+				}
+				vm := noxServer.vms.vmByName[rt.Name]
+				if vm == nil {
+					c.Print(console.ColorRed, rt.Title+" is not running")
+					return true
+				}
+				code := strings.Join(tokens, " ")
+				if err := vm.Exec(code); err != nil {
+					c.Printf(console.ColorRed, rt.Title+" error: %v", err)
+				}
+				return true
+			},
+		})
+	}
+}
+
+func (s *Server) registerScriptAPIs(pref string) {
+	for _, rt := range script.VMRuntimes() {
+		rt := rt
+		s.HTTP().HandleFunc(pref+"/"+rt.Name, func(w http.ResponseWriter, r *http.Request) {
+			handlePostStr(w, r, 4096, func(code string) {
+				code = strings.TrimSpace(code)
+				if len(code) == 0 {
+					return
+				}
+				apiLog.Printf("run %s: %q", rt.Name, code)
+				s.QueueInLoop(context.Background(), func() {
+					vm := s.vms.vmByName[rt.Name]
+					if vm == nil {
+						return
+					}
+					if err := vm.Exec(code); err != nil {
+						rt.Log.Printf("error: %v", err)
+					}
+				})
+			})
+		})
+	}
+}
+
+type scriptVMs struct {
+	curmap   string
+	vms      []script.VM
+	vmByName map[string]script.VM
+}
+
 func (s *Server) scriptTick() {
-	s.luaScriptTick()
+	for _, vm := range s.vms.vms {
+		vm.OnFrame()
+	}
+}
+
+func (s *Server) vmsShutdown() {
+	if len(s.vms.vms) != 0 {
+		scriptLog.Printf("stopping script(s) for map %q", s.vms.curmap)
+	}
+	for _, vm := range s.vms.vms {
+		_ = vm.Close()
+	}
+	s.vms.vms = nil
+	s.vms.vmByName = nil
+	s.vms.curmap = ""
+}
+
+func (s *Server) vmsMaybeInitMap() {
+	mp := s.nox_server_currentMapGetFilename_409B30()
+	if mp == s.vms.curmap {
+		return
+	}
+	s.vmsShutdown()
+	scriptLog.Printf("loading script(s) for map %q", mp)
+	s.vms.curmap = mp
+	mp = strings.TrimSuffix(mp, maps.Ext)
+	mapsDir := datapath.Maps()
+	s.vms.vmByName = make(map[string]script.VM)
+	for _, rt := range script.VMRuntimes() {
+		if rt.NewMap == nil {
+			continue
+		}
+		vm, err := rt.NewMap(noxScriptImpl{s}, mapsDir, mp)
+		if err != nil {
+			rt.Log.Printf("error opening script %q: %v (%T)", filepath.Join(maps.Dir, mp), err, err)
+			continue
+		}
+		if vm != nil {
+			s.vms.vms = append(s.vms.vms, vm)
+			s.vms.vmByName[rt.Name] = vm
+		}
+	}
+	if len(s.vms.vms) != 0 {
+		scriptLog.Printf("map script(s) loaded: %q", mp)
+	} else {
+		scriptLog.Printf("no map scripts for %q", mp)
+	}
 }
 
 func (s *Server) scriptOnEvent(event script.EventType) {
@@ -33,7 +144,14 @@ func (s *Server) scriptOnEvent(event script.EventType) {
 	// TODO: handle OnPlayerAFK
 
 	s.noxScript.OnEvent(event)
-	s.luaOnEvent(event)
+	switch event {
+	case script.EventMapInitialize,
+		script.EventMapEntry:
+		s.vmsMaybeInitMap()
+	}
+	for _, vm := range s.vms.vms {
+		vm.OnEvent(event)
+	}
 
 	switch event {
 	case script.EventMapEntry:
@@ -53,7 +171,7 @@ func (s *Server) scriptOnEvent(event script.EventType) {
 	//       actually, EventMapShutdown is called when saving game when the map _isn't_ shutting down
 	//       so probably worth adding a new event that triggers at the right time
 	case script.EventMapExit:
-		s.luaShutdown()
+		s.vmsShutdown()
 	}
 }
 

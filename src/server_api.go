@@ -28,11 +28,12 @@ func init() {
 	var token string
 	configStrPtr("server.api_token", "NOX_API_TOKEN", "", &token)
 	registerOnConfigRead(func() {
-		mux := noxServer.HTTP()
+		s := noxServer
+		mux := s.HTTP()
 		mux.HandleFunc(pref+"/info", handleServerInfo)
 		mux.HandleFunc(pref+"/map", handleChangeMap)
 		mux.HandleFunc(pref+"/cmd", handleRunCmd)
-		mux.HandleFunc(pref+"/lua", handleRunLUA)
+		s.registerScriptAPIs(pref)
 		if token != "" {
 			apiTokens[token] = struct{}{}
 		}
@@ -113,14 +114,6 @@ func queueServerCmd(cmd string) {
 	})
 }
 
-func queueMapLUA(code string) {
-	code = strings.TrimSpace(code)
-	apiLog.Printf("run lua: %q", code)
-	noxServer.QueueInLoop(context.Background(), func() {
-		noxServer.runMapLUA(code)
-	})
-}
-
 func handleServerInfo(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	default:
@@ -167,8 +160,4 @@ func handleChangeMap(w http.ResponseWriter, r *http.Request) {
 
 func handleRunCmd(w http.ResponseWriter, r *http.Request) {
 	handlePostStr(w, r, 256, queueServerCmd)
-}
-
-func handleRunLUA(w http.ResponseWriter, r *http.Request) {
-	handlePostStr(w, r, 4096, queueMapLUA)
 }
