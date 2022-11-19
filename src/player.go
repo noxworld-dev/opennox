@@ -1005,7 +1005,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	} else if !noxflags.HasGame(noxflags.GameModeCoop) {
 		pl.GoObserver(true, true)
 	}
-	C.nox_xxx_servSendSettings_4DDB40(punit.CObj())
+	s.sendSettings(punit)
 	if pl.Index() == common.MaxPlayers-1 {
 		C.nox_xxx_host_player_unit_3843628 = punit.CObj()
 	}

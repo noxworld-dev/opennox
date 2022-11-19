@@ -981,8 +981,7 @@ func nox_client_onJoinData() {
 	noxPerfmon.ping = 0
 }
 
-//export nox_xxx_netSendBySock_4DDDC0
-func nox_xxx_netSendBySock_4DDDC0(ind int) {
+func (s *Server) nox_xxx_netSendBySock_4DDDC0(ind int) {
 	if !noxflags.HasGame(noxflags.GameClient) || ind != common.MaxPlayers-1 {
 		netlist.HandlePacketsA(ind, netlist.Kind1, func(data []byte) {
 			if len(data) == 0 {
@@ -990,6 +989,67 @@ func nox_xxx_netSendBySock_4DDDC0(ind int) {
 			}
 			netstr.Send(ind+1, data, netstr.SendNoLock|netstr.SendFlagFlush)
 		})
+	}
+}
+
+func (s *Server) sendSettings(u *Unit) {
+	pl := u.ControllingPlayer()
+	{
+		var buf [5]byte
+		buf[0] = byte(noxnet.MSG_FULL_TIMESTAMP)
+		binary.LittleEndian.PutUint32(buf[1:], s.Frame())
+		netlist.AddToMsgListCli(pl.Index(), netlist.Kind1, buf[:5])
+	}
+	{
+		var buf [7]byte
+		buf[0] = byte(noxnet.MSG_JOIN_DATA)
+		binary.LittleEndian.PutUint16(buf[1:], uint16(s.getUnitNetCode(u)))
+		binary.LittleEndian.PutUint32(buf[3:], uint32(pl.field_2068))
+		netlist.AddToMsgListCli(pl.Index(), netlist.Kind1, buf[:7])
+		C.sub_4161E0()
+	}
+
+	v3 := nox_xxx_cliGamedataGet_416590(0)
+	{
+		var buf [20]byte
+		buf[0] = byte(noxnet.MSG_GAME_SETTINGS)
+		binary.LittleEndian.PutUint32(buf[1:], s.Frame())
+		binary.LittleEndian.PutUint32(buf[5:], uint32(NOX_CLIENT_VERS_CODE))
+		binary.LittleEndian.PutUint32(buf[9:], uint32(noxflags.GetGame()&0x7FFF0))
+		binary.LittleEndian.PutUint32(buf[13:], uint32(C.nox_xxx_getServerSubFlags_409E60()))
+		buf[17] = byte(s.getServerMaxPlayers())
+		buf[18] = byte(C.nox_xxx_servGamedataGet_40A020(C.short(*(*uint16)(unsafe.Pointer(&v3[52])))))
+		buf[19] = byte(C.sub_40A180(C.short(*(*uint16)(unsafe.Pointer(&v3[52])))))
+		netlist.AddToMsgListCli(pl.Index(), netlist.Kind1, buf[:20])
+	}
+	{
+		var buf [49]byte
+		buf[0] = byte(noxnet.MSG_GAME_SETTINGS_2)
+		copy(buf[1:17], s.getServerName())
+		buf[16] = 0
+		copy(buf[17:45], v3[24:24+28])
+		if C.sub_40A220() != 0 && (sub_40A300() != 0 || C.sub_40A180(C.short(*(*uint16)(unsafe.Pointer(&v3[26])))) != 0) {
+			binary.LittleEndian.PutUint32(buf[45:], uint32(C.sub_40A230()))
+		} else {
+			binary.LittleEndian.PutUint32(buf[45:], 0)
+		}
+		netlist.AddToMsgListCli(pl.Index(), netlist.Kind1, buf[:49])
+	}
+	{
+		var buf [129]byte
+		nox_xxx_netNewPlayerMakePacket_4DDA90(buf[:], pl)
+		netlist.AddToMsgListCli(pl.Index(), netlist.Kind1, buf[:129])
+		s.nox_xxx_netSendBySock_4DDDC0(pl.Index())
+	}
+	{
+		var buf [41]byte
+		buf[0] = byte(noxnet.MSG_USE_MAP)
+		copy(buf[1:33], s.nox_server_currentMapGetFilename_409B30())
+		buf[32] = 0
+		binary.LittleEndian.PutUint32(buf[33:], nox_xxx_mapCrcGetMB_409B00())
+		binary.LittleEndian.PutUint32(buf[37:], s.Frame())
+		netstr.Send(pl.Index()+1, buf[:41], netstr.SendNoLock|netstr.SendFlagFlush)
+		C.sub_4DDE10(C.int(pl.Index()), pl.C())
 	}
 }
 

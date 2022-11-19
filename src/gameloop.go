@@ -886,8 +886,8 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 		if i := strings.LastIndexByte(mapName2, '/'); i >= 0 {
 			mapName2 = mapName2[:i] + "\\" + mapName2[i+1:]
 		}
-		crc := C.nox_xxx_mapCrcGetMB_409B00()
-		v3 := C.nox_xxx_mapValidateMB_4CF470(internCStr(mapName2), crc)
+		crc := nox_xxx_mapCrcGetMB_409B00()
+		v3 := C.nox_xxx_mapValidateMB_4CF470(internCStr(mapName2), C.int(crc))
 		if v3&0x2 == 0 {
 			gameLog.Printf("nox_xxx_mapValidateMB_4CF470: invalid or missing map file: %q", mapName)
 		}

@@ -178,9 +178,6 @@ int sub_409A70(short a1) {
 	return result;
 }
 
-//----- (00409B00) --------------------------------------------------------
-int nox_xxx_mapCrcGetMB_409B00() { return *getMemU32Ptr(0x5D4594, 3604); }
-
 //----- (00409B10) --------------------------------------------------------
 int nox_xxx_mapSetCrcMB_409B10(int a1) {
 	int result; // eax

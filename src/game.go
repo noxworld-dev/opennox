@@ -1008,7 +1008,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_C() bool {
 		nox_xxx_setContinueMenuOrHost_43DDD0(0)
 		return false
 	}
-	crc := uint32(C.nox_xxx_mapCrcGetMB_409B00())
+	crc := uint32(nox_xxx_mapCrcGetMB_409B00())
 	nox_xxx_netUseMap_4DEE00(mname+".map", crc)
 	if false {
 		C.sub_416690()

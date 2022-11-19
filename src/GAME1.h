@@ -13,7 +13,6 @@ void nox_xxx_parseRead_4093E0(FILE* a1, char* a2, int a3);
 int nox_xxx_parseString_409470(FILE* a1, uint8_t* a2);
 int sub_409A70(short a1);
 void nox_client_setVersion_409AE0(unsigned int vers);
-int nox_xxx_mapCrcGetMB_409B00();
 int nox_xxx_mapSetCrcMB_409B10(int a1);
 char* nox_server_currentMapGetFilename_409B30();
 char* nox_xxx_mapGetMapName_409B40();

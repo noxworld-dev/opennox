@@ -131,6 +131,10 @@ func nox_server_mapRWGroupData_505C30(a1 unsafe.Pointer) error {
 	return nil
 }
 
+func nox_xxx_mapCrcGetMB_409B00() uint32 {
+	return memmap.Uint32(0x5D4594, 3604)
+}
+
 func nox_server_mapRWScriptObject_505A40(a1 unsafe.Pointer) (gout error) {
 	defer func() {
 		if gout != nil {
