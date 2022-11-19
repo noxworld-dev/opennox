@@ -4577,25 +4577,25 @@ int sub_4161E0() {
 		*getMemU8Ptr(0x5D4594, 371618) = getMemByte(0x5D4594, 371618) & 0x80 | v2;
 	}
 	v3 = nox_common_gameFlags_getVal_40A5B0();
-	v4 = *getMemU16Ptr(0x5D4594, 371432);
-	if ((*getMemU16Ptr(0x5D4594, 371432) ^ v3) & 0xFFF0) {
-		*getMemU16Ptr(0x5D4594, 371432) = nox_common_gameFlags_getVal_40A5B0();
-		v4 = *getMemU16Ptr(0x5D4594, 371432);
+	v4 = *getMemU16Ptr(0x5D4594, 371380 + 52);
+	if ((*getMemU16Ptr(0x5D4594, 371380 + 52) ^ v3) & 0xFFF0) {
+		*getMemU16Ptr(0x5D4594, 371380 + 52) = nox_common_gameFlags_getVal_40A5B0();
+		v4 = *getMemU16Ptr(0x5D4594, 371380 + 52);
 		dword_5d4594_371692 = 1;
 	}
-	if (*getMemU16Ptr(0x5D4594, 371434) != nox_xxx_servGamedataGet_40A020(v4)) {
-		*getMemU16Ptr(0x5D4594, 371434) = nox_xxx_servGamedataGet_40A020(*getMemI16Ptr(0x5D4594, 371432));
+	if (*getMemU16Ptr(0x5D4594, 371380 + 54) != nox_xxx_servGamedataGet_40A020(v4)) {
+		*getMemU16Ptr(0x5D4594, 371380 + 54) = nox_xxx_servGamedataGet_40A020(*getMemI16Ptr(0x5D4594, 371380 + 52));
 		dword_5d4594_371692 = 1;
 	}
-	if (getMemByte(0x5D4594, 371436) != sub_40A180(*getMemI16Ptr(0x5D4594, 371432))) {
-		*getMemU8Ptr(0x5D4594, 371436) = sub_40A180(*getMemI16Ptr(0x5D4594, 371432));
+	if (getMemByte(0x5D4594, 371380 + 56) != sub_40A180(*getMemI16Ptr(0x5D4594, 371380 + 52))) {
+		*getMemU8Ptr(0x5D4594, 371380 + 56) = sub_40A180(*getMemI16Ptr(0x5D4594, 371380 + 52));
 		dword_5d4594_371692 = 1;
 	}
-	strncpy(v14, (const char*)getMemAt(0x5D4594, 371389), 0xFu);
+	strncpy(v14, (const char*)getMemAt(0x5D4594, 371380 + 9), 0xFu);
 	v14[15] = 0;
 	if (strcmp(v14, nox_xxx_serverOptionsGetServername_40A4C0())) {
 		v5 = nox_xxx_serverOptionsGetServername_40A4C0();
-		strncpy((char*)getMemAt(0x5D4594, 371389), v5, 0xFu);
+		strncpy((char*)getMemAt(0x5D4594, 371380 + 9), v5, 0xFu);
 		dword_5d4594_371692 = 1;
 	}
 	strcpy(v13, (const char*)getMemAt(0x5D4594, 371380));
@@ -4606,26 +4606,26 @@ int sub_4161E0() {
 	v6 = 0;
 	v9 = 0;
 	do {
-		if (*getMemU32Ptr(0x5D4594, 371404 + 4 * v9) != v15[v9]) {
+		if (*getMemU32Ptr(0x5D4594, 371380 + 24 + 4*v9) != v15[v9]) {
 			break;
 		}
 		v9 = ++v6;
 	} while (v6 < 5u);
 	if (v6 != 5) {
 		dword_5d4594_371692 = 1;
-		memcpy(getMemAt(0x5D4594, 371404), v15, 0x14u);
+		memcpy(getMemAt(0x5D4594, 371380 + 24), v15, 0x14u);
 	}
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
 		return dword_5d4594_371692;
 	}
-	if (*getMemU32Ptr(0x5D4594, 371428) != v12) {
-		*getMemU32Ptr(0x5D4594, 371428) = v12;
+	if (*getMemU32Ptr(0x5D4594, 371380 + 48) != v12) {
+		*getMemU32Ptr(0x5D4594, 371380 + 48) = v12;
 		dword_5d4594_371692 = 1;
 	}
 	v7 = 0;
 	v10 = 0;
 	do {
-		if (getMemByte(0x5D4594, 371424 + v10) != v11[v10]) {
+		if (getMemByte(0x5D4594, 371380 + 44 + v10) != v11[v10]) {
 			break;
 		}
 		v10 = ++v7;
@@ -4633,7 +4633,7 @@ int sub_4161E0() {
 	if (v7 == 4) {
 		return dword_5d4594_371692;
 	}
-	*getMemU32Ptr(0x5D4594, 371424) = *(uint32_t*)v11;
+	*getMemU32Ptr(0x5D4594, 371380 + 44) = *(uint32_t*)v11;
 	result = 1;
 	dword_5d4594_371692 = 1;
 	return result;
@@ -4666,7 +4666,7 @@ void nox_xxx_mapSetDataDefault_416500() {
 int sub_416580() { return *getMemU32Ptr(0x5D4594, 371688); }
 
 //----- (00416590) --------------------------------------------------------
-char* nox_xxx_cliGamedataGet_416590(int a1) { return (char*)getMemAt(0x5D4594, 371380 + 58 * a1); }
+char* nox_xxx_cliGamedataGet_416590(int a1) { return (char*)getMemAt(0x5D4594, 371380 + 58*a1); }
 
 //----- (004165B0) --------------------------------------------------------
 char* sub_4165B0() { return (char*)getMemAt(0x5D4594, 371380 + 58 * *getMemU32Ptr(0x5D4594, 371688)); }
@@ -4674,7 +4674,7 @@ char* sub_4165B0() { return (char*)getMemAt(0x5D4594, 371380 + 58 * *getMemU32Pt
 //----- (004165D0) --------------------------------------------------------
 char* sub_4165D0(int a1) {
 	*getMemU32Ptr(0x5D4594, 371688) = a1;
-	return (char*)getMemAt(0x5D4594, 371380 + 58 * a1);
+	return (char*)getMemAt(0x5D4594, 371380 + 58*a1);
 }
 
 //----- (004165F0) --------------------------------------------------------
@@ -4682,7 +4682,7 @@ int sub_4165F0(int a1, int a2) {
 	int result; // eax
 
 	result = a2;
-	memcpy(getMemAt(0x5D4594, 371380 + 58 * a2), getMemAt(0x5D4594, 371380 + 58 * a1), 0x3Au);
+	memcpy(getMemAt(0x5D4594, 371380 + 58*a2), getMemAt(0x5D4594, 371380 + 58*a1), 0x3Au);
 	return result;
 }
 
