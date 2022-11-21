@@ -1903,8 +1903,9 @@ func nox_xxx_mapTraceObstacles(from *Unit, p1, p2 types.Pointf) bool { // nox_xx
 }
 
 var (
-	dword_5d4594_2386944 int
-	dword_5d4594_2386940 []unsafe.Pointer
+	dword_5d4594_2386944     int
+	dword_5d4594_2386940     []unsafe.Pointer
+	dword_5d4594_2386940_arr [][]mapIndexItem
 )
 
 type mapIndexItem struct {
@@ -1918,10 +1919,12 @@ func sub_517AE0() {
 	dword_5d4594_2386944 = 70
 	C.dword_5d4594_2386944 = C.uint(dword_5d4594_2386944)
 	dword_5d4594_2386940, _ = alloc.Make([]unsafe.Pointer{}, dword_5d4594_2386944)
+	dword_5d4594_2386940_arr = make([][]mapIndexItem, dword_5d4594_2386944)
 	C.dword_5d4594_2386940 = unsafe.Pointer(&dword_5d4594_2386940[0])
 	for i := 0; i < int(C.dword_5d4594_2386944); i++ {
 		arr, _ := alloc.Make([]mapIndexItem{}, dword_5d4594_2386944)
 		dword_5d4594_2386940[i] = unsafe.Pointer(&arr[0])
+		dword_5d4594_2386940_arr[i] = arr
 	}
 }
 
@@ -1931,6 +1934,7 @@ func sub_517B30() {
 	}
 	alloc.FreeSlice(dword_5d4594_2386940)
 	dword_5d4594_2386940 = nil
+	dword_5d4594_2386940_arr = nil
 }
 
 const getInRectStackSize = 2 // FIXME: size is a guess
@@ -1968,11 +1972,9 @@ func getUnitsInRect(rect types.Rectf, fnc func(it *Object)) { // nox_xxx_getUnit
 	if ey >= int32(C.dword_5d4594_2386944) {
 		ey = int32(C.dword_5d4594_2386944) - 1
 	}
-	indexA := unsafe.Slice((*unsafe.Pointer)(unsafe.Pointer(uintptr(C.dword_5d4594_2386940))), int(C.dword_5d4594_2386944))
 	for y := sy; y <= ey; y++ {
 		for x := sx; x <= ex; x++ {
-			indexB := unsafe.Slice((*mapIndexItem)(indexA[x]), int(C.dword_5d4594_2386944))
-			ptr := &indexB[y]
+			ptr := &dword_5d4594_2386940_arr[x][y]
 			for it := ptr.Next4; it != nil; it = it.Next4 {
 				obj := asObjectC(it.Obj12)
 				objStack := unsafe.Slice(&obj.Field62, getInRectStackSize)
