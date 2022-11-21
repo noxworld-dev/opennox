@@ -38,7 +38,6 @@ extern uint32_t dword_5d4594_2386948;
 extern uint32_t dword_5d4594_2386928;
 extern uint32_t dword_587000_234176;
 extern uint32_t dword_5d4594_2487244;
-extern uint32_t nox_xxx_triggersCount_587000_249172;
 extern uint32_t dword_5d4594_1599696;
 extern uint32_t dword_587000_237036;
 extern void* nox_alloc_pendingOwn_2386916;
@@ -5808,10 +5807,10 @@ int sub_517AE0() {
 	int i;     // esi
 
 	dword_5d4594_2386944 = 70;
-	dword_5d4594_2386940 = calloc(1, 0x118u);
+	dword_5d4594_2386940 = calloc(1, 280);
 	v0 = dword_5d4594_2386944;
 	for (i = 0; i < *(int*)&dword_5d4594_2386944; ++i) {
-		*(uint32_t*)(dword_5d4594_2386940 + 4 * i) = calloc(v0, 0x10u);
+		*(uint32_t*)(dword_5d4594_2386940 + 4 * i) = calloc(v0, 16);
 		v0 = dword_5d4594_2386944;
 	}
 	return 1;
@@ -5864,112 +5863,6 @@ LABEL_7:
 LABEL_12:
 	for (i = *(uint32_t*)(*(uint32_t*)(dword_5d4594_2386940 + 4 * v3) + 16 * v4 + 4); i; i = *(uint32_t*)(i + 4)) {
 		a2(*(uint32_t*)(i + 12), a3);
-	}
-}
-
-//----- (00517C10) --------------------------------------------------------
-void nox_xxx_getUnitsInRect_517C10(float4* a1, void (*a2)(float*, int), void* a3) {
-	int v3;                  // eax
-	int v4;                  // et1
-	void (*v5)(float*, int); // ebp
-	int v6;                  // eax
-	int v7;                  // edi
-	float4* v8;              // edi
-	int v9;                  // esi
-	int v10;                 // edx
-	int v11;                 // eax
-	int v12;                 // ecx
-	int v13;                 // ebx
-	int v14;                 // eax
-	int v15;                 // ecx
-	int v16;                 // esi
-	int v17;                 // et1
-	uint32_t* v18;           // eax
-	int v19;                 // ecx
-	float* v20;              // ecx
-	int v21;                 // et1
-	int v22;                 // [esp+4h] [ebp-10h]
-	int v23;                 // [esp+8h] [ebp-Ch]
-	int v24;                 // [esp+Ch] [ebp-8h]
-	int v25;                 // [esp+10h] [ebp-4h]
-	int v26;                 // [esp+18h] [ebp+4h]
-	int v27;                 // [esp+1Ch] [ebp+8h]
-	int v28;                 // [esp+20h] [ebp+Ch]
-
-	v4 = nox_xxx_triggersCount_587000_249172;
-	v3 = v4;
-	if (v4 < 1) {
-		v5 = a2;
-		if (a2) {
-			v6 = v3 + 1;
-			v7 = *getMemU32Ptr(0x5D4594, 2386964 + 4 * v6);
-			nox_xxx_triggersCount_587000_249172 = v6;
-			*getMemU32Ptr(0x5D4594, 2386964 + 4 * v6) = v7 + 1;
-			v8 = a1;
-			nox_xxx_roundCoord_5175E0(a1->field_0, (int)&v24);
-			nox_xxx_roundCoord_5175E0(a1->field_4, (int)&v25);
-			nox_xxx_roundCoord_5175E0(a1->field_8, (int)&v22);
-			nox_xxx_roundCoord_5175E0(a1->field_C, (int)&v23);
-			v9 = v24;
-			if (v24 < 0) {
-				v24 = 0;
-				v9 = 0;
-			}
-			v10 = v22;
-			if (v22 >= *(int*)&dword_5d4594_2386944) {
-				v10 = dword_5d4594_2386944 - 1;
-				v22 = dword_5d4594_2386944 - 1;
-			}
-			v11 = v25;
-			if (v25 < 0) {
-				v11 = 0;
-				v25 = 0;
-			}
-			if (v23 >= *(int*)&dword_5d4594_2386944) {
-				v23 = dword_5d4594_2386944 - 1;
-			}
-			v12 = v11;
-			v26 = v11;
-			if (v11 <= v23) {
-				v13 = a3;
-				do {
-					v14 = v9;
-					v27 = v9;
-					if (v9 <= v10) {
-						v15 = 16 * v12;
-						v28 = v15;
-						do {
-							v16 = *(uint32_t*)(*(uint32_t*)(dword_5d4594_2386940 + 4 * v14) + v15 + 4);
-							if (v16) {
-								do {
-									v17 = nox_xxx_triggersCount_587000_249172;
-									v18 = (uint32_t*)(*(uint32_t*)(v16 + 12) + 4 * v17 + 248);
-									v19 = *getMemU32Ptr(0x5D4594, 2386964 + 4 * v17);
-									if (*v18 != v19) {
-										*v18 = v19;
-										v20 = *(float**)(v16 + 12);
-										if (v20[58] < (double)v8->field_8 && v20[60] > (double)v8->field_0 &&
-											v20[59] < (double)v8->field_C && v20[61] > (double)v8->field_4) {
-											v5(v20, v13);
-										}
-									}
-									v16 = *(uint32_t*)(v16 + 4);
-								} while (v16);
-								v15 = v28;
-								v10 = v22;
-								v14 = v27;
-							}
-							v27 = ++v14;
-						} while (v14 <= v10);
-						v12 = v26;
-						v9 = v24;
-					}
-					v26 = ++v12;
-				} while (v12 <= v23);
-			}
-			v21 = nox_xxx_triggersCount_587000_249172;
-			nox_xxx_triggersCount_587000_249172 = v21 - 1;
-		}
 	}
 }
 

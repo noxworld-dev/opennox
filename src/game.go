@@ -52,6 +52,8 @@ extern uint32_t* dword_5D4594_251544;
 extern void* dword_5d4594_251548;
 extern uint32_t dword_5d4594_251552;
 extern uint32_t* dword_5d4594_251556;
+extern uint32_t dword_5d4594_2386940;
+extern uint32_t dword_5d4594_2386944;
 
 int sub_4EDD70();
 void sub_426060();
@@ -73,7 +75,6 @@ void  sub_500510(const char* a1);
 int nox_xxx_guiChatIconLoad_445650();
 int nox_xxx_loadGuides_427070();
 
-void nox_xxx_getUnitsInRect_517C10_go(nox_object_t* obj, void* payload);
 wchar_t* nox_xxx_guiServerOptionsGetGametypeName_4573C0(short mode);
 */
 import "C"
@@ -1901,31 +1902,76 @@ func nox_xxx_mapTraceObstacles(from *Unit, p1, p2 types.Pointf) bool { // nox_xx
 	return searching
 }
 
+const getInRectStackSize = 2 // FIXME: size is a guess
+
 var (
-	// TODO: port nox_xxx_getUnitsInRect_517C10 instead
-	getUnitsInRectStack []func(obj *Object)
+	getInRectStackInd = -1
+	getInRectStack    [getInRectStackSize]uint32
 )
 
-//export nox_xxx_getUnitsInRect_517C10_go
-func nox_xxx_getUnitsInRect_517C10_go(obj *C.nox_object_t, _ unsafe.Pointer) {
-	getUnitsInRectStack[len(getUnitsInRectStack)-1](asObjectC(obj))
+type mapIndexItem struct {
+	Field0 uint32
+	Next4  *mapIndexItem
+	Field8 uint32
+	Obj12  *nox_object_t
 }
 
-func getUnitsInRect(rect types.Rectf, fnc func(it *Object)) {
-	getUnitsInRectStack = append(getUnitsInRectStack, fnc)
+func getUnitsInRect(rect types.Rectf, fnc func(it *Object)) { // nox_xxx_getUnitsInRect_517C10
+	if getInRectStackInd >= 1 {
+		return
+	}
+	if fnc == nil {
+		return
+	}
+	getInRectStackInd++
+	getInRectStack[getInRectStackInd]++
 	defer func() {
-		getUnitsInRectStack = getUnitsInRectStack[:len(getUnitsInRectStack)-1]
+		getInRectStackInd--
 	}()
-	_ = nox_xxx_getUnitsInRect_517C10_go
-	nox_xxx_getUnitsInRect_517C10(rect, C.nox_xxx_getUnitsInRect_517C10_go, nil)
+	sx := nox_xxx_roundCoord_5175E0(rect.Left)
+	sy := nox_xxx_roundCoord_5175E0(rect.Top)
+	ex := nox_xxx_roundCoord_5175E0(rect.Right)
+	ey := nox_xxx_roundCoord_5175E0(rect.Bottom)
+	if sx < 0 {
+		sx = 0
+	}
+	if ex >= int32(C.dword_5d4594_2386944) {
+		ex = int32(C.dword_5d4594_2386944) - 1
+	}
+	if sy < 0 {
+		sy = 0
+	}
+	if ey >= int32(C.dword_5d4594_2386944) {
+		ey = int32(C.dword_5d4594_2386944) - 1
+	}
+	indexA := unsafe.Slice((*unsafe.Pointer)(unsafe.Pointer(uintptr(C.dword_5d4594_2386940))), int(C.dword_5d4594_2386944))
+	for y := sy; y <= ey; y++ {
+		for x := sx; x <= ex; x++ {
+			indexB := unsafe.Slice((*mapIndexItem)(indexA[x]), int(C.dword_5d4594_2386944))
+			ptr := &indexB[y]
+			for it := ptr.Next4; it != nil; it = it.Next4 {
+				obj := asObjectC(it.Obj12)
+				objStack := unsafe.Slice(&obj.Field62, getInRectStackSize)
+				tok1 := &objStack[getInRectStackInd]
+				tok2 := getInRectStack[getInRectStackInd]
+				if *tok1 != tok2 {
+					*tok1 = tok2
+					if obj.CollideP1.X < rect.Right && obj.CollideP2.X > rect.Left &&
+						obj.CollideP1.Y < rect.Bottom && obj.CollideP2.Y > rect.Top {
+						fnc(obj)
+					}
+				}
+			}
+		}
+	}
 }
 
-func nox_xxx_getUnitsInRect_517C10(rect types.Rectf, fnc unsafe.Pointer, payload unsafe.Pointer) {
-	rp, rpFree := alloc.Malloc(16)
-	defer rpFree()
-	rr := (*types.Rectf)(rp)
-	*rr = rect
-	C.nox_xxx_getUnitsInRect_517C10((*C.float4)(rp), (*[0]byte)(fnc), payload)
+//export nox_xxx_getUnitsInRect_517C10
+func nox_xxx_getUnitsInRect_517C10(rect *C.float4, fnc unsafe.Pointer, data unsafe.Pointer) {
+	r := *(*types.Rectf)(unsafe.Pointer(rect))
+	getUnitsInRect(r, func(it *Object) {
+		cgoCallVoidPtr2Func(fnc, unsafe.Pointer(it.CObj()), data)
+	})
 }
 
 func getUnitsInCircle(pos types.Pointf, r float32, fnc func(it *Object)) { // nox_xxx_unitsGetInCircle_517F90

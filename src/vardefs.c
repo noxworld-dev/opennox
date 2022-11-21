@@ -523,7 +523,6 @@ uint32_t dword_5d4594_1316472 = 0;
 uint32_t dword_5d4594_1062560 = 0;
 uint32_t dword_5d4594_2491544 = 0;
 uint32_t dword_587000_183456 = 0x67;
-uint32_t nox_xxx_triggersCount_587000_249172 = 0xffffffff;
 uint32_t nox_xxx_lightningOwner_5d4594_2487900 = 0;
 uint32_t dword_5d4594_1096256 = 0;
 uint32_t dword_5d4594_1046524 = 0;
