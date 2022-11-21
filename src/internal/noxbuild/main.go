@@ -31,7 +31,7 @@ var (
 	fSrc  = flag.String("s", "", "source directory")
 	fOS   = flag.String("os", runtime.GOOS, "target OS to build for")
 	fSafe = flag.Bool("safe", false, "build a safe version (will run significantly slower)")
-	fTip  = flag.Bool("tip", false, "use gotip instead of go command")
+	fGo   = flag.String("go", "go", "go command to use")
 )
 
 func main() {
@@ -120,14 +120,10 @@ func goBuild(cmd string, bin string, opts *buildOpts) error {
 			LDFLAGS = append(LDFLAGS, "-H windowsgui")
 		}
 	}
-	goBin := "go"
-	if *fTip {
-		goBin = "gotip"
-	}
 	var (
 		envs []string
 		args = []string{
-			goBin, "build", "-v",
+			*fGo, "build", "-v",
 			`-ldflags=` + strings.Join(LDFLAGS, " "),
 			"-gcflags=" + GCFLAGS,
 			"-asmflags=" + ASMFLAGS,
