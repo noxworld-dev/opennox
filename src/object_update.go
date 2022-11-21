@@ -15,6 +15,7 @@ package opennox
 extern uint32_t dword_5d4594_251568;
 extern unsigned int dword_5d4594_2650652;
 
+void nox_xxx_updateProjectile_53AC10(nox_object_t* a1);
 void nox_xxx_maybeAnimatePixie_53D010(nox_object_t* a1, nox_object_t* a2);
 static int nox_call_objectType_parseUpdate_go(int (*fnc)(char*, void*), char* arg1, void* arg2) { return fnc(arg1, arg2); }
 */
@@ -47,7 +48,9 @@ var _ = [1]struct{}{}[2200-unsafe.Sizeof(server.MonsterUpdateData{})]
 var _ = [1]struct{}{}[556-unsafe.Sizeof(server.PlayerUpdateData{})]
 
 func init() {
+	_ = nox_xxx_updatePlayer_4F8100
 	server.RegisterObjectUpdate("PlayerUpdate", C.nox_xxx_updatePlayer_4F8100, unsafe.Sizeof(server.PlayerUpdateData{}))
+	_ = nox_xxx_updateProjectile_53AC10
 	server.RegisterObjectUpdate("ProjectileUpdate", C.nox_xxx_updateProjectile_53AC10, 0)
 	server.RegisterObjectUpdate("SpellProjectileUpdate", C.nox_xxx_spellFlyUpdate_53B940, 28)
 	server.RegisterObjectUpdate("AntiSpellProjectileUpdate", C.nox_xxx_updateAntiSpellProj_53BB00, 28)
@@ -1186,4 +1189,13 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 		it.active = false
 	}
 	pl.field_3692 = pl.field_3688
+}
+
+//export nox_xxx_updateProjectile_53AC10
+func nox_xxx_updateProjectile_53AC10(a1 *nox_object_t) {
+	obj := asObjectC(a1)
+	if (gameFrame() - obj.Field32) > 40 {
+		obj.callCollide(0, 0)
+		obj.Delete()
+	}
 }

@@ -186,7 +186,6 @@ int nox_xxx_sendMsgOblivionPickup_53A9C0(int a1, nox_object_t* item, int a3, int
 void sub_53AAB0(int a1);
 int nox_xxx_dropWeapon_53AB10(int a1, uint32_t* a2, int* a3);
 void sub_53AB90(int a1, int a2);
-void nox_xxx_updateProjectile_53AC10(int a1);
 char nox_xxx_updateDoor_53AC50(int a1);
 void nox_xxx_updateSpark_53ADC0(int a1);
 float* nox_xxx_updateProjTrail_53AEC0(int a1);

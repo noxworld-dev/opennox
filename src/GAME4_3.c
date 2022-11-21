@@ -6368,19 +6368,6 @@ void sub_53AB90(int a1, int a2) {
 }
 // 53ABD1: variable 'v3' is possibly undefined
 
-//----- (0053AC10) --------------------------------------------------------
-void nox_xxx_updateProjectile_53AC10(int a1) {
-	void (*v1)(int, uint32_t, uint32_t); // eax
-
-	if ((unsigned int)(gameFrame() - *(uint32_t*)(a1 + 128)) > 0x28) {
-		v1 = *(void (**)(int, uint32_t, uint32_t))(a1 + 696);
-		if (v1) {
-			v1(a1, 0, 0);
-		}
-		nox_xxx_delayedDeleteObject_4E5CC0(a1);
-	}
-}
-
 //----- (0053AC50) --------------------------------------------------------
 char nox_xxx_updateDoor_53AC50(int a1) {
 	uint32_t* v1; // edi

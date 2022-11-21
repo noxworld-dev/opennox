@@ -16,6 +16,7 @@ static void nox_call_object_init(void (*fnc)(nox_object_t*, void*), nox_object_t
 static int nox_call_object_xfer(int (*fnc)(nox_object_t*, void*), nox_object_t* a1, void* a2) { return fnc(a1, a2); }
 static int nox_call_object_drop(int (*fnc)(nox_object_t*, nox_object_t*, float2*), nox_object_t* a1, nox_object_t* a2, float2* a3) { return fnc(a1, a2, a3); }
 static int nox_call_object_damage(int (*fnc)(nox_object_t*, nox_object_t*, nox_object_t*, int, int), nox_object_t* a1, nox_object_t* a2, nox_object_t* a3, int a4, int a5) { return fnc(a1, a2, a3, a4, a5); }
+static void nox_call_object_collide(void (*fnc)(nox_object_t*, int, int), nox_object_t* a1, int a2, int a3) { fnc(a1, a2, a3); }
 */
 import "C"
 import (
@@ -937,6 +938,12 @@ func (obj *Object) callDamage(who noxObject, a3 noxObject, dmg, a5 int) int {
 		return int(C.nox_call_object_damage((*[0]byte)(obj.Damage), obj.CObj(), toCObj(who), toCObj(a3), C.int(dmg), C.int(a5)))
 	}
 	return 0
+}
+
+func (obj *Object) callCollide(a2, a3 int) {
+	if obj.Collide != nil {
+		C.nox_call_object_collide((*[0]byte)(obj.Collide), obj.CObj(), C.int(a2), C.int(a3))
+	}
 }
 
 func (obj *Object) callDrop(it noxObject, pos types.Pointf) int {
