@@ -54,7 +54,6 @@ uint32_t dword_5d4594_3798804 = 0;
 uint32_t dword_5d4594_832476 = 0;
 uint32_t dword_5d4594_1570272 = 0;
 uint32_t dword_5d4594_1305684 = 0;
-uint32_t dword_5d4594_2386940 = 0;
 nox_waypoint_t* nox_xxx_waypointsHead_2523752 = 0;
 uint32_t nox_client_gui_flag_815132 = 0;
 uint32_t dword_5d4594_1321228 = 0;

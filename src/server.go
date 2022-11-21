@@ -552,9 +552,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	if C.nox_xxx_allocClassArrayObjects_4E3360(0x1388) == 0 {
 		return errors.New("nox_xxx_allocClassArrayObjects_4E3360 failed")
 	}
-	if C.sub_517AE0() == 0 {
-		return errors.New("sub_517AE0 failed")
-	}
+	sub_517AE0()
 	if C.nox_xxx_allocVisitNodesArray_50AB90() == 0 {
 		return errors.New("nox_xxx_allocVisitNodesArray_50AB90 failed")
 	}
@@ -649,7 +647,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	s.spells.Free()
 	nox_xxx_freeSpellRelated_4FCA80()
 	C.sub_50ABF0()
-	C.sub_517B30()
+	sub_517B30()
 	C.sub_5018D0()
 	C.sub_4ECA90()
 	C.sub_506720()

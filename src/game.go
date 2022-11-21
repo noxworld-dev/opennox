@@ -52,7 +52,7 @@ extern uint32_t* dword_5D4594_251544;
 extern void* dword_5d4594_251548;
 extern uint32_t dword_5d4594_251552;
 extern uint32_t* dword_5d4594_251556;
-extern uint32_t dword_5d4594_2386940;
+extern void* dword_5d4594_2386940;
 extern uint32_t dword_5d4594_2386944;
 
 int sub_4EDD70();
@@ -1902,11 +1902,9 @@ func nox_xxx_mapTraceObstacles(from *Unit, p1, p2 types.Pointf) bool { // nox_xx
 	return searching
 }
 
-const getInRectStackSize = 2 // FIXME: size is a guess
-
 var (
-	getInRectStackInd = -1
-	getInRectStack    [getInRectStackSize]uint32
+	dword_5d4594_2386944 int
+	dword_5d4594_2386940 []unsafe.Pointer
 )
 
 type mapIndexItem struct {
@@ -1915,6 +1913,32 @@ type mapIndexItem struct {
 	Field8 uint32
 	Obj12  *nox_object_t
 }
+
+func sub_517AE0() {
+	dword_5d4594_2386944 = 70
+	C.dword_5d4594_2386944 = C.uint(dword_5d4594_2386944)
+	dword_5d4594_2386940, _ = alloc.Make([]unsafe.Pointer{}, dword_5d4594_2386944)
+	C.dword_5d4594_2386940 = unsafe.Pointer(&dword_5d4594_2386940[0])
+	for i := 0; i < int(C.dword_5d4594_2386944); i++ {
+		arr, _ := alloc.Make([]mapIndexItem{}, dword_5d4594_2386944)
+		dword_5d4594_2386940[i] = unsafe.Pointer(&arr[0])
+	}
+}
+
+func sub_517B30() {
+	for i := 0; i < dword_5d4594_2386944; i++ {
+		alloc.Free(dword_5d4594_2386940[i])
+	}
+	alloc.FreeSlice(dword_5d4594_2386940)
+	dword_5d4594_2386940 = nil
+}
+
+const getInRectStackSize = 2 // FIXME: size is a guess
+
+var (
+	getInRectStackInd = -1
+	getInRectStack    [getInRectStackSize]uint32
+)
 
 func getUnitsInRect(rect types.Rectf, fnc func(it *Object)) { // nox_xxx_getUnitsInRect_517C10
 	if getInRectStackInd >= 1 {

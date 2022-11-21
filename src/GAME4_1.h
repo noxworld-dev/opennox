@@ -183,8 +183,6 @@ unsigned short* sub_5178E0(int a1, unsigned short* a2);
 void nox_xxx_moveUpdateSpecial_517970(nox_object_t* unit);
 void nox_xxx_waypointMapRegister_5179B0(int a1);
 int sub_517A70(int a1);
-int sub_517AE0();
-void sub_517B30();
 void nox_xxx_unitsGetInCircle_517F90(float2* a1, float a2, void* fnc, void* data);
 int sub_518040(int arg0, float a2, int arg8, int a4);
 void sub_5180B0(int a1, int a2);
