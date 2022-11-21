@@ -312,7 +312,9 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			ok = C.nox_xxx_mobGetMoveAttemptTime_534810(u.CObj()) == 0
 		case ai.DEPENDENCY_LOCATION_IS_SAFE:
 			C.dword_5d4594_2489460 = 1
-			C.nox_xxx_unitsGetInCircle_517F90((*C.float2)(unsafe.Pointer(&st.Args[0])), 50.0, C.nox_xxx_unitIsDangerous_547120, u.CObj())
+			getUnitsInCircle(st.ArgPos(0), 50.0, func(it *Object) {
+				C.nox_xxx_unitIsDangerous_547120(it.CObj(), u.CObj())
+			})
 			if C.dword_5d4594_2489460 == 0 {
 				ok = false
 			}

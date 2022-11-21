@@ -5962,34 +5962,6 @@ int* nox_xxx_secretWallCheckUnits_517F00(float* a1, int (*a2)(int*, int), int a3
 	return result;
 }
 
-//----- (00517F90) --------------------------------------------------------
-void nox_xxx_unitsGetInCircle_517F90(float2* a1, float r, void* a3, nox_object_t* a4) {
-	int a3a[4]; // [esp+0h] [ebp-20h]
-	float4 a1a; // [esp+10h] [ebp-10h]
-
-	a3a[0] = (int)a1;
-	a3a[2] = a3;
-	*(float*)&a3a[1] = r * r;
-	a3a[3] = a4;
-	a1a.field_0 = a1->field_0 - r;
-	a1a.field_4 = a1->field_4 - r;
-	a1a.field_8 = a1->field_0 + r;
-	a1a.field_C = a1->field_4 + r;
-	nox_xxx_getUnitsInRect_517C10(&a1a, nox_xxx_unitsGetInNotFarFn_518000, (int)a3a);
-}
-
-//----- (00518000) --------------------------------------------------------
-void nox_xxx_unitsGetInNotFarFn_518000(float* a1, int a2) {
-	double v2; // st7
-	double v3; // st6
-
-	v2 = **(float**)a2 - a1[14];
-	v3 = *(float*)(*(uint32_t*)a2 + 4) - a1[15];
-	if (v3 * v3 + v2 * v2 < *(float*)(a2 + 4)) {
-		(*(void (**)(float*, uint32_t))(a2 + 8))(a1, *(uint32_t*)(a2 + 12));
-	}
-}
-
 //----- (00518040) --------------------------------------------------------
 int sub_518040(int arg0, float a2, int arg8, int a4) {
 	int result; // eax

@@ -1134,7 +1134,9 @@ void nox_xxx_mobAction_5469B0(nox_object_t* a1p) {
 }
 
 //----- (00547120) --------------------------------------------------------
-short nox_xxx_unitIsDangerous_547120(int a1, int a2) {
+short nox_xxx_unitIsDangerous_547120(nox_object_t* a1p, nox_object_t* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v2; // edx
 	int v3; // eax
 

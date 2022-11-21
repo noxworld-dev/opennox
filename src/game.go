@@ -1974,6 +1974,14 @@ func nox_xxx_getUnitsInRect_517C10(rect *C.float4, fnc unsafe.Pointer, data unsa
 	})
 }
 
+//export nox_xxx_unitsGetInCircle_517F90
+func nox_xxx_unitsGetInCircle_517F90(pos *C.float2, r C.float, fnc unsafe.Pointer, data unsafe.Pointer) {
+	p := *(*types.Pointf)(unsafe.Pointer(pos))
+	getUnitsInCircle(p, float32(r), func(it *Object) {
+		cgoCallVoidPtr2Func(fnc, unsafe.Pointer(it.CObj()), data)
+	})
+}
+
 func getUnitsInCircle(pos types.Pointf, r float32, fnc func(it *Object)) { // nox_xxx_unitsGetInCircle_517F90
 	rect := types.Rectf{
 		Left:   pos.X - r,
