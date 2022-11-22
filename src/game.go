@@ -2117,6 +2117,49 @@ func sub_517B70(pos *C.float2, fnc unsafe.Pointer, data unsafe.Pointer) {
 	}
 }
 
+func nox_xxx_getUnitsInRectAdvImpl_517DC0(rect types.Rectf, fnc func(it *Object)) {
+	if fnc == nil {
+		return
+	}
+	sx := int(nox_xxx_roundCoord_5175E0(rect.Left))
+	sy := int(nox_xxx_roundCoord_5175E0(rect.Top))
+	ex := int(nox_xxx_roundCoord_5175E0(rect.Right))
+	ey := int(nox_xxx_roundCoord_5175E0(rect.Bottom))
+	if sx < 0 {
+		sx = 0
+	}
+	if ex >= dword_5d4594_2386944 {
+		ex = dword_5d4594_2386944 - 1
+	}
+	if sy < 0 {
+		sy = 0
+	}
+	if ey >= dword_5d4594_2386944 {
+		ey = dword_5d4594_2386944 - 1
+	}
+	for y := sy; y <= ey; y++ {
+		for x := sx; x <= ex; x++ {
+			for it := dword_5d4594_2386940_arr[x][y].List0; it != nil; it = it.Next4 {
+				obj := asObjectS(it.Obj12)
+				if obj.Class().Has(object.ClassMissile) {
+					fnc(obj)
+				}
+			}
+		}
+	}
+}
+
+//export nox_xxx_getUnitsInRectAdv_517ED0
+func nox_xxx_getUnitsInRectAdv_517ED0(rect *C.float4, fnc unsafe.Pointer, data unsafe.Pointer) {
+	r := *(*types.Rectf)(unsafe.Pointer(rect))
+	getUnitsInRect(r, func(it *Object) {
+		cgoCallVoidPtr2Func(fnc, unsafe.Pointer(it.CObj()), data)
+	})
+	nox_xxx_getUnitsInRectAdvImpl_517DC0(r, func(it *Object) {
+		cgoCallVoidPtr2Func(fnc, unsafe.Pointer(it.CObj()), data)
+	})
+}
+
 //export nox_xxx_getUnitsInRect_517C10
 func nox_xxx_getUnitsInRect_517C10(rect *C.float4, fnc unsafe.Pointer, data unsafe.Pointer) {
 	r := *(*types.Rectf)(unsafe.Pointer(rect))
