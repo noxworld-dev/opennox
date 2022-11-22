@@ -12,7 +12,7 @@ func RoundCoord(v float32) int {
 	if float64(v) < 0.0 {
 		return int(int32(v))
 	}
-	v = float32(float64(v)*0.011764706 + 8.388608e+06)
+	v = float32(float64(v)/85 + 8.388608e+06)
 	return int(int32(math.Float32bits(v) & 0x7FFFFF))
 }
 
