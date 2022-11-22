@@ -6,18 +6,25 @@ extern nox_waypoint_t* nox_xxx_waypointsHead_2523752;
 */
 import "C"
 import (
-	"strings"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func asWaypoint(p unsafe.Pointer) *Waypoint {
 	return (*Waypoint)(p)
 }
 
-func asWaypointC(p *C.nox_waypoint_t) *Waypoint {
+func asWaypointC(p *nox_waypoint_t) *Waypoint {
+	return asWaypoint(unsafe.Pointer(p))
+}
+
+var _ = [1]struct{}{}[516-unsafe.Sizeof(server.Waypoint{})]
+
+func asWaypointS(p *server.Waypoint) *Waypoint {
 	return asWaypoint(unsafe.Pointer(p))
 }
 
@@ -27,7 +34,7 @@ func (s *Server) firstWaypoint() *Waypoint {
 
 func (s *Server) getWaypointByID(id string) *Waypoint {
 	for w := s.firstWaypoint(); w != nil; w = w.Next() {
-		if w.equalID(id) {
+		if w.EqualID(id) {
 			return w
 		}
 	}
@@ -74,64 +81,52 @@ func (s *Server) getWaypoints() []*Waypoint {
 }
 
 type nox_waypoint_t = C.nox_waypoint_t
-type Waypoint nox_waypoint_t
+type Waypoint server.Waypoint
 
 func (w *Waypoint) C() *nox_waypoint_t {
 	return (*nox_waypoint_t)(unsafe.Pointer(w))
 }
 
+func (w *Waypoint) S() *server.Waypoint {
+	return (*server.Waypoint)(unsafe.Pointer(w))
+}
+
 func (w *Waypoint) Next() *Waypoint {
-	return asWaypointC(w.next)
+	return asWaypointS(w.WpNext)
 }
 
 func (w *Waypoint) Ind() int {
-	return int(w.ind)
+	return int(w.Index)
 }
 
 func (w *Waypoint) ID() string {
-	return GoString(&w.name[0])
+	return w.S().ID()
 }
 
-func (w *Waypoint) equalID(id2 string) bool {
-	id := w.ID()
-	if id == "" {
-		return false
-	}
-	return id == id2 || strings.HasSuffix(id, ":"+id2)
+func (w *Waypoint) EqualID(id2 string) bool {
+	return w.S().EqualID(id2)
 }
 
 func (w *Waypoint) String() string {
-	return "Waypoint(" + w.ID() + ")"
+	return w.S().String()
 }
 
 func (w *Waypoint) IsEnabled() bool {
-	return w != nil && w.flags&0x1 != 0
+	return w.S().IsEnabled()
 }
 
 func (w *Waypoint) Enable(enable bool) {
-	if enable {
-		w.flags |= 0x1
-	} else {
-		w.flags &^= 0x1
-	}
+	w.S().Enable(enable)
 }
 
 func (w *Waypoint) Toggle() {
-	w.flags ^= 0x1
-}
-
-func (w *Waypoint) PosC() *C.float2 {
-	return &w.pos
+	w.S().Toggle()
 }
 
 func (w *Waypoint) Pos() types.Pointf {
-	return types.Pointf{
-		X: float32(w.pos.field_0),
-		Y: float32(w.pos.field_4),
-	}
+	return w.S().Pos()
 }
 
 func (w *Waypoint) SetPos(p types.Pointf) {
-	w.pos.field_0 = C.float(p.X)
-	w.pos.field_4 = C.float(p.Y)
+	w.S().SetPos(p)
 }

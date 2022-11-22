@@ -101,6 +101,7 @@ import (
 	"strings"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 
 	"github.com/noxworld-dev/opennox-lib/common"
@@ -1548,9 +1549,11 @@ func nox_script_audioEven_512AC0() int {
 	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
 	soundName := s.PopString()
 	if waypoint != nil {
-		pos := waypoint.PosC()
+		cp, free := alloc.New(types.Pointf{})
+		defer free()
+		*cp = waypoint.Pos()
 		soundId := C.int(sound.ByName(soundName))
-		C.nox_xxx_audCreate_501A30(soundId, pos, 0, 0)
+		C.nox_xxx_audCreate_501A30(soundId, (*C.float2)(unsafe.Pointer(cp)), 0, 0)
 	}
 	return 0
 }
@@ -1592,11 +1595,11 @@ func nox_script_WanderGroup_513160() int {
 	v1 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v1))
 	fn := create_sub_5130E0(v4, v0)
-	scriptExecuteFnForObjectGroup(mapGroup, func (obj *Object) { fn(obj) })
+	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) { fn(obj) })
 	return 0
 }
 
-func create_sub_5130E0(v5_0 float32, v5_1 int32) func(*Object) int{
+func create_sub_5130E0(v5_0 float32, v5_1 int32) func(*Object) int {
 	return func(obj *Object) int {
 		v2 := noxServer.newObjectByTypeID("Mover")
 		if v2 == nil {
@@ -1609,7 +1612,7 @@ func create_sub_5130E0(v5_0 float32, v5_1 int32) func(*Object) int{
 		v5.field_2 = C.int32_t(v5_1)
 		v5.field_1 = C.float(v5_0)
 		v5.field_0 = 0
-		v2.VelVec = types.Pointf { 0, 0}
+		v2.VelVec = types.Pointf{0, 0}
 
 		v2.Enable(true)
 		noxServer.Objs.AddToUpdatable(v2.SObj())

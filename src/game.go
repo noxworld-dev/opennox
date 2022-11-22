@@ -2049,39 +2049,39 @@ func sub_5178E0(a1 int32, a2 unsafe.Pointer) {
 //export nox_xxx_waypointMapRegister_5179B0
 func nox_xxx_waypointMapRegister_5179B0(a1p *nox_waypoint_t) {
 	wp := asWaypointC(a1p)
-	if wp.flags&0x2 != 0 {
+	if wp.Flags&0x2 != 0 {
 		return
 	}
 	pos := wp.Pos()
 	x := nox_xxx_roundCoord_5175E0(pos.X)
 	y := nox_xxx_roundCoord_5175E0(pos.Y)
-	wp.key_x = C.ushort(int16(x))
-	wp.key_y = C.ushort(int16(y))
-	wp.flags |= 0x2
-	wp.field_13 = nil
+	wp.KeyX = uint16(int16(x))
+	wp.KeyY = uint16(int16(y))
+	wp.Flags |= 0x2
+	wp.Field13 = nil
 	wp2 := asWaypointC(dword_5d4594_2386940_arr[x][y].List8)
 	if wp2 != nil {
-		wp2.field_13 = wp.C()
+		wp2.Field13 = wp.S()
 	}
-	wp.field_12 = dword_5d4594_2386940_arr[x][y].List8
+	wp.Field12 = asWaypointC(dword_5d4594_2386940_arr[x][y].List8).S()
 	dword_5d4594_2386940_arr[x][y].List8 = wp.C()
 }
 
 //export sub_517A70
 func sub_517A70(a1p *nox_waypoint_t) {
 	wp := asWaypointC(a1p)
-	if wp.flags&0x2 == 0 {
+	if wp.Flags&0x2 == 0 {
 		return
 	}
-	if wp2 := asWaypointC(wp.field_13); wp2 != nil {
-		wp2.field_12 = wp.field_12
+	if wp2 := asWaypointS(wp.Field13); wp2 != nil {
+		wp2.Field12 = wp.Field12
 	} else {
-		dword_5d4594_2386940_arr[wp.key_x][wp.key_y].List8 = wp.field_12
+		dword_5d4594_2386940_arr[wp.KeyX][wp.KeyY].List8 = asWaypointS(wp.Field12).C()
 	}
-	if wp2 := asWaypointC(wp.field_12); wp2 != nil {
-		wp2.field_13 = wp.field_13
+	if wp2 := asWaypointS(wp.Field12); wp2 != nil {
+		wp2.Field13 = wp.Field13
 	}
-	wp.flags &= 0xFFFFFFFD
+	wp.Flags &= 0xFFFFFFFD
 }
 
 //export sub_517B70
@@ -2210,7 +2210,7 @@ func sub_518460(pos types.Pointf, mask byte, scanSub bool) *Waypoint {
 }
 
 func sub_579EE0(wp *Waypoint, mask byte) bool {
-	return mask&byte(wp.flags_2) != 0
+	return mask&wp.Flags2 != 0
 }
 
 func sub_518550(rect image.Rectangle, pos types.Pointf, mask byte, scanSub bool) {
@@ -2230,13 +2230,13 @@ func sub_518550(rect image.Rectangle, pos types.Pointf, mask byte, scanSub bool)
 		for x := rect.Min.X; x <= rect.Max.X; x++ {
 			p := &dword_5d4594_2386940_arr[x][y]
 			if p.Tok12 != dword_5d4594_2386960 {
-				for it := asWaypointC(p.List8); it != nil; it = asWaypointC(it.field_12) {
+				for it := asWaypointC(p.List8); it != nil; it = asWaypointS(it.Field12) {
 					if it.IsEnabled() && sub_579EE0(it, mask) {
 						cnt := 0
 						if scanSub {
-							for i := 0; i < int(it.points_cnt); i++ {
-								pt := &it.points[i]
-								wp2 := asWaypointC(pt.waypoint)
+							for i := 0; i < int(it.PointsCnt); i++ {
+								pt := &it.Points[i]
+								wp2 := asWaypointS(pt.Waypoint)
 								if wp2.IsEnabled() && sub_579EE0(wp2, mask) {
 									cnt++
 								}
