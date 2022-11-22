@@ -299,7 +299,7 @@ func (s *Server) objectDeleteFinish(obj *Object) {
 	C.nox_xxx_decay_5116F0(obj.CObj())
 	obj.dropAllItems()
 	s.objectDeleteLast(obj)
-	s.nox_xxx_objectFreeMem4E38A0(obj.SObj())
+	s.Objs.FreeObject(obj.SObj())
 }
 
 func (s *Server) objectDeleteLast(obj *Object) {
@@ -466,98 +466,9 @@ func (s *Server) attachPending() {
 	}
 }
 
-func (s *Server) nox_xxx_allocClassArrayObjects_4E3360(cnt int) int32 {
-	s.Objs.Alloc = alloc.NewClassT("objectMemClass", server.Object{}, cnt)
-	s.Objs.Alloc.Keep(36)
-	if cnt == 0 {
-		s.Objs.Alloc.ResetStats()
-		return 1
-	}
-	var last *server.Object
-	for i := 1; i <= cnt; i++ {
-		obj := s.Objs.Alloc.NewObject()
-		if obj == nil {
-			var next *server.Object
-			for it := last; it != nil; it = next {
-				next = it.ObjNext
-				s.Objs.Alloc.FreeObjectFirst(it)
-			}
-			return 0
-		}
-		obj.NetCode = uint32(i)
-		obj.ObjNext = last
-		last = obj
-	}
-	var next *server.Object
-	for it := last; it != nil; it = next {
-		next = it.ObjNext
-		code := it.NetCode
-		s.Objs.Alloc.FreeObjectFirst(it)
-		it.NetCode = code
-	}
-	s.Objs.Alloc.ResetStats()
-	return 1
-}
-
-func (s *Server) nox_xxx_freeGameObjectClass_4E3420() int32 {
-	s.Objs.Alloc.Free()
-	return 1
-}
-
 //export nox_xxx_objectFreeMem_4E38A0
 func nox_xxx_objectFreeMem_4E38A0(a1p *nox_object_t) int {
-	return noxServer.nox_xxx_objectFreeMem4E38A0(asObjectC(a1p).SObj())
-}
-
-func (s *Server) nox_xxx_objectFreeMem4E38A0(obj *server.Object) int {
-	if obj.Class().Has(object.ClassMonsterGenerator) {
-		ud := obj.UpdateData
-		arr := unsafe.Slice((**server.Object)(unsafe.Pointer(ud)), 12)
-		for i := 3; i != 0; i-- {
-			for j := 4; j != 0; j-- {
-				it := arr[i*4+j]
-				if it != nil {
-					s.nox_xxx_objectFreeMem4E38A0(it)
-				}
-			}
-		}
-	}
-	if !noxflags.HasGame(noxflags.GameFlag22) {
-		var next *server.Object
-		for it := obj.InvFirstItem; it != nil; it = next {
-			next = it.InvNextItem
-			s.nox_xxx_objectFreeMem4E38A0(it)
-		}
-	}
-	if obj.IDPtr != nil {
-		obj.IDPtr = nil
-	}
-	if obj.HealthData != nil {
-		obj.HealthData = nil
-	}
-	if obj.Field190 != nil {
-		obj.Field190 = nil
-	}
-	if obj.Field189 != nil {
-		obj.Field189 = nil
-	}
-	if obj.InitData != nil {
-		obj.InitData = nil
-	}
-	if obj.CollideData != nil {
-		obj.CollideData = nil
-	}
-	if obj.UseData != nil {
-		obj.UseData = nil
-	}
-	if obj.UpdateData != nil {
-		obj.UpdateData = nil
-	}
-	code := obj.NetCode
-	s.Objs.Alloc.FreeObjectLast(obj.SObj())
-	obj.NetCode = uint32(code)
-	s.Objs.Alive--
-	return s.Objs.Alive
+	return noxServer.Objs.FreeObject(asObjectC(a1p).SObj())
 }
 
 func (s *Server) createObjectAt(a11 noxObject, owner noxObject, pos types.Pointf) {

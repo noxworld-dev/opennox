@@ -11,6 +11,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
 var (
@@ -23,7 +24,7 @@ type Obj interface {
 }
 
 type serverObjects struct {
-	Alloc           alloc.ClassT[Object]
+	alloc           alloc.ClassT[Object]
 	Alive           int
 	MaxAlive        int
 	Created         int
@@ -34,6 +35,164 @@ type serverObjects struct {
 	UpdatableList   *Object
 	UpdatableList2  *Object
 	DeletedList     *Object
+}
+
+func (s *serverObjects) Init(cnt int) bool {
+	s.alloc = alloc.NewClassT("objectMemClass", Object{}, cnt)
+	s.alloc.Keep(36) // NetCode
+	if cnt == 0 {
+		s.alloc.ResetStats()
+		return true
+	}
+	var last *Object
+	for i := 1; i <= cnt; i++ {
+		obj := s.alloc.NewObject()
+		if obj == nil {
+			var next *Object
+			for it := last; it != nil; it = next {
+				next = it.ObjNext
+				s.alloc.FreeObjectFirst(it)
+			}
+			return false
+		}
+		obj.NetCode = uint32(i)
+		obj.ObjNext = last
+		last = obj
+	}
+	var next *Object
+	for it := last; it != nil; it = next {
+		next = it.ObjNext
+		code := it.NetCode
+		s.alloc.FreeObjectFirst(it)
+		it.NetCode = code
+	}
+	s.alloc.ResetStats()
+	return true
+}
+
+func (s *serverObjects) FreeObjects() {
+	s.alloc.Free()
+}
+
+func (s *serverObjects) FreeObject(obj *Object) int {
+	if obj.Class().Has(object.ClassMonsterGenerator) {
+		ud := obj.UpdateData
+		arr := unsafe.Slice((**Object)(ud), 12)
+		for i := 3; i != 0; i-- {
+			for j := 4; j != 0; j-- {
+				it := arr[i*4+j]
+				if it != nil {
+					s.FreeObject(it)
+				}
+			}
+		}
+	}
+	if !noxflags.HasGame(noxflags.GameFlag22) {
+		var next *Object
+		for it := obj.InvFirstItem; it != nil; it = next {
+			next = it.InvNextItem
+			s.FreeObject(it)
+		}
+	}
+	if obj.IDPtr != nil {
+		obj.IDPtr = nil
+	}
+	if obj.HealthData != nil {
+		obj.HealthData = nil
+	}
+	if obj.Field190 != nil {
+		obj.Field190 = nil
+	}
+	if obj.Field189 != nil {
+		obj.Field189 = nil
+	}
+	if obj.InitData != nil {
+		obj.InitData = nil
+	}
+	if obj.CollideData != nil {
+		obj.CollideData = nil
+	}
+	if obj.UseData != nil {
+		obj.UseData = nil
+	}
+	if obj.UpdateData != nil {
+		obj.UpdateData = nil
+	}
+	code := obj.NetCode
+	s.alloc.FreeObjectLast(obj.SObj())
+	obj.NetCode = code
+	s.Alive--
+	return s.Alive
+}
+
+func (s *serverObjects) NewObject(t *ObjectType) *Object {
+	obj := s.alloc.NewObject()
+	*obj = Object{
+		NetCode:     obj.NetCode,      // it is persisted by the allocator; so we basically reuse ID of the older object
+		TypeInd:     uint16(t.Ind2()), // TODO: why is it setting it and then overwriting again?
+		ObjClass:    uint32(t.Class()),
+		ObjSubClass: uint32(t.SubClass()),
+		ObjFlags:    uint32(t.Flags()),
+		Field5:      t.Field9,
+		Material:    uint16(t.Material()),
+		Experience:  t.Experience,
+		Worth:       uint32(t.Worth),
+		Float28:     t.Field13,
+		Mass:        t.Mass,
+		ZSize1:      t.ZSize1,
+		ZSize2:      t.ZSize2,
+	}
+	obj.Shape = t.Shape
+	if !obj.Flags().Has(object.FlagNoCollide) {
+		obj.SObj().UpdateCollider(obj.PosVec)
+	}
+	obj.Weight = t.Weight
+	obj.CarryCapacity = uint16(t.CarryCap)
+	obj.SpeedCur = t.Speed
+	obj.Speed2 = t.Speed2
+	obj.Float138 = t.Float33
+	obj.HealthData = nil
+	obj.Field38 = -1
+	obj.TypeInd = uint16(t.Ind())
+	if t.Health() != nil {
+		data, _ := alloc.New(HealthData{})
+		obj.HealthData = data
+		*data = *t.Health()
+	}
+	obj.Init = t.Init
+	if t.InitDataSize != 0 {
+		data, _ := alloc.Make([]byte{}, t.InitDataSize)
+		obj.InitData = unsafe.Pointer(&data[0])
+		copy(data, unsafe.Slice((*byte)(t.InitData), t.InitDataSize))
+	}
+	obj.Collide = t.Collide
+	if t.CollideDataSize != 0 {
+		data, _ := alloc.Make([]byte{}, t.CollideDataSize)
+		obj.CollideData = unsafe.Pointer(&data[0])
+		copy(data, unsafe.Slice((*byte)(t.CollideData), t.CollideDataSize))
+	}
+	obj.Xfer = t.Xfer
+	obj.Use = t.Use
+	if t.UseDataSize != 0 {
+		data, _ := alloc.Make([]byte{}, t.UseDataSize)
+		obj.UseData = unsafe.Pointer(&data[0])
+		copy(data, unsafe.Slice((*byte)(t.UseData), t.UseDataSize))
+	}
+	obj.Update = t.Update
+	if t.UpdateDataSize != 0 {
+		data, _ := alloc.Make([]byte{}, t.UpdateDataSize)
+		obj.UpdateData = unsafe.Pointer(&data[0])
+		copy(data, unsafe.Slice((*byte)(t.UpdateData), t.UpdateDataSize))
+	}
+	obj.Pickup = t.Pickup
+	obj.Drop = t.Drop
+	obj.Damage = t.Damage
+	obj.DamageSound = t.DamageSound
+	obj.Death = t.Death
+	obj.Field190 = nil
+	obj.DeathData = t.DeathData
+	obj.Field192 = -1
+	return obj
 }
 
 func (s *Server) FirstServerObject() *Object { // nox_server_getFirstObject_4DA790

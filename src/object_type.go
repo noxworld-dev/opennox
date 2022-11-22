@@ -58,7 +58,7 @@ func nox_xxx_unitDefGetCount_4E3AC0() C.int {
 //export nox_xxx_newObjectWithTypeInd_4E3450
 func nox_xxx_newObjectWithTypeInd_4E3450(ind C.int) *nox_object_t {
 	s := noxServer
-	return s.newObject(s.ObjectTypeByInd(int(ind))).CObj()
+	return s.NewObject(s.ObjectTypeByInd(int(ind))).CObj()
 }
 
 //export nox_xxx_objectTypeByIndHealthData
@@ -235,7 +235,7 @@ func (s *Server) newObjectByTypeInd(ind int) *Object { // nox_xxx_newObjectWithT
 	if typ == nil {
 		return nil
 	}
-	return s.newObject(typ)
+	return s.NewObject(typ)
 }
 
 func (s *Server) newObjectByTypeID(id string) *Object { // nox_xxx_newObjectByTypeID_4E3810
@@ -243,7 +243,7 @@ func (s *Server) newObjectByTypeID(id string) *Object { // nox_xxx_newObjectByTy
 	if typ == nil {
 		return nil
 	}
-	return s.newObject(typ)
+	return s.NewObject(typ)
 }
 
 var _ = [1]struct{}{}[20-unsafe.Sizeof(server.HealthData{})]
@@ -252,74 +252,8 @@ func nox_xxx_objectUnkUpdateCoords_4E7290(obj *Object) {
 	obj.SObj().UpdateCollider(obj.PosVec)
 }
 
-func (s *Server) newObject(t *server.ObjectType) *Object {
-	cobj := s.Objs.Alloc.NewObject()
-	*cobj = server.Object{
-		NetCode:     cobj.NetCode,     // it is persisted by the allocator; so we basically reuse ID of the older object
-		TypeInd:     uint16(t.Ind2()), // TODO: why is it setting it and then overwriting again?
-		ObjClass:    uint32(t.Class()),
-		ObjSubClass: uint32(t.SubClass()),
-		ObjFlags:    uint32(t.Flags()),
-		Field5:      t.Field9,
-		Material:    uint16(t.Material()),
-		Experience:  t.Experience,
-		Worth:       uint32(t.Worth),
-		Float28:     t.Field13,
-		Mass:        t.Mass,
-		ZSize1:      t.ZSize1,
-		ZSize2:      t.ZSize2,
-	}
-	obj := asObjectS(cobj)
-	obj.Shape = t.Shape
-	if !obj.Flags().Has(object.FlagNoCollide) {
-		obj.SObj().UpdateCollider(obj.PosVec)
-	}
-	obj.Weight = t.Weight
-	obj.CarryCapacity = uint16(t.CarryCap)
-	obj.SpeedCur = t.Speed
-	obj.Speed2 = t.Speed2
-	obj.Float138 = t.Float33
-	obj.HealthData = nil
-	obj.Field38 = -1
-	obj.TypeInd = uint16(t.Ind())
-	if t.Health() != nil {
-		data, _ := alloc.New(server.HealthData{})
-		obj.HealthData = data
-		*data = *t.Health()
-	}
-	obj.Init = t.Init
-	if t.InitDataSize != 0 {
-		data, _ := alloc.Make([]byte{}, t.InitDataSize)
-		obj.InitData = unsafe.Pointer(&data[0])
-		copy(data, unsafe.Slice((*byte)(t.InitData), t.InitDataSize))
-	}
-	obj.Collide = t.Collide
-	if t.CollideDataSize != 0 {
-		data, _ := alloc.Make([]byte{}, t.CollideDataSize)
-		obj.CollideData = unsafe.Pointer(&data[0])
-		copy(data, unsafe.Slice((*byte)(t.CollideData), t.CollideDataSize))
-	}
-	obj.Xfer = t.Xfer
-	obj.Use = t.Use
-	if t.UseDataSize != 0 {
-		data, _ := alloc.Make([]byte{}, t.UseDataSize)
-		obj.UseData = unsafe.Pointer(&data[0])
-		copy(data, unsafe.Slice((*byte)(t.UseData), t.UseDataSize))
-	}
-	obj.Update = t.Update
-	if t.UpdateDataSize != 0 {
-		data, _ := alloc.Make([]byte{}, t.UpdateDataSize)
-		obj.UpdateData = unsafe.Pointer(&data[0])
-		copy(data, unsafe.Slice((*byte)(t.UpdateData), t.UpdateDataSize))
-	}
-	obj.Pickup = t.Pickup
-	obj.Drop = t.Drop
-	obj.Damage = t.Damage
-	obj.DamageSound = t.DamageSound
-	obj.Death = t.Death
-	obj.Field190 = nil
-	obj.DeathData = t.DeathData
-	obj.Field192 = -1
+func (s *Server) NewObject(t *server.ObjectType) *Object {
+	obj := asObjectS(s.Objs.NewObject(t))
 	if noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) && (obj.Class().HasAny(0x20A02) || obj.Xfer == unsafe.Pointer(C.nox_xxx_XFerInvLight_4F5AA0) || obj.Weight != 0xff) {
 		obj.Field189, _ = alloc.Malloc(2572)
 	}
@@ -344,7 +278,7 @@ func (s *Server) newObject(t *server.ObjectType) *Object {
 }
 
 func (s *Server) createObject(t *server.ObjectType, p types.Pointf) script.Object {
-	obj := s.newObject(t)
+	obj := s.NewObject(t)
 	if obj == nil {
 		return nil
 	}

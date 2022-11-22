@@ -549,7 +549,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 		return errors.New("sub_518770 failed")
 	}
 	noxflags.HasGame(noxflags.GameFlag22)
-	if s.nox_xxx_allocClassArrayObjects_4E3360(5000) == 0 {
+	if !s.Objs.Init(5000) {
 		return errors.New("nox_xxx_allocClassArrayObjects_4E3360 failed")
 	}
 	s.Server.Map.Init()
@@ -654,7 +654,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	C.sub_50D820()
 	C.nox_xxx_deleteShopInventories_50E300()
 	C.sub_416950()
-	s.nox_xxx_freeGameObjectClass_4E3420()
+	s.Objs.FreeObjects()
 	s.FreeObjectTypes()
 	nox_xxx_free_42BF80()
 	if !noxflags.HasGame(noxflags.GameModeCoop) {

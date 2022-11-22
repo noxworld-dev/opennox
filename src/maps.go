@@ -488,7 +488,7 @@ func nox_server_mapRWObjectData_504CF0_Read(a2 unsafe.Pointer, v16 unsafe.Pointe
 			cryptFileClose()
 			return fmt.Errorf("cannot find object with type: %d", typInd)
 		}
-		obj := s.newObject(typ)
+		obj := s.NewObject(typ)
 		var v9a2 unsafe.Pointer
 		if a2 != nil {
 			v9a2 = v16
