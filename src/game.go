@@ -1905,7 +1905,7 @@ func nox_xxx_mapTraceObstacles(from *Unit, p1, p2 types.Pointf) bool { // nox_xx
 type mapObjIndex struct {
 	List0   *server.ObjectIndex
 	List4   *server.ObjectIndex
-	Field8  uint32
+	List8   unsafe.Pointer
 	Field12 uint32
 }
 
@@ -2054,6 +2054,25 @@ func sub_5178E0(a1 int32, a2 unsafe.Pointer) {
 			next.Prev8 = p.Prev8
 		}
 	}
+}
+
+//export nox_xxx_waypointMapRegister_5179B0
+func nox_xxx_waypointMapRegister_5179B0(a1p unsafe.Pointer) {
+	if *(*uint8)(unsafe.Add(a1p, 480))&0x2 != 0 {
+		return
+	}
+	x := nox_xxx_roundCoord_5175E0(*(*float32)(unsafe.Add(a1p, 8)))
+	y := nox_xxx_roundCoord_5175E0(*(*float32)(unsafe.Add(a1p, 12)))
+	v4 := dword_5d4594_2386940_arr[x][y].List8
+	if v4 != nil {
+		*(*unsafe.Pointer)(unsafe.Add(v4, 500)) = a1p
+	}
+	*(*uint32)(unsafe.Add(a1p, 500)) = 0
+	*(*unsafe.Pointer)(unsafe.Add(a1p, 496)) = dword_5d4594_2386940_arr[x][y].List8
+	dword_5d4594_2386940_arr[x][y].List8 = a1p
+	*(*uint16)(unsafe.Add(a1p, 494)) = uint16(int16(y))
+	*(*uint16)(unsafe.Add(a1p, 492)) = uint16(int16(x))
+	*(*uint32)(unsafe.Add(a1p, 480)) |= 0x2
 }
 
 //export nox_xxx_getUnitsInRect_517C10

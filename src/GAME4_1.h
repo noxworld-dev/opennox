@@ -181,7 +181,7 @@ void nox_xxx_addObjToMapMB_517780(int a1, int a2, int a3, nox_object_t* a4);
 short sub_517870(nox_object_t* a1);
 void sub_5178E0(int a1, void* a2);
 void nox_xxx_moveUpdateSpecial_517970(nox_object_t* unit);
-void nox_xxx_waypointMapRegister_5179B0(int a1);
+void nox_xxx_waypointMapRegister_5179B0(void* a1);
 int sub_517A70(int a1);
 void nox_xxx_unitsGetInCircle_517F90(float2* a1, float a2, void* fnc, void* data);
 int sub_518040(int arg0, float a2, int arg8, int a4);

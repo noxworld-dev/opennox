@@ -5656,42 +5656,6 @@ short sub_517870(nox_object_t* a1p) {
 	return v1;
 }
 
-//----- (005179B0) --------------------------------------------------------
-void nox_xxx_waypointMapRegister_5179B0(int a1) {
-	int v1;   // esi
-	int v2;   // eax
-	int v3;   // ecx
-	int v4;   // edx
-	int v5;   // eax
-	short v6; // dx
-	int v7;   // eax
-	int v8;   // [esp+4h] [ebp-4h]
-
-	v1 = a1;
-	if (!(*(uint8_t*)(a1 + 480) & 2)) {
-		nox_xxx_roundCoord_5175E0(*(float*)(a1 + 8), (int)&a1);
-		nox_xxx_roundCoord_5175E0(*(float*)(v1 + 12), (int)&v8);
-		v2 = v8;
-		v3 = a1;
-		v4 = *(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_2386940 + 4 * a1) + 16 * v8 + 8);
-		if (v4) {
-			*(uint32_t*)(v4 + 500) = v1;
-			v3 = a1;
-			v2 = v8;
-		}
-		*(uint32_t*)(v1 + 500) = 0;
-		v5 = 16 * v2;
-		*(uint32_t*)(v1 + 496) = *(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_2386940 + 4 * v3) + v5 + 8);
-		*(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_2386940 + 4 * v3) + v5 + 8) = v1;
-		v6 = a1;
-		*(uint16_t*)(v1 + 494) = v8;
-		v7 = *(uint32_t*)(v1 + 480);
-		*(uint16_t*)(v1 + 492) = v6;
-		LOBYTE(v7) = v7 | 2;
-		*(uint32_t*)(v1 + 480) = v7;
-	}
-}
-
 //----- (00517A70) --------------------------------------------------------
 int sub_517A70(int a1) {
 	int result; // eax
