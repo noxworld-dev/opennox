@@ -82,3 +82,7 @@ func (w *Waypoint) Pos() types.Pointf {
 func (w *Waypoint) SetPos(p types.Pointf) {
 	w.PosVec = p
 }
+
+func (w *Waypoint) HasFlag2Mask(mask byte) bool {
+	return mask&w.Flags2 != 0
+}

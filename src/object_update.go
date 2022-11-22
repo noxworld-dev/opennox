@@ -885,14 +885,14 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 	if targ := asObjectC(*(**nox_object_t)(unsafe.Pointer(&ud[1]))); targ != nil {
 		nox_xxx_pixieIdleAnimate_53CF90(u, targ.Pos().Sub(u.Pos()), 32)
 	} else {
-		getMissilesInCircle(u.PosVec, 200.0, func(it *Object) {
+		s.Map.EachMissilesInCircle(u.PosVec, 200.0, func(it *server.Object) {
 			if noxPixieObjID == 0 {
 				noxPixieObjID = noxServer.ObjectTypeID("Pixie")
 			}
 			if int(it.TypeInd) != noxPixieObjID {
 				return
 			}
-			if it != u.AsObject() && u.OwnerC() == it.OwnerC() {
+			if it != u.SObj() && u.OwnerC().SObj() == it.ObjOwner {
 				nox_xxx_pixieIdleAnimate_53CF90(u, it.Pos().Sub(u.Pos()), 16)
 			}
 		})
@@ -981,20 +981,21 @@ func nox_xxx_enemyAggro(self *Unit, r, max float32) *Object {
 		min      = max
 		someFlag = false
 	)
-	getUnitsInCircle(self.Pos(), r, func(it *Object) {
-		if self.AsObject() == it {
+	noxServer.Map.EachObjInCircle(self.Pos(), r, func(it *server.Object) {
+		if self.SObj() == it {
 			return
 		}
+		cit := asObjectS(it)
 		if !it.Class().HasAny(object.ClassMonsterGenerator | object.MaskUnits) {
 			return
 		}
-		if !self.isEnemyTo(it) {
+		if !self.isEnemyTo(cit) {
 			return
 		}
 		if it.Flags().HasAny(object.FlagDead) {
 			return
 		}
-		if !nox_xxx_unitCanInteractWith_5370E0(self, it, 0) {
+		if !nox_xxx_unitCanInteractWith_5370E0(self, cit, 0) {
 			return
 		}
 		vec := it.Pos().Sub(self.Pos())
@@ -1007,7 +1008,7 @@ func nox_xxx_enemyAggro(self *Unit, r, max float32) *Object {
 			}
 			if dist2 < min {
 				min = dist2
-				found = it
+				found = cit
 			}
 		}
 	})
@@ -1021,13 +1022,14 @@ func sub_5336D0(cobj *nox_object_t) C.double {
 		found *Object
 		minR2 = float32(math.MaxFloat32)
 	)
-	getUnitsInCircle(obj.Pos(), 1000.0, func(it *Object) {
-		if it.Class().HasAny(object.MaskUnits) && obj.isEnemyTo(it) && !it.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
+	noxServer.Map.EachObjInCircle(obj.Pos(), 1000.0, func(it *server.Object) {
+		cit := asObjectS(it)
+		if it.Class().HasAny(object.MaskUnits) && obj.isEnemyTo(cit) && !it.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
 			vec := obj.Pos().Sub(it.Pos())
 			r2 := vec.X*vec.X + vec.Y*vec.Y
 			if r2 < minR2 {
 				minR2 = r2
-				found = it
+				found = cit
 			}
 		}
 	})
@@ -1080,7 +1082,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 				} else if dp.Y < -max {
 					opos.Y -= (dp.Y + max) * 0.1
 				}
-				if sub517590(opos) {
+				if s.Map.ValidIndexPos(opos) {
 					pl.setPos3632(opos)
 				}
 			}
@@ -1097,12 +1099,12 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 					min   = float32(1e+08)
 				)
 				rect := types.RectFromPointsf(pos2.Sub(types.Pointf{X: 100, Y: 100}), pos2.Add(types.Pointf{X: 100, Y: 100}))
-				getUnitsInRect(rect, func(obj *Object) {
-					if obj.Class().Has(object.ClassMonster) && obj.OwnerC() != nil && obj.OwnerC().CObj() == u.CObj() {
+				s.Map.EachObjInRect(rect, func(obj *server.Object) {
+					if obj.Class().Has(object.ClassMonster) && obj.ObjOwner != nil && obj.ObjOwner == u.SObj() {
 						dp := obj.Pos().Sub(pos2)
 						dist := dp.X*dp.X + dp.Y*dp.Y
 						if dist < min {
-							found = obj
+							found = asObjectS(obj)
 							min = dist
 						}
 					}

@@ -46,6 +46,7 @@ type Server struct {
 
 	types   serverObjTypes
 	Objs    serverObjects
+	Map     serverMap
 	objects struct {
 		firstScriptID ObjectScriptID
 		lastScriptID  ObjectScriptID

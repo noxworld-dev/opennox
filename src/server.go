@@ -552,7 +552,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	if C.nox_xxx_allocClassArrayObjects_4E3360(0x1388) == 0 {
 		return errors.New("nox_xxx_allocClassArrayObjects_4E3360 failed")
 	}
-	sub_517AE0()
+	s.Server.Map.Init()
 	if C.nox_xxx_allocVisitNodesArray_50AB90() == 0 {
 		return errors.New("nox_xxx_allocVisitNodesArray_50AB90 failed")
 	}
@@ -647,7 +647,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	s.spells.Free()
 	nox_xxx_freeSpellRelated_4FCA80()
 	C.sub_50ABF0()
-	sub_517B30()
+	s.Map.Free()
 	C.sub_5018D0()
 	C.sub_4ECA90()
 	C.sub_506720()
@@ -995,10 +995,11 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 
 //export nox_xxx_moveUpdateSpecial_517970
 func nox_xxx_moveUpdateSpecial_517970(cunit *nox_object_t) {
+	s := noxServer
 	unit := asUnitC(cunit)
 	C.sub_517870(cunit)
-	if sub517590(unit.NewPos) {
-		nox_xxx_unitCreateMissileSmth_517640(unit.AsObject())
+	if s.Map.ValidIndexPos(unit.NewPos) {
+		s.Map.AddMissileXxx(unit.SObj())
 	} else {
 		if unit.Class().Has(object.ClassPlayer) {
 			gameLog.Printf("attempting to delete player unit; stopping the map")

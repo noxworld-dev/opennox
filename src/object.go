@@ -376,7 +376,7 @@ func (s *Server) objectsNewAdd() {
 			}
 			s.Objs.List = it.SObj()
 		}
-		nox_xxx_unitCreateMissileSmth_517640(it)
+		s.Map.AddMissileXxx(it.SObj())
 		if it.Collide != nil {
 			C.sub_5117F0(it.CObj())
 		}

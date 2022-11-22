@@ -27,14 +27,14 @@ func nox_xxx_warriorWarcry_53FF40(u *Unit) {
 	}
 	nox_xxx_playerSetState_4FA020(u, 1)
 	C.nox_xxx_spell_4FE680(u.CObj(), dist)
-	getUnitsInCircle(u.Pos(), dist, func(it *Object) {
+	s.Map.EachObjInCircle(u.Pos(), dist, func(it *server.Object) {
 		if !it.Class().HasAny(object.MaskUnits) {
 			return
 		}
 		if it.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
 			return
 		}
-		u2 := it.AsUnit()
+		u2 := asUnitS(it)
 		if u2.Class().Has(object.ClassPlayer) {
 			pl := u2.ControllingPlayer()
 			if pl == nil {
