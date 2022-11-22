@@ -68,7 +68,6 @@ extern nox_server_xxx nox_server_xxx_1599716[NOX_SERVER_XXX_SIZE * NOX_SERVER_XX
 
 uint32_t nox_xxx_wallSounds_2386840 = 0;
 void* dword_5d4594_2386176 = 0;
-void* dword_5d4594_2386940 = 0;
 
 //----- (005098A0) --------------------------------------------------------
 int sub_5098A0() {

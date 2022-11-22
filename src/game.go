@@ -1911,29 +1911,19 @@ type mapObjIndex struct {
 
 var (
 	dword_5d4594_2386944     int
-	dword_5d4594_2386940     []unsafe.Pointer
 	dword_5d4594_2386940_arr [][]mapObjIndex
 )
 
 func sub_517AE0() {
 	dword_5d4594_2386944 = 70
 	C.dword_5d4594_2386944 = C.uint(dword_5d4594_2386944)
-	dword_5d4594_2386940, _ = alloc.Make([]unsafe.Pointer{}, dword_5d4594_2386944)
 	dword_5d4594_2386940_arr = make([][]mapObjIndex, dword_5d4594_2386944)
-	C.dword_5d4594_2386940 = unsafe.Pointer(&dword_5d4594_2386940[0])
 	for i := 0; i < int(C.dword_5d4594_2386944); i++ {
-		arr, _ := alloc.Make([]mapObjIndex{}, dword_5d4594_2386944)
-		dword_5d4594_2386940[i] = unsafe.Pointer(&arr[0])
-		dword_5d4594_2386940_arr[i] = arr
+		dword_5d4594_2386940_arr[i] = make([]mapObjIndex, dword_5d4594_2386944)
 	}
 }
 
 func sub_517B30() {
-	for i := 0; i < dword_5d4594_2386944; i++ {
-		alloc.Free(dword_5d4594_2386940[i])
-	}
-	alloc.FreeSlice(dword_5d4594_2386940)
-	dword_5d4594_2386940 = nil
 	dword_5d4594_2386940_arr = nil
 }
 
