@@ -9447,7 +9447,7 @@ int nox_xxx_castCounterSpell_52BBB0(int a1, int a2, int a3, int a4) {
 
 	v10 = nox_xxx_gamedataGetFloat_419D40("CounterspellRange");
 	v4 = (float2*)(a4 + 56);
-	sub_518170(a4 + 56, v10, nox_xxx_cspellRemoveSpell_52BC90, 0);
+	nox_xxx_getMissilesInCircle_518170(a4 + 56, v10, nox_xxx_cspellRemoveSpell_52BC90, 0);
 	for (i = nox_xxx_spellCastedFirst_4FE930(); i; i = nox_xxx_spellCastedNext_4FE940(i)) {
 		if (nox_xxx_spellHasFlags_424A50(*(uint32_t*)(i + 4), 0x40000) &&
 			(!(*(uint8_t*)(i + 88) & 2) || *(uint32_t*)(i + 4) == 43)) {
@@ -9572,7 +9572,7 @@ int sub_52BEB0(int a1, int a2, int a3, int a4) {
 	float v6; // [esp+0h] [ebp-10h]
 
 	v6 = nox_xxx_gamedataGetFloat_419D40("InversionRange");
-	sub_518170(a4 + 56, v6, nox_xxx_changeOwner_52BE40, a3);
+	nox_xxx_getMissilesInCircle_518170(a4 + 56, v6, nox_xxx_changeOwner_52BE40, a3);
 	v4 = nox_xxx_spellGetAud44_424800(a1, 0);
 	nox_xxx_aud_501960(v4, a4, 0, 0);
 	return 1;

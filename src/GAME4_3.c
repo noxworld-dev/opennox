@@ -2903,7 +2903,7 @@ unsigned char* nox_xxx_unitNPCActionToAnim_533D00(int a1) {
 int nox_xxx_monsterTestBlockShield_533E70(nox_object_t* a1) {
 	*getMemU32Ptr(0x5D4594, 2487956) = 0;
 	*getMemU32Ptr(0x5D4594, 2487988) = 1315859240; // fp32 100
-	sub_518170((int)a1 + 56, 100.0, sub_533EB0, a1);
+	nox_xxx_getMissilesInCircle_518170((int)a1 + 56, 100.0, sub_533EB0, a1);
 	return *getMemU32Ptr(0x5D4594, 2487956);
 }
 
@@ -7034,7 +7034,7 @@ void nox_xxx_updateAntiSpellProj_53BB00(int a1) {
 		if (!*(uint32_t*)(v3 + 4) && v1 - *(uint32_t*)(a1 + 136) > v4 >> 2) {
 			*getMemU32Ptr(0x5D4594, 2488668) = 0;
 			*getMemU32Ptr(0x5D4594, 2488672) = 1287568416;
-			sub_518170(a1 + 56, 600.0, sub_53BD10, a1);
+			nox_xxx_getMissilesInCircle_518170(a1 + 56, 600.0, sub_53BD10, a1);
 			*(uint32_t*)(v3 + 4) = *getMemU32Ptr(0x5D4594, 2488668);
 			*(uint32_t*)(a1 + 136) = gameFrame();
 		}
@@ -7810,7 +7810,7 @@ void nox_xxx_updateDeathBall_53D080(int a1) {
 	if (gameFrame() % (gameFPS() / 3u)) {
 		*getMemU32Ptr(0x5D4594, 2488700) = 0;
 		v4 = nox_xxx_gamedataGetFloat_419D40("DeathBallCancelRange");
-		sub_518170(a1 + 56, v4, sub_53D170, a1);
+		nox_xxx_getMissilesInCircle_518170(a1 + 56, v4, sub_53D170, a1);
 		if (*getMemU32Ptr(0x5D4594, 2488700) == 1) {
 			nox_xxx_sMakeScorch_537AF0((int*)(a1 + 56), 1);
 			nox_xxx_delayedDeleteObject_4E5CC0(a1);
@@ -9858,7 +9858,7 @@ int nox_xxx_mobCastInversion_5408D0(int a1) {
 	}
 	*getMemU32Ptr(0x5D4594, 2489156) = 0;
 	v7 = nox_xxx_gamedataGetFloat_419D40("InversionRange") * 0.5;
-	sub_518170(a1 + 56, v7, nox_xxx_unitIsMagicMissile_540B60, a1);
+	nox_xxx_getMissilesInCircle_518170(a1 + 56, v7, nox_xxx_unitIsMagicMissile_540B60, a1);
 	if (!*getMemU32Ptr(0x5D4594, 2489156)) {
 		return 0;
 	}

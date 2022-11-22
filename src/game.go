@@ -2149,6 +2149,50 @@ func nox_xxx_getUnitsInRectAdvImpl_517DC0(rect types.Rectf, fnc func(it *Object)
 	}
 }
 
+func getMissilesInCircle(pos types.Pointf, r float32, fnc func(it *Object)) {
+	if fnc == nil {
+		return
+	}
+	sx := int(nox_xxx_roundCoord_5175E0(pos.X - r))
+	sy := int(nox_xxx_roundCoord_5175E0(pos.Y - r))
+	ex := int(nox_xxx_roundCoord_5175E0(pos.X + r))
+	ey := int(nox_xxx_roundCoord_5175E0(pos.Y + r))
+	if sx < 0 {
+		sx = 0
+	}
+	if ex >= dword_5d4594_2386944 {
+		ex = dword_5d4594_2386944 - 1
+	}
+	if sy < 0 {
+		sy = 0
+	}
+	if ey >= dword_5d4594_2386944 {
+		ey = dword_5d4594_2386944 - 1
+	}
+	r2 := r * r
+	for y := sy; y <= ey; y++ {
+		for x := sx; x <= ex; x++ {
+			for it := dword_5d4594_2386940_arr[x][y].List0; it != nil; it = it.Next4 {
+				obj := asObjectS(it.Obj12)
+				if obj.Class().Has(object.ClassMissile) {
+					dp := pos.Sub(obj.Pos())
+					if dp.X*dp.X+dp.Y*dp.Y <= r2 {
+						fnc(obj)
+					}
+				}
+			}
+		}
+	}
+}
+
+//export nox_xxx_getMissilesInCircle_518170
+func nox_xxx_getMissilesInCircle_518170(pos *C.float2, r float32, fnc unsafe.Pointer, a4 *nox_object_t) {
+	p := *(*types.Pointf)(unsafe.Pointer(pos))
+	getMissilesInCircle(p, r, func(it *Object) {
+		cgoCallVoidPtr2Func(fnc, unsafe.Pointer(it.CObj()), unsafe.Pointer(a4))
+	})
+}
+
 //export nox_xxx_getUnitsInRectAdv_517ED0
 func nox_xxx_getUnitsInRectAdv_517ED0(rect *C.float4, fnc unsafe.Pointer, data unsafe.Pointer) {
 	r := *(*types.Rectf)(unsafe.Pointer(rect))

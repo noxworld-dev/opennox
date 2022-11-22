@@ -186,7 +186,7 @@ void sub_517A70(void* a1);
 void nox_xxx_unitsGetInCircle_517F90(float2* a1, float a2, void* fnc, void* data);
 int sub_518040(int arg0, float a2, int arg8, int a4);
 void sub_5180B0(int a1, int a2);
-void sub_518170(void* a1p, float a2, void* a3, nox_object_t* a4p);
+void nox_xxx_getMissilesInCircle_518170(float2* a1, float a2, void* a3, nox_object_t* a4);
 int sub_518460(float2* a1, unsigned char a2, int a3);
 int sub_518550(int* a1, int* a2, unsigned char a3, int a4);
 int sub_518740(float2* a1, unsigned char a2);

@@ -16,7 +16,6 @@ extern uint32_t dword_5d4594_251568;
 extern unsigned int dword_5d4594_2650652;
 
 void nox_xxx_updateProjectile_53AC10(nox_object_t* a1);
-void nox_xxx_maybeAnimatePixie_53D010(nox_object_t* a1, nox_object_t* a2);
 static int nox_call_objectType_parseUpdate_go(int (*fnc)(char*, void*), char* arg1, void* arg2) { return fnc(arg1, arg2); }
 */
 import "C"
@@ -886,8 +885,17 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 	if targ := asObjectC(*(**nox_object_t)(unsafe.Pointer(&ud[1]))); targ != nil {
 		nox_xxx_pixieIdleAnimate_53CF90(u, targ.Pos().Sub(u.Pos()), 32)
 	} else {
-		_ = nox_xxx_maybeAnimatePixie_53D010
-		C.sub_518170(unsafe.Pointer(&u.PosVec), 200.0, C.nox_xxx_maybeAnimatePixie_53D010, u.CObj())
+		getMissilesInCircle(u.PosVec, 200.0, func(it *Object) {
+			if noxPixieObjID == 0 {
+				noxPixieObjID = noxServer.ObjectTypeID("Pixie")
+			}
+			if int(it.TypeInd) != noxPixieObjID {
+				return
+			}
+			if it != u.AsObject() && u.OwnerC() == it.OwnerC() {
+				nox_xxx_pixieIdleAnimate_53CF90(u, it.Pos().Sub(u.Pos()), 16)
+			}
+		})
 		if owner != nil {
 			pos1, pos2 := u.Pos(), owner.Pos()
 			if MapTraceRay9(pos1, pos2) {
@@ -928,21 +936,6 @@ func nox_xxx_pixieIdleAnimate_53CF90(obj *Unit, vec types.Pointf, ddir int) {
 		}
 	}
 	obj.Direction2 = server.Dir16(dir)
-}
-
-//export nox_xxx_maybeAnimatePixie_53D010
-func nox_xxx_maybeAnimatePixie_53D010(cit *nox_object_t, cu *nox_object_t) {
-	it := asObjectC(cit)
-	u := asUnitC(cu)
-	if noxPixieObjID == 0 {
-		noxPixieObjID = noxServer.ObjectTypeID("Pixie")
-	}
-	if int(it.TypeInd) != noxPixieObjID {
-		return
-	}
-	if it != u.AsObject() && u.OwnerC() == it.OwnerC() {
-		nox_xxx_pixieIdleAnimate_53CF90(u, it.Pos().Sub(u.Pos()), 16)
-	}
 }
 
 func nox_xxx_teleportPixie_4FD050(u *Unit, owner *Object) {
