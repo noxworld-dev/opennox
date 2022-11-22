@@ -250,6 +250,10 @@ func (s *Server) newObjectByTypeID(id string) *Object { // nox_xxx_newObjectByTy
 
 var _ = [1]struct{}{}[20-unsafe.Sizeof(server.HealthData{})]
 
+func nox_xxx_objectUnkUpdateCoords_4E7290(obj *Object) {
+	obj.SObj().UpdateCollider(obj.PosVec)
+}
+
 func (s *Server) newObject(t *server.ObjectType) *Object {
 	cobj := alloc.AsClassT[nox_object_t](unsafe.Pointer(C.nox_alloc_gameObject_1563344)).NewObject()
 	*cobj = nox_object_t{
@@ -270,7 +274,7 @@ func (s *Server) newObject(t *server.ObjectType) *Object {
 	obj := asObjectC(cobj)
 	obj.Shape = t.Shape
 	if !obj.Flags().Has(object.FlagNoCollide) {
-		C.nox_xxx_objectUnkUpdateCoords_4E7290(obj.CObj())
+		obj.SObj().UpdateCollider(obj.PosVec)
 	}
 	obj.Weight = t.Weight
 	obj.CarryCapacity = uint16(t.CarryCap)

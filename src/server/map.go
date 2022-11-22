@@ -210,7 +210,7 @@ func (s *serverMap) AddMissileXxx(obj *Object) {
 		return
 	}
 	if !obj.Class().Has(object.ClassMissile) {
-		obj.UpdateCollider()
+		obj.UpdateCollider(obj.NewPos)
 		sp := RoundPos(obj.CollideP1)
 		ep := RoundPos(obj.CollideP2)
 		if sp.X < 0 {
