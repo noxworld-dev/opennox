@@ -5656,46 +5656,6 @@ short sub_517870(nox_object_t* a1p) {
 	return v1;
 }
 
-//----- (00517B70) --------------------------------------------------------
-void sub_517B70(float2* a1, void (*a2)(uint32_t, int), int a3) {
-	int v3; // ecx
-	int v4; // eax
-	int i;  // esi
-	int v6; // [esp+8h] [ebp-8h]
-	int v7; // [esp+Ch] [ebp-4h]
-
-	if (!a2) {
-		return;
-	}
-	nox_xxx_roundCoord_5175E0(a1->field_0, (int)&v6);
-	nox_xxx_roundCoord_5175E0(a1->field_4, (int)&v7);
-	v3 = v6;
-	if (v6 >= 0) {
-		if (v6 < *(int*)&dword_5d4594_2386944) {
-			goto LABEL_7;
-		}
-		v3 = dword_5d4594_2386944 - 1;
-	} else {
-		v3 = 0;
-	}
-	v6 = v3;
-LABEL_7:
-	v4 = v7;
-	if (v7 >= 0) {
-		if (v7 < *(int*)&dword_5d4594_2386944) {
-			goto LABEL_12;
-		}
-		v4 = dword_5d4594_2386944 - 1;
-	} else {
-		v4 = 0;
-	}
-	v7 = v4;
-LABEL_12:
-	for (i = *(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_2386940 + 4 * v3) + 16 * v4 + 4); i; i = *(uint32_t*)(i + 4)) {
-		a2(*(uint32_t*)(i + 12), a3);
-	}
-}
-
 //----- (00517DC0) --------------------------------------------------------
 void nox_xxx_getUnitsInRectAdvImpl_517DC0(float4* a1, void (*a2)(int, int), int a3) {
 	void (*v3)(int, int); // ebp

@@ -237,7 +237,7 @@ int sub_51D8F0(float2* a1);
 int sub_51D9C0(int a1, int a2, int a3, int a4, int a5);
 
 void* nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int (*a5)(int, int, int), int a6);
-void sub_517B70(float2* a1, void (*a2)(uint32_t, int), int a3);
+void sub_517B70(float2* a1, void* a2, void* a3);
 void nox_xxx_getUnitsInRect_517C10(float4* a1, void* fnc, void* a3);
 void nox_xxx_getUnitsInRectAdvImpl_517DC0(float4* a1, void (*a2)(int, int), int a3);
 void nox_xxx_getUnitsInRectAdv_517ED0(float4* a1, void (*a2)(float*, int), int a3);

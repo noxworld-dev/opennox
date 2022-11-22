@@ -2095,6 +2095,28 @@ func sub_517A70(a1 unsafe.Pointer) {
 	*(*uint32)(unsafe.Add(a1, 480)) &= 0xFFFFFFFD
 }
 
+//export sub_517B70
+func sub_517B70(pos *C.float2, fnc unsafe.Pointer, data unsafe.Pointer) {
+	if fnc == nil {
+		return
+	}
+	x := int(nox_xxx_roundCoord_5175E0(float32(pos.field_0)))
+	y := int(nox_xxx_roundCoord_5175E0(float32(pos.field_4)))
+	if x < 0 {
+		x = 0
+	} else if x >= dword_5d4594_2386944 {
+		x = dword_5d4594_2386944 - 1
+	}
+	if y < 0 {
+		y = 0
+	} else if y >= dword_5d4594_2386944 {
+		y = dword_5d4594_2386944 - 1
+	}
+	for it := dword_5d4594_2386940_arr[x][y].List4; it != nil; it = it.Next4 {
+		cgoCallVoidPtr2Func(fnc, unsafe.Pointer(asObjectS(it.Obj12).CObj()), data)
+	}
+}
+
 //export nox_xxx_getUnitsInRect_517C10
 func nox_xxx_getUnitsInRect_517C10(rect *C.float4, fnc unsafe.Pointer, data unsafe.Pointer) {
 	r := *(*types.Rectf)(unsafe.Pointer(rect))
