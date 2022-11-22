@@ -1903,10 +1903,10 @@ func nox_xxx_mapTraceObstacles(from *Unit, p1, p2 types.Pointf) bool { // nox_xx
 }
 
 type mapObjIndex struct {
-	List0   *server.ObjectIndex
-	List4   *server.ObjectIndex
-	List8   unsafe.Pointer
-	Field12 uint32
+	List0 *server.ObjectIndex
+	List4 *server.ObjectIndex
+	List8 *nox_waypoint_t
+	Tok12 uint32
 }
 
 var (
@@ -2057,42 +2057,41 @@ func sub_5178E0(a1 int32, a2 unsafe.Pointer) {
 }
 
 //export nox_xxx_waypointMapRegister_5179B0
-func nox_xxx_waypointMapRegister_5179B0(a1p unsafe.Pointer) {
-	if *(*uint8)(unsafe.Add(a1p, 480))&0x2 != 0 {
+func nox_xxx_waypointMapRegister_5179B0(a1p *nox_waypoint_t) {
+	wp := asWaypointC(a1p)
+	if wp.flags&0x2 != 0 {
 		return
 	}
-	x := nox_xxx_roundCoord_5175E0(*(*float32)(unsafe.Add(a1p, 8)))
-	y := nox_xxx_roundCoord_5175E0(*(*float32)(unsafe.Add(a1p, 12)))
-	v4 := dword_5d4594_2386940_arr[x][y].List8
-	if v4 != nil {
-		*(*unsafe.Pointer)(unsafe.Add(v4, 500)) = a1p
+	pos := wp.Pos()
+	x := nox_xxx_roundCoord_5175E0(pos.X)
+	y := nox_xxx_roundCoord_5175E0(pos.Y)
+	wp.key_x = C.ushort(int16(x))
+	wp.key_y = C.ushort(int16(y))
+	wp.flags |= 0x2
+	wp.field_13 = nil
+	wp2 := asWaypointC(dword_5d4594_2386940_arr[x][y].List8)
+	if wp2 != nil {
+		wp2.field_13 = wp.C()
 	}
-	*(*uint32)(unsafe.Add(a1p, 500)) = 0
-	*(*unsafe.Pointer)(unsafe.Add(a1p, 496)) = dword_5d4594_2386940_arr[x][y].List8
-	dword_5d4594_2386940_arr[x][y].List8 = a1p
-	*(*uint16)(unsafe.Add(a1p, 494)) = uint16(int16(y))
-	*(*uint16)(unsafe.Add(a1p, 492)) = uint16(int16(x))
-	*(*uint32)(unsafe.Add(a1p, 480)) |= 0x2
+	wp.field_12 = dword_5d4594_2386940_arr[x][y].List8
+	dword_5d4594_2386940_arr[x][y].List8 = wp.C()
 }
 
 //export sub_517A70
-func sub_517A70(a1 unsafe.Pointer) {
-	if *(*uint8)(unsafe.Add(a1, 480))&0x2 == 0 {
+func sub_517A70(a1p *nox_waypoint_t) {
+	wp := asWaypointC(a1p)
+	if wp.flags&0x2 == 0 {
 		return
 	}
-	v2 := *(*unsafe.Pointer)(unsafe.Add(a1, 500))
-	if v2 != nil {
-		*(*uint32)(unsafe.Add(v2, 496)) = *(*uint32)(unsafe.Add(a1, 496))
+	if wp2 := asWaypointC(wp.field_13); wp2 != nil {
+		wp2.field_12 = wp.field_12
 	} else {
-		x := *(*int16)(unsafe.Add(a1, 492))
-		y := *(*int16)(unsafe.Add(a1, 494))
-		dword_5d4594_2386940_arr[x][y].List8 = *(*unsafe.Pointer)(unsafe.Add(a1, 496))
+		dword_5d4594_2386940_arr[wp.key_x][wp.key_y].List8 = wp.field_12
 	}
-	v3 := *(*unsafe.Pointer)(unsafe.Add(a1, 496))
-	if v3 != nil {
-		*(*uint32)(unsafe.Add(v3, 500)) = *(*uint32)(unsafe.Add(a1, 500))
+	if wp2 := asWaypointC(wp.field_12); wp2 != nil {
+		wp2.field_13 = wp.field_13
 	}
-	*(*uint32)(unsafe.Add(a1, 480)) &= 0xFFFFFFFD
+	wp.flags &= 0xFFFFFFFD
 }
 
 //export sub_517B70
@@ -2180,6 +2179,90 @@ func getMissilesInCircle(pos types.Pointf, r float32, fnc func(it *Object)) {
 						fnc(obj)
 					}
 				}
+			}
+		}
+	}
+}
+
+//export sub_518740
+func sub_518740(a1 *C.float2, a2 uint8) *nox_waypoint_t {
+	return sub_518460(*(*types.Pointf)(unsafe.Pointer(a1)), a2, true).C()
+}
+
+var (
+	dword_5d4594_2386928 float32
+	dword_5d4594_2386948 *Waypoint
+	dword_5d4594_2386960 uint32
+)
+
+func sub_518460(pos types.Pointf, mask byte, scanSub bool) *Waypoint {
+	dword_5d4594_2386960++
+	dword_5d4594_2386928 = 1000.0
+	var found *Waypoint
+	for r := float32(0.0); r < 1000.0; {
+		x1 := int(nox_xxx_roundCoord_5175E0(pos.X - r))
+		y1 := int(nox_xxx_roundCoord_5175E0(pos.Y - r))
+		x2 := int(nox_xxx_roundCoord_5175E0(pos.X + r))
+		y2 := int(nox_xxx_roundCoord_5175E0(pos.Y + r))
+		dword_5d4594_2386948 = nil
+		sub_518550(image.Rect(x1, y1, x2, y2), pos, mask, scanSub)
+		if dword_5d4594_2386948 != nil {
+			found = dword_5d4594_2386948
+			r = dword_5d4594_2386928
+		} else {
+			if found != nil {
+				return found
+			}
+			r += 85.0
+		}
+	}
+	return found
+}
+
+func sub_579EE0(wp *Waypoint, mask byte) bool {
+	return mask&byte(wp.flags_2) != 0
+}
+
+func sub_518550(rect image.Rectangle, pos types.Pointf, mask byte, scanSub bool) {
+	if rect.Min.X < 0 {
+		rect.Min.X = 0
+	}
+	if rect.Max.X >= dword_5d4594_2386944 {
+		rect.Max.X = dword_5d4594_2386944 - 1
+	}
+	if rect.Min.Y < 0 {
+		rect.Min.Y = 0
+	}
+	if rect.Max.Y >= dword_5d4594_2386944 {
+		rect.Max.Y = dword_5d4594_2386944 - 1
+	}
+	for y := rect.Min.Y; y <= rect.Max.Y; y++ {
+		for x := rect.Min.X; x <= rect.Max.X; x++ {
+			p := &dword_5d4594_2386940_arr[x][y]
+			if p.Tok12 != dword_5d4594_2386960 {
+				for it := asWaypointC(p.List8); it != nil; it = asWaypointC(it.field_12) {
+					if it.IsEnabled() && sub_579EE0(it, mask) {
+						cnt := 0
+						if scanSub {
+							for i := 0; i < int(it.points_cnt); i++ {
+								pt := &it.points[i]
+								wp2 := asWaypointC(pt.waypoint)
+								if wp2.IsEnabled() && sub_579EE0(wp2, mask) {
+									cnt++
+								}
+							}
+						}
+						if cnt != 0 {
+							if dist := pos.Sub(it.Pos()).Len(); dist < float64(dword_5d4594_2386928) {
+								if MapTraceRayAt(pos, it.Pos(), nil, nil, MapTraceFlag1) {
+									dword_5d4594_2386948 = it
+									dword_5d4594_2386928 = float32(dist)
+								}
+							}
+						}
+					}
+				}
+				dword_5d4594_2386940_arr[x][y].Tok12 = dword_5d4594_2386960
 			}
 		}
 	}

@@ -44,8 +44,8 @@ func (s *Server) getWaypointByInd(ind int) *Waypoint {
 }
 
 //export nox_server_getWaypointById_579C40
-func nox_server_getWaypointById_579C40(a1 C.int) *C.uint32_t {
-	return (*C.uint32_t)(noxServer.getWaypointByInd(int(a1)).C())
+func nox_server_getWaypointById_579C40(a1 C.int) *nox_waypoint_t {
+	return noxServer.getWaypointByInd(int(a1)).C()
 }
 
 func (s *Server) getWaypointGroupByID(id string) *script.WaypointGroup {
@@ -76,8 +76,8 @@ func (s *Server) getWaypoints() []*Waypoint {
 type nox_waypoint_t = C.nox_waypoint_t
 type Waypoint nox_waypoint_t
 
-func (w *Waypoint) C() unsafe.Pointer {
-	return unsafe.Pointer(w)
+func (w *Waypoint) C() *nox_waypoint_t {
+	return (*nox_waypoint_t)(unsafe.Pointer(w))
 }
 
 func (w *Waypoint) Next() *Waypoint {
@@ -116,7 +116,7 @@ func (w *Waypoint) Enable(enable bool) {
 	}
 }
 
-func (w *Waypoint) Toggle() { 
+func (w *Waypoint) Toggle() {
 	w.flags ^= 0x1
 }
 

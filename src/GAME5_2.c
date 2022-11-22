@@ -1313,7 +1313,7 @@ void sub_579E90(int a1) {
 }
 
 //----- (00579EE0) --------------------------------------------------------
-int sub_579EE0(int a1, unsigned char a2) { return (a2 & *(uint8_t*)(a1 + 477)) != 0; }
+int sub_579EE0(nox_waypoint_t* a1, unsigned char a2) { return (a2 & *(uint8_t*)((uint32_t)a1 + 477)) != 0; }
 
 //----- (00579F00) --------------------------------------------------------
 int nox_xxx_waypoint_579F00(uint32_t* a1, int a2) {

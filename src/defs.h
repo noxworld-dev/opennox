@@ -1420,6 +1420,7 @@ typedef struct nox_waypoint_t nox_waypoint_t;
 typedef struct nox_waypoint_inner {
 	nox_waypoint_t* waypoint;
 	uint8_t ind;
+	uint8_t padding[3];
 } nox_waypoint_inner;
 
 typedef struct nox_waypoint_t {
@@ -1427,17 +1428,23 @@ typedef struct nox_waypoint_t {
 	uint32_t field_1;              // 1, 4
 	float2 pos;                    // 2, 8
 	char name[76];                 // 4, 16
-	nox_waypoint_inner points[32]; // 5, 92
-	uint32_t field_6[32];          // 6, 348
-	uint8_t points_cnt;            // 7, 476
-	uint8_t padding_7[3];          // to pad field 7 to 4 bytes
-	uint32_t flags;                // 8, 480
-	nox_waypoint_t* next;          // 9, 484
-	nox_waypoint_t* prev;          // 10, 488
-	uint16_t field_11[2];          // 11, 492
-	uint32_t field_12[5];          // 12, 496
+	nox_waypoint_inner points[32]; // 92
+	uint32_t field_6[32];          // 348
+	uint8_t points_cnt;            // 476
+	uint8_t flags_2;               // 477
+	uint8_t padding_7[2];          // to pad field 7 to 4 bytes
+	uint32_t flags;                // 480
+	nox_waypoint_t* next;          // 484
+	nox_waypoint_t* prev;          // 488
+	uint16_t key_x;                // 492
+	uint16_t key_y;                // 494
+	nox_waypoint_t* field_12;      // 496
+	nox_waypoint_t* field_13;      // 500
+	uint32_t field_14;             // 504
+	uint32_t field_15;             // 508
+	uint32_t field_16;             // 512
 } nox_waypoint_t;
-_Static_assert(sizeof(nox_waypoint_t) == 0x204u, "wrong size of nox_waypoint_t structure!");
+_Static_assert(sizeof(nox_waypoint_t) == 516, "wrong size of nox_waypoint_t structure!");
 
 uint32_t gameFrame();
 void gameFrameSet(uint32_t v);
