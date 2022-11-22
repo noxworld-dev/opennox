@@ -5627,52 +5627,6 @@ short nox_xxx_unitCreateMissileSmth_517640(nox_object_t* a1p) {
 	return v2;
 }
 
-//----- (00517780) --------------------------------------------------------
-int nox_xxx_addObjToMapMB_517780(int a1, int a2, int a3, int a4) {
-	// TODO: should probably check upper bound as well
-	if (a2 < 0 || a3 < 0) { // see #403
-		return 0;
-	}
-	int result;       // eax
-	unsigned char v5; // cl
-	int v6;           // esi
-	int v7;           // esi
-
-	if (a1) {
-		result = a1 - 1;
-		if (a1 == 1) {
-			v5 = *(uint8_t*)(a4 + 336);
-			if (v5 < 4u) {
-				result = a4 + 16 * (v5 + 17);
-				*(uint8_t*)(a4 + 336) = v5 + 1;
-				*(uint16_t*)result = a2;
-				*(uint16_t*)(result + 2) = a3;
-				*(uint32_t*)(result + 12) = a4;
-				*(uint32_t*)(result + 8) = 0;
-				*(uint32_t*)(result + 4) = *(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_2386940 + 4 * a2) + 16 * a3 + 4);
-				v6 = *(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_2386940 + 4 * a2) + 16 * a3 + 4);
-				if (v6) {
-					*(uint32_t*)(v6 + 8) = result;
-				}
-				*(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_2386940 + 4 * a2) + 16 * a3 + 4) = result;
-			}
-		}
-	} else {
-		*(uint32_t*)(a4 + 268) = a4;
-		result = a4 + 256;
-		*(uint16_t*)(a4 + 256) = a2;
-		*(uint16_t*)(a4 + 258) = a3;
-		*(uint32_t*)(a4 + 264) = 0;
-		*(uint32_t*)(a4 + 260) = *(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_2386940 + 4 * a2) + 16 * a3);
-		v7 = *(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_2386940 + 4 * a2) + 16 * a3);
-		if (v7) {
-			*(uint32_t*)(v7 + 8) = result;
-		}
-		*(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_2386940 + 4 * a2) + 16 * a3) = result;
-	}
-	return result;
-}
-
 //----- (00517870) --------------------------------------------------------
 short sub_517870(nox_object_t* a1p) {
 	int a1 = a1p;

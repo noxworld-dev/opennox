@@ -177,7 +177,7 @@ uint32_t* nox_xxx_monsterDefByTT_517560(int a1);
 int sub_517590(float a1, float a2);
 int nox_xxx_roundCoord_5175E0(float a1, int a2);
 short nox_xxx_unitCreateMissileSmth_517640(nox_object_t* a1);
-int nox_xxx_addObjToMapMB_517780(int a1, int a2, int a3, int a4);
+void nox_xxx_addObjToMapMB_517780(int a1, int a2, int a3, nox_object_t* a4);
 short sub_517870(nox_object_t* a1);
 unsigned short* sub_5178E0(int a1, unsigned short* a2);
 void nox_xxx_moveUpdateSpecial_517970(nox_object_t* unit);

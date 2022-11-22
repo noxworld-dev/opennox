@@ -1902,27 +1902,27 @@ func nox_xxx_mapTraceObstacles(from *Unit, p1, p2 types.Pointf) bool { // nox_xx
 	return searching
 }
 
+type mapObjIndex struct {
+	List0   *server.ObjectIndex
+	List4   *server.ObjectIndex
+	Field8  uint32
+	Field12 uint32
+}
+
 var (
 	dword_5d4594_2386944     int
 	dword_5d4594_2386940     []unsafe.Pointer
-	dword_5d4594_2386940_arr [][]mapIndexItem
+	dword_5d4594_2386940_arr [][]mapObjIndex
 )
-
-type mapIndexItem struct {
-	Field0 uint32
-	Next4  *mapIndexItem
-	Field8 uint32
-	Obj12  *nox_object_t
-}
 
 func sub_517AE0() {
 	dword_5d4594_2386944 = 70
 	C.dword_5d4594_2386944 = C.uint(dword_5d4594_2386944)
 	dword_5d4594_2386940, _ = alloc.Make([]unsafe.Pointer{}, dword_5d4594_2386944)
-	dword_5d4594_2386940_arr = make([][]mapIndexItem, dword_5d4594_2386944)
+	dword_5d4594_2386940_arr = make([][]mapObjIndex, dword_5d4594_2386944)
 	C.dword_5d4594_2386940 = unsafe.Pointer(&dword_5d4594_2386940[0])
 	for i := 0; i < int(C.dword_5d4594_2386944); i++ {
-		arr, _ := alloc.Make([]mapIndexItem{}, dword_5d4594_2386944)
+		arr, _ := alloc.Make([]mapObjIndex{}, dword_5d4594_2386944)
 		dword_5d4594_2386940[i] = unsafe.Pointer(&arr[0])
 		dword_5d4594_2386940_arr[i] = arr
 	}
@@ -1935,6 +1935,46 @@ func sub_517B30() {
 	alloc.FreeSlice(dword_5d4594_2386940)
 	dword_5d4594_2386940 = nil
 	dword_5d4594_2386940_arr = nil
+}
+
+//export nox_xxx_addObjToMapMB_517780
+func nox_xxx_addObjToMapMB_517780(flag int, x, y int, cobj *nox_object_t) {
+	if x < 0 || y < 0 || x >= dword_5d4594_2386944 || y >= dword_5d4594_2386944 { // see #403
+		return
+	}
+	obj := asObjectC(cobj)
+	if flag != 0 {
+		i := int(obj.ObjIndexCur)
+		if i >= len(obj.ObjIndex) {
+			return
+		}
+		p := &obj.ObjIndex[i]
+		obj.ObjIndexCur++
+		*p = server.ObjectIndex{
+			X:     uint16(int16(x)),
+			Y:     uint16(int16(y)),
+			Obj12: obj.SObj(),
+		}
+		p2 := dword_5d4594_2386940_arr[x][y].List4
+		p.Next4 = p2
+		if p2 != nil {
+			p2.Prev8 = p
+		}
+		dword_5d4594_2386940_arr[x][y].List4 = p
+	} else {
+		p := &obj.ObjIndexBase
+		*p = server.ObjectIndex{
+			X:     uint16(int16(x)),
+			Y:     uint16(int16(y)),
+			Obj12: obj.SObj(),
+		}
+		p2 := dword_5d4594_2386940_arr[x][y].List0
+		p.Next4 = p2
+		if p2 != nil {
+			p2.Prev8 = p
+		}
+		dword_5d4594_2386940_arr[x][y].List0 = p
+	}
 }
 
 const getInRectStackSize = 2 // FIXME: size is a guess
@@ -1975,8 +2015,8 @@ func getUnitsInRect(rect types.Rectf, fnc func(it *Object)) { // nox_xxx_getUnit
 	for y := sy; y <= ey; y++ {
 		for x := sx; x <= ex; x++ {
 			ptr := &dword_5d4594_2386940_arr[x][y]
-			for it := ptr.Next4; it != nil; it = it.Next4 {
-				obj := asObjectC(it.Obj12)
+			for it := ptr.List4; it != nil; it = it.Next4 {
+				obj := asObjectS(it.Obj12)
 				objStack := unsafe.Slice(&obj.Field62, getInRectStackSize)
 				tok1 := &objStack[getInRectStackInd]
 				tok2 := getInRectStack[getInRectStackInd]

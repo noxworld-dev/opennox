@@ -131,6 +131,14 @@ func (v Dir16) Vec() types.Pointf {
 	return types.Pointf{X: x, Y: y}
 }
 
+type ObjectIndex struct {
+	X     uint16
+	Y     uint16
+	Next4 *ObjectIndex
+	Prev8 *ObjectIndex
+	Obj12 *Object
+}
+
 type Object struct {
 	IDPtr         unsafe.Pointer // 0, 0
 	TypeInd       uint16         // 1, 4
@@ -178,27 +186,9 @@ type Object struct {
 	CollideP2     types.Pointf   // 60, 240
 	Field62       uint32         // 62, 248
 	Field63       uint32         // 63, 252
-	Field64       uint32         // 64, 256
-	Field65       uint32         // 65, 260
-	Field66       uint32         // 66, 264
-	Field67       uint32         // 67, 268
-	Field68       uint32         // 68, 272
-	Field69       uint32         // 69, 276
-	Field70       uint32         // 70, 280
-	Field71       uint32         // 71, 284
-	Field72       uint32         // 72, 288
-	Field73       uint32         // 73, 292
-	Field74       uint32         // 74, 296
-	Field75       uint32         // 75, 300
-	Field76       uint32         // 76, 304
-	Field77       uint32         // 77, 308
-	Field78       uint32         // 78, 312
-	Field79       uint32         // 79, 316
-	Field80       uint32         // 80, 320
-	Field81       uint32         // 81, 324
-	Field82       uint32         // 82, 328
-	Field83       uint32         // 83, 332
-	Field84       uint32         // 84, 336
+	ObjIndexBase  ObjectIndex    // 64, 256
+	ObjIndex      [4]ObjectIndex // 68, 272
+	ObjIndexCur   uint32         // 84, 336
 	Buffs         uint32         // 85, 340
 	BuffsDur      [32]uint16     // 86, 344
 	BuffsPower    [32]uint8      // 102, 408
