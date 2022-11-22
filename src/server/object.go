@@ -538,3 +538,19 @@ func (obj *Object) FindOwnerChainPlayer() *Object {
 	}
 	return res
 }
+
+func (obj *Object) UpdateCollider() {
+	sh := &obj.Shape
+	switch sh.Kind {
+	case ShapeKindCenter:
+		obj.CollideP1 = obj.NewPos
+		obj.CollideP2 = obj.NewPos
+	case ShapeKindCircle:
+		r := types.Ptf(sh.Circle.R, sh.Circle.R)
+		obj.CollideP1 = obj.NewPos.Sub(r)
+		obj.CollideP2 = obj.NewPos.Add(r)
+	case ShapeKindBox:
+		obj.CollideP1 = obj.NewPos.Add(types.Ptf(sh.Box.LeftBottom2, sh.Box.LeftBottom))
+		obj.CollideP2 = obj.NewPos.Add(types.Ptf(sh.Box.RightTop, sh.Box.RightTop2))
+	}
+}

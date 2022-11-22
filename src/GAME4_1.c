@@ -62,7 +62,6 @@ extern uint32_t dword_5d4594_2388648;
 extern uint32_t dword_5d4594_2386152;
 extern uint32_t dword_5d4594_2386224;
 extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
-extern uint32_t dword_5d4594_2386944;
 extern uint32_t dword_5d4594_2650652;
 extern nox_server_xxx nox_server_xxx_1599716[NOX_SERVER_XXX_SIZE * NOX_SERVER_XXX_SIZE];
 

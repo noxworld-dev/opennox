@@ -1,10 +1,25 @@
 package server
 
 import (
+	"image"
 	"math"
 
 	"github.com/noxworld-dev/opennox-lib/types"
 )
+
+// RoundCoord rounds float coordinate in range [0, N) to be used as a map key.
+func RoundCoord(v float32) int {
+	if float64(v) < 0.0 {
+		return int(int32(v))
+	}
+	v = float32(float64(v)*0.011764706 + 8.388608e+06)
+	return int(int32(math.Float32bits(v) & 0x7FFFFF))
+}
+
+// RoundPos is similar to RoundCoord, but accepts a point.
+func RoundPos(p types.Pointf) image.Point {
+	return image.Pt(RoundCoord(p.X), RoundCoord(p.Y))
+}
 
 // DirFromVec converts arbitrary vector into angle value which is integer ranged 0-255.
 func DirFromVec(p types.Pointf) Dir16 {

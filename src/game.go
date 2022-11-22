@@ -52,8 +52,6 @@ extern uint32_t* dword_5D4594_251544;
 extern void* dword_5d4594_251548;
 extern uint32_t dword_5d4594_251552;
 extern uint32_t* dword_5d4594_251556;
-extern void* dword_5d4594_2386940;
-extern uint32_t dword_5d4594_2386944;
 
 int sub_4EDD70();
 void sub_426060();
@@ -1902,24 +1900,16 @@ func nox_xxx_mapTraceObstacles(from *Unit, p1, p2 types.Pointf) bool { // nox_xx
 	return searching
 }
 
-type mapObjIndex struct {
-	List0 *server.ObjectIndex
-	List4 *server.ObjectIndex
-	List8 *nox_waypoint_t
-	Tok12 uint32
-}
-
 var (
 	dword_5d4594_2386944     int
-	dword_5d4594_2386940_arr [][]mapObjIndex
+	dword_5d4594_2386940_arr [][]server.MapIndexBucket
 )
 
 func sub_517AE0() {
 	dword_5d4594_2386944 = 70
-	C.dword_5d4594_2386944 = C.uint(dword_5d4594_2386944)
-	dword_5d4594_2386940_arr = make([][]mapObjIndex, dword_5d4594_2386944)
-	for i := 0; i < int(C.dword_5d4594_2386944); i++ {
-		dword_5d4594_2386940_arr[i] = make([]mapObjIndex, dword_5d4594_2386944)
+	dword_5d4594_2386940_arr = make([][]server.MapIndexBucket, dword_5d4594_2386944)
+	for i := 0; i < dword_5d4594_2386944; i++ {
+		dword_5d4594_2386940_arr[i] = make([]server.MapIndexBucket, dword_5d4594_2386944)
 	}
 }
 
@@ -1927,8 +1917,8 @@ func sub_517B30() {
 	dword_5d4594_2386940_arr = nil
 }
 
-func nox_xxx_addObjToMapMB_517780(flag bool, x, y int, obj *Object) {
-	if x < 0 || y < 0 || x >= dword_5d4594_2386944 || y >= dword_5d4594_2386944 { // see #403
+func nox_xxx_addObjToMapMB_517780(flag bool, pos image.Point, obj *Object) {
+	if pos.X < 0 || pos.Y < 0 || pos.X >= dword_5d4594_2386944 || pos.Y >= dword_5d4594_2386944 { // see #403
 		return
 	}
 	if flag {
@@ -1939,29 +1929,29 @@ func nox_xxx_addObjToMapMB_517780(flag bool, x, y int, obj *Object) {
 		p := &obj.ObjIndex[i]
 		obj.ObjIndexCur++
 		*p = server.ObjectIndex{
-			X:     uint16(int16(x)),
-			Y:     uint16(int16(y)),
+			X:     uint16(int16(pos.X)),
+			Y:     uint16(int16(pos.Y)),
 			Obj12: obj.SObj(),
 		}
-		p2 := dword_5d4594_2386940_arr[x][y].List4
+		p2 := dword_5d4594_2386940_arr[pos.X][pos.Y].List4
 		p.Next4 = p2
 		if p2 != nil {
 			p2.Prev8 = p
 		}
-		dword_5d4594_2386940_arr[x][y].List4 = p
+		dword_5d4594_2386940_arr[pos.X][pos.Y].List4 = p
 	} else {
 		p := &obj.ObjIndexBase
 		*p = server.ObjectIndex{
-			X:     uint16(int16(x)),
-			Y:     uint16(int16(y)),
+			X:     uint16(int16(pos.X)),
+			Y:     uint16(int16(pos.Y)),
 			Obj12: obj.SObj(),
 		}
-		p2 := dword_5d4594_2386940_arr[x][y].List0
+		p2 := dword_5d4594_2386940_arr[pos.X][pos.Y].List0
 		p.Next4 = p2
 		if p2 != nil {
 			p2.Prev8 = p
 		}
-		dword_5d4594_2386940_arr[x][y].List0 = p
+		dword_5d4594_2386940_arr[pos.X][pos.Y].List0 = p
 	}
 }
 
@@ -1984,21 +1974,21 @@ func getUnitsInRect(rect types.Rectf, fnc func(it *Object)) { // nox_xxx_getUnit
 	defer func() {
 		getInRectStackInd--
 	}()
-	sx := nox_xxx_roundCoord_5175E0(rect.Left)
-	sy := nox_xxx_roundCoord_5175E0(rect.Top)
-	ex := nox_xxx_roundCoord_5175E0(rect.Right)
-	ey := nox_xxx_roundCoord_5175E0(rect.Bottom)
+	sx := server.RoundCoord(rect.Left)
+	sy := server.RoundCoord(rect.Top)
+	ex := server.RoundCoord(rect.Right)
+	ey := server.RoundCoord(rect.Bottom)
 	if sx < 0 {
 		sx = 0
 	}
-	if ex >= int32(C.dword_5d4594_2386944) {
-		ex = int32(C.dword_5d4594_2386944) - 1
+	if ex >= dword_5d4594_2386944 {
+		ex = dword_5d4594_2386944 - 1
 	}
 	if sy < 0 {
 		sy = 0
 	}
-	if ey >= int32(C.dword_5d4594_2386944) {
-		ey = int32(C.dword_5d4594_2386944) - 1
+	if ey >= dword_5d4594_2386944 {
+		ey = dword_5d4594_2386944 - 1
 	}
 	for y := sy; y <= ey; y++ {
 		for x := sx; x <= ex; x++ {
@@ -2051,18 +2041,18 @@ func nox_xxx_waypointMapRegister_5179B0(a1p *nox_waypoint_t) {
 		return
 	}
 	pos := wp.Pos()
-	x := nox_xxx_roundCoord_5175E0(pos.X)
-	y := nox_xxx_roundCoord_5175E0(pos.Y)
+	x := server.RoundCoord(pos.X)
+	y := server.RoundCoord(pos.Y)
 	wp.KeyX = uint16(int16(x))
 	wp.KeyY = uint16(int16(y))
 	wp.Flags |= 0x2
 	wp.Field13 = nil
-	wp2 := asWaypointC(dword_5d4594_2386940_arr[x][y].List8)
+	wp2 := asWaypointS(dword_5d4594_2386940_arr[x][y].List8)
 	if wp2 != nil {
 		wp2.Field13 = wp.S()
 	}
-	wp.Field12 = asWaypointC(dword_5d4594_2386940_arr[x][y].List8).S()
-	dword_5d4594_2386940_arr[x][y].List8 = wp.C()
+	wp.Field12 = dword_5d4594_2386940_arr[x][y].List8
+	dword_5d4594_2386940_arr[x][y].List8 = wp.S()
 }
 
 //export sub_517A70
@@ -2074,7 +2064,7 @@ func sub_517A70(a1p *nox_waypoint_t) {
 	if wp2 := asWaypointS(wp.Field13); wp2 != nil {
 		wp2.Field12 = wp.Field12
 	} else {
-		dword_5d4594_2386940_arr[wp.KeyX][wp.KeyY].List8 = asWaypointS(wp.Field12).C()
+		dword_5d4594_2386940_arr[wp.KeyX][wp.KeyY].List8 = wp.Field12
 	}
 	if wp2 := asWaypointS(wp.Field12); wp2 != nil {
 		wp2.Field13 = wp.Field13
@@ -2087,8 +2077,8 @@ func sub_517B70(pos *C.float2, fnc unsafe.Pointer, data unsafe.Pointer) {
 	if fnc == nil {
 		return
 	}
-	x := int(nox_xxx_roundCoord_5175E0(float32(pos.field_0)))
-	y := int(nox_xxx_roundCoord_5175E0(float32(pos.field_4)))
+	x := server.RoundCoord(float32(pos.field_0))
+	y := server.RoundCoord(float32(pos.field_4))
 	if x < 0 {
 		x = 0
 	} else if x >= dword_5d4594_2386944 {
@@ -2110,25 +2100,8 @@ func sub_517590(x float32, y float32) int {
 }
 
 func sub517590(p types.Pointf) bool {
-	xi := int(nox_xxx_roundCoord_5175E0(p.X))
-	yi := int(nox_xxx_roundCoord_5175E0(p.Y))
-	return xi >= 0.0 && xi < dword_5d4594_2386944 && yi >= 0 && yi < dword_5d4594_2386944
-}
-
-func (obj *Object) updateCollider() {
-	sh := &obj.Shape
-	switch sh.Kind {
-	case server.ShapeKindCenter:
-		obj.CollideP1 = obj.NewPos
-		obj.CollideP2 = obj.NewPos
-	case server.ShapeKindCircle:
-		r := types.Ptf(sh.Circle.R, sh.Circle.R)
-		obj.CollideP1 = obj.NewPos.Sub(r)
-		obj.CollideP2 = obj.NewPos.Add(r)
-	case server.ShapeKindBox:
-		obj.CollideP1 = obj.NewPos.Add(types.Ptf(sh.Box.LeftBottom2, sh.Box.LeftBottom))
-		obj.CollideP2 = obj.NewPos.Add(types.Ptf(sh.Box.RightTop, sh.Box.RightTop2))
-	}
+	pi := server.RoundPos(p)
+	return pi.X >= 0 && pi.X < dword_5d4594_2386944 && pi.Y >= 0 && pi.Y < dword_5d4594_2386944
 }
 
 func nox_xxx_unitCreateMissileSmth_517640(obj *Object) {
@@ -2136,33 +2109,30 @@ func nox_xxx_unitCreateMissileSmth_517640(obj *Object) {
 		return
 	}
 	if !obj.Class().Has(object.ClassMissile) {
-		obj.updateCollider()
-		sx := int(nox_xxx_roundCoord_5175E0(obj.CollideP1.X))
-		sy := int(nox_xxx_roundCoord_5175E0(obj.CollideP1.Y))
-		ex := int(nox_xxx_roundCoord_5175E0(obj.CollideP2.X))
-		ey := int(nox_xxx_roundCoord_5175E0(obj.CollideP2.Y))
-		if sx < 0 {
-			sx = 0
+		obj.SObj().UpdateCollider()
+		sp := server.RoundPos(obj.CollideP1)
+		ep := server.RoundPos(obj.CollideP2)
+		if sp.X < 0 {
+			sp.X = 0
 		}
-		if sy < 0 {
-			sy = 0
+		if sp.Y < 0 {
+			sp.Y = 0
 		}
-		if ex >= dword_5d4594_2386944 {
-			ex = dword_5d4594_2386944 - 1
+		if ep.X >= dword_5d4594_2386944 {
+			ep.X = dword_5d4594_2386944 - 1
 		}
-		if ey >= dword_5d4594_2386944 {
-			ey = dword_5d4594_2386944 - 1
+		if ep.Y >= dword_5d4594_2386944 {
+			ep.Y = dword_5d4594_2386944 - 1
 		}
 		obj.ObjIndexCur = 0
-		for y := sy; y <= ey; y++ {
-			for x := sx; x <= ex; x++ {
-				nox_xxx_addObjToMapMB_517780(true, x, y, obj)
+		for y := sp.Y; y <= ep.Y; y++ {
+			for x := sp.X; x <= ep.X; x++ {
+				nox_xxx_addObjToMapMB_517780(true, image.Pt(x, y), obj)
 			}
 		}
 	}
-	xi := int(nox_xxx_roundCoord_5175E0(obj.NewPos.X))
-	yi := int(nox_xxx_roundCoord_5175E0(obj.NewPos.Y))
-	nox_xxx_addObjToMapMB_517780(false, xi, yi, obj)
+	pi := server.RoundPos(obj.NewPos)
+	nox_xxx_addObjToMapMB_517780(false, pi, obj)
 	obj.ObjFlags |= uint32(object.FlagPartitioned)
 }
 
@@ -2170,10 +2140,10 @@ func nox_xxx_getUnitsInRectAdvImpl_517DC0(rect types.Rectf, fnc func(it *Object)
 	if fnc == nil {
 		return
 	}
-	sx := int(nox_xxx_roundCoord_5175E0(rect.Left))
-	sy := int(nox_xxx_roundCoord_5175E0(rect.Top))
-	ex := int(nox_xxx_roundCoord_5175E0(rect.Right))
-	ey := int(nox_xxx_roundCoord_5175E0(rect.Bottom))
+	sx := server.RoundCoord(rect.Left)
+	sy := server.RoundCoord(rect.Top)
+	ex := server.RoundCoord(rect.Right)
+	ey := server.RoundCoord(rect.Bottom)
 	if sx < 0 {
 		sx = 0
 	}
@@ -2202,10 +2172,10 @@ func getMissilesInCircle(pos types.Pointf, r float32, fnc func(it *Object)) {
 	if fnc == nil {
 		return
 	}
-	sx := int(nox_xxx_roundCoord_5175E0(pos.X - r))
-	sy := int(nox_xxx_roundCoord_5175E0(pos.Y - r))
-	ex := int(nox_xxx_roundCoord_5175E0(pos.X + r))
-	ey := int(nox_xxx_roundCoord_5175E0(pos.Y + r))
+	sx := server.RoundCoord(pos.X - r)
+	sy := server.RoundCoord(pos.Y - r)
+	ex := server.RoundCoord(pos.X + r)
+	ey := server.RoundCoord(pos.Y + r)
 	if sx < 0 {
 		sx = 0
 	}
@@ -2250,10 +2220,10 @@ func sub_518460(pos types.Pointf, mask byte, scanSub bool) *Waypoint {
 	dword_5d4594_2386928 = 1000.0
 	var found *Waypoint
 	for r := float32(0.0); r < 1000.0; {
-		x1 := int(nox_xxx_roundCoord_5175E0(pos.X - r))
-		y1 := int(nox_xxx_roundCoord_5175E0(pos.Y - r))
-		x2 := int(nox_xxx_roundCoord_5175E0(pos.X + r))
-		y2 := int(nox_xxx_roundCoord_5175E0(pos.Y + r))
+		x1 := server.RoundCoord(pos.X - r)
+		y1 := server.RoundCoord(pos.Y - r)
+		x2 := server.RoundCoord(pos.X + r)
+		y2 := server.RoundCoord(pos.Y + r)
 		dword_5d4594_2386948 = nil
 		sub_518550(image.Rect(x1, y1, x2, y2), pos, mask, scanSub)
 		if dword_5d4594_2386948 != nil {
@@ -2290,7 +2260,7 @@ func sub_518550(rect image.Rectangle, pos types.Pointf, mask byte, scanSub bool)
 		for x := rect.Min.X; x <= rect.Max.X; x++ {
 			p := &dword_5d4594_2386940_arr[x][y]
 			if p.Tok12 != dword_5d4594_2386960 {
-				for it := asWaypointC(p.List8); it != nil; it = asWaypointS(it.Field12) {
+				for it := asWaypointS(p.List8); it != nil; it = asWaypointS(it.Field12) {
 					if it.IsEnabled() && sub_579EE0(it, mask) {
 						cnt := 0
 						if scanSub {
