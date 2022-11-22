@@ -2032,6 +2032,30 @@ func getUnitsInRect(rect types.Rectf, fnc func(it *Object)) { // nox_xxx_getUnit
 	}
 }
 
+//export sub_5178E0
+func sub_5178E0(a1 int32, a2 unsafe.Pointer) {
+	p := (*server.ObjectIndex)(a2)
+	if a1 != 0 {
+		if prev := p.Prev8; prev != nil {
+			prev.Next4 = p.Next4
+		} else {
+			dword_5d4594_2386940_arr[p.X][p.Y].List4 = p.Next4
+		}
+		if next := p.Next4; next != nil {
+			next.Prev8 = p.Prev8
+		}
+	} else {
+		if prev := p.Prev8; prev != nil {
+			prev.Next4 = p.Next4
+		} else {
+			dword_5d4594_2386940_arr[p.X][p.Y].List0 = p.Next4
+		}
+		if next := p.Next4; next != nil {
+			next.Prev8 = p.Prev8
+		}
+	}
+}
+
 //export nox_xxx_getUnitsInRect_517C10
 func nox_xxx_getUnitsInRect_517C10(rect *C.float4, fnc unsafe.Pointer, data unsafe.Pointer) {
 	r := *(*types.Rectf)(unsafe.Pointer(rect))

@@ -179,7 +179,7 @@ int nox_xxx_roundCoord_5175E0(float a1, int a2);
 short nox_xxx_unitCreateMissileSmth_517640(nox_object_t* a1);
 void nox_xxx_addObjToMapMB_517780(int a1, int a2, int a3, nox_object_t* a4);
 short sub_517870(nox_object_t* a1);
-unsigned short* sub_5178E0(int a1, unsigned short* a2);
+void sub_5178E0(int a1, void* a2);
 void nox_xxx_moveUpdateSpecial_517970(nox_object_t* unit);
 void nox_xxx_waypointMapRegister_5179B0(int a1);
 int sub_517A70(int a1);

@@ -5656,45 +5656,6 @@ short sub_517870(nox_object_t* a1p) {
 	return v1;
 }
 
-//----- (005178E0) --------------------------------------------------------
-unsigned short* sub_5178E0(int a1, unsigned short* a2) {
-	unsigned short* result; // eax
-	int v3;                 // ecx
-	int v4;                 // ecx
-	int v5;                 // ecx
-	int v6;                 // ecx
-
-	if (a1) {
-		result = (unsigned short*)(a1 - 1);
-		if (a1 == 1) {
-			result = a2;
-			v3 = *((uint32_t*)a2 + 2);
-			if (v3) {
-				*(uint32_t*)(v3 + 4) = *((uint32_t*)a2 + 1);
-			} else {
-				*(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_2386940 + 4 * *a2) + 16 * a2[1] + 4) = *((uint32_t*)a2 + 1);
-			}
-			v4 = *((uint32_t*)a2 + 1);
-			if (v4) {
-				*(uint32_t*)(v4 + 8) = *((uint32_t*)a2 + 2);
-			}
-		}
-	} else {
-		result = a2;
-		v5 = *((uint32_t*)a2 + 2);
-		if (v5) {
-			*(uint32_t*)(v5 + 4) = *((uint32_t*)a2 + 1);
-		} else {
-			*(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_2386940 + 4 * *a2) + 16 * a2[1]) = *((uint32_t*)a2 + 1);
-		}
-		v6 = *((uint32_t*)a2 + 1);
-		if (v6) {
-			*(uint32_t*)(v6 + 8) = *((uint32_t*)a2 + 2);
-		}
-	}
-	return result;
-}
-
 //----- (005179B0) --------------------------------------------------------
 void nox_xxx_waypointMapRegister_5179B0(int a1) {
 	int v1;   // esi
