@@ -5533,15 +5533,6 @@ uint32_t* nox_xxx_monsterDefByTT_517560(int a1) {
 	return result;
 }
 
-//----- (00517590) --------------------------------------------------------
-int sub_517590(float a1, float a2) {
-	int v4; // [esp+0h] [ebp-4h]
-
-	nox_xxx_roundCoord_5175E0(a1, (int)&a1);
-	nox_xxx_roundCoord_5175E0(a2, (int)&v4);
-	return a1 >= 0.0 && SLODWORD(a1) < *(int*)&dword_5d4594_2386944 && v4 >= 0 && v4 < *(int*)&dword_5d4594_2386944;
-}
-
 //----- (005175E0) --------------------------------------------------------
 int nox_xxx_roundCoord_5175E0(float a1, int a2) {
 	int result; // eax

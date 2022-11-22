@@ -2106,6 +2106,17 @@ func sub_517B70(pos *C.float2, fnc unsafe.Pointer, data unsafe.Pointer) {
 	}
 }
 
+//export sub_517590
+func sub_517590(x float32, y float32) int {
+	return bool2int(sub517590(types.Ptf(x, y)))
+}
+
+func sub517590(p types.Pointf) bool {
+	xi := int(nox_xxx_roundCoord_5175E0(p.X))
+	yi := int(nox_xxx_roundCoord_5175E0(p.Y))
+	return xi >= 0.0 && xi < dword_5d4594_2386944 && yi >= 0 && yi < dword_5d4594_2386944
+}
+
 func nox_xxx_getUnitsInRectAdvImpl_517DC0(rect types.Rectf, fnc func(it *Object)) {
 	if fnc == nil {
 		return

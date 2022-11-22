@@ -1080,7 +1080,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 				} else if dp.Y < -max {
 					opos.Y -= (dp.Y + max) * 0.1
 				}
-				if C.sub_517590(C.float(opos.X), C.float(opos.Y)) != 0 {
+				if sub517590(opos) {
 					pl.setPos3632(opos)
 				}
 			}
