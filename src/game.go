@@ -2075,6 +2075,26 @@ func nox_xxx_waypointMapRegister_5179B0(a1p unsafe.Pointer) {
 	*(*uint32)(unsafe.Add(a1p, 480)) |= 0x2
 }
 
+//export sub_517A70
+func sub_517A70(a1 unsafe.Pointer) {
+	if *(*uint8)(unsafe.Add(a1, 480))&0x2 == 0 {
+		return
+	}
+	v2 := *(*unsafe.Pointer)(unsafe.Add(a1, 500))
+	if v2 != nil {
+		*(*uint32)(unsafe.Add(v2, 496)) = *(*uint32)(unsafe.Add(a1, 496))
+	} else {
+		x := *(*int16)(unsafe.Add(a1, 492))
+		y := *(*int16)(unsafe.Add(a1, 494))
+		dword_5d4594_2386940_arr[x][y].List8 = *(*unsafe.Pointer)(unsafe.Add(a1, 496))
+	}
+	v3 := *(*unsafe.Pointer)(unsafe.Add(a1, 496))
+	if v3 != nil {
+		*(*uint32)(unsafe.Add(v3, 500)) = *(*uint32)(unsafe.Add(a1, 500))
+	}
+	*(*uint32)(unsafe.Add(a1, 480)) &= 0xFFFFFFFD
+}
+
 //export nox_xxx_getUnitsInRect_517C10
 func nox_xxx_getUnitsInRect_517C10(rect *C.float4, fnc unsafe.Pointer, data unsafe.Pointer) {
 	r := *(*types.Rectf)(unsafe.Pointer(rect))

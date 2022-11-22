@@ -5656,30 +5656,6 @@ short sub_517870(nox_object_t* a1p) {
 	return v1;
 }
 
-//----- (00517A70) --------------------------------------------------------
-int sub_517A70(int a1) {
-	int result; // eax
-	int v2;     // ecx
-	int v3;     // ecx
-
-	result = a1;
-	if (*(uint8_t*)(a1 + 480) & 2) {
-		v2 = *(uint32_t*)(a1 + 500);
-		if (v2) {
-			*(uint32_t*)(v2 + 496) = *(uint32_t*)(a1 + 496);
-		} else {
-			*(uint32_t*)(*(uint32_t*)((uint32_t)dword_5d4594_2386940 + 4 * *(short*)(a1 + 492)) + 16 * *(short*)(a1 + 494) + 8) =
-				*(uint32_t*)(a1 + 496);
-		}
-		v3 = *(uint32_t*)(a1 + 496);
-		if (v3) {
-			*(uint32_t*)(v3 + 500) = *(uint32_t*)(a1 + 500);
-		}
-		*(uint32_t*)(a1 + 480) &= 0xFFFFFFFD;
-	}
-	return result;
-}
-
 //----- (00517B70) --------------------------------------------------------
 void sub_517B70(float2* a1, void (*a2)(uint32_t, int), int a3) {
 	int v3; // ecx
