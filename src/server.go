@@ -998,7 +998,7 @@ func nox_xxx_moveUpdateSpecial_517970(cunit *nox_object_t) {
 	unit := asUnitC(cunit)
 	C.sub_517870(cunit)
 	if sub517590(unit.NewPos) {
-		C.nox_xxx_unitCreateMissileSmth_517640(cunit)
+		nox_xxx_unitCreateMissileSmth_517640(unit.AsObject())
 	} else {
 		if unit.Class().Has(object.ClassPlayer) {
 			gameLog.Printf("attempting to delete player unit; stopping the map")

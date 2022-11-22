@@ -1927,13 +1927,11 @@ func sub_517B30() {
 	dword_5d4594_2386940_arr = nil
 }
 
-//export nox_xxx_addObjToMapMB_517780
-func nox_xxx_addObjToMapMB_517780(flag int, x, y int, cobj *nox_object_t) {
+func nox_xxx_addObjToMapMB_517780(flag bool, x, y int, obj *Object) {
 	if x < 0 || y < 0 || x >= dword_5d4594_2386944 || y >= dword_5d4594_2386944 { // see #403
 		return
 	}
-	obj := asObjectC(cobj)
-	if flag != 0 {
+	if flag {
 		i := int(obj.ObjIndexCur)
 		if i >= len(obj.ObjIndex) {
 			return
@@ -2115,6 +2113,57 @@ func sub517590(p types.Pointf) bool {
 	xi := int(nox_xxx_roundCoord_5175E0(p.X))
 	yi := int(nox_xxx_roundCoord_5175E0(p.Y))
 	return xi >= 0.0 && xi < dword_5d4594_2386944 && yi >= 0 && yi < dword_5d4594_2386944
+}
+
+func (obj *Object) updateCollider() {
+	sh := &obj.Shape
+	switch sh.Kind {
+	case server.ShapeKindCenter:
+		obj.CollideP1 = obj.NewPos
+		obj.CollideP2 = obj.NewPos
+	case server.ShapeKindCircle:
+		r := types.Ptf(sh.Circle.R, sh.Circle.R)
+		obj.CollideP1 = obj.NewPos.Sub(r)
+		obj.CollideP2 = obj.NewPos.Add(r)
+	case server.ShapeKindBox:
+		obj.CollideP1 = obj.NewPos.Add(types.Ptf(sh.Box.LeftBottom2, sh.Box.LeftBottom))
+		obj.CollideP2 = obj.NewPos.Add(types.Ptf(sh.Box.RightTop, sh.Box.RightTop2))
+	}
+}
+
+func nox_xxx_unitCreateMissileSmth_517640(obj *Object) {
+	if f := obj.Flags(); f.Has(object.FlagDestroyed) || f.Has(object.FlagPartitioned) || !f.Has(object.FlagActive) {
+		return
+	}
+	if !obj.Class().Has(object.ClassMissile) {
+		obj.updateCollider()
+		sx := int(nox_xxx_roundCoord_5175E0(obj.CollideP1.X))
+		sy := int(nox_xxx_roundCoord_5175E0(obj.CollideP1.Y))
+		ex := int(nox_xxx_roundCoord_5175E0(obj.CollideP2.X))
+		ey := int(nox_xxx_roundCoord_5175E0(obj.CollideP2.Y))
+		if sx < 0 {
+			sx = 0
+		}
+		if sy < 0 {
+			sy = 0
+		}
+		if ex >= dword_5d4594_2386944 {
+			ex = dword_5d4594_2386944 - 1
+		}
+		if ey >= dword_5d4594_2386944 {
+			ey = dword_5d4594_2386944 - 1
+		}
+		obj.ObjIndexCur = 0
+		for y := sy; y <= ey; y++ {
+			for x := sx; x <= ex; x++ {
+				nox_xxx_addObjToMapMB_517780(true, x, y, obj)
+			}
+		}
+	}
+	xi := int(nox_xxx_roundCoord_5175E0(obj.NewPos.X))
+	yi := int(nox_xxx_roundCoord_5175E0(obj.NewPos.Y))
+	nox_xxx_addObjToMapMB_517780(false, xi, yi, obj)
+	obj.ObjFlags |= uint32(object.FlagPartitioned)
 }
 
 func nox_xxx_getUnitsInRectAdvImpl_517DC0(rect types.Rectf, fnc func(it *Object)) {
