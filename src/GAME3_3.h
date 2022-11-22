@@ -17,8 +17,6 @@ int nox_xxx_damageBlackPowder_4E2560(int a1, int a2, int a3, int a4, int a5);
 void nox_xxx_gameSetWallsDamage_4E25A0(int a1);
 void nox_xxx_mapDamageUnitsAround_4E25B0(float* a1, float a2, float a3, int a4, int a5, nox_object_t* a6, nox_object_t* a7);
 int nox_xxx_damageMonsterGen_4E27D0(int a1, int a2, int a3, int a4, int a5);
-int nox_xxx_allocClassArrayObjects_4E3360(unsigned int a1);
-int nox_xxx_freeGameObjectClass_4E3420();
 nox_object_t* nox_xxx_newObjectWithTypeInd_4E3450(int ind);
 nox_object_t* nox_xxx_newObjectByTypeID_4E3810(char* id);
 int nox_xxx_objectFreeMem_4E38A0(nox_object_t* a1);

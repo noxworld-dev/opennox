@@ -6,7 +6,6 @@ package opennox
 #include "GAME3_3.h"
 #include "GAME4_3.h"
 #include "GAME5.h"
-extern nox_alloc_class* nox_alloc_gameObject_1563344;
 
 static void nox_call_objectType_new_go(void (*fnc)(nox_object_t*), nox_object_t* arg1) { fnc(arg1); }
 */
@@ -20,7 +19,6 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -255,23 +253,23 @@ func nox_xxx_objectUnkUpdateCoords_4E7290(obj *Object) {
 }
 
 func (s *Server) newObject(t *server.ObjectType) *Object {
-	cobj := alloc.AsClassT[nox_object_t](unsafe.Pointer(C.nox_alloc_gameObject_1563344)).NewObject()
-	*cobj = nox_object_t{
-		net_code:     cobj.net_code,      // it is persisted by the allocator; so we basically reuse ID of the older object
-		typ_ind:      C.ushort(t.Ind2()), // TODO: why is it setting it and then overwriting again?
-		obj_class:    C.uint(t.Class()),
-		obj_subclass: C.uint(t.SubClass()),
-		obj_flags:    C.uint(t.Flags()),
-		field_5:      C.uint(t.Field9),
-		material:     C.ushort(t.Material()),
-		experience:   C.float(t.Experience),
-		worth:        C.uint(t.Worth),
-		float_28:     C.float(t.Field13),
-		mass:         C.float(t.Mass),
-		zsize1:       C.float(t.ZSize1),
-		zsize2:       C.float(t.ZSize2),
+	cobj := s.Objs.Alloc.NewObject()
+	*cobj = server.Object{
+		NetCode:     cobj.NetCode,     // it is persisted by the allocator; so we basically reuse ID of the older object
+		TypeInd:     uint16(t.Ind2()), // TODO: why is it setting it and then overwriting again?
+		ObjClass:    uint32(t.Class()),
+		ObjSubClass: uint32(t.SubClass()),
+		ObjFlags:    uint32(t.Flags()),
+		Field5:      t.Field9,
+		Material:    uint16(t.Material()),
+		Experience:  t.Experience,
+		Worth:       uint32(t.Worth),
+		Float28:     t.Field13,
+		Mass:        t.Mass,
+		ZSize1:      t.ZSize1,
+		ZSize2:      t.ZSize2,
 	}
-	obj := asObjectC(cobj)
+	obj := asObjectS(cobj)
 	obj.Shape = t.Shape
 	if !obj.Flags().Has(object.FlagNoCollide) {
 		obj.SObj().UpdateCollider(obj.PosVec)
@@ -319,7 +317,7 @@ func (s *Server) newObject(t *server.ObjectType) *Object {
 	obj.Damage = t.Damage
 	obj.DamageSound = t.DamageSound
 	obj.Death = t.Death
-	obj.Field190 = 0
+	obj.Field190 = nil
 	obj.DeathData = t.DeathData
 	obj.Field192 = -1
 	if noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) && (obj.Class().HasAny(0x20A02) || obj.Xfer == unsafe.Pointer(C.nox_xxx_XFerInvLight_4F5AA0) || obj.Weight != 0xff) {
@@ -332,15 +330,15 @@ func (s *Server) newObject(t *server.ObjectType) *Object {
 		obj.ScriptID = int(s.NextObjectScriptID())
 	}
 	if obj.Class().Has(object.ClassSimple) {
-		*memmap.PtrUint32(0x5D4594, 1563888)++
+		s.Objs.CreatedSimple++
 	} else if obj.Class().Has(object.ClassImmobile) {
-		*memmap.PtrUint32(0x5D4594, 1563892)++
+		s.Objs.CreatedImmobile++
 	}
-	v8 := *memmap.PtrUint32(0x5D4594, 1563900) + 1
-	*memmap.PtrUint32(0x5D4594, 1563884)++
-	*memmap.PtrUint32(0x5D4594, 1563900)++
-	if *memmap.PtrInt32(0x5D4594, 1563900) > *memmap.PtrInt32(0x5D4594, 1563896) {
-		*memmap.PtrUint32(0x5D4594, 1563896) = v8
+	v8 := s.Objs.Alive + 1
+	s.Objs.Created++
+	s.Objs.Alive++
+	if s.Objs.Alive > s.Objs.MaxAlive {
+		s.Objs.MaxAlive = v8
 	}
 	return obj
 }

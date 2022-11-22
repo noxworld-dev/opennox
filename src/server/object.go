@@ -9,6 +9,8 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
 var (
@@ -21,11 +23,17 @@ type Obj interface {
 }
 
 type serverObjects struct {
-	List           *Object
-	Pending        *Object
-	UpdatableList  *Object
-	UpdatableList2 *Object
-	DeletedList    *Object
+	Alloc           alloc.ClassT[Object]
+	Alive           int
+	MaxAlive        int
+	Created         int
+	CreatedSimple   int
+	CreatedImmobile int
+	List            *Object
+	Pending         *Object
+	UpdatableList   *Object
+	UpdatableList2  *Object
+	DeletedList     *Object
 }
 
 func (s *Server) FirstServerObject() *Object { // nox_server_getFirstObject_4DA790
@@ -272,7 +280,7 @@ type Object struct {
 	UpdateData    unsafe.Pointer             // 187, 748
 	Field188      uint32                     // 188, 752
 	Field189      unsafe.Pointer             // 189, 756
-	Field190      uint32                     // 190, 760
+	Field190      unsafe.Pointer             // 190, 760
 	Field191      uint32                     // 191, 764
 	Field192      int                        // 192, 768
 }

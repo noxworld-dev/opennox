@@ -73,8 +73,6 @@ extern uint32_t dword_5d4594_1565512;
 extern uint32_t dword_5d4594_2650652;
 extern unsigned int gameex_flags;
 
-nox_alloc_class* nox_alloc_gameObject_1563344 = 0;
-
 //----- (004E17B0) --------------------------------------------------------
 int nox_server_handler_PlayerDamage_4E17B0(int a1, int a2, int a3, int a4, int a5) {
 	int v5;           // esi
@@ -759,125 +757,6 @@ int nox_xxx_damageMonsterGen_4E27D0(int a1, int a2, int a3, int a4, int a5) {
 		}
 	}
 	return v17;
-}
-
-//----- (004E3360) --------------------------------------------------------
-int nox_xxx_allocClassArrayObjects_4E3360(unsigned int a1) {
-	uint32_t* v1; // esi
-	int v2;       // edi
-	uint32_t* v4; // eax
-	uint32_t* v5; // edi
-	int v6;       // ebx
-	uint64_t* v7; // eax
-
-	v1 = 0;
-	v2 = 1;
-	nox_alloc_gameObject_1563344 = nox_new_alloc_class("objectMemClass", sizeof(nox_object_t), a1);
-	if (!nox_alloc_gameObject_1563344) {
-		return 0;
-	}
-	nox_alloc_class_obj_keep(nox_alloc_gameObject_1563344, 36); // keep unit ID assigned in the loop below
-	if (!a1) {
-		nox_alloc_class_reset_stats(nox_alloc_gameObject_1563344);
-		return 1;
-	}
-	while (1) {
-		v4 = nox_alloc_class_new_obj_zero(nox_alloc_gameObject_1563344);
-		if (!v4) {
-			break;
-		}
-		v4[9] = v2++;
-		v4[111] = v1;
-		v1 = v4;
-		if (v2 - 1 >= a1) {
-			do {
-				v5 = v1;
-				v1 = (uint32_t*)v1[111];
-				v6 = v5[9];
-				nox_alloc_class_free_obj_first(nox_alloc_gameObject_1563344, v5);
-				v5[9] = v6;
-			} while (v1);
-			nox_alloc_class_reset_stats(nox_alloc_gameObject_1563344);
-			return 1;
-		}
-	}
-	while (v1) {
-		v7 = v1;
-		v1 = (uint32_t*)v1[111];
-		nox_alloc_class_free_obj_first(nox_alloc_gameObject_1563344, v7);
-	}
-	return 0;
-}
-
-//----- (004E3420) --------------------------------------------------------
-int nox_xxx_freeGameObjectClass_4E3420() {
-	nox_free_alloc_class(nox_alloc_gameObject_1563344);
-	return 1;
-}
-
-//----- (004E38A0) --------------------------------------------------------
-int nox_xxx_objectFreeMem_4E38A0(nox_object_t* a1p) {
-	int a1 = a1p;
-	int* v1; // esi
-	int v2;  // ebp
-	int v3;  // edi
-	int v4;  // eax
-	int v5;  // esi
-	int v6;  // esi
-
-	if (*(uint32_t*)(a1 + 8) & 0x20000) {
-		v1 = *(int**)(a1 + 748);
-		v2 = 3;
-		do {
-			v3 = 4;
-			do {
-				if (*v1) {
-					nox_xxx_objectFreeMem_4E38A0(*v1);
-				}
-				++v1;
-				--v3;
-			} while (v3);
-			--v2;
-		} while (v2);
-	}
-	if (!nox_common_gameFlags_check_40A5C0(0x200000)) {
-		v4 = *(uint32_t*)(a1 + 504);
-		if (v4) {
-			do {
-				v5 = *(uint32_t*)(v4 + 496);
-				nox_xxx_objectFreeMem_4E38A0(v4);
-				v4 = v5;
-			} while (v5);
-		}
-	}
-	if (*(uint32_t*)a1) {
-		free(*(void**)a1);
-	}
-	if (*(uint32_t*)(a1 + 556)) {
-		free(*(void**)(a1 + 556));
-	}
-	if (*(uint32_t*)(a1 + 760)) {
-		free(*(void**)(a1 + 760));
-	}
-	if (*(uint32_t*)(a1 + 756)) {
-		free(*(void**)(a1 + 756));
-	}
-	if (*(uint32_t*)(a1 + 692)) {
-		free(*(void**)(a1 + 692));
-	}
-	if (*(uint32_t*)(a1 + 700)) {
-		free(*(void**)(a1 + 700));
-	}
-	if (*(uint32_t*)(a1 + 736)) {
-		free(*(void**)(a1 + 736));
-	}
-	if (*(uint32_t*)(a1 + 748)) {
-		free(*(void**)(a1 + 748));
-	}
-	v6 = *(uint32_t*)(a1 + 36);
-	nox_alloc_class_free_obj_last(nox_alloc_gameObject_1563344, a1);
-	*(uint32_t*)(a1 + 36) = v6;
-	return --*getMemU32Ptr(0x5D4594, 1563900);
 }
 
 //----- (004E3CA0) --------------------------------------------------------
