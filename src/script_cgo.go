@@ -125,7 +125,7 @@ func nox_script_callByEvent_cgo(event C.int, a1, a2 unsafe.Pointer) {
 func (s *Server) nox_script_callByEventcgo(event int, a1, a2 unsafe.Pointer) {
 	ev := noxEventType(event)
 	switch ev {
-	case noxEventCollide, noxEventMonsterCollide, noxEventMonsterHearEnemy:
+	case noxEventCollide, noxEventMonsterCollide, noxEventMonsterHearEnemy, noxEventMonsterZZZ:
 		// too frequent, don't log for now
 	case noxEventTriggerActivated:
 		obj := asObject(a1)
