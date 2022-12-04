@@ -433,7 +433,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		ud.Field59_0 = 0
 		return a1, v68, true
 	case 0xE:
-		_, v69 := playerAnimGetFrameRange(33)
+		v69, _ := playerAnimGetFrameRange(33)
 		ud.Field59_0 = uint8(v69 - 1)
 		if int(s.Frame())-int(u.Field34) > int(s.TickRate()) {
 			nox_xxx_playerSetState_4FA020(u, 13)
@@ -448,7 +448,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		}
 		return a1, v68, true
 	case 0x10:
-		_, v69 := playerAnimGetFrameRange(40)
+		v69, _ := playerAnimGetFrameRange(40)
 		ud.Field59_0 = uint8(v69 - 1)
 		return a1, v68, true
 	case 0x11:
@@ -486,14 +486,14 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		}
 		return a1, v68, true
 	case 0x15:
-		v67, v69 := playerAnimGetFrameRange(30)
+		v69, v67 := playerAnimGetFrameRange(30)
 		ud.Field59_0 = uint8((int(s.Frame()) - int(u.Field34)) / (v67 + 1))
 		if int(ud.Field59_0) >= v69 {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		return a1, v68, true
 	case 0x16:
-		_, v69 := playerAnimGetFrameRange(31)
+		v69, _ := playerAnimGetFrameRange(31)
 		ud.Field59_0 = uint8(v69 - 1)
 		return a1, v68, true
 	case 0x17:
