@@ -178,17 +178,6 @@ int sub_409A70(short a1) {
 	return result;
 }
 
-//----- (00409B10) --------------------------------------------------------
-int nox_xxx_mapSetCrcMB_409B10(int a1) {
-	int result; // eax
-
-	result = a1;
-	if (*getMemU32Ptr(0x5D4594, 3604) != a1) {
-		*getMemU32Ptr(0x5D4594, 3604) = a1;
-	}
-	return result;
-}
-
 //----- (00409B30) --------------------------------------------------------
 char* nox_server_currentMapGetFilename_409B30() { return (char*)getMemAt(0x5D4594, 2598188); }
 

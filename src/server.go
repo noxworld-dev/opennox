@@ -731,7 +731,7 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 		cryptFileClose()
 		return err
 	}
-	C.nox_xxx_mapSetCrcMB_409B10(C.int(crc))
+	nox_xxx_mapSetCrcMB_409B10(crc)
 	if err := s.nox_xxx_serverParseEntireMap_4CFCE0(); err != nil {
 		cryptFileClose()
 		gameLog.Println("server read map:", err)
