@@ -296,7 +296,7 @@ func (sp *spellsDuration) New(spellID spell.ID, u1, u2, u3 *Unit, sa *spellAccep
 		sid = 1
 	}
 	aud := sp.s.SpellDefByInd(spellID).GetAudio(sid)
-	nox_xxx_aud501960(aud, u2, 0, 0)
+	sp.s.AudioEventObj(aud, u2, 0, 0)
 	if create == nil || cgoCallIntVoidPtrFunc(create, p.C()) == 0 {
 		return true
 	}

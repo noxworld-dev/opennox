@@ -17,13 +17,43 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
-var (
-	dword_5d4594_1599064 bool
-	dword_5d4594_1599060 *audioEvent
-	dword_5d4594_1599056 alloc.ClassT[audioEvent]
-	arr_5d4594_1570284   [1024]audioEvent2
-	arr_5d4594_1598928   [32]uint32
-)
+//export nox_xxx_getSevenDwords3_501940
+func nox_xxx_getSevenDwords3_501940(i int32) int32 {
+	return noxServer.audio.Field12(sound.ID(i))
+}
+
+//export nox_xxx_aud_501960
+func nox_xxx_aud_501960(a1 int32, a2p *nox_object_t, a3 int32, a4 int32) {
+	noxServer.AudioEventObj(sound.ID(a1), asObjectC(a2p), a3, uint32(a4))
+}
+
+//export nox_xxx_audCreate_501A30
+func nox_xxx_audCreate_501A30(a1 int32, cpos *C.float2, a3 int32, a4 int32) {
+	noxServer.AudioEventPos(sound.ID(a1), *(*types.Pointf)(unsafe.Pointer(cpos)), a3, uint32(a4))
+}
+
+//export nox_xxx_netUpdateRemotePlr_501CA0_B
+func nox_xxx_netUpdateRemotePlr_501CA0_B(a1p *nox_object_t, v2 unsafe.Pointer, v18 int8) {
+	noxServer.netUpdateRemotePlrAudioEvents(asObjectC(a1p), v2, v18)
+}
+
+//export nox_xxx_utilFindSound_40AF50
+func nox_xxx_utilFindSound_40AF50(name *C.char) C.int {
+	return C.int(sound.ByName(GoString(name)))
+}
+
+//export nox_xxx_getSndName_40AF80
+func nox_xxx_getSndName_40AF80(id C.int) *C.char {
+	return internCStr(sound.ID(id).String())
+}
+
+type serverAudio struct {
+	alloc   alloc.ClassT[audioEvent]
+	inited  bool
+	head    *audioEvent
+	bySound [1024]audioEvent2
+	bitmap  [32]uint32
+}
 
 var _ = [1]struct{}{}[36-unsafe.Sizeof(audioEvent{})]
 
@@ -50,13 +80,13 @@ type audioEvent2 struct {
 	Field24 *audioEvent
 }
 
-func nox_xxx_allocAudEventArray_501860() {
-	if dword_5d4594_1599064 {
+func (s *serverAudio) Init() {
+	if s.inited {
 		return
 	}
-	dword_5d4594_1599056 = alloc.NewClassT("AudEvent", audioEvent{}, 128)
-	for i := range arr_5d4594_1570284[:len(arr_5d4594_1570284)-1] {
-		p := &arr_5d4594_1570284[i]
+	s.alloc = alloc.NewClassT("AudEvent", audioEvent{}, 128)
+	for i := range s.bySound[:len(s.bySound)-1] {
+		p := &s.bySound[i]
 		p.Field0 = 600
 		p.Field8 = 0
 		p.Field12 = 0
@@ -64,47 +94,42 @@ func nox_xxx_allocAudEventArray_501860() {
 		p.Field20 = 0
 		p.Field24 = nil
 	}
-	dword_5d4594_1599064 = true
+	s.inited = true
 }
 
-func sub_5018D0() {
-	if dword_5d4594_1599064 {
-		dword_5d4594_1599056.Free()
-		dword_5d4594_1599060 = nil
-		dword_5d4594_1599064 = false
+func (s *serverAudio) Free() {
+	if s.inited {
+		s.alloc.Free()
+		s.head = nil
+		s.inited = false
 	}
 }
 
-func sub_502100() {
-	dword_5d4594_1599056.FreeAllObjects()
-	dword_5d4594_1599060 = nil
+func (s *serverAudio) Reset() {
+	s.alloc.FreeAllObjects()
+	s.head = nil
 }
 
-func getSoundFlags(ind sound.ID) int {
-	return int(arr_5d4594_1570284[ind].Field4)
+func (s *serverAudio) Flags(id sound.ID) int {
+	return int(s.bySound[id].Field4)
 }
 
-//export nox_xxx_getSevenDwords3_501940
-func nox_xxx_getSevenDwords3_501940(i int32) int32 {
-	return int32(arr_5d4594_1570284[i].Field12)
+func (s *serverAudio) Field12(id sound.ID) int32 {
+	return int32(s.bySound[id].Field12)
 }
 
-//export nox_xxx_aud_501960
-func nox_xxx_aud_501960(a1 int32, a2p *nox_object_t, a3 int32, a4 int32) {
-	nox_xxx_aud501960(sound.ID(a1), asObjectC(a2p), a3, uint32(a4))
-}
-func nox_xxx_aud501960(id sound.ID, a2 noxObject, a3 int32, a4 uint32) {
-	obj := toObject(a2)
+func (s *Server) AudioEventObj(id sound.ID, iobj noxObject, a3 int32, a4 uint32) {
+	obj := toObject(iobj)
 	if noxflags.HasGame(noxflags.GameFlag20) {
 		return
 	}
-	if id == 0 || a2 == nil || nox_xxx_getSevenDwords3_501940(int32(id)) <= 0 {
+	if id == 0 || obj == nil || s.audio.Field12(id) <= 0 {
 		return
 	}
-	if noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().Has(object.ClassPlayer) && C.sub_419E60(a2.CObj()) != 0 {
+	if noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().Has(object.ClassPlayer) && C.sub_419E60(iobj.CObj()) != 0 {
 		return
 	}
-	p := dword_5d4594_1599056.NewObject()
+	p := s.audio.alloc.NewObject()
 	if p == nil {
 		return
 	}
@@ -118,24 +143,20 @@ func nox_xxx_aud501960(id sound.ID, a2 noxObject, a3 int32, a4 uint32) {
 	p.Field20 = a3
 	p.Field24 = a4
 	if a3 != 2 {
-		noxServer.ai.NewSound(id, obj, obj.Pos())
+		s.ai.NewSound(id, obj, obj.Pos())
 	}
-	p.Next0 = dword_5d4594_1599060
-	dword_5d4594_1599060 = p
+	p.Next0 = s.audio.head
+	s.audio.head = p
 }
 
-//export nox_xxx_audCreate_501A30
-func nox_xxx_audCreate_501A30(a1 int32, cpos *C.float2, a3 int32, a4 int32) {
-	nox_xxx_audCreate501A30(sound.ID(a1), *(*types.Pointf)(unsafe.Pointer(cpos)), a3, uint32(a4))
-}
-func nox_xxx_audCreate501A30(id sound.ID, pos types.Pointf, a3 int32, a4 uint32) {
+func (s *Server) AudioEventPos(id sound.ID, pos types.Pointf, a3 int32, a4 uint32) {
 	if noxflags.HasGame(noxflags.GameFlag20) {
 		return
 	}
-	if id == 0 || nox_xxx_getSevenDwords3_501940(int32(id)) <= 0 {
+	if id == 0 || s.audio.Field12(id) <= 0 {
 		return
 	}
-	p := dword_5d4594_1599056.NewObject()
+	p := s.audio.alloc.NewObject()
 	if p == nil {
 		return
 	}
@@ -145,36 +166,34 @@ func nox_xxx_audCreate501A30(id sound.ID, pos types.Pointf, a3 int32, a4 uint32)
 	p.Field20 = a3
 	p.Field24 = a4
 	if a3 != 2 {
-		noxServer.ai.NewSound(id, nil, pos)
+		s.ai.NewSound(id, nil, pos)
 	}
-	p.Next0 = dword_5d4594_1599060
-	dword_5d4594_1599060 = p
+	p.Next0 = s.audio.head
+	s.audio.head = p
 }
 
-func sub_501E80() {
-	arr_5d4594_1598928 = [32]uint32{}
+func (s *serverAudio) resetBitmap() {
+	s.bitmap = [32]uint32{}
 }
 
-//export nox_xxx_netUpdateRemotePlr_501CA0_B
-func nox_xxx_netUpdateRemotePlr_501CA0_B(a1p *nox_object_t, v2 unsafe.Pointer, v18 int8) {
-	s := noxServer
-	obj := asObjectC(a1p)
-	sub_501E80()
+func (s *Server) netUpdateRemotePlrAudioEvents(obj *Object, v2 unsafe.Pointer, v18 int8) {
+	s.audio.resetBitmap()
 	var tm *Team
 	if nox_xxx_servObjectHasTeam_419130(obj.teamPtr()) {
 		tm = s.teamByYyy(byte(obj.Field13))
 	}
 	cp, free := alloc.New(types.Pointf{})
 	defer free()
-	for it := dword_5d4594_1599060; it != nil; it = it.Next0 {
-		v10 := it.Field20
-		if v10 == 1 {
+	for it := s.audio.head; it != nil; it = it.Next0 {
+		if it.Field20 == 1 {
 			tm2 := s.teamByYyy(byte(it.Field24))
 			if tm == nil || tm2 == nil || tm != tm2 {
 				continue
 			}
-		} else if v10 == 2 && obj.NetCode != it.Field24 {
-			continue
+		} else if it.Field20 == 2 {
+			if obj.NetCode != it.Field24 {
+				continue
+			}
 		}
 		*cp = it.Pos8
 		v12 := int32(C.sub_501C00((*C.float)(unsafe.Pointer(cp)), it.Obj16))
@@ -182,36 +201,36 @@ func nox_xxx_netUpdateRemotePlr_501CA0_B(a1p *nox_object_t, v2 unsafe.Pointer, v
 			if int32(*(*uint8)(unsafe.Add(v2, 188))) != 0 || it.Sound4 < sound.SoundSpellPhonemeUp || it.Sound4 > sound.SoundSpellPhonemeUpLeft || obj.CObj() != it.Obj16 {
 				fade := s.ai.soundFadePerc(it.Sound4, it.Pos8, *(*types.Pointf)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(v2, 276)), 3632))) / 2
 				if fade > 0 {
-					if arr_5d4594_1570284[it.Sound4].Field20 != 0 {
-						sub_501EA0(it, fade)
+					if s.audio.bySound[it.Sound4].Field20 != 0 {
+						s.audio.addAudio(it, fade)
 					} else {
-						sub_501FD0(obj.AsUnit(), it, int16(fade))
+						netSendAudioEvent(obj.AsUnit(), it, int16(fade))
 					}
 				}
 			}
 		}
 	}
-	sub_502060(obj)
+	s.netSendAudioEvents(obj)
 }
 
-func sub_501EA0(p *audioEvent, perc int) {
-	if !sub_501EF0(p.Sound4) {
-		sub_501F10(p.Sound4)
-		arr_5d4594_1570284[p.Sound4].Field24 = nil
+func (s *serverAudio) addAudio(p *audioEvent, perc int) {
+	if !s.bitmapHas(p.Sound4) {
+		s.setBitmap(p.Sound4)
+		s.bySound[p.Sound4].Field24 = nil
 	}
 	p.Perc32 = perc
-	sub_501F30(&arr_5d4594_1570284[p.Sound4], p)
+	s.addToList(&s.bySound[p.Sound4], p)
 }
 
-func sub_501F10(a1 sound.ID) {
-	arr_5d4594_1598928[a1/32] |= 1 << (a1 % 32)
+func (s *serverAudio) setBitmap(id sound.ID) {
+	s.bitmap[id/32] |= 1 << (id % 32)
 }
 
-func sub_501EF0(a1 sound.ID) bool {
-	return arr_5d4594_1598928[a1/32]&(1<<(a1%32)) != 0
+func (s *serverAudio) bitmapHas(id sound.ID) bool {
+	return s.bitmap[id/32]&(1<<(id%32)) != 0
 }
 
-func sub_501F30(a1 *audioEvent2, a2 *audioEvent) {
+func (s *serverAudio) addToList(a1 *audioEvent2, a2 *audioEvent) {
 	if a1.Field24 == nil {
 		a2.Field28 = a1.Field24
 		a1.Field24 = a2
@@ -232,7 +251,7 @@ func sub_501F30(a1 *audioEvent2, a2 *audioEvent) {
 			if v5 > v6 {
 				break
 			}
-		} else if arr_5d4594_1570284[a2.Sound4].Field16&0x10 != 0 {
+		} else if s.bySound[a2.Sound4].Field16&0x10 != 0 {
 			break
 		}
 		v4++
@@ -253,9 +272,9 @@ func sub_501F30(a1 *audioEvent2, a2 *audioEvent) {
 	}
 }
 
-func sub_502060(obj *Object) {
+func (s *Server) netSendAudioEvents(obj *Object) {
 	for i := 0; i < 32; i++ {
-		mask := arr_5d4594_1598928[i]
+		mask := s.audio.bitmap[i]
 		if mask == 0 {
 			continue
 		}
@@ -263,15 +282,135 @@ func sub_502060(obj *Object) {
 			if mask&(1<<j) == 0 {
 				continue
 			}
-			p := &arr_5d4594_1570284[32*i+j]
+			p := &s.audio.bySound[32*i+j]
 			cnt := p.Field20
 			for it := p.Field24; it != nil; it = it.Field28 {
 				cnt--
 				if cnt < 0 {
 					break
 				}
-				sub_501FD0(obj.AsUnit(), it, int16(it.Perc32))
+				netSendAudioEvent(obj.AsUnit(), it, int16(it.Perc32))
 			}
+		}
+	}
+}
+
+func (s *serverAudio) readAUD(f *MemFile) bool {
+	n := int(f.ReadU32())
+	if n <= 0 {
+		return true
+	}
+	for i := 0; i < n; i++ {
+		if !s.readAUDRec(f) {
+			return false
+		}
+	}
+	return false
+}
+
+func (s *serverAudio) readAUDRec(f *MemFile) bool {
+	name, err := f.ReadString8()
+	if err != nil {
+		return false
+	}
+	snd := sound.ByName(name)
+	if snd == 0 || !s.inited {
+		f.Skip(9)
+		for {
+			n := int(f.ReadU8())
+			if n == 0 {
+				break
+			}
+			f.Skip(n)
+		}
+		return true
+	}
+	v6 := f.ReadU16()
+	v7 := f.ReadU8()
+	v8 := f.ReadI16()
+	v17 := f.ReadU8()
+	f.Skip(3)
+
+	p := &s.bySound[snd]
+	if v8 > 0 {
+		p.Field0 = 15 * uint32(v8)
+	}
+	p.Field4 = uint32(v6)
+	p.Field8 = uint32(v7)
+	p.Field20 = int(v17)
+	for {
+		n := int(f.ReadU8())
+		if n == 0 {
+			break
+		}
+		f.Skip(n)
+		p.Field12++
+	}
+	p.Field16 = 2
+	return true
+}
+
+func (s *serverAudio) readAVNT(f *MemFile) bool {
+	upd := s.inited
+	name, err := f.ReadString8()
+	if err != nil {
+		return false
+	}
+	snd := sound.ByName(name)
+	var p *audioEvent2
+	if snd == 0 {
+		upd = false
+	} else {
+		p = &s.bySound[snd]
+	}
+	for {
+		typ := f.ReadU8()
+		if typ == 0 {
+			return true
+		}
+		switch typ {
+		case 1, 5:
+			f.Skip(1)
+		case 2:
+			v := f.ReadU8()
+			if upd {
+				p.Field16 = uint32(v)
+			}
+		case 3:
+			v := f.ReadU8()
+			if upd {
+				p.Field8 = uint32(v)
+			}
+		case 4:
+			v := f.ReadU8()
+			if upd {
+				p.Field20 = int(v)
+			}
+		case 6:
+			f.Skip(2)
+		case 7:
+			for {
+				n := f.ReadU8()
+				if n == 0 {
+					break
+				}
+				f.Skip(int(n))
+				p.Field12++
+			}
+		case 8:
+			f.Skip(8)
+		case 9:
+			v := f.ReadU16()
+			if upd {
+				p.Field0 = 15 * uint32(v)
+			}
+		case 10:
+			v := f.ReadU16()
+			if upd {
+				p.Field4 = uint32(v)
+			}
+		default:
+			return false
 		}
 	}
 }

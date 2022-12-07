@@ -33,6 +33,7 @@ func init() {
 
 //export nox_objectPickupAudEvent_4F3D50
 func nox_objectPickupAudEvent_4F3D50(cobj1 *nox_object_t, cobj2 *nox_object_t, a3 C.int) C.int {
+	s := noxServer
 	if cobj1 == nil || cobj2 == nil {
 		return 0
 	}
@@ -41,8 +42,8 @@ func nox_objectPickupAudEvent_4F3D50(cobj1 *nox_object_t, cobj2 *nox_object_t, a
 		return ok
 	}
 	obj2 := asObjectC(cobj2)
-	if snd := noxServer.PickupSound(obj2.TypeInd); snd != 0 {
-		nox_xxx_aud501960(snd, asObjectC(cobj1), 0, 0)
+	if snd := s.PickupSound(obj2.TypeInd); snd != 0 {
+		s.AudioEventObj(snd, asObjectC(cobj1), 0, 0)
 	}
 	return ok
 }

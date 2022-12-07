@@ -1374,23 +1374,23 @@ func nox_script_Hunt_515780() int {
 }
 
 func nox_script_unlockDoor_512C20() int {
-	s := &noxServer.noxScript
+	s := noxServer
 
-	obj := s.PopObject()
+	obj := s.noxScript.PopObject()
 	if obj != nil && obj.Class().Has(object.ClassDoor) {
 		*(*uint8)(unsafe.Add(obj.UpdateData, 1)) = 0
-		nox_xxx_aud501960(sound.SoundUnlock, obj.AsUnit(), 0, 0)
+		s.AudioEventObj(sound.SoundUnlock, obj.AsUnit(), 0, 0)
 	}
 	return 0
 }
 
 func nox_script_lockDoor_512C60() int {
-	s := &noxServer.noxScript
+	s := noxServer
 
-	obj := s.PopObject()
+	obj := s.noxScript.PopObject()
 	if obj != nil && obj.Class().Has(object.ClassDoor) {
 		*(*uint8)(unsafe.Add(obj.UpdateData, 1)) = 5
-		nox_xxx_aud501960(sound.SoundLock, obj.AsUnit(), 0, 0)
+		s.AudioEventObj(sound.SoundLock, obj.AsUnit(), 0, 0)
 	}
 	return 0
 }
@@ -1432,17 +1432,18 @@ func nox_script_doorIsLocked_512D20() int {
 }
 
 func nox_script_JournalEntry_5154E0() int {
-	s := &noxServer.noxScript
+	s := noxServer
+	sc := &s.noxScript
 
-	v0 := s.PopI32()
-	v1 := s.PopString()
-	v2 := s.PopI32()
+	v0 := sc.PopI32()
+	v1 := sc.PopString()
+	v2 := sc.PopI32()
 	if v2 != 0 {
-		v3 := s.scriptToObject(int(v2))
+		v3 := sc.scriptToObject(int(v2))
 		if v3 != nil {
 			C.nox_xxx_comJournalEntryAdd_427500(v3.CObj(), CString(v1), C.short(v0))
 			if (v0 & 0xB) != 0 {
-				nox_xxx_aud501960(sound.SoundJournalEntryAdd, v3.AsUnit(), 0, 0)
+				s.AudioEventObj(sound.SoundJournalEntryAdd, v3.AsUnit(), 0, 0)
 			}
 		}
 	} else {
@@ -1542,13 +1543,14 @@ func nox_script_gotoHome_512A00() int {
 }
 
 func nox_script_audioEven_512AC0() int {
-	s := &noxServer.noxScript
+	s := noxServer
+	sc := &s.noxScript
 
-	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
-	soundName := s.PopString()
+	waypoint := s.getWaypointByInd(int(sc.PopI32()))
+	soundName := sc.PopString()
 	if waypoint != nil {
 		soundId := sound.ByName(soundName)
-		nox_xxx_audCreate501A30(soundId, waypoint.Pos(), 0, 0)
+		s.AudioEventPos(soundId, waypoint.Pos(), 0, 0)
 	}
 	return 0
 }

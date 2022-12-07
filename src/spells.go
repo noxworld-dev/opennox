@@ -653,7 +653,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *Uni
 		return false
 	}
 	if !(obj5 == nil || C.nox_xxx_gameCaptureMagic_4FDC10(C.int(spellID), obj5.CObj()) != 0) {
-		nox_xxx_aud501960(sound.SoundPermanentFizzle, obj5, 0, 0)
+		s.AudioEventObj(sound.SoundPermanentFizzle, obj5, 0, 0)
 		return false
 	}
 	var (
@@ -858,7 +858,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *Uni
 	}
 	v9 := fnc(spellID, a2, obj3, obj4, sa, lvl)
 	if v9 == 0 {
-		nox_xxx_aud501960(sound.SoundPermanentFizzle, obj4, 0, 0)
+		s.AudioEventObj(sound.SoundPermanentFizzle, obj4, 0, 0)
 	}
 	return v9 != 0
 }
