@@ -135,6 +135,13 @@ func nox_xxx_mapCrcGetMB_409B00() uint32 {
 	return memmap.Uint32(0x5D4594, 3604)
 }
 
+//export nox_xxx_mapSetCrcMB_409B10
+func nox_xxx_mapSetCrcMB_409B10(crc uint32) {
+	if memmap.Uint32(0x5D4594, 3604) != crc {
+		*memmap.PtrUint32(0x5D4594, 3604) = crc
+	}
+}
+
 func nox_server_mapRWScriptObject_505A40(a1 unsafe.Pointer) (gout error) {
 	defer func() {
 		if gout != nil {
