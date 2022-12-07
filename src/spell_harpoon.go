@@ -173,7 +173,7 @@ func (a *abilityHarpoon) breakForOwner(u *Unit, emitSound bool) {
 		d.bolt = nil
 	}
 	if emitSound {
-		nox_xxx_aud501960(sound.SoundHarpoonBroken, u, 0, 0)
+		a.s.AudioEventObj(sound.SoundHarpoonBroken, u, 0, 0)
 	}
 }
 
@@ -207,7 +207,7 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 	d.frame38 = a.s.Frame()
 	bolt.ObjFlags |= uint32(object.FlagNoCollide)
 	sub_4E7540(bolt.OwnerC(), targ)
-	nox_xxx_aud501960(sound.SoundHarpoonReel, owner, 0, 0)
+	a.s.AudioEventObj(sound.SoundHarpoonReel, owner, 0, 0)
 }
 
 func (a *abilityHarpoon) disable(u *Unit) {

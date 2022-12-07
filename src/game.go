@@ -843,7 +843,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 			netlist.ResetAllInd(netlist.Kind1)
 		}
 	}
-	sub_502100()
+	s.audio.Reset()
 	netstr.Update()
 	if noxflags.HasEngine(noxflags.EngineReplayRead) {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(true)

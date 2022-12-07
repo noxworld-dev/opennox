@@ -26,6 +26,7 @@ func init() {
 
 //export nox_objectDropAudEvent_4EE2F0
 func nox_objectDropAudEvent_4EE2F0(cobj1 *nox_object_t, cobj2 *nox_object_t, a3 *C.float2) C.int {
+	s := noxServer
 	if cobj1 == nil || cobj2 == nil || a3 == nil {
 		return 0
 	}
@@ -34,8 +35,8 @@ func nox_objectDropAudEvent_4EE2F0(cobj1 *nox_object_t, cobj2 *nox_object_t, a3 
 		return ok
 	}
 	obj2 := asObjectC(cobj2)
-	if snd := noxServer.DropSound(obj2.TypeInd); snd != 0 {
-		nox_xxx_aud501960(snd, asObjectC(cobj1), 0, 0)
+	if snd := s.DropSound(obj2.TypeInd); snd != 0 {
+		s.AudioEventObj(snd, asObjectC(cobj1), 0, 0)
 	}
 	return ok
 }
