@@ -23,6 +23,13 @@ type Obj interface {
 	SObj() *Object
 }
 
+func toObject(p Obj) *Object {
+	if p == nil {
+		return nil
+	}
+	return p.SObj()
+}
+
 type serverObjects struct {
 	alloc           alloc.ClassT[Object]
 	Alive           int

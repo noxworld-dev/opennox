@@ -175,7 +175,6 @@ type Server struct {
 	noxScript       noxScript
 	vms             scriptVMs
 	teams           serverTeams
-	audio           serverAudio
 	ai              aiData
 	quest           questServer
 	springs         serverSprings
@@ -536,7 +535,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	netlist.ResetAll()
 	C.sub_4E4EF0()
 	C.sub_4E4ED0()
-	s.audio.Init()
+	s.Audio.Init()
 	if err := s.nox_read_things_alternative_4E2B60(); err != nil {
 		return err
 	}
@@ -647,7 +646,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	nox_xxx_freeSpellRelated_4FCA80()
 	C.sub_50ABF0()
 	s.Map.Free()
-	s.audio.Free()
+	s.Audio.Free()
 	C.sub_4ECA90()
 	C.sub_506720()
 	C.sub_50D820()
