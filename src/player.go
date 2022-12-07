@@ -1120,13 +1120,13 @@ func (s *Server) playerSpell(u *Unit) {
 			}
 			if a1 != 0 {
 				nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 0, a1)
-				nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
+				nox_xxx_aud501960(sound.SoundPermanentFizzle, u, 0, 0)
 			} else {
 				mana := int(C.sub_4FCF90(u.CObj(), C.int(spellInd), 1))
 				if mana < 0 {
 					a1 = 11
 					nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 0, a1)
-					nox_xxx_aud_501960(sound.SoundManaEmpty, u, 0, 0)
+					nox_xxx_aud501960(sound.SoundManaEmpty, u, 0, 0)
 				} else {
 					arg, v14free := alloc.New(spellAcceptArg{})
 					defer v14free()

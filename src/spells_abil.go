@@ -269,42 +269,42 @@ func (a *serverAbilities) Do(u *Unit, abil Ability) {
 			for it := u.FirstItem(); it != nil; it = it.NextItem() {
 				if it.Class().Has(object.ClassFlag) {
 					nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 5)
-					nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
+					nox_xxx_aud501960(sound.SoundPermanentFizzle, u, 0, 0)
 					return
 				}
 			}
 		}
 		if a.IsActiveVal(u, AbilityWarcry) || a.IsActive(u, AbilityHarpoon) {
 			nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 2)
-			nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
+			nox_xxx_aud501960(sound.SoundPermanentFizzle, u, 0, 0)
 			return
 		}
 	case AbilityWarcry:
 		if a.IsActive(u, AbilityBerserk) || a.IsActive(u, AbilityHarpoon) {
 			nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 2)
-			nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
+			nox_xxx_aud501960(sound.SoundPermanentFizzle, u, 0, 0)
 			return
 		}
 	case AbilityHarpoon:
 		if a.IsActiveVal(u, AbilityWarcry) || a.IsActive(u, AbilityBerserk) {
 			nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 2)
-			nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
+			nox_xxx_aud501960(sound.SoundPermanentFizzle, u, 0, 0)
 			return
 		}
 	}
 	if a.IsActive(u, abil) {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 2)
-		nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
+		nox_xxx_aud501960(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
 	if ud.Field22_0 == 12 || !noxflags.HasGame(noxflags.GameModeCoop) && u.Flags().Has(object.FlagAirborne) {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 6)
-		nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
+		nox_xxx_aud501960(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
 	if (!noxflags.HasGame(noxflags.GameOnline) || noxflags.HasGame(noxflags.GameModeQuest)) && pl.spell_lvl[abil] == 0 {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 3)
-		nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
+		nox_xxx_aud501960(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
 	if abil == AbilityBerserk && pl.field_3656 == 1 {
@@ -315,7 +315,7 @@ func (a *serverAbilities) Do(u *Unit, abil Ability) {
 	cd := &ad.cooldowns[abil]
 	if *cd != 0 {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 2)
-		nox_xxx_aud_501960(sound.SoundPermanentFizzle, u, 0, 0)
+		nox_xxx_aud501960(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
 	*cd = a.getDelay(abil)
@@ -336,7 +336,7 @@ func (a *serverAbilities) Do(u *Unit, abil Ability) {
 	}
 	a.do(u, abil)
 	snd := a.getSound(abil, 0)
-	nox_xxx_aud_501960(snd, u, 0, 0)
+	nox_xxx_aud501960(snd, u, 0, 0)
 }
 
 func (a *serverAbilities) Update() {
@@ -362,7 +362,7 @@ func (a *serverAbilities) Update() {
 					continue
 				}
 				snd := a.getSound(p.abil, 2)
-				nox_xxx_aud_501960(snd, u, 0, 0)
+				nox_xxx_aud501960(snd, u, 0, 0)
 				a.netAbilReportActive(u, p.abil, false)
 				if p.abil == AbilityBerserk {
 					nox_xxx_playerSetState_4FA020(u, 13)

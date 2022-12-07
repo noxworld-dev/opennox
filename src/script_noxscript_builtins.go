@@ -83,7 +83,6 @@ int* nox_server_scriptMoveTo_5123C0(int a1, int a2);
 void nox_xxx_comJournalEntryAdd_427500(nox_object_t* a1, char* a2, short a3);
 int nox_xxx_comAddEntryAll_427550(char* a1, short a2);
 int nox_script_addString_512E40(char* a1);
-void nox_xxx_audCreate_501A30(int a1, float2* a2, int a3, int a4);
 int nox_xxx_netSendChat_528AC0(nox_object_t* a1, wchar_t* a2, wchar_t a3);
 int nox_xxx_playDialogFile_44D900(char* a1, int a2);
 int nox_xxx_spellGrantToPlayer_4FB550(nox_object_t* a1, int a2, int a3, int a4, int a5);
@@ -101,7 +100,6 @@ import (
 	"strings"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 
 	"github.com/noxworld-dev/opennox-lib/common"
@@ -1381,7 +1379,7 @@ func nox_script_unlockDoor_512C20() int {
 	obj := s.PopObject()
 	if obj != nil && obj.Class().Has(object.ClassDoor) {
 		*(*uint8)(unsafe.Add(obj.UpdateData, 1)) = 0
-		nox_xxx_aud_501960(sound.SoundUnlock, obj.AsUnit(), 0, 0)
+		nox_xxx_aud501960(sound.SoundUnlock, obj.AsUnit(), 0, 0)
 	}
 	return 0
 }
@@ -1392,7 +1390,7 @@ func nox_script_lockDoor_512C60() int {
 	obj := s.PopObject()
 	if obj != nil && obj.Class().Has(object.ClassDoor) {
 		*(*uint8)(unsafe.Add(obj.UpdateData, 1)) = 5
-		nox_xxx_aud_501960(sound.SoundLock, obj.AsUnit(), 0, 0)
+		nox_xxx_aud501960(sound.SoundLock, obj.AsUnit(), 0, 0)
 	}
 	return 0
 }
@@ -1444,7 +1442,7 @@ func nox_script_JournalEntry_5154E0() int {
 		if v3 != nil {
 			C.nox_xxx_comJournalEntryAdd_427500(v3.CObj(), CString(v1), C.short(v0))
 			if (v0 & 0xB) != 0 {
-				nox_xxx_aud_501960(sound.SoundJournalEntryAdd, v3.AsUnit(), 0, 0)
+				nox_xxx_aud501960(sound.SoundJournalEntryAdd, v3.AsUnit(), 0, 0)
 			}
 		}
 	} else {
@@ -1549,11 +1547,8 @@ func nox_script_audioEven_512AC0() int {
 	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
 	soundName := s.PopString()
 	if waypoint != nil {
-		cp, free := alloc.New(types.Pointf{})
-		defer free()
-		*cp = waypoint.Pos()
-		soundId := C.int(sound.ByName(soundName))
-		C.nox_xxx_audCreate_501A30(soundId, (*C.float2)(unsafe.Pointer(cp)), 0, 0)
+		soundId := sound.ByName(soundName)
+		nox_xxx_audCreate501A30(soundId, waypoint.Pos(), 0, 0)
 	}
 	return 0
 }

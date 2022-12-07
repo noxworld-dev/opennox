@@ -2014,7 +2014,7 @@ int* nox_xxx_mobActionMelee1_532130(int a1) {
 																	*(uint32_t*)(*(uint32_t*)(v1 + 484) + 132));
 			result = (int*)nox_xxx_monsterGetSoundSet_424300(a1);
 			if (result) {
-				result = nox_xxx_aud_501960(result[6], a1, 0, 0);
+				nox_xxx_aud_501960(result[6], a1, 0, 0);
 			}
 		}
 	} else {
@@ -2131,7 +2131,7 @@ uint32_t* sub_532540(int a1) {
 				  nox_common_randomInt_415FA0(*(uint32_t*)(v1[121] + 220), *(uint32_t*)(v1[121] + 224));
 		result = (uint32_t*)nox_xxx_monsterGetSoundSet_424300(a1);
 		if (result) {
-			result = nox_xxx_aud_501960(result[10], a1, 0, 0);
+			nox_xxx_aud_501960(result[10], a1, 0, 0);
 		}
 	} else {
 		v2 = nox_xxx_monsterPushAction_50A260(a1, 50);
@@ -2248,7 +2248,7 @@ char nox_xxx_monsterPlayHurtSound_532800(nox_object_t* a1p) {
 				gameFrame() + nox_common_randomInt_415FA0(2 * gameFPS(), 4 * gameFPS());
 			v1 = nox_xxx_monsterGetSoundSet_424300(a1);
 			if (v1) {
-				LOBYTE(v1) = (unsigned int)nox_xxx_aud_501960(*(uint32_t*)(v1 + 8), a1, 0, 0);
+				nox_xxx_aud_501960(*(uint32_t*)(v1 + 8), a1, 0, 0);
 			}
 		}
 	}
@@ -2289,7 +2289,7 @@ int nox_xxx_soundPlayerDamageSound_5328B0(int a1, int a2) {
 }
 
 //----- (00532930) --------------------------------------------------------
-int sub_532930(int a1, unsigned short a2, unsigned short a3) {
+void sub_532930(int a1, unsigned short a2, unsigned short a3) {
 	int result; // eax
 
 	result = a2;
@@ -2298,25 +2298,25 @@ int sub_532930(int a1, unsigned short a2, unsigned short a3) {
 			result = a3;
 			if ((int)a3 > 16) {
 				if (a3 == 32) {
-					result = nox_xxx_aud_501960(848, a1, 0, 0);
+					nox_xxx_aud_501960(848, a1, 0, 0);
 				} else if (a3 == 0x2000) {
-					result = nox_xxx_aud_501960(868, a1, 0, 0);
+					nox_xxx_aud_501960(868, a1, 0, 0);
 				}
 			} else if (a3 == 16) {
-				result = nox_xxx_aud_501960(858, a1, 0, 0);
+				nox_xxx_aud_501960(858, a1, 0, 0);
 			} else {
 				result = a3 - 1;
 				switch (a3) {
 				case 1u:
 				case 2u:
 				case 4u:
-					result = nox_xxx_aud_501960(863, a1, 0, 0);
+					nox_xxx_aud_501960(863, a1, 0, 0);
 					break;
 				case 8u:
-					result = nox_xxx_aud_501960(853, a1, 0, 0);
+					nox_xxx_aud_501960(853, a1, 0, 0);
 					break;
 				default:
-					return result;
+					return;
 				}
 			}
 		} else {
@@ -2328,25 +2328,25 @@ int sub_532930(int a1, unsigned short a2, unsigned short a3) {
 				result = a3;
 				if ((int)a3 > 16) {
 					if (a3 == 32) {
-						result = nox_xxx_aud_501960(852, a1, 0, 0);
+						nox_xxx_aud_501960(852, a1, 0, 0);
 					} else if (a3 == 0x2000) {
-						result = nox_xxx_aud_501960(872, a1, 0, 0);
+						nox_xxx_aud_501960(872, a1, 0, 0);
 					}
 				} else if (a3 == 16) {
-					result = nox_xxx_aud_501960(862, a1, 0, 0);
+					nox_xxx_aud_501960(862, a1, 0, 0);
 				} else {
 					result = a3 - 1;
 					switch (a3) {
 					case 1u:
 					case 2u:
 					case 4u:
-						result = nox_xxx_aud_501960(867, a1, 0, 0);
+						nox_xxx_aud_501960(867, a1, 0, 0);
 						break;
 					case 8u:
-						result = nox_xxx_aud_501960(857, a1, 0, 0);
+						nox_xxx_aud_501960(857, a1, 0, 0);
 						break;
 					default:
-						return result;
+						return;
 					}
 				}
 				break;
@@ -2354,25 +2354,25 @@ int sub_532930(int a1, unsigned short a2, unsigned short a3) {
 				result = a3;
 				if ((int)a3 > 16) {
 					if (a3 == 32) {
-						result = nox_xxx_aud_501960(850, a1, 0, 0);
+						nox_xxx_aud_501960(850, a1, 0, 0);
 					} else if (a3 == 0x2000) {
-						result = nox_xxx_aud_501960(870, a1, 0, 0);
+						nox_xxx_aud_501960(870, a1, 0, 0);
 					}
 				} else if (a3 == 16) {
-					result = nox_xxx_aud_501960(860, a1, 0, 0);
+					nox_xxx_aud_501960(860, a1, 0, 0);
 				} else {
 					result = a3 - 1;
 					switch (a3) {
 					case 1u:
 					case 2u:
 					case 4u:
-						result = nox_xxx_aud_501960(865, a1, 0, 0);
+						nox_xxx_aud_501960(865, a1, 0, 0);
 						break;
 					case 8u:
-						result = nox_xxx_aud_501960(855, a1, 0, 0);
+						nox_xxx_aud_501960(855, a1, 0, 0);
 						break;
 					default:
-						return result;
+						return;
 					}
 				}
 				break;
@@ -2380,45 +2380,46 @@ int sub_532930(int a1, unsigned short a2, unsigned short a3) {
 				result = a3;
 				if ((int)a3 > 16) {
 					if (a3 == 32) {
-						result = nox_xxx_aud_501960(851, a1, 0, 0);
+						nox_xxx_aud_501960(851, a1, 0, 0);
 					} else if (a3 == 0x2000) {
-						result = nox_xxx_aud_501960(871, a1, 0, 0);
+						nox_xxx_aud_501960(871, a1, 0, 0);
 					}
 				} else if (a3 == 16) {
-					result = nox_xxx_aud_501960(861, a1, 0, 0);
+					nox_xxx_aud_501960(861, a1, 0, 0);
 				} else {
 					result = a3 - 1;
 					switch (a3) {
 					case 1u:
 					case 2u:
 					case 4u:
-						result = nox_xxx_aud_501960(866, a1, 0, 0);
+						nox_xxx_aud_501960(866, a1, 0, 0);
 						break;
 					case 8u:
-						result = nox_xxx_aud_501960(856, a1, 0, 0);
+						nox_xxx_aud_501960(856, a1, 0, 0);
 						break;
 					default:
-						return result;
+						return;
 					}
 				}
 				break;
 			default:
-				return result;
+				return;
 			}
 		}
-		return result;
+		return;
 	}
 	if (a2 != 64 && a2 != 1024) {
 		if (a2 != 0x2000) {
-			return result;
+			return;
 		}
 		result = a3;
 		if ((int)a3 > 16) {
 			if (a3 == 32) {
-				return nox_xxx_aud_501960(868, a1, 0, 0);
+				nox_xxx_aud_501960(868, a1, 0, 0);
+				return;
 			}
 			if (a3 != 0x2000) {
-				return result;
+				return;
 			}
 		} else if (a3 != 16) {
 			result = a3 - 1;
@@ -2426,43 +2427,43 @@ int sub_532930(int a1, unsigned short a2, unsigned short a3) {
 			case 1u:
 			case 2u:
 			case 4u:
-				result = nox_xxx_aud_501960(872, a1, 0, 0);
+				nox_xxx_aud_501960(872, a1, 0, 0);
 				break;
 			case 8u:
-				result = nox_xxx_aud_501960(870, a1, 0, 0);
+				nox_xxx_aud_501960(870, a1, 0, 0);
 				break;
 			default:
-				return result;
+				return;
 			}
-			return result;
+			return;
 		}
-		return nox_xxx_aud_501960(871, a1, 0, 0);
+		nox_xxx_aud_501960(871, a1, 0, 0);
+		return;
 	}
 	result = a3;
 	if ((int)a3 > 16) {
 		if (a3 == 32) {
-			result = nox_xxx_aud_501960(849, a1, 0, 0);
+			nox_xxx_aud_501960(849, a1, 0, 0);
 		} else if (a3 == 0x2000) {
-			result = nox_xxx_aud_501960(869, a1, 0, 0);
+			nox_xxx_aud_501960(869, a1, 0, 0);
 		}
 	} else if (a3 == 16) {
-		result = nox_xxx_aud_501960(859, a1, 0, 0);
+		nox_xxx_aud_501960(859, a1, 0, 0);
 	} else {
 		result = a3 - 1;
 		switch (a3) {
 		case 1u:
 		case 2u:
 		case 4u:
-			result = nox_xxx_aud_501960(864, a1, 0, 0);
+			nox_xxx_aud_501960(864, a1, 0, 0);
 			break;
 		case 8u:
-			result = nox_xxx_aud_501960(854, a1, 0, 0);
+			nox_xxx_aud_501960(854, a1, 0, 0);
 			break;
 		default:
-			return result;
+			return;
 		}
 	}
-	return result;
 }
 
 //----- (00532E20) --------------------------------------------------------
@@ -2486,32 +2487,32 @@ int nox_xxx_soundDefaultDamageSound_532E20(nox_object_t* a1p, nox_object_t* a2p)
 }
 
 //----- (00532EC0) --------------------------------------------------------
-uint32_t* sub_532EC0(int a1, unsigned short a2) {
-	uint32_t* result; // eax
-
-	result = (uint32_t*)a2;
+void sub_532EC0(int a1, unsigned short a2) {
 	if ((int)a2 <= 64) {
 		if (a2 != 64) {
 			switch (a2) {
 			case 8u:
-				return nox_xxx_aud_501960(875, a1, 0, 0);
+				nox_xxx_aud_501960(875, a1, 0, 0);
+				return;
 			case 0x10u:
-				return nox_xxx_aud_501960(876, a1, 0, 0);
+				nox_xxx_aud_501960(876, a1, 0, 0);
+				return;
 			case 0x20u:
-				result = nox_xxx_aud_501960(873, a1, 0, 0);
+				nox_xxx_aud_501960(873, a1, 0, 0);
 				break;
 			}
-			return result;
+			return;
 		}
-		return nox_xxx_aud_501960(874, a1, 0, 0);
+		nox_xxx_aud_501960(874, a1, 0, 0);
+		return;
 	}
 	if (a2 == 1024) {
-		return nox_xxx_aud_501960(874, a1, 0, 0);
+		nox_xxx_aud_501960(874, a1, 0, 0);
+		return;
 	}
 	if (a2 == 4096) {
-		result = nox_xxx_aud_501960(877, a1, 0, 0);
+		nox_xxx_aud_501960(877, a1, 0, 0);
 	}
-	return result;
 }
 
 //----- (00532F70) --------------------------------------------------------
@@ -2987,7 +2988,7 @@ char nox_xxx_monsterMoveAudio_534030(int a1) {
 			if (v5 == *(uint32_t*)(v6 + 100) || v5 == *(uint32_t*)(v6 + 104)) {
 				v6 = nox_xxx_monsterGetSoundSet_424300(v1);
 				if (v6) {
-					LOBYTE(v6) = (unsigned int)nox_xxx_aud_501960(*(uint32_t*)(v6 + 72), v1, 0, 0);
+					nox_xxx_aud_501960(*(uint32_t*)(v6 + 72), v1, 0, 0);
 				}
 			}
 		}
@@ -2999,7 +3000,7 @@ char nox_xxx_monsterMoveAudio_534030(int a1) {
 			if (!(uint8_t)v6) {
 				v6 = nox_xxx_monsterGetSoundSet_424300(a1);
 				if (v6) {
-					LOBYTE(v6) = (unsigned int)nox_xxx_aud_501960(*(uint32_t*)(v6 + 72), v1, 0, 0);
+					nox_xxx_aud_501960(*(uint32_t*)(v6 + 72), v1, 0, 0);
 				}
 			}
 		}
@@ -5774,9 +5775,9 @@ uint32_t* nox_xxx_shootBowCrossbow2_539D80(int a1, int a2, int a3, char* a4) {
 			}
 		}
 		if (a4 == (char*)4) {
-			result = nox_xxx_aud_501960(885, a1, 0, 0);
+			nox_xxx_aud_501960(885, a1, 0, 0);
 		} else {
-			result = nox_xxx_aud_501960(886, a1, 0, 0);
+			nox_xxx_aud_501960(886, a1, 0, 0);
 		}
 	}
 	return result;
@@ -6719,7 +6720,7 @@ void nox_xxx_fnElevatorShaft_53B410(int a1, int a2) {
 }
 
 //----- (0053B490) --------------------------------------------------------
-uint32_t* nox_xxx_elevatorAud_53B490(int a1, int a2) {
+void nox_xxx_elevatorAud_53B490(int a1, int a2) {
 	uint32_t* result; // eax
 	int v3;           // ecx
 	int v4;           // ecx
@@ -6730,46 +6731,45 @@ uint32_t* nox_xxx_elevatorAud_53B490(int a1, int a2) {
 		result = (uint32_t*)a1;
 		v3 = *(unsigned short*)(a1 + 24);
 		if ((unsigned short)v3 == 8) {
-			result = nox_xxx_aud_501960(257, a1, 0, 0);
+			nox_xxx_aud_501960(257, a1, 0, 0);
 		} else if (v3 == 16) {
 			v4 = *(uint32_t*)(a1 + 12);
 			if (v4 & 0x20) {
-				result = nox_xxx_aud_501960(253, a1, 0, 0);
+				nox_xxx_aud_501960(253, a1, 0, 0);
 			} else if (v4 & 0x40) {
-				result = nox_xxx_aud_501960(259, a1, 0, 0);
+				nox_xxx_aud_501960(259, a1, 0, 0);
 			} else {
-				result = nox_xxx_aud_501960(251, a1, 0, 0);
+				nox_xxx_aud_501960(251, a1, 0, 0);
 			}
 		} else if (v3 == 32) {
 			if (*(uint8_t*)(a1 + 12) & 2) {
-				result = nox_xxx_aud_501960(255, a1, 0, 0);
+				nox_xxx_aud_501960(255, a1, 0, 0);
 			} else {
-				result = nox_xxx_aud_501960(249, a1, 0, 0);
+				nox_xxx_aud_501960(249, a1, 0, 0);
 			}
 		}
 	} else {
 		result = (uint32_t*)a1;
 		v5 = *(unsigned short*)(a1 + 24);
 		if ((unsigned short)v5 == 8) {
-			result = nox_xxx_aud_501960(258, a1, 0, 0);
+			nox_xxx_aud_501960(258, a1, 0, 0);
 		} else if (v5 == 16) {
 			v6 = *(uint32_t*)(a1 + 12);
 			if (v6 & 0x20) {
-				result = nox_xxx_aud_501960(254, a1, 0, 0);
+				nox_xxx_aud_501960(254, a1, 0, 0);
 			} else if (v6 & 0x40) {
-				result = nox_xxx_aud_501960(260, a1, 0, 0);
+				nox_xxx_aud_501960(260, a1, 0, 0);
 			} else {
-				result = nox_xxx_aud_501960(252, a1, 0, 0);
+				nox_xxx_aud_501960(252, a1, 0, 0);
 			}
 		} else if (v5 == 32) {
 			if (*(uint8_t*)(a1 + 12) & 2) {
-				result = nox_xxx_aud_501960(256, a1, 0, 0);
+				nox_xxx_aud_501960(256, a1, 0, 0);
 			} else {
-				result = nox_xxx_aud_501960(250, a1, 0, 0);
+				nox_xxx_aud_501960(250, a1, 0, 0);
 			}
 		}
 	}
-	return result;
 }
 
 //----- (0053B5D0) --------------------------------------------------------
@@ -8390,7 +8390,7 @@ int* nox_xxx_updateTrapDoor_53DE80(uint32_t* a1) {
 				nox_xxx_unitUnsetXStatus_4E4780((int)a1, 2);
 				nox_xxx_unitSetXStatus_4E4800((int)a1, (int*)4);
 				*(uint32_t*)(v1 + 16) += 5 * gameFPS();
-				result = nox_xxx_aud_501960(874, (int)a1, 0, 0);
+				nox_xxx_aud_501960(874, (int)a1, 0, 0);
 			}
 		}
 	}
@@ -10297,7 +10297,7 @@ char nox_xxx_mobActionCast_5413B0(nox_object_t* a1p, int a2) {
 		} else if ((uint8_t)v4 == 1) {
 			v4 = nox_xxx_monsterGetSoundSet_424300((int)a1);
 			if (v4) {
-				LOBYTE(v4) = (unsigned int)nox_xxx_aud_501960(*(uint32_t*)(v4 + 56), (int)a1, 0, 0);
+				nox_xxx_aud_501960(*(uint32_t*)(v4 + 56), (int)a1, 0, 0);
 			}
 		}
 	}

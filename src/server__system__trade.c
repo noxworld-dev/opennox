@@ -522,7 +522,7 @@ int nox_xxx_tradeP2PAddOffer2_50F820_trade(int a1, int a2, float a3) {
 }
 
 //----- (005100C0) --------------------------------------------------------
-float* sub_5100C0_trade(int a1, uint32_t* a2, int a3) {
+void sub_5100C0_trade(int a1, uint32_t* a2, int a3) {
 	int v3;                                // edi
 	unsigned int v4;                       // ebx
 	float* result;                         // eax
@@ -552,7 +552,7 @@ float* sub_5100C0_trade(int a1, uint32_t* a2, int a3) {
 		while (!*(uint32_t*)result || *(uint32_t*)(*(uint32_t*)result + 36) != a3) {
 			result = (float*)*((uint32_t*)result + 2);
 			if (!result) {
-				return result;
+				return;
 			}
 		}
 		v6 = *(uint32_t*)result;
@@ -560,21 +560,24 @@ float* sub_5100C0_trade(int a1, uint32_t* a2, int a3) {
 			v7 = nox_xxx_shopGetItemCost_50E3D0(1, (int)a2, *result);
 			v8 = v7;
 			if (v7 > v4) {
-				return (float*)sub_5104F0(v3, v7 - v4);
+				sub_5104F0(v3, v7 - v4);
+				return;
 			}
 			if (*(uint8_t*)(v6 + 8) & 0x10) {
 				v9 = nox_xxx_inventoryCountObjects_4E7D30(v3, *(unsigned short*)(v6 + 4));
 				if (v9 >= (nox_common_gameFlags_check_40A5C0(6144) ? 9 : 3)) {
 					v10 = nox_strman_loadString_40F1D0("pickup.c:MaxSameItem", 0,
 													   "C:\\NoxPost\\src\\Server\\System\\Trade.c", 2943);
-					return (float*)nox_xxx_netSendLineMessage_4D9EB0(v3, v10);
+					nox_xxx_netSendLineMessage_4D9EB0(v3, v10);
+					return;
 				}
 			}
 			if (*(unsigned short*)(v6 + 4) == dword_5d4594_2386548) {
 				v16 = nox_xxx_gamedataGetFloat_419D40("MaxExtraLives");
 				if (*(uint32_t*)(v18 + 320) >= nox_float2int(v16)) {
 					nox_xxx_netPriMsgToPlayer_4DA2C0(v3, "pickup.c:MaxTradableAnkhsReached", 0);
-					return (float*)nox_xxx_aud_501960(925, v3, 0, 0);
+					nox_xxx_aud_501960(925, v3, 0, 0);
+					return;
 				}
 			}
 			if (nox_common_gameFlags_check_40A5C0(4096)) {
@@ -585,7 +588,8 @@ float* sub_5100C0_trade(int a1, uint32_t* a2, int a3) {
 						v12 = nox_float2int(v17);
 						if (nox_xxx_inventoryCountObjects_4E7D30(v3, *(unsigned short*)(v6 + 4)) >= v12) {
 							nox_xxx_netPriMsgToPlayer_4DA2C0(v3, "pickup.c:MaxSameItem", 0);
-							return (float*)nox_xxx_aud_501960(925, v3, 0, 0);
+							nox_xxx_aud_501960(925, v3, 0, 0);
+							return;
 						}
 					}
 				}
@@ -607,10 +611,9 @@ float* sub_5100C0_trade(int a1, uint32_t* a2, int a3) {
 				sub_50E7A0(a2, v6);
 			}
 			nox_xxx_playerSubGold_4FA5D0(v3, v8);
-			result = (float*)sub_4D8870(*(unsigned char*)(*(uint32_t*)(v18 + 276) + 2064), v3);
+			sub_4D8870(*(unsigned char*)(*(uint32_t*)(v18 + 276) + 2064), v3);
 		}
 	}
-	return result;
 }
 
 //----- (00510640) --------------------------------------------------------
@@ -717,7 +720,7 @@ float* sub_510640_trade(int a1, int a2, int a3, float* a4) {
 		}
 		nox_xxx_netPriMsgToPlayer_4DA2C0(v4, "pickup.c:MaxTradableAnkhsReached", 0);
 	LABEL_36:
-		result = (float*)nox_xxx_aud_501960(925, v4, 0, 0);
+		nox_xxx_aud_501960(925, v4, 0, 0);
 	}
 	return result;
 }
@@ -751,11 +754,11 @@ uint32_t* sub_5109C0_trade(int* a1, int a2, uint32_t* a3) {
 			v6 =
 				nox_strman_loadString_40F1D0("CantSellQuestItem", 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c", 3298);
 			nox_xxx_netSendLineMessage_4D9EB0((int)a1, v6);
-			result = nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
+			nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
 		} else if (*(unsigned short*)(v4 + 4) == *getMemU32Ptr(0x5D4594, 2386556)) {
 			v7 = nox_strman_loadString_40F1D0("CantSellItem", 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c", 3308);
 			nox_xxx_netSendLineMessage_4D9EB0((int)a1, v7);
-			result = nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
+			nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
 		} else {
 			*(uint32_t*)&v8[4] = nox_xxx_shopGetItemCost_50E3D0(0, a2, *(float*)&v4);
 			result =
@@ -794,18 +797,18 @@ uint32_t* sub_510BE0_trade(int* a1, int a2, uint32_t* a3) {
 			v6 =
 				nox_strman_loadString_40F1D0("CantSellQuestItem", 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c", 3413);
 			nox_xxx_netSendLineMessage_4D9EB0((int)a1, v6);
-			result = nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
+			nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
 		} else if (*(unsigned short*)(v5 + 4) == dword_5d4594_2386560) {
 			v7 = nox_strman_loadString_40F1D0("CantSellItem", 0, "C:\\NoxPost\\src\\Server\\System\\Trade.c", 3423);
 			nox_xxx_netSendLineMessage_4D9EB0((int)a1, v7);
-			result = nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
+			nox_xxx_aud_501960(925, (int)a1, 2, a1[9]);
 		} else {
 			sub_4ED0C0((int)a1, (int*)v5);
 			nox_xxx_delayedDeleteObject_4E5CC0(v5);
 			v8 = nox_xxx_shopGetItemCost_50E3D0(0, a2, *(float*)&v5);
 			nox_xxx_playerAddGold_4FA590((int)a1, v8);
 			sub_4D8870(*(unsigned char*)(*(uint32_t*)(v4 + 276) + 2064), (int)a1);
-			result = nox_xxx_aud_501960(307, (int)a1, 2, a1[9]);
+			nox_xxx_aud_501960(307, (int)a1, 2, a1[9]);
 		}
 	}
 	return result;

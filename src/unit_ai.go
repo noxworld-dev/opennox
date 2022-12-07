@@ -25,7 +25,6 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -439,11 +438,6 @@ func (a *aiData) Free() {
 	a.listenHead = nil
 }
 
-//export nox_xxx_audioAddAIInteresting_50CD40
-func nox_xxx_audioAddAIInteresting_50CD40(snd C.int, obj *nox_object_t, cp *C.float2) {
-	noxServer.ai.NewSound(sound.ID(snd), asObjectC(obj), asPointf(unsafe.Pointer(cp)))
-}
-
 func (a *aiData) NewSound(snd sound.ID, obj *Object, pos types.Pointf) {
 	if getSoundFlags(snd) == 0 {
 		return
@@ -526,10 +520,6 @@ func (a *aiData) aiListenToSounds(u *Unit) {
 	}
 }
 
-func getSoundFlags(ind sound.ID) int {
-	return int(memmap.Uint32(0x5D4594, 1570284+28*uintptr(ind)+4))
-}
-
 func (a *aiData) traceSound(u *Unit, p *MonsterListen) int {
 	flags := getSoundFlags(p.snd)
 	perc := a.soundFadePerc(p.snd, p.pos, u.Pos())
@@ -555,13 +545,8 @@ func (a *aiData) nox_xxx_gameSetAudioFadeoutMb(v int) {
 	a.soundMuteThreshold = v
 }
 
-//export sub_501AF0
-func sub_501AF0(snd C.int, p1, p2 *C.float2) C.int {
-	return C.int(noxServer.ai.soundFadePerc(sound.ID(snd), asPointf(unsafe.Pointer(p1)), asPointf(unsafe.Pointer(p2))))
-}
-
 func (a *aiData) soundFadePerc(snd sound.ID, p1, p2 types.Pointf) int {
-	max := int(memmap.Uint32(0x5D4594, 1570284+28*uintptr(snd)+0))
+	max := int(arr_5d4594_1570284[snd].Field0)
 	if max <= 0 {
 		return 0
 	}
@@ -767,7 +752,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *nox_object_t) {
 	if !u.Flags().HasAny(object.FlagDead | object.FlagDestroyed) {
 		if ud.Field360&0x200 != 0 {
 			if v7 := C.nox_xxx_monsterGetSoundSet_424300(u.CObj()); v7 != nil {
-				nox_xxx_aud_501960(sound.ID(*(*uint32)(unsafe.Add(v7, 64))), u, 0, 0)
+				nox_xxx_aud501960(sound.ID(*(*uint32)(unsafe.Add(v7, 64))), u, 0, 0)
 			}
 			nox_xxx_scriptCallByEventBlock_502490(&ud.Field312, asObjectS(u.Obj130), u, noxEventMonsterZZZ)
 			if noxflags.HasEngine(noxflags.EngineShowAI) {

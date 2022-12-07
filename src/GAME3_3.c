@@ -4211,7 +4211,7 @@ void nox_xxx_collideDamage_4E9430(int a1, int a2) {
 }
 
 //----- (004E9490) --------------------------------------------------------
-uint32_t* nox_xxx_collideManadrain_4E9490(int a1, int a2) {
+void nox_xxx_collideManadrain_4E9490(int a1, int a2) {
 	uint32_t* result; // eax
 
 	result = (uint32_t*)a2;
@@ -4219,11 +4219,10 @@ uint32_t* nox_xxx_collideManadrain_4E9490(int a1, int a2) {
 		nox_xxx_playerManaSub_4EEBF0(a2, **(unsigned char**)(a1 + 700));
 		result = (uint32_t*)(gameFrame() - *(short*)(a1 + 542));
 		if ((unsigned int)result > (int)gameFPS() >> 1) {
-			result = nox_xxx_aud_501960(228, a1, 0, 0);
+			nox_xxx_aud_501960(228, a1, 0, 0);
 			*(uint16_t*)(a1 + 542) = (unsigned short)gameFrame();
 		}
 	}
-	return result;
 }
 
 //----- (004E9500) --------------------------------------------------------
@@ -4693,7 +4692,7 @@ void nox_xxx_collideSulphurShot_4E9E50(int a1, int a2, int a3) {
 }
 
 //----- (004E9E90) --------------------------------------------------------
-int* nox_xxx_collideDeathBall_4E9E90(int a1, int a2, float* a3) {
+void nox_xxx_collideDeathBall_4E9E90(int a1, int a2, float* a3) {
 	int* result; // eax
 	int* v4;     // esi
 	int v5;      // eax
@@ -4729,7 +4728,7 @@ int* nox_xxx_collideDeathBall_4E9E90(int a1, int a2, float* a3) {
 				a2a.field_4 = -a2a.field_4;
 			}
 			sub_57B770((float2*)(a1 + 80), &a2a);
-			result = nox_xxx_aud_501960(283, a1, 0, 0);
+			nox_xxx_aud_501960(283, a1, 0, 0);
 		}
 	} else {
 		result = (int*)a3;
@@ -4745,7 +4744,6 @@ int* nox_xxx_collideDeathBall_4E9E90(int a1, int a2, float* a3) {
 			}
 		}
 	}
-	return result;
 }
 
 //----- (004E9FE0) --------------------------------------------------------
@@ -5234,30 +5232,21 @@ short sub_4EA800(int a1, int a2) {
 }
 
 //----- (004EAAA0) --------------------------------------------------------
-uint32_t* sub_4EAAA0(int a1) {
-	uint32_t* result; // eax
-
-	result = (uint32_t*)a1;
+void sub_4EAAA0(int a1) {
 	if (gameFrame() > (unsigned int)(*(uint32_t*)(a1 + 136) + 3)) {
 		*(uint32_t*)(a1 + 136) = gameFrame();
-		result = nox_xxx_aud_501960(281, a1, 0, 0);
+		nox_xxx_aud_501960(281, a1, 0, 0);
 	}
-	return result;
 }
 
 //----- (004EAAD0) --------------------------------------------------------
-uint32_t* sub_4EAAD0(int a1, int a2) {
-	uint32_t* result; // eax
-
-	result = (uint32_t*)a2;
+void sub_4EAAD0(int a1, int a2) {
 	if (a2 && *(uint8_t*)(a2 + 8) & 4) {
-		result = (uint32_t*)a1;
 		if (gameFrame() > (unsigned int)(*(uint32_t*)(a1 + 136) + 30)) {
 			*(uint32_t*)(a1 + 136) = gameFrame();
-			result = nox_xxx_aud_501960(**(uint32_t**)(a1 + 700), a1, 0, 0);
+			nox_xxx_aud_501960(**(uint32_t**)(a1 + 700), a1, 0, 0);
 		}
 	}
-	return result;
 }
 
 //----- (004EAB20) --------------------------------------------------------
@@ -5326,11 +5315,9 @@ void nox_xxx_collideTrapDoor_4EAB60(int a1, int a2) {
 }
 
 //----- (004EACA0) --------------------------------------------------------
-uint32_t* sub_4EACA0(int a1, int a2) {
-	uint32_t* result; // eax
+void sub_4EACA0(int a1, int a2) {
 	int* v3;          // ebx
 
-	result = (uint32_t*)a1;
 	v3 = *(int**)(a1 + 700);
 	if (a2) {
 		if ((signed char)*(uint8_t*)(a2 + 8) >= 0) {
@@ -5340,10 +5327,9 @@ uint32_t* sub_4EACA0(int a1, int a2) {
 			*(float*)(a2 + 168) = (double)v3[1];
 			nox_xxx_teleportToMB_4E7190((uint8_t*)a2, (float*)(a2 + 164));
 			nox_xxx_netSendPointFx_522FF0(137, (float2*)(a2 + 56));
-			result = nox_xxx_aud_501960(147, a2, 0, 0);
+			nox_xxx_aud_501960(147, a2, 0, 0);
 		}
 	}
-	return result;
 }
 
 //----- (004EAD20) --------------------------------------------------------
@@ -5831,7 +5817,7 @@ int sub_4EB9B0(int a1, int a2) {
 }
 
 //----- (004EBA00) --------------------------------------------------------
-uint32_t* nox_xxx_collideBall_4EBA00(int a1, int a2) {
+void nox_xxx_collideBall_4EBA00(int a1, int a2) {
 	char* v2;         // ebp
 	uint32_t* v3;     // ebx
 	uint32_t* result; // eax
@@ -5845,11 +5831,13 @@ uint32_t* nox_xxx_collideBall_4EBA00(int a1, int a2) {
 				nox_xxx_netPriMsgToPlayer_4DA2C0(a2, "objcoll.c:CantPickupBall", 0);
 				*getMemU32Ptr(0x5D4594, 1568008) = gameFrame();
 			}
-			return nox_xxx_aud_501960(928, a1, 0, 0);
+			nox_xxx_aud_501960(928, a1, 0, 0);
+			return;
 		}
 	}
 	if (*(uint32_t*)(a1 + 508) || !a2 || !(*(uint8_t*)(a2 + 8) & 4)) {
-		return nox_xxx_aud_501960(928, a1, 0, 0);
+		nox_xxx_aud_501960(928, a1, 0, 0);
+		return;
 	}
 	result = *(uint32_t**)(a2 + 516);
 	if (!result) {
@@ -5861,7 +5849,8 @@ uint32_t* nox_xxx_collideBall_4EBA00(int a1, int a2) {
 				sub_4EB9B0(a1, a2);
 				nox_xxx_aud_501960(927, a1, 0, 0);
 				*(uint32_t*)(a1 + 16) |= 0x40u;
-				return (uint32_t*)sub_4EA7A0(a2);
+				sub_4EA7A0(a2);
+				return;
 			}
 			sub_4196D0(a1 + 48, (int)v2, *(uint32_t*)(a1 + 36), 0);
 		} else {
@@ -5882,7 +5871,6 @@ uint32_t* nox_xxx_collideBall_4EBA00(int a1, int a2) {
 			goto LABEL_17;
 		}
 	}
-	return result;
 }
 
 //----- (004EBB50) --------------------------------------------------------

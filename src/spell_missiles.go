@@ -91,5 +91,5 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts 
 		mud.spellID = C.int(spellID)
 	}
 	aud := sp.s.SpellDefByInd(spellID).GetAudio(0)
-	nox_xxx_aud_501960(aud, caster, 0, 0)
+	nox_xxx_aud501960(aud, caster, 0, 0)
 }

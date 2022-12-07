@@ -6742,17 +6742,17 @@ void sub_4DF3C0(nox_playerInfo* pl) {
 }
 
 //----- (004DFB50) --------------------------------------------------------
-uint32_t* sub_4DFB50(int a1, int a2) {
+void sub_4DFB50(int a1, int a2) {
 	*(uint8_t*)(a2 + 440) |= 8u;
-	return nox_xxx_aud_501960(75, a2, 0, 0);
+	nox_xxx_aud_501960(75, a2, 0, 0);
 }
 
 //----- (004DFB80) --------------------------------------------------------
-uint32_t* sub_4DFB80(int a1, int a2) {
+void sub_4DFB80(int a1, int a2) {
 	if (!nox_xxx_enchantItemTestInventory_4DFBB0(a2, 8)) {
 		*(uint8_t*)(a2 + 440) &= 0xF7u;
 	}
-	return nox_xxx_aud_501960(76, a2, 0, 0);
+	nox_xxx_aud_501960(76, a2, 0, 0);
 }
 
 //----- (004DFBB0) --------------------------------------------------------
@@ -6845,9 +6845,9 @@ void nox_xxx_effectSpeedDisengage_4DFCA0(int a1, int a2) {
 }
 
 //----- (004DFD10) --------------------------------------------------------
-uint32_t* sub_4DFD10(int a1, int a2) {
+void sub_4DFD10(int a1, int a2) {
 	*(uint8_t*)(a2 + 440) |= 1u;
-	return nox_xxx_aud_501960(102, a2, 0, 0);
+	nox_xxx_aud_501960(102, a2, 0, 0);
 }
 
 //----- (004DFD40) --------------------------------------------------------
@@ -6861,31 +6861,31 @@ void nox_xxx_modifFireProtection_4DFD40(int a1, int a2, int a3) {
 }
 
 //----- (004DFD80) --------------------------------------------------------
-uint32_t* nox_xxx_buff_4DFD80(int a1, int a2) {
+void nox_xxx_buff_4DFD80(int a1, int a2) {
 	*(uint8_t*)(a2 + 440) |= 4u;
-	return nox_xxx_aud_501960(106, a2, 0, 0);
+	nox_xxx_aud_501960(106, a2, 0, 0);
 }
 
 //----- (004DFDB0) --------------------------------------------------------
-uint32_t* sub_4DFDB0(int a1, int a2) {
+void sub_4DFDB0(int a1, int a2) {
 	if (!nox_xxx_enchantItemTestInventory_4DFBB0(a2, 4)) {
 		*(uint8_t*)(a2 + 440) &= 0xFBu;
 	}
-	return nox_xxx_aud_501960(107, a2, 0, 0);
+	nox_xxx_aud_501960(107, a2, 0, 0);
 }
 
 //----- (004DFDE0) --------------------------------------------------------
-uint32_t* nox_xxx_checkPoisonProtectEnch_4DFDE0(int a1, int a2) {
+void nox_xxx_checkPoisonProtectEnch_4DFDE0(int a1, int a2) {
 	*(uint8_t*)(a2 + 440) |= 2u;
-	return nox_xxx_aud_501960(110, a2, 0, 0);
+	nox_xxx_aud_501960(110, a2, 0, 0);
 }
 
 //----- (004DFE10) --------------------------------------------------------
-uint32_t* sub_4DFE10(int a1, int a2) {
+void sub_4DFE10(int a1, int a2) {
 	if (!nox_xxx_enchantItemTestInventory_4DFBB0(a2, 2)) {
 		*(uint8_t*)(a2 + 440) &= 0xFDu;
 	}
-	return nox_xxx_aud_501960(111, a2, 0, 0);
+	nox_xxx_aud_501960(111, a2, 0, 0);
 }
 
 //----- (004DFE40) --------------------------------------------------------
@@ -7093,9 +7093,9 @@ double nox_xxx_getPoisonDmg_4E0040(uint32_t* a1) {
 }
 
 //----- (004E0140) --------------------------------------------------------
-uint32_t* sub_4E0140(int a1, int a2) {
+void sub_4E0140(int a1, int a2) {
 	*(uint8_t*)(a2 + 440) |= 0x20u;
-	return nox_xxx_aud_501960(123, a2, 0, 0);
+	nox_xxx_aud_501960(123, a2, 0, 0);
 }
 
 //----- (004E0170) --------------------------------------------------------
@@ -7285,18 +7285,14 @@ void nox_xxx_stunEffect_4E04D0(int a1, int a2, int a3, int a4) {
 }
 
 //----- (004E0550) --------------------------------------------------------
-uint32_t* nox_xxx_fireEffect_4E0550(int a1, int a2, int a3, int a4) {
-	uint32_t* result; // eax
+void nox_xxx_fireEffect_4E0550(int a1, int a2, int a3, int a4) {
 	float v5;         // [esp+8h] [ebp+4h]
-
-	result = (uint32_t*)a1;
 	v5 = *(float*)(a1 + 56);
 	if (a4) {
 		(*(void (**)(int, int, int, uint32_t, int))(a4 + 716))(a4, a3, a2, (long long)v5, 7);
 		nox_xxx_netSparkExplosionFx_5231B0((float*)(a4 + 56), (long long)(v5 * 10.0));
-		result = nox_xxx_aud_501960(224, a4, 0, 0);
+		nox_xxx_aud_501960(224, a4, 0, 0);
 	}
-	return result;
 }
 
 //----- (004E05B0) --------------------------------------------------------

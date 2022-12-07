@@ -3944,7 +3944,7 @@ uint32_t* sub_5108D0(int a1, int a2, int a3) {
 			result = (uint32_t*)nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(v5 + 276) + 2064), v11, 8,
 															  0, 1);
 		} else {
-			result = nox_xxx_aud_501960(925, a1, 0, 0);
+			nox_xxx_aud_501960(925, a1, 0, 0);
 		}
 	}
 	return result;
@@ -3983,13 +3983,13 @@ uint32_t* sub_510AE0(int* a1, int a2, uint32_t* a3) {
 			}
 		}
 		sub_4D8870(*(unsigned char*)(*(uint32_t*)(v5 + 276) + 2064), (int)a1);
-		result = nox_xxx_aud_501960(803, (int)a1, 2, a1[9]);
+		nox_xxx_aud_501960(803, (int)a1, 2, a1[9]);
 	}
 	return result;
 }
 
 //----- (00510D10) --------------------------------------------------------
-unsigned short sub_510D10(int* a1, int a2, int a3, unsigned int a4) {
+void sub_510D10(int* a1, int a2, int a3, unsigned int a4) {
 	unsigned short result; // ax
 	int v5;                // ebp
 	int v6;                // ebx
@@ -4013,7 +4013,7 @@ unsigned short sub_510D10(int* a1, int a2, int a3, unsigned int a4) {
 				}
 				v7 = *(uint32_t*)(v7 + 496);
 				if (!v7) {
-					return result;
+					return;
 				}
 			}
 			sub_4ED0C0((int)a1, (int*)v7);
@@ -4023,11 +4023,11 @@ unsigned short sub_510D10(int* a1, int a2, int a3, unsigned int a4) {
 			sub_4D8870(*(unsigned char*)(*(uint32_t*)(v5 + 276) + 2064), (int)a1);
 			result = a4;
 			if (++v6 >= a4) {
-				return (unsigned int)nox_xxx_aud_501960(307, (int)a1, 2, a1[9]);
+				nox_xxx_aud_501960(307, (int)a1, 2, a1[9]);
+				return;
 			}
 		}
 	}
-	return result;
 }
 
 //----- (00510DC0) --------------------------------------------------------
@@ -5980,7 +5980,7 @@ int nox_xxx_netPlayerObjSend_518C30(nox_object_t* a1p, nox_object_t* a2p, int a3
 }
 
 //----- (00518EE0) --------------------------------------------------------
-int nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
+void nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
 	uint32_t* v1; // ebx
 	int v2;       // esi
 	int v3;       // edi
@@ -6024,7 +6024,7 @@ int nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
 		if (*(uint8_t*)(*(uint32_t*)(v2 + 276) + 3680) & 3 || nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)) {
 			result = nox_xxx_netPlayerObjSendCamera_519330((int)obj);
 			if (!result) {
-				return result;
+				return;
 			}
 			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)) {
 				nox_xxx_netPlayerObjSend_518C30((int)obj, obj, 1, 1);
@@ -6032,7 +6032,7 @@ int nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
 		} else {
 			result = nox_xxx_netPlayerObjSend_518C30((int)obj, obj, 1, 1);
 			if (!result) {
-				return result;
+				return;
 			}
 		}
 		v5 = *(uint32_t*)(v2 + 276);
@@ -6106,7 +6106,7 @@ int nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
 		sub_4FF7B0(*(uint32_t*)(v2 + 276));
 		sub_511100(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064));
 	}
-	return nox_xxx_netUpdateRemotePlr_501CA0((int)v1);
+	nox_xxx_netUpdateRemotePlr_501CA0((int)v1);
 }
 
 //----- (00519330) --------------------------------------------------------
