@@ -116,14 +116,29 @@ func asTeamP(p unsafe.Pointer) *Team {
 
 type TeamColor byte
 
-type Team nox_team_t
+type Team struct {
+	name     [21]uint16     // 0, 0
+	field_42 uint16         // 10, 42
+	field_44 uint32         // 11, 44
+	field_48 uint32         // 12, 48
+	lessons  int            // 13, 52
+	def_ind  uint8          // 14, 56
+	field_57 byte           // 14, 57 TODO: team def code?
+	ind      uint8          // 14, 58
+	field_59 uint8          // 14, 59
+	field_60 uint32         // 15, 60 TODO: id? net code?
+	active   uint32         // 16, 64
+	field_68 uint32         // 17, 68
+	field_72 unsafe.Pointer // 18, 72 TODO: team flag? team spawn?
+	field_76 uint32         // 19, 76
+}
 
 func (t *Team) C() *nox_team_t {
 	return (*nox_team_t)(unsafe.Pointer(t))
 }
 
 func (t *Team) Name() string {
-	return GoWString(&t.name[0])
+	return GoWStringSlice(t.name[:])
 }
 
 func (t *Team) ColorInd() TeamColor {
@@ -131,7 +146,7 @@ func (t *Team) ColorInd() TeamColor {
 }
 
 func (t *Team) Ind57() byte {
-	return byte(t.field_57)
+	return t.field_57
 }
 
 func (t *Team) Ind() int {
@@ -157,7 +172,7 @@ func (t *Team) Active() bool {
 
 type serverTeams struct {
 	defs map[TeamColor]*TeamDef
-	arr  []nox_team_t
+	arr  []Team
 }
 
 func (s *Server) allocTeams() {
@@ -175,8 +190,7 @@ func (s *Server) allocTeams() {
 	}
 	s.teamsReloadTitles()
 	const teamsMax = 17
-	ptr, _ := alloc.Calloc(teamsMax, unsafe.Sizeof(nox_team_t{}))
-	s.teams.arr = unsafe.Slice((*nox_team_t)(ptr), teamsMax)
+	s.teams.arr, _ = alloc.Make([]Team{}, teamsMax)
 }
 
 func (s *Server) teamsReloadTitles() {
@@ -187,7 +201,7 @@ func (s *Server) teamsReloadTitles() {
 
 func (s *Server) firstTeam() *Team { // nox_server_teamFirst_418B10
 	for i := 1; i < len(s.teams.arr); i++ {
-		t := asTeam(&s.teams.arr[i])
+		t := &s.teams.arr[i]
 		if t.Active() {
 			return t
 		}
@@ -200,7 +214,7 @@ func (s *Server) nextTeam(t *Team) *Team { // nox_server_teamNext_418B60
 		return nil
 	}
 	for i := t.Ind() + 1; i < len(s.teams.arr); i++ {
-		t2 := asTeam(&s.teams.arr[i])
+		t2 := &s.teams.arr[i]
 		if t2.Active() {
 			return t2
 		}
@@ -218,7 +232,7 @@ func (s *Server) Teams() []*Team {
 
 func (s *Server) teamInactive() int {
 	for i := 1; i < len(s.teams.arr); i++ {
-		t := asTeam(&s.teams.arr[i])
+		t := &s.teams.arr[i]
 		if !t.Active() {
 			return i
 		}
@@ -237,7 +251,7 @@ func (s *Server) teamByXxx(a1 int) *Team { // nox_server_teamByXxx_418AE0
 
 func (s *Server) teamsReset() {
 	for i := 0; i < len(s.teams.arr); i++ {
-		s.teams.arr[i] = nox_team_t{}
+		s.teams.arr[i] = Team{}
 	}
 	for i := 0; i < len(s.teams.arr)-1; i++ { // TODO: why -1 ?
 		t := &s.teams.arr[i]
@@ -287,7 +301,7 @@ func (s *Server) nox_xxx_createCoopTeam_417E10() {
 		t = s.teamCreate(1)
 	}
 	if v1 := nox_xxx_objGetTeamByNetCode_418C80(int(C.nox_player_netCode_85319C)); v1 != nil {
-		C.nox_xxx_createAtImpl_4191D0(t.field_57, unsafe.Pointer(v1), 0, C.int(C.nox_player_netCode_85319C), 0)
+		C.nox_xxx_createAtImpl_4191D0(C.uchar(t.field_57), unsafe.Pointer(v1), 0, C.int(C.nox_player_netCode_85319C), 0)
 	}
 	if t != nil {
 		text := s.Strings().GetStringInFile("COOP", "C:\\NoxPost\\src\\common\\System\\team.c")
@@ -297,9 +311,9 @@ func (s *Server) nox_xxx_createCoopTeam_417E10() {
 }
 
 func (t *Team) setNameAnd68(name string, a3 int) { // sub_418800
-	WStrCopy(&t.name[0], 20, name)
+	WStrCopySlice(t.name[:20], name)
 	t.name[20] = 0
-	t.field_68 = C.uint(a3)
+	t.field_68 = uint32(a3)
 }
 
 func (s *Server) teamCreate(ind byte) *Team {
@@ -309,13 +323,13 @@ func (s *Server) teamCreate(ind byte) *Team {
 		return nil
 	}
 	ti := s.teamInactive()
-	t := asTeam(&s.teams.arr[ti])
+	t := &s.teams.arr[ti]
 	t.name[0] = 0
 	t.field_44 = 0
 	t.field_48 = 0
 	t.lessons = 0
-	t.def_ind = C.uchar(ti)
-	t.ind = C.uchar(ti)
+	t.def_ind = byte(ti)
+	t.ind = byte(ti)
 	t.field_60 = 0
 	t.active = 1
 	t.field_68 = 0
@@ -323,7 +337,7 @@ func (s *Server) teamCreate(ind byte) *Team {
 	if ind == 0 {
 		ci = s.teamFindFreeInd()
 	}
-	t.field_57 = C.uchar(ci)
+	t.field_57 = ci
 	*memmap.PtrUint8(0x5D4594, 526280)++
 	C.sub_459CD0() // TODO: GUI callback
 	if !noxflags.HasGame(noxflags.GameModeSolo10) {
@@ -393,7 +407,7 @@ func (s *Server) teamChangeLessons(tm *Team, val int) { // nox_xxx_netChangeTeam
 	if tm == nil {
 		return
 	}
-	tm.lessons = C.int(val)
+	tm.lessons = val
 	if !noxflags.HasGame(noxflags.GameHost) {
 		return
 	}
@@ -408,7 +422,7 @@ func (s *Server) teamChangeLessons(tm *Team, val int) { // nox_xxx_netChangeTeam
 func (s *Server) teamsZzz(a1 int) int {
 	nox_xxx_UnsetGameplayFlags_417D70(4)
 	for i := 1; i < len(s.teams.arr); i++ {
-		t := asTeam(&s.teams.arr[i])
+		t := &s.teams.arr[i]
 		if t.Active() {
 			C.sub_418F20(t.C(), 0)
 		}
