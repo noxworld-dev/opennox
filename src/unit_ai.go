@@ -439,7 +439,7 @@ func (a *aiData) Free() {
 }
 
 func (a *aiData) NewSound(snd sound.ID, obj *Object, pos types.Pointf) {
-	if a.s.audio.Flags(snd) == 0 {
+	if a.s.Audio.Flags(snd) == 0 {
 		return
 	}
 	if a.allocListen.Class == nil {
@@ -521,7 +521,7 @@ func (a *aiData) aiListenToSounds(u *Unit) {
 }
 
 func (a *aiData) traceSound(u *Unit, p *MonsterListen) int {
-	flags := a.s.audio.Flags(p.snd)
+	flags := a.s.Audio.Flags(p.snd)
 	perc := a.soundFadePerc(p.snd, p.pos, u.Pos())
 	if !a.checkSoundThreshold(flags, perc) {
 		return -1
@@ -546,7 +546,7 @@ func (a *aiData) nox_xxx_gameSetAudioFadeoutMb(v int) {
 }
 
 func (a *aiData) soundFadePerc(snd sound.ID, p1, p2 types.Pointf) int {
-	max := int(a.s.audio.bySound[snd].Field0)
+	max := a.s.Audio.MaxDist(snd)
 	if max <= 0 {
 		return 0
 	}
@@ -580,7 +580,7 @@ func (a *aiData) checkSoundThreshold(flags, perc int) bool {
 func (a *aiData) shouldUnitListen(u *Unit, lis *MonsterListen) bool {
 	ud := u.UpdateDataMonster()
 	punit := lis.obj.FindOwnerChainPlayer()
-	flags := a.s.audio.Flags(lis.snd)
+	flags := a.s.Audio.Flags(lis.snd)
 	if ud.Field101 > a.s.Frame() {
 		return false
 	}

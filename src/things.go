@@ -242,9 +242,9 @@ func (s *Server) nox_read_things_alternative_4E2B60() error {
 		case 0x4142494C: // ABIL
 			C.nox_thing_read_ability_415320(thg.C())
 		case 0x41554420: // AUD
-			s.audio.readAUD(thg)
+			s.Audio.ReadAUD(thg)
 		case 0x41564E54: // AVNT
-			s.audio.readAVNT(thg)
+			s.Audio.ReadAVNT(thg)
 		case 0x57414C4C: // WALL
 			if C.nox_thing_read_WALL_414F60(thg.C(), unsafe.Pointer(&buf[0])) == 0 {
 				return fmt.Errorf("nox_thing_read_WALL_414F60 failed")
