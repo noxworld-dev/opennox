@@ -40,7 +40,6 @@ extern uint32_t dword_5d4594_1568868;
 extern void* nox_alloc_magicEnt_1569668;
 extern void* nox_alloc_vote_1599652;
 extern uint32_t dword_5d4594_1599616;
-extern uint32_t dword_5d4594_1599064;
 extern void* nox_alloc_magicWall_1569748;
 extern uint32_t dword_5d4594_1599060;
 extern uint32_t dword_5d4594_1599592;
@@ -66,6 +65,9 @@ extern uint32_t dword_5d4594_2650652;
 extern int nox_win_width;
 
 FILE* nox_file_8 = 0;
+
+uint32_t dword_5d4594_1599064 = 0;
+void* dword_5d4594_1599056 = 0;
 
 int nox_cheat_charmall = 0;
 
@@ -5612,8 +5614,8 @@ int nox_xxx_allocAudEventArray_501860() {
 	if (dword_5d4594_1599064) {
 		return 1;
 	}
-	*getMemU32Ptr(0x5D4594, 1599056) = nox_new_alloc_class("AudEvent", 36, 128);
-	if (!*getMemU32Ptr(0x5D4594, 1599056)) {
+	dword_5d4594_1599056 = nox_new_alloc_class("AudEvent", 36, 128);
+	if (!dword_5d4594_1599056) {
 		return 0;
 	}
 	v1 = getMemAt(0x5D4594, 1570284 + 8);
@@ -5634,7 +5636,7 @@ int nox_xxx_allocAudEventArray_501860() {
 //----- (005018D0) --------------------------------------------------------
 void sub_5018D0() {
 	if (dword_5d4594_1599064) {
-		nox_free_alloc_class(*(void**)getMemAt(0x5D4594, 1599056));
+		nox_free_alloc_class(dword_5d4594_1599056);
 		dword_5d4594_1599060 = 0;
 		dword_5d4594_1599064 = 0;
 	}
@@ -5657,7 +5659,7 @@ uint32_t* nox_xxx_aud_501960(int a1, nox_object_t* a2p, int a3, int a4) {
 				if ((int)result > 0) {
 					if (!nox_common_gameFlags_check_40A5C0(4096) || !(*(uint8_t*)(a2 + 8) & 4) ||
 						(result = (uint32_t*)sub_419E60(a2)) == 0) {
-						result = nox_alloc_class_new_obj_zero(*(uint32_t**)getMemAt(0x5D4594, 1599056));
+						result = nox_alloc_class_new_obj_zero(dword_5d4594_1599056);
 						v5 = result;
 						if (result) {
 							result[1] = a1;
@@ -5692,7 +5694,7 @@ void nox_xxx_audCreate_501A30(int a1, float2* a2, int a3, int a4) {
 	if (!nox_common_gameFlags_check_40A5C0(0x80000)) {
 		if (a1) {
 			if (nox_xxx_getSevenDwords3_501940(a1) > 0) {
-				v4 = (int*)nox_alloc_class_new_obj_zero(*(uint32_t**)getMemAt(0x5D4594, 1599056));
+				v4 = (int*)nox_alloc_class_new_obj_zero(dword_5d4594_1599056);
 				if (v4) {
 					v4[1] = a1;
 					*((float2*)v4 + 1) = *a2;
@@ -5708,6 +5710,12 @@ void nox_xxx_audCreate_501A30(int a1, float2* a2, int a3, int a4) {
 			}
 		}
 	}
+}
+
+//----- (00502100) --------------------------------------------------------
+void sub_502100() {
+	nox_alloc_class_free_all(dword_5d4594_1599056);
+	dword_5d4594_1599060 = 0;
 }
 
 //----- (00501C00) --------------------------------------------------------
