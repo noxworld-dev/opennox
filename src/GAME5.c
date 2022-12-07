@@ -1290,7 +1290,7 @@ char nox_xxx_monsterMainAIFn_547210(nox_object_t* a1p) {
 								if (!v7[71] && !v7[70]) {
 									LOBYTE(v3) = (uint8_t)v44;
 									if (v44) {
-										LOBYTE(v3) = (unsigned int)nox_xxx_aud_501960(v44[1], v1, 0, 0);
+										nox_xxx_aud_501960(v44[1], v1, 0, 0);
 									}
 								}
 								return (char)v3;
@@ -1323,7 +1323,7 @@ char nox_xxx_monsterMainAIFn_547210(nox_object_t* a1p) {
 				}
 				LOBYTE(v3) = (uint8_t)v44;
 				if (v44) {
-					LOBYTE(v3) = (unsigned int)nox_xxx_aud_501960(v44[12], v1, 0, 0);
+					nox_xxx_aud_501960(v44[12], v1, 0, 0);
 				}
 				return (char)v3;
 			}
@@ -1396,7 +1396,7 @@ char nox_xxx_monsterMainAIFn_547210(nox_object_t* a1p) {
 									if (v3) {
 										LOBYTE(v3) = (uint8_t)v44;
 										if (v44) {
-											LOBYTE(v3) = (unsigned int)nox_xxx_aud_501960(v44[12], v1, 0, 0);
+											nox_xxx_aud_501960(v44[12], v1, 0, 0);
 										}
 									}
 									return (char)v3;
@@ -6349,7 +6349,7 @@ uint32_t* nox_xxx_mobGeneratorSpawn_54F070(int a1, int a2, int a3) {
 				v19 = a1a.field_4 * 30.0 + *(float*)(a2 + 4);
 				v22.field_C = nox_float2int(v19);
 				nox_xxx_sendGeneratorSpawnFX_523830(&v22, 10);
-				result = nox_xxx_aud_501960(1002, (int)v5, 0, 0);
+				nox_xxx_aud_501960(1002, (int)v5, 0, 0);
 			} else {
 				result = (uint32_t*)nox_xxx_objectFreeMem_4E38A0((int)v5);
 			}
@@ -6609,7 +6609,7 @@ void nox_xxx_createArrowTrapProjectile_54FA80(int a1, int a2) {
 			v7[1] = v4;
 		}
 		if (a2 == *getMemU32Ptr(0x5D4594, 2491768)) {
-			LOWORD(v4) = (unsigned int)nox_xxx_aud_501960(889, a1, 0, 0);
+			nox_xxx_aud_501960(889, a1, 0, 0);
 		}
 	}
 }

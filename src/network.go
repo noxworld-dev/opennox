@@ -1415,3 +1415,19 @@ func nox_xxx_netTimerStatus_4D8F50(a1, a2 int) {
 	binary.LittleEndian.PutUint32(buf[9:], noxServer.Frame())
 	noxServer.nox_xxx_netSendPacket1_4E5390(a1, buf[:13], 0, 1)
 }
+
+func sub_501FD0(u *Unit, ev *audioEvent, perc int16) {
+	pl := u.ControllingPlayer()
+	packed := uint16(uint32(uint16(ev.Sound4)) | uint32(perc)<<10)
+	dx := ev.Pos8.X - pl.pos3632().X
+	mv := uint8(int8(50 * int(dx) / (videoGetWindowSize().X / 2)))
+	var buf [4]byte
+	if u.CObj() == ev.Obj16 {
+		buf[0] = byte(noxnet.MSG_AUDIO_PLAYER_EVENT)
+	} else {
+		buf[0] = byte(noxnet.MSG_AUDIO_EVENT)
+	}
+	buf[1] = mv
+	binary.LittleEndian.PutUint16(buf[2:], packed)
+	netlist.AddToMsgListCli(pl.Index(), netlist.Kind1, buf[:4])
+}

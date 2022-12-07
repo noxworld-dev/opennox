@@ -2,13 +2,11 @@ package opennox
 
 /*
 #include <stdint.h>
-extern uint32_t dword_5d4594_1599064;
 void nox_xxx_clientPlaySoundSpecial_452D80(int a1, int a2);
 int nox_xxx_utilFindSound_40AF50(char* a1);
 */
 import "C"
 import (
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
@@ -45,7 +43,7 @@ func nox_thing_read_audio_one(f *MemFile) bool {
 		return false
 	}
 	snd := sound.ByName(name)
-	if snd == 0 || C.dword_5d4594_1599064 == 0 {
+	if snd == 0 || !dword_5d4594_1599064 {
 		f.Skip(9)
 		for {
 			n := int(f.ReadU8())
@@ -61,33 +59,38 @@ func nox_thing_read_audio_one(f *MemFile) bool {
 	v8 := f.ReadI16()
 	v17 := f.ReadU8()
 	f.Skip(3)
+
+	p := &arr_5d4594_1570284[snd]
 	if v8 > 0 {
-		*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+0) = 15 * uint32(v8)
+		p.Field0 = 15 * uint32(v8)
 	}
-	*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+4) = uint32(v6)
-	*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+8) = uint32(v7)
-	*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+20) = uint32(v17)
+	p.Field4 = uint32(v6)
+	p.Field8 = uint32(v7)
+	p.Field20 = int(v17)
 	for {
 		n := int(f.ReadU8())
 		if n == 0 {
 			break
 		}
 		f.Skip(n)
-		*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+12)++
+		p.Field12++
 	}
-	*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+16) = 2
+	p.Field16 = 2
 	return true
 }
 
 func nox_thing_read_AVNT_502120(f *MemFile) bool {
-	upd := C.dword_5d4594_1599064 != 0
+	upd := dword_5d4594_1599064
 	name, err := f.ReadString8()
 	if err != nil {
 		return false
 	}
 	snd := sound.ByName(name)
+	var p *audioEvent2
 	if snd == 0 {
 		upd = false
+	} else {
+		p = &arr_5d4594_1570284[snd]
 	}
 	for {
 		typ := f.ReadU8()
@@ -100,17 +103,17 @@ func nox_thing_read_AVNT_502120(f *MemFile) bool {
 		case 2:
 			v := f.ReadU8()
 			if upd {
-				*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+16) = uint32(v)
+				p.Field16 = uint32(v)
 			}
 		case 3:
 			v := f.ReadU8()
 			if upd {
-				*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+8) = uint32(v)
+				p.Field8 = uint32(v)
 			}
 		case 4:
 			v := f.ReadU8()
 			if upd {
-				*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+20) = uint32(v)
+				p.Field20 = int(v)
 			}
 		case 6:
 			f.Skip(2)
@@ -121,19 +124,19 @@ func nox_thing_read_AVNT_502120(f *MemFile) bool {
 					break
 				}
 				f.Skip(int(n))
-				*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+12)++
+				p.Field12++
 			}
 		case 8:
 			f.Skip(8)
 		case 9:
 			v := f.ReadU16()
 			if upd {
-				*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+0) = 15 * uint32(v)
+				p.Field0 = 15 * uint32(v)
 			}
 		case 10:
 			v := f.ReadU16()
 			if upd {
-				*memmap.PtrUint32(0x5D4594, 1570284+28*uintptr(snd)+4) = uint32(v)
+				p.Field4 = uint32(v)
 			}
 		default:
 			return false

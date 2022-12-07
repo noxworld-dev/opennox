@@ -179,27 +179,27 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 			v14 := u.Field131
 			if pl.Info().IsFemale() {
 				if v14 == 5 {
-					nox_xxx_aud_501960(sound.SoundHumanFemaleHurtPoison, u, 0, 0)
+					nox_xxx_aud501960(sound.SoundHumanFemaleHurtPoison, u, 0, 0)
 				} else if v2 <= 450 {
 					if v2 <= 70 {
-						nox_xxx_aud_501960(sound.SoundHumanFemaleHurtLight, u, 0, 0)
+						nox_xxx_aud501960(sound.SoundHumanFemaleHurtLight, u, 0, 0)
 					} else {
-						nox_xxx_aud_501960(sound.SoundHumanFemaleHurtMedium, u, 0, 0)
+						nox_xxx_aud501960(sound.SoundHumanFemaleHurtMedium, u, 0, 0)
 					}
 				} else {
-					nox_xxx_aud_501960(sound.SoundHumanFemaleHurtHeavy, u, 0, 0)
+					nox_xxx_aud501960(sound.SoundHumanFemaleHurtHeavy, u, 0, 0)
 				}
 			} else {
 				if v14 == 5 {
-					nox_xxx_aud_501960(sound.SoundHumanMaleHurtPoison, u, 0, 0)
+					nox_xxx_aud501960(sound.SoundHumanMaleHurtPoison, u, 0, 0)
 				} else if v2 <= 450 {
 					if v2 <= 70 {
-						nox_xxx_aud_501960(sound.SoundHumanMaleHurtLight, u, 0, 0)
+						nox_xxx_aud501960(sound.SoundHumanMaleHurtLight, u, 0, 0)
 					} else {
-						nox_xxx_aud_501960(sound.SoundHumanMaleHurtMedium, u, 0, 0)
+						nox_xxx_aud501960(sound.SoundHumanMaleHurtMedium, u, 0, 0)
 					}
 				} else {
-					nox_xxx_aud_501960(sound.SoundHumanMaleHurtHeavy, u, 0, 0)
+					nox_xxx_aud501960(sound.SoundHumanMaleHurtHeavy, u, 0, 0)
 				}
 			}
 		}
@@ -234,9 +234,9 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		}
 		if pl.field_3656 != 0 {
 			if pl.Info().IsFemale() {
-				nox_xxx_aud_501960(sound.SoundHumanFemaleExertionHeavy, u, 0, 0)
+				nox_xxx_aud501960(sound.SoundHumanFemaleExertionHeavy, u, 0, 0)
 			} else {
-				nox_xxx_aud_501960(sound.SoundHumanMaleExertionHeavy, u, 0, 0)
+				nox_xxx_aud501960(sound.SoundHumanMaleExertionHeavy, u, 0, 0)
 			}
 			nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 13, 3)
 			return a1, v68, true
@@ -261,24 +261,24 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 					case 2:
 						// nop
 					case 8:
-						nox_xxx_aud_501960(sound.SoundRunOnWood, u, 0, 0)
+						nox_xxx_aud501960(sound.SoundRunOnWood, u, 0, 0)
 					case 64:
-						nox_xxx_aud_501960(sound.SoundRunOnDirt, u, 0, 0)
+						nox_xxx_aud501960(sound.SoundRunOnDirt, u, 0, 0)
 					case 128:
-						nox_xxx_aud_501960(sound.SoundRunOnWater, u, 0, 0)
+						nox_xxx_aud501960(sound.SoundRunOnWater, u, 0, 0)
 					case 0x400:
-						nox_xxx_aud_501960(sound.SoundRunOnSnow, u, 0, 0)
+						nox_xxx_aud501960(sound.SoundRunOnSnow, u, 0, 0)
 					case 0x800:
-						nox_xxx_aud_501960(sound.SoundRunOnMud, u, 0, 0)
+						nox_xxx_aud501960(sound.SoundRunOnMud, u, 0, 0)
 					case 0x4000:
 						// nop
 					default:
-						nox_xxx_aud_501960(sound.SoundRunOnStone, u, 0, 0)
+						nox_xxx_aud501960(sound.SoundRunOnStone, u, 0, 0)
 					}
 				}
 			}
 			if noxRndCounter1.IntClamp(0, 100) <= 1 {
-				nox_xxx_aud_501960(sound.SoundHumanMaleExertionLight, u, 0, 0)
+				nox_xxx_aud501960(sound.SoundHumanMaleExertionLight, u, 0, 0)
 			}
 		}
 		if C.sub_4F9AB0(u.CObj()) == 0 {
@@ -299,19 +299,19 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 					case 2:
 						// nop
 					case 8:
-						nox_xxx_aud_501960(sound.SoundWalkOnWood, u, 0, 0)
+						nox_xxx_aud501960(sound.SoundWalkOnWood, u, 0, 0)
 					case 64:
-						nox_xxx_aud_501960(sound.SoundWalkOnDirt, u, 0, 0)
+						nox_xxx_aud501960(sound.SoundWalkOnDirt, u, 0, 0)
 					case 128:
-						nox_xxx_aud_501960(sound.SoundWalkOnWater, u, 0, 0)
+						nox_xxx_aud501960(sound.SoundWalkOnWater, u, 0, 0)
 					case 0x400:
-						nox_xxx_aud_501960(sound.SoundWalkOnSnow, u, 0, 0)
+						nox_xxx_aud501960(sound.SoundWalkOnSnow, u, 0, 0)
 					case 0x800:
-						nox_xxx_aud_501960(sound.SoundWalkOnMud, u, 0, 0)
+						nox_xxx_aud501960(sound.SoundWalkOnMud, u, 0, 0)
 					case 0x4000:
 						// nop
 					default:
-						nox_xxx_aud_501960(sound.SoundWalkOnStone, u, 0, 0)
+						nox_xxx_aud501960(sound.SoundWalkOnStone, u, 0, 0)
 					}
 				}
 			}
@@ -651,9 +651,9 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 			C.nox_xxx_cancelAllSpells_4FEE90(u.CObj())
 			if pl.field_3656 != 0 {
 				if pl.Info().IsFemale() {
-					nox_xxx_aud_501960(sound.SoundHumanFemaleExertionHeavy, u, 0, 0)
+					nox_xxx_aud501960(sound.SoundHumanFemaleExertionHeavy, u, 0, 0)
 				} else {
-					nox_xxx_aud_501960(sound.SoundHumanMaleExertionHeavy, u, 0, 0)
+					nox_xxx_aud501960(sound.SoundHumanMaleExertionHeavy, u, 0, 0)
 				}
 				nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 13, 3)
 			} else if C.nox_xxx_playerSubStamina_4F7D30(u.CObj(), 90) != 0 {
@@ -671,7 +671,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
 				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 1)
-				nox_xxx_aud_501960(sound.SoundSpellPhonemeUp, u, 0, 0)
+				nox_xxx_aud501960(sound.SoundSpellPhonemeUp, u, 0, 0)
 				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureDown:
@@ -680,7 +680,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
 				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 7)
-				nox_xxx_aud_501960(sound.SoundSpellPhonemeDown, u, 0, 0)
+				nox_xxx_aud501960(sound.SoundSpellPhonemeDown, u, 0, 0)
 				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureLeft:
@@ -689,7 +689,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
 				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 3)
-				nox_xxx_aud_501960(sound.SoundSpellPhonemeLeft, u, 0, 0)
+				nox_xxx_aud501960(sound.SoundSpellPhonemeLeft, u, 0, 0)
 				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureRight:
@@ -698,7 +698,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
 				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 5)
-				nox_xxx_aud_501960(sound.SoundSpellPhonemeRight, u, 0, 0)
+				nox_xxx_aud501960(sound.SoundSpellPhonemeRight, u, 0, 0)
 				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureUpperRight:
@@ -707,7 +707,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
 				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 2)
-				nox_xxx_aud_501960(sound.SoundSpellPhonemeUpRight, u, 0, 0)
+				nox_xxx_aud501960(sound.SoundSpellPhonemeUpRight, u, 0, 0)
 				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureUpperLeft:
@@ -716,7 +716,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
 				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 0)
-				nox_xxx_aud_501960(sound.SoundSpellPhonemeUpLeft, u, 0, 0)
+				nox_xxx_aud501960(sound.SoundSpellPhonemeUpLeft, u, 0, 0)
 				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureLowerRight:
@@ -725,7 +725,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
 				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 8)
-				nox_xxx_aud_501960(sound.SoundSpellPhonemeDownRight, u, 0, 0)
+				nox_xxx_aud501960(sound.SoundSpellPhonemeDownRight, u, 0, 0)
 				ud.Field47_0 = 0
 			}
 		case player.CCSpellGestureLowerLeft:
@@ -734,7 +734,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 					nox_xxx_plrSetSpellType_4F9B90(u)
 				}
 				ud.SpellPhonemeLeaf = nox_xxx_updateSpellRelated_424830(ud.SpellPhonemeLeaf, 6)
-				nox_xxx_aud_501960(sound.SoundSpellPhonemeDownLeft, u, 0, 0)
+				nox_xxx_aud501960(sound.SoundSpellPhonemeDownLeft, u, 0, 0)
 				ud.Field47_0 = 0
 			}
 		case player.CCSpellPatternEnd:
@@ -815,10 +815,6 @@ func (obj *Object) applyForce(vec types.Pointf, force float64) { // nox_xxx_obje
 	if !obj.Class().Has(object.ClassMissile) {
 		C.nox_xxx_unitHasCollideOrUpdateFn_537610(obj.CObj())
 	}
-}
-
-func nox_xxx_aud_501960(snd sound.ID, u *Unit, a3, a4 int) {
-	C.nox_xxx_aud_501960(C.int(snd), u.CObj(), C.int(a3), C.int(a4))
 }
 
 func playerSuddedDeath4F9E70(u *Unit) {
@@ -1189,7 +1185,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 //export nox_xxx_updateProjectile_53AC10
 func nox_xxx_updateProjectile_53AC10(a1 *nox_object_t) {
 	obj := asObjectC(a1)
-	if (gameFrame() - obj.Field32) > 40 {
+	if (noxServer.Frame() - obj.Field32) > 40 {
 		obj.callCollide(0, 0)
 		obj.Delete()
 	}

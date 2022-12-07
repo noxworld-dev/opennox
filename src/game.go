@@ -56,7 +56,6 @@ extern uint32_t* dword_5d4594_251556;
 int sub_4EDD70();
 void sub_426060();
 void sub_417160();
-void sub_502100();
 char* sub_4DB160();
 void sub_4D2160();
 void sub_4D22B0();
@@ -844,7 +843,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 			netlist.ResetAllInd(netlist.Kind1)
 		}
 	}
-	C.sub_502100()
+	sub_502100()
 	netstr.Update()
 	if noxflags.HasEngine(noxflags.EngineReplayRead) {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(true)

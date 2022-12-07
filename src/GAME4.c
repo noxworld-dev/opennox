@@ -41,7 +41,6 @@ extern void* nox_alloc_magicEnt_1569668;
 extern void* nox_alloc_vote_1599652;
 extern uint32_t dword_5d4594_1599616;
 extern void* nox_alloc_magicWall_1569748;
-extern uint32_t dword_5d4594_1599060;
 extern uint32_t dword_5d4594_1599592;
 extern uint32_t dword_5d4594_1599556;
 extern uint32_t dword_5d4594_1599548;
@@ -65,9 +64,6 @@ extern uint32_t dword_5d4594_2650652;
 extern int nox_win_width;
 
 FILE* nox_file_8 = 0;
-
-uint32_t dword_5d4594_1599064 = 0;
-void* dword_5d4594_1599056 = 0;
 
 int nox_cheat_charmall = 0;
 
@@ -3115,7 +3111,7 @@ uint32_t* nox_xxx_createSpellFly_4FDDA0(nox_object_t* a1p, nox_object_t* a2p, in
 				nox_xxx_buffApplyTo_4FF380((int)v12, 21, v16, v20);
 			}
 			v17 = nox_xxx_spellGetAud44_424800(a3, 0);
-			result = nox_xxx_aud_501960(v17, v3, 0, 0);
+			nox_xxx_aud_501960(v17, v3, 0, 0);
 		}
 	}
 	return result;
@@ -3946,7 +3942,7 @@ int nox_xxx_spellBuffOff_4FF5B0(nox_object_t* a1p, int a2) {
 		if (a2 != 16 && a2 != 30) {
 			v4 = nox_xxx_getEnchantSpell_424920(a2);
 			v5 = nox_xxx_spellGetAud44_424800(v4, 2);
-			result = nox_xxx_aud_501960(v5, a1, 0, 0);
+			nox_xxx_aud_501960(v5, a1, 0, 0);
 		}
 	}
 	return result;
@@ -5606,118 +5602,6 @@ void nox_xxx_banishUnit_5017F0(int unit) {
 	}
 }
 
-//----- (00501860) --------------------------------------------------------
-int nox_xxx_allocAudEventArray_501860() {
-	int result;        // eax
-	unsigned char* v1; // eax
-
-	if (dword_5d4594_1599064) {
-		return 1;
-	}
-	dword_5d4594_1599056 = nox_new_alloc_class("AudEvent", 36, 128);
-	if (!dword_5d4594_1599056) {
-		return 0;
-	}
-	v1 = getMemAt(0x5D4594, 1570284 + 8);
-	do {
-		*((uint32_t*)v1 - 2) = 600;
-		*(uint32_t*)v1 = 0;
-		*((uint32_t*)v1 + 1) = 0;
-		*((uint32_t*)v1 + 2) = 0;
-		*((uint32_t*)v1 + 3) = 0;
-		*((uint32_t*)v1 + 4) = 0;
-		v1 += 28;
-	} while ((int)v1 < (int)getMemAt(0x5D4594, 1598936));
-	result = 1;
-	dword_5d4594_1599064 = 1;
-	return result;
-}
-
-//----- (005018D0) --------------------------------------------------------
-void sub_5018D0() {
-	if (dword_5d4594_1599064) {
-		nox_free_alloc_class(dword_5d4594_1599056);
-		dword_5d4594_1599060 = 0;
-		dword_5d4594_1599064 = 0;
-	}
-}
-
-//----- (00501940) --------------------------------------------------------
-int nox_xxx_getSevenDwords3_501940(int a1) { return *getMemU32Ptr(0x5D4594, 1570284 + 28*a1 + 12); }
-
-//----- (00501960) --------------------------------------------------------
-uint32_t* nox_xxx_aud_501960(int a1, nox_object_t* a2p, int a3, int a4) {
-	int a2 = a2p;
-	uint32_t* result; // eax
-	uint32_t* v5;     // esi
-
-	result = (uint32_t*)nox_common_gameFlags_check_40A5C0(0x80000);
-	if (result != (uint32_t*)1) {
-		if (a2) {
-			if (a1) {
-				result = (uint32_t*)nox_xxx_getSevenDwords3_501940(a1);
-				if ((int)result > 0) {
-					if (!nox_common_gameFlags_check_40A5C0(4096) || !(*(uint8_t*)(a2 + 8) & 4) ||
-						(result = (uint32_t*)sub_419E60(a2)) == 0) {
-						result = nox_alloc_class_new_obj_zero(dword_5d4594_1599056);
-						v5 = result;
-						if (result) {
-							result[1] = a1;
-							if (*(uint8_t*)(a2 + 16) & 0x20) {
-								result[4] = 0;
-							} else {
-								result[4] = a2;
-							}
-							result[2] = *(uint32_t*)(a2 + 56);
-							result[3] = *(uint32_t*)(a2 + 60);
-							result[5] = a3;
-							result[6] = a4;
-							if (a3 != 2) {
-								nox_xxx_audioAddAIInteresting_50CD40(a1, a2, (uint32_t*)(a2 + 56));
-							}
-							result = *(uint32_t**)&dword_5d4594_1599060;
-							*v5 = dword_5d4594_1599060;
-							dword_5d4594_1599060 = v5;
-						}
-					}
-				}
-			}
-		}
-	}
-	return result;
-}
-
-//----- (00501A30) --------------------------------------------------------
-void nox_xxx_audCreate_501A30(int a1, float2* a2, int a3, int a4) {
-	int* v4; // esi
-
-	if (!nox_common_gameFlags_check_40A5C0(0x80000)) {
-		if (a1) {
-			if (nox_xxx_getSevenDwords3_501940(a1) > 0) {
-				v4 = (int*)nox_alloc_class_new_obj_zero(dword_5d4594_1599056);
-				if (v4) {
-					v4[1] = a1;
-					*((float2*)v4 + 1) = *a2;
-					v4[4] = 0;
-					v4[5] = a3;
-					v4[6] = a4;
-					if (a3 != 2) {
-						nox_xxx_audioAddAIInteresting_50CD40(a1, 0, a2);
-					}
-					*v4 = dword_5d4594_1599060;
-					dword_5d4594_1599060 = v4;
-				}
-			}
-		}
-	}
-}
-
-//----- (00502100) --------------------------------------------------------
-void sub_502100() {
-	nox_alloc_class_free_all(dword_5d4594_1599056);
-	dword_5d4594_1599060 = 0;
-}
-
 //----- (00501C00) --------------------------------------------------------
 char sub_501C00(float* a1, nox_object_t* a2p) {
 	int a2 = a2p;
@@ -5761,8 +5645,8 @@ LABEL_8:
 }
 
 //----- (00501CA0) --------------------------------------------------------
-int nox_xxx_netUpdateRemotePlr_501CA0(int a1) {
-	int v1;                            // ebx
+void nox_xxx_netUpdateRemotePlr_501CA0_B(nox_object_t* a1, int v2, char v18);
+void nox_xxx_netUpdateRemotePlr_501CA0(int a1) {
 	int v2;                            // ebp
 	int v3;                            // eax
 	int v4;                            // ecx
@@ -5770,13 +5654,6 @@ int nox_xxx_netUpdateRemotePlr_501CA0(int a1) {
 	int v6;                            // eax
 	int v7;                            // edx
 	nox_player_polygon_check_data* v8; // eax
-	int i;                             // esi
-	int v10;                           // eax
-	char* v11;                         // eax
-	char v12;                          // al
-	int v13;                           // eax
-	int v14;                           // eax
-	char* v16;                         // [esp+Ch] [ebp-Ch]
 	int2 v17;                          // [esp+10h] [ebp-8h]
 	char v18;                          // [esp+1Ch] [ebp+4h]
 
@@ -5803,120 +5680,7 @@ int nox_xxx_netUpdateRemotePlr_501CA0(int a1) {
 			v18 = 0;
 		}
 	}
-	sub_501E80();
-	v16 = 0;
-	v1 = a1;
-	if (nox_xxx_servObjectHasTeam_419130(v1 + 48)) {
-		v16 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(v1 + 52));
-	}
-	for (i = dword_5d4594_1599060; i; i = *(uint32_t*)i) {
-		v10 = *(uint32_t*)(i + 20);
-		if (v10 == 1) {
-			v11 = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(i + 24));
-			if (!(v16 && v11 && v16 == v11)) {
-				continue;
-			}
-		} else if (!(v10 != 2 || *(uint32_t*)(v1 + 36) == *(uint32_t*)(i + 24))) {
-			continue;
-		}
-		v12 = sub_501C00((float*)(i + 8), *(uint32_t*)(i + 16));
-		if (v12 == v18 || !v12) {
-			if (*(uint8_t*)(v2 + 188) || (v13 = *(uint32_t*)(i + 4), v13 < 186) || v13 > 193 || v1 != *(uint32_t*)(i + 16)) {
-				v14 = sub_501AF0(*(uint32_t*)(i + 4), (float*)(i + 8), (float*)(*(uint32_t*)(v2 + 276) + 3632)) >> 1;
-				if (v14 > 0) {
-					if (*getMemU32Ptr(0x5D4594, 1570284 + 20 + 28 * *(uint32_t*)(i + 4))) {
-						sub_501EA0((uint32_t*)i, v14);
-					} else {
-						sub_501FD0(v1, i, v14);
-					}
-				}
-			}
-		}
-	}
-	return sub_502060(v1);
-}
-
-//----- (00501E80) --------------------------------------------------------
-int sub_501E80() {
-	int result; // eax
-
-	result = 0;
-	memset(getMemAt(0x5D4594, 1598928), 0, 0x80u);
-	return result;
-}
-
-//----- (00501EA0) --------------------------------------------------------
-uint32_t* sub_501EA0(uint32_t* a1, int a2) {
-	unsigned int v2; // esi
-
-	v2 = a1[1];
-	if (!sub_501EF0(v2)) {
-		sub_501F10(v2);
-		*getMemU32Ptr(0x5D4594, 1570284 + 28*v2 + 24) = 0;
-	}
-	a1[8] = a2;
-	return sub_501F30((int)getMemAt(0x5D4594, 1570284 + 28*v2), a1);
-}
-
-//----- (00501EF0) --------------------------------------------------------
-int sub_501EF0(unsigned int a1) { return *getMemU32Ptr(0x5D4594, 1598928 + 4 * (a1 >> 5)) & (1 << (a1 & 0x1F)); }
-
-//----- (00501F10) --------------------------------------------------------
-unsigned int sub_501F10(unsigned int a1) {
-	unsigned int result; // eax
-
-	result = a1 >> 5;
-	*getMemU32Ptr(0x5D4594, 1598928 + 4 * (a1 >> 5)) |= 1 << (a1 & 0x1F);
-	return result;
-}
-
-//----- (00501F30) --------------------------------------------------------
-uint32_t* sub_501F30(int a1, uint32_t* a2) {
-	uint32_t* result; // eax
-	uint32_t* v3;     // ebp
-	int v4;           // ebx
-	int v5;           // esi
-	int v6;           // edx
-	int v7;           // ecx
-	uint32_t* v8;     // [esp+10h] [ebp-4h]
-
-	result = *(uint32_t**)(a1 + 24);
-	v3 = *(uint32_t**)(a1 + 24);
-	v8 = *(uint32_t**)(a1 + 24);
-	if (result) {
-		v4 = 1;
-		v5 = a2[8];
-		do {
-			v6 = result[8];
-			v7 = v5 - v6;
-			if (v5 - v6 < 0) {
-				v7 = v6 - v5;
-			}
-			if (v7 >= 5) {
-				if (v5 > v6) {
-					break;
-				}
-			} else if (getMemByte(0x5D4594, 1570284 + 28*a2[1] + 16) & 0x10) {
-				break;
-			}
-			if (++v4 > *(int*)(a1 + 20)) {
-				return result;
-			}
-			v3 = result;
-			result = (uint32_t*)result[7];
-		} while (result);
-		a2[7] = result;
-		if (result == v8) {
-			*(uint32_t*)(a1 + 24) = a2;
-		} else {
-			v3[7] = a2;
-		}
-	} else {
-		result = a2;
-		a2[7] = v3;
-		*(uint32_t*)(a1 + 24) = a2;
-	}
-	return result;
+	nox_xxx_netUpdateRemotePlr_501CA0_B(a1, v2, v18);
 }
 
 //----- (00501FD0) --------------------------------------------------------
@@ -5934,50 +5698,6 @@ int sub_501FD0(int a1, int a2, short a3) {
 	v7 = v4 - *(float*)(*(uint32_t*)(v3 + 276) + 3632);
 	BYTE1(a1) = 50 * nox_float2int(v7) / (nox_win_width / 2);
 	return nox_netlist_addToMsgListCli_40EBC0(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064), 1, &a1, 4);
-}
-
-//----- (00502060) --------------------------------------------------------
-int sub_502060(int a1) {
-	int* v1;           // ecx
-	int v2;            // ebx
-	int result;        // eax
-	int v4;            // edi
-	int v5;            // esi
-	int i;             // ebp
-	int v7;            // edx
-	unsigned int v8;   // [esp+10h] [ebp-8h]
-	unsigned char* v9; // [esp+14h] [ebp-4h]
-
-	v1 = getMemIntPtr(0x5D4594, 1598928);
-	v2 = 0;
-	v9 = getMemAt(0x5D4594, 1598928);
-	do {
-		result = *v1;
-		v8 = *v1;
-		if (*v1) {
-			v4 = 0;
-			do {
-				if (result & 1) {
-					v5 = *getMemU32Ptr(0x5D4594, 1570284 + 28*(v2 + v4) + 24);
-					for (i = *getMemU32Ptr(0x5D4594, 1570284 + 28*(v2 + v4) + 20); v5; v5 = *(uint32_t*)(v5 + 28)) {
-						v7 = i--;
-						if (v7 <= 0) {
-							break;
-						}
-						sub_501FD0(a1, v5, *(uint32_t*)(v5 + 32));
-					}
-				}
-				result = v8 >> 1;
-				++v4;
-				v8 >>= 1;
-			} while (v4 < 32);
-			v1 = (int*)v9;
-		}
-		++v1;
-		v2 += 32;
-		v9 = (unsigned char*)v1;
-	} while ((int)v1 < (int)getMemAt(0x5D4594, 1599056));
-	return result;
 }
 
 //----- (005025A0) --------------------------------------------------------

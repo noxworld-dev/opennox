@@ -486,7 +486,7 @@ func (s *Server) createObjectAt(a11 noxObject, owner noxObject, pos types.Pointf
 	obj.PosVec = pos
 	obj.NewPos = pos
 	obj.Pos39 = pos
-	C.nox_xxx_objectUnkUpdateCoords_4E7290(obj.CObj())
+	nox_xxx_objectUnkUpdateCoords_4E7290(obj)
 	if obj.Class().HasAny(object.MaskUnits) {
 		C.nox_xxx_unitPostCreateNotify_4E7F10(obj.CObj())
 	}
