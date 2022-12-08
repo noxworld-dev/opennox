@@ -26,21 +26,22 @@ func (h *Handler) SetLanguage(code int) { // nox_xxx_initKeyboard_47FB10
 	}
 	h.modKey = 0
 	var m map[keybind.Key]inputCharMap
+
+	switch code {
+	case 1, 2, 3, 5:
+		h.modKey = 0xb8
+	}
 	switch code {
 	case 0, 4, 6, 7, 8, 9:
 		m = noxInputMapLang0
 	case 1:
 		m = noxInputMapLang1
-		h.modKey = 0xb8
 	case 2:
 		m = noxInputMapLang2
-		h.modKey = 0xb8
 	case 3:
 		m = noxInputMapLang3
-		h.modKey = 0xb8
 	case 5:
 		m = noxInputMapLang5
-		h.modKey = 0xb8
 	}
 	for k, v := range m {
 		h.textMap[k] = v
