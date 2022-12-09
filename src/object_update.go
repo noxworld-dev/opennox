@@ -41,6 +41,7 @@ import (
 var (
 	noxPixieObjID int
 	spellTimeout  uint32
+	resetCountdownPerPhoneme = false
 )
 
 var _ = [1]struct{}{}[2200-unsafe.Sizeof(server.MonsterUpdateData{})]
@@ -109,6 +110,8 @@ func init() {
 	server.RegisterObjectUpdateParse("LoopAndDamageUpdate", wrapObjectUpdateParseC(C.sub_536580))
 	server.RegisterObjectUpdateParse("LifetimeUpdate", wrapObjectUpdateParseC(C.sub_536600))
 	server.RegisterObjectUpdateParse("SkullUpdate", wrapObjectUpdateParseC(C.sub_5364E0))
+	
+	configBoolPtr("game.extensions.reset_countdown_per_phoneme", "", false, &resetCountdownPerPhoneme)
 }
 
 func wrapObjectUpdateParseC(ptr unsafe.Pointer) server.ObjectParseFunc {
@@ -593,6 +596,20 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 	for it := cb.First(); it != nil; it = cb.Next() {
 		if orientationOnly && it.code != player.CCOrientation {
 			continue
+		}
+		
+		// If the appropriate flag is set, reset countdown for manual casting
+		// every phoneme press
+		if resetCountdownPerPhoneme {
+			switch it.code {
+			case player.CCSpellGestureUpperLeft, player.CCSpellGestureUp, player.CCSpellGestureUpperRight, player.CCSpellGestureLeft, player.CCSpellGestureRight, player.CCSpellGestureLowerLeft, player.CCSpellGestureDown, player.CCSpellGestureLowerRight:
+				if !noxflags.HasGame(noxflags.GameModeChat) {
+					 if ud.SpellCastStart != 0 {
+						ud.SpellCastStart = noxServer.Frame()
+					}
+					
+				}
+			}
 		}
 		switch it.code {
 		case player.CCOrientation:
