@@ -56,14 +56,14 @@ func nox_server_getWaypointById_579C40(a1 C.int) *nox_waypoint_t {
 }
 
 func (s *Server) getWaypointGroupByID(id string) *script.WaypointGroup {
-	g := s.getMapGroupByID(id, 1)
+	g := s.getMapGroupByID(id, mapGroupWaypoints)
 	if g == nil {
 		return nil
 	}
 	// may contain map name, so we load it again
 	id = g.ID()
 	var list []script.Waypoint
-	for wp := g.FirstItem(); wp != nil; wp = wp.Next() {
+	for wp := g.First(); wp != nil; wp = wp.Next() {
 		ind := int(*(*int32)(wp.Payload()))
 		if wl := s.getWaypointByInd(ind); wl != nil {
 			list = append(list, wl)

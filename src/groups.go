@@ -24,7 +24,7 @@ func (s *Server) mapGroupByInd(ind int) *mapGroup {
 	return nil
 }
 
-func (s *Server) getMapGroupByID(id string, typ int) *mapGroup {
+func (s *Server) getMapGroupByID(id string, typ mapGroupKind) *mapGroup {
 	for p := s.getFirstMapGroup(); p != nil; p = p.Next() {
 		if p.Type() != typ {
 			continue
@@ -37,6 +37,15 @@ func (s *Server) getMapGroupByID(id string, typ int) *mapGroup {
 	return nil
 }
 
+type mapGroupKind byte
+
+const (
+	mapGroupObjects   = mapGroupKind(0)
+	mapGroupWaypoints = mapGroupKind(1)
+	mapGroupWalls     = mapGroupKind(2)
+	mapGroupGroups    = mapGroupKind(3)
+)
+
 type mapGroup [0]byte
 
 func (s *Server) getFirstMapGroup() *mapGroup {
@@ -47,17 +56,18 @@ func (g *mapGroup) C() unsafe.Pointer {
 	return unsafe.Pointer(g)
 }
 
-func (g *mapGroup) GroupType() byte {
-	return *(*byte)(g.C())
+// GroupType gets the group type (non-recursively).
+func (g *mapGroup) GroupType() mapGroupKind {
+	return mapGroupKind(*(*byte)(g.C()))
 }
 
 func (g *mapGroup) Ind() uint32 {
 	return *(*uint32)(unsafe.Add(g.C(), 4))
 }
 
-// FIXME: Better rename Type into GroupId, and ID into Name?
-func (g *mapGroup) Type() int {
-	return int(C.nox_server_scriptGetGroupId_57C2D0((**C.int)(g.C())))
+// Type determines the group's type recursively.
+func (g *mapGroup) Type() mapGroupKind {
+	return mapGroupKind(C.nox_server_scriptGetGroupId_57C2D0((**C.int)(g.C())))
 }
 
 func (g *mapGroup) ID() string {
@@ -72,7 +82,10 @@ func (g *mapGroup) Next() *mapGroup {
 	return (*mapGroup)(p)
 }
 
-func (g *mapGroup) FirstItem() *mapGroupItem {
+func (g *mapGroup) First() *mapGroupItem {
+	if g == nil {
+		return nil
+	}
 	return *(**mapGroupItem)(unsafe.Add(g.C(), 21*4)) // 84
 }
 

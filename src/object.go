@@ -234,14 +234,14 @@ func (s *Server) GetObjectByInd(ind int) *Object { // aka nox_xxx_netGetUnitByEx
 }
 
 func (s *Server) getObjectGroupByID(id string) *script.ObjectGroup {
-	g := s.getMapGroupByID(id, 0)
+	g := s.getMapGroupByID(id, mapGroupObjects)
 	if g == nil {
 		return nil
 	}
 	// may contain map name, so we load it again
 	id = g.ID()
 	var list []script.Object
-	for wp := g.FirstItem(); wp != nil; wp = wp.Next() {
+	for wp := g.First(); wp != nil; wp = wp.Next() {
 		ind := int(*(*int32)(wp.Payload()))
 		if wl := s.GetObjectByInd(ind); wl != nil {
 			list = append(list, wl)
