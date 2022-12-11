@@ -85,11 +85,6 @@ func sub_504600(name *C.char, ind uint32, typ uint8) {
 	StrCopyBytes(g.name[:], GoString(name))
 }
 
-//export sub_57C370
-func sub_57C370(p unsafe.Pointer) {
-	nox_alloc_groupInfo_2523892.FreeObjectFirst((*mapGroup)(p))
-}
-
 //export sub_57C130
 func sub_57C130(d *uint32, ind uint32) int32 {
 	if d == nil {
@@ -136,11 +131,6 @@ func sub_57C130(d *uint32, ind uint32) int32 {
 //export sub_57C360
 func sub_57C360() unsafe.Pointer {
 	return nox_alloc_itemGroupElem_2523896.NewObject().C()
-}
-
-//export sub_57C390
-func sub_57C390(p unsafe.Pointer) {
-	nox_alloc_itemGroupElem_2523896.FreeObjectFirst((*mapGroupItem)(p))
 }
 
 //export nox_server_addNewMapGroup_57C3B0

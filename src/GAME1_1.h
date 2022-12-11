@@ -127,7 +127,7 @@ unsigned char* sub_421F10(int* a1, int a2);
 void nox_xxx_monsterPolygonEnter_421FF0(nox_object_t* a1);
 int sub_422140(int a1);
 int* nox_xxx_tileListAddNewSubtile_422160(int a1, int a2, int a3, int a4);
-int nox_xxx_tileFreeTileOne_4221E0(int a1);
+int nox_xxx_tileFreeTileOne_4221E0(void* a1);
 int nox_xxx_tileFreeTile_422200(int a1);
 int nox_server_mapRWFloorMap_422230(int a1);
 unsigned char nox_xxx_tileReadOne_422A40(int a1, uint8_t* a2);

@@ -10776,7 +10776,7 @@ int nox_xxx_tile_543C50(uint32_t* a1, int a2, int a3, int a4, int a5, int a6) {
 							(v18 = sub_411490(v17, v16[3]), sub_543E60((int)v13, v18))) {
 							v22 = 1;
 							*v14 = (uint32_t*)v16[4];
-							nox_xxx_tileFreeTileOne_4221E0((int)v16);
+							nox_xxx_tileFreeTileOne_4221E0(v16);
 						} else {
 							j = v16;
 						}
