@@ -2,6 +2,7 @@ package opennox
 
 /*
 extern void* dword_5d4594_1599564;
+int sub_504760(int a1, int a2);
 int  nox_server_scriptGetGroupId_57C2D0(int** a1);
 */
 import "C"
@@ -167,9 +168,16 @@ func sub_5046A0(d *uint32, ind uint32) int {
 	return 1
 }
 
-//export nox_server_addNewMapGroup_57C3B0
-func nox_server_addNewMapGroup_57C3B0(a1 unsafe.Pointer) {
-	p := (*mapGroup)(a1)
+//export sub_504720
+func sub_504720(a1 int32, a2 int32) int32 {
+	C.sub_504760(C.int(a1), C.int(a2))
+	for it := (*mapGroupX)(C.dword_5d4594_1599564); it != nil; it = it.next4 {
+		nox_server_addNewMapGroup_57C3B0(it.field0)
+	}
+	return 1
+}
+
+func nox_server_addNewMapGroup_57C3B0(p *mapGroup) {
 	p.prev = nil
 	p.next = nox_server_mapGroupsHead_2523900
 	if head := nox_server_mapGroupsHead_2523900; head != nil {

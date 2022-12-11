@@ -196,7 +196,6 @@ int sub_504560(int a1, int a2);
 void sub_504600(char* a1, unsigned int a2, unsigned char a3);
 int sub_5046A0(uint32_t* a1, unsigned int a2);
 int sub_504720(int a1, int a2);
-int sub_504760(int a1, int a2);
 uint32_t* nox_xxx_unitAddToList_5048A0(int a1);
 int sub_504910(int a1, int a2);
 int sub_504980();
