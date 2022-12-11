@@ -94,14 +94,14 @@ func (s *Server) getWallNear(pos types.Pointf) *Wall {
 }
 
 func (s *Server) getWallGroupByID(id string) *script.WallGroup {
-	g := s.getMapGroupByID(id, 2)
+	g := s.getMapGroupByID(id, mapGroupWalls)
 	if g == nil {
 		return nil
 	}
 	// may contain map name, so we load it again
 	id = g.ID()
 	var list []script.Wall
-	for wp := g.FirstItem(); wp != nil; wp = wp.Next() {
+	for wp := g.First(); wp != nil; wp = wp.Next() {
 		p := wp.Payload()
 		if wl := s.getWallAtGrid(image.Point{
 			X: int(*(*C.int)(unsafe.Add(p, 0))),

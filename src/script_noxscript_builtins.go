@@ -563,65 +563,62 @@ func nox_script_Fn5D_513F60(s *noxScript) int {
 }
 
 // TODO: migrate all usage of `nox_server_scriptExecuteFnForEachGroupObj_502670` to use these funcs below.
-func scriptExecuteFnForObjectGroup(s *Server, group *mapGroup, fn func(*Object)) {
-	if group == nil {
+func scriptExecuteFnForObjectGroup(s *Server, g *mapGroup, fn func(*Object)) {
+	if g == nil {
 		return
 	}
-	groupType := group.GroupType()
-	switch groupType {
-	case 0:
-		for item := group.FirstItem(); item != nil; item = item.Next() {
+	switch g.GroupType() {
+	case mapGroupObjects:
+		for item := g.First(); item != nil; item = item.Next() {
 			ind := item.Ind()
 			obj := s.GetObjectByInd(ind)
 			if obj != nil {
 				fn(obj)
 			}
 		}
-	case 3:
-		for item := group.FirstItem(); item != nil; item = item.Next() {
+	case mapGroupGroups:
+		for item := g.First(); item != nil; item = item.Next() {
 			childMapGroup := s.mapGroupByInd(item.Ind())
 			scriptExecuteFnForObjectGroup(s, childMapGroup, fn)
 		}
 	}
 }
 
-func scriptExecuteFnForWaypointGroup(s *Server, group *mapGroup, fn func(*Waypoint)) {
-	if group == nil {
+func scriptExecuteFnForWaypointGroup(s *Server, g *mapGroup, fn func(*Waypoint)) {
+	if g == nil {
 		return
 	}
-	groupType := group.GroupType()
-	switch groupType {
-	case 1:
-		for item := group.FirstItem(); item != nil; item = item.Next() {
+	switch g.GroupType() {
+	case mapGroupWaypoints:
+		for item := g.First(); item != nil; item = item.Next() {
 			ind := item.Ind()
 			wp := s.getWaypointByInd(ind)
 			if wp != nil {
 				fn(wp)
 			}
 		}
-	case 3:
-		for item := group.FirstItem(); item != nil; item = item.Next() {
+	case mapGroupGroups:
+		for item := g.First(); item != nil; item = item.Next() {
 			childMapGroup := s.mapGroupByInd(item.Ind())
 			scriptExecuteFnForWaypointGroup(s, childMapGroup, fn)
 		}
 	}
 }
 
-func scriptExecuteFnForWallGroup(s *Server, group *mapGroup, fn func(*Wall)) {
-	if group == nil {
+func scriptExecuteFnForWallGroup(s *Server, g *mapGroup, fn func(*Wall)) {
+	if g == nil {
 		return
 	}
-	groupType := group.GroupType()
-	switch groupType {
-	case 2:
-		for item := group.FirstItem(); item != nil; item = item.Next() {
+	switch g.GroupType() {
+	case mapGroupWalls:
+		for item := g.First(); item != nil; item = item.Next() {
 			wall := s.getWallAtGrid(image.Pt(item.Ind(), item.Ind2()))
 			if wall != nil {
 				fn(wall)
 			}
 		}
-	case 3:
-		for item := group.FirstItem(); item != nil; item = item.Next() {
+	case mapGroupGroups:
+		for item := g.First(); item != nil; item = item.Next() {
 			childMapGroup := s.mapGroupByInd(item.Ind())
 			scriptExecuteFnForWallGroup(s, childMapGroup, fn)
 		}
@@ -1158,7 +1155,7 @@ func nox_script_groupGoTo_512500(s *noxScript) int {
 	waypoint := s.s.getWaypointByInd(waypointId)
 
 	if mapGroup != nil && waypoint != nil {
-		for it := mapGroup.FirstItem(); it != nil; it = it.Next() {
+		for it := mapGroup.First(); it != nil; it = it.Next() {
 			item := s.s.GetObjectByInd(it.Ind())
 			if item != nil {
 				C.nox_server_scriptMoveTo_5123C0(C.int(uintptr(unsafe.Pointer(item))), C.int(uintptr(unsafe.Pointer(waypoint))))
@@ -1184,7 +1181,7 @@ func nox_script_groupLookAtDirection_512610(s *noxScript) int {
 	v1 := s.PopI32()
 	mapGroup := s.s.mapGroupByInd(int(v1))
 	if mapGroup != nil {
-		for it := mapGroup.FirstItem(); it != nil; it = it.Next() {
+		for it := mapGroup.First(); it != nil; it = it.Next() {
 			monster := s.s.GetObjectByInd(it.Ind())
 			if monster != nil && monster.Class().Has(object.ClassMonster) && !monster.Flags().Has(object.FlagDead) {
 				monster.AsUnit().LookAtDir(direction)
@@ -2032,7 +2029,7 @@ func nox_script_GroupWalk_514170(s *noxScript) int {
 	mapGroup := s.s.mapGroupByInd(int(groupInd))
 	if mapGroup != nil {
 		// Unlike scriptExecuteFnForObjectGroup, it does not nest into child groups.
-		for item := mapGroup.FirstItem(); item != nil; item = item.Next() {
+		for item := mapGroup.First(); item != nil; item = item.Next() {
 			obj := s.s.GetObjectByInd(item.Ind())
 			if obj != nil {
 				obj.AsUnit().WalkTo(dstPoint)
@@ -2056,7 +2053,7 @@ func nox_script_SetOwnerGroup_5144C0(s *noxScript) int {
 	v2 := s.PopObject()
 
 	if mapGroup != nil {
-		for item := mapGroup.FirstItem(); item != nil; item = item.Next() {
+		for item := mapGroup.First(); item != nil; item = item.Next() {
 			obj := s.s.GetObjectByInd(item.Ind())
 			if obj != nil {
 				C.nox_xxx_unitSetOwner_4EC290(v2.CObj(), obj.CObj())
@@ -2072,7 +2069,7 @@ func nox_script_SetOwners_514510(s *noxScript) int {
 	mapGroup := s.s.mapGroupByInd(int(v1))
 
 	if mapGroup != nil {
-		for item := mapGroup.FirstItem(); item != nil; item = item.Next() {
+		for item := mapGroup.First(); item != nil; item = item.Next() {
 			obj := s.s.GetObjectByInd(item.Ind())
 			if obj != nil {
 				C.nox_xxx_unitSetOwner_4EC290(obj.CObj(), v3.CObj())
@@ -2089,10 +2086,10 @@ func nox_script_SetOwnersGroup_514570(s *noxScript) int {
 	v3 := s.s.mapGroupByInd(int(v0))
 
 	if v2 != nil && v3 != nil {
-		for i := v2.FirstItem(); i != nil; i = i.Next() {
+		for i := v2.First(); i != nil; i = i.Next() {
 			v6 := s.s.GetObjectByInd(i.Ind())
 			if v6 != nil {
-				for j := v3.FirstItem(); j != nil; j = j.Next() {
+				for j := v3.First(); j != nil; j = j.Next() {
 					v8 := s.s.GetObjectByInd(j.Ind())
 					if v8 != nil {
 						C.nox_xxx_unitSetOwner_4EC290(v6.CObj(), v8.CObj())
@@ -2117,7 +2114,7 @@ func nox_script_IsOwnedByGroup_514630(s *noxScript) int {
 	obj := s.PopObject()
 	mapGroup := s.s.mapGroupByInd(int(groupInd))
 	if mapGroup != nil {
-		for it := mapGroup.FirstItem(); it != nil; it = it.Next() {
+		for it := mapGroup.First(); it != nil; it = it.Next() {
 			item := s.s.GetObjectByInd(it.Ind())
 			if !obj.HasOwner(item) {
 				s.PushI32(0)
@@ -2135,7 +2132,7 @@ func nox_script_IsOwnedByAny_5146B0(s *noxScript) int {
 	obj := s.PopObject()
 	mapGroup := s.s.mapGroupByInd(int(groupInd))
 	if mapGroup != nil {
-		for it := mapGroup.FirstItem(); it != nil; it = it.Next() {
+		for it := mapGroup.First(); it != nil; it = it.Next() {
 			item := s.s.GetObjectByInd(it.Ind())
 			if !item.HasOwner(obj) {
 				s.PushI32(0)
@@ -2157,10 +2154,10 @@ func nox_script_IsOwnedByAnyGroup_514730(s *noxScript) int {
 		s.PushI32(1)
 		return 0
 	}
-	for iterB := groupB.FirstItem(); iterB != nil; iterB = iterB.Next() {
+	for iterB := groupB.First(); iterB != nil; iterB = iterB.Next() {
 		itemB := s.s.GetObjectByInd(iterB.Ind())
 		if itemB != nil {
-			for iterA := groupA.FirstItem(); iterA != nil; iterA = iterA.Next() {
+			for iterA := groupA.First(); iterA != nil; iterA = iterA.Next() {
 				itemA := s.s.GetObjectByInd(iterA.Ind())
 				if itemA != nil {
 					if !itemA.HasOwner(itemB) {
