@@ -119,8 +119,8 @@ func (w *Waypoint) Enable(enable bool) {
 	w.S().Enable(enable)
 }
 
-func (w *Waypoint) Toggle() {
-	w.S().Toggle()
+func (w *Waypoint) Toggle() bool {
+	return w.S().Toggle()
 }
 
 func (w *Waypoint) Pos() types.Pointf {
