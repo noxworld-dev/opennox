@@ -8,6 +8,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/platform"
+	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox-lib/console"
@@ -121,6 +122,15 @@ func (s *Server) TickRate() uint32 {
 
 func (s *Server) SetTickRate(v uint32) {
 	atomic.StoreUint32(&s.tickRate, v)
+}
+
+func (s *Server) AsFrames(dt script.Duration) int {
+	frames, ok := dt.Frames()
+	if ok {
+		return frames
+	}
+	dur, _ := dt.Time()
+	return int(float64(s.TickRate()) * dur.Seconds())
 }
 
 func (s *Server) SetUpdateFunc(fnc func() bool) {
