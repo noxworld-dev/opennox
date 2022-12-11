@@ -128,6 +128,11 @@ func (w *Wall) String() string {
 	return fmt.Sprintf("Wall(%d, %d)", pos.X, pos.Y)
 }
 
+func (w *Wall) ScriptID() int {
+	p := w.GridPos()
+	return (p.X << 16) | p.Y
+}
+
 func (w *Wall) dir() byte {
 	return *(*byte)(w.field(0))
 }
