@@ -2,7 +2,7 @@ package opennox
 
 /*
 int  nox_server_scriptGetGroupId_57C2D0(int** a1);
-extern unsigned int nox_server_mapGroupsHead_2523900;
+extern void* nox_server_mapGroupsHead_2523900;
 */
 import "C"
 import (
@@ -49,7 +49,7 @@ const (
 type mapGroup [0]byte
 
 func (s *Server) getFirstMapGroup() *mapGroup {
-	return (*mapGroup)(unsafe.Pointer(uintptr(C.nox_server_mapGroupsHead_2523900)))
+	return (*mapGroup)(C.nox_server_mapGroupsHead_2523900)
 }
 
 func (g *mapGroup) C() unsafe.Pointer {

@@ -49,12 +49,13 @@ extern void* nox_alloc_itemGroupElem_2523896;
 extern uint64_t qword_581450_9544;
 extern uint32_t dword_5d4594_2523780;
 extern uint32_t dword_5d4594_2516344;
-extern uint32_t nox_server_mapGroupsHead_2523900;
 extern uint32_t dword_5d4594_2523756;
 extern nox_waypoint_t* nox_xxx_waypointsHead_2523752;
 extern uint32_t dword_5d4594_2516328;
 extern uint32_t dword_5d4594_2516348;
 extern uint32_t dword_5d4594_2650652;
+
+void* nox_server_mapGroupsHead_2523900 = 0;
 
 //----- (00554040) --------------------------------------------------------
 unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out) {
@@ -2493,7 +2494,7 @@ int nox_server_mapLoadAddGroup_57C0C0(char* a1, int a2, char a3) {
 		*(uint32_t*)(v4 + 92) = 0;
 		*(uint32_t*)(v4 + 88) = v5;
 		if (nox_server_mapGroupsHead_2523900) {
-			*(uint32_t*)(nox_server_mapGroupsHead_2523900 + 92) = v4;
+			*(uint32_t*)((uint32_t)nox_server_mapGroupsHead_2523900 + 92) = v4;
 		}
 		nox_server_mapGroupsHead_2523900 = v4;
 		result = 1;
@@ -2512,7 +2513,7 @@ int sub_57C130(uint32_t* a1, int a2) {
 	if (!a1) {
 		return 0;
 	}
-	v3 = *(char**)&nox_server_mapGroupsHead_2523900;
+	v3 = nox_server_mapGroupsHead_2523900;
 	if (!nox_server_mapGroupsHead_2523900) {
 		return 0;
 	}
@@ -2581,7 +2582,7 @@ int nox_server_addNewMapGroup_57C3B0(int a1) {
 	*(uint32_t*)(a1 + 92) = 0;
 	*(uint32_t*)(a1 + 88) = nox_server_mapGroupsHead_2523900;
 	if (nox_server_mapGroupsHead_2523900) {
-		*(uint32_t*)(nox_server_mapGroupsHead_2523900 + 92) = a1;
+		*(uint32_t*)((uint32_t)nox_server_mapGroupsHead_2523900 + 92) = a1;
 	}
 	nox_server_mapGroupsHead_2523900 = a1;
 	return result;
