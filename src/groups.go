@@ -24,8 +24,8 @@ func nox_server_getFirstMapGroup_57C080() unsafe.Pointer {
 }
 
 //export nox_server_scriptGetGroup_57C0A0
-func nox_server_scriptGetGroup_57C0A0(a1 C.int) C.int {
-	return C.int(uintptr(noxServer.mapGroupByInd(int(a1)).C()))
+func nox_server_scriptGetGroup_57C0A0(a1 C.int) unsafe.Pointer {
+	return noxServer.mapGroupByInd(int(a1)).C()
 }
 
 func nox_xxx_allocGroupRelatedArrays_57BFB0() {
