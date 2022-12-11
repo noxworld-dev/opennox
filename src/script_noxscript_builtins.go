@@ -124,11 +124,11 @@ func wrapScriptC(fnc unsafe.Pointer) noxScriptBuiltin {
 
 //export nox_script_callBuiltin_508B70
 func nox_script_callBuiltin_508B70(i, fi C.int) C.int {
-	return C.int(noxServer.noxScript.callBuiltin(int(i), int(fi)))
+	return C.int(noxServer.noxScript.callBuiltin(int(i), asm.Builtin(fi)))
 }
 
-func (s *noxScript) callBuiltin(i, fi int) int {
-	if fi < 0 || fi >= len(noxScriptBuiltins) {
+func (s *noxScript) callBuiltin(i int, fi asm.Builtin) int {
+	if fi < 0 || fi > asm.BuiltinGetScore {
 		if !s.panicCompilerCheck(fi) {
 			scriptLog.Printf("noxscript: invalid builtin index: %d (%x)", fi, fi)
 			return 0
@@ -159,16 +159,16 @@ func nox_script_shouldReadEvenMoreXxx(fi C.int) C.bool {
 	return C.bool(fi == 126)
 }
 
-func (s *noxScript) callBuiltinNative(fi int) int {
+func (s *noxScript) callBuiltinNative(fi asm.Builtin) int {
 	if res, ok := s.panicScriptCall(fi); ok {
 		return res
 	}
 	return noxScriptBuiltins[fi](s)
 }
 
-func (s *noxScript) builtinNeedsFields4044(fi int) bool {
+func (s *noxScript) builtinNeedsFields4044(fi asm.Builtin) bool {
 	// TODO: 7 items in the array, but the count is set to 5; why?
-	var check = []int{
+	var check = []asm.Builtin{
 		0,
 		67, 68,
 		72,
@@ -183,7 +183,7 @@ func (s *noxScript) builtinNeedsFields4044(fi int) bool {
 	return false
 }
 
-func (s *noxScript) builtinNeedsField36(fi int) bool {
+func (s *noxScript) builtinNeedsField36(fi asm.Builtin) bool {
 	switch fi {
 	case 60, 110, 111, 112, 113:
 		return true

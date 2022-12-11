@@ -1,12 +1,16 @@
 package opennox
 
-import "encoding/binary"
+import (
+	"encoding/binary"
+
+	asm "github.com/noxworld-dev/opennox-lib/script/noxscript/noxasm"
+)
 
 type noxScriptPanic struct {
 	enabled bool
 }
 
-func (s *noxScript) panicCompilerCheck(fnc int) bool {
+func (s *noxScript) panicCompilerCheck(fnc asm.Builtin) bool {
 	// ===[ Panic's compiler detection ]===
 	// it usually triggers on a2=973231
 	// 0x587000 + 245900 + 3892924 -> 0x979748 -> 0x5D4594 + 3821996 + 8 -> nox_script_stack[2]
@@ -105,7 +109,7 @@ func (s *noxScript) panicBuiltinWrite() int {
 	return 0
 }
 
-func (s *noxScript) panicScriptCall(fi int) (int, bool) {
+func (s *noxScript) panicScriptCall(fi asm.Builtin) (int, bool) {
 	if !s.panic.enabled {
 		return 0, false
 	}
