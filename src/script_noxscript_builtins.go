@@ -636,8 +636,9 @@ func nox_script_Effect_514210(s *noxScript) int {
 	pos2 := s.PopPointf()
 	pos := s.PopPointf()
 	name := "MSG_FX_" + strings.ToUpper(s.PopString())
-	dpos := s.DPos()
-	pos = pos.Add(types.Point2f(dpos))
+	dpos := s.DPosf()
+	pos = pos.Add(dpos)
+	pos2 = pos2.Add(dpos)
 
 	switch fx := s.fxNames[name]; fx {
 	case noxnet.MSG_FX_BLUE_SPARKS,
@@ -664,15 +665,15 @@ func nox_script_Effect_514210(s *noxScript) int {
 		noxnet.MSG_FX_GREATER_HEAL,
 		noxnet.MSG_FX_DEATH_RAY,
 		noxnet.MSG_FX_SENTRY_RAY:
-		nox_xxx_netSendRayFx_5232F0(fx, dpos.Add(pos.Point()), dpos.Add(pos2.Point()))
+		nox_xxx_netSendRayFx_5232F0(fx, pos.Point(), pos2.Point())
 	case noxnet.MSG_FX_SPARK_EXPLOSION:
 		nox_xxx_netSparkExplosionFx_5231B0(pos, byte(pos2.X))
 	case noxnet.MSG_FX_JIGGLE:
 		nox_xxx_earthquakeSend_4D9110(pos, int(pos2.X))
 	case noxnet.MSG_FX_GREEN_BOLT:
-		nox_xxx_netSendFxGreenBolt_523790(dpos.Add(pos.Point()), dpos.Add(pos2.Point()), 30)
+		nox_xxx_netSendFxGreenBolt_523790(pos.Point(), pos2.Point(), 30)
 	case noxnet.MSG_FX_VAMPIRISM:
-		nox_xxx_netSendVampFx_523270(fx, dpos.Add(pos.Point()), dpos.Add(pos2.Point()), 100)
+		nox_xxx_netSendVampFx_523270(fx, pos.Point(), pos2.Point(), 100)
 	}
 	return 0
 }
