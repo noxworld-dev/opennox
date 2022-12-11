@@ -76,6 +76,9 @@ func (w *Waypoint) Toggle() {
 }
 
 func (w *Waypoint) Pos() types.Pointf {
+	if w == nil {
+		return types.Pointf{}
+	}
 	return w.PosVec
 }
 
