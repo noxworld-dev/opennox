@@ -63,9 +63,8 @@ func (s *Server) getWaypointGroupByID(id string) *script.WaypointGroup {
 	// may contain map name, so we load it again
 	id = g.ID()
 	var list []script.Waypoint
-	for wp := g.First(); wp != nil; wp = wp.Next() {
-		ind := int(*(*int32)(wp.Payload()))
-		if wl := s.getWaypointByInd(ind); wl != nil {
+	for it := g.First(); it != nil; it = it.Next() {
+		if wl := s.getWaypointByInd(it.Data1()); wl != nil {
 			list = append(list, wl)
 		}
 	}

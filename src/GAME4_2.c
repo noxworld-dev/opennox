@@ -322,6 +322,7 @@ int sub_51DED0() {
 }
 
 //----- (0051E010) --------------------------------------------------------
+int nox_xxx_nxzCompressFile_57BDD0(char* a1, char* a2);
 int nox_xxx_mapSaveMap_51E010(char* a1, int a2) {
 	char* v2;         // edi
 	unsigned char v3; // cl

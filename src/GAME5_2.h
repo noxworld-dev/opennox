@@ -125,26 +125,9 @@ int sub_57B920(void* a1);
 unsigned char sub_57B930(void* a1, int a2, int a3, unsigned int a4);
 char nox_xxx_cliGenerateAlias_57B9A0(int a1, int a2, int a3, unsigned int a4);
 int sub_57BA10(int a1, short a2, short a3, int a4);
-int sub_57BA30(int2* a1, int2* a2, int4* a3);
-int nox_xxx_nxzCompressFile_57BDD0(char* a1, char* a2);
-unsigned int sub_57BF80();
-int nox_xxx_allocGroupRelatedArrays_57BFB0();
-void sub_57C000();
-int sub_57C030();
-int nox_server_getFirstMapGroup_57C080();
+void* nox_server_getFirstMapGroup_57C080();
 int nox_server_getNextMapGroup_57C090(int a1);
 int nox_server_scriptGetGroup_57C0A0(int a1);
-int nox_server_mapLoadAddGroup_57C0C0(char* a1, int a2, char a3);
-int sub_57C130(uint32_t* a1, int a2);
-void* sub_57C330();
-void* sub_57C360();
-void sub_57C370(uint64_t* a1);
-void sub_57C390(uint64_t* a1);
-int nox_server_addNewMapGroup_57C3B0(int a1);
-void sub_57C790(float4* a1, float2* a2, float2* a3, float a4);
 int nox_xxx_mathPointOnTheLine_57C8A0(float4* a1, float2* a2, float2* a3);
-int sub_57CDB0(int2* a1, float* a2, float2* a3);
-char sub_57F1D0(float2* a1);
-int sub_57F2A0(float2* a1, int a2, int a3);
 
 #endif // NOX_PORT_GAME5_2

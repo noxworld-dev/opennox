@@ -101,11 +101,10 @@ func (s *Server) getWallGroupByID(id string) *script.WallGroup {
 	// may contain map name, so we load it again
 	id = g.ID()
 	var list []script.Wall
-	for wp := g.First(); wp != nil; wp = wp.Next() {
-		p := wp.Payload()
+	for it := g.First(); it != nil; it = it.Next() {
 		if wl := s.getWallAtGrid(image.Point{
-			X: int(*(*C.int)(unsafe.Add(p, 0))),
-			Y: int(*(*C.int)(unsafe.Add(p, 4))),
+			X: it.Data1(),
+			Y: it.Data2(),
 		}); wl != nil {
 			list = append(list, wl)
 		}
