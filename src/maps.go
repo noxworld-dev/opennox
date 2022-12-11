@@ -20,7 +20,16 @@ package opennox
 #include "server__script__script.h"
 #include "client__gui__guicon.h"
 extern unsigned int nox_player_netCode_85319C;
-extern unsigned int dword_5d4594_1599644;;
+extern unsigned int dword_5d4594_1599644;
+extern uint32_t dword_5d4594_1599480;
+extern uint32_t dword_5d4594_1599476;
+extern uint32_t dword_5d4594_1599540;
+extern uint32_t dword_5d4594_1599532;
+extern uint32_t dword_5d4594_1599556;
+extern uint32_t dword_5d4594_1599548;
+extern void* dword_5d4594_1599564;
+extern void* dword_5d4594_1599588;
+extern void* dword_5d4594_1599592;
 */
 import "C"
 import (
@@ -29,6 +38,7 @@ import (
 	"fmt"
 	"image"
 	"io"
+	"math"
 	"os"
 	"path/filepath"
 	"strings"
@@ -613,4 +623,32 @@ func nox_xxx_nxzCompressFile_57BDD0(a1, a2 *C.char) int {
 		return 0
 	}
 	return 1
+}
+
+//export nox_xxx_mapReset_5028E0
+func nox_xxx_mapReset_5028E0() {
+	C.dword_5d4594_1599480 = math.MaxUint32
+	*memmap.PtrUint32(0x5D4594, 1599572) = math.MaxUint32
+	C.dword_5d4594_1599476 = 0
+	C.dword_5d4594_1599540 = 0
+	*memmap.PtrUint32(0x5D4594, 1599544) = 0
+	C.dword_5d4594_1599532 = 0
+	*memmap.PtrUint32(0x5D4594, 1599536) = 0
+	C.dword_5d4594_1599556 = 0
+	*memmap.PtrUint32(0x5D4594, 1599560) = 0
+	C.dword_5d4594_1599548 = 0
+	*memmap.PtrUint32(0x5D4594, 1599552) = 0
+	C.dword_5d4594_1599564 = nil
+	*memmap.PtrUint32(0x5D4594, 1599568) = 0
+	*memmap.PtrUint32(0x5D4594, 1599484) = 0
+	*memmap.PtrUint32(0x5D4594, 1599488) = 0
+	*memmap.PtrUint32(0x5D4594, 1599492) = 0
+	*memmap.PtrUint32(0x5D4594, 1599496) = 0
+	alloc.Memset(memmap.PtrOff(0x5D4594, 1599500), 0, 32)
+	if C.dword_5d4594_1599588 == nil {
+		C.dword_5d4594_1599588, _ = alloc.Malloc(2048)
+	}
+	if C.dword_5d4594_1599592 == nil {
+		C.dword_5d4594_1599592, _ = alloc.Malloc(2048)
+	}
 }
