@@ -41,19 +41,11 @@ extern void* nox_alloc_magicEnt_1569668;
 extern void* nox_alloc_vote_1599652;
 extern uint32_t dword_5d4594_1599616;
 extern void* nox_alloc_magicWall_1569748;
-extern uint32_t dword_5d4594_1599592;
-extern uint32_t dword_5d4594_1599556;
-extern uint32_t dword_5d4594_1599548;
-extern uint32_t dword_5d4594_1599480;
-extern uint32_t dword_5d4594_1599532;
-extern uint32_t dword_5d4594_1599476;
 extern uint32_t dword_5d4594_1569756;
 extern uint32_t dword_5d4594_1569672;
 extern uint32_t dword_5d4594_3835396;
-extern uint32_t dword_5d4594_1599588;
 extern uint32_t dword_5d4594_1599596;
 extern uint32_t dword_5d4594_1599576;
-extern uint32_t dword_5d4594_1599540;
 extern uint32_t dword_5d4594_1569752;
 extern uint32_t dword_5d4594_251568;
 extern uint32_t dword_5d4594_1570272;
@@ -66,6 +58,14 @@ FILE* nox_file_8 = 0;
 
 int nox_cheat_charmall = 0;
 void* dword_5d4594_1599564 = 0;
+uint32_t dword_5d4594_1599480 = 0;
+uint32_t dword_5d4594_1599476 = 0;
+uint32_t dword_5d4594_1599540 = 0;
+uint32_t dword_5d4594_1599532 = 0;
+uint32_t dword_5d4594_1599556 = 0;
+uint32_t dword_5d4594_1599548 = 0;
+void* dword_5d4594_1599588 = 0;
+void* dword_5d4594_1599592 = 0;
 
 //----- (004F5F30) --------------------------------------------------------
 int nox_xxx_XFerSpellReward_4F5F30(int* a1) {
@@ -5874,34 +5874,6 @@ int nox_xxx_mapgenMakeScript_502790(FILE* a1, char* a2) {
 	return result;
 }
 
-//----- (005028E0) --------------------------------------------------------
-void nox_xxx_mapReset_5028E0() {
-	dword_5d4594_1599480 = -1;
-	*getMemU32Ptr(0x5D4594, 1599572) = -1;
-	dword_5d4594_1599476 = 0;
-	dword_5d4594_1599540 = 0;
-	*getMemU32Ptr(0x5D4594, 1599544) = 0;
-	dword_5d4594_1599532 = 0;
-	*getMemU32Ptr(0x5D4594, 1599536) = 0;
-	dword_5d4594_1599556 = 0;
-	*getMemU32Ptr(0x5D4594, 1599560) = 0;
-	dword_5d4594_1599548 = 0;
-	*getMemU32Ptr(0x5D4594, 1599552) = 0;
-	dword_5d4594_1599564 = 0;
-	*getMemU32Ptr(0x5D4594, 1599568) = 0;
-	*getMemU32Ptr(0x5D4594, 1599484) = 0;
-	*getMemU32Ptr(0x5D4594, 1599488) = 0;
-	*getMemU32Ptr(0x5D4594, 1599492) = 0;
-	*getMemU32Ptr(0x5D4594, 1599496) = 0;
-	memset(getMemAt(0x5D4594, 1599500), 0, 0x20u);
-	if (!dword_5d4594_1599588) {
-		dword_5d4594_1599588 = calloc(1, 0x800u);
-	}
-	if (!dword_5d4594_1599592) {
-		dword_5d4594_1599592 = calloc(1, 0x800u);
-	}
-}
-
 //----- (005029A0) --------------------------------------------------------
 int sub_5029A0(char* a1) {
 	int v1; // edi
@@ -5940,7 +5912,7 @@ int sub_502A50(char* a1) {
 
 	sub_502DF0();
 	if (a1) {
-		strncpy(*(char**)&dword_5d4594_1599588, a1, 0x7FFu);
+		strncpy(dword_5d4594_1599588, a1, 0x7FFu);
 		result = 1;
 	} else {
 		**(uint8_t**)&dword_5d4594_1599588 = getMemByte(0x5D4594, 1599608);
@@ -5954,7 +5926,7 @@ int sub_502AB0(char* a1) {
 	int result; // eax
 
 	if (a1) {
-		strncpy(*(char**)&dword_5d4594_1599592, a1, 0x7FFu);
+		strncpy(dword_5d4594_1599592, a1, 0x7FFu);
 		result = 1;
 	} else {
 		**(uint8_t**)&dword_5d4594_1599592 = getMemByte(0x5D4594, 1599612);
@@ -5989,8 +5961,8 @@ int sub_502B10() {
 		dword_5d4594_1599576 = calloc(1, 0x26000u);
 	}
 	result = 0;
-	if (strlen(*(const char**)&dword_5d4594_1599588)) {
-		result = sub_502DA0(*(char**)&dword_5d4594_1599588);
+	if (strlen(dword_5d4594_1599588)) {
+		result = sub_502DA0(dword_5d4594_1599588);
 		if (result) {
 			nox_fs_fread(nox_file_8, &v8, 4);
 			if (v8 == -889266515) {
@@ -6129,7 +6101,7 @@ int nox_xxx_mapgenSaveMap_503830(int a1) {
 	nox_xxx_free_503F40();
 	*getMemU32Ptr(0x5D4594, 1599572) = -1;
 	dword_5d4594_1599644 = 0;
-	sub_502DA0(*(char**)&dword_5d4594_1599588);
+	sub_502DA0(dword_5d4594_1599588);
 	if (!sub_502E10(a1)) {
 		return 0;
 	}
