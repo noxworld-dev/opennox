@@ -139,8 +139,8 @@ func (s *noxScript) callBuiltin(i int, fi asm.Builtin) int {
 		s.nameSuff = s.scriptNameSuff(i)
 	}
 	if s.builtinNeedsFields4044(fi) {
-		s.f40 = s.scriptField40(i)
-		s.f44 = s.scriptField44(i)
+		s.dpos.X = s.scriptField40(i)
+		s.dpos.Y = s.scriptField44(i)
 	}
 	res := s.callBuiltinNative(fi)
 	s.resetBuiltin()
@@ -636,10 +636,7 @@ func nox_script_Effect_514210(s *noxScript) int {
 	pos2 := s.PopPointf()
 	pos := s.PopPointf()
 	name := "MSG_FX_" + strings.ToUpper(s.PopString())
-	dpos := image.Point{
-		X: s.builtinGetF40(),
-		Y: s.builtinGetF44(),
-	}
+	dpos := s.DPos()
 	pos = pos.Add(types.Point2f(dpos))
 
 	switch fx := s.fxNames[name]; fx {
@@ -1041,9 +1038,9 @@ func nox_script_getWall_511EB0(s *noxScript) int {
 	y := s.PopI32()
 	x := s.PopI32()
 
-	if s.f40 != 0 || s.f44 != 0 {
-		x = (int32(s.f40) + common.GridStep*x) / common.GridStep
-		y = (int32(s.f44) + common.GridStep*y) / common.GridStep
+	if dpos := s.DPos(); dpos != (image.Point{}) {
+		x = (int32(dpos.X) + common.GridStep*x) / common.GridStep
+		y = (int32(dpos.Y) + common.GridStep*y) / common.GridStep
 	}
 
 	if nox_server_getWallAtGrid_410580(C.int(x), C.int(y)) != nil {
@@ -1615,7 +1612,7 @@ func nox_script_moveObject_5136A0(s *noxScript) int {
 	dx := s.PopF32()
 	obj := s.PopObject()
 	if obj != nil {
-		pos := types.Pointf{X: float32(s.builtinGetF40()) + dx, Y: float32(s.builtinGetF44()) + dy}
+		pos := s.DPosf().Add(types.Pointf{X: dx, Y: dy})
 		obj.SetPos(pos)
 	}
 	return 0
@@ -1626,7 +1623,7 @@ func nox_script_moveWaypoint_513700(s *noxScript) int {
 	dx := s.PopF32()
 	waypoint := s.s.getWaypointByInd(int(s.PopI32()))
 	if waypoint != nil {
-		pos := types.Pointf{X: float32(s.builtinGetF40()) + dx, Y: float32(s.builtinGetF44()) + dy}
+		pos := s.DPosf().Add(types.Pointf{X: dx, Y: dy})
 		waypoint.SetPos(pos)
 	}
 	return 0
@@ -1728,8 +1725,9 @@ func nox_script_pushObjectTo_513820(s *noxScript) int {
 	force := s.PopF32()
 	obj := s.PopObject()
 	if obj != nil {
-		xDir := obj.Pos().X - xPos + float32(s.builtinGetF40())
-		yDir := obj.Pos().Y - yPos + float32(s.builtinGetF44())
+		dpos := s.DPosf()
+		xDir := obj.Pos().X - xPos + dpos.X
+		yDir := obj.Pos().Y - yPos + dpos.Y
 		dirLength := float32(math.Hypot(float64(xDir), float64(yDir)))
 		obj.ApplyForce(types.Pointf{X: force * xDir / dirLength, Y: force * yDir / dirLength})
 	}
@@ -2011,8 +2009,9 @@ func nox_script_Walk_5140B0(s *noxScript) int {
 	dx := s.PopF32()
 	obj := s.PopObject()
 	if obj != nil {
-		posy := float32(s.builtinGetF44()) + dy
-		posx := float32(s.builtinGetF40()) + dx
+		dpos := s.DPosf()
+		posy := dpos.X + dy
+		posx := dpos.Y + dx
 		obj.AsUnit().WalkTo(types.Pointf{X: posx, Y: posy})
 	}
 	return 0
@@ -2022,9 +2021,10 @@ func nox_script_GroupWalk_514170(s *noxScript) int {
 	dy := s.PopF32()
 	dx := s.PopF32()
 	groupInd := s.PopI32()
+	dpos := s.DPosf()
 
-	posy := float32(s.builtinGetF44()) + dy
-	posx := float32(s.builtinGetF40()) + dx
+	posy := dpos.X + dy
+	posx := dpos.Y + dx
 	dstPoint := types.Pointf{X: posx, Y: posy}
 	mapGroup := s.s.mapGroupByInd(int(groupInd))
 	if mapGroup != nil {

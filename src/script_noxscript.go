@@ -14,6 +14,7 @@ size_t nox_script_readWriteWww_5417C0(FILE* a1, FILE* a2, FILE* a3);
 */
 import "C"
 import (
+	"image"
 	"image/color"
 	"math"
 	"os"
@@ -34,12 +35,12 @@ import (
 
 //export nox_script_builtinGetF40
 func nox_script_builtinGetF40() C.int {
-	return C.int(noxServer.noxScript.builtinGetF40())
+	return C.int(noxServer.noxScript.DPos().X)
 }
 
 //export nox_script_builtinGetF44
 func nox_script_builtinGetF44() C.int {
-	return C.int(noxServer.noxScript.builtinGetF44())
+	return C.int(noxServer.noxScript.DPos().Y)
 }
 
 //export nox_script_activatorCancelAll_51AC60
@@ -116,8 +117,7 @@ var (
 type noxScript struct {
 	s        *Server
 	fxNames  map[string]noxnet.Op
-	f40      int
-	f44      int
+	dpos     image.Point
 	nameSuff string
 	vm       struct {
 		stack []uint32
@@ -354,13 +354,21 @@ func (s *noxScript) scriptToObject(val int) *Object {
 }
 
 func (s *noxScript) resetBuiltin() {
-	s.f40 = 0
-	s.f44 = 0
+	s.dpos = image.Point{}
 	s.nameSuff = ""
 }
 
-func (s *noxScript) builtinGetF40() int { return s.f40 }
-func (s *noxScript) builtinGetF44() int { return s.f44 }
+func (s *noxScript) NameSuff() string {
+	return s.nameSuff
+}
+
+func (s *noxScript) DPos() image.Point {
+	return s.dpos
+}
+
+func (s *noxScript) DPosf() types.Pointf {
+	return types.Point2f(s.dpos)
+}
 
 func (s *noxScript) scriptNameSuff(i int) string {
 	scripts := s.scripts()
