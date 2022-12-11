@@ -116,8 +116,8 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
-func wrapScriptC(fnc unsafe.Pointer) func() int {
-	return func() int {
+func wrapScriptC(fnc unsafe.Pointer) noxScriptBuiltin {
+	return func(_ *noxScript) int {
 		return cgoCallIntVoidFunc(fnc)
 	}
 }
@@ -163,7 +163,7 @@ func (s *noxScript) callBuiltinNative(fi int) int {
 	if res, ok := s.panicScriptCall(fi); ok {
 		return res
 	}
-	return noxScriptBuiltins[fi]()
+	return noxScriptBuiltins[fi](s)
 }
 
 func (s *noxScript) builtinNeedsFields4044(fi int) bool {
@@ -191,7 +191,9 @@ func (s *noxScript) builtinNeedsField36(fi int) bool {
 	return false
 }
 
-var noxScriptBuiltins = [asm.BuiltinGetScore + 1]func() int{
+type noxScriptBuiltin func(s *noxScript) int
+
+var noxScriptBuiltins = [asm.BuiltinGetScore + 1]noxScriptBuiltin{
 	asm.BuiltinWall:                      noxScriptCompare("nox_script_getWall_511EB0", wrapScriptC(C.nox_script_getWall_511EB0), nox_script_getWall_511EB0),
 	asm.BuiltinWallOpen:                  nox_script_openSecretWall_511F50,
 	asm.BuiltinWallGroupOpen:             nox_script_openWallGroup_512010,
@@ -405,55 +407,47 @@ var noxScriptBuiltins = [asm.BuiltinGetScore + 1]func() int{
 	asm.BuiltinGetScore:                  nox_script_GetScore_516EA0,
 }
 
-func nox_script_secondTimer_512320() int {
-	s := &noxServer.noxScript
+func nox_script_secondTimer_512320(s *noxScript) int {
 	fnc := int(s.PopU32())
 	dt := s.PopU32()
 	s.PushU32(s.newScriptTimer(int(dt*s.s.TickRate()), fnc, 0))
 	return 0
 }
 
-func nox_script_frameTimer_512350() int {
-	s := &noxServer.noxScript
+func nox_script_frameTimer_512350(s *noxScript) int {
 	fnc := int(s.PopU32())
 	df := int(s.PopU32())
 	s.PushU32(s.newScriptTimer(df, fnc, 0))
 	return 0
 }
 
-func nox_script_deleteObject_5128B0() int {
-	s := &noxServer.noxScript
+func nox_script_deleteObject_5128B0(s *noxScript) int {
 	if obj := s.PopObject(); obj != nil {
 		obj.Delete()
 	}
 	return 0
 }
 
-func nox_script_deleteObjectGroup_5128D0() int {
-	s := &noxServer.noxScript
-
+func nox_script_deleteObjectGroup_5128D0(s *noxScript) int {
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
-	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
+	scriptExecuteFnForObjectGroup(s.s, mapGroup, func(obj *Object) {
 		obj.Delete()
 	})
 	return 0
 }
 
-func nox_script_getObject2_5129C0() int {
-	s := &noxServer.noxScript
+func nox_script_getObject2_5129C0(s *noxScript) int {
 	_ = s.PopObject()
 	return 0
 }
 
-func nox_script_getObject3_5129E0() int {
-	s := &noxServer.noxScript
+func nox_script_getObject3_5129E0(s *noxScript) int {
 	_ = s.PopObject()
 	return 0
 }
 
-func nox_script_printToCaller_512B10() int {
-	s := &noxServer.noxScript
+func nox_script_printToCaller_512B10(s *noxScript) int {
 	strID := s.PopString()
 	if c := s.Caller().AsUnit(); c != nil && c.Class().Has(object.ClassPlayer) {
 		str := s.s.Strings().GetStringInFile(strman.ID(strID), "CScrFunc.c")
@@ -462,18 +456,16 @@ func nox_script_printToCaller_512B10() int {
 	return 0
 }
 
-func nox_script_printToAll_512B60() int {
-	s := &noxServer.noxScript
+func nox_script_printToAll_512B60(s *noxScript) int {
 	strID := s.PopString()
 	str := s.s.Strings().GetStringInFile(strman.ID(strID), "CScrFunc.c")
 	PrintToPlayers(str)
 	return 0
 }
 
-func nox_script_returnOne_512C10() int { return 1 }
+func nox_script_returnOne_512C10(_ *noxScript) int { return 1 }
 
-func nox_script_randomFloat_512D70() int {
-	s := &noxServer.noxScript
+func nox_script_randomFloat_512D70(s *noxScript) int {
 	max := float64(s.PopF32())
 	min := float64(s.PopF32())
 	val := noxRndCounter1.FloatClamp(min, max)
@@ -481,8 +473,7 @@ func nox_script_randomFloat_512D70() int {
 	return 0
 }
 
-func nox_script_randomInt_512DB0() int {
-	s := &noxServer.noxScript
+func nox_script_randomInt_512DB0(s *noxScript) int {
 	max := int(s.PopU32())
 	min := int(s.PopU32())
 	val := noxRndCounter1.IntClamp(min, max)
@@ -490,8 +481,7 @@ func nox_script_randomInt_512DB0() int {
 	return 0
 }
 
-func nox_script_timerSecSpecial_512DE0() int {
-	s := &noxServer.noxScript
+func nox_script_timerSecSpecial_512DE0(s *noxScript) int {
 	fnc := int(s.PopU32())
 	arg := s.PopU32()
 	dt := s.PopU32()
@@ -499,8 +489,7 @@ func nox_script_timerSecSpecial_512DE0() int {
 	return 0
 }
 
-func nox_script_specialTimer_512E10() int {
-	s := &noxServer.noxScript
+func nox_script_specialTimer_512E10(s *noxScript) int {
 	fnc := int(s.PopU32())
 	arg := s.PopU32()
 	df := int(s.PopU32())
@@ -508,8 +497,7 @@ func nox_script_specialTimer_512E10() int {
 	return 0
 }
 
-func nox_script_objectGet_513490() int {
-	s := &noxServer.noxScript
+func nox_script_objectGet_513490(s *noxScript) int {
 	str := s.PopString()
 	str += s.nameSuff
 	cstr := CString(str)
@@ -524,66 +512,58 @@ func nox_script_objectGet_513490() int {
 	return 0
 }
 
-func nox_script_getObjectX_513530() int {
-	s := &noxServer.noxScript
+func nox_script_getObjectX_513530(s *noxScript) int {
 	obj := s.PopObject()
 	s.PushF32(obj.Pos().X)
 	return 0
 }
 
-func nox_script_getObjectY_5135B0() int {
-	s := &noxServer.noxScript
+func nox_script_getObjectY_5135B0(s *noxScript) int {
 	obj := s.PopObject()
 	s.PushF32(obj.Pos().Y)
 	return 0
 }
 
-func nox_script_builtin_513C60() int { return 0 }
+func nox_script_builtin_513C60(s *noxScript) int { return 0 }
 
-func nox_script_fn58_513F10() int {
-	s := &noxServer.noxScript
+func nox_script_fn58_513F10(s *noxScript) int {
 	s.PopU32()
 	s.PopU32()
 	return 0
 }
 
-func nox_script_fn59_513F20() int {
-	s := &noxServer.noxScript
+func nox_script_fn59_513F20(s *noxScript) int {
 	s.PopU32()
 	s.PopU32()
 	return 0
 }
 
-func nox_script_fn5A_513F30() int {
-	s := &noxServer.noxScript
+func nox_script_fn5A_513F30(s *noxScript) int {
 	s.PopU32()
 	s.PopU32()
 	return 0
 }
 
-func nox_script_fn5B_513F40() int {
-	s := &noxServer.noxScript
+func nox_script_fn5B_513F40(s *noxScript) int {
 	s.PopU32()
 	s.PopU32()
 	return 0
 }
 
-func nox_script_Fn5C_513F50() int {
-	s := &noxServer.noxScript
+func nox_script_Fn5C_513F50(s *noxScript) int {
 	s.PopU32()
 	s.PopU32()
 	return 0
 }
 
-func nox_script_Fn5D_513F60() int {
-	s := &noxServer.noxScript
+func nox_script_Fn5D_513F60(s *noxScript) int {
 	s.PopU32()
 	s.PopU32()
 	return 0
 }
 
 // TODO: migrate all usage of `nox_server_scriptExecuteFnForEachGroupObj_502670` to use these funcs below.
-func scriptExecuteFnForObjectGroup(group *mapGroup, fn func(*Object)) {
+func scriptExecuteFnForObjectGroup(s *Server, group *mapGroup, fn func(*Object)) {
 	if group == nil {
 		return
 	}
@@ -592,7 +572,7 @@ func scriptExecuteFnForObjectGroup(group *mapGroup, fn func(*Object)) {
 	case 0:
 		for item := group.FirstItem(); item != nil; item = item.Next() {
 			ind := item.Ind()
-			obj := noxServer.GetObjectByInd(ind)
+			obj := s.GetObjectByInd(ind)
 			if obj != nil {
 				fn(obj)
 			}
@@ -600,12 +580,12 @@ func scriptExecuteFnForObjectGroup(group *mapGroup, fn func(*Object)) {
 	case 3:
 		for item := group.FirstItem(); item != nil; item = item.Next() {
 			childMapGroup := getMapGroupByInd(item.Ind())
-			scriptExecuteFnForObjectGroup(childMapGroup, fn)
+			scriptExecuteFnForObjectGroup(s, childMapGroup, fn)
 		}
 	}
 }
 
-func scriptExecuteFnForWaypointGroup(group *mapGroup, fn func(*Waypoint)) {
+func scriptExecuteFnForWaypointGroup(s *Server, group *mapGroup, fn func(*Waypoint)) {
 	if group == nil {
 		return
 	}
@@ -614,7 +594,7 @@ func scriptExecuteFnForWaypointGroup(group *mapGroup, fn func(*Waypoint)) {
 	case 1:
 		for item := group.FirstItem(); item != nil; item = item.Next() {
 			ind := item.Ind()
-			wp := noxServer.getWaypointByInd(ind)
+			wp := s.getWaypointByInd(ind)
 			if wp != nil {
 				fn(wp)
 			}
@@ -622,12 +602,12 @@ func scriptExecuteFnForWaypointGroup(group *mapGroup, fn func(*Waypoint)) {
 	case 3:
 		for item := group.FirstItem(); item != nil; item = item.Next() {
 			childMapGroup := getMapGroupByInd(item.Ind())
-			scriptExecuteFnForWaypointGroup(childMapGroup, fn)
+			scriptExecuteFnForWaypointGroup(s, childMapGroup, fn)
 		}
 	}
 }
 
-func scriptExecuteFnForWallGroup(group *mapGroup, fn func(*Wall)) {
+func scriptExecuteFnForWallGroup(s *Server, group *mapGroup, fn func(*Wall)) {
 	if group == nil {
 		return
 	}
@@ -635,7 +615,7 @@ func scriptExecuteFnForWallGroup(group *mapGroup, fn func(*Wall)) {
 	switch groupType {
 	case 2:
 		for item := group.FirstItem(); item != nil; item = item.Next() {
-			wall := noxServer.getWallAtGrid(image.Pt(item.Ind(), item.Ind2()))
+			wall := s.getWallAtGrid(image.Pt(item.Ind(), item.Ind2()))
 			if wall != nil {
 				fn(wall)
 			}
@@ -643,21 +623,19 @@ func scriptExecuteFnForWallGroup(group *mapGroup, fn func(*Wall)) {
 	case 3:
 		for item := group.FirstItem(); item != nil; item = item.Next() {
 			childMapGroup := getMapGroupByInd(item.Ind())
-			scriptExecuteFnForWallGroup(childMapGroup, fn)
+			scriptExecuteFnForWallGroup(s, childMapGroup, fn)
 		}
 	}
 }
 
-func nox_script_CancelTimer_5141F0() int {
-	s := &noxServer.noxScript
+func nox_script_CancelTimer_5141F0(s *noxScript) int {
 	act := s.PopU32()
 	ok := s.actCancel(act)
 	s.PushBool(ok)
 	return 0
 }
 
-func nox_script_Effect_514210() int {
-	s := &noxServer.noxScript
+func nox_script_Effect_514210(s *noxScript) int {
 	pos2 := s.PopPointf()
 	pos := s.PopPointf()
 	name := "MSG_FX_" + strings.ToUpper(s.PopString())
@@ -705,8 +683,7 @@ func nox_script_Effect_514210() int {
 	return 0
 }
 
-func nox_script_Waypoint_514800() int {
-	s := &noxServer.noxScript
+func nox_script_Waypoint_514800(s *noxScript) int {
 	str := s.PopString()
 	str += s.nameSuff
 	cstr := CString(str)
@@ -721,8 +698,7 @@ func nox_script_Waypoint_514800() int {
 	return 0
 }
 
-func nox_script_GetWaypointGroup_5148A0() int {
-	s := &noxServer.noxScript
+func nox_script_GetWaypointGroup_5148A0(s *noxScript) int {
 	str := s.PopString()
 	str += s.nameSuff
 	cstr := CString(str)
@@ -737,8 +713,7 @@ func nox_script_GetWaypointGroup_5148A0() int {
 	return 0
 }
 
-func nox_script_GetObjectGroup_514940() int {
-	s := &noxServer.noxScript
+func nox_script_GetObjectGroup_514940(s *noxScript) int {
 	str := s.PopString()
 	str += s.nameSuff
 	cstr := CString(str)
@@ -753,8 +728,7 @@ func nox_script_GetObjectGroup_514940() int {
 	return 0
 }
 
-func nox_script_GetWallGroup_5149E0() int {
-	s := &noxServer.noxScript
+func nox_script_GetWallGroup_5149E0(s *noxScript) int {
 	str := s.PopString()
 	str += s.nameSuff
 	cstr := CString(str)
@@ -769,28 +743,25 @@ func nox_script_GetWallGroup_5149E0() int {
 	return 0
 }
 
-func nox_script_Pop2_74_514BA0() int {
-	s := &noxServer.noxScript
+func nox_script_Pop2_74_514BA0(s *noxScript) int {
 	s.PopU32()
 	s.PopU32()
 	return 0
 }
 
-func nox_script_RemoveChat_514BB0() int {
-	s := &noxServer.noxScript
+func nox_script_RemoveChat_514BB0(s *noxScript) int {
 	if u := s.PopObject().AsUnit(); u != nil {
 		nox_xxx_netKillChat_528D00(u)
 	}
 	return 0
 }
 
-func nox_script_NoChatAll_514BD0() int {
+func nox_script_NoChatAll_514BD0(s *noxScript) int {
 	C.nox_xxx_destroyEveryChatMB_528D60()
 	return 0
 }
 
-func nox_script_CastObject2_514F10() int {
-	s := &noxServer.noxScript
+func nox_script_CastObject2_514F10(s *noxScript) int {
 	targ := s.PopObject()
 	caster := s.PopObject().AsUnit()
 	sp := spell.ParseID(s.PopString())
@@ -811,8 +782,7 @@ func nox_script_CastObject2_514F10() int {
 	return 0
 }
 
-func nox_script_CastObjectLocation_514FC0() int {
-	s := &noxServer.noxScript
+func nox_script_CastObjectLocation_514FC0(s *noxScript) int {
 	targPos := s.PopPointf()
 	caster := s.PopObject().AsUnit()
 	sp := spell.ParseID(s.PopString())
@@ -827,8 +797,7 @@ func nox_script_CastObjectLocation_514FC0() int {
 	return 0
 }
 
-func nox_script_CastLocationObject_515060() int {
-	s := &noxServer.noxScript
+func nox_script_CastLocationObject_515060(s *noxScript) int {
 	targ := s.PopObject()
 	srcPos := s.PopPointf()
 	sp := spell.ParseID(s.PopString())
@@ -844,8 +813,7 @@ func nox_script_CastLocationObject_515060() int {
 	return 0
 }
 
-func nox_script_CastLocation2_515130() int {
-	s := &noxServer.noxScript
+func nox_script_CastLocation2_515130(s *noxScript) int {
 	targPos := s.PopPointf()
 	srcPos := s.PopPointf()
 	sp := spell.ParseID(s.PopString())
@@ -858,25 +826,23 @@ func nox_script_CastLocation2_515130() int {
 	return 0
 }
 
-func nox_script_UnBlind_515200() int {
+func nox_script_UnBlind_515200(s *noxScript) int {
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
 	noxClient.r.FadeOutScreen(25, false, nil)
 	return 0
 }
 
-func nox_script_Blind_515220() int {
+func nox_script_Blind_515220(s *noxScript) int {
 	noxClient.r.FadeInScreen(25, false, fadeDisableGameDraw)
 	return 0
 }
 
-func nox_script_WideScreen_515240() int {
-	s := &noxServer.noxScript
+func nox_script_WideScreen_515240(s *noxScript) int {
 	s.s.CinemaPlayers(s.PopI32() == 1)
 	return 0
 }
 
-func nox_script_IsAttackedBy_5161C0() int {
-	s := &noxServer.noxScript
+func nox_script_IsAttackedBy_5161C0(s *noxScript) int {
 	obj2 := s.PopObject()
 	obj1 := s.PopObject()
 	val := obj1 != nil && obj2 != nil && obj1.isEnemyTo(obj2)
@@ -884,7 +850,7 @@ func nox_script_IsAttackedBy_5161C0() int {
 	return 0
 }
 
-func nox_script_ForceAutosave_516400() int {
+func nox_script_ForceAutosave_516400(s *noxScript) int {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		sub_4DB130("AUTOSAVE")
 		sub_4DB170(1, nil, 0)
@@ -892,8 +858,7 @@ func nox_script_ForceAutosave_516400() int {
 	return 0
 }
 
-func nox_script_Music_516430() int {
-	s := &noxServer.noxScript
+func nox_script_Music_516430(s *noxScript) int {
 	v0 := s.PopU32()
 	v3 := s.PopU32()
 	if noxflags.HasGame(noxflags.GameModeCoop) {
@@ -908,14 +873,13 @@ func nox_script_Music_516430() int {
 	return 0
 }
 
-func nox_script_DeathScreen_516680() int {
+func nox_script_DeathScreen_516680(s *noxScript) int {
 	*memmap.PtrUint32(0x5D4594, 2386832) = 0
 	sub_5165D0()
 	return 0
 }
 
-func nox_script_Frozen_516920() int {
-	s := &noxServer.noxScript
+func nox_script_Frozen_516920(s *noxScript) int {
 	val := s.PopBool()
 	if u := s.PopObject().AsUnit(); u != nil {
 		u.Freeze(val)
@@ -923,14 +887,12 @@ func nox_script_Frozen_516920() int {
 	return 0
 }
 
-func nox_script_NoWallSound_516960() int {
-	s := &noxServer.noxScript
+func nox_script_NoWallSound_516960(s *noxScript) int {
 	C.nox_xxx_wallSounds_2386840 = C.uint(s.PopU32())
 	return 0
 }
 
-func nox_script_SetCallback_516970() int {
-	s := &noxServer.noxScript
+func nox_script_SetCallback_516970(s *noxScript) int {
 	fnc := int32(s.PopU32())
 	ev := s.PopU32()
 	u := s.PopObject().AsUnit()
@@ -963,66 +925,63 @@ func nox_script_SetCallback_516970() int {
 	return 0
 }
 
-func nox_script_ClearMessages_516BC0() int {
-	s := &noxServer.noxScript
+func nox_script_ClearMessages_516BC0(s *noxScript) int {
 	if u := s.PopObject().AsUnit(); u != nil {
 		nox_xxx_netScriptMessageKill_4D9760(u)
 	}
 	return 0
 }
 
-func nox_script_StopAllFades_516C10() int {
+func nox_script_StopAllFades_516C10(s *noxScript) int {
 	nox_video_stopAllFades_44E040()
 	return 0
 }
 
-func nox_script_MusicPushEvent_5164A0() int {
+func nox_script_MusicPushEvent_5164A0(s *noxScript) int {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		C.sub_43DA80()
 	} else {
 		var buf [3]byte
 		buf[0] = byte(noxnet.MSG_MUSIC_PUSH_EVENT)
-		noxServer.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
+		s.s.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
 	}
 	return 0
 }
 
-func nox_script_MusicPopEvent_5164E0() int {
+func nox_script_MusicPopEvent_5164E0(s *noxScript) int {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		C.sub_43DAD0()
 	} else {
 		var buf [3]byte
 		buf[0] = byte(noxnet.MSG_MUSIC_POP_EVENT)
-		noxServer.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
+		s.s.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
 	}
 	return 0
 }
 
-func nox_script_ClearMusic_516520() int {
+func nox_script_ClearMusic_516520(s *noxScript) int {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		C.sub_43D9B0(0, 0)
 	} else {
 		var buf [3]byte
 		buf[0] = byte(noxnet.MSG_MUSIC_EVENT)
-		noxServer.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
+		s.s.nox_xxx_netSendPacket1_4E5390(255, buf[:3], 0, 1)
 	}
 	return 0
 }
 
-func nox_script_EndGame_516E10() int {
-	s := &noxServer.noxScript
+func nox_script_EndGame_516E10(s *noxScript) int {
 	v := int(s.PopI32())
 	s.noxScriptEndGame(v)
 	return 0
 }
 
-func nox_script_StartGame_516C20() int {
+func nox_script_StartGame_516C20(s *noxScript) int {
 	nox_xxx_cliPlayMapIntro_44E0B0(1)
 	return 0
 }
 
-func nox_script_ChangeScore_516E30() int {
-	s := &noxServer.noxScript
+func nox_script_ChangeScore_516E30(s *noxScript) int {
 	val := int(s.PopU32())
 	u := s.PopObject().AsUnit()
 	if u == nil || !u.Class().Has(object.ClassPlayer) {
@@ -1041,8 +1000,7 @@ func nox_script_ChangeScore_516E30() int {
 	return 0
 }
 
-func nox_script_GetScore_516EA0() int {
-	s := &noxServer.noxScript
+func nox_script_GetScore_516EA0(s *noxScript) int {
 	u := s.PopObject().AsUnit()
 	if u == nil || !u.Class().Has(object.ClassPlayer) {
 		s.PushU32(0)
@@ -1065,14 +1023,13 @@ func sliceEqual(a, b []uint32) bool {
 	return true
 }
 
-func noxScriptCompare(name string, orig func() int, updated func() int) func() int {
-	return func() int {
-		s := &noxServer.noxScript
+func noxScriptCompare(name string, orig, updated noxScriptBuiltin) noxScriptBuiltin {
+	return func(s *noxScript) int {
 		origStack := append([]uint32{}, s.vm.stack...)
-		dryrunRet := updated()
+		dryrunRet := updated(s)
 		dryrunStack := append([]uint32{}, s.vm.stack...)
 		s.vm.stack = origStack
-		ret := orig()
+		ret := orig(s)
 
 		scriptLog.Printf("%s: test %v:%d vs %v:%d\n", name, dryrunStack, dryrunRet, s.vm.stack, ret)
 		if dryrunRet != ret || !sliceEqual(s.vm.stack, dryrunStack) {
@@ -1083,9 +1040,7 @@ func noxScriptCompare(name string, orig func() int, updated func() int) func() i
 	}
 }
 
-func nox_script_getWall_511EB0() int {
-	s := &noxServer.noxScript
-
+func nox_script_getWall_511EB0(s *noxScript) int {
 	y := s.PopI32()
 	x := s.PopI32()
 
@@ -1103,9 +1058,7 @@ func nox_script_getWall_511EB0() int {
 	return 0
 }
 
-func nox_script_canInteract_513E80() int {
-	s := &noxServer.noxScript
-
+func nox_script_canInteract_513E80(s *noxScript) int {
 	v3 := s.PopObject()
 	v2 := s.PopObject()
 
@@ -1128,82 +1081,68 @@ func pointUnpack(packed int32) image.Point {
 	return image.Pt(int(packed>>16), int(uint16(packed))) // Or, packed & 0xffff
 }
 
-func nox_script_openSecretWall_511F50() int {
-	s := &noxServer.noxScript
-
+func nox_script_openSecretWall_511F50(s *noxScript) int {
 	grid := pointUnpack(s.PopI32())
-	wall := noxServer.getWallAtGrid(grid)
+	wall := s.s.getWallAtGrid(grid)
 	if wall != nil {
 		wall.Enable(false)
 	}
 	return 0
 }
 
-func nox_script_closeWall_512040() int {
-	s := &noxServer.noxScript
-
+func nox_script_closeWall_512040(s *noxScript) int {
 	grid := pointUnpack(s.PopI32())
-	wall := noxServer.getWallAtGrid(grid)
+	wall := s.s.getWallAtGrid(grid)
 	if wall != nil {
 		wall.Enable(false)
 	}
 	return 0
 }
 
-func nox_script_toggleWall_512130() int {
-	s := &noxServer.noxScript
-
+func nox_script_toggleWall_512130(s *noxScript) int {
 	grid := pointUnpack(s.PopI32())
-	wall := noxServer.getWallAtGrid(grid)
+	wall := s.s.getWallAtGrid(grid)
 	if wall != nil {
 		wall.Toggle()
 	}
 	return 0
 }
 
-func nox_script_toggleWallGroup_512260() int {
-	s := &noxServer.noxScript
-
+func nox_script_toggleWallGroup_512260(s *noxScript) int {
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
 
-	scriptExecuteFnForWallGroup(mapGroup, func(wall *Wall) {
+	scriptExecuteFnForWallGroup(s.s, mapGroup, func(wall *Wall) {
 		wall.Toggle()
 	})
 	return 0
 }
 
-func nox_script_wallBreak_512290() int {
-	s := &noxServer.noxScript
-
+func nox_script_wallBreak_512290(s *noxScript) int {
 	grid := pointUnpack(s.PopI32())
-	wall := noxServer.getWallAtGrid(grid)
+	wall := s.s.getWallAtGrid(grid)
 	if wall != nil {
 		wall.Destroy()
 	}
 	return 0
 }
 
-func nox_script_wallGroupBreak_5122F0() int {
-	s := &noxServer.noxScript
-
+func nox_script_wallGroupBreak_5122F0(s *noxScript) int {
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
 
-	scriptExecuteFnForWallGroup(mapGroup, func(wall *Wall) {
+	scriptExecuteFnForWallGroup(s.s, mapGroup, func(wall *Wall) {
 		wall.Destroy()
 	})
 	return 0
 }
 
-func nox_script_moverOrMonsterGo_512370() int {
-	s := &noxServer.noxScript
-
+func nox_script_moverOrMonsterGo_512370(s *noxScript) int {
 	waypointId := int(s.PopI32())
 	obj := s.PopObject()
 	if obj != nil {
 		if !obj.Flags().Has(object.FlagDead) {
-			waypoint := noxServer.getWaypointByInd(waypointId)
+			waypoint := s.s.getWaypointByInd(waypointId)
 			if waypoint != nil {
 				C.nox_server_scriptMoveTo_5123C0(C.int(uintptr(unsafe.Pointer(obj))), C.int(uintptr(unsafe.Pointer(waypoint))))
 			}
@@ -1212,17 +1151,15 @@ func nox_script_moverOrMonsterGo_512370() int {
 	return 0
 }
 
-func nox_script_groupGoTo_512500() int {
-	s := &noxServer.noxScript
-
+func nox_script_groupGoTo_512500(s *noxScript) int {
 	waypointId := int(s.PopI32())
 	v1 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v1))
-	waypoint := noxServer.getWaypointByInd(waypointId)
+	waypoint := s.s.getWaypointByInd(waypointId)
 
 	if mapGroup != nil && waypoint != nil {
 		for it := mapGroup.FirstItem(); it != nil; it = it.Next() {
-			item := noxServer.GetObjectByInd(it.Ind())
+			item := s.s.GetObjectByInd(it.Ind())
 			if item != nil {
 				C.nox_server_scriptMoveTo_5123C0(C.int(uintptr(unsafe.Pointer(item))), C.int(uintptr(unsafe.Pointer(waypoint))))
 			}
@@ -1231,9 +1168,7 @@ func nox_script_groupGoTo_512500() int {
 	return 0
 }
 
-func nox_script_lookAtDirection_512560() int {
-	s := &noxServer.noxScript
-
+func nox_script_lookAtDirection_512560(s *noxScript) int {
 	direction := s.PopI32()
 	monster := s.PopObject()
 	if monster != nil {
@@ -1244,15 +1179,13 @@ func nox_script_lookAtDirection_512560() int {
 	return 0
 }
 
-func nox_script_groupLookAtDirection_512610() int {
-	s := &noxServer.noxScript
-
+func nox_script_groupLookAtDirection_512610(s *noxScript) int {
 	direction := int(s.PopI32())
 	v1 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v1))
 	if mapGroup != nil {
 		for it := mapGroup.FirstItem(); it != nil; it = it.Next() {
-			monster := noxServer.GetObjectByInd(it.Ind())
+			monster := s.s.GetObjectByInd(it.Ind())
 			if monster != nil && monster.Class().Has(object.ClassMonster) && !monster.Flags().Has(object.FlagDead) {
 				monster.AsUnit().LookAtDir(direction)
 			}
@@ -1261,9 +1194,7 @@ func nox_script_groupLookAtDirection_512610() int {
 	return 0
 }
 
-func nox_script_objectOn_512670() int {
-	s := &noxServer.noxScript
-
+func nox_script_objectOn_512670(s *noxScript) int {
 	obj := s.PopObject()
 	if obj != nil {
 		obj.Enable(true)
@@ -1271,30 +1202,24 @@ func nox_script_objectOn_512670() int {
 	return 0
 }
 
-func nox_script_objGroupOn_512690() int {
-	s := &noxServer.noxScript
-
+func nox_script_objGroupOn_512690(s *noxScript) int {
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
-	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
+	scriptExecuteFnForObjectGroup(s.s, mapGroup, func(obj *Object) {
 		obj.Enable(true)
 	})
 	return 0
 }
 
-func nox_script_waypointOn_5126D0() int {
-	s := &noxServer.noxScript
-
-	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
+func nox_script_waypointOn_5126D0(s *noxScript) int {
+	waypoint := s.s.getWaypointByInd(int(s.PopI32()))
 	if waypoint != nil {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(waypoint), 120*4)) |= 1
 	}
 	return 0
 }
 
-func nox_script_objectOff_512730() int {
-	s := &noxServer.noxScript
-
+func nox_script_objectOff_512730(s *noxScript) int {
 	obj := s.PopObject()
 	if obj != nil {
 		obj.Enable(false)
@@ -1302,41 +1227,33 @@ func nox_script_objectOff_512730() int {
 	return 0
 }
 
-func nox_script_objGroupOff_512750() int {
-	s := &noxServer.noxScript
-
+func nox_script_objGroupOff_512750(s *noxScript) int {
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
-	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
+	scriptExecuteFnForObjectGroup(s.s, mapGroup, func(obj *Object) {
 		obj.Enable(false)
 	})
 	return 0
 }
 
-func nox_script_waypointOff_512790() int {
-	s := &noxServer.noxScript
-
-	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
+func nox_script_waypointOff_512790(s *noxScript) int {
+	waypoint := s.s.getWaypointByInd(int(s.PopI32()))
 	if waypoint != nil {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(waypoint), 120*4)) &= 0xFFFFFFFE
 	}
 	return 0
 }
 
-func nox_script_waypointGroupOff_5127B0() int {
-	s := &noxServer.noxScript
-
+func nox_script_waypointGroupOff_5127B0(s *noxScript) int {
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
-	scriptExecuteFnForWaypointGroup(mapGroup, func(wp *Waypoint) {
+	scriptExecuteFnForWaypointGroup(s.s, mapGroup, func(wp *Waypoint) {
 		wp.Enable(false)
 	})
 	return 0
 }
 
-func nox_script_toggleObject_5127F0() int {
-	s := &noxServer.noxScript
-
+func nox_script_toggleObject_5127F0(s *noxScript) int {
 	obj := s.PopObject()
 	if obj != nil {
 		obj.Toggle()
@@ -1344,30 +1261,24 @@ func nox_script_toggleObject_5127F0() int {
 	return 0
 }
 
-func nox_script_toggleWaypoint_512850() int {
-	s := &noxServer.noxScript
-
-	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
+func nox_script_toggleWaypoint_512850(s *noxScript) int {
+	waypoint := s.s.getWaypointByInd(int(s.PopI32()))
 	if waypoint != nil {
 		waypoint.Toggle()
 	}
 	return 0
 }
 
-func nox_script_toggleWaypointGroup_512870() int {
-	s := &noxServer.noxScript
-
+func nox_script_toggleWaypointGroup_512870(s *noxScript) int {
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
-	scriptExecuteFnForWaypointGroup(mapGroup, func(wp *Waypoint) {
+	scriptExecuteFnForWaypointGroup(s.s, mapGroup, func(wp *Waypoint) {
 		wp.Toggle()
 	})
 	return 0
 }
 
-func nox_script_Hunt_515780() int {
-	s := &noxServer.noxScript
-
+func nox_script_Hunt_515780(s *noxScript) int {
 	v1 := s.PopObject()
 	if v1 != nil {
 		v1.AsUnit().Hunt()
@@ -1375,31 +1286,25 @@ func nox_script_Hunt_515780() int {
 	return 0
 }
 
-func nox_script_unlockDoor_512C20() int {
-	s := noxServer
-
-	obj := s.noxScript.PopObject()
+func nox_script_unlockDoor_512C20(s *noxScript) int {
+	obj := s.PopObject()
 	if obj != nil && obj.Class().Has(object.ClassDoor) {
 		*(*uint8)(unsafe.Add(obj.UpdateData, 1)) = 0
-		s.AudioEventObj(sound.SoundUnlock, obj.AsUnit(), 0, 0)
+		s.s.AudioEventObj(sound.SoundUnlock, obj.AsUnit(), 0, 0)
 	}
 	return 0
 }
 
-func nox_script_lockDoor_512C60() int {
-	s := noxServer
-
-	obj := s.noxScript.PopObject()
+func nox_script_lockDoor_512C60(s *noxScript) int {
+	obj := s.PopObject()
 	if obj != nil && obj.Class().Has(object.ClassDoor) {
 		*(*uint8)(unsafe.Add(obj.UpdateData, 1)) = 5
-		s.AudioEventObj(sound.SoundLock, obj.AsUnit(), 0, 0)
+		s.s.AudioEventObj(sound.SoundLock, obj.AsUnit(), 0, 0)
 	}
 	return 0
 }
 
-func nox_script_isOn_512CA0() int {
-	s := &noxServer.noxScript
-
+func nox_script_isOn_512CA0(s *noxScript) int {
 	v1 := s.PopObject()
 	if v1 != nil && v1.Flags().Has(object.FlagEnabled) {
 		s.PushI32(1)
@@ -1409,10 +1314,8 @@ func nox_script_isOn_512CA0() int {
 	return 0
 }
 
-func nox_script_wpIsEnabled_512CE0() int {
-	s := &noxServer.noxScript
-
-	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
+func nox_script_wpIsEnabled_512CE0(s *noxScript) int {
+	waypoint := s.s.getWaypointByInd(int(s.PopI32()))
 	if waypoint != nil && (*(*uint32)(unsafe.Add(unsafe.Pointer(waypoint), 120*4)))&1 != 0 {
 		s.PushI32(1)
 	} else {
@@ -1421,9 +1324,7 @@ func nox_script_wpIsEnabled_512CE0() int {
 	return 0
 }
 
-func nox_script_doorIsLocked_512D20() int {
-	s := &noxServer.noxScript
-
+func nox_script_doorIsLocked_512D20(s *noxScript) int {
 	obj := s.PopObject()
 	if obj != nil && obj.Class().Has(object.ClassDoor) && (*(*uint8)(unsafe.Add(obj.UpdateData, 1))) != 0 {
 		s.PushI32(1)
@@ -1433,19 +1334,16 @@ func nox_script_doorIsLocked_512D20() int {
 	return 0
 }
 
-func nox_script_JournalEntry_5154E0() int {
-	s := noxServer
-	sc := &s.noxScript
-
-	v0 := sc.PopI32()
-	v1 := sc.PopString()
-	v2 := sc.PopI32()
+func nox_script_JournalEntry_5154E0(s *noxScript) int {
+	v0 := s.PopI32()
+	v1 := s.PopString()
+	v2 := s.PopI32()
 	if v2 != 0 {
-		v3 := sc.scriptToObject(int(v2))
+		v3 := s.scriptToObject(int(v2))
 		if v3 != nil {
 			C.nox_xxx_comJournalEntryAdd_427500(v3.CObj(), CString(v1), C.short(v0))
 			if (v0 & 0xB) != 0 {
-				s.AudioEventObj(sound.SoundJournalEntryAdd, v3.AsUnit(), 0, 0)
+				s.s.AudioEventObj(sound.SoundJournalEntryAdd, v3.AsUnit(), 0, 0)
 			}
 		}
 	} else {
@@ -1454,18 +1352,14 @@ func nox_script_JournalEntry_5154E0() int {
 	return 0
 }
 
-func nox_script_intToString_512EA0() int {
-	s := &noxServer.noxScript
-
+func nox_script_intToString_512EA0(s *noxScript) int {
 	v0 := s.PopI32()
 	str := strconv.FormatInt(int64(v0), 10)
 	s.PushString(str)
 	return 0
 }
 
-func nox_script_floatToString_512ED0() int {
-	s := &noxServer.noxScript
-
+func nox_script_floatToString_512ED0(s *noxScript) int {
 	v0 := s.PopF32()
 	str := strconv.FormatFloat(float64(v0), 'f', -1, 32)
 	s.PushString(str)
@@ -1485,9 +1379,7 @@ func create_sub_512FE0(a20 *Object, dmg, unknown int) func(*Object) {
 
 // Before: [Target Object] [Damage Source] [Damage] [Damage Type]
 // Cause damage from src to target
-func nox_script_damage_512F80() int {
-	s := &noxServer.noxScript
-
+func nox_script_damage_512F80(s *noxScript) int {
 	param1 := s.PopI32()
 	param0 := s.PopI32()
 	src := s.PopObject()
@@ -1500,22 +1392,18 @@ func nox_script_damage_512F80() int {
 
 // Before: [Target Group] [Damage Source] [Damage] [Damage Type]
 // Cause damage from src to all objects in group
-func nox_script_groupDamage_513010() int {
-	s := &noxServer.noxScript
-
+func nox_script_groupDamage_513010(s *noxScript) int {
 	param1 := s.PopI32()
 	param0 := s.PopI32()
 	src := s.PopObject()
 	destGroupInd := s.PopI32()
 	mapGroup := getMapGroupByInd(int(destGroupInd))
-	scriptExecuteFnForObjectGroup(mapGroup, create_sub_512FE0(src, int(param0), int(param1)))
+	scriptExecuteFnForObjectGroup(s.s, mapGroup, create_sub_512FE0(src, int(param0), int(param1)))
 	return 0
 }
 
 // TODO: Rename to Roam
-func nox_script_followNearestWaypoint_512910() int {
-	s := &noxServer.noxScript
-
+func nox_script_followNearestWaypoint_512910(s *noxScript) int {
 	obj := s.PopObject()
 	if obj != nil {
 		obj.AsUnit().Wander()
@@ -1523,20 +1411,16 @@ func nox_script_followNearestWaypoint_512910() int {
 	return 0
 }
 
-func nox_script_groupRoam_512990() int {
-	s := &noxServer.noxScript
-
+func nox_script_groupRoam_512990(s *noxScript) int {
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
-	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
+	scriptExecuteFnForObjectGroup(s.s, mapGroup, func(obj *Object) {
 		obj.AsUnit().Wander()
 	})
 	return 0
 }
 
-func nox_script_gotoHome_512A00() int {
-	s := &noxServer.noxScript
-
+func nox_script_gotoHome_512A00(s *noxScript) int {
 	obj := s.PopObject()
 	if obj != nil {
 		obj.AsUnit().Return()
@@ -1544,22 +1428,17 @@ func nox_script_gotoHome_512A00() int {
 	return 0
 }
 
-func nox_script_audioEven_512AC0() int {
-	s := noxServer
-	sc := &s.noxScript
-
-	waypoint := s.getWaypointByInd(int(sc.PopI32()))
-	soundName := sc.PopString()
+func nox_script_audioEven_512AC0(s *noxScript) int {
+	waypoint := s.s.getWaypointByInd(int(s.PopI32()))
+	soundName := s.PopString()
 	if waypoint != nil {
 		soundId := sound.ByName(soundName)
-		s.AudioEventPos(soundId, waypoint.Pos(), 0, 0)
+		s.s.AudioEventPos(soundId, waypoint.Pos(), 0, 0)
 	}
 	return 0
 }
 
-func nox_script_sayChat_512B90() int {
-	s := &noxServer.noxScript
-
+func nox_script_sayChat_512B90(s *noxScript) int {
 	messageId := s.PopString()
 	obj := s.PopObject()
 	if obj != nil {
@@ -1572,39 +1451,35 @@ func nox_script_sayChat_512B90() int {
 	return 0
 }
 
-func nox_script_Wander_513070() int {
-	s := &noxServer.noxScript
-
+func nox_script_Wander_513070(s *noxScript) int {
 	v4 := s.PopF32()
 	v0 := s.PopI32()
 	obj := s.PopObject()
 	if obj != nil {
-		s.PushI32(int32(create_sub_5130E0(v4, v0)(obj)))
+		s.PushI32(int32(create_sub_5130E0(v4, v0)(s.s, obj)))
 	} else {
 		s.PushI32(0)
 	}
 	return 0
 }
 
-func nox_script_WanderGroup_513160() int {
-	s := &noxServer.noxScript
-
+func nox_script_WanderGroup_513160(s *noxScript) int {
 	v4 := s.PopF32()
 	v0 := s.PopI32()
 	v1 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v1))
 	fn := create_sub_5130E0(v4, v0)
-	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) { fn(obj) })
+	scriptExecuteFnForObjectGroup(s.s, mapGroup, func(obj *Object) { fn(s.s, obj) })
 	return 0
 }
 
-func create_sub_5130E0(v5_0 float32, v5_1 int32) func(*Object) int {
-	return func(obj *Object) int {
-		v2 := noxServer.newObjectByTypeID("Mover")
+func create_sub_5130E0(v5_0 float32, v5_1 int32) func(*Server, *Object) int {
+	return func(s *Server, obj *Object) int {
+		v2 := s.newObjectByTypeID("Mover")
 		if v2 == nil {
 			return 0
 		}
-		noxServer.createObjectAt(v2, nil, obj.Pos())
+		s.createObjectAt(v2, nil, obj.Pos())
 		v5 := v2.updateDataMover()
 
 		v5.field_7 = obj.CObj()
@@ -1614,14 +1489,12 @@ func create_sub_5130E0(v5_0 float32, v5_1 int32) func(*Object) int {
 		v2.VelVec = types.Pointf{0, 0}
 
 		v2.Enable(true)
-		noxServer.Objs.AddToUpdatable(v2.SObj())
+		s.Objs.AddToUpdatable(v2.SObj())
 		return v2.ScriptID
 	}
 }
 
-func nox_script_awardSpell_5131C0() int {
-	s := &noxServer.noxScript
-
+func nox_script_awardSpell_5131C0(s *noxScript) int {
 	spellName := s.PopString()
 	v4 := s.PopObject()
 
@@ -1639,9 +1512,7 @@ func nox_script_awardSpell_5131C0() int {
 	return 0
 }
 
-func nox_script_awardSpellGroup_513230() int {
-	s := &noxServer.noxScript
-
+func nox_script_awardSpellGroup_513230(s *noxScript) int {
 	spellName := s.PopString()
 	v1 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v1))
@@ -1649,7 +1520,7 @@ func nox_script_awardSpellGroup_513230() int {
 	if spl == spell.SPELL_INVALID {
 		return 0
 	}
-	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
+	scriptExecuteFnForObjectGroup(s.s, mapGroup, func(obj *Object) {
 		var v2 int
 		if noxflags.HasGame(noxflags.GameModeCoop) && obj.Class().Has(object.ClassPlayer) && asPlayerS(obj.SObj().UpdateDataPlayer().Player).spell_lvl[spl] == 0 {
 			v2 = 1
@@ -1661,9 +1532,7 @@ func nox_script_awardSpellGroup_513230() int {
 	return 0
 }
 
-func nox_script_enchant_5132E0() int {
-	s := &noxServer.noxScript
-
+func nox_script_enchant_5132E0(s *noxScript) int {
 	v5 := s.PopF32()
 	v8 := s.PopString()
 	v3 := s.PopObject()
@@ -1677,9 +1546,7 @@ func nox_script_enchant_5132E0() int {
 	return 0
 }
 
-func nox_script_groupEnchant_5133B0() int {
-	s := &noxServer.noxScript
-
+func nox_script_groupEnchant_5133B0(s *noxScript) int {
 	durationSecs := s.PopF32()
 	enchantName := s.PopString()
 	groupInd := s.PopI32()
@@ -1688,17 +1555,15 @@ func nox_script_groupEnchant_5133B0() int {
 	mapGroup := getMapGroupByInd(int(groupInd))
 	if ok {
 		dur := int(float32(s.s.TickRate()) * durationSecs)
-		scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
+		scriptExecuteFnForObjectGroup(s.s, mapGroup, func(obj *Object) {
 			obj.ApplyEnchant(id, dur, 5)
 		})
 	}
 	return 0
 }
 
-func nox_script_getHost_513460() int {
-	s := &noxServer.noxScript
-
-	// Note: original C code got the player from `noxServer.getPlayerByInd(MaxPlayers - 1)`
+func nox_script_getHost_513460(s *noxScript) int {
+	// Note: original C code got the player from `s.s.getPlayerByInd(MaxPlayers - 1)`
 	v0 := HostPlayerUnit()
 	if v0 != nil {
 		s.PushI32(int32(v0.ScriptID))
@@ -1708,10 +1573,8 @@ func nox_script_getHost_513460() int {
 	return 0
 }
 
-func nox_script_getWaypointX_513570() int {
-	s := &noxServer.noxScript
-
-	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
+func nox_script_getWaypointX_513570(s *noxScript) int {
+	waypoint := s.s.getWaypointByInd(int(s.PopI32()))
 	if waypoint != nil {
 		s.PushF32(waypoint.Pos().X)
 	} else {
@@ -1720,10 +1583,8 @@ func nox_script_getWaypointX_513570() int {
 	return 0
 }
 
-func nox_script_getWaypointY_5135F0() int {
-	s := &noxServer.noxScript
-
-	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
+func nox_script_getWaypointY_5135F0(s *noxScript) int {
+	waypoint := s.s.getWaypointByInd(int(s.PopI32()))
 	if waypoint != nil {
 		s.PushF32(waypoint.Pos().Y)
 	} else {
@@ -1732,9 +1593,7 @@ func nox_script_getWaypointY_5135F0() int {
 	return 0
 }
 
-func nox_script_getUnitLook_513670() int {
-	s := &noxServer.noxScript
-
+func nox_script_getUnitLook_513670(s *noxScript) int {
 	v1 := s.PopObject()
 	if v1 != nil {
 		s.PushI32(int32(v1.Dir1()))
@@ -1744,9 +1603,7 @@ func nox_script_getUnitLook_513670() int {
 	return 0
 }
 
-func nox_script_unitHeight_513630() int {
-	s := &noxServer.noxScript
-
+func nox_script_unitHeight_513630(s *noxScript) int {
 	v1 := s.PopObject()
 	if v1 != nil {
 		s.PushF32(v1.Z())
@@ -1756,9 +1613,7 @@ func nox_script_unitHeight_513630() int {
 	return 0
 }
 
-func nox_script_moveObject_5136A0() int {
-	s := &noxServer.noxScript
-
+func nox_script_moveObject_5136A0(s *noxScript) int {
 	dy := s.PopF32()
 	dx := s.PopF32()
 	obj := s.PopObject()
@@ -1769,12 +1624,10 @@ func nox_script_moveObject_5136A0() int {
 	return 0
 }
 
-func nox_script_moveWaypoint_513700() int {
-	s := &noxServer.noxScript
-
+func nox_script_moveWaypoint_513700(s *noxScript) int {
 	dy := s.PopF32()
 	dx := s.PopF32()
-	waypoint := noxServer.getWaypointByInd(int(s.PopI32()))
+	waypoint := s.s.getWaypointByInd(int(s.PopI32()))
 	if waypoint != nil {
 		pos := types.Pointf{X: float32(s.builtinGetF40()) + dx, Y: float32(s.builtinGetF44()) + dy}
 		waypoint.SetPos(pos)
@@ -1782,66 +1635,56 @@ func nox_script_moveWaypoint_513700() int {
 	return 0
 }
 
-func nox_script_openWallGroup_512010() int {
-	s := &noxServer.noxScript
-
+func nox_script_openWallGroup_512010(s *noxScript) int {
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
 
-	scriptExecuteFnForWallGroup(mapGroup, func(wall *Wall) {
+	scriptExecuteFnForWallGroup(s.s, mapGroup, func(wall *Wall) {
 		wall.Enable(false)
 	})
 	return 0
 }
 
-func nox_script_closeWallGroup_512100() int {
-	s := &noxServer.noxScript
-
+func nox_script_closeWallGroup_512100(s *noxScript) int {
 	groupInd := s.PopI32()
 	mapGroup := getMapGroupByInd(int(groupInd))
 
-	scriptExecuteFnForWallGroup(mapGroup, func(wall *Wall) {
+	scriptExecuteFnForWallGroup(s.s, mapGroup, func(wall *Wall) {
 		wall.Enable(true)
 	})
 	return 0
 }
 
-func nox_script_waypointGroupOn_5126F0() int {
-	s := &noxServer.noxScript
-
+func nox_script_waypointGroupOn_5126F0(s *noxScript) int {
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
-	scriptExecuteFnForWaypointGroup(mapGroup, func(wp *Waypoint) {
+	scriptExecuteFnForWaypointGroup(s.s, mapGroup, func(wp *Waypoint) {
 		wp.Enable(true)
 	})
 	return 0
 }
 
-func nox_script_toggleObjectGroup_512810() int {
-	s := &noxServer.noxScript
-
+func nox_script_toggleObjectGroup_512810(s *noxScript) int {
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
-	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
+	scriptExecuteFnForObjectGroup(s.s, mapGroup, func(obj *Object) {
 		obj.Toggle()
 	})
 	return 0
 }
 
-func nox_script_create_512F10() int {
-	s := &noxServer.noxScript
-
+func nox_script_create_512F10(s *noxScript) int {
 	waypointInd := s.PopI32()
-	wp := noxServer.getWaypointByInd(int(waypointInd))
+	wp := s.s.getWaypointByInd(int(waypointInd))
 	objectTypeId := s.PopString()
 
 	if wp != nil {
-		obj := noxServer.newObjectByTypeID(objectTypeId)
+		obj := s.s.newObjectByTypeID(objectTypeId)
 		if obj == nil {
 			s.PushI32(0)
 			return 0
 		}
-		noxServer.createObjectAt(obj, nil, wp.Pos())
+		s.s.createObjectAt(obj, nil, wp.Pos())
 		s.PushI32(int32(obj.ScriptID))
 	} else {
 		scriptLog.Printf("noxscript: cannot find waypoint from idx: %v", waypointInd)
@@ -1850,9 +1693,7 @@ func nox_script_create_512F10() int {
 	return 0
 }
 
-func nox_script_raise_513750() int {
-	s := &noxServer.noxScript
-
+func nox_script_raise_513750(s *noxScript) int {
 	zValue := s.PopF32()
 	obj := s.PopObject()
 	if obj != nil {
@@ -1861,9 +1702,7 @@ func nox_script_raise_513750() int {
 	return 0
 }
 
-func nox_script_faceAngle_513780() int {
-	s := &noxServer.noxScript
-
+func nox_script_faceAngle_513780(s *noxScript) int {
 	dir := s.PopI32()
 	obj := s.PopObject()
 	if obj != nil {
@@ -1873,9 +1712,7 @@ func nox_script_faceAngle_513780() int {
 	return 0
 }
 
-func nox_script_pushObject_5137D0() int {
-	s := &noxServer.noxScript
-
+func nox_script_pushObject_5137D0(s *noxScript) int {
 	dy := s.PopF32()
 	dx := s.PopF32()
 	obj := s.PopObject()
@@ -1888,9 +1725,7 @@ func nox_script_pushObject_5137D0() int {
 	return 0
 }
 
-func nox_script_pushObjectTo_513820() int {
-	s := &noxServer.noxScript
-
+func nox_script_pushObjectTo_513820(s *noxScript) int {
 	yPos := s.PopF32()
 	xPos := s.PopF32()
 	force := s.PopF32()
@@ -1904,9 +1739,7 @@ func nox_script_pushObjectTo_513820() int {
 	return 0
 }
 
-func nox_script_getFirstInvItem_5138B0() int {
-	s := &noxServer.noxScript
-
+func nox_script_getFirstInvItem_5138B0(s *noxScript) int {
 	v2 := s.PopObject()
 	if v2 != nil {
 		v3 := v2.FirstItem()
@@ -1919,9 +1752,7 @@ func nox_script_getFirstInvItem_5138B0() int {
 	return 0
 }
 
-func nox_script_getNextInvItem_5138E0() int {
-	s := &noxServer.noxScript
-
+func nox_script_getNextInvItem_5138E0(s *noxScript) int {
 	v2 := s.PopObject()
 	if v2 != nil {
 		v3 := v2.NextItem()
@@ -1942,9 +1773,7 @@ func zombieSetStayDead(obj *Object) {
 	}
 }
 
-func nox_script_ZombieStayDown_516C70() int {
-	s := &noxServer.noxScript
-
+func nox_script_ZombieStayDown_516C70(s *noxScript) int {
 	v1 := s.PopObject()
 	if v1 != nil {
 		zombieSetStayDead(v1)
@@ -1952,19 +1781,15 @@ func nox_script_ZombieStayDown_516C70() int {
 	return 0
 }
 
-func nox_script_ZombieStayDownGroup_516CB0() int {
-	s := &noxServer.noxScript
-
+func nox_script_ZombieStayDownGroup_516CB0(s *noxScript) int {
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
-	scriptExecuteFnForObjectGroup(mapGroup, zombieSetStayDead)
+	scriptExecuteFnForObjectGroup(s.s, mapGroup, zombieSetStayDead)
 
 	return 0
 }
 
-func nox_script_hasItem_513910() int {
-	s := &noxServer.noxScript
-
+func nox_script_hasItem_513910(s *noxScript) int {
 	item := s.PopObject()
 	holder := s.PopObject()
 	if holder != nil && item != nil && holder.HasItem(item) {
@@ -1975,9 +1800,7 @@ func nox_script_hasItem_513910() int {
 	return 0
 }
 
-func nox_script_getInvHolder_513960() int {
-	s := &noxServer.noxScript
-
+func nox_script_getInvHolder_513960(s *noxScript) int {
 	obj := s.PopObject()
 	if obj == nil {
 		s.PushI32(0)
@@ -1992,12 +1815,10 @@ func nox_script_getInvHolder_513960() int {
 	return 0
 }
 
-func nox_script_pickup_5139A0() int {
-	s := &noxServer.noxScript
-
-	objGold := noxServer.ObjectTypeID("Gold")
-	objQuestGoldPile := noxServer.ObjectTypeID("QuestGoldPile")
-	objQuestGoldChest := noxServer.ObjectTypeID("QuestGoldChest")
+func nox_script_pickup_5139A0(s *noxScript) int {
+	objGold := s.s.ObjectTypeID("Gold")
+	objQuestGoldPile := s.s.ObjectTypeID("QuestGoldPile")
+	objQuestGoldChest := s.s.ObjectTypeID("QuestGoldChest")
 
 	item := s.PopObject()
 	picker := s.PopObject()
@@ -2006,8 +1827,8 @@ func nox_script_pickup_5139A0() int {
 		return 0
 	}
 	if noxflags.HasGame(noxflags.GameModeCoop) && picker.Class().Has(object.ClassPlayer) &&
-		*memmap.PtrUint32(0x5D4594, 2386844) != noxServer.Frame() {
-		*memmap.PtrUint32(0x5D4594, 2386844) = noxServer.Frame()
+		*memmap.PtrUint32(0x5D4594, 2386844) != s.s.Frame() {
+		*memmap.PtrUint32(0x5D4594, 2386844) = s.s.Frame()
 		C.dword_5d4594_2386848 = 0
 		C.dword_5d4594_2386852 = 0
 	}
@@ -2029,9 +1850,7 @@ func nox_script_pickup_5139A0() int {
 	return 0
 }
 
-func nox_script_Idle_515800() int {
-	s := &noxServer.noxScript
-
+func nox_script_Idle_515800(s *noxScript) int {
 	unit := s.PopObject()
 	if unit != nil {
 		unit.AsUnit().Idle()
@@ -2039,20 +1858,16 @@ func nox_script_Idle_515800() int {
 	return 0
 }
 
-func nox_script_GroupIdle_515850() int {
-	s := &noxServer.noxScript
-
+func nox_script_GroupIdle_515850(s *noxScript) int {
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
-	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
+	scriptExecuteFnForObjectGroup(s.s, mapGroup, func(obj *Object) {
 		obj.AsUnit().Idle()
 	})
 	return 0
 }
 
-func nox_script_Follow_515880() int {
-	s := &noxServer.noxScript
-
+func nox_script_Follow_515880(s *noxScript) int {
 	v3 := s.PopObject()
 	v2 := s.PopObject()
 	if v2 != nil && v3 != nil {
@@ -2061,23 +1876,19 @@ func nox_script_Follow_515880() int {
 	return 0
 }
 
-func nox_script_FollowGroup_515910() int {
-	s := &noxServer.noxScript
-
+func nox_script_FollowGroup_515910(s *noxScript) int {
 	v2 := s.PopObject()
 	v1 := s.PopI32()
 	if v2 != nil {
 		mapGroup := getMapGroupByInd(int(v1))
-		scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
+		scriptExecuteFnForObjectGroup(s.s, mapGroup, func(obj *Object) {
 			obj.AsUnit().Follow(v2)
 		})
 	}
 	return 0
 }
 
-func nox_script_RaiseZombie_516CE0() int {
-	s := &noxServer.noxScript
-
+func nox_script_RaiseZombie_516CE0(s *noxScript) int {
 	v1 := s.PopObject()
 	if v1 != nil {
 		C.sub_516D00(v1.CObj())
@@ -2085,20 +1896,16 @@ func nox_script_RaiseZombie_516CE0() int {
 	return 0
 }
 
-func nox_script_RaiseZombieGroup_516D40() int {
-	s := &noxServer.noxScript
-
+func nox_script_RaiseZombieGroup_516D40(s *noxScript) int {
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
-	scriptExecuteFnForObjectGroup(mapGroup, func(obj *Object) {
+	scriptExecuteFnForObjectGroup(s.s, mapGroup, func(obj *Object) {
 		C.sub_516D00(obj.CObj())
 	})
 	return 0
 }
 
-func nox_script_drop_513C10() int {
-	s := &noxServer.noxScript
-
+func nox_script_drop_513C10(s *noxScript) int {
 	item := s.PopObject()
 	holder := s.PopObject()
 	if holder != nil && item != nil {
@@ -2110,9 +1917,7 @@ func nox_script_drop_513C10() int {
 	return 0
 }
 
-func nox_script_TestBuffs_513C70() int {
-	s := &noxServer.noxScript
-
+func nox_script_TestBuffs_513C70(s *noxScript) int {
 	enchantName := s.PopString()
 	obj := s.PopObject()
 	enchantId, ok := server.ParseEnchant(enchantName)
@@ -2125,9 +1930,7 @@ func nox_script_TestBuffs_513C70() int {
 	return 0
 }
 
-func nox_script_HasClass_516210() int {
-	s := &noxServer.noxScript
-
+func nox_script_HasClass_516210(s *noxScript) int {
 	v5 := s.PopString()
 	v7 := s.PopObject()
 	if v7 != nil {
@@ -2142,9 +1945,7 @@ func nox_script_HasClass_516210() int {
 	return 0
 }
 
-func nox_script_cancelBuff_513D00() int {
-	s := &noxServer.noxScript
-
+func nox_script_cancelBuff_513D00(s *noxScript) int {
 	enchantName := s.PopString()
 	obj := s.PopObject()
 	enchantId, ok := server.ParseEnchant(enchantName)
@@ -2154,9 +1955,7 @@ func nox_script_cancelBuff_513D00() int {
 	return 0
 }
 
-func nox_script_getCurrentHP_513D70() int {
-	s := &noxServer.noxScript
-
+func nox_script_getCurrentHP_513D70(s *noxScript) int {
 	v1 := s.PopObject()
 	if v1 != nil {
 		cur, _ := v1.Health()
@@ -2167,9 +1966,7 @@ func nox_script_getCurrentHP_513D70() int {
 	return 0
 }
 
-func nox_script_getMaxHP_513DB0() int {
-	s := &noxServer.noxScript
-
+func nox_script_getMaxHP_513DB0(s *noxScript) int {
 	v1 := s.PopObject()
 	if v1 != nil {
 		_, max := v1.Health()
@@ -2180,9 +1977,7 @@ func nox_script_getMaxHP_513DB0() int {
 	return 0
 }
 
-func nox_script_restoreHP_513DF0() int {
-	s := &noxServer.noxScript
-
+func nox_script_restoreHP_513DF0(s *noxScript) int {
 	delta := s.PopI32()
 	obj := s.PopObject()
 	if obj != nil && delta > 0 {
@@ -2191,9 +1986,7 @@ func nox_script_restoreHP_513DF0() int {
 	return 0
 }
 
-func nox_script_getDistance_513E20() int {
-	s := &noxServer.noxScript
-
+func nox_script_getDistance_513E20(s *noxScript) int {
 	y2 := s.PopF32()
 	x2 := s.PopF32()
 	y1 := s.PopF32()
@@ -2204,9 +1997,7 @@ func nox_script_getDistance_513E20() int {
 	return 0
 }
 
-func nox_script_FaceObject_514050() int {
-	s := &noxServer.noxScript
-
+func nox_script_FaceObject_514050(s *noxScript) int {
 	tgt := s.PopObject()
 	obj := s.PopObject()
 
@@ -2218,9 +2009,7 @@ func nox_script_FaceObject_514050() int {
 	return 0
 }
 
-func nox_script_Walk_5140B0() int {
-	s := &noxServer.noxScript
-
+func nox_script_Walk_5140B0(s *noxScript) int {
 	dy := s.PopF32()
 	dx := s.PopF32()
 	obj := s.PopObject()
@@ -2232,9 +2021,7 @@ func nox_script_Walk_5140B0() int {
 	return 0
 }
 
-func nox_script_GroupWalk_514170() int {
-	s := &noxServer.noxScript
-
+func nox_script_GroupWalk_514170(s *noxScript) int {
 	dy := s.PopF32()
 	dx := s.PopF32()
 	groupInd := s.PopI32()
@@ -2246,7 +2033,7 @@ func nox_script_GroupWalk_514170() int {
 	if mapGroup != nil {
 		// Unlike scriptExecuteFnForObjectGroup, it does not nest into child groups.
 		for item := mapGroup.FirstItem(); item != nil; item = item.Next() {
-			obj := noxServer.GetObjectByInd(item.Ind())
+			obj := s.s.GetObjectByInd(item.Ind())
 			if obj != nil {
 				obj.AsUnit().WalkTo(dstPoint)
 			}
@@ -2255,9 +2042,7 @@ func nox_script_GroupWalk_514170() int {
 	return 0
 }
 
-func nox_script_SetOwner_514490() int {
-	s := &noxServer.noxScript
-
+func nox_script_SetOwner_514490(s *noxScript) int {
 	obj := s.PopObject()
 	owner := s.PopObject()
 
@@ -2265,16 +2050,14 @@ func nox_script_SetOwner_514490() int {
 	return 0
 }
 
-func nox_script_SetOwnerGroup_5144C0() int {
-	s := &noxServer.noxScript
-
+func nox_script_SetOwnerGroup_5144C0(s *noxScript) int {
 	v0 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v0))
 	v2 := s.PopObject()
 
 	if mapGroup != nil {
 		for item := mapGroup.FirstItem(); item != nil; item = item.Next() {
-			obj := noxServer.GetObjectByInd(item.Ind())
+			obj := s.s.GetObjectByInd(item.Ind())
 			if obj != nil {
 				C.nox_xxx_unitSetOwner_4EC290(v2.CObj(), obj.CObj())
 			}
@@ -2283,16 +2066,14 @@ func nox_script_SetOwnerGroup_5144C0() int {
 	return 0
 }
 
-func nox_script_SetOwners_514510() int {
-	s := &noxServer.noxScript
-
+func nox_script_SetOwners_514510(s *noxScript) int {
 	v3 := s.PopObject()
 	v1 := s.PopI32()
 	mapGroup := getMapGroupByInd(int(v1))
 
 	if mapGroup != nil {
 		for item := mapGroup.FirstItem(); item != nil; item = item.Next() {
-			obj := noxServer.GetObjectByInd(item.Ind())
+			obj := s.s.GetObjectByInd(item.Ind())
 			if obj != nil {
 				C.nox_xxx_unitSetOwner_4EC290(obj.CObj(), v3.CObj())
 			}
@@ -2301,9 +2082,7 @@ func nox_script_SetOwners_514510() int {
 	return 0
 }
 
-func nox_script_SetOwnersGroup_514570() int {
-	s := &noxServer.noxScript
-
+func nox_script_SetOwnersGroup_514570(s *noxScript) int {
 	v0 := s.PopI32()
 	v1 := s.PopI32()
 	v2 := getMapGroupByInd(int(v1))
@@ -2311,10 +2090,10 @@ func nox_script_SetOwnersGroup_514570() int {
 
 	if v2 != nil && v3 != nil {
 		for i := v2.FirstItem(); i != nil; i = i.Next() {
-			v6 := noxServer.GetObjectByInd(i.Ind())
+			v6 := s.s.GetObjectByInd(i.Ind())
 			if v6 != nil {
 				for j := v3.FirstItem(); j != nil; j = j.Next() {
-					v8 := noxServer.GetObjectByInd(j.Ind())
+					v8 := s.s.GetObjectByInd(j.Ind())
 					if v8 != nil {
 						C.nox_xxx_unitSetOwner_4EC290(v6.CObj(), v8.CObj())
 					}
@@ -2325,9 +2104,7 @@ func nox_script_SetOwnersGroup_514570() int {
 	return 0
 }
 
-func nox_script_IsOwnedBy_5145F0() int {
-	s := &noxServer.noxScript
-
+func nox_script_IsOwnedBy_5145F0(s *noxScript) int {
 	owner := s.PopObject()
 	obj := s.PopObject()
 	s.PushBool(obj.HasOwner(owner))
@@ -2335,15 +2112,13 @@ func nox_script_IsOwnedBy_5145F0() int {
 }
 
 // From (object, object group), push 1 if all object group is parent of input obj, otherwise push 0
-func nox_script_IsOwnedByGroup_514630() int {
-	s := &noxServer.noxScript
-
+func nox_script_IsOwnedByGroup_514630(s *noxScript) int {
 	groupInd := s.PopI32()
 	obj := s.PopObject()
 	mapGroup := getMapGroupByInd(int(groupInd))
 	if mapGroup != nil {
 		for it := mapGroup.FirstItem(); it != nil; it = it.Next() {
-			item := noxServer.GetObjectByInd(it.Ind())
+			item := s.s.GetObjectByInd(it.Ind())
 			if !obj.HasOwner(item) {
 				s.PushI32(0)
 				return 0
@@ -2355,15 +2130,13 @@ func nox_script_IsOwnedByGroup_514630() int {
 }
 
 // From (object, object group), push 1 if obj is parent of all object group, otherwise push 0
-func nox_script_IsOwnedByAny_5146B0() int {
-	s := &noxServer.noxScript
-
+func nox_script_IsOwnedByAny_5146B0(s *noxScript) int {
 	groupInd := s.PopI32()
 	obj := s.PopObject()
 	mapGroup := getMapGroupByInd(int(groupInd))
 	if mapGroup != nil {
 		for it := mapGroup.FirstItem(); it != nil; it = it.Next() {
-			item := noxServer.GetObjectByInd(it.Ind())
+			item := s.s.GetObjectByInd(it.Ind())
 			if !item.HasOwner(obj) {
 				s.PushI32(0)
 				return 0
@@ -2375,9 +2148,7 @@ func nox_script_IsOwnedByAny_5146B0() int {
 }
 
 // From (object group A, object group B), push 1 if all in A is owned by all in B, otherwise push 0
-func nox_script_IsOwnedByAnyGroup_514730() int {
-	s := &noxServer.noxScript
-
+func nox_script_IsOwnedByAnyGroup_514730(s *noxScript) int {
 	groupIndB := s.PopI32()
 	groupIndA := s.PopI32()
 	groupB := getMapGroupByInd(int(groupIndB))
@@ -2387,10 +2158,10 @@ func nox_script_IsOwnedByAnyGroup_514730() int {
 		return 0
 	}
 	for iterB := groupB.FirstItem(); iterB != nil; iterB = iterB.Next() {
-		itemB := noxServer.GetObjectByInd(iterB.Ind())
+		itemB := s.s.GetObjectByInd(iterB.Ind())
 		if itemB != nil {
 			for iterA := groupA.FirstItem(); iterA != nil; iterA = iterA.Next() {
-				itemA := noxServer.GetObjectByInd(iterA.Ind())
+				itemA := s.s.GetObjectByInd(iterA.Ind())
 				if itemA != nil {
 					if !itemA.HasOwner(itemB) {
 						s.PushI32(0)
@@ -2404,9 +2175,7 @@ func nox_script_IsOwnedByAnyGroup_514730() int {
 	return 0
 }
 
-func nox_script_ClearOwner_5147E0() int {
-	s := &noxServer.noxScript
-
+func nox_script_ClearOwner_5147E0(s *noxScript) int {
 	v1 := s.PopObject()
 	v1.SetOwner(nil)
 	return 0
@@ -2421,22 +2190,18 @@ func chatTimerFrames(mgr *strman.StringManager, msgId string, obj *Object, durat
 	}
 }
 
-func nox_script_ChatTimerSeconds_514A80() int {
-	s := &noxServer.noxScript
-
+func nox_script_ChatTimerSeconds_514A80(s *noxScript) int {
 	durationSecs := s.PopU32()
 	msgId := s.PopString()
 	obj := s.PopObject()
 	if obj != nil {
-		durationFrames := uint16(durationSecs * noxServer.TickRate())
+		durationFrames := uint16(durationSecs * s.s.TickRate())
 		chatTimerFrames(s.s.Strings(), msgId, obj, durationFrames)
 	}
 	return 0
 }
 
-func nox_script_ChatTimerFrames_514B10() int {
-	s := &noxServer.noxScript
-
+func nox_script_ChatTimerFrames_514B10(s *noxScript) int {
 	durationFrames := s.PopU32()
 	msgId := s.PopString()
 	obj := s.PopObject()
@@ -2446,9 +2211,7 @@ func nox_script_ChatTimerFrames_514B10() int {
 	return 0
 }
 
-func nox_script_GetElevatorStat_5154A0() int {
-	s := &noxServer.noxScript
-
+func nox_script_GetElevatorStat_5154A0(s *noxScript) int {
 	v2 := s.PopObject()
 	if v2 != nil {
 		if v2.Class().Has(object.ClassElevator) {
