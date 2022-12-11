@@ -267,7 +267,7 @@ func (g *mapGroup) eachObjectNS(s *Server, fnc func(obj ns.Obj) bool) {
 	switch g.GroupType() {
 	case mapGroupObjects:
 		for it := g.First(); it != nil; it = it.Next() {
-			if obj := s.GetObjectByInd(it.Ind()); obj != nil {
+			if obj := s.GetObjectByInd(it.Data1()); obj != nil {
 				if !fnc(nsObj{obj}) {
 					return
 				}
@@ -283,7 +283,7 @@ func (g *mapGroup) eachObjectRecursiveNS(s *Server, fnc func(obj ns.Obj) bool) b
 	switch g.GroupType() {
 	case mapGroupObjects:
 		for it := g.First(); it != nil; it = it.Next() {
-			if obj := s.GetObjectByInd(it.Ind()); obj != nil {
+			if obj := s.GetObjectByInd(it.Data1()); obj != nil {
 				if !fnc(nsObj{obj}) {
 					return false
 				}
@@ -291,7 +291,7 @@ func (g *mapGroup) eachObjectRecursiveNS(s *Server, fnc func(obj ns.Obj) bool) b
 		}
 	case mapGroupGroups:
 		for it := g.First(); it != nil; it = it.Next() {
-			if !s.mapGroupByInd(it.Ind()).eachObjectRecursiveNS(s, fnc) {
+			if !s.mapGroupByInd(it.Data1()).eachObjectRecursiveNS(s, fnc) {
 				return false
 			}
 		}
@@ -306,7 +306,7 @@ func (g *mapGroup) eachWaypointRecursive(s *Server, fnc func(wp ns.WaypointObj) 
 	switch g.GroupType() {
 	case mapGroupWaypoints:
 		for it := g.First(); it != nil; it = it.Next() {
-			if wp := s.getWaypointByInd(it.Ind()); wp != nil {
+			if wp := s.getWaypointByInd(it.Data1()); wp != nil {
 				if !fnc(wp) {
 					return false
 				}
@@ -314,7 +314,7 @@ func (g *mapGroup) eachWaypointRecursive(s *Server, fnc func(wp ns.WaypointObj) 
 		}
 	case mapGroupGroups:
 		for it := g.First(); it != nil; it = it.Next() {
-			if !s.mapGroupByInd(it.Ind()).eachWaypointRecursive(s, fnc) {
+			if !s.mapGroupByInd(it.Data1()).eachWaypointRecursive(s, fnc) {
 				return false
 			}
 		}
@@ -329,7 +329,7 @@ func (g *mapGroup) eachWallRecursive(s *Server, fnc func(w ns.WallObj) bool) boo
 	switch g.GroupType() {
 	case mapGroupWalls:
 		for it := g.First(); it != nil; it = it.Next() {
-			if w := s.getWallAtGrid(image.Pt(it.Ind(), it.Ind2())); w != nil {
+			if w := s.getWallAtGrid(image.Pt(it.Data1(), it.Data2())); w != nil {
 				if !fnc(w) {
 					return false
 				}
@@ -337,7 +337,7 @@ func (g *mapGroup) eachWallRecursive(s *Server, fnc func(w ns.WallObj) bool) boo
 		}
 	case mapGroupGroups:
 		for it := g.First(); it != nil; it = it.Next() {
-			if !s.mapGroupByInd(it.Ind()).eachWallRecursive(s, fnc) {
+			if !s.mapGroupByInd(it.Data1()).eachWallRecursive(s, fnc) {
 				return false
 			}
 		}

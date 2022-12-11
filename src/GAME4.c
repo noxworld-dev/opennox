@@ -6342,6 +6342,8 @@ int sub_503EC0(int a1, float* a2) {
 }
 
 //----- (00503F40) --------------------------------------------------------
+void sub_57C390(void* a1);
+void sub_57C370(void* a1);
 char* nox_xxx_free_503F40() {
 	int* v0;        // esi
 	int* v1;        // edi
@@ -6708,6 +6710,7 @@ int sub_504560(int a1, int a2) {
 }
 
 //----- (00504600) --------------------------------------------------------
+void* sub_57C330();
 uint32_t* sub_504600(const char* a1, int a2, char a3) {
 	uint32_t* v3;     // ebx
 	uint32_t* result; // eax
@@ -6752,6 +6755,7 @@ uint32_t* sub_504600(const char* a1, int a2, char a3) {
 }
 
 //----- (005046A0) --------------------------------------------------------
+void* sub_57C360();
 int sub_5046A0(uint32_t* a1, int a2) {
 	char** v2;    // esi
 	uint32_t* v4; // eax
@@ -6794,6 +6798,7 @@ LABEL_12:
 }
 
 //----- (00504720) --------------------------------------------------------
+void nox_server_addNewMapGroup_57C3B0(void* a1);
 int sub_504720(int a1, int a2) {
 	int* v2; // esi
 
@@ -6809,6 +6814,7 @@ int sub_504720(int a1, int a2) {
 }
 
 //----- (00504760) --------------------------------------------------------
+unsigned int sub_57BF80();
 int sub_504760(int a1, int a2) {
 	int result;  // eax
 	char** v3;   // ebp
@@ -7133,6 +7139,8 @@ int nox_server_mapRWMapIntro_505080() {
 // 505080: using guessed type char var_400[1024];
 
 //----- (00505C30) --------------------------------------------------------
+int sub_57C130(uint32_t* a1, int a2);
+int nox_server_mapLoadAddGroup_57C0C0(char* a1, unsigned int a2, unsigned char a3);
 int nox_server_mapRWGroupData_505C30() {
 	char v0;      // bp
 	int i;        // eax

@@ -4276,6 +4276,7 @@ void sub_537770(nox_object_t* a1p) {
 }
 
 //----- (00537850) --------------------------------------------------------
+int sub_57CDB0(int2* a1, float* a2, float2* a3);
 char nox_xxx_projectileTraceHit_537850(int a1, int* a2, float2* a3) {
 	int v3;     // esi
 	int v4;     // ebx

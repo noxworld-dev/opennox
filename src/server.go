@@ -559,9 +559,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	if err := nox_xxx_allocSpellRelatedArrays_4FC9B0(); err != nil {
 		return err
 	}
-	if C.nox_xxx_allocGroupRelatedArrays_57BFB0() == 0 {
-		return errors.New("nox_xxx_allocGroupRelatedArrays_57BFB0 failed")
-	}
+	nox_xxx_allocGroupRelatedArrays_57BFB0()
 	if C.nox_xxx_allocItemRespawnArray_4ECA60() == 0 {
 		return errors.New("nox_xxx_allocItemRespawnArray_4ECA60 failed")
 	}
@@ -639,7 +637,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	s.nox_xxx_mapLoad_40A380()
 	C.sub_4E4DE0()
 	s.debug.Reset()
-	C.sub_57C030()
+	sub_57C030()
 	s.springs.Reset()
 	s.abilities.Free()
 	s.spells.Free()
@@ -1032,7 +1030,7 @@ func nox_xxx_mapSwitchLevel_4D12E0_end() {
 	C.nox_xxx_decayDestroy_5117B0()
 	noxServer.springs.Reset()
 	noxServer.debug.Reset()
-	C.sub_57C000()
+	sub_57C000()
 	C.sub_510E50()
 	C.sub_4D1610()
 	C.sub_4EC5B0()

@@ -2105,6 +2105,7 @@ void sub_548860(int a1, short a2) {
 }
 
 //----- (005488B0) --------------------------------------------------------
+void sub_57C790(float4* a1, float2* a2, float2* a3, float a4);
 void sub_5488B0(int* a1, float* a2, int a3) {
 	int* v3;                     // edi
 	int v4;                      // ebx

@@ -241,9 +241,8 @@ func (s *Server) getObjectGroupByID(id string) *script.ObjectGroup {
 	// may contain map name, so we load it again
 	id = g.ID()
 	var list []script.Object
-	for wp := g.First(); wp != nil; wp = wp.Next() {
-		ind := int(*(*int32)(wp.Payload()))
-		if wl := s.GetObjectByInd(ind); wl != nil {
+	for it := g.First(); it != nil; it = it.Next() {
+		if wl := s.GetObjectByInd(it.Data1()); wl != nil {
 			list = append(list, wl)
 		}
 	}

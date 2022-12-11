@@ -36,16 +36,13 @@
 
 extern uint32_t dword_5d4594_2516352;
 extern uint32_t dword_5d4594_2523888;
-extern uint32_t dword_5d4594_2523904;
 extern uint32_t dword_5d4594_2516380;
 extern uint32_t dword_5d4594_2523804;
 extern uint32_t dword_5d4594_2516372;
 extern uint32_t dword_5d4594_2523764;
 extern uint32_t dword_5d4594_2523760;
 extern uint32_t dword_5d4594_2523776;
-extern void* nox_alloc_groupInfo_2523892;
 extern uint32_t dword_5d4594_2516356;
-extern void* nox_alloc_itemGroupElem_2523896;
 extern uint64_t qword_581450_9544;
 extern uint32_t dword_5d4594_2523780;
 extern uint32_t dword_5d4594_2516344;
@@ -54,8 +51,6 @@ extern nox_waypoint_t* nox_xxx_waypointsHead_2523752;
 extern uint32_t dword_5d4594_2516328;
 extern uint32_t dword_5d4594_2516348;
 extern uint32_t dword_5d4594_2650652;
-
-void* nox_server_mapGroupsHead_2523900 = 0;
 
 //----- (00554040) --------------------------------------------------------
 unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out) {
@@ -2426,44 +2421,6 @@ unsigned int sub_57BF80() {
 	return v0;
 }
 
-//----- (0057BFB0) --------------------------------------------------------
-int nox_xxx_allocGroupRelatedArrays_57BFB0() {
-	dword_5d4594_2523904 = 0;
-	char* result = nox_new_alloc_class("ItemGroupInfo", 96, 512);
-	nox_alloc_groupInfo_2523892 = result;
-	if (!result) {
-		return 0;
-	}
-	nox_alloc_itemGroupElem_2523896 = nox_new_alloc_class("ItemGroupElement", 16, 5000);
-	return nox_alloc_itemGroupElem_2523896 != 0;
-}
-
-//----- (0057C000) --------------------------------------------------------
-void sub_57C000() {
-	dword_5d4594_2523904 = 0;
-	nox_alloc_class_free_all(*(uint32_t**)&nox_alloc_itemGroupElem_2523896);
-	nox_alloc_class_free_all(*(uint32_t**)&nox_alloc_groupInfo_2523892);
-	nox_server_mapGroupsHead_2523900 = 0;
-}
-
-//----- (0057C030) --------------------------------------------------------
-int sub_57C030() {
-	dword_5d4594_2523904 = 0;
-	if (nox_alloc_groupInfo_2523892) {
-		nox_free_alloc_class(*(void**)&nox_alloc_groupInfo_2523892);
-		nox_alloc_groupInfo_2523892 = 0;
-	}
-	if (nox_alloc_itemGroupElem_2523896) {
-		nox_free_alloc_class(*(void**)&nox_alloc_itemGroupElem_2523896);
-		nox_alloc_itemGroupElem_2523896 = 0;
-	}
-	nox_server_mapGroupsHead_2523900 = 0;
-	return 1;
-}
-
-//----- (0057C080) --------------------------------------------------------
-int nox_server_getFirstMapGroup_57C080() { return nox_server_mapGroupsHead_2523900; }
-
 //----- (0057C090) --------------------------------------------------------
 int nox_server_getNextMapGroup_57C090(int a1) {
 	int result; // eax
@@ -2473,118 +2430,6 @@ int nox_server_getNextMapGroup_57C090(int a1) {
 	} else {
 		result = 0;
 	}
-	return result;
-}
-
-//----- (0057C0C0) --------------------------------------------------------
-int nox_server_mapLoadAddGroup_57C0C0(char* a1, int a2, char a3) {
-	int result; // eax
-	int v4;     // esi
-	int v5;     // ecx
-
-	result = (int)sub_57C330();
-	v4 = result;
-	if (result) {
-		*(uint32_t*)(result + 4) = a2;
-		*(uint8_t*)result = a3;
-		strncpy((char*)(result + 8), a1, 0x4Cu);
-		*(uint8_t*)(v4 + 83) = 0;
-		*(uint32_t*)(v4 + 84) = 0;
-		v5 = nox_server_mapGroupsHead_2523900;
-		*(uint32_t*)(v4 + 92) = 0;
-		*(uint32_t*)(v4 + 88) = v5;
-		if (nox_server_mapGroupsHead_2523900) {
-			*(uint32_t*)((uint32_t)nox_server_mapGroupsHead_2523900 + 92) = v4;
-		}
-		nox_server_mapGroupsHead_2523900 = v4;
-		result = 1;
-	}
-	return result;
-}
-
-//----- (0057C130) --------------------------------------------------------
-int sub_57C130(uint32_t* a1, int a2) {
-	int result; // eax
-	char* v3;   // esi
-	char v4;    // bl
-	int v5;     // edx
-	int v6;     // ecx
-
-	if (!a1) {
-		return 0;
-	}
-	v3 = nox_server_mapGroupsHead_2523900;
-	if (!nox_server_mapGroupsHead_2523900) {
-		return 0;
-	}
-	while (*((uint32_t*)v3 + 1) != a2) {
-		v3 = (char*)*((uint32_t*)v3 + 22);
-		if (!v3) {
-			return 0;
-		}
-	}
-	if (!v3) {
-		return 0;
-	}
-	v4 = *v3;
-	result = (int)sub_57C360();
-	if (result) {
-		if (v4 && v4 != 1 && v4 != 3) {
-			if (v4 != 2) {
-				nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_itemGroupElem_2523896, (uint64_t*)result);
-				return 0;
-			}
-			*(uint32_t*)result = *a1;
-			*(uint32_t*)(result + 4) = a1[1];
-		} else {
-			*(uint32_t*)result = *a1;
-		}
-		v5 = *((uint32_t*)v3 + 21);
-		*(uint32_t*)(result + 12) = 0;
-		*(uint32_t*)(result + 8) = v5;
-		v6 = *((uint32_t*)v3 + 21);
-		if (v6) {
-			*(uint32_t*)(v6 + 12) = result;
-		}
-		*((uint32_t*)v3 + 21) = result;
-		result = 1;
-	}
-	return result;
-}
-
-//----- (0057C330) --------------------------------------------------------
-void* sub_57C330() {
-	void* v0;     // esi
-	void* result; // eax
-
-	v0 = 0;
-	if (!nox_common_gameFlags_check_40A5C0(2097153) ||
-		(result = nox_alloc_class_new_obj_zero(*(uint32_t**)&nox_alloc_groupInfo_2523892), (v0 = result) != 0)) {
-		result = v0;
-	}
-	return result;
-}
-
-//----- (0057C360) --------------------------------------------------------
-void* sub_57C360() { return nox_alloc_class_new_obj_zero(*(uint32_t**)&nox_alloc_itemGroupElem_2523896); }
-
-//----- (0057C370) --------------------------------------------------------
-void sub_57C370(uint64_t* a1) { nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_groupInfo_2523892, a1); }
-
-//----- (0057C390) --------------------------------------------------------
-void sub_57C390(uint64_t* a1) { nox_alloc_class_free_obj_first(*(unsigned int**)&nox_alloc_itemGroupElem_2523896, a1); }
-
-//----- (0057C3B0) --------------------------------------------------------
-int nox_server_addNewMapGroup_57C3B0(int a1) {
-	int result; // eax
-
-	result = a1;
-	*(uint32_t*)(a1 + 92) = 0;
-	*(uint32_t*)(a1 + 88) = nox_server_mapGroupsHead_2523900;
-	if (nox_server_mapGroupsHead_2523900) {
-		*(uint32_t*)((uint32_t)nox_server_mapGroupsHead_2523900 + 92) = a1;
-	}
-	nox_server_mapGroupsHead_2523900 = a1;
 	return result;
 }
 
@@ -2686,6 +2531,8 @@ int nox_xxx_mathPointOnTheLine_57C8A0(float4* a1, float2* a2, float2* a3) {
 }
 
 //----- (0057CDB0) --------------------------------------------------------
+int sub_57F2A0(float2* a1, int a2, int a3);
+char sub_57F1D0(float2* a1);
 int sub_57CDB0(int2* a1, float* a2, float2* a3) {
 	int2* v3;   // esi
 	char v4;    // bl
