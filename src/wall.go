@@ -206,8 +206,9 @@ func (w *Wall) Enable(close bool) {
 	}
 }
 
-func (w *Wall) Toggle() {
+func (w *Wall) Toggle() bool {
 	C.nox_xxx_wallToggle_512160(C.int(uintptr(w.C())))
+	return w.IsEnabled()
 }
 
 // Destroy (break) the wall.
