@@ -12,11 +12,11 @@ import (
 
 //export nox_server_scriptGetGroup_57C0A0
 func nox_server_scriptGetGroup_57C0A0(a1 C.int) C.int {
-	return C.int(uintptr(getMapGroupByInd(int(a1)).C()))
+	return C.int(uintptr(noxServer.mapGroupByInd(int(a1)).C()))
 }
 
-func getMapGroupByInd(ind int) *mapGroup {
-	for p := getFirstMapGroup(); p != nil; p = p.Next() {
+func (s *Server) mapGroupByInd(ind int) *mapGroup {
+	for p := s.getFirstMapGroup(); p != nil; p = p.Next() {
 		if int(p.Ind()) == ind {
 			return p
 		}
@@ -24,8 +24,8 @@ func getMapGroupByInd(ind int) *mapGroup {
 	return nil
 }
 
-func getMapGroupByID(id string, typ int) *mapGroup {
-	for p := getFirstMapGroup(); p != nil; p = p.Next() {
+func (s *Server) getMapGroupByID(id string, typ int) *mapGroup {
+	for p := s.getFirstMapGroup(); p != nil; p = p.Next() {
 		if p.Type() != typ {
 			continue
 		}
@@ -39,7 +39,7 @@ func getMapGroupByID(id string, typ int) *mapGroup {
 
 type mapGroup [0]byte
 
-func getFirstMapGroup() *mapGroup {
+func (s *Server) getFirstMapGroup() *mapGroup {
 	return (*mapGroup)(unsafe.Pointer(uintptr(C.nox_server_mapGroupsHead_2523900)))
 }
 
