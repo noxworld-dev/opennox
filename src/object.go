@@ -938,9 +938,9 @@ func (obj *Object) callXfer(a2 unsafe.Pointer) error {
 	return nil
 }
 
-func (obj *Object) callDamage(who noxObject, a3 noxObject, dmg, a5 int) int {
+func (obj *Object) callDamage(who noxObject, a3 noxObject, dmg, typ int) int {
 	if obj.Damage != nil {
-		return int(C.nox_call_object_damage((*[0]byte)(obj.Damage), obj.CObj(), toCObj(who), toCObj(a3), C.int(dmg), C.int(a5)))
+		return int(C.nox_call_object_damage((*[0]byte)(obj.Damage), obj.CObj(), toCObj(who), toCObj(a3), C.int(dmg), C.int(typ)))
 	}
 	return 0
 }

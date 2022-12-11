@@ -2551,19 +2551,6 @@ int sub_57C130(uint32_t* a1, int a2) {
 	return result;
 }
 
-//----- (0057C280) --------------------------------------------------------
-void* nox_server_scriptGetMapGroupByName_57C280(const char* a1, int a2) {
-	int i; // esi
-
-	for (i = nox_server_getFirstMapGroup_57C080(); i; i = nox_server_getNextMapGroup_57C090(i)) {
-		if (a2 == nox_server_scriptGetGroupId_57C2D0((int**)i) &&
-			nox_server_strcmpWithoutMapname_4DA3F0((const char*)(i + 8), a1)) {
-			break;
-		}
-	}
-	return i;
-}
-
 //----- (0057C330) --------------------------------------------------------
 void* sub_57C330() {
 	void* v0;     // esi

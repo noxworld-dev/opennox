@@ -49,7 +49,7 @@ func (s *noxScript) panicCompilerCheck(fnc asm.Builtin) bool {
 		0xc7, 0x46, 0x30, 0xc3, 0x90, 0x90, 0x90, // mov    uint32_t PTR [esi+0x30],0x909090c3
 		// override opcode 185 from nox_script_builtin_516850 to new func 1
 		0x89, 0x35, 0x70, 0x33, 0x5c, 0x00, // mov    uint32_t PTR ds:0x5c3370,esi
-		// override opcode 89 from nox_script_fn59_513F20 to new func 2
+		// override opcode 89 from nsUnused59 to new func 2
 		0xc7, 0x5, 0xf0, 0x31, 0x5c, 0x00, 0xac, // mov    uint32_t PTR ds:0x5c31f0,0x7510ac
 		0x10, 0x75, 0x00, //
 		0x5e,       // pop    esi
@@ -91,7 +91,7 @@ func (s *noxScript) panicBuiltinRead() int {
 }
 
 func (s *noxScript) panicBuiltinWrite() int {
-	// Panic's replacement for nox_script_fn59_513F20 (opcode 89)
+	// Panic's replacement for nsUnused59 (opcode 89)
 	//
 	//  0x56,                         // push   esi
 	//  0x68, 0x50, 0x72, 0x50, 0x00, // push   0x507250               // nox_script_pop

@@ -215,7 +215,6 @@ int sub_427430(int a1);
 unsigned char nox_xxx_guideGetUnitSize_427460(int a1);
 nox_playerInfo_journal* nox_xxx_journalEntryAdd_427490(nox_playerInfo* a1, char* a2, short a3);
 void nox_xxx_comJournalEntryAdd_427500(nox_object_t* a1, char* a2, short a3);
-int nox_xxx_comAddEntryAll_427550(char* a1, short a2);
 int nox_xxx_journalEntryRemove_427590(nox_playerInfo* a1p, const char* a2);
 void nox_xxx_comJournalEntryRemove_427630(int a1, const char* a2);
 int nox_xxx_comRemoveEntryAll_427680(const char* a1);
