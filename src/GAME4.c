@@ -49,7 +49,6 @@ extern uint32_t dword_5d4594_1599532;
 extern uint32_t dword_5d4594_1599476;
 extern uint32_t dword_5d4594_1569756;
 extern uint32_t dword_5d4594_1569672;
-extern uint32_t dword_5d4594_1599564;
 extern uint32_t dword_5d4594_3835396;
 extern uint32_t dword_5d4594_1599588;
 extern uint32_t dword_5d4594_1599596;
@@ -66,6 +65,7 @@ extern int nox_win_width;
 FILE* nox_file_8 = 0;
 
 int nox_cheat_charmall = 0;
+void* dword_5d4594_1599564 = 0;
 
 //----- (004F5F30) --------------------------------------------------------
 int nox_xxx_XFerSpellReward_4F5F30(int* a1) {
@@ -5875,9 +5875,7 @@ int nox_xxx_mapgenMakeScript_502790(FILE* a1, char* a2) {
 }
 
 //----- (005028E0) --------------------------------------------------------
-char* nox_xxx_mapReset_5028E0() {
-	char* result; // eax
-
+void nox_xxx_mapReset_5028E0() {
 	dword_5d4594_1599480 = -1;
 	*getMemU32Ptr(0x5D4594, 1599572) = -1;
 	dword_5d4594_1599476 = 0;
@@ -5899,12 +5897,9 @@ char* nox_xxx_mapReset_5028E0() {
 	if (!dword_5d4594_1599588) {
 		dword_5d4594_1599588 = calloc(1, 0x800u);
 	}
-	result = *(char**)&dword_5d4594_1599592;
 	if (!dword_5d4594_1599592) {
-		result = (char*)calloc(1, 0x800u);
-		dword_5d4594_1599592 = result;
+		dword_5d4594_1599592 = calloc(1, 0x800u);
 	}
-	return result;
 }
 
 //----- (005029A0) --------------------------------------------------------
@@ -6344,7 +6339,7 @@ int sub_503EC0(int a1, float* a2) {
 //----- (00503F40) --------------------------------------------------------
 void sub_57C390(void* a1);
 void sub_57C370(void* a1);
-char* nox_xxx_free_503F40() {
+void nox_xxx_free_503F40() {
 	int* v0;        // esi
 	int* v1;        // edi
 	int v2;         // esi
@@ -6411,7 +6406,7 @@ char* nox_xxx_free_503F40() {
 			v8 = v9;
 		} while (v9);
 	}
-	v10 = *(uint64_t***)&dword_5d4594_1599564;
+	v10 = dword_5d4594_1599564;
 	if (dword_5d4594_1599564) {
 		do {
 			v11 = (uint64_t**)v10[1];
@@ -6434,7 +6429,7 @@ char* nox_xxx_free_503F40() {
 	}
 	*getMemU32Ptr(0x5D4594, 1599568) = 0;
 	dword_5d4594_1599564 = 0;
-	return nox_xxx_mapReset_5028E0();
+	nox_xxx_mapReset_5028E0();
 }
 
 //----- (005040A0) --------------------------------------------------------
@@ -6709,51 +6704,6 @@ int sub_504560(int a1, int a2) {
 	return 1;
 }
 
-//----- (00504600) --------------------------------------------------------
-void* sub_57C330();
-uint32_t* sub_504600(const char* a1, int a2, char a3) {
-	uint32_t* v3;     // ebx
-	uint32_t* result; // eax
-	void* v5;         // eax
-	char* v6;         // edx
-	unsigned int v7;  // ecx
-	char v8;          // al
-	char* v9;         // edi
-	const char* v10;  // esi
-
-	v3 = calloc(1, 0xCu);
-	if (!v3) {
-		return 0;
-	}
-	v5 = sub_57C330();
-	*v3 = v5;
-	if (!v5) {
-		return 0;
-	}
-	v3[2] = 0;
-	v3[1] = dword_5d4594_1599564;
-	if (dword_5d4594_1599564) {
-		*(uint32_t*)(dword_5d4594_1599564 + 8) = v3;
-	}
-	dword_5d4594_1599564 = v3;
-	*(uint32_t*)(*v3 + 88) = 0;
-	*(uint32_t*)(*v3 + 92) = 0;
-	*(uint32_t*)(*v3 + 84) = 0;
-	*(uint32_t*)(*v3 + 4) = a2;
-	*(uint8_t*)*v3 = a3;
-	v6 = (char*)(*v3 + 8);
-	v7 = strlen(a1) + 1;
-	v8 = v7;
-	v7 >>= 2;
-	memcpy(v6, a1, 4 * v7);
-	v10 = &a1[4 * v7];
-	v9 = &v6[4 * v7];
-	LOBYTE(v7) = v8;
-	result = v3;
-	memcpy(v9, v10, v7 & 3);
-	return result;
-}
-
 //----- (005046A0) --------------------------------------------------------
 void* sub_57C360();
 int sub_5046A0(uint32_t* a1, int a2) {
@@ -6762,7 +6712,7 @@ int sub_5046A0(uint32_t* a1, int a2) {
 	char v5;      // cl
 	int v6;       // ecx
 
-	v2 = *(char***)&dword_5d4594_1599564;
+	v2 = dword_5d4594_1599564;
 	if (!dword_5d4594_1599564) {
 		return 0;
 	}
@@ -6803,7 +6753,7 @@ int sub_504720(int a1, int a2) {
 	int* v2; // esi
 
 	sub_504760(a1, a2);
-	v2 = *(int**)&dword_5d4594_1599564;
+	v2 = dword_5d4594_1599564;
 	if (dword_5d4594_1599564) {
 		do {
 			nox_server_addNewMapGroup_57C3B0(*v2);
@@ -6826,7 +6776,7 @@ int sub_504760(int a1, int a2) {
 	char v9[76]; // [esp+8h] [ebp-4Ch]
 
 	result = sub_57BF80();
-	v3 = *(char***)&dword_5d4594_1599564;
+	v3 = dword_5d4594_1599564;
 	v8 = result;
 	if (dword_5d4594_1599564) {
 		while (1) {

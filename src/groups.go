@@ -1,6 +1,7 @@
 package opennox
 
 /*
+extern void* dword_5d4594_1599564;
 int  nox_server_scriptGetGroupId_57C2D0(int** a1);
 */
 import "C"
@@ -49,16 +50,39 @@ func sub_57C030() {
 	nox_server_mapGroupsHead_2523900 = nil
 }
 
-//export sub_57C330
-func sub_57C330() unsafe.Pointer {
-	return sub57C330().C()
-}
-
 func sub57C330() *mapGroup {
 	if !noxflags.HasGame(noxflags.GameHost | noxflags.GameFlag22) {
 		return nil
 	}
 	return nox_alloc_groupInfo_2523892.NewObject()
+}
+
+type mapGroupX struct {
+	field0 *mapGroup
+	field4 *mapGroupX
+	field8 *mapGroupX
+}
+
+//export sub_504600
+func sub_504600(name *C.char, ind uint32, typ uint8) {
+	g := sub57C330()
+	if g == nil {
+		return
+	}
+	p, _ := alloc.New(mapGroupX{})
+	p.field0 = g
+	p.field4 = (*mapGroupX)(C.dword_5d4594_1599564)
+	p.field8 = nil
+	if head := (*mapGroupX)(C.dword_5d4594_1599564); head != nil {
+		head.field8 = p
+	}
+	C.dword_5d4594_1599564 = unsafe.Pointer(p)
+	g.next = nil
+	g.prev = nil
+	g.list = nil
+	g.ind = ind
+	g.typ = typ
+	StrCopyBytes(g.name[:], GoString(name))
 }
 
 //export sub_57C370
