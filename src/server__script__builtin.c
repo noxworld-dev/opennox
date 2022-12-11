@@ -108,25 +108,6 @@ void nox_xxx_playerCanCarryItem_513B00(nox_object_t* a1p, nox_object_t* a2p) {
 	}
 }
 
-//----- (00511EB0) --------------------------------------------------------
-int nox_script_getWall_511EB0() {
-	int v0; // edi
-	int v1; // esi
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	if (nox_script_builtinGetF40() || nox_script_builtinGetF44()) {
-		v1 = (nox_script_builtinGetF40() + 23 * v1) / 23;
-		v0 = (nox_script_builtinGetF44() + 23 * v0) / 23;
-	}
-	if (nox_server_getWallAtGrid_410580(v1, v0)) {
-		nox_script_push(v0 | (v1 << 16));
-	} else {
-		nox_script_push(0);
-	}
-	return 0;
-}
-
 //----- (005123C0) --------------------------------------------------------
 int* nox_server_scriptMoveTo_5123C0(int a1, int a2) {
 	int* result; // eax
@@ -243,40 +224,6 @@ void nox_server_gotoHome(nox_object_t* obj) {
 			}
 		}
 	}
-}
-
-//----- (00513E80) --------------------------------------------------------
-int nox_script_canInteract_513E80() {
-	int v0;    // edi
-	int v1;    // eax
-	int v2;    // esi
-	int v3;    // eax
-	int v4;    // edx
-	double v5; // st7
-	double v6; // st7
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
-	v3 = nox_server_scriptValToObjectPtr_511B60(v0);
-	v4 = 0;
-	if (v2 && v3) {
-		v5 = *(float*)(v2 + 56) - *(float*)(v3 + 56);
-		if (v5 < 0.0) {
-			v5 = -v5;
-		}
-		if (v5 <= 512.0) {
-			v6 = *(float*)(v2 + 60) - *(float*)(v3 + 60);
-			if (v6 < 0.0) {
-				v6 = -v6;
-			}
-			if (v6 <= 512.0) {
-				v4 = nox_xxx_unitCanInteractWith_5370E0(v2, v3, 0);
-			}
-		}
-	}
-	nox_script_push(v4);
-	return 0;
 }
 
 //----- (00513FA0) --------------------------------------------------------

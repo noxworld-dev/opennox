@@ -23,14 +23,15 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/ifs"
-	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns"
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/server/noxscript"
 )
 
 //export nox_script_builtinGetF40
@@ -114,9 +115,10 @@ var (
 	nox_xxx_imagCasterUnit_1569664 *Unit
 )
 
+var _ noxscript.VM = (*noxScript)(nil)
+
 type noxScript struct {
 	s        *Server
-	fxNames  map[string]noxnet.Op
 	dpos     image.Point
 	nameSuff string
 	vm       struct {
@@ -131,10 +133,6 @@ type noxScript struct {
 
 func (s *noxScript) Init(srv *Server) {
 	s.s = srv
-	s.fxNames = make(map[string]noxnet.Op)
-	for fx := noxnet.MSG_FX_PARTICLEFX; fx <= noxnet.MSG_FX_MANA_BOMB_CANCEL; fx++ {
-		s.fxNames[fx.String()] = fx
-	}
 }
 
 var _ = [1]struct{}{}[48-unsafe.Sizeof(noxScriptCode{})]
@@ -257,14 +255,24 @@ func (s *noxScript) PopString() string {
 	return GoString(C.nox_script_getString_512E40(C.int(s.PopU32())))
 }
 
-func (s *noxScript) PopObject() *Object {
-	return s.scriptToObject(int(nox_script_pop()))
+func (s *noxScript) PopPoint() image.Point {
+	y := s.PopI32()
+	x := s.PopI32()
+	return image.Point{X: int(x), Y: int(y)}
 }
 
 func (s *noxScript) PopPointf() types.Pointf {
 	y := s.PopF32()
 	x := s.PopF32()
 	return types.Pointf{X: x, Y: y}
+}
+
+func (s *noxScript) PopObject() *Object {
+	return s.scriptToObject(int(nox_script_pop()))
+}
+
+func (s *noxScript) PopGroup() *mapGroup {
+	return s.s.mapGroupByInd(int(s.PopI32()))
 }
 
 func (s *noxScript) nox_xxx_scriptRunFirst_507290() {
@@ -397,7 +405,11 @@ func (s *noxScript) noxScriptEndGame(v int) {
 //export sub_5165D0
 func sub_5165D0() {
 	s := &noxServer.noxScript
-	*memmap.PtrUint32(0x5D4594, 2386828) = s.PopU32() - 1
+	sub5165D0(int(s.PopU32()))
+}
+
+func sub5165D0(which int) {
+	*memmap.PtrUint32(0x5D4594, 2386828) = uint32(which - 1)
 	sub_413A00(1)
 	noxClient.r.FadeInScreen(25, true, func() {
 		C.sub_516570()
@@ -539,4 +551,56 @@ func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *C.char) C.int {
 	defer df.Close()
 	C.nox_script_readWriteWww_5417C0(newFileHandle(&File{File: f1}), newFileHandle(&File{File: f2}), newFileHandle(&File{File: df}))
 	return 1
+}
+
+func (s *noxScript) NoxScript() ns.Implementation {
+	return s.s.NoxScript()
+}
+
+func (s *noxScript) PopWallGroupNS() ns.WallGroupObj {
+	g := s.PopGroup()
+	if g == nil || g.Type() != mapGroupWalls {
+		return nil
+	}
+	return nsWallGroup{s.s, g}
+}
+
+func (s *noxScript) PopWaypointNS() ns.WaypointObj {
+	wp := s.s.getWaypointByInd(int(s.PopI32()))
+	if wp == nil {
+		return nil
+	}
+	return wp
+}
+
+func (s *noxScript) PopWpGroupNS() ns.WaypointGroupObj {
+	g := s.PopGroup()
+	if g == nil || g.Type() != mapGroupWaypoints {
+		return nil
+	}
+	return nsWpGroup{s.s, g}
+}
+
+func (s *noxScript) PopObjectNS() ns.Obj {
+	obj := s.scriptToObject(int(nox_script_pop()))
+	if obj == nil {
+		return nil
+	}
+	return nsObj{obj}
+}
+
+func (s *noxScript) PopObjGroupNS() ns.ObjGroup {
+	g := s.PopGroup()
+	if g == nil || g.Type() != mapGroupObjects {
+		return nil
+	}
+	return nsObjGroup{s.s, g}
+}
+
+func (s *noxScript) PushHandleNS(obj ns.Handle) {
+	if obj == nil {
+		s.PushI32(0)
+	} else {
+		s.PushI32(int32(obj.ScriptID()))
+	}
 }

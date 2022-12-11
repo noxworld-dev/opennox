@@ -136,7 +136,6 @@ int nox_server_getNextMapGroup_57C090(int a1);
 int nox_server_scriptGetGroup_57C0A0(int a1);
 int nox_server_mapLoadAddGroup_57C0C0(char* a1, int a2, char a3);
 int sub_57C130(uint32_t* a1, int a2);
-void* nox_server_scriptGetMapGroupByName_57C280(const char* a1, int a2);
 void* sub_57C330();
 void* sub_57C360();
 void sub_57C370(uint64_t* a1);
