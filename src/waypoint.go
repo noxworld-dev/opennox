@@ -56,7 +56,7 @@ func nox_server_getWaypointById_579C40(a1 C.int) *nox_waypoint_t {
 }
 
 func (s *Server) getWaypointGroupByID(id string) *script.WaypointGroup {
-	g := getMapGroupByID(id, 1)
+	g := s.getMapGroupByID(id, 1)
 	if g == nil {
 		return nil
 	}

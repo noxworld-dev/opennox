@@ -234,7 +234,7 @@ func (s *Server) GetObjectByInd(ind int) *Object { // aka nox_xxx_netGetUnitByEx
 }
 
 func (s *Server) getObjectGroupByID(id string) *script.ObjectGroup {
-	g := getMapGroupByID(id, 0)
+	g := s.getMapGroupByID(id, 0)
 	if g == nil {
 		return nil
 	}
