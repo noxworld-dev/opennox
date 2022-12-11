@@ -2013,11 +2013,11 @@ func nox_xxx_unitsGetInCircle_517F90(pos *C.float2, r C.float, fnc unsafe.Pointe
 }
 
 func nox_xxx_calcDistance_4E6C00(obj1, obj2 noxObject) float32 {
-	return float32(C.nox_xxx_calcDistance_4E6C00(obj1.CObj(), obj2.CObj()))
+	return float32(C.nox_xxx_calcDistance_4E6C00(toCObj(obj1), toCObj(obj2)))
 }
 
 func nox_xxx_unitCanInteractWith_5370E0(u, obj noxObject, a3 byte) bool {
-	return C.nox_xxx_unitCanInteractWith_5370E0(u.CObj(), obj.CObj(), C.char(a3)) != 0
+	return C.nox_xxx_unitCanInteractWith_5370E0(toCObj(u), toCObj(obj), C.char(a3)) != 0
 }
 
 var doDamageWalls = true
