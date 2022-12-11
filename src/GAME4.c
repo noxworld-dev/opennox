@@ -6580,22 +6580,6 @@ int sub_504560(int a1, int a2) {
 	return 1;
 }
 
-//----- (00504720) --------------------------------------------------------
-void nox_server_addNewMapGroup_57C3B0(void* a1);
-int sub_504720(int a1, int a2) {
-	int* v2; // esi
-
-	sub_504760(a1, a2);
-	v2 = dword_5d4594_1599564;
-	if (dword_5d4594_1599564) {
-		do {
-			nox_server_addNewMapGroup_57C3B0(*v2);
-			v2 = (int*)v2[1];
-		} while (v2);
-	}
-	return 1;
-}
-
 //----- (00504760) --------------------------------------------------------
 unsigned int sub_57BF80();
 int sub_504760(int a1, int a2) {
