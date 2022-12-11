@@ -109,7 +109,7 @@ func sub_57C130(d *uint32, ind uint32) int32 {
 	if it == nil {
 		return 0
 	}
-	switch g.Type() {
+	switch g.GroupType() {
 	case mapGroupWalls:
 		it.data0 = arg[0]
 		it.data4 = arg[1]
