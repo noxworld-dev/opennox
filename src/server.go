@@ -662,7 +662,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 }
 
 func sub_4D3C30() {
-	C.nox_xxx_free_503F40()
+	nox_xxx_free_503F40()
 	C.sub_51D0E0()
 	C.sub_502DF0()
 }

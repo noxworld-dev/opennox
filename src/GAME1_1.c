@@ -4009,11 +4009,11 @@ int* nox_xxx_tileListAddNewSubtile_422160(int a1, int a2, int a3, int a4) {
 }
 
 //----- (004221E0) --------------------------------------------------------
-int nox_xxx_tileFreeTileOne_4221E0(int a1) {
+int nox_xxx_tileFreeTileOne_4221E0(void* a1) {
 	int result; // eax
 
 	result = a1;
-	*(uint32_t*)(a1 + 16) = dword_5d4594_588084;
+	*(uint32_t*)((uint32_t)a1 + 16) = dword_5d4594_588084;
 	dword_5d4594_588084 = a1;
 	return result;
 }

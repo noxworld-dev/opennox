@@ -23,10 +23,10 @@ extern unsigned int nox_player_netCode_85319C;
 extern unsigned int dword_5d4594_1599644;
 extern uint32_t dword_5d4594_1599480;
 extern uint32_t dword_5d4594_1599476;
-extern uint32_t dword_5d4594_1599540;
-extern uint32_t dword_5d4594_1599532;
-extern uint32_t dword_5d4594_1599556;
-extern uint32_t dword_5d4594_1599548;
+extern void* dword_5d4594_1599540;
+extern void* dword_5d4594_1599532;
+extern void* dword_5d4594_1599556;
+extern void* dword_5d4594_1599548;
 extern void* dword_5d4594_1599564;
 extern void* dword_5d4594_1599588;
 extern void* dword_5d4594_1599592;
@@ -630,13 +630,13 @@ func nox_xxx_mapReset_5028E0() {
 	C.dword_5d4594_1599480 = math.MaxUint32
 	*memmap.PtrUint32(0x5D4594, 1599572) = math.MaxUint32
 	C.dword_5d4594_1599476 = 0
-	C.dword_5d4594_1599540 = 0
+	C.dword_5d4594_1599540 = nil
 	*memmap.PtrUint32(0x5D4594, 1599544) = 0
-	C.dword_5d4594_1599532 = 0
+	C.dword_5d4594_1599532 = nil
 	*memmap.PtrUint32(0x5D4594, 1599536) = 0
-	C.dword_5d4594_1599556 = 0
+	C.dword_5d4594_1599556 = nil
 	*memmap.PtrUint32(0x5D4594, 1599560) = 0
-	C.dword_5d4594_1599548 = 0
+	C.dword_5d4594_1599548 = nil
 	*memmap.PtrUint32(0x5D4594, 1599552) = 0
 	C.dword_5d4594_1599564 = nil
 	*memmap.PtrUint32(0x5D4594, 1599568) = 0
@@ -651,4 +651,75 @@ func nox_xxx_mapReset_5028E0() {
 	if C.dword_5d4594_1599592 == nil {
 		C.dword_5d4594_1599592, _ = alloc.Malloc(2048)
 	}
+}
+
+//export nox_xxx_free_503F40
+func nox_xxx_free_503F40() {
+	{
+		var next unsafe.Pointer
+		for v0 := unsafe.Pointer(C.dword_5d4594_1599540); v0 != nil; v0 = next {
+			next = *(*unsafe.Pointer)(unsafe.Add(v0, 4))
+			if C.dword_5d4594_1599476 == 0 {
+				noxServer.Objs.FreeObject(asObject(*(*unsafe.Pointer)(unsafe.Add(v0, 0))).SObj())
+			}
+			alloc.Free(v0)
+		}
+	}
+
+	{
+		var next unsafe.Pointer
+		for it := unsafe.Pointer(C.dword_5d4594_1599548); it != nil; it = next {
+			next = *(*unsafe.Pointer)(unsafe.Add(it, 4))
+			if C.dword_5d4594_1599476 == 0 {
+				*(*unsafe.Pointer)(unsafe.Add(it, 0)) = nil
+			}
+			alloc.Free(it)
+		}
+	}
+
+	{
+		var next unsafe.Pointer
+		for it := unsafe.Pointer(C.dword_5d4594_1599556); it != nil; it = next {
+			next = *(*unsafe.Pointer)(unsafe.Add(it, 16))
+
+			var next2 unsafe.Pointer
+			for it2 := *(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(it, 0)), 16)); it2 != nil; it2 = next2 {
+				next2 = *(*unsafe.Pointer)(unsafe.Add(it2, 16))
+				C.nox_xxx_tileFreeTileOne_4221E0(it2)
+			}
+			*(*unsafe.Pointer)(unsafe.Add(it, 0)) = nil
+			alloc.Free(it)
+		}
+	}
+
+	{
+		var next unsafe.Pointer
+		for it := unsafe.Pointer(C.dword_5d4594_1599532); it != nil; it = next {
+			next = *(*unsafe.Pointer)(unsafe.Add(it, 4))
+			if C.dword_5d4594_1599476 == 0 && *(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(it, 0)), 4))&0x4 != 0 {
+				*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(it, 0)), 4*7)) = nil
+			}
+			*(*unsafe.Pointer)(unsafe.Add(it, 0)) = nil
+			alloc.Free(it)
+		}
+	}
+
+	{
+		var next *mapGroupX
+		for it := (*mapGroupX)(C.dword_5d4594_1599564); it != nil; it = next {
+			next = it.field4
+			if C.dword_5d4594_1599476 == 0 {
+				var next2 *mapGroupItem
+				for it2 := it.field0.list; it2 != nil; it2 = next2 {
+					next2 = it2.next8
+					nox_alloc_itemGroupElem_2523896.FreeObjectFirst(it2)
+				}
+				nox_alloc_groupInfo_2523892.FreeObjectFirst(it.field0)
+			}
+			alloc.Free(unsafe.Pointer(it))
+		}
+	}
+	*memmap.PtrUint32(0x5D4594, 1599568) = 0
+	C.dword_5d4594_1599564 = nil
+	nox_xxx_mapReset_5028E0()
 }
