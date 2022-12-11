@@ -127,7 +127,7 @@ char nox_xxx_cliGenerateAlias_57B9A0(int a1, int a2, int a3, unsigned int a4);
 int sub_57BA10(int a1, short a2, short a3, int a4);
 void* nox_server_getFirstMapGroup_57C080();
 int nox_server_getNextMapGroup_57C090(int a1);
-int nox_server_scriptGetGroup_57C0A0(int a1);
+void* nox_server_scriptGetGroup_57C0A0(int a1);
 int nox_xxx_mathPointOnTheLine_57C8A0(float4* a1, float2* a2, float2* a3);
 
 #endif // NOX_PORT_GAME5_2
