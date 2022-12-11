@@ -59,8 +59,8 @@ func sub57C330() *mapGroup {
 
 type mapGroupX struct {
 	field0 *mapGroup
-	field4 *mapGroupX
-	field8 *mapGroupX
+	next4  *mapGroupX
+	prev8  *mapGroupX
 }
 
 //export sub_504600
@@ -71,10 +71,10 @@ func sub_504600(name *C.char, ind uint32, typ uint8) {
 	}
 	p, _ := alloc.New(mapGroupX{})
 	p.field0 = g
-	p.field4 = (*mapGroupX)(C.dword_5d4594_1599564)
-	p.field8 = nil
+	p.next4 = (*mapGroupX)(C.dword_5d4594_1599564)
+	p.prev8 = nil
 	if head := (*mapGroupX)(C.dword_5d4594_1599564); head != nil {
-		head.field8 = p
+		head.prev8 = p
 	}
 	C.dword_5d4594_1599564 = unsafe.Pointer(p)
 	g.next = nil
@@ -128,9 +128,43 @@ func sub_57C130(d *uint32, ind uint32) int32 {
 	return 1
 }
 
-//export sub_57C360
-func sub_57C360() unsafe.Pointer {
-	return nox_alloc_itemGroupElem_2523896.NewObject().C()
+//export sub_5046A0
+func sub_5046A0(d *uint32, ind uint32) int {
+	if d == nil {
+		return 0
+	}
+	var found *mapGroupX
+	for v2 := (*mapGroupX)(C.dword_5d4594_1599564); v2 != nil; v2 = v2.next4 {
+		if v2.field0.ind == ind {
+			found = v2
+			break
+		}
+	}
+	if found == nil {
+		return 0
+	}
+	arg := unsafe.Slice(d, 2)
+	v2 := found
+	v4 := nox_alloc_itemGroupElem_2523896.NewObject()
+	if v4 == nil {
+		return 0
+	}
+	switch v2.field0.GroupType() {
+	case mapGroupWalls:
+		v4.data0 = arg[0]
+		v4.data4 = arg[1]
+	case mapGroupObjects, mapGroupWaypoints, mapGroupGroups:
+		v4.data0 = arg[0]
+	default:
+		return 0
+	}
+	v4.prev12 = nil
+	v4.next8 = v2.field0.list
+	if head := v2.field0.list; head != nil {
+		head.prev12 = v4
+	}
+	v2.field0.list = v4
+	return 1
 }
 
 //export nox_server_addNewMapGroup_57C3B0

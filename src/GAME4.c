@@ -6580,49 +6580,6 @@ int sub_504560(int a1, int a2) {
 	return 1;
 }
 
-//----- (005046A0) --------------------------------------------------------
-void* sub_57C360();
-int sub_5046A0(uint32_t* a1, int a2) {
-	char** v2;    // esi
-	uint32_t* v4; // eax
-	char v5;      // cl
-	int v6;       // ecx
-
-	v2 = dword_5d4594_1599564;
-	if (!dword_5d4594_1599564) {
-		return 0;
-	}
-	while (*((uint32_t*)*v2 + 1) != a2) {
-		v2 = (char**)v2[1];
-		if (!v2) {
-			return 0;
-		}
-	}
-	v4 = sub_57C360();
-	if (!v4) {
-		return 0;
-	}
-	v5 = **v2;
-	if (!v5 || v5 == 1 || v5 == 3) {
-		*v4 = *a1;
-		goto LABEL_12;
-	}
-	if (v5 != 2) {
-		return 0;
-	}
-	*v4 = *a1;
-	v4[1] = a1[1];
-LABEL_12:
-	v4[3] = 0;
-	v4[2] = *((uint32_t*)*v2 + 21);
-	v6 = *((uint32_t*)*v2 + 21);
-	if (v6) {
-		*(uint32_t*)(v6 + 12) = v4;
-	}
-	*((uint32_t*)*v2 + 21) = v4;
-	return 1;
-}
-
 //----- (00504720) --------------------------------------------------------
 void nox_server_addNewMapGroup_57C3B0(void* a1);
 int sub_504720(int a1, int a2) {

@@ -707,7 +707,7 @@ func nox_xxx_free_503F40() {
 	{
 		var next *mapGroupX
 		for it := (*mapGroupX)(C.dword_5d4594_1599564); it != nil; it = next {
-			next = it.field4
+			next = it.next4
 			if C.dword_5d4594_1599476 == 0 {
 				var next2 *mapGroupItem
 				for it2 := it.field0.list; it2 != nil; it2 = next2 {
