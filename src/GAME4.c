@@ -93,7 +93,7 @@ int nox_xxx_XFerSpellReward_4F5F30(int* a1) {
 	result = nox_xxx_mapReadWriteObjData_4F4530(a1, (short)v10);
 	if (result) {
 		if ((short)v10 >= 31) {
-			if (nox_xxx_cryptGetXxx() == 1) {
+			if (nox_crypt_IsReadOnly() == 1) {
 				if ((short)v10 >= 41) {
 					nox_xxx_fileReadWrite_426AC0_file3_fread(&v7, 1u);
 					if ((unsigned char)v7 >= 0x80u) {
@@ -131,7 +131,7 @@ int nox_xxx_XFerSpellReward_4F5F30(int* a1) {
 				}
 				goto LABEL_28;
 			}
-		} else if (nox_xxx_cryptGetXxx() == 1) {
+		} else if (nox_crypt_IsReadOnly() == 1) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v12, 1u);
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v9, 1u);
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v8, 1u);
@@ -159,7 +159,7 @@ int nox_xxx_XFerSpellReward_4F5F30(int* a1) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v7, 1u);
 		nox_xxx_fileReadWrite_426AC0_file3_fread(v14, (unsigned char)v7);
 	LABEL_28:
-		if (!a1[34] || nox_xxx_cryptGetXxx() != 1 ||
+		if (!a1[34] || nox_crypt_IsReadOnly() != 1 ||
 			(result = nox_xxx_xfer_4F3E30(v10, (int)a1, a1[34])) != 0) {
 			a1[34] = v13;
 			result = 1;
@@ -194,7 +194,7 @@ int nox_xxx_XFerAbilityReward_4F6240(int* a1) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(v6, (unsigned char)v3);
 			v6[(unsigned char)v3] = 0;
 			*v1 = nox_xxx_abilityNameToN_424D80(v6);
-			if (!a1[34] || nox_xxx_cryptGetXxx() != 1 ||
+			if (!a1[34] || nox_crypt_IsReadOnly() != 1 ||
 				(result = nox_xxx_xfer_4F3E30(v4, (int)a1, a1[34])) != 0) {
 				a1[34] = v5;
 				result = 1;
@@ -225,7 +225,7 @@ int nox_xxx_XFerFieldGuide_4F6390(int* a1) {
 	}
 	result = nox_xxx_mapReadWriteObjData_4F4530(v1, (short)v5);
 	if (result) {
-		if (nox_xxx_cryptGetXxx()) {
+		if (nox_crypt_IsReadOnly()) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 1u);
 			if ((unsigned char)a1 >= 0x40u) {
 				return 0;
@@ -237,7 +237,7 @@ int nox_xxx_XFerFieldGuide_4F6390(int* a1) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 1u);
 			nox_xxx_fileReadWrite_426AC0_file3_fread(v2, (unsigned char)a1);
 		}
-		if (!v1[34] || nox_xxx_cryptGetXxx() != 1 || (result = nox_xxx_xfer_4F3E30(v5, (int)v1, v1[34])) != 0) {
+		if (!v1[34] || nox_crypt_IsReadOnly() != 1 || (result = nox_xxx_xfer_4F3E30(v5, (int)v1, v1[34])) != 0) {
 			v1[34] = v3;
 			result = 1;
 		}
@@ -279,7 +279,7 @@ int nox_xxx_XFerWeapon_4F64A0(int a1) {
 	if (!result) {
 		return result;
 	}
-	if ((short)v17 < 11 && nox_xxx_cryptGetXxx() == 1) {
+	if ((short)v17 < 11 && nox_crypt_IsReadOnly() == 1) {
 		*(uint32_t*)v20 = 0;
 		*(uint32_t*)&v20[4] = 0;
 		*(uint32_t*)&v20[8] = 0;
@@ -287,7 +287,7 @@ int nox_xxx_XFerWeapon_4F64A0(int a1) {
 		nox_xxx_modifSetItemAttrs_4E4990(a1, (int*)v20);
 		return 1;
 	}
-	if (nox_xxx_cryptGetXxx()) {
+	if (nox_crypt_IsReadOnly()) {
 		v4 = 0;
 		v5 = v20;
 		while (1) {
@@ -369,7 +369,7 @@ LABEL_37:
 		if ((unsigned short)v16 > (unsigned short)v12) {
 			v16 = v12;
 		}
-		if (nox_xxx_cryptGetXxx() == 1) {
+		if (nox_crypt_IsReadOnly() == 1) {
 			if (nox_xxx_gameIsSwitchToSolo_4DB240() == 1 || nox_xxx_gameIsNotMultiplayer_4DB250() == 1 ||
 				nox_common_gameFlags_check_40A5C0(4096) && sub_419EA0()) {
 				nox_xxx_unitSetHP_4E4560(a1, v16);
@@ -389,7 +389,7 @@ LABEL_37:
 	if ((short)v17 >= 64) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(*(uint32_t*)(a1 + 748) + 4), 4u);
 	}
-	if (*(uint32_t*)(a1 + 136) && nox_xxx_cryptGetXxx() == 1 &&
+	if (*(uint32_t*)(a1 + 136) && nox_crypt_IsReadOnly() == 1 &&
 		!nox_xxx_xfer_4F3E30(v17, a1, *(uint32_t*)(a1 + 136))) {
 		return 0;
 	}
@@ -426,7 +426,7 @@ int nox_xxx_XFerArmor_4F6860(int a1) {
 	}
 	result = nox_xxx_mapReadWriteObjData_4F4530((int*)a1, (short)v10);
 	if (result) {
-		if ((short)v10 < 11 && nox_xxx_cryptGetXxx() == 1) {
+		if ((short)v10 < 11 && nox_crypt_IsReadOnly() == 1) {
 			*(uint32_t*)v15 = 0;
 			*(uint32_t*)&v15[4] = 0;
 			*(uint32_t*)&v15[8] = 0;
@@ -434,7 +434,7 @@ int nox_xxx_XFerArmor_4F6860(int a1) {
 			nox_xxx_modifSetItemAttrs_4E4990(a1, (int*)v15);
 			return 1;
 		}
-		if (nox_xxx_cryptGetXxx()) {
+		if (nox_crypt_IsReadOnly()) {
 			v4 = 0;
 			v5 = v15;
 			while (1) {
@@ -479,7 +479,7 @@ int nox_xxx_XFerArmor_4F6860(int a1) {
 			if ((unsigned short)v12 > (unsigned short)v8) {
 				v12 = v8;
 			}
-			if (nox_xxx_cryptGetXxx() == 1) {
+			if (nox_crypt_IsReadOnly() == 1) {
 				if (nox_xxx_gameIsSwitchToSolo_4DB240() == 1 || nox_xxx_gameIsNotMultiplayer_4DB250() == 1 ||
 					nox_common_gameFlags_check_40A5C0(4096) && sub_419EA0()) {
 					nox_xxx_unitSetHP_4E4560(a1, v12);
@@ -499,7 +499,7 @@ int nox_xxx_XFerArmor_4F6860(int a1) {
 		if ((short)v10 >= 62) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(*(uint32_t*)(a1 + 748) + 4), 4u);
 		}
-		if (*(uint32_t*)(a1 + 136) && nox_xxx_cryptGetXxx() == 1 &&
+		if (*(uint32_t*)(a1 + 136) && nox_crypt_IsReadOnly() == 1 &&
 			!nox_xxx_xfer_4F3E30(v10, a1, *(uint32_t*)(a1 + 136))) {
 			return 0;
 		}
@@ -543,7 +543,7 @@ int nox_xxx_XFerAmmo_4F6B20(int* a1) {
 	}
 	result = nox_xxx_mapReadWriteObjData_4F4530(a1, (short)v16);
 	if (result) {
-		if (nox_xxx_cryptGetXxx()) {
+		if (nox_crypt_IsReadOnly()) {
 			v6 = 0;
 			v7 = v18;
 			while (1) {
@@ -593,7 +593,7 @@ int nox_xxx_XFerAmmo_4F6B20(int* a1) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(v15 + 1, 1u);
 		nox_xxx_fileReadWrite_426AC0_file3_fread(v5, 1u);
 	LABEL_17:
-		if (a1[34] && nox_xxx_cryptGetXxx() == 1 && !nox_xxx_xfer_4F3E30(v16, (int)a1, a1[34])) {
+		if (a1[34] && nox_crypt_IsReadOnly() == 1 && !nox_xxx_xfer_4F3E30(v16, (int)a1, a1[34])) {
 			return 0;
 		}
 		a1[34] = v17;
@@ -626,7 +626,7 @@ int nox_xxx_XFerTeam_4F6D20(int* a1) {
 	}
 	result = nox_xxx_mapReadWriteObjData_4F4530(a1, (short)v9);
 	if (result) {
-		if (nox_xxx_cryptGetXxx()) {
+		if (nox_crypt_IsReadOnly()) {
 			v4 = v11;
 			v5 = 4;
 			do {
@@ -662,7 +662,7 @@ int nox_xxx_XFerTeam_4F6D20(int* a1) {
 				--v3;
 			} while (v3);
 		}
-		if (!a1[34] || nox_xxx_cryptGetXxx() != 1 || (result = nox_xxx_xfer_4F3E30(v9, (int)a1, a1[34])) != 0) {
+		if (!a1[34] || nox_crypt_IsReadOnly() != 1 || (result = nox_xxx_xfer_4F3E30(v9, (int)a1, a1[34])) != 0) {
 			a1[34] = v10;
 			result = 1;
 		}
@@ -689,7 +689,7 @@ int nox_xxx_XFerGold_4F6EC0(int a1) {
 	result = nox_xxx_mapReadWriteObjData_4F4530(v1, (short)a1);
 	if (result) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(v2, 4u);
-		if (!v1[34] || nox_xxx_cryptGetXxx() != 1 || (result = nox_xxx_xfer_4F3E30(a1, (int)v1, v1[34])) != 0) {
+		if (!v1[34] || nox_crypt_IsReadOnly() != 1 || (result = nox_xxx_xfer_4F3E30(a1, (int)v1, v1[34])) != 0) {
 			v1[34] = v3;
 			result = 1;
 		}
@@ -722,7 +722,7 @@ int nox_xxx_XFerObelisk_4F6F60(int* a1) {
 		if ((short)v8 >= 61) {
 			LOBYTE(a1) = 0;
 			nox_xxx_fileReadWrite_426AC0_file3_fread(v2, 4u);
-			if (nox_xxx_cryptGetXxx() == 1) {
+			if (nox_crypt_IsReadOnly() == 1) {
 				v9 = 80 * *(uint32_t*)v2 / 50;
 				v7 = (double)v9;
 				nullsub_35(v1, LODWORD(v7));
@@ -745,7 +745,7 @@ int nox_xxx_XFerObelisk_4F6F60(int* a1) {
 		LABEL_14:
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 1u);
 		}
-		if (!v1[34] || nox_xxx_cryptGetXxx() != 1 || (result = nox_xxx_xfer_4F3E30(v8, (int)v1, v1[34])) != 0) {
+		if (!v1[34] || nox_crypt_IsReadOnly() != 1 || (result = nox_xxx_xfer_4F3E30(v8, (int)v1, v1[34])) != 0) {
 			v1[34] = v3;
 			result = 1;
 		}
@@ -776,7 +776,7 @@ int nox_xxx_XFerToxicCloud_4F70A0(int a1) {
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread(v2, 4u);
 	if (v1[34]) {
-		if (nox_xxx_cryptGetXxx() == 1 && !nox_xxx_xfer_4F3E30(a1, (int)v1, v1[34])) {
+		if (nox_crypt_IsReadOnly() == 1 && !nox_xxx_xfer_4F3E30(a1, (int)v1, v1[34])) {
 			return 0;
 		}
 	}
@@ -866,7 +866,7 @@ int nox_xxx_XFerMonsterGen_4F7130(int* a1) {
 			v9 = 0;
 		}
 		nox_xxx_xferReadScriptHandler_4F5580((int)(v1 + 64), v9);
-		if (nox_xxx_cryptGetXxx()) {
+		if (nox_crypt_IsReadOnly()) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v27, 1u);
 			v16 = 0;
 			if ((uint8_t)v27) {
@@ -957,7 +957,7 @@ int nox_xxx_XFerMonsterGen_4F7130(int* a1) {
 		if ((short)v29 >= 63) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(v1 + 92, 4u);
 		}
-		if (!a1[34] || nox_xxx_cryptGetXxx() != 1 || nox_xxx_xfer_4F3E30(v29, (int)a1, a1[34])) {
+		if (!a1[34] || nox_crypt_IsReadOnly() != 1 || nox_xxx_xfer_4F3E30(v29, (int)a1, a1[34])) {
 			a1[34] = v33;
 			return 1;
 		}
@@ -1010,7 +1010,7 @@ int nox_xxx_XFerRewardMarker_4F74D0(int* a1) {
 					}
 				}
 				nox_xxx_fileReadWrite_426AC0_file3_fread(&v22, 2u);
-				if (nox_xxx_cryptGetXxx()) {
+				if (nox_crypt_IsReadOnly()) {
 					v5 = 0;
 					if ((uint16_t)v22) {
 						do {
@@ -1046,7 +1046,7 @@ int nox_xxx_XFerRewardMarker_4F74D0(int* a1) {
 					++v8;
 				} while (v8 < 6);
 				nox_xxx_fileReadWrite_426AC0_file3_fread(&v22, 2u);
-				if (nox_xxx_cryptGetXxx()) {
+				if (nox_crypt_IsReadOnly()) {
 					if ((uint16_t)v22) {
 						do {
 							nox_xxx_fileReadWrite_426AC0_file3_fread(&v21, 1u);
@@ -1082,7 +1082,7 @@ int nox_xxx_XFerRewardMarker_4F74D0(int* a1) {
 					++v13;
 				} while (v13 < 41);
 				nox_xxx_fileReadWrite_426AC0_file3_fread(&v22, 2u);
-				if (nox_xxx_cryptGetXxx()) {
+				if (nox_crypt_IsReadOnly()) {
 					if ((uint16_t)v22) {
 						do {
 							nox_xxx_fileReadWrite_426AC0_file3_fread(&v21, 1u);
@@ -1119,7 +1119,7 @@ int nox_xxx_XFerRewardMarker_4F74D0(int* a1) {
 				if ((short)v23 >= 63) {
 					nox_xxx_fileReadWrite_426AC0_file3_fread(v1 + 216, 1u);
 				}
-				if (!a1[34] || nox_xxx_cryptGetXxx() != 1 || nox_xxx_xfer_4F3E30(v23, (int)a1, a1[34])) {
+				if (!a1[34] || nox_crypt_IsReadOnly() != 1 || nox_xxx_xfer_4F3E30(v23, (int)a1, a1[34])) {
 					a1[34] = v24;
 					return 1;
 				}
@@ -4585,7 +4585,7 @@ int sub_5000B0(uint32_t* a1) {
 		LOBYTE(v5) = v5 + 1;
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 1u);
-	if (nox_xxx_cryptGetXxx()) {
+	if (nox_crypt_IsReadOnly()) {
 		if ((uint8_t)v5) {
 			sub_5002D0(a1);
 			v4 = 0;
@@ -6773,8 +6773,8 @@ int nox_server_mapRWMapIntro_505080() {
 		return 0;
 	}
 	v9 = 0;
-	if (nox_xxx_cryptGetXxx()) {
-		if (nox_xxx_cryptGetXxx() != 1) {
+	if (nox_crypt_IsReadOnly()) {
+		if (nox_crypt_IsReadOnly() != 1) {
 			return 0;
 		}
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v17, 4u);
@@ -6865,7 +6865,7 @@ int nox_server_mapRWGroupData_505C30() {
 		return 0;
 	}
 
-	if (nox_xxx_cryptGetXxx()) {
+	if (nox_crypt_IsReadOnly()) {
 		v21 = 0;
 		v22 = 0;
 		int v13;
@@ -7012,7 +7012,7 @@ int nox_server_mapRWWaypoints_506260(uint32_t* a1) {
 	if ((short)v18 > 4) {
 		return 0;
 	}
-	if (nox_xxx_cryptGetXxx()) {
+	if (nox_crypt_IsReadOnly()) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v19, 4u);
 		v24 = 0;
 		if (v19 > 0) {

@@ -1116,21 +1116,21 @@ LABEL_20:
 	if (v3) {
 		nox_wcscpy((wchar_t*)(*(uint32_t*)(v3 + 276) + 4704), (const wchar_t*)v2);
 	}
-	if (nox_xxx_cryptGetXxx() == 1 && v3) {
+	if (nox_crypt_IsReadOnly() == 1 && v3) {
 		v6 = nox_wcslen((const wchar_t*)v2);
 		v7 = nox_xxx_protectionStringCRCLen_56FAE0((int*)v2, 2 * v6);
 		nox_xxx_playerResetProtectionCRC_56F7D0(*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4628), v7);
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v2 + 50), 4u);
 	nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v2 + 54), 4u);
-	if (nox_xxx_cryptGetXxx() == 1 && v3) {
+	if (nox_crypt_IsReadOnly() == 1 && v3) {
 		sub_56F780(*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4624), *(uint32_t*)(v2 + 54));
 		sub_56F780(*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4620), *(uint32_t*)(v2 + 50));
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v2 + 58), 4u);
 	nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v2 + 62), 4u);
 	nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v2 + 66), 1u);
-	if (nox_xxx_cryptGetXxx() == 1 && v3) {
+	if (nox_crypt_IsReadOnly() == 1 && v3) {
 		sub_56F820(*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4616), *(uint8_t*)(v2 + 66));
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v2 + 67), 1u);
@@ -1147,7 +1147,7 @@ LABEL_20:
 		nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v2 + 87), 1u);
 	}
 	v8 = a1;
-	if (nox_xxx_cryptGetXxx() == 1) {
+	if (nox_crypt_IsReadOnly() == 1) {
 		if (a1) {
 			v9 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(a1 + 36));
 			if (v9) {
@@ -1162,7 +1162,7 @@ LABEL_20:
 			v13 = *(uint32_t*)(v3 + 320);
 		}
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v13, 4u);
-		if (nox_xxx_cryptGetXxx() == 1 && v3) {
+		if (nox_crypt_IsReadOnly() == 1 && v3) {
 			*(uint32_t*)(v3 + 320) = v13;
 		}
 		v12 = nox_xxx_gamedataGetFloat_419D40("MaxExtraLives");
@@ -1182,7 +1182,7 @@ LABEL_20:
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 4u);
 		}
 	}
-	if (nox_xxx_cryptGetXxx() == 1) {
+	if (nox_crypt_IsReadOnly() == 1) {
 		sub_4D6000(v8);
 	}
 	if ((short)a2 >= 4) {
@@ -1192,8 +1192,8 @@ LABEL_20:
 			a1 = *(uint32_t*)(v15 + 4696);
 		}
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 4u);
-		if (nox_xxx_cryptGetXxx() == 1) {
-			if (!v11 || (*(uint32_t*)(v11 + 4696) = a1, nox_xxx_cryptGetXxx() == 1)) {
+		if (nox_crypt_IsReadOnly() == 1) {
+			if (!v11 || (*(uint32_t*)(v11 + 4696) = a1, nox_crypt_IsReadOnly() == 1)) {
 				if (v3) {
 					sub_4D7450(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064),
 							   *(uint32_t*)(*(uint32_t*)(v3 + 276) + 4696));
@@ -1237,14 +1237,14 @@ char* sub_41AA30(int a1) {
 			LOWORD(v4) = nox_xxx_unitGetMaxHP_4EE7A0(v1);
 			v6 = v4;
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v6, 2u);
-			if (nox_xxx_cryptGetXxx() == 1) {
+			if (nox_crypt_IsReadOnly() == 1) {
 				nox_xxx_unitSetMaxHP_4EE7C0(v1, v6);
 				nox_xxx_unitSetHP_4E4560(v1, v6);
 			}
 			LOWORD(v5) = nox_xxx_playerGetMaxMana_4EECB0(v1);
 			v6 = v5;
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v6, 2u);
-			if (nox_xxx_cryptGetXxx() == 1) {
+			if (nox_crypt_IsReadOnly() == 1) {
 				nox_xxx_playerSetMaxMana_4EECD0(v1, v6);
 				nox_xxx_playerManaRefresh_4EECF0(v1);
 			}
@@ -1254,19 +1254,19 @@ char* sub_41AA30(int a1) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x5D4594, 527700), 2u);
 			LOBYTE(v8) = *(uint8_t*)(v1 + 540);
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v8, 1u);
-			if (nox_xxx_cryptGetXxx() == 1) {
+			if (nox_crypt_IsReadOnly() == 1) {
 				nox_xxx_setSomePoisonData_4EEA90(v1, (unsigned char)v8);
 			}
 			nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v1 + 541), 1u);
 			nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v1 + 542), 2u);
 			nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v1 + 28), 4u);
-			if (nox_xxx_cryptGetXxx() == 1) {
+			if (nox_crypt_IsReadOnly() == 1) {
 				sub_56F8C0(*(uint32_t*)(*(uint32_t*)(v2 + 276) + 4604), *(float*)(v1 + 28));
 				sub_4D81A0(v1);
 			}
 			if ((short)v7 >= 2) {
 				nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v1 + 124), 2u);
-				if (nox_xxx_cryptGetXxx() == 1) {
+				if (nox_crypt_IsReadOnly() == 1) {
 					*(uint16_t*)(v1 + 126) = *(uint16_t*)(v1 + 124);
 				}
 			}
@@ -1333,7 +1333,7 @@ int sub_41AC30(uint32_t* a1) {
 	if (!*getMemU32Ptr(0x5D4594, 527704)) {
 		*getMemU32Ptr(0x5D4594, 527704) = nox_xxx_getNameId_4E3AA0("Glyph");
 	}
-	if (nox_xxx_cryptGetXxx() == 1) {
+	if (nox_crypt_IsReadOnly() == 1) {
 		sub_4EF140((int)a1);
 	}
 	v42 = 3;
@@ -1356,12 +1356,12 @@ int sub_41AC30(uint32_t* a1) {
 	}
 	v44 = *(uint32_t*)(*(uint32_t*)(v40 + 276) + 2164);
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v44, 4u);
-	if (nox_xxx_cryptGetXxx() == 1) {
+	if (nox_crypt_IsReadOnly() == 1) {
 		v3 = nox_xxx_playerGetGold_4FA6B0((int)a1);
 		nox_xxx_playerSubGold_4FA5D0((int)a1, v3);
 		nox_xxx_playerAddGold_4FA590((int)a1, v44);
 	}
-	if (nox_xxx_cryptGetXxx()) {
+	if (nox_crypt_IsReadOnly()) {
 		v21 = a1[126];
 		if (v21) {
 			do {
@@ -1610,7 +1610,7 @@ LABEL_109:
 	} else {
 		nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v40 + 244), 1u);
 	}
-	if (nox_xxx_cryptGetXxx() == 1 && nox_common_gameFlags_check_40A5C0(4096)) {
+	if (nox_crypt_IsReadOnly() == 1 && nox_common_gameFlags_check_40A5C0(4096)) {
 		*v32 = 0;
 	}
 LABEL_115:
@@ -1697,7 +1697,7 @@ int nox_xxx_guiFieldbook_41B420(int a1) {
 			return result;
 		}
 	}
-	if (nox_xxx_cryptGetXxx()) {
+	if (nox_crypt_IsReadOnly()) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v13, 1u);
 		if ((unsigned char)v13 > 0x29u) {
 			return 0;
@@ -1804,7 +1804,7 @@ int nox_xxx_guiSpellbook_41B660(int a1) {
 			return result;
 		}
 	}
-	if (nox_xxx_cryptGetXxx()) {
+	if (nox_crypt_IsReadOnly()) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v20, 1u);
 		if ((unsigned char)v20 > 0x89u) {
 			return 0;
@@ -1943,7 +1943,7 @@ int nox_xxx_guiEnchantment_41B9C0(uint32_t* a1) {
 	if ((short)v18 > 5) {
 		return 0;
 	}
-	if (nox_xxx_cryptGetXxx() == 1 && nox_common_gameFlags_check_40A5C0(2048)) {
+	if (nox_crypt_IsReadOnly() == 1 && nox_common_gameFlags_check_40A5C0(2048)) {
 		nox_xxx_spellCastByPlayer_4FEEF0();
 		sub_4FE8A0(0);
 	}
@@ -1956,7 +1956,7 @@ int nox_xxx_guiEnchantment_41B9C0(uint32_t* a1) {
 		if (!result) {
 			return result;
 		}
-		if (nox_xxx_cryptGetXxx()) {
+		if (nox_crypt_IsReadOnly()) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v22, 1u);
 			v5 = 0;
 			if ((uint8_t)v22) {
@@ -2020,21 +2020,21 @@ int nox_xxx_guiEnchantment_41B9C0(uint32_t* a1) {
 		if ((short)v18 >= 5 && !*(uint8_t*)(*(uint32_t*)(v19 + 276) + 2251)) {
 			v14 = nox_common_playerIsAbilityActive_4FC250((int)a1, 1);
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v14, 1u);
-			if (nox_xxx_cryptGetXxx() == 1 && v14 == 1) {
+			if (nox_crypt_IsReadOnly() == 1 && v14 == 1) {
 				sub_4FC670(1);
 			}
 			v15 = nox_common_playerIsAbilityActive_4FC250((int)a1, 4);
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v15, 1u);
 			v23 = sub_4FC030((int)a1, 4);
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v23, 4u);
-			if (nox_xxx_cryptGetXxx() == 1 && v15 == 1) {
+			if (nox_crypt_IsReadOnly() == 1 && v15 == 1) {
 				nox_xxx_playerExecuteAbil_4FBB70((int)a1, 4);
 				sub_4FC070((int)a1, 4, v23);
 			}
 			for (j = 2 - (v14 != 1); j < 6; ++j) {
 				v17 = sub_4FBE60((int)a1, j);
 				nox_xxx_fileReadWrite_426AC0_file3_fread(&v17, 4u);
-				if (nox_xxx_cryptGetXxx() == 1) {
+				if (nox_crypt_IsReadOnly() == 1) {
 					sub_4FBEA0((int)a1, j, v17);
 					if (v17) {
 						nox_xxx_netAbilRepotState_4D8100((int)a1, j, 0);
@@ -2046,21 +2046,21 @@ int nox_xxx_guiEnchantment_41B9C0(uint32_t* a1) {
 	if ((uint16_t)v18 == 4 && !*(uint8_t*)(*(uint32_t*)(v19 + 276) + 2251)) {
 		v14 = nox_common_playerIsAbilityActive_4FC250((int)a1, 1);
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v14, 1u);
-		if (nox_xxx_cryptGetXxx() == 1 && v14 == 1) {
+		if (nox_crypt_IsReadOnly() == 1 && v14 == 1) {
 			sub_4FC670(1);
 		}
 		v15 = nox_common_playerIsAbilityActive_4FC250((int)a1, 4);
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v15, 1u);
 		v19 = sub_4FC030((int)a1, 4);
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v19, 4u);
-		if (nox_xxx_cryptGetXxx() == 1 && v15 == 1) {
+		if (nox_crypt_IsReadOnly() == 1 && v15 == 1) {
 			nox_xxx_playerExecuteAbil_4FBB70((int)a1, 4);
 			sub_4FC070((int)a1, 4, v19);
 		}
 		for (k = 2 - (v14 != 1); k < 6; ++k) {
 			v17 = sub_4FBE60((int)a1, k);
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v17, 4u);
-			if (nox_xxx_cryptGetXxx() == 1) {
+			if (nox_crypt_IsReadOnly() == 1) {
 				sub_4FBEA0((int)a1, k, v17);
 				if (v17) {
 					nox_xxx_netAbilRepotState_4D8100((int)a1, k, 0);
@@ -2111,7 +2111,7 @@ int sub_41BEC0(int a1) {
 		++v8;
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v8, 2u);
-	if (nox_xxx_cryptGetXxx() != 1) {
+	if (nox_crypt_IsReadOnly() != 1) {
 		if ((unsigned short)v8 > 0u) {
 			v6 = *(uint32_t*)(v2 + 3644);
 			for (j = *(uint32_t*)(v6 + 64); j; j = *(uint32_t*)(j + 64)) {
@@ -2163,7 +2163,7 @@ int sub_41C080(int a1) {
 		return 0;
 	}
 	if ((short)a1 >= 5) {
-		if (nox_xxx_cryptGetXxx()) {
+		if (nox_crypt_IsReadOnly()) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(v6, 4u);
 		} else {
 			int oid = nox_server_LastObjectScriptID();
@@ -2171,14 +2171,14 @@ int sub_41C080(int a1) {
 			nox_server_SetLastObjectScriptID(oid);
 		}
 	}
-	if (!nox_xxx_cryptGetXxx()) {
+	if (!nox_crypt_IsReadOnly()) {
 		strcpy((char*)(v2 + 4760), nox_xxx_mapGetMapName_409B40());
 	}
 	v4 = strlen((const char*)(v2 + 4760));
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v4, 2u);
 	nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)(v2 + 4760), 2 * (unsigned short)v4);
 	*(uint8_t*)((unsigned short)v4 + v2 + 4760) = 0;
-	if ((short)a1 < 2 || (nox_xxx_cryptGetXxx() ? (result = sub_500B70()) : (result = sub_500A60()), result)) {
+	if ((short)a1 < 2 || (nox_crypt_IsReadOnly() ? (result = sub_500B70()) : (result = sub_500A60()), result)) {
 		if ((short)a1 < 3 || (result = sub_5000B0(v1)) != 0) {
 			if ((short)a1 >= 4) {
 				LOBYTE(v5) = sub_450750();
@@ -2211,12 +2211,12 @@ int sub_41C280(void* a1) {
 		if ((short)v4 >= 2) {
 			LOBYTE(a1) = nox_xxx_buttonsGetSelectedRow_45E180();
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 1u);
-			if (nox_xxx_cryptGetXxx() == 1) {
+			if (nox_crypt_IsReadOnly() == 1) {
 				nox_xxx_clientUpdateButtonRow_45E110((unsigned char)a1);
 			}
 			LOBYTE(a1) = sub_4604E0();
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 1u);
-			if (nox_xxx_cryptGetXxx() == 1) {
+			if (nox_crypt_IsReadOnly() == 1) {
 				nox_client_trapSetSelect_4604B0((unsigned char)a1);
 			}
 		}
@@ -2229,7 +2229,7 @@ int sub_41C280(void* a1) {
 				LOBYTE(a1) = 4;
 			}
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 1u);
-			if (nox_xxx_cryptGetXxx() == 1) {
+			if (nox_crypt_IsReadOnly() == 1) {
 				if (nox_common_gameFlags_check_40A5C0(2048)) {
 					nox_xxx_orderUnitLocal_500C70((unsigned char)v3[2064], (unsigned char)a1);
 				}
@@ -2268,7 +2268,7 @@ int nox_xxx_parseFileInfoData_41C3B0(int a1) {
 		*getMemU32Ptr(0x85B3FC, 10980) = *getMemU32Ptr(0x85B3FC, 10980) & 0xFFFFFFF9 | 1;
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x85B3FC, 10980), 4u);
-	if (nox_xxx_cryptGetXxx()) {
+	if (nox_crypt_IsReadOnly()) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v4, 2u);
 		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x85B3FC, 10984), (short)v4);
 		*getMemU8Ptr(0x85B3FC, 10984 + (short)v4) = 0;
@@ -2302,7 +2302,7 @@ int nox_xxx_parseFileInfoData_41C3B0(int a1) {
 	nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x85B3FC, 12201), 1u);
 	nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x85B3FC, 12202), 1u);
 	nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x85B3FC, 12203), 1u);
-	if (nox_xxx_cryptGetXxx()) {
+	if (nox_crypt_IsReadOnly()) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v3, 1u);
 		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x85B3FC, 12204), 2 * (unsigned char)v3);
 		*getMemU16Ptr(0x85B3FC, 12204 + 2 * (unsigned char)v3) = 0;
@@ -2314,7 +2314,7 @@ int nox_xxx_parseFileInfoData_41C3B0(int a1) {
 	nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x85B3FC, 12254), 1u);
 	*getMemU8Ptr(0x85B3FC, 12255) = 0;
 	nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x85B3FC, 12255), 1u);
-	if (!nox_xxx_cryptGetXxx()) {
+	if (!nox_crypt_IsReadOnly()) {
 		*getMemU8Ptr(0x85B3FC, 12256) = sub_467590();
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x85B3FC, 12256), 1u);
@@ -2349,7 +2349,7 @@ int sub_41C780(int a1) {
 	}
 	if ((short)v5 < 11 ||
 		(v3 = !nox_common_gameFlags_check_40A5C0(0x2000), nox_xxx_fileReadWrite_426AC0_file3_fread(&v3, 1u), v3)) {
-		if (nox_xxx_cryptGetXxx()) {
+		if (nox_crypt_IsReadOnly()) {
 			v6.field_0 = 0;
 			v6.field_4 = 0;
 			v6.field_8 = 0;
@@ -2365,7 +2365,7 @@ int sub_41C780(int a1) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v4, 4u);
 		for (i = 0; i < v4; ++i) {
 			v2 = sub_43DB40(i);
-			if (nox_xxx_cryptGetXxx() == 1) {
+			if (nox_crypt_IsReadOnly() == 1) {
 				*(uint32_t*)v2 = 0;
 				*((uint32_t*)v2 + 1) = 0;
 				*((uint32_t*)v2 + 2) = 0;
@@ -2376,7 +2376,7 @@ int sub_41C780(int a1) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(v2, 4u);
 			nox_xxx_fileReadWrite_426AC0_file3_fread(v2 + 4, 4u);
 		}
-		if (nox_xxx_cryptGetXxx() == 1 && !nox_common_gameFlags_check_40A5C0(0x2000)) {
+		if (nox_crypt_IsReadOnly() == 1 && !nox_common_gameFlags_check_40A5C0(0x2000)) {
 			sub_43D9E0(&v6);
 			sub_43DB30(v4);
 		}
@@ -4114,7 +4114,7 @@ int nox_server_mapRWFloorMap_422230(int a1) {
 	if ((short)v62 <= 3) {
 		return nox_xxx_tile_422C10(v62, a1);
 	}
-	if (nox_xxx_cryptGetXxx()) {
+	if (nox_crypt_IsReadOnly()) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v60, 4u);
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v61, 4u);
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v66, 4u);
@@ -4439,8 +4439,8 @@ unsigned char nox_xxx_tileReadOne_422A40(int a1, uint8_t* a2) {
 		LOBYTE(v15) = v15 + 1;
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v15, 1u);
-	result = nox_xxx_cryptGetXxx();
-	if (nox_xxx_cryptGetXxx()) {
+	result = nox_crypt_IsReadOnly();
+	if (nox_crypt_IsReadOnly()) {
 		result = v15;
 		v10 = 0;
 		v11 = (uint8_t)v15 == 0;
@@ -4557,7 +4557,7 @@ int nox_xxx_tile_422C10(int a1, int a2) {
 	if ((short)a1 < 3) {
 		return 0;
 	}
-	if (!nox_xxx_cryptGetXxx()) {
+	if (!nox_crypt_IsReadOnly()) {
 		if (a2) {
 			sub_428170((uint32_t*)a2, &v83);
 			v76 = v83.field_0 / 23;

@@ -719,7 +719,7 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 	if noCrypt {
 		ckey = -1
 	}
-	err := cryptfile.OpenGlobal(fname, 1, ckey)
+	err := cryptfile.OpenGlobal(fname, cryptfile.ReadOnly, ckey)
 	if err != nil {
 		return err
 	}

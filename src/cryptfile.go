@@ -13,9 +13,9 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 )
 
-//export nox_xxx_cryptGetXxx
-func nox_xxx_cryptGetXxx() C.int {
-	return C.int(cryptfile.Global().Mode())
+//export nox_crypt_IsReadOnly
+func nox_crypt_IsReadOnly() C.int {
+	return C.int(bool2int(cryptfile.Global().ReadOnly()))
 }
 
 //export nox_xxx_cryptSetTypeMB_426A50
@@ -25,7 +25,7 @@ func nox_xxx_cryptSetTypeMB_426A50(a1 C.int) {
 
 //export nox_xxx_cryptOpen_426910
 func nox_xxx_cryptOpen_426910(a1 *C.char, cmode, key C.int) int32 {
-	if err := cryptfile.OpenGlobal(GoString(a1), int(cmode), int(key)); err != nil {
+	if err := cryptfile.OpenGlobal(GoString(a1), cryptfile.Mode(cmode), int(key)); err != nil {
 		if !os.IsNotExist(err) {
 			binfile.Log.Println(err)
 		}

@@ -98,7 +98,7 @@ func nox_xxx_XFerDefault4F49A0(cf *cryptfile.CryptFile, v1 *Object, a2 unsafe.Po
 	if C.nox_xxx_mapReadWriteObjData_4F4530(v1.CObj(), C.int(a1)) == 0 {
 		return fmt.Errorf("default xfer: nox_xxx_mapReadWriteObjData_4F4530 failed")
 	}
-	if v1.Field34 == 0 || cf.Mode() != 1 {
+	if v1.Field34 == 0 || !cf.ReadOnly() {
 		v1.Field34 = v2
 		return nil
 	}

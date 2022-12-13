@@ -6,7 +6,7 @@ func Global() *CryptFile {
 	return global
 }
 
-func OpenGlobal(path string, cmode int, key int) error {
+func OpenGlobal(path string, cmode Mode, key int) error {
 	Close()
 	cf, err := OpenFile(path, cmode, key)
 	if err != nil {
