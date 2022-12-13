@@ -58,6 +58,7 @@ import (
 	"time"
 	"unsafe"
 
+	crypt "github.com/noxworld-dev/noxcrypt"
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/ifs"
@@ -852,13 +853,14 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 }
 
 func sub41D090(path string) (uint32, error) {
-	if err := cryptfile.OpenGlobal(path, 1, 27); err != nil {
+	cf, err := cryptfile.OpenFile(path, 1, crypt.SaveKey)
+	if err != nil {
 		return 0, err
 	}
-	defer cryptfile.Close()
+	defer cf.Close()
 	var buf [4]byte
 	for {
-		_, err := cryptfile.ReadWrite(buf[:4])
+		_, err := cf.ReadWrite(buf[:4])
 		if err == io.EOF {
 			return 0, nil
 		} else if err != nil {
@@ -868,27 +870,27 @@ func sub41D090(path string) (uint32, error) {
 		if a1 == 0 {
 			return 0, nil
 		}
-		cryptfile.ReadMaybeAlign(buf[:4])
+		cf.ReadMaybeAlign(buf[:4])
 		v3 := binary.LittleEndian.Uint32(buf[:])
 		if a1 == 10 {
-			return sub_41D110()
+			return sub_41D110(cf)
 		}
-		nox_xxx_cryptSeekCur(int64(v3))
+		cf.Seek(int64(v3), io.SeekCurrent)
 	}
 }
 
-func sub_41D110() (uint32, error) {
+func sub_41D110(cf *cryptfile.CryptFile) (uint32, error) {
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		return 0, nil
 	}
 	var buf [4]byte
 	v2 := uint16(5)
 	binary.LittleEndian.PutUint16(buf[:], v2)
-	_, err := cryptfile.ReadWrite(buf[:2])
+	_, err := cf.ReadWrite(buf[:2])
 	v2 = binary.LittleEndian.Uint16(buf[:])
 	if int16(v2) <= 5 && int16(v2) >= 5 {
 		buf = [4]byte{}
-		_, err = cryptfile.ReadWrite(buf[:4])
+		_, err = cf.ReadWrite(buf[:4])
 		v3 := binary.LittleEndian.Uint32(buf[:])
 		return v3, err
 	}

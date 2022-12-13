@@ -714,22 +714,22 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 	}
 	v8 := s.getServerMap()
 	nox_common_checkMapFile(v8)
-	var err error
+	ckey := crypt.MapKey
 	if noCrypt {
-		err = cryptfile.OpenGlobal(fname, 1, -1)
-	} else {
-		err = cryptfile.OpenGlobal(fname, 1, crypt.MapKey)
+		ckey = -1
 	}
+	err := cryptfile.OpenGlobal(fname, 1, ckey)
 	if err != nil {
 		return err
 	}
-	crc, err := mapReadCryptHeader()
+	cf := cryptfile.Global()
+	crc, err := mapReadCryptHeader(cf)
 	if err != nil {
 		cryptfile.Close()
 		return err
 	}
 	nox_xxx_mapSetCrcMB_409B10(crc)
-	if err := s.nox_xxx_serverParseEntireMap_4CFCE0(); err != nil {
+	if err := s.nox_xxx_serverParseEntireMap_4CFCE0(cf); err != nil {
 		cryptfile.Close()
 		gameLog.Println("server read map:", err)
 		return err

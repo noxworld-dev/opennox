@@ -32,6 +32,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
+	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/server/noxscript"
 )
 
@@ -52,12 +53,12 @@ func nox_script_activatorCancelAll_51AC60() {
 
 //export nox_script_activatorSave_51AEA0
 func nox_script_activatorSave_51AEA0() C.int {
-	return C.int(noxServer.noxScript.actSave())
+	return C.int(noxServer.noxScript.actSave(cryptfile.Global()))
 }
 
 //export nox_script_activatorLoad_51AF80
 func nox_script_activatorLoad_51AF80() C.int {
-	return C.int(noxServer.noxScript.actLoad())
+	return C.int(noxServer.noxScript.actLoad(cryptfile.Global()))
 }
 
 //export nox_script_activatorResolveObjs_51B0C0
