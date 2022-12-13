@@ -33,6 +33,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
+	"github.com/noxworld-dev/opennox/v1/server"
 	"github.com/noxworld-dev/opennox/v1/server/noxscript"
 )
 
@@ -48,17 +49,17 @@ func nox_script_builtinGetF44() C.int {
 
 //export nox_script_activatorCancelAll_51AC60
 func nox_script_activatorCancelAll_51AC60() {
-	noxServer.noxScript.actCancelAll()
+	noxServer.Activators.CancelAll()
 }
 
 //export nox_script_activatorSave_51AEA0
 func nox_script_activatorSave_51AEA0() C.int {
-	return C.int(noxServer.noxScript.actSave(cryptfile.Global()))
+	return C.int(noxServer.SaveActivators(cryptfile.Global()))
 }
 
 //export nox_script_activatorLoad_51AF80
 func nox_script_activatorLoad_51AF80() C.int {
-	return C.int(noxServer.noxScript.actLoad(cryptfile.Global()))
+	return C.int(noxServer.LoadActivators(cryptfile.Global()))
 }
 
 //export nox_script_activatorResolveObjs_51B0C0
@@ -125,10 +126,6 @@ type noxScript struct {
 	nameSuff string
 	vm       struct {
 		stack []uint32
-	}
-	activators struct {
-		lastID uint32
-		head   *Activator
 	}
 	panic noxScriptPanic
 }
@@ -553,6 +550,22 @@ func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *C.char) C.int {
 	defer df.Close()
 	C.nox_script_readWriteWww_5417C0(newFileHandle(binfile.NewFile(f1)), newFileHandle(binfile.NewFile(f2)), newFileHandle(binfile.NewFile(df)))
 	return 1
+}
+
+func (s *noxScript) actRun() {
+	scripts := s.scripts()
+	s.s.Activators.EachTriggered(s.s.Frame(), func(it server.ActivatorArgs) {
+		if scripts[it.Callback].size_28 != 0 {
+			s.PushU32(it.Arg)
+		}
+		s.callByIndex(it.Callback, asObjectS(it.Caller), asObjectS(it.Trigger))
+	})
+}
+
+func (s *noxScript) actResolveObjs() {
+	s.s.Activators.ResolveObjs(func(id int) *server.Object {
+		return s.scriptToObject(id).SObj()
+	})
 }
 
 func (s *noxScript) NoxScript() ns.Implementation {

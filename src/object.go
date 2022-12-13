@@ -295,7 +295,7 @@ func (s *Server) finalizeDeletingObjects() {
 func (s *Server) objectDeleteFinish(obj *Object) {
 	C.nox_xxx_unitTransferSlaves_4EC4B0(obj.CObj())
 	obj.SetOwner(nil)
-	s.noxScript.actClearObj(obj)
+	s.Activators.ClearOnObject(obj.SObj())
 	C.nox_xxx_decay_5116F0(obj.CObj())
 	obj.dropAllItems()
 	s.objectDeleteLast(obj)

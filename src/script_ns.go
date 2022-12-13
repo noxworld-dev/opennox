@@ -67,5 +67,5 @@ func (t nsTimer) ScriptID() int {
 }
 
 func (t nsTimer) Cancel() bool {
-	return t.s.noxScript.actCancel(t.id)
+	return t.s.Activators.Cancel(t.id)
 }

@@ -53,6 +53,7 @@ type Server struct {
 		firstScriptID ObjectScriptID
 		lastScriptID  ObjectScriptID
 	}
+	Activators serverActivators
 
 	port int
 	http httpService
