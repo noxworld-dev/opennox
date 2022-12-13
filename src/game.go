@@ -1287,7 +1287,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	if checkGameplayFlags(4) || noxflags.HasGame(noxflags.GameFlag16) {
 		nox_server_teamsResetYyy_417D00()
 	}
-	s.debug.Each([]string{"spring", "SentryGlobe"}, func(key, val string) {
+	s.Map.Debug.Each([]string{"spring", "SentryGlobe"}, func(key, val string) {
 		switch key {
 		case "spring":
 			val = strings.TrimSpace(val)

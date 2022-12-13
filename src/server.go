@@ -179,7 +179,6 @@ type Server struct {
 	ai              aiData
 	quest           questServer
 	springs         serverSprings
-	debug           serverDebug
 	mapGroups       serverMapGroups
 	mapSwitchWPName string
 	announce        bool
@@ -638,7 +637,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	C.nox_xxx_mapSwitchLevel_4D12E0(0)
 	s.nox_xxx_mapLoad_40A380()
 	C.sub_4E4DE0()
-	s.debug.Reset()
+	s.Map.Debug.Reset()
 	s.mapGroups.Free()
 	s.springs.Reset()
 	s.abilities.Free()
@@ -1032,7 +1031,7 @@ func nox_xxx_mapSwitchLevel_4D12E0_end() {
 	C.nox_xxx_j_allocHitArray_511840()
 	C.nox_xxx_decayDestroy_5117B0()
 	s.springs.Reset()
-	s.debug.Reset()
+	s.Map.Debug.Reset()
 	s.mapGroups.Reset()
 	C.sub_510E50()
 	C.sub_4D1610()
