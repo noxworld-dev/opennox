@@ -220,12 +220,12 @@ func (f *Binfile) FileFlush() (int64, error) {
 	return res, err
 }
 
-func (f *Binfile) WriteUint32At(v int32, off int64) error {
+func (f *Binfile) WriteUint32At(v uint32, off int64) error {
 	if off < 0 {
 		return nil
 	}
 	var buf [crypt.Block]byte
-	binary.LittleEndian.PutUint32(buf[0:], uint32(v))
+	binary.LittleEndian.PutUint32(buf[0:], v)
 	c := ciphers[f.key]
 	if c == nil {
 		var err error
