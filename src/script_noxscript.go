@@ -271,7 +271,7 @@ func (s *noxScript) PopObject() *Object {
 }
 
 func (s *noxScript) PopGroup() *mapGroup {
-	return s.s.mapGroupByInd(int(s.PopI32()))
+	return s.s.mapGroups.GroupByInd(int(s.PopI32()))
 }
 
 func (s *noxScript) nox_xxx_scriptRunFirst_507290() {

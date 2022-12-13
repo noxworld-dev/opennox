@@ -631,6 +631,9 @@ func nox_xxx_nxzCompressFile_57BDD0(a1, a2 *C.char) int {
 
 //export nox_xxx_mapReset_5028E0
 func nox_xxx_mapReset_5028E0() {
+	noxServer.nox_xxx_mapReset5028E0()
+}
+func (s *Server) nox_xxx_mapReset5028E0() {
 	C.dword_5d4594_1599480 = math.MaxUint32
 	*memmap.PtrUint32(0x5D4594, 1599572) = math.MaxUint32
 	C.dword_5d4594_1599476 = 0
@@ -642,7 +645,7 @@ func nox_xxx_mapReset_5028E0() {
 	*memmap.PtrUint32(0x5D4594, 1599560) = 0
 	C.dword_5d4594_1599548 = nil
 	*memmap.PtrUint32(0x5D4594, 1599552) = 0
-	dword_5d4594_1599564 = nil
+	s.mapGroups.refs = nil
 	*memmap.PtrUint32(0x5D4594, 1599568) = 0
 	*memmap.PtrUint32(0x5D4594, 1599484) = 0
 	*memmap.PtrUint32(0x5D4594, 1599488) = 0
@@ -659,12 +662,15 @@ func nox_xxx_mapReset_5028E0() {
 
 //export nox_xxx_free_503F40
 func nox_xxx_free_503F40() {
+	noxServer.nox_xxx_free503F40()
+}
+func (s *Server) nox_xxx_free503F40() {
 	{
 		var next unsafe.Pointer
 		for v0 := unsafe.Pointer(C.dword_5d4594_1599540); v0 != nil; v0 = next {
 			next = *(*unsafe.Pointer)(unsafe.Add(v0, 4))
 			if C.dword_5d4594_1599476 == 0 {
-				noxServer.Objs.FreeObject(asObject(*(*unsafe.Pointer)(unsafe.Add(v0, 0))).SObj())
+				s.Objs.FreeObject(asObject(*(*unsafe.Pointer)(unsafe.Add(v0, 0))).SObj())
 			}
 			alloc.Free(v0)
 		}
@@ -709,21 +715,21 @@ func nox_xxx_free_503F40() {
 	}
 
 	{
-		var next *mapGroupX
-		for it := dword_5d4594_1599564; it != nil; it = next {
+		var next *mapGroupRef
+		for it := s.mapGroups.refs; it != nil; it = next {
 			next = it.next4
 			if C.dword_5d4594_1599476 == 0 {
 				var next2 *mapGroupItem
 				for it2 := it.field0.list; it2 != nil; it2 = next2 {
 					next2 = it2.next8
-					nox_alloc_itemGroupElem_2523896.FreeObjectFirst(it2)
+					s.mapGroups.allocItem.FreeObjectFirst(it2)
 				}
-				nox_alloc_groupInfo_2523892.FreeObjectFirst(it.field0)
+				s.mapGroups.allocGroup.FreeObjectFirst(it.field0)
 			}
 			alloc.Free(unsafe.Pointer(it))
 		}
 	}
 	*memmap.PtrUint32(0x5D4594, 1599568) = 0
-	dword_5d4594_1599564 = nil
-	nox_xxx_mapReset_5028E0()
+	s.mapGroups.refs = nil
+	s.nox_xxx_mapReset5028E0()
 }

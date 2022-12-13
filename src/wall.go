@@ -94,7 +94,7 @@ func (s *Server) getWallNear(pos types.Pointf) *Wall {
 }
 
 func (s *Server) getWallGroupByID(id string) *script.WallGroup {
-	g := s.getMapGroupByID(id, mapGroupWalls)
+	g := s.mapGroups.GroupByID(id, mapGroupWalls)
 	if g == nil {
 		return nil
 	}
