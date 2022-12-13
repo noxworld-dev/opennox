@@ -69,6 +69,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -851,13 +852,13 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 }
 
 func sub41D090(path string) (uint32, error) {
-	if err := cryptFileOpen(path, 1, 27); err != nil {
+	if err := cryptfile.Open(path, 1, 27); err != nil {
 		return 0, err
 	}
-	defer cryptFileClose()
+	defer cryptfile.Close()
 	var buf [4]byte
 	for {
-		_, err := cryptFileReadWrite(buf[:4])
+		_, err := cryptfile.ReadWrite(buf[:4])
 		if err == io.EOF {
 			return 0, nil
 		} else if err != nil {
@@ -867,7 +868,7 @@ func sub41D090(path string) (uint32, error) {
 		if a1 == 0 {
 			return 0, nil
 		}
-		cryptFileReadMaybeAlign(buf[:4])
+		cryptfile.ReadMaybeAlign(buf[:4])
 		v3 := binary.LittleEndian.Uint32(buf[:])
 		if a1 == 10 {
 			return sub_41D110()
@@ -883,11 +884,11 @@ func sub_41D110() (uint32, error) {
 	var buf [4]byte
 	v2 := uint16(5)
 	binary.LittleEndian.PutUint16(buf[:], v2)
-	_, err := cryptFileReadWrite(buf[:2])
+	_, err := cryptfile.ReadWrite(buf[:2])
 	v2 = binary.LittleEndian.Uint16(buf[:])
 	if int16(v2) <= 5 && int16(v2) >= 5 {
 		buf = [4]byte{}
-		_, err = cryptFileReadWrite(buf[:4])
+		_, err = cryptfile.ReadWrite(buf[:4])
 		v3 := binary.LittleEndian.Uint32(buf[:])
 		return v3, err
 	}
