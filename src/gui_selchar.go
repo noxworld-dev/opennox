@@ -852,7 +852,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 }
 
 func sub41D090(path string) (uint32, error) {
-	if err := cryptfile.Open(path, 1, 27); err != nil {
+	if err := cryptfile.OpenGlobal(path, 1, 27); err != nil {
 		return 0, err
 	}
 	defer cryptfile.Close()

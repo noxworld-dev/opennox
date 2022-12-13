@@ -291,7 +291,7 @@ func mapReadCryptHeader() (uint32, error) {
 
 func nox_common_checkMapFile(name string) error {
 	path := datapath.Maps(name, name+".map")
-	if err := cryptfile.Open(path, 1, crypt.MapKey); err != nil {
+	if err := cryptfile.OpenGlobal(path, 1, crypt.MapKey); err != nil {
 		return err
 	}
 	defer cryptfile.Close()
@@ -405,7 +405,7 @@ func nox_xxx_mapReadSectionSpecial_426F40(a1 unsafe.Pointer, name string, fnc un
 
 func nox_xxx_mapCliReadAllA(path string) error {
 	mapLog.Printf("client reading map: %q", path)
-	if err := cryptfile.Open(path, 1, crypt.MapKey); err != nil {
+	if err := cryptfile.OpenGlobal(path, 1, crypt.MapKey); err != nil {
 		return err
 	}
 	defer cryptfile.Close()

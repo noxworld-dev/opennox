@@ -25,7 +25,7 @@ func nox_xxx_cryptSetTypeMB_426A50(a1 C.int) {
 
 //export nox_xxx_cryptOpen_426910
 func nox_xxx_cryptOpen_426910(a1 *C.char, cmode, key C.int) int32 {
-	if err := cryptfile.Open(GoString(a1), int(cmode), int(key)); err != nil {
+	if err := cryptfile.OpenGlobal(GoString(a1), int(cmode), int(key)); err != nil {
 		if !os.IsNotExist(err) {
 			binfile.Log.Println(err)
 		}
