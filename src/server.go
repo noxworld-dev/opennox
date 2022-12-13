@@ -83,6 +83,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/cnxz"
+	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -715,26 +716,26 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 	nox_common_checkMapFile(v8)
 	var err error
 	if noCrypt {
-		err = cryptFileOpen(fname, 1, -1)
+		err = cryptfile.Open(fname, 1, -1)
 	} else {
-		err = cryptFileOpen(fname, 1, crypt.MapKey)
+		err = cryptfile.Open(fname, 1, crypt.MapKey)
 	}
 	if err != nil {
 		return err
 	}
 	crc, err := mapReadCryptHeader()
 	if err != nil {
-		cryptFileClose()
+		cryptfile.Close()
 		return err
 	}
 	nox_xxx_mapSetCrcMB_409B10(crc)
 	if err := s.nox_xxx_serverParseEntireMap_4CFCE0(); err != nil {
-		cryptFileClose()
+		cryptfile.Close()
 		gameLog.Println("server read map:", err)
 		return err
 	}
 	s.noxScript.nox_xxx_scriptRunFirst_507290()
-	cryptFileClose()
+	cryptfile.Close()
 	if !noxflags.HasGame(noxflags.GameFlag22) {
 		s.nox_xxx_mapReadSetFlags_4CF990()
 		if false {

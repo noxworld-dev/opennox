@@ -17,6 +17,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/spell"
 
+	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -66,7 +67,7 @@ func nox_xxx_xfer_saveObj51DF90(a1p *Object) int {
 	if a1 == 0 {
 		return 0
 	}
-	cryptFileWriteU16(a1)
+	cryptfile.WriteU16(a1)
 	nox_xxx_crypt_426C90()
 	if err := a1p.callXfer(nil); err != nil {
 		mapLog.Println("nox_xxx_xfer_saveObj51DF90:", err)
@@ -89,7 +90,7 @@ func nox_xxx_XFerDefault_4F49A0(a1p *nox_object_t, a2 unsafe.Pointer) C.int {
 }
 
 func nox_xxx_XFerDefault4F49A0(v1 *Object, a2 unsafe.Pointer) error {
-	a1, _ := cryptFileReadWriteU16(60)
+	a1, _ := cryptfile.ReadWriteU16(60)
 	if int16(a1) > 60 {
 		return fmt.Errorf("default xfer: unexpected value 1: %d", a1)
 	}
@@ -113,19 +114,19 @@ func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
 	s := noxServer
 	if a2 < 50 {
 		// TODO: why it's unused?
-		_, _ = cryptFileReadU32()
+		_, _ = cryptfile.ReadU32()
 	}
-	b1, _ := cryptFileReadU8()
+	b1, _ := cryptfile.ReadU8()
 	*(*uint8)(unsafe.Add(a1, 4)) = b1
 
-	tname, _ := cryptFileReadString8()
+	tname, _ := cryptfile.ReadString8()
 	var typ *server.ObjectType
 	if tname != "" {
 		typ = s.ObjectTypeByID(tname)
 		*(*int32)(unsafe.Add(a1, 0)) = int32(typ.Ind())
 	}
 	if a2 >= 47 {
-		name, _ := cryptFileReadString8()
+		name, _ := cryptfile.ReadString8()
 		if name != "" {
 			var v4 int
 			switch typ.Xfer {
@@ -141,7 +142,7 @@ func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
 	}
 	var mods [4]*C.obj_412ae0_t
 	for i := range mods {
-		mname, _ := cryptFileReadString8()
+		mname, _ := cryptfile.ReadString8()
 		if mname == "" {
 			continue
 		}
@@ -159,9 +160,9 @@ func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
 
 //export nox_xxx_XFer_WriteShopItem_52A5F0
 func nox_xxx_XFer_WriteShopItem_52A5F0(a1 unsafe.Pointer) {
-	cryptFileWriteU8(*(*uint8)(unsafe.Add(a1, 4)))
+	cryptfile.WriteU8(*(*uint8)(unsafe.Add(a1, 4)))
 	typ := noxServer.ObjectTypeByInd(int(*(*int32)(unsafe.Add(a1, 0))))
-	cryptFileWriteString8(typ.ID())
+	cryptfile.WriteString8(typ.ID())
 	pind := int(*(*int32)(unsafe.Add(a1, 8)))
 	var pname string
 	switch typ.Xfer {
@@ -172,7 +173,7 @@ func nox_xxx_XFer_WriteShopItem_52A5F0(a1 unsafe.Pointer) {
 	default:
 		pname = spell.ID(pind).String()
 	}
-	cryptFileWriteString8(pname)
+	cryptfile.WriteString8(pname)
 	mods := [4]*C.obj_412ae0_t{
 		*(**C.obj_412ae0_t)(unsafe.Add(a1, 12)),
 		*(**C.obj_412ae0_t)(unsafe.Add(a1, 16)),
@@ -181,9 +182,9 @@ func nox_xxx_XFer_WriteShopItem_52A5F0(a1 unsafe.Pointer) {
 	}
 	for _, m := range mods {
 		if m != nil {
-			cryptFileWriteString8(GoString(m.field_0))
+			cryptfile.WriteString8(GoString(m.field_0))
 		} else {
-			cryptFileWriteString8("")
+			cryptfile.WriteString8("")
 		}
 	}
 }
