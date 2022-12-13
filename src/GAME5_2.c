@@ -46,12 +46,12 @@ extern uint32_t dword_5d4594_2516356;
 extern uint64_t qword_581450_9544;
 extern uint32_t dword_5d4594_2523780;
 extern uint32_t dword_5d4594_2516344;
-extern nox_waypoint_t* nox_xxx_waypointsHead_2523752;
 extern uint32_t dword_5d4594_2516328;
 extern uint32_t dword_5d4594_2516348;
 extern uint32_t dword_5d4594_2650652;
 
 void* dword_5d4594_2523756 = 0;
+nox_waypoint_t* nox_xxx_waypointsHead_2523752 = 0;
 
 //----- (00554040) --------------------------------------------------------
 unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out) {
@@ -942,7 +942,7 @@ int nox_xxx_packetDynamicUnitCode_578B40(int a1) {
 unsigned int nox_xxx_netTestHighBit_578B70(unsigned int a1) { return (a1 >> 15) & 1; }
 
 //----- (00579860) --------------------------------------------------------
-void* nox_xxx_waypointGetList_579860() { return *(void**)&nox_xxx_waypointsHead_2523752; }
+void* nox_xxx_waypointGetList_579860() { return nox_xxx_waypointsHead_2523752; }
 
 //----- (00579870) --------------------------------------------------------
 int nox_xxx_waypointNext_579870(int a1) {
@@ -976,7 +976,7 @@ unsigned int nox_xxx_waypoint_5798C0() {
 	uint32_t* v0;        // ecx
 	unsigned int result; // eax
 
-	v0 = *(uint32_t**)&nox_xxx_waypointsHead_2523752;
+	v0 = nox_xxx_waypointsHead_2523752;
 	result = 1;
 	if (nox_xxx_waypointsHead_2523752) {
 		do {
@@ -1240,7 +1240,7 @@ void nox_xxx_waypointDeleteAll_579DD0() {
 	uint32_t* v0; // esi
 	uint32_t* v1; // edi
 
-	v0 = *(uint32_t**)&nox_xxx_waypointsHead_2523752;
+	v0 = nox_xxx_waypointsHead_2523752;
 	if (nox_xxx_waypointsHead_2523752) {
 		do {
 			v1 = (uint32_t*)v0[121];
