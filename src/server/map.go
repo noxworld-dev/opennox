@@ -17,6 +17,8 @@ type mapIndexBucket struct {
 const getInRectStackSize = 2 // FIXME: size is a guess
 
 type serverMap struct {
+	Debug serverMapDebug
+
 	indexSize   int
 	bucketByPos [][]mapIndexBucket
 
