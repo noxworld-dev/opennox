@@ -56,10 +56,10 @@ func init() {
 
 //export nox_xxx_xfer_saveObj_51DF90
 func nox_xxx_xfer_saveObj_51DF90(a1 *nox_object_t) C.int {
-	return C.int(nox_xxx_xfer_saveObj51DF90(asObjectC(a1)))
+	return C.int(nox_xxx_xfer_saveObj51DF90(cryptfile.Global(), asObjectC(a1)))
 }
 
-func nox_xxx_xfer_saveObj51DF90(a1p *Object) int {
+func nox_xxx_xfer_saveObj51DF90(cf *cryptfile.CryptFile, a1p *Object) int {
 	if a1p.Flags().Has(object.FlagDestroyed) {
 		return 1
 	}
@@ -67,30 +67,30 @@ func nox_xxx_xfer_saveObj51DF90(a1p *Object) int {
 	if a1 == 0 {
 		return 0
 	}
-	cryptfile.WriteU16(a1)
-	nox_xxx_crypt_426C90()
+	cf.WriteU16(a1)
+	cf.SectionStart()
 	if err := a1p.callXfer(nil); err != nil {
 		mapLog.Println("nox_xxx_xfer_saveObj51DF90:", err)
 		return 0
 	}
-	nox_xxx_crypt_426D40()
+	cf.SectionEnd()
 	for it := a1p.FirstItem(); it != nil; it = it.NextItem() {
-		nox_xxx_xfer_saveObj51DF90(it)
+		nox_xxx_xfer_saveObj51DF90(cf, it)
 	}
 	return 1
 }
 
 //export nox_xxx_XFerDefault_4F49A0
 func nox_xxx_XFerDefault_4F49A0(a1p *nox_object_t, a2 unsafe.Pointer) C.int {
-	if err := nox_xxx_XFerDefault4F49A0(asObjectC(a1p), a2); err != nil {
+	if err := nox_xxx_XFerDefault4F49A0(cryptfile.Global(), asObjectC(a1p), a2); err != nil {
 		mapLog.Println("nox_xxx_XFerDefault_4F49A0:", err)
 		return 0
 	}
 	return 1
 }
 
-func nox_xxx_XFerDefault4F49A0(v1 *Object, a2 unsafe.Pointer) error {
-	a1, _ := cryptfile.ReadWriteU16(60)
+func nox_xxx_XFerDefault4F49A0(cf *cryptfile.CryptFile, v1 *Object, a2 unsafe.Pointer) error {
+	a1, _ := cf.ReadWriteU16(60)
 	if int16(a1) > 60 {
 		return fmt.Errorf("default xfer: unexpected value 1: %d", a1)
 	}
@@ -98,7 +98,7 @@ func nox_xxx_XFerDefault4F49A0(v1 *Object, a2 unsafe.Pointer) error {
 	if C.nox_xxx_mapReadWriteObjData_4F4530(v1.CObj(), C.int(a1)) == 0 {
 		return fmt.Errorf("default xfer: nox_xxx_mapReadWriteObjData_4F4530 failed")
 	}
-	if v1.Field34 == 0 || nox_xxx_cryptGetXxx() != 1 {
+	if v1.Field34 == 0 || cf.Mode() != 1 {
 		v1.Field34 = v2
 		return nil
 	}
@@ -112,21 +112,22 @@ func nox_xxx_XFerDefault4F49A0(v1 *Object, a2 unsafe.Pointer) error {
 //export nox_xxx_XFer_ReadShopItem_52A840
 func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
 	s := noxServer
+	cf := cryptfile.Global()
 	if a2 < 50 {
 		// TODO: why it's unused?
-		_, _ = cryptfile.ReadU32()
+		_, _ = cf.ReadU32()
 	}
-	b1, _ := cryptfile.ReadU8()
+	b1, _ := cf.ReadU8()
 	*(*uint8)(unsafe.Add(a1, 4)) = b1
 
-	tname, _ := cryptfile.ReadString8()
+	tname, _ := cf.ReadString8()
 	var typ *server.ObjectType
 	if tname != "" {
 		typ = s.ObjectTypeByID(tname)
 		*(*int32)(unsafe.Add(a1, 0)) = int32(typ.Ind())
 	}
 	if a2 >= 47 {
-		name, _ := cryptfile.ReadString8()
+		name, _ := cf.ReadString8()
 		if name != "" {
 			var v4 int
 			switch typ.Xfer {
@@ -142,7 +143,7 @@ func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
 	}
 	var mods [4]*C.obj_412ae0_t
 	for i := range mods {
-		mname, _ := cryptfile.ReadString8()
+		mname, _ := cf.ReadString8()
 		if mname == "" {
 			continue
 		}
@@ -160,9 +161,10 @@ func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
 
 //export nox_xxx_XFer_WriteShopItem_52A5F0
 func nox_xxx_XFer_WriteShopItem_52A5F0(a1 unsafe.Pointer) {
-	cryptfile.WriteU8(*(*uint8)(unsafe.Add(a1, 4)))
+	cf := cryptfile.Global()
+	cf.WriteU8(*(*uint8)(unsafe.Add(a1, 4)))
 	typ := noxServer.ObjectTypeByInd(int(*(*int32)(unsafe.Add(a1, 0))))
-	cryptfile.WriteString8(typ.ID())
+	cf.WriteString8(typ.ID())
 	pind := int(*(*int32)(unsafe.Add(a1, 8)))
 	var pname string
 	switch typ.Xfer {
@@ -173,7 +175,7 @@ func nox_xxx_XFer_WriteShopItem_52A5F0(a1 unsafe.Pointer) {
 	default:
 		pname = spell.ID(pind).String()
 	}
-	cryptfile.WriteString8(pname)
+	cf.WriteString8(pname)
 	mods := [4]*C.obj_412ae0_t{
 		*(**C.obj_412ae0_t)(unsafe.Add(a1, 12)),
 		*(**C.obj_412ae0_t)(unsafe.Add(a1, 16)),
@@ -182,9 +184,9 @@ func nox_xxx_XFer_WriteShopItem_52A5F0(a1 unsafe.Pointer) {
 	}
 	for _, m := range mods {
 		if m != nil {
-			cryptfile.WriteString8(GoString(m.field_0))
+			cf.WriteString8(GoString(m.field_0))
 		} else {
-			cryptfile.WriteString8("")
+			cf.WriteString8("")
 		}
 	}
 }

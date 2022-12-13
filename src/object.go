@@ -32,6 +32,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
+	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -929,7 +930,7 @@ func (obj *Object) callUpdate() {
 func (obj *Object) callXfer(a2 unsafe.Pointer) error {
 	switch obj.Xfer {
 	case unsafe.Pointer(C.nox_xxx_XFerDefault_4F49A0):
-		return nox_xxx_XFerDefault4F49A0(obj, a2)
+		return nox_xxx_XFerDefault4F49A0(cryptfile.Global(), obj, a2)
 	}
 	if C.nox_call_object_xfer((*[0]byte)(obj.Xfer), obj.CObj(), a2) == 0 {
 		return fmt.Errorf("xfer for %s failed", obj.String())

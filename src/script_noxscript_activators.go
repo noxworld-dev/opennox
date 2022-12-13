@@ -80,63 +80,63 @@ func (s *noxScript) actClearObj(obj *Object) {
 	}
 }
 
-func (s *noxScript) actSave() int {
+func (s *noxScript) actSave(cf *cryptfile.CryptFile) int {
 	var buf [4]byte
 	binary.LittleEndian.PutUint16(buf[:], 1)
-	cryptfile.ReadWrite(buf[:2])
+	cf.ReadWrite(buf[:2])
 	binary.LittleEndian.PutUint32(buf[:], s.s.Frame())
-	cryptfile.ReadWrite(buf[:4])
+	cf.ReadWrite(buf[:4])
 
 	cnt := 0
 	for it := s.activators.head; it != nil; it = it.next {
 		cnt++
 	}
 	binary.LittleEndian.PutUint32(buf[:], uint32(cnt))
-	cryptfile.ReadWrite(buf[:4])
+	cf.ReadWrite(buf[:4])
 	for it := s.activators.head; it != nil; it = it.next {
 		binary.LittleEndian.PutUint32(buf[:], it.frame)
-		cryptfile.ReadWrite(buf[:4])
+		cf.ReadWrite(buf[:4])
 		binary.LittleEndian.PutUint32(buf[:], uint32(it.callback))
-		cryptfile.ReadWrite(buf[:4])
+		cf.ReadWrite(buf[:4])
 		binary.LittleEndian.PutUint32(buf[:], it.arg)
-		cryptfile.ReadWrite(buf[:4])
+		cf.ReadWrite(buf[:4])
 		oid := 0
 		if it.trigger != nil {
 			oid = it.trigger.ScriptID
 		}
 		binary.LittleEndian.PutUint32(buf[:], uint32(oid))
-		cryptfile.ReadWrite(buf[:4])
+		cf.ReadWrite(buf[:4])
 		oid = 0
 		if it.caller != nil {
 			oid = it.caller.ScriptID
 		}
 		binary.LittleEndian.PutUint32(buf[:], uint32(oid))
-		cryptfile.ReadWrite(buf[:4])
+		cf.ReadWrite(buf[:4])
 	}
 	return 1
 }
 
-func (s *noxScript) actLoad() int {
+func (s *noxScript) actLoad(cf *cryptfile.CryptFile) int {
 	var buf [4]byte
-	cryptfile.ReadWrite(buf[:2])
+	cf.ReadWrite(buf[:2])
 	vers := binary.LittleEndian.Uint16(buf[:])
 	if vers > 1 || vers <= 0 {
 		return 0
 	}
-	cryptfile.ReadWrite(buf[:4])
+	cf.ReadWrite(buf[:4])
 	saveFrame := binary.LittleEndian.Uint32(buf[:])
-	cryptfile.ReadWrite(buf[:4])
+	cf.ReadWrite(buf[:4])
 	cnt := int(binary.LittleEndian.Uint32(buf[:]))
 	for i := 0; i < cnt; i++ {
-		cryptfile.ReadWrite(buf[:4])
+		cf.ReadWrite(buf[:4])
 		frame := binary.LittleEndian.Uint32(buf[:])
-		cryptfile.ReadWrite(buf[:4])
+		cf.ReadWrite(buf[:4])
 		callback := binary.LittleEndian.Uint32(buf[:])
-		cryptfile.ReadWrite(buf[:4])
+		cf.ReadWrite(buf[:4])
 		arg := binary.LittleEndian.Uint32(buf[:])
-		cryptfile.ReadWrite(buf[:4])
+		cf.ReadWrite(buf[:4])
 		trigger := binary.LittleEndian.Uint32(buf[:])
-		cryptfile.ReadWrite(buf[:4])
+		cf.ReadWrite(buf[:4])
 		caller := binary.LittleEndian.Uint32(buf[:])
 
 		act := &Activator{
