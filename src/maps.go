@@ -189,7 +189,7 @@ func nox_server_mapRWScriptObject_505A40(cf *cryptfile.CryptFile, a1 unsafe.Poin
 	if int16(v10) < 1 {
 		return fmt.Errorf("unsupported version: %d", v10)
 	}
-	if cf.Mode() != 1 {
+	if !cf.ReadOnly() {
 		return fmt.Errorf("unexpected crypt file state")
 	}
 	f, err := ifs.Create(fname)
@@ -291,7 +291,7 @@ func mapReadCryptHeader(cf *cryptfile.CryptFile) (uint32, error) {
 
 func nox_common_checkMapFile(name string) error {
 	path := datapath.Maps(name, name+".map")
-	if err := cryptfile.OpenGlobal(path, 1, crypt.MapKey); err != nil {
+	if err := cryptfile.OpenGlobal(path, cryptfile.ReadOnly, crypt.MapKey); err != nil {
 		return err
 	}
 	defer cryptfile.Close()
@@ -407,7 +407,7 @@ func nox_xxx_mapReadSectionSpecial_426F40(a1 unsafe.Pointer, name string, fnc un
 
 func nox_xxx_mapCliReadAllA(path string) error {
 	mapLog.Printf("client reading map: %q", path)
-	if err := cryptfile.OpenGlobal(path, 1, crypt.MapKey); err != nil {
+	if err := cryptfile.OpenGlobal(path, cryptfile.ReadOnly, crypt.MapKey); err != nil {
 		return err
 	}
 	defer cryptfile.Close()
@@ -607,7 +607,7 @@ func nox_server_mapRWObjectData_504CF0(cf *cryptfile.CryptFile, ptr unsafe.Point
 	if ptr != nil {
 		C.sub_428170(ptr, (*C.int4)(v16p))
 	}
-	if cf.Mode() != 0 {
+	if cf.ReadOnly() {
 		return nox_server_mapRWObjectData_504CF0_Read(cf, ptr, v16p)
 	}
 	return nox_server_mapRWObjectData_504CF0_Write(cf, ptr)

@@ -14,16 +14,23 @@ type section struct {
 	After  uint32
 }
 
-func OpenFile(path string, cmode int, key int) (*CryptFile, error) {
-	mode := cmode
+type Mode int
+
+const (
+	WriteOnly = Mode(0)
+	ReadOnly  = Mode(1)
+	Append    = Mode(2)
+)
+
+func OpenFile(path string, cmode Mode, key int) (*CryptFile, error) {
 	var fmode binfile.Mode
-	if cmode == 1 {
-		fmode = binfile.ReadOnly
-	} else if cmode == 2 {
-		mode = 0
-		fmode = binfile.ReadWrite
-	} else {
+	switch cmode {
+	case WriteOnly:
 		fmode = binfile.WriteOnly
+	case ReadOnly:
+		fmode = binfile.ReadOnly
+	case Append:
+		fmode = binfile.ReadWrite
 	}
 	f, err := binfile.BinfileOpen(path, fmode)
 	if err != nil {
@@ -33,7 +40,7 @@ func OpenFile(path string, cmode int, key int) (*CryptFile, error) {
 		_ = f.Close()
 		return nil, err
 	}
-	if cmode == 2 {
+	if cmode == Append {
 		if err := f.FileSeek(0, io.SeekEnd); err != nil {
 			_ = f.Close()
 			return nil, err
@@ -44,24 +51,24 @@ func OpenFile(path string, cmode int, key int) (*CryptFile, error) {
 		xor:        false,
 		noKey:      key == -1,
 		rollingXOR: -1,
-		mode:       mode,
+		readonly:   cmode == ReadOnly,
 	}, nil
 }
 
 type CryptFile struct {
 	File       *binfile.Binfile
-	mode       int
+	readonly   bool
 	rollingXOR int32
 	noKey      bool
 	xor        bool
 	sect       []section
 }
 
-func (f *CryptFile) Mode() int {
+func (f *CryptFile) ReadOnly() bool {
 	if f == nil {
-		return 0
+		return false
 	}
-	return f.mode
+	return f.readonly
 }
 
 func (f *CryptFile) SetXOR(enable bool) {
@@ -115,7 +122,7 @@ func (f *CryptFile) crcAdd(p []byte) {
 }
 
 func (f *CryptFile) Read(p []byte) (int, error) {
-	if f.mode == 0 {
+	if !f.readonly {
 		panic("invalid file mode")
 	}
 	var (
@@ -135,7 +142,7 @@ func (f *CryptFile) Read(p []byte) (int, error) {
 }
 
 func (f *CryptFile) Write(p []byte) (int, error) {
-	if f.mode != 0 {
+	if f.readonly {
 		panic("invalid file mode")
 	}
 	f.crcAdd(p)
@@ -149,7 +156,7 @@ func (f *CryptFile) Write(p []byte) (int, error) {
 }
 
 func (f *CryptFile) ReadWrite(p []byte) (int, error) {
-	if f.mode != 0 {
+	if f.readonly {
 		return f.Read(p)
 	}
 	return f.Write(p)
@@ -253,7 +260,7 @@ func (f *CryptFile) ReadString32() (string, error) {
 }
 
 func (f *CryptFile) ReadWriteU16(v uint16) (uint16, error) {
-	if f.mode != 0 {
+	if f.readonly {
 		v2, err := f.ReadU16()
 		if err != nil {
 			return v, err
@@ -265,7 +272,7 @@ func (f *CryptFile) ReadWriteU16(v uint16) (uint16, error) {
 }
 
 func (f *CryptFile) ReadWriteU32(v uint32) (uint32, error) {
-	if f.mode != 0 {
+	if f.readonly {
 		v2, err := f.ReadU32()
 		if err != nil {
 			return v, err
@@ -277,7 +284,7 @@ func (f *CryptFile) ReadWriteU32(v uint32) (uint32, error) {
 }
 
 func (f *CryptFile) ReadMaybeAlign(p []byte) error {
-	if f.mode != 1 {
+	if !f.readonly {
 		return nil
 	}
 	if f.xor {
@@ -318,7 +325,7 @@ func (f *CryptFile) WriteChecksumAt(off int64) error {
 }
 
 func (f *CryptFile) SectionStart() {
-	if f.mode != 0 {
+	if f.readonly {
 		return
 	}
 	if f.xor {
@@ -341,7 +348,7 @@ func (f *CryptFile) SectionStart() {
 }
 
 func (f *CryptFile) SectionEnd() {
-	if f.mode != 0 {
+	if f.readonly {
 		return
 	}
 	cnt := len(f.sect)

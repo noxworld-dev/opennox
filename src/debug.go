@@ -106,7 +106,7 @@ func mapWriteDebugData(cf *cryptfile.CryptFile) error {
 }
 
 func nox_server_mapRWDebugData_5060D0(cf *cryptfile.CryptFile, a1 unsafe.Pointer) error {
-	if cf.Mode() != 0 {
+	if cf.ReadOnly() {
 		return mapReadDebugData(cf)
 	}
 	return mapWriteDebugData(cf)

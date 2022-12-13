@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-int nox_xxx_cryptGetXxx();
+int nox_crypt_IsReadOnly();
 int nox_xxx_cryptOpen_426910(char* a1, int a2, int a3);
 void nox_xxx_cryptClose_4269F0();
 void nox_xxx_cryptSetTypeMB_426A50(int a1);

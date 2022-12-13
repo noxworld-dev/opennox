@@ -853,7 +853,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *Window, e WindowEvent) WindowEventResp
 }
 
 func sub41D090(path string) (uint32, error) {
-	cf, err := cryptfile.OpenFile(path, 1, crypt.SaveKey)
+	cf, err := cryptfile.OpenFile(path, cryptfile.ReadOnly, crypt.SaveKey)
 	if err != nil {
 		return 0, err
 	}
