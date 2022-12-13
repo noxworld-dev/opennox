@@ -716,9 +716,9 @@ func (s *Server) nox_server_loadMapFile_4CF5F0(mname string, noCrypt bool) error
 	nox_common_checkMapFile(v8)
 	var err error
 	if noCrypt {
-		err = cryptfile.Open(fname, 1, -1)
+		err = cryptfile.OpenGlobal(fname, 1, -1)
 	} else {
-		err = cryptfile.Open(fname, 1, crypt.MapKey)
+		err = cryptfile.OpenGlobal(fname, 1, crypt.MapKey)
 	}
 	if err != nil {
 		return err
