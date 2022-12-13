@@ -31,6 +31,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -182,7 +183,7 @@ func nox_xxx_savePlayerMB_41C8F0(data []byte) C.int {
 
 	ifs.MkdirAll(datapath.Save())
 
-	f, err := BinfileOpen(path, BinFileWO)
+	f, err := binfile.BinfileOpen(path, binfile.WriteOnly)
 	if err != nil {
 		saveLog.Printf("SavePlayerOnClient: Unable to open file %q\n", path)
 		return 0
@@ -428,7 +429,7 @@ func nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2 C.int, act C.int, a4 unsafe.
 }
 
 func nox_xxx_SavePlayerDataFromClient_41CD70(path string, data []byte) bool {
-	f, err := BinfileOpen(path, BinFileWO)
+	f, err := binfile.BinfileOpen(path, binfile.WriteOnly)
 	if err != nil {
 		saveLog.Printf("SavePlayerDataFromClient: Can't open file %q: %v\n", path, err)
 		return false
@@ -575,7 +576,7 @@ func sub41CFA0(a1 string, a2 int) bool {
 	if sz == 0 {
 		return false
 	}
-	f, err := BinfileOpen(a1, 0)
+	f, err := binfile.BinfileOpen(a1, binfile.ReadOnly)
 	if err != nil {
 		saveLog.Printf("SendPlayerSaveDataToClient: Can't open file %q: %v\n", a1, err)
 		return false

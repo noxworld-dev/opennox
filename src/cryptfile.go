@@ -12,10 +12,11 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 )
 
 var (
-	cryptFile           *Binfile
+	cryptFile           *binfile.Binfile
 	cryptFileMode       int
 	cryptFileRollingXOR int32
 	cryptFileNoKey      bool
@@ -42,7 +43,7 @@ func nox_xxx_cryptSetTypeMB_426A50(a1 C.int) {
 func nox_xxx_cryptOpen_426910(a1 *C.char, cmode, key C.int) int32 {
 	if err := cryptFileOpen(GoString(a1), int(cmode), int(key)); err != nil {
 		if !os.IsNotExist(err) {
-			binFileLog.Println(err)
+			binfile.Log.Println(err)
 		}
 		return 0
 	}
@@ -56,17 +57,17 @@ func cryptFileOpen(path string, cmode int, key int) error {
 	nox_xxx_cryptSetTypeMB_426A50(0)
 	cryptFileNoKey = key == -1
 	cryptFileRollingXOR = -1
-	var fmode BinFileMode
+	var fmode binfile.Mode
 	cryptFileMode = cmode
 	if cmode == 1 {
-		fmode = BinFileRO
+		fmode = binfile.ReadOnly
 	} else if cmode == 2 {
 		cryptFileMode = 0
-		fmode = BinFileRW
+		fmode = binfile.ReadWrite
 	} else {
-		fmode = BinFileWO
+		fmode = binfile.WriteOnly
 	}
-	f, err := BinfileOpen(path, fmode)
+	f, err := binfile.BinfileOpen(path, fmode)
 	if err != nil {
 		return err
 	}
@@ -104,7 +105,7 @@ func cryptFileClose() {
 
 //export nox_xxx_mapgenGetSomeFile_426A60
 func nox_xxx_mapgenGetSomeFile_426A60() *C.FILE {
-	return newFileHandle(cryptFile.file)
+	return newFileHandle(cryptFile.File)
 }
 
 //export nox_xxx_cryptSeekCur_40E0A0
@@ -165,7 +166,7 @@ func cryptFileRead(p []byte) (int, error) {
 		err error
 	)
 	if cryptFileXOREnabled {
-		n, err = cryptFile.file.Read(p)
+		n, err = cryptFile.File.Read(p)
 		fileCryptXor(126, p)
 	} else {
 		n, err = cryptFile.Read(p)
@@ -191,7 +192,7 @@ func cryptFileWrite(p []byte) (int, error) {
 		v2 := make([]byte, len(p))
 		copy(v2, p)
 		fileCryptXor(126, v2)
-		return cryptFile.file.Write(v2)
+		return cryptFile.File.Write(v2)
 	}
 	return cryptFile.Write(p)
 }
@@ -337,7 +338,7 @@ func cryptFileReadMaybeAlign(p []byte) error {
 		return nil
 	}
 	if cryptFileXOREnabled {
-		_, err := cryptFile.file.Read(p)
+		_, err := cryptFile.File.Read(p)
 		fileCryptXor(126, p)
 		return err
 	}
@@ -359,14 +360,14 @@ func cryptFileReadAlignedU32() (uint32, error) {
 func nox_xxx_crypt_426C90() {
 	if cryptFileMode == 0 {
 		if cryptFileXOREnabled {
-			v2, _ := cryptFile.file.Seek(0, io.SeekCurrent)
+			v2, _ := cryptFile.File.Seek(0, io.SeekCurrent)
 			cryptFileOffsSaved = append(cryptFileOffsSaved, cryptFileBookmark{
 				After: uint32(v2),
 			})
 			var b [4]byte
 			binary.LittleEndian.PutUint32(b[:], uint32(v2))
 			fileCryptXor(126, b[:])
-			cryptFile.file.Write(b[:])
+			cryptFile.File.Write(b[:])
 		} else {
 			off1, _ := cryptFile.FileFlush()
 			off2 := cryptFile.Written()
@@ -393,13 +394,13 @@ func nox_xxx_crypt_426D40() {
 	cryptFileOffsSaved = cryptFileOffsSaved[:cnt-1]
 
 	if cryptFileXOREnabled {
-		v1, _ := cryptFile.file.Seek(0, io.SeekCurrent)
+		v1, _ := cryptFile.File.Seek(0, io.SeekCurrent)
 		v3 := uint32(v1 - int64(offs.After) - 4)
 		cryptFile.FileSeek(int64(offs.After), io.SeekStart)
 		var b [4]byte
 		binary.LittleEndian.PutUint32(b[:], v3)
 		fileCryptXor(126, b[:])
-		cryptFile.file.Write(b[:])
+		cryptFile.File.Write(b[:])
 		cryptFile.FileSeek(v1, io.SeekStart)
 	} else {
 		v5 := cryptFile.Written()

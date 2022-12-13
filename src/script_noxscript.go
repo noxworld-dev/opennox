@@ -31,6 +31,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/server/noxscript"
 )
 
@@ -530,14 +531,14 @@ func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *C.char) C.int {
 	}
 	defer f2.Close()
 
-	v6, _ := fileSize(f1)
+	v6, _ := binfile.FileSize(f1)
 	if v6 == 0 {
 		ifs.Remove(dst)
 		ifs.Rename(path2, dst)
 		return 1
 	}
 
-	v7, _ := fileSize(f2)
+	v7, _ := binfile.FileSize(f2)
 	if v7 == 0 {
 		ifs.Remove(dst)
 		ifs.Rename(path, dst)
@@ -549,7 +550,7 @@ func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *C.char) C.int {
 		return 0
 	}
 	defer df.Close()
-	C.nox_script_readWriteWww_5417C0(newFileHandle(&File{File: f1}), newFileHandle(&File{File: f2}), newFileHandle(&File{File: df}))
+	C.nox_script_readWriteWww_5417C0(newFileHandle(binfile.NewFile(f1)), newFileHandle(binfile.NewFile(f2)), newFileHandle(binfile.NewFile(df)))
 	return 1
 }
 
