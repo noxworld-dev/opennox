@@ -10,10 +10,11 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 )
 
 func loadMemfile(path string, key int) (*MemFile, error) {
-	f, err := BinfileOpen(path, BinFileRO)
+	f, err := binfile.BinfileOpen(path, binfile.ReadOnly)
 	if err != nil {
 		return nil, err
 	}

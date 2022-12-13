@@ -6,7 +6,7 @@ package opennox
 */
 import "C"
 import (
-	"bufio"
+	"errors"
 	"io"
 	"os"
 	"sync"
@@ -16,105 +16,12 @@ import (
 	"github.com/noxworld-dev/opennox-lib/ifs"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 )
 
 var files struct {
 	sync.RWMutex
-	byHandle map[unsafe.Pointer]*File
-}
-
-func fileSize(f io.Seeker) (int64, error) {
-	cur, err := f.Seek(0, io.SeekCurrent)
-	if err != nil {
-		return 0, err
-	}
-	size, err := f.Seek(0, io.SeekEnd)
-	if err != nil {
-		return 0, err
-	}
-	_, err = f.Seek(cur, io.SeekStart)
-	if err != nil {
-		return 0, err
-	}
-	return size, nil
-}
-
-type File struct {
-	h unsafe.Pointer
-	*os.File
-	buf  *bufio.Reader
-	err  error
-	text bool
-	bin  *Binfile
-}
-
-func (f *File) enableBuffer() {
-	if f.buf != nil {
-		return
-	}
-	f.buf = bufio.NewReader(f.File)
-}
-
-func (f *File) Size() (int64, error) {
-	size, err := fileSize(f)
-	if err != nil {
-		f.err = err
-	}
-	return size, err
-}
-
-func (f *File) Seek(off int64, whence int) (int64, error) {
-	if f.buf != nil {
-		if whence == io.SeekCurrent {
-			off -= int64(f.buf.Buffered())
-		}
-		f.buf = nil
-	}
-	n, err := f.File.Seek(off, whence)
-	f.err = err
-	return n, err
-}
-
-func (f *File) Read(p []byte) (int, error) {
-	if f.buf != nil {
-		n, err := f.buf.Read(p)
-		f.err = err
-		return n, err
-	}
-	n, err := f.File.Read(p)
-	f.err = err
-	return n, err
-}
-
-func (f *File) Write(p []byte) (int, error) {
-	if f.buf != nil {
-		panic("TODO: write on a buffered file")
-	}
-	n, err := f.File.Write(p)
-	f.err = err
-	return n, err
-}
-
-func (f *File) WriteString(p string) (int, error) {
-	if f.buf != nil {
-		panic("TODO: write on a buffered file")
-	}
-	n, err := f.File.WriteString(p)
-	f.err = err
-	return n, err
-}
-
-func (f *File) Close() error {
-	if f.buf != nil {
-		f.buf = nil
-	}
-	if f.bin != nil {
-		if err := f.bin.close(); err != nil {
-			_ = f.File.Close()
-			return err
-		}
-	}
-	return f.File.Close()
+	byHandle map[unsafe.Pointer]*binfile.File
 }
 
 //export nox_fs_root
@@ -217,31 +124,12 @@ func nox_fs_fwrite(f *C.FILE, dst unsafe.Pointer, sz C.int) C.int {
 //export nox_fs_fgets
 func nox_fs_fgets(f *C.FILE, dst *C.char, sz C.int) C.bool {
 	fp := fileByHandle(f)
-	fp.enableBuffer()
-	var (
-		out []byte
-		end bool
-	)
-	for {
-		b, err := fp.buf.ReadByte()
-		fp.err = err
-		if err == io.EOF {
-			end = true
-			break
-		} else if err != nil {
-			return false
-		}
-		out = append(out, b)
-		if b == '\n' {
-			break
-		}
-	}
-	if n := len(out); n >= 2 && out[n-2] == '\r' && out[n-1] == '\n' {
-		out[n-2] = '\n'
-		out = out[:n-1]
+	out, err := fp.ReadString()
+	if err != nil && !errors.Is(err, io.EOF) {
+		return false
 	}
 	StrCopy(dst, int(sz), string(out))
-	return C.bool(!end)
+	return C.bool(!errors.Is(err, io.EOF))
 }
 
 //export nox_fs_fputs
@@ -257,10 +145,10 @@ func nox_fs_fputs(f *C.FILE, str *C.char) C.int {
 //export nox_fs_feof
 func nox_fs_feof(f *C.FILE) C.bool {
 	fp := fileByHandle(f)
-	return fp.err == io.EOF
+	return fp.Err == io.EOF
 }
 
-func fileByHandle(f *C.FILE) *File {
+func fileByHandle(f *C.FILE) *binfile.File {
 	h := unsafe.Pointer(f)
 	handles.AssertValidPtr(h)
 	files.RLock()
@@ -285,18 +173,18 @@ func nox_fs_close(f *C.FILE) {
 	}
 }
 
-func newFileHandle(f *File) *C.FILE {
-	if f.h != nil {
-		return (*C.FILE)(f.h)
+func newFileHandle(f *binfile.File) *C.FILE {
+	if f.Handle != nil {
+		return (*C.FILE)(f.Handle)
 	}
-	f.h = handles.NewPtr()
+	f.Handle = handles.NewPtr()
 	files.Lock()
 	defer files.Unlock()
 	if files.byHandle == nil {
-		files.byHandle = make(map[unsafe.Pointer]*File)
+		files.byHandle = make(map[unsafe.Pointer]*binfile.File)
 	}
-	files.byHandle[f.h] = f
-	return (*C.FILE)(f.h)
+	files.byHandle[f.Handle] = f
+	return (*C.FILE)(f.Handle)
 }
 
 //export nox_fs_access
@@ -316,7 +204,7 @@ func nox_fs_open(path *C.char) *C.FILE {
 	if err != nil {
 		return nil
 	}
-	return newFileHandle(&File{File: f})
+	return newFileHandle(binfile.NewFile(f))
 }
 
 //export nox_fs_open_text
@@ -325,7 +213,7 @@ func nox_fs_open_text(path *C.char) *C.FILE {
 	if err != nil {
 		return nil
 	}
-	return newFileHandle(&File{File: f, text: true})
+	return newFileHandle(binfile.NewTextFile(f))
 }
 
 //export nox_fs_create
@@ -334,7 +222,7 @@ func nox_fs_create(path *C.char) *C.FILE {
 	if err != nil {
 		return nil
 	}
-	return newFileHandle(&File{File: f})
+	return newFileHandle(binfile.NewFile(f))
 }
 
 //export nox_fs_create_text
@@ -343,7 +231,7 @@ func nox_fs_create_text(path *C.char) *C.FILE {
 	if err != nil {
 		return nil
 	}
-	return newFileHandle(&File{File: f, text: true})
+	return newFileHandle(binfile.NewTextFile(f))
 }
 
 //export nox_fs_open_rw
@@ -352,5 +240,5 @@ func nox_fs_open_rw(path *C.char) *C.FILE {
 	if err != nil {
 		return nil
 	}
-	return newFileHandle(&File{File: f})
+	return newFileHandle(binfile.NewFile(f))
 }

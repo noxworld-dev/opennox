@@ -55,6 +55,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/internal/cnxz"
 )
 
@@ -159,7 +160,7 @@ func nox_server_mapRWScriptObject_505A40(a1 unsafe.Pointer) (gout error) {
 	}()
 	fname := datapath.Data(noxscript.NCobjName)
 	C.dword_5d4594_1599644 = 0
-	if cryptFile.Mode() != BinFileRO {
+	if cryptFile.Mode() != binfile.ReadOnly {
 		cryptFileWriteU16(1)
 		f, err := ifs.Open(fname)
 		if os.IsNotExist(err) {
