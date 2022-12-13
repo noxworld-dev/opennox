@@ -727,23 +727,6 @@ int nox_xxx_mapGetTypeMB_4CFFA0(void* a1) { return nox_mapToGameFlags_4CFF50(*(u
 //----- (004CFFC0) --------------------------------------------------------
 int sub_4CFFC0(int a1) { return nox_mapToGameFlags_4CFF50(*(uint32_t*)(a1 + 28)); }
 
-//----- (004CFFE0) --------------------------------------------------------
-int sub_4CFFE0(int a1) {
-	int result; // eax
-
-	result = nox_server_getFirstObjectUninited_4DA870();
-	if (!result) {
-		return 0;
-	}
-	while (*(uint32_t*)(result + 44) != a1) {
-		result = nox_server_getNextObjectUninited_4DA880(result);
-		if (!result) {
-			return 0;
-		}
-	}
-	return result;
-}
-
 //----- (004D0010) --------------------------------------------------------
 void* nox_objectTypeGetXfer(char* id);
 int nox_xxx_interesting_xfer_4D0010(uint32_t* a1, int a2) {
