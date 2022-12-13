@@ -82,7 +82,7 @@ char* nox_xxx_waypoint_5799C0();
 char* sub_579A30();
 float* sub_579AD0(float a1, float a2);
 nox_waypoint_t* nox_server_getWaypointById_579C40(int a1);
-int sub_579C60(int a1);
+nox_waypoint_t* sub_579C60(unsigned int a1);
 uint32_t* sub_579C80(int a1);
 int sub_579CA0();
 int sub_579D20();

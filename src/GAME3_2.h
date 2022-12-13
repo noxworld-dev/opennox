@@ -26,7 +26,7 @@ int nox_common_checkMapFile_4CFE10(char* a1);
 int nox_mapToGameFlags_4CFF50(int a1);
 int nox_xxx_mapGetTypeMB_4CFFA0(void* a1);
 int sub_4CFFC0(int a1);
-int sub_4CFFE0(int a1);
+nox_object_t* sub_4CFFE0(int a1);
 int nox_xxx_interesting_xfer_4D0010(uint32_t* a1, int a2);
 int sub_4D0550(char* a1);
 int sub_4D0670(char* a1);

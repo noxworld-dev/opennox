@@ -62,7 +62,6 @@ uint32_t nox_xxx_polygonNextIdx_587000_60352 = 0x1;
 uint32_t dword_5d4594_1062456 = 0;
 uint32_t dword_5d4594_816348 = 0;
 uint32_t nox_gameDisableMapDraw_5d4594_2650672 = 0;
-uint32_t dword_5d4594_2523756 = 0;
 uint32_t dword_5d4594_1098628 = 0;
 uint32_t dword_5d4594_529340 = 0;
 uint32_t nox_xxx_minimap_587000_149232 = 0x456;

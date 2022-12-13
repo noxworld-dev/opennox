@@ -46,11 +46,12 @@ extern uint32_t dword_5d4594_2516356;
 extern uint64_t qword_581450_9544;
 extern uint32_t dword_5d4594_2523780;
 extern uint32_t dword_5d4594_2516344;
-extern uint32_t dword_5d4594_2523756;
 extern nox_waypoint_t* nox_xxx_waypointsHead_2523752;
 extern uint32_t dword_5d4594_2516328;
 extern uint32_t dword_5d4594_2516348;
 extern uint32_t dword_5d4594_2650652;
+
+void* dword_5d4594_2523756 = 0;
 
 //----- (00554040) --------------------------------------------------------
 unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out) {
@@ -1017,13 +1018,13 @@ float* nox_xxx_waypointNewNotMap_579970(int a1, float a2, float a3) {
 	float* result; // eax
 	int v4;        // ecx
 
-	result = (float*)calloc(1u, 0x204u);
+	result = calloc(1u, 0x204u);
 	*(uint32_t*)result = a1;
 	result[3] = a3;
 	v4 = *((uint32_t*)result + 120) | 1;
 	result[2] = a2;
 	*((uint32_t*)result + 120) = v4;
-	result[121] = *(float*)&dword_5d4594_2523756;
+	*((uint32_t*)result + 121) = dword_5d4594_2523756;
 	dword_5d4594_2523756 = result;
 	return result;
 }
@@ -1117,28 +1118,11 @@ float* sub_579AD0(float a1, float a2) {
 	return (float*)v3;
 }
 
-//----- (00579C60) --------------------------------------------------------
-int sub_579C60(int a1) {
-	int result; // eax
-
-	result = dword_5d4594_2523756;
-	if (!dword_5d4594_2523756) {
-		return 0;
-	}
-	while (*(uint32_t*)(result + 4) != a1) {
-		result = *(uint32_t*)(result + 484);
-		if (!result) {
-			return 0;
-		}
-	}
-	return result;
-}
-
 //----- (00579C80) --------------------------------------------------------
 uint32_t* sub_579C80(int a1) {
 	uint32_t* result; // eax
 
-	result = *(uint32_t**)&dword_5d4594_2523756;
+	result = dword_5d4594_2523756;
 	if (!dword_5d4594_2523756) {
 		return 0;
 	}
@@ -1160,13 +1144,13 @@ int sub_579CA0() {
 	int* v4;      // edi
 	int v5;       // eax
 
-	v0 = *(uint32_t**)&dword_5d4594_2523756;
+	v0 = dword_5d4594_2523756;
 	if (dword_5d4594_2523756) {
 		do {
 			v0[1] = *v0;
 			v0 = (uint32_t*)v0[121];
 		} while (v0);
-		v0 = *(uint32_t**)&dword_5d4594_2523756;
+		v0 = dword_5d4594_2523756;
 	}
 	v1 = v0;
 	if (!v0) {
@@ -1213,7 +1197,7 @@ int sub_579D20() {
 	char v9;          // [esp+0h] [ebp-4h]
 
 	v0 = nox_xxx_waypoint_5798C0();
-	v1 = *(unsigned int**)&dword_5d4594_2523756;
+	v1 = dword_5d4594_2523756;
 	if (dword_5d4594_2523756) {
 		do {
 			v2 = *v1;
@@ -1222,7 +1206,7 @@ int sub_579D20() {
 			v1 = (unsigned int*)v1[121];
 			++v0;
 		} while (v1);
-		v1 = *(unsigned int**)&dword_5d4594_2523756;
+		v1 = dword_5d4594_2523756;
 	}
 	v3 = v1;
 	if (!v1) {
@@ -1300,7 +1284,7 @@ void sub_579E90(int a1) {
 	*(uint32_t*)(a1 + 480) |= 0x1000000u;
 	*(uint32_t*)(a1 + 484) = dword_5d4594_2523756;
 	if (dword_5d4594_2523756) {
-		*(uint32_t*)(dword_5d4594_2523756 + 488) = a1;
+		*(uint32_t*)((uint32_t)dword_5d4594_2523756 + 488) = a1;
 	}
 	dword_5d4594_2523756 = a1;
 	if (nox_common_gameFlags_check_40A5C0(1)) {
@@ -2403,22 +2387,6 @@ LABEL_30:
 		a2->field_4 = v11;
 	}
 	return result;
-}
-
-//----- (0057BF80) --------------------------------------------------------
-unsigned int sub_57BF80() {
-	unsigned int v0; // esi
-	int i;           // eax
-	unsigned int v2; // ecx
-
-	v0 = 0;
-	for (i = nox_server_getFirstMapGroup_57C080(); i; i = nox_server_getNextMapGroup_57C090(i)) {
-		v2 = *(uint32_t*)(i + 4);
-		if (v2 >= v0) {
-			v0 = v2 + 1;
-		}
-	}
-	return v0;
 }
 
 //----- (0057C090) --------------------------------------------------------

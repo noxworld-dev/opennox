@@ -1,14 +1,19 @@
 package opennox
 
 /*
+#include <stdint.h>
 extern void* dword_5d4594_1599564;
-int sub_504760(int a1, int a2);
+extern void* dword_5d4594_2523756;
+extern uint32_t dword_5d4594_3835312;
 int  nox_server_scriptGetGroupId_57C2D0(int** a1);
 */
 import "C"
 import (
+	"fmt"
 	"strings"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox-lib/common"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -169,12 +174,77 @@ func sub_5046A0(d *uint32, ind uint32) int {
 }
 
 //export sub_504720
-func sub_504720(a1 int32, a2 int32) int32 {
-	C.sub_504760(C.int(a1), C.int(a2))
+func sub_504720(a1, a2 uint32) int32 {
+	sub_504760(a1, a2)
 	for it := (*mapGroupX)(C.dword_5d4594_1599564); it != nil; it = it.next4 {
 		nox_server_addNewMapGroup_57C3B0(it.field0)
 	}
 	return 1
+}
+
+//export sub_4CFFE0
+func sub_4CFFE0(sid int) *nox_object_t {
+	return sub4CFFE0(sid).CObj()
+}
+
+func sub4CFFE0(sid int) *Object {
+	for it := asObjectS(noxServer.Objs.Pending); it != nil; it.Next() {
+		if it.ScriptID == sid {
+			return it
+		}
+	}
+	return nil
+}
+
+//export sub_579C60
+func sub_579C60(id uint32) *nox_waypoint_t {
+	return sub579C60(id).C()
+}
+
+func sub579C60(id uint32) *Waypoint {
+	for it := asWaypoint(C.dword_5d4594_2523756); it != nil; it = it.Next() {
+		if it.Field1 == id {
+			return it
+		}
+	}
+	return nil
+}
+
+func (s *Server) nextMapGroupIndex() uint32 {
+	var max uint32
+	for it := s.getFirstMapGroup(); it != nil; it = it.Next() {
+		if it.ind+1 > max {
+			max = it.ind + 1
+		}
+	}
+	return max
+}
+
+func sub_504760(dx, dy uint32) {
+	di := noxServer.nextMapGroupIndex()
+	for it := (*mapGroupX)(C.dword_5d4594_1599564); it != nil; it = it.next4 {
+		name := fmt.Sprintf("%s%%%d", it.field0.ID(), int(C.dword_5d4594_3835312))
+		StrCopyBytes(it.field0.name[:], name)
+		it.field0.ind += di
+
+		for it2 := it.field0.list; it2 != nil; it2 = it2.next8 {
+			switch it.field0.GroupType() {
+			case mapGroupObjects:
+				if p := sub4CFFE0(it2.Data1()); p != nil {
+					it2.data0 = p.Extent
+				}
+			case mapGroupWaypoints:
+				if p := sub579C60(it2.data0); p != nil {
+					it2.data0 = p.Index
+				}
+			case mapGroupWalls:
+				it2.data0 = (dx + it2.data0*common.GridStep) / common.GridStep
+				it2.data4 = (dy + it2.data4*common.GridStep) / common.GridStep
+			case mapGroupGroups:
+				it2.data0 += di
+			}
+		}
+	}
 }
 
 func nox_server_addNewMapGroup_57C3B0(p *mapGroup) {
@@ -249,7 +319,7 @@ type mapGroup struct {
 	prev *mapGroup     // 23, 92
 }
 
-func (s *Server) getFirstMapGroup() *mapGroup {
+func (s *Server) getFirstMapGroup() *mapGroup { // nox_server_getFirstMapGroup_57C080
 	return nox_server_mapGroupsHead_2523900
 }
 
