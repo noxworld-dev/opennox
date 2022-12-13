@@ -46,7 +46,7 @@ func sub_57C490_2(a1 *C.char) {
 	}
 }
 
-func mapReadDebugData(cf *cryptfile.CryptFile) error {
+func (d *serverDebug) mapReadDebugData(cf *cryptfile.CryptFile) error {
 	vers, err := cf.ReadU16()
 	if err != nil {
 		return errors.New("cannot read DebugData version")
@@ -65,7 +65,7 @@ func mapReadDebugData(cf *cryptfile.CryptFile) error {
 			return err
 		}
 		if !noxflags.HasGame(noxflags.GameFlag23) && noxflags.HasGame(noxflags.GameHost) {
-			noxServer.debug.Add(key, val)
+			d.Add(key, val)
 		}
 	}
 	return nil
@@ -82,19 +82,19 @@ func (d *serverDebug) Each(keys []string, fnc func(key, val string)) {
 	}
 }
 
-func mapWriteDebugData(cf *cryptfile.CryptFile) error {
+func (d *serverDebug) mapWriteDebugData(cf *cryptfile.CryptFile) error {
 	if err := cf.WriteU16(1); err != nil {
 		return err
 	}
 	cnt := 0
-	noxServer.debug.Each(nil, func(key, val string) {
+	d.Each(nil, func(key, val string) {
 		cnt++
 	})
 	if err := cf.WriteU32(uint32(cnt)); err != nil {
 		return err
 	}
 	var last error
-	noxServer.debug.Each(nil, func(key, val string) {
+	d.Each(nil, func(key, val string) {
 		if err := cf.WriteString32(key); err != nil {
 			last = err
 		}
@@ -105,9 +105,13 @@ func mapWriteDebugData(cf *cryptfile.CryptFile) error {
 	return last
 }
 
-func nox_server_mapRWDebugData_5060D0(cf *cryptfile.CryptFile, a1 unsafe.Pointer) error {
+func (d *serverDebug) mapRWDebugData(cf *cryptfile.CryptFile) error {
 	if cf.ReadOnly() {
-		return mapReadDebugData(cf)
+		return d.mapReadDebugData(cf)
 	}
-	return mapWriteDebugData(cf)
+	return d.mapWriteDebugData(cf)
+}
+
+func nox_server_mapRWDebugData_5060D0(cf *cryptfile.CryptFile, _ unsafe.Pointer) error {
+	return noxServer.debug.mapRWDebugData(cf)
 }
