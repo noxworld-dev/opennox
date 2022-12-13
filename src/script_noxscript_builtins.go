@@ -228,7 +228,7 @@ func nsSecondTimer(vm noxscript.VM) int {
 	s := vm.(*noxScript)
 	fnc := int(s.PopU32())
 	dt := s.PopU32()
-	s.PushU32(s.newScriptTimer(int(dt*s.s.TickRate()), fnc, 0))
+	s.PushU32(s.s.NewTimer(int(dt*s.s.TickRate()), fnc, 0))
 	return 0
 }
 
@@ -236,7 +236,7 @@ func nsFrameTimer(vm noxscript.VM) int {
 	s := vm.(*noxScript)
 	fnc := int(s.PopU32())
 	df := int(s.PopU32())
-	s.PushU32(s.newScriptTimer(df, fnc, 0))
+	s.PushU32(s.s.NewTimer(df, fnc, 0))
 	return 0
 }
 
@@ -245,7 +245,7 @@ func nsSecondTimerArg(vm noxscript.VM) int {
 	fnc := int(s.PopU32())
 	arg := s.PopU32()
 	dt := s.PopU32()
-	s.PushU32(s.newScriptTimer(int(dt*s.s.TickRate()), fnc, arg))
+	s.PushU32(s.s.NewTimer(int(dt*s.s.TickRate()), fnc, arg))
 	return 0
 }
 
@@ -254,7 +254,7 @@ func nsFrameTimerArg(vm noxscript.VM) int {
 	fnc := int(s.PopU32())
 	arg := s.PopU32()
 	df := int(s.PopU32())
-	s.PushU32(s.newScriptTimer(df, fnc, arg))
+	s.PushU32(s.s.NewTimer(df, fnc, arg))
 	return 0
 }
 
@@ -348,7 +348,7 @@ func (g *mapGroup) eachWallRecursive(s *Server, fnc func(w ns.WallObj) bool) boo
 func nsCancelTimer(vm noxscript.VM) int {
 	s := vm.(*noxScript)
 	act := s.PopU32()
-	ok := s.actCancel(act)
+	ok := s.s.Activators.Cancel(act)
 	s.PushBool(ok)
 	return 0
 }
