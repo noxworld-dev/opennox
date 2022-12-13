@@ -14,25 +14,25 @@ type WaypointSub struct {
 }
 
 type Waypoint struct {
-	Index     uint32
-	Field1    uint32
-	PosVec    types.Pointf
-	NameBuf   [76]byte
-	Points    [32]WaypointSub
+	Index     uint32          // 0, 0
+	Field1    uint32          // 1, 4
+	PosVec    types.Pointf    // 2, 8
+	NameBuf   [76]byte        // 4, 16
+	Points    [32]WaypointSub // 23, 92
 	_         [32]uint32
-	PointsCnt byte
-	Flags2    byte
+	PointsCnt byte // 476
+	Flags2    byte // 477
 	_         [2]byte
-	Flags     uint32
-	WpNext    *Waypoint
-	WpPrev    *Waypoint
-	KeyX      uint16
-	KeyY      uint16
-	Field12   *Waypoint
-	Field13   *Waypoint
-	Field14   uint32
-	Field15   uint32
-	Field16   uint32
+	Flags     uint32    // 480
+	WpNext    *Waypoint // 484
+	WpPrev    *Waypoint // 488
+	KeyX      uint16    // 492
+	KeyY      uint16    // 494
+	Field12   *Waypoint // 496
+	Field13   *Waypoint // 500
+	Field14   uint32    // 504
+	Field15   uint32    // 508
+	Field16   uint32    // 512
 }
 
 func (w *Waypoint) ID() string {
