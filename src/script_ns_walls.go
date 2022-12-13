@@ -23,7 +23,7 @@ func (s noxScriptNS) Wall(x int, y int) ns.WallObj {
 }
 
 func (s noxScriptNS) WallGroup(name string) ns.WallGroupObj {
-	g := s.s.getMapGroupByID(name, mapGroupWalls)
+	g := s.s.mapGroups.GroupByID(name, mapGroupWalls)
 	if g == nil {
 		scriptLog.Printf("noxscript: cannot find wall group: %q", name)
 		return nil

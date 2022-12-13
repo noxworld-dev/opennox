@@ -59,7 +59,7 @@ func (s noxScriptNS) Object(name string) ns.Obj {
 }
 
 func (s noxScriptNS) ObjectGroup(name string) ns.ObjGroup {
-	g := s.s.getMapGroupByID(name, mapGroupObjects)
+	g := s.s.mapGroups.GroupByID(name, mapGroupObjects)
 	if g == nil {
 		scriptLog.Printf("noxscript: cannot find object group: %q", name)
 		return nil

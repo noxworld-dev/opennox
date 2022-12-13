@@ -14,7 +14,7 @@ func (s noxScriptNS) Waypoint(name string) ns.WaypointObj {
 }
 
 func (s noxScriptNS) WaypointGroup(name string) ns.WaypointGroupObj {
-	g := s.s.getMapGroupByID(name, mapGroupWaypoints)
+	g := s.s.mapGroups.GroupByID(name, mapGroupWaypoints)
 	if g == nil {
 		scriptLog.Printf("noxscript: cannot find waypoint group: %q", name)
 		return nil

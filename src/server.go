@@ -180,6 +180,7 @@ type Server struct {
 	quest           questServer
 	springs         serverSprings
 	debug           serverDebug
+	mapGroups       serverMapGroups
 	mapSwitchWPName string
 	announce        bool
 
@@ -560,7 +561,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	if err := nox_xxx_allocSpellRelatedArrays_4FC9B0(); err != nil {
 		return err
 	}
-	nox_xxx_allocGroupRelatedArrays_57BFB0()
+	s.mapGroups.Init()
 	if C.nox_xxx_allocItemRespawnArray_4ECA60() == 0 {
 		return errors.New("nox_xxx_allocItemRespawnArray_4ECA60 failed")
 	}
@@ -638,7 +639,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	s.nox_xxx_mapLoad_40A380()
 	C.sub_4E4DE0()
 	s.debug.Reset()
-	sub_57C030()
+	s.mapGroups.Free()
 	s.springs.Reset()
 	s.abilities.Free()
 	s.spells.Free()
@@ -663,7 +664,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 }
 
 func sub_4D3C30() {
-	nox_xxx_free_503F40()
+	noxServer.nox_xxx_free503F40()
 	C.sub_51D0E0()
 	C.sub_502DF0()
 }
@@ -1024,14 +1025,15 @@ func sub_4DB0A0() {
 
 //export nox_xxx_mapSwitchLevel_4D12E0_end
 func nox_xxx_mapSwitchLevel_4D12E0_end() {
+	s := noxServer
 	C.sub_410730()
 	C.nox_xxx_wallBreackableListClear_410810()
 	C.nox_xxx_waypointDeleteAll_579DD0()
 	C.nox_xxx_j_allocHitArray_511840()
 	C.nox_xxx_decayDestroy_5117B0()
-	noxServer.springs.Reset()
-	noxServer.debug.Reset()
-	sub_57C000()
+	s.springs.Reset()
+	s.debug.Reset()
+	s.mapGroups.Reset()
 	C.sub_510E50()
 	C.sub_4D1610()
 	C.sub_4EC5B0()

@@ -291,7 +291,7 @@ func (g *mapGroup) eachObjectRecursiveNS(s *Server, fnc func(obj ns.Obj) bool) b
 		}
 	case mapGroupGroups:
 		for it := g.First(); it != nil; it = it.Next() {
-			if !s.mapGroupByInd(it.Data1()).eachObjectRecursiveNS(s, fnc) {
+			if !s.mapGroups.GroupByInd(it.Data1()).eachObjectRecursiveNS(s, fnc) {
 				return false
 			}
 		}
@@ -314,7 +314,7 @@ func (g *mapGroup) eachWaypointRecursive(s *Server, fnc func(wp ns.WaypointObj) 
 		}
 	case mapGroupGroups:
 		for it := g.First(); it != nil; it = it.Next() {
-			if !s.mapGroupByInd(it.Data1()).eachWaypointRecursive(s, fnc) {
+			if !s.mapGroups.GroupByInd(it.Data1()).eachWaypointRecursive(s, fnc) {
 				return false
 			}
 		}
@@ -337,7 +337,7 @@ func (g *mapGroup) eachWallRecursive(s *Server, fnc func(w ns.WallObj) bool) boo
 		}
 	case mapGroupGroups:
 		for it := g.First(); it != nil; it = it.Next() {
-			if !s.mapGroupByInd(it.Data1()).eachWallRecursive(s, fnc) {
+			if !s.mapGroups.GroupByInd(it.Data1()).eachWallRecursive(s, fnc) {
 				return false
 			}
 		}
