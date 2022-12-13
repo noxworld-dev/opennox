@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"hash/crc32"
 	"io"
+	"math"
 
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 )
@@ -47,21 +48,21 @@ func OpenFile(path string, cmode Mode, key int) (*CryptFile, error) {
 		}
 	}
 	return &CryptFile{
-		File:       f,
-		xor:        false,
-		noKey:      key == -1,
-		rollingXOR: -1,
-		readonly:   cmode == ReadOnly,
+		File:     f,
+		xor:      false,
+		noKey:    key == -1,
+		crcSum:   math.MaxUint32,
+		readonly: cmode == ReadOnly,
 	}, nil
 }
 
 type CryptFile struct {
-	File       *binfile.Binfile
-	readonly   bool
-	rollingXOR int32
-	noKey      bool
-	xor        bool
-	sect       []section
+	File     *binfile.Binfile
+	readonly bool
+	crcSum   uint32
+	noKey    bool
+	xor      bool
+	sect     []section
 }
 
 func (f *CryptFile) ReadOnly() bool {
@@ -110,13 +111,18 @@ func (f *CryptFile) crcAdd(p []byte) {
 	if f == nil || f.File == nil {
 		return
 	}
-	sum := f.rollingXOR
-	for i := range p {
-		ds := int32(crcTable[byte(sum)^p[i]])
-		sum = ds ^ (sum >> 8)
-		f.rollingXOR = sum
+	f.crcSum = crcUpdate(f.crcSum, p)
+}
+
+func crcUpdate(crc uint32, p []byte) uint32 {
+	// TODO: Function is very similar to crc32.simpleUpdate, but omits the first bit invert.
+	//       Is it a bug during conversion, or intentional change in Nox engine?
+	//       However, implementation starts from 0xFFFFFFFF, so _one_ call to this is exactly the same.
+	//crc = ^crc
+	for _, v := range p {
+		crc = crcTable[byte(crc)^v] ^ (crc >> 8)
 	}
-	f.rollingXOR = ^sum
+	return ^crc
 }
 
 func (f *CryptFile) Read(p []byte) (int, error) {
@@ -319,7 +325,7 @@ func (f *CryptFile) ReadWriteAlign() int {
 }
 
 func (f *CryptFile) WriteChecksumAt(off int64) error {
-	return f.File.WriteUint32At(f.rollingXOR, off)
+	return f.File.WriteUint32At(f.crcSum, off)
 }
 
 func (f *CryptFile) SectionStart() {
@@ -364,7 +370,7 @@ func (f *CryptFile) SectionEnd() {
 		f.File.FileSeek(off, io.SeekStart)
 	} else {
 		n := f.File.Written()
-		f.File.WriteUint32At(int32(n-int64(offs.After)), int64(offs.Before))
+		f.File.WriteUint32At(uint32(n-int64(offs.After)), int64(offs.Before))
 	}
 }
 
