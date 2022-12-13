@@ -57,7 +57,6 @@ extern int nox_win_width;
 FILE* nox_file_8 = 0;
 
 int nox_cheat_charmall = 0;
-void* dword_5d4594_1599564 = 0;
 uint32_t dword_5d4594_1599480 = 0;
 uint32_t dword_5d4594_1599476 = 0;
 void* dword_5d4594_1599540 = 0;

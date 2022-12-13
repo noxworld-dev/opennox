@@ -2,7 +2,6 @@ package opennox
 
 /*
 #include <stdint.h>
-extern void* dword_5d4594_1599564;
 extern void* dword_5d4594_2523756;
 extern uint32_t dword_5d4594_3835312;
 int  nox_server_scriptGetGroupId_57C2D0(int** a1);
@@ -23,6 +22,7 @@ var (
 	nox_alloc_groupInfo_2523892      alloc.ClassT[mapGroup]
 	nox_alloc_itemGroupElem_2523896  alloc.ClassT[mapGroupItem]
 	nox_server_mapGroupsHead_2523900 *mapGroup
+	dword_5d4594_1599564             *mapGroupX
 )
 
 //export nox_server_getFirstMapGroup_57C080
@@ -77,12 +77,12 @@ func sub_504600(name *C.char, ind uint32, typ uint8) {
 	}
 	p, _ := alloc.New(mapGroupX{})
 	p.field0 = g
-	p.next4 = (*mapGroupX)(C.dword_5d4594_1599564)
+	p.next4 = dword_5d4594_1599564
 	p.prev8 = nil
-	if head := (*mapGroupX)(C.dword_5d4594_1599564); head != nil {
+	if head := dword_5d4594_1599564; head != nil {
 		head.prev8 = p
 	}
-	C.dword_5d4594_1599564 = unsafe.Pointer(p)
+	dword_5d4594_1599564 = p
 	g.next = nil
 	g.prev = nil
 	g.list = nil
@@ -140,7 +140,7 @@ func sub_5046A0(d *uint32, ind uint32) int {
 		return 0
 	}
 	var found *mapGroupX
-	for v2 := (*mapGroupX)(C.dword_5d4594_1599564); v2 != nil; v2 = v2.next4 {
+	for v2 := dword_5d4594_1599564; v2 != nil; v2 = v2.next4 {
 		if v2.field0.ind == ind {
 			found = v2
 			break
@@ -176,7 +176,7 @@ func sub_5046A0(d *uint32, ind uint32) int {
 //export sub_504720
 func sub_504720(a1, a2 uint32) int32 {
 	sub_504760(a1, a2)
-	for it := (*mapGroupX)(C.dword_5d4594_1599564); it != nil; it = it.next4 {
+	for it := dword_5d4594_1599564; it != nil; it = it.next4 {
 		nox_server_addNewMapGroup_57C3B0(it.field0)
 	}
 	return 1
@@ -222,7 +222,7 @@ func (s *Server) nextMapGroupIndex() uint32 {
 
 func sub_504760(dx, dy uint32) {
 	di := noxServer.nextMapGroupIndex()
-	for it := (*mapGroupX)(C.dword_5d4594_1599564); it != nil; it = it.next4 {
+	for it := dword_5d4594_1599564; it != nil; it = it.next4 {
 		name := fmt.Sprintf("%s%%%d", it.field0.ID(), int(C.dword_5d4594_3835312))
 		StrCopyBytes(it.field0.name[:], name)
 		it.field0.ind += di

@@ -27,7 +27,6 @@ extern void* dword_5d4594_1599540;
 extern void* dword_5d4594_1599532;
 extern void* dword_5d4594_1599556;
 extern void* dword_5d4594_1599548;
-extern void* dword_5d4594_1599564;
 extern void* dword_5d4594_1599588;
 extern void* dword_5d4594_1599592;
 */
@@ -638,7 +637,7 @@ func nox_xxx_mapReset_5028E0() {
 	*memmap.PtrUint32(0x5D4594, 1599560) = 0
 	C.dword_5d4594_1599548 = nil
 	*memmap.PtrUint32(0x5D4594, 1599552) = 0
-	C.dword_5d4594_1599564 = nil
+	dword_5d4594_1599564 = nil
 	*memmap.PtrUint32(0x5D4594, 1599568) = 0
 	*memmap.PtrUint32(0x5D4594, 1599484) = 0
 	*memmap.PtrUint32(0x5D4594, 1599488) = 0
@@ -706,7 +705,7 @@ func nox_xxx_free_503F40() {
 
 	{
 		var next *mapGroupX
-		for it := (*mapGroupX)(C.dword_5d4594_1599564); it != nil; it = next {
+		for it := dword_5d4594_1599564; it != nil; it = next {
 			next = it.next4
 			if C.dword_5d4594_1599476 == 0 {
 				var next2 *mapGroupItem
@@ -720,6 +719,6 @@ func nox_xxx_free_503F40() {
 		}
 	}
 	*memmap.PtrUint32(0x5D4594, 1599568) = 0
-	C.dword_5d4594_1599564 = nil
+	dword_5d4594_1599564 = nil
 	nox_xxx_mapReset_5028E0()
 }
