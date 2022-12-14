@@ -5026,51 +5026,6 @@ int set_one_bitmask_flag_by_name_4239C0(char* name, uint32_t* bitmask, const cha
 	return 0;
 }
 
-//----- (00423A10) --------------------------------------------------------
-void set_bitmask_flags_from_plus_separated_names_multiple_423A10(const char* input, uint32_t* bitmask) {
-	char input_copy[256];
-	strcpy(input_copy, input);
-	if (strncmp(input_copy, "NULL", 4u) == 0) {
-		return;
-	}
-
-	char* cur_value = strtok(input_copy, "+");
-	while (cur_value) {
-		// Set of arrays of various types of data. Clothing types, NPC types, etc.
-		uint32_t* cur_allowed_values = getMemU32Ptr(0x587000, 61096);
-
-		while (*cur_allowed_values) {
-			if (set_one_bitmask_flag_by_name_4239C0(cur_value, bitmask, (const char**)cur_allowed_values)) {
-				break;
-			}
-			cur_allowed_values += 32;
-		}
-		cur_value = strtok(0, "+");
-	}
-}
-
-//----- (00423AD0) --------------------------------------------------------
-int nox_parse_shape(nox_shape* s, char* buf) {
-	if (!strncmp(buf, "NULL", 4)) {
-		s->kind = NOX_SHAPE_NONE;
-		return 1;
-	} else if (!strncmp(buf, "CENTER", 6)) {
-		s->kind = NOX_SHAPE_CENTER;
-		return 1;
-	} else if (!strncmp(buf, "CIRCLE", 6)) {
-		s->kind = NOX_SHAPE_CIRCLE;
-		sscanf(buf, "%*s %f", &s->circle_r);
-		s->circle_r2 = s->circle_r * s->circle_r;
-		return 1;
-	} else if (!strncmp(buf, "BOX", 3)) {
-		s->kind = NOX_SHAPE_BOX;
-		sscanf(buf, "%*s %f %f", &s->box_w, &s->box_h);
-		nox_shape_box_calc(s);
-		return 1;
-	}
-	return 0;
-}
-
 //----- (004240F0) --------------------------------------------------------
 int sub_4240F0(int a1, const char* a2, int a3) {
 	const char* v3;    // esi

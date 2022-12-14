@@ -214,7 +214,6 @@ void nox_xxx_netPriMsgToPlayer_4DA2C0(nox_object_t* a1, const char* a2, char a3)
 int nox_xxx_netPrintLineToAll_4DA390(const char* a1);
 nox_object_t* nox_get_and_zero_server_objects_4DA3C0(void);
 void nox_set_server_objects_4DA3E0(nox_object_t* p);
-int nox_server_strcmpWithoutMapname_4DA3F0(const char* a1, const char* a2);
 nox_object_t* nox_xxx_getObjectByScrName_4DA4F0(char* a1);
 int sub_4DA5C0(int a1, const char* a2);
 int sub_4DA660(int a1, const char* a2);
@@ -257,7 +256,6 @@ void* nox_xxx_playerSendMOTD_4DD140(int a1);
 char* nox_xxx_gameServerReadyMB_4DD180(int a1);
 int nox_xxx_netGuiGameSettings_4DD9B0(char a1, const void* a2, int a3);
 void nox_xxx_netNewPlayerMakePacket_4DDA90(unsigned char* buf, nox_playerInfo* pl);
-void nox_xxx_servSendSettings_4DDB40(nox_object_t* punit);
 void sub_4DDE10(int a1, nox_playerInfo* a2);
 void nox_xxx_playerObserveMonster_4DDE80(nox_object_t* player, nox_object_t* unit);
 void nox_xxx_playerObserveClear_4DDEF0(nox_object_t* player);
