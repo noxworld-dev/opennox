@@ -5494,44 +5494,6 @@ int nox_xxx_netPrintLineToAll_4DA390(const char* a1) {
 	return result;
 }
 
-//----- (004DA3F0) --------------------------------------------------------
-int nox_server_strcmpWithoutMapname_4DA3F0(const char* a1, const char* a2) {
-	char* v2;       // eax
-	const char* v3; // edi
-	const char* v4; // ebx
-	char* v5;       // eax
-	const char* v6; // ecx
-	const char* v7; // esi
-	int result;     // eax
-
-	strcpy((char*)getMemAt(0x5D4594, 1556332), a1);
-	strcpy((char*)getMemAt(0x5D4594, 1556588), a2);
-	v2 = strchr((const char*)getMemAt(0x5D4594, 1556332), 58);
-	if (v2) {
-		v3 = (const char*)getMemAt(0x5D4594, 1556332);
-		*v2 = 0;
-		v4 = v2 + 1;
-	} else {
-		v3 = 0;
-		v4 = (const char*)getMemAt(0x5D4594, 1556332);
-	}
-	v5 = strchr((const char*)getMemAt(0x5D4594, 1556588), 58);
-	if (v5) {
-		v6 = (const char*)getMemAt(0x5D4594, 1556588);
-		*v5 = 0;
-		v7 = v5 + 1;
-	} else {
-		v6 = 0;
-		v7 = (const char*)getMemAt(0x5D4594, 1556588);
-	}
-	if (v3 && v6 && _strcmpi(v3, v6)) {
-		result = 0;
-	} else {
-		result = strcmp(v4, v7) == 0;
-	}
-	return result;
-}
-
 //----- (004DA4F0) --------------------------------------------------------
 nox_object_t* nox_xxx_getObjectByScrName_4DA4F0(char* a1) {
 	int i;      // esi

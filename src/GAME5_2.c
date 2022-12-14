@@ -1256,18 +1256,6 @@ void nox_xxx_waypointDeleteAll_579DD0() {
 	dword_5d4594_2523760 = 0;
 }
 
-//----- (00579E30) --------------------------------------------------------
-const char* nox_xxx_waypointByName_579E30(const char* a1) {
-	const char* i; // esi
-
-	for (i = (const char*)nox_xxx_waypointGetList_579860(); i; i = (const char*)nox_xxx_waypointNext_579870((int)i)) {
-		if (nox_server_strcmpWithoutMapname_4DA3F0(i + 16, a1)) {
-			break;
-		}
-	}
-	return i;
-}
-
 //----- (00579E70) --------------------------------------------------------
 uint32_t* sub_579E70() {
 	uint32_t* result; // eax

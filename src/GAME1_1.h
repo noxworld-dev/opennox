@@ -139,8 +139,6 @@ int nox_xxx_effectDwordValueLoad_423780(const char* a1, char* a2, obj_412ae0_t* 
 int nox_xxx_effectLoadDwordParam_4237B0(const char* a1, int a2, obj_412ae0_t* a3);
 int nox_xxx_effectLoadDword_4238F0_parse_int();
 int set_one_bitmask_flag_by_name_4239C0(char* name, uint32_t* bitmask, const char** allowed_names);
-void set_bitmask_flags_from_plus_separated_names_multiple_423A10(const char* input, uint32_t* bitmask);
-int nox_parse_shape(nox_shape* s, char* buf);
 int sub_4240F0(int a1, const char* a2, int a3);
 int nox_xxx_parseSoundSetBin_424170(char* a1);
 void* nox_xxx_monsterGetSoundSet_424300(nox_object_t* a1);

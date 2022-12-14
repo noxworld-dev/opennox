@@ -5682,23 +5682,6 @@ void nox_xxx_netUpdateRemotePlr_501CA0(int a1) {
 	nox_xxx_netUpdateRemotePlr_501CA0_B(a1, v2, v18);
 }
 
-//----- (00501FD0) --------------------------------------------------------
-int sub_501FD0(int a1, int a2, short a3) {
-	int v3;    // esi
-	double v4; // st7
-	short v5;  // dx
-	float v7;  // [esp+0h] [ebp-Ch]
-
-	v3 = *(uint32_t*)(a1 + 748);
-	v4 = *(float*)(a2 + 8);
-	v5 = *(uint16_t*)(a2 + 4) | (a3 << 10);
-	LOBYTE(a1) = (a1 == *(uint32_t*)(a2 + 16)) - 90;
-	HIWORD(a1) = v5;
-	v7 = v4 - *(float*)(*(uint32_t*)(v3 + 276) + 3632);
-	BYTE1(a1) = 50 * nox_float2int(v7) / (nox_win_width / 2);
-	return nox_netlist_addToMsgListCli_40EBC0(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064), 1, &a1, 4);
-}
-
 //----- (005025A0) --------------------------------------------------------
 void sub_5025A0(int a1, int a2, int a3) {
 	int result; // eax
