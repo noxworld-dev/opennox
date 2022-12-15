@@ -96,9 +96,9 @@ func nox_client_getBriefDuration() C.int {
 //export nox_game_SetCliDrawFunc
 func nox_game_SetCliDrawFunc(fnc unsafe.Pointer) {
 	if fnc == nil {
-		noxClient.setDrawFunc(nil)
+		noxClient.SetDrawFunc(nil)
 	} else {
-		noxClient.setDrawFunc(func() bool {
+		noxClient.SetDrawFunc(func() bool {
 			return cgoCallIntVoidFunc(fnc) != 0
 		})
 	}
@@ -107,9 +107,9 @@ func nox_game_SetCliDrawFunc(fnc unsafe.Pointer) {
 //export sub_43DE40
 func sub_43DE40(fnc unsafe.Pointer) C.int {
 	if fnc == nil {
-		noxClient.setUpdateFunc2(nil)
+		noxClient.SetUpdateFunc2(nil)
 	} else {
-		noxClient.setUpdateFunc2(func() bool {
+		noxClient.SetUpdateFunc2(func() bool {
 			return cgoCallIntVoidFunc(fnc) != 0
 		})
 	}
@@ -622,7 +622,7 @@ func CONNECT_RESULT_OK() error {
 		return errors.New("nox_xxx_servInitialMapLoad_4D17F0 exit")
 	}
 	if !noxflags.HasGame(noxflags.GameClient) {
-		noxClient.setDrawFunc(nil)
+		noxClient.SetDrawFunc(nil)
 	} else {
 		if !noxflags.HasGame(noxflags.GameFlag21) {
 			if mode := noxClient.videoGetGameMode(); mode.X == 0 || mode.Y == 0 {
@@ -686,7 +686,7 @@ func nox_xxx_cliWaitForJoinData_43BFE0() bool {
 		}
 		return false
 	})
-	noxClient.setDrawFunc(nil)
+	noxClient.SetDrawFunc(nil)
 	if memmap.Uint32(0x587000, 91840) != 0 {
 		*memmap.PtrUint32(0x587000, 91840) = 0
 		C.nox_client_gui_flag_815132 = 1
@@ -873,7 +873,7 @@ var (
 func nox_xxx_gameChangeMap_43DEB0() error {
 	c := noxClient
 	if noxflags.HasGame(noxflags.GameFlag24) {
-		c.nox_client_setCursorType(gui.CursorBusy)
+		c.Nox_client_setCursorType(gui.CursorBusy)
 
 		mapName := ""
 		if gameIsNotMultiplayer {

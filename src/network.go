@@ -891,7 +891,7 @@ func sub_5521A0() bool {
 }
 
 func nox_xxx_allocNetGQueue_5520B0() {
-	noxClient.setUpdateFunc2(sub_5521A0)
+	noxClient.SetUpdateFunc2(sub_5521A0)
 	netstr.Init()
 }
 

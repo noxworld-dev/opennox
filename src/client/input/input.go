@@ -12,16 +12,6 @@ var (
 	Log = log.New("input")
 )
 
-type Checker interface {
-	CheckInputFlag() bool
-}
-
-type CheckerFunc func() bool
-
-func (f CheckerFunc) CheckInputFlag() bool {
-	return f()
-}
-
 type Sequencer interface {
 	NextEventSeq() uint
 }
@@ -40,7 +30,7 @@ type Handler struct {
 }
 
 // New creates a new input handler.
-func New(inp seat.Input, chk Checker, lang int) *Handler {
+func New(inp seat.Input, chk bool, lang int) *Handler {
 	h := &Handler{inp: inp}
 	h.m = newMouseHandler(h, chk)
 	h.k = newKeyboardHandler(h, chk)

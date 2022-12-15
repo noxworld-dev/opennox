@@ -56,7 +56,7 @@ func (c *Client) playMovieFile(name string) {
 	videoLog.Printf("playMovieFile: %q", name)
 	if f, err := ifs.Open(name); err == nil {
 		defer f.Close()
-		if plr, err := noxmovie.NewPlayerWithHandle(f, noxClient.seat, audioDev); err == nil {
+		if plr, err := noxmovie.NewPlayerWithHandle(f, noxClient.Seat, audioDev); err == nil {
 			defer plr.Close()
 			plr.Start()
 			plr.Play()
@@ -69,13 +69,13 @@ func (c *Client) clientDraw() bool {
 }
 
 func (c *Client) copyPixBuffer() {
-	c.win.CopyBuffer(noxPixBuffer.img)
+	c.Win.CopyBuffer(noxPixBuffer.img)
 	*memmap.PtrUint32(0x973A20, 496)++
 }
 
 func (c *Client) resetRenderer(sz image.Point, init bool) error {
 	if nox_video_renderTargetFlags&4 == 0 && !init {
-		if err := c.win.Reset(sz); err != nil {
+		if err := c.Win.Reset(sz); err != nil {
 			return err
 		}
 	}
@@ -123,7 +123,7 @@ func sub_43C060() bool {
 	c.nox_xxx_loadPal_4A96C0_video_read_palette()
 	C.nox_xxx_wndLoadBorder_4AA1F0()
 	nox_xxx_wndLoadMainBG_4A2210()
-	c.nox_client_setCursorType(gui.CursorSelect)
+	c.Nox_client_setCursorType(gui.CursorSelect)
 	sub_48B3E0(true)
 	nox_video_stopAllFades_44E040()
 	C.sub_43E8C0(0)

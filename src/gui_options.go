@@ -177,7 +177,7 @@ func guiEnhanceOptions(root *Window) {
 		Func94(asWindowEvent(0x400A, uintptr(getGammaSlider()), 0))
 	NewStaticText(root, 317, 112, 258, 140, 16, true, false, "Sensitivity")
 	NewHorizontalSlider(root, 318, 120, 274, 120, 16, 1, 100).
-		Func94(asWindowEvent(0x400A, uintptr((math.Log10(float64(noxClient.getSensitivity()))+1.0)*50), 0))
+		Func94(asWindowEvent(0x400A, uintptr((math.Log10(float64(noxClient.GetSensitivity()))+1.0)*50), 0))
 }
 
 //export sub_4A19F0

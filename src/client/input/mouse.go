@@ -118,7 +118,7 @@ type noxMouseEvent struct {
 	Seq     uint
 }
 
-func newMouseHandler(s Sequencer, chk Checker) *mouseHandler {
+func newMouseHandler(s Sequencer, chk bool) *mouseHandler {
 	def := image.Point{X: seat.DefaultWidth, Y: seat.DefaultHeight}
 	h := &mouseHandler{
 		seq:   s,
@@ -132,7 +132,7 @@ func newMouseHandler(s Sequencer, chk Checker) *mouseHandler {
 
 type mouseHandler struct {
 	seq    Sequencer
-	chk    Checker
+	chk    bool
 	bounds image.Rectangle
 	win    window
 	pos    types.Pointf // float to make it cumulative for relative events
@@ -472,7 +472,7 @@ func (h *mouseHandler) nox_client_processMouseEvents_4302A0(cseq uint, evNum int
 		h.prevSeq = cseq
 	}
 	num := 0
-	if !h.chk.CheckInputFlag() {
+	if !h.chk {
 		num = evNum
 		if num == 0 {
 			h.nox_client_mouseBtnState_430230()

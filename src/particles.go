@@ -14,6 +14,7 @@ import (
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
@@ -177,7 +178,7 @@ func (r *NoxRender) DrawGlow(pos image.Point, cl color.Color, a3 int, a4 int) { 
 	p.DrawAt(pos)
 }
 
-func (r *NoxRender) drawProtectEffectDefault(vp *Viewport, pos image.Point, dr *Drawable, phase, eff int, cl1, cl2 color.Color, back bool) { // nox_client_drawXxxProtect_474BE0
+func (r *NoxRender) drawProtectEffectDefault(vp *client.Viewport, pos image.Point, dr *Drawable, phase, eff int, cl1, cl2 color.Color, back bool) { // nox_client_drawXxxProtect_474BE0
 	opts := ProtectEffect{
 		Cnt:       2,
 		Height:    20,
@@ -222,7 +223,7 @@ func intAngle(val, min, max int) int {
 	return val
 }
 
-func (r *NoxRender) drawProtectEffect(vp *Viewport, pos image.Point, dr *Drawable, opts ProtectEffect, back bool) { // nox_client_drawXxxProtect
+func (r *NoxRender) drawProtectEffect(vp *client.Viewport, pos image.Point, dr *Drawable, opts ProtectEffect, back bool) { // nox_client_drawXxxProtect
 	frame := r.Frame()
 	phi := opts.Phase + opts.Speed*int(byte(frame)+*(*byte)(dr.field(128)))
 	for i := 0; i < opts.Cnt; i++ {
@@ -264,7 +265,7 @@ func (r *NoxRender) drawProtectEffect(vp *Viewport, pos image.Point, dr *Drawabl
 	}
 }
 
-func (r *NoxRender) drawProtectParticle(vp *Viewport, part, tail image.Point, partCl, tailCl color.Color) { // nox_client_drawXxxProtectParticle_474DD0
+func (r *NoxRender) drawProtectParticle(vp *client.Viewport, part, tail image.Point, partCl, tailCl color.Color) { // nox_client_drawXxxProtectParticle_474DD0
 	part = vp.ToScreenPos(part)
 	tail = vp.ToScreenPos(tail)
 

@@ -15,6 +15,7 @@ import (
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 	"github.com/noxworld-dev/opennox/v1/common/gsync"
@@ -56,20 +57,20 @@ func (pfx *partFXes) asParticlefx(p unsafe.Pointer) *particleFx {
 type particleFx struct {
 	pfx        *partFXes
 	chnd       unsafe.Pointer
-	image      *Image          // 0, 0
-	rendPart   *Particle       // 1, 4
-	drawable8  *Drawable       // 2, 8
-	drawable12 *Drawable       // 3, 12
-	drawableVp *Viewport       // 4, 16
-	partfxTyp  *particlefxType // 5, 20
-	color      color.Color     // 6, 24
-	pos        image.Point     // 7, 28
-	z          int             // 9, 36
-	cnt40      int             // 10, 40
-	remains44  int             // 11, 44
-	ticksLeft  int             // 12, 48
-	ticksTotal int             // 13, 52
-	flags      uint32          // 14, 56
+	image      *Image           // 0, 0
+	rendPart   *Particle        // 1, 4
+	drawable8  *Drawable        // 2, 8
+	drawable12 *Drawable        // 3, 12
+	drawableVp *client.Viewport // 4, 16
+	partfxTyp  *particlefxType  // 5, 20
+	color      color.Color      // 6, 24
+	pos        image.Point      // 7, 28
+	z          int              // 9, 36
+	cnt40      int              // 10, 40
+	remains44  int              // 11, 44
+	ticksLeft  int              // 12, 48
+	ticksTotal int              // 13, 52
+	flags      uint32           // 14, 56
 	//bufferInd  int                     // 15, 60
 	pointSize  int                    // 16, 64
 	field_68   int                    // 17, 68
@@ -489,13 +490,13 @@ func nox_xxx_partfxSwitch_4AF690(fx *packetParticleFx, fnc func(pt image.Point))
 }
 
 type packetParticleFx struct {
-	dr   *Drawable   // 0
-	img  *Image      // 1
-	vp   *Viewport   // 2
-	pos  image.Point // 3
-	cnt  int         // 5
-	flag bool        // 6
-	max  int         // 7
+	dr   *Drawable        // 0
+	img  *Image           // 1
+	vp   *client.Viewport // 2
+	pos  image.Point      // 3
+	cnt  int              // 5
+	flag bool             // 6
+	max  int              // 7
 }
 
 func (pfx *partFXes) onParticleFx(code byte, dr *Drawable, cnt int, flag bool, max int) {

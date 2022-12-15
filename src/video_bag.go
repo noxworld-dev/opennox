@@ -121,7 +121,7 @@ func (img *Image) loadOverride() []byte {
 	sect := int(img.bag.SegmInd)
 	offs := int(img.bag.Offset)
 
-	im, err := imageByBagSection(sect, offs)
+	im, err := noxClient.Bag.ImageByBagSection(sect, offs)
 	if err != nil {
 		log.Println(err)
 		return nil

@@ -58,6 +58,7 @@ import (
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 	"github.com/noxworld-dev/opennox-lib/common"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -108,17 +109,17 @@ func get_nox_client_texturedFloors_154956() C.bool {
 	return C.bool(nox_client_texturedFloors_154956)
 }
 
-func asViewport(p *nox_draw_viewport_t) *Viewport {
+func asViewport(p *nox_draw_viewport_t) *client.Viewport {
 	return asViewportP(unsafe.Pointer(p))
 }
 
-func asViewportP(p unsafe.Pointer) *Viewport {
-	return (*Viewport)(p)
+func asViewportP(p unsafe.Pointer) *client.Viewport {
+	return (*client.Viewport)(p)
 }
 
 //export nox_draw_getViewport_437250
 func nox_draw_getViewport_437250() *nox_draw_viewport_t {
-	return noxClient.Viewport().C()
+	return (*nox_draw_viewport_t)(noxClient.Viewport().C())
 }
 
 //export sub_437260
@@ -128,12 +129,12 @@ func sub_437260() {
 }
 
 func sub_437180() {
-	C.sub_48D990(noxClient.Viewport().C())
+	C.sub_48D990((*nox_draw_viewport_t)(noxClient.Viewport().C()))
 }
 
 //export sub_4355B0
 func sub_4355B0(a1 C.int) {
-	noxClient.Viewport().field_12 = int(a1)
+	noxClient.Viewport().Field12 = int(a1)
 }
 
 //export nox_xxx_getSomeCoods_435670
@@ -149,9 +150,9 @@ func nox_xxx_cliUpdateCameraPos_435600(x, y C.int) {
 	*memmap.PtrInt32(0x5D4594, 811364) = int32(vp.World.Max.X)
 	*memmap.PtrInt32(0x5D4594, 811368) = int32(vp.World.Max.Y)
 	vp.World.Min.X = int(x) - vp.Size.X/2
-	vp.World.Min.Y = int(y) + vp.field_12 - vp.Size.Y/2
+	vp.World.Min.Y = int(y) + vp.Field12 - vp.Size.Y/2
 	vp.World.Max.X = int(x)
-	vp.World.Max.Y = int(y) + vp.field_12
+	vp.World.Max.Y = int(y) + vp.Field12
 }
 
 //export sub_437290
@@ -200,31 +201,10 @@ func nox_xxx_drawPointMB_499B70(a1, a2, a3 C.int) {
 	r.DrawPoint(image.Pt(int(a1), int(a2)), int(a3), r.Data().Color2())
 }
 
-var _ = [1]struct{}{}[52-unsafe.Sizeof(Viewport{})]
+var _ = [1]struct{}{}[52-unsafe.Sizeof(client.Viewport{})]
 var _ = [1]struct{}{}[4-unsafe.Sizeof(int(0))]
 
 type nox_draw_viewport_t = C.nox_draw_viewport_t
-
-type Viewport struct {
-	Screen   image.Rectangle // 0, 0
-	World    image.Rectangle // 4, 16
-	Size     image.Point     // 8, 32
-	field_10 uint            // 10, 40
-	field_11 uint            // 11, 44
-	field_12 int             // 12, 48
-}
-
-func (vp *Viewport) C() *nox_draw_viewport_t {
-	return (*nox_draw_viewport_t)(unsafe.Pointer(vp))
-}
-
-func (vp *Viewport) ToScreenPos(pos image.Point) image.Point { // sub_4739E0
-	return pos.Sub(vp.World.Min).Add(vp.Screen.Min)
-}
-
-func (vp *Viewport) ToWorldPos(pos image.Point) image.Point {
-	return pos.Sub(vp.Screen.Min).Add(vp.World.Min)
-}
 
 func detectBestVideoSettings() {
 	const cfg = 450
@@ -1005,21 +985,21 @@ func sub_4745F0(cvp *nox_draw_viewport_t) {
 	noxClient.sub4745F0(asViewport(cvp))
 }
 
-func (c *Client) sub4745F0(vp *Viewport) {
+func (c *Client) sub4745F0(vp *client.Viewport) {
 	for _, dr := range nox_drawable_list_2 {
 		c.drawCreatureBackEffects(vp, dr)
 		if C.nox_xxx_client_4984B0_drawable(dr.C()) == 0 {
 			continue
 		}
 		dr.field_121 = 1
-		C.sub_476AE0(vp.C(), dr.C())
+		C.sub_476AE0((*nox_draw_viewport_t)(vp.C()), dr.C())
 		if dr.Flags70()&0x40 != 0 {
-			C.nox_xxx_drawShinySpot_4C4F40(vp.C(), dr.C())
+			C.nox_xxx_drawShinySpot_4C4F40((*nox_draw_viewport_t)(vp.C()), dr.C())
 		}
 		c.drawCreatureFrontEffects(vp, dr)
-		C.sub_495BB0(dr.C(), vp.C())
+		C.sub_495BB0(dr.C(), (*nox_draw_viewport_t)(vp.C()))
 		if noxflags.HasEngine(noxflags.EngineShowExtents) {
-			nox_thing_debug_draw(vp.C(), dr.C())
+			nox_thing_debug_draw((*nox_draw_viewport_t)(vp.C()), dr.C())
 		}
 		dr.field_33 = 0
 		if dr.field_120 == 0 && dr.field_122 == 0 {
@@ -1320,7 +1300,7 @@ func sub_499F60(p int, pos image.Point, a4 int, a5, a6, a7, a8, a9 int, a10 int)
 	C.sub_499F60(C.int(p), C.int(pos.X), C.int(pos.Y), C.short(a4), C.char(a5), C.char(a6), C.char(a7), C.char(a8), C.char(a9), C.int(a10))
 }
 
-func (c *Client) drawCreatureBackEffects(vp *Viewport, dr *Drawable) {
+func (c *Client) drawCreatureBackEffects(vp *client.Viewport, dr *Drawable) {
 	if dr.HasEnchant(server.ENCHANT_INVISIBLE) && C.sub_474B40(dr.C()) == 0 {
 		return
 	}
@@ -1401,12 +1381,12 @@ func (c *Client) drawCreatureBackEffects(vp *Viewport, dr *Drawable) {
 	if dr.HasEnchant(server.ENCHANT_REFLECTIVE_SHIELD) { // Shield effects
 		switch *(*byte)(dr.field(297)) {
 		case 0, 1, 2:
-			C.nox_xxx_drawShield_499810(vp.C(), dr.C())
+			C.nox_xxx_drawShield_499810((*nox_draw_viewport_t)(vp.C()), dr.C())
 		}
 	}
 }
 
-func (c *Client) drawCreatureFrontEffects(vp *Viewport, dr *Drawable) {
+func (c *Client) drawCreatureFrontEffects(vp *client.Viewport, dr *Drawable) {
 	if dr.HasEnchant(server.ENCHANT_INVISIBLE) && C.sub_474B40(dr.C()) == 0 {
 		return
 	}
@@ -1515,7 +1495,7 @@ func (c *Client) drawCreatureFrontEffects(vp *Viewport, dr *Drawable) {
 	if dr.HasEnchant(server.ENCHANT_REFLECTIVE_SHIELD) {
 		switch *(*byte)(dr.field(297)) {
 		default:
-			C.nox_xxx_drawShield_499810(vp.C(), dr.C())
+			C.nox_xxx_drawShield_499810((*nox_draw_viewport_t)(vp.C()), dr.C())
 		case 0, 1, 2:
 		}
 	}

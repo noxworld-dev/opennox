@@ -61,13 +61,14 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/common"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func (c *Client) nox_xxx_client_435F80_draw() bool {
-	mpos := c.inp.GetMousePos()
+	mpos := c.Inp.GetMousePos()
 	if nox_xxx_serverIsClosing446180() {
 		sub_446190()
 	}
@@ -79,7 +80,7 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 	if C.sub_478030() == 0 && nox_xxx_guiCursor_477600() == 0 {
 		C.sub_470DE0()
 	}
-	ctrlEvent.nox_xxx_input_42D220(c.inp)
+	ctrlEvent.nox_xxx_input_42D220(c.Inp)
 	if c.inDraw1 {
 		c.inDraw1 = false
 	}
@@ -104,7 +105,7 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 	} else {
 		sub_43CCA0()
 	}
-	C.sub_49BD70(vp.C())
+	C.sub_49BD70((*nox_draw_viewport_t)(vp.C()))
 	C.sub_49BBC0()
 	C.nox_xxx_polygonDrawColor_421B80()
 	if nox_client_isConnected() {
@@ -182,7 +183,7 @@ func (c *Client) nox_xxx_clientDrawAll_436100_draw() {
 	}
 }
 
-func (c *Client) sub_468F80(vp *Viewport) {
+func (c *Client) sub_468F80(vp *client.Viewport) {
 	// TODO: values here are similar to lightGridW and lightGridH
 	noxTilesGpx = (2*common.GridStep)*((int(vp.World.Min.X)+11)/(2*common.GridStep)-1) - 11
 	noxTilesGpy = (2*common.GridStep)*((int(vp.World.Min.Y)+11)/(2*common.GridStep)) - 57
@@ -218,19 +219,19 @@ func (c *Client) sub_468F80(vp *Viewport) {
 	}
 }
 
-func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
+func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *client.Viewport) {
 	r := c.r
 	c.nox_xxx_drawAllMB_475810_draw_A(vp)
-	if vp.field_12 < 0 {
-		vp.field_12 = -1 - vp.field_12
-	} else if vp.field_12 > 0 {
-		vp.field_12 = 1 - vp.field_12
+	if vp.Field12 < 0 {
+		vp.Field12 = -1 - vp.Field12
+	} else if vp.Field12 > 0 {
+		vp.Field12 = 1 - vp.Field12
 	}
 	partViewportOff = vp.ToWorldPos(image.Pt(0, 0))
 	xmin := int(vp.World.Min.X) / common.GridStep
 	ymin := int(vp.World.Min.Y) / common.GridStep
 	nox_wallsYyy = nox_wallsYyy[:0]
-	C.nox_xxx_drawBlack_496150(vp.C())
+	C.nox_xxx_drawBlack_496150((*nox_draw_viewport_t)(vp.C()))
 	disableDraw := false
 	if asDrawable((*nox_drawable)(*memmap.PtrPtr(0x852978, 8))).HasEnchant(server.ENCHANT_BLINDED) || C.nox_gameDisableMapDraw_5d4594_2650672 != 0 {
 		disableDraw = true
@@ -249,12 +250,12 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 		return
 	}
 	c.sub_468F80(vp)
-	v10 := C.nox_xxx_drawAllMB_475810_draw_B(vp.C()) != 0
-	C.sub_4765F0(vp.C())
+	v10 := C.nox_xxx_drawAllMB_475810_draw_B((*nox_draw_viewport_t)(vp.C())) != 0
+	C.sub_4765F0((*nox_draw_viewport_t)(vp.C()))
 	c.sub_4754F0(vp)
 	if v10 {
 		c.nox_xxx_tileDrawMB_481C20(vp)
-		C.sub_4C5500(vp.C())
+		C.sub_4C5500((*nox_draw_viewport_t)(vp.C()))
 	} else {
 		r.ClearScreen(color.Black)
 	}
@@ -262,10 +263,10 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	c.nox_client_queueWallsDraw(vp, xmin, ymin)
 	c.nox_client_drawBackWalls(vp)
 	c.sub_475FE0(vp)
-	C.nox_video_drawCursorSelectCircle_4773C0(vp.C())
+	C.nox_video_drawCursorSelectCircle_4773C0((*nox_draw_viewport_t)(vp.C()))
 	c.nox_xxx_drawAllMB_475810_draw_E(vp)
 	r.partfx.Draw()
-	C.sub_4C5060(vp.C())
+	C.sub_4C5060((*nox_draw_viewport_t)(vp.C()))
 	c.nox_client_maybeDrawFrontWalls(vp)
 	r.DrawFade(false)
 	if noxflags.HasEngine(noxflags.EngineShowAI) {
@@ -277,7 +278,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *Viewport) {
 	C.sub_476680()
 }
 
-func (c *Client) nox_client_queueWallsDraw(vp *Viewport, xmin, ymin int) { // nox_xxx_drawAllMB_475810_draw_C
+func (c *Client) nox_client_queueWallsDraw(vp *client.Viewport, xmin, ymin int) { // nox_xxx_drawAllMB_475810_draw_C
 	xmax := xmin + int(vp.Size.X)/common.GridStep + 2
 	ymax := ymin + int(vp.Size.Y)/common.GridStep + 4
 	for y := ymin; y <= ymax; y++ {
@@ -297,18 +298,18 @@ func (c *Client) nox_client_queueWallsDraw(vp *Viewport, xmin, ymin int) { // no
 	}
 }
 
-func nox_xxx_drawWalls_473C10(vp *Viewport, p *Wall) {
-	C.nox_xxx_drawWalls_473C10(vp.C(), p.C())
+func nox_xxx_drawWalls_473C10(vp *client.Viewport, p *Wall) {
+	C.nox_xxx_drawWalls_473C10((*nox_draw_viewport_t)(vp.C()), p.C())
 }
 
-func (c *Client) nox_client_drawBackWalls(vp *Viewport) {
+func (c *Client) nox_client_drawBackWalls(vp *client.Viewport) {
 	for _, v20 := range nox_backWalls {
 		nox_xxx_drawWalls_473C10(vp, v20)
 	}
 	nox_backWalls = nox_backWalls[:0]
 }
 
-func (c *Client) nox_client_maybeDrawFrontWalls(vp *Viewport) { // nox_client_maybeDrawFrontWalls_475810_F
+func (c *Client) nox_client_maybeDrawFrontWalls(vp *client.Viewport) { // nox_client_maybeDrawFrontWalls_475810_F
 	if nox_client_drawFrontWalls_80812 {
 		for _, wl := range nox_frontWalls {
 			nox_xxx_drawWalls_473C10(vp, wl)
@@ -322,7 +323,7 @@ func (c *Client) nox_client_maybeDrawFrontWalls(vp *Viewport) { // nox_client_ma
 	nox_frontWalls = nox_frontWalls[:0]
 }
 
-func (c *Client) sub_475F10(vp *Viewport) {
+func (c *Client) sub_475F10(vp *client.Viewport) {
 	for _, dr := range nox_drawable_list_3 {
 		c.drawCreatureBackEffects(vp, dr)
 		if C.nox_xxx_client_4984B0_drawable(dr.C()) == 0 {
@@ -331,12 +332,12 @@ func (c *Client) sub_475F10(vp *Viewport) {
 		dr.field_121 = 1
 		dr.DrawFunc(vp)
 		if dr.Flags70()&0x40 != 0 {
-			C.nox_xxx_drawShinySpot_4C4F40(vp.C(), dr.C())
+			C.nox_xxx_drawShinySpot_4C4F40((*nox_draw_viewport_t)(vp.C()), dr.C())
 		}
 		c.drawCreatureFrontEffects(vp, dr)
-		C.sub_495BB0(dr.C(), vp.C())
+		C.sub_495BB0(dr.C(), (*nox_draw_viewport_t)(vp.C()))
 		if noxflags.HasEngine(noxflags.EngineShowExtents) {
-			nox_thing_debug_draw(vp.C(), dr.C())
+			nox_thing_debug_draw((*nox_draw_viewport_t)(vp.C()), dr.C())
 		}
 		dr.field_33 = 0
 		if dr.field_120 == 0 && dr.field_122 == 0 {
@@ -346,13 +347,13 @@ func (c *Client) sub_475F10(vp *Viewport) {
 	nox_drawable_list_3 = nox_drawable_list_3[:0]
 }
 
-func (c *Client) sub_475FE0(vp *Viewport) {
+func (c *Client) sub_475FE0(vp *client.Viewport) {
 	for _, dr := range nox_drawable_list_4 {
 		if C.nox_xxx_client_4984B0_drawable(dr.C()) != 0 {
 			dr.field_121 = 1
 			dr.DrawFunc(vp)
 			if noxflags.HasEngine(noxflags.EngineShowExtents) {
-				nox_thing_debug_draw(vp.C(), dr.C())
+				nox_thing_debug_draw((*nox_draw_viewport_t)(vp.C()), dr.C())
 			}
 			dr.field_33 = 0
 			if dr.field_120 == 0 && dr.field_122 == 0 {
@@ -383,7 +384,7 @@ func nox_xxx_cliGetSpritePlayer_45A000() *Drawable {
 	return asDrawable(C.nox_xxx_drawablePlayer_1046600)
 }
 
-func (c *Client) nox_xxx_drawAllMB_475810_draw_E(vp *Viewport) {
+func (c *Client) nox_xxx_drawAllMB_475810_draw_E(vp *client.Viewport) {
 	sort.Slice(nox_drawable_objects_queue, func(i, j int) bool {
 		a, b := nox_drawable_objects_queue[i], nox_drawable_objects_queue[j]
 		return c.sub_476160(a, b)
@@ -450,14 +451,14 @@ LOOP:
 			continue
 		}
 		if noxflags.HasEngine(noxflags.EngineShowExtents) {
-			nox_thing_debug_draw(vp.C(), dr.C())
+			nox_thing_debug_draw((*nox_draw_viewport_t)(vp.C()), dr.C())
 		}
 		dr.field_33 = 0
 		if dr.Flags70()&0x40 != 0 {
-			C.nox_xxx_drawShinySpot_4C4F40(vp.C(), dr.C())
+			C.nox_xxx_drawShinySpot_4C4F40((*nox_draw_viewport_t)(vp.C()), dr.C())
 		}
 		c.drawCreatureFrontEffects(vp, dr)
-		C.sub_495BB0(dr.C(), vp.C())
+		C.sub_495BB0(dr.C(), (*nox_draw_viewport_t)(vp.C()))
 		if dr.field_120 == 0 && dr.field_122 == 0 {
 			dr.field_85 = C.uint(c.srv.Frame())
 		}
@@ -465,13 +466,13 @@ LOOP:
 			C.sub_459DD0(dr.C(), 1)
 		}
 		if dr.Flags28()&0x20006 != 0 {
-			C.sub_49A6A0(vp.C(), dr.C())
+			C.sub_49A6A0((*nox_draw_viewport_t)(vp.C()), dr.C())
 		}
 	}
 	nox_drawable_objects_queue = nox_drawable_objects_queue[:0]
 }
 
-func (c *Client) sub_4754F0(vp *Viewport) {
+func (c *Client) sub_4754F0(vp *client.Viewport) {
 	rect := image.Rectangle{
 		Min: vp.World.Min,
 		Max: vp.World.Min.Add(vp.Size).Add(image.Pt(0, 128)),
@@ -520,7 +521,7 @@ func (c *Client) nox_xxx_spriteAddQueue_475560_draw(dr *Drawable) {
 	}
 }
 
-func (c *Client) nox_xxx_drawAllMB_475810_draw_A(vp *Viewport) {
+func (c *Client) nox_xxx_drawAllMB_475810_draw_A(vp *client.Viewport) {
 	if *memmap.PtrUint32(0x5D4594, 1096448) == 0 {
 		*memmap.PtrUint32(0x5D4594, 1096448) = uint32(nox_things.IndByID("Crown"))
 	}
@@ -717,7 +718,7 @@ func sub_4695E0(a1, a2 int, pcl *int32, a4 int, flip bool) {
 	*ptr = res
 }
 
-func (c *Client) nox_xxx_tileDrawMB_481C20(vp *Viewport) {
+func (c *Client) nox_xxx_tileDrawMB_481C20(vp *client.Viewport) {
 	C.nox_xxx_waypointCounterMB_587000_154948++
 	dp := vp.ToWorldPos(image.Pt(0, 0))
 	if !nox_client_texturedFloors_154956 && C.dword_5d4594_1193156 == 1 {
@@ -725,26 +726,26 @@ func (c *Client) nox_xxx_tileDrawMB_481C20(vp *Viewport) {
 		nox_client_texturedFloors_154956 = true
 		nox_xxx_tileSetDrawFn_481420()
 	}
-	if C.dword_5d4594_1193156 == 1 && !nox_client_texturedFloors2_154960 && c.srv.Frame()%30 == 0 && C.nox_xxx_tileCheckRedrawMB_482570(vp.C()) == 0 {
+	if C.dword_5d4594_1193156 == 1 && !nox_client_texturedFloors2_154960 && c.srv.Frame()%30 == 0 && C.nox_xxx_tileCheckRedrawMB_482570((*nox_draw_viewport_t)(vp.C())) == 0 {
 		C.dword_5d4594_1193156 = 0
 		nox_client_texturedFloors_154956 = nox_client_texturedFloors2_154960
 		nox_xxx_tileSetDrawFn_481420()
 	}
 	if C.dword_5d4594_1193188 != 0 {
-		C.nox_xxx_tileDrawImpl_4826A0(vp.C())
+		C.nox_xxx_tileDrawImpl_4826A0((*nox_draw_viewport_t)(vp.C()))
 		C.dword_5d4594_1193188 = 0
 	} else {
-		C.nox_xxx_tileDrawMB_481C20_A(vp.C(), C.int(dp.X))
-		C.nox_xxx_tileDrawMB_481C20_B(vp.C(), C.int(dp.Y))
+		C.nox_xxx_tileDrawMB_481C20_A((*nox_draw_viewport_t)(vp.C()), C.int(dp.X))
+		C.nox_xxx_tileDrawMB_481C20_B((*nox_draw_viewport_t)(vp.C()), C.int(dp.Y))
 	}
 	if nox_client_texturedFloors_154956 {
 		c.nox_xxx_tileDrawMB_481C20_C_textured(vp, dp)
 	} else {
-		C.nox_xxx_tileDrawMB_481C20_C_solid(vp.C(), C.int(dp.X), C.int(dp.Y))
+		C.nox_xxx_tileDrawMB_481C20_C_solid((*nox_draw_viewport_t)(vp.C()), C.int(dp.X), C.int(dp.Y))
 	}
 }
 
-func (c *Client) nox_xxx_tileDrawMB_481C20_C_textured(vp *Viewport, dp image.Point) {
+func (c *Client) nox_xxx_tileDrawMB_481C20_C_textured(vp *client.Viewport, dp image.Point) {
 	r := c.r
 
 	sy := int(C.dword_5d4594_3679320)

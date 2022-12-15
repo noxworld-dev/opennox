@@ -26,21 +26,21 @@ func (c *Client) initSeat(sz image.Point) error {
 	if err != nil {
 		return err
 	}
-	c.seat = sst
+	c.Seat = sst
 	if env.IsE2E() {
-		c.seat = e2eWrapSeat(c.seat)
+		c.Seat = e2eWrapSeat(c.Seat)
 	}
-	c.win, err = render.New(c.seat)
+	c.Win, err = render.New(c.Seat)
 	if err != nil {
-		_ = c.seat.Close()
+		_ = c.Seat.Close()
 		return err
 	}
 
-	inp := input.New(c.seat, input.CheckerFunc(get_obj_5D4594_754104_switch), c.Strings().Lang())
-	c.inp = inp
+	inp := input.New(c.Seat, false, c.Strings().Lang())
+	c.Inp = inp
 
 	inp.OnQuit(mainloopStop)
-	inp.OnToggleFullScreen(c.win.ToggleWindowMode)
+	inp.OnToggleFullScreen(c.Win.ToggleWindowMode)
 	inp.OnKeyPress(gameexOnKeyboardPress)
 	inp.OnMouseWheel(func(dv int) {
 		// mix event handler is triggered only for wheel events
@@ -52,11 +52,11 @@ func (c *Client) initSeat(sz image.Point) error {
 		}
 	})
 
-	c.win.OnViewResize(inp.SetWinSize)
+	c.Win.OnViewResize(inp.SetWinSize)
 	OnPixBufferResize(inp.SetDrawWinSize)
 
-	c.win.SetFiltering(viper.GetBool(configVideoFiltering))
-	c.win.SetStretched(viper.GetBool(configVideoStretch))
+	c.Win.SetFiltering(viper.GetBool(configVideoFiltering))
+	c.Win.SetStretched(viper.GetBool(configVideoStretch))
 	if err != nil {
 		return err
 	}
@@ -65,8 +65,8 @@ func (c *Client) initSeat(sz image.Point) error {
 }
 
 func (c *Client) freeSeat() {
-	if c.seat != nil {
-		c.seat.Close()
-		c.seat = nil
+	if c.Seat != nil {
+		c.Seat.Close()
+		c.Seat = nil
 	}
 }

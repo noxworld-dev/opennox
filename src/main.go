@@ -257,14 +257,14 @@ func RunArgs(args []string) (gerr error) {
 	}
 	if *fWindow {
 		dword_5d4594_805860 = false
-		noxClient.updateFullScreen(-2)
+		noxClient.UpdateFullScreen(-2)
 	}
 	if *fSWindow {
 		dword_5d4594_805860 = true
-		noxClient.updateFullScreen(-3)
+		noxClient.UpdateFullScreen(-3)
 	}
 	if *fFullScreen {
-		noxClient.updateFullScreen(-1)
+		noxClient.UpdateFullScreen(-1)
 	}
 	if *fMinimize {
 		*memmap.PtrUint32(0x5D4594, 805864) = 1
@@ -299,8 +299,8 @@ func RunArgs(args []string) (gerr error) {
 	noxServer.SetInitialFrame()
 	nox_ticks_reset_416D40()
 	noxServer.SetUpdateFunc(nil)
-	noxClient.setDrawFunc(nil)
-	noxClient.setUpdateFunc2(nil)
+	noxClient.SetDrawFunc(nil)
+	noxClient.SetUpdateFunc2(nil)
 	noxflags.SetGame(noxflags.GameModeArena)
 	if *fNoLimit {
 		useFrameLimit = false

@@ -407,10 +407,10 @@ func (c *Client) keyBindingsCheckActive() int {
 	if C.sub_46A4A0() != 0 {
 		return 1
 	}
-	for _, key := range c.inp.KeyboardKeys() {
-		if !c.inp.GetKeyFlag(key) && !c.inp.IsPressed(key) && nox_xxx_guiCursor_477600() == 0 {
+	for _, key := range c.Inp.KeyboardKeys() {
+		if !c.Inp.GetKeyFlag(key) && !c.Inp.IsPressed(key) && nox_xxx_guiCursor_477600() == 0 {
 			if noxConsole.ExecMacros(context.Background(), key) {
-				c.inp.SetKeyFlag(key, true)
+				c.Inp.SetKeyFlag(key, true)
 			}
 		}
 	}

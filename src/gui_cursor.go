@@ -12,21 +12,13 @@ const cursorSize = 64
 
 //export nox_client_setCursorType_477610
 func nox_client_setCursorType_477610(v C.int) C.int {
-	noxClient.nox_client_setCursorType(gui.Cursor(v))
+	noxClient.Nox_client_setCursorType(gui.Cursor(v))
 	return v
 }
 
 //export nox_xxx_cursorGetTypePrev_477630
 func nox_xxx_cursorGetTypePrev_477630() C.int {
-	return C.int(noxClient.cursorPrev)
-}
-
-func (c *Client) nox_client_setCursorType(v gui.Cursor) {
-	c.cursor = v
-}
-
-func (c *Client) nox_client_getCursorType() gui.Cursor {
-	return c.cursor
+	return C.int(noxClient.CursorPrev)
 }
 
 func (c *Client) getCursorAnimFrame(ref *noxImageRef, dt int) *Image {
@@ -34,7 +26,7 @@ func (c *Client) getCursorAnimFrame(ref *noxImageRef, dt int) *Image {
 		return nil
 	}
 	anim := ref.field24ptr()
-	ts := int(c.getInputSeq()) + dt
+	ts := int(c.GetInputSeq()) + dt
 	imgs := anim.Images()
 	switch anim.anim_type {
 	case 0: // OneShot
