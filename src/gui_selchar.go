@@ -295,8 +295,8 @@ func sub_44A400() {
 		}
 		nox_gui_curDialog_830224 = nil
 		dword_5d4594_830228 = nil
-		c.nox_client_setCursorType(gui.CursorSelect)
-		c.setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
+		c.Nox_client_setCursorType(gui.CursorSelect)
+		c.SetMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
 	}
 }
 
@@ -310,7 +310,7 @@ func nox_game_showSelChar_4A4DB0() C.int {
 
 func nox_game_showSelChar4A4DB0() bool {
 	c := noxClient
-	c.nox_client_setCursorType(gui.CursorSelect)
+	c.Nox_client_setCursorType(gui.CursorSelect)
 	if sub4D6F30() {
 		sub_4D6F90(1)
 	}

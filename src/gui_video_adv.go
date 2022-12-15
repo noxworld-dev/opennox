@@ -54,8 +54,8 @@ func (c *guiAdvOptions) Init(cli *Client) {
 	c.cli = cli
 	c.noxVideoAdvOpts = make(map[uint]*videoOpt)
 	c.noxVideoAdvList = []*videoOpt{
-		{ID: 2051, Get: c.cli.getFiltering, Toggle: c.cli.toggleFiltering, Text: "Smooth image", TextID: "AdVidOpt.wnd:Filtering"},
-		{ID: 2050, Get: c.cli.getStretch, Toggle: c.cli.toggleStretch, Text: "Stretch image", TextID: "AdVidOpt.wnd:Stretched"},
+		{ID: 2051, Get: c.cli.GetFiltering, Toggle: c.cli.ToggleFiltering, Text: "Smooth image", TextID: "AdVidOpt.wnd:Filtering"},
+		{ID: 2050, Get: c.cli.GetStretch, Toggle: c.cli.ToggleStretch, Text: "Stretch image", TextID: "AdVidOpt.wnd:Stretched"},
 		{ID: 2010, Bool: &legacyUnlockSurface, TextID: "AdVidOpt.wnd:ClipWalls", Def: true, Hidden: true},
 		{ID: 2012, Flag: noxflags.EngineSoftShadowEdge, TextID: "AdVidOpt.wnd:GouradShading"},
 		{ID: 2014, Bool: &guiCon.translucent, TextID: "AdVidOpt.wnd:TranslucentConsole"},

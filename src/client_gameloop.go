@@ -195,7 +195,7 @@ func (c *Client) DrawSparks() {
 		C.nox_client_screenParticlesDraw_431720(rdr)
 	} else {
 		vp := c.Viewport()
-		C.nox_client_screenParticlesDraw_431720(vp.C())
+		C.nox_client_screenParticlesDraw_431720((*nox_draw_viewport_t)(vp.C()))
 	}
 }
 
@@ -204,7 +204,7 @@ func (c *Client) generateMouseSparks() {
 		return
 	}
 
-	mpos := c.inp.GetMousePos()
+	mpos := c.Inp.GetMousePos()
 	// emit sparks when passing a certain distance
 	const distanceSparks = 0.25
 	dx := mpos.X - int(memmap.Uint32(0x5D4594, 816420))
@@ -232,7 +232,7 @@ func (c *Client) generateMouseSparks() {
 	}
 	// explode with sparks when clicking
 	const explosionSparks = 75
-	if c.inp.IsMousePressed(seat.MouseButtonLeft) {
+	if c.Inp.IsMousePressed(seat.MouseButtonLeft) {
 		randomIntMinMax(0, 2)
 		if memmap.Uint32(0x5D4594, 816416) == 0 {
 			*memmap.PtrUint32(0x5D4594, 816416) = 1

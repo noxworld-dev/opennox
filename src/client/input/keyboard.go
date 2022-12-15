@@ -27,7 +27,7 @@ type noxKeyEvent struct {
 	Seq     uint
 }
 
-func newKeyboardHandler(s Sequencer, chk Checker) *keyboardHandler {
+func newKeyboardHandler(s Sequencer, chk bool) *keyboardHandler {
 	h := &keyboardHandler{
 		seq:                 s,
 		chk:                 chk,
@@ -40,7 +40,7 @@ func newKeyboardHandler(s Sequencer, chk Checker) *keyboardHandler {
 
 type keyboardHandler struct {
 	seq                  Sequencer
-	chk                  Checker
+	chk                  bool
 	imeBuffer            string
 	keyBinding           *keybind.Binding
 	keyboardEventQueue   chan noxKeyEvent
@@ -209,7 +209,7 @@ func (h *keyboardHandler) nox_xxx_getKeyFromKeyboard_430710(cseq uint) bool {
 			//	nox_input_scanCodeToAlpha(ev.code)
 			//}
 		}
-		if h.chk.CheckInputFlag() {
+		if h.chk {
 			ev.field2 = true
 		}
 		h.nox_input_map_byKey[ev.code] = noxKeyState{
@@ -230,7 +230,7 @@ func (h *keyboardHandler) nox_xxx_getKeyFromKeyboard_430710(cseq uint) bool {
 }
 
 func (h *keyboardHandler) sub_4307D0(cseq uint) bool {
-	if h.chk.CheckInputFlag() {
+	if h.chk {
 		return false
 	}
 	li := 0

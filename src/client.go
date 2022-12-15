@@ -10,16 +10,11 @@ import "C"
 import (
 	"image"
 
-	"github.com/noxworld-dev/opennox-lib/client/seat"
 	"github.com/noxworld-dev/opennox-lib/console"
-	"github.com/noxworld-dev/opennox-lib/strman"
 	"github.com/spf13/viper"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/audio/ail"
-	"github.com/noxworld-dev/opennox/v1/client/gui"
-	"github.com/noxworld-dev/opennox/v1/client/input"
-	"github.com/noxworld-dev/opennox/v1/client/render"
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
@@ -34,13 +29,10 @@ const (
 
 func NewClient(pr console.Printer, srv *Server) (*Client, error) {
 	c := &Client{
-		pr:         pr,
-		srv:        srv,
-		r:          NewNoxRender(srv),
-		cursor:     gui.CursorSelect,
-		cursorPrev: gui.Cursor17,
+		Client: client.NewClient(pr, srv.Server),
+		srv:    srv,
+		r:      NewNoxRender(srv),
 	}
-	c.vp, _ = alloc.New(Viewport{})
 	c.guiAdv.Init(c)
 	c.screenshots.Init(c)
 	c.mapsend.Init(c)
@@ -48,15 +40,9 @@ func NewClient(pr console.Printer, srv *Server) (*Client, error) {
 }
 
 type Client struct {
-	pr                 console.Printer
+	*client.Client
 	srv                *Server
-	seat               seat.Seat
-	win                *render.Renderer
 	r                  *NoxRender
-	vp                 *Viewport
-	inp                *input.Handler
-	drawFunc           func() bool
-	updateFunc2        func() bool
 	mapsend            clientMapDownload
 	guiAdv             guiAdvOptions
 	guiFPS             guiFPS
@@ -71,8 +57,6 @@ type Client struct {
 	pos1097204         image.Point
 	pos1097212         image.Point
 	flag3798728        bool
-	cursor             gui.Cursor
-	cursorPrev         gui.Cursor
 }
 
 func (c *Client) Close() error {
@@ -80,179 +64,57 @@ func (c *Client) Close() error {
 	return nil
 }
 
-func (c *Client) Strings() *strman.StringManager {
-	return c.srv.Strings()
-}
-
-func (c *Client) Viewport() *Viewport {
-	return c.vp
-}
-
-func (c *Client) setScreenSize(sz image.Point) {
-	if c == nil || c.seat == nil {
+func (c *Client) SetStretch(v bool) {
+	if c == nil {
 		return
 	}
-	c.seat.ResizeScreen(sz)
-}
-
-func (c *Client) setScreenGamma(v float32) {
-	if c == nil || c.seat == nil {
-		return
-	}
-	c.seat.SetGamma(v)
-}
-
-func (c *Client) updateFullScreen(mode int) {
-	if c == nil || c.win == nil {
-		return
-	}
-	c.win.SetWindowMode(mode)
-}
-
-func (c *Client) setStretch(v bool) {
-	if c == nil || c.win == nil {
-		return
-	}
-	c.win.SetStretched(v)
+	c.Client.SetStretch(v)
 	viper.Set(configVideoStretch, v)
 }
 
 func (c *Client) setStretchIfNotSet(v bool) {
 	if !viper.IsSet(configVideoStretch) {
-		c.setStretch(v)
+		c.SetStretch(v)
 	}
 }
 
-func (c *Client) getStretch() bool {
-	if c == nil || c.win == nil {
-		return false
-	}
-	return c.win.GetStretched()
+func (c *Client) ToggleStretch() {
+	c.SetStretch(!c.GetStretch())
 }
 
-func (c *Client) toggleStretch() {
-	c.setStretch(!c.getStretch())
-}
-
-func (c *Client) getFiltering() bool {
-	if c == nil || c.win == nil {
-		return false
-	}
-	return c.win.GetFiltering()
-}
-
-func (c *Client) toggleFiltering() {
-	if c == nil || c.win == nil {
+func (c *Client) ToggleFiltering() {
+	if c == nil {
 		return
 	}
-	val := !c.win.GetFiltering()
+	val := !c.Client.ToggleFiltering()
 	viper.Set(configVideoFiltering, val)
 	writeConfigLater()
-	c.win.SetFiltering(val)
-}
-
-func (c *Client) getWindowMode() int {
-	if c == nil || c.win == nil {
-		return 0
-	}
-	return c.win.WindowMode()
 }
 
 func (c *Client) processInput() {
-	if c == nil || c.inp == nil {
+	if c == nil || c.Inp == nil {
 		return
 	}
-	c.inp.Tick()
-	nox_client_processInput_4308A0(c.inp)
+	c.Inp.Tick()
+	c.nox_client_processInput_4308A0()
 	c.nox_xxx_cursorUpdate_46B740()
 	c.mainloopKeysUpdate()
 }
 
-func (c *Client) resetInput() {
-	if c == nil || c.inp == nil {
-		return
-	}
-	c.inp.Reset()
-}
-
-func (c *Client) getInputSeq() uint {
-	if c == nil || c.inp == nil {
-		return 1
-	}
-	return c.inp.CurrentSeq()
-}
-
-func (c *Client) getTextEditBuf() string {
-	if c == nil || c.inp == nil {
-		return ""
-	}
-	return c.inp.GetTextEditBuf()
-}
-
-func (c *Client) setTextInput(enable bool) {
-	if c == nil || c.inp == nil {
-		return
-	}
-	c.inp.SetTextInput(enable)
-}
-
-func (c *Client) getSensitivity() float32 {
-	if c == nil || c.inp == nil {
-		return 1
-	}
-	return c.inp.GetSensitivity()
-}
-
-func (c *Client) setSensitivity(v float32) {
-	if c == nil || c.inp == nil {
-		return
-	}
-	c.inp.SetSensitivity(v)
-}
-
-func (c *Client) getMousePos() image.Point {
-	if c == nil || c.inp == nil {
-		return image.Point{}
-	}
-	return c.inp.GetMousePos()
-}
-
-func (c *Client) changeMousePos(pos image.Point, abs bool) {
-	if c == nil || c.inp == nil {
-		return
-	}
-	c.inp.ChangeMousePos(pos, abs)
-}
-
-func (c *Client) setMouseBounds(rect image.Rectangle) {
-	if c == nil || c.inp == nil {
-		return
-	}
-	c.inp.SetMouseBounds(rect)
-}
-
 func (c *Client) mainloopKeysUpdate() {
-	if c == nil || c.inp == nil {
+	if c == nil || c.Inp == nil {
 		return
 	}
-	for _, key := range c.inp.KeyboardKeys() {
-		nox_xxx_windowUpdateKeysMB_46B6B0(c.inp, key)
+	for _, key := range c.Inp.KeyboardKeys() {
+		nox_xxx_windowUpdateKeysMB_46B6B0(c.Inp, key)
 	}
-}
-
-func (c *Client) setDrawFunc(fnc func() bool) {
-	c.drawFunc = fnc
-}
-
-func (c *Client) setUpdateFunc2(fnc func() bool) {
-	c.updateFunc2 = fnc
 }
 
 func (c *Client) Update() bool {
 	defer noxPerfmon.startProfileClient()()
 	if !isDedicatedServer {
 		c.inDraw1 = true
-		if c.drawFunc != nil && !c.drawFunc() {
+		if c.DrawFunc != nil && !c.DrawFunc() {
 			if debugMainloop {
 				gameLog.Println("call_nox_draw_unk1 exit")
 			}
@@ -260,7 +122,7 @@ func (c *Client) Update() bool {
 		}
 		c.inDraw1 = false
 	}
-	if c.updateFunc2 != nil && !c.updateFunc2() {
+	if c.UpdateFunc2 != nil && !c.UpdateFunc2() {
 		if debugMainloop {
 			gameLog.Println("call_func_5D4594_816392 exit")
 		}

@@ -46,6 +46,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -128,7 +129,7 @@ func videoSetWindowSize(sz image.Point) {
 }
 
 func cfgUpdateFullScreen() {
-	g_fullscreen_cfg = noxClient.getWindowMode()
+	g_fullscreen_cfg = noxClient.GetWindowMode()
 }
 
 //export nox_video_setGammaSlider
@@ -165,12 +166,12 @@ func nox_getBackbufHeight() C.int {
 
 //export nox_video_getFullScreen
 func nox_video_getFullScreen() C.int {
-	return C.int(noxClient.getWindowMode())
+	return C.int(noxClient.GetWindowMode())
 }
 
 //export nox_video_setFullScreen
 func nox_video_setFullScreen(v C.int) {
-	noxClient.updateFullScreen(int(v))
+	noxClient.UpdateFullScreen(int(v))
 }
 
 //export sub_430C30_set_video_max
@@ -195,7 +196,7 @@ func (c *Client) videoGetGameMode() image.Point {
 func (c *Client) videoSetGameMode(mode image.Point) {
 	nox_win_width_game = mode.X
 	nox_win_height_game = mode.Y
-	c.setScreenSize(mode)
+	c.SetScreenSize(mode)
 }
 
 func nox_video_setBackBufferCopyFunc_4AD100() error {
@@ -330,8 +331,8 @@ func recreateRenderTarget(sz image.Point) error {
 	}
 	c := noxClient
 	C.nox_xxx_setSomeFunc_48A210(C.int(uintptr(C.sub_47FCE0))) // TODO: another callback
-	v1 := c.nox_client_getCursorType()
-	c.nox_client_setCursorType(gui.CursorSelect)
+	v1 := c.Nox_client_getCursorType()
+	c.Nox_client_setCursorType(gui.CursorSelect)
 	v2 := sub_48B3E0(false)
 	if err := videoInit(videoGetWindowSize(), int(flags)); err != nil {
 		v9 := c.Strings().GetStringInFile("result:ERROR", "C:\\NoxPost\\src\\Client\\Io\\Win95\\dxvideo.c")
@@ -341,7 +342,7 @@ func recreateRenderTarget(sz image.Point) error {
 		return err
 	}
 	nox_xxx_cursorLoadAll_477710()
-	c.nox_client_setCursorType(v1)
+	c.Nox_client_setCursorType(v1)
 	sub_48B3E0(v2)
 	c.r.ClearScreen(c.r.Data().BgColor())
 	nox_xxx_setupSomeVideo_47FEF0()
@@ -606,15 +607,15 @@ func (c *Client) nox_video_cursorDrawImpl_477A30(pos image.Point) {
 	fh := c.r.FontHeight(nil)
 	if C.nox_xxx_guiSpell_460650() != 0 || C.sub_4611A0() != 0 {
 		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Target, pos)
-		c.cursorPrev = gui.CursorTarget
+		c.CursorPrev = gui.CursorTarget
 		*memmap.PtrUint32(0x973F18, 68) = v18
 		return
 	}
 
-	if c.cursor != c.cursorPrev && c.cursor != 14 {
+	if c.Cursor != c.CursorPrev && c.Cursor != 14 {
 		sub_48B680(0)
 	}
-	switch typ := c.nox_client_getCursorType(); typ {
+	switch typ := c.Nox_client_getCursorType(); typ {
 	case gui.CursorGrab:
 		str := c.Strings().GetStringInFile("GRAB", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
 		c.r.DrawString(nil, str, pos.Add(image.Point{X: 54, Y: 64 - fh}))
@@ -659,7 +660,7 @@ func (c *Client) nox_video_cursorDrawImpl_477A30(pos image.Point) {
 		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Use, pos)
 		c.pos1097204.Y = -2 * fh
 	case gui.CursorMoveArrow:
-		mpos := c.inp.GetMousePos()
+		mpos := c.Inp.GetMousePos()
 		v19 := types.Pointf{
 			X: float32(mpos.X - nox_win_width/2),
 			Y: float32(mpos.Y - nox_win_height/2),
@@ -689,7 +690,7 @@ func (c *Client) nox_video_cursorDrawImpl_477A30(pos image.Point) {
 	default:
 		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Select, pos)
 	}
-	c.cursorPrev = c.cursor
+	c.CursorPrev = c.Cursor
 	*memmap.PtrUint32(0x973F18, 68) = v18
 }
 
@@ -736,8 +737,8 @@ func (c *Client) nox_client_drawCursorAndTooltips_477830() {
 	if noxCursors.Select == nil {
 		nox_xxx_cursorLoadAll_477710()
 	}
-	mpos := c.inp.GetMousePos()
-	vp, freeVp := alloc.New(Viewport{})
+	mpos := c.Inp.GetMousePos()
+	vp, freeVp := alloc.New(client.Viewport{})
 	defer freeVp()
 	vp.Screen = image.Rect(0, 0, nox_win_width, nox_win_height)
 	vp.World.Min = image.Pt(0, 0)

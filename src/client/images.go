@@ -1,4 +1,4 @@
-package opennox
+package client
 
 import (
 	"archive/zip"
@@ -7,7 +7,6 @@ import (
 	"image"
 	"image/jpeg"
 	"image/png"
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
@@ -27,7 +26,7 @@ type bagImage struct {
 	Meta *pcx.ImageMeta
 }
 
-var videoBag struct {
+type videoBag struct {
 	once   sync.Once
 	err    error
 	bySect map[int]map[int]*bagImage
@@ -35,7 +34,7 @@ var videoBag struct {
 	zip    *zip.ReadCloser
 }
 
-func loadAndIndexVideoBag() error {
+func (b *videoBag) loadAndIndexVideoBag() error {
 	f, err := bag.Open(datapath.Data("video.bag"))
 	if err != nil {
 		return fmt.Errorf("error reading video bag: %w", err)
@@ -46,42 +45,42 @@ func loadAndIndexVideoBag() error {
 	if err != nil {
 		return fmt.Errorf("error reading video bag sections: %w", err)
 	}
-	videoBag.seen = make(map[*bagImage]struct{})
-	videoBag.bySect = make(map[int]map[int]*bagImage)
+	b.seen = make(map[*bagImage]struct{})
+	b.bySect = make(map[int]map[int]*bagImage)
 	for _, s := range sects {
 		byOff := make(map[int]*bagImage)
-		videoBag.bySect[s.Index] = byOff
+		b.bySect[s.Index] = byOff
 		for _, img := range s.Images {
 			bi := &bagImage{ImageRec: img}
 			byOff[int(img.Offset)] = bi
 		}
 	}
-	if err := openVideoZip(); err != nil {
+	if err := b.openVideoZip(); err != nil {
 		return err
 	}
 	return nil
 }
 
-func openVideoZip() error {
+func (b *videoBag) openVideoZip() error {
 	zf, err := zip.OpenReader(datapath.Data("video.bag.zip"))
 	if os.IsNotExist(err) {
 		return nil
 	} else if err != nil {
 		return err
 	}
-	videoBag.zip = zf
+	b.zip = zf
 	return nil
 }
 
-func openImage(base string) (image.Image, error) {
+func (b *videoBag) openImage(base string) (image.Image, error) {
 	isJPG := false
 	f, err := os.Open(base + ".png")
 	if os.IsNotExist(err) {
 		f, err = os.Open(base + ".jpg")
 		isJPG = true
 	}
-	if os.IsNotExist(err) && videoBag.zip != nil {
-		if img, err := openImageZip(filepath.Base(base)); err == nil {
+	if os.IsNotExist(err) && b.zip != nil {
+		if img, err := b.openImageZip(filepath.Base(base)); err == nil {
 			return img, nil
 		} else if !os.IsNotExist(err) {
 			return nil, err
@@ -97,8 +96,8 @@ func openImage(base string) (image.Image, error) {
 	return jpeg.Decode(f)
 }
 
-func openImageMeta(base string) (*pcx.ImageMeta, error) {
-	if jdata, err := ioutil.ReadFile(base + ".json"); err == nil {
+func (b *videoBag) openImageMeta(base string) (*pcx.ImageMeta, error) {
+	if jdata, err := os.ReadFile(base + ".json"); err == nil {
 		var meta pcx.ImageMeta
 		if err := json.Unmarshal(jdata, &meta); err != nil {
 			return nil, err
@@ -107,10 +106,10 @@ func openImageMeta(base string) (*pcx.ImageMeta, error) {
 	} else if !os.IsNotExist(err) {
 		return nil, err
 	}
-	if videoBag.zip == nil {
+	if b.zip == nil {
 		return nil, nil
 	}
-	zf, err := videoBag.zip.Open(filepath.Base(base) + ".json")
+	zf, err := b.zip.Open(filepath.Base(base) + ".json")
 	if os.IsNotExist(err) {
 		return nil, nil
 	} else if err != nil {
@@ -125,11 +124,11 @@ func openImageMeta(base string) (*pcx.ImageMeta, error) {
 	return &meta, nil
 }
 
-func openImageZip(base string) (image.Image, error) {
+func (b *videoBag) openImageZip(base string) (image.Image, error) {
 	isJPG := false
-	f, err := videoBag.zip.Open(base + ".png")
+	f, err := b.zip.Open(base + ".png")
 	if os.IsNotExist(err) {
-		f, err = videoBag.zip.Open(base + ".jpg")
+		f, err = b.zip.Open(base + ".jpg")
 		isJPG = true
 	}
 	if err != nil {
@@ -142,30 +141,30 @@ func openImageZip(base string) (image.Image, error) {
 	return jpeg.Decode(f)
 }
 
-func imageByBagSection(sect, offs int) (*pcx.Image, error) {
-	videoBag.once.Do(func() {
-		if err := loadAndIndexVideoBag(); err != nil {
-			videoBag.err = err
+func (b *videoBag) ImageByBagSection(sect, offs int) (*pcx.Image, error) {
+	b.once.Do(func() {
+		if err := b.loadAndIndexVideoBag(); err != nil {
+			b.err = err
 			log.Println(err)
 		}
 	})
-	if videoBag.err != nil {
-		return nil, videoBag.err
+	if b.err != nil {
+		return nil, b.err
 	}
-	img, ok := videoBag.bySect[sect][offs]
+	img, ok := b.bySect[sect][offs]
 	if !ok {
 		return nil, fmt.Errorf("image not found: %d, %d", sect, offs)
 	}
 	debug := debugBagImages
-	if _, ok := videoBag.seen[img]; !ok {
-		videoBag.seen[img] = struct{}{}
+	if _, ok := b.seen[img]; !ok {
+		b.seen[img] = struct{}{}
 	} else {
 		debug = false
 	}
 	ext := path.Ext(img.Name)
 	base := strings.TrimSuffix(img.Name, ext)
 	base = datapath.Data("images", base)
-	im, err := openImage(base)
+	im, err := b.openImage(base)
 	if os.IsNotExist(err) {
 		if debug {
 			log.Printf("image access miss: %q", base)
@@ -180,14 +179,14 @@ func imageByBagSection(sect, offs int) (*pcx.Image, error) {
 	out := &pcx.Image{
 		Image: im,
 	}
-	if mat, err := openImage(base + "_mat"); err == nil {
+	if mat, err := b.openImage(base + "_mat"); err == nil {
 		if pal, ok := mat.(*image.Paletted); ok {
 			out.Material = pal
 		} else {
 			log.Printf("image material error: %q: unexpected type: %T", base, mat)
 		}
 	}
-	if meta, err := openImageMeta(base); err != nil {
+	if meta, err := b.openImageMeta(base); err != nil {
 		log.Printf("image meta error: %q: %v", base, err)
 	} else if meta != nil {
 		out.ImageMeta = *meta

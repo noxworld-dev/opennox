@@ -685,16 +685,16 @@ func initGameSession435CC0() error {
 	} else {
 		nox_xxx_netSendIncomingClient_43CB00()
 	}
-	noxClient.setDrawFunc(noxClient.clientDraw)
+	noxClient.SetDrawFunc(noxClient.clientDraw)
 	gameSetPlayState(3)
 	*memmap.PtrUint32(0x587000, 85720) = 1
 	sz := videoGetWindowSize()
 	vp := noxClient.Viewport()
 	vp.Screen = image.Rect(0, 0, sz.X-1, sz.Y-1)
 	vp.Size = sz
-	vp.field_10 = 0
-	vp.field_11 = 0
-	vp.field_12 = 0
+	vp.Field10 = 0
+	vp.Field11 = 0
+	vp.Field12 = 0
 	v1 := nox_video_getCutSize()
 	noxClient.nox_draw_setCutSize(v1, 0)
 	if noxflags.HasGame(noxflags.GameModeCoop) {
@@ -1154,7 +1154,7 @@ func (s *Server) nox_xxx_mapFindPlayerStart_4F7AB0(a2 *Unit) types.Pointf {
 
 func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	if noxflags.HasGame(noxflags.GameClient) {
-		noxClient.nox_client_setCursorType(gui.CursorBusy)
+		noxClient.Nox_client_setCursorType(gui.CursorBusy)
 	}
 	C.sub_4D22B0()
 	s.nox_xxx_netMsgFadeBegin_4D9800(false, true)

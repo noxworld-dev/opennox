@@ -535,8 +535,8 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 			g_fullscreen_cfg = v
-			if noxClient.getWindowMode() <= -4 {
-				noxClient.updateFullScreen(g_fullscreen_cfg)
+			if noxClient.GetWindowMode() <= -4 {
+				noxClient.UpdateFullScreen(g_fullscreen_cfg)
 			}
 			changeWindowedOrFullscreen()
 		case "Stretched":
@@ -551,7 +551,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			noxClient.setSensitivity(float32(v))
+			noxClient.SetSensitivity(float32(v))
 		default:
 			for _, ci := range configCycleIndexes {
 				if ci.Name == kv.Key {
@@ -668,7 +668,7 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 	if legacyGamma2Set {
 		sect.Set("Gamma2", strconv.FormatFloat(legacyGamma2, 'g', -1, 32))
 	}
-	sect.Set("InputSensitivity", strconv.FormatFloat(float64(noxClient.getSensitivity()), 'g', -1, 32))
+	sect.Set("InputSensitivity", strconv.FormatFloat(float64(noxClient.GetSensitivity()), 'g', -1, 32))
 
 	v := 0
 	if C.sub_453070() == 1 {
