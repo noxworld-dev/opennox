@@ -16,6 +16,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/noxworld-dev/opennox/v1/client/audio/ail"
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/input"
 	"github.com/noxworld-dev/opennox/v1/client/render"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
@@ -33,9 +34,11 @@ const (
 
 func NewClient(pr console.Printer, srv *Server) (*Client, error) {
 	c := &Client{
-		pr:  pr,
-		srv: srv,
-		r:   NewNoxRender(srv),
+		pr:         pr,
+		srv:        srv,
+		r:          NewNoxRender(srv),
+		cursor:     gui.CursorSelect,
+		cursorPrev: gui.Cursor17,
 	}
 	c.vp, _ = alloc.New(Viewport{})
 	c.guiAdv.Init(c)
@@ -45,23 +48,31 @@ func NewClient(pr console.Printer, srv *Server) (*Client, error) {
 }
 
 type Client struct {
-	pr           console.Printer
-	srv          *Server
-	seat         seat.Seat
-	win          *render.Renderer
-	r            *NoxRender
-	vp           *Viewport
-	inp          *input.Handler
-	drawFunc     func() bool
-	updateFunc2  func() bool
-	mapsend      clientMapDownload
-	guiAdv       guiAdvOptions
-	guiFPS       guiFPS
-	screenshots  screenshots
-	netPrevMouse image.Point
-	inSub4312C0  bool
-	ticks805996  uint64
-	inDraw1      bool
+	pr                 console.Printer
+	srv                *Server
+	seat               seat.Seat
+	win                *render.Renderer
+	r                  *NoxRender
+	vp                 *Viewport
+	inp                *input.Handler
+	drawFunc           func() bool
+	updateFunc2        func() bool
+	mapsend            clientMapDownload
+	guiAdv             guiAdvOptions
+	guiFPS             guiFPS
+	screenshots        screenshots
+	netPrevMouse       image.Point
+	inSub4312C0        bool
+	ticks805996        uint64
+	inDraw1            bool
+	dragndrapSpell     uint32
+	dragndropSpellType int
+	dragndropItem      *Drawable
+	pos1097204         image.Point
+	pos1097212         image.Point
+	flag3798728        bool
+	cursor             gui.Cursor
+	cursorPrev         gui.Cursor
 }
 
 func (c *Client) Close() error {
@@ -153,7 +164,7 @@ func (c *Client) processInput() {
 	}
 	c.inp.Tick()
 	nox_client_processInput_4308A0(c.inp)
-	nox_xxx_cursorUpdate_46B740(c.inp)
+	c.nox_xxx_cursorUpdate_46B740()
 	c.mainloopKeysUpdate()
 }
 
@@ -257,7 +268,9 @@ func (c *Client) Update() bool {
 	}
 	C.sub_4519C0()
 	c.sub4312C0()
-	C.sub_495430()
+	if !isDedicatedServer {
+		C.sub_495430()
+	}
 	if noxflags.HasGame(noxflags.GameHost) && continueMenuOrHost && !mainloopStopError {
 		mainloopMaybeSwitchMapXXX()
 	}

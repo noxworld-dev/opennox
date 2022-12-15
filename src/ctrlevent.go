@@ -185,7 +185,8 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 		for _, k := range it.events {
 			switch k {
 			case keybind.EventAction:
-				switch nox_client_getCursorType() {
+				cl := noxClient
+				switch cl.nox_client_getCursorType() {
 				case gui.CursorShop:
 					v10 := nox_xxx_clientGetSpriteAtCursor_476F90()
 					C.nox_xxx_clientTrade_42E850(v10.C())

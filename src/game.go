@@ -1154,7 +1154,7 @@ func nox_xxx_mapFindPlayerStart_4F7AB0(a2 *Unit) types.Pointf {
 
 func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	if noxflags.HasGame(noxflags.GameClient) {
-		nox_client_setCursorType(gui.CursorBusy)
+		noxClient.nox_client_setCursorType(gui.CursorBusy)
 	}
 	C.sub_4D22B0()
 	s.nox_xxx_netMsgFadeBegin_4D9800(false, true)

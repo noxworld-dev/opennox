@@ -119,10 +119,11 @@ func (c *Client) nox_xxx_loadPal_4A96C0_video_read_palette() {
 }
 
 func sub_43C060() bool {
-	noxClient.nox_xxx_loadPal_4A96C0_video_read_palette()
+	c := noxClient
+	c.nox_xxx_loadPal_4A96C0_video_read_palette()
 	C.nox_xxx_wndLoadBorder_4AA1F0()
 	nox_xxx_wndLoadMainBG_4A2210()
-	nox_client_setCursorType(gui.CursorSelect)
+	c.nox_client_setCursorType(gui.CursorSelect)
 	sub_48B3E0(true)
 	nox_video_stopAllFades_44E040()
 	C.sub_43E8C0(0)

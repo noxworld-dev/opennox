@@ -198,6 +198,9 @@ func (p *RenderData) SetColor2(a1 color.Color) { // nox_client_drawSetColor_4344
 }
 
 func (p *RenderData) SetLightColor(c RGB) { // nox_client_drawSetColor_434460
+	if p == nil {
+		return
+	}
 	p.lightColor = c
 }
 
