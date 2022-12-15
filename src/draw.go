@@ -1019,7 +1019,7 @@ func nox_video_drawCircle_4B0B90(a1, a2, a3 C.int) {
 	noxClient.r.DrawCircle(int(a1), int(a2), int(a3), noxClient.r.Data().Color2())
 }
 
-func (r *NoxRender) DrawImageAt(img *Image, pos image.Point) {
+func (r *NoxRender) DrawImageAt(img *client.Image, pos image.Point) {
 	defer func() {
 		if r := recover(); r != nil {
 			panic(fmt.Errorf("panic drawing image %v: %v", img, r))
@@ -1046,11 +1046,11 @@ func (r *NoxRender) DrawImageAt(img *Image, pos image.Point) {
 	r.Set_dword_5d4594_3799484(0)
 	*memmap.PtrUint32(0x973F18, 120) = 0
 	if memmap.Uint32(0x973F18, 68) != 0 && img != nil {
-		if memmap.Uint32(0x973F18, 92) != uint32(img.field_1_0) || memmap.Uint32(0x973F18, 84) != uint32(img.field_1_1) {
+		if memmap.Uint32(0x973F18, 92) != uint32(img.Field_1_0) || memmap.Uint32(0x973F18, 84) != uint32(img.Field_1_1) {
 			C.dword_5d4594_3799524 = 1
 		}
-		img.field_1_0 = uint16(memmap.Uint32(0x973F18, 92))
-		img.field_1_1 = uint16(memmap.Uint32(0x973F18, 84))
+		img.Field_1_0 = uint16(memmap.Uint32(0x973F18, 92))
+		img.Field_1_1 = uint16(memmap.Uint32(0x973F18, 84))
 	}
 }
 

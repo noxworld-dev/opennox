@@ -409,7 +409,7 @@ func RunArgs(args []string) (gerr error) {
 		enableGUIDrawing(false)
 		videoInitStub()
 	}
-	if err := ReadVideoBag(); err != nil {
+	if err := noxClient.ReadVideoBag(); err != nil {
 		return err
 	}
 	if C.sub_431370() == 0 {

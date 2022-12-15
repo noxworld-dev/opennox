@@ -5,6 +5,7 @@ import (
 	"image"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 )
 
@@ -21,7 +22,7 @@ func nox_xxx_cursorGetTypePrev_477630() C.int {
 	return C.int(noxClient.CursorPrev)
 }
 
-func (c *Client) getCursorAnimFrame(ref *noxImageRef, dt int) *Image {
+func (c *Client) getCursorAnimFrame(ref *noxImageRef, dt int) *client.Image {
 	if ref == nil {
 		return nil
 	}

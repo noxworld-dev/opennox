@@ -48,13 +48,6 @@ func getThingName(i int) string {
 	return GoString(nox_get_thing_name(C.int(i)))
 }
 
-func thingsImageRef(ref *things.ImageRef) *Image {
-	if ref == nil {
-		return nil
-	}
-	return nox_xxx_readImgMB42FAA0(ref.Ind, byte(ref.Ind2), ref.Name)
-}
-
 func openThings() (*MemFile, error) {
 	thg := noxLoadedThings
 	var err error
@@ -180,7 +173,7 @@ func nox_thing_read_IMAG_one_42F660(f *MemFile) error {
 		if ind == -1 {
 			typ := f.ReadU8()
 			name2, _ := f.ReadString8()
-			if nox_xxx_loadImage_47A8C0(typ, name2) != nil {
+			if noxClient.Bag.LoadExternalImage(typ, name2) != nil {
 				copy(unsafe.Slice((*byte)(unsafe.Pointer(&ref.name2[0])), len(ref.name2)), name2)
 				ref.name2[len(name2)] = 0
 				ref.field_25_0 = C.char(typ)
@@ -211,9 +204,9 @@ func nox_thing_read_IMAG_one_42F660(f *MemFile) error {
 			if ind := int(f.ReadI32()); ind == -1 {
 				typ := f.ReadI8()
 				name2, _ := f.ReadString8()
-				arr[i] = nox_xxx_loadImage_47A8C0(byte(typ), name2).C()
+				arr[i] = (*nox_video_bag_image_t)(noxClient.Bag.LoadExternalImage(byte(typ), name2).C())
 			} else {
-				arr[i] = bagImageByIndex(ind).C()
+				arr[i] = (*nox_video_bag_image_t)(noxClient.Bag.ImageByIndex(ind).C())
 			}
 		}
 		ref.field_24 = unsafe.Pointer(anim.C())

@@ -34,6 +34,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -469,8 +470,9 @@ func (s *Server) createSpellFrom(def *things.Spell, isClient bool) error {
 		sp.Def.Phonemes = append(sp.Def.Phonemes, spell.PhonEnd)
 	}
 	if isClient {
-		sp.Icon = thingsImageRef(sp.Def.Icon)
-		sp.IconEnabled = thingsImageRef(sp.Def.IconEnabled)
+		c := noxClient
+		sp.Icon = c.Bag.ThingsImageRef(sp.Def.Icon)
+		sp.IconEnabled = c.Bag.ThingsImageRef(sp.Def.IconEnabled)
 	}
 	return nil
 }
@@ -591,8 +593,8 @@ type SpellDef struct {
 	Valid       bool
 	Title       string
 	Desc        string
-	Icon        *Image
-	IconEnabled *Image
+	Icon        *client.Image
+	IconEnabled *client.Image
 	CastSound   sound.ID
 	OnSound     sound.ID
 	OffSound    sound.ID

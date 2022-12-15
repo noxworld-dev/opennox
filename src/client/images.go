@@ -2,6 +2,7 @@ package client
 
 import (
 	"archive/zip"
+	"encoding/binary"
 	"encoding/json"
 	"fmt"
 	"image"
@@ -12,26 +13,257 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
+	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/bag"
 	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/noximage/pcx"
+	"github.com/noxworld-dev/opennox-lib/things"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 )
 
-var debugBagImages = os.Getenv("NOX_DEBUG_BAG_IMAGES") == "true"
+var (
+	debugBagImages = os.Getenv("NOX_DEBUG_BAG_IMAGES") == "true"
+	imgLog         = log.New("images")
+)
+
+type Image struct {
+	c         *videoBag
+	h         unsafe.Pointer
+	typ       int
+	bag       *bag.ImageRec
+	raw       []byte
+	override  []byte
+	nocgo     bool
+	cdata     []byte
+	cfree     func()
+	Field_1_0 uint16
+	Field_1_1 uint16
+}
+
+func (img *Image) C() unsafe.Pointer {
+	if img == nil {
+		return nil
+	}
+	if img.nocgo {
+		panic("image not allowed in cgo context")
+	}
+	if img.h == nil {
+		img.h = handles.NewPtr()
+		img.c.byHandle[img.h] = img
+	}
+	return img.h
+}
+
+func (img *Image) Free() {
+	if img == nil {
+		return
+	}
+	img.cdata = nil
+	if img.cfree != nil {
+		img.cfree()
+	}
+	img.cfree = nil
+}
+
+func (img *Image) String() string {
+	if img == nil {
+		return "<nil>"
+	}
+	if img.override != nil {
+		return fmt.Sprintf("{type=%d, override=[%d]}", img.Type(), len(img.override))
+	}
+	if img.bag != nil {
+		return fmt.Sprintf("{type=%d, idx=%d, data=[%d]}", img.Type(), img.bag.Index, len(img.raw))
+	}
+	return fmt.Sprintf("{type=%d, raw=[%d]}", img.Type(), len(img.raw))
+}
+
+func (img *Image) Type() int {
+	if img.bag != nil {
+		return int(img.bag.Type)
+	}
+	return img.typ
+}
+
+func (img *Image) loadOverride() []byte {
+	if img == nil || img.raw != nil {
+		return nil
+	}
+	switch img.Type() {
+	default:
+		return nil
+	case 3, 4, 5, 6:
+	}
+	if img.override != nil {
+		return img.override
+	}
+	sect := int(img.bag.SegmInd)
+	offs := int(img.bag.Offset)
+
+	im, err := img.c.ImageByBagSection(sect, offs)
+	if err != nil {
+		log.Println(err)
+		return nil
+	} else if im == nil {
+		return nil
+	}
+	img.override = pcx.Encode(im)
+	return img.override
+}
+
+func (img *Image) Pixdata() []byte {
+	if img == nil {
+		return nil
+	}
+	if img.cdata != nil {
+		return img.cdata
+	}
+	data := img.loadOverride()
+	if data == nil {
+		data = img.bagPixdata()
+	}
+	if len(data) == 0 {
+		panic("cannot load")
+	}
+	// TODO: remove interning when we get rid of C renderer
+	img.cdata, img.cfree = alloc.CloneSlice(data)
+	return img.cdata
+}
+
+func (img *Image) bagPixdata() []byte { // nox_video_getImagePixdata_42FB30
+	if img == nil {
+		return nil
+	}
+	if img.Type()&0x3F == 7 {
+		return nil
+	}
+	if img.Type()&0x80 != 0 {
+		panic("unreachable")
+	}
+	if img.raw != nil {
+		return img.raw
+	}
+	data, err := img.bag.Raw()
+	if err != nil {
+		panic(err)
+	}
+	img.raw = data
+	return data
+}
+
+func (img *Image) Meta() (off, sz image.Point, ok bool) {
+	pix := img.Pixdata()
+	if len(pix) < 8 {
+		ok = false
+		return
+	}
+	sz.X = int(binary.LittleEndian.Uint32(pix[0:]))
+	sz.Y = int(binary.LittleEndian.Uint32(pix[4:]))
+	if len(pix) < 16 {
+		ok = false
+		return
+	}
+	ok = true
+	off.X = int(binary.LittleEndian.Uint32(pix[8:]))
+	off.Y = int(binary.LittleEndian.Uint32(pix[12:]))
+	return
+}
+
+func (b *videoBag) readVideobag(path string) error {
+	f, err := bag.Open(path)
+	if err != nil {
+		return err
+	}
+	imgs, err := f.Images()
+	if err != nil {
+		_ = f.Close()
+		return err
+	}
+	b.bag = f
+	b.byIndex = make([]*Image, 0, len(imgs))
+	for _, img := range imgs {
+		b.byIndex = append(b.byIndex, &Image{c: b, bag: img})
+	}
+	return nil
+}
 
 type bagImage struct {
 	*bag.ImageRec
 	Meta *pcx.ImageMeta
 }
 
+func (c *Client) ReadVideoBag() error {
+	return c.Bag.readVideobag("video.bag")
+}
+
 type videoBag struct {
+	bag      *bag.File
+	byHandle map[unsafe.Pointer]*Image
+	byIndex  []*Image
+
 	once   sync.Once
 	err    error
 	bySect map[int]map[int]*bagImage
 	seen   map[*bagImage]struct{}
 	zip    *zip.ReadCloser
+}
+
+func (b *videoBag) init() {
+	b.byHandle = make(map[unsafe.Pointer]*Image)
+}
+
+func (b *videoBag) Free() {
+	b.bag.Close()
+	b.bag = nil
+	for _, img := range b.byIndex {
+		img.Free()
+	}
+	b.byIndex = nil
+	b.byHandle = make(map[unsafe.Pointer]*Image)
+}
+
+func (b *videoBag) NewRawImage(typ int, data []byte) *Image {
+	return &Image{c: b, typ: typ, raw: data, nocgo: true}
+}
+
+func (b *videoBag) AsImage(p unsafe.Pointer) *Image {
+	if p == nil {
+		return nil
+	}
+	img := b.byHandle[p]
+	if img == nil {
+		err := fmt.Errorf("unexpected image handle: %x", p)
+		imgLog.Printf("%v", err)
+	}
+	return img
+}
+
+func (b *videoBag) ImageByIndex(ind int) *Image {
+	return b.byIndex[ind]
+}
+
+func (b *videoBag) ThingsImageRef(ref *things.ImageRef) *Image {
+	if ref == nil {
+		return nil
+	}
+	return b.ImageRef(ref.Ind, byte(ref.Ind2), ref.Name)
+}
+
+func (b *videoBag) ImageRef(ind int, typ byte, name2 string) *Image {
+	if ind != -1 {
+		return b.ImageByIndex(ind)
+	}
+	log.Printf("ImageRef(%d, %d, %q)", ind, int(typ), name2)
+	return b.LoadExternalImage(typ, name2)
+}
+
+func (b *videoBag) LoadExternalImage(typ byte, name string) *Image {
+	// TODO: this one is supposed to load PCX images from FS
+	panic("TODO: read PCX from FS")
 }
 
 func (b *videoBag) loadAndIndexVideoBag() error {
