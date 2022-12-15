@@ -1342,7 +1342,7 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 				return 10, true
 			}
 			if !noxflags.HasGame(noxflags.GameModeChat) {
-				pos := nox_xxx_mapFindPlayerStart_4F7AB0(u2)
+				pos := s.nox_xxx_mapFindPlayerStart_4F7AB0(u2)
 				u2.SetPos(pos)
 			}
 			ti := int(binary.LittleEndian.Uint32(data[2:]))

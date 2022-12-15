@@ -149,7 +149,7 @@ func nox_xxx_spellFlySearchTarget_540610(cpos *C.float2, msl *nox_object_t, sfla
 	if cpos != nil {
 		pos = &types.Pointf{X: float32(cpos.field_0), Y: float32(cpos.field_4)}
 	}
-	return nox_xxx_spellFlySearchTarget(pos, asObjectC(msl), things.SpellFlags(sflags), float32(dist), int(a5), asUnitC(self)).CObj()
+	return noxServer.nox_xxx_spellFlySearchTarget(pos, asObjectC(msl), things.SpellFlags(sflags), float32(dist), int(a5), asUnitC(self)).CObj()
 }
 
 //export nox_xxx_spellGetAud44_424800
@@ -863,7 +863,7 @@ func (s *Server) nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *Uni
 	return v9 != 0
 }
 
-func nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo noxObject, sflags things.SpellFlags, dist float32, a5 int, self *Unit) *Object {
+func (s *Server) nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo noxObject, sflags things.SpellFlags, dist float32, a5 int, self *Unit) *Object {
 	msl := mslo.AsObject()
 	if self != nil && self.Class().Has(object.ClassPlayer) && sflags.Has(things.SpellOffensive) {
 		if curTarg := asObjectS(self.UpdateDataPlayer().CursorObj); curTarg != nil {
@@ -880,7 +880,7 @@ func nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo noxObject, sflags thin
 		center = msl.Pos()
 	} else if msl != nil {
 		pos1 := msl.Pos()
-		if MapTraceRay(pos1, *pos, MapTraceFlag1|MapTraceFlag3) {
+		if s.MapTraceRay(pos1, *pos, MapTraceFlag1|MapTraceFlag3) {
 			center = *pos
 		} else {
 			center = pos1
@@ -900,7 +900,7 @@ func nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo noxObject, sflags thin
 		minDist float32 = 1e+08
 		found   *Object
 	)
-	noxServer.Map.EachObjInRect(rect, func(it *server.Object) {
+	s.Map.EachObjInRect(rect, func(it *server.Object) {
 		if !(a5 != 0 || msl.SObj() != it) {
 			return
 		}

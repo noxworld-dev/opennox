@@ -219,7 +219,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 				st.Args[0] = uintptr(math.Float32bits(pos.X))
 				st.Args[1] = uintptr(math.Float32bits(pos.Y))
 			}
-			if MapTraceRay(u.Pos(), st.ArgPos(0), MapTraceFlag1); !v29 {
+			if a.s.MapTraceRay(u.Pos(), st.ArgPos(0), MapTraceFlag1); !v29 {
 				ok = false
 			}
 		case ai.DEPENDENCY_OBJECT_FARTHER_THAN:
@@ -311,7 +311,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			ok = C.nox_xxx_mobGetMoveAttemptTime_534810(u.CObj()) == 0
 		case ai.DEPENDENCY_LOCATION_IS_SAFE:
 			C.dword_5d4594_2489460 = 1
-			noxServer.Map.EachObjInCircle(st.ArgPos(0), 50.0, func(it *server.Object) {
+			a.s.Map.EachObjInCircle(st.ArgPos(0), 50.0, func(it *server.Object) {
 				C.nox_xxx_unitIsDangerous_547120(asUnitS(it).CObj(), u.CObj())
 			})
 			if C.dword_5d4594_2489460 == 0 {
@@ -526,7 +526,7 @@ func (a *aiData) traceSound(u *Unit, p *MonsterListen) int {
 	if !a.checkSoundThreshold(flags, perc) {
 		return -1
 	}
-	if !MapTraceRayAt(u.Pos(), p.pos, nil, nil, 5) {
+	if !a.s.MapTraceRayAt(u.Pos(), p.pos, nil, nil, 5) {
 		perc = int(float64(perc) * 0.5)
 	}
 	if !a.checkSoundThreshold(flags, perc) {

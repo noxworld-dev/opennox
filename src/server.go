@@ -185,6 +185,10 @@ type Server struct {
 
 	flag1548704 bool
 	flag3592    bool
+
+	dword_5d4594_2386928 float32
+	dword_5d4594_2386948 *Waypoint
+	dword_5d4594_2386960 uint32
 }
 
 //export gameFPS
