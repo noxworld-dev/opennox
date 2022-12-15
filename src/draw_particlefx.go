@@ -57,7 +57,7 @@ func (pfx *partFXes) asParticlefx(p unsafe.Pointer) *particleFx {
 type particleFx struct {
 	pfx        *partFXes
 	chnd       unsafe.Pointer
-	image      *Image           // 0, 0
+	image      *client.Image    // 0, 0
 	rendPart   *Particle        // 1, 4
 	drawable8  *Drawable        // 2, 8
 	drawable12 *Drawable        // 3, 12
@@ -491,7 +491,7 @@ func nox_xxx_partfxSwitch_4AF690(fx *packetParticleFx, fnc func(pt image.Point))
 
 type packetParticleFx struct {
 	dr   *Drawable        // 0
-	img  *Image           // 1
+	img  *client.Image    // 1
 	vp   *client.Viewport // 2
 	pos  image.Point      // 3
 	cnt  int              // 5

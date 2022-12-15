@@ -27,6 +27,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/input"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
@@ -194,12 +195,12 @@ func (d *WindowData) SetText(s string) {
 	d.text[n-1] = 0
 }
 
-func (d *WindowData) BackgroundImage() *Image {
+func (d *WindowData) BackgroundImage() *client.Image {
 	return asImage(d.bgImage)
 }
 
-func (d *WindowData) SetBackgroundImage(p *Image) {
-	d.bgImage = p.C()
+func (d *WindowData) SetBackgroundImage(p *client.Image) {
+	d.bgImage = (*nox_video_bag_image_t)(p.C())
 }
 
 func (d *WindowData) BackgroundColor() noxcolor.Color16 {
@@ -210,12 +211,12 @@ func (d *WindowData) SetBackgroundColor(cl color.Color) {
 	d.bgColor = noxcolor.ToRGBA5551Color(cl).Color32()
 }
 
-func (d *WindowData) EnabledImage() *Image {
+func (d *WindowData) EnabledImage() *client.Image {
 	return asImage(d.enImage)
 }
 
-func (d *WindowData) SetEnabledImage(p *Image) {
-	d.enImage = p.C()
+func (d *WindowData) SetEnabledImage(p *client.Image) {
+	d.enImage = (*nox_video_bag_image_t)(p.C())
 }
 
 func (d *WindowData) EnabledColor() noxcolor.Color16 {
@@ -226,12 +227,12 @@ func (d *WindowData) SetEnabledColor(cl color.Color) {
 	d.enColor = noxcolor.ToRGBA5551Color(cl).Color32()
 }
 
-func (d *WindowData) DisabledImage() *Image {
+func (d *WindowData) DisabledImage() *client.Image {
 	return asImage(d.disImage)
 }
 
-func (d *WindowData) SetDisabledImage(p *Image) {
-	d.disImage = p.C()
+func (d *WindowData) SetDisabledImage(p *client.Image) {
+	d.disImage = (*nox_video_bag_image_t)(p.C())
 }
 
 func (d *WindowData) DisabledColor() noxcolor.Color16 {
@@ -242,12 +243,12 @@ func (d *WindowData) SetDisabledColor(cl color.Color) {
 	d.disColor = noxcolor.ToRGBA5551Color(cl).Color32()
 }
 
-func (d *WindowData) HighlightImage() *Image {
+func (d *WindowData) HighlightImage() *client.Image {
 	return asImage(d.hlImage)
 }
 
-func (d *WindowData) SetHighlightImage(p *Image) {
-	d.hlImage = p.C()
+func (d *WindowData) SetHighlightImage(p *client.Image) {
+	d.hlImage = (*nox_video_bag_image_t)(p.C())
 }
 
 func (d *WindowData) HighlightColor() noxcolor.Color16 {
@@ -258,12 +259,12 @@ func (d *WindowData) SetHighlightColor(cl color.Color) {
 	d.hlColor = noxcolor.ToRGBA5551Color(cl).Color32()
 }
 
-func (d *WindowData) SelectedImage() *Image {
+func (d *WindowData) SelectedImage() *client.Image {
 	return asImage(d.selImage)
 }
 
-func (d *WindowData) SetSelectedImage(p *Image) {
-	d.selImage = p.C()
+func (d *WindowData) SetSelectedImage(p *client.Image) {
+	d.selImage = (*nox_video_bag_image_t)(p.C())
 }
 
 func (d *WindowData) SelectedColor() noxcolor.Color16 {

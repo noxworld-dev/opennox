@@ -21,6 +21,7 @@ func NewClient(pr console.Printer, s *server.Server) *Client {
 		CursorPrev: gui.Cursor17,
 	}
 	c.vp, _ = alloc.New(Viewport{})
+	c.Bag.init()
 	return c
 }
 

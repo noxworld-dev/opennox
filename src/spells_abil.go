@@ -12,6 +12,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/strman"
 	"github.com/noxworld-dev/opennox-lib/things"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -99,7 +100,7 @@ func sub_4252F0(ca C.int) *wchar_t {
 
 //export nox_xxx_spellGetAbilityIcon_425310
 func nox_xxx_spellGetAbilityIcon_425310(abil, icon C.int) *nox_video_bag_image_t {
-	return noxServer.abilities.getIcon(Ability(abil), int(icon)).C()
+	return (*nox_video_bag_image_t)(noxServer.abilities.getIcon(Ability(abil), int(icon)).C())
 }
 
 //export nox_xxx_bookFirstKnownAbil_425330
@@ -133,19 +134,19 @@ func nox_xxx_netAbilRepotState_4D8100(a1 *nox_object_t, a2, a3 C.char) {
 }
 
 type AbilityDef struct {
-	name     string   // 0, 0
-	desc     string   // 1, 4
-	icon8    *Image   // 2, 8
-	icon12   *Image   // 3, 12
-	icon16   *Image   // 4, 16
-	field20  uint32   // 5, 20
-	field24  uint32   // 6, 24
-	delay    int      // 7, 28
-	duration int      // 8, 32
-	field36  int      // 9, 36
-	sound40  sound.ID // 10, 40
-	sound44  sound.ID // 11, 44
-	sound48  sound.ID // 12, 48
+	name     string        // 0, 0
+	desc     string        // 1, 4
+	icon8    *client.Image // 2, 8
+	icon12   *client.Image // 3, 12
+	icon16   *client.Image // 4, 16
+	field20  uint32        // 5, 20
+	field24  uint32        // 6, 24
+	delay    int           // 7, 28
+	duration int           // 8, 32
+	field36  int           // 9, 36
+	sound40  sound.ID      // 10, 40
+	sound44  sound.ID      // 11, 44
+	sound48  sound.ID      // 12, 48
 }
 
 type unitAbilities struct {
@@ -668,21 +669,21 @@ func (a *serverAbilities) thingsRead(f *MemFile) error {
 		return fmt.Errorf("cannot read ability: %w", err)
 	}
 	if noxflags.HasGame(noxflags.GameClient) {
-		def.icon8 = thingsImageRef(ref)
+		def.icon8 = noxClient.Bag.ThingsImageRef(ref)
 	}
 	ref, err = readImageRefAbil(f)
 	if err != nil {
 		return fmt.Errorf("cannot read ability: %w", err)
 	}
 	if noxflags.HasGame(noxflags.GameClient) {
-		def.icon12 = thingsImageRef(ref)
+		def.icon12 = noxClient.Bag.ThingsImageRef(ref)
 	}
 	ref, err = readImageRefAbil(f)
 	if err != nil {
 		return fmt.Errorf("cannot read ability: %w", err)
 	}
 	if noxflags.HasGame(noxflags.GameClient) {
-		def.icon16 = thingsImageRef(ref)
+		def.icon16 = noxClient.Bag.ThingsImageRef(ref)
 	}
 	sid, err := f.ReadString8()
 	if err != nil {
@@ -768,7 +769,7 @@ func (a *serverAbilities) getDesc(abil Ability) string {
 	return a.defs[abil].desc
 }
 
-func (a *serverAbilities) getIcon(abil Ability, icon int) *Image {
+func (a *serverAbilities) getIcon(abil Ability, icon int) *client.Image {
 	p := &a.defs[abil]
 	switch icon {
 	case 0:
