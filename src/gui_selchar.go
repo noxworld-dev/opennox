@@ -281,6 +281,7 @@ func sub_477530(a1 bool) {
 
 //export sub_44A400
 func sub_44A400() {
+	c := noxClient
 	if win1 := nox_gui_curDialog_830224; win1 != nil {
 		if C.dword_5d4594_830236 != nil {
 			nox_xxx_wndSetCaptureMain(asWindowP(C.dword_5d4594_830236))
@@ -294,9 +295,8 @@ func sub_44A400() {
 		}
 		nox_gui_curDialog_830224 = nil
 		dword_5d4594_830228 = nil
-		nox_client_setCursorType(gui.CursorSelect)
-
-		noxClient.setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
+		c.nox_client_setCursorType(gui.CursorSelect)
+		c.setMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
 	}
 }
 
@@ -309,7 +309,8 @@ func nox_game_showSelChar_4A4DB0() C.int {
 }
 
 func nox_game_showSelChar4A4DB0() bool {
-	nox_client_setCursorType(gui.CursorSelect)
+	c := noxClient
+	c.nox_client_setCursorType(gui.CursorSelect)
 	if sub4D6F30() {
 		sub_4D6F90(1)
 	}
@@ -346,7 +347,7 @@ func nox_game_showSelChar4A4DB0() bool {
 		wdown.Hide()
 
 		wblank := win.ChildByID(509)
-		v8 := strMan.GetStringInFile("LoadLabel", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
+		v8 := c.Strings().GetStringInFile("LoadLabel", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
 		sub_46AEE0(wblank, v8)
 	} else {
 		wup := win.ChildByID(504)
@@ -360,7 +361,7 @@ func nox_game_showSelChar4A4DB0() bool {
 		wstyle.Func94(&WindowEvent0x4019{Win: wdown})
 
 		wblank := win.ChildByID(509)
-		v4 := strMan.GetStringInFile("LoadCharLabel", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
+		v4 := c.Strings().GetStringInFile("LoadCharLabel", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
 		sub_46AEE0(wblank, v4)
 	}
 	nox_xxx_findAutosaves_4A5150()

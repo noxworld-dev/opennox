@@ -371,7 +371,7 @@ func nox_xxx_clientResetSpriteAndGui_4357D0(noSkip bool) bool {
 	return true
 }
 
-//----- (0048D7D0) --------------------------------------------------------
+// ----- (0048D7D0) --------------------------------------------------------
 func nox_xxx_chatInit_48D7D0() bool {
 	C.nox_alloc_chat_1197364 = alloc.NewClass("Chat", 692, 64).UPtr()
 	return C.nox_alloc_chat_1197364 != nil
@@ -871,14 +871,15 @@ var (
 )
 
 func nox_xxx_gameChangeMap_43DEB0() error {
+	c := noxClient
 	if noxflags.HasGame(noxflags.GameFlag24) {
-		nox_client_setCursorType(gui.CursorBusy)
+		c.nox_client_setCursorType(gui.CursorBusy)
 
 		mapName := ""
 		if gameIsNotMultiplayer {
 			mapName = nox_xxx_mapFilenameGetSolo_4DB260()
 		} else {
-			mapName = noxServer.nox_server_currentMapGetFilename_409B30()
+			mapName = c.srv.nox_server_currentMapGetFilename_409B30()
 		}
 		gameLog.Printf("nox_xxx_gameChangeMap_43DEB0: %q", mapName)
 		// TODO: remove this partial path denormalization once we port map parsing
@@ -911,15 +912,15 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 			}
 			nox_xxx_gameSetCliConnected(true)
 			if memmap.Int32(0x973F18, 3800) < 0 {
-				v7 := strMan.GetStringInFile("cdecode.c:EnterChat", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
+				v7 := c.Strings().GetStringInFile("cdecode.c:EnterChat", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 				nox_xxx_printCentered_445490(v7)
 				v14 := ctrlEvent.sub_42E8E0_go(8, 1)
-				v8 := strMan.GetStringInFile("cdecode.c:KeyToChat", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
+				v8 := c.Strings().GetStringInFile("cdecode.c:KeyToChat", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 				nox_xxx_printCentered_445490(fmt.Sprintf(v8, v14))
 			}
 			if !noxflags.HasEngine(noxflags.EngineNoRendering) {
 				C.nox_gameDisableMapDraw_5d4594_2650672 = 1
-				noxClient.r.FadeClearScreen(true, color.Black)
+				c.r.FadeClearScreen(true, color.Black)
 			}
 		} else if !noxflags.HasGame(noxflags.GameHost) {
 			if v3&1 == 0 || v3&4 != 0 {
@@ -928,14 +929,13 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 				noxflags.UnsetGame(noxflags.GameFlag21 | noxflags.GameFlag24)
 				sub_477530(true)
 				C.nox_xxx_gui_43E1A0(1)
-				v12 := strMan.GetStringInFile("OverwriteReadOnly", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
-				v10 := strMan.GetStringInFile("Warning", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
+				v12 := c.Strings().GetStringInFile("OverwriteReadOnly", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
+				v10 := c.Strings().GetStringInFile("Warning", "C:\\NoxPost\\src\\Client\\System\\gameloop.c")
 				NewDialogWindow(nil, v10, v12, 24, func() {
 					sub_477530(false)
 					noxflags.SetGame(noxflags.GameFlag21)
 					sub_44A400()
 				}, func() {
-
 					sub_477530(false)
 					C.nox_xxx_gui_43E1A0(0)
 					nox_game_exit_xxx2()
@@ -948,12 +948,12 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 			}
 			if !noxflags.HasEngine(noxflags.EngineNoRendering) {
 				C.nox_gameDisableMapDraw_5d4594_2650672 = 1
-				noxClient.r.FadeClearScreen(true, color.Black)
+				c.r.FadeClearScreen(true, color.Black)
 			}
 		}
 	}
 	if noxflags.HasGame(noxflags.GameFlag21) {
-		noxClient.map_download_start()
+		c.map_download_start()
 		return ErrMapDownload
 	}
 	if noxflags.HasGame(noxflags.GameFlag21 | noxflags.GameFlag24) {

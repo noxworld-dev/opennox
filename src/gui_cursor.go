@@ -10,31 +10,23 @@ import (
 
 const cursorSize = 64
 
-var (
-	nox_client_mouseCursorType           = gui.CursorSelect
-	nox_xxx_cursorTypePrev_587000_151528 = gui.Cursor17
-	dword_5d4594_3798728                 bool
-	dword_5d4594_1097208                 int
-	dword_5d4594_1097212                 image.Point
-)
-
-func nox_client_setCursorType(v gui.Cursor) {
-	nox_client_mouseCursorType = v
-}
-
-func nox_client_getCursorType() gui.Cursor {
-	return nox_client_mouseCursorType
-}
-
 //export nox_client_setCursorType_477610
 func nox_client_setCursorType_477610(v C.int) C.int {
-	nox_client_setCursorType(gui.Cursor(v))
+	noxClient.nox_client_setCursorType(gui.Cursor(v))
 	return v
 }
 
 //export nox_xxx_cursorGetTypePrev_477630
 func nox_xxx_cursorGetTypePrev_477630() C.int {
-	return C.int(nox_xxx_cursorTypePrev_587000_151528)
+	return C.int(noxClient.cursorPrev)
+}
+
+func (c *Client) nox_client_setCursorType(v gui.Cursor) {
+	c.cursor = v
+}
+
+func (c *Client) nox_client_getCursorType() gui.Cursor {
+	return c.cursor
 }
 
 func (c *Client) getCursorAnimFrame(ref *noxImageRef, dt int) *Image {
@@ -63,13 +55,13 @@ func (c *Client) getCursorAnimFrame(ref *noxImageRef, dt int) *Image {
 	}
 }
 
-func (r *NoxRender) sub_4BE710(ref *noxImageRef, pos image.Point, ind int) {
+func (c *Client) sub_4BE710(ref *noxImageRef, pos image.Point, ind int) {
 	anim := ref.field24ptr()
 	imgs := anim.Images()
 	img := asImage(imgs[ind])
-	if dword_5d4594_3798728 {
-		r.noxDrawCursor(img, pos)
+	if c.flag3798728 {
+		c.r.noxDrawCursor(img, pos)
 	} else {
-		r.DrawImageAt(img, pos)
+		c.r.DrawImageAt(img, pos)
 	}
 }

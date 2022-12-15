@@ -414,7 +414,7 @@ func loadRect(p unsafe.Pointer) image.Rectangle {
 	)
 }
 
-func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int) {
+func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 	if gameGetPlayState() != 3 {
 		return
 	}
@@ -435,19 +435,19 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 	}
 	v42 := int(C.sub_4675B0())
 	if v42 == 5 {
-		nox_client_setCursorType(gui.CursorIdentify)
+		c.nox_client_setCursorType(gui.CursorIdentify)
 		return
 	}
 	if v42 == 6 {
-		nox_client_setCursorType(gui.CursorRepair)
+		c.nox_client_setCursorType(gui.CursorRepair)
 		return
 	}
 	sprite := nox_xxx_clientGetSpriteAtCursor_476F90()
 	if sprite == nil {
 		if C.sub_479590() == 2 {
-			nox_client_setCursorType(gui.CursorBuy)
+			c.nox_client_setCursorType(gui.CursorBuy)
 		} else if C.sub_479590() == 3 {
-			nox_client_setCursorType(gui.CursorSell)
+			c.nox_client_setCursorType(gui.CursorSell)
 		}
 		return
 	}
@@ -458,7 +458,7 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 			if v47.Flags().Has(0x10) {
 				continue
 			}
-			mpos := inp.GetMousePos()
+			mpos := c.inp.GetMousePos()
 			if v47.pointIn(mpos) {
 				if v47 == v46 {
 					v65 = mpos
@@ -480,20 +480,20 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 			}
 		}
 
-		v65 = noxClient.Viewport().World.Max
+		v65 = c.Viewport().World.Max
 		sp := sprite.Pos()
 		c1 := v65.X - sp.X
 		c2 := v65.Y - sp.Y
 		v54 := c1*c1 + c2*c2
-		if sprite.Flags28()&0x80000000 == 0 || nox_xxx_cursorGetDraggedItem_477680() != nil {
+		if sprite.Flags28()&0x80000000 == 0 || c.dragndropGetItem() != nil {
 			if v54 < 125*125 {
 				if p := *memmap.PtrPtr(0x8531A0, 2576); p != nil {
 					v57 := *(*uintptr)(unsafe.Add(p, 3680))
 					if v57&0x200 == 0 && C.sub_478030() == 0 {
 						if sprite.Flags28()&2 != 0 && sprite.Flags70()&0x10 != 0 {
-							nox_client_setCursorType(gui.CursorTalk)
+							c.nox_client_setCursorType(gui.CursorTalk)
 						} else if sprite.Flags28()&2 != 0 && sprite.Flags29()&8 != 0 {
-							nox_client_setCursorType(gui.CursorShop)
+							c.nox_client_setCursorType(gui.CursorShop)
 						}
 					}
 				}
@@ -504,12 +504,12 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 				C.nox_xxx_cursorSetTooltip_4776B0(v55)
 			}
 			if v54 >= 75*75 {
-				nox_client_setCursorType(gui.CursorPickupFar)
+				c.nox_client_setCursorType(gui.CursorPickupFar)
 			} else {
 				if noxflags.HasGame(noxflags.GameModeCoop|noxflags.GameModeQuest) || C.sub_57B450(sprite.C()) != 0 {
-					nox_client_setCursorType(gui.CursorPickup)
+					c.nox_client_setCursorType(gui.CursorPickup)
 				} else {
-					nox_client_setCursorType(gui.CursorCaution)
+					c.nox_client_setCursorType(gui.CursorCaution)
 				}
 				v56 := C.nox_client_mousePriKey_430AF0()
 				if v66[v56] == int(C.nox_xxx_cursor_430B00()) {
@@ -525,18 +525,18 @@ func nox_xxx_cursorUpdate_46B740_sprites(inp *input.Handler, v63 bool, v66 []int
 			*memmap.PtrUint32(0x5D4594, 1064944) = mimic
 		}
 		if sprite.Flags28()&0x400000 != 0 && sprite.Flags29()&0x80 != 0 && sprite.Flags70()&0xC == 0 || uint32(sprite.field_27) == mimic && sprite.field_69 == 0 {
-			v65 = noxClient.Viewport().World.Max
+			v65 = c.Viewport().World.Max
 			sp := sprite.Pos()
 			c1 := v65.X - sp.X
 			c2 := v65.Y - sp.Y
 			if c1*c1+c2*c2 < 75*75 && sprite.Flags30()&0x1000000 != 0 && sprite.Flags70()&0xC == 0 {
-				nox_client_setCursorType(gui.CursorUse)
+				c.nox_client_setCursorType(gui.CursorUse)
 			}
 		}
 	}
 }
 
-func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
+func (c *Client) nox_xxx_cursorUpdate_46B740() {
 	var v0 *Window
 	var v1 *Window
 	var v23 *Window
@@ -545,27 +545,27 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 	v64 := 0
 
 	var states [4]int
-	states[input.NOX_MOUSE_LEFT] = int(inp.GetMouseState(seat.MouseButtonLeft))
-	states[input.NOX_MOUSE_RIGHT] = int(inp.GetMouseState(seat.MouseButtonRight))
-	states[input.NOX_MOUSE_MIDDLE] = int(inp.GetMouseState(seat.MouseButtonMiddle))
-	states[3] = inp.GetMouseWheel()
+	states[input.NOX_MOUSE_LEFT] = int(c.inp.GetMouseState(seat.MouseButtonLeft))
+	states[input.NOX_MOUSE_RIGHT] = int(c.inp.GetMouseState(seat.MouseButtonRight))
+	states[input.NOX_MOUSE_MIDDLE] = int(c.inp.GetMouseState(seat.MouseButtonMiddle))
+	states[3] = c.inp.GetMouseWheel()
 
-	mpos := inp.GetMousePos()
+	mpos := c.inp.GetMousePos()
 
 	C.nox_xxx_cursorSetTooltip_4776B0(nil)
 	if C.nox_client_gui_flag_815132 != 0 || nox_xxx_guiCursor_477600() != 0 {
-		nox_client_setCursorType(gui.CursorSelect)
+		c.nox_client_setCursorType(gui.CursorSelect)
 	} else {
-		nox_client_setCursorType(gui.CursorMoveArrow)
+		c.nox_client_setCursorType(gui.CursorMoveArrow)
 	}
 	if nox_win_cur_input != nil {
-		nox_client_setCursorType(gui.CursorSelect)
+		c.nox_client_setCursorType(gui.CursorSelect)
 		nox_win_1064916 = nil
 		child := nox_win_cur_input.ChildByPos(mpos)
 		v1 = child
 		for btn, v9 := range states {
 			if v9 == 0 {
-				if btn == int(input.NOX_MOUSE_LEFT) && inp.IsMousePressed(seat.MouseButtonLeft) {
+				if btn == int(input.NOX_MOUSE_LEFT) && c.inp.IsMousePressed(seat.MouseButtonLeft) {
 					child.Func93(&WindowMouseState{State: input.NOX_MOUSE_LEFT_PRESSED, Pos: mpos})
 				}
 				continue
@@ -587,11 +587,11 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 			}
 		}
 	} else if nox_win_1064916 != nil {
-		nox_client_setCursorType(gui.CursorSelect)
+		c.nox_client_setCursorType(gui.CursorSelect)
 		switch input.MouseStateCode(states[input.NOX_MOUSE_LEFT]) {
 		case 0, input.NOX_MOUSE_LEFT_PRESSED:
 			if nox_win_1064916.Flags().Has(4) && C.sub_45D9B0() == 0 {
-				dp := inp.GetMouseRel()
+				dp := c.inp.GetMouseRel()
 				off := nox_win_1064916.Offs()
 				end := nox_win_1064916.End()
 				if par := nox_win_1064916.Parent(); par != nil {
@@ -727,7 +727,7 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 		if v1.Flags().Has(0x200) {
 			v1 = nil
 		} else if v1 != nil {
-			nox_client_setCursorType(gui.CursorSelect)
+			c.nox_client_setCursorType(gui.CursorSelect)
 			for i, v39 := range states {
 				if v39 == 0 {
 					continue
@@ -761,7 +761,7 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 		if v0 == nil && C.nox_xxx_wnd_46C2A0(v1.C()) != 0 {
 			v0 = v1
 		}
-		if inp.GetDistSlow() {
+		if c.inp.GetDistSlow() {
 			if v0 != nil {
 				if v0.tooltip_func != nil {
 					sx := uint16(mpos.X)
@@ -789,11 +789,11 @@ func nox_xxx_cursorUpdate_46B740(inp *input.Handler) {
 		}
 		nox_win_activeWindow_1064900 = v1
 	}
-	nox_xxx_cursorUpdate_46B740_sprites(inp, v63, states[:])
-	inp.SetMouseState(seat.MouseButtonLeft, input.MouseStateCode(states[input.NOX_MOUSE_LEFT]))
-	inp.SetMouseState(seat.MouseButtonRight, input.MouseStateCode(states[input.NOX_MOUSE_RIGHT]))
-	inp.SetMouseState(seat.MouseButtonMiddle, input.MouseStateCode(states[input.NOX_MOUSE_MIDDLE]))
-	inp.SetMouseWheel(states[3])
+	c.nox_xxx_cursorUpdate_46B740_sprites(v63, states[:])
+	c.inp.SetMouseState(seat.MouseButtonLeft, input.MouseStateCode(states[input.NOX_MOUSE_LEFT]))
+	c.inp.SetMouseState(seat.MouseButtonRight, input.MouseStateCode(states[input.NOX_MOUSE_RIGHT]))
+	c.inp.SetMouseState(seat.MouseButtonMiddle, input.MouseStateCode(states[input.NOX_MOUSE_MIDDLE]))
+	c.inp.SetMouseWheel(states[3])
 	if v64 == 1 {
 		nox_win_1064916 = nil
 	}
