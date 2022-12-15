@@ -999,14 +999,14 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_C() bool {
 	mname := s.getServerMap()
 	if err != nil {
 		gameLog.Println(err)
-		format := strMan.GetStringInFile("MapAccessError", "C:\\NoxPost\\src\\Server\\System\\server.c")
+		format := s.Strings().GetStringInFile("MapAccessError", "C:\\NoxPost\\src\\Server\\System\\server.c")
 		PrintToPlayers(fmt.Sprintf(format, mname))
 		//v36 := strMan.GetStringInFile("Error", "C:\\NoxPost\\src\\Server\\System\\server.c")
 		//v15 := strMan.GetStringInFile("MapCorrupt", "C:\\NoxPost\\src\\Server\\System\\server.c")
 		nox_xxx_setContinueMenuOrHost_43DDD0(0)
 		return false
 	}
-	crc := uint32(nox_xxx_mapCrcGetMB_409B00())
+	crc := nox_xxx_mapCrcGetMB_409B00()
 	nox_xxx_netUseMap_4DEE00(mname+".map", crc)
 	if false {
 		C.sub_416690()
@@ -1142,7 +1142,7 @@ func nox_game_guiInit_473680() error {
 	return nil
 }
 
-func nox_xxx_mapFindPlayerStart_4F7AB0(a2 *Unit) types.Pointf {
+func (s *Server) nox_xxx_mapFindPlayerStart_4F7AB0(a2 *Unit) types.Pointf {
 	cp, freeCp := alloc.New(C.float2{})
 	defer freeCp()
 	C.nox_xxx_mapFindPlayerStart_4F7AB0(cp, a2.CObj())
@@ -1169,8 +1169,8 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		obj.ObjFlags |= uint32(object.FlagMarked)
 	}
 	if noxflags.HasGame(noxflags.GameModeCoop) {
-		nox_xxx_spellEnableAll_424BD0()
-		sub_4537F0()
+		s.spellEnableAll()
+		s.sub4537F0()
 	}
 	var merr error
 	if nox_xxx_gameIsSwitchToSolo_4DB240() != 0 {
@@ -1190,8 +1190,8 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 				v9 := C.sub_459870()
 				C.sub_57AAA0(internCStr("user.rul"), (*C.char)(v7p), (*C.int)(unsafe.Pointer(v9)))
 			}
-			nox_xxx_spellEnableAll_424BD0()
-			sub_4537F0()
+			s.spellEnableAll()
+			s.sub4537F0()
 		}
 		v10 := s.nox_server_currentMapGetFilename_409B30()
 		merr = s.nox_server_loadMapFile_4CF5F0(v10, false)
@@ -1222,11 +1222,11 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	s.objectsNewAdd()
 	for _, k := range s.getPlayerUnits() {
 		C.sub_4EF660(k.CObj())
-		v61 := nox_xxx_mapFindPlayerStart_4F7AB0(k)
+		v61 := s.nox_xxx_mapFindPlayerStart_4F7AB0(k)
 		if noxflags.HasGame(noxflags.GameModeChat) && s.teamCount() != 0 {
 			if !checkGameplayFlags(2) && !noxflags.HasGame(noxflags.GameFlag16) {
 				if t := k.Team(); t != nil {
-					v61 = randomReachablePointAround(50.0, asPointf(unsafe.Add(t.field_72, 56)))
+					v61 = s.randomReachablePointAround(50.0, asPointf(unsafe.Add(t.field_72, 56)))
 				}
 			}
 		}
@@ -1269,17 +1269,17 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		}
 	}
 	if starts.playerN == 0 {
-		v24 := strMan.GetStringInFile("StartingPositionError", "C:\\NoxPost\\src\\Server\\System\\server.c")
+		v24 := s.Strings().GetStringInFile("StartingPositionError", "C:\\NoxPost\\src\\Server\\System\\server.c")
 		PrintToPlayers(v24)
 		return errors.New("cannot find player starting position")
 	}
 	if noxflags.HasGame(noxflags.GameModeCTF|noxflags.GameModeFlagBall) && starts.flagN < 2 {
-		v24 := strMan.GetStringInFile("FlagCountError", "C:\\NoxPost\\src\\Server\\System\\server.c")
+		v24 := s.Strings().GetStringInFile("FlagCountError", "C:\\NoxPost\\src\\Server\\System\\server.c")
 		PrintToPlayers(v24)
 		return errors.New("invalid flag starting position(s)")
 	}
 	if noxflags.HasGame(noxflags.GameModeFlagBall) && starts.ballN < 1 {
-		v24 := strMan.GetStringInFile("BallStartCountError", "C:\\NoxPost\\src\\Server\\System\\server.c")
+		v24 := s.Strings().GetStringInFile("BallStartCountError", "C:\\NoxPost\\src\\Server\\System\\server.c")
 		PrintToPlayers(v24)
 		return errors.New("invalid ball starting position(s)")
 	}
@@ -1347,7 +1347,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 				if C.nox_xxx_isUnit_4E5B50(np.CObj()) != 0 {
 					n := np.AsUnit()
 					ud := n.UpdateDataMonster()
-					v61 := randomReachablePointAround(50.0, m.Pos())
+					v61 := s.randomReachablePointAround(50.0, m.Pos())
 					n.SetPos(v61)
 					ud.Field97 = 0
 					n.clearActionStack()
@@ -1446,7 +1446,7 @@ func (s *Server) sub_417160() {
 	}
 }
 
-func randomReachablePointAround(a1 float32, pos types.Pointf) types.Pointf { // sub_4ED970
+func (s *Server) randomReachablePointAround(a1 float32, pos types.Pointf) types.Pointf { // sub_4ED970
 	v9 := a1 * 0.015625
 	v11 := float32(noxRndCounter1.FloatClamp(-math.Pi, math.Pi))
 	for v5 := 0; v5 < 64; v5++ {
@@ -1456,7 +1456,7 @@ func randomReachablePointAround(a1 float32, pos types.Pointf) types.Pointf { // 
 			X: float32(math.Cos(float64(v6)))*a1 + pos.X,
 			Y: float32(math.Sin(float64(v11)))*a1 + pos.Y,
 		}
-		if MapTraceRay(pos, p2, MapTraceFlag1) {
+		if s.MapTraceRay(pos, p2, MapTraceFlag1) {
 			return p2
 		}
 		a1 = a1 - v9
@@ -1479,18 +1479,18 @@ func nox_xxx_mapTraceRay_535250(a1 *C.float4, a2 *C.float2, a3 *C.int2, a4 C.cha
 	p2 := (*types.Pointf)(unsafe.Pointer(&a1.field_8))
 	outPos := (*types.Pointf)(unsafe.Pointer(a2))
 	outGrid := (*image.Point)(unsafe.Pointer(a3))
-	if MapTraceRayAt(*p1, *p2, outPos, outGrid, MapTraceFlags(a4)) {
+	if noxServer.MapTraceRayAt(*p1, *p2, outPos, outGrid, MapTraceFlags(a4)) {
 		return 1
 	}
 	return 0
 }
 
-func MapTraceRay9(p1, p2 types.Pointf) bool { // nox_xxx_traceRay_5374B0
-	return MapTraceRay(p1, p2, MapTraceFlag1|MapTraceFlag4)
+func (s *Server) MapTraceRay9(p1, p2 types.Pointf) bool { // nox_xxx_traceRay_5374B0
+	return s.MapTraceRay(p1, p2, MapTraceFlag1|MapTraceFlag4)
 }
 
-func MapTraceRay(p1, p2 types.Pointf, flags MapTraceFlags) bool {
-	return MapTraceRayAt(p1, p2, nil, nil, flags)
+func (s *Server) MapTraceRay(p1, p2 types.Pointf, flags MapTraceFlags) bool {
+	return s.MapTraceRayAt(p1, p2, nil, nil, flags)
 }
 
 type MapTraceFlags byte
@@ -1510,7 +1510,7 @@ const (
 	MapTraceFlag8 = MapTraceFlags(0x80)
 )
 
-func MapTraceRayAt(p1, p2 types.Pointf, outPos *types.Pointf, outGrid *image.Point, flags MapTraceFlags) bool {
+func (s *Server) MapTraceRayAt(p1, p2 types.Pointf, outPos *types.Pointf, outGrid *image.Point, flags MapTraceFlags) bool {
 	wx1 := int(p1.X / common.GridStep)
 	wy1 := int(p1.Y / common.GridStep)
 	if wx1 < 0 || wx1 >= 256 || wy1 < 0 || wy1 >= 256 {
@@ -1528,7 +1528,7 @@ func MapTraceRayAt(p1, p2 types.Pointf, outPos *types.Pointf, outGrid *image.Poi
 		}
 		for yi := wy1; yi != wy2+step; yi += step {
 			pi := image.Pt(wx1, yi)
-			if a4a := mapTraceRayImpl(pi, p1, p2, flags); len(a4a) != 0 {
+			if a4a := s.mapTraceRayImpl(pi, p1, p2, flags); len(a4a) != 0 {
 				if outPos != nil {
 					*outPos = a4a[0]
 				}
@@ -1550,7 +1550,7 @@ func MapTraceRayAt(p1, p2 types.Pointf, outPos *types.Pointf, outGrid *image.Poi
 		}
 		for xi := wx1; xi != wx2+step; xi += step {
 			pi := image.Pt(xi, wy1)
-			if a4a := mapTraceRayImpl(pi, p1, p2, flags); len(a4a) != 0 {
+			if a4a := s.mapTraceRayImpl(pi, p1, p2, flags); len(a4a) != 0 {
 				if outPos != nil {
 					*outPos = a4a[0]
 				}
@@ -1602,7 +1602,7 @@ func MapTraceRayAt(p1, p2 types.Pointf, outPos *types.Pointf, outGrid *image.Poi
 			}
 			for yi := yi1; yi != yi2+ddy; yi += ddy {
 				pi := image.Pt(xi, yi)
-				if a4a := mapTraceRayImpl(pi, p1, p2, flags); len(a4a) != 0 {
+				if a4a := s.mapTraceRayImpl(pi, p1, p2, flags); len(a4a) != 0 {
 					if outPos != nil {
 						*outPos = a4a[0]
 					}
@@ -1652,7 +1652,7 @@ func MapTraceRayAt(p1, p2 types.Pointf, outPos *types.Pointf, outGrid *image.Poi
 			}
 			for xi := xi1; xi != xi2+ddy; xi += ddy {
 				pi := image.Pt(xi, yi)
-				if out := mapTraceRayImpl(pi, p1, p2, flags); len(out) != 0 {
+				if out := s.mapTraceRayImpl(pi, p1, p2, flags); len(out) != 0 {
 					if outPos != nil {
 						*outPos = out[0]
 					}
@@ -1696,7 +1696,7 @@ var noxMapTable313272 = []struct {
 	{Field0: 1, Field4: 0, Field8: 11.5},
 }
 
-func mapTraceRayImpl(pi image.Point, p1, p2 types.Pointf, flags MapTraceFlags) []types.Pointf {
+func (s *Server) mapTraceRayImpl(pi image.Point, p1, p2 types.Pointf, flags MapTraceFlags) []types.Pointf {
 	if pi.X < 0 || pi.X >= 256 || pi.Y < 0 || pi.Y >= 256 {
 		return nil
 	}
@@ -1717,9 +1717,9 @@ func mapTraceRayImpl(pi image.Point, p1, p2 types.Pointf, flags MapTraceFlags) [
 	}
 	var wl *Wall
 	if flags.Has(MapTraceFlag1) {
-		wl = noxServer.getWallAtGrid2(pi)
+		wl = s.getWallAtGrid2(pi)
 	} else {
-		wl = noxServer.getWallAtGrid(pi)
+		wl = s.getWallAtGrid(pi)
 	}
 	if wl == nil || flags.Has(MapTraceFlag8) && wl.field4()&0x4 != 0 && *(*byte)(unsafe.Add(wl.field28(), 20))&0x2 != 0 {
 		return nil
@@ -1936,29 +1936,23 @@ func sub_517590(x float32, y float32) int {
 
 //export sub_518740
 func sub_518740(a1 *C.float2, a2 uint8) *nox_waypoint_t {
-	return sub_518460(*(*types.Pointf)(unsafe.Pointer(a1)), a2, true).C()
+	return noxServer.sub_518460(*(*types.Pointf)(unsafe.Pointer(a1)), a2, true).C()
 }
 
-var (
-	dword_5d4594_2386928 float32
-	dword_5d4594_2386948 *Waypoint
-	dword_5d4594_2386960 uint32
-)
-
-func sub_518460(pos types.Pointf, mask byte, scanSub bool) *Waypoint {
-	dword_5d4594_2386960++
-	dword_5d4594_2386928 = 1000.0
+func (s *Server) sub_518460(pos types.Pointf, mask byte, scanSub bool) *Waypoint {
+	s.dword_5d4594_2386960++
+	s.dword_5d4594_2386928 = 1000.0
 	var found *Waypoint
 	for r := float32(0.0); r < 1000.0; {
 		x1 := server.RoundCoord(pos.X - r)
 		y1 := server.RoundCoord(pos.Y - r)
 		x2 := server.RoundCoord(pos.X + r)
 		y2 := server.RoundCoord(pos.Y + r)
-		dword_5d4594_2386948 = nil
-		sub_518550(image.Rect(x1, y1, x2, y2), pos, mask, scanSub)
-		if dword_5d4594_2386948 != nil {
-			found = dword_5d4594_2386948
-			r = dword_5d4594_2386928
+		s.dword_5d4594_2386948 = nil
+		s.sub_518550(image.Rect(x1, y1, x2, y2), pos, mask, scanSub)
+		if s.dword_5d4594_2386948 != nil {
+			found = s.dword_5d4594_2386948
+			r = s.dword_5d4594_2386928
 		} else {
 			if found != nil {
 				return found
@@ -1969,12 +1963,12 @@ func sub_518460(pos types.Pointf, mask byte, scanSub bool) *Waypoint {
 	return found
 }
 
-func sub_518550(rect image.Rectangle, pos types.Pointf, mask byte, scanSub bool) {
-	noxServer.Map.Sub518550Base(rect, mask, scanSub, &dword_5d4594_2386960, func(it *server.Waypoint) {
-		if dist := pos.Sub(it.Pos()).Len(); dist < float64(dword_5d4594_2386928) {
-			if MapTraceRayAt(pos, it.Pos(), nil, nil, MapTraceFlag1) {
-				dword_5d4594_2386948 = asWaypointS(it)
-				dword_5d4594_2386928 = float32(dist)
+func (s *Server) sub_518550(rect image.Rectangle, pos types.Pointf, mask byte, scanSub bool) {
+	s.Map.Sub518550Base(rect, mask, scanSub, &s.dword_5d4594_2386960, func(it *server.Waypoint) {
+		if dist := pos.Sub(it.Pos()).Len(); dist < float64(s.dword_5d4594_2386928) {
+			if s.MapTraceRayAt(pos, it.Pos(), nil, nil, MapTraceFlag1) {
+				s.dword_5d4594_2386948 = asWaypointS(it)
+				s.dword_5d4594_2386928 = float32(dist)
 			}
 		}
 	})
@@ -2031,10 +2025,10 @@ func nox_xxx_gameSetWallsDamage_4E25A0(v C.int) {
 func nox_xxx_mapDamageUnitsAround_4E25B0(a1 *C.float, a2, a3 C.float, a4, a5 C.int, a6, a7 *nox_object_t) {
 	cpos := unsafe.Slice(a1, 2)
 	pos := types.Pointf{X: float32(cpos[0]), Y: float32(cpos[1])}
-	nox_xxx_mapDamageUnitsAround(pos, float32(a2), float32(a3), int(a4), int(a5), asUnitC(a6), asObjectC(a7), doDamageWalls)
+	noxServer.nox_xxx_mapDamageUnitsAround(pos, float32(a2), float32(a3), int(a4), int(a5), asUnitC(a6), asObjectC(a7), doDamageWalls)
 }
 
-func nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, dmg, a5 int, who *Unit, a7 noxObject, damageWalls bool) {
+func (s *Server) nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, dmg, a5 int, who *Unit, a7 noxObject, damageWalls bool) {
 	rr := r1
 	if r1 < r2 {
 		rr = r2
@@ -2045,7 +2039,7 @@ func nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, dmg, a5 int,
 		Right:  pos.X + rr,
 		Bottom: pos.Y + rr,
 	}
-	noxServer.Map.EachObjInRect(rect, func(it *server.Object) {
+	s.Map.EachObjInRect(rect, func(it *server.Object) {
 		u := asUnitS(it)
 		if u.CObj() == who.CObj() && !damageWalls {
 			return
@@ -2060,7 +2054,7 @@ func nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, dmg, a5 int,
 		if dist > rr {
 			return
 		}
-		if !MapTraceRay(pos, pos2, MapTraceFlag1) {
+		if !s.MapTraceRay(pos, pos2, MapTraceFlag1) {
 			return
 		}
 		rdmg := float32(dmg)
@@ -2075,11 +2069,11 @@ func nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, dmg, a5 int,
 		int(rect.Right)/common.GridStep,
 		int(rect.Bottom)/common.GridStep,
 	)
-	nox_xxx_mapDamageToWalls_534FC0(wrect, pos, r1, dmg, a5, who)
+	s.nox_xxx_mapDamageToWalls_534FC0(wrect, pos, r1, dmg, a5, who)
 	doDamageWalls = true
 }
 
-func nox_xxx_mapDamageToWalls_534FC0(rect image.Rectangle, pos types.Pointf, rad float32, dmg int, a5 int, who *Unit) {
+func (s *Server) nox_xxx_mapDamageToWalls_534FC0(rect image.Rectangle, pos types.Pointf, rad float32, dmg int, a5 int, who *Unit) {
 	crect, rfree := alloc.Make([]int32{}, 4)
 	defer rfree()
 	crect[0] = int32(rect.Min.X)
@@ -2291,7 +2285,10 @@ func nox_xxx_wall_410160() {
 
 //export sub_4537F0
 func sub_4537F0() {
-	s := noxServer
+	noxServer.sub4537F0()
+}
+
+func (s *Server) sub4537F0() {
 	for i := 0; i < 26; i++ {
 		if ind := int(C.sub_415CD0(C.int(1 << i))); ind != 0 {
 			s.ObjectTypeByInd(ind).SetAllowed(true)

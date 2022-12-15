@@ -244,7 +244,7 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 	if d.target == nil {
 		if obj4 == nil {
 			aim := d.getAim()
-			obj6 := nox_xxx_spellFlySearchTarget(&aim, bolt, 32, a.maxDist, 0, owner)
+			obj6 := a.s.nox_xxx_spellFlySearchTarget(&aim, bolt, 32, a.maxDist, 0, owner)
 			*(**nox_object_t)(bud) = obj6.CObj()
 			if obj6 != nil {
 				if nox_server_testTwoPointsAndDirection_4E6E50(bolt.Pos(), int16(bolt.Direction1), obj6.Pos())&0x1 == 0 {
@@ -282,7 +282,7 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 			}
 			d.targPos = tpos
 		}
-		if !MapTraceRayAt(owner.Pos(), tpos, nil, nil, 9) {
+		if !a.s.MapTraceRayAt(owner.Pos(), tpos, nil, nil, 9) {
 			a.breakForOwner(owner, true)
 			return
 		}

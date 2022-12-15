@@ -911,12 +911,12 @@ func nox_xxx_updatePixie_53CD20(cobj *nox_object_t) {
 		})
 		if owner != nil {
 			pos1, pos2 := u.Pos(), owner.Pos()
-			if MapTraceRay9(pos1, pos2) {
+			if s.MapTraceRay9(pos1, pos2) {
 				nox_xxx_pixieIdleAnimate_53CF90(u, pos2.Sub(pos1), 25)
 			}
 		} else {
 			pos1, pos2 := u.Pos(), u.Pos39
-			if MapTraceRay9(pos1, pos2) {
+			if s.MapTraceRay9(pos1, pos2) {
 				nox_xxx_pixieIdleAnimate_53CF90(u, pos2.Sub(pos1), 25)
 			}
 		}
@@ -1187,7 +1187,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 			C.nox_xxx_playerLeaveObserver_0_4E6AA0(pl.C())
 			pl.CameraUnlock()
 			if !noxflags.HasGame(noxflags.GameModeQuest) {
-				v22 := nox_xxx_mapFindPlayerStart_4F7AB0(pl.UnitC())
+				v22 := s.nox_xxx_mapFindPlayerStart_4F7AB0(pl.UnitC())
 				pl.UnitC().SetPos(v22)
 			}
 			it.active = false

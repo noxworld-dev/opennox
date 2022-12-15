@@ -1021,12 +1021,12 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	var p28 types.Pointf
 	if noxflags.HasGame(noxflags.GameModeQuest) {
 		if p, ok := s.sub_4E8210(punit); !ok {
-			p28 = nox_xxx_mapFindPlayerStart_4F7AB0(punit)
+			p28 = s.nox_xxx_mapFindPlayerStart_4F7AB0(punit)
 		} else {
 			p28 = p
 		}
 	} else {
-		p28 = nox_xxx_mapFindPlayerStart_4F7AB0(punit)
+		p28 = s.nox_xxx_mapFindPlayerStart_4F7AB0(punit)
 	}
 	punit.SetPos(p28)
 	sub_422140(pl)
@@ -1082,7 +1082,7 @@ func (s *Server) sub_4E8210(u *Unit) (types.Pointf, bool) {
 	}
 	ud := u.UpdateDataPlayer()
 	ud.Field77 = v2
-	out := randomReachablePointAround(60.0, asPointf(unsafe.Add(v2, 7*8)))
+	out := s.randomReachablePointAround(60.0, asPointf(unsafe.Add(v2, 7*8)))
 	return out, true
 }
 

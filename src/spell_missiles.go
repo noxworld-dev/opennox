@@ -69,7 +69,7 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts 
 		dir := server.Dir16(nox_xxx_math_roundDirI16(int16(caster.Direction1) + doff))
 		dv := dir.Vec()
 		p2 := cpos.Add(cvel).Add(dv.Mul(rdist))
-		if !MapTraceRay(cpos, p2, MapTraceFlag1|MapTraceFlag3) {
+		if !sp.s.MapTraceRay(cpos, p2, MapTraceFlag1|MapTraceFlag3) {
 			continue
 		}
 		msl := sp.s.newObjectByTypeID(opts.Projectile)
@@ -85,7 +85,7 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts 
 			cur := pl.CursorPos()
 			ppos = &cur
 		}
-		targ := nox_xxx_spellFlySearchTarget(ppos, msl, 0x20, opts.SearchDist, 0, owner)
+		targ := sp.s.nox_xxx_spellFlySearchTarget(ppos, msl, 0x20, opts.SearchDist, 0, owner)
 		mud.owner = owner.CObj()
 		mud.target = targ.CObj()
 		mud.spellID = C.int(spellID)

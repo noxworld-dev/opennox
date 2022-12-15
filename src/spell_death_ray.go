@@ -26,7 +26,7 @@ func castDeathRay(spellID spell.ID, a2, a3, a4 *Unit, a5 *spellAcceptArg, lvl in
 	}
 	pos4 := a4.Pos()
 	pos16 := a5.Pos
-	if !MapTraceRay9(pos4, pos16) {
+	if !s.MapTraceRay9(pos4, pos16) {
 		if a4.Class().Has(object.ClassPlayer) && a3.Class().Has(object.ClassPlayer) {
 			nox_xxx_netInformTextMsg_4DA0F0(a3.ControllingPlayer().Index(), 0, 2)
 		}
@@ -35,7 +35,7 @@ func castDeathRay(spellID spell.ID, a2, a3, a4 *Unit, a5 *spellAcceptArg, lvl in
 	dmg := int(gamedataFloat("DeathRayDamage"))
 	rin := float32(gamedataFloat("DeathRayInRadius"))
 	rout := float32(gamedataFloat("DeathRayOutRadius"))
-	nox_xxx_mapDamageUnitsAround(pos16, rout, rin, dmg, 16, a3, nil, false)
+	s.nox_xxx_mapDamageUnitsAround(pos16, rout, rin, dmg, 16, a3, nil, false)
 	nox_xxx_sendDeathRayCast_523250(pos4.Point(), pos16.Point())
 	snd := s.SpellDefByInd(spellID).GetAudio(0)
 	s.AudioEventObj(snd, a4, 0, 0)
