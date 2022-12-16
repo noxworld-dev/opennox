@@ -80,53 +80,6 @@ LABEL_16:
 }
 // 4F5580: using guessed type char var_400[1024];
 
-//----- (00502490) --------------------------------------------------------
-void nox_script_callByEvent_cgo(int eventCode, void* a1, void* a2);
-void nox_script_resetStack();
-int nox_script_saveStack();
-unsigned char* nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3, int eventCode) {
-	nox_script_callByEvent_cgo(eventCode, a2, a3);
-	*getMemU32Ptr(0x5D4594, 1599076) = 0;
-	int v3 = a1[0];
-	if (*a1 & 1) {
-		return 0;
-	}
-
-	int v4 = a1[1];
-	if (v4 == -1) {
-		return 0;
-	}
-
-	if (v3 & 2) {
-		LOBYTE(v3) = v3 | 1;
-		a1[0] = v3;
-	}
-	if (nox_script_saveStack() != 0) {
-		sub_5025A0((int)a1, a2, a3);
-		return getMemAt(0x5D4594, 1599076);
-	}
-	nox_script_callByIndex_507310(v4, a2, a3);
-	if (nox_script_arr_xxx_1599636[a1[1]].stack_size) {
-		*getMemU32Ptr(0x5D4594, 1599076) = nox_script_pop();
-	}
-	nox_script_resetStack();
-
-	if (nox_script_strings_xxx < nox_script_strings_cnt) {
-		for (int i = nox_script_strings_xxx; i < nox_script_strings_cnt; i++) {
-			free(nox_script_strings[i]);
-			nox_script_strings[i] = 0;
-		}
-	}
-	nox_script_strings_cnt = nox_script_strings_xxx;
-
-	sub_5025E0(a1, a2, a3);
-	if (*getMemU32Ptr(0x5D4594, 1599468) > 0) {
-		nox_xxx_scriptCallByEventBlock_502490(*(int**)getMemAt(0x5D4594, 1599084), *getMemIntPtr(0x5D4594, 1599088),
-											  *getMemIntPtr(0x5D4594, 1599092), 0);
-	}
-	return getMemAt(0x5D4594, 1599076);
-}
-
 //----- (00504F90) --------------------------------------------------------
 int nox_server_mapRWScriptData_504F90() {
 	int result; // eax

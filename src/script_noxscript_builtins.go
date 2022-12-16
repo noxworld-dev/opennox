@@ -369,25 +369,25 @@ func nsSetCallback(vm noxscript.VM) int {
 	ud := u.UpdateDataMonster()
 	switch ev {
 	case ns.EventEnemySighted: // Enemy sighted
-		ud.ScriptEnemySightedCB = fnc
+		ud.ScriptEnemySighted.Func = fnc
 	case ns.EventLookingForEnemy: // Looking for enemy
-		ud.ScriptLookingForEnemyCB = fnc
+		ud.ScriptLookingForEnemy.Func = fnc
 	case ns.EventDeath: // Death
-		ud.ScriptDeathCB = fnc
+		ud.ScriptDeath.Func = fnc
 	case ns.EventChangeFocus: // Change focus
-		ud.ScriptChangeFocusCB = fnc
+		ud.ScriptChangeFocus.Func = fnc
 	case ns.EventIsHit: // Is hit
-		ud.ScriptIsHitCB = fnc
+		ud.ScriptIsHit.Func = fnc
 	case ns.EventRetreat: // Retreat
-		ud.ScriptRetreatCB = fnc
+		ud.ScriptRetreat.Func = fnc
 	case ns.EventCollision: // Collision
-		ud.ScriptCollisionCB = fnc
+		ud.ScriptCollision.Func = fnc
 	case ns.EventEnemyHeard: // Enemy heard
-		ud.ScriptHearEnemyCB = fnc
+		ud.ScriptHearEnemy.Func = fnc
 	case ns.EventEndOfWaypoint: // End of waypoint
-		ud.ScriptEndOfWaypointCB = fnc
+		ud.ScriptEndOfWaypoint.Func = fnc
 	case ns.EventLostEnemy: // Lost sight of enemy
-		ud.ScriptLostEnemyCB = fnc
+		ud.ScriptLostEnemy.Func = fnc
 	}
 	return 0
 }
