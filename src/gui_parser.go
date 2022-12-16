@@ -149,7 +149,7 @@ func (p *guiParser) ParseRoot(fnc WindowFunc) *Window {
 func (p *guiParser) parseFontField() (unsafe.Pointer, bool) {
 	p.skipToken() // skip '='
 	tok, _ := p.nextToken()
-	fnt := guiFontPtrByName(tok)
+	fnt := noxClient.r.Fonts.FontPtrByName(tok)
 	return fnt, fnt != nil
 }
 
@@ -186,9 +186,9 @@ func (p *guiParser) parseWindowRoot(fnc WindowFunc) *Window {
 	font := p.defaults.font
 	if font == nil {
 		if C.nox_client_gui_flag_815132 != 0 {
-			font = guiFontPtrByName(noxfont.LargeName)
+			font = noxClient.r.Fonts.FontPtrByName(noxfont.LargeName)
 		} else {
-			font = guiFontPtrByName(noxfont.DefaultName)
+			font = noxClient.r.Fonts.FontPtrByName(noxfont.DefaultName)
 		}
 	}
 	draw.SetFont(font)
@@ -466,7 +466,7 @@ var parseWindowFuncs = []struct {
 		return true
 	}},
 	{"FONT", func(_ *guiParser, draw *WindowData, buf string) bool {
-		fnt := guiFontPtrByName(buf)
+		fnt := noxClient.r.Fonts.FontPtrByName(buf)
 		if fnt == nil {
 			return false
 		}

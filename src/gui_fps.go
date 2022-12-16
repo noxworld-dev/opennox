@@ -38,7 +38,7 @@ func (c *Client) initGuiFPS() int {
 	}
 	c.guiFPS.win.setDraw(c.guiDrawFPS)
 	c.guiFPS.win.SetPos(image.Pt(121, videoGetWindowSize().Y-c.guiFPS.win.Size().Y-5))
-	c.guiFPS.font = guiFontByName("numbers")
+	c.guiFPS.font = c.r.Fonts.FontByName("numbers")
 	sub_4706C0(0)
 	return 1
 }

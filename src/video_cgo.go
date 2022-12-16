@@ -48,6 +48,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -222,24 +223,24 @@ func nox_video_callCopyBackBuffer_4AD170() {
 
 var (
 	videoInitDone = false
-	renderData1   *RenderData
-	renderData2   *RenderData
+	renderData1   *noxrender.RenderData
+	renderData2   *noxrender.RenderData
 )
 
 func videoInit(sz image.Point, flags int) error {
 	C.dword_5d4594_823776 = 0
 	if renderData1 == nil {
-		renderData1, _ = alloc.New(RenderData{})
-		renderData2, _ = alloc.New(RenderData{})
+		renderData1, _ = alloc.New(noxrender.RenderData{})
+		renderData2, _ = alloc.New(noxrender.RenderData{})
 	}
 	noxClient.r.SetData(renderData1)
-	C.nox_draw_curDrawData_3799572 = noxClient.r.Data().C()
+	C.nox_draw_curDrawData_3799572 = (*C.nox_render_data_t)(noxClient.r.Data().C())
 	if err := drawInitAll(sz, flags); err != nil {
 		videoLog.Println("init:", err)
 		return err
 	}
 	noxClient.r.SetData(renderData2)
-	C.nox_draw_curDrawData_3799572 = noxClient.r.Data().C()
+	C.nox_draw_curDrawData_3799572 = (*C.nox_render_data_t)(noxClient.r.Data().C())
 	*renderData2 = *renderData1
 	C.dword_5d4594_823776 = 1
 	videoInitDone = true
@@ -248,7 +249,7 @@ func videoInit(sz image.Point, flags int) error {
 
 func videoInitStub() {
 	noxClient.r.SetData(renderData2)
-	C.nox_draw_curDrawData_3799572 = noxClient.r.Data().C()
+	C.nox_draw_curDrawData_3799572 = (*C.nox_render_data_t)(noxClient.r.Data().C())
 	C.dword_5d4594_823776 = 1
 	C.nox_win_width = noxDefaultWidth
 	C.nox_win_height = noxDefaultHeight
@@ -267,14 +268,15 @@ func drawInitAll(sz image.Point, flags int) error {
 	if err := nox_video_setBackBufferCopyFunc_4AD100(); err != nil {
 		return err
 	}
-	noxClient.r.initParticles()
+	c := noxClient
+	c.r.initParticles()
 	sub_4B02D0()
-	noxClient.r.partfx.Init(noxClient.r)
+	c.r.partfx.Init(c.r)
 	sub_4AE520()
-	if err := loadGameFonts(); err != nil {
+	if err := c.loadGameFonts(); err != nil {
 		return err
 	}
-	noxClient.r.ClearPoints()
+	c.r.ClearPoints()
 	return nil
 }
 
@@ -424,7 +426,7 @@ func sub_4AE520() {
 
 func sub_49F610(sz image.Point) {
 	p := noxClient.r.Data()
-	p.useClip = 0
+	p.SetClip(false)
 	p.SetClipRect(image.Rectangle{Max: sz})
 	p.SetClipRect2(image.Rectangle{Max: image.Pt(sz.X-1, sz.Y-1)})
 	p.SetRect3(image.Rectangle{Max: sz})
@@ -586,8 +588,8 @@ func nox_client_drawXxx_444AC0(w, h int, flags int) error {
 
 func sub_48B680(a1 int) {
 	p := noxClient.r.Data()
-	if a1 != int(p.field_15) {
-		p.multiply14 = uint32(a1)
+	if a1 != p.Field15() {
+		p.SetMultiply14(a1)
 	}
 }
 
@@ -680,7 +682,7 @@ func (c *Client) nox_video_cursorDrawImpl_477A30(pos image.Point) {
 			sub_48B680(0)
 		}
 		c.sub_4BE710(noxCursors.Move, pos, int(v15))
-		c.r.Data().setMultiply14(0)
+		c.r.Data().SetMultiply14(0)
 	case gui.CursorPickupFar:
 		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.PickupFar, pos)
 		c.pos1097204.Y = -2 * fh
@@ -812,7 +814,7 @@ func (c *Client) sub_444C50() {
 		c.r.freeParticles()
 		c.r.partfx.Free()
 		c.r.circleSeg.Free()
-		nox_xxx_FontDestroy_43F2E0()
+		c.r.Fonts.Free()
 		C.dword_5d4594_823776 = 0
 		if memmap.Uint32(0x5D4594, 823780) != 0 {
 			*memmap.PtrUint32(0x5D4594, 823780) = 0

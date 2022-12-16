@@ -62,6 +62,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/common"
 
 	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -200,7 +201,7 @@ func (c *Client) sub_468F80(vp *client.Viewport) {
 	} else {
 		cl := c.r.Data().GetLightColor()
 		if nox_xxx_get_57AF20() != 0 {
-			cl = RGB{R: 50, G: 50, B: 50}
+			cl = noxrender.RGB{R: 50, G: 50, B: 50}
 		}
 		for i := 0; i < lightGridW; i++ {
 			for j := 0; j < lightGridH; j++ {
@@ -689,7 +690,7 @@ func sub_4695E0(a1, a2 int, pcl *int32, a4 int, flip bool) {
 
 	ptr := &nox_arr2_853BC0[a1][a2]
 
-	var res RGB
+	var res noxrender.RGB
 	res.R = v6 + ptr.R
 	res.G = v7 + ptr.G
 	res.B = v8 + ptr.B

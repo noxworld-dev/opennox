@@ -16,7 +16,7 @@ func TestDrawCircle(t *testing.T) {
 	sz := image.Pt(100, 100)
 	d := newRenderData(sz.X, sz.Y)
 	img := noximage.NewImage16(image.Rectangle{Max: sz})
-	r := NewRender()
+	r := NewRender(nil)
 	r.SetPixBuffer(img)
 	r.SetData(d)
 
@@ -30,8 +30,8 @@ func TestDrawCircle(t *testing.T) {
 	}
 	cl3 := noxcolor.RGB5551Color(0, 0, 255)
 	cl4 := noxcolor.RGB5551Color(255, 255, 0)
-	d.clip = true
-	d.clipRect = image.Rect(20, 20, 70, 70)
+	d.SetClip(true)
+	d.SetClipRect(image.Rect(20, 20, 70, 70))
 	for i := 0; i < 5; i++ {
 		r.DrawCircleOpaque(70, 20, 10+10*i, cl3)
 		r.DrawCircleAlpha(20, 70, 10+10*i, cl4)
@@ -48,7 +48,7 @@ func TestDrawLines(t *testing.T) {
 	sz := image.Pt(100, 100)
 	d := newRenderData(sz.X, sz.Y)
 	img := noximage.NewImage16(image.Rectangle{Max: sz})
-	r := NewRender()
+	r := NewRender(nil)
 	r.SetPixBuffer(img)
 	r.SetData(d)
 	c := sz.Div(2)
@@ -61,8 +61,8 @@ func TestDrawLines(t *testing.T) {
 	}
 	cl2 := noxcolor.RGB5551Color(0, 255, 25)
 	c = c.Add(image.Pt(10, -10))
-	d.alpha = 0x80
-	d.alphaEnabled = true
+	d.SetAlpha(0x80)
+	d.SetAlphaEnabled(true)
 	for a := 0; a < 360; a += 15 {
 		dx := int(15 * math.Cos(math.Pi*float64(a)/180))
 		dy := int(15 * math.Sin(math.Pi*float64(a)/180))

@@ -1,19 +1,148 @@
 package noxrender
 
 import (
+	"fmt"
 	"image"
-	"image/color"
+	"os"
+	"path/filepath"
 	"strings"
+	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/ifs"
+	"github.com/noxworld-dev/opennox-lib/noxfont"
 	"golang.org/x/image/font"
+	"golang.org/x/image/font/opentype"
 	"golang.org/x/image/math/fixed"
+
+	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 )
 
-type RenderDataText interface {
-	ShouldDrawText() bool
-	TextColor() color.Color
-	SetTextColor(a1 color.Color)
-	DefaultFont() font.Face
+type fontFile struct {
+	Name    string
+	File    string
+	FileAlt string
+	Size    int
+	Font    font.Face
+	Ptr     unsafe.Pointer
+}
+
+var noxFontFiles = []fontFile{
+	{Name: noxfont.DefaultName, File: noxfont.DefaultFile, Size: 10},
+	{Name: noxfont.LargeName, File: noxfont.LargeFile, FileAlt: noxfont.DefaultFile, Size: 16},
+	{Name: noxfont.NumbersName, File: noxfont.NumbersFile, Size: 7},
+	{Name: noxfont.SmallName, File: noxfont.SmallFile, Size: 9},
+}
+
+type renderFonts struct {
+	byName map[string]*fontFile
+	byPtr  map[unsafe.Pointer]*fontFile
+	def    font.Face
+}
+
+func (r *renderFonts) Load(lang int) error {
+	r.byName = make(map[string]*fontFile)
+	r.byPtr = make(map[unsafe.Pointer]*fontFile)
+	for i := range noxFontFiles {
+		f := &noxFontFiles[i]
+		r.byName[f.Name] = f
+		fname := f.File
+		switch lang {
+		case 6, 8:
+			if f.FileAlt != "" {
+				fname = f.FileAlt
+			}
+		}
+		fnt, err := loadFont(datapath.Data(fname), f.Size)
+		if err != nil {
+			return fmt.Errorf("cannot load font: %w", err)
+		}
+		f.Font = fnt
+		f.Ptr = handles.NewPtr()
+		r.byPtr[f.Ptr] = f
+	}
+	r.def = r.FontByName(noxfont.DefaultName)
+	return nil
+}
+
+func (r *renderFonts) Free() {
+	for i := range noxFontFiles {
+		f := &noxFontFiles[i]
+		if f.Font != nil {
+			f.Font.Close()
+			f.Font = nil
+		}
+		f.Ptr = nil
+	}
+}
+
+func (r *renderFonts) DefaultFont() font.Face {
+	return r.def
+}
+
+func (r *renderFonts) FontByName(name string) font.Face {
+	name = strings.ToLower(name)
+	f := r.byName[name]
+	if f == nil {
+		Log.Printf("font not found: %q", name)
+		return nil
+	}
+	return f.Font
+}
+
+func (r *renderFonts) AsFont(ptr unsafe.Pointer) font.Face {
+	if ptr == nil {
+		return nil
+	}
+	fnt := r.byPtr[ptr]
+	if fnt == nil {
+		return nil
+	}
+	return fnt.Font
+}
+
+func (r *renderFonts) FontPtrByName(name string) unsafe.Pointer {
+	name = strings.ToLower(name)
+	f := r.byName[name]
+	if f == nil {
+		Log.Printf("font not found: %q", name)
+		return nil
+	}
+	return f.Ptr
+}
+
+func loadFont(path string, size int) (font.Face, error) {
+	f, err := ifs.Open(path + ".ttf")
+	if os.IsNotExist(err) {
+		f, err = ifs.Open(path + ".otf")
+	}
+	if err == nil {
+		fnt, err := opentype.ParseReaderAt(f)
+		if err != nil {
+			_ = f.Close()
+			return nil, fmt.Errorf("%s: %w", filepath.Base(f.Name()), err)
+		}
+		face, err := opentype.NewFace(fnt, &opentype.FaceOptions{
+			Size: float64(size), DPI: 72,
+			Hinting: font.HintingNone,
+		})
+		if err != nil {
+			_ = f.Close()
+			return nil, err
+		}
+		// not closing the file, since it's still used by the font
+		return face, nil
+	}
+	f, err = ifs.Open(path + noxfont.Ext)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+	fnt, err := noxfont.Decode(f)
+	if err != nil {
+		return nil, err
+	}
+	return fnt, nil
 }
 
 type noxRenderText struct {
@@ -53,7 +182,7 @@ func (r *NoxRender) fontOrDefault(fnt font.Face) font.Face {
 	if fnt != nil {
 		return fnt
 	}
-	return r.p.DefaultFont()
+	return r.Fonts.DefaultFont()
 }
 
 func (r *NoxRender) FontHeight(fnt font.Face) int {
