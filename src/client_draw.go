@@ -341,7 +341,7 @@ func (c *Client) sub_475F10(vp *noxrender.Viewport) {
 		}
 		dr.field_33 = 0
 		if dr.field_120 == 0 && dr.field_122 == 0 {
-			dr.field_85 = C.uint(c.srv.Frame())
+			dr.field_85 = c.srv.Frame()
 		}
 	}
 	nox_drawable_list_3 = nox_drawable_list_3[:0]
@@ -357,7 +357,7 @@ func (c *Client) sub_475FE0(vp *noxrender.Viewport) {
 			}
 			dr.field_33 = 0
 			if dr.field_120 == 0 && dr.field_122 == 0 {
-				dr.field_85 = C.uint(c.srv.Frame())
+				dr.field_85 = c.srv.Frame()
 			}
 		}
 	}
@@ -367,13 +367,13 @@ func (c *Client) sub_475FE0(vp *noxrender.Viewport) {
 func (c *Client) sub_476160(a1, a2 *Drawable) bool {
 	var v1 int
 	if *(*int8)(a1.field(112)) >= 0 {
-		v1 = a1.Pos().Y + int(*(*int16)(a1.field(104)))
+		v1 = a1.Pos().Y + a1.Z()
 	} else {
 		v1 = int(C.sub_4761B0(a1.C()))
 	}
 	var v2 int
 	if *(*int8)(a2.field(112)) >= 0 {
-		v2 = a2.Pos().Y + int(*(*int16)(a2.field(104)))
+		v2 = a2.Pos().Y + a2.Z()
 	} else {
 		v2 = int(C.sub_4761B0(a2.C()))
 	}
@@ -460,7 +460,7 @@ LOOP:
 		c.drawCreatureFrontEffects(vp, dr)
 		C.sub_495BB0(dr.C(), (*nox_draw_viewport_t)(vp.C()))
 		if dr.field_120 == 0 && dr.field_122 == 0 {
-			dr.field_85 = C.uint(c.srv.Frame())
+			dr.field_85 = c.srv.Frame()
 		}
 		if C.sub_459DB0(dr.C()) != 0 {
 			C.sub_459DD0(dr.C(), 1)

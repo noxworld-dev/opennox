@@ -960,7 +960,7 @@ func (c *Client) sub4745F0(vp *noxrender.Viewport) {
 		}
 		dr.field_33 = 0
 		if dr.field_120 == 0 && dr.field_122 == 0 {
-			dr.field_85 = C.uint(c.srv.Frame())
+			dr.field_85 = c.srv.Frame()
 		}
 	}
 	nox_drawable_list_2 = nox_drawable_list_2[:0]
@@ -1121,7 +1121,7 @@ func (c *Client) drawCreatureBackEffects(vp *noxrender.Viewport, dr *Drawable) {
 			v14 := randomIntMinMax(2, 4)
 			pos2 := image.Point{
 				X: randomIntMinMax(-10, 10),
-				Y: randomIntMinMax(-10, 10) + int(*(*int16)(dr.field(104))),
+				Y: randomIntMinMax(-10, 10) + dr.Z(),
 			}
 			sub_499F60(drawWhiteBubbleParticle, pos.Add(pos2), 1, v14, v18, 0, 0, 0, v22)
 
@@ -1130,7 +1130,7 @@ func (c *Client) drawCreatureBackEffects(vp *noxrender.Viewport, dr *Drawable) {
 			v15 := randomIntMinMax(2, 4)
 			pos3 := image.Point{
 				X: randomIntMinMax(-10, 10),
-				Y: randomIntMinMax(-10, 10) + int(*(*int16)(dr.field(104))),
+				Y: randomIntMinMax(-10, 10) + dr.Z(),
 			}
 			sub_499F60(drawLightBlueBubbleParticle, pos.Add(pos3), 1, v15, v19, 0, 0, 0, v23)
 		}
@@ -1151,7 +1151,7 @@ func (c *Client) drawCreatureBackEffects(vp *noxrender.Viewport, dr *Drawable) {
 			v16 := randomIntMinMax(2, 4)
 			pos2 := image.Point{
 				X: randomIntMinMax(-10, 10),
-				Y: randomIntMinMax(-10, 10) + int(*(*int16)(dr.field(104))),
+				Y: randomIntMinMax(-10, 10) + dr.Z(),
 			}
 			sub_499F60(drawRedBubbleParticle, pos.Add(pos2), 1, v16, v20, 0, 0, 0, v24)
 
@@ -1160,7 +1160,7 @@ func (c *Client) drawCreatureBackEffects(vp *noxrender.Viewport, dr *Drawable) {
 			v17 := randomIntMinMax(2, 4)
 			pos3 := image.Point{
 				X: randomIntMinMax(-10, 10),
-				Y: randomIntMinMax(-10, 10) + int(*(*int16)(dr.field(104))),
+				Y: randomIntMinMax(-10, 10) + dr.Z(),
 			}
 			sub_499F60(drawOrangeBubbleParticle, pos.Add(pos3), 1, v17, v21, 0, 0, 0, v25)
 		}
@@ -1176,7 +1176,7 @@ func (c *Client) drawCreatureBackEffects(vp *noxrender.Viewport, dr *Drawable) {
 		c.DrawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, nox_color_blue_2650684, nox_color_white_2523948, true)
 	}
 	if dr.HasEnchant(server.ENCHANT_REFLECTIVE_SHIELD) { // Shield effects
-		switch *(*byte)(dr.field(297)) {
+		switch dr.field_74_2 {
 		case 0, 1, 2:
 			C.nox_xxx_drawShield_499810((*nox_draw_viewport_t)(vp.C()), dr.C())
 		}
@@ -1192,15 +1192,14 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *Drawable) 
 			drawWhiteSpark = nox_things.IndByID("WhiteSpark")
 		}
 		pos := dr.Pos()
-		C.nox_xxx_drawEnergyBolt_499710(C.int(pos.X), C.int(pos.Y), C.short(*(*int16)(dr.field(104))), C.int(drawWhiteSpark))
+		C.nox_xxx_drawEnergyBolt_499710(C.int(pos.X), C.int(pos.Y), C.short(dr.Z()), C.int(drawWhiteSpark))
 	}
 	if dr.HasEnchant(server.ENCHANT_CONFUSED) || dr.HasEnchant(server.ENCHANT_HELD) || dr.HasEnchant(server.ENCHANT_ANTI_MAGIC) || dr.HasEnchant(server.ENCHANT_CHARMING) {
 		pos := vp.ToScreenPos(dr.Pos())
-		v5 := 5 - int(*(*int16)(dr.field(106))) - int(*(*int16)(dr.field(104))) - int(dr.Field25())
-		v6 := *(*byte)(dr.field(112))
+		v5 := 5 - int(int16(dr.field_26_1)) - dr.Z() - int(dr.Field25())
 		pos.Y += v5
-		if v6&0x4 != 0 && *(*uint32)(dr.field(276)) == 6 {
-			v8 := 8 * uintptr(*(*byte)(dr.field(297)))
+		if dr.flags28&0x4 != 0 && dr.field_69 == 6 {
+			v8 := 8 * uintptr(dr.field_74_2)
 			pos.X += int(memmap.Int32(0x587000, 149432+v8))
 			pos.Y += int(memmap.Int32(0x587000, 149436+v8))
 		}
@@ -1212,7 +1211,7 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *Drawable) 
 		c.r.Data().SetColorize17(0)
 	}
 	if dr.HasEnchant(server.ENCHANT_SLOWED) && !nox_xxx_checkGameFlagPause_413A50() {
-		v11 := int(*(*float32)(dr.field(48)))
+		v11 := int(dr.shape.Circle.R)
 		v44 := int(dr.Field25() * 0.5)
 		if drawYellowBubbleParticle == 0 {
 			drawYellowBubbleParticle = nox_things.IndByID("YellowBubbleParticle")
@@ -1252,12 +1251,11 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *Drawable) 
 
 		for v16 := 0; v16 < 10; v16++ {
 			v17 := randomIntMinMax(1, 2)
-			v38 := int(*(*float32)(dr.field(48)))
-			v18 := int(*(*float32)(dr.field(48)))
+			r := int(dr.shape.Circle.R)
 			v20 := int(dr.Field25())
 			pos2 := pos.Add(image.Point{
-				X: randomIntMinMax(-v18, v38),
-				Y: randomIntMinMax(-10-v20, 0) + int(*(*int16)(dr.field(104))),
+				X: randomIntMinMax(-r, r),
+				Y: randomIntMinMax(-10-v20, 0) + dr.Z(),
 			})
 			v22 := randomIntMinMax(3, 4)
 			c.r.DrawGlow(pos2, drawColorPurple, v17+v22, v17+2)
@@ -1275,12 +1273,11 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *Drawable) 
 	}
 	if dr.HasEnchant(server.ENCHANT_SHIELD) {
 		pos := vp.ToScreenPos(dr.Pos())
-		v23 := *(*uint32)(dr.field(276))
-		v24 := -90 - int(*(*int16)(dr.field(104)))
+		v24 := -90 - dr.Z()
 		pos.X -= 64
 		pos.Y += v24
-		if v23 == 6 {
-			v26 := 8 * uintptr(*(*byte)(dr.field(297)))
+		if dr.field_69 == 6 {
+			v26 := 8 * uintptr(dr.field_74_2)
 			pos.X += int(memmap.Int32(0x587000, 149504+v26))
 			pos.Y += int(memmap.Int32(0x587000, 149508+v26))
 		}
@@ -1290,7 +1287,7 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *Drawable) 
 		c.r.Data().SetAlphaEnabled(false)
 	}
 	if dr.HasEnchant(server.ENCHANT_REFLECTIVE_SHIELD) {
-		switch *(*byte)(dr.field(297)) {
+		switch dr.field_74_2 {
 		default:
 			C.nox_xxx_drawShield_499810((*nox_draw_viewport_t)(vp.C()), dr.C())
 		case 0, 1, 2:

@@ -82,12 +82,12 @@ func clientFXDeathRay(p1, p2 image.Point) {
 		ptr := unsafe.Slice((*uint32)(dr.field(432)), 5)
 		ptr[0] = uint32(pos.X) << 12
 		ptr[1] = uint32(pos.Y) << 12
-		dr.field_74_4 = C.uchar(r1)
+		dr.field_74_4 = byte(r1)
 		ptr[2] = uint32(r2)
 		ptr[3] = noxServer.Frame()
 		ptr[4] = noxServer.Frame() + uint32(expire)
-		dr.z = C.ushort(z)
-		dr.vel_z = C.schar(vz)
+		dr.z = uint16(z)
+		dr.vel_z = int8(vz)
 		C.nox_xxx_sprite_45A110_drawable(dr.C())
 	}
 }
