@@ -46,8 +46,6 @@ int nox_script_GiveExp_516190();
 int nox_script_HasSubclass_5162D0();
 int nox_script_StartupScreen_516600();
 int nox_script_IsTalking_5166A0();
-int nox_script_GetTrigger_514D30();
-int nox_script_GetCaller_514D60();
 int nox_script_MakeFriendly_516720();
 int nox_script_MakeEnemy_516760();
 int nox_script_BecomePet_5167D0();
@@ -210,8 +208,8 @@ var noxScriptBuiltins = [asm.BuiltinGetScore + 1]noxscript.Builtin{
 	asm.BuiltinHasSubclass:          wrapScriptC(C.nox_script_HasSubclass_5162D0),
 	asm.BuiltinStartupScreen:        wrapScriptC(C.nox_script_StartupScreen_516600),
 	asm.BuiltinIsTalking:            wrapScriptC(C.nox_script_IsTalking_5166A0),
-	asm.BuiltinGetTrigger:           wrapScriptC(C.nox_script_GetTrigger_514D30),
-	asm.BuiltinGetCaller:            wrapScriptC(C.nox_script_GetCaller_514D60),
+	asm.BuiltinGetTrigger:           nsGetTrigger,
+	asm.BuiltinGetCaller:            nsGetCaller,
 	asm.BuiltinMakeFriendly:         wrapScriptC(C.nox_script_MakeFriendly_516720),
 	asm.BuiltinMakeEnemy:            wrapScriptC(C.nox_script_MakeEnemy_516760),
 	asm.BuiltinBecomePet:            wrapScriptC(C.nox_script_BecomePet_5167D0),
@@ -227,6 +225,16 @@ var noxScriptBuiltins = [asm.BuiltinGetScore + 1]noxscript.Builtin{
 	asm.BuiltinIsSummoned:           wrapScriptC(C.nox_script_IsSummoned_516C30),
 	asm.BuiltinIsGameBall:           wrapScriptC(C.nox_script_ObjIsGameball_516D70),
 	asm.BuiltinIsCrown:              wrapScriptC(C.nox_script_ObjIsCrown_516DC0),
+}
+
+func nsGetTrigger(vm noxscript.VM) int {
+	vm.PushHandleNS(vm.NoxScript().GetTrigger())
+	return 0
+}
+
+func nsGetCaller(vm noxscript.VM) int {
+	vm.PushHandleNS(vm.NoxScript().GetCaller())
+	return 0
 }
 
 func nsSecondTimer(vm noxscript.VM) int {

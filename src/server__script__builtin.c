@@ -352,26 +352,6 @@ int nox_script_IsCaller_514CF0() {
 	return 0;
 }
 
-//----- (00514D30) --------------------------------------------------------
-int nox_script_GetTrigger_514D30() {
-	if (nox_script_get_trigger()) {
-		nox_script_push(*(uint32_t*)((char*)nox_script_get_trigger() + 44));
-	} else {
-		nox_script_push(0);
-	}
-	return 0;
-}
-
-//----- (00514D60) --------------------------------------------------------
-int nox_script_GetCaller_514D60() {
-	if (nox_script_get_caller()) {
-		nox_script_push(*(uint32_t*)((char*)nox_script_get_caller() + 44));
-	} else {
-		nox_script_push(0);
-	}
-	return 0;
-}
-
 //----- (00514D90) --------------------------------------------------------
 int nox_script_SetDialog_514D90() {
 	int v0;  // ebx
