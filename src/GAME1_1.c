@@ -6102,19 +6102,6 @@ void nox_xxx_comJournalEntryAdd_427500(nox_object_t* a1p, char* a2, short a3) {
 	}
 }
 
-//----- (00427550) --------------------------------------------------------
-int nox_xxx_comAddEntryAll_427550(char* a1, short a2) {
-	int result; // eax
-	int i;      // esi
-
-	result = nox_xxx_getFirstPlayerUnit_4DA7C0();
-	for (i = result; result; i = result) {
-		nox_xxx_comJournalEntryAdd_427500(i, a1, a2);
-		result = nox_xxx_getNextPlayerUnit_4DA7F0(i);
-	}
-	return result;
-}
-
 //----- (00427590) --------------------------------------------------------
 int nox_xxx_journalEntryRemove_427590(nox_playerInfo* a1p, const char* a2) {
 	int a1 = a1p;
