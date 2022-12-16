@@ -35,7 +35,7 @@ func (img *rawImage) Pixdata() []byte {
 	return img.data
 }
 
-func NewRawImage(typ int, data []byte) Image16 {
+func NewRawImage16(typ int, data []byte) Image16 {
 	return &rawImage{typ: typ, data: data}
 }
 

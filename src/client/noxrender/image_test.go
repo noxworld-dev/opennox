@@ -9,6 +9,7 @@ import (
 	"image/draw"
 	"image/png"
 	"io"
+	"math"
 	"os"
 	"path/filepath"
 	"strings"
@@ -431,6 +432,9 @@ var drawCases = []struct {
 }
 
 func newBackgroundPattern16(w, h int) *noximage.Image16 {
+	if w <= 0 || w >= math.MaxInt16 || h <= 0 || h >= math.MaxInt16 {
+		panic("invalid image size")
+	}
 	pix := noximage.NewImage16(image.Rect(0, 0, w, h))
 	step := h
 	if w < h {
@@ -452,6 +456,15 @@ func newBackgroundPattern16(w, h int) *noximage.Image16 {
 			draw.Draw(pix, clip, c, image.Pt(0, 0), draw.Src)
 		}
 	}
+	return pix
+}
+
+func newBlack16(w, h int) *noximage.Image16 {
+	if w <= 0 || w >= math.MaxInt16 || h <= 0 || h >= math.MaxInt16 {
+		panic("invalid image size")
+	}
+	pix := noximage.NewImage16(image.Rect(0, 0, w, h))
+	draw.Draw(pix, pix.Rect, image.NewUniform(color.Black), image.Pt(0, 0), draw.Src)
 	return pix
 }
 
@@ -501,7 +514,7 @@ func TestDrawImage(t *testing.T) {
 				require.NoError(t, err)
 			}
 
-			img := NewRawImage(int(bim.Type), data)
+			img := NewRawImage16(int(bim.Type), data)
 			csz := image.Point{
 				X: (sz.X + hdr.Point.X) * 2,
 				Y: (sz.Y + hdr.Point.Y) * 2,
