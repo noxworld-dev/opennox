@@ -249,46 +249,46 @@ func nox_drawable_link_thing(a1c *nox_drawable, i C.int) C.int {
 	dr := asDrawable(a1c)
 	*dr = Drawable{}
 	typ := nox_things.byInd[i]
-	dr.field_27 = C.uint(i)
+	dr.field_27 = uint32(i)
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&dr.field_0), 0)) = typ.hwidth
 	*(*uint8)(unsafe.Add(unsafe.Pointer(&dr.field_0), 1)) = typ.hheight
-	dr.field_26_1 = C.ushort(typ.z) // TODO: shouldn't it put this in dr.z?
-	dr.flags28 = C.uint(typ.pri_class)
-	dr.flags29 = C.uint(typ.sub_class)
-	dr.flags30 = C.uint(typ.flags)
-	dr.flags70 = C.uint(typ.field_54)
-	dr.field_74_3 = C.uchar(typ.weight)
-	dr.draw_func = (*[0]byte)(typ.draw_func)
+	dr.field_26_1 = typ.z // TODO: shouldn't it put this in dr.z?
+	dr.flags28 = typ.pri_class
+	dr.flags29 = typ.sub_class
+	dr.flags30 = uint32(typ.flags)
+	dr.flags70 = typ.field_54
+	dr.field_74_3 = typ.weight
+	dr.draw_func = typ.draw_func
 	dr.field_76 = typ.field_5c
-	dr.field_77 = C.uint(typ.field_60)
-	dr.field_116 = C.uint(typ.client_update)
-	dr.field_123 = C.uint(typ.audio_loop)
-	dr.light_flags = C.uint(typ.field_f)
-	dr.field_42 = C.uint(typ.field_10)
-	dr.light_color_r = C.uint(typ.light_color_r)
-	dr.light_color_g = C.uint(typ.light_color_g)
-	dr.light_color_b = C.uint(typ.light_color_b)
-	dr.field_41_0 = C.ushort(typ.light_dir)
-	dr.field_41_1 = C.ushort(typ.light_penumbra)
+	dr.field_77 = typ.field_60
+	dr.field_116 = typ.client_update
+	dr.field_123 = typ.audio_loop
+	dr.light_flags = uint32(typ.field_f)
+	dr.field_42 = typ.field_10
+	dr.light_color_r = uint32(typ.light_color_r)
+	dr.light_color_g = uint32(typ.light_color_g)
+	dr.light_color_b = uint32(typ.light_color_b)
+	dr.field_41_0 = typ.light_dir
+	dr.field_41_1 = typ.light_penumbra
 
-	dr.shape.kind = C.nox_shape_kind(typ.shape_kind)
-	dr.shape.circle_r = C.float(typ.shape_r)
-	dr.shape.circle_r2 = C.float(typ.shape_r * typ.shape_r)
-	dr.shape.box_w = C.float(typ.shape_w)
-	dr.shape.box_h = C.float(typ.shape_h)
-	if server.ShapeKind(dr.shape.kind) == server.ShapeKindBox {
-		dr.getShape().Box.Calc()
+	dr.shape.Kind = server.ShapeKind(typ.shape_kind)
+	dr.shape.Circle.R = typ.shape_r
+	dr.shape.Circle.R2 = typ.shape_r * typ.shape_r
+	dr.shape.Box.W = typ.shape_w
+	dr.shape.Box.H = typ.shape_h
+	if dr.shape.Kind == server.ShapeKindBox {
+		dr.shape.Box.Calc()
 	}
 
-	dr.field_24 = C.float(typ.zsize_min)
-	dr.field_25 = C.float(typ.zsize_max)
+	dr.field_24 = typ.zsize_min
+	dr.field_25 = typ.zsize_max
 	intens := typ.light_intensity
 	dr.field_43 = 0
 	if intens < 0 {
 		intens = -intens
 		dr.field_43 = 1
 	}
-	dr.light_intensity = C.float(intens)
+	dr.light_intensity = intens
 	if intens != 0.0 {
 		dr.SetLightIntensity(intens)
 		if dr.light_flags == 0 {
@@ -301,8 +301,8 @@ func nox_drawable_link_thing(a1c *nox_drawable, i C.int) C.int {
 	if dr.flags28&0x13001000 != 0 {
 		*(*uint32)(dr.field(432)) = 0
 		*(*uint32)(dr.field(436)) = 0
-		*(*uint32)(dr.field(440)) = 0
-		*(*uint32)(dr.field(444)) = 0
+		dr.field_110 = 0
+		dr.field_111 = 0
 		*(*int16)(dr.field(448)) = -1
 		*(*int16)(dr.field(450)) = -1
 	}
