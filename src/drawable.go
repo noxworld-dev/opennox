@@ -153,6 +153,10 @@ func (s *Drawable) DrawFunc(vp *client.Viewport) int {
 	return int(C.go_nox_drawable_call_draw_func((*nox_draw_viewport_t)(vp.C()), s.C()))
 }
 
+func (s *Drawable) Z() int {
+	return int(s.z)
+}
+
 const (
 	nox_drawable_2d_index_cap = 47
 	nox_drawable_2d_div       = 128

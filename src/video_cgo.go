@@ -269,7 +269,6 @@ func drawInitAll(sz image.Point, flags int) error {
 		return err
 	}
 	c := noxClient
-	c.r.initParticles()
 	sub_4B02D0()
 	c.r.partfx.Init(c.r)
 	sub_4AE520()
@@ -811,7 +810,7 @@ func (c *Client) sub_444C50() {
 		nox_free_pixbuffers_486110()
 		nox_draw_freeColorTables_433C20()
 		c.r.FadeReset()
-		c.r.freeParticles()
+		c.r.Part.Free()
 		c.r.partfx.Free()
 		c.r.circleSeg.Free()
 		c.r.Fonts.Free()

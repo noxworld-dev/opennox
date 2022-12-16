@@ -9,6 +9,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/input"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/client/render"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -17,6 +18,7 @@ import (
 func NewClient(pr console.Printer, s *server.Server) *Client {
 	c := &Client{
 		pr: pr, srv: s,
+		r:          noxrender.NewRender(s),
 		Cursor:     gui.CursorSelect,
 		CursorPrev: gui.Cursor17,
 	}
@@ -27,6 +29,7 @@ func NewClient(pr console.Printer, s *server.Server) *Client {
 type Client struct {
 	pr          console.Printer
 	srv         *server.Server
+	r           *noxrender.NoxRender
 	Seat        seat.Seat
 	Inp         *input.Handler
 	Win         *render.Renderer
@@ -35,6 +38,10 @@ type Client struct {
 	UpdateFunc2 func() bool
 	Cursor      gui.Cursor
 	CursorPrev  gui.Cursor
+}
+
+func (c *Client) Render() *noxrender.NoxRender {
+	return c.r
 }
 
 func (c *Client) SetScreenSize(sz image.Point) {

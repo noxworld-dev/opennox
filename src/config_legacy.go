@@ -252,7 +252,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			noxClient.r.renderGlow = v != 0
+			noxClient.r.Part.RenderGlow = v != 0
 		case "RenderGUI":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
@@ -699,7 +699,7 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 	sect.Set("LockHighResFloors", strconv.Itoa(int(C.nox_client_lockHighResFloors_1193152)))
 	sect.Set("TexturedFloors", strconv.Itoa(bool2int(nox_client_texturedFloors_154956)))
 	sect.Set("TranslucentConsole", strconv.Itoa(bool2int(guiCon.translucent)))
-	sect.Set("RenderGlow", strconv.Itoa(bool2int(noxClient.r.renderGlow)))
+	sect.Set("RenderGlow", strconv.Itoa(bool2int(noxClient.r.Part.RenderGlow)))
 	sect.Set("RenderGUI", strconv.Itoa(int(C.nox_client_renderGUI_80828)))
 	sect.Set("FadeObjects", strconv.Itoa(int(C.nox_client_fadeObjects_80836)))
 	sect.Set("RenderBubbles", strconv.Itoa(int(C.nox_client_renderBubbles_80844)))

@@ -225,7 +225,7 @@ func detectBestVideoSettings() {
 		C.nox_client_lockHighResFloors_1193152 = 0
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
-		noxClient.r.renderGlow = false
+		noxClient.r.Part.RenderGlow = false
 		C.nox_client_fadeObjects_80836 = 0
 		noxflags.UnsetEngine(noxflags.EngineSoftShadowEdge)
 		C.nox_client_renderBubbles_80844 = 0
@@ -239,7 +239,7 @@ func detectBestVideoSettings() {
 		C.nox_client_lockHighResFloors_1193152 = 0
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
-		noxClient.r.renderGlow = false
+		noxClient.r.Part.RenderGlow = false
 		C.nox_client_fadeObjects_80836 = 0
 		noxflags.UnsetEngine(noxflags.EngineSoftShadowEdge)
 		C.nox_client_renderBubbles_80844 = 0
@@ -253,7 +253,7 @@ func detectBestVideoSettings() {
 		C.nox_client_lockHighResFloors_1193152 = 0
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
-		noxClient.r.renderGlow = true
+		noxClient.r.Part.RenderGlow = true
 		C.nox_client_fadeObjects_80836 = 1
 		noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
 		C.nox_client_renderBubbles_80844 = 1
@@ -267,7 +267,7 @@ func detectBestVideoSettings() {
 		C.nox_client_lockHighResFloors_1193152 = 0
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
-		noxClient.r.renderGlow = true
+		noxClient.r.Part.RenderGlow = true
 		C.nox_client_fadeObjects_80836 = 1
 		noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
 		C.nox_client_renderBubbles_80844 = 1
@@ -281,7 +281,7 @@ func detectBestVideoSettings() {
 		C.nox_client_lockHighResFloors_1193152 = 1
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = true
-		noxClient.r.renderGlow = true
+		noxClient.r.Part.RenderGlow = true
 		C.nox_client_fadeObjects_80836 = 1
 		noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
 		C.nox_client_renderBubbles_80844 = 1
@@ -530,7 +530,7 @@ func nox_client_drawLineFromPoints_49E4B0() C.int {
 
 //export sub_49E4F0
 func sub_49E4F0(a1 C.int) C.int {
-	return C.int(bool2int(noxClient.r.drawParticles49ED80(int(a1))))
+	return C.int(bool2int(noxClient.r.DrawParticles49ED80(int(a1))))
 }
 
 //export sub_480860
@@ -572,18 +572,13 @@ type NoxRender struct {
 		B [256]uint16
 	}
 
-	renderGlow bool
-	circleSeg  circleSegments
-	particles  struct {
-		byOpts map[particleOpt]*Particle
-	}
-	partfx partFXes
+	circleSeg circleSegments
+	partfx    partFXes
 }
 
-func NewNoxRender(f noxrender.Framer) *NoxRender {
+func NewNoxRender(cr *noxrender.NoxRender) *NoxRender {
 	r := &NoxRender{
-		NoxRender:  noxrender.NewRender(f),
-		renderGlow: true,
+		NoxRender: cr,
 	}
 	r.initColorTables()
 	return r
@@ -1089,166 +1084,6 @@ func (r *NoxRender) initColorTables() {
 	}
 }
 
-func clipFlags(p image.Point, r image.Rectangle) int {
-	flags := 0
-	if p.X >= r.Min.X {
-		if p.X > r.Max.X {
-			flags |= 0x2
-		}
-	} else {
-		flags |= 0x1
-	}
-	if p.Y >= r.Min.Y {
-		if p.Y > r.Max.Y {
-			flags |= 0x4
-		}
-	} else {
-		flags |= 0x8
-	}
-	return flags
-}
-
-func clipToRect(r image.Rectangle, p1 *image.Point, p2 image.Point, side bool) bool {
-	ds := +1
-	if side {
-		ds = -1
-	}
-	if p1.Y < r.Min.Y {
-		if p1.Y == p2.Y {
-			return false
-		}
-		dx := (r.Min.Y - p1.Y) * (ds * (p2.X - p1.X)) / (ds * (p2.Y - p1.Y))
-		p1.Y = r.Min.Y
-		p1.X += dx
-	} else if p1.Y > r.Max.Y {
-		if p1.Y == p2.Y {
-			return false
-		}
-		dx := (r.Max.Y - p1.Y) * (ds * (p2.X - p1.X)) / (ds * (p2.Y - p1.Y))
-		p1.Y = r.Max.Y
-		p1.X += dx
-	}
-	if p1.X > r.Max.X {
-		if p1.X == p2.X {
-			return false
-		}
-		dy := (r.Max.X - p1.X) * (ds * (p2.Y - p1.Y)) / (ds * (p2.X - p1.X))
-		p1.X = r.Max.X
-		p1.Y += dy
-	} else if p1.X < r.Min.X {
-		if p1.X == p2.X {
-			return false
-		}
-		dy := (r.Min.X - p1.X) * (ds * (p2.Y - p1.Y)) / (ds * (p2.X - p1.X))
-		p1.X = r.Min.X
-		p1.Y += dy
-	}
-	return true
-}
-
-func (r *NoxRender) clipToRect2(p1, p2 *image.Point) bool {
-	d := r.Data()
-	rect := d.ClipRect2()
-	flag1 := clipFlags(*p1, rect)
-	flag2 := clipFlags(*p2, rect)
-	if flag1|flag2 == 0 {
-		return true
-	}
-	if flag1&flag2 != 0 {
-		return false
-	}
-	if flag1 != 0 {
-		if !clipToRect(rect, p1, *p2, false) {
-			return false
-		}
-	}
-	if flag2 != 0 {
-		if !clipToRect(rect, p2, *p1, true) {
-			return false
-		}
-	}
-	return p1.X >= rect.Min.X && p1.X <= rect.Max.X && p1.Y >= rect.Min.Y && p1.Y <= rect.Max.Y &&
-		p2.X >= rect.Min.X && p2.X <= rect.Max.X && p2.Y >= rect.Min.Y && p2.Y <= rect.Max.Y
-}
-
-func (r *NoxRender) drawParticles49ED80(mul2 int) bool {
-	d := r.Data()
-	pos2, ok := r.LastPoint(false)
-	if !ok {
-		return false
-	}
-	pos1, ok := r.LastPoint(false)
-	if !ok {
-		return false
-	}
-	if d.IsAlphaEnabled() {
-		r.DrawLineAlpha(pos1, pos2, r.Data().Color2())
-		return true
-	}
-	if d.Clip() && !r.clipToRect2(&pos1, &pos2) {
-		return true
-	}
-	dx := pos2.X - pos1.X
-	dy := pos2.Y - pos1.Y
-
-	sx := 0
-	if dx > 0 {
-		sx = +1
-	} else if dx < 0 {
-		sx = -1
-		dx = -dx
-	}
-
-	sy := 0
-	if dy > 0 {
-		sy = +1
-	} else if dy < 0 {
-		sy = -1
-		dy = -dy
-	}
-
-	p := r.newParticle(0, mul2)
-	each := p.opt.rad / 4
-	if dx <= dy {
-		v := 2*dx - dy
-		p.DrawAt(pos1)
-		step := 0
-		for i := dy; i > 0; i-- {
-			pos1.Y += sy
-			if v >= 0 {
-				v += 2 * (dx - dy)
-				pos1.X += sx
-			} else {
-				v += 2 * dx
-			}
-			step++
-			if step >= each {
-				p.DrawAt(pos1)
-				step = 0
-			}
-		}
-	} else {
-		v := 2*dy - dx
-		p.DrawAt(pos1)
-		step := 0
-		for i := dx; i > 0; i-- {
-			pos1.X += sx
-			if v >= 0 {
-				v += 2 * (dy - dx)
-				pos1.Y += sy
-			} else {
-				v += 2 * dy
-			}
-			step++
-			if step >= each {
-				p.DrawAt(pos1)
-				step = 0
-			}
-		}
-	}
-	return true
-}
-
 var (
 	drawWhiteBubbleParticle     int
 	drawLightBlueBubbleParticle int
@@ -1333,13 +1168,13 @@ func (c *Client) drawCreatureBackEffects(vp *client.Viewport, dr *Drawable) {
 	}
 	// Protection effects
 	if dr.HasEnchant(server.ENCHANT_PROTECT_FROM_FIRE) {
-		c.r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, nox_color_red, nox_color_red_2589776, true)
+		c.DrawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, nox_color_red, nox_color_red_2589776, true)
 	}
 	if dr.HasEnchant(server.ENCHANT_PROTECT_FROM_POISON) {
-		c.r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, nox_color_green, nox_color_green_2614268, true)
+		c.DrawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, nox_color_green, nox_color_green_2614268, true)
 	}
 	if dr.HasEnchant(server.ENCHANT_PROTECT_FROM_ELECTRICITY) {
-		c.r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, nox_color_blue_2650684, nox_color_white_2523948, true)
+		c.DrawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, nox_color_blue_2650684, nox_color_white_2523948, true)
 	}
 	if dr.HasEnchant(server.ENCHANT_REFLECTIVE_SHIELD) { // Shield effects
 		switch *(*byte)(dr.field(297)) {
@@ -1431,13 +1266,13 @@ func (c *Client) drawCreatureFrontEffects(vp *client.Viewport, dr *Drawable) {
 		}
 	}
 	if dr.HasEnchant(server.ENCHANT_PROTECT_FROM_FIRE) {
-		c.r.drawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, nox_color_red, nox_color_red_2589776, false)
+		c.DrawProtectEffectDefault(vp, dr.Pos(), dr, 0, 0, nox_color_red, nox_color_red_2589776, false)
 	}
 	if dr.HasEnchant(server.ENCHANT_PROTECT_FROM_POISON) {
-		c.r.drawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, nox_color_green, nox_color_green_2614268, false)
+		c.DrawProtectEffectDefault(vp, dr.Pos(), dr, 85, 1, nox_color_green, nox_color_green_2614268, false)
 	}
 	if dr.HasEnchant(server.ENCHANT_PROTECT_FROM_ELECTRICITY) {
-		c.r.drawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, nox_color_blue_2650684, nox_color_white_2523948, false)
+		c.DrawProtectEffectDefault(vp, dr.Pos(), dr, 170, 2, nox_color_blue_2650684, nox_color_white_2523948, false)
 	}
 	if dr.HasEnchant(server.ENCHANT_SHIELD) {
 		pos := vp.ToScreenPos(dr.Pos())

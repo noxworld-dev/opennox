@@ -59,7 +59,7 @@ func (c *guiAdvOptions) Init(cli *Client) {
 		{ID: 2010, Bool: &legacyUnlockSurface, TextID: "AdVidOpt.wnd:ClipWalls", Def: true, Hidden: true},
 		{ID: 2012, Flag: noxflags.EngineSoftShadowEdge, TextID: "AdVidOpt.wnd:GouradShading"},
 		{ID: 2014, Bool: &guiCon.translucent, TextID: "AdVidOpt.wnd:TranslucentConsole"},
-		{ID: 2015, Bool: &c.cli.r.renderGlow, TextID: "AdVidOpt.wnd:RenderGlow"},
+		{ID: 2015, Bool: &c.cli.r.Part.RenderGlow, TextID: "AdVidOpt.wnd:RenderGlow"},
 		{ID: 2016, CFlag: &C.nox_client_fadeObjects_80836, TextID: "AdVidOpt.wnd:FadeObjects"},
 		{ID: 2017, Bool: &nox_client_showTooltips_80840, TextID: "AdVidOpt.wnd:ShowTooltips"},
 		{ID: 2020, Bool: &nox_client_drawFrontWalls_80812, TextID: "AdVidOpt.wnd:DrawFrontWalls"},
