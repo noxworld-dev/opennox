@@ -28,10 +28,11 @@ const (
 )
 
 func NewClient(pr console.Printer, srv *Server) (*Client, error) {
+	cl := client.NewClient(pr, srv.Server)
 	c := &Client{
-		Client: client.NewClient(pr, srv.Server),
+		Client: cl,
 		srv:    srv,
-		r:      NewNoxRender(srv),
+		r:      NewNoxRender(cl.Render()),
 	}
 	c.guiAdv.Init(c)
 	c.screenshots.Init(c)

@@ -26,6 +26,11 @@ const (
 	particlefxObjName = "Particle"
 )
 
+//export sub_4B6720
+func sub_4B6720(a1 *C.int2, a2, a3 C.int, a4 C.char) {
+	noxClient.r.DrawGlow(asPoint(unsafe.Pointer(a1)), noxcolor.RGBA5551(a2), int(a3), int(a4))
+}
+
 //export nox_client_onParticleFx
 func nox_client_onParticleFx(code C.int, a1 *nox_drawable, a2, a3, a4 C.int) {
 	noxClient.r.partfx.onParticleFx(byte(code), asDrawable(a1), int(a2), a3 != 0, int(a4))
@@ -57,20 +62,20 @@ func (pfx *partFXes) asParticlefx(p unsafe.Pointer) *particleFx {
 type particleFx struct {
 	pfx        *partFXes
 	chnd       unsafe.Pointer
-	image      *noxrender.Image // 0, 0
-	rendPart   *Particle        // 1, 4
-	drawable8  *Drawable        // 2, 8
-	drawable12 *Drawable        // 3, 12
-	drawableVp *client.Viewport // 4, 16
-	partfxTyp  *particlefxType  // 5, 20
-	color      color.Color      // 6, 24
-	pos        image.Point      // 7, 28
-	z          int              // 9, 36
-	cnt40      int              // 10, 40
-	remains44  int              // 11, 44
-	ticksLeft  int              // 12, 48
-	ticksTotal int              // 13, 52
-	flags      uint32           // 14, 56
+	image      *noxrender.Image    // 0, 0
+	rendPart   *noxrender.Particle // 1, 4
+	drawable8  *Drawable           // 2, 8
+	drawable12 *Drawable           // 3, 12
+	drawableVp *client.Viewport    // 4, 16
+	partfxTyp  *particlefxType     // 5, 20
+	color      color.Color         // 6, 24
+	pos        image.Point         // 7, 28
+	z          int                 // 9, 36
+	cnt40      int                 // 10, 40
+	remains44  int                 // 11, 44
+	ticksLeft  int                 // 12, 48
+	ticksTotal int                 // 13, 52
+	flags      uint32              // 14, 56
 	//bufferInd  int                     // 15, 60
 	pointSize  int                    // 16, 64
 	field_68   int                    // 17, 68
@@ -574,7 +579,7 @@ func (pfx *partFXes) newPartfxT0(fx *packetParticleFx) {
 			R: 0xFF, G: 0x80, B: 0x20,
 		})
 		r.Data().SetField262(pfx.randI32(2, 3))
-		rp := r.newParticle(0, 0xFF)
+		rp := r.NewParticle(0, 0xFF)
 		z := pfx.randI32(0, 40)
 		dur := pfx.randI32(0, fx.max)
 		p := pfx.nox_xxx_particleFxNew_4AF990(image.Pt(pt.X, pt.Y+z), z, dur, r.Data().Color2())
@@ -732,7 +737,7 @@ func (pfx *partFXes) newPartfxT3(fx *packetParticleFx) {
 			R: int(c.R), G: int(c.G), B: int(c.B),
 		})
 		r.Data().SetField262(pfx.randI32(2, 5))
-		rp := r.newParticle(0, 0xFF)
+		rp := r.NewParticle(0, 0xFF)
 		pt2 := pfx.randPoint(0, 256, 120, pt)
 		p := pfx.nox_xxx_particleFxNew_4AF990(pt2, 0, pfx.randI32(1, fx.max), r.Data().Color2())
 		if p == nil {
@@ -760,7 +765,7 @@ func (pfx *partFXes) newPartfxT5(fx *packetParticleFx) {
 		R: 0x32, G: 0x32, B: 0x32,
 	})
 	r.Data().SetField262(10)
-	rp := r.newParticle(0, 0xFF)
+	rp := r.NewParticle(0, 0xFF)
 	p := pfx.nox_xxx_particleFxNew_4AF990(image.Pt(0, 0), 0, math.MaxInt32, r.Data().Color2())
 	if p == nil {
 		return

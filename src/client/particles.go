@@ -1,13 +1,104 @@
-package opennox
+package client
 
-import "image"
+import (
+	"image"
+	"image/color"
+)
 
-func nox_xxx_math_roundDir(v int32) int32 {
-	return int32(uint8(v))
+func (c *Client) drawProtectParticle(vp *Viewport, part, tail image.Point, partCl, tailCl color.Color) { // nox_client_drawXxxProtectParticle_474DD0
+	part = vp.ToScreenPos(part)
+	tail = vp.ToScreenPos(tail)
+
+	c.r.DrawGlow(part, partCl, 10, 12)
+	c.r.DrawPoint(part, 3, tailCl)
+	c.r.DrawLine(part, tail, tailCl)
 }
 
-func nox_xxx_math_roundDirI16(v int16) uint16 {
-	return uint16(uint8(v))
+func (c *Client) DrawProtectEffectDefault(vp *Viewport, pos image.Point, dr Drawable, phase, eff int, cl1, cl2 color.Color, back bool) { // nox_client_drawXxxProtect_474BE0
+	opts := ProtectEffect{
+		Cnt:       2,
+		Height:    20,
+		Speed:     10,
+		Phase:     phase,
+		Radius:    1.0,
+		TailLeng:  6,
+		GlowColor: cl1,
+		TailColor: cl2,
+	}
+	switch eff {
+	case 1:
+		opts.Radius = 0.70709997
+		opts.Angle = +35
+	case 2:
+		opts.Radius = 0.70709997
+		opts.Angle = -35
+	}
+	c.drawProtectEffect(vp, pos, dr, opts, back)
+}
+
+type ProtectEffect struct {
+	Cnt       int
+	Height    int
+	Speed     int
+	Radius    float32
+	Angle     int
+	Phase     int
+	TailLeng  int
+	GlowColor color.Color
+	TailColor color.Color
+}
+
+func intAngle(val, min, max int) int {
+	sz := max - min
+	for val < min {
+		val += sz
+	}
+	for val >= max {
+		val -= sz
+	}
+	return val
+}
+
+func (c *Client) drawProtectEffect(vp *Viewport, pos image.Point, dr Drawable, opts ProtectEffect, back bool) { // nox_client_drawXxxProtect
+	frame := c.r.Frame()
+	phi := opts.Phase + opts.Speed*int(byte(frame)+byte(dr.Field32()))
+	for i := 0; i < opts.Cnt; i++ {
+		// Calculate positions of two points on a (possibly inclined) orbit.
+		// These two points are used to draw a tiny vector, where the head is the particle, and the line is a tail.
+		ph1 := phi + (256/opts.Cnt)*i
+		ph2 := ph1 - opts.TailLeng
+
+		ph1 = intAngle(ph1, 0, 256)
+		ph2 = intAngle(ph2, 0, 256)
+
+		rad := opts.Radius
+		part := image.Point{
+			X: int(2 * rad * float32(sincosTable16[ph1].X)),
+			Y: int(2 * rad * float32(sincosTable16[ph1].Y)),
+		}
+
+		draw := false
+		if back {
+			draw = part.Y < pos.Y
+		} else {
+			draw = part.Y >= pos.Y
+		}
+		if !draw {
+			continue
+		}
+		tail := image.Point{
+			X: int(2 * rad * float32(sincosTable16[ph2].X)),
+			Y: int(2 * rad * float32(sincosTable16[ph2].Y)),
+		}
+		part = part.Add(pos)
+		tail = tail.Add(pos)
+
+		dy := opts.Angle * (pos.X - part.X) / (2 * sincosTable16[0].X)
+		dy -= opts.Height + dr.Z()
+		part.Y += dy
+		tail.Y += dy
+		c.drawProtectParticle(vp, part, tail, opts.GlowColor, opts.TailColor)
+	}
 }
 
 // sincosTable16 assumes circle radius of 16, and expects an angle in range [0,256).

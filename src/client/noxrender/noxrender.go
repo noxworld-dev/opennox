@@ -345,6 +345,7 @@ func NewRender(f Framer) *NoxRender {
 	r := &NoxRender{f: f}
 	r.initText()
 	r.initColorTablesRev()
+	r.Part.initParticles()
 	r.Bag.init()
 	return r
 }
@@ -354,6 +355,7 @@ type NoxRender struct {
 	f     Framer
 	Bag   renderSprites
 	Fonts renderFonts
+	Part  renderParticles
 	pix   *noximage.Image16
 
 	colors struct {
