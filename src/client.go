@@ -54,7 +54,7 @@ type Client struct {
 	inDraw1            bool
 	dragndrapSpell     uint32
 	dragndropSpellType int
-	dragndropItem      *Drawable
+	dragndropItem      *client.Drawable
 	pos1097204         image.Point
 	pos1097212         image.Point
 	flag3798728        bool

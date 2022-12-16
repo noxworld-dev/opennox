@@ -19,6 +19,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -32,17 +33,17 @@ func nox_thing_debug_draw(cvp *nox_draw_viewport_t, cdr *nox_drawable) C.int {
 	dr := asDrawable(cdr)
 
 	cl := nox_color_green
-	if uint32(dr.field_72) >= c.srv.Frame() {
+	if uint32(dr.Field_72) >= c.srv.Frame() {
 		cl = nox_color_yellow_2589772
 	}
 	r.Data().SetColor2(cl)
 	r.Data().SetTextColor(color.White)
 	p := vp.ToScreenPos(dr.Pos())
 	if dr.Flags28()&0x80 != 0 {
-		y1 := p.Y - int(dr.field_24)
-		y2 := p.Y - int(dr.field_25)
-		v11 := int(memmap.Int32(0x587000, 196184+8*uintptr(dr.field_74_4)))
-		v18 := int(memmap.Int32(0x587000, 196188+8*uintptr(dr.field_74_4)))
+		y1 := p.Y - int(dr.Field_24)
+		y2 := p.Y - int(dr.Field_25)
+		v11 := int(memmap.Int32(0x587000, 196184+8*uintptr(dr.Field_74_4)))
+		v18 := int(memmap.Int32(0x587000, 196188+8*uintptr(dr.Field_74_4)))
 		r.DrawVector(
 			image.Pt(p.X, y1),
 			image.Pt(v11, v18),
@@ -68,27 +69,27 @@ func nox_thing_debug_draw(cvp *nox_draw_viewport_t, cdr *nox_drawable) C.int {
 		r.DrawVector(
 			p,
 			image.Point{
-				X: int(memmap.Int32(0x587000, 179880+8*uintptr(dr.field_74_2))),
-				Y: int(memmap.Int32(0x587000, 179884+8*uintptr(dr.field_74_2))),
+				X: int(memmap.Int32(0x587000, 179880+8*uintptr(dr.Field_74_2))),
+				Y: int(memmap.Int32(0x587000, 179884+8*uintptr(dr.Field_74_2))),
 			},
 			cl,
 		)
 		r.DrawString(nil, strconv.Itoa(int(dr.Field32())), image.Pt(p.X, p.Y-10))
 		r.DrawString(nil, getThingName(int(dr.Field27())), p)
-		r.DrawString(nil, debugStateStr2(int(dr.field_69)), image.Pt(p.X, p.Y+10))
+		r.DrawString(nil, debugStateStr2(int(dr.Field_69)), image.Pt(p.X, p.Y+10))
 	} else if dr.Flags28()&0x4 != 0 {
 		debugDrawShape(r, dr, p, cl)
 		r.DrawVector(
 			p,
 			image.Point{
-				X: int(memmap.Int32(0x587000, 179880+8*uintptr(dr.field_74_2))),
-				Y: int(memmap.Int32(0x587000, 179884+8*uintptr(dr.field_74_2))),
+				X: int(memmap.Int32(0x587000, 179880+8*uintptr(dr.Field_74_2))),
+				Y: int(memmap.Int32(0x587000, 179884+8*uintptr(dr.Field_74_2))),
 			},
 			cl,
 		)
 		r.DrawString(nil, strconv.Itoa(int(dr.Field32())), image.Pt(p.X, p.Y-10))
 		r.DrawString(nil, getThingName(int(dr.Field27())), p)
-		r.DrawString(nil, debugStateStr(int(dr.field_69)), image.Pt(p.X, p.Y+10))
+		r.DrawString(nil, debugStateStr(int(dr.Field_69)), image.Pt(p.X, p.Y+10))
 	} else {
 		debugDrawShape(r, dr, p, cl)
 	}
@@ -97,14 +98,14 @@ func nox_thing_debug_draw(cvp *nox_draw_viewport_t, cdr *nox_drawable) C.int {
 	return 1
 }
 
-func debugDrawShape(r *NoxRender, dr *Drawable, p image.Point, cl color.Color) {
-	sh := dr.getShape()
+func debugDrawShape(r *NoxRender, dr *client.Drawable, p image.Point, cl color.Color) {
+	sh := &dr.Shape
 	switch sh.Kind {
 	case server.ShapeKindCircle:
 		rad := int(sh.Circle.R)
-		z := int16(dr.z)
-		y1 := p.Y - int(float32(dr.field_24)-float32(z))
-		y2 := p.Y - int(float32(dr.field_25)-float32(z))
+		z := int16(dr.ZVal)
+		y1 := p.Y - int(dr.Field_24-float32(z))
+		y2 := p.Y - int(dr.Field_25-float32(z))
 		if y1 > 0 {
 			r.DrawCircle(p.X, p.Y, rad, nox_color_red)
 		}
@@ -123,14 +124,14 @@ func debugDrawShape(r *NoxRender, dr *Drawable, p image.Point, cl color.Color) {
 		)
 	case server.ShapeKindBox:
 		box := &sh.Box
-		z := int16(dr.z)
+		z := int16(dr.ZVal)
 		p1 := image.Point{
 			X: p.X,
-			Y: p.Y - int(float32(dr.field_24)-float32(z)),
+			Y: p.Y - int(dr.Field_24-float32(z)),
 		}
 		p2 := image.Point{
 			X: p.X,
-			Y: p.Y - int(float32(dr.field_25)-float32(z)),
+			Y: p.Y - int(dr.Field_25-float32(z)),
 		}
 		if p1.Y > 0 {
 			drawDebugBox(r, box, p, nox_color_red)

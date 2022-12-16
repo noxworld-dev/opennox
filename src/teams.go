@@ -288,7 +288,7 @@ func nox_xxx_objGetTeamByNetCode_418C80(code int) *objectTeam {
 	} else {
 		p := asDrawable(C.nox_xxx_netSpriteByCodeDynamic_45A6F0(C.int(code)))
 		if p != nil {
-			return (*objectTeam)(unsafe.Pointer(&p.field_6))
+			return (*objectTeam)(unsafe.Pointer(&p.Field_6))
 		}
 	}
 	return nil

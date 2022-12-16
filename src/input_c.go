@@ -43,6 +43,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
 	"github.com/noxworld-dev/opennox-lib/client/seat"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/input"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -91,11 +92,11 @@ func inputClearKeyTimeouts() {
 	inputKeyTimeoutsNew = make(map[keybind.Event]uint32)
 }
 
-func nox_xxx_spriteGetMB_476F80() *Drawable {
+func nox_xxx_spriteGetMB_476F80() *client.Drawable {
 	return asDrawable((*nox_drawable)(C.dword_5d4594_1096640))
 }
 
-func nox_xxx_clientGetSpriteAtCursor_476F90() *Drawable {
+func nox_xxx_clientGetSpriteAtCursor_476F90() *client.Drawable {
 	return asDrawable((*nox_drawable)(C.nox_client_spriteUnderCursorXxx_1096644))
 }
 
@@ -447,7 +448,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 		return
 	}
 	var v65 image.Point
-	if sprite.Flags28()&0x400006 == 0 || C.nox_xxx_sprite_4C3220(sprite.C()) != 0 || sprite.Flags28()&2 != 0 && sprite.Flags29()&8 != 0 || sprite.Flags28()&2 != 0 && sprite.Flags70()&0x10 != 0 {
+	if sprite.Flags28()&0x400006 == 0 || C.nox_xxx_sprite_4C3220((*nox_drawable)(sprite.C())) != 0 || sprite.Flags28()&2 != 0 && sprite.Flags29()&8 != 0 || sprite.Flags28()&2 != 0 && sprite.Flags70()&0x10 != 0 {
 		v46 := asWindow(C.dword_5d4594_1062452)
 		for v47 := nox_win_xxx1_last; v47 != nil; v47 = v47.Prev() {
 			if v47.Flags().Has(0x10) {
@@ -495,20 +496,20 @@ func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 			}
 		} else {
 			if v63 {
-				v55 := C.nox_xxx_clientAskInfoMb_4BF050(sprite.C())
+				v55 := C.nox_xxx_clientAskInfoMb_4BF050((*nox_drawable)(sprite.C()))
 				C.nox_xxx_cursorSetTooltip_4776B0(v55)
 			}
 			if v54 >= 75*75 {
 				c.Nox_client_setCursorType(gui.CursorPickupFar)
 			} else {
-				if noxflags.HasGame(noxflags.GameModeCoop|noxflags.GameModeQuest) || C.sub_57B450(sprite.C()) != 0 {
+				if noxflags.HasGame(noxflags.GameModeCoop|noxflags.GameModeQuest) || C.sub_57B450((*nox_drawable)(sprite.C())) != 0 {
 					c.Nox_client_setCursorType(gui.CursorPickup)
 				} else {
 					c.Nox_client_setCursorType(gui.CursorCaution)
 				}
 				v56 := C.nox_client_mousePriKey_430AF0()
 				if v66[v56] == int(C.nox_xxx_cursor_430B00()) {
-					C.nox_xxx_clientPickup_46C140(sprite.C())
+					C.nox_xxx_clientPickup_46C140((*nox_drawable)(sprite.C()))
 					v66[v56] = 0
 				}
 			}
@@ -519,7 +520,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 			mimic = uint32(nox_things.IndByID("Mimic"))
 			*memmap.PtrUint32(0x5D4594, 1064944) = mimic
 		}
-		if sprite.Flags28()&0x400000 != 0 && sprite.Flags29()&0x80 != 0 && sprite.Flags70()&0xC == 0 || uint32(sprite.field_27) == mimic && sprite.field_69 == 0 {
+		if sprite.Flags28()&0x400000 != 0 && sprite.Flags29()&0x80 != 0 && sprite.Flags70()&0xC == 0 || uint32(sprite.Field_27) == mimic && sprite.Field_69 == 0 {
 			v65 = c.Viewport().World.Max
 			sp := sprite.Pos()
 			c1 := v65.X - sp.X

@@ -46,6 +46,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
@@ -719,7 +720,7 @@ func (c *Client) dragndropSpellClear() {
 	c.dragndropSpellType = 0
 }
 
-func (c *Client) dragndropGetItem() *Drawable {
+func (c *Client) dragndropGetItem() *client.Drawable {
 	return c.dragndropItem
 }
 
@@ -747,7 +748,7 @@ func (c *Client) nox_client_drawCursorAndTooltips_477830() {
 	c.pos1097204.Y = c.r.FontHeight(nil) + 4
 	if c.dragndropItem != nil { // Dragging item
 		c.dragndropItem.SetPos(mpos)
-		c.dragndropItem.DrawFunc(vp)
+		callDrawFunc(c.dragndropItem, vp)
 	}
 	if c.dragndrapSpell != 0 { // Player is dragging spell or ability
 		pl := c.srv.getPlayerByID(clientPlayerNetCode())
