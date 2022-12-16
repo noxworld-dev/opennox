@@ -24,7 +24,7 @@ int nox_script_pop();
 float nox_script_popf();
 void* nox_script_get_caller();
 void* nox_script_get_trigger();
-const char* nox_script_getString_512E40(int i);
+char* nox_script_getString_512E40(int i);
 nox_object_t* nox_server_scriptValToObjectPtr_511B60(int a1);
 
 #endif // NOX_SERVER_SCRIPT_INTERNAL_H
