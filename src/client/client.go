@@ -22,7 +22,7 @@ func NewClient(pr console.Printer, s *server.Server) *Client {
 		Cursor:     gui.CursorSelect,
 		CursorPrev: gui.Cursor17,
 	}
-	c.vp, _ = alloc.New(Viewport{})
+	c.vp, _ = alloc.New(noxrender.Viewport{})
 	return c
 }
 
@@ -33,7 +33,7 @@ type Client struct {
 	Seat        seat.Seat
 	Inp         *input.Handler
 	Win         *render.Renderer
-	vp          *Viewport
+	vp          *noxrender.Viewport
 	DrawFunc    func() bool
 	UpdateFunc2 func() bool
 	Cursor      gui.Cursor
@@ -181,7 +181,7 @@ func (c *Client) Strings() *strman.StringManager {
 	return c.srv.Strings()
 }
 
-func (c *Client) Viewport() *Viewport {
+func (c *Client) Viewport() *noxrender.Viewport {
 	return c.vp
 }
 

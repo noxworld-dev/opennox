@@ -15,7 +15,6 @@ import (
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
-	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 	"github.com/noxworld-dev/opennox/v1/common/gsync"
@@ -66,7 +65,7 @@ type particleFx struct {
 	rendPart   *noxrender.Particle // 1, 4
 	drawable8  *Drawable           // 2, 8
 	drawable12 *Drawable           // 3, 12
-	drawableVp *client.Viewport    // 4, 16
+	drawableVp *noxrender.Viewport // 4, 16
 	partfxTyp  *particlefxType     // 5, 20
 	color      color.Color         // 6, 24
 	pos        image.Point         // 7, 28
@@ -421,7 +420,7 @@ func (pfx *partFXes) nox_xxx_partFx_4AF600(t *particlefxType) bool {
 	return true
 }
 
-func nox_xxx_partfxSwitch_4AF690(fx *packetParticleFx, fnc func(pt image.Point)) {
+func (fx *packetParticleFx) nox_xxx_partfxSwitch_4AF690(fnc func(pt image.Point)) {
 	pix := fx.img.Pixdata()
 	if len(pix) < 5 {
 		return
@@ -495,13 +494,13 @@ func nox_xxx_partfxSwitch_4AF690(fx *packetParticleFx, fnc func(pt image.Point))
 }
 
 type packetParticleFx struct {
-	dr   *Drawable        // 0
-	img  *noxrender.Image // 1
-	vp   *client.Viewport // 2
-	pos  image.Point      // 3
-	cnt  int              // 5
-	flag bool             // 6
-	max  int              // 7
+	dr   *Drawable           // 0
+	img  *noxrender.Image    // 1
+	vp   *noxrender.Viewport // 2
+	pos  image.Point         // 3
+	cnt  int                 // 5
+	flag bool                // 6
+	max  int                 // 7
 }
 
 func (pfx *partFXes) onParticleFx(code byte, dr *Drawable, cnt int, flag bool, max int) {
@@ -574,7 +573,7 @@ func (pfx *partFXes) newPartfxT0(fx *packetParticleFx) {
 		return
 	}
 	fx.updatePos()
-	nox_xxx_partfxSwitch_4AF690(fx, func(pt image.Point) {
+	fx.nox_xxx_partfxSwitch_4AF690(func(pt image.Point) {
 		r.Data().SetColorInt54(noxrender.RGB{
 			R: 0xFF, G: 0x80, B: 0x20,
 		})
@@ -727,7 +726,7 @@ func (pfx *partFXes) newPartfxT3(fx *packetParticleFx) {
 	r := pfx.r
 	cl1 := noxcolor.RGB5551Color(64, 200, 64)
 	cl2 := noxcolor.RGB5551Color(64, 64, 255)
-	nox_xxx_partfxSwitch_4AF690(fx, func(pt image.Point) {
+	fx.nox_xxx_partfxSwitch_4AF690(func(pt image.Point) {
 		cl := cl1
 		if fx.flag {
 			cl = cl2
@@ -751,7 +750,7 @@ func (pfx *partFXes) newPartfxT3(fx *packetParticleFx) {
 }
 
 func (pfx *partFXes) newPartfxT4(fx *packetParticleFx) {
-	nox_xxx_partfxSwitch_4AF690(fx, func(pt image.Point) {
+	fx.nox_xxx_partfxSwitch_4AF690(func(pt image.Point) {
 		p := pfx.nox_xxx_particleFxNew_4AF990(pt, 0, pfx.randI32(0, 100), color.White)
 		p.pointSize = 1
 		p.remains44 = pfx.randI32(0, 64)

@@ -61,7 +61,6 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/common"
 
-	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -184,7 +183,7 @@ func (c *Client) nox_xxx_clientDrawAll_436100_draw() {
 	}
 }
 
-func (c *Client) sub_468F80(vp *client.Viewport) {
+func (c *Client) sub_468F80(vp *noxrender.Viewport) {
 	// TODO: values here are similar to lightGridW and lightGridH
 	noxTilesGpx = (2*common.GridStep)*((int(vp.World.Min.X)+11)/(2*common.GridStep)-1) - 11
 	noxTilesGpy = (2*common.GridStep)*((int(vp.World.Min.Y)+11)/(2*common.GridStep)) - 57
@@ -220,7 +219,7 @@ func (c *Client) sub_468F80(vp *client.Viewport) {
 	}
 }
 
-func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *client.Viewport) {
+func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	r := c.r
 	c.nox_xxx_drawAllMB_475810_draw_A(vp)
 	if vp.Field12 < 0 {
@@ -279,7 +278,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *client.Viewport) {
 	C.sub_476680()
 }
 
-func (c *Client) nox_client_queueWallsDraw(vp *client.Viewport, xmin, ymin int) { // nox_xxx_drawAllMB_475810_draw_C
+func (c *Client) nox_client_queueWallsDraw(vp *noxrender.Viewport, xmin, ymin int) { // nox_xxx_drawAllMB_475810_draw_C
 	xmax := xmin + int(vp.Size.X)/common.GridStep + 2
 	ymax := ymin + int(vp.Size.Y)/common.GridStep + 4
 	for y := ymin; y <= ymax; y++ {
@@ -299,18 +298,18 @@ func (c *Client) nox_client_queueWallsDraw(vp *client.Viewport, xmin, ymin int) 
 	}
 }
 
-func nox_xxx_drawWalls_473C10(vp *client.Viewport, p *Wall) {
+func nox_xxx_drawWalls_473C10(vp *noxrender.Viewport, p *Wall) {
 	C.nox_xxx_drawWalls_473C10((*nox_draw_viewport_t)(vp.C()), p.C())
 }
 
-func (c *Client) nox_client_drawBackWalls(vp *client.Viewport) {
+func (c *Client) nox_client_drawBackWalls(vp *noxrender.Viewport) {
 	for _, v20 := range nox_backWalls {
 		nox_xxx_drawWalls_473C10(vp, v20)
 	}
 	nox_backWalls = nox_backWalls[:0]
 }
 
-func (c *Client) nox_client_maybeDrawFrontWalls(vp *client.Viewport) { // nox_client_maybeDrawFrontWalls_475810_F
+func (c *Client) nox_client_maybeDrawFrontWalls(vp *noxrender.Viewport) { // nox_client_maybeDrawFrontWalls_475810_F
 	if nox_client_drawFrontWalls_80812 {
 		for _, wl := range nox_frontWalls {
 			nox_xxx_drawWalls_473C10(vp, wl)
@@ -324,7 +323,7 @@ func (c *Client) nox_client_maybeDrawFrontWalls(vp *client.Viewport) { // nox_cl
 	nox_frontWalls = nox_frontWalls[:0]
 }
 
-func (c *Client) sub_475F10(vp *client.Viewport) {
+func (c *Client) sub_475F10(vp *noxrender.Viewport) {
 	for _, dr := range nox_drawable_list_3 {
 		c.drawCreatureBackEffects(vp, dr)
 		if C.nox_xxx_client_4984B0_drawable(dr.C()) == 0 {
@@ -348,7 +347,7 @@ func (c *Client) sub_475F10(vp *client.Viewport) {
 	nox_drawable_list_3 = nox_drawable_list_3[:0]
 }
 
-func (c *Client) sub_475FE0(vp *client.Viewport) {
+func (c *Client) sub_475FE0(vp *noxrender.Viewport) {
 	for _, dr := range nox_drawable_list_4 {
 		if C.nox_xxx_client_4984B0_drawable(dr.C()) != 0 {
 			dr.field_121 = 1
@@ -385,7 +384,7 @@ func nox_xxx_cliGetSpritePlayer_45A000() *Drawable {
 	return asDrawable(C.nox_xxx_drawablePlayer_1046600)
 }
 
-func (c *Client) nox_xxx_drawAllMB_475810_draw_E(vp *client.Viewport) {
+func (c *Client) nox_xxx_drawAllMB_475810_draw_E(vp *noxrender.Viewport) {
 	sort.Slice(nox_drawable_objects_queue, func(i, j int) bool {
 		a, b := nox_drawable_objects_queue[i], nox_drawable_objects_queue[j]
 		return c.sub_476160(a, b)
@@ -473,7 +472,7 @@ LOOP:
 	nox_drawable_objects_queue = nox_drawable_objects_queue[:0]
 }
 
-func (c *Client) sub_4754F0(vp *client.Viewport) {
+func (c *Client) sub_4754F0(vp *noxrender.Viewport) {
 	rect := image.Rectangle{
 		Min: vp.World.Min,
 		Max: vp.World.Min.Add(vp.Size).Add(image.Pt(0, 128)),
@@ -522,7 +521,7 @@ func (c *Client) nox_xxx_spriteAddQueue_475560_draw(dr *Drawable) {
 	}
 }
 
-func (c *Client) nox_xxx_drawAllMB_475810_draw_A(vp *client.Viewport) {
+func (c *Client) nox_xxx_drawAllMB_475810_draw_A(vp *noxrender.Viewport) {
 	if *memmap.PtrUint32(0x5D4594, 1096448) == 0 {
 		*memmap.PtrUint32(0x5D4594, 1096448) = uint32(nox_things.IndByID("Crown"))
 	}
@@ -719,7 +718,7 @@ func sub_4695E0(a1, a2 int, pcl *int32, a4 int, flip bool) {
 	*ptr = res
 }
 
-func (c *Client) nox_xxx_tileDrawMB_481C20(vp *client.Viewport) {
+func (c *Client) nox_xxx_tileDrawMB_481C20(vp *noxrender.Viewport) {
 	C.nox_xxx_waypointCounterMB_587000_154948++
 	dp := vp.ToWorldPos(image.Pt(0, 0))
 	if !nox_client_texturedFloors_154956 && C.dword_5d4594_1193156 == 1 {
@@ -746,7 +745,7 @@ func (c *Client) nox_xxx_tileDrawMB_481C20(vp *client.Viewport) {
 	}
 }
 
-func (c *Client) nox_xxx_tileDrawMB_481C20_C_textured(vp *client.Viewport, dp image.Point) {
+func (c *Client) nox_xxx_tileDrawMB_481C20_C_textured(vp *noxrender.Viewport, dp image.Point) {
 	r := c.r
 
 	sy := int(C.dword_5d4594_3679320)

@@ -46,7 +46,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
-	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
@@ -739,7 +738,7 @@ func (c *Client) nox_client_drawCursorAndTooltips_477830() {
 		nox_xxx_cursorLoadAll_477710()
 	}
 	mpos := c.Inp.GetMousePos()
-	vp, freeVp := alloc.New(client.Viewport{})
+	vp, freeVp := alloc.New(noxrender.Viewport{})
 	defer freeVp()
 	vp.Screen = image.Rect(0, 0, nox_win_width, nox_win_height)
 	vp.World.Min = image.Pt(0, 0)

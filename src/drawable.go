@@ -17,7 +17,7 @@ import (
 	"image"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -149,7 +149,7 @@ func (s *Drawable) getShape() *server.Shape {
 	return (*server.Shape)(unsafe.Pointer(&s.shape))
 }
 
-func (s *Drawable) DrawFunc(vp *client.Viewport) int {
+func (s *Drawable) DrawFunc(vp *noxrender.Viewport) int {
 	return int(C.go_nox_drawable_call_draw_func((*nox_draw_viewport_t)(vp.C()), s.C()))
 }
 
