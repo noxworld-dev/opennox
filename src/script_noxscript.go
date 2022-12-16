@@ -14,6 +14,8 @@ size_t nox_script_readWriteWww_5417C0(FILE* a1, FILE* a2, FILE* a3);
 */
 import "C"
 import (
+	"errors"
+	"fmt"
 	"image"
 	"image/color"
 	"math"
@@ -149,6 +151,10 @@ type noxScriptCode struct {
 	field_44   uint32         // 11, 44
 }
 
+func (s *noxScriptCode) Name() string {
+	return GoString(s.name)
+}
+
 func (s *noxScriptCode) field28() []uint32 {
 	sz := int(s.size_28) // TODO: these are only the arguments
 	if sz == 0 {
@@ -162,10 +168,6 @@ func (s *noxScript) scripts() []noxScriptCode {
 		return nil
 	}
 	return unsafe.Slice((*noxScriptCode)(unsafe.Pointer(C.nox_script_arr_xxx_1599636)), int(C.nox_script_count_xxx_1599640))
-}
-
-func (s *noxScript) callByIndex(fnc int, caller, trigger noxObject) {
-	nox_script_callByIndex_507310(fnc, unsafe.Pointer(toCObj(caller)), unsafe.Pointer(toCObj(trigger)))
 }
 
 func (s *noxScript) Caller() *Object {
@@ -306,7 +308,9 @@ func (s *noxScript) nox_xxx_scriptRunFirst_507290() {
 		sc[2] = 1
 		sc[3] = 0
 		if nox_xxx_gameIsSwitchToSolo_4DB240() == 0 {
-			s.callByIndex(1, nil, nil)
+			if err := s.callByIndex(1, nil, nil); err != nil {
+				scriptLog.Println(err)
+			}
 		}
 	} else {
 		scriptLog.Printf("noxscript: no init function")
@@ -319,7 +323,9 @@ func (s *noxScript) OnEvent(event script.EventType) {
 		sc := &scripts[i]
 		name := GoString(sc.name)
 		if strings.HasPrefix(name, string(event)) {
-			s.callByIndex(i, nil, nil)
+			if err := s.callByIndex(i, nil, nil); err != nil {
+				scriptLog.Println(err)
+			}
 		}
 	}
 }
@@ -581,7 +587,9 @@ func (s *noxScript) actRun() {
 		if scripts[it.Callback].size_28 != 0 {
 			s.PushU32(it.Arg)
 		}
-		s.callByIndex(it.Callback, asObjectS(it.Caller), asObjectS(it.Trigger))
+		if err := s.callByIndex(it.Callback, asObjectS(it.Caller), asObjectS(it.Trigger)); err != nil {
+			scriptLog.Println(err)
+		}
 	})
 }
 
@@ -645,26 +653,34 @@ func (s *noxScript) PushHandleNS(obj ns.Handle) {
 
 //export nox_script_callByIndex_507310
 func nox_script_callByIndex_507310(index int, a2 unsafe.Pointer, a3 unsafe.Pointer) {
+	if err := noxServer.noxScript.callByIndexObj(index, asObject(a2), asObject(a3)); err != nil {
+		scriptLog.Println(err)
+	}
+}
+
+func (s *noxScript) callByIndex(index int, caller, trigger noxObject) error {
+	return s.callByIndexObj(index, toObject(caller), toObject(trigger))
+}
+
+func (s *noxScript) callByIndexObj(index int, caller, trigger *Object) error {
 	if C.nox_script_arr_xxx_1599636 == nil {
-		return
+		return errors.New("no map scripts")
 	}
-	srv := noxServer
-	ns := &srv.noxScript
-	scripts := ns.scripts()
+	scripts := s.scripts()
 	if index < 0 || index >= len(scripts) {
-		return
+		return fmt.Errorf("invalid function index: %d (%x)", index, index)
 	}
-	s := scripts[index]
+	sc := scripts[index]
 
-	ns.vm.caller = asObject(a2)
-	ns.vm.trigger = asObject(a3)
+	s.vm.caller = caller
+	s.vm.trigger = trigger
 
-	args := s.field28()
-	for i := 0; i < int(s.size_28); i++ {
-		args[i] = ns.PopU32()
+	args := sc.field28()
+	for i := 0; i < int(sc.size_28); i++ {
+		args[i] = s.PopU32()
 	}
-	bstack := ns.saveStack()
-	data := s.data
+	bstack := s.saveStack()
+	data := sc.data
 	readInt := func(p *unsafe.Pointer) int32 {
 		v := *(*int32)(*p)
 		*p = unsafe.Add(*p, 4)
@@ -680,7 +696,6 @@ func nox_script_callByIndex_507310(index int, a2 unsafe.Pointer, a3 unsafe.Point
 			sa2 int32   = 0
 			sa3 int32   = 0
 			sa4 int32   = 0
-			sa5 int32   = 0
 			sf1 float32 = 0
 			sf2 float32 = 0
 		)
@@ -695,18 +710,18 @@ func nox_script_callByIndex_507310(index int, a2 unsafe.Pointer, a3 unsafe.Point
 				} else {
 					sa2 = 0
 				}
-				ns.PushI32(sa2)
+				s.PushI32(sa2)
 			} else if sa2 < 0 {
 				sa2 = -sa2
 				sa2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_24), 4*uintptr(sa2))))
-				sa2 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) + uint32(sa2*4)))))
-				ns.PushI32(sa2)
-			} else if s.field_24 != nil && s.field_28 != nil {
-				sa2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_24), 4*uintptr(sa2))))
-				sa2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2))))
-				ns.PushI32(sa2)
+				sa2 = int32(*(*uint32)(unsafe.Add(trigger.Field190, sa2*4)))
+				s.PushI32(sa2)
+			} else if sc.field_24 != nil && sc.field_28 != nil {
+				sa2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_24), 4*uintptr(sa2))))
+				sa2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2))))
+				s.PushI32(sa2)
 			} else {
-				ns.PushI32(0)
+				s.PushI32(0)
 			}
 			continue
 		case asm.OpLoadVarFloat:
@@ -722,14 +737,14 @@ func nox_script_callByIndex_507310(index int, a2 unsafe.Pointer, a3 unsafe.Point
 			} else if sa2 < 0 {
 				sa2 = -sa2
 				sa2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_24), 4*uintptr(sa2))))
-				sf1 = *(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) + uint32(sa2*4))))
-			} else if s.field_24 != nil && s.field_28 != nil {
-				sa2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_24), 4*uintptr(sa2))))
-				sf1 = *(*float32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(s.field_28))) + uint32(sa2*4))))
+				sf1 = *(*float32)(unsafe.Add(trigger.Field190, sa2*4))
+			} else if sc.field_24 != nil && sc.field_28 != nil {
+				sa2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_24), 4*uintptr(sa2))))
+				sf1 = *(*float32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(sc.field_28))) + uint32(sa2*4))))
 			} else {
 				sf1 = 0
 			}
-			ns.PushF32(sf1)
+			s.PushF32(sf1)
 			continue
 		case asm.OpLoadVarPtr:
 			sa1 = readInt(&data)
@@ -741,258 +756,258 @@ func nox_script_callByIndex_507310(index int, a2 unsafe.Pointer, a3 unsafe.Point
 				sa2 = -sa2
 				sa3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_20), 4*uintptr(sa2))))
 				sa4 = int32(-*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_24), 4*uintptr(sa2))))
-			} else if s.field_20 != nil && s.field_24 != nil {
-				sa3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_20), 4*uintptr(sa2))))
-				sa4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_24), 4*uintptr(sa2))))
+			} else if sc.field_20 != nil && sc.field_24 != nil {
+				sa3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_20), 4*uintptr(sa2))))
+				sa4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_24), 4*uintptr(sa2))))
 			} else {
 				sa3 = 0
 				sa4 = 0
 			}
 			if sa3 > 1 {
-				ns.PushI32(sa3)
+				s.PushI32(sa3)
 			}
-			ns.PushI32(sa1)
-			ns.PushI32(sa4)
+			s.PushI32(sa1)
+			s.PushI32(sa4)
 			continue
 		case asm.OpPushInt, asm.OpPushString:
 			sa1 = readInt(&data)
-			ns.PushI32(sa1)
+			s.PushI32(sa1)
 			continue
 		case asm.OpPushFloat:
 			sf1 = readFloat(&data)
-			ns.PushF32(sf1)
+			s.PushF32(sf1)
 			continue
 		case asm.OpIntAdd:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushI32(sa2 + sa1)
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushI32(sa2 + sa1)
 			continue
 		case asm.OpFloatAdd:
-			sf1 = ns.PopF32()
-			sf2 = ns.PopF32()
+			sf1 = s.PopF32()
+			sf2 = s.PopF32()
 			sf1 += sf2
-			ns.PushF32(sf1)
+			s.PushF32(sf1)
 			continue
 		case asm.OpIntSub:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushI32(sa2 - sa1)
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushI32(sa2 - sa1)
 			continue
 		case asm.OpFloatSub:
-			sf1 = ns.PopF32()
-			sf2 = ns.PopF32()
+			sf1 = s.PopF32()
+			sf2 = s.PopF32()
 			sf2 -= sf1
-			ns.PushF32(sf2)
+			s.PushF32(sf2)
 			continue
 		case asm.OpIntMul:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushI32(sa1 * sa2)
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushI32(sa1 * sa2)
 			continue
 		case asm.OpFloatMul:
-			sf1 = ns.PopF32()
-			sf2 = ns.PopF32()
+			sf1 = s.PopF32()
+			sf2 = s.PopF32()
 			sf1 *= sf2
-			ns.PushF32(sf1)
+			s.PushF32(sf1)
 			continue
 		case asm.OpIntDiv:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushI32(sa2 / sa1)
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushI32(sa2 / sa1)
 			continue
 		case asm.OpFloatDiv:
-			sf1 = ns.PopF32()
-			sf2 = ns.PopF32()
+			sf1 = s.PopF32()
+			sf2 = s.PopF32()
 			sf2 /= sf1
-			ns.PushF32(sf2)
+			s.PushF32(sf2)
 			continue
 		case asm.OpIntMod:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushI32(sa2 % sa1)
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushI32(sa2 % sa1)
 			continue
 		case asm.OpIntAnd:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushI32(sa2 & sa1)
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushI32(sa2 & sa1)
 			continue
 		case asm.OpIntOr:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushI32(sa2 | sa1)
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushI32(sa2 | sa1)
 			continue
 		case asm.OpIntXOr:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushI32(sa2 ^ sa1)
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushI32(sa2 ^ sa1)
 			continue
 		case asm.OpJump:
-			data = unsafe.Pointer(uintptr(uint32(uintptr(s.data)) + uint32(readInt(&data)*4)))
+			data = unsafe.Pointer(uintptr(uint32(uintptr(sc.data)) + uint32(readInt(&data)*4)))
 			continue
 		case asm.OpJumpIf:
 			sa1 = readInt(&data)
-			if ns.PopBool() {
-				data = unsafe.Pointer(uintptr(uint32(uintptr(s.data)) + uint32(sa1*4)))
+			if s.PopBool() {
+				data = unsafe.Pointer(uintptr(uint32(uintptr(sc.data)) + uint32(sa1*4)))
 			}
 			continue
 		case asm.OpJumpIfNot:
 			sa1 = readInt(&data)
-			if !ns.PopBool() {
-				data = unsafe.Pointer(uintptr(uint32(uintptr(s.data)) + uint32(sa1*4)))
+			if !s.PopBool() {
+				data = unsafe.Pointer(uintptr(uint32(uintptr(sc.data)) + uint32(sa1*4)))
 			}
 			continue
 		case asm.OpStoreInt, asm.OpStoreString:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			if ns.PopI32() != 0 {
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			if s.PopI32() != 0 {
 				if scripts[1].field_28 != nil {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2))) = uint32(sa1)
 				}
 			} else if sa2 < 0 {
-				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4)))) = uint32(sa1)
-			} else if s.field_28 != nil {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2))) = uint32(sa1)
+				*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4)) = uint32(sa1)
+			} else if sc.field_28 != nil {
+				*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2))) = uint32(sa1)
 			}
-			ns.PushI32(sa1)
+			s.PushI32(sa1)
 			continue
 		case asm.OpStoreFloat:
-			sf1 = ns.PopF32()
-			sa2 = ns.PopI32()
-			if ns.PopI32() != 0 {
+			sf1 = s.PopF32()
+			sa2 = s.PopI32()
+			if s.PopI32() != 0 {
 				if scripts[1].field_28 != nil {
 					*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2))))) = sf1
 				}
 			} else if sa2 < 0 {
-				*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4)))) = sf1
-			} else if s.field_28 != nil {
-				*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2))))) = sf1
+				*(*float32)(unsafe.Add(trigger.Field190, -sa2*4)) = sf1
+			} else if sc.field_28 != nil {
+				*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2))))) = sf1
 			}
-			ns.PushF32(sf1)
+			s.PushF32(sf1)
 			continue
 		case asm.OpStoreIntMul:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			if ns.PopI32() != 0 {
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			if s.PopI32() != 0 {
 				if scripts[1].field_28 != nil {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2))) *= uint32(sa1)
-					ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
+					s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
 				} else {
-					ns.PushI32(0)
+					s.PushI32(0)
 				}
 			} else if sa2 < 0 {
-				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4)))) *= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4))))))
-			} else if s.field_28 != nil {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2))) *= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2)))))
+				*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4)) *= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4))))
+			} else if sc.field_28 != nil {
+				*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2))) *= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2)))))
 			} else {
-				ns.PushI32(0)
+				s.PushI32(0)
 			}
 			continue
 		case asm.OpStoreFloatMul:
-			sf1 = ns.PopF32()
-			sa1 = ns.PopI32()
-			if ns.PopI32() != 0 {
+			sf1 = s.PopF32()
+			sa1 = s.PopI32()
+			if s.PopI32() != 0 {
 				if scripts[1].field_28 != nil {
 					*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa1))))) *= sf1
-					ns.PushF32(*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa1))))))
+					s.PushF32(*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa1))))))
 				} else {
-					ns.PushF32(0)
+					s.PushF32(0)
 				}
 			} else if sa1 < 0 {
-				*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa1*4)))) *= sf1
-				ns.PushF32(*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa1*4)))))
-			} else if s.field_28 != nil {
-				*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa1))))) *= sf1
-				ns.PushF32(*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa1))))))
+				*(*float32)(unsafe.Add(trigger.Field190, -sa1*4)) *= sf1
+				s.PushF32(*(*float32)(unsafe.Add(trigger.Field190, -sa1*4)))
+			} else if sc.field_28 != nil {
+				*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa1))))) *= sf1
+				s.PushF32(*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa1))))))
 			} else {
-				ns.PushF32(0)
+				s.PushF32(0)
 			}
 			continue
 		case asm.OpStoreIntDiv:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			if ns.PopI32() != 0 {
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			if s.PopI32() != 0 {
 				if scripts[1].field_28 != nil {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2))) /= uint32(sa1)
-					ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
+					s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
 				} else {
-					ns.PushI32(0)
+					s.PushI32(0)
 				}
 			} else if sa2 < 0 {
-				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4)))) /= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4))))))
-			} else if s.field_28 != nil {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2))) /= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2)))))
+				*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4)) /= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4))))
+			} else if sc.field_28 != nil {
+				*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2))) /= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2)))))
 			} else {
-				ns.PushI32(0)
+				s.PushI32(0)
 			}
 			continue
 		case asm.OpStoreFloatDiv:
-			sf1 = ns.PopF32()
-			sa1 = ns.PopI32()
-			if ns.PopI32() != 0 {
+			sf1 = s.PopF32()
+			sa1 = s.PopI32()
+			if s.PopI32() != 0 {
 				if scripts[1].field_28 != nil {
 					*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa1))))) /= sf1
-					ns.PushF32(*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa1))))))
+					s.PushF32(*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa1))))))
 				} else {
-					ns.PushF32(0)
+					s.PushF32(0)
 				}
 			} else if sa1 < 0 {
-				*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa1*4)))) /= sf1
-				ns.PushF32(*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa1*4)))))
-			} else if s.field_28 != nil {
-				*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa1))))) /= sf1
-				ns.PushF32(*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa1)))))))
+				*(*float32)(unsafe.Add(trigger.Field190, -sa1*4)) /= sf1
+				s.PushF32(*(*float32)(unsafe.Add(trigger.Field190, -sa1*4)))
+			} else if sc.field_28 != nil {
+				*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa1))))) /= sf1
+				s.PushF32(*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa1)))))))
 			} else {
-				ns.PushF32(0)
+				s.PushF32(0)
 			}
 			continue
 		case asm.OpStoreIntAdd:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			if ns.PopI32() != 0 {
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			if s.PopI32() != 0 {
 				if scripts[1].field_28 != nil {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2))) += uint32(sa1)
-					ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
+					s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
 				} else {
-					ns.PushI32(0)
+					s.PushI32(0)
 				}
 			} else if sa2 < 0 {
-				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4)))) += uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4))))))
-			} else if s.field_28 != nil {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2))) += uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2)))))
+				*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4)) += uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4))))
+			} else if sc.field_28 != nil {
+				*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2))) += uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2)))))
 			} else {
-				ns.PushI32(0)
+				s.PushI32(0)
 			}
 			continue
 		case asm.OpStoreFloatAdd:
-			sf1 = ns.PopF32()
-			sa1 = ns.PopI32()
-			if ns.PopI32() != 0 {
+			sf1 = s.PopF32()
+			sa1 = s.PopI32()
+			if s.PopI32() != 0 {
 				if scripts[1].field_28 != nil {
 					*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa1))))) += sf1
-					ns.PushF32(*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa1))))))
+					s.PushF32(*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa1))))))
 				} else {
-					ns.PushF32(0)
+					s.PushF32(0)
 				}
 			} else if sa1 < 0 {
-				*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa1*4)))) += sf1
-				ns.PushF32(*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa1*4)))))
-			} else if s.field_28 != nil {
-				*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa1))))) += sf1
-				ns.PushF32(*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa1))))))
+				*(*float32)(unsafe.Add(trigger.Field190, -sa1*4)) += sf1
+				s.PushF32(*(*float32)(unsafe.Add(trigger.Field190, -sa1*4)))
+			} else if sc.field_28 != nil {
+				*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa1))))) += sf1
+				s.PushF32(*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa1))))))
 			} else {
-				ns.PushF32(0)
+				s.PushF32(0)
 			}
 			continue
 		case asm.OpStoreStringAdd:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			sa3 = ns.PopI32()
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			sa3 = s.PopI32()
 			if sa3 != 0 {
 				if scripts[1].field_28 != nil {
 					sa4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2))))
@@ -1000,344 +1015,338 @@ func nox_script_callByIndex_507310(index int, a2 unsafe.Pointer, a3 unsafe.Point
 					sa4 = 0
 				}
 			} else if sa2 < 0 {
-				sa4 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4)))))
+				sa4 = int32(*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4)))
 			} else {
-				sa4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2))))
+				sa4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2))))
 			}
-			sa4 = int32(ns.AddString(ns.GetString(uint32(sa4)) + ns.GetString(uint32(sa1))))
+			sa4 = int32(s.AddString(s.GetString(uint32(sa4)) + s.GetString(uint32(sa1))))
 			if sa3 != 0 {
 				if scripts[1].field_28 != nil {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2))) = uint32(sa4)
 				}
 			} else if sa2 < 0 {
-				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4)))) = uint32(sa4)
-			} else if s.field_28 != nil {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2))) = uint32(sa4)
+				*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4)) = uint32(sa4)
+			} else if sc.field_28 != nil {
+				*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2))) = uint32(sa4)
 			}
-			ns.PushI32(sa4)
+			s.PushI32(sa4)
 			continue
 		case asm.OpStoreIntSub:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			if ns.PopI32() != 0 {
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			if s.PopI32() != 0 {
 				if scripts[1].field_28 != nil {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2))) -= uint32(sa1)
-					ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
+					s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
 				} else {
-					ns.PushI32(0)
+					s.PushI32(0)
 				}
 			} else if sa2 < 0 {
-				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4)))) -= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4))))))
-			} else if s.field_28 != nil {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2))) -= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2)))))
+				*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4)) -= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4))))
+			} else if sc.field_28 != nil {
+				*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2))) -= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2)))))
 			} else {
-				ns.PushI32(0)
+				s.PushI32(0)
 			}
 			continue
 		case asm.OpStoreFloatSub:
-			sf1 = ns.PopF32()
-			sa1 = ns.PopI32()
-			if ns.PopI32() != 0 {
+			sf1 = s.PopF32()
+			sa1 = s.PopI32()
+			if s.PopI32() != 0 {
 				if scripts[1].field_28 != nil {
 					*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa1))))) -= sf1
-					ns.PushF32(*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa1))))))
+					s.PushF32(*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa1))))))
 				} else {
-					ns.PushF32(0)
+					s.PushF32(0)
 				}
 			} else if sa1 < 0 {
-				*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa1*4)))) -= sf1
-				ns.PushI32(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa1*4))))))
-			} else if s.field_28 != nil {
-				*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa1))))) -= sf1
-				ns.PushF32(*(*float32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(s.field_28))) + uint32(sa1*4)))))
+				*(*float32)(unsafe.Add(trigger.Field190, -sa1*4)) -= sf1
+				s.PushI32(int32(*(*uint32)(unsafe.Add(trigger.Field190, -sa1*4))))
+			} else if sc.field_28 != nil {
+				*(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa1))))) -= sf1
+				s.PushF32(*(*float32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(sc.field_28))) + uint32(sa1*4)))))
 			} else {
-				ns.PushF32(0)
+				s.PushF32(0)
 			}
 			continue
 		case asm.OpStoreIntMod:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			if ns.PopI32() != 0 {
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			if s.PopI32() != 0 {
 				if scripts[1].field_28 != nil {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2))) %= uint32(sa1)
-					ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
+					s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
 				} else {
-					ns.PushI32(0)
+					s.PushI32(0)
 				}
 			} else if sa2 < 0 {
-				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4)))) %= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4))))))
-			} else if s.field_28 != nil {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2))) %= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2)))))
+				*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4)) %= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4))))
+			} else if sc.field_28 != nil {
+				*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2))) %= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2)))))
 			} else {
-				ns.PushI32(0)
+				s.PushI32(0)
 			}
 			continue
 		case asm.OpIntEq:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushBool(sa2 == sa1)
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushBool(sa2 == sa1)
 			continue
 		case asm.OpFloatEq:
-			sf1 = ns.PopF32()
-			sf2 = ns.PopF32()
-			ns.PushBool(sf2 == sf1)
+			sf1 = s.PopF32()
+			sf2 = s.PopF32()
+			s.PushBool(sf2 == sf1)
 			continue
 		case asm.OpStringEq:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushBool(ns.GetString(uint32(sa2)) == ns.GetString(uint32(sa1)))
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushBool(s.GetString(uint32(sa2)) == s.GetString(uint32(sa1)))
 			continue
 		case asm.OpIntLSh:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushI32(sa2 << sa1)
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushI32(sa2 << sa1)
 			continue
 		case asm.OpIntRSh:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushI32(sa2 >> sa1)
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushI32(sa2 >> sa1)
 			continue
 		case asm.OpIntLt:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushBool(sa2 < sa1)
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushBool(sa2 < sa1)
 			continue
 		case asm.OpFloatLt:
-			sf1 = ns.PopF32()
-			sf2 = ns.PopF32()
-			ns.PushBool(sf2 < sf1)
+			sf1 = s.PopF32()
+			sf2 = s.PopF32()
+			s.PushBool(sf2 < sf1)
 			continue
 		case asm.OpStringLt:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushBool(ns.GetString(uint32(sa2)) < ns.GetString(uint32(sa1)))
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushBool(s.GetString(uint32(sa2)) < s.GetString(uint32(sa1)))
 			continue
 		case asm.OpIntGt:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushBool(sa2 > sa1)
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushBool(sa2 > sa1)
 			continue
 		case asm.OpFloatGt:
-			sf1 = ns.PopF32()
-			sf2 = ns.PopF32()
-			ns.PushBool(sf2 > sf1)
+			sf1 = s.PopF32()
+			sf2 = s.PopF32()
+			s.PushBool(sf2 > sf1)
 			continue
 		case asm.OpStringGt:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushBool(ns.GetString(uint32(sa2)) > ns.GetString(uint32(sa1)))
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushBool(s.GetString(uint32(sa2)) > s.GetString(uint32(sa1)))
 			continue
 		case asm.OpIntLte:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushBool(sa2 <= sa1)
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushBool(sa2 <= sa1)
 			continue
 		case asm.OpFloatLte:
-			sf1 = ns.PopF32()
-			sf2 = ns.PopF32()
-			ns.PushBool(sf2 <= sf1)
+			sf1 = s.PopF32()
+			sf2 = s.PopF32()
+			s.PushBool(sf2 <= sf1)
 			continue
 		case asm.OpStringLte:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushBool(ns.GetString(uint32(sa2)) <= ns.GetString(uint32(sa1)))
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushBool(s.GetString(uint32(sa2)) <= s.GetString(uint32(sa1)))
 			continue
 		case asm.OpIntGte:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushBool(sa2 >= sa1)
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushBool(sa2 >= sa1)
 			continue
 		case asm.OpFloatGte:
-			sf1 = ns.PopF32()
-			sf2 = ns.PopF32()
-			ns.PushBool(sf2 >= sf1)
+			sf1 = s.PopF32()
+			sf2 = s.PopF32()
+			s.PushBool(sf2 >= sf1)
 			continue
 		case asm.OpStringGte:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushBool(ns.GetString(uint32(sa2)) >= ns.GetString(uint32(sa1)))
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushBool(s.GetString(uint32(sa2)) >= s.GetString(uint32(sa1)))
 			continue
 		case asm.OpIntNeq:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushBool(sa2 != sa1)
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushBool(sa2 != sa1)
 			continue
 		case asm.OpFloatNeq:
-			sf1 = ns.PopF32()
-			sf2 = ns.PopF32()
-			ns.PushBool(sf2 != sf1)
+			sf1 = s.PopF32()
+			sf2 = s.PopF32()
+			s.PushBool(sf2 != sf1)
 			continue
 		case asm.OpStringNeq:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			ns.PushBool(ns.GetString(uint32(sa2)) != ns.GetString(uint32(sa1)))
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			s.PushBool(s.GetString(uint32(sa2)) != s.GetString(uint32(sa1)))
 			continue
 		case asm.OpBoolAnd:
-			y := ns.PopBool()
-			x := ns.PopBool()
-			ns.PushBool(x && y)
+			y := s.PopBool()
+			x := s.PopBool()
+			s.PushBool(x && y)
 			continue
 		case asm.OpBoolOr:
-			y := ns.PopBool()
-			x := ns.PopBool()
-			ns.PushBool(x || y)
+			y := s.PopBool()
+			x := s.PopBool()
+			s.PushBool(x || y)
 			continue
 		case asm.OpStoreIntLSh:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			if ns.PopI32() != 0 {
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			if s.PopI32() != 0 {
 				if scripts[1].field_28 != nil {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2))) <<= uint32(sa1)
-					ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
+					s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
 				} else {
-					ns.PushI32(0)
+					s.PushI32(0)
 				}
 			} else if sa2 < 0 {
-				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4)))) <<= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4))))))
-			} else if s.field_28 != nil {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2))) <<= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2)))))
+				*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4)) <<= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4))))
+			} else if sc.field_28 != nil {
+				*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2))) <<= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2)))))
 			} else {
-				ns.PushI32(0)
+				s.PushI32(0)
 			}
 			continue
 		case asm.OpStoreIntRSh:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			if ns.PopI32() != 0 {
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			if s.PopI32() != 0 {
 				if scripts[1].field_28 != nil {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2))) >>= uint32(sa1)
-					ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
+					s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
 				} else {
-					ns.PushI32(0)
+					s.PushI32(0)
 				}
 			} else if sa2 < 0 {
-				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4)))) >>= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4))))))
-			} else if s.field_28 != nil {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2))) >>= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2)))))
+				*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4)) >>= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4))))
+			} else if sc.field_28 != nil {
+				*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2))) >>= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2)))))
 			} else {
-				ns.PushI32(0)
+				s.PushI32(0)
 			}
 			continue
 		case asm.OpStoreIntAnd:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			if ns.PopI32() != 0 {
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			if s.PopI32() != 0 {
 				if scripts[1].field_28 != nil {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2))) &= uint32(sa1)
-					ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
+					s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
 				} else {
-					ns.PushI32(0)
+					s.PushI32(0)
 				}
 			} else if sa2 < 0 {
-				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4)))) &= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4))))))
-			} else if s.field_28 != nil {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2))) &= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2)))))
+				*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4)) &= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4))))
+			} else if sc.field_28 != nil {
+				*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2))) &= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2)))))
 			} else {
-				ns.PushI32(0)
+				s.PushI32(0)
 			}
 			continue
 		case asm.OpStoreIntOr:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			if ns.PopI32() != 0 {
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			if s.PopI32() != 0 {
 				if scripts[1].field_28 != nil {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2))) |= uint32(sa1)
-					ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
+					s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
 				} else {
-					ns.PushI32(0)
+					s.PushI32(0)
 				}
 			} else if sa2 < 0 {
-				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4)))) |= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4))))))
-			} else if s.field_28 != nil {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2))) |= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2)))))
+				*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4)) |= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4))))
+			} else if sc.field_28 != nil {
+				*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2))) |= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2)))))
 			} else {
-				ns.PushI32(0)
+				s.PushI32(0)
 			}
 			continue
 		case asm.OpStoreIntXOr:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			if ns.PopI32() != 0 {
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			if s.PopI32() != 0 {
 				if scripts[1].field_28 != nil {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2))) ^= uint32(sa1)
-					ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
+					s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa2)))))
 				} else {
-					ns.PushI32(0)
+					s.PushI32(0)
 				}
 			} else if sa2 < 0 {
-				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4)))) ^= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) - uint32(sa2*4))))))
-			} else if s.field_28 != nil {
-				*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2))) ^= uint32(sa1)
-				ns.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa2)))))
+				*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4)) ^= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(trigger.Field190, -sa2*4))))
+			} else if sc.field_28 != nil {
+				*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2))) ^= uint32(sa1)
+				s.PushI32(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa2)))))
 			} else {
-				ns.PushI32(0)
+				s.PushI32(0)
 			}
 			continue
 		case asm.OpBoolNot:
-			x := ns.PopBool()
-			ns.PushBool(!x)
+			x := s.PopBool()
+			s.PushBool(!x)
 			continue
 		case asm.OpIntNot:
-			sa1 = ns.PopI32()
-			ns.PushI32(^sa1)
+			sa1 = s.PopI32()
+			s.PushI32(^sa1)
 			continue
 		case asm.OpIntNeg:
-			sa1 = ns.PopI32()
-			ns.PushI32(-sa1)
+			sa1 = s.PopI32()
+			s.PushI32(-sa1)
 			continue
 		case asm.OpFloatNeg:
-			sf1 = -ns.PopF32()
-			ns.PushF32(sf1)
+			sf1 = -s.PopF32()
+			s.PushF32(sf1)
 			continue
 		case asm.OpIndexInt:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			sa3 = ns.PopI32()
-			sa4 = ns.PopI32()
-			sa5 = 0
-			if sa1 < 0 || sa1 >= sa4 {
-				sa5 = 1
-			}
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			sa3 = s.PopI32()
+			sa4 = s.PopI32()
+			failed := sa1 < 0 || sa1 >= sa4
 			if sa3 != 0 {
 				if scripts[1].field_28 != nil {
-					sa4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa1+sa2))))
+					sa4 = *(*int32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa1+sa2)))
 				} else {
 					sa4 = 0
 				}
 			} else if sa2 < 0 {
-				sa4 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) + uint32((sa2-sa1)*4)))))
-			} else if s.field_28 != nil {
-				sa4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa1+sa2))))
+				sa4 = *(*int32)(unsafe.Add(trigger.Field190, (sa2-sa1)*4))
+			} else if sc.field_28 != nil {
+				sa4 = *(*int32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa1+sa2)))
 			} else {
 				sa4 = 0
 			}
-			ns.PushI32(sa4)
-			if sa5 != 0 {
-				break
+			s.PushI32(sa4)
+			if failed {
+				return fmt.Errorf("noxscript: index out of bounds: [%d:%d]", sa1, sa4)
 			}
 			continue
 		case asm.OpIndexFloat:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			sa3 = ns.PopI32()
-			sa4 = ns.PopI32()
-			sa5 = 0
-			if sa1 < 0 || sa1 > sa4 {
-				sa5 = 1
-			}
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			sa3 = s.PopI32()
+			sa4 = s.PopI32()
+			failed := sa1 < 0 || sa1 > sa4
 			if sa3 != 0 {
 				if scripts[1].field_28 != nil {
 					sf1 = *(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(scripts[1].field_28), 4*uintptr(sa1+sa2)))))
@@ -1345,55 +1354,51 @@ func nox_script_callByIndex_507310(index int, a2 unsafe.Pointer, a3 unsafe.Point
 					sf1 = 0
 				}
 			} else if sa2 < 0 {
-				sf1 = *(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(int32(uintptr(a3)) + 760))) + uint32((sa2-sa1)*4))))
-			} else if s.field_28 != nil {
-				sf1 = *(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(s.field_28), 4*uintptr(sa1+sa2)))))
+				sf1 = *(*float32)(unsafe.Add(trigger.Field190, (sa2-sa1)*4))
+			} else if sc.field_28 != nil {
+				sf1 = *(*float32)(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(sc.field_28), 4*uintptr(sa1+sa2)))))
 			} else {
 				sf1 = 0
 			}
-			ns.PushF32(sf1)
-			if sa5 != 0 {
-				break
+			s.PushF32(sf1)
+			if failed {
+				return fmt.Errorf("noxscript: index out of bounds: [%d:%d]", sa1, sa4)
 			}
 			continue
 		case asm.OpIndexPtr:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			sa3 = ns.PopI32()
-			sa4 = ns.PopI32()
-			sa5 = 0
-			if sa1 < 0 || sa1 > sa4 {
-				sa5 = 1
-			}
-			ns.PushI32(sa3)
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			sa3 = s.PopI32()
+			sa4 = s.PopI32()
+			failed := sa1 < 0 || sa1 > sa4
+			s.PushI32(sa3)
 			if sa2 < 0 {
-				ns.PushI32(sa2 - sa1)
+				s.PushI32(sa2 - sa1)
 			} else {
-				ns.PushI32(sa2 + sa1)
+				s.PushI32(sa2 + sa1)
 			}
-			if sa5 != 0 {
-				break
+			if failed {
+				return fmt.Errorf("noxscript: index out of bounds: [%d:%d]", sa1, sa4)
 			}
 			continue
 		case asm.OpCallBuiltin:
 			fi := asm.Builtin(readInt(&data))
-			if ns.callBuiltin(index, fi) == 1 {
-				break
+			if err := s.callBuiltin(index, fi); err != nil {
+				return fmt.Errorf("in %q: %w", sc.Name(), err)
 			}
-			continue
 		case asm.OpCallScript:
-			sa1 = readInt(&data)
-			nox_script_callByIndex_507310(int(sa1), a2, a3)
-			continue
+			ind := int(readInt(&data))
+			if err := s.callByIndexObj(ind, caller, trigger); err != nil {
+				return fmt.Errorf("in %q: %w", sc.Name(), err)
+			}
 		case asm.OpStringAdd:
-			sa1 = ns.PopI32()
-			sa2 = ns.PopI32()
-			sa3 = int32(ns.AddString(ns.GetString(uint32(sa2)) + ns.GetString(uint32(sa1))))
-			ns.PushI32(sa3)
-			continue
+			sa1 = s.PopI32()
+			sa2 = s.PopI32()
+			sa3 = int32(s.AddString(s.GetString(uint32(sa2)) + s.GetString(uint32(sa1))))
+			s.PushI32(sa3)
 		default:
+			s.adjustStack(bstack, int(sc.stack_size))
+			return nil
 		}
-		ns.adjustStack(bstack, int(s.stack_size))
-		return
 	}
 }
