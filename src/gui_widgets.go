@@ -16,8 +16,8 @@ import (
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
-	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
@@ -252,7 +252,7 @@ func nox_xxx_wndStaticDrawWithImage_489550(win *Window, draw *WindowData) int {
 	if bg := draw.BackgroundImage(); bg != nil {
 		r.DrawImageAt(bg, wpos.Add(draw.ImagePoint()))
 	}
-	var img *client.Image
+	var img *noxrender.Image
 	if win.Flags().Has(gui.StatusEnabled) {
 		img = draw.EnabledImage()
 	} else {

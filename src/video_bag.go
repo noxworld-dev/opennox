@@ -10,19 +10,19 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 type nox_video_bag_image_t = C.nox_video_bag_image_t
 
-func asImage(p *nox_video_bag_image_t) *client.Image {
+func asImage(p *nox_video_bag_image_t) *noxrender.Image {
 	return asImageP(unsafe.Pointer(p))
 }
 
-func asImageP(p unsafe.Pointer) *client.Image {
-	return noxClient.Bag.AsImage(p)
+func asImageP(p unsafe.Pointer) *noxrender.Image {
+	return noxClient.r.Bag.AsImage(p)
 }
 
 //export nox_video_bag_image_type
@@ -32,7 +32,7 @@ func nox_video_bag_image_type(img *nox_video_bag_image_t) C.int {
 
 //export nox_xxx_readImgMB_42FAA0
 func nox_xxx_readImgMB_42FAA0(known_idx C.int, typ C.char, cname2 *C.char) *nox_video_bag_image_t {
-	return (*nox_video_bag_image_t)(noxClient.Bag.ImageRef(int(known_idx), byte(typ), GoString(cname2)).C())
+	return (*nox_video_bag_image_t)(noxClient.r.Bag.ImageRef(int(known_idx), byte(typ), GoString(cname2)).C())
 }
 
 //export nox_xxx_gLoadImg_42F970
@@ -45,7 +45,7 @@ func nox_xxx_gLoadAnim_42FA20(name *C.char) *C.nox_things_imageRef_t {
 	return nox_xxx_gLoadAnim(GoString(name)).C()
 }
 
-func nox_xxx_gLoadImg(name string) *client.Image {
+func nox_xxx_gLoadImg(name string) *noxrender.Image {
 	if name == "" {
 		return nil
 	}
@@ -57,9 +57,9 @@ func nox_xxx_gLoadImg(name string) *client.Image {
 					return nil
 				}
 				name2 := p.Name2()
-				return noxClient.Bag.LoadExternalImage(byte(p.field_25_0), name2)
+				return noxClient.r.Bag.LoadExternalImage(byte(p.field_25_0), name2)
 			}
-			return noxClient.Bag.ImageByIndex(ind)
+			return noxClient.r.Bag.ImageByIndex(ind)
 		}
 	}
 	return nil
@@ -138,7 +138,7 @@ func nox_video_bagFree_42F4D0() {
 	}
 	nox_images_arr1_787156 = nil
 	sub_47D150()
-	noxClient.Bag.Free()
+	noxClient.r.Bag.Free()
 }
 
 func sub_47D150() {
