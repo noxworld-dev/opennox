@@ -495,7 +495,7 @@ func nox_video_initPixbufferRows_486230() {
 	}
 }
 
-func (r *NoxRender) noxDrawCursor(a1 *client.Image, pos image.Point) int {
+func (r *NoxRender) noxDrawCursor(a1 *noxrender.Image, pos image.Point) int {
 	if dword_5d4594_1193672 && a1 != nil {
 		r.DrawImageAt(a1, pos)
 	}

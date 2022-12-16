@@ -39,7 +39,7 @@ type particleOpt struct {
 // Particle represents a particle prototype that can be drawn multiple times at different positions.
 type Particle struct {
 	r    *NoxRender
-	img  *client.Image
+	img  *noxrender.Image
 	opt  particleOpt
 	data []byte // 16, 64
 }
@@ -66,7 +66,7 @@ func (r *NoxRender) newParticle(mul1, mul2 int) *Particle {
 	p := &Particle{r: r, opt: opt}
 	r.particles.byOpts[opt] = p
 	p.genImage()
-	p.img = noxClient.Bag.NewRawImage(8, p.data)
+	p.img = noxClient.r.Bag.NewRawImage(8, p.data)
 	return p
 }
 

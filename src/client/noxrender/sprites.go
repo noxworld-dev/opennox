@@ -1,4 +1,4 @@
-package client
+package noxrender
 
 import (
 	"archive/zip"
@@ -31,7 +31,7 @@ var (
 )
 
 type Image struct {
-	c         *videoBag
+	c         *renderSprites
 	h         unsafe.Pointer
 	typ       int
 	bag       *bag.ImageRec
@@ -173,7 +173,7 @@ func (img *Image) Meta() (off, sz image.Point, ok bool) {
 	return
 }
 
-func (b *videoBag) readVideobag(path string) error {
+func (b *renderSprites) readVideobag(path string) error {
 	f, err := bag.Open(path)
 	if err != nil {
 		return err
@@ -196,11 +196,11 @@ type bagImage struct {
 	Meta *pcx.ImageMeta
 }
 
-func (c *Client) ReadVideoBag() error {
-	return c.Bag.readVideobag("video.bag")
+func (b *renderSprites) ReadVideoBag() error {
+	return b.readVideobag("video.bag")
 }
 
-type videoBag struct {
+type renderSprites struct {
 	bag      *bag.File
 	byHandle map[unsafe.Pointer]*Image
 	byIndex  []*Image
@@ -212,11 +212,11 @@ type videoBag struct {
 	zip    *zip.ReadCloser
 }
 
-func (b *videoBag) init() {
+func (b *renderSprites) init() {
 	b.byHandle = make(map[unsafe.Pointer]*Image)
 }
 
-func (b *videoBag) Free() {
+func (b *renderSprites) Free() {
 	b.bag.Close()
 	b.bag = nil
 	for _, img := range b.byIndex {
@@ -226,11 +226,11 @@ func (b *videoBag) Free() {
 	b.byHandle = make(map[unsafe.Pointer]*Image)
 }
 
-func (b *videoBag) NewRawImage(typ int, data []byte) *Image {
+func (b *renderSprites) NewRawImage(typ int, data []byte) *Image {
 	return &Image{c: b, typ: typ, raw: data, nocgo: true}
 }
 
-func (b *videoBag) AsImage(p unsafe.Pointer) *Image {
+func (b *renderSprites) AsImage(p unsafe.Pointer) *Image {
 	if p == nil {
 		return nil
 	}
@@ -242,18 +242,18 @@ func (b *videoBag) AsImage(p unsafe.Pointer) *Image {
 	return img
 }
 
-func (b *videoBag) ImageByIndex(ind int) *Image {
+func (b *renderSprites) ImageByIndex(ind int) *Image {
 	return b.byIndex[ind]
 }
 
-func (b *videoBag) ThingsImageRef(ref *things.ImageRef) *Image {
+func (b *renderSprites) ThingsImageRef(ref *things.ImageRef) *Image {
 	if ref == nil {
 		return nil
 	}
 	return b.ImageRef(ref.Ind, byte(ref.Ind2), ref.Name)
 }
 
-func (b *videoBag) ImageRef(ind int, typ byte, name2 string) *Image {
+func (b *renderSprites) ImageRef(ind int, typ byte, name2 string) *Image {
 	if ind != -1 {
 		return b.ImageByIndex(ind)
 	}
@@ -261,12 +261,12 @@ func (b *videoBag) ImageRef(ind int, typ byte, name2 string) *Image {
 	return b.LoadExternalImage(typ, name2)
 }
 
-func (b *videoBag) LoadExternalImage(typ byte, name string) *Image {
+func (b *renderSprites) LoadExternalImage(typ byte, name string) *Image {
 	// TODO: this one is supposed to load PCX images from FS
 	panic("TODO: read PCX from FS")
 }
 
-func (b *videoBag) loadAndIndexVideoBag() error {
+func (b *renderSprites) loadAndIndexVideoBag() error {
 	f, err := bag.Open(datapath.Data("video.bag"))
 	if err != nil {
 		return fmt.Errorf("error reading video bag: %w", err)
@@ -293,7 +293,7 @@ func (b *videoBag) loadAndIndexVideoBag() error {
 	return nil
 }
 
-func (b *videoBag) openVideoZip() error {
+func (b *renderSprites) openVideoZip() error {
 	zf, err := zip.OpenReader(datapath.Data("video.bag.zip"))
 	if os.IsNotExist(err) {
 		return nil
@@ -304,7 +304,7 @@ func (b *videoBag) openVideoZip() error {
 	return nil
 }
 
-func (b *videoBag) openImage(base string) (image.Image, error) {
+func (b *renderSprites) openImage(base string) (image.Image, error) {
 	isJPG := false
 	f, err := os.Open(base + ".png")
 	if os.IsNotExist(err) {
@@ -328,7 +328,7 @@ func (b *videoBag) openImage(base string) (image.Image, error) {
 	return jpeg.Decode(f)
 }
 
-func (b *videoBag) openImageMeta(base string) (*pcx.ImageMeta, error) {
+func (b *renderSprites) openImageMeta(base string) (*pcx.ImageMeta, error) {
 	if jdata, err := os.ReadFile(base + ".json"); err == nil {
 		var meta pcx.ImageMeta
 		if err := json.Unmarshal(jdata, &meta); err != nil {
@@ -356,7 +356,7 @@ func (b *videoBag) openImageMeta(base string) (*pcx.ImageMeta, error) {
 	return &meta, nil
 }
 
-func (b *videoBag) openImageZip(base string) (image.Image, error) {
+func (b *renderSprites) openImageZip(base string) (image.Image, error) {
 	isJPG := false
 	f, err := b.zip.Open(base + ".png")
 	if os.IsNotExist(err) {
@@ -373,7 +373,7 @@ func (b *videoBag) openImageZip(base string) (image.Image, error) {
 	return jpeg.Decode(f)
 }
 
-func (b *videoBag) ImageByBagSection(sect, offs int) (*pcx.Image, error) {
+func (b *renderSprites) ImageByBagSection(sect, offs int) (*pcx.Image, error) {
 	b.once.Do(func() {
 		if err := b.loadAndIndexVideoBag(); err != nil {
 			b.err = err

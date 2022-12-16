@@ -173,7 +173,7 @@ func nox_thing_read_IMAG_one_42F660(f *MemFile) error {
 		if ind == -1 {
 			typ := f.ReadU8()
 			name2, _ := f.ReadString8()
-			if noxClient.Bag.LoadExternalImage(typ, name2) != nil {
+			if noxClient.r.Bag.LoadExternalImage(typ, name2) != nil {
 				copy(unsafe.Slice((*byte)(unsafe.Pointer(&ref.name2[0])), len(ref.name2)), name2)
 				ref.name2[len(name2)] = 0
 				ref.field_25_0 = C.char(typ)
@@ -204,9 +204,9 @@ func nox_thing_read_IMAG_one_42F660(f *MemFile) error {
 			if ind := int(f.ReadI32()); ind == -1 {
 				typ := f.ReadI8()
 				name2, _ := f.ReadString8()
-				arr[i] = (*nox_video_bag_image_t)(noxClient.Bag.LoadExternalImage(byte(typ), name2).C())
+				arr[i] = (*nox_video_bag_image_t)(noxClient.r.Bag.LoadExternalImage(byte(typ), name2).C())
 			} else {
-				arr[i] = (*nox_video_bag_image_t)(noxClient.Bag.ImageByIndex(ind).C())
+				arr[i] = (*nox_video_bag_image_t)(noxClient.r.Bag.ImageByIndex(ind).C())
 			}
 		}
 		ref.field_24 = unsafe.Pointer(anim.C())

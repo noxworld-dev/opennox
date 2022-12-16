@@ -20,8 +20,8 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxfont"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
-	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
@@ -506,10 +506,10 @@ func makeColorParseFunc(field func(*WindowData, color.Color)) guiWindowParseFunc
 	}
 }
 
-func makeImageParseFunc(field func(*WindowData, *client.Image)) guiWindowParseFunc {
+func makeImageParseFunc(field func(*WindowData, *noxrender.Image)) guiWindowParseFunc {
 	return func(_ *guiParser, draw *WindowData, buf string) bool {
 		s, _ := gui.ParseNextField(buf)
-		var val *client.Image
+		var val *noxrender.Image
 		if s != "NULL" {
 			val = nox_xxx_gLoadImg(s)
 		}

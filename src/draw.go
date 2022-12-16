@@ -982,7 +982,7 @@ func nox_video_drawCircle_4B0B90(a1, a2, a3 C.int) {
 	noxClient.r.DrawCircle(int(a1), int(a2), int(a3), noxClient.r.Data().Color2())
 }
 
-func (r *NoxRender) DrawImageAt(img *client.Image, pos image.Point) {
+func (r *NoxRender) DrawImageAt(img *noxrender.Image, pos image.Point) {
 	defer func() {
 		if r := recover(); r != nil {
 			panic(fmt.Errorf("panic drawing image %v: %v", img, r))

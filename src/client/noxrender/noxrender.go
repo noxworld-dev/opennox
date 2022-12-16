@@ -345,12 +345,14 @@ func NewRender(f Framer) *NoxRender {
 	r := &NoxRender{f: f}
 	r.initText()
 	r.initColorTablesRev()
+	r.Bag.init()
 	return r
 }
 
 type NoxRender struct {
 	p     *RenderData
 	f     Framer
+	Bag   renderSprites
 	Fonts renderFonts
 	pix   *noximage.Image16
 
