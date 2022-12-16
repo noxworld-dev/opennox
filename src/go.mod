@@ -6,7 +6,7 @@ require (
 	github.com/noxworld-dev/lobby v0.0.0-20220306183851-3877f0a7002d
 	github.com/noxworld-dev/nat v0.1.0
 	github.com/noxworld-dev/noxcrypt v0.0.0-20220809211245-2c69b67c4ae9
-	github.com/noxworld-dev/opennox-lib v0.0.0-20221207184240-db559cc95748
+	github.com/noxworld-dev/opennox-lib v0.0.0-20221216210055-1b5de7bbed4b
 	github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7
 	github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e
 	github.com/prometheus/client_golang v1.12.1
@@ -51,7 +51,7 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
-	github.com/traefik/yaegi v0.14.4-0.20221107152212-97cf8c4210c6 // indirect
+	github.com/traefik/yaegi v0.14.4-0.20221213104605-eee72d1aae66 // indirect
 	github.com/veandco/go-sdl2 v0.4.25 // indirect
 	github.com/youpy/go-riff v0.1.0 // indirect
 	github.com/yuin/gopher-lua v0.0.0-20220504180219-658193537a64 // indirect
@@ -65,6 +65,3 @@ require (
 )
 
 replace github.com/timshannon/go-openal => github.com/noxworld-dev/go-openal v0.0.0-20220410091615-164a70f24e7c
-
-// TODO: hotfix until https://github.com/traefik/yaegi/pull/1492 is merged
-replace github.com/traefik/yaegi => github.com/dennwc/yaegi v0.14.4-0.20221118173901-02ffc2003d9a
