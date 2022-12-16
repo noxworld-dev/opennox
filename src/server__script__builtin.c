@@ -711,62 +711,6 @@ int nox_script_AttackGroup_515DB0() {
 	return 0;
 }
 
-//----- (00515DF0) --------------------------------------------------------
-int nox_script_RetreatLevel_515DF0() {
-	int v0; // eax
-	int v1; // eax
-	int v3; // [esp+0h] [ebp-4h]
-
-	v3 = nox_script_pop();
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		sub_515E20(v1, &v3);
-	}
-	return 0;
-}
-
-//----- (00515E50) --------------------------------------------------------
-int nox_script_RetreatLevelGroup_515E50() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-	int v3;            // [esp+0h] [ebp-4h]
-
-	v3 = nox_script_pop();
-	v0 = nox_script_pop();
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_515E20, (int)&v3);
-	return 0;
-}
-
-//----- (00515E80) --------------------------------------------------------
-int nox_script_SetResumeLevel_515E80() {
-	int v0; // eax
-	int v1; // eax
-	int v3; // [esp+0h] [ebp-4h]
-
-	v3 = nox_script_pop();
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		sub_515EB0(v1, &v3);
-	}
-	return 0;
-}
-
-//----- (00515EE0) --------------------------------------------------------
-int nox_script_SetResumeLevelGroup_515EE0() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-	int v3;            // [esp+0h] [ebp-4h]
-
-	v3 = nox_script_pop();
-	v0 = nox_script_pop();
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_515EB0, (int)&v3);
-	return 0;
-}
-
 //----- (00515F10) --------------------------------------------------------
 int nox_script_RunAway_515F10() {
 	int v0;    // ebx

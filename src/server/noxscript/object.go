@@ -69,6 +69,8 @@ func init() {
 	Register(asm.BuiltinDestroyChat, nsDestroyChat)
 	Register(asm.BuiltinDestroyEveryChat, nsDestroyEveryChat)
 	Register(asm.BuiltinIsVisibleTo, nsIsVisibleTo)
+	Register(asm.BuiltinRetreatLevel, nsSetRetreatLevel)
+	Register(asm.BuiltinResumeLevel, nsSetResumeLevel)
 }
 
 func nsObject(vm VM) int {
@@ -579,5 +581,23 @@ func nsIsVisibleTo(s VM) int {
 	obj := s.PopObjectNS()
 	ok := obj != nil && obj.CanSee(obj2)
 	s.PushBool(ok)
+	return 0
+}
+
+func nsSetRetreatLevel(vm VM) int {
+	v := vm.PopF32()
+	obj := vm.PopObjectNS()
+	if obj != nil {
+		obj.RetreatLevel(v)
+	}
+	return 0
+}
+
+func nsSetResumeLevel(vm VM) int {
+	v := vm.PopF32()
+	obj := vm.PopObjectNS()
+	if obj != nil {
+		obj.ResumeLevel(v)
+	}
 	return 0
 }
