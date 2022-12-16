@@ -189,67 +189,67 @@ func nox_drawable_link_thing(a1c *nox_drawable, i C.int) C.int {
 		return 0
 	}
 	dr := asDrawable(a1c)
-	*dr = Drawable{}
+	*dr = client.Drawable{}
 	typ := nox_things.byInd[i]
-	dr.field_27 = uint32(i)
-	*(*uint8)(unsafe.Add(unsafe.Pointer(&dr.field_0), 0)) = typ.HWidth
-	*(*uint8)(unsafe.Add(unsafe.Pointer(&dr.field_0), 1)) = typ.HHeight
-	dr.field_26_1 = typ.Z // TODO: shouldn't it put this in dr.z?
-	dr.flags28 = typ.ObjClass
-	dr.flags29 = typ.ObjSubClass
-	dr.flags30 = uint32(typ.ObjFlags)
-	dr.flags70 = typ.Field_54
-	dr.field_74_3 = typ.Weight
-	dr.draw_func = typ.DrawFunc
-	dr.field_76 = typ.Field_5c
-	dr.field_77 = typ.Field_60
-	dr.field_116 = typ.ClientUpdate
-	dr.field_123 = typ.AudioLoop
-	dr.light_flags = uint32(typ.Field_f)
-	dr.field_42 = typ.Field_10
-	dr.light_color_r = uint32(typ.LightColorR)
-	dr.light_color_g = uint32(typ.LightColorG)
-	dr.light_color_b = uint32(typ.LightColorB)
-	dr.field_41_0 = typ.LightDir
-	dr.field_41_1 = typ.LightPenumbra
+	dr.Field_27 = uint32(i)
+	*(*uint8)(unsafe.Add(unsafe.Pointer(&dr.Field_0), 0)) = typ.HWidth
+	*(*uint8)(unsafe.Add(unsafe.Pointer(&dr.Field_0), 1)) = typ.HHeight
+	dr.Field_26_1 = typ.Z // TODO: shouldn't it put this in dr.z?
+	dr.Flags28Val = typ.ObjClass
+	dr.Flags29Val = typ.ObjSubClass
+	dr.Flags30Val = uint32(typ.ObjFlags)
+	dr.Flags70Val = typ.Field_54
+	dr.Field_74_3 = typ.Weight
+	dr.DrawFuncPtr = typ.DrawFunc
+	dr.Field_76 = typ.Field_5c
+	dr.Field_77 = typ.Field_60
+	dr.Field_116 = typ.ClientUpdate
+	dr.Field_123 = typ.AudioLoop
+	dr.LightFlags = uint32(typ.Field_f)
+	dr.Field_42 = typ.Field_10
+	dr.LightColorR = uint32(typ.LightColorR)
+	dr.LightColorG = uint32(typ.LightColorG)
+	dr.LightColorB = uint32(typ.LightColorB)
+	dr.Field_41_0 = typ.LightDir
+	dr.Field_41_1 = typ.LightPenumbra
 
-	dr.shape.Kind = server.ShapeKind(typ.ShapeKind)
-	dr.shape.Circle.R = typ.ShapeR
-	dr.shape.Circle.R2 = typ.ShapeR * typ.ShapeR
-	dr.shape.Box.W = typ.ShapeW
-	dr.shape.Box.H = typ.ShapeH
-	if dr.shape.Kind == server.ShapeKindBox {
-		dr.shape.Box.Calc()
+	dr.Shape.Kind = server.ShapeKind(typ.ShapeKind)
+	dr.Shape.Circle.R = typ.ShapeR
+	dr.Shape.Circle.R2 = typ.ShapeR * typ.ShapeR
+	dr.Shape.Box.W = typ.ShapeW
+	dr.Shape.Box.H = typ.ShapeH
+	if dr.Shape.Kind == server.ShapeKindBox {
+		dr.Shape.Box.Calc()
 	}
 
-	dr.field_24 = typ.ZSizeMin
-	dr.field_25 = typ.ZSizeMax
+	dr.Field_24 = typ.ZSizeMin
+	dr.Field_25 = typ.ZSizeMax
 	intens := typ.LightIntensity
-	dr.field_43 = 0
+	dr.Field_43 = 0
 	if intens < 0 {
 		intens = -intens
-		dr.field_43 = 1
+		dr.Field_43 = 1
 	}
-	dr.light_intensity = intens
+	dr.LightIntensity = intens
 	if intens != 0.0 {
 		dr.SetLightIntensity(intens)
-		if dr.light_flags == 0 {
-			dr.light_flags = 1
-			dr.light_color_r = 255
-			dr.light_color_g = 255
-			dr.light_color_b = 255
+		if dr.LightFlags == 0 {
+			dr.LightFlags = 1
+			dr.LightColorR = 255
+			dr.LightColorG = 255
+			dr.LightColorB = 255
 		}
 	}
-	if dr.flags28&0x13001000 != 0 {
-		*(*uint32)(dr.field(432)) = 0
-		*(*uint32)(dr.field(436)) = 0
-		dr.field_110 = 0
-		dr.field_111 = 0
-		*(*int16)(dr.field(448)) = -1
-		*(*int16)(dr.field(450)) = -1
+	if dr.Flags28Val&0x13001000 != 0 {
+		dr.Field_108 = 0
+		dr.Field_109 = 0
+		dr.Field_110 = 0
+		dr.Field_111 = 0
+		dr.Field_112_0 = -1
+		dr.Field_112_2 = -1
 	}
 	if typ.Lifetime != 0 {
-		C.nox_xxx_spriteTransparentDecay_49B950(dr.C(), C.int(typ.Lifetime))
+		C.nox_xxx_spriteTransparentDecay_49B950((*nox_drawable)(dr.C()), C.int(typ.Lifetime))
 	}
 	return 1
 }

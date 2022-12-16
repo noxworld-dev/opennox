@@ -15,6 +15,7 @@ import (
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 	"github.com/noxworld-dev/opennox/v1/common/gsync"
@@ -63,8 +64,8 @@ type particleFx struct {
 	chnd       unsafe.Pointer
 	image      *noxrender.Image    // 0, 0
 	rendPart   *noxrender.Particle // 1, 4
-	drawable8  *Drawable           // 2, 8
-	drawable12 *Drawable           // 3, 12
+	drawable8  *client.Drawable    // 2, 8
+	drawable12 *client.Drawable    // 3, 12
 	drawableVp *noxrender.Viewport // 4, 16
 	partfxTyp  *particlefxType     // 5, 20
 	color      color.Color         // 6, 24
@@ -206,7 +207,7 @@ func (pfx *partFXes) newParticlefx() *particleFx {
 	return p
 }
 
-func (p *particleFx) setDrawable8(dr *Drawable) {
+func (p *particleFx) setDrawable8(dr *client.Drawable) {
 	if dr != nil {
 		p.flags |= 4
 		p.drawable8 = dr
@@ -265,7 +266,7 @@ func partfxDraw(p *particleFx) {
 	if dr := p.drawable12; dr != nil && p.drawableVp != nil {
 		prev := dr.Pos()
 		dr.SetPos(pos1)
-		dr.DrawFunc(p.drawableVp)
+		callDrawFunc(dr, p.drawableVp)
 		dr.SetPos(prev)
 	}
 	if p.pointSize != 0 {
@@ -396,9 +397,9 @@ func (p *particleFx) loadParticle(typ string) {
 	dr := nox_xxx_spriteLoadAdd_45A360_drawable(id, image.Pt(p.x16>>16, p.y16>>16))
 	if dr != nil {
 		p.drawable12 = dr
-		dr.field_27 = uint32(uintptr(p.C())) // TODO: unused?
-		C.nox_xxx_spriteTransparentDecay_49B950(dr.C(), C.int(p.ticksTotal))
-		C.nox_xxx_sprite_45A110_drawable(dr.C())
+		dr.Field_27 = uint32(uintptr(p.C())) // TODO: unused?
+		C.nox_xxx_spriteTransparentDecay_49B950((*nox_drawable)(dr.C()), C.int(p.ticksTotal))
+		C.nox_xxx_sprite_45A110_drawable((*nox_drawable)(dr.C()))
 	}
 	p.flags |= 8
 }
@@ -494,7 +495,7 @@ func (fx *packetParticleFx) nox_xxx_partfxSwitch_4AF690(fnc func(pt image.Point)
 }
 
 type packetParticleFx struct {
-	dr   *Drawable           // 0
+	dr   *client.Drawable    // 0
 	img  *noxrender.Image    // 1
 	vp   *noxrender.Viewport // 2
 	pos  image.Point         // 3
@@ -503,7 +504,7 @@ type packetParticleFx struct {
 	max  int                 // 7
 }
 
-func (pfx *partFXes) onParticleFx(code byte, dr *Drawable, cnt int, flag bool, max int) {
+func (pfx *partFXes) onParticleFx(code byte, dr *client.Drawable, cnt int, flag bool, max int) {
 	fx := &packetParticleFx{
 		dr:   dr,
 		cnt:  cnt,
@@ -529,14 +530,14 @@ func (pfx *partFXes) onParticleFx(code byte, dr *Drawable, cnt int, flag bool, m
 }
 
 func (fx *packetParticleFx) setImage() {
-	fx.img = asImageP(fx.dr.field_2) // TODO: +8 or +32?
+	fx.img = asImageP(fx.dr.Field_2) // TODO: +8 or +32?
 }
 
 func (fx *packetParticleFx) updatePos() {
 	dr := fx.dr
 	fx.pos = dr.Pos().Sub(image.Pt(
-		int(dr.field_0),
-		int(dr.field_1)+int(dr.field_26_1)+int(dr.z),
+		int(dr.Field_0),
+		int(dr.Field_1)+int(dr.Field_26_1)+int(dr.ZVal),
 	))
 }
 

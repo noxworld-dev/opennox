@@ -189,15 +189,15 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 				switch cl.Nox_client_getCursorType() {
 				case gui.CursorShop:
 					v10 := nox_xxx_clientGetSpriteAtCursor_476F90()
-					C.nox_xxx_clientTrade_42E850(v10.C())
+					C.nox_xxx_clientTrade_42E850((*nox_drawable)(v10.C()))
 				case gui.CursorTalk:
 					v11 := nox_xxx_clientGetSpriteAtCursor_476F90()
 					if v11.Flags70()&0x10 != 0 {
-						C.nox_xxx_clientTalk_42E7B0(v11.C())
+						C.nox_xxx_clientTalk_42E7B0((*nox_drawable)(v11.C()))
 					}
 				case gui.CursorUse:
 					v12 := nox_xxx_clientGetSpriteAtCursor_476F90()
-					C.nox_xxx_clientCollideOrUse_42E810(v12.C())
+					C.nox_xxx_clientCollideOrUse_42E810((*nox_drawable)(v12.C()))
 				default:
 					c.nox_ctrlevent_action_42E670(player.CCAction, 0) // regular attack?
 				}

@@ -429,8 +429,8 @@ func sub_42BFE0() {
 	}
 	if !noxflags.HasGame(noxflags.GameFlag22) && noxflags.HasGame(noxflags.GameHost) &&
 		noxflags.HasGame(noxflags.GameClient) && !noxflags.HasGame(noxflags.GameFlag23) {
-		for it := asDrawable(C.sub_45A060()); it != nil; it = asDrawable(C.sub_45A070(it.C())) {
-			ind := int(it.field_27)
+		for it := asDrawable(C.sub_45A060()); it != nil; it = asDrawable(C.sub_45A070((*nox_drawable)(it.C()))) {
+			ind := int(it.Field_27)
 			if sub_4E3AD0(C.int(ind)) == 0 && sub_4E3B80(C.int(ind)) != 0 {
 				checkInd(uint16(ind))
 			}

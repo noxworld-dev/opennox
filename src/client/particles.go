@@ -16,7 +16,7 @@ func (c *Client) drawProtectParticle(vp *noxrender.Viewport, part, tail image.Po
 	c.r.DrawLine(part, tail, tailCl)
 }
 
-func (c *Client) DrawProtectEffectDefault(vp *noxrender.Viewport, pos image.Point, dr Drawable, phase, eff int, cl1, cl2 color.Color, back bool) { // nox_client_drawXxxProtect_474BE0
+func (c *Client) DrawProtectEffectDefault(vp *noxrender.Viewport, pos image.Point, dr *Drawable, phase, eff int, cl1, cl2 color.Color, back bool) { // nox_client_drawXxxProtect_474BE0
 	opts := ProtectEffect{
 		Cnt:       2,
 		Height:    20,
@@ -61,7 +61,7 @@ func intAngle(val, min, max int) int {
 	return val
 }
 
-func (c *Client) drawProtectEffect(vp *noxrender.Viewport, pos image.Point, dr Drawable, opts ProtectEffect, back bool) { // nox_client_drawXxxProtect
+func (c *Client) drawProtectEffect(vp *noxrender.Viewport, pos image.Point, dr *Drawable, opts ProtectEffect, back bool) { // nox_client_drawXxxProtect
 	frame := c.r.Frame()
 	phi := opts.Phase + opts.Speed*int(byte(frame)+byte(dr.Field32()))
 	for i := 0; i < opts.Cnt; i++ {

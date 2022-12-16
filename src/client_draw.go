@@ -61,6 +61,7 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/common"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -326,22 +327,22 @@ func (c *Client) nox_client_maybeDrawFrontWalls(vp *noxrender.Viewport) { // nox
 func (c *Client) sub_475F10(vp *noxrender.Viewport) {
 	for _, dr := range nox_drawable_list_3 {
 		c.drawCreatureBackEffects(vp, dr)
-		if C.nox_xxx_client_4984B0_drawable(dr.C()) == 0 {
+		if C.nox_xxx_client_4984B0_drawable((*nox_drawable)(dr.C())) == 0 {
 			continue
 		}
-		dr.field_121 = 1
-		dr.DrawFunc(vp)
+		dr.Field_121 = 1
+		callDrawFunc(dr, vp)
 		if dr.Flags70()&0x40 != 0 {
-			C.nox_xxx_drawShinySpot_4C4F40((*nox_draw_viewport_t)(vp.C()), dr.C())
+			C.nox_xxx_drawShinySpot_4C4F40((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
 		}
 		c.drawCreatureFrontEffects(vp, dr)
-		C.sub_495BB0(dr.C(), (*nox_draw_viewport_t)(vp.C()))
+		C.sub_495BB0((*nox_drawable)(dr.C()), (*nox_draw_viewport_t)(vp.C()))
 		if noxflags.HasEngine(noxflags.EngineShowExtents) {
-			nox_thing_debug_draw((*nox_draw_viewport_t)(vp.C()), dr.C())
+			nox_thing_debug_draw((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
 		}
-		dr.field_33 = 0
-		if dr.field_120 == 0 && dr.field_122 == 0 {
-			dr.field_85 = c.srv.Frame()
+		dr.Field_33 = 0
+		if dr.Field_120 == 0 && dr.Field_122 == 0 {
+			dr.Field_85 = c.srv.Frame()
 		}
 	}
 	nox_drawable_list_3 = nox_drawable_list_3[:0]
@@ -349,38 +350,38 @@ func (c *Client) sub_475F10(vp *noxrender.Viewport) {
 
 func (c *Client) sub_475FE0(vp *noxrender.Viewport) {
 	for _, dr := range nox_drawable_list_4 {
-		if C.nox_xxx_client_4984B0_drawable(dr.C()) != 0 {
-			dr.field_121 = 1
-			dr.DrawFunc(vp)
+		if C.nox_xxx_client_4984B0_drawable((*nox_drawable)(dr.C())) != 0 {
+			dr.Field_121 = 1
+			callDrawFunc(dr, vp)
 			if noxflags.HasEngine(noxflags.EngineShowExtents) {
-				nox_thing_debug_draw((*nox_draw_viewport_t)(vp.C()), dr.C())
+				nox_thing_debug_draw((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
 			}
-			dr.field_33 = 0
-			if dr.field_120 == 0 && dr.field_122 == 0 {
-				dr.field_85 = c.srv.Frame()
+			dr.Field_33 = 0
+			if dr.Field_120 == 0 && dr.Field_122 == 0 {
+				dr.Field_85 = c.srv.Frame()
 			}
 		}
 	}
 	nox_drawable_list_4 = nox_drawable_list_4[:0]
 }
 
-func (c *Client) sub_476160(a1, a2 *Drawable) bool {
+func (c *Client) sub_476160(a1, a2 *client.Drawable) bool {
 	var v1 int
-	if *(*int8)(a1.field(112)) >= 0 {
+	if int8(byte(a1.Flags28Val)) >= 0 {
 		v1 = a1.Pos().Y + a1.Z()
 	} else {
-		v1 = int(C.sub_4761B0(a1.C()))
+		v1 = int(C.sub_4761B0((*nox_drawable)(a1.C())))
 	}
 	var v2 int
-	if *(*int8)(a2.field(112)) >= 0 {
+	if int8(byte(a1.Flags28Val)) >= 0 {
 		v2 = a2.Pos().Y + a2.Z()
 	} else {
-		v2 = int(C.sub_4761B0(a2.C()))
+		v2 = int(C.sub_4761B0((*nox_drawable)(a2.C())))
 	}
 	return v1-v2 < 0
 }
 
-func nox_xxx_cliGetSpritePlayer_45A000() *Drawable {
+func nox_xxx_cliGetSpritePlayer_45A000() *client.Drawable {
 	return asDrawable(C.nox_xxx_drawablePlayer_1046600)
 }
 
@@ -428,7 +429,7 @@ LOOP:
 		} else {
 			sy = math.MaxInt32
 		}
-		if uint32(dr.field_27) == memmap.Uint32(0x5D4594, 1096448) && nox_server_teamFirst_418B10() != nil {
+		if dr.Field_27 == memmap.Uint32(0x5D4594, 1096448) && nox_server_teamFirst_418B10() != nil {
 			for v25 := nox_xxx_cliGetSpritePlayer_45A000(); v25 != nil; v25 = v25.Field104() {
 				if v25.HasEnchant(server.ENCHANT_CROWN) {
 					continue LOOP
@@ -436,37 +437,37 @@ LOOP:
 			}
 		}
 		v26 := dr.Flags28()
-		if !((v26&6 == 0) || c.srv.Frame()-uint32(dr.field_72) <= 5) {
+		if !((v26&6 == 0) || c.srv.Frame()-dr.Field_72 <= 5) {
 			if v26&2 != 0 {
-				v27 := dr.field_69
+				v27 := dr.Field_69
 				if !(v27 == 9 || v27 == 10) {
 					continue
 				}
-			} else if *memmap.PtrPtr(0x852978, 8) != unsafe.Pointer(dr.C()) {
+			} else if *memmap.PtrPtr(0x852978, 8) != dr.C() {
 				continue
 			}
 		}
 		c.drawCreatureBackEffects(vp, dr)
-		if dr.DrawFunc(vp) == 0 {
+		if callDrawFunc(dr, vp) == 0 {
 			continue
 		}
 		if noxflags.HasEngine(noxflags.EngineShowExtents) {
-			nox_thing_debug_draw((*nox_draw_viewport_t)(vp.C()), dr.C())
+			nox_thing_debug_draw((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
 		}
-		dr.field_33 = 0
+		dr.Field_33 = 0
 		if dr.Flags70()&0x40 != 0 {
-			C.nox_xxx_drawShinySpot_4C4F40((*nox_draw_viewport_t)(vp.C()), dr.C())
+			C.nox_xxx_drawShinySpot_4C4F40((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
 		}
 		c.drawCreatureFrontEffects(vp, dr)
-		C.sub_495BB0(dr.C(), (*nox_draw_viewport_t)(vp.C()))
-		if dr.field_120 == 0 && dr.field_122 == 0 {
-			dr.field_85 = c.srv.Frame()
+		C.sub_495BB0((*nox_drawable)(dr.C()), (*nox_draw_viewport_t)(vp.C()))
+		if dr.Field_120 == 0 && dr.Field_122 == 0 {
+			dr.Field_85 = c.srv.Frame()
 		}
-		if C.sub_459DB0(dr.C()) != 0 {
-			C.sub_459DD0(dr.C(), 1)
+		if C.sub_459DB0((*nox_drawable)(dr.C())) != 0 {
+			C.sub_459DD0((*nox_drawable)(dr.C()), 1)
 		}
 		if dr.Flags28()&0x20006 != 0 {
-			C.sub_49A6A0((*nox_draw_viewport_t)(vp.C()), dr.C())
+			C.sub_49A6A0((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
 		}
 	}
 	nox_drawable_objects_queue = nox_drawable_objects_queue[:0]
@@ -486,34 +487,34 @@ func (c *Client) sub_4754F0(vp *noxrender.Viewport) {
 	nox_xxx_forEachSprite(rect, c.nox_xxx_spriteAddQueue_475560_draw)
 }
 
-func (c *Client) nox_xxx_spriteAddQueue_475560_draw(dr *Drawable) {
-	if C.nox_xxx_sprite_4756E0_drawable(dr.C()) != 0 {
+func (c *Client) nox_xxx_spriteAddQueue_475560_draw(dr *client.Drawable) {
+	if C.nox_xxx_sprite_4756E0_drawable((*nox_drawable)(dr.C())) != 0 {
 		nox_drawable_list_2 = append(nox_drawable_list_2, dr)
 		return
 	}
-	if C.nox_xxx_sprite_475740_drawable(dr.C()) != 0 {
+	if C.nox_xxx_sprite_475740_drawable((*nox_drawable)(dr.C())) != 0 {
 		nox_drawable_list_3 = append(nox_drawable_list_3, dr)
 		return
 	}
-	if C.nox_xxx_sprite_4757A0_drawable(dr.C()) != 0 {
+	if C.nox_xxx_sprite_4757A0_drawable((*nox_drawable)(dr.C())) != 0 {
 		nox_drawable_list_4 = append(nox_drawable_list_4, dr)
 		return
 	}
-	if C.sub_4757D0_drawable(dr.C()) != 0 {
-		if C.nox_client_fadeObjects_80836 != 0 || unsafe.Pointer(dr.C()) == *memmap.PtrPtr(0x852978, 8) || C.nox_xxx_client_4984B0_drawable(dr.C()) != 0 {
-			if dr.field_122 == 0 {
-				if C.nox_xxx_client_4984B0_drawable(dr.C()) != 0 {
-					dr.field_121 = 1
-					dr.field_120 = 0
+	if C.sub_4757D0_drawable((*nox_drawable)(dr.C())) != 0 {
+		if C.nox_client_fadeObjects_80836 != 0 || dr.C() == *memmap.PtrPtr(0x852978, 8) || C.nox_xxx_client_4984B0_drawable((*nox_drawable)(dr.C())) != 0 {
+			if dr.Field_122 == 0 {
+				if C.nox_xxx_client_4984B0_drawable((*nox_drawable)(dr.C())) != 0 {
+					dr.Field_121 = 1
+					dr.Field_120 = 0
 				} else {
-					if dr.field_121 == 0 || (dr.flags28&0x6 != 0) {
+					if dr.Field_121 == 0 || (dr.Flags28Val&0x6 != 0) {
 						return
 					}
-					dr.field_120 = 1
+					dr.Field_120 = 1
 				}
 			}
-			if (dr.field_120 != 0 || dr.field_122 != 0) && (c.srv.Frame()-uint32(dr.field_85)) > c.srv.TickRate() {
-				dr.field_120 = 0
+			if (dr.Field_120 != 0 || dr.Field_122 != 0) && (c.srv.Frame()-dr.Field_85) > c.srv.TickRate() {
+				dr.Field_120 = 0
 			} else {
 				nox_drawable_objects_queue = append(nox_drawable_objects_queue, dr)
 			}
@@ -558,18 +559,18 @@ func sub_467430() byte {
 	return memmap.Uint8(0x5D4594, 1062536)
 }
 
-func (c *Client) drawableUpdateLight(dr *Drawable) bool {
+func (c *Client) drawableUpdateLight(dr *client.Drawable) bool {
 	if dr.HasEnchant(server.ENCHANT_INVULNERABLE) {
 		dr.SetLightColor(128, 128, 255)
 		dr.SetLightIntensity(300.0)
 		return true
-	} else if dr.HasEnchant(server.ENCHANT_LIGHT) || unsafe.Pointer(dr.C()) == *memmap.PtrPtr(0x852978, 8) && sub_467430()&8 != 0 {
+	} else if dr.HasEnchant(server.ENCHANT_LIGHT) || dr.C() == *memmap.PtrPtr(0x852978, 8) && sub_467430()&8 != 0 {
 		dr.SetLightColor(255, 255, 255)
 		dr.SetLightIntensity(200.0)
 		return true
 	} else if dr.Flags28()&0x2 == 0 || dr.Flags28()&0x80000 != 0 {
 		return false
-	} else if dr.field_69 == 10 {
+	} else if dr.Field_69 == 10 {
 		dr.SetLightIntensity(0.0)
 		return true
 	}
@@ -584,18 +585,18 @@ func (c *Client) drawableUpdateLight(dr *Drawable) bool {
 	return true
 }
 
-func (c *Client) nox_xxx_cliLight16_469140(dr *Drawable) {
-	if !(c.drawableUpdateLight(dr) || dr.Flags28()&0x80000 != 0 && dr.Flags30()&0x1000000 != 0 && dr.light_intensity_rad > 0 && dr.Flags30()&0x4 != 0) {
+func (c *Client) nox_xxx_cliLight16_469140(dr *client.Drawable) {
+	if !(c.drawableUpdateLight(dr) || dr.Flags28()&0x80000 != 0 && dr.Flags30()&0x1000000 != 0 && dr.LightIntensityRad > 0 && dr.Flags30()&0x4 != 0) {
 		return
 	}
-	if !(nox_xxx_get_57AF20() == 0 || unsafe.Pointer(dr.C()) == *memmap.PtrPtr(0x852978, 8) || unsafe.Pointer(dr.draw_func) == C.nox_thing_glow_orb_draw) {
+	if !(nox_xxx_get_57AF20() == 0 || dr.C() == *memmap.PtrPtr(0x852978, 8) || dr.DrawFuncPtr == C.nox_thing_glow_orb_draw) {
 		return
 	}
-	intens := int(dr.light_intensity_u16)
-	rad := int(dr.light_intensity_rad)
+	intens := int(dr.LightIntensityU16)
+	rad := int(dr.LightIntensityRad)
 	if dr.Flags30()&0x20000000 != 0 {
-		intens += randomIntMinMax(0, int(dr.light_intensity_u16)>>18) << 16
-		rad = lightRadius(float32(intens) / 0x10000)
+		intens += randomIntMinMax(0, int(dr.LightIntensityU16)>>18) << 16
+		rad = client.LightRadius(float32(intens) / 0x10000)
 	}
 	if intens <= int(lightMinIntensity*0x10000) {
 		return
@@ -608,7 +609,7 @@ func (c *Client) nox_xxx_cliLight16_469140(dr *Drawable) {
 	xx := pos.X - noxTilesGpx
 	yy := pos.Y - noxTilesGpy
 	a4 := image.Pt(xx, yy)
-	if dr.field_42 == 0xFFFF {
+	if dr.Field_42 == 0xFFFF {
 		dlimit := rad * rad
 
 		xmin := (xx - rad) / common.GridStep
@@ -641,7 +642,7 @@ func (c *Client) nox_xxx_cliLight16_469140(dr *Drawable) {
 				if dist := dx2 + dy2; dist <= dlimit {
 					intens3 := sub_4C1C70(intens2+dword_587000_142328, 66*dist*int(memmap.Uint32(0x587000, 142324))/v36+0x10000)
 					if intens3 > dword_587000_142328 {
-						sub_4695E0(x, y, (*int32)(unsafe.Pointer(&dr.light_color_r)), 8*(intens3-dword_587000_142328), dr.field_43 != 0)
+						sub_4695E0(x, y, (*int32)(unsafe.Pointer(&dr.LightColorR)), 8*(intens3-dword_587000_142328), dr.Field_43 != 0)
 					}
 					xx = a4.X
 					yy = a4.Y
@@ -654,22 +655,22 @@ func (c *Client) nox_xxx_cliLight16_469140(dr *Drawable) {
 			(yy<<16)/common.GridStep,
 		)
 		v19 := (rad << 16) / common.GridStep
-		v22 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(uint16(dr.field_41_0+0x4000)>>4))))
-		v23 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(uint16(dr.field_41_0)>>4))))
+		v22 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(uint16(dr.Field_41_0+0x4000)>>4))))
+		v23 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(uint16(dr.Field_41_0)>>4))))
 
-		v22b := uint16(dr.field_41_0) + uint16(dr.field_41_1)
+		v22b := uint16(dr.Field_41_0) + uint16(dr.Field_41_1)
 		a3 := a1.Add(image.Pt(v22, v23))
 		v44 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr((v22b+0x4000)>>4))))
 		v24 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(v22b>>4))))
 
-		v22b = uint16(dr.field_41_0) + uint16(dr.field_41_1)
+		v22b = uint16(dr.Field_41_0) + uint16(dr.Field_41_1)
 		a2 := a1.Add(image.Pt(v44, v24))
 		v45 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr((v22b+0x4000)>>4))))
 		v25 := sub_4C1C60(v19, 16*int(memmap.Uint32(0x85B3FC, 12260+4*uintptr(v22b>>4))))
 
 		v42 := a1.Add(image.Pt(v45, v25))
-		sub_4696B0(a1, a2, a3, a4, intens, (*int32)(unsafe.Pointer(&dr.light_color_r)))
-		sub_4696B0(a1, a3, v42, a4, intens, (*int32)(unsafe.Pointer(&dr.light_color_r)))
+		sub_4696B0(a1, a2, a3, a4, intens, (*int32)(unsafe.Pointer(&dr.LightColorR)))
+		sub_4696B0(a1, a3, v42, a4, intens, (*int32)(unsafe.Pointer(&dr.LightColorR)))
 	}
 }
 
