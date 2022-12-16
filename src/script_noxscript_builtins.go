@@ -125,7 +125,7 @@ func (s *noxScript) callBuiltinNative(fi asm.Builtin) int {
 	}
 	if fi < 0 || int(fi) >= len(noxScriptBuiltins) {
 		scriptLog.Printf("noxscript: invalid builtin index: %d (%x)", fi, fi)
-		return 0
+		return 1
 	}
 	return noxScriptBuiltins[fi](s)
 }
