@@ -313,6 +313,11 @@ type ObjectIndex struct {
 	Obj12 *Object
 }
 
+type ScriptCallback struct {
+	Flags uint32
+	Func  int32
+}
+
 type Object struct {
 	IDPtr         unsafe.Pointer             // 0, 0
 	TypeInd       uint16                     // 1, 4

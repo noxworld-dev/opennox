@@ -29,7 +29,7 @@ const (
 	noxEventMonsterSeeEnemy    = noxEventType(14) // 1+2
 	noxEventMonsterLostEnemy   = noxEventType(15) // 1+2
 	noxEventMonsterHearEnemy   = noxEventType(16) // 1+2 -- unit, heardMonster, raycastDistance
-	noxEventMonsterZZZ         = noxEventType(17) // 1+2
+	noxEventMonsterIsHit       = noxEventType(17) // 1+2
 	noxEventInventoryPlace     = noxEventType(18) // 1+2
 	noxEventGeneratorCollide   = noxEventType(19) // 1+2
 	noxEventTrapdoorCollide    = noxEventType(20) // 1+2
@@ -82,7 +82,7 @@ func (ev noxEventType) String() string {
 		return "MonsterLostEnemy"
 	case noxEventMonsterHearEnemy:
 		return "MonsterHearEnemy"
-	case noxEventMonsterZZZ:
+	case noxEventMonsterIsHit:
 		return "MonsterZZZ"
 	case noxEventInventoryPlace:
 		return "InventoryPlace"
@@ -113,19 +113,14 @@ func (ev noxEventType) String() string {
 	}
 }
 
-func nox_xxx_scriptCallByEventBlock_502490(ptr *uint32, obj1 noxObject, obj2 noxObject, ev noxEventType) {
-	C.nox_xxx_scriptCallByEventBlock_502490((*C.int)(unsafe.Pointer(ptr)), C.int(uintptr(unsafe.Pointer(toCObj(obj1)))), C.int(uintptr(unsafe.Pointer(toCObj(obj2)))), C.int(ev))
-}
-
 //export nox_script_callByEvent_cgo
 func nox_script_callByEvent_cgo(event C.int, a1, a2 unsafe.Pointer) {
-	noxServer.nox_script_callByEventcgo(int(event), a1, a2)
+	noxServer.nox_script_callByEventcgo(noxEventType(event), a1, a2)
 }
 
-func (s *Server) nox_script_callByEventcgo(event int, a1, a2 unsafe.Pointer) {
-	ev := noxEventType(event)
+func (s *Server) nox_script_callByEventcgo(ev noxEventType, a1, a2 unsafe.Pointer) {
 	switch ev {
-	case noxEventCollide, noxEventMonsterCollide, noxEventMonsterHearEnemy, noxEventMonsterZZZ:
+	case noxEventCollide, noxEventMonsterCollide, noxEventMonsterHearEnemy, noxEventMonsterIsHit:
 		// too frequent, don't log for now
 	case noxEventTriggerActivated:
 		obj := asObject(a1)

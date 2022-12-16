@@ -5682,66 +5682,6 @@ void nox_xxx_netUpdateRemotePlr_501CA0(int a1) {
 	nox_xxx_netUpdateRemotePlr_501CA0_B(a1, v2, v18);
 }
 
-//----- (005025A0) --------------------------------------------------------
-void sub_5025A0(int a1, int a2, int a3) {
-	int result; // eax
-	int v4;     // ecx
-
-	if (*getMemIntPtr(0x5D4594, 1599468) < 32) {
-		result = 12 * *getMemU32Ptr(0x5D4594, 1599468);
-		v4 = *getMemU32Ptr(0x5D4594, 1599468) + 1;
-		*getMemU32Ptr(0x5D4594, 1599084 + result) = a1;
-		*getMemU32Ptr(0x5D4594, 1599088 + result) = a2;
-		*getMemU32Ptr(0x5D4594, 1599092 + result) = a3;
-		*getMemU32Ptr(0x5D4594, 1599468) = v4;
-	}
-}
-
-//----- (005025E0) --------------------------------------------------------
-int sub_5025E0(int a1, int a2, int a3) {
-	int result;        // eax
-	int v4;            // edi
-	int v5;            // ecx
-	unsigned char* v6; // esi
-	unsigned char* v7; // eax
-	int v8;            // ecx
-	int v9;            // [esp+4h] [ebp-4h]
-
-	result = *getMemU32Ptr(0x5D4594, 1599468);
-	if (*getMemU32Ptr(0x5D4594, 1599468)) {
-		v4 = 0;
-		if (*getMemU32Ptr(0x5D4594, 1599468) > 0) {
-			v5 = *getMemU32Ptr(0x5D4594, 1599468) - 1;
-			v9 = *getMemU32Ptr(0x5D4594, 1599468) - 1;
-			v6 = getMemAt(0x5D4594, 1599084);
-			do {
-				if (*(uint32_t*)v6 == a1 && *((uint32_t*)v6 + 1) == a2 && *((uint32_t*)v6 + 2) == a3) {
-					if ((int)v6 < (int)getMemAt(0x5D4594, 1599468) && v4 < v5) {
-						v7 = v6;
-						v8 = v5 - v4;
-						do {
-							--v8;
-							*(uint32_t*)v7 = *((uint32_t*)v7 + 3);
-							*((uint32_t*)v7 + 1) = *((uint32_t*)v7 + 4);
-							*((uint32_t*)v7 + 2) = *((uint32_t*)v7 + 5);
-							v7 += 12;
-						} while (v8);
-						result = *getMemU32Ptr(0x5D4594, 1599468);
-						v5 = v9;
-					}
-					--result;
-					--v5;
-					*getMemU32Ptr(0x5D4594, 1599468) = result;
-					v9 = v5;
-				}
-				++v4;
-				v6 += 12;
-			} while (v4 < result);
-		}
-	}
-	return result;
-}
-
 //----- (00502670) --------------------------------------------------------
 void nox_server_scriptExecuteFnForEachGroupObj_502670(unsigned char* groupPtr, int expectedType, void (*a3)(int, int),
 													  int a4) {

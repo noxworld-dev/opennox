@@ -166,8 +166,6 @@ void nox_xxx_audCreate_501A30(int a1, float2* a2, int a3, int a4);
 void nox_xxx_gameSetAudioFadeoutMb_501AC0(int a1);
 char sub_501C00(float* a1, nox_object_t* a2);
 void nox_xxx_netUpdateRemotePlr_501CA0(int a1);
-void sub_5025A0(int a1, int a2, int a3);
-int sub_5025E0(int a1, int a2, int a3);
 int nox_xxx_mapgenMakeScript_502790(FILE* a1, char* a2);
 void nox_xxx_mapReset_5028E0();
 int sub_5029A0(char* a1);

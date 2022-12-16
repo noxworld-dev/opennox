@@ -439,9 +439,9 @@ func (s *serverObjTypes) readType(thg *things.Thing) error {
 	}
 	if typ.Class().Has(object.ClassMonster) {
 		ud := typ.UpdateDataMonster()
-		ud.ScriptEnemySightedCB = -1
-		ud.ScriptLookingForEnemyCB = -1
-		ud.ScriptDeathCB = -1
+		ud.ScriptEnemySighted.Func = -1
+		ud.ScriptLookingForEnemy.Func = -1
+		ud.ScriptDeath.Func = -1
 	} else if typ.Class().Has(object.ClassTrigger) {
 		ud := unsafe.Slice((*int32)(typ.UpdateData), 9)
 		ud[4] = -1

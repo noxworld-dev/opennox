@@ -7,6 +7,7 @@ package opennox
 extern int nox_script_count_xxx_1599640;
 extern nox_script_xxx_t* nox_script_arr_xxx_1599636;
 extern char* nox_script_strings[1024];
+extern unsigned int nox_script_strings_xxx;
 extern unsigned int nox_script_strings_cnt;
 int sub_516570();
 int nox_xxx_gameIsSwitchToSolo_4DB240();
@@ -98,16 +99,6 @@ func nox_script_pushf(v C.float) {
 //export nox_script_popf
 func nox_script_popf() C.float {
 	return C.float(noxServer.noxScript.PopF32())
-}
-
-//export nox_script_saveStack
-func nox_script_saveStack() C.int {
-	return C.int(noxServer.noxScript.saveStack())
-}
-
-//export nox_script_resetStack
-func nox_script_resetStack() {
-	noxServer.noxScript.resetStack()
 }
 
 //export nox_script_indexByEvent
@@ -670,6 +661,76 @@ func (s *noxScript) PushHandleNS(obj ns.Handle) {
 	} else {
 		s.PushI32(int32(obj.ScriptID()))
 	}
+}
+
+//export nox_xxx_scriptCallByEventBlock_502490
+func nox_xxx_scriptCallByEventBlock_502490(a1 unsafe.Pointer, a2, a3 unsafe.Pointer, eventCode int32) unsafe.Pointer {
+	return noxServer.scriptCallback((*server.ScriptCallback)(a1), asObject(a2), asObject(a3), noxEventType(eventCode))
+}
+
+type noxScriptCallback struct {
+	Block    *server.ScriptCallback
+	Caller4  *Object
+	Trigger8 *Object
+}
+
+var (
+	noxScriptCallbacks []noxScriptCallback
+)
+
+func (s *Server) scriptPushCallback(b *server.ScriptCallback, caller, trigger *Object) {
+	noxScriptCallbacks = append(noxScriptCallbacks, noxScriptCallback{
+		Block: b, Caller4: caller, Trigger8: trigger,
+	})
+}
+
+func (s *Server) scriptPopCallback(b *server.ScriptCallback, caller, trigger *Object) {
+	for i := 0; i < len(noxScriptCallbacks); i++ {
+		it := &noxScriptCallbacks[i]
+		if it.Block == b && it.Caller4 == caller && it.Trigger8 == trigger {
+			noxScriptCallbacks = append(noxScriptCallbacks[:i], noxScriptCallbacks[i+1:]...)
+		}
+	}
+}
+
+func (s *Server) scriptCallback(b *server.ScriptCallback, caller, trigger *Object, eventCode noxEventType) unsafe.Pointer {
+	s.nox_script_callByEventcgo(eventCode, unsafe.Pointer(caller.CObj()), unsafe.Pointer(trigger.CObj()))
+	*memmap.PtrUint32(0x5D4594, 1599076) = 0
+	flags := b.Flags
+	if flags&0x1 != 0 {
+		return nil
+	}
+	sind := int(b.Func)
+	if sind == -1 {
+		return nil
+	}
+	if flags&0x2 != 0 {
+		b.Flags |= 0x1
+	}
+	if s.noxScript.saveStack() != 0 {
+		s.scriptPushCallback(b, caller, trigger)
+		return memmap.PtrOff(0x5D4594, 1599076)
+	}
+	if err := s.noxScript.callByIndexObj(sind, caller, trigger); err != nil {
+		scriptLog.Println(err)
+	}
+	scripts := s.noxScript.scripts()
+	if scripts[sind].stack_size != 0 {
+		*memmap.PtrUint32(0x5D4594, 1599076) = uint32(s.noxScript.PopI32())
+	}
+	s.noxScript.resetStack()
+	if C.nox_script_strings_xxx < C.nox_script_strings_cnt {
+		for i := int(C.nox_script_strings_xxx); i < int(C.nox_script_strings_cnt); i++ {
+			StrFree(C.nox_script_strings[i])
+			C.nox_script_strings[i] = nil
+		}
+	}
+	C.nox_script_strings_cnt = C.nox_script_strings_xxx
+	s.scriptPopCallback(b, caller, trigger)
+	if len(noxScriptCallbacks) > 0 {
+		s.scriptCallback(noxScriptCallbacks[0].Block, noxScriptCallbacks[0].Caller4, noxScriptCallbacks[0].Trigger8, 0)
+	}
+	return memmap.PtrOff(0x5D4594, 1599076)
 }
 
 //export nox_script_callByIndex_507310

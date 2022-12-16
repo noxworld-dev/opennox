@@ -8,7 +8,7 @@ void nox_script_callByIndex_507310(int index, void* a1, void* a2);
 int nox_script_indexByEvent(char* a1);
 
 int nox_xxx_xferReadScriptHandler_4F5580(int a1, char* a2);
-unsigned char* nox_xxx_scriptCallByEventBlock_502490(int* a1, int a2, int a3, int eventCode);
+void* nox_xxx_scriptCallByEventBlock_502490(void* a1, void* a2, void* a3, int eventCode);
 int nox_server_mapRWScriptData_504F90();
 void nox_script_freeEverything_5058F0();
 int sub_508CB0(unsigned int* a1, int a2);
