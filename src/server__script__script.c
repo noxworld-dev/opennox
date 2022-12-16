@@ -18,8 +18,6 @@ extern unsigned int dword_5d4594_1599628;
 
 _Static_assert(sizeof(nox_script_xxx_t) == 48, "wrong size of nox_script_xxx_t structure!");
 
-void* nox_script_caller_3821964 = 0;
-void* nox_script_trigger_3821968 = 0;
 nox_script_xxx_t* nox_script_arr_xxx_1599636 = 0;
 int nox_script_count_xxx_1599640 = 0;
 
@@ -38,22 +36,6 @@ int nox_script_indexByEvent(const char* a1) {
 		}
 	}
 	return -1;
-}
-
-void* nox_script_get_caller() { return nox_script_caller_3821964; }
-
-void* nox_script_get_trigger() { return nox_script_trigger_3821968; }
-
-//----- (00512E40) --------------------------------------------------------
-int nox_script_addString_512E40(char* s) {
-	if (nox_script_strings_cnt >= 1024) {
-		return nox_script_strings_cnt - 1;
-	}
-	char* cstr = strdup(s);
-	int i = nox_script_strings_cnt;
-	nox_script_strings[i] = cstr;
-	nox_script_strings_cnt++;
-	return i;
 }
 
 const char* nox_script_getString_512E40(int i) {

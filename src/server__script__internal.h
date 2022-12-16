@@ -22,7 +22,6 @@ void nox_script_push(int val);
 void nox_script_pushf(float val);
 int nox_script_pop();
 float nox_script_popf();
-int nox_script_addString_512E40(char* a1);
 void* nox_script_get_caller();
 void* nox_script_get_trigger();
 const char* nox_script_getString_512E40(int i);

@@ -5,9 +5,9 @@ package opennox
 #include "server__script__internal.h"
 #include "GAME4_1.h" // for nox_xxx_scriptPrepareFoundUnit_511D70 and nox_xxx_script_511C50
 extern int nox_script_count_xxx_1599640;
-extern void* nox_script_caller_3821964;
-extern void* nox_script_trigger_3821968;
 extern nox_script_xxx_t* nox_script_arr_xxx_1599636;
+extern char* nox_script_strings[1024];
+extern unsigned int nox_script_strings_cnt;
 int sub_516570();
 int nox_xxx_gameIsSwitchToSolo_4DB240();
 size_t nox_script_readWriteWww_5417C0(FILE* a1, FILE* a2, FILE* a3);
@@ -68,6 +68,16 @@ func nox_server_scriptValToObjectPtr_511B60(val C.int) *C.nox_object_t {
 	return noxServer.noxScript.scriptToObject(int(val)).CObj()
 }
 
+//export nox_script_get_caller
+func nox_script_get_caller() unsafe.Pointer {
+	return unsafe.Pointer(noxServer.noxScript.Caller().CObj())
+}
+
+//export nox_script_get_trigger
+func nox_script_get_trigger() unsafe.Pointer {
+	return unsafe.Pointer(noxServer.noxScript.Trigger().CObj())
+}
+
 //export nox_script_push
 func nox_script_push(v C.int) {
 	noxServer.noxScript.PushI32(int32(v))
@@ -111,7 +121,9 @@ type noxScript struct {
 	dpos     image.Point
 	nameSuff string
 	vm       struct {
-		stack []uint32
+		stack   []uint32
+		caller  *Object
+		trigger *Object
 	}
 	panic noxScriptPanic
 }
@@ -157,11 +169,11 @@ func (s *noxScript) callByIndex(fnc int, caller, trigger noxObject) {
 }
 
 func (s *noxScript) Caller() *Object {
-	return asObject(C.nox_script_caller_3821964)
+	return s.vm.caller
 }
 
 func (s *noxScript) Trigger() *Object {
-	return asObject(C.nox_script_trigger_3821968)
+	return s.vm.trigger
 }
 
 func (s *noxScript) resetStack() {
@@ -213,7 +225,13 @@ func (s *noxScript) PushBool(v bool) {
 }
 
 func (s *noxScript) AddString(str string) uint32 {
-	return uint32(C.nox_script_addString_512E40(CString(str)))
+	if int(C.nox_script_strings_cnt) >= len(C.nox_script_strings) {
+		return uint32(C.nox_script_strings_cnt - 1)
+	}
+	i := uint32(C.nox_script_strings_cnt)
+	C.nox_script_strings[i] = CString(str)
+	C.nox_script_strings_cnt++
+	return i
 }
 
 func (s *noxScript) PushString(str string) {
@@ -249,7 +267,10 @@ func (s *noxScript) PopBool() bool {
 }
 
 func (s *noxScript) GetString(i uint32) string {
-	return GoString(C.nox_script_getString_512E40(C.int(i)))
+	if i < 0 || i >= uint32(C.nox_script_strings_cnt) {
+		return ""
+	}
+	return GoString(C.nox_script_strings[i])
 }
 
 func (s *noxScript) PopString() string {
@@ -635,8 +656,8 @@ func nox_script_callByIndex_507310(index int, a2 unsafe.Pointer, a3 unsafe.Point
 	}
 	s := scripts[index]
 
-	C.nox_script_caller_3821964 = a2
-	C.nox_script_trigger_3821968 = a3
+	ns.vm.caller = asObject(a2)
+	ns.vm.trigger = asObject(a3)
 
 	args := s.field28()
 	for i := 0; i < int(s.size_28); i++ {
