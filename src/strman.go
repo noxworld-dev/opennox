@@ -40,6 +40,17 @@ func internCStr(s string) *C.char {
 	return p
 }
 
+func internCStrB(s string) *byte {
+	p, ok := strManC[s]
+	if ok {
+		return (*byte)(unsafe.Pointer(p))
+	}
+	p = CString(s)
+	strManC[s] = p
+	cntStringsC.Inc()
+	return (*byte)(unsafe.Pointer(p))
+}
+
 func internCBytes(b []byte) unsafe.Pointer {
 	p, ok := strManC[string(b)]
 	if ok {
@@ -60,6 +71,17 @@ func internWStr(s string) *C.wchar_t {
 	strManW[s] = p
 	cntStringsW.Inc()
 	return p
+}
+
+func internWStrU(s string) *uint16 {
+	p, ok := strManW[s]
+	if ok {
+		return (*uint16)(unsafe.Pointer(p))
+	}
+	p, _ = CWString(s)
+	strManW[s] = p
+	cntStringsW.Inc()
+	return (*uint16)(unsafe.Pointer(p))
 }
 
 func strmanReadFile(path string) error {

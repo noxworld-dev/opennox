@@ -91,7 +91,7 @@ type Drawable struct {
 	field_74_2          byte           // 74, 297
 	field_74_3          byte           // 74, 298
 	field_74_4          byte           // 74, 299
-	draw_func           unsafe.Pointer // 75, 300, (*draw_func)(uint32_t*, nox_drawable*) same as nox_thing->draw_func
+	draw_func           unsafe.Pointer // 75, 300, (*draw_func)(uint32_t*, nox_drawable*) same as CObjectType->draw_func
 	field_76            unsafe.Pointer // 76, 304
 	field_77            uint32         // 77, 308
 	field_78            uint32         // 78, 312
