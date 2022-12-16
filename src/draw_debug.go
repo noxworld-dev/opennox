@@ -19,7 +19,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/types"
 
-	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -192,7 +192,7 @@ func sub_50CB10() []types.Pointf {
 	return unsafe.Slice((*types.Pointf)(C.dword_5d4594_2386176), sz)
 }
 
-func drawDebugAI(vp *client.Viewport) {
+func drawDebugAI(vp *noxrender.Viewport) {
 	r := noxClient.r
 
 	if arr := sub_50CB10(); len(arr) >= 2 {

@@ -56,7 +56,6 @@ import (
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 	"github.com/noxworld-dev/opennox-lib/common"
 
-	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -110,12 +109,12 @@ func get_nox_client_texturedFloors_154956() C.bool {
 	return C.bool(nox_client_texturedFloors_154956)
 }
 
-func asViewport(p *nox_draw_viewport_t) *client.Viewport {
+func asViewport(p *nox_draw_viewport_t) *noxrender.Viewport {
 	return asViewportP(unsafe.Pointer(p))
 }
 
-func asViewportP(p unsafe.Pointer) *client.Viewport {
-	return (*client.Viewport)(p)
+func asViewportP(p unsafe.Pointer) *noxrender.Viewport {
+	return (*noxrender.Viewport)(p)
 }
 
 //export nox_draw_getViewport_437250
@@ -202,7 +201,7 @@ func nox_xxx_drawPointMB_499B70(a1, a2, a3 C.int) {
 	r.DrawPoint(image.Pt(int(a1), int(a2)), int(a3), r.Data().Color2())
 }
 
-var _ = [1]struct{}{}[52-unsafe.Sizeof(client.Viewport{})]
+var _ = [1]struct{}{}[52-unsafe.Sizeof(noxrender.Viewport{})]
 var _ = [1]struct{}{}[4-unsafe.Sizeof(int(0))]
 
 type nox_draw_viewport_t = C.nox_draw_viewport_t
@@ -943,7 +942,7 @@ func sub_4745F0(cvp *nox_draw_viewport_t) {
 	noxClient.sub4745F0(asViewport(cvp))
 }
 
-func (c *Client) sub4745F0(vp *client.Viewport) {
+func (c *Client) sub4745F0(vp *noxrender.Viewport) {
 	for _, dr := range nox_drawable_list_2 {
 		c.drawCreatureBackEffects(vp, dr)
 		if C.nox_xxx_client_4984B0_drawable(dr.C()) == 0 {
@@ -1098,7 +1097,7 @@ func sub_499F60(p int, pos image.Point, a4 int, a5, a6, a7, a8, a9 int, a10 int)
 	C.sub_499F60(C.int(p), C.int(pos.X), C.int(pos.Y), C.short(a4), C.char(a5), C.char(a6), C.char(a7), C.char(a8), C.char(a9), C.int(a10))
 }
 
-func (c *Client) drawCreatureBackEffects(vp *client.Viewport, dr *Drawable) {
+func (c *Client) drawCreatureBackEffects(vp *noxrender.Viewport, dr *Drawable) {
 	if dr.HasEnchant(server.ENCHANT_INVISIBLE) && C.sub_474B40(dr.C()) == 0 {
 		return
 	}
@@ -1184,7 +1183,7 @@ func (c *Client) drawCreatureBackEffects(vp *client.Viewport, dr *Drawable) {
 	}
 }
 
-func (c *Client) drawCreatureFrontEffects(vp *client.Viewport, dr *Drawable) {
+func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *Drawable) {
 	if dr.HasEnchant(server.ENCHANT_INVISIBLE) && C.sub_474B40(dr.C()) == 0 {
 		return
 	}
