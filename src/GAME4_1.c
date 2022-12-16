@@ -5045,34 +5045,6 @@ void nox_xxx_mobSetFightTarg_515D30(int a1, int a2) {
 	}
 }
 
-//----- (00515E20) --------------------------------------------------------
-int sub_515E20(int a1, uint32_t* a2) {
-	int result; // eax
-
-	result = a1;
-	if (a1 && a2) {
-		if (*(uint8_t*)(a1 + 8) & 2) {
-			result = *(uint32_t*)(a1 + 748);
-			*(uint32_t*)(result + 1336) = *a2;
-		}
-	}
-	return result;
-}
-
-//----- (00515EB0) --------------------------------------------------------
-int sub_515EB0(int a1, uint32_t* a2) {
-	int result; // eax
-
-	result = a1;
-	if (a1 && a2) {
-		if (*(uint8_t*)(a1 + 8) & 2) {
-			result = *(uint32_t*)(a1 + 748);
-			*(uint32_t*)(result + 1344) = *a2;
-		}
-	}
-	return result;
-}
-
 //----- (00515F70) --------------------------------------------------------
 void nox_server_scriptFleeFrom_515F70(int a1, uint32_t* a2) {
 	int v2;  // eax

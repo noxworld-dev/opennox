@@ -551,13 +551,17 @@ func (obj nsObj) SetRoamFlag(flags int) {
 }
 
 func (obj nsObj) RetreatLevel(percent float32) {
-	//TODO implement me
-	panic("implement me")
+	if obj.Class().Has(object.ClassMonster) {
+		ud := obj.AsUnit().UpdateDataMonster()
+		ud.RetreatLevel = percent
+	}
 }
 
 func (obj nsObj) ResumeLevel(percent float32) {
-	//TODO implement me
-	panic("implement me")
+	if obj.Class().Has(object.ClassMonster) {
+		ud := obj.AsUnit().UpdateDataMonster()
+		ud.ResumeLevel = percent
+	}
 }
 
 func (obj nsObj) OnEvent(event ns.ObjectEvent, fnc ns.Func) {
@@ -750,13 +754,17 @@ func (g nsObjGroup) SetRoamFlag(flags int) {
 }
 
 func (g nsObjGroup) RetreatLevel(percent float32) {
-	//TODO implement me
-	panic("implement me")
+	g.EachObject(true, func(obj ns.Obj) bool {
+		obj.RetreatLevel(percent)
+		return true
+	})
 }
 
 func (g nsObjGroup) ResumeLevel(percent float32) {
-	//TODO implement me
-	panic("implement me")
+	g.EachObject(true, func(obj ns.Obj) bool {
+		obj.ResumeLevel(percent)
+		return true
+	})
 }
 
 func (g nsObjGroup) Enchant(enchant enchant.Enchant, dt script.Duration) {

@@ -290,7 +290,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 			if h.Max != 0 {
 				perc = float32(h.Cur) / float32(h.Max)
 			}
-			if perc >= ud.Field336 {
+			if perc >= ud.ResumeLevel {
 				ok = false
 			}
 		case ai.DEPENDENCY_WAIT_FOR_STAMINA:
@@ -890,15 +890,15 @@ func (AIActionIdle) Cancel(_ *server.Object) {}
 
 func sub_5343C0(u *Unit) bool {
 	ud := u.UpdateDataMonster()
-	return ud.Field326 < 0.66000003 && ud.Field326 > 0.33000001
+	return ud.Aggression < 0.66000003 && ud.Aggression > 0.33000001
 }
 
 func nox_xxx_monsterCanAttackAtWill_534390(u *Unit) bool {
-	return u.UpdateDataMonster().Field326 > 0.66000003
+	return u.UpdateDataMonster().Aggression > 0.66000003
 }
 
 func sub_534440(u *Unit) bool {
-	return u.UpdateDataMonster().Field326 < 0.079999998
+	return u.UpdateDataMonster().Aggression < 0.079999998
 }
 
 func sub_5347A0(u *Unit) bool {

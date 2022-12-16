@@ -218,17 +218,17 @@ type MonsterUpdateData struct {
 	ScriptHearEnemy       ScriptCallback   // 320, 1280
 	ScriptEndOfWaypoint   ScriptCallback   // 322, 1288
 	ScriptLostEnemy       ScriptCallback   // 324, 1296
-	Field326              float32          // 326, 1304
-	Field327              uint32           // 327, 1308
+	Aggression            float32          // 326, 1304
+	Aggression2           float32          // 327, 1308
 	Field328              float32          // 328, 1312
 	Field329              uint32           // 329, 1316
 	Field330              uint32           // 330, 1320
 	Field331              uint32           // 331, 1324
 	Field332              uint32           // 332, 1328
 	Field333              uint32           // 333, 1332
-	Field334              uint32           // 334, 1336
+	RetreatLevel          float32          // 334, 1336
 	Field335              uint32           // 335, 1340
-	Field336              float32          // 336, 1344
+	ResumeLevel           float32          // 336, 1344
 	Field337              uint32           // 337, 1348
 	Field338              uint32           // 338, 1352
 	Field339              uint32           // 339, 1356
@@ -473,4 +473,9 @@ func (ud *MonsterUpdateData) PrintAIStack(frame uint32, event string) {
 		typ := stack[i].Type()
 		ai.Log.Printf("  %s", typ.String())
 	}
+}
+
+func (ud *MonsterUpdateData) SetAggression(v float32) {
+	ud.Aggression = v
+	ud.Aggression2 = v
 }
