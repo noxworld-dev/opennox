@@ -2,7 +2,6 @@ package opennox
 
 /*
 #include "defs.h"
-int nox_xxx_comAddEntryAll_427550(char* a1, short a2);
 void nox_xxx_comJournalEntryAdd_427500(nox_object_t* a1, char* a2, short a3);
 */
 import "C"
@@ -41,7 +40,9 @@ func (s noxScriptNS) JournalEntry(obj ns.Obj, msg ns.StringID, typ ns.EntryType)
 	str := CString(string(msg))
 	defer StrFree(str)
 	if obj == nil {
-		C.nox_xxx_comAddEntryAll_427550(str, C.short(typ))
+		for _, it := range s.s.getPlayerUnits() {
+			C.nox_xxx_comJournalEntryAdd_427500(it.CObj(), str, C.short(typ))
+		}
 	} else {
 		C.nox_xxx_comJournalEntryAdd_427500(obj.(noxObject).CObj(), str, C.short(typ))
 		if (typ & 0xB) != 0 {
