@@ -74,7 +74,7 @@ func nox_game_showLegal_4CC4E0() {
 	nox_xxx_wndShowModalMB(win)
 	v0 := win.ChildByID(9980)
 	v8 := GoWString(C.sub_46AF00(unsafe.Pointer(v0.C())))
-	v1 := asFont(C.sub_46AF40(unsafe.Pointer(v0.C())))
+	v1 := noxClient.r.Fonts.AsFont(C.sub_46AF40(unsafe.Pointer(v0.C())))
 	v9 := noxClient.r.GetStringSizeWrapped(v1, v8, 640).Y
 	v0.SetPos(image.Pt(0, 477-v9))
 	vers := version.ClientVersion()

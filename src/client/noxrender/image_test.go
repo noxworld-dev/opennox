@@ -61,15 +61,15 @@ var drawCases = []struct {
 	exp      []string
 }{
 	{image: "APA00001", typ: 4, exp: []string{
-		"3025b96287195669def5f8ac83e76c4e",
-		"3025b96287195669def5f8ac83e76c4e",
-		"0773281b60891ca3da02520c77f12470",
-		"36faf96e429bedb9ee586deb463bafc1",
-		"c529c23007f1f297ce58c6e16870cb49",
-		"c302782a877fd68910ec420fc01be728",
-		"c302782a877fd68910ec420fc01be728",
-		"4d246020ec770ce1381497da8af6aeab",
-		"1f9ca1fa1a43b5a22783d78d029b8a36",
+		"b0986ab5abb96327e61b51b5f463e9a7",
+		"b0986ab5abb96327e61b51b5f463e9a7",
+		"af632036e3b488c17b12f26b664acc96",
+		"ce999e49b83889cdfc7e72846be9e111",
+		"cf36a4a0af8b7a850321ca8fc9a028f5",
+		"87098cdbbb1fba4ee85e4972a84b7000",
+		"87098cdbbb1fba4ee85e4972a84b7000",
+		"c5afb4e593ac03c283db512d200a7bca",
+		"55033061f1e05604b2eb3546cadc0efc",
 	}, ops: map[int]Color16{
 		1: {R: 0xff, G: 0, B: 0},
 		3: {R: 0, G: 0xff, B: 0},
@@ -82,7 +82,7 @@ var drawCases = []struct {
 		"0ddcd0c455a9b9693af5b132ce724b7e",
 		"11c1203c9626815fde394c42694b1ca0",
 		"11c1203c9626815fde394c42694b1ca0",
-		"73b60f0c41d8a7d49caa7829c15a69f9",
+		"f358578b4aa1c0ee777ce927e9200d53",
 		"e6bfd57ed11b537545ddee6aa938c108",
 	}},
 	{image: "EGS00001", typ: 5, exp: []string{
@@ -104,7 +104,7 @@ var drawCases = []struct {
 		"8bc1826384a69754385ce1422280ebd8",
 		"4d51b96f4631abeb31ed92ec2a67cd05",
 		"4d51b96f4631abeb31ed92ec2a67cd05",
-		"f407fe7e0c06f9e2ae24bf345093b3df",
+		"23ad7bc0b574cb7251ef60a741b8d134",
 		"d2fafa9fc0142b1834a843c6a66a0bd0",
 	}},
 	{image: "EPSN0005", typ: 5, exp: []string{
@@ -115,7 +115,7 @@ var drawCases = []struct {
 		"694db198a07f658da280e8fde8f4dc03",
 		"c0617ff336813b4ea8d059f0498e2ade",
 		"c0617ff336813b4ea8d059f0498e2ade",
-		"3da3891590092043c673f37a9a1951b0",
+		"a1fead968ca44cbf76d59095d3ed28fd",
 		"253e3e8e18f9230f9f66ea0bc7f41484",
 	}},
 	{image: "EXLAN003", typ: 5, exp: []string{
@@ -126,7 +126,7 @@ var drawCases = []struct {
 		"40eb4032f36f95121fdc3198249eccfc",
 		"f332f74595facb5b419e4b10b5d6f514",
 		"f332f74595facb5b419e4b10b5d6f514",
-		"abb976a5cfa4450a1d69246870805e88",
+		"b81b17d275e7804acbc227983ba3bcba",
 		"de9de975f270cd1bf4dcc3018b396528",
 	}},
 	{image: "fsdie17", typ: 5, exp: []string{
@@ -137,7 +137,7 @@ var drawCases = []struct {
 		"45e8bf3ce6ee5abbb4813d40d1a26954",
 		"3135e44408eb22950258109ca5f1fc7f",
 		"3135e44408eb22950258109ca5f1fc7f",
-		"cb1c631d04a6b19198ead953744c1f66",
+		"cef05356619b2bb28a98d24a39041f40",
 		"4d40df0edb277173bdbaf43d7296a7a6",
 	}},
 	{image: "GHDIE003", typ: 5, exp: []string{
@@ -148,7 +148,7 @@ var drawCases = []struct {
 		"f83afbc6b168eae1913777dea3cb6298",
 		"840683001490a0a671c8ca006e8329c8",
 		"840683001490a0a671c8ca006e8329c8",
-		"98f5588ffa0e79389dbe6d7673392f8b",
+		"a2f8d77e7425db3bbdfa0b1bb11d2066",
 		"87aa449cc5cf52d5b1ed452fe72e0981",
 	}},
 	{image: "hdg000v1", typ: 3, exp: []string{
@@ -159,7 +159,7 @@ var drawCases = []struct {
 		"6e2c2c413b33f8d4d8636e16c8cae478",
 		"289018d87428a172a0aa6e2de1f787bb",
 		"289018d87428a172a0aa6e2de1f787bb",
-		"857c5504c9addd9fa445184c56ebd3cd",
+		"7f54c4af686745990c8a4120eba54996",
 		"f009a827b04da2b3a3e16dfca3c1e7e9",
 	}},
 	{image: "Mgrdy31", typ: 3, exp: []string{
@@ -170,7 +170,7 @@ var drawCases = []struct {
 		"4a2837956d2e9fe2e0548cf1af2c1a40",
 		"3267919c4528ab32fd9cc52bdb984f72",
 		"3267919c4528ab32fd9cc52bdb984f72",
-		"bc58b3ba5fdaf5e038c23442713f15c0",
+		"70eacd4fccacf15223920272b690a6e5",
 		"e40fda82f1e80859e8f261399881d4af",
 	}},
 	{image: "MNLoadr1", typ: 3, exp: []string{
@@ -181,19 +181,19 @@ var drawCases = []struct {
 		"f149fc2244e99d9b39f6792ac6ffc0eb",
 		"fa95207009d5b83876056117f6d88bf8",
 		"fa95207009d5b83876056117f6d88bf8",
-		"e1b8897fdb3c637e0de15ed95f654d12",
+		"5e5cf49d9683e1e7a835f3938ef0d7ee",
 		"44aa6ac32b4a3d440912534f6c542c66",
 	}},
 	{image: "NFTK0181", typ: 4, exp: []string{
-		"d82bea34510ab38387cf73dfab037576",
-		"d82bea34510ab38387cf73dfab037576",
-		"f39fff5bf3c78832370e9bf419af5875",
-		"14f029cecaea7cc2425416eccba7801c",
-		"0bef0212d4abe0f5fdb585479125fe69",
-		"bf87795571cb71c3115d236b667f5035",
-		"bf87795571cb71c3115d236b667f5035",
-		"d227535871a546a0fe3b08879d106cdb",
-		"e51a48996bf1b14797031dca29ef77bc",
+		"6de944c2a44e097a9d32772e5f742a57",
+		"6de944c2a44e097a9d32772e5f742a57",
+		"1be122ade9a68030f20b6ed158178b83",
+		"d649aadc8fa30d0a24f0afd6ae7bb960",
+		"e83f6bd916ad481f673c8497a7c4245b",
+		"979a4c9df3690f80995d4349789349ab",
+		"979a4c9df3690f80995d4349789349ab",
+		"cc31c80d335777a455219a2179f7929e",
+		"6794654d77124623e6c486711639be20",
 	}, ops: map[int]Color16{
 		1: {R: 0xff, G: 0, B: 0},
 		2: {R: 0, G: 0xff, B: 0},
@@ -208,7 +208,7 @@ var drawCases = []struct {
 		"5feece65af223a19de468c8cd26ead55",
 		"f010e4f25d489da1b2bad13a8c4ba4d5",
 		"f010e4f25d489da1b2bad13a8c4ba4d5",
-		"6e5946281411642dde98c07b0e056be6",
+		"def292874545fcdfe9ac9f46b04480cf",
 		"fe7acf628e11f96d7506d81cb369afb2",
 	}},
 	{image: "NHDT0163", typ: 5, exp: []string{
@@ -219,7 +219,7 @@ var drawCases = []struct {
 		"af5ad68b08b9e721f78f61816bb58cb3",
 		"68bf743646a44e8088b9c46e3375be74",
 		"68bf743646a44e8088b9c46e3375be74",
-		"64e2c7201758de3eb626b38fa6f2b136",
+		"3ea0568ae546ba5c9ca3c2afe70568f5",
 		"415692320369f32e1770823c2141de7c",
 	}},
 	{image: "OGMM0001", typ: 5, exp: []string{
@@ -230,7 +230,7 @@ var drawCases = []struct {
 		"3d2c3493a27f4187c63ee999b1f41923",
 		"e03b49d86331cb1dcfc48cc09d22c3ca",
 		"e03b49d86331cb1dcfc48cc09d22c3ca",
-		"4c8211ab889961da4cecab7e89dbff41",
+		"6a70b9ac10d4c5e68f9eb9cf900370b2",
 		"9d8aad67b94fe6d6d68bf70ff2b64060",
 	}},
 	{image: "OGWW0002", typ: 5, exp: []string{
@@ -241,7 +241,7 @@ var drawCases = []struct {
 		"05eddb31107a0b051c7338eff1291460",
 		"f2628bdf561fd67c0a733e8c8b381950",
 		"f2628bdf561fd67c0a733e8c8b381950",
-		"e43f65e179868e882aaed8031906832f",
+		"43ed456afaeb117b69e71350efdb89cd",
 		"8b49297d9b1df211f98c7f1f666469d0",
 	}},
 	{image: "OICS0001", typ: 3, exp: []string{
@@ -252,7 +252,7 @@ var drawCases = []struct {
 		"546d9a2ffc1ac9bf47f5f6cf78048e31",
 		"f8c6ca659bb8cb0f7f191c975d3ea7cd",
 		"f8c6ca659bb8cb0f7f191c975d3ea7cd",
-		"9dc18e748b9e0426416ee4fde4b3d23a",
+		"2e0bfe49a1e2f93df4b3c7b446026732",
 		"d36a8e306758dc429fd2bb94bc8273f5",
 	}},
 	{image: "OIX00002", typ: 5, exp: []string{
@@ -263,7 +263,7 @@ var drawCases = []struct {
 		"1c7c056fbc0f7e2f14b0e19a1f4fa3e0",
 		"8bd8209adb007a1ae9cd279e64ed2a2b",
 		"8bd8209adb007a1ae9cd279e64ed2a2b",
-		"0492e3461313f094f37d3fc05fe6ed3f",
+		"9b85b4da51a9e98370723af742a742bc",
 		"e13bab5552fc9d707d3f0bc338019112",
 	}},
 	{image: "PGWBD001", typ: 3, exp: []string{
@@ -274,19 +274,19 @@ var drawCases = []struct {
 		"48da9cc2b440a77f0bd3fcac31fe6de7",
 		"55aa7486c849f97260ad8ae13b9b379d",
 		"55aa7486c849f97260ad8ae13b9b379d",
-		"273721ba5e5c491841661cc546a8a582",
+		"82af02ac4010b6b01289404649da6433",
 		"ec9d36d5adcf582d03fc43b0d4bcacf6",
 	}},
 	{image: "PKA00002", typ: 4, exp: []string{
-		"8f7c1fa7c92ad8e650b7d41cb996a759",
-		"8f7c1fa7c92ad8e650b7d41cb996a759",
-		"de860358f9828ff9ccc53f048f125bd4",
-		"8c0b12f1d194b6f1be227e4ac1cc22a9",
-		"9fc19bae1f44c286dd76c94d451fd71a",
-		"55271da11194c293da6e26c949215e88",
-		"55271da11194c293da6e26c949215e88",
-		"c77a7796e85c3ccb04082a8282acd06b",
-		"5f0907ea909eecf932e2be9de3fb1e62",
+		"5031462ad86f772dce6a2a2e29dc3a3d",
+		"5031462ad86f772dce6a2a2e29dc3a3d",
+		"313ae234fbfd8146ecd067523f9cb6c3",
+		"179d7cc285ae6d8c30ec5ec54d06ff1a",
+		"527388f37613040064e4516646006148",
+		"6f85b5988c1af58c67c123597bea74c9",
+		"6f85b5988c1af58c67c123597bea74c9",
+		"e33057ccf1470e62deaf83cf31633878",
+		"be4c7a4681bebc36b34b532414ea6293",
 	}, ops: map[int]Color16{
 		1: {R: 0xff, G: 0, B: 0},
 		3: {R: 0, G: 0xff, B: 0},
@@ -300,7 +300,7 @@ var drawCases = []struct {
 		"71828e433536332709cdf67073241485",
 		"4c234ba6e83aad636d358ecb823baac5",
 		"4c234ba6e83aad636d358ecb823baac5",
-		"81081d059b6ef0315399f6d882ed74ec",
+		"5c5d5f7445c0a3483b2b95c4a919ac3f",
 		"b8c0367d784c5bf16307111481b2f9bc",
 	}},
 	{image: "QFER0002", typ: 5, exp: []string{
@@ -311,7 +311,7 @@ var drawCases = []struct {
 		"baf0a95c852bb8f303b7fc10aab72904",
 		"5f9475ead61f88f484ffbb634a0e5089",
 		"5f9475ead61f88f484ffbb634a0e5089",
-		"f8db5197d3abf02a49a01d1e6c91f9b7",
+		"f00509f77fe28dd51b4e08b697333896",
 		"f9c4c114d9197386ee391dcb526f8a88",
 	}},
 	{image: "UCU00000", typ: 3, exp: []string{
@@ -322,19 +322,19 @@ var drawCases = []struct {
 		"da4813f38b3e53427be4d1086c0ff677",
 		"9be3a38e6b3ac4663e298f9b921aa7a4",
 		"9be3a38e6b3ac4663e298f9b921aa7a4",
-		"63c51ae8789857ddfbe0f444663999dd",
+		"a4581e216375d7b62212d92e522e3cc0",
 		"889dab3a03f209bb6917d1b111eba8f4",
 	}},
 	{image: "UPACM001", typ: 4, exp: []string{
-		"f365d6586204dd591449b9ae9e1ab37b",
-		"f365d6586204dd591449b9ae9e1ab37b",
-		"1a91ec0d16be1ef688db9cf84695aae4",
-		"634c351701f757c54caff32f3e9f86f7",
-		"9079fc57548893546bf419a7f4bc2f82",
-		"129f32fddb7b7c9821346f9bce8f78e0",
-		"129f32fddb7b7c9821346f9bce8f78e0",
-		"a5a2796b1def24a92c062033afafcda1",
-		"5ff7c2a3956fc3b4be899affc2e9663d",
+		"7e73fb7146ff89157940fcea86276082",
+		"7e73fb7146ff89157940fcea86276082",
+		"7793332676a1817227328887351b720a",
+		"401eff92739de9e82f23c2bf22e9ed31",
+		"6c8386876f19d3370ad389272a1b8ada",
+		"883f13c557fce3dc31887ab27a08220c",
+		"883f13c557fce3dc31887ab27a08220c",
+		"3d65594ada295a220d829679a580de78",
+		"484418a1e75b814dbd47cff4ad4b5caa",
 	}, ops: map[int]Color16{
 		1: {R: 0xff, G: 0, B: 0},
 		2: {R: 0, G: 0xff, B: 0},
@@ -342,15 +342,15 @@ var drawCases = []struct {
 		4: {R: 0, G: 0xff, B: 0xff},
 	}},
 	{image: "UPALA001", typ: 4, exp: []string{
-		"a37144781cd0aa44aecf3720f19ea81b",
-		"a37144781cd0aa44aecf3720f19ea81b",
-		"1fc31ae058512cb12922b9e577174d6a",
-		"0880b61cddfd01b49b27f4249862ffeb",
-		"2fbc21fe224b9b70665368c6080d23c5",
-		"0b1b5f1c78435da4f27877e699b06ede",
-		"0b1b5f1c78435da4f27877e699b06ede",
-		"dd3655a6dc125af9f85382b5d48008c6",
-		"ab924ec96ed457e38ac7d77d10c0c101",
+		"1bbd16ef42c82a9a844c4e4fc5c840e7",
+		"1bbd16ef42c82a9a844c4e4fc5c840e7",
+		"70c5b83dc3c8a31845bb124e2176a318",
+		"21fa74e2be0efce1ca7f2b514ff8b3f9",
+		"674f9c768eaba22cfd8b9a88d9848a6c",
+		"6d7a574befc603664a9e85c5dd24a5e8",
+		"6d7a574befc603664a9e85c5dd24a5e8",
+		"f9ec86e1936e54455f1a354f9036ec55",
+		"0820f5b474ffd674c66aa8cdd1523f5b",
 	}, ops: map[int]Color16{
 		1: {R: 0xff, G: 0, B: 0},
 		3: {R: 0, G: 0, B: 0xff},
@@ -358,15 +358,15 @@ var drawCases = []struct {
 		5: {R: 0xff, G: 0xff, B: 0},
 	}},
 	{image: "UPBH0001", typ: 4, exp: []string{
-		"910d7a9d1e5009a3fa7f7ed69f8d92d8",
-		"910d7a9d1e5009a3fa7f7ed69f8d92d8",
-		"8babb34382d6ba1acafeafdc287a96a3",
-		"de879c921c35256ca18e086f0a9b70b3",
-		"eb1027a55fab86d8465dc44b932a1f1f",
-		"e2dadb406be7d874455b5645a3bbba0d",
-		"e2dadb406be7d874455b5645a3bbba0d",
-		"83ed11da9ed122c880762eee5eeffe58",
-		"afc4f8465d43e6d9c75f0add54ab34b8",
+		"26fee38fc6c225980353886462e10cfe",
+		"26fee38fc6c225980353886462e10cfe",
+		"fdfcca0a029b0bd9467a3aa5f8a8cffd",
+		"fb74072a84ffe3d5e8b9f5aaf7561122",
+		"d76389681a72693ae5b14828bbccc3c5",
+		"cdb820697546908c0345cc06c06c8779",
+		"cdb820697546908c0345cc06c06c8779",
+		"4754ac080c7ec26333b2cf59e1510e18",
+		"14beee4449551b355cb228093684bbd6",
 	}, ops: map[int]Color16{
 		1: {R: 0xff, G: 0, B: 0},
 		2: {R: 0, G: 0xff, B: 0},
@@ -382,19 +382,19 @@ var drawCases = []struct {
 		"66da687be67aabb50173c38d41bb44c7",
 		"b821407a3549a6645d00a87b397697a0",
 		"b821407a3549a6645d00a87b397697a0",
-		"443bd2d617734750443f0b2b781d69e9",
+		"1505d15c8a7144b56a9f8a3c62c848a0",
 		"445ada322482a26dd49df7e5cb51637b",
 	}},
 	{image: "XABALA55", typ: 4, exp: []string{
-		"c841846c3046b34530f1c8da92463930",
-		"c841846c3046b34530f1c8da92463930",
-		"6ce8c85a29b8e23b3d8a60d30e1e8005",
-		"539e45402e393e8477297c61a40f154b",
-		"3b5d7f6a3a9d3b75be2a3392ea0d8b49",
-		"578267e1bc7f161c07ba211f2ba8cdb9",
-		"578267e1bc7f161c07ba211f2ba8cdb9",
-		"8c75ce3f0b0e0ac544d74cba7e28ea44",
-		"9fc0561a065fb67dbf3879348882e7b1",
+		"a4bb6ed8695192c88875f6f704c8ce4a",
+		"a4bb6ed8695192c88875f6f704c8ce4a",
+		"ec01eaa031a93ac2c4406b277a5ad8d6",
+		"184aef6ffac8d85a053a2aa676ce3093",
+		"e7c4f4b8c486ef05349e467be894bbeb",
+		"9fa60eef1cad1ce35c1e3bd93782f9cf",
+		"9fa60eef1cad1ce35c1e3bd93782f9cf",
+		"2fd749d6ed5cc5ba0fca50f28c0d954e",
+		"907297cc35de10e282a1208bdbb85f2f",
 	}, ops: map[int]Color16{
 		1: {R: 0xff, G: 0xaa, B: 0xaa},
 		3: {R: 0, G: 0xcc, B: 0xff},
@@ -402,15 +402,15 @@ var drawCases = []struct {
 		5: {R: 0xff, G: 0xff, B: 0},
 	}},
 	{image: "XICWR050", typ: 4, exp: []string{
-		"f66484fea9b416cd9553b5734c2862bf",
-		"f66484fea9b416cd9553b5734c2862bf",
-		"55be2677639fbf1eb6fc6979234cc5c4",
-		"6e422a93136d8aa9154874a55750d0b1",
-		"953d1fbd1f9dd96e69aa2f6ed494cd73",
-		"600e19be66ce24054a01f8e901b5b85a",
-		"600e19be66ce24054a01f8e901b5b85a",
-		"57ead8aaab013fba2848bc874da473c5",
-		"775f0f34d695ec94a698630e2fef442a",
+		"9217b4f1ffeab95a36b24401b454a721",
+		"9217b4f1ffeab95a36b24401b454a721",
+		"96990e546c8f8c19df32671ec0e674c3",
+		"a4715635facc1c0e5007b0c674c00948",
+		"b6b51e0dbd2ab4c416d025bd4822c5f4",
+		"9dd219e094b7241c27c55e0701b67594",
+		"9dd219e094b7241c27c55e0701b67594",
+		"dbe65d5bd495bce32936a2b23360986c",
+		"6dc51e657caf8b2f542870664067650e",
 	}, ops: map[int]Color16{
 		1: {R: 0xff, G: 0, B: 0},
 		2: {R: 0, G: 0xbb, B: 0xff},
@@ -425,7 +425,7 @@ var drawCases = []struct {
 		"fa712540b6e40034a8463179d4c46272",
 		"39828ad113ffda232e6c015ded1cd509",
 		"39828ad113ffda232e6c015ded1cd509",
-		"9b30acb0142c26c9c2a5b27337c53a31",
+		"45138cfb5a18a5c98cf0b935f90bc0c7",
 		"2456ebf6925303cbd2ab098184b8e802",
 	}},
 }
@@ -513,14 +513,15 @@ func TestDrawImage(t *testing.T) {
 					pix := newBackgroundPattern16(csz.X, csz.Y)
 					d := newRenderData(csz.X, csz.Y)
 					for k, v := range c.ops {
-						d.colorMultOp[k] = v
+						//d.colorMultOp[k] = v
+						d.SetMaterial(k, v.Make())
 					}
-					d.blendConf = b.conf
+					b.conf.SetTo(d)
 					if b.mult != (Color16{}) {
-						d.colorMult = b.mult
+						d.SetColorMultA(b.mult)
 					}
 
-					r := NewRender()
+					r := NewRender(nil)
 					r.SetPixBuffer(pix)
 					r.SetData(d)
 
@@ -560,7 +561,7 @@ func TestDrawImage(t *testing.T) {
 						rgbaHex := hex.EncodeToString(h.Sum(nil))
 						t.Logf("RGBA32: %q", rgbaHex)
 					}
-					require.Empty(t, d.colorMultMiss)
+					//require.Empty(t, d.colorMultMiss)
 					if skip {
 						t.SkipNow()
 					}

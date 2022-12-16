@@ -284,7 +284,7 @@ func (d *WindowData) SetTextColor(cl color.Color) {
 }
 
 func (d *WindowData) Font() font.Face {
-	return asFont(d.font)
+	return noxClient.r.Fonts.AsFont(d.font)
 }
 
 func (d *WindowData) FontC() unsafe.Pointer {

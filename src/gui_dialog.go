@@ -336,7 +336,7 @@ func sub_44A360(a1 C.int) {
 	if a1 == 1 {
 		name = noxfont.LargeName
 	}
-	fnt := guiFontPtrByName(name)
+	fnt := noxClient.r.Fonts.FontPtrByName(name)
 	nox_gui_curDialog_830224.ChildByID(guiDialogTitleID).DrawData().SetFont(fnt)
 	nox_gui_curDialog_830224.ChildByID(guiDialogTextID).DrawData().SetFont(fnt)
 }

@@ -128,7 +128,7 @@ func guiEnhanceInputCfg(root *Window) {
 }
 
 func guiEnhanceOptions(root *Window) {
-	small := guiFontPtrByName(noxfont.SmallName)
+	small := noxClient.r.Fonts.FontPtrByName(noxfont.SmallName)
 	// change resolution options to a new ones
 	// if you decide to change these, check carefully in other places, especially in C
 	resOpts := getResolutionOptions()

@@ -187,7 +187,7 @@ func (c *guiAdvOptions) newAdvVideoOpts() *Window {
 	draw.SetDisabledColor(color.Transparent)
 	draw.SetSelectedColor(color.Transparent)
 	draw.SetBackgroundColor(color.Transparent)
-	draw.SetFont(guiFontPtrByName(noxfont.LargeName))
+	draw.SetFont(c.cli.r.Fonts.FontPtrByName(noxfont.LargeName))
 
 	const (
 		width  = 184

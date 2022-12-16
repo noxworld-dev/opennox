@@ -30,10 +30,10 @@ func (r *NoxRender) freeParticles() {
 }
 
 type particleOpt struct {
-	rad   int // 0, 0
-	mul1  int // 1, 4
-	mul2  int // 2, 8
-	color RGB // 12, 48
+	rad   int           // 0, 0
+	mul1  int           // 1, 4
+	mul2  int           // 2, 8
+	color noxrender.RGB // 12, 48
 }
 
 // Particle represents a particle prototype that can be drawn multiple times at different positions.
@@ -53,12 +53,12 @@ func (p *Particle) Free() {
 }
 
 func (r *NoxRender) newParticle(mul1, mul2 int) *Particle {
-	rad := int(r.p.field_262)
+	rad := int(r.Data().Field262())
 	opt := particleOpt{
 		rad:   rad,
 		mul1:  mul1,
 		mul2:  mul2,
-		color: r.p.color54,
+		color: r.Data().ColorInt54(),
 	}
 	if p := r.particles.byOpts[opt]; p != nil {
 		return p
@@ -170,8 +170,8 @@ func (r *NoxRender) DrawGlow(pos image.Point, cl color.Color, a3 int, a4 int) { 
 		return
 	}
 	c := noxrender.SplitColor(noxcolor.ToRGBA5551Color(cl))
-	r.Data().setColorInt54(RGB{R: int(c.R), G: int(c.G), B: int(c.B)})
-	r.Data().setField262(a3 + 4)
+	r.Data().SetColorInt54(noxrender.RGB{R: int(c.R), G: int(c.G), B: int(c.B)})
+	r.Data().SetField262(a3 + 4)
 	p := r.newParticle(0, int(32*byte(a4)))
 	p.DrawAt(pos)
 }

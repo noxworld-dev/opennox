@@ -570,10 +570,10 @@ func (pfx *partFXes) newPartfxT0(fx *packetParticleFx) {
 	}
 	fx.updatePos()
 	nox_xxx_partfxSwitch_4AF690(fx, func(pt image.Point) {
-		r.Data().setColorInt54(RGB{
+		r.Data().SetColorInt54(noxrender.RGB{
 			R: 0xFF, G: 0x80, B: 0x20,
 		})
-		r.Data().setField262(pfx.randI32(2, 3))
+		r.Data().SetField262(pfx.randI32(2, 3))
 		rp := r.newParticle(0, 0xFF)
 		z := pfx.randI32(0, 40)
 		dur := pfx.randI32(0, fx.max)
@@ -728,10 +728,10 @@ func (pfx *partFXes) newPartfxT3(fx *packetParticleFx) {
 			cl = cl2
 		}
 		c := noxrender.SplitColor(cl)
-		r.Data().setColorInt54(RGB{
+		r.Data().SetColorInt54(noxrender.RGB{
 			R: int(c.R), G: int(c.G), B: int(c.B),
 		})
-		r.Data().setField262(pfx.randI32(2, 5))
+		r.Data().SetField262(pfx.randI32(2, 5))
 		rp := r.newParticle(0, 0xFF)
 		pt2 := pfx.randPoint(0, 256, 120, pt)
 		p := pfx.nox_xxx_particleFxNew_4AF990(pt2, 0, pfx.randI32(1, fx.max), r.Data().Color2())
@@ -756,10 +756,10 @@ func (pfx *partFXes) newPartfxT4(fx *packetParticleFx) {
 
 func (pfx *partFXes) newPartfxT5(fx *packetParticleFx) {
 	r := pfx.r
-	r.Data().setColorInt54(RGB{
+	r.Data().SetColorInt54(noxrender.RGB{
 		R: 0x32, G: 0x32, B: 0x32,
 	})
-	r.Data().setField262(10)
+	r.Data().SetField262(10)
 	rp := r.newParticle(0, 0xFF)
 	p := pfx.nox_xxx_particleFxNew_4AF990(image.Pt(0, 0), 0, math.MaxInt32, r.Data().Color2())
 	if p == nil {
