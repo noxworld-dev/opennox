@@ -41,6 +41,7 @@ func init() {
 	server.RegisterAIAction(AIActionFindObj{})
 	server.RegisterAIAction(AIActionMorphIntoChest{})
 	server.RegisterAIAction(AIActionMorphBackToSelf{})
+	server.RegisterAIAction(AIActionReport{})
 	for typ, a := range map[ai.ActionType]struct {
 		Start, Update, End, Cancel unsafe.Pointer
 	}{
@@ -68,7 +69,6 @@ func init() {
 		ai.ACTION_RANDOM_WALK:       {Update: C.nox_xxx_mobActionRandomWalk_545020},
 		ai.ACTION_DYING:             {Start: C.nox_xxx_mobGenericDeath_544C40, Update: C.sub_544D60, End: C.nox_xxx_zombieBurnDeleteCheck_544CA0},
 		ai.ACTION_DEAD:              {Start: C.nox_xxx_mobActionDead1_544D80, Update: C.nox_xxx_mobActionDead2_544EC0},
-		ai.ACTION_REPORT:            {Update: C.nox_xxx_mobActionReportComplete_544FF0},
 		ai.ACTION_GET_UP:            {Update: C.nox_xxx_mobActionGetUp_534A90},
 		ai.ACTION_CONFUSED:          {Update: C.nox_xxx_mobActionConfuse_545140},
 		ai.ACTION_MOVE_TO_HOME:      {Start: C.nox_xxx_mobActionReturnToHome_544920, Update: C.sub_544950, End: C.sub_544930, Cancel: C.sub_544940},
@@ -880,9 +880,10 @@ func (AIActionIdle) Type() ai.ActionType {
 }
 func (AIActionIdle) Start(obj *server.Object) {
 	u := asUnitS(obj)
+	s := u.getServer()
 	ud := u.UpdateDataMonster()
 	cur := ud.AIStackHead()
-	cur.Args[0] = uintptr(noxServer.Frame())
+	cur.Args[0] = uintptr(s.Frame())
 }
 func (AIActionIdle) End(_ *server.Object)    {}
 func (AIActionIdle) Cancel(_ *server.Object) {}
@@ -1103,4 +1104,22 @@ func (AIActionMorphBackToSelf) Update(obj *server.Object) {
 		ud.Field360 &^= 0x40000
 		C.nox_xxx_monsterMarkUpdate_4E8020(u.CObj())
 	}
+}
+
+type AIActionReport struct{}
+
+func (AIActionReport) Type() ai.ActionType {
+	return ai.ACTION_REPORT
+}
+
+func (AIActionReport) Start(_ *server.Object)  {}
+func (AIActionReport) End(_ *server.Object)    {}
+func (AIActionReport) Cancel(_ *server.Object) {}
+
+func (AIActionReport) Update(obj *server.Object) {
+	u := asUnitS(obj)
+	s := u.getServer()
+	ud := u.UpdateDataMonster()
+	u.monsterPopAction()
+	s.scriptCallback(&ud.ScriptEndOfWaypoint, nil, u.AsObject(), noxEventMonsterDone)
 }

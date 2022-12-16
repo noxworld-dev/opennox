@@ -11467,12 +11467,3 @@ int sub_544F70(int a1) {
 	*(uint32_t*)(result + 1196) = 0;
 	return result;
 }
-
-//----- (00544FF0) --------------------------------------------------------
-unsigned char* nox_xxx_mobActionReportComplete_544FF0(int a1) {
-	int v1; // edi
-
-	v1 = *(uint32_t*)(a1 + 748);
-	nox_xxx_monsterPopAction_50A160(a1);
-	return nox_xxx_scriptCallByEventBlock_502490((int*)(v1 + 1288), 0, a1, 6);
-}
