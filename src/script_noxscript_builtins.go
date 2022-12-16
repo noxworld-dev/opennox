@@ -65,6 +65,8 @@ int nox_script_ObjIsCrown_516DC0();
 */
 import "C"
 import (
+	"errors"
+	"fmt"
 	"image"
 	"unsafe"
 
@@ -81,10 +83,10 @@ func wrapScriptC(fnc unsafe.Pointer) noxscript.Builtin {
 	}
 }
 
-func (s *noxScript) callBuiltin(i int, fi asm.Builtin) int {
+func (s *noxScript) callBuiltin(i int, fi asm.Builtin) error {
 	if fi < 0 || fi > asm.BuiltinGetScore {
 		if s.panicCompilerCheck(fi) {
-			return 0
+			return nil
 		}
 	}
 	if s.builtinNeedsField36(fi) {
@@ -94,9 +96,9 @@ func (s *noxScript) callBuiltin(i int, fi asm.Builtin) int {
 		s.dpos.X = s.scriptField40(i)
 		s.dpos.Y = s.scriptField44(i)
 	}
-	res := s.callBuiltinNative(fi)
+	err := s.callBuiltinNative(fi)
 	s.resetBuiltin()
-	return res
+	return err
 }
 
 //export nox_script_shouldReadMoreXxx
@@ -111,18 +113,26 @@ func nox_script_shouldReadEvenMoreXxx(fi C.int) C.bool {
 	return C.bool(fi == 126)
 }
 
-func (s *noxScript) callBuiltinNative(fi asm.Builtin) int {
-	if res, ok := noxscript.CallBuiltin(s, fi); ok {
-		return res
+var errStopScript = errors.New("noxscript: exit")
+
+func (s *noxScript) callBuiltinNative(fi asm.Builtin) error {
+	res, ok := noxscript.CallBuiltin(s, fi)
+	if !ok {
+		res, ok = s.panicScriptCall(fi)
 	}
-	if res, ok := s.panicScriptCall(fi); ok {
-		return res
+	if !ok {
+		if fi < 0 || int(fi) >= len(noxScriptBuiltins) {
+			return fmt.Errorf("noxscript: invalid builtin index: %d (%x)", fi, fi)
+		}
+		res = noxScriptBuiltins[fi](s)
 	}
-	if fi < 0 || int(fi) >= len(noxScriptBuiltins) {
-		scriptLog.Printf("noxscript: invalid builtin index: %d (%x)", fi, fi)
-		return 1
+	if res != 0 {
+		if fi == asm.BuiltinStopScript {
+			return errStopScript
+		}
+		return fmt.Errorf("noxscript: builtin %v failed", fi)
 	}
-	return noxScriptBuiltins[fi](s)
+	return nil
 }
 
 func (s *noxScript) builtinNeedsFields4044(fi asm.Builtin) bool {
