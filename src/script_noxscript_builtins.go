@@ -81,11 +81,6 @@ func wrapScriptC(fnc unsafe.Pointer) noxscript.Builtin {
 	}
 }
 
-//export nox_script_callBuiltin_508B70
-func nox_script_callBuiltin_508B70(i, fi C.int) C.int {
-	return C.int(noxServer.noxScript.callBuiltin(int(i), asm.Builtin(fi)))
-}
-
 func (s *noxScript) callBuiltin(i int, fi asm.Builtin) int {
 	if fi < 0 || fi > asm.BuiltinGetScore {
 		if s.panicCompilerCheck(fi) {
