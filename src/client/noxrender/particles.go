@@ -28,10 +28,10 @@ func (r *renderParticles) Free() {
 }
 
 type particleOpt struct {
-	rad   int // 0, 0
-	mul1  int // 1, 4
-	mul2  int // 2, 8
-	color RGB // 12, 48
+	rad    int // 0, 0
+	blur   int // 1, 4
+	intens int // 2, 8
+	color  RGB // 12, 48
 }
 
 // Particle represents a particle prototype that can be drawn multiple times at different positions.
@@ -50,56 +50,56 @@ func (p *Particle) Free() {
 	p.img.Free()
 }
 
-func (r *NoxRender) NewParticle(mul1, mul2 int) *Particle {
+func (r *NoxRender) NewParticle(blur, intens int) *Particle {
 	rad := int(r.Data().Field262())
 	opt := particleOpt{
-		rad:   rad,
-		mul1:  mul1,
-		mul2:  mul2,
-		color: r.Data().ColorInt54(),
+		rad:    rad,
+		blur:   blur,
+		intens: intens,
+		color:  r.Data().ColorInt54(),
 	}
 	if p := r.Part.byOpts[opt]; p != nil {
 		return p
 	}
 	p := &Particle{r: r, opt: opt}
 	r.Part.byOpts[opt] = p
-	p.genImage()
-	p.img = r.Bag.NewRawImage(8, p.data)
+	p.img = genParticle(p.opt)
+	p.data = p.img.raw
 	return p
 }
 
-func (p *Particle) genImage() {
-	rr := p.opt.rad
+func genParticle(opt particleOpt) *Image {
+	rr := opt.rad
 	size := 2*(22*rr*(rr+1)/7+6*rr) + 17
-	p.data, _ = alloc.Make([]byte{}, size)
-	data := p.data
-	mul1 := p.opt.mul1
-	mul2 := p.opt.mul2
+	pdata, _ := alloc.Make([]byte{}, size)
+	data := pdata
+	blur := opt.blur
+	intens := opt.intens
 
-	binary.LittleEndian.PutUint32(data[:4], 2*uint32(rr))
+	binary.LittleEndian.PutUint32(data[:4], 2*uint32(rr)) // width
 	data = data[4:]
-	binary.LittleEndian.PutUint32(data[:4], 2*uint32(rr))
+	binary.LittleEndian.PutUint32(data[:4], 2*uint32(rr)) // height
 	data = data[4:]
-	binary.LittleEndian.PutUint32(data[:4], uint32(-rr))
+	binary.LittleEndian.PutUint32(data[:4], uint32(-rr)) // X offs
 	data = data[4:]
-	binary.LittleEndian.PutUint32(data[:4], uint32(-rr))
+	binary.LittleEndian.PutUint32(data[:4], uint32(-rr)) // Y offs
 	data = data[4:]
 	data = data[1:] // skip
 
-	c1R := uint32((mul1*p.opt.color.R)&0xffff) >> 8
-	c1G := uint32((mul1*p.opt.color.G)&0xffff) >> 8
-	c1B := uint32((mul1*p.opt.color.B)&0xffff) >> 8
+	c1R := uint32((blur*opt.color.R)&0xffff) >> 8
+	c1G := uint32((blur*opt.color.G)&0xffff) >> 8
+	c1B := uint32((blur*opt.color.B)&0xffff) >> 8
 	c3R := c1R << 16
-	c4R := c1R << 16
-	c2R := int((((uint32(mul2*p.opt.color.R)>>8)&0xFF)-c1R)<<16) / rr
+	c4R := c3R
+	c2R := int((((uint32(intens*opt.color.R)>>8)&0xFF)-c1R)<<16) / rr
 	c3G := c1G << 16
-	c4G := c1G << 16
-	c2G := int((((uint32(mul2*p.opt.color.G)>>8)&0xFF)-c1G)<<16) / rr
+	c4G := c3G
+	c2G := int((((uint32(intens*opt.color.G)>>8)&0xFF)-c1G)<<16) / rr
 	c3B := c1B << 16
-	c4B := c1B << 16
-	c2B := int((((uint32(mul2*p.opt.color.B)>>8)&0xFF)-c1B)<<16) / rr
+	c4B := c3B
+	c2B := int((((uint32(intens*opt.color.B)>>8)&0xFF)-c1B)<<16) / rr
 	if rr == 0 {
-		return
+		return NewRawImage(8, pdata)
 	}
 
 	for i := 0; i < 2*rr; i++ {
@@ -152,6 +152,7 @@ func (p *Particle) genImage() {
 			c4B += uint32(c2B)
 		}
 	}
+	return NewRawImage(8, pdata)
 }
 
 func (p *Particle) DrawAt(pos image.Point) {
