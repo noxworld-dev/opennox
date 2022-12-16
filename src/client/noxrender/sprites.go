@@ -161,15 +161,15 @@ func (img *Image) Meta() (off, sz image.Point, ok bool) {
 		ok = false
 		return
 	}
-	sz.X = int(binary.LittleEndian.Uint32(pix[0:]))
-	sz.Y = int(binary.LittleEndian.Uint32(pix[4:]))
+	sz.X = int(int32(binary.LittleEndian.Uint32(pix[0:])))
+	sz.Y = int(int32(binary.LittleEndian.Uint32(pix[4:])))
 	if len(pix) < 16 {
 		ok = false
 		return
 	}
 	ok = true
-	off.X = int(binary.LittleEndian.Uint32(pix[8:]))
-	off.Y = int(binary.LittleEndian.Uint32(pix[12:]))
+	off.X = int(int32(binary.LittleEndian.Uint32(pix[8:])))
+	off.Y = int(int32(binary.LittleEndian.Uint32(pix[12:])))
 	return
 }
 
@@ -226,8 +226,8 @@ func (b *renderSprites) Free() {
 	b.byHandle = make(map[unsafe.Pointer]*Image)
 }
 
-func (b *renderSprites) NewRawImage(typ int, data []byte) *Image {
-	return &Image{c: b, typ: typ, raw: data, nocgo: true}
+func NewRawImage(typ int, data []byte) *Image {
+	return &Image{typ: typ, raw: data, nocgo: true}
 }
 
 func (b *renderSprites) AsImage(p unsafe.Pointer) *Image {
