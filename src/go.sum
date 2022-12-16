@@ -82,8 +82,6 @@ github.com/cpuguy83/go-md2man/v2 v2.0.2/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46t
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/dennwc/yaegi v0.14.4-0.20221118173901-02ffc2003d9a h1:2zXl9mc85jXtMXEzfxN1naYgvk9sXHglav29BUuTSAI=
-github.com/dennwc/yaegi v0.14.4-0.20221118173901-02ffc2003d9a/go.mod h1:AVRxhaI2G+nUsaM1zyktzwXn69G3t/AuTDrCiTds9p0=
 github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZmtrrCbhqsmaPHjLKYnJCaQ=
 github.com/dgryski/go-sip13 v0.0.0-20181026042036-e10d5fee7954/go.mod h1:vAd38F8PWV+bWy6jNmig1y/TA+kYO4g3RSRF0IAv0no=
 github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
@@ -278,8 +276,8 @@ github.com/noxworld-dev/nat v0.1.0 h1:901X798aWD7HR7J4CAQ8+0C0Hk+zMPfwDqP6FSl1WG
 github.com/noxworld-dev/nat v0.1.0/go.mod h1:nuyzkNVgk/Eybj3dbJmm0vsX7xBxjqCczqN6cWkpfrM=
 github.com/noxworld-dev/noxcrypt v0.0.0-20220809211245-2c69b67c4ae9 h1:VQTULCEWCAnvAeQ96lPs9ohsfExhDd4EDznu0U9Un1k=
 github.com/noxworld-dev/noxcrypt v0.0.0-20220809211245-2c69b67c4ae9/go.mod h1:LJpDABUOIGsHXO72pLYJgPpJQ9046Nn6Kqy/kN+xi0I=
-github.com/noxworld-dev/opennox-lib v0.0.0-20221207184240-db559cc95748 h1:D65kX4wLqLffZRYwhaD03OwE6iAscwLRFlGOpgNRBTI=
-github.com/noxworld-dev/opennox-lib v0.0.0-20221207184240-db559cc95748/go.mod h1:Ht98S0BmJnOSjNNoLxtS6quIp6uFVjGHTuiZyxN9VVQ=
+github.com/noxworld-dev/opennox-lib v0.0.0-20221216210055-1b5de7bbed4b h1:rNwkhxP1A2g3GVheEsX5g6FXIUzvwJz/Jc0VVk2+scQ=
+github.com/noxworld-dev/opennox-lib v0.0.0-20221216210055-1b5de7bbed4b/go.mod h1:TJuQIqsIaAFumYNVY4759J3XVuFzC3cyE0XcQuN6+uI=
 github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7 h1:RHk168W1N0o4FAcp2RIeNl5pzSeioH94OSL5cn2DV+4=
 github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7/go.mod h1:L/NIDfAyZ3NbYIxPZ6onoSGKxJmcc9+pdJcTIrDPUag=
 github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e h1:yMghTqz2j8k79+JVaSs/DOvTmgGVwGNGNvCchYP9Hcw=
@@ -376,6 +374,8 @@ github.com/subosito/gotenv v1.2.0/go.mod h1:N0PQaV/YGNqwC0u51sEeR/aUtSLEXKX9iv69
 github.com/szhublox/opennoxcontrol v0.0.0-20211214215120-c4bc4281312f h1:OSN9HuBvSFAGwmipAgIG+tgHY5WIlrICSLgHKkiVtGU=
 github.com/szhublox/opennoxcontrol v0.0.0-20211214215120-c4bc4281312f/go.mod h1:LGnjP368EU6Dq4sHpkgexqRqD5Mk/eBMqwmNKg7dJFc=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
+github.com/traefik/yaegi v0.14.4-0.20221213104605-eee72d1aae66 h1:AlrbwEqmsdXyGwQCcrkqoRL40zdicMD8Uox5p7Fy0ic=
+github.com/traefik/yaegi v0.14.4-0.20221213104605-eee72d1aae66/go.mod h1:AVRxhaI2G+nUsaM1zyktzwXn69G3t/AuTDrCiTds9p0=
 github.com/ugorji/go v1.1.4/go.mod h1:uQMGLiO92mf5W77hV/PUCpI3pbzQx3CRekS0kk+RGrc=
 github.com/veandco/go-sdl2 v0.4.25 h1:J5ac3KKOccp/0xGJA1PaNYKPUcZm19IxhDGs8lJofPI=
 github.com/veandco/go-sdl2 v0.4.25/go.mod h1:OROqMhHD43nT4/i9crJukyVecjPNYYuCofep6SNiAjY=
