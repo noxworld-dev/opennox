@@ -25,26 +25,6 @@ char* nox_script_strings[1024] = {0};
 unsigned int nox_script_strings_xxx = 0;
 unsigned int nox_script_strings_cnt = 0;
 
-//----- (005071D0) --------------------------------------------------------
-int nox_script_indexByEvent(const char* a1) {
-	if (nox_script_count_xxx_1599640 <= 0) {
-		return -1;
-	}
-	for (int i = 0; i < nox_script_count_xxx_1599640; i++) {
-		if (!strcmp(nox_script_arr_xxx_1599636[i].name, a1)) {
-			return i;
-		}
-	}
-	return -1;
-}
-
-const char* nox_script_getString_512E40(int i) {
-	if (i < 0 || i >= nox_script_strings_cnt) {
-		return 0;
-	}
-	return nox_script_strings[i];
-}
-
 //----- (004F5580) --------------------------------------------------------
 int nox_xxx_xferReadScriptHandler_4F5580(int a1, char* a2) {
 	bool v3;       // zf

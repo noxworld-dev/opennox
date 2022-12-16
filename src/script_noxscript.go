@@ -110,6 +110,27 @@ func nox_script_resetStack() {
 	noxServer.noxScript.resetStack()
 }
 
+//export nox_script_indexByEvent
+func nox_script_indexByEvent(cname *C.char) int {
+	name := GoString(cname)
+	scripts := noxServer.noxScript.scripts()
+	for i := range scripts {
+		s := &scripts[i]
+		if s.Name() == name {
+			return i
+		}
+	}
+	return -1
+}
+
+//export nox_script_getString_512E40
+func nox_script_getString_512E40(i int) *C.char {
+	if i < 0 || i >= int(C.nox_script_strings_cnt) {
+		return nil
+	}
+	return C.nox_script_strings[i]
+}
+
 var (
 	nox_script_objTelekinesisHand  int
 	nox_script_objCinemaRemove     []int
