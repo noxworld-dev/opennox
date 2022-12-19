@@ -131,7 +131,6 @@ void nox_xxx_decay_511750();
 int nox_xxx_decayDestroy_5117B0();
 char sub_5117F0(nox_object_t* a1);
 void nox_xxx_unit_511810(nox_object_t* a1);
-void nox_xxx_collisions_511850();
 int nox_xxx_updateObjectsVelocity_5118A0(float step);
 nox_object_t* nox_xxx_script_511C50(int a1);
 int sub_511CB0(uint32_t* a1, int a2);
