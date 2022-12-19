@@ -1915,36 +1915,6 @@ int nox_common_mapPlrActionToStateId_4FA2B0(nox_object_t* a1p) {
 	return result;
 }
 
-//----- (004FA490) --------------------------------------------------------
-void nox_xxx_itemApplyUpdateEffect_4FA490(nox_object_t* a1p) {
-	int a1 = a1p;
-	int result;                          // eax
-	uint32_t* i;                         // esi
-	int* v3;                             // edi
-	int v4;                              // ebx
-	int (*v5)(int, uint32_t*, uint32_t); // ecx
-
-	result = a1;
-	for (i = *(uint32_t**)(a1 + 504); i; i = (uint32_t*)i[124]) {
-		result = i[4];
-		if (result & 0x100 && i[2] & 0x13001000) {
-			v3 = (int*)i[173];
-			v4 = 4;
-			do {
-				result = *v3;
-				if (*v3) {
-					v5 = *(int (**)(int, uint32_t*, uint32_t))(result + 100);
-					if (v5) {
-						result = v5(result, i, 0);
-					}
-				}
-				++v3;
-				--v4;
-			} while (v4);
-		}
-	}
-}
-
 //----- (004FA4F0) --------------------------------------------------------
 int nox_xxx_checkInversionEffect_4FA4F0(int a1, int a2) {
 	uint32_t* v2;                             // edi
