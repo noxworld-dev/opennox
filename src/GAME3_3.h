@@ -259,7 +259,7 @@ short nox_xxx_unitGetHP_4EE780(nox_object_t* item);
 short nox_xxx_unitGetMaxHP_4EE7A0(int a1);
 int nox_xxx_unitSetMaxHP_4EE7C0(int a1, short a2);
 int nox_xxx_activatePoison_4EE7E0(int a1, int a2, int a3);
-void nox_xxx_updatePoison_4EE8F0(int a1, int a2);
+void nox_xxx_updatePoison_4EE8F0(nox_object_t* a1, int a2);
 void nox_xxx_removePoison_4EE9D0(int a1);
 void nox_xxx_setSomePoisonData_4EEA90(int a1, int a2);
 unsigned short nox_xxx_playerManaAdd_4EEB80(nox_object_t* unit, short amount);

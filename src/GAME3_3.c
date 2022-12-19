@@ -7853,7 +7853,8 @@ LABEL_21:
 }
 
 //----- (004EE8F0) --------------------------------------------------------
-void nox_xxx_updatePoison_4EE8F0(int a1, int a2) {
+void nox_xxx_updatePoison_4EE8F0(nox_object_t* a1p, int a2) {
+	int a1 = a1p;
 	int v2;   // eax
 	int v3;   // eax
 	char* v4; // eax

@@ -156,8 +156,8 @@ func (s *serverObjects) NewObject(t *ObjectType) *Object {
 	obj.Weight = t.Weight
 	obj.CarryCapacity = uint16(t.CarryCap)
 	obj.SpeedCur = t.Speed
-	obj.Speed2 = t.Speed2
-	obj.Float138 = t.Float33
+	obj.SpeedBase = t.SpeedBase
+	obj.SpeedBonus = t.SpeedBonus
 	obj.HealthData = nil
 	obj.Field38 = -1
 	obj.TypeInd = uint16(t.Ind())
@@ -396,10 +396,12 @@ type Object struct {
 	Field131      uint32                     // 131, 524
 	Pos132        types.Pointf               // 132, 528
 	Field134      uint32                     // 134, 536, TODO: some timestamp
-	Field135      uint32                     // 135, 540, TODO: 541 accessed as byte
+	Field540      byte                       // 135, 540
+	Field541      byte                       // 135, 541
+	Field542      uint16                     // 135, 542
 	SpeedCur      float32                    // 136, 544
-	Speed2        float32                    // 137, 548
-	Float138      float32                    // 138, 552
+	SpeedBase     float32                    // 137, 548
+	SpeedBonus    float32                    // 138, 552
 	HealthData    *HealthData                // 139, 556
 	Field140      uint32                     // 140, 560
 	Field141      uint32                     // 141, 564

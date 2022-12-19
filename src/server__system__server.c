@@ -1261,67 +1261,6 @@ void nox_xxx_updateUnits_51B100_B() {
 	}
 }
 
-void nox_xxx_updateUnits_51B100_C() {
-	for (int k = nox_xxx_getFirstUpdatableObject_4DA8A0(); k; k = nox_xxx_getNextUpdatableObject_4DA8B0(k)) {
-		int v20 = *(uint32_t*)(k + 64);
-		int v21 = *(uint32_t*)(k + 60);
-		*(uint32_t*)(k + 72) = *(uint32_t*)(k + 56);
-		int v22 = *(uint32_t*)(k + 68);
-		*(uint32_t*)(k + 56) = v20; // updates unit coords
-		LOBYTE(v20) = *(uint8_t*)(k + 541);
-		*(uint32_t*)(k + 76) = v21;
-		LOWORD(v21) = *(uint16_t*)(k + 126);
-		*(uint32_t*)(k + 60) = v22;
-		*(uint32_t*)(k + 88) = 0;
-		*(uint32_t*)(k + 92) = 0;
-		*(uint16_t*)(k + 124) = v21;
-		if ((unsigned char)v20 > 4u) {
-			*(uint8_t*)(k + 541) = 4;
-		}
-		*(float*)(k + 544) = (*(float*)(k + 552) + *(float*)(k + 548)) * (5.0 - (double)*(unsigned char*)(k + 541)) * 0.2;
-		if (nox_xxx_testUnitBuffs_4FF350(k, 4)) {
-			*(float*)(k + 544) = *(float*)(k + 544) * 0.5; // switch back from running
-		}
-		if (*(uint8_t*)(k + 541) || *(uint8_t*)(k + 540)) {
-			short v23 = *(uint16_t*)(k + 542);
-			if (v23 > 0) {
-				short v24 = v23 - 1;
-				*(uint16_t*)(k + 542) = v24;
-				if (!v24) {
-					char v25 = *(uint8_t*)(k + 541);
-					if (v25) {
-						*(uint8_t*)(k + 541) = v25 - 1;
-					}
-					if (*(uint8_t*)(k + 540)) {
-						int v26 = *(uint32_t*)(k + 16);
-						if ((v26 & 0x8000) == 0) {
-							nox_xxx_updatePoison_4EE8F0(k, 1);
-						}
-					}
-					*(uint16_t*)(k + 542) = 1000;
-				}
-			}
-		}
-		nox_xxx_updateUnitBuffs_4FF620(k);
-		if (*(uint8_t*)(k + 540)) {
-			uint16_t* v27 = *(uint16_t**)(k + 556);
-			if (v27) {
-				if (v27[2] > 0u && *v27 > 0u) {
-					int v28 = nox_common_gameFlags_check_40A5C0(4096);
-					int v29 = *(uint32_t*)(*(uint32_t*)(k + 556) + 16);
-					int v30 = v28 + 1;
-					if (!v29 || (unsigned int)(gameFrame() - v29) > 0x3C) {
-						unsigned char v31 = *(uint8_t*)(k + 540);
-						if (v31 > 8u || !(gameFrame() % (unsigned int)(128 >> (v31 - 1)))) {
-							(*(void (**)(int, uint32_t, uint32_t, int, int))(k + 716))(k, 0, 0, v30, 5);
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
 void nox_xxx_updateUnits_51B100_D() {
 	uint8_t* v32 = nox_xxx_wallSecretGetFirstWall_410780();
 	if (v32) {

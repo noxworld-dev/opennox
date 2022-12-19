@@ -3948,7 +3948,8 @@ int nox_xxx_spellBuffOff_4FF5B0(nox_object_t* a1p, int a2) {
 }
 
 //----- (004FF620) --------------------------------------------------------
-void nox_xxx_updateUnitBuffs_4FF620(int a1) {
+void nox_xxx_updateUnitBuffs_4FF620(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;            // edi
 	unsigned short v2; // ax
 	short v3;          // ax
