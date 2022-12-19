@@ -33,6 +33,7 @@ extern nox_object_t* nox_xxx_host_player_unit_3843628;
 extern uint32_t dword_5d4594_1563096;
 extern uint32_t dword_5d4594_528252;
 extern uint32_t dword_5d4594_528260;
+extern uint32_t dword_5d4594_2488604;
 
 void nox_xxx_abilUpdateMB_4FBEE0();
 char* nox_server_updateRemotePlayers_4DEC80();
@@ -51,6 +52,7 @@ void sub_4139C0();
 int sub_4DCF20();
 int sub_4E76C0();
 bool sub_57B140();
+nox_object_t* sub_537700();
 
 void nox_xxx_updateUnits_51B100_A();
 void nox_xxx_updateUnits_51B100_B();
@@ -221,11 +223,26 @@ func (s *Server) updateUnits() { // nox_xxx_updateUnits_51B100
 	s.updateUnitsAAA()
 	C.nox_xxx_updateUnits_51B100_B()
 	s.updateUnitsCallUpdate()
-	C.nox_xxx_collisions_511850()
+	s.updateCollide()
 	s.updateUnitsCCC()
 	C.nox_xxx_updateUnits_51B100_D()
 	C.nox_xxx_decay_511750()
 	C.nox_server_checkVictory_509A60()
+}
+
+func (s *Server) updateCollide() {
+	C.nox_xxx_allocHitArray_5486D0()
+	for i := 0; i < 5; i++ {
+		C.nox_xxx_updateObjectsVelocity_5118A0(0.2)
+		C.sub_548B60()
+	}
+	for C.dword_5d4594_2488604 != 0 {
+		obj := asObjectC(C.sub_537700())
+		if int8(uint8(obj.Class())) >= 0 {
+			s.Objs.AddToUpdatable(obj.SObj())
+		}
+	}
+	C.nox_xxx_collide_548740()
 }
 
 func (s *Server) updateUnitsCCC() {

@@ -4403,27 +4403,6 @@ void nox_xxx_unit_511810(nox_object_t* a1) {
 	}
 }
 
-//----- (00511850) --------------------------------------------------------
-void nox_xxx_collisions_511850() {
-	int v0; // esi
-	int v1; // eax
-
-	nox_xxx_allocHitArray_5486D0();
-	v0 = 5;
-	do {
-		nox_xxx_updateObjectsVelocity_5118A0(0.2);
-		sub_548B60();
-		--v0;
-	} while (v0);
-	while (!sub_537590()) {
-		v1 = sub_537700();
-		if ((signed char)*(uint8_t*)(v1 + 8) >= 0) {
-			nox_xxx_unitAddToUpdatable_4DA8D0(v1);
-		}
-	}
-	nox_xxx_collide_548740();
-}
-
 //----- (005118A0) --------------------------------------------------------
 int nox_xxx_updateObjectsVelocity_5118A0(float step) {
 	int i;             // esi
