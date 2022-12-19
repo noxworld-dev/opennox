@@ -113,7 +113,7 @@ int nox_xxx_unitGetBuffTimer_4FF550(nox_object_t* unit, int buff);
 char nox_xxx_buffGetPower_4FF570(nox_object_t* unit, int buff);
 void nox_xxx_unitClearBuffs_4FF580(nox_object_t* unit);
 int nox_xxx_spellBuffOff_4FF5B0(nox_object_t* a1, int a2);
-void nox_xxx_updateUnitBuffs_4FF620(int a1);
+void nox_xxx_updateUnitBuffs_4FF620(nox_object_t* a1);
 int nox_xxx_allocMagicWallArray_4FF730();
 int sub_4FF770();
 void nox_xxx_mapWall_4FF790();

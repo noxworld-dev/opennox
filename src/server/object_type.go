@@ -316,9 +316,9 @@ func (s *serverObjTypes) readType(thg *things.Thing) error {
 	}
 	if thg.Speed != nil {
 		fv := float32(float64(*thg.Speed) / 32)
-		typ.Float33 = 0
+		typ.SpeedBonus = 0
 		typ.Speed = fv
-		typ.Speed2 = fv
+		typ.SpeedBase = fv
 	}
 	for _, s := range thg.Class {
 		v, err := object.ParseClass(string(s))
@@ -426,7 +426,7 @@ func (s *serverObjTypes) readType(thg *things.Thing) error {
 	if typ.Class().Has(object.ClassMissile) {
 		typ.Field13 = 1.0
 		typ.Speed *= 2
-		typ.Speed2 *= 2
+		typ.SpeedBase *= 2
 	} else {
 		typ.Field13 = 0.5
 	}
@@ -703,13 +703,13 @@ func (s *ShapeBox) Calc() {
 }
 
 type HealthData struct {
-	Cur     uint16
-	field2  uint16
-	Max     uint16
-	field6  uint16
-	field8  uint32
-	field12 uint32
-	field16 uint32
+	Cur     uint16 // 0, 0
+	field2  uint16 // 0, 2
+	Max     uint16 // 1, 4
+	field6  uint16 // 1, 6
+	field8  uint32 // 2, 8
+	field12 uint32 // 3, 12
+	Field16 uint32 // 4, 16
 }
 
 func (h *HealthData) C() unsafe.Pointer {
@@ -738,8 +738,8 @@ type ObjectType struct {
 	Weight          byte
 	CarryCap        int
 	Speed           float32
-	Speed2          float32
-	Float33         float32
+	SpeedBase       float32
+	SpeedBonus      float32
 	health          *HealthData
 	Collide         unsafe.Pointer
 	CollideData     unsafe.Pointer

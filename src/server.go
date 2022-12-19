@@ -54,7 +54,6 @@ bool sub_57B140();
 
 void nox_xxx_updateUnits_51B100_A();
 void nox_xxx_updateUnits_51B100_B();
-void nox_xxx_updateUnits_51B100_C();
 void nox_xxx_updateUnits_51B100_D();
 */
 import "C"
@@ -77,6 +76,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/strman"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox-lib/console"
 
@@ -222,10 +222,55 @@ func (s *Server) updateUnits() { // nox_xxx_updateUnits_51B100
 	C.nox_xxx_updateUnits_51B100_B()
 	s.updateUnitsCallUpdate()
 	C.nox_xxx_collisions_511850()
-	C.nox_xxx_updateUnits_51B100_C()
+	s.updateUnitsCCC()
 	C.nox_xxx_updateUnits_51B100_D()
 	C.nox_xxx_decay_511750()
 	C.nox_server_checkVictory_509A60()
+}
+
+func (s *Server) updateUnitsCCC() {
+	for obj := asObjectS(s.Objs.UpdatableList); obj != nil; obj = asObjectS(obj.UpdatableNext) {
+		obj.PrevPos = obj.PosVec
+		obj.PosVec = obj.NewPos
+		obj.ForceVec = types.Pointf{}
+
+		obj.Direction1 = obj.Direction2
+		if obj.Field541 > 4 {
+			obj.Field541 = 4
+		}
+		obj.SpeedCur = (obj.SpeedBonus + obj.SpeedBase) * (1 - 0.2*float32(obj.Field541))
+		if obj.HasEnchant(server.ENCHANT_SLOWED) {
+			obj.SpeedCur *= 0.5
+		}
+		if obj.Field541 != 0 || obj.Field540 != 0 {
+			if obj.Field542 > 0 {
+				obj.Field542--
+				if obj.Field542 == 0 {
+					if obj.Field541 != 0 {
+						obj.Field541--
+					}
+					if obj.Field540 != 0 && !obj.Flags().Has(object.FlagDead) {
+						C.nox_xxx_updatePoison_4EE8F0(obj.CObj(), 1)
+					}
+					obj.Field542 = 1000
+				}
+			}
+		}
+		C.nox_xxx_updateUnitBuffs_4FF620(obj.CObj())
+		if v31 := obj.Field540; v31 != 0 {
+			if h := obj.HealthData; h != nil && h.Max > 0 && h.Cur > 0 {
+				dmg := 1
+				if noxflags.HasGame(noxflags.GameModeQuest) {
+					dmg += 1
+				}
+				if h.Field16 == 0 || (gameFrame()-h.Field16) > 60 {
+					if v31 > 8 || gameFrame()%uint32(128>>(v31-1)) == 0 {
+						obj.callDamage(nil, nil, dmg, 5) // damage.POISON
+					}
+				}
+			}
+		}
+	}
 }
 
 func (s *Server) nox_xxx_updateServer_4D2DA0(a1 uint64) {
