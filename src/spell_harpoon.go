@@ -192,7 +192,7 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 		return
 	}
 	u5 := bolt.FindOwnerChainPlayer()
-	if targ.callDamage(u5, bolt, a.damage, 11) == 0 || !(owner.isEnemyTo(targ) || checkGameplayFlags(1) && targ.Class().HasAny(object.MaskUnits)) {
+	if targ.callDamage(u5, bolt, a.damage, object.DamageImpact) == 0 || !(owner.isEnemyTo(targ) || checkGameplayFlags(1) && targ.Class().HasAny(object.MaskUnits)) {
 		C.nox_xxx_soundDefaultDamageSound_532E20(targ.CObj(), bolt.CObj())
 		a.breakForOwner(owner, false)
 		return

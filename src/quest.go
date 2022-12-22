@@ -316,8 +316,8 @@ func (s *Server) setupQuestGame() {
 			item := asObjectC(C.nox_xxx_playerRespawnItem_4EF750(u.CObj(), internCStr("SulphorousFlareWand"), nil, 1, 1))
 
 			opt, freeOpt := alloc.Make([]unsafe.Pointer{}, 5)
-			mod := C.nox_xxx_modifGetIdByName_413290(internCStr("Replenishment1"))
-			opt[2] = unsafe.Pointer(C.nox_xxx_modifGetDescById_413330(mod))
+			mod := nox_xxx_modifGetIdByName413290("Replenishment1")
+			opt[2] = unsafe.Pointer(nox_xxx_modifGetDescById413330(mod))
 			C.nox_xxx_modifSetItemAttrs_4E4990(item.CObj(), (*C.int)(unsafe.Pointer(&opt[0])))
 			freeOpt()
 		case player.Conjurer:

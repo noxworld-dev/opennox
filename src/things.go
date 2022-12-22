@@ -12,7 +12,6 @@ package opennox
 extern uint32_t dword_5d4594_251540;
 extern uint32_t dword_5d4594_251568;
 extern uint32_t dword_5d4594_251572;
-void nox_xxx_equipWeapon_4131A0();
 void nox_xxx_equipArmor_415AB0();
 void nox_xxx_equipWeapon_4157C0();
 int sub_485CF0();
@@ -76,8 +75,8 @@ func nox_xxx_loadAllBinFiles_415470() error {
 	}
 	buf, freeBuf := alloc.Malloc(256 * 1024)
 	defer freeBuf()
-	if C.nox_xxx_parseModifierBin_412930(internCStr("modifier.bin"), (*C.char)(buf)) == 0 {
-		return fmt.Errorf("failed to load modifiers")
+	if err := nox_xxx_parseModifierBin_412930("modifier.bin"); err != nil {
+		return fmt.Errorf("failed to load modifiers: %w", err)
 	}
 
 	thg, err := openThings()
@@ -269,7 +268,7 @@ func (s *Server) nox_read_things_alternative_4E2B60() error {
 	if err := s.CheckTypes(); err != nil {
 		return err
 	}
-	C.nox_xxx_equipWeapon_4131A0()
+	nox_xxx_equipWeapon_4131A0()
 	C.nox_xxx_equipArmor_415AB0()
 	C.nox_xxx_equipWeapon_4157C0()
 	C.sub_4F0640()
@@ -342,7 +341,7 @@ func nox_xxx_parseThingBinClient_44C840_read_things() error {
 			}
 		}
 	}
-	C.nox_xxx_equipWeapon_4131A0()
+	nox_xxx_equipWeapon_4131A0()
 	C.nox_xxx_equipArmor_415AB0()
 	C.nox_xxx_equipWeapon_4157C0()
 	sub_42BF10()

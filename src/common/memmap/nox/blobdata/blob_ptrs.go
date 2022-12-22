@@ -12,36 +12,25 @@ type Ptrs struct {
 	Ptr_dword_587000_122852                   *unsafe.Pointer
 	Ptr_dword_587000_81128                    *unsafe.Pointer
 
-	Ptr_nox_xxx_parseWeapColor_411C40 unsafe.Pointer
-	Ptr_sub_411D90                    unsafe.Pointer
-
 	Ptr_sub_4DFB50                            unsafe.Pointer
 	Ptr_nox_xxx_effectSpeedEngage_4DFC30      unsafe.Pointer
 	Ptr_sub_4DFD10                            unsafe.Pointer
 	Ptr_nox_xxx_buff_4DFD80                   unsafe.Pointer
 	Ptr_nox_xxx_checkPoisonProtectEnch_4DFDE0 unsafe.Pointer
 	Ptr_sub_4E0140                            unsafe.Pointer
-	Ptr_nox_xxx_parseWeapDescription_411B90   unsafe.Pointer
-	Ptr_sub_411E60                            unsafe.Pointer
-	Ptr_sub_411ED0                            unsafe.Pointer
-	Ptr_sub_411F20                            unsafe.Pointer
-	Ptr_sub_411F70                            unsafe.Pointer
-	Ptr_sub_411FC0                            unsafe.Pointer
-	Ptr_nox_xxx_parseWeapDamageType_412010    unsafe.Pointer
-	Ptr_sub_412060                            unsafe.Pointer
-	Ptr_sub_4120B0                            unsafe.Pointer
-	Ptr_sub_41A590                            unsafe.Pointer
-	Ptr_sub_41AA30                            unsafe.Pointer
-	Ptr_sub_41AC30                            unsafe.Pointer
-	Ptr_nox_xxx_guiFieldbook_41B420           unsafe.Pointer
-	Ptr_nox_xxx_guiSpellbook_41B660           unsafe.Pointer
-	Ptr_nox_xxx_guiEnchantment_41B9C0         unsafe.Pointer
-	Ptr_sub_41BEC0                            unsafe.Pointer
-	Ptr_sub_41C080                            unsafe.Pointer
-	Ptr_sub_41C200                            unsafe.Pointer
-	Ptr_sub_41C280                            unsafe.Pointer
-	Ptr_nox_xxx_parseFileInfoData_41C3B0      unsafe.Pointer
-	Ptr_sub_41C780                            unsafe.Pointer
+
+	Ptr_sub_41A590                       unsafe.Pointer
+	Ptr_sub_41AA30                       unsafe.Pointer
+	Ptr_sub_41AC30                       unsafe.Pointer
+	Ptr_nox_xxx_guiFieldbook_41B420      unsafe.Pointer
+	Ptr_nox_xxx_guiSpellbook_41B660      unsafe.Pointer
+	Ptr_nox_xxx_guiEnchantment_41B9C0    unsafe.Pointer
+	Ptr_sub_41BEC0                       unsafe.Pointer
+	Ptr_sub_41C080                       unsafe.Pointer
+	Ptr_sub_41C200                       unsafe.Pointer
+	Ptr_sub_41C280                       unsafe.Pointer
+	Ptr_nox_xxx_parseFileInfoData_41C3B0 unsafe.Pointer
+	Ptr_sub_41C780                       unsafe.Pointer
 
 	Ptr_sub_43EC30                           unsafe.Pointer
 	Ptr_sub_43ECB0                           unsafe.Pointer

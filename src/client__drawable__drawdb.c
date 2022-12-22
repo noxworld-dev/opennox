@@ -22,8 +22,6 @@ extern uint64_t qword_581450_9544;
 extern uint64_t qword_581450_9552;
 extern uint32_t dword_5d4594_251568;
 extern uint32_t dword_5d4594_251572;
-extern uint32_t dword_5d4594_251600;
-extern uint32_t dword_5d4594_251608;
 
 extern int nox_parse_thing_draw_funcs_cnt;
 
@@ -202,43 +200,6 @@ int sub_46A360() {
 		} while (v1 < 3840);
 	}
 	return 1;
-}
-
-//----- (004131A0) --------------------------------------------------------
-char* nox_xxx_equipWeapon_4131A0() {
-	char* result; // eax
-	int i;        // esi
-	int j;        // esi
-
-	result = *(char**)getMemAt(0x5D4594, 251616);
-	if (*getMemU32Ptr(0x5D4594, 251616) != 1) {
-		for (i = dword_5d4594_251600; i; i = *(uint32_t*)(i + 80)) {
-			if (nox_common_gameFlags_check_40A5C0(2097153)) {
-				result = (char*)nox_xxx_getNameId_4E3AA0(*(char**)i);
-			} else {
-				result = (char*)nox_common_gameFlags_check_40A5C0(2);
-				if (!result) {
-					return result;
-				}
-				result = (char*)nox_xxx_getTTByNameSpriteMB_44CFC0(*(char**)i);
-			}
-			*(uint32_t*)(i + 4) = result;
-		}
-		for (j = dword_5d4594_251608; j; j = *(uint32_t*)(j + 80)) {
-			if (nox_common_gameFlags_check_40A5C0(2097153)) {
-				result = (char*)nox_xxx_getNameId_4E3AA0(*(char**)j);
-			} else {
-				result = (char*)nox_common_gameFlags_check_40A5C0(2);
-				if (!result) {
-					return result;
-				}
-				result = (char*)nox_xxx_getTTByNameSpriteMB_44CFC0(*(char**)j);
-			}
-			*(uint32_t*)(j + 4) = result;
-		}
-		*getMemU32Ptr(0x5D4594, 251616) = 1;
-	}
-	return result;
 }
 
 //----- (00415AB0) --------------------------------------------------------

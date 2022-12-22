@@ -141,22 +141,22 @@ func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
 			*(*uint32)(unsafe.Add(a1, 8)) = uint32(v4)
 		}
 	}
-	var mods [4]*C.obj_412ae0_t
+	var mods [4]*noxModifierEff
 	for i := range mods {
 		mname, _ := cf.ReadString8()
 		if mname == "" {
 			continue
 		}
-		mod := C.nox_xxx_modifGetIdByName_413290(internCStr(mname))
+		mod := nox_xxx_modifGetIdByName413290(mname)
 		if mod >= 0 && mod != 255 {
-			mods[i] = C.nox_xxx_modifGetDescById_413330(mod)
+			mods[i] = nox_xxx_modifGetDescById413330(mod)
 		}
 	}
 
-	*(**C.obj_412ae0_t)(unsafe.Add(a1, 12)) = mods[0]
-	*(**C.obj_412ae0_t)(unsafe.Add(a1, 16)) = mods[1]
-	*(**C.obj_412ae0_t)(unsafe.Add(a1, 20)) = mods[2]
-	*(**C.obj_412ae0_t)(unsafe.Add(a1, 24)) = mods[3]
+	*(*unsafe.Pointer)(unsafe.Add(a1, 12)) = mods[0].C()
+	*(*unsafe.Pointer)(unsafe.Add(a1, 16)) = mods[1].C()
+	*(*unsafe.Pointer)(unsafe.Add(a1, 20)) = mods[2].C()
+	*(*unsafe.Pointer)(unsafe.Add(a1, 24)) = mods[3].C()
 }
 
 //export nox_xxx_XFer_WriteShopItem_52A5F0
