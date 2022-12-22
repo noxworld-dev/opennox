@@ -103,6 +103,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
+	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/internal/version"
@@ -1925,7 +1926,7 @@ func sub_517B70(pos *C.float2, fnc unsafe.Pointer, data unsafe.Pointer) {
 	}
 	noxServer.Map.Sub517B70(*(*types.Pointf)(unsafe.Pointer(pos)), func(it *server.Object) {
 		obj := asObjectS(it)
-		cgoCallVoidPtr2Func(fnc, unsafe.Pointer(obj.CObj()), data)
+		ccall.CallVoidPtr2(fnc, unsafe.Pointer(obj.CObj()), data)
 	})
 }
 
@@ -1978,7 +1979,7 @@ func (s *Server) sub_518550(rect image.Rectangle, pos types.Pointf, mask byte, s
 func nox_xxx_getMissilesInCircle_518170(pos *C.float2, r float32, fnc unsafe.Pointer, a4 *nox_object_t) {
 	p := *(*types.Pointf)(unsafe.Pointer(pos))
 	noxServer.Map.EachMissilesInCircle(p, r, func(it *server.Object) {
-		cgoCallVoidPtr2Func(fnc, unsafe.Pointer(asObjectS(it).CObj()), unsafe.Pointer(a4))
+		ccall.CallVoidPtr2(fnc, unsafe.Pointer(asObjectS(it).CObj()), unsafe.Pointer(a4))
 	})
 }
 
@@ -1986,7 +1987,7 @@ func nox_xxx_getMissilesInCircle_518170(pos *C.float2, r float32, fnc unsafe.Poi
 func nox_xxx_getUnitsInRectAdv_517ED0(rect *C.float4, fnc unsafe.Pointer, data unsafe.Pointer) {
 	r := *(*types.Rectf)(unsafe.Pointer(rect))
 	noxServer.Map.EachObjAndMissileInRect(r, func(it *server.Object) {
-		cgoCallVoidPtr2Func(fnc, unsafe.Pointer(asObjectS(it).CObj()), data)
+		ccall.CallVoidPtr2(fnc, unsafe.Pointer(asObjectS(it).CObj()), data)
 	})
 }
 
@@ -1994,7 +1995,7 @@ func nox_xxx_getUnitsInRectAdv_517ED0(rect *C.float4, fnc unsafe.Pointer, data u
 func nox_xxx_getUnitsInRect_517C10(rect *C.float4, fnc unsafe.Pointer, data unsafe.Pointer) {
 	r := *(*types.Rectf)(unsafe.Pointer(rect))
 	noxServer.Map.EachObjInRect(r, func(it *server.Object) {
-		cgoCallVoidPtr2Func(fnc, unsafe.Pointer(asObjectS(it).CObj()), data)
+		ccall.CallVoidPtr2(fnc, unsafe.Pointer(asObjectS(it).CObj()), data)
 	})
 }
 
@@ -2002,7 +2003,7 @@ func nox_xxx_getUnitsInRect_517C10(rect *C.float4, fnc unsafe.Pointer, data unsa
 func nox_xxx_unitsGetInCircle_517F90(pos *C.float2, r C.float, fnc unsafe.Pointer, data unsafe.Pointer) {
 	p := *(*types.Pointf)(unsafe.Pointer(pos))
 	noxServer.Map.EachObjInCircle(p, float32(r), func(it *server.Object) {
-		cgoCallVoidPtr2Func(fnc, unsafe.Pointer(asObjectS(it).CObj()), data)
+		ccall.CallVoidPtr2(fnc, unsafe.Pointer(asObjectS(it).CObj()), data)
 	})
 }
 

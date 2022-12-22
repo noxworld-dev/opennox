@@ -44,6 +44,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/audio/ail"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 )
 
 //export AIL_load_sample_buffer
@@ -97,7 +98,7 @@ func sub_43EFD0(a1 unsafe.Pointer) C.int {
 	if s.flag7 == 0 {
 		ptr := s.field1
 		fptr := (*unsafe.Pointer)(unsafe.Add(ptr, 284))
-		cgoCallVoidPtrFunc(*fptr, ptr)
+		ccall.CallVoidPtr(*fptr, ptr)
 		s.flag7 = 1
 	}
 	return 0

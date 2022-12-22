@@ -12,6 +12,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/env"
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 )
 
 func fadeDisableGameDraw() {
@@ -81,14 +82,14 @@ func clientPacketFade(flag4 C.bool, a2 C.bool) {
 //export nox_video_fadeInScreen_44DAB0
 func nox_video_fadeInScreen_44DAB0(a1, a2 C.int, fnc unsafe.Pointer) {
 	noxClient.r.FadeInScreen(int(a1), a2 != 0, func() {
-		cgoCallVoid2Func(fnc)
+		ccall.CallVoid(fnc)
 	})
 }
 
 //export nox_video_fadeOutScreen_44DB30
 func nox_video_fadeOutScreen_44DB30(a1, a2 C.int, fnc unsafe.Pointer) {
 	noxClient.r.FadeOutScreen(int(a1), a2 != 0, func() {
-		cgoCallVoid2Func(fnc)
+		ccall.CallVoid(fnc)
 	})
 }
 

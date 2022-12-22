@@ -14,6 +14,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 )
 
 var guiAnimSpeed = 1
@@ -82,11 +83,11 @@ func (a *guiAnim) Prev() *guiAnim {
 }
 
 func (a *guiAnim) Func12() int {
-	return cgoCallIntVoidFunc(unsafe.Pointer(a.field_12))
+	return ccall.CallIntVoid(unsafe.Pointer(a.field_12))
 }
 
 func (a *guiAnim) Func13() int {
-	return cgoCallIntVoidFunc(unsafe.Pointer(a.field_13))
+	return ccall.CallIntVoid(unsafe.Pointer(a.field_13))
 }
 
 func (a *guiAnim) doOut() {
@@ -124,7 +125,7 @@ func (a *guiAnim) doOut() {
 		a.setState(NOX_GUI_ANIM_OUT_DONE)
 		sub_43BE40(1)
 		if a.fnc_done_out != nil {
-			cgoCallIntVoidFunc(unsafe.Pointer(a.fnc_done_out))
+			ccall.CallIntVoid(unsafe.Pointer(a.fnc_done_out))
 		}
 	}
 }
@@ -164,7 +165,7 @@ func (a *guiAnim) doIn() {
 		a.setState(NOX_GUI_ANIM_IN_DONE)
 		sub_43BE40(0)
 		if a.fnc_done_in != nil {
-			cgoCallVoid2Func(unsafe.Pointer(a.fnc_done_in))
+			ccall.CallVoid(unsafe.Pointer(a.fnc_done_in))
 		}
 		sub_4A24F0()
 	}

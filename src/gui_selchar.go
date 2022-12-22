@@ -70,6 +70,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -138,7 +139,7 @@ func sub_4A50D0() C.int {
 	winSelSave.Destroy()
 	winSelSave = nil
 	if v0 != nil {
-		cgoCallIntVoidFunc(unsafe.Pointer(v0))
+		ccall.CallIntVoid(unsafe.Pointer(v0))
 		return 1
 	}
 	nox_client_resetScreenParticles_431510()

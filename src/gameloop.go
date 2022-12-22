@@ -58,6 +58,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/serial"
+	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
@@ -99,7 +100,7 @@ func nox_game_SetCliDrawFunc(fnc unsafe.Pointer) {
 		noxClient.SetDrawFunc(nil)
 	} else {
 		noxClient.SetDrawFunc(func() bool {
-			return cgoCallIntVoidFunc(fnc) != 0
+			return ccall.CallIntVoid(fnc) != 0
 		})
 	}
 }
@@ -110,7 +111,7 @@ func sub_43DE40(fnc unsafe.Pointer) C.int {
 		noxClient.SetUpdateFunc2(nil)
 	} else {
 		noxClient.SetUpdateFunc2(func() bool {
-			return cgoCallIntVoidFunc(fnc) != 0
+			return ccall.CallIntVoid(fnc) != 0
 		})
 	}
 	return 1

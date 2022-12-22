@@ -17,6 +17,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/input"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 )
 
 const (
@@ -56,12 +57,12 @@ func nox_xxx_dialogMsgBoxCreate_449A10(win *C.nox_window, title, text *C.wchar_t
 	var fnc5, fnc6 func()
 	if a5 != nil {
 		fnc5 = func() {
-			cgoCallVoid2Func(a5)
+			ccall.CallVoid(a5)
 		}
 	}
 	if a6 != nil {
 		fnc6 = func() {
-			cgoCallVoid2Func(a6)
+			ccall.CallVoid(a6)
 		}
 	}
 	NewDialogWindow(asWindow(win), GoWString(title), GoWString(text), gui.DialogFlags(a4), fnc5, fnc6)

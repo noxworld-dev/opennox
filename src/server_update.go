@@ -15,6 +15,8 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 )
 
 func (s *Server) itemsApplyUpdateEffect(a1 *Object) {
@@ -25,7 +27,7 @@ func (s *Server) itemsApplyUpdateEffect(a1 *Object) {
 			for _, mod := range idata {
 				if mod != nil {
 					if fnc := *(*unsafe.Pointer)(unsafe.Add(mod, 100)); fnc != nil {
-						cgoCallVoidPtr3Func(fnc, mod, unsafe.Pointer(it.CObj()), nil)
+						ccall.CallVoidPtr3(fnc, mod, unsafe.Pointer(it.CObj()), nil)
 					}
 				}
 			}

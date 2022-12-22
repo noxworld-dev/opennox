@@ -56,6 +56,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
+	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 	"github.com/noxworld-dev/opennox/v1/internal/cnxz"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 )
@@ -94,49 +95,49 @@ var (
 )
 
 func nox_server_mapRWMapInfo_42A6E0(_ *cryptfile.CryptFile, a1 unsafe.Pointer) error {
-	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWMapInfo_42A6E0, a1) == 0 {
+	if ccall.CallIntVoidPtr(C.nox_server_mapRWMapInfo_42A6E0, a1) == 0 {
 		return fmt.Errorf("%s failed", caller(0))
 	}
 	return nil
 }
 func nox_server_mapRWWallMap_429B20(_ *cryptfile.CryptFile, a1 unsafe.Pointer) error {
-	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWWallMap_429B20, a1) == 0 {
+	if ccall.CallIntVoidPtr(C.nox_server_mapRWWallMap_429B20, a1) == 0 {
 		return fmt.Errorf("%s failed", caller(0))
 	}
 	return nil
 }
 func nox_server_mapRWFloorMap_422230(_ *cryptfile.CryptFile, a1 unsafe.Pointer) error {
-	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWFloorMap_422230, a1) == 0 {
+	if ccall.CallIntVoidPtr(C.nox_server_mapRWFloorMap_422230, a1) == 0 {
 		return fmt.Errorf("%s failed", caller(0))
 	}
 	return nil
 }
 func nox_server_mapRWSecretWalls_4297C0(_ *cryptfile.CryptFile, a1 unsafe.Pointer) error {
-	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWSecretWalls_4297C0, a1) == 0 {
+	if ccall.CallIntVoidPtr(C.nox_server_mapRWSecretWalls_4297C0, a1) == 0 {
 		return fmt.Errorf("%s failed", caller(0))
 	}
 	return nil
 }
 func nox_server_mapRWDestructableWalls_429530(_ *cryptfile.CryptFile, a1 unsafe.Pointer) error {
-	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWDestructableWalls_429530, a1) == 0 {
+	if ccall.CallIntVoidPtr(C.nox_server_mapRWDestructableWalls_429530, a1) == 0 {
 		return fmt.Errorf("%s failed", caller(0))
 	}
 	return nil
 }
 func nox_server_mapRWWaypoints_506260(_ *cryptfile.CryptFile, a1 unsafe.Pointer) error {
-	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWWaypoints_506260, a1) == 0 {
+	if ccall.CallIntVoidPtr(C.nox_server_mapRWWaypoints_506260, a1) == 0 {
 		return fmt.Errorf("%s failed", caller(0))
 	}
 	return nil
 }
 func nox_server_mapRWWindowWalls_4292C0(_ *cryptfile.CryptFile, a1 unsafe.Pointer) error {
-	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWWindowWalls_4292C0, a1) == 0 {
+	if ccall.CallIntVoidPtr(C.nox_server_mapRWWindowWalls_4292C0, a1) == 0 {
 		return fmt.Errorf("%s failed", caller(0))
 	}
 	return nil
 }
 func nox_server_mapRWGroupData_505C30(_ *cryptfile.CryptFile, a1 unsafe.Pointer) error {
-	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWGroupData_505C30, a1) == 0 {
+	if ccall.CallIntVoidPtr(C.nox_server_mapRWGroupData_505C30, a1) == 0 {
 		return fmt.Errorf("%s failed", caller(0))
 	}
 	return nil
@@ -222,31 +223,31 @@ func nox_server_mapRWScriptObject_505A40(cf *cryptfile.CryptFile, a1 unsafe.Poin
 }
 
 func nox_server_mapRWAmbientData_429200(_ *cryptfile.CryptFile, a1 unsafe.Pointer) error {
-	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWAmbientData_429200, a1) == 0 {
+	if ccall.CallIntVoidPtr(C.nox_server_mapRWAmbientData_429200, a1) == 0 {
 		return fmt.Errorf("%s failed", caller(0))
 	}
 	return nil
 }
 func nox_server_mapRWPolygons_428CD0(_ *cryptfile.CryptFile, a1 unsafe.Pointer) error {
-	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWPolygons_428CD0, a1) == 0 {
+	if ccall.CallIntVoidPtr(C.nox_server_mapRWPolygons_428CD0, a1) == 0 {
 		return fmt.Errorf("%s failed", caller(0))
 	}
 	return nil
 }
 func nox_server_mapRWMapIntro_505080(_ *cryptfile.CryptFile, a1 unsafe.Pointer) error {
-	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWMapIntro_505080, a1) == 0 {
+	if ccall.CallIntVoidPtr(C.nox_server_mapRWMapIntro_505080, a1) == 0 {
 		return fmt.Errorf("%s failed", caller(0))
 	}
 	return nil
 }
 func nox_server_mapRWScriptData_504F90(_ *cryptfile.CryptFile, a1 unsafe.Pointer) error {
-	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWScriptData_504F90, a1) == 0 {
+	if ccall.CallIntVoidPtr(C.nox_server_mapRWScriptData_504F90, a1) == 0 {
 		return fmt.Errorf("%s failed", caller(0))
 	}
 	return nil
 }
 func nox_server_mapRWObjectTOC_428B30(_ *cryptfile.CryptFile, a1 unsafe.Pointer) error {
-	if cgoCallIntVoidPtrFunc(C.nox_server_mapRWObjectTOC_428B30, a1) == 0 {
+	if ccall.CallIntVoidPtr(C.nox_server_mapRWObjectTOC_428B30, a1) == 0 {
 		return fmt.Errorf("%s failed", caller(0))
 	}
 	return nil
@@ -399,7 +400,7 @@ func nox_xxx_mapReadSectionSpecial_426F40(a1 unsafe.Pointer, name string, fnc un
 		mapLog.Printf("unsupported map section: %q", name)
 		return nil // TODO: why is returns true here?
 	}
-	if cgoCallIntVoidPtrFunc(fnc, a1) == 0 {
+	if ccall.CallIntVoidPtr(fnc, a1) == 0 {
 		return fmt.Errorf("cannot parse map section: %q", name)
 	}
 	return nil
