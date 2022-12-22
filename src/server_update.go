@@ -66,7 +66,7 @@ func (s *Server) updateUnitsBBB() { // nox_xxx_updateUnits_51B100_B
 			}
 		}
 		if obj.Class().Has(object.ClassMonster) {
-			C.nox_xxx_unitNeedSync_4E44F0(obj.CObj())
+			obj.NeedSync()
 		}
 		C.nox_xxx_updateFallLogic_51B870(obj.CObj())
 		if h := obj.HealthData; h != nil {

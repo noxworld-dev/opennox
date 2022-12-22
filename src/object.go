@@ -394,7 +394,7 @@ func (s *Server) objectsNewAdd() {
 			v6 = ((uint32(it.Class()) >> 29) & 1) != 0
 		}
 		if it.Class().Has(object.ClassVisibleEnable) || !v6 {
-			it.needSync()
+			it.NeedSync()
 			if !it.Class().HasAny(object.ClassClientPersist | object.ClassImmobile) {
 				it.Field37 = 0
 			}
@@ -666,8 +666,8 @@ func (obj *Object) FindByID(id string) *Object {
 	return asObjectS(obj.SObj().FindByID(id))
 }
 
-func (obj *Object) needSync() { // nox_xxx_unitNeedSync_4E44F0
-	obj.Field38 = -1
+func (obj *Object) NeedSync() { // nox_xxx_unitNeedSync_4E44F0
+	obj.SObj().NeedSync()
 }
 
 func (obj *Object) makeUnseen() { // nox_xxx_objectMakeUnseenByNoone_4E44E0
