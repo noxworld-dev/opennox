@@ -297,7 +297,7 @@ float* sub_4E0380(int a1, int a2, int a3, int a4, int a5, float* a6);
 int nox_xxx_inversionEffect_4E03D0(int a1, int a2, int a3, int a4, int a5, int* a6);
 int nox_xxx_gripEffect_4E0480(int a1, int a2, int a3, int a4, int a5, int* a6);
 float* nox_xxx_effectDamageMultiplier_4E04C0(int a1, int a2, int a3, int a4, float* a5);
-void nox_xxx_fireEffect_4E0550(int a1, int a2, int a3, int a4);
+void nox_xxx_fireEffect_4E0550(void* a1, nox_object_t* a2, nox_object_t* a3, nox_object_t* a4);
 void nox_xxx_recoilEffect_4E0640(int a1, int a2, int a3, int a4);
 void nox_xxx_lightngEffect_4E06F0(int a1, int a2, int a3, int a4);
 int nox_xxx_itemCheckReadinessEffect_4E0960(int a1);

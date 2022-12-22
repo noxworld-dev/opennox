@@ -1,7 +1,7 @@
 package opennox
 
 /*
-#include <stdint.h>
+#include "defs.h"
 
 extern void* dword_5d4594_1308156;
 extern void* dword_5d4594_1308160;
@@ -32,7 +32,7 @@ void nox_xxx_checkPoisonProtectEnch_4DFDE0(int a1, int a2);
 int nox_xxx_gripEffect_4E0480(int a1, int a2, int a3, int a4, int a5, int* a6);
 void nox_xxx_effectRegeneration_4E01D0(int a1, int a2);
 void nox_xxx_stunEffect_4E04D0(int a1, int a2, int a3, int a4);
-void nox_xxx_fireEffect_4E0550(int a1, int a2, int a3, int a4);
+void nox_xxx_fireEffect_4E0550(void* a1, nox_object_t* a2, nox_object_t* a3, nox_object_t* a4);
 int nox_xxx_fireRingEffect_4E05B0(int a1, int a2, int a3);
 void nox_xxx_recoilEffect_4E0640(int a1, int a2, int a3, int a4);
 void nox_xxx_lightngEffect_4E06F0(int a1, int a2, int a3, int a4);
@@ -66,6 +66,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 var (
@@ -605,6 +606,10 @@ func modEffectParseFloat(_ *noxModifierEff, p modParseTarg, s string) bool {
 	return true
 }
 
+var (
+	_ = nox_xxx_fireEffect_4E0550
+)
+
 var modDamageEffects = map[string]modFuncs{
 	"DamageMultiplierEffect": {C.nox_xxx_effectDamageMultiplier_4E04C0, modEffectParseFloat},
 	"StunEffect":             {C.nox_xxx_stunEffect_4E04D0, modEffectParseInt},
@@ -726,4 +731,17 @@ var modAllowList = map[string]uint32{
 	"STAFF_OBLIVION_HEART":     0x1000000,
 	"STAFF_OBLIVION_WIERDLING": 0x2000000,
 	"STAFF_OBLIVION_ORB":       0x4000000,
+}
+
+//export nox_xxx_fireEffect_4E0550
+func nox_xxx_fireEffect_4E0550(a1 unsafe.Pointer, a2p, a3p, a4p *nox_object_t) {
+	a2 := asObjectC(a2p)
+	src := asObjectC(a3p)
+	targ := asObjectC(a4p)
+	v5 := *(*float32)(unsafe.Add(a1, 56))
+	if targ != nil {
+		targ.callDamage(src, a2, int(v5), object.DamageExplosion)
+		nox_xxx_netSparkExplosionFx_5231B0(targ.PosVec, byte(int8(int64(float64(v5)*10.0))))
+		noxServer.AudioEventObj(sound.SoundWeaponEffectFire, targ, 0, 0)
+	}
 }
