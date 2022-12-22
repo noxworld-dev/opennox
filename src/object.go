@@ -929,15 +929,12 @@ func (obj *Object) callUpdate() {
 	}
 }
 
-func (obj *Object) callXfer(a2 unsafe.Pointer) error {
+func (obj *Object) CallXfer(a2 unsafe.Pointer) error {
 	switch obj.Xfer {
 	case unsafe.Pointer(C.nox_xxx_XFerDefault_4F49A0):
 		return nox_xxx_XFerDefault4F49A0(cryptfile.Global(), obj, a2)
 	}
-	if ccall.CallIntPtr2(obj.Xfer, unsafe.Pointer(obj.CObj()), a2) == 0 {
-		return fmt.Errorf("xfer for %s failed", obj.String())
-	}
-	return nil
+	return obj.SObj().CallXfer(a2)
 }
 
 func (obj *Object) CallDamage(who, a3 server.Obj, dmg int, typ object.DamageType) int {

@@ -775,3 +775,10 @@ func (obj *Object) CallDrop(it Obj, pos types.Pointf) int {
 
 	return ccall.CallIntPtr3(obj.Drop, obj.CObj(), toObjectC(it), ptr)
 }
+
+func (obj *Object) CallXfer(a2 unsafe.Pointer) error {
+	if ccall.CallIntPtr2(obj.Xfer, obj.CObj(), a2) == 0 {
+		return fmt.Errorf("xfer for %s failed", obj.String())
+	}
+	return nil
+}

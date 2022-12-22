@@ -331,7 +331,7 @@ func (s *Server) nox_xxx_serverParseEntireMap_4CFCE0(cf *cryptfile.CryptFile) er
 			if obj == nil {
 				return fmt.Errorf("cannot decode map object: invalid type: %q", sect)
 			}
-			if err := obj.callXfer(nil); err != nil {
+			if err := obj.CallXfer(nil); err != nil {
 				return fmt.Errorf("cannot decode map object: %q: %w", sect, err)
 			}
 			C.nox_xxx_servMapLoadPlaceObj_4F3F50(obj.CObj(), 0, nil)
@@ -515,7 +515,7 @@ func nox_server_mapRWObjectData_504CF0_Read(cf *cryptfile.CryptFile, a2 unsafe.P
 		if a2 != nil {
 			v9a2 = v16
 		}
-		if err := obj.callXfer(v9a2); err != nil {
+		if err := obj.CallXfer(v9a2); err != nil {
 			cf.Close()
 			return fmt.Errorf("xfer decode failed for %s: %w", typ.String(), err)
 		}

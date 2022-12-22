@@ -69,7 +69,7 @@ func nox_xxx_xfer_saveObj51DF90(cf *cryptfile.CryptFile, a1p *Object) int {
 	}
 	cf.WriteU16(a1)
 	cf.SectionStart()
-	if err := a1p.callXfer(nil); err != nil {
+	if err := a1p.CallXfer(nil); err != nil {
 		mapLog.Println("nox_xxx_xfer_saveObj51DF90:", err)
 		return 0
 	}
