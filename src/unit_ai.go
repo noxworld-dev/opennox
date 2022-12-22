@@ -210,7 +210,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 				break
 			}
 			pos, pos2 := u.Pos(), obj.Pos()
-			ok = !nox_xxx_mapTraceObstacles(u, pos, pos2)
+			ok = !a.s.mapTraceObstacles(u, pos, pos2)
 		case ai.DEPENDENCY_OBJECT_AT_VISIBLE_LOCATION:
 			v28 := aiStackArgObj(st, 2)
 			v29 := false
