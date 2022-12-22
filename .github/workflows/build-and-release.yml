@@ -107,12 +107,16 @@ jobs:
       - name: 'Publish to edge channel'
         uses: snapcore/action-publish@v1
         if: github.ref == 'refs/heads/dev'
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
         with:
           snap: ${{ steps.snapcraft.outputs.snap }}
           release: edge
       - name: 'Publish to stable channel'
         uses: snapcore/action-publish@v1
         if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
         with:
           snap: ${{ steps.snapcraft.outputs.snap }}
           release: stable
