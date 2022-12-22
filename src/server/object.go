@@ -31,6 +31,13 @@ func toObject(p Obj) *Object {
 	return p.SObj()
 }
 
+func toObjectC(p Obj) unsafe.Pointer {
+	if p == nil {
+		return nil
+	}
+	return unsafe.Pointer(p.SObj().CObj())
+}
+
 type serverObjects struct {
 	alloc           alloc.ClassT[Object]
 	Alive           int
@@ -744,4 +751,11 @@ func (obj *Object) CallCollide(a2, a3 int) {
 	if obj.Collide != nil {
 		ccall.CallVoidUPtr3(obj.Collide, uintptr(obj.CObj()), uintptr(a2), uintptr(a3))
 	}
+}
+
+func (obj *Object) CallDamage(who Obj, a3 Obj, dmg int, typ object.DamageType) int {
+	if obj.Damage != nil {
+		return ccall.CallIntUPtr5(obj.Damage, uintptr(obj.CObj()), uintptr(toObjectC(who)), uintptr(toObjectC(a3)), uintptr(uint(dmg)), uintptr(typ))
+	}
+	return 0
 }
