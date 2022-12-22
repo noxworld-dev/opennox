@@ -938,11 +938,8 @@ func (obj *Object) callXfer(a2 unsafe.Pointer) error {
 	return nil
 }
 
-func (obj *Object) callDamage(who noxObject, a3 noxObject, dmg int, typ object.DamageType) int {
-	if obj.Damage != nil {
-		return int(C.nox_call_object_damage((*[0]byte)(obj.Damage), obj.CObj(), toCObj(who), toCObj(a3), C.int(dmg), C.int(typ)))
-	}
-	return 0
+func (obj *Object) CallDamage(who, a3 server.Obj, dmg int, typ object.DamageType) int {
+	return obj.SObj().CallDamage(who, a3, dmg, typ)
 }
 
 func (obj *Object) CallCollide(a2, a3 int) {

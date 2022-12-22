@@ -745,7 +745,7 @@ func nox_xxx_fireEffect_4E0550(a1 unsafe.Pointer, a2p, a3p, a4p *nox_object_t) {
 	targ := asObjectC(a4p)
 	v5 := *(*float32)(unsafe.Add(a1, 56))
 	if targ != nil {
-		targ.callDamage(src, a2, int(v5), object.DamageExplosion)
+		targ.CallDamage(src, a2, int(v5), object.DamageExplosion)
 		nox_xxx_netSparkExplosionFx_5231B0(targ.PosVec, byte(int8(int64(float64(v5)*10.0))))
 		noxServer.AudioEventObj(sound.SoundWeaponEffectFire, targ, 0, 0)
 	}

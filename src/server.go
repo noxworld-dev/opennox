@@ -281,7 +281,7 @@ func (s *Server) updateUnitsCCC() {
 				}
 				if h.Field16 == 0 || (noxServer.Frame()-h.Field16) > 60 {
 					if v31 > 8 || noxServer.Frame()%uint32(128>>(v31-1)) == 0 {
-						obj.callDamage(nil, nil, dmg, object.DamagePoison)
+						obj.CallDamage(nil, nil, dmg, object.DamagePoison)
 					}
 				}
 			}
