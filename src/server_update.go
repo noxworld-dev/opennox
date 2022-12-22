@@ -59,7 +59,7 @@ func (s *Server) updateUnitsBBB() { // nox_xxx_updateUnits_51B100_B
 		}
 		if obj.Update != nil {
 			if !obj.Flags().Has(object.FlagNoUpdate) {
-				obj.callUpdate()
+				obj.CallUpdate()
 			}
 			if obj.Class().Has(object.ClassPlayer) {
 				s.ctrlbuf.Player(obj.AsUnit().ControllingPlayer().Index()).Reset()
@@ -101,7 +101,7 @@ func (s *Server) updateUnitsCallUpdate() { // nox_xxx_updateUnits_51B100_callUpd
 		if obj.Flags().HasAny(object.FlagNoUpdateMask) {
 			continue
 		}
-		obj.callUpdate()
+		obj.CallUpdate()
 		C.nox_xxx_updateFallLogic_51B870(obj.CObj())
 		C.sub_51B810(obj.CObj())
 		C.sub_537770(obj.CObj())

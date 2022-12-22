@@ -911,7 +911,7 @@ func (obj *Object) Destroy() {
 	panic("implement me")
 }
 
-func (obj *Object) callUpdate() {
+func (obj *Object) CallUpdate() {
 	if obj.Update == nil {
 		return
 	}
@@ -925,7 +925,7 @@ func (obj *Object) callUpdate() {
 	case unsafe.Pointer(C.nox_xxx_updatePixie_53CD20):
 		nox_xxx_updatePixie_53CD20(obj.CObj())
 	default:
-		ccall.CallVoidPtr(obj.Update, unsafe.Pointer(obj.CObj()))
+		obj.SObj().CallUpdate()
 	}
 }
 

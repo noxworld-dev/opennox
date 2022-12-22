@@ -751,6 +751,13 @@ func (obj *Object) NeedSync() { // nox_xxx_unitNeedSync_4E44F0
 	obj.Field38 = -1
 }
 
+func (obj *Object) CallUpdate() {
+	if obj.Update == nil {
+		return
+	}
+	ccall.CallVoidPtr(obj.Update, obj.CObj())
+}
+
 func (obj *Object) CallCollide(a2, a3 int) {
 	if obj.Collide != nil {
 		ccall.CallVoidUPtr3(obj.Collide, uintptr(obj.CObj()), uintptr(a2), uintptr(a3))
