@@ -1794,7 +1794,7 @@ func sub_57CD70(p1, p2, a2 types.Pointf) types.Pointf {
 
 //export nox_xxx_mapTraceObstacles_50B580
 func nox_xxx_mapTraceObstacles_50B580(from *C.nox_object_t, a2 *C.float4) C.int {
-	if nox_xxx_mapTraceObstacles(asUnitC(from), types.Pointf{
+	if noxServer.mapTraceObstacles(asUnitC(from), types.Pointf{
 		X: float32(a2.field_0),
 		Y: float32(a2.field_4),
 	}, types.Pointf{
@@ -1806,7 +1806,7 @@ func nox_xxx_mapTraceObstacles_50B580(from *C.nox_object_t, a2 *C.float4) C.int 
 	return 0
 }
 
-func nox_xxx_mapTraceObstacles(from *Unit, p1, p2 types.Pointf) bool { // nox_xxx_mapTraceObstacles_50B580
+func (s *Server) mapTraceObstacles(from *Unit, p1, p2 types.Pointf) bool { // nox_xxx_mapTraceObstacles_50B580
 	rect := types.RectFromPointsf(p1, p2)
 
 	pp, ppFree := alloc.Malloc(16)
@@ -1816,7 +1816,7 @@ func nox_xxx_mapTraceObstacles(from *Unit, p1, p2 types.Pointf) bool { // nox_xx
 	p[2], p[3] = p2.X, p2.Y
 
 	searching := true
-	noxServer.Map.EachObjInRect(rect, func(it *server.Object) {
+	s.Map.EachObjInRect(rect, func(it *server.Object) {
 		obj := asObjectS(it)
 		if !searching {
 			return
