@@ -538,6 +538,13 @@ func toCObj(obj noxObject) *nox_object_t {
 	return obj.CObj()
 }
 
+func toCObjS(obj server.Obj) *nox_object_t {
+	if obj == nil {
+		return nil
+	}
+	return asObjectS(obj.SObj()).CObj()
+}
+
 func toObject(obj noxObject) *Object {
 	if obj == nil {
 		return nil
@@ -941,20 +948,20 @@ func (obj *Object) CallCollide(a2, a3 int) {
 	obj.SObj().CallCollide(a2, a3)
 }
 
-func (obj *Object) callDrop(it noxObject, pos types.Pointf) int {
+func (obj *Object) CallDrop(it server.Obj, pos types.Pointf) int {
 	if obj.Drop == nil {
 		return 0
 	}
-	cpos, free := alloc.New(types.Pointf{})
-	defer free()
-	*cpos = pos
-	ptr := (*C.float2)(unsafe.Pointer(cpos))
-
 	switch obj.Drop {
 	case unsafe.Pointer(C.nox_objectDropAudEvent_4EE2F0):
-		return int(nox_objectDropAudEvent_4EE2F0(obj.CObj(), toCObj(it), ptr))
+		cpos, free := alloc.New(types.Pointf{})
+		defer free()
+		*cpos = pos
+		ptr := (*C.float2)(unsafe.Pointer(cpos))
+
+		return int(nox_objectDropAudEvent_4EE2F0(obj.CObj(), toCObjS(it), ptr))
 	default:
-		return ccall.CallIntPtr3(obj.Drop, unsafe.Pointer(obj.CObj()), unsafe.Pointer(toCObj(it)), unsafe.Pointer(ptr))
+		return obj.SObj().CallDrop(it, pos)
 	}
 }
 
