@@ -11,12 +11,6 @@ package opennox
 #include "GAME4_3.h"
 void nox_xxx_updateHarpoon_54F380(nox_object_t* a1);
 int nox_objectDropAudEvent_4EE2F0(nox_object_t* a1, nox_object_t* a2, float2* a3);
-static void nox_call_obj_update_go(void (*fnc)(nox_object_t*), nox_object_t* obj) { fnc(obj); }
-static void nox_call_object_init(void (*fnc)(nox_object_t*, void*), nox_object_t* a1, void* a2) { fnc(a1, a2); }
-static int nox_call_object_xfer(int (*fnc)(nox_object_t*, void*), nox_object_t* a1, void* a2) { return fnc(a1, a2); }
-static int nox_call_object_drop(int (*fnc)(nox_object_t*, nox_object_t*, float2*), nox_object_t* a1, nox_object_t* a2, float2* a3) { return fnc(a1, a2, a3); }
-static int nox_call_object_damage(int (*fnc)(nox_object_t*, nox_object_t*, nox_object_t*, int, int), nox_object_t* a1, nox_object_t* a2, nox_object_t* a3, int a4, int a5) { return fnc(a1, a2, a3, a4, a5); }
-static void nox_call_object_collide(void (*fnc)(nox_object_t*, int, int), nox_object_t* a1, int a2, int a3) { fnc(a1, a2, a3); }
 */
 import "C"
 import (
@@ -32,6 +26,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
+	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -381,7 +376,7 @@ func (s *Server) objectsNewAdd() {
 			C.sub_5117F0(it.CObj())
 		}
 		if it.Init != nil {
-			C.nox_call_object_init((*[0]byte)(it.Init), it.CObj(), nil)
+			ccall.CallVoidPtr2(it.Init, unsafe.Pointer(it.CObj()), nil)
 		}
 		var v6 bool
 		if it.Class().Has(object.ClassImmobile) {
@@ -923,7 +918,7 @@ func (obj *Object) callUpdate() {
 	case unsafe.Pointer(C.nox_xxx_updatePixie_53CD20):
 		nox_xxx_updatePixie_53CD20(obj.CObj())
 	default:
-		C.nox_call_obj_update_go((*[0]byte)(obj.Update), obj.CObj())
+		ccall.CallVoidPtr(obj.Update, unsafe.Pointer(obj.CObj()))
 	}
 }
 
@@ -932,7 +927,7 @@ func (obj *Object) callXfer(a2 unsafe.Pointer) error {
 	case unsafe.Pointer(C.nox_xxx_XFerDefault_4F49A0):
 		return nox_xxx_XFerDefault4F49A0(cryptfile.Global(), obj, a2)
 	}
-	if C.nox_call_object_xfer((*[0]byte)(obj.Xfer), obj.CObj(), a2) == 0 {
+	if ccall.CallIntPtr2(obj.Xfer, unsafe.Pointer(obj.CObj()), a2) == 0 {
 		return fmt.Errorf("xfer for %s failed", obj.String())
 	}
 	return nil
@@ -959,7 +954,7 @@ func (obj *Object) callDrop(it noxObject, pos types.Pointf) int {
 	case unsafe.Pointer(C.nox_objectDropAudEvent_4EE2F0):
 		return int(nox_objectDropAudEvent_4EE2F0(obj.CObj(), toCObj(it), ptr))
 	default:
-		return int(C.nox_call_object_drop((*[0]byte)(obj.Drop), obj.CObj(), toCObj(it), ptr))
+		return ccall.CallIntPtr3(obj.Drop, unsafe.Pointer(obj.CObj()), unsafe.Pointer(toCObj(it)), unsafe.Pointer(ptr))
 	}
 }
 
