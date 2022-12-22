@@ -7,6 +7,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 )
 
 const cursorSize = 64
@@ -35,7 +36,7 @@ func (c *Client) getCursorAnimFrame(ref *noxImageRef, dt int) *noxrender.Image {
 		if ind+1 >= len(imgs) {
 			ind = len(imgs) - 1
 			if anim.on_end != nil {
-				cgoCallVoidPtrFunc(unsafe.Pointer(anim.on_end), unsafe.Pointer(ref.C()))
+				ccall.CallVoidPtr(unsafe.Pointer(anim.on_end), unsafe.Pointer(ref.C()))
 			}
 		}
 		return asImage(imgs[ind])

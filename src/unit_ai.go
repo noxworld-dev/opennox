@@ -27,6 +27,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
+	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -831,25 +832,25 @@ func (a cgoAIAction) Type() ai.ActionType {
 
 func (a cgoAIAction) Start(u *server.Object) {
 	if a.start != nil {
-		cgoCallVoidPtrFunc(a.start, unsafe.Pointer(asUnitS(u).CObj()))
+		ccall.CallVoidPtr(a.start, unsafe.Pointer(asUnitS(u).CObj()))
 	}
 }
 
 func (a cgoAIAction) Update(u *server.Object) {
 	if a.update != nil {
-		cgoCallVoidPtrFunc(a.update, unsafe.Pointer(asUnitS(u).CObj()))
+		ccall.CallVoidPtr(a.update, unsafe.Pointer(asUnitS(u).CObj()))
 	}
 }
 
 func (a cgoAIAction) End(u *server.Object) {
 	if a.end != nil {
-		cgoCallVoidPtrFunc(a.end, unsafe.Pointer(asUnitS(u).CObj()))
+		ccall.CallVoidPtr(a.end, unsafe.Pointer(asUnitS(u).CObj()))
 	}
 }
 
 func (a cgoAIAction) Cancel(u *server.Object) {
 	if a.cancel != nil {
-		cgoCallVoidPtrFunc(a.cancel, unsafe.Pointer(asUnitS(u).CObj()))
+		ccall.CallVoidPtr(a.cancel, unsafe.Pointer(asUnitS(u).CObj()))
 	}
 }
 

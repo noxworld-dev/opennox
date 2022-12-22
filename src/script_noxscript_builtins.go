@@ -72,12 +72,13 @@ import (
 	asm "github.com/noxworld-dev/opennox-lib/script/noxscript/noxasm"
 	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns"
 
+	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 	"github.com/noxworld-dev/opennox/v1/server/noxscript"
 )
 
 func wrapScriptC(fnc unsafe.Pointer) noxscript.Builtin {
 	return func(_ noxscript.VM) int {
-		return cgoCallIntVoidFunc(fnc)
+		return ccall.CallIntVoid(fnc)
 	}
 }
 
