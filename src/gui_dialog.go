@@ -57,12 +57,12 @@ func nox_xxx_dialogMsgBoxCreate_449A10(win *C.nox_window, title, text *C.wchar_t
 	var fnc5, fnc6 func()
 	if a5 != nil {
 		fnc5 = func() {
-			ccall.CallVoid(a5)
+			ccall.CallVoidVoid(a5)
 		}
 	}
 	if a6 != nil {
 		fnc6 = func() {
-			ccall.CallVoid(a6)
+			ccall.CallVoidVoid(a6)
 		}
 	}
 	NewDialogWindow(asWindow(win), GoWString(title), GoWString(text), gui.DialogFlags(a4), fnc5, fnc6)

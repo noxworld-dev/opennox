@@ -165,7 +165,7 @@ func (a *guiAnim) doIn() {
 		a.setState(NOX_GUI_ANIM_IN_DONE)
 		sub_43BE40(0)
 		if a.fnc_done_in != nil {
-			ccall.CallVoid(unsafe.Pointer(a.fnc_done_in))
+			ccall.CallVoidVoid(unsafe.Pointer(a.fnc_done_in))
 		}
 		sub_4A24F0()
 	}
