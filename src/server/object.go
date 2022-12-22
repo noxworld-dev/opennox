@@ -763,3 +763,15 @@ func (obj *Object) CallDamage(who Obj, a3 Obj, dmg int, typ object.DamageType) i
 	}
 	return 0
 }
+
+func (obj *Object) CallDrop(it Obj, pos types.Pointf) int {
+	if obj.Drop == nil {
+		return 0
+	}
+	cpos, free := alloc.New(types.Pointf{})
+	defer free()
+	*cpos = pos
+	ptr := unsafe.Pointer(cpos)
+
+	return ccall.CallIntPtr3(obj.Drop, obj.CObj(), toObjectC(it), ptr)
+}

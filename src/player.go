@@ -638,7 +638,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 		for it := u.FirstOwned516(); it != nil; it = it.NextOwned512() {
 			typ := int(it.TypeInd)
 			if typ == crown {
-				u.callDrop(it, u.Pos())
+				u.CallDrop(it, u.Pos())
 			} else if typ == ball {
 				it.Obj130 = nil
 				it.ObjFlags &= 0xFFFFFFBF
