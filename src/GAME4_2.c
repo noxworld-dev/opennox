@@ -10307,7 +10307,11 @@ int nox_xxx_castFist_52D3C0(int a1, int a2, int a3, int a4, int a5, int a6) {
 }
 
 //----- (0052D5C0) --------------------------------------------------------
-int nox_xxx_spellCastCleansingFlame_52D5C0(int a1, int a2, int a3, int a4, int a5, int a6) {
+int nox_xxx_spellCastCleansingFlame_52D5C0(int a1, nox_object_t* a2p, nox_object_t* a3p, nox_object_t* a4p, void* a5p, int a6) {
+	int a2 = a2p;
+	int a3 = a3p;
+	int a4 = a4p;
+	int a5 = a5p;
 	int v6;            // edx
 	unsigned char* v7; // eax
 	int v8;            // ecx

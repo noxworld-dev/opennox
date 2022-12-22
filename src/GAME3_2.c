@@ -7229,40 +7229,6 @@ void nox_xxx_stunEffect_4E04D0(int a1, int a2, int a3, int a4) {
 	}
 }
 
-//----- (004E05B0) --------------------------------------------------------
-int nox_xxx_fireRingEffect_4E05B0(int a1, int a2, int a3) {
-	int result; // eax
-	int v4;     // edx
-	int v5[3];  // [esp+0h] [ebp-Ch]
-
-	result = a3;
-	if (a3) {
-		v4 = *(uint32_t*)(a3 + 60);
-		v5[1] = *(uint32_t*)(a3 + 56);
-		v5[2] = v4;
-		v5[0] = 0;
-		result = nox_xxx_spellCastCleansingFlame_52D5C0(10, a3, a3, a3, (int)v5, *(uint32_t*)(a1 + 48));
-	}
-	return result;
-}
-
-//----- (004E05F0) --------------------------------------------------------
-int nox_xxx_blueFREffect_4E05F0(int a1, int a2, int a3) {
-	int result; // eax
-	int v4;     // edx
-	int v5[3];  // [esp+0h] [ebp-Ch]
-
-	result = a3;
-	if (a3) {
-		v4 = *(uint32_t*)(a3 + 60);
-		v5[1] = *(uint32_t*)(a3 + 56);
-		v5[2] = v4;
-		v5[0] = 0;
-		result = nox_xxx_spellCastCleansingFlame_52D5C0(11, a3, a3, a3, (int)v5, *(uint32_t*)(a1 + 48));
-	}
-	return result;
-}
-
 //----- (004E0640) --------------------------------------------------------
 void nox_xxx_recoilEffect_4E0640(int a1, int a2, int a3, int a4) {
 	if (a2) {

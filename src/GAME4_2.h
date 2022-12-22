@@ -240,7 +240,6 @@ void sub_52CF90(int a1, int a2);
 void sub_52D060(int a1, int a2);
 int nox_xxx_castTelekinesis_52D330(int a1, int a2, int a3, int a4, int* a5, char a6);
 int nox_xxx_castFist_52D3C0(int a1, int a2, int a3, int a4, int a5, int a6);
-int nox_xxx_spellCastCleansingFlame_52D5C0(int a1, int a2, int a3, int a4, int a5, int a6);
 int nox_xxx_castMeteorShower_52D8A0(int a1, int a2, int a3, int a4, int a5, int a6);
 int nox_xxx_castMeteor_52D9D0(int a1, int a2, int a3, int a4, int a5, int a6);
 int nox_xxx_castToxicCloud_52DB60(int a1, int a2, int a3, int a4, int a5);
