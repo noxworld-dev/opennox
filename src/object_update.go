@@ -39,8 +39,8 @@ import (
 )
 
 var (
-	noxPixieObjID int
-	spellTimeout  uint32
+	noxPixieObjID            int
+	spellTimeout             uint32
 	resetCountdownPerPhoneme = false
 )
 
@@ -110,7 +110,7 @@ func init() {
 	server.RegisterObjectUpdateParse("LoopAndDamageUpdate", wrapObjectUpdateParseC(C.sub_536580))
 	server.RegisterObjectUpdateParse("LifetimeUpdate", wrapObjectUpdateParseC(C.sub_536600))
 	server.RegisterObjectUpdateParse("SkullUpdate", wrapObjectUpdateParseC(C.sub_5364E0))
-	
+
 	configBoolPtr("game.extensions.reset_countdown_per_phoneme", "", false, &resetCountdownPerPhoneme)
 }
 
@@ -597,17 +597,17 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 		if orientationOnly && it.code != player.CCOrientation {
 			continue
 		}
-		
+
 		// If the appropriate flag is set, reset countdown for manual casting
 		// every phoneme press
 		if resetCountdownPerPhoneme {
 			switch it.code {
 			case player.CCSpellGestureUpperLeft, player.CCSpellGestureUp, player.CCSpellGestureUpperRight, player.CCSpellGestureLeft, player.CCSpellGestureRight, player.CCSpellGestureLowerLeft, player.CCSpellGestureDown, player.CCSpellGestureLowerRight:
 				if !noxflags.HasGame(noxflags.GameModeChat) {
-					 if ud.SpellCastStart != 0 {
+					if ud.SpellCastStart != 0 {
 						ud.SpellCastStart = noxServer.Frame()
 					}
-					
+
 				}
 			}
 		}
@@ -1203,7 +1203,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 func nox_xxx_updateProjectile_53AC10(a1 *nox_object_t) {
 	obj := asObjectC(a1)
 	if (noxServer.Frame() - obj.Field32) > 40 {
-		obj.callCollide(0, 0)
+		obj.CallCollide(0, 0)
 		obj.Delete()
 	}
 }

@@ -945,10 +945,8 @@ func (obj *Object) callDamage(who noxObject, a3 noxObject, dmg int, typ object.D
 	return 0
 }
 
-func (obj *Object) callCollide(a2, a3 int) {
-	if obj.Collide != nil {
-		C.nox_call_object_collide((*[0]byte)(obj.Collide), obj.CObj(), C.int(a2), C.int(a3))
-	}
+func (obj *Object) CallCollide(a2, a3 int) {
+	obj.SObj().CallCollide(a2, a3)
 }
 
 func (obj *Object) callDrop(it noxObject, pos types.Pointf) int {

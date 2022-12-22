@@ -12,6 +12,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 )
 
 var (
@@ -458,6 +459,10 @@ type Object struct {
 	Field192      int                        // 192, 768
 }
 
+func (obj *Object) CObj() unsafe.Pointer {
+	return unsafe.Pointer(obj)
+}
+
 func (obj *Object) SObj() *Object {
 	if obj == nil {
 		return nil
@@ -732,5 +737,11 @@ func (obj *Object) UpdateCollider(pos types.Pointf) {
 	case ShapeKindBox:
 		obj.CollideP1 = pos.Add(types.Ptf(sh.Box.LeftBottom2, sh.Box.LeftBottom))
 		obj.CollideP2 = pos.Add(types.Ptf(sh.Box.RightTop, sh.Box.RightTop2))
+	}
+}
+
+func (obj *Object) CallCollide(a2, a3 int) {
+	if obj.Collide != nil {
+		ccall.CallVoidUPtr3(obj.Collide, uintptr(obj.CObj()), uintptr(a2), uintptr(a3))
 	}
 }
