@@ -52,7 +52,6 @@ extern uint32_t dword_5d4594_1570272;
 extern uint32_t dword_5d4594_1599656;
 extern uint32_t dword_5d4594_2650652;
 
-extern int nox_win_width;
 
 FILE* nox_file_8 = 0;
 

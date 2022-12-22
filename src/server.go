@@ -280,9 +280,9 @@ func (s *Server) updateUnitsCCC() {
 				if noxflags.HasGame(noxflags.GameModeQuest) {
 					dmg += 1
 				}
-				if h.Field16 == 0 || (gameFrame()-h.Field16) > 60 {
-					if v31 > 8 || gameFrame()%uint32(128>>(v31-1)) == 0 {
-						obj.callDamage(nil, nil, dmg, 5) // damage.POISON
+				if h.Field16 == 0 || (noxServer.Frame()-h.Field16) > 60 {
+					if v31 > 8 || noxServer.Frame()%uint32(128>>(v31-1)) == 0 {
+						obj.callDamage(nil, nil, dmg, object.DamagePoison)
 					}
 				}
 			}

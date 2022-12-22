@@ -2025,10 +2025,10 @@ func nox_xxx_gameSetWallsDamage_4E25A0(v C.int) {
 func nox_xxx_mapDamageUnitsAround_4E25B0(a1 *C.float, a2, a3 C.float, a4, a5 C.int, a6, a7 *nox_object_t) {
 	cpos := unsafe.Slice(a1, 2)
 	pos := types.Pointf{X: float32(cpos[0]), Y: float32(cpos[1])}
-	noxServer.nox_xxx_mapDamageUnitsAround(pos, float32(a2), float32(a3), int(a4), int(a5), asUnitC(a6), asObjectC(a7), doDamageWalls)
+	noxServer.nox_xxx_mapDamageUnitsAround(pos, float32(a2), float32(a3), int(a4), object.DamageType(a5), asUnitC(a6), asObjectC(a7), doDamageWalls)
 }
 
-func (s *Server) nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, dmg, a5 int, who *Unit, a7 noxObject, damageWalls bool) {
+func (s *Server) nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, dmg int, dtyp object.DamageType, who *Unit, a7 noxObject, damageWalls bool) {
 	rr := r1
 	if r1 < r2 {
 		rr = r2
@@ -2061,7 +2061,7 @@ func (s *Server) nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, 
 		if dist >= r2 {
 			rdmg *= 1.0 - (dist-r2)/(rr-r2)
 		}
-		u.callDamage(who, nil, int(rdmg), a5)
+		u.callDamage(who, nil, int(rdmg), dtyp)
 	})
 	wrect := image.Rect(
 		int(rect.Left)/common.GridStep,
@@ -2069,11 +2069,11 @@ func (s *Server) nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, 
 		int(rect.Right)/common.GridStep,
 		int(rect.Bottom)/common.GridStep,
 	)
-	s.nox_xxx_mapDamageToWalls_534FC0(wrect, pos, r1, dmg, a5, who)
+	s.nox_xxx_mapDamageToWalls_534FC0(wrect, pos, r1, dmg, dtyp, who)
 	doDamageWalls = true
 }
 
-func (s *Server) nox_xxx_mapDamageToWalls_534FC0(rect image.Rectangle, pos types.Pointf, rad float32, dmg int, a5 int, who *Unit) {
+func (s *Server) nox_xxx_mapDamageToWalls_534FC0(rect image.Rectangle, pos types.Pointf, rad float32, dmg int, dtyp object.DamageType, who *Unit) {
 	crect, rfree := alloc.Make([]int32{}, 4)
 	defer rfree()
 	crect[0] = int32(rect.Min.X)
@@ -2086,7 +2086,7 @@ func (s *Server) nox_xxx_mapDamageToWalls_534FC0(rect image.Rectangle, pos types
 	cpos[0] = pos.X
 	cpos[1] = pos.Y
 
-	C.nox_xxx_mapDamageToWalls_534FC0((*C.int4)(unsafe.Pointer(&crect[0])), unsafe.Pointer(&cpos[0]), C.float(rad), C.int(dmg), C.int(a5), unsafe.Pointer(who.CObj()))
+	C.nox_xxx_mapDamageToWalls_534FC0((*C.int4)(unsafe.Pointer(&crect[0])), unsafe.Pointer(&cpos[0]), C.float(rad), C.int(dmg), C.int(dtyp), unsafe.Pointer(who.CObj()))
 }
 
 func nox_xxx_sMakeScorch_537AF0(pos types.Pointf, a2 int) {

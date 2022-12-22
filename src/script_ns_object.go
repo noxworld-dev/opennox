@@ -356,7 +356,7 @@ func (obj nsObj) Damage(source ns.Obj, amount int, typ damage.Type) {
 		src = source.(nsObj).Object
 	}
 	owner := src.FindOwnerChainPlayer()
-	obj.callDamage(owner, src, amount, int(typ))
+	obj.callDamage(owner, src, amount, object.DamageType(typ))
 }
 
 func (obj nsObj) DeleteAfter(dt script.Duration) {
