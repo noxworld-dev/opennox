@@ -55,7 +55,6 @@ bool sub_57B140();
 nox_object_t* sub_537700();
 
 void nox_xxx_updateUnits_51B100_A();
-void nox_xxx_updateUnits_51B100_B();
 void nox_xxx_updateUnits_51B100_D();
 */
 import "C"
@@ -221,7 +220,7 @@ func (s *Server) Update() bool {
 
 func (s *Server) updateUnits() { // nox_xxx_updateUnits_51B100
 	s.updateUnitsAAA()
-	C.nox_xxx_updateUnits_51B100_B()
+	s.updateUnitsBBB()
 	s.updateUnitsCallUpdate()
 	s.updateCollide()
 	s.updateUnitsCCC()

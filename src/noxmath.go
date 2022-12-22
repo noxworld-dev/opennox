@@ -1,6 +1,9 @@
 package opennox
 
-import "image"
+import (
+	"image"
+	"math"
+)
 
 func nox_xxx_math_roundDir(v int32) int32 {
 	return int32(uint8(v))
@@ -8,6 +11,12 @@ func nox_xxx_math_roundDir(v int32) int32 {
 
 func nox_xxx_math_roundDirI16(v int16) uint16 {
 	return uint16(uint8(v))
+}
+
+func sub_419A10(v float32) float32 {
+	vi := math.Float32bits(v)
+	vi &= 0x7FFFFFFF
+	return math.Float32frombits(vi)
 }
 
 // sincosTable16 assumes circle radius of 16, and expects an angle in range [0,256).
