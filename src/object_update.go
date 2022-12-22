@@ -173,7 +173,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	if ud.Field40_0 != 0 {
 		ud.Field40_0--
 	}
-	u.needSync()
+	u.NeedSync()
 	if ud.Field20_1 != 0 {
 		ud.Field20_1--
 	}
@@ -1064,7 +1064,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 			ud.Field29[i] = nil
 		}
 	}
-	u.needSync()
+	u.NeedSync()
 	if targ := pl.CameraTarget(); targ != nil {
 		pl.setPos3632(targ.Pos())
 	}
