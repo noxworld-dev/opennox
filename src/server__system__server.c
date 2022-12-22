@@ -45,8 +45,6 @@ extern uint32_t dword_5d4594_1548480;
 extern uint32_t dword_5d4594_1563096;
 extern uint32_t dword_5d4594_608316;
 extern uint32_t dword_5d4594_2386160;
-extern uint64_t qword_581450_10392;
-extern uint64_t qword_581450_10256;
 extern uint32_t dword_5d4594_1569756;
 extern uint32_t dword_5d4594_1568024;
 extern uint32_t dword_5d4594_2388648;
@@ -1177,88 +1175,6 @@ int sub_51A920(int a1) {
 	result = a1;
 	*getMemU32Ptr(0x5D4594, 2388660) = a1;
 	return result;
-}
-
-void nox_xxx_updateUnits_51B100_B() {
-	int v2 = nox_xxx_getFirstUpdatableObject_4DA8A0();
-	if (v2) {
-		int v3 = 0;
-		do {
-			v3 = nox_xxx_getNextUpdatableObject_4DA8B0(v2);
-			if (!(*(uint8_t*)(v2 + 16) & 0x20)) {
-				int v4 = *(uint32_t*)(v2 + 520);
-				if (v4 && *(uint8_t*)(v4 + 16) & 0x20) {
-					int v5 = *(uint32_t*)(v4 + 508);
-					if (!v5 || *(uint8_t*)(v5 + 16) & 0x20) {
-						*(uint32_t*)(v2 + 520) = 0;
-					} else {
-						*(uint32_t*)(v2 + 520) = v5;
-					}
-				}
-				void (*v6)(int);
-				v6 = *(void (**)(int))(v2 + 744);
-				if (v6) {
-					if (*(uint8_t*)(v2 + 8) & 4) {
-						int v7 = *(uint32_t*)(v2 + 748);
-						if (!(*(uint8_t*)(v2 + 16) & 2)) {
-							v6(v2); // update function for the player
-						}
-						nox_xxx_playerResetControlBuffer_51AC30(*(unsigned char*)(*(uint32_t*)(v7 + 276) + 2064));
-					} else if (!(*(uint8_t*)(v2 + 16) & 2)) {
-						v6(v2);
-					}
-				}
-				if (*(uint8_t*)(v2 + 8) & 2) {
-					nox_xxx_unitNeedSync_4E44F0(v2);
-				}
-				nox_xxx_updateFallLogic_51B870(v2);
-				uint16_t* v8 = *(uint16_t**)(v2 + 556);
-				if (v8) {
-					v8[1] = *v8;
-				}
-				double v9 = *(float*)(v2 + 64) - *(float*)(v2 + 56);
-				*(uint32_t*)(v2 + 16) &= 0xFFEFFFFF;
-				float v58 = v9;
-				float v61 = sub_419A10(v58);
-				float v59 = *(float*)(v2 + 68) - *(float*)(v2 + 60);
-				float v62 = sub_419A10(v59);
-				// Checks if fields are within 0.01d of...something?
-				if (*(float*)(v2 + 88) <= *(double*)&qword_581450_10392 ||
-					*(float*)(v2 + 88) >= *(double*)&qword_581450_10256 ||
-					*(float*)(v2 + 92) <= *(double*)&qword_581450_10392 ||
-					*(float*)(v2 + 92) >= *(double*)&qword_581450_10256 ||
-					*(float*)(v2 + 80) <= *(double*)&qword_581450_10392 ||
-					*(float*)(v2 + 80) >= *(double*)&qword_581450_10256 ||
-					*(float*)(v2 + 84) <= *(double*)&qword_581450_10392 ||
-					*(float*)(v2 + 84) >= *(double*)&qword_581450_10256 || v61 <= *(double*)&qword_581450_10392 ||
-					v61 >= *(double*)&qword_581450_10256 || v62 <= *(double*)&qword_581450_10392 ||
-					v62 >= *(double*)&qword_581450_10256 || *(float*)(v2 + 104) <= *(double*)&qword_581450_10392 ||
-					*(float*)(v2 + 104) >= *(double*)&qword_581450_10256 ||
-					*(float*)(v2 + 108) <= *(double*)&qword_581450_10392 ||
-					*(float*)(v2 + 108) >= *(double*)&qword_581450_10256) {
-					nox_xxx_unitHasCollideOrUpdateFn_537610(v2);
-					*(uint32_t*)(v2 + 16) &= 0xF7FFFFFF;
-				} else {
-					*(uint32_t*)(v2 + 88) = 0;
-					*(uint32_t*)(v2 + 92) = 0;
-					*(uint32_t*)(v2 + 80) = 0;
-					*(uint32_t*)(v2 + 84) = 0;
-					nox_xxx_unitRaise_4E46F0(v2, 0.0);
-					int v10 = *(uint32_t*)(v2 + 56);
-					*(uint32_t*)(v2 + 68) = *(uint32_t*)(v2 + 60);
-					int v11 = *(uint32_t*)(v2 + 16);
-					*(uint32_t*)(v2 + 64) = v10;
-					int v12 = *(uint32_t*)(v2 + 744);
-					*(uint32_t*)(v2 + 108) = 0;
-					*(uint32_t*)(v2 + 16) = v11 | 0x8000000;
-					if (!v12) {
-						nox_xxx_unitRemoveFromUpdatable_4DA920((uint32_t*)v2);
-					}
-				}
-			}
-			v2 = v3;
-		} while (v3);
-	}
 }
 
 void nox_xxx_updateUnits_51B100_D() {

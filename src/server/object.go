@@ -342,7 +342,7 @@ type Object struct {
 	ForceVec      types.Pointf               // 22, 88
 	Pos24         types.Pointf               // 24, 96, // TODO: something related to acceleration/direction
 	ZVal          float32                    // 26, 104
-	Field27       uint32                     // 27, 108
+	Field27       float32                    // 27, 108
 	Float28       float32                    // 28, 112, // TODO: damping/drag?
 	Field29       uint32                     // 29, 116
 	Mass          float32                    // 30, 120

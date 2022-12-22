@@ -704,7 +704,7 @@ func (s *ShapeBox) Calc() {
 
 type HealthData struct {
 	Cur     uint16 // 0, 0
-	field2  uint16 // 0, 2
+	Field2  uint16 // 0, 2
 	Max     uint16 // 1, 4
 	field6  uint16 // 1, 6
 	field8  uint32 // 2, 8
