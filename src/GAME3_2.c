@@ -7229,17 +7229,6 @@ void nox_xxx_stunEffect_4E04D0(int a1, int a2, int a3, int a4) {
 	}
 }
 
-//----- (004E0550) --------------------------------------------------------
-void nox_xxx_fireEffect_4E0550(int a1, int a2, int a3, int a4) {
-	float v5;         // [esp+8h] [ebp+4h]
-	v5 = *(float*)(a1 + 56);
-	if (a4) {
-		(*(void (**)(int, int, int, uint32_t, int))(a4 + 716))(a4, a3, a2, (long long)v5, 7);
-		nox_xxx_netSparkExplosionFx_5231B0((float*)(a4 + 56), (long long)(v5 * 10.0));
-		nox_xxx_aud_501960(224, a4, 0, 0);
-	}
-}
-
 //----- (004E05B0) --------------------------------------------------------
 int nox_xxx_fireRingEffect_4E05B0(int a1, int a2, int a3) {
 	int result; // eax
