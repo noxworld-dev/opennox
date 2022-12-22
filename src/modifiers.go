@@ -17,13 +17,14 @@ void nullsub_42();
 void nullsub_43();
 void nullsub_44();
 
+int nox_xxx_spellCastCleansingFlame_52D5C0(int a1, nox_object_t* a2p, nox_object_t* a3p, nox_object_t* a4p, void* a5p, int a6);
+
 void sub_4DFE10(int a1, int a2);
 float* sub_4E0370(int a1, int a2, int a3, int a4, int a5, float* a6);
 float* sub_4E0380(int a1, int a2, int a3, int a4, int a5, float* a6);
 float* nox_xxx_effectDamageMultiplier_4E04C0(int a1, int a2, int a3, int a4, float* a5);
 void nox_xxx_attribContinualReplen_4E02C0(int a1, uint32_t* a2);
 void nox_xxx_confuseEffect_4E0670(int a1, int a2, int a3, int a4);
-int nox_xxx_blueFREffect_4E05F0(int a1, int a2, int a3);
 void nox_xxx_drainMEffect_4E0740(int a1, int a2, int a3, int a4, int* a5);
 void nox_xxx_sympathyEffect_4E08E0(int a1, int a2, int a3, int a4, int* a5);
 int nox_xxx_effectProjectileSpeed_4E09B0(int a1, int a2, int a3, int a4, int a5);
@@ -33,7 +34,8 @@ int nox_xxx_gripEffect_4E0480(int a1, int a2, int a3, int a4, int a5, int* a6);
 void nox_xxx_effectRegeneration_4E01D0(int a1, int a2);
 void nox_xxx_stunEffect_4E04D0(int a1, int a2, int a3, int a4);
 void nox_xxx_fireEffect_4E0550(void* a1, nox_object_t* a2, nox_object_t* a3, nox_object_t* a4);
-int nox_xxx_fireRingEffect_4E05B0(int a1, int a2, int a3);
+void nox_xxx_fireRingEffect_4E05B0(void* a1, nox_object_t* a2, nox_object_t* a3, nox_object_t* a4);
+void nox_xxx_blueFREffect_4E05F0(void* a1, nox_object_t* a2, nox_object_t* a3, nox_object_t* a4);
 void nox_xxx_recoilEffect_4E0640(int a1, int a2, int a3, int a4);
 void nox_xxx_lightngEffect_4E06F0(int a1, int a2, int a3, int a4);
 void nox_xxx_vampirismEffect_4E07C0(int a1, int a2, int a3, int a4, int* a5);
@@ -61,6 +63,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/modifiers"
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
@@ -608,6 +611,8 @@ func modEffectParseFloat(_ *noxModifierEff, p modParseTarg, s string) bool {
 
 var (
 	_ = nox_xxx_fireEffect_4E0550
+	_ = nox_xxx_fireRingEffect_4E05B0
+	_ = nox_xxx_blueFREffect_4E05F0
 )
 
 var modDamageEffects = map[string]modFuncs{
@@ -743,5 +748,29 @@ func nox_xxx_fireEffect_4E0550(a1 unsafe.Pointer, a2p, a3p, a4p *nox_object_t) {
 		targ.callDamage(src, a2, int(v5), object.DamageExplosion)
 		nox_xxx_netSparkExplosionFx_5231B0(targ.PosVec, byte(int8(int64(float64(v5)*10.0))))
 		noxServer.AudioEventObj(sound.SoundWeaponEffectFire, targ, 0, 0)
+	}
+}
+
+//export nox_xxx_fireRingEffect_4E05B0
+func nox_xxx_fireRingEffect_4E05B0(a1 unsafe.Pointer, a2p, a3p, a4p *nox_object_t) {
+	src := asObjectC(a3p)
+	if src != nil {
+		sa, free := alloc.New(spellAcceptArg{})
+		defer free()
+		sa.Obj = nil
+		sa.Pos = src.PosVec
+		C.nox_xxx_spellCastCleansingFlame_52D5C0(C.int(spell.SPELL_CLEANSING_FLAME), src.CObj(), src.CObj(), src.CObj(), unsafe.Pointer(sa), C.int(*(*uint32)(unsafe.Add(a1, 48))))
+	}
+}
+
+//export nox_xxx_blueFREffect_4E05F0
+func nox_xxx_blueFREffect_4E05F0(a1 unsafe.Pointer, a2p, a3p, a4p *nox_object_t) {
+	src := asObjectC(a3p)
+	if src != nil {
+		sa, free := alloc.New(spellAcceptArg{})
+		defer free()
+		sa.Obj = nil
+		sa.Pos = src.PosVec
+		C.nox_xxx_spellCastCleansingFlame_52D5C0(C.int(spell.SPELL_CLEANSING_MANA_FLAME), src.CObj(), src.CObj(), src.CObj(), unsafe.Pointer(sa), C.int(*(*uint32)(unsafe.Add(a1, 48))))
 	}
 }
