@@ -37,20 +37,14 @@ import (
 	"github.com/noxworld-dev/opennox-lib/ifs"
 	"github.com/noxworld-dev/opennox-lib/log"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
-func gameexSomeWeirdCheckFixmePlease() bool {
-	// FIXME: no idea what is supposed to do... just checking if both are nil?
-	//        previously checked in asm: (cmp ds:6D8555, eax)
-	//        although we now know that offsets in Mix was wrong compared to our base binary
-	return (uintptr(unsafe.Pointer(nox_win_freeList))>>8)|(uintptr(unsafe.Pointer(nox_win_activeWindow_1064900))<<24) == 0
-}
-
-var modifyWndPntr *Window
+var modifyWndPntr *gui.Window
 var gameex = struct {
 	Log        *log.Logger
 	configPath string
@@ -283,7 +277,7 @@ var wndEntryNames = [5][35]uint16{
 
 func gameexDropTrap() {
 	if noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
-		if C.dword_5d4594_1064868 != 0 || nox_win_cur_input != nil {
+		if C.dword_5d4594_1064868 != 0 || gui.Nox_win_cur_input != nil {
 			return
 		}
 		if noxflags.HasGame(noxflags.GameHost) { // checkGameFlags isServer
@@ -312,7 +306,7 @@ func call_OnLibraryNotice_265(arg3 int) {
 	// toggles weapons by mouse wheel
 	// autoshield is actually implemented in appendix of nox_xxx_playerDequipWeapon_53A140
 	a2a := bool2int(arg3 > 0) // scroll weapons back or forth
-	if !gameexSomeWeirdCheckFixmePlease() {
+	if !gui.GameexSomeWeirdCheckFixmePlease() {
 		return
 	}
 	if (C.gameex_flags>>3)&1 == 0 {
@@ -340,7 +334,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 		v8 := byte(bool2int(kcode == keybind.KeyLBracket))
 		// checks some gameFlags that are yet undiscovered
 		if noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
-			if C.dword_5d4594_1064868 != 0 || nox_win_cur_input != nil {
+			if C.dword_5d4594_1064868 != 0 || gui.Nox_win_cur_input != nil {
 				return
 			}
 			if noxflags.HasGame(noxflags.GameHost) { // isServer
@@ -379,7 +373,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 				v11 := modifyWndPntr.ChildByID(1524)
 				nox_xxx_wnd_46ABB0(v11, 0)
 			}
-			sub46B120(modifyWndPntr, nil)
+			gui.Sub46B120(modifyWndPntr, nil)
 			a2b := modifyWndPntr.ChildByID(1981)
 			for i := 0; i < 5; i++ {
 				wstr := GoWStringSlice(wndEntryNames[i][:])
@@ -387,10 +381,10 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 				a2b.Func94(&WindowEvent0x400d{Str: wstr, Val: -1})
 				if uint32(C.getFlagValueFromFlagIndex(C.int(id)-1519))&uint32(C.gameex_flags) != 0 {
 					v14 := modifyWndPntr.ChildByID(id)
-					v14.DrawData().field0 |= 0x4
+					v14.DrawData().Field0 |= 0x4
 				} else {
 					v15 := modifyWndPntr.ChildByID(id)
-					v15.DrawData().field0 &= 0xFFFFFFFB
+					v15.DrawData().Field0 &= 0xFFFFFFFB
 				}
 			}
 		}
@@ -398,12 +392,12 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 }
 
 func destroyGameExWindow() {
-	nox_xxx_wnd46C6E0(modifyWndPntr)
+	gui.Nox_xxx_wnd46C6E0(modifyWndPntr)
 	modifyWndPntr.Destroy()
 	modifyWndPntr = nil
 }
 
-func modifyWndInputHandler(a1 *Window, ev WindowEvent) WindowEventResp {
+func modifyWndInputHandler(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 	switch ev := ev.(type) {
 	case *WindowEvent0x4007:
 		clientPlaySoundSpecial(sound.SoundButtonPress, 100)

@@ -23,6 +23,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxfont"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
@@ -90,7 +91,7 @@ func nox_video_setMenuOptions(cwin *C.nox_window) {
 		}
 		id := uint(guiIDMenuExt + i)
 		if res == mode {
-			root.ChildByID(id).Func94(asWindowEvent(0x4008, 1, 0))
+			root.ChildByID(id).Func94(gui.AsWindowEvent(0x4008, 1, 0))
 			return
 		}
 	}
@@ -110,7 +111,7 @@ func nox_gui_menu_proc_ext(cid C.int) C.int {
 	return 1
 }
 
-func guiParseHook(name string, win *Window) {
+func guiParseHook(name string, win *gui.Window) {
 	name = strings.ToLower(name)
 	switch name {
 	case "options.wnd":
@@ -120,14 +121,14 @@ func guiParseHook(name string, win *Window) {
 	}
 }
 
-func guiEnhanceInputCfg(root *Window) {
+func guiEnhanceInputCfg(root *gui.Window) {
 	// "Back" is confusing, we rename it to "Apply"
 	if w := root.ChildByID(932); w != nil {
 		w.DrawData().SetText("Apply")
 	}
 }
 
-func guiEnhanceOptions(root *Window) {
+func guiEnhanceOptions(root *gui.Window) {
 	small := noxClient.r.Fonts.FontPtrByName(noxfont.SmallName)
 	// change resolution options to a new ones
 	// if you decide to change these, check carefully in other places, especially in C
@@ -174,10 +175,10 @@ func guiEnhanceOptions(root *Window) {
 	// add gamma and sensitivity sliders instead
 	NewStaticText(root, 315, 112, 220, 140, 16, true, false, "Gamma")
 	NewHorizontalSlider(root, 316, 120, 236, 120, 16, 1, 100).
-		Func94(asWindowEvent(0x400A, uintptr(getGammaSlider()), 0))
+		Func94(gui.AsWindowEvent(0x400A, uintptr(getGammaSlider()), 0))
 	NewStaticText(root, 317, 112, 258, 140, 16, true, false, "Sensitivity")
 	NewHorizontalSlider(root, 318, 120, 274, 120, 16, 1, 100).
-		Func94(asWindowEvent(0x400A, uintptr((math.Log10(float64(noxClient.GetSensitivity()))+1.0)*50), 0))
+		Func94(gui.AsWindowEvent(0x400A, uintptr((math.Log10(float64(noxClient.GetSensitivity()))+1.0)*50), 0))
 }
 
 //export sub_4A19F0
@@ -189,7 +190,7 @@ func sub4A19F0(name strman.ID) {
 	win := asWindowP(C.dword_5d4594_1307292)
 	v1 := win.ChildByID(152)
 	v2 := strMan.GetStringInFile(name, "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
-	v1.Func94(asWindowEvent(guiEventStaticTextSetText, uintptr(unsafe.Pointer(internWStr(v2))), math.MaxUint32))
+	v1.Func94(gui.AsWindowEvent(guiEventStaticTextSetText, uintptr(unsafe.Pointer(internWStr(v2))), math.MaxUint32))
 }
 
 //export sub_4AAA10

@@ -49,7 +49,7 @@ func init() {
 
 //export nox_gui_console_flagXxx_451410
 func nox_gui_console_flagXxx_451410() C.int {
-	return C.int((^(guiCon.root.Flags() >> 4)) & 1)
+	return C.int((^(guiCon.root.GetFlags() >> 4)) & 1)
 }
 
 //export nox_gui_console_Print_450B90
@@ -72,9 +72,9 @@ func nox_gui_console_Hide_4512B0() C.int {
 type guiConsole struct {
 	c           *console.Console
 	password    string
-	root        *Window
-	scrollbox   *Window
-	input       *Window
+	root        *gui.Window
+	scrollbox   *gui.Window
+	input       *gui.Window
 	translucent bool
 	wantsPass   bool
 	enabled     bool
@@ -107,19 +107,19 @@ func (c *guiConsole) PrintOrError(cl console.Color, str string) {
 }
 
 func (c *guiConsole) Clear() {
-	c.scrollbox.Func94(asWindowEvent(0x400F, 0, 0))
+	c.scrollbox.Func94(gui.AsWindowEvent(0x400F, 0, 0))
 }
 
-func (c *guiConsole) Init(sz image.Point) *Window {
+func (c *guiConsole) Init(sz image.Point) *gui.Window {
 	*memmap.PtrInt32(0x5D4594, 833704) = int32(sz.X) - 1
 	*memmap.PtrInt32(0x5D4594, 833708) = int32(sz.Y) / 2
-	c.root = newWindowRaw(nil, 0x38, 0, 0, sz.X-1, sz.Y/2, nil)
-	c.root.SetAllFuncs(func(win *Window, ev WindowEvent) WindowEventResp {
+	c.root = gui.NewWindowRaw(nil, 0x38, 0, 0, sz.X-1, sz.Y/2, nil)
+	c.root.SetAllFuncs(func(win *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 		return nil
-	}, func(win *Window, a2 *WindowData) int {
+	}, func(win *gui.Window, a2 *gui.WindowData) int {
 		r := noxClient.r
 		pos := win.GlobalPos()
-		if win.Flags().Has(gui.StatusImage) {
+		if win.GetFlags().Has(gui.StatusImage) {
 			r.DrawImageAt(a2.BackgroundImage(), pos)
 			return 1
 		}
@@ -135,7 +135,7 @@ func (c *guiConsole) Init(sz image.Point) *Window {
 	}, nil)
 	c.root.DrawData().SetBackgroundColor(color.Black)
 
-	drawData, freeDraw := newWindowData()
+	drawData, freeDraw := alloc.New(gui.WindowData{})
 	defer freeDraw()
 
 	drawData.SetHighlightColor(color.Transparent)
@@ -146,7 +146,7 @@ func (c *guiConsole) Init(sz image.Point) *Window {
 	drawData.SetTextColor(nox_color_gray2)
 	drawData.SetText(version.ClientVersion())
 
-	drawData.SetStyleFlags(gui.StyleScrollListBox)
+	drawData.Style = gui.StyleScrollListBox
 
 	scrollData, freeScr := alloc.New(scrollListBoxData{})
 	defer freeScr()
@@ -174,27 +174,27 @@ func (c *guiConsole) Init(sz image.Point) *Window {
 	inpData.field_1042 = memmap.Int16(0x5D4594, 833704)
 
 	drawData.SetText("")
-	drawData.SetStyleFlags(gui.StyleEntryField)
+	drawData.Style = gui.StyleEntryField
 	c.input = nox_gui_newEntryField_488500(c.root, 16393, 0, int(memmap.Int32(0x5D4594, 833708))-20, int(memmap.Int32(0x5D4594, 833704)), 20, drawData, inpData)
-	c.input.setFunc93(c.inputProc)
+	c.input.SetFunc93(c.inputProc)
 	c.wantsPass = false
 	c.password = ""
 	return c.root
 }
 
 func (c *guiConsole) Hide() bool {
-	if c.root.Flags().IsHidden() {
+	if c.root.GetFlags().IsHidden() {
 		return false
 	}
-	if nox_xxx_wndGetFocus_46B4F0() == c.input.C() {
-		guiFocus(nil)
+	if gui.Focused() == c.input {
+		gui.Focus(nil)
 	}
 	c.root.Hide()
-	c.root.flags &= 0xFFFFFFF7
-	c.input.flags &= 0xFFFFFFF7
-	c.scrollbox.flags &= 0xFFFFFFF7
-	c.input.DrawData().field0 &= 0xFFFFFFFB
-	c.input.DrawData().field0 &= 0xFFFFFFFD
+	c.root.Flags &= 0xFFFFFFF7
+	c.input.Flags &= 0xFFFFFFF7
+	c.scrollbox.Flags &= 0xFFFFFFF7
+	c.input.DrawData().Field0 &= 0xFFFFFFFB
+	c.input.DrawData().Field0 &= 0xFFFFFFFD
 	C.dword_5d4594_3799524 = 1
 	return true
 }
@@ -215,7 +215,7 @@ func (c *guiConsole) ReloadColors() {
 		dd.SetSelectedColor(color.Transparent)
 		dd.SetTextColor(gray)
 
-		scr := (*scrollListBoxData)(c.scrollbox.widget_data)
+		scr := (*scrollListBoxData)(c.scrollbox.WidgetData)
 		if v2 := asWindowP(scr.field_9); v2 != nil {
 			dd2 := v2.DrawData()
 			dd2.SetBackgroundColor(black)
@@ -274,17 +274,17 @@ func (c *guiConsole) ResetPass() {
 }
 
 func (c *guiConsole) Toggle() {
-	if !c.root.Flags().Has(gui.StatusHidden) {
+	if !c.root.GetFlags().Has(gui.StatusHidden) {
 		c.Hide()
 		return
 	}
 	if C.nox_gui_xxx_check_446360() == 0 {
-		nox_xxx_wndShowModalMB(c.root)
-		c.root.flags |= 8
-		c.scrollbox.flags |= 8
-		c.input.flags |= 8
-		c.input.flags |= 1
-		guiFocus(c.input)
+		gui.Nox_xxx_wndShowModalMB(c.root)
+		c.root.Flags |= 8
+		c.scrollbox.Flags |= 8
+		c.input.Flags |= 8
+		c.input.Flags |= 1
+		gui.Focus(c.input)
 		if c.password != "" {
 			c.Clear()
 			s := c.c.Strings().GetStringInFile("ENTERPASSWORD", "C:\\NoxPost\\src\\Client\\Gui\\guicon.c")
@@ -294,37 +294,37 @@ func (c *guiConsole) Toggle() {
 	}
 }
 
-func (c *guiConsole) inputProc(win *Window, ev WindowEvent) WindowEventResp {
+func (c *guiConsole) inputProc(win *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 	switch ev := ev.(type) {
-	case WindowKeyPress:
+	case gui.WindowKeyPress:
 		if ctrlEvent.hasDefBinding(keybind.EventToggleConsole, ev.Key) {
 			if ev.Pressed {
 				c.Toggle()
 			}
-			return RawEventResp(1)
+			return gui.RawEventResp(1)
 		}
 		switch ev.Key {
 		case keybind.KeyEsc:
 			if ev.Pressed {
 				C.nox_xxx_consoleEsc_49B7A0()
 			}
-			return RawEventResp(1)
+			return gui.RawEventResp(1)
 		case keybind.KeyEnter:
 			if ev.Pressed {
 				c.nox_gui_console_Enter_450FD0()
 			}
-			return RawEventResp(1)
+			return gui.RawEventResp(1)
 		}
 	}
 	return nox_xxx_wndEditProc_487D70(win, ev)
 }
 
 func (c *guiConsole) nox_gui_console_Enter_450FD0() {
-	wd := (*entryFieldData)(c.input.widget_data)
+	wd := (*entryFieldData)(c.input.WidgetData)
 	if wd.field_1044 != 0 {
 		return
 	}
-	cmd := eventRespStr(c.input.Func94(asWindowEvent(0x401d, 0, 0)))
+	cmd := eventRespStr(c.input.Func94(gui.AsWindowEvent(0x401d, 0, 0)))
 	if c.wantsPass && c.password != "" {
 		if cmd != c.password {
 			s := strMan.GetStringInFile("INVALIDPASSWORD", "C:\\NoxPost\\src\\Client\\Gui\\guicon.c")
@@ -334,7 +334,7 @@ func (c *guiConsole) nox_gui_console_Enter_450FD0() {
 			s := strMan.GetStringInFile("ConsoleUnlocked", "C:\\NoxPost\\src\\Client\\Gui\\guicon.c")
 			c.PrintOrError(console.ColorRed, s)
 		}
-		c.input.Func94(asWindowEvent(0x401e, uintptr(memmap.PtrOff(0x5D4594, 833744)), 0))
+		c.input.Func94(gui.AsWindowEvent(0x401e, uintptr(memmap.PtrOff(0x5D4594, 833744)), 0))
 		return
 	}
 	c.Print(console.ColorWhite, "> "+cmd)
@@ -344,7 +344,7 @@ func (c *guiConsole) nox_gui_console_Enter_450FD0() {
 		}
 		execConsoleCmd(context.Background(), cmd)
 	}
-	c.input.Func94(asWindowEvent(0x401e, uintptr(memmap.PtrOff(0x5D4594, 833748)), 0))
+	c.input.Func94(gui.AsWindowEvent(0x401e, uintptr(memmap.PtrOff(0x5D4594, 833748)), 0))
 }
 
 func (c *guiConsole) cmdClear(ctx context.Context, _ *console.Console, tokens []string) bool {

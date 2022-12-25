@@ -18,11 +18,7 @@ import (
 type nox_video_bag_image_t = C.nox_video_bag_image_t
 
 func asImage(p *nox_video_bag_image_t) *noxrender.Image {
-	return asImageP(unsafe.Pointer(p))
-}
-
-func asImageP(p unsafe.Pointer) *noxrender.Image {
-	return noxClient.r.Bag.AsImage(p)
+	return noxClient.r.Bag.AsImage(noxrender.ImageHandle(unsafe.Pointer(p)))
 }
 
 //export nox_video_bag_image_type

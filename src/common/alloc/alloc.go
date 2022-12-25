@@ -155,6 +155,19 @@ func strlenN[T comparable](s *T, max int) int {
 	return n
 }
 
+func strlenS[T comparable](s []T) int {
+	if s == nil {
+		return 0
+	}
+	var zero T
+	for i, v := range s {
+		if v == zero {
+			return i
+		}
+	}
+	return len(s)
+}
+
 func ZeroTermLen[T comparable](s *T) int {
 	return strlen(s)
 }
@@ -174,6 +187,15 @@ func StrLenN[T number](s *T, max int) int {
 	}
 	n := strlenN(s, max)
 	logMemReadString(unsafe.Pointer(s), uintptr(max))
+	return n
+}
+
+func StrLenS[T number](s []T) int {
+	if len(s) == 0 {
+		return 0
+	}
+	n := strlenS(s)
+	logMemReadString(unsafe.Pointer(&s[0]), uintptr(len(s)))
 	return n
 }
 

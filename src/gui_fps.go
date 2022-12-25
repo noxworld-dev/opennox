@@ -8,10 +8,12 @@ import (
 	"time"
 
 	"golang.org/x/image/font"
+
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 )
 
 type guiFPS struct {
-	win     *Window
+	win     *gui.Window
 	font    font.Face
 	enabled bool
 
@@ -36,14 +38,14 @@ func (c *Client) initGuiFPS() int {
 	if c.guiFPS.win == nil {
 		return 0
 	}
-	c.guiFPS.win.setDraw(c.guiDrawFPS)
+	c.guiFPS.win.SetDraw(c.guiDrawFPS)
 	c.guiFPS.win.SetPos(image.Pt(121, videoGetWindowSize().Y-c.guiFPS.win.Size().Y-5))
 	c.guiFPS.font = c.r.Fonts.FontByName("numbers")
 	sub_4706C0(0)
 	return 1
 }
 
-func (c *Client) guiDrawFPS(win *Window, _ *WindowData) int {
+func (c *Client) guiDrawFPS(win *gui.Window, _ *gui.WindowData) int {
 	g := &c.guiFPS
 	pos := win.GlobalPos()
 	wsz := win.Size()
@@ -108,8 +110,8 @@ func (c *Client) guiDrawFPS(win *Window, _ *WindowData) int {
 func sub_4706C0(a1 int) {
 	c := noxClient
 	win := c.guiFPS.win
-	if a1 != 0 && c.guiFPS.enabled && win.Flags().IsHidden() {
-		nox_xxx_wndShowModalMB(win)
+	if a1 != 0 && c.guiFPS.enabled && win.GetFlags().IsHidden() {
+		gui.Nox_xxx_wndShowModalMB(win)
 	} else {
 		win.Hide()
 	}

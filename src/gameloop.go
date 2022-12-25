@@ -707,7 +707,7 @@ func nox_xxx_cliSetupSession_437190() {
 	C.sub_48D800()
 	C.sub_49A8C0()
 	sub_470550()
-	sub_46C5D0()
+	gui.Sub_46C5D0()
 	noxClient.r.FadeDisable()
 	if !noxflags.HasGame(noxflags.GameHost) {
 		sub_43CC80()
@@ -766,15 +766,15 @@ func sub_4703F0() {
 	}
 	switch v1 {
 	case 0:
-		guiFocus(nil)
+		gui.Focus(nil)
 		asWindow(C.dword_5d4594_1090048).Hide()
 		asWindow(C.dword_5d4594_1090100).Hide()
 		*(*uint32)(unsafe.Add(*memmap.PtrPtr(6112660, 1090052), 4)) &= 0xFFFFFFF7
 		*(*uint32)(unsafe.Add(*memmap.PtrPtr(6112660, 1090056), 4)) &= 0xFFFFFFF7
 	case 1, 2:
-		nox_xxx_wndShowModalMB(asWindow(C.dword_5d4594_1090048))
+		gui.Nox_xxx_wndShowModalMB(asWindow(C.dword_5d4594_1090048))
 		sub := asWindow(C.dword_5d4594_1090100)
-		nox_xxx_wndShowModalMB(sub)
+		gui.Nox_xxx_wndShowModalMB(sub)
 		sub.Show()
 		*(*uint32)(unsafe.Add(*memmap.PtrPtr(6112660, 1090052), 4)) |= 8
 		*(*uint32)(unsafe.Add(*memmap.PtrPtr(6112660, 1090056), 4)) |= 8
@@ -993,7 +993,7 @@ func nox_xxx_cliDrawConnectedLoop_43B360() C.int {
 //export nox_client_guiXxxDestroy_4A24A0
 func nox_client_guiXxxDestroy_4A24A0() C.int {
 	sub_4A1BD0()
-	sub_46C5D0()
+	gui.Sub_46C5D0()
 	C.nox_client_gui_flag_815132 = 0
 	return 1
 }

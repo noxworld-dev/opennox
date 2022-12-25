@@ -29,22 +29,23 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
 
 var (
-	nox_win_main_bg     *Window
-	nox_win_main_menu   *Window
+	nox_win_main_bg     *gui.Window
+	nox_win_main_menu   *gui.Window
 	nox_wnd_xxx_1307304 *guiAnim
 	nox_wnd_xxx_1307308 *guiAnim
 )
 
-func sub_4A2490(win *Window, ev WindowEvent) WindowEventResp {
+func sub_4A2490(win *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 	switch ev.(type) {
-	case WindowFocus:
-		return RawEventResp(1)
+	case gui.WindowFocus:
+		return gui.RawEventResp(1)
 	}
 	return nil
 }
@@ -55,15 +56,15 @@ func sub_4A1A60() bool {
 	if v0 == nil {
 		return false
 	}
-	v0.setFunc93(sub4A18E0)
+	v0.SetFunc93(sub4A18E0)
 	return true
 }
 
-func sub_4A1AA0(a1 *Window, ev WindowEvent) WindowEventResp {
+func sub_4A1AA0(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 	switch ev := ev.(type) {
 	case *WindowEvent0x4005:
 		clientPlaySoundSpecial(sound.SoundShellSelect, 100)
-		return RawEventResp(1)
+		return gui.RawEventResp(1)
 	case *WindowEvent0x4007:
 		if sub_43BE30() != 2 && sub_43BE30() != 3 || sub4D6F30() {
 			v3 := ev.Win.ID() - 151
@@ -92,7 +93,7 @@ func sub_4A1AA0(a1 *Window, ev WindowEvent) WindowEventResp {
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			return nil
 		}
-		return RawEventResp(1)
+		return gui.RawEventResp(1)
 	}
 	return nil
 }
@@ -108,8 +109,8 @@ func nox_xxx_wndLoadMainBG_4A2210() int {
 		return 0
 	}
 	v1 := nox_win_main_bg.ChildByID(98)
-	v1.setFunc93(sub4A18E0)
-	v1.setDraw(wrapWindowDrawFuncC(C.sub_4A22A0))
+	v1.SetFunc93(sub4A18E0)
+	v1.SetDraw(gui.WrapWindowDrawFuncC(C.sub_4A22A0))
 	if memmap.Uint32(0x587000, 168832) != 0 {
 		v3 := memmap.PtrOff(0x587000, 168832)
 		v2 := *(**byte)(v3)
@@ -122,12 +123,12 @@ func nox_xxx_wndLoadMainBG_4A2210() int {
 			}
 		}
 	}
-	guiFocus(nox_win_main_bg)
+	gui.Focus(nox_win_main_bg)
 	return 1
 }
 
 func sub_4A24F0() {
-	guiFocus(nox_win_main_bg)
+	gui.Focus(nox_win_main_bg)
 }
 
 //export sub_4A1D40
@@ -141,8 +142,8 @@ func sub_4A1D40() C.int {
 
 //export sub_44E320
 func sub_44E320() {
-	nox_xxx_wndClearCaptureMain(asWindowP(C.dword_5d4594_831236))
-	guiFocus(nil)
+	gui.Nox_xxx_wndClearCaptureMain(asWindowP(C.dword_5d4594_831236))
+	gui.Focus(nil)
 	asWindowP(C.dword_5d4594_831236).Hide()
 	sub_450580()
 	sub_43DDA0()
@@ -229,9 +230,9 @@ func nox_game_showMainMenu4A1C00() bool {
 		return false
 	}
 	nox_win_main_menu = win
-	win.setFunc93(sub4A18E0)
+	win.SetFunc93(sub4A18E0)
 	v1 := win.ChildByID(110)
-	v1.setFunc94(nox_xxx_windowMainMenuProc_4A1DC0)
+	v1.SetFunc94(nox_xxx_windowMainMenuProc_4A1DC0)
 	nox_wnd_xxx_1307308 = nox_gui_makeAnimation(v1, 0, 0, 0, -270, 0, 20, 0, -40)
 	if nox_wnd_xxx_1307308 == nil {
 		return false
@@ -242,7 +243,7 @@ func nox_game_showMainMenu4A1C00() bool {
 	_ = sub_4A1D80
 	nox_wnd_xxx_1307308.fnc_done_out = (*[0]byte)(C.sub_4A1D80)
 	v2 := win.ChildByID(120)
-	v2.setFunc94(nox_xxx_windowMainMenuProc_4A1DC0)
+	v2.SetFunc94(nox_xxx_windowMainMenuProc_4A1DC0)
 	nox_wnd_xxx_1307304 = nox_gui_makeAnimation(v2, 0, 270, 0, 510, 0, -20, 0, 40)
 	if nox_wnd_xxx_1307304 == nil {
 		return false
@@ -279,27 +280,27 @@ func sub_4A19D0() {
 
 //export sub_4A18E0
 func sub_4A18E0(a1, a2, a3, a4 C.int) C.int {
-	res := sub4A18E0(asWindowP(unsafe.Pointer(uintptr(a1))), asWindowEvent(int(a2), uintptr(a3), uintptr(a4)))
-	return C.int(eventRespInt(res))
+	res := sub4A18E0(asWindowP(unsafe.Pointer(uintptr(a1))), gui.AsWindowEvent(int(a2), uintptr(a3), uintptr(a4)))
+	return C.int(gui.EventRespInt(res))
 }
 
-func sub4A18E0(a1 *Window, ev WindowEvent) WindowEventResp {
+func sub4A18E0(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 	if sub_450560() {
-		return RawEventResp(1)
+		return gui.RawEventResp(1)
 	}
 	switch ev := ev.(type) {
-	case WindowKeyPress:
+	case gui.WindowKeyPress:
 		if ev.Key != keybind.KeyEsc {
 			return nil
 		}
 		if !ev.Pressed {
-			return RawEventResp(1)
+			return gui.RawEventResp(1)
 		}
 		if sub43BE30() {
 			if sub4D6F30() {
 				sub_4D6F90(2)
 			}
-			return RawEventResp(1)
+			return gui.RawEventResp(1)
 		}
 		if !sub44A4A0() {
 			if gameGetStateCode() == gameStateServerList {
@@ -317,7 +318,7 @@ func sub4A18E0(a1 *Window, ev WindowEvent) WindowEventResp {
 			if sub4D6F30() {
 				sub_4D6F90(2)
 			}
-			return RawEventResp(1)
+			return gui.RawEventResp(1)
 		}
 	}
 	return nil
@@ -337,15 +338,15 @@ func nox_client_drawGeneralCallback_4A2200() C.int {
 	return 1
 }
 
-func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventResp {
+func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 	switch ev := ev.(type) {
 	case *WindowEvent0x4005:
 		clientPlaySoundSpecial(sound.SoundShellSelect, 100)
-		return RawEventResp(1)
+		return gui.RawEventResp(1)
 	case *WindowEvent0x4007:
 		if guiAnimState(nox_wnd_xxx_1307308.state) != NOX_GUI_ANIM_IN_DONE && !noxflags.HasGame(noxflags.GameFlag26) {
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
-			return RawEventResp(1)
+			return gui.RawEventResp(1)
 		}
 		switch ev.Win.ID() {
 		case 111: // Solo campaign button
@@ -386,7 +387,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 				sub_44A4B0()
 				clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			}
-			return RawEventResp(1)
+			return gui.RawEventResp(1)
 		case 112: // Multiplayer button
 			noxServer.announce = true
 			// prepare to start a server
@@ -428,13 +429,13 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 			_ = nox_client_drawGeneralCallback_4A2200
 			nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_client_drawGeneralCallback_4A2200)
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
-			return RawEventResp(1)
+			return gui.RawEventResp(1)
 		case 122:
 			if C.sub_44E560() != nil {
 				C.nox_client_lockScreenBriefing_450160(255, 1, 0)
 				sub_4A2530()
 			}
-			ev.Win.DrawData().field0 &= 0xFFFFFFFD
+			ev.Win.DrawData().Field0 &= 0xFFFFFFFD
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		case 131: // Solo Quest
 			noxServer.announce = false
@@ -464,7 +465,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *Window, ev WindowEvent) WindowEventRe
 		default:
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		}
-		return RawEventResp(1)
+		return gui.RawEventResp(1)
 	default:
 		return nil
 	}

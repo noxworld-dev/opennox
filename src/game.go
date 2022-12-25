@@ -2119,7 +2119,7 @@ func sub_473840() {
 	C.sub_49C7A0()
 	C.nox_xxx_guiServerOptionsHide_4597E0(1)
 	C.sub_467980()
-	sub_46C5D0()
+	gui.Sub_46C5D0()
 	nox_client_renderGUI_80828 = nox_xxx_xxxRenderGUI_587000_80832
 }
 

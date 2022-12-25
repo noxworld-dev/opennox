@@ -419,7 +419,7 @@ func clientAcceptTradeOrDrop() {
 	if dialog == nil {
 		return
 	}
-	if dialog.Flags().IsHidden() {
+	if dialog.GetFlags().IsHidden() {
 		return
 	}
 	accept := dialog.ChildByID(3606)

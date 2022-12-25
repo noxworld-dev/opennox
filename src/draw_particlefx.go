@@ -530,7 +530,7 @@ func (pfx *partFXes) onParticleFx(code byte, dr *client.Drawable, cnt int, flag 
 }
 
 func (fx *packetParticleFx) setImage() {
-	fx.img = asImageP(fx.dr.Field_2) // TODO: +8 or +32?
+	fx.img = noxClient.r.Bag.AsImage(noxrender.ImageHandle(fx.dr.Field_2)) // TODO: +8 or +32?
 }
 
 func (fx *packetParticleFx) updatePos() {

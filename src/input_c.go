@@ -253,10 +253,10 @@ func sub_4C3B70() {
 	win40 := asWindow(C.dword_5d4594_1321240)
 	win44 := asWindow(C.dword_5d4594_1321244)
 	win48 := asWindow(C.dword_5d4594_1321248)
-	win36.Func94(asWindowEvent(0x400F, 0, 0))
-	win40.Func94(asWindowEvent(0x400F, 0, 0))
-	win44.Func94(asWindowEvent(0x400F, 0, 0))
-	win48.Func94(asWindowEvent(0x400F, 0, 0))
+	win36.Func94(gui.AsWindowEvent(0x400F, 0, 0))
+	win40.Func94(gui.AsWindowEvent(0x400F, 0, 0))
+	win44.Func94(gui.AsWindowEvent(0x400F, 0, 0))
+	win48.Func94(gui.AsWindowEvent(0x400F, 0, 0))
 	for _, ev := range keyBinding.Events() {
 		if ev.Event == keybind.EventToggleQuitMenu {
 			continue
@@ -284,10 +284,10 @@ func sub_4CBBF0() {
 	win20 := asWindow(C.dword_5d4594_1522620)
 	win24 := asWindow(C.dword_5d4594_1522624)
 	win28 := asWindow(C.dword_5d4594_1522628)
-	win16.Func94(asWindowEvent(0x400F, 0, 0))
-	win20.Func94(asWindowEvent(0x400F, 0, 0))
-	win24.Func94(asWindowEvent(0x400F, 0, 0))
-	win28.Func94(asWindowEvent(0x400F, 0, 0))
+	win16.Func94(gui.AsWindowEvent(0x400F, 0, 0))
+	win20.Func94(gui.AsWindowEvent(0x400F, 0, 0))
+	win24.Func94(gui.AsWindowEvent(0x400F, 0, 0))
+	win28.Func94(gui.AsWindowEvent(0x400F, 0, 0))
 	for _, ev := range keyBinding.Events() {
 		if ev.Event == keybind.EventToggleQuitMenu {
 			continue
@@ -450,12 +450,12 @@ func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 	var v65 image.Point
 	if sprite.Flags28()&0x400006 == 0 || C.nox_xxx_sprite_4C3220((*nox_drawable)(sprite.C())) != 0 || sprite.Flags28()&2 != 0 && sprite.Flags29()&8 != 0 || sprite.Flags28()&2 != 0 && sprite.Flags70()&0x10 != 0 {
 		v46 := asWindow(C.dword_5d4594_1062452)
-		for v47 := nox_win_xxx1_last; v47 != nil; v47 = v47.Prev() {
-			if v47.Flags().Has(0x10) {
+		for v47 := gui.Last(); v47 != nil; v47 = v47.Prev() {
+			if v47.Flags.Has(gui.StatusHidden) {
 				continue
 			}
 			mpos := c.Inp.GetMousePos()
-			if v47.pointIn(mpos) {
+			if v47.PointIn(mpos) {
 				if v47 == v46 {
 					v65 = mpos
 					rect50 := loadRect(memmap.PtrOff(0x587000, 136384))
@@ -469,7 +469,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 						break
 					}
 				}
-				if v47 != nil && C.nox_xxx_wnd_46C2A0(v47.C()) != 1 {
+				if v47 != nil && C.nox_xxx_wnd_46C2A0((*C.nox_window)(v47.C())) != 1 {
 					return
 				}
 				break
@@ -533,10 +533,10 @@ func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 }
 
 func (c *Client) nox_xxx_cursorUpdate_46B740() {
-	var v0 *Window
-	var v1 *Window
-	var v23 *Window
-	var v61 *Window
+	var v0 *gui.Window
+	var v1 *gui.Window
+	var v23 *gui.Window
+	var v61 *gui.Window
 	v63 := false
 	v64 := 0
 
@@ -554,43 +554,43 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 	} else {
 		c.Nox_client_setCursorType(gui.CursorMoveArrow)
 	}
-	if nox_win_cur_input != nil {
+	if gui.Nox_win_cur_input != nil {
 		c.Nox_client_setCursorType(gui.CursorSelect)
-		nox_win_1064916 = nil
-		child := nox_win_cur_input.ChildByPos(mpos)
+		gui.Nox_win_1064916 = nil
+		child := gui.Nox_win_cur_input.ChildByPos(mpos)
 		v1 = child
 		for btn, v9 := range states {
 			if v9 == 0 {
 				if btn == int(input.NOX_MOUSE_LEFT) && c.Inp.IsMousePressed(seat.MouseButtonLeft) {
-					child.Func93(&WindowMouseState{State: input.NOX_MOUSE_LEFT_PRESSED, Pos: mpos})
+					child.Func93(&gui.WindowMouseState{State: input.NOX_MOUSE_LEFT_PRESSED, Pos: mpos})
 				}
 				continue
 			}
 			if child == nil {
-				if eventRespBool(nox_win_cur_input.Func93(&WindowMouseState{State: input.MouseStateCode(v9), Pos: mpos})) {
+				if gui.EventRespBool(gui.Nox_win_cur_input.Func93(&gui.WindowMouseState{State: input.MouseStateCode(v9), Pos: mpos})) {
 					states[btn] = 0
 				}
 				continue
 			}
 			for v10 := child; v10 != nil; v10 = v10.Parent() {
-				if eventRespBool(v10.Func93(&WindowMouseState{State: input.MouseStateCode(v9), Pos: mpos})) {
+				if gui.EventRespBool(v10.Func93(&gui.WindowMouseState{State: input.MouseStateCode(v9), Pos: mpos})) {
 					states[btn] = 0
 					break
 				}
-				if v10 == nox_win_cur_input {
+				if v10 == gui.Nox_win_cur_input {
 					break
 				}
 			}
 		}
-	} else if nox_win_1064916 != nil {
+	} else if gui.Nox_win_1064916 != nil {
 		c.Nox_client_setCursorType(gui.CursorSelect)
 		switch input.MouseStateCode(states[input.NOX_MOUSE_LEFT]) {
 		case 0, input.NOX_MOUSE_LEFT_PRESSED:
-			if nox_win_1064916.Flags().Has(4) && C.sub_45D9B0() == 0 {
+			if gui.Nox_win_1064916.Flags.Has(4) && C.sub_45D9B0() == 0 {
 				dp := c.Inp.GetMouseRel()
-				off := nox_win_1064916.Offs()
-				end := nox_win_1064916.End()
-				if par := nox_win_1064916.Parent(); par != nil {
+				off := gui.Nox_win_1064916.Offs()
+				end := gui.Nox_win_1064916.End()
+				if par := gui.Nox_win_1064916.Parent(); par != nil {
 					psz := par.Size()
 					if off.X+dp.X >= 0 {
 						if dp.X+end.X > psz.X {
@@ -615,10 +615,10 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 				if off.Y < 0 {
 					off.Y = 0
 				}
-				nox_win_1064916.SetOffs(off)
+				gui.Nox_win_1064916.SetOffs(off)
 
 				vsz := videoGetWindowSize()
-				sz := nox_win_1064916.Size()
+				sz := gui.Nox_win_1064916.Size()
 				end = off.Add(sz)
 				if end.X > vsz.X {
 					end.X = vsz.X
@@ -626,46 +626,46 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 				if end.Y > vsz.Y {
 					end.Y = vsz.Y
 				}
-				nox_win_1064916.SetEnd(end)
-				nox_win_1064916.SetOffs(end.Sub(sz))
+				gui.Nox_win_1064916.SetEnd(end)
+				gui.Nox_win_1064916.SetOffs(end.Sub(sz))
 			}
-			nox_win_1064916.Func93(&WindowMouseState{State: input.NOX_MOUSE_LEFT_PRESSED, Pos: mpos})
+			gui.Nox_win_1064916.Func93(&gui.WindowMouseState{State: input.NOX_MOUSE_LEFT_PRESSED, Pos: mpos})
 			states[input.NOX_MOUSE_LEFT] = 0
 		case input.NOX_MOUSE_LEFT_DRAG_END:
-			nox_win_1064916.flags &= 0xFFFFFFFE
-			if nox_win_1064916.ChildByPos(mpos) != nil {
-				nox_win_1064916.Func93(&WindowMouseState{State: input.NOX_MOUSE_LEFT_DRAG_END, Pos: mpos})
-			} else if nox_win_1064916.Flags().Has(4) {
-				nox_win_1064916.Func93(&WindowMouseState{State: input.NOX_MOUSE_LEFT_DRAG_END, Pos: mpos})
+			gui.Nox_win_1064916.Flags &= 0xFFFFFFFE
+			if gui.Nox_win_1064916.ChildByPos(mpos) != nil {
+				gui.Nox_win_1064916.Func93(&gui.WindowMouseState{State: input.NOX_MOUSE_LEFT_DRAG_END, Pos: mpos})
+			} else if gui.Nox_win_1064916.Flags.Has(4) {
+				gui.Nox_win_1064916.Func93(&gui.WindowMouseState{State: input.NOX_MOUSE_LEFT_DRAG_END, Pos: mpos})
 			}
 			v64 = 1
 			states[input.NOX_MOUSE_LEFT] = 0
 		case input.NOX_MOUSE_LEFT_UP:
-			nox_win_1064916.Focus()
-			nox_win_1064916.Func93(&WindowMouseState{State: input.NOX_MOUSE_LEFT_UP, Pos: mpos})
+			gui.Nox_win_1064916.Focus()
+			gui.Nox_win_1064916.Func93(&gui.WindowMouseState{State: input.NOX_MOUSE_LEFT_UP, Pos: mpos})
 			v64 = 1
 			states[input.NOX_MOUSE_LEFT] = 0
 		default:
 			states[input.NOX_MOUSE_LEFT] = 0
 		}
 	} else {
-		if nox_win_1064912 != nil {
-			v23 = nox_win_1064912.Win.ChildByPos(mpos)
+		if gui.Nox_win_1064912 != nil {
+			v23 = gui.Nox_win_1064912.Win.ChildByPos(mpos)
 			goto LABEL_98
 		}
-		for v24 := nox_win_xxx1_last; v24 != nil; v24 = v24.Prev() {
-			if !v24.Flags().Has(0x20) {
+		for v24 := gui.Last(); v24 != nil; v24 = v24.Prev() {
+			if !v24.Flags.Has(0x20) {
 				continue
 			}
-			if v24.Flags().Has(0x10) {
+			if v24.Flags.Has(0x10) {
 				continue
 			}
-			if v24.pointIn(mpos) {
-				v28 := asWindow(C.sub_46B630(v24.C(), C.int(mpos.X), C.int(mpos.Y)))
-				if v0 == nil && (v28.tooltip_func != nil || v28.DrawData().Tooltip() != "") {
+			if v24.PointIn(mpos) {
+				v28 := asWindow(C.sub_46B630((*C.nox_window)(v24.C()), C.int(mpos.X), C.int(mpos.Y)))
+				if v0 == nil && (v28.TooltipFuncPtr != nil || v28.DrawData().Tooltip() != "") {
 					v0 = v28
 				}
-				if v24.Flags().Has(8) {
+				if v24.Flags.Has(8) {
 					v61 = v0
 					v1 = v24.ChildByPos(mpos)
 					if v1 == nil {
@@ -675,16 +675,16 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 				}
 			}
 		}
-		for v29 := nox_win_xxx1_last; v29 != nil; v29 = v29.Prev() {
-			if v29.Flags().Has(0x70) {
+		for v29 := gui.Last(); v29 != nil; v29 = v29.Prev() {
+			if v29.Flags.Has(0x70) {
 				continue
 			}
-			if v29.pointIn(mpos) {
-				v32 := asWindow(C.sub_46B630(v29.C(), C.int(mpos.X), C.int(mpos.Y)))
-				if v0 == nil && (v32.tooltip_func != nil || v32.DrawData().Tooltip() != "") {
+			if v29.PointIn(mpos) {
+				v32 := asWindow(C.sub_46B630((*C.nox_window)(v29.C()), C.int(mpos.X), C.int(mpos.Y)))
+				if v0 == nil && (v32.TooltipFuncPtr != nil || v32.DrawData().Tooltip() != "") {
 					v0 = v32
 				}
-				if v29.Flags().Has(8) {
+				if v29.Flags.Has(8) {
 					v61 = v0
 					v1 = v29.ChildByPos(mpos)
 					if v1 == nil {
@@ -694,19 +694,19 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 				}
 			}
 		}
-		for v1 = nox_win_xxx1_last; v1 != nil; v1 = v1.Prev() {
-			if !v1.Flags().Has(0x40) {
+		for v1 = gui.Last(); v1 != nil; v1 = v1.Prev() {
+			if !v1.Flags.Has(0x40) {
 				continue
 			}
-			if v1.Flags().Has(0x10) {
+			if v1.Flags.Has(0x10) {
 				continue
 			}
-			if v1.pointIn(mpos) {
-				v36 := asWindow(C.sub_46B630(v1.C(), C.int(mpos.X), C.int(mpos.Y)))
-				if v0 == nil && (v36.tooltip_func != nil || v36.DrawData().Tooltip() != "") {
+			if v1.PointIn(mpos) {
+				v36 := asWindow(C.sub_46B630((*C.nox_window)(v1.C()), C.int(mpos.X), C.int(mpos.Y)))
+				if v0 == nil && (v36.TooltipFuncPtr != nil || v36.DrawData().Tooltip() != "") {
 					v0 = v36
 				}
-				if v1.Flags().Has(8) {
+				if v1.Flags.Has(8) {
 					break
 				}
 			}
@@ -720,7 +720,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 		}
 	LABEL_99:
 		v61 = v1
-		if v1.Flags().Has(0x200) {
+		if v1.Flags.Has(0x200) {
 			v1 = nil
 		} else if v1 != nil {
 			c.Nox_client_setCursorType(gui.CursorSelect)
@@ -730,9 +730,9 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 				}
 				win40 := v1
 				// TODO: looks similar to Window.Focus, but doesn't check flags and uses different global
-				if eventRespBool(win40.Func93(&WindowMouseState{State: input.MouseStateCode(v39), Pos: mpos})) {
+				if gui.EventRespBool(win40.Func93(&gui.WindowMouseState{State: input.MouseStateCode(v39), Pos: mpos})) {
 					if i == 0 && states[0] == 5 {
-						nox_win_1064916 = win40
+						gui.Nox_win_1064916 = win40
 					}
 					states[i] = 0
 				} else {
@@ -741,9 +741,9 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 						if win40 == nil {
 							break
 						}
-						if eventRespBool(win40.Func93(&WindowMouseState{State: input.MouseStateCode(v39), Pos: mpos})) {
+						if gui.EventRespBool(win40.Func93(&gui.WindowMouseState{State: input.MouseStateCode(v39), Pos: mpos})) {
 							if i == 0 && states[0] == 5 {
-								nox_win_1064916 = win40
+								gui.Nox_win_1064916 = win40
 							}
 							states[i] = 0
 							break
@@ -754,12 +754,12 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 			v0 = v61
 		}
 	LABEL_113:
-		if v0 == nil && C.nox_xxx_wnd_46C2A0(v1.C()) != 0 {
+		if v0 == nil && C.nox_xxx_wnd_46C2A0((*C.nox_window)(v1.C())) != 0 {
 			v0 = v1
 		}
 		if c.Inp.GetDistSlow() {
 			if v0 != nil {
-				if v0.tooltip_func != nil {
+				if v0.TooltipFuncPtr != nil {
 					sx := uint16(mpos.X)
 					sy := uint16(mpos.Y)
 					spos := uintptr(uint32(sx) | (uint32(sy) << 16))
@@ -772,18 +772,18 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 			}
 		}
 	}
-	if nox_win_1064916 == nil && v1 != nox_win_activeWindow_1064900 {
-		if nox_win_cur_input != nil {
-			if nox_win_cur_input.IsChild(nox_win_activeWindow_1064900) {
-				nox_win_activeWindow_1064900.Func93(&WindowMouseUnk{Event: 18, Pos: mpos})
+	if gui.Nox_win_1064916 == nil && v1 != gui.Nox_win_activeWindow_1064900 {
+		if gui.Nox_win_cur_input != nil {
+			if gui.Nox_win_cur_input.IsChild(gui.Nox_win_activeWindow_1064900) {
+				gui.Nox_win_activeWindow_1064900.Func93(&gui.WindowMouseUnk{Event: 18, Pos: mpos})
 			}
-		} else if nox_win_activeWindow_1064900 != nil {
-			nox_win_activeWindow_1064900.Func93(&WindowMouseUnk{Event: 18, Pos: mpos})
+		} else if gui.Nox_win_activeWindow_1064900 != nil {
+			gui.Nox_win_activeWindow_1064900.Func93(&gui.WindowMouseUnk{Event: 18, Pos: mpos})
 		}
 		if v1 != nil {
-			v1.Func93(&WindowMouseUnk{Event: 17, Pos: mpos})
+			v1.Func93(&gui.WindowMouseUnk{Event: 17, Pos: mpos})
 		}
-		nox_win_activeWindow_1064900 = v1
+		gui.Nox_win_activeWindow_1064900 = v1
 	}
 	c.nox_xxx_cursorUpdate_46B740_sprites(v63, states[:])
 	c.Inp.SetMouseState(seat.MouseButtonLeft, input.MouseStateCode(states[input.NOX_MOUSE_LEFT]))
@@ -791,9 +791,9 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 	c.Inp.SetMouseState(seat.MouseButtonMiddle, input.MouseStateCode(states[input.NOX_MOUSE_MIDDLE]))
 	c.Inp.SetMouseWheel(states[3])
 	if v64 == 1 {
-		nox_win_1064916 = nil
+		gui.Nox_win_1064916 = nil
 	}
-	freeAllWindowsInList()
+	gui.FreeAllWindowsInList()
 }
 
 //export nox_input_scanCodeToAlpha_47F950
