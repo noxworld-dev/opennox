@@ -6,24 +6,15 @@ import (
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 )
 
 const deadWord = 0xacacacac
 
-var (
-	Dword_5d4594_3799468 int
-	Dword_5d4594_3799524 int
-
-	nox_alloc_window alloc.ClassT[Window]
-	winExts          = make(map[*Window]*windowExt)
-)
-
 type WindowFunc func(win *Window, ev WindowEvent) WindowEventResp
 type WindowDrawFunc func(win *Window, draw *WindowData) int
 
-func WrapWindowFuncC(fnc unsafe.Pointer) WindowFunc {
+func WrapFuncC(fnc unsafe.Pointer) WindowFunc {
 	if fnc == nil {
 		return nil
 	}
@@ -38,7 +29,7 @@ func WrapWindowFuncC(fnc unsafe.Pointer) WindowFunc {
 	}
 }
 
-func WrapWindowDrawFuncC(fnc unsafe.Pointer) WindowDrawFunc {
+func WrapDrawFuncC(fnc unsafe.Pointer) WindowDrawFunc {
 	if fnc == nil {
 		return nil
 	}
@@ -48,46 +39,10 @@ func WrapWindowDrawFuncC(fnc unsafe.Pointer) WindowDrawFunc {
 }
 
 type windowExt struct {
+	GUI    *GUI
 	Func93 WindowFunc
 	Func94 WindowFunc
 	Draw   WindowDrawFunc
-}
-
-func NewWindowRaw(parent *Window, status StatusFlags, px, py, w, h int, fnc94 WindowFunc) *Window {
-	if nox_alloc_window.Class == nil {
-		nox_alloc_window = alloc.NewClassT("Window", Window{}, 576)
-	}
-	win := nox_alloc_window.NewObject()
-	if parent != nil {
-		win.setParent(parent)
-	} else {
-		nox_client_wndListXxxAdd_46A920(win)
-	}
-	win.SetID(0)
-	win.Flags = status
-	win.size.X = w
-	win.size.Y = h
-	win.SetPos(image.Point{X: px, Y: py})
-	win.drawData.tooltip[0] = 0
-	win.SetDraw(nil)
-	win.SetFunc93(nil)
-	win.SetFunc94(fnc94)
-	if fnc94 != nil {
-		fnc94(win, WindowInit{})
-	}
-	win.field92 = 0
-	return win
-}
-
-func NewUserWindow(parent *Window, id uint, status StatusFlags, px, py, w, h int, drawData *WindowData, fnc WindowFunc) *Window {
-	win := NewWindowRaw(parent, status, px, py, w, h, fnc)
-	drawData.Style |= StyleUserWindow
-	win.SetID(id)
-	win.CopyDrawData(drawData)
-	if parent != nil {
-		parent.Func94(WindowNewChild{ID: id})
-	}
-	return win
 }
 
 type Window struct {
@@ -111,18 +66,6 @@ type Window struct {
 
 func (win *Window) C() unsafe.Pointer {
 	return unsafe.Pointer(win)
-}
-
-func (win *Window) ext() *windowExt {
-	if win == nil {
-		return nil
-	}
-	ext := winExts[win]
-	if ext == nil {
-		ext = &windowExt{}
-		winExts[win] = ext
-	}
-	return ext
 }
 
 func (win *Window) ID() uint {
@@ -231,6 +174,13 @@ func (win *Window) setParent(par *Window) {
 	win.parent = par
 }
 
+func (win *Window) SetParent(par *Window) int {
+	if win == nil {
+		return -2
+	}
+	return win.GUI().setParent(win, par)
+}
+
 func (win *Window) Field100() *Window {
 	if win == nil {
 		return nil
@@ -261,9 +211,10 @@ func (win *Window) Hide() {
 	if win == nil {
 		return
 	}
-	if Dword_5d4594_3799468 != 0 {
+	g := win.GUI()
+	if g.ValXXX != 0 {
 		if !win.Flags.IsHidden() {
-			Dword_5d4594_3799468 = 1
+			g.ValXXX = 1
 		}
 	}
 	win.Flags |= StatusHidden
@@ -450,11 +401,47 @@ func (win *Window) TooltipFunc(a1 uintptr) {
 }
 
 func (win *Window) Focus() {
-	Focus(win)
+	win.GUI().Focus(win)
+}
+
+func (win *Window) Capture(enable bool) bool {
+	if win == nil {
+		return false
+	}
+	g := win.GUI()
+	if !enable {
+		g.uncapture(win)
+		return true
+	}
+	return g.capture(win)
+}
+
+func (win *Window) ShowModal() int {
+	if win == nil {
+		return -2
+	}
+	return win.GUI().showModal(win)
+}
+
+func (win *Window) StackPush() int {
+	if win == nil {
+		return -2
+	}
+	return win.GUI().stackPush(win)
+}
+
+func (win *Window) StackPop() int { // nox_xxx_wnd_46C6E0
+	if win == nil {
+		return -2
+	}
+	return win.GUI().stackPop(win)
 }
 
 func (win *Window) Destroy() {
-	destroyWindow(win)
+	if win == nil {
+		return
+	}
+	win.GUI().destroyWindow(win)
 }
 
 func (win *Window) drawRecursive() bool {
@@ -466,7 +453,7 @@ func (win *Window) drawRecursive() bool {
 	}
 	win.Draw()
 	if win.Flags.Has(StatusBorder) {
-		drawWindowBorder(win)
+		win.GUI().drawWindowBorder(win)
 	}
 
 	for sub := win.field100; sub != nil; sub = sub.Prev() {
@@ -475,11 +462,29 @@ func (win *Window) drawRecursive() bool {
 	return true
 }
 
+func (win *Window) unlink() {
+	next := win.Next()
+	prev := win.Prev()
+	if next != nil {
+		next.prev = prev
+		if prev != nil {
+			prev.next = win.Next()
+		}
+	} else if prev != nil {
+		win.Parent().field100 = prev
+		win.Prev().next = win.Next()
+		win.prev = nil
+	} else {
+		win.Parent().field100 = nil
+	}
+}
+
 func drawDefault(win *Window, draw *WindowData) int {
+	g := win.GUI()
 	gpos := win.GlobalPos()
 	if !win.Flags.Has(StatusImage) {
 		if draw.BackgroundColor().Color32() != noxcolor.TransparentRGBA5551.Color32() {
-			Renderer.DrawRectFilledOpaque(gpos.X, gpos.Y, win.Size().X, win.Size().Y, draw.BackgroundColor())
+			g.r.DrawRectFilledOpaque(gpos.X, gpos.Y, win.Size().X, win.Size().Y, draw.BackgroundColor())
 		}
 		return 1
 	}
@@ -488,11 +493,11 @@ func drawDefault(win *Window, draw *WindowData) int {
 	// TODO: was DrawImageAt
 	if win.DrawData().Field0&2 != 0 {
 		if img := draw.HighlightImage(); img != nil {
-			Renderer.DrawImage16(img, gpos)
+			g.r.DrawImage16(img, gpos)
 		}
 	} else {
 		if img := draw.BackgroundImage(); img != nil {
-			Renderer.DrawImage16(img, gpos)
+			g.r.DrawImage16(img, gpos)
 		}
 	}
 	return 1

@@ -118,14 +118,13 @@ func (c *Client) nox_xxx_loadPal_4A96C0_video_read_palette() {
 	}
 }
 
-func sub_43C060() bool {
-	c := noxClient
+func (c *Client) sub_43C060() bool {
 	c.nox_xxx_loadPal_4A96C0_video_read_palette()
-	guiLoadBorderImages()
-	nox_xxx_wndLoadMainBG_4A2210()
+	c.guiLoadBorderImages()
+	c.nox_xxx_wndLoadMainBG_4A2210()
 	c.Nox_client_setCursorType(gui.CursorSelect)
 	sub_48B3E0(true)
-	nox_video_stopAllFades_44E040()
+	c.nox_video_stopAllFades44E040()
 	C.sub_43E8C0(0)
 	return C.nox_xxx_compassGenStrings_4A9C80() != 0
 }

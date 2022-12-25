@@ -67,34 +67,37 @@ func nox_client_getRenderGUI() int {
 
 //export nox_xxx_wndGetFocus_46B4F0
 func nox_xxx_wndGetFocus_46B4F0() *C.nox_window {
-	return (*C.nox_window)(gui.Focused().C())
+	return (*C.nox_window)(noxClient.GUI.Focused().C())
 }
 
 //export nox_xxx_windowFocus_46B500
 func nox_xxx_windowFocus_46B500(win *C.nox_window) C.int {
-	gui.Focus(asWindow(win))
+	noxClient.GUI.Focus(asWindow(win))
 	return 0
 }
 
 //export nox_client_getWin1064916_46C720
 func nox_client_getWin1064916_46C720() *C.nox_window {
-	return (*C.nox_window)(gui.Nox_client_getWin1064916_46C720().C())
+	return (*C.nox_window)(noxClient.GUI.WinYYY.C())
 }
 
 //export nox_xxx_wndSetCaptureMain_46ADC0
 func nox_xxx_wndSetCaptureMain_46ADC0(win *C.nox_window) C.int {
-	return C.int(gui.Nox_xxx_wndSetCaptureMain(asWindow(win)))
+	if !asWindow(win).Capture(true) {
+		return -4
+	}
+	return 0
 }
 
 //export nox_xxx_wndClearCaptureMain_46ADE0
 func nox_xxx_wndClearCaptureMain_46ADE0(win *C.nox_window) C.int {
-	gui.Nox_xxx_wndClearCaptureMain(asWindow(win))
+	asWindow(win).Capture(false)
 	return 0
 }
 
 //export nox_xxx_wndGetCaptureMain_46AE00
 func nox_xxx_wndGetCaptureMain_46AE00() *C.nox_window {
-	return (*C.nox_window)(gui.Nox_xxx_wndGetCaptureMain().C())
+	return (*C.nox_window)(noxClient.GUI.Captured().C())
 }
 
 func asWindowData(data *C.nox_window_data) *gui.WindowData {
@@ -109,7 +112,7 @@ var _ = [1]struct{}{}[332-unsafe.Sizeof(gui.WindowData{})]
 
 //export nox_gui_draw
 func nox_gui_draw() {
-	gui.DrawGUI()
+	noxClient.GUI.Draw()
 }
 
 //export nox_color_rgb_4344A0
@@ -160,7 +163,7 @@ func nox_xxx_pointInRect_4281F0(p image.Point, r image.Rectangle) bool {
 
 //export sub_46B120
 func sub_46B120(a1, a2 *C.nox_window) C.int {
-	return C.int(gui.Sub46B120(asWindow(a1), asWindow(a2)))
+	return C.int(asWindow(a1).SetParent(asWindow(a2)))
 }
 
 func sub_46AEE0(a1 *gui.Window, a2 string) {

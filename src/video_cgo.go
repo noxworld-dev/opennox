@@ -556,7 +556,7 @@ func (c *Client) nox_draw_setCutSize(perc int, a2 int) {
 	vp.Size.X = vp.Screen.Dx() + 1
 	vp.Size.Y = vp.Screen.Dy() + 1
 	C.dword_5d4594_1193188 = 1
-	gui.Dword_5d4594_3799524 = 1
+	c.GUI.ValYYY = 1
 }
 
 func nox_client_drawXxx_444AC0(w, h int, flags int) error {
@@ -784,17 +784,17 @@ func (c *Client) nox_client_drawCursorAndTooltips_477830() {
 		c.r.DrawRectFilledAlpha(px, py, sz.X, sz.Y)
 		c.r.Data().SetTextColor(nox_color_yellow_2589772)
 		c.r.DrawStringWrapped(nil, str, image.Rect(px+2, py+2, px+2, py+2))
-		if gui.Dword_5d4594_3799468 != 0 {
+		if c.GUI.ValXXX != 0 {
 			vp := c.Viewport()
 			if px < vp.Screen.Min.X || px+sz.X > vp.Screen.Max.X || py < vp.Screen.Min.Y || py+sz.Y > vp.Screen.Max.Y {
-				gui.Dword_5d4594_3799524 = 1
+				c.GUI.ValYYY = 1
 			}
 		}
 	}
 }
 
 func (c *Client) sub_477F80() {
-	if gui.Dword_5d4594_3799468 != 0 {
+	if c.GUI.ValXXX != 0 {
 		vp := c.Viewport()
 		if c.pos1097212.X < vp.Screen.Min.X || c.pos1097212.X+cursorSize >= vp.Screen.Max.X ||
 			c.pos1097212.Y < vp.Screen.Min.Y || c.pos1097212.Y+cursorSize >= vp.Screen.Max.Y {
@@ -824,8 +824,7 @@ func sub_478000() C.int {
 	c := noxClient
 	C.sub_467CD0()
 	if c.dragndropSpellType != 0 {
-		v1 := gui.Nox_xxx_wndGetCaptureMain()
-		gui.Nox_xxx_wndClearCaptureMain(v1)
+		c.GUI.Captured().Capture(false)
 		nox_xxx_bookSpellDnDclear_477660()
 	}
 	return 0

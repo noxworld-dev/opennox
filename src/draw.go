@@ -52,7 +52,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/common"
 
 	"github.com/noxworld-dev/opennox/v1/client"
-	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -986,7 +985,7 @@ func (r *NoxRender) DrawImageAt(img *noxrender.Image, pos image.Point) {
 	*memmap.PtrUint32(0x973F18, 120) = 0
 	if memmap.Uint32(0x973F18, 68) != 0 && img != nil {
 		if memmap.Uint32(0x973F18, 92) != uint32(img.Field_1_0) || memmap.Uint32(0x973F18, 84) != uint32(img.Field_1_1) {
-			gui.Dword_5d4594_3799524 = 1
+			noxClient.GUI.ValYYY = 1
 		}
 		img.Field_1_0 = uint16(memmap.Uint32(0x973F18, 92))
 		img.Field_1_1 = uint16(memmap.Uint32(0x973F18, 84))
@@ -1013,8 +1012,8 @@ func sub_47D200() {
 	*memmap.PtrUint32(0x973F18, 20) = 0
 	*memmap.PtrUint32(0x973F18, 120) = 0
 	*memmap.PtrUint32(0x973F18, 68) = 0
-	gui.Dword_5d4594_3799524 = 0
-	gui.Dword_5d4594_3799468 = 0
+	noxClient.GUI.ValYYY = 0
+	noxClient.GUI.ValXXX = 0
 	noxClient.r.SetInterlacing(false, 0)
 }
 

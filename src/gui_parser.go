@@ -31,14 +31,14 @@ func nox_new_window_from_file(cname *C.char, fnc unsafe.Pointer) *C.nox_window {
 		panic("server should not load GUI")
 	}
 	name := GoString(cname)
-	win := newWindowFromFile(name, gui.WrapWindowFuncC(fnc))
+	win := newWindowFromFile(noxClient.GUI, name, gui.WrapFuncC(fnc))
 	if win != nil {
 		guiParseHook(name, win)
 	}
 	return (*C.nox_window)(win.C())
 }
 
-func newWindowFromFile(name string, fnc gui.WindowFunc) *gui.Window {
+func newWindowFromFile(g *gui.GUI, name string, fnc gui.WindowFunc) *gui.Window {
 	guiLog.Printf("load: %q", name)
 	path := filepath.Join("window", name)
 
@@ -49,20 +49,21 @@ func newWindowFromFile(name string, fnc gui.WindowFunc) *gui.Window {
 	}
 	defer f.Close()
 
-	return newWindowFromReader(f, fnc)
+	return newWindowFromReader(g, f, fnc)
 }
 
-func newWindowFromString(src string, fnc gui.WindowFunc) *gui.Window {
-	return newWindowFromReader(strings.NewReader(src), fnc)
+func newWindowFromString(g *gui.GUI, src string, fnc gui.WindowFunc) *gui.Window {
+	return newWindowFromReader(g, strings.NewReader(src), fnc)
 }
 
-func newWindowFromReader(r io.Reader, fnc gui.WindowFunc) *gui.Window {
-	return newGUIParser(strMan, r).ParseRoot(fnc)
+func newWindowFromReader(g *gui.GUI, r io.Reader, fnc gui.WindowFunc) *gui.Window {
+	return newGUIParser(g, strMan, r).ParseRoot(fnc)
 }
 
-func newGUIParser(sm *strman.StringManager, r io.Reader) *guiParser {
+func newGUIParser(g *gui.GUI, sm *strman.StringManager, r io.Reader) *guiParser {
 	br := bufio.NewReader(r)
 	p := &guiParser{
+		g:  g,
 		sm: sm,
 		br: br,
 	}
@@ -71,6 +72,7 @@ func newGUIParser(sm *strman.StringManager, r io.Reader) *guiParser {
 }
 
 type guiParser struct {
+	g        *gui.GUI
 	sm       *strman.StringManager
 	br       *bufio.Reader
 	parents  []*gui.Window
@@ -403,9 +405,9 @@ func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool)
 func (p *guiParser) parseWindowOrWidget(typ string, id uint, status gui.StatusFlags, px, py, w, h int, drawData *gui.WindowData, data guiWidgetData, fnc gui.WindowFunc) *gui.Window {
 	parent := p.parentsTop()
 	if typ == "USER" {
-		return gui.NewUserWindow(parent, id, status, px, py, w, h, drawData, fnc)
+		return p.g.NewUserWindow(parent, id, status, px, py, w, h, drawData, fnc)
 	}
-	win := guiNewWidget(typ, parent, status, px, py, w, h, drawData, data)
+	win := guiNewWidget(p.g, typ, parent, status, px, py, w, h, drawData, data)
 	win.SetID(id)
 	if parent != nil {
 		parent.Func94(gui.WindowNewChild{ID: id})

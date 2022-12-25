@@ -4,7 +4,6 @@ package opennox
  */
 import "C"
 import (
-	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 )
@@ -24,7 +23,7 @@ func nox_client_toggleMap_473610() C.char {
 			clientPlaySoundSpecial(sound.SoundMapOpen, 100)
 			*memmap.PtrUint32(0x5D4594, 1096424) |= 0x1
 		}
-		gui.Dword_5d4594_3799524 = 1
+		noxClient.GUI.ValYYY = 1
 		return C.char(*memmap.PtrUint32(0x5D4594, 1096424))
 	}
 	return 0

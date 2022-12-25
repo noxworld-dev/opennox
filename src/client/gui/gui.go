@@ -2,160 +2,249 @@ package gui
 
 import (
 	"image"
+	"sync"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
 
 	"github.com/noxworld-dev/opennox/v1/client/input"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
 var (
-	Renderer *noxrender.NoxRender
-
-	borders Borders
-
-	Nox_win_cur_input            *Window
-	Nox_win_1064912              *WindowRef
-	nox_win_xxx1_first           *Window
-	nox_win_xxx1_last            *Window
-	nox_win_cur_focused          *Window
-	nox_win_freeList             *Window
-	Nox_win_activeWindow_1064900 *Window
-	Nox_win_1064916              *Window
+	emu     sync.RWMutex
+	exts    = make(map[*Window]*windowExt)
+	extData = make(map[*WindowData]*windowExt)
 )
 
-func SetBorders(b Borders) {
-	borders = b
+func setExt(win *Window, ext *windowExt) {
+	emu.Lock()
+	if ext == nil {
+		delete(exts, win)
+		delete(extData, win.DrawData())
+	} else {
+		exts[win] = ext
+		extData[win.DrawData()] = ext
+	}
+	emu.Unlock()
 }
 
-func GameexCheck() bool {
-	return nox_win_freeList == nil && Nox_win_activeWindow_1064900 == nil
+func (win *Window) ext() *windowExt {
+	if win == nil {
+		return nil
+	}
+	emu.RLock()
+	ext := exts[win]
+	emu.RUnlock()
+	return ext
 }
 
-func DrawGUI() {
+func (win *Window) GUI() *GUI {
+	ext := win.ext()
+	if ext == nil {
+		return nil
+	}
+	return ext.GUI
+}
+
+func (d *WindowData) gui() *GUI {
+	if d == nil {
+		return nil
+	}
+	if d.Window != nil {
+		return d.Window.GUI()
+	}
+	emu.RLock()
+	ext := extData[d]
+	emu.RUnlock()
+	if ext == nil {
+		return nil
+	}
+	return ext.GUI
+}
+
+func New(r *noxrender.NoxRender) *GUI {
+	return &GUI{r: r}
+}
+
+type windowRef struct {
+	Win  *Window
+	Next *windowRef
+}
+
+type GUI struct {
+	r       *noxrender.NoxRender
+	borders Borders
+	alloc   alloc.ClassT[Window]
+
+	captured *Window
+	stack    *windowRef
+	head     *Window
+	last     *Window
+	focused  *Window
+	free     *Window
+
+	ActiveXXX *Window
+	WinYYY    *Window
+	ValXXX    int
+	ValYYY    int
+}
+
+func (g *GUI) SetBorders(b Borders) {
+	g.borders = b
+}
+
+func (g *GUI) Render() *noxrender.NoxRender {
+	return g.r
+}
+
+func (g *GUI) NewWindowRaw(parent *Window, status StatusFlags, px, py, w, h int, fnc94 WindowFunc) *Window {
+	if g.alloc.Class == nil {
+		g.alloc = alloc.NewClassT("Window", Window{}, 576)
+	}
+	win := g.alloc.NewObject()
+	setExt(win, &windowExt{GUI: g})
+	if parent != nil {
+		win.setParent(parent)
+	} else {
+		g.add(win)
+	}
+	win.SetID(0)
+	win.Flags = status
+	win.size.X = w
+	win.size.Y = h
+	win.SetPos(image.Point{X: px, Y: py})
+	win.drawData.tooltip[0] = 0
+	win.SetDraw(nil)
+	win.SetFunc93(nil)
+	win.SetFunc94(fnc94)
+	if fnc94 != nil {
+		fnc94(win, WindowInit{})
+	}
+	win.field92 = 0
+	return win
+}
+
+func (g *GUI) NewUserWindow(parent *Window, id uint, status StatusFlags, px, py, w, h int, drawData *WindowData, fnc WindowFunc) *Window {
+	win := g.NewWindowRaw(parent, status, px, py, w, h, fnc)
+	drawData.Style |= StyleUserWindow
+	win.SetID(id)
+	win.CopyDrawData(drawData)
+	if parent != nil {
+		parent.Func94(WindowNewChild{ID: id})
+	}
+	return win
+}
+
+func (g *GUI) GameexCheck() bool {
+	return g.free == nil && g.ActiveXXX == nil
+}
+
+func (g *GUI) Draw() {
 	// back layer (background and some UI parts)
-	for win := nox_win_xxx1_first; win != nil; win = win.Next() {
+	for win := g.head; win != nil; win = win.Next() {
 		if win.GetFlags().Has(StatusBelow) {
 			win.drawRecursive()
 		}
 	}
 	// middle layer
-	for win := nox_win_xxx1_first; win != nil; win = win.Next() {
+	for win := g.head; win != nil; win = win.Next() {
 		if win.GetFlags().HasNone(StatusBelow | StatusAbove) {
 			win.drawRecursive()
 		}
 	}
 	// front layer
-	for win := nox_win_xxx1_first; win != nil; win = win.Next() {
+	for win := g.head; win != nil; win = win.Next() {
 		if win.GetFlags().Has(StatusAbove) {
 			win.drawRecursive()
 		}
 	}
 }
 
-func Last() *Window {
-	return nox_win_xxx1_last
+func (g *GUI) Last() *Window {
+	return g.last
 }
 
-type WindowRef struct {
-	Win  *Window
-	Next *WindowRef
+func (g *GUI) ChildByID(id uint) *Window {
+	return g.last.ChildByID(id)
 }
 
-func GUIChildByID(id uint) *Window {
-	return nox_win_xxx1_last.ChildByID(id)
-}
-
-func Focus(win *Window) {
+func (g *GUI) Focus(win *Window) {
+	if g == nil {
+		return
+	}
 	if win != nil && win.GetFlags().Has(0x400) {
 		return
 	}
-	if nox_win_cur_focused != nil && nox_win_cur_focused != win {
-		nox_win_cur_focused.Func94(WindowFocus(false))
+	if g.focused != nil && g.focused != win {
+		g.focused.Func94(WindowFocus(false))
 	}
-	nox_win_cur_focused = win
+	g.focused = win
 	for cur := win; cur != nil; cur = cur.Parent() {
 		if EventRespBool(cur.Func94(WindowFocus(true))) {
 			return
 		}
 	}
-	nox_win_cur_focused = nil
+	g.focused = nil
 }
 
-func Focused() *Window {
-	return nox_win_cur_focused
+func (g *GUI) Focused() *Window {
+	return g.focused
 }
 
-func nox_client_wndListXxxAdd_46A920(win *Window) {
+func (g *GUI) add(win *Window) {
 	win.next = nil
-	win.prev = nox_win_xxx1_last
-	if nox_win_xxx1_last != nil {
-		nox_win_xxx1_last.next = win
+	win.prev = g.last
+	if g.last != nil {
+		g.last.next = win
 	} else {
-		nox_win_xxx1_first = win
+		g.head = win
 	}
-	nox_win_xxx1_last = win
+	g.last = win
 }
 
-func nox_client_wndListXxxRemove_46A960(win *Window) {
+func (g *GUI) remove(win *Window) {
 	prev := win.Prev()
 	next := win.Next()
 	if prev != nil {
 		prev.next = next
 	} else {
-		nox_win_xxx1_first = next
+		g.head = next
 	}
 	if next != nil {
 		next.prev = prev
 	} else {
-		nox_win_xxx1_last = prev
+		g.last = prev
 	}
 }
 
-func sub_46B180(win *Window) {
-	next := win.Next()
-	prev := win.Prev()
-	if next != nil {
-		next.prev = prev
-		if prev != nil {
-			prev.next = win.Next()
-		}
-	} else if prev != nil {
-		win.Parent().field100 = prev
-		win.Prev().next = win.Next()
-		win.prev = nil
-	} else {
-		win.Parent().field100 = nil
+func (g *GUI) capture(win *Window) bool {
+	if g.captured != nil || win == nil {
+		return false
+	}
+	g.captured = win
+	return true
+}
+
+func (g *GUI) uncapture(win *Window) {
+	if g.captured == win {
+		g.captured = nil
 	}
 }
 
-func Nox_xxx_wndSetCaptureMain(win *Window) int {
-	if Nox_win_cur_input != nil {
-		return -4
+func (g *GUI) Captured() *Window {
+	return g.captured
+}
+
+func (g *GUI) ProcessKeys(inp *input.Handler) {
+	for _, key := range inp.KeyboardKeys() {
+		g.processKey(inp, key)
 	}
-	Nox_win_cur_input = win
-	return 0
 }
 
-func Nox_xxx_wndClearCaptureMain(win *Window) int {
-	if win == Nox_win_cur_input {
-		Nox_win_cur_input = nil
-	}
-	return 0
-}
-
-func Nox_xxx_wndGetCaptureMain() *Window {
-	return Nox_win_cur_input
-}
-
-func Nox_client_getWin1064916_46C720() *Window {
-	return Nox_win_1064916
-}
-
-func Nox_xxx_windowUpdateKeysMB_46B6B0(inp *input.Handler, key keybind.Key) {
-	root := nox_win_cur_focused
-	if root == nil {
+func (g *GUI) processKey(inp *input.Handler, key keybind.Key) {
+	if g.focused == nil {
 		return
 	}
 	if key == 0 {
@@ -165,7 +254,7 @@ func Nox_xxx_windowUpdateKeysMB_46B6B0(inp *input.Handler, key keybind.Key) {
 		return
 	}
 	ok := false
-	for win := root; win != nil; win = win.Parent() {
+	for win := g.focused; win != nil; win = win.Parent() {
 		if EventRespBool(win.Func93(WindowKeyPress{Key: key, Pressed: inp.IsPressed(key)})) {
 			ok = true
 			break
@@ -174,45 +263,63 @@ func Nox_xxx_windowUpdateKeysMB_46B6B0(inp *input.Handler, key keybind.Key) {
 	inp.SetKeyFlag(key, ok)
 }
 
-func Nox_xxx_wnd46C6E0(win *Window) int { // nox_xxx_wnd_46C6E0
+func (g *GUI) StackHead() *Window {
+	if g.stack == nil {
+		return nil
+	}
+	return g.stack.Win
+}
+
+func (g *GUI) stackPush(win *Window) int {
 	if win == nil {
 		return -2
 	}
-	if Nox_win_1064912 == nil || Nox_win_1064912.Win != win {
-		return -1
+	if win.Parent() != nil {
+		return -3
 	}
-	Nox_win_1064912 = Nox_win_1064912.Next
+	g.stack = &windowRef{Next: g.stack, Win: win}
 	return 0
 }
 
-func FreeAllWindowsInList() {
-	win := nox_win_freeList
-	nox_win_freeList = nil
+func (g *GUI) stackPop(win *Window) int {
+	if win == nil {
+		return -2
+	}
+	if g.stack == nil || g.stack.Win != win {
+		return -1
+	}
+	g.stack = g.stack.Next
+	return 0
+}
+
+func (g *GUI) FreeDestroyed() {
+	win := g.free
+	g.free = nil
 	for win != nil {
 		prev := win.Prev()
 		win.prev = nil
-		if Nox_win_cur_input == win {
-			Nox_win_cur_input = nil
+		if g.captured == win {
+			g.captured = nil
 		}
-		if nox_win_cur_focused == win {
-			Focus(nil)
+		if g.focused == win {
+			g.Focus(nil)
 		}
-		if Nox_win_1064912 != nil && win == Nox_win_1064912.Win {
-			Nox_xxx_wnd46C6E0(Nox_win_1064912.Win)
+		if g.stack != nil && win == g.stack.Win {
+			g.stackPop(g.stack.Win)
 		}
-		if Nox_win_activeWindow_1064900 == win {
-			Nox_win_activeWindow_1064900 = nil
+		if g.ActiveXXX == win {
+			g.ActiveXXX = nil
 		}
-		if Nox_win_1064916 == win {
-			Nox_win_1064916 = nil
+		if g.WinYYY == win {
+			g.WinYYY = nil
 		}
 		win.Func94(WindowDestroy{})
-		nox_alloc_window.FreeObjectFirst(win)
+		g.alloc.FreeObjectFirst(win)
 		win = prev
 	}
 }
 
-func destroyWindow(win *Window) {
+func (g *GUI) destroyWindow(win *Window) {
 	if win == nil {
 		return
 	}
@@ -220,47 +327,47 @@ func destroyWindow(win *Window) {
 		return
 	}
 	win.Flags |= StatusDestroyed
-	delete(winExts, win)
+	setExt(win, nil)
 
-	if Nox_win_cur_input == win {
-		Nox_win_cur_input = nil
+	if g.captured == win {
+		g.captured = nil
 	}
-	if nox_win_cur_focused == win {
-		Focus(nil)
+	if g.focused == win {
+		g.Focus(nil)
 	}
-	if Nox_win_1064912 != nil && win == Nox_win_1064912.Win {
-		Nox_xxx_wnd46C6E0(Nox_win_1064912.Win)
+	if g.stack != nil && win == g.stack.Win {
+		g.stackPop(g.stack.Win)
 	}
-	if Nox_win_activeWindow_1064900 == win {
-		Nox_win_activeWindow_1064900 = nil
+	if g.ActiveXXX == win {
+		g.ActiveXXX = nil
 	}
-	if Nox_win_1064916 == win {
-		Nox_win_1064916 = nil
+	if g.WinYYY == win {
+		g.WinYYY = nil
 	}
 	v3 := win.Field100()
 	for v3 != nil {
 		v4 := v3.Prev()
-		destroyWindow(v3)
+		g.destroyWindow(v3)
 		v3 = v4
 	}
 	if win.Parent() != nil {
-		sub_46B180(win)
+		win.unlink()
 	} else {
-		nox_client_wndListXxxRemove_46A960(win)
+		g.remove(win)
 	}
 	win.next = nil
-	win.prev = nox_win_freeList
-	nox_win_freeList = win
+	win.prev = g.free
+	g.free = win
 }
 
-func Nox_xxx_wndShowModalMB(win *Window) int {
+func (g *GUI) showModal(win *Window) int {
 	if win == nil {
 		return -2
 	}
-	for it := nox_win_xxx1_last; it != nil; it = it.Prev() {
+	for it := g.last; it != nil; it = it.Prev() {
 		if it == win {
-			nox_client_wndListXxxRemove_46A960(win)
-			nox_client_wndListXxxAdd_46A920(win)
+			g.remove(win)
+			g.add(win)
 			win.Flags |= StatusActive
 			win.Show()
 			return 0
@@ -269,47 +376,35 @@ func Nox_xxx_wndShowModalMB(win *Window) int {
 	return -3
 }
 
-func Sub_46C5D0() {
-	for it := nox_win_xxx1_last; it != nil; {
-		prev := it.Prev()
+func (g *GUI) DestroyAll() {
+	var prev *Window
+	for it := g.last; it != nil; it = prev {
+		prev = it.Prev()
 		it.Destroy()
-		it = prev
 	}
-	FreeAllWindowsInList()
-	nox_alloc_window.FreeAllObjects()
+	g.FreeDestroyed()
+	g.alloc.FreeAllObjects()
 }
 
-func Sub46C690(a1 *Window) int {
-	if a1 == nil {
-		return -2
-	}
-	if a1.Parent() != nil {
-		return -3
-	}
-	Nox_win_1064912 = &WindowRef{Next: Nox_win_1064912, Win: a1}
-	return 0
-}
-
-func Sub46B120(win, par *Window) int {
+func (g *GUI) setParent(win, par *Window) int {
 	if win == nil {
 		return -2
 	}
 	if win.Parent() != nil {
-		sub_46B180(win)
+		win.unlink()
 	} else {
-		nox_client_wndListXxxRemove_46A960(win)
+		g.remove(win)
 	}
 	if par != nil {
 		win.setParent(par)
 	} else {
-		nox_client_wndListXxxAdd_46A920(win)
+		g.add(win)
 		win.parent = nil
 	}
 	return 0
 }
 
-func drawWindowBorder(win *Window) {
-	r := Renderer
+func (g *GUI) drawWindowBorder(win *Window) {
 	data := win.DrawData()
 	gpos := win.GlobalPos()
 	sz := win.Size()
@@ -321,7 +416,7 @@ func drawWindowBorder(win *Window) {
 		}
 		switch flag {
 		case StylePushButton, StyleRadioButton, StyleStaticText, StyleProgressBar, StyleUserWindow:
-			borders.Draw(gpos.X, gpos.Y, sz.X, sz.Y)
+			g.borders.Draw(g.r, gpos.X, gpos.Y, sz.X, sz.Y)
 			return
 		case StyleCheckBox, StyleVertSlider, StyleHorizSlider:
 			return
@@ -337,7 +432,7 @@ func drawWindowBorder(win *Window) {
 			if data.Text() != "" {
 				dy = 4
 			}
-			borders.Draw(gpos.X-3, gpos.Y-dy-3, sz.X-dsx+3, sz.Y+6)
+			g.borders.Draw(g.r, gpos.X-3, gpos.Y-dy-3, sz.X-dsx+3, sz.Y+6)
 			return
 		case StyleEntryField:
 			v9 := gpos.X
@@ -347,7 +442,7 @@ func drawWindowBorder(win *Window) {
 			x := gpos.X
 			dy := 0
 			if text := data.Text(); text != "" {
-				tsz := r.GetStringSizeWrapped(data.Font(), text, 0)
+				tsz := g.r.GetStringSizeWrapped(data.Font(), text, 0)
 				x += tsz.X + 6
 				sx -= tsz.X + 6
 			}
@@ -356,14 +451,13 @@ func drawWindowBorder(win *Window) {
 				sx = v14
 				x = v9 + sz.X - v14
 			}
-			borders.Draw(x, gpos.Y+dy, sx, sz.Y)
+			g.borders.Draw(g.r, x, gpos.Y+dy, sx, sz.Y)
 			return
 		}
 	}
 }
 
-func (b *Borders) Draw(x, y, w, h int) {
-	r := Renderer
+func (b *Borders) Draw(r *noxrender.NoxRender, x, y, w, h int) {
 	x1 := x + 10
 	x2 := x + w - 30
 	x3 := x + w

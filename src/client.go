@@ -15,7 +15,6 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/audio/ail"
-	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
@@ -30,7 +29,6 @@ const (
 
 func NewClient(pr console.Printer, srv *Server) (*Client, error) {
 	cl := client.NewClient(pr, srv.Server)
-	gui.Renderer = cl.Render()
 	c := &Client{
 		Client: cl,
 		srv:    srv,
@@ -101,16 +99,7 @@ func (c *Client) processInput() {
 	c.Inp.Tick()
 	c.nox_client_processInput_4308A0()
 	c.nox_xxx_cursorUpdate_46B740()
-	c.mainloopKeysUpdate()
-}
-
-func (c *Client) mainloopKeysUpdate() {
-	if c == nil || c.Inp == nil {
-		return
-	}
-	for _, key := range c.Inp.KeyboardKeys() {
-		gui.Nox_xxx_windowUpdateKeysMB_46B6B0(c.Inp, key)
-	}
+	c.GUI.ProcessKeys(c.Inp)
 }
 
 func (c *Client) Update() bool {

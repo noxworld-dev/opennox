@@ -80,7 +80,7 @@ func (c *guiAdvOptions) Init(cli *Client) {
 
 func (c *guiAdvOptions) NewOn(par *gui.Window) {
 	c.nox_win_advVideoOpts_1522600 = c.newAdvVideoOpts()
-	gui.Sub46B120(c.nox_win_advVideoOpts_1522600, par)
+	c.nox_win_advVideoOpts_1522600.SetParent(par)
 	c.nox_client_advVideoOptsLoad()
 }
 
@@ -192,7 +192,7 @@ func (c *guiAdvOptions) newAdvVideoOpts() *gui.Window {
 		height = 315
 	)
 
-	root := gui.NewUserWindow(nil, 2000, draw.Status, 280, 38, width, height, draw, c.nox_client_advVideoOptsProc_4CB5D0)
+	root := c.cli.GUI.NewUserWindow(nil, 2000, draw.Status, 280, 38, width, height, draw, c.nox_client_advVideoOptsProc_4CB5D0)
 
 	const (
 		pad     = 3
@@ -212,7 +212,7 @@ func (c *guiAdvOptions) newAdvVideoOpts() *gui.Window {
 				str = e.Value().Str
 			}
 		}
-		NewCheckbox(root, opt.ID, pad, y, width, cheight, str)
+		NewCheckbox(c.cli.GUI, root, opt.ID, pad, y, width, cheight, str)
 		n++
 	}
 	return root
