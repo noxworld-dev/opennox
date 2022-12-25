@@ -83,8 +83,6 @@ parts:
       apt install -y build-essential gcc gcc-multilib libsdl2-dev:i386 libopenal-dev:i386
       cd /root/parts/opennox/build/src
       go run ./internal/noxbuild
-      go run ./internal/vers -n -epref '${SNAP}/bin/' -ipref '${SNAP}/usr/share/icons/hicolor/256x256/apps/' -o opennox.desktop desktop
-      go run ./internal/vers -n -epref '${SNAP}/bin/' -ipref '${SNAP}/usr/share/icons/hicolor/256x256/apps/' -hd -o opennox.hd.desktop desktop
       snapcraftctl build
     stage-packages:
       - libsdl2-2.0-0:i386
@@ -94,7 +92,7 @@ parts:
       src/opennox: bin/
       src/opennox-hd: bin/
       src/opennox-server: bin/
-      src/*.desktop: usr/share/applications/
+      snap/*.desktop: usr/share/applications/
       res/opennox_256.png: usr/share/icons/hicolor/256x256/apps/opennox.png
     stage:
       - bin/

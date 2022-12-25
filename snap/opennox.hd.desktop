@@ -1,12 +1,11 @@
 [Desktop Entry]
-Version={{ .Version }}
 Type=Application
 Name=OpenNox HD
-Icon={{ .IconPref }}opennox
-Exec={{ .ExecPref }}opennox.hd
+Icon=${SNAP}/usr/share/icons/hicolor/256x256/apps/opennox
+Exec=${SNAP}/bin/opennox.hd
 Categories=Game;ActionGame;RolePlaying;
 Actions=LowRes;
 
 [Desktop Action LowRes]
 Name=Low resolution
-Exec={{ .ExecPref }}opennox
+Exec=${SNAP}/bin/opennox

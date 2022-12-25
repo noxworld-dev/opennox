@@ -6,15 +6,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/noxworld-dev/opennox/v1/internal/vers/desktop"
 	"github.com/noxworld-dev/opennox/v1/internal/vers/git"
 )
 
 var (
 	fNoNewLine = flag.Bool("n", false, "do not add newline")
-	fHD        = flag.Bool("hd", false, "generate files for HD version")
-	fIconPref  = flag.String("ipref", "", "desktop file icon prefix")
-	fExecPref  = flag.String("epref", "", "desktop file exec prefix")
 	fOut       = flag.String("o", "", "output file")
 )
 
@@ -41,12 +37,6 @@ func run(args []string) error {
 		res = vers
 	case "full":
 		res = git.FullVersion()
-	case "desktop":
-		res = desktop.Generate(desktop.Options{
-			HD:       *fHD,
-			IconPref: *fIconPref,
-			ExecPref: *fExecPref,
-		})
 	}
 	if out := *fOut; out != "" && out != "-" {
 		return os.WriteFile(out, []byte(res), 0644)
