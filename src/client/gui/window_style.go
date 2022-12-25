@@ -14,6 +14,17 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
+func NewWindowData() (*WindowData, func()) {
+	d, free := alloc.New(WindowData{})
+	d.SetHighlightColor(noxcolor.RGB5551Color(255, 255, 255))
+	d.SetTextColor(noxcolor.RGB5551Color(200, 200, 200))
+	d.SetEnabledColor(color.Transparent)
+	d.SetDisabledColor(color.Transparent)
+	d.SetSelectedColor(color.Transparent)
+	d.SetBackgroundColor(color.Transparent)
+	return d, free
+}
+
 type WindowData struct {
 	Field0    uint32                // 0, 0 (36)
 	group     int32                 // 1, 4 (40)

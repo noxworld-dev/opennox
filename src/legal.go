@@ -84,8 +84,8 @@ func nox_game_showLegal_4CC4E0() {
 		vers += "\n\nRelease " + version.Latest() + " is now available!"
 		versText.SetPos(versText.Offs().Add(image.Pt(0, 10)))
 	}
-	versText.Func94(&WindowEvent0x4001{Str: vers})
-	win.ChildByID(9998).Func94(&WindowEvent0x4001{Str: " "})
+	versText.Func94(&gui.StaticTextSetText{Str: vers})
+	win.ChildByID(9998).Func94(&gui.StaticTextSetText{Str: " "})
 	win.ChildByID(9970).SetDraw(sub_4CC6F0)
 	nox_win_legalBg_timer = 300
 	if noxflags.HasGame(noxflags.GameFlag26) {

@@ -13,15 +13,6 @@ func init() {
 			Val: a2,
 		}
 	})
-	gui.RegisterWindowEvent(&WindowEvent0x4001{}, func(a1, a2 uintptr) gui.WindowEvent {
-		cstr := (*wchar_t)(unsafe.Pointer(a1))
-		str := GoWString(cstr)
-		return &WindowEvent0x4001{
-			Str:  str,
-			Val:  int(a2),
-			cstr: cstr,
-		}
-	})
 	gui.RegisterWindowEvent(&WindowEvent0x4005{}, func(a1, a2 uintptr) gui.WindowEvent {
 		return &WindowEvent0x4005{
 			Win: asWindowP(unsafe.Pointer(a1)),
@@ -125,25 +116,6 @@ type WindowEvent0x4000 struct {
 func (*WindowEvent0x4000) EventCode() int { return 0x4000 }
 func (ev *WindowEvent0x4000) EventArgsC() (uintptr, uintptr) {
 	return uintptr(unsafe.Pointer(ev.Win.C())), ev.Val
-}
-
-var _ gui.WindowEvent = &WindowEvent0x4001{}
-
-type WindowEvent0x4001 struct {
-	Str  string
-	Val  int
-	cstr *wchar_t
-}
-
-func (*WindowEvent0x4001) EventCode() int { return guiEventStaticTextSetText }
-func (ev *WindowEvent0x4001) cStr() *wchar_t {
-	if ev.cstr == nil {
-		ev.cstr = internWStr(ev.Str)
-	}
-	return ev.cstr
-}
-func (ev *WindowEvent0x4001) EventArgsC() (uintptr, uintptr) {
-	return uintptr(unsafe.Pointer(ev.cStr())), uintptr(ev.Val)
 }
 
 var _ gui.WindowEvent = &WindowEvent0x4005{}
