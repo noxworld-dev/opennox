@@ -37,7 +37,6 @@ extern uint32_t dword_5d4594_831224;
 extern unsigned int dword_5d4594_251744;
 extern unsigned int nox_client_renderGUI_80828;
 extern unsigned int nox_game_createOrJoin_815048;
-extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern nox_screenParticle* dword_5d4594_806052;
 extern nox_screenParticle* nox_screenParticles_head;
@@ -274,7 +273,7 @@ func sub_477530(a1 bool) {
 		if *memmap.PtrUint32(0x5D4594, 1096656) != 0 {
 			nox_client_toggleMap_473610()
 		}
-		if C.nox_xxx_xxxRenderGUI_587000_80832 == 1 {
+		if nox_xxx_xxxRenderGUI_587000_80832 == 1 {
 			C.nox_client_renderGUI_80828 = 1
 		}
 	}

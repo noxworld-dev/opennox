@@ -17,7 +17,6 @@ package opennox
 #include "client__gui__servopts__guiserv.h"
 
 extern unsigned int nox_client_renderGUI_80828;
-extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 extern void* nox_gui_itemAmount_dialog_1319228;
 
 int nox_ctrlevent_add_ticks_42E630();
@@ -600,7 +599,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 		case player.CCToggleGUI:
 			if !noxflags.HasEngine(noxflags.EngineNoRendering) {
 				C.nox_client_renderGUI_80828 ^= 1
-				C.nox_xxx_xxxRenderGUI_587000_80832 = C.nox_client_renderGUI_80828
+				nox_xxx_xxxRenderGUI_587000_80832 = int(C.nox_client_renderGUI_80828)
 				clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			}
 			ce.active = false

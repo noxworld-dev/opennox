@@ -346,7 +346,6 @@ uint32_t dword_5d4594_826036 = 0;
 uint32_t dword_5d4594_1064860 = 0;
 uint32_t dword_5d4594_1046536 = 0;
 uint32_t dword_5d4594_1062468 = 0;
-uint32_t nox_xxx_xxxRenderGUI_587000_80832 = 0x1;
 uint32_t dword_5d4594_1523036 = 0;
 uint32_t dword_5d4594_1303472 = 0;
 uint32_t dword_5d4594_1197328 = 0;

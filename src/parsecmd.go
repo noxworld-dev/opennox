@@ -28,7 +28,6 @@ int nox_cmd_offonly1(int, int, wchar_t**);
 int nox_cmd_offonly2(int, int, wchar_t**);
 int nox_cmd_set_net_debug(int, int, wchar_t**);
 int nox_cmd_unset_net_debug(int, int, wchar_t**);
-int nox_cmd_show_gui(int, int, wchar_t**);
 int nox_cmd_show_info(int, int, wchar_t**);
 int nox_cmd_show_mem(int, int, wchar_t**);
 int nox_cmd_show_rank(int, int, wchar_t**);
@@ -187,7 +186,6 @@ var (
 			noxflags.ToggleEngine(noxflags.EngineShowExtents)
 			return true
 		}},
-		{Token: "gui", HelpID: "showguihelp", Flags: console.ClientServer, LegacyFunc: wrapCommandC(nox_cmd_show_gui)},
 		{Token: "ai", HelpID: "showaihelp", Flags: console.Server | console.Cheat, Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			noxflags.ToggleEngine(noxflags.EngineShowAI)
 			return true
@@ -322,9 +320,6 @@ func nox_cmd_set_net_debug(i C.int, n C.int, arr **C.wchar_t) C.int {
 }
 func nox_cmd_unset_net_debug(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_unset_net_debug(i, n, arr)
-}
-func nox_cmd_show_gui(i C.int, n C.int, arr **C.wchar_t) C.int {
-	return C.nox_cmd_show_gui(i, n, arr)
 }
 func nox_cmd_show_info(i C.int, n C.int, arr **C.wchar_t) C.int {
 	return C.nox_cmd_show_info(i, n, arr)
