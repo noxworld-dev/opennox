@@ -24,11 +24,8 @@ var (
 	Nox_win_1064916              *Window
 )
 
-func GameexSomeWeirdCheckFixmePlease() bool {
-	// FIXME: no idea what is supposed to do... just checking if both are nil?
-	//        previously checked in asm: (cmp ds:6D8555, eax)
-	//        although we now know that offsets in Mix was wrong compared to our base binary
-	return (uintptr(unsafe.Pointer(nox_win_freeList))>>8)|(uintptr(unsafe.Pointer(Nox_win_activeWindow_1064900))<<24) == 0
+func GameexCheck() bool {
+	return nox_win_freeList == nil && Nox_win_activeWindow_1064900 == nil
 }
 
 func DrawGUI() {
