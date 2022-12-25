@@ -85,6 +85,9 @@ func (img *Image) String() string {
 }
 
 func (img *Image) Type() int {
+	if img == nil {
+		return -1
+	}
 	if img.bag != nil {
 		return int(img.bag.Type)
 	}

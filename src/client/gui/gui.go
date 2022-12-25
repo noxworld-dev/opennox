@@ -1,6 +1,9 @@
 package gui
 
 import (
+	"image"
+	"unsafe"
+
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
 
 	"github.com/noxworld-dev/opennox/v1/client/input"
@@ -8,8 +11,9 @@ import (
 )
 
 var (
-	DrawImplFunc func(win *Window)
-	Renderer     *noxrender.NoxRender
+	Renderer *noxrender.NoxRender
+
+	borders Borders
 
 	Nox_win_cur_input            *Window
 	Nox_win_1064912              *WindowRef
@@ -20,6 +24,10 @@ var (
 	Nox_win_activeWindow_1064900 *Window
 	Nox_win_1064916              *Window
 )
+
+func SetBorders(b Borders) {
+	borders = b
+}
 
 func GameexCheck() bool {
 	return nox_win_freeList == nil && Nox_win_activeWindow_1064900 == nil
@@ -298,4 +306,114 @@ func Sub46B120(win, par *Window) int {
 		win.parent = nil
 	}
 	return 0
+}
+
+func drawWindowBorder(win *Window) {
+	r := Renderer
+	data := win.DrawData()
+	gpos := win.GlobalPos()
+	sz := win.Size()
+
+	for i := 0; i < 32; i++ {
+		flag := data.Style & (1 << i)
+		if flag == 0 {
+			continue
+		}
+		switch flag {
+		case StylePushButton, StyleRadioButton, StyleStaticText, StyleProgressBar, StyleUserWindow:
+			borders.Draw(gpos.X, gpos.Y, sz.X, sz.Y)
+			return
+		case StyleCheckBox, StyleVertSlider, StyleHorizSlider:
+			return
+		case StyleScrollListBox:
+			ptr := win.WidgetData
+			dsx := 0
+			dy := 0
+			if *(*uint32)(unsafe.Add(ptr, 12)) != 0 {
+				p1 := *(**Window)(unsafe.Add(ptr, 36))
+				p2 := p1.Field100()
+				dsx = p2.Size().Y
+			}
+			if data.Text() != "" {
+				dy = 4
+			}
+			borders.Draw(gpos.X-3, gpos.Y-dy-3, sz.X-dsx+3, sz.Y+6)
+			return
+		case StyleEntryField:
+			v9 := gpos.X
+			ptr := win.WidgetData
+
+			sx := sz.X
+			x := gpos.X
+			dy := 0
+			if text := data.Text(); text != "" {
+				tsz := r.GetStringSizeWrapped(data.Font(), text, 0)
+				x += tsz.X + 6
+				sx -= tsz.X + 6
+			}
+			v14 := int(int16(*(*uint16)(unsafe.Add(ptr, 1042))))
+			if int32(v14) > 0 && sx > v14 {
+				sx = v14
+				x = v9 + sz.X - v14
+			}
+			borders.Draw(x, gpos.Y+dy, sx, sz.Y)
+			return
+		}
+	}
+}
+
+func (b *Borders) Draw(x, y, w, h int) {
+	r := Renderer
+	x1 := x + 10
+	x2 := x + w - 30
+	x3 := x + w
+	x4 := x + w
+
+	y1 := y - 10
+	y2 := y - 10
+	y3 := y + h - 10
+	if x1 <= x2 {
+		for {
+			r.DrawImage16(b.Horizontal, image.Pt(x1, y1))
+			r.DrawImage16(b.Horizontal, image.Pt(x1, y3))
+			x1 += 20
+			if x1 > x2 {
+				break
+			}
+		}
+		x4 = x3
+	}
+	x5 := x4 - 10
+	if x5-x1 >= 10 {
+		r.DrawImage16(b.HorizontalShort, image.Pt(x1, y1))
+		r.DrawImage16(b.HorizontalShort, image.Pt(x1, y3))
+		x1 += 10
+	}
+	if x1 < x5 {
+		v10 := int(uint32(x1) + (uint32(x5-x1+1) & 0xFFFFFFFE) - 10)
+		r.DrawImage16(b.HorizontalShort, image.Pt(v10, y1))
+		r.DrawImage16(b.HorizontalShort, image.Pt(v10, y3))
+	}
+	y4 := y + 10
+	x6 := x - 10
+	y5 := y + h - 30
+	for y4 <= y5 {
+		r.DrawImage16(b.Vertical, image.Pt(x6, y4))
+		r.DrawImage16(b.Vertical, image.Pt(x5, y4))
+		y4 += 20
+	}
+	if y3-y4 >= 10 {
+		r.DrawImage16(b.VerticalShort, image.Pt(x6, y4))
+		r.DrawImage16(b.VerticalShort, image.Pt(x5, y4))
+		y4 += 10
+	}
+	if y4 < y3 {
+		v16 := int(uint32(y4) + (uint32(y3-y4+1) & 0xFFFFFFFE) - 10)
+		r.DrawImage16(b.VerticalShort, image.Pt(x6, v16))
+		r.DrawImage16(b.VerticalShort, image.Pt(x5, v16))
+	}
+	r.DrawImage16(b.CornerUL, image.Pt(x6, y2))
+	r.DrawImage16(b.CornerUR, image.Pt(x5, y2))
+	r.DrawImage16(b.CornerLL, image.Pt(x6, y3))
+	r.DrawImage16(b.CornerLR, image.Pt(x5, y3))
 }
