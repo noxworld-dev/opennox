@@ -27,8 +27,6 @@ extern nox_window* dword_5d4594_1522628;
 extern nox_window* nox_win_xxx1_last;
 extern nox_window* dword_5d4594_1062452;
 
-extern unsigned int nox_client_gui_flag_815132;
-
 extern void* dword_5d4594_1096640;
 extern void* nox_client_spriteUnderCursorXxx_1096644;
 
@@ -549,7 +547,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 	mpos := c.Inp.GetMousePos()
 
 	C.nox_xxx_cursorSetTooltip_4776B0(nil)
-	if C.nox_client_gui_flag_815132 != 0 || nox_xxx_guiCursor_477600() != 0 {
+	if nox_client_gui_flag_815132 != 0 || nox_xxx_guiCursor_477600() != 0 {
 		c.Nox_client_setCursorType(gui.CursorSelect)
 	} else {
 		c.Nox_client_setCursorType(gui.CursorMoveArrow)

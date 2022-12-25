@@ -50,7 +50,6 @@ extern uint32_t dword_5d4594_815044;
 extern uint32_t dword_587000_93156;
 extern uint32_t dword_5d4594_826028;
 extern uint32_t dword_5d4594_816348;
-extern uint32_t nox_client_gui_flag_815132;
 extern uint32_t dword_587000_87412;
 extern nox_window* nox_wnd_quitMenu_825760;
 void* dword_5d4594_830236 = 0;
@@ -73,6 +72,7 @@ uint32_t dword_5d4594_816092 = 0;
 
 
 //----- (0043B510) --------------------------------------------------------
+void nox_client_gui_set_flag_815132(int v);
 void nox_client_xxx_switchChatMap_43B510() {
 	short v0;     // ax
 	char* result; // eax
@@ -81,7 +81,7 @@ void nox_client_xxx_switchChatMap_43B510() {
 	int v6;       // [esp+0h] [ebp-54h]
 	char v7[80];  // [esp+4h] [ebp-50h]
 
-	nox_client_gui_flag_815132 = 0;
+	nox_client_gui_set_flag_815132(0);
 	nox_xxx_setGameFlags_40A4D0(5);
 	nox_xxx_setMouseBounds_430A70(0, nox_win_width - 1, 0, nox_win_height - 1);
 	v6 = *getMemU32Ptr(0x5D4594, 814916);

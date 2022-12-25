@@ -26,6 +26,7 @@ var (
 	guiDebug                          = os.Getenv("NOX_DEBUG_GUI") == "true"
 	nox_xxx_xxxRenderGUI_587000_80832 = true
 	nox_client_renderGUI_80828        = true
+	nox_client_gui_flag_815132        int
 )
 
 func init() {
@@ -44,6 +45,11 @@ func init() {
 func enableGUIDrawing(enable bool) {
 	nox_client_renderGUI_80828 = enable
 	nox_xxx_xxxRenderGUI_587000_80832 = enable
+}
+
+//export nox_client_gui_set_flag_815132
+func nox_client_gui_set_flag_815132(v int) {
+	nox_client_gui_flag_815132 = v
 }
 
 //export nox_client_onClientStatusA
