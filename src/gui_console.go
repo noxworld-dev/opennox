@@ -162,15 +162,15 @@ func (c *guiConsole) Init(sz image.Point) *gui.Window {
 	drawData.SetSelectedColor(nox_color_gray2)
 	drawData.SetTextColor(nox_color_gray2)
 
-	inpData, freeInp := alloc.New(entryFieldData{})
+	inpData, freeInp := alloc.New(gui.EntryFieldData{})
 	defer freeInp()
-	inpData.text[0] = 0
-	inpData.field_1024 = 0
-	inpData.field_1028 = 0
-	inpData.field_1032 = 0
-	inpData.field_1036 = 0
-	inpData.field_1040 = 128
-	inpData.field_1042 = memmap.Int16(0x5D4594, 833704)
+	inpData.Text[0] = 0
+	inpData.Field_1024 = 0
+	inpData.Field_1028 = 0
+	inpData.Field_1032 = 0
+	inpData.Field_1036 = 0
+	inpData.Field_1040 = 128
+	inpData.Field_1042 = memmap.Int16(0x5D4594, 833704)
 
 	drawData.SetText("")
 	drawData.Style = gui.StyleEntryField
@@ -319,8 +319,8 @@ func (c *guiConsole) inputProc(win *gui.Window, ev gui.WindowEvent) gui.WindowEv
 }
 
 func (c *guiConsole) nox_gui_console_Enter_450FD0() {
-	wd := (*entryFieldData)(c.input.WidgetData)
-	if wd.field_1044 != 0 {
+	wd := (*gui.EntryFieldData)(c.input.WidgetData)
+	if wd.Field_1044 != 0 {
 		return
 	}
 	cmd := eventRespStr(c.input.Func94(gui.AsWindowEvent(0x401d, 0, 0)))
