@@ -174,7 +174,7 @@ func (c *guiAdvOptions) nox_client_advVideoOptsProc_4CB5D0(win *gui.Window, ev g
 }
 
 func (c *guiAdvOptions) newAdvVideoOpts() *gui.Window {
-	draw, drawFree := tempDrawData()
+	draw, drawFree := gui.NewWindowData()
 	defer drawFree()
 
 	draw.Status = gui.StatusEnabled | gui.StatusNoFocus

@@ -119,17 +119,6 @@ func nox_gui_newEntryField_488500(par *gui.Window, status gui.StatusFlags, px, p
 	return asWindow((*C.nox_window)(C.nox_gui_newEntryField_488500((*C.nox_window)(par.C()), C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.ushort)(unsafe.Pointer(tdata)))))
 }
 
-func tempDrawData() (*gui.WindowData, func()) {
-	d, free := alloc.New(gui.WindowData{})
-	d.SetHighlightColor(noxcolor.RGB5551Color(255, 255, 255))
-	d.SetTextColor(noxcolor.RGB5551Color(200, 200, 200))
-	d.SetEnabledColor(color.Transparent)
-	d.SetDisabledColor(color.Transparent)
-	d.SetSelectedColor(color.Transparent)
-	d.SetBackgroundColor(color.Transparent)
-	return d, free
-}
-
 //export nox_gui_newStaticText_489300
 func nox_gui_newStaticText_489300(par *C.nox_window, status C.int, px, py, w, h C.int, draw *C.nox_window_data, data *C.nox_staticText_data) *C.nox_window {
 	return (*C.nox_window)(noxClient.GUI.NewStaticTextRaw(asWindow(par), gui.StatusFlags(status), int(px), int(py), int(w), int(h), asWindowData(draw), (*gui.StaticTextData)(unsafe.Pointer(data))).C())
@@ -141,7 +130,7 @@ func nox_xxx_wndStaticDrawNoImage_488D00(win *C.nox_window, draw *C.nox_window_d
 }
 
 func NewHorizontalSlider(par *gui.Window, id uint, px, py, w, h int, min, max int) *gui.Window {
-	draw, dfree := tempDrawData()
+	draw, dfree := gui.NewWindowData()
 	defer dfree()
 	*draw = *par.DrawData()
 
@@ -171,7 +160,7 @@ func NewHorizontalSlider(par *gui.Window, id uint, px, py, w, h int, min, max in
 }
 
 func NewCheckbox(g *gui.GUI, par *gui.Window, id uint, px, py, w, h int, text string) *gui.Window {
-	draw, dfree := tempDrawData()
+	draw, dfree := gui.NewWindowData()
 	defer dfree()
 	*draw = *par.DrawData()
 
@@ -196,7 +185,7 @@ func NewCheckbox(g *gui.GUI, par *gui.Window, id uint, px, py, w, h int, text st
 }
 
 func NewRadioButton(g *gui.GUI, par *gui.Window, id uint, px, py, w, h int, group int, text string) *gui.Window {
-	draw, dfree := tempDrawData()
+	draw, dfree := gui.NewWindowData()
 	defer dfree()
 
 	*draw = *par.DrawData()
