@@ -465,8 +465,8 @@ func (win *Window) drawRecursive() bool {
 		return true
 	}
 	win.Draw()
-	if (win.Flags&0x1000) != 0 && DrawImplFunc != nil {
-		DrawImplFunc(win)
+	if win.Flags.Has(StatusBorder) {
+		drawWindowBorder(win)
 	}
 
 	for sub := win.field100; sub != nil; sub = sub.Prev() {

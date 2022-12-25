@@ -43,6 +43,9 @@ func (r *NoxRender) DrawImage16(img Image16, pos image.Point) {
 	if img == nil {
 		return
 	}
+	if p, ok := img.(*Image); ok && p == nil {
+		return
+	}
 	switch img.Type() & 0x3F {
 	case 2, 7:
 		r.nox_client_drawImg_bbb_4C7860(img, pos)

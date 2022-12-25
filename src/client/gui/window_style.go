@@ -194,3 +194,14 @@ func (d *WindowData) SetDefaults(def StyleDefaults) {
 func (d *WindowData) Font() font.Face {
 	return Renderer.Fonts.AsFont(d.font)
 }
+
+type Borders struct {
+	CornerUL        *noxrender.Image
+	CornerUR        *noxrender.Image
+	CornerLL        *noxrender.Image
+	CornerLR        *noxrender.Image
+	Horizontal      *noxrender.Image
+	HorizontalShort *noxrender.Image
+	Vertical        *noxrender.Image
+	VerticalShort   *noxrender.Image
+}
