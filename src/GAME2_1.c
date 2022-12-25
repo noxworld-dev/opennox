@@ -112,7 +112,6 @@ extern uint32_t dword_5d4594_1062508;
 extern uint32_t dword_5d4594_1049504;
 extern uint32_t dword_5d4594_1090120;
 extern uint32_t dword_5d4594_1063116;
-extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_1062480;
 extern uint32_t nox_player_netCode_85319C;
 extern void* nox_xxx_aClosewoodengat_587000_133480;
@@ -200,7 +199,7 @@ int nox_xxx_cliPrepareGameplay1_460E60() {
 	}
 	result = nox_xxx_quickBarCreate_45E190();
 	if (result) {
-		sub_460EA0(*(int*)&nox_client_renderGUI_80828);
+		sub_460EA0(nox_client_getRenderGUI());
 		result = 1;
 	}
 	return result;
@@ -5058,7 +5057,7 @@ int nox_xxx_cliPrepareGameplay2_4721D0() {
 	}
 	nox_xxx_guiHealthManaInit_4714E0();
 	sub_472310();
-	return sub_4721A0(*(int*)&nox_client_renderGUI_80828);
+	return sub_4721A0(nox_client_getRenderGUI());
 }
 
 //----- (00472220) --------------------------------------------------------

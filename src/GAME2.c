@@ -171,7 +171,6 @@ extern uint32_t dword_5d4594_1049500;
 extern uint32_t dword_5d4594_1045604;
 extern uint32_t dword_5d4594_1046868;
 extern uint32_t dword_5d4594_1049504;
-extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_832484;
 extern uint32_t dword_5d4594_1045684;
 extern uint32_t dword_5d4594_1045516;
@@ -6024,7 +6023,7 @@ void nox_xxx_bookFillAll_45D570(int a1, int a2) {
 					dword_5d4594_1047524 = a2;
 					dword_5d4594_1046652 = a1 == 3;
 					*getMemU32Ptr(0x5D4594, 1046676) = a1;
-					nox_client_renderGUI_80828 = 1;
+					nox_client_setRenderGUI(1);
 					a3.field_4 = -500;
 					a4.field_0 = 350;
 					*getMemU32Ptr(0x5D4594, 1046680) = 0;

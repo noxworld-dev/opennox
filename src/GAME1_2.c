@@ -111,7 +111,6 @@ extern uint32_t dword_5d4594_815016;
 extern uint32_t nox_game_createOrJoin_815048;
 extern uint32_t dword_587000_87412;
 extern uint32_t dword_5d4594_815000;
-extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t nox_wol_wnd_gameList_815012;
 extern nox_window* dword_5d4594_815004;
 extern nox_window* nox_wol_wnd_world_814980;
@@ -3650,26 +3649,24 @@ int sub_436550() {
 
 //----- (00437100) --------------------------------------------------------
 void sub_4706C0(int a1);
-int sub_437100() {
+void sub_437100() {
 	int result; // eax
 
-	result = nox_client_renderGUI_80828;
-	if (*getMemU32Ptr(0x5D4594, 811064) != nox_client_renderGUI_80828 &&
+	int flag = nox_client_getRenderGUI();
+	if (*getMemU32Ptr(0x5D4594, 811064) != flag &&
 		!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-		*getMemU32Ptr(0x5D4594, 811064) = nox_client_renderGUI_80828;
-		sub_4721A0(*(int*)&nox_client_renderGUI_80828);
-		sub_460EA0(*(int*)&nox_client_renderGUI_80828);
-		nox_window_set_visible_unk5(*(int*)&nox_client_renderGUI_80828);
-		sub_45D500(*(int*)&nox_client_renderGUI_80828);
-		sub_455A00(*(int*)&nox_client_renderGUI_80828);
-		sub_455F10(*(int*)&nox_client_renderGUI_80828);
-		sub_4706C0(*(int*)&nox_client_renderGUI_80828);
-		result = nox_client_renderGUI_80828;
-		if (!nox_client_renderGUI_80828) {
-			result = sub_478000();
+		*getMemU32Ptr(0x5D4594, 811064) = flag;
+		sub_4721A0(flag);
+		sub_460EA0(flag);
+		nox_window_set_visible_unk5(flag);
+		sub_45D500(flag);
+		sub_455A00(flag);
+		sub_455F10(flag);
+		sub_4706C0(flag);
+		if (!flag) {
+			sub_478000();
 		}
 	}
-	return result;
 }
 
 //----- (004372B0) --------------------------------------------------------

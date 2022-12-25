@@ -39,7 +39,6 @@ package opennox
 extern unsigned int nox_game_createOrJoin_815048;
 extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_client_gui_flag_1556112;
-extern unsigned int nox_client_renderGUI_80828;
 extern unsigned int dword_5d4594_1548524;
 extern unsigned int dword_5d4594_2650652;
 extern void* dword_5d4594_1548532;
@@ -1131,7 +1130,7 @@ func nox_game_guiInit_473680() error {
 	guiCon.Enable(true)
 	C.sub_4AB4A0(0)
 	C.sub_4AB4D0(0)
-	if C.nox_client_renderGUI_80828 == 0 || noxflags.HasEngine(noxflags.EngineNoRendering) {
+	if !nox_client_renderGUI_80828 || noxflags.HasEngine(noxflags.EngineNoRendering) {
 		C.sub_4721A0(0)
 		C.sub_460EA0(0)
 		C.nox_window_set_visible_unk5(0)
@@ -2121,7 +2120,7 @@ func sub_473840() {
 	C.nox_xxx_guiServerOptionsHide_4597E0(1)
 	C.sub_467980()
 	sub_46C5D0()
-	C.nox_client_renderGUI_80828 = C.uint(nox_xxx_xxxRenderGUI_587000_80832)
+	nox_client_renderGUI_80828 = nox_xxx_xxxRenderGUI_587000_80832
 }
 
 func sub_460E90() {

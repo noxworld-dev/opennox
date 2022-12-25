@@ -14,7 +14,6 @@ nox_window* dword_5d4594_815004 = 0;
 uint32_t nox_wol_wnd_gameList_815012 = 0;
 uint32_t dword_5d4594_1062480 = 0;
 uint32_t dword_5d4594_832484 = 0;
-uint32_t nox_client_renderGUI_80828 = 0x1;
 uint32_t dword_5d4594_2516348 = 0;
 uint32_t dword_5d4594_1063116 = 0;
 uint32_t dword_5d4594_1090120 = 0;

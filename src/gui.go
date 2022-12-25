@@ -6,8 +6,6 @@ package opennox
 #include "GAME2_2.h"
 #include "GAME2_3.h"
 #include "client__gui__guicon.h"
-
-extern unsigned int nox_client_renderGUI_80828;
 */
 import "C"
 import (
@@ -37,7 +35,8 @@ var (
 	nox_win_activeWindow_1064900      *Window
 	nox_win_1064916                   *Window
 	nox_win_freeList                  *Window // dword_5d4594_1064896
-	nox_xxx_xxxRenderGUI_587000_80832 int     = 1
+	nox_xxx_xxxRenderGUI_587000_80832 = true
+	nox_client_renderGUI_80828        = true
 )
 
 func init() {
@@ -45,32 +44,36 @@ func init() {
 		Token: "gui", HelpID: "showguihelp",
 		Flags: console.ClientServer,
 		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
-			v0 := C.nox_client_renderGUI_80828 ^ 1
-			C.nox_client_renderGUI_80828 = v0
-			nox_xxx_xxxRenderGUI_587000_80832 = int(v0)
+			v0 := !nox_client_renderGUI_80828
+			nox_client_renderGUI_80828 = v0
+			nox_xxx_xxxRenderGUI_587000_80832 = v0
 			return true
 		},
 	})
 }
 
 func enableGUIDrawing(enable bool) {
-	if enable {
-		// TODO: might be a bitfield
-		C.nox_client_renderGUI_80828 = 1
-		nox_xxx_xxxRenderGUI_587000_80832 = 1
-	} else {
-		C.nox_client_renderGUI_80828 = 0
-		nox_xxx_xxxRenderGUI_587000_80832 = 0
-	}
+	nox_client_renderGUI_80828 = enable
+	nox_xxx_xxxRenderGUI_587000_80832 = enable
 }
 
 //export nox_client_onClientStatusA
 func nox_client_onClientStatusA(v int) {
 	if v&1 != 0 {
-		C.nox_client_renderGUI_80828 = 0
-	} else if nox_xxx_xxxRenderGUI_587000_80832 == 1 {
-		C.nox_client_renderGUI_80828 = 1
+		nox_client_renderGUI_80828 = false
+	} else if nox_xxx_xxxRenderGUI_587000_80832 {
+		nox_client_renderGUI_80828 = true
 	}
+}
+
+//export nox_client_setRenderGUI
+func nox_client_setRenderGUI(v int) {
+	nox_client_renderGUI_80828 = v != 0
+}
+
+//export nox_client_getRenderGUI
+func nox_client_getRenderGUI() int {
+	return bool2int(nox_client_renderGUI_80828)
 }
 
 //export nox_xxx_wndGetFocus_46B4F0

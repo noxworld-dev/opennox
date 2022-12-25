@@ -19,7 +19,6 @@ extern unsigned int nox_client_highResFloors_154952;
 extern unsigned int nox_client_lockHighResFloors_1193152;
 extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int nox_client_renderBubbles_80844;
-extern unsigned int nox_client_renderGUI_80828;
 extern uint32_t nox_server_connectionType_3596;
 extern uint32_t nox_server_kickQuestPlayerMinVotes_229992;
 extern uint32_t nox_server_resetQuestMinVotes_229988;
@@ -258,7 +257,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.nox_client_renderGUI_80828 = C.uint(bool2int(v != 0))
+			nox_client_renderGUI_80828 = v != 0
 		case "FadeObjects":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
@@ -700,7 +699,7 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 	sect.Set("TexturedFloors", strconv.Itoa(bool2int(nox_client_texturedFloors_154956)))
 	sect.Set("TranslucentConsole", strconv.Itoa(bool2int(guiCon.translucent)))
 	sect.Set("RenderGlow", strconv.Itoa(bool2int(noxClient.r.Part.RenderGlow)))
-	sect.Set("RenderGUI", strconv.Itoa(int(C.nox_client_renderGUI_80828)))
+	sect.Set("RenderGUI", strconv.Itoa(bool2int(nox_client_renderGUI_80828)))
 	sect.Set("FadeObjects", strconv.Itoa(int(C.nox_client_fadeObjects_80836)))
 	sect.Set("RenderBubbles", strconv.Itoa(int(C.nox_client_renderBubbles_80844)))
 	sect.Set("TrackData", strconv.Itoa(int(sub_578DF0())))

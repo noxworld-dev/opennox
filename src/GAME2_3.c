@@ -80,7 +80,6 @@ extern uint32_t dword_5d4594_1197312;
 extern uint32_t dword_5d4594_1303452;
 extern uint32_t dword_5d4594_1305684;
 extern uint32_t dword_5d4594_1217464;
-extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_1217448;
 extern uint32_t nox_player_netCode_85319C;
 extern int nox_win_width;
@@ -1027,7 +1026,7 @@ bool sub_48E000(int4* a1, uint32_t* a2) {
 		}
 	}
 LABEL_13:
-	if (nox_client_renderGUI_80828) {
+	if (nox_client_getRenderGUI()) {
 		v11.field_0 = 0;
 		v11.field_C = nox_win_height;
 		v11.field_8 = 111;

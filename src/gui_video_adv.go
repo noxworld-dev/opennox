@@ -8,7 +8,6 @@ extern unsigned int nox_client_highResFloors_154952;
 extern unsigned int nox_client_lockHighResFloors_1193152;
 extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int nox_client_renderBubbles_80844;
-extern unsigned int nox_client_renderGUI_80828;
 extern unsigned int dword_5d4594_1193156;
 extern unsigned int dword_5d4594_1301812;
 extern unsigned int dword_5d4594_1301816;
@@ -69,7 +68,7 @@ func (c *guiAdvOptions) Init(cli *Client) {
 		{ID: 2033, Bool: &nox_client_texturedFloors2_154960, TextID: "AdVidOpt.wnd:FlatShadedFloors"},
 		{ID: 2052, Flag: noxflags.EngineNoSoftLights, Text: "Disable Soft Light", TextID: "AdVidOpt.wnd:NoSoftLights"},
 		//{ID: 2041, CFlag: &C.nox_client_renderBubbles_80844, TextID: "AdVidOpt.wnd:RenderBubbles"},
-		{ID: 2040, CFlag: &C.nox_client_renderGUI_80828, TextID: "AdVidOpt.wnd:RenderGUI"},
+		{ID: 2040, Bool: &nox_client_renderGUI_80828, TextID: "AdVidOpt.wnd:RenderGUI"},
 	}
 	for _, opt := range c.noxVideoAdvList {
 		if opt.ID == 0 {
@@ -167,7 +166,7 @@ func (c *guiAdvOptions) nox_client_advVideoOptsProc_4CB5D0(win *Window, ev Windo
 		case 2020:
 			sub_49B3C0()
 		case 2040:
-			nox_xxx_xxxRenderGUI_587000_80832 = int(C.nox_client_renderGUI_80828)
+			nox_xxx_xxxRenderGUI_587000_80832 = nox_client_renderGUI_80828
 		}
 		return nil
 	}
