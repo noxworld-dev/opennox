@@ -37,7 +37,6 @@ package opennox
 #include "client__gui__guimeter.h"
 #include "server__network__mapsend.h"
 extern unsigned int nox_game_createOrJoin_815048;
-extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int dword_5d4594_1548524;
 extern unsigned int dword_5d4594_2650652;
@@ -396,7 +395,7 @@ func startServer() bool {
 	sub_43AF50()
 	if nox_xxx_parseGamedataBinPre_4D1630() == 0 {
 		nox_xxx_setContinueMenuOrHost_43DDD0(0)
-		C.nox_client_gui_flag_815132 = 0
+		nox_client_gui_flag_815132 = 0
 		return false
 	}
 	nox_xxx_serverHost_43B4D0()

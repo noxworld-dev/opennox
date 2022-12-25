@@ -16,7 +16,6 @@ package opennox
 extern void* dword_5d4594_1307292;
 extern void* dword_5d4594_831236;
 extern unsigned int dword_5d4594_831220;
-extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern uint32_t dword_5d4594_831260;
 int sub_4A1D40();
@@ -103,7 +102,7 @@ func (c *Client) nox_xxx_wndLoadMainBG_4A2210() int {
 	//const char* v2;    // eax
 	//unsigned char* v3; // esi
 
-	C.nox_client_gui_flag_815132 = 1
+	nox_client_gui_flag_815132 = 1
 	nox_win_main_bg = newWindowFromFile(c.GUI, "MainBG.wnd", sub_4A2490)
 	if !sub_4A1A60() {
 		return 0
@@ -150,7 +149,7 @@ func sub_44E320() {
 	sub_43DDA0()
 	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
 	if C.dword_5d4594_831220 == 255 {
-		if C.nox_client_gui_flag_815132 == 1 {
+		if nox_client_gui_flag_815132 == 1 {
 			C.sub_4505E0()
 			sub_4A2500()
 			sub_578E00()
@@ -276,7 +275,7 @@ func sub43BE30() bool {
 
 func sub_4A19D0() {
 	nox_xxx_setContinueMenuOrHost_43DDD0(0)
-	C.nox_client_gui_flag_815132 = 0
+	nox_client_gui_flag_815132 = 0
 }
 
 //export sub_4A18E0
@@ -368,7 +367,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 				C.nox_xxx_cliSetMinimapZoom_472520(1110)
 				if nox_xxx_parseGamedataBinPre_4D1630() == 0 {
 					nox_xxx_setContinueMenuOrHost_43DDD0(0)
-					C.nox_client_gui_flag_815132 = 0
+					nox_client_gui_flag_815132 = 0
 					return nil
 				}
 				if C.nox_client_countSaveFiles_4DC550() != 0 {
@@ -410,7 +409,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 			C.nox_xxx_cliSetMinimapZoom_472520(2300)
 			if nox_xxx_parseGamedataBinPre_4D1630() == 0 {
 				nox_xxx_setContinueMenuOrHost_43DDD0(0)
-				C.nox_client_gui_flag_815132 = 0
+				nox_client_gui_flag_815132 = 0
 				return nil
 			}
 			nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showGameSel_4379F0)
@@ -457,7 +456,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 			C.sub_461440(0)
 			if nox_xxx_parseGamedataBinPre_4D1630() == 0 {
 				nox_xxx_setContinueMenuOrHost_43DDD0(0)
-				C.nox_client_gui_flag_815132 = 0
+				nox_client_gui_flag_815132 = 0
 				return nil
 			}
 			nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showGameSel_4379F0)

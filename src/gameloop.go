@@ -25,7 +25,6 @@ extern void* dword_5d4594_814624;
 extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_587000_145664;
 extern unsigned int dword_587000_145668;
-extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern void* nox_alloc_chat_1197364;
 extern uint32_t dword_5d4594_1090120;
@@ -650,7 +649,7 @@ func CONNECT_RESULT_OK() error {
 }
 
 func mainloopMaybeSwitchMapXXX() {
-	if C.nox_client_gui_flag_815132 != 0 {
+	if nox_client_gui_flag_815132 != 0 {
 		return
 	}
 	if !noxflags.HasGame(noxflags.GameOnline) {
@@ -678,7 +677,7 @@ func nox_xxx_cliWaitForJoinData_43BFE0() bool {
 	}
 	noxServer.SetUpdateFunc(func() bool {
 		noxServer.IncFrame()
-		if C.nox_client_gui_flag_815132 != 0 {
+		if nox_client_gui_flag_815132 != 0 {
 			return true
 		}
 		if !isDedicatedServer {
@@ -689,13 +688,13 @@ func nox_xxx_cliWaitForJoinData_43BFE0() bool {
 	noxClient.SetDrawFunc(nil)
 	if memmap.Uint32(0x587000, 91840) != 0 {
 		*memmap.PtrUint32(0x587000, 91840) = 0
-		C.nox_client_gui_flag_815132 = 1
+		nox_client_gui_flag_815132 = 1
 		return true
 	}
 	if !nox_game_state.Switch() {
 		return false
 	}
-	C.nox_client_gui_flag_815132 = 1
+	nox_client_gui_flag_815132 = 1
 	return true
 }
 
@@ -994,7 +993,7 @@ func nox_xxx_cliDrawConnectedLoop_43B360() C.int {
 func nox_client_guiXxxDestroy_4A24A0() C.int {
 	sub_4A1BD0()
 	noxClient.GUI.DestroyAll()
-	C.nox_client_gui_flag_815132 = 0
+	nox_client_gui_flag_815132 = 0
 	return 1
 }
 

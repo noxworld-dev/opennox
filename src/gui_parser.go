@@ -2,7 +2,6 @@ package opennox
 
 /*
 #include "client__gui__window.h"
-extern unsigned int nox_client_gui_flag_815132;
 */
 import "C"
 import (
@@ -187,7 +186,7 @@ func (p *guiParser) parseWindowRoot(fnc gui.WindowFunc) *gui.Window {
 	draw.SetDefaults(p.defaults.StyleDefaults)
 	font := p.defaults.font
 	if font == nil {
-		if C.nox_client_gui_flag_815132 != 0 {
+		if nox_client_gui_flag_815132 != 0 {
 			font = noxClient.r.Fonts.FontPtrByName(noxfont.LargeName)
 		} else {
 			font = noxClient.r.Fonts.FontPtrByName(noxfont.DefaultName)

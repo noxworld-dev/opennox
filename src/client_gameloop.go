@@ -16,7 +16,6 @@ package opennox
 #include "GAME5_2.h"
 
 extern unsigned int nox_client_gui_flag_1556112;
-extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int dword_5d4594_2650652;
 */
 import "C"
@@ -49,7 +48,7 @@ var (
 )
 
 func (c *Client) drawAndPresent() {
-	if C.nox_client_gui_flag_815132 != 0 {
+	if nox_client_gui_flag_815132 != 0 {
 		guiAnimationStep()
 		noxflags.UnsetEngine(noxflags.EnginePause)
 		c.generateMouseSparks()
@@ -171,18 +170,18 @@ func (c *Client) mainloopDrawAndPresent() {
 		c.GUI.Draw() // Draw game windows
 	}
 	c.DrawSparks()
-	if !noxflags.HasEngine(noxflags.EngineNoRendering) || noxflags.HasEngine(noxflags.EngineFlag9) || C.nox_client_gui_flag_815132 != 0 {
+	if !noxflags.HasEngine(noxflags.EngineNoRendering) || noxflags.HasEngine(noxflags.EngineFlag9) || nox_client_gui_flag_815132 != 0 {
 		c.nox_client_drawCursorAndTooltips_477830() // Draw cursor
 	}
 	c.r.DrawFade(true)
 	c.maybeScreenshot()
-	if !noxflags.HasEngine(noxflags.EngineNoRendering) || noxflags.HasEngine(noxflags.EngineFlag9) || C.nox_client_gui_flag_815132 != 0 {
+	if !noxflags.HasEngine(noxflags.EngineNoRendering) || noxflags.HasEngine(noxflags.EngineFlag9) || nox_client_gui_flag_815132 != 0 {
 		c.copyPixBuffer()
 	}
 }
 
 func (c *Client) DrawSparks() {
-	if C.nox_client_gui_flag_815132 != 0 {
+	if nox_client_gui_flag_815132 != 0 {
 		sz := videoGetWindowSize()
 		rdr, rdrFree := alloc.New(nox_draw_viewport_t{})
 		defer rdrFree()

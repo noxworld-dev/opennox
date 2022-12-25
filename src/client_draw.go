@@ -31,7 +31,6 @@ extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int dword_5d4594_811904;
 extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
-extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_client_highResFloors_154952;
 extern nox_drawable* nox_xxx_drawablePlayer_1046600;
 void nox_xxx_tileDrawMB_481C20_A(nox_draw_viewport_t* vp, int v3);
@@ -133,7 +132,7 @@ func (c *Client) nox_xxx_clientDrawAll_436100_draw() {
 		nox_ticks_reset_416D40()
 	}
 	if !(memmap.Uint32(0x587000, 85724) == 0 || isTick || !noxflags.HasGame(noxflags.GameHost) || nox_ticks_getNext() >= 0 ||
-		C.nox_client_gui_flag_815132 != 0 || nox_xxx_checkGameFlagPause_413A50() || noxflags.HasEngine(noxflags.EngineNoRendering)) {
+		nox_client_gui_flag_815132 != 0 || nox_xxx_checkGameFlagPause_413A50() || noxflags.HasEngine(noxflags.EngineNoRendering)) {
 		noxflags.SetEngine(noxflags.EnginePause)
 		return
 	}
