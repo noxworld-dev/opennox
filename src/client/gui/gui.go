@@ -1,8 +1,6 @@
 package gui
 
 import (
-	"unsafe"
-
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
 
 	"github.com/noxworld-dev/opennox/v1/client/input"
@@ -10,9 +8,8 @@ import (
 )
 
 var (
-	DefaultDrawFunc unsafe.Pointer
-	DrawImplFunc    func(win *Window)
-	Renderer        *noxrender.NoxRender
+	DrawImplFunc func(win *Window)
+	Renderer     *noxrender.NoxRender
 
 	Nox_win_cur_input            *Window
 	Nox_win_1064912              *WindowRef

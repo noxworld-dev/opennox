@@ -30,8 +30,7 @@ type WindowData struct {
 	disImage  noxrender.ImageHandle // 12, 48 (84)
 	selColor  uint32                // 13, 52 (88)
 	selImage  noxrender.ImageHandle // 14, 56 (92)
-	imgPx     int32                 // 15, 60 (96)
-	imgPy     int32                 // 16, 64 (100)
+	imgPt     image.Point           // 15, 60 (96)
 	textColor uint32                // 17, 68 (104)
 	text      [64]uint16            // 18, 72 (108)
 	font      unsafe.Pointer        // 50, 200 (236)
@@ -176,15 +175,11 @@ func (d *WindowData) SetFont(font unsafe.Pointer) {
 }
 
 func (d *WindowData) ImagePoint() image.Point {
-	return image.Point{
-		X: int(d.imgPx),
-		Y: int(d.imgPy),
-	}
+	return d.imgPt
 }
 
 func (d *WindowData) SetImagePoint(p image.Point) {
-	d.imgPx = int32(p.X)
-	d.imgPy = int32(p.Y)
+	d.imgPt = p
 }
 
 func (d *WindowData) SetDefaults(def StyleDefaults) {

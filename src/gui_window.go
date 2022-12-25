@@ -5,7 +5,6 @@ package opennox
 #include "client__gui__window.h"
 extern nox_window_ref* nox_win_1064912;
 
-int  nox_xxx_wndDrawFnDefault_46B370(int a1, int* a2);
 void  sub_4AA030(nox_window* win, nox_window_data* data);
 
 static int nox_window_call_draw_func_go(int (*fnc)(nox_window*, nox_window_data*), nox_window* win, nox_window_data* data) {
@@ -33,7 +32,6 @@ import (
 )
 
 func init() {
-	gui.DefaultDrawFunc = C.nox_xxx_wndDrawFnDefault_46B370
 	gui.DrawImplFunc = func(win *gui.Window) {
 		C.sub_4AA030((*C.nox_window)(win.C()), (*C.nox_window_data)(win.DrawData().C()))
 	}

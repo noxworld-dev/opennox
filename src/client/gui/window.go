@@ -4,6 +4,8 @@ import (
 	"image"
 	"unsafe"
 
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
+
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 )
@@ -342,7 +344,7 @@ func (win *Window) SetFunc94(fnc WindowFunc) { // nox_xxx_wndSetProc_46B2C0
 
 func (win *Window) SetDraw(fnc WindowDrawFunc) { // nox_xxx_wndSetDrawFn_46B340
 	if fnc == nil {
-		fnc = WrapWindowDrawFuncC(DefaultDrawFunc)
+		fnc = drawDefault
 	}
 	win.ext().Draw = fnc
 }
@@ -471,4 +473,27 @@ func (win *Window) drawRecursive() bool {
 		sub.drawRecursive()
 	}
 	return true
+}
+
+func drawDefault(win *Window, draw *WindowData) int {
+	gpos := win.GlobalPos()
+	if !win.Flags.Has(StatusImage) {
+		if draw.BackgroundColor().Color32() != noxcolor.TransparentRGBA5551.Color32() {
+			Renderer.DrawRectFilledOpaque(gpos.X, gpos.Y, win.Size().X, win.Size().Y, draw.BackgroundColor())
+		}
+		return 1
+	}
+	ipt := win.DrawData().ImagePoint()
+	gpos = gpos.Add(ipt)
+	// TODO: was DrawImageAt
+	if win.DrawData().Field0&2 != 0 {
+		if img := draw.HighlightImage(); img != nil {
+			Renderer.DrawImage16(img, gpos)
+		}
+	} else {
+		if img := draw.BackgroundImage(); img != nil {
+			Renderer.DrawImage16(img, gpos)
+		}
+	}
+	return 1
 }

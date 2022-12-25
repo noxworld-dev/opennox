@@ -307,36 +307,6 @@ void sub_4AA030(nox_window* win, nox_window_data* data) {
 	}
 }
 
-//----- (0046B370) --------------------------------------------------------
-int nox_xxx_wndDrawFnDefault_46B370(int a1, int* a2) {
-	int v2;        // edx
-	int v3;        // ecx
-	int result;    // eax
-	int xLeft = 0; // [esp+4h] [ebp-8h]
-	int yTop = 0;  // [esp+8h] [ebp-4h]
-
-	nox_client_wndGetPosition_46AA60((unsigned int*)a1, &xLeft, &yTop);
-	if ((signed char)*(unsigned char*)(a1 + 4) >= 0) {
-		if (a2[5] != 0x80000000) {
-			nox_client_drawSetColor_434460(a2[5]);
-			nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, *(unsigned int*)(a1 + 8), *(unsigned int*)(a1 + 12));
-		}
-		result = 1;
-	} else {
-		v2 = *(unsigned int*)(a1 + 100);
-		xLeft += *(unsigned int*)(a1 + 96);
-		v3 = v2 + yTop;
-		yTop = v3;
-		if (*(unsigned char*)(a1 + 36) & 2) {
-			nox_client_drawImageAt_47D2C0(a2[10], xLeft, v3);
-		} else {
-			nox_client_drawImageAt_47D2C0(a2[6], xLeft, v3);
-		}
-		result = 1;
-	}
-	return result;
-}
-
 //----- (0046AD60) --------------------------------------------------------
 int nox_xxx_wnd_46AD60(int a1, int a2) {
 	int result; // eax
