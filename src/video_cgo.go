@@ -12,7 +12,6 @@ package opennox
 #include "common__magic__speltree.h"
 extern unsigned int dword_5d4594_1193188;
 extern unsigned int dword_5d4594_1305748;
-extern unsigned int dword_5d4594_3799468;
 extern int dword_5d4594_3799524;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -786,7 +785,7 @@ func (c *Client) nox_client_drawCursorAndTooltips_477830() {
 		c.r.DrawRectFilledAlpha(px, py, sz.X, sz.Y)
 		c.r.Data().SetTextColor(nox_color_yellow_2589772)
 		c.r.DrawStringWrapped(nil, str, image.Rect(px+2, py+2, px+2, py+2))
-		if C.dword_5d4594_3799468 != 0 {
+		if gui.Dword_5d4594_3799468 != 0 {
 			vp := c.Viewport()
 			if px < vp.Screen.Min.X || px+sz.X > vp.Screen.Max.X || py < vp.Screen.Min.Y || py+sz.Y > vp.Screen.Max.Y {
 				C.dword_5d4594_3799524 = 1
@@ -796,7 +795,7 @@ func (c *Client) nox_client_drawCursorAndTooltips_477830() {
 }
 
 func (c *Client) sub_477F80() {
-	if C.dword_5d4594_3799468 != 0 {
+	if gui.Dword_5d4594_3799468 != 0 {
 		vp := c.Viewport()
 		if c.pos1097212.X < vp.Screen.Min.X || c.pos1097212.X+cursorSize >= vp.Screen.Max.X ||
 			c.pos1097212.Y < vp.Screen.Min.Y || c.pos1097212.Y+cursorSize >= vp.Screen.Max.Y {

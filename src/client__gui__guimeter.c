@@ -28,7 +28,6 @@ extern uint32_t dword_5d4594_1096260;
 extern uint32_t dword_5d4594_1096284;
 extern uint32_t dword_5d4594_1096288;
 extern uint32_t dword_5d4594_1096252;
-extern uint32_t dword_5d4594_3799468;
 extern uint32_t nox_client_renderBubbles_80844;
 extern uint32_t dword_5d4594_1090276;
 extern int nox_win_width;
@@ -249,6 +248,7 @@ int nox_xxx_guiHealthManaInit_4714E0() {
 }
 
 //----- (00471D10) --------------------------------------------------------
+int get_dword_5d4594_3799468();
 int nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
 	uint32_t* v1;       // ebx
 	int v2;             // esi
@@ -283,7 +283,7 @@ int nox_xxx_guiHealthManaTubeDraw_471D10(int xLeft) {
 	}
 	nox_client_wndGetPosition_46AA60(v1, &xLeft, &yTop);
 	xLeft += 5;
-	if (dword_5d4594_3799468) {
+	if (get_dword_5d4594_3799468()) {
 		nox_client_drawSetColor_434460(nox_color_black_2650656);
 		nox_client_drawRectFilledOpaque_49CE30(xLeft, yTop, 15, 125);
 	}
