@@ -35,7 +35,6 @@ extern uint32_t dword_5d4594_830872;
 extern uint32_t dword_5d4594_830972;
 extern uint32_t dword_5d4594_831224;
 extern unsigned int dword_5d4594_251744;
-extern unsigned int nox_client_renderGUI_80828;
 extern unsigned int nox_game_createOrJoin_815048;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern nox_screenParticle* dword_5d4594_806052;
@@ -247,7 +246,7 @@ func sub_477530(a1 bool) {
 		*memmap.PtrUint32(0x5D4594, 1096652) = uint32(C.nox_xxx_bookHideMB_45ACA0(0))
 		*memmap.PtrUint32(0x5D4594, 1096664) = uint32(C.sub_467C10())
 		*memmap.PtrUint32(0x5D4594, 1096660) = uint32(C.nox_xxx_guiServerOptionsTryHide_4574D0())
-		C.nox_client_renderGUI_80828 = 0
+		nox_client_renderGUI_80828 = false
 		*memmap.PtrUint32(0x5D4594, 1096656) = uint32(sub_473670())
 		if *memmap.PtrUint32(0x5D4594, 1096656) == 1 {
 			nox_client_toggleMap_473610()
@@ -273,8 +272,8 @@ func sub_477530(a1 bool) {
 		if *memmap.PtrUint32(0x5D4594, 1096656) != 0 {
 			nox_client_toggleMap_473610()
 		}
-		if nox_xxx_xxxRenderGUI_587000_80832 == 1 {
-			C.nox_client_renderGUI_80828 = 1
+		if nox_xxx_xxxRenderGUI_587000_80832 {
+			nox_client_renderGUI_80828 = true
 		}
 	}
 }

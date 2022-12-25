@@ -28,7 +28,6 @@ extern unsigned int dword_587000_145668;
 extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern void* nox_alloc_chat_1197364;
-extern unsigned int nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_1090120;
 extern nox_window* dword_5d4594_1090048;
 extern nox_window* dword_5d4594_1090100;
@@ -355,7 +354,7 @@ func nox_xxx_clientResetSpriteAndGui_4357D0(noSkip bool) bool {
 	if noSkip {
 		*memmap.PtrUint32(0x587000, 85724) = 0
 	}
-	*memmap.PtrUint32(0x5D4594, 811064) = uint32(C.nox_client_renderGUI_80828)
+	*memmap.PtrUint32(0x5D4594, 811064) = uint32(bool2int(nox_client_renderGUI_80828))
 	netlist.ResetAll()
 	if !noxflags.HasGame(noxflags.GameHost) {
 		noxServer.resetAllPlayers()

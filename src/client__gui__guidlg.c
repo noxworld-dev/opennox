@@ -9,7 +9,6 @@
 
 extern uint32_t dword_5d4594_1123520;
 extern uint32_t dword_5d4594_1123524;
-extern uint32_t nox_client_renderGUI_80828;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -78,8 +77,8 @@ int sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
 	}
 	sub_467C10();
 	nox_xxx_bookHideMB_45ACA0(0);
-	*getMemU32Ptr(0x587000, 153436) = nox_client_renderGUI_80828;
-	nox_client_renderGUI_80828 = 0;
+	*getMemU32Ptr(0x587000, 153436) = nox_client_getRenderGUI();
+	nox_client_setRenderGUI(0);
 	nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1123524, 1);
 	nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1123524);
 	*getMemU32Ptr(0x5D4594, 1123528) = a2;

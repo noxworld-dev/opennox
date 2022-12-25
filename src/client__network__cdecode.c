@@ -55,7 +55,6 @@ extern uint32_t nox_server_sanctuaryHelp_54276;
 extern uint32_t nox_client_gui_flag_1556112;
 extern uint32_t dword_5d4594_1200804;
 extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
-extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_2650652;
 extern uint32_t nox_player_netCode_85319C;
 

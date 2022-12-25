@@ -129,7 +129,7 @@ void nox_client_setServerConnectAddr_435720(char* addr);
 int nox_xxx_cliToggleObsWindow_4357A0();
 int sub_435F60();
 int sub_436550();
-int sub_437100();
+void sub_437100();
 nox_draw_viewport_t* nox_draw_getViewport_437250();
 void sub_437260();
 void sub_437290();

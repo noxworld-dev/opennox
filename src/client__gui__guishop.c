@@ -25,7 +25,6 @@ extern uint32_t dword_5d4594_1098624;
 extern uint32_t dword_5d4594_1107036;
 extern uint32_t dword_5d4594_1098628;
 extern uint32_t dword_5d4594_1098576;
-extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t nox_color_white_2523948;
 
 //----- (00478730) --------------------------------------------------------
@@ -175,8 +174,8 @@ int nox_xxx_cliStartShopDlg_478FD0(const wchar_t* a1, char* a2, int a3) {
 	nox_window_set_hidden(*(int*)&dword_5d4594_1098576, 0);
 	nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1098576, 1);
 	nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1098576);
-	*getMemU32Ptr(0x5D4594, 1098612) = nox_client_renderGUI_80828;
-	nox_client_renderGUI_80828 = 0;
+	*getMemU32Ptr(0x5D4594, 1098612) = nox_client_getRenderGUI();
+	nox_client_setRenderGUI(0);
 	sub_467BB0();
 	if (a1) {
 		nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1097300), a1);
