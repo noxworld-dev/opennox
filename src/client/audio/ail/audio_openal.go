@@ -58,6 +58,9 @@ func init() {
 }
 
 func (dig Driver) get() *audioDriver {
+	if dig == 0 {
+		return nil
+	}
 	handles.AssertValid(uintptr(dig))
 	audioDrivers.RLock()
 	s := audioDrivers.byHandle[dig]
@@ -66,6 +69,9 @@ func (dig Driver) get() *audioDriver {
 }
 
 func (h Stream) get() *audioStream {
+	if h == 0 {
+		return nil
+	}
 	handles.AssertValid(uintptr(h))
 	audioStreams.RLock()
 	s := audioStreams.byHandle[h]
@@ -74,6 +80,9 @@ func (h Stream) get() *audioStream {
 }
 
 func (h Sample) get() *audioSample {
+	if h == 0 {
+		return nil
+	}
 	handles.AssertValid(uintptr(h))
 	audioSamples.RLock()
 	s := audioSamples.byHandle[h]
@@ -82,6 +91,9 @@ func (h Sample) get() *audioSample {
 }
 
 func (h Timer) get() *audioTimer {
+	if h == 0 {
+		return nil
+	}
 	handles.AssertValid(uintptr(h))
 	audioTimers.RLock()
 	s := audioTimers.byHandle[h]
@@ -619,6 +631,9 @@ func (dig Driver) AllocateSample() Sample {
 		audioLog.Println("AIL_allocate_sample_handle")
 	}
 	d := dig.get()
+	if d == nil {
+		return 0
+	}
 
 	s := &audioSample{
 		h:      Sample(handles.New()),
@@ -784,6 +799,9 @@ func (dig Driver) OpenStream(name string, mem int) Stream {
 		return Stream(h)
 	}
 	d := dig.get()
+	if d == nil {
+		return 0
+	}
 
 	s, err := audioOpenStream(name)
 	if err != nil {
@@ -823,6 +841,9 @@ func (h Stream) Close() error {
 		return nil
 	}
 	s := h.get()
+	if s == nil {
+		return nil
+	}
 	s.d.mu.Lock()
 	s.playing = false
 	s.d.mu.Unlock()
@@ -864,6 +885,9 @@ func (h Sample) GetSource() *uint32 {
 		return nil
 	}
 	s := h.get()
+	if s == nil {
+		return nil
+	}
 	return (*uint32)(&s.source)
 }
 
@@ -875,6 +899,9 @@ func (h Sample) End() {
 		return
 	}
 	s := h.get()
+	if s == nil {
+		return
+	}
 
 	s.d.mu.Lock()
 	defer s.d.mu.Unlock()
@@ -892,6 +919,9 @@ func (h Sample) Init() {
 		return
 	}
 	s := h.get()
+	if s == nil {
+		return
+	}
 
 	s.d.mu.Lock()
 	defer s.d.mu.Unlock()
@@ -925,6 +955,9 @@ func (h Sample) LoadBuffer(num uint32, buf []byte) {
 		return
 	}
 	s := h.get()
+	if s == nil {
+		return
+	}
 	s.bmu.Lock()
 	defer s.bmu.Unlock()
 	sb := &s.buffers[num]
@@ -941,6 +974,9 @@ func (h Stream) Pause(pause bool) {
 		return
 	}
 	s := h.get()
+	if s == nil {
+		return
+	}
 	// TODO: mutex?
 	s.playing = !pause
 }
@@ -952,7 +988,11 @@ func (h Sample) RegisterEOBCallback(f func()) {
 	if env.IsE2E() {
 		return
 	}
-	h.get().eob = f
+	s := h.get()
+	if s == nil {
+		return
+	}
+	s.eob = f
 }
 
 func (h Sample) RegisterEOSCallback(f func()) {
@@ -962,7 +1002,11 @@ func (h Sample) RegisterEOSCallback(f func()) {
 	if env.IsE2E() {
 		return
 	}
-	h.get().eos = f
+	s := h.get()
+	if s == nil {
+		return
+	}
+	s.eos = f
 }
 
 func (h Sample) BufferReady() int {
@@ -973,6 +1017,9 @@ func (h Sample) BufferReady() int {
 		return -1
 	}
 	s := h.get()
+	if s == nil {
+		return -1
+	}
 	s.bmu.Lock()
 	defer s.bmu.Unlock()
 	if s.ready == 0 {
@@ -996,7 +1043,11 @@ func (h Sample) UserData() any {
 	if env.IsE2E() {
 		return nil
 	}
-	return h.get().user
+	s := h.get()
+	if s == nil {
+		return nil
+	}
+	return s.user
 }
 
 func Serve() {
@@ -1028,6 +1079,9 @@ func (h Sample) SetADPCMBlockSize(block uint32) {
 		return
 	}
 	s := h.get()
+	if s == nil {
+		return
+	}
 	s.blockSize = block
 }
 
@@ -1039,6 +1093,9 @@ func (h Sample) SetPan(pan int) {
 		return
 	}
 	s := h.get()
+	if s == nil {
+		return
+	}
 	pos := [3]float32{float32(pan-63) / 64.0, 0, 0}
 	pos[2] = float32(math.Sqrt(float64(1 - pos[0]*pos[0])))
 	s.source.Setfv(openal.AlPosition, pos[:])
@@ -1052,6 +1109,9 @@ func (h Sample) SetPlaybackRate(rate int) {
 		return
 	}
 	s := h.get()
+	if s == nil {
+		return
+	}
 	s.playbackRate = uint32(rate)
 }
 
@@ -1063,6 +1123,9 @@ func (h Sample) SetType(format int32, flags uint32) {
 		return
 	}
 	s := h.get()
+	if s == nil {
+		return
+	}
 	if flags != 0 {
 		panic("abort")
 	}
@@ -1077,7 +1140,11 @@ func (h Sample) SetUserData(value any) {
 	if env.IsE2E() {
 		return
 	}
-	h.get().user = value
+	s := h.get()
+	if s == nil {
+		return
+	}
+	s.user = value
 }
 
 func (h Sample) SetVolume(volume int) {
@@ -1088,6 +1155,9 @@ func (h Sample) SetVolume(volume int) {
 		return
 	}
 	s := h.get()
+	if s == nil {
+		return
+	}
 	s.source.Setf(openal.AlGain, float32(volume)/127.0)
 }
 
@@ -1099,6 +1169,9 @@ func (h Stream) SetPosition(offset int) {
 		return
 	}
 	s := h.get()
+	if s == nil {
+		return
+	}
 	s.d.mu.Lock()
 	defer s.d.mu.Unlock()
 	s.chunkSize = 0
@@ -1116,6 +1189,9 @@ func (h Stream) SetVolume(volume int) {
 		return
 	}
 	s := h.get()
+	if s == nil {
+		return
+	}
 	s.source.Setf(openal.AlGain, float32(volume)/127.0)
 }
 
@@ -1127,6 +1203,9 @@ func (h Timer) SetFrequency(hertz uint) {
 		return
 	}
 	t := h.get()
+	if t == nil {
+		return
+	}
 	t.dt = time.Duration(1000.0/float32(hertz)) * time.Millisecond
 }
 
@@ -1138,6 +1217,9 @@ func (h Stream) Start() {
 		return
 	}
 	s := h.get()
+	if s == nil {
+		return
+	}
 	s.playing = true
 }
 
@@ -1149,6 +1231,9 @@ func (h Timer) Start() {
 		return
 	}
 	t := h.get()
+	if t == nil {
+		return
+	}
 	if t.t != nil {
 		t.t.Stop()
 	}
@@ -1193,6 +1278,9 @@ func (h Sample) Stop() {
 		return
 	}
 	s := h.get()
+	if s == nil {
+		return
+	}
 	s.Stop() // TODO: anything else here?
 }
 
@@ -1204,6 +1292,9 @@ func (h Timer) Stop() {
 		return
 	}
 	t := h.get()
+	if t == nil {
+		return
+	}
 	if t.t != nil {
 		t.t.Stop()
 	}
@@ -1217,6 +1308,9 @@ func (h Stream) Position() int {
 		return -1
 	}
 	s := h.get()
+	if s == nil {
+		return -1
+	}
 	return int(s.tell())
 }
 
@@ -1225,6 +1319,9 @@ func (h Stream) Status() int {
 		return 2
 	}
 	s := h.get()
+	if s == nil {
+		return 2
+	}
 	if s.playing {
 		return 4
 	}
@@ -1239,6 +1336,9 @@ func (dig Driver) Close() error {
 		return nil
 	}
 	d := dig.get()
+	if d == nil {
+		return nil
+	}
 	if d.t != nil {
 		d.t.Stop()
 	}
