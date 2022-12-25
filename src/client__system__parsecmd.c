@@ -26,9 +26,7 @@
 #include "client__video__draw_common.h"
 #include "common__magic__speltree.h"
 
-extern uint32_t nox_xxx_xxxRenderGUI_587000_80832;
 extern uint32_t nox_server_connectionType_3596;
-extern uint32_t nox_client_renderGUI_80828;
 extern uint32_t dword_5d4594_2650652;
 extern uint32_t nox_player_netCode_85319C;
 
@@ -811,14 +809,6 @@ int nox_cmd_unset_net_debug(int tokInd, int tokCnt, wchar_t** tokens) {
 		return 0;
 	}
 	nox_common_resetEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG);
-	return 1;
-}
-
-//----- (00441460) --------------------------------------------------------
-int nox_cmd_show_gui(int tokInd, int tokCnt, wchar_t** tokens) {
-	int v0 = nox_client_renderGUI_80828 ^ 1;
-	nox_client_renderGUI_80828 = v0;
-	nox_xxx_xxxRenderGUI_587000_80832 = v0;
 	return 1;
 }
 

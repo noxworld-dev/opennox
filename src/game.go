@@ -40,7 +40,6 @@ extern unsigned int nox_game_createOrJoin_815048;
 extern unsigned int nox_client_gui_flag_815132;
 extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int nox_client_renderGUI_80828;
-extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 extern unsigned int dword_5d4594_1548524;
 extern unsigned int dword_5d4594_2650652;
 extern void* dword_5d4594_1548532;
@@ -2122,7 +2121,7 @@ func sub_473840() {
 	C.nox_xxx_guiServerOptionsHide_4597E0(1)
 	C.sub_467980()
 	sub_46C5D0()
-	C.nox_client_renderGUI_80828 = C.nox_xxx_xxxRenderGUI_587000_80832
+	C.nox_client_renderGUI_80828 = C.uint(nox_xxx_xxxRenderGUI_587000_80832)
 }
 
 func sub_460E90() {

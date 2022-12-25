@@ -23,7 +23,6 @@ extern unsigned int nox_client_lockHighResFloors_1193152;
 extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int nox_client_renderBubbles_80844;
 extern unsigned int nox_client_renderGUI_80828;
-extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 extern unsigned int dword_5d4594_2523804;
 extern unsigned int dword_5d4594_3799452;
 extern unsigned int dword_5d4594_3799468;
@@ -213,7 +212,7 @@ func detectBestVideoSettings() {
 	*memmap.PtrUint32(0x587000, 80816) = 1
 	nox_client_showTooltips_80840 = true
 	C.nox_client_renderGUI_80828 = 1
-	C.nox_xxx_xxxRenderGUI_587000_80832 = 1
+	nox_xxx_xxxRenderGUI_587000_80832 = 1
 	if cfg == 0 {
 		//v4 = 8
 		cut = 75

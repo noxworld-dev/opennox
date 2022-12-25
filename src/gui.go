@@ -7,10 +7,7 @@ package opennox
 #include "GAME2_3.h"
 #include "client__gui__guicon.h"
 
-extern nox_window_ref* nox_win_1064912;
-
 extern unsigned int nox_client_renderGUI_80828;
-extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 */
 import "C"
 import (
@@ -20,6 +17,7 @@ import (
 	"os"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/console"
 	"golang.org/x/image/font"
 
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
@@ -34,21 +32,44 @@ import (
 )
 
 var (
-	guiLog                       = log.New("gui")
-	guiDebug                     = os.Getenv("NOX_DEBUG_GUI") == "true"
-	nox_win_activeWindow_1064900 *Window
-	nox_win_1064916              *Window
-	nox_win_freeList             *Window // dword_5d4594_1064896
+	guiLog                            = log.New("gui")
+	guiDebug                          = os.Getenv("NOX_DEBUG_GUI") == "true"
+	nox_win_activeWindow_1064900      *Window
+	nox_win_1064916                   *Window
+	nox_win_freeList                  *Window // dword_5d4594_1064896
+	nox_xxx_xxxRenderGUI_587000_80832 int     = 1
 )
+
+func init() {
+	noxCmdShow.Register(&console.Command{
+		Token: "gui", HelpID: "showguihelp",
+		Flags: console.ClientServer,
+		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
+			v0 := C.nox_client_renderGUI_80828 ^ 1
+			C.nox_client_renderGUI_80828 = v0
+			nox_xxx_xxxRenderGUI_587000_80832 = int(v0)
+			return true
+		},
+	})
+}
 
 func enableGUIDrawing(enable bool) {
 	if enable {
 		// TODO: might be a bitfield
 		C.nox_client_renderGUI_80828 = 1
-		C.nox_xxx_xxxRenderGUI_587000_80832 = 1
+		nox_xxx_xxxRenderGUI_587000_80832 = 1
 	} else {
 		C.nox_client_renderGUI_80828 = 0
-		C.nox_xxx_xxxRenderGUI_587000_80832 = 0
+		nox_xxx_xxxRenderGUI_587000_80832 = 0
+	}
+}
+
+//export nox_client_onClientStatusA
+func nox_client_onClientStatusA(v int) {
+	if v&1 != 0 {
+		C.nox_client_renderGUI_80828 = 0
+	} else if nox_xxx_xxxRenderGUI_587000_80832 == 1 {
+		C.nox_client_renderGUI_80828 = 1
 	}
 }
 

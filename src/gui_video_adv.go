@@ -9,7 +9,6 @@ extern unsigned int nox_client_lockHighResFloors_1193152;
 extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int nox_client_renderBubbles_80844;
 extern unsigned int nox_client_renderGUI_80828;
-extern unsigned int nox_xxx_xxxRenderGUI_587000_80832;
 extern unsigned int dword_5d4594_1193156;
 extern unsigned int dword_5d4594_1301812;
 extern unsigned int dword_5d4594_1301816;
@@ -168,7 +167,7 @@ func (c *guiAdvOptions) nox_client_advVideoOptsProc_4CB5D0(win *Window, ev Windo
 		case 2020:
 			sub_49B3C0()
 		case 2040:
-			C.nox_xxx_xxxRenderGUI_587000_80832 = C.nox_client_renderGUI_80828
+			nox_xxx_xxxRenderGUI_587000_80832 = int(C.nox_client_renderGUI_80828)
 		}
 		return nil
 	}
