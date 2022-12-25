@@ -30,9 +30,11 @@ var (
 	imgLog         = log.New("images")
 )
 
+type ImageHandle unsafe.Pointer
+
 type Image struct {
 	c         *renderSprites
-	h         unsafe.Pointer
+	h         ImageHandle
 	typ       int
 	bag       *bag.ImageRec
 	raw       []byte
@@ -44,7 +46,7 @@ type Image struct {
 	Field_1_1 uint16
 }
 
-func (img *Image) C() unsafe.Pointer {
+func (img *Image) C() ImageHandle {
 	if img == nil {
 		return nil
 	}
@@ -52,7 +54,7 @@ func (img *Image) C() unsafe.Pointer {
 		panic("image not allowed in cgo context")
 	}
 	if img.h == nil {
-		img.h = handles.NewPtr()
+		img.h = ImageHandle(handles.NewPtr())
 		img.c.byHandle[img.h] = img
 	}
 	return img.h
@@ -202,7 +204,7 @@ func (b *renderSprites) ReadVideoBag() error {
 
 type renderSprites struct {
 	bag      *bag.File
-	byHandle map[unsafe.Pointer]*Image
+	byHandle map[ImageHandle]*Image
 	byIndex  []*Image
 
 	once   sync.Once
@@ -213,7 +215,7 @@ type renderSprites struct {
 }
 
 func (b *renderSprites) init() {
-	b.byHandle = make(map[unsafe.Pointer]*Image)
+	b.byHandle = make(map[ImageHandle]*Image)
 }
 
 func (b *renderSprites) Free() {
@@ -223,14 +225,14 @@ func (b *renderSprites) Free() {
 		img.Free()
 	}
 	b.byIndex = nil
-	b.byHandle = make(map[unsafe.Pointer]*Image)
+	b.byHandle = make(map[ImageHandle]*Image)
 }
 
 func NewRawImage(typ int, data []byte) *Image {
 	return &Image{typ: typ, raw: data, nocgo: true}
 }
 
-func (b *renderSprites) AsImage(p unsafe.Pointer) *Image {
+func (b *renderSprites) AsImage(p ImageHandle) *Image {
 	if p == nil {
 		return nil
 	}

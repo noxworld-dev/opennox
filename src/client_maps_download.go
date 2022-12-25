@@ -13,6 +13,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/maps"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
@@ -26,7 +27,7 @@ type clientMapDownload struct {
 	done       <-chan error
 	native     bool
 	ndl        *maps.NativeDownloader
-	win        *Window
+	win        *gui.Window
 	iface      struct {
 		setMapPath      func(path string)
 		sendCancelMap   func() int
@@ -133,7 +134,7 @@ func (c *clientMapDownload) onMapDownloadPart(ind uint, data []byte) {
 
 func (c *clientMapDownload) setProgress(val int) int {
 	win2 := c.win.ChildByID(1603)
-	return eventRespInt(win2.Func94(asWindowEvent(0x4020, uintptr(val), 0)))
+	return gui.EventRespInt(win2.Func94(gui.AsWindowEvent(0x4020, uintptr(val), 0)))
 }
 
 func (c *clientMapDownload) onMapDownloadAbort() {
@@ -188,11 +189,11 @@ func (c *Client) ShowMapDownload() {
 		y = max.Y
 	}
 	c.mapsend.win.SetPos(image.Point{X: (x - 1024) / 2, Y: (y - 768) / 2})
-	nox_xxx_wndShowModalMB(c.mapsend.win)
+	gui.Nox_xxx_wndShowModalMB(c.mapsend.win)
 }
 
-func (c *Client) dialogEvents(a1 *Window, ev WindowEvent) WindowEventResp {
-	ekey, ok := ev.(WindowKeyPress)
+func (c *Client) dialogEvents(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
+	ekey, ok := ev.(gui.WindowKeyPress)
 	if !ok {
 		return nil
 	}
@@ -204,10 +205,10 @@ func (c *Client) dialogEvents(a1 *Window, ev WindowEvent) WindowEventResp {
 		c.mapsend.abortAndClose(memmap.String(0x5D4594, 1522936))
 		noxflags.UnsetGame(noxflags.GameFlag21 | noxflags.GameFlag24)
 	}
-	return RawEventResp(1)
+	return gui.RawEventResp(1)
 }
 
-func (c *Client) dialogProc(a1 *Window, ev WindowEvent) WindowEventResp {
+func (c *Client) dialogProc(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 	switch ev := ev.(type) {
 	case *WindowEvent0x4007:
 		id := ev.Win.ID()
@@ -217,7 +218,7 @@ func (c *Client) dialogProc(a1 *Window, ev WindowEvent) WindowEventResp {
 		}
 		c.mapsend.abortAndClose(memmap.String(0x5D4594, 1522940))
 		noxflags.UnsetGame(noxflags.GameFlag21 | noxflags.GameFlag24)
-		return RawEventResp(1)
+		return gui.RawEventResp(1)
 	}
 	return nil
 }

@@ -626,7 +626,7 @@ func (r *Refactorer) visitGoCall(n *ast.CallExpr, fnc *ast.Ident) {
 		}
 	case "wndIsShown_nox_xxx_wndIsShown_46ACC0":
 		if len(n.Args) == 1 {
-			call := callExpr(recvCall(n.Args[0], "Flags"))
+			call := callExpr(recvCall(n.Args[0], "GetFlags"))
 			n.Fun = recvCall(call, "IsHidden")
 			n.Args = []ast.Expr{}
 			r.fileChanged = true

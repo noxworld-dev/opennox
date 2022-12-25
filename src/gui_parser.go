@@ -31,14 +31,14 @@ func nox_new_window_from_file(cname *C.char, fnc unsafe.Pointer) *C.nox_window {
 		panic("server should not load GUI")
 	}
 	name := GoString(cname)
-	win := newWindowFromFile(name, wrapWindowFuncC(fnc))
+	win := newWindowFromFile(name, gui.WrapWindowFuncC(fnc))
 	if win != nil {
 		guiParseHook(name, win)
 	}
-	return win.C()
+	return (*C.nox_window)(win.C())
 }
 
-func newWindowFromFile(name string, fnc WindowFunc) *Window {
+func newWindowFromFile(name string, fnc gui.WindowFunc) *gui.Window {
 	guiLog.Printf("load: %q", name)
 	path := filepath.Join("window", name)
 
@@ -52,11 +52,11 @@ func newWindowFromFile(name string, fnc WindowFunc) *Window {
 	return newWindowFromReader(f, fnc)
 }
 
-func newWindowFromString(src string, fnc WindowFunc) *Window {
+func newWindowFromString(src string, fnc gui.WindowFunc) *gui.Window {
 	return newWindowFromReader(strings.NewReader(src), fnc)
 }
 
-func newWindowFromReader(r io.Reader, fnc WindowFunc) *Window {
+func newWindowFromReader(r io.Reader, fnc gui.WindowFunc) *gui.Window {
 	return newGUIParser(strMan, r).ParseRoot(fnc)
 }
 
@@ -73,7 +73,7 @@ func newGUIParser(sm *strman.StringManager, r io.Reader) *guiParser {
 type guiParser struct {
 	sm       *strman.StringManager
 	br       *bufio.Reader
-	parents  []*Window
+	parents  []*gui.Window
 	defaults struct {
 		font unsafe.Pointer
 		gui.StyleDefaults
@@ -87,7 +87,7 @@ type guiParser struct {
 	}
 }
 
-func (p *guiParser) parentsTop() *Window {
+func (p *guiParser) parentsTop() *gui.Window {
 	n := len(p.parents)
 	if n == 0 {
 		return nil
@@ -95,7 +95,7 @@ func (p *guiParser) parentsTop() *Window {
 	return p.parents[n-1]
 }
 
-func (p *guiParser) parentsPop() *Window {
+func (p *guiParser) parentsPop() *gui.Window {
 	n := len(p.parents)
 	if n == 0 {
 		return nil
@@ -105,7 +105,7 @@ func (p *guiParser) parentsPop() *Window {
 	return cur
 }
 
-func (p *guiParser) parentsPush(win *Window) {
+func (p *guiParser) parentsPush(win *gui.Window) {
 	p.parents = append(p.parents, win)
 }
 
@@ -114,7 +114,7 @@ func (p *guiParser) resetDefaults() {
 	p.defaults.SetColors(color.Black)
 }
 
-func (p *guiParser) ParseRoot(fnc WindowFunc) *Window {
+func (p *guiParser) ParseRoot(fnc gui.WindowFunc) *gui.Window {
 	for {
 		tok := p.nextWord()
 		if tok == "" {
@@ -177,11 +177,11 @@ func (p *guiParser) parseColorField() (color.Color, bool) {
 	return gui.ParseColorTransp(tok)
 }
 
-func (p *guiParser) parseWindowRoot(fnc WindowFunc) *Window {
+func (p *guiParser) parseWindowRoot(fnc gui.WindowFunc) *gui.Window {
 	draw, drawFree := tempDrawData()
 	defer drawFree()
 
-	draw.field0 = 0
+	draw.Field0 = 0
 	draw.SetDefaults(p.defaults.StyleDefaults)
 	font := p.defaults.font
 	if font == nil {
@@ -209,7 +209,7 @@ func (p *guiParser) parseWindowRoot(fnc WindowFunc) *Window {
 	var typ string
 	typ, tok = gui.ParseNextField(tok)
 
-	var win *Window
+	var win *gui.Window
 	var data guiWidgetData
 	for {
 		field := p.nextWord()
@@ -242,9 +242,9 @@ func (p *guiParser) parseWindowRoot(fnc WindowFunc) *Window {
 			if win != nil {
 				return win
 			}
-			return p.parseWindowOrWidget(typ, id, draw.Status(), px, py, w, h, draw, data, fnc)
+			return p.parseWindowOrWidget(typ, id, draw.Status, px, py, w, h, draw, data, fnc)
 		} else if field == "CHILD" {
-			win = p.parseWindowOrWidget(typ, id, draw.Status(), px, py, w, h, draw, data, fnc)
+			win = p.parseWindowOrWidget(typ, id, draw.Status, px, py, w, h, draw, data, fnc)
 			if win == nil {
 				return nil
 			}
@@ -260,7 +260,7 @@ func (p *guiParser) parseWindowRoot(fnc WindowFunc) *Window {
 	}
 }
 
-func (p *guiParser) parseWinFields(win *Window) bool {
+func (p *guiParser) parseWinFields(win *gui.Window) bool {
 	p.parentsPush(win)
 	for {
 		tok := p.nextWord()
@@ -400,15 +400,15 @@ func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool)
 	return nil, true
 }
 
-func (p *guiParser) parseWindowOrWidget(typ string, id uint, status gui.StatusFlags, px, py, w, h int, drawData *WindowData, data guiWidgetData, fnc WindowFunc) *Window {
+func (p *guiParser) parseWindowOrWidget(typ string, id uint, status gui.StatusFlags, px, py, w, h int, drawData *gui.WindowData, data guiWidgetData, fnc gui.WindowFunc) *gui.Window {
 	parent := p.parentsTop()
 	if typ == "USER" {
-		return newUserWindow(parent, id, status, px, py, w, h, drawData, fnc)
+		return gui.NewUserWindow(parent, id, status, px, py, w, h, drawData, fnc)
 	}
 	win := guiNewWidget(typ, parent, status, px, py, w, h, drawData, data)
 	win.SetID(id)
 	if parent != nil {
-		parent.Func94(WindowNewChild{ID: id})
+		parent.Func94(gui.WindowNewChild{ID: id})
 	}
 	return win
 }
@@ -423,57 +423,57 @@ var guiWinStyles = []string{
 	"ENTRYFIELD", "MOUSETRACK", "ANIMATED", "TABSTOP", "STATICTEXT", "PROGRESSBAR",
 }
 
-type guiWindowParseFunc func(*guiParser, *WindowData, string) bool
+type guiWindowParseFunc func(*guiParser, *gui.WindowData, string) bool
 
 var parseWindowFuncs = []struct {
 	name string
 	fnc  guiWindowParseFunc
 }{
-	{"STATUS", func(_ *guiParser, draw *WindowData, buf string) bool {
-		draw.SetStatus(gui.StatusFlags(guiFlagsFromNames(buf, guiWinStatuses)))
+	{"STATUS", func(_ *guiParser, draw *gui.WindowData, buf string) bool {
+		draw.Status = gui.StatusFlags(guiFlagsFromNames(buf, guiWinStatuses))
 		return true
 	}},
-	{"STYLE", func(_ *guiParser, draw *WindowData, buf string) bool {
-		draw.SetStyleFlags(gui.StyleFlags(guiFlagsFromNames(buf, guiWinStyles)))
+	{"STYLE", func(_ *guiParser, draw *gui.WindowData, buf string) bool {
+		draw.Style = gui.StyleFlags(guiFlagsFromNames(buf, guiWinStyles))
 		return true
 	}},
-	{"GROUP", func(_ *guiParser, draw *WindowData, buf string) bool {
+	{"GROUP", func(_ *guiParser, draw *gui.WindowData, buf string) bool {
 		v, _ := gui.ParseNextIntField(buf)
 		draw.SetGroup(v)
 		return true
 	}},
-	{"BACKGROUNDCOLOR", makeColorParseFunc((*WindowData).SetBackgroundColor)},
-	{"BACKGROUNDIMAGE", makeImageParseFunc((*WindowData).SetBackgroundImage)},
-	{"ENABLEDCOLOR", makeColorParseFunc((*WindowData).SetEnabledColor)},
-	{"ENABLEDIMAGE", makeImageParseFunc((*WindowData).SetEnabledImage)},
-	{"DISABLEDCOLOR", makeColorParseFunc((*WindowData).SetDisabledColor)},
-	{"DISABLEDIMAGE", makeImageParseFunc((*WindowData).SetDisabledImage)},
-	{"HILITECOLOR", makeColorParseFunc((*WindowData).SetHighlightColor)},
-	{"HILITEIMAGE", makeImageParseFunc((*WindowData).SetHighlightImage)},
-	{"SELECTEDCOLOR", makeColorParseFunc((*WindowData).SetSelectedColor)},
-	{"SELECTEDIMAGE", makeImageParseFunc((*WindowData).SetSelectedImage)},
-	{"IMAGEOFFSET", func(_ *guiParser, draw *WindowData, buf string) bool {
+	{"BACKGROUNDCOLOR", makeColorParseFunc((*gui.WindowData).SetBackgroundColor)},
+	{"BACKGROUNDIMAGE", makeImageParseFunc((*gui.WindowData).SetBackgroundImage)},
+	{"ENABLEDCOLOR", makeColorParseFunc((*gui.WindowData).SetEnabledColor)},
+	{"ENABLEDIMAGE", makeImageParseFunc((*gui.WindowData).SetEnabledImage)},
+	{"DISABLEDCOLOR", makeColorParseFunc((*gui.WindowData).SetDisabledColor)},
+	{"DISABLEDIMAGE", makeImageParseFunc((*gui.WindowData).SetDisabledImage)},
+	{"HILITECOLOR", makeColorParseFunc((*gui.WindowData).SetHighlightColor)},
+	{"HILITEIMAGE", makeImageParseFunc((*gui.WindowData).SetHighlightImage)},
+	{"SELECTEDCOLOR", makeColorParseFunc((*gui.WindowData).SetSelectedColor)},
+	{"SELECTEDIMAGE", makeImageParseFunc((*gui.WindowData).SetSelectedImage)},
+	{"IMAGEOFFSET", func(_ *guiParser, draw *gui.WindowData, buf string) bool {
 		var px, py int
 		px, buf = gui.ParseNextIntField(buf)
 		py, buf = gui.ParseNextIntField(buf)
 		draw.SetImagePoint(image.Point{X: px, Y: py})
 		return true
 	}},
-	{"TEXTCOLOR", makeColorParseFunc((*WindowData).SetTextColor)},
-	{"TEXT", func(p *guiParser, draw *WindowData, buf string) bool {
+	{"TEXTCOLOR", makeColorParseFunc((*gui.WindowData).SetTextColor)},
+	{"TEXT", func(p *guiParser, draw *gui.WindowData, buf string) bool {
 		str := p.sm.GetStringInFile(strman.ID(buf), "psscript.c")
 		draw.SetText(str)
 		return true
 	}},
-	{"FONT", func(_ *guiParser, draw *WindowData, buf string) bool {
+	{"FONT", func(_ *guiParser, draw *gui.WindowData, buf string) bool {
 		fnt := noxClient.r.Fonts.FontPtrByName(buf)
 		if fnt == nil {
 			return false
 		}
-		draw.font = fnt
+		draw.SetFont(fnt)
 		return true
 	}},
-	{"TOOLTIP", func(p *guiParser, draw *WindowData, buf string) bool {
+	{"TOOLTIP", func(p *guiParser, draw *gui.WindowData, buf string) bool {
 		s := p.sm.GetStringInFile(strman.ID(buf), "psscript.c")
 		draw.SetTooltip(p.sm, s)
 		return true
@@ -498,16 +498,16 @@ func guiFlagsFromNames(str string, values []string) int {
 	return out
 }
 
-func makeColorParseFunc(field func(*WindowData, color.Color)) guiWindowParseFunc {
-	return func(_ *guiParser, draw *WindowData, buf string) bool {
+func makeColorParseFunc(field func(*gui.WindowData, color.Color)) guiWindowParseFunc {
+	return func(_ *guiParser, draw *gui.WindowData, buf string) bool {
 		cl, _ := gui.ParseColorTransp(buf)
 		field(draw, cl)
 		return true
 	}
 }
 
-func makeImageParseFunc(field func(*WindowData, *noxrender.Image)) guiWindowParseFunc {
-	return func(_ *guiParser, draw *WindowData, buf string) bool {
+func makeImageParseFunc(field func(*gui.WindowData, *noxrender.Image)) guiWindowParseFunc {
+	return func(_ *guiParser, draw *gui.WindowData, buf string) bool {
 		s, _ := gui.ParseNextField(buf)
 		var val *noxrender.Image
 		if s != "NULL" {

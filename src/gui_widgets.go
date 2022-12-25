@@ -87,58 +87,58 @@ func (d *staticTextData) cWidgetData() unsafe.Pointer {
 	return unsafe.Pointer(d)
 }
 
-func guiNewWidget(typ string, parent *Window, status gui.StatusFlags, px, py, w, h int, draw *WindowData, data guiWidgetData) *Window {
-	draw.win = parent.C()
+func guiNewWidget(typ string, parent *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, data guiWidgetData) *gui.Window {
+	draw.Window = parent
 	iparent := unsafePtrToInt(unsafe.Pointer(parent.C()))
 	udraw := unsafe.Pointer(draw.C())
 	switch typ {
 	case "PUSHBUTTON":
-		draw.style |= int32(gui.StylePushButton)
+		draw.Style |= gui.StylePushButton
 		return newButtonOrCheckbox(parent, status, px, py, w, h, draw)
 	case "RADIOBUTTON":
 		tdata, _ := data.(*radioButtonData)
-		draw.style |= int32(gui.StyleRadioButton)
+		draw.Style |= gui.StyleRadioButton
 		return newRadioButton(parent, status, px, py, w, h, draw, tdata)
 	case "CHECKBOX":
-		draw.style |= int32(gui.StyleCheckBox)
+		draw.Style |= gui.StyleCheckBox
 		return newButtonOrCheckbox(parent, status, px, py, w, h, draw)
 	case "VERTSLIDER":
 		tdata, _ := data.(*sliderData)
-		draw.style |= int32(gui.StyleVertSlider)
+		draw.Style |= gui.StyleVertSlider
 		return asWindow(C.nox_gui_newSlider_4B4EE0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.float)(unsafe.Pointer(tdata))))
 	case "HORZSLIDER":
 		tdata, _ := data.(*sliderData)
-		draw.style |= int32(gui.StyleHorizSlider)
+		draw.Style |= gui.StyleHorizSlider
 		return asWindow(C.nox_gui_newSlider_4B4EE0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.float)(unsafe.Pointer(tdata))))
 	case "SCROLLLISTBOX":
 		tdata, _ := data.(*scrollListBoxData)
-		draw.style |= int32(gui.StyleScrollListBox)
+		draw.Style |= gui.StyleScrollListBox
 		return nox_gui_newScrollListBox_4A4310(parent, status, px, py, w, h, draw, tdata)
 	case "ENTRYFIELD":
 		tdata, _ := data.(*entryFieldData)
-		draw.style |= int32(gui.StyleEntryField)
+		draw.Style |= gui.StyleEntryField
 		return nox_gui_newEntryField_488500(parent, status, px, py, w, h, draw, tdata)
 	case "STATICTEXT":
 		tdata, _ := data.(*staticTextData)
-		draw.style |= int32(gui.StyleStaticText)
+		draw.Style |= gui.StyleStaticText
 		return newStaticText(parent, status, px, py, w, h, draw, tdata)
 	case "PROGRESSBAR":
-		draw.style |= int32(gui.StyleProgressBar)
+		draw.Style |= gui.StyleProgressBar
 		return asWindow(C.nox_gui_newProgressBar_4CAF10(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw)))
 	}
 	return nil
 }
 
-func nox_gui_newScrollListBox_4A4310(par *Window, status gui.StatusFlags, px, py, w, h int, draw *WindowData, tdata *scrollListBoxData) *Window {
-	return asWindow(C.nox_gui_newScrollListBox_4A4310(par.C(), C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.nox_scrollListBox_data)(unsafe.Pointer(tdata))))
+func nox_gui_newScrollListBox_4A4310(par *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, tdata *scrollListBoxData) *gui.Window {
+	return asWindow((*C.nox_window)(C.nox_gui_newScrollListBox_4A4310((*C.nox_window)(par.C()), C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.nox_scrollListBox_data)(unsafe.Pointer(tdata)))))
 }
 
-func nox_gui_newEntryField_488500(par *Window, status gui.StatusFlags, px, py, w, h int, draw *WindowData, tdata *entryFieldData) *Window {
-	return asWindow(C.nox_gui_newEntryField_488500(par.C(), C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.ushort)(unsafe.Pointer(tdata))))
+func nox_gui_newEntryField_488500(par *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, tdata *entryFieldData) *gui.Window {
+	return asWindow((*C.nox_window)(C.nox_gui_newEntryField_488500((*C.nox_window)(par.C()), C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.ushort)(unsafe.Pointer(tdata)))))
 }
 
-func tempDrawData() (*WindowData, func()) {
-	d, free := alloc.New(WindowData{})
+func tempDrawData() (*gui.WindowData, func()) {
+	d, free := alloc.New(gui.WindowData{})
 	d.SetHighlightColor(noxcolor.RGB5551Color(255, 255, 255))
 	d.SetTextColor(noxcolor.RGB5551Color(200, 200, 200))
 	d.SetEnabledColor(color.Transparent)
@@ -148,13 +148,13 @@ func tempDrawData() (*WindowData, func()) {
 	return d, free
 }
 
-func NewStaticText(par *Window, id uint, px, py, w, h int, center, glow bool, text string) *Window {
+func NewStaticText(par *gui.Window, id uint, px, py, w, h int, center, glow bool, text string) *gui.Window {
 	draw, dfree := tempDrawData()
 	defer dfree()
 	*draw = *par.DrawData()
 
-	draw.win = par.C()
-	draw.style |= int32(gui.StyleStaticText)
+	draw.Window = par
+	draw.Style |= gui.StyleStaticText
 	status := gui.StatusSmoothText | gui.StatusNoFocus
 
 	win := newStaticText(par, status, px, py, w, h, draw, &staticTextData{
@@ -164,36 +164,34 @@ func NewStaticText(par *Window, id uint, px, py, w, h int, center, glow bool, te
 	})
 	win.SetID(id)
 	if par != nil {
-		par.Func94(WindowNewChild{ID: id})
+		par.Func94(gui.WindowNewChild{ID: id})
 	}
 	return win
 }
 
 //export nox_gui_newStaticText_489300
 func nox_gui_newStaticText_489300(par *C.nox_window, status C.int, px, py, w, h C.int, draw *C.nox_window_data, data *C.nox_staticText_data) *C.nox_window {
-	return newStaticText(asWindow(par), gui.StatusFlags(status), int(px), int(py), int(w), int(h), asWindowData(draw), (*staticTextData)(unsafe.Pointer(data))).C()
+	return (*C.nox_window)(newStaticText(asWindow(par), gui.StatusFlags(status), int(px), int(py), int(w), int(h), asWindowData(draw), (*staticTextData)(unsafe.Pointer(data))).C())
 }
 
-func newStaticText(par *Window, status gui.StatusFlags, px, py, w, h int, draw *WindowData, data *staticTextData) *Window { // nox_gui_newStaticText_489300
-	style := draw.StyleFlags()
-	style &= 0xFFFFFBFF
-	draw.SetStyleFlags(style)
-	if style&gui.StyleStaticText == 0 {
+func newStaticText(par *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, data *staticTextData) *gui.Window { // nox_gui_newStaticText_489300
+	draw.Style &= 0xFFFFFBFF
+	if draw.Style&gui.StyleStaticText == 0 {
 		return nil
 	}
-	win := newWindowRaw(par, status, px, py, w, h, nox_xxx_wndStaticProcPre_489390)
-	if !win.Flags().Has(gui.StatusImage) {
+	win := gui.NewWindowRaw(par, status, px, py, w, h, nox_xxx_wndStaticProcPre_489390)
+	if !win.GetFlags().Has(gui.StatusImage) {
 		win.SetAllFuncs(nox_xxx_wndStaticProc_489420, nox_xxx_wndStaticDrawNoImage, nil)
 	} else {
 		win.SetAllFuncs(nox_xxx_wndStaticProc_489420, nox_xxx_wndStaticDrawWithImage_489550, nil)
 	}
-	if draw.win == nil {
-		draw.win = win.C()
+	if draw.Window == nil {
+		draw.Window = win
 	}
 	win.CopyDrawData(draw)
 	wdata, _ := alloc.New(staticTextData{})
 	*wdata = *data
-	win.widget_data = unsafe.Pointer(wdata)
+	win.WidgetData = unsafe.Pointer(wdata)
 	return win
 }
 
@@ -203,14 +201,14 @@ const (
 	guiEventStaticTextGetText = guiEventStaticTextPref + 2
 )
 
-func nox_xxx_wndStaticProcPre_489390(win *Window, e WindowEvent) WindowEventResp {
+func nox_xxx_wndStaticProcPre_489390(win *gui.Window, e gui.WindowEvent) gui.WindowEventResp {
 	switch e := e.(type) {
-	case WindowDestroy:
-		alloc.Free(win.widget_data)
-		win.widget_data = nil
+	case gui.WindowDestroy:
+		alloc.Free(win.WidgetData)
+		win.WidgetData = nil
 		return nil
 	case *WindowEvent0x4001:
-		data := (*staticTextData)(win.widget_data)
+		data := (*staticTextData)(win.WidgetData)
 		if e.Str != "" {
 			data.text = e.cStr()
 		} else {
@@ -220,40 +218,40 @@ func nox_xxx_wndStaticProcPre_489390(win *Window, e WindowEvent) WindowEventResp
 	}
 	switch e.EventCode() {
 	case guiEventStaticTextGetText:
-		data := (*staticTextData)(win.widget_data)
-		return RawEventResp(unsafe.Pointer(data.text))
+		data := (*staticTextData)(win.WidgetData)
+		return gui.RawEventResp(unsafe.Pointer(data.text))
 	}
 	return nil
 }
 
-func nox_xxx_wndStaticProc_489420(win *Window, ev WindowEvent) WindowEventResp {
+func nox_xxx_wndStaticProc_489420(win *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 	switch ev := ev.(type) {
-	case WindowKeyPress:
+	case gui.WindowKeyPress:
 		switch ev.Key {
 		case keybind.KeyTab, keybind.KeyRight, keybind.KeyDown, keybind.KeyUp, keybind.KeyLeft:
-			return RawEventResp(1)
+			return gui.RawEventResp(1)
 		}
 	}
 	return nil
 }
 
-func nox_xxx_wndStaticDrawWithImage_489550(win *Window, draw *WindowData) int {
+func nox_xxx_wndStaticDrawWithImage_489550(win *gui.Window, draw *gui.WindowData) int {
 	r := noxClient.r
 
-	data := (*staticTextData)(unsafe.Pointer(win.widget_data))
+	data := (*staticTextData)(win.WidgetData)
 
 	wpos := win.GlobalPos()
 	wsz := win.Size()
 	fnt := draw.Font()
 	fh := r.FontHeight(fnt)
-	if win.Flags().Has(gui.StatusSmoothText) {
+	if win.GetFlags().Has(gui.StatusSmoothText) {
 		r.SetTextSmooting(true)
 	}
 	if bg := draw.BackgroundImage(); bg != nil {
 		r.DrawImageAt(bg, wpos.Add(draw.ImagePoint()))
 	}
 	var img *noxrender.Image
-	if win.Flags().Has(gui.StatusEnabled) {
+	if win.GetFlags().Has(gui.StatusEnabled) {
 		img = draw.EnabledImage()
 	} else {
 		img = draw.DisabledImage()
@@ -284,31 +282,31 @@ func nox_xxx_wndStaticDrawNoImage_488D00(win *C.nox_window, draw *C.nox_window_d
 	return C.int(nox_xxx_wndStaticDrawNoImage(asWindow(win), asWindowData(draw)))
 }
 
-func nox_xxx_wndStaticDrawNoImage(win *Window, draw *WindowData) int { // nox_xxx_wndStaticDrawNoImage_488D00
+func nox_xxx_wndStaticDrawNoImage(win *gui.Window, draw *gui.WindowData) int { // nox_xxx_wndStaticDrawNoImage_488D00
 	r := noxClient.r
 	fnt := draw.Font()
 
-	wdata := (*staticTextData)(win.widget_data)
+	wdata := (*staticTextData)(win.WidgetData)
 	highlight := draw.EnabledColor()
 	wpos := win.GlobalPos()
 	wsz := win.Size()
 	x, y := wpos.X, wpos.Y
 	w, h := wsz.X, wsz.Y
-	if win.Flags().Has(gui.StatusSmoothText) {
+	if win.GetFlags().Has(gui.StatusSmoothText) {
 		r.SetTextSmooting(true)
 		defer r.SetTextSmooting(false)
 	}
 	borderColor := draw.EnabledColor()
 	var bgColor color.Color
-	if win.Flags().Has(gui.StatusEnabled) {
-		if draw.Field0()&0x2 != 0 {
+	if win.GetFlags().Has(gui.StatusEnabled) {
+		if draw.Field0&0x2 != 0 {
 			borderColor = draw.HighlightColor()
 		}
 		bgColor = draw.BackgroundColor()
 	} else {
 		bgColor = draw.DisabledColor()
 	}
-	if draw.Field0()&0x4 != 0 {
+	if draw.Field0&0x4 != 0 {
 		highlight = draw.SelectedColor()
 	}
 	if _, _, _, alpha := bgColor.RGBA(); alpha != 0 {
@@ -376,13 +374,13 @@ func nox_xxx_wndStaticDrawNoImage(win *Window, draw *WindowData) int { // nox_xx
 	return 1
 }
 
-func NewHorizontalSlider(par *Window, id uint, px, py, w, h int, min, max int) *Window {
+func NewHorizontalSlider(par *gui.Window, id uint, px, py, w, h int, min, max int) *gui.Window {
 	draw, dfree := tempDrawData()
 	defer dfree()
 	*draw = *par.DrawData()
 
-	draw.win = par.C()
-	draw.style |= int32(gui.StyleHorizSlider)
+	draw.Window = par
+	draw.Style |= gui.StyleHorizSlider
 	draw.SetHighlightColor(color.Transparent)
 	draw.SetDisabledColor(color.Transparent)
 	draw.SetEnabledColor(noxcolor.RGB5551Color(230, 165, 65))
@@ -401,18 +399,18 @@ func NewHorizontalSlider(par *Window, id uint, px, py, w, h int, min, max int) *
 		(*C.uint)(unsafe.Pointer(draw)), (*C.float)(unsafe.Pointer(data))))
 	win.SetID(id)
 	if par != nil {
-		par.Func94(WindowNewChild{ID: id})
+		par.Func94(gui.WindowNewChild{ID: id})
 	}
 	return win
 }
 
-func NewCheckbox(par *Window, id uint, px, py, w, h int, text string) *Window {
+func NewCheckbox(par *gui.Window, id uint, px, py, w, h int, text string) *gui.Window {
 	draw, dfree := tempDrawData()
 	defer dfree()
 	*draw = *par.DrawData()
 
-	draw.win = par.C()
-	draw.style = int32(gui.StyleCheckBox | gui.StyleMouseTrack)
+	draw.Window = par
+	draw.Style = gui.StyleCheckBox | gui.StyleMouseTrack
 	draw.SetHighlightColor(noxcolor.RGB5551Color(192, 128, 128))
 	draw.SetTextColor(noxcolor.RGB5551Color(240, 180, 42))
 	draw.SetText(text)
@@ -426,19 +424,19 @@ func NewCheckbox(par *Window, id uint, px, py, w, h int, text string) *Window {
 	win := newButtonOrCheckbox(par, status, px, py, w, h, draw)
 	win.SetID(id)
 	if par != nil {
-		par.Func94(WindowNewChild{ID: id})
+		par.Func94(gui.WindowNewChild{ID: id})
 	}
 	return win
 }
 
-func NewRadioButton(par *Window, id uint, px, py, w, h int, group int, text string) *Window {
+func NewRadioButton(par *gui.Window, id uint, px, py, w, h int, group int, text string) *gui.Window {
 	draw, dfree := tempDrawData()
 	defer dfree()
 
 	*draw = *par.DrawData()
 
-	draw.win = par.C()
-	draw.style = int32(gui.StyleRadioButton | gui.StyleMouseTrack)
+	draw.Window = par
+	draw.Style = gui.StyleRadioButton | gui.StyleMouseTrack
 	draw.SetTextColor(noxcolor.RGB5551Color(240, 180, 42))
 	draw.SetText(text)
 	draw.SetBackgroundImage(nox_xxx_gLoadImg("UIRadio"))
@@ -455,32 +453,32 @@ func NewRadioButton(par *Window, id uint, px, py, w, h int, group int, text stri
 	win := newRadioButton(par, status, px, py, w, h, draw, rdata)
 	win.SetID(id)
 	if par != nil {
-		par.Func94(WindowNewChild{ID: id})
+		par.Func94(gui.WindowNewChild{ID: id})
 	}
 	return win
 }
 
-func newButtonOrCheckbox(parent *Window, status gui.StatusFlags, px, py, w, h int, draw *WindowData) *Window {
-	st := draw.StyleFlags()
+func newButtonOrCheckbox(parent *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData) *gui.Window {
+	st := draw.Style
 	if st.IsPushButton() {
-		btn := newWindowRaw(parent, status, px, py, w, h, wrapWindowFuncC(C.nox_xxx_wndButtonProcPre_4A9250))
+		btn := gui.NewWindowRaw(parent, status, px, py, w, h, gui.WrapWindowFuncC(C.nox_xxx_wndButtonProcPre_4A9250))
 		if btn == nil {
 			return nil
 		}
 		C.nox_xxx_wndButtonInit_4A8340(unsafePtrToInt(unsafe.Pointer(btn.C())))
-		if draw.win == nil {
-			draw.win = btn.C()
+		if draw.Window == nil {
+			draw.Window = btn
 		}
 		btn.CopyDrawData(draw)
 		return btn
 	} else if st.IsCheckBox() {
-		btn := newWindowRaw(parent, status, px, py, w, h, wrapWindowFuncC(C.nox_xxx_wndCheckboxProcMB_4A92C0))
+		btn := gui.NewWindowRaw(parent, status, px, py, w, h, gui.WrapWindowFuncC(C.nox_xxx_wndCheckboxProcMB_4A92C0))
 		if btn == nil {
 			return nil
 		}
 		C.nox_xxx_wndCheckBoxInit_4A8E60(unsafePtrToInt(unsafe.Pointer(btn.C())))
-		if draw.win == nil {
-			draw.win = btn.C()
+		if draw.Window == nil {
+			draw.Window = btn
 		}
 		btn.CopyDrawData(draw)
 		return btn
@@ -488,23 +486,23 @@ func newButtonOrCheckbox(parent *Window, status gui.StatusFlags, px, py, w, h in
 	return nil
 }
 
-func newRadioButton(parent *Window, status gui.StatusFlags, px, py, w, h int, draw *WindowData, data *radioButtonData) *Window {
-	if !draw.StyleFlags().IsRadioButton() {
+func newRadioButton(parent *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, data *radioButtonData) *gui.Window {
+	if !draw.Style.IsRadioButton() {
 		return nil
 	}
-	win := newWindowRaw(parent, status, px, py, w, h, wrapWindowFuncC(C.nox_xxx_wndRadioButtonProcPre_4A93C0))
+	win := gui.NewWindowRaw(parent, status, px, py, w, h, gui.WrapWindowFuncC(C.nox_xxx_wndRadioButtonProcPre_4A93C0))
 	if win == nil {
 		return nil
 	}
 	C.nox_xxx_wndRadioButtonSetAllFn_4A87E0(unsafePtrToInt(unsafe.Pointer(win.C())))
-	if draw.win == nil {
-		draw.win = win.C()
+	if draw.Window == nil {
+		draw.Window = win
 	}
 	d, _ := alloc.New(radioButtonData{})
 	if data != nil {
 		d.field0 = data.field0
 	}
-	win.widget_data = unsafe.Pointer(d)
+	win.WidgetData = unsafe.Pointer(d)
 	win.CopyDrawData(draw)
 	return win
 }

@@ -35,10 +35,10 @@ const (
 )
 
 var (
-	nox_gui_curDialog_830224 *Window
-	dword_5d4594_830228      *Window
-	dword_5d4594_830232      *Window
-	dword_5d4594_830236      *Window
+	nox_gui_curDialog_830224 *gui.Window
+	dword_5d4594_830228      *gui.Window
+	dword_5d4594_830232      *gui.Window
+	dword_5d4594_830236      *gui.Window
 	func_5D4594_830220       func()
 	func_5d4594_830216       func()
 )
@@ -69,12 +69,12 @@ func nox_xxx_dialogMsgBoxCreate_449A10(win *C.nox_window, title, text *C.wchar_t
 	return nil
 }
 
-func (win *Window) NewDialogID(id strman.ID, file string) {
+func winNewDialogID(win *gui.Window, id strman.ID, file string) {
 	str := strMan.GetStringInFile(id, file)
 	NewDialogWindow(win, "", str, 0, nil, nil)
 }
 
-func NewDialogWindow(a1 *Window, title string, text string, flags gui.DialogFlags, a5, a6 func()) {
+func NewDialogWindow(a1 *gui.Window, title string, text string, flags gui.DialogFlags, a5, a6 func()) {
 	if nox_gui_curDialog_830224 != nil && func_5d4594_830216 != nil {
 		func_5d4594_830216()
 	}
@@ -108,26 +108,26 @@ func NewDialogWindow(a1 *Window, title string, text string, flags gui.DialogFlag
 	if dia == nil {
 		return
 	}
-	dia.setFunc93(sub_449BE0)
-	dia.ChildByID(guiDialogTextEntry1ID).setFunc93(sub_449C30)
-	dia.ChildByID(guiDialogTextEntry2ID).setFunc93(sub_449C30)
+	dia.SetFunc93(sub_449BE0)
+	dia.ChildByID(guiDialogTextEntry1ID).SetFunc93(sub_449C30)
+	dia.ChildByID(guiDialogTextEntry2ID).SetFunc93(sub_449C30)
 	if title != "" {
 		dia.ChildByID(guiDialogTitleID).Func94(&WindowEvent0x4001{Str: title, Val: -1})
 	}
 	if text != "" {
 		dia.ChildByID(guiDialogTextID).Func94(&WindowEvent0x4001{Str: text, Val: -1})
 	}
-	sub46B120(dia, nil)
-	nox_xxx_wndShowModalMB(dia)
-	sub46C690(dia)
+	gui.Sub46B120(dia, nil)
+	gui.Nox_xxx_wndShowModalMB(dia)
+	gui.Sub46C690(dia)
 	vsz := videoGetWindowSize()
 	sz := dia.Size()
 	dia.SetPos(image.Pt((vsz.X-sz.X)/2, (vsz.Y-sz.Y)/2))
 	sub449EA0(flags)
-	prev := nox_xxx_wndGetCaptureMain()
+	prev := gui.Nox_xxx_wndGetCaptureMain()
 	dword_5d4594_830236 = prev
 	if prev != nil {
-		nox_xxx_wndClearCaptureMain(prev)
+		gui.Nox_xxx_wndClearCaptureMain(prev)
 	}
 }
 
@@ -138,7 +138,7 @@ func sub_449E00(a1 *wchar_t) C.int {
 
 func sub449E00(a1 string) int {
 	v1 := nox_gui_curDialog_830224.ChildByID(4005)
-	return eventRespInt(v1.Func94(&WindowEvent0x4001{Str: a1, Val: -1}))
+	return gui.EventRespInt(v1.Func94(&WindowEvent0x4001{Str: a1, Val: -1}))
 }
 
 //export sub_449E30
@@ -148,22 +148,22 @@ func sub_449E30(a1 *wchar_t) C.int {
 
 func sub449E30(a1 string) int {
 	v1 := nox_gui_curDialog_830224.ChildByID(4004)
-	return eventRespInt(v1.Func94(&WindowEvent0x4001{Str: a1, Val: -1}))
+	return gui.EventRespInt(v1.Func94(&WindowEvent0x4001{Str: a1, Val: -1}))
 }
 
 //export sub_449E60
 func sub_449E60(a1 C.char) C.int {
-	return C.int(eventRespInt(sub449E60(int8(a1))))
+	return C.int(gui.EventRespInt(sub449E60(int8(a1))))
 }
 
-func sub449E60(a1 int8) WindowEventResp {
-	var v1 *Window
+func sub449E60(a1 int8) gui.WindowEventResp {
+	var v1 *gui.Window
 	if a1 >= 0 {
 		v1 = nox_gui_curDialog_830224.ChildByID(guiDialogTextEntry1ID)
 	} else {
 		v1 = nox_gui_curDialog_830224.ChildByID(guiDialogTextEntry2ID)
 	}
-	return v1.Func94(asWindowEvent(0x401d, 0, 0))
+	return v1.Func94(gui.AsWindowEvent(0x401d, 0, 0))
 }
 
 //export sub_449EA0
@@ -239,29 +239,29 @@ func nox_gui_dialogUnsetFlags_830224(a1 gui.DialogFlags) {
 	*memmap.PtrUint32(0x5D4594, 830240) &^= uint32(a1)
 }
 
-func sub_449BE0(win *Window, ev WindowEvent) WindowEventResp {
+func sub_449BE0(win *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 	switch ev := ev.(type) {
 	default:
 		return nil
-	case WindowKeyPress:
+	case gui.WindowKeyPress:
 		switch ev.Key {
 		case keybind.KeyEsc:
-			return RawEventResp(1)
+			return gui.RawEventResp(1)
 		case keybind.KeySpace:
 			mpos := noxClient.GetMousePos()
-			win.Func93(&WindowMouseState{State: input.NOX_MOUSE_LEFT_DOWN, Pos: mpos})
+			win.Func93(&gui.WindowMouseState{State: input.NOX_MOUSE_LEFT_DOWN, Pos: mpos})
 		}
 		return nil
 	}
 }
 
-func sub_449C30(a1 *Window, ev WindowEvent) WindowEventResp {
+func sub_449C30(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 	switch ev := ev.(type) {
-	case WindowKeyPress:
+	case gui.WindowKeyPress:
 		if ev.Key == keybind.KeyEnter {
 			dia := nox_gui_curDialog_830224
 			bok := dia.ChildByID(guiDialogOKID)
-			if bok.Flags().IsEnabled() && !bok.Flags().IsHidden() {
+			if bok.GetFlags().IsEnabled() && !bok.GetFlags().IsHidden() {
 				dia.Func94(&WindowEvent0x4007{Win: bok})
 			}
 		}
@@ -269,17 +269,17 @@ func sub_449C30(a1 *Window, ev WindowEvent) WindowEventResp {
 	return nox_xxx_wndEditProc_487D70(a1, ev)
 }
 
-func nox_xxx_windowDlgProc_449CA0(a1 *Window, ev WindowEvent) WindowEventResp {
+func nox_xxx_windowDlgProc_449CA0(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 	switch ev := ev.(type) {
 	default:
 		return nil
-	case WindowFocus:
-		return RawEventResp(1)
+	case gui.WindowFocus:
+		return gui.RawEventResp(1)
 	case *WindowEvent0x4007:
 		switch ev.Win.ID() {
 		case guiDialogOKID, guiDialogYesID: // OK or Yes
 			if memmap.Uint8(0x5D4594, 830240)&0x20 != 0 {
-				nox_xxx_wnd46C6E0(nox_gui_curDialog_830224)
+				gui.Nox_xxx_wnd46C6E0(nox_gui_curDialog_830224)
 			}
 			dword_5d4594_830228.Func94(ev)
 			if func_5D4594_830220 != nil {
@@ -291,7 +291,7 @@ func nox_xxx_windowDlgProc_449CA0(a1 *Window, ev WindowEvent) WindowEventResp {
 			sub_44A400()
 		case guiDialogCancelID, guiDialogNoID: // Cancel or No
 			if memmap.Uint8(0x5D4594, 830240)&0x20 != 0 {
-				nox_xxx_wnd46C6E0(nox_gui_curDialog_830224)
+				gui.Nox_xxx_wnd46C6E0(nox_gui_curDialog_830224)
 			}
 			dword_5d4594_830228.Func94(ev)
 			if func_5d4594_830216 != nil {
@@ -327,7 +327,7 @@ func sub_44A4E0() C.int {
 //export sub_44A4B0
 func sub_44A4B0() {
 	if nox_gui_curDialog_830224 != nil {
-		nox_xxx_wndShowModalMB(nox_gui_curDialog_830224)
+		gui.Nox_xxx_wndShowModalMB(nox_gui_curDialog_830224)
 	}
 }
 

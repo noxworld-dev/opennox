@@ -39,6 +39,7 @@ import (
 
 	"github.com/noxworld-dev/lobby"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/common/discover"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -217,7 +218,7 @@ func onLobbyServerPacket(addr string, port int, name string, packet []byte) bool
 			Field_25_2: packet[19],
 			Status:     packet[20] | packet[21],
 			Field_12:   binary.LittleEndian.Uint32(packet[24:]),
-			Flags:      binary.LittleEndian.Uint16(packet[28:]),
+			GetFlags:      binary.LittleEndian.Uint16(packet[28:]),
 			Field_39_3: binary.LittleEndian.Uint32(packet[32:]),
 			Field_26_1: binary.LittleEndian.Uint16(packet[36:]),
 			Field_26_3: binary.LittleEndian.Uint16(packet[38:]),
@@ -241,12 +242,12 @@ func nox_client_refreshServerList_4378B0() {
 	*memmap.PtrUint64(0x5D4594, 815076) = platformTicks()
 	C.dword_5d4594_815060 = 0
 	C.sub_4379C0()
-	asWindow(C.dword_5d4594_815004).Func94(asWindowEvent(0x400F, 0, 0))
+	asWindow(C.dword_5d4594_815004).Func94(gui.AsWindowEvent(0x400F, 0, 0))
 	C.sub_49FFA0(1)
 	C.nox_wol_server_result_cnt_815088 = 0
 
 	ctx := context.Background()
-	asWindow(C.nox_wol_wnd_world_814980).NewDialogID("Wolchat.c:PleaseWait", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
+	winNewDialogID(asWindow(C.nox_wol_wnd_world_814980), "Wolchat.c:PleaseWait", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
 	netstr.Flag1 = false
 	go discoverAndPingServers(ctx)
 
@@ -571,11 +572,11 @@ func nox_client_setConnError_43AFA0(err ConnectError) {
 
 //export sub_4373A0
 func sub_4373A0() {
-	if win := asWindowP(C.dword_5d4594_815000); !win.Flags().IsHidden() {
+	if win := asWindowP(C.dword_5d4594_815000); !win.GetFlags().IsHidden() {
 		win.Hide()
 		C.dword_5d4594_815056 = 0
-		nox_xxx_wnd46C6E0(win)
-		guiFocus(asWindow(C.nox_wol_wnd_world_814980))
+		gui.Nox_xxx_wnd46C6E0(win)
+		gui.Focus(asWindow(C.nox_wol_wnd_world_814980))
 	}
 	if C.dword_587000_87408 == 1 || C.dword_587000_87412 == -1 {
 		if C.nox_game_createOrJoin_815048 == 1 {
@@ -592,7 +593,7 @@ func sub_4373A0() {
 	} else if C.nox_game_createOrJoin_815048 == 1 {
 		C.nox_game_createOrJoin_815048 = 0
 		noxClient.SetMouseBounds(image.Rect(0, 0, nox_win_width-1, nox_win_height-1))
-		nox_xxx_wndClearCaptureMain(asWindowP(C.dword_5d4594_814984))
+		gui.Nox_xxx_wndClearCaptureMain(asWindowP(C.dword_5d4594_814984))
 		C.sub_4375C0(1)
 		v0 := strMan.GetStringInFile("JoinServer", "C:\\NoxPost\\src\\client\\shell\\noxworld.c")
 		asWindowP(C.dword_5d4594_814996).Func94(&WindowEvent0x4001{Str: v0})

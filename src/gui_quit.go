@@ -13,20 +13,21 @@ int* nox_xxx_guiServerOptionsHide_4597E0(int a1);
 */
 import "C"
 import (
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
 func nox_xxx_wndLoadQuitMenu_445790() int {
-	win := newWindowFromFile("QuitMenu.wnd", wrapWindowFuncC(C.nox_xxx_menuGameOnButton_445840))
+	win := newWindowFromFile("QuitMenu.wnd", gui.WrapWindowFuncC(C.nox_xxx_menuGameOnButton_445840))
 	if win == nil {
 		return 0
 	}
-	C.nox_wnd_quitMenu_825760 = win.C()
-	win.SetAllFuncs(func(win *Window, ev WindowEvent) WindowEventResp {
-		return RawEventResp(1)
-	}, func(win *Window, draw *WindowData) int {
+	C.nox_wnd_quitMenu_825760 = (*C.nox_window)(win.C())
+	win.SetAllFuncs(func(win *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
+		return gui.RawEventResp(1)
+	}, func(win *gui.Window, draw *gui.WindowData) int {
 		pos := win.GlobalPos()
 		sz := win.Size()
 		noxClient.r.DrawRectFilledAlpha(pos.X, pos.Y, sz.X, sz.Y)
@@ -34,11 +35,11 @@ func nox_xxx_wndLoadQuitMenu_445790() int {
 	}, nil)
 	sz := win.Size()
 	win.DrawData().SetBackgroundColor(nox_color_black_2650656)
-	win.off_x = int32(nox_win_width-sz.X) / 2
-	win.end_x = win.off_x + int32(sz.X)
+	win.Off.X = int(nox_win_width-sz.X) / 2
+	win.EndPos.X = win.Off.X + sz.X
 	if nox_win_height > 768 {
-		win.off_y = int32(nox_win_height-sz.Y-nox_win_height/3) / 2
-		win.end_y = win.off_y + int32(sz.Y)
+		win.Off.Y = (nox_win_height - sz.Y - nox_win_height/3) / 2
+		win.EndPos.Y = win.Off.Y + sz.Y
 	}
 	C.sub_445C40()
 	dword_5d4594_825752 = 0

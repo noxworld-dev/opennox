@@ -61,7 +61,7 @@ func (a *guiAnim) setState(s guiAnimState) {
 	a.state = s.C()
 }
 
-func (a *guiAnim) Window() *Window {
+func (a *guiAnim) Window() *gui.Window {
 	if a == nil {
 		return nil
 	}
@@ -192,9 +192,9 @@ func nox_gui_findAnimationForDest_43C520(dest gui.StateID) *guiAnim {
 	return nil
 }
 
-func newGUIAnimation(win *Window) *guiAnim {
+func newGUIAnimation(win *gui.Window) *guiAnim {
 	p, _ := alloc.New(guiAnim{})
-	p.win = win.C()
+	p.win = (*C.nox_window)(win.C())
 	p.next = guiAnimationsHead.C()
 	if guiAnimationsHead != nil {
 		guiAnimationsHead.prev = p.C()
@@ -230,7 +230,7 @@ func (a *guiAnim) Free() {
 func nox_gui_makeAnimation_43C5B0(win *C.nox_window, x1, y1, x2, y2, in_dx, in_dy, out_dx, out_dy C.int) *C.nox_gui_animation {
 	return nox_gui_makeAnimation(asWindow(win), int(x1), int(y1), int(x2), int(y2), int(in_dx), int(in_dy), int(out_dx), int(out_dy)).C()
 }
-func nox_gui_makeAnimation(win *Window, x1, y1, x2, y2, in_dx, in_dy, out_dx, out_dy int) *guiAnim {
+func nox_gui_makeAnimation(win *gui.Window, x1, y1, x2, y2, in_dx, in_dy, out_dx, out_dy int) *guiAnim {
 	a := newGUIAnimation(win)
 	win.SetPos(image.Point{X: x2, Y: y2})
 	a.x1 = C.int(x1)

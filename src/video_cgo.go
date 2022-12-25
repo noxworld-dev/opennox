@@ -826,8 +826,8 @@ func sub_478000() C.int {
 	c := noxClient
 	C.sub_467CD0()
 	if c.dragndropSpellType != 0 {
-		v1 := nox_xxx_wndGetCaptureMain()
-		nox_xxx_wndClearCaptureMain(v1)
+		v1 := gui.Nox_xxx_wndGetCaptureMain()
+		gui.Nox_xxx_wndClearCaptureMain(v1)
 		nox_xxx_bookSpellDnDclear_477660()
 	}
 	return 0

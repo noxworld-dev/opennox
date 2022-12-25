@@ -12,16 +12,17 @@ import (
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/internal/version"
 )
 
 var (
-	nox_win_legalBg_1522892 *Window
+	nox_win_legalBg_1522892 *gui.Window
 	nox_win_legalBg_timer   int
 )
 
-func sub_4CC6F0(win *Window, draw *WindowData) int {
+func sub_4CC6F0(win *gui.Window, draw *gui.WindowData) int {
 	nox_win_legalBg_timer--
 	if nox_win_legalBg_timer < 0 {
 		nox_win_legalBg_1522892.Destroy()
@@ -37,9 +38,9 @@ func sub_4CC6F0(win *Window, draw *WindowData) int {
 	return 1
 }
 
-func nox_xxx_windowMainBGProc_4CC6A0(win *Window, ev WindowEvent) WindowEventResp {
+func nox_xxx_windowMainBGProc_4CC6A0(win *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 	if nox_win_legalBg_timer > 270 {
-		return RawEventResp(1)
+		return gui.RawEventResp(1)
 	}
 	switch ev := ev.(type) {
 	case *WindowEvent0x4007:
@@ -47,15 +48,15 @@ func nox_xxx_windowMainBGProc_4CC6A0(win *Window, ev WindowEvent) WindowEventRes
 			win.Destroy()
 			nox_game_showMainMenu4A1C00()
 		}
-		return RawEventResp(1)
+		return gui.RawEventResp(1)
 	default:
 		return nil
 	}
 }
 
-func sub_4CC660(win *Window, ev WindowEvent) WindowEventResp {
+func sub_4CC660(win *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 	if nox_win_legalBg_timer <= 270 {
-		ekey, ok := ev.(WindowKeyPress)
+		ekey, ok := ev.(gui.WindowKeyPress)
 		if !ok {
 			return nil
 		}
@@ -64,14 +65,14 @@ func sub_4CC660(win *Window, ev WindowEvent) WindowEventResp {
 			nox_game_showMainMenu4A1C00()
 		}
 	}
-	return RawEventResp(1)
+	return gui.RawEventResp(1)
 }
 
 func nox_game_showLegal_4CC4E0() {
 	win := newWindowFromFile("legal.wnd", nox_xxx_windowMainBGProc_4CC6A0)
 	nox_win_legalBg_1522892 = win
 	win.SetAllFuncs(sub_4CC660, nil, nil)
-	nox_xxx_wndShowModalMB(win)
+	gui.Nox_xxx_wndShowModalMB(win)
 	v0 := win.ChildByID(9980)
 	v8 := GoWString(C.sub_46AF00(unsafe.Pointer(v0.C())))
 	v1 := noxClient.r.Fonts.AsFont(C.sub_46AF40(unsafe.Pointer(v0.C())))
@@ -85,7 +86,7 @@ func nox_game_showLegal_4CC4E0() {
 	}
 	versText.Func94(&WindowEvent0x4001{Str: vers})
 	win.ChildByID(9998).Func94(&WindowEvent0x4001{Str: " "})
-	win.ChildByID(9970).setDraw(sub_4CC6F0)
+	win.ChildByID(9970).SetDraw(sub_4CC6F0)
 	nox_win_legalBg_timer = 300
 	if noxflags.HasGame(noxflags.GameFlag26) {
 		v6 := win.ChildByID(9901)
@@ -95,7 +96,7 @@ func nox_game_showLegal_4CC4E0() {
 	nox_client_onShowLegal(win)
 }
 
-func nox_client_onShowLegal(win *Window) {
+func nox_client_onShowLegal(win *gui.Window) {
 	vers := win.ChildByID(9999)
 	draw := vers.DrawData()
 	// original version text color is grey, we change it to yellow

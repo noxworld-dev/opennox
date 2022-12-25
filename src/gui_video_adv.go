@@ -43,7 +43,7 @@ type videoOpt struct {
 
 type guiAdvOptions struct {
 	cli                          *Client
-	nox_win_advVideoOpts_1522600 *Window
+	nox_win_advVideoOpts_1522600 *gui.Window
 	noxVideoAdvList              []*videoOpt
 	noxVideoAdvOpts              map[uint]*videoOpt
 }
@@ -78,9 +78,9 @@ func (c *guiAdvOptions) Init(cli *Client) {
 	}
 }
 
-func (c *guiAdvOptions) NewOn(par *Window) {
+func (c *guiAdvOptions) NewOn(par *gui.Window) {
 	c.nox_win_advVideoOpts_1522600 = c.newAdvVideoOpts()
-	sub46B120(c.nox_win_advVideoOpts_1522600, par)
+	gui.Sub46B120(c.nox_win_advVideoOpts_1522600, par)
 	c.nox_client_advVideoOptsLoad()
 }
 
@@ -120,11 +120,11 @@ func sub_49B3C0() {
 	C.dword_5d4594_1301796 = 0
 }
 
-func (c *guiAdvOptions) nox_client_advVideoOptsProc_4CB5D0(win *Window, ev WindowEvent) WindowEventResp {
+func (c *guiAdvOptions) nox_client_advVideoOptsProc_4CB5D0(win *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 	switch ev := ev.(type) {
 	case *WindowEvent0x4005:
 		clientPlaySoundSpecial(sound.SoundShellSelect, 100)
-		return RawEventResp(1)
+		return gui.RawEventResp(1)
 	case *WindowEvent0x4007:
 		clientPlaySoundSpecial(sound.SoundButtonPress, 100)
 		id := ev.Win.ID()
@@ -173,11 +173,11 @@ func (c *guiAdvOptions) nox_client_advVideoOptsProc_4CB5D0(win *Window, ev Windo
 	return nil
 }
 
-func (c *guiAdvOptions) newAdvVideoOpts() *Window {
+func (c *guiAdvOptions) newAdvVideoOpts() *gui.Window {
 	draw, drawFree := tempDrawData()
 	defer drawFree()
 
-	draw.SetStatus(gui.StatusEnabled | gui.StatusNoFocus)
+	draw.Status = gui.StatusEnabled | gui.StatusNoFocus
 
 	draw.SetHighlightColor(noxcolor.RGB5551Color(192, 128, 128))
 	draw.SetTextColor(noxcolor.RGB5551Color(240, 180, 42))
@@ -192,7 +192,7 @@ func (c *guiAdvOptions) newAdvVideoOpts() *Window {
 		height = 315
 	)
 
-	root := newUserWindow(nil, 2000, draw.Status(), 280, 38, width, height, draw, c.nox_client_advVideoOptsProc_4CB5D0)
+	root := gui.NewUserWindow(nil, 2000, draw.Status, 280, 38, width, height, draw, c.nox_client_advVideoOptsProc_4CB5D0)
 
 	const (
 		pad     = 3

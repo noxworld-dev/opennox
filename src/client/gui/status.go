@@ -19,7 +19,7 @@ const (
 	StatusNoFlush                             // 0x8000
 )
 
-type StatusFlags int
+type StatusFlags uint32
 
 func (s StatusFlags) Has(s2 StatusFlags) bool {
 	return s&s2 != 0
