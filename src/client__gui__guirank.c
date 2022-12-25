@@ -23,7 +23,6 @@ extern uint32_t dword_587000_145664;
 extern uint32_t dword_5d4594_1090044;
 extern uint32_t dword_5d4594_1090100;
 extern uint32_t nox_player_netCode_85319C;
-extern int dword_5d4594_3799524;
 extern uint32_t dword_5d4594_1090120;
 extern int nox_win_width;
 extern uint32_t nox_color_white_2523948;
@@ -351,7 +350,7 @@ int sub_46F080(int a1, int a2) {
 		nox_client_drawImageAt_47D2C0(*(uint32_t*)(a2 + 24), xLeft, yTop);
 	}
 	if (dword_587000_145664 || gameFrame() > (unsigned int)(*getMemU32Ptr(0x5D4594, 1090124) + gameFPS())) {
-		dword_5d4594_3799524 = 1;
+		set_dword_5d4594_3799468(1);
 		*getMemU32Ptr(0x5D4594, 1090124) = gameFrame();
 		dword_587000_145672 = -1;
 		v33 = 0;

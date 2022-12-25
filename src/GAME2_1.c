@@ -92,7 +92,6 @@ extern uint32_t nox_client_highResFloors_154952;
 extern uint32_t dword_5d4594_1062528;
 extern uint32_t dword_5d4594_1062524;
 extern uint32_t dword_5d4594_251540;
-extern int dword_5d4594_3799524;
 extern uint32_t dword_5d4594_1064856;
 extern uint32_t dword_5d4594_1049856;
 extern uint32_t dword_5d4594_1049520;
@@ -3432,7 +3431,7 @@ int sub_46A6A0() {
 	nox_window_set_hidden(*(int*)&dword_5d4594_1064856, 1);
 	*(uint32_t*)(dword_5d4594_1064856 + 4) &= 0xFFFFFFF7;
 	*(uint32_t*)(dword_5d4594_1064860 + 4) &= 0xFFFFFFF7;
-	dword_5d4594_3799524 = 1;
+	set_dword_5d4594_3799468(1);
 	dword_5d4594_1064868 = 0;
 	return 1;
 }
