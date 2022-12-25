@@ -4,7 +4,7 @@ version: git
 title: OpenNox
 summary: Modern implementation of Nox game engine
 #website: https://www.patreon.com/opennox # see https://bugs.launchpad.net/review-tools/+bug/1940880
-icon: snap/gui/opennox.png
+icon: res/opennox_256.png
 description: |
   **OpenNox** is a modern implementation of a **Nox** game engine.
 
@@ -95,7 +95,7 @@ parts:
       src/opennox-hd: bin/
       src/opennox-server: bin/
       src/*.desktop: usr/share/applications/
-      snap/gui/opennox.png: usr/share/icons/hicolor/256x256/apps/
+      res/opennox_256.png: usr/share/icons/hicolor/256x256/apps/opennox.png
     stage:
       - bin/
       - etc/
