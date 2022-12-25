@@ -5,8 +5,6 @@ package opennox
 #include "client__gui__window.h"
 extern nox_window_ref* nox_win_1064912;
 
-void  sub_4AA030(nox_window* win, nox_window_data* data);
-
 static int nox_window_call_draw_func_go(int (*fnc)(nox_window*, nox_window_data*), nox_window* win, nox_window_data* data) {
 	return fnc(win, data);
 }
@@ -29,12 +27,143 @@ import (
 	"github.com/noxworld-dev/opennox-lib/log"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 )
 
 func init() {
-	gui.DrawImplFunc = func(win *gui.Window) {
-		C.sub_4AA030((*C.nox_window)(win.C()), (*C.nox_window_data)(win.DrawData().C()))
+	gui.DrawImplFunc = guiDrawWindowStyle
+}
+
+var (
+	guiBorderCornerUL        *noxrender.Image
+	guiBorderCornerUR        *noxrender.Image
+	guiBorderCornerLL        *noxrender.Image
+	guiBorderCornerLR        *noxrender.Image
+	guiBorderHorizontal      *noxrender.Image
+	guiBorderHorizontalShort *noxrender.Image
+	guiBorderVertical        *noxrender.Image
+	guiBorderVerticalShort   *noxrender.Image
+)
+
+func guiLoadBorderImages() {
+	guiBorderCornerUL = nox_xxx_gLoadImg("BorderCornerUL")
+	guiBorderCornerUR = nox_xxx_gLoadImg("BorderCornerUR")
+	guiBorderCornerLL = nox_xxx_gLoadImg("BorderCornerLL")
+	guiBorderCornerLR = nox_xxx_gLoadImg("BorderCornerLR")
+	guiBorderHorizontal = nox_xxx_gLoadImg("BorderHorizontal")
+	guiBorderHorizontalShort = nox_xxx_gLoadImg("BorderHorizontalShort")
+	guiBorderVertical = nox_xxx_gLoadImg("BorderVertical")
+	guiBorderVerticalShort = nox_xxx_gLoadImg("BorderVerticalShort")
+}
+
+func guiDrawWindowStyle(win *gui.Window) {
+	r := noxClient.r
+	data := win.DrawData()
+	gpos := win.GlobalPos()
+	sz := win.Size()
+
+	for i := 0; i < 32; i++ {
+		flag := data.Style & (1 << i)
+		if flag == 0 {
+			continue
+		}
+		switch flag {
+		case gui.StylePushButton, gui.StyleRadioButton, gui.StyleStaticText, gui.StyleProgressBar, gui.StyleUserWindow:
+			guiDrawBorders(gpos.X, gpos.Y, sz.X, sz.Y)
+			return
+		case gui.StyleCheckBox, gui.StyleVertSlider, gui.StyleHorizSlider:
+			return
+		case gui.StyleScrollListBox:
+			ptr := win.WidgetData
+			dsx := 0
+			dy := 0
+			if *(*uint32)(unsafe.Add(ptr, 12)) != 0 {
+				p1 := asWindowP(*(*unsafe.Pointer)(unsafe.Add(ptr, 36)))
+				p2 := p1.Field100()
+				dsx = p2.Size().Y
+			}
+			if data.Text() != "" {
+				dy = 4
+			}
+			guiDrawBorders(gpos.X-3, gpos.Y-dy-3, sz.X-dsx+3, sz.Y+6)
+			return
+		case gui.StyleEntryField:
+			v9 := gpos.X
+			ptr := win.WidgetData
+
+			sx := sz.X
+			x := gpos.X
+			dy := 0
+			if text := data.Text(); text != "" {
+				tsz := r.GetStringSizeWrapped(data.Font(), text, 0)
+				x += tsz.X + 6
+				sx -= tsz.X + 6
+			}
+			v14 := int(int16(*(*uint16)(unsafe.Add(ptr, 1042))))
+			if int32(v14) > 0 && sx > v14 {
+				sx = v14
+				x = v9 + sz.X - v14
+			}
+			guiDrawBorders(x, gpos.Y+dy, sx, sz.Y)
+			return
+		}
 	}
+}
+
+func guiDrawBorders(a1 int, a2 int, a3 int, a4 int) {
+	r := noxClient.r
+	v4 := a1 + a3
+	v18 := a1
+	v5 := a1 + 10
+	v6 := a2 - 10
+	v7 := a1 + a3 - 30
+	v19 := a1 + a3
+	v21 := a2 - 10
+	v8 := a2 + a4 - 10
+	if v5 <= v7 {
+		for {
+			r.DrawImageAt(guiBorderHorizontal, image.Pt(v5, v6))
+			r.DrawImageAt(guiBorderHorizontal, image.Pt(v5, v8))
+			v5 += 20
+			if v5 > v7 {
+				break
+			}
+		}
+		v4 = v19
+	}
+	v9 := v4 - 10
+	if v4-10-v5 >= 10 {
+		r.DrawImageAt(guiBorderHorizontalShort, image.Pt(v5, v6))
+		r.DrawImageAt(guiBorderHorizontalShort, image.Pt(v5, v8))
+		v5 += 10
+	}
+	if v5 < v9 {
+		v10 := int(uint32(v5) + (uint32(v9-v5+1) & 0xFFFFFFFE) - 10)
+		r.DrawImageAt(guiBorderHorizontalShort, image.Pt(v10, v6))
+		r.DrawImageAt(guiBorderHorizontalShort, image.Pt(v10, v8))
+	}
+	v12 := a2 + 10
+	v15 := v18 - 10
+	v20 := a2 + a4 - 30
+	for v12 <= v20 {
+		r.DrawImageAt(guiBorderVertical, image.Pt(v15, v12))
+		r.DrawImageAt(guiBorderVertical, image.Pt(v9, v12))
+		v12 += 20
+	}
+	if v8-v12 >= 10 {
+		r.DrawImageAt(guiBorderVerticalShort, image.Pt(v15, v12))
+		r.DrawImageAt(guiBorderVerticalShort, image.Pt(v9, v12))
+		v12 += 10
+	}
+	if v12 < v8 {
+		v16 := int(uint32(v12) + (uint32(v8-v12+1) & 0xFFFFFFFE) - 10)
+		r.DrawImageAt(guiBorderVerticalShort, image.Pt(v15, v16))
+		r.DrawImageAt(guiBorderVerticalShort, image.Pt(v9, v16))
+	}
+	r.DrawImageAt(guiBorderCornerUL, image.Pt(v15, v21))
+	r.DrawImageAt(guiBorderCornerUR, image.Pt(v9, v21))
+	r.DrawImageAt(guiBorderCornerLL, image.Pt(v15, v8))
+	r.DrawImageAt(guiBorderCornerLR, image.Pt(v9, v8))
 }
 
 //export get_dword_5d4594_3799468

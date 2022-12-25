@@ -102,7 +102,6 @@ int nox_xxx_wnd_46B280(int a1, int a2);
 int nox_xxx_wndSetProc_46B2C0(int a1, int (*a2)(int, int, int, int));
 int nox_xxx_wndSetWindowProc_46B300(int a1, int (*a2)(int, int, int, int));
 int nox_xxx_wndSetDrawFn_46B340(int a1, int (*a2)(int, int));
-char* nox_xxx_wndLoadBorder_4AA1F0();
 int nox_client_getRenderGUI();
 void nox_client_setRenderGUI(int v);
 void set_dword_5d4594_3799468(int v);
