@@ -80,7 +80,7 @@ func (c *clientObjTypes) readType(thg *MemFile, buf []byte) error {
 	if err != nil {
 		return fmt.Errorf("cannot read object type: %w", err)
 	}
-	typ.Name = internCStrB(id)
+	typ.Name = alloc.InternCString(id)
 	typ.MenuIcon = -1
 	typ.Field_1c = int32(len(c.byInd))
 	c.byInd = append(c.byInd, typ)
@@ -99,10 +99,10 @@ func (c *clientObjTypes) readType(thg *MemFile, buf []byte) error {
 	c.byID[strings.ToLower(id)] = typ
 	if typ.Weight != 0 {
 		if typ.PrettyName == nil {
-			typ.PrettyName = internWStrU(strMan.GetStringInFile(strman.ID(fmt.Sprintf("thing.db:%sPrettyName", id)), "drawdb.c"))
+			typ.PrettyName = alloc.InternCString16(strMan.GetStringInFile(strman.ID(fmt.Sprintf("thing.db:%sPrettyName", id)), "drawdb.c"))
 		}
 		if typ.Desc == nil {
-			typ.Desc = internWStrU(strMan.GetStringInFile(strman.ID(fmt.Sprintf("thing.db:%sDescription", id)), "drawdb.c"))
+			typ.Desc = alloc.InternCString16(strMan.GetStringInFile(strman.ID(fmt.Sprintf("thing.db:%sDescription", id)), "drawdb.c"))
 		}
 	}
 	return nil
@@ -435,11 +435,11 @@ var clientThingParseFuncs = map[string]clientThingFieldFunc{
 		return nil
 	},
 	"PRETTYNAME": func(typ *client.ObjectType, f *MemFile, str string, buf []byte) error {
-		typ.PrettyName = internWStrU(noxClient.Strings().GetStringInFile(strman.ID(str), "drawdb.c"))
+		typ.PrettyName = alloc.InternCString16(noxClient.Strings().GetStringInFile(strman.ID(str), "drawdb.c"))
 		return nil
 	},
 	"DESCRIPTION": func(typ *client.ObjectType, f *MemFile, str string, buf []byte) error {
-		typ.Desc = internWStrU(noxClient.Strings().GetStringInFile(strman.ID(str), "drawdb.c"))
+		typ.Desc = alloc.InternCString16(noxClient.Strings().GetStringInFile(strman.ID(str), "drawdb.c"))
 		return nil
 	},
 	"PRETTYIMAGE": wrapClientThingFuncC(C.nox_parse_thing_pretty_image),

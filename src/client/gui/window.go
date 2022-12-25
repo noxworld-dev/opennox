@@ -45,6 +45,10 @@ type windowExt struct {
 	Draw   WindowDrawFunc
 }
 
+type WidgetData interface {
+	CWidgetData() unsafe.Pointer
+}
+
 type Window struct {
 	id             int32          // 0, 0
 	Flags          StatusFlags    // 1, 4

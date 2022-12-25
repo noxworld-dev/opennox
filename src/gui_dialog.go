@@ -112,10 +112,10 @@ func NewDialogWindow(a1 *gui.Window, title string, text string, flags gui.Dialog
 	dia.ChildByID(guiDialogTextEntry1ID).SetFunc93(sub_449C30)
 	dia.ChildByID(guiDialogTextEntry2ID).SetFunc93(sub_449C30)
 	if title != "" {
-		dia.ChildByID(guiDialogTitleID).Func94(&WindowEvent0x4001{Str: title, Val: -1})
+		dia.ChildByID(guiDialogTitleID).Func94(&gui.StaticTextSetText{Str: title, Val: -1})
 	}
 	if text != "" {
-		dia.ChildByID(guiDialogTextID).Func94(&WindowEvent0x4001{Str: text, Val: -1})
+		dia.ChildByID(guiDialogTextID).Func94(&gui.StaticTextSetText{Str: text, Val: -1})
 	}
 	dia.SetParent(nil)
 	dia.ShowModal()
@@ -138,7 +138,7 @@ func sub_449E00(a1 *wchar_t) C.int {
 
 func sub449E00(a1 string) int {
 	v1 := nox_gui_curDialog_830224.ChildByID(4005)
-	return gui.EventRespInt(v1.Func94(&WindowEvent0x4001{Str: a1, Val: -1}))
+	return gui.EventRespInt(v1.Func94(&gui.StaticTextSetText{Str: a1, Val: -1}))
 }
 
 //export sub_449E30
@@ -148,7 +148,7 @@ func sub_449E30(a1 *wchar_t) C.int {
 
 func sub449E30(a1 string) int {
 	v1 := nox_gui_curDialog_830224.ChildByID(4004)
-	return gui.EventRespInt(v1.Func94(&WindowEvent0x4001{Str: a1, Val: -1}))
+	return gui.EventRespInt(v1.Func94(&gui.StaticTextSetText{Str: a1, Val: -1}))
 }
 
 //export sub_449E60

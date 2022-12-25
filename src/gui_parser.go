@@ -85,7 +85,7 @@ type guiParser struct {
 		slider      *sliderData
 		scrollBox   *scrollListBoxData
 		entryField  *entryFieldData
-		staticText  *staticTextData
+		staticText  *gui.StaticTextData
 	}
 }
 
@@ -212,7 +212,7 @@ func (p *guiParser) parseWindowRoot(fnc gui.WindowFunc) *gui.Window {
 	typ, tok = gui.ParseNextField(tok)
 
 	var win *gui.Window
-	var data guiWidgetData
+	var data gui.WidgetData
 	for {
 		field := p.nextWord()
 		// hooks for different custom fields
@@ -295,7 +295,7 @@ func (p *guiParser) parseWinFields(win *gui.Window) bool {
 	return p.parentsPop() == win
 }
 
-func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool) {
+func (p *guiParser) parseDataField(typ string, buf string) (gui.WidgetData, bool) {
 	var (
 		s string
 		v uint
@@ -371,17 +371,17 @@ func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool)
 		return d, true
 	case "STATICTEXT":
 		if p.widgets.staticText == nil {
-			p.widgets.staticText, _ = alloc.New(staticTextData{})
+			p.widgets.staticText, _ = alloc.New(gui.StaticTextData{})
 		}
 		d := p.widgets.staticText
-		*d = staticTextData{}
+		*d = gui.StaticTextData{}
 		v, buf = gui.ParseNextUintField(buf)
-		d.center = uint32(bool2int(v != 0))
+		d.Center = uint32(bool2int(v != 0))
 		v, buf = gui.ParseNextUintField(buf)
-		d.glow = uint32(bool2int(v != 0))
+		d.Glow = uint32(bool2int(v != 0))
 		s, buf = gui.ParseNextField(buf)
 		text := p.sm.GetStringInFile(strman.ID(s), "C:\\NoxPost\\src\\Client\\Gui\\GameWin\\psscript.c")
-		d.text = internWStr(text)
+		d.Text = alloc.InternCString16(text)
 		return d, true
 	case "RADIOBUTTON":
 		if p.widgets.radioButton == nil {
@@ -393,16 +393,16 @@ func (p *guiParser) parseDataField(typ string, buf string) (guiWidgetData, bool)
 		d.field0 = uint32(v)
 		// TODO: is this correct?
 		if p.widgets.staticText == nil {
-			p.widgets.staticText, _ = alloc.New(staticTextData{})
+			p.widgets.staticText, _ = alloc.New(gui.StaticTextData{})
 		}
 		d2 := p.widgets.staticText
-		d2.center = uint32(bool2int(p.widgets.staticText.center != 0))
+		d2.Center = uint32(bool2int(p.widgets.staticText.Center != 0))
 		return d, true
 	}
 	return nil, true
 }
 
-func (p *guiParser) parseWindowOrWidget(typ string, id uint, status gui.StatusFlags, px, py, w, h int, drawData *gui.WindowData, data guiWidgetData, fnc gui.WindowFunc) *gui.Window {
+func (p *guiParser) parseWindowOrWidget(typ string, id uint, status gui.StatusFlags, px, py, w, h int, drawData *gui.WindowData, data gui.WidgetData, fnc gui.WindowFunc) *gui.Window {
 	parent := p.parentsTop()
 	if typ == "USER" {
 		return p.g.NewUserWindow(parent, id, status, px, py, w, h, drawData, fnc)

@@ -167,7 +167,7 @@ func sub_46B120(a1, a2 *C.nox_window) C.int {
 }
 
 func sub_46AEE0(a1 *gui.Window, a2 string) {
-	a1.Func94(gui.AsWindowEvent(guiEventStaticTextSetText, uintptr(unsafe.Pointer(internWStr(a2))), 0))
+	a1.Func94(&gui.StaticTextSetText{Str: a2})
 }
 
 func nox_xxx_wndEditProc_487D70(a1 *gui.Window, ev gui.WindowEvent) gui.RawEventResp {

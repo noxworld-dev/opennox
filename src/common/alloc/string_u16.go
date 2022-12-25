@@ -1,9 +1,24 @@
 package alloc
 
 import (
+	"sync"
 	"unicode/utf16"
 	"unsafe"
 )
+
+var (
+	smu16     sync.RWMutex
+	strings16 = make(map[string]*uint16)
+)
+
+func freeIntern16() {
+	smu16.Lock()
+	defer smu16.Unlock()
+	for _, v := range strings16 {
+		Free(unsafe.Pointer(v))
+	}
+	strings16 = make(map[string]*uint16)
+}
 
 // CString16 is similar to CString, but makes a UTF16 C string.
 // It also returns a free function, so that it's harder to forget it.
@@ -15,8 +30,32 @@ func CString16(s string) (*uint16, func()) {
 	return &arr[0], free
 }
 
+// InternCString16 is similar to CString16, but allocates a string as a constant.
+// Multiple calls with the same string will lead to the same pointer.
+// Caller MUST NOT free the pointer!
+func InternCString16(s string) *uint16 {
+	smu16.RLock()
+	p := strings16[s]
+	smu16.RUnlock()
+	if p != nil {
+		return p
+	}
+	smu16.Lock()
+	defer smu16.Unlock()
+	p = strings16[s]
+	if p != nil {
+		return p
+	}
+	p, _ = CString16(s)
+	strings16[s] = p
+	return p
+}
+
 // GoString16 is similar to GoString, but accepts a UTF16 string (*wchar_t).
 func GoString16(p *uint16) string {
+	if p == nil {
+		return ""
+	}
 	n := StrLen(p)
 	arr := unsafe.Slice(p, n)
 	return string(utf16.Decode(arr))
@@ -24,6 +63,9 @@ func GoString16(p *uint16) string {
 
 // GoString16S is similar to GoWString16, but accepts a slice and finds a null terminator there.
 func GoString16S(p []uint16) string {
+	if len(p) == 0 {
+		return ""
+	}
 	n := StrLenS(p)
 	return string(utf16.Decode(p[:n]))
 }

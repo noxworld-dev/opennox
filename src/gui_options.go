@@ -174,10 +174,10 @@ func guiEnhanceOptions(root *gui.Window) {
 		root.ChildByID(310 + i).Hide()
 	}
 	// add gamma and sensitivity sliders instead
-	NewStaticText(c.GUI, root, 315, 112, 220, 140, 16, true, false, "Gamma")
+	c.GUI.NewStaticText(root, 315, 112, 220, 140, 16, true, false, "Gamma")
 	NewHorizontalSlider(root, 316, 120, 236, 120, 16, 1, 100).
 		Func94(gui.AsWindowEvent(0x400A, uintptr(getGammaSlider()), 0))
-	NewStaticText(c.GUI, root, 317, 112, 258, 140, 16, true, false, "Sensitivity")
+	c.GUI.NewStaticText(root, 317, 112, 258, 140, 16, true, false, "Sensitivity")
 	NewHorizontalSlider(root, 318, 120, 274, 120, 16, 1, 100).
 		Func94(gui.AsWindowEvent(0x400A, uintptr((math.Log10(float64(noxClient.GetSensitivity()))+1.0)*50), 0))
 }
@@ -191,7 +191,7 @@ func sub4A19F0(name strman.ID) {
 	win := asWindowP(C.dword_5d4594_1307292)
 	v1 := win.ChildByID(152)
 	v2 := strMan.GetStringInFile(name, "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
-	v1.Func94(gui.AsWindowEvent(guiEventStaticTextSetText, uintptr(unsafe.Pointer(internWStr(v2))), math.MaxUint32))
+	v1.Func94(&gui.StaticTextSetText{Str: v2, Val: -1})
 }
 
 //export sub_4AAA10
