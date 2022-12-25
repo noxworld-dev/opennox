@@ -37,8 +37,12 @@ func Latest() string {
 	return latest.vers
 }
 
+func semverIsValid(vers string) bool {
+	return semver.IsValid(vers)
+}
+
 func semverIsDev(vers string) bool {
-	return !semver.IsValid(vers) || semver.Prerelease(vers) != ""
+	return !semverIsValid(vers) || semver.Prerelease(vers) != ""
 }
 
 func semverLatestFromList(names []string) string {

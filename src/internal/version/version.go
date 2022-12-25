@@ -11,7 +11,7 @@ func LogVersion() {
 }
 
 const (
-	Series = "v1.8.x"
+	DefVersion = "v1.8.12-dev"
 )
 
 const (
@@ -19,7 +19,7 @@ const (
 )
 
 var (
-	version = Series
+	version = DefVersion
 	commit  = devCommit
 )
 

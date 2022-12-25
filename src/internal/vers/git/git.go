@@ -9,7 +9,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/version"
 )
 
-const defVersion = version.Series
+const defVersion = version.DefVersion
 
 func do(cmd ...string) (string, error) {
 	c := exec.Command(cmd[0], cmd[1:]...)
