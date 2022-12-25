@@ -80,10 +80,10 @@ type guiParser struct {
 		gui.StyleDefaults
 	}
 	widgets struct {
-		radioButton *radioButtonData
-		slider      *sliderData
+		radioButton *gui.RadioButtonData
+		slider      *gui.SliderData
 		scrollBox   *scrollListBoxData
-		entryField  *entryFieldData
+		entryField  *gui.EntryFieldData
 		staticText  *gui.StaticTextData
 	}
 }
@@ -302,16 +302,16 @@ func (p *guiParser) parseDataField(typ string, buf string) (gui.WidgetData, bool
 	switch typ {
 	case "VERTSLIDER", "HORZSLIDER":
 		if p.widgets.slider == nil {
-			p.widgets.slider, _ = alloc.New(sliderData{})
+			p.widgets.slider, _ = alloc.New(gui.SliderData{})
 		}
 		d := p.widgets.slider
-		*d = sliderData{}
+		*d = gui.SliderData{}
 		v, buf = gui.ParseNextUintField(buf)
-		d.min = uint32(v)
+		d.Min = uint32(v)
 		v, buf = gui.ParseNextUintField(buf)
-		d.max = uint32(v)
-		d.field2 = 0
-		d.field3 = 0
+		d.Max = uint32(v)
+		d.Field2 = 0
+		d.Field3 = 0
 		return d, true
 	case "SCROLLLISTBOX":
 		if p.widgets.scrollBox == nil {
@@ -336,36 +336,36 @@ func (p *guiParser) parseDataField(typ string, buf string) (gui.WidgetData, bool
 		return d, true
 	case "ENTRYFIELD":
 		if p.widgets.entryField == nil {
-			p.widgets.entryField, _ = alloc.New(entryFieldData{})
+			p.widgets.entryField, _ = alloc.New(gui.EntryFieldData{})
 		}
 		d := p.widgets.entryField
-		*d = entryFieldData{}
+		*d = gui.EntryFieldData{}
 		v, buf = gui.ParseNextUintField(buf)
-		d.field_1040 = uint16(v)
+		d.Field_1040 = uint16(v)
 		s, buf = gui.ParseNextField(buf)
 		if s != "" {
 			v, _ := strconv.Atoi(s)
-			d.field_1042 = int16(v)
+			d.Field_1042 = int16(v)
 		} else {
-			d.field_1042 = -1
+			d.Field_1042 = -1
 		}
 		s, buf = gui.ParseNextField(buf)
 		if s != "" {
 			v, _ := strconv.Atoi(s)
-			d.field_1024 = uint32(bool2int(v != 0))
+			d.Field_1024 = uint32(bool2int(v != 0))
 		} else {
-			d.field_1024 = 0
+			d.Field_1024 = 0
 		}
 		s, buf = gui.ParseNextField(buf)
 		if s != "" {
 			v, _ := strconv.Atoi(s)
-			d.field_1028 = uint32(bool2int(v == 1))
-			d.field_1032 = uint32(bool2int(v == 2))
-			d.field_1036 = uint32(bool2int(v == 3))
+			d.Field_1028 = uint32(bool2int(v == 1))
+			d.Field_1032 = uint32(bool2int(v == 2))
+			d.Field_1036 = uint32(bool2int(v == 3))
 		} else {
-			d.field_1028 = 0
-			d.field_1032 = 0
-			d.field_1036 = 0
+			d.Field_1028 = 0
+			d.Field_1032 = 0
+			d.Field_1036 = 0
 		}
 		return d, true
 	case "STATICTEXT":
@@ -384,12 +384,12 @@ func (p *guiParser) parseDataField(typ string, buf string) (gui.WidgetData, bool
 		return d, true
 	case "RADIOBUTTON":
 		if p.widgets.radioButton == nil {
-			p.widgets.radioButton, _ = alloc.New(radioButtonData{})
+			p.widgets.radioButton, _ = alloc.New(gui.RadioButtonData{})
 		}
 		d := p.widgets.radioButton
-		*d = radioButtonData{}
+		*d = gui.RadioButtonData{}
 		v, buf = gui.ParseNextUintField(buf)
-		d.field0 = uint32(v)
+		d.Field0 = uint32(v)
 		// TODO: is this correct?
 		if p.widgets.staticText == nil {
 			p.widgets.staticText, _ = alloc.New(gui.StaticTextData{})

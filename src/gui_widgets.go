@@ -17,57 +17,13 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
 
-type rawWidgetData struct {
-	Ptr unsafe.Pointer
-}
-
-func (d rawWidgetData) CWidgetData() unsafe.Pointer {
-	return unsafe.Pointer(d.Ptr)
-}
-
-type radioButtonData struct {
-	field0 uint32
-}
-
-func (d *radioButtonData) CWidgetData() unsafe.Pointer {
-	return unsafe.Pointer(d)
-}
-
-type sliderData struct {
-	min    uint32
-	max    uint32
-	field2 uint32
-	field3 uint32
-}
-
-func (d *sliderData) CWidgetData() unsafe.Pointer {
-	return unsafe.Pointer(d)
-}
-
 type scrollListBoxData C.nox_scrollListBox_data
 
 func (d *scrollListBoxData) CWidgetData() unsafe.Pointer {
 	return unsafe.Pointer(d)
 }
 
-var _ = [1]struct{}{}[1056-unsafe.Sizeof(entryFieldData{})]
-
-type entryFieldData struct {
-	text       [512]wchar_t
-	field_1024 uint32
-	field_1028 uint32
-	field_1032 uint32
-	field_1036 uint32
-	field_1040 uint16
-	field_1042 int16
-	field_1044 uint32
-	field_1048 uint32
-	field_1052 uint32
-}
-
-func (d *entryFieldData) CWidgetData() unsafe.Pointer {
-	return unsafe.Pointer(d)
-}
+var _ = [1]struct{}{}[1056-unsafe.Sizeof(gui.EntryFieldData{})]
 
 func guiNewWidget(g *gui.GUI, typ string, parent *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, data gui.WidgetData) *gui.Window {
 	draw.Window = parent
@@ -78,18 +34,18 @@ func guiNewWidget(g *gui.GUI, typ string, parent *gui.Window, status gui.StatusF
 		draw.Style |= gui.StylePushButton
 		return newButtonOrCheckbox(g, parent, status, px, py, w, h, draw)
 	case "RADIOBUTTON":
-		tdata, _ := data.(*radioButtonData)
+		tdata, _ := data.(*gui.RadioButtonData)
 		draw.Style |= gui.StyleRadioButton
 		return newRadioButton(g, parent, status, px, py, w, h, draw, tdata)
 	case "CHECKBOX":
 		draw.Style |= gui.StyleCheckBox
 		return newButtonOrCheckbox(g, parent, status, px, py, w, h, draw)
 	case "VERTSLIDER":
-		tdata, _ := data.(*sliderData)
+		tdata, _ := data.(*gui.SliderData)
 		draw.Style |= gui.StyleVertSlider
 		return asWindow(C.nox_gui_newSlider_4B4EE0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.float)(unsafe.Pointer(tdata))))
 	case "HORZSLIDER":
-		tdata, _ := data.(*sliderData)
+		tdata, _ := data.(*gui.SliderData)
 		draw.Style |= gui.StyleHorizSlider
 		return asWindow(C.nox_gui_newSlider_4B4EE0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), (*C.uint)(udraw), (*C.float)(unsafe.Pointer(tdata))))
 	case "SCROLLLISTBOX":
@@ -97,7 +53,7 @@ func guiNewWidget(g *gui.GUI, typ string, parent *gui.Window, status gui.StatusF
 		draw.Style |= gui.StyleScrollListBox
 		return nox_gui_newScrollListBox_4A4310(parent, status, px, py, w, h, draw, tdata)
 	case "ENTRYFIELD":
-		tdata, _ := data.(*entryFieldData)
+		tdata, _ := data.(*gui.EntryFieldData)
 		draw.Style |= gui.StyleEntryField
 		return nox_gui_newEntryField_488500(parent, status, px, py, w, h, draw, tdata)
 	case "STATICTEXT":
@@ -115,7 +71,7 @@ func nox_gui_newScrollListBox_4A4310(par *gui.Window, status gui.StatusFlags, px
 	return asWindow((*C.nox_window)(C.nox_gui_newScrollListBox_4A4310((*C.nox_window)(par.C()), C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.nox_scrollListBox_data)(unsafe.Pointer(tdata)))))
 }
 
-func nox_gui_newEntryField_488500(par *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, tdata *entryFieldData) *gui.Window {
+func nox_gui_newEntryField_488500(par *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, tdata *gui.EntryFieldData) *gui.Window {
 	return asWindow((*C.nox_window)(C.nox_gui_newEntryField_488500((*C.nox_window)(par.C()), C.int(status), C.int(px), C.int(py), C.int(w), C.int(h), dataPtrToInt(draw), (*C.ushort)(unsafe.Pointer(tdata)))))
 }
 
@@ -142,12 +98,12 @@ func NewHorizontalSlider(par *gui.Window, id uint, px, py, w, h int, min, max in
 	draw.SetSelectedColor(noxcolor.RGB5551Color(230, 165, 65))
 	status := gui.StatusEnabled | gui.StatusNoFocus
 
-	data, dataFree := alloc.New(sliderData{})
+	data, dataFree := alloc.New(gui.SliderData{})
 	defer dataFree()
-	data.min = uint32(min)
-	data.max = uint32(max)
-	data.field2 = 0
-	data.field3 = 0
+	data.Min = uint32(min)
+	data.Max = uint32(max)
+	data.Field2 = 0
+	data.Field3 = 0
 
 	iparent := unsafePtrToInt(unsafe.Pointer(par.C()))
 	win := asWindow(C.nox_gui_newSlider_4B4EE0(iparent, C.int(status), C.int(px), C.int(py), C.int(w), C.int(h),
@@ -202,7 +158,7 @@ func NewRadioButton(g *gui.GUI, par *gui.Window, id uint, px, py, w, h int, grou
 	draw.SetGroup(group)
 	status := gui.StatusEnabled | gui.StatusToggle | gui.StatusImage | gui.StatusSmoothText | gui.StatusNoFocus
 
-	rdata, rfree := alloc.New(radioButtonData{})
+	rdata, rfree := alloc.New(gui.RadioButtonData{})
 	defer rfree()
 
 	win := newRadioButton(g, par, status, px, py, w, h, draw, rdata)
@@ -241,7 +197,7 @@ func newButtonOrCheckbox(g *gui.GUI, parent *gui.Window, status gui.StatusFlags,
 	return nil
 }
 
-func newRadioButton(g *gui.GUI, parent *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, data *radioButtonData) *gui.Window {
+func newRadioButton(g *gui.GUI, parent *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, data *gui.RadioButtonData) *gui.Window {
 	if !draw.Style.IsRadioButton() {
 		return nil
 	}
@@ -253,9 +209,9 @@ func newRadioButton(g *gui.GUI, parent *gui.Window, status gui.StatusFlags, px, 
 	if draw.Window == nil {
 		draw.Window = win
 	}
-	d, _ := alloc.New(radioButtonData{})
+	d, _ := alloc.New(gui.RadioButtonData{})
 	if data != nil {
-		d.field0 = data.field0
+		d.Field0 = data.Field0
 	}
 	win.WidgetData = unsafe.Pointer(d)
 	win.CopyDrawData(draw)
