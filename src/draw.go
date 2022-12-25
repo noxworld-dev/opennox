@@ -24,7 +24,6 @@ extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int nox_client_renderBubbles_80844;
 extern unsigned int dword_5d4594_2523804;
 extern unsigned int dword_5d4594_3799452;
-extern unsigned int dword_5d4594_3799468;
 extern unsigned int dword_5d4594_1193188;
 extern int dword_5d4594_3799524;
 extern uint32_t dword_5d4594_3798800;
@@ -54,6 +53,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/common"
 
 	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -1015,7 +1015,7 @@ func sub_47D200() {
 	*memmap.PtrUint32(0x973F18, 120) = 0
 	*memmap.PtrUint32(0x973F18, 68) = 0
 	C.dword_5d4594_3799524 = 0
-	C.dword_5d4594_3799468 = 0
+	gui.Dword_5d4594_3799468 = 0
 	noxClient.r.SetInterlacing(false, 0)
 }
 

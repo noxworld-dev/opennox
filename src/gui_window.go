@@ -3,7 +3,6 @@ package opennox
 /*
 #include <stdlib.h>
 #include "client__gui__window.h"
-extern unsigned int dword_5d4594_3799468;
 extern int dword_5d4594_3799524;
 extern nox_window_ref* nox_win_1064912;
 
@@ -39,12 +38,14 @@ func init() {
 	gui.DrawImplFunc = func(win *gui.Window) {
 		C.sub_4AA030((*C.nox_window)(win.C()), (*C.nox_window_data)(win.DrawData().C()))
 	}
-	gui.Get_dword_5d4594_3799468 = func() int {
-		return int(C.dword_5d4594_3799468)
-	}
 	gui.Set_dword_5d4594_3799524 = func(v int) {
 		C.dword_5d4594_3799524 = C.int(v)
 	}
+}
+
+//export get_dword_5d4594_3799468
+func get_dword_5d4594_3799468() int {
+	return gui.Dword_5d4594_3799468
 }
 
 //export nox_window_new_go

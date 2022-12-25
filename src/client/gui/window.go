@@ -11,7 +11,7 @@ import (
 const deadWord = 0xacacacac
 
 var (
-	Get_dword_5d4594_3799468 func() int
+	Dword_5d4594_3799468     int
 	Set_dword_5d4594_3799524 func(v int)
 
 	nox_alloc_window alloc.ClassT[Window]
@@ -259,7 +259,7 @@ func (win *Window) Hide() {
 	if win == nil {
 		return
 	}
-	if Get_dword_5d4594_3799468() != 0 {
+	if Dword_5d4594_3799468 != 0 {
 		if !win.Flags.IsHidden() {
 			Set_dword_5d4594_3799524(1)
 		}

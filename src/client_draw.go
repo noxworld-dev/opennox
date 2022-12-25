@@ -20,7 +20,6 @@ extern unsigned int dword_5d4594_1193156;
 extern unsigned int dword_5d4594_1193188;
 extern unsigned int dword_5d4594_2650676;
 extern unsigned int dword_5d4594_2650680;
-extern unsigned int dword_5d4594_3799468;
 extern uint32_t dword_5d4594_3679320;
 extern uint32_t dword_5d4594_3798156;
 extern uint32_t dword_5d4594_3798820;
@@ -62,6 +61,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/common"
 
 	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -530,7 +530,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw_A(vp *noxrender.Viewport) {
 	*memmap.PtrUint32(0x973F18, 68) = 0
 	r := c.r
 	if vp.Screen.Min.X != 0 {
-		C.dword_5d4594_3799468 = 1
+		gui.Dword_5d4594_3799468 = 1
 		x := vp.Screen.Max.X + 1
 		y := vp.Screen.Max.Y
 		r.setRectFullScreen()
@@ -545,7 +545,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw_A(vp *noxrender.Viewport) {
 		}
 		r.DrawBorder(vp.Screen.Min.X-2, vp.Screen.Min.Y-2, x-vp.Screen.Min.X+4, y-vp.Screen.Min.Y+4, nox_color_gray2)
 	} else {
-		C.dword_5d4594_3799468 = 0
+		gui.Dword_5d4594_3799468 = 0
 	}
 	r.setClipRects(vp.Screen.Min, vp.Size)
 }
