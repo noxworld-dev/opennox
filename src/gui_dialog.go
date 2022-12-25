@@ -94,7 +94,7 @@ func NewDialogWindow(a1 *gui.Window, title string, text string, flags gui.Dialog
 	}
 	*memmap.PtrUint32(0x5D4594, 830240) = 0
 	lang := strMan.Lang()
-	if noxClient.r.FontHeight(nil) > 10 {
+	if a1.GUI().Render().FontHeight(nil) > 10 {
 		lang = 2
 	}
 	wfile := "dlg.wnd"
@@ -103,7 +103,7 @@ func NewDialogWindow(a1 *gui.Window, title string, text string, flags gui.Dialog
 	//if lang == xxx {
 	//	wfile = "ldlg.wnd"
 	//}
-	dia := newWindowFromFile(wfile, nox_xxx_windowDlgProc_449CA0)
+	dia := newWindowFromFile(a1.GUI(), wfile, nox_xxx_windowDlgProc_449CA0)
 	nox_gui_curDialog_830224 = dia
 	if dia == nil {
 		return
@@ -117,17 +117,17 @@ func NewDialogWindow(a1 *gui.Window, title string, text string, flags gui.Dialog
 	if text != "" {
 		dia.ChildByID(guiDialogTextID).Func94(&WindowEvent0x4001{Str: text, Val: -1})
 	}
-	gui.Sub46B120(dia, nil)
-	gui.Nox_xxx_wndShowModalMB(dia)
-	gui.Sub46C690(dia)
+	dia.SetParent(nil)
+	dia.ShowModal()
+	dia.StackPush()
 	vsz := videoGetWindowSize()
 	sz := dia.Size()
 	dia.SetPos(image.Pt((vsz.X-sz.X)/2, (vsz.Y-sz.Y)/2))
 	sub449EA0(flags)
-	prev := gui.Nox_xxx_wndGetCaptureMain()
+	prev := a1.GUI().Captured()
 	dword_5d4594_830236 = prev
 	if prev != nil {
-		gui.Nox_xxx_wndClearCaptureMain(prev)
+		prev.Capture(false)
 	}
 }
 
@@ -279,7 +279,7 @@ func nox_xxx_windowDlgProc_449CA0(a1 *gui.Window, ev gui.WindowEvent) gui.Window
 		switch ev.Win.ID() {
 		case guiDialogOKID, guiDialogYesID: // OK or Yes
 			if memmap.Uint8(0x5D4594, 830240)&0x20 != 0 {
-				gui.Nox_xxx_wnd46C6E0(nox_gui_curDialog_830224)
+				nox_gui_curDialog_830224.StackPop()
 			}
 			dword_5d4594_830228.Func94(ev)
 			if func_5D4594_830220 != nil {
@@ -291,7 +291,7 @@ func nox_xxx_windowDlgProc_449CA0(a1 *gui.Window, ev gui.WindowEvent) gui.Window
 			sub_44A400()
 		case guiDialogCancelID, guiDialogNoID: // Cancel or No
 			if memmap.Uint8(0x5D4594, 830240)&0x20 != 0 {
-				gui.Nox_xxx_wnd46C6E0(nox_gui_curDialog_830224)
+				nox_gui_curDialog_830224.StackPop()
 			}
 			dword_5d4594_830228.Func94(ev)
 			if func_5d4594_830216 != nil {
@@ -327,7 +327,7 @@ func sub_44A4E0() C.int {
 //export sub_44A4B0
 func sub_44A4B0() {
 	if nox_gui_curDialog_830224 != nil {
-		gui.Nox_xxx_wndShowModalMB(nox_gui_curDialog_830224)
+		nox_gui_curDialog_830224.ShowModal()
 	}
 }
 

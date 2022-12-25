@@ -127,7 +127,7 @@ func (d *WindowData) SetTextColor(cl color.Color) {
 }
 
 func (d *WindowData) BackgroundImage() *noxrender.Image {
-	return Renderer.Bag.AsImage(d.bgImage)
+	return d.gui().r.Bag.AsImage(d.bgImage)
 }
 
 func (d *WindowData) SetBackgroundImage(p *noxrender.Image) {
@@ -135,7 +135,7 @@ func (d *WindowData) SetBackgroundImage(p *noxrender.Image) {
 }
 
 func (d *WindowData) EnabledImage() *noxrender.Image {
-	return Renderer.Bag.AsImage(d.enImage)
+	return d.gui().r.Bag.AsImage(d.enImage)
 }
 
 func (d *WindowData) SetEnabledImage(p *noxrender.Image) {
@@ -143,7 +143,7 @@ func (d *WindowData) SetEnabledImage(p *noxrender.Image) {
 }
 
 func (d *WindowData) DisabledImage() *noxrender.Image {
-	return Renderer.Bag.AsImage(d.disImage)
+	return d.gui().r.Bag.AsImage(d.disImage)
 }
 
 func (d *WindowData) SetDisabledImage(p *noxrender.Image) {
@@ -151,7 +151,7 @@ func (d *WindowData) SetDisabledImage(p *noxrender.Image) {
 }
 
 func (d *WindowData) HighlightImage() *noxrender.Image {
-	return Renderer.Bag.AsImage(d.hlImage)
+	return d.gui().r.Bag.AsImage(d.hlImage)
 }
 
 func (d *WindowData) SetHighlightImage(p *noxrender.Image) {
@@ -159,7 +159,7 @@ func (d *WindowData) SetHighlightImage(p *noxrender.Image) {
 }
 
 func (d *WindowData) SelectedImage() *noxrender.Image {
-	return Renderer.Bag.AsImage(d.selImage)
+	return d.gui().r.Bag.AsImage(d.selImage)
 }
 
 func (d *WindowData) SetSelectedImage(p *noxrender.Image) {
@@ -192,7 +192,7 @@ func (d *WindowData) SetDefaults(def StyleDefaults) {
 }
 
 func (d *WindowData) Font() font.Face {
-	return Renderer.Fonts.AsFont(d.font)
+	return d.gui().r.Fonts.AsFont(d.font)
 }
 
 type Borders struct {

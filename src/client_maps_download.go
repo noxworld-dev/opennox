@@ -177,7 +177,7 @@ func (c *clientMapDownload) CloseDialog() {
 }
 
 func (c *Client) ShowMapDownload() {
-	c.mapsend.win = newWindowFromFile("mapdnld.wnd", c.dialogProc)
+	c.mapsend.win = newWindowFromFile(c.GUI, "mapdnld.wnd", c.dialogProc)
 	c.mapsend.win.SetAllFuncs(c.dialogEvents, nil, nil)
 	mode := c.videoGetGameMode()
 	x, y := mode.X, mode.Y
@@ -189,7 +189,7 @@ func (c *Client) ShowMapDownload() {
 		y = max.Y
 	}
 	c.mapsend.win.SetPos(image.Point{X: (x - 1024) / 2, Y: (y - 768) / 2})
-	gui.Nox_xxx_wndShowModalMB(c.mapsend.win)
+	c.mapsend.win.ShowModal()
 }
 
 func (c *Client) dialogEvents(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {

@@ -112,7 +112,7 @@ func (c *guiConsole) Clear() {
 func (c *guiConsole) Init(sz image.Point) *gui.Window {
 	*memmap.PtrInt32(0x5D4594, 833704) = int32(sz.X) - 1
 	*memmap.PtrInt32(0x5D4594, 833708) = int32(sz.Y) / 2
-	c.root = gui.NewWindowRaw(nil, 0x38, 0, 0, sz.X-1, sz.Y/2, nil)
+	c.root = noxClient.GUI.NewWindowRaw(nil, 0x38, 0, 0, sz.X-1, sz.Y/2, nil)
 	c.root.SetAllFuncs(func(win *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 		return nil
 	}, func(win *gui.Window, a2 *gui.WindowData) int {
@@ -185,8 +185,8 @@ func (c *guiConsole) Hide() bool {
 	if c.root.GetFlags().IsHidden() {
 		return false
 	}
-	if gui.Focused() == c.input {
-		gui.Focus(nil)
+	if noxClient.GUI.Focused() == c.input {
+		noxClient.GUI.Focus(nil)
 	}
 	c.root.Hide()
 	c.root.Flags &= 0xFFFFFFF7
@@ -194,7 +194,7 @@ func (c *guiConsole) Hide() bool {
 	c.scrollbox.Flags &= 0xFFFFFFF7
 	c.input.DrawData().Field0 &= 0xFFFFFFFB
 	c.input.DrawData().Field0 &= 0xFFFFFFFD
-	gui.Dword_5d4594_3799524 = 1
+	noxClient.GUI.ValYYY = 1
 	return true
 }
 
@@ -278,12 +278,12 @@ func (c *guiConsole) Toggle() {
 		return
 	}
 	if C.nox_gui_xxx_check_446360() == 0 {
-		gui.Nox_xxx_wndShowModalMB(c.root)
+		c.root.ShowModal()
 		c.root.Flags |= 8
 		c.scrollbox.Flags |= 8
 		c.input.Flags |= 8
 		c.input.Flags |= 1
-		gui.Focus(c.input)
+		noxClient.GUI.Focus(c.input)
 		if c.password != "" {
 			c.Clear()
 			s := c.c.Strings().GetStringInFile("ENTERPASSWORD", "C:\\NoxPost\\src\\Client\\Gui\\guicon.c")

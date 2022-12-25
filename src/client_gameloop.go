@@ -35,7 +35,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/maps"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 
-	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -152,7 +151,7 @@ func (c *Client) mapDownloadLoop(first bool) (bool, error) {
 		return true, nil
 	}
 
-	gui.DrawGUI()
+	c.GUI.Draw()
 	c.nox_client_drawCursorAndTooltips_477830()
 	c.copyPixBuffer()
 
@@ -169,7 +168,7 @@ func (c *Client) mapDownloadLoop(first bool) (bool, error) {
 func (c *Client) mainloopDrawAndPresent() {
 	sub_437180()
 	if C.nox_client_gui_flag_1556112 == 0 {
-		gui.DrawGUI() // Draw game windows
+		c.GUI.Draw() // Draw game windows
 	}
 	c.DrawSparks()
 	if !noxflags.HasEngine(noxflags.EngineNoRendering) || noxflags.HasEngine(noxflags.EngineFlag9) || C.nox_client_gui_flag_815132 != 0 {

@@ -29,8 +29,8 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 )
 
-func guiLoadBorderImages() {
-	gui.SetBorders(gui.Borders{
+func (c *Client) guiLoadBorderImages() {
+	c.GUI.SetBorders(gui.Borders{
 		CornerUL:        nox_xxx_gLoadImg("BorderCornerUL"),
 		CornerUR:        nox_xxx_gLoadImg("BorderCornerUR"),
 		CornerLL:        nox_xxx_gLoadImg("BorderCornerLL"),
@@ -44,17 +44,17 @@ func guiLoadBorderImages() {
 
 //export get_dword_5d4594_3799468
 func get_dword_5d4594_3799468() int {
-	return gui.Dword_5d4594_3799468
+	return noxClient.GUI.ValXXX
 }
 
 //export set_dword_5d4594_3799468
 func set_dword_5d4594_3799468(v int) {
-	gui.Dword_5d4594_3799524 = v
+	noxClient.GUI.ValYYY = v
 }
 
 //export nox_window_new_go
 func nox_window_new_go(par *C.nox_window, flags, a3, a4, w, h C.int, fnc unsafe.Pointer) *C.nox_window {
-	return (*C.nox_window)(gui.NewWindowRaw(asWindow(par), gui.StatusFlags(flags), int(a3), int(a4), int(w), int(h), gui.WrapWindowFuncC(fnc)).C())
+	return (*C.nox_window)(noxClient.GUI.NewWindowRaw(asWindow(par), gui.StatusFlags(flags), int(a3), int(a4), int(w), int(h), gui.WrapFuncC(fnc)).C())
 }
 
 //export nox_xxx_wndGetID_46B0A0
@@ -80,8 +80,8 @@ func nox_window_set_all_funcs_go(p *C.nox_window, a2 unsafe.Pointer, draw unsafe
 		return -2
 	}
 	win := asWindow(p)
-	win.SetFunc93(gui.WrapWindowFuncC(a2))
-	win.SetDraw(gui.WrapWindowDrawFuncC(draw))
+	win.SetFunc93(gui.WrapFuncC(a2))
+	win.SetDraw(gui.WrapDrawFuncC(draw))
 	win.SetTooltipFunc(tooltip)
 	return 0
 }
@@ -91,7 +91,7 @@ func nox_xxx_wndSetWindowProc_46B300_go(win *C.nox_window, fnc unsafe.Pointer) C
 	if win == nil {
 		return -2
 	}
-	asWindow(win).SetFunc93(gui.WrapWindowFuncC(fnc))
+	asWindow(win).SetFunc93(gui.WrapFuncC(fnc))
 	return 0
 }
 
@@ -100,7 +100,7 @@ func nox_xxx_wndSetProc_46B2C0_go(win *C.nox_window, fnc unsafe.Pointer) C.int {
 	if win == nil {
 		return -2
 	}
-	asWindow(win).SetFunc94(gui.WrapWindowFuncC(fnc))
+	asWindow(win).SetFunc94(gui.WrapFuncC(fnc))
 	return 0
 }
 
@@ -109,7 +109,7 @@ func nox_xxx_wndSetDrawFn_46B340_go(win *C.nox_window, fnc unsafe.Pointer) C.int
 	if win == nil {
 		return -2
 	}
-	asWindow(win).SetDraw(gui.WrapWindowDrawFuncC(fnc))
+	asWindow(win).SetDraw(gui.WrapDrawFuncC(fnc))
 	return 0
 }
 
@@ -200,7 +200,7 @@ func asWindowP(win unsafe.Pointer) *gui.Window {
 
 //export nox_xxx_wndShowModalMB_46A8C0
 func nox_xxx_wndShowModalMB_46A8C0(p *C.nox_window) C.int {
-	return C.int(gui.Nox_xxx_wndShowModalMB(asWindow(p)))
+	return C.int(asWindow(p).ShowModal())
 }
 
 //export nox_window_setPos_46A9B0
@@ -229,10 +229,10 @@ func nox_xxx_wnd_46ABB0(win *gui.Window, v int) int {
 
 //export nox_xxx_wnd_46C6E0
 func nox_xxx_wnd_46C6E0(p *C.nox_window) C.int {
-	return C.int(gui.Nox_xxx_wnd46C6E0(asWindow(p)))
+	return C.int(asWindow(p).StackPop())
 }
 
 //export sub_46C690
 func sub_46C690(p *C.nox_window) C.int {
-	return C.int(gui.Sub46C690(asWindow(p)))
+	return C.int(asWindow(p).StackPush())
 }

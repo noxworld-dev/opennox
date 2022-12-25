@@ -6,8 +6,6 @@ import "C"
 import (
 	"image"
 	"unsafe"
-
-	"github.com/noxworld-dev/opennox/v1/client/gui"
 )
 
 //export sub_4C26F0
@@ -39,6 +37,6 @@ func sub_4C26F0(a1 unsafe.Pointer) C.int {
 		image.Point{X: 0, Y: h - 2},
 		nox_color_darkBlue,
 	)
-	gui.Dword_5d4594_3799524 = 1
+	win.GUI().ValYYY = 1
 	return 1
 }

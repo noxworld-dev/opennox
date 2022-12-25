@@ -29,6 +29,9 @@ func sub_44E020() {
 
 //export nox_video_stopAllFades_44E040
 func nox_video_stopAllFades_44E040() {
+	noxClient.nox_video_stopAllFades44E040()
+}
+func (c *Client) nox_video_stopAllFades44E040() {
 	stopFadeOutScreen()
 	stopFadeInScreen()
 	noxClient.r.StopFade(noxrender.FadeClearScreenKey)

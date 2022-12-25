@@ -69,10 +69,10 @@ func sub_4CC660(win *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 }
 
 func nox_game_showLegal_4CC4E0() {
-	win := newWindowFromFile("legal.wnd", nox_xxx_windowMainBGProc_4CC6A0)
+	win := newWindowFromFile(noxClient.GUI, "legal.wnd", nox_xxx_windowMainBGProc_4CC6A0)
 	nox_win_legalBg_1522892 = win
 	win.SetAllFuncs(sub_4CC660, nil, nil)
-	gui.Nox_xxx_wndShowModalMB(win)
+	win.ShowModal()
 	v0 := win.ChildByID(9980)
 	v8 := GoWString(C.sub_46AF00(unsafe.Pointer(v0.C())))
 	v1 := noxClient.r.Fonts.AsFont(C.sub_46AF40(unsafe.Pointer(v0.C())))

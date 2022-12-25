@@ -34,7 +34,7 @@ func sub_470A80() {
 
 func (c *Client) initGuiFPS() int {
 	c.guiFPS.dword147864 = 10
-	c.guiFPS.win = newWindowFromFile("GuiFps.wnd", nil)
+	c.guiFPS.win = newWindowFromFile(c.GUI, "GuiFps.wnd", nil)
 	if c.guiFPS.win == nil {
 		return 0
 	}
@@ -111,7 +111,7 @@ func sub_4706C0(a1 int) {
 	c := noxClient
 	win := c.guiFPS.win
 	if a1 != 0 && c.guiFPS.enabled && win.GetFlags().IsHidden() {
-		gui.Nox_xxx_wndShowModalMB(win)
+		win.ShowModal()
 	} else {
 		win.Hide()
 	}

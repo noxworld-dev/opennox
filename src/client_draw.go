@@ -60,7 +60,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/common"
 
 	"github.com/noxworld-dev/opennox/v1/client"
-	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -239,14 +238,14 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	if C.nox_client_gui_flag_1556112 != 0 || disableDraw {
 		r.ClearScreen(color.Black)
 		r.setRectFullScreen()
-		gui.Dword_5d4594_3799524 = 1
+		c.GUI.ValYYY = 1
 		return
 	}
 	if memmap.Uint32(0x5D4594, 1096520) != 0 {
 		r.ClearScreen(color.White)
 		*memmap.PtrUint32(0x5D4594, 1096520) = 0
 		r.setRectFullScreen()
-		gui.Dword_5d4594_3799524 = 1
+		c.GUI.ValYYY = 1
 		return
 	}
 	c.sub_468F80(vp)
@@ -529,22 +528,22 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw_A(vp *noxrender.Viewport) {
 	*memmap.PtrUint32(0x973F18, 68) = 0
 	r := c.r
 	if vp.Screen.Min.X != 0 {
-		gui.Dword_5d4594_3799468 = 1
+		c.GUI.ValXXX = 1
 		x := vp.Screen.Max.X + 1
 		y := vp.Screen.Max.Y
 		r.setRectFullScreen()
-		if gui.Dword_5d4594_3799524 != 0 {
+		if c.GUI.ValYYY != 0 {
 			rect := r.PixBufferRect()
 			cl := color.Black
 			r.DrawRectFilledOpaque(0, 0, rect.Dx(), vp.Screen.Min.Y, cl)
 			r.DrawRectFilledOpaque(0, y, rect.Dx(), rect.Dy()-y, cl)
 			r.DrawRectFilledOpaque(0, vp.Screen.Min.Y, vp.Screen.Min.X, y-vp.Screen.Min.Y, cl)
 			r.DrawRectFilledOpaque(x, vp.Screen.Min.Y, rect.Dx()-x, y-vp.Screen.Min.Y, cl)
-			gui.Dword_5d4594_3799524 = 0
+			c.GUI.ValYYY = 0
 		}
 		r.DrawBorder(vp.Screen.Min.X-2, vp.Screen.Min.Y-2, x-vp.Screen.Min.X+4, y-vp.Screen.Min.Y+4, nox_color_gray2)
 	} else {
-		gui.Dword_5d4594_3799468 = 0
+		c.GUI.ValXXX = 0
 	}
 	r.setClipRects(vp.Screen.Min, vp.Size)
 }

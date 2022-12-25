@@ -167,7 +167,7 @@ func (a *guiAnim) doIn() {
 		if a.fnc_done_in != nil {
 			ccall.CallVoidVoid(unsafe.Pointer(a.fnc_done_in))
 		}
-		sub_4A24F0()
+		guiFocusMainBg()
 	}
 }
 

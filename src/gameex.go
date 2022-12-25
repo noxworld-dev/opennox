@@ -277,7 +277,7 @@ var wndEntryNames = [5][35]uint16{
 
 func gameexDropTrap() {
 	if noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
-		if C.dword_5d4594_1064868 != 0 || gui.Nox_win_cur_input != nil {
+		if C.dword_5d4594_1064868 != 0 || noxClient.GUI.Captured() != nil {
 			return
 		}
 		if noxflags.HasGame(noxflags.GameHost) { // checkGameFlags isServer
@@ -306,7 +306,7 @@ func call_OnLibraryNotice_265(arg3 int) {
 	// toggles weapons by mouse wheel
 	// autoshield is actually implemented in appendix of nox_xxx_playerDequipWeapon_53A140
 	a2a := bool2int(arg3 > 0) // scroll weapons back or forth
-	if !gui.GameexCheck() {
+	if !noxClient.GUI.GameexCheck() {
 		return
 	}
 	if (C.gameex_flags>>3)&1 == 0 {
@@ -334,7 +334,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 		v8 := byte(bool2int(kcode == keybind.KeyLBracket))
 		// checks some gameFlags that are yet undiscovered
 		if noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
-			if C.dword_5d4594_1064868 != 0 || gui.Nox_win_cur_input != nil {
+			if C.dword_5d4594_1064868 != 0 || noxClient.GUI.Captured() != nil {
 				return
 			}
 			if noxflags.HasGame(noxflags.GameHost) { // isServer
@@ -364,7 +364,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 			destroyGameExWindow()
 			modifyWndPntr = nil
 		} else {
-			modifyWndPntr = newWindowFromString(gameexModifWnd, modifyWndInputHandler)
+			modifyWndPntr = newWindowFromString(noxClient.GUI, gameexModifWnd, modifyWndInputHandler)
 			if modifyWndPntr == nil {
 				return
 			}
@@ -373,7 +373,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 				v11 := modifyWndPntr.ChildByID(1524)
 				nox_xxx_wnd_46ABB0(v11, 0)
 			}
-			gui.Sub46B120(modifyWndPntr, nil)
+			modifyWndPntr.SetParent(nil)
 			a2b := modifyWndPntr.ChildByID(1981)
 			for i := 0; i < 5; i++ {
 				wstr := GoWStringSlice(wndEntryNames[i][:])
@@ -392,7 +392,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 }
 
 func destroyGameExWindow() {
-	gui.Nox_xxx_wnd46C6E0(modifyWndPntr)
+	modifyWndPntr.StackPop()
 	modifyWndPntr.Destroy()
 	modifyWndPntr = nil
 }

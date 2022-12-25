@@ -51,7 +51,7 @@ func sub_4A2490(win *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 }
 
 func sub_4A1A60() bool {
-	v0 := newWindowFromFile("OptsBack.wnd", sub_4A1AA0)
+	v0 := newWindowFromFile(noxClient.GUI, "OptsBack.wnd", sub_4A1AA0)
 	C.dword_5d4594_1307292 = unsafe.Pointer(v0.C())
 	if v0 == nil {
 		return false
@@ -98,19 +98,19 @@ func sub_4A1AA0(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 	return nil
 }
 
-func nox_xxx_wndLoadMainBG_4A2210() int {
+func (c *Client) nox_xxx_wndLoadMainBG_4A2210() int {
 	//uint32_t* v1;      // esi
 	//const char* v2;    // eax
 	//unsigned char* v3; // esi
 
 	C.nox_client_gui_flag_815132 = 1
-	nox_win_main_bg = newWindowFromFile("MainBG.wnd", sub_4A2490)
+	nox_win_main_bg = newWindowFromFile(c.GUI, "MainBG.wnd", sub_4A2490)
 	if !sub_4A1A60() {
 		return 0
 	}
 	v1 := nox_win_main_bg.ChildByID(98)
 	v1.SetFunc93(sub4A18E0)
-	v1.SetDraw(gui.WrapWindowDrawFuncC(C.sub_4A22A0))
+	v1.SetDraw(gui.WrapDrawFuncC(C.sub_4A22A0))
 	if memmap.Uint32(0x587000, 168832) != 0 {
 		v3 := memmap.PtrOff(0x587000, 168832)
 		v2 := *(**byte)(v3)
@@ -123,12 +123,12 @@ func nox_xxx_wndLoadMainBG_4A2210() int {
 			}
 		}
 	}
-	gui.Focus(nox_win_main_bg)
+	nox_win_main_bg.Focus()
 	return 1
 }
 
-func sub_4A24F0() {
-	gui.Focus(nox_win_main_bg)
+func guiFocusMainBg() {
+	nox_win_main_bg.Focus()
 }
 
 //export sub_4A1D40
@@ -142,8 +142,9 @@ func sub_4A1D40() C.int {
 
 //export sub_44E320
 func sub_44E320() {
-	gui.Nox_xxx_wndClearCaptureMain(asWindowP(C.dword_5d4594_831236))
-	gui.Focus(nil)
+	c := noxClient
+	asWindowP(C.dword_5d4594_831236).Capture(false)
+	c.GUI.Focus(nil)
 	asWindowP(C.dword_5d4594_831236).Hide()
 	sub_450580()
 	sub_43DDA0()
@@ -159,7 +160,7 @@ func sub_44E320() {
 		return
 	}
 	v0 := int(nox_client_getIntroScreenDuration_44E3B0())
-	noxClient.r.FadeOutScreen(v0, true, func() {
+	c.r.FadeOutScreen(v0, true, func() {
 		sub_450580()
 		C.dword_5d4594_831260 = 0
 		sub_413A00(0)
@@ -170,7 +171,7 @@ func sub_4A2500() {
 	setEnableFrameLimit(true)
 	nox_win_main_bg.Show()
 	nox_win_main_menu.Show()
-	sub_4A24F0()
+	guiFocusMainBg()
 }
 
 func sub_4A2530() {
@@ -225,7 +226,7 @@ func nox_game_showMainMenu4A1C00() bool {
 	sub_4D6F40(0)
 	sub_4D6F90(0)
 	gameAddStateCode(100)
-	win := newWindowFromFile("MainMenu.wnd", nox_xxx_windowMainMenuProc_4A1DC0)
+	win := newWindowFromFile(noxClient.GUI, "MainMenu.wnd", nox_xxx_windowMainMenuProc_4A1DC0)
 	if win == nil {
 		return false
 	}

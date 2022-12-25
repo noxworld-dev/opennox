@@ -129,7 +129,8 @@ func guiEnhanceInputCfg(root *gui.Window) {
 }
 
 func guiEnhanceOptions(root *gui.Window) {
-	small := noxClient.r.Fonts.FontPtrByName(noxfont.SmallName)
+	c := noxClient
+	small := c.r.Fonts.FontPtrByName(noxfont.SmallName)
 	// change resolution options to a new ones
 	// if you decide to change these, check carefully in other places, especially in C
 	resOpts := getResolutionOptions()
@@ -152,7 +153,7 @@ func guiEnhanceOptions(root *gui.Window) {
 		xi := i / resRows
 		yi := i % resRows
 		text := fmt.Sprintf("%4dx%d", res.X, res.Y)
-		b := NewRadioButton(root, uint(guiIDMenuExt+i), 112+resWidth*xi, 135+resHeight*yi, resWidth, resHeight, 1, text)
+		b := NewRadioButton(c.GUI, root, uint(guiIDMenuExt+i), 112+resWidth*xi, 135+resHeight*yi, resWidth, resHeight, 1, text)
 		draw := b.DrawData()
 		draw.SetFont(small)
 		draw.SetImagePoint(image.Point{Y: -2})
@@ -173,10 +174,10 @@ func guiEnhanceOptions(root *gui.Window) {
 		root.ChildByID(310 + i).Hide()
 	}
 	// add gamma and sensitivity sliders instead
-	NewStaticText(root, 315, 112, 220, 140, 16, true, false, "Gamma")
+	NewStaticText(c.GUI, root, 315, 112, 220, 140, 16, true, false, "Gamma")
 	NewHorizontalSlider(root, 316, 120, 236, 120, 16, 1, 100).
 		Func94(gui.AsWindowEvent(0x400A, uintptr(getGammaSlider()), 0))
-	NewStaticText(root, 317, 112, 258, 140, 16, true, false, "Sensitivity")
+	NewStaticText(c.GUI, root, 317, 112, 258, 140, 16, true, false, "Sensitivity")
 	NewHorizontalSlider(root, 318, 120, 274, 120, 16, 1, 100).
 		Func94(gui.AsWindowEvent(0x400A, uintptr((math.Log10(float64(noxClient.GetSensitivity()))+1.0)*50), 0))
 }
