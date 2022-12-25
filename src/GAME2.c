@@ -153,7 +153,6 @@ extern uint32_t dword_5d4594_1046508;
 extern uint32_t dword_5d4594_1045480;
 extern uint32_t dword_5d4594_1047520;
 extern uint32_t nox_xxx_aNox_cfg_0_587000_132132;
-extern int dword_5d4594_3799524;
 extern uint32_t dword_5d4594_1045484;
 extern uint32_t dword_5d4594_1045464;
 extern uint32_t dword_5d4594_1049520;
@@ -4938,7 +4937,7 @@ int nox_xxx_bookHideMB_45ACA0(int a1) {
 		return 0;
 	}
 	dword_5d4594_1046864 = 0;
-	dword_5d4594_3799524 = 1;
+	set_dword_5d4594_3799468(1);
 	dword_5d4594_1046868 = dword_5d4594_1046872 != 0;
 	v1 = nox_xxx_wndGetCaptureMain_46AE00();
 	v2 = nox_win_unk1;

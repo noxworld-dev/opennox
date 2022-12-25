@@ -11,8 +11,8 @@ import (
 const deadWord = 0xacacacac
 
 var (
-	Dword_5d4594_3799468     int
-	Set_dword_5d4594_3799524 func(v int)
+	Dword_5d4594_3799468 int
+	Dword_5d4594_3799524 int
 
 	nox_alloc_window alloc.ClassT[Window]
 	winExts          = make(map[*Window]*windowExt)
@@ -261,7 +261,7 @@ func (win *Window) Hide() {
 	}
 	if Dword_5d4594_3799468 != 0 {
 		if !win.Flags.IsHidden() {
-			Set_dword_5d4594_3799524(1)
+			Dword_5d4594_3799468 = 1
 		}
 	}
 	win.Flags |= StatusHidden

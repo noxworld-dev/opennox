@@ -25,7 +25,6 @@ extern unsigned int nox_client_renderBubbles_80844;
 extern unsigned int dword_5d4594_2523804;
 extern unsigned int dword_5d4594_3799452;
 extern unsigned int dword_5d4594_1193188;
-extern int dword_5d4594_3799524;
 extern uint32_t dword_5d4594_3798800;
 extern uint32_t dword_5d4594_3798804;
 extern uint32_t dword_5d4594_3798808;
@@ -987,7 +986,7 @@ func (r *NoxRender) DrawImageAt(img *noxrender.Image, pos image.Point) {
 	*memmap.PtrUint32(0x973F18, 120) = 0
 	if memmap.Uint32(0x973F18, 68) != 0 && img != nil {
 		if memmap.Uint32(0x973F18, 92) != uint32(img.Field_1_0) || memmap.Uint32(0x973F18, 84) != uint32(img.Field_1_1) {
-			C.dword_5d4594_3799524 = 1
+			gui.Dword_5d4594_3799524 = 1
 		}
 		img.Field_1_0 = uint16(memmap.Uint32(0x973F18, 92))
 		img.Field_1_1 = uint16(memmap.Uint32(0x973F18, 84))
@@ -1014,7 +1013,7 @@ func sub_47D200() {
 	*memmap.PtrUint32(0x973F18, 20) = 0
 	*memmap.PtrUint32(0x973F18, 120) = 0
 	*memmap.PtrUint32(0x973F18, 68) = 0
-	C.dword_5d4594_3799524 = 0
+	gui.Dword_5d4594_3799524 = 0
 	gui.Dword_5d4594_3799468 = 0
 	noxClient.r.SetInterlacing(false, 0)
 }

@@ -12,7 +12,6 @@ package opennox
 #include "common__magic__speltree.h"
 extern unsigned int dword_5d4594_1193188;
 extern unsigned int dword_5d4594_1305748;
-extern int dword_5d4594_3799524;
 extern int nox_win_width;
 extern int nox_win_height;
 
@@ -557,7 +556,7 @@ func (c *Client) nox_draw_setCutSize(perc int, a2 int) {
 	vp.Size.X = vp.Screen.Dx() + 1
 	vp.Size.Y = vp.Screen.Dy() + 1
 	C.dword_5d4594_1193188 = 1
-	C.dword_5d4594_3799524 = 1
+	gui.Dword_5d4594_3799524 = 1
 }
 
 func nox_client_drawXxx_444AC0(w, h int, flags int) error {
@@ -788,7 +787,7 @@ func (c *Client) nox_client_drawCursorAndTooltips_477830() {
 		if gui.Dword_5d4594_3799468 != 0 {
 			vp := c.Viewport()
 			if px < vp.Screen.Min.X || px+sz.X > vp.Screen.Max.X || py < vp.Screen.Min.Y || py+sz.Y > vp.Screen.Max.Y {
-				C.dword_5d4594_3799524 = 1
+				gui.Dword_5d4594_3799524 = 1
 			}
 		}
 	}

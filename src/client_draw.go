@@ -26,7 +26,6 @@ extern uint32_t dword_5d4594_3798820;
 extern uint32_t dword_5d4594_3798824;
 extern uint32_t dword_5d4594_3798836;
 extern uint32_t dword_5d4594_3798840;
-extern int dword_5d4594_3799524;
 extern unsigned int nox_xxx_waypointCounterMB_587000_154948;
 extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int dword_5d4594_811904;
@@ -240,14 +239,14 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	if C.nox_client_gui_flag_1556112 != 0 || disableDraw {
 		r.ClearScreen(color.Black)
 		r.setRectFullScreen()
-		C.dword_5d4594_3799524 = 1
+		gui.Dword_5d4594_3799524 = 1
 		return
 	}
 	if memmap.Uint32(0x5D4594, 1096520) != 0 {
 		r.ClearScreen(color.White)
 		*memmap.PtrUint32(0x5D4594, 1096520) = 0
 		r.setRectFullScreen()
-		C.dword_5d4594_3799524 = 1
+		gui.Dword_5d4594_3799524 = 1
 		return
 	}
 	c.sub_468F80(vp)
@@ -534,14 +533,14 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw_A(vp *noxrender.Viewport) {
 		x := vp.Screen.Max.X + 1
 		y := vp.Screen.Max.Y
 		r.setRectFullScreen()
-		if C.dword_5d4594_3799524 != 0 {
+		if gui.Dword_5d4594_3799524 != 0 {
 			rect := r.PixBufferRect()
 			cl := color.Black
 			r.DrawRectFilledOpaque(0, 0, rect.Dx(), vp.Screen.Min.Y, cl)
 			r.DrawRectFilledOpaque(0, y, rect.Dx(), rect.Dy()-y, cl)
 			r.DrawRectFilledOpaque(0, vp.Screen.Min.Y, vp.Screen.Min.X, y-vp.Screen.Min.Y, cl)
 			r.DrawRectFilledOpaque(x, vp.Screen.Min.Y, rect.Dx()-x, y-vp.Screen.Min.Y, cl)
-			C.dword_5d4594_3799524 = 0
+			gui.Dword_5d4594_3799524 = 0
 		}
 		r.DrawBorder(vp.Screen.Min.X-2, vp.Screen.Min.Y-2, x-vp.Screen.Min.X+4, y-vp.Screen.Min.Y+4, nox_color_gray2)
 	} else {

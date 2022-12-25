@@ -3,7 +3,6 @@ package opennox
 /*
 #include "client__gui__window.h"
 #include "client__gui__guicon.h"
-extern int dword_5d4594_3799524;
 void nox_xxx_consoleEsc_49B7A0();
 unsigned int nox_gui_xxx_check_446360();
 */
@@ -195,7 +194,7 @@ func (c *guiConsole) Hide() bool {
 	c.scrollbox.Flags &= 0xFFFFFFF7
 	c.input.DrawData().Field0 &= 0xFFFFFFFB
 	c.input.DrawData().Field0 &= 0xFFFFFFFD
-	C.dword_5d4594_3799524 = 1
+	gui.Dword_5d4594_3799524 = 1
 	return true
 }
 
