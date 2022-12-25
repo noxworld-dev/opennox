@@ -306,7 +306,7 @@ func call_OnLibraryNotice_265(arg3 int) {
 	// toggles weapons by mouse wheel
 	// autoshield is actually implemented in appendix of nox_xxx_playerDequipWeapon_53A140
 	a2a := bool2int(arg3 > 0) // scroll weapons back or forth
-	if !gui.GameexSomeWeirdCheckFixmePlease() {
+	if !gui.GameexCheck() {
 		return
 	}
 	if (C.gameex_flags>>3)&1 == 0 {
