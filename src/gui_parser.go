@@ -180,7 +180,7 @@ func (p *guiParser) parseColorField() (color.Color, bool) {
 }
 
 func (p *guiParser) parseWindowRoot(fnc gui.WindowFunc) *gui.Window {
-	draw, drawFree := tempDrawData()
+	draw, drawFree := gui.NewWindowData()
 	defer drawFree()
 
 	draw.Field0 = 0
