@@ -4985,47 +4985,6 @@ int sub_4C52E0(int* a1, int a2) {
 	return result;
 }
 
-//----- (004C5430) --------------------------------------------------------
-void sub_4C5430(int a1, int a2) {
-	int v2;            // esi
-	int v3;            // ecx
-	unsigned char* v4; // eax
-	int v5;            // eax
-	unsigned char* v6; // edx
-
-	v2 = nox_arr_956A00[a2];
-	if (v2 < 32) {
-		v3 = 0;
-		if (v2 > 0) {
-			v4 = ((void*)&nox_arr_957820[128 * a2]);
-			do {
-				if (a1 < *(int*)v4) {
-					break;
-				}
-				++v3;
-				v4 += 4;
-			} while (v3 < v2);
-		}
-		if (v3 != v2 && v2 - 1 >= v3) {
-			v5 = v2 - v3;
-			v6 = ((void*)&nox_arr_957820[4 + 4 * (v2 - 1 + 32 * a2)]);
-			do {
-				*(uint32_t*)v6 = *((uint32_t*)v6 - 1);
-				v6 -= 4;
-				--v5;
-			} while (v5);
-		}
-		nox_arr_956A00[a2] = v2 + 1;
-		*((unsigned int*)&nox_arr_957820[4 * (v3 + 32 * a2)]) = a1;
-		if (a2 < *(int*)&dword_5d4594_3679320) {
-			dword_5d4594_3679320 = a2;
-		}
-		if (a2 > *(int*)&dword_5d4594_3798156) {
-			dword_5d4594_3798156 = a2;
-		}
-	}
-}
-
 //----- (004CA540) --------------------------------------------------------
 int nox_xxx_sprite_4CA540(uint32_t* a1, int a2) {
 	uint32_t* v2; // esi

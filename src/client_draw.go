@@ -804,6 +804,39 @@ func sub_4C5630(a1 int32, a2 int32, a3 int) int {
 	return 0
 }
 
+//export sub_4C5430
+func sub_4C5430(a1 int32, a2 int32) {
+	nox_arr_957820 := unsafe.Slice((*tileMapXxx)(unsafe.Pointer(&C.nox_arr_957820[0])), len(C.nox_arr_957820)/128)
+	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
+
+	v2 := int(int32(nox_arr_956A00[a2]))
+	if v2 >= 32 {
+		return
+	}
+	v3 := 0
+	if v2 > 0 {
+		cur := &nox_arr_957820[a2]
+		for ; v3 < v2; v3++ {
+			if a1 < cur.arr[v3] {
+				break
+			}
+		}
+	}
+	if v3 != v2 && v2-1 >= v3 {
+		for v5 := v2 - v3; v5 != 0; v5-- {
+			nox_arr_957820[a2].arr[v5+v3] = nox_arr_957820[a2].arr[v5+v3-1]
+		}
+	}
+	nox_arr_956A00[a2] = uint32(v2 + 1)
+	nox_arr_957820[a2].arr[v3] = a1
+	if a2 < int32(C.dword_5d4594_3679320) {
+		C.dword_5d4594_3679320 = C.uint(a2)
+	}
+	if a2 > int32(C.dword_5d4594_3798156) {
+		C.dword_5d4594_3798156 = C.uint(a2)
+	}
+}
+
 func (c *Client) nox_xxx_tileDrawMB_481C20_C_textured(vp *noxrender.Viewport, dp image.Point) {
 	r := c.r
 
