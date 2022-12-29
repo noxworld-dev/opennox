@@ -5026,29 +5026,6 @@ void sub_4C5430(int a1, int a2) {
 	}
 }
 
-//----- (004C5630) --------------------------------------------------------
-int sub_4C5630(int a1, int a2, int a3) {
-	if (a3 < 0 || a3 > sizeof(nox_arr_956A00) / 4) { // TODO: figure out why overflow happens on high-res
-		return 0;
-	}
-	int v3;           // ecx
-	int v4;           // edx
-	unsigned char* i; // eax
-
-	v3 = 0;
-	v4 = nox_arr_956A00[a3];
-	if (v4 <= 0) {
-		return 0;
-	}
-	for (i = ((void*)&nox_arr_957820[128 * a3]); a1 > *((uint32_t*)i + 1) || a2 < *(int*)i; i += 8) {
-		v3 += 2;
-		if (v3 >= v4) {
-			return 0;
-		}
-	}
-	return 1;
-}
-
 //----- (004CA540) --------------------------------------------------------
 int nox_xxx_sprite_4CA540(uint32_t* a1, int a2) {
 	uint32_t* v2; // esi

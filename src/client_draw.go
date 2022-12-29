@@ -784,6 +784,26 @@ type tileMapXxx struct {
 	arr [32]int32
 }
 
+//export sub_4C5630
+func sub_4C5630(a1 int32, a2 int32, a3 int) int {
+	nox_arr_957820 := unsafe.Slice((*tileMapXxx)(unsafe.Pointer(&C.nox_arr_957820[0])), len(C.nox_arr_957820)/128)
+	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
+	if a3 < 0 || a3 > len(nox_arr_956A00) { // TODO: figure out why overflow happens on high-res
+		return 0
+	}
+	v4 := int(int32(nox_arr_956A00[a3]))
+	if v4 <= 0 {
+		return 0
+	}
+	cur := &nox_arr_957820[a3]
+	for i := 0; i < v4; i += 2 {
+		if a1 <= cur.arr[i+1] && a2 >= cur.arr[i+0] {
+			return 1
+		}
+	}
+	return 0
+}
+
 func (c *Client) nox_xxx_tileDrawMB_481C20_C_textured(vp *noxrender.Viewport, dp image.Point) {
 	r := c.r
 
