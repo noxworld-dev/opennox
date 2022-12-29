@@ -49,7 +49,6 @@ extern unsigned char nox_arr_957820[128 * (NOX_MAX_HEIGHT + 150)];
 */
 import "C"
 import (
-	"encoding/binary"
 	"image"
 	"image/color"
 	"math"
@@ -286,19 +285,18 @@ func (c *Client) sub_4C5500(vp *noxrender.Viewport) {
 		c.r.DrawRectFilledOpaque(sxmin, symin, vp.Size.X, ymin-symin, nox_color_black_2650656)
 	}
 
-	nox_arr_957820 := unsafe.Slice((*byte)(unsafe.Pointer(&C.nox_arr_957820[0])), len(C.nox_arr_957820))
+	nox_arr_957820 := unsafe.Slice((*tileMapXxx)(unsafe.Pointer(&C.nox_arr_957820[0])), len(C.nox_arr_957820)/128)
 	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
 	for yval := int(C.dword_5d4594_3679320); yval < int(C.dword_5d4594_3798156); yval++ {
-		ptr2 := nox_arr_957820[yval*128 : (yval+1)*128]
-		ptr2i := unsafe.Slice((*uint32)(unsafe.Pointer(&ptr2[0])), 128/4)
-		ptr2i = ptr2i[1:]
+		cur := &nox_arr_957820[yval]
 		lxs := sxmin
-		lxe := int(*(*uint32)(unsafe.Pointer(&ptr2[0])))
+		lxe := int(cur.arr[0])
+		ptr2i := cur.arr[1:]
 		if pv := int(int32(nox_arr_956A00[yval])); pv > 0 {
 			for i := 0; i < (pv+1)/2; i++ {
 				c.r.DrawLineHorizontal(lxs, yval, lxe, nox_color_black_2650656)
-				lxs = int(int32(ptr2i[0]))
-				lxe = int(int32(ptr2i[1]))
+				lxs = int(ptr2i[0])
+				lxe = int(ptr2i[1])
 				ptr2i = ptr2i[2:]
 			}
 		}
@@ -780,6 +778,12 @@ func (c *Client) nox_xxx_tileDrawMB_481C20(vp *noxrender.Viewport) {
 	}
 }
 
+var _ = [1]struct{}{}[128-unsafe.Sizeof(tileMapXxx{})]
+
+type tileMapXxx struct {
+	arr [32]int32
+}
+
 func (c *Client) nox_xxx_tileDrawMB_481C20_C_textured(vp *noxrender.Viewport, dp image.Point) {
 	r := c.r
 
@@ -790,7 +794,7 @@ func (c *Client) nox_xxx_tileDrawMB_481C20_C_textured(vp *noxrender.Viewport, dp
 	var v67 image.Point
 	v67.Y = dp.Y + sy
 	c.sub4745F0(vp)
-	nox_arr_957820 := unsafe.Slice((*byte)(unsafe.Pointer(&C.nox_arr_957820[0])), len(C.nox_arr_957820))
+	nox_arr_957820 := unsafe.Slice((*tileMapXxx)(unsafe.Pointer(&C.nox_arr_957820[0])), len(C.nox_arr_957820)/128)
 	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
 	for i := range nox_arr_84EB20 {
 		nox_arr_84EB20[i].Y = -1
@@ -800,19 +804,21 @@ func (c *Client) nox_xxx_tileDrawMB_481C20_C_textured(vp *noxrender.Viewport, dp
 	v78 := v67.Y - common.GridStep*v66.Y - gpy
 	pix := r.PixBuffer()
 	for yy := sy; yy < ymax; yy++ {
-		src := nox_arr_957820[128*yy:]
+		src := nox_arr_957820[yy:]
 		if v78 == common.GridStep {
 			v78 = 0
 			v66.Y++
 		}
+		cur := &src[0]
 		vv := int(nox_arr_956A00[yy])
 		if C.nox_client_highResFloors_154952 != 0 || v67.Y&1 == 0 || yy == 0 {
 			// high-res or each second row on low-res
 			if vv > 0 {
-				for jj := (vv + 1) / 2; jj != 0; jj-- {
-					v1 := int(binary.LittleEndian.Uint32(src[0:]))
-					v2 := int(binary.LittleEndian.Uint32(src[4:]))
-					src = src[8:]
+				it := cur.arr[:]
+				for jj := 0; jj < (vv+1)/2; jj++ {
+					v1 := int(it[0])
+					v2 := int(it[1])
+					it = it[2:]
 
 					v67.X = v1 + dp.X
 					v66.X = (v1 + dp.X - gpx) / common.GridStep
@@ -830,10 +836,11 @@ func (c *Client) nox_xxx_tileDrawMB_481C20_C_textured(vp *noxrender.Viewport, dp
 		} else {
 			// low-res floors basically skip each second row (interlacing) and then duplicate result from the first row
 			if vv > 0 {
+				it := cur.arr[:]
 				for jj := (vv + 1) / 2; jj != 0; jj-- {
-					v1 := int(binary.LittleEndian.Uint32(src[0:]))
-					v2 := int(binary.LittleEndian.Uint32(src[4:]))
-					src = src[8:]
+					v1 := int(it[0])
+					v2 := int(it[1])
+					it = it[2:]
 
 					ind := pix.PixOffset(v1, yy)
 					ind2 := pix.PixOffset(v1, yy-1)
