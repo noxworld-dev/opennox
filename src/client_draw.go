@@ -281,41 +281,31 @@ func (c *Client) sub_4C5500(vp *noxrender.Viewport) {
 	symin := vp.Screen.Min.Y
 	v16 := C.sub_49F6D0(0)
 	c.r.Data().SetColor2(nox_color_black_2650656)
-	yval := int(C.dword_5d4594_3679320)
-	if yval > symin {
-		c.r.DrawRectFilledOpaque(sxmin, symin, vp.Size.X, yval-symin, nox_color_black_2650656)
-		yval = int(C.dword_5d4594_3679320)
+
+	if ymin := int(C.dword_5d4594_3679320); symin < ymin { // top tile cutoff
+		c.r.DrawRectFilledOpaque(sxmin, symin, vp.Size.X, ymin-symin, nox_color_black_2650656)
 	}
-	v5 := int(C.dword_5d4594_3798156)
 
 	nox_arr_957820 := unsafe.Slice((*byte)(unsafe.Pointer(&C.nox_arr_957820[0])), len(C.nox_arr_957820))
 	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
-	if yval < v5 {
-		for {
-			ptr1 := &nox_arr_956A00[yval]
-			ptr2 := nox_arr_957820[yval*128 : (yval+1)*128]
-			ptr2i := unsafe.Slice((*uint32)(unsafe.Pointer(&ptr2[0])), 128/4)
-			ptr2i = ptr2i[1:]
-			v8 := sxmin
-			v9 := int(*(*uint32)(unsafe.Pointer(&ptr2[0])))
-			if int32(*ptr1) > 0 {
-				for v10 := (int32(*ptr1) + 1) >> 1; v10 > 0; v10-- {
-					c.r.DrawLineHorizontal(v8, yval, v9, nox_color_black_2650656)
-					v8 = int(int32(ptr2i[0]))
-					v9 = int(int32(ptr2i[1]))
-					ptr2i = ptr2i[2:]
-				}
-			}
-			c.r.DrawLineHorizontal(v8, yval, sxmin+vp.Size.X, nox_color_black_2650656)
-			v5 = int(C.dword_5d4594_3798156)
-			yval++
-			if yval >= int(C.dword_5d4594_3798156) {
-				break
+	for yval := int(C.dword_5d4594_3679320); yval < int(C.dword_5d4594_3798156); yval++ {
+		ptr2 := nox_arr_957820[yval*128 : (yval+1)*128]
+		ptr2i := unsafe.Slice((*uint32)(unsafe.Pointer(&ptr2[0])), 128/4)
+		ptr2i = ptr2i[1:]
+		lxs := sxmin
+		lxe := int(*(*uint32)(unsafe.Pointer(&ptr2[0])))
+		if pv := int(int32(nox_arr_956A00[yval])); pv > 0 {
+			for i := 0; i < (pv+1)/2; i++ {
+				c.r.DrawLineHorizontal(lxs, yval, lxe, nox_color_black_2650656)
+				lxs = int(int32(ptr2i[0]))
+				lxe = int(int32(ptr2i[1]))
+				ptr2i = ptr2i[2:]
 			}
 		}
+		c.r.DrawLineHorizontal(lxs, yval, sxmin+vp.Size.X, nox_color_black_2650656)
 	}
-	if v5 < vp.Size.Y+symin {
-		c.r.DrawRectFilledOpaque(sxmin, v5, vp.Size.X, vp.Size.Y+symin-v5, nox_color_black_2650656)
+	if ymax := int(C.dword_5d4594_3798156); vp.Size.Y+symin > ymax { // bottom tile cutoff
+		c.r.DrawRectFilledOpaque(sxmin, ymax, vp.Size.X, vp.Size.Y+symin-ymax, nox_color_black_2650656)
 	}
 	C.sub_49F6D0(C.int(v16))
 	if noxflags.HasEngine(noxflags.EngineSoftShadowEdge) {
