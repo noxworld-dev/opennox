@@ -24,7 +24,6 @@ extern nox_window* dword_5d4594_1522616;
 extern nox_window* dword_5d4594_1522620;
 extern nox_window* dword_5d4594_1522624;
 extern nox_window* dword_5d4594_1522628;
-extern nox_window* nox_win_xxx1_last;
 extern nox_window* dword_5d4594_1062452;
 
 extern void* dword_5d4594_1096640;

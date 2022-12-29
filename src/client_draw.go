@@ -253,7 +253,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	c.sub_4754F0(vp)
 	if v10 {
 		c.nox_xxx_tileDrawMB_481C20(vp)
-		C.sub_4C5500((*nox_draw_viewport_t)(vp.C()))
+		c.sub_4C5500(vp)
 	} else {
 		r.ClearScreen(color.Black)
 	}
@@ -274,6 +274,53 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	r.setRectFullScreen()
 	*memmap.PtrUint32(0x973F18, 68) = 1
 	C.sub_476680()
+}
+
+func (c *Client) sub_4C5500(vp *noxrender.Viewport) {
+	sxmin := vp.Screen.Min.X
+	symin := vp.Screen.Min.Y
+	v16 := C.sub_49F6D0(0)
+	c.r.Data().SetColor2(nox_color_black_2650656)
+	yval := int(C.dword_5d4594_3679320)
+	if yval > symin {
+		c.r.DrawRectFilledOpaque(sxmin, symin, vp.Size.X, yval-symin, nox_color_black_2650656)
+		yval = int(C.dword_5d4594_3679320)
+	}
+	v5 := int(C.dword_5d4594_3798156)
+
+	nox_arr_957820 := unsafe.Slice((*byte)(unsafe.Pointer(&C.nox_arr_957820[0])), len(C.nox_arr_957820))
+	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
+	if yval < v5 {
+		for {
+			ptr1 := &nox_arr_956A00[yval]
+			ptr2 := nox_arr_957820[yval*128 : (yval+1)*128]
+			ptr2i := unsafe.Slice((*uint32)(unsafe.Pointer(&ptr2[0])), 128/4)
+			ptr2i = ptr2i[1:]
+			v8 := sxmin
+			v9 := int(*(*uint32)(unsafe.Pointer(&ptr2[0])))
+			if int32(*ptr1) > 0 {
+				for v10 := (int32(*ptr1) + 1) >> 1; v10 > 0; v10-- {
+					c.r.DrawLineHorizontal(v8, yval, v9, nox_color_black_2650656)
+					v8 = int(int32(ptr2i[0]))
+					v9 = int(int32(ptr2i[1]))
+					ptr2i = ptr2i[2:]
+				}
+			}
+			c.r.DrawLineHorizontal(v8, yval, sxmin+vp.Size.X, nox_color_black_2650656)
+			v5 = int(C.dword_5d4594_3798156)
+			yval++
+			if yval >= int(C.dword_5d4594_3798156) {
+				break
+			}
+		}
+	}
+	if v5 < vp.Size.Y+symin {
+		c.r.DrawRectFilledOpaque(sxmin, v5, vp.Size.X, vp.Size.Y+symin-v5, nox_color_black_2650656)
+	}
+	C.sub_49F6D0(C.int(v16))
+	if noxflags.HasEngine(noxflags.EngineSoftShadowEdge) {
+		C.sub_498AE0()
+	}
 }
 
 func (c *Client) nox_client_queueWallsDraw(vp *noxrender.Viewport, xmin, ymin int) { // nox_xxx_drawAllMB_475810_draw_C

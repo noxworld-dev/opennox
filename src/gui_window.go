@@ -3,7 +3,6 @@ package opennox
 /*
 #include <stdlib.h>
 #include "client__gui__window.h"
-extern nox_window_ref* nox_win_1064912;
 
 static int nox_window_call_draw_func_go(int (*fnc)(nox_window*, nox_window_data*), nox_window* win, nox_window_data* data) {
 	return fnc(win, data);
