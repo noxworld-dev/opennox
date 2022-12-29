@@ -918,11 +918,6 @@ func nox_xxx_drawList1096512_Append_4754C0(p unsafe.Pointer) {
 	nox_wallsYyy = append(nox_wallsYyy, asWall(p))
 }
 
-//export sub_4745F0
-func sub_4745F0(cvp *nox_draw_viewport_t) {
-	noxClient.sub4745F0(asViewport(cvp))
-}
-
 func (c *Client) sub4745F0(vp *noxrender.Viewport) {
 	for _, dr := range nox_drawable_list_2 {
 		c.drawCreatureBackEffects(vp, dr)
