@@ -36,7 +36,6 @@ extern nox_drawable* nox_xxx_drawablePlayer_1046600;
 void nox_xxx_tileDrawMB_481C20_A(nox_draw_viewport_t* vp, int v3);
 void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, int v78);
 void nox_xxx_tileDrawMB_481C20_C_textured(nox_draw_viewport_t* vp, int v72, int v78);
-void nox_xxx_tileDrawMB_481C20_C_solid(nox_draw_viewport_t* vp, int v72, int v78);
 void  nox_xxx_cliLight16_469140(nox_drawable* dr, nox_draw_viewport_t* vp);
 void nox_xxx_clientDrawAll_436100_draw_A();
 void nox_xxx_clientDrawAll_436100_draw_B();
@@ -774,7 +773,7 @@ func (c *Client) nox_xxx_tileDrawMB_481C20(vp *noxrender.Viewport) {
 	if nox_client_texturedFloors_154956 {
 		c.nox_xxx_tileDrawMB_481C20_C_textured(vp, dp)
 	} else {
-		C.nox_xxx_tileDrawMB_481C20_C_solid((*nox_draw_viewport_t)(vp.C()), C.int(dp.X), C.int(dp.Y))
+		c.nox_xxx_tileDrawMB_481C20_C_solid(vp, dp)
 	}
 }
 
@@ -834,6 +833,48 @@ func sub_4C5430(a1 int32, a2 int32) {
 	}
 	if a2 > int32(C.dword_5d4594_3798156) {
 		C.dword_5d4594_3798156 = C.uint(a2)
+	}
+}
+
+func (c *Client) nox_xxx_tileDrawMB_481C20_C_solid(vp *noxrender.Viewport, dp image.Point) {
+	c.sub4745F0(vp)
+	nox_arr_957820 := unsafe.Slice((*tileMapXxx)(unsafe.Pointer(&C.nox_arr_957820[0])), len(C.nox_arr_957820)/128)
+	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
+	y := int(int32(C.dword_5d4594_3679320))
+	if y >= int(C.dword_5d4594_3798156) {
+		return
+	}
+	v67_4 := dp.Y + y
+	v78a := nox_arr_957820[y:]
+	for y < int(C.dword_5d4594_3798156) {
+		it := v78a[0].arr[:]
+		v36 := int32(nox_arr_956A00[y])
+		pixrow := noxPixBuffer.img.Row(y)
+		if v36 > 0 {
+			for j := int32(uint32(v36+1) / 2); j != 0; j-- {
+				v37 := int(it[0])
+				sz := int(it[1] - it[0])
+				it = it[2:]
+				v39i := (dword_5d4594_3798804/2)*(v67_4+int(C.dword_5d4594_3798840)-int(C.dword_5d4594_3798824)) + (v37 + dp.X + int(C.dword_5d4594_3798836) - int(C.dword_5d4594_3798820))
+				if v39i >= len(noxTileBuf) {
+					v39i -= len(noxTileBuf)
+				}
+				src := noxTileBuf[v39i:]
+				dst := pixrow[v37:]
+				if sz < len(noxTileBuf) {
+					copy(dst[:sz], src[:sz])
+				} else {
+					n1 := len(noxTileBuf) - v39i
+					copy(dst[:n1], src[:n1])
+					src = noxTileBuf[:]
+					n2 := sz - n1
+					copy(dst[n1:n1+n2], src[:n2])
+				}
+			}
+		}
+		y++
+		v78a = v78a[1:]
+		v67_4++
 	}
 }
 

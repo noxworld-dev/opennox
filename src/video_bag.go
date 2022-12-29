@@ -2,8 +2,6 @@ package opennox
 
 /*
 #include "defs.h"
-extern void* dword_5d4594_1189592;
-extern void* dword_5d4594_1189596;
 */
 import "C"
 
@@ -141,13 +139,5 @@ func sub_47D150() {
 	if p := memmap.PtrPtr(0x5D4594, 1189588); *p != nil {
 		alloc.Free(*p)
 		*p = nil
-	}
-	if C.dword_5d4594_1189592 != nil {
-		alloc.Free(C.dword_5d4594_1189592)
-		C.dword_5d4594_1189592 = nil
-	}
-	if C.dword_5d4594_1189596 != nil {
-		alloc.Free(C.dword_5d4594_1189596)
-		C.dword_5d4594_1189596 = nil
 	}
 }
