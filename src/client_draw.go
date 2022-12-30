@@ -44,7 +44,6 @@ int nox_xxx_drawAllMB_475810_draw_B(nox_draw_viewport_t* vp);
 void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7);
 int sub_436F50();
 extern uint32_t nox_arr_956A00[NOX_MAX_HEIGHT + 150];
-extern unsigned char nox_arr_957820[128 * (NOX_MAX_HEIGHT + 150)];
 */
 import "C"
 import (
@@ -284,7 +283,6 @@ func (c *Client) sub_4C5500(vp *noxrender.Viewport) {
 		c.r.DrawRectFilledOpaque(sxmin, symin, vp.Size.X, ymin-symin, nox_color_black_2650656)
 	}
 
-	nox_arr_957820 := unsafe.Slice((*tileMapXxx)(unsafe.Pointer(&C.nox_arr_957820[0])), len(C.nox_arr_957820)/128)
 	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
 	for yval := int(C.dword_5d4594_3679320); yval < int(C.dword_5d4594_3798156); yval++ {
 		cur := &nox_arr_957820[yval]
@@ -777,15 +775,8 @@ func (c *Client) nox_xxx_tileDrawMB_481C20(vp *noxrender.Viewport) {
 	}
 }
 
-var _ = [1]struct{}{}[128-unsafe.Sizeof(tileMapXxx{})]
-
-type tileMapXxx struct {
-	arr [32]int32
-}
-
 //export sub_4C5630
 func sub_4C5630(a1 int32, a2 int32, a3 int) int {
-	nox_arr_957820 := unsafe.Slice((*tileMapXxx)(unsafe.Pointer(&C.nox_arr_957820[0])), len(C.nox_arr_957820)/128)
 	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
 	if a3 < 0 || a3 > len(nox_arr_956A00) { // TODO: figure out why overflow happens on high-res
 		return 0
@@ -805,7 +796,6 @@ func sub_4C5630(a1 int32, a2 int32, a3 int) int {
 
 //export sub_4C5430
 func sub_4C5430(a1 int32, a2 int32) {
-	nox_arr_957820 := unsafe.Slice((*tileMapXxx)(unsafe.Pointer(&C.nox_arr_957820[0])), len(C.nox_arr_957820)/128)
 	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
 
 	v2 := int(int32(nox_arr_956A00[a2]))
@@ -836,9 +826,216 @@ func sub_4C5430(a1 int32, a2 int32) {
 	}
 }
 
+//export sub_4C42A0
+func sub_4C42A0(a1 *C.int2, a2 *C.int2, a3 *int, a4 *int) int32 {
+	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
+	v4 := int(a1.field_4)
+	v5 := int(a2.field_4)
+	if v4 == v5 {
+		if v4 < 0 || v4 >= len(nox_arr_956A00) || nox_arr_956A00[v4] == 0 {
+			return 0
+		}
+		v47 := int(a1.field_0)
+		v54 := int(a2.field_0)
+		var (
+			v51 float32
+			v7  float64
+		)
+		if int(a1.field_0) > v54 {
+			v51 = float32(float64(v54))
+			v7 = float64(v47)
+		} else {
+			v51 = float32(float64(v47))
+			v7 = float64(v54)
+		}
+		v43 := float32(v7)
+		if v4 < 0 {
+			return 0
+		}
+		if v4 >= nox_win_height {
+			v4 = nox_win_height - 1
+		}
+		if float64(v51) < 0.0 {
+			v51 = 0.0
+		}
+		v8 := float64(nox_win_width)
+		if float64(v51) > v8 {
+			v51 = float32(v8)
+		}
+		v9 := int(int32(nox_arr_956A00[v4]))
+		for v10 := 0; v10 < v9; v10 += 2 {
+			v11it := nox_arr_957820[v4].arr[v10 : v10+2]
+			v12 := int(v11it[0])
+			v13 := int(v11it[1])
+			if float64(v11it[0]) > float64(v51) {
+				if *a3 < v12 {
+					*a3 = v12
+				}
+				if float64(v13) < float64(v43) && *a4 > v13 {
+					*a4 = v13
+				}
+				return 1
+			}
+			if float64(v51) <= float64(v13) && float64(v43) > float64(v13) {
+				if *a4 > v13 {
+					*a4 = v13
+				}
+				return 1
+			}
+			if float64(v43) <= float64(v13) {
+				return 1
+			}
+		}
+		*a4 = 0
+		return 1
+	}
+	v48 := a1.field_0
+	v56 := a2.field_0
+	var (
+		v15 int
+		v16 int
+		v50 int
+		v52 float32
+		v17 float64
+	)
+	if a1.field_0 > v56 {
+		v15 = v5
+		v16 = int(a1.field_4)
+		v50 = v5
+		v52 = float32(float64(v56))
+		v17 = float64(v48)
+	} else {
+		v15 = int(a1.field_4)
+		v16 = v5
+		v50 = int(a1.field_4)
+		v52 = float32(float64(v48))
+		v17 = float64(v56)
+	}
+	v44 := float32(v17)
+	v18 := v16 - v15
+	v57 := v16 - v15
+	var v46 int
+	if v16-v15 >= 0 {
+		v46 = 1
+	} else {
+		v18 = v15 - v16
+		v57 = v15 - v16
+		v46 = -1
+	}
+	v49 := float32(float64(v44-v52) / float64(v57))
+	v19 := nox_win_height
+	if v15 < 0 {
+		v15 = 0
+		v52 = float32(float64(v52) - float64(v50)*float64(v49))
+	} else if v15 >= nox_win_height {
+		if v16 >= nox_win_height {
+			return 0
+		}
+		v58 := v15 - nox_win_height + 1
+		v15 = nox_win_height - 1
+		v52 = float32(float64(v58)*float64(v49) + float64(v52))
+		if *a3 < int(v52) {
+			*a3 = int(v52)
+		}
+	}
+	if v16 >= 0 {
+		if v16 >= v19 {
+			v59 := v19 - v16 + v18 - 1
+			v44 = float32(float64(v59)*float64(v49) + float64(v52))
+			if *a4 > int(v44) {
+				*a4 = int(v44)
+			}
+			v18 = v59
+		}
+	} else {
+		v18 += v16
+	}
+	if float64(v52) < 0.0 {
+		v52 = 0.0
+		v15 -= int(0.0)
+	}
+	if float64(v44) > float64(nox_win_width) {
+		v18 -= int(float32(float64(v44) - float64(nox_win_width)))
+	}
+	v23 := int(int32(nox_arr_956A00[v15]))
+
+	ok25 := true
+	for i := 0; i < v23; i += 2 {
+		v26it := nox_arr_957820[v15].arr[i : i+2]
+		if !(float64(v26it[0]) > float64(v52) || float64(v26it[1]+2) < float64(v52)) {
+			ok25 = false
+			break
+		}
+	}
+	v28 := v46 + v15
+	v29 := v18 - 1
+	v53 := v49 + v52
+	if ok25 {
+		if v29 == 0 {
+			return 0
+		}
+		if v29 > 0 {
+		loop1:
+			for {
+				if n := int(nox_arr_956A00[v28]); n > 0 {
+					for j := 0; j < n; j += 2 {
+						v34 := nox_arr_957820[v28].arr[j : j+2]
+						if float64(v34[0]) <= float64(v53) && float64(v34[1]+2) >= float64(v53) {
+							if *a3 < int(v53)-1 {
+								*a3 = int(v53) - 1
+							}
+							break loop1
+						}
+					}
+				}
+				v28 += v46
+				v53 = v49 + v53
+				v29--
+				if v29 == 0 {
+					return 0
+				} else if v29 < 0 {
+					break
+				}
+			}
+		}
+	}
+	if v29 <= 0 {
+		return 1
+	}
+	si := v28
+	for {
+		v37 := int(nox_arr_956A00[si])
+		if v37 <= 0 {
+			if *a4 > int(v53) {
+				*a4 = int(v53)
+			}
+			return 1
+		}
+		v40 := nox_arr_957820[si].arr[:]
+		for v39 := 0; ; {
+			if float64(v40[0]) <= float64(v53) && float64(v40[1]+2) >= float64(v53) {
+				break
+			}
+			v39 += 2
+			v40 = v40[2:]
+			if v39 >= v37 {
+				if *a4 > int(v53) {
+					*a4 = int(v53)
+				}
+				return 1
+			}
+		}
+		v29--
+		si += v46
+		v53 = v49 + v53
+		if v29 <= 0 {
+			return 1
+		}
+	}
+}
+
 func (c *Client) nox_xxx_tileDrawMB_481C20_C_solid(vp *noxrender.Viewport, dp image.Point) {
 	c.sub4745F0(vp)
-	nox_arr_957820 := unsafe.Slice((*tileMapXxx)(unsafe.Pointer(&C.nox_arr_957820[0])), len(C.nox_arr_957820)/128)
 	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
 	y := int(int32(C.dword_5d4594_3679320))
 	if y >= int(C.dword_5d4594_3798156) {
@@ -888,7 +1085,6 @@ func (c *Client) nox_xxx_tileDrawMB_481C20_C_textured(vp *noxrender.Viewport, dp
 	var v67 image.Point
 	v67.Y = dp.Y + sy
 	c.sub4745F0(vp)
-	nox_arr_957820 := unsafe.Slice((*tileMapXxx)(unsafe.Pointer(&C.nox_arr_957820[0])), len(C.nox_arr_957820)/128)
 	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
 	for i := range nox_arr_84EB20 {
 		nox_arr_84EB20[i].Y = -1

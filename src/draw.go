@@ -815,6 +815,12 @@ func nox_xxx_initSight_485F80() {
 	}
 }
 
+var _ = [1]struct{}{}[128-unsafe.Sizeof(tileMapXxx{})]
+
+type tileMapXxx struct {
+	arr [32]int32
+}
+
 var (
 	dword_5d4594_3798812 int
 	dword_5d4594_3798800 int
@@ -825,6 +831,7 @@ var (
 	noxTilesGpy          int
 	noxTileBuf           []uint16
 	noxTileBufFree       func()
+	nox_arr_957820       [noxMaxHeight + 150]tileMapXxx
 )
 
 func nox_xxx_tileInitBuf_430DB0(width, height int) {
