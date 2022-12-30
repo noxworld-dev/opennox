@@ -31,6 +31,7 @@ extern unsigned int dword_5d4594_811904;
 extern unsigned int nox_client_gui_flag_1556112;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern unsigned int nox_client_highResFloors_154952;
+extern unsigned int nox_client_highResFrontWalls_80820;
 extern nox_drawable* nox_xxx_drawablePlayer_1046600;
 void nox_xxx_tileDrawMB_481C20_A(nox_draw_viewport_t* vp, int v3);
 void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, int v78);
@@ -269,7 +270,12 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	C.sub_45AB40()
 	r.setRectFullScreen()
 	*memmap.PtrUint32(0x973F18, 68) = 1
-	C.sub_476680()
+	c.sub_476680()
+}
+
+func (c *Client) sub_476680() {
+	C.nox_client_highResFloors_154952 = C.uint(memmap.Uint32(0x5D4594, 1096440))
+	C.nox_client_highResFrontWalls_80820 = C.uint(memmap.Uint32(0x5D4594, 1096444))
 }
 
 func (c *Client) sub_4C5500(vp *noxrender.Viewport) {

@@ -202,16 +202,6 @@ int sub_4765F0(nox_draw_viewport_t* a1p) {
 	return result;
 }
 
-//----- (00476680) --------------------------------------------------------
-int sub_476680() {
-	int result; // eax
-
-	result = *getMemU32Ptr(0x5D4594, 1096440);
-	nox_client_highResFloors_154952 = *getMemU32Ptr(0x5D4594, 1096440);
-	nox_client_highResFrontWalls_80820 = *getMemU32Ptr(0x5D4594, 1096444);
-	return result;
-}
-
 //----- (00476AE0) --------------------------------------------------------
 void* sub_476AE0(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	unsigned char* a2 = dr;
