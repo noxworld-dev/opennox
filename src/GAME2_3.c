@@ -2679,7 +2679,7 @@ int sub_496120() {
 
 //----- (00496150) --------------------------------------------------------
 int sub_57BA30(int2* a1, int2* a2, int4* a3);
-int nox_xxx_drawBlack_496150(nox_draw_viewport_t* a1p) {
+void nox_xxx_drawBlack_496150(nox_draw_viewport_t* a1p) {
 	int* a1 = a1p;
 	int v1;             // esi
 	int v2;             // ecx
@@ -3153,8 +3153,6 @@ LABEL_32:
 	LABEL_100:
 		v54 = v53++;
 	}
-	sub_4989A0();
-	return sub_4C52E0(getMemIntPtr(0x5D4594, 1203876), *(int*)&dword_5d4594_1217464);
 }
 
 //----- (00497180) --------------------------------------------------------

@@ -831,7 +831,10 @@ var (
 	noxTilesGpy          int
 	noxTileBuf           []uint16
 	noxTileBufFree       func()
+	nox_arr_956A00       [noxMaxHeight + 150]uint32
 	nox_arr_957820       [noxMaxHeight + 150]tileMapXxx
+	dword_5d4594_3679320 int
+	dword_5d4594_3798156 int
 )
 
 func nox_xxx_tileInitBuf_430DB0(width, height int) {
