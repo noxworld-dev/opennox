@@ -285,13 +285,13 @@ func (c *Client) sub_4C5500(vp *noxrender.Viewport) {
 	for yval := dword_5d4594_3679320; yval < dword_5d4594_3798156; yval++ {
 		cur := &nox_arr_957820[yval]
 		lxs := sxmin
-		lxe := int(cur.arr[0])
+		lxe := cur.arr[0]
 		ptr2i := cur.arr[1:]
-		if pv := int(int32(nox_arr_956A00[yval])); pv > 0 {
+		if pv := nox_arr_956A00[yval]; pv > 0 {
 			for i := 0; i < (pv+1)/2; i++ {
 				c.r.DrawLineHorizontal(lxs, yval, lxe, nox_color_black_2650656)
-				lxs = int(ptr2i[0])
-				lxe = int(ptr2i[1])
+				lxs = ptr2i[0]
+				lxe = ptr2i[1]
 				ptr2i = ptr2i[2:]
 			}
 		}
@@ -774,11 +774,11 @@ func (c *Client) nox_xxx_tileDrawMB_481C20(vp *noxrender.Viewport) {
 }
 
 //export sub_4C5630
-func sub_4C5630(a1 int32, a2 int32, a3 int) int {
+func sub_4C5630(a1 int, a2 int, a3 int) int {
 	if a3 < 0 || a3 > len(nox_arr_956A00) { // TODO: figure out why overflow happens on high-res
 		return 0
 	}
-	v4 := int(int32(nox_arr_956A00[a3]))
+	v4 := nox_arr_956A00[a3]
 	if v4 <= 0 {
 		return 0
 	}
@@ -792,7 +792,7 @@ func sub_4C5630(a1 int32, a2 int32, a3 int) int {
 }
 
 func sub_4C5430(a1 int, a2 int) {
-	v2 := int(int32(nox_arr_956A00[a2]))
+	v2 := nox_arr_956A00[a2]
 	if v2 >= 32 {
 		return
 	}
@@ -800,7 +800,7 @@ func sub_4C5430(a1 int, a2 int) {
 	if v2 > 0 {
 		cur := &nox_arr_957820[a2]
 		for ; v3 < v2; v3++ {
-			if a1 < int(cur.arr[v3]) {
+			if a1 < cur.arr[v3] {
 				break
 			}
 		}
@@ -810,8 +810,8 @@ func sub_4C5430(a1 int, a2 int) {
 			nox_arr_957820[a2].arr[v5+v3] = nox_arr_957820[a2].arr[v5+v3-1]
 		}
 	}
-	nox_arr_956A00[a2] = uint32(v2 + 1)
-	nox_arr_957820[a2].arr[v3] = int32(a1)
+	nox_arr_956A00[a2] = v2 + 1
+	nox_arr_957820[a2].arr[v3] = a1
 	if a2 < dword_5d4594_3679320 {
 		dword_5d4594_3679320 = a2
 	}
@@ -827,7 +827,7 @@ func nox_xxx_drawBlack_496150_B() {
 
 func sub_4C52E0(a1 *int32, sz int) {
 	arr := unsafe.Slice(a1, 2*sz)
-	nox_arr_956A00 = [noxMaxHeight + 150]uint32{}
+	nox_arr_956A00 = [noxMaxHeight + 150]int{}
 	dword_5d4594_3679320 = nox_win_height
 	dword_5d4594_3798156 = 0
 	if sz <= 0 {
@@ -945,11 +945,11 @@ func sub_4C42A0(a1 *C.int2, a2 *C.int2, a3 *int, a4 *int) int32 {
 		if float64(v51) > v8 {
 			v51 = float32(v8)
 		}
-		v9 := int(int32(nox_arr_956A00[v4]))
+		v9 := nox_arr_956A00[v4]
 		for v10 := 0; v10 < v9; v10 += 2 {
 			v11it := nox_arr_957820[v4].arr[v10 : v10+2]
-			v12 := int(v11it[0])
-			v13 := int(v11it[1])
+			v12 := v11it[0]
+			v13 := v11it[1]
 			if float64(v11it[0]) > float64(v51) {
 				if *a3 < v12 {
 					*a3 = v12
@@ -1040,7 +1040,7 @@ func sub_4C42A0(a1 *C.int2, a2 *C.int2, a3 *int, a4 *int) int32 {
 	if float64(v44) > float64(nox_win_width) {
 		v18 -= int(float32(float64(v44) - float64(nox_win_width)))
 	}
-	v23 := int(int32(nox_arr_956A00[v15]))
+	v23 := nox_arr_956A00[v15]
 
 	ok25 := true
 	for i := 0; i < v23; i += 2 {
@@ -1060,7 +1060,7 @@ func sub_4C42A0(a1 *C.int2, a2 *C.int2, a3 *int, a4 *int) int32 {
 		if v29 > 0 {
 		loop1:
 			for {
-				if n := int(nox_arr_956A00[v28]); n > 0 {
+				if n := nox_arr_956A00[v28]; n > 0 {
 					for j := 0; j < n; j += 2 {
 						v34 := nox_arr_957820[v28].arr[j : j+2]
 						if float64(v34[0]) <= float64(v53) && float64(v34[1]+2) >= float64(v53) {
@@ -1087,7 +1087,7 @@ func sub_4C42A0(a1 *C.int2, a2 *C.int2, a3 *int, a4 *int) int32 {
 	}
 	si := v28
 	for {
-		v37 := int(nox_arr_956A00[si])
+		v37 := nox_arr_956A00[si]
 		if v37 <= 0 {
 			if *a4 > int(v53) {
 				*a4 = int(v53)
@@ -1127,12 +1127,12 @@ func (c *Client) nox_xxx_tileDrawMB_481C20_C_solid(vp *noxrender.Viewport, dp im
 	v78a := nox_arr_957820[y:]
 	for y < dword_5d4594_3798156 {
 		it := v78a[0].arr[:]
-		v36 := int32(nox_arr_956A00[y])
+		v36 := nox_arr_956A00[y]
 		pixrow := noxPixBuffer.img.Row(y)
 		if v36 > 0 {
-			for j := int32(uint32(v36+1) / 2); j != 0; j-- {
-				v37 := int(it[0])
-				sz := int(it[1] - it[0])
+			for j := (v36 + 1) / 2; j != 0; j-- {
+				v37 := it[0]
+				sz := it[1] - it[0]
 				it = it[2:]
 				v39i := (dword_5d4594_3798804/2)*(v67_4+int(C.dword_5d4594_3798840)-int(C.dword_5d4594_3798824)) + (v37 + dp.X + int(C.dword_5d4594_3798836) - int(C.dword_5d4594_3798820))
 				if v39i >= len(noxTileBuf) {
@@ -1181,7 +1181,7 @@ func (c *Client) nox_xxx_tileDrawMB_481C20_C_textured(vp *noxrender.Viewport, dp
 			v66.Y++
 		}
 		cur := &src[0]
-		vv := int(nox_arr_956A00[yy])
+		vv := nox_arr_956A00[yy]
 		if C.nox_client_highResFloors_154952 != 0 || v67.Y&1 == 0 || yy == 0 {
 			// high-res or each second row on low-res
 			if vv > 0 {
@@ -1209,8 +1209,8 @@ func (c *Client) nox_xxx_tileDrawMB_481C20_C_textured(vp *noxrender.Viewport, dp
 			if vv > 0 {
 				it := cur.arr[:]
 				for jj := (vv + 1) / 2; jj != 0; jj-- {
-					v1 := int(it[0])
-					v2 := int(it[1])
+					v1 := it[0]
+					v2 := it[1]
 					it = it[2:]
 
 					ind := pix.PixOffset(v1, yy)
