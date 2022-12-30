@@ -520,7 +520,7 @@ func cleanup() {
 	C.sub_431380()
 	nox_xxx_freeWeaponArmorDefAndModifs_413060()
 	sub_4311B0()
-	nox_video_freeFloorBuffer_430EC0()
+	noxClient.nox_video_freeFloorBuffer_430EC0()
 	nox_xxx_freeKeyboard_430210()
 	C.nox_xxx_tileFree_410FC0_free()
 	C.sub_4106C0()
