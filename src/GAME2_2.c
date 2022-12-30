@@ -56,7 +56,6 @@ extern uint32_t dword_5d4594_3807140;
 extern uint32_t nox_xxx_waypointCounterMB_587000_154948;
 extern uint32_t dword_5d4594_1098592;
 extern uint32_t dword_5d4594_1098580;
-extern uint32_t nox_client_lockHighResFloors_1193152;
 extern uint32_t dword_5d4594_3798812;
 extern uint32_t dword_5d4594_3798800;
 extern uint32_t dword_5d4594_3798828;
@@ -175,29 +174,6 @@ int sub_4761B0(nox_drawable* a1p) {
 		}
 	} else if (v4 > result) {
 		result += *getMemIntPtr(0x587000, 196188 + 8 * *(unsigned char*)(a1 + 299));
-	}
-	return result;
-}
-
-//----- (004765F0) --------------------------------------------------------
-int sub_4765F0(nox_draw_viewport_t* a1p) {
-	int a1 = a1p;
-	int result; // eax
-	int v2;     // eax
-
-	*getMemU32Ptr(0x5D4594, 1096440) = nox_client_highResFloors_154952;
-	result = *getMemU32Ptr(0x852978, 8);
-	*getMemU32Ptr(0x5D4594, 1096444) = nox_client_highResFrontWalls_80820;
-	if (*getMemU32Ptr(0x852978, 8) && !nox_client_lockHighResFloors_1193152) {
-		v2 = *(uint32_t*)(*getMemU32Ptr(0x852978, 8) + 276);
-		if ((v2 == 3 || v2 == 6 || v2 == 45) && (*(int*)(a1 + 16) - *getMemIntPtr(0x5D4594, 1096556) >= 4 ||
-												 *(int*)(a1 + 20) - *getMemIntPtr(0x5D4594, 1096560) >= 4)) {
-			nox_client_highResFloors_154952 = 0;
-			nox_client_highResFrontWalls_80820 = 0;
-		}
-		result = *(uint32_t*)(a1 + 16);
-		*getMemU32Ptr(0x5D4594, 1096556) = *(uint32_t*)(a1 + 16);
-		*getMemU32Ptr(0x5D4594, 1096560) = *(uint32_t*)(a1 + 20);
 	}
 	return result;
 }

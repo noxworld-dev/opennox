@@ -16,7 +16,6 @@ extern unsigned int dword_5d4594_1193156;
 extern unsigned int nox_client_translucentFrontWalls_805844;
 extern unsigned int nox_client_highResFrontWalls_80820;
 extern unsigned int nox_client_highResFloors_154952;
-extern unsigned int nox_client_lockHighResFloors_1193152;
 extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int nox_client_renderBubbles_80844;
 extern uint32_t nox_server_connectionType_3596;
@@ -228,7 +227,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.nox_client_lockHighResFloors_1193152 = C.uint(bool2int(v != 0))
+			nox_client_lockHighResFloors_1193152 = v != 0
 		case "TexturedFloors":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
@@ -695,7 +694,7 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 	sect.Set("TranslucentFrontWalls", strconv.Itoa(int(C.nox_client_translucentFrontWalls_805844)))
 	sect.Set("HighResFrontWalls", strconv.Itoa(int(C.nox_client_highResFrontWalls_80820)))
 	sect.Set("HighResFloors", strconv.Itoa(int(C.nox_client_highResFloors_154952)))
-	sect.Set("LockHighResFloors", strconv.Itoa(int(C.nox_client_lockHighResFloors_1193152)))
+	sect.Set("LockHighResFloors", strconv.Itoa(bool2int(nox_client_lockHighResFloors_1193152)))
 	sect.Set("TexturedFloors", strconv.Itoa(bool2int(nox_client_texturedFloors_154956)))
 	sect.Set("TranslucentConsole", strconv.Itoa(bool2int(guiCon.translucent)))
 	sect.Set("RenderGlow", strconv.Itoa(bool2int(noxClient.r.Part.RenderGlow)))
