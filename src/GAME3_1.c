@@ -92,10 +92,8 @@ extern uint32_t dword_5d4594_1320968;
 extern uint32_t dword_5d4594_1319060;
 extern uint32_t dword_5d4594_1522632;
 extern uint32_t dword_5d4594_1321252;
-extern uint32_t dword_5d4594_3798156;
 extern uint32_t dword_5d4594_1522612;
 extern uint32_t dword_5d4594_1522604;
-extern uint32_t dword_5d4594_3679320;
 extern uint32_t dword_5d4594_1321232;
 extern uint32_t dword_5d4594_1316712;
 extern uint32_t dword_5d4594_1320964;
@@ -118,8 +116,6 @@ nox_gui_animation* nox_wnd_xxx_1522608 = 0;
 
 void* nox_gui_itemAmount_item_1319256 = 0;
 void* nox_gui_itemAmount_dialog_1319228 = 0;
-
-uint32_t nox_arr_956A00[NOX_MAX_HEIGHT + 150] = {0};
 
 //----- (004B9470) --------------------------------------------------------
 int sub_4B9470(const char** a1) {
@@ -4569,115 +4565,6 @@ int sub_4C51D0(int2* a1, int2* a2) {
 		nox_client_drawAddPoint_49F500(v9, v6 + v5 + 1);
 	}
 	return nox_client_drawLineFromPoints_49E4B0();
-}
-
-//----- (004C52E0) --------------------------------------------------------
-int sub_4C52E0(int* a1, int a2) {
-	int v2;     // edx
-	int result; // eax
-	int v4;     // esi
-	int* v5;    // edx
-	int* v6;    // ecx
-	int v7;     // ebx
-	int v8;     // eax
-	int v9;     // edi
-	int v10;    // esi
-	int v11;    // ebp
-	int v12;    // edx
-	int v13;    // ebx
-	int v14;    // edi
-	int v15;    // esi
-	bool v16;   // cc
-	int v17;    // [esp+8h] [ebp-14h]
-	int v18;    // [esp+Ch] [ebp-10h]
-	int* v19;   // [esp+10h] [ebp-Ch]
-	int v20;    // [esp+14h] [ebp-8h]
-	int v21;    // [esp+18h] [ebp-4h]
-
-	v2 = nox_win_height;
-	memset(nox_arr_956A00, 0, sizeof(nox_arr_956A00));
-	result = a2;
-	v4 = 0;
-	dword_5d4594_3679320 = v2;
-	dword_5d4594_3798156 = 0;
-	v21 = 0;
-	if (a2 > 0) {
-		v5 = a1;
-		v6 = a1 + 1;
-		v19 = a1 + 1;
-		while (1) {
-			v7 = *(v6 - 1);
-			if (v4 == result - 1) {
-				v8 = *v5;
-				v9 = *v6;
-				v10 = v5[1];
-			} else {
-				v8 = v6[1];
-				v9 = *v6;
-				v10 = v6[2];
-			}
-			if (v9 != v10) {
-				if (v7 == v8) {
-					if (v10 <= v9) {
-						if (v10 >= v9) {
-							goto LABEL_26;
-						}
-						do {
-							sub_4C5430(v7, v10++);
-						} while (v10 < v9);
-					} else {
-						do {
-							sub_4C5430(v7, v9++);
-						} while (v9 < v10);
-					}
-					goto LABEL_25;
-				}
-				if (v9 <= v10) {
-					v17 = *(v6 - 1);
-					v11 = v9;
-					v18 = v10;
-					v12 = v8 <= v7 ? -1 : 1;
-				} else {
-					v17 = v8;
-					v11 = v10;
-					v18 = v9;
-					v12 = v8 <= v7 ? 1 : -1;
-				}
-				v20 = v12;
-				if (v8 - v7 >= 0) {
-					v13 = v8 - v7;
-				} else {
-					v13 = v7 - v8;
-				}
-				v14 = v18 - v11;
-				v15 = 0;
-				if (v11 < v18) {
-					do {
-						sub_4C5430(v17, v11);
-						v15 += v13;
-						++v11;
-						for (; v15 >= v14; v17 += v20) {
-							v15 -= v14;
-						}
-					} while (v11 < v18);
-				LABEL_25:
-					v6 = v19;
-					goto LABEL_26;
-				}
-			}
-		LABEL_26:
-			result = a2;
-			v4 = v21 + 1;
-			v6 += 2;
-			v16 = ++v21 < a2;
-			v19 = v6;
-			if (!v16) {
-				return result;
-			}
-			v5 = a1;
-		}
-	}
-	return result;
 }
 
 //----- (004CA540) --------------------------------------------------------

@@ -20,12 +20,11 @@ extern unsigned int dword_5d4594_1193156;
 extern unsigned int dword_5d4594_1193188;
 extern unsigned int dword_5d4594_2650676;
 extern unsigned int dword_5d4594_2650680;
-extern uint32_t dword_5d4594_3679320;
-extern uint32_t dword_5d4594_3798156;
 extern uint32_t dword_5d4594_3798820;
 extern uint32_t dword_5d4594_3798824;
 extern uint32_t dword_5d4594_3798836;
 extern uint32_t dword_5d4594_3798840;
+extern uint32_t dword_5d4594_1217464;
 extern unsigned int nox_xxx_waypointCounterMB_587000_154948;
 extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int dword_5d4594_811904;
@@ -43,7 +42,6 @@ void nox_xxx_drawAllMB_475810_draw_A(nox_draw_viewport_t* vp);
 int nox_xxx_drawAllMB_475810_draw_B(nox_draw_viewport_t* vp);
 void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7);
 int sub_436F50();
-extern uint32_t nox_arr_956A00[NOX_MAX_HEIGHT + 150];
 */
 import "C"
 import (
@@ -227,6 +225,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	ymin := int(vp.World.Min.Y) / common.GridStep
 	nox_wallsYyy = nox_wallsYyy[:0]
 	C.nox_xxx_drawBlack_496150((*nox_draw_viewport_t)(vp.C()))
+	nox_xxx_drawBlack_496150_B()
 	disableDraw := false
 	if asDrawable((*nox_drawable)(*memmap.PtrPtr(0x852978, 8))).HasEnchant(server.ENCHANT_BLINDED) || C.nox_gameDisableMapDraw_5d4594_2650672 != 0 {
 		disableDraw = true
@@ -279,12 +278,11 @@ func (c *Client) sub_4C5500(vp *noxrender.Viewport) {
 	v16 := C.sub_49F6D0(0)
 	c.r.Data().SetColor2(nox_color_black_2650656)
 
-	if ymin := int(C.dword_5d4594_3679320); symin < ymin { // top tile cutoff
+	if ymin := dword_5d4594_3679320; symin < ymin { // top tile cutoff
 		c.r.DrawRectFilledOpaque(sxmin, symin, vp.Size.X, ymin-symin, nox_color_black_2650656)
 	}
 
-	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
-	for yval := int(C.dword_5d4594_3679320); yval < int(C.dword_5d4594_3798156); yval++ {
+	for yval := dword_5d4594_3679320; yval < dword_5d4594_3798156; yval++ {
 		cur := &nox_arr_957820[yval]
 		lxs := sxmin
 		lxe := int(cur.arr[0])
@@ -299,7 +297,7 @@ func (c *Client) sub_4C5500(vp *noxrender.Viewport) {
 		}
 		c.r.DrawLineHorizontal(lxs, yval, sxmin+vp.Size.X, nox_color_black_2650656)
 	}
-	if ymax := int(C.dword_5d4594_3798156); vp.Size.Y+symin > ymax { // bottom tile cutoff
+	if ymax := dword_5d4594_3798156; vp.Size.Y+symin > ymax { // bottom tile cutoff
 		c.r.DrawRectFilledOpaque(sxmin, ymax, vp.Size.X, vp.Size.Y+symin-ymax, nox_color_black_2650656)
 	}
 	C.sub_49F6D0(C.int(v16))
@@ -777,7 +775,6 @@ func (c *Client) nox_xxx_tileDrawMB_481C20(vp *noxrender.Viewport) {
 
 //export sub_4C5630
 func sub_4C5630(a1 int32, a2 int32, a3 int) int {
-	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
 	if a3 < 0 || a3 > len(nox_arr_956A00) { // TODO: figure out why overflow happens on high-res
 		return 0
 	}
@@ -794,10 +791,7 @@ func sub_4C5630(a1 int32, a2 int32, a3 int) int {
 	return 0
 }
 
-//export sub_4C5430
-func sub_4C5430(a1 int32, a2 int32) {
-	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
-
+func sub_4C5430(a1 int, a2 int) {
 	v2 := int(int32(nox_arr_956A00[a2]))
 	if v2 >= 32 {
 		return
@@ -806,7 +800,7 @@ func sub_4C5430(a1 int32, a2 int32) {
 	if v2 > 0 {
 		cur := &nox_arr_957820[a2]
 		for ; v3 < v2; v3++ {
-			if a1 < cur.arr[v3] {
+			if a1 < int(cur.arr[v3]) {
 				break
 			}
 		}
@@ -817,18 +811,107 @@ func sub_4C5430(a1 int32, a2 int32) {
 		}
 	}
 	nox_arr_956A00[a2] = uint32(v2 + 1)
-	nox_arr_957820[a2].arr[v3] = a1
-	if a2 < int32(C.dword_5d4594_3679320) {
-		C.dword_5d4594_3679320 = C.uint(a2)
+	nox_arr_957820[a2].arr[v3] = int32(a1)
+	if a2 < dword_5d4594_3679320 {
+		dword_5d4594_3679320 = a2
 	}
-	if a2 > int32(C.dword_5d4594_3798156) {
-		C.dword_5d4594_3798156 = C.uint(a2)
+	if a2 > dword_5d4594_3798156 {
+		dword_5d4594_3798156 = a2
+	}
+}
+
+func nox_xxx_drawBlack_496150_B() {
+	C.sub_4989A0()
+	sub_4C52E0(memmap.PtrInt32(0x5D4594, 1203876), int(C.dword_5d4594_1217464))
+}
+
+func sub_4C52E0(a1 *int32, sz int) {
+	arr := unsafe.Slice(a1, 2*sz)
+	nox_arr_956A00 = [noxMaxHeight + 150]uint32{}
+	dword_5d4594_3679320 = nox_win_height
+	dword_5d4594_3798156 = 0
+	if sz <= 0 {
+		return
+	}
+	for i := 0; i < sz; i++ {
+		v7 := int(arr[2*i+0])
+		var (
+			v8  int
+			v9  int
+			v10 int
+		)
+		if i == sz-1 {
+			v8 = int(arr[0])
+			v9 = int(arr[2*i+1])
+			v10 = int(arr[1])
+		} else {
+			v8 = int(arr[2*(i+1)+0])
+			v9 = int(arr[2*i+1])
+			v10 = int(arr[2*(i+1)+1])
+		}
+		if v9 == v10 {
+			continue
+		}
+		if v7 == v8 {
+			if v10 < v9 {
+				for ; v10 < v9; v10++ {
+					sub_4C5430(v7, v10)
+				}
+			} else if v10 > v9 {
+				for ; v9 < v10; v9++ {
+					sub_4C5430(v7, v9)
+				}
+			}
+			continue
+		}
+		var (
+			v17 int
+			v11 int
+			v18 int
+			v12 int
+		)
+		if v9 <= v10 {
+			v17 = int(arr[2*i+0])
+			v11 = v9
+			v18 = v10
+			if v8 <= v7 {
+				v12 = -1
+			} else {
+				v12 = 1
+			}
+		} else {
+			v17 = v8
+			v11 = v10
+			v18 = v9
+			if v8 <= v7 {
+				v12 = 1
+			} else {
+				v12 = -1
+			}
+		}
+		if v11 >= v18 {
+			continue
+		}
+		v15 := 0
+		v14 := v18 - v11
+		var v13 int
+		if v8-v7 >= 0 {
+			v13 = v8 - v7
+		} else {
+			v13 = v7 - v8
+		}
+		for ; v11 < v18; v11++ {
+			sub_4C5430(v17, v11)
+			v15 += v13
+			for ; v15 >= v14; v17 += v12 {
+				v15 -= v14
+			}
+		}
 	}
 }
 
 //export sub_4C42A0
 func sub_4C42A0(a1 *C.int2, a2 *C.int2, a3 *int, a4 *int) int32 {
-	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
 	v4 := int(a1.field_4)
 	v5 := int(a2.field_4)
 	if v4 == v5 {
@@ -1036,14 +1119,13 @@ func sub_4C42A0(a1 *C.int2, a2 *C.int2, a3 *int, a4 *int) int32 {
 
 func (c *Client) nox_xxx_tileDrawMB_481C20_C_solid(vp *noxrender.Viewport, dp image.Point) {
 	c.sub4745F0(vp)
-	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
-	y := int(int32(C.dword_5d4594_3679320))
-	if y >= int(C.dword_5d4594_3798156) {
+	y := dword_5d4594_3679320
+	if y >= dword_5d4594_3798156 {
 		return
 	}
 	v67_4 := dp.Y + y
 	v78a := nox_arr_957820[y:]
-	for y < int(C.dword_5d4594_3798156) {
+	for y < dword_5d4594_3798156 {
 		it := v78a[0].arr[:]
 		v36 := int32(nox_arr_956A00[y])
 		pixrow := noxPixBuffer.img.Row(y)
@@ -1078,14 +1160,13 @@ func (c *Client) nox_xxx_tileDrawMB_481C20_C_solid(vp *noxrender.Viewport, dp im
 func (c *Client) nox_xxx_tileDrawMB_481C20_C_textured(vp *noxrender.Viewport, dp image.Point) {
 	r := c.r
 
-	sy := int(C.dword_5d4594_3679320)
-	ymax := int(C.dword_5d4594_3798156)
+	sy := dword_5d4594_3679320
+	ymax := dword_5d4594_3798156
 	gpx := noxTilesGpx
 	gpy := noxTilesGpy
 	var v67 image.Point
 	v67.Y = dp.Y + sy
 	c.sub4745F0(vp)
-	nox_arr_956A00 := unsafe.Slice((*uint32)(unsafe.Pointer(&C.nox_arr_956A00[0])), len(C.nox_arr_956A00))
 	for i := range nox_arr_84EB20 {
 		nox_arr_84EB20[i].Y = -1
 	}
