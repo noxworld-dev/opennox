@@ -304,13 +304,13 @@ func gameUpdateVideoMode(inMenu bool) error {
 }
 
 func recreateBuffersAndTarget(sz image.Point) error {
-	nox_video_freeFloorBuffer_430EC0()
+	noxClient.nox_video_freeFloorBuffer_430EC0()
 	if err := recreateRenderTarget(sz); err != nil {
 		videoLog.Println("recreate render target:", err)
 		return err
 	}
 	videoLog.Println("recreate render target: ok")
-	if err := nox_video_initFloorBuffer_430BA0(sz); err != nil {
+	if err := noxClient.nox_video_initFloorBuffer_430BA0(sz); err != nil {
 		return err
 	}
 	return nil
@@ -400,15 +400,9 @@ func nox_xxx_loadDefColor_4A94A0() {
 	*memmap.PtrPtr(0x85B3FC, 196) = memmap.PtrOff(0x852978, 0)
 }
 
-func nox_video_initFloorBuffer_430BA0(sz image.Point) error {
+func (c *Client) nox_video_initFloorBuffer_430BA0(sz image.Point) error {
 	nox_xxx___cfltcvt_init_430CC0()
-	nox_xxx_tileInitBuf_430DB0(sz.X, sz.Y)
-	if lightsOutBuf == nil {
-		lightsOutBuf, _ = alloc.Make([]uint32{}, 6)
-		lightsOutBuf[0] = 255
-		lightsOutBuf[1] = 255
-		lightsOutBuf[2] = 255
-	}
+	c.nox_xxx_tileInitBuf_430DB0(sz.X, sz.Y)
 	return nil
 }
 
