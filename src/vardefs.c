@@ -232,7 +232,6 @@ uint32_t dword_5d4594_251744 = 0;
 uint32_t dword_5d4594_1313792 = 0;
 uint32_t dword_5d4594_2487248 = 0;
 uint32_t dword_5d4594_1046516 = 0;
-uint32_t nox_client_lockHighResFloors_1193152 = 0;
 
 float nox_xxx_warriorMaxHealth_587000_312784 = 1.0f;
 float nox_xxx_warriorMaxMana_587000_312788 = 1.0f;

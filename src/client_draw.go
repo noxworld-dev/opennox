@@ -246,7 +246,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	}
 	c.sub_468F80(vp)
 	v10 := C.nox_xxx_drawAllMB_475810_draw_B((*nox_draw_viewport_t)(vp.C())) != 0
-	C.sub_4765F0((*nox_draw_viewport_t)(vp.C()))
+	c.sub_4765F0(vp)
 	c.sub_4754F0(vp)
 	if v10 {
 		c.nox_xxx_tileDrawMB_481C20(vp)
@@ -273,9 +273,23 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	c.sub_476680()
 }
 
+func (c *Client) sub_4765F0(vp *noxrender.Viewport) {
+	c.savedHighResFloors = int(C.nox_client_highResFloors_154952)
+	c.savedHighResFrontWalls = int(C.nox_client_highResFrontWalls_80820)
+	if *memmap.PtrUint32(0x852978, 8) != 0 && !nox_client_lockHighResFloors_1193152 {
+		v2 := *(*int32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 276))
+		if (v2 == 3 || v2 == 6 || v2 == 45) && (vp.World.Min.X-c.val1096556 >= 4 || vp.World.Min.Y-c.val1096560 >= 4) {
+			C.nox_client_highResFloors_154952 = 0
+			C.nox_client_highResFrontWalls_80820 = 0
+		}
+		c.val1096556 = vp.World.Min.X
+		c.val1096560 = vp.World.Min.Y
+	}
+}
+
 func (c *Client) sub_476680() {
-	C.nox_client_highResFloors_154952 = C.uint(memmap.Uint32(0x5D4594, 1096440))
-	C.nox_client_highResFrontWalls_80820 = C.uint(memmap.Uint32(0x5D4594, 1096444))
+	C.nox_client_highResFloors_154952 = C.uint(c.savedHighResFloors)
+	C.nox_client_highResFrontWalls_80820 = C.uint(c.savedHighResFrontWalls)
 }
 
 func (c *Client) sub_4C5500(vp *noxrender.Viewport) {

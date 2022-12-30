@@ -42,23 +42,27 @@ func NewClient(pr console.Printer, srv *Server) (*Client, error) {
 
 type Client struct {
 	*client.Client
-	srv                *Server
-	r                  *NoxRender
-	mapsend            clientMapDownload
-	guiAdv             guiAdvOptions
-	guiFPS             guiFPS
-	screenshots        screenshots
-	tiles              clientTileData
-	netPrevMouse       image.Point
-	inSub4312C0        bool
-	ticks805996        uint64
-	inDraw1            bool
-	dragndrapSpell     uint32
-	dragndropSpellType int
-	dragndropItem      *client.Drawable
-	pos1097204         image.Point
-	pos1097212         image.Point
-	flag3798728        bool
+	srv                    *Server
+	r                      *NoxRender
+	mapsend                clientMapDownload
+	guiAdv                 guiAdvOptions
+	guiFPS                 guiFPS
+	screenshots            screenshots
+	tiles                  clientTileData
+	netPrevMouse           image.Point
+	inSub4312C0            bool
+	ticks805996            uint64
+	inDraw1                bool
+	dragndrapSpell         uint32
+	dragndropSpellType     int
+	dragndropItem          *client.Drawable
+	pos1097204             image.Point
+	pos1097212             image.Point
+	flag3798728            bool
+	val1096556             int
+	val1096560             int
+	savedHighResFloors     int
+	savedHighResFrontWalls int
 }
 
 func (c *Client) Close() error {

@@ -19,7 +19,6 @@ package opennox
 extern unsigned int nox_client_translucentFrontWalls_805844;
 extern unsigned int nox_client_highResFrontWalls_80820;
 extern unsigned int nox_client_highResFloors_154952;
-extern unsigned int nox_client_lockHighResFloors_1193152;
 extern unsigned int nox_client_fadeObjects_80836;
 extern unsigned int nox_client_renderBubbles_80844;
 extern unsigned int dword_5d4594_2523804;
@@ -70,12 +69,13 @@ var _ = [1]struct{}{}[1056-unsafe.Sizeof(noxrender.RenderData{})]
 var _ = [1]struct{}{}[48-unsafe.Sizeof(noxrender.RenderMat{})]
 
 var (
-	nox_video_renderTargetFlags       = 0
-	nox_client_texturedFloors_154956  = true
-	nox_client_texturedFloors2_154960 = true
-	nox_client_showTooltips_80840     = true
-	nox_client_drawFrontWalls_80812   = true
-	partViewportOff                   image.Point
+	nox_video_renderTargetFlags          = 0
+	nox_client_texturedFloors_154956     = true
+	nox_client_texturedFloors2_154960    = true
+	nox_client_lockHighResFloors_1193152 = false
+	nox_client_showTooltips_80840        = true
+	nox_client_drawFrontWalls_80812      = true
+	partViewportOff                      image.Point
 )
 
 //export sub_473970
@@ -207,7 +207,7 @@ func detectBestVideoSettings() {
 		C.nox_client_translucentFrontWalls_805844 = 0
 		C.nox_client_highResFrontWalls_80820 = 0
 		C.nox_client_highResFloors_154952 = 0
-		C.nox_client_lockHighResFloors_1193152 = 0
+		nox_client_lockHighResFloors_1193152 = false
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
 		noxClient.r.Part.RenderGlow = false
@@ -221,7 +221,7 @@ func detectBestVideoSettings() {
 		C.nox_client_translucentFrontWalls_805844 = 0
 		C.nox_client_highResFrontWalls_80820 = 0
 		C.nox_client_highResFloors_154952 = 0
-		C.nox_client_lockHighResFloors_1193152 = 0
+		nox_client_lockHighResFloors_1193152 = false
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
 		noxClient.r.Part.RenderGlow = false
@@ -235,7 +235,7 @@ func detectBestVideoSettings() {
 		C.nox_client_translucentFrontWalls_805844 = 1
 		C.nox_client_highResFrontWalls_80820 = 1
 		C.nox_client_highResFloors_154952 = 1
-		C.nox_client_lockHighResFloors_1193152 = 0
+		nox_client_lockHighResFloors_1193152 = false
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
 		noxClient.r.Part.RenderGlow = true
@@ -249,7 +249,7 @@ func detectBestVideoSettings() {
 		C.nox_client_translucentFrontWalls_805844 = 1
 		C.nox_client_highResFrontWalls_80820 = 1
 		C.nox_client_highResFloors_154952 = 1
-		C.nox_client_lockHighResFloors_1193152 = 0
+		nox_client_lockHighResFloors_1193152 = false
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
 		noxClient.r.Part.RenderGlow = true
@@ -263,7 +263,7 @@ func detectBestVideoSettings() {
 		C.nox_client_translucentFrontWalls_805844 = 1
 		C.nox_client_highResFrontWalls_80820 = 1
 		C.nox_client_highResFloors_154952 = 1
-		C.nox_client_lockHighResFloors_1193152 = 1
+		nox_client_lockHighResFloors_1193152 = true
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = true
 		noxClient.r.Part.RenderGlow = true
