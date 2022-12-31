@@ -49,6 +49,7 @@ extern float nox_xxx_wizardMaximumMana_587000_312820;
 static int nox_call_net_xxxyyy_go(int (*fnc)(unsigned int, char*, int, void*), unsigned int a1, void* a2, int a3, void* a4) { return fnc(a1, a2, a3, a4); }
 int nox_xxx_netPlayerObjSend_518C30(nox_object_t* a1, nox_object_t* a2, int a3, signed int a4);
 int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char* data, int dsz, nox_playerInfo* v8p, nox_object_t* unitp, void* v10p);
+int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data, int sz, unsigned int* v364, unsigned short* v373);
 */
 import "C"
 import (
@@ -166,12 +167,9 @@ func nox_xxx_setMapCRC_40A360(crc C.int) {
 	noxMapCRC = int(crc)
 }
 
-//export noxOnCliPacketDebug
-func noxOnCliPacketDebug(op C.int, data *C.uchar, sz C.int) {
-	buf := unsafe.Slice((*byte)(unsafe.Pointer(data)), int(sz))
-	if netstr.Debug && sz != 0 {
-		op := noxnet.Op(op)
-		netstr.Log.Printf("CLIENT: op=%d (%s) [%d:%d]\n%02x %x", int(op), op.String(), int(sz)-1, op.Len(), buf[0], buf[1:])
+func noxOnCliPacketDebug(op noxnet.Op, buf []byte) {
+	if netstr.Debug && len(buf) != 0 {
+		netstr.Log.Printf("CLIENT: op=%d (%s) [%d:%d]\n%02x %x", int(op), op.String(), int(len(buf))-1, op.Len(), buf[0], buf[1:])
 	}
 }
 
@@ -923,8 +921,43 @@ func sub_519930(a1 int) int {
 	return cnt
 }
 
-func nox_xxx_netOnPacketRecvCli_48EA70(ind int, buf []byte) int {
-	return int(C.nox_xxx_netOnPacketRecvCli_48EA70(C.int(ind), (*C.uchar)(unsafe.Pointer(&buf[0])), C.int(len(buf))))
+//export nox_xxx_netOnPacketRecvCli_48EA70
+func nox_xxx_netOnPacketRecvCli_48EA70(ind int, buf *byte, sz int) int {
+	return nox_xxx_netOnPacketRecvCli48EA70(ind, unsafe.Slice(buf, sz))
+}
+
+func nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, data []byte, v364 *uint32, v373 *uint16) int {
+	if len(data) == 0 {
+		return 0
+	}
+	switch op {
+	case noxnet.MSG_XXX_STOP:
+		return 1
+	}
+	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(ind), C.int(op), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), (*C.uint)(unsafe.Pointer(v364)), (*C.ushort)(unsafe.Pointer(v373))))
+}
+
+func nox_xxx_netOnPacketRecvCli48EA70(ind int, data []byte) int {
+	sub_470A80()
+	var (
+		v364 uint32
+		v373 uint16
+	)
+	for len(data) > 0 {
+		op := noxnet.Op(data[0])
+		n := nox_xxx_netOnPacketRecvCli48EA70_switch(ind, op, data, &v364, &v373)
+		if n == 0 {
+			break // stop earlier
+		} else if n < 0 {
+			return 0 // error
+		}
+		if n == 0 { // safeguard
+			n = 1
+		}
+		noxOnCliPacketDebug(op, data[:n])
+		data = data[n:]
+	}
+	return 1
 }
 
 //export sub_43C6E0
@@ -940,7 +973,7 @@ func nox_xxx_netHandleCliPacket_43C860(_ int, data []byte, _ unsafe.Pointer) int
 	} else if op == noxnet.MSG_PING {
 		noxPerfmon.ping = time.Duration(binary.LittleEndian.Uint32(data[1:])) * time.Millisecond
 	} else if op >= noxnet.MSG_TIMESTAMP {
-		nox_xxx_netOnPacketRecvCli_48EA70(common.MaxPlayers-1, data)
+		nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, data)
 		if nox_client_isConnected() {
 			C.sub_48D660()
 		}
@@ -1216,7 +1249,7 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 		if flags&0x1 == 0 { // global chat
 			for it := s.playerFirst(); it != nil; it = s.playerNext(it) {
 				if noxflags.HasGame(noxflags.GameClient) && it.Index() == common.MaxPlayers-1 {
-					nox_xxx_netOnPacketRecvCli_48EA70(common.MaxPlayers-1, data[:msz])
+					nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, data[:msz])
 				} else {
 					netstr.Send(it.Index()+1, data[:msz], 0)
 					netstr.SendReadPacket(it.Index()+1, 1)
@@ -1241,7 +1274,7 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 			}
 			if C.nox_xxx_teamCompare2_419180(unsafe.Pointer(uit.teamPtr()), C.uchar(tcl.Ind57())) != 0 {
 				if noxflags.HasGame(noxflags.GameClient) && int(uit.NetCode) == clientPlayerNetCode() {
-					nox_xxx_netOnPacketRecvCli_48EA70(it.Index(), data[:msz])
+					nox_xxx_netOnPacketRecvCli48EA70(it.Index(), data[:msz])
 				} else {
 					netstr.Send(it.Index()+1, data[:msz], 0)
 					netstr.SendReadPacket(it.Index()+1, 1)

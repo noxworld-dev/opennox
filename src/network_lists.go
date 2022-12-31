@@ -62,11 +62,11 @@ func nox_netlist_receiveCli_494E90(ind int) int {
 	res := 0
 
 	if buf1 := netlist.CopyPacketsB(ind); len(buf1) != 0 {
-		res = nox_xxx_netOnPacketRecvCli_48EA70(ind, buf1)
+		res = nox_xxx_netOnPacketRecvCli48EA70(ind, buf1)
 	}
 
 	if buf2 := netlist.CopyPacketsA(ind, netlist.Kind1); len(buf2) != 0 {
-		res = nox_xxx_netOnPacketRecvCli_48EA70(ind, buf2)
+		res = nox_xxx_netOnPacketRecvCli48EA70(ind, buf2)
 		if res != 0 {
 			C.sub_48D660()
 		}
