@@ -263,7 +263,7 @@ func sub_43CCA0() {
 				defer free()
 				buf[0] = byte(noxnet.MSG_FULL_TIMESTAMP)
 				binary.LittleEndian.PutUint32(buf[1:], noxServer.Frame()+1)
-				nox_xxx_netOnPacketRecvCli_48EA70(common.MaxPlayers-1, buf[:5])
+				nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, buf[:5])
 			}
 		}
 	}
