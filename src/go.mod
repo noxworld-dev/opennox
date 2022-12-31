@@ -6,7 +6,7 @@ require (
 	github.com/noxworld-dev/lobby v0.0.0-20220306183851-3877f0a7002d
 	github.com/noxworld-dev/nat v0.1.0
 	github.com/noxworld-dev/noxcrypt v0.0.0-20220809211245-2c69b67c4ae9
-	github.com/noxworld-dev/opennox-lib v0.0.0-20221222082850-25d170f8708e
+	github.com/noxworld-dev/opennox-lib v0.0.0-20221231150548-07fe5c19848c
 	github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7
 	github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e
 	github.com/prometheus/client_golang v1.12.1
