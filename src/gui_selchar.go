@@ -400,8 +400,12 @@ func nox_xxx_findAutosaves_4A5150() {
 			v0++
 		}
 	}
-	p, _ := alloc.Calloc(v0, unsafe.Sizeof(C.nox_savegame_xxx{}))
-	nox_xxx_saves_arr = unsafe.Slice((*C.nox_savegame_xxx)(p), v0)
+	if v0 != 0 {
+		p, _ := alloc.Calloc(v0, unsafe.Sizeof(C.nox_savegame_xxx{}))
+		nox_xxx_saves_arr = unsafe.Slice((*C.nox_savegame_xxx)(p), v0)
+	} else {
+		nox_xxx_saves_arr = nil
+	}
 	v9 := 0
 	for _, f := range files {
 		if f.IsDir() || !strings.HasSuffix(f.Name(), ".plr") {
