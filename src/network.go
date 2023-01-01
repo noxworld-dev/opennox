@@ -25,11 +25,14 @@ extern unsigned long long qword_5d4594_814956;
 extern uint32_t dword_5d4594_1200804;
 extern uint32_t dword_5d4594_1200832;
 unsigned int nox_client_getServerAddr_43B300();
+void nox_xxx_playerInitColors_461460(nox_playerInfo* pl);
 int nox_xxx_gameClearAll_467DF0(int a1);
 int nox_client_getServerPort_43B320();
 int nox_client_getClientPort_40A420();
 int sub_419E60(nox_object_t* a1);
+int sub_457140(int a1, wchar_t* a2);
 int sub_43AF90(int a1);
+int sub_455920(wchar_t* a1);
 void sub_519E80(int a1);
 int sub_43C650();
 int* nox_xxx_guiServerOptionsHide_4597E0(int a1);
@@ -62,6 +65,7 @@ import "C"
 import (
 	"context"
 	"encoding/binary"
+	"fmt"
 	"image"
 	"math"
 	"net/netip"
@@ -1059,6 +1063,44 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 		C.dword_5d4594_1200832 = 0
 		C.nox_xxx_cliSetSettingsAcquired_4169D0(0)
 		return 7
+	case noxnet.MSG_NEW_PLAYER:
+		if len(data) < 129 {
+			return -1
+		}
+		playerID := nox_xxx_netClearHighBit_578B30(binary.LittleEndian.Uint16(data[1:]))
+		pl := c.srv.newPlayerInfo(int(playerID))
+		if pl == nil {
+			return 129
+		}
+		if !noxflags.HasGame(noxflags.GameHost) {
+			pl.netCode = C.uint(playerID)
+			pl.lessons = C.int(int16(binary.LittleEndian.Uint16(data[100:])))
+			pl.field_2140 = C.uint(int32(int16(binary.LittleEndian.Uint16(data[102:]))))
+			pl.field_0 = C.uint(binary.LittleEndian.Uint32(data[104:]))
+			pl.field_4 = C.uint(binary.LittleEndian.Uint32(data[108:]))
+			pl.field_2152 = C.uint(data[116])
+			pl.field_2156 = C.uint(data[117])
+			pl.SetField2096(alloc.GoStringS(data[119:]))
+			pl.field_3680 |= C.uint(binary.LittleEndian.Uint32(data[112:]))
+			pl.Info()
+			*pl.Info() = *(*PlayerInfo)(unsafe.Pointer(&data[3 : 3+97][0])) // TODO: safe copy
+			pl.SetName(pl.Info().Name() + pl.Info().NameSuff())
+			if C.dword_5d4594_2650652 != 0 {
+				pl.field_2108 = 0
+				C.sub_41D670(internCStr(pl.Field2096()))
+			}
+			C.nox_xxx_playerInitColors_461460(pl.C())
+		}
+		C.sub_457140(C.int(playerID), &pl.name_final[0])
+		C.sub_455920(&pl.name_final[0])
+		if gameGetPlayState() == 3 {
+			format := c.Strings().GetStringInFile("PlayerJoined", "cdecode.c")
+			nox_xxx_printCentered_445490(fmt.Sprintf(format, pl.Name()))
+		}
+		if uint32(playerID) == uint32(C.nox_player_netCode_85319C) && GoWString((*wchar_t)(memmap.PtrOff(0x85B3FC, 12204))) != pl.Name() {
+			C.dword_5d4594_1200832 = 1
+		}
+		return 129
 	}
 	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(ind), C.int(op), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), (*C.uint)(unsafe.Pointer(v364))))
 }

@@ -229,7 +229,6 @@ char* nox_xxx_playerForceSendLessons_416E50(int a1);
 nox_playerInfo* nox_common_playerInfoGetFirst_416EA0();
 nox_playerInfo* nox_common_playerInfoGetNext_416EE0(nox_playerInfo* p);
 int nox_common_playerInfoCount_416F40();
-nox_playerInfo* nox_common_playerInfoNew_416F60(int a1);
 nox_playerInfo* nox_common_playerInfoGetByID_417040(int a1);
 nox_playerInfo* nox_common_playerInfoFromNum_417090(int i);
 nox_playerInfo* nox_common_playerInfoFromNumRaw(int i);
