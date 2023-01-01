@@ -19,15 +19,19 @@ package opennox
 extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_5d4594_2660032;
 extern unsigned int dword_5d4594_814548;
+extern unsigned int dword_5d4594_2650652;
 extern unsigned long long qword_5d4594_814956;
 extern uint32_t nox_perfmon_latePackets_2618900;
+extern uint32_t dword_5d4594_1200804;
 unsigned int nox_client_getServerAddr_43B300();
+int nox_xxx_gameClearAll_467DF0(int a1);
 int nox_client_getServerPort_43B320();
 int nox_client_getClientPort_40A420();
 int sub_419E60(nox_object_t* a1);
 int sub_43AF90(int a1);
 void sub_519E80(int a1);
 int sub_43C650();
+int* nox_xxx_guiServerOptionsHide_4597E0(int a1);
 int nox_net_importantACK_4E55A0(int a1, int a2);
 void nox_xxx_netMapSend_519D20(int a1);
 int nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1);
@@ -161,12 +165,11 @@ func nox_xxx_getMapCRC_40A370() int {
 	return noxMapCRC
 }
 
-//export nox_xxx_setMapCRC_40A360
-func nox_xxx_setMapCRC_40A360(crc C.int) {
+func nox_xxx_setMapCRC_40A360(crc int) {
 	if netstr.Debug {
-		netstr.Log.Printf("map crc set: %d", int(crc))
+		netstr.Log.Printf("map crc set: %d", crc)
 	}
-	noxMapCRC = int(crc)
+	noxMapCRC = crc
 }
 
 func noxOnCliPacketDebug(op noxnet.Op, buf []byte) {
@@ -1009,6 +1012,29 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 		}
 		C.sub_43C650()
 		return 3
+	case noxnet.MSG_USE_MAP:
+		if len(data) < 41 {
+			return -1
+		}
+		if v1 := binary.LittleEndian.Uint32(data[37:]); v1 > uint32(C.dword_5d4594_1200804) {
+			nox_xxx_setMapCRC_40A360(int(v1))
+			C.nox_xxx_gameClearAll_467DF0(1)
+			c.srv.nox_xxx_gameSetMapPath_409D70(alloc.GoStringS(data[1:33]))
+			nox_xxx_mapSetCrcMB_409B10(binary.LittleEndian.Uint32(data[33:]))
+			if !noxflags.HasGame(noxflags.GameHost) {
+				noxflags.UnsetGame(noxflags.GameFlag4)
+				if C.dword_5d4594_2650652 != 0 {
+					C.sub_41D6C0()
+				}
+			}
+			noxflags.SetGame(noxflags.GameFlag24)
+			C.dword_5d4594_1200804 = C.uint(c.srv.Frame())
+			nox_xxx_gameSetCliConnected(false)
+			C.sub_49C7A0()
+			C.nox_xxx_guiServerOptionsHide_4597E0(0)
+			sub_44A400()
+		}
+		return 41
 	}
 	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(ind), C.int(op), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), (*C.uint)(unsafe.Pointer(v364))))
 }

@@ -461,27 +461,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	unsigned char* end = data + sz;
 
 	switch (op) {
-	case 43: // MSG_USE_MAP
-		k = dword_5d4594_1200804;
-		if (*(uint32_t*)(data + 37) > *(int*)&dword_5d4594_1200804) {
-			nox_xxx_setMapCRC_40A360(*(uint32_t*)(data + 37));
-			nox_xxx_gameClearAll_467DF0(1);
-			nox_xxx_gameSetMapPath_409D70((char*)(data + 1));
-			nox_xxx_mapSetCrcMB_409B10(*(uint32_t*)(data + 33));
-			if (!nox_common_gameFlags_check_40A5C0(1)) {
-				nox_common_gameFlags_unset_40A540(8);
-				if (dword_5d4594_2650652) {
-					sub_41D6C0();
-				}
-			}
-			nox_xxx_setGameFlags_40A4D0(0x800000);
-			dword_5d4594_1200804 = gameFrame();
-			nox_xxx_gameSetCliConnected_43C720(0);
-			sub_49C7A0();
-			nox_xxx_guiServerOptionsHide_4597E0(0);
-			sub_44A400();
-		}
-		return 41;
 	case 44: // MSG_JOIN_DATA
 		v42 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 		nox_player_netCode_85319C = v42;
