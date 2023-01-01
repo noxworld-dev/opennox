@@ -1143,6 +1143,16 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 	case noxnet.MSG_REPORT_INVENTORY_LOADED:
 		C.sub_467CA0()
 		return 1
+	case noxnet.MSG_FX_DEATH_RAY:
+		if len(data) < 9 {
+			return -1
+		}
+		p1x := binary.LittleEndian.Uint16(data[1:])
+		p1y := binary.LittleEndian.Uint16(data[3:])
+		p2x := binary.LittleEndian.Uint16(data[5:])
+		p2y := binary.LittleEndian.Uint16(data[7:])
+		c.clientFXDeathRay(image.Pt(int(p1x), int(p1y)), image.Pt(int(p2x), int(p2y)))
+		return 9
 	}
 	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(ind), C.int(op), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), (*C.uint)(unsafe.Pointer(v364))))
 }
