@@ -1192,6 +1192,13 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 			netlist.AddToMsgListCli(ind, 0, buf[:5])
 		}
 		return n
+	case noxnet.MSG_MAP_SEND_START:
+		if len(data) < 88 {
+			return -1
+		}
+		sz := binary.LittleEndian.Uint32(data[4:])
+		c.mapsend.onMapDownloadStart(alloc.GoStringS(data[8:88]), uint(sz))
+		return 88
 	}
 	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(ind), C.int(op), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data))))
 }
