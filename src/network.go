@@ -65,7 +65,7 @@ nox_drawable* nox_xxx_netSpriteByCodeStatic_45A720(int a1);
 
 int nox_xxx_netPlayerObjSend_518C30(nox_object_t* a1, nox_object_t* a2, int a3, signed int a4);
 int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char* data, int dsz, nox_playerInfo* v8p, nox_object_t* unitp, void* v10p);
-int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data, int sz, unsigned int* v364);
+int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data, int sz);
 */
 import "C"
 import (
@@ -1172,8 +1172,28 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 			c.r.partfx.onParticleFx(data[1], dr, int(binary.LittleEndian.Uint16(data[2:])), binary.LittleEndian.Uint16(data[4:]) != 0, int(binary.LittleEndian.Uint16(data[6:])))
 		}
 		return 14
+	case noxnet.MSG_IMPORTANT:
+		n := 1
+		if nox_common_gameFlags_check_40A5C0(1) {
+			n = 5
+		}
+		if len(data) < n {
+			return -1
+		}
+		if nox_client_isConnected() {
+			var buf [5]byte
+			buf[0] = byte(noxnet.MSG_IMPORTANT_ACK)
+			if nox_common_gameFlags_check_40A5C0(1) {
+				v := binary.LittleEndian.Uint32(data[1:])
+				binary.LittleEndian.PutUint32(buf[1:], v)
+			} else {
+				binary.LittleEndian.PutUint32(buf[1:], *v364)
+			}
+			netlist.AddToMsgListCli(ind, 0, buf[:5])
+		}
+		return n
 	}
-	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(ind), C.int(op), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), (*C.uint)(unsafe.Pointer(v364))))
+	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(ind), C.int(op), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data))))
 }
 
 func (c *Client) nox_xxx_netOnPacketRecvCli48EA70(ind int, data []byte) int {
