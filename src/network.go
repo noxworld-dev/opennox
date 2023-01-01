@@ -20,9 +20,10 @@ extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_5d4594_2660032;
 extern unsigned int dword_5d4594_814548;
 extern unsigned int dword_5d4594_2650652;
+extern unsigned int nox_player_netCode_85319C;
 extern unsigned long long qword_5d4594_814956;
-extern uint32_t nox_perfmon_latePackets_2618900;
 extern uint32_t dword_5d4594_1200804;
+extern uint32_t dword_5d4594_1200832;
 unsigned int nox_client_getServerAddr_43B300();
 int nox_xxx_gameClearAll_467DF0(int a1);
 int nox_client_getServerPort_43B320();
@@ -943,6 +944,8 @@ func setCurPlayer(p *Player) {
 	*memmap.PtrPtr(0x8531A0, 2576) = unsafe.Pointer(p.C())
 }
 
+func nox_xxx_netClearHighBit_578B30(v uint16) uint16 { return v & 0x7FFF }
+
 func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, data []byte, v364 *uint32, v373 *uint16) int {
 	if len(data) == 0 {
 		return 0
@@ -1003,12 +1006,12 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 		}
 		*v364 = v12
 		if !noxflags.HasGame(noxflags.GameHost) && v9 == 0 {
-			C.nox_perfmon_latePackets_2618900--
+			noxPerfmon.latePackets--
 			*memmap.PtrUint32(0x85B3FC, 120)++
 			return 1
 		}
 		if c.srv.Frame() > prevFrame+1 {
-			C.nox_perfmon_latePackets_2618900 += C.uint(c.srv.Frame() - prevFrame)
+			noxPerfmon.latePackets += int(c.srv.Frame() - prevFrame)
 		}
 		C.sub_43C650()
 		return 3
@@ -1035,6 +1038,27 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 			sub_44A400()
 		}
 		return 41
+	case noxnet.MSG_JOIN_DATA:
+		if len(data) < 7 {
+			return -1
+		}
+		v42 := nox_xxx_netClearHighBit_578B30(binary.LittleEndian.Uint16(data[1:]))
+		C.nox_player_netCode_85319C = C.uint(v42)
+		pl := c.srv.newPlayerInfo(int(v42))
+		if pl != nil {
+			pl.field_2068 = C.uint(binary.LittleEndian.Uint32(data[3:]))
+			setCurPlayer(pl)
+		}
+		if !noxflags.HasGame(noxflags.GameHost) {
+			C.sub_57B920(memmap.PtrOff(0x5D4594, 1198020))
+		}
+		C.dword_5d4594_1200804 = 0
+		noxPerfmon.latePackets = 0
+		*memmap.PtrUint32(0x85B3FC, 120) = 0
+		noxPerfmon.ping = 0
+		C.dword_5d4594_1200832 = 0
+		C.nox_xxx_cliSetSettingsAcquired_4169D0(0)
+		return 7
 	}
 	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(ind), C.int(op), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), (*C.uint)(unsafe.Pointer(v364))))
 }
@@ -1110,11 +1134,6 @@ func sub_43CF70() {
 			nox_xxx_netClientSend2_4E53C0(common.MaxPlayers-1, buf[:1], 0, 1)
 		}
 	}
-}
-
-//export nox_client_onJoinData
-func nox_client_onJoinData() {
-	noxPerfmon.ping = 0
 }
 
 func (s *Server) nox_xxx_netSendBySock_4DDDC0(ind int) {

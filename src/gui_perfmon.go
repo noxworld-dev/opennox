@@ -1,11 +1,5 @@
 package opennox
 
-/*
-#include <stdint.h>
-
-extern uint32_t nox_perfmon_latePackets_2618900;
-*/
-import "C"
 import (
 	"fmt"
 	"image"
@@ -58,7 +52,7 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 	y += 10
 
 	tsOps := *memmap.PtrUint32(0x85B3FC, 120)
-	lp := int(C.nox_perfmon_latePackets_2618900)
+	lp := m.latePackets
 	format = c.Strings().GetStringInFile("LatePackets", "client.c")
 	c.r.DrawString(nil, fmt.Sprintf(format, lp, tsOps), image.Pt(x, y))
 	y += 10
