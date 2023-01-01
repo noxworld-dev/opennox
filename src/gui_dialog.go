@@ -75,6 +75,10 @@ func winNewDialogID(win *gui.Window, id strman.ID, file string) {
 }
 
 func NewDialogWindow(a1 *gui.Window, title string, text string, flags gui.DialogFlags, a5, a6 func()) {
+	g := a1.GUI()
+	if g == nil {
+		g = noxClient.GUI
+	}
 	if nox_gui_curDialog_830224 != nil && func_5d4594_830216 != nil {
 		func_5d4594_830216()
 	}
@@ -94,7 +98,7 @@ func NewDialogWindow(a1 *gui.Window, title string, text string, flags gui.Dialog
 	}
 	*memmap.PtrUint32(0x5D4594, 830240) = 0
 	lang := strMan.Lang()
-	if a1.GUI().Render().FontHeight(nil) > 10 {
+	if g.Render().FontHeight(nil) > 10 {
 		lang = 2
 	}
 	wfile := "dlg.wnd"
@@ -103,7 +107,7 @@ func NewDialogWindow(a1 *gui.Window, title string, text string, flags gui.Dialog
 	//if lang == xxx {
 	//	wfile = "ldlg.wnd"
 	//}
-	dia := newWindowFromFile(a1.GUI(), wfile, nox_xxx_windowDlgProc_449CA0)
+	dia := newWindowFromFile(g, wfile, nox_xxx_windowDlgProc_449CA0)
 	nox_gui_curDialog_830224 = dia
 	if dia == nil {
 		return
@@ -124,7 +128,7 @@ func NewDialogWindow(a1 *gui.Window, title string, text string, flags gui.Dialog
 	sz := dia.Size()
 	dia.SetPos(image.Pt((vsz.X-sz.X)/2, (vsz.Y-sz.Y)/2))
 	sub449EA0(flags)
-	prev := a1.GUI().Captured()
+	prev := g.Captured()
 	dword_5d4594_830236 = prev
 	if prev != nil {
 		prev.Capture(false)
