@@ -458,34 +458,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	unsigned char* end = data + sz;
 
 	switch (op) {
-	case 46: // MSG_PLAYER_QUIT
-		if (nox_client_isConnected_43C700()) {
-			v214 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
-			v215 = v214;
-			v216 = nox_common_playerInfoGetByID_417040(v214);
-			if (v216) {
-				sub_456DF0(v215);
-				sub_455950((wchar_t*)v216 + 2352);
-				v217 = nox_strman_loadString_40F1D0("PlayerLeft", 0, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c",
-													4744);
-				nox_swprintf(v397, v217, v216 + 4704);
-				*((uint32_t*)v216 + 523) = 0;
-				v218 = nox_xxx_objGetTeamByNetCode_418C80(v215);
-				v219 = (int)v218;
-				OnLibraryNotice_264(v216 + 4704);
-				if (v218 && nox_xxx_servObjectHasTeam_419130((int)v218)) {
-					nox_xxx_netChangeTeamMb_419570(v219, v215);
-				}
-			} else {
-				v220 = nox_strman_loadString_40F1D0("UnknownLeft", 0,
-													"C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4757);
-				nox_swprintf(v397, v220);
-			}
-			if (nox_xxx_gameGetPlayState_4356B0() == 3) {
-				nox_xxx_printCentered_445490(v397);
-			}
-		}
-		return 3;
 	case 47: // MSG_SIMPLE_OBJ
 		nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 		if (nox_client_isConnected_43C700()) {

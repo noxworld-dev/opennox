@@ -142,7 +142,6 @@ int sub_456640(int a1, int a2);
 char sub_456BB0(int a1);
 wchar_t* sub_456D00(int a1, wchar_t* a2);
 int* sub_456D60(int a1);
-int sub_456DF0(int a1);
 int sub_456E40(int a1, int a2);
 int sub_456EA0(wchar_t* a1);
 int sub_456F10(wchar_t* a1, int a2);

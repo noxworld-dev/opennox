@@ -32,6 +32,8 @@ int nox_client_getClientPort_40A420();
 int sub_419E60(nox_object_t* a1);
 int sub_457140(int a1, wchar_t* a2);
 int sub_43AF90(int a1);
+int sub_456DF0(int a1);
+void sub_455950(wchar_t* a1);
 int sub_455920(wchar_t* a1);
 void sub_519E80(int a1);
 int sub_43C650();
@@ -1046,9 +1048,9 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 		if len(data) < 7 {
 			return -1
 		}
-		v42 := nox_xxx_netClearHighBit_578B30(binary.LittleEndian.Uint16(data[1:]))
-		C.nox_player_netCode_85319C = C.uint(v42)
-		pl := c.srv.newPlayerInfo(int(v42))
+		playerID := nox_xxx_netClearHighBit_578B30(binary.LittleEndian.Uint16(data[1:]))
+		C.nox_player_netCode_85319C = C.uint(playerID)
+		pl := c.srv.newPlayerInfo(int(playerID))
 		if pl != nil {
 			pl.field_2068 = C.uint(binary.LittleEndian.Uint32(data[3:]))
 			setCurPlayer(pl)
@@ -1101,6 +1103,35 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 			C.dword_5d4594_1200832 = 1
 		}
 		return 129
+	case noxnet.MSG_PLAYER_QUIT:
+		if len(data) < 3 {
+			return -1
+		}
+		if !nox_client_isConnected() {
+			return 3
+		}
+
+		playerID := nox_xxx_netClearHighBit_578B30(binary.LittleEndian.Uint16(data[1:]))
+		pl := c.srv.getPlayerByID(int(playerID))
+		var msg string
+		if pl != nil {
+			C.sub_456DF0(C.int(playerID))
+			C.sub_455950(&pl.name_final[0])
+			format := c.Strings().GetStringInFile("PlayerLeft", "cdecode.c")
+			msg = fmt.Sprintf(format, pl.Name())
+
+			pl.active = 0
+			tobj := nox_xxx_objGetTeamByNetCode_418C80(int(playerID))
+			if tobj != nil && nox_xxx_servObjectHasTeam_419130(tobj) {
+				C.nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(tobj), C.int(playerID))
+			}
+		} else {
+			msg = c.Strings().GetStringInFile("UnknownLeft", "cdecode.c")
+		}
+		if nox_xxx_gameGetPlayState_4356B0() == 3 {
+			nox_xxx_printCentered_445490(msg)
+		}
+		return 3
 	}
 	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(ind), C.int(op), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), (*C.uint)(unsafe.Pointer(v364))))
 }
