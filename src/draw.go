@@ -1499,11 +1499,6 @@ func nox_client_isConnected_43C700() C.int {
 	return C.int(bool2int(nox_client_isConnected()))
 }
 
-//export nox_xxx_gameSetCliConnected_43C720
-func nox_xxx_gameSetCliConnected_43C720(a1 C.int) {
-	nox_xxx_gameSetCliConnected(a1 != 0)
-}
-
 func nox_client_isConnected() bool {
 	return memmap.Uint32(0x5D4594, 815764) != 0
 }

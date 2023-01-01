@@ -147,7 +147,6 @@ func nox_xxx_mapCrcGetMB_409B00() uint32 {
 	return memmap.Uint32(0x5D4594, 3604)
 }
 
-//export nox_xxx_mapSetCrcMB_409B10
 func nox_xxx_mapSetCrcMB_409B10(crc uint32) {
 	if memmap.Uint32(0x5D4594, 3604) != crc {
 		*memmap.PtrUint32(0x5D4594, 3604) = crc
