@@ -68,12 +68,10 @@ void clientPacketFade(bool a1, int fnc);
 void nox_client_onDeathRay(int p1x, int p1y, int p2x, int p2y);
 void nox_client_onParticleFx(int code, nox_drawable* a1, int a2, int a3, int a4);
 void nox_client_onClassStats(unsigned char* data, int sz);
-void nox_client_onJoinData();
 void nox_client_onClientStatusA(int v);
 void sub_456140(unsigned char a1);
 
 uint32_t nox_client_fadeObjects_80836 = 1;
-uint32_t nox_perfmon_latePackets_2618900 = 0;
 
 //----- (0048EA70) --------------------------------------------------------
 void sub_470A80();
@@ -461,24 +459,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	unsigned char* end = data + sz;
 
 	switch (op) {
-	case 44: // MSG_JOIN_DATA
-		v42 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
-		nox_player_netCode_85319C = v42;
-		v43 = nox_common_playerInfoNew_416F60(v42);
-		if (v43) {
-			*((uint32_t*)v43 + 517) = *(uint32_t*)(data + 3);
-			*getMemU32Ptr(0x8531A0, 2576) = v43;
-		}
-		if (!nox_common_gameFlags_check_40A5C0(1)) {
-			sub_57B920(getMemAt(0x5D4594, 1198020));
-		}
-		dword_5d4594_1200804 = 0;
-		nox_perfmon_latePackets_2618900 = 0;
-		*getMemU32Ptr(0x85B3FC, 120) = 0;
-		nox_client_onJoinData();
-		dword_5d4594_1200832 = 0;
-		nox_xxx_cliSetSettingsAcquired_4169D0(0);
-		return 7;
 	case 45:; // MSG_NEW_PLAYER
 		int playerID = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
 		nox_playerInfo* pl = nox_common_playerInfoNew_416F60(playerID);
