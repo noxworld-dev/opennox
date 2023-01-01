@@ -51,22 +51,22 @@ func nox_netlist_addToMsgListSrv(ind int, buf []byte) bool {
 	return netlist.AddToMsgListSrv(ind, buf, func(ind int) {
 		// Flush old data to network.
 		if ind == common.MaxPlayers-1 {
-			nox_netlist_receiveCli_494E90(ind)
+			noxClient.nox_netlist_receiveCli_494E90(ind)
 		} else {
 			netstr.SendReadPacket(s.getPlayerByInd(ind).Index()+1, 0)
 		}
 	})
 }
 
-func nox_netlist_receiveCli_494E90(ind int) int {
+func (c *Client) nox_netlist_receiveCli_494E90(ind int) int {
 	res := 0
 
 	if buf1 := netlist.CopyPacketsB(ind); len(buf1) != 0 {
-		res = nox_xxx_netOnPacketRecvCli48EA70(ind, buf1)
+		res = c.nox_xxx_netOnPacketRecvCli48EA70(ind, buf1)
 	}
 
 	if buf2 := netlist.CopyPacketsA(ind, netlist.Kind1); len(buf2) != 0 {
-		res = nox_xxx_netOnPacketRecvCli48EA70(ind, buf2)
+		res = c.nox_xxx_netOnPacketRecvCli48EA70(ind, buf2)
 		if res != 0 {
 			C.sub_48D660()
 		}
