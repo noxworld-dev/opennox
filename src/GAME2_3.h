@@ -143,7 +143,6 @@ int sub_49BA70();
 uint32_t* nox_xxx_spriteToSightDestroyList_49BAB0_drawable(uint32_t* a1);
 uint32_t* sub_49BAF0(nox_drawable* dr);
 void sub_49BB40();
-void* sub_49BB80(char a1);
 void sub_49BBB0();
 void sub_49BBC0();
 uint32_t* nox_xxx_spriteToList_49BC80_drawable(uint32_t* a1);
