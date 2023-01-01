@@ -72,7 +72,7 @@ uint32_t nox_client_fadeObjects_80836 = 1;
 
 //----- (0048EA70) --------------------------------------------------------
 void sub_470A80();
-int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data, int sz, unsigned int* v364) {
+int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data, int sz) {
 	unsigned char* old = data;
 	long long v5;           // rax
 	int k;                  // ecx
@@ -2161,19 +2161,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 		return k + 11;
 	case 169: // MSG_INFORM
 		return nox_client_handlePacketInform_4C9BF0(data);
-	case 170:; // MSG_IMPORTANT
-		int n = nox_common_gameFlags_check_40A5C0(1) ? 5 : 1;
-		if (nox_client_isConnected_43C700()) {
-			char v366[5];
-			v366[0] = -85;
-			if (nox_common_gameFlags_check_40A5C0(1)) {
-				*(uint32_t*)&v366[1] = *(uint32_t*)(data + 1);
-			} else {
-				*(uint32_t*)&v366[1] = *v364;
-			}
-			nox_netlist_addToMsgListCli_40EBC0(a1, 0, v366, 5);
-		}
-		return n;
 	case 171: // MSG_IMPORTANT_ACK
 		if (nox_client_isConnected_43C700()) {
 			nox_net_importantACK_4E55A0(a1, *(uint32_t*)(data + 1));
