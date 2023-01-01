@@ -31,11 +31,6 @@ func sub_4B6720(a1 *C.int2, a2, a3 C.int, a4 C.char) {
 	noxClient.r.DrawGlow(asPoint(unsafe.Pointer(a1)), noxcolor.RGBA5551(a2), int(a3), int(a4))
 }
 
-//export nox_client_onParticleFx
-func nox_client_onParticleFx(code C.int, a1 *nox_drawable, a2, a3, a4 C.int) {
-	noxClient.r.partfx.onParticleFx(byte(code), asDrawable(a1), int(a2), a3 != 0, int(a4))
-}
-
 type partFXes struct {
 	r        *NoxRender
 	types    [32]particlefxType

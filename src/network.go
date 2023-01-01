@@ -60,7 +60,9 @@ extern float nox_xxx_conjurerMaxMana_587000_312804;
 extern float nox_xxx_wizardMaxHealth_587000_312816;
 extern float nox_xxx_wizardMaximumMana_587000_312820;
 
-static int nox_call_net_xxxyyy_go(int (*fnc)(unsigned int, char*, int, void*), unsigned int a1, void* a2, int a3, void* a4) { return fnc(a1, a2, a3, a4); }
+nox_drawable* nox_xxx_netSpriteByCodeDynamic_45A6F0(int a1);
+nox_drawable* nox_xxx_netSpriteByCodeStatic_45A720(int a1);
+
 int nox_xxx_netPlayerObjSend_518C30(nox_object_t* a1, nox_object_t* a2, int a3, signed int a4);
 int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char* data, int dsz, nox_playerInfo* v8p, nox_object_t* unitp, void* v10p);
 int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data, int sz, unsigned int* v364);
@@ -89,6 +91,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/strman"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -952,6 +955,7 @@ func setCurPlayer(p *Player) {
 	*memmap.PtrPtr(0x8531A0, 2576) = unsafe.Pointer(p.C())
 }
 
+func nox_xxx_netTestHighBit_578B70(v uint16) bool    { return (v>>15)&1 != 0 }
 func nox_xxx_netClearHighBit_578B30(v uint16) uint16 { return v & 0x7FFF }
 
 func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, data []byte, v364 *uint32, v373 *uint16) int {
@@ -1153,6 +1157,21 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 		p2y := binary.LittleEndian.Uint16(data[7:])
 		c.clientFXDeathRay(image.Pt(int(p1x), int(p1y)), image.Pt(int(p2x), int(p2y)))
 		return 9
+	case noxnet.MSG_FX_PARTICLEFX:
+		if len(data) < 14 {
+			return -1
+		}
+		drID := nox_xxx_netClearHighBit_578B30(binary.LittleEndian.Uint16(data[8:]))
+		if nox_client_isConnected() {
+			var dr *client.Drawable
+			if nox_xxx_netTestHighBit_578B70(binary.LittleEndian.Uint16(data[8:])) {
+				dr = asDrawable(C.nox_xxx_netSpriteByCodeStatic_45A720(C.int(drID)))
+			} else {
+				dr = asDrawable(C.nox_xxx_netSpriteByCodeDynamic_45A6F0(C.int(drID)))
+			}
+			c.r.partfx.onParticleFx(data[1], dr, int(binary.LittleEndian.Uint16(data[2:])), binary.LittleEndian.Uint16(data[4:]) != 0, int(binary.LittleEndian.Uint16(data[6:])))
+		}
+		return 14
 	}
 	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(ind), C.int(op), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), (*C.uint)(unsafe.Pointer(v364))))
 }
