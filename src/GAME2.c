@@ -4744,7 +4744,7 @@ nox_drawable* nox_xxx_netSpriteByCodeDynamic_45A6F0(int a1) {
 }
 
 //----- (0045A720) --------------------------------------------------------
-uint32_t* nox_xxx_netSpriteByCodeStatic_45A720(int a1) {
+nox_drawable* nox_xxx_netSpriteByCodeStatic_45A720(int a1) {
 	uint32_t* result; // eax
 
 	result = nox_drawable_head_unk1;
