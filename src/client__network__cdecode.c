@@ -59,8 +59,6 @@ extern uint32_t nox_player_netCode_85319C;
 
 int nox_client_getFadeDuration();
 
-void nox_client_onMapDownloadAbort();
-
 void clientPacketFade(bool a1, int fnc);
 void nox_client_onClassStats(unsigned char* data, int sz);
 void nox_client_onClientStatusA(int v);
@@ -2348,9 +2346,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			nox_xxx_spriteToList_49BC80_drawable((uint32_t*)v5);
 		}
 		return 14;
-	case 0xBAu: // MSG_MAP_SEND_ABORT
-		nox_client_onMapDownloadAbort();
-		return 2;
 	case 0xBDu: // MSG_SYSOP_RESULT
 		if (nox_client_isConnected_43C700()) {
 			if (*(uint8_t*)(data + 1) == 1) {

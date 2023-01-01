@@ -1207,6 +1207,12 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 		sz := binary.LittleEndian.Uint16(data[4:])
 		c.mapsend.onMapDownloadPart(uint(bind), data[6:6+sz])
 		return 6 + int(sz)
+	case noxnet.MSG_MAP_SEND_ABORT:
+		if len(data) < 2 {
+			return -1
+		}
+		c.mapsend.onMapDownloadAbort()
+		return 2
 	}
 	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(ind), C.int(op), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data))))
 }
