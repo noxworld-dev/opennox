@@ -23,7 +23,6 @@ nox_gui_animation* nox_gui_makeAnimation_43C5B0(nox_window* win, int x1, int y1,
 int sub_43C650();
 int sub_43C6E0();
 int nox_client_isConnected_43C700();
-void nox_xxx_gameSetCliConnected_43C720(int a1);
 int nox_xxx_netGet_43C750();
 int sub_43C7A0(int a1);
 void sub_43CEB0();
