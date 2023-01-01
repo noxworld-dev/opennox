@@ -64,7 +64,6 @@ void nox_client_onMapDownloadPart(unsigned short a1, void* a2, size_t a3);
 void nox_client_onMapDownloadAbort();
 
 void clientPacketFade(bool a1, int fnc);
-void nox_client_onParticleFx(int code, nox_drawable* a1, int a2, int a3, int a4);
 void nox_client_onClassStats(unsigned char* data, int sz);
 void nox_client_onClientStatusA(int v);
 void sub_456140(unsigned char a1);
@@ -1581,19 +1580,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 											 *(uint8_t*)(data + 3) & 0x7F, v139);
 		}
 		return 4;
-	case 124: // MSG_FX_PARTICLEFX
-		v236 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 8));
-		v237 = v236;
-		if (nox_client_isConnected_43C700()) {
-			nox_drawable* dr = 0;
-			if (nox_xxx_netTestHighBit_578B70(*(uint16_t*)(data + 8))) {
-				dr = nox_xxx_netSpriteByCodeStatic_45A720(v237);
-			} else {
-				dr = nox_xxx_netSpriteByCodeDynamic_45A6F0(v237);
-			}
-			nox_client_onParticleFx(*(unsigned char*)(data + 1), dr, *(uint16_t*)(data + 2), *(uint16_t*)(data + 4), *(uint16_t*)(data + 6));
-		}
-		return 14;
 	case 125: // MSG_FX_PLASMA
 	case 140: // MSG_FX_LIGHTNING
 	case 141: // MSG_FX_ENERGY_BOLT
