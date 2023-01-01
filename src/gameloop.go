@@ -347,7 +347,7 @@ func nox_game_cdMaybeSwitchState_413800() {
 func nox_xxx_clientResetSpriteAndGui_4357D0(noSkip bool) bool {
 	clientSetPlayerNetCode(0)
 	*memmap.PtrUint32(0x852978, 8) = 0
-	*memmap.PtrUint32(0x8531A0, 2576) = 0
+	setCurPlayer(nil)
 	// TODO: size is a guess
 	StrCopy((*C.char)(memmap.PtrOff(0x5D4594, 811280)), 1024, GoString(C.nox_xxx_getRandomName_4358A0()))
 	if noSkip {
@@ -725,7 +725,7 @@ func nox_xxx_cliSetupSession_437190() {
 	C.sub_417CF0()
 	clientSetPlayerNetCode(0)
 	*memmap.PtrUint32(0x852978, 8) = 0
-	*memmap.PtrUint32(0x8531A0, 2576) = 0
+	setCurPlayer(nil)
 }
 
 //export sub_470510

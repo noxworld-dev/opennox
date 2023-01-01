@@ -202,11 +202,6 @@ func gameFrame() uint32 {
 	return noxServer.Frame()
 }
 
-//export gameFrameSet
-func gameFrameSet(v uint32) {
-	noxServer.SetFrame(v)
-}
-
 func (s *Server) Update() bool {
 	defer noxPerfmon.startProfileServer()()
 	if !s.Server.Update() {

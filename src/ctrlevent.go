@@ -178,7 +178,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_orientation(mpos image.P
 
 func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) {
 	fps := noxServer.TickRate()
-	v2 := *memmap.PtrPtr(0x8531A0, 2576)
+	pl := getCurPlayer()
 	for it := a4; it != nil; it = it.field21 {
 		for _, k := range it.events {
 			switch k {
@@ -231,7 +231,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_A(a4 *CtrlEventBinding) 
 			case keybind.EventChat:
 				c.nox_ctrlevent_action_42E670(player.CCChat, 0)
 			case keybind.EventTeamChat:
-				if *(*byte)(unsafe.Add(v2, 3680))&0x1 == 0 {
+				if pl.field_3680&0x1 == 0 {
 					c.nox_ctrlevent_action_42E670(player.CCTeamChat, 0)
 				}
 			case keybind.EventToggleBook:

@@ -1447,7 +1447,6 @@ typedef struct nox_waypoint_t {
 _Static_assert(sizeof(nox_waypoint_t) == 516, "wrong size of nox_waypoint_t structure!");
 
 uint32_t gameFrame();
-void gameFrameSet(uint32_t v);
 uint32_t gameFPS();
 
 #endif // NOX_DEFS_H
