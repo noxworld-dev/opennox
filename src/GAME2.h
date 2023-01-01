@@ -122,7 +122,7 @@ int nox_xxx_windowAccessProc_454BA0(int a1, int a2, int* a3, int a4);
 int sub_455770();
 int sub_4557D0(int a1);
 int* sub_455800();
-int sub_455920(int a1);
+int sub_455920(wchar_t* a1);
 void sub_455950(wchar_t* a1);
 int sub_4559B0(wchar_t* a1);
 int sub_455A00(int a1);
