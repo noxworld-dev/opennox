@@ -64,7 +64,6 @@ void nox_client_onMapDownloadPart(unsigned short a1, void* a2, size_t a3);
 void nox_client_onMapDownloadAbort();
 
 void clientPacketFade(bool a1, int fnc);
-void nox_client_onDeathRay(int p1x, int p1y, int p2x, int p2y);
 void nox_client_onParticleFx(int code, nox_drawable* a1, int a2, int a3, int a4);
 void nox_client_onClassStats(unsigned char* data, int sz);
 void nox_client_onClientStatusA(int v);
@@ -1829,9 +1828,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 		}
 		LODWORD(v5) = nox_xxx_spriteLoadAdd_45A360_drawable(v235, *(short*)(data + 1), *(short*)(data + 3));
 		goto LABEL_829;
-	case 0x94u: // MSG_FX_DEATH_RAY
-		nox_client_onDeathRay(*(unsigned short*)(data + 1), *(unsigned short*)(data + 3), *(unsigned short*)(data + 5), *(unsigned short*)(data + 7));
-		return 9;
 	case 0x95u: // MSG_FX_SENTRY_RAY
 		if (nox_client_isConnected_43C700()) {
 			sub_4C5020(data);

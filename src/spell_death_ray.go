@@ -47,12 +47,7 @@ func nox_xxx_sendDeathRayCast_523250(p1, p2 image.Point) {
 	nox_xxx_netSendRayFx_5232F0(noxnet.MSG_FX_DEATH_RAY, p1, p2)
 }
 
-//export nox_client_onDeathRay
-func nox_client_onDeathRay(p1x, p1y, p2x, p2y C.int) {
-	clientFXDeathRay(image.Pt(int(p1x), int(p1y)), image.Pt(int(p2x), int(p2y)))
-}
-
-func clientFXDeathRay(p1, p2 image.Point) {
+func (c *Client) clientFXDeathRay(p1, p2 image.Point) {
 	if !nox_client_isConnected() {
 		return
 	}
@@ -83,8 +78,8 @@ func clientFXDeathRay(p1, p2 image.Point) {
 		dr.Field_109 = uint32(pos.Y) << 12
 		dr.Field_74_4 = byte(r1)
 		dr.Field_110 = uint32(r2)
-		dr.Field_111 = noxServer.Frame()
-		*(*uint32)(unsafe.Pointer(&dr.Field_112_0)) = noxServer.Frame() + uint32(expire)
+		dr.Field_111 = c.srv.Frame()
+		*(*uint32)(unsafe.Pointer(&dr.Field_112_0)) = c.srv.Frame() + uint32(expire)
 		dr.ZVal = uint16(z)
 		dr.VelZ = int8(vz)
 		C.nox_xxx_sprite_45A110_drawable((*nox_drawable)(dr.C()))
