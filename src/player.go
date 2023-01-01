@@ -82,11 +82,6 @@ func nox_common_playerInfoCount_416F40() C.int {
 	return C.int(noxServer.cntPlayers())
 }
 
-//export nox_common_playerInfoNew_416F60
-func nox_common_playerInfoNew_416F60(id C.int) *C.nox_playerInfo {
-	return noxServer.newPlayerInfo(int(id)).C()
-}
-
 //export nox_common_playerInfoGetByID_417040
 func nox_common_playerInfoGetByID_417040(id C.int) *C.nox_playerInfo {
 	return noxServer.getPlayerByID(int(id)).C()
@@ -316,11 +311,15 @@ func (p *PlayerInfo) IsFemale() bool {
 }
 
 func (p *PlayerInfo) Name() string {
-	return GoWString(&p.name[0])
+	return GoWStringN(&p.name[0], 33) // TODO: size is a guess
 }
 
 func (p *PlayerInfo) SetName(v string) {
 	WStrCopy(&p.name[0], 25, v)
+}
+
+func (p *PlayerInfo) NameSuff() string {
+	return GoWStringN((*C.wchar_t)(p.field(89)), 4)
 }
 
 func (p *PlayerInfo) SetNameSuff(v string) {

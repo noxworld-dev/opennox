@@ -55,7 +55,6 @@ extern uint32_t nox_server_sanctuaryHelp_54276;
 extern uint32_t nox_client_gui_flag_1556112;
 extern uint32_t dword_5d4594_1200804;
 extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
-extern uint32_t dword_5d4594_2650652;
 extern uint32_t nox_player_netCode_85319C;
 
 int nox_client_getFadeDuration();
@@ -459,43 +458,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	unsigned char* end = data + sz;
 
 	switch (op) {
-	case 45:; // MSG_NEW_PLAYER
-		int playerID = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
-		nox_playerInfo* pl = nox_common_playerInfoNew_416F60(playerID);
-		if (!pl) {
-			return 129;
-		}
-		if (!nox_common_gameFlags_check_40A5C0(1)) {
-			pl->netCode = playerID;
-			pl->lessons = *(short*)(data + 100);
-			pl->field_2140 = *(unsigned short*)(data + 102);
-			pl->field_0 = *(uint32_t*)(data + 104);
-			pl->field_4 = *(uint32_t*)(data + 108);
-			pl->field_2152 = *(unsigned char*)(data + 116);
-			pl->field_2156 = *(unsigned char*)(data + 117);
-			strcpy(pl->field_2096, (const char*)(data + 119));
-			pl->field_3680 |= *(uint32_t*)(data + 112);
-			memcpy(&pl->info, (const void*)(data + 3), 97);
-			nox_swprintf(pl->name_final, L"%s%s", pl->info.name, pl->info.name_suff);
-			if (dword_5d4594_2650652) {
-				pl->field_2108 = 0;
-				sub_41D670(pl->field_2096);
-			}
-			nox_xxx_playerInitColors_461460(pl);
-		}
-		sub_457140(playerID, pl->name_final);
-		sub_455920(pl->name_final);
-		v213 = nox_strman_loadString_40F1D0("PlayerJoined", 0, "C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4661);
-		wchar_t fnameBuf[100];
-		nox_swprintf(fnameBuf, v213, pl->name_final);
-		if (nox_xxx_gameGetPlayState_4356B0() == 3) {
-			nox_xxx_printCentered_445490(fnameBuf);
-		}
-		if (playerID == nox_player_netCode_85319C && nox_wcscmp(getMemAt(0x85B3FC, 12204), pl->name_final)) {
-			dword_5d4594_1200832 = 1;
-		}
-		OnLibraryNotice_263(pl);
-		return 129;
 	case 46: // MSG_PLAYER_QUIT
 		if (nox_client_isConnected_43C700()) {
 			v214 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 1));
