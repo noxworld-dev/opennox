@@ -37,6 +37,7 @@ void sub_455950(wchar_t* a1);
 int sub_455920(wchar_t* a1);
 void sub_519E80(int a1);
 int sub_43C650();
+int sub_467CA0();
 int* nox_xxx_guiServerOptionsHide_4597E0(int a1);
 int nox_net_importantACK_4E55A0(int a1, int a2);
 void nox_xxx_netMapSend_519D20(int a1);
@@ -1132,6 +1133,9 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 			nox_xxx_printCentered_445490(msg)
 		}
 		return 3
+	case noxnet.MSG_REPORT_INVENTORY_LOADED:
+		C.sub_467CA0()
+		return 1
 	}
 	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(ind), C.int(op), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), (*C.uint)(unsafe.Pointer(v364))))
 }
