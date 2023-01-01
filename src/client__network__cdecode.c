@@ -1585,9 +1585,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	case 112: // MSG_REPORT_SPELL_START
 		sub_49BB80(*(uint8_t*)(data + 1));
 		return 2;
-	case 113: // MSG_REPORT_INVENTORY_LOADED
-		sub_467CA0();
-		return 1;
 	case 124: // MSG_FX_PARTICLEFX
 		v236 = nox_xxx_netClearHighBit_578B30(*(uint16_t*)(data + 8));
 		v237 = v236;
