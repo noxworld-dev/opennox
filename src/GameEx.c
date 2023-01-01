@@ -178,7 +178,6 @@ char playerDropATrap(int playerObj) {
 	return v8;
 }
 
-void OnLibraryNotice_264(uint32_t arg1) { nox_common_gameFlags_check_40A5C0(1); }
 void OnLibraryNotice_420(uint32_t arg1, uint32_t arg2, uint32_t arg3, uint32_t arg4) {
 	int v23 = arg1;
 	int v19 = arg2;
