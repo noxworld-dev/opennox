@@ -59,7 +59,6 @@ extern uint32_t nox_player_netCode_85319C;
 
 int nox_client_getFadeDuration();
 
-void nox_client_onMapDownloadPart(unsigned short a1, void* a2, size_t a3);
 void nox_client_onMapDownloadAbort();
 
 void clientPacketFade(bool a1, int fnc);
@@ -2349,10 +2348,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			nox_xxx_spriteToList_49BC80_drawable((uint32_t*)v5);
 		}
 		return 14;
-	case 0xB9u: // MSG_MAP_SEND_PACKET
-		nox_client_onMapDownloadPart(*(uint16_t*)(data + 2), (void*)(data + 6), *(unsigned short*)(data + 4));
-		k = *(unsigned short*)(data + 4);
-		return k + 6;
 	case 0xBAu: // MSG_MAP_SEND_ABORT
 		nox_client_onMapDownloadAbort();
 		return 2;
