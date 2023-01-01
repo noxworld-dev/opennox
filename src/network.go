@@ -922,6 +922,10 @@ func sub_519930(a1 int) int {
 	return cnt
 }
 
+func sub_43C790() uint32 {
+	return memmap.Uint32(0x587000, 91876)
+}
+
 //export nox_xxx_netOnPacketRecvCli_48EA70
 func nox_xxx_netOnPacketRecvCli_48EA70(ind int, buf *byte, sz int) int {
 	return noxClient.nox_xxx_netOnPacketRecvCli48EA70(ind, unsafe.Slice(buf, sz))
@@ -947,6 +951,12 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 			C.nox_xxx_playerUnsetStatus_417530(p, 64)
 		}
 		C.sub_43C650()
+		return 5
+	case noxnet.MSG_SIMULATED_TIMESTAMP:
+		frame := uint32(*v373)
+		if frame < (memmap.Uint32(0x5D4594, 1200800) + sub_43C790()) {
+			c.srv.SetFrame(frame)
+		}
 		return 5
 	}
 	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(ind), C.int(op), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), (*C.uint)(unsafe.Pointer(v364)), (*C.ushort)(unsafe.Pointer(v373))))

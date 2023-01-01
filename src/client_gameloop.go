@@ -255,9 +255,9 @@ func sub_43CCA0() {
 	start := noxServer.Frame()
 	nox_xxx_servNetInitialPackets_552A80(int(nox_xxx_netGet_43C750()), 1)
 	if start != noxServer.Frame() && C.dword_5d4594_2650652 == 1 && !noxflags.HasGame(noxflags.GameHost) {
-		if v1 := C.sub_40A710(1); C.sub_43C790() > v1 {
+		if v1 := uint32(C.sub_40A710(1)); sub_43C790() > v1 {
 			C.sub_43CEB0()
-			v2 := memmap.Uint64(0x5D4594, 815740) + memmap.Uint64(0x587000, 91880)/uint64(C.sub_43C790())
+			v2 := memmap.Uint64(0x5D4594, 815740) + memmap.Uint64(0x587000, 91880)/uint64(sub_43C790())
 			if platformTicks() >= v2 {
 				buf, free := alloc.Make([]byte{}, 8) // TODO: check if we need extra space
 				defer free()
