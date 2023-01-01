@@ -26,6 +26,7 @@ int nox_client_getClientPort_40A420();
 int sub_419E60(nox_object_t* a1);
 int sub_43AF90(int a1);
 void sub_519E80(int a1);
+int sub_43C650();
 int nox_net_importantACK_4E55A0(int a1, int a2);
 void nox_xxx_netMapSend_519D20(int a1);
 int nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1);
@@ -923,21 +924,35 @@ func sub_519930(a1 int) int {
 
 //export nox_xxx_netOnPacketRecvCli_48EA70
 func nox_xxx_netOnPacketRecvCli_48EA70(ind int, buf *byte, sz int) int {
-	return nox_xxx_netOnPacketRecvCli48EA70(ind, unsafe.Slice(buf, sz))
+	return noxClient.nox_xxx_netOnPacketRecvCli48EA70(ind, unsafe.Slice(buf, sz))
 }
 
-func nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, data []byte, v364 *uint32, v373 *uint16) int {
+func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, data []byte, v364 *uint32, v373 *uint16) int {
 	if len(data) == 0 {
 		return 0
 	}
 	switch op {
 	case noxnet.MSG_XXX_STOP:
 		return 1
+	case noxnet.MSG_FULL_TIMESTAMP:
+		if len(data) < 5 {
+			return -1
+		}
+		frame := binary.LittleEndian.Uint32(data[1:])
+		c.srv.SetFrame(frame)
+		*memmap.PtrUint32(0x5D4594, 1200800) = c.srv.Frame()
+		*v364 = c.srv.Frame()
+		*memmap.PtrUint32(0x5D4594, 1200808) = (c.srv.Frame() & 0xffff) >> 14
+		if p := (*C.nox_playerInfo)(*memmap.PtrPtr(0x8531A0, 2576)); p != nil {
+			C.nox_xxx_playerUnsetStatus_417530(p, 64)
+		}
+		C.sub_43C650()
+		return 5
 	}
 	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(ind), C.int(op), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), (*C.uint)(unsafe.Pointer(v364)), (*C.ushort)(unsafe.Pointer(v373))))
 }
 
-func nox_xxx_netOnPacketRecvCli48EA70(ind int, data []byte) int {
+func (c *Client) nox_xxx_netOnPacketRecvCli48EA70(ind int, data []byte) int {
 	sub_470A80()
 	var (
 		v364 uint32
@@ -945,7 +960,7 @@ func nox_xxx_netOnPacketRecvCli48EA70(ind int, data []byte) int {
 	)
 	for len(data) > 0 {
 		op := noxnet.Op(data[0])
-		n := nox_xxx_netOnPacketRecvCli48EA70_switch(ind, op, data, &v364, &v373)
+		n := c.nox_xxx_netOnPacketRecvCli48EA70_switch(ind, op, data, &v364, &v373)
 		if n == 0 {
 			break // stop earlier
 		} else if n < 0 {
@@ -973,7 +988,7 @@ func nox_xxx_netHandleCliPacket_43C860(_ int, data []byte, _ unsafe.Pointer) int
 	} else if op == noxnet.MSG_PING {
 		noxPerfmon.ping = time.Duration(binary.LittleEndian.Uint32(data[1:])) * time.Millisecond
 	} else if op >= noxnet.MSG_TIMESTAMP {
-		nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, data)
+		noxClient.nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, data)
 		if nox_client_isConnected() {
 			C.sub_48D660()
 		}
@@ -1249,7 +1264,7 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 		if flags&0x1 == 0 { // global chat
 			for it := s.playerFirst(); it != nil; it = s.playerNext(it) {
 				if noxflags.HasGame(noxflags.GameClient) && it.Index() == common.MaxPlayers-1 {
-					nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, data[:msz])
+					noxClient.nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, data[:msz])
 				} else {
 					netstr.Send(it.Index()+1, data[:msz], 0)
 					netstr.SendReadPacket(it.Index()+1, 1)
@@ -1274,7 +1289,7 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 			}
 			if C.nox_xxx_teamCompare2_419180(unsafe.Pointer(uit.teamPtr()), C.uchar(tcl.Ind57())) != 0 {
 				if noxflags.HasGame(noxflags.GameClient) && int(uit.NetCode) == clientPlayerNetCode() {
-					nox_xxx_netOnPacketRecvCli48EA70(it.Index(), data[:msz])
+					noxClient.nox_xxx_netOnPacketRecvCli48EA70(it.Index(), data[:msz])
 				} else {
 					netstr.Send(it.Index()+1, data[:msz], 0)
 					netstr.SendReadPacket(it.Index()+1, 1)
