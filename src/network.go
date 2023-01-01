@@ -20,6 +20,7 @@ extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_5d4594_2660032;
 extern unsigned int dword_5d4594_814548;
 extern unsigned long long qword_5d4594_814956;
+extern uint32_t nox_perfmon_latePackets_2618900;
 unsigned int nox_client_getServerAddr_43B300();
 int nox_client_getServerPort_43B320();
 int nox_client_getClientPort_40A420();
@@ -50,7 +51,7 @@ extern float nox_xxx_wizardMaximumMana_587000_312820;
 static int nox_call_net_xxxyyy_go(int (*fnc)(unsigned int, char*, int, void*), unsigned int a1, void* a2, int a3, void* a4) { return fnc(a1, a2, a3, a4); }
 int nox_xxx_netPlayerObjSend_518C30(nox_object_t* a1, nox_object_t* a2, int a3, signed int a4);
 int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char* data, int dsz, nox_playerInfo* v8p, nox_object_t* unitp, void* v10p);
-int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data, int sz, unsigned int* v364, unsigned short* v373);
+int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data, int sz, unsigned int* v364);
 */
 import "C"
 import (
@@ -931,6 +932,14 @@ func nox_xxx_netOnPacketRecvCli_48EA70(ind int, buf *byte, sz int) int {
 	return noxClient.nox_xxx_netOnPacketRecvCli48EA70(ind, unsafe.Slice(buf, sz))
 }
 
+func getCurPlayer() *Player {
+	return asPlayer((*C.nox_playerInfo)(*memmap.PtrPtr(0x8531A0, 2576)))
+}
+
+func setCurPlayer(p *Player) {
+	*memmap.PtrPtr(0x8531A0, 2576) = unsafe.Pointer(p.C())
+}
+
 func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, data []byte, v364 *uint32, v373 *uint16) int {
 	if len(data) == 0 {
 		return 0
@@ -947,8 +956,8 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 		*memmap.PtrUint32(0x5D4594, 1200800) = c.srv.Frame()
 		*v364 = c.srv.Frame()
 		*memmap.PtrUint32(0x5D4594, 1200808) = (c.srv.Frame() & 0xffff) >> 14
-		if p := (*C.nox_playerInfo)(*memmap.PtrPtr(0x8531A0, 2576)); p != nil {
-			C.nox_xxx_playerUnsetStatus_417530(p, 64)
+		if p := getCurPlayer(); p != nil {
+			C.nox_xxx_playerUnsetStatus_417530(p.C(), 64)
 		}
 		C.sub_43C650()
 		return 5
@@ -958,8 +967,50 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 			c.srv.SetFrame(frame)
 		}
 		return 5
+	case noxnet.MSG_TIMESTAMP:
+		if len(data) < 3 {
+			return -1
+		}
+		fr := binary.LittleEndian.Uint16(data[1:])
+		*v373 = fr
+		if p := getCurPlayer(); p != nil && p.field_3680&0x40 != 0 {
+			return 1
+		}
+		v9 := 1
+		prevFrame := c.srv.Frame()
+		v11 := fr
+		v12 := uint32(v11) + (c.srv.Frame() & 0xFFFF0000)
+		v13 := int32(v11) >> 14
+		if uint32(v13) != memmap.Uint32(0x5D4594, 1200808) {
+			if v13 == ((int32(memmap.Uint8(0x5D4594, 1200808)) + 1) & 3) {
+				*memmap.PtrUint32(0x5D4594, 1200808) = uint32(v13)
+				if v13 == 0 {
+					v12 += 0x10000
+				}
+			} else {
+				v9 = 0
+			}
+		}
+		if v12 < c.srv.Frame() {
+			v9 = 0
+		}
+		if !noxflags.HasGame(noxflags.GameHost) && v9 == 1 {
+			c.srv.SetFrame(v12)
+			*memmap.PtrUint32(0x5D4594, 1200800) = v12
+		}
+		*v364 = v12
+		if !noxflags.HasGame(noxflags.GameHost) && v9 == 0 {
+			C.nox_perfmon_latePackets_2618900--
+			*memmap.PtrUint32(0x85B3FC, 120)++
+			return 1
+		}
+		if c.srv.Frame() > prevFrame+1 {
+			C.nox_perfmon_latePackets_2618900 += C.uint(c.srv.Frame() - prevFrame)
+		}
+		C.sub_43C650()
+		return 3
 	}
-	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(ind), C.int(op), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), (*C.uint)(unsafe.Pointer(v364)), (*C.ushort)(unsafe.Pointer(v373))))
+	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(ind), C.int(op), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), (*C.uint)(unsafe.Pointer(v364))))
 }
 
 func (c *Client) nox_xxx_netOnPacketRecvCli48EA70(ind int, data []byte) int {
@@ -1026,7 +1077,7 @@ func sub_43CF70() {
 	if !dword_5d4594_815708 {
 		C.sub_4AB4D0(1)
 		dword_5d4594_815708 = true
-		if pl := asPlayer((*C.nox_playerInfo)(*memmap.PtrPtr(0x8531A0, 2576))); pl != nil {
+		if pl := getCurPlayer(); pl != nil {
 			C.nox_xxx_netNeedTimestampStatus_4174F0(pl.C(), 64)
 			var buf [1]byte
 			buf[0] = byte(noxnet.MSG_NEED_TIMESTAMP)

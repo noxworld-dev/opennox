@@ -77,16 +77,10 @@ uint32_t nox_perfmon_latePackets_2618900 = 0;
 
 //----- (0048EA70) --------------------------------------------------------
 void sub_470A80();
-int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data, int sz, unsigned int* v364, unsigned short* v373) {
+int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data, int sz, unsigned int* v364) {
 	unsigned char* old = data;
 	long long v5;           // rax
 	int k;                  // ecx
-	int v9;                 // edi
-	int v10;                // ebx
-	unsigned short v11;     // ax
-	unsigned int v12;       // esi
-	int v13;                // eax
-	int v14;                // esi
 	unsigned char* v15;     // ebp
 	int v16;                // eax
 	int v17;                // esi
@@ -467,44 +461,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	unsigned char* end = data + sz;
 
 	switch (op) {
-	case 39: // MSG_TIMESTAMP
-		v9 = 1;
-		*v373 = *(unsigned short*)(data + 1);
-		if (*getMemU32Ptr(0x8531A0, 2576) && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 3680) & 0x40) {
-			return 0;
-		}
-		v10 = gameFrame();
-		v11 = *(uint16_t*)(data + 1);
-		v12 = v11 + (gameFrame() & 0xFFFF0000);
-		v13 = v11 >> 14;
-		if (v13 != *getMemU32Ptr(0x5D4594, 1200808)) {
-			if (v13 == ((getMemByte(0x5D4594, 1200808) + 1) & 3)) {
-				*getMemU32Ptr(0x5D4594, 1200808) = v13;
-				if (!v13) {
-					v12 += 0x10000;
-				}
-			} else {
-				v9 = 0;
-			}
-		}
-		if (v12 < gameFrame()) {
-			v9 = 0;
-		}
-		if (!nox_common_gameFlags_check_40A5C0(1) && v9 == 1) {
-			gameFrameSet(v12);
-			*getMemU32Ptr(0x5D4594, 1200800) = v12;
-		}
-		*v364 = v12;
-		if (!nox_common_gameFlags_check_40A5C0(1) && !v9) {
-			--nox_perfmon_latePackets_2618900;
-			++*getMemU32Ptr(0x85B3FC, 120);
-			return 0;
-		}
-		if (gameFrame() > (unsigned int)(v10 + 1)) {
-			nox_perfmon_latePackets_2618900 += gameFrame() - v10;
-		}
-		sub_43C650();
-		return 3;
 	case 43: // MSG_USE_MAP
 		k = dword_5d4594_1200804;
 		if (*(uint32_t*)(data + 37) > *(int*)&dword_5d4594_1200804) {
