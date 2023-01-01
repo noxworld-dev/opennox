@@ -31,6 +31,7 @@ type Perfmon struct {
 	transfer      [common.MaxPlayers]uint32
 	transferTick  [common.MaxPlayers]time.Duration
 	packetSizeCli int
+	latePackets   int
 
 	logger      *log.Logger
 	loggerHdr   bool
