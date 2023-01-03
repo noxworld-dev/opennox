@@ -63,6 +63,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
+	"image"
 	"path/filepath"
 	"strings"
 	"unsafe"
@@ -623,6 +624,36 @@ func (s *Server) sub519760(u *Unit, rect types.Rectf) {
 func (s *Server) nox_xxx_netMinimapUnmark4All_417430(obj *Object) {
 	for pl := s.playerFirst(); pl != nil; pl = s.playerNext(pl) {
 		C.nox_xxx_netUnmarkMinimapObj_417300(C.int(pl.Index()), obj.CObj(), 3)
+	}
+}
+
+//export sub_519660
+func sub_519660(it unsafe.Pointer, u *nox_object_t) {
+	noxServer.sub519660(it, asUnitC(u))
+}
+
+func (s *Server) sub519660(it unsafe.Pointer, u *Unit) {
+	pl := u.ControllingPlayer()
+	v2 := uint32(1 << pl.Index())
+	isSet := (v2 & *(*uint32)(unsafe.Add(it, 28))) != 0
+	var exp bool
+	switch *(*uint8)(unsafe.Add(it, 21)) {
+	case 1, 4:
+		exp = false
+	case 2, 3:
+		exp = true
+	default:
+		exp = u != nil
+	}
+	if isSet != exp {
+		wl := s.getWallAtGrid(image.Pt(int(*(*uint32)(unsafe.Add(it, 4))), int(*(*uint32)(unsafe.Add(it, 8)))))
+		if exp {
+			C.sub_4DF120(wl.C())
+			*(*uint32)(unsafe.Add(it, 28)) |= v2
+		} else {
+			C.sub_4DF180(wl.C())
+			*(*uint32)(unsafe.Add(it, 28)) &^= v2
+		}
 	}
 }
 

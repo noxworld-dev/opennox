@@ -191,7 +191,7 @@ void nox_xxx_netUpdate_518EE0(nox_object_t* obj);
 int nox_xxx_netPlayerObjSendCamera_519330(int a1);
 void nox_xxx_unitAroundPlayerFn_5193B0(nox_object_t* a1, nox_object_t* a2);
 char nox_xxx_netSendObjects2Plr_519410(nox_object_t* a1, nox_object_t* a2);
-int sub_519660(int a1, int a2);
+void sub_519660(void* a1, nox_object_t* a2);
 int sub_519710(int a1);
 void sub_519760(nox_object_t* a1, float* a2);
 int nox_xxx_netMapSendClear_519830(int a1, char a2);
