@@ -175,7 +175,7 @@ int nox_xxx_netReportLesson_4D8EF0(nox_object_t* a1p);
 int nox_xxx_netTimerStatus_4D8F50(int a1, int a2);
 int nox_xxx_netReportEnchant_4D8F90(int a1, uint32_t* a2);
 void nox_xxx_netReportObjHidden_4D8FD0(int a1, uint32_t* a2);
-int nox_xxx_netReportUnitHeight_4D9020(int a1, int a2);
+int nox_xxx_netReportUnitHeight_4D9020(int a1, nox_object_t* a2);
 int sub_4D90E0(int a1, char a2);
 int nox_xxx_earthquakeSend_4D9110(float* a1, int a2);
 int nox_xxx_netReportAcquireCreature_4D91A0(int a1, int a2);
