@@ -4779,7 +4779,8 @@ void nox_xxx_netReportObjHidden_4D8FD0(int a1, uint32_t* a2) {
 }
 
 //----- (004D9020) --------------------------------------------------------
-int nox_xxx_netReportUnitHeight_4D9020(int a1, int a2) {
+int nox_xxx_netReportUnitHeight_4D9020(int a1, nox_object_t* a2p) {
+	int a2 = a2p;
 	int v2;        // esi
 	short v3;      // ax
 	double v4;     // st7

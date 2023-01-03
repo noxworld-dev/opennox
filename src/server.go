@@ -583,12 +583,7 @@ func (s *Server) updateRemotePlayers() error {
 	return nil
 }
 
-//export sub_4172C0
-func sub_4172C0(pind int) *nox_object_t {
-	return noxServer.sub4172C0(pind).CObj()
-}
-
-func (s *Server) sub4172C0(pind int) *Object {
+func (s *Server) sub_4172C0(pind int) *Object {
 	if pind < 0 && pind >= common.MaxPlayers {
 		return nil
 	}
@@ -599,6 +594,35 @@ func (s *Server) sub4172C0(pind int) *Object {
 	p := *(**nox_object_t)(unsafe.Add(pl.field_4580, 4))
 	pl.field_4580 = *(*unsafe.Pointer)(unsafe.Add(pl.field_4580, 8))
 	return asObjectC(p)
+}
+
+//export sub_519760
+func sub_519760(u *nox_object_t, rect *C.float) {
+	noxServer.sub519760(asUnitC(u), *(*types.Rectf)(unsafe.Pointer(rect)))
+}
+
+func (s *Server) sub519760(u *Unit, rect types.Rectf) {
+	ud := u.UpdateDataPlayer()
+	pl := asPlayerS(ud.Player)
+	pind := pl.Index()
+	obj := s.sub_4172C0(pind)
+	if obj == nil {
+		return
+	}
+	if obj.Flags().Has(object.FlagDestroyed) {
+		s.nox_xxx_netMinimapUnmark4All_417430(obj)
+	} else if float64(obj.PosVec.X) < float64(rect.Left) || float64(obj.PosVec.X) > float64(rect.Right) || float64(obj.PosVec.Y) < float64(rect.Top) || float64(obj.PosVec.Y) > float64(rect.Bottom) {
+		obj.Field38 |= uint32(1 << pind)
+		C.nox_xxx_netSendObjects2Plr_519410(u.CObj(), obj.CObj())
+		C.nox_xxx_netReportUnitHeight_4D9020(C.int(pind), obj.CObj())
+		ud.Field67 = s.Frame()
+	}
+}
+
+func (s *Server) nox_xxx_netMinimapUnmark4All_417430(obj *Object) {
+	for pl := s.playerFirst(); pl != nil; pl = s.playerNext(pl) {
+		C.nox_xxx_netUnmarkMinimapObj_417300(C.int(pl.Index()), obj.CObj(), 3)
+	}
 }
 
 func (s *Server) nox_xxx_servNewSession_4D1660() error {

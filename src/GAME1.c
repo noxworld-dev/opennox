@@ -4054,7 +4054,8 @@ int sub_417270(int a1) {
 }
 
 //----- (00417300) --------------------------------------------------------
-int nox_xxx_netUnmarkMinimapObj_417300(int a1, int a2, int a3) {
+int nox_xxx_netUnmarkMinimapObj_417300(int a1, nox_object_t* a2p, int a3) {
+	int a2 = a2p;
 	int result;        // eax
 	unsigned char* v4; // edi
 	uint32_t* v5;      // ecx
@@ -4131,19 +4132,6 @@ int nox_xxx_playerMapTracksObj_4173D0(int a1, int a2) {
 				result = 1;
 			}
 		}
-	}
-	return result;
-}
-
-//----- (00417430) --------------------------------------------------------
-char* nox_xxx_netMinimapUnmark4All_417430(int a1) {
-	char* result; // eax
-	int i;        // esi
-
-	result = nox_common_playerInfoGetFirst_416EA0();
-	for (i = (int)result; result; i = (int)result) {
-		nox_xxx_netUnmarkMinimapObj_417300(*(unsigned char*)(i + 2064), a1, 3);
-		result = nox_common_playerInfoGetNext_416EE0(i);
 	}
 	return result;
 }
