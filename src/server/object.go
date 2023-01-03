@@ -3,6 +3,7 @@ package server
 import (
 	"bytes"
 	"fmt"
+	"math"
 	"strings"
 	"unsafe"
 
@@ -167,7 +168,7 @@ func (s *serverObjects) NewObject(t *ObjectType) *Object {
 	obj.SpeedBase = t.SpeedBase
 	obj.SpeedBonus = t.SpeedBonus
 	obj.HealthData = nil
-	obj.Field38 = -1
+	obj.Field38 = math.MaxUint32
 	obj.TypeInd = uint16(t.Ind())
 	if t.Health() != nil {
 		data, _ := alloc.New(HealthData{})
@@ -361,8 +362,8 @@ type Object struct {
 	Field34       uint32                     // 34, 136, TODO: some frame/timestamp
 	Field35       uint32                     // 35, 140
 	Field36       uint32                     // 36, 144
-	Field37       int                        // 37, 148
-	Field38       int                        // 38, 152
+	Field37       uint32                     // 37, 148
+	Field38       uint32                     // 38, 152
 	Pos39         types.Pointf               // 39, 156
 	Field41       uint32                     // 41, 164
 	Field42       uint32                     // 42, 168
@@ -748,7 +749,7 @@ func (obj *Object) UpdateCollider(pos types.Pointf) {
 }
 
 func (obj *Object) NeedSync() { // nox_xxx_unitNeedSync_4E44F0
-	obj.Field38 = -1
+	obj.Field38 = math.MaxUint32
 }
 
 func (obj *Object) CallUpdate() {
