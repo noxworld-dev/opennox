@@ -7296,7 +7296,9 @@ int* sub_527E00(nox_object_t* a1) {
 }
 
 //----- (00527E50) --------------------------------------------------------
-int nox_xxx_netUpdateObjectSpecial_527E50(int a1, uint32_t* a2) {
+int nox_xxx_netUpdateObjectSpecial_527E50(nox_object_t* a1p, nox_object_t* a2p) {
+	int a1 = a1p;
+	uint32_t* a2 = a2p;
 	unsigned int v2; // edi
 	int v3;          // eax
 
