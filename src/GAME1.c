@@ -4053,23 +4053,6 @@ int sub_417270(int a1) {
 	return result;
 }
 
-//----- (004172C0) --------------------------------------------------------
-int sub_4172C0(int a1) {
-	int result; // eax
-	int v2;     // ecx
-
-	result = 0;
-	if (a1 >= 0 && a1 < NOX_PLAYERINFO_MAX) {
-		nox_playerInfo* pl = nox_common_playerInfoFromNumRaw(a1);
-		v2 = pl->field_4580;
-		if (v2) {
-			result = *(uint32_t*)(v2 + 4);
-			pl->field_4580 = *(uint32_t*)(v2 + 8);
-		}
-	}
-	return result;
-}
-
 //----- (00417300) --------------------------------------------------------
 int nox_xxx_netUnmarkMinimapObj_417300(int a1, int a2, int a3) {
 	int result;        // eax

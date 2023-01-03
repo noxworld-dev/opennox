@@ -1274,7 +1274,7 @@ typedef struct nox_playerInfo {
 	unsigned int beast_scroll_lvl[41];      // 4244
 	uint32_t data_4408[23];
 	uint32_t data_4500[20];
-	uint32_t field_4580; // 1145, 4580
+	void* field_4580; // 1145, 4580
 	uint32_t prot_unit_hp_cur;       // 1146, 4584
 	uint32_t prot_player_gold;       // 1147, 4588
 	uint32_t prot_unit_hp_max;       // 1148, 4592
