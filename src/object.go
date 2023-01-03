@@ -16,6 +16,7 @@ import "C"
 import (
 	"fmt"
 	"image"
+	"math"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
@@ -396,7 +397,7 @@ func (s *Server) objectsNewAdd() {
 		} else {
 			it.makeUnseen()
 			C.sub_527E00(it.CObj())
-			it.Field37 = -1
+			it.Field37 = math.MaxUint32
 		}
 		it.ObjFlags &^= uint32(object.FlagPending)
 	}
