@@ -187,13 +187,9 @@ int nox_xxx_netSendSimpleObj_5188A0(int a1, int a2);
 int nox_xxx_netSendComplexObject_518960(int a1, uint32_t* a2, int a3);
 int nox_xxx_netSpriteUpdate_518AE0(int a1, int a2, uint32_t* a3);
 int nox_xxx_netPlayerObjSend_518C30(nox_object_t* a1, nox_object_t* a2, int a3, signed int a4);
-void nox_xxx_netUpdate_518EE0(nox_object_t* obj);
-int nox_xxx_netPlayerObjSendCamera_519330(int a1);
-void nox_xxx_unitAroundPlayerFn_5193B0(nox_object_t* a1, nox_object_t* a2);
 char nox_xxx_netSendObjects2Plr_519410(nox_object_t* a1, nox_object_t* a2);
-void sub_519660(void* a1, nox_object_t* a2);
-int sub_519710(int a1);
-void sub_519760(nox_object_t* a1, float* a2);
+int sub_519660(int a1, int a2);
+int sub_519710(void* a1);
 int nox_xxx_netMapSendClear_519830(int a1, char a2);
 int nox_xxx_netMapSendStop_519870();
 void nox_xxx_mapSendCancelAll_5198B0(unsigned char a1);
@@ -231,6 +227,5 @@ void* nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int (*a5)(in
 void sub_517B70(float2* a1, void* a2, void* a3);
 void nox_xxx_getUnitsInRect_517C10(float4* a1, void* fnc, void* a3);
 void nox_xxx_getUnitsInRectAdv_517ED0(float4* a1, void* a2, void* a3);
-int* nox_xxx_secretWallCheckUnits_517F00(float* a1, int (*a2)(int*, int), int a3);
 
 #endif // NOX_PORT_GAME4_1

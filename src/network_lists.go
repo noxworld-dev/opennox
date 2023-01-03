@@ -37,11 +37,6 @@ func nox_netlist_addToMsgListSrv_40EF40(ind C.int, buf *C.uchar, sz C.int) C.boo
 	return C.bool(nox_netlist_addToMsgListSrv(int(ind), unsafe.Slice((*byte)(unsafe.Pointer(buf)), int(sz))))
 }
 
-//export nox_netlist_initPlayerBufs_40F020
-func nox_netlist_initPlayerBufs_40F020(ind int) {
-	netlist.InitByInd(ind)
-}
-
 func nox_xxx_rateGet_40A6C0() int {
 	return int(memmap.Uint32(0x587000, 4728))
 }

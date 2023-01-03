@@ -43,7 +43,7 @@ extern uint32_t dword_5d4594_251556;
 extern uint32_t dword_5d4594_251552;
 extern uint32_t dword_5d4594_251564;
 extern uint32_t dword_5d4594_3484;
-extern uint32_t dword_5d4594_251560;
+extern void* dword_5d4594_251560;
 extern uint32_t dword_5d4594_3632;
 extern uint32_t dword_5d4594_3624;
 extern uint32_t dword_5d4594_371692;
@@ -1745,7 +1745,7 @@ uint32_t* sub_410730() {
 	uint32_t* result; // eax
 	uint32_t* v1;     // esi
 
-	result = *(uint32_t**)&dword_5d4594_251560;
+	result = dword_5d4594_251560;
 	if (dword_5d4594_251560) {
 		do {
 			v1 = (uint32_t*)*result;
@@ -1770,7 +1770,7 @@ uint32_t* nox_xxx_wallSecretBlock_410760(uint32_t* a1) {
 }
 
 //----- (00410780) --------------------------------------------------------
-void* nox_xxx_wallSecretGetFirstWall_410780() { return *(void**)&dword_5d4594_251560; }
+void* nox_xxx_wallSecretGetFirstWall_410780() { return dword_5d4594_251560; }
 
 //----- (00410790) --------------------------------------------------------
 int nox_xxx_wallSecretNext_410790(int* a1) {
@@ -1789,7 +1789,7 @@ int* sub_4107A0(void* lpMem) {
 	int* result; // eax
 	int* v2;     // esi
 
-	result = *(int**)&dword_5d4594_251560;
+	result = dword_5d4594_251560;
 	v2 = 0;
 	if (dword_5d4594_251560) {
 		while (result != lpMem) {
@@ -1799,7 +1799,7 @@ int* sub_4107A0(void* lpMem) {
 				return result;
 			}
 		}
-		if (result == *(int**)&dword_5d4594_251560) {
+		if (result == dword_5d4594_251560) {
 			dword_5d4594_251560 = nox_xxx_wallSecretNext_410790(result);
 		} else {
 			*v2 = nox_xxx_wallSecretNext_410790(result);
@@ -4113,7 +4113,8 @@ int nox_xxx_netUnmarkMinimapObj_417300(int a1, nox_object_t* a2p, int a3) {
 
 // mark spell -- is tracked
 //----- (004173D0) --------------------------------------------------------
-int nox_xxx_playerMapTracksObj_4173D0(int a1, int a2) {
+int nox_xxx_playerMapTracksObj_4173D0(int a1, nox_object_t* a2p) {
+	int a2 = a2p;
 	int result; // eax
 	int v3;     // ecx
 
