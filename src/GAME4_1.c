@@ -6166,42 +6166,6 @@ char nox_xxx_netSendObjects2Plr_519410(nox_object_t* a1p, nox_object_t* a2p) {
 	return v4;
 }
 
-//----- (00519660) --------------------------------------------------------
-int sub_519660(int a1, int a2) {
-	int v2;     // esi
-	int result; // eax
-	int v4;     // ebx
-	int v5;     // [esp-4h] [ebp-10h]
-
-	v2 = 1 << *(uint8_t*)(*(uint32_t*)(*(uint32_t*)(a2 + 748) + 276) + 2064);
-	result = (v2 & *(uint32_t*)(a1 + 28)) != 0;
-	switch (*(unsigned char*)(a1 + 21)) {
-	case 1u:
-	case 4u:
-		v4 = 0;
-		break;
-	case 2u:
-	case 3u:
-		v4 = 1;
-		break;
-	default:
-		v4 = a2;
-		break;
-	}
-	if (result != v4) {
-		v5 = nox_server_getWallAtGrid_410580(*(uint32_t*)(a1 + 4), *(uint32_t*)(a1 + 8));
-		if (v4) {
-			sub_4DF120(v5);
-			result = v2 | *(uint32_t*)(a1 + 28);
-		} else {
-			sub_4DF180(v5);
-			result = ~v2 & *(uint32_t*)(a1 + 28);
-		}
-		*(uint32_t*)(a1 + 28) = result;
-	}
-	return result;
-}
-
 //----- (00519710) --------------------------------------------------------
 int sub_519710(int a1) {
 	int result; // eax

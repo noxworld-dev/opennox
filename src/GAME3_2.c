@@ -6492,13 +6492,13 @@ int nox_xxx_wallSendDestroyed_4DF0A0(int a1, int a2) {
 }
 
 //----- (004DF120) --------------------------------------------------------
-int sub_4DF120(int a1) {
+int sub_4DF120(void* a1) {
 	int result; // eax
 	int i;      // esi
 	char v3[3]; // [esp+4h] [ebp-4h]
 
 	v3[0] = 59;
-	*(uint16_t*)&v3[1] = *(uint16_t*)(a1 + 10);
+	*(uint16_t*)&v3[1] = *(uint16_t*)((uint32_t)a1 + 10);
 	result = nox_xxx_getFirstPlayerUnit_4DA7C0();
 	for (i = result; result; i = result) {
 		nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(*(uint32_t*)(i + 748) + 276) + 2064), v3, 3, 0, 1);
@@ -6508,13 +6508,13 @@ int sub_4DF120(int a1) {
 }
 
 //----- (004DF180) --------------------------------------------------------
-int sub_4DF180(int a1) {
+int sub_4DF180(void* a1) {
 	int result; // eax
 	int i;      // esi
 	char v3[3]; // [esp+4h] [ebp-4h]
 
 	v3[0] = 60;
-	*(uint16_t*)&v3[1] = *(uint16_t*)(a1 + 10);
+	*(uint16_t*)&v3[1] = *(uint16_t*)((uint32_t)a1 + 10);
 	result = nox_xxx_getFirstPlayerUnit_4DA7C0();
 	for (i = result; result; i = result) {
 		nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(*(uint32_t*)(i + 748) + 276) + 2064), v3, 3, 0, 1);
