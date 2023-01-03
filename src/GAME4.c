@@ -3989,7 +3989,8 @@ void nox_xxx_mapWall_4FF790() {
 }
 
 //----- (004FF7B0) --------------------------------------------------------
-void sub_4FF7B0(int a1) {
+void sub_4FF7B0(nox_playerInfo* a1p) {
+	int a1 = a1p;
 	char v1;      // cl
 	int v2;       // edi
 	uint32_t* v3; // esi
@@ -5615,7 +5616,8 @@ LABEL_8:
 
 //----- (00501CA0) --------------------------------------------------------
 void nox_xxx_netUpdateRemotePlr_501CA0_B(nox_object_t* a1, int v2, char v18);
-void nox_xxx_netUpdateRemotePlr_501CA0(int a1) {
+void nox_xxx_netUpdateRemotePlr_501CA0(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v2;                            // ebp
 	int v3;                            // eax
 	int v4;                            // ecx

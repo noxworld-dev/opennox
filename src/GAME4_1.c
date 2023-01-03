@@ -54,7 +54,6 @@ extern uint32_t dword_5d4594_2386924;
 extern uint32_t dword_5d4594_2386500;
 extern uint32_t dword_5d4594_2386576;
 extern uint32_t dword_5d4594_2386212;
-extern nox_object_t* nox_xxx_host_player_unit_3843628;
 extern uint32_t dword_5d4594_2386180;
 extern void* nox_alloc_tradeItems_2386496;
 extern void* nox_alloc_visitNode_2386184;
@@ -62,7 +61,6 @@ extern uint32_t dword_5d4594_2388648;
 extern uint32_t dword_5d4594_2386152;
 extern uint32_t dword_5d4594_2386224;
 extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
-extern uint32_t dword_5d4594_2650652;
 extern nox_server_xxx nox_server_xxx_1599716[NOX_SERVER_XXX_SIZE * NOX_SERVER_XXX_SIZE];
 
 uint32_t nox_xxx_wallSounds_2386840 = 0;
@@ -5512,27 +5510,6 @@ short sub_517870(nox_object_t* a1p) {
 	return v1;
 }
 
-//----- (00517F00) --------------------------------------------------------
-int* nox_xxx_secretWallCheckUnits_517F00(float* a1, int (*a2)(int*, int), int a3) {
-	int* result; // eax
-	int* i;      // esi
-	double v5;   // st7
-	double v6;   // st7
-
-	result = (int*)nox_xxx_wallSecretGetFirstWall_410780();
-	for (i = result; result; i = result) {
-		v5 = (double)(23 * i[1]);
-		if (v5 > *a1 && v5 < a1[2]) {
-			v6 = (double)(23 * i[2]);
-			if (v6 > a1[1] && v6 < a1[3]) {
-				a2(i, a3);
-			}
-		}
-		result = (int*)nox_xxx_wallSecretNext_410790(i);
-	}
-	return result;
-}
-
 //----- (00518040) --------------------------------------------------------
 int sub_518040(int arg0, float a2, int arg8, int a4) {
 	int result; // eax
@@ -5930,153 +5907,6 @@ int nox_xxx_netPlayerObjSend_518C30(nox_object_t* a1p, nox_object_t* a2p, int a3
 	return result;
 }
 
-//----- (00518EE0) --------------------------------------------------------
-void nox_xxx_netUpdate_518EE0(nox_object_t* obj) {
-	uint32_t* v1; // ebx
-	int v2;       // esi
-	int v3;       // edi
-	int result;   // eax
-	int v5;       // eax
-	int v6;       // eax
-	int v7;       // eax
-	int v8;       // eax
-	int v9;       // eax
-	int v10;      // eax
-	int v11;      // eax
-	int v12;      // eax
-	int v14;      // ebx
-	char v17[3];  // [esp+Ch] [ebp-20h]
-	int v18;      // [esp+10h] [ebp-1Ch]
-	char v19[5];  // [esp+14h] [ebp-18h]
-	float4 a1;    // [esp+1Ch] [ebp-10h]
-
-	v1 = obj;
-	v2 = obj->data_update;
-	v3 = *(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064);
-	nox_netlist_initPlayerBufs_40F020(v3);
-	if (v3 != 31 && !((gameFrame() + v3) % (unsigned int)(15 * gameFPS()))) {
-		nox_xxx_netReportUnitHeight_4D9020(v3, (int)obj);
-	}
-	if (!dword_5d4594_2650652 || !(gameFrame() % (unsigned int)nox_xxx_rateGet_40A6C0()) ||
-		nox_common_gameFlags_check_40A5C0(8)) {
-		if (*(uint8_t*)(*(uint32_t*)(v2 + 276) + 3680) & 0x40) {
-			v19[0] = 40;
-			*(uint32_t*)&v19[1] = gameFrame();
-			nox_netlist_addToMsgListSrv_40EF40(v3, v19, 5);
-			nox_xxx_playerUnsetStatus_417530(*(uint32_t*)(v2 + 276), 64);
-		} else {
-			v17[0] = 39;
-			*(uint16_t*)&v17[1] = (unsigned short)gameFrame();
-			nox_netlist_addToMsgListSrv_40EF40(v3, v17, 3);
-		}
-	}
-	if (!dword_5d4594_2650652 || (uint32_t*)obj == *(uint32_t**)&nox_xxx_host_player_unit_3843628 ||
-		nox_common_gameFlags_check_40A5C0(8) || !(gameFrame() % (unsigned int)nox_xxx_rateGet_40A6C0())) {
-		if (*(uint8_t*)(*(uint32_t*)(v2 + 276) + 3680) & 3 || nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)) {
-			result = nox_xxx_netPlayerObjSendCamera_519330((int)obj);
-			if (!result) {
-				return;
-			}
-			if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_REPLAY_READ)) {
-				nox_xxx_netPlayerObjSend_518C30((int)obj, obj, 1, 1);
-			}
-		} else {
-			result = nox_xxx_netPlayerObjSend_518C30((int)obj, obj, 1, 1);
-			if (!result) {
-				return;
-			}
-		}
-		v5 = *(uint32_t*)(v2 + 276);
-		v18 = *(unsigned short*)(v5 + 10);
-		a1.field_0 = *(float*)(v5 + 3632) - (double)v18 - 100.0;
-		v6 = *(uint32_t*)(v2 + 276);
-		v18 = *(unsigned short*)(v6 + 12);
-		a1.field_4 = *(float*)(v6 + 3636) - (double)v18 - 100.0;
-		v7 = *(uint32_t*)(v2 + 276);
-		v18 = *(unsigned short*)(v7 + 10);
-		a1.field_8 = (double)v18 + *(float*)(v7 + 3632) + 100.0;
-		v8 = *(uint32_t*)(v2 + 276);
-		v18 = *(unsigned short*)(v8 + 12);
-		a1.field_C = (double)v18 + *(float*)(v8 + 3636) + 100.0;
-		nox_xxx_getUnitsInRectAdv_517ED0(&a1, nox_xxx_unitAroundPlayerFn_5193B0, (int)obj);
-		v9 = *(uint32_t*)(v2 + 276);
-		v18 = *(unsigned short*)(v9 + 10);
-		a1.field_0 = *(float*)(v9 + 3632) - (double)v18 - 128.0;
-		v10 = *(uint32_t*)(v2 + 276);
-		v18 = *(unsigned short*)(v10 + 12);
-		a1.field_4 = *(float*)(v10 + 3636) - (double)v18 - 128.0;
-		v11 = *(uint32_t*)(v2 + 276);
-		v18 = *(unsigned short*)(v11 + 10);
-		a1.field_8 = (double)v18 + *(float*)(v11 + 3632) + 128.0;
-		v12 = *(uint32_t*)(v2 + 276);
-		v18 = *(unsigned short*)(v12 + 12);
-		a1.field_C = (double)v18 + *(float*)(v12 + 3636) + 128.0;
-		nox_xxx_secretWallCheckUnits_517F00(&a1, sub_519660, (int)obj);
-		if (sub_519710(v2)) {
-			sub_519760((int)obj, &a1.field_0);
-		}
-		if ((unsigned char)gameFrame() & 8) {
-			v14 = 1 << *(uint8_t*)(*(uint32_t*)(v2 + 276) + 2064);
-
-			for (int cur_obj = nox_server_getFirstObject_4DA790(); cur_obj;
-				 cur_obj = nox_server_getNextObject_4DA7A0(cur_obj)) {
-				if (!(*(uint32_t*)(cur_obj + 8) & 0x20400000) &&
-					!nox_xxx_playerMapTracksObj_4173D0(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064), cur_obj) &&
-					(*(float*)(cur_obj + 232) > (double)a1.field_8 || *(float*)(cur_obj + 240) < (double)a1.field_0 ||
-					 *(float*)(cur_obj + 236) > (double)a1.field_C || *(float*)(cur_obj + 244) < (double)a1.field_4)) {
-					if (v14 & *(uint32_t*)(cur_obj + 148)) {
-						nox_xxx_netObjectOutOfSight_528A60(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064),
-														   (uint32_t*)cur_obj);
-						*(uint32_t*)(cur_obj + 152) |= v14;
-						*(uint32_t*)(cur_obj + 148) &= ~v14;
-					}
-				}
-			}
-			for (nox_object_t* cur_obj = nox_xxx_getFirstUpdatable2Object_4DA840(); cur_obj;
-				 cur_obj = nox_xxx_getNextUpdatable2Object_4DA850(cur_obj)) {
-				if (!(cur_obj->obj_class & 0x20400000) &&
-					!nox_xxx_playerMapTracksObj_4173D0(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064), cur_obj) &&
-					(cur_obj->collide_x1 > (double)a1.field_8 ||
-					 cur_obj->collide_x2 < (double)a1.field_0 ||
-					 cur_obj->collide_y1 > (double)a1.field_C ||
-					 cur_obj->collide_y2 < (double)a1.field_4)) {
-					if (v14 & cur_obj->field_37) {
-						nox_xxx_netObjectOutOfSight_528A60(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064),
-														   (uint32_t*)cur_obj);
-						*(uint32_t*)&cur_obj->field_38 |= v14;
-						cur_obj->field_37 &= ~v14;
-					}
-				}
-			}
-
-			v1 = obj;
-		}
-	}
-	if (!dword_5d4594_2650652 || !(gameFrame() % (unsigned int)nox_xxx_rateGet_40A6C0()) ||
-		nox_common_gameFlags_check_40A5C0(8)) {
-		sub_4FF7B0(*(uint32_t*)(v2 + 276));
-		sub_511100(*(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064));
-	}
-	nox_xxx_netUpdateRemotePlr_501CA0((int)v1);
-}
-
-//----- (00519330) --------------------------------------------------------
-int nox_xxx_netPlayerObjSendCamera_519330(int a1) {
-	int v1;      // esi
-	char v3[12]; // [esp+8h] [ebp-Ch]
-
-	v1 = *(uint32_t*)(a1 + 748);
-	v3[0] = -61;
-	*(uint16_t*)&v3[3] = 0;
-	*(uint16_t*)&v3[1] = 0;
-	*(uint16_t*)&v3[5] = (long long)*(float*)(*(uint32_t*)(v1 + 276) + 3632);
-	*(uint16_t*)&v3[7] = (long long)*(float*)(*(uint32_t*)(v1 + 276) + 3636);
-	v3[9] = 0;
-	v3[10] = -1;
-	v3[11] = 0;
-	return nox_netlist_addToMsgListSrv_40EF40(*(unsigned char*)(*(uint32_t*)(v1 + 276) + 2064), v3, 12);
-}
-
 //----- (00519410) --------------------------------------------------------
 char nox_xxx_netSendObjects2Plr_519410(nox_object_t* a1p, nox_object_t* a2p) {
 	int a1 = a1p;
@@ -6167,12 +5997,12 @@ char nox_xxx_netSendObjects2Plr_519410(nox_object_t* a1p, nox_object_t* a2p) {
 }
 
 //----- (00519710) --------------------------------------------------------
-int sub_519710(int a1) {
+int sub_519710(void* a1) {
 	int result; // eax
 
-	result = sub_417270(*(unsigned char*)(*(uint32_t*)(a1 + 276) + 2064));
+	result = sub_417270(*(unsigned char*)(*(uint32_t*)((uint32_t)a1 + 276) + 2064));
 	if (result) {
-		result = result > 60 || gameFrame() - *(uint32_t*)(a1 + 268) > (unsigned int)(60 / result);
+		result = result > 60 || gameFrame() - *(uint32_t*)((uint32_t)a1 + 268) > (unsigned int)(60 / result);
 	}
 	return result;
 }
