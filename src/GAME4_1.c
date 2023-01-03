@@ -6094,7 +6094,9 @@ char nox_xxx_unitAroundPlayerFn_5193B0(uint32_t* a1, int a2) {
 }
 
 //----- (00519410) --------------------------------------------------------
-char nox_xxx_netSendObjects2Plr_519410(int a1, int a2) {
+char nox_xxx_netSendObjects2Plr_519410(nox_object_t* a1p, nox_object_t* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v2;     // ebx
 	int v3;     // ecx
 	int v4;     // eax
@@ -6225,30 +6227,6 @@ int sub_519710(int a1) {
 		result = result > 60 || gameFrame() - *(uint32_t*)(a1 + 268) > (unsigned int)(60 / result);
 	}
 	return result;
-}
-
-//----- (00519760) --------------------------------------------------------
-void sub_519760(int a1, float* a2) {
-	int v2; // ebp
-	int v3; // edi
-	int v4; // eax
-	int v5; // esi
-
-	v2 = *(uint32_t*)(a1 + 748);
-	v3 = *(unsigned char*)(*(uint32_t*)(v2 + 276) + 2064);
-	v4 = sub_4172C0(v3);
-	v5 = v4;
-	if (v4) {
-		if (*(uint8_t*)(v4 + 16) & 0x20) {
-			nox_xxx_netMinimapUnmark4All_417430(v4);
-		} else if (*(float*)(v4 + 56) < (double)*a2 || *(float*)(v4 + 56) > (double)a2[2] ||
-				   *(float*)(v4 + 60) < (double)a2[1] || *(float*)(v4 + 60) > (double)a2[3]) {
-			*(uint32_t*)(v4 + 152) |= 1 << v3;
-			nox_xxx_netSendObjects2Plr_519410(a1, v4);
-			nox_xxx_netReportUnitHeight_4D9020(v3, v5);
-			*(uint32_t*)(v2 + 268) = gameFrame();
-		}
-	}
 }
 
 //----- (00519830) --------------------------------------------------------
