@@ -6077,22 +6077,6 @@ int nox_xxx_netPlayerObjSendCamera_519330(int a1) {
 	return nox_netlist_addToMsgListSrv_40EF40(*(unsigned char*)(*(uint32_t*)(v1 + 276) + 2064), v3, 12);
 }
 
-//----- (005193B0) --------------------------------------------------------
-char nox_xxx_unitAroundPlayerFn_5193B0(uint32_t* a1, int a2) {
-	int v2; // ebx
-	int v3; // eax
-
-	v2 = *(uint32_t*)(a2 + 748);
-	if ((uint32_t*)a2 != a1 ||
-		(nox_xxx_netUpdateObjectSpecial_527E50(a2, a1), v3 = *(uint32_t*)(v2 + 276), *(uint8_t*)(v3 + 3680) & 1)) {
-		if (!nox_common_gameFlags_check_40A5C0(0x2000) ||
-			(LOBYTE(v3) = (unsigned char)gameFrame(), *(uint32_t*)(v2 + 272) != gameFrame())) {
-			LOBYTE(v3) = nox_xxx_netSendObjects2Plr_519410(a2, (int)a1);
-		}
-	}
-	return v3;
-}
-
 //----- (00519410) --------------------------------------------------------
 char nox_xxx_netSendObjects2Plr_519410(nox_object_t* a1p, nox_object_t* a2p) {
 	int a1 = a1p;

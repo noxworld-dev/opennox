@@ -48,6 +48,7 @@ void sub_4EC720();
 unsigned int sub_50D890();
 void nox_xxx_gameTick_4D2580_server_D();
 int  nox_xxx_playerSomeWallsUpdate_5003B0(nox_object_t* obj);
+int nox_xxx_netUpdateObjectSpecial_527E50(nox_object_t* a1p, nox_object_t* a2p);
 void sub_4139C0();
 int sub_4DCF20();
 int sub_4E76C0();
@@ -622,6 +623,25 @@ func (s *Server) sub519760(u *Unit, rect types.Rectf) {
 func (s *Server) nox_xxx_netMinimapUnmark4All_417430(obj *Object) {
 	for pl := s.playerFirst(); pl != nil; pl = s.playerNext(pl) {
 		C.nox_xxx_netUnmarkMinimapObj_417300(C.int(pl.Index()), obj.CObj(), 3)
+	}
+}
+
+//export nox_xxx_unitAroundPlayerFn_5193B0
+func nox_xxx_unitAroundPlayerFn_5193B0(it *nox_object_t, u *nox_object_t) {
+	noxServer.nox_xxx_unitAroundPlayerFn5193B0(asObjectC(it), asUnitC(u))
+}
+
+func (s *Server) nox_xxx_unitAroundPlayerFn5193B0(it *Object, u *Unit) {
+	ud := u.UpdateDataPlayer()
+	pl := asPlayerS(ud.Player)
+	if u.SObj() == it.SObj() {
+		C.nox_xxx_netUpdateObjectSpecial_527E50(u.CObj(), it.CObj())
+		if pl.field_3680&0x1 == 0 {
+			return
+		}
+	}
+	if !noxflags.HasGame(noxflags.GameOnline) || ud.Field68 != s.Frame() {
+		C.nox_xxx_netSendObjects2Plr_519410(u.CObj(), it.CObj())
 	}
 }
 
