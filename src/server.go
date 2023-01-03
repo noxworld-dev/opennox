@@ -35,12 +35,8 @@ extern uint32_t dword_5d4594_528252;
 extern uint32_t dword_5d4594_528260;
 extern uint32_t dword_5d4594_2488604;
 
-void nox_xxx_abilUpdateMB_4FBEE0();
-char* nox_server_updateRemotePlayers_4DEC80();
 void nox_xxx_netlist_4DEB50();
-//void nox_script_activatorRun_51ADF0();
 void nox_xxx_serverLoopSendMap_519990();
-void nox_xxx_unitsUpdateDeletedList_4E5E20();
 void nox_xxx_updateUnits_51B100();
 void nox_xxx_voteUptate_506F30();
 void sub_4E4170();
@@ -55,7 +51,6 @@ int sub_4E76C0();
 bool sub_57B140();
 nox_object_t* sub_537700();
 
-void nox_xxx_updateUnits_51B100_A();
 void nox_xxx_updateUnits_51B100_D();
 */
 import "C"
@@ -574,7 +569,7 @@ func (s *Server) updateRemotePlayers() error {
 				mainloopStop()
 				return fmt.Errorf("player unit deleted (%s)", pl.Name())
 			}
-			C.nox_xxx_netUpdate_518EE0(pl.UnitC().CObj())
+			s.nox_xxx_netUpdate_518EE0(pl.UnitC())
 		}
 		if pl.UnitC() == HostPlayerUnit() {
 			C.nox_xxx_netImportant_4E5770(C.uchar(pl.Index()), 1)
@@ -583,6 +578,99 @@ func (s *Server) updateRemotePlayers() error {
 		}
 	}
 	return nil
+}
+
+func (s *Server) nox_xxx_secretWallCheckUnits_517F00(rect types.Rectf, fnc func(it unsafe.Pointer)) {
+	for it := nox_xxx_wallSecretGetFirstWall_410780(); it != nil; it = nox_xxx_wallSecretNext_410790(it) {
+		x := float64(*(*int32)(unsafe.Add(it, 4)) * common.GridStep)
+		y := float64(*(*int32)(unsafe.Add(it, 8)) * common.GridStep)
+		if x > float64(rect.Left) && x < float64(rect.Right) &&
+			y > float64(rect.Top) && y < float64(rect.Bottom) {
+			fnc(it)
+		}
+	}
+}
+
+func (s *Server) nox_xxx_netUpdate_518EE0(u *Unit) {
+	ud := u.UpdateDataPlayer()
+	pl := asPlayerS(ud.Player)
+	pind := pl.Index()
+	netlist.InitByInd(pind)
+	if pind != common.MaxPlayers-1 && ((s.Frame()+uint32(pind))%(s.TickRate()*15)) == 0 {
+		C.nox_xxx_netReportUnitHeight_4D9020(C.int(pind), u.CObj())
+	}
+	if C.dword_5d4594_2650652 == 0 || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0())) == 0 || noxflags.HasGame(noxflags.GameFlag4) {
+		if pl.field_3680&0x40 != 0 {
+			var buf [5]byte
+			buf[0] = byte(noxnet.MSG_FULL_TIMESTAMP)
+			binary.LittleEndian.PutUint32(buf[1:], s.Frame())
+			nox_netlist_addToMsgListSrv(pind, buf[:5])
+			C.nox_xxx_playerUnsetStatus_417530(pl.C(), 64)
+		} else {
+			var buf [3]byte
+			buf[0] = byte(noxnet.MSG_TIMESTAMP)
+			binary.LittleEndian.PutUint16(buf[1:], uint16(s.Frame()))
+			nox_netlist_addToMsgListSrv(pind, buf[:3])
+		}
+	}
+	if C.dword_5d4594_2650652 == 0 || u == HostPlayerUnit() || noxflags.HasGame(noxflags.GameFlag4) || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0())) == 0 {
+		if pl.field_3680&3 != 0 || noxflags.HasEngine(noxflags.EngineReplayRead) {
+			if !s.nox_xxx_netPlayerObjSendCamera_519330(u) {
+				return
+			}
+			if noxflags.HasEngine(noxflags.EngineReplayRead) {
+				C.nox_xxx_netPlayerObjSend_518C30(u.CObj(), u.CObj(), 1, 1)
+			}
+		} else {
+			if C.nox_xxx_netPlayerObjSend_518C30(u.CObj(), u.CObj(), 1, 1) == 0 {
+				return
+			}
+		}
+		dp := types.Ptf(float32(pl.field_10), float32(pl.field_12)).Add(types.Ptf(100, 100))
+		p1 := pl.pos3632().Sub(dp)
+		p2 := pl.pos3632().Add(dp)
+		rect := types.RectFromPointsf(p1, p2)
+		s.Map.EachObjAndMissileInRect(rect, func(it *server.Object) {
+			s.nox_xxx_unitAroundPlayerFn_5193B0(asObjectS(it), u)
+		})
+
+		dp = types.Ptf(float32(pl.field_10), float32(pl.field_12)).Add(types.Ptf(128, 128))
+		p1 = pl.pos3632().Sub(dp)
+		p2 = pl.pos3632().Add(dp)
+		rect = types.RectFromPointsf(p1, p2)
+		s.nox_xxx_secretWallCheckUnits_517F00(rect, func(it unsafe.Pointer) {
+			s.sub_519660(it, u)
+		})
+		if C.sub_519710(unsafe.Pointer(ud)) != 0 {
+			s.sub_519760(u, rect)
+		}
+		if s.Frame()&8 != 0 {
+			plBit := uint32(1 << pl.Index())
+			for it := s.FirstServerObject(); it != nil; it = it.Next() {
+				if !it.Class().HasAny(object.ClassClientPersist|object.ClassImmobile) && C.nox_xxx_playerMapTracksObj_4173D0(C.int(pl.Index()), it.CObj()) == 0 && (float64(it.CollideP1.X) > float64(rect.Right) || float64(it.CollideP2.X) < float64(rect.Left) || float64(it.CollideP1.Y) > float64(rect.Bottom) || float64(it.CollideP2.Y) < float64(rect.Top)) {
+					if it.Field37&plBit != 0 {
+						s.nox_xxx_netObjectOutOfSight_528A60(pl.Index(), it)
+						it.Field38 |= plBit
+						it.Field37 &^= plBit
+					}
+				}
+			}
+			for it := asObjectS(s.Objs.UpdatableList2); it != nil; it = it.Next() {
+				if !it.Class().HasAny(object.ClassClientPersist|object.ClassImmobile) && C.nox_xxx_playerMapTracksObj_4173D0(C.int(pl.Index()), it.CObj()) == 0 && (float64(it.CollideP1.X) > float64(rect.Right) || float64(it.CollideP2.X) < float64(rect.Left) || float64(it.CollideP1.Y) > float64(rect.Bottom) || float64(it.CollideP2.Y) < float64(rect.Top)) {
+					if it.Field37&plBit != 0 {
+						s.nox_xxx_netObjectOutOfSight_528A60(pl.Index(), it)
+						it.Field38 |= plBit
+						it.Field37 &^= plBit
+					}
+				}
+			}
+		}
+	}
+	if C.dword_5d4594_2650652 == 0 || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0())) == 0 || noxflags.HasGame(noxflags.GameFlag4) {
+		C.sub_4FF7B0(pl.C())
+		C.sub_511100(C.int(pl.Index()))
+	}
+	C.nox_xxx_netUpdateRemotePlr_501CA0(u.CObj())
 }
 
 func (s *Server) sub_4172C0(pind int) *Object {
@@ -598,12 +686,7 @@ func (s *Server) sub_4172C0(pind int) *Object {
 	return asObjectC(p)
 }
 
-//export sub_519760
-func sub_519760(u *nox_object_t, rect *C.float) {
-	noxServer.sub519760(asUnitC(u), *(*types.Rectf)(unsafe.Pointer(rect)))
-}
-
-func (s *Server) sub519760(u *Unit, rect types.Rectf) {
+func (s *Server) sub_519760(u *Unit, rect types.Rectf) {
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	pind := pl.Index()
@@ -627,12 +710,7 @@ func (s *Server) nox_xxx_netMinimapUnmark4All_417430(obj *Object) {
 	}
 }
 
-//export sub_519660
-func sub_519660(it unsafe.Pointer, u *nox_object_t) {
-	noxServer.sub519660(it, asUnitC(u))
-}
-
-func (s *Server) sub519660(it unsafe.Pointer, u *Unit) {
+func (s *Server) sub_519660(it unsafe.Pointer, u *Unit) {
 	pl := u.ControllingPlayer()
 	v2 := uint32(1 << pl.Index())
 	isSet := (v2 & *(*uint32)(unsafe.Add(it, 28))) != 0
@@ -657,12 +735,7 @@ func (s *Server) sub519660(it unsafe.Pointer, u *Unit) {
 	}
 }
 
-//export nox_xxx_unitAroundPlayerFn_5193B0
-func nox_xxx_unitAroundPlayerFn_5193B0(it *nox_object_t, u *nox_object_t) {
-	noxServer.nox_xxx_unitAroundPlayerFn5193B0(asObjectC(it), asUnitC(u))
-}
-
-func (s *Server) nox_xxx_unitAroundPlayerFn5193B0(it *Object, u *Unit) {
+func (s *Server) nox_xxx_unitAroundPlayerFn_5193B0(it *Object, u *Unit) {
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	if u.SObj() == it.SObj() {

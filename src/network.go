@@ -1174,7 +1174,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 		return 14
 	case noxnet.MSG_IMPORTANT:
 		n := 1
-		if nox_common_gameFlags_check_40A5C0(1) {
+		if noxflags.HasGame(noxflags.GameHost) {
 			n = 5
 		}
 		if len(data) < n {
@@ -1183,7 +1183,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 		if nox_client_isConnected() {
 			var buf [5]byte
 			buf[0] = byte(noxnet.MSG_IMPORTANT_ACK)
-			if nox_common_gameFlags_check_40A5C0(1) {
+			if noxflags.HasGame(noxflags.GameHost) {
 				v := binary.LittleEndian.Uint32(data[1:])
 				binary.LittleEndian.PutUint32(buf[1:], v)
 			} else {
@@ -1739,4 +1739,34 @@ func netSendAudioEvent(u *Unit, ev *server.AudioEvent, perc int16) {
 	buf[1] = mv
 	binary.LittleEndian.PutUint16(buf[2:], packed)
 	netlist.AddToMsgListCli(pl.Index(), netlist.Kind1, buf[:4])
+}
+
+func (s *Server) nox_xxx_netObjectOutOfSight_528A60(ind int, obj *Object) int {
+	var buf [3]byte
+	buf[0] = byte(noxnet.MSG_OBJECT_OUT_OF_SIGHT)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(s.getUnitNetCode(obj)))
+	return s.nox_xxx_netSendPacket0_4E5420(ind, buf[:3], 0, 1)
+}
+
+func (s *Server) nox_xxx_netObjectInShadows_528A90(ind int, obj *Object) int {
+	var buf [3]byte
+	buf[0] = byte(noxnet.MSG_OBJECT_IN_SHADOWS)
+	binary.LittleEndian.PutUint16(buf[1:], uint16(s.getUnitNetCode(obj)))
+	return s.nox_xxx_netSendPacket0_4E5420(ind, buf[:3], 0, 1)
+}
+
+func (s *Server) nox_xxx_netPlayerObjSendCamera_519330(u *Unit) bool {
+	ud := u.UpdateDataPlayer()
+	pl := asPlayerS(ud.Player)
+	var buf [12]byte
+	buf[0] = byte(noxnet.MSG_PLAYER_OBJ)
+	binary.LittleEndian.PutUint16(buf[1:], 0)
+	binary.LittleEndian.PutUint16(buf[3:], 0)
+	pos := pl.pos3632()
+	binary.LittleEndian.PutUint16(buf[5:], uint16(pos.X))
+	binary.LittleEndian.PutUint16(buf[7:], uint16(pos.Y))
+	buf[9] = 0
+	buf[10] = 0xff
+	buf[11] = 0
+	return nox_netlist_addToMsgListSrv(pl.Index(), buf[:12])
 }

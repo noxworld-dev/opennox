@@ -3,6 +3,7 @@ package opennox
 /*
 #include "GAME1.h"
 #include "GAME4_1.h"
+extern void* dword_5d4594_251560;
 */
 import "C"
 import (
@@ -110,6 +111,17 @@ func (s *Server) getWallGroupByID(id string) *script.WallGroup {
 		}
 	}
 	return script.NewWallGroup(id, list...)
+}
+
+func nox_xxx_wallSecretGetFirstWall_410780() unsafe.Pointer {
+	return C.dword_5d4594_251560
+}
+
+func nox_xxx_wallSecretNext_410790(p unsafe.Pointer) unsafe.Pointer {
+	if p == nil {
+		return nil
+	}
+	return *(*unsafe.Pointer)(p)
 }
 
 type Wall [0]byte
