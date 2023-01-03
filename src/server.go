@@ -583,6 +583,24 @@ func (s *Server) updateRemotePlayers() error {
 	return nil
 }
 
+//export sub_4172C0
+func sub_4172C0(pind int) *nox_object_t {
+	return noxServer.sub4172C0(pind).CObj()
+}
+
+func (s *Server) sub4172C0(pind int) *Object {
+	if pind < 0 && pind >= common.MaxPlayers {
+		return nil
+	}
+	pl := s.players.list[pind]
+	if pl.field_4580 == nil {
+		return nil
+	}
+	p := *(**nox_object_t)(unsafe.Add(pl.field_4580, 4))
+	pl.field_4580 = *(*unsafe.Pointer)(unsafe.Add(pl.field_4580, 8))
+	return asObjectC(p)
+}
+
 func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	gameLog.Println("nox_xxx_servNewSession_4D1660")
 	C.sub_4D15C0()
