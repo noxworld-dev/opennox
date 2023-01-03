@@ -235,7 +235,7 @@ nox_playerInfo* nox_common_playerInfoFromNumRaw(int i);
 char* nox_xxx_playerByName_4170D0(wchar_t* a1);
 int nox_xxx_netMarkMinimapObject_417190(int a1, int a2, int a3);
 int sub_417270(int a1);
-int sub_4172C0(int a1);
+nox_object_t* sub_4172C0(int a1);
 int nox_xxx_netUnmarkMinimapObj_417300(int a1, int a2, int a3);
 int nox_xxx_playerMapTracksObj_4173D0(int a1, int a2);
 char* nox_xxx_netMinimapUnmark4All_417430(int a1);
