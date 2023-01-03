@@ -183,7 +183,7 @@ float* nox_xxx_mapGenMoveObject_527A10(float* a1, float2* a2);
 int nox_xxx_mapGenOrientObj_527C60(int a1, int a2);
 int nox_xxx_mapGenFinishSpellbook_527DB0(int a1, char a2);
 int* sub_527E00(nox_object_t* a1);
-int nox_xxx_netUpdateObjectSpecial_527E50(int a1, uint32_t* a2);
+int nox_xxx_netUpdateObjectSpecial_527E50(nox_object_t* a1, nox_object_t* a2);
 short sub_528030(int a1);
 int nox_xxx_checkIsKillable_528190(nox_object_t* a1);
 int nox_xxx_frameCounterSetCopyToNextFrame_5281D0();
