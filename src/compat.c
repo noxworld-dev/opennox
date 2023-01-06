@@ -17,8 +17,6 @@
 #include "common/fs/nox_fs.h"
 #include "windows_compat.h"
 
-void OutputDebugStringA(const char* lpOutputString) { fprintf(stderr, "%s", lpOutputString); }
-
 char* nox_itoa(int val, char* s, int radix);
 char* _itoa(int val, char* s, int radix) { return nox_itoa(val, s, radix); }
 
@@ -35,23 +33,6 @@ wchar_t* _itow(int val, wchar_t* s, int radix) {
 }
 
 int InterlockedExchange(volatile int* Target, int Value) { return __sync_lock_test_and_set(Target, Value); }
-
-void GetLocalTime(LPSYSTEMTIME lpSystemTime) {
-	time_t t;
-	struct tm* tm;
-
-	time(&t);
-	tm = localtime(&t);
-
-	lpSystemTime->wYear = tm->tm_year + 1900;
-	lpSystemTime->wMonth = tm->tm_mon;
-	lpSystemTime->wDayOfWeek = tm->tm_wday;
-	lpSystemTime->wDay = tm->tm_mday;
-	lpSystemTime->wHour = tm->tm_hour;
-	lpSystemTime->wMinute = tm->tm_min;
-	lpSystemTime->wSecond = tm->tm_sec;
-	lpSystemTime->wMilliseconds = 0;
-}
 
 struct _FIND_FILE {
 	size_t idx;

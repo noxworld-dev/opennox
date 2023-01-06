@@ -1,3 +1,5 @@
+#include "compat.h"
+
 #include "client__gui__guibook.h"
 #include "client__gui__window.h"
 

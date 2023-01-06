@@ -1,11 +1,7 @@
 #include "client__gui__servopts__access.h"
 #include "client__gui__window.h"
 #include "common__strman.h"
-#ifdef _WIN32
-#include <windows.h>
-#else
-#include "windows_compat.h"
-#endif
+#include "compat.h"
 
 #include "GAME1.h"
 #include "GAME1_3.h"

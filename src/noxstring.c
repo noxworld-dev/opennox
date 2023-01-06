@@ -5,11 +5,7 @@
 #include <string.h>
 #include <wctype.h>
 
-#ifdef _WIN32
-#include <windows.h>
-#else
-#include "windows_compat.h"
-#endif
+char* nox_itoa(int val, char* s, int radix);
 
 int nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format, va_list ap) {
 	int i = 0, j, out = 0;
@@ -86,7 +82,7 @@ int nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format, va_list
 			char tmp[32];
 			int len;
 
-			len = strlen(_itoa(va_arg(ap, int), tmp, 10));
+			len = strlen(nox_itoa(va_arg(ap, int), tmp, 10));
 
 			for (j = 0; j < width - (precision > 0 ? precision : len); j++) {
 				if (flag == '0')
@@ -108,7 +104,7 @@ int nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format, va_list
 			char tmp[32];
 			int len;
 
-			len = strlen(_itoa(va_arg(ap, unsigned int), tmp, ch == 'u' ? 10 : ch == 'o' ? 8 : 16));
+			len = strlen(nox_itoa(va_arg(ap, unsigned int), tmp, ch == 'u' ? 10 : ch == 'o' ? 8 : 16));
 			for (j = 0; j < width - (precision > 0 ? precision : len); j++) {
 				if (flag == '0')
 					EMIT('0');
@@ -145,7 +141,7 @@ int nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format, va_list
 			EMIT('!');
 			break;
 		default:
-			_dprintf("Unhandled format character: '%c'", ch);
+			printf("Unhandled format character: '%c'", ch);
 			abort();
 			// EMIT(ch);
 			break;
@@ -233,7 +229,7 @@ int nox_vsnprintf(char* buffer, size_t count, const char* format, va_list ap) {
 			char tmp[32];
 			int len;
 
-			len = strlen(_itoa(va_arg(ap, int), tmp, 10));
+			len = strlen(nox_itoa(va_arg(ap, int), tmp, 10));
 
 			for (j = 0; j < width - (precision > 0 ? precision : len); j++) {
 				if (flag == '0')
@@ -255,7 +251,7 @@ int nox_vsnprintf(char* buffer, size_t count, const char* format, va_list ap) {
 			char tmp[32];
 			int len;
 
-			len = strlen(_itoa(va_arg(ap, unsigned int), tmp, ch == 'u' ? 10 : ch == 'o' ? 8 : 16));
+			len = strlen(nox_itoa(va_arg(ap, unsigned int), tmp, ch == 'u' ? 10 : ch == 'o' ? 8 : 16));
 			for (j = 0; j < width - (precision > 0 ? precision : len); j++) {
 				if (flag == '0')
 					EMIT('0');
@@ -276,7 +272,7 @@ int nox_vsnprintf(char* buffer, size_t count, const char* format, va_list ap) {
 			EMIT('!');
 			break;
 		default:
-			_dprintf("Unhandled format character: '%c'", ch);
+			printf("Unhandled format character: '%c'", ch);
 			abort();
 			break;
 		}
@@ -439,15 +435,3 @@ int nox_swprintf(wchar_t* str, const wchar_t* fmt, ...) {
 }
 
 int nox_vswprintf(wchar_t* str, const wchar_t* fmt, va_list ap) { return nox_vsnwprintf(str, 0x3fffffff, fmt, ap); }
-
-void _dprintf(const char* fmt, ...) {
-	char buf[1024];
-	int len;
-	va_list ap;
-	va_start(ap, fmt);
-	len = nox_vsnprintf(buf, sizeof(buf) - 1, fmt, ap);
-	buf[len] = '\n';
-	buf[len + 1] = 0;
-	OutputDebugStringA(buf);
-	va_end(ap);
-}
