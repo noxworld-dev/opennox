@@ -1,7 +1,5 @@
 #include <math.h>
 
-#include "compat.h"
-
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_2.h"
@@ -11082,7 +11080,7 @@ int sub_4F2B60(int a1) {
 		v5 = *(const char****)(a1 + 692);
 		if (v4 & 0x405) {
 			v6 = 0;
-			while (!*v5 || !_strnicmp(**v5, "UserColo", 8u)) {
+			while (!*v5 || !nox_strnicmp(**v5, "UserColo", 8u)) {
 				++v6;
 				++v5;
 				if (v6 >= 4) {

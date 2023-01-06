@@ -1,7 +1,12 @@
 #include <math.h>
 #include <time.h>
 
-#include "compat.h"
+// For htonl
+#ifdef _WIN32
+#include <winsock.h>
+#else
+#include <arpa/inet.h>
+#endif
 
 #include "GAME1.h"
 #include "GAME1_1.h"
@@ -3017,7 +3022,7 @@ int sub_420230(char* a1, uint16_t* a2) {
 		return 0;
 	}
 	while (1) {
-		if (!_strcmpi((const char*)(v2 + 95), "LAD")) {
+		if (!nox_strcmpi((const char*)(v2 + 95), "LAD")) {
 			strcpy(v6, (const char*)(v2 + 100));
 			*a1 = 0;
 			*a2 = 0;
@@ -3062,7 +3067,7 @@ int sub_420360(char* a1, uint16_t* a2) {
 	if (!dword_5d4594_534808) {
 		return 0;
 	}
-	while (_strcmpi((const char*)(v2 + 95), "GAM")) {
+	while (nox_strcmpi((const char*)(v2 + 95), "GAM")) {
 	LABEL_19:
 		v2 = *(uint32_t*)(v2 + 20);
 		if (!v2) {
@@ -3070,7 +3075,7 @@ int sub_420360(char* a1, uint16_t* a2) {
 		}
 	}
 	if (nox_common_gameFlags_check_40A5C0(4096)) {
-		if (!_strcmpi((const char*)(v2 + 24), "Quest gameres server")) {
+		if (!nox_strcmpi((const char*)(v2 + 24), "Quest gameres server")) {
 			strcpy(v7, (const char*)(v2 + 100));
 			*a1 = 0;
 			*a2 = 0;
@@ -3090,7 +3095,7 @@ int sub_420360(char* a1, uint16_t* a2) {
 		if (!nox_common_gameFlags_check_40A5C0(0x2000)) {
 			return 0;
 		}
-		if (!_strcmpi((const char*)(v2 + 24), "Gameres server")) {
+		if (!nox_strcmpi((const char*)(v2 + 24), "Gameres server")) {
 			strcpy(v7, (const char*)(v2 + 100));
 			*a1 = 0;
 			*a2 = 0;
@@ -3461,7 +3466,7 @@ unsigned char* sub_421230() {
 		*(uint8_t*)(*(uint32_t*)v1 + 128) = 0;
 	}
 	*((uint32_t*)v1 + 20) = v0;
-	_itoa(v0, (char*)v1 + 4, 10);
+	nox_itoa(v0, (char*)v1 + 4, 10);
 	sub_421160((int)v1);
 	*((uint32_t*)v1 + 21) = 1;
 	return getMemAt(0x5D4594, 552228 + 140 * v0);
@@ -4935,7 +4940,7 @@ void set_bitmask_flags_from_plus_separated_names_423930(const char* input, uint3
 //----- (004239C0) --------------------------------------------------------
 int set_one_bitmask_flag_by_name_4239C0(char* name, uint32_t* bitmask, const char** allowed_names) {
 	for (char i = 0; allowed_names[i]; ++i) {
-		if (!_strcmpi(allowed_names[i], name)) {
+		if (!nox_strcmpi(allowed_names[i], name)) {
 			*bitmask |= 1 << i;
 			return 1;
 		}

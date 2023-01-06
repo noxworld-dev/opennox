@@ -11,11 +11,6 @@ package opennox
 #include "GAME4_2.h"
 #include "GAME5.h"
 #include "GAME5_2.h"
-#ifdef _WIN32
-#include <windows.h>
-#else
-#include "windows_compat.h"
-#endif
 extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_5d4594_2660032;
 extern unsigned int dword_5d4594_814548;

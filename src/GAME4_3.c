@@ -1,7 +1,5 @@
 #include <math.h>
 
-#include "compat.h"
-
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_2.h"
@@ -10892,7 +10890,7 @@ int sub_544020(char* a1) {
 	int result; // eax
 
 	dword_5d4594_2489436 = 0;
-	if (_strcmpi("NONE", a1)) {
+	if (nox_strcmpi("NONE", a1)) {
 		v1 = sub_543FB0(a1);
 		result = nox_xxx_tileCheckByte3_544070(v1);
 	} else {

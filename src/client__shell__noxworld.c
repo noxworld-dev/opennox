@@ -1,5 +1,3 @@
-#include "compat.h"
-
 #include "client__shell__noxworld.h"
 
 #include "GAME1.h"
@@ -1057,7 +1055,7 @@ void nox_gui_wol_newServerLine_43B7C0(nox_gui_server_ent_t* srv) {
 		if (srv->ping == 9999) {
 			nox_swprintf(wbuf, L"--");
 		} else {
-			_itow(srv->ping, wbuf, 10);
+			nox_itow(srv->ping, wbuf, 10);
 		}
 		nox_window_call_field_94(dword_5d4594_815028, 16397, wbuf, 4);
 

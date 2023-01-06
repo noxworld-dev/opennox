@@ -1,5 +1,3 @@
-#include "compat.h"
-
 #include "client__gui__servopts__guiserv.h"
 #include "client__gui__window.h"
 #include "common__strman.h"
@@ -423,7 +421,7 @@ void nox_client_guiserv_updateMapList_458230(int mode, char* current, bool a3) {
 			nox_strman_loadString_40F1D0("RecPlayers", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c", 823);
 		nox_swprintf(v21, v9, it->name, v15, v16);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16397, v21, v6);
-		if (_strcmpi(current, it->name) == 0) {
+		if (nox_strcmpi(current, it->name) == 0) {
 			v18 = v17;
 			nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16403, v17, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16412, v17, 0);
@@ -769,7 +767,7 @@ int nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int 
 	}
 	if (v8 > 255) {
 		LOBYTE(v8) = -1;
-		_itow(255, WideCharStr, 10);
+		nox_itow(255, WideCharStr, 10);
 		nox_window_call_field_94((int)v4, 16414, (int)WideCharStr, -1);
 	}
 	v5[56] = v8;

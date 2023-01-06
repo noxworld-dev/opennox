@@ -2488,7 +2488,7 @@ int sub_4A7B40(char* a1) {
 	v3 = 0;
 	if (*getMemU32Ptr(0x587000, 171856)) {
 		v4 = getMemAt(0x587000, 171856);
-		while (_strcmpi(v2, a1)) {
+		while (nox_strcmpi(v2, a1)) {
 			v2 = (const char*)*((uint32_t*)v4 + 2);
 			v4 += 8;
 			++v3;

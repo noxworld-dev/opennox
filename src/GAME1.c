@@ -1,7 +1,5 @@
 #include <math.h>
 
-#include "compat.h"
-
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_2.h"
@@ -147,7 +145,7 @@ char* nox_xxx_gameSetMapPath_409D70(char* a1) {
 	char* v2;      // eax
 	signed int v3; // esi
 
-	result = (char*)_strcmpi((const char*)getMemAt(0x5D4594, 2598188), a1);
+	result = (char*)nox_strcmpi((const char*)getMemAt(0x5D4594, 2598188), a1);
 	if (result) {
 		strncpy((char*)getMemAt(0x5D4594, 2598188), a1, 0x50u);
 		*getMemU8Ptr(0x5D4594, 2598267) = 0;
@@ -347,7 +345,7 @@ char* nox_xxx_gameSetServername_40A440(char* a1) {
 	if (a1) {
 		strncpy(v2, a1, 0xFu);
 		v2[15] = 0;
-		result = (char*)_strcmpi((const char*)getMemAt(0x5D4594, 1324), v2);
+		result = (char*)nox_strcmpi((const char*)getMemAt(0x5D4594, 1324), v2);
 		if (result) {
 			result = strncpy((char*)getMemAt(0x5D4594, 1324), v2, 0xFu);
 			*getMemU8Ptr(0x5D4594, 1339) = 0;
@@ -3291,7 +3289,7 @@ int sub_415910(char* a1) {
 	}
 	v2 = (const char**)getMemAt(0x587000, 33064);
 	v3 = getMemAt(0x587000, 33064);
-	while (_strcmpi(a1, *v2)) {
+	while (nox_strcmpi(a1, *v2)) {
 		v4 = *((uint32_t*)v3 + 3);
 		v3 += 12;
 		++v1;
@@ -3531,7 +3529,7 @@ int sub_415DF0(char* a1) {
 	}
 	v2 = (const char**)getMemAt(0x587000, 34848);
 	v3 = getMemAt(0x587000, 34848);
-	while (_strcmpi(a1, *v2)) {
+	while (nox_strcmpi(a1, *v2)) {
 		v4 = *((uint32_t*)v3 + 6);
 		v3 += 24;
 		++v1;

@@ -1,5 +1,6 @@
 #ifdef _WIN32
-#include <windows.h>
+#include <io.h>
+#include <fileapi.h>
 #else
 #include "windows_compat.h"
 #endif

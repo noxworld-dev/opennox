@@ -2,8 +2,6 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "compat.h"
-
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_3.h"
@@ -2448,7 +2446,7 @@ int nox_xxx_monsterLoadStrikeFn_549040(int a1, char* a2) {
 	int v4;            // ebp
 	unsigned char* v5; // edi
 
-	if (_strcmpi("NULL", a2)) {
+	if (nox_strcmpi("NULL", a2)) {
 		v3 = *(const char**)getMemAt(0x587000, 287096);
 		v4 = 0;
 		if (*getMemU32Ptr(0x587000, 287096)) {
@@ -2481,7 +2479,7 @@ int nox_xxx_monsterLoadDieFn_5490E0(int a1, char* a2) {
 	int v4;            // ebp
 	unsigned char* v5; // edi
 
-	if (_strcmpi("NULL", a2)) {
+	if (nox_strcmpi("NULL", a2)) {
 		v3 = *(const char**)getMemAt(0x587000, 287280);
 		v4 = 0;
 		if (*getMemU32Ptr(0x587000, 287280)) {
@@ -2514,7 +2512,7 @@ int nox_xxx_monsterLoadDeadFn_549180(int a1, char* a2) {
 	int v4;            // ebp
 	unsigned char* v5; // edi
 
-	if (_strcmpi("NULL", a2)) {
+	if (nox_strcmpi("NULL", a2)) {
 		v3 = *(const char**)getMemAt(0x587000, 287192);
 		v4 = 0;
 		if (*getMemU32Ptr(0x587000, 287192)) {
