@@ -664,18 +664,6 @@ func nox_savegame_findLatestSave_46CDC0(sarr []C.nox_savegame_xxx) int {
 	return ind
 }
 
-func asTime(ts *C.SYSTEMTIME) time.Time {
-	if ts == nil {
-		return time.Time{}
-	}
-	return time.Date(
-		int(ts.wYear), time.Month(ts.wMonth), int(ts.wDay),
-		int(ts.wHour), int(ts.wMinute), int(ts.wSecond),
-		int(ts.wMilliseconds)*int(time.Millisecond),
-		time.Local,
-	)
-}
-
 func sub_4D6F70() bool {
 	return memmap.Uint32(0x5D4594, 1556164) != 0
 }
