@@ -1,3 +1,5 @@
+#include "compat.h"
+
 #include "GAME2_1.h"
 #include "GAME1.h"
 #include "GAME1_1.h"

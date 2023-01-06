@@ -1,11 +1,7 @@
 package opennox
 
 /*
-#ifdef _WIN32
-#include <windows.h>
-#else
-#include "windows_compat.h"
-#endif
+#include "defs.h"
 */
 import "C"
 import (
@@ -23,7 +19,20 @@ func nox_itoa(val C.int, s *C.char, radix C.int) *C.char {
 	return s
 }
 
-func asTime(ts *C.SYSTEMTIME) time.Time {
+//export noxGetLocalTime
+func noxGetLocalTime(p *C.noxSYSTEMTIME) {
+	tm := time.Now()
+	p.wYear = C.ushort(tm.Year())
+	p.wMonth = C.ushort(tm.Month())
+	p.wDayOfWeek = C.ushort(tm.Weekday())
+	p.wDay = C.ushort(tm.Day())
+	p.wHour = C.ushort(tm.Hour())
+	p.wMinute = C.ushort(tm.Minute())
+	p.wSecond = C.ushort(tm.Second())
+	p.wMilliseconds = C.ushort(tm.Nanosecond() / 1e6)
+}
+
+func asTime(ts *C.noxSYSTEMTIME) time.Time {
 	if ts == nil {
 		return time.Time{}
 	}

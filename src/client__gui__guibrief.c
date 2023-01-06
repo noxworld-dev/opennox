@@ -1,3 +1,5 @@
+#include "compat.h"
+
 #include "client__gui__guibrief.h"
 #include "client__gui__window.h"
 #include "common__strman.h"

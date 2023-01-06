@@ -1,6 +1,8 @@
 #include <math.h>
 #include <time.h>
 
+#include "compat.h"
+
 #include "common__system__team.h"
 #include "server__script__script.h"
 #include "server__system__server.h"

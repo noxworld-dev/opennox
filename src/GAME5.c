@@ -2,6 +2,8 @@
 #include <math.h>
 #include <stdio.h>
 
+#include "compat.h"
+
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_3.h"
