@@ -81,7 +81,6 @@ enum {
 #define FindFirstFileA compatFindFirstFileA
 #define FindNextFileA compatFindNextFileA
 #define FindClose compatFindClose
-#define GetDateFormatA compatGetDateFormatA
 #define OutputDebugStringA compatOutputDebugStringA
 #define _itoa compat_itoa
 #define _itow compat_itow
@@ -94,8 +93,6 @@ void GetLocalTime(LPSYSTEMTIME lpSystemTime);
 HANDLE FindFirstFileA(const char* lpFileName, LPWIN32_FIND_DATAA lpFindFileData);
 int FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData);
 int FindClose(HANDLE hFindFile);
-int GetDateFormatA(LCID Locale, uint32_t dwFlags, const SYSTEMTIME* lpDate, const char* lpFormat, char* lpDateStr,
-				   int cchDate);
 void OutputDebugStringA(const char* lpOutputString);
 
 int InterlockedExchange(volatile int* Target, int Value);

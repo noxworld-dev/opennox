@@ -76,7 +76,7 @@ int sub_4D5350(uint32_t* a1, int a2, int a3, int a4, int a5);
 int nox_xxx_mapGenFillRoom_4D53B0(int a1, int a2, int a3, int a4, int a5);
 int sub_4D5630(int a1, int a2, int a3, int a4, int a5);
 int sub_4D5D20(uint32_t* a1);
-unsigned int nox_xxx_mapGenMakeInfo_4D5DB0(int a1);
+void nox_xxx_mapGenMakeInfo_4D5DB0(void* a1);
 int nox_xxx_mapGenStartAlt_4D5F30();
 int sub_4D6000(nox_object_t* a1);
 int sub_4D60B0();
