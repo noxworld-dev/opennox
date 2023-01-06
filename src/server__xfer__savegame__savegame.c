@@ -14,12 +14,6 @@
 #include "operators.h"
 #include "server__system__server.h"
 
-#ifdef _WIN32
-#include <io.h>
-#else
-#include "windows_compat.h"
-#endif
-
 //----- (004DB6A0) --------------------------------------------------------
 void nox_xxx_monstersAllBelongToHost_4DB6A0() {
 	char* v0; // eax

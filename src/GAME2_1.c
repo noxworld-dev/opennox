@@ -1,5 +1,3 @@
-#include "compat.h"
-
 #include "GAME2_1.h"
 #include "GAME1.h"
 #include "GAME1_1.h"
@@ -1424,7 +1422,7 @@ int nox_xxx_guiDrawInventoryTray_4643B0(int a1, int a2) {
 
 	v2 = a2;
 	nox_client_drawImageAt_47D2C0(*getMemIntPtr(0x5D4594, 1049928), a1, a2);
-	_itow(*(int*)&dword_5d4594_1062552, WideCharStr, 10);
+	nox_itow(*(int*)&dword_5d4594_1062552, WideCharStr, 10);
 	nox_xxx_drawSetTextColor_434390(nox_color_yellow_2589772);
 	nox_xxx_drawGetStringSize_43F840(*(int*)&dword_5d4594_1063636, WideCharStr, &v24, 0, 0);
 	nox_xxx_drawString_43F6E0(*(int*)&dword_5d4594_1063636, (short*)WideCharStr, a1 - v24 + 43, a2 + 36);
@@ -4882,7 +4880,7 @@ int sub_471450(uint32_t* a1) {
 	wchar_t WideCharStr[4]; // [esp+Ch] [ebp-8h]
 
 	v1 = a1;
-	_itow(nox_windows_arr_1093036[a1[8]].field_1, WideCharStr, 10);
+	nox_itow(nox_windows_arr_1093036[a1[8]].field_1, WideCharStr, 10);
 	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	nox_xxx_drawGetStringSize_43F840(*(int*)&dword_5d4594_1096288, WideCharStr, &v3, 0, 0);
 	nox_client_wndGetPosition_46AA60(v1, &v4, &a1);

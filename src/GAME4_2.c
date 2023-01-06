@@ -1,7 +1,5 @@
 #include <math.h>
 
-#include "compat.h"
-
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_2.h"
@@ -439,23 +437,23 @@ int nox_xxx_mapGenReadTheme_51E260(int* a1, int a2) {
 		return 0;
 	}
 	while (nox_xxx_mapGenReadLine_51E540(v3, getMemAt(0x5D4594, 2487264))) {
-		if (!_strcmpi("ALGORITHM_DATA", (const char*)getMemAt(0x5D4594, 2487264))) {
+		if (!nox_strcmpi("ALGORITHM_DATA", (const char*)getMemAt(0x5D4594, 2487264))) {
 			v4 = nox_xxx_genReadAlgData_51EBB0((int)a1, v3);
 			goto LABEL_23;
 		}
-		if (!_strcmpi("EXIT", (const char*)getMemAt(0x5D4594, 2487264))) {
+		if (!nox_strcmpi("EXIT", (const char*)getMemAt(0x5D4594, 2487264))) {
 			v4 = nox_xxx_genReadExit_51F800((int)a1, v3);
 			goto LABEL_23;
 		}
-		if (!_strcmpi("PREFAB", (const char*)getMemAt(0x5D4594, 2487264))) {
+		if (!nox_strcmpi("PREFAB", (const char*)getMemAt(0x5D4594, 2487264))) {
 			v4 = nox_xxx_genReadPrefab_520BF0((int)a1, v3);
 			goto LABEL_23;
 		}
-		if (_strcmpi("AMBIENT_LIGHT", (const char*)getMemAt(0x5D4594, 2487264))) {
-			if (_strcmpi("SPELL_SET", (const char*)getMemAt(0x5D4594, 2487264))) {
-				if (_strcmpi("ARMOR_SET", (const char*)getMemAt(0x5D4594, 2487264))) {
-					if (_strcmpi("WEAPON_SET", (const char*)getMemAt(0x5D4594, 2487264))) {
-						if (_strcmpi("DECOR", (const char*)getMemAt(0x5D4594, 2487264))) {
+		if (nox_strcmpi("AMBIENT_LIGHT", (const char*)getMemAt(0x5D4594, 2487264))) {
+			if (nox_strcmpi("SPELL_SET", (const char*)getMemAt(0x5D4594, 2487264))) {
+				if (nox_strcmpi("ARMOR_SET", (const char*)getMemAt(0x5D4594, 2487264))) {
+					if (nox_strcmpi("WEAPON_SET", (const char*)getMemAt(0x5D4594, 2487264))) {
+						if (nox_strcmpi("DECOR", (const char*)getMemAt(0x5D4594, 2487264))) {
 							goto LABEL_25;
 						}
 						v4 = nox_xxx_genReadDecor_51F9F0(a1, v3);
@@ -576,9 +574,9 @@ int sub_51E670(FILE* a1) {
 	int result; // eax
 	int v2;     // [esp+4h] [ebp-4h]
 
-	if (_strcmpi("IF", (const char*)getMemAt(0x5D4594, 2487264))) {
-		if (_strcmpi("ELSE", (const char*)getMemAt(0x5D4594, 2487264))) {
-			if (_strcmpi("ENDIF", (const char*)getMemAt(0x5D4594, 2487264))) {
+	if (nox_strcmpi("IF", (const char*)getMemAt(0x5D4594, 2487264))) {
+		if (nox_strcmpi("ELSE", (const char*)getMemAt(0x5D4594, 2487264))) {
+			if (nox_strcmpi("ENDIF", (const char*)getMemAt(0x5D4594, 2487264))) {
 				return 1;
 			}
 		} else {
@@ -609,14 +607,14 @@ int sub_51E720(FILE* a1) {
 			if (!sub_51E570(a1, getMemAt(0x5D4594, 2487264))) {
 				return 0;
 			}
-			if (_strcmpi("IF", (const char*)getMemAt(0x5D4594, 2487264))) {
+			if (nox_strcmpi("IF", (const char*)getMemAt(0x5D4594, 2487264))) {
 				break;
 			}
 			if (!sub_51E720(a1)) {
 				return 0;
 			}
 		}
-	} while (_strcmpi("ENDIF", (const char*)getMemAt(0x5D4594, 2487264)));
+	} while (nox_strcmpi("ENDIF", (const char*)getMemAt(0x5D4594, 2487264)));
 	return 1;
 }
 
@@ -627,15 +625,15 @@ int sub_51E780(FILE* a1) {
 			if (!sub_51E570(a1, getMemAt(0x5D4594, 2487264))) {
 				return 0;
 			}
-			if (_strcmpi("IF", (const char*)getMemAt(0x5D4594, 2487264))) {
+			if (nox_strcmpi("IF", (const char*)getMemAt(0x5D4594, 2487264))) {
 				break;
 			}
 			if (!sub_51E720(a1)) {
 				return 0;
 			}
 		}
-	} while (_strcmpi("ENDIF", (const char*)getMemAt(0x5D4594, 2487264)) &&
-			 _strcmpi("ELSE", (const char*)getMemAt(0x5D4594, 2487264)));
+	} while (nox_strcmpi("ENDIF", (const char*)getMemAt(0x5D4594, 2487264)) &&
+			 nox_strcmpi("ELSE", (const char*)getMemAt(0x5D4594, 2487264)));
 	return 1;
 }
 
@@ -656,7 +654,7 @@ int sub_51E800(int a1, uint32_t* a2) {
 	if (!nox_xxx_mapGenReadLine_51E540((FILE*)a1, getMemAt(0x5D4594, 2487264))) {
 		return 0;
 	}
-	if (!_strcmpi("WIZARD", (const char*)getMemAt(0x5D4594, 2487264))) {
+	if (!nox_strcmpi("WIZARD", (const char*)getMemAt(0x5D4594, 2487264))) {
 		v3 = a2;
 		*a2 = 0;
 		v4 = nox_common_playerInfoGetFirst_416EA0();
@@ -673,7 +671,7 @@ int sub_51E800(int a1, uint32_t* a2) {
 		}
 		return 1;
 	}
-	if (!_strcmpi("CONJURER", (const char*)getMemAt(0x5D4594, 2487264))) {
+	if (!nox_strcmpi("CONJURER", (const char*)getMemAt(0x5D4594, 2487264))) {
 		v3 = a2;
 		*a2 = 0;
 		v6 = nox_common_playerInfoGetFirst_416EA0();
@@ -688,7 +686,7 @@ int sub_51E800(int a1, uint32_t* a2) {
 		}
 		return 1;
 	}
-	if (!_strcmpi("WARRIOR", (const char*)getMemAt(0x5D4594, 2487264))) {
+	if (!nox_strcmpi("WARRIOR", (const char*)getMemAt(0x5D4594, 2487264))) {
 		v3 = a2;
 		*a2 = 0;
 		v7 = nox_common_playerInfoGetFirst_416EA0();
@@ -703,7 +701,7 @@ int sub_51E800(int a1, uint32_t* a2) {
 		}
 		return 1;
 	}
-	if (!_strcmpi("EXPERIENCE_LEVEL", (const char*)getMemAt(0x5D4594, 2487264))) {
+	if (!nox_strcmpi("EXPERIENCE_LEVEL", (const char*)getMemAt(0x5D4594, 2487264))) {
 		if (sub_51EAF0((int)v2, &a1) && nox_xxx_mapGenReadLine_51E540(v2, getMemAt(0x5D4594, 2487264))) {
 			v8 = atoi((const char*)getMemAt(0x5D4594, 2487264));
 			switch (a1) {
@@ -730,7 +728,7 @@ int sub_51E800(int a1, uint32_t* a2) {
 		}
 		return 0;
 	}
-	if (_strcmpi("NUMPLAYERS", (const char*)getMemAt(0x5D4594, 2487264))) {
+	if (nox_strcmpi("NUMPLAYERS", (const char*)getMemAt(0x5D4594, 2487264))) {
 		if (strchr((const char*)getMemAt(0x5D4594, 2487264), 37)) {
 			v11 = atoi((const char*)getMemAt(0x5D4594, 2487264));
 			*a2 = nox_xxx_mapGenRandFunc_526AC0(1, 100) <= v11;
@@ -773,20 +771,20 @@ int sub_51EAF0(int a1, uint32_t* a2) {
 	if (!nox_xxx_mapGenReadLine_51E540((FILE*)a1, getMemAt(0x5D4594, 2487264))) {
 		return 0;
 	}
-	if (!_strcmpi("<", (const char*)getMemAt(0x5D4594, 2487264))) {
+	if (!nox_strcmpi("<", (const char*)getMemAt(0x5D4594, 2487264))) {
 		*a2 = 0;
 		return 1;
 	}
-	if (!_strcmpi(">", (const char*)getMemAt(0x5D4594, 2487264))) {
+	if (!nox_strcmpi(">", (const char*)getMemAt(0x5D4594, 2487264))) {
 		result = 1;
 		*a2 = 1;
 		return result;
 	}
-	if (!_strcmpi("==", (const char*)getMemAt(0x5D4594, 2487264))) {
+	if (!nox_strcmpi("==", (const char*)getMemAt(0x5D4594, 2487264))) {
 		*a2 = 2;
 		return 1;
 	}
-	if (_strcmpi("!=", (const char*)getMemAt(0x5D4594, 2487264))) {
+	if (nox_strcmpi("!=", (const char*)getMemAt(0x5D4594, 2487264))) {
 		return 0;
 	}
 	result = 1;
@@ -803,42 +801,42 @@ int nox_xxx_genReadAlgData_51EBB0(int a1, FILE* a2) {
 	char v7;           // [esp+10h] [ebp-3Ch]
 
 	while (nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
-		if (!_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
+		if (!nox_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
 			return 1;
 		}
 		if (!nox_xxx_mapGenReadLine_51E540(a2, &v7)) {
 			break;
 		}
-		if (_strcmpi("midHallLength", (const char*)getMemAt(0x5D4594, 2487264))) {
-			if (_strcmpi("hallLengthVariance", (const char*)getMemAt(0x5D4594, 2487264))) {
-				if (_strcmpi("midHallWidth", (const char*)getMemAt(0x5D4594, 2487264))) {
-					if (_strcmpi("hallWidthVariance", (const char*)getMemAt(0x5D4594, 2487264))) {
-						if (_strcmpi("hallLimit", (const char*)getMemAt(0x5D4594, 2487264))) {
-							if (_strcmpi("hallBranchRate", (const char*)getMemAt(0x5D4594, 2487264))) {
-								if (_strcmpi("hallRoomRate", (const char*)getMemAt(0x5D4594, 2487264))) {
-									if (_strcmpi("midRoomSize", (const char*)getMemAt(0x5D4594, 2487264))) {
-										if (_strcmpi("roomVariance", (const char*)getMemAt(0x5D4594, 2487264))) {
-											if (_strcmpi("irregularRoomRate",
+		if (nox_strcmpi("midHallLength", (const char*)getMemAt(0x5D4594, 2487264))) {
+			if (nox_strcmpi("hallLengthVariance", (const char*)getMemAt(0x5D4594, 2487264))) {
+				if (nox_strcmpi("midHallWidth", (const char*)getMemAt(0x5D4594, 2487264))) {
+					if (nox_strcmpi("hallWidthVariance", (const char*)getMemAt(0x5D4594, 2487264))) {
+						if (nox_strcmpi("hallLimit", (const char*)getMemAt(0x5D4594, 2487264))) {
+							if (nox_strcmpi("hallBranchRate", (const char*)getMemAt(0x5D4594, 2487264))) {
+								if (nox_strcmpi("hallRoomRate", (const char*)getMemAt(0x5D4594, 2487264))) {
+									if (nox_strcmpi("midRoomSize", (const char*)getMemAt(0x5D4594, 2487264))) {
+										if (nox_strcmpi("roomVariance", (const char*)getMemAt(0x5D4594, 2487264))) {
+											if (nox_strcmpi("irregularRoomRate",
 														 (const char*)getMemAt(0x5D4594, 2487264))) {
-												if (_strcmpi("mapSize", (const char*)getMemAt(0x5D4594, 2487264))) {
-													if (_strcmpi("recurs"
+												if (nox_strcmpi("mapSize", (const char*)getMemAt(0x5D4594, 2487264))) {
+													if (nox_strcmpi("recurs"
 																 "ionLim"
 																 "it",
 																 (const char*)getMemAt(0x5D4594, 2487264))) {
-														if (_strcmpi("seed",
+														if (nox_strcmpi("seed",
 																	 (const char*)getMemAt(0x5D4594, 2487264))) {
-															if (_strcmpi("emptyRoomRate",
+															if (nox_strcmpi("emptyRoomRate",
 																		 (const char*)getMemAt(0x5D4594, 2487264))) {
-																if (_strcmpi("mergeRate", (const char*)getMemAt(
+																if (nox_strcmpi("mergeRate", (const char*)getMemAt(
 																							  0x5D4594, 2487264))) {
-																	if (_strcmpi("useDoors", (const char*)getMemAt(
+																	if (nox_strcmpi("useDoors", (const char*)getMemAt(
 																								 0x5D4594, 2487264))) {
-																		if (_strcmpi("debug", (const char*)getMemAt(
+																		if (nox_strcmpi("debug", (const char*)getMemAt(
 																								  0x5D4594, 2487264))) {
-																			if (_strcmpi("adjacentPortalRate",
+																			if (nox_strcmpi("adjacentPortalRate",
 																						 (const char*)getMemAt(
 																							 0x5D4594, 2487264))) {
-																				if (!_strcmpi("skeleton",
+																				if (!nox_strcmpi("skeleton",
 																							  (const char*)getMemAt(
 																								  0x5D4594, 2487264))) {
 																					v2 = 0;
@@ -848,7 +846,7 @@ int nox_xxx_genReadAlgData_51EBB0(int a1, FILE* a2) {
 																							0x587000, 253244);
 																						v4 = getMemAt(0x587000, 253244);
 																						do {
-																							if (!_strcmpi(*v3, &v7)) {
+																							if (!nox_strcmpi(*v3, &v7)) {
 																								break;
 																							}
 																							v5 = *((uint32_t*)v4 + 1);
@@ -867,12 +865,12 @@ int nox_xxx_genReadAlgData_51EBB0(int a1, FILE* a2) {
 																			} else {
 																				*(uint32_t*)(a1 + 52) = atoi(&v7);
 																			}
-																		} else if (_strcmpi(&v7, "true")) {
+																		} else if (nox_strcmpi(&v7, "true")) {
 																			*(uint32_t*)(a1 + 60) = 0;
 																		} else {
 																			*(uint32_t*)(a1 + 60) = 1;
 																		}
-																	} else if (_strcmpi(&v7, "true")) {
+																	} else if (nox_strcmpi(&v7, "true")) {
 																		*(uint32_t*)(a1 + 56) = 0;
 																	} else {
 																		*(uint32_t*)(a1 + 56) = 1;
@@ -934,7 +932,7 @@ int nox_xxx_genReadSpellSet_51EFB0(int a1, FILE* a2) {
 		if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
 			return 0;
 		}
-		if (!_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264)) || *(uint32_t*)(a1 + 1096) >= 137) {
+		if (!nox_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264)) || *(uint32_t*)(a1 + 1096) >= 137) {
 			break;
 		}
 		v2 = nox_xxx_mapGenSpellIdByName_51E1D0((const char*)getMemAt(0x5D4594, 2487264));
@@ -957,16 +955,16 @@ int nox_xxx_genReadWeaponSet_51F030(int a1, FILE* a2) {
 		if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
 			return 0;
 		}
-		if (!_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
+		if (!nox_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
 			break;
 		}
-		if (!_strcmpi("WEAPON", (const char*)getMemAt(0x5D4594, 2487264))) {
+		if (!nox_strcmpi("WEAPON", (const char*)getMemAt(0x5D4594, 2487264))) {
 			v2 = (char*)calloc(1u, 0x9Cu);
 			if (!v2 || !nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
 				return 0;
 			}
 			strcpy(v2 + 60, (const char*)getMemAt(0x5D4594, 2487264));
-			if (_strcmpi("TEMPLATE", v2 + 60)) {
+			if (nox_strcmpi("TEMPLATE", v2 + 60)) {
 				if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
 					return 0;
 				}
@@ -975,7 +973,7 @@ int nox_xxx_genReadWeaponSet_51F030(int a1, FILE* a2) {
 			if (!sub_51F230((int)v2, a2)) {
 				return 0;
 			}
-			if (_strcmpi("TEMPLATE", v2 + 60)) {
+			if (nox_strcmpi("TEMPLATE", v2 + 60)) {
 				*((uint32_t*)v2 + 38) = 0;
 				v3 = *(uint32_t*)(a1 + 1100);
 				if (v3) {
@@ -1088,7 +1086,7 @@ LABEL_2:
 	if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
 		return 0;
 	}
-	if (!_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
+	if (!nox_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
 		v50 = v61;
 		v4 = (uint32_t*)(a1 + 120);
 		v5 = 16 - a1;
@@ -1128,7 +1126,7 @@ LABEL_2:
 								goto LABEL_43;
 							}
 							v17 = v60;
-							while (_strcmpi(v17, v15 + 1)) {
+							while (nox_strcmpi(v17, v15 + 1)) {
 								++v16;
 								v17 += 60;
 								if (v16 >= v9) {
@@ -1157,7 +1155,7 @@ LABEL_2:
 							if (v9 > 0) {
 								v23 = v60;
 								do {
-									if (!_strcmpi(v23, v15)) {
+									if (!nox_strcmpi(v23, v15)) {
 										break;
 									}
 									++v22;
@@ -1243,17 +1241,17 @@ LABEL_2:
 			v5 = v54;
 		}
 	}
-	if (_strcmpi("EFFECTIVENESS", (const char*)getMemAt(0x5D4594, 2487264)) &&
-		_strcmpi("QUALITY", (const char*)getMemAt(0x5D4594, 2487264))) {
-		if (!_strcmpi("MATERIAL", (const char*)getMemAt(0x5D4594, 2487264))) {
+	if (nox_strcmpi("EFFECTIVENESS", (const char*)getMemAt(0x5D4594, 2487264)) &&
+		nox_strcmpi("QUALITY", (const char*)getMemAt(0x5D4594, 2487264))) {
+		if (!nox_strcmpi("MATERIAL", (const char*)getMemAt(0x5D4594, 2487264))) {
 			v2 = 1;
 			goto LABEL_13;
 		}
-		if (!_strcmpi("PRIMARY_ENCHANTMENT", (const char*)getMemAt(0x5D4594, 2487264))) {
+		if (!nox_strcmpi("PRIMARY_ENCHANTMENT", (const char*)getMemAt(0x5D4594, 2487264))) {
 			v2 = 2;
 			goto LABEL_13;
 		}
-		if (!_strcmpi("SECONDARY_ENCHANTMENT", (const char*)getMemAt(0x5D4594, 2487264))) {
+		if (!nox_strcmpi("SECONDARY_ENCHANTMENT", (const char*)getMemAt(0x5D4594, 2487264))) {
 			v2 = 3;
 			goto LABEL_13;
 		}
@@ -1261,7 +1259,7 @@ LABEL_2:
 		v2 = 0;
 	LABEL_13:
 		while (nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
-			if (!_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
+			if (!nox_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
 				goto LABEL_2;
 			}
 			v3 = *(&v55 + v2);
@@ -1287,16 +1285,16 @@ int nox_xxx_genReadArmorSet_51F640(int a1, FILE* a2) {
 		if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
 			return 0;
 		}
-		if (!_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
+		if (!nox_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
 			break;
 		}
-		if (!_strcmpi("ARMOR", (const char*)getMemAt(0x5D4594, 2487264))) {
+		if (!nox_strcmpi("ARMOR", (const char*)getMemAt(0x5D4594, 2487264))) {
 			v2 = (char*)calloc(1u, 0x9Cu);
 			if (!v2 || !nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
 				return 0;
 			}
 			strcpy(v2 + 60, (const char*)getMemAt(0x5D4594, 2487264));
-			if (_strcmpi("TEMPLATE", v2 + 60)) {
+			if (nox_strcmpi("TEMPLATE", v2 + 60)) {
 				if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
 					return 0;
 				}
@@ -1305,7 +1303,7 @@ int nox_xxx_genReadArmorSet_51F640(int a1, FILE* a2) {
 			if (!sub_51F230((int)v2, a2)) {
 				return 0;
 			}
-			if (_strcmpi("TEMPLATE", v2 + 60)) {
+			if (nox_strcmpi("TEMPLATE", v2 + 60)) {
 				*((uint32_t*)v2 + 38) = 0;
 				v3 = *(uint32_t*)(a1 + 1108);
 				if (v3) {
@@ -1337,11 +1335,11 @@ int nox_xxx_genReadExit_51F800(int a1, FILE* a2) {
 		if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
 			return 0;
 		}
-		if (!_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
+		if (!nox_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
 			break;
 		}
-		if (_strcmpi("OBJECT", (const char*)getMemAt(0x5D4594, 2487264))) {
-			if (_strcmpi("LINKDATA", (const char*)getMemAt(0x5D4594, 2487264)) ||
+		if (nox_strcmpi("OBJECT", (const char*)getMemAt(0x5D4594, 2487264))) {
+			if (nox_strcmpi("LINKDATA", (const char*)getMemAt(0x5D4594, 2487264)) ||
 				!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
 				return 0;
 			}
@@ -1354,10 +1352,10 @@ int nox_xxx_genReadExit_51F800(int a1, FILE* a2) {
 			if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
 				return 0;
 			}
-			if (_strcmpi("NORTH", (const char*)getMemAt(0x5D4594, 2487264))) {
-				if (_strcmpi("SOUTH", (const char*)getMemAt(0x5D4594, 2487264))) {
-					if (_strcmpi("EAST", (const char*)getMemAt(0x5D4594, 2487264))) {
-						if (!_strcmpi("WEST", (const char*)getMemAt(0x5D4594, 2487264))) {
+			if (nox_strcmpi("NORTH", (const char*)getMemAt(0x5D4594, 2487264))) {
+				if (nox_strcmpi("SOUTH", (const char*)getMemAt(0x5D4594, 2487264))) {
+					if (nox_strcmpi("EAST", (const char*)getMemAt(0x5D4594, 2487264))) {
+						if (!nox_strcmpi("WEST", (const char*)getMemAt(0x5D4594, 2487264))) {
 							*(uint32_t*)((*(uint32_t*)(a1 + 472) << 6) + a1 + 216 + 60) = 3;
 						}
 						++*(uint32_t*)(a1 + 472);
@@ -1403,23 +1401,23 @@ int nox_xxx_genReadDecor_51F9F0(uint32_t* a1, FILE* a2) {
 		*((uint32_t*)v2 + 20) = 999999;
 		if (nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
 			if (nox_xxx_mapGenReadLine_51E540(a2, (uint8_t*)v3)) {
-				if (!_strcmpi("ROOM", (const char*)getMemAt(0x5D4594, 2487264))) {
+				if (!nox_strcmpi("ROOM", (const char*)getMemAt(0x5D4594, 2487264))) {
 					*(uint32_t*)(v3 + 60) = 0;
 					goto LABEL_12;
 				}
-				if (!_strcmpi("HALL", (const char*)getMemAt(0x5D4594, 2487264))) {
+				if (!nox_strcmpi("HALL", (const char*)getMemAt(0x5D4594, 2487264))) {
 					*(uint32_t*)(v3 + 60) = 1;
 					goto LABEL_12;
 				}
-				if (!_strcmpi("TEMPLATE", (const char*)getMemAt(0x5D4594, 2487264))) {
+				if (!nox_strcmpi("TEMPLATE", (const char*)getMemAt(0x5D4594, 2487264))) {
 					*(uint32_t*)(v3 + 60) = 2;
 					goto LABEL_12;
 				}
-				if (!_strcmpi("BACKDROP", (const char*)getMemAt(0x5D4594, 2487264))) {
+				if (!nox_strcmpi("BACKDROP", (const char*)getMemAt(0x5D4594, 2487264))) {
 					*(uint32_t*)(v3 + 60) = 3;
 				LABEL_12:
 					while (nox_xxx_mapGenReadLine_51E540(v4, getMemAt(0x5D4594, 2487264))) {
-						if (!_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
+						if (!nox_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
 							switch (*(uint32_t*)(v3 + 60)) {
 							case 0:
 								*(uint32_t*)(v3 + 220) = a1[22];
@@ -1455,21 +1453,21 @@ int nox_xxx_genReadDecor_51F9F0(uint32_t* a1, FILE* a2) {
 							}
 							return result;
 						}
-						if (_strcmpi("WALL_FLOOR", (const char*)getMemAt(0x5D4594, 2487264))) {
-							if (_strcmpi("OCCUR_CONSTRAINT", (const char*)getMemAt(0x5D4594, 2487264))) {
-								if (_strcmpi("OCCUR_LIMIT", (const char*)getMemAt(0x5D4594, 2487264))) {
-									if (_strcmpi("MUST_OCCUR", (const char*)getMemAt(0x5D4594, 2487264))) {
-										if (_strcmpi("FREQUENCY", (const char*)getMemAt(0x5D4594, 2487264))) {
-											if (_strcmpi("DOOR", (const char*)getMemAt(0x5D4594, 2487264))) {
-												if (_strcmpi("DOUBLE_DOOR", (const char*)getMemAt(0x5D4594, 2487264))) {
-													if (_strcmpi("ROOM_"
+						if (nox_strcmpi("WALL_FLOOR", (const char*)getMemAt(0x5D4594, 2487264))) {
+							if (nox_strcmpi("OCCUR_CONSTRAINT", (const char*)getMemAt(0x5D4594, 2487264))) {
+								if (nox_strcmpi("OCCUR_LIMIT", (const char*)getMemAt(0x5D4594, 2487264))) {
+									if (nox_strcmpi("MUST_OCCUR", (const char*)getMemAt(0x5D4594, 2487264))) {
+										if (nox_strcmpi("FREQUENCY", (const char*)getMemAt(0x5D4594, 2487264))) {
+											if (nox_strcmpi("DOOR", (const char*)getMemAt(0x5D4594, 2487264))) {
+												if (nox_strcmpi("DOUBLE_DOOR", (const char*)getMemAt(0x5D4594, 2487264))) {
+													if (nox_strcmpi("ROOM_"
 																 "SIZE_"
 																 "CONSTR"
 																 "AINT",
 																 (const char*)getMemAt(0x5D4594, 2487264))) {
-														if (_strcmpi("COPY",
+														if (nox_strcmpi("COPY",
 																	 (const char*)getMemAt(0x5D4594, 2487264))) {
-															if (_strcmpi("DECOR_SET",
+															if (nox_strcmpi("DECOR_SET",
 																		 (const char*)getMemAt(0x5D4594, 2487264))) {
 																v5 = 0;
 																v6 = 0;
@@ -1479,7 +1477,7 @@ int nox_xxx_genReadDecor_51F9F0(uint32_t* a1, FILE* a2) {
 																v7 = (const char**)getMemAt(0x587000, 253200);
 																v8 = getMemAt(0x587000, 253200);
 																do {
-																	if (!_strcmpi(*v7, (const char*)getMemAt(
+																	if (!nox_strcmpi(*v7, (const char*)getMemAt(
 																						   0x5D4594, 2487264))) {
 																		if (!v15 || !sub_51FEC0((int)v15, v6, a2)) {
 																			return 0;
@@ -1628,7 +1626,7 @@ int nox_xxx_genDecorReadDecorSet_51FFA0(int a1, FILE* a2) {
 						if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
 							goto LABEL_41;
 						}
-						if (!_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
+						if (!nox_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
 							v10 = *(uint32_t*)(a1 + 92);
 							if (v10) {
 								for (i = *(uint32_t*)(v10 + 20); i; i = *(uint32_t*)(i + 20)) {
@@ -1642,7 +1640,7 @@ int nox_xxx_genDecorReadDecorSet_51FFA0(int a1, FILE* a2) {
 							++*(uint32_t*)(a1 + 96);
 							return 1;
 						}
-						if (_strcmpi("FOREACH", (const char*)getMemAt(0x5D4594, 2487264))) {
+						if (nox_strcmpi("FOREACH", (const char*)getMemAt(0x5D4594, 2487264))) {
 							break;
 						}
 						if (!v2) {
@@ -1658,7 +1656,7 @@ int nox_xxx_genDecorReadDecorSet_51FFA0(int a1, FILE* a2) {
 						v5[2] = *(uint32_t*)(v2 + 84);
 						*(uint32_t*)(v2 + 84) = v5;
 					}
-					if (_strcmpi("CONTAINS", (const char*)getMemAt(0x5D4594, 2487264))) {
+					if (nox_strcmpi("CONTAINS", (const char*)getMemAt(0x5D4594, 2487264))) {
 						break;
 					}
 					if (v2) {
@@ -1678,7 +1676,7 @@ int nox_xxx_genDecorReadDecorSet_51FFA0(int a1, FILE* a2) {
 					*v7 = 0;
 					if (*getMemU32Ptr(0x587000, 253216)) {
 						do {
-							if (!_strcmpi(*(const char**)getMemAt(0x587000, 253216 + 4 * *(uint32_t*)v2),
+							if (!nox_strcmpi(*(const char**)getMemAt(0x587000, 253216 + 4 * *(uint32_t*)v2),
 										  (const char*)getMemAt(0x5D4594, 2487264))) {
 								break;
 							}
@@ -1697,7 +1695,7 @@ int nox_xxx_genDecorReadDecorSet_51FFA0(int a1, FILE* a2) {
 							if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
 								break;
 							}
-							if (_strcmpi("DENSITY", (const char*)getMemAt(0x5D4594, 2487264))) {
+							if (nox_strcmpi("DENSITY", (const char*)getMemAt(0x5D4594, 2487264))) {
 								*(uint32_t*)(v2 + 64) = 0;
 								*(uint32_t*)(v2 + 68) = atoi((const char*)getMemAt(0x5D4594, 2487264));
 								if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
@@ -1788,7 +1786,7 @@ LABEL_2:
 			v16 -= v3;
 		}
 		while (nox_xxx_mapGenReadLine_51E540(a1, getMemAt(0x5D4594, 2487264))) {
-			if (!_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
+			if (!nox_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
 				v17 = 1;
 			LABEL_19:
 				if (v1) {
@@ -1814,7 +1812,7 @@ LABEL_2:
 				}
 				goto LABEL_2;
 			}
-			if (!_strcmpi("OR", (const char*)getMemAt(0x5D4594, 2487264))) {
+			if (!nox_strcmpi("OR", (const char*)getMemAt(0x5D4594, 2487264))) {
 				goto LABEL_19;
 			}
 			v4 = 0;
@@ -1822,7 +1820,7 @@ LABEL_2:
 				v5 = (const char**)getMemAt(0x587000, 253216);
 				v6 = getMemAt(0x587000, 253216);
 				do {
-					if (!_strcmpi(*v5, (const char*)getMemAt(0x5D4594, 2487264))) {
+					if (!nox_strcmpi(*v5, (const char*)getMemAt(0x5D4594, 2487264))) {
 						break;
 					}
 					v7 = *((uint32_t*)v6 + 1);
@@ -1870,7 +1868,7 @@ uint32_t* nox_xxx_gen_5205B0(FILE* a1) {
 		if (result) {
 			*result = nox_xxx_getNameId_4E3AA0((char*)getMemAt(0x5D4594, 2487264));
 			if (nox_xxx_mapGenReadLine_51E540(a1, getMemAt(0x5D4594, 2487264))) {
-				if (_strcmpi("CONTAINS", (const char*)getMemAt(0x5D4594, 2487264))) {
+				if (nox_strcmpi("CONTAINS", (const char*)getMemAt(0x5D4594, 2487264))) {
 					free(v2);
 					result = 0;
 				} else {
@@ -2000,7 +1998,7 @@ int nox_xxx_genDecorReadOccurConstraint_520810(int a1, FILE* a2) {
 	if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
 		return 0;
 	}
-	if (_strcmpi("NONE", (const char*)getMemAt(0x5D4594, 2487264))) {
+	if (nox_strcmpi("NONE", (const char*)getMemAt(0x5D4594, 2487264))) {
 		v3 = strtok((char*)getMemAt(0x5D4594, 2487264), "+");
 		if (v3) {
 			while (1) {
@@ -2009,7 +2007,7 @@ int nox_xxx_genDecorReadOccurConstraint_520810(int a1, FILE* a2) {
 					v5 = (const char**)getMemAt(0x587000, 253144);
 					v6 = getMemAt(0x587000, 253144);
 					do {
-						if (!_strcmpi(*v5, v3)) {
+						if (!nox_strcmpi(*v5, v3)) {
 							break;
 						}
 						v7 = *((uint32_t*)v6 + 1);
@@ -2051,11 +2049,11 @@ int nox_xxx_genDecorReadFrequency_520910(int a1, FILE* a2) {
 
 	result = nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264));
 	if (result) {
-		if (_strcmpi("COMMON", (const char*)getMemAt(0x5D4594, 2487264))) {
-			if (_strcmpi("UNCOMMON", (const char*)getMemAt(0x5D4594, 2487264))) {
-				if (_strcmpi("RARE", (const char*)getMemAt(0x5D4594, 2487264))) {
-					if (_strcmpi("VERY_RARE", (const char*)getMemAt(0x5D4594, 2487264))) {
-						if (!_strcmpi("HARDLY_EVER", (const char*)getMemAt(0x5D4594, 2487264))) {
+		if (nox_strcmpi("COMMON", (const char*)getMemAt(0x5D4594, 2487264))) {
+			if (nox_strcmpi("UNCOMMON", (const char*)getMemAt(0x5D4594, 2487264))) {
+				if (nox_strcmpi("RARE", (const char*)getMemAt(0x5D4594, 2487264))) {
+					if (nox_strcmpi("VERY_RARE", (const char*)getMemAt(0x5D4594, 2487264))) {
+						if (!nox_strcmpi("HARDLY_EVER", (const char*)getMemAt(0x5D4594, 2487264))) {
 							*(uint32_t*)(a1 + 72) = 1;
 						}
 						result = 1;
@@ -2085,12 +2083,12 @@ int nox_xxx_genDecorReadRoomSizeCon_5209F0(int a1, FILE* a2) {
 
 	result = nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264));
 	if (result) {
-		*(uint32_t*)(a1 + 76) = _strcmpi("*", (const char*)getMemAt(0x5D4594, 2487264))
+		*(uint32_t*)(a1 + 76) = nox_strcmpi("*", (const char*)getMemAt(0x5D4594, 2487264))
 									? atoi((const char*)getMemAt(0x5D4594, 2487264))
 									: 0;
 		result = nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264));
 		if (result) {
-			if (_strcmpi("*", (const char*)getMemAt(0x5D4594, 2487264))) {
+			if (nox_strcmpi("*", (const char*)getMemAt(0x5D4594, 2487264))) {
 				*(uint32_t*)(a1 + 80) = atoi((const char*)getMemAt(0x5D4594, 2487264));
 			} else {
 				*(uint32_t*)(a1 + 80) = 999999;
@@ -2177,12 +2175,12 @@ int nox_xxx_genReadPrefab_520BF0(int a1, FILE* a2) {
 	v2 = 0;
 	v3 = 0;
 	while (nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
-		if (!_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
+		if (!nox_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
 			return 1;
 		}
-		if (_strcmpi("AREAMAP", (const char*)getMemAt(0x5D4594, 2487264))) {
-			if (_strcmpi("MUST_OCCUR", (const char*)getMemAt(0x5D4594, 2487264))) {
-				if (!_strcmpi("FOREACH", (const char*)getMemAt(0x5D4594, 2487264))) {
+		if (nox_strcmpi("AREAMAP", (const char*)getMemAt(0x5D4594, 2487264))) {
+			if (nox_strcmpi("MUST_OCCUR", (const char*)getMemAt(0x5D4594, 2487264))) {
+				if (!nox_strcmpi("FOREACH", (const char*)getMemAt(0x5D4594, 2487264))) {
 					if (!v2) {
 						return 0;
 					}
@@ -3194,7 +3192,7 @@ uint32_t* nox_xxx_mapGenMakeEnchantedItem_5221A0(char* a1, char* a2, int a3) {
 		if (!a2) {
 			goto LABEL_11;
 		}
-		while (_strcmpi(v4, a1)) {
+		while (nox_strcmpi(v4, a1)) {
 			v4 = (char*)*((uint32_t*)v4 + 38);
 			if (!v4) {
 				goto LABEL_11;
@@ -3218,7 +3216,7 @@ uint32_t* nox_xxx_mapGenMakeEnchantedItem_5221A0(char* a1, char* a2, int a3) {
 			if (*v8) {
 				if (nox_xxx_mapGenRandFunc_526AC0(1, 100) <= *getMemU32Ptr(0x587000, 254688 + v9)) {
 					v10 = (const char*)(*(v8 - 4) + 60 * nox_xxx_mapGenRandFunc_526AC0(0, *v8 - 1));
-					if (_strcmpi("none", v10)) {
+					if (nox_strcmpi("none", v10)) {
 						v11 = nox_xxx_modifGetIdByName_413290(v10);
 						*(uint32_t*)&v13[v9] = nox_xxx_modifGetDescById_413330(v11);
 					}
@@ -6681,12 +6679,12 @@ int sub_526CA0(char* a1) {
 	v1 = 0;
 	for (i = 0; i < dword_5d4594_251540; ++i) {
 		v3 = sub_410D40(i);
-		if (!_strcmpi(v3, a1)) {
+		if (!nox_strcmpi(v3, a1)) {
 			*getMemU32Ptr(0x973F18, 35948) = i;
 			v1 = 1;
 		}
 	}
-	if (!_strcmpi(a1, "NONE")) {
+	if (!nox_strcmpi(a1, "NONE")) {
 		*getMemU32Ptr(0x973F18, 35948) = 255;
 		return 1;
 	}
@@ -7137,7 +7135,7 @@ int sub_527450(uint32_t* a1) {
 int nox_xxx_mapGenGetObjID_527940(char* a1) {
 	int result; // eax
 
-	if (_strcmpi(a1, "NONE")) {
+	if (nox_strcmpi(a1, "NONE")) {
 		if (a1) {
 			dword_5d4594_3835388 = nox_xxx_getNameId_4E3AA0(a1);
 			result = 1;

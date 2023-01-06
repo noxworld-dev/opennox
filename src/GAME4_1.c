@@ -1,7 +1,5 @@
 #include <math.h>
 
-#include "compat.h"
-
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_2.h"
@@ -5314,14 +5312,14 @@ int nox_xxx_servParseMonsterDef_517170(FILE* a1, const char* a2) {
 	if (result) {
 		strcpy((char*)result, a2);
 		while (1) {
-			if (!nox_xxx_readStr_517090(a1, v10) || !_strcmpi("END", v10)) {
+			if (!nox_xxx_readStr_517090(a1, v10) || !nox_strcmpi("END", v10)) {
 				v3[61] = dword_5d4594_2386924;
 				dword_5d4594_2386924 = v3;
 				return 1;
 			}
 			if (nox_common_gameFlags_check_40A5C0(2048) || nox_common_gameFlags_check_40A5C0(0x200000)) {
-				if (_strcmpi("ARENA", v10)) {
-					if (_strcmpi("SOLO", v10)) {
+				if (nox_strcmpi("ARENA", v10)) {
+					if (nox_strcmpi("SOLO", v10)) {
 						goto LABEL_10;
 					}
 				} else {
@@ -5332,13 +5330,13 @@ int nox_xxx_servParseMonsterDef_517170(FILE* a1, const char* a2) {
 				if (!nox_common_gameFlags_check_40A5C0(0x2000)) {
 					goto LABEL_14;
 				}
-				if (_strcmpi("SOLO", v10)) {
-					if (_strcmpi("ARENA", v10)) {
+				if (nox_strcmpi("SOLO", v10)) {
+					if (nox_strcmpi("ARENA", v10)) {
 					LABEL_14:
 						v4 = getMemAt(0x587000, 248192);
 						if (*getMemU32Ptr(0x587000, 248192)) {
 							do {
-								if (!_strcmpi(*(const char**)v4, v10)) {
+								if (!nox_strcmpi(*(const char**)v4, v10)) {
 									break;
 								}
 								v5 = *((uint32_t*)v4 + 3);
@@ -5403,7 +5401,7 @@ int nox_xxx_servParseMonsterDef_517170(FILE* a1, const char* a2) {
 						default:
 							continue;
 						}
-						while (_strcmpi(v10, (const char*)(*(uint32_t*)v8 + 7))) {
+						while (nox_strcmpi(v10, (const char*)(*(uint32_t*)v8 + 7))) {
 							v8 += 4;
 							++v7;
 							if ((int)v8 >= (int)getMemAt(0x587000, 247536)) {
@@ -6547,14 +6545,14 @@ int nox_xxx_tileGetDefByName_51D4D0(char* a1) {
 	v2 = 0;
 	v3 = (const char*)getMemAt(0x85B3FC, 32484);
 	do {
-		if (!_strcmpi(v3, a1)) {
+		if (!nox_strcmpi(v3, a1)) {
 			v1 = 1;
 			*getMemU32Ptr(0x973F18, 35912) = v2;
 		}
 		v3 += 60;
 		++v2;
 	} while ((int)v3 < (int)getMemAt(0x85B3FC, 43044));
-	if (!_strcmpi(a1, "NONE")) {
+	if (!nox_strcmpi(a1, "NONE")) {
 		*getMemU32Ptr(0x973F18, 35912) = 255;
 		return 1;
 	}

@@ -7,6 +7,18 @@
 
 char* nox_itoa(int val, char* s, int radix);
 
+wchar_t* nox_itow(int val, wchar_t* s, int radix) {
+	char tmp[32];
+	unsigned int i;
+
+	nox_itoa(val, tmp, radix);
+	for (i = 0; tmp[i]; i++)
+		s[i] = tmp[i];
+	s[i] = 0;
+
+	return s;
+}
+
 int nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format, va_list ap) {
 	int i = 0, j, out = 0;
 	wchar_t ch;
@@ -403,6 +415,27 @@ int _nox_wcsicmp(const wchar_t* string1, const wchar_t* string2) {
 		;
 
 	return towlower(string1[i]) - towlower(string2[i]);
+}
+
+int nox_strcmpi(const char* string1, const char* string2) {
+	size_t i;
+
+	for (i = 0; string1[i] && tolower(string1[i]) == tolower(string2[i]); i++)
+		;
+
+	return tolower(string1[i]) - tolower(string2[i]);
+}
+
+int nox_strnicmp(const char* string1, const char* string2, int sz) {
+	size_t i;
+
+	for (i = 0; i < sz && string1[i] && tolower(string1[i]) == tolower(string2[i]); i++)
+		;
+
+	if (i >= sz) {
+		return 1;
+	}
+	return tolower(string1[i]) - tolower(string2[i]);
 }
 
 long nox_wcstol(const wchar_t* nptr, wchar_t** endptr, int base) {
