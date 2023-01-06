@@ -50,8 +50,7 @@ sudo ln -s ./libOpenAL32.dll.a /usr/i686-w64-mingw32/lib/libOpenAL.dll.a
 ## Building
 
 ```
-cd src
-./build_go_win.sh
+make build-client-win
 ```
 
-This should produce `noxg.exe` and `nox-server.exe` binaries.
+This should produce `opennox.exe` and `opennox-hd.exe` binaries.
