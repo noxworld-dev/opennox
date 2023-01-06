@@ -1,4 +1,9 @@
-#include "compat.h"
+// For inet_addr
+#ifdef _WIN32
+#include <winsock.h>
+#else
+#include <arpa/inet.h>
+#endif
 
 #include "GAME1.h"
 #include "GAME1_1.h"

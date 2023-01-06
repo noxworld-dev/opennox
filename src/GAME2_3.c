@@ -1,7 +1,5 @@
 #include <math.h>
 
-#include "compat.h"
-
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_2.h"
@@ -110,7 +108,7 @@ void sub_48C580(pixel8888* a1, int num) {
 		unsigned int result = *pix;
 		for (unsigned int* it = &pix[i]; it > pix; --it) {
 			if (result > *it) {
-				result = InterlockedExchange((volatile signed int*)it, result);
+				result = __sync_lock_test_and_set((volatile signed int*)it, result);
 			}
 		}
 		*pix = result;
@@ -6300,7 +6298,7 @@ int nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv) {
 			return 0;
 		}
 		do {
-			if (_strcmpi(rec->server_name, (const char*)v3 + 120) <= 0) {
+			if (nox_strcmpi(rec->server_name, (const char*)v3 + 120) <= 0) {
 				nox_common_list_append_4258E0((int)v3, rec);
 				return v2;
 			}
@@ -6318,7 +6316,7 @@ int nox_wol_servers_addResult_4A0030(nox_gui_server_ent_t* srv) {
 			nox_common_list_append_4258E0(&nox_gui_wol_servers_list, rec);
 			return 0;
 		}
-		while (_strcmpi(rec->server_name, (const char*)v3 + 120) < 0) {
+		while (nox_strcmpi(rec->server_name, (const char*)v3 + 120) < 0) {
 			++v2;
 			v3 = nox_common_list_getNextSafe_4258A0(v3);
 			if (!v3) {

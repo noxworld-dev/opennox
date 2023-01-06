@@ -1,8 +1,6 @@
 #include <math.h>
 #include <time.h>
 
-#include "compat.h"
-
 #include "common__system__team.h"
 #include "server__script__script.h"
 #include "server__system__server.h"
@@ -150,7 +148,7 @@ void sub_4D10F0(char* a1) {
 	if (a1) {
 		v1 = 0;
 		if (dword_5d4594_1548476 > 0) {
-			for (i = (const char*)getMemAt(0x5D4594, 1525136); _strcmpi(i, a1); i += 32) {
+			for (i = (const char*)getMemAt(0x5D4594, 1525136); nox_strcmpi(i, a1); i += 32) {
 				if (++v1 >= *(int*)&dword_5d4594_1548476) {
 					return;
 				}

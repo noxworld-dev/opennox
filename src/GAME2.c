@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <time.h>
 
-#include "compat.h"
-
 #include "client/audio/ail/compat_mss.h"
 
 #include "GAME1.h"
@@ -2717,7 +2715,7 @@ int nox_xxx_windowAccessProc_454BA0(int a1, int a2, int* a3, int a4) {
 		case 10126:
 			if (v47 > 14) {
 				LOBYTE(v47) = 14;
-				_itow(14, WideCharStr, 10);
+				nox_itow(14, WideCharStr, 10);
 				nox_window_call_field_94((int)v44, 16414, (int)WideCharStr, -1);
 			}
 			v51[1] = v47 | v51[1] & 0xF0;
@@ -2726,7 +2724,7 @@ int nox_xxx_windowAccessProc_454BA0(int a1, int a2, int* a3, int a4) {
 		case 10128:
 			if (v47 > 14) {
 				LOBYTE(v47) = 14;
-				_itow(14, WideCharStr, 10);
+				nox_itow(14, WideCharStr, 10);
 				nox_window_call_field_94((int)v44, 16414, (int)WideCharStr, -1);
 			}
 			v51[1] = (16 * v47) | v51[1] & 0xF;
@@ -2744,12 +2742,12 @@ int nox_xxx_windowAccessProc_454BA0(int a1, int a2, int* a3, int a4) {
 			if (v47 <= 32) {
 				if (v47 < 1) {
 					v47 = 1;
-					_itow(1, WideCharStr, 10);
+					nox_itow(1, WideCharStr, 10);
 					nox_window_call_field_94((int)v44, 16414, (int)WideCharStr, -1);
 				}
 			} else {
 				v47 = 32;
-				_itow(32, WideCharStr, 10);
+				nox_itow(32, WideCharStr, 10);
 				nox_window_call_field_94((int)v44, 16414, (int)WideCharStr, -1);
 			}
 			nox_xxx_servSetPlrLimit_409F80(v47);
@@ -2971,7 +2969,7 @@ int nox_xxx_windowAccessProc_454BA0(int a1, int a2, int* a3, int a4) {
 		case 10126:
 			if (v42 > 14) {
 				LOBYTE(v42) = 14;
-				_itow(14, WideCharStr, 10);
+				nox_itow(14, WideCharStr, 10);
 				nox_window_call_field_94((int)a3, 16414, (int)WideCharStr, -1);
 			}
 			result = 0;
@@ -2980,7 +2978,7 @@ int nox_xxx_windowAccessProc_454BA0(int a1, int a2, int* a3, int a4) {
 		case 10128:
 			if (v42 > 14) {
 				LOBYTE(v42) = 14;
-				_itow(14, WideCharStr, 10);
+				nox_itow(14, WideCharStr, 10);
 				nox_window_call_field_94((int)a3, 16414, (int)WideCharStr, -1);
 			}
 			result = 0;
@@ -2998,12 +2996,12 @@ int nox_xxx_windowAccessProc_454BA0(int a1, int a2, int* a3, int a4) {
 			if (v42 <= 32) {
 				if (v42 < 1) {
 					v42 = 1;
-					_itow(1, WideCharStr, 10);
+					nox_itow(1, WideCharStr, 10);
 					nox_window_call_field_94((int)a3, 16414, (int)WideCharStr, -1);
 				}
 			} else {
 				v42 = 32;
-				_itow(32, WideCharStr, 10);
+				nox_itow(32, WideCharStr, 10);
 				nox_window_call_field_94((int)a3, 16414, (int)WideCharStr, -1);
 			}
 			nox_xxx_servSetPlrLimit_409F80(v42);
@@ -3084,7 +3082,7 @@ int* sub_455800() {
 	result = *(int**)&dword_5d4594_1045516;
 	if (dword_5d4594_1045516) {
 		v1 = nox_xxx_servGetPlrLimit_409FA0();
-		_itow(v1, WideCharStr, 10);
+		nox_itow(v1, WideCharStr, 10);
 		nox_window_call_field_94(*getMemIntPtr(0x5D4594, 1045592), 16414, (int)WideCharStr, 0);
 		result = (int*)nox_common_gameFlags_check_40A5C0(1);
 		if (result) {
@@ -3771,9 +3769,9 @@ void sub_4573B0() { *getMemU32Ptr(0x5D4594, 1045696) = 0; }
 int sub_457460(int a1) {
 	wchar_t WideCharStr[16]; // [esp+4h] [ebp-20h]
 
-	_itow(*(unsigned short*)(a1 + 54), WideCharStr, 10);
+	nox_itow(*(unsigned short*)(a1 + 54), WideCharStr, 10);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1046516, 16414, (int)WideCharStr, 0);
-	_itow(*(unsigned char*)(a1 + 56), WideCharStr, 10);
+	nox_itow(*(unsigned char*)(a1 + 56), WideCharStr, 10);
 	return nox_window_call_field_94(*(int*)&dword_5d4594_1046520, 16414, (int)WideCharStr, 0);
 }
 
@@ -3845,10 +3843,10 @@ int sub_457B60(int a1) {
 			nox_client_guiserv_updateMapList_458230(*(unsigned short*)(a1 + 52), (char*)a1, 0);
 		}
 		v7 = nox_xxx_servGamedataGet_40A020(*((uint16_t*)v5 + 26));
-		_itow(v7, WideCharStr, 10);
+		nox_itow(v7, WideCharStr, 10);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1046516, 16414, (int)WideCharStr, 0);
 		v8 = sub_40A180(*((uint16_t*)v5 + 26));
-		_itow(v8, WideCharStr, 10);
+		nox_itow(v8, WideCharStr, 10);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1046520, 16414, (int)WideCharStr, 0);
 		sub_4580E0((int)v5);
 	} else {
@@ -3861,9 +3859,9 @@ int sub_457B60(int a1) {
 		sub_46ACE0(*(uint32_t**)&dword_5d4594_1046492, 10141, 10141, 1);
 		v5 = (char*)a1;
 		nox_client_guiserv_updateMapList_458230(*(unsigned short*)(a1 + 52), (char*)a1, 0);
-		_itow(*(unsigned short*)(a1 + 54), WideCharStr, 10);
+		nox_itow(*(unsigned short*)(a1 + 54), WideCharStr, 10);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1046516, 16414, (int)WideCharStr, 0);
-		_itow(*(unsigned char*)(a1 + 56), WideCharStr, 10);
+		nox_itow(*(unsigned char*)(a1 + 56), WideCharStr, 10);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1046520, 16414, (int)WideCharStr, 0);
 		if (0) {
 			v10 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1046492, 10210);
@@ -4000,7 +3998,7 @@ char sub_459150() {
 	}
 	if (*v6) {
 		v7 = nox_xxx_mapGetMapName_409B40();
-		v8 = _strcmpi(v6, v7);
+		v8 = nox_strcmpi(v6, v7);
 		sub_4165F0(1, 0);
 		v9 = sub_4165D0(0);
 		nox_xxx_gameSetServername_40A440(v9 + 9);

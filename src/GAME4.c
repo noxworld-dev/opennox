@@ -1,8 +1,6 @@
 #include <errno.h>
 #include <math.h>
 
-#include "compat.h"
-
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_2.h"
@@ -4707,7 +4705,7 @@ char* nox_xxx_scriptGetJournal_5005E0(char* a1) {
 	}
 	memcpy(v3, v4, v5 & 3);
 	for (i = dword_5d4594_1570272; i; i = *(uint32_t*)(i + 140)) {
-		if (!_strcmpi((const char*)i, (const char*)getMemAt(0x5D4594, 1570140))) {
+		if (!nox_strcmpi((const char*)i, (const char*)getMemAt(0x5D4594, 1570140))) {
 			break;
 		}
 	}
@@ -4827,7 +4825,7 @@ char* sub_5007E0(char* a1) {
 			if (dword_5d4594_1570272) {
 				do {
 					v6 = *(uint32_t*)(v5 + 140);
-					result = (char*)_strnicmp((const char*)v5, (const char*)getMemAt(0x5D4594, 1570140), v3 - 2);
+					result = (char*)nox_strnicmp((const char*)v5, (const char*)getMemAt(0x5D4594, 1570140), v3 - 2);
 					if (!result) {
 						sub_500790((void*)v5);
 					}
@@ -4861,7 +4859,7 @@ char* sub_5007E0(char* a1) {
 				v17 = v10 - (char*)getMemAt(0x5D4594, 1570140);
 				do {
 					v15 = *(uint32_t*)(v12 + 140);
-					result = (char*)_strnicmp((const char*)v12, (const char*)getMemAt(0x5D4594, 1570140), v14 + 1);
+					result = (char*)nox_strnicmp((const char*)v12, (const char*)getMemAt(0x5D4594, 1570140), v14 + 1);
 					if (!result) {
 						result = strstr((const char*)(v14 + v12 + 2), v11);
 						if (result) {
@@ -5779,7 +5777,7 @@ int sub_5029A0(char* a1) {
 	if (*(int*)&dword_5d4594_1599596 <= 0) {
 		return -1;
 	}
-	for (i = 0; _strcmpi(a1, (const char*)(i + dword_5d4594_1599576)); i += 76) {
+	for (i = 0; nox_strcmpi(a1, (const char*)(i + dword_5d4594_1599576)); i += 76) {
 		if (++v1 >= *(int*)&dword_5d4594_1599596) {
 			return -1;
 		}

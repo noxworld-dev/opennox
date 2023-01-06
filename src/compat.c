@@ -17,23 +17,6 @@
 #include "common/fs/nox_fs.h"
 #include "windows_compat.h"
 
-char* nox_itoa(int val, char* s, int radix);
-char* _itoa(int val, char* s, int radix) { return nox_itoa(val, s, radix); }
-
-wchar_t* _itow(int val, wchar_t* s, int radix) {
-	char tmp[32];
-	unsigned int i;
-
-	_itoa(val, tmp, radix);
-	for (i = 0; tmp[i]; i++)
-		s[i] = tmp[i];
-	s[i] = 0;
-
-	return s;
-}
-
-int InterlockedExchange(volatile int* Target, int Value) { return __sync_lock_test_and_set(Target, Value); }
-
 struct _FIND_FILE {
 	size_t idx;
 	glob_t globbuf;

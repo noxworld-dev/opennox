@@ -1,10 +1,6 @@
 #include <math.h>
 
-#ifdef _WIN32
-#include <io.h>
-#else
-#include "windows_compat.h"
-#endif
+#include "compat.h"
 
 #include "GAME1.h"
 #include "GAME1_1.h"
@@ -442,14 +438,14 @@ void* sub_4CED40(char* a1) {
 	v2 = result;
 	if (result != (HANDLE)-1) {
 		FindFileData.cFileName[strlen(FindFileData.cAlternateFileName) + 256] = 0;
-		if (_strcmpi(a1, FindFileData.cAlternateFileName) && _strcmpi("user", FindFileData.cAlternateFileName)) {
+		if (nox_strcmpi(a1, FindFileData.cAlternateFileName) && nox_strcmpi("user", FindFileData.cAlternateFileName)) {
 			nox_swprintf(v5, L"%S", FindFileData.cAlternateFileName);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1523028, 16397, (int)v5, -1);
 		}
 		while (FindNextFileA(v2, &FindFileData)) {
 			FindFileData.cFileName[strlen(FindFileData.cAlternateFileName) + 256] = 0;
-			if (_strcmpi(a1, FindFileData.cAlternateFileName)) {
-				if (_strcmpi("user", FindFileData.cAlternateFileName)) {
+			if (nox_strcmpi(a1, FindFileData.cAlternateFileName)) {
+				if (nox_strcmpi("user", FindFileData.cAlternateFileName)) {
 					nox_swprintf(v5, L"%S", FindFileData.cAlternateFileName);
 					nox_window_call_field_94(*(int*)&dword_5d4594_1523028, 16397, (int)v5, -1);
 				}
@@ -564,7 +560,7 @@ int sub_4CF060(int a1, unsigned int a2, int* a3, int a4) {
 					atoi(v6);
 					if (a4 == 10171) {
 						v8 = sub_4165B0();
-						if (!_strcmpi(v7, v8) || !_strcmpi(v7, "user")) {
+						if (!nox_strcmpi(v7, v8) || !nox_strcmpi(v7, "user")) {
 							nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1523036, 0);
 							return 1;
 						}
@@ -1059,7 +1055,7 @@ int sub_4D0C80(char* a1) {
 
 	v1 = 0;
 	v2 = (const char**)getMemAt(0x587000, 191832);
-	while (_strcmpi(*v2, a1)) {
+	while (nox_strcmpi(*v2, a1)) {
 		v2 += 2;
 		++v1;
 		if ((int)v2 >= (int)getMemAt(0x587000, 191880)) {
@@ -1181,7 +1177,7 @@ int nox_xxx_mapSelectFirst_4D0E00() {
 				if (v9 < result) {
 					v12 = (int)(v10 + 32);
 					do {
-						if (!_strnicmp((const char*)v10 + 4, (const char*)(v12 + 4), 6u)) {
+						if (!nox_strnicmp((const char*)v10 + 4, (const char*)(v12 + 4), 6u)) {
 							*(uint32_t*)v12 = *(uint32_t*)v10;
 						}
 						result = dword_5d4594_1548476;

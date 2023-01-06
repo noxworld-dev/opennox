@@ -1,5 +1,3 @@
-#include "compat.h"
-
 #include "client__gui__guibook.h"
 #include "client__gui__window.h"
 
@@ -322,7 +320,7 @@ int nox_xxx_bookDrawList_45BD40(int a1) {
 		v45 = nox_strman_loadString_40F1D0("ManaCost", 0, "C:\\NoxPost\\src\\Client\\Gui\\guibook.c", 1115);
 		nox_swprintf(v71, L"%s ", v45);
 		if (v44) {
-			_itow(v44, WideCharStr, 10);
+			nox_itow(v44, WideCharStr, 10);
 			nox_wcscat(v71, WideCharStr);
 		} else if (nox_xxx_spellHasFlags_424A50(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932), 0x800000)) {
 			nox_wcscat(v71, L"0");

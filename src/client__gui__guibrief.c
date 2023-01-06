@@ -1,5 +1,3 @@
-#include "compat.h"
-
 #include "client__gui__guibrief.h"
 #include "client__gui__window.h"
 #include "common__strman.h"
@@ -170,7 +168,7 @@ int sub_44E8E0(int a1, int a2) {
 	v5 = nox_strman_loadString_40F1D0("Noxworld.c:Stage", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c", 451);
 	nox_wcscpy(v56, v5);
 	nox_wcscat(v56, L" XX1 ");
-	_itow(*getMemIntPtr(0x5D4594, 831228), WideCharStr, 10);
+	nox_itow(*getMemIntPtr(0x5D4594, 831228), WideCharStr, 10);
 	nox_wcscat(v56, WideCharStr);
 	nox_swprintf(v57, L"%s - %s", &v55[1], v56);
 	nox_xxx_drawGetStringSize_43F840(*(uint32_t*)(a2 + 200), v57, &v39, &v38, 0);

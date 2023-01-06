@@ -1,7 +1,6 @@
 #include "client__gui__servopts__access.h"
 #include "client__gui__window.h"
 #include "common__strman.h"
-#include "compat.h"
 
 #include "GAME1.h"
 #include "GAME1_3.h"
@@ -81,13 +80,13 @@ int* sub_454740() {
 	if (*(short*)(v0 + 105) != -1) {
 		nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045584, 1);
 		*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1045568) + 36) |= 4u;
-		_itow(*(unsigned short*)(v0 + 105), WideCharStr, 10);
+		nox_itow(*(unsigned short*)(v0 + 105), WideCharStr, 10);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1045584, 16414, (int)WideCharStr, 0);
 	}
 	if (*(short*)(v0 + 107) != -1) {
 		nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045588, 1);
 		*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1045572) + 36) |= 4u;
-		_itow(*(unsigned short*)(v0 + 107), WideCharStr, 10);
+		nox_itow(*(unsigned short*)(v0 + 107), WideCharStr, 10);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1045588, 16414, (int)WideCharStr, 0);
 	}
 	v3 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045516, 10124);
@@ -141,7 +140,7 @@ int* sub_454740() {
 			*(uint32_t*)(*(uint32_t*)(v11 + 48) + 4 * v10 + 4) = -1;
 		}
 	}
-	_itow((unsigned char)v0[104], WideCharStr, 10);
+	nox_itow((unsigned char)v0[104], WideCharStr, 10);
 	nox_window_call_field_94(*getMemIntPtr(0x5D4594, 1045592), 16414, (int)WideCharStr, 0);
 	for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 		if (i[2064] != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {

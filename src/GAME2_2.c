@@ -4572,7 +4572,7 @@ char* sub_4866F0(const char* a1, const char* a2) {
 	}
 LABEL_14:
 	nox_fs_close(v6);
-	qsort(*(void**)v2, *((uint32_t*)v2 + 1), 0x24u, (int (*)(const void*, const void*))_strcmpi);
+	qsort(*(void**)v2, *((uint32_t*)v2 + 1), 0x24u, (int (*)(const void*, const void*))nox_strcmpi);
 	*((uint32_t*)v2 + 69) = 0;
 	if (a2) {
 		strcpy(v2 + 8, a2);
@@ -4620,7 +4620,7 @@ unsigned int sub_486A10(int a1, void* a2) {
 	void* v2;            // eax
 	unsigned int result; // eax
 
-	v2 = bsearch(a2, *(const void**)a1, *(uint32_t*)(a1 + 4), 0x24u, (int (*)(const void*, const void*))_strcmpi);
+	v2 = bsearch(a2, *(const void**)a1, *(uint32_t*)(a1 + 4), 0x24u, (int (*)(const void*, const void*))nox_strcmpi);
 	if (v2) {
 		result = ((unsigned int)v2 - *(uint32_t*)a1) / 0x24;
 	} else {

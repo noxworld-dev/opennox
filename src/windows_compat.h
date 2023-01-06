@@ -5,18 +5,11 @@
 extern "C" {
 #endif
 
-#include <arpa/inet.h>
-#include <fcntl.h>
-#include <netdb.h>
-#include <stdarg.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <unistd.h>
 
 #define MAX_PATH 260
 
@@ -69,21 +62,10 @@ enum {
 #define FindFirstFileA compatFindFirstFileA
 #define FindNextFileA compatFindNextFileA
 #define FindClose compatFindClose
-#define _itoa compat_itoa
-#define _itow compat_itow
-#define InterlockedExchange compatInterlockedExchange
-
-#define _strcmpi strcasecmp
-#define _strnicmp strncasecmp
 
 HANDLE FindFirstFileA(const char* lpFileName, LPWIN32_FIND_DATAA lpFindFileData);
 int FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData);
 int FindClose(HANDLE hFindFile);
-
-int InterlockedExchange(volatile int* Target, int Value);
-
-char* _itoa(int val, char* s, int radix);
-wchar_t* _itow(int val, wchar_t* s, int radix);
 
 #ifdef __cplusplus
 }
