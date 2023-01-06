@@ -1449,4 +1449,18 @@ _Static_assert(sizeof(nox_waypoint_t) == 516, "wrong size of nox_waypoint_t stru
 uint32_t gameFrame();
 uint32_t gameFPS();
 
+typedef struct {
+  uint16_t wYear;
+  uint16_t wMonth;
+  uint16_t wDayOfWeek;
+  uint16_t wDay;
+  uint16_t wHour;
+  uint16_t wMinute;
+  uint16_t wSecond;
+  uint16_t wMilliseconds;
+} noxSYSTEMTIME;
+_Static_assert(sizeof(noxSYSTEMTIME) == 16, "wrong size of SYSTEMTIME structure!");
+
+void noxGetLocalTime(noxSYSTEMTIME* lpSystemTime);
+
 #endif // NOX_DEFS_H

@@ -25,17 +25,6 @@ typedef void* HINSTANCE;
 typedef int HWND;
 typedef int LCID;
 
-typedef struct _SYSTEMTIME {
-	uint16_t wYear;
-	uint16_t wMonth;
-	uint16_t wDayOfWeek;
-	uint16_t wDay;
-	uint16_t wHour;
-	uint16_t wMinute;
-	uint16_t wSecond;
-	uint16_t wMilliseconds;
-} SYSTEMTIME, *LPSYSTEMTIME;
-
 typedef struct _FILETIME {
 	uint32_t dwLowDateTime;
 	uint32_t dwHighDateTime;
@@ -77,11 +66,9 @@ enum {
 	FILE_ATTRIBUTE_NORMAL = 0x80,
 };
 
-#define GetLocalTime compatGetLocalTime
 #define FindFirstFileA compatFindFirstFileA
 #define FindNextFileA compatFindNextFileA
 #define FindClose compatFindClose
-#define OutputDebugStringA compatOutputDebugStringA
 #define _itoa compat_itoa
 #define _itow compat_itow
 #define InterlockedExchange compatInterlockedExchange
@@ -89,11 +76,9 @@ enum {
 #define _strcmpi strcasecmp
 #define _strnicmp strncasecmp
 
-void GetLocalTime(LPSYSTEMTIME lpSystemTime);
 HANDLE FindFirstFileA(const char* lpFileName, LPWIN32_FIND_DATAA lpFindFileData);
 int FindNextFileA(HANDLE hFindFile, LPWIN32_FIND_DATAA lpFindFileData);
 int FindClose(HANDLE hFindFile);
-void OutputDebugStringA(const char* lpOutputString);
 
 int InterlockedExchange(volatile int* Target, int Value);
 

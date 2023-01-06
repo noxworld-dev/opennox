@@ -1,3 +1,5 @@
+#include "compat.h"
+
 #include "client__shell__noxworld.h"
 
 #include "GAME1.h"

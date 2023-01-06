@@ -1,6 +1,8 @@
 #include <math.h>
 #include <time.h>
 
+#include "compat.h"
+
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_2.h"
@@ -2283,7 +2285,7 @@ int nox_xxx_parseFileInfoData_41C3B0(int a1) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v3, 1u);
 		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x85B3FC, 12008), (unsigned char)v3);
 	}
-	GetLocalTime((LPSYSTEMTIME)getMemAt(0x85B3FC, 12168));
+	noxGetLocalTime(getMemAt(0x85B3FC, 12168));
 	nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x85B3FC, 12168), 2u);
 	nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x85B3FC, 12170), 2u);
 	nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x85B3FC, 12172), 2u);

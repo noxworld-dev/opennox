@@ -20,6 +20,4 @@ int nox_sprintf(char* str, const char* format, ...);
 int nox_swprintf(wchar_t* str, const wchar_t* fmt, ...);
 int nox_vswprintf(wchar_t* str, const wchar_t* fmt, va_list ap);
 
-void _dprintf(const char* fmt, ...);
-
 #endif // NOX_STRING_H

@@ -1,5 +1,7 @@
 #include <math.h>
 
+#include "compat.h"
+
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_2.h"
@@ -3018,12 +3020,9 @@ int sub_534120(int a1, float2* a2) {
 //----- (005341A0) --------------------------------------------------------
 void nox_ai_debug_print(char* str);
 void nox_ai_debug_printf_5341A0(char* a1, ...) {
-	// char debug[1024];
 	va_list va; // [esp+8h] [ebp+8h]
 
 	va_start(va, a1);
-	// nox_vsprintf(debug, a1, va);
-	// OutputDebugStringA(debug);
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_SHOW_AI)) {
 		nox_vsprintf((char*)getMemAt(0x5D4594, 2487996), a1, va);
 		nox_ai_debug_print((char*)getMemAt(0x5D4594, 2487996));

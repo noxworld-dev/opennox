@@ -1,6 +1,8 @@
 #include <math.h>
 #include <sys/stat.h>
 
+#include "compat.h"
+
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_2.h"
