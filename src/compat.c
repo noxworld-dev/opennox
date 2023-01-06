@@ -36,18 +36,6 @@ wchar_t* _itow(int val, wchar_t* s, int radix) {
 
 int InterlockedExchange(volatile int* Target, int Value) { return __sync_lock_test_and_set(Target, Value); }
 
-// Time functions
-// compatGetDateFormatA(Locale=2048, dwFlags=1, lpDate=0x1708c6a4, lpFormat=0x00000000, lpDateStr="nox.str:Warrior",
-// cchDate=256) at compat.c:1001
-int GetDateFormatA(LCID Locale, uint32_t dwFlags, const SYSTEMTIME* lpDate, const char* lpFormat, char* lpDateStr,
-				   int cchDate) {
-	if (Locale != 0x800 || dwFlags != 1 || lpFormat)
-		abort();
-
-	// default locale, short date (M/d/yy)
-	return snprintf(lpDateStr, cchDate, "%d/%d/%02d", lpDate->wMonth, lpDate->wDay, lpDate->wYear % 100);
-}
-
 void GetLocalTime(LPSYSTEMTIME lpSystemTime) {
 	time_t t;
 	struct tm* tm;

@@ -3075,29 +3075,6 @@ int sub_4D5D20(uint32_t* a1) {
 	return result;
 }
 
-//----- (004D5DB0) --------------------------------------------------------
-unsigned int nox_xxx_mapGenMakeInfo_4D5DB0(int a1) {
-	unsigned int result;           // eax
-	struct _SYSTEMTIME SystemTime; // [esp+Ch] [ebp-410h]
-	char DateStr[1024];            // [esp+1Ch] [ebp-400h]
-
-	strcpy((char*)a1, "Generated Map");
-	strcpy((char*)(a1 + 64), "Generated Map");
-	*(uint16_t*)(a1 + 576) = *getMemU16Ptr(0x587000, 198380);
-	*(uint32_t*)(a1 + 592) = *getMemU32Ptr(0x587000, 198384);
-	strcpy((char*)(a1 + 656), "http://www.westwood.com");
-	strcpy((char*)(a1 + 720), "http://www.westwood.com");
-	strcpy((char*)(a1 + 848), "http://www.westwood.com");
-	strcpy((char*)(a1 + 976), "Generated Map");
-	strcpy((char*)(a1 + 1232), "Westwood Studios");
-	GetLocalTime(&SystemTime);
-	GetDateFormatA(0x800u, 0, &SystemTime, "dddd',' MMMM d yyyy", DateStr, 1024);
-	result = strlen(DateStr) + 1;
-	memcpy((void*)(a1 + 1360), DateStr, result);
-	*(uint32_t*)(a1 + 1392) = 3;
-	return result;
-}
-
 //----- (004D5F30) --------------------------------------------------------
 int nox_xxx_mapGenStartAlt_4D5F30() {
 	int v0;                      // esi
