@@ -793,42 +793,6 @@ func (c *Client) nox_xxx_tileDrawMB_481C20(vp *noxrender.Viewport) {
 	}
 }
 
-//export sub_4C5630
-func sub_4C5630(a1 int, a2 int, a3 int) int {
-	return noxClient.sub4C5630(a1, a2, a3)
-}
-
-type tileMapXxx struct {
-	arr [32]int
-}
-
-type nox_arr_84EB20_t struct {
-	Y  int
-	Cl [common.GridStep]noxrender.RGB
-}
-
-type clientTileData struct {
-	noxTilesGpx    int
-	noxTilesGpy    int
-	noxTileBuf     []uint16
-	noxTileBufFree func()
-	nox_arr_956A00 [noxMaxHeight + 150]int
-	nox_arr_957820 [noxMaxHeight + 150]tileMapXxx
-
-	dword_5d4594_3679320 int
-	dword_5d4594_3798156 int
-	dword_5d4594_3798812 int
-	dword_5d4594_3798800 int
-	dword_5d4594_3798816 int
-	dword_5d4594_3798808 int
-	dword_5d4594_3798804 int
-
-	nox_arr2_853BC0  [lightGridW][lightGridH]noxrender.RGB
-	nox_arr_84EB20   [lightGridW]nox_arr_84EB20_t
-	lightsOutBuf     []uint32
-	nox_light_8529A0 [512]int
-}
-
 func (c *Client) sub4C5630(a1 int, a2 int, a3 int) int {
 	if a3 < 0 || a3 > len(c.tiles.nox_arr_956A00) { // TODO: figure out why overflow happens on high-res
 		return 0
@@ -965,24 +929,20 @@ func (c *Client) sub_4C52E0(a1 *int32, sz int) {
 	}
 }
 
-//export sub_4C42A0
-func sub_4C42A0(a1 *C.int2, a2 *C.int2, a3 *int, a4 *int) int32 {
-	return noxClient.sub4C42A0(a1, a2, a3, a4)
-}
-func (c *Client) sub4C42A0(a1 *C.int2, a2 *C.int2, a3 *int, a4 *int) int32 {
-	v4 := int(a1.field_4)
-	v5 := int(a2.field_4)
+func (c *Client) sub4C42A0(a1, a2 image.Point, a3 *int, a4 *int) int32 {
+	v4 := a1.Y
+	v5 := a2.Y
 	if v4 == v5 {
 		if v4 < 0 || v4 >= len(c.tiles.nox_arr_956A00) || c.tiles.nox_arr_956A00[v4] == 0 {
 			return 0
 		}
-		v47 := int(a1.field_0)
-		v54 := int(a2.field_0)
+		v47 := a1.X
+		v54 := a2.X
 		var (
 			v51 float32
 			v7  float64
 		)
-		if int(a1.field_0) > v54 {
+		if a1.X > v54 {
 			v51 = float32(float64(v54))
 			v7 = float64(v47)
 		} else {
@@ -1030,8 +990,8 @@ func (c *Client) sub4C42A0(a1 *C.int2, a2 *C.int2, a3 *int, a4 *int) int32 {
 		*a4 = 0
 		return 1
 	}
-	v48 := a1.field_0
-	v56 := a2.field_0
+	v48 := a1.X
+	v56 := a2.X
 	var (
 		v15 int
 		v16 int
@@ -1039,16 +999,16 @@ func (c *Client) sub4C42A0(a1 *C.int2, a2 *C.int2, a3 *int, a4 *int) int32 {
 		v52 float32
 		v17 float64
 	)
-	if a1.field_0 > v56 {
+	if a1.X > v56 {
 		v15 = v5
-		v16 = int(a1.field_4)
+		v16 = a1.Y
 		v50 = v5
 		v52 = float32(float64(v56))
 		v17 = float64(v48)
 	} else {
-		v15 = int(a1.field_4)
+		v15 = a1.Y
 		v16 = v5
-		v50 = int(a1.field_4)
+		v50 = a1.Y
 		v52 = float32(float64(v48))
 		v17 = float64(v56)
 	}
