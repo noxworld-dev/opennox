@@ -627,16 +627,16 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Unit) {
 			}
 		}
 		dp := types.Ptf(float32(pl.Field10), float32(pl.Field12)).Add(types.Ptf(100, 100))
-		p1 := pl.pos3632().Sub(dp)
-		p2 := pl.pos3632().Add(dp)
+		p1 := pl.Pos3632().Sub(dp)
+		p2 := pl.Pos3632().Add(dp)
 		rect := types.RectFromPointsf(p1, p2)
 		s.Map.EachObjAndMissileInRect(rect, func(it *server.Object) {
 			s.nox_xxx_unitAroundPlayerFn_5193B0(asObjectS(it), u)
 		})
 
 		dp = types.Ptf(float32(pl.Field10), float32(pl.Field12)).Add(types.Ptf(128, 128))
-		p1 = pl.pos3632().Sub(dp)
-		p2 = pl.pos3632().Add(dp)
+		p1 = pl.Pos3632().Sub(dp)
+		p2 = pl.Pos3632().Add(dp)
 		rect = types.RectFromPointsf(p1, p2)
 		s.nox_xxx_secretWallCheckUnits_517F00(rect, func(it unsafe.Pointer) {
 			s.sub_519660(it, u)

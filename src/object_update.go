@@ -169,7 +169,7 @@ func nox_xxx_updatePlayer_4F8100(up *nox_object_t) {
 	if u2 == nil {
 		u2 = pl.UnitC()
 	}
-	pl.setPos3632(u2.Pos())
+	pl.SetPos3632(u2.Pos())
 	if ud.Field40_0 != 0 {
 		ud.Field40_0--
 	}
@@ -1066,7 +1066,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 	}
 	u.NeedSync()
 	if targ := pl.CameraTarget(); targ != nil {
-		pl.setPos3632(targ.Pos())
+		pl.SetPos3632(targ.Pos())
 	}
 	cb := s.ctrlbuf.Player(pl.Index())
 	if cb.First() == nil {
@@ -1083,8 +1083,8 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 				it.active = false
 			} else if pl.Field3672 == 1 {
 				const max = 30
-				dp := pl.pos3632().Sub(pl.CursorPos())
-				opos := pl.pos3632()
+				dp := pl.Pos3632().Sub(pl.CursorPos())
+				opos := pl.Pos3632()
 				if dp.X > max {
 					opos.X -= (dp.X - max) * 0.1
 				} else if dp.X < -max {
@@ -1096,7 +1096,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 					opos.Y -= (dp.Y + max) * 0.1
 				}
 				if s.Map.ValidIndexPos(opos) {
-					pl.setPos3632(opos)
+					pl.SetPos3632(opos)
 				}
 			}
 			continue
@@ -1106,7 +1106,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 				continue
 			}
 			if pl.ObserveTarget() == nil && !noxflags.HasGame(noxflags.GameModeQuest) {
-				pos2 := pl.pos3632()
+				pos2 := pl.Pos3632()
 				var (
 					found *Object
 					min   = float32(1e+08)

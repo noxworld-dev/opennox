@@ -497,7 +497,7 @@ func nox_xxx_soloLoadGame_4DB7E0_savegame(a1 string) bool {
 	C.nox_xxx_cliPrepareGameplay2_4721D0()
 	pl := noxServer.getPlayerByInd(common.MaxPlayers - 1)
 	pl.Name()
-	mname := pl.saveName()
+	mname := pl.SaveName()
 	noxServer.nox_xxx_gameSetMapPath_409D70(mname + ".map")
 	dword_5d4594_1559960 = datapath.Save(common.SaveTmp, mname, mname+".map")
 	noxServer.switchMap(mname + ".map")

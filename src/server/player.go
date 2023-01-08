@@ -1,9 +1,12 @@
 package server
 
 import (
+	"fmt"
+	"image"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/player"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
@@ -34,6 +37,8 @@ var (
 	_ = [1]struct{}{}[4580-unsafe.Offsetof(Player{}.Field4580)]
 	_ = [1]struct{}{}[4800-unsafe.Offsetof(Player{}.Data4800)]
 )
+
+var _ Obj = (*Player)(nil) // proxies Unit
 
 type Player struct {
 	Field0              uint32             // 0, 0
@@ -155,6 +160,148 @@ type Player struct {
 	Field4792           uint32         // 1198, 4792
 	Field4796           uint32         // 1199, 4796
 	Data4800            [7]uint32
+}
+
+func (p *Player) String() string {
+	return fmt.Sprintf("Player(%q)", p.Name())
+}
+
+func (p *Player) IsActive() bool {
+	return p != nil && p.Active != 0
+}
+
+func (p *Player) Index() int {
+	if p == nil {
+		return -1
+	}
+	return int(p.PlayerInd)
+}
+
+func (p *Player) NetCode() int {
+	if p == nil {
+		return -1
+	}
+	return int(p.NetCodeVal)
+}
+
+func (p *Player) Gold() int {
+	return int(p.GoldVal)
+}
+
+func (p *Player) CursorPos() types.Pointf {
+	if p == nil {
+		return types.Pointf{}
+	}
+	return types.Pointf{
+		X: float32(p.CursorX),
+		Y: float32(p.CursorY),
+	}
+}
+
+func (p *Player) SetCursorPos(pos image.Point) {
+	p.CursorX = int32(pos.X)
+	p.CursorY = int32(pos.Y)
+}
+
+func (p *Player) Pos3632() types.Pointf {
+	if p == nil {
+		return types.Pointf{}
+	}
+	return types.Pointf{
+		X: p.PosX3632,
+		Y: p.PosY3636,
+	}
+}
+
+func (p *Player) SetPos3632(pt types.Pointf) {
+	p.PosX3632 = pt.X
+	p.PosY3636 = pt.Y
+}
+
+func (p *Player) Reset(ind int) {
+	*p = Player{
+		PlayerInd: byte(ind),
+		Active:    1,
+		Field3648: 4,
+	}
+}
+
+func (p *Player) SObj() *Object {
+	if p == nil {
+		return nil
+	}
+	return p.PlayerUnit
+}
+
+func (p *Player) Info() *PlayerInfo {
+	if p == nil {
+		return nil
+	}
+	return (*PlayerInfo)(unsafe.Pointer(&p.info)) // inaccessible due to alignment issues
+}
+
+func (p *Player) OrigName() string {
+	return p.Info().Name()
+}
+
+func (p *Player) PlayerClass() player.Class {
+	if p == nil {
+		return 0
+	}
+	return p.Info().PlayerClass()
+}
+
+func (p *Player) SetName(v string) {
+	alloc.StrCopy16(p.NameFinal[:], v)
+}
+
+func (p *Player) Name() string {
+	return alloc.GoString16S(p.NameFinal[:])
+}
+
+func (p *Player) SaveName() string {
+	return alloc.GoString(&p.Field4760[0])
+}
+
+func (p *Player) Serial() string {
+	return alloc.GoStringS(p.SerialBuf[:])
+}
+
+func (p *Player) SetSerial(v string) {
+	alloc.StrCopy(p.SerialBuf[:], v)
+}
+
+func (p *Player) Field2096() string {
+	return alloc.GoStringS(p.Field2096Buf[:])
+}
+
+func (p *Player) SetField2096(v string) {
+	alloc.StrCopy(p.Field2096Buf[:], v)
+}
+
+func (p *Player) CameraUnlock() { // nox_xxx_playerCameraUnlock_4E6040
+	if p == nil {
+		return
+	}
+	p.CameraFollowObj = nil
+}
+
+func (p *Player) CameraFollow(obj Obj) {
+	if p == nil {
+		return
+	}
+	p.CameraFollowObj = toObject(obj)
+}
+
+func (p *Player) CameraToggle(obj Obj) { // nox_xxx_playerCameraFollow_4E6060
+	if p == nil {
+		return
+	}
+	if p.CameraFollowObj == toObject(obj) {
+		p.CameraUnlock()
+	} else {
+		p.CameraFollow(obj)
+	}
 }
 
 var (
