@@ -78,6 +78,47 @@ var (
 	partViewportOff                      image.Point
 )
 
+type tileMapXxx struct {
+	arr [32]int
+}
+
+type nox_arr_84EB20_t struct {
+	Y  int
+	Cl [common.GridStep]noxrender.RGB
+}
+
+type clientTileData struct {
+	noxTilesGpx    int
+	noxTilesGpy    int
+	noxTileBuf     []uint16
+	noxTileBufFree func()
+	nox_arr_956A00 [noxMaxHeight + 150]int
+	nox_arr_957820 [noxMaxHeight + 150]tileMapXxx
+
+	dword_5d4594_3679320 int
+	dword_5d4594_3798156 int
+	dword_5d4594_3798812 int
+	dword_5d4594_3798800 int
+	dword_5d4594_3798816 int
+	dword_5d4594_3798808 int
+	dword_5d4594_3798804 int
+
+	nox_arr2_853BC0  [lightGridW][lightGridH]noxrender.RGB
+	nox_arr_84EB20   [lightGridW]nox_arr_84EB20_t
+	lightsOutBuf     []uint32
+	nox_light_8529A0 [512]int
+}
+
+//export sub_4C42A0
+func sub_4C42A0(a1 *C.int2, a2 *C.int2, a3 *int, a4 *int) int32 {
+	return noxClient.sub4C42A0(asPoint(unsafe.Pointer(a1)), asPoint(unsafe.Pointer(a2)), a3, a4)
+}
+
+//export sub_4C5630
+func sub_4C5630(a1 int, a2 int, a3 int) int {
+	return noxClient.sub4C5630(a1, a2, a3)
+}
+
 //export sub_473970
 func sub_473970(a1, a2 *C.int2) {
 	a2.field_0 = C.int(partViewportOff.X) + a1.field_0
