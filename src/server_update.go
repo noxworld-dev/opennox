@@ -62,7 +62,7 @@ func (s *Server) updateUnitsBBB() { // nox_xxx_updateUnits_51B100_B
 				obj.CallUpdate()
 			}
 			if obj.Class().Has(object.ClassPlayer) {
-				s.ctrlbuf.Player(obj.AsUnit().ControllingPlayer().Index()).Reset()
+				s.Players.Control.Player(obj.AsUnit().ControllingPlayer().Index()).Reset()
 			}
 		}
 		if obj.Class().Has(object.ClassMonster) {

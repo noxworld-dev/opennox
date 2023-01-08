@@ -164,7 +164,6 @@ func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 
 type Server struct {
 	*server.Server
-	ctrlbuf         serverCtrlBuf
 	spells          serverSpells
 	abilities       serverAbilities
 	srvReg          srvReg

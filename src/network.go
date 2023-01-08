@@ -1453,9 +1453,6 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 	case noxnet.MSG_NEED_TIMESTAMP:
 		C.nox_xxx_netNeedTimestampStatus_4174F0(pl.C(), 64)
 		return 1, true
-	case noxnet.MSG_PLAYER_INPUT:
-		n := s.netOnPlayerInput(pl, data[1:])
-		return 1 + n, true
 	case noxnet.MSG_TRY_ABILITY:
 		if len(data) < 2 {
 			return 0, false
@@ -1666,36 +1663,6 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 		}
 		return res, true
 	}
-}
-
-func (s *Server) netOnPlayerInput(pl *Player, data []byte) int {
-	sz := int(data[0])
-	data = data[1 : 1+sz]
-	if pl.Field3680&0x10 == 0 {
-		return 1 + sz
-	}
-	buf := netDecodePlayerInput(data, nil)
-	s.ctrlbuf.Player(pl.Index()).Append(buf)
-	return 1 + sz
-}
-
-func netDecodePlayerInput(data []byte, out []ctrlBufEvent) []ctrlBufEvent {
-	for len(data) > 0 {
-		code := player.CtrlCode(data[0])
-		data = data[4:]
-		v := ctrlBufEvent{
-			code:   code,
-			active: true,
-		}
-		if sz := code.DataSize(); sz != 0 {
-			var b [4]byte
-			copy(b[:], data[:sz])
-			v.data = binary.LittleEndian.Uint32(b[:4])
-			data = data[sz:]
-		}
-		out = append(out, v)
-	}
-	return out
 }
 
 func nox_xxx_netTimerStatus_4D8F50(a1, a2 int) {

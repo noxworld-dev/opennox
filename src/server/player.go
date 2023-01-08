@@ -26,6 +26,7 @@ type serverPlayers struct {
 		Wizard   classStatMult
 		Conjurer classStatMult
 	}
+	Control serverCtrlBuf
 }
 
 func (s *serverPlayers) init() {
