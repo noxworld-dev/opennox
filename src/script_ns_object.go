@@ -227,7 +227,7 @@ func (obj nsObj) GetScore() int {
 		return 0
 	}
 	pl := obj.AsUnit().ControllingPlayer()
-	return int(pl.lessons)
+	return int(pl.Lessons)
 }
 
 func (obj nsObj) ChangeScore(val int) {

@@ -501,11 +501,11 @@ func serverSetAllBeastScrolls(p *Player, enable bool) {
 		lvl = 1
 	}
 	C.nox_xxx_playerResetProtectionCRC_56F7D0(C.int(*(*uintptr)(p.field(4640))), 0)
-	for i := 1; i < len(p.beast_scroll_lvl); i++ {
-		p.beast_scroll_lvl[i] = C.uint(lvl)
+	for i := 1; i < len(p.BeastScrollLvl); i++ {
+		p.BeastScrollLvl[i] = uint32(lvl)
 		C.nox_xxx_playerAwardSpellProtectionCRC_56FCE0(C.int(*(*uintptr)(p.field(4640))), C.int(i), C.int(lvl))
 	}
-	C.nox_xxx_playerApplyProtectionCRC_56FD50(C.int(*(*uintptr)(p.field(4640))), unsafe.Pointer(&p.beast_scroll_lvl[0]), C.int(len(p.beast_scroll_lvl)))
+	C.nox_xxx_playerApplyProtectionCRC_56FD50(C.int(*(*uintptr)(p.field(4640))), unsafe.Pointer(&p.BeastScrollLvl[0]), C.int(len(p.BeastScrollLvl)))
 }
 
 func serverSetAllSpells(p *Player, enable bool, max int) {
@@ -519,8 +519,8 @@ func serverSetAllSpells(p *Player, enable bool, max int) {
 	C.nox_xxx_playerResetProtectionCRC_56F7D0(C.int(*(*uintptr)(p.field(4636))), 0)
 	// set max level for all possible spells
 	// the engine will automatically allow only ones that have WIS_USE, CON_USE or COMMON_USE set
-	for i := 1; i < len(p.spell_lvl); i++ {
-		p.spell_lvl[i] = C.uint(lvl)
+	for i := 1; i < len(p.SpellLvl); i++ {
+		p.SpellLvl[i] = uint32(lvl)
 		C.nox_xxx_playerAwardSpellProtectionCRC_56FCE0(C.int(*(*uintptr)(p.field(4636))), C.int(i), C.int(lvl))
 	}
 	if !enable && noxflags.HasGame(noxflags.GameModeQuest) {
@@ -534,7 +534,7 @@ func serverSetAllSpells(p *Player, enable bool, max int) {
 			C.nox_xxx_spellGrantToPlayer_4FB550(u.CObj(), C.int(spell.SPELL_LESSER_HEAL), 1, 1, 1)
 		}
 	}
-	C.nox_xxx_playerApplyProtectionCRC_56FD50(C.int(*(*uintptr)(p.field(4636))), unsafe.Pointer(&p.spell_lvl[0]), C.int(len(p.spell_lvl)))
+	C.nox_xxx_playerApplyProtectionCRC_56FD50(C.int(*(*uintptr)(p.field(4636))), unsafe.Pointer(&p.SpellLvl[0]), C.int(len(p.SpellLvl)))
 }
 
 func serverSetAllWarriorAbilities(p *Player, enable bool, max int) {
@@ -549,7 +549,7 @@ func serverSetAllWarriorAbilities(p *Player, enable bool, max int) {
 		}
 	}
 	for i := 1; i < 6; i++ {
-		p.spell_lvl[i] = C.uint(lvl)
+		p.SpellLvl[i] = uint32(lvl)
 		C.nox_xxx_playerAwardSpellProtectionCRC_56FCE0(C.int(*(*uintptr)(p.field(4636))), C.int(i), C.int(lvl))
 	}
 }
@@ -914,7 +914,7 @@ func (s *Server) nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo noxObject,
 		if it.Class().Has(object.ClassMonster) && (it.SubClass()&0x8000 != 0) {
 			return
 		}
-		if it.Class().Has(object.ClassPlayer) && asUnitS(it).ControllingPlayer().field_3680&0x1 != 0 {
+		if it.Class().Has(object.ClassPlayer) && asUnitS(it).ControllingPlayer().Field3680&0x1 != 0 {
 			return
 		}
 		if it.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {

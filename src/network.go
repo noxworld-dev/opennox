@@ -608,8 +608,8 @@ func nox_xxx_netReportLesson_4D8EF0(u *Unit) {
 	buf[0] = byte(noxnet.MSG_REPORT_LESSON)
 	pl := u.ControllingPlayer()
 	binary.LittleEndian.PutUint16(buf[1:], uint16(u.NetCode))
-	binary.LittleEndian.PutUint32(buf[3:], uint32(pl.lessons))
-	binary.LittleEndian.PutUint32(buf[7:], uint32(pl.field_2140))
+	binary.LittleEndian.PutUint32(buf[3:], uint32(pl.Lessons))
+	binary.LittleEndian.PutUint32(buf[7:], uint32(pl.Field2140))
 	noxServer.nox_xxx_netSendPacket1_4E5390(255, buf[:11], 0, 1)
 }
 
@@ -774,7 +774,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 		if true {
 			serial := GoStringS(packet[56:])
 			for it := s.playerFirst(); it != nil; it = s.playerNext(it) {
-				if byte(it.field_2135) == packet[98] {
+				if byte(it.Field2135) == packet[98] {
 					if it.Serial() == serial {
 						out[2] = 19
 						out[3] = 12
@@ -986,7 +986,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 		}
 		fr := binary.LittleEndian.Uint16(data[1:])
 		*v373 = fr
-		if p := getCurPlayer(); p != nil && p.field_3680&0x40 != 0 {
+		if p := getCurPlayer(); p != nil && p.Field3680&0x40 != 0 {
 			return 1
 		}
 		v9 := 1
@@ -1053,7 +1053,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 		C.nox_player_netCode_85319C = C.uint(playerID)
 		pl := c.srv.newPlayerInfo(int(playerID))
 		if pl != nil {
-			pl.field_2068 = C.uint(binary.LittleEndian.Uint32(data[3:]))
+			pl.Field2068 = binary.LittleEndian.Uint32(data[3:])
 			setCurPlayer(pl)
 		}
 		if !noxflags.HasGame(noxflags.GameHost) {
@@ -1076,26 +1076,26 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 			return 129
 		}
 		if !noxflags.HasGame(noxflags.GameHost) {
-			pl.netCode = C.uint(playerID)
-			pl.lessons = C.int(int16(binary.LittleEndian.Uint16(data[100:])))
-			pl.field_2140 = C.uint(int32(int16(binary.LittleEndian.Uint16(data[102:]))))
-			pl.field_0 = C.uint(binary.LittleEndian.Uint32(data[104:]))
-			pl.field_4 = C.uint(binary.LittleEndian.Uint32(data[108:]))
-			pl.field_2152 = C.uint(data[116])
-			pl.field_2156 = C.uint(data[117])
+			pl.NetCodeVal = uint32(playerID)
+			pl.Lessons = int32(int16(binary.LittleEndian.Uint16(data[100:])))
+			pl.Field2140 = uint32(int32(int16(binary.LittleEndian.Uint16(data[102:]))))
+			pl.Field0 = binary.LittleEndian.Uint32(data[104:])
+			pl.Field4 = binary.LittleEndian.Uint32(data[108:])
+			pl.Field2152 = uint32(data[116])
+			pl.Field2156 = uint32(data[117])
 			pl.SetField2096(alloc.GoStringS(data[119:]))
-			pl.field_3680 |= C.uint(binary.LittleEndian.Uint32(data[112:]))
+			pl.Field3680 |= binary.LittleEndian.Uint32(data[112:])
 			pl.Info()
 			*pl.Info() = *(*server.PlayerInfo)(unsafe.Pointer(&data[3 : 3+97][0])) // TODO: safe copy
 			pl.SetName(pl.Info().Name() + pl.Info().NameSuff())
 			if C.dword_5d4594_2650652 != 0 {
-				pl.field_2108 = 0
+				pl.Field2108 = 0
 				C.sub_41D670(internCStr(pl.Field2096()))
 			}
 			C.nox_xxx_playerInitColors_461460(pl.C())
 		}
-		C.sub_457140(C.int(playerID), &pl.name_final[0])
-		C.sub_455920(&pl.name_final[0])
+		C.sub_457140(C.int(playerID), (*C.ushort)(unsafe.Pointer(&pl.NameFinal[0])))
+		C.sub_455920((*C.ushort)(unsafe.Pointer(&pl.NameFinal[0])))
 		if gameGetPlayState() == 3 {
 			format := c.Strings().GetStringInFile("PlayerJoined", "cdecode.c")
 			nox_xxx_printCentered_445490(fmt.Sprintf(format, pl.Name()))
@@ -1117,11 +1117,11 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 		var msg string
 		if pl != nil {
 			C.sub_456DF0(C.int(playerID))
-			C.sub_455950(&pl.name_final[0])
+			C.sub_455950((*C.ushort)(unsafe.Pointer(&pl.NameFinal[0])))
 			format := c.Strings().GetStringInFile("PlayerLeft", "cdecode.c")
 			msg = fmt.Sprintf(format, pl.Name())
 
-			pl.active = 0
+			pl.Active = 0
 			tobj := nox_xxx_objGetTeamByNetCode_418C80(int(playerID))
 			if tobj != nil && nox_xxx_servObjectHasTeam_419130(tobj) {
 				C.nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(tobj), C.int(playerID))
@@ -1308,7 +1308,7 @@ func (s *Server) sendSettings(u *Unit) {
 		var buf [7]byte
 		buf[0] = byte(noxnet.MSG_JOIN_DATA)
 		binary.LittleEndian.PutUint16(buf[1:], uint16(s.getUnitNetCode(u)))
-		binary.LittleEndian.PutUint32(buf[3:], uint32(pl.field_2068))
+		binary.LittleEndian.PutUint32(buf[3:], uint32(pl.Field2068))
 		netlist.AddToMsgListCli(pl.Index(), netlist.Kind1, buf[:7])
 		C.sub_4161E0()
 	}
@@ -1390,7 +1390,7 @@ func (s *Server) onPacketRaw(pli int, data []byte) bool {
 	pl := s.getPlayerByInd(pli)
 	if len(data) == 0 {
 		if pl != nil {
-			pl.frame_3596 = C.uint(s.Frame())
+			pl.Frame3596 = s.Frame()
 		}
 		return true
 	}
@@ -1409,7 +1409,7 @@ func (s *Server) onPacketRaw(pli int, data []byte) bool {
 		return true
 	case 0x25:
 		if pl != nil {
-			pl.frame_3596 = C.uint(s.Frame())
+			pl.Frame3596 = s.Frame()
 		}
 		return true
 	}
@@ -1432,7 +1432,7 @@ func (s *Server) onPacketRaw(pli int, data []byte) bool {
 		}
 		data = data[n:]
 	}
-	pl.frame_3596 = C.uint(s.Frame())
+	pl.Frame3596 = s.Frame()
 	return true
 }
 
@@ -1452,7 +1452,7 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 		if len(data) < 2 {
 			return 0, false
 		}
-		if !noxflags.HasGame(noxflags.GameModeChat) && pl.field_3680&0x3 == 0 {
+		if !noxflags.HasGame(noxflags.GameModeChat) && pl.Field3680&0x3 == 0 {
 			s.abilities.Do(u, Ability(data[1]))
 		}
 		return 2, true
@@ -1485,7 +1485,7 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 		C.nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(C.int(pl.Index()))
 		return 1, true
 	case noxnet.MSG_RECEIVED_MAP:
-		pl.field_3676 = 3
+		pl.Field3676 = 3
 		C.sub_519E80(C.int(pl.Index()))
 		return 1, true
 	case noxnet.MSG_TEXT_MESSAGE:
@@ -1513,7 +1513,7 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 		}
 		_ = text
 		msz := 11 + sz
-		if pl != nil && (pl.field_3680>>2)&0x1 != 0 {
+		if pl != nil && (pl.Field3680>>2)&0x1 != 0 {
 			return msz, true
 		}
 		if flags&0x1 == 0 { // global chat
@@ -1683,7 +1683,7 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 func (s *Server) netOnPlayerInput(pl *Player, data []byte) int {
 	sz := int(data[0])
 	data = data[1 : 1+sz]
-	if pl.field_3680&0x10 == 0 {
+	if pl.Field3680&0x10 == 0 {
 		return 1 + sz
 	}
 	buf := netDecodePlayerInput(data, nil)

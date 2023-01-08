@@ -525,7 +525,7 @@ func sub_4DCD40() {
 	for _, u := range noxServer.getPlayerUnits() {
 		ud := u.UpdateDataPlayer()
 		pl := asPlayerS(ud.Player)
-		if pl.field_4792 != 0 && ud.Field138 != 1 {
+		if pl.Field4792 != 0 && ud.Field138 != 1 {
 			if nox_xxx_playerSaveToFile_41A140(path, pl.Index()) {
 				sub41CFA0(path, pl.Index())
 			}
@@ -545,7 +545,7 @@ func sub_4DCFB0(a1p *C.nox_object_t) {
 	if pl.Index() == common.MaxPlayers-1 {
 		return
 	}
-	if pl.field_4792 != 0 && ud.Field138 != 1 {
+	if pl.Field4792 != 0 && ud.Field138 != 1 {
 		if sub_419EE0(pl.Index()) {
 			nox_xxx_player_4D7960(pl.Index())
 			return

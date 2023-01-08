@@ -135,15 +135,15 @@ func sub_4DF5E0(ind, max int) []byte {
 	return found
 }
 
-var _ = [1]struct{}{}[8-unsafe.Sizeof(playerNetData{})]
+var _ = [1]struct{}{}[8-unsafe.Sizeof(PlayerNetData{})]
 
-type playerNetData struct {
-	field0 uint16
-	field2 uint16
-	frame4 uint32
+type PlayerNetData struct {
+	Field0 uint16
+	Field2 uint16
+	Frame4 uint32
 }
 
-func sub_57B930(arr *[255]playerNetData, f1, f2 uint16, frame uint32) byte {
+func sub_57B930(arr *[255]PlayerNetData, f1, f2 uint16, frame uint32) byte {
 	si := int(byte(f1))
 	if si == 255 || si == 0 {
 		si = 1
@@ -151,8 +151,8 @@ func sub_57B930(arr *[255]playerNetData, f1, f2 uint16, frame uint32) byte {
 	i := si
 	for {
 		v := &arr[i]
-		if v.field0 == f1 && v.field2 == f2 {
-			if v.frame4 >= frame {
+		if v.Field0 == f1 && v.Field2 == f2 {
+			if v.Frame4 >= frame {
 				return byte(i)
 			}
 			break
@@ -191,7 +191,7 @@ func zero3full(b []byte) int {
 }
 
 var (
-	netPlayerPlus16  *[255]playerNetData
+	netPlayerPlus16  *[255]PlayerNetData
 	netPlayerBufSize int
 	netPlayerK1      uint16
 	netPlayerK2      uint16
