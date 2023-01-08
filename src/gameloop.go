@@ -59,6 +59,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
@@ -423,11 +424,11 @@ func CONNECT_OR_HOST() error {
 		}()
 	}
 	mode := noxClient.videoGetGameMode()
-	info := (*PlayerInfo)(unsafe.Pointer(C.nox_xxx_getHostInfoPtr_431770()))
+	info := (*server.PlayerInfo)(unsafe.Pointer(C.nox_xxx_getHostInfoPtr_431770()))
 	name := GoWString((*C.wchar_t)(memmap.PtrOff(0x85B3FC, 12204)))
 	info.SetName(name)
-	info.playerClass = byte(getPlayerClass())
-	info.isFemale = memmap.Uint8(0x85B3FC, 12255)
+	info.SetPlayerClass(getPlayerClass())
+	info.SetIsFemale(memmap.Uint8(0x85B3FC, 12255))
 	info.SetField2253(memmap.Uint16(0x85B3FC, 12187))
 	info.Field2255 = memmap.Uint8(0x85B3FC, 12189)
 	info.SetField2256(memmap.Uint16(0x85B3FC, 12184))
