@@ -307,7 +307,7 @@ func (s *Server) nox_xxx_updateServer_4D2DA0(a1 uint64) {
 		}
 		if !noxflags.HasGame(noxflags.GameSuddenDeath) && !s.flag3592 {
 			for pl := s.playerFirst(); pl != nil; pl = s.playerNext(pl) {
-				if int(pl.field_2140) > 0 {
+				if int(pl.Field2140) > 0 {
 					if C.sub_40AA00() == 0 {
 						break
 					}
@@ -371,7 +371,7 @@ func (s *Server) sub_4D2FF0() {
 		return
 	}
 	for pl := s.playerFirst(); pl != nil; pl = s.playerNext(pl) {
-		if pl.field_3680&1 != 0 {
+		if pl.Field3680&1 != 0 {
 			C.nox_xxx_netNeedTimestampStatus_4174F0(pl.C(), 256)
 		}
 	}
@@ -543,11 +543,11 @@ func (s *Server) updateRemotePlayers() error {
 			continue
 		}
 		fr := 30
-		if pl.field_3680&0x10 != 0 {
+		if pl.Field3680&0x10 != 0 {
 			fr = 90
 		}
-		if s.Frame()-uint32(pl.frame_3596) > uint32(fr)*s.TickRate() {
-			m := uint32(pl.netCode)
+		if s.Frame()-uint32(pl.Frame3596) > uint32(fr)*s.TickRate() {
+			m := uint32(pl.NetCodeVal)
 			// TODO: passing Go pointer
 			C.nox_xxx_netInformTextMsg2_4DA180(3, (*C.uchar)(unsafe.Pointer(&m)))
 			var buf [1]byte
@@ -555,17 +555,17 @@ func (s *Server) updateRemotePlayers() error {
 			netstr.Send(pl.Index()+1, buf[:], netstr.SendNoLock|netstr.SendFlagFlush)
 			pl.Disconnect(3)
 		}
-		if pl.field_3680&0x80 != 0 {
+		if pl.Field3680&0x80 != 0 {
 			pl.Disconnect(4)
 		}
-		if (pl.field_3676 != 3) || (pl.field_3680&0x10 == 0) {
+		if (pl.Field3676 != 3) || (pl.Field3680&0x10 == 0) {
 			var buf [3]byte
 			buf[0] = byte(noxnet.MSG_TIMESTAMP)
 			binary.LittleEndian.PutUint16(buf[1:], uint16(s.Frame()))
 			netlist.AddToMsgListCli(pl.Index(), netlist.Kind1, buf[:])
 		} else {
 			if uint32(pl.UnitC().Ind()) == DeadWord { // see #401
-				pl.playerUnit = nil
+				pl.PlayerUnit = nil
 				mainloopStop()
 				return fmt.Errorf("player unit deleted (%s)", pl.Name())
 			}
@@ -600,7 +600,7 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Unit) {
 		C.nox_xxx_netReportUnitHeight_4D9020(C.int(pind), u.CObj())
 	}
 	if C.dword_5d4594_2650652 == 0 || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0())) == 0 || noxflags.HasGame(noxflags.GameFlag4) {
-		if pl.field_3680&0x40 != 0 {
+		if pl.Field3680&0x40 != 0 {
 			var buf [5]byte
 			buf[0] = byte(noxnet.MSG_FULL_TIMESTAMP)
 			binary.LittleEndian.PutUint32(buf[1:], s.Frame())
@@ -614,7 +614,7 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Unit) {
 		}
 	}
 	if C.dword_5d4594_2650652 == 0 || u == HostPlayerUnit() || noxflags.HasGame(noxflags.GameFlag4) || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0())) == 0 {
-		if pl.field_3680&3 != 0 || noxflags.HasEngine(noxflags.EngineReplayRead) {
+		if pl.Field3680&3 != 0 || noxflags.HasEngine(noxflags.EngineReplayRead) {
 			if !s.nox_xxx_netPlayerObjSendCamera_519330(u) {
 				return
 			}
@@ -626,7 +626,7 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Unit) {
 				return
 			}
 		}
-		dp := types.Ptf(float32(pl.field_10), float32(pl.field_12)).Add(types.Ptf(100, 100))
+		dp := types.Ptf(float32(pl.Field10), float32(pl.Field12)).Add(types.Ptf(100, 100))
 		p1 := pl.pos3632().Sub(dp)
 		p2 := pl.pos3632().Add(dp)
 		rect := types.RectFromPointsf(p1, p2)
@@ -634,7 +634,7 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Unit) {
 			s.nox_xxx_unitAroundPlayerFn_5193B0(asObjectS(it), u)
 		})
 
-		dp = types.Ptf(float32(pl.field_10), float32(pl.field_12)).Add(types.Ptf(128, 128))
+		dp = types.Ptf(float32(pl.Field10), float32(pl.Field12)).Add(types.Ptf(128, 128))
 		p1 = pl.pos3632().Sub(dp)
 		p2 = pl.pos3632().Add(dp)
 		rect = types.RectFromPointsf(p1, p2)
@@ -678,11 +678,11 @@ func (s *Server) sub_4172C0(pind int) *Object {
 		return nil
 	}
 	pl := s.players.list[pind]
-	if pl.field_4580 == nil {
+	if pl.Field4580 == nil {
 		return nil
 	}
-	p := *(**nox_object_t)(unsafe.Add(pl.field_4580, 4))
-	pl.field_4580 = *(*unsafe.Pointer)(unsafe.Add(pl.field_4580, 8))
+	p := *(**nox_object_t)(unsafe.Add(pl.Field4580, 4))
+	pl.Field4580 = *(*unsafe.Pointer)(unsafe.Add(pl.Field4580, 8))
 	return asObjectC(p)
 }
 
@@ -740,7 +740,7 @@ func (s *Server) nox_xxx_unitAroundPlayerFn_5193B0(it *Object, u *Unit) {
 	pl := asPlayerS(ud.Player)
 	if u.SObj() == it.SObj() {
 		C.nox_xxx_netUpdateObjectSpecial_527E50(u.CObj(), it.CObj())
-		if pl.field_3680&0x1 == 0 {
+		if pl.Field3680&0x1 == 0 {
 			return
 		}
 	}
@@ -1003,7 +1003,7 @@ func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
 					ud := u.UpdateDataPlayer()
 					plx := asPlayerS(ud.Player)
 					pi := plx.Index()
-					if plx.field_4792 == 1 && ud.Field138 == 0 && nox_xxx_playerSaveToFile_41A140(fname, pi) {
+					if plx.Field4792 == 1 && ud.Field138 == 0 && nox_xxx_playerSaveToFile_41A140(fname, pi) {
 						v5 := sub_419EE0(pi)
 						nox_xxx_sendGauntlet_4DCF80(pi, 1)
 						if !sub41CFA0(fname, pi) && !v5 {
@@ -1028,7 +1028,7 @@ func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
 	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(noxflags.GameModeChat) {
 		for _, u := range s.getPlayerUnits() {
 			plx := u.ControllingPlayer()
-			if plx.Index() != common.MaxPlayers-1 && plx.field_3680&1 == 0 {
+			if plx.Index() != common.MaxPlayers-1 && plx.Field3680&1 == 0 {
 				u.ApplyEnchant(server.ENCHANT_INVULNERABLE, 0, 5)
 			}
 		}

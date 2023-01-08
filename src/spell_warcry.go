@@ -43,7 +43,7 @@ func nox_xxx_warriorWarcry_53FF40(u *Unit) {
 			if pl.PlayerClass() == player.Warrior {
 				return
 			}
-			if pl.field_3680&0x1 != 0 {
+			if pl.Field3680&0x1 != 0 {
 				return
 			}
 		} else if u2.Class().Has(object.ClassMonster) {

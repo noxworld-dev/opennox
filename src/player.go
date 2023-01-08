@@ -211,7 +211,7 @@ func (s *Server) playerNext(it *Player) *Player {
 
 func (s *Server) firstReplaceablePlayer() *Player {
 	for it := s.playerFirst(); it != nil; it = s.playerNext(it) {
-		if it.field_3680&1 != 0 && it.Index() != -1 {
+		if it.Field3680&1 != 0 && it.Index() != -1 {
 			return it
 		}
 	}
@@ -220,7 +220,7 @@ func (s *Server) firstReplaceablePlayer() *Player {
 
 func (s *Server) nextReplaceablePlayer(it *Player) *Player {
 	for ; it != nil; it = s.playerNext(it) {
-		if it.field_3680&1 != 0 && it.Index() != -1 {
+		if it.Field3680&1 != 0 && it.Index() != -1 {
 			return it
 		}
 	}
@@ -241,7 +241,7 @@ func (s *Server) newPlayerInfo(id int) *Player {
 		p := &s.players.list[i]
 		if !p.IsActive() {
 			p.Reset(i)
-			p.netCode = C.uint(id)
+			p.NetCodeVal = uint32(id)
 			return p
 		}
 	}
@@ -250,9 +250,9 @@ func (s *Server) newPlayerInfo(id int) *Player {
 
 func (p *Player) Reset(ind int) {
 	*p = Player{
-		playerInd:  C.uchar(ind),
-		active:     1,
-		field_3648: 4,
+		PlayerInd: byte(ind),
+		Active:    1,
+		Field3648: 4,
 	}
 }
 
@@ -261,7 +261,7 @@ func getPlayerClass() player.Class {
 }
 
 func asPlayer(p *C.nox_playerInfo) *Player {
-	return (*Player)(p)
+	return (*Player)(unsafe.Pointer(p))
 }
 
 func asPlayerS(p *server.Player) *Player {
@@ -288,9 +288,148 @@ func HostPlayer() *Player {
 	return nil
 }
 
+var _ = [1]struct{}{}[76-unsafe.Sizeof(PlayerJournal{})]
+
+type PlayerJournal struct {
+	EntryBuf [64]byte       // 0, 0
+	Next     *PlayerJournal // 1, 64
+	Prev     *PlayerJournal // 2, 68
+	Field3   uint16         // 3, 72
+	Field4   uint16         // 4, 74, likely just padding
+}
+
 var _ noxObject = (*Player)(nil) // proxies Unit
 
-type Player C.nox_playerInfo
+var (
+	_ = [1]struct{}{}[4828-unsafe.Sizeof(Player{})]
+	_ = [1]struct{}{}[2185-unsafe.Offsetof(Player{}.info)]
+	_ = [1]struct{}{}[2282-unsafe.Offsetof(Player{}.Field2282)]
+	_ = [1]struct{}{}[3596-unsafe.Offsetof(Player{}.Frame3596)]
+	_ = [1]struct{}{}[4580-unsafe.Offsetof(Player{}.Field4580)]
+	_ = [1]struct{}{}[4800-unsafe.Offsetof(Player{}.Data4800)]
+)
+
+type Player struct {
+	Field0              uint32             // 0, 0
+	Field4              uint32             // 1, 4
+	Field8              uint16             // 2, 8
+	Field10             uint16             // 2, 10
+	Field12             uint16             // 3, 12
+	Field14             uint16             // 3, 14
+	NetData16           [255]PlayerNetData // 4, 16
+	PlayerUnit          *server.Object     // 514, 2056
+	NetCodeVal          uint32             // 515, 2060
+	PlayerInd           byte               // 516, 2064
+	Field2064_1         byte               // 516, 2065
+	Field2064_2         uint16             // 516, 2066
+	Field2068           uint32             // 517, 2068
+	Field2072           [10]uint16         // 518, 2072
+	Active              byte               // 523, 2092
+	Field2096Buf        [12]byte           // 524, 2096
+	Field2108           uint32             // 527, 2108
+	SerialBuf           [22]byte           // 528, 2112
+	Field2134           byte
+	Field2135           byte
+	Lessons             int32  // 534, 2136
+	Field2140           uint32 // 535, 2140
+	Field2144           uint32 // 536, 2144
+	Field2148           uint32 // 537, 2148
+	Field2152           uint32 // 538, 2152
+	Field2156           uint32 // 539, 2156
+	Field2160           uint32 // 540, 2160
+	GoldVal             uint32 // 541, 2164
+	Data2168            [17]byte
+	info                [97]byte // 2185
+	Field2282           uint16   // 2282
+	CursorX             int32    // 2284
+	CursorY             int32    // 2288
+	Data2292            [30]uint32
+	Data2412            [97]uint32
+	Data2800            [100]uint32
+	Data3200            [50]uint32
+	Data3400            [25]uint32
+	Data3500            [20]uint32
+	Field3580           uint32
+	Field3584           uint32
+	Field3588           uint32
+	Field3592           uint32
+	Frame3596           uint32
+	Field3600           uint32         // 900, 3600
+	Field3604           uint32         // 901, 3604
+	Field3608           uint32         // 902, 3608
+	Field3612           uint32         // 903, 3612
+	Field3616           uint32         // 904, 3616
+	Field3620           uint32         // 905, 3620
+	Field3624           uint32         // 906, 3624
+	CameraFollowObj     *server.Object // 907, 3628
+	PosX3632            float32        // 908, 3632
+	PosY3636            float32        // 909, 3636
+	Obj3640             *server.Object // 910, 3640
+	Field3644           *PlayerJournal // 911, 3644, pointer to journal
+	Field3648           uint32
+	Field3652           uint32
+	Field3656           uint32
+	Field3660           uint32
+	Field3664           uint32
+	Field3668           uint32
+	Field3672           uint32 // 3672
+	Field3676           byte   // 3676, TODO: status?
+	Field3676_1         byte
+	Field3676_2         uint16
+	Field3680           uint32 // 920, 3680, TODO: some flags?
+	Field3684           uint8  // 921, 3684 // TODO: level?
+	Field3685           uint8
+	Field3686           uint16
+	Field3688           uint32
+	Field3692           uint32
+	SpellLvl            [137]uint32 // 3696
+	BeastScrollLvl      [41]uint32  // 4244
+	Data4408            [23]uint32
+	Data4500            [20]uint32
+	Field4580           unsafe.Pointer // 1145, 4580
+	ProtUnitHPCur       uint32         // 1146, 4584
+	ProtPlayerGold      uint32         // 1147, 4588
+	ProtUnitHPMax       uint32         // 1148, 4592
+	ProtUnitManaCur     uint32         // 1149, 4596
+	ProtUnitManaMax     uint32         // 1150, 4600
+	ProtUnitExperience  uint32         // 1151, 4604
+	ProtUnitMass        uint32         // 1152, 4608
+	ProtUnitBuffs       uint32         // 1153, 4612
+	ProtPlayerClass     uint32         // 1154, 4616
+	ProtPlayerField2235 uint32         // 1155, 4620
+	ProtPlayerField2239 uint32         // 1156, 4624
+	ProtPlayerOrigName  uint32         // 1157, 4628
+	Prot4632            uint32         // 1158, 4632
+	Prot4636            uint32         // 1159, 4636
+	Prot4640            uint32         // 1160, 4640
+	ProtPlayerLevel     uint32         // 1161, 4644
+	Field4648           int32          // 1162, 4648
+	Field4652           uint32         // 1163, 4652
+	Field4656           uint32         // 1164, 4656
+	Field4660           uint32         // 1165, 4660
+	Field4664           uint32         // 1166, 4664
+	Field4668           uint32         // 1167, 4668
+	Field4672           uint32         // 1168, 4672
+	Field4676           uint32         // 1169, 4676
+	Field4680           uint32         // 1170, 4680
+	Field4684           uint32         // 1171, 4684
+	Field4688           uint32         // 1172, 4688
+	Field4692           uint32         // 1173, 4692
+	Field4696           uint32         // 1174, 4696
+	Field4700           uint32         // 1175, 4700
+	NameFinal           [28]uint16     // 4704, server-approved player name // TODO: size is a wild guess
+	Field4760           [4]byte        // 1190, 4760
+	Field4764           uint32         // 1191, 4764
+	Field4768           uint32         // 1192, 4768
+	Field4772           uint32         // 1193, 4772
+	Field4776           uint32         // 1194, 4776
+	Field4780           uint32         // 1195, 4780
+	Field4784           uint32         // 1196, 4784
+	Field4788           uint32         // 1197, 4788
+	Field4792           uint32         // 1198, 4792
+	Field4796           uint32         // 1199, 4796
+	Data4800            [7]uint32
+}
 
 func (p *Player) getServer() *Server {
 	return noxServer // TODO: attach to object
@@ -300,8 +439,8 @@ func (p *Player) field(off uintptr) unsafe.Pointer {
 	return unsafe.Add(unsafe.Pointer(p), off)
 }
 
-func (p *Player) net16() *[255]playerNetData {
-	return (*[255]playerNetData)(unsafe.Pointer(&p.netData16[0]))
+func (p *Player) net16() *[255]PlayerNetData {
+	return (*[255]PlayerNetData)(unsafe.Pointer(&p.NetData16[0]))
 }
 
 func (p *Player) Pos() types.Pointf {
@@ -331,14 +470,14 @@ func (p *Player) CursorPos() types.Pointf {
 		return types.Pointf{}
 	}
 	return types.Pointf{
-		X: float32(p.cursor_x),
-		Y: float32(p.cursor_y),
+		X: float32(p.CursorX),
+		Y: float32(p.CursorY),
 	}
 }
 
 func (p *Player) setCursorPos(pos image.Point) {
-	p.cursor_x = C.int(pos.X)
-	p.cursor_y = C.int(pos.Y)
+	p.CursorX = int32(pos.X)
+	p.CursorY = int32(pos.Y)
 }
 
 func (p *Player) pos3632() types.Pointf {
@@ -346,14 +485,14 @@ func (p *Player) pos3632() types.Pointf {
 		return types.Pointf{}
 	}
 	return types.Pointf{
-		X: float32(p.pos_x_3632),
-		Y: float32(p.pos_y_3636),
+		X: p.PosX3632,
+		Y: p.PosY3636,
 	}
 }
 
 func (p *Player) setPos3632(pt types.Pointf) {
-	p.pos_x_3632 = C.float(pt.X)
-	p.pos_y_3636 = C.float(pt.Y)
+	p.PosX3632 = pt.X
+	p.PosY3636 = pt.Y
 }
 
 func (p *Player) OrigName() string {
@@ -361,31 +500,31 @@ func (p *Player) OrigName() string {
 }
 
 func (p *Player) SetName(v string) {
-	WStrCopy(&p.name_final[0], 28, v) // TODO: size is a wild guess
+	alloc.StrCopy16(p.NameFinal[:], v)
 }
 
 func (p *Player) Name() string {
-	return GoWStringN(&p.name_final[0], 28) // TODO: size is a wild guess
+	return alloc.GoString16S(p.NameFinal[:])
 }
 
 func (p *Player) saveName() string {
-	return GoString(&p.field_4760[0])
+	return alloc.GoString(&p.Field4760[0])
 }
 
 func (p *Player) Serial() string {
-	return GoStringN(&p.serial[0], 22)
+	return alloc.GoStringS(p.SerialBuf[:])
 }
 
 func (p *Player) SetSerial(v string) {
-	StrCopy(&p.serial[0], 22, v)
+	alloc.StrCopy(p.SerialBuf[:], v)
 }
 
 func (p *Player) Field2096() string {
-	return GoStringN(&p.field_2096[0], 12)
+	return alloc.GoStringS(p.Field2096Buf[:])
 }
 
 func (p *Player) SetField2096(v string) {
-	StrCopy(&p.field_2096[0], 12, v)
+	alloc.StrCopy(p.Field2096Buf[:], v)
 }
 
 func (p *Player) String() string {
@@ -393,7 +532,7 @@ func (p *Player) String() string {
 }
 
 func (p *Player) Gold() int {
-	return int(p.gold)
+	return int(p.GoldVal)
 }
 
 func (p *Player) IsHost() bool {
@@ -458,7 +597,7 @@ func HostPlayerUnit() *Unit {
 }
 
 func (p *Player) C() *C.nox_playerInfo {
-	return (*C.nox_playerInfo)(p)
+	return (*C.nox_playerInfo)(unsafe.Pointer(p))
 }
 
 func (p *Player) S() *server.Player {
@@ -469,25 +608,25 @@ func (p *Player) Index() int {
 	if p == nil {
 		return -1
 	}
-	return int(p.playerInd)
+	return int(p.PlayerInd)
 }
 
 func (p *Player) NetCode() int {
 	if p == nil {
 		return -1
 	}
-	return int(p.netCode)
+	return int(p.NetCodeVal)
 }
 
 func (p *Player) IsActive() bool {
-	return p != nil && p.active != 0
+	return p != nil && p.Active != 0
 }
 
 func (p *Player) UnitC() *Unit {
 	if p == nil {
 		return nil
 	}
-	return asUnitC(p.playerUnit)
+	return asUnitS(p.PlayerUnit)
 }
 
 func (p *Player) Info() *server.PlayerInfo {
@@ -517,38 +656,38 @@ func (p *Player) CameraTarget() *Object {
 	if p == nil {
 		return nil
 	}
-	return asObjectC(p.camera_follow)
+	return asObjectS(p.CameraFollowObj)
 }
 
 func (p *Player) ObserveTarget() *Object { // nox_xxx_playerGetPossess_4DDF30
 	if p == nil {
 		return nil
 	}
-	if p.field_3680&2 == 0 {
+	if p.Field3680&2 == 0 {
 		return nil
 	}
-	return asObjectC(p.camera_follow)
+	return asObjectS(p.CameraFollowObj)
 }
 
 func (p *Player) CameraUnlock() { // nox_xxx_playerCameraUnlock_4E6040
 	if p == nil {
 		return
 	}
-	p.camera_follow = nil
+	p.CameraFollowObj = nil
 }
 
 func (p *Player) CameraFollow(obj noxObject) {
 	if p == nil {
 		return
 	}
-	p.camera_follow = toCObj(obj)
+	p.CameraFollowObj = toObject(obj).SObj()
 }
 
 func (p *Player) CameraToggle(obj noxObject) { // nox_xxx_playerCameraFollow_4E6060
 	if p == nil {
 		return
 	}
-	if p.camera_follow == toCObj(obj) {
+	if p.CameraFollowObj == toObject(obj).SObj() {
 		p.CameraUnlock()
 	} else {
 		p.CameraFollow(toObject(obj))
@@ -605,8 +744,8 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 	p.setPos3632(u.Pos())
 	p.CameraUnlock()
 	if noxflags.HasGame(noxflags.GameModeCoop) {
-		p.field_3672 = 1
-		p.camera_follow = nil
+		p.Field3672 = 1
+		p.CameraFollowObj = nil
 	} else if noxflags.HasGame(noxflags.GameModeFlagBall) {
 		if !keepPlayer {
 			p.leaveMonsterObserver()
@@ -640,7 +779,7 @@ func (p *Player) leaveMonsterObserver() {
 
 func (u *Unit) observeClear() {
 	pl := u.ControllingPlayer()
-	if pl.field_3680&2 != 0 {
+	if pl.Field3680&2 != 0 {
 		C.nox_xxx_playerUnsetStatus_417530(pl.C(), 2)
 		pl.CameraUnlock()
 		_ = nox_xxx_updatePlayer_4F8100
@@ -693,14 +832,14 @@ func (s *Server) getPlayerByInd(i int) *Player {
 	if !p.IsActive() {
 		return nil
 	}
-	p.playerInd = C.uchar(i)
+	p.PlayerInd = byte(i)
 	return p
 }
 
 func (s *Server) getPlayerByID(id int) *Player {
 	for i := range s.players.list {
 		p := &s.players.list[i]
-		if p.IsActive() && int(p.netCode) == id {
+		if p.IsActive() && int(p.NetCodeVal) == id {
 			return p
 		}
 	}
@@ -720,22 +859,22 @@ func (s *Server) hasPlayerUnits() bool {
 func nox_xxx_netNewPlayerMakePacket_4DDA90(buf []byte, pl *Player) {
 	buf[0] = byte(noxnet.MSG_NEW_PLAYER)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(pl.NetCode()))
-	binary.LittleEndian.PutUint16(buf[100:], uint16(pl.lessons))
-	binary.LittleEndian.PutUint16(buf[102:], uint16(pl.field_2140))
-	binary.LittleEndian.PutUint32(buf[104:], uint32(pl.field_0))
-	binary.LittleEndian.PutUint32(buf[108:], uint32(pl.field_4))
-	buf[116] = byte(pl.field_2152)
-	buf[117] = byte(pl.field_2156)
-	buf[118] = byte(bool2int(pl.field_3676 == 3))
-	binary.LittleEndian.PutUint32(buf[112:], uint32(pl.field_3680)&0x423)
+	binary.LittleEndian.PutUint16(buf[100:], uint16(pl.Lessons))
+	binary.LittleEndian.PutUint16(buf[102:], uint16(pl.Field2140))
+	binary.LittleEndian.PutUint32(buf[104:], uint32(pl.Field0))
+	binary.LittleEndian.PutUint32(buf[108:], uint32(pl.Field4))
+	buf[116] = byte(pl.Field2152)
+	buf[117] = byte(pl.Field2156)
+	buf[118] = byte(bool2int(pl.Field3676 == 3))
+	binary.LittleEndian.PutUint32(buf[112:], uint32(pl.Field3680)&0x423)
 	StrCopyBytes(buf[119:], pl.Field2096())
 	*(*server.PlayerInfo)(unsafe.Pointer(&buf[3])) = *pl.Info()
 }
 
 func sub_422140(pl *Player) {
 	if pl != nil {
-		pl.field_3660 = 0xDEADFACE
-		pl.field_3664 = 0xDEADFACE
+		pl.Field3660 = 0xDEADFACE
+		pl.Field3664 = 0xDEADFACE
 	}
 }
 
@@ -866,63 +1005,63 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	}
 	pl := s.playerResetInd(ind)
 	if int8(v5[102]) >= 0 {
-		pl.field_10 = C.ushort(opts.Screen.X / 2)
-		pl.field_12 = C.ushort(opts.Screen.Y / 2)
+		pl.Field10 = uint16(opts.Screen.X / 2)
+		pl.Field12 = uint16(opts.Screen.Y / 2)
 	} else {
 		if nox_win_width >= opts.Screen.X {
-			pl.field_10 = C.ushort(opts.Screen.X / 2)
-			pl.field_12 = C.ushort(opts.Screen.Y / 2)
+			pl.Field10 = uint16(opts.Screen.X / 2)
+			pl.Field12 = uint16(opts.Screen.Y / 2)
 		} else {
-			pl.field_10 = C.ushort(nox_win_width / 2)
-			pl.field_12 = C.ushort(nox_win_height / 2)
+			pl.Field10 = uint16(nox_win_width / 2)
+			pl.Field12 = uint16(nox_win_height / 2)
 		}
 	}
 	pl.SetSerial(opts.Serial)
-	pl.field_2135 = C.uchar(opts.Byte152)
-	WStrCopy(&pl.field_2072[0], 10, opts.Field2072)
+	pl.Field2135 = opts.Byte152
+	alloc.StrCopy16(pl.Field2072[:], opts.Field2072)
 	pl.SetField2096(opts.Field2096)
-	pl.field_2068 = C.uint(opts.Field2068)
-	if pl.field_2068 != 0 {
-		v12 := unsafe.Pointer(C.sub_425A70(C.int(pl.field_2068)))
+	pl.Field2068 = uint32(opts.Field2068)
+	if pl.Field2068 != 0 {
+		v12 := unsafe.Pointer(C.sub_425A70(C.int(pl.Field2068)))
 		if v12 == nil {
-			v12 = unsafe.Pointer(C.sub_425AD0(C.int(pl.field_2068), &pl.field_2072[0]))
+			v12 = unsafe.Pointer(C.sub_425AD0(C.int(pl.Field2068), (*C.ushort)(unsafe.Pointer(&pl.Field2072[0]))))
 		}
 		C.sub_425B30(v12, C.int(ind))
 	}
-	pl.frame_3596 = C.uint(s.Frame())
-	pl.field_3676 = 2
-	pl.field_3680 = 0
+	pl.Frame3596 = s.Frame()
+	pl.Field3676 = 2
+	pl.Field3680 = 0
 	info := pl.Info()
 	*info = opts.Info
 	info.SetNameSuff("")
 	pl.SetName(pl.OrigName())
 	s.nox_xxx_playerCheckName_4DDA00(pl)
 	C.nox_xxx_playerInitColors_461460(pl.C())
-	pl.playerUnit = punit.CObj()
-	pl.field_2152 = 0
-	pl.netCode = C.uint(punit.NetCode)
-	pl.field_2156 = C.uint(C.nox_xxx_scavengerTreasureMax_4D1600())
+	pl.PlayerUnit = punit.SObj()
+	pl.Field2152 = 0
+	pl.NetCodeVal = punit.NetCode
+	pl.Field2156 = uint32(C.nox_xxx_scavengerTreasureMax_4D1600())
 	udata := punit.UpdateDataPlayer()
 	h := punit.HealthData
 	udata.Player = pl.S()
-	pl.prot_unit_hp_cur = C.uint(protectUint16(h.Cur))
-	pl.prot_unit_hp_max = C.uint(protectUint16(h.Max))
-	pl.prot_unit_mana_cur = C.uint(protectUint16(udata.ManaCur))
-	pl.prot_unit_mana_max = C.uint(protectUint16(udata.ManaMax))
-	pl.prot_unit_experience = C.uint(protectFloat32(punit.Experience))
-	pl.prot_unit_mass = C.uint(protectFloat32(punit.Mass))
-	pl.prot_unit_buffs = C.uint(protectInt(int(punit.Buffs)))
-	pl.prot_player_class = C.uint(protectInt(int(pl.PlayerClass())))
-	pl.prot_player_field_2235 = C.uint(protectUint32(pl.Info().Field2235()))
-	pl.prot_player_field_2239 = C.uint(protectUint32(pl.Info().Field2239()))
-	pl.prot_player_orig_name = C.uint(protectUint32(protectWStr(pl.OrigName())))
-	pl.prot_4632 = C.uint(protectInt(0))
-	pl.prot_4636 = C.uint(protectInt(0))
-	pl.prot_4640 = C.uint(protectInt(0))
-	pl.prot_player_gold = C.uint(protectInt(int(pl.gold)))
-	pl.prot_player_level = C.uint(protectInt(int(pl.field_3684))) // level
-	pl.field_4648 = -1
-	pl.field_4700 = 1
+	pl.ProtUnitHPCur = protectUint16(h.Cur)
+	pl.ProtUnitHPMax = protectUint16(h.Max)
+	pl.ProtUnitManaCur = protectUint16(udata.ManaCur)
+	pl.ProtUnitManaMax = protectUint16(udata.ManaMax)
+	pl.ProtUnitExperience = protectFloat32(punit.Experience)
+	pl.ProtUnitMass = protectFloat32(punit.Mass)
+	pl.ProtUnitBuffs = protectInt(int(punit.Buffs))
+	pl.ProtPlayerClass = protectInt(int(pl.PlayerClass()))
+	pl.ProtPlayerField2235 = protectUint32(pl.Info().Field2235())
+	pl.ProtPlayerField2239 = protectUint32(pl.Info().Field2239())
+	pl.ProtPlayerOrigName = protectUint32(protectWStr(pl.OrigName()))
+	pl.Prot4632 = protectInt(0)
+	pl.Prot4636 = protectInt(0)
+	pl.Prot4640 = protectInt(0)
+	pl.ProtPlayerGold = protectInt(int(pl.GoldVal))
+	pl.ProtPlayerLevel = protectInt(int(pl.Field3684)) // level
+	pl.Field4648 = -1
+	pl.Field4700 = 1
 	if C.dword_5d4594_2650652 != 0 {
 		C.sub_41D670(internCStr(pl.Field2096()))
 	}
@@ -951,7 +1090,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	var v30 [132]byte
 	nox_xxx_netNewPlayerMakePacket_4DDA90(v30[:], pl)
 	s.nox_xxx_netSendPacket_4E5030(ind|0x80, v30[:129], 0, 0, 0)
-	pl.field_3676 = 2
+	pl.Field3676 = 2
 	if false && !noxflags.HasGame(noxflags.GameModeChat) {
 		C.sub_425F10(pl.C())
 	}
@@ -981,7 +1120,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 		}
 	}
 	if noxflags.HasGame(noxflags.GameFlag15 | noxflags.GameFlag16) {
-		if (pl.field_3680 & 1) == 0 {
+		if (pl.Field3680 & 1) == 0 {
 			C.sub_509C30(pl.C())
 		}
 	}
@@ -1051,7 +1190,7 @@ func (s *Server) playerSpell(u *Unit) {
 				}
 			}
 		}
-		if pl.spell_lvl[spellInd] != 0 || spellInd == spell.SPELL_GLYPH {
+		if pl.SpellLvl[spellInd] != 0 || spellInd == spell.SPELL_GLYPH {
 			ok2 = false
 			a1 = int(C.sub_4FD0E0(u.CObj(), C.int(spellInd)))
 			if a1 == 0 {
@@ -1069,9 +1208,9 @@ func (s *Server) playerSpell(u *Unit) {
 				} else {
 					arg, v14free := alloc.New(spellAcceptArg{})
 					defer v14free()
-					arg.Obj = pl.obj_3640
+					arg.Obj = toCObjS(pl.Obj3640)
 					if noxflags.HasGame(noxflags.GameModeQuest) && s.spellHasFlags(spellInd, things.SpellOffensive) {
-						if pl.obj_3640 != nil && !u.isEnemyTo(asObjectC(pl.obj_3640)) {
+						if pl.Obj3640 != nil && !u.isEnemyTo(asObjectS(pl.Obj3640)) {
 							arg.Obj = nil
 						}
 					}
@@ -1114,7 +1253,7 @@ func nox_xxx_playerSubLessons_4D8EC0(u *Unit, val int) {
 		return
 	}
 	pl := u.ControllingPlayer()
-	pl.lessons -= C.int(val)
+	pl.Lessons -= int32(val)
 }
 
 func nox_xxx_changeScore_4D8E90(u *Unit, val int) {
@@ -1122,7 +1261,7 @@ func nox_xxx_changeScore_4D8E90(u *Unit, val int) {
 		return
 	}
 	pl := u.ControllingPlayer()
-	pl.lessons += C.int(val)
+	pl.Lessons += int32(val)
 }
 
 func nox_xxx_loadBaseValues_57B200() {
@@ -1232,10 +1371,10 @@ func nox_xxx_playerObserveMonster_4DDE80(cplayer, cunit *nox_object_t) {
 
 	targ := asObjectC(cunit)
 
-	if pl.field_3680&0x1 != 0 {
+	if pl.Field3680&0x1 != 0 {
 		C.nox_xxx_playerLeaveObserver_0_4E6AA0(pl.C())
 	}
-	if pl.field_3680&0x2 != 0 {
+	if pl.Field3680&0x2 != 0 {
 		pu.observeClear()
 	}
 	C.nox_xxx_netNeedTimestampStatus_4174F0(pl.C(), 2)

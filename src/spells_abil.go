@@ -303,12 +303,12 @@ func (a *serverAbilities) Do(u *Unit, abil Ability) {
 		a.s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
-	if (!noxflags.HasGame(noxflags.GameOnline) || noxflags.HasGame(noxflags.GameModeQuest)) && pl.spell_lvl[abil] == 0 {
+	if (!noxflags.HasGame(noxflags.GameOnline) || noxflags.HasGame(noxflags.GameModeQuest)) && pl.SpellLvl[abil] == 0 {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 3)
 		a.s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
 		return
 	}
-	if abil == AbilityBerserk && pl.field_3656 == 1 {
+	if abil == AbilityBerserk && pl.Field3656 == 1 {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 2, 7)
 		return
 	}

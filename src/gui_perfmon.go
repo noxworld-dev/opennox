@@ -64,7 +64,7 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 	y = 200
 	for _, pl := range c.srv.getPlayers() {
 		var str string
-		if pl.field_3680&8 != 0 {
+		if pl.Field3680&8 != 0 {
 			format = c.Strings().GetStringInFile("Muted", "client.c")
 			str = fmt.Sprintf(format, pl.Name())
 		} else {
