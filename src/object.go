@@ -607,7 +607,7 @@ func (obj *Object) stringAs(typ string) string {
 	}
 	if obj.Class().Has(object.ClassPlayer) {
 		// TODO: better way
-		for _, p := range obj.getServer().getPlayers() {
+		for _, p := range obj.getServer().GetPlayers() {
 			if u := p.UnitC(); u != nil && u.CObj() == obj.CObj() {
 				oid += fmt.Sprintf(",P:%q", p.Name())
 			}

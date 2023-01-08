@@ -226,7 +226,7 @@ type execAbilityClass struct {
 
 func (a *serverAbilities) sub_4FC680() {
 	if noxflags.HasGame(noxflags.GameModeCoop) && !noxflags.HasGame(noxflags.GameFlag20) && a.curxxx != 0 {
-		if u := a.s.playerFirst().UnitC(); u != nil {
+		if u := a.s.PlayerFirst().UnitC(); u != nil {
 			a.Do(u, a.curxxx)
 			a.curxxx = 0
 		}
@@ -601,7 +601,7 @@ func (a *serverAbilities) sub4FC440(u *Unit, abil Ability) {
 }
 
 func (a *serverAbilities) getCooldown(a1 unsafe.Pointer, abil Ability) int {
-	pl := a.s.getPlayerByID(int(*(*int32)(unsafe.Add(a1, 36))))
+	pl := a.s.GetPlayerByID(int(*(*int32)(unsafe.Add(a1, 36))))
 	if pl == nil {
 		return 0
 	}
@@ -613,7 +613,7 @@ func (a *serverAbilities) getCooldown(a1 unsafe.Pointer, abil Ability) int {
 }
 
 func (a *serverAbilities) setCooldown(a1 unsafe.Pointer, abil Ability, cd int) {
-	pl := a.s.getPlayerByID(int(*(*int32)(unsafe.Add(a1, 36))))
+	pl := a.s.GetPlayerByID(int(*(*int32)(unsafe.Add(a1, 36))))
 	if pl == nil {
 		return
 	}

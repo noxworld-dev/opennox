@@ -73,7 +73,7 @@ func (m *Perfmon) LogBandwidth() {
 		m.logger.Print("Player,\tBPS, Frame, Threshold, Resend Interval, Resends Per Update, Sleep Interval\n\n")
 	}
 	m.logger.Print("\n")
-	for _, pl := range noxServer.getPlayers() {
+	for _, pl := range noxServer.GetPlayers() {
 		d := m.bandData(pl.Index())
 		v4 := noxServer.Frame()
 		var bps uint32

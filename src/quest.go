@@ -383,7 +383,7 @@ func sub4DCEE0(path string) {
 
 func sub_4DCF20() {
 	if questPlayerSet && noxServer.getQuestFlag() == 0 {
-		if pl := noxServer.getPlayerByInd(common.MaxPlayers - 1); pl != nil && pl.Field3680&0x10 != 0 {
+		if pl := noxServer.GetPlayerByInd(common.MaxPlayers - 1); pl != nil && pl.Field3680&0x10 != 0 {
 			path := questPlayerFile
 			C.nox_xxx_cliPlrInfoLoadFromFile_41A2E0(internCStr(path), common.MaxPlayers-1)
 			questPlayerSet = false

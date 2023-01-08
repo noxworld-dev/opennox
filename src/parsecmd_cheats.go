@@ -242,7 +242,7 @@ func serverCheatInvincible(enable bool) {
 
 func serverCheatSage(enable bool, max int) {
 	if noxflags.HasGame(noxflags.GameModeCoop | noxflags.GameModeQuest) {
-		for _, p := range noxServer.getPlayers() {
+		for _, p := range noxServer.GetPlayers() {
 			serverSetAllBeastScrolls(p, enable)
 			serverSetAllSpells(p, enable, max)
 			serverSetAllWarriorAbilities(p, enable, max)
@@ -252,7 +252,7 @@ func serverCheatSage(enable bool, max int) {
 
 func serverCheatScrolls(enable bool) {
 	if noxflags.HasGame(noxflags.GameModeCoop | noxflags.GameModeQuest) {
-		for _, p := range noxServer.getPlayers() {
+		for _, p := range noxServer.GetPlayers() {
 			serverSetAllBeastScrolls(p, enable)
 		}
 	}
@@ -260,7 +260,7 @@ func serverCheatScrolls(enable bool) {
 
 func serverCheatSpells(enable bool, max int) {
 	if noxflags.HasGame(noxflags.GameModeCoop | noxflags.GameModeQuest) {
-		for _, p := range noxServer.getPlayers() {
+		for _, p := range noxServer.GetPlayers() {
 			serverSetAllSpells(p, enable, max)
 			serverSetAllWarriorAbilities(p, enable, max)
 		}
@@ -360,7 +360,7 @@ func noxCmdPlayerByIndex(c *console.Console, sind string) *Player {
 		c.Print(console.ColorLightRed, "player index must be an integer")
 		return nil
 	}
-	list := noxServer.getPlayers()
+	list := noxServer.GetPlayers()
 	if ind < 0 || ind >= len(list) {
 		c.Printf(console.ColorLightRed, "player index out of range [0-%d]", len(list)-1)
 		return nil
@@ -394,7 +394,7 @@ func noxCheatGoto(ctx context.Context, c *console.Console, tokens []string) bool
 		c.Print(console.ColorLightRed, "expected two coordinates or a waypoint name")
 		return false
 	}
-	for _, p := range noxServer.getPlayers() {
+	for _, p := range noxServer.GetPlayers() {
 		u := p.UnitC()
 		if u == nil {
 			c.Printf(console.ColorLightRed, "player %q doesn't have a unit", p.Name())

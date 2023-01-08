@@ -5,11 +5,179 @@ import (
 	"image"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 )
+
+type classStatMult struct {
+	// TODO: health and mana
+
+	Strength float32
+	Speed    float32
+}
+
+type serverPlayers struct {
+	list []Player
+	Mult struct {
+		Warrior  classStatMult
+		Wizard   classStatMult
+		Conjurer classStatMult
+	}
+}
+
+func (s *serverPlayers) init() {
+	s.list, _ = alloc.Make([]Player{}, common.MaxPlayers)
+	s.Mult.Warrior = classStatMult{
+		Strength: 1,
+		Speed:    1,
+	}
+	s.Mult.Wizard = classStatMult{
+		Strength: 1,
+		Speed:    1,
+	}
+	s.Mult.Conjurer = classStatMult{
+		Strength: 1,
+		Speed:    1,
+	}
+}
+
+func (s *Server) ResetAllPlayers() {
+	for i := range s.Players.list {
+		s.Players.list[i] = Player{}
+	}
+}
+
+func (s *Server) PlayerFirst() *Player {
+	for i := range s.Players.list {
+		p := &s.Players.list[i]
+		if p.IsActive() {
+			return p
+		}
+	}
+	return nil
+}
+
+func (s *Server) PlayerNext(it *Player) *Player {
+	if it == nil {
+		return nil
+	}
+	for i := it.Index() + 1; i < len(s.Players.list); i++ {
+		p := &s.Players.list[i]
+		if p.IsActive() {
+			return p
+		}
+	}
+	return nil
+}
+
+func (s *Server) FirstReplaceablePlayer() *Player {
+	for it := s.PlayerFirst(); it != nil; it = s.PlayerNext(it) {
+		if it.Field3680&1 != 0 && it.Index() != -1 {
+			return it
+		}
+	}
+	return nil
+}
+
+func (s *Server) NextReplaceablePlayer(it *Player) *Player {
+	for ; it != nil; it = s.PlayerNext(it) {
+		if it.Field3680&1 != 0 && it.Index() != -1 {
+			return it
+		}
+	}
+	return nil
+}
+
+func (s *Server) PlayerResetInd(ind int) *Player {
+	p := &s.Players.list[ind]
+	p.Reset(ind)
+	return p
+}
+
+func (s *Server) GetPlayerByID(id int) *Player {
+	for i := range s.Players.list {
+		p := &s.Players.list[i]
+		if p.IsActive() && int(p.NetCodeVal) == id {
+			return p
+		}
+	}
+	return nil
+}
+
+func (s *Server) GetPlayerByInd(i int) *Player {
+	if i < 0 || i >= len(s.Players.list) {
+		return nil
+	}
+	p := &s.Players.list[i]
+	if !p.IsActive() {
+		return nil
+	}
+	p.PlayerInd = byte(i)
+	return p
+}
+
+func (s *Server) GetPlayerByIndRaw(i int) *Player {
+	if i < 0 || i >= len(s.Players.list) {
+		return nil
+	}
+	return &s.Players.list[i]
+}
+
+func (s *Server) HasPlayerUnits() bool {
+	for i := range s.Players.list {
+		p := &s.Players.list[i]
+		if p.PlayerUnit != nil {
+			return true
+		}
+	}
+	return false
+}
+
+func (s *Server) GetPlayers() (out []*Player) {
+	for i := range s.Players.list {
+		p := &s.Players.list[i]
+		if p.IsActive() {
+			out = append(out, p)
+		}
+	}
+	return out
+}
+
+func (s *Server) CntPlayers() (n int) {
+	for i := range s.Players.list {
+		p := &s.Players.list[i]
+		if p.IsActive() {
+			n++
+		}
+	}
+	return n
+}
+
+func (s *Server) GetAllPlayerStructs() (out []*Player) {
+	for i := range s.Players.list {
+		p := &s.Players.list[i]
+		out = append(out, p)
+	}
+	return out
+}
+
+func (s *Server) NewPlayerInfo(id int) *Player {
+	if p := s.GetPlayerByID(id); p != nil {
+		return p
+	}
+	for i := range s.Players.list {
+		p := &s.Players.list[i]
+		if !p.IsActive() {
+			p.Reset(i)
+			p.NetCodeVal = uint32(id)
+			return p
+		}
+	}
+	return nil
+}
 
 var _ = [1]struct{}{}[8-unsafe.Sizeof(PlayerNetData{})]
 
