@@ -794,7 +794,7 @@ func (c *Client) nox_xxx_tileDrawMB_481C20(vp *noxrender.Viewport) {
 }
 
 func (c *Client) sub4C5630(a1 int, a2 int, a3 int) int {
-	if a3 < 0 || a3 > len(c.tiles.nox_arr_956A00) { // TODO: figure out why overflow happens on high-res
+	if a3 < 0 || a3 >= len(c.tiles.nox_arr_956A00) { // TODO: figure out why overflow happens on high-res
 		return 0
 	}
 	v4 := c.tiles.nox_arr_956A00[a3]

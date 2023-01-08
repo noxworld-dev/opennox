@@ -53,8 +53,8 @@ import (
 )
 
 var (
-	nox_win_width             int
-	nox_win_height            int
+	nox_win_width             int = noxDefaultWidth
+	nox_win_height            int = noxDefaultHeight
 	nox_pixbuffer_3798788_arr []byte
 	dword_5d4594_805860       bool
 	nox_enable_threads        = true
