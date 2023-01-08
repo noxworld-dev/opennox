@@ -38,6 +38,16 @@ func (c *Client) resetRenderer(sz image.Point, _ bool) error {
 func (c *Client) copyPixBuffer() {
 }
 
-func playMovieFile(name string) {}
+func (c *Client) sub_43C060() bool {
+	return true
+}
 
-func sub_43C060() bool { return true }
+func (c *Client) sub4C42A0(a1, a2 image.Point, a3 *int, a4 *int) int32 {
+	panic("unreachable")
+}
+
+func (c *Client) sub4C5630(a1 int, a2 int, a3 int) int {
+	panic("unreachable")
+}
+
+func playMovieFile(name string) {}
