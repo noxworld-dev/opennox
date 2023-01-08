@@ -195,6 +195,26 @@ func (s *serverPlayers) NewRaw(id int) *Player {
 	return nil
 }
 
+func (s *serverPlayers) CheckName(pl *Player) {
+	for i := 2; ; i++ {
+		ok := true
+		for _, pl2 := range s.List() {
+			if pl.Index() == pl2.Index() {
+				continue
+			}
+			if pl.Name() == pl2.Name() {
+				ok = false
+				break
+			}
+		}
+		if ok {
+			return
+		}
+		pl.Info().SetNameSuff(fmt.Sprintf(" %d", i))
+		pl.SetName(fmt.Sprintf("%s %d", pl.OrigName(), i))
+	}
+}
+
 var _ = [1]struct{}{}[8-unsafe.Sizeof(PlayerNetData{})]
 
 type PlayerNetData struct {
@@ -216,10 +236,10 @@ type PlayerJournal struct {
 var (
 	_ = [1]struct{}{}[4828-unsafe.Sizeof(Player{})]
 	_ = [1]struct{}{}[2185-unsafe.Offsetof(Player{}.info)]
-	_ = [1]struct{}{}[2282-unsafe.Offsetof(Player{}.Field2282)]
+	_ = [1]struct{}{}[2282-unsafe.Offsetof(Player{}.field2282)]
 	_ = [1]struct{}{}[3596-unsafe.Offsetof(Player{}.Frame3596)]
 	_ = [1]struct{}{}[4580-unsafe.Offsetof(Player{}.Field4580)]
-	_ = [1]struct{}{}[4800-unsafe.Offsetof(Player{}.Data4800)]
+	_ = [1]struct{}{}[4800-unsafe.Offsetof(Player{}.data4800)]
 )
 
 var _ Obj = (*Player)(nil) // proxies Unit
@@ -230,40 +250,33 @@ type Player struct {
 	Field8              uint16             // 2, 8
 	Field10             uint16             // 2, 10
 	Field12             uint16             // 3, 12
-	Field14             uint16             // 3, 14
+	field14             uint16             // 3, 14
 	NetData16           [255]PlayerNetData // 4, 16
 	PlayerUnit          *Object            // 514, 2056
 	NetCodeVal          uint32             // 515, 2060
 	PlayerInd           byte               // 516, 2064
-	Field2064_1         byte               // 516, 2065
-	Field2064_2         uint16             // 516, 2066
+	_                   [3]byte            // 516, 2065
 	Field2068           uint32             // 517, 2068
 	Field2072           [10]uint16         // 518, 2072
 	Active              byte               // 523, 2092
 	Field2096Buf        [12]byte           // 524, 2096
 	Field2108           uint32             // 527, 2108
 	SerialBuf           [22]byte           // 528, 2112
-	Field2134           byte
+	field2134           byte
 	Field2135           byte
 	Lessons             int32  // 534, 2136
 	Field2140           uint32 // 535, 2140
 	Field2144           uint32 // 536, 2144
-	Field2148           uint32 // 537, 2148
+	field2148           uint32 // 537, 2148
 	Field2152           uint32 // 538, 2152
 	Field2156           uint32 // 539, 2156
-	Field2160           uint32 // 540, 2160
+	field2160           uint32 // 540, 2160
 	GoldVal             uint32 // 541, 2164
-	Data2168            [17]byte
-	info                [97]byte // 2185
-	Field2282           uint16   // 2282
-	CursorX             int32    // 2284
-	CursorY             int32    // 2288
-	Data2292            [30]uint32
-	Data2412            [97]uint32
-	Data2800            [100]uint32
-	Data3200            [50]uint32
-	Data3400            [25]uint32
-	Data3500            [20]uint32
+	_                   [17]byte
+	info                [97]byte    // 2185
+	field2282           uint16      // 2282
+	CursorVec           image.Point // 2284
+	_                   [322]uint32
 	Field3580           uint32
 	Field3584           uint32
 	Field3588           uint32
@@ -271,36 +284,32 @@ type Player struct {
 	Frame3596           uint32
 	Field3600           uint32         // 900, 3600
 	Field3604           uint32         // 901, 3604
-	Field3608           uint32         // 902, 3608
-	Field3612           uint32         // 903, 3612
-	Field3616           uint32         // 904, 3616
-	Field3620           uint32         // 905, 3620
-	Field3624           uint32         // 906, 3624
+	field3608           uint32         // 902, 3608
+	field3612           uint32         // 903, 3612
+	field3616           uint32         // 904, 3616
+	field3620           uint32         // 905, 3620
+	field3624           uint32         // 906, 3624
 	CameraFollowObj     *Object        // 907, 3628
-	PosX3632            float32        // 908, 3632
-	PosY3636            float32        // 909, 3636
+	Pos3632Vec          types.Pointf   // 908, 3632
 	Obj3640             *Object        // 910, 3640
-	Field3644           *PlayerJournal // 911, 3644, pointer to journal
-	Field3648           uint32
-	Field3652           uint32
+	Journal             *PlayerJournal // 911, 3644, pointer to journal
+	field3648           uint32
+	field3652           uint32
 	Field3656           uint32
-	Field3660           uint32
-	Field3664           uint32
-	Field3668           uint32
+	field3660           uint32
+	field3664           uint32
+	field3668           uint32
 	Field3672           uint32 // 3672
 	Field3676           byte   // 3676, TODO: status?
-	Field3676_1         byte
-	Field3676_2         uint16
+	_                   [3]byte
 	Field3680           uint32 // 920, 3680, TODO: some flags?
 	Field3684           uint8  // 921, 3684 // TODO: level?
-	Field3685           uint8
-	Field3686           uint16
+	_                   [3]byte
 	Field3688           uint32
 	Field3692           uint32
 	SpellLvl            [137]uint32 // 3696
 	BeastScrollLvl      [41]uint32  // 4244
-	Data4408            [23]uint32
-	Data4500            [20]uint32
+	_                   [43]uint32
 	Field4580           unsafe.Pointer // 1145, 4580
 	ProtUnitHPCur       uint32         // 1146, 4584
 	ProtPlayerGold      uint32         // 1147, 4588
@@ -319,31 +328,31 @@ type Player struct {
 	Prot4640            uint32         // 1160, 4640
 	ProtPlayerLevel     uint32         // 1161, 4644
 	Field4648           int32          // 1162, 4648
-	Field4652           uint32         // 1163, 4652
-	Field4656           uint32         // 1164, 4656
-	Field4660           uint32         // 1165, 4660
-	Field4664           uint32         // 1166, 4664
-	Field4668           uint32         // 1167, 4668
-	Field4672           uint32         // 1168, 4672
-	Field4676           uint32         // 1169, 4676
-	Field4680           uint32         // 1170, 4680
-	Field4684           uint32         // 1171, 4684
-	Field4688           uint32         // 1172, 4688
-	Field4692           uint32         // 1173, 4692
-	Field4696           uint32         // 1174, 4696
+	field4652           uint32         // 1163, 4652
+	field4656           uint32         // 1164, 4656
+	field4660           uint32         // 1165, 4660
+	field4664           uint32         // 1166, 4664
+	field4668           uint32         // 1167, 4668
+	field4672           uint32         // 1168, 4672
+	field4676           uint32         // 1169, 4676
+	field4680           uint32         // 1170, 4680
+	field4684           uint32         // 1171, 4684
+	field4688           uint32         // 1172, 4688
+	field4692           uint32         // 1173, 4692
+	field4696           uint32         // 1174, 4696
 	Field4700           uint32         // 1175, 4700
 	NameFinal           [28]uint16     // 4704, server-approved player name // TODO: size is a wild guess
-	Field4760           [4]byte        // 1190, 4760
-	Field4764           uint32         // 1191, 4764
-	Field4768           uint32         // 1192, 4768
-	Field4772           uint32         // 1193, 4772
-	Field4776           uint32         // 1194, 4776
-	Field4780           uint32         // 1195, 4780
-	Field4784           uint32         // 1196, 4784
-	Field4788           uint32         // 1197, 4788
+	SaveNameBuf         [4]byte        // 1190, 4760
+	field4764           uint32         // 1191, 4764
+	field4768           uint32         // 1192, 4768
+	field4772           uint32         // 1193, 4772
+	field4776           uint32         // 1194, 4776
+	field4780           uint32         // 1195, 4780
+	field4784           uint32         // 1196, 4784
+	field4788           uint32         // 1197, 4788
 	Field4792           uint32         // 1198, 4792
-	Field4796           uint32         // 1199, 4796
-	Data4800            [7]uint32
+	field4796           uint32         // 1199, 4796
+	data4800            [7]uint32
 }
 
 func (p *Player) String() string {
@@ -377,36 +386,31 @@ func (p *Player) CursorPos() types.Pointf {
 		return types.Pointf{}
 	}
 	return types.Pointf{
-		X: float32(p.CursorX),
-		Y: float32(p.CursorY),
+		X: float32(p.CursorVec.X),
+		Y: float32(p.CursorVec.Y),
 	}
 }
 
 func (p *Player) SetCursorPos(pos image.Point) {
-	p.CursorX = int32(pos.X)
-	p.CursorY = int32(pos.Y)
+	p.CursorVec = pos
 }
 
 func (p *Player) Pos3632() types.Pointf {
 	if p == nil {
 		return types.Pointf{}
 	}
-	return types.Pointf{
-		X: p.PosX3632,
-		Y: p.PosY3636,
-	}
+	return p.Pos3632Vec
 }
 
 func (p *Player) SetPos3632(pt types.Pointf) {
-	p.PosX3632 = pt.X
-	p.PosY3636 = pt.Y
+	p.Pos3632Vec = pt
 }
 
 func (p *Player) reset(ind int) {
 	*p = Player{
 		PlayerInd: byte(ind),
 		Active:    1,
-		Field3648: 4,
+		field3648: 4,
 	}
 }
 
@@ -444,7 +448,7 @@ func (p *Player) Name() string {
 }
 
 func (p *Player) SaveName() string {
-	return alloc.GoString(&p.Field4760[0])
+	return alloc.GoString(&p.SaveNameBuf[0])
 }
 
 func (p *Player) Serial() string {
@@ -485,6 +489,30 @@ func (p *Player) CameraToggle(obj Obj) { // nox_xxx_playerCameraFollow_4E6060
 		p.CameraUnlock()
 	} else {
 		p.CameraFollow(obj)
+	}
+}
+
+func (p *Player) CameraTarget() *Object {
+	if p == nil {
+		return nil
+	}
+	return p.CameraFollowObj
+}
+
+func (p *Player) ObserveTarget() *Object { // nox_xxx_playerGetPossess_4DDF30
+	if p == nil {
+		return nil
+	}
+	if p.Field3680&2 == 0 {
+		return nil
+	}
+	return p.CameraFollowObj
+}
+
+func (p *Player) Sub422140() {
+	if p != nil {
+		p.field3660 = 0xDEADFACE
+		p.field3664 = 0xDEADFACE
 	}
 }
 

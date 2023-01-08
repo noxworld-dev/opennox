@@ -391,20 +391,15 @@ func (p *Player) Disconnect(v int) {
 }
 
 func (p *Player) CameraTarget() *Object {
-	if p == nil {
-		return nil
-	}
-	return asObjectS(p.CameraFollowObj)
+	return asObjectS(p.S().CameraTarget())
 }
 
 func (p *Player) ObserveTarget() *Object { // nox_xxx_playerGetPossess_4DDF30
-	if p == nil {
-		return nil
-	}
-	if p.Field3680&2 == 0 {
-		return nil
-	}
-	return asObjectS(p.CameraFollowObj)
+	return asObjectS(p.S().ObserveTarget())
+}
+
+func (p *Player) Sub422140() {
+	p.S().Sub422140()
 }
 
 func (p *Player) CameraUnlock() { // nox_xxx_playerCameraUnlock_4E6040
@@ -566,13 +561,6 @@ func nox_xxx_netNewPlayerMakePacket_4DDA90(buf []byte, pl *Player) {
 	*(*server.PlayerInfo)(unsafe.Pointer(&buf[3])) = *pl.Info()
 }
 
-func sub_422140(pl *Player) {
-	if pl != nil {
-		pl.Field3660 = 0xDEADFACE
-		pl.Field3664 = 0xDEADFACE
-	}
-}
-
 func sub_459D70() int {
 	var v0 uint32
 	if C.dword_5d4594_1046492 != 0 {
@@ -582,26 +570,6 @@ func sub_459D70() int {
 	}
 	v0 &= 0xFFFFFFFE
 	return int(v0 + 2)
-}
-
-func (s *Server) nox_xxx_playerCheckName_4DDA00(pl *Player) {
-	for i := 2; ; i++ {
-		ok := true
-		for _, pl2 := range s.GetPlayers() {
-			if pl.Index() == pl2.Index() {
-				continue
-			}
-			if pl.Name() == pl2.Name() {
-				ok = false
-				break
-			}
-		}
-		if ok {
-			return
-		}
-		pl.Info().SetNameSuff(fmt.Sprintf(" %d", i))
-		pl.SetName(fmt.Sprintf("%s %d", pl.OrigName(), i))
-	}
 }
 
 func sub_4E4F30(a1 int) {
@@ -730,7 +698,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	*info = opts.Info
 	info.SetNameSuff("")
 	pl.SetName(pl.OrigName())
-	s.nox_xxx_playerCheckName_4DDA00(pl)
+	s.Players.CheckName(pl.S())
 	C.nox_xxx_playerInitColors_461460(pl.C())
 	pl.PlayerUnit = punit.SObj()
 	pl.Field2152 = 0
@@ -802,7 +770,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 		p28 = s.nox_xxx_mapFindPlayerStart_4F7AB0(punit)
 	}
 	punit.SetPos(p28)
-	sub_422140(pl)
+	pl.Sub422140()
 	if ind != common.MaxPlayers-1 {
 		if sub_459D70() == 2 {
 			v24 := nox_xxx_cliGamedataGet_416590(1)
