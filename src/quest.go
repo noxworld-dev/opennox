@@ -275,7 +275,7 @@ func (s *Server) setupQuestGame() {
 	noxflags.UnsetGame(noxflags.GameNotQuest)
 	C.sub_4D9CF0(255)
 	for _, u := range s.getPlayerUnits() {
-		u.ControllingPlayer().field_4792 = 0
+		u.ControllingPlayer().Field4792 = 0
 	}
 
 	for _, u := range s.getPlayerUnits() {
@@ -283,18 +283,18 @@ func (s *Server) setupQuestGame() {
 		pl := u.ControllingPlayer()
 		if noxflags.HasGame(noxflags.GameHost) && noxflags.HasEngine(noxflags.EngineNoRendering) {
 			if pl.Index() == common.MaxPlayers-1 {
-				pl.field_4792 = 0
+				pl.Field4792 = 0
 			} else {
-				pl.field_4792 = C.uint(C.sub_4E4100())
+				pl.Field4792 = uint32(C.sub_4E4100())
 			}
 		} else {
-			pl.field_4792 = C.uint(C.sub_4E4100())
+			pl.Field4792 = uint32(C.sub_4E4100())
 		}
-		if pl.field_4792 == 1 {
+		if pl.Field4792 == 1 {
 			C.sub_4D9D20(255, u.CObj())
 		}
 		C.nox_xxx_unitInitPlayer_4EFE80(u.CObj())
-		u.AddGold(-int(pl.gold))
+		u.AddGold(-int(pl.GoldVal))
 
 		var next *Object
 		for it := u.FirstItem(); it != nil; it = next {
@@ -323,7 +323,7 @@ func (s *Server) setupQuestGame() {
 		case player.Conjurer:
 			C.nox_xxx_playerRespawnItem_4EF750(u.CObj(), internCStr("Bow"), nil, 1, 1)
 		}
-		if pl.field_4792 == 0 {
+		if pl.Field4792 == 0 {
 			pl.GoObserver(false, false)
 		}
 	}
@@ -336,7 +336,7 @@ func (s *Server) setupQuestGame() {
 	}
 	C.sub_4184D0(t.C())
 	for _, u := range s.getPlayerUnits() {
-		if u.ControllingPlayer().field_4792 == 1 {
+		if u.ControllingPlayer().Field4792 == 1 {
 			C.nox_xxx_createAtImpl_4191D0(C.uchar(t.Ind57()), unsafe.Pointer(u.teamPtr()), 1, C.int(u.NetCode), 0)
 		}
 	}
@@ -383,7 +383,7 @@ func sub4DCEE0(path string) {
 
 func sub_4DCF20() {
 	if questPlayerSet && noxServer.getQuestFlag() == 0 {
-		if pl := noxServer.getPlayerByInd(common.MaxPlayers - 1); pl != nil && pl.field_3680&0x10 != 0 {
+		if pl := noxServer.getPlayerByInd(common.MaxPlayers - 1); pl != nil && pl.Field3680&0x10 != 0 {
 			path := questPlayerFile
 			C.nox_xxx_cliPlrInfoLoadFromFile_41A2E0(internCStr(path), common.MaxPlayers-1)
 			questPlayerSet = false

@@ -1231,9 +1231,9 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		k.SetPos(v61)
 		if !noxflags.HasGame(noxflags.GameModeSolo10) {
 			plx := k.ControllingPlayer()
-			plx.lessons = 0
-			plx.field_2140 = 0
-			plx.field_2144 = C.uint(s.Frame())
+			plx.Lessons = 0
+			plx.Field2140 = 0
+			plx.Field2144 = s.Frame()
 			nox_xxx_netReportLesson_4D8EF0(k)
 		}
 	}

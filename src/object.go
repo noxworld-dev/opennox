@@ -1024,7 +1024,7 @@ func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_533
 		return false
 	}
 	if obj2.Class().HasAny(object.ClassPlayer) {
-		if pl := obj2.AsUnit().ControllingPlayer(); pl.field_3680&0x1 != 0 {
+		if pl := obj2.AsUnit().ControllingPlayer(); pl.Field3680&0x1 != 0 {
 			return false
 		}
 	}
