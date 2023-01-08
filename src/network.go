@@ -1444,11 +1444,12 @@ func (s *Server) onPacketRaw(pli int, data []byte) bool {
 }
 
 func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *Unit) (int, bool) {
+	if n, ok, err := s.Server.OnPacketOpSub(pli, op, data, pl.S(), u.SObj()); err != nil {
+		return n, false
+	} else if ok {
+		return n, true
+	}
 	switch op {
-	case noxnet.MSG_KEEP_ALIVE:
-		return 1, true
-	case 0x26: // TODO: what this opcode is for?
-		return 2, true
 	case noxnet.MSG_NEED_TIMESTAMP:
 		C.nox_xxx_netNeedTimestampStatus_4174F0(pl.C(), 64)
 		return 1, true
@@ -1463,15 +1464,6 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 			s.abilities.Do(u, Ability(data[1]))
 		}
 		return 2, true
-	case noxnet.MSG_MOUSE:
-		if len(data) < 5 {
-			return 0, false
-		}
-		pl.SetCursorPos(image.Point{
-			X: int(binary.LittleEndian.Uint16(data[1:])),
-			Y: int(binary.LittleEndian.Uint16(data[3:])),
-		})
-		return 5, true
 	case noxnet.MSG_CLIENT_READY:
 		C.nox_xxx_gameServerReadyMB_4DD180(C.int(pl.Index()))
 		return 1, true
@@ -1591,17 +1583,6 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 		wtext = wtext[:2*sz]
 		nox_xxx_serverHandleClientConsole_443E90(pl, data[1], GoWStringBytes(wtext))
 		return 5 + 2*sz + 2, true
-	case noxnet.MSG_IMPORTANT:
-		if len(data) < 5 {
-			return 0, false
-		}
-		id := binary.LittleEndian.Uint32(data[1:])
-
-		var buf [5]byte
-		buf[0] = byte(noxnet.MSG_IMPORTANT_ACK)
-		binary.LittleEndian.PutUint32(buf[1:], id)
-		netlist.AddToMsgListCli(pl.Index(), netlist.Kind1, buf[:5])
-		return 5, true
 	case noxnet.MSG_IMPORTANT_ACK:
 		if len(data) < 5 {
 			return 0, false
