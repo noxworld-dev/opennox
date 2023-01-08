@@ -85,7 +85,7 @@ func sub_446190() {
 			C.sub_509CB0()
 		}
 		if noxflags.HasGame(noxflags.GameHost) {
-			dword_5d4594_825752 = noxServer.CntPlayers() - 1
+			dword_5d4594_825752 = noxServer.Players.Count() - 1
 			sub_467440(0)
 			if dword_5d4594_825752 > 0 {
 				netSendServerQuit()

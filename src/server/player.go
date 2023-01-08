@@ -44,15 +44,15 @@ func (s *serverPlayers) init() {
 	}
 }
 
-func (s *Server) ResetAllPlayers() {
-	for i := range s.Players.list {
-		s.Players.list[i] = Player{}
+func (s *serverPlayers) ResetAll() {
+	for i := range s.list {
+		s.list[i] = Player{}
 	}
 }
 
-func (s *Server) PlayerFirst() *Player {
-	for i := range s.Players.list {
-		p := &s.Players.list[i]
+func (s *serverPlayers) First() *Player {
+	for i := range s.list {
+		p := &s.list[i]
 		if p.IsActive() {
 			return p
 		}
@@ -60,12 +60,12 @@ func (s *Server) PlayerFirst() *Player {
 	return nil
 }
 
-func (s *Server) PlayerNext(it *Player) *Player {
+func (s *serverPlayers) Next(it *Player) *Player {
 	if it == nil {
 		return nil
 	}
-	for i := it.Index() + 1; i < len(s.Players.list); i++ {
-		p := &s.Players.list[i]
+	for i := it.Index() + 1; i < len(s.list); i++ {
+		p := &s.list[i]
 		if p.IsActive() {
 			return p
 		}
@@ -73,8 +73,24 @@ func (s *Server) PlayerNext(it *Player) *Player {
 	return nil
 }
 
-func (s *Server) FirstReplaceablePlayer() *Player {
-	for it := s.PlayerFirst(); it != nil; it = s.PlayerNext(it) {
+func (s *serverPlayers) Each(fnc func(it *Player) bool) {
+	for it := s.First(); it != nil; it = s.Next(it) {
+		if !fnc(it) {
+			return
+		}
+	}
+}
+
+func (s *serverPlayers) EachReplaceable(fnc func(it *Player) bool) {
+	for it := s.firstReplaceablePlayer(); it != nil; it = s.nextReplaceablePlayer(it) {
+		if !fnc(it) {
+			return
+		}
+	}
+}
+
+func (s *serverPlayers) firstReplaceablePlayer() *Player {
+	for it := s.First(); it != nil; it = s.Next(it) {
 		if it.Field3680&1 != 0 && it.Index() != -1 {
 			return it
 		}
@@ -82,8 +98,8 @@ func (s *Server) FirstReplaceablePlayer() *Player {
 	return nil
 }
 
-func (s *Server) NextReplaceablePlayer(it *Player) *Player {
-	for ; it != nil; it = s.PlayerNext(it) {
+func (s *serverPlayers) nextReplaceablePlayer(it *Player) *Player {
+	for ; it != nil; it = s.Next(it) {
 		if it.Field3680&1 != 0 && it.Index() != -1 {
 			return it
 		}
@@ -91,15 +107,15 @@ func (s *Server) NextReplaceablePlayer(it *Player) *Player {
 	return nil
 }
 
-func (s *Server) PlayerResetInd(ind int) *Player {
-	p := &s.Players.list[ind]
-	p.Reset(ind)
+func (s *serverPlayers) ResetInd(ind int) *Player {
+	p := &s.list[ind]
+	p.reset(ind)
 	return p
 }
 
-func (s *Server) GetPlayerByID(id int) *Player {
-	for i := range s.Players.list {
-		p := &s.Players.list[i]
+func (s *serverPlayers) ByID(id int) *Player {
+	for i := range s.list {
+		p := &s.list[i]
 		if p.IsActive() && int(p.NetCodeVal) == id {
 			return p
 		}
@@ -107,11 +123,11 @@ func (s *Server) GetPlayerByID(id int) *Player {
 	return nil
 }
 
-func (s *Server) GetPlayerByInd(i int) *Player {
-	if i < 0 || i >= len(s.Players.list) {
+func (s *serverPlayers) ByInd(i int) *Player {
+	if i < 0 || i >= len(s.list) {
 		return nil
 	}
-	p := &s.Players.list[i]
+	p := &s.list[i]
 	if !p.IsActive() {
 		return nil
 	}
@@ -119,16 +135,16 @@ func (s *Server) GetPlayerByInd(i int) *Player {
 	return p
 }
 
-func (s *Server) GetPlayerByIndRaw(i int) *Player {
-	if i < 0 || i >= len(s.Players.list) {
+func (s *serverPlayers) ByIndRaw(i int) *Player {
+	if i < 0 || i >= len(s.list) {
 		return nil
 	}
-	return &s.Players.list[i]
+	return &s.list[i]
 }
 
-func (s *Server) HasPlayerUnits() bool {
-	for i := range s.Players.list {
-		p := &s.Players.list[i]
+func (s *serverPlayers) HasUnits() bool {
+	for i := range s.list {
+		p := &s.list[i]
 		if p.PlayerUnit != nil {
 			return true
 		}
@@ -136,9 +152,9 @@ func (s *Server) HasPlayerUnits() bool {
 	return false
 }
 
-func (s *Server) GetPlayers() (out []*Player) {
-	for i := range s.Players.list {
-		p := &s.Players.list[i]
+func (s *serverPlayers) List() (out []*Player) {
+	for i := range s.list {
+		p := &s.list[i]
 		if p.IsActive() {
 			out = append(out, p)
 		}
@@ -146,9 +162,9 @@ func (s *Server) GetPlayers() (out []*Player) {
 	return out
 }
 
-func (s *Server) CntPlayers() (n int) {
-	for i := range s.Players.list {
-		p := &s.Players.list[i]
+func (s *serverPlayers) Count() (n int) {
+	for i := range s.list {
+		p := &s.list[i]
 		if p.IsActive() {
 			n++
 		}
@@ -156,22 +172,22 @@ func (s *Server) CntPlayers() (n int) {
 	return n
 }
 
-func (s *Server) GetAllPlayerStructs() (out []*Player) {
-	for i := range s.Players.list {
-		p := &s.Players.list[i]
+func (s *serverPlayers) ListSlots() (out []*Player) {
+	for i := range s.list {
+		p := &s.list[i]
 		out = append(out, p)
 	}
 	return out
 }
 
-func (s *Server) NewPlayerInfo(id int) *Player {
-	if p := s.GetPlayerByID(id); p != nil {
+func (s *serverPlayers) NewRaw(id int) *Player {
+	if p := s.ByID(id); p != nil {
 		return p
 	}
-	for i := range s.Players.list {
-		p := &s.Players.list[i]
+	for i := range s.list {
+		p := &s.list[i]
 		if !p.IsActive() {
-			p.Reset(i)
+			p.reset(i)
 			p.NetCodeVal = uint32(id)
 			return p
 		}
@@ -386,7 +402,7 @@ func (p *Player) SetPos3632(pt types.Pointf) {
 	p.PosY3636 = pt.Y
 }
 
-func (p *Player) Reset(ind int) {
+func (p *Player) reset(ind int) {
 	*p = Player{
 		PlayerInd: byte(ind),
 		Active:    1,

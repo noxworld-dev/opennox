@@ -51,7 +51,7 @@ func (s *Server) initMetrics() {
 }
 
 func (s *Server) updateMetrics() {
-	cntPlayers.Set(float64(s.CntPlayers()))
+	cntPlayers.Set(float64(s.Players.Count()))
 	for _, p := range s.GetPlayers() {
 		u := p.UnitC()
 		if u == nil {

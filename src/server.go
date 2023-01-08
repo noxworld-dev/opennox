@@ -501,7 +501,7 @@ func nox_server_netMaybeSendInitialPackets_4DEB30() {
 }
 
 func (s *Server) nox_xxx_mapInitialize_4FC590() {
-	if C.nox_xxx_resetMapInit_1569652 != 0 && s.HasPlayerUnits() {
+	if C.nox_xxx_resetMapInit_1569652 != 0 && s.Players.HasUnits() {
 		s.clearScriptTriggers()
 		s.scriptOnEvent(script.EventMapInitialize)
 		C.nox_xxx_resetMapInit_4FC570(0)
@@ -509,7 +509,7 @@ func (s *Server) nox_xxx_mapInitialize_4FC590() {
 }
 
 func (s *Server) nox_xxx_mapEntry_4FC600() {
-	if C.dword_5d4594_1569656 != 0 && s.HasPlayerUnits() {
+	if C.dword_5d4594_1569656 != 0 && s.Players.HasUnits() {
 		s.scriptOnEvent(script.EventMapEntry)
 		C.sub_4FC580(0)
 	}
@@ -756,7 +756,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	C.sub_41E4B0(0)
 	s.ResetObjectScriptIDs()
 	C.sub_56F1C0()
-	s.ResetAllPlayers()
+	s.Players.ResetAll()
 	netlist.ResetAll()
 	C.sub_4E4EF0()
 	C.sub_4E4ED0()
@@ -855,7 +855,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	C.sub_4FF770()
 	s.nox_xxx_replayStopSave_4D33B0()
 	s.nox_xxx_replayStopReadMB_4D3530()
-	s.ResetAllPlayers()
+	s.Players.ResetAll()
 	C.sub_446490(1)
 	C.sub_4259F0()
 	C.nox_xxx_mapSwitchLevel_4D12E0(0)

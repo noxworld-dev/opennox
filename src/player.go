@@ -79,7 +79,7 @@ func nox_common_playerInfoGetNext_416EE0(it *C.nox_playerInfo) *C.nox_playerInfo
 
 //export nox_common_playerInfoCount_416F40
 func nox_common_playerInfoCount_416F40() C.int {
-	return C.int(noxServer.CntPlayers())
+	return C.int(noxServer.Players.Count())
 }
 
 //export nox_common_playerInfoGetByID_417040
@@ -148,31 +148,19 @@ func clientSetPlayerNetCode(id int) {
 }
 
 func (s *Server) PlayerFirst() *Player {
-	return asPlayerS(s.Server.PlayerFirst())
+	return asPlayerS(s.Players.First())
 }
 
 func (s *Server) PlayerNext(it *Player) *Player {
-	return asPlayerS(s.Server.PlayerNext(it.S()))
-}
-
-func (s *Server) FirstReplaceablePlayer() *Player {
-	return asPlayerS(s.Server.FirstReplaceablePlayer())
-}
-
-func (s *Server) NextReplaceablePlayer(it *Player) *Player {
-	return asPlayerS(s.Server.NextReplaceablePlayer(it.S()))
+	return asPlayerS(s.Players.Next(it.S()))
 }
 
 func (s *Server) PlayerResetInd(ind int) *Player {
-	return asPlayerS(s.Server.PlayerResetInd(ind))
+	return asPlayerS(s.Players.ResetInd(ind))
 }
 
 func (s *Server) NewPlayerInfo(id int) *Player {
-	return asPlayerS(s.Server.NewPlayerInfo(id))
-}
-
-func (p *Player) Reset(ind int) {
-	p.S().Reset(ind)
+	return asPlayerS(s.Players.NewRaw(id))
 }
 
 func getPlayerClass() player.Class {
@@ -525,7 +513,7 @@ func (u *Unit) observeClear() {
 }
 
 func (s *Server) GetAllPlayerStructs() (out []*Player) {
-	arr := s.Server.GetAllPlayerStructs()
+	arr := s.Players.ListSlots()
 	out = make([]*Player, 0, len(arr))
 	for _, p := range arr {
 		out = append(out, asPlayerS(p))
@@ -534,7 +522,7 @@ func (s *Server) GetAllPlayerStructs() (out []*Player) {
 }
 
 func (s *Server) GetPlayers() (out []*Player) {
-	arr := s.Server.GetPlayers()
+	arr := s.Players.List()
 	out = make([]*Player, 0, len(arr))
 	for _, p := range arr {
 		out = append(out, asPlayerS(p))
@@ -552,15 +540,15 @@ func (s *Server) getPlayerUnits() (out []*Unit) {
 }
 
 func (s *Server) GetPlayerByInd(i int) *Player {
-	return asPlayerS(s.Server.GetPlayerByInd(i))
+	return asPlayerS(s.Players.ByInd(i))
 }
 
 func (s *Server) GetPlayerByIndRaw(i int) *Player {
-	return asPlayerS(s.Server.GetPlayerByIndRaw(i))
+	return asPlayerS(s.Players.ByIndRaw(i))
 }
 
 func (s *Server) GetPlayerByID(id int) *Player {
-	return asPlayerS(s.Server.GetPlayerByID(id))
+	return asPlayerS(s.Players.ByID(id))
 }
 
 func nox_xxx_netNewPlayerMakePacket_4DDA90(buf []byte, pl *Player) {
