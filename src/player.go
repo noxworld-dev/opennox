@@ -249,11 +249,7 @@ func (s *Server) newPlayerInfo(id int) *Player {
 }
 
 func (p *Player) Reset(ind int) {
-	*p = Player{
-		PlayerInd: byte(ind),
-		Active:    1,
-		Field3648: 4,
-	}
+	p.S().Reset(ind)
 }
 
 func getPlayerClass() player.Class {
@@ -327,73 +323,59 @@ func (p *Player) SetPos(pos types.Pointf) {
 }
 
 func (p *Player) CursorPos() types.Pointf {
-	if p == nil {
-		return types.Pointf{}
-	}
-	return types.Pointf{
-		X: float32(p.CursorX),
-		Y: float32(p.CursorY),
-	}
+	return p.S().CursorPos()
 }
 
-func (p *Player) setCursorPos(pos image.Point) {
-	p.CursorX = int32(pos.X)
-	p.CursorY = int32(pos.Y)
+func (p *Player) SetCursorPos(pos image.Point) {
+	p.S().SetCursorPos(pos)
 }
 
-func (p *Player) pos3632() types.Pointf {
-	if p == nil {
-		return types.Pointf{}
-	}
-	return types.Pointf{
-		X: p.PosX3632,
-		Y: p.PosY3636,
-	}
+func (p *Player) Pos3632() types.Pointf {
+	return p.S().Pos3632()
 }
 
-func (p *Player) setPos3632(pt types.Pointf) {
-	p.PosX3632 = pt.X
-	p.PosY3636 = pt.Y
+func (p *Player) SetPos3632(pt types.Pointf) {
+	p.S().SetPos3632(pt)
 }
 
 func (p *Player) OrigName() string {
-	return p.Info().Name()
+	return p.S().OrigName()
 }
 
 func (p *Player) SetName(v string) {
-	alloc.StrCopy16(p.NameFinal[:], v)
+	p.S().SetName(v)
 }
 
 func (p *Player) Name() string {
-	return alloc.GoString16S(p.NameFinal[:])
+	return p.S().Name()
 }
 
-func (p *Player) saveName() string {
-	return alloc.GoString(&p.Field4760[0])
+func (p *Player) SaveName() string {
+	return p.S().SaveName()
 }
 
 func (p *Player) Serial() string {
-	return alloc.GoStringS(p.SerialBuf[:])
+	return p.S().Serial()
 }
 
 func (p *Player) SetSerial(v string) {
-	alloc.StrCopy(p.SerialBuf[:], v)
+	p.S().SetSerial(v)
 }
 
 func (p *Player) Field2096() string {
-	return alloc.GoStringS(p.Field2096Buf[:])
+	return p.S().Field2096()
 }
 
 func (p *Player) SetField2096(v string) {
-	alloc.StrCopy(p.Field2096Buf[:], v)
+	p.S().SetField2096(v)
 }
 
 func (p *Player) String() string {
-	return fmt.Sprintf("Player(%q)", p.Name())
+	return p.S().String()
 }
 
 func (p *Player) Gold() int {
-	return int(p.GoldVal)
+	return p.S().Gold()
 }
 
 func (p *Player) IsHost() bool {
@@ -423,11 +405,7 @@ func (p *Player) CObj() *nox_object_t {
 }
 
 func (p *Player) SObj() *server.Object {
-	u := p.UnitC()
-	if u == nil {
-		return nil
-	}
-	return u.SObj()
+	return p.S().SObj()
 }
 
 func (p *Player) AsObject() *Object {
@@ -462,25 +440,19 @@ func (p *Player) C() *C.nox_playerInfo {
 }
 
 func (p *Player) S() *server.Player {
-	return (*server.Player)(unsafe.Pointer(p))
+	return (*server.Player)(p)
 }
 
 func (p *Player) Index() int {
-	if p == nil {
-		return -1
-	}
-	return int(p.PlayerInd)
+	return p.S().Index()
 }
 
 func (p *Player) NetCode() int {
-	if p == nil {
-		return -1
-	}
-	return int(p.NetCodeVal)
+	return p.S().NetCode()
 }
 
 func (p *Player) IsActive() bool {
-	return p != nil && p.Active != 0
+	return p.S().IsActive()
 }
 
 func (p *Player) UnitC() *Unit {
@@ -491,17 +463,11 @@ func (p *Player) UnitC() *Unit {
 }
 
 func (p *Player) Info() *server.PlayerInfo {
-	if p == nil {
-		return nil
-	}
-	return (*server.PlayerInfo)(p.field(2185)) // inaccessible due to alignment issues
+	return p.S().Info()
 }
 
 func (p *Player) PlayerClass() player.Class {
-	if p == nil {
-		return 0
-	}
-	return p.Info().PlayerClass()
+	return p.S().PlayerClass()
 }
 
 func (p *Player) Disconnect(v int) {
@@ -531,28 +497,15 @@ func (p *Player) ObserveTarget() *Object { // nox_xxx_playerGetPossess_4DDF30
 }
 
 func (p *Player) CameraUnlock() { // nox_xxx_playerCameraUnlock_4E6040
-	if p == nil {
-		return
-	}
-	p.CameraFollowObj = nil
+	p.S().CameraUnlock()
 }
 
-func (p *Player) CameraFollow(obj noxObject) {
-	if p == nil {
-		return
-	}
-	p.CameraFollowObj = toObject(obj).SObj()
+func (p *Player) CameraFollow(obj server.Obj) {
+	p.S().CameraFollow(obj)
 }
 
-func (p *Player) CameraToggle(obj noxObject) { // nox_xxx_playerCameraFollow_4E6060
-	if p == nil {
-		return
-	}
-	if p.CameraFollowObj == toObject(obj).SObj() {
-		p.CameraUnlock()
-	} else {
-		p.CameraFollow(toObject(obj))
-	}
+func (p *Player) CameraToggle(obj server.Obj) { // nox_xxx_playerCameraFollow_4E6060
+	p.S().CameraToggle(obj)
 }
 
 func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoObserver_4E6860
@@ -602,7 +555,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 	nox_xxx_netInformTextMsg_4DA0F0(p.Index(), 12, bool2int(notify))
 	u.ApplyEnchant(server.ENCHANT_INVISIBLE, 0, 5)
 	u.ObjFlags |= uint32(object.FlagNoCollide)
-	p.setPos3632(u.Pos())
+	p.SetPos3632(u.Pos())
 	p.CameraUnlock()
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		p.Field3672 = 1

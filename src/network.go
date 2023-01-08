@@ -1460,7 +1460,7 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *U
 		if len(data) < 5 {
 			return 0, false
 		}
-		pl.setCursorPos(image.Point{
+		pl.SetCursorPos(image.Point{
 			X: int(binary.LittleEndian.Uint16(data[1:])),
 			Y: int(binary.LittleEndian.Uint16(data[3:])),
 		})
@@ -1723,7 +1723,7 @@ func nox_xxx_netTimerStatus_4D8F50(a1, a2 int) {
 func netSendAudioEvent(u *Unit, ev *server.AudioEvent, perc int16) {
 	pl := u.ControllingPlayer()
 	packed := uint16(uint32(uint16(ev.Sound)) | uint32(perc)<<10)
-	dx := ev.Pos.X - pl.pos3632().X
+	dx := ev.Pos.X - pl.Pos3632().X
 	mv := uint8(int8(50 * int(dx) / (videoGetWindowSize().X / 2)))
 	var buf [4]byte
 	if u.SObj() == ev.Obj {
@@ -1757,7 +1757,7 @@ func (s *Server) nox_xxx_netPlayerObjSendCamera_519330(u *Unit) bool {
 	buf[0] = byte(noxnet.MSG_PLAYER_OBJ)
 	binary.LittleEndian.PutUint16(buf[1:], 0)
 	binary.LittleEndian.PutUint16(buf[3:], 0)
-	pos := pl.pos3632()
+	pos := pl.Pos3632()
 	binary.LittleEndian.PutUint16(buf[5:], uint16(pos.X))
 	binary.LittleEndian.PutUint16(buf[7:], uint16(pos.Y))
 	buf[9] = 0
