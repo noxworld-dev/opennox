@@ -164,7 +164,7 @@ func init() {
 			if len(tokens) != 0 {
 				return false
 			}
-			players := noxServer.cntPlayers()
+			players := noxServer.CntPlayers()
 			if noxflags.HasEngine(noxflags.EngineNoRendering) {
 				players--
 			}
@@ -490,7 +490,7 @@ func (s *Server) getGameInfo() xwisInfoShort {
 	} else if acc[100]&0x10 != 0 {
 		access = lobby.AccessClosed
 	}
-	players := s.getPlayers()
+	players := s.GetPlayers()
 	list := make([]lobby.PlayerInfo, 0, len(players))
 	for _, p := range players {
 		list = append(list, lobby.PlayerInfo{
@@ -711,7 +711,7 @@ func initGameSession435CC0() error {
 		C.nox_xxx_plrLoad_41A480((*C.char)(memmap.PtrOff(0x85B3FC, 10984)))
 	}
 	if isServer && !isDedicatedServer {
-		noxServer.getPlayers()[0].GoObserver(false, true)
+		noxServer.GetPlayers()[0].GoObserver(false, true)
 	}
 	execConsoleCmdAuthed(ctx, "execrul autoexec.rul")
 	if isServer {
@@ -937,7 +937,7 @@ func nox_xxx_gameIsSwitchToSolo_4DB240() C.int {
 }
 
 func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
-	pl := s.getPlayerByInd(common.MaxPlayers - 1)
+	pl := s.GetPlayerByInd(common.MaxPlayers - 1)
 	if pl == nil {
 		return
 	}
@@ -1439,7 +1439,7 @@ func sub_4139C0() {
 }
 
 func (s *Server) sub_417160() {
-	for _, it := range s.getPlayers() {
+	for _, it := range s.GetPlayers() {
 		C.nox_xxx_playerUnsetStatus_417530(it.C(), 16)
 	}
 }

@@ -155,7 +155,6 @@ func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 		Server: server.New(pr, sm),
 	}
 	s.allocTeams()
-	s.initPlayers()
 	s.initMetrics()
 	s.abilities.Init(s)
 	s.ai.Init(s)
@@ -165,7 +164,6 @@ func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 
 type Server struct {
 	*server.Server
-	players         serverPlayers
 	ctrlbuf         serverCtrlBuf
 	spells          serverSpells
 	abilities       serverAbilities
@@ -306,7 +304,7 @@ func (s *Server) nox_xxx_updateServer_4D2DA0(a1 uint64) {
 			s.flag1548704 = false
 		}
 		if !noxflags.HasGame(noxflags.GameSuddenDeath) && !s.flag3592 {
-			for pl := s.playerFirst(); pl != nil; pl = s.playerNext(pl) {
+			for pl := s.PlayerFirst(); pl != nil; pl = s.PlayerNext(pl) {
 				if int(pl.Field2140) > 0 {
 					if C.sub_40AA00() == 0 {
 						break
@@ -370,7 +368,7 @@ func (s *Server) sub_4D2FF0() {
 		s.flag1548704 = true
 		return
 	}
-	for pl := s.playerFirst(); pl != nil; pl = s.playerNext(pl) {
+	for pl := s.PlayerFirst(); pl != nil; pl = s.PlayerNext(pl) {
 		if pl.Field3680&1 != 0 {
 			C.nox_xxx_netNeedTimestampStatus_4174F0(pl.C(), 256)
 		}
@@ -484,7 +482,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	s.nox_xxx_mapInitialize_4FC590()
 	s.nox_xxx_mapEntry_4FC600()
 	s.abilities.sub_4FC680()
-	if unit := s.getPlayerByInd(common.MaxPlayers - 1).UnitC(); unit != nil {
+	if unit := s.GetPlayerByInd(common.MaxPlayers - 1).UnitC(); unit != nil {
 		C.nox_xxx_playerSomeWallsUpdate_5003B0(unit.CObj())
 	}
 	if nox_xxx_get_57AF20() != 0 && C.sub_57B140() {
@@ -503,7 +501,7 @@ func nox_server_netMaybeSendInitialPackets_4DEB30() {
 }
 
 func (s *Server) nox_xxx_mapInitialize_4FC590() {
-	if C.nox_xxx_resetMapInit_1569652 != 0 && s.hasPlayerUnits() {
+	if C.nox_xxx_resetMapInit_1569652 != 0 && s.HasPlayerUnits() {
 		s.clearScriptTriggers()
 		s.scriptOnEvent(script.EventMapInitialize)
 		C.nox_xxx_resetMapInit_4FC570(0)
@@ -511,7 +509,7 @@ func (s *Server) nox_xxx_mapInitialize_4FC590() {
 }
 
 func (s *Server) nox_xxx_mapEntry_4FC600() {
-	if C.dword_5d4594_1569656 != 0 && s.hasPlayerUnits() {
+	if C.dword_5d4594_1569656 != 0 && s.HasPlayerUnits() {
 		s.scriptOnEvent(script.EventMapEntry)
 		C.sub_4FC580(0)
 	}
@@ -538,7 +536,7 @@ func sub_4169F0() {
 }
 
 func (s *Server) updateRemotePlayers() error {
-	for _, pl := range s.getPlayers() {
+	for _, pl := range s.GetPlayers() {
 		if pl.UnitC() == nil {
 			continue
 		}
@@ -677,7 +675,7 @@ func (s *Server) sub_4172C0(pind int) *Object {
 	if pind < 0 && pind >= common.MaxPlayers {
 		return nil
 	}
-	pl := s.players.list[pind]
+	pl := s.GetPlayerByIndRaw(pind)
 	if pl.Field4580 == nil {
 		return nil
 	}
@@ -705,7 +703,7 @@ func (s *Server) sub_519760(u *Unit, rect types.Rectf) {
 }
 
 func (s *Server) nox_xxx_netMinimapUnmark4All_417430(obj *Object) {
-	for pl := s.playerFirst(); pl != nil; pl = s.playerNext(pl) {
+	for pl := s.PlayerFirst(); pl != nil; pl = s.PlayerNext(pl) {
 		C.nox_xxx_netUnmarkMinimapObj_417300(C.int(pl.Index()), obj.CObj(), 3)
 	}
 }
@@ -758,7 +756,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	C.sub_41E4B0(0)
 	s.ResetObjectScriptIDs()
 	C.sub_56F1C0()
-	s.resetAllPlayers()
+	s.ResetAllPlayers()
 	netlist.ResetAll()
 	C.sub_4E4EF0()
 	C.sub_4E4ED0()
@@ -857,7 +855,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	C.sub_4FF770()
 	s.nox_xxx_replayStopSave_4D33B0()
 	s.nox_xxx_replayStopReadMB_4D3530()
-	s.resetAllPlayers()
+	s.ResetAllPlayers()
 	C.sub_446490(1)
 	C.sub_4259F0()
 	C.nox_xxx_mapSwitchLevel_4D12E0(0)

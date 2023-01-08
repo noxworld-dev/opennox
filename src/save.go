@@ -410,14 +410,14 @@ func nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2 C.int, act C.int, a4 unsafe.
 				res := C.nox_xxx_cliPlrInfoLoadFromFile_41A2E0(internCStr(path), C.int(ind))
 				if noxflags.HasGame(noxflags.GameModeQuest) {
 					if res != nil {
-						if pl := noxServer.getPlayerByInd(int(ind)); pl != nil {
+						if pl := noxServer.GetPlayerByInd(int(ind)); pl != nil {
 							if u := pl.UnitC(); u != nil {
 								ud := u.UpdateDataPlayer()
 								ud.Field138 = 0
 							}
 						}
 					} else {
-						noxServer.getPlayerByInd(int(ind)).Disconnect(4)
+						noxServer.GetPlayerByInd(int(ind)).Disconnect(4)
 					}
 				}
 				ifs.Remove(path)
@@ -495,7 +495,7 @@ func nox_xxx_soloLoadGame_4DB7E0_savegame(a1 string) bool {
 	}
 	C.nox_xxx_cliPrepareGameplay1_460E60()
 	C.nox_xxx_cliPrepareGameplay2_4721D0()
-	pl := noxServer.getPlayerByInd(common.MaxPlayers - 1)
+	pl := noxServer.GetPlayerByInd(common.MaxPlayers - 1)
 	pl.Name()
 	mname := pl.SaveName()
 	noxServer.nox_xxx_gameSetMapPath_409D70(mname + ".map")
@@ -560,7 +560,7 @@ func sub_4DCFB0(a1p *C.nox_object_t) {
 			nox_xxx_player_4D7960(pl.Index())
 		}
 	} else {
-		noxServer.getPlayerByInd(pl.Index()).Disconnect(4)
+		noxServer.GetPlayerByInd(pl.Index()).Disconnect(4)
 	}
 }
 
@@ -604,7 +604,7 @@ func sub_4DD0B0(a1p *nox_object_t) {
 	}
 	pl := u.ControllingPlayer()
 	if nox_xxx_player_4D7980(pl.Index()) {
-		noxServer.getPlayerByInd(pl.Index()).Disconnect(4)
+		noxServer.GetPlayerByInd(pl.Index()).Disconnect(4)
 	} else {
 		sub_419EB0(C.int(pl.Index()), 0)
 		nox_xxx_sendGauntlet_4DCF80(pl.Index(), 0)
@@ -622,7 +622,7 @@ func sub_450750() byte {
 func nox_xxx_saveDoAutosaveMB_4DB370_savegame(name string) int {
 	sub_478000()
 	C.nox_xxx_quickBarClose_4606B0()
-	pl := noxServer.getPlayerByInd(common.MaxPlayers - 1)
+	pl := noxServer.GetPlayerByInd(common.MaxPlayers - 1)
 	if pl == nil {
 		return 0
 	}
@@ -685,7 +685,7 @@ func nox_xxx_saveDoAutosaveMB_4DB370_savegame(name string) int {
 
 func nox_xxx_saveMakePlayerLocation_4DB600(a1 unsafe.Pointer) bool {
 	s := noxServer
-	pl := s.getPlayerByInd(common.MaxPlayers - 1)
+	pl := s.GetPlayerByInd(common.MaxPlayers - 1)
 	if pl == nil {
 		return false
 	}

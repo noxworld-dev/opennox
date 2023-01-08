@@ -29,6 +29,7 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 		port:      common.GamePort,
 	}
 	s.types.Init()
+	s.Players.init()
 	s.http.init()
 	return s
 }
@@ -54,6 +55,7 @@ type Server struct {
 		lastScriptID  ObjectScriptID
 	}
 	Activators serverActivators
+	Players    serverPlayers
 
 	port int
 	http httpService
