@@ -1,4 +1,4 @@
-package opennox
+package server
 
 import (
 	"github.com/noxworld-dev/opennox-lib/common"
@@ -15,31 +15,31 @@ func (s *serverCtrlBuf) Player(pi int) *ctrlBuf {
 	return &s.byPlayer[pi]
 }
 
-type ctrlBufEvent struct {
-	code   player.CtrlCode
-	data   uint32
-	active bool
+type PlayerCtrl struct {
+	Code   player.CtrlCode
+	Data   uint32
+	Active bool
 }
 
-func (e *ctrlBufEvent) Uint8() byte {
-	return byte(e.data)
+func (e *PlayerCtrl) Uint8() byte {
+	return byte(e.Data)
 }
 
-func (e *ctrlBufEvent) Uint16() uint16 {
-	return uint16(e.data)
+func (e *PlayerCtrl) Uint16() uint16 {
+	return uint16(e.Data)
 }
 
-func (e *ctrlBufEvent) Uint32() uint32 {
-	return e.data
+func (e *PlayerCtrl) Uint32() uint32 {
+	return e.Data
 }
 
 type ctrlBuf struct {
-	events [ctrlBufCap]ctrlBufEvent
+	events [ctrlBufCap]PlayerCtrl
 	read   int
 	write  int
 }
 
-func (cb *ctrlBuf) Append(buf []ctrlBufEvent) {
+func (cb *ctrlBuf) Append(buf []PlayerCtrl) {
 	i := cb.write
 	if i+len(buf) >= len(cb.events) {
 		return
@@ -52,24 +52,24 @@ func (cb *ctrlBuf) dedup() {
 	var code4, code5, code2 bool
 	for i := cb.write - 1; i >= 0; i-- {
 		p := &cb.events[i]
-		if !p.active {
+		if !p.Active {
 			continue
 		}
-		if p.code == player.CCMoveForward {
+		if p.Code == player.CCMoveForward {
 			if code2 {
-				p.active = false
+				p.Active = false
 			} else {
 				code2 = true
 			}
-		} else if p.code == player.CCMoveLeft {
+		} else if p.Code == player.CCMoveLeft {
 			if code4 {
-				p.active = false
+				p.Active = false
 			} else {
 				code4 = true
 			}
-		} else if p.code == player.CCMoveRight {
+		} else if p.Code == player.CCMoveRight {
 			if code5 {
-				p.active = false
+				p.Active = false
 			} else {
 				code5 = true
 			}
@@ -77,12 +77,12 @@ func (cb *ctrlBuf) dedup() {
 	}
 }
 
-func (cb *ctrlBuf) First() *ctrlBufEvent {
+func (cb *ctrlBuf) First() *PlayerCtrl {
 	cb.read = 0
 	if cb.write <= 0 {
 		return nil
 	}
-	for !cb.events[cb.read].active {
+	for !cb.events[cb.read].Active {
 		cb.read++
 		if cb.read >= cb.write {
 			return nil
@@ -91,12 +91,12 @@ func (cb *ctrlBuf) First() *ctrlBufEvent {
 	return &cb.events[cb.read]
 }
 
-func (cb *ctrlBuf) Next() *ctrlBufEvent {
+func (cb *ctrlBuf) Next() *PlayerCtrl {
 	cb.read++
 	if cb.read >= cb.write {
 		return nil
 	}
-	for !cb.events[cb.read].active {
+	for !cb.events[cb.read].Active {
 		cb.read++
 		if cb.read >= cb.write {
 			return nil

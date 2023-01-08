@@ -357,9 +357,9 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 		v41 := int(C.nox_xxx_servGamedataGet_40A020(1024))
 		if !noxflags.HasGame(noxflags.GameModeElimination) || (v41 <= 0) || (int(pl.Field2140) < v41) {
 			if noxflags.HasGame(noxflags.GameOnline) && (pl.Field3680&1 == 0) {
-				cb := s.ctrlbuf.Player(pl.Index())
+				cb := s.Players.Control.Player(pl.Index())
 				for it := cb.First(); it != nil; it = cb.Next() {
-					if it.code == player.CCAction {
+					if it.Code == player.CCAction {
 						cb.Reset()
 						C.nox_xxx_playerRespawn_4F7EF0(u.CObj())
 						return a1, v68, true
@@ -580,7 +580,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	orientationOnly := false
-	cb := s.ctrlbuf.Player(pl.Index())
+	cb := s.Players.Control.Player(pl.Index())
 	if cb.IsEmpty() {
 		goto LABEL_247
 	}
@@ -594,14 +594,14 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 	}
 	orientationOnly = s.spells.duration.sub4FEE50(spell.SPELL_FORCE_OF_NATURE, u)
 	for it := cb.First(); it != nil; it = cb.Next() {
-		if orientationOnly && it.code != player.CCOrientation {
+		if orientationOnly && it.Code != player.CCOrientation {
 			continue
 		}
 
 		// If the appropriate flag is set, reset countdown for manual casting
 		// every phoneme press
 		if resetCountdownPerPhoneme {
-			switch it.code {
+			switch it.Code {
 			case player.CCSpellGestureUpperLeft, player.CCSpellGestureUp, player.CCSpellGestureUpperRight, player.CCSpellGestureLeft, player.CCSpellGestureRight, player.CCSpellGestureLowerLeft, player.CCSpellGestureDown, player.CCSpellGestureLowerRight:
 				if !noxflags.HasGame(noxflags.GameModeChat) {
 					if ud.SpellCastStart != 0 {
@@ -611,7 +611,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 				}
 			}
 		}
-		switch it.code {
+		switch it.Code {
 		case player.CCOrientation:
 			if !u.HasEnchant(server.ENCHANT_FREEZE) &&
 				(!noxflags.HasGame(noxflags.GameModeQuest) || ud.Field70 == 0) &&
@@ -637,7 +637,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
 						} else {
 							ud.Field60 &^= 0x1
 						}
-						switch it.code {
+						switch it.Code {
 						case player.CCMoveForward:
 							ud.Field60 |= 0x8
 						case player.CCMoveBackward:
@@ -1068,19 +1068,19 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 	if targ := pl.CameraTarget(); targ != nil {
 		pl.SetPos3632(targ.Pos())
 	}
-	cb := s.ctrlbuf.Player(pl.Index())
+	cb := s.Players.Control.Player(pl.Index())
 	if cb.First() == nil {
 		return
 	}
 	pl.Field3688 = 0
 	for it := cb.First(); it != nil; it = cb.Next() {
-		if it.code == player.CCMoveForward {
+		if it.Code == player.CCMoveForward {
 			if pl.Field3672 == 0 {
 				pl.Field3688 = 1
 				if pl.Field3692 == 0 {
 					pl.leaveMonsterObserver()
 				}
-				it.active = false
+				it.Active = false
 			} else if pl.Field3672 == 1 {
 				const max = 30
 				dp := pl.Pos3632().Sub(pl.CursorPos())
@@ -1101,8 +1101,8 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 			}
 			continue
 		}
-		if it.code != player.CCAction {
-			if it.code != player.CCJump {
+		if it.Code != player.CCAction {
+			if it.Code != player.CCJump {
 				continue
 			}
 			if pl.ObserveTarget() == nil && !noxflags.HasGame(noxflags.GameModeQuest) {
@@ -1134,12 +1134,12 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 		}
 		if C.dword_5d4594_2650652 != 0 && noxflags.HasGame(noxflags.GameFlag15|noxflags.GameFlag16) && C.sub_509CF0((*C.char)(unsafe.Pointer(&pl.Field2096Buf[0])), C.char(pl.PlayerClass()), C.int(pl.Field2068)) == 0 {
 			nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 17, 0)
-			it.active = false
+			it.Active = false
 			continue
 		}
 		if pl.Field3680&0x20 != 0 {
 			pl.leaveMonsterObserver()
-			it.active = false
+			it.Active = false
 			continue
 		}
 		if noxflags.HasGame(noxflags.GameModeQuest) {
@@ -1161,12 +1161,12 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 			}
 			if ud.Field78 != 0 {
 				pl.leaveMonsterObserver()
-				it.active = false
+				it.Active = false
 				continue
 			}
 			if pl.Field4792 == 0 {
 				pl.leaveMonsterObserver()
-				it.active = false
+				it.Active = false
 				continue
 			}
 		}
@@ -1174,12 +1174,12 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 		if C.sub_40A740() != 0 || noxflags.HasGame(noxflags.GameFlag16) || (pl.Field3680&0x100 != 0) && v13 {
 			if C.sub_40AA70(pl.C()) == 0 {
 				pl.leaveMonsterObserver()
-				it.active = false
+				it.Active = false
 				continue
 			}
 		}
 		if noxflags.HasEngine(noxflags.EngineNoRendering) && u.CObj() == HostPlayerUnit().CObj() {
-			it.active = false
+			it.Active = false
 			continue
 		}
 		if pl.ObserveTarget() == nil {
@@ -1190,11 +1190,11 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {
 				v22 := s.nox_xxx_mapFindPlayerStart_4F7AB0(pl.UnitC())
 				pl.UnitC().SetPos(v22)
 			}
-			it.active = false
+			it.Active = false
 			continue
 		}
 		u.observeClear()
-		it.active = false
+		it.Active = false
 	}
 	pl.Field3692 = pl.Field3688
 }

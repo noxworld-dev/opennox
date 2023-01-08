@@ -40,11 +40,12 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 //export nox_xxx_playerResetControlBuffer_51AC30
 func nox_xxx_playerResetControlBuffer_51AC30(pi C.int) {
-	noxServer.ctrlbuf.Player(int(pi)).Reset()
+	noxServer.Players.Control.Player(int(pi)).Reset()
 }
 
 //export sub_42E8E0
@@ -72,7 +73,7 @@ const ctrlEventCap = 128
 
 type noxCtrlEvent struct {
 	tick uint32
-	ctrlBufEvent
+	server.PlayerCtrl
 }
 
 type CtrlEventBinding struct {
@@ -452,10 +453,10 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 	}
 	for i := indStart; i < indEnd; i++ {
 		ce := &c.bufA[i%cap(c.bufA)]
-		if !ce.active {
+		if !ce.Active {
 			continue
 		}
-		switch ce.code {
+		switch ce.Code {
 		case player.CCSpellGestureUp: // un
 			if !noxflags.HasGame(noxflags.GameModeChat) {
 				clientPlaySoundSpecial(sound.SoundSpellPhonemeUp, 100)
@@ -498,86 +499,86 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			}
 		case player.CCChat:
 			C.nox_client_chatStart_46A430(0)
-			ce.active = false
+			ce.Active = false
 		case player.CCTeamChat:
 			C.nox_client_chatStart_46A430(1)
-			ce.active = false
+			ce.Active = false
 		case player.CCReadSpellbook:
 			C.nox_client_toggleSpellbook_45AC70()
-			ce.active = false
+			ce.Active = false
 		case player.CCToggleConsole:
 			guiCon.Toggle()
-			ce.active = false
+			ce.Active = false
 		case player.CCIncreaseWindowSize:
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			noxClient.nox_client_increaseViewport_4766E0()
-			ce.active = false
+			ce.Active = false
 		case player.CCDecreaseWindowSize:
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			noxClient.nox_client_decreaseViewport_4766F0()
-			ce.active = false
+			ce.Active = false
 		case player.CCIncreaseGamma:
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			updateGamma(1)
-			ce.active = false
+			ce.Active = false
 		case player.CCDecreaseGamma:
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			updateGamma(-1)
-			ce.active = false
+			ce.Active = false
 		case player.CCQuit:
 			nox_client_quit_4460C0()
-			ce.active = false
+			ce.Active = false
 		case player.CCQuitMenu:
 			if sub_450560() {
 				nox_savegame_sub_46D580()
 			} else {
 				C.sub_42EB90(1)
 			}
-			ce.active = false
+			ce.Active = false
 		case player.CCReadMap:
 			nox_client_toggleMap_473610()
-			ce.active = false
+			ce.Active = false
 		case player.CCInventory:
 			C.nox_client_toggleInventory_467C60()
-			ce.active = false
+			ce.Active = false
 		case player.CCCastSpell1, player.CCCastSpell2, player.CCCastSpell3, player.CCCastSpell4, player.CCCastSpell5:
-			C.nox_client_invokeSpellSlot_45DA50(C.int(ce.code - player.CCCastSpell1))
-			ce.active = false
+			C.nox_client_invokeSpellSlot_45DA50(C.int(ce.Code - player.CCCastSpell1))
+			ce.Active = false
 		case player.CCMapZoomIn:
 			C.nox_client_mapZoomIn_4724E0()
-			ce.active = false
+			ce.Active = false
 		case player.CCMapZoomOut:
 			C.nox_client_mapZoomOut_472500()
-			ce.active = false
+			ce.Active = false
 		case player.CCNextWeapon:
 			C.nox_client_invAlterWeapon_4672C0()
-			ce.active = false
+			ce.Active = false
 		case player.CCQuickHealthPotion:
 			C.nox_client_quickHealthPotion_472220()
-			ce.active = false
+			ce.Active = false
 		case player.CCQuickManaPotion:
 			C.nox_client_quickManaPotion_472240()
-			ce.active = false
+			ce.Active = false
 		case player.CCQuickCurePoisonPotion:
 			C.nox_client_quickCurePoisonPotion_472260()
-			ce.active = false
+			ce.Active = false
 		case player.CCNextSpellSet:
 			C.nox_client_spellSetNext_4604F0()
-			ce.active = false
+			ce.Active = false
 		case player.CCPreviousSpellSet:
 			C.nox_client_spellSetPrev_460540()
-			ce.active = false
+			ce.Active = false
 		case player.CCSelectSpellSet:
 			C.nox_client_spellSetSelect_460590()
-			ce.active = false
+			ce.Active = false
 		case player.CCBuildTrap:
 			C.nox_client_buildTrap_45E040()
-			ce.active = false
+			ce.Active = false
 		case player.CCServerOptions:
 			if !(noxflags.HasGame(noxflags.GameFlag4) || !noxflags.HasGame(noxflags.GameOnline)) {
 				C.nox_xxx_guiServerOptsLoad_457500()
 			}
-			ce.active = false
+			ce.Active = false
 		case player.CCLaugh:
 			nox_xxx_netClientSendSocial(common.MaxPlayers-1, 1, 0, 1)
 		case player.CCTaunt:
@@ -586,22 +587,22 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			nox_xxx_netClientSendSocial(common.MaxPlayers-1, 4, 0, 1)
 		case player.CCInvertSpellTarget:
 			C.sub_460630()
-			ce.active = false
+			ce.Active = false
 		case player.CCToggleRank:
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			sub_4703F0()
-			ce.active = false
+			ce.Active = false
 		case player.CCToggleNetstat:
 			sub_470A60()
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
-			ce.active = false
+			ce.Active = false
 		case player.CCToggleGUI:
 			if !noxflags.HasEngine(noxflags.EngineNoRendering) {
 				nox_client_renderGUI_80828 = !nox_client_renderGUI_80828
 				nox_xxx_xxxRenderGUI_587000_80832 = nox_client_renderGUI_80828
 				clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			}
-			ce.active = false
+			ce.Active = false
 		case player.CCAutoSave:
 			if noxflags.HasGame(noxflags.GameModeCoop) {
 				if C.nox_xxx_game_4DCCB0() != 0 {
@@ -612,7 +613,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 					clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 				}
 			}
-			ce.active = false
+			ce.Active = false
 		case player.CCAutoLoad:
 			if noxflags.HasGame(noxflags.GameModeCoop) {
 				if C.nox_xxx_game_4DCCB0() != 0 {
@@ -630,10 +631,10 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 					clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 				}
 			}
-			ce.active = false
+			ce.Active = false
 		case player.CCScreenShot:
 			makeScreenshot()
-			ce.active = false
+			ce.Active = false
 		}
 	}
 }
@@ -658,9 +659,9 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_C() {
 			p1 := &c.bufA[i]
 			for j := 0; j < v23; j++ {
 				p2 := &c.bufB[j]
-				if p1.code == p2.code {
-					if p1.code.CanPauseMode() {
-						p1.active = false
+				if p1.Code == p2.Code {
+					if p1.Code.CanPauseMode() {
+						p1.Active = false
 					}
 					v23 = c.indC
 					break
@@ -670,15 +671,15 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_C() {
 	} else {
 		for i := 0; i < c.indA; i++ {
 			p1 := &c.bufA[i]
-			p1.active = true
+			p1.Active = true
 			if c.indC <= 0 {
 				continue
 			}
 			for j := 0; j < c.indC; j++ {
 				p2 := &c.bufB[j]
-				if p1.code == p2.code {
-					if p1.code.CanPauseMode() {
-						p1.active = false
+				if p1.Code == p2.Code {
+					if p1.Code.CanPauseMode() {
+						p1.Active = false
 					}
 					break
 				}
@@ -704,15 +705,15 @@ func (c *CtrlEventHandler) nox_ctrlevent_action_42E670(code player.CtrlCode, dat
 		j := c.indA
 		if noxflags.HasGame(noxflags.GameHost) && code.CanPauseMode() {
 			for i := c.indB; i != c.indA; i = (i + 1) % cap(c.bufA) {
-				if c.bufA[i].code == code {
+				if c.bufA[i].Code == code {
 					return
 				}
 			}
 		}
 		p := &c.bufA[j]
 		p.tick = c.ticks
-		p.ctrlBufEvent = ctrlBufEvent{
-			code: code, data: data, active: true,
+		p.PlayerCtrl = server.PlayerCtrl{
+			Code: code, Data: data, Active: true,
 		}
 		c.indA = j + 1
 		if noxflags.HasGame(noxflags.GameHost) {
@@ -863,13 +864,13 @@ func (c *CtrlEventHandler) writeToNetBuffer() {
 			if p.tick > ticks+50 {
 				break
 			}
-			if !p.active {
+			if !p.Active {
 				continue
 			}
-			buf = append(buf, byte(p.code), 0, 0, 0)
-			if sz := p.code.DataSize(); sz != 0 {
+			buf = append(buf, byte(p.Code), 0, 0, 0)
+			if sz := p.Code.DataSize(); sz != 0 {
 				var b [4]byte
-				binary.LittleEndian.PutUint32(b[:], p.data)
+				binary.LittleEndian.PutUint32(b[:], p.Data)
 				buf = append(buf, b[:sz]...)
 			}
 		}
@@ -877,13 +878,13 @@ func (c *CtrlEventHandler) writeToNetBuffer() {
 	} else {
 		for i := 0; i < c.indA; i++ {
 			p := &c.bufA[i]
-			if !p.active {
+			if !p.Active {
 				continue
 			}
-			buf = append(buf, byte(p.code), 0, 0, 0)
-			if sz := p.code.DataSize(); sz != 0 {
+			buf = append(buf, byte(p.Code), 0, 0, 0)
+			if sz := p.Code.DataSize(); sz != 0 {
 				var b [4]byte
-				binary.LittleEndian.PutUint32(b[:], p.data)
+				binary.LittleEndian.PutUint32(b[:], p.Data)
 				buf = append(buf, b[:sz]...)
 			}
 		}
