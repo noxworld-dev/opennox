@@ -20,6 +20,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 //export nox_netlist_addToMsgListCli_40EBC0
@@ -135,15 +136,7 @@ func sub_4DF5E0(ind, max int) []byte {
 	return found
 }
 
-var _ = [1]struct{}{}[8-unsafe.Sizeof(PlayerNetData{})]
-
-type PlayerNetData struct {
-	Field0 uint16
-	Field2 uint16
-	Frame4 uint32
-}
-
-func sub_57B930(arr *[255]PlayerNetData, f1, f2 uint16, frame uint32) byte {
+func sub_57B930(arr *[255]server.PlayerNetData, f1, f2 uint16, frame uint32) byte {
 	si := int(byte(f1))
 	if si == 255 || si == 0 {
 		si = 1
@@ -191,7 +184,7 @@ func zero3full(b []byte) int {
 }
 
 var (
-	netPlayerPlus16  *[255]PlayerNetData
+	netPlayerPlus16  *[255]server.PlayerNetData
 	netPlayerBufSize int
 	netPlayerK1      uint16
 	netPlayerK2      uint16
