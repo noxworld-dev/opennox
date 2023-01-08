@@ -2,10 +2,6 @@ package server
 
 import "unsafe"
 
-type Player struct {
-	_ [4828]byte
-}
-
 type PlayerUpdateData struct {
 	Field0           uint32         // 0, 0
 	ManaCur          uint16         // 1, 4

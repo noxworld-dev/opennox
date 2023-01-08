@@ -1086,7 +1086,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 			pl.SetField2096(alloc.GoStringS(data[119:]))
 			pl.field_3680 |= C.uint(binary.LittleEndian.Uint32(data[112:]))
 			pl.Info()
-			*pl.Info() = *(*PlayerInfo)(unsafe.Pointer(&data[3 : 3+97][0])) // TODO: safe copy
+			*pl.Info() = *(*server.PlayerInfo)(unsafe.Pointer(&data[3 : 3+97][0])) // TODO: safe copy
 			pl.SetName(pl.Info().Name() + pl.Info().NameSuff())
 			if C.dword_5d4594_2650652 != 0 {
 				pl.field_2108 = 0
