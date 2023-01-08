@@ -164,7 +164,7 @@ func init() {
 			if len(tokens) != 0 {
 				return false
 			}
-			players := noxServer.CntPlayers()
+			players := noxServer.Players.Count()
 			if noxflags.HasEngine(noxflags.EngineNoRendering) {
 				players--
 			}

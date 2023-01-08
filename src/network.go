@@ -821,12 +821,19 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 			out[3] = 11
 			return 4
 		}
-		for it := s.FirstReplaceablePlayer(); it != nil; it = s.NextReplaceablePlayer(it) {
+		var found *Player
+		s.Players.EachReplaceable(func(it *server.Player) bool {
+			pit := asPlayerS(it)
 			if add(it.Index() + 1) {
-				s.GetPlayerByInd(it.Index()).Disconnect(4)
-				out[2] = 21
-				return 3
+				found = pit
+				return false
 			}
+			return true // continue
+		})
+		if found != nil {
+			s.GetPlayerByInd(found.Index()).Disconnect(4)
+			out[2] = 21
+			return 3
 		}
 	}
 	if v78[100]&0x10 != 0 {
