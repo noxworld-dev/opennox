@@ -376,7 +376,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			a1 = pl.CameraTarget() != nil
 			pl.CameraUnlock()
 			for _, it := range s.getPlayerUnits() {
-				pl2 := s.getPlayerByID(int(it.NetCode))
+				pl2 := s.GetPlayerByID(int(it.NetCode))
 				if !it.Flags().Has(object.FlagDead) && (pl2.Field3680&1 == 0) {
 					pl.CameraToggle(it)
 				}
@@ -388,7 +388,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 			s.nox_xxx_playerLeaveObsByObserved_4E60A0(u)
 			if C.sub_4F9E10(u.CObj()) == 0 {
 				for _, it := range s.getPlayerUnits() {
-					pl2 := s.getPlayerByID(int(it.NetCode))
+					pl2 := s.GetPlayerByID(int(it.NetCode))
 					if !it.Flags().Has(object.FlagDead) && (pl2.Field3680&1 == 0) {
 						pl.CameraToggle(it)
 					}

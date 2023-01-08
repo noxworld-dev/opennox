@@ -357,7 +357,7 @@ func nox_xxx_clientResetSpriteAndGui_4357D0(noSkip bool) bool {
 	*memmap.PtrUint32(0x5D4594, 811064) = uint32(bool2int(nox_client_renderGUI_80828))
 	netlist.ResetAll()
 	if !noxflags.HasGame(noxflags.GameHost) {
-		noxServer.resetAllPlayers()
+		noxServer.ResetAllPlayers()
 	}
 	if !nox_xxx_chatInit_48D7D0() {
 		return false
@@ -701,7 +701,7 @@ func nox_xxx_cliWaitForJoinData_43BFE0() bool {
 
 func nox_xxx_cliSetupSession_437190() {
 	C.sub_473960()
-	noxServer.resetAllPlayers()
+	noxServer.ResetAllPlayers()
 	C.sub_455EE0()
 	C.sub_456240()
 	C.sub_48D800()

@@ -47,9 +47,9 @@ func init() {
 		all := r.URL.Query().Get("all") != ""
 		var arr []*Player
 		if all {
-			arr = noxServer.getAllPlayerStructs()
+			arr = noxServer.GetAllPlayerStructs()
 		} else {
-			arr = noxServer.getPlayers()
+			arr = noxServer.GetPlayers()
 		}
 		writeJSONResp(w, arr)
 	})

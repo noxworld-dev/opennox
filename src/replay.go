@@ -68,7 +68,7 @@ func (s *Server) nox_xxx_replayFileOpen_4D34C0(name string) error {
 	*memmap.PtrUint32(0x5D4594, 1548728) = 0
 	*memmap.PtrUint8(0x5D4594, 1548724) = 0
 	noxflags.SetEngine(noxflags.EngineReplayRead)
-	pl := s.getPlayerByID(255)
+	pl := s.GetPlayerByID(255)
 	pl.GoObserver(false, true)
 	return nil
 }
@@ -120,7 +120,7 @@ func (s *Server) nox_xxx_replayStopReadMB_4D3530() {
 	replay.reader = nil
 	replay.readHeader = false
 	noxflags.UnsetEngine(noxflags.EngineReplayRead)
-	pl := s.getPlayerByID(255)
+	pl := s.GetPlayerByID(255)
 	C.nox_xxx_playerLeaveObserver_0_4E6AA0(pl.C())
 }
 

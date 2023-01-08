@@ -157,12 +157,12 @@ func (s *Server) scriptOnEvent(event script.EventType) {
 	case script.EventMapEntry:
 		// TODO: we "rejoin" existing players here because the engine will actually keep all player objects
 		//       after map change ideally we should find the place where it resets their
-		for _, p := range s.getPlayers() {
+		for _, p := range s.GetPlayers() {
 			s.callOnPlayerJoin(p)
 		}
 	case script.EventMapExit:
 		// TODO: same as above: we make players "leave" when the map changes, so scripts can run their player logic
-		for _, p := range s.getPlayers() {
+		for _, p := range s.GetPlayers() {
 			s.callOnPlayerLeave(p)
 		}
 	}
@@ -197,7 +197,7 @@ func (noxScriptImpl) CinemaPlayers(v bool) {
 }
 
 func (s noxScriptImpl) Players() []script.Player {
-	list := s.s.getPlayers()
+	list := s.s.GetPlayers()
 	out := make([]script.Player, 0, len(list))
 	for _, p := range list {
 		out = append(out, p)
