@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=OpenNox HD
+Icon=io.github.noxworld_dev.OpenNox
+Exec=opennox-hd
+Categories=Game;ActionGame;RolePlaying;
+Actions=LowRes;
+
+[Desktop Action LowRes]
+Name=Low resolution
+Exec=opennox
