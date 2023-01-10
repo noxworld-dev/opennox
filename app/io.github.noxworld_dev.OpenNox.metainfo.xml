@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+    <id>io.github.noxworld_dev.OpenNox</id>
+
+    <name>OpenNox</name>
+    <summary>OpenNox is a modern implementation of a Nox game engine</summary>
+
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>GPL-3.0-or-later</project_license>
+
+    <description>
+        <p>
+            OpenNox is a modern implementation of a Nox game engine.
+            It <em>requires a copy</em> of Nox game installed.
+            The best way to do so is to install GoG [1] version from Lutris [2].
+        </p>
+        <p>[1] https://www.gog.com/game/nox</p>
+        <p>[2] https://lutris.net/games/nox/</p>
+    </description>
+
+    <launchable type="desktop-id">io.github.noxworld_dev.OpenNox.desktop</launchable>
+    <screenshots>
+        <screenshot type="default">
+            <image>https://github.com/noxworld-dev/opennox-content/raw/main/screenshots/opennox-hd-1.jpg</image>
+        </screenshot>
+        <screenshot>
+            <image>https://github.com/noxworld-dev/opennox-content/raw/main/screenshots/opennox-hd-2.jpg</image>
+        </screenshot>
+        <screenshot>
+            <image>https://github.com/noxworld-dev/opennox-content/raw/main/screenshots/opennox-hd-3.jpg</image>
+        </screenshot>
+        <screenshot>
+            <image>https://github.com/noxworld-dev/opennox-content/raw/main/screenshots/opennox-hd-4.jpg</image>
+        </screenshot>
+        <screenshot>
+            <image>https://github.com/noxworld-dev/opennox-content/raw/main/screenshots/opennox-hd-5.jpg</image>
+        </screenshot>
+    </screenshots>
+    <url type="homepage">https://github.com/noxworld-dev/opennox</url>
+    <url type="bugtracker">https://github.com/noxworld-dev/opennox/issues</url>
+</component>
