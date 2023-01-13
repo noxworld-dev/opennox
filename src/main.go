@@ -38,6 +38,7 @@ import (
 	_ "net/http/pprof"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"unsafe"
 
@@ -224,6 +225,11 @@ func RunArgs(args []string) (gerr error) {
 		if path == "" {
 			err := errors.New("cannot find Nox data dir")
 			datapath.Log.Println(err)
+			if runtime.GOOS == "windows" {
+				errorMessage("Nox game data directory not found. Please install Nox from Origin or GoG.\nIf the problem persists, please check https://mod.io/g/nox/r/how-to-install-opennox-windows")
+			} else {
+				errorMessage("Nox game data directory not found. Please install Nox from GoG (via Lutris or Heroic).\nIf the problem persists, please check https://mod.io/g/nox/r/how-to-install-opennox-linux")
+			}
 			return err
 		}
 		datapath.SetData(path)
