@@ -20,12 +20,13 @@ require (
 	golang.org/x/image v0.0.0-20220902085622-e7cb96979f69
 	golang.org/x/mod v0.6.0
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.1.0
+	golang.org/x/sys v0.4.0
 	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (
 	github.com/JoshuaDoes/adpcm-go v0.0.0-20190311011514-2274d526c08b // indirect
+	github.com/alessio/shellescape v1.4.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
@@ -51,13 +52,14 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
+	github.com/tawesoft/golib/v2 v2.6.1 // indirect
 	github.com/traefik/yaegi v0.14.4-0.20221213104605-eee72d1aae66 // indirect
 	github.com/veandco/go-sdl2 v0.4.25 // indirect
 	github.com/youpy/go-riff v0.1.0 // indirect
 	github.com/yuin/gopher-lua v0.0.0-20220504180219-658193537a64 // indirect
 	github.com/zaf/g711 v0.0.0-20190814101024-76a4a538f52b // indirect
-	golang.org/x/exp v0.0.0-20221031165847-c99f073a8326 // indirect
-	golang.org/x/text v0.4.0 // indirect
+	golang.org/x/exp v0.0.0-20230111222715-75897c7a292a // indirect
+	golang.org/x/text v0.6.0 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/ini.v1 v1.62.0 // indirect
 	gopkg.in/irc.v3 v3.1.4 // indirect

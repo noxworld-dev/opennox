@@ -7,6 +7,7 @@ import (
 	"unicode/utf16"
 
 	"github.com/spf13/viper"
+	"github.com/tawesoft/golib/v2/dialog"
 
 	"github.com/noxworld-dev/opennox-lib/client/seat/sdl"
 	"github.com/noxworld-dev/opennox-lib/env"
@@ -69,4 +70,8 @@ func (c *Client) freeSeat() {
 		c.Seat.Close()
 		c.Seat = nil
 	}
+}
+
+func errorMessage(format string, args ...any) {
+	dialog.Error(format, args...)
 }
