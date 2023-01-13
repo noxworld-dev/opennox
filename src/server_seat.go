@@ -4,10 +4,16 @@ package opennox
 
 import (
 	"image"
+
+	"github.com/noxworld-dev/opennox-lib/log"
 )
 
 func (c *Client) initSeat(sz image.Point) error {
 	return nil
+}
+
+func errorMessage(format string, args ...any) {
+	log.Printf(format, args...)
 }
 
 func (c *Client) drawGeneral(a1 bool) error {
