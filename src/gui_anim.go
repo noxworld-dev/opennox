@@ -17,26 +17,11 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 )
 
-var guiAnimSpeed = 1
-
 func init() {
 	if env.IsDevMode() || env.IsE2E() {
-		guiAnimSpeed = 5
+		gui.AnimSpeed = 5
 	}
 }
-
-type guiAnimState int
-
-func (s guiAnimState) C() C.nox_gui_anim_state {
-	return C.nox_gui_anim_state(s)
-}
-
-const (
-	NOX_GUI_ANIM_IN_DONE  = guiAnimState(0)
-	NOX_GUI_ANIM_OUT_DONE = guiAnimState(1)
-	NOX_GUI_ANIM_OUT      = guiAnimState(2)
-	NOX_GUI_ANIM_IN       = guiAnimState(3)
-)
 
 var guiAnimationsHead *guiAnim
 
@@ -44,60 +29,75 @@ func asGUIAnim(p *C.nox_gui_animation) *guiAnim {
 	return (*guiAnim)(unsafe.Pointer(p))
 }
 
-type guiAnim C.nox_gui_animation
+var _ = [1]struct{}{}[68-unsafe.Sizeof(guiAnim{})]
+
+type guiAnim struct {
+	field0     uint32         // 0, 0
+	win        *gui.Window    // 1, 4
+	p2         image.Point    // 2, 8
+	p1         image.Point    // 4, 16
+	outDp      image.Point    // 6, 24
+	inDp       image.Point    // 8, 32
+	next       *guiAnim       // 10, 40
+	prev       *guiAnim       // 11, 44
+	func12     unsafe.Pointer // // 12, 48; func() int
+	func13     unsafe.Pointer // 13, 52; func() int
+	fncDoneOut unsafe.Pointer // 14, 56; func() int
+	fncDoneIn  unsafe.Pointer // 15, 60; func()
+	state      gui.AnimState  // 16, 64
+}
 
 func (a *guiAnim) C() *C.nox_gui_animation {
 	return (*C.nox_gui_animation)(unsafe.Pointer(a))
 }
 
-func (a *guiAnim) State() guiAnimState {
+func (a *guiAnim) State() gui.AnimState {
 	if a == nil {
 		return -1
 	}
-	return guiAnimState(a.state)
+	return a.state
 }
 
-func (a *guiAnim) setState(s guiAnimState) {
-	a.state = s.C()
+func (a *guiAnim) SetState(s gui.AnimState) {
+	a.state = s
 }
 
 func (a *guiAnim) Window() *gui.Window {
 	if a == nil {
 		return nil
 	}
-	return asWindow(a.win)
+	return a.win
 }
 
 func (a *guiAnim) Next() *guiAnim {
 	if a == nil {
 		return nil
 	}
-	return asGUIAnim(a.next)
+	return a.next
 }
 
 func (a *guiAnim) Prev() *guiAnim {
 	if a == nil {
 		return nil
 	}
-	return asGUIAnim(a.prev)
+	return a.prev
 }
 
 func (a *guiAnim) Func12() int {
-	return ccall.CallIntVoid(unsafe.Pointer(a.field_12))
+	return ccall.CallIntVoid(a.func12)
 }
 
 func (a *guiAnim) Func13() int {
-	return ccall.CallIntVoid(unsafe.Pointer(a.field_13))
+	return ccall.CallIntVoid(a.func13)
 }
 
 func (a *guiAnim) doOut() {
 	p := a.Window().Offs()
-	p.X += int(a.out_dx) * guiAnimSpeed
-	p.Y += int(a.out_dy) * guiAnimSpeed
+	p = p.Add(a.outDp.Mul(gui.AnimSpeed))
 
 	maxed := 0
 
-	if mx := int(a.x2); a.out_dx >= 0 {
+	if mx := a.p2.X; a.outDp.X >= 0 {
 		if p.X >= mx {
 			p.X = mx
 			maxed++
@@ -108,7 +108,7 @@ func (a *guiAnim) doOut() {
 			maxed++
 		}
 	}
-	if my := int(a.y2); a.out_dy >= 0 {
+	if my := a.p2.Y; a.outDp.Y >= 0 {
 		if p.Y >= my {
 			p.Y = my
 			maxed++
@@ -122,22 +122,21 @@ func (a *guiAnim) doOut() {
 
 	a.Window().SetPos(p)
 	if maxed == 2 {
-		a.setState(NOX_GUI_ANIM_OUT_DONE)
+		a.SetState(gui.AnimOutDone)
 		sub_43BE40(1)
-		if a.fnc_done_out != nil {
-			ccall.CallIntVoid(unsafe.Pointer(a.fnc_done_out))
+		if a.fncDoneOut != nil {
+			ccall.CallIntVoid(a.fncDoneOut)
 		}
 	}
 }
 
 func (a *guiAnim) doIn() {
 	p := a.Window().Offs()
-	p.X += int(a.in_dx) * guiAnimSpeed
-	p.Y += int(a.in_dy) * guiAnimSpeed
+	p = p.Add(a.inDp.Mul(gui.AnimSpeed))
 
 	maxed := 0
 
-	if mx := int(a.x1); a.in_dx >= 0 {
+	if mx := a.p1.X; a.inDp.X >= 0 {
 		if p.X >= mx {
 			p.X = mx
 			maxed++
@@ -148,7 +147,7 @@ func (a *guiAnim) doIn() {
 			maxed++
 		}
 	}
-	if my := int(a.y1); a.in_dy >= 0 {
+	if my := a.p1.Y; a.inDp.Y >= 0 {
 		if p.Y >= my {
 			p.Y = my
 			maxed++
@@ -162,10 +161,10 @@ func (a *guiAnim) doIn() {
 
 	a.Window().SetPos(p)
 	if maxed == 2 {
-		a.setState(NOX_GUI_ANIM_IN_DONE)
+		a.SetState(gui.AnimInDone)
 		sub_43BE40(0)
-		if a.fnc_done_in != nil {
-			ccall.CallVoidVoid(unsafe.Pointer(a.fnc_done_in))
+		if a.fncDoneIn != nil {
+			ccall.CallVoidVoid(a.fncDoneIn)
 		}
 		guiFocusMainBg()
 	}
@@ -175,9 +174,9 @@ func guiAnimationStep() {
 	var next *guiAnim
 	for a := guiAnimationsHead; a != nil; a = next {
 		next = a.Next()
-		if a.State() == NOX_GUI_ANIM_OUT {
+		if a.State() == gui.AnimOut {
 			a.doOut()
-		} else if a.State() == NOX_GUI_ANIM_IN {
+		} else if a.State() == gui.AnimIn {
 			a.doIn()
 		}
 	}
@@ -185,7 +184,7 @@ func guiAnimationStep() {
 
 func nox_gui_findAnimationForDest_43C520(dest gui.StateID) *guiAnim {
 	for p := guiAnimationsHead; p != nil; p = p.Next() {
-		if gui.StateID(p.field_0) == dest {
+		if gui.StateID(p.field0) == dest {
 			return p
 		}
 	}
@@ -194,10 +193,10 @@ func nox_gui_findAnimationForDest_43C520(dest gui.StateID) *guiAnim {
 
 func newGUIAnimation(win *gui.Window) *guiAnim {
 	p, _ := alloc.New(guiAnim{})
-	p.win = (*C.nox_window)(win.C())
-	p.next = guiAnimationsHead.C()
+	p.win = win
+	p.next = guiAnimationsHead
 	if guiAnimationsHead != nil {
-		guiAnimationsHead.prev = p.C()
+		guiAnimationsHead.prev = p
 	}
 	guiAnimationsHead = p
 	return p
@@ -212,14 +211,11 @@ func (a *guiAnim) Free() {
 	if a == nil {
 		return
 	}
-	next := a.Next()
-	if next != nil {
-		next.prev = a.Prev().C()
+	if next := a.Next(); next != nil {
+		next.prev = a.Prev()
 	}
-
-	prev := a.Prev()
-	if prev != nil {
-		prev.next = a.Next().C()
+	if prev := a.Prev(); prev != nil {
+		prev.next = a.Next()
 	} else {
 		guiAnimationsHead = a.Next()
 	}
@@ -230,22 +226,18 @@ func (a *guiAnim) Free() {
 func nox_gui_makeAnimation_43C5B0(win *C.nox_window, x1, y1, x2, y2, in_dx, in_dy, out_dx, out_dy C.int) *C.nox_gui_animation {
 	return nox_gui_makeAnimation(asWindow(win), int(x1), int(y1), int(x2), int(y2), int(in_dx), int(in_dy), int(out_dx), int(out_dy)).C()
 }
-func nox_gui_makeAnimation(win *gui.Window, x1, y1, x2, y2, in_dx, in_dy, out_dx, out_dy int) *guiAnim {
+func nox_gui_makeAnimation(win *gui.Window, x1, y1, x2, y2, inDx, inDy, outDx, outDy int) *guiAnim {
 	a := newGUIAnimation(win)
 	win.SetPos(image.Point{X: x2, Y: y2})
-	a.x1 = C.int(x1)
-	a.y1 = C.int(y1)
-	a.x2 = C.int(x2)
-	a.y2 = C.int(y2)
-	a.in_dx = C.int(in_dx)
-	a.in_dy = C.int(in_dy)
-	a.out_dx = C.int(out_dx)
-	a.out_dy = C.int(out_dy)
-	a.setState(NOX_GUI_ANIM_IN)
+	a.p1 = image.Pt(x1, y1)
+	a.p2 = image.Pt(x2, y2)
+	a.inDp = image.Pt(inDx, inDy)
+	a.outDp = image.Pt(outDx, outDy)
+	a.SetState(gui.AnimIn)
 	sub_43BE40(3)
 	clientPlaySoundSpecial(sound.SoundShellSlideIn, 100)
-	a.field_12 = nil
-	a.fnc_done_out = nil
-	a.fnc_done_in = nil
+	a.func12 = nil
+	a.fncDoneOut = nil
+	a.fncDoneIn = nil
 	return a
 }
