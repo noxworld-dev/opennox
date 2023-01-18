@@ -123,7 +123,7 @@ func sub_40E0A0() {
 
 //export sub_4A50A0
 func sub_4A50A0() C.int {
-	nox_wnd_xxx_1307748.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)
+	nox_wnd_xxx_1307748.SetState(gui.AnimOut)
 	sub_43BE40(2)
 	clientPlaySoundSpecial(sound.SoundShellSlideOut, 100)
 	return 1
@@ -131,7 +131,7 @@ func sub_4A50A0() C.int {
 
 //export sub_4A50D0
 func sub_4A50D0() C.int {
-	v0 := nox_wnd_xxx_1307748.field_13
+	v0 := nox_wnd_xxx_1307748.func13
 	nox_wnd_xxx_1307748.Free()
 	nox_wnd_xxx_1307748 = nil
 	winSelSave.Destroy()
@@ -313,7 +313,7 @@ func nox_game_showSelChar4A4DB0() bool {
 	if sub4D6F30() {
 		sub_4D6F90(1)
 	}
-	gameAddStateCode(500)
+	gameAddStateCode(gameStateCharSelect)
 	sub_4A1BE0(1)
 	win := newWindowFromFile(c.GUI, "selchar.wnd", nox_xxx_windowSelCharProc_4A5710)
 	winSelSave = win
@@ -326,9 +326,9 @@ func nox_game_showSelChar4A4DB0() bool {
 	if anim == nil {
 		return false
 	}
-	anim.field_0 = 500
-	anim.field_12 = (*[0]byte)(C.sub_4A50A0)
-	anim.fnc_done_out = (*[0]byte)(C.sub_4A50D0)
+	anim.field0 = 500
+	anim.func12 = unsafe.Pointer(C.sub_4A50A0)
+	anim.fncDoneOut = unsafe.Pointer(C.sub_4A50D0)
 	wlist := win.ChildByID(510)
 	wnames := win.ChildByID(511)
 	wstyle := win.ChildByID(512)
@@ -339,6 +339,7 @@ func nox_game_showSelChar4A4DB0() bool {
 	wnames.SetParent(wlist)
 	wstyle.SetParent(wlist)
 	if noxflags.HasGame(noxflags.GameModeCoop) {
+		saveLog.Printf("save win mode: coop")
 		wup := win.ChildByID(504)
 		wup.Hide()
 
@@ -349,6 +350,7 @@ func nox_game_showSelChar4A4DB0() bool {
 		v8 := c.Strings().GetStringInFile("LoadLabel", "C:\\NoxPost\\src\\client\\shell\\selchar.c")
 		sub_46AEE0(wblank, v8)
 	} else {
+		saveLog.Printf("save win mode: char")
 		wup := win.ChildByID(504)
 		wlist.Func94(&WindowEvent0x4018{Win: wup})
 		wnames.Func94(&WindowEvent0x4018{Win: wup})
@@ -387,11 +389,13 @@ func nox_xxx_findAutosaves_4A5150() {
 	PathName := datapath.Save()
 	ifs.Mkdir(PathName)
 	if noxflags.HasGame(noxflags.GameModeCoop) {
+		saveLog.Printf("scanning path for coop saves: %q", PathName)
 		p, _ := alloc.Calloc(NOX_SAVEGAME_XXX_MAX, unsafe.Sizeof(C.nox_savegame_xxx{}))
 		nox_xxx_saves_arr = unsafe.Slice((*C.nox_savegame_xxx)(p), NOX_SAVEGAME_XXX_MAX)
 		nox_savegame_sub_46CE40(wlist, wnames, wstyle, nox_xxx_saves_arr)
 		return
 	}
+	saveLog.Printf("scanning path for saves: %q", PathName)
 	ifs.Chdir(PathName)
 	files, _ := ifs.ReadDir(PathName)
 	v0 := 0
@@ -739,7 +743,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *gui.Window, e gui.WindowEvent) gui.Win
 		case 501:
 			noxServer.SetFirstObjectScriptID(1000000000)
 			sub_4A50A0()
-			nox_wnd_xxx_1307748.field_13 = (*[0]byte)(C.nox_game_showSelClass_4A4840)
+			nox_wnd_xxx_1307748.func13 = unsafe.Pointer(C.nox_game_showSelClass_4A4840)
 		case 502:
 			v7 := winCharListNames.WidgetData
 			v10 := *(*int32)(unsafe.Add(v7, 48))
@@ -791,7 +795,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *gui.Window, e gui.WindowEvent) gui.Win
 				}
 				sub4A24C0(false)
 				sub_4A50A0()
-				nox_wnd_xxx_1307748.field_13 = nil
+				nox_wnd_xxx_1307748.func13 = nil
 			}
 		case 503:
 			v7 := winCharListNames.WidgetData

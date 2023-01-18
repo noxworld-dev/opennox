@@ -2197,7 +2197,7 @@ func nox_game_checkStateSwitch_43C1E0() {
 	if p != nil {
 		p.Func12()
 		_ = nox_game_switchStates_43C0A0
-		p.field_13 = (*[0]byte)(C.nox_game_switchStates_43C0A0)
+		p.func13 = unsafe.Pointer(C.nox_game_switchStates_43C0A0)
 		gamePopState()
 	}
 }
@@ -2209,7 +2209,7 @@ func nox_game_checkStateOptions_43C220() {
 	p := nox_gui_findAnimationForDest_43C520(gameGetStateCode())
 	if p != nil {
 		p.Func12()
-		p.field_13 = (*[0]byte)(C.nox_game_showOptions_4AA6B0)
+		p.func13 = unsafe.Pointer(C.nox_game_showOptions_4AA6B0)
 	}
 }
 
@@ -2224,7 +2224,7 @@ func nox_game_checkStateMenu_43C2F0() {
 		} else {
 			p.Func12()
 			_ = nox_game_showMainMenu_4A1C00
-			p.field_13 = (*[0]byte)(C.nox_game_showMainMenu_4A1C00)
+			p.func13 = unsafe.Pointer(C.nox_game_showMainMenu_4A1C00)
 		}
 	}
 	gamePopStateUntil(gameStateMainMenu)

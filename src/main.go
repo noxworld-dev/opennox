@@ -55,6 +55,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/log"
 
 	"github.com/noxworld-dev/opennox/v1/client/audio/ail"
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -512,7 +513,7 @@ func sub_4AA9C0() C.int {
 		videoUpdateGameMode(guiOptionsRes)
 	}
 	writeConfigLegacy("nox.cfg")
-	C.nox_wnd_xxx_1309740.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)
+	asGUIAnim(C.nox_wnd_xxx_1309740).SetState(gui.AnimOut)
 	sub_43BE40(2)
 	clientPlaySoundSpecial(sound.SoundShellSlideOut, 100)
 	return 1
