@@ -18,8 +18,8 @@ extern void* dword_5d4594_831236;
 extern unsigned int dword_5d4594_831220;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 extern uint32_t dword_5d4594_831260;
-int sub_4A1D40();
-int sub_4A1D80();
+int winMainMenuAnimOutStartFnc();
+int winMainMenuAnimOutDoneFnc();
 int nox_client_drawGeneralCallback_4A2200();
 */
 import "C"
@@ -35,10 +35,10 @@ import (
 )
 
 var (
-	nox_win_main_bg     *gui.Window
-	nox_win_main_menu   *gui.Window
-	nox_wnd_xxx_1307304 *guiAnim
-	nox_wnd_xxx_1307308 *guiAnim
+	nox_win_main_bg       *gui.Window
+	winMainMenu           *gui.Window
+	winMainMenuAnimTop    *guiAnim
+	winMainMenuAnimBottom *guiAnim
 )
 
 func sub_4A2490(win *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
@@ -130,10 +130,10 @@ func guiFocusMainBg() {
 	nox_win_main_bg.Focus()
 }
 
-//export sub_4A1D40
-func sub_4A1D40() C.int {
-	nox_wnd_xxx_1307308.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)
-	nox_wnd_xxx_1307304.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)
+//export winMainMenuAnimOutStartFnc
+func winMainMenuAnimOutStartFnc() int {
+	winMainMenuAnimTop.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)
+	winMainMenuAnimBottom.state = C.nox_gui_anim_state(NOX_GUI_ANIM_OUT)
 	sub_43BE40(2)
 	clientPlaySoundSpecial(sound.SoundShellSlideOut, 100)
 	return 1
@@ -169,25 +169,25 @@ func sub_44E320() {
 func sub_4A2500() {
 	setEnableFrameLimit(true)
 	nox_win_main_bg.Show()
-	nox_win_main_menu.Show()
+	winMainMenu.Show()
 	guiFocusMainBg()
 }
 
 func sub_4A2530() {
 	setEnableFrameLimit(false)
 	nox_win_main_bg.Hide()
-	nox_win_main_menu.Hide()
+	winMainMenu.Hide()
 }
 
-//export sub_4A1D80
-func sub_4A1D80() C.int {
-	ani := *nox_wnd_xxx_1307308 // copy
-	nox_wnd_xxx_1307308.Free()
-	nox_wnd_xxx_1307308 = nil
-	nox_wnd_xxx_1307304.Free()
-	nox_wnd_xxx_1307304 = nil
-	nox_win_main_menu.Destroy()
-	nox_win_main_menu = nil
+//export winMainMenuAnimOutDoneFnc
+func winMainMenuAnimOutDoneFnc() int {
+	ani := *winMainMenuAnimTop // copy
+	winMainMenuAnimTop.Free()
+	winMainMenuAnimTop = nil
+	winMainMenuAnimBottom.Free()
+	winMainMenuAnimBottom = nil
+	winMainMenu.Destroy()
+	winMainMenu = nil
 	ani.Func13()
 	return 1
 }
@@ -229,23 +229,23 @@ func nox_game_showMainMenu4A1C00() bool {
 	if win == nil {
 		return false
 	}
-	nox_win_main_menu = win
+	winMainMenu = win
 	win.SetFunc93(sub4A18E0)
 	v1 := win.ChildByID(110)
 	v1.SetFunc94(nox_xxx_windowMainMenuProc_4A1DC0)
-	nox_wnd_xxx_1307308 = nox_gui_makeAnimation(v1, 0, 0, 0, -270, 0, 20, 0, -40)
-	if nox_wnd_xxx_1307308 == nil {
+	winMainMenuAnimTop = nox_gui_makeAnimation(v1, 0, 0, 0, -270, 0, 20, 0, -40)
+	if winMainMenuAnimTop == nil {
 		return false
 	}
-	nox_wnd_xxx_1307308.field_0 = 100
-	_ = sub_4A1D40
-	nox_wnd_xxx_1307308.field_12 = (*[0]byte)(C.sub_4A1D40)
-	_ = sub_4A1D80
-	nox_wnd_xxx_1307308.fnc_done_out = (*[0]byte)(C.sub_4A1D80)
+	winMainMenuAnimTop.field_0 = 100
+	_ = winMainMenuAnimOutStartFnc
+	winMainMenuAnimTop.field_12 = (*[0]byte)(C.winMainMenuAnimOutStartFnc)
+	_ = winMainMenuAnimOutDoneFnc
+	winMainMenuAnimTop.fnc_done_out = (*[0]byte)(C.winMainMenuAnimOutDoneFnc)
 	v2 := win.ChildByID(120)
 	v2.SetFunc94(nox_xxx_windowMainMenuProc_4A1DC0)
-	nox_wnd_xxx_1307304 = nox_gui_makeAnimation(v2, 0, 270, 0, 510, 0, -20, 0, 40)
-	if nox_wnd_xxx_1307304 == nil {
+	winMainMenuAnimBottom = nox_gui_makeAnimation(v2, 0, 270, 0, 510, 0, -20, 0, 40)
+	if winMainMenuAnimBottom == nil {
 		return false
 	}
 	sub4A19F0("OptsBack.wnd:Quit")
@@ -344,7 +344,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 		clientPlaySoundSpecial(sound.SoundShellSelect, 100)
 		return gui.RawEventResp(1)
 	case *WindowEvent0x4007:
-		if guiAnimState(nox_wnd_xxx_1307308.state) != NOX_GUI_ANIM_IN_DONE && !noxflags.HasGame(noxflags.GameFlag26) {
+		if guiAnimState(winMainMenuAnimTop.state) != NOX_GUI_ANIM_IN_DONE && !noxflags.HasGame(noxflags.GameFlag26) {
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			return gui.RawEventResp(1)
 		}
@@ -363,7 +363,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 				C.sub_4D6F80(0)
 				C.nox_xxx_cliShowHideTubes_470AA0(0)
 				C.sub_461440(0)
-				sub_4A1D40()
+				winMainMenuAnimOutStartFnc()
 				C.nox_xxx_cliSetMinimapZoom_472520(1110)
 				if nox_xxx_parseGamedataBinPre_4D1630() == 0 {
 					nox_xxx_setContinueMenuOrHost_43DDD0(0)
@@ -373,16 +373,16 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 				if C.nox_client_countSaveFiles_4DC550() != 0 {
 					C.sub_4A7A70(1)
 					_ = nox_game_showSelChar_4A4DB0
-					nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showSelChar_4A4DB0)
+					winMainMenuAnimTop.field_13 = (*[0]byte)(C.nox_game_showSelChar_4A4DB0)
 				} else {
 					C.sub_4A7A70(0)
-					nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showSelClass_4A4840)
+					winMainMenuAnimTop.field_13 = (*[0]byte)(C.nox_game_showSelClass_4A4840)
 				}
 				clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			} else {
 				v9 := strMan.GetStringInFile("caution", "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c")
 				v5 := strMan.GetStringInFile("solo", "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c")
-				NewDialogWindow(nox_win_main_menu, v5, v9, 33, nil, nil)
+				NewDialogWindow(winMainMenu, v5, v9, 33, nil, nil)
 				sub_44A360(1)
 				sub_44A4B0()
 				clientPlaySoundSpecial(sound.SoundShellClick, 100)
@@ -391,7 +391,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 		case 112: // Multiplayer button
 			noxServer.announce = true
 			// prepare to start a server
-			sub_4A1D40()
+			winMainMenuAnimOutStartFnc()
 			noxflags.SetEngine(noxflags.EngineAdmin)
 			noxflags.UnsetEngine(noxflags.EngineGodMode)
 			noxflags.SetGame(noxflags.GameOnline)
@@ -412,7 +412,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 				nox_client_gui_flag_815132 = 0
 				return nil
 			}
-			nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showGameSel_4379F0)
+			winMainMenuAnimTop.field_13 = (*[0]byte)(C.nox_game_showGameSel_4379F0)
 			sub_43AF50()
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		case 121:
@@ -421,13 +421,13 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 				clientPlaySoundSpecial(sound.SoundShellClick, 100)
 				break
 			}
-			sub_4A1D40()
+			winMainMenuAnimOutStartFnc()
 			pushMovieFile(path)
 			sub4B0640(func() {
 				nox_game_state.Switch()
 			})
 			_ = nox_client_drawGeneralCallback_4A2200
-			nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_client_drawGeneralCallback_4A2200)
+			winMainMenuAnimTop.field_13 = (*[0]byte)(C.nox_client_drawGeneralCallback_4A2200)
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			return gui.RawEventResp(1)
 		case 122:
@@ -439,7 +439,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		case 131: // Solo Quest
 			noxServer.announce = false
-			sub_4A1D40()
+			winMainMenuAnimOutStartFnc()
 			noxflags.SetEngine(noxflags.EngineAdmin)
 			noxflags.UnsetEngine(noxflags.EngineGodMode)
 			noxflags.SetGame(noxflags.GameOnline)
@@ -459,7 +459,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 				nox_client_gui_flag_815132 = 0
 				return nil
 			}
-			nox_wnd_xxx_1307308.field_13 = (*[0]byte)(C.nox_game_showGameSel_4379F0)
+			winMainMenuAnimTop.field_13 = (*[0]byte)(C.nox_game_showGameSel_4379F0)
 			sub_43AF50()
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		default:
