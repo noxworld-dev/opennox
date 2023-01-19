@@ -35,10 +35,9 @@ import (
 )
 
 var (
-	nox_win_main_bg       *gui.Window
 	winMainMenu           *gui.Window
-	winMainMenuAnimTop    *guiAnim
-	winMainMenuAnimBottom *guiAnim
+	winMainMenuAnimTop    *gui.Anim
+	winMainMenuAnimBottom *gui.Anim
 )
 
 func sub_4A2490(win *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
@@ -65,7 +64,7 @@ func sub_4A1AA0(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 		clientPlaySoundSpecial(sound.SoundShellSelect, 100)
 		return gui.RawEventResp(1)
 	case *WindowEvent0x4007:
-		if sub_43BE30() != 2 && sub_43BE30() != 3 || sub4D6F30() {
+		if gui.AnimGlobalState() != gui.AnimOut && gui.AnimGlobalState() != gui.AnimIn || sub4D6F30() {
 			v3 := ev.Win.ID() - 151
 			if v3 != 0 {
 				if v3 == 1 {
@@ -103,11 +102,11 @@ func (c *Client) nox_xxx_wndLoadMainBG_4A2210() int {
 	//unsigned char* v3; // esi
 
 	nox_client_gui_flag_815132 = 1
-	nox_win_main_bg = newWindowFromFile(c.GUI, "MainBG.wnd", sub_4A2490)
+	gui.MainBg = newWindowFromFile(c.GUI, "MainBG.wnd", sub_4A2490)
 	if !sub_4A1A60() {
 		return 0
 	}
-	v1 := nox_win_main_bg.ChildByID(98)
+	v1 := gui.MainBg.ChildByID(98)
 	v1.SetFunc93(sub4A18E0)
 	v1.SetDraw(gui.WrapDrawFuncC(C.sub_4A22A0))
 	if memmap.Uint32(0x587000, 168832) != 0 {
@@ -122,19 +121,15 @@ func (c *Client) nox_xxx_wndLoadMainBG_4A2210() int {
 			}
 		}
 	}
-	nox_win_main_bg.Focus()
+	gui.FocusMainBg()
 	return 1
-}
-
-func guiFocusMainBg() {
-	nox_win_main_bg.Focus()
 }
 
 //export winMainMenuAnimOutStartFnc
 func winMainMenuAnimOutStartFnc() int {
 	winMainMenuAnimTop.SetState(gui.AnimOut)
 	winMainMenuAnimBottom.SetState(gui.AnimOut)
-	sub_43BE40(2)
+	gui.SetAnimGlobalState(gui.AnimOut)
 	clientPlaySoundSpecial(sound.SoundShellSlideOut, 100)
 	return 1
 }
@@ -168,14 +163,14 @@ func sub_44E320() {
 
 func sub_4A2500() {
 	setEnableFrameLimit(true)
-	nox_win_main_bg.Show()
+	gui.MainBg.Show()
 	winMainMenu.Show()
-	guiFocusMainBg()
+	gui.FocusMainBg()
 }
 
 func sub_4A2530() {
 	setEnableFrameLimit(false)
-	nox_win_main_bg.Hide()
+	gui.MainBg.Hide()
 	winMainMenu.Hide()
 }
 
@@ -199,7 +194,7 @@ func sub_4A24C0(a1 C.int) C.int {
 }
 
 func sub4A24C0(a1 bool) {
-	v1 := nox_win_main_bg.ChildByID(99)
+	v1 := gui.MainBg.ChildByID(99)
 	if a1 {
 		v1.Hide()
 	} else {
@@ -237,11 +232,11 @@ func nox_game_showMainMenu4A1C00() bool {
 	if winMainMenuAnimTop == nil {
 		return false
 	}
-	winMainMenuAnimTop.field0 = 100
+	winMainMenuAnimTop.StateID = gameStateMainMenu
 	_ = winMainMenuAnimOutStartFnc
-	winMainMenuAnimTop.func12 = unsafe.Pointer(C.winMainMenuAnimOutStartFnc)
+	winMainMenuAnimTop.Func12Ptr = unsafe.Pointer(C.winMainMenuAnimOutStartFnc)
 	_ = winMainMenuAnimOutDoneFnc
-	winMainMenuAnimTop.fncDoneOut = unsafe.Pointer(C.winMainMenuAnimOutDoneFnc)
+	winMainMenuAnimTop.FncDoneOutPtr = unsafe.Pointer(C.winMainMenuAnimOutDoneFnc)
 	v2 := win.ChildByID(120)
 	v2.SetFunc94(nox_xxx_windowMainMenuProc_4A1DC0)
 	winMainMenuAnimBottom = nox_gui_makeAnimation(v2, 0, 270, 0, 510, 0, -20, 0, 40)
@@ -261,16 +256,12 @@ func nox_game_showMainMenu4A1C00() bool {
 
 //export sub_43BE40
 func sub_43BE40(a1 C.int) {
-	*memmap.PtrUint32(0x5D4594, 815204) = uint32(a1)
+	gui.SetAnimGlobalState(gui.AnimState(a1))
 }
 
 //export sub_43BE30
 func sub_43BE30() C.int {
-	return C.int(memmap.Uint32(0x5D4594, 815204))
-}
-
-func sub43BE30() bool {
-	return memmap.Uint32(0x5D4594, 815204) != 0
+	return C.int(gui.AnimGlobalState())
 }
 
 func sub_4A19D0() {
@@ -296,7 +287,7 @@ func sub4A18E0(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 		if !ev.Pressed {
 			return gui.RawEventResp(1)
 		}
-		if sub43BE30() {
+		if gui.AnimGlobalState() != gui.AnimInDone {
 			if sub4D6F30() {
 				sub_4D6F90(2)
 			}
@@ -373,10 +364,10 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 				if C.nox_client_countSaveFiles_4DC550() != 0 {
 					C.sub_4A7A70(1)
 					_ = nox_game_showSelChar_4A4DB0
-					winMainMenuAnimTop.func13 = unsafe.Pointer(C.nox_game_showSelChar_4A4DB0)
+					winMainMenuAnimTop.Func13Ptr = unsafe.Pointer(C.nox_game_showSelChar_4A4DB0)
 				} else {
 					C.sub_4A7A70(0)
-					winMainMenuAnimTop.func13 = unsafe.Pointer(C.nox_game_showSelClass_4A4840)
+					winMainMenuAnimTop.Func13Ptr = unsafe.Pointer(C.nox_game_showSelClass_4A4840)
 				}
 				clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			} else {
@@ -412,7 +403,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 				nox_client_gui_flag_815132 = 0
 				return nil
 			}
-			winMainMenuAnimTop.func13 = unsafe.Pointer(C.nox_game_showGameSel_4379F0)
+			winMainMenuAnimTop.Func13Ptr = unsafe.Pointer(C.nox_game_showGameSel_4379F0)
 			sub_43AF50()
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		case 121:
@@ -427,7 +418,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 				nox_game_state.Switch()
 			})
 			_ = nox_client_drawGeneralCallback_4A2200
-			winMainMenuAnimTop.func13 = unsafe.Pointer(C.nox_client_drawGeneralCallback_4A2200)
+			winMainMenuAnimTop.Func13Ptr = unsafe.Pointer(C.nox_client_drawGeneralCallback_4A2200)
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			return gui.RawEventResp(1)
 		case 122:
@@ -459,7 +450,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 				nox_client_gui_flag_815132 = 0
 				return nil
 			}
-			winMainMenuAnimTop.func13 = unsafe.Pointer(C.nox_game_showGameSel_4379F0)
+			winMainMenuAnimTop.Func13Ptr = unsafe.Pointer(C.nox_game_showGameSel_4379F0)
 			sub_43AF50()
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		default:

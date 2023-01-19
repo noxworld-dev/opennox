@@ -514,7 +514,7 @@ func sub_4AA9C0() C.int {
 	}
 	writeConfigLegacy("nox.cfg")
 	asGUIAnim(C.nox_wnd_xxx_1309740).SetState(gui.AnimOut)
-	sub_43BE40(2)
+	gui.SetAnimGlobalState(gui.AnimOut)
 	clientPlaySoundSpecial(sound.SoundShellSlideOut, 100)
 	return 1
 }

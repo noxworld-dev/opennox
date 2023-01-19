@@ -80,7 +80,7 @@ var (
 	nox_xxx_saves_arr         []C.nox_savegame_xxx
 	nox_savegame_arr_1064948  [NOX_SAVEGAME_XXX_MAX]C.nox_savegame_xxx
 	nox_savegame_name_1307752 string
-	nox_wnd_xxx_1307748       *guiAnim
+	nox_wnd_xxx_1307748       *gui.Anim
 	winSelSave                *gui.Window
 	winCharList               *gui.Window
 	winCharListNames          *gui.Window
@@ -124,14 +124,14 @@ func sub_40E0A0() {
 //export sub_4A50A0
 func sub_4A50A0() C.int {
 	nox_wnd_xxx_1307748.SetState(gui.AnimOut)
-	sub_43BE40(2)
+	gui.SetAnimGlobalState(gui.AnimOut)
 	clientPlaySoundSpecial(sound.SoundShellSlideOut, 100)
 	return 1
 }
 
 //export sub_4A50D0
 func sub_4A50D0() C.int {
-	v0 := nox_wnd_xxx_1307748.func13
+	v0 := nox_wnd_xxx_1307748.Func13Ptr
 	nox_wnd_xxx_1307748.Free()
 	nox_wnd_xxx_1307748 = nil
 	winSelSave.Destroy()
@@ -326,9 +326,9 @@ func nox_game_showSelChar4A4DB0() bool {
 	if anim == nil {
 		return false
 	}
-	anim.field0 = 500
-	anim.func12 = unsafe.Pointer(C.sub_4A50A0)
-	anim.fncDoneOut = unsafe.Pointer(C.sub_4A50D0)
+	anim.StateID = gameStateCharSelect
+	anim.Func12Ptr = unsafe.Pointer(C.sub_4A50A0)
+	anim.FncDoneOutPtr = unsafe.Pointer(C.sub_4A50D0)
 	wlist := win.ChildByID(510)
 	wnames := win.ChildByID(511)
 	wstyle := win.ChildByID(512)
@@ -743,7 +743,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *gui.Window, e gui.WindowEvent) gui.Win
 		case 501:
 			noxServer.SetFirstObjectScriptID(1000000000)
 			sub_4A50A0()
-			nox_wnd_xxx_1307748.func13 = unsafe.Pointer(C.nox_game_showSelClass_4A4840)
+			nox_wnd_xxx_1307748.Func13Ptr = unsafe.Pointer(C.nox_game_showSelClass_4A4840)
 		case 502:
 			v7 := winCharListNames.WidgetData
 			v10 := *(*int32)(unsafe.Add(v7, 48))
@@ -795,7 +795,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *gui.Window, e gui.WindowEvent) gui.Win
 				}
 				sub4A24C0(false)
 				sub_4A50A0()
-				nox_wnd_xxx_1307748.func13 = nil
+				nox_wnd_xxx_1307748.Func13Ptr = nil
 			}
 		case 503:
 			v7 := winCharListNames.WidgetData
