@@ -34,6 +34,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/maps"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -49,7 +50,7 @@ var (
 
 func (c *Client) drawAndPresent() {
 	if nox_client_gui_flag_815132 != 0 {
-		guiAnimationStep()
+		gui.AnimTick()
 		noxflags.UnsetEngine(noxflags.EnginePause)
 		c.generateMouseSparks()
 	}
