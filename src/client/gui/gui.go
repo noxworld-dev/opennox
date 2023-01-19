@@ -16,7 +16,13 @@ var (
 	emu     sync.RWMutex
 	exts    = make(map[*Window]*windowExt)
 	extData = make(map[*WindowData]*windowExt)
+
+	MainBg *Window
 )
+
+func FocusMainBg() {
+	MainBg.Focus()
+}
 
 func setExt(win *Window, ext *windowExt) {
 	emu.Lock()
