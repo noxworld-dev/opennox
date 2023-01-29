@@ -169,7 +169,6 @@ void sub_49E3C0(uint32_t* a1, int a2, unsigned int a3);
 int nox_client_drawLineFromPoints_49E4B0();
 int sub_49E4F0(int a1);
 void nox_client_drawPixel_49EFA0(int a1, int a2);
-void nox_client_drawLineHorizontal_49F180(int a1, int a2, int a3);
 void nox_client_drawAddPoint_49F500(int a1, int a2);
 void nox_xxx_rasterPointRel_49F570(int a1, int a2);
 int sub_49F6D0(int a1);
