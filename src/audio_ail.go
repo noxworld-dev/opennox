@@ -33,7 +33,6 @@ extern uint32_t dword_5d4594_831092;
 extern uint32_t dword_587000_122856;
 extern uint32_t dword_587000_122848;
 
-int sub_486F30();
 int sub_4311F0();
 void sub_43DC00();
 int sub_43D8E0();
@@ -45,6 +44,8 @@ extern void* dword_587000_122852;
 extern void* dword_587000_81128;
 extern void* dword_587000_93164;
 extern void* dword_5d4594_805984;
+extern void* dword_587000_155144;
+extern unsigned int dword_5d4594_1193336;
 */
 import "C"
 import (
@@ -474,7 +475,7 @@ func nox_audio_initall(a3 int) int {
 		return 1
 	}
 	if a3 != 0 {
-		C.sub_486F30()
+		sub_486F30()
 		if C.sub_4311F0() != 0 {
 			C.dword_587000_81128 = unsafe.Add(C.dword_5d4594_805984, 88)
 			dword_5d4594_805980 = uint32(uintptr(unsafe.Pointer(C.sub_4866F0(internCStr("audio"), internCStr("audio")))))
@@ -503,4 +504,14 @@ func nox_audio_initall(a3 int) int {
 	}
 	C.sub_486320((*C.uint32_t)(C.dword_587000_127004), v3)
 	return 1
+}
+
+func sub_486F30() int {
+	nox_common_list_clear_425760(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&C.dword_587000_155144))))
+	nox_common_list_clear_425760(unsafe.Pointer(uintptr(uint32(uintptr(C.dword_587000_155144)) + 12)))
+	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(C.dword_587000_155144)) + 24))) = 0
+	*memmap.PtrUint32(0x5D4594, 1193340) = uint32(uintptr(C.dword_587000_155144)) + 32
+	C.sub_4864A0((*C.uint)(unsafe.Pointer(uintptr(uint32(uintptr(C.dword_587000_155144)) + 32))))
+	C.dword_5d4594_1193336 = 1
+	return 0
 }

@@ -4822,17 +4822,6 @@ void* sub_486EF0() {
 	return result;
 }
 
-//----- (00486F30) --------------------------------------------------------
-int sub_486F30() {
-	nox_common_list_clear_425760(*(uint32_t**)&dword_587000_155144);
-	nox_common_list_clear_425760((uint32_t*)((uint32_t)dword_587000_155144 + 12));
-	*(uint32_t*)((uint32_t)dword_587000_155144 + 24) = 0;
-	*getMemU32Ptr(0x5D4594, 1193340) = (uint32_t)dword_587000_155144 + 32;
-	sub_4864A0((uint32_t*)((uint32_t)dword_587000_155144 + 32));
-	dword_5d4594_1193336 = 1;
-	return 0;
-}
-
 //----- (00486FA0) --------------------------------------------------------
 uint32_t* sub_486FA0(int a1) {
 	uint32_t* result; // eax
