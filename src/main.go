@@ -360,7 +360,7 @@ func RunArgs(args []string) (gerr error) {
 		noxServer.SetServerPort(v)
 	}
 	if v := *fClientPort; v > 0 {
-		C.nox_xxx_setClientNetPort_40A410(C.int(v))
+		nox_xxx_setClientNetPort_40A410(v)
 	}
 	if *fNoSoft {
 		noxflags.SetEngine(noxflags.EngineNoSoftLights)
