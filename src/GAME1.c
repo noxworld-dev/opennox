@@ -52,8 +52,6 @@ extern uint32_t dword_5d4594_251568;
 extern uint32_t dword_5d4594_251572;
 extern uint32_t nox_player_netCode_85319C;
 
-int nox_enable_audio = 1;
-
 int nox_server_gameSettingsUpdated; // If you define it as 1-byte bool, the game will crash
 
 

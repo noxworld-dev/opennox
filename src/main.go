@@ -14,13 +14,11 @@ package opennox
 #include "common__object__weaplook.h"
 #include "common__log.h"
 
-extern int nox_enable_audio;
 extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 
 extern unsigned int dword_5d4594_2650652;
 extern void* dword_587000_81128;
 extern unsigned int dword_5d4594_1193336;
-extern unsigned int dword_5d4594_805980;
 extern unsigned int dword_587000_93156;
 extern unsigned int dword_5d4594_816340;
 extern unsigned int dword_5d4594_816348;
@@ -313,7 +311,7 @@ func RunArgs(args []string) (gerr error) {
 		useFrameLimit = false
 	}
 	if *fServer {
-		C.nox_enable_audio = 0
+		nox_enable_audio = 0
 		noxflags.SetEngine(noxflags.EngineNoRendering |
 			noxflags.EngineNoTextRendering |
 			noxflags.EngineNoFloorRendering)
@@ -330,7 +328,7 @@ func RunArgs(args []string) (gerr error) {
 	if *fSafe {
 		noxflags.UnsetEngine(noxflags.EngineSoftShadowEdge)
 		noxflags.SetEngine(noxflags.EngineWindowed)
-		C.nox_enable_audio = 0
+		nox_enable_audio = 0
 		legacyUnlockSurface = true
 		*memmap.PtrUint32(0x5D4594, 805840) = 1
 		nox_enable_threads = false
@@ -342,7 +340,7 @@ func RunArgs(args []string) (gerr error) {
 		videoSetMenuMode(mode)
 	}
 	if *fNoAudio {
-		C.nox_enable_audio = 0
+		nox_enable_audio = 0
 	}
 	if *fNoMMX {
 		*memmap.PtrUint32(0x5D4594, 805840) = 1
@@ -422,7 +420,7 @@ func RunArgs(args []string) (gerr error) {
 	if C.sub_431370() == 0 {
 		return fmt.Errorf("sub_431370 failed")
 	}
-	if C.nox_audio_initall(C.nox_enable_audio) == 0 && C.nox_enable_audio != 0 {
+	if nox_audio_initall(nox_enable_audio) == 0 && nox_enable_audio != 0 {
 		return fmt.Errorf("failed to init audio")
 	}
 	if err := nox_xxx_loadAllBinFiles_415470(); err != nil {
@@ -550,8 +548,8 @@ func sub_4311B0() {
 	sub_43D970()
 	C.sub_44D8C0()
 	C.sub_451970()
-	if C.dword_5d4594_805980 != 0 {
-		C.sub_4869C0(unsafe.Pointer(uintptr(C.dword_5d4594_805980)))
+	if dword_5d4594_805980 != 0 {
+		C.sub_4869C0(unsafe.Pointer(uintptr(dword_5d4594_805980)))
 	}
 	C.dword_587000_81128 = nil
 	C.sub_431270()
