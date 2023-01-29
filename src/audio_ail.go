@@ -8,7 +8,6 @@ package opennox
 
 void sub_43E910(int a1);
 void sub_43E8E0(int a1);
-void* sub_486EF0();
 void sub_43D2D0();
 uint32_t* sub_486620(uint32_t* a1);
 void sub_43EDB0(HSAMPLE a1);
@@ -45,7 +44,6 @@ extern void* dword_587000_81128;
 extern void* dword_587000_93164;
 extern void* dword_5d4594_805984;
 extern void* dword_587000_155144;
-extern unsigned int dword_5d4594_1193336;
 */
 import "C"
 import (
@@ -62,8 +60,9 @@ import (
 )
 
 var (
-	nox_enable_audio    = 1
-	dword_5d4594_805980 uint32
+	nox_enable_audio     = 1
+	dword_5d4594_805980  uint32
+	dword_5d4594_1193336 uint32
 )
 
 //export AIL_load_sample_buffer
@@ -127,7 +126,7 @@ func sub_43EFD0(a1 unsafe.Pointer) int {
 func sub_43E940(a1 unsafe.Pointer) int {
 	ail.Startup()
 	audioTimer93944 = ail.RegisterTimer(func(u uint32) {
-		C.sub_486EF0()
+		sub_486EF0()
 		C.sub_43D2D0()
 		C.sub_486620((*C.uint32_t)(C.dword_587000_127004))
 	})
@@ -512,6 +511,19 @@ func sub_486F30() int {
 	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(C.dword_587000_155144)) + 24))) = 0
 	*memmap.PtrUint32(0x5D4594, 1193340) = uint32(uintptr(C.dword_587000_155144)) + 32
 	C.sub_4864A0((*C.uint)(unsafe.Pointer(uintptr(uint32(uintptr(C.dword_587000_155144)) + 32))))
-	C.dword_5d4594_1193336 = 1
+	dword_5d4594_1193336 = 1
 	return 0
+}
+
+func sub_486EF0() {
+	if dword_5d4594_1193336 != 0 {
+		if *(*uint32)(unsafe.Add(C.dword_587000_155144, 24)) == 0 {
+			v1 := *(*unsafe.Pointer)(unsafe.Add(C.dword_587000_155144, 12))
+			for it := unsafe.Add(C.dword_587000_155144, 12); v1 != it; v1 = *(*unsafe.Pointer)(v1) {
+				if (*(*int32)(unsafe.Add(v1, 4*3)) & 2) == 0 {
+					ccall.CallVoidPtr(*(*unsafe.Pointer)(unsafe.Add(v1, 4*54)), v1)
+				}
+			}
+		}
+	}
 }

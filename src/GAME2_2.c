@@ -46,7 +46,6 @@ extern uint32_t dword_5d4594_1098620;
 extern uint32_t dword_5d4594_1123520;
 extern uint32_t dword_5d4594_1193188;
 extern uint32_t dword_5d4594_1098596;
-extern uint32_t dword_5d4594_1193336;
 extern uint32_t dword_5d4594_3799452;
 extern uint32_t dword_5d4594_1098600;
 extern uint32_t dword_5d4594_3807152;
@@ -4797,27 +4796,6 @@ int sub_486E90(int a1) {
 	*(uint32_t*)(v1 + 212) = result;
 	if (result < 0) {
 		*(uint32_t*)(v1 + 212) = 0;
-	}
-	return result;
-}
-
-//----- (00486EF0) --------------------------------------------------------
-void* sub_486EF0() {
-	void* result; // eax
-	int* v1;      // esi
-	int i;        // edi
-
-	result = *(void**)&dword_5d4594_1193336;
-	if (dword_5d4594_1193336) {
-		result = *(void**)&dword_587000_155144;
-		if (!*(uint32_t*)((uint32_t)dword_587000_155144 + 24)) {
-			v1 = *(int**)((uint32_t)dword_587000_155144 + 12);
-			for (i = (uint32_t)dword_587000_155144 + 12; v1 != (int*)i; v1 = (int*)*v1) {
-				if (!(v1[3] & 2)) {
-					result = (void*)((int (*)(int*))v1[54])(v1);
-				}
-			}
-		}
 	}
 	return result;
 }
