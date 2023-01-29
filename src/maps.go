@@ -733,3 +733,21 @@ func (s *Server) nox_xxx_free503F40() {
 	s.mapGroups.refs = nil
 	s.nox_xxx_mapReset5028E0()
 }
+
+func nox_xxx_mapSetDataDefault_416500() {
+	alloc.Memset(memmap.PtrOff(0x5D4594, 371380), 0, 116)
+	alloc.Memset(memmap.PtrOff(0x5D4594, 371516), 0, 168)
+	*memmap.PtrUint8(0x5D4594, 371684) = 0
+	*memmap.PtrUint16(0x5D4594, 371621) = math.MaxUint16
+	*memmap.PtrUint16(0x5D4594, 371623) = math.MaxUint16
+	*memmap.PtrUint32(0x5D4594, 371688) = 0
+	*memmap.PtrUint8(0x5D4594, 371617) = math.MaxUint8
+	*memmap.PtrUint8(0x5D4594, 371568) = 32
+	*memmap.PtrUint8(0x5D4594, 371569) = 32
+	*memmap.PtrUint32(0x5D4594, 371578) = 1
+	*memmap.PtrUint32(0x5D4594, 371574) = 0
+	*memmap.PtrUint32(0x5D4594, 371582) = 0
+	*memmap.PtrUint32(0x5D4594, 371586) = 0
+	*memmap.PtrUint32(0x5D4594, 371590) = 20
+	*memmap.PtrUint32(0x5D4594, 371696) = 0
+}
