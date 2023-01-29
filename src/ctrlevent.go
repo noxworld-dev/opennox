@@ -44,13 +44,13 @@ import (
 )
 
 //export nox_xxx_playerResetControlBuffer_51AC30
-func nox_xxx_playerResetControlBuffer_51AC30(pi C.int) {
-	noxServer.Players.Control.Player(int(pi)).Reset()
+func nox_xxx_playerResetControlBuffer_51AC30(pi int) {
+	noxServer.Players.Control.Player(pi).Reset()
 }
 
 //export sub_42E8E0
-func sub_42E8E0(key, a2 C.int) *C.wchar_t {
-	s := ctrlEvent.sub_42E8E0_go(keybind.Event(key), int(a2))
+func sub_42E8E0(key, a2 int) *C.wchar_t {
+	s := ctrlEvent.sub_42E8E0_go(keybind.Event(key), a2)
 	return internWStr(s)
 }
 
@@ -785,7 +785,7 @@ func (c *CtrlEventHandler) listBindings() []*CtrlEventBinding {
 }
 
 //export nox_client_parseConfigHotkeysLine_42CF50
-func nox_client_parseConfigHotkeysLine_42CF50(a1 *C.char) C.int {
+func nox_client_parseConfigHotkeysLine_42CF50(a1 *C.char) int {
 	r := strings.NewReader(GoString(a1))
 	sc := bufio.NewScanner(r)
 	for sc.Scan() {
@@ -799,7 +799,7 @@ func nox_client_parseConfigHotkeysLine_42CF50(a1 *C.char) C.int {
 			continue
 		}
 		key, val := strings.TrimSpace(line[:i]), strings.TrimSpace(line[i+1:])
-		return C.int(nox_client_parseConfigHotkeysLine(key, val))
+		return nox_client_parseConfigHotkeysLine(key, val)
 	}
 	return 0
 }

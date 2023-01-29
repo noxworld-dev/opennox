@@ -47,12 +47,12 @@ func init() {
 }
 
 //export nox_gui_console_flagXxx_451410
-func nox_gui_console_flagXxx_451410() C.int {
-	return C.int((^(guiCon.root.GetFlags() >> 4)) & 1)
+func nox_gui_console_flagXxx_451410() int {
+	return int((^(guiCon.root.GetFlags() >> 4)) & 1)
 }
 
 //export nox_gui_console_Print_450B90
-func nox_gui_console_Print_450B90(cl C.uchar, cstr *C.wchar_t) C.int {
+func nox_gui_console_Print_450B90(cl C.uchar, cstr *C.wchar_t) int {
 	// since legacy code still calls it, we redirect into global printer instead of GUI printer
 	noxConsole.Print(console.Color(cl), GoWString(cstr))
 	return 1
@@ -64,8 +64,8 @@ func nox_gui_console_PrintOrError_450C30(cl C.uchar, cstr *C.wchar_t) {
 }
 
 //export nox_gui_console_Hide_4512B0
-func nox_gui_console_Hide_4512B0() C.int {
-	return C.int(bool2int(guiCon.Hide()))
+func nox_gui_console_Hide_4512B0() int {
+	return bool2int(guiCon.Hide())
 }
 
 type guiConsole struct {

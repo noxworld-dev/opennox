@@ -365,7 +365,7 @@ func nox_xxx_checkMobAction_50A0D0(u *Unit, act ai.ActionType) bool {
 }
 
 //export sub_545E60
-func sub_545E60(a1c *nox_object_t) C.int {
+func sub_545E60(a1c *nox_object_t) int {
 	u := asUnitC(a1c)
 	s := u.getServer()
 
@@ -537,8 +537,8 @@ func (a *aiData) traceSound(u *Unit, p *MonsterListen) int {
 }
 
 //export nox_xxx_gameSetAudioFadeoutMb_501AC0
-func nox_xxx_gameSetAudioFadeoutMb_501AC0(v C.int) {
-	noxServer.ai.nox_xxx_gameSetAudioFadeoutMb(int(v))
+func nox_xxx_gameSetAudioFadeoutMb_501AC0(v int) {
+	noxServer.ai.nox_xxx_gameSetAudioFadeoutMb(v)
 }
 
 func (a *aiData) nox_xxx_gameSetAudioFadeoutMb(v int) {

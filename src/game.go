@@ -206,8 +206,8 @@ func sub_43AF50() {
 }
 
 //export nox_xxx_gameGetPlayState_4356B0
-func nox_xxx_gameGetPlayState_4356B0() C.int {
-	return C.int(gameGetPlayState())
+func nox_xxx_gameGetPlayState_4356B0() int {
+	return gameGetPlayState()
 }
 func gameGetPlayState() int {
 	return nox_game_playState_811372
@@ -431,7 +431,7 @@ func sub_43AF30() uint32 {
 }
 
 //export nox_xxx_set_god_4EF500
-func nox_xxx_set_god_4EF500(v C.int) {
+func nox_xxx_set_god_4EF500(v int) {
 	serverCheatGod(v != 0)
 }
 
@@ -734,13 +734,13 @@ func nox_xxx_netServerCmd_440950_empty() {
 }
 
 //export nox_server_parseCmdText_443C80
-func nox_server_parseCmdText_443C80(cstr *C.wchar_t, _ C.int) C.int {
+func nox_server_parseCmdText_443C80(cstr *C.wchar_t, _ int) int {
 	cmd := GoWString(cstr)
 	if cmd == "" {
 		return 0
 	}
 	res := execConsoleCmd(context.Background(), cmd)
-	return C.int(bool2int(res))
+	return bool2int(res)
 }
 
 func execConsoleCmd(ctx context.Context, cmd string) bool { // nox_server_parseCmdText_443C80
@@ -917,23 +917,23 @@ func nox_xxx_cliGamedataGet_416590(v int) []byte {
 	return unsafe.Slice((*byte)(unsafe.Pointer(C.nox_xxx_cliGamedataGet_416590(C.int(v)))), 60)
 }
 
-func nox_xxx_gameSetNoMPFlag_4DB230(a1 C.int) {
+func nox_xxx_gameSetNoMPFlag_4DB230(a1 int) {
 	gameIsNotMultiplayer = a1 != 0
 }
 
 //export nox_xxx_gameIsNotMultiplayer_4DB250
-func nox_xxx_gameIsNotMultiplayer_4DB250() C.int {
-	return C.int(bool2int(gameIsNotMultiplayer))
+func nox_xxx_gameIsNotMultiplayer_4DB250() int {
+	return bool2int(gameIsNotMultiplayer)
 }
 
 //export nox_xxx_gameSetSwitchSolo_4DB220
-func nox_xxx_gameSetSwitchSolo_4DB220(a1 C.int) {
+func nox_xxx_gameSetSwitchSolo_4DB220(a1 int) {
 	gameIsSwitchToSolo = a1 != 0
 }
 
 //export nox_xxx_gameIsSwitchToSolo_4DB240
-func nox_xxx_gameIsSwitchToSolo_4DB240() C.int {
-	return C.int(bool2int(gameIsSwitchToSolo))
+func nox_xxx_gameIsSwitchToSolo_4DB240() int {
+	return bool2int(gameIsSwitchToSolo)
 }
 
 func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
@@ -1322,7 +1322,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	noxflags.SetGame(noxflags.GameFlag28)
 	noxAudioServeT(500)
 	v42 := nox_xxx_gameIsSwitchToSolo_4DB240()
-	C.sub_4DBA30(v42)
+	C.sub_4DBA30(C.int(v42))
 	noxAudioServe()
 	noxflags.UnsetGame(noxflags.GameFlag28)
 	C.sub_4FC580(1)
@@ -1472,7 +1472,7 @@ func nox_server_testTwoPointsAndDirection_4E6E50(p1 types.Pointf, dir int16, p2 
 }
 
 //export nox_xxx_mapTraceRay_535250
-func nox_xxx_mapTraceRay_535250(a1 *C.float4, a2 *C.float2, a3 *C.int2, a4 C.char) C.int {
+func nox_xxx_mapTraceRay_535250(a1 *C.float4, a2 *C.float2, a3 *C.int2, a4 C.char) int {
 	p1 := (*types.Pointf)(unsafe.Pointer(&a1.field_0))
 	p2 := (*types.Pointf)(unsafe.Pointer(&a1.field_8))
 	outPos := (*types.Pointf)(unsafe.Pointer(a2))
@@ -1790,7 +1790,7 @@ func sub_57CD70(p1, p2, a2 types.Pointf) types.Pointf {
 }
 
 //export nox_xxx_mapTraceObstacles_50B580
-func nox_xxx_mapTraceObstacles_50B580(from *C.nox_object_t, a2 *C.float4) C.int {
+func nox_xxx_mapTraceObstacles_50B580(from *C.nox_object_t, a2 *C.float4) int {
 	if noxServer.mapTraceObstacles(asUnitC(from), types.Pointf{
 		X: float32(a2.field_0),
 		Y: float32(a2.field_4),
@@ -2015,12 +2015,12 @@ func nox_xxx_unitCanInteractWith_5370E0(u, obj noxObject, a3 byte) bool {
 var doDamageWalls = true
 
 //export nox_xxx_gameSetWallsDamage_4E25A0
-func nox_xxx_gameSetWallsDamage_4E25A0(v C.int) {
+func nox_xxx_gameSetWallsDamage_4E25A0(v int) {
 	doDamageWalls = v != 0
 }
 
 //export nox_xxx_mapDamageUnitsAround_4E25B0
-func nox_xxx_mapDamageUnitsAround_4E25B0(a1 *C.float, a2, a3 C.float, a4, a5 C.int, a6, a7 *nox_object_t) {
+func nox_xxx_mapDamageUnitsAround_4E25B0(a1 *C.float, a2, a3 C.float, a4, a5 int, a6, a7 *nox_object_t) {
 	cpos := unsafe.Slice(a1, 2)
 	pos := types.Pointf{X: float32(cpos[0]), Y: float32(cpos[1])}
 	noxServer.nox_xxx_mapDamageUnitsAround(pos, float32(a2), float32(a3), int(a4), object.DamageType(a5), asUnitC(a6), asObjectC(a7), doDamageWalls)
@@ -2150,13 +2150,13 @@ func (s *Server) nox_xxx_netlist_4DEB50() {
 }
 
 //export nox_game_addStateCode_43BDD0
-func nox_game_addStateCode_43BDD0(code C.int) {
+func nox_game_addStateCode_43BDD0(code int) {
 	gameAddStateCode(gui.StateID(code))
 }
 
 //export nox_game_getStateCode_43BE10
-func nox_game_getStateCode_43BE10() C.int {
-	return C.int(gameGetStateCode())
+func nox_game_getStateCode_43BE10() int {
+	return int(gameGetStateCode())
 }
 
 //export nox_game_decStateInd_43BDC0
@@ -2185,8 +2185,8 @@ func gamePopStateUntil(code gui.StateID) {
 }
 
 //export nox_game_switchStates_43C0A0
-func nox_game_switchStates_43C0A0() C.int {
-	return C.int(bool2int(nox_game_state.Switch()))
+func nox_game_switchStates_43C0A0() int {
+	return bool2int(nox_game_state.Switch())
 }
 
 func nox_game_checkStateSwitch_43C1E0() {

@@ -25,12 +25,12 @@ func init() {
 }
 
 //export nox_objectDropAudEvent_4EE2F0
-func nox_objectDropAudEvent_4EE2F0(cobj1 *nox_object_t, cobj2 *nox_object_t, a3 *C.float2) C.int {
+func nox_objectDropAudEvent_4EE2F0(cobj1 *nox_object_t, cobj2 *nox_object_t, a3 *C.float2) int {
 	s := noxServer
 	if cobj1 == nil || cobj2 == nil || a3 == nil {
 		return 0
 	}
-	ok := C.nox_xxx_dropDefault_4ED290(cobj1, cobj2, a3)
+	ok := int(C.nox_xxx_dropDefault_4ED290(cobj1, cobj2, a3))
 	if ok == 0 {
 		return ok
 	}

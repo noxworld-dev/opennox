@@ -123,7 +123,7 @@ func sub_446380() {
 }
 
 //export sub_445B40
-func sub_445B40() C.int {
+func sub_445B40() int {
 	sub_413A00(0)
 	if sub4DB790("AUTOSAVE") {
 		return 1

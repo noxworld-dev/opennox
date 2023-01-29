@@ -88,8 +88,8 @@ import (
 )
 
 //export nox_xxx_servStartCountdown_40A2A0
-func nox_xxx_servStartCountdown_40A2A0(a1 C.int, a2 *C.char) {
-	noxServer.servStartCountdown(int(a1), strman.ID(GoString(a2)))
+func nox_xxx_servStartCountdown_40A2A0(a1 int, a2 *C.char) {
+	noxServer.servStartCountdown(a1, strman.ID(GoString(a2)))
 }
 
 //export sub_40A040_settings
@@ -113,20 +113,20 @@ func nox_server_NextObjectScriptID() C.uint {
 }
 
 //export nox_xxx_servGetPort_40A430
-func nox_xxx_servGetPort_40A430() C.int {
-	return C.int(noxServer.ServerPort())
+func nox_xxx_servGetPort_40A430() int {
+	return noxServer.ServerPort()
 }
 
 //export sub_40A1A0
-func sub_40A1A0() C.int {
-	return C.int(bool2int((C.sub_40A180(C.short(noxflags.GetGame())) != 0 || noxServer.flag3592) &&
+func sub_40A1A0() int {
+	return bool2int((C.sub_40A180(C.short(noxflags.GetGame())) != 0 || noxServer.flag3592) &&
 		memmap.Uint32(0x587000, 4660) != 0 &&
-		platformTicks() > memmap.Uint64(0x5D4594, 3468)))
+		platformTicks() > memmap.Uint64(0x5D4594, 3468))
 }
 
 //export sub_40A300
-func sub_40A300() C.int {
-	return C.int(bool2int(noxServer.flag3592))
+func sub_40A300() int {
+	return bool2int(noxServer.flag3592)
 }
 
 //export nox_xxx_mapLoad_4D2450
@@ -135,8 +135,8 @@ func nox_xxx_mapLoad_4D2450(a1 *C.char) {
 }
 
 //export nox_mapToGameFlags_4CFF50
-func nox_mapToGameFlags_4CFF50(v C.int) C.int {
-	return C.int(nox_mapToGameFlags(int(v)))
+func nox_mapToGameFlags_4CFF50(v int) int {
+	return int(nox_mapToGameFlags(v))
 }
 
 var (

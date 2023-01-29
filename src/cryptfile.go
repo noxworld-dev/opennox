@@ -14,18 +14,18 @@ import (
 )
 
 //export nox_crypt_IsReadOnly
-func nox_crypt_IsReadOnly() C.int {
-	return C.int(bool2int(cryptfile.Global().ReadOnly()))
+func nox_crypt_IsReadOnly() int {
+	return bool2int(cryptfile.Global().ReadOnly())
 }
 
 //export nox_xxx_cryptSetTypeMB_426A50
-func nox_xxx_cryptSetTypeMB_426A50(a1 C.int) {
+func nox_xxx_cryptSetTypeMB_426A50(a1 int) {
 	cryptfile.Global().SetXOR(a1 != 0)
 }
 
 //export nox_xxx_cryptOpen_426910
-func nox_xxx_cryptOpen_426910(a1 *C.char, cmode, key C.int) int32 {
-	if err := cryptfile.OpenGlobal(GoString(a1), cryptfile.Mode(cmode), int(key)); err != nil {
+func nox_xxx_cryptOpen_426910(a1 *C.char, cmode, key int) int32 {
+	if err := cryptfile.OpenGlobal(GoString(a1), cryptfile.Mode(cmode), key); err != nil {
 		if !os.IsNotExist(err) {
 			binfile.Log.Println(err)
 		}
@@ -35,8 +35,8 @@ func nox_xxx_cryptOpen_426910(a1 *C.char, cmode, key C.int) int32 {
 }
 
 //export nox_xxx_cryptFlush_4268E0
-func nox_xxx_cryptFlush_4268E0() C.int {
-	return C.int(cryptfile.Global().Flush())
+func nox_xxx_cryptFlush_4268E0() int {
+	return cryptfile.Global().Flush()
 }
 
 //export nox_xxx_cryptClose_4269F0
@@ -50,7 +50,7 @@ func nox_xxx_mapgenGetSomeFile_426A60() *C.FILE {
 }
 
 //export nox_xxx_cryptSeekCur_40E0A0
-func nox_xxx_cryptSeekCur_40E0A0(a1 C.int) C.int {
+func nox_xxx_cryptSeekCur_40E0A0(a1 int) int {
 	cryptfile.Global().Seek(int64(a1), io.SeekCurrent)
 	return 0
 }
@@ -77,7 +77,7 @@ func nox_xxx_crypt_426C90() {
 }
 
 //export sub_4268F0
-func sub_4268F0(off C.int) {
+func sub_4268F0(off int) {
 	cryptfile.Global().WriteChecksumAt(int64(off))
 }
 

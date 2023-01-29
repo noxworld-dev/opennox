@@ -41,7 +41,7 @@ func strmanReadFile(path string) error {
 }
 
 //export nox_strman_loadString_40F1D0
-func nox_strman_loadString_40F1D0(name *C.char, strOut **C.char, srcFile *C.char, srcLine C.int) *C.wchar_t {
+func nox_strman_loadString_40F1D0(name *C.char, strOut **C.char, srcFile *C.char, srcLine int) *C.wchar_t {
 	if strOut != nil {
 		*strOut = nil
 		v, _ := strMan.GetVariantInFile(strman.ID(GoString(name)), GoString(srcFile))
@@ -59,6 +59,6 @@ func nox_strman_free_410020() {
 }
 
 //export nox_strman_get_lang_code
-func nox_strman_get_lang_code() C.int {
-	return C.int(strMan.Lang())
+func nox_strman_get_lang_code() int {
+	return strMan.Lang()
 }

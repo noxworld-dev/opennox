@@ -25,12 +25,12 @@ import (
 )
 
 //export nox_server_teamByXxx_418AE0
-func nox_server_teamByXxx_418AE0(a1 C.int) *nox_team_t {
-	return noxServer.teamByXxx(int(a1)).C()
+func nox_server_teamByXxx_418AE0(a1 int) *nox_team_t {
+	return noxServer.teamByXxx(a1).C()
 }
 
 //export nox_xxx_clientGetTeamColor_418AB0
-func nox_xxx_clientGetTeamColor_418AB0(a1 C.int) *nox_team_t {
+func nox_xxx_clientGetTeamColor_418AB0(a1 int) *nox_team_t {
 	return noxServer.teamByYyy(byte(a1)).C()
 }
 
@@ -45,7 +45,7 @@ func nox_server_teamNext_418B60(t *nox_team_t) *nox_team_t {
 }
 
 //export nox_server_teamTitle_418C20
-func nox_server_teamTitle_418C20(a1 C.int) *C.wchar_t {
+func nox_server_teamTitle_418C20(a1 int) *C.wchar_t {
 	return internWStr(noxServer.teamTitle(TeamColor(a1)))
 }
 
@@ -66,8 +66,8 @@ func nox_xxx_getTeamCounter_417DD0() C.uchar {
 }
 
 //export nox_server_teamsResetYyy_417D00
-func nox_server_teamsResetYyy_417D00() C.int {
-	return C.int(noxServer.teamsResetYyy())
+func nox_server_teamsResetYyy_417D00() int {
+	return noxServer.teamsResetYyy()
 }
 
 type objectTeam struct {
@@ -392,8 +392,8 @@ func (s *Server) teamsResetYyy() int {
 }
 
 //export nox_server_teamsZzz_419030
-func nox_server_teamsZzz_419030(a1 C.int) C.int {
-	return C.int(noxServer.teamsZzz(int(a1)))
+func nox_server_teamsZzz_419030(a1 int) int {
+	return noxServer.teamsZzz(a1)
 }
 
 func (s *Server) sendTeamPacket(op byte) int {

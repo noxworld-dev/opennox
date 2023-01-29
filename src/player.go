@@ -63,7 +63,7 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 }
 
 //export nox_xxx_updateSpellRelated_424830
-func nox_xxx_updateSpellRelated_424830(p unsafe.Pointer, ph C.int) unsafe.Pointer {
+func nox_xxx_updateSpellRelated_424830(p unsafe.Pointer, ph int) unsafe.Pointer {
 	return unsafe.Pointer((*phonemeLeaf)(p).Next(spell.Phoneme(ph)))
 }
 
@@ -78,35 +78,35 @@ func nox_common_playerInfoGetNext_416EE0(it *C.nox_playerInfo) *C.nox_playerInfo
 }
 
 //export nox_common_playerInfoCount_416F40
-func nox_common_playerInfoCount_416F40() C.int {
-	return C.int(noxServer.Players.Count())
+func nox_common_playerInfoCount_416F40() int {
+	return noxServer.Players.Count()
 }
 
 //export nox_common_playerInfoGetByID_417040
-func nox_common_playerInfoGetByID_417040(id C.int) *C.nox_playerInfo {
-	return noxServer.GetPlayerByID(int(id)).C()
+func nox_common_playerInfoGetByID_417040(id int) *C.nox_playerInfo {
+	return noxServer.GetPlayerByID(id).C()
 }
 
 //export nox_common_playerInfoFromNum_417090
-func nox_common_playerInfoFromNum_417090(ind C.int) *C.nox_playerInfo {
-	return noxServer.GetPlayerByInd(int(ind)).C()
+func nox_common_playerInfoFromNum_417090(ind int) *C.nox_playerInfo {
+	return noxServer.GetPlayerByInd(ind).C()
 }
 
 //export nox_common_playerInfoFromNumRaw
-func nox_common_playerInfoFromNumRaw(ind C.int) *C.nox_playerInfo {
-	return noxServer.GetPlayerByIndRaw(int(ind)).C()
+func nox_common_playerInfoFromNumRaw(ind int) *C.nox_playerInfo {
+	return noxServer.GetPlayerByIndRaw(ind).C()
 }
 
 //export nox_xxx_playerDisconnByPlrID_4DEB00
-func nox_xxx_playerDisconnByPlrID_4DEB00(id C.int) {
-	if p := noxServer.GetPlayerByInd(int(id)); p != nil {
+func nox_xxx_playerDisconnByPlrID_4DEB00(id int) {
+	if p := noxServer.GetPlayerByInd(id); p != nil {
 		p.Disconnect(4)
 	}
 }
 
 //export nox_xxx_playerCallDisconnect_4DEAB0
-func nox_xxx_playerCallDisconnect_4DEAB0(ind C.int, v C.char) *C.char {
-	noxServer.GetPlayerByInd(int(ind)).Disconnect(int(v))
+func nox_xxx_playerCallDisconnect_4DEAB0(ind int, v C.char) *C.char {
+	noxServer.GetPlayerByInd(ind).Disconnect(int(v))
 	return nil
 }
 
@@ -126,8 +126,8 @@ func nox_xxx_playerGetPossess_4DDF30(cplayer *nox_object_t) *nox_object_t {
 }
 
 //export nox_xxx_playerGoObserver_4E6860
-func nox_xxx_playerGoObserver_4E6860(pl *C.nox_playerInfo, a2 C.int, a3 C.int) C.int {
-	return C.int(bool2int(asPlayer(pl).GoObserver(a2 != 0, a3 != 0)))
+func nox_xxx_playerGoObserver_4E6860(pl *C.nox_playerInfo, a2 int, a3 int) int {
+	return bool2int(asPlayer(pl).GoObserver(a2 != 0, a3 != 0))
 }
 
 //export nox_xxx_playerObserveClear_4DDEF0
@@ -1004,8 +1004,8 @@ func sub_4D6BE0() {
 }
 
 //export nox_client_onClassStats
-func nox_client_onClassStats(cbuf *C.uchar, sz C.int) {
-	data := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), int(sz))
+func nox_client_onClassStats(cbuf *C.uchar, sz int) {
+	data := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), sz)
 	switch player.Class(memmap.Uint8(0x85B3FC, 12254)) {
 	case player.Warrior:
 		C.nox_xxx_warriorMaxHealth_587000_312784 = C.float(math.Float32frombits(binary.LittleEndian.Uint32(data[1:])))

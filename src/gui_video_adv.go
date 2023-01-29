@@ -84,7 +84,7 @@ func (c *guiAdvOptions) NewOn(par *gui.Window) {
 }
 
 //export nox_client_advVideoOpts_New_4CB590
-func nox_client_advVideoOpts_New_4CB590(par *C.nox_window) C.int {
+func nox_client_advVideoOpts_New_4CB590(par *C.nox_window) int {
 	noxClient.guiAdv.NewOn(asWindow(par))
 	return 1
 }

@@ -323,7 +323,7 @@ func nox_xxx_createSocketLocal(port int) error {
 }
 
 //export sub_554D10
-func sub_554D10() C.int {
+func sub_554D10() int {
 	if lobbyBroadcast != nil {
 		_ = lobbyBroadcast.Close()
 		lobbyBroadcast = nil

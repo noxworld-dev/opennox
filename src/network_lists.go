@@ -24,18 +24,18 @@ import (
 )
 
 //export nox_netlist_addToMsgListCli_40EBC0
-func nox_netlist_addToMsgListCli_40EBC0(ind1, ind2 C.int, buf *C.uchar, sz C.int) C.int {
-	return C.int(bool2int(netlist.AddToMsgListCli(int(ind1), netlist.Kind(ind2), unsafe.Slice((*byte)(unsafe.Pointer(buf)), int(sz)))))
+func nox_netlist_addToMsgListCli_40EBC0(ind1, ind2 int, buf *C.uchar, sz int) int {
+	return bool2int(netlist.AddToMsgListCli(ind1, netlist.Kind(ind2), unsafe.Slice((*byte)(unsafe.Pointer(buf)), sz)))
 }
 
 //export nox_netlist_clientSendWrap_40ECA0
-func nox_netlist_clientSendWrap_40ECA0(ind1, ind2 C.int, buf *C.uchar, sz C.int) C.int {
-	return C.int(bool2int(netlist.ClientSend0(int(ind1), netlist.Kind(ind2), unsafe.Slice((*byte)(unsafe.Pointer(buf)), int(sz)), netPlayerBufSize)))
+func nox_netlist_clientSendWrap_40ECA0(ind1, ind2 int, buf *C.uchar, sz int) int {
+	return bool2int(netlist.ClientSend0(ind1, netlist.Kind(ind2), unsafe.Slice((*byte)(unsafe.Pointer(buf)), sz), netPlayerBufSize))
 }
 
 //export nox_netlist_addToMsgListSrv_40EF40
-func nox_netlist_addToMsgListSrv_40EF40(ind C.int, buf *C.uchar, sz C.int) C.bool {
-	return C.bool(nox_netlist_addToMsgListSrv(int(ind), unsafe.Slice((*byte)(unsafe.Pointer(buf)), int(sz))))
+func nox_netlist_addToMsgListSrv_40EF40(ind int, buf *C.uchar, sz int) C.bool {
+	return C.bool(nox_netlist_addToMsgListSrv(ind, unsafe.Slice((*byte)(unsafe.Pointer(buf)), sz)))
 }
 
 func nox_xxx_rateGet_40A6C0() int {

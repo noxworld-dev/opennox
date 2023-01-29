@@ -9,8 +9,8 @@ import (
 )
 
 //export sub_473670
-func sub_473670() C.int {
-	return C.int(memmap.Uint8(0x5D4594, 1096424) & 1)
+func sub_473670() int {
+	return int(memmap.Uint8(0x5D4594, 1096424) & 1)
 }
 
 //export nox_client_toggleMap_473610

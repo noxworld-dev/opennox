@@ -38,13 +38,13 @@ func noxCommonInitRandom() {
 }
 
 //export nox_common_randomInt_415FA0
-func nox_common_randomInt_415FA0(min, max C.int) C.int {
-	return C.int(noxRndCounter1.IntClamp(int(min), int(max)))
+func nox_common_randomInt_415FA0(min, max int) int {
+	return noxRndCounter1.IntClamp(min, max)
 }
 
 //export nox_common_randomIntMinMax_415FF0
-func nox_common_randomIntMinMax_415FF0(min, max C.int, file *C.char, line C.int) C.int {
-	return C.int(randomIntMinMax(int(min), int(max)))
+func nox_common_randomIntMinMax_415FF0(min, max int, file *C.char, line int) int {
+	return randomIntMinMax(min, max)
 }
 
 func randomIntMinMax(min, max int) int {

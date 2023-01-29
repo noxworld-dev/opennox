@@ -51,19 +51,19 @@ func init() {
 }
 
 //export nox_xxx_unitDefGetCount_4E3AC0
-func nox_xxx_unitDefGetCount_4E3AC0() C.int {
-	return C.int(noxServer.ObjectTypesCount())
+func nox_xxx_unitDefGetCount_4E3AC0() int {
+	return noxServer.ObjectTypesCount()
 }
 
 //export nox_xxx_newObjectWithTypeInd_4E3450
-func nox_xxx_newObjectWithTypeInd_4E3450(ind C.int) *nox_object_t {
+func nox_xxx_newObjectWithTypeInd_4E3450(ind int) *nox_object_t {
 	s := noxServer
-	return s.NewObject(s.ObjectTypeByInd(int(ind))).CObj()
+	return s.NewObject(s.ObjectTypeByInd(ind)).CObj()
 }
 
 //export nox_xxx_objectTypeByIndHealthData
-func nox_xxx_objectTypeByIndHealthData(ind C.int) unsafe.Pointer {
-	t := noxServer.ObjectTypeByInd(int(ind))
+func nox_xxx_objectTypeByIndHealthData(ind int) unsafe.Pointer {
+	t := noxServer.ObjectTypeByInd(ind)
 	if t == nil {
 		return nil
 	}
@@ -153,8 +153,8 @@ func sub_4E4C90(a1 *nox_object_t, a2 uint) int {
 }
 
 //export nox_xxx_getUnitDefDd10_4E3BA0
-func nox_xxx_getUnitDefDd10_4E3BA0(ind C.int) C.int {
-	return C.int(bool2int(noxServer.ObjectTypeByInd(int(ind)).Allowed()))
+func nox_xxx_getUnitDefDd10_4E3BA0(ind int) int {
+	return bool2int(noxServer.ObjectTypeByInd(ind).Allowed())
 }
 
 //export nox_xxx_getUnitName_4E39D0
@@ -163,16 +163,16 @@ func nox_xxx_getUnitName_4E39D0(cobj *nox_object_t) *C.char {
 }
 
 //export sub_4E3B80
-func sub_4E3B80(ind C.int) C.int {
-	return C.int(bool2int(noxServer.ObjectTypeByInd(int(ind)).Icon != -1))
+func sub_4E3B80(ind int) int {
+	return bool2int(noxServer.ObjectTypeByInd(ind).Icon != -1)
 }
 
 //export nox_xxx_getUnitNameByThingType_4E3A80
-func nox_xxx_getUnitNameByThingType_4E3A80(ind C.int) *C.char {
+func nox_xxx_getUnitNameByThingType_4E3A80(ind int) *C.char {
 	if ind == 0 {
 		return nil
 	}
-	return internCStr(noxServer.ObjectTypeByInd(int(ind)).ID())
+	return internCStr(noxServer.ObjectTypeByInd(ind).ID())
 }
 
 //export nox_objectTypeGetXfer
@@ -185,12 +185,12 @@ func nox_objectTypeGetXfer(cstr *C.char) unsafe.Pointer {
 }
 
 //export nox_objectTypeGetWorth
-func nox_objectTypeGetWorth(cstr *C.char) C.int {
+func nox_objectTypeGetWorth(cstr *C.char) int {
 	t := noxServer.ObjectTypeByID(GoString(cstr))
 	if t == nil {
 		return -1
 	}
-	return C.int(t.Worth)
+	return t.Worth
 }
 
 //export nox_xxx_newObjectByTypeID_4E3810
@@ -203,26 +203,26 @@ func nox_xxx_newObjectByTypeID_4E3810(cstr *C.char) *nox_object_t {
 }
 
 //export nox_xxx_getNameId_4E3AA0
-func nox_xxx_getNameId_4E3AA0(cstr *C.char) C.int {
-	return C.int(noxServer.ObjectTypeID(GoString(cstr)))
+func nox_xxx_getNameId_4E3AA0(cstr *C.char) int {
+	return noxServer.ObjectTypeID(GoString(cstr))
 }
 
 //export sub_415A30
-func sub_415A30(a1 *C.char) C.int {
+func sub_415A30(a1 *C.char) int {
 	t := sub415A30(GoString(a1))
 	if t == nil {
 		return -1
 	}
-	return C.int(t.Ind())
+	return t.Ind()
 }
 
 //export sub_415EC0
-func sub_415EC0(a1 *C.char) C.int {
+func sub_415EC0(a1 *C.char) int {
 	t := sub415EC0(GoString(a1))
 	if t == nil {
 		return -1
 	}
-	return C.int(t.Ind())
+	return t.Ind()
 }
 
 func (s *Server) FreeObjectTypes() {

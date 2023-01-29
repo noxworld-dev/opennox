@@ -100,13 +100,13 @@ func sub_48B3E0(v bool) bool {
 }
 
 //export nox_video_getCutSize_4766D0
-func nox_video_getCutSize_4766D0() C.int {
-	return C.int(nox_video_getCutSize())
+func nox_video_getCutSize_4766D0() int {
+	return nox_video_getCutSize()
 }
 
 //export nox_video_setCutSize_4766A0
-func nox_video_setCutSize_4766A0(v C.int) {
-	nox_video_setCutSize(int(v))
+func nox_video_setCutSize_4766A0(v int) {
+	nox_video_setCutSize(v)
 }
 
 func OnPixBufferResize(fnc func(sz image.Point)) {
@@ -132,18 +132,17 @@ func cfgUpdateFullScreen() {
 }
 
 //export nox_video_setGammaSlider
-func nox_video_setGammaSlider(v C.int) {
-	setGammaSliderOpts(int(v))
+func nox_video_setGammaSlider(v int) {
+	setGammaSliderOpts(v)
 }
 
 //export sub_43BE50_get_video_mode_id
-func sub_43BE50_get_video_mode_id() C.int {
-	return C.int(videoModeID())
+func sub_43BE50_get_video_mode_id() int {
+	return videoModeID()
 }
 
 //export get_video_mode_string
-func get_video_mode_string(cid C.int) *C.wchar_t {
-	id := int(cid)
+func get_video_mode_string(id int) *C.wchar_t {
 	if id < 0 || id >= len(noxVideoModes) {
 		return internWStr("custom")
 	}
@@ -152,30 +151,30 @@ func get_video_mode_string(cid C.int) *C.wchar_t {
 }
 
 //export nox_getBackbufWidth
-func nox_getBackbufWidth() C.int {
+func nox_getBackbufWidth() int {
 	dx := noxClient.r.PixBufferRect().Dx()
-	return C.int(dx)
+	return dx
 }
 
 //export nox_getBackbufHeight
-func nox_getBackbufHeight() C.int {
+func nox_getBackbufHeight() int {
 	dy := noxClient.r.PixBufferRect().Dy()
-	return C.int(dy)
+	return dy
 }
 
 //export nox_video_getFullScreen
-func nox_video_getFullScreen() C.int {
-	return C.int(noxClient.GetWindowMode())
+func nox_video_getFullScreen() int {
+	return noxClient.GetWindowMode()
 }
 
 //export nox_video_setFullScreen
-func nox_video_setFullScreen(v C.int) {
-	noxClient.UpdateFullScreen(int(v))
+func nox_video_setFullScreen(v int) {
+	noxClient.UpdateFullScreen(v)
 }
 
 //export sub_430C30_set_video_max
-func sub_430C30_set_video_max(w, h C.int) {
-	videoSetMaxSize(image.Point{X: int(w), Y: int(h)})
+func sub_430C30_set_video_max(w, h int) {
+	videoSetMaxSize(image.Point{X: w, Y: h})
 }
 
 //export nox_xxx_screenGetSize_430C50_get_video_max
@@ -354,8 +353,8 @@ func recreateRenderTarget(sz image.Point) error {
 }
 
 //export nox_getBackbufferPitch
-func nox_getBackbufferPitch() C.int {
-	return C.int(2 * noxPixBuffer.img.Stride)
+func nox_getBackbufferPitch() int {
+	return 2 * noxPixBuffer.img.Stride
 }
 
 func nox_xxx_makeFillerColor_48BDE0() {
@@ -494,8 +493,8 @@ func (r *NoxRender) noxDrawCursor(a1 *noxrender.Image, pos image.Point) int {
 }
 
 //export nox_draw_setCutSize_476700
-func nox_draw_setCutSize_476700(cutPerc C.int, a2 C.int) {
-	noxClient.nox_draw_setCutSize(int(cutPerc), int(a2))
+func nox_draw_setCutSize_476700(cutPerc C.int, a2 int) {
+	noxClient.nox_draw_setCutSize(int(cutPerc), a2)
 }
 func (c *Client) nox_draw_setCutSize(perc int, a2 int) {
 	vp := c.Viewport()
@@ -688,8 +687,8 @@ func (c *Client) nox_video_cursorDrawImpl_477A30(pos image.Point) {
 }
 
 //export nox_xxx_bookSaveSpellForDragDrop_477640
-func nox_xxx_bookSaveSpellForDragDrop_477640(a1, a2 C.int) {
-	noxClient.dragndropSpellSet(uint32(a1), int(a2))
+func nox_xxx_bookSaveSpellForDragDrop_477640(a1, a2 int) {
+	noxClient.dragndropSpellSet(uint32(a1), a2)
 }
 
 //export nox_xxx_bookSpellDnDclear_477660
@@ -698,8 +697,8 @@ func nox_xxx_bookSpellDnDclear_477660() {
 }
 
 //export nox_xxx_bookGetSpellDnDType_477670
-func nox_xxx_bookGetSpellDnDType_477670() C.int {
-	return C.int(noxClient.dragndropSpellType)
+func nox_xxx_bookGetSpellDnDType_477670() int {
+	return noxClient.dragndropSpellType
 }
 
 func (c *Client) dragndropSpellSet(id uint32, typ int) {
@@ -814,7 +813,7 @@ func (c *Client) sub_444C50() {
 }
 
 //export sub_478000
-func sub_478000() C.int {
+func sub_478000() int {
 	c := noxClient
 	C.sub_467CD0()
 	if c.dragndropSpellType != 0 {

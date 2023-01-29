@@ -42,9 +42,9 @@ func nox_xxx_gamedataGetFloat_419D40(k *C.char) C.double {
 }
 
 //export nox_xxx_gamedataGetFloatTable_419D70
-func nox_xxx_gamedataGetFloatTable_419D70(k *C.char, i C.int) C.double {
+func nox_xxx_gamedataGetFloatTable_419D70(k *C.char, i int) C.double {
 	key := GoString(k)
-	val := C.double(gamedataFloatInd(key, int(i)))
+	val := C.double(gamedataFloatInd(key, i))
 	return val
 }
 

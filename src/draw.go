@@ -160,8 +160,8 @@ func sub_437180() {
 }
 
 //export sub_4355B0
-func sub_4355B0(a1 C.int) {
-	noxClient.Viewport().Field12 = int(a1)
+func sub_4355B0(a1 int) {
+	noxClient.Viewport().Field12 = a1
 }
 
 //export nox_xxx_getSomeCoods_435670
@@ -172,14 +172,14 @@ func nox_xxx_getSomeCoods_435670(a1 *C.int2) {
 }
 
 //export nox_xxx_cliUpdateCameraPos_435600
-func nox_xxx_cliUpdateCameraPos_435600(x, y C.int) {
+func nox_xxx_cliUpdateCameraPos_435600(x, y int) {
 	vp := noxClient.Viewport()
 	*memmap.PtrInt32(0x5D4594, 811364) = int32(vp.World.Max.X)
 	*memmap.PtrInt32(0x5D4594, 811368) = int32(vp.World.Max.Y)
-	vp.World.Min.X = int(x) - vp.Size.X/2
-	vp.World.Min.Y = int(y) + vp.Field12 - vp.Size.Y/2
-	vp.World.Max.X = int(x)
-	vp.World.Max.Y = int(y) + vp.Field12
+	vp.World.Min.X = x - vp.Size.X/2
+	vp.World.Min.Y = y + vp.Field12 - vp.Size.Y/2
+	vp.World.Max.X = x
+	vp.World.Max.Y = y + vp.Field12
 }
 
 //export sub_437290
@@ -188,44 +188,44 @@ func sub_437290() {
 }
 
 //export nox_client_drawRectFilledOpaque_49CE30
-func nox_client_drawRectFilledOpaque_49CE30(a1, a2, a3, a4 C.int) {
+func nox_client_drawRectFilledOpaque_49CE30(a1, a2, a3, a4 int) {
 	r := noxClient.r
-	r.DrawRectFilledOpaque(int(a1), int(a2), int(a3), int(a4), r.Data().Color2())
+	r.DrawRectFilledOpaque(a1, a2, a3, a4, r.Data().Color2())
 }
 
 //export nox_client_drawRectFilledAlpha_49CF10
-func nox_client_drawRectFilledAlpha_49CF10(a1, a2, a3, a4 C.int) {
-	noxClient.r.DrawRectFilledAlpha(int(a1), int(a2), int(a3), int(a4))
+func nox_client_drawRectFilledAlpha_49CF10(a1, a2, a3, a4 int) {
+	noxClient.r.DrawRectFilledAlpha(a1, a2, a3, a4)
 }
 
 //export nox_client_drawBorderLines_49CC70
-func nox_client_drawBorderLines_49CC70(a1, a2, a3, a4 C.int) {
+func nox_client_drawBorderLines_49CC70(a1, a2, a3, a4 int) {
 	r := noxClient.r
-	r.DrawBorder(int(a1), int(a2), int(a3), int(a4), r.Data().Color2())
+	r.DrawBorder(a1, a2, a3, a4, r.Data().Color2())
 }
 
 //export nox_client_drawLineHorizontal_49F180
-func nox_client_drawLineHorizontal_49F180(a1, a2, a3 C.int) {
+func nox_client_drawLineHorizontal_49F180(a1, a2, a3 int) {
 	r := noxClient.r
-	r.DrawLineHorizontal(int(a1), int(a2), int(a3), r.Data().Color2())
+	r.DrawLineHorizontal(a1, a2, a3, r.Data().Color2())
 }
 
 //export nox_client_drawPixel_49EFA0
-func nox_client_drawPixel_49EFA0(a1, a2 C.int) {
+func nox_client_drawPixel_49EFA0(a1, a2 int) {
 	r := noxClient.r
-	r.DrawPixel(image.Pt(int(a1), int(a2)), r.Data().Color2())
+	r.DrawPixel(image.Pt(a1, a2), r.Data().Color2())
 }
 
 //export nox_client_drawPoint_4B0BC0
-func nox_client_drawPoint_4B0BC0(a1, a2, a3 C.int) {
+func nox_client_drawPoint_4B0BC0(a1, a2, a3 int) {
 	r := noxClient.r
-	r.DrawPointRad(image.Pt(int(a1), int(a2)), int(a3), r.Data().Color2())
+	r.DrawPointRad(image.Pt(a1, a2), a3, r.Data().Color2())
 }
 
 //export nox_xxx_drawPointMB_499B70
-func nox_xxx_drawPointMB_499B70(a1, a2, a3 C.int) {
+func nox_xxx_drawPointMB_499B70(a1, a2, a3 int) {
 	r := noxClient.r
-	r.DrawPoint(image.Pt(int(a1), int(a2)), int(a3), r.Data().Color2())
+	r.DrawPoint(image.Pt(a1, a2), a3, r.Data().Color2())
 }
 
 var _ = [1]struct{}{}[52-unsafe.Sizeof(noxrender.Viewport{})]
@@ -339,13 +339,13 @@ func nox_draw_splitColor_435280(cl C.short, pr, pg, pb *C.uchar) {
 }
 
 //export nox_draw_setMaterial_4340A0
-func nox_draw_setMaterial_4340A0(ind, r, g, b C.int) {
-	noxClient.r.Data().SetMaterialRGB(int(ind), int(r), int(g), int(b))
+func nox_draw_setMaterial_4340A0(ind, r, g, b int) {
+	noxClient.r.Data().SetMaterialRGB(ind, r, g, b)
 }
 
 //export nox_draw_setMaterial_4341D0
-func nox_draw_setMaterial_4341D0(ind, cl C.int) {
-	noxClient.r.Data().SetMaterial(int(ind), noxcolor.RGBA5551(cl))
+func nox_draw_setMaterial_4341D0(ind, cl int) {
+	noxClient.r.Data().SetMaterial(ind, noxcolor.RGBA5551(cl))
 }
 
 func sub_4347F0(a1 unsafe.Pointer, a2 int) {
@@ -389,7 +389,7 @@ func sub_4338D0() int {
 }
 
 //export nox_draw_set54RGB32_434040
-func nox_draw_set54RGB32_434040(cl C.int) {
+func nox_draw_set54RGB32_434040(cl int) {
 	c := noxrender.SplitColor(noxcolor.RGBA5551(cl))
 	noxClient.r.Data().SetColorInt54(noxrender.RGB{
 		R: int(c.R),
@@ -399,19 +399,19 @@ func nox_draw_set54RGB32_434040(cl C.int) {
 }
 
 //export nox_draw_setColorMultAndIntensity_433E40
-func nox_draw_setColorMultAndIntensity_433E40(cl C.int) C.int {
+func nox_draw_setColorMultAndIntensity_433E40(cl int) int {
 	c := noxcolor.RGBA5551(cl).ColorNRGBA()
-	return C.int(noxClient.r.setColorMultAndIntensityRGB(c.R, c.G, c.B))
+	return int(noxClient.r.setColorMultAndIntensityRGB(c.R, c.G, c.B))
 }
 
-func sub433E40(cl noxcolor.Color) C.int {
+func sub433E40(cl noxcolor.Color) int {
 	c := cl.ColorNRGBA()
-	return C.int(noxClient.r.setColorMultAndIntensityRGB(c.R, c.G, c.B))
+	return int(noxClient.r.setColorMultAndIntensityRGB(c.R, c.G, c.B))
 }
 
 //export nox_draw_setColorMultAndIntensityRGB_433CD0
-func nox_draw_setColorMultAndIntensityRGB_433CD0(r, g, b C.uchar) C.int {
-	return C.int(noxClient.r.setColorMultAndIntensityRGB(byte(r), byte(g), byte(b)))
+func nox_draw_setColorMultAndIntensityRGB_433CD0(r, g, b C.uchar) int {
+	return int(noxClient.r.setColorMultAndIntensityRGB(byte(r), byte(g), byte(b)))
 }
 
 func (r *NoxRender) setColorMultAndIntensity(cl color.Color) {
@@ -429,46 +429,46 @@ func (r *NoxRender) setColorMultAndIntensityRGB(cr, cg, cb byte) byte {
 }
 
 //export sub_434080
-func sub_434080(a1 C.int) {
-	noxClient.r.Data().SetField262(int(a1))
+func sub_434080(a1 int) {
+	noxClient.r.Data().SetField262(a1)
 }
 
 //export nox_xxx_drawSetTextColor_434390
-func nox_xxx_drawSetTextColor_434390(a1 C.int) {
+func nox_xxx_drawSetTextColor_434390(a1 int) {
 	noxClient.r.Data().SetTextColor(noxcolor.RGBA5551(a1))
 }
 
 //export nox_xxx_drawSetColor_4343E0
-func nox_xxx_drawSetColor_4343E0(a1 C.int) {
+func nox_xxx_drawSetColor_4343E0(a1 int) {
 	noxClient.r.Data().SetColor(noxcolor.RGBA5551(a1))
 }
 
 //export nox_client_drawSetColor_434460
-func nox_client_drawSetColor_434460(a1 C.int) {
+func nox_client_drawSetColor_434460(a1 int) {
 	noxClient.r.Data().SetColor2(noxcolor.RGBA5551(a1))
 }
 
 //export nox_client_drawEnableAlpha_434560
-func nox_client_drawEnableAlpha_434560(a1 C.int) {
+func nox_client_drawEnableAlpha_434560(a1 int) {
 	noxClient.r.Data().SetAlphaEnabled(a1 != 0)
 }
 
 //export sub_4345F0
-func sub_4345F0(a1 C.int) {
-	noxClient.r.Data().SetMultiply14(int(a1))
+func sub_4345F0(a1 int) {
+	noxClient.r.Data().SetMultiply14(a1)
 }
 
 //export nox_xxx_draw_434600
-func nox_xxx_draw_434600(a1 C.int) {
-	noxClient.r.Data().SetColorize17(int(a1))
+func nox_xxx_draw_434600(a1 int) {
+	noxClient.r.Data().SetColorize17(a1)
 }
 
 //export sub_434990
-func sub_434990(r, g, b C.int) {
+func sub_434990(r, g, b int) {
 	noxClient.r.Data().SetLightColor(noxrender.RGB{
-		R: int(r),
-		G: int(g),
-		B: int(b),
+		R: r,
+		G: g,
+		B: b,
 	})
 }
 
@@ -483,12 +483,12 @@ func sub_4349C0(a1 *C.uint) {
 }
 
 //export sub_47D370
-func sub_47D370(a1 C.int) {
-	noxClient.r.Set_dword_5d4594_3799484(int(a1))
+func sub_47D370(a1 int) {
+	noxClient.r.Set_dword_5d4594_3799484(a1)
 }
 
 //export sub_47D400
-func sub_47D400(a1 C.int, a2 C.char) {
+func sub_47D400(a1 int, a2 C.char) {
 	noxClient.r.SetInterlacing(a1 != 0, int(a2))
 }
 
@@ -529,7 +529,7 @@ func nox_client_drawSetAlpha_434580(a C.uchar) {
 }
 
 //export nox_draw_enableTextSmoothing_43F670
-func nox_draw_enableTextSmoothing_43F670(v C.int) {
+func nox_draw_enableTextSmoothing_43F670(v int) {
 	noxClient.r.SetTextSmooting(v != 0)
 }
 
@@ -539,33 +539,33 @@ func nox_client_drawResetPoints_49F5A0() {
 }
 
 //export nox_client_drawAddPoint_49F500
-func nox_client_drawAddPoint_49F500(x, y C.int) {
-	noxClient.r.AddPoint(image.Pt(int(x), int(y)))
+func nox_client_drawAddPoint_49F500(x, y int) {
+	noxClient.r.AddPoint(image.Pt(x, y))
 }
 
 //export nox_xxx_rasterPointRel_49F570
-func nox_xxx_rasterPointRel_49F570(x, y C.int) {
-	noxClient.r.AddPointRel(image.Pt(int(x), int(y)))
+func nox_xxx_rasterPointRel_49F570(x, y int) {
+	noxClient.r.AddPointRel(image.Pt(x, y))
 }
 
 //export nox_client_drawLineFromPoints_49E4B0
-func nox_client_drawLineFromPoints_49E4B0() C.int {
+func nox_client_drawLineFromPoints_49E4B0() int {
 	r := noxClient.r
-	return C.int(bool2int(r.DrawLineFromPoints(r.Data().Color2())))
+	return bool2int(r.DrawLineFromPoints(r.Data().Color2()))
 }
 
 //export sub_49E4F0
-func sub_49E4F0(a1 C.int) C.int {
-	return C.int(bool2int(noxClient.r.DrawParticles49ED80(int(a1))))
+func sub_49E4F0(a1 int) int {
+	return bool2int(noxClient.r.DrawParticles49ED80(a1))
 }
 
 //export sub_480860
-func sub_480860(a1, a2 *C.ushort, w C.int, a4, a5 *C.int) {
-	dst := unsafe.Slice((*uint16)(unsafe.Pointer(a1)), int(w))
-	src := unsafe.Slice((*uint16)(unsafe.Pointer(a2)), int(w))
+func sub_480860(a1, a2 *C.ushort, w int, a4, a5 *C.int) {
+	dst := unsafe.Slice((*uint16)(unsafe.Pointer(a1)), w)
+	src := unsafe.Slice((*uint16)(unsafe.Pointer(a2)), w)
 	a4p := unsafe.Slice((*uint32)(unsafe.Pointer(a4)), 3)
 	a5p := unsafe.Slice((*uint32)(unsafe.Pointer(a5)), 3)
-	for i := 0; i < int(w); i++ {
+	for i := 0; i < w; i++ {
 		c := noxrender.SplitColor16(src[i])
 		c.R = uint16((a4p[0] * uint32(c.R)) >> 16)
 		c.G = uint16((a4p[1] * uint32(c.G)) >> 16)
@@ -611,90 +611,90 @@ func NewNoxRender(cr *noxrender.NoxRender) *NoxRender {
 }
 
 //export nox_xxx_guiFontHeightMB_43F320
-func nox_xxx_guiFontHeightMB_43F320(fnt unsafe.Pointer) C.int {
+func nox_xxx_guiFontHeightMB_43F320(fnt unsafe.Pointer) int {
 	r := noxClient.r
-	return C.int(r.FontHeight(r.Fonts.AsFont(fnt)))
+	return r.FontHeight(r.Fonts.AsFont(fnt))
 }
 
 //export nox_draw_setTabWidth_43FE20
-func nox_draw_setTabWidth_43FE20(v C.int) C.int {
+func nox_draw_setTabWidth_43FE20(v int) int {
 	old := noxClient.r.TabWidth()
-	noxClient.r.SetTabWidth(int(v))
-	return C.int(old)
+	noxClient.r.SetTabWidth(v)
+	return old
 }
 
 //export nox_draw_getFontAdvance_43F9E0
-func nox_draw_getFontAdvance_43F9E0(fnt unsafe.Pointer, sp *C.wchar_t, maxW C.int) C.int {
+func nox_draw_getFontAdvance_43F9E0(fnt unsafe.Pointer, sp *C.wchar_t, maxW int) int {
 	// TODO: this may be incorrect
 	r := noxClient.r
-	return C.int(r.GetStringSizeWrapped(r.Fonts.AsFont(fnt), GoWString(sp), int(maxW)).X)
+	return r.GetStringSizeWrapped(r.Fonts.AsFont(fnt), GoWString(sp), maxW).X
 }
 
 //export nox_xxx_drawGetStringSize_43F840
-func nox_xxx_drawGetStringSize_43F840(font unsafe.Pointer, sp *C.wchar_t, outW, outH *C.int, maxW C.int) C.int {
+func nox_xxx_drawGetStringSize_43F840(font unsafe.Pointer, sp *C.wchar_t, outW, outH *C.int, maxW int) int {
 	r := noxClient.r
-	sz := r.GetStringSizeWrapped(r.Fonts.AsFont(font), GoWString(sp), int(maxW))
+	sz := r.GetStringSizeWrapped(r.Fonts.AsFont(font), GoWString(sp), maxW)
 	if outW != nil {
 		*outW = C.int(sz.X)
 	}
 	if outH != nil {
 		*outH = C.int(sz.Y)
 	}
-	return C.int(bool2int(sz != (image.Point{})))
+	return bool2int(sz != (image.Point{}))
 }
 
 //export nox_xxx_bookGetStringSize_43FA80
-func nox_xxx_bookGetStringSize_43FA80(font unsafe.Pointer, sp *C.wchar_t, outW, outH *C.int, maxW C.int) C.int {
+func nox_xxx_bookGetStringSize_43FA80(font unsafe.Pointer, sp *C.wchar_t, outW, outH *C.int, maxW int) int {
 	r := noxClient.r
-	sz := r.GetStringSizeWrappedStyle(r.Fonts.AsFont(font), GoWString(sp), int(maxW))
+	sz := r.GetStringSizeWrappedStyle(r.Fonts.AsFont(font), GoWString(sp), maxW)
 	if outW != nil {
 		*outW = C.int(sz.X)
 	}
 	if outH != nil {
 		*outH = C.int(sz.Y)
 	}
-	return C.int(bool2int(sz != (image.Point{})))
+	return bool2int(sz != (image.Point{}))
 }
 
 //export nox_xxx_drawString_43F6E0
-func nox_xxx_drawString_43F6E0(font unsafe.Pointer, sp *C.wchar_t, x, y C.int) C.int {
+func nox_xxx_drawString_43F6E0(font unsafe.Pointer, sp *C.wchar_t, x, y int) int {
 	r := noxClient.r
-	return C.int(r.DrawString(r.Fonts.AsFont(font), GoWString(sp), image.Point{X: int(x), Y: int(y)}))
+	return r.DrawString(r.Fonts.AsFont(font), GoWString(sp), image.Point{X: x, Y: y})
 }
 
 //export nox_draw_drawStringHL_43F730
-func nox_draw_drawStringHL_43F730(font unsafe.Pointer, sp *C.wchar_t, x, y C.int) C.int {
+func nox_draw_drawStringHL_43F730(font unsafe.Pointer, sp *C.wchar_t, x, y int) int {
 	r := noxClient.r
-	return C.int(r.DrawStringHL(r.Fonts.AsFont(font), GoWString(sp), image.Point{X: int(x), Y: int(y)}))
+	return r.DrawStringHL(r.Fonts.AsFont(font), GoWString(sp), image.Point{X: x, Y: y})
 }
 
 //export nox_xxx_drawStringWrap_43FAF0
-func nox_xxx_drawStringWrap_43FAF0(font unsafe.Pointer, sp *C.wchar_t, x, y, maxW, maxH C.int) C.int {
+func nox_xxx_drawStringWrap_43FAF0(font unsafe.Pointer, sp *C.wchar_t, x, y, maxW, maxH int) int {
 	r := noxClient.r
-	return C.int(r.DrawStringWrapped(r.Fonts.AsFont(font), GoWString(sp), image.Rect(int(x), int(y), int(x+maxW), int(y+maxH))))
+	return r.DrawStringWrapped(r.Fonts.AsFont(font), GoWString(sp), image.Rect(x, y, x+maxW, y+maxH))
 }
 
 //export nox_xxx_drawStringWrapHL_43FD00
-func nox_xxx_drawStringWrapHL_43FD00(font unsafe.Pointer, sp *C.wchar_t, x, y, maxW, maxH C.int) C.int {
+func nox_xxx_drawStringWrapHL_43FD00(font unsafe.Pointer, sp *C.wchar_t, x, y, maxW, maxH int) int {
 	r := noxClient.r
-	return C.int(r.DrawStringWrappedHL(r.Fonts.AsFont(font), GoWString(sp), image.Rect(int(x), int(y), int(x+maxW), int(y+maxH))))
+	return r.DrawStringWrappedHL(r.Fonts.AsFont(font), GoWString(sp), image.Rect(x, y, x+maxW, y+maxH))
 }
 
 //export nox_xxx_bookDrawString_43FA80_43FD80
-func nox_xxx_bookDrawString_43FA80_43FD80(font unsafe.Pointer, s *C.wchar_t, x, y, maxW, maxH C.int) C.int {
+func nox_xxx_bookDrawString_43FA80_43FD80(font unsafe.Pointer, s *C.wchar_t, x, y, maxW, maxH int) int {
 	r := noxClient.r
-	return C.int(r.DrawStringWrappedStyle(r.Fonts.AsFont(font), GoWString(s), image.Rect(int(x), int(y), int(x+maxW), int(y+maxH))))
+	return r.DrawStringWrappedStyle(r.Fonts.AsFont(font), GoWString(s), image.Rect(x, y, x+maxW, y+maxH))
 }
 
 //export nox_xxx_drawStringStyle_43F7B0
-func nox_xxx_drawStringStyle_43F7B0(font unsafe.Pointer, sp *C.wchar_t, x, y C.int) C.int {
+func nox_xxx_drawStringStyle_43F7B0(font unsafe.Pointer, sp *C.wchar_t, x, y int) int {
 	r := noxClient.r
-	return C.int(r.DrawStringStyle(r.Fonts.AsFont(font), GoWString(sp), image.Point{X: int(x), Y: int(y)}))
+	return r.DrawStringStyle(r.Fonts.AsFont(font), GoWString(sp), image.Point{X: x, Y: y})
 }
 
 //export nox_video_drawAnimatedImageOrCursorAt_4BE6D0
-func nox_video_drawAnimatedImageOrCursorAt_4BE6D0(a1, a2, a3 C.int) {
-	noxClient.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(unsafe.Pointer(uintptr(a1))), image.Point{X: int(a2), Y: int(a3)})
+func nox_video_drawAnimatedImageOrCursorAt_4BE6D0(a1, a2, a3 int) {
+	noxClient.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(unsafe.Pointer(uintptr(a1))), image.Point{X: a2, Y: a3})
 }
 
 func (c *Client) nox_video_drawAnimatedImageOrCursorAt(ref *noxImageRef, pos image.Point) {
@@ -712,8 +712,8 @@ func nox_xxx_get_57AF20() int {
 }
 
 //export sub_484C60
-func sub_484C60(a1 C.float) C.int {
-	return C.int(client.LightRadius(float32(a1)))
+func sub_484C60(a1 C.float) int {
+	return client.LightRadius(float32(a1))
 }
 
 const (
@@ -974,13 +974,13 @@ func (c *Client) sub4745F0(vp *noxrender.Viewport) {
 }
 
 //export nox_video_drawCircleColored_4C3270
-func nox_video_drawCircleColored_4C3270(a1, a2, a3, a4 C.int) {
-	noxClient.r.DrawCircle(int(a1), int(a2), int(a3), noxcolor.RGBA5551(a4))
+func nox_video_drawCircleColored_4C3270(a1, a2, a3, a4 int) {
+	noxClient.r.DrawCircle(a1, a2, a3, noxcolor.RGBA5551(a4))
 }
 
 //export nox_video_drawCircle_4B0B90
-func nox_video_drawCircle_4B0B90(a1, a2, a3 C.int) {
-	noxClient.r.DrawCircle(int(a1), int(a2), int(a3), noxClient.r.Data().Color2())
+func nox_video_drawCircle_4B0B90(a1, a2, a3 int) {
+	noxClient.r.DrawCircle(a1, a2, a3, noxClient.r.Data().Color2())
 }
 
 func (r *NoxRender) DrawImageAt(img *noxrender.Image, pos image.Point) {
@@ -1019,8 +1019,8 @@ func (r *NoxRender) DrawImageAt(img *noxrender.Image, pos image.Point) {
 }
 
 //export nox_client_drawImageAt_47D2C0
-func nox_client_drawImageAt_47D2C0(img *nox_video_bag_image_t, x, y C.int) {
-	noxClient.r.DrawImageAt(asImage(img), image.Point{X: int(x), Y: int(y)})
+func nox_client_drawImageAt_47D2C0(img *nox_video_bag_image_t, x, y int) {
+	noxClient.r.DrawImageAt(asImage(img), image.Point{X: x, Y: y})
 }
 
 func sub_47D200() {
@@ -1044,7 +1044,7 @@ func sub_47D200() {
 }
 
 //export nox_draw_imageMeta_47D5C0
-func nox_draw_imageMeta_47D5C0(img *nox_video_bag_image_t, px, py, pw, ph *C.uint) C.int {
+func nox_draw_imageMeta_47D5C0(img *nox_video_bag_image_t, px, py, pw, ph *C.uint) int {
 	if img == nil {
 		return 0
 	}
@@ -1468,8 +1468,8 @@ func (r *NoxRender) circleSegAdd(p1, p2 image.Point, a2 bool) {
 }
 
 //export sub_4AE6F0
-func sub_4AE6F0(cx, cy, rad, ang, ccl C.int) {
-	noxClient.r.drawCircleSegment(int(cx), int(cy), int(rad), int(ang), noxcolor.RGBA5551(ccl))
+func sub_4AE6F0(cx, cy, rad, ang, ccl int) {
+	noxClient.r.drawCircleSegment(cx, cy, rad, ang, noxcolor.RGBA5551(ccl))
 }
 
 func (r *NoxRender) drawCircleSegment(cx, cy, rad, ang int, cl color.Color) {
@@ -1536,8 +1536,8 @@ func (r *NoxRender) drawCircleSegment(cx, cy, rad, ang int, cl color.Color) {
 }
 
 //export nox_client_isConnected_43C700
-func nox_client_isConnected_43C700() C.int {
-	return C.int(bool2int(nox_client_isConnected()))
+func nox_client_isConnected_43C700() int {
+	return bool2int(nox_client_isConnected())
 }
 
 func nox_client_isConnected() bool {

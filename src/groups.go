@@ -24,8 +24,8 @@ func nox_server_getFirstMapGroup_57C080() unsafe.Pointer {
 }
 
 //export nox_server_scriptGetGroup_57C0A0
-func nox_server_scriptGetGroup_57C0A0(a1 C.int) unsafe.Pointer {
-	return noxServer.mapGroups.GroupByInd(int(a1)).C()
+func nox_server_scriptGetGroup_57C0A0(a1 int) unsafe.Pointer {
+	return noxServer.mapGroups.GroupByInd(a1).C()
 }
 
 //export sub_504600

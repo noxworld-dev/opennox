@@ -36,9 +36,9 @@ import (
 )
 
 //export nox_xxx_getTTByNameSpriteMB_44CFC0
-func nox_xxx_getTTByNameSpriteMB_44CFC0(cstr *C.char) C.int {
+func nox_xxx_getTTByNameSpriteMB_44CFC0(cstr *C.char) int {
 	id := GoString(cstr)
-	return C.int(nox_things.TypeByID(id).Index())
+	return nox_things.TypeByID(id).Index()
 }
 
 //export sub_44D330
@@ -144,47 +144,47 @@ func (c *clientObjTypes) IndByID(id string) int {
 }
 
 //export nox_get_thing_name
-func nox_get_thing_name(i C.int) *C.char {
-	if i < 1 || int(i) >= len(nox_things.byInd) {
+func nox_get_thing_name(i int) *C.char {
+	if i < 1 || i >= len(nox_things.byInd) {
 		return nil
 	}
 	return (*C.char)(unsafe.Pointer(nox_things.byInd[i].Name))
 }
 
 //export nox_get_thing
-func nox_get_thing(i C.int) *C.nox_thing {
-	if i < 1 || int(i) >= len(nox_things.byInd) {
+func nox_get_thing(i int) *C.nox_thing {
+	if i < 1 || i >= len(nox_things.byInd) {
 		return nil
 	}
 	return (*C.nox_thing)(nox_things.byInd[i].C())
 }
 
 //export nox_get_thing_pretty_name
-func nox_get_thing_pretty_name(i C.int) *wchar_t {
-	if i < 1 || int(i) >= len(nox_things.byInd) {
+func nox_get_thing_pretty_name(i int) *wchar_t {
+	if i < 1 || i >= len(nox_things.byInd) {
 		return nil
 	}
 	return (*wchar_t)(unsafe.Pointer(nox_things.byInd[i].PrettyName))
 }
 
 //export nox_get_thing_desc
-func nox_get_thing_desc(i C.int) *wchar_t {
-	if i < 1 || int(i) >= len(nox_things.byInd) {
+func nox_get_thing_desc(i int) *wchar_t {
+	if i < 1 || i >= len(nox_things.byInd) {
 		return nil
 	}
 	return (*wchar_t)(unsafe.Pointer(nox_things.byInd[i].Desc))
 }
 
 //export nox_get_thing_pretty_image
-func nox_get_thing_pretty_image(i C.int) C.int {
-	if i < 1 || int(i) >= len(nox_things.byInd) {
+func nox_get_thing_pretty_image(i int) int {
+	if i < 1 || i >= len(nox_things.byInd) {
 		return 0
 	}
-	return C.int(nox_things.byInd[i].PrettyImage)
+	return int(nox_things.byInd[i].PrettyImage)
 }
 
 //export nox_drawable_link_thing
-func nox_drawable_link_thing(a1c *nox_drawable, i C.int) C.int {
+func nox_drawable_link_thing(a1c *nox_drawable, i int) int {
 	if i < 1 || int(i) >= len(nox_things.byInd) {
 		return 0
 	}

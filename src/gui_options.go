@@ -98,8 +98,7 @@ func nox_video_setMenuOptions(cwin *C.nox_window) {
 }
 
 //export nox_gui_menu_proc_ext
-func nox_gui_menu_proc_ext(cid C.int) C.int {
-	id := int(cid)
+func nox_gui_menu_proc_ext(id int) int {
 	opts := getResolutionOptions()
 	if id >= guiIDMenuExt && id < guiIDMenuExt+len(opts) {
 		guiOptionsRes = opts[id-guiIDMenuExt]
@@ -195,7 +194,7 @@ func sub4A19F0(name strman.ID) {
 }
 
 //export sub_4AAA10
-func sub_4AAA10() C.int {
+func sub_4AAA10() int {
 	v0p := asGUIAnim(C.nox_wnd_xxx_1309740)
 	v0 := *v0p // copy before deletion
 	v0p.Free()
@@ -206,7 +205,7 @@ func sub_4AAA10() C.int {
 }
 
 //export sub_4C3A90
-func sub_4C3A90(a1, a2 C.int, a3 *C.int, a4 C.int) C.int {
+func sub_4C3A90(a1, a2 int, a3 *C.int, a4 int) int {
 	if a2 == 23 {
 		return 1
 	}
@@ -231,7 +230,7 @@ func sub_4C3A90(a1, a2 C.int, a3 *C.int, a4 C.int) C.int {
 }
 
 //export sub_4CBE70
-func sub_4CBE70(a1, a2 C.int, a3 *C.int, a4 C.int) C.int {
+func sub_4CBE70(a1, a2 int, a3 *C.int, a4 int) int {
 	if a2 == 23 {
 		return 1
 	}

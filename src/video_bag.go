@@ -20,8 +20,8 @@ func asImage(p *nox_video_bag_image_t) *noxrender.Image {
 }
 
 //export nox_video_bag_image_type
-func nox_video_bag_image_type(img *nox_video_bag_image_t) C.int {
-	return C.int(asImage(img).Type())
+func nox_video_bag_image_type(img *nox_video_bag_image_t) int {
+	return asImage(img).Type()
 }
 
 //export nox_xxx_readImgMB_42FAA0

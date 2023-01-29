@@ -9,7 +9,7 @@ import (
 )
 
 //export sub_4C26F0
-func sub_4C26F0(a1 unsafe.Pointer) C.int {
+func sub_4C26F0(a1 unsafe.Pointer) int {
 	win := asWindowP(a1)
 	pos := win.GlobalPos()
 	x, y := pos.X, pos.Y
