@@ -18,7 +18,6 @@ extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
 
 extern unsigned int dword_5d4594_2650652;
 extern void* dword_587000_81128;
-extern unsigned int dword_5d4594_1193336;
 extern unsigned int dword_587000_93156;
 extern unsigned int dword_5d4594_816340;
 extern unsigned int dword_5d4594_816348;
@@ -553,10 +552,10 @@ func sub_4311B0() {
 	}
 	C.dword_587000_81128 = nil
 	C.sub_431270()
-	if C.dword_5d4594_1193336 != 0 {
+	if dword_5d4594_1193336 != 0 {
 		C.sub_4875F0()
 		C.sub_4870A0()
-		C.dword_5d4594_1193336 = 0
+		dword_5d4594_1193336 = 0
 	}
 }
 
