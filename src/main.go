@@ -483,18 +483,18 @@ func (e ErrExit) Error() string {
 }
 
 //export nox_exit
-func nox_exit(exitCode C.int) {
+func nox_exit(exitCode int) {
 	panic(ErrExit(exitCode))
 }
 
 //export nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode
-func nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d *C.int) {
+func nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d *int) {
 	mode := noxClient.videoGetGameMode()
 	if w != nil {
-		*w = C.int(mode.X)
+		*w = mode.X
 	}
 	if h != nil {
-		*h = C.int(mode.Y)
+		*h = mode.Y
 	}
 	if d != nil {
 		*d = 16
@@ -507,7 +507,7 @@ func videoUpdateGameMode(mode image.Point) {
 }
 
 //export sub_4AA9C0
-func sub_4AA9C0() C.int {
+func sub_4AA9C0() int {
 	sub_44D8F0()
 	if !env.IsE2E() {
 		videoUpdateGameMode(guiOptionsRes)

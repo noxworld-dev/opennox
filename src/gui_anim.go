@@ -33,8 +33,8 @@ func nox_gui_freeAnimation_43C570(a *C.nox_gui_animation) {
 }
 
 //export nox_gui_makeAnimation_43C5B0
-func nox_gui_makeAnimation_43C5B0(win *C.nox_window, x1, y1, x2, y2, in_dx, in_dy, out_dx, out_dy C.int) *C.nox_gui_animation {
-	a := nox_gui_makeAnimation(asWindow(win), int(x1), int(y1), int(x2), int(y2), int(in_dx), int(in_dy), int(out_dx), int(out_dy))
+func nox_gui_makeAnimation_43C5B0(win *C.nox_window, x1, y1, x2, y2, in_dx, in_dy, out_dx, out_dy int) *C.nox_gui_animation {
+	a := nox_gui_makeAnimation(asWindow(win), x1, y1, x2, y2, in_dx, in_dy, out_dx, out_dy)
 	return (*C.nox_gui_animation)(unsafe.Pointer(a))
 }
 

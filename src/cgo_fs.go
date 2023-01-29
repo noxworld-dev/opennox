@@ -60,9 +60,9 @@ func nox_fs_move(src, dst *C.char) C.bool {
 	return ifs.Rename(GoString(src), GoString(dst)) == nil
 }
 
-func convWhence(mode C.int) int {
+func convWhence(mode int) int {
 	var whence int
-	switch mode {
+	switch C.int(mode) {
 	case C.SEEK_SET:
 		whence = io.SeekStart
 	case C.SEEK_CUR:
@@ -76,7 +76,7 @@ func convWhence(mode C.int) int {
 }
 
 //export nox_fs_fseek
-func nox_fs_fseek(f *C.FILE, off C.long, mode C.int) C.int {
+func nox_fs_fseek(f *C.FILE, off C.long, mode int) int {
 	fp := fileByHandle(f)
 	_, err := fp.Seek(int64(off), convWhence(mode))
 	if err != nil {
@@ -108,38 +108,38 @@ func nox_fs_fsize(f *C.FILE) C.long {
 }
 
 //export nox_fs_fread
-func nox_fs_fread(f *C.FILE, dst unsafe.Pointer, sz C.int) C.int {
+func nox_fs_fread(f *C.FILE, dst unsafe.Pointer, sz int) int {
 	fp := fileByHandle(f)
-	n, _ := fp.Read(unsafe.Slice((*byte)(dst), int(sz)))
-	return C.int(n)
+	n, _ := fp.Read(unsafe.Slice((*byte)(dst), sz))
+	return n
 }
 
 //export nox_fs_fwrite
-func nox_fs_fwrite(f *C.FILE, dst unsafe.Pointer, sz C.int) C.int {
+func nox_fs_fwrite(f *C.FILE, dst unsafe.Pointer, sz int) int {
 	fp := fileByHandle(f)
-	n, _ := fp.Write(unsafe.Slice((*byte)(dst), int(sz)))
-	return C.int(n)
+	n, _ := fp.Write(unsafe.Slice((*byte)(dst), sz))
+	return n
 }
 
 //export nox_fs_fgets
-func nox_fs_fgets(f *C.FILE, dst *C.char, sz C.int) C.bool {
+func nox_fs_fgets(f *C.FILE, dst *C.char, sz int) C.bool {
 	fp := fileByHandle(f)
 	out, err := fp.ReadString()
 	if err != nil && !errors.Is(err, io.EOF) {
 		return false
 	}
-	StrCopy(dst, int(sz), string(out))
+	StrCopy(dst, sz, string(out))
 	return C.bool(!errors.Is(err, io.EOF))
 }
 
 //export nox_fs_fputs
-func nox_fs_fputs(f *C.FILE, str *C.char) C.int {
+func nox_fs_fputs(f *C.FILE, str *C.char) int {
 	fp := fileByHandle(f)
 	n, err := fp.WriteString(GoString(str))
 	if err != nil {
 		return -1
 	}
-	return C.int(n)
+	return n
 }
 
 //export nox_fs_feof
@@ -188,7 +188,7 @@ func newFileHandle(f *binfile.File) *C.FILE {
 }
 
 //export nox_fs_access
-func nox_fs_access(path *C.char, mode C.int) C.int {
+func nox_fs_access(path *C.char, mode int) int {
 	_, err := ifs.Stat(GoString(path))
 	if os.IsNotExist(err) {
 		return -1

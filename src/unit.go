@@ -25,8 +25,8 @@ import (
 )
 
 //export nox_xxx_unitIsUnitTT_4E7C80
-func nox_xxx_unitIsUnitTT_4E7C80(a1 *nox_object_t, a2 C.int) C.int {
-	return C.int(asUnitC(a1).countSubOfType(int(a2)))
+func nox_xxx_unitIsUnitTT_4E7C80(a1 *nox_object_t, a2 int) int {
+	return asUnitC(a1).countSubOfType(a2)
 }
 
 func asUnit(p unsafe.Pointer) *Unit {

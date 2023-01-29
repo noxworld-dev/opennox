@@ -13,14 +13,14 @@ import (
 const cursorSize = 64
 
 //export nox_client_setCursorType_477610
-func nox_client_setCursorType_477610(v C.int) C.int {
+func nox_client_setCursorType_477610(v int) int {
 	noxClient.Nox_client_setCursorType(gui.Cursor(v))
 	return v
 }
 
 //export nox_xxx_cursorGetTypePrev_477630
-func nox_xxx_cursorGetTypePrev_477630() C.int {
-	return C.int(noxClient.CursorPrev)
+func nox_xxx_cursorGetTypePrev_477630() int {
+	return int(noxClient.CursorPrev)
 }
 
 func (c *Client) getCursorAnimFrame(ref *noxImageRef, dt int) *noxrender.Image {

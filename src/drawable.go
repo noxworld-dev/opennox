@@ -94,20 +94,20 @@ func nox_xxx_sprite_49AA00_drawable(d *nox_drawable) {
 }
 
 //export nox_xxx_sprite_49A9B0_drawable
-func nox_xxx_sprite_49A9B0_drawable(d *nox_drawable) C.int {
+func nox_xxx_sprite_49A9B0_drawable(d *nox_drawable) int {
 	dr := asDrawable(d)
 	client.Nox_xxx_sprite_2d_remove(dr, dr.Ext())
 	return 0
 }
 
 //export nox_xxx_forEachSprite_49AB00
-func nox_xxx_forEachSprite_49AB00(a1 *C.int4, cfnc unsafe.Pointer, data C.int) {
+func nox_xxx_forEachSprite_49AB00(a1 *C.int4, cfnc unsafe.Pointer, data int) {
 	if cfnc == nil {
 		return
 	}
 	rect := image.Rect(int(a1.field_0), int(a1.field_4), int(a1.field_8), int(a1.field_C))
 	nox_xxx_forEachSprite(rect, func(dr *client.Drawable) {
-		C.go_nox_drawable_call_sprite_func((*[0]byte)(cfnc), (*nox_drawable)(dr.C()), data)
+		C.go_nox_drawable_call_sprite_func((*[0]byte)(cfnc), (*nox_drawable)(dr.C()), C.int(data))
 	})
 }
 
@@ -141,8 +141,8 @@ func nox_xxx_forEachSprite(rect image.Rectangle, fnc func(dr *client.Drawable)) 
 }
 
 //export nox_drawable_find_49ABF0
-func nox_drawable_find_49ABF0(pt *C.nox_point, r C.int) *nox_drawable {
-	return (*nox_drawable)(nox_drawable_find(image.Point{X: int(pt.x), Y: int(pt.y)}, int(r)).C())
+func nox_drawable_find_49ABF0(pt *C.nox_point, r int) *nox_drawable {
+	return (*nox_drawable)(nox_drawable_find(image.Point{X: int(pt.x), Y: int(pt.y)}, r).C())
 }
 
 func nox_drawable_find(pt image.Point, r int) *client.Drawable {

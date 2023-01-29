@@ -265,7 +265,7 @@ func nox_xxx_mapWall_426A80(a1, a2 uint32) {
 }
 
 //export nox_common_checkMapFile_4CFE10
-func nox_common_checkMapFile_4CFE10(name *C.char) C.int {
+func nox_common_checkMapFile_4CFE10(name *C.char) int {
 	if err := nox_common_checkMapFile(GoString(name)); err != nil {
 		gameLog.Println("check map file:", err)
 		return 0
@@ -348,7 +348,7 @@ func (s *Server) nox_xxx_serverParseEntireMap_4CFCE0(cf *cryptfile.CryptFile) er
 }
 
 //export nox_xxx_mapReadSection_426EA0
-func nox_xxx_mapReadSection_426EA0(a1 unsafe.Pointer, cname *C.char, cerr *C.uint) C.int {
+func nox_xxx_mapReadSection_426EA0(a1 unsafe.Pointer, cname *C.char, cerr *C.uint) int {
 	panic("TODO")
 	//*cerr = 0
 	//name := GoString(cname)
@@ -373,7 +373,7 @@ func nox_xxx_mapReadSection(cf *cryptfile.CryptFile, a1 unsafe.Pointer, name str
 }
 
 //export nox_xxx_mapWriteSectionsMB_426E20
-func nox_xxx_mapWriteSectionsMB_426E20(a1 unsafe.Pointer) C.int {
+func nox_xxx_mapWriteSectionsMB_426E20(a1 unsafe.Pointer) int {
 	cf := cryptfile.Global()
 	for _, sect := range noxMapSections {
 		buf := make([]byte, 1+len(sect.Name)+1)
@@ -545,7 +545,7 @@ func nox_server_mapRWObjectData_504CF0_Write(cf *cryptfile.CryptFile, a2 unsafe.
 	for it := s.FirstServerObject(); it != nil; it = it.Next() {
 		pos := it.Pos()
 		if a2 == nil || sub_4280E0(image.Point{X: int(pos.X), Y: int(pos.Y)}, a2) {
-			if sub_4E3B80(C.int(it.TypeInd)) != 0 && nox_xxx_xfer_saveObj51DF90(cf, it) == 0 {
+			if sub_4E3B80(int(it.TypeInd)) != 0 && nox_xxx_xfer_saveObj51DF90(cf, it) == 0 {
 				return fmt.Errorf("cannot write object %s", it.String())
 			}
 		}
@@ -562,7 +562,7 @@ func nox_server_mapRWObjectData_504CF0_Write(cf *cryptfile.CryptFile, a2 unsafe.
 			v6 := obj.FirstItem()
 			v6.PosVec = pos
 			nox_xxx_xfer_saveObj51DF90(cf, v6)
-		} else if sub_4E3B80(C.int(obj.TypeInd)) != 0 && nox_xxx_xfer_saveObj51DF90(cf, obj) == 0 {
+		} else if sub_4E3B80(int(obj.TypeInd)) != 0 && nox_xxx_xfer_saveObj51DF90(cf, obj) == 0 {
 			return fmt.Errorf("cannot write upd object %s", obj.String())
 		}
 	}

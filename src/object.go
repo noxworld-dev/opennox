@@ -75,12 +75,12 @@ func nox_xxx_findParentChainPlayer_4EC580(obj *nox_object_t) *nox_object_t {
 }
 
 //export nox_xxx_unitHasThatParent_4EC4F0
-func nox_xxx_unitHasThatParent_4EC4F0(obj, owner *nox_object_t) C.int {
-	return C.int(bool2int(asObjectC(obj).HasOwner(asObjectC(owner))))
+func nox_xxx_unitHasThatParent_4EC4F0(obj, owner *nox_object_t) int {
+	return int(bool2int(asObjectC(obj).HasOwner(asObjectC(owner))))
 }
 
 //export nox_xxx_unitIsEnemyTo_5330C0
-func nox_xxx_unitIsEnemyTo_5330C0(a, b *nox_object_t) C.int {
+func nox_xxx_unitIsEnemyTo_5330C0(a, b *nox_object_t) int {
 	if asObjectC(a).isEnemyTo(asObjectC(b)) {
 		return 1
 	}
@@ -88,7 +88,7 @@ func nox_xxx_unitIsEnemyTo_5330C0(a, b *nox_object_t) C.int {
 }
 
 //export nox_xxx_unitIsAFish_534B10
-func nox_xxx_unitIsAFish_534B10(obj *nox_object_t) C.int {
+func nox_xxx_unitIsAFish_534B10(obj *nox_object_t) int {
 	if asObjectC(obj).isFish() {
 		return 1
 	}
@@ -96,7 +96,7 @@ func nox_xxx_unitIsAFish_534B10(obj *nox_object_t) C.int {
 }
 
 //export nox_xxx_unitIsARat_534B60
-func nox_xxx_unitIsARat_534B60(obj *nox_object_t) C.int {
+func nox_xxx_unitIsARat_534B60(obj *nox_object_t) int {
 	if asObjectC(obj).isRat() {
 		return 1
 	}
@@ -104,7 +104,7 @@ func nox_xxx_unitIsARat_534B60(obj *nox_object_t) C.int {
 }
 
 //export nox_xxx_unitIsAFrog_534B90
-func nox_xxx_unitIsAFrog_534B90(obj *nox_object_t) C.int {
+func nox_xxx_unitIsAFrog_534B90(obj *nox_object_t) int {
 	if asObjectC(obj).isFrog() {
 		return 1
 	}

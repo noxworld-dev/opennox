@@ -19,17 +19,17 @@ import (
 )
 
 //export sub_4FC670
-func sub_4FC670(a1 C.int) {
+func sub_4FC670(a1 int) {
 	noxServer.abilities.curxxx = Ability(a1)
 }
 
 //export nox_xxx_playerExecuteAbil_4FBB70
-func nox_xxx_playerExecuteAbil_4FBB70(cu *nox_object_t, a2 C.int) {
+func nox_xxx_playerExecuteAbil_4FBB70(cu *nox_object_t, a2 int) {
 	noxServer.abilities.Do(asUnitC(cu), Ability(a2))
 }
 
 //export sub_4FC0B0
-func sub_4FC0B0(a1 *nox_object_t, a2 C.int) {
+func sub_4FC0B0(a1 *nox_object_t, a2 int) {
 	noxServer.abilities.ResetAbility(asUnitC(a1), Ability(a2))
 }
 
@@ -39,93 +39,93 @@ func nox_xxx_playerCancelAbils_4FC180(cu *nox_object_t) {
 }
 
 //export sub_4FC300
-func sub_4FC300(cu *nox_object_t, a2 C.int) {
+func sub_4FC300(cu *nox_object_t, a2 int) {
 	noxServer.abilities.DisableAbility(asUnitC(cu), Ability(a2))
 }
 
 //export sub_4FC070
-func sub_4FC070(a1 *nox_object_t, a2, dt C.int) {
-	noxServer.abilities.sub4FC070(asUnitC(a1), Ability(a2), int(dt))
+func sub_4FC070(a1 *nox_object_t, a2, dt int) {
+	noxServer.abilities.sub4FC070(asUnitC(a1), Ability(a2), dt)
 }
 
 //export sub_4FC030
-func sub_4FC030(a1 *nox_object_t, a2 C.int) C.int {
-	return C.int(noxServer.abilities.sub4FC030(asUnitC(a1), Ability(a2)))
+func sub_4FC030(a1 *nox_object_t, a2 int) int {
+	return noxServer.abilities.sub4FC030(asUnitC(a1), Ability(a2))
 }
 
 //export sub_4FC440
-func sub_4FC440(a1 *nox_object_t, a2 C.int) {
+func sub_4FC440(a1 *nox_object_t, a2 int) {
 	noxServer.abilities.sub4FC440(asUnitC(a1), Ability(a2))
 }
 
 //export nox_xxx_abilityGetName_425250
-func nox_xxx_abilityGetName_425250(a1 C.int) *C.char {
+func nox_xxx_abilityGetName_425250(a1 int) *C.char {
 	return internCStr(Ability(a1).String())
 }
 
 //export sub_4FBE60
-func sub_4FBE60(a1 unsafe.Pointer, abil C.int) C.int {
-	return C.int(noxServer.abilities.getCooldown(a1, Ability(abil)))
+func sub_4FBE60(a1 unsafe.Pointer, abil int) int {
+	return noxServer.abilities.getCooldown(a1, Ability(abil))
 }
 
 //export sub_4FBEA0
-func sub_4FBEA0(a1 unsafe.Pointer, abil, cd C.int) {
-	noxServer.abilities.setCooldown(a1, Ability(abil), int(cd))
+func sub_4FBEA0(a1 unsafe.Pointer, abil, cd int) {
+	noxServer.abilities.setCooldown(a1, Ability(abil), cd)
 }
 
 //export nox_xxx_abilityGetName_0_425260
-func nox_xxx_abilityGetName_0_425260(ca C.int) *wchar_t {
+func nox_xxx_abilityGetName_0_425260(ca int) *wchar_t {
 	return internWStr(noxServer.abilities.getName(Ability(ca)))
 }
 
 //export nox_common_playerIsAbilityActive_4FC250
-func nox_common_playerIsAbilityActive_4FC250(a1 *nox_object_t, a2 C.int) C.int {
-	return C.int(bool2int(noxServer.abilities.IsActive(asUnitC(a1), Ability(a2))))
+func nox_common_playerIsAbilityActive_4FC250(a1 *nox_object_t, a2 int) int {
+	return bool2int(noxServer.abilities.IsActive(asUnitC(a1), Ability(a2)))
 }
 
 //export nox_xxx_probablyWarcryCheck_4FC3E0
-func nox_xxx_probablyWarcryCheck_4FC3E0(a1 *nox_object_t, a2 C.int) C.int {
-	return C.int(bool2int(noxServer.abilities.IsActiveVal(asUnitC(a1), Ability(a2))))
+func nox_xxx_probablyWarcryCheck_4FC3E0(a1 *nox_object_t, a2 int) int {
+	return bool2int(noxServer.abilities.IsActiveVal(asUnitC(a1), Ability(a2)))
 }
 
 //export nox_xxx_abilityCooldown_4252D0
-func nox_xxx_abilityCooldown_4252D0(ca C.int) C.int {
-	return C.int(noxServer.abilities.getDelay(Ability(ca)))
+func nox_xxx_abilityCooldown_4252D0(ca int) int {
+	return noxServer.abilities.getDelay(Ability(ca))
 }
 
 //export sub_4252F0
-func sub_4252F0(ca C.int) *wchar_t {
+func sub_4252F0(ca int) *wchar_t {
 	return internWStr(noxServer.abilities.getDesc(Ability(ca)))
 }
 
 //export nox_xxx_spellGetAbilityIcon_425310
-func nox_xxx_spellGetAbilityIcon_425310(abil, icon C.int) *nox_video_bag_image_t {
-	return (*nox_video_bag_image_t)(noxServer.abilities.getIcon(Ability(abil), int(icon)).C())
+func nox_xxx_spellGetAbilityIcon_425310(abil, icon int) *nox_video_bag_image_t {
+	return (*nox_video_bag_image_t)(noxServer.abilities.getIcon(Ability(abil), icon).C())
 }
 
 //export nox_xxx_bookFirstKnownAbil_425330
-func nox_xxx_bookFirstKnownAbil_425330() C.int {
+func nox_xxx_bookFirstKnownAbil_425330() int {
 	for i := abilityInvalid + 1; i < abilityMax; i++ {
 		if noxServer.abilities.defs[i].field24 != 0 {
-			return C.int(i)
+			return int(i)
 		}
 	}
 	return 0
 }
 
 //export nox_xxx_bookNextKnownAbil_425350
-func nox_xxx_bookNextKnownAbil_425350(a1 C.int) C.int {
+func nox_xxx_bookNextKnownAbil_425350(a1 int) int {
 	for i := Ability(a1) + 1; i < abilityMax; i++ {
 		if noxServer.abilities.defs[i].field24 != 0 {
-			return C.int(i)
+			return int(i)
 		}
 	}
 	return 0
 }
 
 //export sub_425450
-func sub_425450(a1 C.int) C.int {
-	return C.int(noxServer.abilities.defs[a1].field36)
+func sub_425450(a1 int) int {
+	return noxServer.abilities.defs[a1].field36
 }
 
 //export nox_xxx_netAbilRepotState_4D8100

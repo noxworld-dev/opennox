@@ -101,14 +101,14 @@ func (s *noxScript) callBuiltin(i int, fi asm.Builtin) error {
 }
 
 //export nox_script_shouldReadMoreXxx
-func nox_script_shouldReadMoreXxx(fi C.int) C.bool {
+func nox_script_shouldReadMoreXxx(fi int) C.bool {
 	return C.bool(fi == 9 || fi == 10 ||
 		fi == 46 || fi == 47 ||
 		fi == 190 || fi == 126)
 }
 
 //export nox_script_shouldReadEvenMoreXxx
-func nox_script_shouldReadEvenMoreXxx(fi C.int) C.bool {
+func nox_script_shouldReadEvenMoreXxx(fi int) C.bool {
 	return C.bool(fi == 126)
 }
 

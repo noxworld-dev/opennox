@@ -144,7 +144,7 @@ func networkLogPrint(str string) {
 }
 
 //export nox_xxx_netGet_43C750
-func nox_xxx_netGet_43C750() C.int { return C.int(dword_5D4594_815700) }
+func nox_xxx_netGet_43C750() int { return dword_5D4594_815700 }
 
 func clientSetServerHost(host string) {
 	netstr.Log.Printf("server host: %s", host)
@@ -185,13 +185,13 @@ func noxOnCliPacketDebug(op noxnet.Op, buf []byte) {
 	}
 }
 
-func convSendToServerErr(n int, err error) C.int {
+func convSendToServerErr(n int, err error) int {
 	if err == errLobbyNoSocket {
 		return -17
 	} else if err != nil {
 		return -1
 	}
-	return C.int(n)
+	return n
 }
 
 func sub_43AF90(v int) {
@@ -203,7 +203,7 @@ func nox_client_createSockAndJoin_43B440() error {
 }
 
 //export nox_client_joinGame_438A90
-func nox_client_joinGame_438A90() C.int {
+func nox_client_joinGame_438A90() int {
 	if err := nox_client_joinGame(); err != nil {
 		return convSendToServerErr(0, err)
 	}
@@ -240,7 +240,7 @@ func nox_client_joinGame() error {
 }
 
 //export sub_5550D0
-func sub_5550D0(addr C.int, port C.uint16_t, cdata *C.char) C.int {
+func sub_5550D0(addr int, port C.uint16_t, cdata *C.char) int {
 	buf := unsafe.Slice((*byte)(unsafe.Pointer(cdata)), 22)
 	n, err := sendXXX_5550D0(netip.AddrPortFrom(int2ip(uint32(addr)), uint16(port)), buf)
 	return convSendToServerErr(n, err)
@@ -652,7 +652,7 @@ func nox_xxx_sendGauntlet_4DCF80(ind int, v byte) {
 }
 
 //export nox_xxx_netStatsMultiplier_4D9C20
-func nox_xxx_netStatsMultiplier_4D9C20(a1p *nox_object_t) C.int {
+func nox_xxx_netStatsMultiplier_4D9C20(a1p *nox_object_t) int {
 	u := asUnitC(a1p)
 	if u == nil {
 		return 0
@@ -679,7 +679,7 @@ func nox_xxx_netStatsMultiplier_4D9C20(a1p *nox_object_t) C.int {
 		binary.LittleEndian.PutUint32(buf[9:], math.Float32bits(noxServer.Players.Mult.Conjurer.Strength))
 		binary.LittleEndian.PutUint32(buf[13:], math.Float32bits(noxServer.Players.Mult.Conjurer.Speed))
 	}
-	return C.int(noxServer.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:17], 0, 1))
+	return noxServer.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:17], 0, 1)
 }
 
 func netSendServerQuit() {

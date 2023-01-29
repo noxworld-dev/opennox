@@ -13,13 +13,13 @@ import (
 const DeadWord = 0xacacacac
 
 //export nox_new_alloc_class
-func nox_new_alloc_class(name *C.char, size, cnt C.int) *C.nox_alloc_class {
-	return (*C.nox_alloc_class)(alloc.NewClass(GoString(name), uintptr(size), int(cnt)).UPtr())
+func nox_new_alloc_class(name *C.char, size, cnt int) *C.nox_alloc_class {
+	return (*C.nox_alloc_class)(alloc.NewClass(GoString(name), uintptr(size), cnt).UPtr())
 }
 
 //export nox_new_alloc_class_dynamic
-func nox_new_alloc_class_dynamic(name *C.char, size, cnt C.int) *C.nox_alloc_class {
-	return (*C.nox_alloc_class)(alloc.NewDynamicClass(GoString(name), uintptr(size), int(cnt)).UPtr())
+func nox_new_alloc_class_dynamic(name *C.char, size, cnt int) *C.nox_alloc_class {
+	return (*C.nox_alloc_class)(alloc.NewDynamicClass(GoString(name), uintptr(size), cnt).UPtr())
 }
 
 //export nox_free_alloc_class
@@ -53,6 +53,6 @@ func nox_alloc_class_reset_stats(p *C.nox_alloc_class) {
 }
 
 //export nox_alloc_class_obj_keep
-func nox_alloc_class_obj_keep(p *C.nox_alloc_class, off C.int) {
+func nox_alloc_class_obj_keep(p *C.nox_alloc_class, off int) {
 	alloc.AsClass(unsafe.Pointer(p)).Keep(uintptr(off))
 }

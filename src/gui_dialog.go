@@ -45,8 +45,8 @@ var (
 )
 
 //export sub_44A4A0
-func sub_44A4A0() C.int {
-	return C.int(bool2int(nox_gui_curDialog_830224 != nil))
+func sub_44A4A0() int {
+	return bool2int(nox_gui_curDialog_830224 != nil)
 }
 
 func sub44A4A0() bool {
@@ -54,7 +54,7 @@ func sub44A4A0() bool {
 }
 
 //export nox_xxx_dialogMsgBoxCreate_449A10
-func nox_xxx_dialogMsgBoxCreate_449A10(win *C.nox_window, title, text *C.wchar_t, a4 C.int, a5, a6 unsafe.Pointer) unsafe.Pointer {
+func nox_xxx_dialogMsgBoxCreate_449A10(win *C.nox_window, title, text *C.wchar_t, a4 int, a5, a6 unsafe.Pointer) unsafe.Pointer {
 	var fnc5, fnc6 func()
 	if a5 != nil {
 		fnc5 = func() {
@@ -137,8 +137,8 @@ func NewDialogWindow(a1 *gui.Window, title string, text string, flags gui.Dialog
 }
 
 //export sub_449E00
-func sub_449E00(a1 *wchar_t) C.int {
-	return C.int(sub449E00(GoWString(a1)))
+func sub_449E00(a1 *wchar_t) int {
+	return sub449E00(GoWString(a1))
 }
 
 func sub449E00(a1 string) int {
@@ -147,8 +147,8 @@ func sub449E00(a1 string) int {
 }
 
 //export sub_449E30
-func sub_449E30(a1 *wchar_t) C.int {
-	return C.int(sub449E30(GoWString(a1)))
+func sub_449E30(a1 *wchar_t) int {
+	return sub449E30(GoWString(a1))
 }
 
 func sub449E30(a1 string) int {
@@ -157,8 +157,8 @@ func sub449E30(a1 string) int {
 }
 
 //export sub_449E60
-func sub_449E60(a1 C.char) C.int {
-	return C.int(gui.EventRespInt(sub449E60(int8(a1))))
+func sub_449E60(a1 C.char) int {
+	return gui.EventRespInt(sub449E60(int8(a1)))
 }
 
 func sub449E60(a1 int8) gui.WindowEventResp {
@@ -172,7 +172,7 @@ func sub449E60(a1 int8) gui.WindowEventResp {
 }
 
 //export sub_449EA0
-func sub_449EA0(a1 C.int) {
+func sub_449EA0(a1 int) {
 	sub449EA0(gui.DialogFlags(a1))
 }
 
@@ -320,7 +320,7 @@ func nox_xxx_windowDlgProc_449CA0(a1 *gui.Window, ev gui.WindowEvent) gui.Window
 }
 
 //export sub_44A4E0
-func sub_44A4E0() C.int {
+func sub_44A4E0() int {
 	if !sub44A4A0() {
 		return 0
 	}
@@ -337,7 +337,7 @@ func sub_44A4B0() {
 }
 
 //export sub_44A360
-func sub_44A360(a1 C.int) {
+func sub_44A360(a1 int) {
 	name := noxfont.DefaultName
 	if a1 == 1 {
 		name = noxfont.LargeName

@@ -72,7 +72,7 @@ func nox_client_makeSaveDir(name string) (string, error) {
 }
 
 //export nox_savegame_rm_4DBE10
-func nox_savegame_rm_4DBE10(cname *C.char, rmDir C.int) {
+func nox_savegame_rm_4DBE10(cname *C.char, rmDir int) {
 	if cname == nil {
 		return
 	}
@@ -126,13 +126,13 @@ func nox_client_checkSaveMapExistsTmp(name string) (string, error) {
 }
 
 //export nox_client_countPlayerFiles04_4DC7D0
-func nox_client_countPlayerFiles04_4DC7D0() C.int {
+func nox_client_countPlayerFiles04_4DC7D0() int {
 	cnt, err := nox_client_countPlayerFiles(0x4)
 	if err != nil {
 		gameLog.Println("count player files:", err)
 		return 0
 	}
-	return C.int(cnt)
+	return cnt
 }
 
 func nox_client_countPlayerFiles(flag byte) (int, error) {
@@ -169,7 +169,7 @@ func sub_41A000_check0(path string) byte {
 	return save[0]
 }
 
-func nox_xxx_savePlayerMB_41C8F0(data []byte) C.int {
+func nox_xxx_savePlayerMB_41C8F0(data []byte) int {
 	path := memmap.String(0x85B3FC, 10984)
 	const expSize = 216 // TODO: limit was *getMemIntPtr(0x587000, 55984) == 700, see #304
 	if !noxflags.HasGame(noxflags.GameHost) && len(data) < expSize {
@@ -226,17 +226,17 @@ func sub_4DB100() {
 }
 
 //export nox_xxx_gameGet_4DB1B0
-func nox_xxx_gameGet_4DB1B0() C.int {
-	return C.int(dword_5d4594_1563080)
+func nox_xxx_gameGet_4DB1B0() int {
+	return dword_5d4594_1563080
 }
 
 //export sub_4DCC90
-func sub_4DCC90() C.int {
+func sub_4DCC90() int {
 	v := 1
 	if dword_5d4594_1563080 != 1 {
 		v = bool2int(dword_5d4594_1563092 != 0)
 	}
-	return C.int(v)
+	return v
 }
 
 //export sub_4DB1C0
@@ -245,7 +245,7 @@ func sub_4DB1C0() unsafe.Pointer {
 }
 
 //export sub_4DCBF0
-func sub_4DCBF0(a1 C.int) {
+func sub_4DCBF0(a1 int) {
 	dword_5d4594_1563064 = a1 != 0
 }
 
@@ -266,7 +266,7 @@ func sub_4460B0() bool {
 }
 
 //export sub_4460A0
-func sub_4460A0(a1 C.int) {
+func sub_4460A0(a1 int) {
 	dword_5d4594_825756 = a1 != 0
 }
 
@@ -278,7 +278,7 @@ func serverQuitAck() {
 }
 
 //export sub_40BBC0
-func sub_40BBC0(a1, a2 C.int) {
+func sub_40BBC0(a1, a2 int) {
 	if a2 == 2 {
 		if sub_446030() {
 			serverQuitAck()
@@ -293,7 +293,7 @@ func sub_40BBC0(a1, a2 C.int) {
 }
 
 //export sub_40B850
-func sub_40B850(a1, act C.int) {
+func sub_40B850(a1, act int) {
 	if act == 2 && sub_446030() {
 		serverQuitAck()
 		if sub_446090() {
@@ -304,14 +304,14 @@ func sub_40B850(a1, act C.int) {
 }
 
 //export sub_40B810
-func sub_40B810(act C.int, cbuf unsafe.Pointer, sz C.uint) {
+func sub_40B810(act int, cbuf unsafe.Pointer, sz int) {
 	nox_xxx_soloGameEscMenuCallback_40AF90(common.MaxPlayers-1, 0, act, memmap.PtrOff(0x5D4594, 4664), cbuf, sz)
 	sub_40B850(0, act)
 }
 
 //export nox_xxx_serverIsClosing_446180
-func nox_xxx_serverIsClosing_446180() C.int {
-	return C.int(bool2int(nox_xxx_serverIsClosing_825764))
+func nox_xxx_serverIsClosing_446180() int {
+	return bool2int(nox_xxx_serverIsClosing_825764)
 }
 
 func nox_xxx_serverIsClosing446180() bool {
@@ -339,7 +339,7 @@ func sub_419F00() bool {
 }
 
 //export sub_419EB0
-func sub_419EB0(i, val C.int) {
+func sub_419EB0(i, val int) {
 	if val == 1 {
 		*memmap.PtrUint32(0x5D4594, 527716) |= 1 << i
 	} else {
@@ -352,7 +352,7 @@ func sub_419EE0(a1 int) bool {
 }
 
 //export sub_4DCC10
-func sub_4DCC10(a1p *nox_object_t) C.int {
+func sub_4DCC10(a1p *nox_object_t) int {
 	u := asUnitC(a1p)
 	v := true
 	if dword_5d4594_1563092 != 0 && dword_5d4594_1563092+dword_5d4594_1563088 > noxServer.Frame() {
@@ -370,7 +370,7 @@ func sub_4DCC10(a1p *nox_object_t) C.int {
 	if C.sub_45D9B0() == 1 {
 		return 0
 	}
-	return C.int(bool2int(v))
+	return bool2int(v)
 }
 
 func sub_4DCE00() {
@@ -383,12 +383,12 @@ func sub_4DCE00() {
 }
 
 //export nox_xxx_soloGameEscMenuCallback_40AF90
-func nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2 C.int, act C.int, a4 unsafe.Pointer, cbuf unsafe.Pointer, sz C.uint) {
+func nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2 int, act int, a4 unsafe.Pointer, cbuf unsafe.Pointer, sz int) {
 	switch act {
 	case 1:
 		C.sub_446520(1, cbuf, C.int(sz))
 	case 2:
-		data := unsafe.Slice((*byte)(cbuf), int(sz))
+		data := unsafe.Slice((*byte)(cbuf), sz)
 		nox_xxx_savePlayerMB_41C8F0(data)
 		if noxflags.HasGame(noxflags.GameModeQuest) {
 			if sub_4460B0() {
@@ -402,7 +402,7 @@ func nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2 C.int, act C.int, a4 unsafe.
 		}
 	case 3:
 		path := datapath.Save("_temp_.dat")
-		data := unsafe.Slice((*byte)(cbuf), int(sz))
+		data := unsafe.Slice((*byte)(cbuf), sz)
 		if nox_xxx_SavePlayerDataFromClient_41CD70(path, data) {
 			if noxServer.nox_xxx_isQuest_4D6F50() && ind == common.MaxPlayers-1 {
 				sub4DCEE0(path)
@@ -410,14 +410,14 @@ func nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2 C.int, act C.int, a4 unsafe.
 				res := C.nox_xxx_cliPlrInfoLoadFromFile_41A2E0(internCStr(path), C.int(ind))
 				if noxflags.HasGame(noxflags.GameModeQuest) {
 					if res != nil {
-						if pl := noxServer.GetPlayerByInd(int(ind)); pl != nil {
+						if pl := noxServer.GetPlayerByInd(ind); pl != nil {
 							if u := pl.UnitC(); u != nil {
 								ud := u.UpdateDataPlayer()
 								ud.Field138 = 0
 							}
 						}
 					} else {
-						noxServer.GetPlayerByInd(int(ind)).Disconnect(4)
+						noxServer.GetPlayerByInd(ind).Disconnect(4)
 					}
 				}
 				ifs.Remove(path)
@@ -591,7 +591,7 @@ func sub41CFA0(a1 string, a2 int) bool {
 	defer free()
 
 	f.Read(buf)
-	sub_419EB0(C.int(a2), 1)
+	sub_419EB0(a2, 1)
 	C.sub_40BC60(C.int(a2), 2, internCStr("SAVEDATA"), unsafe.Pointer(&buf[0]), C.int(sz), 1)
 	return true
 }
@@ -606,7 +606,7 @@ func sub_4DD0B0(a1p *nox_object_t) {
 	if nox_xxx_player_4D7980(pl.Index()) {
 		noxServer.GetPlayerByInd(pl.Index()).Disconnect(4)
 	} else {
-		sub_419EB0(C.int(pl.Index()), 0)
+		sub_419EB0(pl.Index(), 0)
 		nox_xxx_sendGauntlet_4DCF80(pl.Index(), 0)
 	}
 }

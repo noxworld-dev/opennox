@@ -77,7 +77,7 @@ func nox_xxx_wndGetFocus_46B4F0() *C.nox_window {
 }
 
 //export nox_xxx_windowFocus_46B500
-func nox_xxx_windowFocus_46B500(win *C.nox_window) C.int {
+func nox_xxx_windowFocus_46B500(win *C.nox_window) int {
 	noxClient.GUI.Focus(asWindow(win))
 	return 0
 }
@@ -88,7 +88,7 @@ func nox_client_getWin1064916_46C720() *C.nox_window {
 }
 
 //export nox_xxx_wndSetCaptureMain_46ADC0
-func nox_xxx_wndSetCaptureMain_46ADC0(win *C.nox_window) C.int {
+func nox_xxx_wndSetCaptureMain_46ADC0(win *C.nox_window) int {
 	if !asWindow(win).Capture(true) {
 		return -4
 	}
@@ -96,7 +96,7 @@ func nox_xxx_wndSetCaptureMain_46ADC0(win *C.nox_window) C.int {
 }
 
 //export nox_xxx_wndClearCaptureMain_46ADE0
-func nox_xxx_wndClearCaptureMain_46ADE0(win *C.nox_window) C.int {
+func nox_xxx_wndClearCaptureMain_46ADE0(win *C.nox_window) int {
 	asWindow(win).Capture(false)
 	return 0
 }
@@ -122,21 +122,21 @@ func nox_gui_draw() {
 }
 
 //export nox_color_rgb_4344A0
-func nox_color_rgb_4344A0(r, g, b C.int) C.uint32_t {
+func nox_color_rgb_4344A0(r, g, b int) C.uint32_t {
 	return C.uint32_t(noxcolor.RGB5551Color(byte(r), byte(g), byte(b)).Color32())
 }
 
 //export nox_set_color_rgb_434430
-func nox_set_color_rgb_434430(r, g, b C.int) {
+func nox_set_color_rgb_434430(r, g, b int) {
 	noxClient.r.Data().SetColor2(noxcolor.RGB5551Color(byte(r), byte(g), byte(b)))
 }
 
-func unsafePtrToInt(p unsafe.Pointer) C.int {
-	return C.int(uintptr(p))
+func unsafePtrToInt(p unsafe.Pointer) int {
+	return int(uintptr(p))
 }
 
-func dataPtrToInt(p *gui.WindowData) C.int {
-	return C.int(uintptr(unsafe.Pointer(p)))
+func dataPtrToInt(p *gui.WindowData) int {
+	return int(uintptr(unsafe.Pointer(p)))
 }
 
 //export nox_xxx_wndWddSetTooltip_46B000
@@ -168,8 +168,8 @@ func nox_xxx_pointInRect_4281F0(p image.Point, r image.Rectangle) bool {
 }
 
 //export sub_46B120
-func sub_46B120(a1, a2 *C.nox_window) C.int {
-	return C.int(asWindow(a1).SetParent(asWindow(a2)))
+func sub_46B120(a1, a2 *C.nox_window) int {
+	return asWindow(a1).SetParent(asWindow(a2))
 }
 
 func sub_46AEE0(a1 *gui.Window, a2 string) {

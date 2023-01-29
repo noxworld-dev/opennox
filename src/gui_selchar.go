@@ -93,12 +93,12 @@ var (
 )
 
 //export sub_4A1BE0
-func sub_4A1BE0(a1 C.int) C.int {
-	return C.int(nox_xxx_wnd_46ABB0(asWindowP(C.dword_5d4594_1307292), int(a1)))
+func sub_4A1BE0(a1 int) int {
+	return nox_xxx_wnd_46ABB0(asWindowP(C.dword_5d4594_1307292), a1)
 }
 
 //export sub_41E300
-func sub_41E300(a1 C.int) C.int {
+func sub_41E300(a1 int) int {
 	if a1 == 11 && noxflags.HasGame(noxflags.GameFlag29) {
 		if C.dword_5d4594_528256 != 0 {
 			C.sub_41E470()
@@ -107,9 +107,9 @@ func sub_41E300(a1 C.int) C.int {
 		}
 		return 0
 	}
-	if C.int(C.dword_5d4594_527988) != a1 {
+	if int(C.dword_5d4594_527988) != a1 {
 		C.dword_5d4594_527988 = C.uint(a1)
-		C.sub_41DA10(a1)
+		C.sub_41DA10(C.int(a1))
 		if C.dword_5d4594_527988 == 11 {
 			sub_40E0A0()
 		}
@@ -122,7 +122,7 @@ func sub_40E0A0() {
 }
 
 //export sub_4A50A0
-func sub_4A50A0() C.int {
+func sub_4A50A0() int {
 	nox_wnd_xxx_1307748.SetState(gui.AnimOut)
 	gui.SetAnimGlobalState(gui.AnimOut)
 	clientPlaySoundSpecial(sound.SoundShellSlideOut, 100)
@@ -130,7 +130,7 @@ func sub_4A50A0() C.int {
 }
 
 //export sub_4A50D0
-func sub_4A50D0() C.int {
+func sub_4A50D0() int {
 	v0 := nox_wnd_xxx_1307748.Func13Ptr
 	nox_wnd_xxx_1307748.Free()
 	nox_wnd_xxx_1307748 = nil
@@ -214,7 +214,7 @@ func sub_43B670() {
 }
 
 //export sub_46D6F0
-func sub_46D6F0() C.int {
+func sub_46D6F0() int {
 	nox_savegame_arr_1064948 = [NOX_SAVEGAME_XXX_MAX]C.nox_savegame_xxx{}
 	win := dword_5d4594_1082856
 	if win.GetFlags().IsHidden() {
@@ -228,7 +228,7 @@ func sub_46D6F0() C.int {
 }
 
 //export sub_413A00
-func sub_413A00(a1 C.int) {
+func sub_413A00(a1 int) {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
 		if a1 != 0 {
 			noxflags.SetGame(noxflags.GamePause)
@@ -300,7 +300,7 @@ func sub_44A400() {
 }
 
 //export nox_game_showSelChar_4A4DB0
-func nox_game_showSelChar_4A4DB0() C.int {
+func nox_game_showSelChar_4A4DB0() int {
 	if nox_game_showSelChar4A4DB0() {
 		return 1
 	}
@@ -480,7 +480,7 @@ func nox_xxx_findAutosaves_4A5150() {
 	}
 }
 
-func sub_4A5690(sv *C.nox_savegame_xxx) C.int {
+func sub_4A5690(sv *C.nox_savegame_xxx) int {
 	if sv.flags&4 == 0 {
 		if !noxServer.nox_xxx_isQuest_4D6F50() && !sub_4D6F70() {
 			return 1
@@ -1055,11 +1055,11 @@ func sub_4DB130(a1 string) {
 }
 
 //export sub_4DB170
-func sub_4DB170(a1 C.int, a2 unsafe.Pointer, a3 C.int) {
+func sub_4DB170(a1 int, a2 unsafe.Pointer, a3 int) {
 	dword_5d4594_1563092 = uint32(a3)
 	dword_5d4594_1563088 = noxServer.Frame()
 	dword_5d4594_1563084 = a2
-	dword_5d4594_1563080 = int(a1)
+	dword_5d4594_1563080 = a1
 	C.dword_5d4594_1563096 = C.uint(bool2int(a2 != nil))
 	if a1 == 0 {
 		sub_4DCBD0(0)

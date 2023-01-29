@@ -14,8 +14,8 @@ import (
 )
 
 //export nox_platform_rand
-func nox_platform_rand() C.int {
-	return C.int(platform.RandInt())
+func nox_platform_rand() int {
+	return platform.RandInt()
 }
 
 //export nox_platform_srand

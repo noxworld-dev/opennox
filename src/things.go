@@ -44,7 +44,7 @@ var (
 )
 
 func getThingName(i int) string {
-	return GoString(nox_get_thing_name(C.int(i)))
+	return GoString(nox_get_thing_name(i))
 }
 
 func openThings() (*MemFile, error) {
@@ -359,8 +359,8 @@ func nox_xxx_free_42BF80() {
 }
 
 //export nox_xxx_objectTOCgetTT_42C2B0
-func nox_xxx_objectTOCgetTT_42C2B0(a1 C.ushort) C.int {
-	return C.int(nox_xxx_objectTOCgetTT(uint16(a1)))
+func nox_xxx_objectTOCgetTT_42C2B0(a1 C.ushort) int {
+	return nox_xxx_objectTOCgetTT(uint16(a1))
 }
 
 func nox_xxx_objectTOCgetTT(a1 uint16) int {
@@ -381,11 +381,11 @@ func sub_42C310(a1 C.int, a2 C.ushort) {
 }
 
 //export sub_42C2E0
-func sub_42C2E0(a1 C.int) C.ushort {
+func sub_42C2E0(a1 int) C.ushort {
 	if objectTypeCode16ByInd == nil {
 		return 0
 	}
-	return C.ushort(objectTypeCode16ByInd[int(a1)])
+	return C.ushort(objectTypeCode16ByInd[a1])
 }
 
 //export sub_42C300
@@ -430,7 +430,7 @@ func sub_42BFE0() {
 		noxflags.HasGame(noxflags.GameClient) && !noxflags.HasGame(noxflags.GameFlag23) {
 		for it := asDrawable(C.sub_45A060()); it != nil; it = asDrawable(C.sub_45A070((*nox_drawable)(it.C()))) {
 			ind := int(it.Field_27)
-			if sub_4E3AD0(C.int(ind)) == 0 && sub_4E3B80(C.int(ind)) != 0 {
+			if sub_4E3AD0(ind) == 0 && sub_4E3B80(ind) != 0 {
 				checkInd(uint16(ind))
 			}
 		}
@@ -453,11 +453,11 @@ func checkTypesMonsterGen(obj *Object, checkInd func(uint162 uint16)) {
 }
 
 //export sub_4E3AD0
-func sub_4E3AD0(ind C.int) C.int {
+func sub_4E3AD0(ind int) int {
 	if memmap.Uint32(0x5D4594, 1563904) == 0 {
 		*memmap.PtrUint32(0x5D4594, 1563904) = uint32(noxServer.ObjectTypeID("Pixie"))
 	}
-	typ := noxServer.ObjectTypeByInd(int(ind))
+	typ := noxServer.ObjectTypeByInd(ind)
 	if cl := typ.Class(); !cl.Has(object.ClassMissile) && cl.Has(object.ClassImmobile) && !cl.Has(object.ClassVisibleEnable) {
 		if f := typ.Flags(); f.Has(object.FlagNoCollide) && !f.Has(object.FlagShadow) {
 			return 0

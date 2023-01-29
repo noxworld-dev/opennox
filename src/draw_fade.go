@@ -97,12 +97,12 @@ func nox_video_fadeOutScreen_44DB30(a1, a2 C.int, fnc unsafe.Pointer) {
 }
 
 //export nox_video_inFadeTransition_44E0D0
-func nox_video_inFadeTransition_44E0D0() C.int {
+func nox_video_inFadeTransition_44E0D0() int {
 	if noxClient.r.CheckFade(noxrender.FadeOutScreenKey) {
 		return 1
 	}
 	if noxClient.r.CheckFade(noxrender.FadeInScreenKey) {
 		return 1
 	}
-	return C.int(bool2int(C.nox_gameDisableMapDraw_5d4594_2650672 != 0))
+	return bool2int(C.nox_gameDisableMapDraw_5d4594_2650672 != 0)
 }
