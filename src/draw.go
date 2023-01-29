@@ -204,12 +204,6 @@ func nox_client_drawBorderLines_49CC70(a1, a2, a3, a4 int) {
 	r.DrawBorder(a1, a2, a3, a4, r.Data().Color2())
 }
 
-//export nox_client_drawLineHorizontal_49F180
-func nox_client_drawLineHorizontal_49F180(a1, a2, a3 int) {
-	r := noxClient.r
-	r.DrawLineHorizontal(a1, a2, a3, r.Data().Color2())
-}
-
 //export nox_client_drawPixel_49EFA0
 func nox_client_drawPixel_49EFA0(a1, a2 int) {
 	r := noxClient.r
