@@ -2,6 +2,7 @@ package opennox
 
 /*
 #include <stdint.h>
+#include "compat.h"
 #include "GAME2_2.h"
 #include "client/audio/ail/compat_mss.h"
 #include "client__io__win95__focus.h"
@@ -36,7 +37,7 @@ void sub_43DC00();
 int sub_43D8E0();
 void sub_44D960();
 void sub_453050();
-int sub_451850(int a2, int a3);
+int sub_451850(int a2, void* a3);
 int nox_xxx_WorkerHurt_44D810();
 extern void* dword_587000_122852;
 extern void* dword_587000_81128;
@@ -46,21 +47,26 @@ extern void* dword_587000_155144;
 */
 import "C"
 import (
+	"encoding/binary"
 	"fmt"
 	"math"
 	"path/filepath"
+	"sort"
 	"strings"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox-lib/ifs"
 
 	"github.com/noxworld-dev/opennox/v1/client/audio/ail"
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 )
 
 var (
 	nox_enable_audio     = 1
-	dword_5d4594_805980  uint32
+	dword_5d4594_805980  *audioStructXxx
 	dword_5d4594_1193336 uint32
 )
 
@@ -476,7 +482,7 @@ func nox_audio_initall(a3 int) int {
 		sub_486F30()
 		if sub_4311F0() != 0 {
 			C.dword_587000_81128 = unsafe.Add(C.dword_5d4594_805984, 88)
-			dword_5d4594_805980 = uint32(uintptr(unsafe.Pointer(C.sub_4866F0(internCStr("audio"), internCStr("audio")))))
+			dword_5d4594_805980 = sub_4866F0("audio", "audio")
 		}
 	}
 	C.sub_4864A0((*C.uint32_t)(memmap.PtrOff(0x5D4594, 805884)))
@@ -485,7 +491,7 @@ func nox_audio_initall(a3 int) int {
 	C.sub_4864A0((*C.uint32_t)(C.dword_587000_127004))
 	C.nox_xxx_WorkerHurt_44D810()
 	C.sub_43D8E0()
-	C.sub_451850(C.int(uintptr(C.dword_5d4594_805984)), C.int(dword_5d4594_805980))
+	C.sub_451850(C.int(uintptr(C.dword_5d4594_805984)), dword_5d4594_805980.C())
 	v1 := C.sub_4866A0(2)
 	if v1 == 0 {
 		C.sub_43DC00()
@@ -540,4 +546,149 @@ func sub_486EF0() {
 			}
 		}
 	}
+}
+
+var _ = [1]struct{}{}[288-unsafe.Sizeof(audioStructXxx{})]
+
+type audioStructXxx struct {
+	arr0       *audioStructYyy
+	size4      uint
+	path2_8    [260]byte
+	bagfile268 *C.FILE // 67, 268
+	field272   *C.FILE // 68, 272
+	field276   uint32  // 69, 276
+	field280   uint32  // 70, 280
+	field284   uint32  // 71, 284
+}
+
+func (p *audioStructXxx) C() unsafe.Pointer {
+	return unsafe.Pointer(p)
+}
+
+func (p *audioStructXxx) Free() {
+	if p == nil {
+		return
+	}
+	if p.bagfile268 != nil {
+		nox_fs_close(p.bagfile268)
+		p.bagfile268 = nil
+	}
+	if p.field272 != nil {
+		nox_fs_close(p.field272)
+		p.field272 = nil
+	}
+	if p.arr0 != nil {
+		alloc.Free(unsafe.Pointer(p.arr0))
+		p.arr0 = nil
+	}
+	alloc.Free(unsafe.Pointer(p))
+}
+
+var _ = [1]struct{}{}[36-unsafe.Sizeof(audioStructYyy{})]
+
+type audioStructYyy struct {
+	field0  [32]byte
+	field32 uint32
+}
+
+func (p *audioStructYyy) C() unsafe.Pointer {
+	return unsafe.Pointer(p)
+}
+
+func sub_4866F0(path1 string, path2 string) *audioStructXxx {
+	idxPath := path1
+	if i := strings.LastIndexByte(idxPath, '.'); i >= 0 {
+		idxPath = idxPath[:i]
+	}
+	idxPath += ".idx"
+	fi, err := ifs.Open(idxPath)
+	if err != nil {
+		return nil
+	}
+	bf1 := binfile.NewFile(fi)
+	cf1 := newFileHandle(bf1)
+	defer nox_fs_close(cf1)
+
+	bagPath := path1
+	if i := strings.LastIndexByte(bagPath, '.'); i >= 0 {
+		bagPath = bagPath[:i]
+	}
+	bagPath += ".bag"
+	fb, err := ifs.Open(bagPath)
+	if err != nil {
+		return nil
+	}
+
+	p, _ := alloc.New(audioStructXxx{})
+	p.bagfile268 = newFileHandle(binfile.NewFile(fb))
+	if p.bagfile268 == nil {
+		p.Free()
+		return nil
+	}
+	var hdr [12]byte
+	if _, err := bf1.Read(hdr[:12]); err != nil {
+		p.Free()
+		return nil
+	}
+	_ = binary.LittleEndian.Uint32(hdr[0:])
+	vers := binary.LittleEndian.Uint32(hdr[4:])
+	p.size4 = uint(binary.LittleEndian.Uint32(hdr[8:]))
+	var arr []audioStructYyy
+	if p.size4 > 0 {
+		arr, _ = alloc.Make([]audioStructYyy{}, p.size4)
+		p.arr0 = &arr[0]
+		var buf [36]byte
+		if vers != 1 {
+			for i := uint(0); i < p.size4; i++ {
+				if _, err := bf1.Read(buf[:36]); err != nil {
+					p.Free()
+					return nil
+				}
+				copy(arr[i].field0[:], buf[:32])
+				arr[i].field32 = binary.LittleEndian.Uint32(buf[32:])
+			}
+		} else {
+			for i := uint(0); i < p.size4; i++ {
+				if _, err := bf1.Read(buf[:32]); err != nil {
+					p.Free()
+					return nil
+				}
+				copy(arr[i].field0[:], buf[:32])
+				arr[i].field32 = 0
+			}
+		}
+	}
+	sort.Slice(arr, func(i, j int) bool {
+		s1, s2 := alloc.GoStringS(arr[i].field0[:]), alloc.GoStringS(arr[j].field0[:])
+		s1, s2 = strings.ToLower(s1), strings.ToLower(s2)
+		return s1 < s2
+	})
+	p.field276 = 0
+	if path2 != "" {
+		alloc.StrCopyZero(p.path2_8[:], path2)
+		if i := alloc.StrLenS(p.path2_8[:]); p.path2_8[i] == '\\' {
+			p.path2_8[i] = 0
+		}
+		var find C.struct__WIN32_FIND_DATAA
+
+		if h := C.FindFirstFileA((*C.char)(unsafe.Pointer(&p.path2_8[0])), &find); int(uintptr(h)) != -1 {
+			if find.dwFileAttributes&0x10 != 0 {
+				p.field276 = 1
+			} else {
+				for C.FindNextFileA(h, &find) != 0 {
+					if find.dwFileAttributes&0x10 != 0 {
+						p.field276 = 1
+						break
+					}
+				}
+			}
+			C.FindClose(h)
+		}
+		// TODO: strlen()-1 ?
+		if i := alloc.StrLenS(p.path2_8[:]); p.path2_8[i] != '\\' {
+			p.path2_8[i] = '\\'
+			p.path2_8[i+1] = 0
+		}
+	}
+	return p
 }

@@ -547,8 +547,9 @@ func sub_4311B0() {
 	sub_43D970()
 	C.sub_44D8C0()
 	C.sub_451970()
-	if dword_5d4594_805980 != 0 {
-		C.sub_4869C0(unsafe.Pointer(uintptr(dword_5d4594_805980)))
+	if dword_5d4594_805980 != nil {
+		dword_5d4594_805980.Free()
+		dword_5d4594_805980 = nil
 	}
 	C.dword_587000_81128 = nil
 	C.sub_431270()
