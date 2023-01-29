@@ -76,7 +76,7 @@ var (
 )
 
 //export nox_client_getIntroScreenDuration_44E3B0
-func nox_client_getIntroScreenDuration_44E3B0() C.int {
+func nox_client_getIntroScreenDuration_44E3B0() int {
 	if env.IsE2E() {
 		return 10
 	}
@@ -84,7 +84,7 @@ func nox_client_getIntroScreenDuration_44E3B0() C.int {
 }
 
 //export nox_client_getBriefDuration
-func nox_client_getBriefDuration() C.int {
+func nox_client_getBriefDuration() int {
 	if env.IsE2E() {
 		return 10
 	} else if env.IsDevMode() {
@@ -105,7 +105,7 @@ func nox_game_SetCliDrawFunc(fnc unsafe.Pointer) {
 }
 
 //export sub_43DE40
-func sub_43DE40(fnc unsafe.Pointer) C.int {
+func sub_43DE40(fnc unsafe.Pointer) int {
 	if fnc == nil {
 		noxClient.SetUpdateFunc2(nil)
 	} else {
@@ -963,7 +963,7 @@ func nox_xxx_gameChangeMap_43DEB0() error {
 }
 
 //export nox_xxx_cliDrawConnectedLoop_43B360
-func nox_xxx_cliDrawConnectedLoop_43B360() C.int {
+func nox_xxx_cliDrawConnectedLoop_43B360() int {
 	noxflags.SetGame(noxflags.GameFlag3)
 	noxflags.UnsetGame(noxflags.GameHost)
 	v0 := GoStringP(unsafe.Add(C.dword_5d4594_814624, 12))
@@ -991,7 +991,7 @@ func nox_xxx_cliDrawConnectedLoop_43B360() C.int {
 }
 
 //export nox_client_guiXxxDestroy_4A24A0
-func nox_client_guiXxxDestroy_4A24A0() C.int {
+func nox_client_guiXxxDestroy_4A24A0() int {
 	sub_4A1BD0()
 	noxClient.GUI.DestroyAll()
 	nox_client_gui_flag_815132 = 0

@@ -117,7 +117,7 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 		C.nox_xxx_consoleEsc_49B7A0()
 	}
 	C.sub_49B6E0()
-	return C.int(memmap.Uint32(0x587000, 85720)) != 0
+	return memmap.Uint32(0x587000, 85720) != 0
 }
 
 func (c *Client) nox_xxx_clientDrawAll_436100_draw() {

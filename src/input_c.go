@@ -53,7 +53,7 @@ var (
 )
 
 //export nox_xxx_setKeybTimeout_4160D0
-func nox_xxx_setKeybTimeout_4160D0(key C.int) C.int {
+func nox_xxx_setKeybTimeout_4160D0(key int) int {
 	inputSetKeyTimeoutLegacy(byte(key))
 	return key
 }
@@ -69,13 +69,13 @@ func sub_416120(key C.uchar) C.bool {
 }
 
 //export sub_416170
-func sub_416170(key C.int) C.int {
+func sub_416170(key int) int {
 	delete(inputKeyTimeoutsOld, byte(key))
 	return key
 }
 
 //export sub_416150
-func sub_416150(key, ts C.int) C.int {
+func sub_416150(key, ts int) int {
 	if ts == 0 {
 		delete(inputKeyTimeoutsOld, byte(key))
 	} else {
@@ -130,8 +130,8 @@ func nox_client_getMousePos_4309F0() (out C.nox_point) {
 }
 
 //export nox_xxx_bookGet_430B40_get_mouse_prev_seq
-func nox_xxx_bookGet_430B40_get_mouse_prev_seq() C.int {
-	return C.int(noxClient.GetInputSeq())
+func nox_xxx_bookGet_430B40_get_mouse_prev_seq() int {
+	return int(noxClient.GetInputSeq())
 }
 
 func nox_client_setMousePos_430B10(x, y int) {
@@ -139,17 +139,17 @@ func nox_client_setMousePos_430B10(x, y int) {
 }
 
 //export nox_client_changeMousePos_430A00
-func nox_client_changeMousePos_430A00(x, y C.int, isAbs C.bool) {
-	noxClient.ChangeMousePos(image.Pt(int(x), int(y)), bool(isAbs))
+func nox_client_changeMousePos_430A00(x, y int, isAbs C.bool) {
+	noxClient.ChangeMousePos(image.Pt(x, y), bool(isAbs))
 }
 
 //export nox_xxx_setMouseBounds_430A70
-func nox_xxx_setMouseBounds_430A70(xmin, xmax, ymin, ymax C.int) {
-	noxClient.SetMouseBounds(image.Rect(int(xmin), int(ymin), int(xmax), int(ymax)))
+func nox_xxx_setMouseBounds_430A70(xmin, xmax, ymin, ymax int) {
+	noxClient.SetMouseBounds(image.Rect(xmin, ymin, xmax, ymax))
 }
 
 //export nox_input_pollEvents_4453A0
-func nox_input_pollEvents_4453A0() C.int {
+func nox_input_pollEvents_4453A0() int {
 	// TODO
 	//inpHandler.Tick()
 	return 0
@@ -319,7 +319,7 @@ func (c *Client) nox_client_processInput_4308A0() {
 }
 
 //export nox_input_reset_430140
-func nox_input_reset_430140(a1 C.int) {
+func nox_input_reset_430140(a1 int) {
 	noxClient.ResetInput()
 }
 

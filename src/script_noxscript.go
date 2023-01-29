@@ -47,13 +47,13 @@ func nox_script_activatorCancelAll_51AC60() {
 }
 
 //export nox_script_activatorSave_51AEA0
-func nox_script_activatorSave_51AEA0() C.int {
-	return C.int(noxServer.SaveActivators(cryptfile.Global()))
+func nox_script_activatorSave_51AEA0() int {
+	return noxServer.SaveActivators(cryptfile.Global())
 }
 
 //export nox_script_activatorLoad_51AF80
-func nox_script_activatorLoad_51AF80() C.int {
-	return C.int(noxServer.LoadActivators(cryptfile.Global()))
+func nox_script_activatorLoad_51AF80() int {
+	return noxServer.LoadActivators(cryptfile.Global())
 }
 
 //export nox_script_activatorResolveObjs_51B0C0
@@ -67,8 +67,8 @@ func nox_xxx_netGetUnitCodeServ_578AC0(cobj *nox_object_t) C.uint {
 }
 
 //export nox_server_scriptValToObjectPtr_511B60
-func nox_server_scriptValToObjectPtr_511B60(val C.int) *C.nox_object_t {
-	return noxServer.noxScript.scriptToObject(int(val)).CObj()
+func nox_server_scriptValToObjectPtr_511B60(val int) *C.nox_object_t {
+	return noxServer.noxScript.scriptToObject(val).CObj()
 }
 
 //export nox_script_get_caller
@@ -82,13 +82,13 @@ func nox_script_get_trigger() unsafe.Pointer {
 }
 
 //export nox_script_push
-func nox_script_push(v C.int) {
+func nox_script_push(v int) {
 	noxServer.noxScript.PushI32(int32(v))
 }
 
 //export nox_script_pop
-func nox_script_pop() C.int {
-	return C.int(noxServer.noxScript.PopI32())
+func nox_script_pop() int {
+	return int(noxServer.noxScript.PopI32())
 }
 
 //export nox_script_pushf
@@ -536,7 +536,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 }
 
 //export nox_setImaginaryCaster
-func nox_setImaginaryCaster() C.int {
+func nox_setImaginaryCaster() int {
 	s := noxServer
 	nox_xxx_imagCasterUnit_1569664 = s.newObjectByTypeID("ImaginaryCaster").AsUnit()
 	if nox_xxx_imagCasterUnit_1569664 == nil {
@@ -547,7 +547,7 @@ func nox_setImaginaryCaster() C.int {
 }
 
 //export nox_script_readWriteZzz_541670
-func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *C.char) C.int {
+func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *C.char) int {
 	if cpath == nil {
 		return 0
 	}

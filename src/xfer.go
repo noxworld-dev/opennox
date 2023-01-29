@@ -55,15 +55,15 @@ func init() {
 }
 
 //export nox_xxx_xfer_saveObj_51DF90
-func nox_xxx_xfer_saveObj_51DF90(a1 *nox_object_t) C.int {
-	return C.int(nox_xxx_xfer_saveObj51DF90(cryptfile.Global(), asObjectC(a1)))
+func nox_xxx_xfer_saveObj_51DF90(a1 *nox_object_t) int {
+	return nox_xxx_xfer_saveObj51DF90(cryptfile.Global(), asObjectC(a1))
 }
 
 func nox_xxx_xfer_saveObj51DF90(cf *cryptfile.CryptFile, a1p *Object) int {
 	if a1p.Flags().Has(object.FlagDestroyed) {
 		return 1
 	}
-	a1 := uint16(sub_42C2E0(C.int(a1p.TypeInd)))
+	a1 := uint16(sub_42C2E0(int(a1p.TypeInd)))
 	if a1 == 0 {
 		return 0
 	}
@@ -81,7 +81,7 @@ func nox_xxx_xfer_saveObj51DF90(cf *cryptfile.CryptFile, a1p *Object) int {
 }
 
 //export nox_xxx_XFerDefault_4F49A0
-func nox_xxx_XFerDefault_4F49A0(a1p *nox_object_t, a2 unsafe.Pointer) C.int {
+func nox_xxx_XFerDefault_4F49A0(a1p *nox_object_t, a2 unsafe.Pointer) int {
 	if err := nox_xxx_XFerDefault4F49A0(cryptfile.Global(), asObjectC(a1p), a2); err != nil {
 		mapLog.Println("nox_xxx_XFerDefault_4F49A0:", err)
 		return 0

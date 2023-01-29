@@ -53,7 +53,7 @@ func AIL_load_sample_buffer(s C.HSAMPLE, num C.uint32_t, buf unsafe.Pointer, sz 
 }
 
 //export sub_43F030
-func sub_43F030(a1 C.int) C.int {
+func sub_43F030(a1 int) int {
 	panic("abort")
 }
 
@@ -92,7 +92,7 @@ var (
 )
 
 //export sub_43EFD0
-func sub_43EFD0(a1 unsafe.Pointer) C.int {
+func sub_43EFD0(a1 unsafe.Pointer) int {
 	s := *(**audioSample)(unsafe.Add(a1, 272))
 	s.smp.End()
 	if s.flag7 == 0 {
@@ -105,7 +105,7 @@ func sub_43EFD0(a1 unsafe.Pointer) C.int {
 }
 
 //export sub_43E940
-func sub_43E940(a1 unsafe.Pointer) C.int {
+func sub_43E940(a1 unsafe.Pointer) int {
 	ail.Startup()
 	audioTimer93944 = ail.RegisterTimer(func(u uint32) {
 		C.sub_486EF0()
@@ -138,12 +138,12 @@ func noxAudioServeT(a1 int) {
 }
 
 //export sub_43F050
-func sub_43F050() C.int {
+func sub_43F050() int {
 	return 0
 }
 
 //export sub_43F0D0
-func sub_43F0D0() C.int {
+func sub_43F0D0() int {
 	return 0
 }
 
@@ -154,13 +154,13 @@ func noxAudioServe() { // sub_43F1A0
 }
 
 //export sub_43E8E0
-func sub_43E8E0(a1 C.int) {}
+func sub_43E8E0(a1 int) {}
 
 //export sub_43E910
-func sub_43E910(a1 C.int) {}
+func sub_43E910(a1 int) {}
 
 //export sub_43EA20
-func sub_43EA20(a1 unsafe.Pointer) C.int {
+func sub_43EA20(a1 unsafe.Pointer) int {
 	//char v2[16]; // [esp+4h] [ebp-10h]
 
 	v2 := sub_43EA90(unsafe.Add(a1, 60))
@@ -202,7 +202,7 @@ func sub_43EAD0(a1 *audioStruct1) ail.Driver {
 }
 
 //export sub_43EC10
-func sub_43EC10() C.int {
+func sub_43EC10() int {
 	if audioDev != 0 {
 		audioDev.Close()
 		audioDev = 0
@@ -211,12 +211,12 @@ func sub_43EC10() C.int {
 }
 
 //export sub_43F130
-func sub_43F130() C.int {
-	return C.int(audioDev)
+func sub_43F130() int {
+	return int(audioDev)
 }
 
 //export sub_43F010
-func sub_43F010(a1 unsafe.Pointer) C.int {
+func sub_43F010(a1 unsafe.Pointer) int {
 	p := *(**audioSample)(unsafe.Add(a1, 272))
 	p.smp.Stop()
 	return 0
@@ -236,7 +236,7 @@ type audioSample struct {
 }
 
 //export sub_43EC30
-func sub_43EC30(a1 unsafe.Pointer) C.int {
+func sub_43EC30(a1 unsafe.Pointer) int {
 	smp := audioDev.AllocateSample()
 	s, _ := alloc.New(audioSample{})
 	*(*unsafe.Pointer)(unsafe.Add(a1, 272)) = unsafe.Pointer(s)
@@ -255,7 +255,7 @@ func sub_43EC30(a1 unsafe.Pointer) C.int {
 }
 
 //export sub_43ECB0
-func sub_43ECB0(a1 unsafe.Pointer) C.int {
+func sub_43ECB0(a1 unsafe.Pointer) int {
 	p := *(**audioSample)(unsafe.Add(a1, 272))
 	if p.smp != 0 {
 		p.smp.Release()
@@ -271,7 +271,7 @@ func sub_43ECB0(a1 unsafe.Pointer) C.int {
 }
 
 //export sub_43ED00
-func sub_43ED00(a1p *C.uint32_t) C.int {
+func sub_43ED00(a1p *C.uint32_t) int {
 	a1 := unsafe.Slice((*uint32)(unsafe.Pointer(a1p)), 73)
 	s := *(**audioSample)(unsafe.Pointer(&a1[68]))
 	smp := s.smp
@@ -331,11 +331,11 @@ func sub_44D640() {
 }
 
 //export sub_44D7E0
-func sub_44D7E0(a1 C.int) C.int {
+func sub_44D7E0(a1 int) int {
 	if C.dword_5d4594_831088 == 0 {
 		return 0
 	}
-	C.sub_44D5C0(C.int(C.dword_5d4594_831088), a1)
+	C.sub_44D5C0(C.int(C.dword_5d4594_831088), C.int(a1))
 	ail.Stream(C.dword_5d4594_831088).Start()
 	return 1
 }
@@ -348,7 +348,7 @@ var audioTable = []string{
 }
 
 //export nox_xxx_musicStartPlay_43D6C0
-func nox_xxx_musicStartPlay_43D6C0(a1p *C.int) C.int {
+func nox_xxx_musicStartPlay_43D6C0(a1p *C.int) int {
 	if C.dword_5d4594_816376 == 0 {
 		return 0
 	}
@@ -403,7 +403,7 @@ func sub_44D930() bool {
 }
 
 //export sub_44D660
-func sub_44D660(a1 *C.char) C.int {
+func sub_44D660(a1 *C.char) int {
 	name := GoString(a1)
 	sub_44D640()
 	path := filepath.Join("dialog", name)
@@ -417,16 +417,16 @@ func sub_44D660(a1 *C.char) C.int {
 	}
 	v4 := GoString(C.sub_413890())
 	if v4 == "" {
-		return C.int(bool2int(C.dword_5d4594_831088 != 0))
+		return bool2int(C.dword_5d4594_831088 != 0)
 	}
 	C.dword_587000_122856 = 1
 	path2 := filepath.Join(v4, path)
 	C.dword_5d4594_831088 = C.uint(ail.Driver(C.dword_5d4594_831092).OpenStream(path2, 51200))
-	return C.int(bool2int(C.dword_5d4594_831088 != 0))
+	return bool2int(C.dword_5d4594_831088 != 0)
 }
 
 //export sub_43F060
-func sub_43F060(a1p *C.uint32_t) C.int {
+func sub_43F060(a1p *C.uint32_t) int {
 	a1 := unsafe.Slice((*uint32)(unsafe.Pointer(a1p)), 69)
 	s := *(**audioSample)(unsafe.Pointer(&a1[68]))
 	smp := s.smp

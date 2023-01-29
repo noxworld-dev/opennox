@@ -34,12 +34,12 @@ func nox_xxx_checkGameFlagPause_413A50() bool {
 }
 
 //export nox_xxx_GetGameplayFlags_417D90
-func nox_xxx_GetGameplayFlags_417D90() C.int {
-	return C.int(gameplayFlags)
+func nox_xxx_GetGameplayFlags_417D90() int {
+	return int(gameplayFlags)
 }
 
 //export nox_xxx_CheckGameplayFlags_417DA0
-func nox_xxx_CheckGameplayFlags_417DA0(v C.int) C.bool {
+func nox_xxx_CheckGameplayFlags_417DA0(v int) C.bool {
 	return C.bool(checkGameplayFlags(uint32(v)))
 }
 
@@ -48,11 +48,11 @@ func checkGameplayFlags(v uint32) bool {
 }
 
 //export nox_xxx_SetGameplayFlag_417D50
-func nox_xxx_SetGameplayFlag_417D50(v C.int) {
+func nox_xxx_SetGameplayFlag_417D50(v int) {
 	gameplayFlags |= uint32(v)
 }
 
 //export nox_xxx_UnsetGameplayFlags_417D70
-func nox_xxx_UnsetGameplayFlags_417D70(v C.int) {
+func nox_xxx_UnsetGameplayFlags_417D70(v int) {
 	gameplayFlags &^= uint32(v)
 }

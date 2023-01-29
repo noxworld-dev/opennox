@@ -93,8 +93,8 @@ func nox_memcpy_go(dst, src unsafe.Pointer, size C.uint) unsafe.Pointer {
 }
 
 //export nox_memcmp_go
-func nox_memcmp_go(ptr1, ptr2 unsafe.Pointer, size C.uint) C.int {
-	return C.int(alloc.Memcmp(ptr1, ptr2, uintptr(size)))
+func nox_memcmp_go(ptr1, ptr2 unsafe.Pointer, size C.uint) int {
+	return int(alloc.Memcmp(ptr1, ptr2, uintptr(size)))
 }
 
 //export nox_strlen_go
@@ -113,6 +113,6 @@ func nox_strcat_go(dst, src *C.char) *C.char {
 }
 
 //export nox_strcmp_go
-func nox_strcmp_go(str1, str2 *C.char) C.int {
-	return C.int(alloc.Strcmp(unsafe.Pointer(str1), unsafe.Pointer(str2)))
+func nox_strcmp_go(str1, str2 *C.char) int {
+	return int(alloc.Strcmp(unsafe.Pointer(str1), unsafe.Pointer(str2)))
 }

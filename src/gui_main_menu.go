@@ -188,7 +188,7 @@ func winMainMenuAnimOutDoneFnc() int {
 }
 
 //export sub_4A24C0
-func sub_4A24C0(a1 C.int) C.int {
+func sub_4A24C0(a1 int) int {
 	sub4A24C0(a1 != 0)
 	return 1
 }
@@ -206,7 +206,7 @@ func sub4A24C0(a1 bool) {
 }
 
 //export nox_game_showMainMenu_4A1C00
-func nox_game_showMainMenu_4A1C00() C.int {
+func nox_game_showMainMenu_4A1C00() int {
 	if nox_game_showMainMenu4A1C00() {
 		return 1
 	}
@@ -255,13 +255,13 @@ func nox_game_showMainMenu4A1C00() bool {
 }
 
 //export sub_43BE40
-func sub_43BE40(a1 C.int) {
+func sub_43BE40(a1 int) {
 	gui.SetAnimGlobalState(gui.AnimState(a1))
 }
 
 //export sub_43BE30
-func sub_43BE30() C.int {
-	return C.int(gui.AnimGlobalState())
+func sub_43BE30() int {
+	return int(gui.AnimGlobalState())
 }
 
 func sub_4A19D0() {
@@ -270,9 +270,9 @@ func sub_4A19D0() {
 }
 
 //export sub_4A18E0
-func sub_4A18E0(a1, a2, a3, a4 C.int) C.int {
-	res := sub4A18E0(asWindowP(unsafe.Pointer(uintptr(a1))), gui.AsWindowEvent(int(a2), uintptr(a3), uintptr(a4)))
-	return C.int(gui.EventRespInt(res))
+func sub_4A18E0(a1, a2, a3, a4 int) int {
+	res := sub4A18E0(asWindowP(unsafe.Pointer(uintptr(a1))), gui.AsWindowEvent(a2, uintptr(a3), uintptr(a4)))
+	return gui.EventRespInt(res)
 }
 
 func sub4A18E0(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
@@ -321,7 +321,7 @@ func nox_xxx_unknown_libname_11_4D1650() {
 }
 
 //export nox_client_drawGeneralCallback_4A2200
-func nox_client_drawGeneralCallback_4A2200() C.int {
+func nox_client_drawGeneralCallback_4A2200() int {
 	if err := noxClient.drawGeneral(false); err != nil {
 		videoLog.Println(err)
 		return 0

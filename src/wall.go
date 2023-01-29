@@ -22,13 +22,13 @@ func asWall(p unsafe.Pointer) *Wall {
 }
 
 //export nox_server_getWallAtGrid_410580
-func nox_server_getWallAtGrid_410580(x, y C.int) unsafe.Pointer {
-	return noxServer.getWallAtGrid(image.Pt(int(x), int(y))).C()
+func nox_server_getWallAtGrid_410580(x, y int) unsafe.Pointer {
+	return noxServer.getWallAtGrid(image.Pt(x, y)).C()
 }
 
 //export nox_xxx_wall_4105E0
-func nox_xxx_wall_4105E0(x, y C.int) unsafe.Pointer {
-	return noxServer.getWallAtGrid2(image.Pt(int(x), int(y))).C()
+func nox_xxx_wall_4105E0(x, y int) unsafe.Pointer {
+	return noxServer.getWallAtGrid2(image.Pt(x, y)).C()
 }
 
 func (s *Server) nox_xxx_wallTileByName_410D60(name string) byte {

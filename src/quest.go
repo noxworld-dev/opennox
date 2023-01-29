@@ -213,8 +213,8 @@ func nox_server_questAllowDefault() C.bool {
 }
 
 //export nox_server_questNextStageThreshold_4D74F0
-func nox_server_questNextStageThreshold_4D74F0(lvl C.int) C.int {
-	return C.int(questNextStageThreshold(int(lvl)))
+func nox_server_questNextStageThreshold_4D74F0(lvl int) int {
+	return questNextStageThreshold(lvl)
 }
 
 func (s *Server) nox_server_questMapNextLevel() {
@@ -393,8 +393,8 @@ func sub_4DCF20() {
 }
 
 //export sub_4D6F30
-func sub_4D6F30() C.int {
-	return C.int(bool2int(sub4D6F30()))
+func sub_4D6F30() int {
+	return bool2int(sub4D6F30())
 }
 
 func sub4D6F30() bool { // sub_4D6F30

@@ -32,12 +32,12 @@ func init() {
 }
 
 //export nox_objectPickupAudEvent_4F3D50
-func nox_objectPickupAudEvent_4F3D50(cobj1 *nox_object_t, cobj2 *nox_object_t, a3 C.int) C.int {
+func nox_objectPickupAudEvent_4F3D50(cobj1 *nox_object_t, cobj2 *nox_object_t, a3 int) int {
 	s := noxServer
 	if cobj1 == nil || cobj2 == nil {
 		return 0
 	}
-	ok := C.nox_xxx_pickupDefault_4F31E0(cobj1, cobj2, a3)
+	ok := int(C.nox_xxx_pickupDefault_4F31E0(cobj1, cobj2, C.int(a3)))
 	if ok == 0 {
 		return ok
 	}
