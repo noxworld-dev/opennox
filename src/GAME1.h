@@ -198,7 +198,6 @@ int sub_416150(int a1, int a2);
 int sub_416170(int a1);
 int sub_4161E0();
 void sub_4164F0();
-void nox_xxx_mapSetDataDefault_416500();
 int sub_416580();
 char* nox_xxx_cliGamedataGet_416590(int a1);
 char* sub_4165B0();
