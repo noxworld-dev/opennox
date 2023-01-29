@@ -856,7 +856,8 @@ void nox_gui_setQuestStage_450B00(int a1) { *getMemU32Ptr(0x5D4594, 832468) = a1
 int nox_gui_getQuestStage_450B10() { return *getMemU32Ptr(0x5D4594, 832468); }
 
 //----- (00451850) --------------------------------------------------------
-int sub_451850(int a2, int a3) {
+int sub_451850(int a2, void* a3p) {
+	int a3 = a3p;
 	int v2;            // edi
 	unsigned char* v3; // esi
 	int result;        // eax

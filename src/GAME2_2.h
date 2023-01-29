@@ -113,8 +113,6 @@ int sub_486640(void* a1, int a2);
 int sub_486670(int a1, int a2);
 int sub_4866A0(int a1);
 int sub_4866D0(uint32_t* a1, int a2);
-char* sub_4866F0(const char* a1, const char* a2);
-void sub_4869C0(void* lpMem);
 unsigned int sub_486A10(int a1, void* a2);
 int sub_486AA0(uint32_t* a1, int a2, uint32_t* a3);
 int sub_486B60(int a1, int a2);
