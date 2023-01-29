@@ -32,7 +32,6 @@ extern uint32_t dword_5d4594_831092;
 extern uint32_t dword_587000_122856;
 extern uint32_t dword_587000_122848;
 
-int sub_4311F0();
 void sub_43DC00();
 int sub_43D8E0();
 void sub_44D960();
@@ -475,7 +474,7 @@ func nox_audio_initall(a3 int) int {
 	}
 	if a3 != 0 {
 		sub_486F30()
-		if C.sub_4311F0() != 0 {
+		if sub_4311F0() != 0 {
 			C.dword_587000_81128 = unsafe.Add(C.dword_5d4594_805984, 88)
 			dword_5d4594_805980 = uint32(uintptr(unsafe.Pointer(C.sub_4866F0(internCStr("audio"), internCStr("audio")))))
 		}
@@ -503,6 +502,21 @@ func nox_audio_initall(a3 int) int {
 	}
 	C.sub_486320((*C.uint32_t)(C.dword_587000_127004), v3)
 	return 1
+}
+
+func sub_4311F0() int {
+	C.sub_486FA0(C.int(memmap.Int32(0x587000, 94032)))
+	v2, free := alloc.Make([]int32{}, 7)
+	defer free()
+	v2[2] = 22050
+	v2[1] = 0
+	v2[3] = 2
+	v2[4] = 2
+	v2[0] = 4
+	C.sub_487D00((*C.uint)(unsafe.Pointer(&v2[0])))
+	v0 := C.sub_487150(-1, unsafe.Pointer(&v2[0]))
+	C.dword_5d4594_805984 = unsafe.Pointer(v0)
+	return bool2int(v0 != nil && C.sub_487790(C.int(uintptr(unsafe.Pointer(v0))), 16) == 16)
 }
 
 func sub_486F30() int {
