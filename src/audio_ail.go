@@ -32,6 +32,19 @@ extern uint32_t dword_5d4594_831088;
 extern uint32_t dword_5d4594_831092;
 extern uint32_t dword_587000_122856;
 extern uint32_t dword_587000_122848;
+
+int sub_486F30();
+int sub_4311F0();
+void sub_43DC00();
+int sub_43D8E0();
+void sub_44D960();
+void sub_453050();
+int sub_451850(int a2, int a3);
+int nox_xxx_WorkerHurt_44D810();
+extern void* dword_587000_122852;
+extern void* dword_587000_81128;
+extern void* dword_587000_93164;
+extern void* dword_5d4594_805984;
 */
 import "C"
 import (
@@ -45,6 +58,11 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/ccall"
+)
+
+var (
+	nox_enable_audio    = 1
+	dword_5d4594_805980 uint32
 )
 
 //export AIL_load_sample_buffer
@@ -449,4 +467,40 @@ func nox_xxx_parseSoundSetBin_424170(path string) error {
 
 func sub_486670(v int, ind int) {
 	C.sub_486670(C.int(v), C.int(ind))
+}
+
+func nox_audio_initall(a3 int) int {
+	if nox_enable_audio == 0 {
+		return 1
+	}
+	if a3 != 0 {
+		C.sub_486F30()
+		if C.sub_4311F0() != 0 {
+			C.dword_587000_81128 = unsafe.Add(C.dword_5d4594_805984, 88)
+			dword_5d4594_805980 = uint32(uintptr(unsafe.Pointer(C.sub_4866F0(internCStr("audio"), internCStr("audio")))))
+		}
+	}
+	C.sub_4864A0((*C.uint32_t)(memmap.PtrOff(0x5D4594, 805884)))
+	C.sub_4864A0((*C.uint32_t)(C.dword_587000_93164))
+	C.sub_4864A0((*C.uint32_t)(C.dword_587000_122852))
+	C.sub_4864A0((*C.uint32_t)(C.dword_587000_127004))
+	C.nox_xxx_WorkerHurt_44D810()
+	C.sub_43D8E0()
+	C.sub_451850(C.int(uintptr(C.dword_5d4594_805984)), C.int(dword_5d4594_805980))
+	v1 := C.sub_4866A0(2)
+	if v1 == 0 {
+		C.sub_43DC00()
+	}
+	C.sub_486320((*C.uint32_t)(C.dword_587000_93164), v1)
+	v2 := C.sub_4866A0(1)
+	if v2 == 0 {
+		C.sub_44D960()
+	}
+	C.sub_486320((*C.uint32_t)(C.dword_587000_122852), v2)
+	v3 := C.sub_4866A0(0)
+	if v3 == 0 {
+		C.sub_453050()
+	}
+	C.sub_486320((*C.uint32_t)(C.dword_587000_127004), v3)
+	return 1
 }

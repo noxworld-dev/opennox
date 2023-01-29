@@ -35,7 +35,6 @@ void sub_43D650();
 void sub_43D680();
 void sub_43D6A0();
 int nox_xxx_musicStartPlay_43D6C0(int* a1);
-int sub_43D8E0();
 void sub_43D990();
 void sub_43D9B0(int a1, int a2);
 void sub_43D9E0(int4* a1);

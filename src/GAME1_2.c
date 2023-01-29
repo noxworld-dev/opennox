@@ -84,7 +84,6 @@ extern uint32_t dword_5d4594_811904;
 extern uint32_t dword_5d4594_805820;
 extern uint32_t dword_5d4594_741648;
 extern uint32_t dword_5d4594_815052;
-extern uint32_t dword_5d4594_805980;
 extern uint32_t dword_5d4594_741652;
 extern uint32_t dword_5d4594_3807116;
 extern uint32_t dword_5d4594_3807152;
@@ -97,16 +96,11 @@ extern uint32_t dword_5d4594_741356;
 extern uint32_t dword_5d4594_741332;
 extern uint32_t dword_5d4594_741364;
 extern nox_gui_animation* nox_wnd_xxx_815040;
-extern uint32_t dword_5d4594_805984;
 extern uint32_t dword_587000_87408;
-extern void* dword_587000_81128;
-extern void* dword_587000_122852;
 extern uint32_t dword_5d4594_528252;
 extern void* nox_alloc_screenParticles_806044;
-extern void* dword_587000_93164;
 extern uint32_t dword_5d4594_815044;
 extern uint32_t nox_wol_server_result_cnt_815088;
-extern void* dword_587000_127004;
 extern uint32_t dword_5d4594_528256;
 extern uint32_t dword_5d4594_815032;
 extern uint32_t dword_5d4594_815020;
@@ -120,7 +114,6 @@ extern uint32_t dword_5d4594_815000;
 extern uint32_t nox_wol_wnd_gameList_815012;
 extern nox_window* dword_5d4594_815004;
 extern nox_window* nox_wol_wnd_world_814980;
-extern int nox_enable_audio;
 extern uint32_t nox_color_white_2523948;
 
 int nox_win_width = 0;
@@ -138,6 +131,8 @@ nox_screenParticle* nox_screenParticles_head = 0;
 nox_screenParticle* dword_5d4594_806052 = 0;
 
 void* dword_5d4594_814624 = 0;
+
+void* dword_5d4594_805984 = 0;
 
 //----- (00427F30) --------------------------------------------------------
 int nox_xxx_wallMath_427F30(int2* a1, int* a2) {
@@ -3278,49 +3273,6 @@ int sub_430B50(int a1, int a2, int a3, int a4) {
 	return result;
 }
 
-
-//----- (004310B0) --------------------------------------------------------
-int nox_xxx_WorkerHurt_44D810();
-int nox_audio_initall(int a3) {
-	if (!nox_enable_audio) {
-		return 1;
-	}
-	int v1; // esi
-	int v2; // esi
-	int v3; // esi
-
-	if (a3) {
-		sub_486F30();
-		if (sub_4311F0()) {
-			dword_587000_81128 = dword_5d4594_805984 + 88;
-			dword_5d4594_805980 = sub_4866F0("audio", "audio");
-		}
-	}
-	sub_4864A0(getMemAt(0x5D4594, 805884));
-	sub_4864A0(*(uint32_t**)&dword_587000_93164);
-	sub_4864A0(*(uint32_t**)&dword_587000_122852);
-	sub_4864A0(*(uint32_t**)&dword_587000_127004);
-	nox_xxx_WorkerHurt_44D810();
-	sub_43D8E0();
-	sub_451850(*(int*)&dword_5d4594_805984, *(int*)&dword_5d4594_805980);
-	v1 = sub_4866A0(2);
-	if (!v1) {
-		sub_43DC00();
-	}
-	sub_486320(*(uint32_t**)&dword_587000_93164, v1);
-	v2 = sub_4866A0(1);
-	if (!v2) {
-		sub_44D960();
-	}
-	sub_486320(*(uint32_t**)&dword_587000_122852, v2);
-	v3 = sub_4866A0(0);
-	if (!v3) {
-		sub_453050();
-	}
-	sub_486320(*(uint32_t**)&dword_587000_127004, v3);
-	return 1;
-}
-
 //----- (004311F0) --------------------------------------------------------
 int sub_4311F0() {
 	uint32_t* v0; // eax
@@ -3343,7 +3295,7 @@ int sub_4311F0() {
 //----- (00431270) --------------------------------------------------------
 void sub_431270() {
 	if (dword_5d4594_805984) {
-		sub_487680(*(void**)&dword_5d4594_805984);
+		sub_487680(dword_5d4594_805984);
 		dword_5d4594_805984 = 0;
 	}
 }
