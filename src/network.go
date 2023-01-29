@@ -23,7 +23,6 @@ unsigned int nox_client_getServerAddr_43B300();
 void nox_xxx_playerInitColors_461460(nox_playerInfo* pl);
 int nox_xxx_gameClearAll_467DF0(int a1);
 int nox_client_getServerPort_43B320();
-int nox_client_getClientPort_40A420();
 int sub_419E60(nox_object_t* a1);
 int sub_457140(int a1, wchar_t* a2);
 int sub_43AF90(int a1);
@@ -160,7 +159,11 @@ func clientGetServerPort() int {
 }
 
 func clientGetClientPort() int {
-	return int(C.nox_client_getClientPort_40A420())
+	return int(memmap.Uint32(0x5D4594, 3528))
+}
+
+func nox_xxx_setClientNetPort_40A410(a1 int) {
+	*memmap.PtrUint32(0x5D4594, 3528) = uint32(a1)
 }
 
 //export nox_client_setServerConnectAddr_435720

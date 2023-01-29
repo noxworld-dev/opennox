@@ -38,8 +38,6 @@ long long sub_40A310(int a1);
 void nox_xxx_set3512_40A340(int a1);
 int nox_xxx_get3512_40A350();
 unsigned int sub_40A3C0(unsigned int a1);
-int nox_xxx_setClientNetPort_40A410(int a1);
-int nox_client_getClientPort_40A420();
 int nox_xxx_servGetPort_40A430();
 char* nox_xxx_gameSetServername_40A440(char* a1);
 char* nox_xxx_serverOptionsGetServername_40A4C0();

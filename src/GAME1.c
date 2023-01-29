@@ -324,18 +324,6 @@ unsigned int sub_40A3C0(unsigned int a1) {
 	return result;
 }
 
-//----- (0040A410) --------------------------------------------------------
-int nox_xxx_setClientNetPort_40A410(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 3528) = a1;
-	return result;
-}
-
-//----- (0040A420) --------------------------------------------------------
-int nox_client_getClientPort_40A420() { return *getMemU32Ptr(0x5D4594, 3528); }
-
 //----- (0040A440) --------------------------------------------------------
 char* nox_xxx_gameSetServername_40A440(char* a1) {
 	char* result; // eax
