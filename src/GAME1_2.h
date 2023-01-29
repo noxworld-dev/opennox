@@ -86,8 +86,6 @@ void nox_client_setMousePos_430B10(int x, int y);
 int sub_430B50(int a1, int a2, int a3, int a4);
 void sub_430C30_set_video_max(int w, int h);
 void nox_xxx_screenGetSize_430C50_get_video_max(int* w, int* h);
-int nox_audio_initall(int a3);
-int sub_4311F0();
 void sub_431270();
 void sub_431290();
 int sub_431370();

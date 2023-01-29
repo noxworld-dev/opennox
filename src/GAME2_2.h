@@ -123,7 +123,6 @@ FILE* sub_486E00(int a1);
 int sub_486E30(int a1, uint32_t* a2);
 int sub_486E90(int a1);
 void* sub_486EF0();
-int sub_486F30();
 uint32_t* sub_486FA0(int a1);
 uint32_t* sub_486FE0(int a1);
 void sub_487030(void* lpMem);
