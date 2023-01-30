@@ -21,6 +21,7 @@ import (
 	_ "github.com/noxworld-dev/opennox-lib/script/eval"
 	_ "github.com/noxworld-dev/opennox-lib/script/lua"
 
+	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -316,7 +317,7 @@ func (noxScriptImpl) AudioEffect(name string, pos script.Positioner) {
 type scriptGlobalPrint struct{}
 
 func (scriptGlobalPrint) Print(text string) {
-	PrintToPlayers(text)
+	legacy.PrintToPlayers(text)
 }
 
 func (noxScriptImpl) Global() script.Printer {

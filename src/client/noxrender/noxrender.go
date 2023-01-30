@@ -10,8 +10,8 @@ import (
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/noximage"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 var Log = log.New("render")
@@ -353,8 +353,8 @@ func NewRender(f Framer) *NoxRender {
 type NoxRender struct {
 	p     *RenderData
 	f     Framer
-	Bag   renderSprites
-	Fonts renderFonts
+	Bag   RenderSprites
+	Fonts RenderFonts
 	Part  renderParticles
 	pix   *noximage.Image16
 

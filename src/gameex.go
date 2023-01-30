@@ -1,23 +1,5 @@
 package opennox
 
-/*
-#include "defs.h"
-#include "client__gui__window.h"
-extern unsigned int dword_5d4594_1064868;
-extern unsigned int dword_5d4594_1316972;
-extern unsigned int gameex_flags;
-int sub_4BDFD0();
-char  mix_MouseKeyboardWeaponRoll(nox_object_t* playerObj, char a2);
-int getFlagValueFromFlagIndex(signed int a1);
-int  modifyWndInputHandler(int a1, int a2, int a3, int a4);
-int  nox_xxx_clientUpdateButtonRow_45E110(int a1);
-unsigned int*  nox_xxx_objGetTeamByNetCode_418C80(int a1);
-void  nox_xxx_printCentered_445490(wchar_t* a1);
-char  playerDropATrap(int playerObj);
-char playerInfoStructParser_0(void* a1);
-char playerInfoStructParser_1(void* a1, int* a3);
-*/
-import "C"
 import (
 	"bufio"
 	"encoding/binary"
@@ -38,10 +20,11 @@ import (
 	"github.com/noxworld-dev/opennox-lib/log"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 var modifyWndPntr *gui.Window
@@ -77,9 +60,9 @@ func gameexLoadConfig() {
 		{Key: configKeyGameExBerserkShieldBlock, Flag: 0x10},
 	} {
 		if viper.GetBool(f.Key) {
-			C.gameex_flags |= C.uint(f.Flag)
+			*legacy.Get_gameex_flags_ptr() |= uint32(f.Flag)
 		} else {
-			C.gameex_flags &^= C.uint(f.Flag)
+			*legacy.Get_gameex_flags_ptr() &^= uint32(f.Flag)
 		}
 	}
 }
@@ -158,9 +141,9 @@ func gameexReadConfig(path string) error {
 				return err
 			}
 			if v {
-				C.gameex_flags |= 0x20
+				*legacy.Get_gameex_flags_ptr() |= 0x20
 			} else {
-				C.gameex_flags &^= 0x20
+				*legacy.Get_gameex_flags_ptr() &^= 0x20
 			}
 		case "PANEL1", "PANEL2", "PANEL3", "PANEL4", "PANEL5", "TRAPKEY":
 		default:
@@ -174,7 +157,7 @@ func gameex_makeExtensionPacket(buf []byte, opcode uint16, needsPlayer bool) {
 	binary.LittleEndian.PutUint16(buf[0:], 0xF13A) // extension packet code
 	binary.LittleEndian.PutUint16(buf[2:], opcode)
 	if needsPlayer {
-		binary.LittleEndian.PutUint32(buf[4:], uint32(clientPlayerNetCode())) // playerNetCode
+		binary.LittleEndian.PutUint32(buf[4:], uint32(legacy.ClientPlayerNetCode())) // playerNetCode
 	}
 }
 
@@ -183,7 +166,7 @@ func MixRecvFromReplacer(pc net.PacketConn, buf1 []byte, from netip.AddrPort) {
 	buf1 = buf1[4:]
 	switch op {
 	case 0: // warrior weapon scroll
-		if (C.gameex_flags>>3)&1 != 0 {
+		if (legacy.Get_gameex_flags()>>3)&1 != 0 {
 			ti := binary.LittleEndian.Uint32(buf1)
 			buf1 = buf1[4:]
 			v10 := noxServer.getObjectFromNetCode(int(ti))
@@ -194,7 +177,7 @@ func MixRecvFromReplacer(pc net.PacketConn, buf1 []byte, from netip.AddrPort) {
 				v9 &= 0xEF
 			}
 			if v10.AsUnit().ControllingPlayer().PlayerClass() == player.Warrior || v36 {
-				if C.mix_MouseKeyboardWeaponRoll(v10.CObj(), C.char(v9)) != 0 {
+				if legacy.Mix_MouseKeyboardWeaponRoll(v10.SObj(), int8(v9)) != 0 {
 					var buf [4]byte
 					binary.LittleEndian.PutUint16(buf[0:], 0xF13A)
 					binary.LittleEndian.PutUint16(buf[2:], 2)
@@ -206,37 +189,37 @@ func MixRecvFromReplacer(pc net.PacketConn, buf1 []byte, from netip.AddrPort) {
 		clientPlaySoundSpecial(sound.SoundNextWeapon, 100)
 	case 4:
 		if noxflags.HasGame(noxflags.GameHost) {
-			if (C.gameex_flags>>5)&1 != 0 {
-				data := buf1[:StrLenBytes(buf1)]
+			if (legacy.Get_gameex_flags()>>5)&1 != 0 {
+				data := buf1[:alloc.StrLenS(buf1)]
 				v43, free := alloc.Make([]byte{}, 2+len(data)+1)
 				defer free()
 				copy(v43[2:], data)
-				if C.playerInfoStructParser_0(unsafe.Pointer(&v43[0])) != 0 {
+				if legacy.PlayerInfoStructParser_0(unsafe.Pointer(&v43[0])) != 0 {
 					var buf [22]byte
 					binary.LittleEndian.PutUint16(buf[0:], 0xF13A)
 					binary.LittleEndian.PutUint16(buf[2:], 6)
-					StrNCopyBytes(buf[4:22], noxServer.getServerName())
+					alloc.StrCopy(buf[4:22], noxServer.getServerName())
 					netstr.WriteTo(pc, buf[:22], from)
 				}
 			}
 		}
 	case 5:
-		if (C.gameex_flags>>5)&1 != 0 {
-			nox_xxx_printCentered_445490(GoStringS(buf1))
+		if (legacy.Get_gameex_flags()>>5)&1 != 0 {
+			nox_xxx_printCentered_445490(alloc.GoStringS(buf1))
 			clientPlaySoundSpecial(sound.SoundManaClick, 100)
 		}
 	case 7:
-		nox_xxx_printCentered_445490(GoStringS(buf1))
+		nox_xxx_printCentered_445490(alloc.GoStringS(buf1))
 		clientPlaySoundSpecial(sound.SoundManaClick, 100)
 	case 8:
-		if noxflags.HasGame(noxflags.GameHost) && ((C.gameex_flags>>5)&1 != 0) {
-			data := buf1[:StrLenBytes(buf1)]
+		if noxflags.HasGame(noxflags.GameHost) && ((legacy.Get_gameex_flags()>>5)&1 != 0) {
+			data := buf1[:alloc.StrLenS(buf1)]
 			v43, free := alloc.Make([]byte{}, 2+len(data)+1)
 			defer free()
-			v39, free39 := alloc.New(C.int(0))
+			v39, free39 := alloc.New(int32(0))
 			defer free39()
 			copy(v43[2:], data)
-			if C.playerInfoStructParser_1(unsafe.Pointer(&v43[0]), v39) != 0 {
+			if legacy.PlayerInfoStructParser_1(unsafe.Pointer(&v43[0]), v39) != 0 {
 				// TODO: decipher it
 
 				//buf[2] = 7
@@ -259,10 +242,10 @@ func MixRecvFromReplacer(pc net.PacketConn, buf1 []byte, from netip.AddrPort) {
 			}
 		}
 	case 9:
-		if (C.gameex_flags>>3)&1 != 0 {
+		if (legacy.Get_gameex_flags()>>3)&1 != 0 {
 			ti := binary.LittleEndian.Uint32(buf1)
-			v35 := uintptr(unsafe.Pointer(noxServer.getObjectFromNetCode(int(ti)).CObj()))
-			C.playerDropATrap(C.int(v35))
+			v35 := noxServer.getObjectFromNetCode(int(ti)).SObj()
+			legacy.PlayerDropATrap(v35)
 		}
 	}
 }
@@ -277,12 +260,12 @@ var wndEntryNames = [5][35]uint16{
 
 func gameexDropTrap() {
 	if noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
-		if C.dword_5d4594_1064868 != 0 || noxClient.GUI.Captured() != nil {
+		if legacy.Get_dword_5d4594_1064868() != 0 || noxClient.GUI.Captured() != nil {
 			return
 		}
 		if noxflags.HasGame(noxflags.GameHost) { // checkGameFlags isServer
-			v9 := noxServer.getObjectFromNetCode(clientPlayerNetCode())
-			C.playerDropATrap(C.int(uintptr(unsafe.Pointer(v9.CObj()))))
+			v9 := noxServer.getObjectFromNetCode(legacy.ClientPlayerNetCode())
+			legacy.PlayerDropATrap(v9.SObj())
 		} else {
 			// TODO: this currently relies on extension packets, which should not be required for this
 			//       it can be done the "natural way": find the trap in the client-side data structures
@@ -309,15 +292,15 @@ func call_OnLibraryNotice_265(arg3 int) {
 	if !noxClient.GUI.GameexCheck() {
 		return
 	}
-	if (C.gameex_flags>>3)&1 == 0 {
+	if (legacy.Get_gameex_flags()>>3)&1 == 0 {
 		return
 	}
 	if !noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
 		return
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
-		if u := HostPlayerUnit(); u != nil && u.ControllingPlayer().PlayerClass() == player.Warrior {
-			if C.mix_MouseKeyboardWeaponRoll(u.CObj(), C.char(a2a)) != 0 {
+		if u := legacy.HostPlayerUnit(); u != nil && asUnitS(u).ControllingPlayer().PlayerClass() == player.Warrior {
+			if legacy.Mix_MouseKeyboardWeaponRoll(u.SObj(), int8(a2a)) != 0 {
 				clientPlaySoundSpecial(sound.SoundNextWeapon, 100)
 			}
 		}
@@ -330,15 +313,15 @@ func call_OnLibraryNotice_265(arg3 int) {
 }
 
 func gameexOnKeyboardPress(kcode keybind.Key) {
-	if ((C.gameex_flags>>3)&1 != 0) && (kcode == keybind.KeyLBracket || kcode == keybind.KeyRBracket) {
+	if ((legacy.Get_gameex_flags()>>3)&1 != 0) && (kcode == keybind.KeyLBracket || kcode == keybind.KeyRBracket) {
 		v8 := byte(bool2int(kcode == keybind.KeyLBracket))
 		// checks some gameFlags that are yet undiscovered
 		if noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
-			if C.dword_5d4594_1064868 != 0 || noxClient.GUI.Captured() != nil {
+			if legacy.Get_dword_5d4594_1064868() != 0 || noxClient.GUI.Captured() != nil {
 				return
 			}
 			if noxflags.HasGame(noxflags.GameHost) { // isServer
-				if u := HostPlayerUnit(); u != nil && C.mix_MouseKeyboardWeaponRoll(u.CObj(), C.char(v8)) != 0 {
+				if u := legacy.HostPlayerUnit(); u != nil && legacy.Mix_MouseKeyboardWeaponRoll(u.SObj(), int8(v8)) != 0 {
 					clientPlaySoundSpecial(sound.SoundNextWeapon, 100)
 				}
 			} else {
@@ -371,15 +354,15 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 			if noxflags.HasGame(noxflags.GameModeSolo10) {
 				modifyWndPntr.ChildByID(1938).Hide()
 				v11 := modifyWndPntr.ChildByID(1524)
-				nox_xxx_wnd_46ABB0(v11, 0)
+				legacy.Nox_xxx_wnd_46ABB0(v11, 0)
 			}
 			modifyWndPntr.SetParent(nil)
 			a2b := modifyWndPntr.ChildByID(1981)
 			for i := 0; i < 5; i++ {
-				wstr := GoWStringSlice(wndEntryNames[i][:])
+				wstr := alloc.GoString16S(wndEntryNames[i][:])
 				id := uint(1520 + i)
 				a2b.Func94(&WindowEvent0x400d{Str: wstr, Val: -1})
-				if uint32(C.getFlagValueFromFlagIndex(C.int(id)-1519))&uint32(C.gameex_flags) != 0 {
+				if legacy.GetFlagValueFromFlagIndex(int(id)-1519)&legacy.Get_gameex_flags() != 0 {
 					v14 := modifyWndPntr.ChildByID(id)
 					v14.DrawData().Field0 |= 0x4
 				} else {
@@ -406,38 +389,38 @@ func modifyWndInputHandler(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventRe
 			destroyGameExWindow()
 		case 1938:
 			if !noxflags.HasGame(noxflags.GameModeSolo10) {
-				C.sub_4BDFD0()
-				asWindowP(unsafe.Pointer(uintptr(C.dword_5d4594_1316972))).SetPos(image.Point{X: 200, Y: 100})
+				legacy.Sub_4BDFD0()
+				legacy.Get_dword_5d4594_1316972().SetPos(image.Point{X: 200, Y: 100})
 			}
 		case 1520:
-			if (C.gameex_flags>>1)&1 != 0 {
-				C.gameex_flags &= 0xFFFFFFFD
+			if (legacy.Get_gameex_flags()>>1)&1 != 0 {
+				*legacy.Get_gameex_flags_ptr() &= 0xFFFFFFFD
 			} else {
-				C.gameex_flags |= 0x2
+				*legacy.Get_gameex_flags_ptr() |= 0x2
 			}
 		case 1521:
-			if (C.gameex_flags>>2)&1 != 0 {
-				C.gameex_flags &= 0xFFFFFFFB
+			if (legacy.Get_gameex_flags()>>2)&1 != 0 {
+				*legacy.Get_gameex_flags_ptr() &= 0xFFFFFFFB
 			} else {
-				C.gameex_flags |= 0x4
+				*legacy.Get_gameex_flags_ptr() |= 0x4
 			}
 		case 1522:
-			if (C.gameex_flags>>3)&1 != 0 {
-				C.gameex_flags &= 0xFFFFFFF7
+			if (legacy.Get_gameex_flags()>>3)&1 != 0 {
+				*legacy.Get_gameex_flags_ptr() &= 0xFFFFFFF7
 			} else {
-				C.gameex_flags |= 0x8
+				*legacy.Get_gameex_flags_ptr() |= 0x8
 			}
 		case 1523:
-			if (C.gameex_flags>>4)&1 != 0 {
-				C.gameex_flags &= 0xFFFFFFEF
+			if (legacy.Get_gameex_flags()>>4)&1 != 0 {
+				*legacy.Get_gameex_flags_ptr() &= 0xFFFFFFEF
 			} else {
-				C.gameex_flags |= 0x10
+				*legacy.Get_gameex_flags_ptr() |= 0x10
 			}
 		case 1524:
-			if (C.gameex_flags>>5)&1 != 0 {
-				C.gameex_flags &= 0xFFFFFFDF
+			if (legacy.Get_gameex_flags()>>5)&1 != 0 {
+				*legacy.Get_gameex_flags_ptr() &= 0xFFFFFFDF
 			} else {
-				C.gameex_flags |= 0x20
+				*legacy.Get_gameex_flags_ptr() |= 0x20
 			}
 		}
 		return nil

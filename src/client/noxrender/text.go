@@ -15,7 +15,7 @@ import (
 	"golang.org/x/image/font/opentype"
 	"golang.org/x/image/math/fixed"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc/handles"
 )
 
 type fontFile struct {
@@ -34,13 +34,13 @@ var noxFontFiles = []fontFile{
 	{Name: noxfont.SmallName, File: noxfont.SmallFile, Size: 9},
 }
 
-type renderFonts struct {
+type RenderFonts struct {
 	byName map[string]*fontFile
 	byPtr  map[unsafe.Pointer]*fontFile
 	def    font.Face
 }
 
-func (r *renderFonts) Load(lang int) error {
+func (r *RenderFonts) Load(lang int) error {
 	r.byName = make(map[string]*fontFile)
 	r.byPtr = make(map[unsafe.Pointer]*fontFile)
 	for i := range noxFontFiles {
@@ -65,7 +65,7 @@ func (r *renderFonts) Load(lang int) error {
 	return nil
 }
 
-func (r *renderFonts) Free() {
+func (r *RenderFonts) Free() {
 	for i := range noxFontFiles {
 		f := &noxFontFiles[i]
 		if f.Font != nil {
@@ -76,11 +76,11 @@ func (r *renderFonts) Free() {
 	}
 }
 
-func (r *renderFonts) DefaultFont() font.Face {
+func (r *RenderFonts) DefaultFont() font.Face {
 	return r.def
 }
 
-func (r *renderFonts) FontByName(name string) font.Face {
+func (r *RenderFonts) FontByName(name string) font.Face {
 	name = strings.ToLower(name)
 	f := r.byName[name]
 	if f == nil {
@@ -90,7 +90,7 @@ func (r *renderFonts) FontByName(name string) font.Face {
 	return f.Font
 }
 
-func (r *renderFonts) AsFont(ptr unsafe.Pointer) font.Face {
+func (r *RenderFonts) AsFont(ptr unsafe.Pointer) font.Face {
 	if ptr == nil {
 		return nil
 	}
@@ -101,7 +101,7 @@ func (r *renderFonts) AsFont(ptr unsafe.Pointer) font.Face {
 	return fnt.Font
 }
 
-func (r *renderFonts) FontPtrByName(name string) unsafe.Pointer {
+func (r *RenderFonts) FontPtrByName(name string) unsafe.Pointer {
 	name = strings.ToLower(name)
 	f := r.byName[name]
 	if f == nil {
@@ -191,6 +191,14 @@ func (r *NoxRender) FontHeight(fnt font.Face) int {
 		return 0
 	}
 	return fnt.Metrics().CapHeight.Round()
+}
+
+func (r *NoxRender) GetFonts() *RenderFonts {
+	return &r.Fonts
+}
+
+func (r *NoxRender) GetBag() *RenderSprites {
+	return &r.Bag
 }
 
 func (r *NoxRender) DrawString(font font.Face, str string, pos image.Point) int { // nox_xxx_drawString_43F6E0

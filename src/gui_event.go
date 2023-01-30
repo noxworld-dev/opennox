@@ -4,42 +4,44 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 func init() {
 	gui.RegisterWindowEvent(&WindowEvent0x4000{}, func(a1, a2 uintptr) gui.WindowEvent {
 		return &WindowEvent0x4000{
-			Win: asWindowP(unsafe.Pointer(a1)),
+			Win: legacy.AsWindowP(unsafe.Pointer(a1)),
 			Val: a2,
 		}
 	})
 	gui.RegisterWindowEvent(&WindowEvent0x4005{}, func(a1, a2 uintptr) gui.WindowEvent {
 		return &WindowEvent0x4005{
-			Win: asWindowP(unsafe.Pointer(a1)),
+			Win: legacy.AsWindowP(unsafe.Pointer(a1)),
 			Val: a2,
 		}
 	})
 	gui.RegisterWindowEvent(&WindowEvent0x4007{}, func(a1, a2 uintptr) gui.WindowEvent {
 		return &WindowEvent0x4007{
-			Win: asWindowP(unsafe.Pointer(a1)),
+			Win: legacy.AsWindowP(unsafe.Pointer(a1)),
 			Val: a2,
 		}
 	})
 	gui.RegisterWindowEvent(&WindowEvent0x4009{}, func(a1, a2 uintptr) gui.WindowEvent {
 		return &WindowEvent0x4009{
-			Win: asWindowP(unsafe.Pointer(a1)),
+			Win: legacy.AsWindowP(unsafe.Pointer(a1)),
 			Val: int(a2),
 		}
 	})
 	gui.RegisterWindowEvent(&WindowEvent0x400c{}, func(a1, a2 uintptr) gui.WindowEvent {
 		return &WindowEvent0x400c{
-			Win: asWindowP(unsafe.Pointer(a1)),
+			Win: legacy.AsWindowP(unsafe.Pointer(a1)),
 			Val: a2,
 		}
 	})
 	gui.RegisterWindowEvent(&WindowEvent0x400d{}, func(a1, a2 uintptr) gui.WindowEvent {
-		cstr := (*wchar_t)(unsafe.Pointer(a1))
-		str := GoWString(cstr)
+		cstr := (*uint16)(unsafe.Pointer(a1))
+		str := alloc.GoString16(cstr)
 		return &WindowEvent0x400d{
 			Str:  str,
 			Val:  int(a2),
@@ -48,7 +50,7 @@ func init() {
 	})
 	gui.RegisterWindowEvent(&WindowEvent0x4010{}, func(a1, a2 uintptr) gui.WindowEvent {
 		return &WindowEvent0x4010{
-			Win: asWindowP(unsafe.Pointer(a1)),
+			Win: legacy.AsWindowP(unsafe.Pointer(a1)),
 			Val: a2,
 		}
 	})
@@ -59,8 +61,8 @@ func init() {
 		}
 	})
 	gui.RegisterWindowEvent(&WindowItemSetString0x4017{}, func(a1, a2 uintptr) gui.WindowEvent {
-		cstr := (*wchar_t)(unsafe.Pointer(a1))
-		str := GoWString(cstr)
+		cstr := (*uint16)(unsafe.Pointer(a1))
+		str := alloc.GoString16(cstr)
 		return &WindowItemSetString0x4017{
 			Str:  str,
 			Ind:  int(a2),
@@ -69,13 +71,13 @@ func init() {
 	})
 	gui.RegisterWindowEvent(&WindowEvent0x4018{}, func(a1, a2 uintptr) gui.WindowEvent {
 		return &WindowEvent0x4018{
-			Win: asWindowP(unsafe.Pointer(a1)),
+			Win: legacy.AsWindowP(unsafe.Pointer(a1)),
 			Val: a2,
 		}
 	})
 	gui.RegisterWindowEvent(&WindowEvent0x4019{}, func(a1, a2 uintptr) gui.WindowEvent {
 		return &WindowEvent0x4019{
-			Win: asWindowP(unsafe.Pointer(a1)),
+			Win: legacy.AsWindowP(unsafe.Pointer(a1)),
 			Val: a2,
 		}
 	})
@@ -88,7 +90,7 @@ func eventRespStr(r gui.WindowEventResp) string {
 	case *StrEventResp:
 		return r.Str
 	default:
-		return GoWString((*wchar_t)(gui.EventRespPtr(r)))
+		return alloc.GoString16((*uint16)(gui.EventRespPtr(r)))
 	}
 }
 
@@ -96,12 +98,12 @@ var _ gui.WindowEventResp = &StrEventResp{}
 
 type StrEventResp struct {
 	Str  string
-	cstr *wchar_t
+	cstr *uint16
 }
 
 func (r *StrEventResp) EventRespC() uintptr {
 	if r.cstr == nil {
-		r.cstr = internWStr(r.Str)
+		r.cstr = alloc.InternCString16(r.Str)
 	}
 	return uintptr(unsafe.Pointer(r.cstr))
 }
@@ -171,13 +173,13 @@ var _ gui.WindowEvent = &WindowEvent0x400d{}
 type WindowEvent0x400d struct {
 	Str  string
 	Val  int
-	cstr *wchar_t
+	cstr *uint16
 }
 
 func (*WindowEvent0x400d) EventCode() int { return 0x400d }
 func (ev *WindowEvent0x400d) EventArgsC() (uintptr, uintptr) {
 	if ev.cstr == nil {
-		ev.cstr = internWStr(ev.Str)
+		ev.cstr = alloc.InternCString16(ev.Str)
 	}
 	return uintptr(unsafe.Pointer(ev.cstr)), uintptr(ev.Val)
 }
@@ -211,13 +213,13 @@ var _ gui.WindowEvent = &WindowItemSetString0x4017{}
 type WindowItemSetString0x4017 struct {
 	Str  string
 	Ind  int
-	cstr *wchar_t
+	cstr *uint16
 }
 
 func (*WindowItemSetString0x4017) EventCode() int { return 0x4017 }
 func (ev *WindowItemSetString0x4017) EventArgsC() (uintptr, uintptr) {
 	if ev.cstr == nil {
-		ev.cstr = internWStr(ev.Str)
+		ev.cstr = alloc.InternCString16(ev.Str)
 	}
 	return uintptr(unsafe.Pointer(ev.cstr)), uintptr(ev.Ind)
 }

@@ -14,13 +14,15 @@ require (
 	github.com/spf13/viper v1.8.1
 	github.com/stretchr/testify v1.8.0
 	github.com/szhublox/opennoxcontrol v0.0.0-20211214215120-c4bc4281312f
+	github.com/tawesoft/golib/v2 v2.6.1
 	github.com/timshannon/go-openal v0.0.0-20170220204755-e0ed4c67cffe
 	github.com/youpy/go-wav v0.3.2
 	golang.org/x/crypto v0.1.0
 	golang.org/x/image v0.0.0-20220902085622-e7cb96979f69
-	golang.org/x/mod v0.6.0
-	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.4.0
+	golang.org/x/mod v0.8.0
+	golang.org/x/sync v0.1.0
+	golang.org/x/sys v0.5.0
+	golang.org/x/tools v0.6.0
 	gopkg.in/yaml.v2 v2.4.0
 )
 
@@ -52,7 +54,6 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
-	github.com/tawesoft/golib/v2 v2.6.1 // indirect
 	github.com/traefik/yaegi v0.14.4-0.20221213104605-eee72d1aae66 // indirect
 	github.com/veandco/go-sdl2 v0.4.25 // indirect
 	github.com/youpy/go-riff v0.1.0 // indirect

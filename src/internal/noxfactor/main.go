@@ -235,7 +235,7 @@ func (r *Refactorer) preProcessFile(path string) error {
 
 var knownLibs = map[string][2]string{
 	"image":    {"", "image"},
-	"alloc":    {"", "github.com/noxworld-dev/opennox/v1/common/alloc"},
+	"alloc":    {"", "github.com/noxworld-dev/opennox/v1/legacy/common/alloc"},
 	"memmap":   {"", "github.com/noxworld-dev/opennox/v1/common/memmap"},
 	"noxflags": {"noxflags", "github.com/noxworld-dev/opennox/v1/common/flags"},
 }

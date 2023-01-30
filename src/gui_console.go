@@ -1,12 +1,5 @@
 package opennox
 
-/*
-#include "client__gui__window.h"
-#include "client__gui__guicon.h"
-void nox_xxx_consoleEsc_49B7A0();
-unsigned int nox_gui_xxx_check_446360();
-*/
-import "C"
 import (
 	"context"
 	"fmt"
@@ -17,10 +10,11 @@ import (
 	"github.com/noxworld-dev/opennox-lib/console"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/version"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 var (
@@ -44,26 +38,15 @@ func init() {
 		Flags: console.ClientServer,
 		Func:  guiCon.cmdUnlock,
 	})
+	legacy.GetConsole = func() *console.Console {
+		return noxConsole
+	}
 }
 
-//export nox_gui_console_flagXxx_451410
 func nox_gui_console_flagXxx_451410() int {
 	return int((^(guiCon.root.GetFlags() >> 4)) & 1)
 }
 
-//export nox_gui_console_Print_450B90
-func nox_gui_console_Print_450B90(cl C.uchar, cstr *C.wchar_t) int {
-	// since legacy code still calls it, we redirect into global printer instead of GUI printer
-	noxConsole.Print(console.Color(cl), GoWString(cstr))
-	return 1
-}
-
-//export nox_gui_console_PrintOrError_450C30
-func nox_gui_console_PrintOrError_450C30(cl C.uchar, cstr *C.wchar_t) {
-	noxConsole.PrintOrError(console.Color(cl), GoWString(cstr))
-}
-
-//export nox_gui_console_Hide_4512B0
 func nox_gui_console_Hide_4512B0() int {
 	return bool2int(guiCon.Hide())
 }
@@ -147,15 +130,15 @@ func (c *guiConsole) Init(sz image.Point) *gui.Window {
 
 	drawData.Style = gui.StyleScrollListBox
 
-	scrollData, freeScr := alloc.New(scrollListBoxData{})
+	scrollData, freeScr := alloc.New(gui.ScrollListBoxData{})
 	defer freeScr()
-	scrollData.count = 128
-	scrollData.line_height = 10
-	scrollData.field_1 = 1
-	scrollData.field_2 = 1
-	scrollData.field_3 = 1
-	scrollData.field_4 = 0
-	c.scrollbox = nox_gui_newScrollListBox_4A4310(c.root, 1152, 0, 0, int(memmap.Int32(0x5D4594, 833704)), int(memmap.Int32(0x5D4594, 833708))-20, drawData, scrollData)
+	scrollData.Count = 128
+	scrollData.Line_height = 10
+	scrollData.Field_1 = 1
+	scrollData.Field_2 = 1
+	scrollData.Field_3 = 1
+	scrollData.Field_4 = 0
+	c.scrollbox = legacy.Nox_gui_newScrollListBox_4A4310(c.root, 1152, 0, 0, int(memmap.Int32(0x5D4594, 833704)), int(memmap.Int32(0x5D4594, 833708))-20, drawData, scrollData)
 	drawData.SetDisabledColor(nox_color_gray2)
 	drawData.SetEnabledColor(nox_color_gray2)
 	drawData.SetHighlightColor(nox_color_gray2)
@@ -174,7 +157,7 @@ func (c *guiConsole) Init(sz image.Point) *gui.Window {
 
 	drawData.SetText("")
 	drawData.Style = gui.StyleEntryField
-	c.input = nox_gui_newEntryField_488500(c.root, 16393, 0, int(memmap.Int32(0x5D4594, 833708))-20, int(memmap.Int32(0x5D4594, 833704)), 20, drawData, inpData)
+	c.input = legacy.Nox_gui_newEntryField_488500(c.root, 16393, 0, int(memmap.Int32(0x5D4594, 833708))-20, int(memmap.Int32(0x5D4594, 833704)), 20, drawData, inpData)
 	c.input.SetFunc93(c.inputProc)
 	c.wantsPass = false
 	c.password = ""
@@ -214,8 +197,8 @@ func (c *guiConsole) ReloadColors() {
 		dd.SetSelectedColor(color.Transparent)
 		dd.SetTextColor(gray)
 
-		scr := (*scrollListBoxData)(c.scrollbox.WidgetData)
-		if v2 := asWindowP(scr.field_9); v2 != nil {
+		scr := (*gui.ScrollListBoxData)(c.scrollbox.WidgetData)
+		if v2 := legacy.AsWindowP(scr.Field_9); v2 != nil {
 			dd2 := v2.DrawData()
 			dd2.SetBackgroundColor(black)
 			dd2.SetDisabledColor(black)
@@ -231,7 +214,7 @@ func (c *guiConsole) ReloadColors() {
 				dd3.SetSelectedColor(black)
 			}
 		}
-		if v4 := asWindowP(scr.field_7); v4 != nil {
+		if v4 := legacy.AsWindowP(scr.Field_7); v4 != nil {
 			dd4 := v4.DrawData()
 			dd4.SetBackgroundColor(black)
 			dd4.SetDisabledColor(black)
@@ -240,7 +223,7 @@ func (c *guiConsole) ReloadColors() {
 			dd4.SetSelectedColor(gray)
 			dd4.SetTextColor(gray)
 		}
-		if v5 := asWindowP(scr.field_8); v5 != nil {
+		if v5 := legacy.AsWindowP(scr.Field_8); v5 != nil {
 			dd5 := v5.DrawData()
 			dd5.SetBackgroundColor(black)
 			dd5.SetDisabledColor(black)
@@ -277,7 +260,7 @@ func (c *guiConsole) Toggle() {
 		c.Hide()
 		return
 	}
-	if C.nox_gui_xxx_check_446360() == 0 {
+	if legacy.Nox_gui_xxx_check_446360() == 0 {
 		c.root.ShowModal()
 		c.root.Flags |= 8
 		c.scrollbox.Flags |= 8
@@ -305,7 +288,7 @@ func (c *guiConsole) inputProc(win *gui.Window, ev gui.WindowEvent) gui.WindowEv
 		switch ev.Key {
 		case keybind.KeyEsc:
 			if ev.Pressed {
-				C.nox_xxx_consoleEsc_49B7A0()
+				legacy.Nox_xxx_consoleEsc_49B7A0()
 			}
 			return gui.RawEventResp(1)
 		case keybind.KeyEnter:
@@ -315,7 +298,7 @@ func (c *guiConsole) inputProc(win *gui.Window, ev gui.WindowEvent) gui.WindowEv
 			return gui.RawEventResp(1)
 		}
 	}
-	return nox_xxx_wndEditProc_487D70(win, ev)
+	return legacy.Nox_xxx_wndEditProc_487D70(win, ev)
 }
 
 func (c *guiConsole) nox_gui_console_Enter_450FD0() {

@@ -1,30 +1,5 @@
 package opennox
 
-/*
-#include "GAME1.h"
-#include "GAME1_2.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_2.h"
-#include "GAME3_2.h"
-#include "GAME5.h"
-#include "common__net_list.h"
-#include "client__system__parsecmd.h"
-#include "common__object__armrlook.h"
-#include "common__object__weaplook.h"
-#include "common__log.h"
-
-extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
-
-extern unsigned int dword_5d4594_2650652;
-extern void* dword_587000_81128;
-extern unsigned int dword_587000_93156;
-extern unsigned int dword_5d4594_816340;
-extern unsigned int dword_5d4594_816348;
-
-extern nox_gui_animation* nox_wnd_xxx_1309740;
-*/
-import "C"
 import (
 	"errors"
 	"flag"
@@ -51,15 +26,17 @@ import (
 	"github.com/noxworld-dev/opennox-lib/env"
 	"github.com/noxworld-dev/opennox-lib/log"
 
-	"github.com/noxworld-dev/opennox/v1/client/audio/ail"
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
-	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/internal/version"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/client/audio/ail"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc/handles"
 )
 
 func init() {
@@ -246,11 +223,11 @@ func RunArgs(args []string) (gerr error) {
 	if err := os.Chdir(datapath.Data()); err != nil {
 		return err
 	}
-	initBlobData()
+	legacy.InitBlobData()
 	isServer = *fAutoServer
 	isServerQuest = *fAutoQuest
 	serverExec = strings.Split(*fAutoExec, ";")
-	if err := strmanReadFile("nox.str"); err != nil {
+	if err := noxServer.Strings().ReadFile("nox.str"); err != nil {
 		return fmt.Errorf("failed to load strings file: %w", err)
 	}
 	if !*fServer && !*fNoDraw {
@@ -275,17 +252,17 @@ func RunArgs(args []string) (gerr error) {
 	}
 
 	*memmap.PtrUint32(0x8531A0, 2584) = 0
-	C.nox_gameDisableMapDraw_5d4594_2650672 = 0
-	gameAddStateCode(gameStateMovies)
+	legacy.Set_nox_gameDisableMapDraw_5d4594_2650672(0)
+	noxClient.GameAddStateCode(client.StateMovies)
 	noxflags.ResetGame()
 	noxflags.OnGameChange(func(f noxflags.GameFlag) {
 		if f.Has(noxflags.GameServerSettings) {
-			nox_server_gameSettingsUpdated_40A670()
+			legacy.Nox_server_gameSettingsUpdated_40A670()
 		}
 	})
 	noxflags.OnGameSet(func(f noxflags.GameFlag) {
 		log.Printf("game flag set: %v", f)
-		C.nox_xxx_guiChatShowHide_445730(C.int(bool2int(noxflags.GetGame().Mode() != noxflags.GameModeChat)))
+		legacy.Nox_xxx_guiChatShowHide_445730(noxflags.GetGame().Mode() != noxflags.GameModeChat)
 		if f.Has(noxflags.GameSuddenDeath) && noxflags.HasGame(noxflags.GameHost) {
 			noxServer.netPrintLineToAll("Settings.c:SuddenDeathStart")
 		}
@@ -298,7 +275,7 @@ func RunArgs(args []string) (gerr error) {
 	})
 	noxflags.SetGame(noxflags.GameHost | noxflags.GameClient)
 	noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
-	C.dword_5d4594_2650652 = 0
+	legacy.Sub_43AF50()
 	noxServer.SetTickRate(30)
 	noxServer.SetInitialFrame()
 	nox_ticks_reset_416D40()
@@ -371,7 +348,7 @@ func RunArgs(args []string) (gerr error) {
 			return err
 		}
 	}
-	C.nox_xxx_servSetPlrLimit_409F80(32)
+	legacy.Nox_xxx_servSetPlrLimit_409F80(32)
 
 	// manual spell cast timeout (in seconds)
 	msmul := viper.GetFloat64(configManualSpellCastDelay)
@@ -381,7 +358,7 @@ func RunArgs(args []string) (gerr error) {
 	if err := nox_common_scanAllMaps_4D07F0(); err != nil {
 		return fmt.Errorf("cannot find maps: %w", err)
 	}
-	keyBinding = keybind.New(strMan)
+	keyBinding = keybind.New(noxClient.Strings())
 	nox_xxx_mapSetDataDefault_416500()
 	if err := nox_common_readcfgfile("nox.cfg", false); err != nil {
 		return fmt.Errorf("failed to load config file: %w", err)
@@ -399,10 +376,10 @@ func RunArgs(args []string) (gerr error) {
 	}
 	inputClearKeyTimeouts()
 	noxCommonInitRandom()
-	C.nox_xxx_loadLook_415D50()
-	C.nox_xxx_loadModifyers_4158C0()
-	initConsole(strMan)
-	C.sub_4D11A0()
+	legacy.Nox_xxx_loadLook_415D50()
+	legacy.Nox_xxx_loadModifyers_4158C0()
+	initConsole(noxServer.Strings())
+	legacy.Sub_4D11A0()
 	if !isDedicatedServer {
 		videoResizeView(image.Point{})
 		if err := noxClient.gameResetVideoMode(true, true); err != nil {
@@ -416,7 +393,7 @@ func RunArgs(args []string) (gerr error) {
 	if err := noxClient.r.Bag.ReadVideoBag(); err != nil {
 		return err
 	}
-	if C.sub_431370() == 0 {
+	if legacy.Sub_431370() == 0 {
 		return fmt.Errorf("sub_431370 failed")
 	}
 	if nox_audio_initall(nox_enable_audio) == 0 && nox_enable_audio != 0 {
@@ -432,21 +409,21 @@ func RunArgs(args []string) (gerr error) {
 	if nox_xxx_mapAlloc_4101D0() == 0 {
 		return fmt.Errorf("failed to init map")
 	}
-	if C.nox_xxx_tileAlloc_410F60_init() == 0 {
+	if legacy.Nox_xxx_tileAlloc_410F60_init() == 0 {
 		return fmt.Errorf("failed to init tiles")
 	}
-	C.nox_xxx_initSinCosTables_414C90()
-	C.nox_xxx_loadMapCycle_4D0A30()
+	legacy.Nox_xxx_initSinCosTables_414C90()
+	legacy.Nox_xxx_loadMapCycle_4D0A30()
 	platform.RandSeedTime()
-	C.nox_xxx_mapSelectFirst_4D0E00()
+	legacy.Nox_xxx_mapSelectFirst_4D0E00()
 	netlist.Init()
-	C.sub_40B890(32)
-	C.sub_40B170(32)
-	C.sub_4134D0()
-	if v := strMan.Lang(); v == 6 || v == 8 {
+	legacy.Sub_40B890(32)
+	legacy.Sub_40B170(32)
+	legacy.Sub_4134D0()
+	if v := noxClient.Strings().Lang(); v == 6 || v == 8 {
 		noxClient.r.SetBold(false)
 	}
-	C.sub_413920()
+	legacy.Sub_413920()
 	nox_client_initScreenParticles_431390()
 	mainloopNoSkip = *fNoSkip
 	if host := *fRcon; host != "" {
@@ -479,12 +456,10 @@ func (e ErrExit) Error() string {
 	return fmt.Sprintf("exit code: %d", int(e))
 }
 
-//export nox_exit
 func nox_exit(exitCode int) {
 	panic(ErrExit(exitCode))
 }
 
-//export nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode
 func nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d *int) {
 	mode := noxClient.videoGetGameMode()
 	if w != nil {
@@ -503,14 +478,13 @@ func videoUpdateGameMode(mode image.Point) {
 	changeWindowedOrFullscreen()
 }
 
-//export sub_4AA9C0
 func sub_4AA9C0() int {
 	sub_44D8F0()
 	if !env.IsE2E() {
 		videoUpdateGameMode(guiOptionsRes)
 	}
 	writeConfigLegacy("nox.cfg")
-	asGUIAnim(C.nox_wnd_xxx_1309740).SetState(gui.AnimOut)
+	legacy.Get_nox_wnd_xxx_1309740().SetState(gui.AnimOut)
 	gui.SetAnimGlobalState(gui.AnimOut)
 	clientPlaySoundSpecial(sound.SoundShellSlideOut, 100)
 	return 1
@@ -521,23 +495,23 @@ func cleanup() {
 	writeConfigLegacy("nox.cfg")
 	nox_xxx_freeScreenParticles_4314D0()
 	sub_413960()
-	C.sub_431380()
-	nox_xxx_freeWeaponArmorDefAndModifs_413060()
+	legacy.Sub_431380()
+	noxServer.Modif.Nox_xxx_freeWeaponArmorDefAndModifs_413060()
 	sub_4311B0()
 	noxClient.nox_video_freeFloorBuffer_430EC0()
 	nox_xxx_freeKeyboard_430210()
-	C.nox_xxx_tileFree_410FC0_free()
-	C.sub_4106C0()
+	legacy.Nox_xxx_tileFree_410FC0_free()
+	legacy.Sub_4106C0()
 	nox_video_bagFree_42F4D0()
-	C.sub_42EDC0()
+	legacy.Sub_42EDC0()
 	ctrlEvent.Reset()
-	nox_strman_free_410020()
+	Nox_strman_free_410020()
 	netlist.Free()
-	C.sub_4D11D0()
-	C.sub_4D0DA0()
-	C.sub_40C0D0()
-	C.sub_40B740()
-	C.nox_common_maplist_free_4D0970()
+	legacy.Sub_4D11D0()
+	legacy.Sub_4D0DA0()
+	legacy.Sub_40C0D0()
+	legacy.Sub_40B740()
+	legacy.Nox_common_maplist_free_4D0970()
 	ail.Shutdown()
 }
 
@@ -545,46 +519,46 @@ func sub_4311B0() {
 	sub_43DCC0()
 	sub_4312B0()
 	sub_43D970()
-	C.sub_44D8C0()
-	C.sub_451970()
+	legacy.Sub_44D8C0()
+	legacy.Sub_451970()
 	if dword_5d4594_805980 != nil {
 		dword_5d4594_805980.Free()
 		dword_5d4594_805980 = nil
 	}
-	C.dword_587000_81128 = nil
-	C.sub_431270()
+	legacy.Set_dword_587000_81128(nil)
+	legacy.Sub_431270()
 	if dword_5d4594_1193336 != 0 {
-		C.sub_4875F0()
-		C.sub_4870A0()
+		legacy.Sub_4875F0()
+		legacy.Sub_4870A0()
 		dword_5d4594_1193336 = 0
 	}
 }
 
 func sub_4312B0() {
-	C.sub_431290()
+	legacy.Sub_431290()
 	sub_44D8F0()
-	C.sub_43D990()
+	legacy.Sub_43D990()
 }
 
 func sub_43D970() {
-	if C.dword_5d4594_816340 != 0 {
+	if legacy.Get_dword_5d4594_816340() != 0 {
 		sub_43DCC0()
-		C.dword_5d4594_816340 = 0
+		legacy.Set_dword_5d4594_816340(0)
 	}
 }
 
 func sub_43DCC0() {
-	if C.dword_587000_93156 == 0 {
+	if legacy.Get_dword_587000_93156() == 0 {
 		return
 	}
-	if C.dword_5d4594_816340 == 0 {
+	if legacy.Get_dword_5d4594_816340() == 0 {
 		return
 	}
-	C.sub_43D990()
-	for C.dword_5d4594_816348 != 0 {
-		if C.dword_5d4594_816348 == 3 {
+	legacy.Sub_43D990()
+	for legacy.Get_dword_5d4594_816348() != 0 {
+		if legacy.Get_dword_5d4594_816348() == 3 {
 			sub_43D650()
-			C.dword_5d4594_816348 = 0
+			legacy.Set_dword_5d4594_816348(0)
 		}
 		noxClient.sub4312C0()
 	}

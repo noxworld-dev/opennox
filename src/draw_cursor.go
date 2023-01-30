@@ -1,23 +1,25 @@
 package opennox
 
+import "github.com/noxworld-dev/opennox/v1/legacy"
+
 var noxCursors struct {
-	Select     *noxImageRef
-	Grab       *noxImageRef
-	Pickup     *noxImageRef
-	Trade      *noxImageRef
-	Talk       *noxImageRef
-	Target     *noxImageRef
-	Identify   *noxImageRef
-	IdentifyNo *noxImageRef
-	Repair     *noxImageRef
-	CreateGame *noxImageRef
-	Busy       *noxImageRef
-	Buy        *noxImageRef
-	Sell       *noxImageRef
-	Use        *noxImageRef
-	Move       *noxImageRef
-	PickupFar  *noxImageRef
-	Caution    *noxImageRef
+	Select     *legacy.ImageRef
+	Grab       *legacy.ImageRef
+	Pickup     *legacy.ImageRef
+	Trade      *legacy.ImageRef
+	Talk       *legacy.ImageRef
+	Target     *legacy.ImageRef
+	Identify   *legacy.ImageRef
+	IdentifyNo *legacy.ImageRef
+	Repair     *legacy.ImageRef
+	CreateGame *legacy.ImageRef
+	Busy       *legacy.ImageRef
+	Buy        *legacy.ImageRef
+	Sell       *legacy.ImageRef
+	Use        *legacy.ImageRef
+	Move       *legacy.ImageRef
+	PickupFar  *legacy.ImageRef
+	Caution    *legacy.ImageRef
 }
 
 func nox_xxx_cursorLoadAll_477710() {

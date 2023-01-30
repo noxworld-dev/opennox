@@ -1,20 +1,19 @@
 package opennox
 
-import "C"
 import (
 	"github.com/noxworld-dev/opennox-lib/spell"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-//export sub_5002D0
-func sub_5002D0(a1 *nox_object_t) {
-	u := asUnitC(a1)
-	sa, free := alloc.New(spellAcceptArg{})
+func sub_5002D0(a1 *server.Object) {
+	u := asUnitS(a1)
+	sa, free := alloc.New(server.SpellAcceptArg{})
 	defer free()
 
 	pl := u.ControllingPlayer()
-	sa.Obj = u.CObj()
+	sa.Obj = u.SObj()
 	sa.Pos = pl.CursorPos()
-	noxServer.spells.duration.New(spell.SPELL_WALL, u, u, u, sa, 3, nil, nil, nil, 0)
+	noxServer.spells.duration.New(spell.SPELL_WALL, u.SObj(), u.SObj(), u.SObj(), sa, 3, nil, nil, nil, 0)
 }

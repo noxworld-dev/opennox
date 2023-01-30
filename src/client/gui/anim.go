@@ -4,8 +4,8 @@ import (
 	"image"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/internal/ccall"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var (

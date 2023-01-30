@@ -1,19 +1,5 @@
 package opennox
 
-/*
-#include "GAME1.h"
-#include "GAME1_1.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME3_3.h"
-#include "GAME4_2.h"
-extern uint32_t dword_5d4594_1049844;
-extern uint32_t dword_5d4594_1563096;
-void nox_xxx_monstersAllBelongToHost_4DB6A0();
-void nox_xxx_unitsNewAddToList_4DAC00();
-*/
-import "C"
 import (
 	"os"
 	"path/filepath"
@@ -28,10 +14,11 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -51,11 +38,11 @@ var (
 )
 
 func nox_xxx_playerSaveToFile_41A140(path string, ind int) bool {
-	return C.nox_xxx_playerSaveToFile_41A140(internCStr(path), C.int(ind)) != 0
+	return legacy.Nox_xxx_playerSaveToFile_41A140(path, ind) != 0
 }
 
 func sub4DB790(a1 string) bool {
-	nox_xxx_mapLoadOrSaveMB_4DCC70(1)
+	legacy.Nox_xxx_mapLoadOrSaveMB_4DCC70(1)
 	noxflags.SetGame(noxflags.GameFlag28)
 	noxAudioServeT(500)
 	res := nox_xxx_soloLoadGame_4DB7E0_savegame(a1)
@@ -69,15 +56,6 @@ func nox_client_makeSaveDir(name string) (string, error) {
 	dir := datapath.Save(name)
 	err := ifs.Mkdir(dir)
 	return dir, err
-}
-
-//export nox_savegame_rm_4DBE10
-func nox_savegame_rm_4DBE10(cname *C.char, rmDir int) {
-	if cname == nil {
-		return
-	}
-	saveName := GoString(cname)
-	_ = nox_savegame_rm(saveName, rmDir != 0)
 }
 
 func nox_savegame_rm(name string, rmdir bool) error {
@@ -125,7 +103,6 @@ func nox_client_checkSaveMapExistsTmp(name string) (string, error) {
 	return fname, nil
 }
 
-//export nox_client_countPlayerFiles04_4DC7D0
 func nox_client_countPlayerFiles04_4DC7D0() int {
 	cnt, err := nox_client_countPlayerFiles(0x4)
 	if err != nil {
@@ -161,11 +138,9 @@ func nox_client_countPlayerFiles(flag byte) (int, error) {
 
 func sub_41A000_check0(path string) byte {
 	path = ifs.Denormalize(path)
-	cstr := CString(path)
-	defer StrFree(cstr)
 	save, freeSave := alloc.Make([]byte{}, 1280)
 	defer freeSave()
-	C.sub_41A000(cstr, (*C.nox_savegame_xxx)(unsafe.Pointer(&save[0])))
+	legacy.Sub_41A000(path, (*legacy.Nox_savegame_xxx)(unsafe.Pointer(&save[0])))
 	return save[0]
 }
 
@@ -199,11 +174,11 @@ func nox_xxx_savePlayerMB_41C8F0(data []byte) int {
 	f.Close()
 
 	if noxflags.HasGame(noxflags.GameModeQuest) {
-		*memmap.PtrUint8(0x85B3FC, 12257) = byte(C.dword_5d4594_1049844)
+		*memmap.PtrUint8(0x85B3FC, 12257) = byte(legacy.Get_dword_5d4594_1049844())
 	} else {
 		*memmap.PtrUint8(0x85B3FC, 12257) = 0
 	}
-	if C.nox_xxx_mapSavePlayerDataMB_41A230(internCStr(path)) == 0 {
+	if legacy.Nox_xxx_mapSavePlayerDataMB_41A230(path) == 0 {
 		networkLogPrint("SavePlayerOnClient: Unable to save client data to file\n")
 		return 0
 	}
@@ -217,7 +192,7 @@ func nox_xxx_savePlayerMB_41C8F0(data []byte) int {
 func sub_4DB100() {
 	dword_5d4594_1563080 = 0
 	dword_5d4594_1563084 = nil
-	C.dword_5d4594_1563096 = 0
+	legacy.Set_dword_5d4594_1563096(0)
 	dword_5d4594_1563064 = false
 	dword_5d4594_1563092 = 0
 	dword_5d4594_1563088 = 0
@@ -225,12 +200,10 @@ func sub_4DB100() {
 	*memmap.PtrUint32(0x5D4594, 1563068) = 0
 }
 
-//export nox_xxx_gameGet_4DB1B0
 func nox_xxx_gameGet_4DB1B0() int {
 	return dword_5d4594_1563080
 }
 
-//export sub_4DCC90
 func sub_4DCC90() int {
 	v := 1
 	if dword_5d4594_1563080 != 1 {
@@ -239,12 +212,10 @@ func sub_4DCC90() int {
 	return v
 }
 
-//export sub_4DB1C0
 func sub_4DB1C0() unsafe.Pointer {
 	return dword_5d4594_1563084
 }
 
-//export sub_4DCBF0
 func sub_4DCBF0(a1 int) {
 	dword_5d4594_1563064 = a1 != 0
 }
@@ -265,7 +236,6 @@ func sub_4460B0() bool {
 	return dword_5d4594_825756
 }
 
-//export sub_4460A0
 func sub_4460A0(a1 int) {
 	dword_5d4594_825756 = a1 != 0
 }
@@ -277,7 +247,6 @@ func serverQuitAck() {
 	}
 }
 
-//export sub_40BBC0
 func sub_40BBC0(a1, a2 int) {
 	if a2 == 2 {
 		if sub_446030() {
@@ -292,7 +261,6 @@ func sub_40BBC0(a1, a2 int) {
 	}
 }
 
-//export sub_40B850
 func sub_40B850(a1, act int) {
 	if act == 2 && sub_446030() {
 		serverQuitAck()
@@ -303,13 +271,11 @@ func sub_40B850(a1, act int) {
 	}
 }
 
-//export sub_40B810
 func sub_40B810(act int, cbuf unsafe.Pointer, sz int) {
 	nox_xxx_soloGameEscMenuCallback_40AF90(common.MaxPlayers-1, 0, act, memmap.PtrOff(0x5D4594, 4664), cbuf, sz)
 	sub_40B850(0, act)
 }
 
-//export nox_xxx_serverIsClosing_446180
 func nox_xxx_serverIsClosing_446180() int {
 	return bool2int(nox_xxx_serverIsClosing_825764)
 }
@@ -338,7 +304,6 @@ func sub_419F00() bool {
 	return *memmap.PtrUint32(0x5D4594, 527716) != 0
 }
 
-//export sub_419EB0
 func sub_419EB0(i, val int) {
 	if val == 1 {
 		*memmap.PtrUint32(0x5D4594, 527716) |= 1 << i
@@ -351,11 +316,10 @@ func sub_419EE0(a1 int) bool {
 	return (*memmap.PtrUint32(0x5D4594, 527716) & (1 << a1)) != 0
 }
 
-//export sub_4DCC10
-func sub_4DCC10(a1p *nox_object_t) int {
-	u := asUnitC(a1p)
+func sub_4DCC10(a1p *server.Object) int {
+	u := asUnitS(a1p)
 	v := true
-	if dword_5d4594_1563092 != 0 && dword_5d4594_1563092+dword_5d4594_1563088 > noxServer.Frame() {
+	if dword_5d4594_1563092 != 0 && dword_5d4594_1563092+dword_5d4594_1563088 > u.getServer().Frame() {
 		v = false
 	}
 	if *(*uint32)(unsafe.Add(u.UpdateData, 284)) != 0 { // TODO: which type is expected here?
@@ -367,7 +331,7 @@ func sub_4DCC10(a1p *nox_object_t) int {
 	if u.Flags().Has(object.FlagDead) {
 		v = false
 	}
-	if C.sub_45D9B0() == 1 {
+	if legacy.Sub_45D9B0() == 1 {
 		return 0
 	}
 	return bool2int(v)
@@ -382,11 +346,10 @@ func sub_4DCE00() {
 	}
 }
 
-//export nox_xxx_soloGameEscMenuCallback_40AF90
 func nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2 int, act int, a4 unsafe.Pointer, cbuf unsafe.Pointer, sz int) {
 	switch act {
 	case 1:
-		C.sub_446520(1, cbuf, C.int(sz))
+		legacy.Sub_446520(1, cbuf, sz)
 	case 2:
 		data := unsafe.Slice((*byte)(cbuf), sz)
 		nox_xxx_savePlayerMB_41C8F0(data)
@@ -407,7 +370,7 @@ func nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2 int, act int, a4 unsafe.Poin
 			if noxServer.nox_xxx_isQuest_4D6F50() && ind == common.MaxPlayers-1 {
 				sub4DCEE0(path)
 			} else {
-				res := C.nox_xxx_cliPlrInfoLoadFromFile_41A2E0(internCStr(path), C.int(ind))
+				res := legacy.Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path, ind)
 				if noxflags.HasGame(noxflags.GameModeQuest) {
 					if res != nil {
 						if pl := noxServer.GetPlayerByInd(ind); pl != nil {
@@ -447,24 +410,24 @@ func nox_xxx_SavePlayerDataFromClient_41CD70(path string, data []byte) bool {
 
 func sub_4DB9C0() {
 	s := noxServer
-	var next *Object
+	var next *server.Object
 	for it := s.FirstServerObject(); it != nil; it = next {
 		next = it.Next()
-		if C.nox_xxx_isUnit_4E5B50(it.CObj()) != 0 {
-			it.Delete()
+		if legacy.Nox_xxx_isUnit_4E5B50(it.SObj()) != 0 {
+			asObjectS(it).Delete()
 		}
 	}
 	next = nil
-	for it := asObjectS(s.Objs.UpdatableList2); it != nil; it = next {
+	for it := s.Objs.UpdatableList2; it != nil; it = next {
 		next = it.Next()
-		if C.sub_4E5B80(it.CObj()) != 0 {
-			it.Delete()
+		if legacy.Sub_4E5B80(it.SObj()) != 0 {
+			asObjectS(it).Delete()
 		}
 	}
 }
 
 func sub_4738D0() int {
-	C.nox_xxx_bookHideMB_45ACA0(1)
+	legacy.Nox_xxx_bookHideMB_45ACA0(1)
 	return 1
 }
 
@@ -482,7 +445,7 @@ func nox_xxx_soloLoadGame_4DB7E0_savegame(a1 string) bool {
 	path := datapath.Save(common.SaveTmp, common.PlayerFile)
 	if _, err := ifs.Stat(path); os.IsNotExist(err) {
 		str := strMan.GetStringInFile("AutoSaveNotFound", "SaveGame.c")
-		PrintToPlayers(str)
+		legacy.PrintToPlayers(str)
 		return false
 	}
 	v5, _ := sub41D090(path)
@@ -490,26 +453,26 @@ func nox_xxx_soloLoadGame_4DB7E0_savegame(a1 string) bool {
 	noxServer.ResetObjectScriptIDs()
 	nox_xxx_gameSetSwitchSolo_4DB220(1)
 	nox_xxx_gameSetNoMPFlag_4DB230(1)
-	if C.nox_xxx_cliPlrInfoLoadFromFile_41A2E0(internCStr(path), common.MaxPlayers-1) == nil {
+	if legacy.Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path, common.MaxPlayers-1) == nil {
 		return false
 	}
-	C.nox_xxx_cliPrepareGameplay1_460E60()
-	C.nox_xxx_cliPrepareGameplay2_4721D0()
+	legacy.Nox_xxx_cliPrepareGameplay1_460E60()
+	legacy.Nox_xxx_cliPrepareGameplay2_4721D0()
 	pl := noxServer.GetPlayerByInd(common.MaxPlayers - 1)
 	pl.Name()
 	mname := pl.SaveName()
 	noxServer.nox_xxx_gameSetMapPath_409D70(mname + ".map")
 	dword_5d4594_1559960 = datapath.Save(common.SaveTmp, mname, mname+".map")
-	noxServer.switchMap(mname + ".map")
+	noxServer.SwitchMap(mname + ".map")
 	nox_xxx_cliPlayMapIntro_44E0B0(0)
-	if C.nox_xxx_plrLoad_41A480(internCStr(path)) == 0 {
+	if legacy.Nox_xxx_plrLoad_41A480(path) == 0 {
 		return false
 	}
 	guiCon.Clear()
-	C.sub_445450()
-	C.nox_xxx_destroyEveryChatMB_528D60()
+	legacy.Sub_445450()
+	legacy.Nox_xxx_destroyEveryChatMB_528D60()
 	str := strMan.GetStringInFile("GameLoaded", "C:\\NoxPost\\src\\Server\\Xfer\\SaveGame\\SaveGame.c")
-	PrintToPlayers(str)
+	legacy.PrintToPlayers(str)
 	return true
 }
 
@@ -534,9 +497,8 @@ func sub_4DCD40() {
 	}
 }
 
-//export sub_4DCFB0
-func sub_4DCFB0(a1p *C.nox_object_t) {
-	u := asUnitC(a1p)
+func sub_4DCFB0(a1p *server.Object) {
+	u := asUnitS(a1p)
 	if u == nil {
 		return
 	}
@@ -572,7 +534,7 @@ func sub41CFA0(a1 string, a2 int) bool {
 	if sub_419EE0(a2) {
 		return false
 	}
-	sz := C.nox_xxx_computeServerPlayerDataBufferSize_41CC50(internCStr(a1))
+	sz := legacy.Nox_xxx_computeServerPlayerDataBufferSize_41CC50(a1)
 	if sz == 0 {
 		return false
 	}
@@ -592,13 +554,12 @@ func sub41CFA0(a1 string, a2 int) bool {
 
 	f.Read(buf)
 	sub_419EB0(a2, 1)
-	C.sub_40BC60(C.int(a2), 2, internCStr("SAVEDATA"), unsafe.Pointer(&buf[0]), C.int(sz), 1)
+	legacy.Sub_40BC60(a2, 2, "SAVEDATA", unsafe.Pointer(&buf[0]), sz, 1)
 	return true
 }
 
-//export sub_4DD0B0
-func sub_4DD0B0(a1p *nox_object_t) {
-	u := asUnitC(a1p)
+func sub_4DD0B0(a1p *server.Object) {
+	u := asUnitS(a1p)
 	if u == nil {
 		return
 	}
@@ -621,7 +582,7 @@ func sub_450750() byte {
 
 func nox_xxx_saveDoAutosaveMB_4DB370_savegame(name string) int {
 	sub_478000()
-	C.nox_xxx_quickBarClose_4606B0()
+	legacy.Nox_xxx_quickBarClose_4606B0()
 	pl := noxServer.GetPlayerByInd(common.MaxPlayers - 1)
 	if pl == nil {
 		return 0
@@ -654,10 +615,10 @@ func nox_xxx_saveDoAutosaveMB_4DB370_savegame(name string) int {
 	}
 	mname = noxServer.getServerMap()
 	path := datapath.Save(common.SaveTmp, mname, mname+".map")
-	if C.nox_xxx_mapSaveMap_51E010(internCStr(path), 0) == 0 {
+	if legacy.Nox_xxx_mapSaveMap_51E010(path, 0) == 0 {
 		return 0
 	}
-	C.nox_xxx_monstersAllBelongToHost_4DB6A0()
+	legacy.Nox_xxx_monstersAllBelongToHost_4DB6A0()
 	v14 := datapath.Save(common.SaveTmp, common.PlayerFile)
 	*memmap.PtrUint32(0x85B3FC, 10980) &= 0xFFFFFFF7
 	if memmap.Uint32(0x5D4594, 1563076) != 0 {
@@ -667,12 +628,12 @@ func nox_xxx_saveDoAutosaveMB_4DB370_savegame(name string) int {
 	if !nox_xxx_playerSaveToFile_41A140(v14, pl.Index()) {
 		return 0
 	}
-	if C.nox_xxx_mapSavePlayerDataMB_41A230(internCStr(v14)) == 0 {
+	if legacy.Nox_xxx_mapSavePlayerDataMB_41A230(v14) == 0 {
 		return 0
 	}
 	if name != common.SaveTmp {
 		str := strMan.GetStringInFile("AutoSaveComplete", "SaveGame.c")
-		PrintToPlayers(str)
+		legacy.PrintToPlayers(str)
 		if err := nox_client_copySave(common.SaveTmp, name); err != nil {
 			saveLog.Printf("failed to copy save file: %v", err)
 			return 0
@@ -693,7 +654,7 @@ func nox_xxx_saveMakePlayerLocation_4DB600(a1 unsafe.Pointer) bool {
 	if u == nil {
 		return false
 	}
-	obj := s.newObjectByTypeID("SaveGameLocation")
+	obj := s.NewObjectByTypeID("SaveGameLocation")
 	if obj == nil {
 		return false
 	}
@@ -705,14 +666,14 @@ func nox_xxx_saveMakePlayerLocation_4DB600(a1 unsafe.Pointer) bool {
 			Y: *(*float32)(unsafe.Add(ptr, 84)),
 		}
 	}
-	s.createObjectAt(obj, nil, pos)
-	s.objectsNewAdd()
+	s.CreateObjectAt(obj, nil, pos)
+	s.ObjectsNewAdd()
 	obj.ScriptID = u.ScriptID
 	var next *Object
 	for it := u.FirstOwned516(); it != nil; it = next {
 		next = it.NextOwned512()
 		if it.Flags().Has(object.FlagActive) {
-			it.SetOwner(obj)
+			it.SetOwner(asObjectS(obj))
 		}
 	}
 	return true

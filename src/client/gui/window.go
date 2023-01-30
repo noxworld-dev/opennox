@@ -6,7 +6,7 @@ import (
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
-	"github.com/noxworld-dev/opennox/v1/internal/ccall"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 const deadWord = 0xacacacac

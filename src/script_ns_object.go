@@ -1,21 +1,5 @@
 package opennox
 
-/*
-#include "defs.h"
-extern int dword_5d4594_2386848;
-extern unsigned int dword_5d4594_2386852;
-
-unsigned int sub_516D00(nox_object_t* a1);
-int* nox_server_scriptMoveTo_5123C0(int a1, int a2);
-int nox_xxx_destroyEveryChatMB_528D60();
-nox_object_t* nox_xxx_getObjectByScrName_4DA4F0(char* a1);
-int nox_xxx_playDialogFile_44D900(char* a1, int a2);
-int nox_xxx_netSendChat_528AC0(nox_object_t* a1, wchar_t* a2, wchar_t a3);
-int nox_xxx_inventoryServPlace_4F36F0(nox_object_t* a1p, nox_object_t* a2p, int a3, int a4);
-void nox_xxx_playerCanCarryItem_513B00(nox_object_t* a1p, nox_object_t* a2p);
-void nox_xxx_unitAdjustHP_4EE460(nox_object_t* unit, int dv);
-*/
-import "C"
 import (
 	"unsafe"
 
@@ -32,6 +16,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -39,18 +24,16 @@ func (s noxScriptNS) CreateObject(typ string, p script.Positioner) ns.Obj {
 	if p == nil {
 		return nil
 	}
-	obj := s.s.newObjectByTypeID(typ)
+	obj := s.s.NewObjectByTypeID(typ)
 	if obj == nil {
 		return nil
 	}
-	s.s.createObjectAt(obj, nil, p.Pos())
-	return nsObj{obj}
+	s.s.CreateObjectAt(obj, nil, p.Pos())
+	return nsObj{asObjectS(obj)}
 }
 
 func (s noxScriptNS) Object(name string) ns.Obj {
-	cstr := CString(name)
-	defer StrFree(cstr)
-	obj := asObjectC(C.nox_xxx_getObjectByScrName_4DA4F0(cstr))
+	obj := asObjectS(legacy.Nox_xxx_getObjectByScrName_4DA4F0(name))
 	if obj == nil {
 		scriptLog.Printf("noxscript: cannot find object: %q", name)
 		return nil
@@ -59,7 +42,7 @@ func (s noxScriptNS) Object(name string) ns.Obj {
 }
 
 func (s noxScriptNS) ObjectGroup(name string) ns.ObjGroup {
-	g := s.s.mapGroups.GroupByID(name, mapGroupObjects)
+	g := s.s.GroupByID(name, server.MapGroupObjects)
 	if g == nil {
 		scriptLog.Printf("noxscript: cannot find object group: %q", name)
 		return nil
@@ -68,7 +51,7 @@ func (s noxScriptNS) ObjectGroup(name string) ns.ObjGroup {
 }
 
 func (s noxScriptNS) GetTrigger() ns.Obj {
-	obj := s.s.noxScript.Trigger()
+	obj := asObjectS(s.s.noxScript.Trigger())
 	if obj == nil {
 		return nil
 	}
@@ -76,7 +59,7 @@ func (s noxScriptNS) GetTrigger() ns.Obj {
 }
 
 func (s noxScriptNS) GetCaller() ns.Obj {
-	obj := s.s.noxScript.Caller()
+	obj := asObjectS(s.s.noxScript.Caller())
 	if obj == nil {
 		return nil
 	}
@@ -115,7 +98,7 @@ func (s noxScriptNS) IsSummoned(obj ns.Obj) bool {
 }
 
 func (s noxScriptNS) DestroyEveryChat() {
-	C.nox_xxx_destroyEveryChatMB_528D60()
+	legacy.Nox_xxx_destroyEveryChatMB_528D60()
 }
 
 func (s noxScriptNS) MakeFriendly(obj ns.Obj) {
@@ -138,7 +121,7 @@ func (s noxScriptNS) BecomeEnemy(obj ns.Obj) {
 	panic("implement me")
 }
 
-var _ noxObject = nsObj{}
+var _ server.Obj = nsObj{}
 
 type nsObj struct {
 	*Object
@@ -204,7 +187,7 @@ func (obj nsObj) RestoreHealth(amount int) {
 	if amount <= 0 {
 		return
 	}
-	C.nox_xxx_unitAdjustHP_4EE460(obj.CObj(), C.int(amount))
+	legacy.Nox_xxx_unitAdjustHP_4EE460(obj.SObj(), amount)
 }
 
 func (obj nsObj) GetGold() int {
@@ -241,14 +224,14 @@ func (obj nsObj) ChangeScore(val int) {
 		nox_xxx_changeScore_4D8E90(u, val)
 	}
 	s := obj.getServer()
-	if tm := s.teamByYyy(u.team()); tm != nil {
-		s.teamChangeLessons(tm, val+int(tm.lessons))
+	if tm := s.Teams.ByYyy(u.team()); tm != nil {
+		s.teamChangeLessons(tm, val+tm.Lessons)
 	}
 	nox_xxx_netReportLesson_4D8EF0(u)
 }
 
 func (obj nsObj) HasOwner(owner ns.Obj) bool {
-	own, _ := owner.(noxObject)
+	own, _ := owner.(server.Obj)
 	return obj.Object.HasOwner(toObject(own))
 }
 
@@ -269,8 +252,8 @@ func (obj nsObj) SetOwner(owner ns.Obj) {
 		obj.Object.SetOwner(nil)
 		return
 	}
-	v := owner.(noxObject)
-	obj.Object.SetOwner(v.AsObject())
+	v := toObject(owner.(server.Obj))
+	obj.Object.SetOwner(v)
 }
 
 func (obj nsObj) SetOwners(owners ns.ObjGroup) {
@@ -301,7 +284,7 @@ func (obj nsObj) Move(w ns.WaypointObj) {
 		return
 	}
 	wp := w.(*Waypoint)
-	C.nox_server_scriptMoveTo_5123C0(C.int(uintptr(unsafe.Pointer(obj.CObj()))), C.int(uintptr(unsafe.Pointer(wp.C()))))
+	legacy.Nox_server_scriptMoveTo_5123C0(obj.SObj(), wp.S())
 }
 
 func (obj nsObj) WalkTo(p types.Pointf) {
@@ -336,7 +319,7 @@ func (obj nsObj) CanSee(obj2 ns.Obj) bool {
 	if abs(p1.X-p2.X) > 512.0 || abs(p1.Y-p2.Y) > 512.0 {
 		return false
 	}
-	return nox_xxx_unitCanInteractWith_5370E0(obj, obj2.(noxObject), 0)
+	return nox_xxx_unitCanInteractWith_5370E0(obj, obj2.(server.Obj), 0)
 }
 
 func (obj nsObj) PushTo(p script.Positioner, force float32) {
@@ -401,7 +384,7 @@ func (obj nsObj) IsAttackedBy(obj2 ns.Obj) bool {
 	if obj2 == nil {
 		return false
 	}
-	return obj.isEnemyTo(obj2.(noxObject))
+	return obj.isEnemyTo(obj2.(server.Obj))
 }
 
 func (obj nsObj) HitMelee(p types.Pointf) {
@@ -423,7 +406,7 @@ func (obj nsObj) HasItem(item ns.Obj) bool {
 	if item == nil {
 		return false
 	}
-	return obj.Object.HasItem(item.(noxObject).AsObject())
+	return obj.Object.HasItem(toObject(item.(server.Obj)))
 }
 
 func (obj nsObj) GetLastItem() ns.Obj {
@@ -455,7 +438,7 @@ func (obj nsObj) Pickup(item ns.Obj) bool {
 		return false
 	}
 	s := obj.getServer()
-	it := item.(noxObject).AsObject()
+	it := toObject(item.(server.Obj))
 	gold := s.ObjectTypeID("Gold")
 	goldPile := s.ObjectTypeID("QuestGoldPile")
 	goldChest := s.ObjectTypeID("QuestGoldChest")
@@ -463,18 +446,18 @@ func (obj nsObj) Pickup(item ns.Obj) bool {
 	if isPlayerInCoop {
 		if f := s.Frame(); *memmap.PtrUint32(0x5D4594, 2386844) != f {
 			*memmap.PtrUint32(0x5D4594, 2386844) = f
-			C.dword_5d4594_2386848 = 0
-			C.dword_5d4594_2386852 = 0
+			legacy.Set_dword_5d4594_2386848(0)
+			legacy.Set_dword_5d4594_2386852(0)
 		}
 		if typ := int(it.TypeInd); typ != gold && typ != goldPile && typ != goldChest {
-			C.nox_xxx_playerCanCarryItem_513B00(obj.CObj(), it.CObj())
+			legacy.Nox_xxx_playerCanCarryItem_513B00(obj.SObj(), it.SObj())
 		}
 	}
-	if C.nox_xxx_inventoryServPlace_4F36F0(obj.CObj(), it.CObj(), 1, 1) == 0 {
+	if legacy.Nox_xxx_inventoryServPlace_4F36F0(obj.SObj(), it.SObj(), 1, 1) == 0 {
 		return false
 	}
 	if isPlayerInCoop && int(it.TypeInd) != gold {
-		C.dword_5d4594_2386848 += 1
+		legacy.Inc_dword_5d4594_2386848()
 	}
 	return true
 }
@@ -483,7 +466,7 @@ func (obj nsObj) Drop(item ns.Obj) bool {
 	if item == nil {
 		return false
 	}
-	return obj.forceDrop(item.(noxObject).AsObject()) != 0
+	return obj.forceDrop(toObject(item.(server.Obj))) != 0
 }
 
 func (obj nsObj) ZombieStayDown() {
@@ -493,7 +476,7 @@ func (obj nsObj) ZombieStayDown() {
 }
 
 func (obj nsObj) RaiseZombie() {
-	C.sub_516D00(obj.CObj())
+	legacy.Sub_516D00(obj.SObj())
 }
 
 func (obj nsObj) Chat(message ns.StringID) {
@@ -503,9 +486,9 @@ func (obj nsObj) Chat(message ns.StringID) {
 func (obj nsObj) ChatTimer(message ns.StringID, dt script.Duration) {
 	s := obj.getServer()
 	v, _ := s.Strings().GetVariantInFile(strman.ID(message), "CScrFunc.c")
-	C.nox_xxx_netSendChat_528AC0(obj.CObj(), internWStr(v.Str), C.ushort(s.AsFrames(dt)))
+	legacy.Nox_xxx_netSendChat_528AC0(obj.SObj(), v.Str, uint16(s.AsFrames(dt)))
 	if noxflags.HasGame(noxflags.GameModeCoop) {
-		C.nox_xxx_playDialogFile_44D900(internCStr(v.Str2), 100)
+		legacy.Nox_xxx_playDialogFile_44D900(v.Str2, 100)
 	}
 }
 
@@ -515,18 +498,18 @@ func (obj nsObj) DestroyChat() {
 
 func (obj nsObj) CreateMover(wp ns.WaypointObj, speed float32) ns.Obj {
 	s := obj.getServer()
-	mv := s.newObjectByTypeID("Mover")
+	mv := asObjectS(s.NewObjectByTypeID("Mover"))
 	if mv == nil {
 		return nil
 	}
-	s.createObjectAt(mv, nil, obj.Pos())
+	s.CreateObjectAt(mv, nil, obj.Pos())
 	mv.VelVec = types.Pointf{}
 
 	ud := mv.updateDataMover()
-	ud.field_7 = obj.CObj()
-	ud.field_2 = C.int32_t(wp.ScriptID())
-	ud.field_1 = C.float(speed)
-	ud.field_0 = 0
+	ud.Field_7 = obj.SObj()
+	ud.Field_2 = int32(wp.ScriptID())
+	ud.Field_1 = speed
+	ud.Field_0 = 0
 
 	mv.Enable(true)
 	s.Objs.AddToUpdatable(mv.SObj())
@@ -537,7 +520,7 @@ func (obj nsObj) GetElevatorStatus() int {
 	if !obj.Class().Has(object.ClassElevator) {
 		return -1
 	}
-	return int(obj.updateDataElevator().field_3)
+	return int(obj.updateDataElevator().Field_3)
 }
 
 func (obj nsObj) AggressionLevel(level float32) {
@@ -571,11 +554,11 @@ func (obj nsObj) OnEvent(event ns.ObjectEvent, fnc ns.Func) {
 
 type nsObjGroup struct {
 	s *Server
-	g *mapGroup
+	g *server.MapGroup
 }
 
 func (g nsObjGroup) ScriptID() int {
-	return int(g.g.Ind())
+	return int(g.g.Index())
 }
 
 func (g nsObjGroup) Enable(enable bool) {
@@ -779,8 +762,8 @@ func (g nsObjGroup) Enchant(enchant enchant.Enchant, dt script.Duration) {
 
 func (g nsObjGroup) EachObject(recursive bool, fnc func(obj ns.Obj) bool) {
 	if recursive {
-		g.g.eachObjectRecursiveNS(g.s, fnc)
+		eachObjectRecursiveNS(g.s, g.g, fnc)
 	} else {
-		g.g.eachObjectNS(g.s, fnc)
+		eachObjectNS(g.s, g.g, fnc)
 	}
 }

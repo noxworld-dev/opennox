@@ -1,16 +1,12 @@
 package opennox
 
-/*
-#include "defs.h"
-extern nox_waypoint_t* nox_xxx_waypointsHead_2523752;
-*/
-import "C"
 import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -18,18 +14,12 @@ func asWaypoint(p unsafe.Pointer) *Waypoint {
 	return (*Waypoint)(p)
 }
 
-func asWaypointC(p *nox_waypoint_t) *Waypoint {
-	return asWaypoint(unsafe.Pointer(p))
-}
-
-var _ = [1]struct{}{}[516-unsafe.Sizeof(server.Waypoint{})]
-
 func asWaypointS(p *server.Waypoint) *Waypoint {
 	return asWaypoint(unsafe.Pointer(p))
 }
 
 func (s *Server) firstWaypoint() *Waypoint {
-	return asWaypointC(C.nox_xxx_waypointsHead_2523752)
+	return asWaypointS(legacy.FirstWaypoint())
 }
 
 func (s *Server) getWaypointByID(id string) *Waypoint {
@@ -50,13 +40,12 @@ func (s *Server) getWaypointByInd(ind int) *Waypoint {
 	return nil
 }
 
-//export nox_server_getWaypointById_579C40
-func nox_server_getWaypointById_579C40(a1 int) *nox_waypoint_t {
-	return noxServer.getWaypointByInd(a1).C()
+func nox_server_getWaypointById_579C40(a1 int) *server.Waypoint {
+	return noxServer.getWaypointByInd(a1).S()
 }
 
 func (s *Server) getWaypointGroupByID(id string) *script.WaypointGroup {
-	g := s.mapGroups.GroupByID(id, mapGroupWaypoints)
+	g := s.GroupByID(id, server.MapGroupWaypoints)
 	if g == nil {
 		return nil
 	}
@@ -79,12 +68,7 @@ func (s *Server) getWaypoints() []*Waypoint {
 	return out
 }
 
-type nox_waypoint_t = C.nox_waypoint_t
 type Waypoint server.Waypoint
-
-func (w *Waypoint) C() *nox_waypoint_t {
-	return (*nox_waypoint_t)(unsafe.Pointer(w))
-}
 
 func (w *Waypoint) S() *server.Waypoint {
 	return (*server.Waypoint)(unsafe.Pointer(w))

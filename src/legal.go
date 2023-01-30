@@ -1,20 +1,14 @@
 package opennox
 
-/*
-#include "GAME1_3.h"
-#include "GAME2_1.h"
-#include "client__gui__window.h"
-*/
-import "C"
 import (
 	"image"
-	"unsafe"
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/internal/version"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 )
 
 var (
@@ -74,8 +68,8 @@ func nox_game_showLegal_4CC4E0() {
 	win.SetAllFuncs(sub_4CC660, nil, nil)
 	win.ShowModal()
 	v0 := win.ChildByID(9980)
-	v8 := GoWString(C.sub_46AF00(unsafe.Pointer(v0.C())))
-	v1 := noxClient.r.Fonts.AsFont(C.sub_46AF40(unsafe.Pointer(v0.C())))
+	v8 := legacy.Sub_46AF00(v0)
+	v1 := noxClient.r.Fonts.AsFont(legacy.Sub_46AF40(v0))
 	v9 := noxClient.r.GetStringSizeWrapped(v1, v8, 640).Y
 	v0.SetPos(image.Pt(0, 477-v9))
 	vers := version.ClientVersion()
@@ -92,7 +86,7 @@ func nox_game_showLegal_4CC4E0() {
 		v6 := win.ChildByID(9901)
 		win.Func94(&WindowEvent0x4007{Win: v6})
 	}
-	C.sub_43D9B0(14, 100)
+	legacy.Sub_43D9B0(14, 100)
 	nox_client_onShowLegal(win)
 }
 

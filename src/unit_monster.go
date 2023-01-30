@@ -1,9 +1,5 @@
 package opennox
 
-/*
-#include "defs.h"
-*/
-import "C"
 import (
 	"unsafe"
 
@@ -11,9 +7,10 @@ import (
 	"github.com/noxworld-dev/opennox-lib/things"
 
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func (u *Unit) monsterCast(spellInd spell.ID, target *Object) {
+func (u *Unit) monsterCast(spellInd spell.ID, target *server.Object) {
 	s := u.getServer()
 	ud := u.UpdateDataMonster()
 	u.monsterPushAction(ai.DEPENDENCY_UNINTERRUPTABLE)
@@ -25,7 +22,7 @@ func (u *Unit) monsterCast(spellInd spell.ID, target *Object) {
 	} else {
 		u.monsterPushAction(ai.ACTION_CAST_SPELL_ON_OBJECT, uint32(spellInd), 0, target)
 	}
-	if target.CObj() != u.CObj() && !u.monsterActionIsScheduled(ai.ACTION_FLEE) {
+	if target.SObj() != u.SObj() && !u.monsterActionIsScheduled(ai.ACTION_FLEE) {
 		if !sp.Def.Flags.Has(things.SpellTargeted) { // TODO: looks like the flag name is incorrect
 			u.monsterPushAction(ai.ACTION_FACE_OBJECT, target)
 			u.monsterPushAction(ai.DEPENDENCY_BLOCKED_LINE_OF_FIRE, target)
@@ -39,7 +36,6 @@ func (u *Unit) monsterCast(spellInd spell.ID, target *Object) {
 	}
 }
 
-//export nox_xxx_monsterCast_540A30
-func nox_xxx_monsterCast_540A30(cu *C.nox_object_t, spellInd C.int, a3p *C.nox_object_t) {
-	asUnitC(cu).monsterCast(spell.ID(spellInd), asObjectC(a3p))
+func nox_xxx_monsterCast_540A30(cu *server.Object, spellInd int, a3p *server.Object) {
+	asUnitS(cu).monsterCast(spell.ID(spellInd), a3p)
 }

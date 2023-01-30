@@ -1,29 +1,25 @@
 package opennox
 
-/*
-extern unsigned int dword_5d4594_2516356;
-int nox_xxx_protectionCreateStructForInt_56F280(int a1, int a2);
-int nox_xxx_protectionCreateStructForFloat_56F480(int a1, float a2);
-*/
-import "C"
 import (
 	"encoding/binary"
 	"unicode/utf16"
+
+	"github.com/noxworld-dev/opennox/v1/legacy"
 )
 
 func protectInt(v int) uint32 { // nox_xxx_protectionCreateInt_56F400
-	if C.nox_xxx_protectionCreateStructForInt_56F280(C.int(C.dword_5d4594_2516356), C.int(v)) != 0 {
-		cur := uint32(C.dword_5d4594_2516356)
-		C.dword_5d4594_2516356++
+	if legacy.Nox_xxx_protectionCreateStructForInt_56F280(legacy.Get_dword_5d4594_2516356(), v) != 0 {
+		cur := uint32(legacy.Get_dword_5d4594_2516356())
+		legacy.Inc_dword_5d4594_2516356()
 		return cur
 	}
 	return 0
 }
 
 func protectFloat32(v float32) uint32 { // nox_xxx_protectionCreateFloat_56F440
-	if C.nox_xxx_protectionCreateStructForFloat_56F480(C.int(C.dword_5d4594_2516356), C.float(v)) != 0 {
-		cur := uint32(C.dword_5d4594_2516356)
-		C.dword_5d4594_2516356++
+	if legacy.Nox_xxx_protectionCreateStructForFloat_56F480(legacy.Get_dword_5d4594_2516356(), v) != 0 {
+		cur := uint32(legacy.Get_dword_5d4594_2516356())
+		legacy.Inc_dword_5d4594_2516356()
 		return cur
 	}
 	return 0

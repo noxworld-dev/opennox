@@ -76,7 +76,7 @@ func (obj *Object) dump() *debugObject {
 		Vel:        obj.Vel(),
 		Force:      obj.Force(),
 		Type:       dumpObjectType(obj.ObjectTypeC()),
-		Team:       obj.Team().dump(),
+		Team:       dumpTeam(obj.Team()),
 		Inventory:  inv,
 		Field516:   f516,
 	}

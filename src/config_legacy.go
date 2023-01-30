@@ -1,30 +1,5 @@
 package opennox
 
-/*
-#include <stdint.h>
-#include "GAME1.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_2.h"
-#include "GAME3_2.h"
-#include "GAME5_2.h"
-#include "common__system__settings.h"
-extern void* dword_587000_122852;
-extern void* dword_587000_127004;
-extern void* dword_587000_93164;
-extern unsigned int dword_5d4594_1193156;
-extern unsigned int nox_client_translucentFrontWalls_805844;
-extern unsigned int nox_client_highResFrontWalls_80820;
-extern unsigned int nox_client_highResFloors_154952;
-extern unsigned int nox_client_fadeObjects_80836;
-extern unsigned int nox_client_renderBubbles_80844;
-extern uint32_t nox_server_connectionType_3596;
-extern uint32_t nox_server_kickQuestPlayerMinVotes_229992;
-extern uint32_t nox_server_resetQuestMinVotes_229988;
-extern uint32_t nox_server_sanctuaryHelp_54276;
-extern uint32_t nox_server_sendMotd_108752;
-*/
-import "C"
 import (
 	"fmt"
 	"io"
@@ -37,10 +12,11 @@ import (
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/ifs"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 var (
@@ -51,9 +27,8 @@ var (
 	legacyProfiled      = 0
 )
 
-//export nox_common_writecfgfile
-func nox_common_writecfgfile(str *C.char) {
-	if err := writeConfigLegacy(GoString(str)); err != nil {
+func nox_common_writecfgfile(str string) {
+	if err := writeConfigLegacy(str); err != nil {
 		configLog.Printf("%s", err)
 	}
 }
@@ -116,9 +91,9 @@ func parseLegacyConfig(r io.Reader, skip bool) error {
 }
 
 func nox_common_parsecfg_all(sect cfg.Section) error {
-	sub_486670(0x4000, 0)
-	sub_486670(0x4000, 1)
-	sub_486670(0x4000, 2)
+	legacy.Sub_486670(0x4000, 0)
+	legacy.Sub_486670(0x4000, 1)
+	legacy.Sub_486670(0x4000, 2)
 	for _, kv := range sect {
 		switch kv.Key {
 		case "Version":
@@ -174,14 +149,14 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 		case "LastServer":
-			StrCopyP(memmap.PtrOff(0x5D4594, 806060), 22, kv.Value)
+			alloc.StrCopy(unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 806060)), 22), kv.Value)
 		case "ServerName":
 			name := kv.Value
 			if memmap.Uint32(0x587000, 81284) == 0x10000 && name == "NoxWorld" {
 				name = "User_Game"
 			}
 			name = strings.ReplaceAll(name, "_", " ")
-			C.nox_xxx_gameSetServername_40A440(internCStr(name))
+			legacy.Nox_xxx_gameSetServername_40A440(name)
 		case "UnlockSurface":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
@@ -209,19 +184,19 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.nox_client_translucentFrontWalls_805844 = C.uint(bool2int(v != 0))
+			legacy.Set_nox_client_translucentFrontWalls_805844(bool2int(v != 0))
 		case "HighResFrontWalls":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.nox_client_highResFrontWalls_80820 = C.uint(bool2int(v != 0))
+			legacy.Set_nox_client_highResFrontWalls_80820(bool2int(v != 0))
 		case "HighResFloors":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.nox_client_highResFloors_154952 = C.uint(bool2int(v != 0))
+			legacy.Set_nox_client_highResFloors_154952(bool2int(v != 0))
 		case "LockHighResFloors":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
@@ -236,7 +211,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			nox_client_texturedFloors_154956 = v != 0
 			nox_xxx_tileSetDrawFn_481420()
 			if v != 0 {
-				C.dword_5d4594_1193156 = 0
+				legacy.Set_dword_5d4594_1193156(0)
 			}
 			nox_client_texturedFloors2_154960 = nox_client_texturedFloors_154956
 		case "TranslucentConsole":
@@ -262,7 +237,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.nox_client_fadeObjects_80836 = C.uint(bool2int(v != 0))
+			legacy.Set_nox_client_fadeObjects_80836(bool2int(v != 0))
 		case "TrackData":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
@@ -274,13 +249,13 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.nox_client_renderBubbles_80844 = C.uint(bool2int(v != 0))
+			legacy.Set_nox_client_renderBubbles_80844(bool2int(v != 0))
 		case "SysopPassword":
-			C.nox_xxx_sysopSetPass_40A610(internWStr(kv.Value))
+			legacy.Nox_xxx_sysopSetPass_40A610(kv.Value)
 		case "ServerPassword":
 			v0 := sub_416640()
 			dst := unsafe.Slice((*uint16)(unsafe.Pointer(&v0[78])), 8)
-			WStrCopySlice(dst, kv.Value)
+			alloc.StrCopy16(dst, kv.Value)
 			dst[len(dst)-1] = 0
 		case "Profiled":
 			v, err := strconv.Atoi(kv.Value)
@@ -293,7 +268,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.nox_server_sanctuaryHelp_54276 = C.uint(bool2int(v != 0))
+			legacy.Set_nox_server_sanctuaryHelp_54276(bool2int(v != 0))
 		case "MaxPacketLossPct":
 			v, err := strconv.ParseUint(kv.Value, 10, 32)
 			if err != nil {
@@ -306,15 +281,15 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.nox_server_sendMotd_108752 = C.uint(bool2int(v != 0))
+			legacy.Set_nox_server_sendMotd_108752(bool2int(v != 0))
 		case "InternetUpdateRate":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.nox_xxx_rateUpdate_40A6D0(C.int(v))
+			legacy.Nox_xxx_rateUpdate_40A6D0(v)
 			if nox_xxx_rateGet_40A6C0() <= 0 || nox_xxx_rateGet_40A6C0() > 3 {
-				C.nox_xxx_rateUpdate_40A6D0(1)
+				legacy.Nox_xxx_rateUpdate_40A6D0(1)
 			}
 		case "ConnectionType":
 			v, err := strconv.Atoi(kv.Value)
@@ -332,14 +307,14 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				if v < 0 || v > 4 {
 					v = 4
 				}
-				C.nox_server_connectionType_3596 = C.uint(v)
+				legacy.Set_nox_server_connectionType_3596(v)
 			}
 		case "MapCycle":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.sub_4D0D90(C.int(bool2int(v != 0)))
+			legacy.Sub_4D0D90(bool2int(v != 0))
 		case "LANFilters":
 			err := sub_432E50(kv.Value, 0)
 			if err != nil {
@@ -361,7 +336,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				if err != nil {
 					return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 				}
-				C.sub_409FB0_settings(C.short(configModeCodes[i]), C.ushort(v))
+				legacy.Sub_409FB0_settings(int16(configModeCodes[i]), uint16(v))
 			}
 		case "TimeLimit":
 			max := len(configModeCodes)
@@ -374,7 +349,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				if err != nil {
 					return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 				}
-				noxServer.sub40A040settings(int(configModeCodes[i]), v)
+				noxServer.Sub40A040settings(int(configModeCodes[i]), v)
 			}
 		case "PlayerSkeletons":
 			v, err := strconv.Atoi(kv.Value)
@@ -454,7 +429,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			}
 			v1 := sub_416640()
 			v1[104] = byte(v)
-			C.nox_xxx_servSetPlrLimit_409F80(C.int(v))
+			legacy.Nox_xxx_servSetPlrLimit_409F80(v)
 		case "RestrictedClasses":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
@@ -495,9 +470,9 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 			if v != 0 {
-				C.sub_409E70(2)
+				legacy.Sub_409E70(2)
 			} else {
-				C.sub_409EC0(2)
+				legacy.Sub_409EC0(2)
 			}
 		case "CamperAlarm":
 			v, err := strconv.Atoi(kv.Value)
@@ -505,9 +480,9 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
 			if v != 0 {
-				C.sub_409E70(0x2000)
+				legacy.Sub_409E70(0x2000)
 			} else {
-				C.sub_409EC0(0x2000)
+				legacy.Sub_409EC0(0x2000)
 			}
 		case "MinKickVotes":
 			v, err := strconv.Atoi(kv.Value)
@@ -520,13 +495,13 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.nox_server_resetQuestMinVotes_229988 = C.uint(v)
+			legacy.Set_nox_server_resetQuestMinVotes_229988(v)
 		case "KickQuestPlayerMinVotes":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
 				return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 			}
-			C.nox_server_kickQuestPlayerMinVotes_229992 = C.uint(v)
+			legacy.Set_nox_server_kickQuestPlayerMinVotes_229992(v)
 		case "Fullscreen":
 			v, err := strconv.Atoi(kv.Value)
 			if err != nil {
@@ -557,7 +532,7 @@ func nox_common_parsecfg_all(sect cfg.Section) error {
 					if err != nil {
 						return fmt.Errorf("cannot parse %s: %w", kv.Key, err)
 					}
-					C.sub_4D0DC0(C.int(ci.Flags), C.int(v))
+					legacy.Sub_4D0DC0(ci.Flags, v)
 					break
 				}
 			}
@@ -605,9 +580,9 @@ func sub_432CB0(val string, ind int) error {
 		if v > 0x4000 {
 			v = 0x4000
 		}
-		sub_486670(int(v), ind)
+		legacy.Sub_486670(int(v), ind)
 	} else {
-		sub_486670(0, ind)
+		legacy.Sub_486670(0, ind)
 	}
 	return nil
 }
@@ -626,7 +601,7 @@ func sub_432E50(val string, ind int) error {
 		}
 		arr[i] = int32(v)
 	}
-	C.sub_489FF0(C.int(ind), C.int(arr[0]), unsafe.Pointer(&arr[1]))
+	legacy.Sub_489FF0(ind, int(arr[0]), unsafe.Pointer(&arr[1]))
 	return nil
 }
 
@@ -669,47 +644,47 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 	sect.Set("InputSensitivity", strconv.FormatFloat(float64(noxClient.GetSensitivity()), 'g', -1, 32))
 
 	v := 0
-	if C.sub_453070() == 1 {
-		v = int(*(*uint32)(unsafe.Add(unsafe.Pointer(C.dword_587000_127004), 4)) >> 16)
+	if legacy.Sub_453070() == 1 {
+		v = int(*(*uint32)(unsafe.Add(unsafe.Pointer(legacy.Get_dword_587000_127004()), 4)) >> 16)
 	}
 	sect.Set("FXVolume", strconv.Itoa(v))
 
 	v = 0
-	if C.sub_44D990() == 1 {
-		v = int(*(*uint32)(unsafe.Add(unsafe.Pointer(C.dword_587000_122852), 4)) >> 16)
+	if legacy.Sub_44D990() == 1 {
+		v = int(*(*uint32)(unsafe.Add(unsafe.Pointer(legacy.Get_dword_587000_122852()), 4)) >> 16)
 	}
 	sect.Set("DialogVolume", strconv.Itoa(v))
 
 	v = 0
-	if C.sub_43DC30() == 1 {
-		v = int(*(*uint32)(unsafe.Add(unsafe.Pointer(C.dword_587000_93164), 4)) >> 16)
+	if legacy.Sub_43DC30() == 1 {
+		v = int(*(*uint32)(unsafe.Add(unsafe.Pointer(legacy.Get_dword_587000_93164()), 4)) >> 16)
 	}
 	sect.Set("MusicVolume", strconv.Itoa(v))
 
-	sect.Set("LastServer", GoStringP(memmap.PtrOff(0x5D4594, 806060)))
+	sect.Set("LastServer", alloc.GoString((*byte)(memmap.PtrOff(0x5D4594, 806060))))
 	sect.Set("ServerName", sub_433890())
 	sect.Set("UnlockSurface", strconv.Itoa(bool2int(legacyUnlockSurface)))
 	sect.Set("SoftShadowEdge", strconv.Itoa(bool2int(noxflags.HasEngine(noxflags.EngineSoftShadowEdge))))
 	sect.Set("DrawFrontWalls", strconv.Itoa(bool2int(nox_client_drawFrontWalls_80812)))
-	sect.Set("TranslucentFrontWalls", strconv.Itoa(int(C.nox_client_translucentFrontWalls_805844)))
-	sect.Set("HighResFrontWalls", strconv.Itoa(int(C.nox_client_highResFrontWalls_80820)))
-	sect.Set("HighResFloors", strconv.Itoa(int(C.nox_client_highResFloors_154952)))
+	sect.Set("TranslucentFrontWalls", strconv.Itoa(int(legacy.Get_nox_client_translucentFrontWalls_805844())))
+	sect.Set("HighResFrontWalls", strconv.Itoa(int(legacy.Get_nox_client_highResFrontWalls_80820())))
+	sect.Set("HighResFloors", strconv.Itoa(int(legacy.Get_nox_client_highResFloors_154952())))
 	sect.Set("LockHighResFloors", strconv.Itoa(bool2int(nox_client_lockHighResFloors_1193152)))
 	sect.Set("TexturedFloors", strconv.Itoa(bool2int(nox_client_texturedFloors_154956)))
 	sect.Set("TranslucentConsole", strconv.Itoa(bool2int(guiCon.translucent)))
 	sect.Set("RenderGlow", strconv.Itoa(bool2int(noxClient.r.Part.RenderGlow)))
 	sect.Set("RenderGUI", strconv.Itoa(bool2int(nox_client_renderGUI_80828)))
-	sect.Set("FadeObjects", strconv.Itoa(int(C.nox_client_fadeObjects_80836)))
-	sect.Set("RenderBubbles", strconv.Itoa(int(C.nox_client_renderBubbles_80844)))
+	sect.Set("FadeObjects", strconv.Itoa(int(legacy.Get_nox_client_fadeObjects_80836())))
+	sect.Set("RenderBubbles", strconv.Itoa(int(legacy.Get_nox_client_renderBubbles_80844())))
 	sect.Set("TrackData", strconv.Itoa(int(sub_578DF0())))
-	sect.Set("SysopPassword", GoWString(C.nox_xxx_sysopGetPass_40A630()))
-	sect.Set("ServerPassword", GoWString((*wchar_t)(unsafe.Pointer(&v1[78]))))
+	sect.Set("SysopPassword", legacy.Nox_xxx_sysopGetPass_40A630())
+	sect.Set("ServerPassword", alloc.GoString16((*uint16)(unsafe.Pointer(&v1[78]))))
 	sect.Set("Profiled", strconv.Itoa(bool2int(legacyProfiled != 0)))
-	sect.Set("SanctuaryHelp", strconv.Itoa(int(C.nox_server_sanctuaryHelp_54276)))
+	sect.Set("SanctuaryHelp", strconv.Itoa(int(legacy.Get_nox_server_sanctuaryHelp_54276())))
 	sect.Set("MaxPacketLossPct", strconv.Itoa(int(memmap.Uint32(0x587000, 81280))))
-	sect.Set("SendMessageOfTheDay", strconv.Itoa(int(C.nox_server_sendMotd_108752)))
-	sect.Set("MapCycle", strconv.Itoa(int(C.sub_4D0D70())))
-	sect.Set("ConnectionType", strconv.Itoa(int(C.nox_server_connectionType_3596)))
+	sect.Set("SendMessageOfTheDay", strconv.Itoa(int(legacy.Get_nox_server_sendMotd_108752())))
+	sect.Set("MapCycle", strconv.Itoa(legacy.Sub_4D0D70()))
+	sect.Set("ConnectionType", strconv.Itoa(int(legacy.Get_nox_server_connectionType_3596())))
 	sect.Set("InternetUpdateRate", strconv.Itoa(nox_xxx_rateGet_40A6C0()))
 	sect.Set("LessonLimit", sub_4337B0())
 	sect.Set("TimeLimit", sub_433820())
@@ -723,11 +698,11 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 	sect.Set("RestrictedClasses", strconv.Itoa(int(v1[100]&0x7)))
 	sect.Set("RestrictedPing", fmt.Sprintf("%d %d", *(*uint16)(unsafe.Pointer(&v1[105])), *(*uint16)(unsafe.Pointer(&v1[107]))))
 	sect.Set("LimitMaxRes", strconv.Itoa(int(v1[102]>>7)))
-	sect.Set("CamperAlarm", strconv.Itoa(bool2int((C.nox_xxx_getServerSubFlags_409E60()>>13)&0x1 != 0)))
-	sect.Set("ItemRespawn", strconv.Itoa(int(C.sub_409F40(2))))
+	sect.Set("CamperAlarm", strconv.Itoa(bool2int((legacy.Nox_xxx_getServerSubFlags_409E60()>>13)&0x1 != 0)))
+	sect.Set("ItemRespawn", strconv.Itoa(legacy.Sub_409F40(2)))
 	sect.Set("MinKickVotes", strconv.Itoa(int(memmap.Uint32(0x587000, 229980))))
-	sect.Set("ResetQuestMinVotes", strconv.Itoa(int(C.nox_server_resetQuestMinVotes_229988)))
-	sect.Set("KickQuestPlayerMinVotes", strconv.Itoa(int(C.nox_server_kickQuestPlayerMinVotes_229992)))
+	sect.Set("ResetQuestMinVotes", strconv.Itoa(int(legacy.Get_nox_server_resetQuestMinVotes_229988())))
+	sect.Set("KickQuestPlayerMinVotes", strconv.Itoa(int(legacy.Get_nox_server_kickQuestPlayerMinVotes_229992())))
 
 	v16, arr := sub_48A020(0)
 	sect.Set("LANFilters", fmt.Sprintf("%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",
@@ -738,7 +713,7 @@ func writeConfigLegacyMain(sect *cfg.Section) {
 		int(v16), arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], arr[8], arr[9], arr[10],
 	))
 	for _, ci := range configCycleIndexes {
-		sect.Set(ci.Name, strconv.Itoa(int(C.sub_4D0DE0(C.int(ci.Flags)))))
+		sect.Set(ci.Name, strconv.Itoa(legacy.Sub_4D0DE0(ci.Flags)))
 	}
 }
 
@@ -751,7 +726,7 @@ func sub_48A020(ind int) (int, []int32) {
 func sub_4337B0() string {
 	var arr []string
 	for _, m := range configModeCodes {
-		arr = append(arr, strconv.Itoa(int(C.nox_xxx_servGamedataGet_40A020(C.short(m)))))
+		arr = append(arr, strconv.Itoa(legacy.Nox_xxx_servGamedataGet_40A020(int16(m))))
 	}
 	return strings.Join(arr, ",")
 }
@@ -759,7 +734,7 @@ func sub_4337B0() string {
 func sub_433820() string {
 	var arr []string
 	for _, m := range configModeCodes {
-		arr = append(arr, strconv.Itoa(int(C.sub_40A180(C.short(m)))))
+		arr = append(arr, strconv.Itoa(legacy.Sub_40A180(noxflags.GameFlag(m))))
 	}
 	return strings.Join(arr, ",")
 }

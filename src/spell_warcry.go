@@ -1,16 +1,12 @@
 package opennox
 
-/*
-#include "GAME4.h"
-#include "GAME4_3.h"
-*/
-import "C"
 import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/spell"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -26,7 +22,7 @@ func nox_xxx_warriorWarcry_53FF40(u *Unit) {
 		}
 	}
 	nox_xxx_playerSetState_4FA020(u, 1)
-	C.nox_xxx_spell_4FE680(u.CObj(), dist)
+	legacy.Nox_xxx_spell_4FE680(u.SObj(), dist)
 	s.Map.EachObjInCircle(u.Pos(), dist, func(it *server.Object) {
 		if !it.Class().HasAny(object.MaskUnits) {
 			return
@@ -52,21 +48,21 @@ func nox_xxx_warriorWarcry_53FF40(u *Unit) {
 				return
 			}
 		}
-		if !nox_xxx_servCompareTeams_419150(u.teamPtr(), u2.teamPtr()) {
-			if C.nox_xxx_mapCheck_537110(u2.CObj(), u.CObj()) != 0 {
+		if !server.Nox_xxx_servCompareTeams_419150(u.TeamPtr(), u2.TeamPtr()) {
+			if legacy.Nox_xxx_mapCheck_537110(u2.SObj(), u.SObj()) != 0 {
 				pos := u2.Pos()
-				sa, free := alloc.New(spellAcceptArg{})
+				sa, free := alloc.New(server.SpellAcceptArg{})
 				defer free()
-				*sa = spellAcceptArg{
-					Obj: u2.CObj(),
+				*sa = server.SpellAcceptArg{
+					Obj: u2.SObj(),
 					Pos: pos,
 				}
-				s.nox_xxx_spellAccept4FD400(spell.SPELL_NULLIFY, u, u, u, sa, 5)
+				s.Nox_xxx_spellAccept4FD400(spell.SPELL_NULLIFY, u.SObj(), u.SObj(), u.SObj(), sa, 5)
 			}
 		}
 	})
 	u.DisableEnchant(server.ENCHANT_INVISIBLE)
 	u.DisableEnchant(server.ENCHANT_INVULNERABLE)
 	s.spells.duration.CancelFor(spell.SPELL_OVAL_SHIELD, u)
-	s.abilities.netAbilReportActive(u, AbilityWarcry, true)
+	s.abilities.netAbilReportActive(u, server.AbilityWarcry, true)
 }

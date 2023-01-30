@@ -15,6 +15,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/input"
 	"github.com/noxworld-dev/opennox/v1/client/render"
 	"github.com/noxworld-dev/opennox/v1/internal/version"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 )
 
 func init() {
@@ -49,7 +50,7 @@ func (c *Client) initSeat(sz image.Point) error {
 	})
 	inp.OnInputString(func(str string) {
 		for _, c := range utf16.Encode([]rune(str)) {
-			noxInputOnChar(c)
+			legacy.NoxInputOnChar(c)
 		}
 	})
 

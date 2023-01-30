@@ -11,7 +11,7 @@ import (
 	"golang.org/x/image/font"
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 func NewWindowData() (*WindowData, func()) {

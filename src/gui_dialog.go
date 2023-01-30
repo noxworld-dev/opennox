@@ -1,15 +1,7 @@
 package opennox
 
-/*
-#include "defs.h"
-#include "GAME1_1.h"
-#include "GAME1_3.h"
-#include "GAME2_2.h"
-*/
-import "C"
 import (
 	"image"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
 	"github.com/noxworld-dev/opennox-lib/noxfont"
@@ -18,7 +10,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/input"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/internal/ccall"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 )
 
 const (
@@ -44,30 +36,12 @@ var (
 	func_5d4594_830216       func()
 )
 
-//export sub_44A4A0
 func sub_44A4A0() int {
 	return bool2int(nox_gui_curDialog_830224 != nil)
 }
 
 func sub44A4A0() bool {
 	return nox_gui_curDialog_830224 != nil
-}
-
-//export nox_xxx_dialogMsgBoxCreate_449A10
-func nox_xxx_dialogMsgBoxCreate_449A10(win *C.nox_window, title, text *C.wchar_t, a4 int, a5, a6 unsafe.Pointer) unsafe.Pointer {
-	var fnc5, fnc6 func()
-	if a5 != nil {
-		fnc5 = func() {
-			ccall.CallVoidVoid(a5)
-		}
-	}
-	if a6 != nil {
-		fnc6 = func() {
-			ccall.CallVoidVoid(a6)
-		}
-	}
-	NewDialogWindow(asWindow(win), GoWString(title), GoWString(text), gui.DialogFlags(a4), fnc5, fnc6)
-	return nil
 }
 
 func winNewDialogID(win *gui.Window, id strman.ID, file string) {
@@ -136,19 +110,9 @@ func NewDialogWindow(a1 *gui.Window, title string, text string, flags gui.Dialog
 	}
 }
 
-//export sub_449E00
-func sub_449E00(a1 *wchar_t) int {
-	return sub449E00(GoWString(a1))
-}
-
 func sub449E00(a1 string) int {
 	v1 := nox_gui_curDialog_830224.ChildByID(4005)
 	return gui.EventRespInt(v1.Func94(&gui.StaticTextSetText{Str: a1, Val: -1}))
-}
-
-//export sub_449E30
-func sub_449E30(a1 *wchar_t) int {
-	return sub449E30(GoWString(a1))
 }
 
 func sub449E30(a1 string) int {
@@ -156,9 +120,8 @@ func sub449E30(a1 string) int {
 	return gui.EventRespInt(v1.Func94(&gui.StaticTextSetText{Str: a1, Val: -1}))
 }
 
-//export sub_449E60
-func sub_449E60(a1 C.char) int {
-	return gui.EventRespInt(sub449E60(int8(a1)))
+func sub_449E60(a1 int8) int {
+	return gui.EventRespInt(sub449E60(a1))
 }
 
 func sub449E60(a1 int8) gui.WindowEventResp {
@@ -169,11 +132,6 @@ func sub449E60(a1 int8) gui.WindowEventResp {
 		v1 = nox_gui_curDialog_830224.ChildByID(guiDialogTextEntry2ID)
 	}
 	return v1.Func94(gui.AsWindowEvent(0x401d, 0, 0))
-}
-
-//export sub_449EA0
-func sub_449EA0(a1 int) {
-	sub449EA0(gui.DialogFlags(a1))
 }
 
 func sub449EA0(flags gui.DialogFlags) {
@@ -271,7 +229,7 @@ func sub_449C30(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
 			}
 		}
 	}
-	return nox_xxx_wndEditProc_487D70(a1, ev)
+	return legacy.Nox_xxx_wndEditProc_487D70(a1, ev)
 }
 
 func nox_xxx_windowDlgProc_449CA0(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
@@ -308,8 +266,8 @@ func nox_xxx_windowDlgProc_449CA0(a1 *gui.Window, ev gui.WindowEvent) gui.Window
 			sub_44A400()
 		case guiDialogDisconnectID: // Disconnect
 			sub_41E300(9)
-			v5 := sub_41E2F0()
-			C.sub_41DA70(C.int(v5), 8)
+			v5 := legacy.Sub_41E2F0()
+			legacy.Sub_41DA70(v5, 8)
 			nox_gui_dialogUnsetFlags_830224(gui.DialogDisconnectButton)
 			sub_44A400()
 		case guiDialogHelpID: // Help
@@ -319,7 +277,6 @@ func nox_xxx_windowDlgProc_449CA0(a1 *gui.Window, ev gui.WindowEvent) gui.Window
 	}
 }
 
-//export sub_44A4E0
 func sub_44A4E0() int {
 	if !sub44A4A0() {
 		return 0
@@ -329,14 +286,12 @@ func sub_44A4E0() int {
 	return 1
 }
 
-//export sub_44A4B0
 func sub_44A4B0() {
 	if nox_gui_curDialog_830224 != nil {
 		nox_gui_curDialog_830224.ShowModal()
 	}
 }
 
-//export sub_44A360
 func sub_44A360(a1 int) {
 	name := noxfont.DefaultName
 	if a1 == 1 {

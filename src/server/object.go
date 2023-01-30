@@ -1,7 +1,6 @@
 package server
 
 import (
-	"bytes"
 	"fmt"
 	"math"
 	"strings"
@@ -11,9 +10,9 @@ import (
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/types"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
-	"github.com/noxworld-dev/opennox/v1/internal/ccall"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var (
@@ -51,6 +50,16 @@ type serverObjects struct {
 	UpdatableList   *Object
 	UpdatableList2  *Object
 	DeletedList     *Object
+}
+
+func (s *serverObjects) GetAndZeroObjects() *Object { // nox_get_and_zero_server_objects_4DA3C0
+	l := s.List
+	s.List = nil
+	return l
+}
+
+func (s *serverObjects) SetObjects(list *Object) { // nox_set_server_objects_4DA3E0
+	s.List = list
 }
 
 func (s *serverObjects) Init(cnt int) bool {
@@ -396,7 +405,7 @@ type Object struct {
 	CarryCapacity uint16                     // 122, 490
 	InvHolder     *Object                    // 123, 492 // Also health data, possibly same as 556, see 4E4560
 	InvNextItem   *Object                    // 124, 496, TODO: next item
-	Field125      *Object                    // 125, 500, TODO: a nox_object_t*? see 4ED0C0
+	Field125      *Object                    // 125, 500, TODO: an Object*? see 4ED0C0
 	InvFirstItem  *Object                    // 126, 504, TODO: first item
 	ObjOwner      *Object                    // 127, 508
 	Field128      *Object                    // 128, 512
@@ -486,12 +495,7 @@ func (obj *Object) ID() string {
 	if obj == nil {
 		return ""
 	}
-	arr := unsafe.Slice((*byte)(obj.IDPtr), 512)
-	i := bytes.IndexByte(arr, 0)
-	if i < 0 {
-		return string(arr)
-	}
-	return string(arr[:i])
+	return alloc.GoString((*byte)(obj.IDPtr))
 }
 
 func (obj *Object) EqualID(id2 string) bool {
@@ -512,6 +516,34 @@ func (obj *Object) FindByID(id string) *Object {
 		}
 	}
 	return nil
+}
+
+func (obj *Object) Next() *Object {
+	if obj == nil {
+		return nil
+	}
+	return obj.ObjNext
+}
+
+func (obj *Object) Prev() *Object {
+	if obj == nil {
+		return nil
+	}
+	return obj.ObjPrev
+}
+
+func (obj *Object) FirstItem() *Object {
+	if obj == nil {
+		return nil
+	}
+	return obj.InvFirstItem
+}
+
+func (obj *Object) NextItem() *Object {
+	if obj == nil {
+		return nil
+	}
+	return obj.InvNextItem
 }
 
 func (obj *Object) HasItem(item *Object) bool {
@@ -622,12 +654,27 @@ func (obj *Object) UpdateDataPlayer() *PlayerUpdateData {
 	return (*PlayerUpdateData)(obj.UpdateData)
 }
 
+func (obj *Object) ControllingPlayer() *Player {
+	if obj == nil {
+		return nil
+	}
+	ud := obj.UpdateDataPlayer()
+	return ud.Player
+}
+
 func (obj *Object) UpdateDataMonster() *MonsterUpdateData {
 	if !obj.Class().Has(object.ClassMonster) {
 		panic(obj.Class().String())
 	}
 	// TODO: verify this conversion by checking ObjectType
 	return (*MonsterUpdateData)(obj.UpdateData)
+}
+
+func (obj *Object) TeamPtr() *ObjectTeam {
+	if obj == nil {
+		return nil
+	}
+	return (*ObjectTeam)(unsafe.Pointer(&obj.Field12))
 }
 
 func (obj *Object) Push(vec types.Pointf, force float32) {
@@ -656,6 +703,10 @@ func (obj *Object) LookAt(p types.Pointf) {
 	p = p.Sub(obj.Pos())
 	v := DirFromVec(p)
 	obj.SetDir(v)
+}
+
+func (obj *Object) Sub548600(dp types.Pointf) {
+	obj.Pos24 = obj.Pos24.Add(dp.Div(obj.Mass))
 }
 
 func (obj *Object) Health() (cur, max int) {

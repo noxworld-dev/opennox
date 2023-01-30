@@ -1,39 +1,11 @@
 package opennox
 
-/*
-#include "defs.h"
-extern int nox_drawable_count;
-int  nox_xxx_client_4984B0_drawable(nox_drawable* dr);
-nox_drawable* nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a3);
-static int go_nox_drawable_call_draw_func(nox_draw_viewport_t* vp, nox_drawable* dr) {
-	return dr->draw_func(vp, dr);
-}
-static void go_nox_drawable_call_sprite_func(void(* fnc)(nox_drawable*, int), nox_drawable* dr, int arg) {
-	fnc(dr, arg);
-}
-*/
-import "C"
 import (
 	"image"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client"
-	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 )
-
-func drawableCount() int {
-	return int(C.nox_drawable_count)
-}
-
-func asDrawable(p *nox_drawable) *client.Drawable {
-	return (*client.Drawable)(unsafe.Pointer(p))
-}
-
-type nox_drawable = C.nox_drawable
-
-func callDrawFunc(s *client.Drawable, vp *noxrender.Viewport) int {
-	return int(C.go_nox_drawable_call_draw_func((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(s.C())))
-}
 
 const (
 	nox_drawable_2d_index_cap = 47
@@ -58,13 +30,7 @@ func sub_49A950_free() {
 	nox_drawable_2d_index_size = 0
 }
 
-func nox_xxx_spriteLoadAdd_45A360_drawable(thingInd int, pos image.Point) *client.Drawable {
-	return asDrawable(C.nox_xxx_spriteLoadAdd_45A360_drawable(C.int(thingInd), C.int(pos.X), C.int(pos.Y)))
-}
-
-//export nox_xxx_sprite_49AA00_drawable
-func nox_xxx_sprite_49AA00_drawable(d *nox_drawable) {
-	dr := asDrawable(d)
+func nox_xxx_sprite_49AA00_drawable(dr *client.Drawable) {
 	pos := dr.Pos()
 	xi := pos.X / nox_drawable_2d_div
 	yi := pos.Y / nox_drawable_2d_div
@@ -91,24 +57,6 @@ func nox_xxx_sprite_49AA00_drawable(d *nox_drawable) {
 	nox_drawable_2d_index[xi][yi] = dr
 
 	ext.Field99 = &nox_drawable_2d_index[xi][yi]
-}
-
-//export nox_xxx_sprite_49A9B0_drawable
-func nox_xxx_sprite_49A9B0_drawable(d *nox_drawable) int {
-	dr := asDrawable(d)
-	client.Nox_xxx_sprite_2d_remove(dr, dr.Ext())
-	return 0
-}
-
-//export nox_xxx_forEachSprite_49AB00
-func nox_xxx_forEachSprite_49AB00(a1 *C.int4, cfnc unsafe.Pointer, data int) {
-	if cfnc == nil {
-		return
-	}
-	rect := image.Rect(int(a1.field_0), int(a1.field_4), int(a1.field_8), int(a1.field_C))
-	nox_xxx_forEachSprite(rect, func(dr *client.Drawable) {
-		C.go_nox_drawable_call_sprite_func((*[0]byte)(cfnc), (*nox_drawable)(dr.C()), C.int(data))
-	})
 }
 
 func nox_xxx_forEachSprite(rect image.Rectangle, fnc func(dr *client.Drawable)) {
@@ -140,11 +88,6 @@ func nox_xxx_forEachSprite(rect image.Rectangle, fnc func(dr *client.Drawable)) 
 	}
 }
 
-//export nox_drawable_find_49ABF0
-func nox_drawable_find_49ABF0(pt *C.nox_point, r int) *nox_drawable {
-	return (*nox_drawable)(nox_drawable_find(image.Point{X: int(pt.x), Y: int(pt.y)}, r).C())
-}
-
 func nox_drawable_find(pt image.Point, r int) *client.Drawable {
 	xs := (pt.X - r) / nox_drawable_2d_div
 	if xs < 0 {
@@ -170,7 +113,7 @@ func nox_drawable_find(pt image.Point, r int) *client.Drawable {
 	for y := ys; y <= ye; y++ {
 		for x := xs; x <= xe; x++ {
 			for dr := nox_drawable_2d_index[x][y]; dr != nil; dr = dr.Field100() {
-				if C.nox_xxx_client_4984B0_drawable((*nox_drawable)(dr.C())) == 0 {
+				if legacy.Nox_xxx_client_4984B0_drawable(dr) == 0 {
 					continue
 				}
 				dp := pt.Sub(dr.Pos())
