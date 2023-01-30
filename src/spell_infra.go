@@ -7,8 +7,8 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func castInfravision(spellID spell.ID, _, _, _ *Unit, args *spellAcceptArg, lvl int) int {
-	return castBuffSpell(spellID, server.ENCHANT_INFRAVISION, lvl, asUnitC(args.Obj), spellBuffConf{
+func castInfravision(spellID spell.ID, _, _, _ *server.Object, args *server.SpellAcceptArg, lvl int) int {
+	return castBuffSpell(spellID, server.ENCHANT_INFRAVISION, lvl, args.Obj, spellBuffConf{
 		DurOpt: "InfravisionEnchantDuration",
 	})
 }
@@ -22,7 +22,7 @@ func nox_xxx_warriorInfravis_540110(u *Unit, dur int) {
 	}
 	s := noxServer
 	if ud := u.UpdateDataPlayer(); ud != nil {
-		u.ApplyEnchant(server.ENCHANT_INFRAVISION, dur, int(asPlayerS(ud.Player).SpellLvl[AbilityInfravis]))
-		s.abilities.netAbilReportActive(u, AbilityInfravis, true)
+		u.ApplyEnchant(server.ENCHANT_INFRAVISION, dur, int(asPlayerS(ud.Player).SpellLvl[server.AbilityInfravis]))
+		s.abilities.netAbilReportActive(u, server.AbilityInfravis, true)
 	}
 }

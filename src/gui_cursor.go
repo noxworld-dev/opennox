@@ -1,58 +1,45 @@
 package opennox
 
-import "C"
 import (
 	"image"
-	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
-	"github.com/noxworld-dev/opennox/v1/internal/ccall"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 const cursorSize = 64
 
-//export nox_client_setCursorType_477610
-func nox_client_setCursorType_477610(v int) int {
-	noxClient.Nox_client_setCursorType(gui.Cursor(v))
-	return v
-}
-
-//export nox_xxx_cursorGetTypePrev_477630
-func nox_xxx_cursorGetTypePrev_477630() int {
-	return int(noxClient.CursorPrev)
-}
-
-func (c *Client) getCursorAnimFrame(ref *noxImageRef, dt int) *noxrender.Image {
+func (c *Client) getCursorAnimFrame(ref *legacy.ImageRef, dt int) *noxrender.Image {
 	if ref == nil {
 		return nil
 	}
-	anim := ref.field24ptr()
+	anim := ref.Field24ptr()
 	ts := int(c.GetInputSeq()) + dt
 	imgs := anim.Images()
-	switch anim.anim_type {
+	switch anim.AnimType {
 	case 0: // OneShot
-		ind := (ts - int(anim.field_3)) / (int(anim.field_2_1) + 1)
+		ind := (ts - int(anim.Field_3)) / (int(anim.Field_2_1) + 1)
 		if ind+1 >= len(imgs) {
 			ind = len(imgs) - 1
-			if anim.on_end != nil {
-				ccall.CallVoidPtr(unsafe.Pointer(anim.on_end), unsafe.Pointer(ref.C()))
+			if anim.OnEnd != nil {
+				ccall.CallVoidPtr(anim.OnEnd, ref.C())
 			}
 		}
-		return asImage(imgs[ind])
+		return c.r.Bag.AsImage(imgs[ind])
 	case 2: // Loop
-		ind := ts / (int(anim.field_2_1) + 1)
+		ind := ts / (int(anim.Field_2_1) + 1)
 		ind %= len(imgs)
-		return asImage(imgs[ind])
+		return c.r.Bag.AsImage(imgs[ind])
 	default:
 		return nil
 	}
 }
 
-func (c *Client) sub_4BE710(ref *noxImageRef, pos image.Point, ind int) {
-	anim := ref.field24ptr()
+func (c *Client) sub_4BE710(ref *legacy.ImageRef, pos image.Point, ind int) {
+	anim := ref.Field24ptr()
 	imgs := anim.Images()
-	img := asImage(imgs[ind])
+	img := c.r.Bag.AsImage(imgs[ind])
 	if c.flag3798728 {
 		c.r.noxDrawCursor(img, pos)
 	} else {

@@ -1,15 +1,13 @@
 package opennox
 
-import "C"
 import (
 	"time"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-//export nox_xxx_mapGenMakeInfo_4D5DB0
 func nox_xxx_mapGenMakeInfo_4D5DB0(p unsafe.Pointer) {
 	alloc.StrCopy(unsafe.Slice((*byte)(unsafe.Add(p, 0)), 64), "Generated Map")
 	alloc.StrCopy(unsafe.Slice((*byte)(unsafe.Add(p, 64)), 64), "Generated Map") // TODO: size is a guess

@@ -1,17 +1,16 @@
 package opennox
 
-/*
-extern unsigned int nox_xxx_wallSounds_2386840;
-*/
-import "C"
 import (
 	"image"
 
 	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns"
+
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func (s noxScriptNS) NoWallSound(noWallSound bool) {
-	C.nox_xxx_wallSounds_2386840 = C.uint(bool2int(noWallSound))
+	legacy.Set_nox_xxx_wallSounds_2386840(bool2int(noWallSound))
 }
 
 func (s noxScriptNS) Wall(x int, y int) ns.WallObj {
@@ -23,7 +22,7 @@ func (s noxScriptNS) Wall(x int, y int) ns.WallObj {
 }
 
 func (s noxScriptNS) WallGroup(name string) ns.WallGroupObj {
-	g := s.s.mapGroups.GroupByID(name, mapGroupWalls)
+	g := s.s.GroupByID(name, server.MapGroupWalls)
 	if g == nil {
 		scriptLog.Printf("noxscript: cannot find wall group: %q", name)
 		return nil
@@ -33,11 +32,11 @@ func (s noxScriptNS) WallGroup(name string) ns.WallGroupObj {
 
 type nsWallGroup struct {
 	s *Server
-	g *mapGroup
+	g *server.MapGroup
 }
 
 func (g nsWallGroup) ScriptID() int {
-	return int(g.g.Ind())
+	return int(g.g.Index())
 }
 
 func (g nsWallGroup) Enable(enable bool) {
@@ -67,5 +66,5 @@ func (g nsWallGroup) Destroy() {
 
 func (g nsWallGroup) EachWall(recursive bool, fnc func(obj ns.WallObj) bool) {
 	// TODO: recursive parameter is unused; remove from interface?
-	g.g.eachWallRecursive(g.s, fnc)
+	eachWallRecursive(g.s, g.g, fnc)
 }

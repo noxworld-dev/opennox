@@ -1,11 +1,5 @@
 package opennox
 
-/*
-void sub_43D9B0(int a1, int a2);
-int sub_43DA80();
-void sub_43DAD0();
-*/
-import "C"
 import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/script"
@@ -13,6 +7,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 )
 
 func (s noxScriptNS) AudioEvent(audio audio.Name, p script.Positioner) {
@@ -25,7 +20,7 @@ func (s noxScriptNS) AudioEvent(audio audio.Name, p script.Positioner) {
 
 func (s noxScriptNS) Music(music int, volume int) {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
-		C.sub_43D9B0(C.int(music), C.int(volume))
+		legacy.Sub_43D9B0(music, volume)
 	} else {
 		var buf [3]byte
 		buf[0] = byte(noxnet.MSG_MUSIC_EVENT)
@@ -37,7 +32,7 @@ func (s noxScriptNS) Music(music int, volume int) {
 
 func (s noxScriptNS) MusicPushEvent() {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
-		C.sub_43DA80()
+		legacy.Sub_43DA80()
 	} else {
 		var buf [3]byte
 		buf[0] = byte(noxnet.MSG_MUSIC_PUSH_EVENT)
@@ -47,7 +42,7 @@ func (s noxScriptNS) MusicPushEvent() {
 
 func (s noxScriptNS) MusicPopEvent() {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
-		C.sub_43DAD0()
+		legacy.Sub_43DAD0()
 	} else {
 		var buf [3]byte
 		buf[0] = byte(noxnet.MSG_MUSIC_POP_EVENT)
@@ -57,7 +52,7 @@ func (s noxScriptNS) MusicPopEvent() {
 
 func (s noxScriptNS) MusicEvent() {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
-		C.sub_43D9B0(0, 0)
+		legacy.Sub_43D9B0(0, 0)
 	} else {
 		var buf [3]byte
 		buf[0] = byte(noxnet.MSG_MUSIC_EVENT)

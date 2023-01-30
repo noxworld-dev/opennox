@@ -1,12 +1,5 @@
 package opennox
 
-/*
-int sub_4519C0();
-int sub_495430();
-void sub_44D3A0();
-void sub_43D440();
-*/
-import "C"
 import (
 	"image"
 
@@ -14,13 +7,20 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/noxworld-dev/opennox/v1/client"
-	"github.com/noxworld-dev/opennox/v1/client/audio/ail"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/client/audio/ail"
 )
 
 var (
 	noxClient *Client
 )
+
+func init() {
+	legacy.GetClient = func() legacy.Client {
+		return noxClient
+	}
+}
 
 const (
 	configVideoFiltering = "video.filtering"
@@ -63,6 +63,14 @@ type Client struct {
 	val1096560             int
 	savedHighResFloors     int
 	savedHighResFrontWalls int
+}
+
+func (c *Client) Cli() *client.Client {
+	return c.Client
+}
+
+func (c *Client) R2() legacy.Render2 {
+	return c.r
 }
 
 func (c *Client) Close() error {
@@ -125,10 +133,10 @@ func (c *Client) Update() bool {
 		}
 		return false
 	}
-	C.sub_4519C0()
+	legacy.Sub_4519C0()
 	c.sub4312C0()
 	if !isDedicatedServer {
-		C.sub_495430()
+		legacy.Sub_495430()
 	}
 	if noxflags.HasGame(noxflags.GameHost) && continueMenuOrHost && !mainloopStopError {
 		mainloopMaybeSwitchMapXXX()
@@ -149,8 +157,8 @@ func (c *Client) sub4312C0() {
 	ticks := platformTicks()
 
 	if ticks-c.ticks805996 > 33 {
-		C.sub_44D3A0()
-		C.sub_43D440()
+		legacy.Sub_44D3A0()
+		legacy.Sub_43D440()
 		c.ticks805996 = ticks
 	}
 }

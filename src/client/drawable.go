@@ -221,6 +221,10 @@ func (s *Drawable) Field104() *Drawable { // sub_45A010
 	return s.Field_104
 }
 
+func (s *Drawable) TeamPtr() *server.ObjectTeam {
+	return (*server.ObjectTeam)(unsafe.Pointer(&s.Field_6))
+}
+
 func (s *Drawable) Z() int {
 	return int(s.ZVal)
 }
@@ -257,4 +261,65 @@ func LightRadius(intens float32) int {
 	return int(math.Sqrt(float64(((memmap.Float32(0x587000, 154980)+intens2)/
 		(memmap.Float32(0x587000, 154980)+lightMinIntensity) + 1.0) *
 		(intens * intens / (memmap.Float32(0x587000, 154976) * memmap.Float32(0x587000, 154972))))))
+}
+
+func (s *Drawable) LinkType(i int, typ *ObjectType) {
+	*s = Drawable{}
+	s.Field_27 = uint32(i)
+	*(*uint8)(unsafe.Add(unsafe.Pointer(&s.Field_0), 0)) = typ.HWidth
+	*(*uint8)(unsafe.Add(unsafe.Pointer(&s.Field_0), 1)) = typ.HHeight
+	s.Field_26_1 = typ.Z // TODO: shouldn't it put this in dr.z?
+	s.Flags28Val = typ.ObjClass
+	s.Flags29Val = typ.ObjSubClass
+	s.Flags30Val = uint32(typ.ObjFlags)
+	s.Flags70Val = typ.Field_54
+	s.Field_74_3 = typ.Weight
+	s.DrawFuncPtr = typ.DrawFunc
+	s.Field_76 = typ.Field_5c
+	s.Field_77 = typ.Field_60
+	s.Field_116 = typ.ClientUpdate
+	s.Field_123 = typ.AudioLoop
+	s.LightFlags = uint32(typ.Field_f)
+	s.Field_42 = typ.Field_10
+	s.LightColorR = uint32(typ.LightColorR)
+	s.LightColorG = uint32(typ.LightColorG)
+	s.LightColorB = uint32(typ.LightColorB)
+	s.Field_41_0 = typ.LightDir
+	s.Field_41_1 = typ.LightPenumbra
+
+	s.Shape.Kind = server.ShapeKind(typ.ShapeKind)
+	s.Shape.Circle.R = typ.ShapeR
+	s.Shape.Circle.R2 = typ.ShapeR * typ.ShapeR
+	s.Shape.Box.W = typ.ShapeW
+	s.Shape.Box.H = typ.ShapeH
+	if s.Shape.Kind == server.ShapeKindBox {
+		s.Shape.Box.Calc()
+	}
+
+	s.Field_24 = typ.ZSizeMin
+	s.Field_25 = typ.ZSizeMax
+	intens := typ.LightIntensity
+	s.Field_43 = 0
+	if intens < 0 {
+		intens = -intens
+		s.Field_43 = 1
+	}
+	s.LightIntensity = intens
+	if intens != 0.0 {
+		s.SetLightIntensity(intens)
+		if s.LightFlags == 0 {
+			s.LightFlags = 1
+			s.LightColorR = 255
+			s.LightColorG = 255
+			s.LightColorB = 255
+		}
+	}
+	if s.Flags28Val&0x13001000 != 0 {
+		s.Field_108 = 0
+		s.Field_109 = 0
+		s.Field_110 = 0
+		s.Field_111 = 0
+		s.Field_112_0 = -1
+		s.Field_112_2 = -1
+	}
 }

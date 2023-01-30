@@ -16,12 +16,12 @@ type spellBuffConf struct {
 	DurLevelMul    bool   // multiply base duration by spell level
 	Once           bool   // only allow this buff to be cast once per target
 	Defensive      bool
-	Orig           *Unit
+	Orig           *server.Object
 	Offensive      bool
 	PointFX        noxnet.Op // play this point effect at the target
 }
 
-func castBuffSpell(spellID spell.ID, enc server.EnchantID, lvl int, targ *Unit, opts spellBuffConf) int {
+func castBuffSpell(spellID spell.ID, enc server.EnchantID, lvl int, targ *server.Object, opts spellBuffConf) int {
 	if targ == nil {
 		return 0
 	}
@@ -42,9 +42,9 @@ func castBuffSpell(spellID spell.ID, enc server.EnchantID, lvl int, targ *Unit, 
 		dur *= lvl
 	}
 	if opts.Defensive {
-		sub_4FF310(targ.CObj())
+		sub_4FF310(targ.SObj())
 	}
-	targ.ApplyEnchant(enc, dur, lvl)
+	asUnitS(targ).ApplyEnchant(enc, dur, lvl)
 	if opts.Orig != nil && opts.Offensive {
 		sub_4E7540(opts.Orig, targ)
 	}

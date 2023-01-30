@@ -1,15 +1,5 @@
 package opennox
 
-/*
-#include "GAME3_3.h"
-#include "GAME4.h"
-#include "GAME4_1.h"
-#include "GAME4_3.h"
-#include "GAME5_2.h"
-#include "server__script__builtin.h"
-void nox_server_gotoHome(nox_object_t* obj);
-*/
-import "C"
 import (
 	"unsafe"
 
@@ -18,15 +8,15 @@ import (
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-//export nox_xxx_unitIsUnitTT_4E7C80
-func nox_xxx_unitIsUnitTT_4E7C80(a1 *nox_object_t, a2 int) int {
-	return asUnitC(a1).countSubOfType(a2)
+func nox_xxx_unitIsUnitTT_4E7C80(a1 *server.Object, a2 int) int {
+	return asUnitS(a1).countSubOfType(a2)
 }
 
 func asUnit(p unsafe.Pointer) *Unit {
@@ -37,13 +27,6 @@ func asUnit(p unsafe.Pointer) *Unit {
 }
 
 func asUnitS(p *server.Object) *Unit {
-	if p == nil {
-		return nil
-	}
-	return (*Unit)(unsafe.Pointer(p))
-}
-
-func asUnitC(p *C.nox_object_t) *Unit {
 	if p == nil {
 		return nil
 	}
@@ -61,26 +44,18 @@ func (u *Unit) SObj() *server.Object {
 	return u.Object.SObj()
 }
 
-func (u *Unit) AsObject() *Object {
-	if u == nil {
-		return nil
-	}
-	return asObjectC(u.CObj())
-}
-
 func (u *Unit) String() string {
 	return u.stringAs("Unit")
 }
 
-func (u *Unit) move(cp *C.float2) {
-	C.nox_xxx_unitMove_4E7010(u.CObj(), cp)
+func (u *Unit) move(cp *types.Pointf) {
+	legacy.Nox_xxx_unitMove_4E7010(u.SObj(), cp)
 }
 
 func (u *Unit) SetPos(p types.Pointf) {
-	cp, free := alloc.New(C.float2{})
+	cp, free := alloc.New(types.Pointf{})
 	defer free()
-	cp.field_0 = C.float(p.X)
-	cp.field_4 = C.float(p.Y)
+	*cp = p
 	u.move(cp)
 }
 
@@ -102,11 +77,7 @@ func (u *Unit) UpdateDataMonster() *server.MonsterUpdateData {
 }
 
 func (u *Unit) ControllingPlayer() *Player {
-	if u == nil {
-		return nil
-	}
-	ud := u.UpdateDataPlayer()
-	return asPlayerS(ud.Player)
+	return asPlayerS(u.SObj().ControllingPlayer())
 }
 
 func (u *Unit) SetHealth(v int) {
@@ -123,9 +94,9 @@ func (u *Unit) SetHealth(v int) {
 		v = max
 	}
 	// TODO: if 0, trigger death
-	C.nox_xxx_unitSetHP_4E4560(u.CObj(), C.ushort(v))
+	legacy.Nox_xxx_unitSetHP_4E4560(u.SObj(), uint16(v))
 	if u.Class().Has(object.ClassMonster) {
-		C.nox_xxx_mobInformOwnerHP_4EE4C0(u.CObj())
+		legacy.Nox_xxx_mobInformOwnerHP_4EE4C0(u.SObj())
 	}
 }
 
@@ -171,7 +142,7 @@ func (u *Unit) SetMana(v int) {
 	p.ManaPrev = uint16(cur)
 	p.ManaCur = uint16(v)
 	pt := asPlayerS(p.Player)
-	C.nox_xxx_protectMana_56F9E0(C.int(pt.ProtUnitManaCur), C.short(v-cur))
+	legacy.Nox_xxx_protectMana_56F9E0(int(pt.ProtUnitManaCur), int16(v-cur))
 }
 
 func (u *Unit) SetMaxMana(v int) {
@@ -197,7 +168,7 @@ func (u *Unit) MoveTo(p types.Pointf) {
 }
 
 func (u *Unit) WalkTo(p types.Pointf) {
-	C.nox_xxx_monsterWalkTo_514110(u.CObj(), C.float(p.X), C.float(p.Y))
+	legacy.Nox_xxx_monsterWalkTo_514110(u.SObj(), p.X, p.Y)
 }
 
 func (u *Unit) SetDir(v server.Dir16) {
@@ -209,7 +180,7 @@ func (u *Unit) LookAt(p types.Pointf) {
 }
 
 func (u *Unit) LookAtDir(dir int) {
-	C.nox_xxx_monsterLookAt_5125A0(u.CObj(), C.int(dir))
+	legacy.Nox_xxx_monsterLookAt_5125A0(u.SObj(), dir)
 }
 
 func (u *Unit) LookAngle(ang int) {
@@ -219,30 +190,30 @@ func (u *Unit) LookAngle(ang int) {
 
 func (u *Unit) Freeze(freeze bool) {
 	if freeze {
-		C.nox_xxx_unitFreeze_4E79C0(u.CObj(), 1)
+		legacy.Nox_xxx_unitFreeze_4E79C0(u.SObj(), 1)
 	} else {
-		C.nox_xxx_unitUnFreeze_4E7A60(u.CObj(), 1)
+		legacy.Nox_xxx_unitUnFreeze_4E7A60(u.SObj(), 1)
 	}
 }
 
 func (u *Unit) Wander() {
-	C.nox_xxx_scriptMonsterRoam_512930(u.CObj())
+	legacy.Nox_xxx_scriptMonsterRoam_512930(u.SObj())
 }
 
 func (u *Unit) Return() {
-	C.nox_server_gotoHome(u.CObj())
+	legacy.Nox_server_gotoHome(u.SObj())
 }
 
 func (u *Unit) Idle() {
-	C.nox_xxx_unitIdle_515820(u.CObj())
+	legacy.Nox_xxx_unitIdle_515820(u.SObj())
 }
 
 func (u *Unit) Follow(obj script.Positioner) {
 	if v, ok := obj.(script.ObjectWrapper); ok {
 		obj = v.GetObject()
 	}
-	cobj := obj.(noxObject)
-	C.nox_xxx_unitSetFollow_5158C0(u.CObj(), cobj.CObj())
+	cobj := obj.(server.Obj)
+	legacy.Nox_xxx_unitSetFollow_5158C0(u.SObj(), cobj.SObj())
 }
 
 func (u *Unit) Flee(obj script.Positioner, dur script.Duration) {
@@ -290,7 +261,7 @@ func (u *Unit) Guard() {
 }
 
 func (u *Unit) Hunt() {
-	C.nox_xxx_unitHunt_5157A0(u.CObj())
+	legacy.Nox_xxx_unitHunt_5157A0(u.SObj())
 }
 
 func (u *Unit) Say(text string, dur script.Duration) {
@@ -303,9 +274,9 @@ func (u *Unit) Mute() {
 
 func (u *Unit) AddGold(v int) {
 	if v < 0 {
-		C.nox_xxx_playerSubGold_4FA5D0(C.int(uintptr(unsafe.Pointer(u.CObj()))), C.uint(v))
+		legacy.Nox_xxx_playerSubGold_4FA5D0(u.SObj(), v)
 	} else {
-		C.nox_xxx_playerAddGold_4FA590(C.int(uintptr(unsafe.Pointer(u.CObj()))), C.int(v))
+		legacy.Nox_xxx_playerAddGold_4FA590(u.SObj(), v)
 	}
 }
 
@@ -314,21 +285,21 @@ func (u *Unit) Cast(sp spell.ID, lvl int, targ script.Positioner) bool {
 		return false
 	}
 	var s *Server = u.getServer()
-	sa, freeArg := alloc.New(spellAcceptArg{})
+	sa, freeArg := alloc.New(server.SpellAcceptArg{})
 	defer freeArg()
 	if targ == nil {
 		targ = u
 	}
-	if o, ok := targ.(noxObject); ok {
-		sa.Obj = o.AsObject().CObj()
+	if o, ok := targ.(server.Obj); ok {
+		sa.Obj = toObjectS(o)
 	}
 	sa.Pos = targ.Pos()
-	return s.castSpell(sp, lvl, u, sa)
+	return s.castSpell(sp, lvl, u.SObj(), sa)
 }
 
 func (u *Unit) clearActionStack() { // aka nox_xxx_monsterClearActionStack_50A3A0
 	if u.Class().Has(object.ClassMonster) {
-		for C.sub_5341F0(u.CObj()) == 0 {
+		for legacy.Sub_5341F0(u.SObj()) == 0 {
 			u.monsterPopAction()
 		}
 	}
@@ -366,5 +337,5 @@ func (u *Unit) countSubOfType(typ int) int { // nox_xxx_unitIsUnitTT_4E7C80
 }
 
 func nox_xxx_playerSetState_4FA020(u *Unit, a2 int) {
-	C.nox_xxx_playerSetState_4FA020(u.CObj(), C.int(a2))
+	legacy.Nox_xxx_playerSetState_4FA020(u.SObj(), a2)
 }

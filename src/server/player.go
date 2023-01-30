@@ -9,7 +9,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/types"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 type classStatMult struct {
@@ -354,6 +354,10 @@ type Player struct {
 	Field4792           uint32         // 1198, 4792
 	field4796           uint32         // 1199, 4796
 	data4800            [7]uint32
+}
+
+func (p *Player) C() unsafe.Pointer {
+	return unsafe.Pointer(p)
 }
 
 func (p *Player) String() string {

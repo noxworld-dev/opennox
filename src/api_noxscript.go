@@ -2,6 +2,8 @@ package opennox
 
 import (
 	"net/http"
+
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 func init() {
@@ -15,7 +17,7 @@ func init() {
 		scripts := noxServer.noxScript.scripts()
 		for i := range scripts {
 			s := &scripts[i]
-			out = append(out, debugNoxScript{Ind: i, Name: GoString(s.name), Suff: GoString(s.suff)})
+			out = append(out, debugNoxScript{Ind: i, Name: alloc.GoString(s.name), Suff: alloc.GoString(s.suff)})
 		}
 		writeJSONResp(w, out)
 	})

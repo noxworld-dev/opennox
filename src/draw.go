@@ -1,46 +1,5 @@
 package opennox
 
-/*
-#include "defs.h"
-#include "GAME1.h"
-#include "GAME1_1.h"
-#include "GAME1_2.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME2_2.h"
-#include "GAME2_3.h"
-#include "GAME3_1.h"
-#include "GAME5_2.h"
-#include "common__system__team.h"
-#include "client__gui__guiquit.h"
-#include "client__draw__debugdraw.h"
-#include "client__draw__fx.h"
-extern unsigned int nox_client_translucentFrontWalls_805844;
-extern unsigned int nox_client_highResFrontWalls_80820;
-extern unsigned int nox_client_highResFloors_154952;
-extern unsigned int nox_client_fadeObjects_80836;
-extern unsigned int nox_client_renderBubbles_80844;
-extern unsigned int dword_5d4594_2523804;
-extern unsigned int dword_5d4594_3799452;
-extern unsigned int dword_5d4594_1193188;
-extern uint32_t dword_5d4594_3798800;
-extern uint32_t dword_5d4594_3798804;
-extern uint32_t dword_5d4594_3798808;
-extern uint32_t dword_5d4594_3798812;
-extern uint32_t dword_5d4594_3798816;
-extern uint32_t dword_5d4594_3798820;
-extern uint32_t dword_5d4594_3798824;
-extern uint32_t dword_5d4594_3798828;
-extern uint32_t dword_5d4594_3798832;
-extern uint32_t dword_5d4594_3798836;
-extern uint32_t dword_5d4594_3798840;
-extern void (*func_587000_154940)(int2*, uint32_t, uint32_t);
-extern int (*func_587000_154944)(int, int);
-extern void* nox_video_tileBuf_ptr_3798796;
-extern void* nox_video_tileBuf_end_3798844;
-*/
-import "C"
 import (
 	"fmt"
 	"image"
@@ -52,9 +11,10 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -109,20 +69,8 @@ type clientTileData struct {
 	nox_light_8529A0 [512]int
 }
 
-//export sub_4C42A0
-func sub_4C42A0(a1 *C.int2, a2 *C.int2, a3 *int, a4 *int) int32 {
-	return noxClient.sub4C42A0(asPoint(unsafe.Pointer(a1)), asPoint(unsafe.Pointer(a2)), a3, a4)
-}
-
-//export sub_4C5630
-func sub_4C5630(a1 int, a2 int, a3 int) int {
-	return noxClient.sub4C5630(a1, a2, a3)
-}
-
-//export sub_473970
-func sub_473970(a1, a2 *C.int2) {
-	a2.field_0 = C.int(partViewportOff.X) + a1.field_0
-	a2.field_4 = C.int(partViewportOff.Y) + a1.field_4
+func sub_473970(a1 image.Point) image.Point {
+	return partViewportOff.Add(a1)
 }
 
 func partOffsetPos(p image.Point) image.Point {
@@ -131,47 +79,19 @@ func partOffsetPos(p image.Point) image.Point {
 
 func sub_4739D0(a1 int) int { return a1 - partViewportOff.Y }
 
-//export get_nox_client_texturedFloors_154956
-func get_nox_client_texturedFloors_154956() C.bool {
-	return C.bool(nox_client_texturedFloors_154956)
+func get_nox_client_texturedFloors_154956() bool {
+	return nox_client_texturedFloors_154956
 }
 
-func asViewport(p *nox_draw_viewport_t) *noxrender.Viewport {
-	return asViewportP(unsafe.Pointer(p))
-}
-
-func asViewportP(p unsafe.Pointer) *noxrender.Viewport {
-	return (*noxrender.Viewport)(p)
-}
-
-//export nox_draw_getViewport_437250
-func nox_draw_getViewport_437250() *nox_draw_viewport_t {
-	return (*nox_draw_viewport_t)(noxClient.Viewport().C())
-}
-
-//export sub_437260
 func sub_437260() {
 	vp := noxClient.Viewport()
 	noxClient.r.setClipRects(vp.Screen.Min, vp.Size)
 }
 
 func sub_437180() {
-	C.sub_48D990((*nox_draw_viewport_t)(noxClient.Viewport().C()))
+	legacy.Sub_437180()
 }
 
-//export sub_4355B0
-func sub_4355B0(a1 int) {
-	noxClient.Viewport().Field12 = a1
-}
-
-//export nox_xxx_getSomeCoods_435670
-func nox_xxx_getSomeCoods_435670(a1 *C.int2) {
-	p := noxClient.Viewport().World.Max
-	a1.field_0 = C.int(p.X)
-	a1.field_4 = C.int(p.Y)
-}
-
-//export nox_xxx_cliUpdateCameraPos_435600
 func nox_xxx_cliUpdateCameraPos_435600(x, y int) {
 	vp := noxClient.Viewport()
 	*memmap.PtrInt32(0x5D4594, 811364) = int32(vp.World.Max.X)
@@ -182,50 +102,8 @@ func nox_xxx_cliUpdateCameraPos_435600(x, y int) {
 	vp.World.Max.Y = y + vp.Field12
 }
 
-//export sub_437290
-func sub_437290() {
-	noxClient.r.setRectFullScreen()
-}
-
-//export nox_client_drawRectFilledOpaque_49CE30
-func nox_client_drawRectFilledOpaque_49CE30(a1, a2, a3, a4 int) {
-	r := noxClient.r
-	r.DrawRectFilledOpaque(a1, a2, a3, a4, r.Data().Color2())
-}
-
-//export nox_client_drawRectFilledAlpha_49CF10
-func nox_client_drawRectFilledAlpha_49CF10(a1, a2, a3, a4 int) {
-	noxClient.r.DrawRectFilledAlpha(a1, a2, a3, a4)
-}
-
-//export nox_client_drawBorderLines_49CC70
-func nox_client_drawBorderLines_49CC70(a1, a2, a3, a4 int) {
-	r := noxClient.r
-	r.DrawBorder(a1, a2, a3, a4, r.Data().Color2())
-}
-
-//export nox_client_drawPixel_49EFA0
-func nox_client_drawPixel_49EFA0(a1, a2 int) {
-	r := noxClient.r
-	r.DrawPixel(image.Pt(a1, a2), r.Data().Color2())
-}
-
-//export nox_client_drawPoint_4B0BC0
-func nox_client_drawPoint_4B0BC0(a1, a2, a3 int) {
-	r := noxClient.r
-	r.DrawPointRad(image.Pt(a1, a2), a3, r.Data().Color2())
-}
-
-//export nox_xxx_drawPointMB_499B70
-func nox_xxx_drawPointMB_499B70(a1, a2, a3 int) {
-	r := noxClient.r
-	r.DrawPoint(image.Pt(a1, a2), a3, r.Data().Color2())
-}
-
 var _ = [1]struct{}{}[52-unsafe.Sizeof(noxrender.Viewport{})]
 var _ = [1]struct{}{}[4-unsafe.Sizeof(int(0))]
-
-type nox_draw_viewport_t = C.nox_draw_viewport_t
 
 func detectBestVideoSettings() {
 	const cfg = 450
@@ -239,72 +117,72 @@ func detectBestVideoSettings() {
 		//v4 = 8
 		cut = 75
 		nox_client_drawFrontWalls_80812 = false
-		C.nox_client_translucentFrontWalls_805844 = 0
-		C.nox_client_highResFrontWalls_80820 = 0
-		C.nox_client_highResFloors_154952 = 0
+		legacy.Set_nox_client_translucentFrontWalls_805844(0)
+		legacy.Set_nox_client_highResFrontWalls_80820(0)
+		legacy.Set_nox_client_highResFloors_154952(0)
 		nox_client_lockHighResFloors_1193152 = false
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
 		noxClient.r.Part.RenderGlow = false
-		C.nox_client_fadeObjects_80836 = 0
+		legacy.Set_nox_client_fadeObjects_80836(0)
 		noxflags.UnsetEngine(noxflags.EngineSoftShadowEdge)
-		C.nox_client_renderBubbles_80844 = 0
+		legacy.Set_nox_client_renderBubbles_80844(0)
 	} else if cfg == 200 {
 		//v4 = 8
 		cut = 85
 		nox_client_drawFrontWalls_80812 = true
-		C.nox_client_translucentFrontWalls_805844 = 0
-		C.nox_client_highResFrontWalls_80820 = 0
-		C.nox_client_highResFloors_154952 = 0
+		legacy.Set_nox_client_translucentFrontWalls_805844(0)
+		legacy.Set_nox_client_highResFrontWalls_80820(0)
+		legacy.Set_nox_client_highResFloors_154952(0)
 		nox_client_lockHighResFloors_1193152 = false
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
 		noxClient.r.Part.RenderGlow = false
-		C.nox_client_fadeObjects_80836 = 0
+		legacy.Set_nox_client_fadeObjects_80836(0)
 		noxflags.UnsetEngine(noxflags.EngineSoftShadowEdge)
-		C.nox_client_renderBubbles_80844 = 0
+		legacy.Set_nox_client_renderBubbles_80844(0)
 	} else if cfg == 266 {
 		//v4 = 8
 		cut = 100
 		nox_client_drawFrontWalls_80812 = true
-		C.nox_client_translucentFrontWalls_805844 = 1
-		C.nox_client_highResFrontWalls_80820 = 1
-		C.nox_client_highResFloors_154952 = 1
+		legacy.Set_nox_client_translucentFrontWalls_805844(1)
+		legacy.Set_nox_client_highResFrontWalls_80820(1)
+		legacy.Set_nox_client_highResFloors_154952(1)
 		nox_client_lockHighResFloors_1193152 = false
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
 		noxClient.r.Part.RenderGlow = true
-		C.nox_client_fadeObjects_80836 = 1
+		legacy.Set_nox_client_fadeObjects_80836(1)
 		noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
-		C.nox_client_renderBubbles_80844 = 1
+		legacy.Set_nox_client_renderBubbles_80844(1)
 	} else if cfg == 300 {
 		//v4 = 16
 		cut = 100
 		nox_client_drawFrontWalls_80812 = true
-		C.nox_client_translucentFrontWalls_805844 = 1
-		C.nox_client_highResFrontWalls_80820 = 1
-		C.nox_client_highResFloors_154952 = 1
+		legacy.Set_nox_client_translucentFrontWalls_805844(1)
+		legacy.Set_nox_client_highResFrontWalls_80820(1)
+		legacy.Set_nox_client_highResFloors_154952(1)
 		nox_client_lockHighResFloors_1193152 = false
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = false
 		noxClient.r.Part.RenderGlow = true
-		C.nox_client_fadeObjects_80836 = 1
+		legacy.Set_nox_client_fadeObjects_80836(1)
 		noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
-		C.nox_client_renderBubbles_80844 = 1
+		legacy.Set_nox_client_renderBubbles_80844(1)
 	} else if cfg == 450 {
 		//v4 = 16
 		cut = 100
 		nox_client_drawFrontWalls_80812 = true
-		C.nox_client_translucentFrontWalls_805844 = 1
-		C.nox_client_highResFrontWalls_80820 = 1
-		C.nox_client_highResFloors_154952 = 1
+		legacy.Set_nox_client_translucentFrontWalls_805844(1)
+		legacy.Set_nox_client_highResFrontWalls_80820(1)
+		legacy.Set_nox_client_highResFloors_154952(1)
 		nox_client_lockHighResFloors_1193152 = true
 		nox_client_texturedFloors_154956 = true
 		guiCon.translucent = true
 		noxClient.r.Part.RenderGlow = true
-		C.nox_client_fadeObjects_80836 = 1
+		legacy.Set_nox_client_fadeObjects_80836(1)
 		noxflags.SetEngine(noxflags.EngineSoftShadowEdge)
-		C.nox_client_renderBubbles_80844 = 1
+		legacy.Set_nox_client_renderBubbles_80844(1)
 	}
 	nox_xxx_tileSetDrawFn_481420()
 	if !noxflags.HasEngine(noxflags.EngineWindowed) {
@@ -324,28 +202,10 @@ func nox_draw_freeColorTables_433C20() {
 	*memmap.PtrUint32(0x973F18, 5232) = 0
 }
 
-//export nox_draw_splitColor_435280
-func nox_draw_splitColor_435280(cl C.short, pr, pg, pb *C.uchar) {
-	c := noxrender.SplitColor(noxcolor.RGBA5551(cl))
-	*pr = C.uchar(c.R)
-	*pg = C.uchar(c.G)
-	*pb = C.uchar(c.B)
-}
-
-//export nox_draw_setMaterial_4340A0
-func nox_draw_setMaterial_4340A0(ind, r, g, b int) {
-	noxClient.r.Data().SetMaterialRGB(ind, r, g, b)
-}
-
-//export nox_draw_setMaterial_4341D0
-func nox_draw_setMaterial_4341D0(ind, cl int) {
-	noxClient.r.Data().SetMaterial(ind, noxcolor.RGBA5551(cl))
-}
-
 func sub_4347F0(a1 unsafe.Pointer, a2 int) {
 	if a2 <= 256 {
-		C.sub_435120(memmap.PtrOff(0x973F18, 3880), a1)
-		C.sub_435040()
+		legacy.Sub_435120(memmap.PtrOff(0x973F18, 3880), a1)
+		legacy.Sub_435040()
 	}
 	nox_xxx_makeFillerColor_48BDE0()
 }
@@ -357,7 +217,7 @@ func sub_4338D0() int {
 	if videoInitDone {
 		v2, freeV2 := alloc.Malloc(256 * 3)
 		defer freeV2()
-		C.sub_435150((*C.uchar)(v2), (*C.char)(memmap.PtrOff(0x973F18, 3880)))
+		legacy.Sub_435150(v2, memmap.PtrOff(0x973F18, 3880))
 		sub_4347F0(v2, 256)
 	} else {
 		sub_4347F0(memmap.PtrOff(0x581450, 8404), 256)
@@ -382,38 +242,17 @@ func sub_4338D0() int {
 	return 1
 }
 
-//export nox_draw_set54RGB32_434040
-func nox_draw_set54RGB32_434040(cl int) {
-	c := noxrender.SplitColor(noxcolor.RGBA5551(cl))
-	noxClient.r.Data().SetColorInt54(noxrender.RGB{
-		R: int(c.R),
-		G: int(c.G),
-		B: int(c.B),
-	})
-}
-
-//export nox_draw_setColorMultAndIntensity_433E40
-func nox_draw_setColorMultAndIntensity_433E40(cl int) int {
-	c := noxcolor.RGBA5551(cl).ColorNRGBA()
-	return int(noxClient.r.setColorMultAndIntensityRGB(c.R, c.G, c.B))
-}
-
 func sub433E40(cl noxcolor.Color) int {
 	c := cl.ColorNRGBA()
-	return int(noxClient.r.setColorMultAndIntensityRGB(c.R, c.G, c.B))
-}
-
-//export nox_draw_setColorMultAndIntensityRGB_433CD0
-func nox_draw_setColorMultAndIntensityRGB_433CD0(r, g, b C.uchar) int {
-	return int(noxClient.r.setColorMultAndIntensityRGB(byte(r), byte(g), byte(b)))
+	return int(noxClient.r.SetColorMultAndIntensityRGB(c.R, c.G, c.B))
 }
 
 func (r *NoxRender) setColorMultAndIntensity(cl color.Color) {
 	c := noxcolor.ToRGBA5551Color(cl).ColorNRGBA()
-	r.setColorMultAndIntensityRGB(c.R, c.G, c.B)
+	r.SetColorMultAndIntensityRGB(c.R, c.G, c.B)
 }
 
-func (r *NoxRender) setColorMultAndIntensityRGB(cr, cg, cb byte) byte {
+func (r *NoxRender) SetColorMultAndIntensityRGB(cr, cg, cb byte) byte {
 	d := r.Data()
 	d.SetFlag16(cr == 0xFF && cg == 0xFF && cb == 0xFF)
 	d.SetColorMultA(noxrender.Color16{R: uint16(cr), G: uint16(cg), B: uint16(cb)})
@@ -422,76 +261,7 @@ func (r *NoxRender) setColorMultAndIntensityRGB(cr, cg, cb byte) byte {
 	return v
 }
 
-//export sub_434080
-func sub_434080(a1 int) {
-	noxClient.r.Data().SetField262(a1)
-}
-
-//export nox_xxx_drawSetTextColor_434390
-func nox_xxx_drawSetTextColor_434390(a1 int) {
-	noxClient.r.Data().SetTextColor(noxcolor.RGBA5551(a1))
-}
-
-//export nox_xxx_drawSetColor_4343E0
-func nox_xxx_drawSetColor_4343E0(a1 int) {
-	noxClient.r.Data().SetColor(noxcolor.RGBA5551(a1))
-}
-
-//export nox_client_drawSetColor_434460
-func nox_client_drawSetColor_434460(a1 int) {
-	noxClient.r.Data().SetColor2(noxcolor.RGBA5551(a1))
-}
-
-//export nox_client_drawEnableAlpha_434560
-func nox_client_drawEnableAlpha_434560(a1 int) {
-	noxClient.r.Data().SetAlphaEnabled(a1 != 0)
-}
-
-//export sub_4345F0
-func sub_4345F0(a1 int) {
-	noxClient.r.Data().SetMultiply14(a1)
-}
-
-//export nox_xxx_draw_434600
-func nox_xxx_draw_434600(a1 int) {
-	noxClient.r.Data().SetColorize17(a1)
-}
-
-//export sub_434990
-func sub_434990(r, g, b int) {
-	noxClient.r.Data().SetLightColor(noxrender.RGB{
-		R: r,
-		G: g,
-		B: b,
-	})
-}
-
-//export sub_4349C0
-func sub_4349C0(a1 *C.uint) {
-	arr := unsafe.Slice(a1, 3)
-	noxClient.r.Data().SetLightColor(noxrender.RGB{
-		R: int(arr[0]),
-		G: int(arr[1]),
-		B: int(arr[2]),
-	})
-}
-
-//export sub_47D370
-func sub_47D370(a1 int) {
-	noxClient.r.Set_dword_5d4594_3799484(a1)
-}
-
-//export sub_47D400
-func sub_47D400(a1 int, a2 C.char) {
-	noxClient.r.SetInterlacing(a1 != 0, int(a2))
-}
-
-//export sub_49F7C0_def
-func sub_49F7C0_def() {
-	noxClient.r.sub_49F7C0_def_go()
-}
-
-func (r *NoxRender) sub_49F7C0_def_go() {
+func (r *NoxRender) Sub_49F7C0_def_go() {
 	ymax := r.Get_dword_5d4594_3799476()
 	cr := r.Data().ClipRect()
 	if ymax > cr.Max.Y {
@@ -512,53 +282,12 @@ func (r *NoxRender) setClipRects(p, sz image.Point) { // nox_client_copyRect_49F
 	}
 }
 
-func (r *NoxRender) setRectFullScreen() { // sub_437290
+func (r *NoxRender) SetRectFullScreen() { // sub_437290
 	sz := r.PixBufferRect().Size()
 	r.setClipRects(image.Pt(0, 0), sz)
 }
 
-//export nox_client_drawSetAlpha_434580
-func nox_client_drawSetAlpha_434580(a C.uchar) {
-	noxClient.r.Data().SetAlpha(byte(a))
-}
-
-//export nox_draw_enableTextSmoothing_43F670
-func nox_draw_enableTextSmoothing_43F670(v int) {
-	noxClient.r.SetTextSmooting(v != 0)
-}
-
-//export nox_client_drawResetPoints_49F5A0
-func nox_client_drawResetPoints_49F5A0() {
-	noxClient.r.ClearPoints()
-}
-
-//export nox_client_drawAddPoint_49F500
-func nox_client_drawAddPoint_49F500(x, y int) {
-	noxClient.r.AddPoint(image.Pt(x, y))
-}
-
-//export nox_xxx_rasterPointRel_49F570
-func nox_xxx_rasterPointRel_49F570(x, y int) {
-	noxClient.r.AddPointRel(image.Pt(x, y))
-}
-
-//export nox_client_drawLineFromPoints_49E4B0
-func nox_client_drawLineFromPoints_49E4B0() int {
-	r := noxClient.r
-	return bool2int(r.DrawLineFromPoints(r.Data().Color2()))
-}
-
-//export sub_49E4F0
-func sub_49E4F0(a1 int) int {
-	return bool2int(noxClient.r.DrawParticles49ED80(a1))
-}
-
-//export sub_480860
-func sub_480860(a1, a2 *C.ushort, w int, a4, a5 *C.int) {
-	dst := unsafe.Slice((*uint16)(unsafe.Pointer(a1)), w)
-	src := unsafe.Slice((*uint16)(unsafe.Pointer(a2)), w)
-	a4p := unsafe.Slice((*uint32)(unsafe.Pointer(a4)), 3)
-	a5p := unsafe.Slice((*uint32)(unsafe.Pointer(a5)), 3)
+func sub_480860(dst, src []uint16, w int, a4p, a5p []uint32) {
 	for i := 0; i < w; i++ {
 		c := noxrender.SplitColor16(src[i])
 		c.R = uint16((a4p[0] * uint32(c.R)) >> 16)
@@ -570,17 +299,6 @@ func sub_480860(a1, a2 *C.ushort, w int, a4, a5 *C.int) {
 		a4p[1] += a5p[1]
 		a4p[2] += a5p[2]
 	}
-}
-
-func toRect(cr *C.nox_rect) image.Rectangle {
-	return image.Rect(int(cr.min_x), int(cr.min_y), int(cr.max_x), int(cr.max_y))
-}
-
-func setRect(cr *C.nox_rect, r image.Rectangle) {
-	cr.min_x = C.int(r.Min.X)
-	cr.min_y = C.int(r.Min.Y)
-	cr.max_x = C.int(r.Max.X)
-	cr.max_y = C.int(r.Max.Y)
 }
 
 type NoxRender struct {
@@ -604,94 +322,7 @@ func NewNoxRender(cr *noxrender.NoxRender) *NoxRender {
 	return r
 }
 
-//export nox_xxx_guiFontHeightMB_43F320
-func nox_xxx_guiFontHeightMB_43F320(fnt unsafe.Pointer) int {
-	r := noxClient.r
-	return r.FontHeight(r.Fonts.AsFont(fnt))
-}
-
-//export nox_draw_setTabWidth_43FE20
-func nox_draw_setTabWidth_43FE20(v int) int {
-	old := noxClient.r.TabWidth()
-	noxClient.r.SetTabWidth(v)
-	return old
-}
-
-//export nox_draw_getFontAdvance_43F9E0
-func nox_draw_getFontAdvance_43F9E0(fnt unsafe.Pointer, sp *C.wchar_t, maxW int) int {
-	// TODO: this may be incorrect
-	r := noxClient.r
-	return r.GetStringSizeWrapped(r.Fonts.AsFont(fnt), GoWString(sp), maxW).X
-}
-
-//export nox_xxx_drawGetStringSize_43F840
-func nox_xxx_drawGetStringSize_43F840(font unsafe.Pointer, sp *C.wchar_t, outW, outH *C.int, maxW int) int {
-	r := noxClient.r
-	sz := r.GetStringSizeWrapped(r.Fonts.AsFont(font), GoWString(sp), maxW)
-	if outW != nil {
-		*outW = C.int(sz.X)
-	}
-	if outH != nil {
-		*outH = C.int(sz.Y)
-	}
-	return bool2int(sz != (image.Point{}))
-}
-
-//export nox_xxx_bookGetStringSize_43FA80
-func nox_xxx_bookGetStringSize_43FA80(font unsafe.Pointer, sp *C.wchar_t, outW, outH *C.int, maxW int) int {
-	r := noxClient.r
-	sz := r.GetStringSizeWrappedStyle(r.Fonts.AsFont(font), GoWString(sp), maxW)
-	if outW != nil {
-		*outW = C.int(sz.X)
-	}
-	if outH != nil {
-		*outH = C.int(sz.Y)
-	}
-	return bool2int(sz != (image.Point{}))
-}
-
-//export nox_xxx_drawString_43F6E0
-func nox_xxx_drawString_43F6E0(font unsafe.Pointer, sp *C.wchar_t, x, y int) int {
-	r := noxClient.r
-	return r.DrawString(r.Fonts.AsFont(font), GoWString(sp), image.Point{X: x, Y: y})
-}
-
-//export nox_draw_drawStringHL_43F730
-func nox_draw_drawStringHL_43F730(font unsafe.Pointer, sp *C.wchar_t, x, y int) int {
-	r := noxClient.r
-	return r.DrawStringHL(r.Fonts.AsFont(font), GoWString(sp), image.Point{X: x, Y: y})
-}
-
-//export nox_xxx_drawStringWrap_43FAF0
-func nox_xxx_drawStringWrap_43FAF0(font unsafe.Pointer, sp *C.wchar_t, x, y, maxW, maxH int) int {
-	r := noxClient.r
-	return r.DrawStringWrapped(r.Fonts.AsFont(font), GoWString(sp), image.Rect(x, y, x+maxW, y+maxH))
-}
-
-//export nox_xxx_drawStringWrapHL_43FD00
-func nox_xxx_drawStringWrapHL_43FD00(font unsafe.Pointer, sp *C.wchar_t, x, y, maxW, maxH int) int {
-	r := noxClient.r
-	return r.DrawStringWrappedHL(r.Fonts.AsFont(font), GoWString(sp), image.Rect(x, y, x+maxW, y+maxH))
-}
-
-//export nox_xxx_bookDrawString_43FA80_43FD80
-func nox_xxx_bookDrawString_43FA80_43FD80(font unsafe.Pointer, s *C.wchar_t, x, y, maxW, maxH int) int {
-	r := noxClient.r
-	return r.DrawStringWrappedStyle(r.Fonts.AsFont(font), GoWString(s), image.Rect(x, y, x+maxW, y+maxH))
-}
-
-//export nox_xxx_drawStringStyle_43F7B0
-func nox_xxx_drawStringStyle_43F7B0(font unsafe.Pointer, sp *C.wchar_t, x, y int) int {
-	r := noxClient.r
-	return r.DrawStringStyle(r.Fonts.AsFont(font), GoWString(sp), image.Point{X: x, Y: y})
-}
-
-//export nox_video_drawAnimatedImageOrCursorAt_4BE6D0
-func nox_video_drawAnimatedImageOrCursorAt_4BE6D0(a1, a2, a3 int) {
-	noxClient.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(unsafe.Pointer(uintptr(a1))), image.Point{X: a2, Y: a3})
-}
-
-func (c *Client) nox_video_drawAnimatedImageOrCursorAt(ref *noxImageRef, pos image.Point) {
+func (c *Client) Nox_video_drawAnimatedImageOrCursorAt(ref *legacy.ImageRef, pos image.Point) {
 	if fr := c.getCursorAnimFrame(ref, 0); fr != nil {
 		if c.flag3798728 {
 			c.r.noxDrawCursor(fr, pos)
@@ -701,32 +332,17 @@ func (c *Client) nox_video_drawAnimatedImageOrCursorAt(ref *noxImageRef, pos ima
 	}
 }
 
-func nox_xxx_get_57AF20() int {
-	return int(C.dword_5d4594_2523804)
-}
-
-//export sub_484C60
-func sub_484C60(a1 C.float) int {
-	return client.LightRadius(float32(a1))
-}
-
 const (
 	lightMinIntensity = 1.0
 )
 
-//export sub_469920
-func sub_469920(p *C.nox_point) *C.char {
-	dst := noxClient.sub469920(p)
-	return (*C.char)(unsafe.Pointer(&dst[0]))
-}
-
-func (c *Client) sub469920(p *C.nox_point) []uint32 {
+func (c *Client) Sub469920(p image.Point) []uint32 {
 	if noxflags.HasEngine(noxflags.EngineNoSoftLights) {
 		return c.tiles.lightsOutBuf
 	}
 
-	x := int(int32(p.x) - int32(c.tiles.noxTilesGpx))
-	y := int(int32(p.y) - int32(c.tiles.noxTilesGpy))
+	x := int(int32(p.X) - int32(c.tiles.noxTilesGpx))
+	y := int(int32(p.Y) - int32(c.tiles.noxTilesGpy))
 
 	xd := x / lightGrid
 	yd := y / lightGrid
@@ -789,8 +405,8 @@ func (c *Client) noxTileUpdateLightXxx(p image.Point) {
 }
 
 func nox_xxx_setupSomeVideo_47FEF0() {
-	*memmap.PtrPtr(0x973F18, 7716) = C.sub_480250
-	*memmap.PtrPtr(0x973F18, 5248) = C.sub_480220
+	*memmap.PtrPtr(0x973F18, 7716) = legacy.Get_sub_480250()
+	*memmap.PtrPtr(0x973F18, 5248) = legacy.Get_sub_480220()
 	*memmap.PtrUint32(0x5D4594, 2598128) = 0
 	*memmap.PtrUint32(0x5D4594, 2598160) = 0
 	*memmap.PtrUint32(0x5D4594, 2598132) = 0
@@ -851,24 +467,22 @@ func (c *Client) nox_xxx_tileInitBuf_430DB0(width, height int) {
 	c.tiles.dword_5d4594_3798816 = height/(2*common.GridStep) + 3
 	c.tiles.dword_5d4594_3798808 = (2 * common.GridStep) * c.tiles.dword_5d4594_3798816
 	c.tiles.dword_5d4594_3798804 = ((2 * common.GridStep) * c.tiles.dword_5d4594_3798812) * 2
-
-	C.dword_5d4594_3798812 = C.uint(c.tiles.dword_5d4594_3798812)
-	C.dword_5d4594_3798800 = C.uint(c.tiles.dword_5d4594_3798800)
-	C.dword_5d4594_3798816 = C.uint(c.tiles.dword_5d4594_3798816)
-	C.dword_5d4594_3798808 = C.uint(c.tiles.dword_5d4594_3798808)
-	C.dword_5d4594_3798804 = C.uint(c.tiles.dword_5d4594_3798804)
-
-	C.dword_5d4594_3798820 = 0
-	C.dword_5d4594_3798824 = 0
-	C.dword_5d4594_3798828 = 0
-	C.dword_5d4594_3798832 = 0
-	C.dword_5d4594_3798836 = 0
-	C.dword_5d4594_3798840 = 0
+	legacy.Set_dword_5d4594_3798812(c.tiles.dword_5d4594_3798812)
+	legacy.Set_dword_5d4594_3798800(c.tiles.dword_5d4594_3798800)
+	legacy.Set_dword_5d4594_3798816(c.tiles.dword_5d4594_3798816)
+	legacy.Set_dword_5d4594_3798808(c.tiles.dword_5d4594_3798808)
+	legacy.Set_dword_5d4594_3798804(c.tiles.dword_5d4594_3798804)
+	legacy.Set_dword_5d4594_3798820(0)
+	legacy.Set_dword_5d4594_3798824(0)
+	legacy.Set_dword_5d4594_3798828(0)
+	legacy.Set_dword_5d4594_3798832(0)
+	legacy.Set_dword_5d4594_3798836(0)
+	legacy.Set_dword_5d4594_3798840(0)
 
 	sz := c.tiles.dword_5d4594_3798804 * (2 * common.GridStep) * c.tiles.dword_5d4594_3798816
 	c.tiles.noxTileBuf, c.tiles.noxTileBufFree = alloc.Make([]uint16{}, sz/2)
-	C.nox_video_tileBuf_ptr_3798796 = unsafe.Pointer(&c.tiles.noxTileBuf[0])
-	C.nox_video_tileBuf_end_3798844 = unsafe.Add(unsafe.Pointer(&c.tiles.noxTileBuf[0]), sz)
+	legacy.Set_nox_video_tileBuf_ptr_3798796(unsafe.Pointer(&c.tiles.noxTileBuf[0]))
+	legacy.Set_nox_video_tileBuf_end_3798844(unsafe.Add(unsafe.Pointer(&c.tiles.noxTileBuf[0]), sz))
 
 	if c.tiles.lightsOutBuf == nil {
 		c.tiles.lightsOutBuf, _ = alloc.Make([]uint32{}, 6)
@@ -889,13 +503,13 @@ func (c *Client) nox_video_freeFloorBuffer_430EC0() {
 
 func nox_xxx_tileSetDrawFn_481420() {
 	if nox_client_texturedFloors_154956 {
-		C.func_587000_154940 = (*[0]byte)(C.nox_xxx_tileDraw_4815E0)
-		C.func_587000_154944 = (*[0]byte)(C.nox_xxx_drawTexEdgesProbably_481900)
+		legacy.Set_func_587000_154940(legacy.Get_nox_xxx_tileDraw_4815E0())
+		legacy.Set_func_587000_154944(legacy.Get_nox_xxx_drawTexEdgesProbably_481900())
 	} else {
-		C.func_587000_154940 = (*[0]byte)(C.sub_481770)
-		C.func_587000_154944 = (*[0]byte)(C.nullsub_8)
+		legacy.Set_func_587000_154940(legacy.Get_sub_481770())
+		legacy.Set_func_587000_154944(legacy.Get_nullsub_8())
 	}
-	C.dword_5d4594_1193188 = 1
+	legacy.Set_dword_5d4594_1193188(1)
 }
 
 const (
@@ -938,7 +552,6 @@ func sub_473B30_free() {
 	nox_wallsYyy = nil
 }
 
-//export nox_xxx_drawList1096512_Append_4754C0
 func nox_xxx_drawList1096512_Append_4754C0(p unsafe.Pointer) {
 	nox_wallsYyy = append(nox_wallsYyy, asWall(p))
 }
@@ -946,18 +559,18 @@ func nox_xxx_drawList1096512_Append_4754C0(p unsafe.Pointer) {
 func (c *Client) sub4745F0(vp *noxrender.Viewport) {
 	for _, dr := range nox_drawable_list_2 {
 		c.drawCreatureBackEffects(vp, dr)
-		if C.nox_xxx_client_4984B0_drawable((*nox_drawable)(dr.C())) == 0 {
+		if legacy.Nox_xxx_client_4984B0_drawable(dr) == 0 {
 			continue
 		}
 		dr.Field_121 = 1
-		C.sub_476AE0((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
+		legacy.Sub_476AE0(vp, dr)
 		if dr.Flags70()&0x40 != 0 {
-			C.nox_xxx_drawShinySpot_4C4F40((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
+			legacy.Nox_xxx_drawShinySpot_4C4F40(vp, dr)
 		}
 		c.drawCreatureFrontEffects(vp, dr)
-		C.sub_495BB0((*nox_drawable)(dr.C()), (*nox_draw_viewport_t)(vp.C()))
+		legacy.Sub_495BB0(dr, vp)
 		if noxflags.HasEngine(noxflags.EngineShowExtents) {
-			nox_thing_debug_draw((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
+			nox_thing_debug_draw(vp, dr)
 		}
 		dr.Field_33 = 0
 		if dr.Field_120 == 0 && dr.Field_122 == 0 {
@@ -967,25 +580,15 @@ func (c *Client) sub4745F0(vp *noxrender.Viewport) {
 	nox_drawable_list_2 = nox_drawable_list_2[:0]
 }
 
-//export nox_video_drawCircleColored_4C3270
-func nox_video_drawCircleColored_4C3270(a1, a2, a3, a4 int) {
-	noxClient.r.DrawCircle(a1, a2, a3, noxcolor.RGBA5551(a4))
-}
-
-//export nox_video_drawCircle_4B0B90
-func nox_video_drawCircle_4B0B90(a1, a2, a3 int) {
-	noxClient.r.DrawCircle(a1, a2, a3, noxClient.r.Data().Color2())
-}
-
 func (r *NoxRender) DrawImageAt(img *noxrender.Image, pos image.Point) {
 	defer func() {
 		if r := recover(); r != nil {
 			panic(fmt.Errorf("panic drawing image %v: %v", img, r))
 		}
 	}()
-	if C.dword_5d4594_3799452 != 0 {
-		C.nox_xxx_wndDraw_49F7F0()
-		C.sub_49F780(C.int(memmap.Int32(0x973F18, 52)), C.int(memmap.Int32(0x973F18, 12)))
+	if legacy.Get_dword_5d4594_3799452() != 0 {
+		legacy.Nox_xxx_wndDraw_49F7F0()
+		legacy.Sub_49F780(int(memmap.Int32(0x973F18, 52)), int(memmap.Int32(0x973F18, 12)))
 		r.Data().SetClip(true)
 	}
 	r.HookImageDrawXxx = func(pos image.Point, sz image.Point) {
@@ -997,9 +600,9 @@ func (r *NoxRender) DrawImageAt(img *noxrender.Image, pos image.Point) {
 	if img != nil {
 		r.DrawImage16(img, pos)
 	}
-	if C.dword_5d4594_3799452 != 0 {
-		C.sub_49F860()
-		C.dword_5d4594_3799452 = 0
+	if legacy.Get_dword_5d4594_3799452() != 0 {
+		legacy.Sub_49F860()
+		legacy.Set_dword_5d4594_3799452(0)
 	}
 	r.Set_dword_5d4594_3799484(0)
 	*memmap.PtrUint32(0x973F18, 120) = 0
@@ -1012,17 +615,12 @@ func (r *NoxRender) DrawImageAt(img *noxrender.Image, pos image.Point) {
 	}
 }
 
-//export nox_client_drawImageAt_47D2C0
-func nox_client_drawImageAt_47D2C0(img *nox_video_bag_image_t, x, y int) {
-	noxClient.r.DrawImageAt(asImage(img), image.Point{X: x, Y: y})
-}
-
 func sub_47D200() {
 	noxClient.r.Set_dword_5d4594_3799484(0)
 	*memmap.PtrUint32(0x973F18, 52) = 0
 	*memmap.PtrUint32(0x973F18, 12) = 0
 	noxClient.r.Reset_dword_5d4594_3799476()
-	C.dword_5d4594_3799452 = 0
+	legacy.Set_dword_5d4594_3799452(0)
 	*memmap.PtrUint32(0x973F18, 44) = 0
 	*memmap.PtrUint32(0x973F18, 104) = 0
 	*memmap.PtrUint32(0x973F18, 8) = 0
@@ -1035,45 +633,6 @@ func sub_47D200() {
 	noxClient.GUI.ValYYY = 0
 	noxClient.GUI.ValXXX = 0
 	noxClient.r.SetInterlacing(false, 0)
-}
-
-//export nox_draw_imageMeta_47D5C0
-func nox_draw_imageMeta_47D5C0(img *nox_video_bag_image_t, px, py, pw, ph *C.uint) int {
-	if img == nil {
-		return 0
-	}
-	if pw != nil {
-		*pw = 0
-	}
-	if ph != nil {
-		*ph = 0
-	}
-	off, sz, ok := asImage(img).Meta()
-	if !ok {
-		return 0
-	}
-	if px != nil {
-		*px += C.uint(off.X)
-	}
-	if py != nil {
-		*py += C.uint(off.Y)
-	}
-	if pw != nil {
-		*pw = C.uint(sz.X)
-	}
-	if ph != nil {
-		*ph = C.uint(sz.Y)
-	}
-	return 1
-}
-
-//export nox_video_getImagePixdata_42FB30
-func nox_video_getImagePixdata_42FB30(img *nox_video_bag_image_t) unsafe.Pointer {
-	data := asImage(img).Pixdata()
-	if len(data) == 0 {
-		return nil
-	}
-	return unsafe.Pointer(&data[0])
 }
 
 func (r *NoxRender) initColorTables() {
@@ -1094,12 +653,8 @@ var (
 	drawWhiteSpark              int
 )
 
-func sub_499F60(p int, pos image.Point, a4 int, a5, a6, a7, a8, a9 int, a10 int) {
-	C.sub_499F60(C.int(p), C.int(pos.X), C.int(pos.Y), C.short(a4), C.char(a5), C.char(a6), C.char(a7), C.char(a8), C.char(a9), C.int(a10))
-}
-
 func (c *Client) drawCreatureBackEffects(vp *noxrender.Viewport, dr *client.Drawable) {
-	if dr.HasEnchant(server.ENCHANT_INVISIBLE) && C.sub_474B40((*nox_drawable)(dr.C())) == 0 {
+	if dr.HasEnchant(server.ENCHANT_INVISIBLE) && legacy.Sub_474B40(dr) == 0 {
 		return
 	}
 	if dr.HasEnchant(server.ENCHANT_ANCHORED) {
@@ -1108,8 +663,8 @@ func (c *Client) drawCreatureBackEffects(vp *noxrender.Viewport, dr *client.Draw
 	}
 	if dr.HasEnchant(server.ENCHANT_HASTED) && !nox_xxx_checkGameFlagPause_413A50() {
 		if drawWhiteBubbleParticle == 0 {
-			drawWhiteBubbleParticle = nox_things.IndByID("WhiteBubbleParticle")
-			drawLightBlueBubbleParticle = nox_things.IndByID("LightBlueBubbleParticle")
+			drawWhiteBubbleParticle = c.Things.IndByID("WhiteBubbleParticle")
+			drawLightBlueBubbleParticle = c.Things.IndByID("LightBlueBubbleParticle")
 		}
 		pos := dr.Pos()
 		v2 := 0
@@ -1124,7 +679,7 @@ func (c *Client) drawCreatureBackEffects(vp *noxrender.Viewport, dr *client.Draw
 				X: randomIntMinMax(-10, 10),
 				Y: randomIntMinMax(-10, 10) + dr.Z(),
 			}
-			sub_499F60(drawWhiteBubbleParticle, pos.Add(pos2), 1, v14, v18, 0, 0, 0, v22)
+			legacy.Sub_499F60(drawWhiteBubbleParticle, pos.Add(pos2), 1, v14, v18, 0, 0, 0, v22)
 
 			v23 := randomIntMinMax(3, 5)
 			v19 := randomIntMinMax(3, 6)
@@ -1133,13 +688,13 @@ func (c *Client) drawCreatureBackEffects(vp *noxrender.Viewport, dr *client.Draw
 				X: randomIntMinMax(-10, 10),
 				Y: randomIntMinMax(-10, 10) + dr.Z(),
 			}
-			sub_499F60(drawLightBlueBubbleParticle, pos.Add(pos3), 1, v15, v19, 0, 0, 0, v23)
+			legacy.Sub_499F60(drawLightBlueBubbleParticle, pos.Add(pos3), 1, v15, v19, 0, 0, 0, v23)
 		}
 	}
 	if dr.HasEnchant(server.ENCHANT_RUN) && !nox_xxx_checkGameFlagPause_413A50() {
 		if drawRedBubbleParticle == 0 {
-			drawRedBubbleParticle = nox_things.IndByID("RedBubbleParticle")
-			drawOrangeBubbleParticle = nox_things.IndByID("OrangeBubbleParticle")
+			drawRedBubbleParticle = c.Things.IndByID("RedBubbleParticle")
+			drawOrangeBubbleParticle = c.Things.IndByID("OrangeBubbleParticle")
 		}
 		pos := dr.Pos()
 		v5 := 1
@@ -1154,7 +709,7 @@ func (c *Client) drawCreatureBackEffects(vp *noxrender.Viewport, dr *client.Draw
 				X: randomIntMinMax(-10, 10),
 				Y: randomIntMinMax(-10, 10) + dr.Z(),
 			}
-			sub_499F60(drawRedBubbleParticle, pos.Add(pos2), 1, v16, v20, 0, 0, 0, v24)
+			legacy.Sub_499F60(drawRedBubbleParticle, pos.Add(pos2), 1, v16, v20, 0, 0, 0, v24)
 
 			v25 := randomIntMinMax(3, 5)
 			v21 := randomIntMinMax(3, 6)
@@ -1163,7 +718,7 @@ func (c *Client) drawCreatureBackEffects(vp *noxrender.Viewport, dr *client.Draw
 				X: randomIntMinMax(-10, 10),
 				Y: randomIntMinMax(-10, 10) + dr.Z(),
 			}
-			sub_499F60(drawOrangeBubbleParticle, pos.Add(pos3), 1, v17, v21, 0, 0, 0, v25)
+			legacy.Sub_499F60(drawOrangeBubbleParticle, pos.Add(pos3), 1, v17, v21, 0, 0, 0, v25)
 		}
 	}
 	// Protection effects
@@ -1179,21 +734,21 @@ func (c *Client) drawCreatureBackEffects(vp *noxrender.Viewport, dr *client.Draw
 	if dr.HasEnchant(server.ENCHANT_REFLECTIVE_SHIELD) { // Shield effects
 		switch dr.Field_74_2 {
 		case 0, 1, 2:
-			C.nox_xxx_drawShield_499810((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
+			legacy.Nox_xxx_drawShield_499810(vp, dr)
 		}
 	}
 }
 
 func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *client.Drawable) {
-	if dr.HasEnchant(server.ENCHANT_INVISIBLE) && C.sub_474B40((*nox_drawable)(dr.C())) == 0 {
+	if dr.HasEnchant(server.ENCHANT_INVISIBLE) && legacy.Sub_474B40(dr) == 0 {
 		return
 	}
 	if dr.HasEnchant(server.ENCHANT_SHOCK) {
 		if drawWhiteSpark == 0 {
-			drawWhiteSpark = nox_things.IndByID("WhiteSpark")
+			drawWhiteSpark = c.Things.IndByID("WhiteSpark")
 		}
 		pos := dr.Pos()
-		C.nox_xxx_drawEnergyBolt_499710(C.int(pos.X), C.int(pos.Y), C.short(dr.Z()), C.int(drawWhiteSpark))
+		legacy.Nox_xxx_drawEnergyBolt_499710(pos.X, pos.Y, dr.Z(), drawWhiteSpark)
 	}
 	if dr.HasEnchant(server.ENCHANT_CONFUSED) || dr.HasEnchant(server.ENCHANT_HELD) || dr.HasEnchant(server.ENCHANT_ANTI_MAGIC) || dr.HasEnchant(server.ENCHANT_CHARMING) {
 		pos := vp.ToScreenPos(dr.Pos())
@@ -1208,14 +763,14 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *client.Dra
 			c.r.Data().SetColorize17(1)
 			sub433E40(nox_color_blue_2650684)
 		}
-		c.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(*memmap.PtrPtr(0x5D4594, 1096456)), pos.Add(image.Point{X: -64, Y: -64}))
+		c.Nox_video_drawAnimatedImageOrCursorAt(legacy.AsImageRefP(*memmap.PtrPtr(0x5D4594, 1096456)), pos.Add(image.Point{X: -64, Y: -64}))
 		c.r.Data().SetColorize17(0)
 	}
 	if dr.HasEnchant(server.ENCHANT_SLOWED) && !nox_xxx_checkGameFlagPause_413A50() {
 		v11 := int(dr.Shape.Circle.R)
 		v44 := int(dr.Field25() * 0.5)
 		if drawYellowBubbleParticle == 0 {
-			drawYellowBubbleParticle = nox_things.IndByID("YellowBubbleParticle")
+			drawYellowBubbleParticle = c.Things.IndByID("YellowBubbleParticle")
 		}
 		pos := dr.Pos()
 		for v12 := 0; v12 < 2; v12++ {
@@ -1227,12 +782,12 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *client.Dra
 				X: randomIntMinMax(-v11, v11),
 				Y: randomIntMinMax(-v11, v11),
 			}
-			sub_499F60(drawYellowBubbleParticle, pos.Add(pos2), v32, v34, v36, -5, 0, 0, v40)
+			legacy.Sub_499F60(drawYellowBubbleParticle, pos.Add(pos2), v32, v34, v36, -5, 0, 0, v40)
 		}
 	}
 	if dr.HasEnchant(server.ENCHANT_INFRAVISION) && !nox_xxx_checkGameFlagPause_413A50() {
 		if drawGreenBubbleParticle == 0 {
-			drawGreenBubbleParticle = nox_things.IndByID("GreenBubbleParticle")
+			drawGreenBubbleParticle = c.Things.IndByID("GreenBubbleParticle")
 		}
 		pos := dr.Pos()
 		v41 := randomIntMinMax(2, 3)
@@ -1245,7 +800,7 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *client.Dra
 			X: randomIntMinMax(-6, 6),
 			Y: randomIntMinMax(-10, 10),
 		}
-		sub_499F60(drawGreenBubbleParticle, pos.Add(pos2), v33, v35, v37, 1, 0, 0, v41)
+		legacy.Sub_499F60(drawGreenBubbleParticle, pos.Add(pos2), v33, v35, v37, 1, 0, 0, v41)
 	}
 	if dr.HasEnchant(server.ENCHANT_VAMPIRISM) && !nox_xxx_checkGameFlagPause_413A50() {
 		pos := vp.ToScreenPos(dr.Pos())
@@ -1284,13 +839,13 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *client.Dra
 		}
 		c.r.Data().SetAlphaEnabled(true)
 		c.r.Data().SetAlpha(0x80)
-		c.nox_video_drawAnimatedImageOrCursorAt(asImageRefP(*memmap.PtrPtr(0x5D4594, 1096460)), pos)
+		c.Nox_video_drawAnimatedImageOrCursorAt(legacy.AsImageRefP(*memmap.PtrPtr(0x5D4594, 1096460)), pos)
 		c.r.Data().SetAlphaEnabled(false)
 	}
 	if dr.HasEnchant(server.ENCHANT_REFLECTIVE_SHIELD) {
 		switch dr.Field_74_2 {
 		default:
-			C.nox_xxx_drawShield_499810((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
+			legacy.Nox_xxx_drawShield_499810(vp, dr)
 		case 0, 1, 2:
 		}
 	}
@@ -1461,12 +1016,7 @@ func (r *NoxRender) circleSegAdd(p1, p2 image.Point, a2 bool) {
 	}
 }
 
-//export sub_4AE6F0
-func sub_4AE6F0(cx, cy, rad, ang, ccl int) {
-	noxClient.r.drawCircleSegment(cx, cy, rad, ang, noxcolor.RGBA5551(ccl))
-}
-
-func (r *NoxRender) drawCircleSegment(cx, cy, rad, ang int, cl color.Color) {
+func (r *NoxRender) DrawCircleSegment(cx, cy, rad, ang int, cl color.Color) {
 	r.Data().SetColor2(cl)
 	if ang < 0 {
 		ang = 0
@@ -1529,7 +1079,6 @@ func (r *NoxRender) drawCircleSegment(cx, cy, rad, ang int, cl color.Color) {
 	}
 }
 
-//export nox_client_isConnected_43C700
 func nox_client_isConnected_43C700() int {
 	return bool2int(nox_client_isConnected())
 }
@@ -1548,7 +1097,7 @@ func nox_xxx_gameSetCliConnected(v bool) {
 	}
 	*memmap.PtrUint32(0x5D4594, 815764) = uint32(bool2int(v))
 	if !same && !v {
-		C.nox_xxx_guiServerOptionsHide_4597E0(0)
-		C.nox_xxx_cliSetSettingsAcquired_4169D0(0)
+		legacy.Nox_xxx_guiServerOptionsHide_4597E0(0)
+		legacy.Nox_xxx_cliSetSettingsAcquired_4169D0(0)
 	}
 }

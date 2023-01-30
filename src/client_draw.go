@@ -2,49 +2,6 @@
 
 package opennox
 
-/*
-#include "defs.h"
-#include "GAME1.h"
-#include "GAME1_1.h"
-#include "GAME1_2.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME2_2.h"
-#include "GAME2_3.h"
-#include "GAME3_1.h"
-#include "client__draw__glowdraw.h"
-#include "client__draw__selectdw.h"
-#include "client__gui__guiggovr.h"
-extern unsigned int dword_5d4594_1193156;
-extern unsigned int dword_5d4594_1193188;
-extern unsigned int dword_5d4594_2650676;
-extern unsigned int dword_5d4594_2650680;
-extern uint32_t dword_5d4594_3798820;
-extern uint32_t dword_5d4594_3798824;
-extern uint32_t dword_5d4594_3798836;
-extern uint32_t dword_5d4594_3798840;
-extern uint32_t dword_5d4594_1217464;
-extern unsigned int nox_xxx_waypointCounterMB_587000_154948;
-extern unsigned int nox_client_fadeObjects_80836;
-extern unsigned int dword_5d4594_811904;
-extern unsigned int nox_client_gui_flag_1556112;
-extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
-extern unsigned int nox_client_highResFloors_154952;
-extern unsigned int nox_client_highResFrontWalls_80820;
-extern nox_drawable* nox_xxx_drawablePlayer_1046600;
-void nox_xxx_tileDrawMB_481C20_A(nox_draw_viewport_t* vp, int v3);
-void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, int v78);
-void nox_xxx_tileDrawMB_481C20_C_textured(nox_draw_viewport_t* vp, int v72, int v78);
-void  nox_xxx_cliLight16_469140(nox_drawable* dr, nox_draw_viewport_t* vp);
-void nox_xxx_clientDrawAll_436100_draw_A();
-void nox_xxx_clientDrawAll_436100_draw_B();
-void nox_xxx_drawAllMB_475810_draw_A(nox_draw_viewport_t* vp);
-int nox_xxx_drawAllMB_475810_draw_B(nox_draw_viewport_t* vp);
-void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7);
-int sub_436F50();
-*/
-import "C"
 import (
 	"image"
 	"image/color"
@@ -58,6 +15,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -70,15 +28,15 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 		nox_xxx_setContinueMenuOrHost_43DDD0(0)
 		return false
 	}
-	C.sub_437100()
-	if C.sub_478030() == 0 && nox_xxx_guiCursor_477600() == 0 {
-		C.sub_470DE0()
+	legacy.Sub_437100()
+	if legacy.Sub_478030() == 0 && nox_xxx_guiCursor_477600() == 0 {
+		legacy.Sub_470DE0()
 	}
 	ctrlEvent.nox_xxx_input_42D220(c.Inp)
 	if c.inDraw1 {
 		c.inDraw1 = false
 	}
-	C.nox_xxx_clientEnumHover_476FA0()
+	legacy.Nox_xxx_clientEnumHover_476FA0()
 	if !c.clientSendInput(common.MaxPlayers - 1) {
 		return true
 	}
@@ -88,35 +46,35 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 		return true
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
-		C.sub_40B970()
-		C.sub_40B790()
+		legacy.Sub_40B970()
+		legacy.Sub_40B790()
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
-		C.nox_xxx_spriteDeleteSomeList_49C4B0()
+		legacy.Nox_xxx_spriteDeleteSomeList_49C4B0()
 		if c.nox_netlist_receiveCli_494E90(common.MaxPlayers-1) == 0 {
 			return true
 		}
 	} else {
 		sub_43CCA0()
 	}
-	C.sub_49BD70((*nox_draw_viewport_t)(vp.C()))
-	C.sub_49BBC0()
-	C.nox_xxx_polygonDrawColor_421B80()
+	legacy.Sub_49BD70(vp)
+	legacy.Sub_49BBC0()
+	legacy.Nox_xxx_polygonDrawColor_421B80()
 	if nox_client_isConnected() {
-		C.nox_xxx_cliToggleObsWindow_4357A0()
+		legacy.Nox_xxx_cliToggleObsWindow_4357A0()
 	}
 	c.nox_xxx_clientDrawAll_436100_draw()
-	C.sub_49BB40()
-	C.sub_49BA70()
+	legacy.Sub_49BB40()
+	legacy.Sub_49BA70()
 	c.maybeScreenshot()
 	if memmap.Uint32(0x5D4594, 826068) != 0 {
-		C.nox_xxx_motd_4467F0()
+		legacy.Nox_xxx_motd_4467F0()
 	}
-	if C.sub_42EBA0() == 1 {
-		C.sub_42EB90(0)
-		C.nox_xxx_consoleEsc_49B7A0()
+	if legacy.Sub_42EBA0() == 1 {
+		legacy.Sub_42EB90(0)
+		legacy.Nox_xxx_consoleEsc_49B7A0()
 	}
-	C.sub_49B6E0()
+	legacy.Sub_49B6E0()
 	return memmap.Uint32(0x587000, 85720) != 0
 }
 
@@ -145,21 +103,21 @@ func (c *Client) nox_xxx_clientDrawAll_436100_draw() {
 		vp.Screen.Max.X = sx + vp.Size.X - 1
 		vp.Screen.Max.Y = sy + vp.Size.Y - 1
 	}
-	C.sub_430B50(C.int(vp.Screen.Min.X), C.int(vp.Screen.Min.Y), C.int(vp.Screen.Max.X), C.int(vp.Screen.Max.Y))
-	if id := clientPlayerNetCode(); id != 0 {
-		*memmap.PtrPtr(0x852978, 8) = unsafe.Pointer(C.nox_xxx_netSpriteByCodeDynamic_45A6F0(C.int(id)))
+	legacy.Sub_430B50(vp.Screen.Min.X, vp.Screen.Min.Y, vp.Screen.Max.X, vp.Screen.Max.Y)
+	if id := legacy.ClientPlayerNetCode(); id != 0 {
+		*memmap.PtrPtr(0x852978, 8) = legacy.Nox_xxx_netSpriteByCodeDynamic_45A6F0(id).C()
 	}
 	if noxflags.HasEngine(noxflags.EngineNoRendering) {
-		C.nox_xxx_clientDrawAll_436100_draw_A()
+		legacy.Nox_xxx_clientDrawAll_436100_draw_A()
 	} else if memmap.Uint32(0x852978, 8) != 0 && nox_client_isConnected() {
 		c.nox_xxx_drawAllMB_475810_draw(vp)
-		C.nox_xxx_drawMinimapAndLines_4738E0()
+		legacy.Nox_xxx_drawMinimapAndLines_4738E0()
 	} else {
 		c.r.ClearScreen(color.Black)
 	}
 	c.DrawPerfmon(noxPerfmon)
-	if C.dword_5d4594_811904 != 0 {
-		C.sub_436F50()
+	if legacy.Get_dword_5d4594_811904() != 0 {
+		legacy.Sub_436F50()
 	}
 	if noxflags.HasGame(noxflags.GameFlag4) {
 		v13 := platformTicks() - memmap.Uint64(0x5D4594, 811908)
@@ -168,10 +126,10 @@ func (c *Client) nox_xxx_clientDrawAll_436100_draw() {
 		}
 	}
 	if noxflags.HasGame(noxflags.GameFlag4) {
-		C.nox_xxx_clientDrawAll_436100_draw_B()
+		legacy.Nox_xxx_clientDrawAll_436100_draw_B()
 	}
 	if memmap.Uint32(0x587000, 85744) != 0 {
-		C.sub_430B50(0, 0, C.int(nox_win_width-1), C.int(nox_win_height-1))
+		legacy.Sub_430B50(0, 0, nox_win_width-1, nox_win_height-1)
 		c.r.ClearScreen(color.Black)
 		*memmap.PtrUint32(0x587000, 85744) = 0
 	}
@@ -181,8 +139,8 @@ func (c *Client) sub_468F80(vp *noxrender.Viewport) {
 	// TODO: values here are similar to lightGridW and lightGridH
 	c.tiles.noxTilesGpx = (2*common.GridStep)*((int(vp.World.Min.X)+11)/(2*common.GridStep)-1) - 11
 	c.tiles.noxTilesGpy = (2*common.GridStep)*((int(vp.World.Min.Y)+11)/(2*common.GridStep)) - 57
-	C.dword_5d4594_2650676 = C.uint(c.tiles.noxTilesGpx)
-	C.dword_5d4594_2650680 = C.uint(c.tiles.noxTilesGpy)
+	legacy.Set_dword_5d4594_2650676(c.tiles.noxTilesGpx)
+	legacy.Set_dword_5d4594_2650680(c.tiles.noxTilesGpy)
 	if noxflags.HasEngine(noxflags.EngineNoSoftLights) {
 		for i := 0; i < lightGridW; i++ {
 			for j := 0; j < lightGridH; j++ {
@@ -193,7 +151,7 @@ func (c *Client) sub_468F80(vp *noxrender.Viewport) {
 		}
 	} else {
 		cl := c.r.Data().GetLightColor()
-		if nox_xxx_get_57AF20() != 0 {
+		if legacy.Nox_xxx_get_57AF20() != 0 {
 			cl = noxrender.RGB{R: 50, G: 50, B: 50}
 		}
 		for i := 0; i < lightGridW; i++ {
@@ -225,27 +183,27 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	xmin := int(vp.World.Min.X) / common.GridStep
 	ymin := int(vp.World.Min.Y) / common.GridStep
 	nox_wallsYyy = nox_wallsYyy[:0]
-	C.nox_xxx_drawBlack_496150((*nox_draw_viewport_t)(vp.C()))
+	legacy.Nox_xxx_drawBlack_496150(vp)
 	c.nox_xxx_drawBlack_496150_B()
 	disableDraw := false
-	if asDrawable((*nox_drawable)(*memmap.PtrPtr(0x852978, 8))).HasEnchant(server.ENCHANT_BLINDED) || C.nox_gameDisableMapDraw_5d4594_2650672 != 0 {
+	if legacy.AsDrawableP(*memmap.PtrPtr(0x852978, 8)).HasEnchant(server.ENCHANT_BLINDED) || legacy.Get_nox_gameDisableMapDraw_5d4594_2650672() != 0 {
 		disableDraw = true
 	}
-	if C.nox_client_gui_flag_1556112 != 0 || disableDraw {
+	if legacy.Get_nox_client_gui_flag_1556112() != 0 || disableDraw {
 		r.ClearScreen(color.Black)
-		r.setRectFullScreen()
+		r.SetRectFullScreen()
 		c.GUI.ValYYY = 1
 		return
 	}
 	if memmap.Uint32(0x5D4594, 1096520) != 0 {
 		r.ClearScreen(color.White)
 		*memmap.PtrUint32(0x5D4594, 1096520) = 0
-		r.setRectFullScreen()
+		r.SetRectFullScreen()
 		c.GUI.ValYYY = 1
 		return
 	}
 	c.sub_468F80(vp)
-	v10 := C.nox_xxx_drawAllMB_475810_draw_B((*nox_draw_viewport_t)(vp.C())) != 0
+	v10 := legacy.Nox_xxx_drawAllMB_475810_draw_B(vp) != 0
 	c.sub_4765F0(vp)
 	c.sub_4754F0(vp)
 	if v10 {
@@ -258,29 +216,29 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw(vp *noxrender.Viewport) {
 	c.nox_client_queueWallsDraw(vp, xmin, ymin)
 	c.nox_client_drawBackWalls(vp)
 	c.sub_475FE0(vp)
-	C.nox_video_drawCursorSelectCircle_4773C0((*nox_draw_viewport_t)(vp.C()))
+	legacy.Nox_video_drawCursorSelectCircle_4773C0(vp)
 	c.nox_xxx_drawAllMB_475810_draw_E(vp)
 	r.partfx.Draw()
-	C.sub_4C5060((*nox_draw_viewport_t)(vp.C()))
+	legacy.Sub_4C5060(vp)
 	c.nox_client_maybeDrawFrontWalls(vp)
 	r.DrawFade(false)
 	if noxflags.HasEngine(noxflags.EngineShowAI) {
 		drawDebugAI(vp)
 	}
-	C.sub_45AB40()
-	r.setRectFullScreen()
+	legacy.Sub_45AB40()
+	r.SetRectFullScreen()
 	*memmap.PtrUint32(0x973F18, 68) = 1
 	c.sub_476680()
 }
 
 func (c *Client) sub_4765F0(vp *noxrender.Viewport) {
-	c.savedHighResFloors = int(C.nox_client_highResFloors_154952)
-	c.savedHighResFrontWalls = int(C.nox_client_highResFrontWalls_80820)
+	c.savedHighResFloors = legacy.Get_nox_client_highResFloors_154952()
+	c.savedHighResFrontWalls = legacy.Get_nox_client_highResFrontWalls_80820()
 	if *memmap.PtrUint32(0x852978, 8) != 0 && !nox_client_lockHighResFloors_1193152 {
 		v2 := *(*int32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 276))
 		if (v2 == 3 || v2 == 6 || v2 == 45) && (vp.World.Min.X-c.val1096556 >= 4 || vp.World.Min.Y-c.val1096560 >= 4) {
-			C.nox_client_highResFloors_154952 = 0
-			C.nox_client_highResFrontWalls_80820 = 0
+			legacy.Set_nox_client_highResFloors_154952(0)
+			legacy.Set_nox_client_highResFrontWalls_80820(0)
 		}
 		c.val1096556 = vp.World.Min.X
 		c.val1096560 = vp.World.Min.Y
@@ -288,14 +246,14 @@ func (c *Client) sub_4765F0(vp *noxrender.Viewport) {
 }
 
 func (c *Client) sub_476680() {
-	C.nox_client_highResFloors_154952 = C.uint(c.savedHighResFloors)
-	C.nox_client_highResFrontWalls_80820 = C.uint(c.savedHighResFrontWalls)
+	legacy.Set_nox_client_highResFloors_154952(c.savedHighResFloors)
+	legacy.Set_nox_client_highResFrontWalls_80820(c.savedHighResFrontWalls)
 }
 
 func (c *Client) sub_4C5500(vp *noxrender.Viewport) {
 	sxmin := vp.Screen.Min.X
 	symin := vp.Screen.Min.Y
-	v16 := C.sub_49F6D0(0)
+	v16 := legacy.Sub_49F6D0(0)
 	c.r.Data().SetColor2(nox_color_black_2650656)
 
 	if ymin := c.tiles.dword_5d4594_3679320; symin < ymin { // top tile cutoff
@@ -320,9 +278,9 @@ func (c *Client) sub_4C5500(vp *noxrender.Viewport) {
 	if ymax := c.tiles.dword_5d4594_3798156; vp.Size.Y+symin > ymax { // bottom tile cutoff
 		c.r.DrawRectFilledOpaque(sxmin, ymax, vp.Size.X, vp.Size.Y+symin-ymax, nox_color_black_2650656)
 	}
-	C.sub_49F6D0(C.int(v16))
+	legacy.Sub_49F6D0(v16)
 	if noxflags.HasEngine(noxflags.EngineSoftShadowEdge) {
-		C.sub_498AE0()
+		legacy.Sub_498AE0()
 	}
 }
 
@@ -347,7 +305,7 @@ func (c *Client) nox_client_queueWallsDraw(vp *noxrender.Viewport, xmin, ymin in
 }
 
 func nox_xxx_drawWalls_473C10(vp *noxrender.Viewport, p *Wall) {
-	C.nox_xxx_drawWalls_473C10((*nox_draw_viewport_t)(vp.C()), p.C())
+	legacy.Nox_xxx_drawWalls_473C10(vp, p.C())
 }
 
 func (c *Client) nox_client_drawBackWalls(vp *noxrender.Viewport) {
@@ -374,18 +332,18 @@ func (c *Client) nox_client_maybeDrawFrontWalls(vp *noxrender.Viewport) { // nox
 func (c *Client) sub_475F10(vp *noxrender.Viewport) {
 	for _, dr := range nox_drawable_list_3 {
 		c.drawCreatureBackEffects(vp, dr)
-		if C.nox_xxx_client_4984B0_drawable((*nox_drawable)(dr.C())) == 0 {
+		if legacy.Nox_xxx_client_4984B0_drawable(dr) == 0 {
 			continue
 		}
 		dr.Field_121 = 1
-		callDrawFunc(dr, vp)
+		legacy.CallDrawFunc(dr, vp)
 		if dr.Flags70()&0x40 != 0 {
-			C.nox_xxx_drawShinySpot_4C4F40((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
+			legacy.Nox_xxx_drawShinySpot_4C4F40(vp, dr)
 		}
 		c.drawCreatureFrontEffects(vp, dr)
-		C.sub_495BB0((*nox_drawable)(dr.C()), (*nox_draw_viewport_t)(vp.C()))
+		legacy.Sub_495BB0(dr, vp)
 		if noxflags.HasEngine(noxflags.EngineShowExtents) {
-			nox_thing_debug_draw((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
+			nox_thing_debug_draw(vp, dr)
 		}
 		dr.Field_33 = 0
 		if dr.Field_120 == 0 && dr.Field_122 == 0 {
@@ -397,11 +355,11 @@ func (c *Client) sub_475F10(vp *noxrender.Viewport) {
 
 func (c *Client) sub_475FE0(vp *noxrender.Viewport) {
 	for _, dr := range nox_drawable_list_4 {
-		if C.nox_xxx_client_4984B0_drawable((*nox_drawable)(dr.C())) != 0 {
+		if legacy.Nox_xxx_client_4984B0_drawable(dr) != 0 {
 			dr.Field_121 = 1
-			callDrawFunc(dr, vp)
+			legacy.CallDrawFunc(dr, vp)
 			if noxflags.HasEngine(noxflags.EngineShowExtents) {
-				nox_thing_debug_draw((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
+				nox_thing_debug_draw(vp, dr)
 			}
 			dr.Field_33 = 0
 			if dr.Field_120 == 0 && dr.Field_122 == 0 {
@@ -417,19 +375,15 @@ func (c *Client) sub_476160(a1, a2 *client.Drawable) bool {
 	if int8(byte(a1.Flags28Val)) >= 0 {
 		v1 = a1.Pos().Y + a1.Z()
 	} else {
-		v1 = int(C.sub_4761B0((*nox_drawable)(a1.C())))
+		v1 = legacy.Sub_4761B0(a1)
 	}
 	var v2 int
 	if int8(byte(a1.Flags28Val)) >= 0 {
 		v2 = a2.Pos().Y + a2.Z()
 	} else {
-		v2 = int(C.sub_4761B0((*nox_drawable)(a2.C())))
+		v2 = legacy.Sub_4761B0(a2)
 	}
 	return v1-v2 < 0
-}
-
-func nox_xxx_cliGetSpritePlayer_45A000() *client.Drawable {
-	return asDrawable(C.nox_xxx_drawablePlayer_1046600)
 }
 
 func (c *Client) nox_xxx_drawAllMB_475810_draw_E(vp *noxrender.Viewport) {
@@ -439,7 +393,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw_E(vp *noxrender.Viewport) {
 	})
 	sort.Slice(nox_wallsYyy, func(i, j int) bool {
 		a, b := nox_wallsYyy[i], nox_wallsYyy[j]
-		return C.sub_476080((*C.uchar)(a.C())) < C.sub_476080((*C.uchar)(b.C()))
+		return legacy.Sub_476080(a.C()) < legacy.Sub_476080(b.C())
 	})
 	objects := nox_drawable_objects_queue
 	walls := nox_wallsYyy
@@ -449,7 +403,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw_E(vp *noxrender.Viewport) {
 	}
 	wy := math.MaxInt32
 	if len(walls) > 0 {
-		wy = int(C.sub_476080((*C.uchar)(walls[0].C())))
+		wy = legacy.Sub_476080(walls[0].C())
 	}
 LOOP:
 	for len(objects) > 0 || len(walls) > 0 {
@@ -458,7 +412,7 @@ LOOP:
 				nox_xxx_drawWalls_473C10(vp, walls[0])
 				walls = walls[1:]
 				if len(walls) != 0 {
-					wy = int(C.sub_476080((*C.uchar)(walls[0].C())))
+					wy = legacy.Sub_476080(walls[0].C())
 					continue
 				}
 			}
@@ -476,8 +430,8 @@ LOOP:
 		} else {
 			sy = math.MaxInt32
 		}
-		if dr.Field_27 == memmap.Uint32(0x5D4594, 1096448) && nox_server_teamFirst_418B10() != nil {
-			for v25 := nox_xxx_cliGetSpritePlayer_45A000(); v25 != nil; v25 = v25.Field104() {
+		if dr.Field_27 == memmap.Uint32(0x5D4594, 1096448) && noxServer.Teams.First() != nil {
+			for v25 := legacy.Nox_xxx_cliGetSpritePlayer_45A000(); v25 != nil; v25 = v25.Field104() {
 				if v25.HasEnchant(server.ENCHANT_CROWN) {
 					continue LOOP
 				}
@@ -495,26 +449,26 @@ LOOP:
 			}
 		}
 		c.drawCreatureBackEffects(vp, dr)
-		if callDrawFunc(dr, vp) == 0 {
+		if legacy.CallDrawFunc(dr, vp) == 0 {
 			continue
 		}
 		if noxflags.HasEngine(noxflags.EngineShowExtents) {
-			nox_thing_debug_draw((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
+			nox_thing_debug_draw(vp, dr)
 		}
 		dr.Field_33 = 0
 		if dr.Flags70()&0x40 != 0 {
-			C.nox_xxx_drawShinySpot_4C4F40((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
+			legacy.Nox_xxx_drawShinySpot_4C4F40(vp, dr)
 		}
 		c.drawCreatureFrontEffects(vp, dr)
-		C.sub_495BB0((*nox_drawable)(dr.C()), (*nox_draw_viewport_t)(vp.C()))
+		legacy.Sub_495BB0(dr, vp)
 		if dr.Field_120 == 0 && dr.Field_122 == 0 {
 			dr.Field_85 = c.srv.Frame()
 		}
-		if C.sub_459DB0((*nox_drawable)(dr.C())) != 0 {
-			C.sub_459DD0((*nox_drawable)(dr.C()), 1)
+		if legacy.Sub_459DB0(dr) != 0 {
+			legacy.Sub_459DD0(dr, 1)
 		}
 		if dr.Flags28()&0x20006 != 0 {
-			C.sub_49A6A0((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
+			legacy.Sub_49A6A0(vp, dr)
 		}
 	}
 	nox_drawable_objects_queue = nox_drawable_objects_queue[:0]
@@ -535,22 +489,22 @@ func (c *Client) sub_4754F0(vp *noxrender.Viewport) {
 }
 
 func (c *Client) nox_xxx_spriteAddQueue_475560_draw(dr *client.Drawable) {
-	if C.nox_xxx_sprite_4756E0_drawable((*nox_drawable)(dr.C())) != 0 {
+	if legacy.Nox_xxx_sprite_4756E0_drawable(dr) != 0 {
 		nox_drawable_list_2 = append(nox_drawable_list_2, dr)
 		return
 	}
-	if C.nox_xxx_sprite_475740_drawable((*nox_drawable)(dr.C())) != 0 {
+	if legacy.Nox_xxx_sprite_475740_drawable(dr) != 0 {
 		nox_drawable_list_3 = append(nox_drawable_list_3, dr)
 		return
 	}
-	if C.nox_xxx_sprite_4757A0_drawable((*nox_drawable)(dr.C())) != 0 {
+	if legacy.Nox_xxx_sprite_4757A0_drawable(dr) != 0 {
 		nox_drawable_list_4 = append(nox_drawable_list_4, dr)
 		return
 	}
-	if C.sub_4757D0_drawable((*nox_drawable)(dr.C())) != 0 {
-		if C.nox_client_fadeObjects_80836 != 0 || dr.C() == *memmap.PtrPtr(0x852978, 8) || C.nox_xxx_client_4984B0_drawable((*nox_drawable)(dr.C())) != 0 {
+	if legacy.Sub_4757D0_drawable(dr) != 0 {
+		if legacy.Get_nox_client_fadeObjects_80836() != 0 || dr.C() == *memmap.PtrPtr(0x852978, 8) || legacy.Nox_xxx_client_4984B0_drawable(dr) != 0 {
 			if dr.Field_122 == 0 {
-				if C.nox_xxx_client_4984B0_drawable((*nox_drawable)(dr.C())) != 0 {
+				if legacy.Nox_xxx_client_4984B0_drawable(dr) != 0 {
 					dr.Field_121 = 1
 					dr.Field_120 = 0
 				} else {
@@ -571,7 +525,7 @@ func (c *Client) nox_xxx_spriteAddQueue_475560_draw(dr *client.Drawable) {
 
 func (c *Client) nox_xxx_drawAllMB_475810_draw_A(vp *noxrender.Viewport) {
 	if *memmap.PtrUint32(0x5D4594, 1096448) == 0 {
-		*memmap.PtrUint32(0x5D4594, 1096448) = uint32(nox_things.IndByID("Crown"))
+		*memmap.PtrUint32(0x5D4594, 1096448) = uint32(c.Things.IndByID("Crown"))
 	}
 	c.sub_477F80()
 	*memmap.PtrUint32(0x973F18, 68) = 0
@@ -580,7 +534,7 @@ func (c *Client) nox_xxx_drawAllMB_475810_draw_A(vp *noxrender.Viewport) {
 		c.GUI.ValXXX = 1
 		x := vp.Screen.Max.X + 1
 		y := vp.Screen.Max.Y
-		r.setRectFullScreen()
+		r.SetRectFullScreen()
 		if c.GUI.ValYYY != 0 {
 			rect := r.PixBufferRect()
 			cl := color.Black
@@ -636,7 +590,7 @@ func (c *Client) nox_xxx_cliLight16_469140(dr *client.Drawable) {
 	if !(c.drawableUpdateLight(dr) || dr.Flags28()&0x80000 != 0 && dr.Flags30()&0x1000000 != 0 && dr.LightIntensityRad > 0 && dr.Flags30()&0x4 != 0) {
 		return
 	}
-	if !(nox_xxx_get_57AF20() == 0 || dr.C() == *memmap.PtrPtr(0x852978, 8) || dr.DrawFuncPtr == C.nox_thing_glow_orb_draw) {
+	if !(legacy.Nox_xxx_get_57AF20() == 0 || dr.C() == *memmap.PtrPtr(0x852978, 8) || dr.DrawFuncPtr == legacy.Get_nox_thing_glow_orb_draw()) {
 		return
 	}
 	intens := int(dr.LightIntensityU16)
@@ -767,24 +721,24 @@ func (c *Client) sub_4695E0(a1, a2 int, pcl *int32, a4 int, flip bool) {
 }
 
 func (c *Client) nox_xxx_tileDrawMB_481C20(vp *noxrender.Viewport) {
-	C.nox_xxx_waypointCounterMB_587000_154948++
+	legacy.Inc_nox_xxx_waypointCounterMB_587000_154948()
 	dp := vp.ToWorldPos(image.Pt(0, 0))
-	if !nox_client_texturedFloors_154956 && C.dword_5d4594_1193156 == 1 {
+	if !nox_client_texturedFloors_154956 && legacy.Get_dword_5d4594_1193156() == 1 {
 		nox_client_texturedFloors2_154960 = false
 		nox_client_texturedFloors_154956 = true
 		nox_xxx_tileSetDrawFn_481420()
 	}
-	if C.dword_5d4594_1193156 == 1 && !nox_client_texturedFloors2_154960 && c.srv.Frame()%30 == 0 && C.nox_xxx_tileCheckRedrawMB_482570((*nox_draw_viewport_t)(vp.C())) == 0 {
-		C.dword_5d4594_1193156 = 0
+	if legacy.Get_dword_5d4594_1193156() == 1 && !nox_client_texturedFloors2_154960 && c.srv.Frame()%30 == 0 && legacy.Nox_xxx_tileCheckRedrawMB_482570(vp) == 0 {
+		legacy.Set_dword_5d4594_1193156(0)
 		nox_client_texturedFloors_154956 = nox_client_texturedFloors2_154960
 		nox_xxx_tileSetDrawFn_481420()
 	}
-	if C.dword_5d4594_1193188 != 0 {
-		C.nox_xxx_tileDrawImpl_4826A0((*nox_draw_viewport_t)(vp.C()))
-		C.dword_5d4594_1193188 = 0
+	if legacy.Get_dword_5d4594_1193188() != 0 {
+		legacy.Nox_xxx_tileDrawImpl_4826A0(vp)
+		legacy.Set_dword_5d4594_1193188(0)
 	} else {
-		C.nox_xxx_tileDrawMB_481C20_A((*nox_draw_viewport_t)(vp.C()), C.int(dp.X))
-		C.nox_xxx_tileDrawMB_481C20_B((*nox_draw_viewport_t)(vp.C()), C.int(dp.Y))
+		legacy.Nox_xxx_tileDrawMB_481C20_A(vp, dp.X)
+		legacy.Nox_xxx_tileDrawMB_481C20_B(vp, dp.Y)
 	}
 	if nox_client_texturedFloors_154956 {
 		c.nox_xxx_tileDrawMB_481C20_C_textured(vp, dp)
@@ -793,7 +747,7 @@ func (c *Client) nox_xxx_tileDrawMB_481C20(vp *noxrender.Viewport) {
 	}
 }
 
-func (c *Client) sub4C5630(a1 int, a2 int, a3 int) int {
+func (c *Client) Sub4C5630(a1 int, a2 int, a3 int) int {
 	if a3 < 0 || a3 >= len(c.tiles.nox_arr_956A00) { // TODO: figure out why overflow happens on high-res
 		return 0
 	}
@@ -840,8 +794,8 @@ func (c *Client) sub_4C5430(a1 int, a2 int) {
 }
 
 func (c *Client) nox_xxx_drawBlack_496150_B() {
-	C.sub_4989A0()
-	c.sub_4C52E0(memmap.PtrInt32(0x5D4594, 1203876), int(C.dword_5d4594_1217464))
+	legacy.Sub_4989A0()
+	c.sub_4C52E0(memmap.PtrInt32(0x5D4594, 1203876), int(legacy.Get_dword_5d4594_1217464()))
 }
 
 func (c *Client) sub_4C52E0(a1 *int32, sz int) {
@@ -929,7 +883,7 @@ func (c *Client) sub_4C52E0(a1 *int32, sz int) {
 	}
 }
 
-func (c *Client) sub4C42A0(a1, a2 image.Point, a3 *int, a4 *int) int32 {
+func (c *Client) Sub4C42A0(a1, a2 image.Point, a3 *int, a4 *int) int32 {
 	v4 := a1.Y
 	v5 := a2.Y
 	if v4 == v5 {
@@ -1152,7 +1106,7 @@ func (c *Client) nox_xxx_tileDrawMB_481C20_C_solid(vp *noxrender.Viewport, dp im
 				v37 := it[0]
 				sz := it[1] - it[0]
 				it = it[2:]
-				v39i := (c.tiles.dword_5d4594_3798804/2)*(v67_4+int(C.dword_5d4594_3798840)-int(C.dword_5d4594_3798824)) + (v37 + dp.X + int(C.dword_5d4594_3798836) - int(C.dword_5d4594_3798820))
+				v39i := (c.tiles.dword_5d4594_3798804/2)*(v67_4+int(legacy.Get_dword_5d4594_3798840())-int(legacy.Get_dword_5d4594_3798824())) + (v37 + dp.X + int(legacy.Get_dword_5d4594_3798836()) - int(legacy.Get_dword_5d4594_3798820()))
 				if v39i >= len(c.tiles.noxTileBuf) {
 					v39i -= len(c.tiles.noxTileBuf)
 				}
@@ -1200,7 +1154,7 @@ func (c *Client) nox_xxx_tileDrawMB_481C20_C_textured(vp *noxrender.Viewport, dp
 		}
 		cur := &src[0]
 		vv := c.tiles.nox_arr_956A00[yy]
-		if C.nox_client_highResFloors_154952 != 0 || v67.Y&1 == 0 || yy == 0 {
+		if legacy.Get_nox_client_highResFloors_154952() != 0 || v67.Y&1 == 0 || yy == 0 {
 			// high-res or each second row on low-res
 			if vv > 0 {
 				it := cur.arr[:]
@@ -1245,7 +1199,7 @@ func (c *Client) nox_xxx_tileDrawMB_481C20_C_textured(vp *noxrender.Viewport, dp
 func (c *Client) noxTileDrawTextured(a1 image.Point, a2 int, a3, sz int, dst []uint16) int {
 	buf := c.tiles.noxTileBuf
 
-	bi := (c.tiles.dword_5d4594_3798804/2)*(int(C.dword_5d4594_3798840)+a1.Y-int(C.dword_5d4594_3798824)) + (int(C.dword_5d4594_3798836) + a1.X - int(C.dword_5d4594_3798820))
+	bi := (c.tiles.dword_5d4594_3798804/2)*(int(legacy.Get_dword_5d4594_3798840())+a1.Y-int(legacy.Get_dword_5d4594_3798824())) + (int(legacy.Get_dword_5d4594_3798836()) + a1.X - int(legacy.Get_dword_5d4594_3798820()))
 	if bi >= len(buf) {
 		bi -= len(buf)
 	}

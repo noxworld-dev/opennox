@@ -1,10 +1,5 @@
 package opennox
 
-/*
-#include "defs.h"
-void  nox_xxx_playerLeaveObserver_0_4E6AA0(nox_playerInfo* pl);
-*/
-import "C"
 import (
 	"context"
 	"encoding/binary"
@@ -17,6 +12,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 )
 
 const (
@@ -121,7 +117,7 @@ func (s *Server) nox_xxx_replayStopReadMB_4D3530() {
 	replay.readHeader = false
 	noxflags.UnsetEngine(noxflags.EngineReplayRead)
 	pl := s.GetPlayerByID(255)
-	C.nox_xxx_playerLeaveObserver_0_4E6AA0(pl.C())
+	legacy.Nox_xxx_playerLeaveObserver_0_4E6AA0(pl.S())
 }
 
 func nox_xxx_replay_4D3860(pi *PlayerOpts) error {

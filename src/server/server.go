@@ -29,7 +29,9 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 		port:      common.GamePort,
 	}
 	s.types.Init()
+	s.Modif.init(sm)
 	s.Players.init()
+	s.Teams.init(sm)
 	s.http.init()
 	return s
 }
@@ -46,16 +48,19 @@ type Server struct {
 	tickHooks  tickHooks
 	loopHooks  chan func()
 
-	types   serverObjTypes
-	Objs    serverObjects
-	Map     serverMap
-	Audio   serverAudio
-	objects struct {
+	types     serverObjTypes
+	Objs      serverObjects
+	Modif     serverModifiers
+	Map       serverMap
+	MapGroups ServerMapGroups
+	Audio     serverAudio
+	objects   struct {
 		firstScriptID ObjectScriptID
 		lastScriptID  ObjectScriptID
 	}
 	Activators serverActivators
 	Players    serverPlayers
+	Teams      serverTeams
 
 	port int
 	http httpService

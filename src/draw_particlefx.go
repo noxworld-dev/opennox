@@ -1,12 +1,5 @@
 package opennox
 
-/*
-#include "defs.h"
-#include "GAME2.h"
-#include "GAME2_3.h"
-#include "GAME3.h"
-*/
-import "C"
 import (
 	"image"
 	"image/color"
@@ -17,19 +10,15 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
-	"github.com/noxworld-dev/opennox/v1/common/alloc/handles"
 	"github.com/noxworld-dev/opennox/v1/common/gsync"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc/handles"
 )
 
 const (
 	particlefxObjName = "Particle"
 )
-
-//export sub_4B6720
-func sub_4B6720(a1 *C.int2, a2, a3 C.int, a4 C.char) {
-	noxClient.r.DrawGlow(asPoint(unsafe.Pointer(a1)), noxcolor.RGBA5551(a2), int(a3), int(a4))
-}
 
 type partFXes struct {
 	r        *NoxRender
@@ -261,7 +250,7 @@ func partfxDraw(p *particleFx) {
 	if dr := p.drawable12; dr != nil && p.drawableVp != nil {
 		prev := dr.Pos()
 		dr.SetPos(pos1)
-		callDrawFunc(dr, p.drawableVp)
+		legacy.CallDrawFunc(dr, p.drawableVp)
 		dr.SetPos(prev)
 	}
 	if p.pointSize != 0 {
@@ -388,13 +377,13 @@ func (pfx *partFXes) sub_4AF4C0(t *particlefxType) bool {
 }
 
 func (p *particleFx) loadParticle(typ string) {
-	id := nox_things.IndByID(typ)
-	dr := nox_xxx_spriteLoadAdd_45A360_drawable(id, image.Pt(p.x16>>16, p.y16>>16))
+	id := noxClient.Things.IndByID(typ)
+	dr := legacy.Nox_xxx_spriteLoadAdd_45A360_drawable(id, image.Pt(p.x16>>16, p.y16>>16))
 	if dr != nil {
 		p.drawable12 = dr
 		dr.Field_27 = uint32(uintptr(p.C())) // TODO: unused?
-		C.nox_xxx_spriteTransparentDecay_49B950((*nox_drawable)(dr.C()), C.int(p.ticksTotal))
-		C.nox_xxx_sprite_45A110_drawable((*nox_drawable)(dr.C()))
+		legacy.Nox_xxx_spriteTransparentDecay_49B950(dr, p.ticksTotal)
+		legacy.Nox_xxx_sprite_45A110_drawable(dr)
 	}
 	p.flags |= 8
 }

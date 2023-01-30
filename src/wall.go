@@ -1,11 +1,5 @@
 package opennox
 
-/*
-#include "GAME1.h"
-#include "GAME4_1.h"
-extern void* dword_5d4594_251560;
-*/
-import "C"
 import (
 	"fmt"
 	"image"
@@ -15,26 +9,25 @@ import (
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/types"
 	"github.com/noxworld-dev/opennox-lib/wall"
+
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func asWall(p unsafe.Pointer) *Wall {
 	return (*Wall)(p)
 }
 
-//export nox_server_getWallAtGrid_410580
 func nox_server_getWallAtGrid_410580(x, y int) unsafe.Pointer {
 	return noxServer.getWallAtGrid(image.Pt(x, y)).C()
 }
 
-//export nox_xxx_wall_4105E0
 func nox_xxx_wall_4105E0(x, y int) unsafe.Pointer {
 	return noxServer.getWallAtGrid2(image.Pt(x, y)).C()
 }
 
 func (s *Server) nox_xxx_wallTileByName_410D60(name string) byte {
-	str := CString(name)
-	defer StrFree(str)
-	return byte(C.nox_xxx_wallTileByName_410D60(str))
+	return legacy.Nox_xxx_wallTileByName_410D60(name)
 }
 
 func (s *Server) getWallAtGrid(pos image.Point) *Wall { // nox_server_getWallAtGrid_410580
@@ -95,7 +88,7 @@ func (s *Server) getWallNear(pos types.Pointf) *Wall {
 }
 
 func (s *Server) getWallGroupByID(id string) *script.WallGroup {
-	g := s.mapGroups.GroupByID(id, mapGroupWalls)
+	g := s.GroupByID(id, server.MapGroupWalls)
 	if g == nil {
 		return nil
 	}
@@ -114,7 +107,7 @@ func (s *Server) getWallGroupByID(id string) *script.WallGroup {
 }
 
 func nox_xxx_wallSecretGetFirstWall_410780() unsafe.Pointer {
-	return C.dword_5d4594_251560
+	return legacy.Get_dword_5d4594_251560()
 }
 
 func nox_xxx_wallSecretNext_410790(p unsafe.Pointer) unsafe.Pointer {
@@ -216,18 +209,18 @@ func (w *Wall) IsEnabled() bool {
 // Enable or disable (close or open) the wall.
 func (w *Wall) Enable(close bool) {
 	if close {
-		C.nox_xxx_wallClose_512070(C.int(uintptr(w.C())))
+		legacy.Nox_xxx_wallClose_512070(w.C())
 	} else {
-		C.nox_xxx_wallOpen_511F80(C.int(uintptr(w.C())))
+		legacy.Nox_xxx_wallOpen_511F80(w.C())
 	}
 }
 
 func (w *Wall) Toggle() bool {
-	C.nox_xxx_wallToggle_512160(C.int(uintptr(w.C())))
+	legacy.Nox_xxx_wallToggle_512160(w.C())
 	return w.IsEnabled()
 }
 
 // Destroy (break) the wall.
 func (w *Wall) Destroy() {
-	C.nox_xxx_wallPreDestroyByPtr_5122C0(C.int(uintptr(w.C())))
+	legacy.Nox_xxx_wallPreDestroyByPtr_5122C0(w.C())
 }

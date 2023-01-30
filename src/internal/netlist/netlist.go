@@ -3,7 +3,7 @@ package netlist
 import (
 	"github.com/noxworld-dev/opennox-lib/common"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 const (

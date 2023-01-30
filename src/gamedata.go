@@ -1,15 +1,12 @@
 package opennox
 
-/*
-int nox_xxx_loadMonsterBin_517010();
-*/
-import "C"
 import (
 	"github.com/noxworld-dev/opennox-lib/balance"
 	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/log"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 )
 
 var (
@@ -32,20 +29,6 @@ func nox_xxx_parseGamedataBin_419B30() int {
 		return 0
 	}
 	return 1
-}
-
-//export nox_xxx_gamedataGetFloat_419D40
-func nox_xxx_gamedataGetFloat_419D40(k *C.char) C.double {
-	key := GoString(k)
-	val := C.double(gamedataFloat(key))
-	return val
-}
-
-//export nox_xxx_gamedataGetFloatTable_419D70
-func nox_xxx_gamedataGetFloatTable_419D70(k *C.char, i int) C.double {
-	key := GoString(k)
-	val := C.double(gamedataFloatInd(key, i))
-	return val
 }
 
 func gamedataTag() balance.Tag {
@@ -79,5 +62,5 @@ func nox_xxx_parseGamedataBinPre_4D1630() int {
 	}
 	noxServer.abilities.reloadGamedata()
 	nox_xxx_loadBaseValues_57B200()
-	return bool2int(C.nox_xxx_loadMonsterBin_517010() != 0)
+	return bool2int(legacy.Nox_xxx_loadMonsterBin_517010() != 0)
 }

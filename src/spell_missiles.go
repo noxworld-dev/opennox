@@ -1,9 +1,5 @@
 package opennox
 
-/*
-#include "GAME3_2.h"
-*/
-import "C"
 import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/spell"
@@ -27,7 +23,7 @@ func (sp *spellMissiles) Free() {
 	sp.proj = nil
 }
 
-func (sp *spellMissiles) Cast(spellID spell.ID, a2, owner, caster *Unit, a5 *spellAcceptArg, lvl int) int {
+func (sp *spellMissiles) Cast(spellID spell.ID, a2, owner, caster *server.Object, a5 *server.SpellAcceptArg, lvl int) int {
 	spl := sp.s.SpellDefByInd(spellID)
 	opts := spl.Def.Missiles.Level(lvl)
 	typ, ok := sp.proj[spellID]
@@ -35,7 +31,7 @@ func (sp *spellMissiles) Cast(spellID spell.ID, a2, owner, caster *Unit, a5 *spe
 		typ = sp.s.ObjectTypeID(opts.Projectile)
 		sp.proj[spellID] = typ
 	}
-	curCnt := owner.countSubOfType(typ)
+	curCnt := asUnitS(owner).countSubOfType(typ)
 	var cnt, maxCnt int
 	if opts.Count <= 0 {
 		// it's intentionally loading this variable twice
@@ -57,7 +53,7 @@ func (sp *spellMissiles) Cast(spellID spell.ID, a2, owner, caster *Unit, a5 *spe
 	return 1
 }
 
-func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts things.MissilesSpell) {
+func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *server.Object, opts things.MissilesSpell) {
 	cpos := caster.Pos()
 	cvel := caster.Vel()
 	rdist := caster.Shape.Circle.R + opts.Offset
@@ -69,12 +65,12 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts 
 		dir := server.Dir16(nox_xxx_math_roundDirI16(int16(caster.Direction1) + doff))
 		dv := dir.Vec()
 		p2 := cpos.Add(cvel).Add(dv.Mul(rdist))
-		if !sp.s.MapTraceRay(cpos, p2, MapTraceFlag1|MapTraceFlag3) {
+		if !sp.s.MapTraceRay(cpos, p2, server.MapTraceFlag1|server.MapTraceFlag3) {
 			continue
 		}
-		msl := sp.s.newObjectByTypeID(opts.Projectile)
+		msl := asUnitS(sp.s.NewObjectByTypeID(opts.Projectile))
 		mud := msl.updateDataMissile()
-		sp.s.createObjectAt(msl, owner, p2)
+		sp.s.CreateObjectAt(msl, owner, p2)
 		mspeed := float32(noxRndCounter1.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.curSpeed()))
 		msl.SpeedCur = mspeed
 		msl.setAllDirs(dir)
@@ -85,10 +81,10 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *Unit, opts 
 			cur := pl.CursorPos()
 			ppos = &cur
 		}
-		targ := sp.s.nox_xxx_spellFlySearchTarget(ppos, msl, 0x20, opts.SearchDist, 0, owner)
-		mud.owner = owner.CObj()
-		mud.target = targ.CObj()
-		mud.spellID = C.int(spellID)
+		targ := sp.s.Nox_xxx_spellFlySearchTarget(ppos, msl, 0x20, opts.SearchDist, 0, owner)
+		mud.Owner = owner.SObj()
+		mud.Target = targ.SObj()
+		mud.SpellID = int32(spellID)
 	}
 	aud := sp.s.SpellDefByInd(spellID).GetAudio(0)
 	sp.s.AudioEventObj(aud, caster, 0, 0)

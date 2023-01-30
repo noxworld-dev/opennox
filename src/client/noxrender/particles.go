@@ -8,7 +8,7 @@ import (
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 type renderParticles struct {

@@ -1,36 +1,5 @@
 package opennox
 
-/*
-#include "GAME1_2.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME2_2.h"
-#include "GAME2_3.h"
-#include "GAME3.h"
-#include "GAME3_1.h"
-#include "common__magic__speltree.h"
-extern unsigned int dword_5d4594_1193188;
-extern unsigned int dword_5d4594_1305748;
-extern int nox_win_width;
-extern int nox_win_height;
-
-extern uint8_t** nox_pixbuffer_rows_3798784;
-extern uint32_t dword_5d4594_823776;
-
-extern uint32_t nox_color_white_2523948;
-extern uint32_t nox_color_red_2589776;
-extern uint32_t nox_color_blue_2650684;
-extern uint32_t nox_color_green_2614268;
-extern uint32_t nox_color_cyan_2649820;
-extern uint32_t nox_color_yellow_2589772;
-extern uint32_t nox_color_violet_2598268;
-extern uint32_t nox_color_black_2650656;
-extern uint32_t nox_color_orange_2614256;
-
-extern nox_render_data_t* nox_draw_curDrawData_3799572;
-*/
-import "C"
 import (
 	"errors"
 	"fmt"
@@ -47,8 +16,9 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -99,12 +69,10 @@ func sub_48B3E0(v bool) bool {
 	return prev
 }
 
-//export nox_video_getCutSize_4766D0
 func nox_video_getCutSize_4766D0() int {
 	return nox_video_getCutSize()
 }
 
-//export nox_video_setCutSize_4766A0
 func nox_video_setCutSize_4766A0(v int) {
 	nox_video_setCutSize(v)
 }
@@ -121,8 +89,8 @@ func videoGetWindowSize() image.Point {
 }
 
 func videoSetWindowSize(sz image.Point) {
-	C.nox_win_width = C.int(sz.X)
-	C.nox_win_height = C.int(sz.Y)
+	legacy.Set_nox_win_width(sz.X)
+	legacy.Set_nox_win_height(sz.Y)
 	nox_win_width = sz.X
 	nox_win_height = sz.Y
 }
@@ -131,57 +99,42 @@ func cfgUpdateFullScreen() {
 	g_fullscreen_cfg = noxClient.GetWindowMode()
 }
 
-//export nox_video_setGammaSlider
 func nox_video_setGammaSlider(v int) {
 	setGammaSliderOpts(v)
 }
 
-//export sub_43BE50_get_video_mode_id
 func sub_43BE50_get_video_mode_id() int {
 	return videoModeID()
 }
 
-//export get_video_mode_string
-func get_video_mode_string(id int) *C.wchar_t {
+func get_video_mode_string(id int) string {
 	if id < 0 || id >= len(noxVideoModes) {
-		return internWStr("custom")
+		return "custom"
 	}
 	mode := noxVideoModes[id]
-	return internWStr(fmt.Sprintf("%dx%d", mode.X, mode.Y))
+	return fmt.Sprintf("%dx%d", mode.X, mode.Y)
 }
 
-//export nox_getBackbufWidth
 func nox_getBackbufWidth() int {
 	dx := noxClient.r.PixBufferRect().Dx()
 	return dx
 }
 
-//export nox_getBackbufHeight
 func nox_getBackbufHeight() int {
 	dy := noxClient.r.PixBufferRect().Dy()
 	return dy
 }
 
-//export nox_video_getFullScreen
 func nox_video_getFullScreen() int {
 	return noxClient.GetWindowMode()
 }
 
-//export nox_video_setFullScreen
 func nox_video_setFullScreen(v int) {
 	noxClient.UpdateFullScreen(v)
 }
 
-//export sub_430C30_set_video_max
 func sub_430C30_set_video_max(w, h int) {
 	videoSetMaxSize(image.Point{X: w, Y: h})
-}
-
-//export nox_xxx_screenGetSize_430C50_get_video_max
-func nox_xxx_screenGetSize_430C50_get_video_max(pw, ph *C.int) {
-	sz := videoGetMaxSize()
-	*pw = C.int(sz.X)
-	*ph = C.int(sz.Y)
 }
 
 func (c *Client) videoGetGameMode() image.Point {
@@ -213,7 +166,6 @@ func nox_video_setBackBufferCopyFunc2_4AD150() {
 	}
 }
 
-//export nox_video_callCopyBackBuffer_4AD170
 func nox_video_callCopyBackBuffer_4AD170() {
 	noxClient.copyPixBuffer()
 }
@@ -225,31 +177,31 @@ var (
 )
 
 func videoInit(sz image.Point, flags int) error {
-	C.dword_5d4594_823776 = 0
+	legacy.Set_dword_5d4594_823776(0)
 	if renderData1 == nil {
 		renderData1, _ = alloc.New(noxrender.RenderData{})
 		renderData2, _ = alloc.New(noxrender.RenderData{})
 	}
 	noxClient.r.SetData(renderData1)
-	C.nox_draw_curDrawData_3799572 = (*C.nox_render_data_t)(noxClient.r.Data().C())
+	legacy.Set_nox_draw_curDrawData_3799572(noxClient.r.Data())
 	if err := drawInitAll(sz, flags); err != nil {
 		videoLog.Println("init:", err)
 		return err
 	}
 	noxClient.r.SetData(renderData2)
-	C.nox_draw_curDrawData_3799572 = (*C.nox_render_data_t)(noxClient.r.Data().C())
+	legacy.Set_nox_draw_curDrawData_3799572(noxClient.r.Data())
 	*renderData2 = *renderData1
-	C.dword_5d4594_823776 = 1
+	legacy.Set_dword_5d4594_823776(1)
 	videoInitDone = true
 	return nil
 }
 
 func videoInitStub() {
 	noxClient.r.SetData(renderData2)
-	C.nox_draw_curDrawData_3799572 = (*C.nox_render_data_t)(noxClient.r.Data().C())
-	C.dword_5d4594_823776 = 1
-	C.nox_win_width = noxDefaultWidth
-	C.nox_win_height = noxDefaultHeight
+	legacy.Set_nox_draw_curDrawData_3799572(noxClient.r.Data())
+	legacy.Set_dword_5d4594_823776(1)
+	legacy.Set_nox_win_width(noxDefaultWidth)
+	legacy.Set_nox_win_height(noxDefaultHeight)
 }
 
 func drawInitAll(sz image.Point, flags int) error {
@@ -328,7 +280,8 @@ func recreateRenderTarget(sz image.Point) error {
 		flags |= 0x200
 	}
 	c := noxClient
-	C.nox_xxx_setSomeFunc_48A210(C.int(uintptr(C.sub_47FCE0))) // TODO: another callback
+	legacy.Nox_xxx_setSomeFunc_48A210(legacy.Get_sub_47FCE0()) // TODO: another callback
+
 	v1 := c.Nox_client_getCursorType()
 	c.Nox_client_setCursorType(gui.CursorSelect)
 	v2 := sub_48B3E0(false)
@@ -344,15 +297,14 @@ func recreateRenderTarget(sz image.Point) error {
 	sub_48B3E0(v2)
 	c.r.ClearScreen(c.r.Data().BgColor())
 	nox_xxx_setupSomeVideo_47FEF0()
-	C.sub_49F6D0(1)
-	c.r.setRectFullScreen()
+	legacy.Sub_49F6D0(1)
+	c.r.SetRectFullScreen()
 	*memmap.PtrUint32(0x973F18, 6060) = uint32(2 * sz.X * sz.Y)
 	*memmap.PtrUint32(0x973F18, 7696) = 1
-	C.sub_430B50(0, 0, noxDefaultWidth-1, noxDefaultHeight-1)
+	legacy.Sub_430B50(0, 0, noxDefaultWidth-1, noxDefaultHeight-1)
 	return nil
 }
 
-//export nox_getBackbufferPitch
 func nox_getBackbufferPitch() int {
 	return 2 * noxPixBuffer.img.Stride
 }
@@ -362,40 +314,40 @@ func nox_xxx_makeFillerColor_48BDE0() {
 }
 
 func nox_xxx_loadDefColor_4A94A0() {
-	C.nox_color_black_2650656 = C.uint(nox_color_black_2650656.Color32())
+	legacy.Set_nox_color_black_2650656(nox_color_black_2650656.Color32())
 	*memmap.PtrUint32(0x852978, 4) = nox_color_gray1.Color32()
 	*memmap.PtrUint32(0x85B3FC, 956) = nox_color_gray2.Color32()
 	*memmap.PtrUint32(0x5D4594, 2597996) = nox_color_gray3.Color32()
-	C.nox_color_white_2523948 = C.uint(nox_color_white_2523948.Color32())
-	C.nox_color_violet_2598268 = C.uint(nox_color_violet_2598268.Color32())
+	legacy.Set_nox_color_white_2523948(nox_color_white_2523948.Color32())
+	legacy.Set_nox_color_violet_2598268(nox_color_violet_2598268.Color32())
 	*memmap.PtrUint32(0x85B3FC, 940) = nox_color_red.Color32()
-	C.nox_color_red_2589776 = C.uint(nox_color_red_2589776.Color32())
+	legacy.Set_nox_color_red_2589776(nox_color_red_2589776.Color32())
 	*memmap.PtrUint32(0x85B3FC, 984) = nox_color_darkGreen.Color32()
 	*memmap.PtrUint32(0x8531A0, 2572) = nox_color_green.Color32()
-	C.nox_color_green_2614268 = C.uint(nox_color_green_2614268.Color32())
+	legacy.Set_nox_color_green_2614268(nox_color_green_2614268.Color32())
 	*memmap.PtrUint32(0x85B3FC, 944) = nox_color_darkBlue.Color32()
-	C.nox_color_cyan_2649820 = C.uint(nox_color_cyan_2649820.Color32())
-	C.nox_color_blue_2650684 = C.uint(nox_color_blue_2650684.Color32())
-	C.nox_color_orange_2614256 = C.uint(nox_color_orange_2614256.Color32())
-	C.nox_color_yellow_2589772 = C.uint(nox_color_yellow_2589772.Color32())
+	legacy.Set_nox_color_cyan_2649820(nox_color_cyan_2649820.Color32())
+	legacy.Set_nox_color_blue_2650684(nox_color_blue_2650684.Color32())
+	legacy.Set_nox_color_orange_2614256(nox_color_orange_2614256.Color32())
+	legacy.Set_nox_color_yellow_2589772(nox_color_yellow_2589772.Color32())
 	*memmap.PtrUint32(0x852978, 0) = nox_color_darkYellow.Color32()
 
-	*memmap.PtrPtr(0x85B3FC, 132) = unsafe.Pointer(&C.nox_color_black_2650656)
+	*memmap.PtrPtr(0x85B3FC, 132) = unsafe.Pointer(legacy.Get_nox_color_black_2650656_ptr())
 	*memmap.PtrPtr(0x85B3FC, 136) = memmap.PtrOff(0x852978, 4)
 	*memmap.PtrPtr(0x85B3FC, 140) = memmap.PtrOff(0x85B3FC, 956)
 	*memmap.PtrPtr(0x85B3FC, 144) = memmap.PtrOff(0x5D4594, 2597996)
-	*memmap.PtrPtr(0x85B3FC, 148) = unsafe.Pointer(&C.nox_color_white_2523948)
-	*memmap.PtrPtr(0x85B3FC, 152) = unsafe.Pointer(&C.nox_color_violet_2598268)
+	*memmap.PtrPtr(0x85B3FC, 148) = unsafe.Pointer(legacy.Get_nox_color_white_2523948_ptr())
+	*memmap.PtrPtr(0x85B3FC, 152) = unsafe.Pointer(legacy.Get_nox_color_violet_2598268_ptr())
 	*memmap.PtrPtr(0x85B3FC, 156) = memmap.PtrOff(0x85B3FC, 940)
-	*memmap.PtrPtr(0x85B3FC, 160) = unsafe.Pointer(&C.nox_color_red_2589776)
+	*memmap.PtrPtr(0x85B3FC, 160) = unsafe.Pointer(legacy.Get_nox_color_red_2589776_ptr())
 	*memmap.PtrPtr(0x85B3FC, 164) = memmap.PtrOff(0x85B3FC, 984)
 	*memmap.PtrPtr(0x85B3FC, 168) = memmap.PtrOff(0x8531A0, 2572)
-	*memmap.PtrPtr(0x85B3FC, 172) = unsafe.Pointer(&C.nox_color_green_2614268)
+	*memmap.PtrPtr(0x85B3FC, 172) = unsafe.Pointer(legacy.Get_nox_color_green_2614268_ptr())
 	*memmap.PtrPtr(0x85B3FC, 176) = memmap.PtrOff(0x85B3FC, 944)
-	*memmap.PtrPtr(0x85B3FC, 180) = unsafe.Pointer(&C.nox_color_cyan_2649820)
-	*memmap.PtrPtr(0x85B3FC, 184) = unsafe.Pointer(&C.nox_color_blue_2650684)
-	*memmap.PtrPtr(0x85B3FC, 188) = unsafe.Pointer(&C.nox_color_orange_2614256)
-	*memmap.PtrPtr(0x85B3FC, 192) = unsafe.Pointer(&C.nox_color_yellow_2589772)
+	*memmap.PtrPtr(0x85B3FC, 180) = unsafe.Pointer(legacy.Get_nox_color_cyan_2649820_ptr())
+	*memmap.PtrPtr(0x85B3FC, 184) = unsafe.Pointer(legacy.Get_nox_color_blue_2650684_ptr())
+	*memmap.PtrPtr(0x85B3FC, 188) = unsafe.Pointer(legacy.Get_nox_color_orange_2614256_ptr())
+	*memmap.PtrPtr(0x85B3FC, 192) = unsafe.Pointer(legacy.Get_nox_color_yellow_2589772_ptr())
 	*memmap.PtrPtr(0x85B3FC, 196) = memmap.PtrOff(0x852978, 0)
 }
 
@@ -411,7 +363,7 @@ func nox_xxx___cfltcvt_init_430CC0() {
 
 func sub_4AE520() {
 	noxClient.r.circleSeg.Init(noxClient.r)
-	C.sub_4AEE30()
+	legacy.Sub_4AEE30()
 }
 
 func sub_49F610(sz image.Point) {
@@ -420,10 +372,9 @@ func sub_49F610(sz image.Point) {
 	p.SetClipRect(image.Rectangle{Max: sz})
 	p.SetClipRect2(image.Rectangle{Max: image.Pt(sz.X-1, sz.Y-1)})
 	p.SetRect3(image.Rectangle{Max: sz})
-	C.dword_5d4594_1305748 = 0
+	legacy.Set_dword_5d4594_1305748(0)
 }
 
-//export nox_client_clearScreen_440900
 func nox_client_clearScreen_440900() {
 	r := noxClient.r
 	r.ClearScreen(r.Data().BgColor())
@@ -446,7 +397,7 @@ func nox_free_pixbuffers_486110() {
 	if noxPixBuffer.freeRows != nil {
 		noxPixBuffer.freeRows()
 		noxPixBuffer.freeRows = nil
-		C.nox_pixbuffer_rows_3798784 = nil
+		legacy.Set_nox_pixbuffer_rows_3798784(nil)
 	}
 }
 
@@ -479,7 +430,7 @@ func nox_video_initPixbufferRows_486230() {
 	ptrs, freeRows := alloc.Make([]*uint16{}, sz.Y)
 	noxPixBuffer.rows = ptrs
 	noxPixBuffer.freeRows = freeRows
-	C.nox_pixbuffer_rows_3798784 = (**C.uchar)(unsafe.Pointer(&noxPixBuffer.rows[0]))
+	legacy.Set_nox_pixbuffer_rows_3798784(unsafe.Pointer(&noxPixBuffer.rows[0]))
 	for y := 0; y < sz.Y; y++ {
 		noxPixBuffer.rows[y] = &noxPixBuffer.img.Row(y)[0]
 	}
@@ -492,9 +443,8 @@ func (r *NoxRender) noxDrawCursor(a1 *noxrender.Image, pos image.Point) int {
 	return 1
 }
 
-//export nox_draw_setCutSize_476700
-func nox_draw_setCutSize_476700(cutPerc C.int, a2 int) {
-	noxClient.nox_draw_setCutSize(int(cutPerc), a2)
+func nox_draw_setCutSize_476700(cutPerc int, a2 int) {
+	noxClient.nox_draw_setCutSize(cutPerc, a2)
 }
 func (c *Client) nox_draw_setCutSize(perc int, a2 int) {
 	vp := c.Viewport()
@@ -548,7 +498,7 @@ func (c *Client) nox_draw_setCutSize(perc int, a2 int) {
 
 	vp.Size.X = vp.Screen.Dx() + 1
 	vp.Size.Y = vp.Screen.Dy() + 1
-	C.dword_5d4594_1193188 = 1
+	legacy.Set_dword_5d4594_1193188(1)
 	c.GUI.ValYYY = 1
 }
 
@@ -597,8 +547,8 @@ func (c *Client) nox_video_cursorDrawImpl_477A30(pos image.Point) {
 	}
 	c.r.Data().SetTextColor(nox_color_yellow_2589772)
 	fh := c.r.FontHeight(nil)
-	if C.nox_xxx_guiSpell_460650() != 0 || C.sub_4611A0() != 0 {
-		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Target, pos)
+	if legacy.Nox_xxx_guiSpell_460650() != 0 || legacy.Sub_4611A0() != 0 {
+		c.Nox_video_drawAnimatedImageOrCursorAt(noxCursors.Target, pos)
 		c.CursorPrev = gui.CursorTarget
 		*memmap.PtrUint32(0x973F18, 68) = v18
 		return
@@ -611,45 +561,45 @@ func (c *Client) nox_video_cursorDrawImpl_477A30(pos image.Point) {
 	case gui.CursorGrab:
 		str := c.Strings().GetStringInFile("GRAB", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
 		c.r.DrawString(nil, str, pos.Add(image.Point{X: 54, Y: 64 - fh}))
-		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Grab, pos)
+		c.Nox_video_drawAnimatedImageOrCursorAt(noxCursors.Grab, pos)
 	case gui.CursorPickup:
 		str := c.Strings().GetStringInFile("PICKUP", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
 		c.r.DrawString(nil, str, pos.Add(image.Point{X: 49, Y: 64 + fh}))
-		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Pickup, pos)
+		c.Nox_video_drawAnimatedImageOrCursorAt(noxCursors.Pickup, pos)
 		c.pos1097204.Y = -2 * fh
 	case gui.CursorShop:
 		str := c.Strings().GetStringInFile("SHOPKEEPER", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
 		c.r.DrawString(nil, str, pos.Add(image.Point{X: 39, Y: 64 - fh}))
-		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Trade, pos)
+		c.Nox_video_drawAnimatedImageOrCursorAt(noxCursors.Trade, pos)
 	case gui.CursorTalk:
 		str := c.Strings().GetStringInFile("TALK", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
 		c.r.DrawString(nil, str, pos.Add(image.Point{X: 49, Y: 64 - fh}))
-		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Talk, pos)
+		c.Nox_video_drawAnimatedImageOrCursorAt(noxCursors.Talk, pos)
 	case gui.CursorIdentify, gui.CursorCantIdentify:
 		str := c.Strings().GetStringInFile("IDENTIFY", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
 		c.r.DrawString(nil, str, pos.Add(image.Point{X: 49, Y: +88}))
 		if typ == gui.CursorIdentify {
-			c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Identify, pos)
+			c.Nox_video_drawAnimatedImageOrCursorAt(noxCursors.Identify, pos)
 		} else {
-			c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.IdentifyNo, pos)
+			c.Nox_video_drawAnimatedImageOrCursorAt(noxCursors.IdentifyNo, pos)
 		}
 	case gui.CursorRepair:
 		str := c.Strings().GetStringInFile("REPAIR", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
 		c.r.DrawString(nil, str, pos.Add(image.Point{X: 49, Y: 64 - fh}))
-		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Repair, pos)
+		c.Nox_video_drawAnimatedImageOrCursorAt(noxCursors.Repair, pos)
 		c.pos1097204.Y = 2*fh + 4
 	case gui.CursorCreateGame:
-		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.CreateGame, pos)
+		c.Nox_video_drawAnimatedImageOrCursorAt(noxCursors.CreateGame, pos)
 	case gui.CursorBusy:
-		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Busy, pos)
+		c.Nox_video_drawAnimatedImageOrCursorAt(noxCursors.Busy, pos)
 	case gui.CursorBuy:
-		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Buy, pos)
+		c.Nox_video_drawAnimatedImageOrCursorAt(noxCursors.Buy, pos)
 	case gui.CursorSell:
-		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Sell, pos)
+		c.Nox_video_drawAnimatedImageOrCursorAt(noxCursors.Sell, pos)
 	case gui.CursorUse:
 		str := c.Strings().GetStringInFile("USE", "C:\\NoxPost\\src\\Client\\Gui\\guicurs.c")
 		c.r.DrawString(nil, str, pos.Add(image.Point{X: 54, Y: 64 + fh}))
-		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Use, pos)
+		c.Nox_video_drawAnimatedImageOrCursorAt(noxCursors.Use, pos)
 		c.pos1097204.Y = -2 * fh
 	case gui.CursorMoveArrow:
 		mpos := c.Inp.GetMousePos()
@@ -661,9 +611,9 @@ func (c *Client) nox_video_cursorDrawImpl_477A30(pos image.Point) {
 		if v19.X*v19.X+v19.Y*v19.Y > 100*100 || memmap.Uint32(0x852978, 8) != 0 && *(*uint32)(unsafe.Add(*memmap.PtrPtr(0x852978, 8), 276)) == 6 {
 			v15 += 32
 		}
-		if v16 := nox_xxx_spriteGetMB_476F80(); v16 != nil {
+		if v16 := legacy.Nox_xxx_spriteGetMB_476F80(); v16 != nil {
 			sub_48B680(1)
-			if v16.Flags28()&6 == 0 || C.sub_495A80(C.int(v16.Field32())) != 0 {
+			if v16.Flags28()&6 == 0 || legacy.Sub_495A80(v16.Field32()) != 0 {
 				c.r.setColorMultAndIntensity(nox_color_blue_2650684)
 			} else {
 				c.r.setColorMultAndIntensity(nox_color_red)
@@ -674,29 +624,26 @@ func (c *Client) nox_video_cursorDrawImpl_477A30(pos image.Point) {
 		c.sub_4BE710(noxCursors.Move, pos, int(v15))
 		c.r.Data().SetMultiply14(0)
 	case gui.CursorPickupFar:
-		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.PickupFar, pos)
+		c.Nox_video_drawAnimatedImageOrCursorAt(noxCursors.PickupFar, pos)
 		c.pos1097204.Y = -2 * fh
 	case gui.CursorCaution:
-		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Caution, pos)
+		c.Nox_video_drawAnimatedImageOrCursorAt(noxCursors.Caution, pos)
 		c.pos1097204.Y = -fh
 	default:
-		c.nox_video_drawAnimatedImageOrCursorAt(noxCursors.Select, pos)
+		c.Nox_video_drawAnimatedImageOrCursorAt(noxCursors.Select, pos)
 	}
 	c.CursorPrev = c.Cursor
 	*memmap.PtrUint32(0x973F18, 68) = v18
 }
 
-//export nox_xxx_bookSaveSpellForDragDrop_477640
 func nox_xxx_bookSaveSpellForDragDrop_477640(a1, a2 int) {
 	noxClient.dragndropSpellSet(uint32(a1), a2)
 }
 
-//export nox_xxx_bookSpellDnDclear_477660
 func nox_xxx_bookSpellDnDclear_477660() {
 	noxClient.dragndropSpellClear()
 }
 
-//export nox_xxx_bookGetSpellDnDType_477670
 func nox_xxx_bookGetSpellDnDType_477670() int {
 	return noxClient.dragndropSpellType
 }
@@ -715,12 +662,10 @@ func (c *Client) dragndropGetItem() *client.Drawable {
 	return c.dragndropItem
 }
 
-//export nox_xxx_cursorSetDraggedItem_477690
-func nox_xxx_cursorSetDraggedItem_477690(a1 *nox_drawable) {
-	noxClient.dragndropItem = asDrawable(a1)
+func nox_xxx_cursorSetDraggedItem_477690(a1 *client.Drawable) {
+	noxClient.dragndropItem = a1
 }
 
-//export nox_xxx_cursorResetDraggedItem_4776A0
 func nox_xxx_cursorResetDraggedItem_4776A0() {
 	noxClient.dragndropItem = nil
 }
@@ -739,24 +684,24 @@ func (c *Client) nox_client_drawCursorAndTooltips_477830() {
 	c.pos1097204.Y = c.r.FontHeight(nil) + 4
 	if c.dragndropItem != nil { // Dragging item
 		c.dragndropItem.SetPos(mpos)
-		callDrawFunc(c.dragndropItem, vp)
+		legacy.CallDrawFunc(c.dragndropItem, vp)
 	}
 	if c.dragndrapSpell != 0 { // Player is dragging spell or ability
-		pl := c.srv.GetPlayerByID(clientPlayerNetCode())
+		pl := c.srv.GetPlayerByID(legacy.ClientPlayerNetCode())
 		if pl == nil || pl.PlayerClass() != player.Warrior {
 			sp := c.srv.SpellDefByInd(spell.ID(c.dragndrapSpell)) // Spell icon
 			if sp != nil && sp.Icon != nil {
 				c.r.DrawImageAt(sp.Icon, mpos.Sub(image.Point{X: 15, Y: 15}))
 			}
 		} else {
-			img := c.srv.abilities.getIcon(Ability(c.dragndrapSpell), 0) // Ability icon
+			img := c.srv.abilities.getIcon(server.Ability(c.dragndrapSpell), 0) // Ability icon
 			if img != nil {
 				c.r.DrawImageAt(img, mpos.Sub(image.Point{X: 15, Y: 15}))
 			}
 		}
 	}
 	c.nox_video_cursorDrawImpl_477A30(mpos)
-	if str := GoWStringP(memmap.PtrOff(0x5D4594, 1096676)); str != "" && nox_client_showTooltips_80840 {
+	if str := alloc.GoString16((*uint16)(memmap.PtrOff(0x5D4594, 1096676))); str != "" && nox_client_showTooltips_80840 {
 		sz := c.r.GetStringSizeWrapped(nil, str, 0)
 		px := mpos.X - c.pos1097204.X
 		py := mpos.Y - c.pos1097204.Y
@@ -797,7 +742,7 @@ func (c *Client) sub_477F80() {
 }
 
 func (c *Client) sub_444C50() {
-	if C.dword_5d4594_823776 != 0 {
+	if legacy.Get_dword_5d4594_823776() != 0 {
 		nox_free_pixbuffers_486110()
 		nox_draw_freeColorTables_433C20()
 		c.r.FadeReset()
@@ -805,17 +750,16 @@ func (c *Client) sub_444C50() {
 		c.r.partfx.Free()
 		c.r.circleSeg.Free()
 		c.r.Fonts.Free()
-		C.dword_5d4594_823776 = 0
+		legacy.Set_dword_5d4594_823776(0)
 		if memmap.Uint32(0x5D4594, 823780) != 0 {
 			*memmap.PtrUint32(0x5D4594, 823780) = 0
 		}
 	}
 }
 
-//export sub_478000
 func sub_478000() int {
 	c := noxClient
-	C.sub_467CD0()
+	legacy.Sub_467CD0()
 	if c.dragndropSpellType != 0 {
 		c.GUI.Captured().Capture(false)
 		nox_xxx_bookSpellDnDclear_477660()

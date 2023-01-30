@@ -1,7 +1,11 @@
 package opennox
 
-import "C" // for export
-import "fmt"
+// for export
+import (
+	"fmt"
+
+	"github.com/noxworld-dev/opennox/v1/legacy"
+)
 
 const (
 	noxProtoVersionLegacy  = NoxVersion(0x0001039A) // 0.1.922
@@ -32,7 +36,6 @@ func getVersionCode() NoxVersion {
 	return versionCode
 }
 
-//export nox_client_setVersion_409AE0
 func nox_client_setVersion_409AE0(v uint32) {
 	setVersionCode(NoxVersion(v))
 }
@@ -40,6 +43,6 @@ func nox_client_setVersion_409AE0(v uint32) {
 func setVersionCode(vers NoxVersion) {
 	if versionCode != vers {
 		versionCode = vers
-		nox_server_gameSettingsUpdated_40A670()
+		legacy.Nox_server_gameSettingsUpdated_40A670()
 	}
 }

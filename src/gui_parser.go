@@ -1,9 +1,5 @@
 package opennox
 
-/*
-#include "client__gui__window.h"
-*/
-import "C"
 import (
 	"bufio"
 	"fmt"
@@ -21,20 +17,18 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-//export nox_new_window_from_file
-func nox_new_window_from_file(cname *C.char, fnc unsafe.Pointer) *C.nox_window {
+func nox_new_window_from_file(name string, fnc gui.WindowFunc) *gui.Window {
 	if isDedicatedServer {
 		panic("server should not load GUI")
 	}
-	name := GoString(cname)
-	win := newWindowFromFile(noxClient.GUI, name, gui.WrapFuncC(fnc))
+	win := newWindowFromFile(noxClient.GUI, name, fnc)
 	if win != nil {
 		guiParseHook(name, win)
 	}
-	return (*C.nox_window)(win.C())
+	return win
 }
 
 func newWindowFromFile(g *gui.GUI, name string, fnc gui.WindowFunc) *gui.Window {
@@ -82,7 +76,7 @@ type guiParser struct {
 	widgets struct {
 		radioButton *gui.RadioButtonData
 		slider      *gui.SliderData
-		scrollBox   *scrollListBoxData
+		scrollBox   *gui.ScrollListBoxData
 		entryField  *gui.EntryFieldData
 		staticText  *gui.StaticTextData
 	}
@@ -315,24 +309,24 @@ func (p *guiParser) parseDataField(typ string, buf string) (gui.WidgetData, bool
 		return d, true
 	case "SCROLLLISTBOX":
 		if p.widgets.scrollBox == nil {
-			p.widgets.scrollBox, _ = alloc.New(scrollListBoxData{})
+			p.widgets.scrollBox, _ = alloc.New(gui.ScrollListBoxData{})
 		}
 		d := p.widgets.scrollBox
-		*d = scrollListBoxData{}
+		*d = gui.ScrollListBoxData{}
 		v, buf = gui.ParseNextUintField(buf)
-		d.count = C.ushort(v)
+		d.Count = uint16(v)
 		v, buf = gui.ParseNextUintField(buf)
-		d.line_height = C.ushort(v)
+		d.Line_height = uint16(v)
 		v, buf = gui.ParseNextUintField(buf)
-		d.field_1 = C.uint(v)
+		d.Field_1 = uint32(v)
 		v, buf = gui.ParseNextUintField(buf)
-		d.field_2 = C.uint(v)
+		d.Field_2 = uint32(v)
 		v, buf = gui.ParseNextUintField(buf)
-		d.field_3 = C.uint(v)
+		d.Field_3 = uint32(v)
 		v, buf = gui.ParseNextUintField(buf)
-		d.field_4 = C.uint(v)
+		d.Field_4 = uint32(v)
 		v, buf = gui.ParseNextUintField(buf)
-		d.field_5 = C.uint(v)
+		d.Field_5 = uint32(v)
 		return d, true
 	case "ENTRYFIELD":
 		if p.widgets.entryField == nil {

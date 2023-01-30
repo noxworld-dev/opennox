@@ -1,6 +1,5 @@
 package opennox
 
-import "C"
 import (
 	"context"
 

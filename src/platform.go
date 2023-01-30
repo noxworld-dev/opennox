@@ -1,9 +1,5 @@
 package opennox
 
-/*
-#include <stdbool.h>
-*/
-import "C"
 import (
 	"time"
 
@@ -12,21 +8,6 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
-
-//export nox_platform_rand
-func nox_platform_rand() int {
-	return platform.RandInt()
-}
-
-//export nox_platform_srand
-func nox_platform_srand(seed C.uint) {
-	platform.RandSeed(int64(seed))
-}
-
-//export nox_platform_get_ticks
-func nox_platform_get_ticks() C.uint {
-	return C.uint(platformTicks())
-}
 
 func platformTicks() uint64 {
 	if env.IsE2E() {
@@ -40,7 +21,6 @@ var (
 	nox_gameFrame_371772 uint32
 )
 
-//export nox_ticks_reset_416D40
 func nox_ticks_reset_416D40() {
 	nox_gameTicks_371764 = platformTicks()
 	nox_gameFrame_371772 = noxServer.Frame()

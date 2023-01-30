@@ -1,6 +1,5 @@
 package opennox
 
-import "C"
 import (
 	"image"
 	"image/color"
@@ -27,7 +26,6 @@ type guiFPS struct {
 	arr1090184   [32]uint16
 }
 
-//export sub_470A80
 func sub_470A80() {
 	noxClient.guiFPS.dword1090246++
 }
@@ -106,7 +104,6 @@ func (c *Client) guiDrawFPS(win *gui.Window, _ *gui.WindowData) int {
 	return 1
 }
 
-//export sub_4706C0
 func sub_4706C0(a1 int) {
 	c := noxClient
 	win := c.guiFPS.win

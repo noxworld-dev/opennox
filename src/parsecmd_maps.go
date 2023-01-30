@@ -1,10 +1,5 @@
 package opennox
 
-/*
-#include "GAME1.h"
-#include "GAME1_1.h"
-*/
-import "C"
 import (
 	"context"
 	"fmt"
@@ -17,6 +12,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 )
 
 var noxMapsIgnoreMode = false
@@ -75,8 +71,8 @@ func noxCmdLoad(ctx context.Context, c *console.Console, tokens []string) bool {
 			return true
 		}
 		if noxflags.HasGame(noxflags.GameModeChat) {
-			if mode.Has(noxflags.GameModeCTF|noxflags.GameModeFlagBall) && noxServer.teamCount() != 2 {
-				C.nox_xxx_wndGuiTeamCreate_4185B0()
+			if mode.Has(noxflags.GameModeCTF|noxflags.GameModeFlagBall) && noxServer.TeamCount() != 2 {
+				legacy.Nox_xxx_wndGuiTeamCreate_4185B0()
 			}
 		} else if !noxMapsIgnoreMode && !noxflags.GetGame().Has(mode) {
 			v6 := strMan.GetStringInFile("NoMapLoadNewMode", "parsecmd.c")
@@ -102,9 +98,9 @@ func noxCmdLoad(ctx context.Context, c *console.Console, tokens []string) bool {
 			return true
 		}
 	}
-	nox_xxx_mapLoadOrSaveMB_4DCC70(1)
-	noxServer.switchMap(fname)
-	C.sub_41D650()
+	legacy.Nox_xxx_mapLoadOrSaveMB_4DCC70(1)
+	noxServer.SwitchMap(fname)
+	legacy.Sub_41D650()
 	str := strMan.GetStringInFile("maploaded", "parsecmd.c")
 	str = strings.ReplaceAll(str, "%S", "%s")
 	nox_xxx_printCentered_445490(fmt.Sprintf(str, fname))

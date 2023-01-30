@@ -1,11 +1,5 @@
 package opennox
 
-/*
-#include "defs.h"
-
-int nox_xxx_spellGrantToPlayer_4FB550(nox_object_t* a1, int a2, int a3, int a4, int a5);
-*/
-import "C"
 import (
 	"strings"
 
@@ -20,6 +14,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -69,7 +64,7 @@ func (s noxScriptNS) Effect(effect effect.Effect, p1, p2 script.Positioner) {
 	case noxnet.MSG_FX_SPARK_EXPLOSION:
 		nox_xxx_netSparkExplosionFx_5231B0(pos, byte(pos2.X))
 	case noxnet.MSG_FX_JIGGLE:
-		nox_xxx_earthquakeSend_4D9110(pos, int(pos2.X))
+		legacy.Nox_xxx_earthquakeSend_4D9110(pos, int(pos2.X))
 	case noxnet.MSG_FX_GREEN_BOLT:
 		nox_xxx_netSendFxGreenBolt_523790(pos.Point(), pos2.Point(), 30)
 	case noxnet.MSG_FX_VAMPIRISM:
@@ -85,8 +80,8 @@ func (s noxScriptNS) CastSpell(name nsp.Spell, source, target script.Positioner)
 	if source == nil || target == nil {
 		return
 	}
-	srcH, _ := source.(noxObject)
-	targH, _ := target.(noxObject)
+	srcH, _ := source.(server.Obj)
+	targH, _ := target.(server.Obj)
 	src := toObject(srcH).AsUnit()
 	if src != nil && src.Flags().HasAny(object.FlagDestroyed|object.FlagDead) {
 		return
@@ -97,7 +92,7 @@ func (s noxScriptNS) CastSpell(name nsp.Spell, source, target script.Positioner)
 		src = nox_xxx_imagCasterUnit_1569664
 	}
 	src.Direction1 = server.DirFromVec(targPos.Sub(src.Pos()))
-	s.s.castSpellBy(sp, src, targH, targPos)
+	s.s.castSpellBy(sp, src.SObj(), targH, targPos)
 }
 
 func (obj nsObj) AwardSpell(name nsp.Spell) bool {
@@ -105,7 +100,7 @@ func (obj nsObj) AwardSpell(name nsp.Spell) bool {
 	if !sp.Valid() {
 		return false
 	}
-	return C.nox_xxx_spellGrantToPlayer_4FB550(obj.CObj(), C.int(sp), 1, 0, 0) != 0
+	return legacy.Nox_xxx_spellGrantToPlayer_4FB550(obj.SObj(), sp, 1, 0, 0) != 0
 }
 
 func (obj nsObj) Enchant(enc enchant.Enchant, dt script.Duration) {
@@ -138,11 +133,11 @@ func (g nsObjGroup) AwardSpell(sp nsp.Spell) {
 	g.EachObject(true, func(it ns.Obj) bool {
 		// TODO: why it.AwardSpell is different?
 		val := 0
-		obj := it.(noxObject)
+		obj := it.(server.Obj)
 		if noxflags.HasGame(noxflags.GameModeCoop) && it.Class().Has(object.ClassPlayer) && asPlayerS(obj.SObj().UpdateDataPlayer().Player).SpellLvl[spl] == 0 {
 			val = 1
 		}
-		C.nox_xxx_spellGrantToPlayer_4FB550(obj.CObj(), C.int(spl), 1, C.int(val), 0)
+		legacy.Nox_xxx_spellGrantToPlayer_4FB550(obj.SObj(), spl, 1, val, 0)
 		return true
 	})
 }
