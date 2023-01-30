@@ -5,9 +5,9 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 type serverAudio struct {

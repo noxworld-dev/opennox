@@ -1,24 +1,15 @@
 package opennox
 
-/*
-#include "defs.h"
-void nox_common_list_clear_425760(nox_list_item_t* list);
-extern nox_list_item_t nox_common_maplist;
-void nox_common_scanAddMap(char* filename);
-void nox_common_maplist_add_4D0760(nox_map_list_item* mp);
-void* sub_425770(void* a1p);
-*/
-import "C"
 import (
 	"os"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/ifs"
 	"github.com/noxworld-dev/opennox-lib/maps"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 var soloAllowMP = os.Getenv("NOX_SOLO_MP") == "true"
@@ -30,7 +21,7 @@ func scanMaps() (maps.MapList, error) {
 }
 
 func nox_common_scanAllMaps_4D07F0() error {
-	nox_common_list_clear_425760(unsafe.Pointer(&C.nox_common_maplist))
+	nox_common_list_clear_425760(legacy.Get_nox_common_maplist())
 	list, err := scanMaps()
 	if err != nil && len(list) == 0 {
 		return err
@@ -50,14 +41,14 @@ func nox_common_scanAddMap(filename string) {
 		gameLog.Println("map list:", err)
 		return
 	}
-	mp, _ := alloc.New(C.nox_map_list_item{})
-	C.sub_425770(unsafe.Pointer(mp))
-	StrCopy(&mp.name[0], 12, name)
-	mp.field_6 = 1
-	mp.field_7 = C.uint(memmap.Uint32(0x973F18, 3800))
-	mp.field_8_0 = C.uchar(memmap.Uint8(0x973F18, 3804))
-	mp.field_8_1 = C.uchar(memmap.Uint8(0x973F18, 3805))
-	C.nox_common_maplist_add_4D0760(mp)
+	mp, _ := alloc.New(legacy.Nox_map_list_item{})
+	legacy.Sub_425770(mp)
+	alloc.StrCopyZero(mp.Name[:], name)
+	mp.Field_6 = 1
+	mp.Field_7 = memmap.Uint32(0x973F18, 3800)
+	mp.Field_8_0 = memmap.Uint8(0x973F18, 3804)
+	mp.Field_8_1 = memmap.Uint8(0x973F18, 3805)
+	legacy.Nox_common_maplist_add_4D0760(mp)
 }
 
 func nox_xxx_checkHasSoloMaps() bool {

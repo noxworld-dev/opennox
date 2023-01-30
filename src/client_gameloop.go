@@ -2,23 +2,6 @@
 
 package opennox
 
-/*
-#include "GAME1.h"
-#include "GAME1_2.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME2_3.h"
-#include "GAME3.h"
-#include "GAME3_1.h"
-#include "GAME3_3.h"
-#include "GAME5.h"
-#include "GAME5_2.h"
-
-extern unsigned int nox_client_gui_flag_1556112;
-extern unsigned int dword_5d4594_2650652;
-*/
-import "C"
 import (
 	"context"
 	"encoding/binary"
@@ -35,12 +18,14 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -60,7 +45,7 @@ func (c *Client) drawAndPresent() {
 }
 
 func (c *Client) map_download_start() {
-	C.nox_xxx_gameClearAll_467DF0(1)
+	legacy.Nox_xxx_gameClearAll_467DF0(1)
 	c.ShowMapDownload()
 	c.mapsend.setDownloading(true)
 	c.mapsend.setDownloadOK(true)
@@ -84,7 +69,7 @@ func (c *Client) mapDownloadLoop(first bool) (bool, error) {
 	if first {
 		ctx, cancel := context.WithCancel(context.Background())
 
-		hport := server.InferHTTPPort(clientGetServerPort())
+		hport := server.InferHTTPPort(legacy.ClientGetServerPort())
 		srv := fmt.Sprintf("%s:%d", clientGetServerHost(), hport)
 		c.mapsend.log.Printf("checking map download API on server %q", srv)
 		cli, err := maps.NewClient(ctx, srv)
@@ -167,7 +152,7 @@ func (c *Client) mapDownloadLoop(first bool) (bool, error) {
 
 func (c *Client) mainloopDrawAndPresent() {
 	sub_437180()
-	if C.nox_client_gui_flag_1556112 == 0 {
+	if legacy.Get_nox_client_gui_flag_1556112() == 0 {
 		c.GUI.Draw() // Draw game windows
 	}
 	c.DrawSparks()
@@ -184,18 +169,15 @@ func (c *Client) mainloopDrawAndPresent() {
 func (c *Client) DrawSparks() {
 	if nox_client_gui_flag_815132 != 0 {
 		sz := videoGetWindowSize()
-		rdr, rdrFree := alloc.New(nox_draw_viewport_t{})
+		vp, rdrFree := alloc.New(noxrender.Viewport{})
 		defer rdrFree()
-		rdr.x1 = 0
-		rdr.y1 = 0
-		rdr.x2 = C.int(sz.X)
-		rdr.y2 = C.int(sz.Y)
-		rdr.width = C.int(sz.X)
-		rdr.height = C.int(sz.Y)
-		C.nox_client_screenParticlesDraw_431720(rdr)
+		vp.Screen.Min = image.Pt(0, 0)
+		vp.Screen.Max = sz
+		vp.Size = sz
+		legacy.Nox_client_screenParticlesDraw_431720(vp)
 	} else {
 		vp := c.Viewport()
-		C.nox_client_screenParticlesDraw_431720((*nox_draw_viewport_t)(vp.C()))
+		legacy.Nox_client_screenParticlesDraw_431720(vp)
 	}
 }
 
@@ -220,7 +202,7 @@ func (c *Client) generateMouseSparks() {
 			v22 := randomIntMinMax(2, 5)
 			v21 := randomIntMinMax(-7, 2)
 			v10 := randomIntMinMax(-5, 5)
-			C.nox_client_newScreenParticle_431540(4, C.int(v7), C.int(v9), C.int(v10), C.int(v21), 1, C.char(v22), C.char(v23), 2, 1)
+			legacy.Nox_client_newScreenParticle_431540(4, v7, v9, v10, v21, 1, v22, v23, 2, 1)
 		}
 		if r2 < 10 {
 			*memmap.PtrUint32(0x5D4594, 816428) = 0
@@ -243,7 +225,7 @@ func (c *Client) generateMouseSparks() {
 				pos := sincosTable16[v12].Mul(v13).Div(16).Add(image.Point{Y: -6})
 				v24 := randomIntMinMax(2, 5)
 				v16 := randomIntMinMax(2, 5)
-				C.nox_client_newScreenParticle_431540(4, C.int(pos.X+mpos.X), C.int(pos.Y+mpos.Y), C.int(pos.X), C.int(pos.Y), 1, C.char(v16), C.char(v24), 2, 1)
+				legacy.Nox_client_newScreenParticle_431540(4, pos.X+mpos.X, pos.Y+mpos.Y, pos.X, pos.Y, 1, v16, v24, 2, 1)
 			}
 		}
 	} else {
@@ -252,12 +234,12 @@ func (c *Client) generateMouseSparks() {
 }
 
 func sub_43CCA0() {
-	C.nox_xxx_spriteDeleteSomeList_49C4B0()
+	legacy.Nox_xxx_spriteDeleteSomeList_49C4B0()
 	start := noxServer.Frame()
 	nox_xxx_servNetInitialPackets_552A80(int(nox_xxx_netGet_43C750()), 1)
-	if start != noxServer.Frame() && C.dword_5d4594_2650652 == 1 && !noxflags.HasGame(noxflags.GameHost) {
-		if v1 := uint32(C.sub_40A710(1)); sub_43C790() > v1 {
-			C.sub_43CEB0()
+	if start != noxServer.Frame() && legacy.Get_dword_5d4594_2650652() == 1 && !noxflags.HasGame(noxflags.GameHost) {
+		if v1 := legacy.Sub_40A710(1); sub_43C790() > v1 {
+			legacy.Sub_43CEB0()
 			v2 := memmap.Uint64(0x5D4594, 815740) + memmap.Uint64(0x587000, 91880)/uint64(sub_43C790())
 			if platformTicks() >= v2 {
 				buf, free := alloc.Make([]byte{}, 8) // TODO: check if we need extra space
@@ -274,7 +256,7 @@ func sub_43CCA0() {
 		netstr.Sub552E70(int(nox_xxx_netGet_43C750()))
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
-		C.nox_xxx_netImportant_4E5770(0x1F, 0)
+		legacy.Nox_xxx_netImportant_4E5770(0x1F, 0)
 	}
 	nox_xxx_netSendBySock_40EE10(int(nox_xxx_netGet_43C750()), common.MaxPlayers-1, netlist.Kind0)
 	netstr.MaybeSendAll()
@@ -284,7 +266,7 @@ func sub_43CCA0() {
 
 	if dt := platformTicks() - lastCliHandlePackets; dt > 2000 && !dword_5d4594_815704 {
 		dword_5d4594_815704 = true
-		C.sub_4AB4A0(1)
+		legacy.Sub_4AB4A0(1)
 		ticks815732 = platformTicks()
 	}
 	if lastCliHandlePackets == 0 {

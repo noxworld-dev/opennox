@@ -16,7 +16,7 @@ func errorMessage(format string, args ...any) {
 	log.Printf(format, args...)
 }
 
-func (c *Client) drawGeneral(a1 bool) error {
+func (c *Client) DrawGeneral(a1 bool) error {
 	return nil
 }
 
@@ -48,11 +48,11 @@ func (c *Client) sub_43C060() bool {
 	return true
 }
 
-func (c *Client) sub4C42A0(a1, a2 image.Point, a3 *int, a4 *int) int32 {
+func (c *Client) Sub4C42A0(a1, a2 image.Point, a3 *int, a4 *int) int32 {
 	panic("unreachable")
 }
 
-func (c *Client) sub4C5630(a1 int, a2 int, a3 int) int {
+func (c *Client) Sub4C5630(a1 int, a2 int, a3 int) int {
 	panic("unreachable")
 }
 

@@ -1,17 +1,13 @@
 package opennox
 
-/*
-#include "defs.h"
-char nox_xxx_unitHasCollideOrUpdateFn_537610(nox_object_t* a1);
-*/
-import "C"
 import (
 	"math"
 
 	"github.com/noxworld-dev/opennox-lib/object"
+
+	"github.com/noxworld-dev/opennox/v1/legacy"
 )
 
-//export nox_xxx_updateSprings_5113A0
 func nox_xxx_updateSprings_5113A0() {
 	noxServer.springs.Update()
 }
@@ -113,10 +109,10 @@ func (s *serverSprings) Update() {
 				dl = it.length
 			}
 			dv := dp.Div(dist).Mul(dl * it.force)
-			obj1.sub548600(dv.Mul(+1))
-			C.nox_xxx_unitHasCollideOrUpdateFn_537610(obj1.CObj())
-			obj2.sub548600(dv.Mul(-1))
-			C.nox_xxx_unitHasCollideOrUpdateFn_537610(obj2.CObj())
+			obj1.SObj().Sub548600(dv.Mul(+1))
+			legacy.Nox_xxx_unitHasCollideOrUpdateFn_537610(obj1.SObj())
+			obj2.SObj().Sub548600(dv.Mul(-1))
+			legacy.Nox_xxx_unitHasCollideOrUpdateFn_537610(obj2.SObj())
 			it.prevLen = dist
 		}
 	}

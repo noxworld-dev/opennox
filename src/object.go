@@ -1,21 +1,7 @@
 package opennox
 
-/*
-#include "defs.h"
-#include "GAME1_1.h"
-#include "GAME3_2.h"
-#include "GAME3_3.h"
-#include "GAME4.h"
-#include "GAME4_1.h"
-#include "GAME4_2.h"
-#include "GAME4_3.h"
-void nox_xxx_updateHarpoon_54F380(nox_object_t* a1);
-int nox_objectDropAudEvent_4EE2F0(nox_object_t* a1, nox_object_t* a2, float2* a3);
-*/
-import "C"
 import (
 	"fmt"
-	"image"
 	"math"
 	"unsafe"
 
@@ -23,193 +9,27 @@ import (
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/types"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
-	"github.com/noxworld-dev/opennox/v1/internal/ccall"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-//export nox_server_getFirstObject_4DA790
-func nox_server_getFirstObject_4DA790() *nox_object_t {
-	return noxServer.FirstServerObject().CObj()
-}
-
-//export nox_server_getFirstObjectUninited_4DA870
-func nox_server_getFirstObjectUninited_4DA870() *nox_object_t {
-	return asObjectS(noxServer.Objs.Pending).CObj()
-}
-
-//export nox_server_getNextObject_4DA7A0
-func nox_server_getNextObject_4DA7A0(cobj *nox_object_t) *nox_object_t {
-	return asObjectC(cobj).Next().CObj()
-}
-
-//export nox_server_getNextObjectUninited_4DA880
-func nox_server_getNextObjectUninited_4DA880(cobj *nox_object_t) *nox_object_t {
-	return asObjectC(cobj).Next().CObj()
-}
-
-//export nox_xxx_getNextUpdatable2Object_4DA850
-func nox_xxx_getNextUpdatable2Object_4DA850(cobj *nox_object_t) *nox_object_t {
-	return asObjectC(cobj).Next().CObj()
-}
-
-//export nox_get_and_zero_server_objects_4DA3C0
-func nox_get_and_zero_server_objects_4DA3C0() *nox_object_t {
-	l := noxServer.Objs.List
-	noxServer.Objs.List = nil
-	return asObjectS(l).CObj()
-}
-
-//export nox_set_server_objects_4DA3E0
-func nox_set_server_objects_4DA3E0(list *nox_object_t) {
-	noxServer.Objs.List = asObjectC(list).SObj()
-}
-
-//export nox_xxx_findParentChainPlayer_4EC580
-func nox_xxx_findParentChainPlayer_4EC580(obj *nox_object_t) *nox_object_t {
-	return asObjectC(obj).FindOwnerChainPlayer().CObj()
-}
-
-//export nox_xxx_unitHasThatParent_4EC4F0
-func nox_xxx_unitHasThatParent_4EC4F0(obj, owner *nox_object_t) int {
-	return int(bool2int(asObjectC(obj).HasOwner(asObjectC(owner))))
-}
-
-//export nox_xxx_unitIsEnemyTo_5330C0
-func nox_xxx_unitIsEnemyTo_5330C0(a, b *nox_object_t) int {
-	if asObjectC(a).isEnemyTo(asObjectC(b)) {
-		return 1
-	}
-	return 0
-}
-
-//export nox_xxx_unitIsAFish_534B10
-func nox_xxx_unitIsAFish_534B10(obj *nox_object_t) int {
-	if asObjectC(obj).isFish() {
-		return 1
-	}
-	return 0
-}
-
-//export nox_xxx_unitIsARat_534B60
-func nox_xxx_unitIsARat_534B60(obj *nox_object_t) int {
-	if asObjectC(obj).isRat() {
-		return 1
-	}
-	return 0
-}
-
-//export nox_xxx_unitIsAFrog_534B90
-func nox_xxx_unitIsAFrog_534B90(obj *nox_object_t) int {
-	if asObjectC(obj).isFrog() {
-		return 1
-	}
-	return 0
-}
-
-//export sub_548600
-func sub_548600(a1 *nox_object_t, a2, a3 C.float) {
-	asObjectC(a1).sub548600(types.Pointf{X: float32(a2), Y: float32(a3)})
-}
-
-//export nox_xxx_delayedDeleteObject_4E5CC0
-func nox_xxx_delayedDeleteObject_4E5CC0(obj *nox_object_t) {
-	asObjectC(obj).Delete()
-}
-
-//export nox_xxx_finalizeDeletingUnits_4E5EC0
-func nox_xxx_finalizeDeletingUnits_4E5EC0() {
-	noxServer.finalizeDeletingObjects()
-}
-
-//export nox_xxx_getFirstUpdatableObject_4DA8A0
-func nox_xxx_getFirstUpdatableObject_4DA8A0() *nox_object_t {
-	return asObjectS(noxServer.Objs.UpdatableList).CObj()
-}
-
-//export nox_xxx_getNextUpdatableObject_4DA8B0
-func nox_xxx_getNextUpdatableObject_4DA8B0(obj *nox_object_t) *nox_object_t {
-	if obj == nil {
-		return nil
-	}
-	return obj.updatable_next
-}
-
-//export nox_xxx_unitAddToUpdatable_4DA8D0
-func nox_xxx_unitAddToUpdatable_4DA8D0(cobj *nox_object_t) {
-	noxServer.Objs.AddToUpdatable(asObjectC(cobj).SObj())
-}
-
-//export nox_xxx_unitRemoveFromUpdatable_4DA920
-func nox_xxx_unitRemoveFromUpdatable_4DA920(cobj *nox_object_t) {
-	noxServer.Objs.RemoveFromUpdatable(asObjectC(cobj).SObj())
-}
-
-//export nox_xxx_servFinalizeDelObject_4DADE0
-func nox_xxx_servFinalizeDelObject_4DADE0(cobj *nox_object_t) {
-	noxServer.objectDeleteLast(asObjectC(cobj))
-}
-
-//export nox_xxx_getFirstUpdatable2Object_4DA840
-func nox_xxx_getFirstUpdatable2Object_4DA840() *nox_object_t {
-	return asObjectS(noxServer.Objs.UpdatableList2).CObj()
-}
-
-//export nox_xxx_unitsNewAddToList_4DAC00
-func nox_xxx_unitsNewAddToList_4DAC00() {
-	noxServer.objectsNewAdd()
-}
-
-//export nox_xxx_unitClearPendingMB_4DB030
-func nox_xxx_unitClearPendingMB_4DB030() {
-	noxServer.ObjectsClearPending()
-}
-
-//export nox_xxx_createAt_4DAA50
-func nox_xxx_createAt_4DAA50(cobj *nox_object_t, cowner *nox_object_t, x C.float, y C.float) {
-	var owner noxObject
-	if cowner != nil {
-		owner = asObjectC(cowner)
-	}
-	noxServer.createObjectAt(asObjectC(cobj), owner, types.Pointf{X: float32(x), Y: float32(y)})
-}
-
-func asPointf(p unsafe.Pointer) types.Pointf {
-	cp := (*C.float2)(p)
-	return types.Pointf{
-		X: float32(cp.field_0),
-		Y: float32(cp.field_4),
-	}
-}
-func asPoint(p unsafe.Pointer) image.Point {
-	cp := (*C.nox_point)(p)
-	return image.Point{
-		X: int(cp.x),
-		Y: int(cp.y),
-	}
-}
 func asObject(p unsafe.Pointer) *Object {
 	return (*Object)(p)
-}
-func asObjectC(p *C.nox_object_t) *Object {
-	return asObject(unsafe.Pointer(p))
 }
 func asObjectS(p *server.Object) *Object {
 	return (*Object)(unsafe.Pointer(p))
 }
 
-func (s *Server) FirstServerObject() *Object { // nox_server_getFirstObject_4DA790
-	return asObjectS(s.Server.FirstServerObject())
-}
-
 func (s *Server) GetObjects() []*Object {
 	var out []*Object
 	for p := s.FirstServerObject(); p != nil; p = p.Next() {
-		out = append(out, p)
+		out = append(out, asObjectS(p))
 	}
 	return out
 }
@@ -231,7 +51,7 @@ func (s *Server) GetObjectByInd(ind int) *Object { // aka nox_xxx_netGetUnitByEx
 }
 
 func (s *Server) getObjectGroupByID(id string) *script.ObjectGroup {
-	g := s.mapGroups.GroupByID(id, mapGroupObjects)
+	g := s.GroupByID(id, server.MapGroupObjects)
 	if g == nil {
 		return nil
 	}
@@ -247,39 +67,39 @@ func (s *Server) getObjectGroupByID(id string) *script.ObjectGroup {
 }
 
 func (s *Server) getObjectFromNetCode(code int) *Object { // nox_server_getObjectFromNetCode_4ECCB0
-	return asObjectC(C.nox_server_getObjectFromNetCode_4ECCB0(C.int(code)))
+	return asObjectS(legacy.Nox_server_getObjectFromNetCode_4ECCB0(code))
 }
 
-func (s *Server) delayedDelete(obj *Object) {
+func (s *Server) DelayedDelete(obj *server.Object) {
 	if obj == nil || obj.Flags().Has(object.FlagDestroyed) {
 		return
 	}
-	if owner := obj.OwnerC(); owner != nil && owner.Class().Has(object.ClassPlayer) {
-		if obj.Class().Has(object.ClassMonster) && C.nox_xxx_creatureIsMonitored_500CC0(owner.CObj(), obj.CObj()) == 0 && (obj.SubClass()&0x80 != 0) {
-			C.nox_xxx_monsterRemoveMonitors_4E7B60(owner.CObj(), obj.CObj())
+	if owner := asObjectS(obj).OwnerC(); owner != nil && owner.Class().Has(object.ClassPlayer) {
+		if obj.Class().Has(object.ClassMonster) && legacy.Nox_xxx_creatureIsMonitored_500CC0(owner.SObj(), obj.SObj()) == 0 && (obj.SubClass()&0x80 != 0) {
+			legacy.Nox_xxx_monsterRemoveMonitors_4E7B60(owner.SObj(), obj)
 		}
 	}
 
-	if v := obj.InventoryHolder(); v != nil {
-		C.sub_4ED0C0(v.CObj(), obj.CObj())
+	if v := asObjectS(obj).InventoryHolder(); v != nil {
+		legacy.Sub_4ED0C0(v.SObj(), obj.SObj())
 	}
-	C.nox_xxx_playerCancelSpells_4FEAE0(obj.CObj())
+	legacy.Nox_xxx_playerCancelSpells_4FEAE0(obj)
 	if noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().Has(object.ClassMonster) {
-		C.sub_50E210(obj.CObj())
+		legacy.Sub_50E210(obj)
 	}
 	if obj.Class().Has(object.ClassPlayer) {
-		C.sub_506740(obj.CObj())
+		legacy.Sub_506740(obj)
 	}
 	obj.ObjFlags |= uint32(object.FlagDestroyed)
 	obj.DeletedNext = s.Objs.DeletedList.SObj()
 	s.Objs.DeletedList = obj.SObj()
 	obj.DeletedAt = s.Frame()
-	if nox_xxx_servObjectHasTeam_419130(obj.teamPtr()) {
-		C.nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(obj.teamPtr()), C.int(obj.NetCode))
+	if server.Nox_xxx_servObjectHasTeam_419130(obj.TeamPtr()) {
+		legacy.Nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(obj.TeamPtr()), obj.NetCode)
 	}
 }
 
-func (s *Server) finalizeDeletingObjects() {
+func (s *Server) FinalizeDeletingObjects() {
 	var next *Object
 	for it := asObjectS(s.Objs.DeletedList); it != nil; it = next {
 		next = asObjectS(it.DeletedNext)
@@ -289,33 +109,33 @@ func (s *Server) finalizeDeletingObjects() {
 }
 
 func (s *Server) objectDeleteFinish(obj *Object) {
-	C.nox_xxx_unitTransferSlaves_4EC4B0(obj.CObj())
+	legacy.Nox_xxx_unitTransferSlaves_4EC4B0(obj.SObj())
 	obj.SetOwner(nil)
 	s.Activators.ClearOnObject(obj.SObj())
-	C.nox_xxx_decay_5116F0(obj.CObj())
+	legacy.Nox_xxx_decay_5116F0(obj.SObj())
 	obj.dropAllItems()
-	s.objectDeleteLast(obj)
+	s.ObjectDeleteLast(obj.SObj())
 	s.Objs.FreeObject(obj.SObj())
 }
 
-func (s *Server) objectDeleteLast(obj *Object) {
+func (s *Server) ObjectDeleteLast(obj *server.Object) {
 	if !obj.Flags().Has(object.FlagActive) {
 		return
 	}
 	obj.ObjFlags &^= uint32(object.FlagActive)
 	s.nox_xxx_playerLeaveObsByObserved_4E60A0(obj)
 	if !noxflags.HasGame(noxflags.GameFlag20) {
-		C.nox_xxx_netReportDestroyObject_5289D0(obj.CObj())
+		legacy.Nox_xxx_netReportDestroyObject_5289D0(obj)
 	}
-	C.nox_xxx_unit_511810(obj.CObj())
-	obj.SetOwner(nil)
-	C.nox_xxx_unitRemoveChild_4EC470(obj.CObj())
-	C.sub_517870(obj.CObj())
+	legacy.Nox_xxx_unit_511810(obj)
+	asObjectS(obj).SetOwner(nil)
+	legacy.Nox_xxx_unitRemoveChild_4EC470(obj)
+	legacy.Sub_517870(obj)
 	s.sub_4DAE50(obj)
-	C.sub_4ECFA0(obj.CObj())
-	C.sub_511DE0(obj.CObj())
+	legacy.Sub_4ECFA0(obj)
+	legacy.Sub_511DE0(obj)
 	if obj.Class().HasAny(object.MaskUnits) {
-		C.sub_528990(obj.CObj())
+		legacy.Sub_528990(obj)
 	}
 }
 
@@ -337,7 +157,7 @@ func (s *Server) deletedObjectsUpdate() {
 	s.Objs.DeletedList = list.SObj()
 }
 
-func (s *Server) objectsNewAdd() {
+func (s *Server) ObjectsNewAdd() {
 	var next *Object
 	for it := asObjectS(s.Objs.Pending); it != nil; it = next {
 		next = it.Next()
@@ -357,10 +177,10 @@ func (s *Server) objectsNewAdd() {
 		} else {
 			if it.Flags().Has(object.FlagShadow) {
 				it.ObjFlags &^= uint32(object.FlagShadow)
-				C.nox_xxx_unitNewAddShadow_4DA9A0(it.CObj())
+				legacy.Nox_xxx_unitNewAddShadow_4DA9A0(it.SObj())
 			}
 			if it.Flags().Has(object.FlagRespawn) && !noxflags.HasGame(noxflags.GameModeQuest) {
-				C.nox_xxx_respawnAdd_4EC5E0(it.CObj())
+				legacy.Nox_xxx_respawnAdd_4EC5E0(it.SObj())
 			}
 			if it.Update != nil || it.Vel() != (types.Pointf{}) { // TODO: had a weird check: ... && *(*uint8)(&it.obj_class) >= 0
 				s.Objs.AddToUpdatable(it.SObj())
@@ -374,10 +194,10 @@ func (s *Server) objectsNewAdd() {
 		}
 		s.Map.AddMissileXxx(it.SObj())
 		if it.Collide != nil {
-			C.sub_5117F0(it.CObj())
+			legacy.Sub_5117F0(it.SObj())
 		}
 		if it.Init != nil {
-			ccall.CallVoidPtr2(it.Init, unsafe.Pointer(it.CObj()), nil)
+			ccall.CallVoidPtr2(it.Init, it.SObj().CObj(), nil)
 		}
 		var v6 bool
 		if it.Class().Has(object.ClassImmobile) {
@@ -396,7 +216,7 @@ func (s *Server) objectsNewAdd() {
 			}
 		} else {
 			it.makeUnseen()
-			C.sub_527E00(it.CObj())
+			legacy.Sub_527E00(it.SObj())
 			it.Field37 = math.MaxUint32
 		}
 		it.ObjFlags &^= uint32(object.FlagPending)
@@ -404,8 +224,8 @@ func (s *Server) objectsNewAdd() {
 	s.Objs.Pending = nil
 }
 
-func (s *Server) sub_4DAE50(obj *Object) {
-	C.nox_xxx_action_4DA9F0(obj.CObj())
+func (s *Server) sub_4DAE50(obj *server.Object) {
+	legacy.Nox_xxx_action_4DA9F0(obj.SObj())
 	if obj.Class().Has(object.ClassMissile) {
 		prev := asObjectS(obj.ObjPrev)
 		if prev != nil {
@@ -439,8 +259,8 @@ func (s *Server) attachPending() {
 				if it2.Class().Has(object.ClassElevatorShaft) {
 					ud2 := it2.UpdateData
 					if *(*uint32)(unsafe.Add(ud, 8)) == it2.Extent {
-						*(**nox_object_t)(unsafe.Add(ud, 4)) = it2.CObj()
-						*(**nox_object_t)(unsafe.Add(ud2, 4)) = it.CObj()
+						*(**server.Object)(unsafe.Add(ud, 4)) = it2.SObj()
+						*(**server.Object)(unsafe.Add(ud2, 4)) = it.SObj()
 						break
 					}
 				}
@@ -448,12 +268,12 @@ func (s *Server) attachPending() {
 		}
 		if it.Class().Has(object.ClassTransporter) {
 			ud := it.UpdateData
-			*(**nox_object_t)(unsafe.Add(ud, 12)) = nil
+			*(**server.Object)(unsafe.Add(ud, 12)) = nil
 			// if transporter target is set - attach to it
 			if ext := *(*uint32)(unsafe.Add(ud, 16)); ext != 0 {
 				for it2 := asObjectS(s.Objs.Pending); it2 != nil; it2 = it2.Next() {
 					if it2.Class().Has(object.ClassTransporter) && ext == it2.Extent {
-						*(**nox_object_t)(unsafe.Add(ud, 12)) = it2.CObj()
+						*(**server.Object)(unsafe.Add(ud, 12)) = it2.SObj()
 						break
 					}
 				}
@@ -462,13 +282,8 @@ func (s *Server) attachPending() {
 	}
 }
 
-//export nox_xxx_objectFreeMem_4E38A0
-func nox_xxx_objectFreeMem_4E38A0(a1p *nox_object_t) int {
-	return noxServer.Objs.FreeObject(asObjectC(a1p).SObj())
-}
-
-func (s *Server) createObjectAt(a11 noxObject, owner noxObject, pos types.Pointf) {
-	obj := a11.AsObject()
+func (s *Server) CreateObjectAt(a11 server.Obj, owner server.Obj, pos types.Pointf) {
+	obj := toObject(a11)
 	if memmap.Uint32(0x5D4594, 1556864) == 0 {
 		*memmap.PtrUint32(0x5D4594, 1556864) = uint32(s.ObjectTypeID("Gold"))
 		*memmap.PtrUint32(0x5D4594, 1556868) = uint32(s.ObjectTypeID("QuestGoldPile"))
@@ -484,10 +299,10 @@ func (s *Server) createObjectAt(a11 noxObject, owner noxObject, pos types.Pointf
 	obj.Pos39 = pos
 	nox_xxx_objectUnkUpdateCoords_4E7290(obj)
 	if obj.Class().HasAny(object.MaskUnits) {
-		C.nox_xxx_unitPostCreateNotify_4E7F10(obj.CObj())
+		legacy.Nox_xxx_unitPostCreateNotify_4E7F10(obj.SObj())
 	}
 	if owner != nil {
-		obj.SetOwner(owner.AsObject())
+		obj.SetOwner(toObject(owner))
 	}
 	obj.VelVec = types.Pointf{}
 	obj.ForceVec = types.Pointf{}
@@ -507,56 +322,41 @@ func (s *Server) createObjectAt(a11 noxObject, owner noxObject, pos types.Pointf
 	s.Objs.Pending = obj.SObj()
 	obj.ObjFlags |= uint32(object.FlagPending)
 	if obj.Field13&0xff != 0 && (!obj.Class().Has(object.ClassFlag) || memmap.Int32(0x973F18, 3800) >= 0) {
-		if noxflags.HasGame(noxflags.GameModeCoop) || checkGameplayFlags(4) {
-			C.nox_xxx_createAtImpl_4191D0(C.uchar(obj.Field13), unsafe.Pointer(obj.teamPtr()), 0, C.int(obj.NetCode), 0)
+		if noxflags.HasGame(noxflags.GameModeCoop) || noxflags.HasGamePlay(4) {
+			legacy.Nox_xxx_createAtImpl_4191D0(uint8(obj.Field13), unsafe.Pointer(obj.TeamPtr()), 0, obj.NetCode, 0)
 		}
 	}
 }
 
 func (s *Server) deleteAllObjectsOfType(t *server.ObjectType) {
-	var next *Object
+	var next *server.Object
 	for it := s.FirstServerObject(); it != nil; it = next {
 		next = it.Next()
-		var next2 *Object
+		var next2 *server.Object
 		for it2 := it.FirstItem(); it2 != nil; it2 = next2 {
 			next2 = it2.NextItem()
 			if int(it2.TypeInd) == t.Ind() {
-				it2.Delete()
+				asObjectS(it2).Delete()
 			}
 		}
 		if int(it.TypeInd) == t.Ind() {
-			it.Delete()
+			asObjectS(it).Delete()
 		}
 	}
 }
 
-type nox_object_t = C.nox_object_t
-
-func toCObj(obj noxObject) *nox_object_t {
+func toObjectS(obj server.Obj) *server.Object {
 	if obj == nil {
 		return nil
 	}
-	return obj.CObj()
+	return obj.SObj()
 }
 
-func toCObjS(obj server.Obj) *nox_object_t {
+func toObject(obj server.Obj) *Object {
 	if obj == nil {
 		return nil
 	}
-	return asObjectS(obj.SObj()).CObj()
-}
-
-func toObject(obj noxObject) *Object {
-	if obj == nil {
-		return nil
-	}
-	return obj.AsObject()
-}
-
-type noxObject interface {
-	CObj() *nox_object_t
-	server.Obj
-	AsObject() *Object
+	return asObjectS(obj.SObj())
 }
 
 var _ = [1]struct{}{}[772-unsafe.Sizeof(Object{})]
@@ -571,16 +371,8 @@ func (obj *Object) UniqueKey() uintptr {
 	return uintptr(unsafe.Pointer(obj))
 }
 
-func (obj *Object) CObj() *nox_object_t {
-	return (*nox_object_t)(unsafe.Pointer(obj))
-}
-
 func (obj *Object) SObj() *server.Object {
 	return (*server.Object)(obj)
-}
-
-func (obj *Object) AsObject() *Object {
-	return obj
 }
 
 func (obj *Object) field(dp uintptr) unsafe.Pointer {
@@ -588,7 +380,7 @@ func (obj *Object) field(dp uintptr) unsafe.Pointer {
 }
 
 func (obj *Object) ID() string {
-	return GoString((*C.char)(obj.IDPtr))
+	return alloc.GoString((*byte)(obj.IDPtr))
 }
 
 func (obj *Object) Ind() int { // aka "extent"
@@ -608,7 +400,7 @@ func (obj *Object) stringAs(typ string) string {
 	if obj.Class().Has(object.ClassPlayer) {
 		// TODO: better way
 		for _, p := range obj.getServer().GetPlayers() {
-			if u := p.UnitC(); u != nil && u.CObj() == obj.CObj() {
+			if u := p.UnitC(); u != nil && u.SObj() == obj.SObj() {
 				oid += fmt.Sprintf(",P:%q", p.Name())
 			}
 		}
@@ -655,14 +447,14 @@ func (obj *Object) IsMovable() bool {
 }
 
 func (obj *Object) team() byte {
-	return obj.teamPtr().field1
+	return obj.TeamPtr().Field1
 }
 
-func (obj *Object) Team() *Team {
+func (obj *Object) Team() *server.Team {
 	if obj == nil {
 		return nil
 	}
-	return obj.getServer().teamByYyy(obj.team())
+	return obj.getServer().Teams.ByYyy(obj.team())
 }
 
 func (obj *Object) FindByID(id string) *Object {
@@ -678,7 +470,10 @@ func (obj *Object) makeUnseen() { // nox_xxx_objectMakeUnseenByNoone_4E44E0
 }
 
 func (obj *Object) Next() *Object { // nox_server_getNextObject_4DA7A0, nox_xxx_getNextUpdatable2Object_4DA850, nox_server_getNextObjectUninited_4DA880
-	return asObjectS(obj.ObjNext.SObj())
+	if obj == nil {
+		return nil
+	}
+	return asObjectS(obj.SObj().Next())
 }
 
 func (obj *Object) FirstItem() *Object { // nox_xxx_inventoryGetFirst_4E7980
@@ -697,16 +492,16 @@ func (obj *Object) HasItem(item *Object) bool {
 	return obj.SObj().HasItem(item.SObj())
 }
 
-func (obj *Object) updateDataMissile() *C.nox_object_Missile_data_t {
-	return (*C.nox_object_Missile_data_t)(obj.UpdateData)
+func (obj *Object) updateDataMissile() *legacy.Nox_object_Missile_data_t {
+	return (*legacy.Nox_object_Missile_data_t)(obj.UpdateData)
 }
 
-func (obj *Object) updateDataElevator() *C.nox_object_Elevator_data_t {
-	return (*C.nox_object_Elevator_data_t)(obj.UpdateData)
+func (obj *Object) updateDataElevator() *legacy.Nox_object_Elevator_data_t {
+	return (*legacy.Nox_object_Elevator_data_t)(obj.UpdateData)
 }
 
-func (obj *Object) updateDataMover() *C.nox_object_Mover_data_t {
-	return (*C.nox_object_Mover_data_t)(obj.UpdateData)
+func (obj *Object) updateDataMover() *legacy.Nox_object_Mover_data_t {
+	return (*legacy.Nox_object_Mover_data_t)(obj.UpdateData)
 }
 
 func (obj *Object) Inventory() []*Object {
@@ -749,14 +544,14 @@ func (obj *Object) ApplyEnchant(v server.EnchantID, dur, power int) { // nox_xxx
 	if obj == nil || v >= 32 {
 		return
 	}
-	C.nox_xxx_buffApplyTo_4FF380(obj.CObj(), C.int(v), C.short(dur), C.char(power))
+	legacy.Nox_xxx_buffApplyTo_4FF380(obj.SObj(), v, dur, power)
 }
 
 func (obj *Object) DisableEnchant(v server.EnchantID) { // nox_xxx_spellBuffOff_4FF5B0
 	if obj == nil || v >= 32 {
 		return
 	}
-	C.nox_xxx_spellBuffOff_4FF5B0(obj.CObj(), C.int(v))
+	legacy.Nox_xxx_spellBuffOff_4FF5B0(obj.SObj(), v)
 }
 
 func (obj *Object) AsUnit() *Unit {
@@ -782,11 +577,11 @@ func (obj *Object) ObjectType() script.ObjectType {
 	return noxScriptObjType{t}
 }
 
-func (obj *Object) teamPtr() *objectTeam {
+func (obj *Object) TeamPtr() *server.ObjectTeam {
 	if obj == nil {
 		return nil
 	}
-	return (*objectTeam)(unsafe.Pointer(&obj.Field12))
+	return obj.SObj().TeamPtr()
 }
 
 func (obj *Object) OwnerC() *Object {
@@ -809,11 +604,11 @@ func (obj *Object) Owner() script.Object {
 
 func (obj *Object) SetOwner(owner script.ObjectWrapper) {
 	if owner == nil {
-		C.nox_xxx_unitClearOwner_4EC300(obj.CObj())
+		legacy.Nox_xxx_unitClearOwner_4EC300(obj.SObj())
 		return
 	}
-	own := owner.GetObject().(noxObject)
-	C.nox_xxx_unitSetOwner_4EC290(own.CObj(), obj.CObj())
+	own := owner.GetObject().(server.Obj)
+	legacy.Nox_xxx_unitSetOwner_4EC290(own.SObj(), obj.SObj())
 }
 
 func (obj *Object) Pos() types.Pointf {
@@ -853,11 +648,10 @@ func (obj *Object) setAllDirs(dir server.Dir16) {
 }
 
 func (obj *Object) SetPos(p types.Pointf) {
-	cp, free := alloc.New(C.float2{})
+	cp, free := alloc.New(types.Pointf{})
 	defer free()
-	cp.field_0 = C.float(p.X)
-	cp.field_4 = C.float(p.Y)
-	C.nox_xxx_unitMove_4E7010(obj.CObj(), cp)
+	*cp = p
+	legacy.Nox_xxx_unitMove_4E7010(obj.SObj(), cp)
 }
 
 // ApplyForce adds a new force vector to the object. If another force in effect, it will adds up.
@@ -866,7 +660,7 @@ func (obj *Object) ApplyForce(p types.Pointf) {
 }
 
 func (obj *Object) SetZ(z float32) {
-	C.nox_xxx_unitRaise_4E46F0(obj.CObj(), C.float(z))
+	legacy.Nox_xxx_unitRaise_4E46F0(obj.SObj(), z)
 }
 
 func (obj *Object) Push(vec types.Pointf, force float32) {
@@ -885,10 +679,10 @@ func (obj *Object) IsEnabled() bool {
 // The returning boolean represents the enabled state of the object before toggled.
 func (obj *Object) Toggle() bool {
 	if obj.IsEnabled() {
-		C.nox_xxx_objectSetOff_4E7600(obj.CObj())
+		legacy.Nox_xxx_objectSetOff_4E7600(obj.SObj())
 		return true
 	} else {
-		C.nox_xxx_objectSetOn_4E75B0(obj.CObj())
+		legacy.Nox_xxx_objectSetOn_4E75B0(obj.SObj())
 		return false
 	}
 }
@@ -898,14 +692,14 @@ func (obj *Object) Enable(enable bool) {
 		return
 	}
 	if enable {
-		C.nox_xxx_objectSetOn_4E75B0(obj.CObj())
+		legacy.Nox_xxx_objectSetOn_4E75B0(obj.SObj())
 	} else {
-		C.nox_xxx_objectSetOff_4E7600(obj.CObj())
+		legacy.Nox_xxx_objectSetOff_4E7600(obj.SObj())
 	}
 }
 
 func (obj *Object) Delete() {
-	obj.getServer().delayedDelete(obj)
+	obj.getServer().DelayedDelete(obj.SObj())
 }
 
 func (obj *Object) Destroy() {
@@ -917,14 +711,14 @@ func (obj *Object) CallUpdate() {
 		return
 	}
 	switch obj.Update {
-	case unsafe.Pointer(C.nox_xxx_updatePlayer_4F8100):
-		nox_xxx_updatePlayer_4F8100(obj.CObj())
-	case unsafe.Pointer(C.nox_xxx_updatePlayerObserver_4E62F0):
-		nox_xxx_updatePlayerObserver_4E62F0(obj.CObj())
-	case unsafe.Pointer(C.nox_xxx_updateHarpoon_54F380):
-		nox_xxx_updateHarpoon_54F380(obj.CObj())
-	case unsafe.Pointer(C.nox_xxx_updatePixie_53CD20):
-		nox_xxx_updatePixie_53CD20(obj.CObj())
+	case unsafe.Pointer(legacy.Get_nox_xxx_updatePlayer_4F8100()):
+		nox_xxx_updatePlayer_4F8100(obj.SObj())
+	case unsafe.Pointer(legacy.Get_nox_xxx_updatePlayerObserver_4E62F0()):
+		nox_xxx_updatePlayerObserver_4E62F0(obj.SObj())
+	case unsafe.Pointer(legacy.Get_nox_xxx_updateHarpoon_54F380()):
+		nox_xxx_updateHarpoon_54F380(obj.SObj())
+	case unsafe.Pointer(legacy.Get_nox_xxx_updatePixie_53CD20()):
+		nox_xxx_updatePixie_53CD20(obj.SObj())
 	default:
 		obj.SObj().CallUpdate()
 	}
@@ -932,8 +726,8 @@ func (obj *Object) CallUpdate() {
 
 func (obj *Object) CallXfer(a2 unsafe.Pointer) error {
 	switch obj.Xfer {
-	case unsafe.Pointer(C.nox_xxx_XFerDefault_4F49A0):
-		return nox_xxx_XFerDefault4F49A0(cryptfile.Global(), obj, a2)
+	case unsafe.Pointer(legacy.Get_nox_xxx_XFerDefault_4F49A0()):
+		return nox_xxx_XFerDefault4F49A0(cryptfile.Global(), obj.SObj(), a2)
 	}
 	return obj.SObj().CallXfer(a2)
 }
@@ -951,13 +745,11 @@ func (obj *Object) CallDrop(it server.Obj, pos types.Pointf) int {
 		return 0
 	}
 	switch obj.Drop {
-	case unsafe.Pointer(C.nox_objectDropAudEvent_4EE2F0):
+	case unsafe.Pointer(legacy.Get_nox_objectDropAudEvent_4EE2F0()):
 		cpos, free := alloc.New(types.Pointf{})
 		defer free()
 		*cpos = pos
-		ptr := (*C.float2)(unsafe.Pointer(cpos))
-
-		return int(nox_objectDropAudEvent_4EE2F0(obj.CObj(), toCObjS(it), ptr))
+		return int(nox_objectDropAudEvent_4EE2F0(obj.SObj(), toObjectS(it), cpos))
 	default:
 		return obj.SObj().CallDrop(it, pos)
 	}
@@ -970,18 +762,19 @@ func (obj *Object) forceDrop(item *Object) int { // nox_xxx_invForceDropItem_4ED
 }
 
 func (obj *Object) forceDropAt(item *Object, pos types.Pointf) int { // nox_xxx_drop_4ED790
-	cpos, free := alloc.New(types.Pointf{})
-	defer free()
-	*cpos = pos
-	return int(C.nox_xxx_drop_4ED790(obj.CObj(), item.CObj(), (*C.float2)(unsafe.Pointer(cpos))))
+	return legacy.Nox_xxx_drop_4ED790(obj.SObj(), item.SObj(), pos)
 }
 
-func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_5330C0
+func (s *Server) IsEnemyTo(a1, a2 *server.Object) bool {
+	return asObjectS(a1).isEnemyTo(asObjectS(a2))
+}
+
+func (obj *Object) isEnemyTo(objp server.Obj) bool { // nox_xxx_unitIsEnemyTo_5330C0
 	obj2 := toObject(objp)
 	if obj == nil || obj2 == nil {
 		return false
 	}
-	if obj.CObj() == obj2.CObj() {
+	if obj.SObj() == obj2.SObj() {
 		return false
 	}
 	srv := obj.getServer()
@@ -1033,7 +826,7 @@ func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_533
 	if own1 == own2 {
 		return false
 	}
-	if nox_xxx_servCompareTeams_419150(own1.teamPtr(), own2.teamPtr()) {
+	if server.Nox_xxx_servCompareTeams_419150(own1.TeamPtr(), own2.TeamPtr()) {
 		return false
 	}
 	if own1.Class().HasAny(object.ClassPlayer) && own2.Class().HasAny(object.ClassMonsterGenerator) {
@@ -1045,13 +838,25 @@ func (obj *Object) isEnemyTo(objp noxObject) bool { // nox_xxx_unitIsEnemyTo_533
 	if !noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().HasAny(object.ClassMonster) && int(obj2.TypeInd) == srv.WillOWispID() {
 		return nox_xxx_checkMobAction_50A0D0(obj2.AsUnit(), ai.ACTION_FIGHT)
 	}
-	if nox_xxx_servObjectHasTeam_419130(own1.teamPtr()) || nox_xxx_servObjectHasTeam_419130(own2.teamPtr()) {
+	if server.Nox_xxx_servObjectHasTeam_419130(own1.TeamPtr()) || server.Nox_xxx_servObjectHasTeam_419130(own2.TeamPtr()) {
 		return true
 	}
 	if own1.Class().HasAny(object.ClassMonster) && own2.Class().HasAny(object.ClassMonster) {
 		return false
 	}
 	return true
+}
+
+func (s *Server) IsFish(obj *server.Object) bool {
+	return asObjectS(obj).isFish()
+}
+
+func (s *Server) IsRat(obj *server.Object) bool {
+	return asObjectS(obj).isRat()
+}
+
+func (s *Server) IsFrog(obj *server.Object) bool {
+	return asObjectS(obj).isFrog()
 }
 
 func (obj *Object) isFish() bool {
@@ -1103,9 +908,5 @@ func (obj *Object) HasOwner(owner *Object) bool {
 }
 
 func (obj *Object) dropAllItems() {
-	C.nox_xxx_dropAllItems_4EDA40((*C.uint)(unsafe.Pointer(obj.CObj())))
-}
-
-func (obj *Object) sub548600(dp types.Pointf) {
-	obj.Pos24 = obj.Pos24.Add(dp.Div(obj.Mass))
+	legacy.Nox_xxx_dropAllItems_4EDA40(obj.SObj())
 }

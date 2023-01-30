@@ -1,10 +1,5 @@
 package opennox
 
-/*
-#include "defs.h"
-void nox_xxx_sprite_45A110_drawable(nox_drawable* a1);
-*/
-import "C"
 import (
 	"image"
 	"math"
@@ -13,13 +8,16 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/spell"
+
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
 	spellDRayVioletSpark int
 )
 
-func castDeathRay(spellID spell.ID, a2, a3, a4 *Unit, a5 *spellAcceptArg, lvl int) int {
+func castDeathRay(spellID spell.ID, a2, a3, a4 *server.Object, a5 *server.SpellAcceptArg, lvl int) int {
 	s := noxServer
 	if a5 == nil || a4 == nil {
 		return 0
@@ -28,18 +26,18 @@ func castDeathRay(spellID spell.ID, a2, a3, a4 *Unit, a5 *spellAcceptArg, lvl in
 	pos16 := a5.Pos
 	if !s.MapTraceRay9(pos4, pos16) {
 		if a4.Class().Has(object.ClassPlayer) && a3.Class().Has(object.ClassPlayer) {
-			nox_xxx_netInformTextMsg_4DA0F0(a3.ControllingPlayer().Index(), 0, 2)
+			nox_xxx_netInformTextMsg_4DA0F0(asUnitS(a3).ControllingPlayer().Index(), 0, 2)
 		}
 		return 0
 	}
 	dmg := int(gamedataFloat("DeathRayDamage"))
 	rin := float32(gamedataFloat("DeathRayInRadius"))
 	rout := float32(gamedataFloat("DeathRayOutRadius"))
-	s.nox_xxx_mapDamageUnitsAround(pos16, rout, rin, dmg, object.DamageZapRay, a3, nil, false)
+	s.Nox_xxx_mapDamageUnitsAround(pos16, rout, rin, dmg, object.DamageZapRay, a3, nil, false)
 	nox_xxx_sendDeathRayCast_523250(pos4.Point(), pos16.Point())
 	snd := s.SpellDefByInd(spellID).GetAudio(0)
 	s.AudioEventObj(snd, a4, 0, 0)
-	nox_xxx_sMakeScorch_537AF0(pos16, 1)
+	legacy.Nox_xxx_sMakeScorch_537AF0(pos16, 1)
 	return 1
 }
 
@@ -58,14 +56,14 @@ func (c *Client) clientFXDeathRay(p1, p2 image.Point) {
 		return
 	}
 	if spellDRayVioletSpark == 0 {
-		spellDRayVioletSpark = nox_things.IndByID("VioletSpark")
+		spellDRayVioletSpark = c.Things.IndByID("VioletSpark")
 	}
 	for i := 0; i < dist/2+1; i++ {
 		pos := p1.Add(image.Point{
 			X: (2 * dx * i) / dist,
 			Y: (2 * dy * i) / dist,
 		})
-		dr := nox_xxx_spriteLoadAdd_45A360_drawable(int(spellDRayVioletSpark), pos)
+		dr := legacy.Nox_xxx_spriteLoadAdd_45A360_drawable(spellDRayVioletSpark, pos)
 		if dr == nil {
 			continue
 		}
@@ -82,6 +80,6 @@ func (c *Client) clientFXDeathRay(p1, p2 image.Point) {
 		*(*uint32)(unsafe.Pointer(&dr.Field_112_0)) = c.srv.Frame() + uint32(expire)
 		dr.ZVal = uint16(z)
 		dr.VelZ = int8(vz)
-		C.nox_xxx_sprite_45A110_drawable((*nox_drawable)(dr.C()))
+		legacy.Nox_xxx_sprite_45A110_drawable(dr)
 	}
 }

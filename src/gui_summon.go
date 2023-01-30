@@ -1,16 +1,12 @@
 package opennox
 
-/*
- */
-import "C"
 import (
 	"image"
-	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 )
 
-//export sub_4C26F0
-func sub_4C26F0(a1 unsafe.Pointer) int {
-	win := asWindowP(a1)
+func sub_4C26F0(win *gui.Window) int {
 	pos := win.GlobalPos()
 	x, y := pos.X, pos.Y
 	sz := win.Size()

@@ -1,20 +1,5 @@
 package opennox
 
-/*
-#include "client__gui__window.h"
-extern unsigned int nox_client_translucentFrontWalls_805844;
-extern unsigned int nox_client_highResFrontWalls_80820;
-extern unsigned int nox_client_highResFloors_154952;
-extern unsigned int nox_client_fadeObjects_80836;
-extern unsigned int nox_client_renderBubbles_80844;
-extern unsigned int dword_5d4594_1193156;
-extern unsigned int dword_5d4594_1301812;
-extern unsigned int dword_5d4594_1301816;
-extern unsigned int dword_5d4594_1301808;
-extern unsigned int dword_5d4594_1301796;
-int nox_xxx_tileSetDrawFn_481420();
-*/
-import "C"
 import (
 	"image/color"
 
@@ -25,13 +10,14 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 )
 
 type videoOpt struct {
 	ID     uint
 	Flag   noxflags.EngineFlag
 	Bool   *bool
-	CFlag  *C.uint
+	CFlag  *uint32
 	TextID strman.ID
 	Text   string
 	Get    func() bool
@@ -57,12 +43,12 @@ func (c *guiAdvOptions) Init(cli *Client) {
 		{ID: 2012, Flag: noxflags.EngineSoftShadowEdge, TextID: "AdVidOpt.wnd:GouradShading"},
 		{ID: 2014, Bool: &guiCon.translucent, TextID: "AdVidOpt.wnd:TranslucentConsole"},
 		{ID: 2015, Bool: &c.cli.r.Part.RenderGlow, TextID: "AdVidOpt.wnd:RenderGlow"},
-		{ID: 2016, CFlag: &C.nox_client_fadeObjects_80836, TextID: "AdVidOpt.wnd:FadeObjects"},
+		{ID: 2016, CFlag: legacy.Get_nox_client_fadeObjects_80836_ptr(), TextID: "AdVidOpt.wnd:FadeObjects"},
 		{ID: 2017, Bool: &nox_client_showTooltips_80840, TextID: "AdVidOpt.wnd:ShowTooltips"},
 		{ID: 2020, Bool: &nox_client_drawFrontWalls_80812, TextID: "AdVidOpt.wnd:DrawFrontWalls"},
-		{ID: 2021, CFlag: &C.nox_client_translucentFrontWalls_805844, TextID: "AdVidOpt.wnd:TranslucentFrontWalls"},
-		{ID: 2022, CFlag: &C.nox_client_highResFrontWalls_80820, TextID: "AdVidOpt.wnd:InterlacedFrontWalls"},
-		{ID: 2031, CFlag: &C.nox_client_highResFloors_154952, TextID: "AdVidOpt.wnd:InterlacedFloors"},
+		{ID: 2021, CFlag: legacy.Get_nox_client_translucentFrontWalls_805844_ptr(), TextID: "AdVidOpt.wnd:TranslucentFrontWalls"},
+		{ID: 2022, CFlag: legacy.Get_nox_client_highResFrontWalls_80820_ptr(), TextID: "AdVidOpt.wnd:InterlacedFrontWalls"},
+		{ID: 2031, CFlag: legacy.Get_nox_client_highResFloors_154952_ptr(), TextID: "AdVidOpt.wnd:InterlacedFloors"},
 		{ID: 2032, Bool: &nox_client_lockHighResFloors_1193152, TextID: "AdVidOpt.wnd:LockHiResFloors"},
 		{ID: 2033, Bool: &nox_client_texturedFloors2_154960, TextID: "AdVidOpt.wnd:FlatShadedFloors"},
 		{ID: 2052, Flag: noxflags.EngineNoSoftLights, Text: "Disable Soft Light", TextID: "AdVidOpt.wnd:NoSoftLights"},
@@ -77,21 +63,18 @@ func (c *guiAdvOptions) Init(cli *Client) {
 	}
 }
 
+func (c *Client) NewGUIAdvOptsOn(par *gui.Window) {
+	c.guiAdv.NewOn(par)
+}
+
+func (c *Client) GUIAdvVideoOptsLoad() {
+	c.guiAdv.nox_client_advVideoOptsLoad()
+}
+
 func (c *guiAdvOptions) NewOn(par *gui.Window) {
 	c.nox_win_advVideoOpts_1522600 = c.newAdvVideoOpts()
 	c.nox_win_advVideoOpts_1522600.SetParent(par)
 	c.nox_client_advVideoOptsLoad()
-}
-
-//export nox_client_advVideoOpts_New_4CB590
-func nox_client_advVideoOpts_New_4CB590(par *C.nox_window) int {
-	noxClient.guiAdv.NewOn(asWindow(par))
-	return 1
-}
-
-//export nox_client_advVideoOptsLoad_4CB330
-func nox_client_advVideoOptsLoad_4CB330() {
-	noxClient.guiAdv.nox_client_advVideoOptsLoad()
 }
 
 func (c *guiAdvOptions) nox_client_advVideoOptsLoad() {
@@ -110,13 +93,6 @@ func (c *guiAdvOptions) nox_client_advVideoOptsLoad() {
 			w.DrawData().Field0Set(0x4, v)
 		}
 	}
-}
-
-func sub_49B3C0() {
-	C.dword_5d4594_1301812 = 0
-	C.dword_5d4594_1301816 = 0
-	C.dword_5d4594_1301808 = 0
-	C.dword_5d4594_1301796 = 0
 }
 
 func (c *guiAdvOptions) nox_client_advVideoOptsProc_4CB5D0(win *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {
@@ -138,7 +114,7 @@ func (c *guiAdvOptions) nox_client_advVideoOptsProc_4CB5D0(win *gui.Window, ev g
 			nox_client_texturedFloors2_154960 = !v
 			nox_client_texturedFloors_154956 = !v
 			nox_xxx_tileSetDrawFn_481420()
-			C.dword_5d4594_1193156 = 0
+			legacy.Set_dword_5d4594_1193156(0)
 			return nil
 		case 2099:
 			detectBestVideoSettings()
@@ -158,12 +134,12 @@ func (c *guiAdvOptions) nox_client_advVideoOptsProc_4CB5D0(win *gui.Window, ev g
 				*opt.Bool = !v
 			} else if opt.CFlag != nil {
 				v := *opt.CFlag != 0
-				*opt.CFlag = C.uint(bool2int(!v))
+				*opt.CFlag = uint32(bool2int(!v))
 			}
 		}
 		switch id {
 		case 2020:
-			sub_49B3C0()
+			legacy.Sub_49B3C0()
 		case 2040:
 			nox_xxx_xxxRenderGUI_587000_80832 = nox_client_renderGUI_80828
 		}

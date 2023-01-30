@@ -3,6 +3,7 @@ package server
 import (
 	"bytes"
 	"strings"
+	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/types"
 )
@@ -33,6 +34,10 @@ type Waypoint struct {
 	Field14   uint32    // 504
 	Field15   uint32    // 508
 	Field16   uint32    // 512
+}
+
+func (w *Waypoint) C() unsafe.Pointer {
+	return unsafe.Pointer(w)
 }
 
 func (w *Waypoint) ID() string {

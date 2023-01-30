@@ -7,6 +7,23 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 )
 
+type MapTraceFlags byte
+
+func (f MapTraceFlags) Has(f2 MapTraceFlags) bool {
+	return f&f2 != 0
+}
+
+const (
+	MapTraceFlag1 = MapTraceFlags(0x1)
+	MapTraceFlag2 = MapTraceFlags(0x2)
+	MapTraceFlag3 = MapTraceFlags(0x4)
+	MapTraceFlag4 = MapTraceFlags(0x8)
+	MapTraceFlag5 = MapTraceFlags(0x10)
+	MapTraceFlag6 = MapTraceFlags(0x20)
+	MapTraceFlag7 = MapTraceFlags(0x40)
+	MapTraceFlag8 = MapTraceFlags(0x80)
+)
+
 type mapIndexBucket struct {
 	List0     *ObjectIndex
 	List4     *ObjectIndex

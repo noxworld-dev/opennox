@@ -1,10 +1,5 @@
 package opennox
 
-/*
-#include "GAME1.h"
-int sub_4AD840();
-*/
-import "C"
 import (
 	"context"
 	"strings"
@@ -12,6 +7,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/console"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -60,7 +56,7 @@ func noxCmdSetArmor(ctx context.Context, c *console.Console, tokens []string) bo
 	case "on":
 		if !s.ObjectTypeByInd(t.Ind()).Allowed() {
 			t.SetAllowed(true)
-			nox_server_gameSettingsUpdated_40A670()
+			legacy.Nox_server_gameSettingsUpdated_40A670()
 			str := c.Strings().GetStringInFile("armorEnabled", "parsecmd.c")
 			c.Printf(console.ColorRed, str, id)
 		}
@@ -69,7 +65,7 @@ func noxCmdSetArmor(ctx context.Context, c *console.Console, tokens []string) bo
 		if s.ObjectTypeByInd(t.Ind()).Allowed() {
 			t.SetAllowed(false)
 			s.deleteAllObjectsOfType(t)
-			nox_server_gameSettingsUpdated_40A670()
+			legacy.Nox_server_gameSettingsUpdated_40A670()
 			str := c.Strings().GetStringInFile("armorDisabled", "parsecmd.c")
 			c.Printf(console.ColorRed, str, id)
 		}
@@ -119,16 +115,16 @@ func noxCmdSetWeapon(ctx context.Context, c *console.Console, tokens []string) b
 	if strings.ToLower(id) == "respawn" {
 		switch sw := strings.ToLower(tokens[1]); sw {
 		case "on":
-			C.sub_409E70(2)
+			legacy.Sub_409E70(2)
 			str := c.Strings().GetStringInFile("weaponsrespawn", "parsecmd.c")
 			c.Printf(console.ColorRed, str, sw)
-			C.sub_4AD840()
+			legacy.Sub_4AD840()
 			return true
 		case "off":
-			C.sub_409E70(2)
+			legacy.Sub_409E70(2)
 			str := c.Strings().GetStringInFile("weaponsrespawn", "parsecmd.c")
 			c.Printf(console.ColorRed, str, sw)
-			C.sub_4AD840()
+			legacy.Sub_4AD840()
 			return true
 		}
 		return false
@@ -148,17 +144,17 @@ func noxCmdSetWeapon(ctx context.Context, c *console.Console, tokens []string) b
 			return true
 		}
 		t.SetAllowed(true)
-		nox_server_gameSettingsUpdated_40A670()
+		legacy.Nox_server_gameSettingsUpdated_40A670()
 		str := c.Strings().GetStringInFile("weaponEnabled", "parsecmd.c")
 		c.Printf(console.ColorRed, str, id)
 		return true
 	case "off":
-		if !s.ObjectTypeByInd(t.Ind()).Allowed() || C.nox_xxx_ammoCheck_415880(C.ushort(t.Ind())) == 1 {
+		if !s.ObjectTypeByInd(t.Ind()).Allowed() || legacy.Nox_xxx_ammoCheck_415880(t.Ind()) == 1 {
 			return true
 		}
 		t.SetAllowed(false)
 		s.deleteAllObjectsOfType(t)
-		nox_server_gameSettingsUpdated_40A670()
+		legacy.Nox_server_gameSettingsUpdated_40A670()
 		str := c.Strings().GetStringInFile("weaponDisabled", "parsecmd.c")
 		c.Printf(console.ColorRed, str, id)
 		return true
@@ -167,11 +163,11 @@ func noxCmdSetWeapon(ctx context.Context, c *console.Console, tokens []string) b
 }
 
 func sub_415A60(id string) *server.ObjectType {
-	v1 := C.sub_415960(internWStr(id))
+	v1 := legacy.Sub_415960(id)
 	if v1 == 0 {
 		return nil
 	}
-	v2 := C.sub_415840(v1)
+	v2 := legacy.Sub_415840(v1)
 	if v2 == 0 {
 		return nil
 	}
@@ -179,11 +175,11 @@ func sub_415A60(id string) *server.ObjectType {
 }
 
 func sub415A30(a1 string) *server.ObjectType {
-	v1 := C.sub_415910(internCStr(a1))
+	v1 := legacy.Sub_415910(a1)
 	if v1 == 0 {
 		return nil
 	}
-	v2 := C.sub_415840(v1)
+	v2 := legacy.Sub_415840(v1)
 	if v2 == 0 {
 		return nil
 	}
@@ -191,11 +187,11 @@ func sub415A30(a1 string) *server.ObjectType {
 }
 
 func sub_415EF0(id string) *server.ObjectType {
-	v1 := C.sub_415DA0(internWStr(id))
+	v1 := legacy.Sub_415DA0(id)
 	if v1 == 0 {
 		return nil
 	}
-	v2 := C.sub_415CD0(v1)
+	v2 := legacy.Sub_415CD0(v1)
 	if v2 == 0 {
 		return nil
 	}
@@ -203,11 +199,11 @@ func sub_415EF0(id string) *server.ObjectType {
 }
 
 func sub415EC0(id string) *server.ObjectType {
-	v1 := C.sub_415DF0(internCStr(id))
+	v1 := legacy.Sub_415DF0(id)
 	if v1 == 0 {
 		return nil
 	}
-	v2 := C.sub_415CD0(v1)
+	v2 := legacy.Sub_415CD0(v1)
 	if v2 == 0 {
 		return nil
 	}

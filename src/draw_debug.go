@@ -1,36 +1,24 @@
 package opennox
 
-/*
-#include "defs.h"
-#include "GAME4_1.h"
-#include "GAME5_2.h"
-extern void* dword_5d4594_2386176;
-extern uint32_t dword_5d4594_2386180;
-*/
-import "C"
 import (
 	"fmt"
 	"image"
 	"image/color"
 	"strconv"
-	"unsafe"
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 	"github.com/noxworld-dev/opennox-lib/common"
-	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-//export nox_thing_debug_draw
-func nox_thing_debug_draw(cvp *nox_draw_viewport_t, cdr *nox_drawable) int {
+func nox_thing_debug_draw(vp *noxrender.Viewport, dr *client.Drawable) int {
 	c := noxClient
 	r := c.r
-	vp := asViewport(cvp)
-	dr := asDrawable(cdr)
 
 	cl := nox_color_green
 	if uint32(dr.Field_72) >= c.srv.Frame() {
@@ -180,23 +168,14 @@ func drawDebugBox(r *NoxRender, b *server.ShapeBox, p image.Point, cl color.Colo
 	r.DrawLine(p4, p2, cl)
 }
 
-func sub_50CB00() int {
-	return int(C.dword_5d4594_2386180)
-}
-
 func sub_50D210() int {
 	return int(memmap.Int32(0x5D4594, 2386204))
-}
-
-func sub_50CB10() []types.Pointf {
-	sz := sub_50CB00()
-	return unsafe.Slice((*types.Pointf)(C.dword_5d4594_2386176), sz)
 }
 
 func drawDebugAI(vp *noxrender.Viewport) {
 	r := noxClient.r
 
-	if arr := sub_50CB10(); len(arr) >= 2 {
+	if arr := legacy.Sub_50CB10(); len(arr) >= 2 {
 		cur := sub_50D210()
 		var lp image.Point
 		for i := 0; i < len(arr)-1; i++ {
@@ -230,12 +209,12 @@ func drawDebugAI(vp *noxrender.Viewport) {
 		yi := common.GridStep * y
 		for x := xmin; x <= xmax; x++ {
 			xi := common.GridStep * x
-			if C.sub_57B500(C.int(x), C.int(y), 64) != -1 {
+			if legacy.Sub_57B500(x, y, 64) != -1 {
 				r.Data().SetColor2(noxcolor.RGB5551Color(0, 0, 255))
 				r.DrawBorder(xi-vp.World.Min.X, yi-vp.World.Min.Y, common.GridStep, common.GridStep, r.Data().Color2())
 				continue
 			}
-			flags := C.sub_50AB50(C.int(x), C.int(y))
+			flags := legacy.Sub_50AB50(x, y)
 			var cl color.Color
 			if flags&0x40 != 0 {
 				cl = noxcolor.RGB5551Color(0, 255, 0)

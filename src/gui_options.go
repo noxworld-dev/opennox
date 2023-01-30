@@ -1,16 +1,5 @@
 package opennox
 
-/*
-#include "client__gui__window.h"
-#include "GAME1_2.h"
-#include "GAME3.h"
-#include "GAME3_1.h"
-#include "client__shell__inputcfg__inputcfg.h"
-extern void* dword_5d4594_1307292;
-extern void* dword_5d4594_1309720;
-extern nox_gui_animation* nox_wnd_xxx_1309740;
-*/
-import "C"
 import (
 	"fmt"
 	"image"
@@ -25,6 +14,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 )
 
 const (
@@ -81,9 +71,7 @@ func getResolutionOptions() []image.Point {
 	}
 }
 
-//export nox_video_setMenuOptions
-func nox_video_setMenuOptions(cwin *C.nox_window) {
-	root := asWindow(cwin)
+func nox_video_setMenuOptions(root *gui.Window) {
 	mode := noxClient.videoGetGameMode()
 	for i, res := range getResolutionOptions() {
 		if res == (image.Point{}) {
@@ -97,7 +85,6 @@ func nox_video_setMenuOptions(cwin *C.nox_window) {
 	}
 }
 
-//export nox_gui_menu_proc_ext
 func nox_gui_menu_proc_ext(id int) int {
 	opts := getResolutionOptions()
 	if id >= guiIDMenuExt && id < guiIDMenuExt+len(opts) {
@@ -181,75 +168,67 @@ func guiEnhanceOptions(root *gui.Window) {
 		Func94(gui.AsWindowEvent(0x400A, uintptr((math.Log10(float64(noxClient.GetSensitivity()))+1.0)*50), 0))
 }
 
-//export sub_4A19F0
-func sub_4A19F0(name *C.char) {
-	sub4A19F0(strman.ID(GoString(name)))
-}
-
 func sub4A19F0(name strman.ID) {
-	win := asWindowP(C.dword_5d4594_1307292)
+	win := legacy.Get_dword_5d4594_1307292()
 	v1 := win.ChildByID(152)
 	v2 := strMan.GetStringInFile(name, "C:\\NoxPost\\src\\client\\shell\\OptsBack.c")
 	v1.Func94(&gui.StaticTextSetText{Str: v2, Val: -1})
 }
 
-//export sub_4AAA10
 func sub_4AAA10() int {
-	v0p := asGUIAnim(C.nox_wnd_xxx_1309740)
+	v0p := legacy.Get_nox_wnd_xxx_1309740()
 	v0 := *v0p // copy before deletion
 	v0p.Free()
-	asWindowP(C.dword_5d4594_1309720).Destroy()
-	C.sub_4A1A40(1)
+	legacy.Get_dword_5d4594_1309720().Destroy()
+	legacy.Sub_4A1A40(1)
 	v0.Func13()
 	return 1
 }
 
-//export sub_4C3A90
-func sub_4C3A90(a1, a2 int, a3 *C.int, a4 int) int {
+func sub_4C3A90(a1, a2 int, a3 unsafe.Pointer, a4 int) int {
 	if a2 == 23 {
 		return 1
 	}
 	if a2 != 16391 {
 		return 0
 	}
-	win := asWindowP(unsafe.Pointer(a3))
+	win := legacy.AsWindowP(a3)
 	clientPlaySoundSpecial(sound.SoundShellClick, 100)
 	switch win.ID() {
 	case 931:
-		sub_42CD90()
+		legacy.Sub_42CD90()
 		nox_common_readcfgfile("nox.cfg", true)
 		sub_4C3B70()
 	case 932:
-		C.sub_4C35B0(0)
+		legacy.Sub_4C35B0(0)
 	case 933:
 		sub_4C3CB0()
 	case 971, 972, 973:
-		C.sub_430AA0(C.int(win.ID() - 971))
+		legacy.Sub_430AA0(int(win.ID() - 971))
 	}
 	return 0
 }
 
-//export sub_4CBE70
-func sub_4CBE70(a1, a2 int, a3 *C.int, a4 int) int {
+func sub_4CBE70(a1, a2 int, a3 unsafe.Pointer, a4 int) int {
 	if a2 == 23 {
 		return 1
 	}
 	if a2 != 16391 {
 		return 0
 	}
-	win := asWindowP(unsafe.Pointer(a3))
+	win := legacy.AsWindowP(a3)
 	clientPlaySoundSpecial(sound.SoundShellClick, 100)
 	switch win.ID() {
 	case 931:
-		sub_42CD90()
+		legacy.Sub_42CD90()
 		nox_common_readcfgfile("nox.cfg", true)
 		sub_4CBBF0()
 	case 932:
-		C.sub_4CBD30()
+		legacy.Sub_4CBD30()
 	case 933:
 		sub_4CBF40()
 	case 971, 972, 973:
-		C.sub_430AA0(C.int(win.ID() - 971))
+		legacy.Sub_430AA0(int(win.ID() - 971))
 	}
 	return 0
 }

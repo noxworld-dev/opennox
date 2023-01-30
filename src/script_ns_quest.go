@@ -1,14 +1,11 @@
 package opennox
 
-/*
-#include "defs.h"
-void nox_xxx_comJournalEntryAdd_427500(nox_object_t* a1, char* a2, short a3);
-*/
-import "C"
 import (
 	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns"
 
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func (s noxScriptNS) GetQuestStatus(name string) int {
@@ -37,16 +34,14 @@ func (s noxScriptNS) ResetQuestStatus(name string) {
 }
 
 func (s noxScriptNS) JournalEntry(obj ns.Obj, msg ns.StringID, typ ns.EntryType) {
-	str := CString(string(msg))
-	defer StrFree(str)
 	if obj == nil {
 		for _, it := range s.s.getPlayerUnits() {
-			C.nox_xxx_comJournalEntryAdd_427500(it.CObj(), str, C.short(typ))
+			legacy.Nox_xxx_comJournalEntryAdd_427500(it.SObj(), msg, typ)
 		}
 	} else {
-		C.nox_xxx_comJournalEntryAdd_427500(obj.(noxObject).CObj(), str, C.short(typ))
+		legacy.Nox_xxx_comJournalEntryAdd_427500(obj.(server.Obj).SObj(), msg, typ)
 		if (typ & 0xB) != 0 {
-			s.s.AudioEventObj(sound.SoundJournalEntryAdd, obj.(noxObject).AsObject().AsUnit(), 0, 0)
+			s.s.AudioEventObj(sound.SoundJournalEntryAdd, toObject(obj.(server.Obj)).AsUnit(), 0, 0)
 		}
 	}
 }

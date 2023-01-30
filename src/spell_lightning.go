@@ -1,14 +1,14 @@
 package opennox
 
-import "C"
 import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/spell"
+
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-//export nox_xxx_lightningSpellDuration_52FFD0
-func nox_xxx_lightningSpellDuration_52FFD0(a1 unsafe.Pointer, from, to *nox_object_t) {
+func nox_xxx_lightningSpellDuration_52FFD0(a1 unsafe.Pointer, from, to *server.Object) {
 	p := noxServer.spells.duration.newDur()
 	if p == nil {
 		return

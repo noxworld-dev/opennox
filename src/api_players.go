@@ -33,8 +33,8 @@ func (p *Player) dump() *debugPlayerInfo {
 		Serial:   p.Serial(),
 		Active:   p.IsActive(),
 		Class:    p.PlayerClass(),
-		Unit:     p.UnitC().AsObject().dump(),
-		Team:     p.UnitC().Team().dump(),
+		Unit:     p.UnitC().dump(),
+		Team:     dumpTeam(p.UnitC().Team()),
 	}
 }
 

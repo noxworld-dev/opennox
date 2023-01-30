@@ -2,6 +2,8 @@ package opennox
 
 import (
 	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns"
+
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func (s noxScriptNS) Waypoint(name string) ns.WaypointObj {
@@ -14,7 +16,7 @@ func (s noxScriptNS) Waypoint(name string) ns.WaypointObj {
 }
 
 func (s noxScriptNS) WaypointGroup(name string) ns.WaypointGroupObj {
-	g := s.s.mapGroups.GroupByID(name, mapGroupWaypoints)
+	g := s.s.GroupByID(name, server.MapGroupWaypoints)
 	if g == nil {
 		scriptLog.Printf("noxscript: cannot find waypoint group: %q", name)
 		return nil
@@ -24,11 +26,11 @@ func (s noxScriptNS) WaypointGroup(name string) ns.WaypointGroupObj {
 
 type nsWpGroup struct {
 	s *Server
-	g *mapGroup
+	g *server.MapGroup
 }
 
 func (g nsWpGroup) ScriptID() int {
-	return int(g.g.Ind())
+	return int(g.g.Index())
 }
 
 func (g nsWpGroup) Enable(enable bool) {
@@ -51,5 +53,5 @@ func (g nsWpGroup) Toggle() bool {
 
 func (g nsWpGroup) EachWaypoint(recursive bool, fnc func(obj ns.WaypointObj) bool) {
 	// TODO: recursive parameter is unused; remove from interface?
-	g.g.eachWaypointRecursive(g.s, fnc)
+	eachWaypointRecursive(g.s, g.g, fnc)
 }

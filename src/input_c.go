@@ -1,37 +1,5 @@
 package opennox
 
-/*
-#include "GAME1_2.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME2_2.h"
-#include "GAME3_1.h"
-#include "GAME5_2.h"
-#include "client__io__win95__focus.h"
-#include "client__system__parsecmd.h"
-#include "input_common.h"
-#include "MixPatch.h"
-#include "client__gui__tooltip.h"
-#include "client__gui__gamewin__gamewin.h"
-
-extern nox_window* dword_5d4594_1321236;
-extern nox_window* dword_5d4594_1321240;
-extern nox_window* dword_5d4594_1321248;
-extern nox_window* dword_5d4594_1321244;
-
-extern nox_window* dword_5d4594_1522616;
-extern nox_window* dword_5d4594_1522620;
-extern nox_window* dword_5d4594_1522624;
-extern nox_window* dword_5d4594_1522628;
-extern nox_window* dword_5d4594_1062452;
-
-extern void* dword_5d4594_1096640;
-extern void* nox_client_spriteUnderCursorXxx_1096644;
-
-static bool iswalpha_go(wchar_t r) { return iswalpha(r); }
-*/
-import "C"
 import (
 	"image"
 	"sync"
@@ -40,11 +8,12 @@ import (
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
 	"github.com/noxworld-dev/opennox-lib/client/seat"
 
-	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/input"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 var (
@@ -52,29 +21,15 @@ var (
 	inputKeyTimeoutsNew = make(map[keybind.Event]uint32)
 )
 
-//export nox_xxx_setKeybTimeout_4160D0
-func nox_xxx_setKeybTimeout_4160D0(key int) int {
-	inputSetKeyTimeoutLegacy(byte(key))
-	return key
+func sub_416120(key byte) bool {
+	return inputKeyTimeoutsOld[key] != noxServer.Frame()
 }
 
-//export nox_xxx_checkKeybTimeout_4160F0
-func nox_xxx_checkKeybTimeout_4160F0(key C.uchar, dt C.uint) C.bool {
-	return C.bool(inputKeyCheckTimeoutLegacy(byte(key), uint32(dt)))
-}
-
-//export sub_416120
-func sub_416120(key C.uchar) C.bool {
-	return inputKeyTimeoutsOld[byte(key)] != noxServer.Frame()
-}
-
-//export sub_416170
 func sub_416170(key int) int {
 	delete(inputKeyTimeoutsOld, byte(key))
 	return key
 }
 
-//export sub_416150
 func sub_416150(key, ts int) int {
 	if ts == 0 {
 		delete(inputKeyTimeoutsOld, byte(key))
@@ -87,14 +42,6 @@ func sub_416150(key, ts int) int {
 func inputClearKeyTimeouts() {
 	inputKeyTimeoutsOld = make(map[byte]uint32)
 	inputKeyTimeoutsNew = make(map[keybind.Event]uint32)
-}
-
-func nox_xxx_spriteGetMB_476F80() *client.Drawable {
-	return asDrawable((*nox_drawable)(C.dword_5d4594_1096640))
-}
-
-func nox_xxx_clientGetSpriteAtCursor_476F90() *client.Drawable {
-	return asDrawable((*nox_drawable)(C.nox_client_spriteUnderCursorXxx_1096644))
 }
 
 func nox_xxx_guiSpellTest_45D9C0() bool {
@@ -121,68 +68,8 @@ func nox_xxx_guiCursor_477600() uint32 {
 	return memmap.Uint32(0x5D4594, 1096672)
 }
 
-//export nox_client_getMousePos_4309F0
-func nox_client_getMousePos_4309F0() (out C.nox_point) {
-	mpos := noxClient.GetMousePos()
-	out.x = C.int(mpos.X)
-	out.y = C.int(mpos.Y)
-	return
-}
-
-//export nox_xxx_bookGet_430B40_get_mouse_prev_seq
-func nox_xxx_bookGet_430B40_get_mouse_prev_seq() int {
-	return int(noxClient.GetInputSeq())
-}
-
 func nox_client_setMousePos_430B10(x, y int) {
 	noxClient.ChangeMousePos(image.Pt(x, y), true)
-}
-
-//export nox_client_changeMousePos_430A00
-func nox_client_changeMousePos_430A00(x, y int, isAbs C.bool) {
-	noxClient.ChangeMousePos(image.Pt(x, y), bool(isAbs))
-}
-
-//export nox_xxx_setMouseBounds_430A70
-func nox_xxx_setMouseBounds_430A70(xmin, xmax, ymin, ymax int) {
-	noxClient.SetMouseBounds(image.Rect(xmin, ymin, xmax, ymax))
-}
-
-//export nox_input_pollEvents_4453A0
-func nox_input_pollEvents_4453A0() int {
-	// TODO
-	//inpHandler.Tick()
-	return 0
-}
-
-//export nox_input_setSensitivity
-func nox_input_setSensitivity(v C.float) {
-	noxClient.SetSensitivity(float32(v))
-}
-
-//export nox_input_enableTextEdit_5700CA
-func nox_input_enableTextEdit_5700CA() {
-	noxClient.SetTextInput(true)
-}
-
-//export nox_input_disableTextEdit_5700F6
-func nox_input_disableTextEdit_5700F6() {
-	noxClient.SetTextInput(false)
-}
-
-//export nox_input_getStringBuffer_57011C
-func nox_input_getStringBuffer_57011C() *C.wchar_t {
-	p, _ := CWString(noxClient.GetTextEditBuf())
-	return p
-}
-
-//export nox_input_freeStringBuffer_57011C
-func nox_input_freeStringBuffer_57011C(p *C.wchar_t) {
-	StrFree(p)
-}
-
-func noxInputOnChar(c uint16) {
-	C.nox_xxx_onChar_488BD0(C.wchar_t(c))
 }
 
 var keybindTitles struct {
@@ -190,46 +77,18 @@ var keybindTitles struct {
 	byTitle map[string]keybind.Key
 }
 
-//export nox_xxx_keybind_nameByTitle_42E960
-func nox_xxx_keybind_nameByTitle_42E960(title *C.wchar_t) *C.char {
+func nox_xxx_keybind_nameByTitle_42E960(title string) keybind.Key {
 	keybindTitles.Do(func() {
 		keybindTitles.byTitle = make(map[string]keybind.Key)
 		for _, k := range keybind.ListKeys() {
-			keybindTitles.byTitle[k.Title(strMan)] = k
+			keybindTitles.byTitle[k.Title(noxClient.Strings())] = k
 		}
 	})
-	k := keybindTitles.byTitle[GoWString(title)]
-	if k == 0 {
-		return nil
-	}
-	return internCStr(k.String())
+	return keybindTitles.byTitle[title]
 }
 
-//export nox_xxx_keybind_titleByKey_42EA00
-func nox_xxx_keybind_titleByKey_42EA00(key C.uint) *C.wchar_t {
-	k := keybind.Key(key)
-	if !k.IsValid() {
-		return internWStr("")
-	}
-	return internWStr(k.Title(strMan))
-}
-
-//export nox_xxx_keybind_titleByKeyZero_42EA00
-func nox_xxx_keybind_titleByKeyZero_42EA00(key C.uint) *C.wchar_t {
-	k := keybind.Key(key)
-	if !k.IsValid() {
-		return nil
-	}
-	return internWStr(k.Title(strMan))
-}
-
-//export nox_xxx_bindevent_bindNameByTitle_42EA40
-func nox_xxx_bindevent_bindNameByTitle_42EA40(title *C.wchar_t) *C.char {
-	b := keyBinding.EventByTitle(GoWString(title))
-	if b == nil {
-		return nil
-	}
-	return internCStr(b.Name)
+func nox_xxx_bindevent_bindNameByTitle_42EA40(title string) *keybind.BindEvent {
+	return keyBinding.EventByTitle(title)
 }
 
 func sub_4C3CB0() {
@@ -244,12 +103,11 @@ func sub_4CBF40() {
 	sub_4CBBF0()
 }
 
-//export sub_4C3B70
 func sub_4C3B70() {
-	win36 := asWindow(C.dword_5d4594_1321236)
-	win40 := asWindow(C.dword_5d4594_1321240)
-	win44 := asWindow(C.dword_5d4594_1321244)
-	win48 := asWindow(C.dword_5d4594_1321248)
+	win36 := legacy.Get_dword_5d4594_1321236()
+	win40 := legacy.Get_dword_5d4594_1321240()
+	win44 := legacy.Get_dword_5d4594_1321244()
+	win48 := legacy.Get_dword_5d4594_1321248()
 	win36.Func94(gui.AsWindowEvent(0x400F, 0, 0))
 	win40.Func94(gui.AsWindowEvent(0x400F, 0, 0))
 	win44.Func94(gui.AsWindowEvent(0x400F, 0, 0))
@@ -260,8 +118,8 @@ func sub_4C3B70() {
 		}
 		win40.Func94(&WindowEvent0x400d{Str: ev.Title, Val: -1})
 		win36.Func94(&WindowEvent0x400d{Str: " ", Val: -1})
-		v2 := ctrlEvent.sub_42E8E0_go(ev.Event, 1)
-		v3 := ctrlEvent.sub_42E8E0_go(ev.Event, 2)
+		v2 := ctrlEvent.Sub_42E8E0_go(ev.Event, 1)
+		v3 := ctrlEvent.Sub_42E8E0_go(ev.Event, 2)
 		if v2 != "" {
 			win44.Func94(&WindowEvent0x400d{Str: v2, Val: -1})
 		} else {
@@ -275,12 +133,11 @@ func sub_4C3B70() {
 	}
 }
 
-//export sub_4CBBF0
 func sub_4CBBF0() {
-	win16 := asWindow(C.dword_5d4594_1522616)
-	win20 := asWindow(C.dword_5d4594_1522620)
-	win24 := asWindow(C.dword_5d4594_1522624)
-	win28 := asWindow(C.dword_5d4594_1522628)
+	win16 := legacy.Get_dword_5d4594_1522616()
+	win20 := legacy.Get_dword_5d4594_1522620()
+	win24 := legacy.Get_dword_5d4594_1522624()
+	win28 := legacy.Get_dword_5d4594_1522628()
 	win16.Func94(gui.AsWindowEvent(0x400F, 0, 0))
 	win20.Func94(gui.AsWindowEvent(0x400F, 0, 0))
 	win24.Func94(gui.AsWindowEvent(0x400F, 0, 0))
@@ -291,8 +148,8 @@ func sub_4CBBF0() {
 		}
 		win20.Func94(&WindowEvent0x400d{Str: ev.Title, Val: -1})
 		win16.Func94(&WindowEvent0x400d{Str: " ", Val: -1})
-		v2 := ctrlEvent.sub_42E8E0_go(ev.Event, 1)
-		v3 := ctrlEvent.sub_42E8E0_go(ev.Event, 2)
+		v2 := ctrlEvent.Sub_42E8E0_go(ev.Event, 1)
+		v3 := ctrlEvent.Sub_42E8E0_go(ev.Event, 2)
 		if v2 != "" {
 			win24.Func94(&WindowEvent0x400d{Str: v2, Val: -1})
 		} else {
@@ -309,16 +166,15 @@ func sub_4CBBF0() {
 func (c *Client) nox_client_processInput_4308A0() {
 	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(noxflags.GameModeQuest) && c.Inp.SeqDelay() > 2700 {
 		if !noxflags.HasGame(noxflags.GameHost) {
-			nox_xxx_netServerCmd_440950(0, GoWString((*C.wchar_t)(memmap.PtrOff(0x587000, 80784))))
+			nox_xxx_netServerCmd_440950(0, alloc.GoString16((*uint16)(memmap.PtrOff(0x587000, 80784))))
 			return
 		}
 		if p := getCurPlayer(); p != nil {
-			nox_xxx_serverHandleClientConsole_443E90(p, 0, GoWString((*C.wchar_t)(memmap.PtrOff(0x587000, 80792))))
+			nox_xxx_serverHandleClientConsole_443E90(p, 0, alloc.GoString16((*uint16)(memmap.PtrOff(0x587000, 80792))))
 		}
 	}
 }
 
-//export nox_input_reset_430140
 func nox_input_reset_430140(a1 int) {
 	noxClient.ResetInput()
 }
@@ -329,7 +185,7 @@ func nox_xxx_freeKeyboard_430210() {
 
 func nox_xxx_initInput_430190() error {
 	inputInitMouse()
-	C.sub_42EBB0(2, (*[0]byte)(C.nox_input_reset_430140), 0, internCStr("Input"))
+	legacy.Sub_42EBB0(2, legacy.Get_nox_input_reset_430140(), 0, "Input")
 	return nil
 }
 
@@ -375,7 +231,7 @@ func (c *CtrlEventHandler) nox_xxx_input_42D220_A(inp *input.Handler) *CtrlEvent
 		li := -1
 		for i, key := range it.keys {
 			if key.IsKeyboard() {
-				if nox_xxx_wndGetFocus_46B4F0() != nil || C.sub_46A4A0() != 0 {
+				if noxClient.GUI.Focused() != nil || legacy.Sub_46A4A0() != 0 {
 					break
 				}
 				if inp.IsReleased(key) {
@@ -414,7 +270,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 	if memmap.Uint32(0x5D4594, 1064940) != 0 {
 		return
 	}
-	if C.nox_xxx_playerAnimCheck_4372B0() != 0 {
+	if legacy.Nox_xxx_playerAnimCheck_4372B0() != 0 {
 		return
 	}
 	if nox_xxx_checkGameFlagPause_413A50() {
@@ -423,10 +279,10 @@ func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 	if nox_xxx_guiCursor_477600() != 0 {
 		return
 	}
-	if C.nox_xxx_clientIsObserver_4372E0() != 0 {
+	if legacy.Nox_xxx_clientIsObserver_4372E0() != 0 {
 		return
 	}
-	v42 := int(C.sub_4675B0())
+	v42 := legacy.Sub_4675B0()
 	if v42 == 5 {
 		c.Nox_client_setCursorType(gui.CursorIdentify)
 		return
@@ -435,18 +291,18 @@ func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 		c.Nox_client_setCursorType(gui.CursorRepair)
 		return
 	}
-	sprite := nox_xxx_clientGetSpriteAtCursor_476F90()
+	sprite := legacy.Nox_xxx_clientGetSpriteAtCursor_476F90()
 	if sprite == nil {
-		if C.sub_479590() == 2 {
+		if legacy.Sub_479590() == 2 {
 			c.Nox_client_setCursorType(gui.CursorBuy)
-		} else if C.sub_479590() == 3 {
+		} else if legacy.Sub_479590() == 3 {
 			c.Nox_client_setCursorType(gui.CursorSell)
 		}
 		return
 	}
 	var v65 image.Point
-	if sprite.Flags28()&0x400006 == 0 || C.nox_xxx_sprite_4C3220((*nox_drawable)(sprite.C())) != 0 || sprite.Flags28()&2 != 0 && sprite.Flags29()&8 != 0 || sprite.Flags28()&2 != 0 && sprite.Flags70()&0x10 != 0 {
-		v46 := asWindow(C.dword_5d4594_1062452)
+	if sprite.Flags28()&0x400006 == 0 || legacy.Nox_xxx_sprite_4C3220(sprite) != 0 || sprite.Flags28()&2 != 0 && sprite.Flags29()&8 != 0 || sprite.Flags28()&2 != 0 && sprite.Flags70()&0x10 != 0 {
+		v46 := legacy.Get_dword_5d4594_1062452()
 		for v47 := c.GUI.Last(); v47 != nil; v47 = v47.Prev() {
 			if v47.Flags.Has(gui.StatusHidden) {
 				continue
@@ -466,7 +322,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 						break
 					}
 				}
-				if v47 != nil && C.nox_xxx_wnd_46C2A0((*C.nox_window)(v47.C())) != 1 {
+				if v47 != nil && legacy.Nox_xxx_wnd_46C2A0(v47) != 1 {
 					return
 				}
 				break
@@ -481,7 +337,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 		if sprite.Flags28()&0x80000000 == 0 || c.dragndropGetItem() != nil {
 			if v54 < 125*125 {
 				if p := getCurPlayer(); p != nil {
-					if p.Field3680&0x200 == 0 && C.sub_478030() == 0 {
+					if p.Field3680&0x200 == 0 && legacy.Sub_478030() == 0 {
 						if sprite.Flags28()&2 != 0 && sprite.Flags70()&0x10 != 0 {
 							c.Nox_client_setCursorType(gui.CursorTalk)
 						} else if sprite.Flags28()&2 != 0 && sprite.Flags29()&8 != 0 {
@@ -492,20 +348,20 @@ func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 			}
 		} else {
 			if v63 {
-				v55 := C.nox_xxx_clientAskInfoMb_4BF050((*nox_drawable)(sprite.C()))
-				C.nox_xxx_cursorSetTooltip_4776B0(v55)
+				v55 := legacy.Nox_xxx_clientAskInfoMb_4BF050(sprite)
+				legacy.Nox_xxx_cursorSetTooltip_4776B0(v55)
 			}
 			if v54 >= 75*75 {
 				c.Nox_client_setCursorType(gui.CursorPickupFar)
 			} else {
-				if noxflags.HasGame(noxflags.GameModeCoop|noxflags.GameModeQuest) || C.sub_57B450((*nox_drawable)(sprite.C())) != 0 {
+				if noxflags.HasGame(noxflags.GameModeCoop|noxflags.GameModeQuest) || legacy.Sub_57B450(sprite) != 0 {
 					c.Nox_client_setCursorType(gui.CursorPickup)
 				} else {
 					c.Nox_client_setCursorType(gui.CursorCaution)
 				}
-				v56 := C.nox_client_mousePriKey_430AF0()
-				if v66[v56] == int(C.nox_xxx_cursor_430B00()) {
-					C.nox_xxx_clientPickup_46C140((*nox_drawable)(sprite.C()))
+				v56 := legacy.Nox_client_mousePriKey_430AF0()
+				if v66[v56] == legacy.Nox_xxx_cursor_430B00() {
+					legacy.Nox_xxx_clientPickup_46C140(sprite)
 					v66[v56] = 0
 				}
 			}
@@ -513,7 +369,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740_sprites(v63 bool, v66 []int) {
 	} else {
 		mimic := memmap.Uint32(0x5D4594, 1064944)
 		if mimic == 0 {
-			mimic = uint32(nox_things.IndByID("Mimic"))
+			mimic = uint32(c.Things.IndByID("Mimic"))
 			*memmap.PtrUint32(0x5D4594, 1064944) = mimic
 		}
 		if sprite.Flags28()&0x400000 != 0 && sprite.Flags29()&0x80 != 0 && sprite.Flags70()&0xC == 0 || uint32(sprite.Field_27) == mimic && sprite.Field_69 == 0 {
@@ -543,8 +399,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 	states[3] = c.Inp.GetMouseWheel()
 
 	mpos := c.Inp.GetMousePos()
-
-	C.nox_xxx_cursorSetTooltip_4776B0(nil)
+	legacy.Nox_xxx_cursorSetTooltip_4776B0("")
 	if nox_client_gui_flag_815132 != 0 || nox_xxx_guiCursor_477600() != 0 {
 		c.Nox_client_setCursorType(gui.CursorSelect)
 	} else {
@@ -582,7 +437,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 		c.Nox_client_setCursorType(gui.CursorSelect)
 		switch input.MouseStateCode(states[input.NOX_MOUSE_LEFT]) {
 		case 0, input.NOX_MOUSE_LEFT_PRESSED:
-			if c.GUI.WinYYY.Flags.Has(4) && C.sub_45D9B0() == 0 {
+			if c.GUI.WinYYY.Flags.Has(4) && legacy.Sub_45D9B0() == 0 {
 				dp := c.Inp.GetMouseRel()
 				off := c.GUI.WinYYY.Offs()
 				end := c.GUI.WinYYY.End()
@@ -657,7 +512,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 				continue
 			}
 			if v24.PointIn(mpos) {
-				v28 := asWindow(C.sub_46B630((*C.nox_window)(v24.C()), C.int(mpos.X), C.int(mpos.Y)))
+				v28 := legacy.Sub_46B630(v24, mpos.X, mpos.Y)
 				if v0 == nil && (v28.TooltipFuncPtr != nil || v28.DrawData().Tooltip() != "") {
 					v0 = v28
 				}
@@ -676,7 +531,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 				continue
 			}
 			if v29.PointIn(mpos) {
-				v32 := asWindow(C.sub_46B630((*C.nox_window)(v29.C()), C.int(mpos.X), C.int(mpos.Y)))
+				v32 := legacy.Sub_46B630(v29, mpos.X, mpos.Y)
 				if v0 == nil && (v32.TooltipFuncPtr != nil || v32.DrawData().Tooltip() != "") {
 					v0 = v32
 				}
@@ -698,7 +553,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 				continue
 			}
 			if v1.PointIn(mpos) {
-				v36 := asWindow(C.sub_46B630((*C.nox_window)(v1.C()), C.int(mpos.X), C.int(mpos.Y)))
+				v36 := legacy.Sub_46B630(v1, mpos.X, mpos.Y)
 				if v0 == nil && (v36.TooltipFuncPtr != nil || v36.DrawData().Tooltip() != "") {
 					v0 = v36
 				}
@@ -750,7 +605,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 			v0 = v61
 		}
 	LABEL_113:
-		if v0 == nil && C.nox_xxx_wnd_46C2A0((*C.nox_window)(v1.C())) != 0 {
+		if v0 == nil && legacy.Nox_xxx_wnd_46C2A0(v1) != 0 {
 			v0 = v1
 		}
 		if c.Inp.GetDistSlow() {
@@ -761,7 +616,7 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 					spos := uintptr(uint32(sx) | (uint32(sy) << 16))
 					v0.TooltipFunc(spos)
 				} else if str := v0.DrawData().Tooltip(); str != "" {
-					C.nox_xxx_cursorSetTooltip_4776B0(internWStr(str))
+					legacy.Nox_xxx_cursorSetTooltip_4776B0(str)
 				}
 			} else {
 				v63 = true
@@ -790,9 +645,4 @@ func (c *Client) nox_xxx_cursorUpdate_46B740() {
 		c.GUI.WinYYY = nil
 	}
 	c.GUI.FreeDestroyed()
-}
-
-//export nox_input_scanCodeToAlpha_47F950
-func nox_input_scanCodeToAlpha_47F950(r C.ushort) C.ushort {
-	return C.ushort(noxClient.Inp.KeyToWChar(keybind.Key(r)))
 }

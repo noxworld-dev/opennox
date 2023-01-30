@@ -1,25 +1,17 @@
 package opennox
 
-/*
-#include "defs.h"
-void nox_xxx_updateFallLogic_51B870(nox_object_t* a1);
-char nox_xxx_unitHasCollideOrUpdateFn_537610(nox_object_t* a1p);
-void nox_xxx_unitNeedSync_4E44F0(nox_object_t* a1);
-void sub_51B810(nox_object_t* a1);
-void sub_537770(nox_object_t* a1);
-nox_object_t* nox_xxx_findObjectAtCursor_54AF40(nox_object_t* a1);
-*/
-import "C"
 import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
-	"github.com/noxworld-dev/opennox/v1/internal/ccall"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func (s *Server) itemsApplyUpdateEffect(a1 *Object) {
+func (s *Server) itemsApplyUpdateEffect(a1 *server.Object) {
 	for it := asObjectS(a1.InvFirstItem); it != nil; it = asObjectS(it.InvNextItem) {
 		const maskItems = object.ClassFlag | object.ClassWeapon | object.ClassArmor | object.ClassWand
 		if it.Flags().Has(object.FlagEquipped) && it.Class().HasAny(maskItems) {
@@ -27,7 +19,7 @@ func (s *Server) itemsApplyUpdateEffect(a1 *Object) {
 			for _, mod := range idata {
 				if mod != nil {
 					if fnc := *(*unsafe.Pointer)(unsafe.Add(mod, 100)); fnc != nil {
-						ccall.CallVoidPtr3(fnc, mod, unsafe.Pointer(it.CObj()), nil)
+						ccall.CallVoidPtr3(fnc, mod, it.SObj().CObj(), nil)
 					}
 				}
 			}
@@ -37,9 +29,9 @@ func (s *Server) itemsApplyUpdateEffect(a1 *Object) {
 
 func (s *Server) updateUnitsAAA() { // nox_xxx_updateUnits_51B100_A
 	for _, u := range s.getPlayerUnits() {
-		s.itemsApplyUpdateEffect(u.AsObject())
+		s.itemsApplyUpdateEffect(u.SObj())
 		ud := u.UpdateDataPlayer()
-		ud.CursorObj = asObjectC(C.nox_xxx_findObjectAtCursor_54AF40(u.CObj())).SObj()
+		ud.CursorObj = legacy.Nox_xxx_findObjectAtCursor_54AF40(u.SObj())
 	}
 }
 
@@ -68,7 +60,7 @@ func (s *Server) updateUnitsBBB() { // nox_xxx_updateUnits_51B100_B
 		if obj.Class().Has(object.ClassMonster) {
 			obj.NeedSync()
 		}
-		C.nox_xxx_updateFallLogic_51B870(obj.CObj())
+		legacy.Nox_xxx_updateFallLogic_51B870(obj.SObj())
 		if h := obj.HealthData; h != nil {
 			h.Field2 = h.Cur
 		}
@@ -80,7 +72,7 @@ func (s *Server) updateUnitsBBB() { // nox_xxx_updateUnits_51B100_B
 			obj.VelVec.X <= -dpos || obj.VelVec.X >= dpos || obj.VelVec.Y <= -dpos || obj.VelVec.Y >= dpos ||
 			dxr <= -dpos || dxr >= dpos || dyr <= -dpos || dyr >= dpos ||
 			obj.ZVal <= -dpos || obj.ZVal >= dpos || obj.Field27 <= -dpos || obj.Field27 >= dpos {
-			C.nox_xxx_unitHasCollideOrUpdateFn_537610(obj.CObj())
+			legacy.Nox_xxx_unitHasCollideOrUpdateFn_537610(obj.SObj())
 			obj.ObjFlags &^= uint32(object.FlagStill)
 		} else {
 			obj.ForceVec = types.Pointf{}
@@ -102,15 +94,15 @@ func (s *Server) updateUnitsCallUpdate() { // nox_xxx_updateUnits_51B100_callUpd
 			continue
 		}
 		obj.CallUpdate()
-		C.nox_xxx_updateFallLogic_51B870(obj.CObj())
-		C.sub_51B810(obj.CObj())
-		C.sub_537770(obj.CObj())
+		legacy.Nox_xxx_updateFallLogic_51B870(obj.SObj())
+		legacy.Sub_51B810(obj.SObj())
+		legacy.Sub_537770(obj.SObj())
 		prev := obj.Pos()
 		obj.Direction1 = obj.Direction2
 		npos := obj.NewPos
 		obj.PrevPos = prev
 		obj.PosVec = npos
 		obj.ForceVec = types.Pointf{}
-		nox_xxx_moveUpdateSpecial_517970(obj.CObj())
+		nox_xxx_moveUpdateSpecial_517970(obj.SObj())
 	}
 }

@@ -9,6 +9,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/console"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 )
 
 func init() {
@@ -43,7 +44,7 @@ func init() {
 		Flags:  console.Server | console.Cheat,
 		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			return noxCmdSetBool(c, tokens, func(allow bool) {
-				cheatEquipAll(allow)
+				legacy.CheatEquipAll(allow)
 				if allow {
 					c.Print(console.ColorLightYellow, "all players are allowed to equip all items")
 				} else {
@@ -59,7 +60,7 @@ func init() {
 		Flags:  console.Server | console.Cheat,
 		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			return noxCmdSetBool(c, tokens, func(allow bool) {
-				cheatCharmAll(allow)
+				legacy.CheatCharmAll(allow)
 				if allow {
 					c.Print(console.ColorLightYellow, "players can charm any creature")
 				} else {
@@ -75,7 +76,7 @@ func init() {
 		Flags:  console.Server | console.Cheat,
 		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 			return noxCmdSetBool(c, tokens, func(allow bool) {
-				cheatSummonNoLimit(allow)
+				legacy.CheatSummonNoLimit(allow)
 				if allow {
 					c.Print(console.ColorLightYellow, "players can summon any number of creatures")
 					c.Print(console.ColorLightRed, "the game may be unstable with this enabled")

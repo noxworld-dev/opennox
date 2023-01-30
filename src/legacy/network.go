@@ -1,0 +1,366 @@
+package legacy
+
+/*
+#include "defs.h"
+#include "common__net_list.h"
+#include "GAME1.h"
+#include "GAME1_1.h"
+#include "GAME2_3.h"
+#include "GAME3.h"
+#include "GAME3_2.h"
+#include "GAME4_2.h"
+#include "GAME5.h"
+#include "GAME5_2.h"
+extern unsigned int dword_5d4594_2649712;
+extern unsigned int dword_5d4594_2660032;
+extern unsigned int dword_5d4594_814548;
+extern unsigned int dword_5d4594_2650652;
+extern unsigned int nox_player_netCode_85319C;
+extern unsigned long long qword_5d4594_814956;
+extern uint32_t dword_5d4594_1200804;
+extern uint32_t dword_5d4594_1200832;
+unsigned int nox_client_getServerAddr_43B300();
+void nox_xxx_playerInitColors_461460(nox_playerInfo* pl);
+int nox_xxx_gameClearAll_467DF0(int a1);
+int nox_client_getServerPort_43B320();
+int sub_419E60(nox_object_t* a1);
+int sub_457140(int a1, wchar_t* a2);
+int sub_43AF90(int a1);
+int sub_456DF0(int a1);
+void sub_455950(wchar_t* a1);
+int sub_455920(wchar_t* a1);
+void sub_519E80(int a1);
+int sub_43C650();
+int sub_467CA0();
+void* sub_49BB80(char a1);
+int* nox_xxx_guiServerOptionsHide_4597E0(int a1);
+int nox_net_importantACK_4E55A0(int a1, int a2);
+void nox_xxx_netMapSend_519D20(int a1);
+int nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1);
+int nox_xxx_netClientSend2_4E53C0(int a1, const void* a2, int a3, int a4, int a5);
+void* nox_xxx_spriteGetMB_476F80();
+int nox_xxx_netSendPacket_4E5030(int a1, const void* a2, signed int a3, int a4, int a5, char a6);
+int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz);
+static int nox_xxx_netSendLineMessage_go(nox_object_t* a1, wchar_t* str) {
+	return nox_xxx_netSendLineMessage_4D9EB0(a1, str);
+}
+
+extern float nox_xxx_warriorMaxHealth_587000_312784;
+extern float nox_xxx_warriorMaxMana_587000_312788;
+
+extern float nox_xxx_conjurerMaxHealth_587000_312800;
+extern float nox_xxx_conjurerMaxMana_587000_312804;
+
+extern float nox_xxx_wizardMaxHealth_587000_312816;
+extern float nox_xxx_wizardMaximumMana_587000_312820;
+
+nox_drawable* nox_xxx_netSpriteByCodeDynamic_45A6F0(int a1);
+nox_drawable* nox_xxx_netSpriteByCodeStatic_45A720(int a1);
+
+int nox_xxx_netPlayerObjSend_518C30(nox_object_t* a1, nox_object_t* a2, int a3, signed int a4);
+int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char* data, int dsz, nox_playerInfo* v8p, nox_object_t* unitp, void* v10p);
+int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data, int sz);
+*/
+import "C"
+import (
+	"image"
+	"net"
+	"net/netip"
+	"unsafe"
+
+	"github.com/noxworld-dev/opennox-lib/noxnet"
+	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/server"
+)
+
+var (
+	NetworkLogPrint                   func(str string)
+	Nox_xxx_netGet_43C750             func() int
+	ClientSetServerHost               func(addr string)
+	Nox_client_joinGame_438A90        func() int
+	SendXXX_5550D0                    func(addr netip.AddrPort, data []byte) (int, error)
+	Sub_5545A0                        func() uint16
+	Sub_554230                        func() string
+	Nox_xxx_netSendSock_552640        func(id int, ptr *byte, sz int, flags int) int
+	Nox_xxx_netStatsMultiplier_4D9C20 func(a1p *server.Object) int
+	Sub_554240                        func(a1 int) int
+	Nox_xxx_netSendReadPacket_5528B0  func(ind int, a2 byte) int
+	Nox_xxx_net_getIP_554200          func(a1 int) uint32
+	Sub_519930                        func(a1 int) int
+	Nox_xxx_netOnPacketRecvCli_48EA70 func(ind int, buf *byte, sz int) int
+	Sub_43C6E0                        func() int
+	Sub_43CF40                        func()
+	Sub_43CF70                        func()
+)
+
+func int2ip(v uint32) netip.Addr {
+	b := (*[4]byte)(unsafe.Pointer(&v))[:]
+	ip := net.IPv4(b[0], b[1], b[2], b[3])
+	addr, _ := netip.AddrFromSlice(ip.To4())
+	return addr
+}
+
+func ip2int(ip netip.Addr) uint32 {
+	if !ip.IsValid() {
+		return 0
+	}
+	b := ip.As4()
+	v := *(*uint32)(unsafe.Pointer(&b[0]))
+	return v
+}
+
+//export nox_xxx_networkLog_print
+func nox_xxx_networkLog_print(cstr *C.char) {
+	NetworkLogPrint(GoString(cstr))
+}
+
+//export nox_xxx_netGet_43C750
+func nox_xxx_netGet_43C750() int { return Nox_xxx_netGet_43C750() }
+
+//export nox_client_setServerConnectAddr_435720
+func nox_client_setServerConnectAddr_435720(addr *C.char) {
+	ClientSetServerHost(GoString(addr))
+}
+
+//export nox_client_joinGame_438A90
+func nox_client_joinGame_438A90() int { return Nox_client_joinGame_438A90() }
+
+//export sub_5550D0
+func sub_5550D0(addr int, port C.uint16_t, cdata *C.char) int {
+	buf := unsafe.Slice((*byte)(unsafe.Pointer(cdata)), 22)
+	n, err := SendXXX_5550D0(netip.AddrPortFrom(int2ip(uint32(addr)), uint16(port)), buf)
+	return convSendToServerErr(n, err)
+}
+
+//export sub_5545A0
+func sub_5545A0() C.short { return C.short(Sub_5545A0()) }
+
+//export sub_554230
+func sub_554230() *C.char { return internCStr(Sub_554230()) }
+
+//export nox_xxx_netSendSock_552640
+func nox_xxx_netSendSock_552640(id int, ptr *byte, sz int, flags int) int {
+	return Nox_xxx_netSendSock_552640(id, ptr, sz, flags)
+}
+
+//export nox_xxx_netStatsMultiplier_4D9C20
+func nox_xxx_netStatsMultiplier_4D9C20(a1p *nox_object_t) int {
+	return Nox_xxx_netStatsMultiplier_4D9C20(asObjectS(a1p))
+}
+
+//export sub_554240
+func sub_554240(a1 int) int { return Sub_554240(a1) }
+
+//export nox_xxx_netSendReadPacket_5528B0
+func nox_xxx_netSendReadPacket_5528B0(ind int, a2 byte) int {
+	return Nox_xxx_netSendReadPacket_5528B0(ind, a2)
+}
+
+//export nox_xxx_net_getIP_554200
+func nox_xxx_net_getIP_554200(a1 int) uint32 { return Nox_xxx_net_getIP_554200(a1) }
+
+//export sub_519930
+func sub_519930(a1 int) int { return Sub_519930(a1) }
+
+//export nox_xxx_netOnPacketRecvCli_48EA70
+func nox_xxx_netOnPacketRecvCli_48EA70(ind int, buf *byte, sz int) int {
+	return Nox_xxx_netOnPacketRecvCli_48EA70(ind, buf, sz)
+}
+
+//export sub_43C6E0
+func sub_43C6E0() int { return Sub_43C6E0() }
+
+//export sub_43CF40
+func sub_43CF40() { Sub_43CF40() }
+
+//export sub_43CF70
+func sub_43CF70() { Sub_43CF70() }
+
+func ClientGetServerPort() int {
+	return int(C.nox_client_getServerPort_43B320())
+}
+
+func Sub_43AF90(v int) {
+	C.dword_5d4594_814548 = C.uint(v)
+}
+
+func Nox_xxx_netSendPacket_4E5030(a1 int, buf []byte, a4, a5, a6 int) int {
+	b, free := alloc.CloneSlice(buf)
+	defer free()
+	return int(C.nox_xxx_netSendPacket_4E5030(C.int(a1), unsafe.Pointer(&b[0]), C.int(len(b)), C.int(a4), C.int(a5), C.char(a6)))
+}
+
+func Nox_client_getServerAddr_43B300() netip.Addr {
+	return int2ip(uint32(C.nox_client_getServerAddr_43B300()))
+}
+
+func Nox_xxx_netSendLineMessage_4D9EB0(u *server.Object, s string) bool {
+	_ = noxnet.MSG_TEXT_MESSAGE
+	cstr, free := CWString(s)
+	defer free()
+	return C.nox_xxx_netSendLineMessage_go(asObjectC(u), cstr) != 0
+}
+
+func Nox_xxx_earthquakeSend_4D9110(pos types.Pointf, a2 int) {
+	cpos, pfree := alloc.Make([]float32{}, 2)
+	defer pfree()
+	cpos[0] = pos.X
+	cpos[1] = pos.Y
+
+	C.nox_xxx_earthquakeSend_4D9110((*C.float)(unsafe.Pointer(&cpos[0])), C.int(a2))
+}
+
+func Nox_xxx_netSendFxAllCli_523030(pos types.Pointf, data []byte) bool {
+	cdata, dfree := alloc.Make([]byte{}, len(data))
+	defer dfree()
+	copy(cdata, data)
+
+	cpos, pfree := alloc.Make([]float32{}, 2)
+	defer pfree()
+	cpos[0] = pos.X
+	cpos[1] = pos.Y
+
+	return C.nox_xxx_netSendFxAllCli_523030((*C.float2)(unsafe.Pointer(&cpos[0])), unsafe.Pointer(&cdata[0]), C.int(len(data))) != 0
+}
+
+func Nox_xxx_servCode_523340(p1, p2 image.Point, data []byte) bool {
+	cdata, dfree := alloc.Make([]byte{}, len(data))
+	defer dfree()
+	copy(cdata, data)
+
+	cpos, pfree := alloc.Make([]int32{}, 4)
+	defer pfree()
+	cpos[0] = int32(p1.X)
+	cpos[1] = int32(p1.Y)
+	cpos[2] = int32(p2.X)
+	cpos[3] = int32(p2.Y)
+
+	return C.nox_xxx_servCode_523340((*C.int)(unsafe.Pointer(&cpos[0])), unsafe.Pointer(&cdata[0]), C.int(len(data))) != 0
+}
+
+func Nox_server_makeServerInfoPacket_554040(src, dst []byte) int {
+	csrc, free := alloc.Make([]byte{}, len(src))
+	defer free()
+	copy(csrc, src)
+	return int(C.nox_server_makeServerInfoPacket_554040((*C.char)(unsafe.Pointer(&src[0])), C.int(len(src)), (*C.char)(unsafe.Pointer(&dst[0]))))
+}
+
+func Sub_40A740() int {
+	return int(C.sub_40A740())
+}
+
+func Sub_417DE0() int {
+	return int(C.sub_417DE0())
+}
+
+func Nox_xxx_countObserverPlayers_425BF0() int {
+	return int(C.nox_xxx_countObserverPlayers_425BF0())
+}
+
+func Sub_43C650() {
+	C.sub_43C650()
+}
+
+func Sub_41D6C0() {
+	C.sub_41D6C0()
+}
+
+func Sub_49C7A0() {
+	C.sub_49C7A0()
+}
+func Sub_467CA0() {
+	C.sub_467CA0()
+}
+func Sub_48D660() {
+	C.sub_48D660()
+}
+func Sub_40A220() int {
+	return int(C.sub_40A220())
+}
+func Sub_40A230() uint32 {
+	return uint32(C.sub_40A230())
+}
+
+func convSendToServerErr(n int, err error) int {
+	if err == client.ErrLobbyNoSocket {
+		return -17
+	} else if err != nil {
+		return -1
+	}
+	return n
+}
+func Nox_xxx_netClientSend2_4E53C0(a1 int, a2 unsafe.Pointer, a3 int, a4 int, a5 int) {
+	C.nox_xxx_netClientSend2_4E53C0(C.int(a1), a2, C.int(a3), C.int(a4), C.int(a5))
+}
+func Nox_xxx_gameClearAll_467DF0(a1 int) {
+	C.nox_xxx_gameClearAll_467DF0(C.int(a1))
+}
+func Sub_57B920(a1 unsafe.Pointer) {
+	C.sub_57B920(a1)
+}
+func Nox_xxx_cliSetSettingsAcquired_4169D0(a1 int) {
+	C.nox_xxx_cliSetSettingsAcquired_4169D0(C.int(a1))
+}
+func Sub_457140(a1 int, a2 *uint16) {
+	C.sub_457140(C.int(a1), (*C.ushort)(unsafe.Pointer(a2)))
+}
+func Sub_455920(a1 *uint16) {
+	C.sub_455920((*C.ushort)(unsafe.Pointer(a1)))
+}
+func Sub_456DF0(a1 int) {
+	C.sub_456DF0(C.int(a1))
+}
+func Sub_455950(a1 *uint16) {
+	C.sub_455950((*C.ushort)(unsafe.Pointer(a1)))
+}
+func Nox_xxx_netChangeTeamMb_419570(a1 unsafe.Pointer, a2 uint32) {
+	C.nox_xxx_netChangeTeamMb_419570(a1, C.int(a2))
+}
+func Sub_49BB80(a1 byte) {
+	C.sub_49BB80(C.char(a1))
+}
+func Nox_xxx_netSpriteByCodeStatic_45A720(a1 int) *client.Drawable {
+	return asDrawable(C.nox_xxx_netSpriteByCodeStatic_45A720(C.int(a1)))
+}
+func Nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int, a2 noxnet.Op, data []byte) int {
+	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(a1), C.int(a2), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data))))
+}
+func Sub_4DDE10(a1 int, a2 *server.Player) {
+	C.sub_4DDE10(C.int(a1), (*nox_playerInfo)(a2.C()))
+}
+func Nox_xxx_netPlayerObjSend_518C30(a1 *server.Object, a2 *server.Object, a3 int, a4 int) int {
+	return int(C.nox_xxx_netPlayerObjSend_518C30(asObjectC(a1), asObjectC(a2), C.int(a3), C.int(a4)))
+}
+func Nox_xxx_gameServerReadyMB_4DD180(a1 int) {
+	C.nox_xxx_gameServerReadyMB_4DD180(C.int(a1))
+}
+func Nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(a1 int) {
+	C.nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(C.int(a1))
+}
+func Sub_519E80(a1 int) {
+	C.sub_519E80(C.int(a1))
+}
+func Nox_xxx_teamCompare2_419180(a1 unsafe.Pointer, a2 uint8) int {
+	return int(C.nox_xxx_teamCompare2_419180(a1, C.uchar(a2)))
+}
+func Sub_4D12A0(a1 int) int {
+	return int(C.sub_4D12A0(C.int(a1)))
+}
+func Sub_4D1210(a1 int) {
+	C.sub_4D1210(C.int(a1))
+}
+func Nox_net_importantACK_4E55A0(a1 int, a2 int) {
+	C.nox_net_importantACK_4E55A0(C.int(a1), C.int(a2))
+}
+func Nox_xxx_netMapSend_519D20(a1 int) {
+	C.nox_xxx_netMapSend_519D20(C.int(a1))
+}
+func Sub_4196D0(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int, a4 int) {
+	C.sub_4196D0(a1, a2, C.int(a3), C.int(a4))
+}
+func Nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int, data []byte, a4 *server.Player, a5 *server.Object, a6 unsafe.Pointer) int {
+	return int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(a1), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), (*nox_playerInfo)(a4.C()), asObjectC(a5), a6))
+}

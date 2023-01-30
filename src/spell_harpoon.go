@@ -1,10 +1,5 @@
 package opennox
 
-/*
-#include "GAME4_3.h"
-#include "GAME5_2.h"
-*/
-import "C"
 import (
 	"encoding/binary"
 	"unsafe"
@@ -14,22 +9,22 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-//export nox_xxx_harpoonBreakForPlr_537520
-func nox_xxx_harpoonBreakForPlr_537520(u *nox_object_t) {
-	noxServer.abilities.harpoon.breakForOwner(asUnitC(u), true)
+func nox_xxx_harpoonBreakForPlr_537520(u *server.Object) {
+	noxServer.abilities.harpoon.breakForOwner(asUnitS(u), true)
 }
 
-//export nox_xxx_collideHarpoon_4EB6A0
-func nox_xxx_collideHarpoon_4EB6A0(a1c *nox_object_t, a2c *nox_object_t) {
-	noxServer.abilities.harpoon.Collide(asUnitC(a1c), asUnitC(a2c))
+func nox_xxx_collideHarpoon_4EB6A0(a1c *server.Object, a2c *server.Object) {
+	noxServer.abilities.harpoon.Collide(asUnitS(a1c), asUnitS(a2c))
 }
 
-//export nox_xxx_updateHarpoon_54F380
-func nox_xxx_updateHarpoon_54F380(a1c *nox_object_t) {
-	noxServer.abilities.harpoon.Update(asUnitC(a1c))
+func nox_xxx_updateHarpoon_54F380(a1c *server.Object) {
+	noxServer.abilities.harpoon.Update(asUnitS(a1c))
 }
 
 type harpoonData struct {
@@ -40,11 +35,11 @@ type harpoonData struct {
 var _ = [1]struct{}{}[24-unsafe.Sizeof(harpoonPtr{})]
 
 type harpoonPtr struct {
-	target  *nox_object_t // 33, 132
-	bolt    *nox_object_t // 34, 136
-	frame35 uint32        // 35, 140
-	targPos types.Pointf  // 36, 144
-	frame38 uint32        // 38, 152
+	target  *server.Object // 33, 132
+	bolt    *server.Object // 34, 136
+	frame35 uint32         // 35, 140
+	targPos types.Pointf   // 36, 144
+	frame38 uint32         // 38, 152
 }
 
 type abilityHarpoon struct {
@@ -101,20 +96,20 @@ func (a *abilityHarpoon) createBolt(u *Unit) {
 	if d == nil {
 		return
 	}
-	bolt := a.s.newObjectByTypeID("HarpoonBolt")
+	bolt := a.s.NewObjectByTypeID("HarpoonBolt")
 	if bolt == nil {
 		return
 	}
 	r := u.Shape.Circle.R + 1.0
-	*(**nox_object_t)(unsafe.Add(bolt.CollideData, 4)) = u.CObj()
+	*(**server.Object)(unsafe.Add(bolt.CollideData, 4)) = u.SObj()
 	dv := u.Direction1.Vec()
 	hpos := u.Pos().Add(dv.Mul(r))
-	a.s.createObjectAt(bolt, u, hpos)
+	a.s.CreateObjectAt(bolt, u, hpos)
 	bolt.VelVec = dv.Mul(bolt.SpeedCur)
 	dir := u.Direction1
 	bolt.Direction1 = dir
 	bolt.Direction2 = dir
-	d.bolt = bolt.CObj()
+	d.bolt = bolt.SObj()
 	d.frame35 = 0
 }
 
@@ -124,8 +119,8 @@ func (a *abilityHarpoon) netHarpoonAttach(u1, u2 *Unit) {
 		buf[0] = byte(noxnet.MSG_FX_DURATION_SPELL)
 		buf[1] = 7
 		buf[2] = 0
-		binary.LittleEndian.PutUint16(buf[3:], uint16(a.s.getUnitNetCode(u1)))
-		binary.LittleEndian.PutUint16(buf[5:], uint16(a.s.getUnitNetCode(u2)))
+		binary.LittleEndian.PutUint16(buf[3:], uint16(a.s.GetUnitNetCode(u1)))
+		binary.LittleEndian.PutUint16(buf[5:], uint16(a.s.GetUnitNetCode(u2)))
 		a.s.nox_xxx_netSendPacket1_4E5390(255, buf[:7], 0, 1)
 	}
 }
@@ -136,8 +131,8 @@ func (a *abilityHarpoon) netHarpoonBreak(u1 *Unit, u2 *Unit) {
 		buf[0] = byte(noxnet.MSG_FX_DURATION_SPELL)
 		buf[1] = 14
 		buf[2] = 0
-		binary.LittleEndian.PutUint16(buf[3:], uint16(a.s.getUnitNetCode(u1)))
-		binary.LittleEndian.PutUint16(buf[5:], uint16(a.s.getUnitNetCode(u2)))
+		binary.LittleEndian.PutUint16(buf[3:], uint16(a.s.GetUnitNetCode(u1)))
+		binary.LittleEndian.PutUint16(buf[5:], uint16(a.s.GetUnitNetCode(u2)))
 		a.s.nox_xxx_netSendPacket1_4E5390(255, buf[:7], 0, 1)
 	}
 }
@@ -147,13 +142,13 @@ func (a *abilityHarpoon) UpdatePlayer(u *Unit) {
 	if d == nil {
 		return
 	}
-	if targ := asObjectC(d.target); targ != nil {
+	if targ := d.target; targ != nil {
 		if targ.Flags().Has(object.FlagDestroyed) {
 			a.breakForOwner(u, true)
 		} else {
 			force := gamedataFloat("HarpoonForce")
 			sub_4E7540(u, targ)
-			targ.applyForce(u.Pos(), -force)
+			asObjectS(targ).applyForce(u.Pos(), -force)
 		}
 	}
 }
@@ -168,8 +163,8 @@ func (a *abilityHarpoon) breakForOwner(u *Unit, emitSound bool) {
 	}
 	if d.bolt != nil {
 		d.target = nil
-		a.s.abilities.DisableAbility(u, AbilityHarpoon)
-		asUnitC(d.bolt).Delete()
+		a.s.abilities.DisableAbility(u, server.AbilityHarpoon)
+		asUnitS(d.bolt).Delete()
 		d.bolt = nil
 	}
 	if emitSound {
@@ -184,7 +179,7 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 	}
 	if targ == nil {
 		npos := bolt.NewPos
-		C.nox_xxx_damageToMap_534BC0(C.int(npos.X/common.GridStep), C.int(npos.Y/common.GridStep), C.int(a.damage), 11, bolt.CObj())
+		legacy.Nox_xxx_damageToMap_534BC0(int(npos.X/common.GridStep), int(npos.Y/common.GridStep), a.damage, 11, bolt.SObj())
 		a.breakForOwner(owner, false)
 		return
 	}
@@ -192,8 +187,8 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 		return
 	}
 	u5 := bolt.FindOwnerChainPlayer()
-	if targ.CallDamage(u5, bolt, a.damage, object.DamageImpact) == 0 || !(owner.isEnemyTo(targ) || checkGameplayFlags(1) && targ.Class().HasAny(object.MaskUnits)) {
-		C.nox_xxx_soundDefaultDamageSound_532E20(targ.CObj(), bolt.CObj())
+	if targ.CallDamage(u5, bolt, a.damage, object.DamageImpact) == 0 || !(owner.isEnemyTo(targ) || noxflags.HasGamePlay(1) && targ.Class().HasAny(object.MaskUnits)) {
+		legacy.Nox_xxx_soundDefaultDamageSound_532E20(targ.SObj(), bolt.SObj())
 		a.breakForOwner(owner, false)
 		return
 	}
@@ -201,7 +196,7 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 	if d == nil {
 		return
 	}
-	d.target = targ.CObj()
+	d.target = targ.SObj()
 	tpos := targ.Pos()
 	d.targPos = tpos
 	d.frame38 = a.s.Frame()
@@ -232,7 +227,7 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 		return
 	}
 	bud := bolt.UpdateData
-	obj4 := asUnitC(*(**nox_object_t)(bud))
+	obj4 := asUnitS(*(**server.Object)(bud))
 	if obj4 != nil && obj4.Flags().HasAny(object.FlagDestroyed|object.FlagDead) {
 		a.breakForOwner(owner, true)
 		return
@@ -244,11 +239,11 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 	if d.target == nil {
 		if obj4 == nil {
 			aim := d.getAim()
-			obj6 := a.s.nox_xxx_spellFlySearchTarget(&aim, bolt, 32, a.maxDist, 0, owner)
-			*(**nox_object_t)(bud) = obj6.CObj()
+			obj6 := a.s.Nox_xxx_spellFlySearchTarget(&aim, bolt, 32, a.maxDist, 0, owner.SObj())
+			*(**server.Object)(bud) = obj6.SObj()
 			if obj6 != nil {
-				if nox_server_testTwoPointsAndDirection_4E6E50(bolt.Pos(), int16(bolt.Direction1), obj6.Pos())&0x1 == 0 {
-					*(**nox_object_t)(bud) = nil
+				if legacy.Nox_server_testTwoPointsAndDirection_4E6E50(bolt.Pos(), int16(bolt.Direction1), obj6.Pos())&0x1 == 0 {
+					*(**server.Object)(bud) = nil
 				}
 			}
 		} else {
@@ -257,7 +252,7 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 		}
 	}
 	dist := nox_xxx_calcDistance_4E6C00(bolt, owner)
-	if targ := asUnitC(d.target); targ != nil {
+	if targ := asUnitS(d.target); targ != nil {
 		if dist > a.maxDist {
 			a.breakForOwner(owner, true)
 			return
@@ -296,7 +291,7 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 		bolt.VelVec = types.Pointf{}
 		bolt.ForceVec = types.Pointf{}
 		bolt.Direction1 = targ.Direction1
-		nox_xxx_moveUpdateSpecial_517970(bolt.CObj())
+		nox_xxx_moveUpdateSpecial_517970(bolt.SObj())
 	} else if dist > a.maxFlight {
 		a.breakForOwner(owner, true)
 		return

@@ -5,14 +5,19 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/client/seat"
 	"github.com/noxworld-dev/opennox-lib/console"
+	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/input"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/client/render"
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
+)
+
+var (
+	Log = log.New("client")
 )
 
 func NewClient(pr console.Printer, s *server.Server) *Client {
@@ -22,6 +27,7 @@ func NewClient(pr console.Printer, s *server.Server) *Client {
 		Cursor:     gui.CursorSelect,
 		CursorPrev: gui.Cursor17,
 	}
+	c.Things.init(s.Strings())
 	c.GUI = gui.New(c.r)
 	c.vp, _ = alloc.New(noxrender.Viewport{})
 	return c
@@ -30,6 +36,7 @@ func NewClient(pr console.Printer, s *server.Server) *Client {
 type Client struct {
 	pr          console.Printer
 	srv         *server.Server
+	Things      clientObjTypes
 	r           *noxrender.NoxRender
 	Seat        seat.Seat
 	Inp         *input.Handler
@@ -40,10 +47,35 @@ type Client struct {
 	UpdateFunc2 func() bool
 	Cursor      gui.Cursor
 	CursorPrev  gui.Cursor
+	state       gui.State
 }
 
 func (c *Client) Render() *noxrender.NoxRender {
 	return c.r
+}
+
+func (c *Client) GameAddStateCode(code gui.StateID) {
+	if !c.state.Push(code) {
+		return
+	}
+	Log.Println("state code:", code)
+}
+
+func (c *Client) GameGetStateCode() gui.StateID {
+	return c.state.Current()
+}
+
+func (c *Client) GamePopState() {
+	c.state.Pop()
+	Log.Println("state code:", c.state.Current())
+}
+
+func (c *Client) GamePopStateUntil(code gui.StateID) {
+	c.state.PopUntil(code)
+}
+
+func (c *Client) GameStateSwitch() bool {
+	return c.state.Switch()
 }
 
 func (c *Client) SetScreenSize(sz image.Point) {

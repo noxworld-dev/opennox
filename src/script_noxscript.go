@@ -1,19 +1,5 @@
 package opennox
 
-/*
-#include "server__script__script.h"
-#include "server__script__internal.h"
-#include "GAME4_1.h" // for nox_xxx_scriptPrepareFoundUnit_511D70 and nox_xxx_script_511C50
-extern int nox_script_count_xxx_1599640;
-extern nox_script_xxx_t* nox_script_arr_xxx_1599636;
-extern char* nox_script_strings[1024];
-extern unsigned int nox_script_strings_xxx;
-extern unsigned int nox_script_strings_cnt;
-int sub_516570();
-int nox_xxx_gameIsSwitchToSolo_4DB240();
-size_t nox_script_readWriteWww_5417C0(FILE* a1, FILE* a2, FILE* a3);
-*/
-import "C"
 import (
 	"errors"
 	"fmt"
@@ -36,74 +22,13 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
-	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 	"github.com/noxworld-dev/opennox/v1/server/noxscript"
 )
 
-//export nox_script_activatorCancelAll_51AC60
-func nox_script_activatorCancelAll_51AC60() {
-	noxServer.Activators.CancelAll()
-}
-
-//export nox_script_activatorSave_51AEA0
-func nox_script_activatorSave_51AEA0() int {
-	return noxServer.SaveActivators(cryptfile.Global())
-}
-
-//export nox_script_activatorLoad_51AF80
-func nox_script_activatorLoad_51AF80() int {
-	return noxServer.LoadActivators(cryptfile.Global())
-}
-
-//export nox_script_activatorResolveObjs_51B0C0
-func nox_script_activatorResolveObjs_51B0C0() {
-	noxServer.noxScript.actResolveObjs()
-}
-
-//export nox_xxx_netGetUnitCodeServ_578AC0
-func nox_xxx_netGetUnitCodeServ_578AC0(cobj *nox_object_t) C.uint {
-	return C.uint(noxServer.getUnitNetCode(asObjectC(cobj)))
-}
-
-//export nox_server_scriptValToObjectPtr_511B60
-func nox_server_scriptValToObjectPtr_511B60(val int) *C.nox_object_t {
-	return noxServer.noxScript.scriptToObject(val).CObj()
-}
-
-//export nox_script_get_caller
-func nox_script_get_caller() unsafe.Pointer {
-	return unsafe.Pointer(noxServer.noxScript.Caller().CObj())
-}
-
-//export nox_script_get_trigger
-func nox_script_get_trigger() unsafe.Pointer {
-	return unsafe.Pointer(noxServer.noxScript.Trigger().CObj())
-}
-
-//export nox_script_push
-func nox_script_push(v int) {
-	noxServer.noxScript.PushI32(int32(v))
-}
-
-//export nox_script_pop
-func nox_script_pop() int {
-	return int(noxServer.noxScript.PopI32())
-}
-
-//export nox_script_pushf
-func nox_script_pushf(v C.float) {
-	noxServer.noxScript.PushF32(float32(v))
-}
-
-//export nox_script_popf
-func nox_script_popf() C.float {
-	return C.float(noxServer.noxScript.PopF32())
-}
-
-//export nox_script_indexByEvent
-func nox_script_indexByEvent(cname *C.char) int {
-	name := GoString(cname)
+func nox_script_indexByEvent(name string) int {
 	scripts := noxServer.noxScript.scripts()
 	for i := range scripts {
 		s := &scripts[i]
@@ -114,12 +39,11 @@ func nox_script_indexByEvent(cname *C.char) int {
 	return -1
 }
 
-//export nox_script_getString_512E40
-func nox_script_getString_512E40(i int) *C.char {
-	if i < 0 || i >= int(C.nox_script_strings_cnt) {
+func nox_script_getString_512E40(i int) *byte {
+	if i < 0 || i >= int(legacy.Get_nox_script_strings_cnt()) {
 		return nil
 	}
-	return C.nox_script_strings[i]
+	return legacy.Get_nox_script_strings()[i]
 }
 
 var (
@@ -136,8 +60,8 @@ type noxScript struct {
 	nameSuff string
 	vm       struct {
 		stack   []uint32
-		caller  *Object
-		trigger *Object
+		caller  *server.Object
+		trigger *server.Object
 	}
 	panic noxScriptPanic
 }
@@ -149,7 +73,7 @@ func (s *noxScript) Init(srv *Server) {
 var _ = [1]struct{}{}[48-unsafe.Sizeof(noxScriptCode{})]
 
 type noxScriptCode struct {
-	name       *C.char        // 0, 0
+	name       *byte          // 0, 0
 	stack_size uint32         // 1, 4
 	size_28    uint32         // 2, 8
 	field_12   uint32         // 3, 12; len field_20 and field_24
@@ -158,13 +82,13 @@ type noxScriptCode struct {
 	field_24   *uint32        // 6, 24
 	field_28   *uint32        // 7, 28
 	data       unsafe.Pointer // 8, 32
-	suff       *C.char        // 9, 36
+	suff       *byte          // 9, 36
 	field_40   uint32         // 10, 40
 	field_44   uint32         // 11, 44
 }
 
 func (s *noxScriptCode) Name() string {
-	return GoString(s.name)
+	return alloc.GoString(s.name)
 }
 
 func (s *noxScriptCode) field28() []uint32 {
@@ -176,17 +100,17 @@ func (s *noxScriptCode) field28() []uint32 {
 }
 
 func (s *noxScript) scripts() []noxScriptCode {
-	if C.nox_script_arr_xxx_1599636 == nil {
+	if legacy.Get_nox_script_arr_xxx_1599636() == nil {
 		return nil
 	}
-	return unsafe.Slice((*noxScriptCode)(unsafe.Pointer(C.nox_script_arr_xxx_1599636)), int(C.nox_script_count_xxx_1599640))
+	return unsafe.Slice((*noxScriptCode)(unsafe.Pointer(legacy.Get_nox_script_arr_xxx_1599636())), int(legacy.Get_nox_script_count_xxx_1599640()))
 }
 
-func (s *noxScript) Caller() *Object {
+func (s *noxScript) Caller() *server.Object {
 	return s.vm.caller
 }
 
-func (s *noxScript) Trigger() *Object {
+func (s *noxScript) Trigger() *server.Object {
 	return s.vm.trigger
 }
 
@@ -239,12 +163,12 @@ func (s *noxScript) PushBool(v bool) {
 }
 
 func (s *noxScript) AddString(str string) uint32 {
-	if int(C.nox_script_strings_cnt) >= len(C.nox_script_strings) {
-		return uint32(C.nox_script_strings_cnt - 1)
+	if int(legacy.Get_nox_script_strings_cnt()) >= len(legacy.Get_nox_script_strings()) {
+		return uint32(legacy.Get_nox_script_strings_cnt() - 1)
 	}
-	i := uint32(C.nox_script_strings_cnt)
-	C.nox_script_strings[i] = CString(str)
-	C.nox_script_strings_cnt++
+	i := uint32(legacy.Get_nox_script_strings_cnt())
+	legacy.Get_nox_script_strings()[i], _ = alloc.CString(str)
+	legacy.Inc_nox_script_strings_cnt()
 	return i
 }
 
@@ -281,10 +205,10 @@ func (s *noxScript) PopBool() bool {
 }
 
 func (s *noxScript) GetString(i uint32) string {
-	if i < 0 || i >= uint32(C.nox_script_strings_cnt) {
+	if i < 0 || i >= uint32(legacy.Get_nox_script_strings_cnt()) {
 		return ""
 	}
-	return GoString(C.nox_script_strings[i])
+	return alloc.GoString(legacy.Get_nox_script_strings()[i])
 }
 
 func (s *noxScript) PopString() string {
@@ -303,12 +227,12 @@ func (s *noxScript) PopPointf() types.Pointf {
 	return types.Pointf{X: x, Y: y}
 }
 
-func (s *noxScript) PopObject() *Object {
-	return s.scriptToObject(int(nox_script_pop()))
+func (s *noxScript) PopObject() *server.Object {
+	return s.ScriptToObject(int(s.PopI32()))
 }
 
-func (s *noxScript) PopGroup() *mapGroup {
-	return s.s.mapGroups.GroupByInd(int(s.PopI32()))
+func (s *noxScript) PopGroup() *server.MapGroup {
+	return s.s.MapGroups.GroupByInd(int(s.PopI32()))
 }
 
 func (s *noxScript) nox_xxx_scriptRunFirst_507290() {
@@ -319,7 +243,7 @@ func (s *noxScript) nox_xxx_scriptRunFirst_507290() {
 		sc[1] = -1
 		sc[2] = 1
 		sc[3] = 0
-		if nox_xxx_gameIsSwitchToSolo_4DB240() == 0 {
+		if !nox_xxx_gameIsSwitchToSolo_4DB240() {
 			if err := s.callByIndex(1, nil, nil); err != nil {
 				scriptLog.Println(err)
 			}
@@ -333,7 +257,7 @@ func (s *noxScript) OnEvent(event script.EventType) {
 	scripts := s.scripts()
 	for i := range scripts {
 		sc := &scripts[i]
-		name := GoString(sc.name)
+		name := alloc.GoString(sc.name)
 		if strings.HasPrefix(name, string(event)) {
 			if err := s.callByIndex(i, nil, nil); err != nil {
 				scriptLog.Println(err)
@@ -342,7 +266,7 @@ func (s *noxScript) OnEvent(event script.EventType) {
 	}
 }
 
-func (s *Server) getUnitNetCode(p noxObject) int {
+func (s *Server) GetUnitNetCode(p server.Obj) int {
 	obj := toObject(p)
 	if obj == nil {
 		return 0
@@ -361,7 +285,7 @@ func (s *Server) getUnitNetCode(p noxObject) int {
 	return ext
 }
 
-func (s *noxScript) scriptToObject(val int) *Object {
+func (s *noxScript) ScriptToObject(val int) *server.Object {
 	if val == -1 {
 		obj := s.Caller()
 		if obj == nil || obj.Flags().Has(object.FlagDestroyed) {
@@ -376,25 +300,25 @@ func (s *noxScript) scriptToObject(val int) *Object {
 		}
 		return obj
 	}
-	if obj := asObjectC(C.nox_xxx_script_511C50(C.int(val))); obj != nil {
+	if obj := legacy.Nox_xxx_script_511C50(val); obj != nil {
 		return obj
 	}
 
-	for obj := asObjectS(s.s.Objs.List); obj != nil; obj = obj.Next() {
+	for obj := s.s.Objs.List; obj != nil; obj = obj.Next() {
 		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID == val {
-			C.nox_xxx_scriptPrepareFoundUnit_511D70(obj.CObj())
+			legacy.Nox_xxx_scriptPrepareFoundUnit_511D70(obj)
 			return obj
 		}
 		for sub := obj.FirstItem(); sub != nil; sub = sub.NextItem() {
 			if !sub.Flags().Has(object.FlagDestroyed) && sub.ScriptID == val {
-				C.nox_xxx_scriptPrepareFoundUnit_511D70(sub.CObj())
+				legacy.Nox_xxx_scriptPrepareFoundUnit_511D70(sub)
 				return sub
 			}
 		}
 	}
-	for obj := asObjectS(s.s.Objs.Pending); obj != nil; obj = obj.Next() {
+	for obj := s.s.Objs.Pending; obj != nil; obj = obj.Next() {
 		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID == val {
-			C.nox_xxx_scriptPrepareFoundUnit_511D70(obj.CObj())
+			legacy.Nox_xxx_scriptPrepareFoundUnit_511D70(obj)
 			return obj
 		}
 	}
@@ -420,7 +344,7 @@ func (s *noxScript) DPosf() types.Pointf {
 
 func (s *noxScript) scriptNameSuff(i int) string {
 	scripts := s.scripts()
-	return GoString(scripts[i].suff)
+	return alloc.GoString(scripts[i].suff)
 }
 
 func (s *noxScript) scriptField40(i int) int {
@@ -442,7 +366,6 @@ func (s *noxScript) noxScriptEndGame(v int) {
 	nox_client_quit_4460C0()
 }
 
-//export sub_5165D0
 func sub_5165D0() {
 	s := &noxServer.noxScript
 	sub5165D0(int(s.PopU32()))
@@ -452,7 +375,7 @@ func sub5165D0(which int) {
 	*memmap.PtrUint32(0x5D4594, 2386828) = uint32(which - 1)
 	sub_413A00(1)
 	noxClient.r.FadeInScreen(25, true, func() {
-		C.sub_516570()
+		legacy.Sub_516570()
 	})
 }
 
@@ -493,21 +416,21 @@ func (s *Server) CinemaPlayers(enable bool) {
 		}
 	}
 
-	var next *Object
-	for it := asObjectS(s.Objs.UpdatableList2); it != nil; it = next {
+	var next *server.Object
+	for it := s.Objs.UpdatableList2; it != nil; it = next {
 		next = it.Next()
 		if int(it.TypeInd) != int(memmap.Uint32(0x5D4594, 2386900)) {
-			it.Delete()
+			asObjectS(it).Delete()
 		}
 	}
 
 	next = nil
 	for it := s.FirstServerObject(); it != nil; it = next {
 		next = it.Next()
-		if it.OwnerC() != nil {
+		if asObjectS(it).OwnerC() != nil {
 			for _, id := range nox_script_objCinemaRemove {
 				if int(it.TypeInd) == id {
-					it.Delete()
+					asObjectS(it).Delete()
 					break
 				}
 			}
@@ -535,19 +458,17 @@ func (s *Server) CinemaPlayers(enable bool) {
 	}
 }
 
-//export nox_setImaginaryCaster
 func nox_setImaginaryCaster() int {
 	s := noxServer
-	nox_xxx_imagCasterUnit_1569664 = s.newObjectByTypeID("ImaginaryCaster").AsUnit()
+	nox_xxx_imagCasterUnit_1569664 = asUnitS(s.NewObjectByTypeID("ImaginaryCaster"))
 	if nox_xxx_imagCasterUnit_1569664 == nil {
 		return 0
 	}
-	s.createObjectAt(nox_xxx_imagCasterUnit_1569664, nil, types.Pointf{X: 128 * common.GridStep, Y: 128 * common.GridStep})
+	s.CreateObjectAt(nox_xxx_imagCasterUnit_1569664, nil, types.Pointf{X: 128 * common.GridStep, Y: 128 * common.GridStep})
 	return 1
 }
 
-//export nox_script_readWriteZzz_541670
-func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *C.char) int {
+func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *byte) int {
 	if cpath == nil {
 		return 0
 	}
@@ -557,7 +478,7 @@ func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *C.char) int {
 	if cdst == nil {
 		return 0
 	}
-	path, path2, dst := GoString(cpath), GoString(cpath2), GoString(cdst)
+	path, path2, dst := alloc.GoString(cpath), alloc.GoString(cpath2), alloc.GoString(cdst)
 	f1, err := ifs.Open(path)
 	if err != nil {
 		return 0
@@ -589,7 +510,7 @@ func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *C.char) int {
 		return 0
 	}
 	defer df.Close()
-	C.nox_script_readWriteWww_5417C0(newFileHandle(binfile.NewFile(f1)), newFileHandle(binfile.NewFile(f2)), newFileHandle(binfile.NewFile(df)))
+	legacy.Nox_script_readWriteWww_5417C0(binfile.NewFile(f1), binfile.NewFile(f2), binfile.NewFile(df))
 	return 1
 }
 
@@ -605,9 +526,9 @@ func (s *noxScript) actRun() {
 	})
 }
 
-func (s *noxScript) actResolveObjs() {
+func (s *noxScript) ActResolveObjs() {
 	s.s.Activators.ResolveObjs(func(id int) *server.Object {
-		return s.scriptToObject(id).SObj()
+		return s.ScriptToObject(id).SObj()
 	})
 }
 
@@ -617,7 +538,7 @@ func (s *noxScript) NoxScript() ns.Implementation {
 
 func (s *noxScript) PopWallGroupNS() ns.WallGroupObj {
 	g := s.PopGroup()
-	if g == nil || g.Type() != mapGroupWalls {
+	if g == nil || mapGroupType(g) != server.MapGroupWalls {
 		return nil
 	}
 	return nsWallGroup{s.s, g}
@@ -633,23 +554,23 @@ func (s *noxScript) PopWaypointNS() ns.WaypointObj {
 
 func (s *noxScript) PopWpGroupNS() ns.WaypointGroupObj {
 	g := s.PopGroup()
-	if g == nil || g.Type() != mapGroupWaypoints {
+	if g == nil || mapGroupType(g) != server.MapGroupWaypoints {
 		return nil
 	}
 	return nsWpGroup{s.s, g}
 }
 
 func (s *noxScript) PopObjectNS() ns.Obj {
-	obj := s.scriptToObject(int(nox_script_pop()))
+	obj := s.ScriptToObject(int(s.PopI32()))
 	if obj == nil {
 		return nil
 	}
-	return nsObj{obj}
+	return nsObj{asObjectS(obj)}
 }
 
 func (s *noxScript) PopObjGroupNS() ns.ObjGroup {
 	g := s.PopGroup()
-	if g == nil || g.Type() != mapGroupObjects {
+	if g == nil || mapGroupType(g) != server.MapGroupObjects {
 		return nil
 	}
 	return nsObjGroup{s.s, g}
@@ -663,28 +584,23 @@ func (s *noxScript) PushHandleNS(obj ns.Handle) {
 	}
 }
 
-//export nox_xxx_scriptCallByEventBlock_502490
-func nox_xxx_scriptCallByEventBlock_502490(a1 unsafe.Pointer, a2, a3 unsafe.Pointer, eventCode int32) unsafe.Pointer {
-	return noxServer.scriptCallback((*server.ScriptCallback)(a1), asObject(a2), asObject(a3), noxEventType(eventCode))
-}
-
 type noxScriptCallback struct {
 	Block    *server.ScriptCallback
-	Caller4  *Object
-	Trigger8 *Object
+	Caller4  *server.Object
+	Trigger8 *server.Object
 }
 
 var (
 	noxScriptCallbacks []noxScriptCallback
 )
 
-func (s *Server) scriptPushCallback(b *server.ScriptCallback, caller, trigger *Object) {
+func (s *Server) scriptPushCallback(b *server.ScriptCallback, caller, trigger *server.Object) {
 	noxScriptCallbacks = append(noxScriptCallbacks, noxScriptCallback{
 		Block: b, Caller4: caller, Trigger8: trigger,
 	})
 }
 
-func (s *Server) scriptPopCallback(b *server.ScriptCallback, caller, trigger *Object) {
+func (s *Server) scriptPopCallback(b *server.ScriptCallback, caller, trigger *server.Object) {
 	for i := 0; i < len(noxScriptCallbacks); i++ {
 		it := &noxScriptCallbacks[i]
 		if it.Block == b && it.Caller4 == caller && it.Trigger8 == trigger {
@@ -693,8 +609,8 @@ func (s *Server) scriptPopCallback(b *server.ScriptCallback, caller, trigger *Ob
 	}
 }
 
-func (s *Server) scriptCallback(b *server.ScriptCallback, caller, trigger *Object, eventCode noxEventType) unsafe.Pointer {
-	s.nox_script_callByEventcgo(eventCode, unsafe.Pointer(caller.CObj()), unsafe.Pointer(trigger.CObj()))
+func (s *Server) ScriptCallback(b *server.ScriptCallback, caller, trigger *server.Object, eventCode server.ScriptEventType) unsafe.Pointer {
+	s.Nox_script_callByEventcgo(eventCode, unsafe.Pointer(caller.CObj()), unsafe.Pointer(trigger.CObj()))
 	*memmap.PtrUint32(0x5D4594, 1599076) = 0
 	flags := b.Flags
 	if flags&0x1 != 0 {
@@ -711,7 +627,7 @@ func (s *Server) scriptCallback(b *server.ScriptCallback, caller, trigger *Objec
 		s.scriptPushCallback(b, caller, trigger)
 		return memmap.PtrOff(0x5D4594, 1599076)
 	}
-	if err := s.noxScript.callByIndexObj(sind, caller, trigger); err != nil {
+	if err := s.noxScript.CallByIndexObj(sind, caller, trigger); err != nil {
 		scriptLog.Println(err)
 	}
 	scripts := s.noxScript.scripts()
@@ -719,33 +635,26 @@ func (s *Server) scriptCallback(b *server.ScriptCallback, caller, trigger *Objec
 		*memmap.PtrUint32(0x5D4594, 1599076) = uint32(s.noxScript.PopI32())
 	}
 	s.noxScript.resetStack()
-	if C.nox_script_strings_xxx < C.nox_script_strings_cnt {
-		for i := int(C.nox_script_strings_xxx); i < int(C.nox_script_strings_cnt); i++ {
-			StrFree(C.nox_script_strings[i])
-			C.nox_script_strings[i] = nil
+	if legacy.Get_nox_script_strings_xxx() < legacy.Get_nox_script_strings_cnt() {
+		for i := legacy.Get_nox_script_strings_xxx(); i < legacy.Get_nox_script_strings_cnt(); i++ {
+			alloc.Free(unsafe.Pointer(legacy.Get_nox_script_strings()[i]))
+			legacy.Get_nox_script_strings()[i] = nil
 		}
 	}
-	C.nox_script_strings_cnt = C.nox_script_strings_xxx
+	legacy.Set_nox_script_strings_cnt(legacy.Get_nox_script_strings_xxx())
 	s.scriptPopCallback(b, caller, trigger)
 	if len(noxScriptCallbacks) > 0 {
-		s.scriptCallback(noxScriptCallbacks[0].Block, noxScriptCallbacks[0].Caller4, noxScriptCallbacks[0].Trigger8, 0)
+		s.ScriptCallback(noxScriptCallbacks[0].Block, noxScriptCallbacks[0].Caller4, noxScriptCallbacks[0].Trigger8, 0)
 	}
 	return memmap.PtrOff(0x5D4594, 1599076)
 }
 
-//export nox_script_callByIndex_507310
-func nox_script_callByIndex_507310(index int, a2 unsafe.Pointer, a3 unsafe.Pointer) {
-	if err := noxServer.noxScript.callByIndexObj(index, asObject(a2), asObject(a3)); err != nil {
-		scriptLog.Println(err)
-	}
+func (s *noxScript) callByIndex(index int, caller, trigger server.Obj) error {
+	return s.CallByIndexObj(index, toObjectS(caller), toObjectS(trigger))
 }
 
-func (s *noxScript) callByIndex(index int, caller, trigger noxObject) error {
-	return s.callByIndexObj(index, toObject(caller), toObject(trigger))
-}
-
-func (s *noxScript) callByIndexObj(index int, caller, trigger *Object) error {
-	if C.nox_script_arr_xxx_1599636 == nil {
+func (s *noxScript) CallByIndexObj(index int, caller, trigger *server.Object) error {
+	if legacy.Get_nox_script_arr_xxx_1599636() == nil {
 		return errors.New("no map scripts")
 	}
 	scripts := s.scripts()
@@ -1470,7 +1379,7 @@ func (s *noxScript) callByIndexObj(index int, caller, trigger *Object) error {
 			}
 		case asm.OpCallScript:
 			ind := int(readInt(&data))
-			if err := s.callByIndexObj(ind, caller, trigger); err != nil {
+			if err := s.CallByIndexObj(ind, caller, trigger); err != nil {
 				return fmt.Errorf("in %q: %w", sc.Name(), err)
 			}
 		case asm.OpStringAdd:

@@ -10,6 +10,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/platform"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 )
 
 const perfmonSz = 30
@@ -48,7 +49,7 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 
 	format = c.Strings().GetStringInFile("DrawCount", "client.c")
 	c.r.Data().SetTextColor(color.White)
-	c.r.DrawString(nil, fmt.Sprintf(format, drawableCount()), image.Pt(x, y))
+	c.r.DrawString(nil, fmt.Sprintf(format, legacy.DrawableCount()), image.Pt(x, y))
 	y += 10
 
 	tsOps := *memmap.PtrUint32(0x85B3FC, 120)

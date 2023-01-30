@@ -13,8 +13,8 @@ import (
 	"github.com/noxworld-dev/opennox-lib/client/seat"
 	"github.com/noxworld-dev/opennox-lib/noximage"
 
-	"github.com/noxworld-dev/opennox/v1/client/audio/ail"
 	"github.com/noxworld-dev/opennox/v1/client/render"
+	"github.com/noxworld-dev/opennox/v1/legacy/client/audio/ail"
 
 	"github.com/noxworld-dev/vqa-decode/movies"
 	"github.com/timshannon/go-openal/openal"

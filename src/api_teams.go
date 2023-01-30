@@ -1,21 +1,20 @@
 package opennox
 
 import (
-	"encoding/json"
 	"net/http"
+
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 type debugTeamInfo struct {
-	Ind   int       `json:"ind"`
-	Color TeamColor `json:"color"`
-	Ind57 byte      `json:"ind_57"`
-	Ind60 int       `json:"ind_60"`
-	Name  string    `json:"name"`
+	Ind   int              `json:"ind"`
+	Color server.TeamColor `json:"color"`
+	Ind57 byte             `json:"ind_57"`
+	Ind60 int              `json:"ind_60"`
+	Name  string           `json:"name"`
 }
 
-var _ json.Marshaler = &Team{}
-
-func (t *Team) dump() *debugTeamInfo {
+func dumpTeam(t *server.Team) *debugTeamInfo {
 	if t == nil {
 		return nil
 	}
@@ -28,12 +27,19 @@ func (t *Team) dump() *debugTeamInfo {
 	}
 }
 
-func (t *Team) MarshalJSON() ([]byte, error) {
-	return json.Marshal(t.dump())
+func dumpTeams(arr []*server.Team) []*debugTeamInfo {
+	if len(arr) == 0 {
+		return nil
+	}
+	out := make([]*debugTeamInfo, 0, len(arr))
+	for _, v := range arr {
+		out = append(out, dumpTeam(v))
+	}
+	return out
 }
 
 func init() {
 	http.HandleFunc("/debug/nox/teams", func(w http.ResponseWriter, r *http.Request) {
-		writeJSONResp(w, noxServer.Teams())
+		writeJSONResp(w, dumpTeams(noxServer.Teams.Teams()))
 	})
 }

@@ -1,37 +1,5 @@
 package opennox
 
-/*
-#include "GAME1.h"
-#include "GAME1_1.h"
-#include "GAME1_2.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME3_2.h"
-#include "GAME3_3.h"
-#include "GAME4.h"
-#include "GAME4_1.h"
-#include "common__net_list.h"
-#include "defs.h"
-extern unsigned int dword_5d4594_1046492;
-extern unsigned int dword_5d4594_2650652;
-extern unsigned int nox_player_netCode_85319C;
-extern nox_object_t* nox_xxx_host_player_unit_3843628;
-void nox_xxx_WideScreenDo_515240(bool enable);
-static void nox_xxx_printToAll_4D9FD0_go(int a1, wchar_t* str) {
-	nox_xxx_printToAll_4D9FD0(a1, str);
-}
-
-extern float nox_xxx_warriorMaxHealth_587000_312784;
-extern float nox_xxx_warriorMaxMana_587000_312788;
-
-extern float nox_xxx_conjurerMaxHealth_587000_312800;
-extern float nox_xxx_conjurerMaxMana_587000_312804;
-
-extern float nox_xxx_wizardMaxHealth_587000_312816;
-extern float nox_xxx_wizardMaximumMana_587000_312820;
-
-*/
-import "C"
 import (
 	"encoding"
 	"encoding/binary"
@@ -49,102 +17,51 @@ import (
 	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-//export nox_xxx_playerSpell_4FB2A0_magic_plyrspel
-func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
-	noxServer.playerSpell(asUnitC(up))
-}
-
-//export nox_xxx_updateSpellRelated_424830
 func nox_xxx_updateSpellRelated_424830(p unsafe.Pointer, ph int) unsafe.Pointer {
 	return unsafe.Pointer((*phonemeLeaf)(p).Next(spell.Phoneme(ph)))
 }
 
-//export nox_common_playerInfoGetFirst_416EA0
-func nox_common_playerInfoGetFirst_416EA0() *C.nox_playerInfo {
-	return noxServer.PlayerFirst().C()
-}
-
-//export nox_common_playerInfoGetNext_416EE0
-func nox_common_playerInfoGetNext_416EE0(it *C.nox_playerInfo) *C.nox_playerInfo {
-	return noxServer.PlayerNext(asPlayer(it)).C()
-}
-
-//export nox_common_playerInfoCount_416F40
-func nox_common_playerInfoCount_416F40() int {
-	return noxServer.Players.Count()
-}
-
-//export nox_common_playerInfoGetByID_417040
-func nox_common_playerInfoGetByID_417040(id int) *C.nox_playerInfo {
-	return noxServer.GetPlayerByID(id).C()
-}
-
-//export nox_common_playerInfoFromNum_417090
-func nox_common_playerInfoFromNum_417090(ind int) *C.nox_playerInfo {
-	return noxServer.GetPlayerByInd(ind).C()
-}
-
-//export nox_common_playerInfoFromNumRaw
-func nox_common_playerInfoFromNumRaw(ind int) *C.nox_playerInfo {
-	return noxServer.GetPlayerByIndRaw(ind).C()
-}
-
-//export nox_xxx_playerDisconnByPlrID_4DEB00
 func nox_xxx_playerDisconnByPlrID_4DEB00(id int) {
 	if p := noxServer.GetPlayerByInd(id); p != nil {
 		p.Disconnect(4)
 	}
 }
 
-//export nox_xxx_playerCallDisconnect_4DEAB0
-func nox_xxx_playerCallDisconnect_4DEAB0(ind int, v C.char) *C.char {
+func nox_xxx_playerCallDisconnect_4DEAB0(ind int, v int8) {
 	noxServer.GetPlayerByInd(ind).Disconnect(int(v))
-	return nil
 }
 
-//export nox_xxx_playerCameraUnlock_4E6040
-func nox_xxx_playerCameraUnlock_4E6040(cplayer *nox_object_t) {
-	asUnitC(cplayer).ControllingPlayer().CameraUnlock()
+func nox_xxx_playerCameraUnlock_4E6040(cplayer *server.Object) {
+	asUnitS(cplayer).ControllingPlayer().CameraUnlock()
 }
 
-//export nox_xxx_playerCameraFollow_4E6060
-func nox_xxx_playerCameraFollow_4E6060(cplayer, cunit *nox_object_t) {
-	asUnitC(cplayer).ControllingPlayer().CameraToggle(asObjectC(cunit))
+func nox_xxx_playerCameraFollow_4E6060(cplayer, cunit *server.Object) {
+	asUnitS(cplayer).ControllingPlayer().CameraToggle(cunit)
 }
 
-//export nox_xxx_playerGetPossess_4DDF30
-func nox_xxx_playerGetPossess_4DDF30(cplayer *nox_object_t) *nox_object_t {
-	return asUnitC(cplayer).ControllingPlayer().ObserveTarget().CObj()
+func nox_xxx_playerGetPossess_4DDF30(cplayer *server.Object) *server.Object {
+	return asUnitS(cplayer).ControllingPlayer().ObserveTarget().SObj()
 }
 
-//export nox_xxx_playerGoObserver_4E6860
-func nox_xxx_playerGoObserver_4E6860(pl *C.nox_playerInfo, a2 int, a3 int) int {
-	return bool2int(asPlayer(pl).GoObserver(a2 != 0, a3 != 0))
+func nox_xxx_playerGoObserver_4E6860(pl *server.Player, a2 int, a3 int) int {
+	return bool2int(asPlayerS(pl).GoObserver(a2 != 0, a3 != 0))
 }
 
-//export nox_xxx_playerObserveClear_4DDEF0
-func nox_xxx_playerObserveClear_4DDEF0(cplayer *nox_object_t) {
-	asUnitC(cplayer).observeClear()
+func nox_xxx_playerObserveClear_4DDEF0(cplayer *server.Object) {
+	asUnitS(cplayer).observeClear()
 }
 
 func clientPlayer() *Player {
-	return noxServer.GetPlayerByID(clientPlayerNetCode())
-}
-
-func clientPlayerNetCode() int {
-	return int(C.nox_player_netCode_85319C)
-}
-
-func clientSetPlayerNetCode(id int) {
-	C.nox_player_netCode_85319C = C.uint(id)
+	return noxServer.GetPlayerByID(legacy.ClientPlayerNetCode())
 }
 
 func (s *Server) PlayerFirst() *Player {
@@ -167,22 +84,12 @@ func getPlayerClass() player.Class {
 	return player.Class(memmap.Uint8(0x85B3FC, 12254))
 }
 
-func asPlayer(p *C.nox_playerInfo) *Player {
-	return (*Player)(unsafe.Pointer(p))
-}
-
 func asPlayerS(p *server.Player) *Player {
 	return (*Player)(p)
 }
 
 func BlindPlayers(blind bool) {
 	noxServer.nox_xxx_netMsgFadeBegin_4D9800(!blind, false)
-}
-
-func PrintToPlayers(text string) {
-	cstr, free := CWString(text)
-	defer free()
-	C.nox_xxx_printToAll_4D9FD0_go(0, cstr)
 }
 
 func HostPlayer() *Player {
@@ -195,7 +102,7 @@ func HostPlayer() *Player {
 	return nil
 }
 
-var _ noxObject = (*Player)(nil) // proxies Unit
+var _ server.Obj = (*Player)(nil) // proxies Unit
 
 type Player server.Player
 
@@ -291,15 +198,15 @@ func (p *Player) Gold() int {
 
 func (p *Player) IsHost() bool {
 	// TODO: better way
-	return p.UnitC() == HostPlayerUnit()
+	return p.UnitC().SObj() == legacy.HostPlayerUnit()
 }
 
 func (p *Player) Print(text string) {
-	nox_xxx_netSendLineMessage_4D9EB0(p.UnitC(), text)
+	legacy.Nox_xxx_netSendLineMessage_4D9EB0(p.UnitC().SObj(), text)
 }
 
 func (p *Player) Blind(blind bool) {
-	C.nox_xxx_netMsgFadeBeginPlayer(C.int(p.Index()), C.int(bool2int(!blind)), 0)
+	legacy.Nox_xxx_netMsgFadeBeginPlayer(p.Index(), bool2int(!blind), 0)
 }
 
 func (p *Player) Cinema(v bool) {
@@ -307,24 +214,8 @@ func (p *Player) Cinema(v bool) {
 	p.getServer().CinemaPlayers(v)
 }
 
-func (p *Player) CObj() *nox_object_t {
-	u := p.UnitC()
-	if u == nil {
-		return nil
-	}
-	return u.CObj()
-}
-
 func (p *Player) SObj() *server.Object {
 	return p.S().SObj()
-}
-
-func (p *Player) AsObject() *Object {
-	u := p.UnitC()
-	if u == nil {
-		return nil
-	}
-	return u.AsObject()
 }
 
 func (p *Player) GetObject() script.Object {
@@ -342,12 +233,11 @@ func (p *Player) Unit() script.Unit {
 	return p.UnitC()
 }
 
-func HostPlayerUnit() *Unit {
-	return asUnit(unsafe.Pointer(C.nox_xxx_host_player_unit_3843628))
-}
-
-func (p *Player) C() *C.nox_playerInfo {
-	return (*C.nox_playerInfo)(unsafe.Pointer(p))
+func (p *Player) C() unsafe.Pointer {
+	if p == nil {
+		return nil
+	}
+	return p.S().C()
 }
 
 func (p *Player) S() *server.Player {
@@ -385,8 +275,8 @@ func (p *Player) Disconnect(v int) {
 	if !p.IsActive() {
 		return
 	}
-	C.nox_xxx_playerDisconnFinish_4DE530(C.int(p.Index()), C.char(v))
-	C.nox_xxx_playerForceDisconnect_4DE7C0(C.int(p.Index()))
+	legacy.Nox_xxx_playerDisconnFinish_4DE530(p.Index(), int8(v))
+	legacy.Nox_xxx_playerForceDisconnect_4DE7C0(p.Index())
 	p.getServer().nox_xxx_netStructReadPackets2_4DEC50(p.Index())
 }
 
@@ -426,7 +316,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 	if !keepPlayer && s.abilities.IsAnyActive(u) {
 		return false
 	}
-	if u.Update == unsafe.Pointer(C.nox_xxx_updatePlayerMonsterBot_4FAB20) {
+	if u.Update == legacy.Get_nox_xxx_updatePlayerMonsterBot_4FAB20() {
 		return false
 	}
 	ud := u.UpdateDataPlayer()
@@ -450,13 +340,13 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 	if p.ObserveTarget() != nil {
 		u.observeClear()
 	}
-	C.nox_xxx_netNeedTimestampStatus_4174F0(p.C(), 1)
-	v10 := C.nox_xxx_gamePlayIsAnyPlayers_40A8A0() != 0
+	legacy.Nox_xxx_netNeedTimestampStatus_4174F0(p.S(), 1)
+	v10 := legacy.Nox_xxx_gamePlayIsAnyPlayers_40A8A0() != 0
 	if !v10 && !noxflags.HasGame(noxflags.GameModeQuest) {
-		C.sub_40A1F0(0)
-		C.nox_xxx_playerForceSendLessons_416E50(1)
-		nox_server_teamsResetYyy_417D00()
-		C.sub_40A970()
+		legacy.Sub_40A1F0(0)
+		legacy.Nox_xxx_playerForceSendLessons_416E50(1)
+		s.TeamsResetYyy()
+		legacy.Sub_40A970()
 	}
 	nox_xxx_netInformTextMsg_4DA0F0(p.Index(), 12, bool2int(notify))
 	u.ApplyEnchant(server.ENCHANT_INVISIBLE, 0, 5)
@@ -471,11 +361,11 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 			p.leaveMonsterObserver()
 		}
 	}
-	C.nox_xxx_playerRemoveSpawnedStuff_4E5AD0(u.CObj())
+	legacy.Nox_xxx_playerRemoveSpawnedStuff_4E5AD0(u.SObj())
 	ud.Field61 = 0
 	_ = nox_xxx_updatePlayerObserver_4E62F0
-	u.Update = C.nox_xxx_updatePlayerObserver_4E62F0
-	C.sub_4D7E50(u.CObj())
+	u.Update = legacy.Get_nox_xxx_updatePlayerObserver_4E62F0()
+	legacy.Sub_4D7E50(u.SObj())
 	return true
 }
 
@@ -486,13 +376,13 @@ func (p *Player) leaveMonsterObserver() {
 	}
 	var targ *Object
 	if p.ObserveTarget() != nil {
-		targ = asObjectC(C.nox_xxx_playerObserverFindGoodSlave0_4E6280(p.C()))
+		targ = asObjectS(legacy.Nox_xxx_playerObserverFindGoodSlave0_4E6280(p.S()))
 		if targ == nil {
 			u.observeClear()
 			return
 		}
 	} else {
-		targ = asObjectC(C.sub_4E6150(p.C()))
+		targ = asObjectS(legacy.Sub_4E6150(p.S()))
 	}
 	p.CameraFollow(targ)
 }
@@ -500,10 +390,10 @@ func (p *Player) leaveMonsterObserver() {
 func (u *Unit) observeClear() {
 	pl := u.ControllingPlayer()
 	if pl.Field3680&2 != 0 {
-		C.nox_xxx_playerUnsetStatus_417530(pl.C(), 2)
+		legacy.Nox_xxx_playerUnsetStatus_417530(pl.S(), 2)
 		pl.CameraUnlock()
 		_ = nox_xxx_updatePlayer_4F8100
-		u.Update = C.nox_xxx_updatePlayer_4F8100
+		u.Update = legacy.Get_nox_xxx_updatePlayer_4F8100()
 	}
 }
 
@@ -557,13 +447,13 @@ func nox_xxx_netNewPlayerMakePacket_4DDA90(buf []byte, pl *Player) {
 	buf[117] = byte(pl.Field2156)
 	buf[118] = byte(bool2int(pl.Field3676 == 3))
 	binary.LittleEndian.PutUint32(buf[112:], uint32(pl.Field3680)&0x423)
-	StrCopyBytes(buf[119:], pl.Field2096())
+	alloc.StrCopy(buf[119:], pl.Field2096())
 	*(*server.PlayerInfo)(unsafe.Pointer(&buf[3])) = *pl.Info()
 }
 
 func sub_459D70() int {
 	var v0 uint32
-	if C.dword_5d4594_1046492 != 0 {
+	if legacy.Get_dword_5d4594_1046492() != 0 {
 		v0 = math.MaxInt32
 	} else {
 		v0 = 0
@@ -601,10 +491,10 @@ func (p *PlayerOpts) UnmarshalBinary(data []byte) error {
 		X: int(binary.LittleEndian.Uint32(data[97:101])),
 		Y: int(binary.LittleEndian.Uint32(data[101:105])),
 	}
-	p.Serial = GoStringS(data[105:128])
-	p.Field2096 = GoStringS(data[128:138])
+	p.Serial = alloc.GoStringS(data[105:128])
+	p.Field2096 = alloc.GoStringS(data[128:138])
 	p.Field2068 = int(binary.LittleEndian.Uint32(data[138:142]))
-	p.Field2072 = GoWStringBytes(data[142:152])
+	p.Field2072 = alloc.GoString16B(data[142:152])
 	p.Byte152 = data[152]
 	return nil
 }
@@ -614,10 +504,10 @@ func (p *PlayerOpts) MarshalBinary() ([]byte, error) {
 	*(*server.PlayerInfo)(unsafe.Pointer(&data[0])) = p.Info // TODO: set fields individually
 	binary.LittleEndian.PutUint32(data[97:101], uint32(p.Screen.X))
 	binary.LittleEndian.PutUint32(data[101:105], uint32(p.Screen.Y))
-	StrCopyBytes(data[105:128], p.Serial)
-	StrCopyBytes(data[128:138], p.Field2096)
+	alloc.StrCopy(data[105:128], p.Serial)
+	alloc.StrCopy(data[128:138], p.Field2096)
 	binary.LittleEndian.PutUint32(data[138:142], uint32(p.Field2068))
-	WStrCopyBytes(data[142:152], p.Field2072)
+	alloc.StrCopy16B(data[142:152], p.Field2072)
 	data[152] = p.Byte152
 	return data, nil
 }
@@ -644,7 +534,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	}
 	v5 := sub_416640()
 	netlist.ResetByInd(ind, netlist.Kind1)
-	C.nox_xxx_playerResetImportantCtr_4E4F40(C.int(ind))
+	legacy.Nox_xxx_playerResetImportantCtr_4E4F40(ind)
 	sub_4E4F30(ind)
 
 	var ptyp string
@@ -655,7 +545,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	} else {
 		ptyp = "NewPlayer"
 	}
-	punit := s.newObjectByTypeID(ptyp).AsUnit()
+	punit := asObjectS(s.NewObjectByTypeID(ptyp)).AsUnit()
 	if punit == nil {
 		return 0
 	}
@@ -685,11 +575,11 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	pl.SetField2096(opts.Field2096)
 	pl.Field2068 = uint32(opts.Field2068)
 	if pl.Field2068 != 0 {
-		v12 := unsafe.Pointer(C.sub_425A70(C.int(pl.Field2068)))
+		v12 := legacy.Sub_425A70(int(pl.Field2068))
 		if v12 == nil {
-			v12 = unsafe.Pointer(C.sub_425AD0(C.int(pl.Field2068), (*C.ushort)(unsafe.Pointer(&pl.Field2072[0]))))
+			v12 = legacy.Sub_425AD0(int(pl.Field2068), &pl.Field2072[0])
 		}
-		C.sub_425B30(v12, C.int(ind))
+		legacy.Sub_425B30(v12, ind)
 	}
 	pl.Frame3596 = s.Frame()
 	pl.Field3676 = 2
@@ -699,11 +589,11 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	info.SetNameSuff("")
 	pl.SetName(pl.OrigName())
 	s.Players.CheckName(pl.S())
-	C.nox_xxx_playerInitColors_461460(pl.C())
+	legacy.Nox_xxx_playerInitColors_461460(pl.S())
 	pl.PlayerUnit = punit.SObj()
 	pl.Field2152 = 0
 	pl.NetCodeVal = punit.NetCode
-	pl.Field2156 = uint32(C.nox_xxx_scavengerTreasureMax_4D1600())
+	pl.Field2156 = legacy.Nox_xxx_scavengerTreasureMax_4D1600()
 	udata := punit.UpdateDataPlayer()
 	h := punit.HealthData
 	udata.Player = pl.S()
@@ -725,40 +615,40 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	pl.ProtPlayerLevel = protectInt(int(pl.Field3684)) // level
 	pl.Field4648 = -1
 	pl.Field4700 = 1
-	if C.dword_5d4594_2650652 != 0 {
-		C.sub_41D670(internCStr(pl.Field2096()))
+	if legacy.Get_dword_5d4594_2650652() != 0 {
+		legacy.Sub_41D670(pl.Field2096())
 	}
-	C.nox_xxx_netNotifyRate_4D7F10(C.int(ind))
+	legacy.Nox_xxx_netNotifyRate_4D7F10(ind)
 	if noxflags.HasGame(noxflags.GameModeQuest) {
 		pl.GoObserver(false, true)
 	} else if noxflags.HasGame(noxflags.GameModeSolo10) {
-		C.nox_xxx_netReportPlayerStatus_417630(pl.C())
+		legacy.Nox_xxx_netReportPlayerStatus_417630(pl.S())
 	} else if pl.Index() == common.MaxPlayers-1 && noxflags.HasEngine(noxflags.EngineNoRendering) {
 		pl.GoObserver(false, true)
 	} else if noxflags.HasGame(noxflags.GameModeChat) {
-		if C.sub_40A740() != 0 {
-			if C.sub_40AA70(pl.C()) == 0 {
+		if legacy.Sub_40A740() != 0 {
+			if legacy.Sub_40AA70(pl.S()) == 0 {
 				pl.GoObserver(false, true)
 			}
-		} else if checkGameplayFlags(4) {
-			C.sub_4DF3C0(pl.C())
+		} else if noxflags.HasGamePlay(4) {
+			legacy.Sub_4DF3C0(pl.S())
 		}
 	} else if !noxflags.HasGame(noxflags.GameModeCoop) {
 		pl.GoObserver(true, true)
 	}
 	s.sendSettings(punit)
 	if pl.Index() == common.MaxPlayers-1 {
-		C.nox_xxx_host_player_unit_3843628 = punit.CObj()
+		legacy.SetHostPlayerUnit(punit.SObj())
 	}
 	var v30 [132]byte
 	nox_xxx_netNewPlayerMakePacket_4DDA90(v30[:], pl)
 	s.nox_xxx_netSendPacket_4E5030(ind|0x80, v30[:129], 0, 0, 0)
 	pl.Field3676 = 2
 	if false && !noxflags.HasGame(noxflags.GameModeChat) {
-		C.sub_425F10(pl.C())
+		legacy.Sub_425F10(pl.S())
 	}
-	s.createObjectAt(punit, nil, types.Pointf{X: 2944.0, Y: 2944.0})
-	s.objectsNewAdd()
+	s.CreateObjectAt(punit, nil, types.Pointf{X: 2944.0, Y: 2944.0})
+	s.ObjectsNewAdd()
 	var p28 types.Pointf
 	if noxflags.HasGame(noxflags.GameModeQuest) {
 		if p, ok := s.sub_4E8210(punit); !ok {
@@ -774,22 +664,22 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	if ind != common.MaxPlayers-1 {
 		if sub_459D70() == 2 {
 			v24 := nox_xxx_cliGamedataGet_416590(1)
-			C.nox_xxx_netGuiGameSettings_4DD9B0(1, unsafe.Pointer(&v24[0]), C.int(pl.Index()))
+			legacy.Nox_xxx_netGuiGameSettings_4DD9B0(1, unsafe.Pointer(&v24[0]), pl.Index())
 		} else {
 			v29, v29free := alloc.Make([]byte{}, 60)
 			defer v29free()
-			C.sub_459AA0(unsafe.Pointer(&v29[0]))
-			C.nox_xxx_netGuiGameSettings_4DD9B0(1, unsafe.Pointer(&v29[0]), C.int(pl.Index()))
+			legacy.Sub_459AA0(unsafe.Pointer(&v29[0]))
+			legacy.Nox_xxx_netGuiGameSettings_4DD9B0(1, unsafe.Pointer(&v29[0]), pl.Index())
 		}
 	}
 	if noxflags.HasGame(noxflags.GameFlag15 | noxflags.GameFlag16) {
 		if (pl.Field3680 & 1) == 0 {
-			C.sub_509C30(pl.C())
+			legacy.Sub_509C30(pl.S())
 		}
 	}
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		if noxflags.HasGame(noxflags.GameModeQuest) {
-			C.nox_game_sendQuestStage_4D6960(C.int(ind))
+			legacy.Nox_game_sendQuestStage_4D6960(ind)
 			return int(punit.NetCode)
 		}
 		var buf [3]byte
@@ -823,7 +713,7 @@ func (s *Server) sub_4E8210(u *Unit) (types.Pointf, bool) {
 	}
 	ud := u.UpdateDataPlayer()
 	ud.Field77 = v2
-	out := s.randomReachablePointAround(60.0, asPointf(unsafe.Add(v2, 7*8)))
+	out := s.randomReachablePointAround(60.0, legacy.AsPointf(unsafe.Add(v2, 7*8)))
 	return out, true
 }
 
@@ -833,7 +723,8 @@ func nox_xxx_plrSetSpellType_4F9B90(u *Unit) {
 	ud.SpellCastStart = noxServer.Frame()
 }
 
-func (s *Server) playerSpell(u *Unit) {
+func (s *Server) PlayerSpell(su *server.Object) {
+	u := asUnitS(su)
 	ok2 := true
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
@@ -847,7 +738,7 @@ func (s *Server) playerSpell(u *Unit) {
 		spellInd := spell.ID(leaf.Ind)
 		if !noxflags.HasGame(noxflags.GameModeQuest) {
 			targ := asObjectS(ud.CursorObj)
-			if s.spellHasFlags(spellInd, things.SpellOffensive) {
+			if s.SpellHasFlags(spellInd, things.SpellOffensive) {
 				if targ != nil && !u.isEnemyTo(targ) {
 					return
 				}
@@ -855,30 +746,30 @@ func (s *Server) playerSpell(u *Unit) {
 		}
 		if pl.SpellLvl[spellInd] != 0 || spellInd == spell.SPELL_GLYPH {
 			ok2 = false
-			a1 = int(C.sub_4FD0E0(u.CObj(), C.int(spellInd)))
+			a1 = legacy.Sub_4FD0E0(u.SObj(), spellInd)
 			if a1 == 0 {
-				a1 = int(C.nox_xxx_checkPlrCantCastSpell_4FD150(u.CObj(), C.int(spellInd), 0))
+				a1 = legacy.Nox_xxx_checkPlrCantCastSpell_4FD150(u.SObj(), spellInd, 0)
 			}
 			if a1 != 0 {
 				nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 0, a1)
 				s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
 			} else {
-				mana := int(C.sub_4FCF90(u.CObj(), C.int(spellInd), 1))
+				mana := legacy.Sub_4FCF90(u.SObj(), spellInd, 1)
 				if mana < 0 {
 					a1 = 11
 					nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 0, a1)
 					s.AudioEventObj(sound.SoundManaEmpty, u, 0, 0)
 				} else {
-					arg, v14free := alloc.New(spellAcceptArg{})
+					arg, v14free := alloc.New(server.SpellAcceptArg{})
 					defer v14free()
-					arg.Obj = toCObjS(pl.Obj3640)
-					if noxflags.HasGame(noxflags.GameModeQuest) && s.spellHasFlags(spellInd, things.SpellOffensive) {
+					arg.Obj = pl.Obj3640.SObj()
+					if noxflags.HasGame(noxflags.GameModeQuest) && s.SpellHasFlags(spellInd, things.SpellOffensive) {
 						if pl.Obj3640 != nil && !u.isEnemyTo(asObjectS(pl.Obj3640)) {
 							arg.Obj = nil
 						}
 					}
 					arg.Pos = pl.CursorPos()
-					if s.nox_xxx_castSpellByUser4FDD20(spellInd, u, arg) {
+					if s.nox_xxx_castSpellByUser4FDD20(spellInd, u.SObj(), arg) {
 						nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 1, int(spellInd))
 					} else {
 						sub_4FD030(u, mana)
@@ -893,21 +784,21 @@ func (s *Server) playerSpell(u *Unit) {
 	}
 	if ok2 {
 		v13 := s.Strings().GetStringInFile("SpellUnknown", "plyrspel.c")
-		nox_xxx_netSendLineMessage_4D9EB0(u, v13)
+		legacy.Nox_xxx_netSendLineMessage_4D9EB0(u.SObj(), v13)
 	} else if a1 != 0 {
 		v4 := (*phonemeLeaf)(ud.SpellPhonemeLeaf)
 		nox_xxx_netReportSpellStat_4D9630(pl.Index(), spell.ID(v4.Ind), 0)
 	} else {
 		v4 := (*phonemeLeaf)(ud.SpellPhonemeLeaf)
-		if !s.spellHasFlags(spell.ID(v4.Ind), things.SpellFlagUnk21) {
+		if !s.SpellHasFlags(spell.ID(v4.Ind), things.SpellFlagUnk21) {
 			nox_xxx_netReportSpellStat_4D9630(pl.Index(), spell.ID(v4.Ind), 15)
 		}
 	}
 }
 
-func sub_4FD030(a1 *Unit, a2 int) {
-	if a1.Class().Has(object.ClassPlayer) {
-		C.nox_xxx_playerManaAdd_4EEB80(a1.CObj(), C.short(a2))
+func sub_4FD030(u *Unit, v int) {
+	if u.Class().Has(object.ClassPlayer) {
+		legacy.Nox_xxx_playerManaAdd_4EEB80(u.SObj(), v)
 	}
 }
 
@@ -932,124 +823,125 @@ func nox_xxx_loadBaseValues_57B200() {
 	*memmap.PtrFloat32(0x5D4594, 2523816) = float32(gamedataFloat("BaseMana"))
 	*memmap.PtrFloat32(0x5D4594, 2523824) = float32(gamedataFloat("BaseStrength"))
 	*memmap.PtrFloat32(0x5D4594, 2523820) = float32(gamedataFloat("BaseSpeed"))
-	*memmap.PtrFloat32(0x5D4594, 2523828) = float32(gamedataFloat("WarriorMaxHealth")) * float32(C.nox_xxx_warriorMaxHealth_587000_312784)
-	*memmap.PtrFloat32(0x5D4594, 2523832) = float32(gamedataFloat("WarriorMaxMana")) * float32(C.nox_xxx_warriorMaxMana_587000_312788)
+	*memmap.PtrFloat32(0x5D4594, 2523828) = float32(gamedataFloat("WarriorMaxHealth")) * legacy.Get_nox_xxx_warriorMaxHealth_587000_312784()
+	*memmap.PtrFloat32(0x5D4594, 2523832) = float32(gamedataFloat("WarriorMaxMana")) * legacy.Get_nox_xxx_warriorMaxMana_587000_312788()
 	*memmap.PtrFloat32(0x5D4594, 2523840) = float32(gamedataFloat("WarriorMaxStrength")) * noxServer.Players.Mult.Warrior.Strength
 	*memmap.PtrFloat32(0x5D4594, 2523836) = float32(gamedataFloat("WarriorMaxSpeed")) * noxServer.Players.Mult.Warrior.Speed
-	*memmap.PtrFloat32(0x5D4594, 2523860) = float32(gamedataFloat("ConjurerMaxHealth")) * float32(C.nox_xxx_conjurerMaxHealth_587000_312800)
-	*memmap.PtrFloat32(0x5D4594, 2523864) = float32(gamedataFloat("ConjurerMaxMana")) * float32(C.nox_xxx_conjurerMaxMana_587000_312804)
+	*memmap.PtrFloat32(0x5D4594, 2523860) = float32(gamedataFloat("ConjurerMaxHealth")) * legacy.Get_nox_xxx_conjurerMaxHealth_587000_312800()
+	*memmap.PtrFloat32(0x5D4594, 2523864) = float32(gamedataFloat("ConjurerMaxMana")) * legacy.Get_nox_xxx_conjurerMaxMana_587000_312804()
 	*memmap.PtrFloat32(0x5D4594, 2523872) = float32(gamedataFloat("ConjurerMaxStrength")) * noxServer.Players.Mult.Conjurer.Strength
 	*memmap.PtrFloat32(0x5D4594, 2523868) = float32(gamedataFloat("ConjurerMaxSpeed")) * noxServer.Players.Mult.Conjurer.Speed
-	*memmap.PtrFloat32(0x5D4594, 2523844) = float32(gamedataFloat("WizardMaxHealth")) * float32(C.nox_xxx_wizardMaxHealth_587000_312816)
-	*memmap.PtrFloat32(0x5D4594, 2523848) = float32(gamedataFloat("WizardMaxMana")) * float32(C.nox_xxx_wizardMaximumMana_587000_312820)
+	*memmap.PtrFloat32(0x5D4594, 2523844) = float32(gamedataFloat("WizardMaxHealth")) * legacy.Get_nox_xxx_wizardMaxHealth_587000_312816()
+	*memmap.PtrFloat32(0x5D4594, 2523848) = float32(gamedataFloat("WizardMaxMana")) * legacy.Get_nox_xxx_wizardMaximumMana_587000_312820()
 	*memmap.PtrFloat32(0x5D4594, 2523856) = float32(gamedataFloat("WizardMaxStrength")) * noxServer.Players.Mult.Wizard.Strength
 	*memmap.PtrFloat32(0x5D4594, 2523852) = float32(gamedataFloat("WizardMaxSpeed")) * noxServer.Players.Mult.Wizard.Speed
 }
 
 func sub_4D6B10(a1 bool) {
-	C.nox_xxx_warriorMaxHealth_587000_312784 = C.float(memmap.Float32(0x5D4594, 1556076))
-	C.nox_xxx_warriorMaxMana_587000_312788 = C.float(memmap.Float32(0x5D4594, 1556084))
-	noxServer.Players.Mult.Warrior.Strength = memmap.Float32(0x5D4594, 1556064)
-	noxServer.Players.Mult.Warrior.Speed = memmap.Float32(0x5D4594, 1556072)
-	C.nox_xxx_conjurerMaxHealth_587000_312800 = C.float(memmap.Float32(0x5D4594, 1556060))
-	C.nox_xxx_conjurerMaxMana_587000_312804 = C.float(memmap.Float32(0x5D4594, 1556096))
-	noxServer.Players.Mult.Conjurer.Strength = memmap.Float32(0x5D4594, 1550932)
-	noxServer.Players.Mult.Conjurer.Speed = memmap.Float32(0x5D4594, 1556080)
-	C.nox_xxx_wizardMaxHealth_587000_312816 = C.float(memmap.Float32(0x5D4594, 1556088))
-	C.nox_xxx_wizardMaximumMana_587000_312820 = C.float(memmap.Float32(0x5D4594, 1556068))
-	noxServer.Players.Mult.Wizard.Strength = memmap.Float32(0x5D4594, 1556100)
-	noxServer.Players.Mult.Wizard.Speed = memmap.Float32(0x5D4594, 1556092)
+	s := noxServer
+	legacy.Set_nox_xxx_warriorMaxHealth_587000_312784(memmap.Float32(0x5D4594, 1556076))
+	legacy.Set_nox_xxx_warriorMaxMana_587000_312788(memmap.Float32(0x5D4594, 1556084))
+	s.Players.Mult.Warrior.Strength = memmap.Float32(0x5D4594, 1556064)
+	s.Players.Mult.Warrior.Speed = memmap.Float32(0x5D4594, 1556072)
+	legacy.Set_nox_xxx_conjurerMaxHealth_587000_312800(memmap.Float32(0x5D4594, 1556060))
+	legacy.Set_nox_xxx_conjurerMaxMana_587000_312804(memmap.Float32(0x5D4594, 1556096))
+	s.Players.Mult.Conjurer.Strength = memmap.Float32(0x5D4594, 1550932)
+	s.Players.Mult.Conjurer.Speed = memmap.Float32(0x5D4594, 1556080)
+	legacy.Set_nox_xxx_wizardMaxHealth_587000_312816(memmap.Float32(0x5D4594, 1556088))
+	legacy.Set_nox_xxx_wizardMaximumMana_587000_312820(memmap.Float32(0x5D4594, 1556068))
+	s.Players.Mult.Wizard.Strength = memmap.Float32(0x5D4594, 1556100)
+	s.Players.Mult.Wizard.Speed = memmap.Float32(0x5D4594, 1556092)
 	nox_xxx_loadBaseValues_57B200()
-	for _, it := range noxServer.getPlayerUnits() {
-		C.nox_xxx_plrReadVals_4EEDC0(it.CObj(), 0)
+	for _, it := range s.getPlayerUnits() {
+		legacy.Nox_xxx_plrReadVals_4EEDC0(it.SObj(), 0)
 		if a1 {
-			nox_xxx_netStatsMultiplier_4D9C20(it.CObj())
+			nox_xxx_netStatsMultiplier_4D9C20(it.SObj())
 		}
 	}
 }
 
 func sub_4D6A60() {
-	C.nox_xxx_warriorMaxHealth_587000_312784 = 3
-	C.nox_xxx_warriorMaxMana_587000_312788 = 1
-	noxServer.Players.Mult.Warrior.Strength = 1
-	noxServer.Players.Mult.Warrior.Speed = 1
-	C.nox_xxx_conjurerMaxHealth_587000_312800 = 3
-	C.nox_xxx_conjurerMaxMana_587000_312804 = 3
-	noxServer.Players.Mult.Conjurer.Strength = 1
-	noxServer.Players.Mult.Conjurer.Speed = 1
-	C.nox_xxx_wizardMaxHealth_587000_312816 = 3
-	C.nox_xxx_wizardMaximumMana_587000_312820 = 3
-	noxServer.Players.Mult.Wizard.Strength = 1
-	noxServer.Players.Mult.Wizard.Speed = 1
+	s := noxServer
+	legacy.Set_nox_xxx_warriorMaxHealth_587000_312784(3)
+	legacy.Set_nox_xxx_warriorMaxMana_587000_312788(1)
+	s.Players.Mult.Warrior.Strength = 1
+	s.Players.Mult.Warrior.Speed = 1
+	legacy.Set_nox_xxx_conjurerMaxHealth_587000_312800(3)
+	legacy.Set_nox_xxx_conjurerMaxMana_587000_312804(3)
+	s.Players.Mult.Conjurer.Strength = 1
+	s.Players.Mult.Conjurer.Speed = 1
+	legacy.Set_nox_xxx_wizardMaxHealth_587000_312816(3)
+	legacy.Set_nox_xxx_wizardMaximumMana_587000_312820(3)
+	s.Players.Mult.Wizard.Strength = 1
+	s.Players.Mult.Wizard.Speed = 1
 	nox_xxx_loadBaseValues_57B200()
-	for _, it := range noxServer.getPlayerUnits() {
-		C.nox_xxx_plrReadVals_4EEDC0(it.CObj(), 0)
-		nox_xxx_netStatsMultiplier_4D9C20(it.CObj())
+	for _, it := range s.getPlayerUnits() {
+		legacy.Nox_xxx_plrReadVals_4EEDC0(it.SObj(), 0)
+		nox_xxx_netStatsMultiplier_4D9C20(it.SObj())
 	}
 }
 
 func sub_4D6BE0() {
-	*memmap.PtrFloat32(0x5D4594, 1556076) = float32(C.nox_xxx_warriorMaxHealth_587000_312784)
-	*memmap.PtrFloat32(0x5D4594, 1556084) = float32(C.nox_xxx_warriorMaxMana_587000_312788)
-	*memmap.PtrFloat32(0x5D4594, 1556064) = noxServer.Players.Mult.Warrior.Strength
-	*memmap.PtrFloat32(0x5D4594, 1556072) = noxServer.Players.Mult.Warrior.Speed
-	*memmap.PtrFloat32(0x5D4594, 1556060) = float32(C.nox_xxx_conjurerMaxHealth_587000_312800)
-	*memmap.PtrFloat32(0x5D4594, 1556096) = float32(C.nox_xxx_conjurerMaxMana_587000_312804)
-	*memmap.PtrFloat32(0x5D4594, 1550932) = noxServer.Players.Mult.Conjurer.Strength
-	*memmap.PtrFloat32(0x5D4594, 1556080) = noxServer.Players.Mult.Conjurer.Speed
-	*memmap.PtrFloat32(0x5D4594, 1556088) = float32(C.nox_xxx_wizardMaxHealth_587000_312816)
-	*memmap.PtrFloat32(0x5D4594, 1556068) = float32(C.nox_xxx_wizardMaximumMana_587000_312820)
-	*memmap.PtrFloat32(0x5D4594, 1556100) = noxServer.Players.Mult.Wizard.Strength
-	*memmap.PtrFloat32(0x5D4594, 1556092) = noxServer.Players.Mult.Wizard.Speed
+	s := noxServer
+	*memmap.PtrFloat32(0x5D4594, 1556076) = legacy.Get_nox_xxx_warriorMaxHealth_587000_312784()
+	*memmap.PtrFloat32(0x5D4594, 1556084) = legacy.Get_nox_xxx_warriorMaxMana_587000_312788()
+	*memmap.PtrFloat32(0x5D4594, 1556064) = s.Players.Mult.Warrior.Strength
+	*memmap.PtrFloat32(0x5D4594, 1556072) = s.Players.Mult.Warrior.Speed
+	*memmap.PtrFloat32(0x5D4594, 1556060) = legacy.Get_nox_xxx_conjurerMaxHealth_587000_312800()
+	*memmap.PtrFloat32(0x5D4594, 1556096) = legacy.Get_nox_xxx_conjurerMaxMana_587000_312804()
+	*memmap.PtrFloat32(0x5D4594, 1550932) = s.Players.Mult.Conjurer.Strength
+	*memmap.PtrFloat32(0x5D4594, 1556080) = s.Players.Mult.Conjurer.Speed
+	*memmap.PtrFloat32(0x5D4594, 1556088) = legacy.Get_nox_xxx_wizardMaxHealth_587000_312816()
+	*memmap.PtrFloat32(0x5D4594, 1556068) = legacy.Get_nox_xxx_wizardMaximumMana_587000_312820()
+	*memmap.PtrFloat32(0x5D4594, 1556100) = s.Players.Mult.Wizard.Strength
+	*memmap.PtrFloat32(0x5D4594, 1556092) = s.Players.Mult.Wizard.Speed
 }
 
-//export nox_client_onClassStats
-func nox_client_onClassStats(cbuf *C.uchar, sz int) {
-	data := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), sz)
+func nox_client_onClassStats(data []byte) {
+	s := noxServer
 	switch player.Class(memmap.Uint8(0x85B3FC, 12254)) {
 	case player.Warrior:
-		C.nox_xxx_warriorMaxHealth_587000_312784 = C.float(math.Float32frombits(binary.LittleEndian.Uint32(data[1:])))
-		C.nox_xxx_warriorMaxMana_587000_312788 = C.float(math.Float32frombits(binary.LittleEndian.Uint32(data[5:])))
-		noxServer.Players.Mult.Warrior.Strength = math.Float32frombits(binary.LittleEndian.Uint32(data[9:]))
-		noxServer.Players.Mult.Warrior.Speed = math.Float32frombits(binary.LittleEndian.Uint32(data[13:]))
+		legacy.Set_nox_xxx_warriorMaxHealth_587000_312784(math.Float32frombits(binary.LittleEndian.Uint32(data[1:])))
+		legacy.Set_nox_xxx_warriorMaxMana_587000_312788(math.Float32frombits(binary.LittleEndian.Uint32(data[5:])))
+		s.Players.Mult.Warrior.Strength = math.Float32frombits(binary.LittleEndian.Uint32(data[9:]))
+		s.Players.Mult.Warrior.Speed = math.Float32frombits(binary.LittleEndian.Uint32(data[13:]))
 	case player.Wizard:
-		C.nox_xxx_wizardMaxHealth_587000_312816 = C.float(math.Float32frombits(binary.LittleEndian.Uint32(data[1:])))
-		C.nox_xxx_wizardMaximumMana_587000_312820 = C.float(math.Float32frombits(binary.LittleEndian.Uint32(data[5:])))
-		noxServer.Players.Mult.Wizard.Strength = math.Float32frombits(binary.LittleEndian.Uint32(data[9:]))
-		noxServer.Players.Mult.Wizard.Speed = math.Float32frombits(binary.LittleEndian.Uint32(data[13:]))
+		legacy.Set_nox_xxx_wizardMaxHealth_587000_312816(math.Float32frombits(binary.LittleEndian.Uint32(data[1:])))
+		legacy.Set_nox_xxx_wizardMaximumMana_587000_312820(math.Float32frombits(binary.LittleEndian.Uint32(data[5:])))
+		s.Players.Mult.Wizard.Strength = math.Float32frombits(binary.LittleEndian.Uint32(data[9:]))
+		s.Players.Mult.Wizard.Speed = math.Float32frombits(binary.LittleEndian.Uint32(data[13:]))
 	case player.Conjurer:
-		C.nox_xxx_conjurerMaxHealth_587000_312800 = C.float(math.Float32frombits(binary.LittleEndian.Uint32(data[1:])))
-		C.nox_xxx_conjurerMaxMana_587000_312804 = C.float(math.Float32frombits(binary.LittleEndian.Uint32(data[5:])))
-		noxServer.Players.Mult.Conjurer.Strength = math.Float32frombits(binary.LittleEndian.Uint32(data[9:]))
-		noxServer.Players.Mult.Conjurer.Speed = math.Float32frombits(binary.LittleEndian.Uint32(data[13:]))
+		legacy.Set_nox_xxx_conjurerMaxHealth_587000_312800(math.Float32frombits(binary.LittleEndian.Uint32(data[1:])))
+		legacy.Set_nox_xxx_conjurerMaxMana_587000_312804(math.Float32frombits(binary.LittleEndian.Uint32(data[5:])))
+		s.Players.Mult.Conjurer.Strength = math.Float32frombits(binary.LittleEndian.Uint32(data[9:]))
+		s.Players.Mult.Conjurer.Speed = math.Float32frombits(binary.LittleEndian.Uint32(data[13:]))
 	}
 	nox_xxx_loadBaseValues_57B200()
 }
 
-//export nox_xxx_playerObserveMonster_4DDE80
-func nox_xxx_playerObserveMonster_4DDE80(cplayer, cunit *nox_object_t) {
-	pu := asUnitC(cplayer)
+func nox_xxx_playerObserveMonster_4DDE80(cplayer, cunit *server.Object) {
+	pu := asUnitS(cplayer)
 	ud := pu.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 
-	targ := asObjectC(cunit)
+	targ := cunit
 
 	if pl.Field3680&0x1 != 0 {
-		C.nox_xxx_playerLeaveObserver_0_4E6AA0(pl.C())
+		legacy.Nox_xxx_playerLeaveObserver_0_4E6AA0(pl.S())
 	}
 	if pl.Field3680&0x2 != 0 {
 		pu.observeClear()
 	}
-	C.nox_xxx_netNeedTimestampStatus_4174F0(pl.C(), 2)
+	legacy.Nox_xxx_netNeedTimestampStatus_4174F0(pl.S(), 2)
 	pl.CameraFollow(targ)
 	_ = nox_xxx_updatePlayerObserver_4E62F0
-	pu.Update = C.nox_xxx_updatePlayerObserver_4E62F0
+	pu.Update = legacy.Get_nox_xxx_updatePlayerObserver_4E62F0()
 }
 
-func (s *Server) nox_xxx_playerLeaveObsByObserved_4E60A0(obj noxObject) {
-	cobj := toCObj(obj)
+func (s *Server) nox_xxx_playerLeaveObsByObserved_4E60A0(obj server.Obj) {
+	cobj := toObject(obj).SObj()
 	for pl := s.PlayerFirst(); pl != nil; pl = s.PlayerNext(pl) {
-		if pl.CameraTarget().CObj() == cobj {
+		if pl.CameraTarget().SObj() == cobj {
 			pl.leaveMonsterObserver()
 		}
 	}

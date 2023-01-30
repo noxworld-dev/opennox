@@ -26,5 +26,5 @@ func (s noxScriptNS) Unknownb9(id int) bool {
 }
 
 func (s noxScriptNS) Unknownc4() {
-	noxClient.nox_video_stopAllFades44E040()
+	noxClient.Nox_video_stopAllFades44E040()
 }

@@ -1,11 +1,5 @@
 package opennox
 
-/*
-#include <stdint.h>
-void nox_xxx_plrCastSmth_4FEDA0(void* a1);
-char nox_xxx_spellCancelSpellDo_4FE9D0(void* a1);
-*/
-import "C"
 import (
 	"unsafe"
 
@@ -14,52 +8,47 @@ import (
 	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
 
-	"github.com/noxworld-dev/opennox/v1/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/internal/ccall"
+	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
+	"github.com/noxworld-dev/opennox/v1/server"
+
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 var (
 	nox_alloc_spellDur_1569724 alloc.ClassT[noxDurSpell]
 )
 
-//export nox_xxx_spellCastedFirst_4FE930
 func nox_xxx_spellCastedFirst_4FE930() unsafe.Pointer {
 	return noxServer.spells.duration.list.C()
 }
 
-//export nox_xxx_spellCastedNext_4FE940
 func nox_xxx_spellCastedNext_4FE940(a1 unsafe.Pointer) unsafe.Pointer {
 	return (*noxDurSpell)(a1).next.C()
 }
 
-//export sub_4FE8A0
 func sub_4FE8A0(a1 int) {
 	noxServer.spells.duration.sub4FE8A0(a1)
 }
 
-//export sub_4FE900
 func sub_4FE900(a1 unsafe.Pointer) {
 	noxServer.spells.duration.unlink((*noxDurSpell)(a1))
 }
 
-//export nox_xxx_spellCastByPlayer_4FEEF0
 func nox_xxx_spellCastByPlayer_4FEEF0() {
 	noxServer.spells.duration.spellCastByPlayer()
 }
 
-//export nox_xxx_spellCancelDurSpell_4FEB10
-func nox_xxx_spellCancelDurSpell_4FEB10(a1 int, a2 *nox_object_t) {
-	noxServer.spells.duration.CancelFor(spell.ID(a1), asUnitC(a2))
+func nox_xxx_spellCancelDurSpell_4FEB10(a1 int, a2 *server.Object) {
+	noxServer.spells.duration.CancelFor(spell.ID(a1), a2)
 }
 
-//export sub_4FE980
 func sub_4FE980(a1 unsafe.Pointer) {
 	noxServer.spells.duration.freeRecursive((*noxDurSpell)(a1))
 }
 
-//export sub_4FF310
-func sub_4FF310(a1 *nox_object_t) {
-	noxServer.spells.duration.nox_spell_cancelOffensiveFor_4FF310(asUnitC(a1))
+func sub_4FF310(a1 *server.Object) {
+	noxServer.spells.duration.nox_spell_cancelOffensiveFor_4FF310(a1)
 }
 
 type noxDurSpell struct {
@@ -67,15 +56,15 @@ type noxDurSpell struct {
 	_       uint16         // 0, 2
 	spell   uint32         // 1, 4
 	level   uint32         // 2, 8
-	obj12   *nox_object_t  // 3, 12
-	obj16   *nox_object_t  // 4, 16
+	obj12   *server.Object // 3, 12
+	obj16   *server.Object // 4, 16
 	flag20  uint32         // 5, 20
-	obj24   *nox_object_t  // 6, 24
+	obj24   *server.Object // 6, 24
 	pos     types.Pointf   // 7, 28
 	field36 uint32         // 9, 36
 	field40 uint32         // 10, 40
 	field44 uint32         // 11, 44
-	obj48   *nox_object_t  // 12, 48
+	obj48   *server.Object // 12, 48
 	pos2    types.Pointf   // 13, 52
 	frame60 uint32         // 15, 60
 	frame64 uint32         // 16, 64
@@ -132,7 +121,7 @@ func (sp *spellsDuration) sub4FE8A0(a1 int) {
 	}
 	var next *noxDurSpell
 	for it := sp.list; it != nil; it = next {
-		u := asUnitC(it.obj48)
+		u := it.obj48
 		next = it.next
 		if u == nil || !u.Class().Has(object.ClassPlayer) {
 			sub_4FE900(it.C())
@@ -171,7 +160,7 @@ func (sp *spellsDuration) newHook() {
 	for it := sp.list; it != nil; it = next {
 		next = it.next
 		if it.flags88&0x1 != 0 {
-			C.nox_xxx_plrCastSmth_4FEDA0(it.C())
+			legacy.Nox_xxx_plrCastSmth_4FEDA0(it.C())
 		}
 	}
 }
@@ -189,32 +178,32 @@ func spellIsSummon(sp spell.ID) bool {
 	return sp >= spell.SPELL_SUMMON_BAT && sp <= spell.SPELL_SUMMON_URCHIN_SHAMAN
 }
 
-func (sp *spellsDuration) CancelFor(sid spell.ID, obj noxObject) {
+func (sp *spellsDuration) CancelFor(sid spell.ID, obj server.Obj) {
 	var next *noxDurSpell
 	for it := sp.list; it != nil; it = next {
 		sid2 := spell.ID(it.spell)
 		next = it.next
-		if sid2 == sid && it.obj16 == toCObj(obj) || spellIsSummon(sid) && spellIsSummon(sid2) && it.obj16 == toCObj(obj) {
-			C.nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
+		if sid2 == sid && it.obj16 == toObjectS(obj) || spellIsSummon(sid) && spellIsSummon(sid2) && it.obj16 == toObjectS(obj) {
+			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
 		}
 	}
 }
 
-func (sp *spellsDuration) sub4FEE50(a1 spell.ID, a2 *Unit) bool {
+func (sp *spellsDuration) sub4FEE50(a1 spell.ID, a2 *server.Object) bool {
 	for it := sp.list; it != nil; it = it.next {
-		if it.flag20 == 0 && spell.ID(it.spell) == a1 && it.obj16 == a2.CObj() && it.flags88&0x1 == 0 {
+		if it.flag20 == 0 && spell.ID(it.spell) == a1 && it.obj16 == a2.SObj() && it.flags88&0x1 == 0 {
 			return true
 		}
 	}
 	return false
 }
 
-func (sp *spellsDuration) nox_spell_cancelOffensiveFor_4FF310(u *Unit) {
+func (sp *spellsDuration) nox_spell_cancelOffensiveFor_4FF310(u *server.Object) {
 	var next *noxDurSpell
 	for it := sp.list; it != nil; it = next {
 		next = it.next
-		if it.obj16 == u.CObj() && sp.s.spellFlags(spell.ID(it.spell)).Has(things.SpellOffensive) {
-			C.nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
+		if it.obj16 == u.SObj() && sp.s.SpellFlags(spell.ID(it.spell)).Has(things.SpellOffensive) {
+			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
 		}
 	}
 }
@@ -224,30 +213,30 @@ func (sp *spellsDuration) spellCastByPlayer() {
 	for it := sp.list; it != nil; it = next {
 		next = it.next
 		if it.flags88&0x1 != 0 {
-			C.nox_xxx_plrCastSmth_4FEDA0(it.C())
+			legacy.Nox_xxx_plrCastSmth_4FEDA0(it.C())
 			continue
 		}
-		if obj16 := asObjectC(it.obj16); obj16 != nil && obj16.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
+		if obj16 := it.obj16; obj16 != nil && obj16.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
 			it.obj16 = nil
 		}
 
-		if obj12 := asObjectC(it.obj12); obj12 != nil && obj12.Flags().Has(object.FlagDestroyed) {
+		if obj12 := it.obj12; obj12 != nil && obj12.Flags().Has(object.FlagDestroyed) {
 			it.obj12 = nil
 		}
 		if it.obj16 == nil && it.flag20 == 0 {
-			C.nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
+			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
 			continue
 		}
-		if obj24 := asObjectC(it.obj24); obj24 != nil && obj24.Flags().Has(object.FlagDestroyed) {
+		if obj24 := it.obj24; obj24 != nil && obj24.Flags().Has(object.FlagDestroyed) {
 			it.obj24 = nil
 		}
 		if it.frame68 != it.frame60 && it.frame68 <= noxServer.Frame() || it.update != nil && ccall.CallIntPtr(it.update, it.C()) != 0 {
-			C.nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
+			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
 		}
 	}
 }
 
-func (sp *spellsDuration) New(spellID spell.ID, u1, u2, u3 *Unit, sa *spellAcceptArg, lvl int, create, update, destroy unsafe.Pointer, dt uint32) bool {
+func (sp *spellsDuration) New(spellID spell.ID, u1, u2, u3 *server.Object, sa *server.SpellAcceptArg, lvl int, create, update, destroy unsafe.Pointer, dt uint32) bool {
 	if sp.objects.Glyph == 0 {
 		sp.objects.Glyph = sp.s.ObjectTypeID("Glyph")
 	}
@@ -267,13 +256,13 @@ func (sp *spellsDuration) New(spellID spell.ID, u1, u2, u3 *Unit, sa *spellAccep
 	}
 	p.spell = uint32(spellID)
 	p.level = uint32(lvl)
-	p.obj12 = u1.CObj()
-	p.obj16 = u2.CObj()
+	p.obj12 = u1.SObj()
+	p.obj16 = u2.SObj()
 	p.sub104 = nil
 	p.sub108 = nil
 	if u3 != nil && int(u3.TypeInd) == sp.objects.Glyph {
 		p.flag20 = 1
-		p.obj24 = u3.CObj()
+		p.obj24 = u3.SObj()
 		p.pos = u3.Pos()
 	} else {
 		p.flag20 = 0
@@ -292,7 +281,7 @@ func (sp *spellsDuration) New(spellID spell.ID, u1, u2, u3 *Unit, sa *spellAccep
 	p.flags88 = 0
 	sp.add(p)
 	sid := 0
-	if sp.s.spellHasFlags(spellID, things.SpellTargeted) {
+	if sp.s.SpellHasFlags(spellID, things.SpellTargeted) {
 		sid = 1
 	}
 	aud := sp.s.SpellDefByInd(spellID).GetAudio(sid)
@@ -300,6 +289,6 @@ func (sp *spellsDuration) New(spellID spell.ID, u1, u2, u3 *Unit, sa *spellAccep
 	if create == nil || ccall.CallIntPtr(create, p.C()) == 0 {
 		return true
 	}
-	C.nox_xxx_spellCancelSpellDo_4FE9D0(p.C())
+	legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(p.C())
 	return false
 }
