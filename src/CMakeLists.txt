@@ -3,6 +3,10 @@ project (nox-port)
 
 option (USE_ASAN "Enable address sanitizer" OFF)
 
+find_package(SDL2 CONFIG REQUIRED)
+find_package(OpenAL CONFIG REQUIRED)
+find_package(GLEW REQUIRED)
+
 if (MSVC)
     add_compile_options ("$<$<CONFIG:DEBUG>:/RTCs>")
 else ()
@@ -14,8 +18,6 @@ endif ()
 include_directories (external/include)
 link_directories (${PROJECT_SOURCE_DIR}/external/lib)
 if (WIN32)
-    set (OPENAL_LIBRARIES openal)
-    set (OPENGL_LIBRARIES glew32 opengl32)
     set (WIN32_LIBRARIES ws2_32 winmm)
 elseif (APPLE)
     set (OPENAL_LIBRARIES "-framework OpenAL")
@@ -55,10 +57,10 @@ add_executable (
 )
 target_link_libraries (
     out
-    SDL2
-    "${OPENAL_LIBRARIES}"
-    "${OPENGL_LIBRARIES}"
-    "${PTHREAD_LIBRARIES}"
+    $<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
+	$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
+    GLEW::GLEW
+    OpenAL::OpenAL
     "${WIN32_LIBRARIES}"
 )
 if (MSVC)
