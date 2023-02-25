@@ -372,7 +372,7 @@ func nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2 int, act int, a4 unsafe.Poin
 			} else {
 				res := legacy.Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path, ind)
 				if noxflags.HasGame(noxflags.GameModeQuest) {
-					if res != nil {
+					if res != 0 {
 						if pl := noxServer.GetPlayerByInd(ind); pl != nil {
 							if u := pl.UnitC(); u != nil {
 								ud := u.UpdateDataPlayer()
@@ -453,7 +453,7 @@ func nox_xxx_soloLoadGame_4DB7E0_savegame(a1 string) bool {
 	noxServer.ResetObjectScriptIDs()
 	nox_xxx_gameSetSwitchSolo_4DB220(1)
 	nox_xxx_gameSetNoMPFlag_4DB230(1)
-	if legacy.Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path, common.MaxPlayers-1) == nil {
+	if legacy.Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path, common.MaxPlayers-1) == 0 {
 		return false
 	}
 	legacy.Nox_xxx_cliPrepareGameplay1_460E60()

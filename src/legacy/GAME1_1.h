@@ -47,7 +47,7 @@ void sub_419EB0(int a1, int a2);
 int sub_41A000(char* a1, nox_savegame_xxx* sv);
 int nox_xxx_playerSaveToFile_41A140(char* a1, int a2);
 int nox_xxx_mapSavePlayerDataMB_41A230(char* a1);
-char* nox_xxx_cliPlrInfoLoadFromFile_41A2E0(char* a1, int a2);
+int nox_xxx_cliPlrInfoLoadFromFile_41A2E0(char* a1, int a2);
 int nox_xxx_plrLoad_41A480(char* a1);
 int sub_41A590(int a1, int a2);
 char* sub_41AA30(int a1);
