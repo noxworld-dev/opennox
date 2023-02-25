@@ -1,7 +1,6 @@
 /build
 /.flatpak-builder
 /cmake-*
-legacy/
 tmp/
 .tmp/
 logs/
