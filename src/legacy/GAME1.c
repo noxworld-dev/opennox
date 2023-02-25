@@ -929,26 +929,23 @@ int sub_40B690(unsigned int a1, char a2, char a3) {
 char* sub_40B6D0(uint8_t* a1) {
 	int v1;       // eax
 	uint32_t* v2; // ecx
-	char* result; // eax
 
 	v1 = 0;
 	if (*(int*)&dword_5d4594_3624 <= 0) {
-	LABEL_5:
-		result = 0;
 		*a1 = 0;
-	} else {
-		v2 = (uint32_t*)(dword_5d4594_3620 + 16);
-		while (*v2) {
-			++v1;
-			v2 += 42;
-			if (v1 >= *(int*)&dword_5d4594_3624) {
-				goto LABEL_5;
-			}
-		}
-		*a1 = v1;
-		result = (char*)(dword_5d4594_3620 + 168 * v1);
+		return 0;
 	}
-	return result;
+	v2 = (uint32_t*)(dword_5d4594_3620 + 16);
+	while (*v2) {
+		++v1;
+		v2 += 42;
+		if (v1 >= *(int*)&dword_5d4594_3624) {
+			*a1 = 0;
+			return 0;
+		}
+	}
+	*a1 = v1;
+	return (char*)(dword_5d4594_3620 + 168 * v1);
 }
 
 //----- (0040B720) --------------------------------------------------------
