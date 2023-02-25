@@ -922,7 +922,7 @@ void sub_451970() {
 }
 
 //----- (004519C0) --------------------------------------------------------
-int sub_4519C0() {
+void sub_4519C0() {
 	int result;        // eax
 	int v1;            // esi
 	int v2;            // eax
@@ -936,96 +936,95 @@ int sub_4519C0() {
 	int v10;           // eax
 
 	result = dword_5d4594_1045432;
-	if (dword_5d4594_1045432) {
-		result = *getMemU32Ptr(0x5D4594, 1045448);
-		if (!*getMemU32Ptr(0x5D4594, 1045448)) {
-			*getMemU32Ptr(0x5D4594, 1045448) = 1;
-			sub_486520(*(unsigned int**)&dword_587000_127004);
-			v1 = *getMemU32Ptr(0x5D4594, 840612);
-			++*getMemU32Ptr(0x5D4594, 1045440);
-			if (*(unsigned char**)getMemAt(0x5D4594, 840612) != getMemAt(0x5D4594, 840612)) {
-				do {
-					v2 = *(uint32_t*)(v1 + 36);
-					if (*(uint32_t*)(v2 + 100) != *getMemU32Ptr(0x5D4594, 1045440)) {
-						nox_common_list_clear_425760((uint32_t*)(v2 + 88));
-						*(uint32_t*)(*(uint32_t*)(v1 + 36) + 52) = 0;
-						*(uint32_t*)(*(uint32_t*)(v1 + 36) + 100) = *getMemU32Ptr(0x5D4594, 1045440);
-					}
-					sub_486520((unsigned int*)(v1 + 184));
-					if (*(uint32_t*)(v1 + 28) != 4) {
-						sub_451BE0(v1);
-					}
-					v1 = *(uint32_t*)v1;
-				} while ((unsigned char*)v1 != getMemAt(0x5D4594, 840612));
-				v1 = *getMemU32Ptr(0x5D4594, 840612);
-				if (*(unsigned char**)getMemAt(0x5D4594, 840612) != getMemAt(0x5D4594, 840612)) {
-					do {
-						sub_452510(v1);
-						v1 = *(uint32_t*)v1;
-					} while ((unsigned char*)v1 != getMemAt(0x5D4594, 840612));
-					v1 = *getMemU32Ptr(0x5D4594, 840612);
-				}
+	if (!dword_5d4594_1045432) {
+		return;
+	}
+	result = *getMemU32Ptr(0x5D4594, 1045448);
+	if (*getMemU32Ptr(0x5D4594, 1045448)) {
+		return;
+	}
+	*getMemU32Ptr(0x5D4594, 1045448) = 1;
+	sub_486520(*(unsigned int**)&dword_587000_127004);
+	v1 = *getMemU32Ptr(0x5D4594, 840612);
+	++*getMemU32Ptr(0x5D4594, 1045440);
+	if (*(unsigned char**)getMemAt(0x5D4594, 840612) != getMemAt(0x5D4594, 840612)) {
+		do {
+			v2 = *(uint32_t*)(v1 + 36);
+			if (*(uint32_t*)(v2 + 100) != *getMemU32Ptr(0x5D4594, 1045440)) {
+				nox_common_list_clear_425760((uint32_t*)(v2 + 88));
+				*(uint32_t*)(*(uint32_t*)(v1 + 36) + 52) = 0;
+				*(uint32_t*)(*(uint32_t*)(v1 + 36) + 100) = *getMemU32Ptr(0x5D4594, 1045440);
 			}
-			v3 = 0;
-			sub_452010();
-			if ((unsigned char*)v1 == getMemAt(0x5D4594, 840612)) {
-				goto LABEL_35;
+			sub_486520((unsigned int*)(v1 + 184));
+			if (*(uint32_t*)(v1 + 28) != 4) {
+				sub_451BE0(v1);
 			}
+			v1 = *(uint32_t*)v1;
+		} while ((unsigned char*)v1 != getMemAt(0x5D4594, 840612));
+		v1 = *getMemU32Ptr(0x5D4594, 840612);
+		if (*(unsigned char**)getMemAt(0x5D4594, 840612) != getMemAt(0x5D4594, 840612)) {
 			do {
-				v4 = *(uint32_t*)(v1 + 176);
-				v5 = *(unsigned char**)v1;
-				if (!v4 || v1 != *(uint32_t*)(v4 + 152)) {
-					sub_4523D0((uint32_t*)v1);
-				}
-				if (*(uint8_t*)(v1 + 24) & 1) {
-					sub_451FE0(v1);
-				} else {
-					v3 += (unsigned int)(33 * (*(uint32_t*)(*(uint32_t*)(v1 + 36) + 20) >> 16)) >> 14;
-					sub_452050((uint32_t*)v1);
-				}
-				v1 = (int)v5;
-			} while (v5 != getMemAt(0x5D4594, 840612));
-			if (v3 <= 100) {
-			LABEL_35:
-				sub_486350((int)getMemAt(0x5D4594, 1045228), 0x4000);
-			} else {
-				sub_486350((int)getMemAt(0x5D4594, 1045228), 0x190000u / v3);
-			}
-			result = sub_486520(getMemUintPtr(0x5D4594, 1045228));
-			v6 = *(unsigned char**)getMemAt(0x5D4594, 840612);
-			if (*(unsigned char**)getMemAt(0x5D4594, 840612) != getMemAt(0x5D4594, 840612)) {
-				do {
-					v7 = *(unsigned char**)v6;
-					result = *((uint32_t*)v6 + 7);
-					if (result == 1) {
-						sub_451DC0((int)v6);
-						v8 = sub_451CA0(v6);
-						*((uint32_t*)v6 + 74) = v8;
-						if (!v8) {
-							do {
-								if (!sub_452120((int)v6)) {
-									break;
-								}
-								v7 = *(unsigned char**)v6;
-								sub_451DC0((int)v6);
-								v9 = sub_451CA0(v6);
-								*((uint32_t*)v6 + 74) = v9;
-							} while (!v9);
-						}
-						v10 = sub_451CA0(v6);
-						*((uint32_t*)v6 + 74) = v10;
-						if (!v10 || (result = sub_452490(v6)) == 0) {
-							sub_4523D0(v6);
-							result = sub_451FE0((int)v6);
-						}
-					}
-					v6 = v7;
-				} while (v7 != getMemAt(0x5D4594, 840612));
-			}
-			*getMemU32Ptr(0x5D4594, 1045448) = 0;
+				sub_452510(v1);
+				v1 = *(uint32_t*)v1;
+			} while ((unsigned char*)v1 != getMemAt(0x5D4594, 840612));
+			v1 = *getMemU32Ptr(0x5D4594, 840612);
 		}
 	}
-	return result;
+	v3 = 0;
+	sub_452010();
+	if ((unsigned char*)v1 != getMemAt(0x5D4594, 840612)) {
+		do {
+			v4 = *(uint32_t*)(v1 + 176);
+			v5 = *(unsigned char**)v1;
+			if (!v4 || v1 != *(uint32_t*)(v4 + 152)) {
+				sub_4523D0((uint32_t*)v1);
+			}
+			if (*(uint8_t*)(v1 + 24) & 1) {
+				sub_451FE0(v1);
+			} else {
+				v3 += (unsigned int)(33 * (*(uint32_t*)(*(uint32_t*)(v1 + 36) + 20) >> 16)) >> 14;
+				sub_452050((uint32_t*)v1);
+			}
+			v1 = (int)v5;
+		} while (v5 != getMemAt(0x5D4594, 840612));
+	}
+	if (v3 <= 100) {
+		sub_486350((int)getMemAt(0x5D4594, 1045228), 0x4000);
+	} else {
+		sub_486350((int)getMemAt(0x5D4594, 1045228), 0x190000u / v3);
+	}
+	result = sub_486520(getMemUintPtr(0x5D4594, 1045228));
+	v6 = *(unsigned char**)getMemAt(0x5D4594, 840612);
+	if (*(unsigned char**)getMemAt(0x5D4594, 840612) != getMemAt(0x5D4594, 840612)) {
+		do {
+			v7 = *(unsigned char**)v6;
+			result = *((uint32_t*)v6 + 7);
+			if (result == 1) {
+				sub_451DC0((int)v6);
+				v8 = sub_451CA0(v6);
+				*((uint32_t*)v6 + 74) = v8;
+				if (!v8) {
+					do {
+						if (!sub_452120((int)v6)) {
+							break;
+						}
+						v7 = *(unsigned char**)v6;
+						sub_451DC0((int)v6);
+						v9 = sub_451CA0(v6);
+						*((uint32_t*)v6 + 74) = v9;
+					} while (!v9);
+				}
+				v10 = sub_451CA0(v6);
+				*((uint32_t*)v6 + 74) = v10;
+				if (!v10 || (result = sub_452490(v6)) == 0) {
+					sub_4523D0(v6);
+					result = sub_451FE0((int)v6);
+				}
+			}
+			v6 = v7;
+		} while (v7 != getMemAt(0x5D4594, 840612));
+	}
+	*getMemU32Ptr(0x5D4594, 1045448) = 0;
 }
 
 //----- (00451BE0) --------------------------------------------------------
