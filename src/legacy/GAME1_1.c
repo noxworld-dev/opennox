@@ -4315,7 +4315,6 @@ LABEL_43:
 	if (a1) {
 		v33 = v61;
 		if (v61 > v63) {
-		LABEL_75:
 			v59 = 0xFFFF;
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v59, 2u);
 			return 1;
@@ -4325,46 +4324,56 @@ LABEL_43:
 			v35 = v34;
 			v65 = v34;
 			if (v34 <= v64) {
-				break;
-			}
-		LABEL_74:
-			if (++v33 > v63) {
-				goto LABEL_75;
-			}
-		}
-		v36 = 23 * v34 + 11;
-		while (1) {
-			if (!(((uint8_t)v33 + v35) & 1)) {
-				if (v33 & 1) {
-					v39 = (uint8_t*)((uint32_t)(ptr_5D4594_2650668[(v36 - 34) / 46]) + 44 * (23 * (v33 + 1) / 46));
-					if (*v39 & 1) {
-						v38 = v39 + 4;
-						goto LABEL_70;
-					}
-				} else {
-					v37 = (uint8_t*)((uint32_t)(ptr_5D4594_2650668[(v36 - 11) / 46]) + 44 * (23 * v33 / 46));
-					if (*v37 & 2) {
-						v38 = v37 + 24;
-					LABEL_70:
-						v69.field_0 = v36;
-						v69.field_4 = 23 * v33 + 34;
-						if (nox_xxx_wallMath_427F30(&v69, (uint32_t*)a1)) {
-							LOBYTE(v40) = 0;
-							HIBYTE(v40) = v65;
-							v68 = v33 | v40;
-							nox_xxx_fileReadWrite_426AC0_file3_fread(&v68, 2u);
-							nox_xxx_tileReadOne_422A40(v62, v38);
+				v36 = 23 * v34 + 11;
+				while (1) {
+					if (!(((uint8_t)v33 + v35) & 1)) {
+						if (v33 & 1) {
+							v39 = (uint8_t*)((uint32_t)(ptr_5D4594_2650668[(v36 - 34) / 46]) + 44 * (23 * (v33 + 1) / 46));
+							if (*v39 & 1) {
+								v38 = v39 + 4;
+								v69.field_0 = v36;
+								v69.field_4 = 23 * v33 + 34;
+								if (nox_xxx_wallMath_427F30(&v69, (uint32_t*)a1)) {
+									LOBYTE(v40) = 0;
+									HIBYTE(v40) = v65;
+									v68 = v33 | v40;
+									nox_xxx_fileReadWrite_426AC0_file3_fread(&v68, 2u);
+									nox_xxx_tileReadOne_422A40(v62, v38);
+								}
+								v34 = v60;
+								goto LABEL_73;
+							}
+						} else {
+							v37 = (uint8_t*)((uint32_t)(ptr_5D4594_2650668[(v36 - 11) / 46]) + 44 * (23 * v33 / 46));
+							if (*v37 & 2) {
+								v38 = v37 + 24;
+								v69.field_0 = v36;
+								v69.field_4 = 23 * v33 + 34;
+								if (nox_xxx_wallMath_427F30(&v69, (uint32_t*)a1)) {
+									LOBYTE(v40) = 0;
+									HIBYTE(v40) = v65;
+									v68 = v33 | v40;
+									nox_xxx_fileReadWrite_426AC0_file3_fread(&v68, 2u);
+									nox_xxx_tileReadOne_422A40(v62, v38);
+								}
+								v34 = v60;
+								goto LABEL_73;
+							}
 						}
-						v34 = v60;
-						goto LABEL_73;
+					}
+				LABEL_73:
+					v35 = v65 + 1;
+					v36 += 23;
+					if (++v65 > v64) {
+						break;
 					}
 				}
 			}
-		LABEL_73:
-			v35 = v65 + 1;
-			v36 += 23;
-			if (++v65 > v64) {
-				goto LABEL_74;
+			++v33;
+			if (v33 > v63) {
+				v59 = 0xFFFF;
+				nox_xxx_fileReadWrite_426AC0_file3_fread(&v59, 2u);
+				return 1;
 			}
 		}
 	}
