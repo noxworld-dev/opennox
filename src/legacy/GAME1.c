@@ -3052,7 +3052,6 @@ int nox_thing_read_image_415240(nox_memfile* f) {
 	int* v2;            // eax
 	int v3;             // edx
 	int v4;             // ebp
-	int result;         // eax
 	uint8_t* v6;        // esi
 	unsigned char* v7;  // esi
 	unsigned char v8;   // bl
@@ -3068,32 +3067,26 @@ int nox_thing_read_image_415240(nox_memfile* f) {
 	v2 = *(int**)(a1 + 8);
 	v3 = *v2;
 	*(uint32_t*)(a1 + 8) = v2 + 1;
-	if (v3 > 0) {
-		v4 = v3;
-		result = 1;
-		while (1) {
-			v6 = (uint8_t*)(**(unsigned char**)(v1 + 8) + 1 + *(uint32_t*)(v1 + 8));
-			*(uint32_t*)(v1 + 8) = v6;
-			v15 = *v6;
-			*(uint32_t*)(v1 + 8) = v6 + 1;
-			v7 = v6 + 1;
-			if (v15 == 1 || v15 != 2) {
-				break;
-			}
+	if (v3 <= 0) {
+		return 1;
+	}
+	for (v4 = v3; v4; v4--) {
+		v6 = (uint8_t*)(**(unsigned char**)(v1 + 8) + 1 + *(uint32_t*)(v1 + 8));
+		*(uint32_t*)(v1 + 8) = v6;
+		v15 = *v6;
+		*(uint32_t*)(v1 + 8) = v6 + 1;
+		v7 = v6 + 1;
+		if (v15 == 1 || v15 != 2) {
+			v14 = 1;
+		} else {
 			v8 = *v7;
 			*(uint32_t*)(v1 + 8) = v7 + 2;
 			v14 = v8;
 			*(uint32_t*)(v1 + 8) += v7[2] + 1;
-			if (v8) {
-				goto LABEL_7;
-			}
-		LABEL_11:
-			if (!--v4) {
-				return result;
+			if (!v8) {
+				continue;
 			}
 		}
-		v14 = 1;
-	LABEL_7:
 		v9 = v14;
 		do {
 			v10 = *(int**)(v1 + 8);
@@ -3107,7 +3100,6 @@ int nox_thing_read_image_415240(nox_memfile* f) {
 			}
 			--v9;
 		} while (v9);
-		goto LABEL_11;
 	}
 	return 1;
 }
