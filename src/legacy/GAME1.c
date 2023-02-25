@@ -2898,7 +2898,6 @@ int nox_thing_read_WALL_414F60(nox_memfile* f, void* a2) {
 	unsigned char* v16; // eax
 	int* v17;           // eax
 	int v18;            // ecx
-	int result;         // eax
 	uint32_t* v20;      // [esp-4h] [ebp-18h]
 	int v21;            // [esp+10h] [ebp-4h]
 	unsigned char v22;  // [esp+18h] [ebp+4h]
@@ -2930,56 +2929,54 @@ int nox_thing_read_WALL_414F60(nox_memfile* f, void* a2) {
 				goto LABEL_4;
 			}
 		}
-		result = 0;
-	} else {
-	LABEL_4:
-		v7 = (unsigned char*)v2[2];
-		v24 = *v7;
-		v2[2] = v7 + 1;
-		nox_memfile_read(v3, 1u, v24, (int)v2);
-		*((uint8_t*)v3 + v24) = 0;
-		v8 = (unsigned char*)v2[2];
-		v25 = *v8;
-		v2[2] = v8 + 1;
-		nox_memfile_read(v3, 1u, v25, (int)v2);
-		*((uint8_t*)v3 + v25) = 0;
-		v9 = (unsigned char*)v2[2];
-		v26 = *v9;
-		v2[2] = v9 + 1;
-		nox_memfile_read(v3, 1u, v26, (int)v2);
-		*((uint8_t*)v3 + v26) = 0;
-		++v2[2];
-		v10 = 15;
-		do {
-			nox_memfile_read64align_40AD60((char*)&v21, 1, 1, v2);
-			if ((int)(unsigned char)v21 > 0) {
-				v11 = (unsigned char)v21;
-				do {
-					v12 = 4;
-					do {
-						v13 = (int*)(v2[2] + 8);
-						v2[2] = v13;
-						v14 = *v13;
-						v15 = (int)(v13 + 1);
-						v2[2] = v15;
-						if (v14 == -1) {
-							v16 = (unsigned char*)(v15 + 1);
-							v2[2] = v16;
-							v2[2] = &v16[*v16 + 1];
-						}
-						--v12;
-					} while (v12);
-					--v11;
-				} while (v11);
-			}
-			--v10;
-		} while (v10);
-		v17 = (int*)v2[2];
-		v18 = *v17;
-		v2[2] = v17 + 1;
-		result = v18 == 1162757152;
+		return 0;
 	}
-	return result;
+LABEL_4:
+	v7 = (unsigned char*)v2[2];
+	v24 = *v7;
+	v2[2] = v7 + 1;
+	nox_memfile_read(v3, 1u, v24, (int)v2);
+	*((uint8_t*)v3 + v24) = 0;
+	v8 = (unsigned char*)v2[2];
+	v25 = *v8;
+	v2[2] = v8 + 1;
+	nox_memfile_read(v3, 1u, v25, (int)v2);
+	*((uint8_t*)v3 + v25) = 0;
+	v9 = (unsigned char*)v2[2];
+	v26 = *v9;
+	v2[2] = v9 + 1;
+	nox_memfile_read(v3, 1u, v26, (int)v2);
+	*((uint8_t*)v3 + v26) = 0;
+	++v2[2];
+	v10 = 15;
+	do {
+		nox_memfile_read64align_40AD60((char*)&v21, 1, 1, v2);
+		if ((int)(unsigned char)v21 > 0) {
+			v11 = (unsigned char)v21;
+			do {
+				v12 = 4;
+				do {
+					v13 = (int*)(v2[2] + 8);
+					v2[2] = v13;
+					v14 = *v13;
+					v15 = (int)(v13 + 1);
+					v2[2] = v15;
+					if (v14 == -1) {
+						v16 = (unsigned char*)(v15 + 1);
+						v2[2] = v16;
+						v2[2] = &v16[*v16 + 1];
+					}
+					--v12;
+				} while (v12);
+				--v11;
+			} while (v11);
+		}
+		--v10;
+	} while (v10);
+	v17 = (int*)v2[2];
+	v18 = *v17;
+	v2[2] = v17 + 1;
+	return v18 == 1162757152;
 }
 
 //----- (00415100) --------------------------------------------------------
