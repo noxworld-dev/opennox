@@ -2402,7 +2402,6 @@ int sub_41C780(int a1) {
 
 //----- (0041CAC0) --------------------------------------------------------
 FILE* sub_41CAC0(char* a1, char** a2) {
-	FILE* result;      // eax
 	char** v3;         // esi
 	int v4;            // ebx
 	int v5;            // edi
@@ -2415,57 +2414,59 @@ FILE* sub_41CAC0(char* a1, char** a2) {
 	int v12;           // [esp+0h] [ebp-8h]
 	char* v13;         // [esp+4h] [ebp-4h]
 
-	result = nox_binfile_open_408CC0(a1, 0);
-	nox_file_2 = result;
-	if (result) {
-		result = (FILE*)nox_binfile_cryptSet_408D40((int)result, 27);
-		if (result) {
-			v3 = a2;
-			v4 = 0;
-			while (1) {
-				nox_binfile_fread_408E40((char*)&v13, 4, 1, nox_file_2);
-				if (!v13) {
-					break;
+	nox_file_2 = nox_binfile_open_408CC0(a1, 0);
+	if (!nox_file_2) {
+		return 0;
+	}
+	if (!nox_binfile_cryptSet_408D40(nox_file_2, 27)) {
+		return 0;
+	}
+	v3 = a2;
+	v4 = 0;
+	while (1) {
+		nox_binfile_fread_408E40((char*)&v13, 4, 1, nox_file_2);
+		if (!v13) {
+			break;
+		}
+		v5 = nox_binfile_ftell_426A50(nox_file_2);
+		nox_binfile_fread_align_408FE0((char*)&v12, 4, 1, nox_file_2);
+		v6 = nox_binfile_ftell_426A50(nox_file_2);
+		if (!*getMemU32Ptr(0x587000, 55816)) {
+			nox_binfile_fseek_409050(nox_file_2, v12, SEEK_CUR);
+			continue;
+		}
+		v7 = getMemAt(0x587000, 55816);
+		while (1) {
+			if (v13 == *((char**)v7 + 1)) {
+				v9 = v6 - v5;
+				*v3 = v13;
+				v10 = (char**)((char*)v3 + v9 - 4);
+				v4 += v9 + 4;
+				*v10 = v12;
+				v3 = (char**)(v10 + 2);
+				if (v12) {
+					v11 = v12;
+					v4 += v12;
+					do {
+						nox_binfile_fread_408E40((char*)&a1, 1, 1, nox_file_2);
+						*(uint8_t*)v3 = (uint8_t)a1;
+						v3 = (char**)((char*)v3 + 1);
+						--v11;
+					} while (v11);
 				}
-				v5 = nox_binfile_ftell_426A50(nox_file_2);
-				nox_binfile_fread_align_408FE0((char*)&v12, 4, 1, nox_file_2);
-				v6 = nox_binfile_ftell_426A50(nox_file_2);
-				if (*getMemU32Ptr(0x587000, 55816)) {
-					v7 = getMemAt(0x587000, 55816);
-					while (v13 != *((char**)v7 + 1)) {
-						v8 = *((uint32_t*)v7 + 3);
-						v7 += 12;
-						if (!v8) {
-							goto LABEL_9;
-						}
-					}
-					v9 = v6 - v5;
-					*v3 = v13;
-					v10 = (char**)((char*)v3 + v9 - 4);
-					v4 += v9 + 4;
-					*v10 = v12;
-					v3 = (char**)(v10 + 2);
-					if (v12) {
-						v11 = v12;
-						v4 += v12;
-						do {
-							nox_binfile_fread_408E40((char*)&a1, 1, 1, nox_file_2);
-							*(uint8_t*)v3 = (uint8_t)a1;
-							v3 = (char**)((char*)v3 + 1);
-							--v11;
-						} while (v11);
-					}
-				} else {
-				LABEL_9:
-					nox_binfile_fseek_409050(nox_file_2, v12, SEEK_CUR);
-				}
+				break;
 			}
-			*v3 = 0;
-			nox_binfile_close_408D90(nox_file_2);
-			result = (FILE*)(v4 + 4);
+			v8 = *((uint32_t*)v7 + 3);
+			v7 += 12;
+			if (!v8) {
+				nox_binfile_fseek_409050(nox_file_2, v12, SEEK_CUR);
+				break;
+			}
 		}
 	}
-	return result;
+	*v3 = 0;
+	nox_binfile_close_408D90(nox_file_2);
+	return (v4 + 4);
 }
 
 //----- (0041CC00) --------------------------------------------------------
