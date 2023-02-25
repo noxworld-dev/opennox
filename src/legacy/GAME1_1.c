@@ -5256,27 +5256,24 @@ int sub_425790(int* a1, uint32_t* a2) {
 	int v2;     // esi
 	int v3;     // ebx
 	int* v4;    // eax
-	int result; // eax
 
 	v2 = 0;
 	v3 = a2[2];
 	v4 = (int*)nox_common_list_getNext_425940(a1);
-	if (v4) {
-		while (v3 > v4[2]) {
-			++v2;
-			v4 = (int*)nox_common_list_getNext_425940(v4);
-			if (!v4) {
-				goto LABEL_4;
-			}
-		}
-		nox_common_list_append_4258E0((int)v4, a2);
-		result = v2;
-	} else {
-	LABEL_4:
+	if (!v4) {
 		nox_common_list_append_4258E0((int)a1, a2);
-		result = v2;
+		return v2;
 	}
-	return result;
+	while (v3 > v4[2]) {
+		++v2;
+		v4 = nox_common_list_getNext_425940(v4);
+		if (!v4) {
+			nox_common_list_append_4258E0((int)a1, a2);
+			return v2;
+		}
+	}
+	nox_common_list_append_4258E0((int)v4, a2);
+	return v2;
 }
 
 //----- (004257F0) --------------------------------------------------------
