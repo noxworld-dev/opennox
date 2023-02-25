@@ -1011,7 +1011,6 @@ int nox_xxx_cliPlrInfoLoadFromFile_41A2E0(char* a1, int a2) {
 
 //----- (0041A480) --------------------------------------------------------
 int nox_xxx_plrLoad_41A480(char* a1) {
-	int result;        // eax
 	int v2;            // ecx
 	unsigned char* v3; // eax
 	int v4;            // esi
@@ -1020,40 +1019,42 @@ int nox_xxx_plrLoad_41A480(char* a1) {
 	char v7[1024];     // [esp+14h] [ebp-400h]
 
 	strcpy(v7, a1);
-	result = nox_xxx_cryptOpen_426910(a1, 1, 27);
-	if (result) {
-		sub_4602F0();
+	if (!nox_xxx_cryptOpen_426910(a1, 1, 27)) {
+		return 0;
+	}
+	sub_4602F0();
+	while (1) {
+		nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
+		if (!v5) {
+			break;
+		}
+		nox_xxx_fileCryptReadCrcMB_426C20(&v6, 4u);
+		v2 = 0;
+		if (!*getMemU32Ptr(0x587000, 55936)) {
+			nox_xxx_cryptSeekCur_40E0A0(v6);
+			continue;
+		}
+		v3 = getMemAt(0x587000, 55936);
 		while (1) {
-			nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
-			if (!v5) {
-				break;
-			}
-			nox_xxx_fileCryptReadCrcMB_426C20(&v6, 4u);
-			v2 = 0;
-			if (*getMemU32Ptr(0x587000, 55936)) {
-				v3 = getMemAt(0x587000, 55936);
-				while (v5 != *((uint32_t*)v3 + 1)) {
-					v4 = *((uint32_t*)v3 + 3);
-					v3 += 12;
-					++v2;
-					if (!v4) {
-						goto LABEL_8;
-					}
-				}
+			if (v5 == *((uint32_t*)v3 + 1)) {
 				if (!(*(int (**)(void*))getMemAt(0x587000, 55944 + 12 * v2))(0)) {
 					nox_xxx_cryptClose_4269F0();
 					return 0;
 				}
-			} else {
-			LABEL_8:
+				break;
+			}
+			v4 = *((uint32_t*)v3 + 3);
+			v3 += 12;
+			++v2;
+			if (!v4) {
 				nox_xxx_cryptSeekCur_40E0A0(v6);
+				break;
 			}
 		}
-		nox_xxx_cryptClose_4269F0();
-		result = 1;
-		strcpy((char*)getMemAt(0x85B3FC, 10984), v7);
 	}
-	return result;
+	nox_xxx_cryptClose_4269F0();
+	strcpy((char*)getMemAt(0x85B3FC, 10984), v7);
+	return 1;
 }
 
 //----- (0041A590) --------------------------------------------------------
