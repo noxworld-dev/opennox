@@ -3069,54 +3069,51 @@ int sub_420360(char* a1, uint16_t* a2) {
 	if (!dword_5d4594_534808) {
 		return 0;
 	}
-	while (nox_strcmpi((const char*)(v2 + 95), "GAM")) {
-	LABEL_19:
+	while (1) {
+		if (!nox_strcmpi((const char*)(v2 + 95), "GAM")) {
+			if (nox_common_gameFlags_check_40A5C0(4096)) {
+				if (!nox_strcmpi((const char*)(v2 + 24), "Quest gameres server")) {
+					strcpy(v7, (const char*)(v2 + 100));
+					*a1 = 0;
+					*a2 = 0;
+					strtok(v7, ";");
+					v3 = strtok(0, ";");
+					if (v3) {
+						strcpy(a1, v3);
+					}
+					v4 = strtok(0, ";");
+					if (v4) {
+						*a2 = atoi(v4);
+					}
+				}
+			} else {
+				if (!nox_common_gameFlags_check_40A5C0(0x2000)) {
+					return 0;
+				}
+				if (!nox_strcmpi((const char*)(v2 + 24), "Gameres server")) {
+					strcpy(v7, (const char*)(v2 + 100));
+					*a1 = 0;
+					*a2 = 0;
+					strtok(v7, ";");
+					v5 = strtok(0, ";");
+					if (v5) {
+						strcpy(a1, v5);
+					}
+					v4 = strtok(0, ";");
+					if (v4) {
+						*a2 = atoi(v4);
+					}
+				}
+			}
+			if (*a1 && *a2) {
+				return 1;
+			}
+		}
 		v2 = *(uint32_t*)(v2 + 20);
 		if (!v2) {
 			return 0;
 		}
 	}
-	if (nox_common_gameFlags_check_40A5C0(4096)) {
-		if (!nox_strcmpi((const char*)(v2 + 24), "Quest gameres server")) {
-			strcpy(v7, (const char*)(v2 + 100));
-			*a1 = 0;
-			*a2 = 0;
-			strtok(v7, ";");
-			v3 = strtok(0, ";");
-			if (v3) {
-				strcpy(a1, v3);
-			}
-			v4 = strtok(0, ";");
-			if (v4) {
-			LABEL_16:
-				*a2 = atoi(v4);
-				goto LABEL_17;
-			}
-		}
-	} else {
-		if (!nox_common_gameFlags_check_40A5C0(0x2000)) {
-			return 0;
-		}
-		if (!nox_strcmpi((const char*)(v2 + 24), "Gameres server")) {
-			strcpy(v7, (const char*)(v2 + 100));
-			*a1 = 0;
-			*a2 = 0;
-			strtok(v7, ";");
-			v5 = strtok(0, ";");
-			if (v5) {
-				strcpy(a1, v5);
-			}
-			v4 = strtok(0, ";");
-			if (v4) {
-				goto LABEL_16;
-			}
-		}
-	}
-LABEL_17:
-	if (!*a1 || !*a2) {
-		goto LABEL_19;
-	}
-	return 1;
 }
 
 //----- (004207E0) --------------------------------------------------------
