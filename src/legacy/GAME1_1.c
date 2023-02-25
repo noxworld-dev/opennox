@@ -3749,33 +3749,34 @@ void nox_xxx_polygonDrawColor_421B80() {
 	int2 v6;                           // [esp+Ch] [ebp-8h]
 
 	v0 = *getMemU32Ptr(0x852978, 8);
-	if (*getMemU32Ptr(0x852978, 8)) {
-		nox_xxx_getSomeCoods_435670(&v5);
-		sub_435690(&v6);
-		v1 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(v0 + 128));
-		v2 = v1;
-		if (v1) {
-			if (nox_xxx_polygonNextIdx_587000_60352 <= 1u) {
-			LABEL_8:
-				v2[3668] = 1;
-				*((uint32_t*)v2 + 915) = 0;
-				v4 = nox_xxx_getAmbientColor_469BB0();
-				sub_4349C0(v4);
-				return;
+	if (!v0) {
+		return;
+	}
+	nox_xxx_getSomeCoods_435670(&v5);
+	sub_435690(&v6);
+	v1 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(v0 + 128));
+	v2 = v1;
+	if (!v1) {
+		return;
+	}
+	if (nox_xxx_polygonNextIdx_587000_60352 > 1u) {
+		if (!(*((int*)v1 + 915) == -559023410 || v5.field_0 != v6.field_0 || v5.field_4 != v6.field_4)) {
+			return;
+		}
+		v3 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v5, *((uint32_t*)v1 + 915));
+		if (v3) {
+			if (*((uint32_t*)v2 + 915) != v3->field_0[20]) {
+				v2[3668] = BYTE2(v3->field_0[32]);
+				*((uint32_t*)v2 + 915) = v3->field_0[20];
+				sub_434990(LOBYTE(v3->field_0[26]), BYTE1(v3->field_0[26]), BYTE2(v3->field_0[26]));
 			}
-			if (*((int*)v1 + 915) == -559023410 || v5.field_0 != v6.field_0 || v5.field_4 != v6.field_4) {
-				v3 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v5, *((uint32_t*)v1 + 915));
-				if (!v3) {
-					goto LABEL_8;
-				}
-				if (*((uint32_t*)v2 + 915) != v3->field_0[20]) {
-					v2[3668] = BYTE2(v3->field_0[32]);
-					*((uint32_t*)v2 + 915) = v3->field_0[20];
-					sub_434990(LOBYTE(v3->field_0[26]), BYTE1(v3->field_0[26]), BYTE2(v3->field_0[26]));
-				}
-			}
+			return;
 		}
 	}
+	v2[3668] = 1;
+	*((uint32_t*)v2 + 915) = 0;
+	v4 = nox_xxx_getAmbientColor_469BB0();
+	sub_4349C0(v4);
 }
 
 //----- (00421C70) --------------------------------------------------------
