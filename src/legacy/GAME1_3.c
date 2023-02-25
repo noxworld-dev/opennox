@@ -589,7 +589,6 @@ void sub_43EDB0(HSAMPLE a1) {
 int sub_43EE00(void* a1p) {
 	int a1 = a1p;
 	int v1;           // esi
-	int result;       // eax
 	int v3;           // ebx
 	int v4;           // edi
 	char* v5;         // ebp
@@ -612,103 +611,101 @@ int sub_43EE00(void* a1p) {
 	char* v22;        // [esp+18h] [ebp-4h]
 
 	v1 = a1;
-	result = AIL_sample_buffer_ready(*(uint32_t*)(a1 + 8));
-	v20 = result;
-	if (result != -1) {
-		while (1) {
-			v3 = *(uint32_t*)(v1 + 4);
-			v4 = 0;
-			v5 = 0;
-			v17 = *(char**)(v1 + 4 * v20 + 20);
-			v6 = 0;
-			v7 = 0;
-			v21 = 0;
-			v19 = 0;
-			v18 = 0;
-			if (!*(uint32_t*)(a1 + 12)) {
-				break;
-			}
-		LABEL_27:
-			AIL_load_sample_buffer(*(uint32_t*)(a1 + 8), v20, v19, v4);
-			result = AIL_sample_buffer_ready(*(uint32_t*)(a1 + 8));
-			v20 = result;
-			if (result == -1) {
-				return result;
-			}
-			v1 = a1;
-		}
-		while (1) {
-			if (v4 >= 0x4000) {
-				goto LABEL_27;
-			}
-			v8 = *(uint32_t*)(v3 + 300);
-			if (!v8) {
-				(*(void (**)(int))(v3 + 276))(v3);
+	v20 = AIL_sample_buffer_ready(*(uint32_t*)(a1 + 8));
+	if (v20 == -1) {
+		return -1;
+	}
+	while (1) {
+		v3 = *(uint32_t*)(v1 + 4);
+		v4 = 0;
+		v5 = 0;
+		v17 = *(char**)(v1 + 4 * v20 + 20);
+		v6 = 0;
+		v7 = 0;
+		v21 = 0;
+		v19 = 0;
+		v18 = 0;
+		if (!*(uint32_t*)(a1 + 12)) {
+			while (1) {
+				if (v4 >= 0x4000) {
+					break;
+				}
 				v8 = *(uint32_t*)(v3 + 300);
 				if (!v8) {
-					(*(void (**)(int))(v3 + 280))(v3);
+					(*(void (**)(int))(v3 + 276))(v3);
 					v8 = *(uint32_t*)(v3 + 300);
 					if (!v8) {
-						*(uint32_t*)(a1 + 12) = 1;
-						goto LABEL_27;
+						(*(void (**)(int))(v3 + 280))(v3);
+						v8 = *(uint32_t*)(v3 + 300);
+						if (!v8) {
+							*(uint32_t*)(a1 + 12) = 1;
+							break;
+						}
 					}
+					v6 = v18;
 				}
-				v6 = v18;
-			}
-			if (v4) {
-				break;
-			}
-			v19 = *(char**)(v3 + 296);
-			if (v8 < 0x4000 || v5) {
-				break;
-			}
-			v7 = v8;
-		LABEL_24:
-			v15 = *(uint32_t*)(v3 + 304) - v7;
-			*(uint32_t*)(v3 + 300) -= v7;
-			v16 = v7 + *(uint32_t*)(v3 + 296);
-			*(uint32_t*)(v3 + 304) = v15;
-			*(uint32_t*)(v3 + 296) = v16;
-			v4 += v7;
-			v21 = v4;
-			if (*(uint32_t*)(a1 + 12)) {
-				goto LABEL_27;
+				if (v4) {
+					goto LABEL_A;
+				}
+				v19 = *(char**)(v3 + 296);
+				if (v8 < 0x4000 || v5) {
+					goto LABEL_A;
+				} else {
+					v7 = v8;
+					goto LABEL_B;
+				}
+			LABEL_A:
+				if (v8 + v4 > 0x4000) {
+					v8 = 0x4000 - v4;
+				}
+				if (v8) {
+					if (v5) {
+						if (v6) {
+							v9 = v5;
+							v10 = v6;
+							v11 = v6 >> 2;
+							memcpy(v22, v9, 4 * v11);
+							v13 = &v9[4 * v11];
+							v12 = &v22[4 * v11];
+							v19 = v22;
+							v14 = v10 & 3;
+							v5 = 0;
+							memcpy(v12, v13, v14);
+						}
+						memcpy(v17, *(const void**)(v3 + 296), v8);
+						v4 = v21;
+					} else if (!v6) {
+						v5 = *(char**)(v3 + 296);
+						v22 = v17;
+						v18 = v8;
+					} else {
+						memcpy(v17, *(const void**)(v3 + 296), v8);
+						v4 = v21;
+					}
+					v7 = v8;
+					v17 += v8;
+					v6 = v18;
+				}
+			LABEL_B:
+				v15 = *(uint32_t*)(v3 + 304) - v7;
+				*(uint32_t*)(v3 + 300) -= v7;
+				v16 = v7 + *(uint32_t*)(v3 + 296);
+				*(uint32_t*)(v3 + 304) = v15;
+				*(uint32_t*)(v3 + 296) = v16;
+				v4 += v7;
+				v21 = v4;
+				if (*(uint32_t*)(a1 + 12)) {
+					break;
+				}
 			}
 		}
-		if (v8 + v4 > 0x4000) {
-			v8 = 0x4000 - v4;
+		AIL_load_sample_buffer(*(uint32_t*)(a1 + 8), v20, v19, v4);
+		v20 = AIL_sample_buffer_ready(*(uint32_t*)(a1 + 8));
+		if (v20 == -1) {
+			return -1;
 		}
-		if (!v8) {
-			goto LABEL_24;
-		}
-		if (v5) {
-			if (v6) {
-				v9 = v5;
-				v10 = v6;
-				v11 = v6 >> 2;
-				memcpy(v22, v9, 4 * v11);
-				v13 = &v9[4 * v11];
-				v12 = &v22[4 * v11];
-				v19 = v22;
-				v14 = v10 & 3;
-				v5 = 0;
-				memcpy(v12, v13, v14);
-			}
-		} else if (!v6) {
-			v5 = *(char**)(v3 + 296);
-			v22 = v17;
-			v18 = v8;
-		LABEL_23:
-			v7 = v8;
-			v17 += v8;
-			v6 = v18;
-			goto LABEL_24;
-		}
-		memcpy(v17, *(const void**)(v3 + 296), v8);
-		v4 = v21;
-		goto LABEL_23;
+		v1 = a1;
 	}
-	return result;
 }
 // 43EF03: variable 'v22' is possibly undefined
 // 5813C4: using guessed type int AIL_load_sample_buffer(uint32_t, uint32_t, uint32_t, uint32_t);
