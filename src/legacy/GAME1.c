@@ -522,11 +522,12 @@ int nox_xxx_gamePlayIsAnyPlayers_40A8A0() {
 				}
 			}
 		}
-		goto LABEL_18;
+		result = v0 < 1;
+		LOBYTE(result) = v0 > 1;
+		return result;
 	}
 	v1 = nox_server_teamFirst_418B10();
 	if (!v1) {
-	LABEL_18:
 		result = v0 < 1;
 		LOBYTE(result) = v0 > 1;
 		return result;
