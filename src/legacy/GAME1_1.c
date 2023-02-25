@@ -2558,48 +2558,43 @@ int nox_xxx_netSavePlayer_41CE00() {
 //----- (0041CEE0) --------------------------------------------------------
 int sub_41CEE0(void* a1p, int a2) {
 	int a1 = a1p;
-	int result;        // eax
 	int v3;            // ebx
 	unsigned char* v4; // esi
 	int v6;            // edi
 	int v8;            // eax
 
-	memcpy(getMemAt(0x85B3FC, 10980), (const void*)a1, sizeof(nox_savegame_xxx));
-	result = nox_xxx_cryptOpen_426910((char*)getMemAt(0x85B3FC, 10984), 0, 27);
-	if (result) {
-		v3 = a2;
-		if (!a2) {
-			a1 = 1;
-		}
-		if (*getMemU32Ptr(0x587000, 55936)) {
-			v4 = getMemAt(0x587000, 55940);
-			while (1) {
-				if (v3 || *(uint32_t*)v4 == a1) {
-					nox_xxx_fileReadWrite_426AC0_file3_fread(v4, 4u);
-					nox_xxx_crypt_426C90();
-					v6 = (*((int (**)(uint32_t))v4 + 1))(0);
-					nox_xxx_crypt_426D40();
-					if (!v6) {
-						break;
-					}
-				}
-				v8 = *((uint32_t*)v4 + 2);
-				v4 += 12;
-				if (!v8) {
-					goto LABEL_10;
+	memcpy(getMemAt(0x85B3FC, 10980), a1, sizeof(nox_savegame_xxx));
+	if (!nox_xxx_cryptOpen_426910((char*)getMemAt(0x85B3FC, 10984), 0, 27)) {
+		return 0;
+	}
+	v3 = a2;
+	if (!a2) {
+		a1 = 1;
+	}
+	if (*getMemU32Ptr(0x587000, 55936)) {
+		v4 = getMemAt(0x587000, 55940);
+		while (1) {
+			if (v3 || *(uint32_t*)v4 == a1) {
+				nox_xxx_fileReadWrite_426AC0_file3_fread(v4, 4u);
+				nox_xxx_crypt_426C90();
+				v6 = (*((int (**)(uint32_t))v4 + 1))(0);
+				nox_xxx_crypt_426D40();
+				if (!v6) {
+					nox_xxx_cryptClose_4269F0();
+					return 0;
 				}
 			}
-			nox_xxx_cryptClose_4269F0();
-			result = 0;
-		} else {
-		LABEL_10:
-			a1 = 0;
-			nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 4u);
-			nox_xxx_cryptClose_4269F0();
-			result = 1;
+			v8 = *((uint32_t*)v4 + 2);
+			v4 += 12;
+			if (!v8) {
+				break;
+			}
 		}
 	}
-	return result;
+	a1 = 0;
+	nox_xxx_fileReadWrite_426AC0_file3_fread(&a1, 4u);
+	nox_xxx_cryptClose_4269F0();
+	return 1;
 }
 // 41CF42: variable 'v5' is possibly undefined
 // 41CF51: variable 'v7' is possibly undefined
