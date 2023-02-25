@@ -187,7 +187,7 @@ char* sub_425CA0(int a1, int a2);
 int sub_425E90(int a1, char a2);
 int sub_425ED0(int a1, char a2);
 void sub_425F10(nox_playerInfo* pl);
-char* sub_426150();
+void sub_426150();
 char* nox_xxx_net_4263C0();
 int sub_4264D0();
 int nox_xxx_wallGet_426A30();
