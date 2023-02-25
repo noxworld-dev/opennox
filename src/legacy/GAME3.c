@@ -4964,8 +4964,7 @@ int nox_xxx_windowOptionsProc_4ADF30(int a1, int a2, int* a3, int a4) {
 	switch (a2) {
 	case 16389:
 		nox_xxx_clientPlaySoundSpecial_452D80(920, 100);
-		result = 1;
-		break;
+		return 1;
 	case 16391:
 		switch (nox_xxx_wndGetID_46B0A0(a3)) {
 		case 311:
@@ -5014,8 +5013,7 @@ int nox_xxx_windowOptionsProc_4ADF30(int a1, int a2, int* a3, int a4) {
 			break;
 		}
 		nox_xxx_clientPlaySoundSpecial_452D80(921, 100);
-		result = 1;
-		break;
+		return 1;
 	case 16393:
 		v5 = nox_xxx_wndGetID_46B0A0(a3);
 		v6 = nox_client_getWin1064916_46C720();
@@ -5023,25 +5021,29 @@ int nox_xxx_windowOptionsProc_4ADF30(int a1, int a2, int* a3, int a4) {
 		case 351:
 			sub_486320(*(uint32_t**)&dword_587000_127004, a4);
 			if (v6 && *(int**)(v6 + 396) == a3) {
-				goto LABEL_64;
+				return 0;
 			}
 			if (a4) {
 				if (sub_453070()) {
-					goto LABEL_63;
+					nox_xxx_clientPlaySoundSpecial_452D80(768, 100);
+					return 0;
 				}
 				v13 = dword_5d4594_1309828;
 				v14 = *(void (**)(int, int, int, int))(dword_5d4594_1309828 + 372);
 				if (!v14) {
-					goto LABEL_63;
+					nox_xxx_clientPlaySoundSpecial_452D80(768, 100);
+					return 0;
 				}
-				goto LABEL_62;
+				v14(v13, 21, 28, 2);
+				nox_xxx_clientPlaySoundSpecial_452D80(768, 100);
+				return 0;
 			}
 			if (sub_453070() != 1) {
-				goto LABEL_64;
+				return 0;
 			}
 			v12 = *(void (**)(uint32_t, int, int, int))(dword_5d4594_1309828 + 372);
 			if (!v12) {
-				goto LABEL_64;
+				return 0;
 			}
 			v12(dword_5d4594_1309828, 21, 28, 2);
 			result = 0;
@@ -5050,44 +5052,47 @@ int nox_xxx_windowOptionsProc_4ADF30(int a1, int a2, int* a3, int a4) {
 			sub_486320(*(uint32_t**)&dword_587000_122852, a4);
 			if (a4) {
 				if (sub_44D990()) {
-					goto LABEL_37;
+					sub_4AA650();
+					return 0;
 				}
 				v10 = *(void**)&dword_5d4594_1309836;
 				v11 = *(void (**)(void*, int, int, int))(dword_5d4594_1309836 + 372);
 				if (!v11) {
-					goto LABEL_37;
+					sub_4AA650();
+					return 0;
 				}
-				goto LABEL_36;
+				v11(v10, 21, 28, 2);
+				sub_4AA650();
+				return 0;
 			}
 			if (sub_44D990() != 1) {
-				goto LABEL_64;
+				return 0;
 			}
 			v9 = *(void (**)(uint32_t, int, int, int))(dword_5d4594_1309836 + 372);
 			if (!v9) {
-				goto LABEL_64;
+				return 0;
 			}
 			v9(dword_5d4594_1309836, 21, 28, 2);
-			result = 0;
-			break;
+			return 0;
 		case 353:
 			sub_486320(*(uint32_t**)&dword_587000_93164, a4);
 			if (a4) {
 				if (sub_43DC30()) {
-					goto LABEL_64;
+					return 0;
 				}
 				v8 = *(void (**)(uint32_t, int, int, int))(dword_5d4594_1309832 + 372);
 				if (!v8) {
-					goto LABEL_64;
+					return 0;
 				}
 				v8(dword_5d4594_1309832, 21, 28, 2);
 				result = 0;
 			} else {
 				if (sub_43DC30() != 1) {
-					goto LABEL_64;
+					return 0;
 				}
 				v7 = *(void (**)(uint32_t, int, int, int))(dword_5d4594_1309832 + 372);
 				if (!v7) {
-					goto LABEL_64;
+					return 0;
 				}
 				v7(dword_5d4594_1309832, 21, 28, 2);
 				result = 0;
@@ -5100,14 +5105,14 @@ int nox_xxx_windowOptionsProc_4ADF30(int a1, int a2, int* a3, int a4) {
 			nox_input_setSensitivity(powf(10.0, a4 / 50.0f - 1.0));
 			break;
 		default:
-			goto LABEL_64;
+			return 0;
 		}
 		break;
 	case 16396:
 		v15 = nox_xxx_wndGetID_46B0A0(a3) - 351;
 		if (v15) {
 			if (v15 != 1) {
-				goto LABEL_64;
+				return 0;
 			}
 			sub_486320(*(uint32_t**)&dword_587000_122852, a4);
 			if (a4) {
@@ -5115,23 +5120,21 @@ int nox_xxx_windowOptionsProc_4ADF30(int a1, int a2, int* a3, int a4) {
 					v10 = *(void**)&dword_5d4594_1309836;
 					v11 = *(void (**)(void*, int, int, int))(dword_5d4594_1309836 + 372);
 					if (v11) {
-					LABEL_36:
 						v11(v10, 21, 28, 2);
 					}
 				}
-			LABEL_37:
 				sub_4AA650();
-				result = 0;
+				return 0;
 			} else {
 				if (sub_44D990() != 1) {
-					goto LABEL_64;
+					return 0;
 				}
 				v16 = *(void (**)(uint32_t, int, int, int))(dword_5d4594_1309836 + 372);
 				if (!v16) {
-					goto LABEL_64;
+					return 0;
 				}
 				v16(dword_5d4594_1309836, 21, 28, 2);
-				result = 0;
+				return 0;
 			}
 		} else {
 			sub_486320(*(uint32_t**)&dword_587000_127004, a4);
@@ -5140,29 +5143,25 @@ int nox_xxx_windowOptionsProc_4ADF30(int a1, int a2, int* a3, int a4) {
 					v13 = dword_5d4594_1309828;
 					v14 = *(void (**)(int, int, int, int))(dword_5d4594_1309828 + 372);
 					if (v14) {
-					LABEL_62:
 						v14(v13, 21, 28, 2);
 					}
 				}
-			LABEL_63:
 				nox_xxx_clientPlaySoundSpecial_452D80(768, 100);
-				goto LABEL_64;
+				return 0;
 			}
 			if (sub_453070() != 1) {
-				goto LABEL_64;
+				return 0;
 			}
 			v17 = *(void (**)(uint32_t, int, int, int))(dword_5d4594_1309828 + 372);
 			if (!v17) {
-				goto LABEL_64;
+				return 0;
 			}
 			v17(dword_5d4594_1309828, 21, 28, 2);
-			result = 0;
+			return 0;
 		}
 		break;
 	default:
-	LABEL_64:
-		result = 0;
-		break;
+		return 0;
 	}
 	return result;
 }
