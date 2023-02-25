@@ -4544,16 +4544,17 @@ int sub_417F50(int a1) {
 	if (!v4) {
 		return 0;
 	}
-	while (*(unsigned short*)(v4 + 4) != dword_5d4594_527656) {
-	LABEL_12:
+	while (1) {
+		if (*(unsigned short*)(v4 + 4) == dword_5d4594_527656) {
+			if (!v3) {
+				break;
+			}
+			--v3;
+		}
 		v4 = nox_server_getNextObject_4DA7A0(v4);
 		if (!v4) {
 			return 0;
 		}
-	}
-	if (v3) {
-		--v3;
-		goto LABEL_12;
 	}
 	v6 = nox_xxx_newObjectByTypeID_4E3810("GameBall");
 	v7 = v6;
