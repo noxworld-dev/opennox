@@ -3748,25 +3748,29 @@ int sub_4AABE0(int a1, int a2, int* a3, int a4) {
 		case 351:
 			sub_486320(*(uint32_t**)&dword_587000_127004, a4);
 			if (v8 && *(int**)(v8 + 396) == a3) {
-				goto LABEL_76;
+				return 0;
 			}
 			if (a4) {
 				if (sub_453070()) {
-					goto LABEL_75;
+					nox_xxx_clientPlaySoundSpecial_452D80(768, 100);
+					return 0;
 				}
 				v15 = dword_5d4594_1309728;
 				v16 = *(void (**)(int, int, int, int))(dword_5d4594_1309728 + 372);
 				if (!v16) {
-					goto LABEL_75;
+					nox_xxx_clientPlaySoundSpecial_452D80(768, 100);
+					return 0;
 				}
-				goto LABEL_74;
+				v16(v15, 21, 28, 2);
+				nox_xxx_clientPlaySoundSpecial_452D80(768, 100);
+				return 0;
 			}
 			if (sub_453070() != 1) {
-				goto LABEL_76;
+				return 0;
 			}
 			v14 = *(void (**)(uint32_t, int, int, int))(dword_5d4594_1309728 + 372);
 			if (!v14) {
-				goto LABEL_76;
+				return 0;
 			}
 			v14(dword_5d4594_1309728, 21, 28, 2);
 			result = 0;
@@ -3775,21 +3779,25 @@ int sub_4AABE0(int a1, int a2, int* a3, int a4) {
 			sub_486320(*(uint32_t**)&dword_587000_122852, a4);
 			if (a4) {
 				if (sub_44D990()) {
-					goto LABEL_49;
+					sub_4AA650();
+					return 0;
 				}
 				v12 = *(void**)&dword_5d4594_1309732;
 				v13 = *(void (**)(void*, int, int, int))(dword_5d4594_1309732 + 372);
 				if (!v13) {
-					goto LABEL_49;
+					sub_4AA650();
+					return 0;
 				}
-				goto LABEL_48;
+				v13(v12, 21, 28, 2);
+				sub_4AA650();
+				return 0;
 			}
 			if (sub_44D990() != 1) {
-				goto LABEL_76;
+				return 0;
 			}
 			v11 = *(void (**)(uint32_t, int, int, int))(dword_5d4594_1309732 + 372);
 			if (!v11) {
-				goto LABEL_76;
+				return 0;
 			}
 			v11(dword_5d4594_1309732, 21, 28, 2);
 			result = 0;
@@ -3798,21 +3806,21 @@ int sub_4AABE0(int a1, int a2, int* a3, int a4) {
 			sub_486320(*(uint32_t**)&dword_587000_93164, a4);
 			if (a4) {
 				if (sub_43DC30()) {
-					goto LABEL_76;
+					return 0;
 				}
 				v10 = *(void (**)(uint32_t, int, int, int))(dword_5d4594_1309736 + 372);
 				if (!v10) {
-					goto LABEL_76;
+					return 0;
 				}
 				v10(dword_5d4594_1309736, 21, 28, 2);
 				result = 0;
 			} else {
 				if (sub_43DC30() != 1) {
-					goto LABEL_76;
+					return 0;
 				}
 				v9 = *(void (**)(uint32_t, int, int, int))(dword_5d4594_1309736 + 372);
 				if (!v9) {
-					goto LABEL_76;
+					return 0;
 				}
 				v9(dword_5d4594_1309736, 21, 28, 2);
 				result = 0;
@@ -3825,14 +3833,14 @@ int sub_4AABE0(int a1, int a2, int* a3, int a4) {
 			nox_input_setSensitivity(powf(10.0, a4 / 50.0f - 1.0));
 			break;
 		default:
-			goto LABEL_76;
+			return 0;
 		}
 		break;
 	case 16396:
 		v17 = nox_xxx_wndGetID_46B0A0(a3) - 351;
 		if (v17) {
 			if (v17 != 1) {
-				goto LABEL_76;
+				return 0;
 			}
 			sub_486320(*(uint32_t**)&dword_587000_122852, a4);
 			if (a4) {
@@ -3840,20 +3848,18 @@ int sub_4AABE0(int a1, int a2, int* a3, int a4) {
 					v12 = *(void**)&dword_5d4594_1309732;
 					v13 = *(void (**)(void*, int, int, int))(dword_5d4594_1309732 + 372);
 					if (v13) {
-					LABEL_48:
 						v13(v12, 21, 28, 2);
 					}
 				}
-			LABEL_49:
 				sub_4AA650();
-				result = 0;
+				return 0;
 			} else {
 				if (sub_44D990() != 1) {
-					goto LABEL_76;
+					return 0;
 				}
 				v18 = *(void (**)(uint32_t, int, int, int))(dword_5d4594_1309732 + 372);
 				if (!v18) {
-					goto LABEL_76;
+					return 0;
 				}
 				v18(dword_5d4594_1309732, 21, 28, 2);
 				result = 0;
@@ -3865,29 +3871,25 @@ int sub_4AABE0(int a1, int a2, int* a3, int a4) {
 					v15 = dword_5d4594_1309728;
 					v16 = *(void (**)(int, int, int, int))(dword_5d4594_1309728 + 372);
 					if (v16) {
-					LABEL_74:
 						v16(v15, 21, 28, 2);
 					}
 				}
-			LABEL_75:
 				nox_xxx_clientPlaySoundSpecial_452D80(768, 100);
-				goto LABEL_76;
+				return 0;
 			}
 			if (sub_453070() != 1) {
-				goto LABEL_76;
+				return 0;
 			}
 			v19 = *(void (**)(uint32_t, int, int, int))(dword_5d4594_1309728 + 372);
 			if (!v19) {
-				goto LABEL_76;
+				return 0;
 			}
 			v19(dword_5d4594_1309728, 21, 28, 2);
 			result = 0;
 		}
 		break;
 	default:
-	LABEL_76:
-		result = 0;
-		break;
+		return 0;
 	}
 	return result;
 }
