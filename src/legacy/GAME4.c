@@ -6041,7 +6041,8 @@ int nox_xxx_mapgenSaveMap_503830(int a1) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v24, 4u);
 		if (!nox_xxx_mapReadSection_426EA0((int)&v11, v27, &v6)) {
 			if (v6 == 1) {
-				goto LABEL_15;
+				sub_502DF0();
+				return 0;
 			}
 			v2 = nox_xxx_newObjectByTypeID_4E3810(v27);
 			v3 = (int)v2;
@@ -6050,7 +6051,6 @@ int nox_xxx_mapgenSaveMap_503830(int a1) {
 			}
 			if (!((int (*)(uint32_t*, int4*))v2[176])(v2, &v25)) {
 				nox_xxx_objectFreeMem_4E38A0(v3);
-			LABEL_15:
 				sub_502DF0();
 				return 0;
 			}
