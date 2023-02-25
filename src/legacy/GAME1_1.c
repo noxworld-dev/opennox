@@ -1358,7 +1358,7 @@ int sub_41AC30(uint32_t* a1) {
 	if (!nox_common_gameFlags_check_40A5C0(2048)) {
 		result = nox_common_gameFlags_check_40A5C0(4096);
 		if (!result) {
-			return result;
+			return 0;
 		}
 	}
 	v44 = *(uint32_t*)(*(uint32_t*)(v40 + 276) + 2164);
@@ -1437,32 +1437,36 @@ int sub_41AC30(uint32_t* a1) {
 		if (v37) {
 			v29 = (uint32_t*)a1[126];
 			if (v29) {
-				while (v29[11] != v37) {
+				while (1) {
+					if (v29[11] == v37) {
+						nox_xxx_netSendSecondaryWeapon_4D9670(*(unsigned char*)(*(uint32_t*)(v40 + 276) + 2064), v29, 0);
+						break;
+					}
 					v29 = (uint32_t*)v29[124];
 					if (!v29) {
-						goto LABEL_99;
+						break;
 					}
 				}
-				nox_xxx_netSendSecondaryWeapon_4D9670(*(unsigned char*)(*(uint32_t*)(v40 + 276) + 2064), v29, 0);
 			}
 		}
-	LABEL_99:
 		if ((short)v42 >= 2) {
 			nox_xxx_fileReadWrite_426AC0_file3_fread(&v37, 4u);
 			if (v37) {
 				v30 = (uint32_t*)a1[126];
 				if (v30) {
-					while (v30[11] != v37) {
+					while (1) {
+						if (v30[11] == v37) {
+							nox_xxx_netMsgLastQuiver_4D96B0(*(unsigned char*)(*(uint32_t*)(v40 + 276) + 2064), v30);
+							break;
+						}
 						v30 = (uint32_t*)v30[124];
 						if (!v30) {
-							goto LABEL_106;
+							break;
 						}
 					}
-					nox_xxx_netMsgLastQuiver_4D96B0(*(unsigned char*)(*(uint32_t*)(v40 + 276) + 2064), v30);
 				}
 			}
 		}
-	LABEL_106:
 		if (nox_common_gameFlags_check_40A5C0(4096)) {
 			for (j = (uint32_t*)nox_xxx_inventoryGetFirst_4E7980((int)a1); j;
 				 j = (uint32_t*)nox_xxx_inventoryGetNext_4E7990((int)j)) {
@@ -1499,14 +1503,15 @@ int sub_41AC30(uint32_t* a1) {
 				}
 				v15 = *(uint32_t*)(v15 + 496);
 				if (!v15) {
-					goto LABEL_42;
+					v1 = a1;
+					break;
 				}
 			}
 		}
 	} else {
 		v6 = 0;
 		v41 = 0;
-		while (2) {
+		while (1) {
 			v7 = 0;
 			v43 = 0;
 			do {
@@ -1541,15 +1546,15 @@ int sub_41AC30(uint32_t* a1) {
 						}
 					}
 				}
-				v43 = ++v7;
+				++v7;
+				v43 = v7;
 			} while (v7 < 4);
-			v41 = ++v6;
-			if (v6 < 20) {
-				continue;
+			++v6;
+			v41 = v6;
+			if (v6 >= 20) {
+				break;
 			}
-			break;
 		}
-	LABEL_42:
 		v1 = a1;
 	}
 	v17 = v1[126];
@@ -1567,46 +1572,50 @@ int sub_41AC30(uint32_t* a1) {
 	v19 = sub_4678B0();
 	v37 = v19;
 	if (!v19) {
-	LABEL_57:
+		if (!m) {
+			v37 = 0;
+		}
+	} else {
+		m = v1[126];
 		if (m) {
-			goto LABEL_59;
-		}
-		goto LABEL_58;
-	}
-	m = v1[126];
-	if (m) {
-		while (*(uint32_t*)(m + 36) != v19) {
-			m = *(uint32_t*)(m + 496);
-			if (!m) {
-				goto LABEL_58;
+			while (1) {
+				if (*(uint32_t*)(m + 36) == v19) {
+					v37 = *(uint32_t*)(m + 44);
+					if (!m) {
+						v37 = 0;
+					}
+					break;
+				}
+				m = *(uint32_t*)(m + 496);
+				if (!m) {
+					v37 = 0;
+					break;
+				}
 			}
+		} else {
+			v37 = 0;
 		}
-		v37 = *(uint32_t*)(m + 44);
-		goto LABEL_57;
 	}
-LABEL_58:
-	v37 = 0;
-LABEL_59:
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v37, 4u);
 	v20 = sub_4678C0();
 	v37 = v20;
 	if (v20) {
 		m = v1[126];
 		if (!m) {
-		LABEL_66:
 			v37 = 0;
 			goto LABEL_67;
 		}
 		while (*(uint32_t*)(m + 36) != v20) {
 			m = *(uint32_t*)(m + 496);
 			if (!m) {
-				goto LABEL_66;
+				v37 = 0;
+				goto LABEL_67;
 			}
 		}
 		v37 = *(uint32_t*)(m + 44);
 	}
 	if (!m) {
-		goto LABEL_66;
+		v37 = 0;
 	}
 LABEL_67:
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v37, 4u);
