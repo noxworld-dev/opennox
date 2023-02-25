@@ -6235,7 +6235,7 @@ int sub_427980(float4* a1, float4* a2) {
 		*getMemFloatPtr(0x5D4594, 741268) > (double)*getMemFloatPtr(0x5D4594, 741236) ||
 		*getMemFloatPtr(0x5D4594, 741280) < (double)*getMemFloatPtr(0x5D4594, 741232) ||
 		*getMemFloatPtr(0x5D4594, 741272) > (double)*getMemFloatPtr(0x5D4594, 741240)) {
-		goto LABEL_36;
+		return 0;
 	}
 	if (a1->field_4 == a1->field_C && a2->field_4 == a2->field_C) {
 		return 1;
@@ -6253,7 +6253,7 @@ int sub_427980(float4* a1, float4* a2) {
 									*(float*)&dword_5d4594_741256 * *(float*)&dword_5d4594_741244;
 	if (*(float*)&dword_5d4594_741292 == 0.0 || *(float*)&dword_5d4594_741284 == 0.0 ||
 		*(float*)&dword_5d4594_741292 < 0.0 && *(float*)&dword_5d4594_741284 > 0.0) {
-		goto LABEL_36;
+		return 0;
 	}
 	if (*(float*)&dword_5d4594_741292 > 0.0 && *(float*)&dword_5d4594_741284 < 0.0 ||
 		(v8 = sub_419A10(*(float*)&dword_5d4594_741292), sub_419A10(*(float*)&dword_5d4594_741284) < v8) ||
@@ -6264,12 +6264,9 @@ int sub_427980(float4* a1, float4* a2) {
 			*(float*)&dword_5d4594_741284 > 0.0 ||
 		*(float*)&dword_5d4594_741296 > 0.0 && *(float*)&dword_5d4594_741284 < 0.0 ||
 		(v9 = sub_419A10(*(float*)&dword_5d4594_741296), sub_419A10(*getMemFloatPtr(0x5D4594, 741288)) < v9)) {
-	LABEL_36:
-		result = 0;
-	} else {
-		result = 1;
+		return 0;
 	}
-	return result;
+	return 1;
 }
 
 //----- (00427C80) --------------------------------------------------------
