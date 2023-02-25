@@ -926,7 +926,7 @@ int nox_xxx_mapSavePlayerDataMB_41A230(char* a1) {
 // 41A29F: variable 'v6' is possibly undefined
 
 //----- (0041A2E0) --------------------------------------------------------
-char* nox_xxx_cliPlrInfoLoadFromFile_41A2E0(char* a1, int a2) {
+int nox_xxx_cliPlrInfoLoadFromFile_41A2E0(char* a1, int a2) {
 	char* result;       // eax
 	int v3;             // esi
 	char* v4;           // edi
@@ -939,70 +939,74 @@ char* nox_xxx_cliPlrInfoLoadFromFile_41A2E0(char* a1, int a2) {
 	unsigned short v11; // ax
 
 	result = nox_common_playerInfoFromNum_417090(a2);
-	if (result) {
-		v3 = *((uint32_t*)result + 514);
-		if (v3) {
-			v4 = result + 2185;
-			result = (char*)nox_xxx_cryptOpen_426910(a1, 1, 27);
-			if (result) {
-				if (nox_common_gameFlags_check_40A5C0(2048)) {
-					nox_xxx_set_god_4EF500(0);
-				}
-				*getMemU16Ptr(0x5D4594, 527696) = nox_xxx_unitGetHP_4EE780(v3);
-				*getMemU32Ptr(0x5D4594, 527696) = *getMemU16Ptr(0x5D4594, 527696);
-				*getMemU16Ptr(0x5D4594, 527700) = nox_xxx_unitGetOldMana_4EEC80(v3);
-				*getMemU32Ptr(0x5D4594, 527700) = *getMemU16Ptr(0x5D4594, 527700);
-				sub_4EFF10(v3);
-				sub_419E10(v3, 1);
-				do {
-					while (1) {
-						nox_xxx_fileReadWrite_426AC0_file3_fread(&a2, 4u);
-						if (!a2) {
-							nox_xxx_cryptClose_4269F0();
-							sub_4EF140(v3);
-							v10 = nox_xxx_unitGetMaxHP_4EE7A0(v3);
-							nox_xxx_unitDamageClear_4EE5E0(v3, v10 - *getMemU32Ptr(0x5D4594, 527696));
-							v11 = nox_xxx_playerGetMaxMana_4EECB0(v3);
-							nox_xxx_playerManaSub_4EEBF0(v3, v11 - *getMemU32Ptr(0x5D4594, 527700));
-							nox_xxx_playerHP_4EE730(v3);
-							sub_419E10(v3, 0);
-							return (char*)1;
-						}
-						nox_xxx_fileCryptReadCrcMB_426C20(&a1, 4u);
-						v5 = 0;
-						if (*getMemU32Ptr(0x587000, 55816)) {
-							break;
-						}
-					LABEL_13:
-						nox_xxx_cryptSeekCur_40E0A0((int)a1);
-					}
-					v6 = getMemAt(0x587000, 55816);
-					while (a2 != *((uint32_t*)v6 + 1)) {
-						v7 = *((uint32_t*)v6 + 3);
-						v6 += 12;
-						++v5;
-						if (!v7) {
-							goto LABEL_13;
-						}
-					}
-				} while ((*(int (**)(int, int))getMemAt(0x587000, 55824 + 12 * v5))(v3, (int)v4));
-				v8 = *(uint32_t*)(v3 + 504);
-				if (v8) {
-					do {
-						v9 = *(uint32_t*)(v8 + 496);
-						nox_xxx_delayedDeleteObject_4E5CC0(v8);
-						v8 = v9;
-					} while (v9);
-				}
-				sub_419E10(v3, 0);
-				nox_xxx_cryptClose_4269F0();
-				result = 0;
-			}
-		} else {
-			result = 0;
-		}
+	if (!result) {
+		return 0;
 	}
-	return result;
+	v3 = *((uint32_t*)result + 514);
+	if (!v3) {
+		return 0;
+	}
+	v4 = result + 2185;
+	result = (char*)nox_xxx_cryptOpen_426910(a1, 1, 27);
+	if (!result) {
+		return 0;
+	}
+	if (nox_common_gameFlags_check_40A5C0(2048)) {
+		nox_xxx_set_god_4EF500(0);
+	}
+	*getMemU16Ptr(0x5D4594, 527696) = nox_xxx_unitGetHP_4EE780(v3);
+	*getMemU32Ptr(0x5D4594, 527696) = *getMemU16Ptr(0x5D4594, 527696);
+	*getMemU16Ptr(0x5D4594, 527700) = nox_xxx_unitGetOldMana_4EEC80(v3);
+	*getMemU32Ptr(0x5D4594, 527700) = *getMemU16Ptr(0x5D4594, 527700);
+	sub_4EFF10(v3);
+	sub_419E10(v3, 1);
+	do {
+		while (1) {
+			nox_xxx_fileReadWrite_426AC0_file3_fread(&a2, 4u);
+			if (!a2) {
+				nox_xxx_cryptClose_4269F0();
+				sub_4EF140(v3);
+				v10 = nox_xxx_unitGetMaxHP_4EE7A0(v3);
+				nox_xxx_unitDamageClear_4EE5E0(v3, v10 - *getMemU32Ptr(0x5D4594, 527696));
+				v11 = nox_xxx_playerGetMaxMana_4EECB0(v3);
+				nox_xxx_playerManaSub_4EEBF0(v3, v11 - *getMemU32Ptr(0x5D4594, 527700));
+				nox_xxx_playerHP_4EE730(v3);
+				sub_419E10(v3, 0);
+				return 1;
+			}
+			nox_xxx_fileCryptReadCrcMB_426C20(&a1, 4u);
+			v5 = 0;
+			if (!*getMemU32Ptr(0x587000, 55816)) {
+				nox_xxx_cryptSeekCur_40E0A0((int)a1);
+				continue;
+			}
+			v6 = getMemAt(0x587000, 55816);
+			while (1) {
+				if (a2 == *((uint32_t*)v6 + 1)) {
+					goto LABEL_13_1;
+				}
+				v7 = *((uint32_t*)v6 + 3);
+				v6 += 12;
+				++v5;
+				if (!v7) {
+					nox_xxx_cryptSeekCur_40E0A0((int)a1);
+					break;
+				}
+			}
+		}
+	LABEL_13_1:;
+	} while ((*(int (**)(int, int))getMemAt(0x587000, 55824 + 12 * v5))(v3, (int)v4));
+	v8 = *(uint32_t*)(v3 + 504);
+	if (v8) {
+		do {
+			v9 = *(uint32_t*)(v8 + 496);
+			nox_xxx_delayedDeleteObject_4E5CC0(v8);
+			v8 = v9;
+		} while (v9);
+	}
+	sub_419E10(v3, 0);
+	nox_xxx_cryptClose_4269F0();
+	return 0;
 }
 
 //----- (0041A480) --------------------------------------------------------
