@@ -3810,62 +3810,29 @@ void nox_xxx_questCheckSecretArea_421C70(nox_object_t* a1p) {
 			goto LABEL_33;
 		}
 		v4 = getMemAt(0x5D4594, 552228 + 140 * v11);
-		goto LABEL_11;
-	}
-	if (*(int*)(v1 + 3664) != -559023410 && *(float*)(a1 + 56) == *(float*)(a1 + 72) &&
-		*(float*)(a1 + 60) == *(float*)(a1 + 76)) {
-		return;
-	}
-	v2 = nox_float2int(*(float*)(a1 + 56));
-	v3 = *(float*)(a1 + 60);
-	v13.field_0 = v2;
-	v13.field_4 = nox_float2int(v3);
-	v4 = (unsigned char*)nox_xxx_polygonIsPlayerInPolygon_4217B0(&v13, *(uint32_t*)(v1 + 3664));
-	if (v4) {
-		goto LABEL_12;
-	}
-	v5 = *(uint32_t*)(v1 + 3664);
-	if (v5 && v5 != -559023410) {
-		v4 = getMemAt(0x5D4594, 552228 + 140 * v5);
-	LABEL_11:
-		if (v4) {
-		LABEL_12:
-			v6 = *(uint32_t*)(v1 + 3664);
-			if (v6 != *((uint32_t*)v4 + 20)) {
-				if (v6 != -559023410) {
-					if (v6) {
-						v7 = 35 * v6;
-						if (*getMemIntPtr(0x5D4594, 552352 + 4 * v7) != -1) {
-							nox_xxx_scriptCallByEventBlock_502490(getMemIntPtr(0x5D4594, 552348 + 4 * v7), a1, 0, 29);
-						}
-					}
-					if (!((1 << *(uint8_t*)(v1 + 2064)) & *((uint32_t*)v4 + 34)) && v4[132] & 1 &&
-						nox_common_gameFlags_check_40A5C0(4096)) {
-						sub_4D61F0(a1);
-						nox_xxx_netPriMsgToPlayer_4DA2C0(a1, "GeneralPrint:SecretFound", 0);
-						nox_xxx_aud_501960(904, a1, 0, 0);
-						for (i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
-							if (i != a1) {
-								nox_xxx_netInformTextMsg_4DA0F0(
-									*(unsigned char*)(*(uint32_t*)(*(uint32_t*)(i + 748) + 276) + 2064), 20,
-									(int*)(a1 + 36));
-							}
-						}
-						v9 = *((uint32_t*)v4 + 33);
-						LOBYTE(v9) = v9 & 0xFE;
-						*((uint32_t*)v4 + 33) = v9;
-					}
-					v10 = *((uint32_t*)v4 + 29);
-					*((uint32_t*)v4 + 34) |= 1 << *(uint8_t*)(v1 + 2064);
-					if (v10 != -1) {
-						nox_xxx_scriptCallByEventBlock_502490((int*)v4 + 28, a1, 0, 28);
-					}
-				}
-				*(uint32_t*)(v1 + 3664) = *((uint32_t*)v4 + 20);
-				*(uint8_t*)(v1 + 3668) = v4[130];
-			}
+	} else {
+		if (*(int*)(v1 + 3664) != -559023410 && *(float*)(a1 + 56) == *(float*)(a1 + 72) &&
+			*(float*)(a1 + 60) == *(float*)(a1 + 76)) {
 			return;
 		}
+		v2 = nox_float2int(*(float*)(a1 + 56));
+		v3 = *(float*)(a1 + 60);
+		v13.field_0 = v2;
+		v13.field_4 = nox_float2int(v3);
+		v4 = (unsigned char*)nox_xxx_polygonIsPlayerInPolygon_4217B0(&v13, *(uint32_t*)(v1 + 3664));
+		if (v4) {
+			goto LABEL_12;
+		}
+		v5 = *(uint32_t*)(v1 + 3664);
+		if (!v5 || v5 == -559023410) {
+			goto LABEL_33;
+		}
+		v4 = getMemAt(0x5D4594, 552228 + 140 * v5);
+	}
+	if (!v4) {
+		goto LABEL_33;
+	} else {
+		goto LABEL_12;
 	}
 LABEL_33:
 	v12 = *(uint32_t*)(v1 + 3664);
@@ -3876,6 +3843,43 @@ LABEL_33:
 		*(uint32_t*)(v1 + 3664) = 0;
 		*(uint8_t*)(v1 + 3668) = 1;
 	}
+	return;
+LABEL_12:
+	v6 = *(uint32_t*)(v1 + 3664);
+	if (v6 != *((uint32_t*)v4 + 20)) {
+		if (v6 != -559023410) {
+			if (v6) {
+				v7 = 35 * v6;
+				if (*getMemIntPtr(0x5D4594, 552352 + 4 * v7) != -1) {
+					nox_xxx_scriptCallByEventBlock_502490(getMemIntPtr(0x5D4594, 552348 + 4 * v7), a1, 0, 29);
+				}
+			}
+			if (!((1 << *(uint8_t*)(v1 + 2064)) & *((uint32_t*)v4 + 34)) && v4[132] & 1 &&
+				nox_common_gameFlags_check_40A5C0(4096)) {
+				sub_4D61F0(a1);
+				nox_xxx_netPriMsgToPlayer_4DA2C0(a1, "GeneralPrint:SecretFound", 0);
+				nox_xxx_aud_501960(904, a1, 0, 0);
+				for (i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
+					if (i != a1) {
+						nox_xxx_netInformTextMsg_4DA0F0(
+							*(unsigned char*)(*(uint32_t*)(*(uint32_t*)(i + 748) + 276) + 2064), 20,
+							(int*)(a1 + 36));
+					}
+				}
+				v9 = *((uint32_t*)v4 + 33);
+				LOBYTE(v9) = v9 & 0xFE;
+				*((uint32_t*)v4 + 33) = v9;
+			}
+			v10 = *((uint32_t*)v4 + 29);
+			*((uint32_t*)v4 + 34) |= 1 << *(uint8_t*)(v1 + 2064);
+			if (v10 != -1) {
+				nox_xxx_scriptCallByEventBlock_502490((int*)v4 + 28, a1, 0, 28);
+			}
+		}
+		*(uint32_t*)(v1 + 3664) = *((uint32_t*)v4 + 20);
+		*(uint8_t*)(v1 + 3668) = v4[130];
+	}
+	return;
 }
 
 //----- (00421F10) --------------------------------------------------------
