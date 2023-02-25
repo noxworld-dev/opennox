@@ -652,28 +652,25 @@ int sub_40AA70(nox_playerInfo* pl) {
 	}
 LABEL_31:
 	if (nox_common_gameFlags_check_40A5C0(128)) {
-		goto LABEL_26;
+		return 1;
 	}
 	if (!nox_common_gameFlags_check_40A5C0(1024)) {
-		goto LABEL_26;
+		return 1;
 	}
 	v6 = nox_common_playerInfoGetFirst_416EA0();
 	if (!v6) {
-		goto LABEL_26;
+		return 1;
 	}
 	while (*((int*)v6 + 535) <= 0) {
 		v6 = nox_common_playerInfoGetNext_416EE0((int)v6);
 		if (!v6) {
-			goto LABEL_26;
+			return 1;
 		}
 	}
-	if (sub_40AA00()) {
-		result = 0;
-	} else {
-	LABEL_26:
-		result = 1;
+	if (!sub_40AA00()) {
+		return 1;
 	}
-	return result;
+	return 0;
 }
 
 //----- (0040B170) --------------------------------------------------------
