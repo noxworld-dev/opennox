@@ -3492,66 +3492,72 @@ void nox_xxx_collidePlayer_4E8460(int a1, int a2) {
 	float v18;    // [esp+Ch] [ebp-10h]
 	float v19;    // [esp+10h] [ebp-Ch]
 
-	if (nox_common_playerIsAbilityActive_4FC250(a1, 1)) {
-		if (!a2) {
-			goto LABEL_14;
-		}
-		v2 = *(uint32_t*)(a2 + 8);
-		if (!(v2 & 6) || (v3 = *(uint16_t**)(a2 + 556), !*v3) && v3[2]) {
-			if (!(v2 & 0x400000) && (signed char)*(uint8_t*)(a2 + 16) >= 0 &&
-				*(float*)(a2 + 120) <= (double)*(float*)(a1 + 120)) {
-				goto LABEL_26;
-			}
-		}
-		if ((v2 & 0x80u) == 0) {
-			if (!(*(uint8_t*)(a2 + 16) & 9) && !(v2 & 1)) {
-			LABEL_14:
-				nox_xxx_playerSetState_4FA020((uint32_t*)a1, 13);
-				nox_xxx_earthquakeSend_4D9110((float*)(a1 + 56), 10);
-				sub_4FC300((uint32_t*)a1, 1);
-				if (a2) {
-					v16 = nox_xxx_gamedataGetFloat_419D40("BerserkerDamage");
-					v4 = nox_float2int(v16);
-					if (!(*(uint32_t*)(a2 + 8) & 0x400000)) {
-						sub_4E86E0(a1, (float*)a2);
-					}
-					v5 = nox_xxx_findParentChainPlayer_4EC580(a1);
-					(*(void (**)(int, int, int, int, int))(a2 + 716))(a2, v5, a1, v4, 2);
-					if (*(uint32_t*)(a2 + 8) & 0x20006) {
-						goto LABEL_25;
-					}
-					v17 = nox_xxx_gamedataGetFloat_419D40("BerserkerStunDuration");
-					v6 = nox_float2int(v17);
-					nox_xxx_buffApplyTo_4FF380(a1, 5, v6, 5);
-				} else {
-					v7 = *(uint32_t*)(*(uint32_t*)(a1 + 748) + 296);
-					if (v7 && !(getMemByte(0x85B3FC, 43076 + 12332 * *(unsigned char*)(v7 + 1)) & 5)) {
-					LABEL_25:
-						nox_xxx_unitMove_4E7010(a1, (float2*)(a1 + 72));
-						goto LABEL_26;
-					}
-					nox_xxx_aud_501960(171, a1, 0, 0);
-					v18 = nox_xxx_gamedataGetFloat_419D40("BerserkerStunDuration");
-					v8 = nox_float2int(v18);
-					nox_xxx_buffApplyTo_4FF380(a1, 5, v8, 5);
-					v14 = *(float*)(a1 + 68) * 0.043478262;
-					v15 = nox_float2int(v14);
-					v13 = *(float*)(a1 + 64) * 0.043478262;
-					v9 = nox_float2int(v13);
-					nox_xxx_damageToMap_534BC0(v9, v15, 100, 2, a1);
-				}
-				v19 = nox_xxx_gamedataGetFloat_419D40("BerserkerPainRatio") * (double)**(unsigned short**)(a1 + 556);
-				v10 = nox_float2int(v19);
-				if (v10 < 1) {
-					v10 = 1;
-				}
-				nox_xxx_unitDamageClear_4EE5E0(a1, v10);
-				goto LABEL_25;
-			}
-		} else if (*(uint8_t*)(*(uint32_t*)(a2 + 748) + 1)) {
-			goto LABEL_14;
+	if (!nox_common_playerIsAbilityActive_4FC250(a1, 1)) {
+		goto LABEL_26;
+	}
+	if (!a2) {
+		goto LABEL_14;
+	}
+	v2 = *(uint32_t*)(a2 + 8);
+	if (!(v2 & 6) || (v3 = *(uint16_t**)(a2 + 556), !*v3) && v3[2]) {
+		if (!(v2 & 0x400000) && (signed char)*(uint8_t*)(a2 + 16) >= 0 &&
+			*(float*)(a2 + 120) <= (double)*(float*)(a1 + 120)) {
+			goto LABEL_26;
 		}
 	}
+	if ((v2 & 0x80u) == 0) {
+		if (!(*(uint8_t*)(a2 + 16) & 9) && !(v2 & 1)) {
+			goto LABEL_14;
+		} else {
+			goto LABEL_26;
+		}
+	} else if (*(uint8_t*)(*(uint32_t*)(a2 + 748) + 1)) {
+		goto LABEL_14;
+	} else {
+		goto LABEL_26;
+	}
+LABEL_14:
+	nox_xxx_playerSetState_4FA020((uint32_t*)a1, 13);
+	nox_xxx_earthquakeSend_4D9110((float*)(a1 + 56), 10);
+	sub_4FC300((uint32_t*)a1, 1);
+	if (a2) {
+		v16 = nox_xxx_gamedataGetFloat_419D40("BerserkerDamage");
+		v4 = nox_float2int(v16);
+		if (!(*(uint32_t*)(a2 + 8) & 0x400000)) {
+			sub_4E86E0(a1, (float*)a2);
+		}
+		v5 = nox_xxx_findParentChainPlayer_4EC580(a1);
+		(*(void (**)(int, int, int, int, int))(a2 + 716))(a2, v5, a1, v4, 2);
+		if (*(uint32_t*)(a2 + 8) & 0x20006) {
+			nox_xxx_unitMove_4E7010(a1, (float2*)(a1 + 72));
+			goto LABEL_26;
+		}
+		v17 = nox_xxx_gamedataGetFloat_419D40("BerserkerStunDuration");
+		v6 = nox_float2int(v17);
+		nox_xxx_buffApplyTo_4FF380(a1, 5, v6, 5);
+	} else {
+		v7 = *(uint32_t*)(*(uint32_t*)(a1 + 748) + 296);
+		if (v7 && !(getMemByte(0x85B3FC, 43076 + 12332 * *(unsigned char*)(v7 + 1)) & 5)) {
+			nox_xxx_unitMove_4E7010(a1, (float2*)(a1 + 72));
+			goto LABEL_26;
+		}
+		nox_xxx_aud_501960(171, a1, 0, 0);
+		v18 = nox_xxx_gamedataGetFloat_419D40("BerserkerStunDuration");
+		v8 = nox_float2int(v18);
+		nox_xxx_buffApplyTo_4FF380(a1, 5, v8, 5);
+		v14 = *(float*)(a1 + 68) * 0.043478262;
+		v15 = nox_float2int(v14);
+		v13 = *(float*)(a1 + 64) * 0.043478262;
+		v9 = nox_float2int(v13);
+		nox_xxx_damageToMap_534BC0(v9, v15, 100, 2, a1);
+	}
+	v19 = nox_xxx_gamedataGetFloat_419D40("BerserkerPainRatio") * (double)**(unsigned short**)(a1 + 556);
+	v10 = nox_float2int(v19);
+	if (v10 < 1) {
+		v10 = 1;
+	}
+	nox_xxx_unitDamageClear_4EE5E0(a1, v10);
+	nox_xxx_unitMove_4E7010(a1, (float2*)(a1 + 72));
 LABEL_26:
 	if (a2) {
 		if (*(uint8_t*)(a2 + 8) & 4) {
