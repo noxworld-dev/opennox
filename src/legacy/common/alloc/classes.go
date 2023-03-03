@@ -49,7 +49,14 @@ func (c ClassT[T]) Free() {
 	c.Class = nil
 }
 
-const DeadChar = 0xAC
+const (
+	DeadChar = 0xAC
+	DeadWord = 0xACACACAC
+)
+
+func IsDead(p unsafe.Pointer) bool {
+	return uintptr(p) == DeadWord
+}
 
 var allocClasses = make(map[unsafe.Pointer]*Class)
 
