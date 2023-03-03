@@ -1128,7 +1128,7 @@ int nox_script_TrapSpells_516B40() {
 				v7 = nox_xxx_spellNameToN_4243F0(nox_script_getString_512E40(v2));
 				v8 = nox_xxx_spellNameToN_4243F0(nox_script_getString_512E40(v1));
 				v9 = nox_xxx_spellNameToN_4243F0(nox_script_getString_512E40(v0));
-				sub_516A80(v5, v7, v8, v9);
+				nox_object_setTrapSpells_516A80(v5, v7, v8, v9);
 			}
 		}
 	}

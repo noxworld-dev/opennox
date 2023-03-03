@@ -157,7 +157,7 @@ int sub_515C80(int a1, uint8_t* a2);
 void nox_xxx_mobSetFightTarg_515D30(int a1, int a2);
 void nox_server_scriptFleeFrom_515F70(int a1, uint32_t* a2);
 void sub_516090(int a1, uint32_t* a2);
-void sub_516A80(int a1, int a2, int a3, int a4);
+void nox_object_setTrapSpells_516A80(int a1, int a2, int a3, int a4);
 unsigned int sub_516D00(nox_object_t* a1);
 int nox_xxx_allocPendingOwnsArray_516EE0();
 int sub_516F10();
