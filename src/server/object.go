@@ -650,6 +650,9 @@ func (obj *Object) UpdateDataPlayer() *PlayerUpdateData {
 	if !obj.Class().Has(object.ClassPlayer) {
 		panic(obj.Class().String())
 	}
+	if alloc.IsDead(obj.UpdateData) {
+		panic("object already deleted")
+	}
 	// TODO: verify this conversion by checking ObjectType
 	return (*PlayerUpdateData)(obj.UpdateData)
 }
@@ -665,6 +668,9 @@ func (obj *Object) ControllingPlayer() *Player {
 func (obj *Object) UpdateDataMonster() *MonsterUpdateData {
 	if !obj.Class().Has(object.ClassMonster) {
 		panic(obj.Class().String())
+	}
+	if alloc.IsDead(obj.UpdateData) {
+		panic("object already deleted")
 	}
 	// TODO: verify this conversion by checking ObjectType
 	return (*MonsterUpdateData)(obj.UpdateData)
@@ -714,7 +720,7 @@ func (obj *Object) Health() (cur, max int) {
 		return
 	}
 	h := obj.HealthData
-	if h == nil {
+	if h == nil || alloc.IsDead(unsafe.Pointer(h)) {
 		return
 	}
 	cur = int(h.Cur)
