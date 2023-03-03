@@ -8751,7 +8751,9 @@ LABEL_15:
 	case 0x26:
 		break;
 	default:
-		nox_xxx_monsterPushAction_50A260(a1, 0);
+		if (*(char*)((uint32_t)v2 + 544) < 0) {
+			nox_xxx_monsterPushAction_50A260(a1, 0);
+		}
 		break;
 	}
 	*(uint32_t*)(v2 + 1360) = 38;
