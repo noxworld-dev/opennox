@@ -5102,7 +5102,7 @@ int sub_516570() {
 }
 
 //----- (00516A80) --------------------------------------------------------
-void sub_516A80(int a1, int a2, int a3, int a4) {
+void nox_object_setTrapSpells_516A80(int a1, int a2, int a3, int a4) {
 	int v4;       // eax
 	uint32_t* v5; // eax
 	int v6;       // ecx
