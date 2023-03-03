@@ -146,7 +146,7 @@ func (s *Server) NewObject(t *server.ObjectType) *Object {
 		legacy.Nox_call_objectType_new_go(t.Create, obj.SObj())
 	}
 	if !noxflags.HasGame(noxflags.GameFlag22) {
-		obj.ScriptID = int(s.NextObjectScriptID())
+		obj.ScriptIDVal = int(s.NextObjectScriptID())
 	}
 	if obj.Class().Has(object.ClassSimple) {
 		s.Objs.CreatedSimple++

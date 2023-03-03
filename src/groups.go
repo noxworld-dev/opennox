@@ -23,7 +23,7 @@ func (s *Server) Sub504720(a1, a2 uint32) int32 {
 
 func (s *Server) PendingObjByScriptID4CFFE0(sid int) *server.Object {
 	for it := s.Objs.Pending; it != nil; it.Next() {
-		if it.ScriptID == sid {
+		if it.ScriptIDVal == sid {
 			return it
 		}
 	}
