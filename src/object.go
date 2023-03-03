@@ -387,6 +387,14 @@ func (obj *Object) Ind() int { // aka "extent"
 	return int(obj.Extent)
 }
 
+func (obj *Object) ScriptID() int {
+	return obj.SObj().ScriptID()
+}
+
+func (obj *Object) ObjScriptID() int {
+	return obj.SObj().ObjScriptID()
+}
+
 func (obj *Object) stringAs(typ string) string {
 	if obj == nil {
 		return fmt.Sprintf("%s(<nil>)", typ)

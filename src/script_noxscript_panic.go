@@ -3,7 +3,7 @@ package opennox
 import (
 	"encoding/binary"
 
-	asm "github.com/noxworld-dev/opennox-lib/script/noxscript/noxasm"
+	"github.com/noxworld-dev/noxscript/ns/asm"
 )
 
 type noxScriptPanic struct {

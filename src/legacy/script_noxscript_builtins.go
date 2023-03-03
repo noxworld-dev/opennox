@@ -65,7 +65,7 @@ import "C"
 import (
 	"unsafe"
 
-	asm "github.com/noxworld-dev/opennox-lib/script/noxscript/noxasm"
+	"github.com/noxworld-dev/noxscript/ns/asm"
 
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server/noxscript"

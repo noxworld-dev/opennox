@@ -6,7 +6,7 @@ void nox_xxx_comJournalEntryAdd_427500(nox_object_t* a1, char* a2, short a3);
 */
 import "C"
 import (
-	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns"
+	"github.com/noxworld-dev/noxscript/ns/v4"
 
 	"github.com/noxworld-dev/opennox/v1/server"
 )

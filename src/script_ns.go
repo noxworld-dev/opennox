@@ -1,8 +1,8 @@
 package opennox
 
 import (
+	"github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/opennox-lib/script"
-	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -20,6 +20,17 @@ func (s noxScriptImpl) NoxScript() ns.Implementation {
 
 type noxScriptNS struct {
 	s *Server
+}
+
+func (s noxScriptNS) TimerByHandle(h ns.TimerHandle) ns.Timer {
+	if h == nil {
+		return nil
+	}
+	id := h.TimerScriptID()
+	if id <= 0 {
+		return nil
+	}
+	return nsTimer{s: s.s, id: uint32(id)}
 }
 
 func (s noxScriptNS) NewTimer(dt script.Duration, fnc ns.Func, args ...any) ns.Timer {
@@ -63,6 +74,10 @@ type nsTimer struct {
 }
 
 func (t nsTimer) ScriptID() int {
+	return int(t.id)
+}
+
+func (t nsTimer) TimerScriptID() int {
 	return int(t.id)
 }
 

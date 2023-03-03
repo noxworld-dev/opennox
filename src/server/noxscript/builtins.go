@@ -1,6 +1,6 @@
 package noxscript
 
-import asm "github.com/noxworld-dev/opennox-lib/script/noxscript/noxasm"
+import "github.com/noxworld-dev/noxscript/ns/asm"
 
 var builtins = make(map[asm.Builtin]Builtin)
 

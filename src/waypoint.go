@@ -86,6 +86,10 @@ func (w *Waypoint) ScriptID() int {
 	return int(w.Index)
 }
 
+func (w *Waypoint) WaypointScriptID() int {
+	return int(w.Index)
+}
+
 func (w *Waypoint) ID() string {
 	return w.S().ID()
 }
