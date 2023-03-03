@@ -350,7 +350,7 @@ type Object struct {
 	Worth         uint32                     // 8, 32
 	NetCode       uint32                     // 9, 36
 	Extent        uint32                     // 10, 40
-	ScriptID      int                        // 11, 44
+	ScriptIDVal   int                        // 11, 44
 	Field12       uint32                     // 12, 48
 	Field13       uint32                     // 13, 52, // TODO: first byte is team?
 	PosVec        types.Pointf               // 14, 56

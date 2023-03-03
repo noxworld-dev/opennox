@@ -140,13 +140,13 @@ func (s *serverActivators) save(curFrame uint32, cf *cryptfile.CryptFile) int {
 		cf.ReadWrite(buf[:4])
 		oid := 0
 		if it.arg.Trigger != nil {
-			oid = it.arg.Trigger.ScriptID
+			oid = it.arg.Trigger.ScriptIDVal
 		}
 		binary.LittleEndian.PutUint32(buf[:], uint32(oid))
 		cf.ReadWrite(buf[:4])
 		oid = 0
 		if it.arg.Caller != nil {
-			oid = it.arg.Caller.ScriptID
+			oid = it.arg.Caller.ScriptIDVal
 		}
 		binary.LittleEndian.PutUint32(buf[:], uint32(oid))
 		cf.ReadWrite(buf[:4])

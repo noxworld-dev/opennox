@@ -305,19 +305,19 @@ func (s *noxScript) ScriptToObject(val int) *server.Object {
 	}
 
 	for obj := s.s.Objs.List; obj != nil; obj = obj.Next() {
-		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID == val {
+		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptIDVal == val {
 			legacy.Nox_xxx_scriptPrepareFoundUnit_511D70(obj)
 			return obj
 		}
 		for sub := obj.FirstItem(); sub != nil; sub = sub.NextItem() {
-			if !sub.Flags().Has(object.FlagDestroyed) && sub.ScriptID == val {
+			if !sub.Flags().Has(object.FlagDestroyed) && sub.ScriptIDVal == val {
 				legacy.Nox_xxx_scriptPrepareFoundUnit_511D70(sub)
 				return sub
 			}
 		}
 	}
 	for obj := s.s.Objs.Pending; obj != nil; obj = obj.Next() {
-		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptID == val {
+		if !obj.Flags().Has(object.FlagDestroyed) && obj.ScriptIDVal == val {
 			legacy.Nox_xxx_scriptPrepareFoundUnit_511D70(obj)
 			return obj
 		}
