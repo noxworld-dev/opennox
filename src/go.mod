@@ -6,7 +6,7 @@ require (
 	github.com/noxworld-dev/lobby v0.0.0-20220306183851-3877f0a7002d
 	github.com/noxworld-dev/nat v0.1.0
 	github.com/noxworld-dev/noxcrypt v0.0.0-20220809211245-2c69b67c4ae9
-	github.com/noxworld-dev/opennox-lib v0.0.0-20221231150548-07fe5c19848c
+	github.com/noxworld-dev/opennox-lib v0.0.0-20230303210635-900326a4c0f1
 	github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7
 	github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e
 	github.com/prometheus/client_golang v1.12.1
@@ -54,7 +54,7 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
-	github.com/traefik/yaegi v0.14.4-0.20221213104605-eee72d1aae66 // indirect
+	github.com/traefik/yaegi v0.15.0 // indirect
 	github.com/veandco/go-sdl2 v0.4.25 // indirect
 	github.com/youpy/go-riff v0.1.0 // indirect
 	github.com/yuin/gopher-lua v0.0.0-20220504180219-658193537a64 // indirect
