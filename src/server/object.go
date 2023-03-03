@@ -487,6 +487,20 @@ func (obj *Object) SObj() *Object {
 	return obj
 }
 
+func (obj *Object) ScriptID() int {
+	if obj == nil {
+		return 0
+	}
+	return obj.ScriptIDVal
+}
+
+func (obj *Object) ObjScriptID() int {
+	if obj == nil {
+		return 0
+	}
+	return obj.ScriptIDVal
+}
+
 func (obj *Object) Ind() int { // aka "extent"
 	return int(obj.Extent)
 }

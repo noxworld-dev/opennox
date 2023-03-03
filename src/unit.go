@@ -44,6 +44,14 @@ func (u *Unit) SObj() *server.Object {
 	return u.Object.SObj()
 }
 
+func (u *Unit) ScriptID() int {
+	return u.SObj().ScriptID()
+}
+
+func (u *Unit) ObjScriptID() int {
+	return u.SObj().ObjScriptID()
+}
+
 func (u *Unit) String() string {
 	return u.stringAs("Unit")
 }

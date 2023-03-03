@@ -3,13 +3,13 @@ package opennox
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/noxscript/ns/v4"
+	"github.com/noxworld-dev/noxscript/ns/v4/class"
+	"github.com/noxworld-dev/noxscript/ns/v4/damage"
+	"github.com/noxworld-dev/noxscript/ns/v4/enchant"
+	"github.com/noxworld-dev/noxscript/ns/v4/subclass"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
-	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns"
-	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns/class"
-	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns/damage"
-	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns/enchant"
-	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns/subclass"
 	"github.com/noxworld-dev/opennox-lib/strman"
 	"github.com/noxworld-dev/opennox-lib/types"
 
@@ -20,7 +20,18 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func (s noxScriptNS) CreateObject(typ string, p script.Positioner) ns.Obj {
+func (s noxScriptNS) ObjectByHandle(h ns.ObjHandle) ns.Obj {
+	if h == nil {
+		return nil
+	}
+	obj := s.s.noxScript.ScriptToObject(h.ObjScriptID())
+	if obj == nil {
+		return nil
+	}
+	return nsObj{asObjectS(obj)}
+}
+
+func (s noxScriptNS) CreateObject(typ string, p ns.Positioner) ns.Obj {
 	if p == nil {
 		return nil
 	}
@@ -39,6 +50,17 @@ func (s noxScriptNS) Object(name string) ns.Obj {
 		return nil
 	}
 	return nsObj{obj}
+}
+
+func (s noxScriptNS) ObjectGroupByHandle(h ns.ObjGroupHandle) ns.ObjGroup {
+	if h == nil {
+		return nil
+	}
+	g := s.s.MapGroups.GroupByInd(h.ObjGroupScriptID())
+	if g == nil || mapGroupType(g) != server.MapGroupObjects {
+		return nil
+	}
+	return nsObjGroup{s.s, g}
 }
 
 func (s noxScriptNS) ObjectGroup(name string) ns.ObjGroup {
@@ -128,6 +150,10 @@ type nsObj struct {
 }
 
 func (obj nsObj) ScriptID() int {
+	return obj.Object.ScriptIDVal
+}
+
+func (obj nsObj) ObjScriptID() int {
 	return obj.Object.ScriptIDVal
 }
 
@@ -302,7 +328,7 @@ func (obj nsObj) LookWithAngle(angle int) {
 	obj.setAllDirs(dir)
 }
 
-func (obj nsObj) LookAtObject(targ script.Positioner) {
+func (obj nsObj) LookAtObject(targ ns.Positioner) {
 	if targ == nil {
 		return
 	}
@@ -322,7 +348,7 @@ func (obj nsObj) CanSee(obj2 ns.Obj) bool {
 	return nox_xxx_unitCanInteractWith_5370E0(obj, obj2.(server.Obj), 0)
 }
 
-func (obj nsObj) PushTo(p script.Positioner, force float32) {
+func (obj nsObj) PushTo(p ns.Positioner, force float32) {
 	if p == nil {
 		return
 	}
@@ -363,7 +389,7 @@ func (obj nsObj) Return() {
 	obj.AsUnit().Return()
 }
 
-func (obj nsObj) Follow(targ script.Positioner) {
+func (obj nsObj) Follow(targ ns.Positioner) {
 	if targ == nil {
 		return
 	}
@@ -375,7 +401,7 @@ func (obj nsObj) Guard(p1, p2 types.Pointf, distance float32) {
 	panic("implement me")
 }
 
-func (obj nsObj) Attack(target script.Positioner) {
+func (obj nsObj) Attack(target ns.Positioner) {
 	//TODO implement me
 	panic("implement me")
 }
@@ -397,7 +423,7 @@ func (obj nsObj) HitRanged(p types.Pointf) {
 	panic("implement me")
 }
 
-func (obj nsObj) Flee(target script.Positioner, dt script.Duration) {
+func (obj nsObj) Flee(target ns.Positioner, dt script.Duration) {
 	//TODO implement me
 	panic("implement me")
 }
@@ -561,6 +587,10 @@ func (g nsObjGroup) ScriptID() int {
 	return int(g.g.Index())
 }
 
+func (g nsObjGroup) ObjGroupScriptID() int {
+	return int(g.g.Index())
+}
+
 func (g nsObjGroup) Enable(enable bool) {
 	g.EachObject(true, func(obj ns.Obj) bool {
 		obj.Enable(enable)
@@ -670,7 +700,7 @@ func (g nsObjGroup) Hunt() {
 	panic("implement me")
 }
 
-func (g nsObjGroup) Follow(targ script.Positioner) {
+func (g nsObjGroup) Follow(targ ns.Positioner) {
 	if targ == nil {
 		return
 	}
@@ -685,7 +715,7 @@ func (g nsObjGroup) Guard(p1, p2 types.Pointf, distance float32) {
 	panic("implement me")
 }
 
-func (g nsObjGroup) Flee(target script.Positioner, dt script.Duration) {
+func (g nsObjGroup) Flee(target ns.Positioner, dt script.Duration) {
 	//TODO implement me
 	panic("implement me")
 }
@@ -700,7 +730,7 @@ func (g nsObjGroup) HitRanged(p types.Pointf) {
 	panic("implement me")
 }
 
-func (g nsObjGroup) Attack(target script.Positioner) {
+func (g nsObjGroup) Attack(target ns.Positioner) {
 	//TODO implement me
 	panic("implement me")
 }
@@ -726,7 +756,7 @@ func (g nsObjGroup) CreateMover(wp ns.WaypointObj, speed float32) {
 	})
 }
 
-func (g nsObjGroup) AggressionLevel(group ns.ObjGroup, level float32) {
+func (g nsObjGroup) AggressionLevel(level float32) {
 	//TODO implement me
 	panic("implement me")
 }

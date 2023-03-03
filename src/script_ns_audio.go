@@ -1,16 +1,16 @@
 package opennox
 
 import (
+	"github.com/noxworld-dev/noxscript/ns/v4"
+	"github.com/noxworld-dev/noxscript/ns/v4/audio"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
-	"github.com/noxworld-dev/opennox-lib/script"
-	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns/audio"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 )
 
-func (s noxScriptNS) AudioEvent(audio audio.Name, p script.Positioner) {
+func (s noxScriptNS) AudioEvent(audio audio.Name, p ns.Positioner) {
 	if p == nil {
 		return
 	}

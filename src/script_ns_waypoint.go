@@ -1,10 +1,21 @@
 package opennox
 
 import (
-	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns"
+	"github.com/noxworld-dev/noxscript/ns/v4"
 
 	"github.com/noxworld-dev/opennox/v1/server"
 )
+
+func (s noxScriptNS) WaypointByHandle(h ns.WaypointHandle) ns.WaypointObj {
+	if h == nil {
+		return nil
+	}
+	wp := s.s.getWaypointByInd(h.WaypointScriptID())
+	if wp == nil {
+		return nil
+	}
+	return wp
+}
 
 func (s noxScriptNS) Waypoint(name string) ns.WaypointObj {
 	wp := s.s.getWaypointByID(name)
@@ -13,6 +24,17 @@ func (s noxScriptNS) Waypoint(name string) ns.WaypointObj {
 		return nil
 	}
 	return wp
+}
+
+func (s noxScriptNS) WaypointGroupByHandle(h ns.WaypointGroupHandle) ns.WaypointGroupObj {
+	if h == nil {
+		return nil
+	}
+	g := s.s.MapGroups.GroupByInd(h.WaypointGroupScriptID())
+	if g == nil || mapGroupType(g) != server.MapGroupWaypoints {
+		return nil
+	}
+	return nsWpGroup{s.s, g}
 }
 
 func (s noxScriptNS) WaypointGroup(name string) ns.WaypointGroupObj {
@@ -30,6 +52,10 @@ type nsWpGroup struct {
 }
 
 func (g nsWpGroup) ScriptID() int {
+	return int(g.g.Index())
+}
+
+func (g nsWpGroup) WaypointGroupScriptID() int {
 	return int(g.g.Index())
 }
 

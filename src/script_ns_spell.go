@@ -3,13 +3,13 @@ package opennox
 import (
 	"strings"
 
+	"github.com/noxworld-dev/noxscript/ns/v4"
+	"github.com/noxworld-dev/noxscript/ns/v4/effect"
+	"github.com/noxworld-dev/noxscript/ns/v4/enchant"
+	nsp "github.com/noxworld-dev/noxscript/ns/v4/spell"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
-	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns"
-	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns/effect"
-	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns/enchant"
-	nsp "github.com/noxworld-dev/opennox-lib/script/noxscript/ns/spell"
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
@@ -26,7 +26,7 @@ func init() {
 	}
 }
 
-func (s noxScriptNS) Effect(effect effect.Effect, p1, p2 script.Positioner) {
+func (s noxScriptNS) Effect(effect effect.Effect, p1, p2 ns.Positioner) {
 	var pos, pos2 types.Pointf
 	if p1 != nil {
 		pos = p1.Pos()
@@ -72,7 +72,7 @@ func (s noxScriptNS) Effect(effect effect.Effect, p1, p2 script.Positioner) {
 	}
 }
 
-func (s noxScriptNS) CastSpell(name nsp.Spell, source, target script.Positioner) {
+func (s noxScriptNS) CastSpell(name nsp.Spell, source, target ns.Positioner) {
 	sp := spell.ParseID(string(name))
 	if !sp.Valid() {
 		return
