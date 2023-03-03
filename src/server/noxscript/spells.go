@@ -3,11 +3,11 @@ package noxscript
 import (
 	"time"
 
+	"github.com/noxworld-dev/noxscript/ns/asm"
+	"github.com/noxworld-dev/noxscript/ns/v4/effect"
+	"github.com/noxworld-dev/noxscript/ns/v4/enchant"
+	nsp "github.com/noxworld-dev/noxscript/ns/v4/spell"
 	"github.com/noxworld-dev/opennox-lib/script"
-	asm "github.com/noxworld-dev/opennox-lib/script/noxscript/noxasm"
-	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns/effect"
-	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns/enchant"
-	nsp "github.com/noxworld-dev/opennox-lib/script/noxscript/ns/spell"
 )
 
 func init() {

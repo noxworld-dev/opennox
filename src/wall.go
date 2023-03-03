@@ -137,6 +137,11 @@ func (w *Wall) ScriptID() int {
 	return (p.X << 16) | p.Y
 }
 
+func (w *Wall) WallScriptID() int {
+	p := w.GridPos()
+	return (p.X << 16) | p.Y
+}
+
 func (w *Wall) dir() byte {
 	return *(*byte)(w.field(0))
 }

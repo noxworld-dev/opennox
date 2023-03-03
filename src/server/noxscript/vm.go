@@ -3,7 +3,7 @@ package noxscript
 import (
 	"image"
 
-	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns"
+	"github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/opennox-lib/types"
 )
 

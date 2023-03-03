@@ -10,12 +10,12 @@ import (
 	"strings"
 	"unsafe"
 
+	"github.com/noxworld-dev/noxscript/ns/asm"
+	"github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/ifs"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
-	asm "github.com/noxworld-dev/opennox-lib/script/noxscript/noxasm"
-	"github.com/noxworld-dev/opennox-lib/script/noxscript/ns"
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 

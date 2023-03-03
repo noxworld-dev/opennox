@@ -278,8 +278,14 @@ github.com/noxworld-dev/nat v0.1.0 h1:901X798aWD7HR7J4CAQ8+0C0Hk+zMPfwDqP6FSl1WG
 github.com/noxworld-dev/nat v0.1.0/go.mod h1:nuyzkNVgk/Eybj3dbJmm0vsX7xBxjqCczqN6cWkpfrM=
 github.com/noxworld-dev/noxcrypt v0.0.0-20220809211245-2c69b67c4ae9 h1:VQTULCEWCAnvAeQ96lPs9ohsfExhDd4EDznu0U9Un1k=
 github.com/noxworld-dev/noxcrypt v0.0.0-20220809211245-2c69b67c4ae9/go.mod h1:LJpDABUOIGsHXO72pLYJgPpJQ9046Nn6Kqy/kN+xi0I=
-github.com/noxworld-dev/opennox-lib v0.0.0-20230303210635-900326a4c0f1 h1:R1HKRnaPh3ptZkMrrNhB2nLJFUcplO+uuA3mHRN45AQ=
-github.com/noxworld-dev/opennox-lib v0.0.0-20230303210635-900326a4c0f1/go.mod h1:iXn9HtkvKxeYznQ0bPg79UA8Ldgsxw9QupZY1lbxFLM=
+github.com/noxworld-dev/noxscript/ns v1.0.2 h1:PMpKqRi3fEhwAfBM+PZVTopT6o2vL6AmCDQH8zV5QWU=
+github.com/noxworld-dev/noxscript/ns v1.0.2/go.mod h1:DobGfGPUycvh7D6hB5mW5gbL1QiRsw7QQiVPJz4wYZ0=
+github.com/noxworld-dev/noxscript/ns/v3 v3.1.3 h1:YtqqlMrDFJQ3ngSd/kkb5KiHstkVyF7DzMFamd1/JRs=
+github.com/noxworld-dev/noxscript/ns/v3 v3.1.3/go.mod h1:nWwUpg0DDMbOQutvYK2stdAtbjbcES2GCr5Sn26265Q=
+github.com/noxworld-dev/noxscript/ns/v4 v4.1.3 h1:/lMiRc86vHHRPUhpKZ7RzmoXNb2d8DWvRMqq3+8g90w=
+github.com/noxworld-dev/noxscript/ns/v4 v4.1.3/go.mod h1:mth+WguInjfmvweoIdQwFfueSBGVPtGpbb+PfeD3CVc=
+github.com/noxworld-dev/opennox-lib v0.0.0-20230303224055-84326a9cce53 h1:glimQBOFt3tHhyYtq0StnByAp83Ty3M3IYAjRuBFKQk=
+github.com/noxworld-dev/opennox-lib v0.0.0-20230303224055-84326a9cce53/go.mod h1:FZMm8kD46CZaGj1uwlVIK7SUS/onYd/7KNkymE3ZX88=
 github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7 h1:RHk168W1N0o4FAcp2RIeNl5pzSeioH94OSL5cn2DV+4=
 github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7/go.mod h1:L/NIDfAyZ3NbYIxPZ6onoSGKxJmcc9+pdJcTIrDPUag=
 github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e h1:yMghTqz2j8k79+JVaSs/DOvTmgGVwGNGNvCchYP9Hcw=
@@ -362,6 +368,7 @@ github.com/spf13/viper v1.8.1/go.mod h1:o0Pch8wJ9BVSWGQMbra6iw0oQ5oktSIBaujf1rJH
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.1.1/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.4.0/go.mod h1:YvHI0jy2hoMjB+UWwv71VJQ9isScKT/TqJzVSSt89Yw=
+github.com/stretchr/objx v0.5.0/go.mod h1:Yh+to48EsGEfYuaHDzXPcE3xhTkx73EhmCGUpEOglKo=
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
@@ -369,8 +376,9 @@ github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5
 github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.7.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
-github.com/stretchr/testify v1.8.0 h1:pSgiaMZlXftHpm5L7V1+rVB+AZJydKsMxsQBIJw4PKk=
 github.com/stretchr/testify v1.8.0/go.mod h1:yNjHg4UonilssWZ8iaSj1OCr/vHnekPRkoO+kdMU+MU=
+github.com/stretchr/testify v1.8.2 h1:+h33VjcLVPDHtOdpUCuF+7gSuG3yGIftsP1YvFihtJ8=
+github.com/stretchr/testify v1.8.2/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
 github.com/subosito/gotenv v1.2.0 h1:Slr1R9HxAlEKefgq5jn9U+DnETlIUa6HfgEzj0g5d7s=
 github.com/subosito/gotenv v1.2.0/go.mod h1:N0PQaV/YGNqwC0u51sEeR/aUtSLEXKX9iv69rRypqCw=
 github.com/szhublox/opennoxcontrol v0.0.0-20211214215120-c4bc4281312f h1:OSN9HuBvSFAGwmipAgIG+tgHY5WIlrICSLgHKkiVtGU=

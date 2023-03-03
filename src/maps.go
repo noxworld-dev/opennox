@@ -13,12 +13,12 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/noxcrypt"
+	"github.com/noxworld-dev/noxscript/ns/asm"
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/datapath"
 	"github.com/noxworld-dev/opennox-lib/ifs"
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/object"
-	"github.com/noxworld-dev/opennox-lib/script/noxscript"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -80,7 +80,7 @@ func nox_server_mapRWScriptObject_505A40(cf *cryptfile.CryptFile, a1 unsafe.Poin
 			log.Printf("nox_server_mapRWScriptObject_505A40: %w (%s)", gout, caller(1))
 		}
 	}()
-	fname := datapath.Data(noxscript.NCobjName)
+	fname := datapath.Data(asm.NCobjName)
 	legacy.Set_dword_5d4594_1599644(0)
 	if cf.File.Mode() != binfile.ReadOnly {
 		cf.WriteU16(1)
