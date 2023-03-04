@@ -94,6 +94,10 @@ func (w *Waypoint) ID() string {
 	return w.S().ID()
 }
 
+func (w *Waypoint) Name() string {
+	return w.S().ID()
+}
+
 func (w *Waypoint) EqualID(id2 string) bool {
 	return w.S().EqualID(id2)
 }

@@ -304,7 +304,7 @@ type Player struct {
 	Field3676           byte   // 3676, TODO: status?
 	_                   [3]byte
 	Field3680           uint32 // 920, 3680, TODO: some flags?
-	Field3684           uint8  // 921, 3684 // TODO: level?
+	Level               uint8  // 921, 3684
 	_                   [3]byte
 	Field3688           uint32
 	Field3692           uint32

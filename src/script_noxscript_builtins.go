@@ -157,7 +157,7 @@ func eachObjectNS(s *Server, g *server.MapGroup, fnc func(obj ns.Obj) bool) {
 	case server.MapGroupObjects:
 		for it := g.First(); it != nil; it = it.Next() {
 			if obj := s.GetObjectByInd(it.Data1()); obj != nil {
-				if !fnc(nsObj{obj}) {
+				if !fnc(nsObj{s, obj}) {
 					return
 				}
 			}
@@ -173,7 +173,7 @@ func eachObjectRecursiveNS(s *Server, g *server.MapGroup, fnc func(obj ns.Obj) b
 	case server.MapGroupObjects:
 		for it := g.First(); it != nil; it = it.Next() {
 			if obj := s.GetObjectByInd(it.Data1()); obj != nil {
-				if !fnc(nsObj{obj}) {
+				if !fnc(nsObj{s, obj}) {
 					return false
 				}
 			}
