@@ -46,7 +46,7 @@ require (
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/mitchellh/mapstructure v1.4.1 // indirect
-	github.com/noxworld-dev/noxscript/eud/v171 v171.0.0 // indirect
+	github.com/noxworld-dev/noxscript/eud/v171 v171.1.2 // indirect
 	github.com/noxworld-dev/noxscript/ns/v3 v3.1.4 // indirect
 	github.com/pelletier/go-toml v1.9.3 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
