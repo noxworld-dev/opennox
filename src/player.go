@@ -612,7 +612,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	pl.Prot4636 = protectInt(0)
 	pl.Prot4640 = protectInt(0)
 	pl.ProtPlayerGold = protectInt(int(pl.GoldVal))
-	pl.ProtPlayerLevel = protectInt(int(pl.Field3684)) // level
+	pl.ProtPlayerLevel = protectInt(int(pl.Level)) // level
 	pl.Field4648 = -1
 	pl.Field4700 = 1
 	if legacy.Get_dword_5d4594_2650652() != 0 {

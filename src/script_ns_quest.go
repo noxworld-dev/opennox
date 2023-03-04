@@ -55,3 +55,18 @@ func (s noxScriptNS) JournalDelete(obj ns.Obj, message ns.StringID) {
 	//TODO implement me
 	panic("implement me")
 }
+
+func (s noxScriptNS) JournalEntryStr(obj ns.Obj, msg string, typ ns.EntryType) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s noxScriptNS) JournalEditStr(obj ns.Obj, message string, typ ns.EntryType) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (s noxScriptNS) JournalDeleteStr(obj ns.Obj, message string) {
+	//TODO implement me
+	panic("implement me")
+}

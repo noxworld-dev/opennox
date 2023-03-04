@@ -6,6 +6,15 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
+func (s noxScriptNS) Waypoints() []ns.WaypointObj {
+	list := s.s.getWaypoints()
+	out := make([]ns.WaypointObj, 0, len(list))
+	for _, wp := range list {
+		out = append(out, wp)
+	}
+	return out
+}
+
 func (s noxScriptNS) WaypointByHandle(h ns.WaypointHandle) ns.WaypointObj {
 	if h == nil {
 		return nil
@@ -57,6 +66,10 @@ func (g nsWpGroup) ScriptID() int {
 
 func (g nsWpGroup) WaypointGroupScriptID() int {
 	return int(g.g.Index())
+}
+
+func (g nsWpGroup) Name() string {
+	return g.g.ID()
 }
 
 func (g nsWpGroup) Enable(enable bool) {

@@ -16,7 +16,24 @@ func (s noxScriptNS) GetHost() ns.Obj {
 	if u == nil {
 		return nil
 	}
-	return nsObj{asObjectS(u)}
+	return nsObj{s.s, asObjectS(u)}
+}
+
+func (s noxScriptNS) HostPlayer() ns.Player {
+	pl := HostPlayer()
+	if pl == nil {
+		return nil
+	}
+	return nsPlayer{s.s, pl}
+}
+
+func (s noxScriptNS) Players() []ns.Player {
+	list := s.s.Players.List()
+	out := make([]ns.Player, 0, len(list))
+	for _, p := range list {
+		out = append(out, nsPlayer{s.s, asPlayerS(p)})
+	}
+	return out
 }
 
 func (s noxScriptNS) GetCharacterData(field int) int {
@@ -40,6 +57,22 @@ func (s noxScriptNS) Print(message ns.StringID) {
 func (s noxScriptNS) PrintToAll(message ns.StringID) {
 	str := s.s.Strings().GetStringInFile(strman.ID(message), "CScrFunc.c")
 	legacy.PrintToPlayers(str)
+}
+
+func (s noxScriptNS) PrintStr(message string) {
+	c := s.GetCaller()
+	if c == nil {
+		return
+	}
+	pl := c.Player()
+	if pl == nil {
+		return
+	}
+	pl.PrintStr(message)
+}
+
+func (s noxScriptNS) PrintStrToAll(message string) {
+	legacy.PrintToPlayers(message)
 }
 
 func (s noxScriptNS) ClearMessages(pl ns.Obj) {
@@ -84,4 +117,58 @@ func (s noxScriptNS) ImmediateBlind() {
 
 func (s noxScriptNS) EndGame(class player.Class) {
 	s.s.noxScript.noxScriptEndGame(int(class))
+}
+
+type nsPlayer struct {
+	s *Server
+	p *Player
+}
+
+func (p nsPlayer) Name() string {
+	return p.p.Name()
+}
+
+func (p nsPlayer) Unit() ns.Obj {
+	u := p.p.UnitC()
+	if u == nil {
+		return nil
+	}
+	return nsObj{p.s, u}
+}
+
+func (p nsPlayer) GetScore() int {
+	return int(p.p.Lessons)
+}
+
+func (p nsPlayer) ChangeScore(score int) {
+	u := p.p.UnitC()
+	if u == nil {
+		return
+	}
+	p.p.Lessons += int32(score)
+	if tm := p.s.Teams.ByYyy(u.team()); tm != nil {
+		p.s.teamChangeLessons(tm, score+tm.Lessons)
+	}
+	nox_xxx_netReportLesson_4D8EF0(u)
+}
+
+func (p nsPlayer) Print(message ns.StringID) {
+	u := p.p.UnitC()
+	if u == nil {
+		return
+	}
+	str := p.s.Strings().GetStringInFile(strman.ID(message), "CScrFunc.c")
+	legacy.Nox_xxx_netSendLineMessage_4D9EB0(u.SObj(), str)
+}
+
+func (p nsPlayer) PrintStr(message string) {
+	u := p.p.UnitC()
+	if u == nil {
+		return
+	}
+	legacy.Nox_xxx_netSendLineMessage_4D9EB0(u.SObj(), message)
+}
+
+func (p nsPlayer) Blind(blind bool) {
+	p.p.Blind(blind)
 }

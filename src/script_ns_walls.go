@@ -64,6 +64,10 @@ func (g nsWallGroup) WallGroupScriptID() int {
 	return int(g.g.Index())
 }
 
+func (g nsWallGroup) Name() string {
+	return g.g.ID()
+}
+
 func (g nsWallGroup) Enable(enable bool) {
 	g.EachWall(true, func(w ns.WallObj) bool {
 		w.Enable(enable)

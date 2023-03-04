@@ -9,6 +9,7 @@ import (
 	"github.com/noxworld-dev/noxscript/ns/v4/enchant"
 	"github.com/noxworld-dev/noxscript/ns/v4/subclass"
 	"github.com/noxworld-dev/opennox-lib/object"
+	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/strman"
 	"github.com/noxworld-dev/opennox-lib/types"
@@ -20,6 +21,22 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
+func (s noxScriptNS) ObjectType(name string) ns.ObjType {
+	typ := s.s.ObjectTypeByID(name)
+	if typ == nil {
+		return nil
+	}
+	return nsObjType{s.s, typ}
+}
+
+func (s noxScriptNS) ObjectTypeByInd(ind int) ns.ObjType {
+	typ := s.s.ObjectTypeByInd(ind)
+	if typ == nil {
+		return nil
+	}
+	return nsObjType{s.s, typ}
+}
+
 func (s noxScriptNS) ObjectByHandle(h ns.ObjHandle) ns.Obj {
 	if h == nil {
 		return nil
@@ -28,7 +45,7 @@ func (s noxScriptNS) ObjectByHandle(h ns.ObjHandle) ns.Obj {
 	if obj == nil {
 		return nil
 	}
-	return nsObj{asObjectS(obj)}
+	return nsObj{s.s, asObjectS(obj)}
 }
 
 func (s noxScriptNS) CreateObject(typ string, p ns.Positioner) ns.Obj {
@@ -40,7 +57,7 @@ func (s noxScriptNS) CreateObject(typ string, p ns.Positioner) ns.Obj {
 		return nil
 	}
 	s.s.CreateObjectAt(obj, nil, p.Pos())
-	return nsObj{asObjectS(obj)}
+	return nsObj{s.s, asObjectS(obj)}
 }
 
 func (s noxScriptNS) Object(name string) ns.Obj {
@@ -49,7 +66,7 @@ func (s noxScriptNS) Object(name string) ns.Obj {
 		scriptLog.Printf("noxscript: cannot find object: %q", name)
 		return nil
 	}
-	return nsObj{obj}
+	return nsObj{s.s, obj}
 }
 
 func (s noxScriptNS) ObjectGroupByHandle(h ns.ObjGroupHandle) ns.ObjGroup {
@@ -77,7 +94,7 @@ func (s noxScriptNS) GetTrigger() ns.Obj {
 	if obj == nil {
 		return nil
 	}
-	return nsObj{obj}
+	return nsObj{s.s, obj}
 }
 
 func (s noxScriptNS) GetCaller() ns.Obj {
@@ -85,7 +102,7 @@ func (s noxScriptNS) GetCaller() ns.Obj {
 	if obj == nil {
 		return nil
 	}
-	return nsObj{obj}
+	return nsObj{s.s, obj}
 }
 
 func (s noxScriptNS) IsTrigger(obj ns.Obj) bool {
@@ -143,9 +160,52 @@ func (s noxScriptNS) BecomeEnemy(obj ns.Obj) {
 	panic("implement me")
 }
 
+type nsObjType struct {
+	s *Server
+	t *server.ObjectType
+}
+
+func (typ nsObjType) Name() string {
+	return typ.t.ID()
+}
+
+func (typ nsObjType) Index() int {
+	return typ.t.Ind()
+}
+
+func (typ nsObjType) Create(p ns.Positioner) ns.Obj {
+	if p == nil {
+		return nil
+	}
+	obj := typ.s.NewObject(typ.t)
+	if obj == nil {
+		return nil
+	}
+	typ.s.CreateObjectAt(obj, nil, p.Pos())
+	return nsObj{typ.s, obj}
+}
+
+func (typ nsObjType) Class() object.Class {
+	return typ.t.Class()
+}
+
+func (typ nsObjType) HasClass(class class.Class) bool {
+	cls, err := object.ParseClass(string(class))
+	if err != nil {
+		return false
+	}
+	return typ.t.Class().Has(cls)
+}
+
+func (typ nsObjType) HasSubclass(subclass subclass.SubClass) bool {
+	//TODO implement me
+	panic("implement me")
+}
+
 var _ server.Obj = nsObj{}
 
 type nsObj struct {
+	s *Server
 	*Object
 }
 
@@ -155,6 +215,10 @@ func (obj nsObj) ScriptID() int {
 
 func (obj nsObj) ObjScriptID() int {
 	return obj.Object.ScriptIDVal
+}
+
+func (obj nsObj) Type() ns.ObjType {
+	return nsObjType{obj.s, obj.Object.ObjectTypeC()}
 }
 
 func (obj nsObj) IsLocked() bool {
@@ -216,6 +280,16 @@ func (obj nsObj) RestoreHealth(amount int) {
 	legacy.Nox_xxx_unitAdjustHP_4EE460(obj.SObj(), amount)
 }
 
+func (obj nsObj) CurrentMana() int {
+	v, _ := obj.Mana()
+	return v
+}
+
+func (obj nsObj) MaxMana() int {
+	_, v := obj.Mana()
+	return v
+}
+
 func (obj nsObj) GetGold() int {
 	//TODO implement me
 	panic("implement me")
@@ -231,12 +305,37 @@ func (obj nsObj) GiveXp(xp float32) {
 	panic("implement me")
 }
 
+func (obj nsObj) Player() ns.Player {
+	if !obj.Class().Has(object.ClassPlayer) {
+		return nil
+	}
+	pl := obj.AsUnit().ControllingPlayer()
+	if pl == nil {
+		return nil
+	}
+	return nsPlayer{obj.s, pl}
+}
+
 func (obj nsObj) GetScore() int {
+	pl := obj.Player()
+	if pl == nil {
+		return 0
+	}
+	return pl.GetScore()
+}
+
+func (obj nsObj) GetClass() player.Class {
 	if !obj.Class().Has(object.ClassPlayer) {
 		return 0
 	}
-	pl := obj.AsUnit().ControllingPlayer()
-	return int(pl.Lessons)
+	return obj.ControllingPlayer().PlayerClass()
+}
+
+func (obj nsObj) GetLevel() int {
+	if !obj.Class().Has(object.ClassPlayer) {
+		return 0
+	}
+	return int(obj.ControllingPlayer().Level)
 }
 
 func (obj nsObj) ChangeScore(val int) {
@@ -440,7 +539,7 @@ func (obj nsObj) GetLastItem() ns.Obj {
 	if it == nil {
 		return nil
 	}
-	return nsObj{it}
+	return nsObj{obj.s, it}
 }
 
 func (obj nsObj) GetPreviousItem() ns.Obj {
@@ -448,7 +547,7 @@ func (obj nsObj) GetPreviousItem() ns.Obj {
 	if it == nil {
 		return nil
 	}
-	return nsObj{it}
+	return nsObj{obj.s, it}
 }
 
 func (obj nsObj) GetHolder() ns.Obj {
@@ -456,7 +555,7 @@ func (obj nsObj) GetHolder() ns.Obj {
 	if obj2 == nil {
 		return nil
 	}
-	return nsObj{obj2}
+	return nsObj{obj.s, obj2}
 }
 
 func (obj nsObj) Pickup(item ns.Obj) bool {
@@ -518,6 +617,15 @@ func (obj nsObj) ChatTimer(message ns.StringID, dt script.Duration) {
 	}
 }
 
+func (obj nsObj) ChatStr(message string) {
+	obj.ChatStrTimer(message, script.Frames(0))
+}
+
+func (obj nsObj) ChatStrTimer(message string, dt script.Duration) {
+	s := obj.getServer()
+	legacy.Nox_xxx_netSendChat_528AC0(obj.SObj(), message, uint16(s.AsFrames(dt)))
+}
+
 func (obj nsObj) DestroyChat() {
 	nox_xxx_netKillChat_528D00(obj.AsUnit())
 }
@@ -539,7 +647,7 @@ func (obj nsObj) CreateMover(wp ns.WaypointObj, speed float32) ns.Obj {
 
 	mv.Enable(true)
 	s.Objs.AddToUpdatable(mv.SObj())
-	return nsObj{mv}
+	return nsObj{obj.s, mv}
 }
 
 func (obj nsObj) GetElevatorStatus() int {
@@ -589,6 +697,10 @@ func (g nsObjGroup) ScriptID() int {
 
 func (g nsObjGroup) ObjGroupScriptID() int {
 	return int(g.g.Index())
+}
+
+func (g nsObjGroup) Name() string {
+	return g.g.ID()
 }
 
 func (g nsObjGroup) Enable(enable bool) {
