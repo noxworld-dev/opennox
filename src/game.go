@@ -990,7 +990,7 @@ func nox_game_guiInit_473680() error {
 	return nil
 }
 
-func (s *Server) nox_xxx_mapFindPlayerStart_4F7AB0(a2 *Unit) types.Pointf {
+func (s *Server) nox_xxx_mapFindPlayerStart_4F7AB0(a2 *Object) types.Pointf {
 	return legacy.Nox_xxx_mapFindPlayerStart_4F7AB0(a2.SObj())
 }
 
@@ -1606,7 +1606,7 @@ func (s *Server) MapTraceObstacles(from *server.Object, p1, p2 types.Pointf) boo
 		}
 		if obj.Class().HasAny(object.MaskUnits) {
 			u2 := obj.AsUnit()
-			if asUnitS(from).isEnemyTo(u2) {
+			if asObjectS(from).isEnemyTo(u2) {
 				return
 			}
 		} else if !obj.Class().HasAny(object.ClassImmobile | object.ClassObstacle) {
@@ -1740,7 +1740,7 @@ func (s *Server) Nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, 
 		Bottom: pos.Y + rr,
 	}
 	s.Map.EachObjInRect(rect, func(it *server.Object) {
-		u := asUnitS(it)
+		u := asObjectS(it)
 		if u.SObj() == who.SObj() && !damageWalls {
 			return
 		}
@@ -1769,11 +1769,11 @@ func (s *Server) Nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, 
 		int(rect.Right)/common.GridStep,
 		int(rect.Bottom)/common.GridStep,
 	)
-	s.nox_xxx_mapDamageToWalls_534FC0(wrect, pos, r1, dmg, dtyp, asUnitS(who))
+	s.nox_xxx_mapDamageToWalls_534FC0(wrect, pos, r1, dmg, dtyp, asObjectS(who))
 	doDamageWalls = true
 }
 
-func (s *Server) nox_xxx_mapDamageToWalls_534FC0(rect image.Rectangle, pos types.Pointf, rad float32, dmg int, dtyp object.DamageType, who *Unit) {
+func (s *Server) nox_xxx_mapDamageToWalls_534FC0(rect image.Rectangle, pos types.Pointf, rad float32, dmg int, dtyp object.DamageType, who *Object) {
 	legacy.Nox_xxx_mapDamageToWalls_534FC0(rect, pos, rad, dmg, dtyp, who.SObj())
 }
 

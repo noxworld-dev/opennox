@@ -7,6 +7,7 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -450,6 +451,86 @@ func (obj *Object) Health() (cur, max int) {
 	return obj.SObj().Health()
 }
 
+func (obj *Object) SetHealth(v int) {
+	if obj == nil {
+		return
+	}
+	if noxflags.HasGame(noxflags.GameSuddenDeath) {
+		return
+	}
+	if v < 0 {
+		v = 0
+	}
+	if _, max := obj.Health(); v > max {
+		v = max
+	}
+	// TODO: if 0, trigger death
+	legacy.Nox_xxx_unitSetHP_4E4560(obj.SObj(), uint16(v))
+	if obj.Class().Has(object.ClassMonster) {
+		legacy.Nox_xxx_mobInformOwnerHP_4EE4C0(obj.SObj())
+	}
+}
+
+func (obj *Object) SetMaxHealth(v int) {
+	if obj == nil {
+		return
+	}
+	if noxflags.HasGame(noxflags.GameSuddenDeath) {
+		return
+	}
+	if v < 0 {
+		v = 0
+	}
+	h := obj.HealthData
+	if h == nil {
+		return
+	}
+	// TODO: verify it works in MP
+	// TODO: if it's the player, we need to adjust GUI health bars
+	h.Max = uint16(v)
+	obj.SetHealth(v)
+}
+
+func (obj *Object) Mana() (cur, max int) {
+	return obj.SObj().Mana()
+}
+
+func (obj *Object) SetMana(v int) {
+	if obj == nil {
+		return
+	}
+	if v < 0 {
+		v = 0
+	}
+	p := obj.UpdateDataPlayer()
+	if p == nil {
+		return
+	}
+	if _, max := obj.Mana(); v > max {
+		v = max
+	}
+	cur := int(p.ManaCur)
+	p.ManaPrev = uint16(cur)
+	p.ManaCur = uint16(v)
+	pt := asPlayerS(p.Player)
+	legacy.Nox_xxx_protectMana_56F9E0(int(pt.ProtUnitManaCur), int16(v-cur))
+}
+
+func (obj *Object) SetMaxMana(v int) {
+	if obj == nil {
+		return
+	}
+	if v < 0 {
+		v = 0
+	}
+	p := obj.UpdateDataPlayer()
+	if p == nil {
+		return
+	}
+	p.ManaMax = uint16(v)
+	obj.SetMana(v)
+}
+
 func (obj *Object) IsMovable() bool {
 	return obj.SObj().IsMovable()
 }
@@ -562,12 +643,12 @@ func (obj *Object) DisableEnchant(v server.EnchantID) { // nox_xxx_spellBuffOff_
 	legacy.Nox_xxx_spellBuffOff_4FF5B0(obj.SObj(), v)
 }
 
-func (obj *Object) AsUnit() *Unit {
+func (obj *Object) AsUnit() *Object {
 	if obj == nil {
 		return nil
 	}
 	// TODO: check somehow
-	return asUnit(unsafe.Pointer(obj))
+	return asObject(unsafe.Pointer(obj))
 }
 
 func (obj *Object) ObjectTypeC() *server.ObjectType {
@@ -655,11 +736,15 @@ func (obj *Object) setAllDirs(dir server.Dir16) {
 	obj.Direction2 = dir
 }
 
+func (obj *Object) move(cp *types.Pointf) {
+	legacy.Nox_xxx_unitMove_4E7010(obj.SObj(), cp)
+}
+
 func (obj *Object) SetPos(p types.Pointf) {
 	cp, free := alloc.New(types.Pointf{})
 	defer free()
 	*cp = p
-	legacy.Nox_xxx_unitMove_4E7010(obj.SObj(), cp)
+	obj.move(cp)
 }
 
 // ApplyForce adds a new force vector to the object. If another force in effect, it will adds up.
@@ -712,6 +797,19 @@ func (obj *Object) Delete() {
 
 func (obj *Object) Destroy() {
 	panic("implement me")
+	obj.Delete()
+}
+
+func (obj *Object) UpdateDataPlayer() *server.PlayerUpdateData {
+	return obj.SObj().UpdateDataPlayer()
+}
+
+func (obj *Object) UpdateDataMonster() *server.MonsterUpdateData {
+	return obj.SObj().UpdateDataMonster()
+}
+
+func (obj *Object) ControllingPlayer() *Player {
+	return asPlayerS(obj.SObj().ControllingPlayer())
 }
 
 func (obj *Object) CallUpdate() {
@@ -855,6 +953,10 @@ func (obj *Object) isEnemyTo(objp server.Obj) bool { // nox_xxx_unitIsEnemyTo_53
 	return true
 }
 
+func (obj *Object) CanSee(obj2 script.Object) bool {
+	panic("implement me")
+}
+
 func (s *Server) IsFish(obj *server.Object) bool {
 	return asObjectS(obj).isFish()
 }
@@ -917,4 +1019,188 @@ func (obj *Object) HasOwner(owner *Object) bool {
 
 func (obj *Object) dropAllItems() {
 	legacy.Nox_xxx_dropAllItems_4EDA40(obj.SObj())
+}
+
+func (obj *Object) MoveTo(p types.Pointf) {
+	// TODO: originally, this method required Waypoint as an argument
+	//       but now we actually have WalkTo and friends which accept both position or a waypoint (in LUA)
+	//       so we will call WalkTo here for now, but that Waypoint requirement was probably done for a reason
+	obj.WalkTo(p)
+}
+
+func (obj *Object) WalkTo(p types.Pointf) {
+	legacy.Nox_xxx_monsterWalkTo_514110(obj.SObj(), p.X, p.Y)
+}
+
+func (obj *Object) SetDir(v server.Dir16) {
+	obj.SObj().SetDir(v)
+}
+
+func (obj *Object) LookAt(p types.Pointf) {
+	obj.SObj().LookAt(p)
+}
+
+func (obj *Object) LookAtDir(dir int) {
+	legacy.Nox_xxx_monsterLookAt_5125A0(obj.SObj(), dir)
+}
+
+func (obj *Object) LookAngle(ang int) {
+	v := nox_xxx_math_roundDir(int32(ang))
+	obj.SetDir(server.Dir16(v))
+}
+
+func (obj *Object) Freeze(freeze bool) {
+	if freeze {
+		legacy.Nox_xxx_unitFreeze_4E79C0(obj.SObj(), 1)
+	} else {
+		legacy.Nox_xxx_unitUnFreeze_4E7A60(obj.SObj(), 1)
+	}
+}
+
+func (obj *Object) Wander() {
+	legacy.Nox_xxx_scriptMonsterRoam_512930(obj.SObj())
+}
+
+func (obj *Object) Return() {
+	legacy.Nox_server_gotoHome(obj.SObj())
+}
+
+func (obj *Object) Idle() {
+	legacy.Nox_xxx_unitIdle_515820(obj.SObj())
+}
+
+func (obj *Object) Follow(obj2 script.Positioner) {
+	if v, ok := obj2.(script.ObjectWrapper); ok {
+		obj2 = v.GetObject()
+	}
+	cobj := obj2.(server.Obj)
+	legacy.Nox_xxx_unitSetFollow_5158C0(obj.SObj(), cobj.SObj())
+}
+
+func (obj *Object) Flee(obj2 script.Positioner, dur script.Duration) {
+	panic("implement me")
+}
+
+func (obj *Object) Aggression() float32 {
+	panic("implement me")
+}
+
+func (obj *Object) SetAggression(v float32) {
+	panic("implement me")
+}
+
+func (obj *Object) RetreatLevel() float32 {
+	panic("implement me")
+}
+
+func (obj *Object) SetRetreatLevel(v float32) {
+	panic("implement me")
+}
+
+func (obj *Object) RegroupLevel() float32 {
+	panic("implement me")
+}
+
+func (obj *Object) SetRegroupLevel(v float32) {
+	panic("implement me")
+}
+
+func (obj *Object) Attack(obj2 script.Positioner) {
+	panic("implement me")
+}
+
+func (obj *Object) HitMelee(p types.Pointf) {
+	panic("implement me")
+}
+
+func (obj *Object) HitRanged(p types.Pointf) {
+	panic("implement me")
+}
+
+func (obj *Object) Guard() {
+	panic("implement me")
+}
+
+func (obj *Object) Hunt() {
+	legacy.Nox_xxx_unitHunt_5157A0(obj.SObj())
+}
+
+func (obj *Object) Say(text string, dur script.Duration) {
+	panic("implement me")
+}
+
+func (obj *Object) Mute() {
+	panic("implement me")
+}
+
+func (obj *Object) AddGold(v int) {
+	if v < 0 {
+		legacy.Nox_xxx_playerSubGold_4FA5D0(obj.SObj(), v)
+	} else {
+		legacy.Nox_xxx_playerAddGold_4FA590(obj.SObj(), v)
+	}
+}
+
+func (obj *Object) Cast(sp spell.ID, lvl int, targ script.Positioner) bool {
+	if !sp.Valid() || lvl <= 0 {
+		return false
+	}
+	var s *Server = obj.getServer()
+	sa, freeArg := alloc.New(server.SpellAcceptArg{})
+	defer freeArg()
+	if targ == nil {
+		targ = obj
+	}
+	if o, ok := targ.(server.Obj); ok {
+		sa.Obj = toObjectS(o)
+	}
+	sa.Pos = targ.Pos()
+	return s.castSpell(sp, lvl, obj.SObj(), sa)
+}
+
+func (obj *Object) clearActionStack() { // aka nox_xxx_monsterClearActionStack_50A3A0
+	if obj.Class().Has(object.ClassMonster) {
+		for legacy.Sub_5341F0(obj.SObj()) == 0 {
+			obj.monsterPopAction()
+		}
+	}
+}
+
+func (obj *Object) monsterPushAction(act ai.ActionType, args ...any) *server.AIStackItem { // aka nox_xxx_monsterPushAction_50A260
+	st := obj.monsterPushActionImpl(act, "go", 0)
+	if len(args) != 0 {
+		aiStackSetArgs(st, args...)
+	}
+	return st
+}
+
+func (obj *Object) monsterActionIsScheduled(act ai.ActionType) bool { // nox_xxx_monsterIsActionScheduled_50A090
+	stack := obj.UpdateDataMonster().GetAIStack()
+	for _, v := range stack {
+		if v.Type() == act {
+			return true
+		}
+	}
+	return false
+}
+
+func (obj *Object) countSubOfType(typ int) int { // nox_xxx_unitIsUnitTT_4E7C80
+	if obj == nil {
+		return 0
+	}
+	cnt := 0
+	for it := obj.FirstOwned516(); it != nil; it = it.NextOwned512() {
+		if int(it.TypeInd) == typ && !it.Flags().Has(object.FlagDestroyed) {
+			cnt++
+		}
+	}
+	return cnt
+}
+
+func nox_xxx_playerSetState_4FA020(u *Object, a2 int) {
+	legacy.Nox_xxx_playerSetState_4FA020(u.SObj(), a2)
+}
+
+func nox_xxx_unitIsUnitTT_4E7C80(a1 *server.Object, a2 int) int {
+	return asObjectS(a1).countSubOfType(a2)
 }

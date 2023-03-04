@@ -7,7 +7,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nox_xxx_warriorTreadLightly_5400B0(u *Unit, dur int) {
+func nox_xxx_warriorTreadLightly_5400B0(u *Object, dur int) {
 	if u == nil {
 		return
 	}

@@ -8,7 +8,7 @@ import (
 )
 
 func sub_5002D0(a1 *server.Object) {
-	u := asUnitS(a1)
+	u := asObjectS(a1)
 	sa, free := alloc.New(server.SpellAcceptArg{})
 	defer free()
 

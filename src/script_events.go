@@ -55,33 +55,33 @@ func (obj *Object) getOrNewHandlers() *objectHandlers {
 	return h
 }
 
-func (u *Unit) OnUnitDeath(fnc func()) {
-	h := u.getOrNewHandlers()
+func (obj *Object) OnUnitDeath(fnc func()) {
+	h := obj.getOrNewHandlers()
 	h.onDeath = append(h.onDeath, fnc)
 }
 
-func (u *Unit) OnUnitIdle(fnc func()) {
-	h := u.getOrNewHandlers()
+func (obj *Object) OnUnitIdle(fnc func()) {
+	h := obj.getOrNewHandlers()
 	h.onIdle = append(h.onIdle, fnc)
 }
 
-func (u *Unit) OnUnitDone(fnc func()) {
-	h := u.getOrNewHandlers()
+func (obj *Object) OnUnitDone(fnc func()) {
+	h := obj.getOrNewHandlers()
 	h.onDone = append(h.onDone, fnc)
 }
 
-func (u *Unit) OnUnitAttack(fnc func(targ script.Unit)) {
-	h := u.getOrNewHandlers()
+func (obj *Object) OnUnitAttack(fnc func(targ script.Unit)) {
+	h := obj.getOrNewHandlers()
 	h.onAttack = append(h.onAttack, fnc)
 }
 
-func (u *Unit) OnUnitSeeEnemy(fnc func(targ script.Unit)) {
-	h := u.getOrNewHandlers()
+func (obj *Object) OnUnitSeeEnemy(fnc func(targ script.Unit)) {
+	h := obj.getOrNewHandlers()
 	h.onSeeEnemy = append(h.onSeeEnemy, fnc)
 }
 
-func (u *Unit) OnUnitLostEnemy(fnc func(targ script.Unit)) {
-	h := u.getOrNewHandlers()
+func (obj *Object) OnUnitLostEnemy(fnc func(targ script.Unit)) {
+	h := obj.getOrNewHandlers()
 	h.onLostEnemy = append(h.onLostEnemy, fnc)
 }
 
@@ -107,7 +107,7 @@ type objectHandlers struct {
 	onTrigDeactivate []func()
 }
 
-func callOnMonsterDead(obj *Unit) {
+func callOnMonsterDead(obj *Object) {
 	h := obj.getHandlers()
 	if h == nil {
 		return
@@ -117,7 +117,7 @@ func callOnMonsterDead(obj *Unit) {
 	}
 }
 
-func callOnMonsterIdle(obj *Unit) {
+func callOnMonsterIdle(obj *Object) {
 	h := obj.getHandlers()
 	if h == nil {
 		return
@@ -127,7 +127,7 @@ func callOnMonsterIdle(obj *Unit) {
 	}
 }
 
-func callOnMonsterDone(obj *Unit) {
+func callOnMonsterDone(obj *Object) {
 	h := obj.getHandlers()
 	if h == nil {
 		return
@@ -137,7 +137,7 @@ func callOnMonsterDone(obj *Unit) {
 	}
 }
 
-func callOnMonsterAttack(obj, targ *Unit) {
+func callOnMonsterAttack(obj, targ *Object) {
 	h := obj.getHandlers()
 	if h == nil {
 		return
@@ -147,7 +147,7 @@ func callOnMonsterAttack(obj, targ *Unit) {
 	}
 }
 
-func callOnMonsterSeeEnemy(obj, targ *Unit) {
+func callOnMonsterSeeEnemy(obj, targ *Object) {
 	h := obj.getHandlers()
 	if h == nil {
 		return
@@ -157,7 +157,7 @@ func callOnMonsterSeeEnemy(obj, targ *Unit) {
 	}
 }
 
-func callOnMonsterLostEnemy(obj, targ *Unit) {
+func callOnMonsterLostEnemy(obj, targ *Object) {
 	h := obj.getHandlers()
 	if h == nil {
 		return
@@ -167,7 +167,7 @@ func callOnMonsterLostEnemy(obj, targ *Unit) {
 	}
 }
 
-func callOnPolygonPlayerEnter(obj *Unit) {
+func callOnPolygonPlayerEnter(obj *Object) {
 	scriptLog.Printf("player enter: %s", obj)
 }
 

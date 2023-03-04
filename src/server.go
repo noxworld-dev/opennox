@@ -503,7 +503,7 @@ func (s *Server) nox_xxx_secretWallCheckUnits_517F00(rect types.Rectf, fnc func(
 	}
 }
 
-func (s *Server) nox_xxx_netUpdate_518EE0(u *Unit) {
+func (s *Server) nox_xxx_netUpdate_518EE0(u *Object) {
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	pind := pl.Index()
@@ -598,7 +598,7 @@ func (s *Server) sub_4172C0(pind int) *Object {
 	return asObjectS(p)
 }
 
-func (s *Server) sub_519760(u *Unit, rect types.Rectf) {
+func (s *Server) sub_519760(u *Object, rect types.Rectf) {
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	pind := pl.Index()
@@ -622,7 +622,7 @@ func (s *Server) nox_xxx_netMinimapUnmark4All_417430(obj *Object) {
 	}
 }
 
-func (s *Server) sub_519660(it unsafe.Pointer, u *Unit) {
+func (s *Server) sub_519660(it unsafe.Pointer, u *Object) {
 	pl := u.ControllingPlayer()
 	v2 := uint32(1 << pl.Index())
 	isSet := (v2 & *(*uint32)(unsafe.Add(it, 28))) != 0
@@ -647,7 +647,7 @@ func (s *Server) sub_519660(it unsafe.Pointer, u *Unit) {
 	}
 }
 
-func (s *Server) nox_xxx_unitAroundPlayerFn_5193B0(it *Object, u *Unit) {
+func (s *Server) nox_xxx_unitAroundPlayerFn_5193B0(it *Object, u *Object) {
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	if u.SObj() == it.SObj() {
@@ -1130,7 +1130,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 
 func nox_xxx_moveUpdateSpecial_517970(cunit *server.Object) {
 	s := noxServer
-	unit := asUnitS(cunit)
+	unit := asObjectS(cunit)
 	legacy.Sub_517870(cunit)
 	if s.Map.ValidIndexPos(unit.NewPos) {
 		s.Map.AddMissileXxx(unit.SObj())
