@@ -67,7 +67,7 @@ func (s *Server) NetUpdateRemotePlrAudioEvents(obj *server.Object, v2 unsafe.Poi
 					if s.Audio.Field20(it.Sound) != 0 {
 						s.Audio.AddAudio(it, fade)
 					} else {
-						netSendAudioEvent(asUnitS(obj), it, int16(fade))
+						netSendAudioEvent(asObjectS(obj), it, int16(fade))
 					}
 				}
 			}

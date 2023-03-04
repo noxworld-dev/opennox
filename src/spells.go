@@ -255,7 +255,7 @@ func (s *Server) spellEnableAll() {
 func nox_xxx_allocSpellRelatedArrays_4FC9B0() error {
 	nox_alloc_spellDur_1569724 = alloc.NewClassT("spellDuration", noxDurSpell{}, 512)
 	legacy.Set_nox_alloc_magicEnt_1569668(alloc.NewClass("magicEntityClass", 60, 64).UPtr())
-	nox_xxx_imagCasterUnit_1569664 = asUnitS(noxServer.NewObjectByTypeID("ImaginaryCaster"))
+	nox_xxx_imagCasterUnit_1569664 = asObjectS(noxServer.NewObjectByTypeID("ImaginaryCaster"))
 	if nox_xxx_imagCasterUnit_1569664 == nil {
 		return errors.New("cannot find ImaginaryCaster object type")
 	}
@@ -532,7 +532,7 @@ func (s *Server) Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *ser
 	if sa == nil {
 		return false
 	}
-	obj5 := asUnitS(sa.Obj)
+	obj5 := asObjectS(sa.Obj)
 	sp := s.SpellDefByInd(spellID)
 	if sp == nil {
 		gameLog.Printf("attempted to cast unsupported spell: %v", spellID)
@@ -745,7 +745,7 @@ func (s *Server) Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *ser
 }
 
 func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo server.Obj, sflags things.SpellFlags, dist float32, a5 int, sself *server.Object) *server.Object {
-	self := asUnitS(sself)
+	self := asObjectS(sself)
 	msl := toObject(mslo)
 	if self != nil && self.Class().Has(object.ClassPlayer) && sflags.Has(things.SpellOffensive) {
 		if curTarg := asObjectS(self.UpdateDataPlayer().CursorObj); curTarg != nil {
@@ -792,7 +792,7 @@ func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo server.Obj
 		if it.Class().Has(object.ClassMonster) && (it.SubClass()&0x8000 != 0) {
 			return
 		}
-		if it.Class().Has(object.ClassPlayer) && asUnitS(it).ControllingPlayer().Field3680&0x1 != 0 {
+		if it.Class().Has(object.ClassPlayer) && asObjectS(it).ControllingPlayer().Field3680&0x1 != 0 {
 			return
 		}
 		if it.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
@@ -836,8 +836,8 @@ func nox_xxx_castSpellByUser_4FDD20(a1 int, a2 *server.Object, a3 unsafe.Pointer
 
 func (s *Server) castSpell(spellInd spell.ID, lvl int, u *server.Object, a3 *server.SpellAcceptArg) bool {
 	if s.SpellHasFlags(spellInd, things.SpellOffensive) {
-		asUnitS(u).DisableEnchant(server.ENCHANT_INVISIBLE)
-		asUnitS(u).DisableEnchant(server.ENCHANT_INVULNERABLE)
+		asObjectS(u).DisableEnchant(server.ENCHANT_INVISIBLE)
+		asObjectS(u).DisableEnchant(server.ENCHANT_INVULNERABLE)
 		s.spells.duration.CancelFor(spell.SPELL_OVAL_SHIELD, u)
 	}
 	if !s.SpellHasFlags(spellInd, things.SpellTargeted) || u.SObj() == a3.Obj {

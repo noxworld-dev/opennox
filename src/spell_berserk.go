@@ -8,7 +8,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nox_xxx_warriorBerserker_53FEB0(u *Unit) {
+func nox_xxx_warriorBerserker_53FEB0(u *Object) {
 	if u == nil {
 		return
 	}

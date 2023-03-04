@@ -80,17 +80,17 @@ func aiStackArgObj(s *server.AIStackItem, i int) *Object {
 	return asObject(unsafe.Pointer(s.Args[i]))
 }
 
-func aiStackArgUnit(s *server.AIStackItem, i int) *Unit {
-	return asUnit(unsafe.Pointer(s.Args[i]))
+func aiStackArgUnit(s *server.AIStackItem, i int) *Object {
+	return asObject(unsafe.Pointer(s.Args[i]))
 }
 
-func (u *Unit) maybePrintAIStack(event string) {
+func (obj *Object) maybePrintAIStack(event string) {
 	if noxflags.HasEngine(noxflags.EngineShowAI) {
-		u.UpdateDataMonster().PrintAIStack(u.getServer().Frame(), event)
+		obj.UpdateDataMonster().PrintAIStack(obj.getServer().Frame(), event)
 	}
 }
 
-func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
+func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 	ud := u.UpdateDataMonster()
 	stack := ud.GetAIStack()
 	if len(stack) == 0 {
@@ -213,7 +213,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 				ok = false
 				break
 			}
-			enemy := asUnitS(ud.CurrentEnemy)
+			enemy := asObjectS(ud.CurrentEnemy)
 			if enemy == nil {
 				break
 			}
@@ -235,7 +235,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 		case ai.DEPENDENCY_IS_ENCHANTED:
 			ok = u.HasEnchant(server.EnchantID(st.Args[0]))
 		case ai.DEPENDENCY_ENEMY_CLOSER_THAN:
-			enemy := asUnitS(ud.CurrentEnemy)
+			enemy := asObjectS(ud.CurrentEnemy)
 			ok = enemy != nil && nox_xxx_calcDistance_4E6C00(u, enemy) <= st.ArgF32(0)
 		case ai.DEPENDENCY_NOT_HEALTHY:
 			h := u.HealthData
@@ -251,7 +251,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 				ok = false
 			}
 		case ai.DEPENDENCY_ENEMY_FARTHER_THAN:
-			enemy := asUnitS(ud.CurrentEnemy)
+			enemy := asObjectS(ud.CurrentEnemy)
 			if enemy != nil && nox_xxx_calcDistance_4E6C00(u, enemy) < st.ArgF32(0) {
 				ok = false
 			}
@@ -265,7 +265,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 		case ai.DEPENDENCY_LOCATION_IS_SAFE:
 			legacy.Set_dword_5d4594_2489460(1)
 			a.s.Map.EachObjInCircle(st.ArgPos(0), 50.0, func(it *server.Object) {
-				legacy.Nox_xxx_unitIsDangerous_547120(asUnitS(it).SObj(), u.SObj())
+				legacy.Nox_xxx_unitIsDangerous_547120(asObjectS(it).SObj(), u.SObj())
 			})
 			if legacy.Get_dword_5d4594_2489460() == 0 {
 				ok = false
@@ -312,12 +312,12 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Unit) {
 	}
 }
 
-func nox_xxx_checkMobAction_50A0D0(u *Unit, act ai.ActionType) bool {
+func nox_xxx_checkMobAction_50A0D0(u *Object, act ai.ActionType) bool {
 	return legacy.Nox_xxx_checkMobAction_50A0D0(u.SObj(), act) != 0
 }
 
 func sub_545E60(a1c *server.Object) int {
-	u := asUnitS(a1c)
+	u := asObjectS(a1c)
 	s := u.getServer()
 
 	ud := u.UpdateDataMonster()
@@ -423,7 +423,7 @@ func getOwnerUnit(obj *server.Object) *server.Object {
 	return nil
 }
 
-func (a *aiData) aiListenToSounds(u *Unit) {
+func (a *aiData) aiListenToSounds(u *Object) {
 	// Not sure about this check. If unit is invulnerable, don't listen for anything?
 	// Is present in vanilla though, so this might be some kind of weird fix for strange behaviour
 	if legacy.Nox_xxx_checkIsKillable_528190(u.SObj()) == 0 {
@@ -471,7 +471,7 @@ func (a *aiData) aiListenToSounds(u *Unit) {
 	}
 }
 
-func (a *aiData) traceSound(u *Unit, p *MonsterListen) int {
+func (a *aiData) traceSound(u *Object, p *MonsterListen) int {
 	flags := a.s.Audio.Flags(p.snd)
 	perc := a.soundFadePerc(p.snd, p.pos, u.Pos())
 	if !a.checkSoundThreshold(flags, perc) {
@@ -527,7 +527,7 @@ func (a *aiData) checkSoundThreshold(flags, perc int) bool {
 	return perc >= threshold
 }
 
-func (a *aiData) shouldUnitListen(u *Unit, lis *MonsterListen) bool {
+func (a *aiData) shouldUnitListen(u *Object, lis *MonsterListen) bool {
 	ud := u.UpdateDataMonster()
 	punit := lis.obj.FindOwnerChainPlayer()
 	flags := a.s.Audio.Flags(lis.snd)
@@ -561,7 +561,7 @@ func (a *aiData) shouldUnitListen(u *Unit, lis *MonsterListen) bool {
 	return true
 }
 
-func (a *aiData) nox_xxx_unitEmitHearEvent_50D110(u *Unit, lis *MonsterListen, dist int) {
+func (a *aiData) nox_xxx_unitEmitHearEvent_50D110(u *Object, lis *MonsterListen, dist int) {
 	ud := u.UpdateDataMonster()
 	ud.Field97 = uint32(lis.snd)
 	ud.Field101 = a.s.Frame()
@@ -584,20 +584,20 @@ func (a *aiData) lastHeardEvent() types.Pointf {
 }
 
 func nox_xxx_monsterPopAction_50A160(a1 *server.Object) int {
-	return asUnitS(a1).monsterPopAction()
+	return asObjectS(a1).monsterPopAction()
 }
 
-func (u *Unit) monsterPopAction() int {
-	s := u.getServer()
-	ud := u.UpdateDataMonster()
+func (obj *Object) monsterPopAction() int {
+	s := obj.getServer()
+	ud := obj.UpdateDataMonster()
 	if noxflags.HasEngine(noxflags.EngineShowAI) {
 		typ := ud.AIStackHead().Type()
-		ai.Log.Printf("%d: PopActionStack( %s(#%d) ) = %s@%d:\n", s.Frame(), u, u.NetCode, typ, ud.AIStackInd)
+		ai.Log.Printf("%d: PopActionStack( %s(#%d) ) = %s@%d:\n", s.Frame(), obj, obj.NetCode, typ, ud.AIStackInd)
 	}
 	if cur := ud.AIStackHead(); cur != nil {
 		if act := cur.Type(); !act.IsCondition() && cur.Field5 != 0 {
 			if a := server.GetAIAction(act); a != nil {
-				a.End(u.SObj())
+				a.End(obj.SObj())
 			}
 		}
 	}
@@ -611,7 +611,7 @@ func (u *Unit) monsterPopAction() int {
 			break
 		}
 	}
-	u.monsterActionReset()
+	obj.monsterActionReset()
 	si := ud.AIStackInd
 	if si < 0 {
 		ud.AIStackInd = 0
@@ -621,15 +621,15 @@ func (u *Unit) monsterPopAction() int {
 }
 
 func nox_xxx_monsterPushAction_50A260_impl(u *server.Object, act int, file string, line int) unsafe.Pointer {
-	return unsafe.Pointer(asUnitS(u).monsterPushActionImpl(ai.ActionType(act), file, line))
+	return unsafe.Pointer(asObjectS(u).monsterPushActionImpl(ai.ActionType(act), file, line))
 }
 
-func (u *Unit) monsterPushActionImpl(act ai.ActionType, file string, line int) *server.AIStackItem {
-	if !u.Class().Has(object.ClassMonster) {
+func (obj *Object) monsterPushActionImpl(act ai.ActionType, file string, line int) *server.AIStackItem {
+	if !obj.Class().Has(object.ClassMonster) {
 		return nil
 	}
-	s := u.getServer()
-	ud := u.UpdateDataMonster()
+	s := obj.getServer()
+	ud := obj.UpdateDataMonster()
 	if int(ud.AIStackInd) >= len(ud.AIStack)-1 {
 		return nil
 	}
@@ -643,7 +643,7 @@ func (u *Unit) monsterPushActionImpl(act ai.ActionType, file string, line int) *
 			ud.AIStackInd = -1
 		} else if !curAct.IsCondition() && cur.Field5 != 0 {
 			if a := server.GetAIAction(curAct); a != nil {
-				a.Cancel(u.SObj())
+				a.Cancel(obj.SObj())
 			}
 		}
 	}
@@ -651,16 +651,16 @@ func (u *Unit) monsterPushActionImpl(act ai.ActionType, file string, line int) *
 	ud.AIStack[ud.AIStackInd] = server.AIStackItem{
 		Action: uint32(act), Field5: 0,
 	}
-	u.monsterActionReset()
+	obj.monsterActionReset()
 	if noxflags.HasEngine(noxflags.EngineShowAI) {
-		ai.Log.Printf("%d: PushActionStack( %s(#%d), %s ), result: (%s:%d)\n", s.Frame(), u, u.NetCode, act, file, line)
+		ai.Log.Printf("%d: PushActionStack( %s(#%d), %s ), result: (%s:%d)\n", s.Frame(), obj, obj.NetCode, act, file, line)
 	}
 	s.ai.stackChanged = true
 	return ud.AIStackHead()
 }
 
-func (u *Unit) monsterActionReset() {
-	ud := u.UpdateDataMonster()
+func (obj *Object) monsterActionReset() {
+	ud := obj.UpdateDataMonster()
 	ud.Field2 = 0
 	ud.Field67 = 0
 	ud.Field74 = 0
@@ -673,7 +673,7 @@ func (u *Unit) monsterActionReset() {
 }
 
 func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
-	u := asUnitS(a1)
+	u := asObjectS(a1)
 	s := u.getServer()
 	ud := u.UpdateDataMonster()
 
@@ -790,7 +790,7 @@ func (AIActionIdle) Type() ai.ActionType {
 	return ai.ACTION_IDLE
 }
 func (AIActionIdle) Start(obj *server.Object) {
-	u := asUnitS(obj)
+	u := asObjectS(obj)
 	s := u.getServer()
 	ud := u.UpdateDataMonster()
 	cur := ud.AIStackHead()
@@ -799,24 +799,24 @@ func (AIActionIdle) Start(obj *server.Object) {
 func (AIActionIdle) End(_ *server.Object)    {}
 func (AIActionIdle) Cancel(_ *server.Object) {}
 
-func sub_5343C0(u *Unit) bool {
+func sub_5343C0(u *Object) bool {
 	ud := u.UpdateDataMonster()
 	return ud.Aggression < 0.66000003 && ud.Aggression > 0.33000001
 }
 
-func nox_xxx_monsterCanAttackAtWill_534390(u *Unit) bool {
+func nox_xxx_monsterCanAttackAtWill_534390(u *Object) bool {
 	return u.UpdateDataMonster().Aggression > 0.66000003
 }
 
-func sub_534440(u *Unit) bool {
+func sub_534440(u *Object) bool {
 	return u.UpdateDataMonster().Aggression < 0.079999998
 }
 
-func sub_5347A0(u *Unit) bool {
+func sub_5347A0(u *Object) bool {
 	return (u.UpdateDataMonster().Field360>>9)&1 != 0
 }
 
-func nox_xxx_monsterLookAtDamager_5466B0(u *Unit) bool {
+func nox_xxx_monsterLookAtDamager_5466B0(u *Object) bool {
 	if !sub_5347A0(u) {
 		return false
 	}
@@ -825,7 +825,7 @@ func nox_xxx_monsterLookAtDamager_5466B0(u *Unit) bool {
 }
 
 func (AIActionIdle) Update(obj *server.Object) {
-	u := asUnitS(obj)
+	u := asObjectS(obj)
 	s := u.getServer()
 	ud := u.UpdateDataMonster()
 	if uint16(s.Frame()-ud.AIStackHead().ArgU32(0)) == uint16(ud.Field305) {
@@ -869,7 +869,7 @@ func (AIActionWait) Start(_ *server.Object) {}
 func (AIActionWait) End(_ *server.Object)   {}
 
 func (AIActionWait) Update(obj *server.Object) {
-	u := asUnitS(obj)
+	u := asObjectS(obj)
 	s := u.getServer()
 	ud := u.UpdateDataMonster()
 	if s.Frame() >= ud.AIStackHead().ArgU32(0) {
@@ -878,7 +878,7 @@ func (AIActionWait) Update(obj *server.Object) {
 }
 
 func (AIActionWait) Cancel(obj *server.Object) {
-	u := asUnitS(obj)
+	u := asObjectS(obj)
 	u.monsterPopAction()
 }
 
@@ -891,7 +891,7 @@ func (AIActionWaitRel) Start(_ *server.Object) {}
 func (AIActionWaitRel) End(_ *server.Object)   {}
 
 func (AIActionWaitRel) Update(obj *server.Object) {
-	u := asUnitS(obj)
+	u := asObjectS(obj)
 	s := u.getServer()
 	ud := u.UpdateDataMonster()
 	if s.Frame() > ud.Field137+ud.AIStackHead().ArgU32(0) {
@@ -900,7 +900,7 @@ func (AIActionWaitRel) Update(obj *server.Object) {
 }
 
 func (AIActionWaitRel) Cancel(obj *server.Object) {
-	u := asUnitS(obj)
+	u := asObjectS(obj)
 	u.monsterPopAction()
 }
 
@@ -914,7 +914,7 @@ func (AIActionCastOnObj) End(_ *server.Object)    {}
 func (AIActionCastOnObj) Cancel(_ *server.Object) {}
 
 func (AIActionCastOnObj) Update(obj *server.Object) {
-	u := asUnitS(obj)
+	u := asObjectS(obj)
 	ud := u.UpdateDataMonster()
 	if ud.AIStackHead().ArgU32(2) == 0 {
 		u.monsterPopAction()
@@ -936,7 +936,7 @@ func (AIActionCastOnPos) End(_ *server.Object)    {}
 func (AIActionCastOnPos) Cancel(_ *server.Object) {}
 
 func (AIActionCastOnPos) Update(obj *server.Object) {
-	u := asUnitS(obj)
+	u := asObjectS(obj)
 	ud := u.UpdateDataMonster()
 	legacy.Nox_xxx_mobActionCast_5413B0(u.SObj(), 1)
 	if ud.Field120_3 != 0 {
@@ -953,7 +953,7 @@ func (AIActionCastDuration) Type() ai.ActionType {
 func (AIActionCastDuration) Start(_ *server.Object) {}
 
 func (AIActionCastDuration) Update(obj *server.Object) {
-	u := asUnitS(obj)
+	u := asObjectS(obj)
 	ud := u.UpdateDataMonster()
 	if ud.AIStackHead().ArgU32(2) != 0 {
 		legacy.Nox_xxx_mobActionCast_5413B0(u.SObj(), 0)
@@ -963,14 +963,14 @@ func (AIActionCastDuration) Update(obj *server.Object) {
 }
 
 func (AIActionCastDuration) End(obj *server.Object) {
-	u := asUnitS(obj)
+	u := asObjectS(obj)
 	s := u.getServer()
 	ud := u.UpdateDataMonster()
 	s.spells.duration.CancelFor(spell.ID(ud.AIStackHead().ArgU32(0)), u)
 }
 
 func (AIActionCastDuration) Cancel(obj *server.Object) {
-	u := asUnitS(obj)
+	u := asObjectS(obj)
 	s := u.getServer()
 	ud := u.UpdateDataMonster()
 	s.spells.duration.CancelFor(spell.ID(ud.AIStackHead().ArgU32(0)), u)
@@ -988,7 +988,7 @@ func (AIActionMorphIntoChest) End(_ *server.Object)    {}
 func (AIActionMorphIntoChest) Cancel(_ *server.Object) {}
 
 func (AIActionMorphIntoChest) Update(obj *server.Object) {
-	u := asUnitS(obj)
+	u := asObjectS(obj)
 	ud := u.UpdateDataMonster()
 	if ud.Field120_3 != 0 {
 		u.monsterPopAction()
@@ -1008,7 +1008,7 @@ func (AIActionMorphBackToSelf) End(_ *server.Object)    {}
 func (AIActionMorphBackToSelf) Cancel(_ *server.Object) {}
 
 func (AIActionMorphBackToSelf) Update(obj *server.Object) {
-	u := asUnitS(obj)
+	u := asObjectS(obj)
 	ud := u.UpdateDataMonster()
 	if ud.Field120_3 != 0 {
 		u.monsterPopAction()
@@ -1028,7 +1028,7 @@ func (AIActionReport) End(_ *server.Object)    {}
 func (AIActionReport) Cancel(_ *server.Object) {}
 
 func (AIActionReport) Update(obj *server.Object) {
-	u := asUnitS(obj)
+	u := asObjectS(obj)
 	s := u.getServer()
 	ud := u.UpdateDataMonster()
 	u.monsterPopAction()

@@ -31,7 +31,7 @@ func (sp *spellMissiles) Cast(spellID spell.ID, a2, owner, caster *server.Object
 		typ = sp.s.ObjectTypeID(opts.Projectile)
 		sp.proj[spellID] = typ
 	}
-	curCnt := asUnitS(owner).countSubOfType(typ)
+	curCnt := asObjectS(owner).countSubOfType(typ)
 	var cnt, maxCnt int
 	if opts.Count <= 0 {
 		// it's intentionally loading this variable twice
@@ -68,7 +68,7 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *server.Obje
 		if !sp.s.MapTraceRay(cpos, p2, server.MapTraceFlag1|server.MapTraceFlag3) {
 			continue
 		}
-		msl := asUnitS(sp.s.NewObjectByTypeID(opts.Projectile))
+		msl := asObjectS(sp.s.NewObjectByTypeID(opts.Projectile))
 		mud := msl.updateDataMissile()
 		sp.s.CreateObjectAt(msl, owner, p2)
 		mspeed := float32(noxRndCounter1.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.curSpeed()))

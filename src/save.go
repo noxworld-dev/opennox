@@ -317,7 +317,7 @@ func sub_419EE0(a1 int) bool {
 }
 
 func sub_4DCC10(a1p *server.Object) int {
-	u := asUnitS(a1p)
+	u := asObjectS(a1p)
 	v := true
 	if dword_5d4594_1563092 != 0 && dword_5d4594_1563092+dword_5d4594_1563088 > u.getServer().Frame() {
 		v = false
@@ -498,7 +498,7 @@ func sub_4DCD40() {
 }
 
 func sub_4DCFB0(a1p *server.Object) {
-	u := asUnitS(a1p)
+	u := asObjectS(a1p)
 	if u == nil {
 		return
 	}
@@ -559,7 +559,7 @@ func sub41CFA0(a1 string, a2 int) bool {
 }
 
 func sub_4DD0B0(a1p *server.Object) {
-	u := asUnitS(a1p)
+	u := asObjectS(a1p)
 	if u == nil {
 		return
 	}

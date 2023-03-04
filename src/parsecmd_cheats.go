@@ -19,7 +19,7 @@ func init() {
 		Help:   "sets health for the player",
 		Flags:  console.Server | console.Cheat,
 		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
-			return noxCmdSetPlayerUnitParam(c, tokens, "health", (*Unit).SetMaxHealth, func(u *Unit) {
+			return noxCmdSetPlayerUnitParam(c, tokens, "health", (*Object).SetMaxHealth, func(u *Object) {
 				_, max := u.Health()
 				u.SetHealth(max)
 			})
@@ -31,7 +31,7 @@ func init() {
 		Help:   "sets mana for the player",
 		Flags:  console.Server | console.Cheat,
 		Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
-			return noxCmdSetPlayerUnitParam(c, tokens, "mana", (*Unit).SetMaxMana, func(u *Unit) {
+			return noxCmdSetPlayerUnitParam(c, tokens, "mana", (*Object).SetMaxMana, func(u *Object) {
 				_, max := u.Mana()
 				u.SetMana(max)
 			})
@@ -315,7 +315,7 @@ func noxCmdSetBool(c *console.Console, tokens []string, fnc func(v bool)) bool {
 	return true
 }
 
-func noxCmdSetPlayerUnitParam(c *console.Console, tokens []string, param string, fnc func(u *Unit, v int), def func(u *Unit)) bool {
+func noxCmdSetPlayerUnitParam(c *console.Console, tokens []string, param string, fnc func(u *Object, v int), def func(u *Object)) bool {
 	if len(tokens) > 2 {
 		return false
 	}

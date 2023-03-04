@@ -299,7 +299,7 @@ func call_OnLibraryNotice_265(arg3 int) {
 		return
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
-		if u := legacy.HostPlayerUnit(); u != nil && asUnitS(u).ControllingPlayer().PlayerClass() == player.Warrior {
+		if u := legacy.HostPlayerUnit(); u != nil && asObjectS(u).ControllingPlayer().PlayerClass() == player.Warrior {
 			if legacy.Mix_MouseKeyboardWeaponRoll(u.SObj(), int8(a2a)) != 0 {
 				clientPlaySoundSpecial(sound.SoundNextWeapon, 100)
 			}

@@ -16,15 +16,15 @@ import (
 )
 
 func nox_xxx_harpoonBreakForPlr_537520(u *server.Object) {
-	noxServer.abilities.harpoon.breakForOwner(asUnitS(u), true)
+	noxServer.abilities.harpoon.breakForOwner(asObjectS(u), true)
 }
 
 func nox_xxx_collideHarpoon_4EB6A0(a1c *server.Object, a2c *server.Object) {
-	noxServer.abilities.harpoon.Collide(asUnitS(a1c), asUnitS(a2c))
+	noxServer.abilities.harpoon.Collide(asObjectS(a1c), asObjectS(a2c))
 }
 
 func nox_xxx_updateHarpoon_54F380(a1c *server.Object) {
-	noxServer.abilities.harpoon.Update(asUnitS(a1c))
+	noxServer.abilities.harpoon.Update(asObjectS(a1c))
 }
 
 type harpoonData struct {
@@ -58,7 +58,7 @@ func (a *abilityHarpoon) Init(s *Server) {
 func (a *abilityHarpoon) Free() {
 }
 
-func (a *abilityHarpoon) getHarpoonData(u *Unit) *harpoonData {
+func (a *abilityHarpoon) getHarpoonData(u *Object) *harpoonData {
 	if u == nil {
 		return nil
 	}
@@ -75,7 +75,7 @@ func (a *abilityHarpoon) getHarpoonData(u *Unit) *harpoonData {
 	}
 }
 
-func (a *abilityHarpoon) Do(u *Unit) {
+func (a *abilityHarpoon) Do(u *Object) {
 	nox_xxx_playerSetState_4FA020(u, 32)
 	if u == nil {
 		return
@@ -88,7 +88,7 @@ func (a *abilityHarpoon) Do(u *Unit) {
 	d.frame35 = 0
 }
 
-func (a *abilityHarpoon) createBolt(u *Unit) {
+func (a *abilityHarpoon) createBolt(u *Object) {
 	if u == nil {
 		return
 	}
@@ -113,7 +113,7 @@ func (a *abilityHarpoon) createBolt(u *Unit) {
 	d.frame35 = 0
 }
 
-func (a *abilityHarpoon) netHarpoonAttach(u1, u2 *Unit) {
+func (a *abilityHarpoon) netHarpoonAttach(u1, u2 *Object) {
 	if u1 != nil && u2 != nil {
 		var buf [7]byte
 		buf[0] = byte(noxnet.MSG_FX_DURATION_SPELL)
@@ -125,7 +125,7 @@ func (a *abilityHarpoon) netHarpoonAttach(u1, u2 *Unit) {
 	}
 }
 
-func (a *abilityHarpoon) netHarpoonBreak(u1 *Unit, u2 *Unit) {
+func (a *abilityHarpoon) netHarpoonBreak(u1 *Object, u2 *Object) {
 	if u1 != nil && u2 != nil {
 		var buf [7]byte
 		buf[0] = byte(noxnet.MSG_FX_DURATION_SPELL)
@@ -137,7 +137,7 @@ func (a *abilityHarpoon) netHarpoonBreak(u1 *Unit, u2 *Unit) {
 	}
 }
 
-func (a *abilityHarpoon) UpdatePlayer(u *Unit) {
+func (a *abilityHarpoon) UpdatePlayer(u *Object) {
 	d := a.getHarpoonData(u)
 	if d == nil {
 		return
@@ -153,7 +153,7 @@ func (a *abilityHarpoon) UpdatePlayer(u *Unit) {
 	}
 }
 
-func (a *abilityHarpoon) breakForOwner(u *Unit, emitSound bool) {
+func (a *abilityHarpoon) breakForOwner(u *Object, emitSound bool) {
 	if u == nil {
 		return
 	}
@@ -164,7 +164,7 @@ func (a *abilityHarpoon) breakForOwner(u *Unit, emitSound bool) {
 	if d.bolt != nil {
 		d.target = nil
 		a.s.abilities.DisableAbility(u, server.AbilityHarpoon)
-		asUnitS(d.bolt).Delete()
+		asObjectS(d.bolt).Delete()
 		d.bolt = nil
 	}
 	if emitSound {
@@ -172,7 +172,7 @@ func (a *abilityHarpoon) breakForOwner(u *Unit, emitSound bool) {
 	}
 }
 
-func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
+func (a *abilityHarpoon) Collide(bolt *Object, targ *Object) {
 	owner := bolt.OwnerC().AsUnit()
 	if a.damage == 0 {
 		a.damage = int(gamedataFloat("HarpoonDamage"))
@@ -205,12 +205,12 @@ func (a *abilityHarpoon) Collide(bolt *Unit, targ *Unit) {
 	a.s.AudioEventObj(sound.SoundHarpoonReel, owner, 0, 0)
 }
 
-func (a *abilityHarpoon) disable(u *Unit) {
+func (a *abilityHarpoon) disable(u *Object) {
 	ud := u.UpdateDataPlayer()
-	a.netHarpoonBreak(u, asUnitS(ud.HarpoonBolt))
+	a.netHarpoonBreak(u, asObjectS(ud.HarpoonBolt))
 }
 
-func (a *abilityHarpoon) Update(bolt *Unit) {
+func (a *abilityHarpoon) Update(bolt *Object) {
 	if bolt == nil || bolt.OwnerC() == nil {
 		return
 	}
@@ -227,7 +227,7 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 		return
 	}
 	bud := bolt.UpdateData
-	obj4 := asUnitS(*(**server.Object)(bud))
+	obj4 := asObjectS(*(**server.Object)(bud))
 	if obj4 != nil && obj4.Flags().HasAny(object.FlagDestroyed|object.FlagDead) {
 		a.breakForOwner(owner, true)
 		return
@@ -252,7 +252,7 @@ func (a *abilityHarpoon) Update(bolt *Unit) {
 		}
 	}
 	dist := nox_xxx_calcDistance_4E6C00(bolt, owner)
-	if targ := asUnitS(d.target); targ != nil {
+	if targ := asObjectS(d.target); targ != nil {
 		if dist > a.maxDist {
 			a.breakForOwner(owner, true)
 			return

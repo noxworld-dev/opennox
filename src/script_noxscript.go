@@ -49,7 +49,7 @@ func nox_script_getString_512E40(i int) *byte {
 var (
 	nox_script_objTelekinesisHand  int
 	nox_script_objCinemaRemove     []int
-	nox_xxx_imagCasterUnit_1569664 *Unit
+	nox_xxx_imagCasterUnit_1569664 *Object
 )
 
 var _ noxscript.VM = (*noxScript)(nil)
@@ -460,7 +460,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 
 func nox_setImaginaryCaster() int {
 	s := noxServer
-	nox_xxx_imagCasterUnit_1569664 = asUnitS(s.NewObjectByTypeID("ImaginaryCaster"))
+	nox_xxx_imagCasterUnit_1569664 = asObjectS(s.NewObjectByTypeID("ImaginaryCaster"))
 	if nox_xxx_imagCasterUnit_1569664 == nil {
 		return 0
 	}
