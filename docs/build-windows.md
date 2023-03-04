@@ -21,7 +21,7 @@ It should print the version you installed.
    If it asks for a restart and closes after the update, reopen the shell and update again.
 4. Install dependencies: `pacman -S --needed git base-devel mingw-w64-i686-toolchain mingw-w64-i686-SDL2 mingw-w64-i686-openal`
    (confirm by selection with Enter, then confirms installation with typing `Y`).
-5. Add Go compiler to MSYS2 `PATH` variable: `echo 'export PATH="/c/Program Files/Go/bin/:$PATH"' >> .bashrc`
+5. Add Go compiler to MSYS2 `PATH` variable: `echo 'export PATH="/c/Program Files/Go/bin/:$PATH"' >> ~/.bashrc`
 6. Restart the shell again to apply `PATH` changes.
 7. Check if Go compiler is detected: `go version`.
 
