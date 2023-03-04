@@ -10,7 +10,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nox_xxx_warriorWarcry_53FF40(u *Unit) {
+func nox_xxx_warriorWarcry_53FF40(u *Object) {
 	if u == nil {
 		return
 	}
@@ -30,7 +30,7 @@ func nox_xxx_warriorWarcry_53FF40(u *Unit) {
 		if it.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
 			return
 		}
-		u2 := asUnitS(it)
+		u2 := asObjectS(it)
 		if u2.Class().Has(object.ClassPlayer) {
 			pl := u2.ControllingPlayer()
 			if pl == nil {

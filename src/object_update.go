@@ -30,7 +30,7 @@ func init() {
 
 func nox_xxx_updatePlayer_4F8100(up *server.Object) {
 	s := noxServer
-	u := asUnitS(up)
+	u := asObjectS(up)
 	ud := u.UpdateDataPlayer()
 	h := u.HealthData
 	for i := 0; i < 4; i++ {
@@ -127,7 +127,7 @@ func nox_xxx_updatePlayer_4F8100(up *server.Object) {
 	s.abilities.harpoon.UpdatePlayer(u)
 }
 
-func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
+func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	switch ud.Field22_0 {
@@ -479,7 +479,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Unit) (a1, v68 bool, _ bool) {
 	}
 }
 
-func (s *Server) unitUpdatePlayerImplB(u *Unit, a1, v68 bool) {
+func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	orientationOnly := false
@@ -705,7 +705,7 @@ func sub_4E7540(a1, a2 server.Obj) {
 	legacy.Sub_4E7540(toObjectS(a1), toObjectS(a2))
 }
 
-func nox_xxx_playerInventory_4F8420(u *Unit) {
+func nox_xxx_playerInventory_4F8420(u *Object) {
 	for it := u.FirstItem(); it != nil; it = it.NextItem() {
 		if it.Flags().Has(object.FlagEquipped) {
 			if !legacy.Nox_xxx_playerCheckStrength_4F3180(u.SObj(), it.SObj()) {
@@ -735,7 +735,7 @@ func (obj *Object) applyForce(vec types.Pointf, force float64) { // nox_xxx_obje
 	}
 }
 
-func playerSuddedDeath4F9E70(u *Unit) {
+func playerSuddedDeath4F9E70(u *Object) {
 	v1 := memmap.Uint32(0x5D4594, 1392)
 	h := u.HealthData
 	if !u.Flags().Has(object.FlagDead) && h != nil && h.Cur != 0 && (noxServer.Frame()%(v1*noxServer.TickRate()/uint32(h.Max))) == 0 {
@@ -743,7 +743,7 @@ func playerSuddedDeath4F9E70(u *Unit) {
 	}
 }
 
-func sub_4F9ED0(u *Unit) {
+func sub_4F9ED0(u *Object) {
 	s := u.getServer()
 	ud := u.UpdateDataPlayer()
 	h := u.HealthData
@@ -761,7 +761,7 @@ func sub_4F9ED0(u *Unit) {
 }
 
 func nox_xxx_updatePixie_53CD20(cobj *server.Object) {
-	u := asUnitS(cobj)
+	u := asObjectS(cobj)
 	s := u.getServer()
 	ud := unsafe.Slice((*uint32)(u.UpdateData), 7)
 	if memmap.Uint32(0x5D4594, 2488696) == 0 {
@@ -834,7 +834,7 @@ func nox_xxx_updatePixie_53CD20(cobj *server.Object) {
 	}
 }
 
-func nox_xxx_pixieIdleAnimate_53CF90(obj *Unit, vec types.Pointf, ddir int) {
+func nox_xxx_pixieIdleAnimate_53CF90(obj *Object, vec types.Pointf, ddir int) {
 	dv := obj.Direction2.Vec()
 	dir := int(obj.Direction2)
 	if dv.X*vec.Y-dv.Y*vec.X >= 0.0 {
@@ -868,7 +868,7 @@ func nox_xxx_pixieFindTarget_533570(u *server.Object) *server.Object {
 }
 
 func nox_xxx_teleportAllPixies_4FD090(cobj *server.Object) {
-	u := asUnitS(cobj)
+	u := asObjectS(cobj)
 	for it := u.FirstOwned516(); it != nil; it = it.NextOwned512() {
 		if int(it.TypeInd) != noxPixieObjID {
 			continue
@@ -900,7 +900,7 @@ func nox_xxx_enemyAggro(self *server.Object, r, max float32) *server.Object {
 		if !it.Class().HasAny(object.ClassMonsterGenerator | object.MaskUnits) {
 			return
 		}
-		if !asUnitS(self).isEnemyTo(cit) {
+		if !asObjectS(self).isEnemyTo(cit) {
 			return
 		}
 		if it.Flags().HasAny(object.FlagDead) {
@@ -933,7 +933,7 @@ func sub_5336D0(obj *server.Object) float64 {
 	)
 	noxServer.Map.EachObjInCircle(obj.Pos(), 1000.0, func(it *server.Object) {
 		cit := asObjectS(it)
-		if it.Class().HasAny(object.MaskUnits) && asUnitS(obj).isEnemyTo(cit) && !it.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
+		if it.Class().HasAny(object.MaskUnits) && asObjectS(obj).isEnemyTo(cit) && !it.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
 			vec := obj.Pos().Sub(it.Pos())
 			r2 := vec.X*vec.X + vec.Y*vec.Y
 			if r2 < minR2 {
@@ -950,7 +950,7 @@ func sub_5336D0(obj *server.Object) float64 {
 
 func nox_xxx_updatePlayerObserver_4E62F0(a1p *server.Object) {
 	s := noxServer
-	u := asUnitS(a1p)
+	u := asObjectS(a1p)
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	for i := range ud.Field29 {

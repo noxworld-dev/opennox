@@ -19,34 +19,34 @@ func (s *Server) Nox_script_callByEventcgo(ev server.ScriptEventType, a1, a2 uns
 		trig := asObject(a2)
 		callOnTriggerDeactivated(trig)
 	case server.NoxEventMonsterDone:
-		obj := asUnit(a2)
+		obj := asObject(a2)
 		callOnMonsterDone(obj)
 	case server.NoxEventMonsterFightStart:
-		targ := asUnit(a1)
-		obj := asUnit(a2)
+		targ := asObject(a1)
+		obj := asObject(a2)
 		callOnMonsterAttack(obj, targ)
 	case server.NoxEventMonsterSeeEnemy:
-		targ := asUnit(a1)
-		obj := asUnit(a2)
+		targ := asObject(a1)
+		obj := asObject(a2)
 		// TODO: inverse order?
 		callOnMonsterSeeEnemy(obj, targ)
 	case server.NoxEventMonsterLostEnemy:
-		targ := asUnit(a1)
-		obj := asUnit(a2)
+		targ := asObject(a1)
+		obj := asObject(a2)
 		// TODO: inverse order?
 		callOnMonsterLostEnemy(obj, targ)
 	case server.NoxEventPolygonPlayerEnter:
-		obj := asUnit(a1)
+		obj := asObject(a1)
 		scriptLog.Printf("secret YYY: %s", obj)
 		callOnPolygonPlayerEnter(obj)
 	case server.NoxEventPolygonEnterYYY:
-		v1 := asUnit(a1)
+		v1 := asObject(a1)
 		scriptLog.Printf("polygon YYY: %s", v1)
 	case server.NoxEventMonsterIdle:
-		obj := asUnit(a2)
+		obj := asObject(a2)
 		callOnMonsterIdle(obj)
 	case server.NoxEventMonsterDead:
-		obj := asUnit(a2)
+		obj := asObject(a2)
 		callOnMonsterDead(obj)
 	case server.NoxEventPlayerJoin:
 		p := legacy.AsPlayerP(a1)

@@ -13,7 +13,7 @@ func castInfravision(spellID spell.ID, _, _, _ *server.Object, args *server.Spel
 	})
 }
 
-func nox_xxx_warriorInfravis_540110(u *Unit, dur int) {
+func nox_xxx_warriorInfravis_540110(u *Object, dur int) {
 	if u == nil {
 		return
 	}

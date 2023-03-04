@@ -26,7 +26,7 @@ func castDeathRay(spellID spell.ID, a2, a3, a4 *server.Object, a5 *server.SpellA
 	pos16 := a5.Pos
 	if !s.MapTraceRay9(pos4, pos16) {
 		if a4.Class().Has(object.ClassPlayer) && a3.Class().Has(object.ClassPlayer) {
-			nox_xxx_netInformTextMsg_4DA0F0(asUnitS(a3).ControllingPlayer().Index(), 0, 2)
+			nox_xxx_netInformTextMsg_4DA0F0(asObjectS(a3).ControllingPlayer().Index(), 0, 2)
 		}
 		return 0
 	}

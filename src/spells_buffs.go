@@ -44,7 +44,7 @@ func castBuffSpell(spellID spell.ID, enc server.EnchantID, lvl int, targ *server
 	if opts.Defensive {
 		sub_4FF310(targ.SObj())
 	}
-	asUnitS(targ).ApplyEnchant(enc, dur, lvl)
+	asObjectS(targ).ApplyEnchant(enc, dur, lvl)
 	if opts.Orig != nil && opts.Offensive {
 		sub_4E7540(opts.Orig, targ)
 	}

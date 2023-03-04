@@ -465,7 +465,7 @@ func nox_xxx_netSendVampFx_523270(fx noxnet.Op, p1, p2 image.Point, a3 int) bool
 	return legacy.Nox_xxx_netSendFxAllCli_523030(pos, buf[:11])
 }
 
-func nox_xxx_netReportLesson_4D8EF0(u *Unit) {
+func nox_xxx_netReportLesson_4D8EF0(u *Object) {
 	var buf [11]byte
 	buf[0] = byte(noxnet.MSG_REPORT_LESSON)
 	pl := u.ControllingPlayer()
@@ -475,7 +475,7 @@ func nox_xxx_netReportLesson_4D8EF0(u *Unit) {
 	noxServer.nox_xxx_netSendPacket1_4E5390(255, buf[:11], 0, 1)
 }
 
-func nox_xxx_netScriptMessageKill_4D9760(u *Unit) {
+func nox_xxx_netScriptMessageKill_4D9760(u *Object) {
 	if !u.Class().Has(object.ClassPlayer) {
 		return
 	}
@@ -485,7 +485,7 @@ func nox_xxx_netScriptMessageKill_4D9760(u *Unit) {
 	noxServer.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:1], 0, 1)
 }
 
-func nox_xxx_netKillChat_528D00(u *Unit) {
+func nox_xxx_netKillChat_528D00(u *Object) {
 	var buf [3]byte
 	buf[0] = byte(noxnet.MSG_CHAT_KILL)
 	binary.LittleEndian.PutUint16(buf[1:], uint16(noxServer.GetUnitNetCode(u)))
@@ -1148,7 +1148,7 @@ func (s *Server) nox_xxx_netSendBySock_4DDDC0(ind int) {
 	}
 }
 
-func (s *Server) sendSettings(u *Unit) {
+func (s *Server) sendSettings(u *Object) {
 	pl := u.ControllingPlayer()
 	{
 		var buf [5]byte
@@ -1288,7 +1288,7 @@ func (s *Server) onPacketRaw(pli int, data []byte) bool {
 	return true
 }
 
-func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *Unit) (int, bool) {
+func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *Object) (int, bool) {
 	if n, ok, err := s.Server.OnPacketOpSub(pli, op, data, pl.S(), u.SObj()); err != nil {
 		return n, false
 	} else if ok {
@@ -1520,7 +1520,7 @@ func nox_xxx_netTimerStatus_4D8F50(a1, a2 int) {
 	noxServer.nox_xxx_netSendPacket1_4E5390(a1, buf[:13], 0, 1)
 }
 
-func netSendAudioEvent(u *Unit, ev *server.AudioEvent, perc int16) {
+func netSendAudioEvent(u *Object, ev *server.AudioEvent, perc int16) {
 	pl := u.ControllingPlayer()
 	packed := uint16(uint32(uint16(ev.Sound)) | uint32(perc)<<10)
 	dx := ev.Pos.X - pl.Pos3632().X
@@ -1550,7 +1550,7 @@ func (s *Server) nox_xxx_netObjectInShadows_528A90(ind int, obj *Object) int {
 	return s.nox_xxx_netSendPacket0_4E5420(ind, buf[:3], 0, 1)
 }
 
-func (s *Server) nox_xxx_netPlayerObjSendCamera_519330(u *Unit) bool {
+func (s *Server) nox_xxx_netPlayerObjSendCamera_519330(u *Object) bool {
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 	var buf [12]byte

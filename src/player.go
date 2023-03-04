@@ -41,15 +41,15 @@ func nox_xxx_playerCallDisconnect_4DEAB0(ind int, v int8) {
 }
 
 func nox_xxx_playerCameraUnlock_4E6040(cplayer *server.Object) {
-	asUnitS(cplayer).ControllingPlayer().CameraUnlock()
+	asObjectS(cplayer).ControllingPlayer().CameraUnlock()
 }
 
 func nox_xxx_playerCameraFollow_4E6060(cplayer, cunit *server.Object) {
-	asUnitS(cplayer).ControllingPlayer().CameraToggle(cunit)
+	asObjectS(cplayer).ControllingPlayer().CameraToggle(cunit)
 }
 
 func nox_xxx_playerGetPossess_4DDF30(cplayer *server.Object) *server.Object {
-	return asUnitS(cplayer).ControllingPlayer().ObserveTarget().SObj()
+	return asObjectS(cplayer).ControllingPlayer().ObserveTarget().SObj()
 }
 
 func nox_xxx_playerGoObserver_4E6860(pl *server.Player, a2 int, a3 int) int {
@@ -57,7 +57,7 @@ func nox_xxx_playerGoObserver_4E6860(pl *server.Player, a2 int, a3 int) int {
 }
 
 func nox_xxx_playerObserveClear_4DDEF0(cplayer *server.Object) {
-	asUnitS(cplayer).observeClear()
+	asObjectS(cplayer).observeClear()
 }
 
 func clientPlayer() *Player {
@@ -256,11 +256,11 @@ func (p *Player) IsActive() bool {
 	return p.S().IsActive()
 }
 
-func (p *Player) UnitC() *Unit {
+func (p *Player) UnitC() *Object {
 	if p == nil {
 		return nil
 	}
-	return asUnitS(p.PlayerUnit)
+	return asObjectS(p.PlayerUnit)
 }
 
 func (p *Player) Info() *server.PlayerInfo {
@@ -387,13 +387,13 @@ func (p *Player) leaveMonsterObserver() {
 	p.CameraFollow(targ)
 }
 
-func (u *Unit) observeClear() {
-	pl := u.ControllingPlayer()
+func (obj *Object) observeClear() {
+	pl := obj.ControllingPlayer()
 	if pl.Field3680&2 != 0 {
 		legacy.Nox_xxx_playerUnsetStatus_417530(pl.S(), 2)
 		pl.CameraUnlock()
 		_ = nox_xxx_updatePlayer_4F8100
-		u.Update = legacy.Get_nox_xxx_updatePlayer_4F8100()
+		obj.Update = legacy.Get_nox_xxx_updatePlayer_4F8100()
 	}
 }
 
@@ -415,7 +415,7 @@ func (s *Server) GetPlayers() (out []*Player) {
 	return out
 }
 
-func (s *Server) getPlayerUnits() (out []*Unit) {
+func (s *Server) getPlayerUnits() (out []*Object) {
 	for _, p := range s.GetPlayers() {
 		if u := p.UnitC(); u != nil {
 			out = append(out, u)
@@ -692,7 +692,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	return int(punit.NetCode)
 }
 
-func (s *Server) sub_4E8210(u *Unit) (types.Pointf, bool) {
+func (s *Server) sub_4E8210(u *Object) (types.Pointf, bool) {
 	var (
 		max uint32
 		v2  unsafe.Pointer
@@ -717,14 +717,14 @@ func (s *Server) sub_4E8210(u *Unit) (types.Pointf, bool) {
 	return out, true
 }
 
-func nox_xxx_plrSetSpellType_4F9B90(u *Unit) {
+func nox_xxx_plrSetSpellType_4F9B90(u *Object) {
 	ud := u.UpdateDataPlayer()
 	ud.SpellPhonemeLeaf = unsafe.Pointer(getPhonemeTree())
 	ud.SpellCastStart = noxServer.Frame()
 }
 
 func (s *Server) PlayerSpell(su *server.Object) {
-	u := asUnitS(su)
+	u := asObjectS(su)
 	ok2 := true
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
@@ -796,13 +796,13 @@ func (s *Server) PlayerSpell(su *server.Object) {
 	}
 }
 
-func sub_4FD030(u *Unit, v int) {
+func sub_4FD030(u *Object, v int) {
 	if u.Class().Has(object.ClassPlayer) {
 		legacy.Nox_xxx_playerManaAdd_4EEB80(u.SObj(), v)
 	}
 }
 
-func nox_xxx_playerSubLessons_4D8EC0(u *Unit, val int) {
+func nox_xxx_playerSubLessons_4D8EC0(u *Object, val int) {
 	if !u.Class().Has(object.ClassPlayer) {
 		return
 	}
@@ -810,7 +810,7 @@ func nox_xxx_playerSubLessons_4D8EC0(u *Unit, val int) {
 	pl.Lessons -= int32(val)
 }
 
-func nox_xxx_changeScore_4D8E90(u *Unit, val int) {
+func nox_xxx_changeScore_4D8E90(u *Object, val int) {
 	if !u.Class().Has(object.ClassPlayer) {
 		return
 	}
@@ -920,7 +920,7 @@ func nox_client_onClassStats(data []byte) {
 }
 
 func nox_xxx_playerObserveMonster_4DDE80(cplayer, cunit *server.Object) {
-	pu := asUnitS(cplayer)
+	pu := asObjectS(cplayer)
 	ud := pu.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
 
