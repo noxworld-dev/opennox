@@ -278,8 +278,8 @@ github.com/noxworld-dev/nat v0.1.0 h1:901X798aWD7HR7J4CAQ8+0C0Hk+zMPfwDqP6FSl1WG
 github.com/noxworld-dev/nat v0.1.0/go.mod h1:nuyzkNVgk/Eybj3dbJmm0vsX7xBxjqCczqN6cWkpfrM=
 github.com/noxworld-dev/noxcrypt v0.0.0-20220809211245-2c69b67c4ae9 h1:VQTULCEWCAnvAeQ96lPs9ohsfExhDd4EDznu0U9Un1k=
 github.com/noxworld-dev/noxcrypt v0.0.0-20220809211245-2c69b67c4ae9/go.mod h1:LJpDABUOIGsHXO72pLYJgPpJQ9046Nn6Kqy/kN+xi0I=
-github.com/noxworld-dev/noxscript/eud/v171 v171.0.0 h1:9a1eUzAsh1Okv8z363oW+U6+NBfb+7pdaIIxnnuSBWU=
-github.com/noxworld-dev/noxscript/eud/v171 v171.0.0/go.mod h1:w0VXaQ4Qi5qS8FAaNtIDBBFpwhliz0mqCr1LlNdU0Ik=
+github.com/noxworld-dev/noxscript/eud/v171 v171.1.2 h1:/0Sgqd3gPyfRLy8L2DC7Wl885GUcDqCOfRnZzHnJcNI=
+github.com/noxworld-dev/noxscript/eud/v171 v171.1.2/go.mod h1:BLwIsr6BUMmFeHiE48o6EsPQqmFrTz0PiXa/xzXN8TY=
 github.com/noxworld-dev/noxscript/ns v1.0.2 h1:PMpKqRi3fEhwAfBM+PZVTopT6o2vL6AmCDQH8zV5QWU=
 github.com/noxworld-dev/noxscript/ns v1.0.2/go.mod h1:DobGfGPUycvh7D6hB5mW5gbL1QiRsw7QQiVPJz4wYZ0=
 github.com/noxworld-dev/noxscript/ns/v3 v3.1.4 h1:pRyTTC2w7li5RJTmrHX5SAhz/vCpmKR0JegPyKNtPks=
