@@ -565,7 +565,7 @@ func (s *noxScript) PopObjectNS() ns.Obj {
 	if obj == nil {
 		return nil
 	}
-	return nsObj{asObjectS(obj)}
+	return nsObj{s.s, asObjectS(obj)}
 }
 
 func (s *noxScript) PopObjGroupNS() ns.ObjGroup {

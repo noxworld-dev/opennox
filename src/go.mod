@@ -7,8 +7,8 @@ require (
 	github.com/noxworld-dev/nat v0.1.0
 	github.com/noxworld-dev/noxcrypt v0.0.0-20220809211245-2c69b67c4ae9
 	github.com/noxworld-dev/noxscript/ns v1.0.2
-	github.com/noxworld-dev/noxscript/ns/v4 v4.1.3
-	github.com/noxworld-dev/opennox-lib v0.0.0-20230303224055-84326a9cce53
+	github.com/noxworld-dev/noxscript/ns/v4 v4.2.1
+	github.com/noxworld-dev/opennox-lib v0.0.0-20230304151458-840736e242c3
 	github.com/noxworld-dev/vqa-decode v0.0.0-20220408200150-8bbbe7a064f7
 	github.com/noxworld-dev/xwis v0.0.0-20220204182326-c5d2fc18e75e
 	github.com/prometheus/client_golang v1.12.1
@@ -46,7 +46,8 @@ require (
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/mitchellh/mapstructure v1.4.1 // indirect
-	github.com/noxworld-dev/noxscript/ns/v3 v3.1.3 // indirect
+	github.com/noxworld-dev/noxscript/eud/v171 v171.0.0 // indirect
+	github.com/noxworld-dev/noxscript/ns/v3 v3.1.4 // indirect
 	github.com/pelletier/go-toml v1.9.3 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_model v0.2.0 // indirect
