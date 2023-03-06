@@ -8597,7 +8597,7 @@ char nox_xxx_unitInitPlayer_4EFE80(nox_object_t* a1p) {
 	float v4; // [esp+0h] [ebp-Ch]
 
 	v1 = *(uint32_t*)(a1 + 748);
-	v2 = sub_4FA6D0(a1);
+	v2 = nox_object_getGold_4FA6D0(a1);
 	nox_xxx_playerSubGold_4FA5D0(a1, v2);
 	sub_4EF140(a1);
 	nox_xxx_spellAwardAll1_4EFD80(*(uint32_t*)(v1 + 276));

@@ -295,13 +295,17 @@ func (obj nsObj) MaxMana() int {
 }
 
 func (obj nsObj) GetGold() int {
-	//TODO implement me
-	panic("implement me")
+	if obj.Object == nil {
+		return 0
+	}
+	return legacy.Nox_object_getGold_4FA6D0(obj.SObj())
 }
 
 func (obj nsObj) ChangeGold(delta int) {
-	//TODO implement me
-	panic("implement me")
+	if obj.Object == nil {
+		return
+	}
+	legacy.Nox_object_setGold_4FA620(obj.SObj(), delta)
 }
 
 func (obj nsObj) GiveXp(xp float32) {

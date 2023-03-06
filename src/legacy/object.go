@@ -342,3 +342,9 @@ func Get_nox_xxx_updateHarpoon_54F380() unsafe.Pointer {
 func Get_nox_xxx_updatePixie_53CD20() unsafe.Pointer {
 	return C.nox_xxx_updatePixie_53CD20
 }
+func Nox_object_getGold_4FA6D0(obj *server.Object) int {
+	return int(C.nox_object_getGold_4FA6D0(asObjectC(obj)))
+}
+func Nox_object_setGold_4FA620(obj *server.Object, v int) {
+	C.nox_object_setGold_4FA620(asObjectC(obj), C.int(v))
+}
