@@ -69,6 +69,7 @@ func init() {
 	Register(asm.BuiltinDestroyChat, nsDestroyChat)
 	Register(asm.BuiltinDestroyEveryChat, nsDestroyEveryChat)
 	Register(asm.BuiltinIsVisibleTo, nsIsVisibleTo)
+	Register(asm.BuiltinAggressionLevel, nsSetAggressionLevel)
 	Register(asm.BuiltinRetreatLevel, nsSetRetreatLevel)
 	Register(asm.BuiltinResumeLevel, nsSetResumeLevel)
 }
@@ -581,6 +582,15 @@ func nsIsVisibleTo(s VM) int {
 	obj := s.PopObjectNS()
 	ok := obj != nil && obj.CanSee(obj2)
 	s.PushBool(ok)
+	return 0
+}
+
+func nsSetAggressionLevel(vm VM) int {
+	v := vm.PopF32()
+	obj := vm.PopObjectNS()
+	if obj != nil {
+		obj.AggressionLevel(v)
+	}
 	return 0
 }
 

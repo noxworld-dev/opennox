@@ -150,7 +150,6 @@ void nox_xxx_monsterGoPatrol_515680(int a1, int a2);
 void nox_xxx_unitHunt_5157A0(nox_object_t* obj);
 void nox_xxx_unitIdle_515820(nox_object_t* obj);
 void nox_xxx_unitSetFollow_5158C0(nox_object_t* obj1, nox_object_t* obj2);
-int nox_xxx_monsterSetAgressiveness_515980(int a1, uint32_t* a2);
 void nox_xxx_monsterActionMelee_515A30(int a1, float2* a2);
 void nox_xxx_monsterMissileAttack_515B80(int a1, uint32_t* a2);
 int sub_515C80(int a1, uint8_t* a2);
