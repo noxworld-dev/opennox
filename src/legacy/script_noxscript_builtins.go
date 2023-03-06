@@ -38,7 +38,6 @@ int nox_script_PauseObjectGroup_5160F0();
 int nox_script_DialogResult_5163C0();
 int nox_script_GiveExp_516190();
 int nox_script_HasSubclass_5162D0();
-int nox_script_StartupScreen_516600();
 int nox_script_IsTalking_5166A0();
 int nox_script_MakeFriendly_516720();
 int nox_script_MakeEnemy_516760();
@@ -52,6 +51,7 @@ int nox_script_TrapSpells_516B40();
 int nox_script_PlayerIsTrading_5166E0();
 int nox_script_SetShopkeeperGreet_516BE0();
 int nox_script_IsSummoned_516C30();
+void nox_script_StartupScreen_516600_A();
 */
 import "C"
 import (
@@ -94,6 +94,10 @@ func CallScriptBuiltin(fi asm.Builtin) (int, bool) {
 	return res, true
 }
 
+func Nox_script_StartupScreen_516600_A() {
+	C.nox_script_StartupScreen_516600_A()
+}
+
 var noxScriptBuiltins = [asm.BuiltinGetScore + 1]noxscript.Builtin{
 	asm.BuiltinUnused5e:            wrapScriptC(C.nox_script_Fn5E_513F70),
 	asm.BuiltinGetCharacterData:    wrapScriptC(C.nox_script_GetHostInfo_513FA0),
@@ -127,7 +131,6 @@ var noxScriptBuiltins = [asm.BuiltinGetScore + 1]noxscript.Builtin{
 	asm.BuiltinGetAnswer:           wrapScriptC(C.nox_script_DialogResult_5163C0),
 	asm.BuiltinGiveXp:              wrapScriptC(C.nox_script_GiveExp_516190),
 	asm.BuiltinHasSubclass:         wrapScriptC(C.nox_script_HasSubclass_5162D0),
-	asm.BuiltinStartupScreen:       wrapScriptC(C.nox_script_StartupScreen_516600),
 	asm.BuiltinIsTalking:           wrapScriptC(C.nox_script_IsTalking_5166A0),
 	asm.BuiltinMakeFriendly:        wrapScriptC(C.nox_script_MakeFriendly_516720),
 	asm.BuiltinMakeEnemy:           wrapScriptC(C.nox_script_MakeEnemy_516760),

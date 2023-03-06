@@ -21,7 +21,6 @@ import (
 var (
 	Nox_script_indexByEvent        func(name string) int
 	Nox_script_getString_512E40    func(i int) *byte
-	Sub_5165D0                     func()
 	Nox_setImaginaryCaster         func() int
 	Nox_script_readWriteZzz_541670 func(cpath, cpath2, cdst *byte) int
 )
@@ -102,9 +101,6 @@ func nox_script_indexByEvent(cname *C.char) int { return Nox_script_indexByEvent
 func nox_script_getString_512E40(i int) *C.char {
 	return (*C.char)(unsafe.Pointer(Nox_script_getString_512E40(i)))
 }
-
-//export sub_5165D0
-func sub_5165D0() { Sub_5165D0() }
 
 //export nox_setImaginaryCaster
 func nox_setImaginaryCaster() int { return Nox_setImaginaryCaster() }
