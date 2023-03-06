@@ -421,7 +421,7 @@ func (obj nsObj) Move(w ns.WaypointObj) {
 }
 
 func (obj nsObj) WalkTo(p types.Pointf) {
-	obj.WalkTo(p)
+	obj.Object.WalkTo(p)
 }
 
 func (obj nsObj) LookAtDirection(dir ns.Direction) {
@@ -474,26 +474,26 @@ func (obj nsObj) DeleteAfter(dt script.Duration) {
 }
 
 func (obj nsObj) Idle() {
-	obj.Idle()
+	obj.Object.Idle()
 }
 
 func (obj nsObj) Wander() {
-	obj.Wander()
+	obj.Object.Wander()
 }
 
 func (obj nsObj) Hunt() {
-	obj.Hunt()
+	obj.Object.Hunt()
 }
 
 func (obj nsObj) Return() {
-	obj.Return()
+	obj.Object.Return()
 }
 
 func (obj nsObj) Follow(targ ns.Positioner) {
 	if targ == nil {
 		return
 	}
-	obj.Follow(targ)
+	obj.Object.Follow(targ)
 }
 
 func (obj nsObj) Guard(p1, p2 types.Pointf, distance float32) {
