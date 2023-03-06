@@ -1106,44 +1106,6 @@ int nox_script_IsSummoned_516C30() {
 	return 0;
 }
 
-//----- (00516D70) --------------------------------------------------------
-int nox_script_ObjIsGameball_516D70() {
-	int v0; // eax
-	int v1; // esi
-	int v2; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		v2 = *getMemU32Ptr(0x5D4594, 2386908);
-		if (!*getMemU32Ptr(0x5D4594, 2386908)) {
-			v2 = nox_xxx_getNameId_4E3AA0("GameBall");
-			*getMemU32Ptr(0x5D4594, 2386908) = v2;
-		}
-		nox_script_push(*(unsigned short*)(v1 + 4) == v2);
-	}
-	return 0;
-}
-
-//----- (00516DC0) --------------------------------------------------------
-int nox_script_ObjIsCrown_516DC0() {
-	int v0; // eax
-	int v1; // esi
-	int v2; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		v2 = *getMemU32Ptr(0x5D4594, 2386912);
-		if (!*getMemU32Ptr(0x5D4594, 2386912)) {
-			v2 = nox_xxx_getNameId_4E3AA0("Crown");
-			*getMemU32Ptr(0x5D4594, 2386912) = v2;
-		}
-		nox_script_push(*(unsigned short*)(v1 + 4) == v2);
-	}
-	return 0;
-}
-
 //----- (00513F70) --------------------------------------------------------
 int nox_script_Fn5E_513F70() {
 	int v0;      // eax

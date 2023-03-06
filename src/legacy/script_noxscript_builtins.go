@@ -54,8 +54,6 @@ int nox_script_TrapSpells_516B40();
 int nox_script_PlayerIsTrading_5166E0();
 int nox_script_SetShopkeeperGreet_516BE0();
 int nox_script_IsSummoned_516C30();
-int nox_script_ObjIsGameball_516D70();
-int nox_script_ObjIsCrown_516DC0();
 */
 import "C"
 import (
@@ -147,6 +145,4 @@ var noxScriptBuiltins = [asm.BuiltinGetScore + 1]noxscript.Builtin{
 	asm.BuiltinIsTrading:           wrapScriptC(C.nox_script_PlayerIsTrading_5166E0),
 	asm.BuiltinSetShopkeeperText:   wrapScriptC(C.nox_script_SetShopkeeperGreet_516BE0),
 	asm.BuiltinIsSummoned:          wrapScriptC(C.nox_script_IsSummoned_516C30),
-	asm.BuiltinIsGameBall:          wrapScriptC(C.nox_script_ObjIsGameball_516D70),
-	asm.BuiltinIsCrown:             wrapScriptC(C.nox_script_ObjIsCrown_516DC0),
 }
