@@ -4894,20 +4894,6 @@ void nox_xxx_unitSetFollow_5158C0(nox_object_t* obj1, nox_object_t* obj2) {
 	}
 }
 
-//----- (00515980) --------------------------------------------------------
-int nox_xxx_monsterSetAgressiveness_515980(int a1, uint32_t* a2) {
-	int result; // eax
-
-	result = *(uint32_t*)(a1 + 748);
-	if (a1) {
-		if (*(uint8_t*)(a1 + 8) & 2) {
-			*(uint32_t*)(result + 1308) = *a2;
-			*(uint32_t*)(result + 1304) = *a2;
-		}
-	}
-	return result;
-}
-
 //----- (00515A30) --------------------------------------------------------
 void nox_xxx_monsterActionMelee_515A30(int a1, float2* a2) {
 	int v2;    // eax

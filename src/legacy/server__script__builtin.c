@@ -548,34 +548,6 @@ int nox_script_HuntGroup_5157D0() {
 	return 0;
 }
 
-//----- (00515950) --------------------------------------------------------
-int nox_script_AgressionLevel_515950() {
-	int v0; // eax
-	int v1; // eax
-	int v3; // [esp+0h] [ebp-4h]
-
-	v3 = nox_script_pop();
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		nox_xxx_monsterSetAgressiveness_515980(v1, &v3);
-	}
-	return 0;
-}
-
-//----- (005159B0) --------------------------------------------------------
-int nox_script_AggressionLevelGroup_5159B0() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-	int v3;            // [esp+0h] [ebp-4h]
-
-	v3 = nox_script_pop();
-	v0 = nox_script_pop();
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, nox_xxx_monsterSetAgressiveness_515980, (int)&v3);
-	return 0;
-}
-
 //----- (005159E0) --------------------------------------------------------
 int nox_script_HitLocation_5159E0() {
 	int v0;   // eax

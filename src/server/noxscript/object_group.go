@@ -33,6 +33,7 @@ func init() {
 	Register(asm.BuiltinGroupDamage, nsGroupDamage)
 	Register(asm.BuiltinGroupEnchant, nsGroupEnchant)
 	Register(asm.BuiltinGroupAwardSpell, nsGroupAwardSpell)
+	Register(asm.BuiltinGroupAggressionLevel, nsSetAggressionLevelGroup)
 	Register(asm.BuiltinGroupRetreatLevel, nsSetRetreatLevelGroup)
 	Register(asm.BuiltinGroupResumeLevel, nsSetResumeLevelGroup)
 }
@@ -220,6 +221,15 @@ func nsGroupAwardSpell(s VM) int {
 	g := s.PopObjGroupNS()
 	if g != nil {
 		g.AwardSpell(spell.Spell(name))
+	}
+	return 0
+}
+
+func nsSetAggressionLevelGroup(vm VM) int {
+	v := vm.PopF32()
+	g := vm.PopObjGroupNS()
+	if g != nil {
+		g.AggressionLevel(v)
 	}
 	return 0
 }

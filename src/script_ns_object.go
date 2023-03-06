@@ -658,8 +658,10 @@ func (obj nsObj) GetElevatorStatus() int {
 }
 
 func (obj nsObj) AggressionLevel(level float32) {
-	//TODO implement me
-	panic("implement me")
+	if obj.Class().Has(object.ClassMonster) {
+		ud := obj.UpdateDataMonster()
+		ud.SetAggression(level)
+	}
 }
 
 func (obj nsObj) SetRoamFlag(flags int) {
@@ -869,8 +871,10 @@ func (g nsObjGroup) CreateMover(wp ns.WaypointObj, speed float32) {
 }
 
 func (g nsObjGroup) AggressionLevel(level float32) {
-	//TODO implement me
-	panic("implement me")
+	g.EachObject(true, func(obj ns.Obj) bool {
+		obj.AggressionLevel(level)
+		return true
+	})
 }
 
 func (g nsObjGroup) SetRoamFlag(flags int) {
