@@ -749,11 +749,11 @@ func (obj *Object) SetZ(z float32) {
 }
 
 func (obj *Object) Push(vec types.Pointf, force float32) {
-	panic("implement me")
+	obj.SObj().Push(vec, force)
 }
 
 func (obj *Object) PushTo(p types.Pointf) {
-	panic("implement me")
+	obj.SObj().PushTo(p)
 }
 
 func (obj *Object) IsEnabled() bool {
@@ -946,7 +946,22 @@ func (obj *Object) isEnemyTo(objp server.Obj) bool { // nox_xxx_unitIsEnemyTo_53
 }
 
 func (obj *Object) CanSee(obj2 script.Object) bool {
-	panic("implement me")
+	if obj == nil || obj2 == nil {
+		return false
+	}
+	return obj.CanSeeS(toObject(obj2.(server.Obj)))
+}
+
+func (obj *Object) CanSeeS(obj2 *Object) bool {
+	if obj == nil || obj2 == nil {
+		return false
+	}
+	p1 := obj.Pos()
+	p2 := obj2.Pos()
+	if abs(p1.X-p2.X) > 512.0 || abs(p1.Y-p2.Y) > 512.0 {
+		return false
+	}
+	return nox_xxx_unitCanInteractWith_5370E0(obj, obj2, 0)
 }
 
 func (s *Server) IsFish(obj *server.Object) bool {
