@@ -72,6 +72,8 @@ func init() {
 	Register(asm.BuiltinAggressionLevel, nsSetAggressionLevel)
 	Register(asm.BuiltinRetreatLevel, nsSetRetreatLevel)
 	Register(asm.BuiltinResumeLevel, nsSetResumeLevel)
+	Register(asm.BuiltinIsGameBall, nsIsGameBall)
+	Register(asm.BuiltinIsCrown, nsIsCrown)
 }
 
 func nsObject(vm VM) int {
@@ -609,5 +611,19 @@ func nsSetResumeLevel(vm VM) int {
 	if obj != nil {
 		obj.ResumeLevel(v)
 	}
+	return 0
+}
+
+func nsIsGameBall(vm VM) int {
+	obj := vm.PopObjectNS()
+	ok := obj != nil && vm.NoxScript().IsGameBall(obj)
+	vm.PushBool(ok)
+	return 0
+}
+
+func nsIsCrown(vm VM) int {
+	obj := vm.PopObjectNS()
+	ok := obj != nil && vm.NoxScript().IsCrown(obj)
+	vm.PushBool(ok)
 	return 0
 }

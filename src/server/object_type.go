@@ -225,6 +225,8 @@ type serverObjTypes struct {
 		polyp     int
 		wisp      int
 		mimic     int
+		ball      int
+		crown     int
 	}
 }
 
@@ -271,6 +273,14 @@ func (s *Server) RatID() int {
 
 func (s *Server) GreenFrogID() int {
 	return s.cacheObjectTypeID(&s.types.fast.frog, "GreenFrog")
+}
+
+func (s *Server) GameBallID() int {
+	return s.cacheObjectTypeID(&s.types.fast.ball, "GameBall")
+}
+
+func (s *Server) CrownID() int {
+	return s.cacheObjectTypeID(&s.types.fast.crown, "Crown")
 }
 
 func (s *Server) ReadObjectType(thg *things.Thing) error {
