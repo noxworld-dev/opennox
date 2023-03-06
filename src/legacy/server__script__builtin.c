@@ -320,38 +320,6 @@ int nox_script_ResetQuestStatus_514C90() {
 	return 0;
 }
 
-//----- (00514CB0) --------------------------------------------------------
-int nox_script_IsTrigger_514CB0() {
-	int v0; // eax
-	int v1; // esi
-	int v2; // eax
-
-	v0 = nox_script_pop();
-	v1 = 0;
-	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v2 && nox_script_get_trigger() && *(uint32_t*)(v2 + 44) == *(uint32_t*)((char*)nox_script_get_trigger() + 44)) {
-		v1 = 1;
-	}
-	nox_script_push(v1);
-	return 0;
-}
-
-//----- (00514CF0) --------------------------------------------------------
-int nox_script_IsCaller_514CF0() {
-	int v0; // eax
-	int v1; // esi
-	int v2; // eax
-
-	v0 = nox_script_pop();
-	v1 = 0;
-	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v2 && nox_script_get_caller() && *(uint32_t*)(v2 + 44) == *(uint32_t*)((char*)nox_script_get_caller() + 44)) {
-		v1 = 1;
-	}
-	nox_script_push(v1);
-	return 0;
-}
-
 //----- (00514D90) --------------------------------------------------------
 int nox_script_SetDialog_514D90() {
 	int v0;  // ebx
