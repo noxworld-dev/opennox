@@ -169,7 +169,7 @@ func (s *Server) createObject(t *server.ObjectType, p types.Pointf) script.Objec
 	}
 	s.CreateObjectAt(obj, nil, p)
 	if obj.Class().HasAny(object.MaskUnits) {
-		return obj.AsUnit()
+		return obj
 	}
 	return obj
 }

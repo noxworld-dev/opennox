@@ -545,7 +545,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	} else {
 		ptyp = "NewPlayer"
 	}
-	punit := asObjectS(s.NewObjectByTypeID(ptyp)).AsUnit()
+	punit := asObjectS(s.NewObjectByTypeID(ptyp))
 	if punit == nil {
 		return 0
 	}

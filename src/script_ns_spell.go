@@ -82,7 +82,7 @@ func (s noxScriptNS) CastSpell(name nsp.Spell, source, target ns.Positioner) {
 	}
 	srcH, _ := source.(server.Obj)
 	targH, _ := target.(server.Obj)
-	src := toObject(srcH).AsUnit()
+	src := toObject(srcH)
 	if src != nil && src.Flags().HasAny(object.FlagDestroyed|object.FlagDead) {
 		return
 	}
