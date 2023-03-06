@@ -122,13 +122,17 @@ func (s noxScriptNS) IsCaller(obj ns.Obj) bool {
 }
 
 func (s noxScriptNS) IsGameBall(obj ns.Obj) bool {
-	//TODO implement me
-	panic("implement me")
+	if obj == nil {
+		return false
+	}
+	return s.s.GameBallID() == obj.Type().Index()
 }
 
 func (s noxScriptNS) IsCrown(obj ns.Obj) bool {
-	//TODO implement me
-	panic("implement me")
+	if obj == nil {
+		return false
+	}
+	return s.s.CrownID() == obj.Type().Index()
 }
 
 func (s noxScriptNS) IsSummoned(obj ns.Obj) bool {
