@@ -721,38 +721,6 @@ int nox_script_PauseObjectGroup_5160F0() {
 	return 0;
 }
 
-//----- (00516120) --------------------------------------------------------
-int nox_script_GetGold_516120() {
-	int v0; // eax
-	int v1; // eax
-	int v2; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		v2 = sub_4FA6D0(v1);
-		nox_script_push(v2);
-	} else {
-		nox_script_push(0);
-	}
-	return 0;
-}
-
-//----- (00516160) --------------------------------------------------------
-int nox_script_ChangeGold_516160() {
-	int v0; // esi
-	int v1; // eax
-	int v2; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
-	if (v2) {
-		sub_4FA620(v2, v0);
-	}
-	return 0;
-}
-
 //----- (00516190) --------------------------------------------------------
 int nox_script_GiveExp_516190() {
 	int v0; // esi
