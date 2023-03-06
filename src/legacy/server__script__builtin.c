@@ -798,8 +798,7 @@ int nox_script_DialogResult_5163C0() {
 	return 0;
 }
 
-//----- (00516600) --------------------------------------------------------
-int nox_script_StartupScreen_516600() {
+void nox_script_StartupScreen_516600_A() {
 	int i;  // esi
 	int v1; // esi
 	int v2; // edi
@@ -821,8 +820,6 @@ int nox_script_StartupScreen_516600() {
 		} while (v2);
 	}
 	*getMemU32Ptr(0x5D4594, 2386832) = 1;
-	sub_5165D0();
-	return 0;
 }
 
 //----- (005166A0) --------------------------------------------------------

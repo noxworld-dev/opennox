@@ -6,6 +6,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -116,7 +117,16 @@ func (s noxScriptNS) ImmediateBlind() {
 }
 
 func (s noxScriptNS) EndGame(class player.Class) {
-	s.s.noxScript.noxScriptEndGame(int(class))
+	noxScriptEndGame(int(class))
+}
+
+func (s noxScriptNS) StartupScreen(which int) {
+	noxScriptStartupScreen(which)
+}
+
+func (s noxScriptNS) DeathScreen(which int) {
+	*memmap.PtrUint32(0x5D4594, 2386832) = 0
+	sub5165D0(which)
 }
 
 type nsPlayer struct {
