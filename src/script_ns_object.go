@@ -666,10 +666,7 @@ func (obj nsObj) GetElevatorStatus() int {
 }
 
 func (obj nsObj) AggressionLevel(level float32) {
-	if obj.Class().Has(object.ClassMonster) {
-		ud := obj.UpdateDataMonster()
-		ud.SetAggression(level)
-	}
+	obj.Object.SetAggression(level)
 }
 
 func (obj nsObj) SetRoamFlag(flags int) {
@@ -678,17 +675,11 @@ func (obj nsObj) SetRoamFlag(flags int) {
 }
 
 func (obj nsObj) RetreatLevel(percent float32) {
-	if obj.Class().Has(object.ClassMonster) {
-		ud := obj.UpdateDataMonster()
-		ud.RetreatLevel = percent
-	}
+	obj.Object.SetRetreatLevel(percent)
 }
 
 func (obj nsObj) ResumeLevel(percent float32) {
-	if obj.Class().Has(object.ClassMonster) {
-		ud := obj.UpdateDataMonster()
-		ud.ResumeLevel = percent
-	}
+	obj.Object.SetRegroupLevel(percent)
 }
 
 func (obj nsObj) OnEvent(event ns.ObjectEvent, fnc ns.Func) {
