@@ -1996,30 +1996,29 @@ uint32_t* nox_xxx_playerSubGold_4FA5D0(int a1, unsigned int a2) {
 }
 
 //----- (004FA620) --------------------------------------------------------
-uint32_t* sub_4FA620(int a1, int a2) {
-	uint32_t* result; // eax
+void nox_object_setGold_4FA620(nox_object_t* a1p, int a2) {
+	int a1 = a1p;
 	int v3;           // eax
 	int v4;           // edx
 
-	result = (uint32_t*)a1;
 	if (a1 && *(uint8_t*)(a1 + 8) & 4) {
 		v3 = *(uint32_t*)(a1 + 748);
 		if (a2 >= 0 || (v4 = *(uint32_t*)(v3 + 276), *(uint32_t*)(v4 + 2164) >= (unsigned int)-a2)) {
 			*(uint32_t*)(*(uint32_t*)(v3 + 276) + 2164) += a2;
-			result = sub_56F920(*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4588), a2);
+			sub_56F920(*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4588), a2);
 		} else {
 			*(uint32_t*)(v4 + 2164) = 0;
-			result = nox_xxx_playerResetProtectionCRC_56F7D0(*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4588), 0);
+			nox_xxx_playerResetProtectionCRC_56F7D0(*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4588), 0);
 		}
 	}
-	return result;
 }
 
 //----- (004FA6B0) --------------------------------------------------------
 int nox_xxx_playerGetGold_4FA6B0(int a1) { return *(uint32_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 2164); }
 
 //----- (004FA6D0) --------------------------------------------------------
-int sub_4FA6D0(int a1) {
+int nox_object_getGold_4FA6D0(nox_object_t* a1p) {
+	int a1 = a1p;
 	int result; // eax
 
 	if (a1 && *(uint8_t*)(a1 + 8) & 4) {

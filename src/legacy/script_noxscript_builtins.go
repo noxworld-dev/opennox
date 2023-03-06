@@ -35,8 +35,6 @@ int nox_script_RunAway_515F10();
 int nox_script_RunAwayGroup_516000();
 int nox_script_PauseObject_516060();
 int nox_script_PauseObjectGroup_5160F0();
-int nox_script_GetGold_516120();
-int nox_script_ChangeGold_516160();
 int nox_script_DialogResult_5163C0();
 int nox_script_GiveExp_516190();
 int nox_script_HasSubclass_5162D0();
@@ -126,8 +124,6 @@ var noxScriptBuiltins = [asm.BuiltinGetScore + 1]noxscript.Builtin{
 	asm.BuiltinGroupRunAway:        wrapScriptC(C.nox_script_RunAwayGroup_516000),
 	asm.BuiltinPauseObject:         wrapScriptC(C.nox_script_PauseObject_516060),
 	asm.BuiltinGroupPauseObject:    wrapScriptC(C.nox_script_PauseObjectGroup_5160F0),
-	asm.BuiltinGetGold:             wrapScriptC(C.nox_script_GetGold_516120),
-	asm.BuiltinChangeGold:          wrapScriptC(C.nox_script_ChangeGold_516160),
 	asm.BuiltinGetAnswer:           wrapScriptC(C.nox_script_DialogResult_5163C0),
 	asm.BuiltinGiveXp:              wrapScriptC(C.nox_script_GiveExp_516190),
 	asm.BuiltinHasSubclass:         wrapScriptC(C.nox_script_HasSubclass_5162D0),

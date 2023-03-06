@@ -74,6 +74,8 @@ func init() {
 	Register(asm.BuiltinResumeLevel, nsSetResumeLevel)
 	Register(asm.BuiltinIsGameBall, nsIsGameBall)
 	Register(asm.BuiltinIsCrown, nsIsCrown)
+	Register(asm.BuiltinGetGold, nsGetGold)
+	Register(asm.BuiltinChangeGold, nsChangeGold)
 }
 
 func nsObject(vm VM) int {
@@ -625,5 +627,24 @@ func nsIsCrown(vm VM) int {
 	obj := vm.PopObjectNS()
 	ok := obj != nil && vm.NoxScript().IsCrown(obj)
 	vm.PushBool(ok)
+	return 0
+}
+
+func nsGetGold(vm VM) int {
+	obj := vm.PopObjectNS()
+	var v int
+	if obj != nil {
+		v = obj.GetGold()
+	}
+	vm.PushI32(int32(v))
+	return 0
+}
+
+func nsChangeGold(vm VM) int {
+	v := int(vm.PopI32())
+	obj := vm.PopObjectNS()
+	if obj != nil {
+		obj.ChangeGold(v)
+	}
 	return 0
 }
