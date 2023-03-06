@@ -67,7 +67,7 @@ func nox_xxx_updatePlayer_4F8100(up *server.Object) {
 	}
 	sub_4F9ED0(u)
 	pl := asPlayerS(ud.Player)
-	u2 := pl.CameraTarget().AsUnit()
+	u2 := pl.CameraTarget()
 	if u2 == nil {
 		u2 = pl.UnitC()
 	}

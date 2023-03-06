@@ -246,7 +246,7 @@ func nsSetCallback(vm noxscript.VM) int {
 	s := vm.(*noxScript)
 	fnc := int32(s.PopU32())
 	ev := ns.ObjectEvent(s.PopU32())
-	u := asObjectS(s.PopObject()).AsUnit()
+	u := asObjectS(s.PopObject())
 	if u == nil || !u.Class().Has(object.ClassMonster) {
 		return 0
 	}

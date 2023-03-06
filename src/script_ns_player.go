@@ -79,7 +79,7 @@ func (s noxScriptNS) ClearMessages(pl ns.Obj) {
 	if pl == nil {
 		return
 	}
-	u := toObject(pl.(server.Obj)).AsUnit()
+	u := toObject(pl.(server.Obj))
 	nox_xxx_netScriptMessageKill_4D9760(u)
 }
 

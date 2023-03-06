@@ -240,7 +240,7 @@ func (s noxScriptImpl) ObjectByID(id string) script.Object {
 		return nil
 	}
 	if obj.Class().HasAny(object.MaskUnits) {
-		return obj.AsUnit()
+		return obj
 	}
 	return obj
 }

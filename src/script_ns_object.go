@@ -235,7 +235,7 @@ func (obj nsObj) Lock(lock bool) {
 		flag, snd = 5, sound.SoundLock
 	}
 	*(*uint8)(unsafe.Add(obj.UpdateData, 1)) = flag
-	s.AudioEventObj(snd, obj.AsUnit(), 0, 0)
+	s.AudioEventObj(snd, obj, 0, 0)
 }
 
 func (obj nsObj) HasClass(class class.Class) bool {
@@ -309,7 +309,7 @@ func (obj nsObj) Player() ns.Player {
 	if !obj.Class().Has(object.ClassPlayer) {
 		return nil
 	}
-	pl := obj.AsUnit().ControllingPlayer()
+	pl := obj.ControllingPlayer()
 	if pl == nil {
 		return nil
 	}
@@ -342,7 +342,7 @@ func (obj nsObj) ChangeScore(val int) {
 	if !obj.Class().Has(object.ClassPlayer) {
 		return
 	}
-	u := obj.AsUnit()
+	u := obj.Object
 	if val <= 0 {
 		nox_xxx_playerSubLessons_4D8EC0(u, -val)
 	} else {
@@ -393,7 +393,7 @@ func (obj nsObj) SetOwners(owners ns.ObjGroup) {
 }
 
 func (obj nsObj) Freeze(freeze bool) {
-	obj.Object.AsUnit().Freeze(freeze)
+	obj.Object.Freeze(freeze)
 }
 
 func (obj nsObj) Pause(dt script.Duration) {
@@ -413,12 +413,12 @@ func (obj nsObj) Move(w ns.WaypointObj) {
 }
 
 func (obj nsObj) WalkTo(p types.Pointf) {
-	obj.AsUnit().WalkTo(p)
+	obj.WalkTo(p)
 }
 
 func (obj nsObj) LookAtDirection(dir ns.Direction) {
 	if obj.Class().Has(object.ClassMonster) && !obj.Flags().Has(object.FlagDead) {
-		obj.AsUnit().LookAtDir(int(dir))
+		obj.LookAtDir(int(dir))
 	}
 }
 
@@ -473,26 +473,26 @@ func (obj nsObj) DeleteAfter(dt script.Duration) {
 }
 
 func (obj nsObj) Idle() {
-	obj.AsUnit().Idle()
+	obj.Idle()
 }
 
 func (obj nsObj) Wander() {
-	obj.AsUnit().Wander()
+	obj.Wander()
 }
 
 func (obj nsObj) Hunt() {
-	obj.AsUnit().Hunt()
+	obj.Hunt()
 }
 
 func (obj nsObj) Return() {
-	obj.AsUnit().Return()
+	obj.Return()
 }
 
 func (obj nsObj) Follow(targ ns.Positioner) {
 	if targ == nil {
 		return
 	}
-	obj.AsUnit().Follow(targ)
+	obj.Follow(targ)
 }
 
 func (obj nsObj) Guard(p1, p2 types.Pointf, distance float32) {
@@ -596,7 +596,7 @@ func (obj nsObj) Drop(item ns.Obj) bool {
 
 func (obj nsObj) ZombieStayDown() {
 	if obj.Class().Has(object.ClassMonster) {
-		obj.AsUnit().UpdateDataMonster().Field360 |= 0x100000
+		obj.UpdateDataMonster().Field360 |= 0x100000
 	}
 }
 
@@ -627,7 +627,7 @@ func (obj nsObj) ChatStrTimer(message string, dt script.Duration) {
 }
 
 func (obj nsObj) DestroyChat() {
-	nox_xxx_netKillChat_528D00(obj.AsUnit())
+	nox_xxx_netKillChat_528D00(obj.Object)
 }
 
 func (obj nsObj) CreateMover(wp ns.WaypointObj, speed float32) ns.Obj {
@@ -669,14 +669,14 @@ func (obj nsObj) SetRoamFlag(flags int) {
 
 func (obj nsObj) RetreatLevel(percent float32) {
 	if obj.Class().Has(object.ClassMonster) {
-		ud := obj.AsUnit().UpdateDataMonster()
+		ud := obj.UpdateDataMonster()
 		ud.RetreatLevel = percent
 	}
 }
 
 func (obj nsObj) ResumeLevel(percent float32) {
 	if obj.Class().Has(object.ClassMonster) {
-		ud := obj.AsUnit().UpdateDataMonster()
+		ud := obj.UpdateDataMonster()
 		ud.ResumeLevel = percent
 	}
 }

@@ -1146,7 +1146,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 			val = strings.TrimSpace(val)
 			if sub := strings.Fields(val); len(sub) >= 3 {
 				v34, _ := strconv.Atoi(sub[0])
-				if v35 := s.GetObjectByInd(v34).AsUnit(); v35 != nil {
+				if v35 := s.GetObjectByInd(v34); v35 != nil {
 					v36 := unsafe.Slice((*float32)(v35.UpdateData), 3)
 					v38, _ := strconv.ParseFloat(sub[1], 64)
 					v36[0] = float32(v38 * memmap.Float64(0x581450, 10008))
@@ -1187,7 +1187,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 			for _, np := range m.GetOwned516() {
 				var np *Object = np
 				if legacy.Nox_xxx_isUnit_4E5B50(np.SObj()) != 0 {
-					n := np.AsUnit()
+					n := np
 					ud := n.UpdateDataMonster()
 					v61 := s.randomReachablePointAround(50.0, m.Pos())
 					n.SetPos(v61)
@@ -1605,7 +1605,7 @@ func (s *Server) MapTraceObstacles(from *server.Object, p1, p2 types.Pointf) boo
 			return
 		}
 		if obj.Class().HasAny(object.MaskUnits) {
-			u2 := obj.AsUnit()
+			u2 := obj
 			if asObjectS(from).isEnemyTo(u2) {
 				return
 			}
