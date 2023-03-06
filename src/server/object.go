@@ -697,12 +697,9 @@ func (obj *Object) TeamPtr() *ObjectTeam {
 	return (*ObjectTeam)(unsafe.Pointer(&obj.Field12))
 }
 
-func (obj *Object) Push(vec types.Pointf, force float32) {
-	p := obj.Pos().Sub(vec)
-	l := float32(p.Len())
-	p.X = force * p.X / l
-	p.Y = force * p.Y / l
-	obj.PushTo(p)
+func (obj *Object) Push(p types.Pointf, force float32) {
+	vec := obj.Pos().Sub(p).Normalize()
+	obj.ApplyForce(vec.Mul(force))
 }
 
 // ApplyForce adds a new force vector to the object. If another force in effect, it will adds up.
@@ -711,7 +708,7 @@ func (obj *Object) ApplyForce(p types.Pointf) {
 }
 
 func (obj *Object) PushTo(p types.Pointf) {
-	obj.ForceVec = obj.ForceVec.Add(p)
+	obj.ApplyForce(p)
 }
 
 func (obj *Object) SetDir(v Dir16) {
