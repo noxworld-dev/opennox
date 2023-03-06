@@ -447,20 +447,13 @@ func (obj nsObj) CanSee(obj2 ns.Obj) bool {
 	if obj.Object == nil || obj2 == nil {
 		return false
 	}
-	p1 := obj.Pos()
-	p2 := obj2.Pos()
-	if abs(p1.X-p2.X) > 512.0 || abs(p1.Y-p2.Y) > 512.0 {
-		return false
-	}
-	return nox_xxx_unitCanInteractWith_5370E0(obj, obj2.(server.Obj), 0)
+	return obj.Object.CanSee(obj2.(nsObj).Object)
 }
 
 func (obj nsObj) PushTo(p ns.Positioner, force float32) {
-	if p == nil {
-		return
+	if p != nil {
+		obj.Push(p.Pos(), force)
 	}
-	vec := obj.Pos().Sub(p.Pos()).Normalize()
-	obj.ApplyForce(vec.Mul(force))
 }
 
 func (obj nsObj) Damage(source ns.Obj, amount int, typ damage.Type) {
