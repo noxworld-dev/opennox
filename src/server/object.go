@@ -776,6 +776,51 @@ func (obj *Object) EnchantPower(v EnchantID) int { // nox_xxx_buffGetPower_4FF57
 	return int(obj.BuffsDur[v])
 }
 
+func (obj *Object) Aggression() float32 {
+	if obj.Class().Has(object.ClassMonster) {
+		return 0
+	}
+	ud := obj.UpdateDataMonster()
+	return ud.Aggression // TODO: which one?
+}
+
+func (obj *Object) SetAggression(v float32) {
+	if obj.Class().Has(object.ClassMonster) {
+		ud := obj.UpdateDataMonster()
+		ud.SetAggression(v)
+	}
+}
+
+func (obj *Object) RetreatLevel() float32 {
+	if obj.Class().Has(object.ClassMonster) {
+		return 0
+	}
+	ud := obj.UpdateDataMonster()
+	return ud.RetreatLevel
+}
+
+func (obj *Object) SetRetreatLevel(v float32) {
+	if obj.Class().Has(object.ClassMonster) {
+		ud := obj.UpdateDataMonster()
+		ud.RetreatLevel = v
+	}
+}
+
+func (obj *Object) RegroupLevel() float32 {
+	if obj.Class().Has(object.ClassMonster) {
+		return 0
+	}
+	ud := obj.UpdateDataMonster()
+	return ud.ResumeLevel
+}
+
+func (obj *Object) SetRegroupLevel(v float32) {
+	if obj.Class().Has(object.ClassMonster) {
+		ud := obj.UpdateDataMonster()
+		ud.ResumeLevel = v
+	}
+}
+
 func (obj *Object) HasOwner(owner *Object) bool {
 	if obj == nil {
 		return false

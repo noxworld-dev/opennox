@@ -1074,27 +1074,27 @@ func (obj *Object) Flee(obj2 script.Positioner, dur script.Duration) {
 }
 
 func (obj *Object) Aggression() float32 {
-	panic("implement me")
+	return obj.SObj().Aggression()
 }
 
 func (obj *Object) SetAggression(v float32) {
-	panic("implement me")
+	obj.SObj().SetAggression(v)
 }
 
 func (obj *Object) RetreatLevel() float32 {
-	panic("implement me")
+	return obj.SObj().RetreatLevel()
 }
 
 func (obj *Object) SetRetreatLevel(v float32) {
-	panic("implement me")
+	obj.SObj().SetRetreatLevel(v)
 }
 
 func (obj *Object) RegroupLevel() float32 {
-	panic("implement me")
+	return obj.SObj().RegroupLevel()
 }
 
 func (obj *Object) SetRegroupLevel(v float32) {
-	panic("implement me")
+	obj.SObj().SetRegroupLevel(v)
 }
 
 func (obj *Object) Attack(obj2 script.Positioner) {
