@@ -173,7 +173,7 @@ func (a *abilityHarpoon) breakForOwner(u *Object, emitSound bool) {
 }
 
 func (a *abilityHarpoon) Collide(bolt *Object, targ *Object) {
-	owner := bolt.OwnerC().AsUnit()
+	owner := bolt.OwnerC()
 	if a.damage == 0 {
 		a.damage = int(gamedataFloat("HarpoonDamage"))
 	}
@@ -221,7 +221,7 @@ func (a *abilityHarpoon) Update(bolt *Object) {
 		a.maxFlight = float32(gamedataFloat("MaxHarpoonFlightDistance"))
 		a.lifetime = float32(gamedataFloat("MaxHarpoonExistence"))
 	}
-	owner := bolt.OwnerC().AsUnit()
+	owner := bolt.OwnerC()
 	if owner.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
 		a.breakForOwner(owner, true)
 		return

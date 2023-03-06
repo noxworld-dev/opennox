@@ -1470,7 +1470,7 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *O
 			return 10, true
 		case 11:
 			netcode := int(binary.LittleEndian.Uint16(data[6:]))
-			u2 := s.getObjectFromNetCode(netcode).AsUnit()
+			u2 := s.getObjectFromNetCode(netcode)
 			if u2 == nil {
 				return 10, true
 			}

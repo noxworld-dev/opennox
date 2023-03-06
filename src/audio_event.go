@@ -78,6 +78,6 @@ func (s *Server) NetUpdateRemotePlrAudioEvents(obj *server.Object, v2 unsafe.Poi
 
 func (s *Server) netSendAudioEvents(obj *Object) {
 	s.Audio.EachEventBitmap(func(it *server.AudioEvent) {
-		netSendAudioEvent(obj.AsUnit(), it, int16(it.Perc))
+		netSendAudioEvent(obj, it, int16(it.Perc))
 	})
 }

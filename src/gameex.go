@@ -176,7 +176,7 @@ func MixRecvFromReplacer(pc net.PacketConn, buf1 []byte, from netip.AddrPort) {
 			if v36 {
 				v9 &= 0xEF
 			}
-			if v10.AsUnit().ControllingPlayer().PlayerClass() == player.Warrior || v36 {
+			if v10.ControllingPlayer().PlayerClass() == player.Warrior || v36 {
 				if legacy.Mix_MouseKeyboardWeaponRoll(v10.SObj(), int8(v9)) != 0 {
 					var buf [4]byte
 					binary.LittleEndian.PutUint16(buf[0:], 0xF13A)

@@ -643,14 +643,6 @@ func (obj *Object) DisableEnchant(v server.EnchantID) { // nox_xxx_spellBuffOff_
 	legacy.Nox_xxx_spellBuffOff_4FF5B0(obj.SObj(), v)
 }
 
-func (obj *Object) AsUnit() *Object {
-	if obj == nil {
-		return nil
-	}
-	// TODO: check somehow
-	return asObject(unsafe.Pointer(obj))
-}
-
 func (obj *Object) ObjectTypeC() *server.ObjectType {
 	if obj == nil {
 		return nil
@@ -885,7 +877,7 @@ func (obj *Object) isEnemyTo(objp server.Obj) bool { // nox_xxx_unitIsEnemyTo_53
 	}
 	srv := obj.getServer()
 	if obj2.Class().HasAny(object.ClassMonster) {
-		if ud := obj2.AsUnit().UpdateDataMonster(); ud.Field360&0x40000 != 0 {
+		if ud := obj2.UpdateDataMonster(); ud.Field360&0x40000 != 0 {
 			return false
 		}
 	}
@@ -923,7 +915,7 @@ func (obj *Object) isEnemyTo(objp server.Obj) bool { // nox_xxx_unitIsEnemyTo_53
 		return false
 	}
 	if obj2.Class().HasAny(object.ClassPlayer) {
-		if pl := obj2.AsUnit().ControllingPlayer(); pl.Field3680&0x1 != 0 {
+		if pl := obj2.ControllingPlayer(); pl.Field3680&0x1 != 0 {
 			return false
 		}
 	}
@@ -942,7 +934,7 @@ func (obj *Object) isEnemyTo(objp server.Obj) bool { // nox_xxx_unitIsEnemyTo_53
 		return false
 	}
 	if !noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().HasAny(object.ClassMonster) && int(obj2.TypeInd) == srv.WillOWispID() {
-		return nox_xxx_checkMobAction_50A0D0(obj2.AsUnit(), ai.ACTION_FIGHT)
+		return nox_xxx_checkMobAction_50A0D0(obj2, ai.ACTION_FIGHT)
 	}
 	if server.Nox_xxx_servObjectHasTeam_419130(own1.TeamPtr()) || server.Nox_xxx_servObjectHasTeam_419130(own2.TeamPtr()) {
 		return true
