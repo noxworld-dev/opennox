@@ -5,6 +5,7 @@ import (
 	"image"
 	"net/http"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"time"
 
@@ -44,8 +45,10 @@ func init() {
 					return true
 				}
 				code := strings.Join(tokens, " ")
-				if err := vm.Exec(code); err != nil {
+				if rv, err := vm.Exec(code); err != nil {
 					c.Printf(console.ColorRed, rt.Title+" error: %v", err)
+				} else if rv.Kind() != reflect.Invalid {
+					c.Printf(console.ColorLightBlue, "%v", rv.Interface())
 				}
 				return true
 			},
@@ -68,7 +71,7 @@ func (s *Server) registerScriptAPIs(pref string) {
 					if vm == nil {
 						return
 					}
-					if err := vm.Exec(code); err != nil {
+					if _, err := vm.Exec(code); err != nil {
 						rt.Log.Printf("error: %v", err)
 					}
 				})
@@ -103,9 +106,15 @@ func (s *Server) vmsShutdown() {
 
 func (s *Server) vmsMaybeInitMap() {
 	mp := s.nox_server_currentMapGetFilename_409B30()
+	scriptLog.Printf("check map init: %q vs %q", mp, s.vms.curmap)
 	if mp == s.vms.curmap {
 		return
 	}
+	s.vmsInitMap()
+}
+
+func (s *Server) vmsInitMap() {
+	mp := s.nox_server_currentMapGetFilename_409B30()
 	s.vmsShutdown()
 	scriptLog.Printf("loading script(s) for map %q", mp)
 	s.vms.curmap = mp

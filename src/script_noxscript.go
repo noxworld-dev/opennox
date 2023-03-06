@@ -29,14 +29,7 @@ import (
 )
 
 func nox_script_indexByEvent(name string) int {
-	scripts := noxServer.noxScript.scripts()
-	for i := range scripts {
-		s := &scripts[i]
-		if s.Name() == name {
-			return i
-		}
-	}
-	return -1
+	return noxServer.noxScript.scriptIndexByName(name)
 }
 
 func nox_script_getString_512E40(i int) *byte {
@@ -63,11 +56,16 @@ type noxScript struct {
 		caller  *server.Object
 		trigger *server.Object
 	}
+	virtual struct {
+		last  int
+		funcs map[int]func() error
+	}
 	panic noxScriptPanic
 }
 
 func (s *noxScript) Init(srv *Server) {
 	s.s = srv
+	s.virtual.last = math.MaxInt32
 }
 
 var _ = [1]struct{}{}[48-unsafe.Sizeof(noxScriptCode{})]
@@ -99,11 +97,70 @@ func (s *noxScriptCode) field28() []uint32 {
 	return unsafe.Slice(s.field_28, sz)
 }
 
+func (s *noxScript) scriptsCnt() int {
+	return legacy.Get_nox_script_count_xxx_1599640()
+}
+
 func (s *noxScript) scripts() []noxScriptCode {
-	if legacy.Get_nox_script_arr_xxx_1599636() == nil {
+	ptr := legacy.Get_nox_script_arr_xxx_1599636()
+	if ptr == nil {
 		return nil
 	}
-	return unsafe.Slice((*noxScriptCode)(unsafe.Pointer(legacy.Get_nox_script_arr_xxx_1599636())), int(legacy.Get_nox_script_count_xxx_1599640()))
+	return unsafe.Slice((*noxScriptCode)(ptr), s.scriptsCnt())
+}
+
+// addVirtual assigns a virtual function index for NoxScript.
+func (s *noxScript) addVirtual(name string, fnc func() error) int {
+	// Are we conflicting with the original NoxScript func indexes?
+	if s.virtual.last-1 <= s.scriptsCnt() {
+		// FIXME: reset s.virtual.last when reading a new map
+		panic("no more space for virtual script func handles")
+	}
+	id := s.virtual.last
+	s.virtual.last--
+	if s.virtual.funcs == nil {
+		s.virtual.funcs = make(map[int]func() error)
+	}
+	// TODO: save this mapping (with the name) to the save file
+	s.virtual.funcs[id] = fnc
+	return id
+}
+
+// scriptIndexByName looks up NoxScript function ID (handle).
+// It returns -1 if the function was not found.
+//
+// Originally only compiled NoxScript from the map was considered,
+// in which case returned handle is just an index into the functions slice.
+//
+// Since new runtimes were introduced, this function will now return "virtual"
+// function indexes, which are set really large to avoid collisions, for functions
+// from the new runtimes. CallByIndexObj and ScriptCallback will recognize them later.
+func (s *noxScript) scriptIndexByName(name string) int {
+	// Prefer map scripts from new script runtimes.
+	for _, vm := range s.s.vms.vms {
+		fnc, err := script.GetVMSymbol[func()](vm, name)
+		if err != nil {
+			// Pretend we found it, but return an error on all calls instead.
+			return s.addVirtual(name, func() error {
+				return err
+			})
+		}
+		if fnc != nil {
+			// Found, returning virtual handle.
+			return s.addVirtual(name, func() error {
+				fnc()
+				return nil
+			})
+		}
+	}
+	scripts := s.scripts()
+	for i := range scripts {
+		s := &scripts[i]
+		if s.Name() == name {
+			return i
+		}
+	}
+	return -1
 }
 
 func (s *noxScript) Caller() *server.Object {
@@ -617,6 +674,15 @@ func (s *Server) ScriptCallback(b *server.ScriptCallback, caller, trigger *serve
 		return nil
 	}
 	sind := int(b.Func)
+	if fnc, ok := s.noxScript.virtual.funcs[sind]; ok && fnc != nil {
+		s.noxScript.vm.caller = caller
+		s.noxScript.vm.trigger = trigger
+		if err := fnc(); err != nil {
+			scriptLog.Println("ScriptCallback:", err)
+		}
+		*memmap.PtrUint32(0x5D4594, 1599076) = 0
+		return memmap.PtrOff(0x5D4594, 1599076)
+	}
 	if sind == -1 {
 		return nil
 	}
@@ -654,6 +720,11 @@ func (s *noxScript) callByIndex(index int, caller, trigger server.Obj) error {
 }
 
 func (s *noxScript) CallByIndexObj(index int, caller, trigger *server.Object) error {
+	if fnc, ok := s.virtual.funcs[index]; ok && fnc != nil {
+		s.vm.caller = caller
+		s.vm.trigger = trigger
+		return fnc()
+	}
 	if legacy.Get_nox_script_arr_xxx_1599636() == nil {
 		return errors.New("no map scripts")
 	}
