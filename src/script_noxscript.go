@@ -357,7 +357,7 @@ func (s *noxScript) scriptField44(i int) int {
 	return int(scripts[i].field_44)
 }
 
-func (s *noxScript) noxScriptEndGame(v int) {
+func noxScriptEndGame(v int) {
 	dword_587000_311372 = v
 	dword_5d4594_2516476 |= 1 << v
 	nox_xxx_cliPlayMapIntro_44E0B0(1)
@@ -366,9 +366,9 @@ func (s *noxScript) noxScriptEndGame(v int) {
 	nox_client_quit_4460C0()
 }
 
-func sub_5165D0() {
-	s := &noxServer.noxScript
-	sub5165D0(int(s.PopU32()))
+func noxScriptStartupScreen(v int) {
+	legacy.Nox_script_StartupScreen_516600_A()
+	sub5165D0(v)
 }
 
 func sub5165D0(which int) {

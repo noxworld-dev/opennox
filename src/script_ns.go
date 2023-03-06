@@ -5,7 +5,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/script"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var _ ns.Game = noxScriptImpl{}
@@ -56,16 +55,6 @@ func (s noxScriptNS) AutoSave() {
 		sub_4DB130("AUTOSAVE")
 		sub_4DB170(1, nil, 0)
 	}
-}
-
-func (s noxScriptNS) StartupScreen(which int) {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (s noxScriptNS) DeathScreen(which int) {
-	*memmap.PtrUint32(0x5D4594, 2386832) = 0
-	sub5165D0(which)
 }
 
 type nsTimer struct {

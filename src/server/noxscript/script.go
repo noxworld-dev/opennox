@@ -23,6 +23,7 @@ func init() {
 	Register(asm.BuiltinWideScreen, nsWideScreen)
 	Register(asm.BuiltinAutoSave, nsAutoSave)
 	Register(asm.BuiltinDeathScreen, nsDeathScreen)
+	Register(asm.BuiltinStartupScreen, nsStartupScreen)
 	Register(asm.BuiltinPrint, nsPrint)
 	Register(asm.BuiltinPrintToAll, nsPrintToAll)
 	Register(asm.BuiltinBlind, nsBlind)
@@ -111,6 +112,11 @@ func nsDistance(s VM) int {
 
 func nsDeathScreen(s VM) int {
 	s.NoxScript().DeathScreen(int(s.PopU32()))
+	return 0
+}
+
+func nsStartupScreen(s VM) int {
+	s.NoxScript().StartupScreen(int(s.PopU32()))
 	return 0
 }
 
