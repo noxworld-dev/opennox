@@ -101,6 +101,8 @@ var noxScriptBuiltins = [asm.BuiltinGetScore + 1]noxscript.Builtin{
 	asm.BuiltinGetTrigger:         nsGetTrigger,
 	asm.BuiltinGetCaller:          nsGetCaller,
 	asm.BuiltinSetCallback:        nsSetCallback,
+	asm.BuiltinIsTrigger:          nsIsTrigger,
+	asm.BuiltinIsCaller:           nsIsCaller,
 }
 
 func nsGetTrigger(vm noxscript.VM) int {
@@ -110,6 +112,26 @@ func nsGetTrigger(vm noxscript.VM) int {
 
 func nsGetCaller(vm noxscript.VM) int {
 	vm.PushHandleNS(vm.NoxScript().GetCaller())
+	return 0
+}
+
+func nsIsTrigger(vm noxscript.VM) int {
+	obj := vm.PopObjectNS()
+	if obj == nil {
+		vm.PushBool(false)
+		return 0
+	}
+	vm.PushBool(vm.NoxScript().IsTrigger(obj))
+	return 0
+}
+
+func nsIsCaller(vm noxscript.VM) int {
+	obj := vm.PopObjectNS()
+	if obj == nil {
+		vm.PushBool(false)
+		return 0
+	}
+	vm.PushBool(vm.NoxScript().IsCaller(obj))
 	return 0
 }
 
