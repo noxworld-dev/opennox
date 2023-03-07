@@ -93,6 +93,7 @@ func (s *Server) scriptTick() {
 }
 
 func (s *Server) vmsShutdown() {
+	s.noxScript.resetVirtualFuncs()
 	if len(s.vms.vms) != 0 {
 		scriptLog.Printf("stopping script(s) for map %q", s.vms.curmap)
 	}
