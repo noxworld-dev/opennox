@@ -65,7 +65,12 @@ type noxScript struct {
 
 func (s *noxScript) Init(srv *Server) {
 	s.s = srv
+	s.resetVirtualFuncs()
+}
+
+func (s *noxScript) resetVirtualFuncs() {
 	s.virtual.last = math.MaxInt32
+	s.virtual.funcs = make(map[int]func() error)
 }
 
 var _ = [1]struct{}{}[48-unsafe.Sizeof(noxScriptCode{})]
@@ -113,14 +118,10 @@ func (s *noxScript) scripts() []noxScriptCode {
 func (s *noxScript) addVirtual(name string, fnc func() error) int {
 	// Are we conflicting with the original NoxScript func indexes?
 	if s.virtual.last-1 <= s.scriptsCnt() {
-		// FIXME: reset s.virtual.last when reading a new map
 		panic("no more space for virtual script func handles")
 	}
 	id := s.virtual.last
 	s.virtual.last--
-	if s.virtual.funcs == nil {
-		s.virtual.funcs = make(map[int]func() error)
-	}
 	// TODO: save this mapping (with the name) to the save file
 	s.virtual.funcs[id] = fnc
 	return id
