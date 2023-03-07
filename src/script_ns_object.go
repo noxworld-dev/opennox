@@ -802,8 +802,10 @@ func (g nsObjGroup) Wander() {
 }
 
 func (g nsObjGroup) Hunt() {
-	//TODO implement me
-	panic("implement me")
+	g.EachObject(true, func(obj ns.Obj) bool {
+		obj.Hunt()
+		return true
+	})
 }
 
 func (g nsObjGroup) Follow(targ ns.Positioner) {

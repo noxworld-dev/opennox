@@ -24,6 +24,7 @@ func init() {
 	Register(asm.BuiltinGroupLookAtDirection, nsGroupLookAtDirection)
 	Register(asm.BuiltinGroupWander, nsGroupWander)
 	Register(asm.BuiltinCreatureGroupIdle, nsGroupIdle)
+	Register(asm.BuiltinCreatureGroupHunt, nsGroupHunt)
 	Register(asm.BuiltinCreatureGroupFollow, nsGroupFollow)
 	Register(asm.BuiltinGroupWalk, nsGroupWalkTo)
 	Register(asm.BuiltinGroupMove, nsGroupMove)
@@ -137,6 +138,13 @@ func nsGroupWander(s VM) int {
 func nsGroupIdle(s VM) int {
 	if g := s.PopObjGroupNS(); g != nil {
 		g.Idle()
+	}
+	return 0
+}
+
+func nsGroupHunt(s VM) int {
+	if g := s.PopObjGroupNS(); g != nil {
+		g.Hunt()
 	}
 	return 0
 }
