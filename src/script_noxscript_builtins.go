@@ -187,7 +187,7 @@ func eachObjectNS(s *Server, g *server.MapGroup, fnc func(obj ns.Obj) bool) {
 	}
 }
 
-func eachObjectRecursiveNS(s *Server, g *server.MapGroup, fnc func(obj ns.Obj) bool) bool {
+func eachObjectRecursiveNS(s *Server, g *server.MapGroup, fnc func(obj ns.Obj) bool) bool { // nox_server_scriptExecuteFnForEachGroupObj_502670
 	if g == nil {
 		return true // just skip this group
 	}

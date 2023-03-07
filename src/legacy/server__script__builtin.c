@@ -505,17 +505,6 @@ int nox_script_GuardGroup_515700() {
 	return 0;
 }
 
-//----- (005157D0) --------------------------------------------------------
-int nox_script_HuntGroup_5157D0() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-
-	v0 = nox_script_pop();
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, nox_xxx_unitHunt_5157A0, 0);
-	return 0;
-}
-
 //----- (005159E0) --------------------------------------------------------
 int nox_script_HitLocation_5159E0() {
 	int v0;   // eax
