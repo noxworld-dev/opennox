@@ -16,7 +16,6 @@ int nox_script_TellStory_514E90();
 int nox_script_StartDialog_514ED0();
 int nox_script_Guard_515600();
 int nox_script_GuardGroup_515700();
-int nox_script_HuntGroup_5157D0();
 int nox_script_HitLocation_5159E0();
 int nox_script_HitLocationGroup_515AE0();
 int nox_script_HitFarLocation_515B30();
@@ -113,7 +112,6 @@ var noxScriptBuiltins = [asm.BuiltinGetScore + 1]noxscript.Builtin{
 	asm.BuiltinStartDialog:         wrapScriptC(C.nox_script_StartDialog_514ED0),
 	asm.BuiltinCreatureGuard:       wrapScriptC(C.nox_script_Guard_515600),
 	asm.BuiltinCreatureGroupGuard:  wrapScriptC(C.nox_script_GuardGroup_515700),
-	asm.BuiltinCreatureGroupHunt:   wrapScriptC(C.nox_script_HuntGroup_5157D0),
 	asm.BuiltinHitLocation:         wrapScriptC(C.nox_script_HitLocation_5159E0),
 	asm.BuiltinGroupHitLocation:    wrapScriptC(C.nox_script_HitLocationGroup_515AE0),
 	asm.BuiltinHitFarLocation:      wrapScriptC(C.nox_script_HitFarLocation_515B30),
