@@ -213,6 +213,7 @@ func init() {
 	legacy.Nox_xxx_mapSwitchLevel_4D12E0_end = nox_xxx_mapSwitchLevel_4D12E0_end
 	legacy.Nox_script_indexByEvent = nox_script_indexByEvent
 	legacy.Nox_script_getString_512E40 = nox_script_getString_512E40
+	legacy.Nox_script_callbackName = nox_script_callbackName
 	legacy.Nox_setImaginaryCaster = nox_setImaginaryCaster
 	legacy.Nox_script_readWriteZzz_541670 = nox_script_readWriteZzz_541670
 	legacy.Sub_4C26F0 = sub_4C26F0
