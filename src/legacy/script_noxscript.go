@@ -23,6 +23,7 @@ var (
 	Nox_script_getString_512E40    func(i int) *byte
 	Nox_setImaginaryCaster         func() int
 	Nox_script_readWriteZzz_541670 func(cpath, cpath2, cdst *byte) int
+	Nox_script_callbackName        func(h int) string
 )
 
 type NoxScript interface {
@@ -121,6 +122,13 @@ func nox_script_callByIndex_507310(index int, a2 unsafe.Pointer, a3 unsafe.Point
 		scriptLog.Println(err)
 	}
 }
+
+//export nox_script_callbackName
+func nox_script_callbackName(h int) *C.char {
+	s := Nox_script_callbackName(h)
+	return internCStr(s)
+}
+
 func Sub_516570() {
 	C.sub_516570()
 }
