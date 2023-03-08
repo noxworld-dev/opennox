@@ -352,6 +352,7 @@ func (s *serverObjTypes) readType(thg *things.Thing) error {
 		typ.flags |= v
 	}
 	if len(thg.Material) != 0 {
+		typ.material = 0
 		for _, s := range thg.Material {
 			v, err := object.ParseMaterial(string(s))
 			if err != nil {
