@@ -39,6 +39,10 @@ func nox_script_getString_512E40(i int) *byte {
 	return legacy.Get_nox_script_strings()[i]
 }
 
+func nox_script_callbackName(h int) string {
+	return noxServer.noxScript.scriptNameByIndex(h)
+}
+
 var (
 	nox_script_objTelekinesisHand  int
 	nox_script_objCinemaRemove     []int
@@ -46,6 +50,11 @@ var (
 )
 
 var _ noxscript.VM = (*noxScript)(nil)
+
+type nsCallback struct {
+	Name string
+	Fnc  func() error
+}
 
 type noxScript struct {
 	s        *Server
@@ -58,7 +67,7 @@ type noxScript struct {
 	}
 	virtual struct {
 		last  int
-		funcs map[int]func() error
+		funcs map[int]nsCallback
 	}
 	panic noxScriptPanic
 }
@@ -70,7 +79,7 @@ func (s *noxScript) Init(srv *Server) {
 
 func (s *noxScript) resetVirtualFuncs() {
 	s.virtual.last = math.MaxInt32
-	s.virtual.funcs = make(map[int]func() error)
+	s.virtual.funcs = make(map[int]nsCallback)
 }
 
 var _ = [1]struct{}{}[48-unsafe.Sizeof(noxScriptCode{})]
@@ -122,8 +131,7 @@ func (s *noxScript) addVirtual(name string, fnc func() error) int {
 	}
 	id := s.virtual.last
 	s.virtual.last--
-	// TODO: save this mapping (with the name) to the save file
-	s.virtual.funcs[id] = fnc
+	s.virtual.funcs[id] = nsCallback{Name: name, Fnc: fnc}
 	return id
 }
 
@@ -162,6 +170,13 @@ func (s *noxScript) scriptIndexByName(name string) int {
 		}
 	}
 	return -1
+}
+
+func (s *noxScript) scriptNameByIndex(h int) string {
+	if cb, ok := s.virtual.funcs[h]; ok {
+		return cb.Name
+	}
+	return s.scripts()[h].Name()
 }
 
 func (s *noxScript) Caller() *server.Object {
@@ -675,11 +690,11 @@ func (s *Server) ScriptCallback(b *server.ScriptCallback, caller, trigger *serve
 		return nil
 	}
 	sind := int(b.Func)
-	if fnc, ok := s.noxScript.virtual.funcs[sind]; ok && fnc != nil {
+	if cb, ok := s.noxScript.virtual.funcs[sind]; ok && cb.Fnc != nil {
 		s.noxScript.vm.caller = caller
 		s.noxScript.vm.trigger = trigger
-		if err := fnc(); err != nil {
-			scriptLog.Println("ScriptCallback:", err)
+		if err := cb.Fnc(); err != nil {
+			scriptLog.Printf("ScriptCallback: %s: %v", cb.Name, err)
 		}
 		*memmap.PtrUint32(0x5D4594, 1599076) = 0
 		return memmap.PtrOff(0x5D4594, 1599076)
@@ -721,10 +736,10 @@ func (s *noxScript) callByIndex(index int, caller, trigger server.Obj) error {
 }
 
 func (s *noxScript) CallByIndexObj(index int, caller, trigger *server.Object) error {
-	if fnc, ok := s.virtual.funcs[index]; ok && fnc != nil {
+	if cb, ok := s.virtual.funcs[index]; ok && cb.Fnc != nil {
 		s.vm.caller = caller
 		s.vm.trigger = trigger
-		return fnc()
+		return cb.Fnc()
 	}
 	if legacy.Get_nox_script_arr_xxx_1599636() == nil {
 		return errors.New("no map scripts")

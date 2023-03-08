@@ -26,6 +26,7 @@ unsigned int nox_script_strings_xxx = 0;
 unsigned int nox_script_strings_cnt = 0;
 
 //----- (004F5580) --------------------------------------------------------
+char* nox_script_callbackName(int h);
 int nox_xxx_xferReadScriptHandler_4F5580(int a1, char* a2) {
 	bool v3;       // zf
 	int v4;        // eax
@@ -64,11 +65,13 @@ int nox_xxx_xferReadScriptHandler_4F5580(int a1, char* a2) {
 		} else {
 			v4 = *(unsigned int*)(a1 + 4);
 			if (v4 != -1) {
-				v5 = strlen(nox_script_arr_xxx_1599636[v4].name);
-				nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
-				nox_xxx_fileReadWrite_426AC0_file3_fread(nox_script_arr_xxx_1599636[*(unsigned int*)(a1 + 4)].name,
-														 v5);
-				goto LABEL_16;
+				char* name = nox_script_callbackName(v4);
+				if (name) {
+					v5 = strlen(name);
+					nox_xxx_fileReadWrite_426AC0_file3_fread(&v5, 4u);
+					nox_xxx_fileReadWrite_426AC0_file3_fread(name, v5);
+					goto LABEL_16;
+				}
 			}
 		}
 		v5 = 0;
