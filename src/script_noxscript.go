@@ -65,8 +65,8 @@ func nox_server_mapRWScriptData_504F90_Read(cf *cryptfile.CryptFile) error {
 	} else if has == 0 {
 		return nil
 	}
-	arr := s.noxScript.scripts()
-	vars := arr[1].Locals()
+	funcs := s.noxScript.Funcs()
+	vars := funcs[1].Locals()
 	for i := range vars {
 		v, err := cf.ReadU32()
 		if err != nil {
@@ -79,17 +79,17 @@ func nox_server_mapRWScriptData_504F90_Read(cf *cryptfile.CryptFile) error {
 
 func nox_server_mapRWScriptData_504F90_Write(cf *cryptfile.CryptFile) error {
 	s := noxServer
+	funcs := s.noxScript.Funcs()
 	cf.WriteU16(1)
 	has := byte(0)
-	if len(s.noxScript.scripts()) != 0 && noxflags.HasGame(noxflags.GameHost) && !noxflags.HasGame(noxflags.GameFlag23) {
+	if len(funcs) != 0 && noxflags.HasGame(noxflags.GameHost) && !noxflags.HasGame(noxflags.GameFlag23) {
 		has = 1
 	}
 	cf.WriteU8(has)
 	if has == 0 {
 		return nil
 	}
-	arr := s.noxScript.scripts()
-	vars := arr[1].Locals()
+	vars := funcs[1].Locals()
 	for _, v := range vars {
 		cf.WriteU32(v)
 	}
@@ -102,13 +102,13 @@ func nox_script_objCallbackName_508CB0(obj *server.Object, event int) (string, b
 	if sd == nil {
 		return "", false
 	}
-	arr := s.noxScript.scripts()
+	funcs := s.noxScript.Funcs()
 	switch event {
 	case 14:
 		if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 			return alloc.GoString((*byte)(sd)), true
 		}
-		return arr[obj.Field192].Name(), true
+		return funcs[obj.Field192].Name(), true
 	}
 	cl := obj.Class()
 	switch {
@@ -121,17 +121,17 @@ func nox_script_objCallbackName_508CB0(obj *server.Object, event int) (string, b
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 512))), true
 			}
-			return arr[ud[4]].Name(), true
+			return funcs[ud[4]].Name(), true
 		case 1:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 256))), true
 			}
-			return arr[ud[6]].Name(), true
+			return funcs[ud[6]].Name(), true
 		case 2:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 384))), true
 			}
-			return arr[ud[8]].Name(), true
+			return funcs[ud[8]].Name(), true
 		}
 		return "", false
 	case cl.Has(object.ClassMonster):
@@ -141,52 +141,52 @@ func nox_script_objCallbackName_508CB0(obj *server.Object, event int) (string, b
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 640))), true
 			}
-			return arr[ud.ScriptEnemySighted.Func].Name(), true
+			return funcs[ud.ScriptEnemySighted.Func].Name(), true
 		case ns.EventLookingForEnemy:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 768))), true
 			}
-			return arr[ud.ScriptLookingForEnemy.Func].Name(), true
+			return funcs[ud.ScriptLookingForEnemy.Func].Name(), true
 		case ns.EventDeath:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 896))), true
 			}
-			return arr[ud.ScriptDeath.Func].Name(), true
+			return funcs[ud.ScriptDeath.Func].Name(), true
 		case ns.EventChangeFocus:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 1024))), true
 			}
-			return arr[ud.ScriptChangeFocus.Func].Name(), true
+			return funcs[ud.ScriptChangeFocus.Func].Name(), true
 		case ns.EventIsHit:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 1152))), true
 			}
-			return arr[ud.ScriptIsHit.Func].Name(), true
+			return funcs[ud.ScriptIsHit.Func].Name(), true
 		case ns.EventRetreat:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 1280))), true
 			}
-			return arr[ud.ScriptRetreat.Func].Name(), true
+			return funcs[ud.ScriptRetreat.Func].Name(), true
 		case ns.EventCollision:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 1408))), true
 			}
-			return arr[ud.ScriptCollision.Func].Name(), true
+			return funcs[ud.ScriptCollision.Func].Name(), true
 		case ns.EventEnemyHeard:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 1536))), true
 			}
-			return arr[ud.ScriptHearEnemy.Func].Name(), true
+			return funcs[ud.ScriptHearEnemy.Func].Name(), true
 		case ns.EventEndOfWaypoint:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 1664))), true
 			}
-			return arr[ud.ScriptEndOfWaypoint.Func].Name(), true
+			return funcs[ud.ScriptEndOfWaypoint.Func].Name(), true
 		case ns.EventLostEnemy:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 1792))), true
 			}
-			return arr[ud.ScriptLostEnemy.Func].Name(), true
+			return funcs[ud.ScriptLostEnemy.Func].Name(), true
 		}
 		return "", false
 	case cl.Has(object.ClassHole):
@@ -197,7 +197,7 @@ func nox_script_objCallbackName_508CB0(obj *server.Object, event int) (string, b
 			}
 			cd := obj.CollideData
 			ind := *(*uint32)(unsafe.Add(cd, 4))
-			return arr[ind].Name(), true
+			return funcs[ind].Name(), true
 		}
 		return "", false
 	case cl.Has(object.ClassMonsterGenerator):
@@ -207,22 +207,22 @@ func nox_script_objCallbackName_508CB0(obj *server.Object, event int) (string, b
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 1920))), true
 			}
-			return arr[ud[13]].Name(), true
+			return funcs[ud[13]].Name(), true
 		case 16:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 2048))), true
 			}
-			return arr[ud[15]].Name(), true
+			return funcs[ud[15]].Name(), true
 		case 17:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 2304))), true
 			}
-			return arr[ud[17]].Name(), true
+			return funcs[ud[17]].Name(), true
 		case 18:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 2176))), true
 			}
-			return arr[ud[19]].Name(), true
+			return funcs[ud[19]].Name(), true
 		}
 		return "", false
 	}
@@ -292,13 +292,14 @@ type nsCallback struct {
 type noxScript struct {
 	s  *Server
 	vm struct {
-		strings  []string
-		funcs    []ScriptFunc
-		stack    []uint32
-		dpos     image.Point // pos delta added when calling builtins
-		nameSuff string      // name suffix added when calling builtins
-		caller   *server.Object
-		trigger  *server.Object
+		strings   []string
+		funcs     []ScriptFunc
+		stack     []uint32
+		dpos      image.Point // pos delta added when calling builtins
+		nameSuff  string      // name suffix added when calling builtins
+		caller    *server.Object
+		trigger   *server.Object
+		callbacks []noxScriptCallback
 	}
 	virtual struct {
 		last  int
@@ -315,6 +316,14 @@ func (s *noxScript) Init(srv *Server) {
 func (s *noxScript) resetVirtualFuncs() {
 	s.virtual.last = math.MaxInt32
 	s.virtual.funcs = make(map[int]nsCallback)
+}
+
+func (s *noxScript) FuncsCnt() int {
+	return len(s.vm.funcs)
+}
+
+func (s *noxScript) Funcs() []ScriptFunc {
+	return s.vm.funcs
 }
 
 type ScriptFunc struct {
@@ -338,18 +347,10 @@ func (s *ScriptFunc) Locals() []uint32 {
 	return s.Values
 }
 
-func (s *noxScript) scriptsCnt() int {
-	return len(s.vm.funcs)
-}
-
-func (s *noxScript) scripts() []ScriptFunc {
-	return s.vm.funcs
-}
-
 // addVirtual assigns a virtual function index for NoxScript.
 func (s *noxScript) addVirtual(name string, fnc func() error) int {
 	// Are we conflicting with the original NoxScript func indexes?
-	if s.virtual.last-1 <= s.scriptsCnt() {
+	if s.virtual.last-1 <= s.FuncsCnt() {
 		panic("no more space for virtual script func handles")
 	}
 	id := s.virtual.last
@@ -366,7 +367,7 @@ func (s *noxScript) addVirtual(name string, fnc func() error) int {
 //
 // Since new runtimes were introduced, this function will now return "virtual"
 // function indexes, which are set really large to avoid collisions, for functions
-// from the new runtimes. CallByIndexObj and ScriptCallback will recognize them later.
+// from the new runtimes. CallByIndex and ScriptCallback will recognize them later.
 func (s *noxScript) scriptIndexByName(name string) int {
 	// Prefer map scripts from new script runtimes.
 	for _, vm := range s.s.vms.vms {
@@ -385,10 +386,8 @@ func (s *noxScript) scriptIndexByName(name string) int {
 			})
 		}
 	}
-	scripts := s.scripts()
-	for i := range scripts {
-		s := &scripts[i]
-		if s.Name() == name {
+	for i, f := range s.vm.funcs {
+		if f.Name() == name {
 			return i
 		}
 	}
@@ -399,7 +398,7 @@ func (s *noxScript) scriptNameByIndex(h int) string {
 	if cb, ok := s.virtual.funcs[h]; ok {
 		return cb.Name
 	}
-	return s.scripts()[h].Name()
+	return s.Funcs()[h].Name()
 }
 
 func (s *noxScript) Caller() *server.Object {
@@ -533,7 +532,7 @@ func (s *noxScript) PopGroup() *server.MapGroup {
 
 func (s *noxScript) nox_xxx_scriptRunFirst_507290() {
 	s.resetBuiltin()
-	if scripts := s.scripts(); len(scripts) >= 2 {
+	if scripts := s.Funcs(); len(scripts) >= 2 {
 		sc := scripts[1].Values
 		tv := int32(-2)
 		sc[0] = uint32(tv)
@@ -542,7 +541,7 @@ func (s *noxScript) nox_xxx_scriptRunFirst_507290() {
 		sc[2] = 1
 		sc[3] = 0
 		if !nox_xxx_gameIsSwitchToSolo_4DB240() {
-			if err := s.callByIndex(1, nil, nil); err != nil {
+			if err := s.CallByIndex(1, nil, nil); err != nil {
 				scriptLog.Println(err)
 			}
 		}
@@ -552,12 +551,12 @@ func (s *noxScript) nox_xxx_scriptRunFirst_507290() {
 }
 
 func (s *noxScript) OnEvent(event script.EventType) {
-	scripts := s.scripts()
+	scripts := s.Funcs()
 	for i := range scripts {
 		sc := &scripts[i]
 		name := sc.Name()
 		if strings.HasPrefix(name, string(event)) {
-			if err := s.callByIndex(i, nil, nil); err != nil {
+			if err := s.CallByIndex(i, nil, nil); err != nil {
 				scriptLog.Println(err)
 			}
 		}
@@ -798,12 +797,12 @@ func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *byte) int {
 }
 
 func (s *noxScript) actRun() {
-	scripts := s.scripts()
+	scripts := s.Funcs()
 	s.s.Activators.EachTriggered(s.s.Frame(), func(it server.ActivatorArgs) {
 		if scripts[it.Callback].FuncDef.Args != 0 {
 			s.PushU32(it.Arg)
 		}
-		if err := s.callByIndex(it.Callback, asObjectS(it.Caller), asObjectS(it.Trigger)); err != nil {
+		if err := s.CallByIndex(it.Callback, it.Caller, it.Trigger); err != nil {
 			scriptLog.Println(err)
 		}
 	})
@@ -868,41 +867,37 @@ func (s *noxScript) PushHandleNS(obj ns.Handle) {
 }
 
 type noxScriptCallback struct {
-	Block    *server.ScriptCallback
-	Caller4  *server.Object
-	Trigger8 *server.Object
+	Block   *server.ScriptCallback
+	Caller  *server.Object
+	Trigger *server.Object
 }
 
-var (
-	noxScriptCallbacks []noxScriptCallback
-)
-
-func (s *Server) scriptPushCallback(b *server.ScriptCallback, caller, trigger *server.Object) {
-	noxScriptCallbacks = append(noxScriptCallbacks, noxScriptCallback{
-		Block: b, Caller4: caller, Trigger8: trigger,
+func (s *noxScript) scriptPushCallback(b *server.ScriptCallback, caller, trigger *server.Object) {
+	s.vm.callbacks = append(s.vm.callbacks, noxScriptCallback{
+		Block: b, Caller: caller, Trigger: trigger,
 	})
 }
 
-func (s *Server) scriptPopCallback(b *server.ScriptCallback, caller, trigger *server.Object) {
-	for i := 0; i < len(noxScriptCallbacks); i++ {
-		it := &noxScriptCallbacks[i]
-		if it.Block == b && it.Caller4 == caller && it.Trigger8 == trigger {
-			noxScriptCallbacks = append(noxScriptCallbacks[:i], noxScriptCallbacks[i+1:]...)
+func (s *noxScript) scriptPopCallback(b *server.ScriptCallback, caller, trigger *server.Object) {
+	for i := 0; i < len(s.vm.callbacks); i++ {
+		it := &s.vm.callbacks[i]
+		if it.Block == b && it.Caller == caller && it.Trigger == trigger {
+			s.vm.callbacks = append(s.vm.callbacks[:i], s.vm.callbacks[i+1:]...)
 		}
 	}
 }
 
-func (s *Server) ScriptCallback(b *server.ScriptCallback, caller, trigger *server.Object, eventCode server.ScriptEventType) unsafe.Pointer {
-	s.Nox_script_callByEventcgo(eventCode, unsafe.Pointer(caller.CObj()), unsafe.Pointer(trigger.CObj()))
+func (s *noxScript) ScriptCallback(b *server.ScriptCallback, caller, trigger *server.Object, eventCode server.ScriptEventType) unsafe.Pointer {
+	s.scriptCallByEvent(eventCode, asObjectS(caller), asObjectS(trigger))
 	*memmap.PtrUint32(0x5D4594, 1599076) = 0
 	flags := b.Flags
 	if flags&0x1 != 0 {
 		return nil
 	}
 	sind := int(b.Func)
-	if cb, ok := s.noxScript.virtual.funcs[sind]; ok && cb.Fnc != nil {
-		s.noxScript.vm.caller = caller
-		s.noxScript.vm.trigger = trigger
+	if cb, ok := s.virtual.funcs[sind]; ok && cb.Fnc != nil {
+		s.vm.caller = caller
+		s.vm.trigger = trigger
 		if err := cb.Fnc(); err != nil {
 			scriptLog.Printf("ScriptCallback: %s: %v", cb.Name, err)
 		}
@@ -915,32 +910,28 @@ func (s *Server) ScriptCallback(b *server.ScriptCallback, caller, trigger *serve
 	if flags&0x2 != 0 {
 		b.Flags |= 0x1
 	}
-	if s.noxScript.saveStack() != 0 {
+	if s.saveStack() != 0 {
 		s.scriptPushCallback(b, caller, trigger)
 		return memmap.PtrOff(0x5D4594, 1599076)
 	}
-	if err := s.noxScript.CallByIndexObj(sind, caller, trigger); err != nil {
+	if err := s.CallByIndex(sind, caller, trigger); err != nil {
 		scriptLog.Println(err)
 	}
-	scripts := s.noxScript.scripts()
+	scripts := s.Funcs()
 	if scripts[sind].Return != 0 {
-		*memmap.PtrUint32(0x5D4594, 1599076) = uint32(s.noxScript.PopI32())
+		*memmap.PtrUint32(0x5D4594, 1599076) = s.PopU32()
 	}
-	s.noxScript.resetStack()
+	s.resetStack()
 	// TODO: Previously, the code was tracking how many temp strings were added,
 	//       and removed them here. Instead, we can do interning + GC to achieve the same effect.
 	s.scriptPopCallback(b, caller, trigger)
-	if len(noxScriptCallbacks) > 0 {
-		s.ScriptCallback(noxScriptCallbacks[0].Block, noxScriptCallbacks[0].Caller4, noxScriptCallbacks[0].Trigger8, 0)
+	if len(s.vm.callbacks) > 0 {
+		s.ScriptCallback(s.vm.callbacks[0].Block, s.vm.callbacks[0].Caller, s.vm.callbacks[0].Trigger, 0)
 	}
 	return memmap.PtrOff(0x5D4594, 1599076)
 }
 
-func (s *noxScript) callByIndex(index int, caller, trigger server.Obj) error {
-	return s.CallByIndexObj(index, toObjectS(caller), toObjectS(trigger))
-}
-
-func (s *noxScript) CallByIndexObj(index int, caller, trigger *server.Object) error {
+func (s *noxScript) CallByIndex(index int, caller, trigger *server.Object) error {
 	if cb, ok := s.virtual.funcs[index]; ok && cb.Fnc != nil {
 		s.vm.caller = caller
 		s.vm.trigger = trigger
@@ -949,7 +940,7 @@ func (s *noxScript) CallByIndexObj(index int, caller, trigger *server.Object) er
 	if len(s.vm.funcs) == 0 {
 		return errors.New("no map script functions")
 	}
-	scripts := s.scripts()
+	scripts := s.Funcs()
 	if index < 0 || index >= len(scripts) {
 		return fmt.Errorf("invalid function index: %d (%x)", index, index)
 	}
@@ -1422,7 +1413,7 @@ func (s *noxScript) CallByIndexObj(index int, caller, trigger *server.Object) er
 			}
 		case asm.OpCallScript:
 			ind := int(readInt())
-			if err := s.CallByIndexObj(ind, caller, trigger); err != nil {
+			if err := s.CallByIndex(ind, caller, trigger); err != nil {
 				return fmt.Errorf("in %q: %w", sc.Name(), err)
 			}
 		case asm.OpStringAdd:

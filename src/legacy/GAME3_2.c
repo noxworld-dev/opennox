@@ -6279,10 +6279,10 @@ void sub_4DE790(int a1) {
 }
 
 //----- (004DE7C0) --------------------------------------------------------
-void nox_script_callByEvent_cgo(int eventCode, void* a1, void* a2);
+void nox_script_event_playerLeave(nox_playerInfo* pl);
 void nox_xxx_playerForceDisconnect_4DE7C0(int ind) {
 	nox_playerInfo* plr = nox_common_playerInfoFromNum_417090(ind);
-	nox_script_callByEvent_cgo(31, plr, 0); // player leave
+	nox_script_event_playerLeave(plr);
 	if (sub_4D12A0(ind)) {
 		sub_4D1250(ind);
 	}
