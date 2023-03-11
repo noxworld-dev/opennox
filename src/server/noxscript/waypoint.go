@@ -19,9 +19,9 @@ func init() {
 }
 
 func nsGetWaypoint(s VM) int {
-	name := s.PopString()
-	name += s.NameSuff()
-	s.PushHandleNS(s.NoxScript().Waypoint(name))
+	str := s.PopString()
+	str += s.NameSuff()
+	s.PushHandleNS(s.NoxScript().Waypoint(str))
 	return 0
 }
 

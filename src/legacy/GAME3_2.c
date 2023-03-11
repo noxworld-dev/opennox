@@ -1398,6 +1398,7 @@ int sub_4D12A0(int a1) {
 
 //----- (004D12E0) --------------------------------------------------------
 void nox_xxx_mapSwitchLevel_4D12E0_end();
+void sub_511E60();
 void nox_xxx_mapSwitchLevel_4D12E0(int a1) {
 	int v1;       // edi
 	int v2;       // esi

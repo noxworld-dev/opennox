@@ -153,10 +153,6 @@ func Nox_server_mapRWObjectTOC_428B30(_ *cryptfile.CryptFile, a1 unsafe.Pointer)
 	return nil
 }
 
-func Nox_script_ncobj_parse_505360() int {
-	return int(C.nox_script_ncobj_parse_505360())
-}
-
 func Sub_579CA0() int {
 	return int(C.sub_579CA0())
 }

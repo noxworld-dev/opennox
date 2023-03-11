@@ -840,6 +840,7 @@ extern uint32_t dword_5d4594_3798828;
 extern uint32_t dword_5d4594_3798832;
 extern uint32_t dword_5d4594_3798836;
 extern uint32_t dword_5d4594_3798840;
+extern unsigned int dword_5d4594_1599628;
 extern void (*func_587000_154940)(int2*, uint32_t, uint32_t);
 extern int (*func_587000_154944)(int, int);
 extern void* nox_video_tileBuf_ptr_3798796;
@@ -855,11 +856,6 @@ extern uint32_t dword_5d4594_823776;
 
 extern nox_render_data_t* nox_draw_curDrawData_3799572;
 
-extern int nox_script_count_xxx_1599640;
-extern nox_script_xxx_t* nox_script_arr_xxx_1599636;
-extern char* nox_script_strings[1024];
-extern unsigned int nox_script_strings_xxx;
-extern unsigned int nox_script_strings_cnt;
 extern unsigned int nox_xxx_wallSounds_2386840;
 
 extern nox_object_t* nox_xxx_host_player_unit_3843628;
@@ -1196,20 +1192,8 @@ func Get_nox_client_gui_flag_1556112() int {
 	return int(C.nox_client_gui_flag_1556112)
 }
 
-func Get_nox_script_strings_cnt() int {
-	return int(C.nox_script_strings_cnt)
-}
-func Get_nox_script_strings() []*byte {
-	return unsafe.Slice((**byte)(unsafe.Pointer(&C.nox_script_strings[0])), len(C.nox_script_strings))
-}
-func Get_nox_script_arr_xxx_1599636() unsafe.Pointer {
-	return unsafe.Pointer(C.nox_script_arr_xxx_1599636)
-}
-func Get_nox_script_count_xxx_1599640() int {
-	return int(C.nox_script_count_xxx_1599640)
-}
-func Get_nox_script_strings_xxx() int {
-	return int(C.nox_script_strings_xxx)
+func Set_dword_5d4594_1599628(v int) {
+	C.dword_5d4594_1599628 = C.uint(v)
 }
 
 func Sub_41E2F0() int {
@@ -1251,6 +1235,12 @@ func Set_dword_5d4594_1599556(v unsafe.Pointer) {
 }
 func Set_dword_5d4594_1599548(v unsafe.Pointer) {
 	C.dword_5d4594_1599548 = v
+}
+func Get_dword_5d4594_2386836() int {
+	return int(C.dword_5d4594_2386836)
+}
+func Set_dword_5d4594_2386836(v int) {
+	C.dword_5d4594_2386836 = C.uint(v)
 }
 func Set_dword_5d4594_2386848(v int) {
 	C.dword_5d4594_2386848 = C.int(v)
@@ -1459,9 +1449,6 @@ func Set_dword_5d4594_1307292(v *gui.Window) {
 func Set_dword_5d4594_831260(v int) {
 	C.dword_5d4594_831260 = C.uint(v)
 }
-func Set_nox_script_strings_cnt(v int) {
-	C.nox_script_strings_cnt = C.uint(v)
-}
 func Set_nox_client_translucentFrontWalls_805844(v int) {
 	C.nox_client_translucentFrontWalls_805844 = C.uint(v)
 }
@@ -1530,9 +1517,6 @@ func Inc_nox_xxx_waypointCounterMB_587000_154948() {
 }
 func Inc_dword_5d4594_2516356() {
 	C.dword_5d4594_2516356++
-}
-func Inc_nox_script_strings_cnt() {
-	C.nox_script_strings_cnt++
 }
 func Inc_dword_5d4594_2386848() {
 	C.dword_5d4594_2386848++
