@@ -20,8 +20,10 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
+	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -33,7 +35,7 @@ func nox_script_indexByEvent(name string) int {
 }
 
 func nox_script_getString_512E40(i int) *byte {
-	if i < 0 || i >= int(legacy.Get_nox_script_strings_cnt()) {
+	if i < 0 || i >= legacy.Get_nox_script_strings_cnt() {
 		return nil
 	}
 	return legacy.Get_nox_script_strings()[i]
@@ -41,6 +43,56 @@ func nox_script_getString_512E40(i int) *byte {
 
 func nox_script_callbackName(h int) string {
 	return noxServer.noxScript.scriptNameByIndex(h)
+}
+
+func nox_server_mapRWScriptData_504F90(cf *cryptfile.CryptFile, _ unsafe.Pointer) error {
+	if cf.ReadOnly() {
+		return nox_server_mapRWScriptData_504F90_Read(cf)
+	}
+	return nox_server_mapRWScriptData_504F90_Write(cf)
+}
+
+func nox_server_mapRWScriptData_504F90_Read(cf *cryptfile.CryptFile) error {
+	s := noxServer
+	if vers, err := cf.ReadU16(); err != nil {
+		return err
+	} else if vers > 1 {
+		return fmt.Errorf("unsupported script data vers: %v", vers)
+	}
+	if has, err := cf.ReadU8(); err != nil {
+		return err
+	} else if has == 0 {
+		return nil
+	}
+	arr := s.noxScript.scripts()
+	vars := arr[1].field28sz16()
+	for i := range vars {
+		v, err := cf.ReadU32()
+		if err != nil {
+			return err
+		}
+		vars[i] = v
+	}
+	return s.LoadActivators(cf)
+}
+
+func nox_server_mapRWScriptData_504F90_Write(cf *cryptfile.CryptFile) error {
+	s := noxServer
+	cf.WriteU16(1)
+	has := byte(0)
+	if legacy.Get_nox_script_arr_xxx_1599636() != nil && noxflags.HasGame(noxflags.GameHost) && !noxflags.HasGame(noxflags.GameFlag23) {
+		has = 1
+	}
+	cf.WriteU8(has)
+	if has == 0 {
+		return nil
+	}
+	arr := s.noxScript.scripts()
+	vars := arr[1].field28sz16()
+	for _, v := range vars {
+		cf.WriteU32(v)
+	}
+	return s.SaveActivators(cf)
 }
 
 var (
@@ -105,6 +157,14 @@ func (s *noxScriptCode) Name() string {
 
 func (s *noxScriptCode) field28() []uint32 {
 	sz := int(s.size_28) // TODO: these are only the arguments
+	if sz == 0 {
+		return nil
+	}
+	return unsafe.Slice(s.field_28, sz)
+}
+
+func (s *noxScriptCode) field28sz16() []uint32 {
+	sz := int(s.field_16)
 	if sz == 0 {
 		return nil
 	}
