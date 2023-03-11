@@ -57,7 +57,7 @@ var (
 		{Name: "AmbientData", Fnc: legacy.Nox_server_mapRWAmbientData_429200},
 		{Name: "Polygons", Fnc: legacy.Nox_server_mapRWPolygons_428CD0},
 		{Name: "MapIntro", Fnc: legacy.Nox_server_mapRWMapIntro_505080},
-		{Name: "ScriptData", Fnc: legacy.Nox_server_mapRWScriptData_504F90},
+		{Name: "ScriptData", Fnc: nox_server_mapRWScriptData_504F90},
 		{Name: "ObjectTOC", Fnc: legacy.Nox_server_mapRWObjectTOC_428B30},
 		{Name: "ObjectData", Fnc: nox_server_mapRWObjectData_504CF0},
 	}
