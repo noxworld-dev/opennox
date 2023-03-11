@@ -20,26 +20,23 @@ func (s *noxScript) callBuiltin(i int, fi asm.Builtin) error {
 			return nil
 		}
 	}
-	if s.builtinNeedsField36(fi) {
-		s.nameSuff = s.scriptNameSuff(i)
-	}
-	if s.builtinNeedsFields4044(fi) {
-		s.dpos.X = s.scriptField40(i)
-		s.dpos.Y = s.scriptField44(i)
+	s.vm.nameSuff = s.vm.funcs[i].NamePref
+	if s.builtinNeedsDPos(fi) {
+		s.vm.dpos = s.vm.funcs[i].PosOff
 	}
 	err := s.callBuiltinNative(fi)
 	s.resetBuiltin()
 	return err
 }
 
-func nox_script_shouldReadMoreXxx(fi int) bool {
+func nox_script_shouldReadMoreXxx(fi asm.Builtin) bool {
 	return fi == 9 || fi == 10 ||
 		fi == 46 || fi == 47 ||
 		fi == 190 || fi == 126
 }
 
-func nox_script_shouldReadEvenMoreXxx(fi int) bool {
-	return fi == 126
+func nox_script_shouldReadEvenMoreXxx(fi asm.Builtin) bool {
+	return fi == asm.BuiltinSetDialog
 }
 
 var errStopScript = errors.New("noxscript: exit")
@@ -67,27 +64,19 @@ func (s *noxScript) callBuiltinNative(fi asm.Builtin) error {
 	return nil
 }
 
-func (s *noxScript) builtinNeedsFields4044(fi asm.Builtin) bool {
+func (s *noxScript) builtinNeedsDPos(fi asm.Builtin) bool {
 	// TODO: 7 items in the array, but the count is set to 5; why?
 	var check = []asm.Builtin{
-		0,
-		67, 68,
-		72,
-		97, 98,
-		100,
+		asm.BuiltinWall,
+		asm.BuiltinMoveObject, asm.BuiltinMoveWaypoint,
+		asm.BuiltinPushObject,
+		asm.BuiltinWalk, asm.BuiltinGroupWalk,
+		asm.BuiltinEffect,
 	}
 	for _, ind := range check[:5] {
 		if fi == ind {
 			return true
 		}
-	}
-	return false
-}
-
-func (s *noxScript) builtinNeedsField36(fi asm.Builtin) bool {
-	switch fi {
-	case 60, 110, 111, 112, 113:
-		return true
 	}
 	return false
 }

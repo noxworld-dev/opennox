@@ -51,18 +51,6 @@ int sub_512E80(int a1) {
 	return v1 - 1;
 }
 
-//----- (00511E60) --------------------------------------------------------
-void sub_511E60() {
-	if (!dword_5d4594_2386836) {
-		dword_5d4594_2386836 = nox_xxx_getNameId_4E3AA0("Mover");
-	}
-	nox_script_freeEverything_5058F0();
-	nox_script_activatorCancelAll_51AC60();
-	*getMemU32Ptr(0x5D4594, 2386844) = 0;
-	dword_5d4594_2386848 = 0;
-	dword_5d4594_2386852 = 0;
-}
-
 //----- (00513B00) --------------------------------------------------------
 void nox_xxx_playerCanCarryItem_513B00(nox_object_t* a1p, nox_object_t* a2p) {
 	int a1 = a1p;
