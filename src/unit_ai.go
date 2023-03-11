@@ -575,8 +575,7 @@ func (a *aiData) nox_xxx_unitEmitHearEvent_50D110(u *Object, lis *MonsterListen,
 	ud.Field99Y = lis.pos.Y
 	a.lastHeard = lis.pos
 	obj5 := lis.obj.FindOwnerChainPlayer()
-	// EventID 16 is MonsterHearsEnemy
-	a.s.ScriptCallback(&ud.ScriptHearEnemy, obj5, u.SObj(), server.NoxEventMonsterHearEnemy)
+	a.s.noxScript.ScriptCallback(&ud.ScriptHearEnemy, obj5, u.SObj(), server.NoxEventMonsterHearEnemy)
 }
 
 func (a *aiData) lastHeardEvent() types.Pointf {
@@ -698,7 +697,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 			if v7 := legacy.Nox_xxx_monsterGetSoundSet_424300(u.SObj()); v7 != nil {
 				s.AudioEventObj(sound.ID(*(*uint32)(unsafe.Add(v7, 64))), u, 0, 0)
 			}
-			s.ScriptCallback(&ud.ScriptIsHit, u.Obj130, u.SObj(), server.NoxEventMonsterIsHit)
+			s.noxScript.ScriptCallback(&ud.ScriptIsHit, u.Obj130, u.SObj(), server.NoxEventMonsterIsHit)
 			if noxflags.HasEngine(noxflags.EngineShowAI) {
 				cur, max := u.Health()
 				ai.Log.Printf("%d: HP = %d/%d\n", s.Frame(), cur, max)
@@ -829,7 +828,7 @@ func (AIActionIdle) Update(obj *server.Object) {
 	s := u.getServer()
 	ud := u.UpdateDataMonster()
 	if uint16(s.Frame()-ud.AIStackHead().ArgU32(0)) == uint16(ud.Field305) {
-		s.ScriptCallback(&ud.ScriptLookingForEnemy, nil, u.SObj(), server.NoxEventMonsterIdle)
+		s.noxScript.ScriptCallback(&ud.ScriptLookingForEnemy, nil, u.SObj(), server.NoxEventMonsterIdle)
 	}
 	if u.Flags().Has(object.FlagEnabled) && (sub_5343C0(u) || nox_xxx_monsterCanAttackAtWill_534390(u)) {
 		if enemy := asObjectS(ud.CurrentEnemy); enemy != nil {
@@ -1032,5 +1031,5 @@ func (AIActionReport) Update(obj *server.Object) {
 	s := u.getServer()
 	ud := u.UpdateDataMonster()
 	u.monsterPopAction()
-	s.ScriptCallback(&ud.ScriptEndOfWaypoint, nil, u.SObj(), server.NoxEventMonsterDone)
+	s.noxScript.ScriptCallback(&ud.ScriptEndOfWaypoint, nil, u.SObj(), server.NoxEventMonsterDone)
 }

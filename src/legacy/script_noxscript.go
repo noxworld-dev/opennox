@@ -31,7 +31,8 @@ type NoxScript interface {
 	noxscript.VM
 	ActResolveObjs()
 	ScriptToObject(h int) *server.Object
-	CallByIndexObj(index int, caller, trigger *server.Object) error
+	CallByIndex(index int, caller, trigger *server.Object) error
+	ScriptCallback(b *server.ScriptCallback, caller, trigger *server.Object, eventCode server.ScriptEventType) unsafe.Pointer
 	Caller() *server.Object
 	Trigger() *server.Object
 }
@@ -103,12 +104,12 @@ func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *C.char) int {
 
 //export nox_xxx_scriptCallByEventBlock_502490
 func nox_xxx_scriptCallByEventBlock_502490(a1 unsafe.Pointer, a2, a3 unsafe.Pointer, eventCode int32) unsafe.Pointer {
-	return GetServer().ScriptCallback((*server.ScriptCallback)(a1), AsObjectP(a2), AsObjectP(a3), server.ScriptEventType(eventCode))
+	return GetServer().NoxScriptC().ScriptCallback((*server.ScriptCallback)(a1), AsObjectP(a2), AsObjectP(a3), server.ScriptEventType(eventCode))
 }
 
 //export nox_script_callByIndex_507310
 func nox_script_callByIndex_507310(index int, a2 unsafe.Pointer, a3 unsafe.Pointer) {
-	if err := GetServer().NoxScriptC().CallByIndexObj(index, AsObjectP(a2), AsObjectP(a3)); err != nil {
+	if err := GetServer().NoxScriptC().CallByIndex(index, AsObjectP(a2), AsObjectP(a3)); err != nil {
 		scriptLog.Println(err)
 	}
 }
