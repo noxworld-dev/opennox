@@ -1,5 +1,10 @@
 package gui
 
+import (
+	"strconv"
+	"strings"
+)
+
 const (
 	StatusActive     = StatusFlags(1 << iota) // 0x1
 	StatusToggle                              // 0x2
@@ -39,4 +44,49 @@ func (s StatusFlags) IsEnabled() bool {
 
 func (s StatusFlags) IsHidden() bool {
 	return s.Has(StatusHidden)
+}
+
+func (s StatusFlags) Split() []StatusFlags {
+	var out []StatusFlags
+	for i := 0; i < 32; i++ {
+		s2 := StatusFlags(1 << i)
+		if s&s2 != 0 {
+			out = append(out, s2)
+		}
+	}
+	return out
+}
+
+func (s StatusFlags) String() string {
+	var out []string
+	for i := 0; i < 32; i++ {
+		s2 := StatusFlags(1 << i)
+		if s&s2 != 0 {
+			if i < len(statusNames) {
+				out = append(out, statusNames[i])
+			} else {
+				out = append(out, "0x"+strconv.FormatUint(uint64(s2), 16))
+			}
+		}
+	}
+	return strings.Join(out, " | ")
+}
+
+var statusNames = []string{
+	"Active",
+	"Toggle",
+	"Draggable",
+	"Enabled",
+	"Hidden",
+	"Above",
+	"Below",
+	"Image",
+	"TabStop",
+	"NoInput",
+	"NoFocus",
+	"Destroyed",
+	"Border",
+	"SmoothText",
+	"OneLine",
+	"NoFlush",
 }
