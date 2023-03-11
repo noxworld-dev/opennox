@@ -10395,7 +10395,7 @@ char* sub_542BF0(int a1, int a2, int a3) {
 					*v4 = (int)v6;
 					strcpy(v6, v5);
 				}
-				v7 = (const char*)sub_508CB0(v4, 14);
+				v7 = (const char*)nox_script_objCallbackName_508CB0(v4, 14);
 				if (v7) {
 					v8 = a3;
 					if (strlen(v7)) {
@@ -10408,90 +10408,90 @@ char* sub_542BF0(int a1, int a2, int a3) {
 				v10 = (char*)nox_xxx_getUnitName_4E39D0((int)v4);
 				v11 = nox_objectTypeGetXfer(v10);
 				if (v11 == nox_xxx_unitTriggerXfer_4F4E50) {
-					v12 = (const char*)sub_508CB0(v4, 1);
+					v12 = (const char*)nox_script_objCallbackName_508CB0(v4, 1);
 					if (strlen(v12)) {
 						v13 = sub_5435C0((int)v12, a1, a2, v8);
 						sub_509120(v4, 1, v13);
 					}
-					v14 = (const char*)sub_508CB0(v4, 2);
+					v14 = (const char*)nox_script_objCallbackName_508CB0(v4, 2);
 					if (strlen(v14)) {
 						v15 = sub_5435C0((int)v14, a1, a2, v8);
 						sub_509120(v4, 2, v15);
 					}
-					v16 = (const char*)sub_508CB0(v4, 0);
+					v16 = (const char*)nox_script_objCallbackName_508CB0(v4, 0);
 					if (strlen(v16)) {
 						v44 = sub_5435C0((int)v16, a1, a2, v8);
 						sub_509120(v4, 0, v44);
 					}
 				} else if (v11 == nox_xxx_XFerMonster_528DB0) {
-					v17 = (const char*)sub_508CB0(v4, 3);
+					v17 = (const char*)nox_script_objCallbackName_508CB0(v4, 3);
 					if (strlen(v17)) {
 						v18 = sub_5435C0((int)v17, a1, a2, v8);
 						sub_509120(v4, 3, v18);
 					}
-					v19 = (const char*)sub_508CB0(v4, 5);
+					v19 = (const char*)nox_script_objCallbackName_508CB0(v4, 5);
 					if (strlen(v19)) {
 						v20 = sub_5435C0((int)v19, a1, a2, v8);
 						sub_509120(v4, 5, v20);
 					}
-					v21 = (const char*)sub_508CB0(v4, 4);
+					v21 = (const char*)nox_script_objCallbackName_508CB0(v4, 4);
 					if (strlen(v21)) {
 						v22 = sub_5435C0((int)v21, a1, a2, v8);
 						sub_509120(v4, 4, v22);
 					}
-					v23 = (const char*)sub_508CB0(v4, 6);
+					v23 = (const char*)nox_script_objCallbackName_508CB0(v4, 6);
 					if (strlen(v23)) {
 						v24 = sub_5435C0((int)v23, a1, a2, v8);
 						sub_509120(v4, 6, v24);
 					}
-					v25 = (const char*)sub_508CB0(v4, 7);
+					v25 = (const char*)nox_script_objCallbackName_508CB0(v4, 7);
 					if (strlen(v25)) {
 						v26 = sub_5435C0((int)v25, a1, a2, v8);
 						sub_509120(v4, 7, v26);
 					}
-					v27 = (const char*)sub_508CB0(v4, 8);
+					v27 = (const char*)nox_script_objCallbackName_508CB0(v4, 8);
 					if (strlen(v27)) {
 						v28 = sub_5435C0((int)v27, a1, a2, v8);
 						sub_509120(v4, 8, v28);
 					}
-					v29 = (const char*)sub_508CB0(v4, 9);
+					v29 = (const char*)nox_script_objCallbackName_508CB0(v4, 9);
 					if (strlen(v29)) {
 						v30 = sub_5435C0((int)v29, a1, a2, v8);
 						sub_509120(v4, 9, v30);
 					}
-					v31 = (const char*)sub_508CB0(v4, 10);
+					v31 = (const char*)nox_script_objCallbackName_508CB0(v4, 10);
 					if (strlen(v31)) {
 						v32 = sub_5435C0((int)v31, a1, a2, v8);
 						sub_509120(v4, 10, v32);
 					}
-					v33 = (const char*)sub_508CB0(v4, 11);
+					v33 = (const char*)nox_script_objCallbackName_508CB0(v4, 11);
 					if (strlen(v33)) {
 						v45 = sub_5435C0((int)v33, a1, a2, v8);
 						sub_509120(v4, 11, v45);
 					}
 				} else if (v11 == nox_xxx_XFerHole_4F51D0) {
-					v34 = (const char*)sub_508CB0(v4, 12);
+					v34 = (const char*)nox_script_objCallbackName_508CB0(v4, 12);
 					if (strlen(v34)) {
 						v46 = sub_5435C0((int)v34, a1, a2, v8);
 						sub_509120(v4, 12, v46);
 					}
 				} else if (v11 == nox_xxx_XFerMonsterGen_4F7130) {
-					v35 = (const char*)sub_508CB0(v4, 15);
+					v35 = (const char*)nox_script_objCallbackName_508CB0(v4, 15);
 					if (v35 && strlen(v35)) {
 						v36 = sub_5435C0((int)v35, a1, a2, v8);
 						sub_509120(v4, 15, v36);
 					}
-					v37 = (const char*)sub_508CB0(v4, 16);
+					v37 = (const char*)nox_script_objCallbackName_508CB0(v4, 16);
 					if (v37 && strlen(v37)) {
 						v38 = sub_5435C0((int)v37, a1, a2, v8);
 						sub_509120(v4, 16, v38);
 					}
-					v39 = (const char*)sub_508CB0(v4, 18);
+					v39 = (const char*)nox_script_objCallbackName_508CB0(v4, 18);
 					if (v39 && strlen(v39)) {
 						v40 = sub_5435C0((int)v39, a1, a2, v8);
 						sub_509120(v4, 18, v40);
 					}
-					v41 = (const char*)sub_508CB0(v4, 17);
+					v41 = (const char*)nox_script_objCallbackName_508CB0(v4, 17);
 					if (v41 && strlen(v41)) {
 						v47 = sub_5435C0((int)v41, a1, a2, v8);
 						sub_509120(v4, 17, v47);
