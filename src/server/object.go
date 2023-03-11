@@ -103,8 +103,8 @@ func (s *serverObjects) FreeObject(obj *Object) int {
 	if obj.Class().Has(object.ClassMonsterGenerator) {
 		ud := obj.UpdateData
 		arr := unsafe.Slice((**Object)(ud), 12)
-		for i := 3; i != 0; i-- {
-			for j := 4; j != 0; j-- {
+		for i := 0; i < 3; i++ {
+			for j := 0; j < 4; j++ {
 				it := arr[i*4+j]
 				if it != nil {
 					s.FreeObject(it)
