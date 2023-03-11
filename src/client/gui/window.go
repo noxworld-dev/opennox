@@ -73,14 +73,14 @@ func (win *Window) C() unsafe.Pointer {
 }
 
 func (win *Window) ID() uint {
-	if win == nil {
+	if win.isNilOrDead() {
 		return 0
 	}
 	return uint(win.id)
 }
 
 func (win *Window) SetID(id uint) int {
-	if win == nil {
+	if win.isNilOrDead() {
 		return -2
 	}
 	win.id = int32(id)
@@ -88,14 +88,14 @@ func (win *Window) SetID(id uint) int {
 }
 
 func (win *Window) GetFlags() StatusFlags {
-	if win == nil {
+	if win.isNilOrDead() {
 		return 0
 	}
 	return win.Flags
 }
 
 func (win *Window) Offs() image.Point { // nox_gui_getWindowOffs_46AA20
-	if win == nil {
+	if win.isNilOrDead() {
 		return image.Point{}
 	}
 	return win.Off
@@ -106,7 +106,7 @@ func (win *Window) SetOffs(p image.Point) {
 }
 
 func (win *Window) End() image.Point {
-	if win == nil {
+	if win.isNilOrDead() {
 		return image.Point{}
 	}
 	return win.EndPos
@@ -117,7 +117,7 @@ func (win *Window) SetEnd(p image.Point) {
 }
 
 func (win *Window) Size() image.Point {
-	if win == nil {
+	if win.isNilOrDead() {
 		return image.Point{}
 	}
 	return win.size
@@ -193,17 +193,23 @@ func (win *Window) Field100() *Window {
 }
 
 func (win *Window) Show() {
-	if win == nil {
+	if win.isNilOrDead() {
 		return
 	}
 	win.Flags &^= StatusHidden
 }
 
 func (win *Window) ToggleHidden() {
+	if win.isNilOrDead() {
+		return
+	}
 	win.SetHidden(!win.GetFlags().IsHidden())
 }
 
 func (win *Window) SetHidden(hidden bool) {
+	if win.isNilOrDead() {
+		return
+	}
 	if hidden {
 		win.Hide()
 	} else {
@@ -212,7 +218,7 @@ func (win *Window) SetHidden(hidden bool) {
 }
 
 func (win *Window) Hide() {
-	if win == nil {
+	if win.isNilOrDead() {
 		return
 	}
 	g := win.GUI()
@@ -225,7 +231,7 @@ func (win *Window) Hide() {
 }
 
 func (win *Window) GlobalPos() image.Point { // nox_client_wndGetPosition_46AA60
-	if win == nil {
+	if win.isNilOrDead() {
 		return image.Point{}
 	}
 	pos := win.Offs()
@@ -236,7 +242,7 @@ func (win *Window) GlobalPos() image.Point { // nox_client_wndGetPosition_46AA60
 }
 
 func (win *Window) IsChild(win2 *Window) bool {
-	if win == nil || win2 == nil {
+	if win.isNilOrDead() || win2.isNilOrDead() {
 		return false
 	}
 	for cur := win2.Parent(); cur != nil; cur = cur.Parent() {
@@ -248,6 +254,9 @@ func (win *Window) IsChild(win2 *Window) bool {
 }
 
 func (win *Window) ChildByID(id uint) *Window {
+	if win.isNilOrDead() {
+		return nil
+	}
 	for cur := win; cur != nil; cur = cur.Prev() {
 		if cur.ID() == id {
 			return cur
@@ -262,7 +271,7 @@ func (win *Window) ChildByID(id uint) *Window {
 }
 
 func (win *Window) ChildByPos(p image.Point) *Window {
-	if win == nil {
+	if win.isNilOrDead() {
 		return nil
 	}
 	cur := win
@@ -284,6 +293,9 @@ loop:
 }
 
 func (win *Window) SetFunc93(fnc WindowFunc) { // nox_xxx_wndSetWindowProc_46B300
+	if win.isNilOrDead() {
+		return
+	}
 	if fnc == nil {
 		fnc = func(win *Window, ev WindowEvent) WindowEventResp { return nil }
 	}
@@ -291,6 +303,9 @@ func (win *Window) SetFunc93(fnc WindowFunc) { // nox_xxx_wndSetWindowProc_46B30
 }
 
 func (win *Window) SetFunc94(fnc WindowFunc) { // nox_xxx_wndSetProc_46B2C0
+	if win.isNilOrDead() {
+		return
+	}
 	if fnc == nil {
 		fnc = func(win *Window, ev WindowEvent) WindowEventResp { return nil }
 	}
@@ -298,6 +313,9 @@ func (win *Window) SetFunc94(fnc WindowFunc) { // nox_xxx_wndSetProc_46B2C0
 }
 
 func (win *Window) SetDraw(fnc WindowDrawFunc) { // nox_xxx_wndSetDrawFn_46B340
+	if win.isNilOrDead() {
+		return
+	}
 	if fnc == nil {
 		fnc = drawDefault
 	}
@@ -305,11 +323,14 @@ func (win *Window) SetDraw(fnc WindowDrawFunc) { // nox_xxx_wndSetDrawFn_46B340
 }
 
 func (win *Window) SetTooltipFunc(fnc unsafe.Pointer) {
+	if win.isNilOrDead() {
+		return
+	}
 	win.TooltipFuncPtr = fnc
 }
 
 func (win *Window) SetAllFuncs(a2 WindowFunc, draw WindowDrawFunc, tooltip unsafe.Pointer) {
-	if win == nil {
+	if win.isNilOrDead() {
 		return
 	}
 	win.SetFunc93(a2)
@@ -318,6 +339,9 @@ func (win *Window) SetAllFuncs(a2 WindowFunc, draw WindowDrawFunc, tooltip unsaf
 }
 
 func (win *Window) SetPos(pos image.Point) {
+	if win.isNilOrDead() {
+		return
+	}
 	sz := win.Size()
 	win.SetOffs(pos)
 	win.SetEnd(pos.Add(sz))
@@ -343,7 +367,7 @@ func (win *Window) fixCoords() {
 }
 
 func (win *Window) Func93(e WindowEvent) WindowEventResp {
-	if win == nil {
+	if win.isNilOrDead() {
 		return nil
 	}
 	if ext := win.ext(); ext != nil && ext.Func93 != nil {
@@ -362,7 +386,7 @@ func (win *Window) Func93(e WindowEvent) WindowEventResp {
 }
 
 func (win *Window) Func94(e WindowEvent) WindowEventResp {
-	if win == nil {
+	if win.isNilOrDead() {
 		return nil
 	}
 	if ext := win.ext(); ext != nil && ext.Func94 != nil {
@@ -381,7 +405,7 @@ func (win *Window) Func94(e WindowEvent) WindowEventResp {
 }
 
 func (win *Window) Draw() {
-	if win == nil {
+	if win.isNilOrDead() {
 		return
 	}
 	if ext := win.ext(); ext != nil && ext.Draw != nil {
@@ -395,7 +419,7 @@ func (win *Window) Draw() {
 }
 
 func (win *Window) TooltipFunc(a1 uintptr) {
-	if win == nil {
+	if win.isNilOrDead() {
 		return
 	}
 	if win.TooltipFuncPtr == nil || uintptr(win.TooltipFuncPtr) == deadWord {
@@ -405,11 +429,14 @@ func (win *Window) TooltipFunc(a1 uintptr) {
 }
 
 func (win *Window) Focus() {
+	if win.isNilOrDead() {
+		return
+	}
 	win.GUI().Focus(win)
 }
 
 func (win *Window) Capture(enable bool) bool {
-	if win == nil {
+	if win.isNilOrDead() {
 		return false
 	}
 	g := win.GUI()
@@ -421,35 +448,35 @@ func (win *Window) Capture(enable bool) bool {
 }
 
 func (win *Window) ShowModal() int {
-	if win == nil {
+	if win.isNilOrDead() {
 		return -2
 	}
 	return win.GUI().showModal(win)
 }
 
 func (win *Window) StackPush() int {
-	if win == nil {
+	if win.isNilOrDead() {
 		return -2
 	}
 	return win.GUI().stackPush(win)
 }
 
 func (win *Window) StackPop() int { // nox_xxx_wnd_46C6E0
-	if win == nil {
+	if win.isNilOrDead() {
 		return -2
 	}
 	return win.GUI().stackPop(win)
 }
 
 func (win *Window) Destroy() {
-	if win == nil {
+	if win.isNilOrDead() {
 		return
 	}
 	win.GUI().destroyWindow(win)
 }
 
 func (win *Window) drawRecursive() bool {
-	if win == nil {
+	if win.isNilOrDead() {
 		return false
 	}
 	if win.GetFlags().IsHidden() {
