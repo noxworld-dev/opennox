@@ -80,6 +80,7 @@ func nox_server_mapRWScriptObject_505A40(cf *cryptfile.CryptFile, a1 unsafe.Poin
 			log.Printf("nox_server_mapRWScriptObject_505A40: %w (%s)", gout, caller(1))
 		}
 	}()
+	s := noxServer
 	fname := datapath.Data(asm.NCobjName)
 	legacy.Set_dword_5d4594_1599644(0)
 	if cf.File.Mode() != binfile.ReadOnly {
@@ -106,7 +107,7 @@ func nox_server_mapRWScriptObject_505A40(cf *cryptfile.CryptFile, a1 unsafe.Poin
 		}
 		return nil
 	}
-	noxServer.vmsInitMap()
+	s.vmsInitMap()
 	v10, _ := cf.ReadU16()
 	if int16(v10) < 1 {
 		return fmt.Errorf("unsupported version: %d", v10)
@@ -133,11 +134,15 @@ func nox_server_mapRWScriptObject_505A40(cf *cryptfile.CryptFile, a1 unsafe.Poin
 			return err
 		}
 	}
-	_ = f.Close()
 	if sz <= 0 || noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) {
 		return nil
 	}
-	if err := noxServer.noxScript.nox_script_ncobj_parse_505360(); err != nil {
+	_, err = f.Seek(0, io.SeekStart)
+	if err != nil {
+		mapLog.Println(err)
+		return err
+	}
+	if err := s.noxScript.ReadScript(f); err != nil {
 		return fmt.Errorf("cannot read scripts: %w", err)
 	}
 	return nil
