@@ -83,42 +83,6 @@ LABEL_16:
 }
 // 4F5580: using guessed type char var_400[1024];
 
-//----- (00504F90) --------------------------------------------------------
-int nox_server_mapRWScriptData_504F90() {
-	int result; // eax
-	char v1;    // [esp+3h] [ebp-5h]
-	int v2;     // [esp+4h] [ebp-4h]
-
-	v2 = 1;
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&v2, 2u);
-	if ((short)v2 > 1) {
-		return 0;
-	}
-	v1 = 0;
-	if (nox_script_arr_xxx_1599636 && nox_common_gameFlags_check_40A5C0(1) &&
-		!nox_common_gameFlags_check_40A5C0(0x400000)) {
-		v1 = 1;
-	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread(&v1, 1u);
-	if (!v1) {
-		return 1;
-	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread(nox_script_arr_xxx_1599636[1].field_28,
-											 4 * nox_script_arr_xxx_1599636[1].field_16);
-	if (nox_crypt_IsReadOnly()) {
-		result = nox_script_activatorLoad_51AF80();
-		if (!result) {
-			return result;
-		}
-		return 1;
-	}
-	result = nox_script_activatorSave_51AEA0();
-	if (result) {
-		return 1;
-	}
-	return result;
-}
-
 //----- (00505800) --------------------------------------------------------
 int nox_script_ncobj_readInt_505800(FILE* f) {
 	int val;

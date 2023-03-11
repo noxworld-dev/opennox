@@ -13,7 +13,6 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
-	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/server"
 	"github.com/noxworld-dev/opennox/v1/server/noxscript"
 )
@@ -38,16 +37,6 @@ type NoxScript interface {
 //export nox_script_activatorCancelAll_51AC60
 func nox_script_activatorCancelAll_51AC60() {
 	GetServer().S().Activators.CancelAll()
-}
-
-//export nox_script_activatorSave_51AEA0
-func nox_script_activatorSave_51AEA0() int {
-	return GetServer().S().SaveActivators(cryptfile.Global())
-}
-
-//export nox_script_activatorLoad_51AF80
-func nox_script_activatorLoad_51AF80() int {
-	return GetServer().S().LoadActivators(cryptfile.Global())
 }
 
 //export nox_script_activatorResolveObjs_51B0C0

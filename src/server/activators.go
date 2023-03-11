@@ -2,6 +2,7 @@ package server
 
 import (
 	"encoding/binary"
+	"fmt"
 
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 )
@@ -118,7 +119,7 @@ func (s *serverActivators) newTimer(deadline uint32, callback int, arg uint32) u
 	return act.id
 }
 
-func (s *serverActivators) save(curFrame uint32, cf *cryptfile.CryptFile) int {
+func (s *serverActivators) save(curFrame uint32, cf *cryptfile.CryptFile) error {
 	var buf [4]byte
 	binary.LittleEndian.PutUint16(buf[:], 1)
 	cf.ReadWrite(buf[:2])
@@ -151,15 +152,15 @@ func (s *serverActivators) save(curFrame uint32, cf *cryptfile.CryptFile) int {
 		binary.LittleEndian.PutUint32(buf[:], uint32(oid))
 		cf.ReadWrite(buf[:4])
 	}
-	return 1
+	return nil
 }
 
-func (s *serverActivators) load(curFrame uint32, cf *cryptfile.CryptFile) int {
+func (s *serverActivators) load(curFrame uint32, cf *cryptfile.CryptFile) error {
 	var buf [4]byte
 	cf.ReadWrite(buf[:2])
 	vers := binary.LittleEndian.Uint16(buf[:])
 	if vers > 1 || vers <= 0 {
-		return 0
+		return fmt.Errorf("unsupported activators version: %v", vers)
 	}
 	cf.ReadWrite(buf[:4])
 	saveFrame := binary.LittleEndian.Uint32(buf[:])
@@ -188,7 +189,7 @@ func (s *serverActivators) load(curFrame uint32, cf *cryptfile.CryptFile) int {
 		}
 		s.append(act)
 	}
-	return 1
+	return nil
 }
 
 func (s *serverActivators) EachTriggered(curFrame uint32, fnc func(it ActivatorArgs)) {
@@ -207,10 +208,10 @@ func (s *Server) NewTimer(df int, callback int, arg uint32) uint32 {
 	return s.Activators.newTimer(s.Frame()+uint32(df), callback, arg)
 }
 
-func (s *Server) SaveActivators(cf *cryptfile.CryptFile) int {
+func (s *Server) SaveActivators(cf *cryptfile.CryptFile) error {
 	return s.Activators.save(s.Frame(), cf)
 }
 
-func (s *Server) LoadActivators(cf *cryptfile.CryptFile) int {
+func (s *Server) LoadActivators(cf *cryptfile.CryptFile) error {
 	return s.Activators.load(s.Frame(), cf)
 }
