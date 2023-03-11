@@ -137,8 +137,8 @@ func nox_server_mapRWScriptObject_505A40(cf *cryptfile.CryptFile, a1 unsafe.Poin
 	if sz <= 0 || noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) {
 		return nil
 	}
-	if legacy.Nox_script_ncobj_parse_505360() == 0 {
-		return fmt.Errorf("nox_script_ncobj_parse_505360 failed")
+	if err := noxServer.noxScript.nox_script_ncobj_parse_505360(); err != nil {
+		return fmt.Errorf("cannot read scripts: %w", err)
 	}
 	return nil
 }

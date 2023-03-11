@@ -125,8 +125,8 @@ func (s *serverObjects) FreeObject(obj *Object) int {
 	if obj.HealthData != nil {
 		obj.HealthData = nil
 	}
-	if obj.Field190 != nil {
-		obj.Field190 = nil
+	if obj.ScriptVars != nil {
+		obj.ScriptVars = nil
 	}
 	if obj.Field189 != nil {
 		obj.Field189 = nil
@@ -214,7 +214,7 @@ func (s *serverObjects) NewObject(t *ObjectType) *Object {
 	obj.Damage = t.Damage
 	obj.DamageSound = t.DamageSound
 	obj.Death = t.Death
-	obj.Field190 = nil
+	obj.ScriptVars = nil
 	obj.DeathData = t.DeathData
 	obj.Field192 = -1
 	return obj
@@ -471,7 +471,7 @@ type Object struct {
 	UpdateData    unsafe.Pointer             // 187, 748
 	Field188      uint32                     // 188, 752
 	Field189      unsafe.Pointer             // 189, 756
-	Field190      unsafe.Pointer             // 190, 760
+	ScriptVars    unsafe.Pointer             // 190, 760; []uint32
 	Field191      uint32                     // 191, 764
 	Field192      int                        // 192, 768
 }
@@ -499,6 +499,13 @@ func (obj *Object) ObjScriptID() int {
 		return 0
 	}
 	return obj.ScriptIDVal
+}
+
+func (obj *Object) ScriptVarPtr(i int) *uint32 {
+	if obj == nil || obj.ScriptVars == nil {
+		return nil
+	}
+	return (*uint32)(unsafe.Add(obj.ScriptVars, 4*i))
 }
 
 func (obj *Object) Ind() int { // aka "extent"

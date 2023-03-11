@@ -19,11 +19,12 @@ import (
 
 var (
 	Nox_script_indexByEvent           func(name string) int
-	Nox_script_getString_512E40       func(i int) *byte
+	Nox_script_getString_512E40       func(i int) (string, bool)
 	Nox_setImaginaryCaster            func() int
 	Nox_script_readWriteZzz_541670    func(cpath, cpath2, cdst *byte) int
 	Nox_script_callbackName           func(h int) string
-	Nox_script_objCallbackName_508CB0 func(obj *server.Object, event int) *byte
+	Nox_script_objCallbackName_508CB0 func(obj *server.Object, event int) (string, bool)
+	Sub_511E60                        func()
 )
 
 type NoxScript interface {
@@ -33,11 +34,6 @@ type NoxScript interface {
 	CallByIndexObj(index int, caller, trigger *server.Object) error
 	Caller() *server.Object
 	Trigger() *server.Object
-}
-
-//export nox_script_activatorCancelAll_51AC60
-func nox_script_activatorCancelAll_51AC60() {
-	GetServer().S().Activators.CancelAll()
 }
 
 //export nox_script_activatorResolveObjs_51B0C0
@@ -90,7 +86,11 @@ func nox_script_indexByEvent(cname *C.char) int { return Nox_script_indexByEvent
 
 //export nox_script_getString_512E40
 func nox_script_getString_512E40(i int) *C.char {
-	return (*C.char)(unsafe.Pointer(Nox_script_getString_512E40(i)))
+	s, ok := Nox_script_getString_512E40(i)
+	if !ok {
+		return nil
+	}
+	return internCStr(s)
 }
 
 //export nox_setImaginaryCaster
@@ -121,8 +121,16 @@ func nox_script_callbackName(h int) *C.char {
 
 //export nox_script_objCallbackName_508CB0
 func nox_script_objCallbackName_508CB0(obj *nox_object_t, event int) *C.char {
-	s := Nox_script_objCallbackName_508CB0(asObjectS(obj), event)
-	return (*C.char)(unsafe.Pointer(s))
+	s, ok := Nox_script_objCallbackName_508CB0(asObjectS(obj), event)
+	if !ok {
+		return nil
+	}
+	return internCStr(s)
+}
+
+//export sub_511E60
+func sub_511E60() {
+	Sub_511E60()
 }
 
 func Sub_516570() {
