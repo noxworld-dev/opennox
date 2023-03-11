@@ -18,11 +18,12 @@ import (
 )
 
 var (
-	Nox_script_indexByEvent        func(name string) int
-	Nox_script_getString_512E40    func(i int) *byte
-	Nox_setImaginaryCaster         func() int
-	Nox_script_readWriteZzz_541670 func(cpath, cpath2, cdst *byte) int
-	Nox_script_callbackName        func(h int) string
+	Nox_script_indexByEvent           func(name string) int
+	Nox_script_getString_512E40       func(i int) *byte
+	Nox_setImaginaryCaster            func() int
+	Nox_script_readWriteZzz_541670    func(cpath, cpath2, cdst *byte) int
+	Nox_script_callbackName           func(h int) string
+	Nox_script_objCallbackName_508CB0 func(obj *server.Object, event int) *byte
 )
 
 type NoxScript interface {
@@ -116,6 +117,12 @@ func nox_script_callByIndex_507310(index int, a2 unsafe.Pointer, a3 unsafe.Point
 func nox_script_callbackName(h int) *C.char {
 	s := Nox_script_callbackName(h)
 	return internCStr(s)
+}
+
+//export nox_script_objCallbackName_508CB0
+func nox_script_objCallbackName_508CB0(obj *nox_object_t, event int) *C.char {
+	s := Nox_script_objCallbackName_508CB0(asObjectS(obj), event)
+	return (*C.char)(unsafe.Pointer(s))
 }
 
 func Sub_516570() {
