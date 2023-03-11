@@ -95,6 +95,138 @@ func nox_server_mapRWScriptData_504F90_Write(cf *cryptfile.CryptFile) error {
 	return s.SaveActivators(cf)
 }
 
+func nox_script_objCallbackName_508CB0(obj *server.Object, event int) *byte {
+	s := noxServer
+	sd := obj.Field189
+	if sd == nil {
+		return nil
+	}
+	arr := s.noxScript.scripts()
+	switch event {
+	case 14:
+		if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+			return (*byte)(sd)
+		}
+		return arr[obj.Field192].name
+	}
+	cl := obj.Class()
+	switch {
+	default:
+		return nil
+	case cl.Has(object.ClassTrigger):
+		ud := unsafe.Slice((*uint32)(obj.UpdateData), 9)
+		switch event {
+		case 0:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 512))
+			}
+			return arr[ud[4]].name
+		case 1:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 256))
+			}
+			return arr[ud[6]].name
+		case 2:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 384))
+			}
+			return arr[ud[8]].name
+		}
+		return nil
+	case cl.Has(object.ClassMonster):
+		ud := obj.UpdateDataMonster()
+		switch ns.ObjectEvent(event) {
+		case ns.EventEnemySighted:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 640))
+			}
+			return arr[ud.ScriptEnemySighted.Func].name
+		case ns.EventLookingForEnemy:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 768))
+			}
+			return arr[ud.ScriptLookingForEnemy.Func].name
+		case ns.EventDeath:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 896))
+			}
+			return arr[ud.ScriptDeath.Func].name
+		case ns.EventChangeFocus:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 1024))
+			}
+			return arr[ud.ScriptChangeFocus.Func].name
+		case ns.EventIsHit:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 1152))
+			}
+			return arr[ud.ScriptIsHit.Func].name
+		case ns.EventRetreat:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 1280))
+			}
+			return arr[ud.ScriptRetreat.Func].name
+		case ns.EventCollision:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 1408))
+			}
+			return arr[ud.ScriptCollision.Func].name
+		case ns.EventEnemyHeard:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 1536))
+			}
+			return arr[ud.ScriptHearEnemy.Func].name
+		case ns.EventEndOfWaypoint:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 1664))
+			}
+			return arr[ud.ScriptEndOfWaypoint.Func].name
+		case ns.EventLostEnemy:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 1792))
+			}
+			return arr[ud.ScriptLostEnemy.Func].name
+		}
+		return nil
+	case cl.Has(object.ClassHole):
+		switch event {
+		case 12:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 128))
+			}
+			cd := obj.CollideData
+			ind := *(*uint32)(unsafe.Add(cd, 4))
+			return arr[ind].name
+		}
+		return nil
+	case cl.Has(object.ClassMonsterGenerator):
+		ud := unsafe.Slice((*uint32)(obj.UpdateData), 20)
+		switch event {
+		case 15:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 1920))
+			}
+			return arr[ud[13]].name
+		case 16:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 2048))
+			}
+			return arr[ud[15]].name
+		case 17:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 2304))
+			}
+			return arr[ud[17]].name
+		case 18:
+			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+				return (*byte)(unsafe.Add(sd, 2176))
+			}
+			return arr[ud[19]].name
+		}
+		return nil
+	}
+}
+
 var (
 	nox_script_objTelekinesisHand  int
 	nox_script_objCinemaRemove     []int
