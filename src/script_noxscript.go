@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"image"
 	"image/color"
+	"io"
 	"math"
 	"os"
 	"strings"
@@ -228,13 +229,8 @@ func nox_script_objCallbackName_508CB0(obj *server.Object, event int) (string, b
 	}
 }
 
-func (s *noxScript) nox_script_ncobj_parse_505360() error {
-	f, err := ifs.Open(asm.NCobjName)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-	scr, err := asm.ReadScript(f)
+func (s *noxScript) ReadScript(r io.Reader) error {
+	scr, err := asm.ReadScript(r)
 	if err != nil {
 		return err
 	}
