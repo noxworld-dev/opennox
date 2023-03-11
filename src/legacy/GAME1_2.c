@@ -3891,7 +3891,7 @@ int sub_439050(int a1, unsigned int a2, int* a3, unsigned int a4) {
 				if (a4 < *(int*)&nox_wol_server_result_cnt_815088) {
 					nox_point pos = nox_client_getMousePos_4309F0();
 					dword_5d4594_814624 = sub_4A04C0(a4);
-					sub_439370(&pos, dword_5d4594_814624);
+					nox_client_gui_serverInfoBlockCheckExp_439370(&pos, dword_5d4594_814624);
 				}
 			}
 		} else if (a2 == 16403 || a2 == 16412) {
