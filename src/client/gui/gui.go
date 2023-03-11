@@ -1,6 +1,7 @@
 package gui
 
 import (
+	"fmt"
 	"image"
 	"sync"
 	"unsafe"
@@ -46,10 +47,23 @@ func (win *Window) ext() *windowExt {
 	return ext
 }
 
+func (win *Window) isNilOrDead() bool {
+	return win == nil ||
+		uint32(win.id) == alloc.DeadWord ||
+		uint32(win.Flags) == alloc.DeadWord ||
+		win.Flags.Has(StatusDestroyed)
+}
+
 func (win *Window) GUI() *GUI {
+	if win == nil {
+		return nil
+	}
 	ext := win.ext()
 	if ext == nil {
-		return nil
+		if win.isNilOrDead() {
+			panic(fmt.Errorf("no GUI for deallocated Window(%p), id: 0x%x, flags: 0x%x", win, win.id, uint32(win.Flags)))
+		}
+		panic(fmt.Errorf("no GUI associated with Window(%p), id: %d, flags: %v", win, win.id, win.Flags))
 	}
 	return ext.GUI
 }
@@ -320,6 +334,7 @@ func (g *GUI) FreeDestroyed() {
 			g.WinYYY = nil
 		}
 		win.Func94(WindowDestroy{})
+		setExt(win, nil)
 		g.alloc.FreeObjectFirst(win)
 		win = prev
 	}
@@ -333,7 +348,6 @@ func (g *GUI) destroyWindow(win *Window) {
 		return
 	}
 	win.Flags |= StatusDestroyed
-	setExt(win, nil)
 
 	if g.captured == win {
 		g.captured = nil
@@ -364,6 +378,10 @@ func (g *GUI) destroyWindow(win *Window) {
 	win.next = nil
 	win.prev = g.free
 	g.free = win
+
+	ext := win.ext()
+	// clear everything except GUI reference
+	*ext = windowExt{GUI: ext.GUI}
 }
 
 func (g *GUI) showModal(win *Window) int {
