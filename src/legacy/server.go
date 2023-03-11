@@ -118,10 +118,9 @@ type Server interface {
 	NewObjectByTypeID(id string) *server.Object
 	ApplyForce(obj *server.Object, vec types.Pointf, force float64)
 	PlayerSpell(u *server.Object)
-	Nox_script_callByEventcgo(ev server.ScriptEventType, a1, a2 unsafe.Pointer)
+	Nox_script_event_playerLeave(pl *server.Player)
 	NoxScriptC() NoxScript
 	GetUnitNetCode(p server.Obj) int
-	ScriptCallback(b *server.ScriptCallback, caller, trigger *server.Object, eventCode server.ScriptEventType) unsafe.Pointer
 	Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo server.Obj, sflags things.SpellFlags, dist float32, a5 int, sself *server.Object) *server.Object
 	SpellHasFlags(ind spell.ID, flag things.SpellFlags) bool
 	SpellFlags(ind spell.ID) things.SpellFlags
