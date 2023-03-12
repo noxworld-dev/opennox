@@ -20,20 +20,20 @@ func (c *Client) Nox_new_drawable_for_thing(i int) *client.Drawable {
 	if dr == nil {
 		return nil
 	}
-	if nox_drawable_link_thing(dr, i) == 0 {
+	if c.DrawableLinkThing(dr, i) == 0 {
 		return nil
 	}
 	draw := dr.DrawFuncPtr
 	if draw == legacy.Get_nox_thing_static_random_draw() {
 		v4 := randomIntMinMax(0, int(*(*uint8)(unsafe.Add(dr.Field_76, 8)))-1)
-		dr.Nox_xxx_spriteSetFrameMB_45AB80(v4)
+		dr.SetFrameMB(v4)
 	} else if draw == legacy.Get_nox_thing_red_spark_draw() || draw == legacy.Get_nox_thing_blue_spark_draw() ||
 		draw == legacy.Get_nox_thing_yellow_spark_draw() || draw == legacy.Get_nox_thing_green_spark_draw() ||
 		draw == legacy.Get_nox_thing_cyan_spark_draw() {
 		dr.Field_26_1 = 35
 		dr.VelZ = 2
 	} else {
-		dr.Nox_xxx_spriteSetFrameMB_45AB80(0)
+		dr.SetFrameMB(0)
 	}
 	dr.Field_79 = c.srv.Frame()
 	dr.Field_85 = c.srv.Frame()
@@ -84,7 +84,7 @@ func (c *Client) Nox_xxx_spriteLoadAdd_45A360_drawable(thingInd int, pos image.P
 		c.Objs.PlayerListAdd(dr)
 	}
 	dr.Flags30Val |= 0x1000000
-	dr.Nox_xxx_spriteSetActiveMB_45A990_drawable()
+	dr.SetActive()
 	dr.Field_120 = 0
 	dr.Field_121 = 0
 	nox_xxx_sprite_45A480_drawable(dr)
@@ -120,7 +120,7 @@ func sub_495AE0() {
 
 func sub_495F70(dr *client.Drawable) {
 	aclass := alloc.AsClassT[client.DrawableFX](*memmap.PtrPtr(0x5D4594, 1203868))
-	if dr != nil && !dr.Sub_496020(1) {
+	if dr != nil && !dr.HasFX(1) {
 		p := aclass.NewObject()
 		if p != nil {
 			p.Field0 = 1

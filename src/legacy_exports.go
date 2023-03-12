@@ -263,7 +263,6 @@ func init() {
 	legacy.Sub_4DCFB0 = sub_4DCFB0
 	legacy.Sub_4DD0B0 = sub_4DD0B0
 	legacy.Nox_xxx_monsterCast_540A30 = nox_xxx_monsterCast_540A30
-	legacy.Nox_drawable_link_thing = nox_drawable_link_thing
 	legacy.InputSetKeyTimeoutLegacy = inputSetKeyTimeoutLegacy
 	legacy.InputKeyCheckTimeoutLegacy = inputKeyCheckTimeoutLegacy
 	legacy.Sub_416120 = sub_416120

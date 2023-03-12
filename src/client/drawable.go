@@ -23,6 +23,18 @@ type DrawableExt struct {
 	Field99 **Drawable
 }
 
+func (c *Client) DrawableLinkThing(dr *Drawable, i int) int {
+	typ := c.Things.TypeByInd(i)
+	if typ == nil {
+		return 0
+	}
+	dr.LinkType(i, typ)
+	if typ.Lifetime != 0 {
+		c.Objs.TransparentDecay(dr, int(typ.Lifetime))
+	}
+	return 1
+}
+
 type clientDrawables struct {
 	c *Client
 
@@ -620,20 +632,20 @@ func (s *Drawable) Z() int {
 	return int(s.ZVal)
 }
 
-func (s *Drawable) Nox_xxx_spriteSetActiveMB_45A990_drawable() {
+func (s *Drawable) SetActive() { // Nox_xxx_spriteSetActiveMB_45A990_drawable
 	s.Flags30Val |= 0x4
 }
 
-func (s *Drawable) Sub_496020(a2 int) bool {
+func (s *Drawable) HasFX(id int) bool {
 	for fx := s.Field_114; fx != nil; fx = fx.Next {
-		if fx.Field0 == uint32(a2) {
+		if fx.Field0 == uint32(id) {
 			return true
 		}
 	}
 	return false
 }
 
-func (s *Drawable) Nox_xxx_spriteSetFrameMB_45AB80(a2 int) {
+func (s *Drawable) SetFrameMB(a2 int) { // Nox_xxx_spriteSetFrameMB_45AB80
 	if s.Flags28()&0x2 == 0 || s.Flags29()&0x40000 == 0 || s.Field_69 != 8 {
 		s.Field_78 = s.Field_77
 		s.Field_77 = uint32(a2)
