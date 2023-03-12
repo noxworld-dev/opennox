@@ -12880,7 +12880,7 @@ int nox_xxx_XFerInvLight_4F5AA0(int* a1) {
 				goto LABEL_14;
 			}
 			while (v2[32] != a1[10]) {
-				v2 = (uint32_t*)sub_45A070((int)v2);
+				v2 = (uint32_t*)nox_drawable_next_45A070((int)v2);
 				if (!v2) {
 					goto LABEL_14;
 				}

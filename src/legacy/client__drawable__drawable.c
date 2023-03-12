@@ -42,28 +42,6 @@
 #include "GAME2.h"
 #include "common__random.h"
 
-uint32_t* sub_495B50(uint32_t* a1);
-
-//----- (00495B00) --------------------------------------------------------
-void sub_495B00(nox_drawable* dr) {
-	int a1 = dr;
-	uint32_t* v1; // esi
-	uint32_t* v2; // edi
-
-	v1 = *(uint32_t**)(a1 + 456);
-	if (v1) {
-		do {
-			v2 = (uint32_t*)v1[16];
-			sub_495B50(v1);
-			nox_alloc_class_free_obj_first(*(unsigned int**)getMemAt(0x5D4594, 1203868), v1);
-			v1 = v2;
-		} while (v2);
-		*(uint32_t*)(a1 + 456) = 0;
-	} else {
-		*(uint32_t*)(a1 + 456) = 0;
-	}
-}
-
 nox_parse_thing_draw_funcs_t nox_parse_thing_draw_funcs[] = {
 	{"NoDraw", 0, 0, 0},
 	{"DebugDraw", &nox_thing_debug_draw, 0, 0},

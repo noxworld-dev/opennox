@@ -780,7 +780,7 @@ func sub_435EB0() {
 	}
 	legacy.Sub_499450()
 	legacy.Nox_xxx_gameClearAll_467DF0(0)
-	legacy.Sub_495AE0()
+	sub_495AE0()
 	legacy.Sub_4959D0()
 	sub_473B30_free()
 	legacy.Sub_496120()
