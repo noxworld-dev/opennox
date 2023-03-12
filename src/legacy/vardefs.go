@@ -24,7 +24,7 @@ extern uint32_t dword_5d4594_1049504;
 extern uint32_t dword_5d4594_1046868;
 extern uint32_t dword_5d4594_1193380;
 extern uint32_t dword_5d4594_1316972;
-extern uint32_t dword_5d4594_1123524;
+extern void* dword_5d4594_1123524;
 extern uint32_t dword_5d4594_1045604;
 extern uint32_t dword_5d4594_529316;
 extern uint32_t dword_5d4594_1309820;
@@ -1532,4 +1532,10 @@ func Get_nox_xxx_resetMapInit_1569652() int {
 }
 func Set_nox_xxx_host_player_unit_3843628(v *server.Object) {
 	C.nox_xxx_host_player_unit_3843628 = asObjectC(v)
+}
+func Get_dword_5d4594_1123524() *gui.Window {
+	return AsWindowP(C.dword_5d4594_1123524)
+}
+func Set_dword_5d4594_1123520(v int) {
+	C.dword_5d4594_1123520 = C.uint(v)
 }

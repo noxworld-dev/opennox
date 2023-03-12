@@ -1088,7 +1088,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 			return 135
 		case 4:
 			if nox_client_isConnected() {
-				legacy.Sub_47A1F0()
+				sub_47A1F0()
 				if pl := getCurPlayer(); pl != nil {
 					legacy.Nox_xxx_playerUnsetStatus_417530(pl.S(), 512)
 				}

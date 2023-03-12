@@ -14,7 +14,6 @@ int nox_objectDropAudEvent_4EE2F0(nox_object_t* a1, nox_object_t* a2, float2* a3
 void nox_xxx_script_forcedialog_548CD0(nox_object_t* a1, nox_object_t* a2);
 wchar_t* sub_4E39F0_obj_db(nox_object_t* a1);
 int sub_479D30(wchar_t* a1, int a2, char* a3, char* a4, char a5);
-void sub_47A1F0();
 */
 import "C"
 import (
@@ -27,6 +26,10 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
+)
+
+var (
+	Sub_47A1F0 func()
 )
 
 var _ = [1]struct{}{}[28-unsafe.Sizeof(Nox_object_Missile_data_t{})]
@@ -239,6 +242,11 @@ func nox_get_and_zero_server_objects_4DA3C0() *nox_object_t {
 func nox_set_server_objects_4DA3E0(list *nox_object_t) {
 	GetServer().S().Objs.SetObjects(asObjectS(list))
 }
+
+//export sub_47A1F0
+func sub_47A1F0() {
+	Sub_47A1F0()
+}
 func Nox_server_getObjectFromNetCode_4ECCB0(a1 int) *server.Object {
 	return asObjectS(C.nox_server_getObjectFromNetCode_4ECCB0(C.int(a1)))
 }
@@ -374,7 +382,4 @@ func Sub_479D30(title string, snd sound.ID, str strman.ID, pic string, flags ser
 	cpic := CString(pic)
 	defer StrFree(cpic)
 	C.sub_479D30(ctitle, C.int(snd), cstr, cpic, C.char(flags))
-}
-func Sub_47A1F0() {
-	C.sub_47A1F0()
 }
