@@ -7,88 +7,12 @@
 #include "GAME2.h"
 #include "GAME2_1.h"
 
-extern uint32_t dword_5d4594_1123520;
 extern void* dword_5d4594_1123524;
 extern int nox_win_width;
 extern int nox_win_height;
 
-//----- (00479D30) --------------------------------------------------------
-int sub_479D30(wchar_t* a1, int a2, char* a3, char* a4, char a5) {
-	uint32_t* v5;  // esi
-	uint32_t* v6;  // edi
-	uint32_t* v7;  // eax
-	uint32_t* v8;  // esi
-	uint32_t* v9;  // esi
-	uint32_t* v10; // esi
-	wchar_t* v11;  // eax
-	uint32_t* v12; // esi
-	uint32_t* v13; // esi
-	uint32_t* v14; // esi
-	wchar_t* v15;  // eax
-	int result;    // eax
-	char* v17;     // [esp-4h] [ebp-18h]
-	int v18;       // [esp+Ch] [ebp-8h]
-	int v19;       // [esp+10h] [ebp-4h]
-
-	v5 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1123524, 3901);
-	v6 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1123524, 3910);
-	sub_445C20();
-	nox_window_call_field_94((int)v5, 16399, 0, 0);
-	nox_window_get_size(*(int*)&dword_5d4594_1123524, &v19, &v18);
-	nox_window_setPos_46A9B0(*(uint32_t**)&dword_5d4594_1123524, nox_win_width - v19, nox_win_height - v18);
-	sub_47A020(a3);
-	nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1107056), a1);
-	v17 = nox_xxx_gLoadImg_42F970(a4);
-	v7 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1123524, 3905);
-	nox_xxx_wndSetIcon_46AE60((int)v7, (int)v17);
-	nox_window_call_field_94((int)v6, 16385, (int)getMemAt(0x5D4594, 1107056), 0);
-	v8 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1123524, 3908);
-	if (a5 & 1) {
-		nox_xxx_wnd_46ABB0((int)v8, 1);
-		nox_window_set_hidden((int)v8, 0);
-		v8[5] = 5;
-		v9 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1123524, 3909);
-		nox_xxx_wnd_46ABB0((int)v9, 1);
-		nox_window_set_hidden((int)v9, 0);
-		v9[5] = 35;
-		v10 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1123524, 3906);
-		v11 = nox_strman_loadString_40F1D0("Dialog.wnd:Done", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c", 460);
-	} else {
-		nox_xxx_wnd_46ABB0((int)v8, 0);
-		nox_window_set_hidden((int)v8, 1);
-		v12 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1123524, 3909);
-		nox_xxx_wnd_46ABB0((int)v12, 0);
-		nox_window_set_hidden((int)v12, 1);
-		v10 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1123524, 3906);
-		v11 = nox_strman_loadString_40F1D0("Dialog.wnd:Done", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c", 483);
-	}
-	sub_46AEE0((int)v10, (int)v11);
-	nox_xxx_wnd_46ABB0((int)v10, 1);
-	nox_window_set_hidden((int)v10, 0);
-	v10[5] = 95;
-	v13 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1123524, 3907);
-	nox_xxx_wnd_46ABB0((int)v13, 1);
-	nox_window_set_hidden((int)v13, 0);
-	v13[5] = 65;
-	if (a5 & 2) {
-		v14 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1123524, 3906);
-		v15 = nox_strman_loadString_40F1D0("Dialog.wnd:Next", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIDlg.c", 503);
-		sub_46AEE0((int)v14, (int)v15);
-	}
-	sub_467C10();
-	nox_xxx_bookHideMB_45ACA0(0);
-	*getMemU32Ptr(0x587000, 153436) = nox_client_getRenderGUI();
-	nox_client_setRenderGUI(0);
-	nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1123524, 1);
-	nox_xxx_wndShowModalMB_46A8C0(*(int*)&dword_5d4594_1123524);
-	*getMemU32Ptr(0x5D4594, 1123528) = a2;
-	result = nox_xxx_playDialogFile_44D900(*getMemIntPtr(0x5D4594, 1115312), 100);
-	dword_5d4594_1123520 = 1;
-	return result;
-}
-
 //----- (0047A020) --------------------------------------------------------
-wchar_t* sub_47A020(char* a1) {
+void sub_47A020(char* a1) {
 	uint32_t* v1;    // eax
 	int v2;          // ebp
 	wchar_t* v3;     // edi
@@ -178,5 +102,4 @@ wchar_t* sub_47A020(char* a1) {
 			result = v10;
 		}
 	}
-	return result;
 }

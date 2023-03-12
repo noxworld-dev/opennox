@@ -330,5 +330,5 @@ func init() {
 	legacy.Sub_43CF40 = sub_43CF40
 	legacy.Sub_43CF70 = sub_43CF70
 	legacy.Nox_objectDropAudEvent_4EE2F0 = nox_objectDropAudEvent_4EE2F0
-	legacy.Sub_47A1F0 = sub_47A1F0
+	legacy.Sub_47A1F0 = guiCloseNPCDialog
 }

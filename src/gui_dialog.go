@@ -2,6 +2,7 @@ package opennox
 
 import (
 	"image"
+	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
 	"github.com/noxworld-dev/opennox-lib/noxfont"
@@ -10,7 +11,10 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/input"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 const (
@@ -302,7 +306,7 @@ func sub_44A360(a1 int) {
 	nox_gui_curDialog_830224.ChildByID(guiDialogTextID).DrawData().SetFont(fnt)
 }
 
-func sub_47A1F0() {
+func guiCloseNPCDialog() {
 	root := legacy.Get_dword_5d4594_1123524()
 	sub := root.ChildByID(3901)
 	sub.Func94(gui.AsWindowEvent(0x400F, 0, 0))
@@ -313,4 +317,61 @@ func sub_47A1F0() {
 	if !nox_client_renderGUI_80828 && memmap.Uint32(0x587000, 153436) == 1 {
 		nox_client_renderGUI_80828 = true
 	}
+}
+
+func guiOpenNPCDialog(title string, snd sound.ID, str strman.ID, pic string, flags server.DialogFlags) {
+	c := noxClient
+	root := legacy.Get_dword_5d4594_1123524()
+	v5 := root.ChildByID(3901)
+	v6 := root.ChildByID(3910)
+	legacy.Sub_445C20()
+	v5.Func94(gui.AsWindowEvent(0x400F, 0, 0))
+	root.SetPos(videoGetWindowSize().Sub(root.Size()))
+	legacy.Sub_47A020(str)
+	v17 := nox_xxx_gLoadImg(pic)
+	v7 := root.ChildByID(3905)
+	v7.DrawData().SetBackgroundImage(v17)
+	v6.Func94(&gui.StaticTextSetText{Str: title})
+	v8 := root.ChildByID(3908)
+	if flags&0x1 != 0 {
+		legacy.Nox_xxx_wnd_46ABB0(v8, 1)
+		v8.SetHidden(false)
+		v8.Off.Y = 5
+
+		v9 := root.ChildByID(3909)
+		legacy.Nox_xxx_wnd_46ABB0(v9, 1)
+		v9.SetHidden(false)
+		v9.Off.Y = 35
+	} else {
+		legacy.Nox_xxx_wnd_46ABB0(v8, 0)
+		v8.SetHidden(true)
+
+		v12 := root.ChildByID(3909)
+		legacy.Nox_xxx_wnd_46ABB0(v12, 0)
+		v12.SetHidden(true)
+	}
+	v10 := root.ChildByID(3906)
+	v11 := c.Strings().GetStringInFile("Dialog.wnd:Done", "GUIDlg.c")
+	sub_46AEE0(v10, v11)
+	legacy.Nox_xxx_wnd_46ABB0(v10, 1)
+	v10.SetHidden(false)
+	*(*uint32)(unsafe.Add(unsafe.Pointer(v10), 4*5)) = 95
+	v13 := root.ChildByID(3907)
+	legacy.Nox_xxx_wnd_46ABB0(v13, 1)
+	v13.SetHidden(false)
+	*(*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*5)) = 65
+	if flags&0x2 != 0 {
+		v14 := root.ChildByID(3906)
+		v15 := c.Strings().GetStringInFile("Dialog.wnd:Next", "GUIDlg.c")
+		sub_46AEE0(v14, v15)
+	}
+	legacy.Sub_467C10()
+	legacy.Nox_xxx_bookHideMB_45ACA0(0)
+	*memmap.PtrUint32(0x587000, 153436) = uint32(nox_client_getRenderGUI())
+	nox_client_renderGUI_80828 = false
+	legacy.Nox_xxx_wnd_46ABB0(root, 1)
+	root.ShowModal()
+	*memmap.PtrUint32(0x5D4594, 1123528) = uint32(snd)
+	legacy.Nox_xxx_playDialogFile_44D900(alloc.GoString((*byte)(*memmap.PtrPtr(0x5D4594, 1115312))), 100)
+	legacy.Set_dword_5d4594_1123520(1)
 }
