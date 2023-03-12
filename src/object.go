@@ -1219,3 +1219,20 @@ func nox_xxx_playerSetState_4FA020(u *Object, a2 int) {
 func nox_xxx_unitIsUnitTT_4E7C80(a1 *server.Object, a2 int) int {
 	return asObjectS(a1).countSubOfType(a2)
 }
+
+func nox_xxx_scriptSetDialog_548C80(obj *server.Object, flags server.DialogFlags, start, end int) {
+	if obj == nil {
+		return
+	}
+	if !obj.Class().Has(object.ClassMonster) {
+		return
+	}
+	ud := obj.UpdateDataMonster()
+	if start == -1 || end == -1 {
+		return
+	}
+	ud.DialogStartFunc = int32(start)
+	ud.DialogEndFunc = int32(end)
+	ud.DialogFlags = byte(flags)
+	legacy.Nox_xxx_unitSetXStatus_4E4800(obj, 0x10)
+}

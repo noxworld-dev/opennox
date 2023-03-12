@@ -3,6 +3,8 @@ package opennox
 import (
 	"github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/noxscript/ns/v4/audio"
+
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func (s noxScriptNS) SetShopkeeperText(obj ns.Obj, text ns.StringID) {
@@ -15,9 +17,15 @@ func (s noxScriptNS) SetShopkeeperTextStr(obj ns.Obj, text string) {
 	panic("implement me")
 }
 
-func (s noxScriptNS) SetDialog(obj ns.Obj, typ ns.DialogType, start ns.Func, end ns.Func) {
-	//TODO implement me
-	panic("implement me")
+func (s noxScriptNS) SetDialog(cobj ns.Obj, typ ns.DialogType, start, end ns.Func) {
+	if cobj == nil {
+		return
+	}
+	flags := server.ParseDialogFlags(string(typ))
+	obj := cobj.(nsObj)
+	starti := s.s.noxScript.AsFuncIndex(start)
+	endi := s.s.noxScript.AsFuncIndex(end)
+	nox_xxx_scriptSetDialog_548C80(obj.SObj(), flags, starti, endi)
 }
 
 func (s noxScriptNS) CancelDialog(obj ns.Obj) {
