@@ -57,7 +57,10 @@ func (s noxScriptNS) StartDialog(cobj ns.Obj, cother ns.Obj) {
 	nox_xxx_script_forcedialog_548CD0(other.SObj(), obj.SObj())
 }
 
-func (s noxScriptNS) GetAnswer(obj ns.Obj) ns.DialogAnswer {
-	//TODO implement me
-	panic("implement me")
+func (s noxScriptNS) GetAnswer(cobj ns.Obj) ns.DialogAnswer {
+	if cobj == nil {
+		return 0
+	}
+	obj := cobj.(nsObj)
+	return ns.DialogAnswer(sub_548F40(obj.SObj()))
 }

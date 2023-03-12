@@ -720,23 +720,6 @@ int nox_script_HasSubclass_5162D0() {
 	return result;
 }
 
-//----- (005163C0) --------------------------------------------------------
-int nox_script_DialogResult_5163C0() {
-	int v0; // eax
-	int v1; // eax
-	int v2; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		v2 = sub_548F40(v1);
-		nox_script_push(v2);
-	} else {
-		nox_script_push(0);
-	}
-	return 0;
-}
-
 void nox_script_StartupScreen_516600_A() {
 	int i;  // esi
 	int v1; // esi
