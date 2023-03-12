@@ -1240,3 +1240,14 @@ func nox_xxx_scriptSetDialog_548C80(obj *server.Object, flags server.DialogFlags
 func nox_xxx_script_forcedialog_548CD0(obj, obj2 *server.Object) {
 	legacy.Nox_xxx_script_forcedialog_548CD0(obj, obj2)
 }
+
+func sub_548F40(obj *server.Object) int {
+	if obj == nil {
+		return 0
+	}
+	if !obj.Class().Has(object.ClassMonster) {
+		return 0
+	}
+	ud := obj.UpdateDataMonster()
+	return int(ud.DialogResult)
+}

@@ -79,6 +79,7 @@ func init() {
 	Register(asm.BuiltinChangeGold, nsChangeGold)
 	Register(asm.BuiltinSetDialog, nsSetDialog)
 	Register(asm.BuiltinStartDialog, nsStartDialog)
+	Register(asm.BuiltinGetAnswer, nsGetAnswer)
 }
 
 func nsObject(vm VM) int {
@@ -678,5 +679,15 @@ func nsStartDialog(vm VM) int {
 	if obj1 != nil && obj2 != nil {
 		vm.NoxScript().StartDialog(obj1, obj2)
 	}
+	return 0
+}
+
+func nsGetAnswer(vm VM) int {
+	obj := vm.PopObjectNS()
+	var res int32
+	if obj != nil {
+		res = int32(vm.NoxScript().GetAnswer(obj))
+	}
+	vm.PushI32(res)
 	return 0
 }

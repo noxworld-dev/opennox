@@ -2395,18 +2395,6 @@ char nox_xxx_startShopDialog_548DE0(int a1, int a2, int a3, const char* a4) {
 	return result;
 }
 
-//----- (00548F40) --------------------------------------------------------
-int sub_548F40(int a1) {
-	int result; // eax
-
-	if (a1 && *(uint8_t*)(a1 + 8) & 2) {
-		result = *(unsigned char*)(*(uint32_t*)(a1 + 748) + 2105);
-	} else {
-		result = 0;
-	}
-	return result;
-}
-
 //----- (00548FE0) --------------------------------------------------------
 void sub_548FE0(int a1, const char* a2) {
 	if (a1 && a2 && *(uint8_t*)(a1 + 8) & 2 && *(uint8_t*)(a1 + 12) & 8 && strlen(a2) < 0x20) {
