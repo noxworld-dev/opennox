@@ -401,7 +401,7 @@ func sub_42BFE0() {
 	}
 	if !noxflags.HasGame(noxflags.GameFlag22) && noxflags.HasGame(noxflags.GameHost) &&
 		noxflags.HasGame(noxflags.GameClient) && !noxflags.HasGame(noxflags.GameFlag23) {
-		for it := sub_45A060(); it != nil; it = it.Next() {
+		for it := noxClient.Objs.FirstList1(); it != nil; it = it.Next() {
 			ind := int(it.Field_27)
 			if sub_4E3AD0(ind) == 0 && sub_4E3B80(ind) {
 				checkInd(uint16(ind))

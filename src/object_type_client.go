@@ -35,13 +35,14 @@ func (c *Client) Nox_things_free_44C580() {
 }
 
 func nox_drawable_link_thing(dr *client.Drawable, i int) int {
-	typ := noxClient.Things.TypeByInd(i)
+	c := noxClient
+	typ := c.Things.TypeByInd(i)
 	if typ == nil {
 		return 0
 	}
 	dr.LinkType(i, typ)
 	if typ.Lifetime != 0 {
-		nox_xxx_spriteTransparentDecay_49B950(dr, int(typ.Lifetime))
+		c.Objs.TransparentDecay(dr, int(typ.Lifetime))
 	}
 	return 1
 }
