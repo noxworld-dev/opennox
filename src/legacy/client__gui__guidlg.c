@@ -13,7 +13,7 @@ extern int nox_win_width;
 extern int nox_win_height;
 
 //----- (00479D30) --------------------------------------------------------
-int sub_479D30(wchar_t* a1, int a2, char* a3, const char* a4, char a5) {
+int sub_479D30(wchar_t* a1, int a2, char* a3, char* a4, char a5) {
 	uint32_t* v5;  // esi
 	uint32_t* v6;  // edi
 	uint32_t* v7;  // eax
