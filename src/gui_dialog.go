@@ -320,19 +320,24 @@ func guiCloseNPCDialog() {
 	}
 }
 
-func guiOpenNPCDialog(title string, snd sound.ID, str strman.ID, pic string, flags server.DialogFlags) {
+func guiOpenNPCDialogID(title string, snd sound.ID, str strman.ID, pic string, flags server.DialogFlags) {
+	guiNPCDialogSetTextID(str)
+	guiOpenNPCDialogRaw(title, snd, pic, flags)
+}
+
+func guiOpenNPCDialog(title string, snd sound.ID, str string, pic string, flags server.DialogFlags) {
+	guiNPCDialogSetText(str)
+	guiOpenNPCDialogRaw(title, snd, pic, flags)
+}
+
+func guiOpenNPCDialogRaw(title string, snd sound.ID, pic string, flags server.DialogFlags) {
 	c := noxClient
 	root := legacy.Get_dword_5d4594_1123524()
-	v5 := root.ChildByID(3901)
-	v6 := root.ChildByID(3910)
 	legacy.Sub_445C20()
-	v5.Func94(gui.AsWindowEvent(0x400F, 0, 0))
 	root.SetPos(videoGetWindowSize().Sub(root.Size()))
-	guiNPCDialogSetText(str)
-	v17 := nox_xxx_gLoadImg(pic)
-	v7 := root.ChildByID(3905)
-	v7.DrawData().SetBackgroundImage(v17)
-	v6.Func94(&gui.StaticTextSetText{Str: title})
+	img := nox_xxx_gLoadImg(pic)
+	root.ChildByID(3905).DrawData().SetBackgroundImage(img)
+	root.ChildByID(3910).Func94(&gui.StaticTextSetText{Str: title})
 	v8 := root.ChildByID(3908)
 	if flags&0x1 != 0 {
 		legacy.Nox_xxx_wnd_46ABB0(v8, 1)
@@ -377,17 +382,23 @@ func guiOpenNPCDialog(title string, snd sound.ID, str strman.ID, pic string, fla
 	legacy.Set_dword_5d4594_1123520(1)
 }
 
-func guiNPCDialogSetText(str strman.ID) {
+func guiNPCDialogSetTextID(str strman.ID) {
+	c := noxClient
+	v, _ := c.Strings().GetVariantInFile(str, "GUIDlg.c")
+	text := v.Str
+	*memmap.PtrPtr(0x5D4594, 1115312) = unsafe.Pointer(alloc.InternCString(v.Str2))
+	guiNPCDialogSetText(text)
+}
+
+func guiNPCDialogSetText(text string) {
 	c := noxClient
 	root := legacy.Get_dword_5d4594_1123524()
 	win := root.ChildByID(3901)
+	win.Func94(gui.AsWindowEvent(0x400F, 0, 0))
 	font := win.DrawData().Font()
 	line := ""
 	wd := win.WidgetData
 	winW := win.Size().X - 10
-	v, _ := c.Strings().GetVariantInFile(str, "GUIDlg.c")
-	text := v.Str
-	*memmap.PtrPtr(0x5D4594, 1115312) = unsafe.Pointer(alloc.InternCString(v.Str2))
 	text = strings.ReplaceAll(text, "\r", "")
 	sub := strings.Split(text, "\n")
 	cur := -1
