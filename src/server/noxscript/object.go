@@ -80,6 +80,7 @@ func init() {
 	Register(asm.BuiltinSetDialog, nsSetDialog)
 	Register(asm.BuiltinStartDialog, nsStartDialog)
 	Register(asm.BuiltinGetAnswer, nsGetAnswer)
+	Register(asm.BuiltinCancelDialog, nsCancelDialog)
 }
 
 func nsObject(vm VM) int {
@@ -689,5 +690,13 @@ func nsGetAnswer(vm VM) int {
 		res = int32(vm.NoxScript().GetAnswer(obj))
 	}
 	vm.PushI32(res)
+	return 0
+}
+
+func nsCancelDialog(vm VM) int {
+	obj := vm.PopObjectNS()
+	if obj != nil {
+		vm.NoxScript().CancelDialog(obj)
+	}
 	return 0
 }
