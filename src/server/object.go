@@ -872,6 +872,14 @@ func (obj *Object) NeedSync() { // nox_xxx_unitNeedSync_4E44F0
 	obj.Field38 = math.MaxUint32
 }
 
+func (obj *Object) SetDialogPortrait(name string) {
+	if !obj.Class().Has(object.ClassMonster) {
+		return
+	}
+	ud := obj.UpdateDataMonster()
+	alloc.StrCopy(ud.DialogPortraitBuf[:], name)
+}
+
 func (obj *Object) CallUpdate() {
 	if obj.Update == nil {
 		return

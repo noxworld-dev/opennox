@@ -36,9 +36,12 @@ func (s noxScriptNS) CancelDialog(cobj ns.Obj) {
 	scriptCancelDialog(obj.SObj())
 }
 
-func (s noxScriptNS) StoryPic(obj ns.Obj, name string) {
-	//TODO implement me
-	panic("implement me")
+func (s noxScriptNS) StoryPic(cobj ns.Obj, name string) {
+	if cobj == nil {
+		return
+	}
+	obj := cobj.(nsObj)
+	obj.SObj().SetDialogPortrait(name)
 }
 
 func (s noxScriptNS) TellStory(audio audio.Name, story ns.StringID) {
