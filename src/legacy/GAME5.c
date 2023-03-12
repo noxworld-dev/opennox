@@ -2405,33 +2405,6 @@ int sub_548F40(int a1) {
 	return result;
 }
 
-//----- (00548F70) --------------------------------------------------------
-char nox_xxx_scriptGetDialogIdx_548F70(const char* a1) {
-	const char* v1;    // eax
-	int v2;            // ebp
-	unsigned char* v3; // edi
-	int v4;            // eax
-
-	v1 = *(const char**)getMemAt(0x587000, 287000);
-	v2 = 0;
-	if (*getMemU32Ptr(0x587000, 287000)) {
-		v3 = getMemAt(0x587000, 287000);
-		while (strcmp(v1, a1)) {
-			v1 = (const char*)*((uint32_t*)v3 + 2);
-			v3 += 8;
-			++v2;
-			if (!v1) {
-				goto LABEL_5;
-			}
-		}
-		v4 = getMemByte(0x587000, 287004 + 8 * v2);
-	} else {
-	LABEL_5:
-		LOBYTE(v4) = 0;
-	}
-	return v4;
-}
-
 //----- (00548FE0) --------------------------------------------------------
 void sub_548FE0(int a1, const char* a2) {
 	if (a1 && a2 && *(uint8_t*)(a1 + 8) & 2 && *(uint8_t*)(a1 + 12) & 8 && strlen(a2) < 0x20) {

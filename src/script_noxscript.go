@@ -322,6 +322,27 @@ func (s *noxScript) Funcs() []ScriptFunc {
 	return s.vm.funcs
 }
 
+func (s *noxScript) AsFuncIndex(fnc ns.Func) int {
+	switch fnc := fnc.(type) {
+	case nil:
+		return -1
+	case int:
+		if fnc < 0 || fnc >= s.FuncsCnt() {
+			return -1
+		}
+		return fnc
+	case string:
+		return s.scriptIndexByName(fnc)
+	case func():
+		return s.addVirtual("", func() error {
+			fnc()
+			return nil
+		})
+	default:
+		panic(fmt.Errorf("unsupported function type: %T", fnc))
+	}
+}
+
 type ScriptFunc struct {
 	asm.FuncDef
 	Values []uint32
