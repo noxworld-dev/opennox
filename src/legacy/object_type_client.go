@@ -24,10 +24,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 )
 
-var (
-	Nox_drawable_link_thing func(dr *client.Drawable, i int) int
-)
-
 func init() {
 	client.RegisterThingParse("DRAW", wrapClientThingFuncC(C.nox_parse_thing_draw))
 	client.RegisterThingParse("LIGHTDIRECTION", wrapClientThingFuncC(C.nox_parse_thing_light_dir))
@@ -98,7 +94,7 @@ func nox_get_thing_pretty_image(i int) int {
 
 //export nox_drawable_link_thing
 func nox_drawable_link_thing(a1c *nox_drawable, i int) int {
-	return Nox_drawable_link_thing(asDrawable(a1c), i)
+	return GetClient().Cli().DrawableLinkThing(asDrawable(a1c), i)
 }
 
 func wrapClientThingFuncC(fnc unsafe.Pointer) client.ThingFieldFunc {
