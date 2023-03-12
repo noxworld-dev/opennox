@@ -421,7 +421,7 @@ type MonsterUpdateData struct {
 	DialogStartFunc       int32            // 524, 2096
 	DialogEndFunc         int32            // 525, 2100
 	DialogFlags           byte             // 526, 2104
-	Field526_1            byte             // 526, 2105
+	DialogResult          byte             // 526, 2105
 	Field526_2            uint16           // 526, 2106
 	Field527              uint32           // 527, 2108
 	Field528              uint32           // 528, 2112
