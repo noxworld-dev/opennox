@@ -2363,40 +2363,6 @@ void nox_xxx_scriptDialog_548D30(int a1, char a2) {
 	}
 }
 
-//----- (00548DE0) --------------------------------------------------------
-char nox_xxx_startShopDialog_548DE0(nox_object_t* a1p, nox_object_t* a2p, int a3, char* a4) {
-	int a1 = a1p;
-	int a2 = a2p;
-	char result;  // al
-	int v5;       // ebx
-	int v6;       // ebp
-	wchar_t* v7;  // eax
-	char v8[135]; // [esp+10h] [ebp-88h]
-
-	result = a1;
-	v5 = *(uint32_t*)(a2 + 748);
-	v6 = *(uint32_t*)(a1 + 748);
-	if (a1 && *(uint8_t*)(a1 + 8) & 4 && a4) {
-		*(uint32_t*)(v6 + 284) = a2;
-		v8[0] = -48;
-		v8[1] = 3;
-		strcpy(&v8[2], a4);
-		v7 = sub_4E39F0_obj_db((const char**)a2);
-		nox_wcsncpy((wchar_t*)&v8[34], v7, 0x1Fu);
-		*(uint16_t*)&v8[96] = 0;
-		v8[134] = *(uint8_t*)(v5 + 2104);
-		*(uint32_t*)&v8[98] = a3;
-		if (*(uint8_t*)(v5 + 2106)) {
-			strcpy(&v8[102], (const char*)(v5 + 2106));
-		} else {
-			strcpy(&v8[102], "ShopKeeperPic");
-		}
-		nox_xxx_netSendPacket0_4E5420(*(unsigned char*)(*(uint32_t*)(v6 + 276) + 2064), v8, 135, 0, 1);
-		result = nox_xxx_unitFreeze_4E79C0(a1, 0);
-	}
-	return result;
-}
-
 //----- (00548FE0) --------------------------------------------------------
 void sub_548FE0(int a1, const char* a2) {
 	if (a1 && a2 && *(uint8_t*)(a1 + 8) & 2 && *(uint8_t*)(a1 + 12) & 8 && strlen(a2) < 0x20) {

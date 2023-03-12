@@ -7,6 +7,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 type AIStackItem struct {
@@ -473,4 +474,8 @@ func (ud *MonsterUpdateData) PrintAIStack(frame uint32, event string) {
 func (ud *MonsterUpdateData) SetAggression(v float32) {
 	ud.Aggression = v
 	ud.Aggression2 = v
+}
+
+func (ud *MonsterUpdateData) DialogPortrait() string {
+	return alloc.GoStringS(ud.DialogPortraitBuf[:])
 }
