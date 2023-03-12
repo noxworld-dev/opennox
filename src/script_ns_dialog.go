@@ -48,9 +48,13 @@ func (s noxScriptNS) TellStoryStr(audio audio.Name, story string) {
 	panic("implement me")
 }
 
-func (s noxScriptNS) StartDialog(obj ns.Obj, other ns.Obj) {
-	//TODO implement me
-	panic("implement me")
+func (s noxScriptNS) StartDialog(cobj ns.Obj, cother ns.Obj) {
+	if cobj == nil || cother == nil {
+		return
+	}
+	obj := cobj.(nsObj)
+	other := cother.(nsObj)
+	nox_xxx_script_forcedialog_548CD0(other.SObj(), obj.SObj())
 }
 
 func (s noxScriptNS) GetAnswer(obj ns.Obj) ns.DialogAnswer {

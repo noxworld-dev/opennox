@@ -11,6 +11,7 @@ package legacy
 #include "GAME4_3.h"
 void nox_xxx_updateHarpoon_54F380(nox_object_t* a1);
 int nox_objectDropAudEvent_4EE2F0(nox_object_t* a1, nox_object_t* a2, float2* a3);
+void nox_xxx_script_forcedialog_548CD0(nox_object_t* a1, nox_object_t* a2);
 */
 import "C"
 import (
@@ -350,4 +351,7 @@ func Nox_object_setGold_4FA620(obj *server.Object, v int) {
 }
 func Nox_xxx_unitSetXStatus_4E4800(obj *server.Object, a2 int) {
 	C.nox_xxx_unitSetXStatus_4E4800(asObjectC(obj), C.int(a2))
+}
+func Nox_xxx_script_forcedialog_548CD0(obj, obj2 *server.Object) {
+	C.nox_xxx_script_forcedialog_548CD0(asObjectC(obj), asObjectC(obj2))
 }

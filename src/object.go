@@ -1236,3 +1236,7 @@ func nox_xxx_scriptSetDialog_548C80(obj *server.Object, flags server.DialogFlags
 	ud.DialogFlags = byte(flags)
 	legacy.Nox_xxx_unitSetXStatus_4E4800(obj, 0x10)
 }
+
+func nox_xxx_script_forcedialog_548CD0(obj, obj2 *server.Object) {
+	legacy.Nox_xxx_script_forcedialog_548CD0(obj, obj2)
+}
