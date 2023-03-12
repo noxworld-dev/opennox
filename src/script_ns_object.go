@@ -469,8 +469,8 @@ func (obj nsObj) Damage(source ns.Obj, amount int, typ damage.Type) {
 }
 
 func (obj nsObj) DeleteAfter(dt script.Duration) {
-	//TODO implement me
-	panic("implement me")
+	s := obj.s
+	s.DeleteAfter(obj.Object.SObj(), uint32(s.AsFrames(dt)))
 }
 
 func (obj nsObj) Idle() {
