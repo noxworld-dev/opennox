@@ -16,7 +16,6 @@ package legacy
 #include "client__draw__glowdraw.h"
 #include "client__draw__selectdw.h"
 #include "client__gui__guiggovr.h"
-extern nox_drawable* nox_xxx_drawablePlayer_1046600;
 void nox_xxx_tileDrawMB_481C20_A(nox_draw_viewport_t* vp, int v3);
 void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, int v78);
 void nox_xxx_tileDrawMB_481C20_C_textured(nox_draw_viewport_t* vp, int v72, int v78);
@@ -26,6 +25,7 @@ void nox_xxx_clientDrawAll_436100_draw_B();
 void nox_xxx_drawAllMB_475810_draw_A(nox_draw_viewport_t* vp);
 int nox_xxx_drawAllMB_475810_draw_B(nox_draw_viewport_t* vp);
 void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7);
+int nox_thing_static_random_draw(uint32_t* a1, nox_drawable* dr);
 int sub_436F50();
 */
 import "C"
@@ -35,10 +35,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 )
-
-func Nox_xxx_cliGetSpritePlayer_45A000() *client.Drawable {
-	return asDrawable(C.nox_xxx_drawablePlayer_1046600)
-}
 
 func Nox_xxx_clientDrawAll_436100_draw_A() {
 	C.nox_xxx_clientDrawAll_436100_draw_A()
@@ -82,14 +78,6 @@ func Nox_xxx_polygonDrawColor_421B80() {
 
 func Nox_xxx_cliToggleObsWindow_4357A0() {
 	C.nox_xxx_cliToggleObsWindow_4357A0()
-}
-
-func Sub_49BB40() {
-	C.sub_49BB40()
-}
-
-func Sub_49BA70() {
-	C.sub_49BA70()
 }
 
 func Nox_xxx_motd_4467F0() {
@@ -144,9 +132,6 @@ func Sub_476080(a1 unsafe.Pointer) int {
 func Sub_459DB0(dr *client.Drawable) int {
 	return int(C.sub_459DB0((*nox_drawable)(dr.C())))
 }
-func Sub_459DD0(dr *client.Drawable, a2 int) {
-	C.sub_459DD0((*nox_drawable)(dr.C()), C.char(a2))
-}
 func Sub_49A6A0(vp *noxrender.Viewport, dr *client.Drawable) {
 	C.sub_49A6A0((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))
 }
@@ -176,4 +161,22 @@ func Sub_4989A0() {
 }
 func Nox_xxx_tileCheckRedrawMB_482570(vp *noxrender.Viewport) int {
 	return int(C.nox_xxx_tileCheckRedrawMB_482570((*nox_draw_viewport_t)(vp.C())))
+}
+func Get_nox_thing_static_random_draw() unsafe.Pointer {
+	return C.nox_thing_static_random_draw
+}
+func Get_nox_thing_red_spark_draw() unsafe.Pointer {
+	return C.nox_thing_red_spark_draw
+}
+func Get_nox_thing_blue_spark_draw() unsafe.Pointer {
+	return C.nox_thing_blue_spark_draw
+}
+func Get_nox_thing_yellow_spark_draw() unsafe.Pointer {
+	return C.nox_thing_yellow_spark_draw
+}
+func Get_nox_thing_green_spark_draw() unsafe.Pointer {
+	return C.nox_thing_green_spark_draw
+}
+func Get_nox_thing_cyan_spark_draw() unsafe.Pointer {
+	return C.nox_thing_cyan_spark_draw
 }

@@ -73,7 +73,9 @@ type Drawable struct {
 	Field_68          uint32         // 68, 272
 	Field_69          uint32         // 69, 276
 	Flags70Val        uint32         // 70, 280
-	Field_71          uint32         // 71, 284
+	Field_71_0        uint8          // 71, 284
+	Field_71_1        uint8          // 71, 285
+	Field_71_2        uint16         // 71, 286
 	Field_72          uint32         // 72, 288
 	Field_73_1        uint16         // 73, 292
 	Field_73_2        uint16         // 73, 294
@@ -89,31 +91,31 @@ type Drawable struct {
 	Field_80          uint32         // 80, 320
 	Field_81          uint32         // 81, 324
 	Field_82          uint32         // 82, 328
-	Field_83          uint32         // 83, 332
-	Field_84          uint32         // 84, 336
+	Field_83          *Drawable      // 83, 332
+	Field_84          *Drawable      // 84, 336
 	Field_85          uint32         // 85, 340, last draw frame number?
 	Field_86          uint32         // 86, 344
-	Field_87          uint32         // 87, 348
-	Field_88          uint32         // 88, 352
-	Field_89          uint32         // 89, 356
+	Field_87          *Drawable      // 87, 348
+	Field_88          *Drawable      // 88, 352
+	Deadline          uint32         // 89, 356
 	Field_90          *Drawable      // 90, 360
 	Field_91          *Drawable      // 91, 364
-	Field_92          *Drawable      // 92, 368
+	NextPtr           *Drawable      // 92, 368
 	Field_93          *Drawable      // 93, 372
-	Field_94          uint32         // 94, 376
-	Field_95          uint32         // 95, 380
+	Field_94          *Drawable      // 94, 376
+	Field_95          *Drawable      // 95, 380
 	Field_96          uint32         // 96, 384
 	Field_97          *Drawable      // 97, 388
 	Field_98          *Drawable      // 98, 392
 	Field_99          **Drawable     // 99, 396
 	Field_100         *Drawable      // 100, 400
 	Field_101         *Drawable      // 101, 404
-	Field_102         uint32         // 102, 408
-	Field_103         uint32         // 103, 412
+	Field_102         *Drawable      // 102, 408
+	Field_103         *Drawable      // 103, 412
 	Field_104         *Drawable      // 104, 416
 	Field_105         *Drawable      // 105, 420
-	Field_106         uint32         // 106, 424
-	Field_107         uint32         // 107, 428
+	Field_106         *Drawable      // 106, 424
+	Field_107         *Drawable      // 107, 428
 	Field_108         uint32         // 108, 432 // TODO: union?
 	Field_109         uint32         // 109, 436, SE?
 	Field_110         uint32         // 110, 440, SW?
@@ -121,7 +123,7 @@ type Drawable struct {
 	Field_112_0       int16          // 112, 448
 	Field_112_2       int16          // 112, 450
 	Field_113         uint32         // 113, 452
-	Field_114         uint32         // 114, 456
+	Field_114         *DrawableFX    // 114, 456
 	Field_115         uint32         // 115, 460
 	Field_116         uint32         // 116, 464
 	Field_117         uint32         // 117, 468
@@ -131,7 +133,7 @@ type Drawable struct {
 	Field_121         uint32         // 121, 484
 	Field_122         uint32         // 122, 488
 	Field_123         uint32         // 123, 492
-	Field_124         uint32         // 124, 496
+	Field_124         unsafe.Pointer // 124, 496
 	Field_125         uint32         // 125, 500
 	Field_126         uint32         // 126, 504
 	Field_127         uint32         // 127, 508
@@ -151,6 +153,13 @@ func (s *Drawable) Ext() *DrawableExt {
 		drawableExts[unsafe.Pointer(s)] = p
 	}
 	return p
+}
+
+func (s *Drawable) Next() *Drawable {
+	if s == nil {
+		return nil
+	}
+	return s.NextPtr
 }
 
 func (s *Drawable) Pos() image.Point {

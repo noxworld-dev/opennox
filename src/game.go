@@ -506,7 +506,7 @@ func initGameSession435CC0() error {
 	legacy.Nox_xxx_initTime_435570()
 	legacy.Set_nox_client_gui_flag_1556112(0)
 
-	if legacy.Nox_alloc_drawable_init(5000) == 0 {
+	if !nox_alloc_drawable_init(5000) {
 		return errors.New("nox_alloc_drawable_init failed")
 	}
 
@@ -545,7 +545,7 @@ func initGameSession435CC0() error {
 
 	initDrawableLists()
 
-	if legacy.Nox_xxx_allocArrayDrawableFX_495AB0() == 0 {
+	if nox_xxx_allocArrayDrawableFX_495AB0() == 0 {
 		return errors.New("nox_xxx_allocArrayDrawableFX_495AB0 failed")
 	}
 

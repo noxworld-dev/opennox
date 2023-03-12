@@ -184,17 +184,11 @@ func Nox_xxx_spriteLoadError_4356E0() {
 func Sub_499450() {
 	C.sub_499450()
 }
-func Sub_495AE0() {
-	C.sub_495AE0()
-}
 func Sub_4959D0() {
 	C.sub_4959D0()
 }
 func Sub_496120() {
 	C.sub_496120()
-}
-func Nox_drawable_free() {
-	C.nox_drawable_free()
 }
 func Sub_49AEA0() {
 	C.sub_49AEA0()

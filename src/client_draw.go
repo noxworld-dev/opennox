@@ -64,8 +64,8 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 		legacy.Nox_xxx_cliToggleObsWindow_4357A0()
 	}
 	c.nox_xxx_clientDrawAll_436100_draw()
-	legacy.Sub_49BB40()
-	legacy.Sub_49BA70()
+	sub_49BB40()
+	sub_49BA70()
 	c.maybeScreenshot()
 	if memmap.Uint32(0x5D4594, 826068) != 0 {
 		legacy.Nox_xxx_motd_4467F0()
@@ -105,7 +105,7 @@ func (c *Client) nox_xxx_clientDrawAll_436100_draw() {
 	}
 	legacy.Sub_430B50(vp.Screen.Min.X, vp.Screen.Min.Y, vp.Screen.Max.X, vp.Screen.Max.Y)
 	if id := legacy.ClientPlayerNetCode(); id != 0 {
-		*memmap.PtrPtr(0x852978, 8) = legacy.Nox_xxx_netSpriteByCodeDynamic_45A6F0(id).C()
+		*memmap.PtrPtr(0x852978, 8) = nox_xxx_netSpriteByCodeDynamic_45A6F0(id).C()
 	}
 	if noxflags.HasEngine(noxflags.EngineNoRendering) {
 		legacy.Nox_xxx_clientDrawAll_436100_draw_A()
@@ -431,7 +431,7 @@ LOOP:
 			sy = math.MaxInt32
 		}
 		if dr.Field_27 == memmap.Uint32(0x5D4594, 1096448) && noxServer.Teams.First() != nil {
-			for v25 := legacy.Nox_xxx_cliGetSpritePlayer_45A000(); v25 != nil; v25 = v25.Field104() {
+			for v25 := nox_xxx_cliGetSpritePlayer_45A000(); v25 != nil; v25 = v25.Field104() {
 				if v25.HasEnchant(server.ENCHANT_CROWN) {
 					continue LOOP
 				}
@@ -465,7 +465,7 @@ LOOP:
 			dr.Field_85 = c.srv.Frame()
 		}
 		if legacy.Sub_459DB0(dr) != 0 {
-			legacy.Sub_459DD0(dr, 1)
+			sub_459DD0(dr, 1)
 		}
 		if dr.Flags28()&0x20006 != 0 {
 			legacy.Sub_49A6A0(vp, dr)

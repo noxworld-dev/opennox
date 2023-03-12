@@ -46,17 +46,14 @@ extern uint32_t dword_5d4594_1200796;
 extern uint32_t dword_5d4594_1305788;
 extern void* nox_alloc_healthChange_1301772;
 extern uint32_t nox_server_sanctuaryHelp_54276;
-extern uint32_t dword_5d4594_1303536;
 extern uint32_t dword_5d4594_1197308;
 extern uint32_t dword_5d4594_1197372;
 extern void* nox_alloc_friendList_1203860;
 extern uint32_t dword_5d4594_1305748;
 extern uint32_t dword_5d4594_1197328;
-extern uint32_t dword_5d4594_1303472;
 extern uint32_t dword_5d4594_1197352;
 extern uint32_t dword_5d4594_1197336;
 extern uint32_t dword_5d4594_1197356;
-extern uint32_t dword_5d4594_1303468;
 extern uint32_t dword_5d4594_1301780;
 extern uint32_t dword_5d4594_1203836;
 extern uint32_t dword_5d4594_1203840;
@@ -2324,32 +2321,9 @@ int sub_495A80(int a1) {
 	return 1;
 }
 
-//----- (00495AB0) --------------------------------------------------------
-int nox_xxx_allocArrayDrawableFX_495AB0() {
-	int result; // eax
-
-	result = nox_new_alloc_class("DrawableFX", 80, 128);
-	*getMemU32Ptr(0x5D4594, 1203868) = result;
-	if (result) {
-		*getMemU32Ptr(0x5D4594, 1203872) = 0;
-		result = 1;
-	}
-	return result;
-}
-
-//----- (00495AE0) --------------------------------------------------------
-int sub_495AE0() {
-	int result; // eax
-
-	nox_free_alloc_class(*(void**)getMemAt(0x5D4594, 1203868));
-	result = 0;
-	*getMemU32Ptr(0x5D4594, 1203868) = 0;
-	*getMemU32Ptr(0x5D4594, 1203872) = 0;
-	return result;
-}
-
 //----- (00495B50) --------------------------------------------------------
-uint32_t* sub_495B50(uint32_t* a1) {
+void sub_495B50(void* a1p) {
+	uint32_t* a1 = a1p;
 	uint32_t* result; // eax
 	int v2;           // ecx
 	int v3;           // ecx
@@ -2382,7 +2356,6 @@ uint32_t* sub_495B50(uint32_t* a1) {
 			*(uint32_t*)(v5 + 456) = result;
 		}
 	}
-	return result;
 }
 
 //----- (00495BB0) --------------------------------------------------------
@@ -2599,26 +2572,12 @@ int sub_495D00(uint32_t* a1, int a2, uint32_t* a3) {
 	return 1;
 }
 
-//----- (00495F70) --------------------------------------------------------
-void sub_495F70(int a1) {
-	uint32_t* v1; // eax
-
-	if (a1 && sub_496020(a1, 1) != 1) {
-		v1 = nox_alloc_class_new_obj_zero(*(uint32_t**)getMemAt(0x5D4594, 1203868));
-		if (v1) {
-			*v1 = 1;
-			v1[1] = 0;
-			sub_495FC0(v1, a1);
-		}
-	}
-}
-
 //----- (00495FC0) --------------------------------------------------------
-uint32_t* sub_495FC0(uint32_t* a1, int a2) {
-	uint32_t* result; // eax
+void sub_495FC0(void* a1p, nox_drawable* a2p) {
+	uint32_t* a1 = a1p;
+	int a2 = a2p;
 	int v3;           // edx
 
-	result = a1;
 	if (a1 && a2) {
 		a1[15] = a2;
 		a1[18] = *getMemU32Ptr(0x5D4594, 1203872);
@@ -2635,24 +2594,6 @@ uint32_t* sub_495FC0(uint32_t* a1, int a2) {
 		}
 		*(uint32_t*)(a2 + 456) = a1;
 	}
-	return result;
-}
-
-//----- (00496020) --------------------------------------------------------
-int sub_496020(int a1, int a2) {
-	uint32_t* v2; // eax
-
-	v2 = *(uint32_t**)(a1 + 456);
-	if (!v2) {
-		return 0;
-	}
-	while (*v2 != a2) {
-		v2 = (uint32_t*)v2[16];
-		if (!v2) {
-			return 0;
-		}
-	}
-	return 1;
 }
 
 //----- (004960B0) --------------------------------------------------------
@@ -4978,7 +4919,7 @@ uint32_t* nox_xxx_fxDrawTurnUndead_499880(short* a1) {
 			v3[82] = a1[1];
 			v3[115] = nox_xxx_sprite_4CA540;
 			nox_xxx_spriteToList_49BC80_drawable(v3);
-			result = nox_xxx_spriteToSightDestroyList_49BAB0_drawable(v3);
+			nox_xxx_spriteToSightDestroyList_49BAB0_drawable(v3);
 		}
 	}
 	return result;
@@ -5468,152 +5409,6 @@ void nox_xxx_consoleEsc_49B7A0() {
 // 49B874: variable 'v1' is possibly undefined
 // 49B881: variable 'v2' is possibly undefined
 
-//----- (0049B950) --------------------------------------------------------
-uint32_t* nox_xxx_spriteTransparentDecay_49B950(nox_drawable* a1p, int a2) {
-	uint32_t* a1 = a1p;
-	unsigned int v2;  // edx
-	uint32_t* result; // eax
-	uint32_t* v4;     // ecx
-	int v5;           // ecx
-
-	if (a1[89]) {
-		nox_xxx_sprite_49BA10(a1);
-	}
-	v2 = gameFrame() + a2;
-	a1[89] = gameFrame() + a2;
-	result = *(uint32_t**)&dword_5d4594_1303468;
-	if (dword_5d4594_1303468) {
-		v4 = 0;
-		while (result[89] < v2) {
-			v4 = result;
-			result = (uint32_t*)result[87];
-			if (!result) {
-				goto LABEL_10;
-			}
-		}
-		if (!result) {
-		LABEL_10:
-			v4[87] = a1;
-			a1[87] = 0;
-			a1[88] = v4;
-			return result;
-		}
-		a1[87] = result;
-		a1[88] = result[88];
-		v5 = result[88];
-		if (v5) {
-			*(uint32_t*)(v5 + 348) = a1;
-		} else {
-			dword_5d4594_1303468 = a1;
-		}
-		result[88] = a1;
-	} else {
-		a1[87] = dword_5d4594_1303468;
-		a1[88] = result;
-		dword_5d4594_1303468 = a1;
-	}
-	return result;
-}
-
-//----- (0049BA10) --------------------------------------------------------
-uint32_t* nox_xxx_sprite_49BA10(nox_drawable* dr) {
-	uint32_t* a1 = dr;
-	uint32_t* result; // eax
-	int v2;           // ecx
-	int v3;           // ecx
-
-	result = a1;
-	if (a1[89]) {
-		v2 = a1[88];
-		if (v2) {
-			*(uint32_t*)(v2 + 348) = a1[87];
-		} else {
-			dword_5d4594_1303468 = a1[87];
-		}
-		v3 = a1[87];
-		if (v3) {
-			*(uint32_t*)(v3 + 352) = a1[88];
-		}
-		a1[89] = 0;
-	}
-	return result;
-}
-
-//----- (0049BA70) --------------------------------------------------------
-int sub_49BA70() {
-	int result; // eax
-	int v1;     // esi
-
-	result = dword_5d4594_1303468;
-	if (dword_5d4594_1303468) {
-		do {
-			v1 = *(uint32_t*)(result + 348);
-			if (*(uint32_t*)(result + 356) > gameFrame()) {
-				break;
-			}
-			nox_xxx_spriteDeleteStatic_45A4E0_drawable(result);
-			result = v1;
-		} while (v1);
-	}
-	return result;
-}
-
-//----- (0049BAB0) --------------------------------------------------------
-uint32_t* nox_xxx_spriteToSightDestroyList_49BAB0_drawable(uint32_t* a1) {
-	uint32_t* result; // eax
-
-	result = a1;
-	a1[84] = 0;
-	a1[83] = dword_5d4594_1303472;
-	if (dword_5d4594_1303472) {
-		*(uint32_t*)(dword_5d4594_1303472 + 336) = a1;
-	}
-	dword_5d4594_1303472 = a1;
-	a1[30] |= 0x200000u;
-	return result;
-}
-
-//----- (0049BAF0) --------------------------------------------------------
-uint32_t* sub_49BAF0(nox_drawable* dr) {
-	uint32_t* a1 = dr;
-	uint32_t* result; // eax
-	int v2;           // ecx
-	int v3;           // ecx
-
-	result = a1;
-	if (a1[30] & 0x200000) {
-		v2 = a1[84];
-		if (v2) {
-			*(uint32_t*)(v2 + 332) = a1[83];
-		} else {
-			dword_5d4594_1303472 = a1[83];
-		}
-		v3 = a1[83];
-		if (v3) {
-			*(uint32_t*)(v3 + 336) = a1[84];
-		}
-		a1[30] &= 0xFFDFFFFF;
-	}
-	return result;
-}
-
-//----- (0049BB40) --------------------------------------------------------
-void sub_49BB40() {
-	int v0; // esi
-	int v1; // edi
-
-	v0 = dword_5d4594_1303472;
-	if (dword_5d4594_1303472) {
-		do {
-			v1 = *(uint32_t*)(v0 + 332);
-			if (*(uint32_t*)(v0 + 340) < (unsigned int)sub_435590()) {
-				nox_xxx_spriteDeleteStatic_45A4E0_drawable(v0);
-			}
-			v0 = v1;
-		} while (v1);
-	}
-}
-
 //----- (0049BB80) --------------------------------------------------------
 void* sub_49BB80(char a1) {
 	void* result; // eax
@@ -5649,57 +5444,6 @@ void sub_49BBC0() {
 		}
 	}
 }
-
-//----- (0049BC80) --------------------------------------------------------
-uint32_t* nox_xxx_spriteToList_49BC80_drawable(uint32_t* a1) {
-	uint32_t* result; // eax
-
-	result = a1;
-	if (!a1[96]) {
-		a1[95] = 0;
-		a1[94] = dword_5d4594_1303536;
-		if (dword_5d4594_1303536) {
-			*(uint32_t*)(dword_5d4594_1303536 + 380) = a1;
-		}
-		dword_5d4594_1303536 = a1;
-		a1[96] = 1;
-	}
-	return result;
-}
-
-//----- (0049BCD0) --------------------------------------------------------
-uint32_t* sub_49BCD0(nox_drawable* dr) {
-	uint32_t* a1 = dr;
-	uint32_t* result; // eax
-	int v2;           // ecx
-	int v3;           // ecx
-	int v4;           // ecx
-
-	result = a1;
-	if (a1[96]) {
-		v2 = a1[95];
-		if (v2) {
-			*(uint32_t*)(v2 + 376) = a1[94];
-			v3 = a1[94];
-			if (v3) {
-				*(uint32_t*)(v3 + 380) = a1[95];
-				a1[96] = 0;
-				return result;
-			}
-		} else {
-			dword_5d4594_1303536 = a1[94];
-			v4 = a1[94];
-			if (v4) {
-				*(uint32_t*)(v4 + 380) = 0;
-			}
-		}
-		a1[96] = 0;
-	}
-	return result;
-}
-
-//----- (0049BD40) --------------------------------------------------------
-int nox_xxx_getSomeSprite_49BD40() { return dword_5d4594_1303536; }
 
 //----- (0049BD50) --------------------------------------------------------
 int nox_xxx_getSprite178_49BD50(int a1) {
@@ -5894,7 +5638,8 @@ void nox_xxx_sprite_49C4F0() {
 }
 
 //----- (0049C520) --------------------------------------------------------
-int sub_49C520(int a1) {
+int sub_49C520(nox_drawable* a1p) {
+	int a1 = a1p;
 	unsigned char* v1; // eax
 	int v2;            // eax
 	unsigned char* i;  // ecx

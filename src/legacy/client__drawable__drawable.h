@@ -6,8 +6,6 @@
 
 extern nox_parse_thing_draw_funcs_t nox_parse_thing_draw_funcs[];
 
-int nox_alloc_drawable_init(int cnt);
-void nox_drawable_free();
 nox_drawable* nox_new_drawable_for_thing(int i);
 int nox_xxx_spriteDelete_45A4B0(nox_drawable* dr);
 

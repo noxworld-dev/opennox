@@ -60,7 +60,6 @@ extern uint32_t dword_5d4594_1047536;
 extern uint32_t dword_5d4594_1045420;
 extern uint32_t dword_5d4594_1045556;
 extern uint32_t dword_5d4594_831240;
-extern uint32_t dword_5d4594_1046604;
 extern uint32_t dword_5d4594_1045580;
 extern uint32_t dword_5d4594_1045548;
 extern uint32_t dword_5d4594_1045640;
@@ -91,13 +90,11 @@ extern uint32_t dword_5d4594_1046540;
 extern uint32_t dword_5d4594_1045588;
 extern uint32_t dword_5d4594_831276;
 extern uint32_t dword_5d4594_1046648;
-extern uint32_t dword_5d4594_1046596;
 extern uint32_t dword_5d4594_1046640;
 extern uint32_t dword_5d4594_1045692;
 extern uint32_t dword_5d4594_831084;
 extern uint32_t dword_5d4594_1046956;
 extern uint32_t dword_5d4594_1047936;
-extern uint32_t dword_5d4594_1046576;
 extern float2 obj_5d4594_1046620;
 extern uint32_t dword_5d4594_1046536;
 extern uint32_t dword_5d4594_1045436;
@@ -181,15 +178,8 @@ extern int nox_win_height;
 extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_black_2650656;
 
-extern nox_drawable* nox_drawable_head_unk1;
-extern nox_drawable* nox_drawable_head_unk2;
-extern nox_drawable* nox_drawable_head_unk3;
-extern nox_drawable* nox_drawable_head_unk4;
-
 nox_window* nox_win_unk1 = 0;
 nox_window* dword_5d4594_1046512 = 0;
-
-nox_drawable* nox_xxx_drawablePlayer_1046600 = 0;
 
 uint32_t dword_587000_122856 = 0x1;
 uint32_t dword_5d4594_831088 = 0;
@@ -1386,7 +1376,8 @@ uint32_t* nox_xxx_draw_452300(uint32_t* a1) {
 }
 
 //----- (004523D0) --------------------------------------------------------
-int sub_4523D0(uint32_t* a1) {
+int sub_4523D0(void* a1p) {
+	uint32_t* a1 = a1p;
 	int result = 0; // eax
 
 	if (!(a1[6] & 1)) {
@@ -4329,65 +4320,6 @@ int sub_459DB0(nox_drawable* dr) {
 	return *(uint32_t*)(a1 + 112) & 0x400000 && *(uint8_t*)(a1 + 116) & 8;
 }
 
-//----- (00459DD0) --------------------------------------------------------
-void sub_459DD0(nox_drawable* dr, char a2) {
-	int a1 = dr;
-	if (!a1) {
-		return;
-	}
-	int v3 = *(uint32_t*)(a1 + 120);
-	*(uint8_t*)(a1 + 284) |= a2;
-	if (v3 < 0) {
-		return;
-	}
-	for (int it = nox_xxx_cliFirstMinimapObj_459EB0(); it; it = nox_xxx_cliNextMinimapObj_459EC0(it)) {
-		// TODO: this happens when hosting a Solo map in Arena game mode and leads to an infinite loop, so we prevent it
-		if (a1 == it) {
-			return;
-		}
-	}
-	int v4 = dword_5d4594_1046596;
-	*(uint32_t*)(a1 + 412) = 0;
-	*(uint32_t*)(a1 + 408) = v4;
-	if (dword_5d4594_1046596) {
-		*(uint32_t*)(dword_5d4594_1046596 + 412) = a1;
-	}
-	dword_5d4594_1046596 = a1;
-	*(uint32_t*)(a1 + 120) |= 0x80000000;
-}
-
-//----- (00459E30) --------------------------------------------------------
-int nox_xxx_cliRemoveHealthbar_459E30(nox_drawable* dr, char a2) {
-	int a1 = dr;
-	int result; // eax
-	bool v3;    // zf
-	int v4;     // ecx
-	int v5;     // ecx
-
-	result = a1;
-	if (*(int*)(a1 + 120) < 0) {
-		v3 = ((unsigned char)~a2 & *(uint8_t*)(a1 + 284)) == 0;
-		*(uint8_t*)(a1 + 284) &= ~a2;
-		if (v3) {
-			v4 = *(uint32_t*)(a1 + 408);
-			if (v4) {
-				*(uint32_t*)(v4 + 412) = *(uint32_t*)(a1 + 412);
-			}
-			v5 = *(uint32_t*)(a1 + 412);
-			if (v5) {
-				*(uint32_t*)(v5 + 408) = *(uint32_t*)(a1 + 408);
-			} else {
-				dword_5d4594_1046596 = *(uint32_t*)(a1 + 408);
-			}
-			*(uint32_t*)(a1 + 120) &= 0x7FFFFFFFu;
-		}
-	}
-	return result;
-}
-
-//----- (00459EB0) --------------------------------------------------------
-int nox_xxx_cliFirstMinimapObj_459EB0() { return dword_5d4594_1046596; }
-
 //----- (00459EC0) --------------------------------------------------------
 int nox_xxx_cliNextMinimapObj_459EC0(int a1) {
 	int next = *(uint32_t*)(a1 + 408);
@@ -4398,84 +4330,6 @@ int nox_xxx_cliNextMinimapObj_459EC0(int a1) {
 	}
 	return next;
 }
-
-//----- (00459ED0) --------------------------------------------------------
-void sub_459ED0_drawable(nox_drawable* dr) {
-	dr->field_104 = nox_xxx_drawablePlayer_1046600;
-	dr->field_105 = 0;
-	if (nox_xxx_drawablePlayer_1046600) {
-		nox_xxx_drawablePlayer_1046600->field_105 = dr;
-	}
-	nox_xxx_drawablePlayer_1046600 = dr;
-}
-
-//----- (00459F00) --------------------------------------------------------
-int sub_459F00(nox_drawable* dr) {
-	int a1 = dr;
-	int result; // eax
-	int v2;     // ecx
-	int v3;     // ecx
-
-	result = a1;
-	v2 = *(uint32_t*)(a1 + 416);
-	if (v2) {
-		*(uint32_t*)(v2 + 420) = *(uint32_t*)(a1 + 420);
-	}
-	v3 = *(uint32_t*)(a1 + 420);
-	if (v3) {
-		result = *(uint32_t*)(a1 + 416);
-		*(uint32_t*)(v3 + 416) = result;
-	} else {
-		nox_xxx_drawablePlayer_1046600 = *(uint32_t*)(a1 + 416);
-	}
-	return result;
-}
-
-//----- (00459F40) --------------------------------------------------------
-int sub_459F40_drawable(int a1) {
-	int result; // eax
-
-	result = a1;
-	*(uint32_t*)(a1 + 424) = dword_5d4594_1046576;
-	*(uint32_t*)(a1 + 428) = 0;
-	if (dword_5d4594_1046576) {
-		*(uint32_t*)(dword_5d4594_1046576 + 428) = a1;
-	}
-	dword_5d4594_1046576 = a1;
-	return result;
-}
-
-//----- (00459F70) --------------------------------------------------------
-uint32_t* sub_459F70(nox_drawable* dr) {
-	uint32_t* a1 = dr;
-	uint32_t* result = 0; // eax
-	int v2;               // ecx
-	int v3;               // ecx
-
-	result = a1;
-	v2 = a1[106];
-	if (v2) {
-		*(uint32_t*)(v2 + 428) = a1[107];
-	} else if (!a1[107] && *(uint32_t**)&dword_5d4594_1046576 != a1) {
-		return result;
-	}
-	v3 = a1[107];
-	if (v3) {
-		*(uint32_t*)(v3 + 424) = a1[106];
-	} else {
-		dword_5d4594_1046576 = a1[106];
-	}
-	a1[106] = 0;
-	a1[107] = 0;
-	result = (uint32_t*)sub_452EB0(a1 + 124);
-	if (result) {
-		result = (uint32_t*)sub_4523D0(result);
-	}
-	return result;
-}
-
-//----- (0045A000) --------------------------------------------------------
-nox_drawable* nox_xxx_cliGetSpritePlayer_45A000() { return nox_xxx_drawablePlayer_1046600; }
 
 //----- (0045A010) --------------------------------------------------------
 nox_drawable* sub_45A010(nox_drawable* dr) { return dr->field_104; }
@@ -4492,11 +4346,8 @@ int sub_45A040(int a1) {
 	return result;
 }
 
-//----- (0045A060) --------------------------------------------------------
-nox_drawable* sub_45A060() { return nox_drawable_head_unk1; }
-
 //----- (0045A070) --------------------------------------------------------
-nox_drawable* sub_45A070(nox_drawable* a1) {
+nox_drawable* nox_drawable_next_45A070(nox_drawable* a1) {
 	int result; // eax
 
 	if (a1) {
@@ -4507,9 +4358,6 @@ nox_drawable* sub_45A070(nox_drawable* a1) {
 	return result;
 }
 
-//----- (0045A090) --------------------------------------------------------
-int sub_45A090() { return dword_5d4594_1046576; }
-
 //----- (0045A0A0) --------------------------------------------------------
 int sub_45A0A0(int a1) {
 	int result; // eax
@@ -4518,245 +4366,6 @@ int sub_45A0A0(int a1) {
 		result = *(uint32_t*)(a1 + 424);
 	} else {
 		result = 0;
-	}
-	return result;
-}
-
-//----- (0045A110) --------------------------------------------------------
-void nox_xxx_sprite_45A110_drawable(nox_drawable* a1) {
-	a1->field_98 = 0;
-	a1->field_97 = nox_drawable_head_unk3;
-	if (nox_drawable_head_unk3) {
-		nox_drawable_head_unk3->field_98 = a1;
-	} else {
-		nox_drawable_head_unk4 = a1;
-	}
-	nox_drawable_head_unk3 = a1;
-	a1->flags30 |= 0x400000u;
-}
-
-//----- (0045A160) --------------------------------------------------------
-void sub_45A160_drawable(nox_drawable* a1) {
-	if (!(a1->flags30 & 0x400000)) {
-		return;
-	}
-
-	nox_drawable* v2 = a1->field_98;
-	if (v2) {
-		v2->field_97 = a1->field_97;
-	} else {
-		nox_drawable_head_unk3 = a1->field_97;
-	}
-
-	nox_drawable* v3 = a1->field_97;
-	if (v3) {
-		v3->field_98 = a1->field_98;
-	} else {
-		nox_drawable_head_unk4 = a1->field_98;
-	}
-
-	a1->flags30 &= 0xFFBFFFFF;
-}
-
-//----- (0045A360) --------------------------------------------------------
-nox_drawable* nox_xxx_spriteLoadAdd_45A360_drawable(int thingInd, int a2, int a3) {
-	nox_drawable* dr = nox_new_drawable_for_thing(thingInd);
-	if (!dr) {
-		return 0;
-	}
-	dr->buffs = 0;
-	dr->field_32 = 0;
-	if (dr->field_116) {
-		nox_xxx_spriteToList_49BC80_drawable(dr);
-	}
-	if (dr->flags30 & 0x200000) {
-		nox_xxx_spriteToSightDestroyList_49BAB0_drawable(dr);
-	}
-	if (dr->field_123) {
-		sub_459F40_drawable(dr);
-	}
-	dr->pos.x = a2;
-	dr->field_8 = a2;
-	dr->pos.y = a3;
-	dr->field_9 = a3;
-	dr->field_80 = gameFrame();
-	dr->field_92 = nox_drawable_head_unk1;
-	dr->field_93 = 0;
-	if (nox_drawable_head_unk1) {
-		nox_drawable_head_unk1->field_93 = dr;
-	}
-	nox_drawable_head_unk1 = dr;
-	nox_xxx_sprite_49AA00_drawable(dr);
-	if (dr->flags30 & 0x10000) {
-		nox_drawable* v6 = nox_drawable_head_unk2;
-		dr->field_91 = 0;
-		dr->field_90 = v6;
-		if (v6) {
-			v6->field_91 = dr;
-		}
-		nox_drawable_head_unk2 = dr;
-	}
-	if (*(uint8_t*)((char*)dr + 112) & 4) {
-		sub_459ED0_drawable(dr);
-	}
-	dr->flags30 |= 0x1000000u;
-	nox_xxx_spriteSetActiveMB_45A990_drawable(dr);
-	dr->field_120 = 0;
-	dr->field_121 = 0;
-	nox_xxx_sprite_45A480_drawable(dr);
-	return dr;
-}
-
-//----- (0045A480) --------------------------------------------------------
-void nox_xxx_sprite_45A480_drawable(int a1) {
-	int v1; // ecx
-
-	if (*(uint32_t*)(a1 + 112) & 0x1000000 && *(uint8_t*)(a1 + 116) & 0xC0) {
-		v1 = *(uint32_t*)(a1 + 120);
-		if (v1 & 0x4000) {
-			sub_495F70(a1);
-		}
-	}
-}
-
-//----- (0045A4E0) --------------------------------------------------------
-void nox_xxx_spriteDeleteStatic_45A4E0_drawable(nox_drawable* dr) {
-	if (dr->field_93) {
-		dr->field_93->field_92 = dr->field_92;
-	} else {
-		nox_drawable_head_unk1 = dr->field_92;
-	}
-
-	if (dr->field_92) {
-		dr->field_92->field_93 = dr->field_93;
-	}
-
-	nox_xxx_sprite_49A9B0_drawable(dr);
-	nox_xxx_clientDeleteSprite_476F10_drawable(dr);
-
-	if (dr->flags30 & 0x10000) {
-		if (dr->field_91) {
-			dr->field_91->field_90 = dr->field_90;
-		} else {
-			nox_drawable_head_unk2 = dr->field_90;
-		}
-
-		if (dr->field_90) {
-			dr->field_90->field_91 = dr->field_91;
-		}
-	}
-
-	sub_45A160_drawable(dr);
-	sub_49BCD0(dr);
-	sub_49BAF0(dr);
-	nox_xxx_sprite_49BA10(dr);
-	nox_xxx_cliRemoveHealthbar_459E30(dr, 3);
-	sub_459F70(dr);
-
-	if (*(uint8_t*)(&dr->flags28) & 0x4) {
-		sub_459F00(dr);
-	}
-
-	if (nox_xxx_servObjectHasTeam_419130(&dr->field_6)) {
-		nox_xxx_netChangeTeamMb_419570(&dr->field_6, dr->field_32);
-	}
-
-	nox_xxx_spriteDelete_45A4B0(dr);
-}
-
-//----- (0045A5E0) --------------------------------------------------------
-void nox_xxx_spriteDeleteAll_45A5E0(int a1) {
-	int v1; // esi
-	int v2; // edi
-
-	v1 = nox_drawable_head_unk1;
-	if (v1) {
-		do {
-			v2 = *(uint32_t*)(v1 + 368);
-			if (!(*(uint8_t*)(v1 + 112) & 4) || !a1 || !nox_xxx_spriteIsPlayerSprite_45A630(v1)) {
-				nox_xxx_spriteDeleteStatic_45A4E0_drawable(v1);
-			}
-			v1 = v2;
-		} while (v2);
-	}
-}
-
-//----- (0045A630) --------------------------------------------------------
-int nox_xxx_spriteIsPlayerSprite_45A630(int a1) {
-	char* v1; // eax
-
-	v1 = nox_common_playerInfoGetFirst_416EA0();
-	if (!v1) {
-		return 0;
-	}
-	while (*(uint32_t*)(a1 + 128) != *((uint32_t*)v1 + 515)) {
-		v1 = nox_common_playerInfoGetNext_416EE0((int)v1);
-		if (!v1) {
-			return 0;
-		}
-	}
-	return 1;
-}
-
-//----- (0045A670) --------------------------------------------------------
-void sub_45A670(unsigned int a1) {
-	int result;   // eax
-	uint32_t* v2; // esi
-	uint32_t* v3; // edi
-
-	result = dword_5d4594_1046604;
-	if (!dword_5d4594_1046604) {
-		result = nox_xxx_getTTByNameSpriteMB_44CFC0("SummonEffect");
-		dword_5d4594_1046604 = result;
-	}
-	v2 = nox_drawable_head_unk1;
-	if (!v2) {
-		return;
-	}
-	do {
-		int result = v2[28];
-		v3 = (uint32_t*)v2[92];
-		if (!(result & 0x20400006)) {
-			if (!sub_49C520((int)v2)) {
-				if (v2[27] != dword_5d4594_1046604 && v2[80] < a1) {
-					nox_xxx_spriteDeleteStatic_45A4E0_drawable((int)v2);
-				}
-			}
-		}
-		v2 = v3;
-	} while (v3);
-}
-
-//----- (0045A6F0) --------------------------------------------------------
-nox_drawable* nox_xxx_netSpriteByCodeDynamic_45A6F0(int a1) {
-	uint32_t* result; // eax
-
-	result = nox_drawable_head_unk1;
-	if (!result) {
-		return 0;
-	}
-	while (result[28] & 0x20400000 || result[32] != a1) {
-		result = (uint32_t*)result[92];
-		if (!result) {
-			return 0;
-		}
-	}
-	return result;
-}
-
-//----- (0045A720) --------------------------------------------------------
-nox_drawable* nox_xxx_netSpriteByCodeStatic_45A720(int a1) {
-	uint32_t* result; // eax
-
-	result = nox_drawable_head_unk1;
-	if (!result) {
-		return 0;
-	}
-	while (!(result[28] & 0x20400000) || result[32] != a1) {
-		result = (uint32_t*)result[92];
-		if (!result) {
-			return 0;
-		}
 	}
 	return result;
 }

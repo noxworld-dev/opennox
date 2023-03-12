@@ -55,7 +55,6 @@ extern float nox_xxx_wizardMaxHealth_587000_312816;
 extern float nox_xxx_wizardMaximumMana_587000_312820;
 
 nox_drawable* nox_xxx_netSpriteByCodeDynamic_45A6F0(int a1);
-nox_drawable* nox_xxx_netSpriteByCodeStatic_45A720(int a1);
 
 int nox_xxx_netPlayerObjSend_518C30(nox_object_t* a1, nox_object_t* a2, int a3, signed int a4);
 int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char* data, int dsz, nox_playerInfo* v8p, nox_object_t* unitp, void* v10p);
@@ -316,14 +315,11 @@ func Sub_456DF0(a1 int) {
 func Sub_455950(a1 *uint16) {
 	C.sub_455950((*C.ushort)(unsafe.Pointer(a1)))
 }
-func Nox_xxx_netChangeTeamMb_419570(a1 unsafe.Pointer, a2 uint32) {
-	C.nox_xxx_netChangeTeamMb_419570(a1, C.int(a2))
+func Nox_xxx_netChangeTeamMb_419570(a1 *server.ObjectTeam, a2 uint32) {
+	C.nox_xxx_netChangeTeamMb_419570(a1.C(), C.int(a2))
 }
 func Sub_49BB80(a1 byte) {
 	C.sub_49BB80(C.char(a1))
-}
-func Nox_xxx_netSpriteByCodeStatic_45A720(a1 int) *client.Drawable {
-	return asDrawable(C.nox_xxx_netSpriteByCodeStatic_45A720(C.int(a1)))
 }
 func Nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int, a2 noxnet.Op, data []byte) int {
 	return int(C.nox_xxx_netOnPacketRecvCli_48EA70_switch(C.int(a1), C.int(a2), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data))))

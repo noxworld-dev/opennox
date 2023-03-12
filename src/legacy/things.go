@@ -23,7 +23,6 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 )
 
@@ -74,13 +73,6 @@ func Sub_485F30() {
 }
 func Sub_46A360() {
 	C.sub_46A360()
-}
-func Sub_45A060() *client.Drawable {
-	return asDrawable(C.sub_45A060())
-}
-
-func Sub_45A070(dr *client.Drawable) *client.Drawable {
-	return asDrawable(C.sub_45A070((*nox_drawable)(dr.C())))
 }
 
 func Nox_thing_skip_spells_415100(f *binfile.MemFile) {

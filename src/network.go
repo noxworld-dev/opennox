@@ -979,7 +979,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 			pl.Active = 0
 			tobj := nox_xxx_objGetTeamByNetCode_418C80(int(playerID))
 			if tobj != nil && server.Nox_xxx_servObjectHasTeam_419130(tobj) {
-				legacy.Nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(tobj), uint32(playerID))
+				legacy.Nox_xxx_netChangeTeamMb_419570(tobj, uint32(playerID))
 			}
 		} else {
 			msg = c.Strings().GetStringInFile("UnknownLeft", "cdecode.c")
@@ -1015,9 +1015,9 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 		if nox_client_isConnected() {
 			var dr *client.Drawable
 			if nox_xxx_netTestHighBit_578B70(binary.LittleEndian.Uint16(data[8:])) {
-				dr = legacy.Nox_xxx_netSpriteByCodeStatic_45A720(int(drID))
+				dr = nox_xxx_netSpriteByCodeStatic_45A720(int(drID))
 			} else {
-				dr = legacy.Nox_xxx_netSpriteByCodeDynamic_45A6F0(int(drID))
+				dr = nox_xxx_netSpriteByCodeDynamic_45A6F0(int(drID))
 			}
 			c.r.partfx.onParticleFx(data[1], dr, int(binary.LittleEndian.Uint16(data[2:])), binary.LittleEndian.Uint16(data[4:]) != 0, int(binary.LittleEndian.Uint16(data[6:])))
 		}
@@ -1435,7 +1435,7 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *O
 	case noxnet.MSG_REQUEST_MAP:
 		pl.GoObserver(true, true)
 		if u != nil {
-			legacy.Nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(u.TeamPtr()), uint32(pl.NetCode()))
+			legacy.Nox_xxx_netChangeTeamMb_419570(u.TeamPtr(), uint32(pl.NetCode()))
 		}
 		legacy.Nox_xxx_netMapSend_519D20(pl.Index())
 		return 1, true
