@@ -36,7 +36,6 @@
 #include "client__gui__gui_ctf.h"
 #include "client__gui__guibrief.h"
 #include "client__gui__guicon.h"
-#include "client__gui__guidlg.h"
 #include "client__gui__guigen.h"
 #include "client__gui__guiggovr.h"
 #include "client__gui__guiinv.h"
