@@ -1,10 +1,12 @@
 package opennox
 
 import (
+	"encoding/binary"
 	"fmt"
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/spell"
@@ -1267,6 +1269,38 @@ func sub_548F40(obj *server.Object) int {
 	return int(ud.DialogResult)
 }
 
-func nox_xxx_startShopDialog_548DE0(caller, trigger *server.Object, aud sound.ID, str strman.ID) {
-	legacy.Nox_xxx_startShopDialog_548DE0(caller, trigger, aud, str)
+func nox_xxx_startShopDialog_548DE0(player, npc *server.Object, snd sound.ID, str strman.ID) {
+	if str == "" {
+		return
+	}
+	if player == nil || !player.Class().Has(object.ClassPlayer) {
+		return
+	}
+	if npc == nil || !npc.Class().Has(object.ClassMonster) {
+		return
+	}
+	s := noxServer
+	tud := npc.UpdateDataMonster()
+	pud := player.UpdateDataPlayer()
+	pud.DialogWith = npc
+
+	buf, free := alloc.Make([]byte{}, 135)
+	defer free()
+	buf[0] = byte(noxnet.MSG_DIALOG)
+	buf[1] = 3
+	copy(buf[2:34], str)
+	v7 := legacy.Sub_4E39F0_obj_db(npc)
+	alloc.StrCopy16B(buf[34:96], v7)
+	buf[96] = 0
+	buf[97] = 0
+	binary.LittleEndian.PutUint32(buf[98:], uint32(snd))
+	if pname := tud.DialogPortrait(); pname != "" {
+		copy(buf[102:134], pname)
+	} else {
+		copy(buf[102:134], "ShopKeeperPic")
+	}
+	buf[134] = tud.DialogFlags
+	pl := player.ControllingPlayer()
+	s.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:135], 0, 1)
+	legacy.Nox_xxx_unitFreeze_4E79C0(player, 0)
 }
