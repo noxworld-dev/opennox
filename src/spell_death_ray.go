@@ -63,7 +63,7 @@ func (c *Client) clientFXDeathRay(p1, p2 image.Point) {
 			X: (2 * dx * i) / dist,
 			Y: (2 * dy * i) / dist,
 		})
-		dr := nox_xxx_spriteLoadAdd_45A360_drawable(spellDRayVioletSpark, pos)
+		dr := c.Nox_xxx_spriteLoadAdd_45A360_drawable(spellDRayVioletSpark, pos)
 		if dr == nil {
 			continue
 		}
@@ -80,6 +80,6 @@ func (c *Client) clientFXDeathRay(p1, p2 image.Point) {
 		*(*uint32)(unsafe.Pointer(&dr.Field_112_0)) = c.srv.Frame() + uint32(expire)
 		dr.ZVal = uint16(z)
 		dr.VelZ = int8(vz)
-		nox_xxx_sprite_45A110_drawable(dr)
+		c.Objs.List34Add(dr)
 	}
 }

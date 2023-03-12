@@ -6,7 +6,13 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
+)
+
+const (
+	Nox_drawable_2d_index_cap = 47
+	Nox_drawable_2d_div       = 128
 )
 
 var (
@@ -17,7 +23,317 @@ type DrawableExt struct {
 	Field99 **Drawable
 }
 
-func Nox_xxx_sprite_2d_remove(dr *Drawable, ext *DrawableExt) {
+type clientDrawables struct {
+	c *Client
+
+	Alloc        alloc.ClassT[Drawable]
+	Count        int
+	List1        *Drawable
+	List2        *Drawable
+	list3        *Drawable
+	List4        *Drawable
+	list5        *Drawable
+	playerList   *Drawable
+	minimapList  *Drawable
+	List6        *Drawable
+	DeadlineList *Drawable
+	List8        *Drawable
+	Index2D      [][]*Drawable
+	Index2DSize  int
+}
+
+func (c *clientDrawables) init(cli *Client) {
+	c.c = cli
+}
+
+func (c *clientDrawables) Init(cnt int) {
+	c.Alloc = alloc.NewClassT("drawableClass", Drawable{}, cnt)
+	c.initIndex2D()
+}
+
+func (c *clientDrawables) Free() {
+	c.freeIndex2D()
+	c.Alloc.Free()
+	c.List1 = nil
+	c.List2 = nil
+	c.list3 = nil
+	c.List4 = nil
+	c.Count = 0
+}
+
+func (c *clientDrawables) initIndex2D() {
+	c.Index2DSize = Nox_drawable_2d_index_cap
+	c.Index2D = make([][]*Drawable, c.Index2DSize)
+	for i := 0; i < c.Index2DSize; i++ {
+		c.Index2D[i] = make([]*Drawable, c.Index2DSize)
+	}
+}
+
+func (c *clientDrawables) freeIndex2D() {
+	c.Index2D = nil
+	c.Index2DSize = 0
+}
+
+func (c *clientDrawables) FirstList1() *Drawable {
+	return c.List1
+}
+
+func (c *clientDrawables) FirstList2() *Drawable {
+	return c.List2
+}
+
+func (c *clientDrawables) FirstList5() *Drawable {
+	return c.list5
+}
+
+func (c *clientDrawables) FirstList8() *Drawable {
+	return c.List8
+}
+
+func (c *clientDrawables) FirstMinimapList() *Drawable {
+	return c.minimapList
+}
+
+func (c *clientDrawables) FirstPlayerList() *Drawable {
+	return c.playerList
+}
+
+func (c *clientDrawables) List34Add(dr *Drawable) {
+	dr.Field_98 = nil
+	dr.Field_97 = c.list3
+	if c.list3 != nil {
+		c.list3.Field_98 = dr
+	} else {
+		c.List4 = dr
+	}
+	c.list3 = dr
+	dr.Flags30Val |= 0x400000
+}
+
+func (c *clientDrawables) List34Delete(dr *Drawable) {
+	if (dr.Flags30() & 0x400000) == 0 {
+		return
+	}
+	if dr2 := dr.Field_98; dr2 != nil {
+		dr2.Field_97 = dr.Field_97
+	} else {
+		c.list3 = dr.Field_97
+	}
+	if dr2 := dr.Field_97; dr2 != nil {
+		dr2.Field_98 = dr.Field_98
+	} else {
+		c.List4 = dr.Field_98
+	}
+	dr.Flags30Val &= 0xFFBFFFFF
+}
+
+func (c *clientDrawables) List5Add(dr *Drawable) {
+	if dr.InList5 != 0 {
+		return
+	}
+	dr.Field_95 = nil
+	dr.Field_94 = c.list5
+	if c.list5 != nil {
+		c.list5.Field_95 = dr
+	}
+	c.list5 = dr
+	dr.InList5 = 1
+}
+
+func (c *clientDrawables) List5Delete(dr *Drawable) {
+	if dr.InList5 == 0 {
+		return
+	}
+	if v2 := dr.Field_95; v2 != nil {
+		v2.Field_94 = dr.Field_94
+		if v3 := dr.Field_94; v3 != nil {
+			v3.Field_95 = dr.Field_95
+			dr.InList5 = 0
+			return
+		}
+	} else {
+		c.list5 = dr.Field_94
+		if v4 := dr.Field_94; v4 != nil {
+			v4.Field_95 = nil
+		}
+	}
+	dr.InList5 = 0
+}
+
+func (c *clientDrawables) List6Add(dr *Drawable) {
+	dr.Field_84 = nil
+	dr.Field_83 = c.List6
+	if c.List6 != nil {
+		c.List6.Field_84 = dr
+	}
+	c.List6 = dr
+	dr.Flags30Val |= 0x200000
+}
+
+func (c *clientDrawables) List6Delete(dr *Drawable) {
+	if dr.Flags30()&0x200000 == 0 {
+		return
+	}
+	if v2 := dr.Field_84; v2 != nil {
+		v2.Field_83 = dr.Field_83
+	} else {
+		c.List6 = dr.Field_83
+	}
+	if v3 := dr.Field_83; v3 != nil {
+		v3.Field_84 = dr.Field_84
+	}
+	dr.Flags30Val &= 0xFFDFFFFF
+}
+
+func (c *clientDrawables) List8Add(dr *Drawable) {
+	dr.Field_106 = c.List8
+	dr.Field_107 = nil
+	if c.List8 != nil {
+		c.List8.Field_107 = dr
+	}
+	c.List8 = dr
+}
+
+func (c *clientDrawables) RemoveHealthBar(dr *Drawable, a2 uint8) {
+	if dr.Flags30()&0x80000000 == 0 {
+		return
+	}
+	set := (^a2 & dr.Field_71_0) == 0
+	dr.Field_71_0 &= ^a2
+	if !set {
+		return
+	}
+	if v4 := dr.Field_102; v4 != nil {
+		v4.Field_103 = dr.Field_103
+	}
+	if v5 := dr.Field_103; v5 != nil {
+		v5.Field_102 = dr.Field_102
+	} else {
+		c.minimapList = dr.Field_102
+	}
+	dr.Flags30Val &^= 0x80000000
+}
+
+func (c *clientDrawables) MinimapAdd(dr *Drawable, a2 uint8) {
+	if dr == nil {
+		return
+	}
+	dr.Field_71_0 |= a2
+	if dr.Flags30()&0x80000000 != 0 {
+		return
+	}
+	for it := c.FirstMinimapList(); it != nil; it = it.Nox_xxx_cliNextMinimapObj_459EC0(it) {
+		// TODO: this happens when hosting a Solo map in Arena game mode and leads to an infinite loop, so we prevent it
+		if dr == it {
+			return
+		}
+	}
+	v4 := c.minimapList
+	dr.Field_103 = nil
+	dr.Field_102 = v4
+	if c.minimapList != nil {
+		c.minimapList.Field_103 = dr
+	}
+	c.minimapList = dr
+	dr.Flags30Val |= 0x80000000
+}
+
+func (c *clientDrawables) DeadlineRemove(dr *Drawable) {
+	if dr.Deadline == 0 {
+		return
+	}
+	if v2 := dr.Field_88; v2 != nil {
+		v2.Field_87 = dr.Field_87
+	} else {
+		c.DeadlineList = dr.Field_87
+	}
+	if v3 := dr.Field_87; v3 != nil {
+		v3.Field_88 = dr.Field_88
+	}
+	dr.Deadline = 0
+}
+
+func (c *clientDrawables) TransparentDecay(dr *Drawable, lifetime int) {
+	if dr.Deadline != 0 {
+		c.DeadlineRemove(dr)
+	}
+	v2 := c.c.srv.Frame() + uint32(lifetime)
+	dr.Deadline = v2
+	if c.DeadlineList == nil {
+		dr.Field_87 = nil
+		dr.Field_88 = nil
+		c.DeadlineList = dr
+		return
+	}
+
+	var last *Drawable
+	for it := c.DeadlineList; it != nil; it = it.Field_87 {
+		if it.Deadline >= v2 {
+			dr.Field_87 = it
+			dr.Field_88 = it.Field_88
+			if v5 := it.Field_88; v5 != nil {
+				v5.Field_87 = dr
+			} else {
+				c.DeadlineList = dr
+			}
+			it.Field_88 = dr
+			return
+		}
+		last = it
+	}
+	last.Field_87 = dr
+	dr.Field_87 = nil
+	dr.Field_88 = last
+}
+
+func (c *clientDrawables) ByNetCodeStatic(id int) *Drawable {
+	for dr := c.List1; dr != nil; dr = dr.NextPtr {
+		if dr.Flags28()&0x20400000 != 0 && dr.Field_32 == uint32(id) {
+			return dr
+		}
+	}
+	return nil
+}
+
+func (c *clientDrawables) ByNetCodeDynamic(id int) *Drawable {
+	for dr := c.List1; dr != nil; dr = dr.NextPtr {
+		if dr.Flags28()&0x20400000 == 0 && dr.Field_32 == uint32(id) {
+			return dr
+		}
+	}
+	return nil
+}
+
+func (c *clientDrawables) IsPlayer(dr *Drawable) bool {
+	for pl := c.c.srv.Players.First(); pl != nil; pl = c.c.srv.Players.Next(pl) {
+		if dr.Field_32 == pl.NetCodeVal {
+			return true
+		}
+	}
+	return false
+}
+
+func (c *clientDrawables) PlayerListAdd(dr *Drawable) {
+	dr.Field_104 = c.playerList
+	dr.Field_105 = nil
+	if c.playerList != nil {
+		c.playerList.Field_105 = dr
+	}
+	c.playerList = dr
+}
+
+func (c *clientDrawables) PlayerListDelete(dr *Drawable) {
+	if v2 := dr.Field_104; v2 != nil {
+		v2.Field_105 = dr.Field_105
+	}
+	if v3 := dr.Field_105; v3 != nil {
+		v3.Field_104 = dr.Field_104
+	} else {
+		c.playerList = dr.Field_104
+	}
+}
+
+func (c *clientDrawables) Index2DRemove(dr *Drawable, ext *DrawableExt) {
 	if v := dr.Field_101; v != nil {
 		v.Field_100 = dr.Field_100
 	} else {
@@ -27,6 +343,64 @@ func Nox_xxx_sprite_2d_remove(dr *Drawable, ext *DrawableExt) {
 		v.Field_101 = dr.Field_101
 	}
 	ext.Field99 = nil
+}
+
+func (c *clientDrawables) AddIndex2D(dr *Drawable) {
+	pos := dr.Pos()
+	xi := pos.X / Nox_drawable_2d_div
+	yi := pos.Y / Nox_drawable_2d_div
+
+	ext := dr.Ext()
+	if ext.Field99 != nil {
+		c.Index2DRemove(dr, ext)
+	}
+
+	dr.Field_101 = nil
+
+	if xi < 0 || xi >= len(c.Index2D) {
+		return
+	}
+	index := c.Index2D[xi]
+	if yi < 0 || yi >= len(index) {
+		return
+	}
+	v4 := index[yi]
+	dr.Field_100 = v4
+	if v4 != nil {
+		v4.Field_101 = dr
+	}
+	c.Index2D[xi][yi] = dr
+
+	ext.Field99 = &c.Index2D[xi][yi]
+}
+
+func (c *clientDrawables) EachInRect(rect image.Rectangle, fnc func(dr *Drawable)) {
+	if fnc == nil {
+		return
+	}
+	xs := rect.Min.X / Nox_drawable_2d_div
+	if xs < 0 {
+		xs = 0
+	}
+	ys := rect.Min.Y / Nox_drawable_2d_div
+	if ys < 0 {
+		ys = 0
+	}
+	xe := rect.Max.X / Nox_drawable_2d_div
+	if xe >= c.Index2DSize {
+		xe = c.Index2DSize - 1
+	}
+	ye := rect.Max.Y / Nox_drawable_2d_div
+	if ye >= c.Index2DSize {
+		ye = c.Index2DSize - 1
+	}
+	for y := ys; y <= ye; y++ {
+		for x := xs; x <= xe; x++ {
+			for cur := c.Index2D[x][y]; cur != nil; cur = cur.Field100() {
+				fnc(cur)
+			}
+		}
+	}
 }
 
 type Drawable struct {
@@ -104,7 +478,7 @@ type Drawable struct {
 	Field_93          *Drawable      // 93, 372
 	Field_94          *Drawable      // 94, 376
 	Field_95          *Drawable      // 95, 380
-	Field_96          uint32         // 96, 384
+	InList5           uint32         // 96, 384
 	Field_97          *Drawable      // 97, 388
 	Field_98          *Drawable      // 98, 392
 	Field_99          **Drawable     // 99, 396
@@ -160,6 +534,14 @@ func (s *Drawable) Next() *Drawable {
 		return nil
 	}
 	return s.NextPtr
+}
+
+func (s *Drawable) Nox_xxx_cliNextMinimapObj_459EC0(dr *Drawable) *Drawable {
+	next := dr.Field_102
+	if dr != nil && dr == next {
+		panic("infinite loop!")
+	}
+	return next
 }
 
 func (s *Drawable) Pos() image.Point {
@@ -236,6 +618,26 @@ func (s *Drawable) TeamPtr() *server.ObjectTeam {
 
 func (s *Drawable) Z() int {
 	return int(s.ZVal)
+}
+
+func (s *Drawable) Nox_xxx_spriteSetActiveMB_45A990_drawable() {
+	s.Flags30Val |= 0x4
+}
+
+func (s *Drawable) Sub_496020(a2 int) bool {
+	for fx := s.Field_114; fx != nil; fx = fx.Next {
+		if fx.Field0 == uint32(a2) {
+			return true
+		}
+	}
+	return false
+}
+
+func (s *Drawable) Nox_xxx_spriteSetFrameMB_45AB80(a2 int) {
+	if s.Flags28()&0x2 == 0 || s.Flags29()&0x40000 == 0 || s.Field_69 != 8 {
+		s.Field_78 = s.Field_77
+		s.Field_77 = uint32(a2)
+	}
 }
 
 const (

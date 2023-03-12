@@ -377,13 +377,14 @@ func (pfx *partFXes) sub_4AF4C0(t *particlefxType) bool {
 }
 
 func (p *particleFx) loadParticle(typ string) {
-	id := noxClient.Things.IndByID(typ)
-	dr := nox_xxx_spriteLoadAdd_45A360_drawable(id, image.Pt(p.x16>>16, p.y16>>16))
+	c := noxClient
+	id := c.Things.IndByID(typ)
+	dr := c.Nox_xxx_spriteLoadAdd_45A360_drawable(id, image.Pt(p.x16>>16, p.y16>>16))
 	if dr != nil {
 		p.drawable12 = dr
 		dr.Field_27 = uint32(uintptr(p.C())) // TODO: unused?
-		nox_xxx_spriteTransparentDecay_49B950(dr, p.ticksTotal)
-		nox_xxx_sprite_45A110_drawable(dr)
+		c.Objs.TransparentDecay(dr, p.ticksTotal)
+		c.Objs.List34Add(dr)
 	}
 	p.flags |= 8
 }
