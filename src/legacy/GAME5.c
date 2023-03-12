@@ -2311,7 +2311,9 @@ void nox_xxx_scriptSetDialog_548C80(int a1, char a2, int a3, int a4) {
 }
 
 //----- (00548CD0) --------------------------------------------------------
-void nox_xxx_script_forcedialog_548CD0(int a1, int a2) {
+void nox_xxx_script_forcedialog_548CD0(nox_object_t* a1p, nox_object_t* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v2; // ecx
 	int v3; // eax
 
