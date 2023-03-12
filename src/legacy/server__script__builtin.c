@@ -969,21 +969,6 @@ LABEL_7:
 	return 0;
 }
 
-//----- (00516A50) --------------------------------------------------------
-int nox_script_DeleteObjectTimer_516A50() {
-	int v0;       // esi
-	int v1;       // eax
-	uint32_t* v2; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = (uint32_t*)nox_server_scriptValToObjectPtr_511B60(v1);
-	if (v2) {
-		nox_xxx_unitSetDecayTime_511660(v2, v0);
-	}
-	return 0;
-}
-
 //----- (00516B40) --------------------------------------------------------
 int nox_script_TrapSpells_516B40() {
 	int v0; // ebp
