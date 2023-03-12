@@ -301,3 +301,16 @@ func sub_44A360(a1 int) {
 	nox_gui_curDialog_830224.ChildByID(guiDialogTitleID).DrawData().SetFont(fnt)
 	nox_gui_curDialog_830224.ChildByID(guiDialogTextID).DrawData().SetFont(fnt)
 }
+
+func sub_47A1F0() {
+	root := legacy.Get_dword_5d4594_1123524()
+	sub := root.ChildByID(3901)
+	sub.Func94(gui.AsWindowEvent(0x400F, 0, 0))
+	legacy.Nox_xxx_wnd_46ABB0(root, 0)
+	root.SetHidden(true)
+	sub_44D8F0()
+	legacy.Set_dword_5d4594_1123520(0)
+	if !nox_client_renderGUI_80828 && memmap.Uint32(0x587000, 153436) == 1 {
+		nox_client_renderGUI_80828 = true
+	}
+}

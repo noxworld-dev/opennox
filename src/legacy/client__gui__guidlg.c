@@ -8,7 +8,7 @@
 #include "GAME2_1.h"
 
 extern uint32_t dword_5d4594_1123520;
-extern uint32_t dword_5d4594_1123524;
+extern void* dword_5d4594_1123524;
 extern int nox_win_width;
 extern int nox_win_height;
 
