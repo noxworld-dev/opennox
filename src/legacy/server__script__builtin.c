@@ -308,25 +308,6 @@ int nox_script_ResetQuestStatus_514C90() {
 	return 0;
 }
 
-//----- (00514DF0) --------------------------------------------------------
-int nox_script_CancelDialog_514DF0() {
-	int v0; // eax
-	int v1; // eax
-	int v2; // ecx
-
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		v2 = *(uint32_t*)(v1 + 748);
-		if (*(uint8_t*)(v1 + 8) & 2) {
-			*(uint32_t*)(v2 + 2096) = -1;
-			*(uint32_t*)(v2 + 2100) = -1;
-			nox_xxx_unitUnsetXStatus_4E4780(v1, 16);
-		}
-	}
-	return 0;
-}
-
 //----- (00514E30) --------------------------------------------------------
 int nox_script_DialogPortrait_514E30() {
 	int v0; // esi

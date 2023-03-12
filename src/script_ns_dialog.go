@@ -28,9 +28,12 @@ func (s noxScriptNS) SetDialog(cobj ns.Obj, typ ns.DialogType, start, end ns.Fun
 	nox_xxx_scriptSetDialog_548C80(obj.SObj(), flags, starti, endi)
 }
 
-func (s noxScriptNS) CancelDialog(obj ns.Obj) {
-	//TODO implement me
-	panic("implement me")
+func (s noxScriptNS) CancelDialog(cobj ns.Obj) {
+	if cobj == nil {
+		return
+	}
+	obj := cobj.(nsObj)
+	scriptCancelDialog(obj.SObj())
 }
 
 func (s noxScriptNS) StoryPic(obj ns.Obj, name string) {
