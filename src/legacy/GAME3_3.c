@@ -1280,15 +1280,16 @@ int* nox_xxx_unitUnsetXStatus_4E4780(int a1, int a2) {
 }
 
 //----- (004E4800) --------------------------------------------------------
-int* nox_xxx_unitSetXStatus_4E4800(int a1, int* a2) {
+int nox_xxx_unitSetXStatus_4E4800(nox_object_t* a1p, int a2) {
+	int a1 = a1p;
 	int* result; // eax
 	int v3;      // ecx
 	int v4;      // edx
 	int v5;      // eax
 
 	result = a2;
-	*(uint32_t*)(a1 + 20) |= (unsigned int)a2;
-	if (a2 != (int*)1) {
+	*(uint32_t*)(a1 + 20) |= a2;
+	if (a2 != 1) {
 		nox_xxx_unitNeedSync_4E44F0(a1);
 		if (*(uint32_t*)(a1 + 8) & 0x20400004) {
 			result = (int*)(a1 + 560);
