@@ -12,7 +12,6 @@ int nox_script_ResetQuestStatus_514C90();
 int nox_script_CancelDialog_514DF0();
 int nox_script_DialogPortrait_514E30();
 int nox_script_TellStory_514E90();
-int nox_script_StartDialog_514ED0();
 int nox_script_Guard_515600();
 int nox_script_GuardGroup_515700();
 int nox_script_HitLocation_5159E0();
@@ -108,7 +107,6 @@ var noxScriptBuiltins = [asm.BuiltinGetScore + 1]noxscript.Builtin{
 	asm.BuiltinCancelDialog:        wrapScriptC(C.nox_script_CancelDialog_514DF0),
 	asm.BuiltinStoryPic:            wrapScriptC(C.nox_script_DialogPortrait_514E30),
 	asm.BuiltinTellStory:           wrapScriptC(C.nox_script_TellStory_514E90),
-	asm.BuiltinStartDialog:         wrapScriptC(C.nox_script_StartDialog_514ED0),
 	asm.BuiltinCreatureGuard:       wrapScriptC(C.nox_script_Guard_515600),
 	asm.BuiltinCreatureGroupGuard:  wrapScriptC(C.nox_script_GuardGroup_515700),
 	asm.BuiltinHitLocation:         wrapScriptC(C.nox_script_HitLocation_5159E0),

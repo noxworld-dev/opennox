@@ -357,23 +357,6 @@ int nox_script_TellStory_514E90() {
 	return 0;
 }
 
-//----- (00514ED0) --------------------------------------------------------
-int nox_script_StartDialog_514ED0() {
-	int v0; // esi
-	int v1; // edi
-	int v2; // esi
-	int v3; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v0);
-	v3 = nox_server_scriptValToObjectPtr_511B60(v1);
-	if (v2 && v3) {
-		nox_xxx_script_forcedialog_548CD0(v2, v3);
-	}
-	return 0;
-}
-
 //----- (00515550) --------------------------------------------------------
 int nox_script_JournalDelete_515550() {
 	int v0; // esi
