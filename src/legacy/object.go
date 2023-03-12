@@ -13,17 +13,14 @@ void nox_xxx_updateHarpoon_54F380(nox_object_t* a1);
 int nox_objectDropAudEvent_4EE2F0(nox_object_t* a1, nox_object_t* a2, float2* a3);
 void nox_xxx_script_forcedialog_548CD0(nox_object_t* a1, nox_object_t* a2);
 wchar_t* sub_4E39F0_obj_db(nox_object_t* a1);
-int sub_479D30(wchar_t* a1, int a2, char* a3, char* a4, char a5);
 */
 import "C"
 import (
 	"image"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox-lib/strman"
 	"github.com/noxworld-dev/opennox-lib/types"
 
-	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -373,13 +370,4 @@ func Nox_xxx_script_forcedialog_548CD0(obj, obj2 *server.Object) {
 }
 func Sub_4E39F0_obj_db(obj *server.Object) string {
 	return GoWString(C.sub_4E39F0_obj_db(asObjectC(obj)))
-}
-func Sub_479D30(title string, snd sound.ID, str strman.ID, pic string, flags server.DialogFlags) {
-	ctitle, freeTitle := CWString(title)
-	defer freeTitle()
-	cstr := CString(string(str))
-	defer StrFree(cstr)
-	cpic := CString(pic)
-	defer StrFree(cpic)
-	C.sub_479D30(ctitle, C.int(snd), cstr, cpic, C.char(flags))
 }

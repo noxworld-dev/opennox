@@ -32,8 +32,8 @@ func init() {
 
 const (
 	eventStaticTextPref    = 0x4000
-	eventStaticTextSetText = eventStaticTextPref + 1
-	eventStaticTextGetText = eventStaticTextPref + 2
+	eventStaticTextSetText = eventStaticTextPref + 1 // 0x4001
+	eventStaticTextGetText = eventStaticTextPref + 2 // 0x4002
 )
 
 type StaticTextData struct {
