@@ -81,6 +81,7 @@ func init() {
 	Register(asm.BuiltinStartDialog, nsStartDialog)
 	Register(asm.BuiltinGetAnswer, nsGetAnswer)
 	Register(asm.BuiltinCancelDialog, nsCancelDialog)
+	Register(asm.BuiltinStoryPic, nsStoryPic)
 }
 
 func nsObject(vm VM) int {
@@ -697,6 +698,15 @@ func nsCancelDialog(vm VM) int {
 	obj := vm.PopObjectNS()
 	if obj != nil {
 		vm.NoxScript().CancelDialog(obj)
+	}
+	return 0
+}
+
+func nsStoryPic(vm VM) int {
+	name := vm.PopString()
+	obj := vm.PopObjectNS()
+	if obj != nil {
+		vm.NoxScript().StoryPic(obj, name)
 	}
 	return 0
 }
