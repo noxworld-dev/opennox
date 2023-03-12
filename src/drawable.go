@@ -168,8 +168,56 @@ func nox_xxx_spriteLoadAdd_45A360_drawable(thingInd int, pos image.Point) *clien
 	nox_xxx_spriteSetActiveMB_45A990_drawable(dr)
 	dr.Field_120 = 0
 	dr.Field_121 = 0
-	legacy.Nox_xxx_sprite_45A480_drawable(dr)
+	nox_xxx_sprite_45A480_drawable(dr)
 	return dr
+}
+
+func nox_xxx_sprite_45A480_drawable(dr *client.Drawable) {
+	if dr.Flags28()&0x1000000 != 0 && dr.Flags29()&0xC0 != 0 {
+		if dr.Flags30()&0x4000 != 0 {
+			sub_495F70(dr)
+		}
+	}
+}
+
+var _ = [1]struct{}{}[80-unsafe.Sizeof(client.DrawableFX{})]
+
+func nox_xxx_allocArrayDrawableFX_495AB0() int32 {
+	cl := alloc.NewClassT("DrawableFX", client.DrawableFX{}, 128)
+	*memmap.PtrPtr(0x5D4594, 1203868) = cl.UPtr()
+	if cl.Class == nil {
+		return 0
+	}
+	*memmap.PtrUint32(0x5D4594, 1203872) = 0
+	return 1
+}
+
+func sub_495AE0() {
+	aclass := alloc.AsClassT[client.DrawableFX](*memmap.PtrPtr(0x5D4594, 1203868))
+	aclass.Free()
+	*memmap.PtrPtr(0x5D4594, 1203868) = nil
+	*memmap.PtrUint32(0x5D4594, 1203872) = 0
+}
+
+func sub_495F70(dr *client.Drawable) {
+	aclass := alloc.AsClassT[client.DrawableFX](*memmap.PtrPtr(0x5D4594, 1203868))
+	if dr != nil && !sub_496020(dr, 1) {
+		p := aclass.NewObject()
+		if p != nil {
+			p.Field0 = 1
+			p.Field4 = 0
+			legacy.Sub_495FC0(p, dr)
+		}
+	}
+}
+
+func sub_496020(dr *client.Drawable, a2 int) bool {
+	for fx := dr.Field_114; fx != nil; fx = fx.Next {
+		if fx.Field0 == uint32(a2) {
+			return true
+		}
+	}
+	return false
 }
 
 func nox_xxx_cliGetSpritePlayer_45A000() *client.Drawable {
@@ -308,9 +356,18 @@ func sub_459F70(dr *client.Drawable) {
 	}
 	dr.Field_106 = nil
 	dr.Field_107 = nil
-	if p := legacy.Sub_452EB0(&dr.Field_124); p != nil {
+	if p := sub_452EB0(&dr.Field_124, &dr.Field_125, &dr.Field_126); p != nil {
 		legacy.Sub_4523D0(p)
 	}
+}
+
+func sub_452EB0(a0 *unsafe.Pointer, a1, a2 *uint32) unsafe.Pointer {
+	p := *a0
+	if *a0 != nil && (*a2 != *(*uint32)(unsafe.Add(p, 36)) || *a1 != *(*uint32)(unsafe.Add(p, 280))) {
+		p = nil
+		*a0 = nil
+	}
+	return p
 }
 
 func nox_xxx_cliRemoveHealthbar_459E30(dr *client.Drawable, a2 uint8) {

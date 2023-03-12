@@ -1925,8 +1925,7 @@ int sub_452E90(uint32_t* a1, int a2) {
 }
 
 //----- (00452EB0) --------------------------------------------------------
-void* sub_452EB0(void* a1p) {
-	int* a1 = a1p;
+int sub_452EB0(int* a1) {
 	int result; // eax
 
 	result = *a1;
@@ -4321,6 +4320,17 @@ int sub_459DB0(nox_drawable* dr) {
 	return *(uint32_t*)(a1 + 112) & 0x400000 && *(uint8_t*)(a1 + 116) & 8;
 }
 
+//----- (00459EC0) --------------------------------------------------------
+int nox_xxx_cliNextMinimapObj_459EC0(int a1) {
+	int next = *(uint32_t*)(a1 + 408);
+	if (a1 && a1 == next) {
+		printf("nox_xxx_cliNextMinimapObj_459EC0: infinite loop!\n");
+		abort();
+		return 0;
+	}
+	return next;
+}
+
 //----- (0045A010) --------------------------------------------------------
 nox_drawable* sub_45A010(nox_drawable* dr) { return dr->field_104; }
 
@@ -4337,7 +4347,7 @@ int sub_45A040(int a1) {
 }
 
 //----- (0045A070) --------------------------------------------------------
-nox_drawable* sub_45A070(nox_drawable* a1) {
+nox_drawable* nox_drawable_next_45A070(nox_drawable* a1) {
 	int result; // eax
 
 	if (a1) {
@@ -4358,19 +4368,6 @@ int sub_45A0A0(int a1) {
 		result = 0;
 	}
 	return result;
-}
-
-//----- (0045A480) --------------------------------------------------------
-void nox_xxx_sprite_45A480_drawable(nox_drawable* a1p) {
-	int a1 = a1p;
-	int v1; // ecx
-
-	if (*(uint32_t*)(a1 + 112) & 0x1000000 && *(uint8_t*)(a1 + 116) & 0xC0) {
-		v1 = *(uint32_t*)(a1 + 120);
-		if (v1 & 0x4000) {
-			sub_495F70(a1);
-		}
-	}
 }
 
 //----- (0045A990) --------------------------------------------------------

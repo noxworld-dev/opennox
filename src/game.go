@@ -545,7 +545,7 @@ func initGameSession435CC0() error {
 
 	initDrawableLists()
 
-	if legacy.Nox_xxx_allocArrayDrawableFX_495AB0() == 0 {
+	if nox_xxx_allocArrayDrawableFX_495AB0() == 0 {
 		return errors.New("nox_xxx_allocArrayDrawableFX_495AB0 failed")
 	}
 

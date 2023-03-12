@@ -198,7 +198,6 @@ func init() {
 	legacy.Nox_xxx_spriteToSightDestroyList_49BAB0_drawable = nox_xxx_spriteToSightDestroyList_49BAB0_drawable
 	legacy.Sub_45A060 = sub_45A060
 	legacy.Nox_xxx_cliFirstMinimapObj_459EB0 = nox_xxx_cliFirstMinimapObj_459EB0
-	legacy.Nox_xxx_cliNextMinimapObj_459EC0 = nox_xxx_cliNextMinimapObj_459EC0
 	legacy.Nox_xxx_cliGetSpritePlayer_45A000 = nox_xxx_cliGetSpritePlayer_45A000
 	legacy.Nox_xxx_getSomeSprite_49BD40 = nox_xxx_getSomeSprite_49BD40
 	legacy.Sub_45A090 = sub_45A090

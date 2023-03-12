@@ -316,7 +316,7 @@ int sub_51DED0() {
 			*((uint32_t*)v3 + 9) = v4;
 			nox_xxx_objectFreeMem_4E38A0((int)v3);
 		}
-		v0 = (int*)sub_45A070((int)v0);
+		v0 = (int*)nox_drawable_next_45A070((int)v0);
 	} while (v0);
 	return 1;
 }
