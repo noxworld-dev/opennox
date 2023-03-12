@@ -31,7 +31,7 @@ func nox_xxx_objGetTeamByNetCode_418C80(code int) *server.ObjectTeam {
 			return p.TeamPtr()
 		}
 	} else {
-		p := nox_xxx_netSpriteByCodeDynamic_45A6F0(code)
+		p := noxClient.Objs.ByNetCodeDynamic(code)
 		if p != nil {
 			return p.TeamPtr()
 		}

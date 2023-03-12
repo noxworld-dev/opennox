@@ -28,6 +28,7 @@ func NewClient(pr console.Printer, s *server.Server) *Client {
 		CursorPrev: gui.Cursor17,
 	}
 	c.Things.init(s.Strings())
+	c.Objs.init(c)
 	c.GUI = gui.New(c.r)
 	c.vp, _ = alloc.New(noxrender.Viewport{})
 	return c
@@ -37,6 +38,7 @@ type Client struct {
 	pr          console.Printer
 	srv         *server.Server
 	Things      clientObjTypes
+	Objs        clientDrawables
 	r           *noxrender.NoxRender
 	Seat        seat.Seat
 	Inp         *input.Handler

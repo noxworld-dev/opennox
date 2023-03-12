@@ -48,7 +48,7 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 
 	format = c.Strings().GetStringInFile("DrawCount", "client.c")
 	c.r.Data().SetTextColor(color.White)
-	c.r.DrawString(nil, fmt.Sprintf(format, nox_drawable_count), image.Pt(x, y))
+	c.r.DrawString(nil, fmt.Sprintf(format, c.Objs.Count), image.Pt(x, y))
 	y += 10
 
 	tsOps := *memmap.PtrUint32(0x85B3FC, 120)
