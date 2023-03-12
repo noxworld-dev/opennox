@@ -81,7 +81,7 @@ extern uint32_t dword_5d4594_3798820;
 extern uint32_t dword_5d4594_3798824;
 extern void* dword_587000_155144;
 extern uint32_t dword_5d4594_3798840;
-extern uint32_t dword_5d4594_1123524;
+extern void* dword_5d4594_1123524;
 extern uint32_t dword_5d4594_1193380;
 extern int nox_win_width;
 extern int nox_win_height;
@@ -1589,21 +1589,6 @@ int sub_479D10() {
 	dword_5d4594_1123524 = 0;
 	dword_5d4594_1123520 = 0;
 	return result;
-}
-
-//----- (0047A1F0) --------------------------------------------------------
-void sub_47A1F0() {
-	uint32_t* v0; // eax
-
-	v0 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1123524, 3901);
-	nox_window_call_field_94((int)v0, 16399, 0, 0);
-	nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1123524, 0);
-	nox_window_set_hidden(*(int*)&dword_5d4594_1123524, 1);
-	sub_44D8F0();
-	dword_5d4594_1123520 = 0;
-	if (!nox_client_getRenderGUI() && *getMemU32Ptr(0x587000, 153436) == 1) {
-		nox_client_setRenderGUI(1);
-	}
 }
 
 //----- (0047A260) --------------------------------------------------------
