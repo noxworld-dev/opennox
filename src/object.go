@@ -1237,6 +1237,19 @@ func nox_xxx_scriptSetDialog_548C80(obj *server.Object, flags server.DialogFlags
 	legacy.Nox_xxx_unitSetXStatus_4E4800(obj, 0x10)
 }
 
+func scriptCancelDialog(obj *server.Object) {
+	if obj == nil {
+		return
+	}
+	if !obj.Class().Has(object.ClassMonster) {
+		return
+	}
+	ud := obj.UpdateDataMonster()
+	ud.DialogStartFunc = -1
+	ud.DialogEndFunc = -1
+	legacy.Nox_xxx_unitUnsetXStatus_4E4780(obj, 0x10)
+}
+
 func nox_xxx_script_forcedialog_548CD0(obj, obj2 *server.Object) {
 	legacy.Nox_xxx_script_forcedialog_548CD0(obj, obj2)
 }

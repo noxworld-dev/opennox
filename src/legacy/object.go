@@ -352,6 +352,9 @@ func Nox_object_setGold_4FA620(obj *server.Object, v int) {
 func Nox_xxx_unitSetXStatus_4E4800(obj *server.Object, a2 int) {
 	C.nox_xxx_unitSetXStatus_4E4800(asObjectC(obj), C.int(a2))
 }
+func Nox_xxx_unitUnsetXStatus_4E4780(obj *server.Object, a2 int) {
+	C.nox_xxx_unitUnsetXStatus_4E4780(asObjectC(obj), C.int(a2))
+}
 func Nox_xxx_script_forcedialog_548CD0(obj, obj2 *server.Object) {
 	C.nox_xxx_script_forcedialog_548CD0(asObjectC(obj), asObjectC(obj2))
 }

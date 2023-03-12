@@ -1250,7 +1250,8 @@ void nox_xxx_unitRaise_4E46F0(nox_object_t* obj, float a2) {
 }
 
 //----- (004E4780) --------------------------------------------------------
-int* nox_xxx_unitUnsetXStatus_4E4780(int a1, int a2) {
+int* nox_xxx_unitUnsetXStatus_4E4780(nox_object_t* a1p, int a2) {
+	int a1 = a1p;
 	int* result; // eax
 	int v3;      // ecx
 	int v4;      // edx
