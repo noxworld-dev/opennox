@@ -1534,6 +1534,35 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *O
 			nox_xxx_playerSetState_4FA020(u, 27)
 		}
 		return 2, true
+	case noxnet.MSG_DIALOG:
+		if len(data) < 2 {
+			return 0, false
+		}
+		typ := data[1]
+		switch typ {
+		case 1:
+			if len(data) < 4 {
+				return 0, false
+			}
+			if nox_xxx_gameGet_4DB1B0() != 0 {
+				return 4, true
+			}
+			if pl.Field3680&0x3 != 0 {
+				return 4, true
+			}
+			id := binary.LittleEndian.Uint16(data[2:])
+			if obj := legacy.Nox_server_getObjectFromNetCode_4ECCB0(int(id)); obj != nil {
+				nox_xxx_script_forcedialog_548CD0(u.SObj(), obj)
+			}
+			return 4, true
+		case 2:
+			if len(data) < 3 {
+				return 0, false
+			}
+			legacy.Nox_xxx_scriptDialog_548D30(u.SObj(), data[2])
+			return 3, true
+		}
+		return 0, false
 	default:
 		res := legacy.Nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(pli, data, pl.S(), u.SObj(), u.UpdateData)
 		if res <= 0 || res > len(data) {

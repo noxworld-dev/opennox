@@ -2337,7 +2337,8 @@ void nox_xxx_script_forcedialog_548CD0(nox_object_t* a1p, nox_object_t* a2p) {
 }
 
 //----- (00548D30) --------------------------------------------------------
-void nox_xxx_scriptDialog_548D30(int a1, char a2) {
+void nox_xxx_scriptDialog_548D30(nox_object_t* a1p, char a2) {
+	int a1 = a1p;
 	int v2; // ebx
 	int v3; // edi
 	int v5; // ebp
