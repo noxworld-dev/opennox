@@ -2,6 +2,7 @@ package opennox
 
 import (
 	"image"
+	"strings"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
@@ -327,7 +328,7 @@ func guiOpenNPCDialog(title string, snd sound.ID, str strman.ID, pic string, fla
 	legacy.Sub_445C20()
 	v5.Func94(gui.AsWindowEvent(0x400F, 0, 0))
 	root.SetPos(videoGetWindowSize().Sub(root.Size()))
-	legacy.Sub_47A020(str)
+	guiNPCDialogSetText(str)
 	v17 := nox_xxx_gLoadImg(pic)
 	v7 := root.ChildByID(3905)
 	v7.DrawData().SetBackgroundImage(v17)
@@ -374,4 +375,85 @@ func guiOpenNPCDialog(title string, snd sound.ID, str strman.ID, pic string, fla
 	*memmap.PtrUint32(0x5D4594, 1123528) = uint32(snd)
 	legacy.Nox_xxx_playDialogFile_44D900(alloc.GoString((*byte)(*memmap.PtrPtr(0x5D4594, 1115312))), 100)
 	legacy.Set_dword_5d4594_1123520(1)
+}
+
+func guiNPCDialogSetText(str strman.ID) {
+	c := noxClient
+	root := legacy.Get_dword_5d4594_1123524()
+	win := root.ChildByID(3901)
+	font := win.DrawData().Font()
+	line := ""
+	wd := win.WidgetData
+	winW := win.Size().X - 10
+	v, _ := c.Strings().GetVariantInFile(str, "GUIDlg.c")
+	text := v.Str
+	*memmap.PtrPtr(0x5D4594, 1115312) = unsafe.Pointer(alloc.InternCString(v.Str2))
+	text = strings.ReplaceAll(text, "\r", "")
+	sub := strings.Split(text, "\n")
+	cur := -1
+	nextLine := func() (string, bool) {
+		cur++
+		if cur >= len(sub) {
+			return "", false
+		}
+		return sub[cur], true
+	}
+	result, _ := nextLine()
+	v10 := result
+	str1115324 := ""
+	v11 := 0
+	for {
+		if line == "" {
+			line = result
+		}
+		v6 := len(line)
+		strW := c.r.GetStringSizeWrapped(font, line, 0).X
+		v7 := v6
+	loopX:
+		for strW > winW {
+			v6 = v7
+			if v7 == 0 {
+				v6 = c.r.GetStringSizeWrapped(font, line, winW).X
+				break
+			}
+			if v6 == len(line) {
+				v6--
+			}
+			for line[v6] != ' ' {
+				v6--
+				if v6 == 0 {
+					break loopX
+				}
+			}
+			if v6 == 0 {
+				v6 = c.r.GetStringSizeWrapped(font, line, winW).X
+				break
+			}
+			v7 = v6 - 1
+			str1115324 = line[:v6]
+			strW = c.r.GetStringSizeWrapped(font, str1115324, 0).X
+		}
+		str1115324 = line[:v6]
+		line = strings.TrimPrefix(line[v6:], " ")
+		if v11 >= int(*(*int16)(wd)) {
+			break
+		}
+		win.Func94(&WindowEvent0x400d{Str: str1115324, Val: -1})
+		if len(line) != 0 {
+			result = v10
+		} else {
+			var ok bool
+			result, ok = nextLine()
+			if !ok {
+				break
+			}
+			v10 = result
+			line = result
+		}
+		v11++
+		//if result == "" {
+		//	break
+		//}
+		result = v10
+	}
 }
