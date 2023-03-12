@@ -3,7 +3,9 @@ package opennox
 import (
 	"github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/noxscript/ns/v4/audio"
+	"github.com/noxworld-dev/opennox-lib/strman"
 
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -44,9 +46,11 @@ func (s noxScriptNS) StoryPic(cobj ns.Obj, name string) {
 	obj.SObj().SetDialogPortrait(name)
 }
 
-func (s noxScriptNS) TellStory(audio audio.Name, story ns.StringID) {
-	//TODO implement me
-	panic("implement me")
+func (s noxScriptNS) TellStory(aud audio.Name, story ns.StringID) {
+	caller := s.s.noxScript.Caller()
+	trigger := s.s.noxScript.Trigger()
+	snd := sound.ByName(string(aud))
+	nox_xxx_startShopDialog_548DE0(caller, trigger, snd, strman.ID(story))
 }
 
 func (s noxScriptNS) TellStoryStr(audio audio.Name, story string) {

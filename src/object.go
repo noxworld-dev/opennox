@@ -8,10 +8,12 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/spell"
+	"github.com/noxworld-dev/opennox-lib/strman"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/legacy"
@@ -1263,4 +1265,8 @@ func sub_548F40(obj *server.Object) int {
 	}
 	ud := obj.UpdateDataMonster()
 	return int(ud.DialogResult)
+}
+
+func nox_xxx_startShopDialog_548DE0(caller, trigger *server.Object, aud sound.ID, str strman.ID) {
+	legacy.Nox_xxx_startShopDialog_548DE0(caller, trigger, aud, str)
 }
