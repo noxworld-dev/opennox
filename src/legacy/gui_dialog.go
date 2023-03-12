@@ -5,10 +5,13 @@ package legacy
 #include "GAME1_1.h"
 #include "GAME1_3.h"
 #include "GAME2_2.h"
+void sub_47A020(char* a1);
 */
 import "C"
 import (
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -69,4 +72,12 @@ func sub_44A360(a1 int) { Sub_44A360(a1) }
 
 func Sub_41DA70(a1, a2 int) {
 	C.sub_41DA70(C.int(a1), C.short(a2))
+}
+func Sub_445C20() {
+	C.sub_445C20()
+}
+func Sub_47A020(str strman.ID) {
+	cstr := CString(string(str))
+	defer StrFree(cstr)
+	C.sub_47A020(cstr)
 }
