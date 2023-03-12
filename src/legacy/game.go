@@ -400,9 +400,6 @@ func Nox_xxx_loadReflSheild_499360() int {
 func Sub_4960B0() int {
 	return int(C.sub_4960B0())
 }
-func Nox_xxx_allocArrayDrawableFX_495AB0() int {
-	return int(C.nox_xxx_allocArrayDrawableFX_495AB0())
-}
 func Nox_xxx_allocClassListFriends_495980() int {
 	return int(C.nox_xxx_allocClassListFriends_495980())
 }

@@ -2321,30 +2321,6 @@ int sub_495A80(int a1) {
 	return 1;
 }
 
-//----- (00495AB0) --------------------------------------------------------
-int nox_xxx_allocArrayDrawableFX_495AB0() {
-	int result; // eax
-
-	result = nox_new_alloc_class("DrawableFX", 80, 128);
-	*getMemU32Ptr(0x5D4594, 1203868) = result;
-	if (result) {
-		*getMemU32Ptr(0x5D4594, 1203872) = 0;
-		result = 1;
-	}
-	return result;
-}
-
-//----- (00495AE0) --------------------------------------------------------
-int sub_495AE0() {
-	int result; // eax
-
-	nox_free_alloc_class(*(void**)getMemAt(0x5D4594, 1203868));
-	result = 0;
-	*getMemU32Ptr(0x5D4594, 1203868) = 0;
-	*getMemU32Ptr(0x5D4594, 1203872) = 0;
-	return result;
-}
-
 //----- (00495B50) --------------------------------------------------------
 void sub_495B50(void* a1p) {
 	uint32_t* a1 = a1p;
@@ -2596,26 +2572,12 @@ int sub_495D00(uint32_t* a1, int a2, uint32_t* a3) {
 	return 1;
 }
 
-//----- (00495F70) --------------------------------------------------------
-void sub_495F70(int a1) {
-	uint32_t* v1; // eax
-
-	if (a1 && sub_496020(a1, 1) != 1) {
-		v1 = nox_alloc_class_new_obj_zero(*(uint32_t**)getMemAt(0x5D4594, 1203868));
-		if (v1) {
-			*v1 = 1;
-			v1[1] = 0;
-			sub_495FC0(v1, a1);
-		}
-	}
-}
-
 //----- (00495FC0) --------------------------------------------------------
-uint32_t* sub_495FC0(uint32_t* a1, int a2) {
-	uint32_t* result; // eax
+void sub_495FC0(void* a1p, nox_drawable* a2p) {
+	uint32_t* a1 = a1p;
+	int a2 = a2p;
 	int v3;           // edx
 
-	result = a1;
 	if (a1 && a2) {
 		a1[15] = a2;
 		a1[18] = *getMemU32Ptr(0x5D4594, 1203872);
@@ -2632,24 +2594,6 @@ uint32_t* sub_495FC0(uint32_t* a1, int a2) {
 		}
 		*(uint32_t*)(a2 + 456) = a1;
 	}
-	return result;
-}
-
-//----- (00496020) --------------------------------------------------------
-int sub_496020(int a1, int a2) {
-	uint32_t* v2; // eax
-
-	v2 = *(uint32_t**)(a1 + 456);
-	if (!v2) {
-		return 0;
-	}
-	while (*v2 != a2) {
-		v2 = (uint32_t*)v2[16];
-		if (!v2) {
-			return 0;
-		}
-	}
-	return 1;
 }
 
 //----- (004960B0) --------------------------------------------------------

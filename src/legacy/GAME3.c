@@ -6253,7 +6253,7 @@ void sub_4B7EE0(short a1) {
 	}
 
 	while (*(uint32_t*)(v2 + 108) != *getMemU32Ptr(0x5D4594, 1313744) || *(uint16_t*)(v2 + 438) != a1) {
-		v2 = sub_45A070(v2);
+		v2 = nox_drawable_next_45A070(v2);
 		if (!v2) {
 			return;
 		}

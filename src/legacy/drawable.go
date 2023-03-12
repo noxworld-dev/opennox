@@ -8,9 +8,8 @@ extern void* nox_client_spriteUnderCursorXxx_1096644;
 int  nox_xxx_client_4984B0_drawable(nox_drawable* dr);
 void sub_495B50(void* a1);
 int sub_4523D0(void* a1);
+void sub_495FC0(void* a1, nox_drawable* a2);
 int sub_49C520(nox_drawable* a1);
-void* sub_452EB0(void* a1);
-void nox_xxx_sprite_45A480_drawable(nox_drawable* a1);
 static int go_nox_drawable_call_draw_func(nox_draw_viewport_t* vp, nox_drawable* dr) {
 	return dr->draw_func(vp, dr);
 }
@@ -46,7 +45,6 @@ var (
 	Nox_xxx_spriteToSightDestroyList_49BAB0_drawable func(dr *client.Drawable)
 	Sub_45A060                                       func() *client.Drawable
 	Nox_xxx_cliFirstMinimapObj_459EB0                func() *client.Drawable
-	Nox_xxx_cliNextMinimapObj_459EC0                 func(dr *client.Drawable) *client.Drawable
 	Nox_xxx_cliGetSpritePlayer_45A000                func() *client.Drawable
 	Nox_xxx_getSomeSprite_49BD40                     func() *client.Drawable
 	Sub_45A090                                       func() *client.Drawable
@@ -69,13 +67,6 @@ type nox_drawable = C.nox_drawable
 //export nox_xxx_sprite_49AA00_drawable
 func nox_xxx_sprite_49AA00_drawable(d *nox_drawable) {
 	Nox_xxx_sprite_49AA00_drawable(asDrawable(d))
-}
-
-//export nox_xxx_sprite_49A9B0_drawable
-func nox_xxx_sprite_49A9B0_drawable(d *nox_drawable) int {
-	dr := asDrawable(d)
-	client.Nox_xxx_sprite_2d_remove(dr, dr.Ext())
-	return 0
 }
 
 //export nox_xxx_forEachSprite_49AB00
@@ -169,11 +160,6 @@ func nox_xxx_cliFirstMinimapObj_459EB0() *nox_drawable {
 	return (*nox_drawable)(Nox_xxx_cliFirstMinimapObj_459EB0().C())
 }
 
-//export nox_xxx_cliNextMinimapObj_459EC0
-func nox_xxx_cliNextMinimapObj_459EC0(dr *nox_drawable) *nox_drawable {
-	return (*nox_drawable)(Nox_xxx_cliNextMinimapObj_459EC0(asDrawable(dr)).C())
-}
-
 //export nox_xxx_cliGetSpritePlayer_45A000
 func nox_xxx_cliGetSpritePlayer_45A000() *nox_drawable {
 	return (*nox_drawable)(Nox_xxx_cliGetSpritePlayer_45A000().C())
@@ -242,12 +228,9 @@ func Sub_495B50(fx *client.DrawableFX) {
 func Sub_4523D0(p unsafe.Pointer) {
 	C.sub_4523D0(p)
 }
+func Sub_495FC0(p *client.DrawableFX, dr *client.Drawable) {
+	C.sub_495FC0(p.C(), (*nox_drawable)(dr.C()))
+}
 func Sub_49C520(dr *client.Drawable) int {
 	return int(C.sub_49C520((*nox_drawable)(dr.C())))
-}
-func Sub_452EB0(p *unsafe.Pointer) unsafe.Pointer {
-	return C.sub_452EB0(unsafe.Pointer(p))
-}
-func Nox_xxx_sprite_45A480_drawable(dr *client.Drawable) {
-	C.nox_xxx_sprite_45A480_drawable((*nox_drawable)(dr.C()))
 }

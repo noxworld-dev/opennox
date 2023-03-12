@@ -54,6 +54,8 @@ extern float nox_xxx_conjurerMaxMana_587000_312804;
 extern float nox_xxx_wizardMaxHealth_587000_312816;
 extern float nox_xxx_wizardMaximumMana_587000_312820;
 
+nox_drawable* nox_xxx_netSpriteByCodeDynamic_45A6F0(int a1);
+
 int nox_xxx_netPlayerObjSend_518C30(nox_object_t* a1, nox_object_t* a2, int a3, signed int a4);
 int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char* data, int dsz, nox_playerInfo* v8p, nox_object_t* unitp, void* v10p);
 int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data, int sz);
