@@ -308,21 +308,6 @@ int nox_script_ResetQuestStatus_514C90() {
 	return 0;
 }
 
-//----- (00514E90) --------------------------------------------------------
-int nox_script_TellStory_514E90() {
-	int v0;         // esi
-	int v1;         // eax
-	int v2;         // eax
-	const char* v4; // [esp-4h] [ebp-8h]
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v4 = nox_script_getString_512E40(v0);
-	v2 = nox_xxx_utilFindSound_40AF50(nox_script_getString_512E40(v1));
-	nox_xxx_startShopDialog_548DE0(nox_script_get_caller(), nox_script_get_trigger(), v2, v4);
-	return 0;
-}
-
 //----- (00515550) --------------------------------------------------------
 int nox_script_JournalDelete_515550() {
 	int v0; // esi

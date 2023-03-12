@@ -60,7 +60,6 @@ void sub_5488B0(int* a1, float* a2, int a3);
 void sub_548B60();
 void nox_xxx_script_forcedialog_548CD0(nox_object_t* a1, nox_object_t* a2);
 void nox_xxx_scriptDialog_548D30(int a1, char a2);
-char nox_xxx_startShopDialog_548DE0(int a1, int a2, int a3, const char* a4);
 void sub_548FE0(int a1, const char* a2);
 int nox_xxx_monsterLoadStrikeFn_549040(int a1, char* a2);
 int nox_xxx_monsterLoadDieFn_5490E0(int a1, char* a2);
