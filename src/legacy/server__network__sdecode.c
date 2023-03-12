@@ -317,20 +317,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 		default:
 			return -1;
 		}
-	case 0xD0u: // MSG_DIALOG
-		if (data[1] == 1) {
-			if (nox_xxx_gameGet_4DB1B0() || (v7 = v10[69], *(uint8_t*)(v7 + 3680) & 3) ||
-				(v57 = nox_server_getObjectFromNetCode_4ECCB0(*((unsigned short*)data + 1))) == 0) {
-			} else {
-				nox_xxx_script_forcedialog_548CD0(unit, v57);
-			}
-			return 4;
-		} else if (data[1] == 2) {
-			nox_xxx_scriptDialog_548D30(unit, data[2]);
-			return 3;
-		} else {
-			return -1;
-		}
 	case 0xE0u: // MSG_REPORT_SECONDARY_WEAPON
 		v58 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
