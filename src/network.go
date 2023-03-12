@@ -1080,7 +1080,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 				snd := sound.ID(binary.LittleEndian.Uint32(data[98:]))
 				pic := alloc.GoStringS(data[102:134])
 				flags := server.DialogFlags(data[134])
-				guiOpenNPCDialog(title, snd, str, pic, flags)
+				guiOpenNPCDialogID(title, snd, str, pic, flags)
 				if pl := getCurPlayer(); pl != nil {
 					legacy.Nox_xxx_netNeedTimestampStatus_4174F0(pl.S(), 512)
 				}
