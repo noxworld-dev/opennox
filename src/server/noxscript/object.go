@@ -77,6 +77,7 @@ func init() {
 	Register(asm.BuiltinIsCrown, nsIsCrown)
 	Register(asm.BuiltinGetGold, nsGetGold)
 	Register(asm.BuiltinChangeGold, nsChangeGold)
+	Register(asm.BuiltinSetDialog, nsSetDialog)
 }
 
 func nsObject(vm VM) int {
@@ -655,6 +656,17 @@ func nsChangeGold(vm VM) int {
 	obj := vm.PopObjectNS()
 	if obj != nil {
 		obj.ChangeGold(v)
+	}
+	return 0
+}
+
+func nsSetDialog(vm VM) int {
+	end := vm.PopI32()
+	start := vm.PopI32()
+	name := vm.PopString()
+	obj := vm.PopObjectNS()
+	if obj != nil {
+		vm.NoxScript().SetDialog(obj, ns.DialogType(name), int(start), int(end))
 	}
 	return 0
 }

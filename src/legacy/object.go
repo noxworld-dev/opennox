@@ -348,3 +348,6 @@ func Nox_object_getGold_4FA6D0(obj *server.Object) int {
 func Nox_object_setGold_4FA620(obj *server.Object, v int) {
 	C.nox_object_setGold_4FA620(asObjectC(obj), C.int(v))
 }
+func Nox_xxx_unitSetXStatus_4E4800(obj *server.Object, a2 int) {
+	C.nox_xxx_unitSetXStatus_4E4800(asObjectC(obj), C.int(a2))
+}
