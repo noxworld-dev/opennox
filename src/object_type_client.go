@@ -33,16 +33,3 @@ func (c *Client) Nox_things_free_44C580() {
 		nox_xxx_free_42BF80()
 	}
 }
-
-func nox_drawable_link_thing(dr *client.Drawable, i int) int {
-	c := noxClient
-	typ := c.Things.TypeByInd(i)
-	if typ == nil {
-		return 0
-	}
-	dr.LinkType(i, typ)
-	if typ.Lifetime != 0 {
-		c.Objs.TransparentDecay(dr, int(typ.Lifetime))
-	}
-	return 1
-}
