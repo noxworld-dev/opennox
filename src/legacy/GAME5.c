@@ -2364,7 +2364,9 @@ void nox_xxx_scriptDialog_548D30(int a1, char a2) {
 }
 
 //----- (00548DE0) --------------------------------------------------------
-char nox_xxx_startShopDialog_548DE0(int a1, int a2, int a3, const char* a4) {
+char nox_xxx_startShopDialog_548DE0(nox_object_t* a1p, nox_object_t* a2p, int a3, char* a4) {
+	int a1 = a1p;
+	int a2 = a2p;
 	char result;  // al
 	int v5;       // ebx
 	int v6;       // ebp

@@ -5,6 +5,7 @@ import (
 
 	"github.com/noxworld-dev/noxscript/ns/asm"
 	"github.com/noxworld-dev/noxscript/ns/v4"
+	"github.com/noxworld-dev/noxscript/ns/v4/audio"
 	"github.com/noxworld-dev/noxscript/ns/v4/class"
 	"github.com/noxworld-dev/noxscript/ns/v4/damage"
 	"github.com/noxworld-dev/opennox-lib/script"
@@ -82,6 +83,7 @@ func init() {
 	Register(asm.BuiltinGetAnswer, nsGetAnswer)
 	Register(asm.BuiltinCancelDialog, nsCancelDialog)
 	Register(asm.BuiltinStoryPic, nsStoryPic)
+	Register(asm.BuiltinTellStory, nsTellStory)
 }
 
 func nsObject(vm VM) int {
@@ -708,5 +710,12 @@ func nsStoryPic(vm VM) int {
 	if obj != nil {
 		vm.NoxScript().StoryPic(obj, name)
 	}
+	return 0
+}
+
+func nsTellStory(vm VM) int {
+	v0 := vm.PopString()
+	v1 := vm.PopString()
+	vm.NoxScript().TellStory(audio.Name(v1), ns.StringID(v0))
 	return 0
 }

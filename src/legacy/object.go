@@ -12,14 +12,17 @@ package legacy
 void nox_xxx_updateHarpoon_54F380(nox_object_t* a1);
 int nox_objectDropAudEvent_4EE2F0(nox_object_t* a1, nox_object_t* a2, float2* a3);
 void nox_xxx_script_forcedialog_548CD0(nox_object_t* a1, nox_object_t* a2);
+char nox_xxx_startShopDialog_548DE0(nox_object_t* a1, nox_object_t* a2, int a3, char* a4);
 */
 import "C"
 import (
 	"image"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/strman"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -357,4 +360,7 @@ func Nox_xxx_unitUnsetXStatus_4E4780(obj *server.Object, a2 int) {
 }
 func Nox_xxx_script_forcedialog_548CD0(obj, obj2 *server.Object) {
 	C.nox_xxx_script_forcedialog_548CD0(asObjectC(obj), asObjectC(obj2))
+}
+func Nox_xxx_startShopDialog_548DE0(caller, trigger *server.Object, aud sound.ID, str strman.ID) {
+	C.nox_xxx_startShopDialog_548DE0(asObjectC(caller), asObjectC(trigger), C.int(aud), internCStr(string(str)))
 }
