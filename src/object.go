@@ -100,6 +100,10 @@ func (s *Server) DelayedDelete(obj *server.Object) {
 	}
 }
 
+func (s *Server) DeleteAfter(obj *server.Object, frames uint32) {
+	legacy.Nox_xxx_unitSetDecayTime_511660(obj, int(frames))
+}
+
 func (s *Server) FinalizeDeletingObjects() {
 	var next *Object
 	for it := asObjectS(s.Objs.DeletedList); it != nil; it = next {
@@ -785,6 +789,10 @@ func (obj *Object) Enable(enable bool) {
 
 func (obj *Object) Delete() {
 	obj.getServer().DelayedDelete(obj.SObj())
+}
+
+func (obj *Object) DeleteAfter(frames uint32) {
+	obj.getServer().DeleteAfter(obj.SObj(), frames)
 }
 
 func (obj *Object) Destroy() {

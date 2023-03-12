@@ -31,6 +31,7 @@ func init() {
 	Register(asm.BuiltinLookAtObject, nsLookAtObject)
 	Register(asm.BuiltinLookAtDirection, nsLookAtDirection)
 	Register(asm.BuiltinDelete, nsDelete)
+	Register(asm.BuiltinDeleteObjectTimer, nsDeleteObjectTimer)
 	Register(asm.BuiltinPushObjectTo, nsPushTo)
 	Register(asm.BuiltinPushObject, nsPush)
 	Register(asm.BuiltinFrozen, nsFreeze)
@@ -247,6 +248,15 @@ func nsLookAtDirection(s VM) int {
 func nsDelete(s VM) int {
 	if obj := s.PopObjectNS(); obj != nil {
 		obj.Delete()
+	}
+	return 0
+}
+
+func nsDeleteObjectTimer(s VM) int {
+	frames := s.PopU32()
+	obj := s.PopObjectNS()
+	if obj != nil {
+		obj.DeleteAfter(script.Frames(int(frames)))
 	}
 	return 0
 }
