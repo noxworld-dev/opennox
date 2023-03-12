@@ -784,7 +784,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 		return 5;
 	case 71: // MSG_REPORT_STAMINA
 		if (!nox_client_isConnected_43C700()) {
-			goto LABEL_966;
+			return 2;
 		}
 		sub_470D20(*(unsigned char*)(data + 1), *getMemIntPtr(0x587000, 157092));
 		return 2;
@@ -2723,27 +2723,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			sub_461120(*(unsigned char*)(data + 1), *(unsigned char*)(data + 2));
 		}
 		return 3;
-	case 0xD0u: // MSG_DIALOG
-		if (*(uint8_t*)(data + 1) == 3) {
-			if (nox_client_isConnected_43C700()) {
-				sub_479D30((wchar_t*)(data + 34), *(uint32_t*)(data + 98), (char*)(data + 2),
-						   (const char*)(data + 102), *(uint8_t*)(data + 134));
-				if (*getMemU32Ptr(0x8531A0, 2576)) {
-					nox_xxx_netNeedTimestampStatus_4174F0(*getMemIntPtr(0x8531A0, 2576), 512);
-				}
-			}
-			return 135;
-		} else if (*(uint8_t*)(data + 1) == 4) {
-			if (nox_client_isConnected_43C700()) {
-				sub_47A1F0();
-				if (*getMemU32Ptr(0x8531A0, 2576)) {
-					nox_xxx_playerUnsetStatus_417530(*getMemIntPtr(0x8531A0, 2576), 512);
-				}
-			}
-		LABEL_966:
-			return 2;
-		}
-		return -1;
 	case 0xD1u: // MSG_REPORT_GUIDE_AWARD
 		if (nox_client_isConnected_43C700()) {
 			nox_xxx_netGuideRewardCli_45D140(*(unsigned char*)(data + 1), *(uint8_t*)(data + 2) & 0x7F);
