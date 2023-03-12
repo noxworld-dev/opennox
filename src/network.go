@@ -27,6 +27,7 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/serial"
+	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy"
@@ -1063,6 +1064,38 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind int, op noxnet.Op, 
 		}
 		c.mapsend.onMapDownloadAbort()
 		return 2
+	case noxnet.MSG_DIALOG:
+		if len(data) < 2 {
+			return -1
+		}
+		typ := data[1]
+		switch typ {
+		case 3:
+			if len(data) < 135 {
+				return -1
+			}
+			if nox_client_isConnected() {
+				str := strman.ID(alloc.GoStringS(data[2:34]))
+				title := alloc.GoString16B(data[34:98])
+				snd := sound.ID(binary.LittleEndian.Uint32(data[98:]))
+				pic := alloc.GoStringS(data[102:134])
+				flags := server.DialogFlags(data[134])
+				legacy.Sub_479D30(title, snd, str, pic, flags)
+				if pl := getCurPlayer(); pl != nil {
+					legacy.Nox_xxx_netNeedTimestampStatus_4174F0(pl.S(), 512)
+				}
+			}
+			return 135
+		case 4:
+			if nox_client_isConnected() {
+				legacy.Sub_47A1F0()
+				if pl := getCurPlayer(); pl != nil {
+					legacy.Nox_xxx_playerUnsetStatus_417530(pl.S(), 512)
+				}
+			}
+			return 2
+		}
+		return -1
 	}
 	return legacy.Nox_xxx_netOnPacketRecvCli_48EA70_switch(ind, op, data)
 }
