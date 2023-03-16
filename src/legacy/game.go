@@ -717,9 +717,6 @@ func Sub_4FC580(a1 int) {
 func Nox_xxx_isUnit_4E5B50(a1 *server.Object) int {
 	return int(C.nox_xxx_isUnit_4E5B50(asObjectC(a1)))
 }
-func Nox_xxx_setNPCColor_4E4A90(a1 *server.Object, a2 int, a3 uint32) {
-	C.nox_xxx_setNPCColor_4E4A90(asObjectC(a1), C.uchar(a2), C.int(a3))
-}
 func Sub_4E5B80(a1 *server.Object) int {
 	return int(C.sub_4E5B80(asObjectC(a1)))
 }

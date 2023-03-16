@@ -30,6 +30,7 @@ import (
 var (
 	Sub_47A1F0                     func()
 	Nox_xxx_unitMonsterInit_4F0040 func(obj *server.Object)
+	Nox_xxx_setNPCColor_4E4A90     func(obj *server.Object, a2 byte, a3 *server.Color3)
 )
 
 var _ = [1]struct{}{}[28-unsafe.Sizeof(Nox_object_Missile_data_t{})]
@@ -238,6 +239,11 @@ func nox_xxx_unitMonsterInit_4F0040(obj *nox_object_t) {
 	Nox_xxx_unitMonsterInit_4F0040(asObjectS(obj))
 }
 
+//export nox_xxx_setNPCColor_4E4A90
+func nox_xxx_setNPCColor_4E4A90(obj *nox_object_t, a2 byte, p unsafe.Pointer) {
+	Nox_xxx_setNPCColor_4E4A90(asObjectS(obj), a2, (*server.Color3)(p))
+}
+
 func Nox_server_getObjectFromNetCode_4ECCB0(a1 int) *server.Object {
 	return asObjectS(C.nox_server_getObjectFromNetCode_4ECCB0(C.int(a1)))
 }
@@ -400,4 +406,8 @@ func Sub_516090(obj *server.Object, df int) {
 
 func Nox_xxx_monsterCanCast_534300(obj *server.Object) bool {
 	return C.nox_xxx_monsterCanCast_534300(asObjectC(obj)) != 0
+}
+
+func Sub_4E4500(obj *server.Object, a2 uint32, a3 uint32, a4 bool) {
+	C.sub_4E4500(asObjectC(obj), C.int(a2), C.int(a3), C.int(bool2int(a4)))
 }
