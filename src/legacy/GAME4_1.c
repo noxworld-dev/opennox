@@ -4813,7 +4813,9 @@ void nox_xxx_monsterWalkTo_514110(nox_object_t* obj, float x, float y) {
 }
 
 //----- (00515680) --------------------------------------------------------
-void nox_xxx_monsterGoPatrol_515680(int a1, int a2) {
+void nox_xxx_monsterGoPatrol_515680(nox_object_t* a1p, void* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v2;    // ebx
 	int v3;    // eax
 	int* v4;   // edi

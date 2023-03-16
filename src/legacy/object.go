@@ -389,3 +389,15 @@ func Nox_server_scriptFleeFrom_515F70(obj, targ *server.Object, df int) {
 	p.Dt = int32(df)
 	C.nox_server_scriptFleeFrom_515F70(asObjectC(obj), unsafe.Pointer(p))
 }
+func Nox_xxx_monsterGoPatrol_515680(obj *server.Object, p1, p2 types.Pointf, dist float32) {
+	p, free := alloc.New(struct {
+		P1   types.Pointf
+		P2   types.Pointf
+		Dist float32
+	}{})
+	defer free()
+	p.P1 = p1
+	p.P2 = p2
+	p.Dist = dist
+	C.nox_xxx_monsterGoPatrol_515680(asObjectC(obj), unsafe.Pointer(p))
+}
