@@ -453,34 +453,6 @@ int nox_script_SetRoamFlagGroup_515CB0() {
 	return 0;
 }
 
-//----- (00516060) --------------------------------------------------------
-int nox_script_PauseObject_516060() {
-	int v0; // eax
-	int v1; // eax
-	int v3; // [esp+0h] [ebp-4h]
-
-	v3 = nox_script_pop();
-	v0 = nox_script_pop();
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		sub_516090(v1, &v3);
-	}
-	return 0;
-}
-
-//----- (005160F0) --------------------------------------------------------
-int nox_script_PauseObjectGroup_5160F0() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-	int v3;            // [esp+0h] [ebp-4h]
-
-	v3 = nox_script_pop();
-	v0 = nox_script_pop();
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, sub_516090, (int)&v3);
-	return 0;
-}
-
 //----- (00516190) --------------------------------------------------------
 int nox_script_GiveExp_516190() {
 	int v0; // esi
