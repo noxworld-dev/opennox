@@ -1316,3 +1316,7 @@ func nox_server_scriptFleeFrom_515F70(obj, targ *server.Object, df int) {
 func nox_xxx_monsterGoPatrol_515680(obj *server.Object, p1, p2 types.Pointf, dist float32) {
 	legacy.Nox_xxx_monsterGoPatrol_515680(obj, p1, p2, dist)
 }
+
+func sub_516090(obj *server.Object, df int) {
+	legacy.Sub_516090(obj, df)
+}

@@ -405,8 +405,7 @@ func (obj nsObj) Freeze(freeze bool) {
 }
 
 func (obj nsObj) Pause(dt script.Duration) {
-	//TODO implement me
-	panic("implement me")
+	sub_516090(obj.SObj(), obj.s.AsFrames(dt))
 }
 
 func (obj nsObj) Move(w ns.WaypointObj) {
@@ -764,8 +763,10 @@ func (g nsObjGroup) SetOwners(owners ns.ObjGroup) {
 }
 
 func (g nsObjGroup) Pause(dt script.Duration) {
-	//TODO implement me
-	panic("implement me")
+	eachObjectRecursiveNS(g.s, g.g, func(obj ns.Obj) bool {
+		obj.Pause(dt)
+		return true
+	})
 }
 
 func (g nsObjGroup) Move(wp ns.WaypointObj) {
