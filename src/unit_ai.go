@@ -57,6 +57,10 @@ func aiStackSetArgs(s *server.AIStackItem, args ...any) {
 		switch v := v.(type) {
 		case int:
 			s.Args[off] = uintptr(uint32(int32(v)))
+		case uint:
+			s.Args[off] = uintptr(uint32(v))
+		case int32:
+			s.Args[off] = uintptr(uint32(v))
 		case uint32:
 			s.Args[off] = uintptr(v)
 		case unsafe.Pointer:
@@ -67,8 +71,8 @@ func aiStackSetArgs(s *server.AIStackItem, args ...any) {
 			s.Args[off] = uintptr(unsafe.Pointer(toObjectS(v)))
 		case types.Pointf:
 			s.Args[off+0] = uintptr(math.Float32bits(v.X))
-			off++
 			s.Args[off+1] = uintptr(math.Float32bits(v.Y))
+			off++
 		default:
 			panic(fmt.Errorf("unsupported arg: %T", v))
 		}
@@ -271,9 +275,9 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 				ok = false
 			}
 		case ai.DEPENDENCY_NOT_FRUSTRATED:
-			if ud.Field360&0x200000 != 0 {
+			if ud.Flags360&0x200000 != 0 {
 				ok = false
-				ud.Field360 &= 0xFFDFFFFF
+				ud.Flags360 &= 0xFFDFFFFF
 			}
 		case ai.DEPENDENCY_NOT_MOVED:
 			ok = u.Pos() == u.PrevPos
@@ -693,7 +697,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 		return
 	}
 	if !u.Flags().HasAny(object.FlagDead | object.FlagDestroyed) {
-		if ud.Field360&0x200 != 0 {
+		if ud.Flags360&0x200 != 0 {
 			if v7 := legacy.Nox_xxx_monsterGetSoundSet_424300(u.SObj()); v7 != nil {
 				s.AudioEventObj(sound.ID(*(*uint32)(unsafe.Add(v7, 64))), u, 0, 0)
 			}
@@ -749,7 +753,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 	if s.ai.stackChanged {
 		u.maybePrintAIStack("stack changed")
 	}
-	ud.Field360 &= 0xFFFFFDFF
+	ud.Flags360 &= 0xFFFFFDFF
 	legacy.Nox_xxx_monsterPolygonEnter_421FF0(u.SObj())
 
 	if v := ud.Field282_0; v < 100 {
@@ -759,7 +763,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 		legacy.Nox_xxx_monsterMimicCheckMorph_534950(u.SObj())
 	}
 	if s.Frame()-u.Field134 > 3*s.TickRate() {
-		ud.Field360 &= 0xFFF7FFFF
+		ud.Flags360 &= 0xFFF7FFFF
 	}
 }
 
@@ -812,7 +816,7 @@ func sub_534440(u *Object) bool {
 }
 
 func sub_5347A0(u *Object) bool {
-	return (u.UpdateDataMonster().Field360>>9)&1 != 0
+	return (u.UpdateDataMonster().Flags360>>9)&1 != 0
 }
 
 func nox_xxx_monsterLookAtDamager_5466B0(u *Object) bool {
@@ -991,7 +995,7 @@ func (AIActionMorphIntoChest) Update(obj *server.Object) {
 	ud := u.UpdateDataMonster()
 	if ud.Field120_3 != 0 {
 		u.monsterPopAction()
-		ud.Field360 |= 0x40000
+		ud.Flags360 |= 0x40000
 		legacy.Nox_xxx_monsterMarkUpdate_4E8020(u.SObj())
 	}
 }
@@ -1011,7 +1015,7 @@ func (AIActionMorphBackToSelf) Update(obj *server.Object) {
 	ud := u.UpdateDataMonster()
 	if ud.Field120_3 != 0 {
 		u.monsterPopAction()
-		ud.Field360 &^= 0x40000
+		ud.Flags360 &^= 0x40000
 		legacy.Nox_xxx_monsterMarkUpdate_4E8020(u.SObj())
 	}
 }

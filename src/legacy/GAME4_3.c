@@ -3092,7 +3092,7 @@ int nox_xxx_monsterHasShield_5342C0(int a1) {
 }
 
 //----- (00534300) --------------------------------------------------------
-int nox_xxx_monsterCanCast_534300(int a1) { return (*(uint32_t*)(*(uint32_t*)(a1 + 748) + 1440) >> 5) & 1; }
+int nox_xxx_monsterCanCast_534300(nox_object_t* a1) { return (*(uint32_t*)(*(uint32_t*)((int)a1 + 748) + 1440) >> 5) & 1; }
 
 //----- (00534320) --------------------------------------------------------
 int nox_xxx_monsterIsMoveing_534320(int a1) { return *(float*)(a1 + 548) >= 0.0099999998; }
