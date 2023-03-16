@@ -57,7 +57,7 @@ int nox_thing_npc_draw(int* a1, nox_drawable* dr) {
 	int a2 = dr;
 
 	if (nox_common_gameFlags_check_40A5C0(0x200000)) {
-		v2 = *(uint32_t*)(sub_44D330((char*)getMemAt(0x587000, 177440)) + 92) + 4;
+		v2 = *(uint32_t*)(sub_44D330("NewPlayer") + 92) + 4;
 		if (*(uint16_t*)(v2 + 40)) {
 			nox_xxx_drawObject_4C4770_draw(a1, (unsigned char*)a2,
 										   **(uint32_t**)(*(uint32_t*)(v2 + 48) + 4 * *(unsigned char*)(a2 + 297) + 4));

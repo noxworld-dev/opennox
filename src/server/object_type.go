@@ -227,6 +227,7 @@ type serverObjTypes struct {
 		mimic     int
 		ball      int
 		crown     int
+		npc       int
 	}
 }
 
@@ -241,6 +242,10 @@ func (s *Server) cacheObjectTypeID(vr *int, id string) int {
 		*vr = s.ObjectTypeID(id)
 	}
 	return *vr
+}
+
+func (s *Server) NPCID() int {
+	return s.cacheObjectTypeID(&s.types.fast.npc, "NPC")
 }
 
 func (s *Server) MimicID() int {
