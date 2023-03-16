@@ -38,6 +38,7 @@ func init() {
 	Register(asm.BuiltinGroupRetreatLevel, nsSetRetreatLevelGroup)
 	Register(asm.BuiltinGroupResumeLevel, nsSetResumeLevelGroup)
 	Register(asm.BuiltinGroupAttack, nsGroupAttack)
+	Register(asm.BuiltinGroupRunAway, nsGroupRunAway)
 }
 
 func nsGetObjectGroup(s VM) int {
@@ -266,6 +267,16 @@ func nsGroupAttack(vm VM) int {
 	g := vm.PopObjGroupNS()
 	if g != nil {
 		g.Attack(targ)
+	}
+	return 0
+}
+
+func nsGroupRunAway(vm VM) int {
+	dt := vm.PopU32()
+	targ := vm.PopObjectNS()
+	g := vm.PopObjGroupNS()
+	if targ != nil && g != nil {
+		g.Flee(targ, script.Frames(int(dt)))
 	}
 	return 0
 }

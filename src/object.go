@@ -1308,3 +1308,7 @@ func nox_xxx_startShopDialog_548DE0(player, npc *server.Object, snd sound.ID, st
 func nox_xxx_mobSetFightTarg_515D30(obj, targ *server.Object) {
 	legacy.Nox_xxx_mobSetFightTarg_515D30(obj, targ)
 }
+
+func nox_server_scriptFleeFrom_515F70(obj, targ *server.Object, df int) {
+	legacy.Nox_server_scriptFleeFrom_515F70(obj, targ, df)
+}

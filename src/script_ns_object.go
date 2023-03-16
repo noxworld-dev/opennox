@@ -540,8 +540,8 @@ func (obj nsObj) HitRanged(p types.Pointf) {
 }
 
 func (obj nsObj) Flee(target ns.Positioner, dt script.Duration) {
-	//TODO implement me
-	panic("implement me")
+	var targ *server.Object
+	nox_server_scriptFleeFrom_515F70(obj.SObj(), targ, obj.s.AsFrames(dt))
 }
 
 func (obj nsObj) HasItem(item ns.Obj) bool {
@@ -840,8 +840,10 @@ func (g nsObjGroup) Guard(p1, p2 types.Pointf, distance float32) {
 }
 
 func (g nsObjGroup) Flee(target ns.Positioner, dt script.Duration) {
-	//TODO implement me
-	panic("implement me")
+	eachObjectRecursiveNS(g.s, g.g, func(obj ns.Obj) bool {
+		obj.Flee(target, dt)
+		return true
+	})
 }
 
 func (g nsObjGroup) HitMelee(p types.Pointf) {

@@ -5011,7 +5011,9 @@ void nox_xxx_mobSetFightTarg_515D30(nox_object_t* a1p, nox_object_t* a2p) {
 }
 
 //----- (00515F70) --------------------------------------------------------
-void nox_server_scriptFleeFrom_515F70(int a1, uint32_t* a2) {
+void nox_server_scriptFleeFrom_515F70(nox_object_t* a1p, void* a2p) {
+	int a1 = a1p;
+	uint32_t* a2 = a2p;
 	int v2;  // eax
 	int* v3; // eax
 	int* v4; // eax
