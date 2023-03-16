@@ -501,9 +501,25 @@ func (obj nsObj) Guard(p1, p2 types.Pointf, distance float32) {
 	panic("implement me")
 }
 
-func (obj nsObj) Attack(target ns.Positioner) {
-	//TODO implement me
-	panic("implement me")
+func (obj nsObj) Attack(targ ns.Positioner) {
+	if wr, ok := targ.(script.ObjectWrapper); ok {
+		targ = wr.GetObject()
+	}
+	var tobj *server.Object
+	switch targ := targ.(type) {
+	case nil:
+		tobj = nil
+	case nsObj:
+		tobj = targ.SObj()
+	case server.Obj:
+		tobj = targ.SObj()
+	default:
+		// Fallback to hitting position (ground).
+		// TODO: pick melee/ranged automatically
+		obj.HitMelee(targ.Pos())
+		return
+	}
+	nox_xxx_mobSetFightTarg_515D30(obj.SObj(), tobj)
 }
 
 func (obj nsObj) IsAttackedBy(obj2 ns.Obj) bool {
@@ -838,9 +854,11 @@ func (g nsObjGroup) HitRanged(p types.Pointf) {
 	panic("implement me")
 }
 
-func (g nsObjGroup) Attack(target ns.Positioner) {
-	//TODO implement me
-	panic("implement me")
+func (g nsObjGroup) Attack(targ ns.Positioner) {
+	eachObjectRecursiveNS(g.s, g.g, func(obj ns.Obj) bool {
+		obj.Attack(targ)
+		return true
+	})
 }
 
 func (g nsObjGroup) ZombieStayDown() {

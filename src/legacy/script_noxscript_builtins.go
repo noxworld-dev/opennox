@@ -17,8 +17,6 @@ int nox_script_HitFarLocation_515B30();
 int nox_script_HitFarLocationGroup_515BF0();
 int nox_script_SetRoamFlag_515C40();
 int nox_script_SetRoamFlagGroup_515CB0();
-int nox_script_Attack_515CF0();
-int nox_script_AttackGroup_515DB0();
 int nox_script_JournalDelete_515550();
 int nox_script_JournalEdit_5155A0();
 int nox_script_RetreatLevel_515DF0();
@@ -108,8 +106,6 @@ var noxScriptBuiltins = [asm.BuiltinGetScore + 1]noxscript.Builtin{
 	asm.BuiltinGroupHitFarLocation: wrapScriptC(C.nox_script_HitFarLocationGroup_515BF0),
 	asm.BuiltinSetRoamFlag:         wrapScriptC(C.nox_script_SetRoamFlag_515C40),
 	asm.BuiltinGroupSetRoamFlag:    wrapScriptC(C.nox_script_SetRoamFlagGroup_515CB0),
-	asm.BuiltinAttack:              wrapScriptC(C.nox_script_Attack_515CF0),
-	asm.BuiltinGroupAttack:         wrapScriptC(C.nox_script_AttackGroup_515DB0),
 	asm.BuiltinJournalDelete:       wrapScriptC(C.nox_script_JournalDelete_515550),
 	asm.BuiltinJournalEdit:         wrapScriptC(C.nox_script_JournalEdit_5155A0),
 	asm.BuiltinRunAway:             wrapScriptC(C.nox_script_RunAway_515F10),
