@@ -4975,7 +4975,9 @@ int sub_515C80(int a1, uint8_t* a2) {
 }
 
 //----- (00515D30) --------------------------------------------------------
-void nox_xxx_mobSetFightTarg_515D30(int a1, int a2) {
+void nox_xxx_mobSetFightTarg_515D30(nox_object_t* a1p, nox_object_t* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v2;  // ebx
 	int v3;  // eax
 	int* v4; // eax

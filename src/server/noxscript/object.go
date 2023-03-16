@@ -84,6 +84,7 @@ func init() {
 	Register(asm.BuiltinCancelDialog, nsCancelDialog)
 	Register(asm.BuiltinStoryPic, nsStoryPic)
 	Register(asm.BuiltinTellStory, nsTellStory)
+	Register(asm.BuiltinAttack, nsAttack)
 }
 
 func nsObject(vm VM) int {
@@ -717,5 +718,14 @@ func nsTellStory(vm VM) int {
 	v0 := vm.PopString()
 	v1 := vm.PopString()
 	vm.NoxScript().TellStory(audio.Name(v1), ns.StringID(v0))
+	return 0
+}
+
+func nsAttack(vm VM) int {
+	targ := vm.PopObjectNS()
+	obj := vm.PopObjectNS()
+	if obj != nil {
+		obj.Attack(targ)
+	}
 	return 0
 }

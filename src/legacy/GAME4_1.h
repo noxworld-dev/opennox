@@ -153,7 +153,7 @@ void nox_xxx_unitSetFollow_5158C0(nox_object_t* obj1, nox_object_t* obj2);
 void nox_xxx_monsterActionMelee_515A30(int a1, float2* a2);
 void nox_xxx_monsterMissileAttack_515B80(int a1, uint32_t* a2);
 int sub_515C80(int a1, uint8_t* a2);
-void nox_xxx_mobSetFightTarg_515D30(int a1, int a2);
+void nox_xxx_mobSetFightTarg_515D30(nox_object_t* a1, nox_object_t* a2);
 void nox_server_scriptFleeFrom_515F70(int a1, uint32_t* a2);
 void sub_516090(int a1, uint32_t* a2);
 void nox_object_setTrapSpells_516A80(int a1, int a2, int a3, int a4);
