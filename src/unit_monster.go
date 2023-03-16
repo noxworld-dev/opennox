@@ -17,21 +17,22 @@ func objectMonsterInit(sobj *server.Object) {
 	s := obj.getServer()
 	ud := obj.UpdateDataMonster()
 	if !obj.Flags().HasAny(object.FlagDead | object.FlagDestroyed) {
-		if int(obj.TypeInd) == s.CarnivorousPlantID() {
+		switch int(obj.TypeInd) {
+		case s.CarnivorousPlantID():
 			obj.clearActionStack()
 			ud.Field328 = float32(float64(*(*float32)(unsafe.Add(ud.Field121, 112))+obj.Shape.Circle.R) + 10.0)
 			ud.AIAction340 = uint32(ai.ACTION_GUARD)
-		} else if obj.isRat() {
+		case s.RatID():
 			obj.clearActionStack()
 			obj.monsterPushAction(ai.ACTION_RANDOM_WALK)
 			ud.Aggression = 0.16
 			ud.AIAction340 = uint32(ai.ACTION_INVALID)
-		} else if obj.isFish() {
+		case s.FishSmallID(), s.FishBigID():
 			obj.clearActionStack()
 			obj.monsterPushAction(ai.ACTION_ROAM, 0, 0, 0xff)
 			ud.Aggression = 0.16
 			ud.AIAction340 = uint32(ai.ACTION_INVALID)
-		} else if obj.isFrog() {
+		case s.GreenFrogID():
 			obj.clearActionStack()
 			obj.monsterPushAction(ai.ACTION_IDLE)
 			ud.Aggression = 0.16
