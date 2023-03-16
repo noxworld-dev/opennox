@@ -12,6 +12,14 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
+func randomColor3() server.Color3 {
+	return server.Color3{
+		R: byte(randomIntMinMax(0, 255)),
+		G: byte(randomIntMinMax(0, 255)),
+		B: byte(randomIntMinMax(0, 255)),
+	}
+}
+
 func objectMonsterInit(sobj *server.Object) {
 	obj := asObjectS(sobj)
 	s := obj.getServer()
@@ -38,6 +46,11 @@ func objectMonsterInit(sobj *server.Object) {
 			ud.Aggression = 0.16
 			ud.AIAction340 = uint32(ai.ACTION_INVALID)
 			ud.Flags360 |= 0x100
+		case s.NPCID():
+			for i := 0; i < 6; i++ {
+				cl := randomColor3()
+				nox_xxx_setNPCColor_4E4A90(obj.SObj(), byte(i), &cl)
+			}
 		}
 	}
 	switch ai.ActionType(ud.AIAction340) {
@@ -115,4 +128,18 @@ func (obj *Object) monsterCast(spellInd spell.ID, target *server.Object) {
 
 func nox_xxx_monsterCast_540A30(cu *server.Object, spellInd int, a3p *server.Object) {
 	asObjectS(cu).monsterCast(spell.ID(spellInd), a3p)
+}
+
+func nox_xxx_setNPCColor_4E4A90(obj *server.Object, ind byte, cl *server.Color3) {
+	ud := obj.UpdateDataMonster()
+	obj.NeedSync()
+	ud.Color[ind] = *cl
+	if obj.Class().HasAny(object.ClassClientPersist | object.ClassImmobile | object.ClassPlayer) {
+		for i, v := range obj.Field140 {
+			obj.Field140[i] = v&0xFFFFF000 | 0x4000000
+		}
+	} else {
+		val := sub_4E4C90(obj, 0x400)
+		legacy.Sub_4E4500(obj, 0x4000000, 1024, val)
+	}
 }

@@ -38,6 +38,10 @@ func (s *AIStackItem) ArgPos(i int) types.Pointf {
 	}
 }
 
+type Color3 struct {
+	R, G, B byte
+}
+
 type MonsterUpdateData struct {
 	Field0                uint32           // 0, 0
 	Field1                uint32           // 1, 4
@@ -208,7 +212,7 @@ type MonsterUpdateData struct {
 	Field328              float32          // 328, 1312
 	Field329              uint32           // 329, 1316
 	Field330              uint32           // 330, 1320
-	Field331              uint32           // 331, 1324
+	Field331              uint32           // 331, 1324, TODO: strength stat?
 	Field332              float32          // 332, 1328, TODO: speed stat?
 	Field333              uint32           // 333, 1332, TODO: roam flags?
 	RetreatLevel          float32          // 334, 1336
@@ -396,11 +400,7 @@ type MonsterUpdateData struct {
 	Field516              uint32           // 516, 2064
 	Field517              uint32           // 517, 2068
 	Field518              uint32           // 518, 2072
-	Field519              uint32           // 519, 2076
-	Field520              uint32           // 520, 2080
-	Field521              uint32           // 521, 2084
-	Field522              uint32           // 522, 2088
-	Field523_0            uint16           // 523, 2092
+	Color                 [6]Color3        // 519, 2076
 	Field523_2            uint8            // 523, 2094
 	Field523_3            uint8            // 523, 2095
 	DialogStartFunc       int32            // 524, 2096
