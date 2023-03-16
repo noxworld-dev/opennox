@@ -509,48 +509,6 @@ int nox_script_SetRoamFlagGroup_515CB0() {
 	return 0;
 }
 
-//----- (00515F10) --------------------------------------------------------
-int nox_script_RunAway_515F10() {
-	int v0;    // ebx
-	int v1;    // esi
-	int v2;    // edi
-	int v3;    // eax
-	int v5[2]; // [esp+Ch] [ebp-8h]
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_script_pop();
-	v5[0] = nox_server_scriptValToObjectPtr_511B60(v1);
-	if (v5[0]) {
-		v3 = nox_server_scriptValToObjectPtr_511B60(v2);
-		if (v3) {
-			v5[1] = v0;
-			nox_server_scriptFleeFrom_515F70(v3, v5);
-		}
-	}
-	return 0;
-}
-
-//----- (00516000) --------------------------------------------------------
-int nox_script_RunAwayGroup_516000() {
-	int v0;            // edi
-	int v1;            // esi
-	int v2;            // ebx
-	unsigned char* v3; // eax
-	int v5[2];         // [esp+Ch] [ebp-8h]
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_script_pop();
-	v5[0] = nox_server_scriptValToObjectPtr_511B60(v1);
-	if (v5[0]) {
-		v5[1] = v0;
-		v3 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v2);
-		nox_server_scriptExecuteFnForEachGroupObj_502670(v3, 0, nox_server_scriptFleeFrom_515F70, (int)v5);
-	}
-	return 0;
-}
-
 //----- (00516060) --------------------------------------------------------
 int nox_script_PauseObject_516060() {
 	int v0; // eax
