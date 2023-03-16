@@ -332,4 +332,5 @@ func init() {
 	legacy.Nox_objectDropAudEvent_4EE2F0 = nox_objectDropAudEvent_4EE2F0
 	legacy.Sub_47A1F0 = guiCloseNPCDialog
 	legacy.Nox_xxx_unitMonsterInit_4F0040 = objectMonsterInit
+	legacy.Nox_xxx_setNPCColor_4E4A90 = nox_xxx_setNPCColor_4E4A90
 }

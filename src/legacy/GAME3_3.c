@@ -1109,7 +1109,8 @@ void nox_xxx_unitNeedSync_4E44F0(nox_object_t* a1) {
 }
 
 //----- (004E4500) --------------------------------------------------------
-int* sub_4E4500(int a1, int a2, int a3, int a4) {
+int* sub_4E4500(nox_object_t* a1p, int a2, int a3, int a4) {
+	int a1 = a1p;
 	int v4;      // ecx
 	int* result; // eax
 	int v6;      // edx
@@ -1419,37 +1420,6 @@ int* nox_xxx_modifSetItemAttrs_4E4990(nox_object_t* a1p, int* a2) {
 
 //----- (004E4A70) --------------------------------------------------------
 double nox_xxx_objectGetMass_4E4A70(int a1) { return *(float*)(a1 + 120); }
-
-//----- (004E4A90) --------------------------------------------------------
-int* nox_xxx_setNPCColor_4E4A90(nox_object_t* a1p, unsigned char a2, int a3) {
-	int a1 = a1p;
-	int v3;      // edi
-	int v4;      // eax
-	int* result; // eax
-	int v6;      // ecx
-	int v7;      // edx
-	int v8;      // eax
-
-	v3 = *(uint32_t*)(a1 + 748);
-	nox_xxx_unitNeedSync_4E44F0(a1);
-	v4 = v3 + 2 * (a2 + 692) + a2 + 692;
-	*(uint16_t*)v4 = *(uint16_t*)a3;
-	*(uint8_t*)(v4 + 2) = *(uint8_t*)(a3 + 2);
-	if (*(uint32_t*)(a1 + 8) & 0x20400004) {
-		result = (int*)(a1 + 560);
-		v6 = 32;
-		do {
-			v7 = *result;
-			++result;
-			--v6;
-			*(result - 1) = v7 & 0xFFFFF000 | 0x4000000;
-		} while (v6);
-	} else {
-		v8 = sub_4E4C90(a1, 0x400u);
-		result = sub_4E4500(a1, 0x4000000, 1024, v8);
-	}
-	return result;
-}
 
 //----- (004E4B20) --------------------------------------------------------
 int* nox_xxx_npcSetItemEquipFlags_4E4B20(int a1, nox_object_t* item, int a3) {

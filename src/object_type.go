@@ -75,34 +75,36 @@ func sub_4F40A0(obj *server.Object) int8 {
 	return 0
 }
 
-func sub_4E4C90(obj *server.Object, a2 uint) int {
-	typ := noxServer.ObjectTypeByInd(int(obj.TypeInd))
+func sub_4E4C90(obj *server.Object, a2 uint) bool {
+	s := asObjectS(obj).getServer()
+	typ := s.ObjectTypeByInd(int(obj.TypeInd))
 	switch a2 {
 	case 0x1:
-		return bool2int(obj.Field33 != 0)
+		return obj.Field33 != 0
 	case 0x2:
 		health := obj.HealthData
 		if health == nil {
-			return 0
+			return false
 		}
 		if typ == nil || typ.Health() == nil {
-			return 0
+			return false
 		}
-		return bool2int(typ.Health().Cur != health.Cur)
+		return typ.Health().Cur != health.Cur
 	case 0x4:
-		return bool2int(((obj.Flags()^typ.Flags())>>24)&1 != 0)
+		return ((obj.Flags()^typ.Flags())>>24)&0x1 != 0
 	case 0x8:
-		return bool2int(typ.Field9 != obj.Field5)
+		return typ.Field9 != obj.Field5
 	case 0x40:
-		return bool2int(obj.ZVal != 0.0)
+		return obj.ZVal != 0.0
 	case 0x80:
-		return bool2int(obj.Buffs != 0)
+		return obj.Buffs != 0
 	case 0x200:
-		return bool2int(obj.Class()&0x13001000 != 0)
+		return obj.Class().HasAny(object.ClassFlag | object.ClassWeapon | object.ClassArmor | object.ClassWand)
 	case 0x400:
-		return bool2int(obj.Class()&2 != 0 && obj.SubClass()&0x30 != 0)
+		return obj.Class().Has(object.ClassMonster) &&
+			obj.SubClass().AsMonster().HasAny(object.MonsterNPC|object.MonsterFemaleNPC)
 	default:
-		return 0
+		return false
 	}
 }
 
