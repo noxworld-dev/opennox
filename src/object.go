@@ -1304,3 +1304,7 @@ func nox_xxx_startShopDialog_548DE0(player, npc *server.Object, snd sound.ID, st
 	s.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:135], 0, 1)
 	legacy.Nox_xxx_unitFreeze_4E79C0(player, 0)
 }
+
+func nox_xxx_mobSetFightTarg_515D30(obj, targ *server.Object) {
+	legacy.Nox_xxx_mobSetFightTarg_515D30(obj, targ)
+}
