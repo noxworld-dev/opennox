@@ -284,7 +284,7 @@ void nox_xxx_spellAwardAll1_4EFD80(nox_playerInfo* a1p);
 void nox_xxx_spellAwardAll3_4EFE10(nox_playerInfo* a1p);
 char nox_xxx_unitInitPlayer_4EFE80(nox_object_t* a1);
 int sub_4EFF10(int a1);
-int nox_xxx_unitMonsterInit_4F0040(int a1);
+void nox_xxx_unitMonsterInit_4F0040(nox_object_t* a1);
 uint32_t* nox_xxx_unitSparkInit_4F0390(int a1);
 int nox_xxx_initFrog_4F03B0(int a1);
 int* nox_xxx_initChest_4F0400(int a1);
