@@ -1312,3 +1312,7 @@ func nox_xxx_mobSetFightTarg_515D30(obj, targ *server.Object) {
 func nox_server_scriptFleeFrom_515F70(obj, targ *server.Object, df int) {
 	legacy.Nox_server_scriptFleeFrom_515F70(obj, targ, df)
 }
+
+func nox_xxx_monsterGoPatrol_515680(obj *server.Object, p1, p2 types.Pointf, dist float32) {
+	legacy.Nox_xxx_monsterGoPatrol_515680(obj, p1, p2, dist)
+}
