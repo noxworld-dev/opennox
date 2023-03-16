@@ -889,7 +889,7 @@ func (obj *Object) isEnemyTo(objp server.Obj) bool { // nox_xxx_unitIsEnemyTo_53
 	}
 	srv := obj.getServer()
 	if obj2.Class().HasAny(object.ClassMonster) {
-		if ud := obj2.UpdateDataMonster(); ud.Field360&0x40000 != 0 {
+		if ud := obj2.UpdateDataMonster(); ud.Flags360&0x40000 != 0 {
 			return false
 		}
 	}

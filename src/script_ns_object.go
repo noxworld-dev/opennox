@@ -611,7 +611,7 @@ func (obj nsObj) Drop(item ns.Obj) bool {
 
 func (obj nsObj) ZombieStayDown() {
 	if obj.Class().Has(object.ClassMonster) {
-		obj.UpdateDataMonster().Field360 |= 0x100000
+		obj.UpdateDataMonster().Flags360 |= 0x100000
 	}
 }
 
