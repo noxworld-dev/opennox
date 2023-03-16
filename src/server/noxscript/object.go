@@ -87,6 +87,7 @@ func init() {
 	Register(asm.BuiltinAttack, nsAttack)
 	Register(asm.BuiltinRunAway, nsRunAway)
 	Register(asm.BuiltinCreatureGuard, nsGuard)
+	Register(asm.BuiltinPauseObject, nsPause)
 }
 
 func nsObject(vm VM) int {
@@ -749,6 +750,15 @@ func nsGuard(vm VM) int {
 	obj := vm.PopObjectNS()
 	if obj != nil {
 		obj.Guard(p1, p2, dist)
+	}
+	return 0
+}
+
+func nsPause(vm VM) int {
+	dt := vm.PopU32()
+	obj := vm.PopObjectNS()
+	if obj != nil {
+		obj.Pause(script.Frames(int(dt)))
 	}
 	return 0
 }

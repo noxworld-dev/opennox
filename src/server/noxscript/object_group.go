@@ -40,6 +40,7 @@ func init() {
 	Register(asm.BuiltinGroupAttack, nsGroupAttack)
 	Register(asm.BuiltinGroupRunAway, nsGroupRunAway)
 	Register(asm.BuiltinCreatureGroupGuard, nsGroupGuard)
+	Register(asm.BuiltinGroupPauseObject, nsGroupPause)
 }
 
 func nsGetObjectGroup(s VM) int {
@@ -289,6 +290,15 @@ func nsGroupGuard(vm VM) int {
 	g := vm.PopObjGroupNS()
 	if g != nil {
 		g.Guard(p1, p2, dist)
+	}
+	return 0
+}
+
+func nsGroupPause(vm VM) int {
+	dt := vm.PopU32()
+	g := vm.PopObjGroupNS()
+	if g != nil {
+		g.Pause(script.Frames(int(dt)))
 	}
 	return 0
 }
