@@ -1203,8 +1203,8 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 					ud.Field0 = 0xDEADFACE
 					p := m.Pos()
 					n.monsterPushAction(ai.ACTION_ESCORT, p.X, p.Y, m)
-					if n.Class().Has(2) && n.SubClass()&0x30 != 0 {
-						legacy.Nox_xxx_setNPCColor_4E4A90(n.SObj(), 0, ud.Field519)
+					if n.Class().Has(object.ClassMonster) && n.SubClass().AsMonster().HasAny(object.MonsterNPC|object.MonsterFemaleNPC) {
+						nox_xxx_setNPCColor_4E4A90(n.SObj(), 0, &ud.Color[0])
 					}
 				} else if m.Class().Has(1) && legacy.Sub_4E5B80(m.SObj()) != 0 {
 					legacy.Sub_4E81D0(m.SObj())

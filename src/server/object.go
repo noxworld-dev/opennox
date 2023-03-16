@@ -421,38 +421,7 @@ type Object struct {
 	SpeedBase     float32                    // 137, 548
 	SpeedBonus    float32                    // 138, 552
 	HealthData    *HealthData                // 139, 556
-	Field140      uint32                     // 140, 560
-	Field141      uint32                     // 141, 564
-	Field142      uint32                     // 142, 568
-	Field143      uint32                     // 143, 572
-	Field144      uint32                     // 144, 576
-	Field145      uint32                     // 145, 580
-	Field146      uint32                     // 146, 584
-	Field147      uint32                     // 147, 588
-	Field148      uint32                     // 148, 592
-	Field149      uint32                     // 149, 596
-	Field150      uint32                     // 150, 600
-	Field151      uint32                     // 151, 604
-	Field152      uint32                     // 152, 608
-	Field153      uint32                     // 153, 612
-	Field154      uint32                     // 154, 616
-	Field155      uint32                     // 155, 620
-	Field156      uint32                     // 156, 624
-	Field157      uint32                     // 157, 628
-	Field158      uint32                     // 158, 632
-	Field159      uint32                     // 159, 636
-	Field160      uint32                     // 160, 640
-	Field161      uint32                     // 161, 644
-	Field162      uint32                     // 162, 648
-	Field163      uint32                     // 163, 652
-	Field164      uint32                     // 164, 656
-	Field165      uint32                     // 165, 660
-	Field166      uint32                     // 166, 664
-	Field167      uint32                     // 167, 668
-	Field168      uint32                     // 168, 672
-	Field169      uint32                     // 169, 676
-	Field170      uint32                     // 170, 680
-	Field171      uint32                     // 171, 684
+	Field140      [32]uint32                 // 140, 560
 	Init          unsafe.Pointer             // 172, 688
 	InitData      unsafe.Pointer             // 173, 692, // TODO: struct pointer; struct at least 8 bytes wide. see 4F3030.
 	Collide       unsafe.Pointer             // 174, 696
