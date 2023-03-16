@@ -350,62 +350,6 @@ int nox_script_JournalEdit_5155A0() {
 	return 0;
 }
 
-//----- (00515600) --------------------------------------------------------
-int nox_script_Guard_515600() {
-	int v0;    // eax
-	int v1;    // eax
-	int v3;    // [esp+0h] [ebp-28h]
-	int v4;    // [esp+4h] [ebp-24h]
-	int v5;    // [esp+8h] [ebp-20h]
-	int v6;    // [esp+Ch] [ebp-1Ch]
-	int v7;    // [esp+10h] [ebp-18h]
-	int v8[5]; // [esp+14h] [ebp-14h]
-
-	v7 = nox_script_pop();
-	v6 = nox_script_pop();
-	v5 = nox_script_pop();
-	v4 = nox_script_pop();
-	v3 = nox_script_pop();
-	v0 = nox_script_pop();
-	v8[0] = v3;
-	v8[1] = v4;
-	v8[2] = v5;
-	v8[3] = v6;
-	v8[4] = v7;
-	v1 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v1) {
-		nox_xxx_monsterGoPatrol_515680(v1, v8);
-	}
-	return 0;
-}
-
-//----- (00515700) --------------------------------------------------------
-int nox_script_GuardGroup_515700() {
-	int v0;            // eax
-	unsigned char* v1; // eax
-	int v3;            // [esp+0h] [ebp-28h]
-	int v4;            // [esp+4h] [ebp-24h]
-	int v5;            // [esp+8h] [ebp-20h]
-	int v6;            // [esp+Ch] [ebp-1Ch]
-	int v7;            // [esp+10h] [ebp-18h]
-	int v8[5];         // [esp+14h] [ebp-14h]
-
-	v7 = nox_script_pop();
-	v6 = nox_script_pop();
-	v5 = nox_script_pop();
-	v4 = nox_script_pop();
-	v3 = nox_script_pop();
-	v0 = nox_script_pop();
-	v8[1] = v4;
-	v8[3] = v6;
-	v8[0] = v3;
-	v8[2] = v5;
-	v8[4] = v7;
-	v1 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v0);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v1, 0, nox_xxx_monsterGoPatrol_515680, (int)v8);
-	return 0;
-}
-
 //----- (005159E0) --------------------------------------------------------
 int nox_script_HitLocation_5159E0() {
 	int v0;   // eax

@@ -497,8 +497,7 @@ func (obj nsObj) Follow(targ ns.Positioner) {
 }
 
 func (obj nsObj) Guard(p1, p2 types.Pointf, distance float32) {
-	//TODO implement me
-	panic("implement me")
+	nox_xxx_monsterGoPatrol_515680(obj.SObj(), p1, p2, distance)
 }
 
 func (obj nsObj) Attack(targ ns.Positioner) {
@@ -835,8 +834,10 @@ func (g nsObjGroup) Follow(targ ns.Positioner) {
 }
 
 func (g nsObjGroup) Guard(p1, p2 types.Pointf, distance float32) {
-	//TODO implement me
-	panic("implement me")
+	eachObjectRecursiveNS(g.s, g.g, func(obj ns.Obj) bool {
+		obj.Guard(p1, p2, distance)
+		return true
+	})
 }
 
 func (g nsObjGroup) Flee(target ns.Positioner, dt script.Duration) {

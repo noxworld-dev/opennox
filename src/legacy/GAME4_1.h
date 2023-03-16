@@ -146,7 +146,7 @@ void nox_xxx_wallToggle_512160(int a1);
 int nox_xxx_wallPreDestroyByPtr_5122C0(int a1);
 float* nox_xxx_monsterLookAt_5125A0(nox_object_t* obj, int a2);
 void nox_xxx_monsterWalkTo_514110(nox_object_t* obj, float x, float y);
-void nox_xxx_monsterGoPatrol_515680(int a1, int a2);
+void nox_xxx_monsterGoPatrol_515680(nox_object_t* a1, void* a2);
 void nox_xxx_unitHunt_5157A0(nox_object_t* obj);
 void nox_xxx_unitIdle_515820(nox_object_t* obj);
 void nox_xxx_unitSetFollow_5158C0(nox_object_t* obj1, nox_object_t* obj2);
