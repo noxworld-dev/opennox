@@ -3,12 +3,88 @@ package opennox
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/things"
 
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
+	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
+
+func objectMonsterInit(sobj *server.Object) {
+	obj := asObjectS(sobj)
+	s := obj.getServer()
+	ud := obj.UpdateDataMonster()
+	if !obj.Flags().HasAny(object.FlagDead | object.FlagDestroyed) {
+		if int(obj.TypeInd) == s.CarnivorousPlantID() {
+			obj.clearActionStack()
+			ud.Field328 = float32(float64(*(*float32)(unsafe.Add(ud.Field121, 112))+obj.Shape.Circle.R) + 10.0)
+			ud.AIAction340 = uint32(ai.ACTION_GUARD)
+		} else if obj.isRat() {
+			obj.clearActionStack()
+			obj.monsterPushAction(ai.ACTION_RANDOM_WALK)
+			ud.Aggression = 0.16
+			ud.AIAction340 = uint32(ai.ACTION_INVALID)
+		} else if obj.isFish() {
+			obj.clearActionStack()
+			obj.monsterPushAction(ai.ACTION_ROAM, 0, 0, 0xff)
+			ud.Aggression = 0.16
+			ud.AIAction340 = uint32(ai.ACTION_INVALID)
+		} else if obj.isFrog() {
+			obj.clearActionStack()
+			obj.monsterPushAction(ai.ACTION_IDLE)
+			ud.Aggression = 0.16
+			ud.AIAction340 = uint32(ai.ACTION_INVALID)
+			ud.Flags360 |= 0x100
+		}
+	}
+	switch ai.ActionType(ud.AIAction340) {
+	case ai.ACTION_ESCORT:
+		obj.monsterPushAction(ai.ACTION_ESCORT, obj.Pos())
+	case ai.ACTION_GUARD:
+		obj.monsterPushAction(ai.ACTION_GUARD, obj.Pos(), int(obj.Direction1))
+	case ai.ACTION_ROAM:
+		if nox_xxx_monsterCanAttackAtWill_534390(obj) {
+			obj.monsterPushAction(ai.ACTION_HUNT)
+		} else {
+			obj.monsterPushAction(ai.ACTION_ROAM, 0, 0, uint32(uint8(ud.Field333)))
+		}
+	case ai.ACTION_FIGHT:
+		obj.monsterPushAction(ai.ACTION_FIGHT, obj.Pos(), uint32(s.Frame()))
+	case ai.ACTION_INVALID:
+		// nop
+	default:
+		if ud.AIStackInd < 0 {
+			obj.monsterPushAction(ai.ACTION_IDLE)
+		}
+	}
+	ud.AIAction340 = uint32(ai.ACTION_INVALID)
+	ud.Direction94 = uint32(obj.Direction1)
+	ud.Pos95 = obj.Pos()
+	h := obj.HealthData
+	if h.Cur == h.Max {
+		legacy.Nox_xxx_unitSetHP_4E4560(obj.SObj(), uint16(float64(h.Max)*float64(ud.Field338)))
+	}
+	h.Field2 = h.Cur
+	for i := range ud.HealthGraph103 {
+		ud.HealthGraph103[i] = h.Cur
+	}
+	if obj.SubClass().AsMonster().HasAny(object.MonsterNPC | object.MonsterFemaleNPC) {
+		obj.SpeedBase = float32(1.7 + float64(ud.Field332)*0.5)
+	} else {
+		obj.SpeedBase = float32(float64(obj.SpeedBase) * noxRndCounter1.FloatClamp(0.94999999, 1.05))
+	}
+	if legacy.Nox_xxx_monsterCanCast_534300(obj.SObj()) {
+		ud.Field339 = 100
+	}
+	if ud.Flags360&0x40 != 0 {
+		ud.Field339 = 0
+	}
+	if ud.Flags360&0x8000 != 0 {
+		ud.Flags360 |= 0x4000
+	}
+}
 
 func (obj *Object) monsterCast(spellInd spell.ID, target *server.Object) {
 	s := obj.getServer()

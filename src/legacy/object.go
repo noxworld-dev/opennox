@@ -28,7 +28,8 @@ import (
 )
 
 var (
-	Sub_47A1F0 func()
+	Sub_47A1F0                     func()
+	Nox_xxx_unitMonsterInit_4F0040 func(obj *server.Object)
 )
 
 var _ = [1]struct{}{}[28-unsafe.Sizeof(Nox_object_Missile_data_t{})]
@@ -217,21 +218,6 @@ func nox_xxx_unitIsEnemyTo_5330C0(a, b *nox_object_t) int {
 	return bool2int(GetServer().IsEnemyTo(asObjectS(a), asObjectS(b)))
 }
 
-//export nox_xxx_unitIsAFish_534B10
-func nox_xxx_unitIsAFish_534B10(obj *nox_object_t) int {
-	return bool2int(GetServer().IsFish(asObjectS(obj)))
-}
-
-//export nox_xxx_unitIsARat_534B60
-func nox_xxx_unitIsARat_534B60(obj *nox_object_t) int {
-	return bool2int(GetServer().IsRat(asObjectS(obj)))
-}
-
-//export nox_xxx_unitIsAFrog_534B90
-func nox_xxx_unitIsAFrog_534B90(obj *nox_object_t) int {
-	return bool2int(GetServer().IsFrog(asObjectS(obj)))
-}
-
 //export nox_get_and_zero_server_objects_4DA3C0
 func nox_get_and_zero_server_objects_4DA3C0() *nox_object_t {
 	return asObjectC(GetServer().S().Objs.GetAndZeroObjects())
@@ -246,6 +232,12 @@ func nox_set_server_objects_4DA3E0(list *nox_object_t) {
 func sub_47A1F0() {
 	Sub_47A1F0()
 }
+
+//export nox_xxx_unitMonsterInit_4F0040
+func nox_xxx_unitMonsterInit_4F0040(obj *nox_object_t) {
+	Nox_xxx_unitMonsterInit_4F0040(asObjectS(obj))
+}
+
 func Nox_server_getObjectFromNetCode_4ECCB0(a1 int) *server.Object {
 	return asObjectS(C.nox_server_getObjectFromNetCode_4ECCB0(C.int(a1)))
 }
@@ -404,4 +396,8 @@ func Nox_xxx_monsterGoPatrol_515680(obj *server.Object, p1, p2 types.Pointf, dis
 
 func Sub_516090(obj *server.Object, df int) {
 	C.sub_516090(asObjectC(obj), C.uint(df))
+}
+
+func Nox_xxx_monsterCanCast_534300(obj *server.Object) bool {
+	return C.nox_xxx_monsterCanCast_534300(asObjectC(obj)) != 0
 }

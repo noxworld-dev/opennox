@@ -12,7 +12,7 @@ import (
 
 type AIStackItem struct {
 	Action uint32     // 0, 0
-	Args   [4]uintptr // 1, 4
+	Args   [4]uintptr // 1, 4 (8, 12, 16)
 	Field5 uint32     // 5, 20
 }
 
@@ -133,31 +133,15 @@ type MonsterUpdateData struct {
 	Field91               uint32           // 91, 364
 	Field92               uint32           // 92, 368
 	Field93               uint32           // 93, 372
-	Field94               uint32           // 94, 376
-	Field95               uint32           // 95, 380
-	Field96               uint32           // 96, 384
+	Direction94           uint32           // 94, 376
+	Pos95                 types.Pointf     // 95, 380
 	Field97               uint32           // 97, 388, TODO: hear sound ind
 	Field98               uint32           // 98, 392, TODO: some frame/timestamp
 	Field99X              float32          // 99, 396
 	Field99Y              float32          // 100, 400
 	Field101              uint32           // 101, 404, TODO: hear frame/timestamp
 	Field102              uint32           // 102, 408, TODO: hear distance
-	Field103              uint32           // 103, 412
-	Field104              uint32           // 104, 416
-	Field105              uint32           // 105, 420
-	Field106              uint32           // 106, 424
-	Field107              uint32           // 107, 428
-	Field108              uint32           // 108, 432
-	Field109              uint32           // 109, 436
-	Field110              uint32           // 110, 440
-	Field111              uint32           // 111, 444
-	Field112              uint32           // 112, 448
-	Field113              uint32           // 113, 452
-	Field114              uint32           // 114, 456
-	Field115              uint32           // 115, 460
-	Field116              uint32           // 116, 464
-	Field117              uint32           // 117, 468
-	Field118              uint32           // 118, 472
+	HealthGraph103        [32]uint16       // 103, 412
 	Field119              *[16]MonsterAnim // 119, 476
 	Field120_0            uint8            // 120, 480
 	Field120_1            uint8            // 120, 481
@@ -225,15 +209,15 @@ type MonsterUpdateData struct {
 	Field329              uint32           // 329, 1316
 	Field330              uint32           // 330, 1320
 	Field331              uint32           // 331, 1324
-	Field332              uint32           // 332, 1328
-	Field333              uint32           // 333, 1332
+	Field332              float32          // 332, 1328, TODO: speed stat?
+	Field333              uint32           // 333, 1332, TODO: roam flags?
 	RetreatLevel          float32          // 334, 1336
 	Field335              uint32           // 335, 1340
 	ResumeLevel           float32          // 336, 1344
 	Field337              uint32           // 337, 1348
-	Field338              uint32           // 338, 1352
-	Field339              uint32           // 339, 1356
-	Field340              uint32           // 340, 1360
+	Field338              float32          // 338, 1352, TODO: something health-related
+	Field339              float32          // 339, 1356, TODO: something spell-related; pseudo-mana?
+	AIAction340           uint32           // 340, 1360
 	Field341              uint32           // 341, 1364
 	Field342              uint32           // 342, 1368
 	Field343              uint32           // 343, 1372
@@ -253,7 +237,7 @@ type MonsterUpdateData struct {
 	Field357              uint32           // 357, 1428
 	Field358              uint32           // 358, 1432
 	Field359              uint32           // 359, 1436
-	Field360              uint32           // 360, 1440 // TODO: flags?
+	Flags360              uint32           // 360, 1440 // TODO: flags?
 	Field361              uint32           // 361, 1444
 	Field362              uint32           // 362, 1448
 	Field363              uint32           // 363, 1452
