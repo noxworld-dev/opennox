@@ -5049,24 +5049,23 @@ void nox_server_scriptFleeFrom_515F70(nox_object_t* a1p, void* a2p) {
 }
 
 //----- (00516090) --------------------------------------------------------
-void sub_516090(int a1, uint32_t* a2) {
+void sub_516090(nox_object_t* a1p, uint32_t a2) {
+	int a1 = a1p;
 	int v2;  // eax
 	int* v3; // eax
 	int* v4; // eax
 
 	if (a1) {
-		if (a2) {
-			if (*(uint8_t*)(a1 + 8) & 2) {
-				v2 = *(uint32_t*)(a1 + 16);
-				if ((v2 & 0x8000) == 0) {
-					v3 = nox_xxx_monsterPushAction_50A260(a1, 32);
-					if (v3) {
-						v3[1] = 1;
-					}
-					v4 = nox_xxx_monsterPushAction_50A260(a1, 1);
-					if (v4) {
-						v4[1] = gameFrame() + *a2;
-					}
+		if (*(uint8_t*)(a1 + 8) & 2) {
+			v2 = *(uint32_t*)(a1 + 16);
+			if ((v2 & 0x8000) == 0) {
+				v3 = nox_xxx_monsterPushAction_50A260(a1, 32);
+				if (v3) {
+					v3[1] = 1;
+				}
+				v4 = nox_xxx_monsterPushAction_50A260(a1, 1);
+				if (v4) {
+					v4[1] = gameFrame() + a2;
 				}
 			}
 		}

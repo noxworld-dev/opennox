@@ -401,3 +401,7 @@ func Nox_xxx_monsterGoPatrol_515680(obj *server.Object, p1, p2 types.Pointf, dis
 	p.Dist = dist
 	C.nox_xxx_monsterGoPatrol_515680(asObjectC(obj), unsafe.Pointer(p))
 }
+
+func Sub_516090(obj *server.Object, df int) {
+	C.sub_516090(asObjectC(obj), C.uint(df))
+}
