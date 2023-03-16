@@ -375,3 +375,6 @@ func Sub_4E39F0_obj_db(obj *server.Object) string {
 func Nox_xxx_scriptDialog_548D30(obj *server.Object, a2 byte) {
 	C.nox_xxx_scriptDialog_548D30(asObjectC(obj), C.char(a2))
 }
+func Nox_xxx_mobSetFightTarg_515D30(obj, targ *server.Object) {
+	C.nox_xxx_mobSetFightTarg_515D30(asObjectC(obj), asObjectC(targ))
+}

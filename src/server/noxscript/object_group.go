@@ -37,6 +37,7 @@ func init() {
 	Register(asm.BuiltinGroupAggressionLevel, nsSetAggressionLevelGroup)
 	Register(asm.BuiltinGroupRetreatLevel, nsSetRetreatLevelGroup)
 	Register(asm.BuiltinGroupResumeLevel, nsSetResumeLevelGroup)
+	Register(asm.BuiltinGroupAttack, nsGroupAttack)
 }
 
 func nsGetObjectGroup(s VM) int {
@@ -256,6 +257,15 @@ func nsSetResumeLevelGroup(vm VM) int {
 	g := vm.PopObjGroupNS()
 	if g != nil {
 		g.ResumeLevel(v)
+	}
+	return 0
+}
+
+func nsGroupAttack(vm VM) int {
+	targ := vm.PopObjectNS()
+	g := vm.PopObjGroupNS()
+	if g != nil {
+		g.Attack(targ)
 	}
 	return 0
 }

@@ -509,38 +509,6 @@ int nox_script_SetRoamFlagGroup_515CB0() {
 	return 0;
 }
 
-//----- (00515CF0) --------------------------------------------------------
-int nox_script_Attack_515CF0() {
-	int v0; // edi
-	int v1; // eax
-	int v2; // esi
-	int v3; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_server_scriptValToObjectPtr_511B60(v1);
-	if (v2) {
-		v3 = nox_server_scriptValToObjectPtr_511B60(v0);
-		nox_xxx_mobSetFightTarg_515D30(v2, v3);
-	}
-	return 0;
-}
-
-//----- (00515DB0) --------------------------------------------------------
-int nox_script_AttackGroup_515DB0() {
-	int v0;            // esi
-	int v1;            // edi
-	unsigned char* v2; // eax
-	int v4;            // [esp-4h] [ebp-Ch]
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v4 = nox_server_scriptValToObjectPtr_511B60(v0);
-	v2 = (unsigned char*)nox_server_scriptGetGroup_57C0A0(v1);
-	nox_server_scriptExecuteFnForEachGroupObj_502670(v2, 0, nox_xxx_mobSetFightTarg_515D30, v4);
-	return 0;
-}
-
 //----- (00515F10) --------------------------------------------------------
 int nox_script_RunAway_515F10() {
 	int v0;    // ebx
