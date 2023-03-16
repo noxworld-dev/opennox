@@ -23,8 +23,6 @@ int nox_script_RetreatLevel_515DF0();
 int nox_script_RetreatLevelGroup_515E50();
 int nox_script_SetResumeLevel_515E80();
 int nox_script_SetResumeLevelGroup_515EE0();
-int nox_script_RunAway_515F10();
-int nox_script_RunAwayGroup_516000();
 int nox_script_PauseObject_516060();
 int nox_script_PauseObjectGroup_5160F0();
 int nox_script_GiveExp_516190();
@@ -108,8 +106,6 @@ var noxScriptBuiltins = [asm.BuiltinGetScore + 1]noxscript.Builtin{
 	asm.BuiltinGroupSetRoamFlag:    wrapScriptC(C.nox_script_SetRoamFlagGroup_515CB0),
 	asm.BuiltinJournalDelete:       wrapScriptC(C.nox_script_JournalDelete_515550),
 	asm.BuiltinJournalEdit:         wrapScriptC(C.nox_script_JournalEdit_5155A0),
-	asm.BuiltinRunAway:             wrapScriptC(C.nox_script_RunAway_515F10),
-	asm.BuiltinGroupRunAway:        wrapScriptC(C.nox_script_RunAwayGroup_516000),
 	asm.BuiltinPauseObject:         wrapScriptC(C.nox_script_PauseObject_516060),
 	asm.BuiltinGroupPauseObject:    wrapScriptC(C.nox_script_PauseObjectGroup_5160F0),
 	asm.BuiltinGiveXp:              wrapScriptC(C.nox_script_GiveExp_516190),

@@ -14,6 +14,7 @@ int nox_objectDropAudEvent_4EE2F0(nox_object_t* a1, nox_object_t* a2, float2* a3
 void nox_xxx_script_forcedialog_548CD0(nox_object_t* a1, nox_object_t* a2);
 wchar_t* sub_4E39F0_obj_db(nox_object_t* a1);
 void nox_xxx_scriptDialog_548D30(nox_object_t* a1, char a2);
+void nox_server_scriptFleeFrom_515F70(nox_object_t* a1, void* a2);
 */
 import "C"
 import (
@@ -377,4 +378,14 @@ func Nox_xxx_scriptDialog_548D30(obj *server.Object, a2 byte) {
 }
 func Nox_xxx_mobSetFightTarg_515D30(obj, targ *server.Object) {
 	C.nox_xxx_mobSetFightTarg_515D30(asObjectC(obj), asObjectC(targ))
+}
+func Nox_server_scriptFleeFrom_515F70(obj, targ *server.Object, df int) {
+	p, free := alloc.New(struct {
+		Targ *nox_object_t
+		Dt   int32
+	}{})
+	defer free()
+	p.Targ = asObjectC(targ)
+	p.Dt = int32(df)
+	C.nox_server_scriptFleeFrom_515F70(asObjectC(obj), unsafe.Pointer(p))
 }

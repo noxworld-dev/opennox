@@ -85,6 +85,7 @@ func init() {
 	Register(asm.BuiltinStoryPic, nsStoryPic)
 	Register(asm.BuiltinTellStory, nsTellStory)
 	Register(asm.BuiltinAttack, nsAttack)
+	Register(asm.BuiltinRunAway, nsRunAway)
 }
 
 func nsObject(vm VM) int {
@@ -726,6 +727,16 @@ func nsAttack(vm VM) int {
 	obj := vm.PopObjectNS()
 	if obj != nil {
 		obj.Attack(targ)
+	}
+	return 0
+}
+
+func nsRunAway(vm VM) int {
+	dt := vm.PopU32()
+	targ := vm.PopObjectNS()
+	obj := vm.PopObjectNS()
+	if targ != nil && obj != nil {
+		obj.Flee(targ, script.Frames(int(dt)))
 	}
 	return 0
 }
