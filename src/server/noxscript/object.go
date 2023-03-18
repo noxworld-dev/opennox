@@ -9,6 +9,10 @@ import (
 )
 
 func init() {
+	Register(asm.BuiltinGetTrigger, nsGetTrigger)
+	Register(asm.BuiltinGetCaller, nsGetCaller)
+	Register(asm.BuiltinIsTrigger, nsIsTrigger)
+	Register(asm.BuiltinIsCaller, nsIsCaller)
 	Register(asm.BuiltinObject, nsObject)
 	Register(asm.BuiltinCreateObject, nsCreateObject)
 	Register(asm.BuiltinGetObjectX, nsObjectX)
@@ -85,6 +89,37 @@ func init() {
 	Register(asm.BuiltinRunAway, nsRunAway)
 	Register(asm.BuiltinCreatureGuard, nsGuard)
 	Register(asm.BuiltinPauseObject, nsPause)
+	Register(asm.BuiltinSetCallback, nsSetCallback)
+}
+
+func nsGetTrigger(vm VM) int {
+	vm.PushHandleNS(vm.NoxScript().GetTrigger())
+	return 0
+}
+
+func nsGetCaller(vm VM) int {
+	vm.PushHandleNS(vm.NoxScript().GetCaller())
+	return 0
+}
+
+func nsIsTrigger(vm VM) int {
+	obj := vm.PopObjectNS()
+	if obj == nil {
+		vm.PushBool(false)
+		return 0
+	}
+	vm.PushBool(vm.NoxScript().IsTrigger(obj))
+	return 0
+}
+
+func nsIsCaller(vm VM) int {
+	obj := vm.PopObjectNS()
+	if obj == nil {
+		vm.PushBool(false)
+		return 0
+	}
+	vm.PushBool(vm.NoxScript().IsCaller(obj))
+	return 0
 }
 
 func nsObject(vm VM) int {
@@ -756,6 +791,16 @@ func nsPause(vm VM) int {
 	obj := vm.PopObjectNS()
 	if obj != nil {
 		obj.Pause(ns4.Frames(int(dt)))
+	}
+	return 0
+}
+
+func nsSetCallback(vm VM) int {
+	fnc := int32(vm.PopU32())
+	ev := ns4.ObjectEvent(vm.PopU32())
+	obj := vm.PopObjectNS()
+	if obj != nil {
+		obj.OnEvent(ev, int(fnc))
 	}
 	return 0
 }
