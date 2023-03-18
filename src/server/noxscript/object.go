@@ -1,14 +1,11 @@
 package noxscript
 
 import (
-	"time"
-
 	"github.com/noxworld-dev/noxscript/ns/asm"
-	"github.com/noxworld-dev/noxscript/ns/v4"
+	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/noxscript/ns/v4/audio"
 	"github.com/noxworld-dev/noxscript/ns/v4/class"
 	"github.com/noxworld-dev/noxscript/ns/v4/damage"
-	"github.com/noxworld-dev/opennox-lib/script"
 )
 
 func init() {
@@ -251,7 +248,7 @@ func nsLookAtDirection(s VM) int {
 	dir := s.PopI32()
 	obj := s.PopObjectNS()
 	if obj != nil {
-		obj.LookAtDirection(ns.Direction(dir))
+		obj.LookAtDirection(ns4.Direction(dir))
 	}
 	return 0
 }
@@ -267,7 +264,7 @@ func nsDeleteObjectTimer(s VM) int {
 	frames := s.PopU32()
 	obj := s.PopObjectNS()
 	if obj != nil {
-		obj.DeleteAfter(script.Frames(int(frames)))
+		obj.DeleteAfter(ns4.Frames(int(frames)))
 	}
 	return 0
 }
@@ -575,7 +572,7 @@ func nsChatTimerSeconds(s VM) int {
 	msg := s.PopString()
 	obj := s.PopObjectNS()
 	if obj != nil {
-		obj.ChatTimer(msg, script.Time(time.Second*time.Duration(sec)))
+		obj.ChatTimer(msg, ns4.Seconds(float64(sec)))
 	}
 	return 0
 }
@@ -585,7 +582,7 @@ func nsChatTimerFrames(s VM) int {
 	msg := s.PopString()
 	obj := s.PopObjectNS()
 	if obj != nil {
-		obj.ChatTimer(msg, script.Frames(frames))
+		obj.ChatTimer(msg, ns4.Frames(frames))
 	}
 	return 0
 }
@@ -676,7 +673,7 @@ func nsSetDialog(vm VM) int {
 	name := vm.PopString()
 	obj := vm.PopObjectNS()
 	if obj != nil {
-		vm.NoxScript().SetDialog(obj, ns.DialogType(name), int(start), int(end))
+		vm.NoxScript().SetDialog(obj, ns4.DialogType(name), int(start), int(end))
 	}
 	return 0
 }
@@ -720,7 +717,7 @@ func nsStoryPic(vm VM) int {
 func nsTellStory(vm VM) int {
 	v0 := vm.PopString()
 	v1 := vm.PopString()
-	vm.NoxScript().TellStory(audio.Name(v1), ns.StringID(v0))
+	vm.NoxScript().TellStory(audio.Name(v1), ns4.StringID(v0))
 	return 0
 }
 
@@ -738,7 +735,7 @@ func nsRunAway(vm VM) int {
 	targ := vm.PopObjectNS()
 	obj := vm.PopObjectNS()
 	if targ != nil && obj != nil {
-		obj.Flee(targ, script.Frames(int(dt)))
+		obj.Flee(targ, ns4.Frames(int(dt)))
 	}
 	return 0
 }
@@ -758,7 +755,7 @@ func nsPause(vm VM) int {
 	dt := vm.PopU32()
 	obj := vm.PopObjectNS()
 	if obj != nil {
-		obj.Pause(script.Frames(int(dt)))
+		obj.Pause(ns4.Frames(int(dt)))
 	}
 	return 0
 }
