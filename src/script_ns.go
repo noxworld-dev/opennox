@@ -32,9 +32,17 @@ func (s noxScriptNS) TimerByHandle(h ns4.TimerHandle) ns4.Timer {
 }
 
 func (s noxScriptNS) NewTimer(dt ns4.Duration, fnc ns4.Func, args ...any) ns4.Timer {
-	panic("TODO: implement me")
-	//id := s.s.noxScript.newScriptTimer(s.s.AsFrames(dt), fnc, args)
-	//return nsTimer{s: s.s, id: id}
+	var arg uint32
+	switch len(args) {
+	default:
+		panic("more than one timer arguments are not supported yet")
+	case 0:
+		arg = 0
+	case 1:
+		arg = s.s.noxScript.AsValue(args[0])
+	}
+	id := s.s.NewTimer(s.s.AsFrames(dt), s.s.noxScript.AsFuncIndex(fnc), arg)
+	return nsTimer{s: s.s, id: id}
 }
 
 func (s noxScriptNS) RandomFloat(min float32, max float32) float32 {
