@@ -3,13 +3,12 @@ package opennox
 import (
 	"strings"
 
-	"github.com/noxworld-dev/noxscript/ns/v4"
+	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/noxscript/ns/v4/effect"
 	"github.com/noxworld-dev/noxscript/ns/v4/enchant"
 	nsp "github.com/noxworld-dev/noxscript/ns/v4/spell"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
-	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
@@ -26,7 +25,7 @@ func init() {
 	}
 }
 
-func (s noxScriptNS) Effect(effect effect.Effect, p1, p2 ns.Positioner) {
+func (s noxScriptNS) Effect(effect effect.Effect, p1, p2 ns4.Positioner) {
 	var pos, pos2 types.Pointf
 	if p1 != nil {
 		pos = p1.Pos()
@@ -72,7 +71,7 @@ func (s noxScriptNS) Effect(effect effect.Effect, p1, p2 ns.Positioner) {
 	}
 }
 
-func (s noxScriptNS) CastSpell(name nsp.Spell, source, target ns.Positioner) {
+func (s noxScriptNS) CastSpell(name nsp.Spell, source, target ns4.Positioner) {
 	sp := spell.ParseID(string(name))
 	if !sp.Valid() {
 		return
@@ -103,7 +102,7 @@ func (obj nsObj) AwardSpell(name nsp.Spell) bool {
 	return legacy.Nox_xxx_spellGrantToPlayer_4FB550(obj.SObj(), sp, 1, 0, 0) != 0
 }
 
-func (obj nsObj) Enchant(enc enchant.Enchant, dt script.Duration) {
+func (obj nsObj) Enchant(enc enchant.Enchant, dt ns4.Duration) {
 	id, ok := server.ParseEnchant(string(enc))
 	if !ok {
 		return
@@ -130,7 +129,7 @@ func (g nsObjGroup) AwardSpell(sp nsp.Spell) {
 	if !spl.Valid() {
 		return
 	}
-	g.EachObject(true, func(it ns.Obj) bool {
+	g.EachObject(true, func(it ns4.Obj) bool {
 		// TODO: why it.AwardSpell is different?
 		val := 0
 		obj := it.(server.Obj)

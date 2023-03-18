@@ -1,14 +1,11 @@
 package noxscript
 
 import (
-	"time"
-
 	"github.com/noxworld-dev/noxscript/ns/asm"
-	"github.com/noxworld-dev/noxscript/ns/v4"
+	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/noxscript/ns/v4/damage"
 	"github.com/noxworld-dev/noxscript/ns/v4/enchant"
 	"github.com/noxworld-dev/noxscript/ns/v4/spell"
-	"github.com/noxworld-dev/opennox-lib/script"
 )
 
 func init() {
@@ -113,7 +110,7 @@ func nsGroupIsOwnedByAny(s VM) int {
 
 func nsGroupDelete(s VM) int {
 	g := s.PopObjGroupNS()
-	g.EachObject(true, func(obj ns.Obj) bool {
+	g.EachObject(true, func(obj ns4.Obj) bool {
 		obj.Delete()
 		return true
 	})
@@ -124,14 +121,14 @@ func nsGroupLookAtDirection(s VM) int {
 	dir := s.PopI32()
 	g := s.PopObjGroupNS()
 	if g != nil {
-		g.LookAtDirection(ns.Direction(dir))
+		g.LookAtDirection(ns4.Direction(dir))
 	}
 	return 0
 }
 
 func nsGroupWander(s VM) int {
 	if g := s.PopObjGroupNS(); g != nil {
-		g.EachObject(true, func(obj ns.Obj) bool {
+		g.EachObject(true, func(obj ns4.Obj) bool {
 			obj.Wander()
 			return true
 		})
@@ -223,7 +220,7 @@ func nsGroupEnchant(s VM) int {
 	name := s.PopString()
 	g := s.PopObjGroupNS()
 	if g != nil {
-		g.Enchant(enchant.Enchant(name), script.Time(time.Duration(float64(time.Second)*sec)))
+		g.Enchant(enchant.Enchant(name), ns4.Seconds(sec))
 	}
 	return 0
 }
@@ -278,7 +275,7 @@ func nsGroupRunAway(vm VM) int {
 	targ := vm.PopObjectNS()
 	g := vm.PopObjGroupNS()
 	if targ != nil && g != nil {
-		g.Flee(targ, script.Frames(int(dt)))
+		g.Flee(targ, ns4.Frames(int(dt)))
 	}
 	return 0
 }
@@ -298,7 +295,7 @@ func nsGroupPause(vm VM) int {
 	dt := vm.PopU32()
 	g := vm.PopObjGroupNS()
 	if g != nil {
-		g.Pause(script.Frames(int(dt)))
+		g.Pause(ns4.Frames(int(dt)))
 	}
 	return 0
 }

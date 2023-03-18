@@ -5,10 +5,10 @@ import (
 	"sync/atomic"
 	"time"
 
+	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/platform"
-	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox-lib/console"
@@ -132,7 +132,7 @@ func (s *Server) SetTickRate(v uint32) {
 	atomic.StoreUint32(&s.tickRate, v)
 }
 
-func (s *Server) AsFrames(dt script.Duration) int {
+func (s *Server) AsFrames(dt ns4.Duration) int {
 	frames, ok := dt.Frames()
 	if ok {
 		return frames

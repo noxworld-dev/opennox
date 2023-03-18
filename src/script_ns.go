@@ -1,19 +1,18 @@
 package opennox
 
 import (
-	"github.com/noxworld-dev/noxscript/ns/v4"
-	"github.com/noxworld-dev/opennox-lib/script"
+	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
-var _ ns.Game = noxScriptImpl{}
+var _ ns4.Game = noxScriptImpl{}
 
-func (s *Server) NoxScript() ns.Implementation {
+func (s *Server) NoxScript() ns4.Implementation {
 	return noxScriptNS{s}
 }
 
-func (s noxScriptImpl) NoxScript() ns.Implementation {
+func (s noxScriptImpl) NoxScript() ns4.Implementation {
 	return s.s.NoxScript()
 }
 
@@ -21,7 +20,7 @@ type noxScriptNS struct {
 	s *Server
 }
 
-func (s noxScriptNS) TimerByHandle(h ns.TimerHandle) ns.Timer {
+func (s noxScriptNS) TimerByHandle(h ns4.TimerHandle) ns4.Timer {
 	if h == nil {
 		return nil
 	}
@@ -32,7 +31,7 @@ func (s noxScriptNS) TimerByHandle(h ns.TimerHandle) ns.Timer {
 	return nsTimer{s: s.s, id: uint32(id)}
 }
 
-func (s noxScriptNS) NewTimer(dt script.Duration, fnc ns.Func, args ...any) ns.Timer {
+func (s noxScriptNS) NewTimer(dt ns4.Duration, fnc ns4.Func, args ...any) ns4.Timer {
 	panic("TODO: implement me")
 	//id := s.s.noxScript.newScriptTimer(s.s.AsFrames(dt), fnc, args)
 	//return nsTimer{s: s.s, id: id}
