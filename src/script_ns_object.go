@@ -768,9 +768,34 @@ func (obj nsObj) ResumeLevel(percent float32) {
 	obj.Object.SetRegroupLevel(percent)
 }
 
-func (obj nsObj) OnEvent(event ns4.ObjectEvent, fnc ns4.Func) {
-	//TODO implement me
-	panic("implement me")
+func (obj nsObj) OnEvent(ev ns4.ObjectEvent, fnc ns4.Func) {
+	if !obj.Class().Has(object.ClassMonster) {
+		return
+	}
+	ind := int32(obj.s.noxScript.AsFuncIndex(fnc))
+	ud := obj.UpdateDataMonster()
+	switch ev {
+	case ns4.EventEnemySighted: // Enemy sighted
+		ud.ScriptEnemySighted.Func = ind
+	case ns4.EventLookingForEnemy: // Looking for enemy
+		ud.ScriptLookingForEnemy.Func = ind
+	case ns4.EventDeath: // Death
+		ud.ScriptDeath.Func = ind
+	case ns4.EventChangeFocus: // Change focus
+		ud.ScriptChangeFocus.Func = ind
+	case ns4.EventIsHit: // Is hit
+		ud.ScriptIsHit.Func = ind
+	case ns4.EventRetreat: // Retreat
+		ud.ScriptRetreat.Func = ind
+	case ns4.EventCollision: // Collision
+		ud.ScriptCollision.Func = ind
+	case ns4.EventEnemyHeard: // Enemy heard
+		ud.ScriptHearEnemy.Func = ind
+	case ns4.EventEndOfWaypoint: // End of waypoint
+		ud.ScriptEndOfWaypoint.Func = ind
+	case ns4.EventLostEnemy: // Lost sight of enemy
+		ud.ScriptLostEnemy.Func = ind
+	}
 }
 
 type nsObjGroup struct {
