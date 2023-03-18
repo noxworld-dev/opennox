@@ -6,8 +6,7 @@ import (
 	"image"
 
 	"github.com/noxworld-dev/noxscript/ns/asm"
-	"github.com/noxworld-dev/noxscript/ns/v4"
-	"github.com/noxworld-dev/opennox-lib/object"
+	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
 
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -87,41 +86,6 @@ var noxScriptBuiltins = [asm.BuiltinGetScore + 1]noxscript.Builtin{
 	asm.BuiltinSecondTimerWithArg: nsSecondTimerArg,
 	asm.BuiltinFrameTimerWithArg:  nsFrameTimerArg,
 	asm.BuiltinCancelTimer:        nsCancelTimer,
-	asm.BuiltinGetTrigger:         nsGetTrigger,
-	asm.BuiltinGetCaller:          nsGetCaller,
-	asm.BuiltinSetCallback:        nsSetCallback,
-	asm.BuiltinIsTrigger:          nsIsTrigger,
-	asm.BuiltinIsCaller:           nsIsCaller,
-}
-
-func nsGetTrigger(vm noxscript.VM) int {
-	vm.PushHandleNS(vm.NoxScript().GetTrigger())
-	return 0
-}
-
-func nsGetCaller(vm noxscript.VM) int {
-	vm.PushHandleNS(vm.NoxScript().GetCaller())
-	return 0
-}
-
-func nsIsTrigger(vm noxscript.VM) int {
-	obj := vm.PopObjectNS()
-	if obj == nil {
-		vm.PushBool(false)
-		return 0
-	}
-	vm.PushBool(vm.NoxScript().IsTrigger(obj))
-	return 0
-}
-
-func nsIsCaller(vm noxscript.VM) int {
-	obj := vm.PopObjectNS()
-	if obj == nil {
-		vm.PushBool(false)
-		return 0
-	}
-	vm.PushBool(vm.NoxScript().IsCaller(obj))
-	return 0
 }
 
 func nsSecondTimer(vm noxscript.VM) int {
@@ -160,7 +124,7 @@ func nsFrameTimerArg(vm noxscript.VM) int {
 
 // TODO: migrate all usage of `nox_server_scriptExecuteFnForEachGroupObj_502670` to use these funcs below.
 
-func eachObjectNS(s *Server, g *server.MapGroup, fnc func(obj ns.Obj) bool) {
+func eachObjectNS(s *Server, g *server.MapGroup, fnc func(obj ns4.Obj) bool) {
 	if g == nil {
 		return
 	}
@@ -176,7 +140,7 @@ func eachObjectNS(s *Server, g *server.MapGroup, fnc func(obj ns.Obj) bool) {
 	}
 }
 
-func eachObjectRecursiveNS(s *Server, g *server.MapGroup, fnc func(obj ns.Obj) bool) bool { // nox_server_scriptExecuteFnForEachGroupObj_502670
+func eachObjectRecursiveNS(s *Server, g *server.MapGroup, fnc func(obj ns4.Obj) bool) bool { // nox_server_scriptExecuteFnForEachGroupObj_502670
 	if g == nil {
 		return true // just skip this group
 	}
@@ -199,7 +163,7 @@ func eachObjectRecursiveNS(s *Server, g *server.MapGroup, fnc func(obj ns.Obj) b
 	return true
 }
 
-func eachWaypointRecursive(s *Server, g *server.MapGroup, fnc func(wp ns.WaypointObj) bool) bool {
+func eachWaypointRecursive(s *Server, g *server.MapGroup, fnc func(wp ns4.WaypointObj) bool) bool {
 	if g == nil {
 		return true
 	}
@@ -222,7 +186,7 @@ func eachWaypointRecursive(s *Server, g *server.MapGroup, fnc func(wp ns.Waypoin
 	return true
 }
 
-func eachWallRecursive(s *Server, g *server.MapGroup, fnc func(w ns.WallObj) bool) bool {
+func eachWallRecursive(s *Server, g *server.MapGroup, fnc func(w ns4.WallObj) bool) bool {
 	if g == nil {
 		return true
 	}
@@ -250,40 +214,6 @@ func nsCancelTimer(vm noxscript.VM) int {
 	act := s.PopU32()
 	ok := s.s.Activators.Cancel(act)
 	s.PushBool(ok)
-	return 0
-}
-
-func nsSetCallback(vm noxscript.VM) int {
-	s := vm.(*noxScript)
-	fnc := int32(s.PopU32())
-	ev := ns.ObjectEvent(s.PopU32())
-	u := asObjectS(s.PopObject())
-	if u == nil || !u.Class().Has(object.ClassMonster) {
-		return 0
-	}
-	ud := u.UpdateDataMonster()
-	switch ev {
-	case ns.EventEnemySighted: // Enemy sighted
-		ud.ScriptEnemySighted.Func = fnc
-	case ns.EventLookingForEnemy: // Looking for enemy
-		ud.ScriptLookingForEnemy.Func = fnc
-	case ns.EventDeath: // Death
-		ud.ScriptDeath.Func = fnc
-	case ns.EventChangeFocus: // Change focus
-		ud.ScriptChangeFocus.Func = fnc
-	case ns.EventIsHit: // Is hit
-		ud.ScriptIsHit.Func = fnc
-	case ns.EventRetreat: // Retreat
-		ud.ScriptRetreat.Func = fnc
-	case ns.EventCollision: // Collision
-		ud.ScriptCollision.Func = fnc
-	case ns.EventEnemyHeard: // Enemy heard
-		ud.ScriptHearEnemy.Func = fnc
-	case ns.EventEndOfWaypoint: // End of waypoint
-		ud.ScriptEndOfWaypoint.Func = fnc
-	case ns.EventLostEnemy: // Lost sight of enemy
-		ud.ScriptLostEnemy.Func = fnc
-	}
 	return 0
 }
 
