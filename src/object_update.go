@@ -798,16 +798,17 @@ func nox_xxx_updatePixie_53CD20(cobj *server.Object) {
 	if targ := asObjectS(*(**server.Object)(unsafe.Pointer(&ud[1]))); targ != nil {
 		nox_xxx_pixieIdleAnimate_53CF90(u, targ.Pos().Sub(u.Pos()), 32)
 	} else {
-		s.Map.EachMissilesInCircle(u.PosVec, 200.0, func(it *server.Object) {
+		s.Map.EachMissilesInCircle(u.PosVec, 200.0, func(it *server.Object) bool {
 			if noxPixieObjID == 0 {
 				noxPixieObjID = noxServer.ObjectTypeID("Pixie")
 			}
 			if int(it.TypeInd) != noxPixieObjID {
-				return
+				return true
 			}
 			if it != u.SObj() && u.OwnerC().SObj() == it.ObjOwner {
 				nox_xxx_pixieIdleAnimate_53CF90(u, it.Pos().Sub(u.Pos()), 16)
 			}
+			return true
 		})
 		if owner != nil {
 			pos1, pos2 := u.Pos(), owner.Pos()
@@ -892,22 +893,22 @@ func nox_xxx_enemyAggro(self *server.Object, r, max float32) *server.Object {
 		min      = max
 		someFlag = false
 	)
-	noxServer.Map.EachObjInCircle(self.Pos(), r, func(it *server.Object) {
+	noxServer.Map.EachObjInCircle(self.Pos(), r, func(it *server.Object) bool {
 		if self.SObj() == it {
-			return
+			return true
 		}
 		cit := asObjectS(it)
 		if !it.Class().HasAny(object.ClassMonsterGenerator | object.MaskUnits) {
-			return
+			return true
 		}
 		if !asObjectS(self).isEnemyTo(cit) {
-			return
+			return true
 		}
 		if it.Flags().HasAny(object.FlagDead) {
-			return
+			return true
 		}
 		if !nox_xxx_unitCanInteractWith_5370E0(self, cit, 0) {
-			return
+			return true
 		}
 		vec := it.Pos().Sub(self.Pos())
 		dist := float32(math.Sqrt(float64(vec.X*vec.X+vec.Y*vec.Y)) + 0.001)
@@ -922,6 +923,7 @@ func nox_xxx_enemyAggro(self *server.Object, r, max float32) *server.Object {
 				found = cit.SObj()
 			}
 		}
+		return true
 	})
 	return found
 }
@@ -931,7 +933,7 @@ func sub_5336D0(obj *server.Object) float64 {
 		found *Object
 		minR2 = float32(math.MaxFloat32)
 	)
-	noxServer.Map.EachObjInCircle(obj.Pos(), 1000.0, func(it *server.Object) {
+	noxServer.Map.EachObjInCircle(obj.Pos(), 1000.0, func(it *server.Object) bool {
 		cit := asObjectS(it)
 		if it.Class().HasAny(object.MaskUnits) && asObjectS(obj).isEnemyTo(cit) && !it.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
 			vec := obj.Pos().Sub(it.Pos())
@@ -941,6 +943,7 @@ func sub_5336D0(obj *server.Object) float64 {
 				found = cit
 			}
 		}
+		return true
 	})
 	if found == nil {
 		return -1.0
@@ -1007,7 +1010,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *server.Object) {
 					min   = float32(1e+08)
 				)
 				rect := types.RectFromPointsf(pos2.Sub(types.Pointf{X: 100, Y: 100}), pos2.Add(types.Pointf{X: 100, Y: 100}))
-				s.Map.EachObjInRect(rect, func(obj *server.Object) {
+				s.Map.EachObjInRect(rect, func(obj *server.Object) bool {
 					if obj.Class().Has(object.ClassMonster) && obj.ObjOwner != nil && obj.ObjOwner == u.SObj() {
 						dp := obj.Pos().Sub(pos2)
 						dist := dp.X*dp.X + dp.Y*dp.Y
@@ -1016,6 +1019,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *server.Object) {
 							min = dist
 						}
 					}
+					return true
 				})
 				if found != nil && found.SObj() != pl.CameraTarget().SObj() {
 					pl.CameraToggle(found)

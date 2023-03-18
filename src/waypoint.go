@@ -18,6 +18,10 @@ func asWaypointS(p *server.Waypoint) *Waypoint {
 	return asWaypoint(unsafe.Pointer(p))
 }
 
+func (s *Server) newWaypoint(pos types.Pointf) *Waypoint {
+	return asWaypointS(legacy.NewWaypoint(pos))
+}
+
 func (s *Server) firstWaypoint() *Waypoint {
 	return asWaypointS(legacy.FirstWaypoint())
 }
@@ -94,8 +98,16 @@ func (w *Waypoint) ID() string {
 	return w.S().ID()
 }
 
+func (w *Waypoint) SetID(id string) {
+	w.S().SetID(id)
+}
+
 func (w *Waypoint) Name() string {
 	return w.S().ID()
+}
+
+func (w *Waypoint) SetName(name string) {
+	w.S().SetID(name)
 }
 
 func (w *Waypoint) EqualID(id2 string) bool {
