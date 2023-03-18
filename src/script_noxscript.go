@@ -12,7 +12,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/noxscript/ns/asm"
-	"github.com/noxworld-dev/noxscript/ns/v4"
+	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/ifs"
 	"github.com/noxworld-dev/opennox-lib/object"
@@ -137,53 +137,53 @@ func nox_script_objCallbackName_508CB0(obj *server.Object, event int) (string, b
 		return "", false
 	case cl.Has(object.ClassMonster):
 		ud := obj.UpdateDataMonster()
-		switch ns.ObjectEvent(event) {
-		case ns.EventEnemySighted:
+		switch ns4.ObjectEvent(event) {
+		case ns4.EventEnemySighted:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 640))), true
 			}
 			return funcs[ud.ScriptEnemySighted.Func].Name(), true
-		case ns.EventLookingForEnemy:
+		case ns4.EventLookingForEnemy:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 768))), true
 			}
 			return funcs[ud.ScriptLookingForEnemy.Func].Name(), true
-		case ns.EventDeath:
+		case ns4.EventDeath:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 896))), true
 			}
 			return funcs[ud.ScriptDeath.Func].Name(), true
-		case ns.EventChangeFocus:
+		case ns4.EventChangeFocus:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 1024))), true
 			}
 			return funcs[ud.ScriptChangeFocus.Func].Name(), true
-		case ns.EventIsHit:
+		case ns4.EventIsHit:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 1152))), true
 			}
 			return funcs[ud.ScriptIsHit.Func].Name(), true
-		case ns.EventRetreat:
+		case ns4.EventRetreat:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 1280))), true
 			}
 			return funcs[ud.ScriptRetreat.Func].Name(), true
-		case ns.EventCollision:
+		case ns4.EventCollision:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 1408))), true
 			}
 			return funcs[ud.ScriptCollision.Func].Name(), true
-		case ns.EventEnemyHeard:
+		case ns4.EventEnemyHeard:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 1536))), true
 			}
 			return funcs[ud.ScriptHearEnemy.Func].Name(), true
-		case ns.EventEndOfWaypoint:
+		case ns4.EventEndOfWaypoint:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 1664))), true
 			}
 			return funcs[ud.ScriptEndOfWaypoint.Func].Name(), true
-		case ns.EventLostEnemy:
+		case ns4.EventLostEnemy:
 			if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
 				return alloc.GoString((*byte)(unsafe.Add(sd, 1792))), true
 			}
@@ -297,6 +297,7 @@ type noxScript struct {
 		trigger   *server.Object
 		callbacks []noxScriptCallback
 	}
+	timers  script.Timers
 	virtual struct {
 		last  int
 		funcs map[int]nsCallback
@@ -322,7 +323,30 @@ func (s *noxScript) Funcs() []ScriptFunc {
 	return s.vm.funcs
 }
 
-func (s *noxScript) AsFuncIndex(fnc ns.Func) int {
+func (s *noxScript) AsValue(val any) uint32 {
+	switch val := val.(type) {
+	case nil:
+		return 0
+	case bool:
+		if val {
+			return 1
+		}
+		return 0
+	case int:
+		return uint32(int32(val))
+	case int32:
+		return uint32(val)
+	case uint32:
+		return val
+	case float32:
+		return math.Float32bits(val)
+	case ns4.Handle:
+		return uint32(val.ScriptID())
+	}
+	panic(fmt.Errorf("unsupported type: %T", val))
+}
+
+func (s *noxScript) AsFuncIndex(fnc ns4.Func) int {
 	switch fnc := fnc.(type) {
 	case nil:
 		return -1
@@ -816,7 +840,8 @@ func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *byte) int {
 func (s *noxScript) actRun() {
 	scripts := s.Funcs()
 	s.s.Activators.EachTriggered(s.s.Frame(), func(it server.ActivatorArgs) {
-		if scripts[it.Callback].FuncDef.Args != 0 {
+		// TODO: support arguments for virtual funcs
+		if it.Callback < len(scripts) && scripts[it.Callback].FuncDef.Args != 0 {
 			s.PushU32(it.Arg)
 		}
 		if err := s.CallByIndex(it.Callback, it.Caller, it.Trigger); err != nil {
@@ -831,11 +856,11 @@ func (s *noxScript) ActResolveObjs() {
 	})
 }
 
-func (s *noxScript) NoxScript() ns.Implementation {
+func (s *noxScript) NoxScript() ns4.Implementation {
 	return s.s.NoxScript()
 }
 
-func (s *noxScript) PopWallGroupNS() ns.WallGroupObj {
+func (s *noxScript) PopWallGroupNS() ns4.WallGroupObj {
 	g := s.PopGroup()
 	if g == nil || mapGroupType(g) != server.MapGroupWalls {
 		return nil
@@ -843,7 +868,7 @@ func (s *noxScript) PopWallGroupNS() ns.WallGroupObj {
 	return nsWallGroup{s.s, g}
 }
 
-func (s *noxScript) PopWaypointNS() ns.WaypointObj {
+func (s *noxScript) PopWaypointNS() ns4.WaypointObj {
 	wp := s.s.getWaypointByInd(int(s.PopI32()))
 	if wp == nil {
 		return nil
@@ -851,7 +876,7 @@ func (s *noxScript) PopWaypointNS() ns.WaypointObj {
 	return wp
 }
 
-func (s *noxScript) PopWpGroupNS() ns.WaypointGroupObj {
+func (s *noxScript) PopWpGroupNS() ns4.WaypointGroupObj {
 	g := s.PopGroup()
 	if g == nil || mapGroupType(g) != server.MapGroupWaypoints {
 		return nil
@@ -859,7 +884,7 @@ func (s *noxScript) PopWpGroupNS() ns.WaypointGroupObj {
 	return nsWpGroup{s.s, g}
 }
 
-func (s *noxScript) PopObjectNS() ns.Obj {
+func (s *noxScript) PopObjectNS() ns4.Obj {
 	obj := s.ScriptToObject(int(s.PopI32()))
 	if obj == nil {
 		return nil
@@ -867,7 +892,7 @@ func (s *noxScript) PopObjectNS() ns.Obj {
 	return nsObj{s.s, asObjectS(obj)}
 }
 
-func (s *noxScript) PopObjGroupNS() ns.ObjGroup {
+func (s *noxScript) PopObjGroupNS() ns4.ObjGroup {
 	g := s.PopGroup()
 	if g == nil || mapGroupType(g) != server.MapGroupObjects {
 		return nil
@@ -875,7 +900,7 @@ func (s *noxScript) PopObjGroupNS() ns.ObjGroup {
 	return nsObjGroup{s.s, g}
 }
 
-func (s *noxScript) PushHandleNS(obj ns.Handle) {
+func (s *noxScript) PushHandleNS(obj ns4.Handle) {
 	if obj == nil {
 		s.PushI32(0)
 	} else {
