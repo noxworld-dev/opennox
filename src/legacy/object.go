@@ -411,3 +411,7 @@ func Nox_xxx_monsterCanCast_534300(obj *server.Object) bool {
 func Sub_4E4500(obj *server.Object, a2 uint32, a3 uint32, a4 bool) {
 	C.sub_4E4500(asObjectC(obj), C.int(a2), C.int(a3), C.int(bool2int(a4)))
 }
+
+func Nox_xxx_playerTryEquip_4F2F70(obj, item *server.Object) bool {
+	return C.nox_xxx_playerTryEquip_4F2F70(asObjectC(obj), asObjectC(item)) != 0
+}

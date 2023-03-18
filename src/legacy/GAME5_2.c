@@ -990,7 +990,7 @@ unsigned int nox_xxx_waypoint_5798C0() {
 }
 
 //----- (005798F0) --------------------------------------------------------
-uint32_t* nox_xxx_waypointNew_5798F0(float a1, float a2) {
+nox_waypoint_t* nox_xxx_waypointNew_5798F0(float a1, float a2) {
 	uint32_t* v2;    // esi
 	unsigned int v3; // eax
 	int v4;          // edx

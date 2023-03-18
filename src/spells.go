@@ -782,47 +782,48 @@ func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo server.Obj
 		minDist float32 = 1e+08
 		found   *Object
 	)
-	s.Map.EachObjInRect(rect, func(it *server.Object) {
+	s.Map.EachObjInRect(rect, func(it *server.Object) bool {
 		if !(a5 != 0 || msl.SObj() != it) {
-			return
+			return true
 		}
 		if !it.Class().HasAny(object.MaskTargets) {
-			return
+			return true
 		}
 		if it.Class().Has(object.ClassMonster) && (it.SubClass()&0x8000 != 0) {
-			return
+			return true
 		}
 		if it.Class().Has(object.ClassPlayer) && asObjectS(it).ControllingPlayer().Field3680&0x1 != 0 {
-			return
+			return true
 		}
 		if it.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
-			return
+			return true
 		}
 		if it.Class().Has(object.ClassMonster) && (it.SubClass()&0x4000 != 0) {
-			return
+			return true
 		}
 		it.FindOwnerChainPlayer() // FIXME: result unused!
 		cit := asObjectS(it)
 		if sflags.Has(things.SpellOffensive) && !msl.isEnemyTo(cit) {
-			return
+			return true
 		}
 		opos := it.Pos()
 		dx := center.X - opos.X
 		dy := center.Y - opos.Y
 		odist := dy*dy + dx*dx
 		if odist > dist2 {
-			return
+			return true
 		}
 		if msl != nil && !nox_xxx_unitCanInteractWith_5370E0(msl, cit, 0) {
-			return
+			return true
 		}
 		if owner != nil && !nox_xxx_unitCanInteractWith_5370E0(owner, cit, 0) {
-			return
+			return true
 		}
 		if odist < minDist {
 			found = cit
 			minDist = odist
 		}
+		return true
 	})
 	return found.SObj()
 }

@@ -1,11 +1,12 @@
 package server
 
 import (
-	"bytes"
 	"strings"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 type WaypointSub struct {
@@ -44,12 +45,11 @@ func (w *Waypoint) ID() string {
 	if w == nil {
 		return ""
 	}
-	arr := w.NameBuf[:]
-	i := bytes.IndexByte(arr, 0)
-	if i < 0 {
-		return string(arr)
-	}
-	return string(arr[:i])
+	return alloc.GoStringS(w.NameBuf[:])
+}
+
+func (w *Waypoint) SetID(id string) {
+	alloc.StrCopyZero(w.NameBuf[:], id)
 }
 
 func (w *Waypoint) EqualID(id2 string) bool {
