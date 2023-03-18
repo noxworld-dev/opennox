@@ -6,6 +6,7 @@ import (
 	"math"
 	"unsafe"
 
+	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/script"
@@ -1096,7 +1097,7 @@ func (obj *Object) Follow(obj2 script.Positioner) {
 	legacy.Nox_xxx_unitSetFollow_5158C0(obj.SObj(), cobj.SObj())
 }
 
-func (obj *Object) Flee(obj2 script.Positioner, dur script.Duration) {
+func (obj *Object) Flee(obj2 script.Positioner, dur ns4.Duration) {
 	panic("implement me")
 }
 
@@ -1144,7 +1145,7 @@ func (obj *Object) Hunt() {
 	legacy.Nox_xxx_unitHunt_5157A0(obj.SObj())
 }
 
-func (obj *Object) Say(text string, dur script.Duration) {
+func (obj *Object) Say(text string, dur ns4.Duration) {
 	panic("implement me")
 }
 

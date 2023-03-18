@@ -1,9 +1,8 @@
 package noxscript
 
 import (
-	"time"
-
 	"github.com/noxworld-dev/noxscript/ns/asm"
+	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
 	"github.com/noxworld-dev/noxscript/ns/v4/effect"
 	"github.com/noxworld-dev/noxscript/ns/v4/enchant"
 	nsp "github.com/noxworld-dev/noxscript/ns/v4/spell"
@@ -45,7 +44,7 @@ func nsEnchant(s VM) int {
 	name := s.PopString()
 	obj := s.PopObjectNS()
 	if obj != nil {
-		obj.Enchant(enchant.Enchant(name), script.Time(time.Duration(float64(sec)*float64(time.Second))))
+		obj.Enchant(enchant.Enchant(name), ns4.Seconds(float64(sec)))
 	}
 	return 0
 }
