@@ -268,8 +268,9 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 			ok = legacy.Nox_xxx_mobGetMoveAttemptTime_534810(u.SObj()) == 0
 		case ai.DEPENDENCY_LOCATION_IS_SAFE:
 			legacy.Set_dword_5d4594_2489460(1)
-			a.s.Map.EachObjInCircle(st.ArgPos(0), 50.0, func(it *server.Object) {
+			a.s.Map.EachObjInCircle(st.ArgPos(0), 50.0, func(it *server.Object) bool {
 				legacy.Nox_xxx_unitIsDangerous_547120(asObjectS(it).SObj(), u.SObj())
+				return true
 			})
 			if legacy.Get_dword_5d4594_2489460() == 0 {
 				ok = false

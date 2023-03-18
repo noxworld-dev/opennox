@@ -23,29 +23,29 @@ func nox_xxx_warriorWarcry_53FF40(u *Object) {
 	}
 	nox_xxx_playerSetState_4FA020(u, 1)
 	legacy.Nox_xxx_spell_4FE680(u.SObj(), dist)
-	s.Map.EachObjInCircle(u.Pos(), dist, func(it *server.Object) {
+	s.Map.EachObjInCircle(u.Pos(), dist, func(it *server.Object) bool {
 		if !it.Class().HasAny(object.MaskUnits) {
-			return
+			return true
 		}
 		if it.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
-			return
+			return true
 		}
 		u2 := asObjectS(it)
 		if u2.Class().Has(object.ClassPlayer) {
 			pl := u2.ControllingPlayer()
 			if pl == nil {
-				return
+				return true
 			}
 			if pl.PlayerClass() == player.Warrior {
-				return
+				return true
 			}
 			if pl.Field3680&0x1 != 0 {
-				return
+				return true
 			}
 		} else if u2.Class().Has(object.ClassMonster) {
 			ud := u2.UpdateDataMonster()
 			if ud.Flags360&0x20 == 0 {
-				return
+				return true
 			}
 		}
 		if !server.Nox_xxx_servCompareTeams_419150(u.TeamPtr(), u2.TeamPtr()) {
@@ -60,6 +60,7 @@ func nox_xxx_warriorWarcry_53FF40(u *Object) {
 				s.Nox_xxx_spellAccept4FD400(spell.SPELL_NULLIFY, u.SObj(), u.SObj(), u.SObj(), sa, 5)
 			}
 		}
+		return true
 	})
 	u.DisableEnchant(server.ENCHANT_INVISIBLE)
 	u.DisableEnchant(server.ENCHANT_INVULNERABLE)

@@ -1,6 +1,7 @@
 package server
 
 import (
+	"image/color"
 	"math"
 	"unsafe"
 
@@ -35,6 +36,34 @@ func (s *AIStackItem) ArgPos(i int) types.Pointf {
 	return types.Pointf{
 		X: math.Float32frombits(uint32(s.Args[i+0])),
 		Y: math.Float32frombits(uint32(s.Args[i+1])),
+	}
+}
+
+func AsColor3(cl color.Color) Color3 {
+	switch cl := cl.(type) {
+	case color.Alpha:
+		if cl.A < 128 {
+			return Color3{}
+		}
+		return Color3{R: 255, G: 255, B: 255}
+	case color.NRGBA:
+		if cl.A < 128 {
+			return Color3{}
+		}
+		return Color3{R: cl.R, G: cl.G, B: cl.B}
+	case color.RGBA:
+		if cl.A < 128 {
+			return Color3{}
+		}
+		return Color3{R: cl.R, G: cl.G, B: cl.B}
+	case color.Gray:
+		return Color3{R: cl.Y, G: cl.Y, B: cl.Y}
+	}
+	r, g, b, _ := cl.RGBA()
+	return Color3{
+		R: byte(r >> 16),
+		G: byte(g >> 16),
+		B: byte(b >> 16),
 	}
 }
 

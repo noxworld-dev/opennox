@@ -94,7 +94,7 @@ func (s *serverMap) addObjToMap(flag bool, pos image.Point, obj *Object) {
 	}
 }
 
-func (s *serverMap) EachObjInRect(rect types.Rectf, fnc func(it *Object)) {
+func (s *serverMap) EachObjInRect(rect types.Rectf, fnc func(it *Object) bool) {
 	if s.eachInRectStackInd >= 1 {
 		return
 	}
@@ -135,7 +135,9 @@ func (s *serverMap) EachObjInRect(rect types.Rectf, fnc func(it *Object)) {
 				*tok1 = tok2
 				if obj.CollideP1.X < rect.Right && obj.CollideP2.X > rect.Left &&
 					obj.CollideP1.Y < rect.Bottom && obj.CollideP2.Y > rect.Top {
-					fnc(obj)
+					if !fnc(obj) {
+						return
+					}
 				}
 			}
 		}
@@ -256,7 +258,7 @@ func (s *serverMap) AddMissileXxx(obj *Object) {
 	obj.ObjFlags |= uint32(object.FlagPartitioned)
 }
 
-func (s *serverMap) eachMissileInRect(rect types.Rectf, fnc func(it *Object)) {
+func (s *serverMap) eachMissileInRect(rect types.Rectf, fnc func(it *Object) bool) {
 	if fnc == nil {
 		return
 	}
@@ -281,19 +283,21 @@ func (s *serverMap) eachMissileInRect(rect types.Rectf, fnc func(it *Object)) {
 			for it := s.bucketByPos[x][y].List0; it != nil; it = it.Next4 {
 				obj := it.Obj12
 				if obj.Class().Has(object.ClassMissile) {
-					fnc(obj)
+					if !fnc(obj) {
+						return
+					}
 				}
 			}
 		}
 	}
 }
 
-func (s *serverMap) EachObjAndMissileInRect(rect types.Rectf, fnc func(it *Object)) {
+func (s *serverMap) EachObjAndMissileInRect(rect types.Rectf, fnc func(it *Object) bool) {
 	s.EachObjInRect(rect, fnc)
 	s.eachMissileInRect(rect, fnc)
 }
 
-func (s *serverMap) EachMissilesInCircle(pos types.Pointf, r float32, fnc func(it *Object)) {
+func (s *serverMap) EachMissilesInCircle(pos types.Pointf, r float32, fnc func(it *Object) bool) {
 	if fnc == nil {
 		return
 	}
@@ -321,7 +325,9 @@ func (s *serverMap) EachMissilesInCircle(pos types.Pointf, r float32, fnc func(i
 				if obj.Class().Has(object.ClassMissile) {
 					dp := pos.Sub(obj.Pos())
 					if dp.X*dp.X+dp.Y*dp.Y <= r2 {
-						fnc(obj)
+						if !fnc(obj) {
+							return
+						}
 					}
 				}
 			}
@@ -329,7 +335,7 @@ func (s *serverMap) EachMissilesInCircle(pos types.Pointf, r float32, fnc func(i
 	}
 }
 
-func (s *serverMap) EachObjInCircle(pos types.Pointf, r float32, fnc func(it *Object)) {
+func (s *serverMap) EachObjInCircle(pos types.Pointf, r float32, fnc func(it *Object) bool) {
 	rect := types.Rectf{
 		Left:   pos.X - r,
 		Top:    pos.Y - r,
@@ -337,12 +343,12 @@ func (s *serverMap) EachObjInCircle(pos types.Pointf, r float32, fnc func(it *Ob
 		Bottom: pos.Y + r,
 	}
 	r2 := r * r
-	s.EachObjInRect(rect, func(obj *Object) {
+	s.EachObjInRect(rect, func(obj *Object) bool {
 		vec := obj.Pos().Sub(pos)
 		if vec.X*vec.X+vec.Y*vec.Y > r2 {
-			return
+			return false
 		}
-		fnc(obj)
+		return fnc(obj)
 	})
 }
 

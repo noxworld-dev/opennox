@@ -3,10 +3,13 @@ package legacy
 /*
 #include "defs.h"
 extern nox_waypoint_t* nox_xxx_waypointsHead_2523752;
+nox_waypoint_t* nox_xxx_waypointNew_5798F0(float a1, float a2);
 */
 import "C"
 import (
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -37,4 +40,8 @@ func nox_server_getWaypointById_579C40(a1 int) *nox_waypoint_t {
 
 func FirstWaypoint() *server.Waypoint {
 	return asWaypointS(C.nox_xxx_waypointsHead_2523752)
+}
+
+func NewWaypoint(pos types.Pointf) *server.Waypoint {
+	return asWaypointS(C.nox_xxx_waypointNew_5798F0(C.float(pos.X), C.float(pos.Y)))
 }

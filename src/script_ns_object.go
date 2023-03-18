@@ -1,6 +1,7 @@
 package opennox
 
 import (
+	"image/color"
 	"unsafe"
 
 	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
@@ -87,6 +88,52 @@ func (s noxScriptNS) ObjectGroup(name string) ns4.ObjGroup {
 		return nil
 	}
 	return nsObjGroup{s.s, g}
+}
+
+func (s noxScriptNS) FindObjects(iter func(obj ns4.Obj) bool, conditions ...ns4.ObjCond) int {
+	// This generic iteration function will act as a fallback that scans everything.
+	search := func(fnc func(obj *server.Object) bool) {
+		for it := s.s.FirstServerObject(); it != nil; it = it.Next() {
+			if !fnc(it) {
+				break
+			}
+		}
+	}
+	// Attempt to find a more specific iterator ad optimize it.
+	for i, c := range conditions {
+		found := false
+		switch c := c.(type) {
+		case ns4.InRectf:
+			search = func(fnc func(obj *server.Object) bool) {
+				s.s.Map.EachObjInRect(types.RectFromPointsf(c.Min, c.Max), fnc)
+			}
+			found = true
+		case ns4.InCirclef:
+			search = func(fnc func(obj *server.Object) bool) {
+				s.s.Map.EachObjInCircle(c.Center.Pos(), float32(c.R), fnc)
+			}
+			found = true
+		}
+		// We only need one optimized iterator. Once found - remove it from conditions.
+		if found {
+			conditions = append(conditions[:i], conditions[i+1:]...)
+			break
+		}
+	}
+	// Finally start the actual iteration.
+	cnt := 0
+	search(func(obj *server.Object) bool {
+		nobj := nsObj{s.s, asObjectS(obj)}
+		for _, c := range conditions {
+			if !c.Matches(nobj) {
+				return true // find next match
+			}
+		}
+		// Found, pass to user-defined handler func.
+		cnt++
+		return iter(nobj)
+	})
+	return cnt
 }
 
 func (s noxScriptNS) GetTrigger() ns4.Obj {
@@ -565,6 +612,14 @@ func (obj nsObj) GetPreviousItem() ns4.Obj {
 	return nsObj{obj.s, it}
 }
 
+func (obj nsObj) Items() []ns4.Obj {
+	var out []ns4.Obj
+	for it := obj.FirstItem(); it != nil; it = it.NextItem() {
+		out = append(out, nsObj{obj.s, it})
+	}
+	return out
+}
+
 func (obj nsObj) GetHolder() ns4.Obj {
 	obj2 := obj.InventoryHolder()
 	if obj2 == nil {
@@ -607,6 +662,30 @@ func (obj nsObj) Drop(item ns4.Obj) bool {
 		return false
 	}
 	return obj.forceDrop(toObject(item.(server.Obj))) != 0
+}
+
+func (obj nsObj) Equip(item ns4.Obj) bool {
+	if item == nil {
+		return false
+	}
+	if !obj.HasItem(item) {
+		if !obj.Pickup(item) {
+			return false
+		}
+	}
+	return legacy.Nox_xxx_playerTryEquip_4F2F70(obj.SObj(), item.(nsObj).SObj())
+}
+
+func (obj nsObj) SetColor(ind int, cl color.Color) {
+	if obj.Class().Has(object.ClassMonster) {
+		ud := obj.UpdateDataMonster()
+		if ind >= 0 && ind < len(ud.Color) {
+			ccl := server.AsColor3(cl)
+			nox_xxx_setNPCColor_4E4A90(obj.SObj(), byte(ind), &ccl)
+		}
+	} else if obj.Class().Has(object.ClassPlayer) {
+		panic("not implemented")
+	}
 }
 
 func (obj nsObj) ZombieStayDown() {

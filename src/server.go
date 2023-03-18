@@ -542,8 +542,9 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Object) {
 		p1 := pl.Pos3632().Sub(dp)
 		p2 := pl.Pos3632().Add(dp)
 		rect := types.RectFromPointsf(p1, p2)
-		s.Map.EachObjAndMissileInRect(rect, func(it *server.Object) {
+		s.Map.EachObjAndMissileInRect(rect, func(it *server.Object) bool {
 			s.nox_xxx_unitAroundPlayerFn_5193B0(asObjectS(it), u)
+			return true
 		})
 
 		dp = types.Ptf(float32(pl.Field10), float32(pl.Field12)).Add(types.Ptf(128, 128))
