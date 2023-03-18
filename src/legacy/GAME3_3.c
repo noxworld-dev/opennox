@@ -11057,7 +11057,7 @@ LABEL_8:
 }
 
 //----- (004F2F70) --------------------------------------------------------
-int nox_xxx_playerTryEquip_4F2F70(uint32_t* a1, nox_object_t* item) {
+int nox_xxx_playerTryEquip_4F2F70(nox_object_t* a1, nox_object_t* item) {
 	int result; // eax
 
 	if (nox_xxx_playerEquipWeapon_53A420(a1, item, 1, 1) ||

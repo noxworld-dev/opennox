@@ -227,32 +227,36 @@ func sub_518740(a1 *C.float2, a2 uint8) *nox_waypoint_t {
 //export nox_xxx_getMissilesInCircle_518170
 func nox_xxx_getMissilesInCircle_518170(pos *C.float2, r float32, fnc unsafe.Pointer, a4 *nox_object_t) {
 	p := *(*types.Pointf)(unsafe.Pointer(pos))
-	GetServer().S().Map.EachMissilesInCircle(p, r, func(it *server.Object) {
+	GetServer().S().Map.EachMissilesInCircle(p, r, func(it *server.Object) bool {
 		ccall.CallVoidPtr2(fnc, it.CObj(), unsafe.Pointer(a4))
+		return true
 	})
 }
 
 //export nox_xxx_getUnitsInRectAdv_517ED0
 func nox_xxx_getUnitsInRectAdv_517ED0(rect *C.float4, fnc unsafe.Pointer, data unsafe.Pointer) {
 	r := *(*types.Rectf)(unsafe.Pointer(rect))
-	GetServer().S().Map.EachObjAndMissileInRect(r, func(it *server.Object) {
+	GetServer().S().Map.EachObjAndMissileInRect(r, func(it *server.Object) bool {
 		ccall.CallVoidPtr2(fnc, it.CObj(), data)
+		return true
 	})
 }
 
 //export nox_xxx_getUnitsInRect_517C10
 func nox_xxx_getUnitsInRect_517C10(rect *C.float4, fnc unsafe.Pointer, data unsafe.Pointer) {
 	r := *(*types.Rectf)(unsafe.Pointer(rect))
-	GetServer().S().Map.EachObjInRect(r, func(it *server.Object) {
+	GetServer().S().Map.EachObjInRect(r, func(it *server.Object) bool {
 		ccall.CallVoidPtr2(fnc, it.CObj(), data)
+		return true
 	})
 }
 
 //export nox_xxx_unitsGetInCircle_517F90
 func nox_xxx_unitsGetInCircle_517F90(pos *C.float2, r C.float, fnc unsafe.Pointer, data unsafe.Pointer) {
 	p := *(*types.Pointf)(unsafe.Pointer(pos))
-	GetServer().S().Map.EachObjInCircle(p, float32(r), func(it *server.Object) {
+	GetServer().S().Map.EachObjInCircle(p, float32(r), func(it *server.Object) bool {
 		ccall.CallVoidPtr2(fnc, it.CObj(), data)
+		return true
 	})
 }
 

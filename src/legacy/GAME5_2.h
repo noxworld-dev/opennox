@@ -76,7 +76,7 @@ int nox_xxx_waypointNext_579870(int a1);
 int sub_579890();
 int sub_5798A0(int a1);
 unsigned int nox_xxx_waypoint_5798C0();
-uint32_t* nox_xxx_waypointNew_5798F0(float a1, float a2);
+nox_waypoint_t* nox_xxx_waypointNew_5798F0(float a1, float a2);
 float* nox_xxx_waypointNewNotMap_579970(int a1, float a2, float a3);
 char* nox_xxx_waypoint_5799C0();
 char* sub_579A30();

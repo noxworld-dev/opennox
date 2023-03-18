@@ -2,6 +2,7 @@ package opennox
 
 import (
 	"github.com/noxworld-dev/noxscript/ns/v4"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -32,6 +33,12 @@ func (s noxScriptNS) Waypoint(name string) ns.WaypointObj {
 		scriptLog.Printf("noxscript: cannot find waypoint: %q", name)
 		return nil
 	}
+	return wp
+}
+
+func (s noxScriptNS) NewWaypoint(name string, pos types.Pointf) ns.WaypointObj {
+	wp := s.s.newWaypoint(pos)
+	wp.SetName(name)
 	return wp
 }
 
