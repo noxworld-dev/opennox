@@ -1599,24 +1599,24 @@ func (s *Server) MapTraceObstacles(from *server.Object, p1, p2 types.Pointf) boo
 	p[2], p[3] = p2.X, p2.Y
 
 	searching := true
-	s.Map.EachObjInRect(rect, func(it *server.Object) {
+	s.Map.EachObjInRect(rect, func(it *server.Object) bool {
 		obj := asObjectS(it)
 		if !searching {
-			return
+			return false
 		}
 		if from.SObj() == obj.SObj() {
-			return
+			return true
 		}
 		if obj.Class().HasAny(object.MaskUnits) {
 			u2 := obj
 			if asObjectS(from).isEnemyTo(u2) {
-				return
+				return true
 			}
 		} else if !obj.Class().HasAny(object.ClassImmobile | object.ClassObstacle) {
-			return
+			return true
 		}
 		if obj.Flags().HasAny(object.FlagNoCollide|object.FlagAllowOverlap) || obj.Class().Has(object.ClassDoor) {
-			return
+			return true
 		}
 		pos := obj.Pos()
 		sh := &obj.Shape
@@ -1629,6 +1629,7 @@ func (s *Server) MapTraceObstacles(from *server.Object, p1, p2 types.Pointf) boo
 				dy := a3p.Y - pos.Y
 				if dy*dy+dx*dx <= sh.Circle.R2 {
 					searching = false
+					return false
 				}
 			}
 		case server.ShapeKindBox:
@@ -1652,7 +1653,7 @@ func (s *Server) MapTraceObstacles(from *server.Object, p1, p2 types.Pointf) boo
 			yy := sh.Box.RightTop2 + pos.Y
 			if legacy.Sub_427980(p, a2) != 0 {
 				searching = false
-				return
+				return false
 			}
 			a2[0] = v12
 			a2[1] = v13
@@ -1660,7 +1661,7 @@ func (s *Server) MapTraceObstacles(from *server.Object, p1, p2 types.Pointf) boo
 			a2[3] = v11
 			if legacy.Sub_427980(p, a2) != 0 {
 				searching = false
-				return
+				return false
 			}
 			a2[0] = xx
 			a2[1] = yy
@@ -1668,7 +1669,7 @@ func (s *Server) MapTraceObstacles(from *server.Object, p1, p2 types.Pointf) boo
 			a2[3] = v11
 			if legacy.Sub_427980(p, a2) != 0 {
 				searching = false
-				return
+				return false
 			}
 			a2[0] = xx
 			a2[1] = yy
@@ -1676,8 +1677,10 @@ func (s *Server) MapTraceObstacles(from *server.Object, p1, p2 types.Pointf) boo
 			a2[3] = v10
 			if legacy.Sub_427980(p, a2) != 0 {
 				searching = false
+				return false
 			}
 		}
+		return true
 	})
 	return searching
 }
@@ -1742,29 +1745,30 @@ func (s *Server) Nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, 
 		Right:  pos.X + rr,
 		Bottom: pos.Y + rr,
 	}
-	s.Map.EachObjInRect(rect, func(it *server.Object) {
+	s.Map.EachObjInRect(rect, func(it *server.Object) bool {
 		u := asObjectS(it)
 		if u.SObj() == who.SObj() && !damageWalls {
-			return
+			return true
 		}
 		if u.SObj() == toObjectS(a7).SObj() {
-			return
+			return true
 		}
 		pos2 := u.Pos()
 		dx := pos2.X - pos.X
 		dy := pos2.Y - pos.Y
 		dist := float32(math.Sqrt(float64(dy*dy + dx*dx)))
 		if dist > rr {
-			return
+			return true
 		}
 		if !s.MapTraceRay(pos, pos2, server.MapTraceFlag1) {
-			return
+			return true
 		}
 		rdmg := float32(dmg)
 		if dist >= r2 {
 			rdmg *= 1.0 - (dist-r2)/(rr-r2)
 		}
 		u.CallDamage(who, nil, int(rdmg), dtyp)
+		return false
 	})
 	wrect := image.Rect(
 		int(rect.Left)/common.GridStep,

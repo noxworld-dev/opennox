@@ -320,7 +320,7 @@ int sub_4F2B60(int a1);
 int sub_4F2C30(int a1);
 int nox_xxx_spell_4F2E70(int a1);
 int sub_4F2EF0(int a1);
-int nox_xxx_playerTryEquip_4F2F70(uint32_t* a1, nox_object_t* item);
+int nox_xxx_playerTryEquip_4F2F70(nox_object_t* a1, nox_object_t* item);
 int nox_xxx_playerTryDequip_4F2FB0(uint32_t* a1, const nox_object_t* object);
 int nox_xxx_itemApplyEngageEffect_4F2FF0(nox_object_t* item, int a2);
 int nox_xxx_itemApplyDisengageEffect_4F3030(const nox_object_t* object, int a2);
