@@ -315,7 +315,7 @@ func init() {
 	legacy.Nox_xxx_harpoonBreakForPlr_537520 = nox_xxx_harpoonBreakForPlr_537520
 	legacy.Nox_xxx_collideHarpoon_4EB6A0 = nox_xxx_collideHarpoon_4EB6A0
 	legacy.Nox_xxx_updateHarpoon_54F380 = nox_xxx_updateHarpoon_54F380
-	legacy.Nox_xxx_netGet_43C750 = nox_xxx_netGet_43C750
+	legacy.NetstrGetClientIndex = netstrGetClientIndex
 	legacy.SendXXX_5550D0 = sendXXX_5550D0
 	legacy.Sub_5545A0 = sub_5545A0
 	legacy.Sub_554230 = sub_554230

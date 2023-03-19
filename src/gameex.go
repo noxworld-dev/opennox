@@ -282,7 +282,7 @@ func gameex_sendPacket(buf []byte) int {
 	if len(buf) == 0 {
 		return 0
 	}
-	return netstr.SendSelfRaw(int(nox_xxx_netGet_43C750()), buf)
+	return netstr.SendSelfRaw(netstrClientIndex, buf)
 }
 
 func call_OnLibraryNotice_265(arg3 int) {
