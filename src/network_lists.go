@@ -26,7 +26,7 @@ func nox_netlist_addToMsgListSrv(ind int, buf []byte) bool {
 		if ind == common.MaxPlayers-1 {
 			noxClient.nox_netlist_receiveCli_494E90(ind)
 		} else {
-			netstr.SendReadPacket(netstr.Index(s.GetPlayerByInd(ind).Index()+1), 0)
+			netstr.SendReadPacket(netstr.Player(s.GetPlayerByInd(ind).Index()), 0)
 		}
 	})
 }
@@ -172,15 +172,15 @@ func getNetPlayerBufSize() int {
 }
 
 func nox_xxx_netFn_UpdateStream_4DF630(ind netstr.Index, b1 []byte, _ unsafe.Pointer) int {
-	pl := noxServer.GetPlayerByInd(int(ind - 1))
+	pl := noxServer.GetPlayerByInd(ind.Player())
 	*memmap.PtrUint32(0x5D4594, 1563308) = 0
 	netPlayerBufSize = 0
 	netPlayerPlus16 = pl.net16()
-	v7 := netlist.ByInd(int(ind-1), netlist.Kind2).Get()
+	v7 := netlist.ByInd(ind.Player(), netlist.Kind2).Get()
 	var off int
 	if nox_xxx_chkIsMsgTimestamp_4DF7F0(v7) {
 		off += copy(b1[off:off+len(v7)], v7)
-		if v9 := netlist.ByInd(int(ind-1), netlist.Kind2).Get(); len(v9) != 0 {
+		if v9 := netlist.ByInd(ind.Player(), netlist.Kind2).Get(); len(v9) != 0 {
 			b1[off] = byte(noxnet.MSG_UPDATE_STREAM)
 			off++
 			n := sub_4DF810(b1[off:], v9)
@@ -190,7 +190,7 @@ func nox_xxx_netFn_UpdateStream_4DF630(ind netstr.Index, b1 []byte, _ unsafe.Poi
 			}
 			off += n
 			for {
-				n := sub_4DF8F0(int(ind-1), b1[off:])
+				n := sub_4DF8F0(ind.Player(), b1[off:])
 				off += n
 				if n == 0 {
 					break
@@ -199,7 +199,7 @@ func nox_xxx_netFn_UpdateStream_4DF630(ind netstr.Index, b1 []byte, _ unsafe.Poi
 			off += zero3full(b1[off:])
 		}
 	}
-	for b := netlist.ByInd(int(ind-1), netlist.Kind1).Get(); len(b) != 0; b = netlist.ByInd(int(ind-1), netlist.Kind1).Get() {
+	for b := netlist.ByInd(ind.Player(), netlist.Kind1).Get(); len(b) != 0; b = netlist.ByInd(ind.Player(), netlist.Kind1).Get() {
 		if b[0] != byte(noxnet.MSG_FX_SENTRY_RAY) || legacy.Get_dword_5d4594_2650652() != 1 || (noxServer.Frame()%uint32(nox_xxx_rateGet_40A6C0()) == 0) {
 			n := copyFull(b1[off:], b)
 			if n == 0 {
@@ -210,8 +210,8 @@ func nox_xxx_netFn_UpdateStream_4DF630(ind netstr.Index, b1 []byte, _ unsafe.Poi
 	}
 	netPlayerBufSize = off
 	if legacy.Get_dword_5d4594_2650652() == 0 || (noxServer.Frame()%uint32(nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
-		legacy.Nox_xxx_netImportant_4E5770(byte(ind-1), 1)
-		for b := netlist.ByInd(int(ind-1), netlist.Kind1).Get(); len(b) != 0; b = netlist.ByInd(int(ind-1), netlist.Kind1).Get() {
+		legacy.Nox_xxx_netImportant_4E5770(byte(ind.Player()), 1)
+		for b := netlist.ByInd(ind.Player(), netlist.Kind1).Get(); len(b) != 0; b = netlist.ByInd(ind.Player(), netlist.Kind1).Get() {
 			n := copyFull(b1[off:], b)
 			if n == 0 {
 				break
