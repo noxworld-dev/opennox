@@ -10,6 +10,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/platform"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 )
 
 const perfmonSz = 30
@@ -77,7 +78,7 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 			bps = m.TransferStats(0)
 			format = c.Strings().GetStringInFile("TransferStats", "client.c")
 		} else {
-			bps = m.TransferStats(pl.Index() + 1)
+			bps = m.TransferStats(netstr.Index(pl.Index() + 1))
 			format = c.Strings().GetStringInFile("TransferStats", "client.c")
 		}
 		c.r.DrawString(nil, fmt.Sprintf(format, bps, d.th, d.ri, d.rpu), image.Pt(70, y))

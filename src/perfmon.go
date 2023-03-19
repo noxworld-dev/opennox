@@ -80,7 +80,7 @@ func (m *Perfmon) LogBandwidth() {
 		if pl.Index() == common.MaxPlayers-1 {
 			bps = noxPerfmon.TransferStats(0)
 		} else {
-			bps = noxPerfmon.TransferStats(pl.Index() + 1)
+			bps = noxPerfmon.TransferStats(netstr.Index(pl.Index() + 1))
 		}
 		m.logger.Printf("%s, %d, %d, %d, %d, %d\n", pl.Name(), bps, v4, d.th, d.ri, d.rpu)
 	}
@@ -100,7 +100,7 @@ func (m *Perfmon) bandData(ind int) playerBandData {
 	}
 }
 
-func (m *Perfmon) TransferStats(ind int) uint32 {
+func (m *Perfmon) TransferStats(ind netstr.Index) uint32 {
 	ticks := platform.Ticks()
 	prev := m.transferTick[ind]
 	if ticks < prev+time.Second {
