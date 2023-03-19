@@ -60,8 +60,8 @@ var (
 	ticks815732          uint64
 	dword_5d4594_815704  bool
 	dword_5d4594_815708  bool
-	dword_973f18_44216   string
-	dword_5d4594_3843632 netip.Addr
+	ownIPStr             string
+	ownIP                netip.Addr
 )
 
 var (
@@ -77,7 +77,7 @@ func networkLogPrint(str string) {
 	noxConsole.Print(console.ColorGreen, str)
 }
 
-func netstrGetClientIndex() int { return int(netstrClientIndex) }
+func netstrGetClientIndex() netstr.Index { return netstrClientIndex }
 
 func clientSetServerHost(host string) {
 	netstr.Log.Printf("server host: %s", host)
@@ -249,7 +249,7 @@ func (s *Server) nox_xxx_netAddPlayerHandler_4DEBC0(port int) (ind netstr.Index,
 		DataSize: 2048,
 		Func2: func(ind netstr.Index, buf []byte, _ unsafe.Pointer) int {
 			// should pass the pointer unchanged, otherwise expect bugs!
-			s.onPacketRaw(int(ind)-1, buf)
+			s.onPacketRaw(ind.Player(), buf)
 			return 1
 		},
 		Func1:   nox_xxx_netFn_UpdateStream_4DF630,
@@ -271,33 +271,33 @@ func sub_5545A0() uint16 {
 }
 
 func sub_554230() string {
-	return dword_973f18_44216
+	return ownIPStr
 }
 
 func nox_xxx_netInit_554380(narg *netstr.Options) (ind netstr.Index, _ error) {
-	dword_973f18_44216 = ""
+	ownIPStr = ""
 	v2, err := netstr.InitNew(narg)
 	netSomePort = uint16(narg.Port)
 	if err != nil {
 		return v2, err
 	}
 	if ip, err := nat.ExternalIP(context.Background()); err == nil {
-		dword_5d4594_3843632, _ = netip.AddrFromSlice(ip.To4())
-		dword_973f18_44216 = ip.String()
+		ownIP, _ = netip.AddrFromSlice(ip.To4())
+		ownIPStr = ip.String()
 	} else if ips, err := nat.InternalIPs(context.Background()); err == nil && len(ips) != 0 {
 		ip = ips[0].IP
-		dword_5d4594_3843632, _ = netip.AddrFromSlice(ip.To4())
-		dword_973f18_44216 = ip.String()
+		ownIP, _ = netip.AddrFromSlice(ip.To4())
+		ownIPStr = ip.String()
 	}
 	return v2, nil
 }
 
 func (s *Server) nox_server_netClose_5546A0(i netstr.Index) {
-	netstr.CloseByInd(i)
+	i.Close()
 }
 
 func (s *Server) nox_xxx_netStructReadPackets2_4DEC50(ind int) int {
-	return netstr.ReadPackets(netstr.Index(ind + 1))
+	return netstr.ReadPackets(netstr.Player(ind))
 }
 
 func nox_xxx_netSendSock_552640(id netstr.Index, ptr *byte, sz int, flags int) int {
@@ -674,7 +674,7 @@ func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool
 		var found *Player
 		s.Players.EachReplaceable(func(it *server.Player) bool {
 			pit := asPlayerS(it)
-			if add(netstr.Index(it.Index()) + 1) {
+			if add(netstr.Player(it.Index())) {
 				found = pit
 				return false
 			}
@@ -765,18 +765,19 @@ func nox_xxx_net_getIP_554200(a1 netstr.Index) uint32 {
 }
 
 func netGetIP(ind netstr.Index) netip.Addr {
-	if ind == 0 {
-		return dword_5d4594_3843632
+	if ind.IsFirst() {
+		return ownIP
 	}
 	return netstr.GetIPByInd(ind)
 }
 
 func sub_519930(a1 int) int {
 	cnt := 0
-	v2 := netstr.Index(memmap.Uint32(0x5D4594, 2387148+48*uintptr(a1)))
+	v2 := int(memmap.Uint32(0x5D4594, 2387148+48*uintptr(a1)))
 	if v2 != 0 {
 		if a1 < 32 {
-			for it := netstr.QueueFirst(v2); it != nil; it = netstr.QueueNext(v2) {
+			v2i := netstr.IndexRaw(v2)
+			for it := netstr.QueueFirst(v2i); it != nil; it = netstr.QueueNext(v2i) {
 				if op := noxnet.Op(it[0]); op == noxnet.MSG_MAP_SEND_START || op == noxnet.MSG_MAP_SEND_PACKET {
 					cnt++
 				}
@@ -1172,7 +1173,7 @@ func (s *Server) nox_xxx_netSendBySock_4DDDC0(ind int) {
 			if len(data) == 0 {
 				return
 			}
-			netstr.Send(netstr.Index(ind+1), data, netstr.SendNoLock|netstr.SendFlagFlush)
+			netstr.Send(netstr.Player(ind), data, netstr.SendNoLock|netstr.SendFlagFlush)
 		})
 	}
 }
@@ -1233,7 +1234,7 @@ func (s *Server) sendSettings(u *Object) {
 		buf[32] = 0
 		binary.LittleEndian.PutUint32(buf[33:], nox_xxx_mapCrcGetMB_409B00())
 		binary.LittleEndian.PutUint32(buf[37:], s.Frame())
-		netstr.Send(netstr.Index(pl.Index()+1), buf[:41], netstr.SendNoLock|netstr.SendFlagFlush)
+		netstr.Send(netstr.Player(pl.Index()), buf[:41], netstr.SendNoLock|netstr.SendFlagFlush)
 		legacy.Sub_4DDE10(pl.Index(), pl.S())
 	}
 }
@@ -1255,7 +1256,7 @@ func nox_xxx_netUseMap_4DEE00(mname string, crc uint32) {
 		if !noxflags.HasGame(noxflags.GameClient) || pl.Index() != common.MaxPlayers-1 {
 			buf := netlist.CopyPacketsA(pl.Index(), netlist.Kind1)
 			if len(buf) != 0 {
-				netstr.Send(netstr.Index(pl.Index()+1), buf, netstr.SendNoLock|netstr.SendFlagFlush)
+				netstr.Send(netstr.Player(pl.Index()), buf, netstr.SendNoLock|netstr.SendFlagFlush)
 			}
 		}
 	}
@@ -1282,7 +1283,7 @@ func (s *Server) onPacketRaw(pli int, data []byte) bool {
 	switch op {
 	case 0x20:
 		if s.newPlayerFromPacket(pli, data[1:]) == 0 {
-			netstr.ReadPackets(netstr.Index(pli + 1))
+			netstr.ReadPackets(netstr.Player(pli))
 		}
 		return true
 	case 0x22:
@@ -1391,8 +1392,9 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *O
 				if noxflags.HasGame(noxflags.GameClient) && it.Index() == common.MaxPlayers-1 {
 					noxClient.nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, data[:msz])
 				} else {
-					netstr.Send(netstr.Index(it.Index()+1), data[:msz], 0)
-					netstr.SendReadPacket(netstr.Index(it.Index()+1), 1)
+					pnet := netstr.Player(it.Index())
+					netstr.Send(pnet, data[:msz], 0)
+					netstr.SendReadPacket(pnet, 1)
 				}
 			}
 			return msz, true
@@ -1416,8 +1418,9 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *O
 				if noxflags.HasGame(noxflags.GameClient) && int(uit.NetCode) == legacy.ClientPlayerNetCode() {
 					noxClient.nox_xxx_netOnPacketRecvCli48EA70(it.Index(), data[:msz])
 				} else {
-					netstr.Send(netstr.Index(it.Index()+1), data[:msz], 0)
-					netstr.SendReadPacket(netstr.Index(it.Index()+1), 1)
+					pnet := netstr.Player(it.Index())
+					netstr.Send(pnet, data[:msz], 0)
+					netstr.SendReadPacket(pnet, 1)
 				}
 			}
 		}
