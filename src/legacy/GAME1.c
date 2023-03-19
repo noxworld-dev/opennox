@@ -1207,7 +1207,7 @@ int sub_40BC60(int a1, int a2, const char* a3, void* a4, int a5, int a6) {
 		return 0;
 	}
 	if (!nox_common_gameFlags_check_40A5C0(1)) {
-		v8 = nox_xxx_netGet_43C750();
+		v8 = netstrGetClientIndex_43C750();
 		goto LABEL_12;
 	}
 	if (!nox_common_gameFlags_check_40A5C0(2)) {
