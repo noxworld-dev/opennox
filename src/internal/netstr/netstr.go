@@ -63,13 +63,16 @@ var (
 )
 
 func addTransferStats(n int, ind Index) {
-	transfer[ind] += uint32(n)
+	transfer[ind.i] += uint32(n)
 }
 
-func TransferStats(ind Index) uint32 {
-	v := transfer[ind]
-	transfer[ind] = 0
-	return v
+func (v Index) TransferStats() uint32 {
+	if !v.Valid() {
+		return 0
+	}
+	val := transfer[v.i]
+	transfer[v.i] = 0
+	return val
 }
 
 func Init() {
@@ -113,20 +116,13 @@ type stream2 struct {
 	ticks  uint64
 }
 
-func structByInd(i Index) *stream {
-	if i < 0 || i >= maxStructs {
-		return nil
-	}
-	return streams[i]
-}
-
-func getFreeNetStructInd() Index {
+func getFreeNetStructInd() (Index, bool) {
 	for i := range streams {
 		if streams[i] == nil {
-			return Index(i)
+			return Index{i}, true
 		}
 	}
-	return -1
+	return Index{-1}, false
 }
 
 func getFreeNetStruct2Ind() int {
@@ -167,7 +163,7 @@ func hasStructWithIndAndAddr(ind Index, addr netip.AddrPort) bool {
 		if ns == nil {
 			continue
 		}
-		if addr == ns.addr && ind == Index(i) {
+		if addr == ns.addr && ind.i == i {
 			return true
 		}
 	}
@@ -231,25 +227,62 @@ func (ns *stream) Close() error {
 	return nil
 }
 
-func CloseByInd(ind Index) {
-	if ns := structByInd(ind); ns != nil {
+func (v Index) Close() {
+	if ns := v.get(); ns != nil {
 		_ = ns.Close()
-		streams[ind] = nil
+		streams[v.i] = nil
 	}
 }
 
-type Index int
+func Player(ind int) Index {
+	return Index{ind + 1}
+}
 
-func NewClient(narg *Options) (ind Index, _ error) {
-	if narg == nil {
-		return -2, NewConnectFailErr(-2, errors.New("empty options"))
+func IndexRaw(ind int) Index {
+	return Index{ind}
+}
+
+func First() Index {
+	return Index{0}
+}
+
+type Index struct {
+	i int // hiding it in a struct helps prevent direct casts
+}
+
+func (v Index) Raw() int {
+	return v.i
+}
+
+func (v Index) Valid() bool {
+	return v.i >= 0 && v.i < maxStructs
+}
+
+func (v Index) IsFirst() bool {
+	return v.i == 0
+}
+
+func (v Index) Player() int {
+	return v.i - 1
+}
+
+func (v Index) get() *stream {
+	if !v.Valid() {
+		return nil
 	}
-	ind = Index(getFreeNetStructInd())
-	if ind < 0 {
-		return -8, NewConnectFailErr(-8, errors.New("no more slots for net structs"))
+	return streams[v.i]
+}
+
+func NewClient(narg *Options) (Index, error) {
+	if narg == nil {
+		return Index{-2}, NewConnectFailErr(-2, errors.New("empty options"))
+	}
+	ind, ok := getFreeNetStructInd()
+	if !ok {
+		return Index{-8}, NewConnectFailErr(-8, errors.New("no more slots for net structs"))
 	}
 	ns := newStruct(narg)
-	streams[ind] = ns
+	streams[ind.i] = ns
 	return ind, nil
 }
 
@@ -259,7 +292,7 @@ func Dial(ind Index, host string, port int, cport int, opts encoding.BinaryMarsh
 	if Debug {
 		Log.Println("NET_CONNECT", ind, host, port)
 	}
-	ns := structByInd(ind)
+	ns := ind.get()
 	if ns == nil {
 		return NewConnectFailErr(-3, errors.New("no net struct"))
 	}
@@ -308,7 +341,7 @@ func Dial(ind Index, host string, port int, cport int, opts encoding.BinaryMarsh
 
 	id, retries, flags, counter := ind, 60, 6, 0
 	for {
-		ns := structByInd(id)
+		ns := id.get()
 		if ns == nil {
 			return NewConnectFailErr(-23, errors.New("no net struct"))
 		}
@@ -326,8 +359,8 @@ func Dial(ind Index, host string, port int, cport int, opts encoding.BinaryMarsh
 		platform.Sleep(30 * time.Millisecond)
 	}
 
-	ns = structByInd(id)
-	if Flag1 && ns.ID() >= 0 {
+	ns = id.get()
+	if Flag1 && ns.ID().Valid() {
 		vs := optionsBuffer[:]
 		copy(vs, make([]byte, len(vs)))
 		data, err := opts.MarshalBinary()
@@ -345,7 +378,7 @@ func Dial(ind Index, host string, port int, cport int, opts encoding.BinaryMarsh
 		_, _ = Send(id, vs, SendNoLock|SendFlagFlush)
 	}
 
-	if ns.ID() < 0 {
+	if !ns.ID().Valid() {
 		return NewConnectFailErr(-1, errors.New("invalid net struct id"))
 	}
 	return nil
@@ -429,7 +462,7 @@ func (ns *stream) SetAddr(addr netip.AddrPort) {
 
 func (ns *stream) ID() Index {
 	if ns == nil {
-		return -1
+		return Index{-1}
 	}
 	return ns.id
 }
@@ -490,7 +523,7 @@ const (
 )
 
 func Send(id Index, buf []byte, flags int) (int, error) {
-	ns := structByInd(id)
+	ns := id.get()
 	if ns == nil {
 		return -3, errors.New("no net struct")
 	}
@@ -501,19 +534,19 @@ func Send(id Index, buf []byte, flags int) (int, error) {
 		idd    Index
 		ei, si Index
 	)
-	if ns.id == -1 {
-		ei = maxStructs
-		si = 0
+	if ns.id.i == -1 {
+		ei = Index{maxStructs}
+		si = Index{0}
 		idd = id
 	} else {
 		si = id
-		ei = id + 1
+		ei = Index{id.i + 1}
 		idd = ns.ID()
 	}
 	if flags&SendNoLock != 0 {
 		n := len(buf)
-		for i := si; i < ei; i++ {
-			ns2 := structByInd(i)
+		for i := si.i; i < ei.i; i++ {
+			ns2 := Index{i}.get()
 			if ns2 != nil && ns2.ID() == idd {
 				v12, err := ns2.addToQueue(buf)
 				if v12 == -1 {
@@ -528,8 +561,8 @@ func Send(id Index, buf []byte, flags int) (int, error) {
 		return n, nil
 	}
 	n := len(buf)
-	for i := si; i < ei; i++ {
-		ns2 := structByInd(i)
+	for i := si.i; i < ei.i; i++ {
+		ns2 := Index{i}.get()
 		if ns2 == nil {
 			continue
 		}
@@ -547,7 +580,7 @@ func Send(id Index, buf []byte, flags int) (int, error) {
 			if n2 == -1 {
 				return -1, err
 			}
-			addTransferStats(n+2, i)
+			addTransferStats(n+2, Index{i})
 			return n2, nil
 		}
 		copy(d2x[:n], buf)
@@ -645,21 +678,21 @@ func GetInitInd() Index {
 	return initIndex
 }
 
-func InitNew(narg *Options) (ind Index, _ error) {
+func InitNew(narg *Options) (Index, error) {
 	if narg == nil {
-		return -2, errors.New("empty options")
+		return Index{-2}, errors.New("empty options")
 	}
 	if narg.Max > maxStructs {
-		return -2, errors.New("max limit reached")
+		return Index{-2}, errors.New("max limit reached")
 	}
-	ind = getFreeNetStructInd()
-	if ind < 0 {
-		return -8, errors.New("no more slots for net structs")
+	ind, ok := getFreeNetStructInd()
+	if !ok {
+		return Index{-8}, errors.New("no more slots for net structs")
 	}
 	ns := newStruct(narg)
-	streams[ind] = ns
-	ns.Data2hdr()[0] = byte(ind)
-	ns.id = -1
+	streams[ind.i] = ns
+	ns.Data2hdr()[0] = byte(ind.i)
+	ns.id = Index{-1}
 
 	if narg.Port < 1024 || narg.Port > 0x10000 {
 		narg.Port = common.GamePort
@@ -671,7 +704,7 @@ func InitNew(narg *Options) (ind Index, _ error) {
 			ns.pc = sock
 			break
 		} else if !ErrIsInUse(err) {
-			return 0, err
+			return Index{-5}, err
 		}
 		narg.Port++
 	}
@@ -680,19 +713,21 @@ func InitNew(narg *Options) (ind Index, _ error) {
 }
 
 func SendReadPacket(ind Index, flags byte) int {
-	ns := structByInd(ind)
+	ns := ind.get()
 	if ns == nil {
 		return -3
 	}
 	find := ind
-	min := Index(0)
-	max := Index(maxStructs)
-	if ns.id != -1 {
+	var min, max Index
+	if ns.id.i != -1 {
 		min = ind
-		max = ind + 1
+		max = Index{ind.i + 1}
 		find = ns.id
+	} else {
+		min = Index{0}
+		max = Index{maxStructs}
 	}
-	for j := min; j < max; j++ {
+	for j := min.i; j < max.i; j++ {
 		ns2 := streams[j]
 		if ns2 == nil || ns2.id != find {
 			continue
@@ -700,7 +735,7 @@ func SendReadPacket(ind Index, flags byte) int {
 		ns2.maybeSendQueue(0, false)
 		if flags&1 == 0 {
 			data2 := ns2.Data2xxx()
-			n := ns2.callFunc1(j, data2, ns2.data3)
+			n := ns2.callFunc1(Index{j}, data2, ns2.data3)
 			if n > 0 && n <= len(data2) {
 				ns2.data2xxx += n
 			}
@@ -711,7 +746,7 @@ func SendReadPacket(ind Index, flags byte) int {
 			if err != nil {
 				return -1
 			}
-			addTransferStats(len(datax2), j)
+			addTransferStats(len(datax2), Index{j})
 			ns2.data2xxx = ns2.data2yyy
 		}
 	}
@@ -762,41 +797,42 @@ func (ns *stream) maybeFreeQueue(a2 byte, a3 int) int {
 }
 
 func ReadPackets(ind Index) int {
-	if ind < 0 || ind >= maxStructs {
+	if !ind.Valid() {
 		return -3
 	}
-	ns := structByInd(ind)
+	ns := ind.get()
 	if ns == nil {
 		return 0
 	}
 	v4 := ns.ID()
 	var si, ei Index
-	if v4 == -1 {
-		si, ei = 0, maxStructs
+	if v4.i == -1 {
+		si, ei = Index{0}, Index{maxStructs}
 		v4 = ind
 	} else {
-		si, ei = ind, ind+1
-		ns2 := structByInd(v4)
-		if ns2 == nil || ns2.id != -1 {
+		si, ei = ind, Index{ind.i + 1}
+		ns2 := v4.get()
+		if ns2 == nil || ns2.id.i != -1 {
 			ns.freeData()
-			streams[ind] = nil
+			streams[ind.i] = nil
 			return 0
 		}
 	}
-	for i := si; i < ei; i++ {
-		ns2 := structByInd(i)
+	for i := si.i; i < ei.i; i++ {
+		ii := Index{i}
+		ns2 := ii.get()
 		if ns2 == nil || ns2.ID() != v4 {
 			continue
 		}
-		SendReadPacket(i, 1)
+		SendReadPacket(ii, 1)
 		var buf [1]byte
 		buf[0] = 11
-		_, _ = Send(i, buf[:], 0)
-		SendReadPacket(i, 1)
-		structByInd(v4).playerInd21--
+		_, _ = Send(ii, buf[:], 0)
+		SendReadPacket(ii, 1)
+		v4.get().playerInd21--
 		ns.maybeFreeQueue(0, 2)
 		ns2.freeData()
-		streams[i] = nil
+		streams[ii.i] = nil
 	}
 	return 0
 }
@@ -813,7 +849,7 @@ func sub5524C0() {
 	for i, ns := range streams {
 		if ns != nil && ns.field38 == 1 {
 			if ns.frame40+300 < GameFrame() {
-				ReadPackets(Index(i))
+				ReadPackets(Index{i})
 			}
 		}
 	}
@@ -839,7 +875,7 @@ func GetTimingByInd1(ind int) int {
 }
 
 func GetIPByInd(ind Index) netip.Addr {
-	ns := structByInd(ind)
+	ns := ind.get()
 	if ns == nil {
 		return netip.Addr{}
 	}
@@ -847,7 +883,7 @@ func GetIPByInd(ind Index) netip.Addr {
 }
 
 func SendClose(ind Index) {
-	if structByInd(ind) == nil {
+	if ind.get() == nil {
 		return
 	}
 	SendReadPacket(ind, 0)
@@ -855,7 +891,7 @@ func SendClose(ind Index) {
 	buf[0] = 10
 	_, _ = Send(ind, buf[:1], 0)
 	SendReadPacket(ind, 0)
-	CloseByInd(ind)
+	ind.Close()
 }
 
 func processStreamOp0(id Index, out []byte, pid Index, p1 byte, ns1 *stream, from netip.AddrPort) int {
@@ -868,7 +904,7 @@ func processStreamOp0(id Index, out []byte, pid Index, p1 byte, ns1 *stream, fro
 		out[2] = 2
 		return 3
 	}
-	if pid != -1 {
+	if pid.i != -1 {
 		Log.Printf("pid must be set to -1 when joining: was %d (%s)\n", pid, from.String())
 		// pid in the request must be -1 (0xff); fail if it's not
 		out[2] = 2
@@ -877,7 +913,7 @@ func processStreamOp0(id Index, out []byte, pid Index, p1 byte, ns1 *stream, fro
 	// now, find free net struct index and use it as pid
 	for i, it := range streams {
 		if it == nil {
-			pid = Index(i)
+			pid = Index{i}
 			break
 		}
 		if from == it.addr {
@@ -885,7 +921,7 @@ func processStreamOp0(id Index, out []byte, pid Index, p1 byte, ns1 *stream, fro
 			return 3
 		}
 	}
-	if pid == -1 {
+	if pid.i == -1 {
 		out[2] = 2
 		return 3
 	}
@@ -895,11 +931,11 @@ func processStreamOp0(id Index, out []byte, pid Index, p1 byte, ns1 *stream, fro
 		Check14:   ns1.check14,
 		Check17:   ns1.check17,
 	})
-	streams[pid] = ns2
+	streams[pid.i] = ns2
 	ns1.playerInd21++
 
 	hdr := ns2.Data2hdr()
-	hdr[0] = byte(id)
+	hdr[0] = byte(id.i)
 	if hdr[1] == p1 {
 		hdr[1]++
 	}
@@ -908,7 +944,7 @@ func processStreamOp0(id Index, out []byte, pid Index, p1 byte, ns1 *stream, fro
 	ns2.func1 = ns1.func1
 	ns2.func2 = ns1.func2
 
-	timing[id] = timingStruct{field28: 1}
+	timing[id.i] = timingStruct{field28: 1}
 	key := byte(KeyRand(1, 255))
 	if !Xor {
 		key = 0
@@ -920,7 +956,7 @@ func processStreamOp0(id Index, out []byte, pid Index, p1 byte, ns1 *stream, fro
 	out[0] = byte(noxnet.MSG_ACCEPTED)
 	out[1] = p1
 	out[2] = 1
-	binary.LittleEndian.PutUint32(out[3:], uint32(pid))
+	binary.LittleEndian.PutUint32(out[3:], uint32(pid.i))
 	out[7] = key
 	v67, _ := Send(pid, out[:8], SendNoLock|SendFlagFlush)
 
@@ -937,20 +973,20 @@ func processStreamOp6(pid Index, out []byte, ns1 *stream, packetCur []byte) int 
 	}
 	v := binary.LittleEndian.Uint32(packetCur[:4])
 
-	ns2 := structByInd(pid)
+	ns2 := pid.get()
 	if ns2 == nil {
 		return 0
 	}
 	out[0] = 37
 	ns1.callFunc2(pid, out[:1], ns2.data3)
 
-	timing[pid].field4 = v
+	timing[pid.i].field4 = v
 	var v18 *[2]byte
-	if ns1.id == -1 {
-		out[0] = byte(ns2.id)
+	if ns1.id.i == -1 {
+		out[0] = byte(ns2.id.i)
 		v18 = ns2.Data2hdr()
 	} else {
-		out[0] = byte(ns1.id)
+		out[0] = byte(ns1.id.i)
 		v18 = ns1.Data2hdr()
 	}
 	out[1] = v18[0]
@@ -960,7 +996,7 @@ func processStreamOp6(pid Index, out []byte, ns1 *stream, packetCur []byte) int 
 }
 
 func processStreamOp7(pid Index, out []byte, ns1 *stream) int {
-	ns4 := structByInd(pid)
+	ns4 := pid.get()
 	if ns4 == nil {
 		return 0
 	}
@@ -971,7 +1007,7 @@ func processStreamOp7(pid Index, out []byte, ns1 *stream) int {
 	}
 	out[0] = 35
 	binary.LittleEndian.PutUint32(out[1:], uint32(v32))
-	if ns1.id == -1 {
+	if ns1.id.i == -1 {
 		ns1.callFunc2(pid, out[:5], ns4.data3)
 	} else {
 		ns1.callFunc2(pid, out[:5], ns1.data3)
@@ -980,7 +1016,7 @@ func processStreamOp7(pid Index, out []byte, ns1 *stream) int {
 }
 
 func processStreamOp8(pid Index, out []byte, ns1 *stream, packetCur []byte) int {
-	ns5 := structByInd(pid)
+	ns5 := pid.get()
 	if ns5 == nil && binary.LittleEndian.Uint32(packetCur) != uint32(ns5.ticks22) {
 		return 0
 	}
@@ -988,7 +1024,7 @@ func processStreamOp8(pid Index, out []byte, ns1 *stream, packetCur []byte) int 
 	out[0] = 36
 	binary.LittleEndian.PutUint32(out[1:], ns5.field24)
 	var v19 unsafe.Pointer
-	if ns1.id == -1 {
+	if ns1.id.i == -1 {
 		v19 = ns5.data3
 	} else {
 		v19 = ns1.data3
@@ -1007,7 +1043,7 @@ func processStreamOp9(pid Index, packetCur []byte) int {
 		return 0
 	}
 	v := binary.LittleEndian.Uint32(packetCur[:4])
-	p := &timing[pid]
+	p := &timing[pid.i]
 	dv := v - p.field4
 	if dv <= 0 || dv >= 1000 {
 		return 0
@@ -1064,7 +1100,7 @@ func processStreamOp14(out []byte, packet []byte, ns1 *stream, p1 byte, from net
 func Sub552E70(ind Index) int {
 	var buf [5]byte
 
-	ns := structByInd(ind)
+	ns := ind.get()
 	if ns == nil {
 		return -3
 	}
@@ -1072,34 +1108,34 @@ func Sub552E70(ind Index) int {
 		min, max Index
 		find     Index
 	)
-	if ns.id == -1 {
-		min = 0
-		max = maxStructs
+	if ns.id.i == -1 {
+		min = Index{0}
+		max = Index{maxStructs}
 		find = ind
 	} else {
 		min = ind
-		max = ind + 1
+		max = Index{ind.i + 1}
 		find = ns.id
 	}
 	buf[0] = 6
-	for i := min; i < max; i++ {
+	for i := min.i; i < max.i; i++ {
 		ns2 := streams[i]
 		if ns2 != nil && ns2.id == find {
 			ns2.ticks22 = ticks2
 			ns2.ticks23 = ns2.ticks22
 			binary.LittleEndian.PutUint32(buf[1:], uint32(ns2.ticks22))
-			_, _ = Send(i, buf[:5], SendFlagFlush)
+			_, _ = Send(Index{i}, buf[:5], SendFlagFlush)
 		}
 	}
 	return 0
 }
 
 func readXxx(id1, id2 Index, a3 byte, buf []byte) bool {
-	ns2 := structByInd(id2)
+	ns2 := id2.get()
 	if ns2 == nil || ns2.field38 != 1 || ns2.field39 > a3 {
 		return false
 	}
-	ns1 := structByInd(id1)
+	ns1 := id1.get()
 	if int(ns1.playerInd21) > (GetMaxPlayers() - 1) {
 		ReadPackets(id2)
 		return true
@@ -1117,11 +1153,11 @@ func processStreamOp(id Index, packet []byte, out []byte, from netip.AddrPort) i
 	if len(packet) < 2 {
 		return 0
 	}
-	pid := Index(int8(packet[0]))
+	pid := Index{int(int8(packet[0]))}
 	p1 := packet[1]
 	packetCur := packet[2:]
 
-	ns1 := structByInd(id)
+	ns1 := id.get()
 	if ns1 == nil {
 		return 0
 	}
@@ -1142,22 +1178,22 @@ func processStreamOp(id Index, packet []byte, out []byte, from netip.AddrPort) i
 			if len(packetCur) < 5 {
 				return 0
 			}
-			v11 := Index(binary.LittleEndian.Uint32(packetCur[:4]))
+			v11 := Index{int(binary.LittleEndian.Uint32(packetCur[:4]))}
 			xor := packetCur[4]
 			packetCur = packetCur[5:]
 
 			ns1.id = v11
-			ns1.data2[0] = byte(v11)
+			ns1.data2[0] = byte(v11.i)
 			ns1.xorKey = xor
 			Flag1 = true
 		case 2:
-			ns1.id = -18
+			ns1.id.i = -18
 			Flag1 = true
 		case 3: // ack?
-			ns1.id = -12
+			ns1.id.i = -12
 			Flag1 = true
 		case 4:
-			ns1.id = -13
+			ns1.id.i = -13
 			Flag1 = true
 		case 5:
 			if len(packetCur) < 4 {
@@ -1180,13 +1216,13 @@ func processStreamOp(id Index, packet []byte, out []byte, from netip.AddrPort) i
 		case 10:
 			return processStreamOp10(id, pid, out, ns1)
 		case 11:
-			ns7 := structByInd(pid)
+			ns7 := pid.get()
 			if ns7 == nil {
 				return 0
 			}
 			out[0] = 33
 			ns1.callFunc2(pid, out[:1], ns7.data3)
-			CloseByInd(id)
+			id.Close()
 			return 0
 		case noxnet.MSG_SERVER_JOIN: // join game request?
 			return processStreamOp14(out, packet, ns1, p1, from, ns1.check14)
@@ -1201,13 +1237,13 @@ func processStreamOp(id Index, packet []byte, out []byte, from netip.AddrPort) i
 			v14 := packetCur[0]
 			packetCur = packetCur[1:]
 
-			ns8 := structByInd(pidb)
+			ns8 := pidb.get()
 			if ns8 == nil {
 				return 0
 			}
 			Log.Printf("switch 31: 0x%x 0x%x\n", v14, ns8.ind28)
 			if v14 != byte(ns8.ind28) {
-				ns9 := structByInd(pid)
+				ns9 := pid.get()
 				ns9.setActiveInQueue(v14, true)
 				ns9.maybeFreeQueue(v14, 1)
 				ns8.ind28 = int8(v14)
@@ -1249,17 +1285,17 @@ func recvRaw(pc net.PacketConn, buf []byte) (int, netip.AddrPort, error) {
 }
 
 func processStreamOp10(id Index, pid Index, out []byte, ns1 *stream) int {
-	if pid == -1 {
+	if pid.i == -1 {
 		return 0
 	}
-	ns6 := structByInd(pid)
+	ns6 := pid.get()
 	if ns6 == nil || ns6.field38 == 1 {
 		return 0
 	}
 	out[0] = 34
 	ns1.callFunc2(pid, out[:1], ns6.data3)
 
-	timing[id] = timingStruct{}
+	timing[id.i] = timingStruct{}
 
 	if _, ok := playerIDs[pid]; ok {
 		delete(playerIDs, pid)
@@ -1311,10 +1347,7 @@ func processStreamOp18(out []byte, packet []byte, from netip.AddrPort) int {
 }
 
 func ServeInitialPackets(id Index, flags int) int {
-	if id >= maxStructs {
-		return -3
-	}
-	ns := structByInd(id)
+	ns := id.get()
 	if ns == nil {
 		return -3
 	}
@@ -1353,7 +1386,8 @@ func ServeInitialPackets(id Index, flags int) int {
 		}
 		ns.data1xxx += n
 		hdr := ns.Data1yyy()[:3]
-		id2 := Index(hdr[0])
+		id2 := int(hdr[0])
+		id2i := Index{id2 & 127}
 		v9 := hdr[1]
 		op := noxnet.Op(hdr[2])
 		if Debug {
@@ -1386,32 +1420,32 @@ func ServeInitialPackets(id Index, flags int) int {
 				}
 			} else {
 				v26 = 0
-				if !hasStructWithIndAndAddr(id2&127, src) {
+				if !hasStructWithIndAndAddr(id2i, src) {
 					goto continueX
 				}
 				v26 = 1
 			}
-			if ns.id == -1 {
-				ns2 = structByInd(id2 & 127)
+			if ns.id.i == -1 {
+				ns2 = id2i.get()
 			}
 			if id2&maxStructs == 0 {
 				if ns2 == nil {
 					goto continueX
 				}
 				if v9 != byte(ns2.ind28) {
-					ns9 := structByInd(id2)
+					ns9 := id2i.get()
 					ns9.setActiveInQueue(v9, true)
 					ns9.maybeFreeQueue(v9, 1)
 					ns2.ind28 = int8(v9)
 					v20 := 0
-					if readXxx(id, id2, v9, ns.Data1yyy()) {
+					if readXxx(id, id2i, v9, ns.Data1yyy()) {
 						v20 = 0
 					} else {
 						v20 = 1
 					}
 					buf[0] = 38
 					buf[1] = byte(ns2.ind28)
-					ns.callFunc2(id2, buf[:2], ns2.data3)
+					ns.callFunc2(id2i, buf[:2], ns2.data3)
 					if v20 == 0 {
 						goto continueX
 					}
@@ -1428,7 +1462,8 @@ func ServeInitialPackets(id Index, flags int) int {
 			} else {
 				data := ns.Data1yyy()
 				data[0] &= 127
-				id2 = Index(data[0])
+				id2 = int(data[0])
+				id2i = Index{id2}
 				if ns2 == nil {
 					goto continueX
 				}
@@ -1437,7 +1472,7 @@ func ServeInitialPackets(id Index, flags int) int {
 					goto continueX
 				}
 				hdr2[1]++
-				if readXxx(id, id2, v9, ns.Data1yyy()) {
+				if readXxx(id, id2i, v9, ns.Data1yyy()) {
 					goto continueX
 				}
 			}
@@ -1451,7 +1486,7 @@ func ServeInitialPackets(id Index, flags int) int {
 		} else {
 			if ns2 != nil && flags&2 == 0 {
 				data := ns.Data1yyy()[2:n]
-				ns.callFunc2(id2, data, ns2.data3)
+				ns.callFunc2(id2i, data, ns2.data3)
 			}
 		}
 	continueX:
@@ -1481,14 +1516,14 @@ func (nx *stream2) makeTimePacket() []byte {
 }
 
 func sendTime(ind2 int) (int, error) {
-	ns := streams[initIndex]
+	ns := streams[initIndex.i]
 	ns2 := &streams2[ind2]
 	buf := ns2.makeTimePacket()
 	return ns.WriteTo(buf, ns2.addr)
 }
 
 func sendCode20(ind2 int) (int, error) {
-	ns := streams[initIndex]
+	ns := streams[initIndex.i]
 	var buf [3]byte
 	buf[0] = 0
 	buf[1] = 0
@@ -1501,7 +1536,7 @@ func sendCode20(ind2 int) (int, error) {
 }
 
 func sendCode19(code byte, ind2 int) (int, error) {
-	ns := streams[initIndex]
+	ns := streams[initIndex.i]
 	var buf [4]byte
 	buf[0] = 0
 	buf[1] = 0
@@ -1562,7 +1597,7 @@ func ProcessStats(v105, v107 int) {
 var queueIter *queueItem
 
 func QueueFirst(ind Index) []byte {
-	ns := structByInd(ind)
+	ns := ind.get()
 	if ns == nil {
 		return nil
 	}
@@ -1578,7 +1613,7 @@ func QueueNext(ind Index) []byte {
 	if queueIter == nil {
 		return nil
 	}
-	ns := structByInd(ind)
+	ns := ind.get()
 	if ns == nil {
 		return nil
 	}
@@ -1591,10 +1626,7 @@ func WaitServerResponse(ind1 Index, a2 int, a3 int, flags int) int {
 	if Debug {
 		Log.Printf("nox_xxx_cliWaitServerResponse_5525B0: %d, %d, %d, %d\n", ind1, a2, a3, flags)
 	}
-	if ind1 >= maxStructs {
-		return -3
-	}
-	ns := structByInd(ind1)
+	ns := ind1.get()
 	if ns == nil {
 		return -3
 	}
@@ -1616,7 +1648,7 @@ func WaitServerResponse(ind1 Index, a2 int, a3 int, flags int) int {
 }
 
 func SendSelfRaw(ind Index, buf []byte) int {
-	return structByInd(ind).SendSelfRaw(buf)
+	return ind.get().SendSelfRaw(buf)
 }
 
 func (ns *stream) SendSelfRaw(buf []byte) int {

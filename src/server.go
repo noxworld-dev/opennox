@@ -464,7 +464,7 @@ func (s *Server) updateRemotePlayers() error {
 			legacy.Nox_xxx_netInformTextMsg2_4DA180(3, unsafe.Pointer(&m))
 			var buf [1]byte
 			buf[0] = byte(noxnet.MSG_TIMEOUT_NOTIFICATION)
-			netstr.Send(netstr.Index(pl.Index()+1), buf[:], netstr.SendNoLock|netstr.SendFlagFlush)
+			netstr.Send(netstr.Player(pl.Index()), buf[:], netstr.SendNoLock|netstr.SendFlagFlush)
 			pl.Disconnect(3)
 		}
 		if pl.Field3680&0x80 != 0 {
@@ -486,7 +486,7 @@ func (s *Server) updateRemotePlayers() error {
 		if pl.UnitC().SObj() == legacy.HostPlayerUnit() {
 			legacy.Nox_xxx_netImportant_4E5770(byte(pl.Index()), 1)
 		} else if legacy.Get_dword_5d4594_2650652() == 0 || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
-			netstr.SendReadPacket(netstr.Index(pl.Index()+1), 0)
+			netstr.SendReadPacket(netstr.Player(pl.Index()), 0)
 		}
 	}
 	return nil
@@ -721,7 +721,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	legacy.Sub_416920()
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		ind, nport, err := s.nox_xxx_netAddPlayerHandler_4DEBC0(s.ServerPort())
-		*memmap.PtrInt32(0x5D4594, 1548516) = int32(ind)
+		*memmap.PtrInt32(0x5D4594, 1548516) = int32(ind.Raw())
 		if err != nil {
 			return err
 		}
@@ -794,7 +794,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	s.FreeObjectTypes()
 	nox_xxx_free_42BF80()
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
-		s.nox_server_netCloseHandler_4DEC60(netstr.Index(memmap.Uint32(0x5D4594, 1548516)))
+		s.nox_server_netCloseHandler_4DEC60(netstr.IndexRaw(int(memmap.Uint32(0x5D4594, 1548516))))
 	}
 	legacy.Sub_56F3B0()
 	netlist.ResetAll()
