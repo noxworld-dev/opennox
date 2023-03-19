@@ -75,10 +75,10 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 		d := m.bandData(pl.Index())
 		var bps uint32
 		if pl.Index() == common.MaxPlayers-1 {
-			bps = m.TransferStats(0)
+			bps = m.TransferStats(netstr.First())
 			format = c.Strings().GetStringInFile("TransferStats", "client.c")
 		} else {
-			bps = m.TransferStats(netstr.Index(pl.Index() + 1))
+			bps = m.TransferStats(netstr.Player(pl.Index()))
 			format = c.Strings().GetStringInFile("TransferStats", "client.c")
 		}
 		c.r.DrawString(nil, fmt.Sprintf(format, bps, d.th, d.ri, d.rpu), image.Pt(70, y))
