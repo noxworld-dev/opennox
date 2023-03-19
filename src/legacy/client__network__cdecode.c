@@ -2364,14 +2364,14 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			v342 = *(uint8_t*)(data + 136);
 			v324 = *(uint32_t*)(data + 4);
 			v315 = *(uint8_t*)(data + 2);
-			v264 = nox_xxx_netGet_43C750();
+			v264 = netstrGetClientIndex_43C750();
 			sub_40B5D0(v264, v315, (const char*)(data + 8), v324, v342);
 			return 140;
 		case 1:
 			BYTE4(v5) = *(uint8_t*)(data + 3);
 			v343 = (char*)HIDWORD(v5);
 			v325 = *(uint8_t*)(data + 2);
-			v265 = nox_xxx_netGet_43C750();
+			v265 = netstrGetClientIndex_43C750();
 			sub_40BFF0(v265, v325, v343);
 			return 4;
 		case 2:
@@ -2379,24 +2379,24 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			v365[1] = 3;
 			v365[2] = *(uint8_t*)(data + 2);
 			*(uint16_t*)&v365[4] = *(uint16_t*)(data + 4);
-			v266 = nox_xxx_netGet_43C750();
+			v266 = netstrGetClientIndex_43C750();
 			nox_xxx_netSendSock_552640(v266, v365, 6, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
 			v344 = *(unsigned short*)(data + 6);
 			v319 = *(uint16_t*)(data + 4);
 			v316 = *(uint8_t*)(data + 2);
-			v267 = nox_xxx_netGet_43C750();
+			v267 = netstrGetClientIndex_43C750();
 			sub_40B250(v267, v316, v319, (const void*)(data + 8), v344);
 			HIDWORD(v5) = *(unsigned short*)(data + 6);
 			return WORD2(v5) + 8;
 		case 3:
 			v345 = *(unsigned short*)(data + 4);
 			v326 = *(uint8_t*)(data + 2);
-			v268 = nox_xxx_netGet_43C750();
+			v268 = netstrGetClientIndex_43C750();
 			sub_40BF60(v268, v326, v345);
 			return 6;
 		case 4:
 			v346 = *(uint8_t*)(data + 2);
-			v269 = nox_xxx_netGet_43C750();
+			v269 = netstrGetClientIndex_43C750();
 			sub_40C030(v269, v346);
 			return 3;
 		case 5:
@@ -2407,7 +2407,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			LOBYTE(v263) = *(uint8_t*)(data + 3);
 			v347 = *(uint8_t*)(data + 2);
 			v327 = v263;
-			v270 = nox_xxx_netGet_43C750();
+			v270 = netstrGetClientIndex_43C750();
 			sub_40C070(v270, v327, v347);
 			return 4;
 		default:
@@ -2594,7 +2594,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 		return 1;
 	case 0xC7u: // MSG_SERVER_QUIT
 		v359 = 0xC8u; // MSG_SERVER_QUIT_ACK
-		v33 = nox_xxx_netGet_43C750();
+		v33 = netstrGetClientIndex_43C750();
 		nox_xxx_netSendSock_552640(v33, &v359, 1, NOX_NET_SEND_FLAG2);
 		sub_446380();
 		return 1;

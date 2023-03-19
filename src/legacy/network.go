@@ -71,23 +71,24 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
 	NetworkLogPrint                   func(str string)
-	Nox_xxx_netGet_43C750             func() int
+	NetstrGetClientIndex              func() int
 	ClientSetServerHost               func(addr string)
 	Nox_client_joinGame_438A90        func() int
 	SendXXX_5550D0                    func(addr netip.AddrPort, data []byte) (int, error)
 	Sub_5545A0                        func() uint16
 	Sub_554230                        func() string
-	Nox_xxx_netSendSock_552640        func(id int, ptr *byte, sz int, flags int) int
+	Nox_xxx_netSendSock_552640        func(id netstr.Index, ptr *byte, sz int, flags int) int
 	Nox_xxx_netStatsMultiplier_4D9C20 func(a1p *server.Object) int
 	Sub_554240                        func(a1 int) int
-	Nox_xxx_netSendReadPacket_5528B0  func(ind int, a2 byte) int
-	Nox_xxx_net_getIP_554200          func(a1 int) uint32
+	Nox_xxx_netSendReadPacket_5528B0  func(ind netstr.Index, a2 byte) int
+	Nox_xxx_net_getIP_554200          func(a1 netstr.Index) uint32
 	Sub_519930                        func(a1 int) int
 	Nox_xxx_netOnPacketRecvCli_48EA70 func(ind int, buf *byte, sz int) int
 	Sub_43C6E0                        func() int
@@ -116,8 +117,8 @@ func nox_xxx_networkLog_print(cstr *C.char) {
 	NetworkLogPrint(GoString(cstr))
 }
 
-//export nox_xxx_netGet_43C750
-func nox_xxx_netGet_43C750() int { return Nox_xxx_netGet_43C750() }
+//export netstrGetClientIndex_43C750
+func netstrGetClientIndex_43C750() int { return NetstrGetClientIndex() }
 
 //export nox_client_setServerConnectAddr_435720
 func nox_client_setServerConnectAddr_435720(addr *C.char) {
@@ -142,7 +143,7 @@ func sub_554230() *C.char { return internCStr(Sub_554230()) }
 
 //export nox_xxx_netSendSock_552640
 func nox_xxx_netSendSock_552640(id int, ptr *byte, sz int, flags int) int {
-	return Nox_xxx_netSendSock_552640(id, ptr, sz, flags)
+	return Nox_xxx_netSendSock_552640(netstr.Index(id), ptr, sz, flags)
 }
 
 //export nox_xxx_netStatsMultiplier_4D9C20
@@ -155,11 +156,11 @@ func sub_554240(a1 int) int { return Sub_554240(a1) }
 
 //export nox_xxx_netSendReadPacket_5528B0
 func nox_xxx_netSendReadPacket_5528B0(ind int, a2 byte) int {
-	return Nox_xxx_netSendReadPacket_5528B0(ind, a2)
+	return Nox_xxx_netSendReadPacket_5528B0(netstr.Index(ind), a2)
 }
 
 //export nox_xxx_net_getIP_554200
-func nox_xxx_net_getIP_554200(a1 int) uint32 { return Nox_xxx_net_getIP_554200(a1) }
+func nox_xxx_net_getIP_554200(a1 int) uint32 { return Nox_xxx_net_getIP_554200(netstr.Index(a1)) }
 
 //export sub_519930
 func sub_519930(a1 int) int { return Sub_519930(a1) }

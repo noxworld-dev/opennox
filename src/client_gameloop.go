@@ -236,7 +236,7 @@ func (c *Client) generateMouseSparks() {
 func sub_43CCA0() {
 	legacy.Nox_xxx_spriteDeleteSomeList_49C4B0()
 	start := noxServer.Frame()
-	nox_xxx_servNetInitialPackets_552A80(int(nox_xxx_netGet_43C750()), 1)
+	netstr.ServeInitialPackets(netstrClientIndex, 1)
 	if start != noxServer.Frame() && legacy.Get_dword_5d4594_2650652() == 1 && !noxflags.HasGame(noxflags.GameHost) {
 		if v1 := legacy.Sub_40A710(1); sub_43C790() > v1 {
 			legacy.Sub_43CEB0()
@@ -253,12 +253,12 @@ func sub_43CCA0() {
 
 	if dt := platformTicks() - ticks815724; dt >= 2000 {
 		ticks815724 = platformTicks()
-		netstr.Sub552E70(int(nox_xxx_netGet_43C750()))
+		netstr.Sub552E70(netstrClientIndex)
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
 		legacy.Nox_xxx_netImportant_4E5770(0x1F, 0)
 	}
-	nox_xxx_netSendBySock_40EE10(int(nox_xxx_netGet_43C750()), common.MaxPlayers-1, netlist.Kind0)
+	nox_xxx_netSendBySock_40EE10(netstrClientIndex, common.MaxPlayers-1, netlist.Kind0)
 	netstr.MaybeSendAll()
 	if lastCliHandlePackets == 0 {
 		return
