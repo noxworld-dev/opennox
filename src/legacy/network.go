@@ -85,12 +85,12 @@ var (
 	Nox_xxx_netSendSock_552640        func(id netstr.Index, ptr *byte, sz int, flags int) int
 	Nox_xxx_netStatsMultiplier_4D9C20 func(a1p *server.Object) int
 	Sub_554240                        func(a1 int) int
-	Nox_xxx_netSendReadPacket_5528B0  func(ind netstr.Index, a2 byte) int
 	Nox_xxx_net_getIP_554200          func(a1 netstr.Index) uint32
 	Nox_xxx_netOnPacketRecvCli_48EA70 func(ind ntype.PlayerInd, buf *byte, sz int) int
 	Sub_43C6E0                        func() int
 	Sub_43CF40                        func()
 	Sub_43CF70                        func()
+	Sub_40BA90                        func(ind netstr.Index, a2 byte, a3 int16, data []byte) int
 )
 
 func int2ip(v uint32) netip.Addr {
@@ -151,11 +151,6 @@ func nox_xxx_netStatsMultiplier_4D9C20(a1p *nox_object_t) int {
 //export sub_554240
 func sub_554240(a1 int) int { return Sub_554240(a1) }
 
-//export nox_xxx_netSendReadPacket_5528B0
-func nox_xxx_netSendReadPacket_5528B0(ind int, a2 byte) int {
-	return Nox_xxx_netSendReadPacket_5528B0(netstr.Global.IndexRaw(ind), a2)
-}
-
 //export nox_xxx_net_getIP_554200
 func nox_xxx_net_getIP_554200(a1 int) uint32 {
 	return Nox_xxx_net_getIP_554200(netstr.Global.IndexRaw(a1))
@@ -174,6 +169,11 @@ func sub_43CF40() { Sub_43CF40() }
 
 //export sub_43CF70
 func sub_43CF70() { Sub_43CF70() }
+
+//export sub_40BA90
+func sub_40BA90(ind int, a2 byte, a3 int16, sz uint16, data unsafe.Pointer) int {
+	return Sub_40BA90(netstr.Global.IndexRaw(ind), a2, a3, unsafe.Slice((*byte)(data), sz))
+}
 
 func ClientGetServerPort() int {
 	return int(C.nox_client_getServerPort_43B320())
