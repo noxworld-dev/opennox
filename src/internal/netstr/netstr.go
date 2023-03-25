@@ -301,8 +301,6 @@ func (g *Streams) NewClient(narg *Options) (Handle, error) {
 	return ind, nil
 }
 
-var optionsBuffer [1024]byte
-
 func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarshaler) error {
 	if h.g.Debug {
 		Log.Println("NET_CONNECT", h, host, port)
@@ -376,21 +374,18 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 
 	ns = h.get()
 	if h.g.Flag1 && ns.ID().Valid() {
-		vs := optionsBuffer[:]
-		copy(vs, make([]byte, len(vs)))
 		data, err := opts.MarshalBinary()
 		if err != nil {
 			return err
 		}
-		vs = vs[:3+len(data)]
-
-		vs[0] = byte(noxnet.MSG_ACCEPTED)
-		vs[1] = ns.Data2hdr()[1]
-		vs[2] = 32
+		buf := make([]byte, 3+len(data))
+		buf[0] = byte(noxnet.MSG_ACCEPTED)
+		buf[1] = ns.Data2hdr()[1]
+		buf[2] = 32
 		if len(data) > 0 {
-			copy(vs[3:], data[:153])
+			copy(buf[3:], data[:153])
 		}
-		_, _ = h.Send(vs, SendNoLock|SendFlagFlush)
+		_, _ = h.Send(buf, SendNoLock|SendFlagFlush)
 	}
 
 	if !ns.ID().Valid() {
