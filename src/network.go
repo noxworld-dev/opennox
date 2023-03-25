@@ -249,14 +249,14 @@ func (c *Client) clientSendInputMouse(pli ntype.PlayerInd, mp image.Point) bool 
 	return netlist.AddToMsgListCli(pli, netlist.Kind0, buf[:5])
 }
 
-func (s *Server) nox_xxx_netAddPlayerHandler_4DEBC0(port int) (ind netstr.Handle, cport int, _ error) {
+func (s *Server) initConn(port int) (conn netstr.Handle, cport int, _ error) {
 	narg := &netstr.Options{
 		Port:     port,
 		Max:      s.getServerMaxPlayers(),
 		DataSize: 2048,
-		Func2: func(ind netstr.Handle, buf []byte, _ unsafe.Pointer) int {
+		Func2: func(conn netstr.Handle, buf []byte, _ unsafe.Pointer) int {
 			// should pass the pointer unchanged, otherwise expect bugs!
-			s.onPacketRaw(ind.Player(), buf)
+			s.onPacketRaw(conn.Player(), buf)
 			return 1
 		},
 		Func1:   nox_xxx_netFn_UpdateStream_4DF630,
@@ -264,29 +264,29 @@ func (s *Server) nox_xxx_netAddPlayerHandler_4DEBC0(port int) (ind netstr.Handle
 		Check17: nox_xxx_netBigSwitch_553210_op_17_check,
 	}
 	nox_xxx_allocNetGQueue_5520B0()
-	ind, err := nox_xxx_netInit_554380(narg)
+	conn, err := netInitServer(narg)
 	if err != nil {
-		return ind, 0, err
+		return conn, 0, err
 	}
-	return ind, narg.Port, err
+	return conn, narg.Port, err
 }
 
-var netSomePort uint16
+var netServerPort uint16
 
-func sub_5545A0() uint16 {
-	return netSomePort
+func getServerPort() uint16 {
+	return netServerPort
 }
 
-func sub_554230() string {
+func getOwnIP() string {
 	return ownIPStr
 }
 
-func nox_xxx_netInit_554380(narg *netstr.Options) (ind netstr.Handle, _ error) {
+func netInitServer(narg *netstr.Options) (ind netstr.Handle, _ error) {
 	ownIPStr = ""
-	v2, err := netstr.Global.InitNew(narg)
-	netSomePort = uint16(narg.Port)
+	conn, err := netstr.Global.NewServer(narg)
+	netServerPort = uint16(narg.Port)
 	if err != nil {
-		return v2, err
+		return conn, err
 	}
 	if ip, err := nat.ExternalIP(context.Background()); err == nil {
 		ownIP, _ = netip.AddrFromSlice(ip.To4())
@@ -296,7 +296,7 @@ func nox_xxx_netInit_554380(narg *netstr.Options) (ind netstr.Handle, _ error) {
 		ownIP, _ = netip.AddrFromSlice(ip.To4())
 		ownIPStr = ip.String()
 	}
-	return v2, nil
+	return conn, nil
 }
 
 func (s *Server) nox_server_netClose_5546A0(i netstr.Handle) {
@@ -748,8 +748,9 @@ func sub_43CC80() {
 }
 
 func sub_5521A0() bool {
+	s := noxServer
 	v13 := sub_416640()
-	netstr.Global.ProcessStats(int(*(*int16)(unsafe.Pointer(&v13[105]))), int(*(*int16)(unsafe.Pointer(&v13[107]))))
+	s.serverConn.ProcessStats(int(*(*int16)(unsafe.Pointer(&v13[105]))), int(*(*int16)(unsafe.Pointer(&v13[107]))))
 	return true
 }
 

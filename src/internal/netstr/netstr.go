@@ -51,7 +51,6 @@ type Streams struct {
 	ticks1         uint64
 	ticks2         uint64
 	cntX           int
-	initIndex      Handle
 	streams        [maxStructs]*stream
 	streams2       [maxStructs]stream2
 	timing         [maxStructs]timingStruct
@@ -685,24 +684,20 @@ func (ns *stream) setActiveInQueue(hdrByte byte, checkHdr bool) int {
 	return 0
 }
 
-func (g *Streams) GetInitInd() Handle {
-	return g.initIndex
-}
-
-func (g *Streams) InitNew(narg *Options) (Handle, error) {
+func (g *Streams) NewServer(narg *Options) (Handle, error) {
 	if narg == nil {
 		return Handle{nil, -2}, errors.New("empty options")
 	}
 	if narg.Max > maxStructs {
 		return Handle{nil, -2}, errors.New("max limit reached")
 	}
-	ind, ok := g.getFreeNetStructInd()
+	h, ok := g.getFreeNetStructInd()
 	if !ok {
 		return Handle{nil, -8}, errors.New("no more slots for net structs")
 	}
 	ns := g.newStruct(narg)
-	g.streams[ind.i] = ns
-	ns.Data2hdr()[0] = byte(ind.i)
+	g.streams[h.i] = ns
+	ns.Data2hdr()[0] = byte(h.i)
 	ns.id = Handle{g, -1}
 
 	if narg.Port < 1024 || narg.Port > 0x10000 {
@@ -719,8 +714,7 @@ func (g *Streams) InitNew(narg *Options) (Handle, error) {
 		}
 		narg.Port++
 	}
-	g.initIndex = ind
-	return ind, nil
+	return h, nil
 }
 
 func (h Handle) SendReadPacket(flags byte) int {
@@ -1526,52 +1520,52 @@ func (nx *stream2) makeTimePacket() []byte {
 	return buf[:]
 }
 
-func (g *Streams) sendTime(ind2 int) (int, error) {
-	ns := g.streams[g.initIndex.i]
-	ns2 := &g.streams2[ind2]
+func (h Handle) sendTime(ind2 int) (int, error) {
+	ns := h.get()
+	ns2 := &h.g.streams2[ind2]
 	buf := ns2.makeTimePacket()
 	return ns.WriteTo(buf, ns2.addr)
 }
 
-func (g *Streams) sendCode20(ind2 int) (int, error) {
-	ns := g.streams[g.initIndex.i]
+func (h Handle) sendCode20(ind2 int) (int, error) {
+	ns := h.get()
 	var buf [3]byte
 	buf[0] = 0
 	buf[1] = 0
 	buf[2] = 20
 
-	nx := &g.streams2[ind2]
+	nx := &h.g.streams2[ind2]
 	nx.active = false
 
 	return ns.WriteTo(buf[:3], nx.addr)
 }
 
-func (g *Streams) sendCode19(code byte, ind2 int) (int, error) {
-	ns := g.streams[g.initIndex.i]
+func (h Handle) sendCode19(code byte, ind2 int) (int, error) {
+	ns := h.get()
 	var buf [4]byte
 	buf[0] = 0
 	buf[1] = 0
 	buf[2] = 19
 	buf[3] = code
 
-	nx := &g.streams2[ind2]
+	nx := &h.g.streams2[ind2]
 	nx.active = false
 
 	return ns.WriteTo(buf[:4], nx.addr)
 }
 
-func (g *Streams) ProcessStats(v105, v107 int) {
+func (h Handle) ProcessStats(v105, v107 int) {
 	start := platformTicks()
-	for i := range g.streams2 {
-		nx := &g.streams2[i]
+	for i := range h.g.streams2 {
+		nx := &h.g.streams2[i]
 		if !nx.active {
 			continue
 		}
 		v2 := nx.cur
 		if int(v2) >= len(nx.arr) {
-			if int(nx.lost) > g.MaxPacketLoss {
-				_, _ = g.sendCode19(1, i)
-				_, _ = g.sendCode20(i)
+			if int(nx.lost) > h.g.MaxPacketLoss {
+				_, _ = h.sendCode19(1, i)
+				_, _ = h.sendCode20(i)
 				continue
 			}
 			cnt := 0
@@ -1584,21 +1578,21 @@ func (g *Streams) ProcessStats(v105, v107 int) {
 			}
 			avg := sum / cnt
 			if v105 != -1 && avg < v105 {
-				_, _ = g.sendCode19(0, i)
+				_, _ = h.sendCode19(0, i)
 			}
 			if v107 != -1 && avg > v107 {
-				_, _ = g.sendCode19(1, i)
+				_, _ = h.sendCode19(1, i)
 			}
-			_, _ = g.sendCode20(i)
+			_, _ = h.sendCode20(i)
 		} else {
 			if start-nx.ticks > 2000 {
-				g.streams2[i].arr[v2] = -1
+				h.g.streams2[i].arr[v2] = -1
 				nx.lost++
-				if int(nx.lost) <= g.MaxPacketLoss {
+				if int(nx.lost) <= h.g.MaxPacketLoss {
 					nx.cur++
-					_, _ = g.sendTime(i)
+					_, _ = h.sendTime(i)
 				} else {
-					_, _ = g.sendCode19(1, i)
+					_, _ = h.sendCode19(1, i)
 				}
 			}
 		}
