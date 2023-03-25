@@ -21,7 +21,6 @@ const (
 )
 
 var (
-	Buffer      []byte
 	buffersList [3][]buffer
 	messageList [3][common.MaxPlayers]*MsgList
 )
@@ -32,7 +31,6 @@ type buffer struct {
 }
 
 func init() {
-	Buffer, _ = alloc.Make([]byte{}, bufSize)
 	buffersList[0], _ = alloc.Make([]buffer{}, common.MaxPlayers)
 	buffersList[1], _ = alloc.Make([]buffer{}, common.MaxPlayers)
 	buffersList[2], _ = alloc.Make([]buffer{}, common.MaxPlayers)
@@ -196,8 +194,7 @@ func HandlePacketsA(ind ntype.PlayerInd, kind Kind, fnc func(data []byte)) {
 func CopyPacketsB(ind ntype.PlayerInd) []byte {
 	l := ByInd(ind, Kind2)
 	cnt := 0
-	sbuf := Buffer
-	copy(sbuf, make([]byte, len(sbuf)))
+	sbuf := make([]byte, bufSize)
 	for {
 		src := l.Get()
 		if len(src) == 0 {
