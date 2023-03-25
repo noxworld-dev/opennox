@@ -1080,6 +1080,81 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			return 2
 		}
 		return -1
+	case noxnet.MSG_XFER_MSG:
+		if len(data) < 2 {
+			return -1
+		}
+		typ := data[1]
+		switch typ {
+		case 0:
+			if len(data) < 140 {
+				return -1
+			}
+			a2 := data[2]
+			sz := binary.LittleEndian.Uint32(data[4:])
+			styp := alloc.GoStringS(data[8:136])
+			a4 := data[136]
+			sub_40B5D0(netstrGetClientIndex(), a2, styp, sz, a4)
+			return 140
+		case 1:
+			if len(data) < 4 {
+				return -1
+			}
+			a2 := data[2]
+			a3 := data[3]
+			sub_40BFF0(netstrGetClientIndex(), a2, a3)
+			return 4
+		case 2:
+			if len(data) < 8 {
+				return -1
+			}
+			a2 := data[2]
+			a3 := binary.LittleEndian.Uint16(data[4:])
+			sz := int(binary.LittleEndian.Uint16(data[6:]))
+			if len(data) < 8+sz {
+				return -1
+			}
+			var buf [6]byte
+			buf[0] = byte(noxnet.MSG_XFER_MSG)
+			buf[1] = 3
+			buf[2] = a2
+			binary.LittleEndian.PutUint16(buf[4:], a3)
+			netstr.Global.Send(netstrGetClientIndex(), buf[:6], netstr.SendNoLock|netstr.SendFlagFlush)
+			sub_40B250(netstrGetClientIndex(), a2, a3, data[8:8+sz])
+			return 8 + sz
+		case 3:
+			if len(data) < 6 {
+				return -1
+			}
+			a2 := data[2]
+			a3 := binary.LittleEndian.Uint16(data[4:])
+			sub_40BF60(netstrGetClientIndex(), a2, a3)
+			return 6
+		case 4:
+			if len(data) < 3 {
+				return -1
+			}
+			a2 := data[2]
+			sub_40C030(netstrGetClientIndex(), a2)
+			return 3
+		case 5:
+			if len(data) < 4 {
+				return -1
+			}
+			a2 := data[2]
+			a3 := data[3]
+			sub_40B720(a3, a2)
+			return 4
+		case 6:
+			if len(data) < 4 {
+				return -1
+			}
+			a2 := data[2]
+			a3 := data[3]
+			sub_40C070(netstrGetClientIndex(), a3, a2)
+			return 4
+		}
+		return -1
 	}
 	return legacy.Nox_xxx_netOnPacketRecvCli_48EA70_switch(ind, op, data)
 }
