@@ -58,6 +58,7 @@ type Streams struct {
 	transfer       [maxStructs]uint32
 	allocQueue     alloc.ClassT[queueItem]
 	playerIDs      map[Index]struct{}
+	sendXorBuf     [4096]byte // TODO: remove this buffer?
 	GameFrame      func() uint32
 	GetMaxPlayers  func() int
 	OnDiscover     func(src, dst []byte) int
@@ -1667,8 +1668,6 @@ func (ns *stream) WriteToRaw(buf []byte, addr netip.AddrPort) (int, error) {
 	return WriteTo(ns.pc, buf, addr)
 }
 
-var sendXorBuf [4096]byte // TODO: remove this global buffer
-
 func (ns *stream) WriteTo(buf []byte, addr netip.AddrPort) (int, error) {
 	if ns == nil || len(buf) == 0 {
 		return 0, nil
@@ -1677,7 +1676,7 @@ func (ns *stream) WriteTo(buf []byte, addr netip.AddrPort) (int, error) {
 	if ns2 == nil || ns2.xorKey == 0 {
 		return ns.WriteToRaw(buf, addr)
 	}
-	dst := sendXorBuf[:len(buf)]
+	dst := ns.g.sendXorBuf[:len(buf)]
 	ns.g.netCryptDst(ns2.xorKey, buf, dst)
 	return ns.WriteToRaw(dst, ns2.addr)
 }
