@@ -36,7 +36,6 @@ package legacy
 #include "server__network__playback.h"
 #include "client__drawable__drawable.h"
 #include "client__gui__guimeter.h"
-#include "server__network__mapsend.h"
 
 int sub_4EDD70();
 void sub_426060();
@@ -423,9 +422,6 @@ func Nox_xxx_cliPrepareGameplay2_4721D0() {
 func Sub_4951C0() {
 	C.sub_4951C0()
 }
-func Nox_xxx_netMapSendStop_519870() {
-	C.nox_xxx_netMapSendStop_519870()
-}
 func Nox_xxx_netGameSettings_4DEF00() {
 	C.nox_xxx_netGameSettings_4DEF00()
 }
@@ -548,9 +544,6 @@ func Sub_40A250() {
 }
 func Sub_4D2230() {
 	C.sub_4D2230()
-}
-func Nox_xxx_netMapSendPrepair_519EB0_net_mapsend() {
-	C.nox_xxx_netMapSendPrepair_519EB0_net_mapsend()
 }
 func Sub_50AFA0() {
 	C.sub_50AFA0()

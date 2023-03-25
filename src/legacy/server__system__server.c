@@ -33,7 +33,6 @@
 #include "common__system__settings.h"
 #include "input_common.h"
 #include "operators.h"
-#include "server__network__mapsend.h"
 #include "server__network__playback.h"
 
 extern uint32_t nox_xxx_respawnAllow_587000_205200;
@@ -47,7 +46,6 @@ extern uint32_t dword_5d4594_608316;
 extern uint32_t dword_5d4594_2386160;
 extern uint32_t dword_5d4594_1569756;
 extern uint32_t dword_5d4594_1568024;
-extern uint32_t dword_5d4594_2388648;
 extern uint32_t dword_5d4594_1548476;
 extern uint32_t dword_5d4594_1599656;
 
@@ -1000,31 +998,6 @@ unsigned int sub_50D890() {
 		result = sub_50D960();
 	}
 	return result;
-}
-
-//----- (00519990) --------------------------------------------------------
-void nox_xxx_serverLoopSendMap_519990() {
-	int v0;            // edi
-	unsigned char* v1; // esi
-
-	if (dword_5d4594_2388648) {
-		if (!*getMemU32Ptr(0x5D4594, 2388644)) {
-			nox_xxx_netMapSendPrepair_519EB0_net_mapsend();
-		}
-		v0 = 0;
-		v1 = getMemAt(0x5D4594, 2387148 + 32);
-		do {
-			if (*((uint16_t*)v1 - 15) == 1) {
-				if (sub_519930(v0 + 1) > *(v1 - 4)) {
-					++*(uint32_t*)v1;
-				} else {
-					nox_xxx_netSendMap_5199F0_net_mapsend(v1 - 32);
-				}
-			}
-			v1 += 48;
-			++v0;
-		} while ((int)v1 < (int)getMemAt(0x5D4594, 2387148 + 48*31 + 32));
-	}
 }
 
 //----- (0051A1F0) --------------------------------------------------------

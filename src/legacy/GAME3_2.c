@@ -1514,6 +1514,7 @@ int nox_xxx_scavengerTreasureMax_4D1600() { return *getMemU32Ptr(0x5D4594, 15485
 void sub_4D1610() { *getMemU32Ptr(0x5D4594, 1548528) = 0; }
 
 //----- (004D23C0) --------------------------------------------------------
+void sub_51A100();
 int nox_xxx_servResetPlayers_4D23C0() {
 	char* i; // esi
 	int v2;  // [esp-Ch] [ebp-14h]
@@ -6121,7 +6122,7 @@ int nox_xxx_servMinimapRevealFlag_4DE380(int a1) {
 }
 
 //----- (004DE410) --------------------------------------------------------
-uint32_t* sub_4DE410(int a1) {
+void sub_4DE410(int a1) {
 	int v1;           // ebp
 	int v2;           // edi
 	uint32_t* result; // eax
@@ -6156,7 +6157,6 @@ uint32_t* sub_4DE410(int a1) {
 		}
 		result = (uint32_t*)nox_server_getNextObject_4DA7A0((int)i);
 	}
-	return result;
 }
 
 //----- (004DE4D0) --------------------------------------------------------

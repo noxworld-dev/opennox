@@ -71,6 +71,7 @@ func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 	s.abilities.Init(s)
 	s.ai.Init(s)
 	s.noxScript.Init(s)
+	s.mapSend.init(s)
 	return s
 }
 
@@ -85,6 +86,7 @@ type Server struct {
 	ai              aiData
 	quest           questServer
 	springs         serverSprings
+	mapSend         serverMapSend
 	mapSwitchWPName string
 	announce        bool
 
@@ -338,7 +340,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 		return false
 	}
 	if s.Frame()%2 == 0 {
-		legacy.Nox_xxx_serverLoopSendMap_519990()
+		s.mapSend.Update()
 	}
 	legacy.Sub_40B970()
 	legacy.Sub_40B790()
@@ -974,8 +976,8 @@ func (s *Server) SwitchMap(fname string) {
 	} else {
 		s.mapSwitchWPName = ""
 	}
-	if legacy.Sub_51A130() != 0 {
-		legacy.Nox_xxx_mapSendCancelAll_5198B0(0)
+	if s.mapSend.activeCnt != 0 {
+		s.mapSend.AbortAll(0)
 	}
 	mname = strings.ToLower(mname)
 	s.nox_xxx_gameSetMapPath_409D70(mname)
