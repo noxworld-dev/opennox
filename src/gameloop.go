@@ -441,13 +441,13 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	dword_5d4594_815704 = false
 	dword_5d4594_815708 = false
 	nox_xxx_allocNetGQueue_5520B0()
-	ind, err := netstr.NewClient(narg)
+	ind, err := netstr.Global.NewClient(narg)
 	if err != nil {
 		return err
 	}
 	netstrClientIndex = ind
 
-	if err := netstr.Dial(netstrClientIndex, host, port, clientGetClientPort(), opts); err != nil {
+	if err := netstr.Global.Dial(netstrClientIndex, host, port, clientGetClientPort(), opts); err != nil {
 		return err
 	}
 
@@ -458,7 +458,7 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 	legacy.Nox_xxx_set3512_40A340(0)
 	nox_xxx_setMapCRC_40A360(0)
 
-	if err := netstr.DialWait(netstrClientIndex, 10*time.Second, func() {
+	if err := netstr.Global.DialWait(netstrClientIndex, 10*time.Second, func() {
 		nox_xxx_netSendBySock_40EE10(netstrClientIndex, common.MaxPlayers-1, netlist.Kind0)
 	}, func() bool {
 		return nox_xxx_getMapCRC_40A370() != 0
