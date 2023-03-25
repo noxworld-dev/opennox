@@ -28,6 +28,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/cnxz"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -40,6 +41,7 @@ var (
 	mapLog                            = log.New("map")
 	Nox_common_checkMapFile           func(name string) error
 	Nox_xxx_mapWriteSectionsMB_426E20 func(a1 unsafe.Pointer) int
+	Sub_51A100                        func()
 )
 
 //export nox_common_checkMapFile_4CFE10
@@ -78,6 +80,11 @@ func nox_xxx_mapReset_5028E0() {
 //export nox_xxx_free_503F40
 func nox_xxx_free_503F40() {
 	GetServer().Nox_xxx_free503F40()
+}
+
+//export sub_51A100
+func sub_51A100() {
+	Sub_51A100()
 }
 
 func Nox_server_mapRWMapInfo_42A6E0(_ *cryptfile.CryptFile, a1 unsafe.Pointer) error {
@@ -234,4 +241,8 @@ func Nox_xxx_tileFreeTileOne_4221E0(p unsafe.Pointer) {
 
 func Get_nox_client_mapSpecialRWObjectData_4AC610() unsafe.Pointer {
 	return C.nox_client_mapSpecialRWObjectData_4AC610
+}
+
+func Sub_4DE410(pli ntype.PlayerInd) {
+	C.sub_4DE410(C.int(pli))
 }

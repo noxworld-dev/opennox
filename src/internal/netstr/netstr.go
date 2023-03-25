@@ -1614,14 +1614,26 @@ func (g *Streams) ProcessStats(v105, v107 int) {
 	}
 }
 
-func (v Index) QueueEach(fnc func(it []byte)) {
+func (v Index) CountInQueue(ops ...noxnet.Op) int {
 	ns := v.get()
 	if ns == nil {
-		return
+		return 0
 	}
+	cnt := 0
 	for it := ns.queue; it != nil; it = it.next {
-		fnc(it.data[2:it.size])
+		op := noxnet.Op(it.data[2])
+		if len(ops) == 0 {
+			cnt++
+			continue
+		}
+		for _, op2 := range ops {
+			if op == op2 {
+				cnt++
+				break
+			}
+		}
 	}
+	return cnt
 }
 
 func (g *Streams) WaitServerResponse(ind1 Index, a2 int, a3 int, flags int) int {
