@@ -777,12 +777,11 @@ func sub_519930(a1 int) int {
 	v2 := int(memmap.Uint32(0x5D4594, 2387148+48*uintptr(a1)))
 	if v2 != 0 {
 		if a1 < 32 {
-			v2i := netstr.Global.IndexRaw(v2)
-			for it := netstr.QueueFirst(v2i); it != nil; it = netstr.QueueNext(v2i) {
+			netstr.Global.IndexRaw(v2).QueueEach(func(it []byte) {
 				if op := noxnet.Op(it[0]); op == noxnet.MSG_MAP_SEND_START || op == noxnet.MSG_MAP_SEND_PACKET {
 					cnt++
 				}
-			}
+			})
 		}
 	}
 	return cnt
