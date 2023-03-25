@@ -94,6 +94,8 @@ type Server struct {
 	dword_5d4594_2386928 float32
 	dword_5d4594_2386948 *Waypoint
 	dword_5d4594_2386960 uint32
+
+	streamXxx netstr.Index
 }
 
 func (s *Server) S() *server.Server {
@@ -722,7 +724,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	legacy.Sub_416920()
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		ind, nport, err := s.nox_xxx_netAddPlayerHandler_4DEBC0(s.ServerPort())
-		*memmap.PtrInt32(0x5D4594, 1548516) = int32(ind.Raw())
+		s.streamXxx = ind
 		if err != nil {
 			return err
 		}
@@ -795,7 +797,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	s.FreeObjectTypes()
 	nox_xxx_free_42BF80()
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
-		s.nox_server_netCloseHandler_4DEC60(netstr.Global.IndexRaw(int(memmap.Uint32(0x5D4594, 1548516))))
+		s.nox_server_netCloseHandler_4DEC60(s.streamXxx)
 	}
 	legacy.Sub_56F3B0()
 	netlist.ResetAll()
