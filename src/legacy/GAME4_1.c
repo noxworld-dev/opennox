@@ -5993,7 +5993,7 @@ int nox_xxx_netMapSendStop_519870() {
 		result = nox_xxx_netMapSendClear_519830((int)v1, v0);
 		v1 += 48;
 		++v0;
-	} while ((int)v1 < (int)getMemAt(0x5D4594, 2388636));
+	} while ((int)v1 < (int)getMemAt(0x5D4594, 2387148 + 48*31));
 	return result;
 }
 
@@ -6003,7 +6003,7 @@ void nox_xxx_mapSendCancelAll_5198B0(unsigned char a1) {
 	unsigned char* v2; // esi
 
 	v1 = 0;
-	v2 = getMemAt(0x5D4594, 2387150);
+	v2 = getMemAt(0x5D4594, 2387148 + 2);
 	do {
 		if (*(uint16_t*)v2 == 1) {
 			*(uint16_t*)v2 = 0;
@@ -6019,14 +6019,14 @@ void nox_xxx_mapSendCancelAll_5198B0(unsigned char a1) {
 		}
 		v2 += 48;
 		++v1;
-	} while ((int)v2 < (int)getMemAt(0x5D4594, 2388638));
+	} while ((int)v2 < (int)getMemAt(0x5D4594, 2387148 + 48*31 + 2));
 }
 // 519920: using guessed type void  nullsub_27(uint32_t);
 
 //----- (00519E80) --------------------------------------------------------
 void sub_519E80(int a1) {
 	nox_common_playerInfoFromNum_417090(a1);
-	sub_4DE410(getMemByte(0x5D4594, 2387148 + 48 * a1));
+	sub_4DE410(getMemByte(0x5D4594, 2387148 + 48*a1));
 }
 
 //----- (0051A100) --------------------------------------------------------
