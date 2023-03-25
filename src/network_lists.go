@@ -9,6 +9,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy"
@@ -19,19 +20,19 @@ func nox_xxx_rateGet_40A6C0() int {
 	return int(memmap.Uint32(0x587000, 4728))
 }
 
-func nox_netlist_addToMsgListSrv(ind int, buf []byte) bool {
+func nox_netlist_addToMsgListSrv(ind ntype.PlayerInd, buf []byte) bool {
 	s := noxServer
-	return netlist.AddToMsgListSrv(ind, buf, func(ind int) {
+	return netlist.AddToMsgListSrv(ind, buf, func(ind ntype.PlayerInd) {
 		// Flush old data to network.
 		if ind == common.MaxPlayers-1 {
 			noxClient.nox_netlist_receiveCli_494E90(ind)
 		} else {
-			netstr.SendReadPacket(netstr.Player(s.GetPlayerByInd(ind).Index()), 0)
+			netstr.SendReadPacket(netstr.Player(s.GetPlayerByInd(ind)), 0)
 		}
 	})
 }
 
-func (c *Client) nox_netlist_receiveCli_494E90(ind int) int {
+func (c *Client) nox_netlist_receiveCli_494E90(ind ntype.PlayerInd) int {
 	res := 0
 
 	if buf1 := netlist.CopyPacketsB(ind); len(buf1) != 0 {
@@ -47,7 +48,7 @@ func (c *Client) nox_netlist_receiveCli_494E90(ind int) int {
 	return res
 }
 
-func sub_4DF8F0(ind int, p1 []byte) int {
+func sub_4DF8F0(ind ntype.PlayerInd, p1 []byte) int {
 	if netlist.ByInd(ind, netlist.Kind2).Count() == 0 {
 		return 0
 	}
@@ -81,7 +82,7 @@ func sub_4DF8F0(ind int, p1 []byte) int {
 	return off + v8
 }
 
-func sub_4DF5E0(ind, max int) []byte {
+func sub_4DF5E0(ind ntype.PlayerInd, max int) []byte {
 	k1a := netPlayerK1
 	k2a := netPlayerK2
 	var found []byte

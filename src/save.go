@@ -16,6 +16,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -346,7 +347,7 @@ func sub_4DCE00() {
 	}
 }
 
-func nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2 int, act int, a4 unsafe.Pointer, cbuf unsafe.Pointer, sz int) {
+func nox_xxx_soloGameEscMenuCallback_40AF90(ind ntype.PlayerInd, a2 int, act int, a4 unsafe.Pointer, cbuf unsafe.Pointer, sz int) {
 	switch act {
 	case 1:
 		legacy.Sub_446520(1, cbuf, sz)
@@ -522,7 +523,7 @@ func sub_4DCFB0(a1p *server.Object) {
 			nox_xxx_player_4D7960(pl.Index())
 		}
 	} else {
-		noxServer.GetPlayerByInd(pl.Index()).Disconnect(4)
+		noxServer.GetPlayerByInd(pl.PlayerIndex()).Disconnect(4)
 	}
 }
 
@@ -565,7 +566,7 @@ func sub_4DD0B0(a1p *server.Object) {
 	}
 	pl := u.ControllingPlayer()
 	if nox_xxx_player_4D7980(pl.Index()) {
-		noxServer.GetPlayerByInd(pl.Index()).Disconnect(4)
+		noxServer.GetPlayerByInd(pl.PlayerIndex()).Disconnect(4)
 	} else {
 		sub_419EB0(pl.Index(), 0)
 		nox_xxx_sendGauntlet_4DCF80(pl.Index(), 0)

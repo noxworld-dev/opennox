@@ -17,6 +17,7 @@ import "C"
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -34,7 +35,7 @@ var (
 	Nox_xxx_serverIsClosing_446180         func() int
 	Sub_419EB0                             func(i, val int)
 	Sub_4DCC10                             func(a1p *server.Object) int
-	Nox_xxx_soloGameEscMenuCallback_40AF90 func(ind, a2 int, act int, a4 unsafe.Pointer, cbuf unsafe.Pointer, sz int)
+	Nox_xxx_soloGameEscMenuCallback_40AF90 func(ind ntype.PlayerInd, a2 int, act int, a4 unsafe.Pointer, cbuf unsafe.Pointer, sz int)
 	Sub_4DCFB0                             func(a1p *server.Object)
 	Sub_4DD0B0                             func(a1p *server.Object)
 )
@@ -86,7 +87,7 @@ func sub_4DCC10(a1p *nox_object_t) int { return Sub_4DCC10(asObjectS(a1p)) }
 
 //export nox_xxx_soloGameEscMenuCallback_40AF90
 func nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2 int, act int, a4 unsafe.Pointer, cbuf unsafe.Pointer, sz int) {
-	Nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2, act, a4, cbuf, sz)
+	Nox_xxx_soloGameEscMenuCallback_40AF90(ntype.PlayerInd(ind), a2, act, a4, cbuf, sz)
 }
 
 //export sub_4DCFB0

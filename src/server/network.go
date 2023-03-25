@@ -8,10 +8,11 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/player"
 
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 )
 
-func (s *Server) OnPacketOpSub(pli int, op noxnet.Op, data []byte, pl *Player, u *Object) (int, bool, error) {
+func (s *Server) OnPacketOpSub(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *Player, u *Object) (int, bool, error) {
 	switch op {
 	case noxnet.MSG_KEEP_ALIVE:
 		return 1, true, nil
@@ -38,7 +39,7 @@ func (s *Server) OnPacketOpSub(pli int, op noxnet.Op, data []byte, pl *Player, u
 		var buf [5]byte
 		buf[0] = byte(noxnet.MSG_IMPORTANT_ACK)
 		binary.LittleEndian.PutUint32(buf[1:], id)
-		netlist.AddToMsgListCli(pl.Index(), netlist.Kind1, buf[:5])
+		netlist.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:5])
 		return 5, true, nil
 	}
 	return 0, false, nil

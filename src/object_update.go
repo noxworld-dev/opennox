@@ -143,7 +143,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 			} else {
 				s.AudioEventObj(sound.SoundHumanMaleExertionHeavy, u, 0, 0)
 			}
-			nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 13, 3)
+			nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 13, 3)
 			return a1, v68, true
 		}
 		v68 = true
@@ -574,7 +574,7 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 				} else {
 					s.AudioEventObj(sound.SoundHumanMaleExertionHeavy, u, 0, 0)
 				}
-				nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 13, 3)
+				nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 13, 3)
 			} else if legacy.Nox_xxx_playerSubStamina_4F7D30(u.SObj(), 90) != 0 {
 				if u.HasEnchant(server.ENCHANT_CONFUSED) {
 					u.Direction2 = legacy.Nox_xxx_playerConfusedGetDirection_4F7A40(u.SObj())
@@ -1032,7 +1032,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *server.Object) {
 			}
 		}
 		if legacy.Get_dword_5d4594_2650652() != 0 && noxflags.HasGame(noxflags.GameFlag15|noxflags.GameFlag16) && legacy.Sub_509CF0(&pl.Field2096Buf[0], pl.PlayerClass(), pl.Field2068) == 0 {
-			nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 17, 0)
+			nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 17, 0)
 			it.Active = false
 			continue
 		}

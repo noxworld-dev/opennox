@@ -37,13 +37,14 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/spell"
 
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
 	Nox_xxx_updateSpellRelated_424830   func(p unsafe.Pointer, ph int) unsafe.Pointer
-	Nox_xxx_playerDisconnByPlrID_4DEB00 func(id int)
-	Nox_xxx_playerCallDisconnect_4DEAB0 func(ind int, v int8)
+	Nox_xxx_playerDisconnByPlrID_4DEB00 func(id ntype.PlayerInd)
+	Nox_xxx_playerCallDisconnect_4DEAB0 func(ind ntype.PlayerInd, v int8)
 	Nox_xxx_playerCameraUnlock_4E6040   func(cplayer *server.Object)
 	Nox_xxx_playerCameraFollow_4E6060   func(cplayer, cunit *server.Object)
 	Nox_xxx_playerGetPossess_4DDF30     func(cplayer *server.Object) *server.Object
@@ -95,20 +96,22 @@ func nox_common_playerInfoGetByID_417040(id int) *nox_playerInfo {
 
 //export nox_common_playerInfoFromNum_417090
 func nox_common_playerInfoFromNum_417090(ind int) *nox_playerInfo {
-	return (*nox_playerInfo)(GetServer().S().Players.ByInd(ind).C())
+	return (*nox_playerInfo)(GetServer().S().Players.ByInd(ntype.PlayerInd(ind)).C())
 }
 
 //export nox_common_playerInfoFromNumRaw
 func nox_common_playerInfoFromNumRaw(ind int) *nox_playerInfo {
-	return (*nox_playerInfo)(GetServer().S().Players.ByIndRaw(ind).C())
+	return (*nox_playerInfo)(GetServer().S().Players.ByIndRaw(ntype.PlayerInd(ind)).C())
 }
 
 //export nox_xxx_playerDisconnByPlrID_4DEB00
-func nox_xxx_playerDisconnByPlrID_4DEB00(id int) { Nox_xxx_playerDisconnByPlrID_4DEB00(id) }
+func nox_xxx_playerDisconnByPlrID_4DEB00(id int) {
+	Nox_xxx_playerDisconnByPlrID_4DEB00(ntype.PlayerInd(id))
+}
 
 //export nox_xxx_playerCallDisconnect_4DEAB0
 func nox_xxx_playerCallDisconnect_4DEAB0(ind int, v C.char) *C.char {
-	Nox_xxx_playerCallDisconnect_4DEAB0(ind, int8(v))
+	Nox_xxx_playerCallDisconnect_4DEAB0(ntype.PlayerInd(ind), int8(v))
 	return nil
 }
 
@@ -181,7 +184,7 @@ func Nox_xxx_playerDisconnFinish_4DE530(ind int, v int8) {
 	C.nox_xxx_playerDisconnFinish_4DE530(C.int(ind), C.char(v))
 }
 
-func Nox_xxx_playerForceDisconnect_4DE7C0(ind int) {
+func Nox_xxx_playerForceDisconnect_4DE7C0(ind ntype.PlayerInd) {
 	C.nox_xxx_playerForceDisconnect_4DE7C0(C.int(ind))
 }
 
@@ -197,7 +200,7 @@ func Sub_40A1F0(v int) {
 	C.sub_40A1F0(C.int(v))
 }
 
-func Nox_game_sendQuestStage_4D6960(v int) {
+func Nox_game_sendQuestStage_4D6960(v ntype.PlayerInd) {
 	C.nox_game_sendQuestStage_4D6960(C.int(v))
 }
 
@@ -233,7 +236,7 @@ func Nox_xxx_playerUnsetStatus_417530(p *server.Player, a2 int) {
 	C.nox_xxx_playerUnsetStatus_417530((*nox_playerInfo)(p.C()), C.int(a2))
 }
 
-func Nox_xxx_playerResetImportantCtr_4E4F40(v int) {
+func Nox_xxx_playerResetImportantCtr_4E4F40(v ntype.PlayerInd) {
 	C.nox_xxx_playerResetImportantCtr_4E4F40(C.int(v))
 }
 
@@ -245,7 +248,7 @@ func Nox_xxx_playerInitColors_461460(pl *server.Player) {
 	C.nox_xxx_playerInitColors_461460((*nox_playerInfo)(pl.C()))
 }
 
-func Sub_425B30(a1 unsafe.Pointer, a2 int) {
+func Sub_425B30(a1 unsafe.Pointer, a2 ntype.PlayerInd) {
 	C.sub_425B30(a1, C.int(a2))
 }
 
@@ -293,7 +296,7 @@ func Sub_459AA0(a1 unsafe.Pointer) {
 	C.sub_459AA0(a1)
 }
 
-func Nox_xxx_netNotifyRate_4D7F10(v int) {
+func Nox_xxx_netNotifyRate_4D7F10(v ntype.PlayerInd) {
 	C.nox_xxx_netNotifyRate_4D7F10(C.int(v))
 }
 
