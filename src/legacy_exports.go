@@ -256,7 +256,6 @@ func init() {
 	legacy.Nox_xxx_serverIsClosing_446180 = nox_xxx_serverIsClosing_446180
 	legacy.Sub_419EB0 = sub_419EB0
 	legacy.Sub_4DCC10 = sub_4DCC10
-	legacy.Nox_xxx_soloGameEscMenuCallback_40AF90 = nox_xxx_soloGameEscMenuCallback_40AF90
 	legacy.Sub_4DCFB0 = sub_4DCFB0
 	legacy.Sub_4DD0B0 = sub_4DD0B0
 	legacy.Nox_xxx_monsterCast_540A30 = nox_xxx_monsterCast_540A30
@@ -346,4 +345,7 @@ func init() {
 	legacy.Sub_40BF60 = sub_40BF60
 	legacy.Sub_40C070 = sub_40C070
 	legacy.Sub_40C030 = sub_40C030
+	legacy.Sub_40B5D0 = sub_40B5D0
+	legacy.Sub_40B250 = sub_40B250
+	legacy.Sub_40B720 = sub_40B720
 }

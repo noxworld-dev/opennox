@@ -91,10 +91,13 @@ var (
 	Sub_43CF40                        func()
 	Sub_43CF70                        func()
 	Sub_40C0E0                        func(ind netstr.Index)
-	Sub_40BFF0                        func(a1 int, a2 byte, i int)
+	Sub_40BFF0                        func(a1 netstr.Index, a2 byte, i byte)
 	Sub_40BF60                        func(ind netstr.Index, a2 byte, a3 uint16)
-	Sub_40C070                        func(ind netstr.Index, a2 int, a3 byte)
+	Sub_40C070                        func(ind netstr.Index, a2 byte, a3 byte)
 	Sub_40C030                        func(ind netstr.Index, a2 byte)
+	Sub_40B5D0                        func(a1 netstr.Index, a2 byte, typ string, sz uint32, a5 byte)
+	Sub_40B250                        func(ind netstr.Index, a2 byte, a3 uint16, data []byte)
+	Sub_40B720                        func(a1 byte, a2 byte)
 )
 
 func int2ip(v uint32) netip.Addr {
@@ -181,7 +184,7 @@ func sub_40C0E0(a1 int) {
 
 //export sub_40BFF0
 func sub_40BFF0(a1 int, a2 byte, i int) {
-	Sub_40BFF0(a1, a2, i)
+	Sub_40BFF0(netstr.Global.IndexRaw(a1), a2, byte(i))
 }
 
 //export sub_40BF60
@@ -191,12 +194,27 @@ func sub_40BF60(ind int, a2 byte, a3 uint16) {
 
 //export sub_40C070
 func sub_40C070(ind int, a2 int, a3 byte) {
-	Sub_40C070(netstr.Global.IndexRaw(ind), a2, a3)
+	Sub_40C070(netstr.Global.IndexRaw(ind), byte(a2), a3)
 }
 
 //export sub_40C030
 func sub_40C030(ind int, a2 byte) {
 	Sub_40C030(netstr.Global.IndexRaw(ind), a2)
+}
+
+//export sub_40B5D0
+func sub_40B5D0(a1 int, a2 byte, typ *C.char, sz uint32, a5 byte) {
+	Sub_40B5D0(netstr.Global.IndexRaw(a1), a2, GoString(typ), sz, a5)
+}
+
+//export sub_40B250
+func sub_40B250(ind int, a2 byte, a3 uint16, data unsafe.Pointer, a5 int) {
+	Sub_40B250(netstr.Global.IndexRaw(ind), a2, a3, unsafe.Slice((*byte)(data), a5))
+}
+
+//export sub_40B720
+func sub_40B720(a1 byte, a2 byte) {
+	Sub_40B720(a1, a2)
 }
 
 func ClientGetServerPort() int {

@@ -66,6 +66,9 @@ var (
 	xferDataArr          []xferData
 	xferDataCnt          int
 	xferDataActive       int
+	dword_5d4594_3624    int
+	dword_5d4594_3620    []xferDataTwo
+	dword_5d4594_3628    int
 )
 
 var (
@@ -1546,6 +1549,81 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			return 3, true
 		}
 		return 0, false
+	case noxnet.MSG_XFER_MSG:
+		if len(data) < 2 {
+			return 0, false
+		}
+		typ := data[1]
+		switch typ {
+		case 0:
+			if len(data) < 140 {
+				return 0, false
+			}
+			a2 := data[2]
+			a3 := binary.LittleEndian.Uint32(data[4:])
+			styp := alloc.GoStringS(data[8:136])
+			a4 := data[136]
+			sub_40B5D0(netstr.Global.Player(pl), a2, styp, a3, a4)
+			return 140, true
+		case 1:
+			if len(data) < 4 {
+				return 0, false
+			}
+			a2 := data[2]
+			a3 := data[3]
+			sub_40BFF0(netstr.Global.Player(pl), a2, a3)
+			return 4, true
+		case 2:
+			if len(data) < 8 {
+				return 0, false
+			}
+			a2 := data[2]
+			a3 := binary.LittleEndian.Uint16(data[4:])
+			sz := int(binary.LittleEndian.Uint16(data[6:]))
+			if len(data) < 8+sz {
+				return 0, false
+			}
+			var buf [6]byte
+			buf[0] = byte(noxnet.MSG_XFER_MSG)
+			buf[1] = 3
+			buf[2] = a2
+			binary.LittleEndian.PutUint16(buf[4:], a3)
+			netstr.Global.Send(netstr.Global.Player(pl), buf[:6], netstr.SendNoLock|netstr.SendFlagFlush)
+			sub_40B250(netstr.Global.Player(pl), a2, a3, data[8:8+sz])
+			return 8 + sz, true
+		case 3:
+			if len(data) < 6 {
+				return 0, false
+			}
+			a2 := data[2]
+			a3 := binary.LittleEndian.Uint16(data[4:])
+			sub_40BF60(netstr.Global.Player(pl), a2, a3)
+			return 6, true
+		case 4:
+			if len(data) < 3 {
+				return 0, false
+			}
+			a2 := data[2]
+			sub_40C030(netstr.Global.Player(pl), a2)
+			return 3, true
+		case 5:
+			if len(data) < 4 {
+				return 0, false
+			}
+			a2 := data[2]
+			a3 := data[3]
+			sub_40B720(a3, a2)
+			return 4, true
+		case 6:
+			if len(data) < 4 {
+				return 0, false
+			}
+			a2 := data[2]
+			a3 := data[3]
+			sub_40C070(netstr.Global.Player(pl), a3, a2)
+			return 4, true
+		}
+		return 0, false
 	default:
 		res := legacy.Nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(pli, data, pl.S(), u.SObj(), u.UpdateData)
 		if res <= 0 || res > len(data) {
@@ -1636,6 +1714,20 @@ type xferData struct {
 	Type23    string       // 5, 23
 	First152  *xferBlock   // 38, 152
 	Last156   *xferBlock   // 39, 156
+}
+
+type xferDataTwo struct {
+	NetInd0  netstr.Index // 0, 0
+	Field4   byte         // 1, 4
+	Field5   byte         // 1, 5
+	Cnt8     uint32       // 2, 8
+	Cur12    int          // 3, 12
+	Data20   []byte       // 5, 20
+	Type24   string       // 6, 24
+	Perc152  float32      // 38, 152
+	Frame156 uint32       // 39, 156
+	Field160 *xferBlock   // 40, 160
+	Field164 *xferBlock   // 41, 164
 }
 
 type xferBlock struct {
@@ -1733,8 +1825,8 @@ func sub_40BF10() (*xferData, int) {
 	return nil, -1
 }
 
-func sub_40BFF0(a1 int, a2 byte, i int) {
-	if i >= xferDataCnt {
+func sub_40BFF0(a1 netstr.Index, a2 byte, i byte) {
+	if int(i) >= xferDataCnt {
 		return
 	}
 	p := &xferDataArr[i]
@@ -1866,7 +1958,7 @@ func sub_40C030(ind netstr.Index, a2 byte) {
 	sub_40B930(p)
 }
 
-func sub_40C070(ind netstr.Index, a2 int, a3 byte) {
+func sub_40C070(ind netstr.Index, a2 byte, a3 byte) {
 	p := sub_40BC10(ind, a3)
 	if p == nil {
 		return
@@ -1899,4 +1991,200 @@ func sub_40BF60(ind netstr.Index, a2 byte, a3 uint16) {
 			return
 		}
 	}
+}
+
+func sub_40B5D0(a1 netstr.Index, a2 byte, typ string, sz uint32, a5 byte) {
+	s := noxServer
+	if sz == 0 {
+		return
+	}
+	p, v9 := sub_40B6D0()
+	if p == nil {
+		return
+	}
+	p.NetInd0 = a1
+	p.Field4 = a2
+	if typ != "" {
+		p.Type24 = typ
+	}
+	p.Field5 = v9
+	p.Data20 = make([]byte, sz)
+	p.Frame156 = s.Frame()
+	dword_5d4594_3628++
+	sub_40B690(a1, v9, a5)
+}
+
+func sub_40B1F0(i byte) {
+	p := &dword_5d4594_3620[i]
+	p.Field4 = 0
+	p.Field5 = i
+	p.Cnt8 = 1
+	p.Cur12 = 0
+	p.Data20 = nil
+	p.Type24 = ""
+	p.Perc152 = 0
+	p.Frame156 = 0
+	p.Field160 = nil
+	p.Field164 = nil
+}
+
+func sub_40B4E0(a1 uint8) {
+	p := &dword_5d4594_3620[a1]
+	for it := p.Field160; it != nil; it = it.Next20 {
+		*it = xferBlock{}
+	}
+}
+
+func sub_40B530(i byte, a2 byte) {
+	p := &dword_5d4594_3620[i]
+	if len(p.Data20) != 0 {
+		nox_xxx_neXfer_40B590(p.NetInd0, p.Field5, a2)
+		if dword_5d4594_3628 != 0 {
+			dword_5d4594_3628--
+		}
+		sub_40B4E0(i)
+		sub_40B1F0(i)
+	}
+}
+
+func nox_xxx_neXfer_40B590(ind netstr.Index, a2 byte, a3 byte) {
+	var buf [4]byte
+	buf[0] = byte(noxnet.MSG_XFER_MSG)
+	buf[1] = 6
+	buf[2] = a2
+	buf[3] = a3
+	netstr.Global.Send(ind, buf[:4], netstr.SendNoLock|netstr.SendFlagFlush)
+}
+
+func sub_40B170(cnt int) {
+	n := cnt
+	if cnt >= 0 {
+		if cnt > 256 {
+			n = 256
+		}
+	} else {
+		n = 16
+	}
+	dword_5d4594_3624 = n
+	dword_5d4594_3620 = make([]xferDataTwo, n)
+	for i := 0; i < dword_5d4594_3624; i++ {
+		sub_40B1F0(byte(i))
+	}
+}
+
+func sub_40B6D0() (*xferDataTwo, byte) {
+	if dword_5d4594_3624 <= 0 {
+		return nil, 0
+	}
+	for i := 0; i < dword_5d4594_3624; i++ {
+		it := &dword_5d4594_3620[i]
+		if len(it.Data20) == 0 {
+			return it, byte(i)
+		}
+	}
+	return nil, 0
+}
+
+func sub_40B250(ind netstr.Index, a2 byte, a3 uint16, data []byte) {
+	s := noxServer
+	if len(data) == 0 {
+		return
+	}
+	if int(a2) >= dword_5d4594_3624 {
+		return
+	}
+	p := &dword_5d4594_3620[a2]
+	if len(p.Data20) == 0 {
+		return
+	}
+	p.Frame156 = s.Frame()
+	if uint32(a3) == p.Cnt8 {
+		copy(p.Data20[p.Cur12:p.Cur12+len(data)], data)
+		p.Cur12 += len(data)
+		p.Cnt8++
+	} else {
+		b := &xferBlock{
+			Ind0:  a3,
+			Data4: make([]byte, len(data)),
+		}
+		copy(b.Data4, data)
+		b.Next20 = nil
+		b.Prev24 = p.Field164
+		if v9 := p.Field164; v9 != nil {
+			v9.Next20 = b
+		}
+		p.Field164 = b
+		if v10 := p.Field160; v10 == nil {
+			p.Field160 = b
+		}
+	}
+
+	for it := p.Field160; it != nil; it = it.Next20 {
+		if p.Cnt8 == uint32(it.Ind0) {
+			copy(p.Data20[p.Cur12:p.Cur12+len(it.Data4)], it.Data4)
+			p.Cur12 += len(it.Data4)
+			p.Cnt8++
+			if v14 := it.Prev24; v14 != nil {
+				v14.Next20 = it.Next20
+			} else {
+				p.Field160 = it.Next20
+			}
+			if v15 := it.Next20; v15 != nil {
+				v15.Prev24 = it.Prev24
+			} else {
+				p.Field164 = it.Prev24
+			}
+			*it = xferBlock{}
+		}
+	}
+	p.Perc152 = float32(float64(p.Cur12) / float64(len(p.Data20)) * 100.0)
+	if p.Cur12 == len(p.Data20) {
+		nox_xxx_netXfer_40B4B0(p.NetInd0, p.Field5)
+		nox_xxx_soloGameEscMenuCallback_40AF90(ind.Player(), p.Field5, p.Field4, p.Type24, p.Data20)
+		if dword_5d4594_3628 != 0 {
+			dword_5d4594_3628--
+		}
+		p.Data20 = nil
+		sub_40B4E0(a2)
+		sub_40B1F0(a2)
+	}
+}
+
+func nox_xxx_netXfer_40B4B0(ind netstr.Index, a2 byte) {
+	var buf [3]byte
+	buf[0] = byte(noxnet.MSG_XFER_MSG)
+	buf[1] = 4
+	buf[2] = a2
+	netstr.Global.Send(ind, buf[:3], netstr.SendNoLock|netstr.SendFlagFlush)
+}
+
+func sub_40B740() {
+	for i := 0; i < dword_5d4594_3624; i++ {
+		sub_40B4E0(byte(i))
+	}
+	dword_5d4594_3620 = nil
+}
+
+func sub_40B790() {
+	s := noxServer
+	for i := 0; i < dword_5d4594_3624; i++ {
+		it := &dword_5d4594_3620[i]
+		if len(it.Data20) != 0 && s.Frame() > it.Frame156+900 {
+			sub_40B530(byte(i), 3)
+		}
+	}
+}
+
+func sub_40B690(a1 netstr.Index, a2 byte, a3 byte) {
+	var buf [4]byte
+	buf[0] = byte(noxnet.MSG_XFER_MSG)
+	buf[1] = 1
+	buf[2] = a2
+	buf[3] = a3
+	netstr.Global.Send(a1, buf[:4], netstr.SendNoLock|netstr.SendFlagFlush)
+}
+
+func sub_40B720(a1 byte, a2 byte) {
+	sub_40B4E0(a2)
+	sub_40B1F0(a2)
 }
