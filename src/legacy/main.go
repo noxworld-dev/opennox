@@ -75,10 +75,6 @@ func Nox_xxx_mapSelectFirst_4D0E00() {
 	C.nox_xxx_mapSelectFirst_4D0E00()
 }
 
-func Sub_40B170(v int) {
-	C.sub_40B170(C.int(v))
-}
-
 func Sub_4134D0() {
 	C.sub_4134D0()
 }
@@ -109,10 +105,6 @@ func Sub_4D11D0() {
 
 func Sub_4D0DA0() {
 	C.sub_4D0DA0()
-}
-
-func Sub_40B740() {
-	C.sub_40B740()
 }
 
 func Nox_common_maplist_free_4D0970() {
