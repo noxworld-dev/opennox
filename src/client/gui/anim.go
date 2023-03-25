@@ -107,7 +107,7 @@ func (a *Anim) Free() {
 	} else {
 		animList = a.next
 	}
-	alloc.Free(unsafe.Pointer(a))
+	alloc.Free(a)
 }
 
 func (a *Anim) State() AnimState {

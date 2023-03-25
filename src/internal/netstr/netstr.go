@@ -462,7 +462,7 @@ func (ns *stream) freeData() {
 		return
 	}
 	if ns.data3 != nil {
-		alloc.Free(ns.data3)
+		alloc.FreePtr(ns.data3)
 	}
 	alloc.FreeSlice(ns.data1)
 	alloc.FreeSlice(ns.data2)

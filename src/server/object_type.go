@@ -378,7 +378,7 @@ func (s *serverObjTypes) readType(thg *things.Thing) error {
 	}
 	if thg.Health != nil {
 		if typ.health != nil {
-			alloc.Free(unsafe.Pointer(typ.health))
+			alloc.Free(typ.health)
 		}
 		data, _ := alloc.New(HealthData{})
 		typ.health = data
@@ -503,33 +503,33 @@ func (s *serverObjTypes) Free() {
 		next = typ.next
 		typ.id = ""
 		if typ.health != nil {
-			alloc.Free(unsafe.Pointer(typ.health))
+			alloc.Free(typ.health)
 			typ.health = nil
 		}
 		if typ.CollideData != nil {
-			alloc.Free(typ.CollideData)
+			alloc.FreePtr(typ.CollideData)
 			typ.CollideData = nil
 		}
 		if typ.DeathData != nil {
-			alloc.Free(typ.DeathData)
+			alloc.FreePtr(typ.DeathData)
 			typ.DeathData = nil
 		}
 		if typ.InitData != nil {
-			alloc.Free(typ.InitData)
+			alloc.FreePtr(typ.InitData)
 			typ.InitData = nil
 		}
 		if typ.UpdateData != nil {
 			if typ.Class().Has(object.ClassMonster) {
 				ud := typ.UpdateDataMonster()
 				if ud.Field119 != nil {
-					alloc.Free(unsafe.Pointer(ud.Field119))
+					alloc.Free(ud.Field119)
 				}
 			}
-			alloc.Free(typ.UpdateData)
+			alloc.FreePtr(typ.UpdateData)
 			typ.UpdateData = nil
 		}
 		if typ.UseData != nil {
-			alloc.Free(typ.UseData)
+			alloc.FreePtr(typ.UseData)
 			typ.UseData = nil
 		}
 		*typ = ObjectType{}
