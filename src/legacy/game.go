@@ -55,6 +55,7 @@ int  sub_4EF660(nox_object_t* a1p);
 void  sub_500510(const char* a1);
 int nox_xxx_guiChatIconLoad_445650();
 int nox_xxx_loadGuides_427070();
+void sub_41CAC0(char* a1, void* a2);
 
 wchar2_t* nox_xxx_guiServerOptionsGetGametypeName_4573C0(short mode);
 */
@@ -69,6 +70,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
@@ -89,6 +91,8 @@ var (
 	Nox_xxx_gameSetWallsDamage_4E25A0   func(v int)
 	GetDoDamageWalls                    func() bool
 	Nox_xxx_wall_410160                 func()
+	Sub_41CC00                          func(s string)
+	Nox_xxx_playerSendMOTD_4DD140       func(a1 ntype.PlayerInd)
 )
 
 func init() {
@@ -300,6 +304,16 @@ func nox_xxx_wall_410160() {
 //export sub_4537F0
 func sub_4537F0() {
 	GetServer().Sub4537F0()
+}
+
+//export sub_41CC00
+func sub_41CC00(cstr *C.char) {
+	Sub_41CC00(GoString(cstr))
+}
+
+//export nox_xxx_playerSendMOTD_4DD140
+func nox_xxx_playerSendMOTD_4DD140(a1 int) {
+	Nox_xxx_playerSendMOTD_4DD140(ntype.PlayerInd(a1))
 }
 
 func Nox_xxx_sMakeScorch_537AF0(pos types.Pointf, a2 int) {
@@ -632,9 +646,6 @@ func Sub_41D1A0(a1 int) {
 func Nox_xxx_netPlayerIncomingServ_4DDF60(a1 int) {
 	C.nox_xxx_netPlayerIncomingServ_4DDF60(C.int(a1))
 }
-func Sub_41CC00(a1 *byte) {
-	C.sub_41CC00((*C.char)(unsafe.Pointer(a1)))
-}
 func Nox_xxx_plrLoad_41A480(a1 string) int {
 	str := CString(a1)
 	defer StrFree(str)
@@ -756,4 +767,7 @@ func Get_nox_game_showOptions_4AA6B0() unsafe.Pointer {
 }
 func Get_nox_game_showMainMenu_4A1C00() unsafe.Pointer {
 	return C.nox_game_showMainMenu_4A1C00
+}
+func Sub_41CAC0(a1 string, data []byte) {
+	C.sub_41CAC0(internCStr(a1), unsafe.Pointer(&data[0]))
 }

@@ -67,6 +67,7 @@ uint32_t nox_client_fadeObjects_80836 = 1;
 
 //----- (0048EA70) --------------------------------------------------------
 void sub_470A80();
+void sub_41CC00(char* s);
 int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data, int sz) {
 	unsigned char* old = data;
 	long long v5;           // rax

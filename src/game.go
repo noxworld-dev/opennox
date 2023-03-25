@@ -27,6 +27,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/discover"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
@@ -498,6 +499,10 @@ func (s *Server) maybeStopRegister() {
 	}
 }
 
+func getString10984() string {
+	return alloc.GoString((*byte)(memmap.PtrOff(0x85B3FC, 10984)))
+}
+
 func initGameSession435CC0() error {
 	ctx := context.Background()
 	legacy.Sub_445450()
@@ -571,7 +576,7 @@ func initGameSession435CC0() error {
 	v1 := nox_video_getCutSize()
 	noxClient.nox_draw_setCutSize(v1, 0)
 	if noxflags.HasGame(noxflags.GameModeCoop) {
-		legacy.Sub_41CC00((*byte)(memmap.PtrOff(0x85B3FC, 10984)))
+		sub_41CC00(getString10984())
 	} else if noxServer.nox_xxx_isQuest_4D6F50() || sub_4D6F70() {
 		if noxServer.nox_xxx_isQuest_4D6F50() || sub_4D6F70() {
 			legacy.Sub_460380()
@@ -579,11 +584,11 @@ func initGameSession435CC0() error {
 			legacy.Nox_xxx_cliPrepareGameplay2_4721D0()
 		}
 		if !noxflags.HasGame(noxflags.GameHost) {
-			legacy.Sub_41CC00((*byte)(memmap.PtrOff(0x85B3FC, 10984)))
+			sub_41CC00(getString10984())
 		}
 	}
 	if !isServer {
-		legacy.Nox_xxx_plrLoad_41A480(alloc.GoString((*byte)(memmap.PtrOff(0x85B3FC, 10984))))
+		legacy.Nox_xxx_plrLoad_41A480(getString10984())
 	}
 	if isServer && !isDedicatedServer {
 		noxServer.GetPlayers()[0].GoObserver(false, true)
@@ -601,6 +606,25 @@ func initGameSession435CC0() error {
 	legacy.Sub_4951C0()
 	legacy.Sub_465DE0(0)
 	return nil
+}
+
+func sub_41CC00(a1 string) {
+	sz := 4 + legacy.Nox_xxx_computeServerPlayerDataBufferSize_41CC50(a1)
+	data, _ := alloc.Make([]byte{}, sz)
+	legacy.Sub_41CAC0(a1, data)
+	sub_40BC60(31, 3, "SAVE_SERVER", data, false)
+}
+
+func sub_4464D0(a1 int32) []byte {
+	sz := int(memmap.Uint32(0x5D4594, 826040+4*uintptr(a1)))
+	return unsafe.Slice(legacy.Get_dword_5d4594_826036(), sz)
+}
+
+func nox_xxx_playerSendMOTD_4DD140(ind ntype.PlayerInd) {
+	buf := sub_4464D0(1)
+	if len(buf) != 0 {
+		sub_40BC60(ind, 1, "MOTD", buf, true)
+	}
 }
 
 func execConsoleCmd(ctx context.Context, cmd string) bool { // nox_server_parseCmdText_443C80

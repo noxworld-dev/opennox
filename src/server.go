@@ -342,7 +342,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 	if s.Frame()%2 == 0 {
 		s.mapSend.Update()
 	}
-	legacy.Sub_40B970()
+	sub_40B970()
 	legacy.Sub_40B790()
 	if !noxflags.HasGame(noxflags.GamePause) {
 		s.updateUnits()
@@ -920,7 +920,7 @@ func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
 				for _, u := range s.getPlayerUnits() {
 					ud := u.UpdateDataPlayer()
 					plx := asPlayerS(ud.Player)
-					pi := plx.Index()
+					pi := plx.PlayerIndex()
 					if plx.Field4792 == 1 && ud.Field138 == 0 && nox_xxx_playerSaveToFile_41A140(fname, pi) {
 						v5 := sub_419EE0(pi)
 						nox_xxx_sendGauntlet_4DCF80(pi, 1)
@@ -946,7 +946,7 @@ func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
 	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(noxflags.GameModeChat) {
 		for _, u := range s.getPlayerUnits() {
 			plx := u.ControllingPlayer()
-			if plx.Index() != common.MaxPlayers-1 && plx.Field3680&1 == 0 {
+			if plx.PlayerIndex() != common.MaxPlayers-1 && plx.Field3680&1 == 0 {
 				u.ApplyEnchant(server.ENCHANT_INVULNERABLE, 0, 5)
 			}
 		}
