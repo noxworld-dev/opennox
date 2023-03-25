@@ -518,29 +518,29 @@ func (s *Server) Nox_xxx_mapReset5028E0() {
 func (s *Server) Nox_xxx_free503F40() {
 	{
 		var next unsafe.Pointer
-		for v0 := unsafe.Pointer(legacy.Get_dword_5d4594_1599540()); v0 != nil; v0 = next {
+		for v0 := legacy.Get_dword_5d4594_1599540(); v0 != nil; v0 = next {
 			next = *(*unsafe.Pointer)(unsafe.Add(v0, 4))
 			if legacy.Get_dword_5d4594_1599476() == 0 {
 				s.Objs.FreeObject(asObject(*(*unsafe.Pointer)(unsafe.Add(v0, 0))).SObj())
 			}
-			alloc.Free(v0)
+			alloc.FreePtr(v0)
 		}
 	}
 
 	{
 		var next unsafe.Pointer
-		for it := unsafe.Pointer(legacy.Get_dword_5d4594_1599548()); it != nil; it = next {
+		for it := legacy.Get_dword_5d4594_1599548(); it != nil; it = next {
 			next = *(*unsafe.Pointer)(unsafe.Add(it, 4))
 			if legacy.Get_dword_5d4594_1599476() == 0 {
 				*(*unsafe.Pointer)(unsafe.Add(it, 0)) = nil
 			}
-			alloc.Free(it)
+			alloc.FreePtr(it)
 		}
 	}
 
 	{
 		var next unsafe.Pointer
-		for it := unsafe.Pointer(legacy.Get_dword_5d4594_1599556()); it != nil; it = next {
+		for it := legacy.Get_dword_5d4594_1599556(); it != nil; it = next {
 			next = *(*unsafe.Pointer)(unsafe.Add(it, 16))
 
 			var next2 unsafe.Pointer
@@ -549,19 +549,19 @@ func (s *Server) Nox_xxx_free503F40() {
 				legacy.Nox_xxx_tileFreeTileOne_4221E0(it2)
 			}
 			*(*unsafe.Pointer)(unsafe.Add(it, 0)) = nil
-			alloc.Free(it)
+			alloc.FreePtr(it)
 		}
 	}
 
 	{
 		var next unsafe.Pointer
-		for it := unsafe.Pointer(legacy.Get_dword_5d4594_1599532()); it != nil; it = next {
+		for it := legacy.Get_dword_5d4594_1599532(); it != nil; it = next {
 			next = *(*unsafe.Pointer)(unsafe.Add(it, 4))
 			if legacy.Get_dword_5d4594_1599476() == 0 && *(*uint8)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(it, 0)), 4))&0x4 != 0 {
 				*(*unsafe.Pointer)(unsafe.Add(*(*unsafe.Pointer)(unsafe.Add(it, 0)), 4*7)) = nil
 			}
 			*(*unsafe.Pointer)(unsafe.Add(it, 0)) = nil
-			alloc.Free(it)
+			alloc.FreePtr(it)
 		}
 	}
 
@@ -577,7 +577,7 @@ func (s *Server) Nox_xxx_free503F40() {
 				}
 				s.MapGroups.AllocGroup.FreeObjectFirst(it.Field0)
 			}
-			alloc.Free(unsafe.Pointer(it))
+			alloc.Free(it)
 		}
 	}
 	*memmap.PtrUint32(0x5D4594, 1599568) = 0

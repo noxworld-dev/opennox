@@ -66,12 +66,12 @@ func sub_43ECB0(a1 unsafe.Pointer) int {
 		p.Smp.Release()
 	}
 	if p2 := p.Data1; p2 != nil {
-		alloc.Free(unsafe.Pointer(p2))
+		alloc.Free(p2)
 	}
 	if p2 := p.Data2; p2 != nil {
-		alloc.Free(unsafe.Pointer(p2))
+		alloc.Free(p2)
 	}
-	alloc.Free(unsafe.Pointer(p))
+	alloc.Free(p)
 	return 0
 }
 
@@ -437,10 +437,10 @@ func (p *audioStructXxx) Free() {
 		p.field272 = nil
 	}
 	if p.arr0 != nil {
-		alloc.Free(unsafe.Pointer(p.arr0))
+		alloc.Free(p.arr0)
 		p.arr0 = nil
 	}
-	alloc.Free(unsafe.Pointer(p))
+	alloc.Free(p)
 }
 
 var _ = [1]struct{}{}[36-unsafe.Sizeof(audioStructYyy{})]
