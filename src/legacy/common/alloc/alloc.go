@@ -27,7 +27,7 @@ func Malloc(size uintptr) (unsafe.Pointer, func()) {
 	allocs[ptr] = size
 	allocMu.Unlock()
 	return ptr, func() {
-		Free(ptr)
+		FreePtr(ptr)
 	}
 }
 
@@ -87,11 +87,11 @@ func Calloc(num int, size uintptr) (unsafe.Pointer, func()) {
 	allocs[ptr] = uintptr(num) * size
 	allocMu.Unlock()
 	return ptr, func() {
-		Free(ptr)
+		FreePtr(ptr)
 	}
 }
 
-func Free(ptr unsafe.Pointer) {
+func FreePtr(ptr unsafe.Pointer) {
 	allocMu.Lock()
 	_, ok := allocs[ptr]
 	delete(allocs, ptr)
@@ -102,9 +102,13 @@ func Free(ptr unsafe.Pointer) {
 	C.free(ptr)
 }
 
+func Free[T comparable](ptr *T) {
+	FreePtr(unsafe.Pointer(ptr))
+}
+
 func FreeSlice[T comparable](b []T) {
 	b = b[:1]
-	Free(unsafe.Pointer(&b[0]))
+	Free(&b[0])
 }
 
 func Memset(ptr unsafe.Pointer, v byte, size uintptr) unsafe.Pointer {

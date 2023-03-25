@@ -127,7 +127,7 @@ func (c *clientObjTypes) Each(fnc func(it *ObjectType)) {
 
 func (c *clientObjTypes) Nox_things_free_44C580_B() {
 	c.Each(func(it *ObjectType) {
-		alloc.Free(unsafe.Pointer(it))
+		alloc.Free(it)
 	})
 	c.first = nil
 	c.byInd = []*ObjectType{nil}

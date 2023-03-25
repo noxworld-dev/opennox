@@ -360,7 +360,7 @@ func sub_446520(i int, data []byte) {
 
 func sub_446580(i int) {
 	if memmap.Uint32(0x5D4594, 826056+4*uintptr(i)) != 0 {
-		alloc.Free(*memmap.PtrPtr(0x5D4594, 826056+4*uintptr(i)))
+		alloc.FreePtr(*memmap.PtrPtr(0x5D4594, 826056+4*uintptr(i)))
 		*memmap.PtrUint32(0x5D4594, 826056+4*uintptr(i)) = 0
 		*memmap.PtrUint32(0x5D4594, 826048+4*uintptr(i)) = 0
 		*memmap.PtrUint32(0x5D4594, 826064+4*uintptr(i)) = 0

@@ -51,13 +51,13 @@ func (f *MemFile) C() unsafe.Pointer {
 
 func (f *MemFile) Free() {
 	if f.data != nil {
-		alloc.Free(f.data)
+		alloc.FreePtr(f.data)
 	}
 	f.data = nil
 	f.cur = nil
 	f.end = nil
 	f.size = 0
-	alloc.Free(f.C())
+	alloc.FreePtr(f.C())
 }
 
 func (f *MemFile) RawData() []byte {
