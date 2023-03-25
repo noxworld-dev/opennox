@@ -9,6 +9,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
@@ -108,7 +109,7 @@ func (s *serverPlayers) nextReplaceablePlayer(it *Player) *Player {
 	return nil
 }
 
-func (s *serverPlayers) ResetInd(ind int) *Player {
+func (s *serverPlayers) ResetInd(ind ntype.PlayerInd) *Player {
 	p := &s.list[ind]
 	p.reset(ind)
 	return p
@@ -124,8 +125,8 @@ func (s *serverPlayers) ByID(id int) *Player {
 	return nil
 }
 
-func (s *serverPlayers) ByInd(i int) *Player {
-	if i < 0 || i >= len(s.list) {
+func (s *serverPlayers) ByInd(i ntype.PlayerInd) *Player {
+	if i < 0 || int(i) >= len(s.list) {
 		return nil
 	}
 	p := &s.list[i]
@@ -136,8 +137,8 @@ func (s *serverPlayers) ByInd(i int) *Player {
 	return p
 }
 
-func (s *serverPlayers) ByIndRaw(i int) *Player {
-	if i < 0 || i >= len(s.list) {
+func (s *serverPlayers) ByIndRaw(i ntype.PlayerInd) *Player {
+	if i < 0 || int(i) >= len(s.list) {
 		return nil
 	}
 	return &s.list[i]
@@ -188,7 +189,7 @@ func (s *serverPlayers) NewRaw(id int) *Player {
 	for i := range s.list {
 		p := &s.list[i]
 		if !p.IsActive() {
-			p.reset(i)
+			p.reset(ntype.PlayerInd(i))
 			p.NetCodeVal = uint32(id)
 			return p
 		}
@@ -375,6 +376,13 @@ func (p *Player) Index() int {
 	return int(p.PlayerInd)
 }
 
+func (p *Player) PlayerIndex() ntype.PlayerInd {
+	if p == nil {
+		return -1
+	}
+	return ntype.PlayerInd(p.PlayerInd)
+}
+
 func (p *Player) NetCode() int {
 	if p == nil {
 		return -1
@@ -411,7 +419,7 @@ func (p *Player) SetPos3632(pt types.Pointf) {
 	p.Pos3632Vec = pt
 }
 
-func (p *Player) reset(ind int) {
+func (p *Player) reset(ind ntype.PlayerInd) {
 	*p = Player{
 		PlayerInd:      byte(ind),
 		Active:         1,

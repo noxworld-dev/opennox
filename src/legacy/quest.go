@@ -16,6 +16,7 @@ import "C"
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -98,6 +99,6 @@ func Sub_4184D0(a1 unsafe.Pointer) {
 func Nox_xxx_createAtImpl_4191D0(a1 uint8, a2 *server.ObjectTeam, a3 int, a4 uint32, a5 int) {
 	C.nox_xxx_createAtImpl_4191D0(C.uchar(a1), a2.C(), C.int(a3), C.int(a4), C.int(a5))
 }
-func Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(a1 string, a2 int) int {
+func Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(a1 string, a2 ntype.PlayerInd) int {
 	return int(C.nox_xxx_cliPlrInfoLoadFromFile_41A2E0(internCStr(a1), C.int(a2)))
 }

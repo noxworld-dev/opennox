@@ -80,7 +80,7 @@ func (m *Perfmon) LogBandwidth() {
 		if pl.Index() == common.MaxPlayers-1 {
 			bps = noxPerfmon.TransferStats(netstr.First())
 		} else {
-			bps = noxPerfmon.TransferStats(netstr.Player(pl.Index()))
+			bps = noxPerfmon.TransferStats(netstr.Player(pl))
 		}
 		m.logger.Printf("%s, %d, %d, %d, %d, %d\n", pl.Name(), bps, v4, d.th, d.ri, d.rpu)
 	}

@@ -65,6 +65,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -196,7 +197,7 @@ func Sub_409A70(a1 int) int {
 func Nox_xxx_netInformTextMsg2_4DA180(a1 int, a2 unsafe.Pointer) {
 	C.nox_xxx_netInformTextMsg2_4DA180(C.int(a1), (*C.uchar)(a2))
 }
-func Nox_xxx_netReportUnitHeight_4D9020(a1 int, a2 *server.Object) {
+func Nox_xxx_netReportUnitHeight_4D9020(a1 ntype.PlayerInd, a2 *server.Object) {
 	C.nox_xxx_netReportUnitHeight_4D9020(C.int(a1), asObjectC(a2))
 }
 func Sub_4FF7B0(pl *server.Player) {
