@@ -251,7 +251,6 @@ int sub_4DCC90();
 int nox_xxx_game_4DCCB0();
 void sub_4DCFB0(nox_object_t* a1);
 void sub_4DD0B0(nox_object_t* a1);
-void* nox_xxx_playerSendMOTD_4DD140(int a1);
 char* nox_xxx_gameServerReadyMB_4DD180(int a1);
 int nox_xxx_netGuiGameSettings_4DD9B0(char a1, const void* a2, int a3);
 void nox_xxx_netNewPlayerMakePacket_4DDA90(unsigned char* buf, nox_playerInfo* pl);

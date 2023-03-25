@@ -63,6 +63,9 @@ var (
 	dword_5d4594_815708  bool
 	ownIPStr             string
 	ownIP                netip.Addr
+	xferDataArr          []xferData
+	xferDataCnt          int
+	xferDataActive       int
 )
 
 var (
@@ -503,12 +506,12 @@ func netSendGauntlet() {
 	nox_xxx_netClientSend2_4E53C0(common.MaxPlayers-1, buf[:2], 0, 0)
 }
 
-func nox_xxx_sendGauntlet_4DCF80(ind int, v byte) {
+func nox_xxx_sendGauntlet_4DCF80(ind ntype.PlayerInd, v byte) {
 	var buf [3]byte
 	buf[0] = byte(noxnet.MSG_GAUNTLET)
 	buf[1] = 28
 	buf[2] = v
-	noxServer.nox_xxx_netSendPacket1_4E5390(ind, buf[:3], 0, 0)
+	noxServer.nox_xxx_netSendPacket1_4E5390(int(ind), buf[:3], 0, 0)
 }
 
 func nox_xxx_netStatsMultiplier_4D9C20(u *server.Object) int {
@@ -1461,8 +1464,8 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		} else {
 			fname := datapath.Save(common.SaveDir, "_temp_.dat")
 			defer ifs.Remove(fname)
-			if nox_xxx_playerSaveToFile_41A140(fname, pl.Index()) {
-				sub41CFA0(fname, pl.Index())
+			if nox_xxx_playerSaveToFile_41A140(fname, pl.PlayerIndex()) {
+				sub41CFA0(fname, pl.PlayerIndex())
 			}
 		}
 		return 3, true
@@ -1608,15 +1611,292 @@ func (s *Server) nox_xxx_netPlayerObjSendCamera_519330(u *Object) bool {
 	return nox_netlist_addToMsgListSrv(pl.PlayerIndex(), buf[:12])
 }
 
-func sub_40BA90(ind netstr.Index, a2 byte, a3 int16, data []byte) int {
+func sub_40BA90(ind netstr.Index, a2 byte, block uint16, data []byte) int {
 	buf := make([]byte, 8+len(data))
 	buf[0] = byte(noxnet.MSG_XFER_MSG)
-	buf[1] = 2
+	buf[1] = 2 // XFER_BLOCK?
 	buf[2] = a2
 	buf[3] = 0
-	binary.LittleEndian.PutUint16(buf[4:], uint16(a3))
+	binary.LittleEndian.PutUint16(buf[4:], block)
 	binary.LittleEndian.PutUint16(buf[6:], uint16(len(data)))
 	copy(buf[8:], data)
 	netstr.Global.Send(ind, buf, 0)
 	return netstr.Global.SendReadPacket(ind, 1)
+}
+
+type xferData struct {
+	NetInd0   netstr.Index // 0, 0
+	Kind4     byte         // 1, 4
+	Kind6     uint16       // 1, 6
+	Size8     int          // 2, 8
+	Cnt12     uint32       // 3, 12
+	Blocks16  int          // 4, 16
+	BlockSz20 uint16       // 5, 20
+	Field22   byte         // 5, 22
+	Type23    string       // 5, 23
+	First152  *xferBlock   // 38, 152
+	Last156   *xferBlock   // 39, 156
+}
+
+type xferBlock struct {
+	Ind0    uint16     // 0, 0
+	Data4   []byte     // 1, 4
+	Frame12 uint32     // 3, 12
+	Cnt16   uint16     // 4, 16
+	Next20  *xferBlock // 5, 20
+	Prev24  *xferBlock // 6, 24
+}
+
+func sub_40B890(n int) {
+	if n < 0 {
+		xferDataCnt = 16
+	} else {
+		xferDataCnt = 256
+		if n <= 256 {
+			xferDataCnt = n
+		}
+	}
+	xferDataArr, _ = alloc.Make([]xferData{}, xferDataCnt)
+	for i := 0; i < xferDataCnt; i++ {
+		sub_40B930(&xferDataArr[i])
+	}
+	xferDataActive = 0
+}
+
+func sub_40B930(p *xferData) {
+	p.NetInd0 = netstr.Index{}
+	p.Kind4 = 0
+	p.Kind6 = 0
+	p.Size8 = 0
+	p.Cnt12 = 1
+	p.Blocks16 = 0
+	p.BlockSz20 = 0
+	p.Field22 = 0
+	p.Type23 = ""
+	p.First152 = nil
+	p.Last156 = nil
+}
+
+func sub_40B970() {
+	s := noxServer
+	if xferDataActive == 0 {
+		return
+	}
+	if int32(xferDataCnt) <= 0 {
+		return
+	}
+	for i := 0; i < xferDataCnt; i++ {
+		it := &xferDataArr[i]
+		if it.Kind6 != 2 {
+			continue
+		}
+		for j, it2 := 0, it.First152; j < 2 && it2 != nil; j, it2 = j+1, it2.Next20 {
+			if t := it2.Frame12; t != 0 {
+				if s.Frame() > t+90 {
+					if it2.Cnt16 >= 20 {
+						if it.Kind6 == 2 {
+							sub_40BB20(it.NetInd0, it.Kind4, 2)
+							break
+						}
+					} else {
+						sub_40BA90(it.NetInd0, it.Kind4, it2.Ind0, it2.Data4)
+						it2.Frame12 = s.Frame()
+						it2.Cnt16++
+					}
+				}
+			} else {
+				sub_40BA90(it.NetInd0, it.Kind4, it2.Ind0, it2.Data4)
+				it.Cnt12++
+				it2.Frame12 = s.Frame()
+			}
+		}
+	}
+}
+
+func sub_40BC10(ind netstr.Index, a2 byte) *xferData {
+	for i := 0; i < xferDataCnt; i++ {
+		it := &xferDataArr[i]
+		if it.NetInd0 == ind && it.Kind4 == a2 {
+			return it
+		}
+	}
+	return nil
+}
+
+func sub_40BF10() (*xferData, int) {
+	for i := 0; i < xferDataCnt; i++ {
+		it2 := &xferDataArr[i]
+		if it2.Kind6 == 0 && it2.Size8 == 0 {
+			return it2, i
+		}
+	}
+	return nil, -1
+}
+
+func sub_40BFF0(a1 int, a2 byte, i int) {
+	if i >= xferDataCnt {
+		return
+	}
+	p := &xferDataArr[i]
+	p.Kind4 = a2
+	p.Kind6 = 2
+}
+
+func sub_40C0D0() {
+	alloc.FreeSlice(xferDataArr)
+}
+
+func sub_40C0E0(ind netstr.Index) {
+	for i := 0; i < xferDataCnt; i++ {
+		it := &xferDataArr[i]
+		if it.Blocks16 == 2 && it.NetInd0 == ind {
+			sub_40BB20(it.NetInd0, it.Kind4, 1)
+		}
+	}
+}
+
+func sub_40BB20(ind netstr.Index, a2 byte, a3 byte) *xferData {
+	p := sub_40BC10(ind, a2)
+	if p == nil {
+		return nil
+	}
+	var buf [4]byte
+	buf[0] = byte(noxnet.MSG_XFER_MSG)
+	buf[1] = 5
+	buf[2] = a2
+	buf[3] = a3
+	netstr.Global.Send(ind, buf[:4], netstr.SendNoLock|netstr.SendFlagFlush)
+	sub_40BBC0(p.NetInd0, p.Field22)
+	if xferDataActive != 0 {
+		xferDataActive--
+	}
+	for it := p.First152; it != nil; it = it.Next20 {
+		*it = xferBlock{}
+	}
+	sub_40B930(p)
+	return p
+}
+
+func sub_40BC60(pli ntype.PlayerInd, a2 byte, typ string, data []byte, flag bool) bool {
+	p, pi := sub_40BF10()
+	if p == nil {
+		return false
+	}
+	if len(data) == 0 {
+		return false
+	}
+	var nind netstr.Index
+	if !noxflags.HasGame(noxflags.GameHost) {
+		nind = netstrClientIndex
+	} else {
+		if !noxflags.HasGame(noxflags.GameClient) {
+			return false
+		}
+		if !flag {
+			sub_40B810(a2, data)
+			return true
+		}
+		if pli == common.MaxPlayers-1 {
+			sub_40B810(a2, data)
+			return true
+		}
+		nind = netstr.Global.PlayerInd(pli)
+	}
+	xferDataActive++
+	left := data
+	const blockSz = 512
+	blocks := (len(data)-1)/blockSz + 1
+	for i := 0; i < blocks; i++ {
+		b := &xferBlock{
+			Ind0: uint16(i + 1),
+		}
+		n := blockSz
+		if len(left) <= n {
+			n = len(left)
+		}
+		buf := make([]byte, n)
+		copy(buf, left[:n])
+		b.Data4 = buf
+		b.Frame12 = 0
+		b.Cnt16 = 0
+		b.Next20 = nil
+		b.Prev24 = p.Last156
+		left = left[n:]
+		if prev := p.Last156; prev != nil {
+			prev.Next20 = b
+		} else {
+			p.First152 = b
+		}
+		p.Last156 = b
+	}
+	p.NetInd0 = nind
+	p.Kind4 = 0
+	p.Kind6 = 1
+	p.Size8 = len(data)
+	p.Cnt12 = 1
+	p.Blocks16 = blocks
+	p.BlockSz20 = blockSz
+	if typ != "" {
+		p.Type23 = typ
+	}
+	p.Field22 = a2
+	nox_xxx_netXferMsg_40BE80(nind, a2, typ, len(data), byte(pi))
+	return true
+}
+
+func nox_xxx_netXferMsg_40BE80(a1 netstr.Index, a2 byte, typ string, sz int, a5 byte) {
+	var buf [140]byte
+	buf[0] = byte(noxnet.MSG_XFER_MSG)
+	buf[1] = 0 // XFER_HEADER?
+	buf[2] = a2
+	binary.LittleEndian.PutUint32(buf[4:], uint32(sz))
+	n := copy(buf[8:136], typ)
+	buf[8+n] = 0
+	buf[136] = a5
+	netstr.Global.Send(a1, buf[:140], netstr.SendNoLock|netstr.SendFlagFlush)
+}
+
+func sub_40C030(ind netstr.Index, a2 byte) {
+	p := sub_40BC10(ind, a2)
+	if p == nil {
+		return
+	}
+	sub_40B850(ind, p.Field22)
+	xferDataActive--
+	sub_40B930(p)
+}
+
+func sub_40C070(ind netstr.Index, a2 int, a3 byte) {
+	p := sub_40BC10(ind, a3)
+	if p == nil {
+		return
+	}
+	sub_40BBC0(p.NetInd0, p.Field22)
+	for it := p.First152; it != nil; it = it.Next20 {
+		*it = xferBlock{}
+	}
+	sub_40B930(p)
+}
+
+func sub_40BF60(ind netstr.Index, a2 byte, a3 uint16) {
+	p := sub_40BC10(ind, a2)
+	if p == nil {
+		return
+	}
+	for it := p.First152; it != nil; it = it.Next20 {
+		if it.Ind0 == a3 {
+			if next := it.Next20; next != nil {
+				next.Prev24 = it.Prev24
+			} else {
+				p.Last156 = it.Prev24
+			}
+			if prev := it.Prev24; prev != nil {
+				prev.Next20 = it.Next20
+			} else {
+				p.First152 = it.Next20
+			}
+			*it = xferBlock{}
+			return
+		}
+	}
 }

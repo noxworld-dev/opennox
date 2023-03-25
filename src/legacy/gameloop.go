@@ -211,9 +211,6 @@ func Nox_xxx_set3512_40A340(a1 int) {
 func Sub_459D50(a1 int) {
 	C.sub_459D50(C.int(a1))
 }
-func Sub_446580(a1 int) {
-	C.sub_446580(C.int(a1))
-}
 func Nox_xxx_gameSetMapPath_409D70(a1 string) {
 	C.nox_xxx_gameSetMapPath_409D70(internCStr(a1))
 }

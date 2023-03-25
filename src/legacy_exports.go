@@ -253,9 +253,6 @@ func init() {
 	legacy.Sub_4DB1C0 = sub_4DB1C0
 	legacy.Sub_4DCBF0 = sub_4DCBF0
 	legacy.Sub_4460A0 = sub_4460A0
-	legacy.Sub_40BBC0 = sub_40BBC0
-	legacy.Sub_40B850 = sub_40B850
-	legacy.Sub_40B810 = sub_40B810
 	legacy.Nox_xxx_serverIsClosing_446180 = nox_xxx_serverIsClosing_446180
 	legacy.Sub_419EB0 = sub_419EB0
 	legacy.Sub_4DCC10 = sub_4DCC10
@@ -342,5 +339,11 @@ func init() {
 	legacy.Sub_51A100 = func() {
 		noxServer.mapSend.sub_51A100()
 	}
-	legacy.Sub_40BA90 = sub_40BA90
+	legacy.Sub_41CC00 = sub_41CC00
+	legacy.Nox_xxx_playerSendMOTD_4DD140 = nox_xxx_playerSendMOTD_4DD140
+	legacy.Sub_40C0E0 = sub_40C0E0
+	legacy.Sub_40BFF0 = sub_40BFF0
+	legacy.Sub_40BF60 = sub_40BF60
+	legacy.Sub_40C070 = sub_40C070
+	legacy.Sub_40C030 = sub_40C030
 }
