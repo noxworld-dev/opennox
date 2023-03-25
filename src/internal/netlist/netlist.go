@@ -4,7 +4,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/common"
 
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 const (
@@ -170,8 +169,7 @@ func CopyPacketsA(ind ntype.PlayerInd, kind Kind) []byte {
 func HandlePacketsA(ind ntype.PlayerInd, kind Kind, fnc func(data []byte)) {
 	list := ByInd(ind, kind)
 
-	out, free := alloc.Make([]byte{}, bufSize)
-	defer free()
+	out := make([]byte, bufSize)
 	out = out[:0]
 	for {
 		buf := list.Get()
