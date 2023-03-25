@@ -18,7 +18,6 @@ void nox_xxx_j_allocHitArray_511840(void);
 void nullsub_28(uint32_t a1);
 void nullsub_29(void);
 void nullsub_30(uint32_t a1);
-int nox_xxx_netSendReadPacket_5528B0(int a1, unsigned char a2);
 unsigned int nox_server_makeServerInfoPacket_554040(const char* inBuf, int inSz, char* out);
 unsigned int nox_xxx_net_getIP_554200(int a1);
 char* sub_554230();

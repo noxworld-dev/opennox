@@ -322,7 +322,6 @@ func init() {
 	legacy.Nox_xxx_netSendSock_552640 = nox_xxx_netSendSock_552640
 	legacy.Nox_xxx_netStatsMultiplier_4D9C20 = nox_xxx_netStatsMultiplier_4D9C20
 	legacy.Sub_554240 = sub_554240
-	legacy.Nox_xxx_netSendReadPacket_5528B0 = nox_xxx_netSendReadPacket_5528B0
 	legacy.Nox_xxx_net_getIP_554200 = nox_xxx_net_getIP_554200
 	legacy.Nox_xxx_netOnPacketRecvCli_48EA70 = nox_xxx_netOnPacketRecvCli_48EA70
 	legacy.Sub_43C6E0 = sub_43C6E0
@@ -343,4 +342,5 @@ func init() {
 	legacy.Sub_51A100 = func() {
 		noxServer.mapSend.sub_51A100()
 	}
+	legacy.Sub_40BA90 = sub_40BA90
 }
