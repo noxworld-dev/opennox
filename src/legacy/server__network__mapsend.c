@@ -142,7 +142,7 @@ void nox_xxx_netMapSend_519D20(int a1) {
 	wchar2_t* v2;       // eax
 	char* result;      // eax
 
-	v1 = getMemAt(0x5D4594, 2387148 + 48 * a1);
+	v1 = getMemAt(0x5D4594, 2387148 + 48*a1);
 	++dword_5d4594_2388648;
 	if (*((uint16_t*)v1 + 1)) {
 		if (*((uint16_t*)v1 + 1) == 1) {
@@ -170,7 +170,7 @@ int nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1) {
 	int result;        // eax
 	wchar2_t* v4;       // eax
 
-	v1 = getMemAt(0x5D4594, 2387148 + 48 * a1);
+	v1 = getMemAt(0x5D4594, 2387148 + 48*a1);
 	v2 = nox_common_playerInfoFromNum_417090(a1);
 	*((uint16_t*)v1 + 1) = 0;
 	nullsub_27(v1);
@@ -209,7 +209,7 @@ int nox_xxx_netMapSendPrepair_519EB0_net_mapsend() {
 	v0 = nox_server_currentMapGetFilename_409B30();
 	v11 = v0;
 	if (dword_5d4594_2388648) {
-		v1 = getMemAt(0x5D4594, 2387156);
+		v1 = getMemAt(0x5D4594, 2387148 + 8);
 		do {
 			if (*((uint16_t*)v1 - 3) == 1) {
 				v2 = calloc(1, *(size_t*)getMemAt(0x5D4594, 2388644));
@@ -228,7 +228,7 @@ int nox_xxx_netMapSendPrepair_519EB0_net_mapsend() {
 				}
 			}
 			v1 += 48;
-		} while ((int)v1 < (int)getMemAt(0x5D4594, 2388644));
+		} while ((int)v1 < (int)getMemAt(0x5D4594, 2387148 + 48*31 + 8));
 		v0 = (char*)v11;
 	}
 	if (!v0) {
