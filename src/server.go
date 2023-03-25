@@ -492,7 +492,7 @@ func (s *Server) updateRemotePlayers() error {
 		if pl.UnitC().SObj() == legacy.HostPlayerUnit() {
 			legacy.Nox_xxx_netImportant_4E5770(byte(pl.Index()), 1)
 		} else if legacy.Get_dword_5d4594_2650652() == 0 || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
-			netstr.Global.Player(pl).SendReadPacket(0)
+			netstr.Global.Player(pl).SendReadPacket(false)
 		}
 	}
 	return nil
