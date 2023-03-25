@@ -30,7 +30,6 @@ var (
 	Sub_4DCBF0                           func(a1 int)
 	Sub_4460A0                           func(a1 int)
 	Nox_xxx_serverIsClosing_446180       func() int
-	Sub_419EB0                           func(i ntype.PlayerInd, val int)
 	Sub_4DCC10                           func(a1p *server.Object) int
 	Sub_4DCFB0                           func(a1p *server.Object)
 	Sub_4DD0B0                           func(a1p *server.Object)
@@ -65,9 +64,6 @@ func sub_4460A0(a1 int) { Sub_4460A0(a1) }
 
 //export nox_xxx_serverIsClosing_446180
 func nox_xxx_serverIsClosing_446180() int { return Nox_xxx_serverIsClosing_446180() }
-
-//export sub_419EB0
-func sub_419EB0(i, val int) { Sub_419EB0(ntype.PlayerInd(i), val) }
 
 //export sub_4DCC10
 func sub_4DCC10(a1p *nox_object_t) int { return Sub_4DCC10(asObjectS(a1p)) }
