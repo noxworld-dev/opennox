@@ -19,6 +19,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/platform"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
@@ -234,8 +235,12 @@ func (v Index) Close() {
 	}
 }
 
-func Player(ind int) Index {
-	return Index{ind + 1}
+func Player(p ntype.Player) Index {
+	return PlayerInd(p.PlayerIndex())
+}
+
+func PlayerInd(pind ntype.PlayerInd) Index {
+	return Index{int(pind) + 1}
 }
 
 func IndexRaw(ind int) Index {
@@ -262,8 +267,8 @@ func (v Index) IsFirst() bool {
 	return v.i == 0
 }
 
-func (v Index) Player() int {
-	return v.i - 1
+func (v Index) Player() ntype.PlayerInd {
+	return ntype.PlayerInd(v.i - 1)
 }
 
 func (v Index) get() *stream {

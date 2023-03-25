@@ -78,7 +78,7 @@ func (c *Client) DrawPerfmon(m *Perfmon) {
 			bps = m.TransferStats(netstr.First())
 			format = c.Strings().GetStringInFile("TransferStats", "client.c")
 		} else {
-			bps = m.TransferStats(netstr.Player(pl.Index()))
+			bps = m.TransferStats(netstr.Player(pl))
 			format = c.Strings().GetStringInFile("TransferStats", "client.c")
 		}
 		c.r.DrawString(nil, fmt.Sprintf(format, bps, d.th, d.ri, d.rpu), image.Pt(70, y))

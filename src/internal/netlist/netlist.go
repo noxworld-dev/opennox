@@ -3,6 +3,7 @@ package netlist
 import (
 	"github.com/noxworld-dev/opennox-lib/common"
 
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
@@ -57,7 +58,7 @@ func Free() {
 	}
 }
 
-func checkSizesA(ind int, kind Kind, sz int) bool {
+func checkSizesA(ind ntype.PlayerInd, kind Kind, sz int) bool {
 	if kind == Kind1 {
 		psz := ByInd(ind, Kind1).Size()
 		if psz+sz+ByInd(ind, Kind2).Size() > bufSize {
@@ -71,7 +72,7 @@ func checkSizesA(ind int, kind Kind, sz int) bool {
 	return ByInd(ind, kind).Count() < maxPackets
 }
 
-func checkSizesB(ind int, kind Kind, sz, sz2 int) bool {
+func checkSizesB(ind ntype.PlayerInd, kind Kind, sz, sz2 int) bool {
 	l := ByInd(ind, kind)
 	psz := l.Size()
 	if psz+sz+sz2 > bufSize {
@@ -80,7 +81,7 @@ func checkSizesB(ind int, kind Kind, sz, sz2 int) bool {
 	return l.Count() < maxPackets
 }
 
-func checkSizesC(ind int, sz int) bool {
+func checkSizesC(ind ntype.PlayerInd, sz int) bool {
 	l := ByInd(ind, Kind2)
 	if (sz + l.Size()) > bufSize {
 		return false
@@ -88,7 +89,7 @@ func checkSizesC(ind int, sz int) bool {
 	return l.Count() < maxPackets
 }
 
-func ResetByInd(ind int, kind Kind) {
+func ResetByInd(ind ntype.PlayerInd, kind Kind) {
 	l := ByInd(ind, kind)
 	if l == nil {
 		return
@@ -97,27 +98,27 @@ func ResetByInd(ind int, kind Kind) {
 	buffersList[kind+1][ind].cur = 0
 }
 
-func InitByInd(ind int) {
+func InitByInd(ind ntype.PlayerInd) {
 	l := ByInd(ind, Kind2)
 	l.Reset()
 	buffersList[0][ind].cur = 0
 }
 
 func ResetAllInd(kind Kind) {
-	for i := 0; i < common.MaxPlayers; i++ {
+	for i := ntype.PlayerInd(0); i < common.MaxPlayers; i++ {
 		ResetByInd(i, kind)
 	}
 }
 
 func ResetAll() {
-	for i := 0; i < common.MaxPlayers; i++ {
+	for i := ntype.PlayerInd(0); i < common.MaxPlayers; i++ {
 		ResetByInd(i, Kind1)
 		ResetByInd(i, Kind0)
 		InitByInd(i)
 	}
 }
 
-func allocBufferRaw(ind int, kind Kind, buf []byte) []byte {
+func allocBufferRaw(ind ntype.PlayerInd, kind Kind, buf []byte) []byte {
 	if len(buf) == 0 {
 		return nil
 	}
@@ -131,15 +132,15 @@ func allocBufferRaw(ind int, kind Kind, buf []byte) []byte {
 	return p.buf[i : i+len(buf)]
 }
 
-func allocBuffer(ind int, kind Kind, buf []byte) []byte {
+func allocBuffer(ind ntype.PlayerInd, kind Kind, buf []byte) []byte {
 	return allocBufferRaw(ind, kind+1, buf)
 }
 
-func allocBuffer0(ind int, buf []byte) []byte {
+func allocBuffer0(ind ntype.PlayerInd, buf []byte) []byte {
 	return allocBufferRaw(ind, Kind0, buf)
 }
 
-func AddToMsgListCli(ind int, kind Kind, buf []byte) bool {
+func AddToMsgListCli(ind ntype.PlayerInd, kind Kind, buf []byte) bool {
 	l := ByInd(ind, kind)
 	if len(buf) == 0 {
 		return true
@@ -155,7 +156,7 @@ func AddToMsgListCli(ind int, kind Kind, buf []byte) bool {
 	return true
 }
 
-func CopyPacketsA(ind int, kind Kind) []byte {
+func CopyPacketsA(ind ntype.PlayerInd, kind Kind) []byte {
 	list := ByInd(ind, kind)
 	out := make([]byte, 0, bufSize)
 	for {
@@ -170,7 +171,7 @@ func CopyPacketsA(ind int, kind Kind) []byte {
 	}
 }
 
-func HandlePacketsA(ind int, kind Kind, fnc func(data []byte)) {
+func HandlePacketsA(ind ntype.PlayerInd, kind Kind, fnc func(data []byte)) {
 	list := ByInd(ind, kind)
 
 	out, free := alloc.Make([]byte{}, bufSize)
@@ -192,7 +193,7 @@ func HandlePacketsA(ind int, kind Kind, fnc func(data []byte)) {
 	ResetByInd(ind, kind)
 }
 
-func CopyPacketsB(ind int) []byte {
+func CopyPacketsB(ind ntype.PlayerInd) []byte {
 	l := ByInd(ind, Kind2)
 	cnt := 0
 	sbuf := Buffer
@@ -213,7 +214,7 @@ func CopyPacketsB(ind int) []byte {
 	return sbuf[:cnt]
 }
 
-func ClientSend0(ind int, kind Kind, buf []byte, sz2 int) bool {
+func ClientSend0(ind ntype.PlayerInd, kind Kind, buf []byte, sz2 int) bool {
 	l := ByInd(ind, kind)
 	if len(buf) == 0 {
 		return true
@@ -229,7 +230,7 @@ func ClientSend0(ind int, kind Kind, buf []byte, sz2 int) bool {
 	return true
 }
 
-func AddToMsgListSrv(ind int, buf []byte, flush func(ind int)) bool {
+func AddToMsgListSrv(ind ntype.PlayerInd, buf []byte, flush func(ind ntype.PlayerInd)) bool {
 	if len(buf) == 0 {
 		return true
 	}
@@ -264,7 +265,7 @@ func AddToMsgListSrv(ind int, buf []byte, flush func(ind int)) bool {
 	return true
 }
 
-func ByInd(ind int, kind Kind) *MsgList {
+func ByInd(ind ntype.PlayerInd, kind Kind) *MsgList {
 	return messageList[kind][ind]
 }
 

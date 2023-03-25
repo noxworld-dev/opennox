@@ -12,6 +12,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 )
 
@@ -215,7 +216,7 @@ func (s *Server) nox_xxx_replayTickMB(a1 bool) error {
 			if _, err := io.ReadFull(replay.reader, buf[:5]); err != nil {
 				return fmt.Errorf("cannot read packet header: %w", err)
 			}
-			ind := int(buf[0])
+			ind := ntype.PlayerInd(buf[0])
 			sz := int(binary.LittleEndian.Uint32(buf[1:5]))
 			if cap(data) < sz {
 				data = make([]byte, sz)
