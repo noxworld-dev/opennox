@@ -25,14 +25,15 @@ func nox_netlist_addToMsgListSrv(ind ntype.PlayerInd, buf []byte) bool {
 	return netlist.AddToMsgListSrv(ind, buf, func(ind ntype.PlayerInd) {
 		// Flush old data to network.
 		if ind == common.MaxPlayers-1 {
-			noxClient.nox_netlist_receiveCli_494E90(ind)
+			noxClient.nox_netlist_receiveCli_494E90()
 		} else {
 			netstr.Global.SendReadPacket(netstr.Global.Player(s.GetPlayerByInd(ind)), 0)
 		}
 	})
 }
 
-func (c *Client) nox_netlist_receiveCli_494E90(ind ntype.PlayerInd) int {
+func (c *Client) nox_netlist_receiveCli_494E90() int {
+	const ind = common.MaxPlayers - 1
 	res := 0
 
 	if buf1 := netlist.CopyPacketsB(ind); len(buf1) != 0 {
