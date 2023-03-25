@@ -14,9 +14,11 @@ import (
 )
 
 const (
-	BinOpenNox   = "opennox"
-	BinOpenNoxHD = "opennox-hd"
-	BinServer    = "opennox-server"
+	BinOpenNox        = "opennox"
+	BinOpenNoxHD      = "opennox-hd"
+	BinOpenNoxDebug   = "opennox-debug"
+	BinOpenNoxHDDebug = "opennox-hd-debug"
+	BinServer         = "opennox-server"
 )
 
 const (
@@ -44,6 +46,9 @@ func main() {
 }
 
 func build(args []string) error {
+	if *fOS == "windows" {
+		defTargets = append(defTargets, BinOpenNoxDebug, BinOpenNoxHDDebug)
+	}
 	targets := args
 	if len(targets) == 0 {
 		targets = defTargets
@@ -76,6 +81,14 @@ func buildTarget(target string) error {
 	case BinOpenNoxHD, "client-hd", "hd":
 		return goBuild("opennox", BinOpenNoxHD, &buildOpts{
 			CGO: true, GUI: true, Tags: []string{"highres"},
+		})
+	case BinOpenNoxDebug, "client-debug":
+		return goBuild("opennox", BinOpenNoxDebug, &buildOpts{
+			CGO: true,
+		})
+	case BinOpenNoxHDDebug, "client-hd-debug":
+		return goBuild("opennox", BinOpenNoxHDDebug, &buildOpts{
+			CGO: true, Tags: []string{"highres"},
 		})
 	}
 }
@@ -118,6 +131,7 @@ func goBuild(cmd string, bin string, opts *buildOpts) error {
 	if opts.GUI {
 		switch goos {
 		case "windows":
+			opts.Tags = append(opts.Tags, "guiapp")
 			LDFLAGS = append(LDFLAGS, "-H windowsgui")
 		}
 	}
