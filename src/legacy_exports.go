@@ -254,7 +254,6 @@ func init() {
 	legacy.Sub_4DCBF0 = sub_4DCBF0
 	legacy.Sub_4460A0 = sub_4460A0
 	legacy.Nox_xxx_serverIsClosing_446180 = nox_xxx_serverIsClosing_446180
-	legacy.Sub_419EB0 = sub_419EB0
 	legacy.Sub_4DCC10 = sub_4DCC10
 	legacy.Sub_4DCFB0 = sub_4DCFB0
 	legacy.Sub_4DD0B0 = sub_4DD0B0
@@ -314,7 +313,6 @@ func init() {
 	legacy.SendXXX_5550D0 = sendXXX_5550D0
 	legacy.Sub_5545A0 = sub_5545A0
 	legacy.Sub_554230 = sub_554230
-	legacy.Nox_xxx_netSendSock_552640 = nox_xxx_netSendSock_552640
 	legacy.Nox_xxx_netStatsMultiplier_4D9C20 = nox_xxx_netStatsMultiplier_4D9C20
 	legacy.Sub_554240 = sub_554240
 	legacy.Nox_xxx_net_getIP_554200 = nox_xxx_net_getIP_554200
@@ -339,5 +337,4 @@ func init() {
 	}
 	legacy.Sub_41CC00 = sub_41CC00
 	legacy.Nox_xxx_playerSendMOTD_4DD140 = nox_xxx_playerSendMOTD_4DD140
-	legacy.Sub_40C0E0 = sub_40C0E0
 }

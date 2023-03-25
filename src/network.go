@@ -307,11 +307,6 @@ func (s *Server) nox_xxx_netStructReadPackets2_4DEC50(ind ntype.PlayerInd) int {
 	return netstr.Global.ReadPackets(netstr.Global.PlayerInd(ind))
 }
 
-func nox_xxx_netSendSock_552640(id netstr.Index, ptr *byte, sz int, flags int) int {
-	n, _ := netstr.Global.Send(id, unsafe.Slice(ptr, sz), flags)
-	return n
-}
-
 func nox_xxx_netSendClientReady_43C9F0() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_CLIENT_READY)
@@ -1414,7 +1409,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		legacy.Nox_xxx_netPlayerIncomingServ_4DDF60(pl.Index())
 		return 1, true
 	case noxnet.MSG_OUTGOING_CLIENT:
-		legacy.Nox_xxx_playerDisconnFinish_4DE530(pl.Index(), 2)
+		nox_xxx_playerDisconnFinish_4DE530(pl.PlayerIndex(), 2)
 		return 1, true
 	case noxnet.MSG_REQUEST_TIMER_STATUS:
 		v41 := legacy.Sub_40A220()
