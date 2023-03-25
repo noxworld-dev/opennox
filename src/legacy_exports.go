@@ -311,8 +311,8 @@ func init() {
 	legacy.Nox_xxx_collideHarpoon_4EB6A0 = nox_xxx_collideHarpoon_4EB6A0
 	legacy.Nox_xxx_updateHarpoon_54F380 = nox_xxx_updateHarpoon_54F380
 	legacy.SendXXX_5550D0 = sendXXX_5550D0
-	legacy.Sub_5545A0 = sub_5545A0
-	legacy.Sub_554230 = sub_554230
+	legacy.Sub_5545A0 = getServerPort
+	legacy.Sub_554230 = getOwnIP
 	legacy.Nox_xxx_netStatsMultiplier_4D9C20 = nox_xxx_netStatsMultiplier_4D9C20
 	legacy.Sub_554240 = sub_554240
 	legacy.Nox_xxx_net_getIP_554200 = nox_xxx_net_getIP_554200
