@@ -66,16 +66,16 @@ func ReadFrom(pc net.PacketConn, buf []byte) (int, netip.AddrPort, error) {
 		Log.Println(err)
 		return n, ap, err
 	}
-	if Debug {
-		Log.Printf("recv %s -> %s [%d]\n%x", ap, pc.LocalAddr(), n, buf[:n])
-	}
+	//if g.Debug {
+	//	Log.Printf("recv %s -> %s [%d]\n%x", ap, pc.LocalAddr(), n, buf[:n])
+	//}
 	return n, ap, nil
 }
 
 func WriteTo(pc net.PacketConn, buf []byte, addr netip.AddrPort) (int, error) {
-	if Debug {
-		Log.Printf("send %s -> %s [%d]\n%x", pc.LocalAddr(), addr, len(buf), buf)
-	}
+	//if g.Debug {
+	//	Log.Printf("send %s -> %s [%d]\n%x", pc.LocalAddr(), addr, len(buf), buf)
+	//}
 	n, err := pc.WriteTo(buf, net.UDPAddrFromAddrPort(addr))
 	if err != nil {
 		Log.Println(err)
@@ -106,8 +106,8 @@ func CanReadConn(pc net.PacketConn) (int, error) {
 	if ierr == 0 {
 		return int(cnt), nil
 	}
-	if Debug {
-		Log.Printf("can read: %d", cnt)
-	}
+	//if g.Debug {
+	//	Log.Printf("can read: %d", cnt)
+	//}
 	return int(cnt), ierr
 }

@@ -78,9 +78,9 @@ func (m *Perfmon) LogBandwidth() {
 		v4 := noxServer.Frame()
 		var bps uint32
 		if pl.Index() == common.MaxPlayers-1 {
-			bps = noxPerfmon.TransferStats(netstr.First())
+			bps = noxPerfmon.TransferStats(netstr.Global.First())
 		} else {
-			bps = noxPerfmon.TransferStats(netstr.Player(pl))
+			bps = noxPerfmon.TransferStats(netstr.Global.Player(pl))
 		}
 		m.logger.Printf("%s, %d, %d, %d, %d, %d\n", pl.Name(), bps, v4, d.th, d.ri, d.rpu)
 	}
