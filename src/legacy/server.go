@@ -36,7 +36,6 @@ extern uint32_t dword_5d4594_528260;
 extern uint32_t dword_5d4594_2488604;
 
 void nox_xxx_netlist_4DEB50();
-void nox_xxx_serverLoopSendMap_519990();
 void nox_xxx_updateUnits_51B100();
 void nox_xxx_voteUptate_506F30();
 void sub_4E4170();
@@ -311,9 +310,6 @@ func Nox_server_checkWarpGate_4D7600() {
 func Sub_4D7A80() {
 	C.sub_4D7A80()
 }
-func Nox_xxx_serverLoopSendMap_519990() {
-	C.nox_xxx_serverLoopSendMap_519990()
-}
 func Sub_4EC720() {
 	C.sub_4EC720()
 }
@@ -463,12 +459,6 @@ func Sub_4D76F0() int {
 }
 func Sub_4D76E0(a1 int) {
 	C.sub_4D76E0(C.int(a1))
-}
-func Sub_51A130() int {
-	return int(C.sub_51A130())
-}
-func Nox_xxx_mapSendCancelAll_5198B0(a1 int) {
-	C.nox_xxx_mapSendCancelAll_5198B0(C.uchar(a1))
 }
 func Nox_xxx_ruleSetNoRespawn_40A5E0(a1 int) {
 	C.nox_xxx_ruleSetNoRespawn_40A5E0(C.int(a1))
