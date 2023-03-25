@@ -1,8 +1,6 @@
 package opennox
 
 import (
-	"unsafe"
-
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy"
@@ -45,10 +43,10 @@ func nox_video_bagFree_42F4D0() {
 	for _, p := range nox_images_arr1_787156 {
 		if p.Kind() == 2 {
 			anim := p.Field24ptr()
-			alloc.Free(unsafe.Pointer(anim.ImagesPtr))
-			alloc.Free(anim.C())
+			alloc.Free(anim.ImagesPtr)
+			alloc.FreePtr(anim.C())
 		}
-		alloc.Free(p.C())
+		alloc.FreePtr(p.C())
 	}
 	nox_images_arr1_787156 = nil
 	sub_47D150()
@@ -57,7 +55,7 @@ func nox_video_bagFree_42F4D0() {
 
 func sub_47D150() {
 	if p := memmap.PtrPtr(0x5D4594, 1189588); *p != nil {
-		alloc.Free(*p)
+		alloc.FreePtr(*p)
 		*p = nil
 	}
 }

@@ -407,14 +407,14 @@ func sub_4130C0(head *Modifier) {
 	for it := head; it != nil; it = next {
 		next = it.Next80
 		if it.name0 != nil {
-			alloc.Free(unsafe.Pointer(it.name0))
+			alloc.Free(it.name0)
 			it.name0 = nil
 		}
 		if it.desc8 != nil {
-			alloc.Free(unsafe.Pointer(it.desc8))
+			alloc.Free(it.desc8)
 			it.desc8 = nil
 		}
-		alloc.Free(unsafe.Pointer(it))
+		alloc.Free(it)
 	}
 }
 
@@ -423,14 +423,14 @@ func sub_413100(head *Modifier) {
 	for it := head; it != nil; it = next {
 		next = it.Next80
 		if it.name0 != nil {
-			alloc.Free(unsafe.Pointer(it.name0))
+			alloc.Free(it.name0)
 			it.name0 = nil
 		}
 		if it.desc8 != nil {
-			alloc.Free(unsafe.Pointer(it.desc8))
+			alloc.Free(it.desc8)
 			it.desc8 = nil
 		}
-		alloc.Free(unsafe.Pointer(it))
+		alloc.Free(it)
 	}
 }
 
@@ -439,18 +439,18 @@ func nox_xxx_modifFreeOne_413140(head *ModifierEff) {
 	for it := head; it != nil; it = next {
 		next = it.next136
 		if it.name0 != nil {
-			alloc.Free(unsafe.Pointer(it.name0))
+			alloc.Free(it.name0)
 			it.name0 = nil
 		}
 		if it.desc8 != nil {
-			alloc.Free(unsafe.Pointer(it.desc8))
+			alloc.Free(it.desc8)
 			it.desc8 = nil
 		}
 		if it.secdesc12 != nil {
-			alloc.Free(unsafe.Pointer(it.secdesc12))
+			alloc.Free(it.secdesc12)
 			it.secdesc12 = nil
 		}
-		alloc.Free(unsafe.Pointer(it))
+		alloc.Free(it)
 	}
 }
 

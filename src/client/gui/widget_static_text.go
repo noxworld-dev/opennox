@@ -99,7 +99,7 @@ func (g *GUI) NewStaticTextRaw(par *Window, status StatusFlags, px, py, w, h int
 func nox_xxx_wndStaticProcPre_489390(win *Window, e WindowEvent) WindowEventResp {
 	switch e := e.(type) {
 	case WindowDestroy:
-		alloc.Free(win.WidgetData)
+		alloc.FreePtr(win.WidgetData)
 		win.WidgetData = nil
 		return nil
 	case *StaticTextSetText:
