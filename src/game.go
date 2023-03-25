@@ -93,7 +93,7 @@ func init() {
 				format := c.Strings().GetStringInFile("GameInfo", "parsecmd.c")
 				format = strings.ReplaceAll(format, "%S", "%s")
 				c.Printf(console.ColorRed, format, mname, players, maxPlayers, lessons, timeLimit)
-				c.Print(console.ColorRed, netGetIP(netstr.First()).String())
+				c.Print(console.ColorRed, netGetIP(netstr.Global.First()).String())
 			} else {
 				maxPlayers := noxServer.getServerMaxPlayers()
 				mname := noxServer.nox_server_currentMapGetFilename_409B30()
@@ -698,7 +698,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server() bool {
 		}
 	}
 	s.Audio.Reset()
-	netstr.Update()
+	netstr.Global.Update()
 	if noxflags.HasEngine(noxflags.EngineReplayRead) {
 		s.nox_xxx_replayTickMB_4D3580_net_playback(true)
 	}

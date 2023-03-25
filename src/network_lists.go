@@ -27,7 +27,7 @@ func nox_netlist_addToMsgListSrv(ind ntype.PlayerInd, buf []byte) bool {
 		if ind == common.MaxPlayers-1 {
 			noxClient.nox_netlist_receiveCli_494E90(ind)
 		} else {
-			netstr.SendReadPacket(netstr.Player(s.GetPlayerByInd(ind)), 0)
+			netstr.Global.SendReadPacket(netstr.Global.Player(s.GetPlayerByInd(ind)), 0)
 		}
 	})
 }
