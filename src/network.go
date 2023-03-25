@@ -746,10 +746,6 @@ func sub_43CC80() {
 	legacy.Set_dword_5d4594_2649712(0)
 }
 
-func nox_xxx_netSendReadPacket_5528B0(ind netstr.Index, a2 byte) int {
-	return netstr.Global.SendReadPacket(ind, a2)
-}
-
 func sub_5521A0() bool {
 	v13 := sub_416640()
 	netstr.Global.ProcessStats(int(*(*int16)(unsafe.Pointer(&v13[105]))), int(*(*int16)(unsafe.Pointer(&v13[107]))))
@@ -1610,4 +1606,17 @@ func (s *Server) nox_xxx_netPlayerObjSendCamera_519330(u *Object) bool {
 	buf[10] = 0xff
 	buf[11] = 0
 	return nox_netlist_addToMsgListSrv(pl.PlayerIndex(), buf[:12])
+}
+
+func sub_40BA90(ind netstr.Index, a2 byte, a3 int16, data []byte) int {
+	buf := make([]byte, 8+len(data))
+	buf[0] = byte(noxnet.MSG_XFER_MSG)
+	buf[1] = 2
+	buf[2] = a2
+	buf[3] = 0
+	binary.LittleEndian.PutUint16(buf[4:], uint16(a3))
+	binary.LittleEndian.PutUint16(buf[6:], uint16(len(data)))
+	copy(buf[8:], data)
+	netstr.Global.Send(ind, buf, 0)
+	return netstr.Global.SendReadPacket(ind, 1)
 }

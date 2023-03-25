@@ -1110,23 +1110,6 @@ void sub_40B970() {
 	}
 }
 
-//----- (0040BA90) --------------------------------------------------------
-int sub_40BA90(unsigned int a1, char a2, short a3, short a4, const void* a5) {
-	int v6; // [esp+8h] [ebp-8h]
-	int v7; // [esp+Ch] [ebp-4h]
-
-	BYTE2(v6) = a2;
-	HIWORD(v7) = a4;
-	LOWORD(v7) = a3;
-	LOWORD(v6) = 706;
-	*getMemU32Ptr(0x5D4594, 3640) = v7;
-	*getMemU32Ptr(0x5D4594, 3636) = v6;
-	memcpy(getMemAt(0x5D4594, 3644), a5, a4);
-	nox_xxx_netSendSock_552640(a1, getMemAt(0x5D4594, 3636), a4 + 8, 0);
-	return nox_xxx_netSendReadPacket_5528B0(a1, 1);;
-}
-// 40BACC: variable 'v6' is possibly undefined
-
 //----- (0040BB20) --------------------------------------------------------
 char* sub_40BB20(unsigned int a1, int a2, char a3) {
 	char v3;      // bl
