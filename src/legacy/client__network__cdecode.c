@@ -2537,12 +2537,6 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	case 0xC6u: // MSG_TIMEOUT_NOTIFICATION
 		sub_43B750();
 		return 1;
-	case 0xC7u: // MSG_SERVER_QUIT
-		v359 = 0xC8u; // MSG_SERVER_QUIT_ACK
-		v33 = netstrGetClientIndex_43C750();
-		nox_xxx_netSendSock_552640(v33, &v359, 1, NOX_NET_SEND_FLAG2);
-		sub_446380();
-		return 1;
 	case 0xC9u: // MSG_SERVER_QUIT_ACK
 		switch (*(unsigned char*)(data + 1)) {
 		case 1u:

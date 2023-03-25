@@ -862,6 +862,12 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 		}
 		legacy.Sub_43C650()
 		return 3
+	case noxnet.MSG_SERVER_QUIT:
+		var buf [1]byte
+		buf[0] = byte(noxnet.MSG_SERVER_QUIT_ACK)
+		netstr.Global.Send(netstrGetClientIndex(), buf[:1], netstr.SendFlagFlush)
+		sub_446380()
+		return 1
 	case noxnet.MSG_USE_MAP:
 		if len(data) < 41 {
 			return -1

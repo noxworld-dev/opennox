@@ -76,7 +76,6 @@ import (
 
 var (
 	NetworkLogPrint                   func(str string)
-	NetstrGetClientIndex              func() netstr.Index
 	ClientSetServerHost               func(addr string)
 	Nox_client_joinGame_438A90        func() int
 	SendXXX_5550D0                    func(addr netip.AddrPort, data []byte) (int, error)
@@ -113,9 +112,6 @@ func ip2int(ip netip.Addr) uint32 {
 func nox_xxx_networkLog_print(cstr *C.char) {
 	NetworkLogPrint(GoString(cstr))
 }
-
-//export netstrGetClientIndex_43C750
-func netstrGetClientIndex_43C750() int { return NetstrGetClientIndex().Raw() }
 
 //export nox_client_setServerConnectAddr_435720
 func nox_client_setServerConnectAddr_435720(addr *C.char) {
