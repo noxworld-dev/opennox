@@ -774,7 +774,7 @@ func netGetIP(ind netstr.Index) netip.Addr {
 
 func sub_519930(a1 int) int {
 	cnt := 0
-	v2 := int(memmap.Uint32(0x5D4594, 2387148+48*uintptr(a1)))
+	v2 := int(memmap.Uint32(0x5D4594, 2387148+48*uintptr(a1)+0))
 	if v2 != 0 {
 		if a1 < 32 {
 			netstr.Global.IndexRaw(v2).QueueEach(func(it []byte) {
