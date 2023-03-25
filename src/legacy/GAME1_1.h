@@ -63,8 +63,6 @@ int sub_41C200();
 int sub_41C280(void* a1);
 int nox_xxx_parseFileInfoData_41C3B0(int a1);
 int sub_41C780(int a1);
-FILE* sub_41CAC0(char* a1, char** a2);
-int sub_41CC00(char* a1);
 int nox_xxx_computeServerPlayerDataBufferSize_41CC50(char* a1);
 int nox_xxx_netSavePlayer_41CE00();
 int sub_41CEE0(void* a1, int a2);

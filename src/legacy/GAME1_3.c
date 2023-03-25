@@ -38,7 +38,7 @@
 extern uint32_t dword_5d4594_815748;
 extern uint32_t dword_5d4594_816412;
 extern uint32_t dword_5d4594_825736;
-extern uint32_t dword_5d4594_826036;
+extern void* dword_5d4594_826036;
 extern uint32_t dword_5d4594_816356;
 extern uint32_t dword_5d4594_826032;
 extern uint32_t dword_5d4594_825744;
@@ -984,41 +984,6 @@ void* sub_446490(int a1) {
 	}
 	dword_5d4594_826036 = 0;
 	*getMemU32Ptr(0x5D4594, 826040 + 4 * (uint32_t)a1) = 0;
-	return result;
-}
-
-//----- (004464D0) --------------------------------------------------------
-void* sub_4464D0(int a1, uint32_t* a2) {
-	*a2 = *getMemU32Ptr(0x5D4594, 826040 + 4 * a1);
-	return *(void**)&dword_5d4594_826036;
-}
-
-//----- (00446520) --------------------------------------------------------
-void sub_446520(int a1, const void* a2, int a3) {
-	void* v3; // edi
-
-	if (a2) {
-		if (a3 > 0) {
-			v3 = calloc(a3, 1u);
-			*getMemU32Ptr(0x5D4594, 826056 + 4 * a1) = v3;
-			memcpy(v3, a2, a3);
-			*getMemU32Ptr(0x5D4594, 826048 + 4 * a1) = a3;
-			*getMemU32Ptr(0x5D4594, 826064 + 4 * a1) = 1;
-		}
-	}
-}
-
-//----- (00446580) --------------------------------------------------------
-int sub_446580(int a1) {
-	int result; // eax
-
-	result = *getMemU32Ptr(0x5D4594, 826056 + 4 * a1);
-	if (result) {
-		free(*(void**)getMemAt(0x5D4594, 826056 + 4 * a1));
-		*getMemU32Ptr(0x5D4594, 826056 + 4 * a1) = 0;
-		*getMemU32Ptr(0x5D4594, 826048 + 4 * a1) = 0;
-		*getMemU32Ptr(0x5D4594, 826064 + 4 * a1) = 0;
-	}
 	return result;
 }
 

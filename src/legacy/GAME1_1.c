@@ -2401,7 +2401,7 @@ int sub_41C780(int a1) {
 }
 
 //----- (0041CAC0) --------------------------------------------------------
-FILE* sub_41CAC0(char* a1, char** a2) {
+void sub_41CAC0(char* a1, void* a2) {
 	char** v3;         // esi
 	int v4;            // ebx
 	int v5;            // edi
@@ -2416,10 +2416,10 @@ FILE* sub_41CAC0(char* a1, char** a2) {
 
 	nox_file_2 = nox_binfile_open_408CC0(a1, 0);
 	if (!nox_file_2) {
-		return 0;
+		return;
 	}
 	if (!nox_binfile_cryptSet_408D40(nox_file_2, 27)) {
-		return 0;
+		return;
 	}
 	v3 = a2;
 	v4 = 0;
@@ -2466,26 +2466,6 @@ FILE* sub_41CAC0(char* a1, char** a2) {
 	}
 	*v3 = 0;
 	nox_binfile_close_408D90(nox_file_2);
-	return (v4 + 4);
-}
-
-//----- (0041CC00) --------------------------------------------------------
-int sub_41CC00(char* a1) {
-	int v1;     // eax
-	int v2;     // esi
-	int result; // eax
-	int v4;     // edi
-
-	v1 = nox_xxx_computeServerPlayerDataBufferSize_41CC50(a1);
-	v2 = v1 + 4;
-	result = (int)calloc(1, v1 + 4);
-	v4 = result;
-	if (result) {
-		sub_41CAC0(a1, (char**)result);
-		sub_40BC60(31, 3, "SAVE_SERVER", v4, v2, 0);
-		result = 1;
-	}
-	return result;
 }
 
 //----- (0041CC50) --------------------------------------------------------

@@ -532,9 +532,6 @@ func Sub_474B40(dr *client.Drawable) int {
 func Sub_495BB0(dr *client.Drawable, vp *noxrender.Viewport) {
 	C.sub_495BB0((*nox_drawable)(dr.C()), (*nox_draw_viewport_t)(vp.C()))
 }
-func Sub_40B970() {
-	C.sub_40B970()
-}
 func Sub_40B790() {
 	C.sub_40B790()
 }
