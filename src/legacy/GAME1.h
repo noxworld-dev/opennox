@@ -88,7 +88,7 @@ void sub_40B810(int a1, void* a2, int a3);
 void* sub_40B890(int a1);
 int sub_40B930(int a1);
 void sub_40B970();
-int sub_40BA90(unsigned int a1, char a2, short a3, short a4, const void* a5);
+int sub_40BA90(int a1, unsigned char a2, short a3, unsigned short a4, void* a5);
 char* sub_40BB20(unsigned int a1, int a2, char a3);
 void sub_40BBC0(int a1, int a2);
 char* sub_40BC10(int a1, char a2);
