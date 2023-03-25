@@ -65,6 +65,8 @@ type Server struct {
 	port int
 	http httpService
 	nat  natService
+
+	updateFunc2 func() bool
 }
 
 func (s *Server) Printer() console.Printer {
@@ -145,11 +147,25 @@ func (s *Server) SetUpdateFunc(fnc func() bool) {
 	s.updateFunc = fnc
 }
 
+func (s *Server) SetUpdateFunc2(fnc func() bool) {
+	s.updateFunc2 = fnc
+}
+
 func (s *Server) Update() bool {
 	if s.updateFunc == nil {
 		return true
 	}
 	if !s.updateFunc() {
+		return false
+	}
+	return true
+}
+
+func (s *Server) Update2() bool {
+	if s.updateFunc2 == nil {
+		return true
+	}
+	if !s.updateFunc2() {
 		return false
 	}
 	return true

@@ -12,7 +12,6 @@ import (
 	"time"
 
 	"github.com/noxworld-dev/opennox-lib/common"
-	"github.com/noxworld-dev/opennox-lib/env"
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/platform"
@@ -78,6 +77,8 @@ func NewStreams() *Streams {
 		PacketDropRand: func(min, max int) int {
 			return min + rand.Intn(max-min)
 		},
+		Now:           platform.Ticks,
+		Sleep:         platform.Sleep,
 		Debug:         DebugSockets,
 		Log:           Log,
 		Xor:           true,
@@ -88,8 +89,8 @@ func NewStreams() *Streams {
 }
 
 type Streams struct {
-	ticks1         uint64
-	ticks2         uint64
+	ticks1         time.Duration
+	ticks2         time.Duration
 	cntX           int
 	streams        [maxStructs]*stream
 	streams2       [maxStructs]stream2
@@ -98,6 +99,8 @@ type Streams struct {
 	playerIDs      map[Handle]struct{}
 	sendXorBuf     [4096]byte // TODO: remove this buffer?
 	Log            *log.Logger
+	Now            func() time.Duration
+	Sleep          func(dt time.Duration)
 	GameFlags      func() noxflags.GameFlag
 	GameFrame      func() uint32
 	GetMaxPlayers  func() int
@@ -151,19 +154,19 @@ type timingStruct struct {
 
 type queueItem struct {
 	next   *queueItem
-	ticks  uint64
+	ticks  time.Duration
 	active bool
 	size   uint32
 	data   [1024]byte
 }
 
 type stream2 struct {
-	active bool
-	lost   uint8
-	addr   netip.AddrPort
-	cur    uint8 // index into arr
-	arr    [10]int
-	ticks  uint64
+	active  bool
+	lost    uint8
+	addr    netip.AddrPort
+	cur     uint8 // index into samples
+	samples [10]time.Duration
+	ticks   time.Duration
 }
 
 func (g *Streams) getFreeNetStructInd() (Handle, bool) {
@@ -404,7 +407,7 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 		if f28 >= v11 {
 			break
 		}
-		platform.Sleep(30 * time.Millisecond)
+		h.g.Sleep(30 * time.Millisecond)
 	}
 
 	ns = h.get()
@@ -430,12 +433,12 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 }
 
 func (h Handle) DialWait(timeout time.Duration, send func(), check func() bool) error {
-	deadline := platform.Ticks() + timeout
+	deadline := h.g.Now() + timeout
 	if h.g.Debug {
 		h.g.Log.Println("CONNECT_WAIT_LOOP_START", deadline)
 	}
 	for {
-		now := platform.Ticks()
+		now := h.g.Now()
 		if timeout >= 0 && now >= deadline {
 			return NewConnectFailErr(-19, errors.New("timeout 2"))
 		}
@@ -445,7 +448,7 @@ func (h Handle) DialWait(timeout time.Duration, send func(), check func() bool) 
 		if check() {
 			break
 		}
-		platform.Sleep(5 * time.Millisecond)
+		h.g.Sleep(5 * time.Millisecond)
 	}
 	return nil
 }
@@ -463,9 +466,9 @@ type stream struct {
 
 	max         uint32
 	playerInd21 uint32
-	ticks22     uint64
-	ticks23     uint64
-	field24     uint32
+	ticks22     time.Duration
+	ticks23     time.Duration
+	ticks24     time.Duration
 	seq         uint8
 	ind28       int8
 	queue       *queueItem
@@ -654,7 +657,7 @@ func (ns *stream) maybeSendQueue(hdrByte byte, checkHdr bool) int {
 			if it.data[1] == hdrByte {
 				sz := int(it.size)
 				it.active = false
-				it.ticks = ns.g.ticks2 + 2000
+				it.ticks = ns.g.ticks2 + 2*time.Second
 				if _, err := ns.WriteTo(it.data[:sz], ns.addr); err != nil {
 					ns.g.Log.Println(err)
 					return 0
@@ -664,7 +667,7 @@ func (ns *stream) maybeSendQueue(hdrByte byte, checkHdr bool) int {
 			if it.active {
 				sz := int(it.size)
 				it.active = false
-				it.ticks = ns.g.ticks2 + 2000
+				it.ticks = ns.g.ticks2 + 2*time.Second
 				if _, err := ns.WriteTo(it.data[:sz], ns.addr); err != nil {
 					ns.g.Log.Println(err)
 					return 0
@@ -853,15 +856,8 @@ func (g *Streams) ReadPackets(ind Handle) int {
 	return 0
 }
 
-func platformTicks() uint64 {
-	if env.IsE2E() {
-		return uint64(platform.Ticks())
-	}
-	return uint64(platform.Ticks() / time.Millisecond)
-}
-
 func (g *Streams) sub5524C0() {
-	g.ticks2 = platformTicks()
+	g.ticks2 = g.Now()
 	for i, ns := range g.streams {
 		if ns != nil && ns.field38 == 1 {
 			if ns.frame40+300 < g.GameFrame() {
@@ -872,7 +868,7 @@ func (g *Streams) sub5524C0() {
 }
 
 func (g *Streams) MaybeSendAll() {
-	now := platformTicks()
+	now := g.Now()
 	g.ticks2 = now
 	if now-g.ticks1 <= 1000 {
 		return
@@ -1015,13 +1011,13 @@ func (g *Streams) processStreamOp7(pid Handle, out []byte, ns1 *stream) int {
 	if ns4 == nil {
 		return 0
 	}
-	v31 := int(g.ticks2) - int(ns4.field24)
-	v32 := -1
-	if v31 >= 1 {
-		v32 = 256000 / v31
+	ms := int((g.ticks2 - ns4.ticks24) / time.Millisecond)
+	speed := -1
+	if ms >= 1 {
+		speed = 256000 / ms
 	}
 	out[0] = byte(code35)
-	binary.LittleEndian.PutUint32(out[1:], uint32(v32))
+	binary.LittleEndian.PutUint32(out[1:], uint32(speed))
 	// TODO: these two were sending hook payload from either ns1 or ns4
 	if ns1.id == -1 {
 		ns1.callOnReceive(pid, out[:5])
@@ -1033,12 +1029,14 @@ func (g *Streams) processStreamOp7(pid Handle, out []byte, ns1 *stream) int {
 
 func (g *Streams) processStreamOp8(pid Handle, out []byte, ns1 *stream, packetCur []byte) int {
 	ns5 := pid.get()
-	if ns5 == nil && binary.LittleEndian.Uint32(packetCur) != uint32(ns5.ticks22) {
+	if ns5 == nil && binary.LittleEndian.Uint32(packetCur) != uint32(ns5.ticks22/time.Millisecond) {
 		return 0
 	}
-	ns5.field24 = uint32(int(g.ticks2) - int(ns5.ticks23))
+	dt := g.ticks2 - ns5.ticks23
+	ns5.ticks24 = dt
 	out[0] = byte(code36) // MSG_PING?
-	binary.LittleEndian.PutUint32(out[1:], ns5.field24)
+	ms := int(dt / time.Millisecond)
+	binary.LittleEndian.PutUint32(out[1:], uint32(ms))
 	// TODO: these two were sending hook payload from either ns1 or ns5
 	if ns1.id == -1 {
 		ns1.callOnReceive(pid, out[:5])
@@ -1049,7 +1047,8 @@ func (g *Streams) processStreamOp8(pid Handle, out []byte, ns1 *stream, packetCu
 	out[0] = ns1.Data2hdr()[0]
 	out[1] = ns5.Data2hdr()[1]
 	out[2] = byte(code9)
-	binary.LittleEndian.PutUint32(out[3:], uint32(g.ticks2))
+	ms = int(g.ticks2 / time.Millisecond)
+	binary.LittleEndian.PutUint32(out[3:], uint32(ms))
 	return 7
 }
 
@@ -1111,7 +1110,8 @@ func (g *Streams) processStreamOp14(out []byte, packet []byte, ns1 *stream, p1 b
 	nx.addr = from
 
 	// TODO: this overwrites first 2 bytes
-	return copy(out, nx.makeTimePacket())
+	t := g.Now()
+	return copy(out, nx.makeTimePacket(t))
 }
 
 func (g *Streams) Sub552E70(ind Handle) int {
@@ -1140,7 +1140,7 @@ func (g *Streams) Sub552E70(ind Handle) int {
 		if ns2 != nil && ns2.id == find {
 			ns2.ticks22 = g.ticks2
 			ns2.ticks23 = ns2.ticks22
-			binary.LittleEndian.PutUint32(buf[1:], uint32(ns2.ticks22))
+			binary.LittleEndian.PutUint32(buf[1:], uint32(ns2.ticks22/time.Millisecond))
 			_, _ = Handle{g, i}.Send(buf[:5], SendFlagFlush)
 		}
 	}
@@ -1346,11 +1346,12 @@ func (g *Streams) processStreamOp17(out []byte, packet []byte, p1 byte, from net
 	nx.addr = from
 
 	// TODO: this overwrites first 2 bytes
-	return copy(out, nx.makeTimePacket())
+	t := g.Now()
+	return copy(out, nx.makeTimePacket(t))
 }
 
 func (g *Streams) processStreamOp18(out []byte, packet []byte, from netip.AddrPort) int {
-	dt := int(platformTicks()) - int(binary.LittleEndian.Uint32(packet[4:]))
+	dt := g.Now() - time.Duration(binary.LittleEndian.Uint32(packet[4:]))*time.Millisecond
 	ind := g.struct2IndByAddr(from)
 	if ind < 0 {
 		return 0
@@ -1359,13 +1360,14 @@ func (g *Streams) processStreamOp18(out []byte, packet []byte, from netip.AddrPo
 	if packet[3] != nx.cur {
 		return 0
 	}
-	nx.arr[nx.cur] = dt
+	nx.samples[nx.cur] = dt
 	nx.cur++
-	if int(nx.cur) >= len(nx.arr) {
+	if int(nx.cur) >= len(nx.samples) {
 		return 0
 	}
 	// TODO: this overwrites first 2 bytes
-	return copy(out, nx.makeTimePacket())
+	t := g.Now()
+	return copy(out, nx.makeTimePacket(t))
 }
 
 const (
@@ -1517,20 +1519,20 @@ func (h Handle) RecvLoop(flags int) int {
 	// unreachable
 }
 
-func (nx *stream2) makeTimePacket() []byte {
-	nx.ticks = platformTicks()
+func (nx *stream2) makeTimePacket(t time.Duration) []byte {
+	nx.ticks = t
 
 	var buf [8]byte
 	buf[2] = byte(code16)
 	buf[3] = nx.cur
-	binary.LittleEndian.PutUint32(buf[4:], uint32(nx.ticks))
+	binary.LittleEndian.PutUint32(buf[4:], uint32(nx.ticks/time.Millisecond))
 	return buf[:]
 }
 
 func (h Handle) sendTime(ind2 int) (int, error) {
 	ns := h.get()
 	ns2 := &h.g.streams2[ind2]
-	buf := ns2.makeTimePacket()
+	buf := ns2.makeTimePacket(h.g.Now())
 	return ns.WriteTo(buf, ns2.addr)
 }
 
@@ -1561,39 +1563,39 @@ func (h Handle) sendCode19(code byte, ind2 int) (int, error) {
 	return ns.WriteTo(buf[:4], nx.addr)
 }
 
-func (h Handle) ProcessStats(v105, v107 int) {
-	start := platformTicks()
+func (h Handle) ProcessStats(min, max time.Duration) {
+	start := h.g.Now()
 	for i := range h.g.streams2 {
 		nx := &h.g.streams2[i]
 		if !nx.active {
 			continue
 		}
 		v2 := nx.cur
-		if int(v2) >= len(nx.arr) {
+		if int(v2) >= len(nx.samples) {
 			if int(nx.lost) > h.g.MaxPacketLoss {
 				_, _ = h.sendCode19(1, i)
 				_, _ = h.sendCode20(i)
 				continue
 			}
 			cnt := 0
-			sum := 0
+			var sum time.Duration
 			for i = 0; i < 10; i++ {
-				if nx.arr[i] > 0 {
+				if nx.samples[i] > 0 {
 					cnt++
-					sum += nx.arr[i]
+					sum += nx.samples[i]
 				}
 			}
-			avg := sum / cnt
-			if v105 != -1 && avg < v105 {
+			avg := sum / time.Duration(cnt)
+			if min >= 0 && avg < min {
 				_, _ = h.sendCode19(0, i)
 			}
-			if v107 != -1 && avg > v107 {
+			if max >= 0 && avg > max {
 				_, _ = h.sendCode19(1, i)
 			}
 			_, _ = h.sendCode20(i)
 		} else {
-			if start-nx.ticks > 2000 {
-				h.g.streams2[i].arr[v2] = -1
+			if start-nx.ticks > 2*time.Second {
+				h.g.streams2[i].samples[v2] = -1
 				nx.lost++
 				if int(nx.lost) <= h.g.MaxPacketLoss {
 					nx.cur++
@@ -1641,7 +1643,7 @@ func (h Handle) WaitServerResponse(a2 int, a3 int, flags int) int {
 		return 0
 	}
 	for v6 := 0; v6 <= 20*a3; v6++ {
-		platform.Sleep(50 * time.Millisecond)
+		h.g.Sleep(50 * time.Millisecond)
 		h.RecvLoop(flags | ServeCanRead)
 		h.g.MaybeSendAll()
 		if int(ns.ind28) >= a2 {
