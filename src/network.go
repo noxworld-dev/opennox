@@ -1375,6 +1375,9 @@ func (s *Server) onPacketRaw(pli ntype.PlayerInd, data []byte) bool {
 		if netstr.Global.Debug && n != 0 {
 			netstr.Log.Printf("SERVER: op=%d (%s) [%d:%d]\n%02x %x", int(op), op.String(), int(n)-1, op.Len(), data[0], data[1:])
 		}
+		if n > len(data) {
+			panic(fmt.Errorf("incorrect length returned for op: %v", op))
+		}
 		data = data[n:]
 	}
 	pl.Frame3596 = s.Frame()
@@ -1519,7 +1522,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		}
 		wtext = wtext[:2*sz]
 		nox_xxx_serverHandleClientConsole_443E90(pl, data[1], alloc.GoString16B(wtext))
-		return 5 + 2*sz + 2, true
+		return 5 + 2*sz, true
 	case noxnet.MSG_IMPORTANT_ACK:
 		if len(data) < 5 {
 			return 0, false
