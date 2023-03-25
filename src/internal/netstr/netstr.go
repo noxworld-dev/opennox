@@ -1613,32 +1613,14 @@ func (g *Streams) ProcessStats(v105, v107 int) {
 	}
 }
 
-var queueIter *queueItem
-
-func QueueFirst(ind Index) []byte {
-	ns := ind.get()
+func (v Index) QueueEach(fnc func(it []byte)) {
+	ns := v.get()
 	if ns == nil {
-		return nil
+		return
 	}
-	it := ns.queue
-	if it == nil {
-		return nil
+	for it := ns.queue; it != nil; it = it.next {
+		fnc(it.data[2:it.size])
 	}
-	queueIter = it.next
-	return it.data[2:it.size]
-}
-
-func QueueNext(ind Index) []byte {
-	if queueIter == nil {
-		return nil
-	}
-	ns := ind.get()
-	if ns == nil {
-		return nil
-	}
-	next := queueIter
-	queueIter = next
-	return next.data[2:next.size]
 }
 
 func (g *Streams) WaitServerResponse(ind1 Index, a2 int, a3 int, flags int) int {
