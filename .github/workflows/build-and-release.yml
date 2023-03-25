@@ -49,6 +49,8 @@ jobs:
           path: |
             build/opennox.exe
             build/opennox-hd.exe
+            build/opennox-debug.exe
+            build/opennox-debug-hd.exe
             build/opennox-server.exe
             build/*.dll
           if-no-files-found: error

@@ -1,4 +1,4 @@
-//go:build windows && !server
+//go:build windows && guiapp && !server
 
 package opennox
 
