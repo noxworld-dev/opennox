@@ -22,6 +22,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
+	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -280,7 +281,7 @@ func (p *Player) Disconnect(v int) {
 	if !p.IsActive() {
 		return
 	}
-	legacy.Nox_xxx_playerDisconnFinish_4DE530(p.Index(), int8(v))
+	nox_xxx_playerDisconnFinish_4DE530(p.PlayerIndex(), int8(v))
 	legacy.Nox_xxx_playerForceDisconnect_4DE7C0(p.PlayerIndex())
 	p.getServer().nox_xxx_netStructReadPackets2_4DEC50(p.PlayerIndex())
 }
@@ -950,4 +951,151 @@ func (s *Server) nox_xxx_playerLeaveObsByObserved_4E60A0(obj server.Obj) {
 			pl.leaveMonsterObserver()
 		}
 	}
+}
+
+func nox_xxx_playerDisconnFinish_4DE530(pli ntype.PlayerInd, a2 int8) {
+	s := noxServer
+	legacy.Sub_4D79A0(pli)
+	sub_419EB0(pli, 0)
+	legacy.Sub_4E80C0(pli)
+	pl := s.Players.ByInd(pli)
+	if pl != nil {
+		if pl.PlayerUnit != nil {
+			legacy.Sub_506740(pl.PlayerUnit)
+		}
+		if pl.Field4792 != 0 && pl.PlayerUnit != nil && noxflags.HasGame(noxflags.GameModeQuest) {
+			s.AudioEventObj(sound.SoundQuestPlayerExitGame, pl.PlayerUnit, 0, 0)
+			pl.Field4792 = 0
+			if legacy.Nox_xxx_player_4E3CE0() == 0 {
+				v5 := legacy.Nox_xxx_getQuestMapFile_4D0F60()
+				s.nox_game_setQuestStage_4E3CD0(0)
+				s.SwitchMap(v5)
+			}
+			s.sub_4D7390(pl.PlayerUnit)
+			s.delayedDeleteAllItems(pl.PlayerUnit)
+		}
+	}
+	if false && !noxflags.HasGame(noxflags.GameModeChat) {
+		legacy.Sub_425E90(pl, a2)
+	}
+	for it := s.Players.First(); it != nil; it = s.Players.Next(it) {
+		u := it.PlayerUnit
+		if u != nil && it != pl {
+			legacy.Nox_xxx_netUnmarkMinimapObj_417300(pli, u, 3)
+			legacy.Nox_xxx_netUnmarkMinimapObj_417300(it.PlayerIndex(), pl.PlayerUnit, 3)
+		}
+	}
+	if pl.PlayerUnit != nil {
+		for it := s.FirstServerObject(); it != nil; it = it.Next() {
+			if it.Class().Has(object.ClassDoor) && it.ObjOwner == pl.PlayerUnit {
+				it.ObjOwner = nil
+			}
+		}
+	}
+	sub_40C0E0(netstr.Global.PlayerInd(pli))
+	legacy.Sub_4DE410(pli)
+	if pl != nil {
+		var buf [3]byte
+		buf[0] = byte(noxnet.MSG_OUTGOING_CLIENT)
+		// TODO: this can be nil for some reason; should we sent this at all?
+		if pl.PlayerUnit != nil {
+			binary.LittleEndian.PutUint16(buf[1:], uint16(pl.PlayerUnit.NetCode))
+		}
+		s.nox_xxx_netSendPacket0_4E5420(int(pli)|0x80, buf[:3], 0, 0)
+	}
+	if int32(a2) == 4 {
+		var buf [1]byte
+		buf[0] = byte(noxnet.MSG_KICK_NOTIFICATION)
+		netstr.Global.Send(netstr.Global.PlayerInd(pli), buf[:1], netstr.SendNoLock|netstr.SendFlagFlush)
+	}
+	legacy.Sub_4E55F0(pli)
+	if pl != nil {
+		if pl.PlayerUnit != nil {
+			legacy.Nox_xxx_playerRemoveSpawnedStuff_4E5AD0(pl.PlayerUnit)
+			if noxflags.HasGame(noxflags.GameModeQuest) {
+				s.delayedDeleteAllItems(pl.PlayerUnit)
+			} else {
+				legacy.Nox_xxx_dropAllItems_4EDA40(pl.PlayerUnit)
+			}
+		}
+		pl.Field2140 = 0
+		pl.Lessons = 0
+		*legacy.Get_dword_5d4594_1599592_ptr() &^= 1 << pli
+		pl.Field3676 = 2
+		legacy.Nox_xxx_playerUnsetStatus_417530(pl, 16)
+	}
+}
+
+func (s *Server) delayedDeleteAllItems(u *server.Object) {
+	var next *server.Object
+	for it := u.FirstItem(); it != nil; it = next {
+		next = it.NextItem()
+		s.DelayedDelete(it)
+	}
+}
+
+func (s *Server) sub_4D7390(u *server.Object) {
+	if u == nil {
+		return
+	}
+	if legacy.Nox_xxx_player_4E3CE0() == 0 {
+		sub_4EDD00(u, object.ClassKey)
+		return
+	}
+	var next *server.Object
+	for it := u.FirstItem(); it != nil; it = next {
+		next = it.NextItem()
+		if !it.Class().Has(object.ClassKey) {
+			continue
+		}
+		if to := findPlayerWithFewerKeys(); to != nil {
+			legacy.Sub_4ED0C0(u, it)
+			legacy.Nox_xxx_inventoryPutImpl_4F3070(to, it, 1)
+			nox_xxx_netPriMsgToPlayer_4DA2C0(to, "GeneralPrint:GainedKey", 0)
+			s.AudioEventObj(sound.SoundKeyPickup, to, 0, 0)
+		}
+	}
+	sub_4EDD00(u, object.ClassKey)
+}
+
+func sub_4EDD00(u *server.Object, cl object.Class) {
+	s := noxServer
+	var next *server.Object
+	for it := u.FirstItem(); ; it = next {
+		next = it.NextItem()
+		if it.Class().Has(cl) {
+			legacy.Sub_4ED0C0(u, it)
+			pos := s.randomReachablePointAround(60.0, u.Pos())
+			s.CreateObjectAt(it, nil, pos)
+		}
+	}
+}
+
+func findPlayerWithFewerKeys() *server.Object {
+	s := noxServer
+	var (
+		found   *server.Object
+		minKeys = 99999
+	)
+	for pl := s.Players.First(); pl != nil; pl = s.Players.Next(pl) {
+		if !pl.IsActive() || pl.PlayerUnit == nil {
+			continue
+		}
+		u := pl.PlayerUnit
+		ud := u.UpdateDataPlayer()
+		if ud.Player.Field4792 != 1 {
+			continue
+		}
+		hasKeys := 0
+		for it := u.FirstItem(); it != nil; it = it.NextItem() {
+			if it.Class().Has(object.ClassKey) {
+				hasKeys++
+			}
+		}
+		if hasKeys <= minKeys {
+			minKeys = hasKeys
+			found = u
+		}
+	}
+	return found
 }

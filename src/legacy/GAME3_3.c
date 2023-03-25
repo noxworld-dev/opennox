@@ -7257,29 +7257,6 @@ int nox_xxx_unitDropCheckSome_4EDCD0(int a1, int a2) {
 	return v2 & 0x20 || !(*(uint8_t*)(a1 + 8) & 6) || !(v2 & 0x10000000);
 }
 
-//----- (004EDD00) --------------------------------------------------------
-void sub_4EDD00(int a1, int a2) {
-	int v2;    // eax
-	int* v3;   // esi
-	int v4;    // edi
-	float2 a3; // [esp+8h] [ebp-8h]
-
-	v2 = nox_xxx_inventoryGetFirst_4E7980(a1);
-	v3 = (int*)v2;
-	if (v2) {
-		do {
-			v4 = nox_xxx_inventoryGetNext_4E7990((int)v3);
-			v2 = v3[2];
-			if (v2 & a2) {
-				sub_4ED0C0(a1, v3);
-				sub_4ED970(60.0, (float2*)(a1 + 56), &a3);
-				nox_xxx_createAt_4DAA50((int)v3, 0, a3.field_0, a3.field_4);
-			}
-			v3 = (int*)v4;
-		} while (v4);
-	}
-}
-
 //----- (004EDDE0) --------------------------------------------------------
 int sub_4EDDE0(int a1, uint32_t* a2, int* a3) {
 	if (!nox_xxx_dropDefault_4ED290(a1, (int)a2, (float2*)a3)) {

@@ -180,10 +180,6 @@ func ClientSetPlayerNetCode(id int) {
 	C.nox_player_netCode_85319C = C.uint(id)
 }
 
-func Nox_xxx_playerDisconnFinish_4DE530(ind int, v int8) {
-	C.nox_xxx_playerDisconnFinish_4DE530(C.int(ind), C.char(v))
-}
-
 func Nox_xxx_playerForceDisconnect_4DE7C0(ind ntype.PlayerInd) {
 	C.nox_xxx_playerForceDisconnect_4DE7C0(C.int(ind))
 }
@@ -366,4 +362,24 @@ func Set_nox_xxx_wizardMaxHealth_587000_312816(v float32) {
 
 func Set_nox_xxx_wizardMaximumMana_587000_312820(v float32) {
 	C.nox_xxx_wizardMaximumMana_587000_312820 = C.float(v)
+}
+
+func Sub_4D79A0(pli ntype.PlayerInd) {
+	C.sub_4D79A0(C.char(pli))
+}
+
+func Sub_4E80C0(pli ntype.PlayerInd) {
+	C.sub_4E80C0(C.char(pli))
+}
+
+func Nox_xxx_player_4E3CE0() int {
+	return int(C.nox_xxx_player_4E3CE0())
+}
+
+func Sub_425E90(pl *server.Player, a2 int8) {
+	C.sub_425E90(pl.C(), C.char(a2))
+}
+
+func Sub_4E55F0(pli ntype.PlayerInd) {
+	C.sub_4E55F0(C.uchar(pli))
 }
