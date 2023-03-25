@@ -21,19 +21,17 @@ const (
 )
 
 var (
-	buffersList [3][]buffer
+	buffersList = [3][]buffer{
+		make([]buffer, common.MaxPlayers),
+		make([]buffer, common.MaxPlayers),
+		make([]buffer, common.MaxPlayers),
+	}
 	messageList [3][common.MaxPlayers]*MsgList
 )
 
 type buffer struct {
 	buf [bufSize]byte
 	cur int
-}
-
-func init() {
-	buffersList[0], _ = alloc.Make([]buffer{}, common.MaxPlayers)
-	buffersList[1], _ = alloc.Make([]buffer{}, common.MaxPlayers)
-	buffersList[2], _ = alloc.Make([]buffer{}, common.MaxPlayers)
 }
 
 func Init() {
