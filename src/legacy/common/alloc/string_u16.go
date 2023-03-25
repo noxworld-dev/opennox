@@ -15,7 +15,7 @@ func freeIntern16() {
 	smu16.Lock()
 	defer smu16.Unlock()
 	for _, v := range strings16 {
-		Free(unsafe.Pointer(v))
+		Free(v)
 	}
 	strings16 = make(map[string]*uint16)
 }

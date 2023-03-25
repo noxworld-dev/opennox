@@ -20,7 +20,7 @@ func freeIntern8() {
 	smu8.Lock()
 	defer smu8.Unlock()
 	for _, v := range strings8 {
-		Free(unsafe.Pointer(v))
+		Free(v)
 	}
 	strings8 = make(map[string]*byte)
 }
