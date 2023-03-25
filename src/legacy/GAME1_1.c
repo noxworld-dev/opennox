@@ -5606,14 +5606,14 @@ char* sub_425CA0(int a1, int a2) {
 }
 
 //----- (00425E90) --------------------------------------------------------
-int sub_425E90(int a1, char a2) {
+int sub_425E90(void* a1, char a2) {
 	int result; // eax
 
 	result = nox_common_gameFlags_check_40A5C0(0x2000);
 	if (result) {
 		result = nox_common_gameFlags_check_40A5C0(4096);
 		if (!result) {
-			result = *(uint32_t*)(a1 + 4648);
+			result = *(uint32_t*)((uint32_t)a1 + 4648);
 			if (result != -1) {
 				result *= 32;
 				*getMemU8Ptr(0x5D4594, 600145 + result) = a2;

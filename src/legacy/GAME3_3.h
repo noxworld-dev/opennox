@@ -241,7 +241,6 @@ int nox_xxx_invForceDropItem_4ED930(int a1, uint32_t* a2);
 float2* sub_4ED970(float a1, float2* a2, float2* a3);
 uint32_t* nox_xxx_dropAllItems_4EDA40(uint32_t* a1);
 int nox_xxx_unitDropCheckSome_4EDCD0(int a1, int a2);
-void sub_4EDD00(int a1, int a2);
 int sub_4EDDE0(int a1, uint32_t* a2, int* a3);
 int nox_xxx_dropFood_4EDE50(int a1, int a2, int* a3);
 void nox_xxx_chest_4EDF00(int a1, int a2);
