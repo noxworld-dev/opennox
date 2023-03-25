@@ -83,7 +83,7 @@ var (
 	Sub_554230                        func() string
 	Nox_xxx_netStatsMultiplier_4D9C20 func(a1p *server.Object) int
 	Sub_554240                        func(a1 int) int
-	Nox_xxx_net_getIP_554200          func(a1 netstr.Index) uint32
+	Nox_xxx_net_getIP_554200          func(a1 netstr.Handle) uint32
 	Nox_xxx_netOnPacketRecvCli_48EA70 func(ind ntype.PlayerInd, buf *byte, sz int) int
 	Sub_43C6E0                        func() int
 	Sub_43CF40                        func()

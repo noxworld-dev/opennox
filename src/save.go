@@ -249,7 +249,7 @@ func serverQuitAck() {
 	}
 }
 
-func sub_40BBC0(ind netstr.Index, a2 byte) {
+func sub_40BBC0(ind netstr.Handle, a2 byte) {
 	if a2 == 2 {
 		if sub_446030() {
 			serverQuitAck()
@@ -263,7 +263,7 @@ func sub_40BBC0(ind netstr.Index, a2 byte) {
 	}
 }
 
-func sub_40B850(ind netstr.Index, act byte) {
+func sub_40B850(ind netstr.Handle, act byte) {
 	if act == 2 && sub_446030() {
 		serverQuitAck()
 		if sub_446090() {

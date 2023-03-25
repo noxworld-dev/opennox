@@ -56,7 +56,7 @@ func init() {
 }
 
 var (
-	netstrClientIndex    netstr.Index
+	netstrClientConn     netstr.Handle
 	lastCliHandlePackets uint64
 	ticks815732          uint64
 	dword_5d4594_815704  bool
@@ -84,7 +84,7 @@ func networkLogPrint(str string) {
 	noxConsole.Print(console.ColorGreen, str)
 }
 
-func netstrGetClientIndex() netstr.Index { return netstrClientIndex }
+func netstrGetClientIndex() netstr.Handle { return netstrClientConn }
 
 func clientSetServerHost(host string) {
 	netstr.Log.Printf("server host: %s", host)
@@ -249,12 +249,12 @@ func (c *Client) clientSendInputMouse(pli ntype.PlayerInd, mp image.Point) bool 
 	return netlist.AddToMsgListCli(pli, netlist.Kind0, buf[:5])
 }
 
-func (s *Server) nox_xxx_netAddPlayerHandler_4DEBC0(port int) (ind netstr.Index, cport int, _ error) {
+func (s *Server) nox_xxx_netAddPlayerHandler_4DEBC0(port int) (ind netstr.Handle, cport int, _ error) {
 	narg := &netstr.Options{
 		Port:     port,
 		Max:      s.getServerMaxPlayers(),
 		DataSize: 2048,
-		Func2: func(ind netstr.Index, buf []byte, _ unsafe.Pointer) int {
+		Func2: func(ind netstr.Handle, buf []byte, _ unsafe.Pointer) int {
 			// should pass the pointer unchanged, otherwise expect bugs!
 			s.onPacketRaw(ind.Player(), buf)
 			return 1
@@ -281,7 +281,7 @@ func sub_554230() string {
 	return ownIPStr
 }
 
-func nox_xxx_netInit_554380(narg *netstr.Options) (ind netstr.Index, _ error) {
+func nox_xxx_netInit_554380(narg *netstr.Options) (ind netstr.Handle, _ error) {
 	ownIPStr = ""
 	v2, err := netstr.Global.InitNew(narg)
 	netSomePort = uint16(narg.Port)
@@ -299,7 +299,7 @@ func nox_xxx_netInit_554380(narg *netstr.Options) (ind netstr.Index, _ error) {
 	return v2, nil
 }
 
-func (s *Server) nox_server_netClose_5546A0(i netstr.Index) {
+func (s *Server) nox_server_netClose_5546A0(i netstr.Handle) {
 	i.Close()
 }
 
@@ -310,37 +310,37 @@ func (s *Server) nox_xxx_netStructReadPackets2_4DEC50(ind ntype.PlayerInd) int {
 func nox_xxx_netSendClientReady_43C9F0() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_CLIENT_READY)
-	netstr.Global.Send(netstrClientIndex, data[:], netstr.SendNoLock|netstr.SendFlagFlush)
+	netstrClientConn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
 	return 1
 }
 
 func nox_xxx_netKeepAliveSocket_43CA20() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_KEEP_ALIVE)
-	netstr.Global.Send(netstrClientIndex, data[:], netstr.SendFlagFlush)
+	netstrClientConn.Send(data[:], netstr.SendFlagFlush)
 	return 1
 }
 
 func nox_xxx_netRequestMap_43CA50() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_REQUEST_MAP)
-	netstr.Global.Send(netstrClientIndex, data[:], netstr.SendNoLock|netstr.SendFlagFlush)
+	netstrClientConn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
 	return 1
 }
 
 func nox_xxx_netMapReceived_43CA80() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_RECEIVED_MAP)
-	netstr.Global.Send(netstrClientIndex, data[:], netstr.SendNoLock|netstr.SendFlagFlush)
+	netstrClientConn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
 	return 1
 }
 
 func nox_xxx_cliSendCancelMap_43CAB0() int {
-	id := netstrClientIndex
+	conn := netstrClientConn
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_CANCEL_MAP)
-	v0, _ := netstr.Global.Send(id, data[:], netstr.SendNoLock|netstr.SendFlagFlush)
-	if netstr.Global.WaitServerResponse(id, v0, 20, 6) != 0 {
+	v0, _ := conn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
+	if conn.WaitServerResponse(v0, 20, 6) != 0 {
 		return 0
 	}
 	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
@@ -348,11 +348,11 @@ func nox_xxx_cliSendCancelMap_43CAB0() int {
 }
 
 func nox_xxx_netSendIncomingClient_43CB00() int {
-	id := netstrClientIndex
+	conn := netstrClientConn
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_INCOMING_CLIENT)
-	v0, _ := netstr.Global.Send(id, data[:], netstr.SendNoLock|netstr.SendFlagFlush)
-	if netstr.Global.WaitServerResponse(id, v0, 20, 6) != 0 {
+	v0, _ := conn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
+	if conn.WaitServerResponse(v0, 20, 6) != 0 {
 		return 0
 	}
 	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
@@ -369,14 +369,14 @@ func nox_xxx_servNetInitialPackets_552A80_discover(src, dst []byte) int {
 }
 
 func nox_xxx_cliSendOutgoingClient_43CB50() int {
-	id := netstrClientIndex
+	conn := netstrClientConn
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_OUTGOING_CLIENT)
-	v0, _ := netstr.Global.Send(id, data[:], netstr.SendNoLock|netstr.SendFlagFlush)
-	if netstr.Global.WaitServerResponse(id, v0, 20, 6) != 0 {
+	v0, _ := conn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
+	if conn.WaitServerResponse(v0, 20, 6) != 0 {
 		return 0
 	}
-	netstr.Global.ServeInitialPackets(id, 3)
+	conn.ServeInitialPackets(3)
 	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	return 1
 }
@@ -574,13 +574,13 @@ func nox_xxx_netPriMsgToPlayer_4DA2C0(u *server.Object, id strman.ID, a3 byte) {
 	netlist.AddToMsgListCli(u.ControllingPlayer().PlayerIndex(), netlist.Kind1, buf[:n+4])
 }
 
-func nox_xxx_netSendBySock_40EE10(nind netstr.Index, ind ntype.PlayerInd, kind netlist.Kind) {
+func nox_xxx_netSendBySock_40EE10(conn netstr.Handle, ind ntype.PlayerInd, kind netlist.Kind) {
 	netlist.HandlePacketsA(ind, kind, func(data []byte) {
 		if len(data) == 0 {
 			return
 		}
-		netstr.Global.Send(nind, data, 0)
-		netstr.Global.SendReadPacket(nind, 1)
+		conn.Send(data, 0)
+		conn.SendReadPacket(1)
 	})
 }
 
@@ -614,7 +614,7 @@ func nox_xxx_netBigSwitch_553210_op_17_check(out []byte, packet []byte) int {
 	return 0
 }
 
-func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool, add func(pid netstr.Index) bool) int {
+func nox_xxx_netBigSwitch_553210_op_14_check(out []byte, packet []byte, a4a bool, add func(pid netstr.Handle) bool) int {
 	s := noxServer
 	v43 := false
 	v78 := sub_416640()
@@ -743,7 +743,7 @@ func sub_554240(a1 int) int {
 }
 
 func sub_43CC80() {
-	netstr.Global.SendClose(netstrClientIndex)
+	netstrClientConn.SendClose()
 	legacy.Set_dword_5d4594_2649712(0)
 }
 
@@ -758,11 +758,11 @@ func nox_xxx_allocNetGQueue_5520B0() {
 	netstr.Global.Init()
 }
 
-func nox_xxx_net_getIP_554200(a1 netstr.Index) uint32 {
+func nox_xxx_net_getIP_554200(a1 netstr.Handle) uint32 {
 	return ip2int(netGetIP(a1))
 }
 
-func netGetIP(ind netstr.Index) netip.Addr {
+func netGetIP(ind netstr.Handle) netip.Addr {
 	if ind.IsFirst() {
 		return ownIP
 	}
@@ -860,7 +860,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 	case noxnet.MSG_SERVER_QUIT:
 		var buf [1]byte
 		buf[0] = byte(noxnet.MSG_SERVER_QUIT_ACK)
-		netstr.Global.Send(netstrGetClientIndex(), buf[:1], netstr.SendFlagFlush)
+		netstrGetClientIndex().Send(buf[:1], netstr.SendFlagFlush)
 		sub_446380()
 		return 1
 	case noxnet.MSG_USE_MAP:
@@ -1120,7 +1120,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 			buf[1] = 3
 			buf[2] = a2
 			binary.LittleEndian.PutUint16(buf[4:], a3)
-			netstr.Global.Send(netstrGetClientIndex(), buf[:6], netstr.SendNoLock|netstr.SendFlagFlush)
+			netstrGetClientIndex().Send(buf[:6], netstr.SendNoLock|netstr.SendFlagFlush)
 			sub_40B250(netstrGetClientIndex(), a2, a3, data[8:8+sz])
 			return 8 + sz
 		case 3:
@@ -1187,7 +1187,7 @@ func sub_43C6E0() int {
 	return bool2int(!dword_5d4594_815704 && !dword_5d4594_815708)
 }
 
-func nox_xxx_netHandleCliPacket_43C860(_ netstr.Index, data []byte, _ unsafe.Pointer) int {
+func nox_xxx_netHandleCliPacket_43C860(_ netstr.Handle, data []byte, _ unsafe.Pointer) int {
 	op := noxnet.Op(data[0])
 	noxPerfmon.packetSizeCli = len(data)
 	if op == noxnet.MSG_XXX_STOP {
@@ -1236,7 +1236,7 @@ func (s *Server) nox_xxx_netSendBySock_4DDDC0(ind ntype.PlayerInd) {
 			if len(data) == 0 {
 				return
 			}
-			netstr.Global.Send(netstr.Global.PlayerInd(ind), data, netstr.SendNoLock|netstr.SendFlagFlush)
+			netstr.Global.PlayerInd(ind).Send(data, netstr.SendNoLock|netstr.SendFlagFlush)
 		})
 	}
 }
@@ -1297,7 +1297,7 @@ func (s *Server) sendSettings(u *Object) {
 		buf[32] = 0
 		binary.LittleEndian.PutUint32(buf[33:], nox_xxx_mapCrcGetMB_409B00())
 		binary.LittleEndian.PutUint32(buf[37:], s.Frame())
-		netstr.Global.Send(netstr.Global.Player(pl), buf[:41], netstr.SendNoLock|netstr.SendFlagFlush)
+		netstr.Global.Player(pl).Send(buf[:41], netstr.SendNoLock|netstr.SendFlagFlush)
 		legacy.Sub_4DDE10(pl.Index(), pl.S())
 	}
 }
@@ -1319,7 +1319,7 @@ func nox_xxx_netUseMap_4DEE00(mname string, crc uint32) {
 		if !noxflags.HasGame(noxflags.GameClient) || pl.PlayerIndex() != common.MaxPlayers-1 {
 			buf := netlist.CopyPacketsA(pl.PlayerIndex(), netlist.Kind1)
 			if len(buf) != 0 {
-				netstr.Global.Send(netstr.Global.Player(pl), buf, netstr.SendNoLock|netstr.SendFlagFlush)
+				netstr.Global.Player(pl).Send(buf, netstr.SendNoLock|netstr.SendFlagFlush)
 			}
 		}
 	}
@@ -1458,9 +1458,9 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 				if noxflags.HasGame(noxflags.GameClient) && it.Index() == common.MaxPlayers-1 {
 					noxClient.nox_xxx_netOnPacketRecvCli48EA70(common.MaxPlayers-1, data[:msz])
 				} else {
-					pnet := netstr.Global.Player(it)
-					netstr.Global.Send(pnet, data[:msz], 0)
-					netstr.Global.SendReadPacket(pnet, 1)
+					conn := netstr.Global.Player(it)
+					conn.Send(data[:msz], 0)
+					conn.SendReadPacket(1)
 				}
 			}
 			return msz, true
@@ -1484,9 +1484,9 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 				if noxflags.HasGame(noxflags.GameClient) && int(uit.NetCode) == legacy.ClientPlayerNetCode() {
 					noxClient.nox_xxx_netOnPacketRecvCli48EA70(it.PlayerIndex(), data[:msz])
 				} else {
-					pnet := netstr.Global.Player(it)
-					netstr.Global.Send(pnet, data[:msz], 0)
-					netstr.Global.SendReadPacket(pnet, 1)
+					conn := netstr.Global.Player(it)
+					conn.Send(data[:msz], 0)
+					conn.SendReadPacket(1)
 				}
 			}
 		}
@@ -1667,7 +1667,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			buf[1] = 3
 			buf[2] = a2
 			binary.LittleEndian.PutUint16(buf[4:], a3)
-			netstr.Global.Send(netstr.Global.Player(pl), buf[:6], netstr.SendNoLock|netstr.SendFlagFlush)
+			netstr.Global.Player(pl).Send(buf[:6], netstr.SendNoLock|netstr.SendFlagFlush)
 			sub_40B250(netstr.Global.Player(pl), a2, a3, data[8:8+sz])
 			return 8 + sz, true
 		case 3:
@@ -1768,7 +1768,7 @@ func (s *Server) nox_xxx_netPlayerObjSendCamera_519330(u *Object) bool {
 	return nox_netlist_addToMsgListSrv(pl.PlayerIndex(), buf[:12])
 }
 
-func sub_40BA90(ind netstr.Index, a2 byte, block uint16, data []byte) int {
+func sub_40BA90(conn netstr.Handle, a2 byte, block uint16, data []byte) int {
 	buf := make([]byte, 8+len(data))
 	buf[0] = byte(noxnet.MSG_XFER_MSG)
 	buf[1] = 2 // XFER_BLOCK?
@@ -1777,36 +1777,36 @@ func sub_40BA90(ind netstr.Index, a2 byte, block uint16, data []byte) int {
 	binary.LittleEndian.PutUint16(buf[4:], block)
 	binary.LittleEndian.PutUint16(buf[6:], uint16(len(data)))
 	copy(buf[8:], data)
-	netstr.Global.Send(ind, buf, 0)
-	return netstr.Global.SendReadPacket(ind, 1)
+	conn.Send(buf, 0)
+	return conn.SendReadPacket(1)
 }
 
 type xferData struct {
-	NetInd0   netstr.Index // 0, 0
-	Kind4     byte         // 1, 4
-	Kind6     uint16       // 1, 6
-	Size8     int          // 2, 8
-	Cnt12     uint32       // 3, 12
-	Blocks16  int          // 4, 16
-	BlockSz20 uint16       // 5, 20
-	Field22   byte         // 5, 22
-	Type23    string       // 5, 23
-	First152  *xferBlock   // 38, 152
-	Last156   *xferBlock   // 39, 156
+	NetInd0   netstr.Handle // 0, 0
+	Kind4     byte          // 1, 4
+	Kind6     uint16        // 1, 6
+	Size8     int           // 2, 8
+	Cnt12     uint32        // 3, 12
+	Blocks16  int           // 4, 16
+	BlockSz20 uint16        // 5, 20
+	Field22   byte          // 5, 22
+	Type23    string        // 5, 23
+	First152  *xferBlock    // 38, 152
+	Last156   *xferBlock    // 39, 156
 }
 
 type xferDataTwo struct {
-	NetInd0  netstr.Index // 0, 0
-	Field4   byte         // 1, 4
-	Field5   byte         // 1, 5
-	Cnt8     uint32       // 2, 8
-	Cur12    int          // 3, 12
-	Data20   []byte       // 5, 20
-	Type24   string       // 6, 24
-	Perc152  float32      // 38, 152
-	Frame156 uint32       // 39, 156
-	Field160 *xferBlock   // 40, 160
-	Field164 *xferBlock   // 41, 164
+	NetInd0  netstr.Handle // 0, 0
+	Field4   byte          // 1, 4
+	Field5   byte          // 1, 5
+	Cnt8     uint32        // 2, 8
+	Cur12    int           // 3, 12
+	Data20   []byte        // 5, 20
+	Type24   string        // 6, 24
+	Perc152  float32       // 38, 152
+	Frame156 uint32        // 39, 156
+	Field160 *xferBlock    // 40, 160
+	Field164 *xferBlock    // 41, 164
 }
 
 type xferBlock struct {
@@ -1835,7 +1835,7 @@ func sub_40B890(n int) {
 }
 
 func sub_40B930(p *xferData) {
-	p.NetInd0 = netstr.Index{}
+	p.NetInd0 = netstr.Handle{}
 	p.Kind4 = 0
 	p.Kind6 = 0
 	p.Size8 = 0
@@ -1884,7 +1884,7 @@ func sub_40B970() {
 	}
 }
 
-func sub_40BC10(ind netstr.Index, a2 byte) *xferData {
+func sub_40BC10(ind netstr.Handle, a2 byte) *xferData {
 	for i := 0; i < xferDataCnt; i++ {
 		it := &xferDataArr[i]
 		if it.NetInd0 == ind && it.Kind4 == a2 {
@@ -1904,7 +1904,7 @@ func sub_40BF10() (*xferData, int) {
 	return nil, -1
 }
 
-func sub_40BFF0(a1 netstr.Index, a2 byte, i byte) {
+func sub_40BFF0(a1 netstr.Handle, a2 byte, i byte) {
 	if int(i) >= xferDataCnt {
 		return
 	}
@@ -1917,7 +1917,7 @@ func sub_40C0D0() {
 	alloc.FreeSlice(xferDataArr)
 }
 
-func sub_40C0E0(ind netstr.Index) {
+func sub_40C0E0(ind netstr.Handle) {
 	for i := 0; i < xferDataCnt; i++ {
 		it := &xferDataArr[i]
 		if it.Blocks16 == 2 && it.NetInd0 == ind {
@@ -1926,8 +1926,8 @@ func sub_40C0E0(ind netstr.Index) {
 	}
 }
 
-func sub_40BB20(ind netstr.Index, a2 byte, a3 byte) *xferData {
-	p := sub_40BC10(ind, a2)
+func sub_40BB20(conn netstr.Handle, a2 byte, a3 byte) *xferData {
+	p := sub_40BC10(conn, a2)
 	if p == nil {
 		return nil
 	}
@@ -1936,7 +1936,7 @@ func sub_40BB20(ind netstr.Index, a2 byte, a3 byte) *xferData {
 	buf[1] = 5
 	buf[2] = a2
 	buf[3] = a3
-	netstr.Global.Send(ind, buf[:4], netstr.SendNoLock|netstr.SendFlagFlush)
+	conn.Send(buf[:4], netstr.SendNoLock|netstr.SendFlagFlush)
 	sub_40BBC0(p.NetInd0, p.Field22)
 	if xferDataActive != 0 {
 		xferDataActive--
@@ -1956,9 +1956,9 @@ func sub_40BC60(pli ntype.PlayerInd, a2 byte, typ string, data []byte, flag bool
 	if len(data) == 0 {
 		return false
 	}
-	var nind netstr.Index
+	var nind netstr.Handle
 	if !noxflags.HasGame(noxflags.GameHost) {
-		nind = netstrClientIndex
+		nind = netstrClientConn
 	} else {
 		if !noxflags.HasGame(noxflags.GameClient) {
 			return false
@@ -2015,7 +2015,7 @@ func sub_40BC60(pli ntype.PlayerInd, a2 byte, typ string, data []byte, flag bool
 	return true
 }
 
-func nox_xxx_netXferMsg_40BE80(a1 netstr.Index, a2 byte, typ string, sz int, a5 byte) {
+func nox_xxx_netXferMsg_40BE80(conn netstr.Handle, a2 byte, typ string, sz int, a5 byte) {
 	var buf [140]byte
 	buf[0] = byte(noxnet.MSG_XFER_MSG)
 	buf[1] = 0 // XFER_HEADER?
@@ -2024,10 +2024,10 @@ func nox_xxx_netXferMsg_40BE80(a1 netstr.Index, a2 byte, typ string, sz int, a5 
 	n := copy(buf[8:136], typ)
 	buf[8+n] = 0
 	buf[136] = a5
-	netstr.Global.Send(a1, buf[:140], netstr.SendNoLock|netstr.SendFlagFlush)
+	conn.Send(buf[:140], netstr.SendNoLock|netstr.SendFlagFlush)
 }
 
-func sub_40C030(ind netstr.Index, a2 byte) {
+func sub_40C030(ind netstr.Handle, a2 byte) {
 	p := sub_40BC10(ind, a2)
 	if p == nil {
 		return
@@ -2037,7 +2037,7 @@ func sub_40C030(ind netstr.Index, a2 byte) {
 	sub_40B930(p)
 }
 
-func sub_40C070(ind netstr.Index, a2 byte, a3 byte) {
+func sub_40C070(ind netstr.Handle, a2 byte, a3 byte) {
 	p := sub_40BC10(ind, a3)
 	if p == nil {
 		return
@@ -2049,7 +2049,7 @@ func sub_40C070(ind netstr.Index, a2 byte, a3 byte) {
 	sub_40B930(p)
 }
 
-func sub_40BF60(ind netstr.Index, a2 byte, a3 uint16) {
+func sub_40BF60(ind netstr.Handle, a2 byte, a3 uint16) {
 	p := sub_40BC10(ind, a2)
 	if p == nil {
 		return
@@ -2072,7 +2072,7 @@ func sub_40BF60(ind netstr.Index, a2 byte, a3 uint16) {
 	}
 }
 
-func sub_40B5D0(a1 netstr.Index, a2 byte, typ string, sz uint32, a5 byte) {
+func sub_40B5D0(a1 netstr.Handle, a2 byte, typ string, sz uint32, a5 byte) {
 	s := noxServer
 	if sz == 0 {
 		return
@@ -2126,13 +2126,13 @@ func sub_40B530(i byte, a2 byte) {
 	}
 }
 
-func nox_xxx_neXfer_40B590(ind netstr.Index, a2 byte, a3 byte) {
+func nox_xxx_neXfer_40B590(conn netstr.Handle, a2 byte, a3 byte) {
 	var buf [4]byte
 	buf[0] = byte(noxnet.MSG_XFER_MSG)
 	buf[1] = 6
 	buf[2] = a2
 	buf[3] = a3
-	netstr.Global.Send(ind, buf[:4], netstr.SendNoLock|netstr.SendFlagFlush)
+	conn.Send(buf[:4], netstr.SendNoLock|netstr.SendFlagFlush)
 }
 
 func sub_40B170(cnt int) {
@@ -2164,7 +2164,7 @@ func sub_40B6D0() (*xferDataTwo, byte) {
 	return nil, 0
 }
 
-func sub_40B250(ind netstr.Index, a2 byte, a3 uint16, data []byte) {
+func sub_40B250(ind netstr.Handle, a2 byte, a3 uint16, data []byte) {
 	s := noxServer
 	if len(data) == 0 {
 		return
@@ -2229,12 +2229,12 @@ func sub_40B250(ind netstr.Index, a2 byte, a3 uint16, data []byte) {
 	}
 }
 
-func nox_xxx_netXfer_40B4B0(ind netstr.Index, a2 byte) {
+func nox_xxx_netXfer_40B4B0(conn netstr.Handle, a2 byte) {
 	var buf [3]byte
 	buf[0] = byte(noxnet.MSG_XFER_MSG)
 	buf[1] = 4
 	buf[2] = a2
-	netstr.Global.Send(ind, buf[:3], netstr.SendNoLock|netstr.SendFlagFlush)
+	conn.Send(buf[:3], netstr.SendNoLock|netstr.SendFlagFlush)
 }
 
 func sub_40B740() {
@@ -2254,13 +2254,13 @@ func sub_40B790() {
 	}
 }
 
-func sub_40B690(a1 netstr.Index, a2 byte, a3 byte) {
+func sub_40B690(conn netstr.Handle, a2 byte, a3 byte) {
 	var buf [4]byte
 	buf[0] = byte(noxnet.MSG_XFER_MSG)
 	buf[1] = 1
 	buf[2] = a2
 	buf[3] = a3
-	netstr.Global.Send(a1, buf[:4], netstr.SendNoLock|netstr.SendFlagFlush)
+	conn.Send(buf[:4], netstr.SendNoLock|netstr.SendFlagFlush)
 }
 
 func sub_40B720(a1 byte, a2 byte) {

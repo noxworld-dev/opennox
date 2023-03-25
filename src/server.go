@@ -97,7 +97,7 @@ type Server struct {
 	dword_5d4594_2386948 *Waypoint
 	dword_5d4594_2386960 uint32
 
-	streamXxx netstr.Index
+	streamXxx netstr.Handle
 }
 
 func (s *Server) S() *server.Server {
@@ -415,7 +415,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 
 func nox_server_netMaybeSendInitialPackets_4DEB30() {
 	if !noxflags.HasEngine(noxflags.EngineReplayRead) {
-		netstr.Global.ServeInitialPackets(netstr.Global.GetInitInd(), 1)
+		netstr.Global.GetInitInd().ServeInitialPackets(1)
 	}
 }
 
@@ -469,7 +469,7 @@ func (s *Server) updateRemotePlayers() error {
 			legacy.Nox_xxx_netInformTextMsg2_4DA180(3, unsafe.Pointer(&m))
 			var buf [1]byte
 			buf[0] = byte(noxnet.MSG_TIMEOUT_NOTIFICATION)
-			netstr.Global.Send(netstr.Global.Player(pl), buf[:], netstr.SendNoLock|netstr.SendFlagFlush)
+			netstr.Global.Player(pl).Send(buf[:], netstr.SendNoLock|netstr.SendFlagFlush)
 			pl.Disconnect(3)
 		}
 		if pl.Field3680&0x80 != 0 {
@@ -491,7 +491,7 @@ func (s *Server) updateRemotePlayers() error {
 		if pl.UnitC().SObj() == legacy.HostPlayerUnit() {
 			legacy.Nox_xxx_netImportant_4E5770(byte(pl.Index()), 1)
 		} else if legacy.Get_dword_5d4594_2650652() == 0 || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
-			netstr.Global.SendReadPacket(netstr.Global.Player(pl), 0)
+			netstr.Global.Player(pl).SendReadPacket(0)
 		}
 	}
 	return nil
@@ -758,7 +758,7 @@ func (s *Server) StartNAT() error {
 	return s.Server.StartNAT()
 }
 
-func (s *Server) nox_server_netCloseHandler_4DEC60(ind netstr.Index) {
+func (s *Server) nox_server_netCloseHandler_4DEC60(ind netstr.Handle) {
 	netstr.Global.ReadPackets(ind)
 	s.nox_server_netClose_5546A0(ind)
 	legacy.Set_nox_xxx_host_player_unit_3843628(nil)
