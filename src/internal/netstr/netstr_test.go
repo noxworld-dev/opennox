@@ -28,7 +28,6 @@ func TestNetstr(t *testing.T) {
 			return 10
 		}
 		s.Xor = false
-		s.Init()
 		conn, err := s.NewServer(&Options{
 			Port:       18501,
 			Max:        10,
@@ -69,7 +68,6 @@ func TestNetstr(t *testing.T) {
 		return 0
 	}
 	s.Xor = false
-	s.Init()
 
 	conn, err := s.NewClient(&Options{
 		Max:        10,
