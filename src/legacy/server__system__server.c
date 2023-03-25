@@ -1012,7 +1012,7 @@ void nox_xxx_serverLoopSendMap_519990() {
 			nox_xxx_netMapSendPrepair_519EB0_net_mapsend();
 		}
 		v0 = 0;
-		v1 = getMemAt(0x5D4594, 2387180);
+		v1 = getMemAt(0x5D4594, 2387148 + 32);
 		do {
 			if (*((uint16_t*)v1 - 15) == 1) {
 				if (sub_519930(v0 + 1) > *(v1 - 4)) {
@@ -1023,7 +1023,7 @@ void nox_xxx_serverLoopSendMap_519990() {
 			}
 			v1 += 48;
 			++v0;
-		} while ((int)v1 < (int)getMemAt(0x5D4594, 2388668));
+		} while ((int)v1 < (int)getMemAt(0x5D4594, 2387148 + 48*31 + 32));
 	}
 }
 
