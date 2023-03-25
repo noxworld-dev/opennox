@@ -22,19 +22,18 @@ import (
 )
 
 var (
-	Nox_savegame_rm                        func(name string, rmDir bool) error
-	Nox_client_countPlayerFiles04_4DC7D0   func() int
-	Nox_xxx_gameGet_4DB1B0                 func() int
-	Sub_4DCC90                             func() int
-	Sub_4DB1C0                             func() unsafe.Pointer
-	Sub_4DCBF0                             func(a1 int)
-	Sub_4460A0                             func(a1 int)
-	Nox_xxx_serverIsClosing_446180         func() int
-	Sub_419EB0                             func(i ntype.PlayerInd, val int)
-	Sub_4DCC10                             func(a1p *server.Object) int
-	Nox_xxx_soloGameEscMenuCallback_40AF90 func(ind ntype.PlayerInd, a2 int, act byte, a4 unsafe.Pointer, buf []byte)
-	Sub_4DCFB0                             func(a1p *server.Object)
-	Sub_4DD0B0                             func(a1p *server.Object)
+	Nox_savegame_rm                      func(name string, rmDir bool) error
+	Nox_client_countPlayerFiles04_4DC7D0 func() int
+	Nox_xxx_gameGet_4DB1B0               func() int
+	Sub_4DCC90                           func() int
+	Sub_4DB1C0                           func() unsafe.Pointer
+	Sub_4DCBF0                           func(a1 int)
+	Sub_4460A0                           func(a1 int)
+	Nox_xxx_serverIsClosing_446180       func() int
+	Sub_419EB0                           func(i ntype.PlayerInd, val int)
+	Sub_4DCC10                           func(a1p *server.Object) int
+	Sub_4DCFB0                           func(a1p *server.Object)
+	Sub_4DD0B0                           func(a1p *server.Object)
 )
 
 //export nox_savegame_rm_4DBE10
@@ -72,11 +71,6 @@ func sub_419EB0(i, val int) { Sub_419EB0(ntype.PlayerInd(i), val) }
 
 //export sub_4DCC10
 func sub_4DCC10(a1p *nox_object_t) int { return Sub_4DCC10(asObjectS(a1p)) }
-
-//export nox_xxx_soloGameEscMenuCallback_40AF90
-func nox_xxx_soloGameEscMenuCallback_40AF90(ind, a2 int, act int, a4 unsafe.Pointer, cbuf unsafe.Pointer, sz int) {
-	Nox_xxx_soloGameEscMenuCallback_40AF90(ntype.PlayerInd(ind), a2, byte(act), a4, unsafe.Slice((*byte)(cbuf), sz))
-}
 
 //export sub_4DCFB0
 func sub_4DCFB0(a1p *nox_object_t) { Sub_4DCFB0(asObjectS(a1p)) }
