@@ -274,7 +274,7 @@ func sub_40B850(ind netstr.Index, act byte) {
 }
 
 func sub_40B810(act byte, data []byte) {
-	nox_xxx_soloGameEscMenuCallback_40AF90(common.MaxPlayers-1, 0, act, memmap.PtrOff(0x5D4594, 4664), data)
+	nox_xxx_soloGameEscMenuCallback_40AF90(common.MaxPlayers-1, 0, act, memmap.String(0x5D4594, 4664), data)
 	sub_40B850(netstr.Global.First(), act)
 }
 
@@ -367,7 +367,7 @@ func sub_446580(i int) {
 	}
 }
 
-func nox_xxx_soloGameEscMenuCallback_40AF90(ind ntype.PlayerInd, a2 int, act byte, a4 unsafe.Pointer, data []byte) {
+func nox_xxx_soloGameEscMenuCallback_40AF90(ind ntype.PlayerInd, a2 byte, act byte, a4 string, data []byte) {
 	switch act {
 	case 1:
 		sub_446520(1, data)

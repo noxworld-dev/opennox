@@ -343,7 +343,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_B(ticks uint64) bool {
 		s.mapSend.Update()
 	}
 	sub_40B970()
-	legacy.Sub_40B790()
+	sub_40B790()
 	if !noxflags.HasGame(noxflags.GamePause) {
 		s.updateUnits()
 		legacy.Sub_4EC720()

@@ -418,7 +418,7 @@ func RunArgs(args []string) (gerr error) {
 	legacy.Nox_xxx_mapSelectFirst_4D0E00()
 	netlist.Init()
 	sub_40B890(32)
-	legacy.Sub_40B170(32)
+	sub_40B170(32)
 	legacy.Sub_4134D0()
 	if v := noxClient.Strings().Lang(); v == 6 || v == 8 {
 		noxClient.r.SetBold(false)
@@ -510,7 +510,7 @@ func cleanup() {
 	legacy.Sub_4D11D0()
 	legacy.Sub_4D0DA0()
 	sub_40C0D0()
-	legacy.Sub_40B740()
+	sub_40B740()
 	legacy.Nox_common_maplist_free_4D0970()
 	ail.Shutdown()
 }
