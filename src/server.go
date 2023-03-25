@@ -26,6 +26,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
@@ -464,7 +465,7 @@ func (s *Server) updateRemotePlayers() error {
 			legacy.Nox_xxx_netInformTextMsg2_4DA180(3, unsafe.Pointer(&m))
 			var buf [1]byte
 			buf[0] = byte(noxnet.MSG_TIMEOUT_NOTIFICATION)
-			netstr.Send(netstr.Player(pl.Index()), buf[:], netstr.SendNoLock|netstr.SendFlagFlush)
+			netstr.Send(netstr.Player(pl), buf[:], netstr.SendNoLock|netstr.SendFlagFlush)
 			pl.Disconnect(3)
 		}
 		if pl.Field3680&0x80 != 0 {
@@ -474,7 +475,7 @@ func (s *Server) updateRemotePlayers() error {
 			var buf [3]byte
 			buf[0] = byte(noxnet.MSG_TIMESTAMP)
 			binary.LittleEndian.PutUint16(buf[1:], uint16(s.Frame()))
-			netlist.AddToMsgListCli(pl.Index(), netlist.Kind1, buf[:])
+			netlist.AddToMsgListCli(pl.PlayerIndex(), netlist.Kind1, buf[:])
 		} else {
 			if uint32(pl.UnitC().Ind()) == legacy.DeadWord { // see #401
 				pl.PlayerUnit = nil
@@ -486,7 +487,7 @@ func (s *Server) updateRemotePlayers() error {
 		if pl.UnitC().SObj() == legacy.HostPlayerUnit() {
 			legacy.Nox_xxx_netImportant_4E5770(byte(pl.Index()), 1)
 		} else if legacy.Get_dword_5d4594_2650652() == 0 || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
-			netstr.SendReadPacket(netstr.Player(pl.Index()), 0)
+			netstr.SendReadPacket(netstr.Player(pl), 0)
 		}
 	}
 	return nil
@@ -506,7 +507,7 @@ func (s *Server) nox_xxx_secretWallCheckUnits_517F00(rect types.Rectf, fnc func(
 func (s *Server) nox_xxx_netUpdate_518EE0(u *Object) {
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
-	pind := pl.Index()
+	pind := pl.PlayerIndex()
 	netlist.InitByInd(pind)
 	if pind != common.MaxPlayers-1 && ((s.Frame()+uint32(pind))%(s.TickRate()*15)) == 0 {
 		legacy.Nox_xxx_netReportUnitHeight_4D9020(pind, u.SObj())
@@ -586,7 +587,7 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Object) {
 	legacy.Nox_xxx_netUpdateRemotePlr_501CA0(u.SObj())
 }
 
-func (s *Server) sub_4172C0(pind int) *Object {
+func (s *Server) sub_4172C0(pind ntype.PlayerInd) *Object {
 	if pind < 0 && pind >= common.MaxPlayers {
 		return nil
 	}
@@ -602,7 +603,7 @@ func (s *Server) sub_4172C0(pind int) *Object {
 func (s *Server) sub_519760(u *Object, rect types.Rectf) {
 	ud := u.UpdateDataPlayer()
 	pl := asPlayerS(ud.Player)
-	pind := pl.Index()
+	pind := pl.PlayerIndex()
 	obj := s.sub_4172C0(pind)
 	if obj == nil {
 		return

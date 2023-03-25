@@ -19,6 +19,7 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/internal/netlist"
 	"github.com/noxworld-dev/opennox/v1/legacy"
@@ -30,13 +31,13 @@ func nox_xxx_updateSpellRelated_424830(p unsafe.Pointer, ph int) unsafe.Pointer 
 	return unsafe.Pointer((*phonemeLeaf)(p).Next(spell.Phoneme(ph)))
 }
 
-func nox_xxx_playerDisconnByPlrID_4DEB00(id int) {
+func nox_xxx_playerDisconnByPlrID_4DEB00(id ntype.PlayerInd) {
 	if p := noxServer.GetPlayerByInd(id); p != nil {
 		p.Disconnect(4)
 	}
 }
 
-func nox_xxx_playerCallDisconnect_4DEAB0(ind int, v int8) {
+func nox_xxx_playerCallDisconnect_4DEAB0(ind ntype.PlayerInd, v int8) {
 	noxServer.GetPlayerByInd(ind).Disconnect(int(v))
 }
 
@@ -72,7 +73,7 @@ func (s *Server) PlayerNext(it *Player) *Player {
 	return asPlayerS(s.Players.Next(it.S()))
 }
 
-func (s *Server) PlayerResetInd(ind int) *Player {
+func (s *Server) PlayerResetInd(ind ntype.PlayerInd) *Player {
 	return asPlayerS(s.Players.ResetInd(ind))
 }
 
@@ -248,6 +249,10 @@ func (p *Player) Index() int {
 	return p.S().Index()
 }
 
+func (p *Player) PlayerIndex() ntype.PlayerInd {
+	return p.S().PlayerIndex()
+}
+
 func (p *Player) NetCode() int {
 	return p.S().NetCode()
 }
@@ -276,8 +281,8 @@ func (p *Player) Disconnect(v int) {
 		return
 	}
 	legacy.Nox_xxx_playerDisconnFinish_4DE530(p.Index(), int8(v))
-	legacy.Nox_xxx_playerForceDisconnect_4DE7C0(p.Index())
-	p.getServer().nox_xxx_netStructReadPackets2_4DEC50(p.Index())
+	legacy.Nox_xxx_playerForceDisconnect_4DE7C0(p.PlayerIndex())
+	p.getServer().nox_xxx_netStructReadPackets2_4DEC50(p.PlayerIndex())
 }
 
 func (p *Player) CameraTarget() *Object {
@@ -348,7 +353,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 		s.TeamsResetYyy()
 		legacy.Sub_40A970()
 	}
-	nox_xxx_netInformTextMsg_4DA0F0(p.Index(), 12, bool2int(notify))
+	nox_xxx_netInformTextMsg_4DA0F0(p.PlayerIndex(), 12, bool2int(notify))
 	u.ApplyEnchant(server.ENCHANT_INVISIBLE, 0, 5)
 	u.ObjFlags |= uint32(object.FlagNoCollide)
 	p.SetPos3632(u.Pos())
@@ -424,11 +429,11 @@ func (s *Server) getPlayerUnits() (out []*Object) {
 	return out
 }
 
-func (s *Server) GetPlayerByInd(i int) *Player {
+func (s *Server) GetPlayerByInd(i ntype.PlayerInd) *Player {
 	return asPlayerS(s.Players.ByInd(i))
 }
 
-func (s *Server) GetPlayerByIndRaw(i int) *Player {
+func (s *Server) GetPlayerByIndRaw(i ntype.PlayerInd) *Player {
 	return asPlayerS(s.Players.ByIndRaw(i))
 }
 
@@ -462,7 +467,7 @@ func sub_459D70() int {
 	return int(v0 + 2)
 }
 
-func sub_4E4F30(a1 int) {
+func sub_4E4F30(a1 ntype.PlayerInd) {
 	*memmap.PtrUint16(0x5D4594, 1565524+2*uintptr(a1)) = 0
 }
 
@@ -512,7 +517,7 @@ func (p *PlayerOpts) MarshalBinary() ([]byte, error) {
 	return data, nil
 }
 
-func (s *Server) newPlayerFromPacket(ind int, data []byte) int {
+func (s *Server) newPlayerFromPacket(ind ntype.PlayerInd, data []byte) int {
 	var opts PlayerOpts
 	if err := opts.UnmarshalBinary(data); err != nil {
 		panic(err)
@@ -520,7 +525,7 @@ func (s *Server) newPlayerFromPacket(ind int, data []byte) int {
 	return s.newPlayer(ind, &opts)
 }
 
-func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
+func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 	v2 := opts.Byte152
 	opts.Byte152 &= 0x7F
 	v3 := v2 >> 7
@@ -642,7 +647,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 	}
 	var v30 [132]byte
 	nox_xxx_netNewPlayerMakePacket_4DDA90(v30[:], pl)
-	s.nox_xxx_netSendPacket_4E5030(ind|0x80, v30[:129], 0, 0, 0)
+	s.nox_xxx_netSendPacket_4E5030(int(ind)|0x80, v30[:129], 0, 0, 0)
 	pl.Field3676 = 2
 	if false && !noxflags.HasGame(noxflags.GameModeChat) {
 		legacy.Sub_425F10(pl.S())
@@ -686,7 +691,7 @@ func (s *Server) newPlayer(ind int, opts *PlayerOpts) int {
 		buf[0] = byte(noxnet.MSG_FADE_BEGIN)
 		buf[1] = 1
 		buf[2] = 1
-		s.nox_xxx_netSendPacket_4E5030(ind, buf[:], 0, 0, 0)
+		s.nox_xxx_netSendPacket_4E5030(int(ind), buf[:], 0, 0, 0)
 	}
 	s.callOnPlayerJoin(pl)
 	return int(punit.NetCode)
@@ -751,13 +756,13 @@ func (s *Server) PlayerSpell(su *server.Object) {
 				a1 = legacy.Nox_xxx_checkPlrCantCastSpell_4FD150(u.SObj(), spellInd, 0)
 			}
 			if a1 != 0 {
-				nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 0, a1)
+				nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 0, a1)
 				s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
 			} else {
 				mana := legacy.Sub_4FCF90(u.SObj(), spellInd, 1)
 				if mana < 0 {
 					a1 = 11
-					nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 0, a1)
+					nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 0, a1)
 					s.AudioEventObj(sound.SoundManaEmpty, u, 0, 0)
 				} else {
 					arg, v14free := alloc.New(server.SpellAcceptArg{})
@@ -770,7 +775,7 @@ func (s *Server) PlayerSpell(su *server.Object) {
 					}
 					arg.Pos = pl.CursorPos()
 					if s.nox_xxx_castSpellByUser4FDD20(spellInd, -1, u.SObj(), arg) {
-						nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 1, int(spellInd))
+						nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 1, int(spellInd))
 					} else {
 						sub_4FD030(u, mana)
 						a1 = 8
