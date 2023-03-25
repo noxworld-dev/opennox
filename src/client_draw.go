@@ -46,7 +46,7 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 		return true
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
-		legacy.Sub_40B970()
+		sub_40B970()
 		legacy.Sub_40B790()
 	}
 	if noxflags.HasGame(noxflags.GameHost) {

@@ -171,7 +171,6 @@ extern uint32_t dword_5d4594_1049496;
 extern void* dword_587000_93164;
 extern uint32_t dword_5d4594_1098624;
 extern uint32_t dword_5d4594_1569672;
-extern uint32_t dword_5d4594_3632;
 extern uint32_t dword_5d4594_1197316;
 extern uint32_t dword_5d4594_2386576;
 extern uint32_t dword_5d4594_1569756;
@@ -326,7 +325,7 @@ extern uint32_t dword_5d4594_1045436;
 extern uint32_t dword_5d4594_1321800;
 extern uint32_t dword_5d4594_1197336;
 extern uint32_t dword_5d4594_1197352;
-extern uint32_t dword_5d4594_826036;
+extern void* dword_5d4594_826036;
 extern uint32_t dword_5d4594_1064860;
 extern uint32_t dword_5d4594_1046536;
 extern uint32_t dword_5d4594_1062468;
@@ -1533,4 +1532,7 @@ func Get_dword_5d4594_1123524() *gui.Window {
 }
 func Set_dword_5d4594_1123520(v int) {
 	C.dword_5d4594_1123520 = C.uint(v)
+}
+func Get_dword_5d4594_826036() *byte {
+	return (*byte)(C.dword_5d4594_826036)
 }

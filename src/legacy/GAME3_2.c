@@ -5835,18 +5835,6 @@ int nox_xxx_game_4DCCB0() {
 	return result;
 }
 
-//----- (004DD140) --------------------------------------------------------
-void* nox_xxx_playerSendMOTD_4DD140(int a1) {
-	void* result; // eax
-	int v3;       // [esp+0h] [ebp-4h]
-
-	result = sub_4464D0(1, &v3);
-	if (result) {
-		result = (void*)sub_40BC60(a1, 1, "MOTD", (int)result, v3, 1);
-	}
-	return result;
-}
-
 //----- (004DD180) --------------------------------------------------------
 char* nox_xxx_gameServerReadyMB_4DD180(int a1) {
 	char* result; // eax
@@ -5952,6 +5940,7 @@ void sub_4DDE10(int a1, nox_playerInfo* a2p) {
 }
 
 //----- (004DDF60) --------------------------------------------------------
+void nox_xxx_playerSendMOTD_4DD140(int a1);
 int nox_xxx_netPlayerIncomingServ_4DDF60(int a1) {
 	int v1;             // ebx
 	char* v2;           // esi
@@ -6177,6 +6166,7 @@ int sub_4DE4D0(char a1) {
 }
 
 //----- (004DE530) --------------------------------------------------------
+void sub_40C0E0(int a1);
 char nox_xxx_playerDisconnFinish_4DE530(int a1, char a2) {
 	int v2;      // ebp
 	char* v3;    // eax
