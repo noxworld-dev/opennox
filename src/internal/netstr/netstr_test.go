@@ -2,7 +2,6 @@ package netstr
 
 import (
 	"testing"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
@@ -34,12 +33,12 @@ func TestNetstr(t *testing.T) {
 			Port:       18501,
 			Max:        10,
 			BufferSize: 2048,
-			Func1: func(id Handle, buf []byte, a3 unsafe.Pointer) int {
-				t.Logf("SRV: func1: %v, [%d], %p", id.i, len(buf), a3)
+			OnSend: func(id Handle, buf []byte) int {
+				t.Logf("SRV: func1: %v, [%d]", id.i, len(buf))
 				return len(buf)
 			},
-			OnReceive: func(id Handle, buf []byte, a3 unsafe.Pointer) int {
-				t.Logf("SRV: func2: %v, [%d], %p", id.i, len(buf), a3)
+			OnReceive: func(id Handle, buf []byte) int {
+				t.Logf("SRV: func2: %v, [%d]", id.i, len(buf))
 				return len(buf)
 			},
 			Check14: func(out []byte, packet []byte, a4a bool, add func(pid ntype.Player) bool) int {
@@ -75,17 +74,17 @@ func TestNetstr(t *testing.T) {
 	conn, err := s.NewClient(&Options{
 		Max:        10,
 		BufferSize: 2048,
-		Func1: func(id Handle, buf []byte, a3 unsafe.Pointer) int {
-			t.Logf("CLI: func1: %v, [%d], %p", id.i, len(buf), a3)
+		OnSend: func(id Handle, buf []byte) int {
+			t.Logf("CLI: func1: %v, [%d]", id.i, len(buf))
 			return len(buf)
 		},
-		OnReceive: func(id Handle, buf []byte, a3 unsafe.Pointer) int {
+		OnReceive: func(id Handle, buf []byte) int {
 			op := noxnet.Op(buf[0])
 			switch op {
 			case noxnet.MSG_XXX_STOP:
 				t.Error("failed")
 			}
-			t.Logf("CLI: func2: %v, [%d], %p", id.i, len(buf), a3)
+			t.Logf("CLI: func2: %v, [%d]", id.i, len(buf))
 			return len(buf)
 		},
 		Check14: func(out []byte, packet []byte, a4a bool, add func(pid ntype.Player) bool) int {

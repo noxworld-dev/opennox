@@ -254,12 +254,12 @@ func (s *Server) initConn(port int) (conn netstr.Handle, cport int, _ error) {
 		Port:       port,
 		Max:        s.getServerMaxPlayers(),
 		BufferSize: 2048,
-		OnReceive: func(conn netstr.Handle, buf []byte, _ unsafe.Pointer) int {
+		OnReceive: func(conn netstr.Handle, buf []byte) int {
 			// should pass the pointer unchanged, otherwise expect bugs!
 			s.onPacketRaw(conn.Player(), buf)
 			return 1
 		},
-		Func1:   nox_xxx_netFn_UpdateStream_4DF630,
+		OnSend:  s.onSend,
 		Check14: nox_xxx_netBigSwitch_553210_op_14_check,
 		Check17: nox_xxx_netBigSwitch_553210_op_17_check,
 	}
@@ -340,7 +340,7 @@ func nox_xxx_cliSendCancelMap_43CAB0() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_CANCEL_MAP)
 	v0, _ := conn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
-	if conn.WaitServerResponse(v0, 20, netstr.ServeNoHandle2|netstr.ServeJustOne) != 0 {
+	if conn.WaitServerResponse(v0, 20, netstr.ServeNoHooks|netstr.ServeJustOne) != 0 {
 		return 0
 	}
 	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
@@ -352,7 +352,7 @@ func nox_xxx_netSendIncomingClient_43CB00() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_INCOMING_CLIENT)
 	v0, _ := conn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
-	if conn.WaitServerResponse(v0, 20, netstr.ServeNoHandle2|netstr.ServeJustOne) != 0 {
+	if conn.WaitServerResponse(v0, 20, netstr.ServeNoHooks|netstr.ServeJustOne) != 0 {
 		return 0
 	}
 	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
@@ -373,10 +373,10 @@ func nox_xxx_cliSendOutgoingClient_43CB50() int {
 	var data [1]byte
 	data[0] = byte(noxnet.MSG_OUTGOING_CLIENT)
 	v0, _ := conn.Send(data[:], netstr.SendNoLock|netstr.SendFlagFlush)
-	if conn.WaitServerResponse(v0, 20, netstr.ServeNoHandle2|netstr.ServeJustOne) != 0 {
+	if conn.WaitServerResponse(v0, 20, netstr.ServeNoHooks|netstr.ServeJustOne) != 0 {
 		return 0
 	}
-	conn.RecvLoop(netstr.ServeCanRead | netstr.ServeNoHandle2)
+	conn.RecvLoop(netstr.ServeCanRead | netstr.ServeNoHooks)
 	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	return 1
 }
@@ -580,7 +580,7 @@ func nox_xxx_netSendBySock_40EE10(conn netstr.Handle, ind ntype.PlayerInd, kind 
 			return
 		}
 		conn.Send(data, 0)
-		conn.SendReadPacket(1)
+		conn.SendReadPacket(true)
 	})
 }
 
@@ -1188,7 +1188,7 @@ func sub_43C6E0() int {
 	return bool2int(!dword_5d4594_815704 && !dword_5d4594_815708)
 }
 
-func nox_xxx_netHandleCliPacket_43C860(_ netstr.Handle, data []byte, _ unsafe.Pointer) int {
+func nox_xxx_netHandleCliPacket_43C860(_ netstr.Handle, data []byte) int {
 	op := noxnet.Op(data[0])
 	noxPerfmon.packetSizeCli = len(data)
 	if op == noxnet.MSG_XXX_STOP {
@@ -1461,7 +1461,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 				} else {
 					conn := netstr.Global.Player(it)
 					conn.Send(data[:msz], 0)
-					conn.SendReadPacket(1)
+					conn.SendReadPacket(true)
 				}
 			}
 			return msz, true
@@ -1487,7 +1487,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 				} else {
 					conn := netstr.Global.Player(it)
 					conn.Send(data[:msz], 0)
-					conn.SendReadPacket(1)
+					conn.SendReadPacket(true)
 				}
 			}
 		}
@@ -1779,7 +1779,7 @@ func sub_40BA90(conn netstr.Handle, a2 byte, block uint16, data []byte) int {
 	binary.LittleEndian.PutUint16(buf[6:], uint16(len(data)))
 	copy(buf[8:], data)
 	conn.Send(buf, 0)
-	return conn.SendReadPacket(1)
+	return conn.SendReadPacket(true)
 }
 
 type xferData struct {
