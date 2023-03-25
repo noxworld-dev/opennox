@@ -279,43 +279,6 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 		v7 = *(uint32_t*)(data + 6);
 		*(uint32_t*)(v8 + 8 * v14 + 20) = v7;
 		return 10;
-	case 0xC2u: // MSG_XFER_MSG
-		switch (data[1]) {
-		case 0u:
-			sub_40B5D0(*(unsigned char*)(v8 + 2064) + 1, data[2], (const char*)data + 8, *((uint32_t*)data + 1),
-					   data[136]);
-			return 140;
-		case 1u:
-			LOBYTE(v11) = data[3];
-			sub_40BFF0(*(unsigned char*)(v8 + 2064) + 1, data[2], v11);
-			return 4;
-		case 2u:
-			v90[0] = -62;
-			v90[1] = 3;
-			v90[2] = data[2];
-			v82 = *(unsigned char*)(v8 + 2064) + 1;
-			*(uint16_t*)&v90[4] = *((uint16_t*)data + 2);
-			nox_xxx_netSendSock_552640(v82, v90, 6, NOX_NET_SEND_NO_LOCK | NOX_NET_SEND_FLAG2);
-			sub_40B250(*(unsigned char*)(v8 + 2064) + 1, data[2], *((uint16_t*)data + 2), data + 8,
-					   *((unsigned short*)data + 3));
-			return *((unsigned short*)data + 3) + 8;
-		case 3u:
-			sub_40BF60(*(unsigned char*)(v8 + 2064) + 1, data[2], *((unsigned short*)data + 2));
-			return 6;
-		case 4u:
-			sub_40C030(*(unsigned char*)(v8 + 2064) + 1, data[2]);
-			return 3;
-		case 5u:
-			LOBYTE(v7) = data[3];
-			sub_40B720(v7, data[2]);
-			return 4;
-		case 6u:
-			LOBYTE(v11) = data[3];
-			sub_40C070(*(unsigned char*)(v8 + 2064) + 1, (int)v11, data[2]);
-			return 4;
-		default:
-			return -1;
-		}
 	case 0xE0u: // MSG_REPORT_SECONDARY_WEAPON
 		v58 = nox_xxx_packetDynamicUnitCode_578B40(*(unsigned short*)(data + 1));
 		if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_ENABLE_NET_DEBUG)) {
