@@ -244,8 +244,7 @@ func (g *Streams) newStruct(opt *Options) *stream {
 	}
 	ns.recv.Grow(2 + opt.BufferSize)
 
-	sbuf, _ := alloc.Make([]byte{}, opt.BufferSize+2)
-	ns.sendBuf = sbuf
+	ns.sendBuf = make([]byte, 2+opt.BufferSize)
 	ns.sendWrite = 2
 	*ns.Data2hdr() = [2]byte{anyID, 0}
 
@@ -486,8 +485,6 @@ func (ns *stream) freeData() {
 	if ns == nil {
 		return
 	}
-	ns.recv.Reset()
-	alloc.FreeSlice(ns.sendBuf)
 	*ns = stream{g: ns.g}
 }
 
@@ -1395,8 +1392,8 @@ func (h Handle) RecvLoop(flags int) int {
 			return -1
 		}
 	}
-	tmp, bfree := alloc.Make([]byte{}, 256)
-	defer bfree()
+
+	var tmp [256]byte
 
 	v26 := true
 	for {
@@ -1429,7 +1426,7 @@ func (h Handle) RecvLoop(flags int) int {
 		if op == codeDiscover {
 			// Discover packets are not a part of the protocol, they are filtered out
 			// and handled separately. Responses are written directly to underlying conn.
-			n = h.g.OnDiscover(ns.recv.Bytes(), tmp)
+			n = h.g.OnDiscover(ns.recv.Bytes(), tmp[:])
 			if n > 0 {
 				n, _ = ns.WriteToRaw(tmp[:n], src)
 			}
@@ -1476,7 +1473,7 @@ func (h Handle) RecvLoop(flags int) int {
 				}
 			} else if a0 == anyID {
 				if op == 0 {
-					n = h.g.processStreamOp(h, ns.recv.Bytes(), tmp, src)
+					n = h.g.processStreamOp(h, ns.recv.Bytes(), tmp[:], src)
 					if n > 0 {
 						n, _ = ns.WriteTo(tmp[:n], src)
 					}
@@ -1500,7 +1497,7 @@ func (h Handle) RecvLoop(flags int) int {
 			}
 		}
 		if op < code32 {
-			n = h.g.processStreamOp(h, ns.recv.Bytes(), tmp, src)
+			n = h.g.processStreamOp(h, ns.recv.Bytes(), tmp[:], src)
 			if n > 0 {
 				n, _ = ns.WriteTo(tmp[:n], src)
 			}
