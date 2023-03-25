@@ -281,7 +281,7 @@ func RunArgs(args []string) (gerr error) {
 	nox_ticks_reset_416D40()
 	noxServer.SetUpdateFunc(nil)
 	noxClient.SetDrawFunc(nil)
-	noxClient.SetUpdateFunc2(nil)
+	noxServer.SetUpdateFunc2(nil)
 	noxflags.SetGame(noxflags.GameModeArena)
 	if *fNoLimit {
 		useFrameLimit = false

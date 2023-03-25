@@ -35,21 +35,20 @@ func NewClient(pr console.Printer, s *server.Server) *Client {
 }
 
 type Client struct {
-	pr          console.Printer
-	srv         *server.Server
-	Things      clientObjTypes
-	Objs        clientDrawables
-	r           *noxrender.NoxRender
-	Seat        seat.Seat
-	Inp         *input.Handler
-	Win         *render.Renderer
-	GUI         *gui.GUI
-	vp          *noxrender.Viewport
-	DrawFunc    func() bool
-	UpdateFunc2 func() bool
-	Cursor      gui.Cursor
-	CursorPrev  gui.Cursor
-	state       gui.State
+	pr         console.Printer
+	srv        *server.Server
+	Things     clientObjTypes
+	Objs       clientDrawables
+	r          *noxrender.NoxRender
+	Seat       seat.Seat
+	Inp        *input.Handler
+	Win        *render.Renderer
+	GUI        *gui.GUI
+	vp         *noxrender.Viewport
+	DrawFunc   func() bool
+	Cursor     gui.Cursor
+	CursorPrev gui.Cursor
+	state      gui.State
 }
 
 func (c *Client) Render() *noxrender.NoxRender {
@@ -207,10 +206,6 @@ func (c *Client) SetMouseBounds(rect image.Rectangle) {
 
 func (c *Client) SetDrawFunc(fnc func() bool) {
 	c.DrawFunc = fnc
-}
-
-func (c *Client) SetUpdateFunc2(fnc func() bool) {
-	c.UpdateFunc2 = fnc
 }
 
 func (c *Client) Strings() *strman.StringManager {

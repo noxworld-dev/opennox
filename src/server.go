@@ -763,7 +763,7 @@ func (s *Server) nox_server_netCloseHandler_4DEC60(ind netstr.Handle) {
 	netstr.Global.ReadPackets(ind)
 	s.nox_server_netClose_5546A0(ind)
 	legacy.Set_nox_xxx_host_player_unit_3843628(nil)
-	noxClient.SetUpdateFunc2(nil)
+	s.SetUpdateFunc2(nil)
 	s.StopNAT()
 	s.StopHTTP()
 }
