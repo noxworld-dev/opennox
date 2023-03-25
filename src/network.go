@@ -772,21 +772,6 @@ func netGetIP(ind netstr.Index) netip.Addr {
 	return ind.IP()
 }
 
-func sub_519930(a1 int) int {
-	cnt := 0
-	v2 := int(memmap.Uint32(0x5D4594, 2387148+48*uintptr(a1)+0))
-	if v2 != 0 {
-		if a1 < 32 {
-			netstr.Global.IndexRaw(v2).QueueEach(func(it []byte) {
-				if op := noxnet.Op(it[0]); op == noxnet.MSG_MAP_SEND_START || op == noxnet.MSG_MAP_SEND_PACKET {
-					cnt++
-				}
-			})
-		}
-	}
-	return cnt
-}
-
 func sub_43C790() uint32 {
 	return memmap.Uint32(0x587000, 91876)
 }
@@ -1353,11 +1338,11 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		nox_xxx_netTimerStatus_4D8F50(pli, v41)
 		return 1, true
 	case noxnet.MSG_CANCEL_MAP:
-		legacy.Nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(pl.Index())
+		s.mapSend.mapSendCancel(pl.PlayerIndex())
 		return 1, true
 	case noxnet.MSG_RECEIVED_MAP:
 		pl.Field3676 = 3
-		legacy.Sub_519E80(pl.Index())
+		s.mapSend.EndReceive(pl.PlayerIndex())
 		return 1, true
 	case noxnet.MSG_TEXT_MESSAGE:
 		if len(data) < 11 {
@@ -1469,7 +1454,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		if u != nil {
 			legacy.Nox_xxx_netChangeTeamMb_419570(u.TeamPtr(), uint32(pl.NetCode()))
 		}
-		legacy.Nox_xxx_netMapSend_519D20(pl.Index())
+		s.mapSend.StartSendShared(pl.PlayerIndex())
 		return 1, true
 	case noxnet.MSG_REQUEST_SAVE_PLAYER:
 		if len(data) < 3 {
