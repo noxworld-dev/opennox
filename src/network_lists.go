@@ -27,7 +27,7 @@ func nox_netlist_addToMsgListSrv(ind ntype.PlayerInd, buf []byte) bool {
 		if ind == common.MaxPlayers-1 {
 			noxClient.nox_netlist_receiveCli_494E90()
 		} else {
-			netstr.Global.SendReadPacket(netstr.Global.Player(s.GetPlayerByInd(ind)), 0)
+			netstr.Global.Player(s.GetPlayerByInd(ind)).SendReadPacket(0)
 		}
 	})
 }
@@ -173,7 +173,7 @@ func getNetPlayerBufSize() int {
 	return netPlayerBufSize
 }
 
-func nox_xxx_netFn_UpdateStream_4DF630(ind netstr.Index, b1 []byte, _ unsafe.Pointer) int {
+func nox_xxx_netFn_UpdateStream_4DF630(ind netstr.Handle, b1 []byte, _ unsafe.Pointer) int {
 	pl := noxServer.GetPlayerByInd(ind.Player())
 	*memmap.PtrUint32(0x5D4594, 1563308) = 0
 	netPlayerBufSize = 0
