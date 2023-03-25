@@ -9,7 +9,6 @@ import (
 	"math/rand"
 	"net"
 	"net/netip"
-	"sync"
 	"time"
 
 	"github.com/noxworld-dev/opennox-lib/common"
@@ -20,7 +19,6 @@ import (
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 const (
@@ -72,7 +70,7 @@ func init() {
 }
 
 func NewStreams() *Streams {
-	return &Streams{
+	s := &Streams{
 		playerIDs: make(map[Handle]struct{}),
 		KeyRand: func(min, max int) int {
 			return min + rand.Intn(max-min)
@@ -85,10 +83,11 @@ func NewStreams() *Streams {
 		Xor:           true,
 		MaxPacketLoss: 3,
 	}
+	s.Reset()
+	return s
 }
 
 type Streams struct {
-	once           sync.Once
 	ticks1         uint64
 	ticks2         uint64
 	cntX           int
@@ -96,7 +95,6 @@ type Streams struct {
 	streams2       [maxStructs]stream2
 	timing         [maxStructs]timingStruct
 	transfer       [maxStructs]uint32
-	allocQueue     alloc.ClassT[queueItem]
 	playerIDs      map[Handle]struct{}
 	sendXorBuf     [4096]byte // TODO: remove this buffer?
 	Log            *log.Logger
@@ -114,16 +112,16 @@ type Streams struct {
 	Debug          bool
 }
 
-func (g *Streams) Init() {
-	g.once.Do(func() {
-		for i := range g.streams {
-			g.streams[i] = nil
+func (g *Streams) Reset() {
+	for i, ns := range g.streams {
+		if ns != nil && ns.pc != nil {
+			_ = ns.Close()
 		}
-		for i := range g.streams2 {
-			g.streams2[i] = stream2{}
-		}
-		g.allocQueue = alloc.NewClassT("GQueue", queueItem{}, 200)
-	})
+		g.streams[i] = nil
+	}
+	for i := range g.streams2 {
+		g.streams2[i] = stream2{}
+	}
 }
 
 func (h Handle) addTransferStats(n int) {
@@ -270,7 +268,7 @@ func (ns *stream) Close() error {
 		_ = ns.pc.Close()
 	}
 	ns.pc = nil
-	ns.freeData()
+	ns.reset()
 	return nil
 }
 
@@ -468,7 +466,7 @@ type stream struct {
 	ticks22     uint64
 	ticks23     uint64
 	field24     uint32
-	cnt28       uint8
+	seq         uint8
 	ind28       int8
 	queue       *queueItem
 	onSend      Handler
@@ -481,7 +479,7 @@ type stream struct {
 	check17     Check17
 }
 
-func (ns *stream) freeData() {
+func (ns *stream) reset() {
 	if ns == nil {
 		return
 	}
@@ -573,13 +571,13 @@ func (h Handle) Send(buf []byte, flags int) (int, error) {
 		for i := si.i; i < ei.i; i++ {
 			ns2 := Handle{h.g, i}.get()
 			if ns2 != nil && ns2.ID() == idd {
-				v12, err := ns2.addToQueue(buf)
-				if v12 == -1 {
+				seq, err := ns2.addToQueue(buf)
+				if err != nil {
 					return -1, err
 				}
-				n = v12
+				n = seq
 				if flags&SendFlagFlush != 0 {
-					ns2.maybeSendQueue(byte(v12), true)
+					ns2.maybeSendQueue(byte(seq), true)
 				}
 			}
 		}
@@ -624,29 +622,27 @@ func netCrypt(key byte, p []byte) {
 }
 
 func (ns *stream) addToQueue(buf []byte) (int, error) {
-	if ns == nil {
-		return -3, errors.New("no net struct")
-	}
 	if len(buf) > 1024-2 {
 		return -1, errors.New("buffer too large")
 	}
 	if len(buf) == 0 {
 		return -1, errors.New("empty buffer")
 	}
-	q := ns.g.allocQueue.NewObject()
-	if q == nil {
-		return -1, errors.New("cannot alloc gqueue")
+	seq := ns.seq
+	ns.seq++
+
+	q := &queueItem{
+		active: true,
+		size:   uint32(2 + len(buf)),
 	}
+	q.data[0] = ns.Data2hdr()[0] | someIDFlag
+	q.data[1] = seq
+	copy(q.data[2:], buf)
+
 	q.next = ns.queue
 	ns.queue = q
 
-	q.active = true
-	q.size = uint32(len(buf) + 2)
-	q.data[0] = ns.Data2hdr()[0] | someIDFlag
-	q.data[1] = ns.cnt28
-	ns.cnt28++
-	copy(q.data[2:], buf)
-	return int(q.data[1]), nil
+	return int(seq), nil
 }
 
 func (ns *stream) maybeSendQueue(hdrByte byte, checkHdr bool) int {
@@ -811,7 +807,7 @@ func (ns *stream) maybeFreeQueue(a2 byte, a3 int) int {
 			prev.next = next
 		}
 		it.next = nil
-		ns.g.allocQueue.FreeObjectFirst(it)
+		*it = queueItem{}
 	}
 	return 0
 }
@@ -833,7 +829,7 @@ func (g *Streams) ReadPackets(ind Handle) int {
 		si, ei = ind, Handle{g, ind.i + 1}
 		ns2 := v4.get()
 		if ns2 == nil || ns2.id != -1 {
-			ns.freeData()
+			ns.reset()
 			g.streams[ind.i] = nil
 			return 0
 		}
@@ -851,7 +847,7 @@ func (g *Streams) ReadPackets(ind Handle) int {
 		ii.SendReadPacket(true)
 		v4.get().playerInd21--
 		ns.maybeFreeQueue(0, 2)
-		ns2.freeData()
+		ns2.reset()
 		g.streams[ii.i] = nil
 	}
 	return 0
