@@ -48,7 +48,8 @@ const (
 	code17       = noxnet.Op(0x11)
 	code18       = noxnet.Op(0x12)
 	code19       = noxnet.Op(0x13)
-	codeOK       = noxnet.Op(0x14)
+	codeOK20     = noxnet.Op(0x14)
+	code21       = noxnet.Op(0x15)
 	code31       = noxnet.Op(0x1F)
 	code32       = noxnet.Op(0x20)
 	code33       = noxnet.Op(0x21)
@@ -1100,7 +1101,7 @@ func (g *Streams) processStreamOp14(out []byte, packet []byte, ns1 *stream, p1 b
 
 	ind2 := g.getFreeNetStruct2Ind()
 	if ind2 < 0 {
-		out[2] = byte(codeOK)
+		out[2] = byte(codeOK20)
 		return 3
 	}
 	nx := &g.streams2[ind2]
@@ -1336,7 +1337,7 @@ func (g *Streams) processStreamOp17(out []byte, packet []byte, p1 byte, from net
 	}
 	ind2 := g.getFreeNetStruct2Ind()
 	if ind2 < 0 {
-		out[2] = byte(codeOK)
+		out[2] = byte(codeOK20)
 		return 3
 	}
 	nx := &g.streams2[ind2]
@@ -1430,7 +1431,7 @@ func (h Handle) RecvLoop(flags int) int {
 			}
 			goto continueX
 		}
-		if op >= code14 && op <= codeOK {
+		if op >= code14 && op <= codeOK20 {
 			v26 = true
 		} else {
 			if a0 == anyID {
@@ -1541,7 +1542,7 @@ func (h Handle) sendCode20(ind2 int) (int, error) {
 	var buf [3]byte
 	buf[0] = 0
 	buf[1] = 0
-	buf[2] = byte(codeOK)
+	buf[2] = byte(codeOK20)
 
 	nx := &h.g.streams2[ind2]
 	nx.active = false
@@ -1697,5 +1698,71 @@ func netCryptDst(key byte, src, dst []byte) {
 	}
 	for i := range src {
 		dst[i] = key ^ src[i]
+	}
+}
+
+type LobbyWaitOptions struct {
+	OnResult func(addr netip.AddrPort, data []byte)
+	OnCode15 func()
+	OnCode16 func(addr netip.AddrPort, data []byte)
+	OnCode19 func(errcode byte) bool
+	OnCode20 func()
+	OnCode21 func()
+}
+
+func WaitForLobbyResults(conn net.PacketConn, srvAddr netip.Addr, flag byte, opts LobbyWaitOptions) (int, error) {
+	argp := 0
+	if flag&ServeCanRead != 0 {
+		var err error
+		argp, err = canReadConn(DebugSockets, Log, conn)
+		if err != nil {
+			return 0, err
+		} else if argp == 0 {
+			// TODO: is it an error at all?
+			return 0, errors.New("nothing to read")
+		}
+	} else {
+		argp = 1
+	}
+	buf := make([]byte, 256)
+	for {
+		buf = buf[:cap(buf)]
+		n, from, err := readFrom(DebugSockets, Log, conn, buf)
+		if err != nil {
+			return 0, err
+		}
+		buf = buf[:n]
+		op := noxnet.Op(buf[2])
+		if op < code32 {
+			if op == code13 || srvAddr == from.Addr() {
+				switch op {
+				case code13:
+					if from.Addr().IsValid() {
+						opts.OnResult(from, buf)
+					}
+				case code15:
+					opts.OnCode15()
+				case code16:
+					opts.OnCode16(from, buf)
+				case code19:
+					if !opts.OnCode19(buf[3]) {
+						break
+					}
+				case codeOK20:
+					opts.OnCode20()
+				case code21:
+					opts.OnCode21()
+				}
+			}
+		}
+		if flag&ServeCanRead == 0 || (flag&ServeJustOne) != 0 {
+			return n, nil
+		}
+		argp, err = canReadConn(DebugSockets, Log, conn)
+		if err != nil {
+			return n, err
+		} else if argp == 0 {
+			return n, nil
+		}
 	}
 }

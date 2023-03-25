@@ -2,7 +2,6 @@ package opennox
 
 import (
 	"context"
-	"encoding/binary"
 	"errors"
 	"fmt"
 	"image"
@@ -168,7 +167,7 @@ func nox_xxx_createSocketLocal(port int) error {
 		return err
 	}
 	lobbyBroadcast = conn
-	noxClient.SetDrawFunc(sub_554FF0)
+	noxClient.SetDrawFunc(clientWaitForLobbyResults)
 	return nil
 }
 
@@ -242,98 +241,63 @@ func clientOnLobbyServer(info *LobbyServerInfo) int {
 	return 0
 }
 
-func sub_554FF0() bool {
-	sub_554D70(lobbyBroadcast, 1)
+func clientWaitForLobbyResults() bool {
+	waitForLobbyResults(lobbyBroadcast, netstr.ServeCanRead)
 	return true
 }
 
-func sub_554D70(conn net.PacketConn, a1 byte) (int, error) {
+func waitForLobbyResults(conn net.PacketConn, flag byte) (int, error) {
 	if conn == nil {
 		return 0, client.ErrLobbyNoSocket
 	}
-	v11 := int(a1 & 1)
-	argp := 0
-	if a1&1 != 0 {
-		var err error
-		argp, err = netstr.CanReadConn(conn)
-		if err != nil {
-			return 0, err
-		} else if argp == 0 {
-			// TODO: is it an error at all?
-			return 0, errors.New("nothing to read")
-		}
-	} else {
-		argp = 1
-	}
-	buf, freeBuf := alloc.Make([]byte{}, 256)
-	defer freeBuf()
-	for {
-		buf = buf[:cap(buf)]
-		n, from, err := netstr.ReadFrom(conn, buf)
-		if err != nil {
-			return 0, err
-		}
-		buf = buf[:n]
-		if len(buf) > 2 && binary.LittleEndian.Uint16(buf) == 0xF13A { // extension packet code
-			MixRecvFromReplacer(conn, buf, from)
-			continue
-		}
-		op := buf[2]
-		if op < 32 {
-			in := from
-			if op == 13 || legacy.Nox_client_getServerAddr_43B300() == from.Addr() {
-				switch op {
-				case 13:
-					if in.Addr().IsValid() {
-						saddr := in.Addr().String()
-						port := int(in.Port())
-						name := buf[72:]
-						name = name[:alloc.StrLenS(name)]
-						onLobbyServerPacket(saddr, port, string(name), buf)
-					}
-				case 15:
-					if legacy.Sub_43B6D0() != 0 {
-						legacy.Sub_43AF90(5)
-					}
-				case 16:
-					if legacy.Sub_43B6D0() != 0 {
-						legacy.Sub_43AF90(4)
-						buf[2] = 18
-						sendToServer(from, buf[:8])
-					}
-				case 19:
-					errcode := ConnectError(buf[3])
-					if errcode != ErrDupSerial {
-						if legacy.Sub_43B6D0() != 0 {
-							nox_client_setConnError_43AFA0(errcode)
-						}
-						break
-					}
-					// TODO: Code above is disabled because it causes issues with players reconnecting to the server.
-					//       For some reason the player record gets stuck in the server's player list, so this check fails.
-					gameLog.Printf("connect error: %d (%s, ignored)", errcode, errcode.Name())
-					fallthrough
-				case 20:
-					if legacy.Sub_43B6D0() != 0 && legacy.Sub_43AF80() == 3 {
-						legacy.Sub_43AF90(7)
-					}
-				case 21:
-					if legacy.Sub_43B6D0() != 0 {
-						legacy.Sub_43AF90(8)
-					}
-				}
+	return netstr.WaitForLobbyResults(conn, legacy.Nox_client_getServerAddr_43B300(), flag, netstr.LobbyWaitOptions{
+		OnResult: func(addr netip.AddrPort, data []byte) {
+			saddr := addr.Addr().String()
+			port := int(addr.Port())
+			name := data[72:]
+			name = name[:alloc.StrLenS(name)]
+			onLobbyServerPacket(saddr, port, string(name), data)
+		},
+		OnCode15: func() {
+			if legacy.Sub_43B6D0() != 0 {
+				legacy.Sub_43AF90(5)
 			}
-		}
-		if v11 == 0 || (a1&4) != 0 {
-			return n, nil
-		}
-		argp, err = netstr.CanReadConn(conn)
-		if err != nil {
-			return n, err
-		} else if argp == 0 {
-			return n, nil
-		}
-	}
+		},
+		OnCode16: func(addr netip.AddrPort, buf []byte) {
+			if legacy.Sub_43B6D0() != 0 {
+				legacy.Sub_43AF90(4)
+				buf[2] = 18
+				sendToServer(addr, buf[:8])
+			}
+		},
+		OnCode19: func(code byte) bool {
+			errcode := ConnectError(code)
+			if errcode != ErrDupSerial {
+				if legacy.Sub_43B6D0() != 0 {
+					nox_client_setConnError_43AFA0(errcode)
+				}
+				return false
+			}
+			// TODO: Code above is disabled because it causes issues with players reconnecting to the server.
+			//       For some reason the player record gets stuck in the server's player list, so this check fails.
+			gameLog.Printf("connect error: %d (%s, ignored)", errcode, errcode.Name())
+			// from code20
+			if legacy.Sub_43B6D0() != 0 && legacy.Sub_43AF80() == 3 {
+				legacy.Sub_43AF90(7)
+			}
+			return true
+		},
+		OnCode20: func() {
+			if legacy.Sub_43B6D0() != 0 && legacy.Sub_43AF80() == 3 {
+				legacy.Sub_43AF90(7)
+			}
+		},
+		OnCode21: func() {
+			if legacy.Sub_43B6D0() != 0 {
+				legacy.Sub_43AF90(8)
+			}
+		},
+	})
 }
 
 func sendToServer(addr netip.AddrPort, data []byte) (int, error) {
