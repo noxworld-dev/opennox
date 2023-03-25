@@ -100,7 +100,7 @@ func (m *Perfmon) bandData(ind int) playerBandData {
 	}
 }
 
-func (m *Perfmon) TransferStats(ind netstr.Index) uint32 {
+func (m *Perfmon) TransferStats(ind netstr.Handle) uint32 {
 	ticks := platform.Ticks()
 	ri := ind.Raw()
 	prev := m.transferTick[ri]
