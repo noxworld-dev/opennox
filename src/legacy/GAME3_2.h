@@ -263,7 +263,7 @@ int nox_xxx_netPlayerIncomingServ_4DDF60(int a1);
 int nox_xxx_sendAllPlayerIDs_4DE270(int a1);
 char* nox_xxx_newPlayerSendAllPlayers_4DE300(int a1);
 int nox_xxx_servMinimapRevealFlag_4DE380(int a1);
-uint32_t* sub_4DE410(int a1);
+void sub_4DE410(int a1);
 int sub_4DE4D0(char a1);
 char nox_xxx_playerDisconnFinish_4DE530(int a1, char a2);
 void sub_4DE790(int a1);

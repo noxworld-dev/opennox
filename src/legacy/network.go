@@ -29,14 +29,11 @@ int sub_43AF90(int a1);
 int sub_456DF0(int a1);
 void sub_455950(wchar2_t* a1);
 int sub_455920(wchar2_t* a1);
-void sub_519E80(int a1);
 int sub_43C650();
 int sub_467CA0();
 void* sub_49BB80(char a1);
 int* nox_xxx_guiServerOptionsHide_4597E0(int a1);
 int nox_net_importantACK_4E55A0(int a1, int a2);
-void nox_xxx_netMapSend_519D20(int a1);
-int nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1);
 int nox_xxx_netClientSend2_4E53C0(int a1, const void* a2, int a3, int a4, int a5);
 void* nox_xxx_spriteGetMB_476F80();
 int nox_xxx_netSendPacket_4E5030(int a1, const void* a2, signed int a3, int a4, int a5, char a6);
@@ -90,7 +87,6 @@ var (
 	Sub_554240                        func(a1 int) int
 	Nox_xxx_netSendReadPacket_5528B0  func(ind netstr.Index, a2 byte) int
 	Nox_xxx_net_getIP_554200          func(a1 netstr.Index) uint32
-	Sub_519930                        func(a1 int) int
 	Nox_xxx_netOnPacketRecvCli_48EA70 func(ind ntype.PlayerInd, buf *byte, sz int) int
 	Sub_43C6E0                        func() int
 	Sub_43CF40                        func()
@@ -164,9 +160,6 @@ func nox_xxx_netSendReadPacket_5528B0(ind int, a2 byte) int {
 func nox_xxx_net_getIP_554200(a1 int) uint32 {
 	return Nox_xxx_net_getIP_554200(netstr.Global.IndexRaw(a1))
 }
-
-//export sub_519930
-func sub_519930(a1 int) int { return Sub_519930(a1) }
 
 //export nox_xxx_netOnPacketRecvCli_48EA70
 func nox_xxx_netOnPacketRecvCli_48EA70(ind int, buf *byte, sz int) int {
@@ -337,12 +330,6 @@ func Nox_xxx_netPlayerObjSend_518C30(a1 *server.Object, a2 *server.Object, a3 in
 func Nox_xxx_gameServerReadyMB_4DD180(a1 int) {
 	C.nox_xxx_gameServerReadyMB_4DD180(C.int(a1))
 }
-func Nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(a1 int) {
-	C.nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(C.int(a1))
-}
-func Sub_519E80(a1 int) {
-	C.sub_519E80(C.int(a1))
-}
 func Nox_xxx_teamCompare2_419180(a1 unsafe.Pointer, a2 uint8) int {
 	return int(C.nox_xxx_teamCompare2_419180(a1, C.uchar(a2)))
 }
@@ -354,9 +341,6 @@ func Sub_4D1210(a1 int) {
 }
 func Nox_net_importantACK_4E55A0(a1 int, a2 int) {
 	C.nox_net_importantACK_4E55A0(C.int(a1), C.int(a2))
-}
-func Nox_xxx_netMapSend_519D20(a1 int) {
-	C.nox_xxx_netMapSend_519D20(C.int(a1))
 }
 func Sub_4196D0(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int, a4 int) {
 	C.sub_4196D0(a1, a2, C.int(a3), C.int(a4))

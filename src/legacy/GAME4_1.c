@@ -20,7 +20,6 @@
 #include "common__system__team.h"
 #include "server__gamemech__explevel.h"
 #include "server__magic__plyrspel.h"
-#include "server__network__mapsend.h"
 #include "server__system__trade.h"
 
 #include "client__gui__window.h"
@@ -47,7 +46,6 @@ extern void* nox_alloc_tradeSession_2386492;
 extern uint32_t dword_5d4594_2386564;
 extern uint32_t dword_5d4594_2386920;
 extern void* nox_alloc_monsterList_2386220;
-extern uint32_t dword_5d4594_2388640;
 extern uint32_t dword_5d4594_2386160;
 extern uint32_t dword_5d4594_1599712;
 extern uint32_t dword_5d4594_2386924;
@@ -57,7 +55,6 @@ extern uint32_t dword_5d4594_2386212;
 extern uint32_t dword_5d4594_2386180;
 extern void* nox_alloc_tradeItems_2386496;
 extern void* nox_alloc_visitNode_2386184;
-extern uint32_t dword_5d4594_2388648;
 extern uint32_t dword_5d4594_2386152;
 extern uint32_t dword_5d4594_2386224;
 extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
@@ -5954,98 +5951,6 @@ int sub_519710(void* a1) {
 	}
 	return result;
 }
-
-//----- (00519830) --------------------------------------------------------
-int nox_xxx_netMapSendClear_519830(int a1, char a2) {
-	int result; // eax
-
-	result = a1;
-	if (a1) {
-		*(uint32_t*)(a1 + 40) = 0;
-		*(uint8_t*)a1 = a2;
-		*(uint16_t*)(a1 + 2) = 0;
-		*(uint16_t*)(a1 + 4) = 0;
-		*(uint32_t*)(a1 + 8) = 0;
-		*(uint32_t*)(a1 + 12) = 0;
-		*(uint32_t*)(a1 + 16) = 1;
-		*(uint16_t*)(a1 + 20) = 512;
-		*(uint32_t*)(a1 + 24) = 0;
-		*(uint8_t*)(a1 + 28) = 2;
-		*(uint32_t*)(a1 + 32) = 0;
-		*(uint32_t*)(a1 + 44) = 0;
-	}
-	return result;
-}
-
-//----- (00519870) --------------------------------------------------------
-int nox_xxx_netMapSendStop_519870() {
-	char v0;           // di
-	unsigned char* v1; // esi
-	int result;        // eax
-
-	v0 = 0;
-	v1 = getMemAt(0x5D4594, 2387148);
-	*getMemU16Ptr(0x5D4594, 2388636) = 0;
-	*getMemU16Ptr(0x5D4594, 2388638) = 0;
-	dword_5d4594_2388640 = 0;
-	dword_5d4594_2388648 = 0;
-	do {
-		result = nox_xxx_netMapSendClear_519830((int)v1, v0);
-		v1 += 48;
-		++v0;
-	} while ((int)v1 < (int)getMemAt(0x5D4594, 2387148 + 48*31));
-	return result;
-}
-
-//----- (005198B0) --------------------------------------------------------
-void nox_xxx_mapSendCancelAll_5198B0(unsigned char a1) {
-	char v1;           // bl
-	unsigned char* v2; // esi
-
-	v1 = 0;
-	v2 = getMemAt(0x5D4594, 2387148 + 2);
-	do {
-		if (*(uint16_t*)v2 == 1) {
-			*(uint16_t*)v2 = 0;
-			nullsub_27(v2 - 2);
-			nox_xxx_netSendMapAbort_519C80_net_mapsend(v2 - 2, a1);
-			++*getMemU16Ptr(0x5D4594, 2388638);
-			if (*((uint16_t*)v2 + 1) == 1) {
-				if (*(uint32_t*)(v2 + 6)) {
-					free(*(void**)(v2 + 6));
-				}
-			}
-			nox_xxx_netMapSendClear_519830((int)(v2 - 2), v1);
-		}
-		v2 += 48;
-		++v1;
-	} while ((int)v2 < (int)getMemAt(0x5D4594, 2387148 + 48*31 + 2));
-}
-// 519920: using guessed type void  nullsub_27(uint32_t);
-
-//----- (00519E80) --------------------------------------------------------
-void sub_519E80(int a1) {
-	nox_common_playerInfoFromNum_417090(a1);
-	sub_4DE410(getMemByte(0x5D4594, 2387148 + 48*a1));
-}
-
-//----- (0051A100) --------------------------------------------------------
-void* sub_51A100() {
-	void* result; // eax
-
-	if (dword_5d4594_2388648) {
-		nox_xxx_mapSendCancelAll_5198B0(0);
-	}
-	result = *(void**)&dword_5d4594_2388640;
-	if (dword_5d4594_2388640) {
-		free(*(void**)&dword_5d4594_2388640);
-	}
-	*getMemU32Ptr(0x5D4594, 2388644) = 0;
-	return result;
-}
-
-//----- (0051A130) --------------------------------------------------------
-int sub_51A130() { return dword_5d4594_2388648; }
 
 //----- (0051A500) --------------------------------------------------------
 int sub_51A500(int a1) {
