@@ -774,7 +774,7 @@ func (c *Client) map_download_finish() int {
 func sub_435EB0() {
 	writeConfigLegacy("nox.cfg")
 	if noxflags.HasGame(noxflags.GameHost) {
-		legacy.Nox_xxx_playerDisconnFinish_4DE530(common.MaxPlayers-1, 2)
+		nox_xxx_playerDisconnFinish_4DE530(common.MaxPlayers-1, 2)
 	} else {
 		nox_xxx_cliSendOutgoingClient_43CB50()
 	}

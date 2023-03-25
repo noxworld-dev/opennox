@@ -624,7 +624,7 @@ func (s *Server) sub_519760(u *Object, rect types.Rectf) {
 
 func (s *Server) nox_xxx_netMinimapUnmark4All_417430(obj *Object) {
 	for pl := s.PlayerFirst(); pl != nil; pl = s.PlayerNext(pl) {
-		legacy.Nox_xxx_netUnmarkMinimapObj_417300(pl.Index(), obj.SObj(), 3)
+		legacy.Nox_xxx_netUnmarkMinimapObj_417300(pl.PlayerIndex(), obj.SObj(), 3)
 	}
 }
 

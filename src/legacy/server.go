@@ -211,7 +211,7 @@ func Nox_xxx_netUpdateRemotePlr_501CA0(a1 *server.Object) {
 func Nox_xxx_netSendObjects2Plr_519410(a1 *server.Object, a2 *server.Object) {
 	C.nox_xxx_netSendObjects2Plr_519410(asObjectC(a1), asObjectC(a2))
 }
-func Nox_xxx_netUnmarkMinimapObj_417300(a1 int, a2 *server.Object, a3 int) {
+func Nox_xxx_netUnmarkMinimapObj_417300(a1 ntype.PlayerInd, a2 *server.Object, a3 int) {
 	C.nox_xxx_netUnmarkMinimapObj_417300(C.int(a1), asObjectC(a2), C.int(a3))
 }
 func Sub_4D6770(a1 ntype.PlayerInd) {

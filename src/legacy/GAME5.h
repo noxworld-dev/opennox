@@ -182,6 +182,5 @@ int sub_551A90(float2* a1, float4* a2);
 void sub_551AE0(int a1, int a2, int a3);
 void sub_551BF0();
 void sub_551C40(int a1, int a2);
-int nox_xxx_netSendSock_552640(int id, unsigned char* buf, int sz, int flags);
 
 #endif // NOX_PORT_GAME5
