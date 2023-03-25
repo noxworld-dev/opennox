@@ -51,7 +51,7 @@ func (c *Client) nox_xxx_client_435F80_draw() bool {
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
 		legacy.Nox_xxx_spriteDeleteSomeList_49C4B0()
-		if c.nox_netlist_receiveCli_494E90(common.MaxPlayers-1) == 0 {
+		if c.nox_netlist_receiveCli_494E90() == 0 {
 			return true
 		}
 	} else {
