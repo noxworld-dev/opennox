@@ -24,6 +24,9 @@ version-script: |
 architectures:
   - build-on: i386
     run-on: [amd64]
+    
+environment:
+  LIBGL_DRIVERS_PATH: $SNAP/usr/lib/i386-linux-gnu/dri
 
 apps:
   opennox:
