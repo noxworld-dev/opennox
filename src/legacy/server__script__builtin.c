@@ -707,39 +707,6 @@ LABEL_7:
 	return 0;
 }
 
-//----- (00516B40) --------------------------------------------------------
-int nox_script_TrapSpells_516B40() {
-	int v0; // ebp
-	int v1; // ebx
-	int v2; // edi
-	int v3; // eax
-	int v4; // eax
-	int v5; // esi
-	int v6; // eax
-	int v7; // edi
-	int v8; // ebx
-	int v9; // eax
-
-	v0 = nox_script_pop();
-	v1 = nox_script_pop();
-	v2 = nox_script_pop();
-	v3 = nox_script_pop();
-	v4 = nox_server_scriptValToObjectPtr_511B60(v3);
-	v5 = v4;
-	if (v4) {
-		if (*(uint8_t*)(v4 + 8) & 2) {
-			v6 = *(uint32_t*)(v4 + 12);
-			if (v6 & 0x2000) {
-				v7 = nox_xxx_spellNameToN_4243F0(nox_script_getString_512E40(v2));
-				v8 = nox_xxx_spellNameToN_4243F0(nox_script_getString_512E40(v1));
-				v9 = nox_xxx_spellNameToN_4243F0(nox_script_getString_512E40(v0));
-				nox_object_setTrapSpells_516A80(v5, v7, v8, v9);
-			}
-		}
-	}
-	return 0;
-}
-
 //----- (00516BE0) --------------------------------------------------------
 int nox_script_SetShopkeeperGreet_516BE0() {
 	int v0; // esi

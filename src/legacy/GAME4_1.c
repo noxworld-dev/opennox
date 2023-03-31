@@ -5092,49 +5092,6 @@ int sub_516570() {
 	return nox_xxx_netSendChapterEnd_4D9560((unsigned char)v2[2064], getMemByte(0x5D4594, 2386828), *getMemIntPtr(0x5D4594, 2386832));
 }
 
-//----- (00516A80) --------------------------------------------------------
-void nox_object_setTrapSpells_516A80(int a1, int a2, int a3, int a4) {
-	int v4;       // eax
-	uint32_t* v5; // eax
-	int v6;       // ecx
-
-	if (!*getMemU32Ptr(0x5D4594, 2386904)) {
-		*getMemU32Ptr(0x5D4594, 2386904) = nox_xxx_getNameId_4E3AA0("Glyph");
-	}
-	v4 = nox_xxx_inventoryGetFirst_4E7980(a1);
-	if (v4) {
-		while (*(unsigned short*)(v4 + 4) != *getMemU32Ptr(0x5D4594, 2386904)) {
-			v4 = nox_xxx_inventoryGetNext_4E7990(v4);
-			if (!v4) {
-				goto LABEL_8;
-			}
-		}
-		nox_xxx_delayedDeleteObject_4E5CC0(v4);
-	}
-LABEL_8:
-	v5 = nox_xxx_newObjectByTypeID_4E3810("Glyph");
-	if (v5) {
-		v6 = v5[173];
-		*(uint32_t*)v6 = a2;
-		*(uint32_t*)(v6 + 4) = a3;
-		*(uint32_t*)(v6 + 8) = a4;
-		*(uint8_t*)(v6 + 20) = 0;
-		if (a2) {
-			*(uint8_t*)(v6 + 20) = 1;
-		}
-		if (a3) {
-			++*(uint8_t*)(v6 + 20);
-		}
-		if (a4) {
-			++*(uint8_t*)(v6 + 20);
-		}
-		*(uint32_t*)(v6 + 24) = 0;
-		*(uint32_t*)(v6 + 28) = *(uint32_t*)(a1 + 56);
-		*(uint32_t*)(v6 + 32) = *(uint32_t*)(a1 + 60);
-		nox_xxx_inventoryPutImpl_4F3070(a1, (int)v5, 1);
-	}
-}
-
 //----- (00516D00) --------------------------------------------------------
 unsigned int sub_516D00(nox_object_t* a1p) {
 	int a1 = a1p;

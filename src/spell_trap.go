@@ -77,6 +77,43 @@ func nox_xxx_castGlyph_537FA0(sp spell.ID, a2, caster, targ *server.Object, sa *
 	return 1
 }
 
+func setBomberSpells(u *server.Object, spells ...spell.ID) {
+	s := noxServer
+	if u == nil {
+		return
+	}
+	if !u.Class().Has(object.ClassMonster) {
+		return
+	}
+	if !u.SubClass().AsMonster().Has(object.MonsterBomber) {
+		return
+	}
+	for it := u.FirstItem(); it != nil; it = it.NextItem() {
+		if int(it.TypeInd) != s.GlyphID() {
+			s.DelayedDelete(it)
+			break
+		}
+	}
+	trap := s.NewObjectByTypeID("Glyph")
+	if trap == nil {
+		return
+	}
+	idata := trap.InitDataGlyph()
+	*idata = server.GlyphInitData{
+		SpellsCnt: 0,
+		Field24:   0,
+		Targ:      u.Pos(),
+	}
+	for _, sp := range spells {
+		if !sp.Valid() {
+			continue
+		}
+		idata.Spells[idata.SpellsCnt] = uint32(sp)
+		idata.SpellsCnt++
+	}
+	legacy.Nox_xxx_inventoryPutImpl_4F3070(u, trap, 1)
+}
+
 func countBombers(u *server.Object) int {
 	cnt := 0
 	for it := u.FirstOwned516(); it != nil; it = it.NextOwned512() {
