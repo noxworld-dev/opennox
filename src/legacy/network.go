@@ -360,3 +360,12 @@ func Sub_4196D0(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int, a4 int) {
 func Nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int, data []byte, a4 *server.Player, a5 *server.Object, a6 unsafe.Pointer) int {
 	return int(C.nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(C.int(a1), (*C.uchar)(unsafe.Pointer(&data[0])), C.int(len(data)), (*nox_playerInfo)(a4.C()), asObjectC(a5), a6))
 }
+func Nox_xxx_netReportAcquireCreature_4D91A0(pli int, obj *server.Object) {
+	C.nox_xxx_netReportAcquireCreature_4D91A0(C.int(pli), asObjectC(obj))
+}
+func Nox_xxx_netMarkMinimapObject_417190(pli int, obj *server.Object, a3 int) {
+	C.nox_xxx_netMarkMinimapObject_417190(C.int(pli), asObjectC(obj), C.int(a3))
+}
+func Nox_xxx_netSendSimpleObject2_4DF360(pli int, obj *server.Object) {
+	C.nox_xxx_netSendSimpleObject2_4DF360(C.int(pli), asObjectC(obj))
+}

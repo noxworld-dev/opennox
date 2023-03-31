@@ -548,6 +548,14 @@ func (obj *Object) HasItem(item *Object) bool {
 	return false
 }
 
+func (obj *Object) NextOwned512() *Object {
+	return obj.Field128
+}
+
+func (obj *Object) FirstOwned516() *Object {
+	return obj.Field129
+}
+
 func (obj *Object) stringAs(typ string) string {
 	if obj == nil {
 		return fmt.Sprintf("%s(<nil>)", typ)
@@ -634,6 +642,14 @@ func (obj *Object) Dir2() Dir16 {
 		return 0
 	}
 	return obj.Direction2
+}
+
+func (obj *Object) InitDataGlyph() *GlyphInitData {
+	if alloc.IsDead(obj.UpdateData) {
+		panic("object already deleted")
+	}
+	// TODO: verify this conversion by checking ObjectType
+	return (*GlyphInitData)(obj.InitData)
 }
 
 func (obj *Object) UpdateDataPlayer() *PlayerUpdateData {

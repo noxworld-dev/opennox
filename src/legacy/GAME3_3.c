@@ -11124,7 +11124,8 @@ int nox_xxx_itemApplyDisengageEffect_4F3030(const nox_object_t* object, int a2) 
 }
 
 //----- (004F3070) --------------------------------------------------------
-void nox_xxx_inventoryPutImpl_4F3070(int a1, nox_object_t* item, int a3) {
+void nox_xxx_inventoryPutImpl_4F3070(nox_object_t* a1p, nox_object_t* item, int a3) {
+	int a1 = a1p;
 	int v3; // ebp
 	int v4; // eax
 	int v5; // ebx

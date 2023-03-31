@@ -7,7 +7,6 @@ package legacy
 extern unsigned int nox_client_consoleIsServer_823684;
 extern int nox_cheat_allowall;
 extern int nox_cheat_charmall;
-extern int nox_cheat_summon_nolimit;
 
 int nox_cmd_set_sysop(int, int, wchar2_t**);
 int nox_cmd_set_cycle(int, int, wchar2_t**);
@@ -64,10 +63,6 @@ func CheatEquipAll(v bool) {
 
 func CheatCharmAll(v bool) {
 	C.nox_cheat_charmall = C.int(bool2int(v))
-}
-
-func CheatSummonNoLimit(v bool) {
-	C.nox_cheat_summon_nolimit = C.int(bool2int(v))
 }
 
 func WrapCommandC(cfnc func(C.int, C.int, **wchar2_t) C.int) console.CommandLegacyFunc {
