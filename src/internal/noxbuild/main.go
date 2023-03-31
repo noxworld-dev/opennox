@@ -27,11 +27,12 @@ var (
 	defTargets = []string{
 		BinOpenNox, BinOpenNoxHD, BinServer,
 	}
-	fOut  = flag.String("o", "", "output directory")
-	fSrc  = flag.String("s", "", "source directory")
-	fOS   = flag.String("os", runtime.GOOS, "target OS to build for")
-	fSafe = flag.Bool("safe", false, "build a safe version (will run significantly slower)")
-	fGo   = flag.String("go", "go", "go command to use")
+	fOut     = flag.String("o", "", "output directory")
+	fSrc     = flag.String("s", "", "source directory")
+	fOS      = flag.String("os", runtime.GOOS, "target OS to build for")
+	fSafe    = flag.Bool("safe", false, "build a safe version (will run significantly slower)")
+	fGo      = flag.String("go", "go", "go command to use")
+	fVerbose = flag.Bool("v", false, "verbose mode")
 )
 
 func main() {
@@ -129,6 +130,19 @@ func goBuild(cmd string, bin string, opts *buildOpts) error {
 			"-asmflags=" + ASMFLAGS,
 		}
 	)
+	if *fVerbose {
+		args = append(args, "-work", "-x")
+		work := filepath.Join(os.TempDir(), "go-opennox-build")
+		if err := os.RemoveAll(work); err != nil {
+			return err
+		}
+		if err := os.MkdirAll(work, 0755); err != nil {
+			return err
+		}
+		envs = append(envs,
+			"GOTMPDIR="+work,
+		)
+	}
 	envs = append(envs,
 		"GOOS="+goos,
 	)
