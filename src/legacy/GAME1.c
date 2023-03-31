@@ -3930,7 +3930,8 @@ char* nox_xxx_playerByName_4170D0(wchar2_t* a1) {
 }
 
 //----- (00417190) --------------------------------------------------------
-int nox_xxx_netMarkMinimapObject_417190(int a1, int a2, int a3) {
+int nox_xxx_netMarkMinimapObject_417190(int a1, nox_object_t* a2p, int a3) {
+	int a2 = a2p;
 	int v3;            // ebx
 	uint32_t* v4;      // ecx
 	unsigned char* v5; // esi

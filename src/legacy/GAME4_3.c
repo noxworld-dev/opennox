@@ -37,7 +37,6 @@
 
 extern uint32_t dword_5d4594_2488620;
 extern uint32_t dword_5d4594_2488656;
-extern uint32_t dword_5d4594_2488648;
 extern uint32_t dword_5d4594_3835360;
 extern uint32_t dword_5d4594_2488728;
 extern uint32_t dword_5d4594_2488644;
@@ -2684,7 +2683,9 @@ int nox_xxx_mobActionToAnimation_533790(int a1) {
 }
 
 //----- (00533900) --------------------------------------------------------
-void nox_xxx_orderUnit_533900(int owner, int creature, int orderType) {
+void nox_xxx_orderUnit_533900(nox_object_t* ownerp, nox_object_t* creaturep, int orderType) {
+	int owner = ownerp;
+	int creature = creaturep;
 	int i; // esi
 
 	if (owner) {
@@ -4612,134 +4613,6 @@ void sub_537F00(float* a1, int a2) {
 			}
 		}
 	}
-}
-
-//----- (00537FA0) --------------------------------------------------------
-int nox_xxx_castGlyph_537FA0(int a1, int a2, int a3, int a4, int a5) {
-	int v5;        // edi
-	int v6;        // esi
-	uint32_t* v8;  // eax
-	int v9;        // ebx
-	int v10;       // ebp
-	int v11;       // ecx
-	uint8_t v12;   // eax
-	int v13;       // ebx
-	uint32_t* v14; // eax
-	int* v15;      // edi
-	int v16;       // edx
-	int v17;       // edx
-	int v18;       // eax
-	int v19;       // [esp-Ch] [ebp-2Ch]
-	float v20;     // [esp+0h] [ebp-20h]
-	int v21;       // [esp+14h] [ebp-Ch]
-	float2 v22;    // [esp+18h] [ebp-8h]
-	float v23;     // [esp+24h] [ebp+4h]
-	int* v24;      // [esp+24h] [ebp+4h]
-
-	v5 = a3;
-	if (*(uint8_t*)(a3 + 8) & 4) {
-		v6 = *(uint32_t*)(a3 + 748);
-		v20 = nox_xxx_gamedataGetFloat_419D40("MaxTrapCount");
-		if (*(unsigned char*)(v6 + 244) >= nox_float2int(v20)) {
-			a3 = 5;
-		LABEL_6:
-			nox_xxx_netInformTextMsg_4DA0F0(*(unsigned char*)(*(uint32_t*)(v6 + 276) + 2064), 0, &a3);
-			return 0;
-		}
-		if (!*(uint8_t*)(v6 + 212)) {
-			a3 = 7;
-			goto LABEL_6;
-		}
-		v8 = nox_xxx_newObjectByTypeID_4E3810("Glyph");
-		v9 = (int)v8;
-		v21 = (int)v8;
-		if (v8) {
-			v10 = v8[173];
-			if (*(uint8_t*)(*(uint32_t*)(v6 + 276) + 2251) != 2) {
-				v13 = a4;
-				nox_xxx_createAt_4DAA50((int)v8, v5, *(float*)(a4 + 56), *(float*)(a4 + 60));
-				v19 = nox_xxx_spellGetAud44_424800(a1, 0);
-				nox_xxx_aud_501960(v19, v13, 0, 0);
-			LABEL_23:
-				a4 = 0;
-				v22.field_0 = 0.0;
-				if (*(uint8_t*)(v6 + 212)) {
-					v24 = (int*)v10;
-					v15 = (int*)(v6 + 192);
-					do {
-						if (nox_xxx_spellIsEnabled_424B70(*v15)) {
-							v16 = a4;
-							*v24 = *v15;
-							a4 = v16 + 1;
-							++v24;
-						}
-						v17 = *(unsigned char*)(v6 + 212);
-						++v15;
-						++LODWORD(v22.field_0);
-					} while (SLODWORD(v22.field_0) < v17);
-				}
-				*(uint8_t*)(v10 + 20) = a4;
-				v18 = a5;
-				*(uint32_t*)(v10 + 28) = *(uint32_t*)(a5 + 4);
-				*(uint32_t*)(v10 + 32) = *(uint32_t*)(v18 + 8);
-				*(uint32_t*)(v10 + 24) = 0;
-				*(uint8_t*)(v6 + 212) = 0;
-				*(uint16_t*)(v21 + 126) = *(uint16_t*)(v13 + 124);
-				*(uint16_t*)(v21 + 124) = *(uint16_t*)(v13 + 124);
-				if (*(uint8_t*)(*(uint32_t*)(v6 + 276) + 2251) == 1) {
-					++*(uint8_t*)(v6 + 244);
-				}
-				return 1;
-			}
-			v23 = (double)sub_538250(v5);
-			if (nox_xxx_gamedataGetFloat_419D40("MaxBomberCount") <= v23) {
-				v11 = *(uint32_t*)(v6 + 276);
-				a4 = 5;
-				nox_xxx_netInformTextMsg_4DA0F0(*(unsigned char*)(v11 + 2064), 0, &a4);
-				nox_xxx_delayedDeleteObject_4E5CC0(v9);
-				return 0;
-			}
-			v12 = nox_xxx_checkSummonedCreaturesLimit_500D70(v5, 5);
-			if (v12) {
-				if (!dword_5d4594_2488648) {
-					dword_5d4594_2488648 = nox_xxx_getNameId_4E3AA0("Bomber");
-				}
-				v13 = a4;
-				sub_4ED970(50.0, (float2*)(a4 + 56), &v22);
-				if (v5) {
-					v14 = nox_xxx_unitDoSummonAt_5016C0(*(int*)&dword_5d4594_2488648, (int*)&v22, v5,
-														*(uint8_t*)(v5 + 124));
-				} else {
-					v14 = nox_xxx_unitDoSummonAt_5016C0(*(int*)&dword_5d4594_2488648, (int*)&v22, 0, 0);
-				}
-				if (v14) {
-					nox_xxx_inventoryPutImpl_4F3070((int)v14, v21, 1);
-				}
-				nox_xxx_aud_501960(367, v13, 0, 0);
-				goto LABEL_23;
-			}
-			nox_xxx_delayedDeleteObject_4E5CC0(v9);
-		}
-		return 0;
-	}
-	return 1;
-}
-// 5380C1: variable 'v12' is possibly undefined
-
-//----- (00538250) --------------------------------------------------------
-int sub_538250(int a1) {
-	int result; // eax
-	int i;      // ecx
-
-	result = 0;
-	for (i = *(uint32_t*)(a1 + 516); i; i = *(uint32_t*)(i + 512)) {
-		if (*(uint8_t*)(i + 8) & 2) {
-			if (*(uint32_t*)(i + 12) & 0x2000) {
-				++result;
-			}
-		}
-	}
-	return result;
 }
 
 //----- (00538280) --------------------------------------------------------

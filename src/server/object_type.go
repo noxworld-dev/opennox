@@ -84,7 +84,7 @@ func init() {
 	RegisterObjectInit("GruntInit", nil, 0)
 	RegisterObjectInit("SkeletonInit", nil, 0)
 	RegisterObjectInit("TowerInit", nil, 0)
-	RegisterObjectInit("GlyphInit", nil, 36)
+	RegisterObjectInit("GlyphInit", nil, unsafe.Sizeof(GlyphInitData{}))
 	RegisterObjectInit("ModifierInit", nil, 20)
 	RegisterObjectInit("RewardMarkerInit", nil, 220)
 	RegisterObjectInit("AnkhInit", nil, 5124)
@@ -228,6 +228,7 @@ type serverObjTypes struct {
 		ball      int
 		crown     int
 		npc       int
+		bomber    int
 	}
 }
 
@@ -286,6 +287,10 @@ func (s *Server) GameBallID() int {
 
 func (s *Server) CrownID() int {
 	return s.cacheObjectTypeID(&s.types.fast.crown, "Crown")
+}
+
+func (s *Server) BomberID() int {
+	return s.cacheObjectTypeID(&s.types.fast.bomber, "Bomber")
 }
 
 func (s *Server) ReadObjectType(thg *things.Thing) error {

@@ -4837,7 +4837,8 @@ int nox_xxx_earthquakeSend_4D9110(float* a1, int a2) {
 }
 
 //----- (004D91A0) --------------------------------------------------------
-int nox_xxx_netReportAcquireCreature_4D91A0(int a1, int a2) {
+int nox_xxx_netReportAcquireCreature_4D91A0(int a1, nox_object_t* a2p) {
+	int a2 = a2p;
 	char v3[5]; // [esp+8h] [ebp-8h]
 
 	v3[0] = 108;
@@ -6566,7 +6567,8 @@ void sub_4DF2E0(int a1) {
 }
 
 //----- (004DF360) --------------------------------------------------------
-int nox_xxx_netSendSimpleObject2_4DF360(int a1, int a2) {
+int nox_xxx_netSendSimpleObject2_4DF360(int a1, nox_object_t* a2p) {
+	int a2 = a2p;
 	short v2;   // ax
 	float v3;   // ecx
 	short v4;   // ax

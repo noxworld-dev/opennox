@@ -58,12 +58,8 @@ type PlayerUpdateData struct {
 	Field47_0        uint8          // 47, 188
 	Field47_1        uint8          // 47, 189
 	Field47_2        uint16         // 47, 190
-	Field48          uint32         // 48, 192
-	Field49          uint32         // 49, 196
-	Field50          uint32         // 50, 200
-	Field51          uint32         // 51, 204
-	Field52          uint32         // 52, 208
-	Field53          uint32         // 53, 212
+	TrapSpells       [5]uint32      // 48, 192
+	TrapSpellsCnt    uint32         // 53, 212
 	SpellCastStart   uint32         // 54, 216
 	Field55          int            // 55, 220, TODO: spell-related? x coord?
 	Field56          int            // 56, 224, TODO: spell-related? y coord?
@@ -73,7 +69,7 @@ type PlayerUpdateData struct {
 	Field59_1        uint8          // 59, 237
 	Field59_2        uint16         // 59, 238
 	Field60          uint32         // 60, 240, TODO: movement flags?
-	Field61          uint32         // 61, 244
+	CurTraps         uint32         // 61, 244
 	Field62          uint32         // 62, 248
 	Field63          uint32         // 63, 252
 	Field64          uint32         // 64, 256
