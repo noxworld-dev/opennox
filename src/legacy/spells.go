@@ -260,10 +260,6 @@ func Nox_xxx_castCurePoison_52CDB0(spellID spell.ID, a2, a3, a4 *server.Object, 
 	return Nox_spells_call_intint6_go(C.nox_xxx_castCurePoison_52CDB0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
 }
 
-func Sub_537E60(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(C.sub_537E60, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
-}
-
 func Nox_xxx_castEquake_52DE40(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
 	return Nox_spells_call_intint6_go(C.nox_xxx_castEquake_52DE40, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
 }

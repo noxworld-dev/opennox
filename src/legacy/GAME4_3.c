@@ -39,7 +39,6 @@ extern uint32_t dword_5d4594_2488620;
 extern uint32_t dword_5d4594_2488656;
 extern uint32_t dword_5d4594_3835360;
 extern uint32_t dword_5d4594_2488728;
-extern uint32_t dword_5d4594_2488644;
 extern uint32_t dword_5d4594_2489436;
 extern uint32_t dword_5d4594_2488724;
 extern uint32_t dword_5d4594_2489160;
@@ -4455,169 +4454,6 @@ int nox_xxx_scorchInit_537BD0() {
 	return result;
 }
 
-//----- (00537C10) --------------------------------------------------------
-char nox_xxx_trapBAH_537C10(int a1, int a2) {
-	float2* v2;  // ebp
-	char result; // al
-	int v4;      // edi
-	int v5;      // esi
-	int v6;      // ecx
-	char v7;     // al
-	int* v8;     // ebx
-	int v9;      // eax
-	float v10;   // [esp+0h] [ebp-54h]
-	int v11;     // [esp+18h] [ebp-3Ch]
-	float4 a1a;  // [esp+1Ch] [ebp-38h]
-	int v13[10]; // [esp+2Ch] [ebp-28h]
-	int a3;      // [esp+58h] [ebp+4h]
-
-	v2 = (float2*)a1;
-	result = *(uint8_t*)(a1 + 16);
-	v4 = *(uint32_t*)(a1 + 692);
-	v11 = *(uint32_t*)(a1 + 692);
-	if (!(result & 0x20)) {
-		v5 = nox_xxx_findParentChainPlayer_4EC580(a1);
-		nox_xxx_delayedDeleteObject_4E5CC0(a1);
-		if (v5) {
-			if (*(uint8_t*)(v5 + 8) & 4) {
-				v6 = *(uint32_t*)(v5 + 748);
-				if (*(uint8_t*)(*(uint32_t*)(v6 + 276) + 2251) == 1) {
-					v7 = *(uint8_t*)(v6 + 244);
-					if (v7) {
-						*(uint8_t*)(v6 + 244) = v7 - 1;
-					}
-				}
-			}
-		}
-		if (a2) {
-			v8 = (int*)(v4 + 24);
-			*(uint32_t*)(v4 + 24) = a2;
-		} else {
-			v13[0] = 15;
-			v13[1] = 1;
-			v13[2] = 0;
-			v13[3] = 6;
-			v13[4] = 0;
-			v13[5] = -1;
-			v13[6] = 0;
-			v13[7] = -1;
-			v13[8] = 0x8000;
-			v8 = (int*)(v4 + 24);
-			v10 = nox_xxx_gamedataGetFloat_419D40("GlyphRange");
-			*(uint32_t*)(v4 + 24) = sub_4E6EA0(a1, v10, (int)v13);
-		}
-		a3 = 0;
-		if (*(uint8_t*)(v4 + 20)) {
-			do {
-				if ((!nox_xxx_spellHasFlags_424A50(*(uint32_t*)v4, 1) || a2) && !sub_4FD0E0(v5, *(uint32_t*)v4)) {
-					if (*(uint8_t*)(v5 + 8) & 4) {
-						v9 = nox_xxx_spellGetPower_4FE7B0(*(uint32_t*)v4, v5);
-						nox_xxx_spellAccept_4FD400(*(uint32_t*)v4, v5, (uint32_t*)v5, (int)v2, v8, v9);
-					} else {
-						nox_xxx_spellAccept_4FD400(*(uint32_t*)v4, v5, (uint32_t*)v5, (int)v2, v8, 2);
-					}
-				}
-				v4 += 4;
-				++a3;
-			} while (a3 < *(unsigned char*)(v11 + 20));
-		}
-		nox_xxx_netSendPointFx_522FF0(129, v2 + 7);
-		nox_xxx_audCreate_501A30(40, v2 + 7, 0, 0);
-		a1a.field_0 = v2[7].field_0 - 100.0;
-		a1a.field_4 = v2[7].field_4 - 100.0;
-		a1a.field_8 = v2[7].field_0 + 100.0;
-		a1a.field_C = v2[7].field_4 + 100.0;
-		nox_xxx_getUnitsInRect_517C10(&a1a, sub_537DD0, (int)v2);
-	}
-	return result;
-}
-
-//----- (00537DD0) --------------------------------------------------------
-void sub_537DD0(float* a1, int a2) {
-	int v2;    // eax
-	float v3;  // edx
-	float v4;  // ecx
-	float v5;  // edx
-	float4 v6; // [esp+8h] [ebp-10h]
-
-	if (a1 != (float*)a2 && !((uint8_t)a1[4] & 0x20)) {
-		v2 = dword_5d4594_2488640;
-		if (!dword_5d4594_2488640) {
-			v2 = nox_xxx_getNameId_4E3AA0("Glyph");
-			dword_5d4594_2488640 = v2;
-		}
-		if (*((unsigned short*)a1 + 2) == v2) {
-			v3 = *(float*)(a2 + 56);
-			v4 = a1[14];
-			v6.field_4 = *(float*)(a2 + 60);
-			v6.field_0 = v3;
-			v5 = a1[15];
-			v6.field_8 = v4;
-			v6.field_C = v5;
-			if (nox_xxx_mapTraceRay_535250(&v6, 0, 0, 5) == 1) {
-				*((uint32_t*)a1 + 186) = nox_xxx___mkgmtime_538280;
-				nox_xxx_unitAddToUpdatable_4DA8D0((int)a1);
-			}
-		}
-	}
-}
-
-//----- (00537E60) --------------------------------------------------------
-int sub_537E60(int a1, int a2, int a3, int a4) {
-	int v4;     // eax
-	float4 a1a; // [esp+4h] [ebp-10h]
-
-	a1a.field_0 = *(float*)(a4 + 56) - 300.0;
-	a1a.field_4 = *(float*)(a4 + 60) - 300.0;
-	a1a.field_8 = *(float*)(a4 + 56) + 300.0;
-	a1a.field_C = *(float*)(a4 + 60) + 300.0;
-	v4 = nox_xxx_spellGetAud44_424800(a1, 0);
-	nox_xxx_aud_501960(v4, a3, 0, 0);
-	while (1) {
-		dword_5d4594_2488644 = 0;
-		nox_xxx_getUnitsInRect_517C10(&a1a, sub_537F00, a4);
-		if (!dword_5d4594_2488644) {
-			break;
-		}
-		nox_xxx_trapBAH_537C10(*(int*)&dword_5d4594_2488644, 0);
-	}
-	return 1;
-}
-
-//----- (00537F00) --------------------------------------------------------
-void sub_537F00(float* a1, int a2) {
-	int v2;    // eax
-	int v3;    // ebx
-	float v4;  // edx
-	float v5;  // ecx
-	float v6;  // edx
-	float4 v7; // [esp+0h] [ebp-10h]
-
-	v2 = dword_5d4594_2488640;
-	if (!dword_5d4594_2488640) {
-		v2 = nox_xxx_getNameId_4E3AA0("Glyph");
-		dword_5d4594_2488640 = v2;
-	}
-	if (*((unsigned short*)a1 + 2) == v2 && !((uint8_t)((uint32_t*)a1)[4] & 0x20)) {
-		v3 = nox_xxx_findParentChainPlayer_4EC580(a2);
-		if (nox_xxx_unitHasThatParent_4EC4F0((int)a1, v3) || !*((uint32_t*)a1 + 127) && !(*(uint8_t*)(v3 + 8) & 4)) {
-			v4 = *(float*)(a2 + 56);
-			v5 = a1[14];
-			v7.field_4 = *(float*)(a2 + 60);
-			v7.field_0 = v4;
-			v6 = a1[15];
-			v7.field_8 = v5;
-			v7.field_C = v6;
-			if (nox_xxx_mapTraceRay_535250(&v7, 0, 0, 5) == 1) {
-				dword_5d4594_2488644 = a1;
-			}
-		}
-	}
-}
-
-//----- (00538280) --------------------------------------------------------
-char nox_xxx___mkgmtime_538280(int a1) { return nox_xxx_trapBAH_537C10(a1, 0); }
-
 //----- (00538290) --------------------------------------------------------
 int nox_xxx_playerPreAttackEffects_538290(int a1, int a2, int a3, int a4) {
 	int result;                          // eax
@@ -6790,6 +6626,7 @@ void nox_xxx_updateLifetime_53B8F0(int unit) {
 }
 
 //----- (0053B940) --------------------------------------------------------
+void sub_4E71F0(nox_object_t* a1);
 void nox_xxx_spellFlyUpdate_53B940(int a1) {
 	int v1;     // edi
 	int* v2;    // esi
@@ -7568,7 +7405,7 @@ void nox_xxx_updateBlackPowderBarrel_53C9A0(float* a1) {
 		}
 		v4 = a1 + 14;
 		nox_xxx_mapDamageUnitsAround_4E25B0((int)(a1 + 14), 100.0, 30.0, 30, 7, (int)a1, 0);
-		nox_xxx_mapPushUnitsAround_52E040((int)(a1 + 14), 100.0, 1106247680, 60.0, (int)a1, 0, 0);
+		nox_xxx_mapPushUnitsAround_52E040((int)(a1 + 14), 100.0, 30.0, 60.0, (int)a1, 0, 0);
 		v5 = a1[15];
 		v12.field_0 = a1[14];
 		v12.field_4 = v5;

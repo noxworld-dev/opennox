@@ -23,7 +23,7 @@ func init() {
 	server.RegisterObjectDrop("ArmorDrop", C.nox_xxx_dropArmor_53EB70)
 	server.RegisterObjectDrop("WeaponDrop", C.nox_xxx_dropWeapon_53AB10)
 	server.RegisterObjectDrop("TreasureDrop", C.nox_xxx_dropTreasure_4ED710)
-	server.RegisterObjectDrop("GlyphDrop", C.sub_4ED500)
+	server.RegisterObjectDrop("GlyphDrop", C.nox_GlyphDrop_4ED500)
 	server.RegisterObjectDrop("PotionDrop", C.sub_4EDDE0)
 	server.RegisterObjectDrop("TrapDrop", C.nox_xxx_dropTrap_4ED580)
 	server.RegisterObjectDrop("FoodDrop", C.nox_xxx_dropFood_4EDE50)
