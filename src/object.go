@@ -333,7 +333,7 @@ func (s *Server) CreateObjectAt(a11 server.Obj, owner server.Obj, pos types.Poin
 	obj.ObjFlags |= uint32(object.FlagPending)
 	if obj.Field13&0xff != 0 && (!obj.Class().Has(object.ClassFlag) || memmap.Int32(0x973F18, 3800) >= 0) {
 		if noxflags.HasGame(noxflags.GameModeCoop) || noxflags.HasGamePlay(4) {
-			legacy.Nox_xxx_createAtImpl_4191D0(uint8(obj.Field13), unsafe.Pointer(obj.TeamPtr()), 0, obj.NetCode, 0)
+			legacy.Nox_xxx_createAtImpl_4191D0(uint8(obj.Field13), obj.TeamPtr(), 0, obj.NetCode, 0)
 		}
 	}
 }
@@ -611,11 +611,11 @@ func (obj *Object) Inventory() []*Object {
 }
 
 func (obj *Object) NextOwned512() *Object {
-	return asObjectS(obj.Field128)
+	return asObjectS(obj.SObj().NextOwned512())
 }
 
 func (obj *Object) FirstOwned516() *Object {
-	return asObjectS(obj.Field129)
+	return asObjectS(obj.SObj().FirstOwned516())
 }
 
 func (obj *Object) GetOwned516() []*Object {

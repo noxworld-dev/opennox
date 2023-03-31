@@ -103,7 +103,6 @@ char sub_57AAA0(const char* a1, char* a2, int* a3);
 int* sub_57ADF0(int* a1);
 int sub_57AE30(const char* a1);
 int nox_xxx_playerCheckSpellClass_57AEA0(int a1, int a2);
-int sub_57AEE0(int a1, int a2);
 int nox_xxx_get_57AF20();
 void sub_57B0A0();
 long long nox_xxx___Getcvt_57B180();

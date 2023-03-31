@@ -362,7 +362,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 		}
 	}
 	legacy.Nox_xxx_playerRemoveSpawnedStuff_4E5AD0(u.SObj())
-	ud.Field61 = 0
+	ud.CurTraps = 0
 	_ = nox_xxx_updatePlayerObserver_4E62F0
 	u.Update = legacy.Get_nox_xxx_updatePlayerObserver_4E62F0()
 	legacy.Sub_4D7E50(u.SObj())
