@@ -93,10 +93,10 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	char* v35;              // ebx
 	char* j;                // esi
 	char* v37;              // ebx
-	wchar_t* v38;           // eax
+	wchar2_t* v38;           // eax
 	char* v39;              // eax
 	unsigned int v40;       // edx
-	wchar_t* v41;           // eax
+	wchar2_t* v41;           // eax
 	int v42;                // eax
 	char* v43;              // eax
 	int v44;                // eax
@@ -182,7 +182,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	int v125;               // esi
 	char* v126;             // ebx
 	char* v127;             // esi
-	wchar_t* v128;          // eax
+	wchar2_t* v128;          // eax
 	unsigned int v129;      // eax
 	int v130;               // esi
 	int v132;               // eax
@@ -195,41 +195,41 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	int v140;               // eax
 	int v141;               // esi
 	char* v142;             // esi
-	wchar_t* v143;          // eax
+	wchar2_t* v143;          // eax
 	char* v144;             // esi
 	uint32_t* v145;         // eax
-	wchar_t* v146;          // eax
+	wchar2_t* v146;          // eax
 	int v147;               // eax
-	wchar_t* v148;          // eax
-	wchar_t* v149;          // eax
+	wchar2_t* v148;          // eax
+	wchar2_t* v149;          // eax
 	int v150;               // esi
-	wchar_t* v151;          // eax
+	wchar2_t* v151;          // eax
 	int v152;               // eax
 	int v153;               // edi
 	char* v154;             // ebx
-	wchar_t* v155;          // eax
-	wchar_t* v156;          // eax
-	wchar_t* v157;          // eax
-	wchar_t* v158;          // eax
-	wchar_t* v159;          // eax
+	wchar2_t* v155;          // eax
+	wchar2_t* v156;          // eax
+	wchar2_t* v157;          // eax
+	wchar2_t* v158;          // eax
+	wchar2_t* v159;          // eax
 	char* v160;             // ebx
-	wchar_t* v161;          // eax
+	wchar2_t* v161;          // eax
 	uint32_t* v162;         // esi
-	wchar_t* v163;          // eax
+	wchar2_t* v163;          // eax
 	int v164;               // esi
-	wchar_t* v165;          // eax
-	wchar_t* v166;          // eax
-	wchar_t* v167;          // eax
-	wchar_t* v168;          // eax
-	wchar_t* v169;          // eax
-	wchar_t* v170;          // eax
-	wchar_t* v171;          // eax
+	wchar2_t* v165;          // eax
+	wchar2_t* v166;          // eax
+	wchar2_t* v167;          // eax
+	wchar2_t* v168;          // eax
+	wchar2_t* v169;          // eax
+	wchar2_t* v170;          // eax
+	wchar2_t* v171;          // eax
 	char* v172;             // ebx
-	wchar_t* v173;          // eax
+	wchar2_t* v173;          // eax
 	uint32_t* v174;         // esi
-	wchar_t* v175;          // eax
+	wchar2_t* v175;          // eax
 	int v176;               // esi
-	wchar_t* v177;          // eax
+	wchar2_t* v177;          // eax
 	int v178;               // eax
 	int v179;               // esi
 	int v180;               // eax
@@ -253,22 +253,22 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	int v198;               // eax
 	int v199;               // ebx
 	int v200;               // eax
-	wchar_t* v201;          // eax
+	wchar2_t* v201;          // eax
 	int v202;               // edi
-	wchar_t* v203;          // eax
-	wchar_t* v204;          // eax
-	wchar_t* v205;          // eax
+	wchar2_t* v203;          // eax
+	wchar2_t* v204;          // eax
+	wchar2_t* v205;          // eax
 	char* v206;             // eax
 	char* v207;             // esi
 	int v208;               // eax
-	wchar_t* v213;            // eax
+	wchar2_t* v213;            // eax
 	int v214;                 // eax
 	int v215;                 // esi
 	char* v216;               // ebx
-	wchar_t* v217;            // eax
+	wchar2_t* v217;            // eax
 	uint32_t* v218;             // eax
 	int v219;                 // edi
-	wchar_t* v220;            // eax
+	wchar2_t* v220;            // eax
 	unsigned int v221;        // eax
 	int v222;                 // eax
 	int v223;                 // esi
@@ -318,7 +318,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	int v268;               // eax
 	int v269;               // eax
 	int v270;               // eax
-	wchar_t* v271;          // eax
+	wchar2_t* v271;          // eax
 	char* v272;             // esi
 	uint32_t* v273;         // edi
 	unsigned int v274;      // eax
@@ -327,7 +327,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	int v277;               // esi
 	uint32_t* v278;         // ebx
 	int v279;               // esi
-	wchar_t* v280;          // esi
+	wchar2_t* v280;          // esi
 	unsigned int v281;      // eax
 	unsigned int v282;      // esi
 	int v283;               // eax
@@ -337,7 +337,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	int v287;               // ebx
 	char* v288;             // edi
 	uint8_t* v289;          // esi
-	wchar_t* v290;          // eax
+	wchar2_t* v290;          // eax
 	int v291;               // eax
 	int v292;               // esi
 	int v293;               // eax
@@ -351,16 +351,16 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	int v301;               // eax
 	uint32_t* v302;         // eax
 	char* v303;             // esi
-	wchar_t* v304;          // eax
-	wchar_t* v305;          // eax
+	wchar2_t* v304;          // eax
+	wchar2_t* v305;          // eax
 	char* v306;             // esi
-	wchar_t* v307;          // eax
-	wchar_t* v308;          // eax
+	wchar2_t* v307;          // eax
+	wchar2_t* v308;          // eax
 	char* v309;             // esi
-	wchar_t* v310;          // eax
-	wchar_t* v311;          // eax
-	wchar_t* v312;          // eax
-	wchar_t* v314;          // [esp-Ch] [ebp-175Ch]
+	wchar2_t* v310;          // eax
+	wchar2_t* v311;          // eax
+	wchar2_t* v312;          // eax
+	wchar2_t* v314;          // [esp-Ch] [ebp-175Ch]
 	char v315;              // [esp-8h] [ebp-1758h]
 	unsigned char v316;     // [esp-8h] [ebp-1758h]
 	int v317;               // [esp-4h] [ebp-1754h]
@@ -380,9 +380,9 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	int v331;               // [esp+4h] [ebp-174Ch]
 	float v332;             // [esp+4h] [ebp-174Ch]
 	int v333;               // [esp+4h] [ebp-174Ch]
-	wchar_t* v334;          // [esp+4h] [ebp-174Ch]
-	wchar_t* v335;          // [esp+4h] [ebp-174Ch]
-	wchar_t* v336;          // [esp+4h] [ebp-174Ch]
+	wchar2_t* v334;          // [esp+4h] [ebp-174Ch]
+	wchar2_t* v335;          // [esp+4h] [ebp-174Ch]
+	wchar2_t* v336;          // [esp+4h] [ebp-174Ch]
 	int v337;               // [esp+4h] [ebp-174Ch]
 	int v338;               // [esp+4h] [ebp-174Ch]
 	int v339;               // [esp+4h] [ebp-174Ch]
@@ -400,7 +400,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	int v351;               // [esp+4h] [ebp-174Ch]
 	int v352;               // [esp+4h] [ebp-174Ch]
 	int v353;               // [esp+4h] [ebp-174Ch]
-	wchar_t* v354;          // [esp+4h] [ebp-174Ch]
+	wchar2_t* v354;          // [esp+4h] [ebp-174Ch]
 	int v355;               // [esp+18h] [ebp-1738h]
 	unsigned int v356;      // [esp+18h] [ebp-1738h]
 	int v357;               // [esp+18h] [ebp-1738h]
@@ -427,26 +427,26 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 	int v383[5];            // [esp+C0h] [ebp-1690h]
 	int v384[2];            // [esp+D4h] [ebp-167Ch]
 	char v385[20];          // [esp+DCh] [ebp-1674h]
-	wchar_t v386[20];       // [esp+F0h] [ebp-1660h]
-	wchar_t v387[20];       // [esp+118h] [ebp-1638h]
-	wchar_t v388[64];       // [esp+140h] [ebp-1610h]
-	wchar_t v389[128];      // [esp+1C0h] [ebp-1590h]
-	wchar_t v390[128];      // [esp+2C0h] [ebp-1490h]
-	wchar_t v391[128];      // [esp+3C0h] [ebp-1390h]
-	wchar_t v392[128];      // [esp+4C0h] [ebp-1290h]
-	wchar_t v393[128];      // [esp+5C0h] [ebp-1190h]
-	wchar_t v394[128];      // [esp+6C0h] [ebp-1090h]
-	wchar_t v395[64];       // [esp+7C0h] [ebp-F90h]
-	wchar_t v396[64];       // [esp+840h] [ebp-F10h]
-	wchar_t v397[100];      // [esp+8C0h] [ebp-E90h]
-	wchar_t v398[128];      // [esp+988h] [ebp-DC8h]
-	wchar_t v400[256];        // [esp+B50h] [ebp-C00h]
-	wchar_t v401[128];        // [esp+D50h] [ebp-A00h]
-	wchar_t v402[128];        // [esp+E50h] [ebp-900h]
-	wchar_t v403[256];        // [esp+F50h] [ebp-800h]
-	wchar_t v404[256];        // [esp+1150h] [ebp-600h]
-	wchar_t v405[256];        // [esp+1350h] [ebp-400h]
-	wchar_t v406[256];        // [esp+1550h] [ebp-200h]
+	wchar2_t v386[20];       // [esp+F0h] [ebp-1660h]
+	wchar2_t v387[20];       // [esp+118h] [ebp-1638h]
+	wchar2_t v388[64];       // [esp+140h] [ebp-1610h]
+	wchar2_t v389[128];      // [esp+1C0h] [ebp-1590h]
+	wchar2_t v390[128];      // [esp+2C0h] [ebp-1490h]
+	wchar2_t v391[128];      // [esp+3C0h] [ebp-1390h]
+	wchar2_t v392[128];      // [esp+4C0h] [ebp-1290h]
+	wchar2_t v393[128];      // [esp+5C0h] [ebp-1190h]
+	wchar2_t v394[128];      // [esp+6C0h] [ebp-1090h]
+	wchar2_t v395[64];       // [esp+7C0h] [ebp-F90h]
+	wchar2_t v396[64];       // [esp+840h] [ebp-F10h]
+	wchar2_t v397[100];      // [esp+8C0h] [ebp-E90h]
+	wchar2_t v398[128];      // [esp+988h] [ebp-DC8h]
+	wchar2_t v400[256];        // [esp+B50h] [ebp-C00h]
+	wchar2_t v401[128];        // [esp+D50h] [ebp-A00h]
+	wchar2_t v402[128];        // [esp+E50h] [ebp-900h]
+	wchar2_t v403[256];        // [esp+F50h] [ebp-800h]
+	wchar2_t v404[256];        // [esp+1150h] [ebp-600h]
+	wchar2_t v405[256];        // [esp+1350h] [ebp-400h]
+	wchar2_t v406[256];        // [esp+1550h] [ebp-200h]
 
 	unsigned char* end = data + sz;
 
@@ -2083,24 +2083,24 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 		if (v200 & 8) {
 			v201 = nox_strman_loadString_40F1D0((char*)(data + 11), 0,
 												"C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4486);
-			nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1197384), v201);
+			nox_wcscpy((wchar2_t*)getMemAt(0x5D4594, 1197384), v201);
 			v202 = 1;
 		} else if (v200 & 2) {
 			if (v200 & 1) {
 				v203 = nox_strman_loadString_40F1D0("Guirank.c:team", 0,
 													"C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4493);
-				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1197384), L"%s: %S", v203, data + 11);
+				nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1197384), L"%s: %S", v203, data + 11);
 			} else {
-				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1197384), L"%S", data + 11);
+				nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1197384), L"%S", data + 11);
 			}
 			v202 = 1;
 		} else {
 			if (v200 & 1) {
 				v204 = nox_strman_loadString_40F1D0("Guirank.c:team", 0,
 													"C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4506);
-				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1197384), L"%s: %s", v204, data + 11);
+				nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1197384), L"%s: %s", v204, data + 11);
 			} else {
-				nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1197384), (const wchar_t*)(data + 11));
+				nox_wcscpy((wchar2_t*)getMemAt(0x5D4594, 1197384), (const wchar2_t*)(data + 11));
 			}
 			v202 = 2;
 		}
@@ -2112,7 +2112,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 		}
 		if (*(uint8_t*)(data + 3) & 0x10) {
 			if (nox_xxx_gameGetPlayState_4356B0() == 3) {
-				nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1200068), (const wchar_t*)getMemAt(0x5D4594, 1197384));
+				nox_wcscpy((wchar2_t*)getMemAt(0x5D4594, 1200068), (const wchar2_t*)getMemAt(0x5D4594, 1197384));
 				v205 = nox_strman_loadString_40F1D0("guiserv.c:Notice", 0,
 													"C:\\NoxPost\\src\\Client\\Network\\cdecode.c", 4536);
 				nox_xxx_dialogMsgBoxCreate_449A10(0, (int)v205, (int)getMemAt(0x5D4594, 1200068), 33, 0, 0);
@@ -2125,14 +2125,14 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 				v207 = v206;
 				if (v206) {
 					if (!nox_xxx_playerCanTalkMB_57A160((int)v206)) {
-						nox_gui_console_Printf_450C00(NOX_CONSOLE_YELLOW, (wchar_t*)getMemAt(0x587000, 158984),
+						nox_gui_console_Printf_450C00(NOX_CONSOLE_YELLOW, (wchar2_t*)getMemAt(0x587000, 158984),
 													  v207 + 4704, getMemAt(0x5D4594, 1197384));
-						nox_xxx_createTextBubble_48D880(data, (wchar_t*)getMemAt(0x5D4594, 1197384));
+						nox_xxx_createTextBubble_48D880(data, (wchar2_t*)getMemAt(0x5D4594, 1197384));
 						k = v202 * *(unsigned char*)(data + 8);
 						return k + 11;
 					}
 				} else {
-					nox_xxx_createTextBubble_48D880(data, (wchar_t*)getMemAt(0x5D4594, 1197384));
+					nox_xxx_createTextBubble_48D880(data, (wchar2_t*)getMemAt(0x5D4594, 1197384));
 					if (nox_xxx_netTestHighBit_578B70(*(unsigned short*)(data + 1))) {
 						LODWORD(v5) = nox_xxx_netSpriteByCodeStatic_45A720(v199);
 					} else {
@@ -2141,13 +2141,13 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 					if ((uint32_t)v5) {
 						v322 = *(unsigned short*)(data + 1);
 						v208 = nox_get_thing_pretty_name(*(uint32_t*)(v5 + 108));
-						nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (wchar_t*)getMemAt(0x587000, 159000), v208,
+						nox_gui_console_Printf_450C00(NOX_CONSOLE_RED, (wchar2_t*)getMemAt(0x587000, 159000), v208,
 													  v322, getMemAt(0x5D4594, 1197384));
 					}
 				}
 			}
 		} else if (nox_xxx_gameGetPlayState_4356B0() == 3) {
-			nox_xxx_printCentered_445490((wchar_t*)getMemAt(0x5D4594, 1197384));
+			nox_xxx_printCentered_445490((wchar2_t*)getMemAt(0x5D4594, 1197384));
 			k = v202 * *(unsigned char*)(data + 8);
 			return k + 11;
 		}
@@ -2463,7 +2463,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 					goto LABEL_888;
 				}
 			}
-			sub_418800((wchar_t*)v272, v386, 0);
+			sub_418800((wchar2_t*)v272, v386, 0);
 			sub_418830((int)v272, *(uint32_t*)(data + 6));
 			nox_xxx_netChangeTeamID_419090((int)v272, *(uint32_t*)(data + 10));
 			v272[56] = *(uint8_t*)(data + 16);
@@ -2534,7 +2534,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			if (nox_client_isConnected_43C700()) {
 				LODWORD(v5) = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));
 				if ((uint32_t)v5) {
-					nox_xxx_teamRenameMB_418CD0((wchar_t*)v5, (wchar_t*)(data + 6));
+					nox_xxx_teamRenameMB_418CD0((wchar2_t*)v5, (wchar2_t*)(data + 6));
 				}
 			}
 			return 46;
@@ -2549,9 +2549,9 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 		case 6u:
 			if (nox_client_isConnected_43C700()) {
 				LODWORD(v5) = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));
-				v280 = (wchar_t*)v5;
+				v280 = (wchar2_t*)v5;
 				if ((uint32_t)v5) {
-					nox_wcscpy(v387, (const wchar_t*)v5);
+					nox_wcscpy(v387, (const wchar2_t*)v5);
 					sub_418F20(v280, 0);
 					sub_456EA0(v387);
 				}
@@ -2656,7 +2656,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			return 52;
 		case 0xDu:
 			if (nox_client_isConnected_43C700()) {
-				nox_xxx_cliStartShopDlg_478FD0((const wchar_t*)(data + 4), (char*)(data + 54),
+				nox_xxx_cliStartShopDlg_478FD0((const wchar2_t*)(data + 4), (char*)(data + 54),
 											   *(unsigned short*)(data + 2));
 			}
 			return 86;

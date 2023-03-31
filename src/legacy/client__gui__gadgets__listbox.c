@@ -23,9 +23,9 @@ nox_window* nox_gui_newScrollListBox_4A4310(nox_window* a1p, int a2, int a3, int
 	void* v12;        // eax
 	int v14;          // ecx
 	int v15;          // eax
-	wchar_t* v16;     // eax
+	wchar2_t* v16;     // eax
 	int v17;          // ebx
-	wchar_t* v18;     // eax
+	wchar2_t* v18;     // eax
 	int v19;          // eax
 	short* v20;       // eax
 	int v21;          // [esp+10h] [ebp-168h]
@@ -105,7 +105,7 @@ nox_window* nox_gui_newScrollListBox_4A4310(nox_window* a1p, int a2, int a3, int
 			*(uint32_t*)&v25[68] = nox_color_orange_2614256;
 			v16 = nox_strman_loadString_40F1D0("WindowDir:Up", 0,
 											   "C:\\NoxPost\\src\\Client\\Gui\\Gadgets\\listbox.c", 1483);
-			nox_wcscpy((wchar_t*)&v25[72], v16);
+			nox_wcscpy((wchar2_t*)&v25[72], v16);
 			v23 = 10;
 		} else {
 			*(uint32_t*)&v25[24] = nox_xxx_gLoadImg_42F970("DefaultLBUpButton");
@@ -129,7 +129,7 @@ nox_window* nox_gui_newScrollListBox_4A4310(nox_window* a1p, int a2, int a3, int
 			*(uint32_t*)&v25[68] = nox_color_orange_2614256;
 			v18 = nox_strman_loadString_40F1D0("WindowDir:Down", 0,
 											   "C:\\NoxPost\\src\\Client\\Gui\\Gadgets\\listbox.c", 1519);
-			nox_wcscpy((wchar_t*)&v25[72], v18);
+			nox_wcscpy((wchar2_t*)&v25[72], v18);
 		} else {
 			*(uint32_t*)&v25[24] = nox_xxx_gLoadImg_42F970("DefaultLBDownButton");
 			*(uint32_t*)&v25[40] = nox_xxx_gLoadImg_42F970("DefaultLBDownButtonLit");

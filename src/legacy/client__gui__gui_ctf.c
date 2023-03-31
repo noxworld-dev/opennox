@@ -13,8 +13,8 @@ extern uint32_t dword_5d4594_1045604;
 int sub_455C30() {
 	int result;  // eax
 	int v1;      // edi
-	wchar_t* v2; // esi
-	wchar_t* v3; // eax
+	wchar2_t* v2; // esi
+	wchar2_t* v3; // eax
 
 	if (dword_5d4594_1045604) {
 		return 1;
@@ -24,7 +24,7 @@ int sub_455C30() {
 	if (result) {
 		v1 = 8811;
 		while (1) {
-			v2 = (wchar_t*)nox_xxx_wndGetChildByID_46B0C0((uint32_t*)result, v1);
+			v2 = (wchar2_t*)nox_xxx_wndGetChildByID_46B0C0((uint32_t*)result, v1);
 			nox_window_set_all_funcs(v2, 0, sub_455CD0, 0);
 			v3 = nox_strman_loadString_40F1D0("FlagHomeTT", 0, "C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c", 201);
 			nox_xxx_wndWddSetTooltip_46B000(v2 + 18, v3);
@@ -42,12 +42,12 @@ int sub_455C30() {
 
 //----- (00455D80) --------------------------------------------------------
 void sub_455D80(unsigned char a1, char a2) {
-	wchar_t* result; // eax
-	wchar_t* v3;     // esi
-	wchar_t* v4;     // eax
+	wchar2_t* result; // eax
+	wchar2_t* v3;     // esi
+	wchar2_t* v4;     // eax
 
 	*getMemU8Ptr(0x5D4594, 1045611 + a1) = a2;
-	result = (wchar_t*)nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045604, a1 + 8810);
+	result = (wchar2_t*)nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045604, a1 + 8810);
 	v3 = result;
 	if (result) {
 		if (result[2] & 0x20) {

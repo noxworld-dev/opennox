@@ -9,7 +9,7 @@ int getFlagValueFromFlagIndex(signed int a1);
 int  modifyWndInputHandler(int a1, int a2, int a3, int a4);
 int  nox_xxx_clientUpdateButtonRow_45E110(int a1);
 unsigned int*  nox_xxx_objGetTeamByNetCode_418C80(int a1);
-void  nox_xxx_printCentered_445490(wchar_t* a1);
+void  nox_xxx_printCentered_445490(wchar2_t* a1);
 char  playerDropATrap(int playerObj);
 char playerInfoStructParser_0(void* a1);
 char playerInfoStructParser_1(void* a1, int* a3);

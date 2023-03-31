@@ -17,68 +17,68 @@
 //----- (004C9BF0) --------------------------------------------------------
 int nox_client_handlePacketInform_4C9BF0(int a1) {
 	int result;       // eax
-	wchar_t* v2;      // eax
-	wchar_t* v3;      // eax
-	wchar_t* v4;      // eax
-	wchar_t* v5;      // eax
-	wchar_t* v6;      // eax
+	wchar2_t* v2;      // eax
+	wchar2_t* v3;      // eax
+	wchar2_t* v4;      // eax
+	wchar2_t* v5;      // eax
+	wchar2_t* v6;      // eax
 	char* v7;         // eax
-	wchar_t* v8;      // eax
-	wchar_t* v9;      // eax
-	wchar_t* v10;     // eax
-	wchar_t* v11;     // eax
-	wchar_t* v12;     // eax
+	wchar2_t* v8;      // eax
+	wchar2_t* v9;      // eax
+	wchar2_t* v10;     // eax
+	wchar2_t* v11;     // eax
+	wchar2_t* v12;     // eax
 	char* v13;        // eax
-	wchar_t* v14;     // eax
+	wchar2_t* v14;     // eax
 	char* v15;        // eax
-	wchar_t* v16;     // eax
-	wchar_t* v17;     // eax
+	wchar2_t* v16;     // eax
+	wchar2_t* v17;     // eax
 	char* v18;        // edi
-	wchar_t* v19;     // eax
+	wchar2_t* v19;     // eax
 	char* v20;        // edi
-	wchar_t* v21;     // eax
+	wchar2_t* v21;     // eax
 	char* v22;        // edi
-	wchar_t* v23;     // eax
+	wchar2_t* v23;     // eax
 	char* v24;        // eax
-	wchar_t* v25;     // eax
+	wchar2_t* v25;     // eax
 	char* v26;        // eax
-	wchar_t* v27;     // eax
-	wchar_t* v28;     // eax
-	wchar_t* v29;     // eax
+	wchar2_t* v27;     // eax
+	wchar2_t* v28;     // eax
+	wchar2_t* v29;     // eax
 	char* v30;        // edi
 	char* v31;        // eax
-	wchar_t* v32;     // eax
-	wchar_t* v33;     // eax
+	wchar2_t* v32;     // eax
+	wchar2_t* v33;     // eax
 	char* v34;        // edi
 	char* v35;        // eax
-	wchar_t* v36;     // eax
-	wchar_t* v37;     // eax
+	wchar2_t* v36;     // eax
+	wchar2_t* v37;     // eax
 	char* v38;        // edi
 	char* v39;        // eax
-	wchar_t* v40;     // eax
-	wchar_t* v41;     // eax
+	wchar2_t* v40;     // eax
+	wchar2_t* v41;     // eax
 	unsigned int v42; // kr04_4
-	wchar_t* v43;     // eax
-	wchar_t* v44;     // eax
-	wchar_t* v45;     // [esp-10h] [ebp-418h]
+	wchar2_t* v43;     // eax
+	wchar2_t* v44;     // eax
+	wchar2_t* v45;     // [esp-10h] [ebp-418h]
 	int v46;          // [esp-8h] [ebp-410h]
-	wchar_t* v47;     // [esp-8h] [ebp-410h]
+	wchar2_t* v47;     // [esp-8h] [ebp-410h]
 	int v48;          // [esp-4h] [ebp-40Ch]
-	wchar_t* v49;     // [esp-4h] [ebp-40Ch]
+	wchar2_t* v49;     // [esp-4h] [ebp-40Ch]
 	int v50;          // [esp-4h] [ebp-40Ch]
 	int v51;          // [esp-4h] [ebp-40Ch]
 	int v52;          // [esp-4h] [ebp-40Ch]
-	wchar_t* v53;     // [esp-4h] [ebp-40Ch]
-	wchar_t* v54;     // [esp-4h] [ebp-40Ch]
-	wchar_t* v55;     // [esp-4h] [ebp-40Ch]
-	wchar_t* v56;     // [esp-4h] [ebp-40Ch]
+	wchar2_t* v53;     // [esp-4h] [ebp-40Ch]
+	wchar2_t* v54;     // [esp-4h] [ebp-40Ch]
+	wchar2_t* v55;     // [esp-4h] [ebp-40Ch]
+	wchar2_t* v56;     // [esp-4h] [ebp-40Ch]
 	int v57;          // [esp-4h] [ebp-40Ch]
 	int v58;          // [esp-4h] [ebp-40Ch]
 	int v59;          // [esp-4h] [ebp-40Ch]
 	char* v60;        // [esp-4h] [ebp-40Ch]
 	char* v61;        // [esp-4h] [ebp-40Ch]
-	wchar_t v62[256]; // [esp+8h] [ebp-400h]
-	wchar_t v63[256]; // [esp+208h] [ebp-200h]
+	wchar2_t v62[256]; // [esp+8h] [ebp-400h]
+	wchar2_t v63[256]; // [esp+208h] [ebp-200h]
 
 	result = 0;
 	switch (*(unsigned char*)(a1 + 1)) {

@@ -27,22 +27,22 @@ void nox_xxx_clientDrawAll_436100_draw_A() {
 	if (nox_common_getEngineFlag(NOX_ENGINE_FLAG_9)) {
 		void* v10 = nox_xxx_guiFontPtrByName_43F360("large");
 		nox_client_drawImageAt_47D2C0(*getMemIntPtr(0x5D4594, 814540), 0, 0);
-		wchar_t* v11 =
+		wchar2_t* v11 =
 			nox_strman_loadString_40F1D0("InProgress", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1550);
 		int v22 = 0;
 		nox_xxx_drawGetStringSize_43F840(v10, v11, &v22, 0, 0);
 		nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 		int v21 = nox_win_height / 2;
 		int v20 = (nox_win_width - v22) / 2;
-		wchar_t* v12 =
+		wchar2_t* v12 =
 			nox_strman_loadString_40F1D0("InProgress", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1553);
 		nox_xxx_drawString_43F6E0(v10, v12, v20, v21);
 	}
 }
 
 void nox_xxx_clientDrawAll_436100_draw_B() {
-	wchar_t v25[128];
-	nox_wcscpy(v25, (const wchar_t*)getMemAt(0x5D4594, 811376));
+	wchar2_t v25[128];
+	nox_wcscpy(v25, (const wchar2_t*)getMemAt(0x5D4594, 811376));
 	int v14 = (nox_win_width - 310) / 2;
 	int v16 = (nox_win_height - 200) / 2;
 	int* v15 = getMemIntPtr(0x5D4594, 811888 + 4 * *getMemU32Ptr(0x5D4594, 811060));
@@ -56,7 +56,7 @@ void nox_xxx_clientDrawAll_436100_draw_B() {
 	int v17 = v14 + 45;
 	int v18 = v16 + (49 - v23) / 2 + 143;
 	nox_client_drawSetColor_434460(nox_color_white_2523948);
-	for (wchar_t* tok = nox_wcstok(v25, L"\n\r"); tok; tok = nox_wcstok(0, L"\n\r")) {
+	for (wchar2_t* tok = nox_wcstok(v25, L"\n\r"); tok; tok = nox_wcstok(0, L"\n\r")) {
 		nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 		nox_xxx_drawGetStringSize_43F840(0, tok, &v22, 0, 0);
 		nox_xxx_drawStringWrap_43FAF0(0, tok, v17 + (220 - v22) / 2, v18, 220, 0);
@@ -72,9 +72,9 @@ int sub_436F50() {
 	char* v4;    // eax
 	int result;  // eax
 	int v6;      // esi
-	wchar_t* v7; // eax
+	wchar2_t* v7; // eax
 	int v8;      // [esp-8h] [ebp-14h]
-	wchar_t* v9; // [esp-4h] [ebp-10h]
+	wchar2_t* v9; // [esp-4h] [ebp-10h]
 
 	v0 = nox_xxx_guiFontHeightMB_43F320(0);
 	nox_draw_viewport_t* rdr = nox_draw_getViewport_437250();
@@ -82,13 +82,13 @@ int sub_436F50() {
 	v3 = rdr->y1 + 90;
 	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	v4 = nox_server_currentMapGetFilename_409B30();
-	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 811120), L"%S", v4);
+	nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 811120), L"%S", v4);
 	nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 811120), v2, v3);
 	result = *getMemU32Ptr(0x852978, 8);
 	v6 = v0 + v3;
 	if (*getMemU32Ptr(0x852978, 8)) {
 		if (*getMemU32Ptr(0x8531A0, 2576)) {
-			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 811120), L"X:%d\tY:%d",
+			nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 811120), L"X:%d\tY:%d",
 						 *(uint32_t*)(*getMemU32Ptr(0x852978, 8) + 12), *(uint32_t*)(*getMemU32Ptr(0x852978, 8) + 16));
 			nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 811120), v2, v6);
 			v9 = nox_strman_loadString_40F1D0(
@@ -96,7 +96,7 @@ int sub_436F50() {
 				"C:\\NoxPost\\src\\client\\System\\client.c", 1357);
 			v8 = *(char*)(*getMemU32Ptr(0x8531A0, 2576) + 3684);
 			v7 = nox_strman_loadString_40F1D0("PlayerInfo", 0, "C:\\NoxPost\\src\\client\\System\\client.c", 1355);
-			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 811120), v7, v8, v9);
+			nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 811120), v7, v8, v9);
 			result = nox_xxx_drawString_43F6E0(0, getMemI16Ptr(0x5D4594, 811120), v2, v0 + v6);
 		}
 	}

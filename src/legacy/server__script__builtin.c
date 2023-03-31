@@ -31,7 +31,7 @@
 #include "server__script__script.h"
 
 // TODO: move somewhere else
-int nox_xxx_netSendChat_528AC0(nox_object_t* a1, wchar_t* a2, wchar_t a3);
+int nox_xxx_netSendChat_528AC0(nox_object_t* a1, wchar2_t* a2, wchar2_t a3);
 
 extern unsigned int dword_5d4594_2386836;
 
@@ -774,7 +774,7 @@ int nox_script_IsSummoned_516C30() {
 //----- (00513F70) --------------------------------------------------------
 int nox_script_Fn5E_513F70() {
 	int v0;      // eax
-	wchar_t* v1; // eax
+	wchar2_t* v1; // eax
 	int v2;      // eax
 
 	v0 = nox_script_pop();

@@ -15,7 +15,7 @@ extern int nox_win_height;
 int sub_49C820() {
 	uint32_t* v0; // edi
 	char** v1;    // esi
-	wchar_t* v2;  // eax
+	wchar2_t* v2;  // eax
 
 	dword_5d4594_1305684 = nox_new_window_from_file("conntype.wnd", sub_49CA60);
 	sub_46B120(*(uint32_t**)&dword_5d4594_1305684, 0);

@@ -37,17 +37,17 @@ int nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
 	int v9;        // eax
 	int v10;       // eax
 	int v12;       // eax
-	wchar_t* v13;  // eax
+	wchar2_t* v13;  // eax
 	int v14;       // eax
-	wchar_t* v15;  // eax
+	wchar2_t* v15;  // eax
 	int v16;       // eax
 	int v17;       // eax
 	int v18;       // ecx
 	uint32_t* v19; // eax
 	int v20;       // eax
 	int v21;       // eax
-	wchar_t* v22;  // [esp-18h] [ebp-18h]
-	wchar_t* v23;  // [esp-18h] [ebp-18h]
+	wchar2_t* v22;  // [esp-18h] [ebp-18h]
+	wchar2_t* v23;  // [esp-18h] [ebp-18h]
 
 	if (a2 != 16391) {
 		return 0;
@@ -204,8 +204,8 @@ void sub_445C40() {
 	uint32_t* v17; // eax
 	uint32_t* v18; // eax
 	uint32_t* v19; // eax
-	wchar_t* v20;  // [esp-4h] [ebp-8h]
-	wchar_t* v21;  // [esp-4h] [ebp-8h]
+	wchar2_t* v20;  // [esp-4h] [ebp-8h]
+	wchar2_t* v21;  // [esp-4h] [ebp-8h]
 
 	if (nox_xxx_wndGetFlags_46ADA0(nox_wnd_quitMenu_825760) & 0x10) {
 		if (!*getMemU32Ptr(0x852978, 8) || !nox_common_gameFlags_check_40A5C0(2048) ||

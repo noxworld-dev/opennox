@@ -21,7 +21,7 @@ int nox_xxx_gui_4AD320(int a1) {
 	uint32_t* v5;  // esi
 	uint32_t* v6;  // edi
 	char** v7;     // esi
-	wchar_t* v8;   // eax
+	wchar2_t* v8;   // eax
 	uint32_t* v9;  // eax
 	uint32_t* v10; // eax
 
@@ -115,7 +115,7 @@ int sub_4AD840() {
 	uint32_t* v4; // eax
 	uint32_t* v5; // eax
 	uint32_t* v6; // esi
-	wchar_t* v7;  // eax
+	wchar2_t* v7;  // eax
 	uint32_t* v8; // esi
 	int v9;       // eax
 

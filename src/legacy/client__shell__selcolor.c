@@ -42,7 +42,7 @@ int nox_game_showSelColor_4A5D00() {
 	uint32_t* v3; // eax
 	int j;        // esi
 	uint32_t* v5; // edi
-	wchar_t* v6;  // eax
+	wchar2_t* v6;  // eax
 	uint32_t* v7; // eax
 
 	nox_game_addStateCode_43BDD0(700);
@@ -87,10 +87,10 @@ int nox_game_showSelColor_4A5D00() {
 	return result;
 }
 //----- (004A68C0) --------------------------------------------------------
-wchar_t* sub_4A68C0() {
-	wchar_t* v0;        // esi
-	wchar_t* v1;        // eax
-	wchar_t* v2;        // eax
+wchar2_t* sub_4A68C0() {
+	wchar2_t* v0;        // esi
+	wchar2_t* v1;        // eax
+	wchar2_t* v2;        // eax
 	unsigned char* v3;  // edx
 	int v4;             // eax
 	int v5;             // ecx
@@ -109,17 +109,17 @@ wchar_t* sub_4A68C0() {
 	int v18;            // eax
 	int v19;            // ecx
 	unsigned char* v20; // eax
-	wchar_t* result;    // eax
+	wchar2_t* result;    // eax
 
-	v0 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1308152, 16413, 0, 0);
+	v0 = (wchar2_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1308152, 16413, 0, 0);
 	if (!*v0) {
 		v1 = nox_strman_loadString_40F1D0("DefaultName", 0, "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 225);
 		nox_wcscpy(v0, v1);
 	}
-	nox_wcscpy(*(wchar_t**)&dword_5d4594_1307784, v0);
-	if (!sub_4A6B50(*(wchar_t**)&dword_5d4594_1307784)) {
+	nox_wcscpy(*(wchar2_t**)&dword_5d4594_1307784, v0);
+	if (!sub_4A6B50(*(wchar2_t**)&dword_5d4594_1307784)) {
 		v2 = nox_strman_loadString_40F1D0("DefaultName", 0, "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 232);
-		nox_wcscpy(*(wchar_t**)&dword_5d4594_1307784, v2);
+		nox_wcscpy(*(wchar2_t**)&dword_5d4594_1307784, v2);
 	}
 	v3 = getMemAt(0x5D4594, 1307796 + 3 * ((*(uint32_t*)(dword_5d4594_1308096 + 32) >> 16) +
 										   32 * (unsigned short)*(uint32_t*)(dword_5d4594_1308096 + 32)));
@@ -178,16 +178,16 @@ wchar_t* sub_4A68C0() {
 	*(uint8_t*)(dword_5d4594_1307784 + 84) = *(uint32_t*)(dword_5d4594_1308120 + 32) >> 16;
 	*(uint8_t*)(dword_5d4594_1307784 + 85) = *(uint32_t*)(dword_5d4594_1308124 + 32) >> 16;
 	*(uint8_t*)(dword_5d4594_1307784 + 86) = *(uint32_t*)(dword_5d4594_1308128 + 32) >> 16;
-	result = *(wchar_t**)&dword_5d4594_1307784;
+	result = *(wchar2_t**)&dword_5d4594_1307784;
 	*(uint8_t*)(dword_5d4594_1307784 + 87) = *(uint32_t*)(dword_5d4594_1308132 + 32) >> 16;
 	return result;
 }
 
 //----- (004A75C0) --------------------------------------------------------
 int sub_4A75C0() {
-	wchar_t* v0;                        // esi
-	wchar_t* v1;                        // eax
-	wchar_t* v2;                        // eax
+	wchar2_t* v0;                        // esi
+	wchar2_t* v1;                        // eax
+	wchar2_t* v2;                        // eax
 	char v3;                            // dl
 	unsigned char* v4;                  // edx
 	short v5;                           // si
@@ -216,15 +216,15 @@ int sub_4A75C0() {
 	}
 	memset(v25, 0, 0x4FCu);
 	*(uint16_t*)&v25[1276] = 0;
-	v0 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1308152, 16413, 0, 0);
+	v0 = (wchar2_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1308152, 16413, 0, 0);
 	if (!*v0) {
 		v1 = nox_strman_loadString_40F1D0("DefaultName", 0, "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 605);
 		nox_wcscpy(v0, v1);
 	}
-	nox_wcscpy((wchar_t*)&v25[1224], v0);
-	if (!sub_4A6B50((wchar_t*)&v25[1224])) {
+	nox_wcscpy((wchar2_t*)&v25[1224], v0);
+	if (!sub_4A6B50((wchar2_t*)&v25[1224])) {
 		v2 = nox_strman_loadString_40F1D0("DefaultName", 0, "C:\\NoxPost\\src\\client\\shell\\SelColor.c", 612);
-		nox_wcscpy((wchar_t*)&v25[1224], v2);
+		nox_wcscpy((wchar2_t*)&v25[1224], v2);
 	}
 	v3 = *(uint8_t*)(dword_5d4594_1307784 + 66);
 	v25[1276] = 1;

@@ -11,7 +11,7 @@
 void sub_409FB0_settings(short a1, unsigned short a2) {
 	int v2;            // eax
 	unsigned short v3; // si
-	wchar_t* v4;       // eax
+	wchar2_t* v4;       // eax
 
 	v2 = sub_409A70(a1);
 	v3 = a2;

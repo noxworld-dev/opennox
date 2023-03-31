@@ -1,6 +1,7 @@
 package legacy
 
 /*
+#include "nox_wchar.h"
 #include "GAME1_2.h"
 #include "GAME1_3.h"
 #include "GAME2.h"
@@ -15,7 +16,7 @@ package legacy
 #include "client__gui__tooltip.h"
 #include "client__gui__gamewin__gamewin.h"
 
-static bool iswalpha_go(wchar_t r) { return iswalpha(r); }
+static bool iswalpha_go(wchar2_t r) { return iswalpha(r); }
 */
 import "C"
 import (
@@ -107,18 +108,18 @@ func nox_input_disableTextEdit_5700F6() {
 }
 
 //export nox_input_getStringBuffer_57011C
-func nox_input_getStringBuffer_57011C() *C.wchar_t {
+func nox_input_getStringBuffer_57011C() *wchar2_t {
 	p, _ := CWString(GetClient().GetTextEditBuf())
 	return p
 }
 
 //export nox_input_freeStringBuffer_57011C
-func nox_input_freeStringBuffer_57011C(p *C.wchar_t) {
+func nox_input_freeStringBuffer_57011C(p *wchar2_t) {
 	StrFree(p)
 }
 
 //export nox_xxx_keybind_nameByTitle_42E960
-func nox_xxx_keybind_nameByTitle_42E960(title *C.wchar_t) *C.char {
+func nox_xxx_keybind_nameByTitle_42E960(title *wchar2_t) *C.char {
 	k := Nox_xxx_keybind_nameByTitle_42E960(GoWString(title))
 	if k == 0 {
 		return nil
@@ -127,7 +128,7 @@ func nox_xxx_keybind_nameByTitle_42E960(title *C.wchar_t) *C.char {
 }
 
 //export nox_xxx_keybind_titleByKey_42EA00
-func nox_xxx_keybind_titleByKey_42EA00(key C.uint) *C.wchar_t {
+func nox_xxx_keybind_titleByKey_42EA00(key C.uint) *wchar2_t {
 	k := keybind.Key(key)
 	if !k.IsValid() {
 		return internWStr("")
@@ -136,7 +137,7 @@ func nox_xxx_keybind_titleByKey_42EA00(key C.uint) *C.wchar_t {
 }
 
 //export nox_xxx_keybind_titleByKeyZero_42EA00
-func nox_xxx_keybind_titleByKeyZero_42EA00(key C.uint) *C.wchar_t {
+func nox_xxx_keybind_titleByKeyZero_42EA00(key C.uint) *wchar2_t {
 	k := keybind.Key(key)
 	if !k.IsValid() {
 		return nil
@@ -145,7 +146,7 @@ func nox_xxx_keybind_titleByKeyZero_42EA00(key C.uint) *C.wchar_t {
 }
 
 //export nox_xxx_bindevent_bindNameByTitle_42EA40
-func nox_xxx_bindevent_bindNameByTitle_42EA40(title *C.wchar_t) *C.char {
+func nox_xxx_bindevent_bindNameByTitle_42EA40(title *wchar2_t) *C.char {
 	b := Nox_xxx_bindevent_bindNameByTitle_42EA40(GoWString(title))
 	if b == nil {
 		return nil
@@ -168,7 +169,7 @@ func nox_input_scanCodeToAlpha_47F950(r C.ushort) C.ushort {
 }
 
 func NoxInputOnChar(c uint16) {
-	C.nox_xxx_onChar_488BD0(C.wchar_t(c))
+	C.nox_xxx_onChar_488BD0(C.wchar2_t(c))
 }
 func Nox_xxx_clientIsObserver_4372E0() int {
 	return int(C.nox_xxx_clientIsObserver_4372E0())

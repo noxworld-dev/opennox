@@ -166,7 +166,7 @@ int sub_4A2610(int a1, uint32_t* a2, int* a3) {
 	char* v14;          // [esp+10h] [ebp-14Ch]
 	int v15[2];         // [esp+14h] [ebp-148h]
 	char v16[64];       // [esp+1Ch] [ebp-140h]
-	wchar_t v17[128];   // [esp+5Ch] [ebp-100h]
+	wchar2_t v17[128];   // [esp+5Ch] [ebp-100h]
 
 	dword_5d4594_1307720 = 0;
 	for (i = nox_common_list_getFirstSafe_425890(a3); i; i = nox_common_list_getNextSafe_4258A0(i)) {
@@ -660,8 +660,8 @@ int nox_xxx_wndListboxProcPre_4A30D0(nox_window* win, unsigned int ev, uint32_t 
 	short v13;     // ax
 	uint32_t* v14; // eax
 	int v15;       // esi
-	wchar_t* v16;  // ecx
-	wchar_t* v17;  // eax
+	wchar2_t* v16;  // ecx
+	wchar2_t* v17;  // eax
 	short v18;     // cx
 	short v19;     // ax
 	int v20;       // eax
@@ -677,9 +677,9 @@ int nox_xxx_wndListboxProcPre_4A30D0(nox_window* win, unsigned int ev, uint32_t 
 	short v30;     // ax
 	int v31;       // esi
 	short v32;     // ax
-	wchar_t** v33; // esi
+	wchar2_t** v33; // esi
 	int v34;       // edx
-	wchar_t* v35;  // eax
+	wchar2_t* v35;  // eax
 	int v36;       // ecx
 	int v37;       // esi
 	int v38;       // ecx
@@ -695,7 +695,7 @@ int nox_xxx_wndListboxProcPre_4A30D0(nox_window* win, unsigned int ev, uint32_t 
 	uint32_t* v4 = win;
 	nox_scrollListBox_data* sdata = win->widget_data;
 	int ind = 0;
-	wchar_t* wstr = 0;
+	wchar2_t* wstr = 0;
 	if (ev > 16402) {
 		switch (ev) {
 		case 0x4013u:
@@ -748,7 +748,7 @@ int nox_xxx_wndListboxProcPre_4A30D0(nox_window* win, unsigned int ev, uint32_t 
 			if (!sdata->items[ind].text[0] || !sdata->field_4) {
 				return 0;
 			}
-			v33 = (wchar_t**)sdata->field_12;
+			v33 = (wchar2_t**)sdata->field_12;
 			v34 = 0;
 			v35 = *v33;
 			if ((int)*v33 < 0) {
@@ -758,7 +758,7 @@ int nox_xxx_wndListboxProcPre_4A30D0(nox_window* win, unsigned int ev, uint32_t 
 			}
 			v36 = sdata->field_12;
 			while (v35 != ind) {
-				v35 = *(wchar_t**)(v36 + 4);
+				v35 = *(wchar2_t**)(v36 + 4);
 				v36 += 4;
 				++v34;
 				if ((int)v35 < 0) {
@@ -960,7 +960,7 @@ int nox_xxx_wndListboxProcPre_4A30D0(nox_window* win, unsigned int ev, uint32_t 
 				v15 = 0;
 				if ((int)*v14 >= 0) {
 					do {
-						v16 = (wchar_t*)v14[v15];
+						v16 = (wchar2_t*)v14[v15];
 						if (ind >= (int)v16) {
 							if (ind == v16) {
 								sub_4A3090(sdata, v15--);
@@ -975,7 +975,7 @@ int nox_xxx_wndListboxProcPre_4A30D0(nox_window* win, unsigned int ev, uint32_t 
 					return 0;
 				}
 			} else {
-				v17 = (wchar_t*)sdata->field_12;
+				v17 = (wchar2_t*)sdata->field_12;
 				if (ind < (int)v17) {
 					sdata->field_12 = (char*)v17 - 1;
 					nox_xxx_wndListBox_4A3A70(win);
@@ -1110,12 +1110,12 @@ int nox_xxx_wndListBox_4A3A70(int a1) {
 }
 
 //----- (004A3AC0) --------------------------------------------------------
-int nox_xxx_wndListBoxAddLine_4A3AC0(wchar_t* a1, int a2, uint32_t* a3) {
+int nox_xxx_wndListBoxAddLine_4A3AC0(wchar2_t* a1, int a2, uint32_t* a3) {
 	uint32_t* v3; // ebx
 	int v4;       // esi
 	int v5;       // ebp
-	wchar_t* v6;  // edi
-	wchar_t* v7;  // eax
+	wchar2_t* v6;  // edi
+	wchar2_t* v7;  // eax
 
 	v3 = a3;
 	v4 = a3[8];
@@ -1129,7 +1129,7 @@ int nox_xxx_wndListBoxAddLine_4A3AC0(wchar_t* a1, int a2, uint32_t* a3) {
 		*(uint32_t*)(*(uint32_t*)(v4 + 24) + 524 * *(short*)(v4 + 46) + 516) =
 			**(uint32_t**)getMemAt(0x85B3FC, 132 + 4 * a2);
 	}
-	v6 = (wchar_t*)(*(uint32_t*)(v4 + 24) + 524 * *(short*)(v4 + 46) + 4);
+	v6 = (wchar2_t*)(*(uint32_t*)(v4 + 24) + 524 * *(short*)(v4 + 46) + 4);
 	if (a1) {
 		nox_wcsncpy(v6, a1, 0xFFu);
 		v6[255] = 0;
@@ -1285,8 +1285,8 @@ LABEL_13:
 		LABEL_32:
 			nox_xxx_drawSetTextColor_434390(*(uint32_t*)(*(uint32_t*)(v2 + 24) + v9 + 516));
 			if ((a1[1] & 0x4000) == 0x4000) {
-				nox_wcscpy((wchar_t*)v30, (const wchar_t*)(*(uint32_t*)(v2 + 24) + v9 + 4));
-				v15 = &v30[nox_wcslen((const wchar_t*)v30)];
+				nox_wcscpy((wchar2_t*)v30, (const wchar2_t*)(*(uint32_t*)(v2 + 24) + v9 + 4));
+				v15 = &v30[nox_wcslen((const wchar2_t*)v30)];
 				v16 = v22 - 7;
 				do {
 					v17 = *(uint32_t*)(a2 + 200);
@@ -1312,7 +1312,7 @@ LABEL_13:
 	nox_draw_enableTextSmoothing_43F670(0);
 	return 1;
 }
-// 4A3C50: using guessed type wchar_t var_200[256];
+// 4A3C50: using guessed type wchar2_t var_200[256];
 
 //----- (004A3FC0) --------------------------------------------------------
 int nox_xxx_wndListboxDrawWithImage_4A3FC0(uint32_t* a1, int a2) {
@@ -1426,8 +1426,8 @@ int nox_xxx_wndListboxDrawWithImage_4A3FC0(uint32_t* a1, int a2) {
 		LABEL_29:
 			nox_xxx_drawSetTextColor_434390(*(uint32_t*)(v10 + *(uint32_t*)(v3 + 24) + 516));
 			if ((a1[1] & 0x4000) == 0x4000) {
-				nox_wcscpy((wchar_t*)v30, (const wchar_t*)(v10 + *(uint32_t*)(v3 + 24) + 4));
-				v16 = &v30[nox_wcslen((const wchar_t*)v30)];
+				nox_wcscpy((wchar2_t*)v30, (const wchar2_t*)(v10 + *(uint32_t*)(v3 + 24) + 4));
+				v16 = &v30[nox_wcslen((const wchar2_t*)v30)];
 				v17 = v22 - 7;
 				do {
 					v18 = *(uint32_t*)(a2 + 200);
@@ -1453,7 +1453,7 @@ int nox_xxx_wndListboxDrawWithImage_4A3FC0(uint32_t* a1, int a2) {
 	nox_draw_enableTextSmoothing_43F670(0);
 	return 1;
 }
-// 4A3FC0: using guessed type wchar_t var_200[256];
+// 4A3FC0: using guessed type wchar2_t var_200[256];
 
 //----- (004A4800) --------------------------------------------------------
 int sub_4A4800(int a1) {
@@ -1896,15 +1896,15 @@ int sub_4A6890() {
 }
 
 //----- (004A6B50) --------------------------------------------------------
-int sub_4A6B50(wchar_t* a1) {
-	wchar_t* v1;    // esi
+int sub_4A6B50(wchar2_t* a1) {
+	wchar2_t* v1;    // esi
 	int v2;         // ebp
 	int v3;         // ebx
 	signed int v4;  // eax
 	short* v5;      // edi
-	wchar_t v6;     // ax
+	wchar2_t v6;     // ax
 	signed int v7;  // esi
-	wchar_t* i;     // edi
+	wchar2_t* i;     // edi
 	int v10;        // [esp+10h] [ebp-3Ch]
 	signed int v11; // [esp+14h] [ebp-38h]
 	short v12[26];  // [esp+18h] [ebp-34h]
@@ -1943,8 +1943,8 @@ int sub_4A6B50(wchar_t* a1) {
 		} while (v11);
 		v12[v10] = 0;
 		if (v2) {
-			nox_wcscpy(a1, (const wchar_t*)v12);
-			v7 = nox_wcslen((const wchar_t*)v12) - 1;
+			nox_wcscpy(a1, (const wchar2_t*)v12);
+			v7 = nox_wcslen((const wchar2_t*)v12) - 1;
 			if ((int)v7 >= 0) {
 				for (i = &a1[v7]; iswspace(*i); --i) {
 					if (--v7 < 0) {
@@ -1957,7 +1957,7 @@ int sub_4A6B50(wchar_t* a1) {
 	}
 	return v2;
 }
-// 4A6B50: using guessed type wchar_t var_34[26];
+// 4A6B50: using guessed type wchar2_t var_34[26];
 
 //----- (004A6C90) --------------------------------------------------------
 int sub_4A6C90() {
@@ -3352,7 +3352,7 @@ nox_window* nox_gui_newButtonOrCheckbox_4A91A0(nox_window* parent, int a2, int a
 }
 
 //----- (004A9250) --------------------------------------------------------
-int nox_xxx_wndButtonProcPre_4A9250(int a1, int a2, wchar_t* a3, int a4) {
+int nox_xxx_wndButtonProcPre_4A9250(int a1, int a2, wchar2_t* a3, int a4) {
 	int result; // eax
 	int v4;     // eax
 	int v5;     // eax
@@ -3368,7 +3368,7 @@ int nox_xxx_wndButtonProcPre_4A9250(int a1, int a2, wchar_t* a3, int a4) {
 		result = 1;
 	} else {
 		if (a2 == 16385) {
-			nox_wcsncpy((wchar_t*)(a1 + 108), a3, 0x3Fu);
+			nox_wcsncpy((wchar2_t*)(a1 + 108), a3, 0x3Fu);
 			*(uint16_t*)(a1 + 234) = 0;
 		}
 		result = 0;
@@ -3377,7 +3377,7 @@ int nox_xxx_wndButtonProcPre_4A9250(int a1, int a2, wchar_t* a3, int a4) {
 }
 
 //----- (004A92C0) --------------------------------------------------------
-int nox_xxx_wndCheckboxProcMB_4A92C0(int a1, int a2, wchar_t* a3, int a4) {
+int nox_xxx_wndCheckboxProcMB_4A92C0(int a1, int a2, wchar2_t* a3, int a4) {
 	int result; // eax
 	int v4;     // eax
 	int v5;     // eax
@@ -3393,7 +3393,7 @@ int nox_xxx_wndCheckboxProcMB_4A92C0(int a1, int a2, wchar_t* a3, int a4) {
 		result = 1;
 	} else {
 		if (a2 == 16385) {
-			nox_wcsncpy((wchar_t*)(a1 + 108), a3, 0x3Fu);
+			nox_wcsncpy((wchar2_t*)(a1 + 108), a3, 0x3Fu);
 			*(uint16_t*)(a1 + 234) = 0;
 		}
 		result = 0;
@@ -3402,7 +3402,7 @@ int nox_xxx_wndCheckboxProcMB_4A92C0(int a1, int a2, wchar_t* a3, int a4) {
 }
 
 //----- (004A93C0) --------------------------------------------------------
-int nox_xxx_wndRadioButtonProcPre_4A93C0(int a1, int a2, wchar_t* a3, int a4) {
+int nox_xxx_wndRadioButtonProcPre_4A93C0(int a1, int a2, wchar2_t* a3, int a4) {
 	int v3;      // edi
 	uint32_t* i; // eax
 	int v5;      // eax
@@ -3411,12 +3411,12 @@ int nox_xxx_wndRadioButtonProcPre_4A93C0(int a1, int a2, wchar_t* a3, int a4) {
 
 	if (a2 != 23) {
 		if (a2 == 16385) {
-			nox_wcsncpy((wchar_t*)(a1 + 108), a3, 0x3Fu);
+			nox_wcsncpy((wchar2_t*)(a1 + 108), a3, 0x3Fu);
 			*(uint16_t*)(a1 + 234) = 0;
 		} else if (a2 == 16392) {
 			v3 = *(uint32_t*)(a1 + 396);
 			if (!(*(uint8_t*)(a1 + 36) & 4)) {
-				if (a3 == (wchar_t*)1) {
+				if (a3 == (wchar2_t*)1) {
 					nox_window_call_field_94(*(uint32_t*)(a1 + 52), 16391, a1, 0);
 				}
 				if (v3) {

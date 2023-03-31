@@ -11,9 +11,9 @@ extern int nox_win_height;
 
 //----- (0049B4B0) --------------------------------------------------------
 int sub_49B4B0(unsigned short* a1) {
-	wchar_t* v1;  // eax
-	wchar_t* v2;  // eax
-	wchar_t* v3;  // eax
+	wchar2_t* v1;  // eax
+	wchar2_t* v2;  // eax
+	wchar2_t* v3;  // eax
 	uint32_t* v4; // eax
 	uint32_t* v5; // eax
 	uint32_t* v6; // eax
@@ -36,15 +36,15 @@ int sub_49B4B0(unsigned short* a1) {
 	v11 = a1[1];
 	v1 = nox_strman_loadString_40F1D0("GGOver.wnd:GeneratorsDestroyed", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c",
 									  178);
-	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1302172), v1, v11);
+	nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1302172), v1, v11);
 	v12 = a1[2];
 	v2 =
 		nox_strman_loadString_40F1D0("GGOver.wnd:NumSecretsFound", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 181);
-	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1301916), v2, v12);
+	nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1301916), v2, v12);
 	v13 = a1[3];
 	v3 = nox_strman_loadString_40F1D0("GGOver.wnd:Kills", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 183);
-	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1302428), v3, v13);
-	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1303196), (const wchar_t*)getMemAt(0x5D4594, 1303460));
+	nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1302428), v3, v13);
+	nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1303196), (const wchar2_t*)getMemAt(0x5D4594, 1303460));
 	v4 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1303452, 10710);
 	sub_46AEE0((int)v4, (int)getMemAt(0x5D4594, 1302172));
 	v5 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1303452, 10705);
@@ -66,7 +66,7 @@ int sub_49B4B0(unsigned short* a1) {
 int sub_49B6E0() {
 	int result;   // eax
 	int v1;       // eax
-	wchar_t* v2;  // eax
+	wchar2_t* v2;  // eax
 	uint32_t* v3; // eax
 	int v4;       // [esp-4h] [ebp-4h]
 
@@ -79,11 +79,11 @@ int sub_49B6E0() {
 				v1 = 0;
 			}
 			if (*getMemU32Ptr(0x8531A0, 2576) && *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2064) == 31) {
-				nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1301852), (const wchar_t*)getMemAt(0x5D4594, 1303464));
+				nox_wcscpy((wchar2_t*)getMemAt(0x5D4594, 1301852), (const wchar2_t*)getMemAt(0x5D4594, 1303464));
 			} else {
 				v4 = (unsigned int)v1 / gameFPS();
 				v2 = nox_strman_loadString_40F1D0("Rules.c:Time", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIGGOvr.c", 265);
-				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1301852), L"%s - %d", v2, v4);
+				nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1301852), L"%s - %d", v2, v4);
 			}
 			v3 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1303452, 10712);
 			result = sub_46AEE0((int)v3, (int)getMemAt(0x5D4594, 1301852));

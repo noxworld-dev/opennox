@@ -358,20 +358,20 @@ int nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int a1, unsigned char*
 			if (nox_common_gameFlags_check_40A5C0(4096)) {
 				c1 = 3;
 			}
-			sub_506870(c1, unit, (wchar_t*)data + 1);
+			sub_506870(c1, unit, (wchar2_t*)data + 1);
 			return 52;
 		case 1u:
-			sub_506870(1, unit, (wchar_t*)data + 1);
+			sub_506870(1, unit, (wchar2_t*)data + 1);
 			return 52;
 		case 2u:;
 			int c2 = 0;
 			if (nox_common_gameFlags_check_40A5C0(4096)) {
 				c2 = 3;
 			}
-			sub_506C90(c2, unit, (wchar_t*)data + 1);
+			sub_506C90(c2, unit, (wchar2_t*)data + 1);
 			return 52;
 		case 3u:
-			sub_506C90(1, unit, (wchar_t*)data + 1);
+			sub_506C90(1, unit, (wchar2_t*)data + 1);
 			return 52;
 		case 4u:
 			sub_506870(2, unit, 0);

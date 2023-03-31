@@ -3530,10 +3530,10 @@ bool nox_client_drawable_testBuff_4356C0(nox_drawable* dr, char a2) {
 void nox_xxx_spriteLoadError_4356E0() { *getMemU32Ptr(0x587000, 85720) = 0; }
 
 //----- (00435700) --------------------------------------------------------
-wchar_t* sub_435700(wchar_t* a1, int a2) {
-	wchar_t* result; // eax
+wchar2_t* sub_435700(wchar2_t* a1, int a2) {
+	wchar2_t* result; // eax
 
-	result = nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 811376), a1);
+	result = nox_wcscpy((wchar2_t*)getMemAt(0x5D4594, 811376), a1);
 	*getMemU32Ptr(0x5D4594, 811060) = a2;
 	return result;
 }
@@ -3920,7 +3920,7 @@ int sub_439050(int a1, unsigned int a2, int* a3, unsigned int a4) {
 			break;
 		case 0x4009u:
 			v4 = *(uint32_t*)(a1 + 32);
-			nox_xxx_wndListboxProcPre_4A30D0(a1, 0x4009u, (wchar_t*)a3, a4);
+			nox_xxx_wndListboxProcPre_4A30D0(a1, 0x4009u, (wchar2_t*)a3, a4);
 			v5 = sub_4A4800(v4);
 			nox_window_call_field_94(*(int*)&dword_5d4594_815016, 16412, v5, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_815020, 16412, v5, 0);
@@ -3930,7 +3930,7 @@ int sub_439050(int a1, unsigned int a2, int* a3, unsigned int a4) {
 			break;
 		}
 	}
-	return nox_xxx_wndListboxProcPre_4A30D0(a1, a2, (wchar_t*)a3, a4);
+	return nox_xxx_wndListboxProcPre_4A30D0(a1, a2, (wchar2_t*)a3, a4);
 }
 
 // 439385: variable 'v2' is possibly undefined

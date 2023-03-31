@@ -121,7 +121,7 @@ func nox_xxx_spellFlySearchTarget_540610(cpos *C.float2, msl *nox_object_t, sfla
 func nox_xxx_spellGetAud44_424800(ind, a2 int) int { return Nox_xxx_spellGetAud44_424800(ind, a2) }
 
 //export nox_xxx_spellTitle_424930
-func nox_xxx_spellTitle_424930(ind int) *wchar_t {
+func nox_xxx_spellTitle_424930(ind int) *wchar2_t {
 	s, ok := Nox_xxx_spellTitle_424930(ind)
 	if !ok {
 		return nil
@@ -130,7 +130,7 @@ func nox_xxx_spellTitle_424930(ind int) *wchar_t {
 }
 
 //export nox_xxx_spellDescription_424A30
-func nox_xxx_spellDescription_424A30(ind int) *wchar_t {
+func nox_xxx_spellDescription_424A30(ind int) *wchar2_t {
 	s, ok := Nox_xxx_spellDescription_424A30(ind)
 	if !ok {
 		return nil
@@ -139,7 +139,7 @@ func nox_xxx_spellDescription_424A30(ind int) *wchar_t {
 }
 
 //export nox_xxx_spellByTitle_424960
-func nox_xxx_spellByTitle_424960(ctitle *wchar_t) int {
+func nox_xxx_spellByTitle_424960(ctitle *wchar2_t) int {
 	return Nox_xxx_spellByTitle_424960(GoWString(ctitle))
 }
 
