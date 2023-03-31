@@ -601,7 +601,7 @@ func (s *Server) Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *ser
 	case spell.SPELL_FUMBLE:
 		fnc = legacy.Nox_xxx_castFumble_52C060
 	case spell.SPELL_GLYPH:
-		fnc = nox_xxx_castGlyph_537FA0
+		fnc = castGlyph
 	case spell.SPELL_GREATER_HEAL:
 		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, legacy.Get_sub_52F220(), legacy.Get_sub_52F2E0(), nil, 0)
 	case spell.SPELL_HASTE:
@@ -829,7 +829,7 @@ func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo server.Obj
 }
 
 func nox_xxx_castSpellByUser_4FDD20(a1 int, a2 *server.Object, a3 unsafe.Pointer) int {
-	if noxServer.nox_xxx_castSpellByUser4FDD20(spell.ID(a1), a2, (*server.SpellAcceptArg)(a3)) {
+	if noxServer.nox_xxx_castSpellByUser4FDD20(spell.ID(a1), -1, a2, (*server.SpellAcceptArg)(a3)) {
 		return 1
 	}
 	return 0
@@ -848,15 +848,17 @@ func (s *Server) castSpell(spellInd spell.ID, lvl int, u *server.Object, a3 *ser
 	return true
 }
 
-func (s *Server) castSpellBy(spellInd spell.ID, caster *server.Object, targ server.Obj, targPos types.Pointf) bool {
+func (s *Server) castSpellBy(spellInd spell.ID, lvl int, caster *server.Object, targ server.Obj, targPos types.Pointf) bool {
 	sa, freeArg := alloc.New(server.SpellAcceptArg{})
 	defer freeArg()
 	sa.Obj = toObjectS(targ)
 	sa.Pos = targPos
-	return s.nox_xxx_castSpellByUser4FDD20(spellInd, caster, sa)
+	return s.nox_xxx_castSpellByUser4FDD20(spellInd, lvl, caster, sa)
 }
 
-func (s *Server) nox_xxx_castSpellByUser4FDD20(spellInd spell.ID, u *server.Object, a3 *server.SpellAcceptArg) bool {
-	lvl := legacy.Nox_xxx_spellGetPower_4FE7B0(spellInd, u)
-	return s.castSpell(spellInd, lvl, u, a3)
+func (s *Server) nox_xxx_castSpellByUser4FDD20(spellInd spell.ID, lvl int, u *server.Object, sa *server.SpellAcceptArg) bool {
+	if lvl < 0 {
+		lvl = legacy.Nox_xxx_spellGetPower_4FE7B0(spellInd, u)
+	}
+	return s.castSpell(spellInd, lvl, u, sa)
 }
