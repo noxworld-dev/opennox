@@ -113,9 +113,9 @@ void nox_client_xxx_switchChatMap_43B510() {
 int sub_43B6D0() { return dword_5d4594_815044; }
 
 //----- (0043BC10) --------------------------------------------------------
-unsigned short* sub_43BC10(wchar_t* a1, unsigned char a2) {
+unsigned short* sub_43BC10(wchar2_t* a1, unsigned char a2) {
 	const size_t a1_len = nox_wcslen(a1);
-	wchar_t* a1_last_char = &a1[a1_len];
+	wchar2_t* a1_last_char = &a1[a1_len];
 
 	int a1v = 0;
 	do {
@@ -735,11 +735,11 @@ int sub_43F0E0(uint32_t* a1) {
 }
 
 //----- (004417E0) --------------------------------------------------------
-void sub_4417E0(wchar_t* a1, const char* a2) {
+void sub_4417E0(wchar2_t* a1, const char* a2) {
 	unsigned char v2; // dl
 	char* v3;         // edi
 	char v4[64];      // [esp+4h] [ebp-C0h]
-	wchar_t v5[64];   // [esp+44h] [ebp-80h]
+	wchar2_t v5[64];   // [esp+44h] [ebp-80h]
 
 	if (a2) {
 		strcpy(v4, a2);
@@ -760,7 +760,7 @@ int nox_xxx_doExecrul_4438A0(int a1) {
 	char* v3;        // eax
 	char v5[256];    // [esp+8h] [ebp-400h]
 	char v6[256];    // [esp+108h] [ebp-300h]
-	wchar_t v7[128]; // [esp+208h] [ebp-200h]
+	wchar2_t v7[128]; // [esp+208h] [ebp-200h]
 
 	if (!a1) {
 		return 0;
@@ -784,7 +784,7 @@ int nox_xxx_doExecrul_4438A0(int a1) {
 			}
 			if (v5[0]) {
 				nox_swprintf(v7, L"%S", v5);
-				nox_gui_console_Printf_450C00(NOX_CONSOLE_WHITE, (wchar_t*)getMemAt(0x587000, 106956), v7);
+				nox_gui_console_Printf_450C00(NOX_CONSOLE_WHITE, (wchar2_t*)getMemAt(0x587000, 106956), v7);
 				nox_server_parseCmdText_443C80(v7, 1);
 			}
 		} while (!nox_fs_feof(v2));
@@ -794,13 +794,13 @@ int nox_xxx_doExecrul_4438A0(int a1) {
 }
 
 //----- (00445450) --------------------------------------------------------
-wchar_t* sub_445450() {
+wchar2_t* sub_445450() {
 	unsigned char* v0; // esi
-	wchar_t* result;   // eax
+	wchar2_t* result;   // eax
 
 	v0 = getMemAt(0x5D4594, 824440);
 	do {
-		result = nox_wcscpy((wchar_t*)v0 - 318, (const wchar_t*)getMemAt(0x5D4594, 825740));
+		result = nox_wcscpy((wchar2_t*)v0 - 318, (const wchar2_t*)getMemAt(0x5D4594, 825740));
 		*(uint32_t*)v0 = 0;
 		v0[4] = 0;
 		v0 += 644;
@@ -1104,7 +1104,7 @@ char* sub_4466F0(char* a1, uint8_t* a2) {
 //----- (00446730) --------------------------------------------------------
 uint8_t* nox_xxx_motdAddSomeTextMB_446730(uint8_t* a1) {
 	uint8_t* result; // eax
-	wchar_t v2[256]; // [esp+0h] [ebp-200h]
+	wchar2_t v2[256]; // [esp+0h] [ebp-200h]
 
 	result = a1;
 	if (*a1) {

@@ -31,15 +31,15 @@ extern uint32_t nox_color_yellow_2589772;
 nox_window* dword_5d4594_1090048 = 0;
 
 //----- (0046DC60) --------------------------------------------------------
-wchar_t* sub_46DC60(int a1, unsigned char a2, int a3) {
-	wchar_t* result; // eax
+wchar2_t* sub_46DC60(int a1, unsigned char a2, int a3) {
+	wchar2_t* result; // eax
 
 	if (a3) {
-		return (wchar_t*)sub_46DC00(a1, a2, a3);
+		return (wchar2_t*)sub_46DC00(a1, a2, a3);
 	}
 	result = nox_strman_loadString_40F1D0("InternalError", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1050);
 	if (result) {
-		result = (wchar_t*)sub_46DC00(a1, a2, (int)result);
+		result = (wchar2_t*)sub_46DC00(a1, a2, (int)result);
 	}
 	return result;
 }
@@ -96,7 +96,7 @@ int nox_xxx_guiDrawRank_46E870() {
 	int v47;             // [esp+30h] [ebp-1A8h]
 	char v48[56];        // [esp+34h] [ebp-1A4h]
 	char v49[332];       // [esp+6Ch] [ebp-16Ch]
-	wchar_t v50[16];     // [esp+1B8h] [ebp-20h]
+	wchar2_t v50[16];     // [esp+1B8h] [ebp-20h]
 
 	dword_587000_145668 = 6;
 	sub_46F030();
@@ -183,7 +183,7 @@ int nox_xxx_guiDrawRank_46E870() {
 	*(uint32_t*)((uint32_t)dword_5d4594_1090048 + 80) = 0x80000000;
 	*(uint32_t*)((uint32_t)dword_5d4594_1090048 + 88) = 0x80000000;
 	memset(v49, 0, sizeof(v49));
-	nox_wcscpy((wchar_t*)&v49[72], (const wchar_t*)getMemAt(0x5D4594, 1090136));
+	nox_wcscpy((wchar2_t*)&v49[72], (const wchar2_t*)getMemAt(0x5D4594, 1090136));
 	*(uint32_t*)&v49[68] = *getMemU32Ptr(0x85B3FC, 940);
 	*(uint32_t*)&v49[20] = 0x80000000;
 	memset(v48, 0, sizeof(v48));
@@ -267,9 +267,9 @@ int nox_xxx_guiDrawRank_46E870() {
 }
 
 //----- (0046F030) --------------------------------------------------------
-wchar_t* sub_46F030() {
+wchar2_t* sub_46F030() {
 	int i;           // esi
-	wchar_t* result; // eax
+	wchar2_t* result; // eax
 
 	for (i = 0; i < 12; i += 4) {
 		result = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 145676 + i), 0,
@@ -288,8 +288,8 @@ int sub_46F080(int a1, int a2) {
 	uint32_t* v7;      // eax
 	int v8;            // eax
 	int v9;            // eax
-	wchar_t* v10;      // eax
-	wchar_t* v11;      // eax
+	wchar2_t* v10;      // eax
+	wchar2_t* v11;      // eax
 	unsigned char v12; // bl
 	unsigned char v13; // di
 	int v14;           // esi
@@ -299,12 +299,12 @@ int sub_46F080(int a1, int a2) {
 	int v18;           // eax
 	unsigned char v19; // al
 	char* v20;         // eax
-	wchar_t* v21;      // eax
-	wchar_t* v22;      // edi
-	wchar_t* v23;      // eax
-	wchar_t* v24;      // eax
+	wchar2_t* v21;      // eax
+	wchar2_t* v22;      // edi
+	wchar2_t* v23;      // eax
+	wchar2_t* v24;      // eax
 	int v25;           // esi
-	wchar_t* v26;      // eax
+	wchar2_t* v26;      // eax
 	int v27;           // [esp-14h] [ebp-38h]
 	int v28;           // [esp-10h] [ebp-34h]
 	int v29;           // [esp-10h] [ebp-34h]
@@ -383,23 +383,23 @@ int sub_46F080(int a1, int a2) {
 				do {
 					v13 = sub_46FEB0(v31);
 					v14 = 56 * v31;
-					sub_46DC30(*getMemIntPtr(0x5D4594, 1090060), v13, (wchar_t*)getMemAt(0x587000, 146568),
+					sub_46DC30(*getMemIntPtr(0x5D4594, 1090060), v13, (wchar2_t*)getMemAt(0x587000, 146568),
 							   getMemAt(0x5D4594, 1087204 + v14));
-					sub_46DC30(*getMemIntPtr(0x5D4594, 1090068), v13, (wchar_t*)getMemAt(0x587000, 146576));
-					sub_46DC30(*getMemIntPtr(0x5D4594, 1090076), v13, (wchar_t*)getMemAt(0x587000, 146580));
-					sub_46DC30(*getMemIntPtr(0x5D4594, 1090084), v13, (wchar_t*)getMemAt(0x587000, 146584),
+					sub_46DC30(*getMemIntPtr(0x5D4594, 1090068), v13, (wchar2_t*)getMemAt(0x587000, 146576));
+					sub_46DC30(*getMemIntPtr(0x5D4594, 1090076), v13, (wchar2_t*)getMemAt(0x587000, 146580));
+					sub_46DC30(*getMemIntPtr(0x5D4594, 1090084), v13, (wchar2_t*)getMemAt(0x587000, 146584),
 							   *getMemU32Ptr(0x5D4594, 1087252 + v14));
-					sub_46DC30(*getMemIntPtr(0x5D4594, 1090092), v13, (wchar_t*)getMemAt(0x587000, 146592));
+					sub_46DC30(*getMemIntPtr(0x5D4594, 1090092), v13, (wchar2_t*)getMemAt(0x587000, 146592));
 					v31 = ++v12;
 				} while (v12 < getMemByte(0x5D4594, 1090116));
 			} else {
 				v13 = a1;
 			}
-			sub_46DC30(*getMemIntPtr(0x5D4594, 1090060), v13, (wchar_t*)getMemAt(0x587000, 146596));
-			sub_46DC30(*getMemIntPtr(0x5D4594, 1090068), v13, (wchar_t*)getMemAt(0x587000, 146600));
-			sub_46DC30(*getMemIntPtr(0x5D4594, 1090076), v13, (wchar_t*)getMemAt(0x587000, 146604));
-			sub_46DC30(*getMemIntPtr(0x5D4594, 1090084), v13, (wchar_t*)getMemAt(0x587000, 146608));
-			sub_46DC30(*getMemIntPtr(0x5D4594, 1090092), v13, (wchar_t*)getMemAt(0x587000, 146612));
+			sub_46DC30(*getMemIntPtr(0x5D4594, 1090060), v13, (wchar2_t*)getMemAt(0x587000, 146596));
+			sub_46DC30(*getMemIntPtr(0x5D4594, 1090068), v13, (wchar2_t*)getMemAt(0x587000, 146600));
+			sub_46DC30(*getMemIntPtr(0x5D4594, 1090076), v13, (wchar2_t*)getMemAt(0x587000, 146604));
+			sub_46DC30(*getMemIntPtr(0x5D4594, 1090084), v13, (wchar2_t*)getMemAt(0x587000, 146608));
+			sub_46DC30(*getMemIntPtr(0x5D4594, 1090092), v13, (wchar2_t*)getMemAt(0x587000, 146612));
 			v9 = dword_5d4594_1090120;
 		}
 		v36 = *(short*)(*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1090060) + 32) + 46);
@@ -450,24 +450,24 @@ int sub_46F080(int a1, int a2) {
 							*(short*)(*(uint32_t*)(*getMemU32Ptr(0x5D4594, 1090060 + 4 * v16) + 32) + 46);
 						*getMemU32Ptr(0x5D4594, 1088996) = v32 >> 4;
 					}
-					sub_46DC30(*getMemU32Ptr(0x5D4594, 1090060 + 4 * v16), v40, (wchar_t*)getMemAt(0x587000, 146616),
+					sub_46DC30(*getMemU32Ptr(0x5D4594, 1090060 + 4 * v16), v40, (wchar2_t*)getMemAt(0x587000, 146616),
 							   getMemAt(0x5D4594, 1084132 + v17));
-					sub_46DC30(*getMemU32Ptr(0x5D4594, 1090076 + 4 * v16), v40, (wchar_t*)getMemAt(0x587000, 146624),
+					sub_46DC30(*getMemU32Ptr(0x5D4594, 1090076 + 4 * v16), v40, (wchar2_t*)getMemAt(0x587000, 146624),
 							   *getMemU32Ptr(0x5D4594, 1084056 + 4 * getMemByte(0x5D4594, 1084188 + 80 * v32)));
 					if (dword_5d4594_1090120 != 5 || *getMemU32Ptr(0x5D4594, 1084196 + 80 * v32) > 0) {
 						sub_46DC30(*getMemU32Ptr(0x5D4594, 1090084 + 4 * v16), v40,
-								   (wchar_t*)getMemAt(0x587000, 146632), *getMemU32Ptr(0x5D4594, 1084196 + 80 * v32));
+								   (wchar2_t*)getMemAt(0x587000, 146632), *getMemU32Ptr(0x5D4594, 1084196 + 80 * v32));
 					} else {
 						sub_46DC30(*getMemU32Ptr(0x5D4594, 1090084 + 4 * v16), v40,
-								   (wchar_t*)getMemAt(0x587000, 146640));
+								   (wchar2_t*)getMemAt(0x587000, 146640));
 					}
-					sub_46DC30(*getMemU32Ptr(0x5D4594, 1090092 + 4 * v16), v40, (wchar_t*)getMemAt(0x587000, 146648),
+					sub_46DC30(*getMemU32Ptr(0x5D4594, 1090092 + 4 * v16), v40, (wchar2_t*)getMemAt(0x587000, 146648),
 							   *getMemU32Ptr(0x5D4594, 1084200 + 80 * v32));
 					if (dword_5d4594_1090120 == 5) {
 						v20 = nox_common_playerInfoGetByID_417040(*getMemU32Ptr(0x5D4594, 1084192 + 80 * v32));
 						if (v20) {
 							sub_46DC30(*getMemU32Ptr(0x5D4594, 1090068 + 4 * v16), v40,
-									   (wchar_t*)getMemAt(0x587000, 146656), v20 + 2096);
+									   (wchar2_t*)getMemAt(0x587000, 146656), v20 + 2096);
 						}
 					} else {
 						v21 = sub_46FB50(*getMemU32Ptr(0x5D4594, 1084204 + 80 * v32), &v37);
@@ -503,7 +503,7 @@ int sub_46F080(int a1, int a2) {
 												   1487);
 				break;
 			default:
-				v22 = (wchar_t*)a2;
+				v22 = (wchar2_t*)a2;
 				break;
 			}
 			if (!nox_common_gameFlags_check_40A5C0(1) ||
@@ -513,12 +513,12 @@ int sub_46F080(int a1, int a2) {
 					v28 = nox_gui_getQuestStage_450B10();
 					v23 = nox_strman_loadString_40F1D0("Noxworld.c:Stage", 0,
 													   "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1499);
-					nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1086692), L"%s %d", v23, v28);
+					nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1086692), L"%s %d", v23, v28);
 				} else {
 					v29 = getMemByte(0x5D4594, 1090118);
 					v27 = (unsigned char)sub_46FEE0();
 					v24 = nox_strman_loadString_40F1D0("yourrank", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1501);
-					nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1086692), L"%s %d / %d", v24, v27, v29);
+					nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1086692), L"%s %d / %d", v24, v27, v29);
 				}
 			}
 			break;
@@ -534,11 +534,11 @@ int sub_46F080(int a1, int a2) {
 				!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 				v30 = getMemByte(0x5D4594, 1090116);
 				v26 = nox_strman_loadString_40F1D0("yourteamrank", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 1525);
-				nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1086692), L"%s %d / %d", v26, v25, v30);
+				nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1086692), L"%s %d / %d", v26, v25, v30);
 			}
 			break;
 		default:
-			v22 = (wchar_t*)a2;
+			v22 = (wchar2_t*)a2;
 			break;
 		}
 		if (v33) {
@@ -560,13 +560,13 @@ int sub_46F080(int a1, int a2) {
 }
 
 //----- (0046F8F0) --------------------------------------------------------
-wchar_t* sub_46F8F0(int a1, int a2) {
+wchar2_t* sub_46F8F0(int a1, int a2) {
 	int v2;      // edi
-	wchar_t* v3; // eax
-	wchar_t* v4; // eax
-	wchar_t* v6; // [esp-14h] [ebp-1Ch]
-	wchar_t* v7; // [esp-14h] [ebp-1Ch]
-	wchar_t* v8; // [esp-14h] [ebp-1Ch]
+	wchar2_t* v3; // eax
+	wchar2_t* v4; // eax
+	wchar2_t* v6; // [esp-14h] [ebp-1Ch]
+	wchar2_t* v7; // [esp-14h] [ebp-1Ch]
+	wchar2_t* v8; // [esp-14h] [ebp-1Ch]
 
 	v2 = a2;
 	if (a2 > 0) {
@@ -608,40 +608,40 @@ wchar_t* sub_46F8F0(int a1, int a2) {
 }
 
 //----- (0046FB50) --------------------------------------------------------
-wchar_t* sub_46FB50(int a1, uint8_t* a2) {
-	wchar_t* v2;     // eax
-	wchar_t* result; // eax
-	wchar_t* v4;     // eax
-	wchar_t* v5;     // eax
-	wchar_t* v6;     // eax
+wchar2_t* sub_46FB50(int a1, uint8_t* a2) {
+	wchar2_t* v2;     // eax
+	wchar2_t* result; // eax
+	wchar2_t* v4;     // eax
+	wchar2_t* v5;     // eax
+	wchar2_t* v6;     // eax
 
 	switch (a1) {
 	case 4:
 		v2 = nox_strman_loadString_40F1D0("Ball", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 244);
-		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1090024), L"<%s", v2);
+		nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1090024), L"<%s", v2);
 		*a2 = 4;
-		result = (wchar_t*)getMemAt(0x5D4594, 1090024);
+		result = (wchar2_t*)getMemAt(0x5D4594, 1090024);
 		break;
 	case 1:
 		v4 = nox_strman_loadString_40F1D0("King", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 250);
-		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1090024), L"<%s", v4);
-		result = (wchar_t*)getMemAt(0x5D4594, 1090024);
+		nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1090024), L"<%s", v4);
+		result = (wchar2_t*)getMemAt(0x5D4594, 1090024);
 		*a2 = 4;
 		break;
 	case 2:
 		v5 = nox_strman_loadString_40F1D0("Flag", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 256);
-		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1090024), L"<%s", v5);
-		result = (wchar_t*)getMemAt(0x5D4594, 1090024);
+		nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1090024), L"<%s", v5);
+		result = (wchar2_t*)getMemAt(0x5D4594, 1090024);
 		*a2 = 7;
 		break;
 	case 3:
 		v6 = nox_strman_loadString_40F1D0("Flag", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 262);
-		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1090024), L"<%s", v6);
+		nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1090024), L"<%s", v6);
 		*a2 = 13;
-		result = (wchar_t*)getMemAt(0x5D4594, 1090024);
+		result = (wchar2_t*)getMemAt(0x5D4594, 1090024);
 		break;
 	default:
-		result = (wchar_t*)getMemAt(0x587000, 147724);
+		result = (wchar2_t*)getMemAt(0x587000, 147724);
 		*a2 = 4;
 		break;
 	}
@@ -654,7 +654,7 @@ char sub_46FC50() {
 	short v1;    // ax
 	int v2;      // eax
 	int v3;      // eax
-	wchar_t* v4; // eax
+	wchar2_t* v4; // eax
 	int v6;      // [esp-Ch] [ebp-Ch]
 	int v7;      // [esp-8h] [ebp-8h]
 
@@ -669,7 +669,7 @@ char sub_46FC50() {
 			v7 = v3 % 60000 / 1000;
 			v6 = v3 / 60000;
 			v4 = nox_strman_loadString_40F1D0("TimeRemaining", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 352);
-			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1084068), v4, v6, v7);
+			nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1084068), v4, v6, v7);
 			LOBYTE(v2) =
 				nox_window_call_field_94(*(int*)&dword_5d4594_1090108, 16385, (int)getMemAt(0x5D4594, 1084068), 0);
 		}
@@ -687,7 +687,7 @@ int sub_46FD80() {
 	int result;  // eax
 	short v1;    // ax
 	int v2;      // eax
-	wchar_t* v3; // eax
+	wchar2_t* v3; // eax
 	int v4;      // [esp-4h] [ebp-4h]
 
 	if (nox_common_gameFlags_check_40A5C0(4224)) {
@@ -707,7 +707,7 @@ int sub_46FD80() {
 		}
 		v4 = v2;
 		v3 = nox_strman_loadString_40F1D0("LessonLimit", 0, "C:\\NoxPost\\src\\client\\Gui\\guirank.c", 390);
-		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1083972), v3, v4);
+		nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1083972), v3, v4);
 		result = nox_window_call_field_94(*(int*)&dword_5d4594_1090112, 16385, (int)getMemAt(0x5D4594, 1083972), 0);
 	}
 	return result;

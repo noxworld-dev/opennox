@@ -30,7 +30,7 @@ int nox_xxx_netAbilityReport_4D8060(int a1, int a2, int a3) {
 
 //----- (004FB960) --------------------------------------------------------
 void nox_xxx_abilGetSuccess_4FB960_ability(int a1) {
-	wchar_t* v1; // eax
+	wchar2_t* v1; // eax
 
 	v1 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 217092 + 4 * a1), 0,
 									  "C:\\NoxPost\\src\\Server\\Ability\\Ability.c", 75);
@@ -46,7 +46,7 @@ int nox_xxx_abilityRewardServ_4FB9C0_ability(int a1, int a2, int a3) {
 	uint32_t* v7; // ecx
 	int i;        // edi
 	int result;   // eax
-	wchar_t* v10; // eax
+	wchar2_t* v10; // eax
 
 	if (!(*(uint8_t*)(a1 + 8) & 4)) {
 		return 0;

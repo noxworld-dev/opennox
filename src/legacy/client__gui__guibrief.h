@@ -3,7 +3,7 @@
 
 #include "defs.h"
 
-wchar_t* sub_44E410();
+wchar2_t* sub_44E410();
 int sub_44E8E0(int a1, int a2);
 int sub_44F0F0(int a1, int a2);
 int sub_44F300(int a1, int a2);

@@ -152,9 +152,9 @@ void sub_526A90() { free(*(void**)&dword_5d4594_2487672); }
 
 //----- (005228B0) --------------------------------------------------------
 void nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(int a1) {
-	wchar_t* v1; // eax
-	wchar_t* v2; // eax
-	wchar_t* v3; // eax
+	wchar2_t* v1; // eax
+	wchar2_t* v2; // eax
+	wchar2_t* v3; // eax
 	int i;       // ebp
 	int j;       // esi
 	float* v6;   // eax

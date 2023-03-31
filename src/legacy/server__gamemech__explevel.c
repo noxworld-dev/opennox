@@ -33,7 +33,7 @@ uint32_t* sub_56F980(int a1, unsigned char a2) {
 //----- (004EF2E0) --------------------------------------------------------
 void sub_4EF2E0_exp_level(int a1) {
 	int v1;      // esi
-	wchar_t* v2; // eax
+	wchar2_t* v2; // eax
 
 	v1 = *(uint32_t*)(*(uint32_t*)(a1 + 748) + 276);
 	if ((nox_xxx_gameGet_4DB1B0() != 1 || !sub_4DB1C0()) &&
@@ -54,7 +54,7 @@ void sub_4EF2E0_exp_level(int a1) {
 //----- (004EF3A0) --------------------------------------------------------
 void nox_xxx_plyrGiveExp_4EF3A0_exp_level(int a1, float a2) {
 	int v2;      // ecx
-	wchar_t* v3; // eax
+	wchar2_t* v3; // eax
 
 	v2 = *(uint32_t*)(a1 + 748);
 	*(float*)(a1 + 28) = a2 + *(float*)(a1 + 28);

@@ -18,7 +18,7 @@ int sub_4A4A20(int a1, int a2, int* a3, int a4) {
 	int v6;       // eax
 	int v7;       // ebx
 	uint32_t* v8; // esi
-	wchar_t* v9;  // eax
+	wchar2_t* v9;  // eax
 
 	if (a2 != 16389) {
 		if (a2 != 16391) {

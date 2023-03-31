@@ -103,7 +103,7 @@ func nox_set_color_rgb_434430(r, g, b int) {
 }
 
 //export nox_xxx_wndWddSetTooltip_46B000
-func nox_xxx_wndWddSetTooltip_46B000(draw *C.nox_window_data, str *C.wchar_t) {
+func nox_xxx_wndWddSetTooltip_46B000(draw *C.nox_window_data, str *wchar2_t) {
 	sm := GetClient().Cli().Strings()
 	d := asWindowData(draw)
 	if str == nil {

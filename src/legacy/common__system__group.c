@@ -8,7 +8,7 @@
 int nox_server_scriptGetGroupId_57C2D0(int** a1) {
 	int** v1;    // eax
 	char v2;     // cl
-	wchar_t* v4; // eax
+	wchar2_t* v4; // eax
 
 	v1 = a1;
 	v2 = *(uint8_t*)a1; // Group type

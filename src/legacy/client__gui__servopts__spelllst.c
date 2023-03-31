@@ -28,7 +28,7 @@ int nox_xxx_guiSpelllistLoad_453850(int a1) {
 	sub_453B00();
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 16399, 0, 0);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16399, 0, 0);
-	wchar_t wbuf[64] = {0};
+	wchar2_t wbuf[64] = {0};
 	for (int i = 1; i < NOX_SPELLS_MAX; i++) {
 		if (!nox_xxx_spellIsValid_424B50(i)) {
 			continue;
@@ -38,7 +38,7 @@ int nox_xxx_guiSpelllistLoad_453850(int a1) {
 			continue;
 		}
 		if (flags & 0x1000000 || flags & 0x2000000 && flags & 0x4000000) {
-			wchar_t* v7 =
+			wchar2_t* v7 =
 				nox_strman_loadString_40F1D0("Common", 0, "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 307);
 			nox_wcscpy(wbuf, v7);
 		} else {
@@ -47,18 +47,18 @@ int nox_xxx_guiSpelllistLoad_453850(int a1) {
 			}
 			wbuf[0] = 0;
 			if (flags & 0x2000000) {
-				wchar_t* v5 = nox_strman_loadString_40F1D0("SpellWizard", 0,
+				wchar2_t* v5 = nox_strman_loadString_40F1D0("SpellWizard", 0,
 														   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 314);
 				nox_wcscat(wbuf, v5);
 			}
 			if (flags & 0x4000000) {
-				wchar_t* v6 = nox_strman_loadString_40F1D0("SpellConjurer", 0,
+				wchar2_t* v6 = nox_strman_loadString_40F1D0("SpellConjurer", 0,
 														   "C:\\NoxPost\\src\\client\\Gui\\ServOpts\\spelllst.c", 318);
 				nox_wcscat(wbuf, v6);
 			}
 		}
 		nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 16397, wbuf, -1);
-		wchar_t* title = nox_xxx_spellTitle_424930(i);
+		wchar2_t* title = nox_xxx_spellTitle_424930(i);
 		nox_wcsncpy(wbuf, title, sizeof(wbuf) / 2 - 1);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 16397, wbuf, -1);
 	}
@@ -87,13 +87,13 @@ int sub_453C00(int a1, int a2, int* a3, int a4) {
 	int i;        // eax
 	int result;   // eax
 	int v11;      // esi
-	wchar_t* v12; // eax
+	wchar2_t* v12; // eax
 	int v13;      // esi
-	wchar_t* v14; // eax
+	wchar2_t* v14; // eax
 	char* v15;    // ebp
-	wchar_t* v16; // eax
-	wchar_t* v17; // [esp-10h] [ebp-5Ch]
-	wchar_t* v18; // [esp-10h] [ebp-5Ch]
+	wchar2_t* v16; // eax
+	wchar2_t* v17; // [esp-10h] [ebp-5Ch]
+	wchar2_t* v18; // [esp-10h] [ebp-5Ch]
 	int v19[15];  // [esp+10h] [ebp-3Ch]
 	char* v20;    // [esp+54h] [ebp+8h]
 	int v21;      // [esp+58h] [ebp+Ch]
@@ -129,7 +129,7 @@ int sub_453C00(int a1, int a2, int* a3, int a4) {
 			v7 = 0;
 			do {
 				if (*((uint32_t*)v5 + 6) + v7 != -4) {
-					v8 = nox_xxx_spellByTitle_424960((wchar_t*)(*((uint32_t*)v5 + 6) + v7 + 4));
+					v8 = nox_xxx_spellByTitle_424960((wchar2_t*)(*((uint32_t*)v5 + 6) + v7 + 4));
 					if (v8) {
 						if (v21 == 1115) {
 							if (!nox_common_gameFlags_check_40A5C0(64) && !(v20[52] & 0x40) || v8 != 132) {
@@ -167,7 +167,7 @@ int sub_453C00(int a1, int a2, int* a3, int a4) {
 	case 1132:
 	case 1133:
 		v11 = *(uint32_t*)(dword_5d4594_1045480 + 32);
-		v12 = (wchar_t*)(*(uint32_t*)(v11 + 24) +
+		v12 = (wchar2_t*)(*(uint32_t*)(v11 + 24) +
 						 524 * (sub_4A4800(*(uint32_t*)(dword_5d4594_1045480 + 32)) + v4 - 1120) + 4);
 		if (!v12) {
 			goto LABEL_19;

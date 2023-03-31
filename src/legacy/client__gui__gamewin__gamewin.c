@@ -13,7 +13,7 @@
 void nox_xxx_clientPickup_46C140(nox_drawable* a1p) {
 	int a1 = a1p;
 	int v2;      // eax
-	wchar_t* v3; // eax
+	wchar2_t* v3; // eax
 	int v4;      // [esp+0h] [ebp-4h]
 
 	if (!*getMemU32Ptr(0x5D4594, 1064928)) {

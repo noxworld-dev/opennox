@@ -4,7 +4,7 @@
 #include "operators.h"
 
 //----- (00415B60) --------------------------------------------------------
-wchar_t* sub_415B60(int a1) {
+wchar2_t* sub_415B60(int a1) {
 	int v1;           // ecx
 	int v2;           // edx
 	unsigned char* i; // eax

@@ -37,13 +37,13 @@ extern uint32_t nox_color_black_2650656;
 extern uint32_t nox_color_orange_2614256;
 
 //----- (0044E410) --------------------------------------------------------
-wchar_t* sub_44E410() {
+wchar2_t* sub_44E410() {
 	int v0;          // esi
 	int v1;          // edi
 	int i;           // ebp
 	int v3;          // ebx
 	int v4;          // esi
-	wchar_t* result; // eax
+	wchar2_t* result; // eax
 	int v6;          // [esp-2Ch] [ebp-80h]
 	int v7;          // [esp+10h] [ebp-44h]
 	char v8[64];     // [esp+14h] [ebp-40h]
@@ -98,8 +98,8 @@ wchar_t* sub_44E410() {
 int sub_44E8E0(int a1, int a2) {
 	int v2;                  // ebx
 	int v3;                  // esi
-	wchar_t* v4;             // eax
-	wchar_t* v5;             // eax
+	wchar2_t* v4;             // eax
+	wchar2_t* v5;             // eax
 	unsigned char* v6;       // eax
 	unsigned char* v7;       // ebp
 	int v8;                  // esi
@@ -108,22 +108,22 @@ int sub_44E8E0(int a1, int a2) {
 	int v11;                 // eax
 	signed int v12;          // eax
 	int v13;                 // esi
-	wchar_t* v14;            // eax
+	wchar2_t* v14;            // eax
 	int v15;                 // esi
-	wchar_t* v16;            // eax
+	wchar2_t* v16;            // eax
 	int v17;                 // esi
-	wchar_t* v18;            // eax
+	wchar2_t* v18;            // eax
 	int v19;                 // esi
-	wchar_t* v20;            // eax
-	wchar_t* v21;            // eax
+	wchar2_t* v20;            // eax
+	wchar2_t* v21;            // eax
 	int v22;                 // ebx
 	int v23;                 // esi
 	int v24;                 // ebp
-	wchar_t* v25;            // eax
-	wchar_t* v26;            // eax
+	wchar2_t* v25;            // eax
+	wchar2_t* v26;            // eax
 	int v27;                 // esi
-	wchar_t* v28;            // eax
-	wchar_t* v29;            // eax
+	wchar2_t* v28;            // eax
+	wchar2_t* v29;            // eax
 	int v30;                 // esi
 	int v31;                 // ebp
 	int result;              // eax
@@ -148,10 +148,10 @@ int sub_44E8E0(int a1, int a2) {
 	int v51;                 // [esp+48h] [ebp-62Ch]
 	int v52;                 // [esp+4Ch] [ebp-628h]
 	int v53;                 // [esp+50h] [ebp-624h]
-	wchar_t WideCharStr[11]; // [esp+54h] [ebp-620h]
-	wchar_t v55[257];        // [esp+72h] [ebp-602h]
-	wchar_t v56[256];        // [esp+274h] [ebp-400h]
-	wchar_t v57[256];        // [esp+474h] [ebp-200h]
+	wchar2_t WideCharStr[11]; // [esp+54h] [ebp-620h]
+	wchar2_t v55[257];        // [esp+72h] [ebp-602h]
+	wchar2_t v56[256];        // [esp+274h] [ebp-400h]
+	wchar2_t v57[256];        // [esp+474h] [ebp-200h]
 
 	v49 = (nox_win_width - NOX_DEFAULT_WIDTH) / 2;
 	v47 = 0;
@@ -321,7 +321,7 @@ int sub_44E8E0(int a1, int a2) {
 int sub_44F0F0(int a1, int a2) {
 	int v2;             // esi
 	int v3;             // ebx
-	wchar_t* v4;        // eax
+	wchar2_t* v4;        // eax
 	int result;         // eax
 	int v6;             // esi
 	int v7;             // ebx
@@ -330,8 +330,8 @@ int sub_44F0F0(int a1, int a2) {
 	int v10;            // [esp+10h] [ebp-40Ch]
 	int v11;            // [esp+14h] [ebp-408h]
 	int v12;            // [esp+18h] [ebp-404h]
-	wchar_t v13[256];   // [esp+1Ch] [ebp-400h]
-	wchar_t v14[256];   // [esp+21Ch] [ebp-200h]
+	wchar2_t v13[256];   // [esp+1Ch] [ebp-400h]
+	wchar2_t v14[256];   // [esp+21Ch] [ebp-200h]
 
 	// quest title screen text
 	v2 = nox_win_width / 2;
@@ -380,16 +380,16 @@ int sub_44F300(int a1, int a2) {
 	int v4;              // edi
 	unsigned short* v5;  // ebp
 	short* v6;           // ebp
-	wchar_t* v7;         // eax
+	wchar2_t* v7;         // eax
 	int v8;              // ebp
 	short* v9;           // ebp
-	wchar_t* v10;        // eax
+	wchar2_t* v10;        // eax
 	int v11;             // ebp
 	short* v12;          // ebp
-	wchar_t* v13;        // eax
+	wchar2_t* v13;        // eax
 	int v14;             // ebp
 	short* v15;          // ebx
-	wchar_t* v16;        // eax
+	wchar2_t* v16;        // eax
 	unsigned short* v17; // ebx
 	unsigned short* v18; // ebp
 	unsigned short* v19; // ebx
@@ -733,7 +733,7 @@ int nox_xxx_clientQuestWinScreen_450770(int a1) {
 //----- (00450980) --------------------------------------------------------
 int nox_client_showQuestBriefing2_450980(int a1, int a2) {
 	char* v2;    // eax
-	wchar_t* v3; // eax
+	wchar2_t* v3; // eax
 	int result;  // eax
 
 	dword_5d4594_832480 = 0;
@@ -762,7 +762,7 @@ int nox_client_showQuestBriefing2_450980(int a1, int a2) {
 //----- (00450A30) --------------------------------------------------------
 int nox_client_showQuestBriefing_450A30(int a1, int a2) {
 	char* v2;    // eax
-	wchar_t* v3; // eax
+	wchar2_t* v3; // eax
 	int result;  // eax
 
 	dword_5d4594_832480 = 0;

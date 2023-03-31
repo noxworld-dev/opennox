@@ -14,7 +14,7 @@ void nullsub_43() {}
 void nullsub_44() {}
 
 //----- (00413480) --------------------------------------------------------
-wchar_t* sub_413480(char a1) {
+wchar2_t* sub_413480(char a1) {
 	int v1;            // ecx
 	unsigned char* v2; // eax
 
