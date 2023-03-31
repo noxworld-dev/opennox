@@ -1217,6 +1217,10 @@ func (obj *Object) countSubOfType(typ int) int { // nox_xxx_unitIsUnitTT_4E7C80
 	return cnt
 }
 
+func (obj *Object) SetTrapSpells(spells ...spell.ID) {
+	setBomberSpells(obj.SObj(), spells...)
+}
+
 func nox_xxx_playerSetState_4FA020(u *Object, a2 int) {
 	legacy.Nox_xxx_playerSetState_4FA020(u.SObj(), a2)
 }

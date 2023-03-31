@@ -120,8 +120,10 @@ func (obj nsObj) EnchantOff(enc enchant.Enchant) {
 }
 
 func (obj nsObj) TrapSpells(spell1 nsp.Spell, spell2 nsp.Spell, spell3 nsp.Spell) {
-	//TODO implement me
-	panic("implement me")
+	sp1 := spell.ParseID(string(spell1))
+	sp2 := spell.ParseID(string(spell2))
+	sp3 := spell.ParseID(string(spell3))
+	obj.Object.SetTrapSpells(sp1, sp2, sp3)
 }
 
 func (g nsObjGroup) AwardSpell(sp nsp.Spell) {
