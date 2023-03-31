@@ -9615,7 +9615,7 @@ int nox_xxx_castPull_52BFA0(int a1, int a2, int a3, int a4, int a5, int a6) {
 	float v8; // [esp+0h] [ebp-10h]
 
 	v8 = -(nox_xxx_gamedataGetFloat_419D40("PullPowerCoeff") * (double)a6);
-	nox_xxx_mapPushUnitsAround_52E040(a4 + 56, 600.0, 1092616192, v8, 0, 0, 0);
+	nox_xxx_mapPushUnitsAround_52E040(a4 + 56, 600.0, 10.0, v8, 0, 0, 0);
 	v6 = nox_xxx_spellGetAud44_424800(a1, 0);
 	nox_xxx_aud_501960(v6, a3, 0, 0);
 	return 1;
@@ -9627,7 +9627,7 @@ int nox_xxx_castPush_52C000(int a1, int a2, int a3, int a4, int a5, int a6) {
 	float v8; // [esp+18h] [ebp+18h]
 
 	v8 = nox_xxx_gamedataGetFloat_419D40("PushPowerCoeff") * (double)a6;
-	nox_xxx_mapPushUnitsAround_52E040(a4 + 56, 600.0, 1092616192, v8, 0, 0, 0);
+	nox_xxx_mapPushUnitsAround_52E040(a4 + 56, 600.0, 10.0, v8, 0, 0, 0);
 	v6 = nox_xxx_spellGetAud44_424800(a1, 0);
 	nox_xxx_aud_501960(v6, a3, 0, 0);
 	return 1;
@@ -10743,7 +10743,10 @@ unsigned int nox_xxx_isObjectMovable_52E020(int a1) {
 }
 
 //----- (0052E040) --------------------------------------------------------
-void nox_xxx_mapPushUnitsAround_52E040(int a1, float a2, int a3, float a4, int a5, int a6, int a7) {
+void nox_xxx_mapPushUnitsAround_52E040(void* a1p, float a2, float a3p, float a4, nox_object_t* a5p, int a6, int a7) {
+	int a1 = a1p;
+	int a3 = *(int*)(&a3p);
+	int a5 = a5p;
 	double v7;  // st7
 	double v8;  // st7
 	float4 a1a; // [esp+0h] [ebp-2Ch]
@@ -10761,7 +10764,7 @@ void nox_xxx_mapPushUnitsAround_52E040(int a1, float a2, int a3, float a4, int a
 	a3a[2] = a3;
 	a1a.field_C = v8;
 	*(float*)&a3a[3] = a4 * 10.0;
-	if (a2 >= (double)*(float*)&a3) {
+	if (a2 >= (double)a3p) {
 		*(float*)&a3a[1] = a2;
 	} else {
 		a3a[1] = a3;

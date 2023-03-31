@@ -35,6 +35,10 @@ var (
 	Nox_xxx_checkSummonedCreaturesLimit_500D70 func(u *server.Object, ind int) bool
 	Nox_xxx_unitDoSummonAt_5016C0              func(typID int, pos types.Pointf, owner *server.Object, dir server.Dir16) *server.Object
 	Sub_57AEE0                                 func(sp spell.ID, u *server.Object) bool
+	Sub_4E71F0                                 func(obj *server.Object)
+	Nox_bomberDead_54A150                      func(obj *server.Object) int
+	Nox_xxx_dieGlyph_54DF30                    func(obj *server.Object)
+	Nox_xxx_collideGlyph_4E9A00                func(obj, obj2 *server.Object)
 )
 
 var _ = [1]struct{}{}[28-unsafe.Sizeof(Nox_object_Missile_data_t{})]
@@ -264,6 +268,26 @@ func sub_57AEE0(sp int, u *nox_object_t) int {
 	return bool2int(Sub_57AEE0(spell.ID(sp), asObjectS(u)))
 }
 
+//export sub_4E71F0
+func sub_4E71F0(a1 *nox_object_t) {
+	Sub_4E71F0(asObjectS(a1))
+}
+
+//export nox_bomberDead_54A150
+func nox_bomberDead_54A150(a1 *nox_object_t) int {
+	return Nox_bomberDead_54A150(asObjectS(a1))
+}
+
+//export nox_xxx_dieGlyph_54DF30
+func nox_xxx_dieGlyph_54DF30(a1 *nox_object_t) {
+	Nox_xxx_dieGlyph_54DF30(asObjectS(a1))
+}
+
+//export nox_xxx_collideGlyph_4E9A00
+func nox_xxx_collideGlyph_4E9A00(a1, a2 *nox_object_t) {
+	Nox_xxx_collideGlyph_4E9A00(asObjectS(a1), asObjectS(a2))
+}
+
 func Nox_server_getObjectFromNetCode_4ECCB0(a1 int) *server.Object {
 	return asObjectS(C.nox_server_getObjectFromNetCode_4ECCB0(C.int(a1)))
 }
@@ -442,4 +466,19 @@ func Nox_xxx_inventoryPutImpl_4F3070(obj, item *server.Object, a3 int) {
 
 func Nox_xxx_orderUnit_533900(owner, obj *server.Object, order uint32) {
 	C.nox_xxx_orderUnit_533900(asObjectC(owner), asObjectC(obj), C.int(order))
+}
+
+func Sub_4E9A30(a1, a2 *server.Object) bool {
+	return C.sub_4E9A30(asObjectC(a1), asObjectC(a2)) != 0
+}
+
+func Nox_xxx_unitsHaveSameTeam_4EC520(a1, a2 *server.Object) bool {
+	return C.nox_xxx_unitsHaveSameTeam_4EC520(asObjectC(a1), asObjectC(a2)) != 0
+}
+
+func Nox_xxx_mapPushUnitsAround_52E040(pos types.Pointf, a2 float32, a3 float32, a4 float32, a5 *server.Object, a6 int, a7 int) {
+	cpos, free := alloc.New(types.Pointf{})
+	defer free()
+	*cpos = pos
+	C.nox_xxx_mapPushUnitsAround_52E040(unsafe.Pointer(cpos), C.float(a2), C.float(a3), C.float(a4), asObjectC(a5), C.int(a6), C.int(a7))
 }

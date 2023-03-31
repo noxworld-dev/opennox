@@ -447,7 +447,7 @@ type MonsterUpdateData struct {
 	Field541              uint32           // 541, 2164
 	Field542              uint32           // 542, 2168
 	Field543              uint32           // 543, 2172
-	Field544              uint32           // 544, 2176
+	Field544              *Object          // 544, 2176, TODO: correct type?
 	Field545              uint32           // 545, 2180
 	Field546              uint32           // 546, 2184
 	Field547              uint32           // 547, 2188
