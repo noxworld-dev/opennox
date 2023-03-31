@@ -19,9 +19,9 @@ uint32_t* nox_xxx_cliShowHelpGui_49C560() {
 	int v0;           // esi
 	uint32_t* result; // eax
 	uint32_t* v2;     // esi
-	wchar_t* v3;      // eax
-	wchar_t* v4;      // eax
-	wchar_t* v5;      // eax
+	wchar2_t* v3;      // eax
+	wchar2_t* v4;      // eax
+	wchar2_t* v5;      // eax
 	char* v6;         // [esp-4h] [ebp-8h]
 	char* v7;         // [esp-4h] [ebp-8h]
 	char* v8;         // [esp-4h] [ebp-8h]
@@ -44,8 +44,8 @@ uint32_t* nox_xxx_cliShowHelpGui_49C560() {
 			v2 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1305680, 4102);
 			v6 = sub_42E8E0(45, 1);
 			v3 = nox_strman_loadString_40F1D0("Sanchlp.wnd:Help", 0, "C:\\NoxPost\\src\\client\\Gui\\chathelp.c", 85);
-			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1304656), v3, v6);
-			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1304656), L" ");
+			nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1304656), v3, v6);
+			nox_wcscat((wchar2_t*)getMemAt(0x5D4594, 1304656), L" ");
 			v7 = sub_42E8E0(8, 1);
 			v4 =
 				nox_strman_loadString_40F1D0("cdecode.c:KeyToChat", 0, "C:\\NoxPost\\src\\client\\Gui\\chathelp.c", 87);
@@ -54,14 +54,14 @@ uint32_t* nox_xxx_cliShowHelpGui_49C560() {
 			v8 = sub_42E8E0(45, 1);
 			v5 = nox_strman_loadString_40F1D0("Sanchlp.wnd:ClientHelp", 0, "C:\\NoxPost\\src\\client\\Gui\\chathelp.c",
 											  94);
-			nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1304656), v5, v8);
-			nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1304656), L" ");
+			nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1304656), v5, v8);
+			nox_wcscat((wchar2_t*)getMemAt(0x5D4594, 1304656), L" ");
 			v7 = sub_42E8E0(8, 1);
 			v4 =
 				nox_strman_loadString_40F1D0("cdecode.c:KeyToChat", 0, "C:\\NoxPost\\src\\client\\Gui\\chathelp.c", 96);
 		}
-		nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1304400), v4, v7);
-		nox_wcscat((wchar_t*)getMemAt(0x5D4594, 1304656), (const wchar_t*)getMemAt(0x5D4594, 1304400));
+		nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1304400), v4, v7);
+		nox_wcscat((wchar2_t*)getMemAt(0x5D4594, 1304656), (const wchar2_t*)getMemAt(0x5D4594, 1304400));
 		nox_window_call_field_94((int)v2, 16385, (int)getMemAt(0x5D4594, 1304656), 0);
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			if (!sub_459DA0()) {

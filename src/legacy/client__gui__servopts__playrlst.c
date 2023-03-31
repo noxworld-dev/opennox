@@ -25,7 +25,7 @@ int nox_xxx_guiServerPlayersLoad_456270(int a1) {
 	uint32_t* v7;  // edi
 	uint32_t* v8;  // esi
 	uint32_t* v9;  // esi
-	wchar_t* v10;  // eax
+	wchar2_t* v10;  // eax
 	uint32_t* v11; // [esp+4h] [ebp-Ch]
 	uint32_t* v12; // [esp+4h] [ebp-Ch]
 	char* v13;     // [esp+8h] [ebp-8h]
@@ -98,7 +98,7 @@ int sub_4567C0(int a1, int a2, int* a3, int a4) {
 	int* v9;         // eax
 	int* v10;        // ebp
 	int i;           // eax
-	wchar_t* v12;    // eax
+	wchar2_t* v12;    // eax
 	char* v13;       // eax
 	char* v14;       // esi
 	uint32_t* v15;   // eax
@@ -108,14 +108,14 @@ int sub_4567C0(int a1, int a2, int* a3, int a4) {
 	uint32_t* v20;   // eax
 	int v21;         // eax
 	char* v22;       // esi
-	wchar_t* v23;    // edi
+	wchar2_t* v23;    // edi
 	uint32_t* v24;   // eax
 	int v25;         // eax
 	char* v26;       // eax
-	wchar_t* v27;    // eax
-	wchar_t* v28;    // [esp-10h] [ebp-8Ch]
+	wchar2_t* v27;    // eax
+	wchar2_t* v28;    // [esp-10h] [ebp-8Ch]
 	char* v29;       // [esp+8h] [ebp-74h]
-	wchar_t v30[56]; // [esp+Ch] [ebp-70h]
+	wchar2_t v30[56]; // [esp+Ch] [ebp-70h]
 
 	if (a2 != 16391) {
 		if (a2 != 16400) {
@@ -173,9 +173,9 @@ int sub_4567C0(int a1, int a2, int* a3, int a4) {
 		sub_456D00(v21, v30);
 		v22 = sub_418A40(v30);
 		if (v22) {
-			v23 = (wchar_t*)sub_449E60(168);
+			v23 = (wchar2_t*)sub_449E60(168);
 			if (!sub_4190F0(v23)) {
-				nox_xxx_teamRenameMB_418CD0((wchar_t*)v22, v23);
+				nox_xxx_teamRenameMB_418CD0((wchar2_t*)v22, v23);
 				return 0;
 			}
 		}
@@ -195,7 +195,7 @@ int sub_4567C0(int a1, int a2, int* a3, int a4) {
 			v9 = (int*)nox_window_call_field_94((int)v7, 16404, 0, 0);
 			v10 = v9;
 			for (i = *v9; i >= 0; ++v10) {
-				v12 = (wchar_t*)nox_window_call_field_94(v8, 16406, i, 0);
+				v12 = (wchar2_t*)nox_window_call_field_94(v8, 16406, i, 0);
 				v13 = nox_xxx_playerByName_4170D0(v12);
 				v14 = v13;
 				if (v13) {
@@ -223,15 +223,15 @@ int sub_4567C0(int a1, int a2, int* a3, int a4) {
 }
 
 //----- (00457010) --------------------------------------------------------
-int sub_457010(int a1, wchar_t* a2) {
+int sub_457010(int a1, wchar2_t* a2) {
 	char* v2;         // ebp
 	int result;       // eax
 	uint32_t* v4;     // esi
 	int v5;           // edi
 	unsigned char v6; // al
 	unsigned char v7; // al
-	wchar_t* v8;      // [esp-20h] [ebp-94h]
-	wchar_t v9[56];   // [esp+4h] [ebp-70h]
+	wchar2_t* v8;      // [esp-20h] [ebp-94h]
+	wchar2_t v9[56];   // [esp+4h] [ebp-70h]
 
 	v2 = sub_4165B0();
 	result = dword_5d4594_1045684;
@@ -262,15 +262,15 @@ int sub_457010(int a1, wchar_t* a2) {
 }
 
 //----- (00457230) --------------------------------------------------------
-char* sub_457230(wchar_t* a1) {
+char* sub_457230(wchar2_t* a1) {
 	char* v1;       // ebp
 	char* result;   // eax
 	uint32_t* v3;   // esi
 	char* v4;       // edi
 	char v5;        // al
 	uint32_t* v6;   // eax
-	wchar_t* v7;    // [esp-14h] [ebp-94h]
-	wchar_t v8[56]; // [esp+10h] [ebp-70h]
+	wchar2_t* v7;    // [esp-14h] [ebp-94h]
+	wchar2_t v8[56]; // [esp+10h] [ebp-70h]
 
 	v1 = sub_4165B0();
 	result = *(char**)&dword_5d4594_1045684;
@@ -284,7 +284,7 @@ char* sub_457230(wchar_t* a1) {
 			*((uint8_t*)v3 + 64) = sub_457120((int)result);
 			sub_425770(v3);
 			nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1045668), v3);
-			nox_wcscpy((wchar_t*)v3 + 6, a1);
+			nox_wcscpy((wchar2_t*)v3 + 6, a1);
 			nox_wcscpy(v8, a1);
 			if (nox_common_gameFlags_check_40A5C0(96) || v1[52] & 0x60) {
 				v5 = v4[57];

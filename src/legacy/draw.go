@@ -297,14 +297,14 @@ func nox_draw_setTabWidth_43FE20(v int) int {
 }
 
 //export nox_draw_getFontAdvance_43F9E0
-func nox_draw_getFontAdvance_43F9E0(fnt unsafe.Pointer, sp *C.wchar_t, maxW int) int {
+func nox_draw_getFontAdvance_43F9E0(fnt unsafe.Pointer, sp *wchar2_t, maxW int) int {
 	// TODO: this may be incorrect
 	r := GetClient().R2()
 	return r.GetStringSizeWrapped(r.GetFonts().AsFont(fnt), GoWString(sp), maxW).X
 }
 
 //export nox_xxx_drawGetStringSize_43F840
-func nox_xxx_drawGetStringSize_43F840(font unsafe.Pointer, sp *C.wchar_t, outW, outH *C.int, maxW int) int {
+func nox_xxx_drawGetStringSize_43F840(font unsafe.Pointer, sp *wchar2_t, outW, outH *C.int, maxW int) int {
 	r := GetClient().R2()
 	sz := r.GetStringSizeWrapped(r.GetFonts().AsFont(font), GoWString(sp), maxW)
 	if outW != nil {
@@ -317,7 +317,7 @@ func nox_xxx_drawGetStringSize_43F840(font unsafe.Pointer, sp *C.wchar_t, outW, 
 }
 
 //export nox_xxx_bookGetStringSize_43FA80
-func nox_xxx_bookGetStringSize_43FA80(font unsafe.Pointer, sp *C.wchar_t, outW, outH *C.int, maxW int) int {
+func nox_xxx_bookGetStringSize_43FA80(font unsafe.Pointer, sp *wchar2_t, outW, outH *C.int, maxW int) int {
 	r := GetClient().R2()
 	sz := r.GetStringSizeWrappedStyle(r.GetFonts().AsFont(font), GoWString(sp), maxW)
 	if outW != nil {
@@ -330,37 +330,37 @@ func nox_xxx_bookGetStringSize_43FA80(font unsafe.Pointer, sp *C.wchar_t, outW, 
 }
 
 //export nox_xxx_drawString_43F6E0
-func nox_xxx_drawString_43F6E0(font unsafe.Pointer, sp *C.wchar_t, x, y int) int {
+func nox_xxx_drawString_43F6E0(font unsafe.Pointer, sp *wchar2_t, x, y int) int {
 	r := GetClient().R2()
 	return r.DrawString(r.GetFonts().AsFont(font), GoWString(sp), image.Point{X: x, Y: y})
 }
 
 //export nox_draw_drawStringHL_43F730
-func nox_draw_drawStringHL_43F730(font unsafe.Pointer, sp *C.wchar_t, x, y int) int {
+func nox_draw_drawStringHL_43F730(font unsafe.Pointer, sp *wchar2_t, x, y int) int {
 	r := GetClient().R2()
 	return r.DrawStringHL(r.GetFonts().AsFont(font), GoWString(sp), image.Point{X: x, Y: y})
 }
 
 //export nox_xxx_drawStringWrap_43FAF0
-func nox_xxx_drawStringWrap_43FAF0(font unsafe.Pointer, sp *C.wchar_t, x, y, maxW, maxH int) int {
+func nox_xxx_drawStringWrap_43FAF0(font unsafe.Pointer, sp *wchar2_t, x, y, maxW, maxH int) int {
 	r := GetClient().R2()
 	return r.DrawStringWrapped(r.GetFonts().AsFont(font), GoWString(sp), image.Rect(x, y, x+maxW, y+maxH))
 }
 
 //export nox_xxx_drawStringWrapHL_43FD00
-func nox_xxx_drawStringWrapHL_43FD00(font unsafe.Pointer, sp *C.wchar_t, x, y, maxW, maxH int) int {
+func nox_xxx_drawStringWrapHL_43FD00(font unsafe.Pointer, sp *wchar2_t, x, y, maxW, maxH int) int {
 	r := GetClient().R2()
 	return r.DrawStringWrappedHL(r.GetFonts().AsFont(font), GoWString(sp), image.Rect(x, y, x+maxW, y+maxH))
 }
 
 //export nox_xxx_bookDrawString_43FA80_43FD80
-func nox_xxx_bookDrawString_43FA80_43FD80(font unsafe.Pointer, s *C.wchar_t, x, y, maxW, maxH int) int {
+func nox_xxx_bookDrawString_43FA80_43FD80(font unsafe.Pointer, s *wchar2_t, x, y, maxW, maxH int) int {
 	r := GetClient().R2()
 	return r.DrawStringWrappedStyle(r.GetFonts().AsFont(font), GoWString(s), image.Rect(x, y, x+maxW, y+maxH))
 }
 
 //export nox_xxx_drawStringStyle_43F7B0
-func nox_xxx_drawStringStyle_43F7B0(font unsafe.Pointer, sp *C.wchar_t, x, y int) int {
+func nox_xxx_drawStringStyle_43F7B0(font unsafe.Pointer, sp *wchar2_t, x, y int) int {
 	r := GetClient().R2()
 	return r.DrawStringStyle(r.GetFonts().AsFont(font), GoWString(sp), image.Point{X: x, Y: y})
 }

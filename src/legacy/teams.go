@@ -53,7 +53,7 @@ func nox_server_teamNext_418B60(t *nox_team_t) *nox_team_t {
 }
 
 //export nox_server_teamTitle_418C20
-func nox_server_teamTitle_418C20(a1 int) *C.wchar_t {
+func nox_server_teamTitle_418C20(a1 int) *wchar2_t {
 	return internWStr(GetServer().S().Teams.TeamTitle(server.TeamColor(a1)))
 }
 

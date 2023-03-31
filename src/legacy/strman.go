@@ -18,13 +18,13 @@ func internCStr(s string) *C.char {
 	return (*C.char)(unsafe.Pointer(p))
 }
 
-func internWStr(s string) *C.wchar_t {
+func internWStr(s string) *wchar2_t {
 	p := alloc.InternCString16(s)
-	return (*C.wchar_t)(unsafe.Pointer(p))
+	return (*wchar2_t)(unsafe.Pointer(p))
 }
 
 //export nox_strman_loadString_40F1D0
-func nox_strman_loadString_40F1D0(name *C.char, strOut **C.char, srcFile *C.char, srcLine int) *C.wchar_t {
+func nox_strman_loadString_40F1D0(name *C.char, strOut **C.char, srcFile *C.char, srcLine int) *wchar2_t {
 	if strOut != nil {
 		*strOut = nil
 		v, _ := GetServer().S().Strings().GetVariantInFile(strman.ID(GoString(name)), GoString(srcFile))

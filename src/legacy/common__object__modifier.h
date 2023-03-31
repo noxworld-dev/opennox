@@ -3,6 +3,6 @@
 
 #include "defs.h"
 
-wchar_t* sub_413480(char a1);
+wchar2_t* sub_413480(char a1);
 
 #endif // NOX_PORT_COMMON_OBJECT_MODIFIER

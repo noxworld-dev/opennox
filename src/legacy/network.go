@@ -24,11 +24,11 @@ void nox_xxx_playerInitColors_461460(nox_playerInfo* pl);
 int nox_xxx_gameClearAll_467DF0(int a1);
 int nox_client_getServerPort_43B320();
 int sub_419E60(nox_object_t* a1);
-int sub_457140(int a1, wchar_t* a2);
+int sub_457140(int a1, wchar2_t* a2);
 int sub_43AF90(int a1);
 int sub_456DF0(int a1);
-void sub_455950(wchar_t* a1);
-int sub_455920(wchar_t* a1);
+void sub_455950(wchar2_t* a1);
+int sub_455920(wchar2_t* a1);
 void sub_519E80(int a1);
 int sub_43C650();
 int sub_467CA0();
@@ -41,7 +41,7 @@ int nox_xxx_netClientSend2_4E53C0(int a1, const void* a2, int a3, int a4, int a5
 void* nox_xxx_spriteGetMB_476F80();
 int nox_xxx_netSendPacket_4E5030(int a1, const void* a2, signed int a3, int a4, int a5, char a6);
 int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz);
-static int nox_xxx_netSendLineMessage_go(nox_object_t* a1, wchar_t* str) {
+static int nox_xxx_netSendLineMessage_go(nox_object_t* a1, wchar2_t* str) {
 	return nox_xxx_netSendLineMessage_4D9EB0(a1, str);
 }
 

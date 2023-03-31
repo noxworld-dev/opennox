@@ -16,7 +16,7 @@ extern uint32_t nox_player_netCode_85319C;
 
 typedef struct {
 	const char* name;
-	wchar_t* title;
+	wchar2_t* title;
 	int code;
 	uint32_t* color;
 } nox_team_info_t;
@@ -39,21 +39,21 @@ void nox_xxx_createAtImpl_4191D0(unsigned char a1, void* a2p, int a3, int a4, in
 	int v7;           // ebx
 	char* v8;         // ebp
 	char* v9;         // ebp
-	wchar_t* v10;     // eax
-	wchar_t* v11;     // eax
+	wchar2_t* v10;     // eax
+	wchar2_t* v11;     // eax
 	short v12;        // dx
 	int v13;          // eax
 	uint32_t* v14;    // eax
 	char* v15;        // ebx
-	wchar_t* v16;     // eax
-	wchar_t* v17;     // eax
+	wchar2_t* v16;     // eax
+	wchar2_t* v17;     // eax
 	char* v18;        // esi
 	int v19;          // edi
 	int i;            // esi
 	int v21[3];       // [esp+0h] [ebp-110h] // FIXME: 10 bytes
 	short v22;        // [esp+8h] [ebp-108h]
 	char* v23;        // [esp+Ch] [ebp-104h]
-	wchar_t v24[128]; // [esp+10h] [ebp-100h]
+	wchar2_t v24[128]; // [esp+10h] [ebp-100h]
 
 	result = *(char**)&dword_5d4594_527660;
 	if (!dword_5d4594_527660) {

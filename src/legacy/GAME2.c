@@ -2068,7 +2068,7 @@ int sub_4533D0(int a1, int a2, int a3, int a4) {
 	int v8;       // ecx
 	int v9;       // edx
 	int v10;      // ecx
-	wchar_t* v11; // [esp-4h] [ebp-Ch]
+	wchar2_t* v11; // [esp-4h] [ebp-Ch]
 
 	if (a2 == 0x4000) {
 		if ((uint32_t*)a3 == nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045468, 1513) ||
@@ -2121,7 +2121,7 @@ int sub_4533D0(int a1, int a2, int a3, int a4) {
 	case 1532:
 	case 1533:
 		v5 = sub_4A4800(*(uint32_t*)(dword_5d4594_1045464 + 32));
-		v11 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 16406, v5 + v3 - 1520, 0);
+		v11 = (wchar2_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045464, 16406, v5 + v3 - 1520, 0);
 		if (dword_5d4594_1045460) {
 			v6 = sub_415DA0(v11);
 		} else {
@@ -2472,7 +2472,7 @@ char sub_454120() {
 		v3 = 0;
 		v4 = *(uint32_t*)(v8 + 24);
 		if (v4 + v1 != -4 && *(uint16_t*)(v4 + v1 + 4)) {
-			v3 = nox_xxx_spellByTitle_424960((wchar_t*)(v4 + v1 + 4));
+			v3 = nox_xxx_spellByTitle_424960((wchar2_t*)(v4 + v1 + 4));
 			nox_window_set_hidden((int)v2, 0);
 		} else {
 			nox_window_set_hidden((int)v2, 1);
@@ -2642,46 +2642,46 @@ int nox_xxx_windowAccessProc_454BA0(int a1, int a2, int* a3, int a4) {
 	char* v6;               // eax
 	int v7;                 // esi
 	char* v8;               // esi
-	const wchar_t* v9;      // eax
+	const wchar2_t* v9;      // eax
 	char* v10;              // esi
-	const wchar_t* v11;     // eax
+	const wchar2_t* v11;     // eax
 	char* v12;              // esi
-	const wchar_t* v13;     // eax
+	const wchar2_t* v13;     // eax
 	char* v14;              // esi
-	const wchar_t* v15;     // eax
+	const wchar2_t* v15;     // eax
 	char* v16;              // eax
 	char v17;               // dl
 	uint32_t* v18;          // esi
 	uint32_t* v19;          // eax
 	uint32_t* v20;          // eax
 	char* v21;              // esi
-	wchar_t* v22;           // esi
+	wchar2_t* v22;           // esi
 	int v23;                // esi
 	int v24;                // esi
 	char* v25;              // eax
 	int* v26;               // eax
 	int* v27;               // ebp
 	int v28;                // eax
-	wchar_t* v29;           // eax
-	wchar_t* v30;           // edi
+	wchar2_t* v29;           // eax
+	wchar2_t* v30;           // edi
 	char* v31;              // eax
 	char* v32;              // esi
 	int* v33;               // eax
 	int* v34;               // edi
 	int v35;                // eax
-	wchar_t* v36;           // eax
+	wchar2_t* v36;           // eax
 	char* v37;              // eax
 	char* v38;              // esi
 	char* v39;              // ebp
-	const wchar_t* v40;     // eax
-	wchar_t* v41;           // esi
+	const wchar2_t* v40;     // eax
+	wchar2_t* v41;           // esi
 	int v42;                // ebx
 	int v43;                // ebp
 	uint32_t* v44;          // esi
-	const wchar_t* v45;     // eax
-	wchar_t* v46;           // edi
+	const wchar2_t* v45;     // eax
+	wchar2_t* v46;           // edi
 	int v47;                // ebx
-	wchar_t WideCharStr[8]; // [esp+10h] [ebp-10h]
+	wchar2_t WideCharStr[8]; // [esp+10h] [ebp-10h]
 	char* v49;              // [esp+28h] [ebp+8h]
 	char* v50;              // [esp+30h] [ebp+10h]
 	char* v51;              // [esp+30h] [ebp+10h]
@@ -2695,14 +2695,14 @@ int nox_xxx_windowAccessProc_454BA0(int a1, int a2, int* a3, int a4) {
 		if (!v44 || (unsigned short)a3 == 1) {
 			goto LABEL_101;
 		}
-		v45 = (const wchar_t*)nox_window_call_field_94((int)v44, 16413, 0, 0);
-		v46 = (wchar_t*)v45;
+		v45 = (const wchar2_t*)nox_window_call_field_94((int)v44, 16413, 0, 0);
+		v46 = (wchar2_t*)v45;
 		if (!v45 || !*v45 || (v47 = nox_wcstol(v45, 0, 10), v47 < 0)) {
 			v47 = 0;
 		}
 		switch (v43) {
 		case 10104:
-			nox_wcscpy((wchar_t*)v49 + 39, v46);
+			nox_wcscpy((wchar2_t*)v49 + 39, v46);
 			goto LABEL_101;
 		case 10126:
 			if (v47 > 14) {
@@ -2784,7 +2784,7 @@ int nox_xxx_windowAccessProc_454BA0(int a1, int a2, int* a3, int a4) {
 			*v21 ^= 0x20u;
 			return 0;
 		case 10112:
-			v22 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045540, 16413, 0, 0);
+			v22 = (wchar2_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045540, 16413, 0, 0);
 			if (wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_1045528)) {
 				sub_4168A0(v22);
 			} else {
@@ -2815,7 +2815,7 @@ int nox_xxx_windowAccessProc_454BA0(int a1, int a2, int* a3, int a4) {
 				return 0;
 			}
 			nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045576, 1);
-			v9 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045576, 16413, 0, 0);
+			v9 = (const wchar2_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045576, 16413, 0, 0);
 			if (!*v9) {
 				goto LABEL_101;
 			}
@@ -2829,7 +2829,7 @@ int nox_xxx_windowAccessProc_454BA0(int a1, int a2, int* a3, int a4) {
 				return 0;
 			}
 			nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045580, 1);
-			v11 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045580, 16413, 0, 0);
+			v11 = (const wchar2_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045580, 16413, 0, 0);
 			if (!*v11) {
 				goto LABEL_101;
 			}
@@ -2843,7 +2843,7 @@ int nox_xxx_windowAccessProc_454BA0(int a1, int a2, int* a3, int a4) {
 				return 0;
 			}
 			nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045584, 1);
-			v13 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045584, 16413, 0, 0);
+			v13 = (const wchar2_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045584, 16413, 0, 0);
 			if (!*v13) {
 				goto LABEL_101;
 			}
@@ -2857,7 +2857,7 @@ int nox_xxx_windowAccessProc_454BA0(int a1, int a2, int* a3, int a4) {
 				return 0;
 			}
 			nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045588, 1);
-			v15 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045588, 16413, 0, 0);
+			v15 = (const wchar2_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045588, 16413, 0, 0);
 			if (!*v15) {
 				goto LABEL_101;
 			}
@@ -2872,7 +2872,7 @@ int nox_xxx_windowAccessProc_454BA0(int a1, int a2, int* a3, int a4) {
 				goto LABEL_101;
 			}
 			do {
-				v36 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045536, 16406, v35, 0);
+				v36 = (wchar2_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045536, 16406, v35, 0);
 				v37 = nox_xxx_playerByName_4170D0(v36);
 				v38 = v37;
 				if (v37 && v37[2064] != 31) {
@@ -2894,7 +2894,7 @@ int nox_xxx_windowAccessProc_454BA0(int a1, int a2, int* a3, int a4) {
 				goto LABEL_101;
 			}
 			do {
-				v29 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045536, 16406, v28, 0);
+				v29 = (wchar2_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045536, 16406, v28, 0);
 				v30 = v29;
 				v31 = nox_xxx_playerByName_4170D0(v29);
 				v32 = v31;
@@ -2949,14 +2949,14 @@ int nox_xxx_windowAccessProc_454BA0(int a1, int a2, int* a3, int a4) {
 	case 16415:
 		v39 = sub_416630();
 		v50 = sub_416640();
-		v40 = (const wchar_t*)nox_window_call_field_94((int)a3, 16413, 0, 0);
-		v41 = (wchar_t*)v40;
+		v40 = (const wchar2_t*)nox_window_call_field_94((int)a3, 16413, 0, 0);
+		v41 = (wchar2_t*)v40;
 		if (!v40 || !*v40 || (v42 = nox_wcstol(v40, 0, 10), v42 < 0)) {
 			v42 = 0;
 		}
 		switch (nox_xxx_wndGetID_46B0A0(a3)) {
 		case 10104:
-			nox_wcscpy((wchar_t*)v50 + 39, v41);
+			nox_wcscpy((wchar2_t*)v50 + 39, v41);
 			goto LABEL_101;
 		case 10126:
 			if (v42 > 14) {
@@ -3021,7 +3021,7 @@ int sub_455770() {
 	int* v0;     // eax
 	int* v1;     // esi
 	int v2;      // eax
-	wchar_t* v3; // eax
+	wchar2_t* v3; // eax
 	char* v4;    // eax
 
 	v0 = (int*)nox_window_call_field_94(*(int*)&dword_5d4594_1045536, 16404, 0, 0);
@@ -3031,7 +3031,7 @@ int sub_455770() {
 		return 0;
 	}
 	while (1) {
-		v3 = (wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045536, 16406, v2, 0);
+		v3 = (wchar2_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045536, 16406, v2, 0);
 		v4 = nox_xxx_playerByName_4170D0(v3);
 		if (v4) {
 			if (v4[2064] != 31) {
@@ -3068,8 +3068,8 @@ int* sub_455800() {
 	int v1;                  // eax
 	int* i;                  // esi
 	int* j;                  // esi
-	wchar_t WideCharStr[10]; // [esp+4h] [ebp-48h]
-	wchar_t v5[26];          // [esp+18h] [ebp-34h]
+	wchar2_t WideCharStr[10]; // [esp+4h] [ebp-48h]
+	wchar2_t v5[26];          // [esp+18h] [ebp-34h]
 
 	result = *(int**)&dword_5d4594_1045516;
 	if (dword_5d4594_1045516) {
@@ -3099,7 +3099,7 @@ int* sub_455800() {
 }
 
 //----- (00455920) --------------------------------------------------------
-int sub_455920(wchar_t* a1) {
+int sub_455920(wchar2_t* a1) {
 	int result;   // eax
 	uint32_t* v2; // eax
 
@@ -3112,7 +3112,7 @@ int sub_455920(wchar_t* a1) {
 }
 
 //----- (00455950) --------------------------------------------------------
-void sub_455950(wchar_t* a1) {
+void sub_455950(wchar2_t* a1) {
 	int v1; // eax
 
 	if (dword_5d4594_1045516) {
@@ -3127,10 +3127,10 @@ void sub_455950(wchar_t* a1) {
 }
 
 //----- (004559B0) --------------------------------------------------------
-int sub_4559B0(wchar_t* a1) {
+int sub_4559B0(wchar2_t* a1) {
 	int v1;            // esi
 	int v2;            // ebx
-	const wchar_t* v3; // eax
+	const wchar2_t* v3; // eax
 
 	v1 = 0;
 	v2 = *(uint32_t*)(dword_5d4594_1045536 + 32);
@@ -3138,7 +3138,7 @@ int sub_4559B0(wchar_t* a1) {
 		return -1;
 	}
 	while (1) {
-		v3 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045536, 16406, v1, 0);
+		v3 = (const wchar2_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1045536, 16406, v1, 0);
 		if (!nox_wcscmp(v3, a1)) {
 			break;
 		}
@@ -3412,11 +3412,11 @@ int sub_456500() {
 	nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045688, 0);
 	nox_xxx_wnd_46ABB0(*(int*)&dword_5d4594_1045692, 0);
 	for (i = nox_server_teamFirst_418B10(); i; i = nox_server_teamNext_418B60((int)i)) {
-		sub_457230((wchar_t*)i);
+		sub_457230((wchar2_t*)i);
 	}
 	for (j = nox_common_playerInfoGetFirst_416EA0(); j; j = nox_common_playerInfoGetNext_416EE0((int)j)) {
 		if (j[2064] != 31 || !nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-			sub_457140(*((uint32_t*)j + 515), (wchar_t*)j + 2352);
+			sub_457140(*((uint32_t*)j + 515), (wchar2_t*)j + 2352);
 			v4 = nox_xxx_objGetTeamByNetCode_418C80(*((uint32_t*)j + 515));
 			if (nox_xxx_servObjectHasTeam_419130((int)v4)) {
 				sub_4571A0(*((uint32_t*)j + 515), *((unsigned char*)v4 + 4));
@@ -3525,14 +3525,14 @@ char sub_456BB0(int a1) {
 }
 
 //----- (00456D00) --------------------------------------------------------
-wchar_t* sub_456D00(int a1, wchar_t* a2) {
+wchar2_t* sub_456D00(int a1, wchar2_t* a2) {
 	uint32_t* v2;      // eax
-	const wchar_t* v3; // eax
-	wchar_t* v4;       // eax
-	wchar_t v6[56];    // [esp+0h] [ebp-70h]
+	const wchar2_t* v3; // eax
+	wchar2_t* v4;       // eax
+	wchar2_t v6[56];    // [esp+0h] [ebp-70h]
 
 	v2 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045684, 10502);
-	v3 = (const wchar_t*)nox_window_call_field_94((int)v2, 16406, a1, 0);
+	v3 = (const wchar2_t*)nox_window_call_field_94((int)v2, 16406, a1, 0);
 	nox_wcscpy(v6, v3);
 	v4 = nox_wcstok(v6, L"\t\n\r");
 	return nox_wcscpy(a2, v4);
@@ -3615,7 +3615,7 @@ int sub_456E40(int a1, int a2) {
 }
 
 //----- (00456EA0) --------------------------------------------------------
-int sub_456EA0(wchar_t* a1) {
+int sub_456EA0(wchar2_t* a1) {
 	int result;   // eax
 	uint32_t* v2; // edi
 	int v3;       // eax
@@ -3637,11 +3637,11 @@ int sub_456EA0(wchar_t* a1) {
 }
 
 //----- (00456F10) --------------------------------------------------------
-int sub_456F10(wchar_t* a1, int a2) {
+int sub_456F10(wchar2_t* a1, int a2) {
 	int* v2;        // esi
 	int v3;         // ebx
-	wchar_t* v4;    // eax
-	wchar_t v6[56]; // [esp+Ch] [ebp-70h]
+	wchar2_t* v4;    // eax
+	wchar2_t v6[56]; // [esp+Ch] [ebp-70h]
 
 	v2 = nox_common_list_getFirstSafe_425890(getMemIntPtr(0x5D4594, 1045668));
 	v3 = 0;
@@ -3649,7 +3649,7 @@ int sub_456F10(wchar_t* a1, int a2) {
 		return -1;
 	}
 	while (1) {
-		nox_wcscpy(v6, (const wchar_t*)v2 + 6);
+		nox_wcscpy(v6, (const wchar2_t*)v2 + 6);
 		v4 = nox_wcstok(v6, L" \t\n\r");
 		if (!_nox_wcsicmp(v4, a1)) {
 			break;
@@ -3695,14 +3695,14 @@ int sub_456FA0() {
 unsigned char sub_457120(int a1) { return getMemByte(0x587000, 128968 + 8 * (*(unsigned char*)(a1 + 56) % 10)); }
 
 //----- (00457140) --------------------------------------------------------
-int sub_457140(int a1, wchar_t* a2) {
+int sub_457140(int a1, wchar2_t* a2) {
 	int result;   // eax
-	wchar_t* v3;  // esi
+	wchar2_t* v3;  // esi
 	uint32_t* v4; // eax
 
 	result = dword_5d4594_1045684;
 	if (dword_5d4594_1045684) {
-		v3 = (wchar_t*)calloc(1, 0x48u);
+		v3 = (wchar2_t*)calloc(1, 0x48u);
 		sub_425770(v3);
 		nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 1045652), v3);
 		nox_wcscpy(v3 + 6, a2);
@@ -3759,7 +3759,7 @@ void sub_4573B0() { *getMemU32Ptr(0x5D4594, 1045696) = 0; }
 
 //----- (00457460) --------------------------------------------------------
 int sub_457460(int a1) {
-	wchar_t WideCharStr[16]; // [esp+4h] [ebp-20h]
+	wchar2_t WideCharStr[16]; // [esp+4h] [ebp-20h]
 
 	nox_itow(*(unsigned short*)(a1 + 54), WideCharStr, 10);
 	nox_window_call_field_94(*(int*)&dword_5d4594_1046516, 16414, (int)WideCharStr, 0);
@@ -3796,8 +3796,8 @@ int sub_457B60(int a1) {
 	uint32_t* v15;           // edi
 	int v16;                 // eax
 	unsigned int v17;        // ecx
-	wchar_t WideCharStr[16]; // [esp+0h] [ebp-E8h]
-	wchar_t v20[100];        // [esp+20h] [ebp-C8h]
+	wchar2_t WideCharStr[16]; // [esp+0h] [ebp-E8h]
+	wchar2_t v20[100];        // [esp+20h] [ebp-C8h]
 
 	v1 = nox_xxx_serverOptionsGetServername_40A4C0();
 	nox_swprintf(v20, L"%S", v1);
@@ -3949,7 +3949,7 @@ char sub_459150() {
 	int i;             // edi
 	char* v2;          // esi
 	int v3;            // ebx
-	wchar_t* v4;       // eax
+	wchar2_t* v4;       // eax
 	char* v5;          // eax
 	const char* v6;    // edi
 	char* v7;          // eax
@@ -3971,13 +3971,13 @@ char sub_459150() {
 			v2 = nox_xxx_teamCreate_4186D0(0);
 			v3 = (i != 0) + 1;
 			if (sub_40A740()) {
-				sub_418800((wchar_t*)v2, (wchar_t*)getMemAt(0x5D4594, 1046564), 0);
+				sub_418800((wchar2_t*)v2, (wchar2_t*)getMemAt(0x5D4594, 1046564), 0);
 			} else {
 				v4 = nox_server_teamTitle_418C20(v3);
-				sub_418800((wchar_t*)v2, v4, 1);
+				sub_418800((wchar2_t*)v2, v4, 1);
 			}
 			v2[56] = v3;
-			sub_4184D0((wchar_t*)v2);
+			sub_4184D0((wchar2_t*)v2);
 		}
 		nox_xxx_SetGameplayFlag_417D50(4);
 	}
@@ -4155,14 +4155,14 @@ int sub_459700() {
 	char* v0;          // esi
 	int v1;            // eax
 	int v2;            // edi
-	const wchar_t* v3; // eax
-	wchar_t v5[256] = {0};   // [esp+8h] [ebp-200h]
+	const wchar2_t* v3; // eax
+	wchar2_t v5[256] = {0};   // [esp+8h] [ebp-200h]
 
 	sub_416580();
 	v0 = sub_4165B0();
 	v1 = nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16404, 0, 0);
 	v2 = v1;
-	v3 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16406, v1, 0);
+	v3 = (const wchar2_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1046496, 16406, v1, 0);
 	if (v3) {
 		nox_wcsncpy(v5, v3, 255);
 		v5[255] = 0;
@@ -4213,7 +4213,7 @@ char* sub_459870() { return (char*)getMemAt(0x5D4594, 1045956); }
 //----- (00459A40) --------------------------------------------------------
 int sub_459A40(char* a1) {
 	char v2[100];    // [esp+0h] [ebp-12Ch]
-	wchar_t v3[100]; // [esp+64h] [ebp-C8h]
+	wchar2_t v3[100]; // [esp+64h] [ebp-C8h]
 
 	strncpy(v2, a1, 0xFu);
 	v2[15] = 0;
@@ -4225,8 +4225,8 @@ int sub_459A40(char* a1) {
 char* sub_459AA0(void* a1p) {
 	int a1 = a1p;
 	int v1;            // eax
-	const wchar_t* v2; // eax
-	const wchar_t* v3; // eax
+	const wchar2_t* v2; // eax
+	const wchar2_t* v3; // eax
 	char* result;      // eax
 	int v5;            // eax
 	const char* v6;    // edi
@@ -4239,11 +4239,11 @@ char* sub_459AA0(void* a1p) {
 	memcpy((void*)(a1 + 24), sub_453F90(), 0x14u);
 	*(uint32_t*)(a1 + 44) = *(uint32_t*)sub_453600();
 	*(uint32_t*)(a1 + 48) = sub_453610();
-	v2 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1046516, 16413, 0, 0);
+	v2 = (const wchar2_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1046516, 16413, 0, 0);
 	if (*v2) {
 		*(uint16_t*)(a1 + 54) = nox_wcstol(v2, 0, 10);
 	}
-	v3 = (const wchar_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1046520, 16413, 0, 0);
+	v3 = (const wchar2_t*)nox_window_call_field_94(*(int*)&dword_5d4594_1046520, 16413, 0, 0);
 	if (*v3) {
 		*(uint8_t*)(a1 + 56) = nox_wcstol(v3, 0, 10);
 	}
@@ -4492,23 +4492,23 @@ int nox_xxx_spriteSetFrameMB_45AB80(int a1, int a2) {
 //----- (0045ABC0) --------------------------------------------------------
 int nox_xxx_guiSpellSortFn_45ABC0(const void* a1, const void* a2) {
 	int v2;            // edi
-	const wchar_t* v3; // esi
-	const wchar_t* v4; // eax
+	const wchar2_t* v3; // esi
+	const wchar2_t* v4; // eax
 	int result;        // eax
 	int v6;            // [esp-4h] [ebp-Ch]
 
 	v2 = *(uint32_t*)a2;
 	if (dword_5d4594_1046868 == 1) {
-		v3 = (const wchar_t*)nox_xxx_guiCreatureGetName_427240(*(uint32_t*)a1);
-		v4 = (const wchar_t*)nox_xxx_guiCreatureGetName_427240(v2);
+		v3 = (const wchar2_t*)nox_xxx_guiCreatureGetName_427240(*(uint32_t*)a1);
+		v4 = (const wchar2_t*)nox_xxx_guiCreatureGetName_427240(v2);
 	} else {
 		v6 = *(uint32_t*)a1;
 		if (*(uint8_t*)(dword_5d4594_1047516 + 2251)) {
-			v3 = (const wchar_t*)nox_xxx_spellTitle_424930(v6);
-			v4 = (const wchar_t*)nox_xxx_spellTitle_424930(v2);
+			v3 = (const wchar2_t*)nox_xxx_spellTitle_424930(v6);
+			v4 = (const wchar2_t*)nox_xxx_spellTitle_424930(v2);
 		} else {
-			v3 = (const wchar_t*)nox_xxx_abilityGetName_0_425260(v6);
-			v4 = (const wchar_t*)nox_xxx_abilityGetName_0_425260(v2);
+			v3 = (const wchar2_t*)nox_xxx_abilityGetName_0_425260(v6);
+			v4 = (const wchar2_t*)nox_xxx_abilityGetName_0_425260(v2);
 		}
 	}
 	if (v3 && v4) {
@@ -5839,12 +5839,12 @@ void* nox_xxx_book_45DBE0(void* a1, int a2, int a3) {
 
 //----- (0045DC40) --------------------------------------------------------
 void nox_xxx_spellKeyPackSetSpell_45DC40(int a1, int a2, int a3) {
-	wchar_t* v3; // eax
+	wchar2_t* v3; // eax
 
 	*(uint32_t*)(*(uint32_t*)(a1 + 204) + 8 * a3) = a2;
 	if (*(uint32_t*)(a1 + 4 * a3 + 212)) {
-		v3 = (wchar_t*)nox_xxx_spellTitle_424930(a2);
-		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(*(uint32_t*)(a1 + 4 * a3 + 212) + 36), v3);
+		v3 = (wchar2_t*)nox_xxx_spellTitle_424930(a2);
+		nox_xxx_wndWddSetTooltip_46B000((wchar2_t*)(*(uint32_t*)(a1 + 4 * a3 + 212) + 36), v3);
 	}
 	if (*getMemU32Ptr(0x8531A0, 2576)) {
 		nox_xxx_clientPlaySoundSpecial_452D80(794, 100);
@@ -6188,8 +6188,8 @@ void nox_xxx_clientSwapQuickbarKeys_45F300(int a1, int a2, int a3) {
 	int v4;       // ecx
 	int v5;       // edx
 	uint32_t* v6; // eax
-	wchar_t* v7;  // eax
-	wchar_t* v8;  // eax
+	wchar2_t* v7;  // eax
+	wchar2_t* v8;  // eax
 
 	v3 = *(uint32_t*)(a1 + 204);
 	v4 = *(uint32_t*)(v3 + 8 * a2);
@@ -6199,17 +6199,17 @@ void nox_xxx_clientSwapQuickbarKeys_45F300(int a1, int a2, int a3) {
 	v6 = (uint32_t*)(*(uint32_t*)(a1 + 204) + 8 * a3);
 	*v6 = v4;
 	v6[1] = v5;
-	v7 = (wchar_t*)nox_xxx_spellTitle_424930(*(uint32_t*)(*(uint32_t*)(a1 + 204) + 8 * a2));
-	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(*(uint32_t*)(a1 + 4 * a2 + 212) + 36), v7);
-	v8 = (wchar_t*)nox_xxx_spellTitle_424930(*(uint32_t*)(8 * a3 + *(uint32_t*)(a1 + 204)));
-	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(*(uint32_t*)(a1 + 4 * a3 + 212) + 36), v8);
+	v7 = (wchar2_t*)nox_xxx_spellTitle_424930(*(uint32_t*)(*(uint32_t*)(a1 + 204) + 8 * a2));
+	nox_xxx_wndWddSetTooltip_46B000((wchar2_t*)(*(uint32_t*)(a1 + 4 * a2 + 212) + 36), v7);
+	v8 = (wchar2_t*)nox_xxx_spellTitle_424930(*(uint32_t*)(8 * a3 + *(uint32_t*)(a1 + 204)));
+	nox_xxx_wndWddSetTooltip_46B000((wchar2_t*)(*(uint32_t*)(a1 + 4 * a3 + 212) + 36), v8);
 }
 
 //----- (0045F390) --------------------------------------------------------
 void sub_45F390(int a1, int a2, int a3, int a4) {
 	int v4;      // edi
 	int v5;      // ebx
-	wchar_t* v6; // eax
+	wchar2_t* v6; // eax
 
 	v4 = *(uint32_t*)(a2 + 8 * a4);
 	v5 = *(uint32_t*)(a2 + 8 * a4 + 4);
@@ -6217,9 +6217,9 @@ void sub_45F390(int a1, int a2, int a3, int a4) {
 	*(uint32_t*)(a2 + 8 * a4 + 4) = *(uint32_t*)(a1 + 8 * a3 + 4);
 	*(uint32_t*)(a1 + 8 * a3) = v4;
 	*(uint32_t*)(a1 + 8 * a3 + 4) = v5;
-	v6 = (wchar_t*)nox_xxx_spellTitle_424930(*(uint32_t*)(a2 + 8 * a4));
+	v6 = (wchar2_t*)nox_xxx_spellTitle_424930(*(uint32_t*)(a2 + 8 * a4));
 	nox_xxx_wndWddSetTooltip_46B000(
-		(wchar_t*)(*(uint32_t*)((uint32_t)nox_xxx_aClosewoodengat_587000_133480 + 4 * a4 + 212) + 36), v6);
+		(wchar2_t*)(*(uint32_t*)((uint32_t)nox_xxx_aClosewoodengat_587000_133480 + 4 * a4 + 212) + 36), v6);
 }
 
 //----- (0045F450) --------------------------------------------------------

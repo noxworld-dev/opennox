@@ -13,7 +13,7 @@ extern int nox_win_height;
 //----- (0048C9F0) --------------------------------------------------------
 int sub_48C9F0(int* a1) {
 	int* v1;     // esi
-	wchar_t* v2; // eax
+	wchar2_t* v2; // eax
 	int v4;      // [esp+4h] [ebp-4h]
 
 	v1 = a1;
@@ -22,7 +22,7 @@ int sub_48C9F0(int* a1) {
 	a1 = (int*)((char*)a1 + v1[25]);
 	if (*getMemU32Ptr(0x8531A0, 2576)) {
 		v2 = nox_strman_loadString_40F1D0("observermode", 0, "C:\\NoxPost\\src\\client\\Gui\\guiobs.c", 41);
-		nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1193712 + 36), v2);
+		nox_xxx_wndWddSetTooltip_46B000((wchar2_t*)(dword_5d4594_1193712 + 36), v2);
 		nox_client_drawImageAt_47D2C0(v1[15], v4, (int)a1);
 	}
 	return 1;

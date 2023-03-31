@@ -34,7 +34,7 @@ void nox_xxx_soloMonsterKillReward_4EE500_obj_health(int a1) {
 	int v4;      // edi
 	int v5;      // eax
 	double v6;   // st7
-	wchar_t* v7; // eax
+	wchar2_t* v7; // eax
 
 	v1 = a1;
 	if (!a1) {

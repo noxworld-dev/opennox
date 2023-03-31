@@ -12,17 +12,17 @@ extern uint32_t dword_5d4594_1045464;
 //----- (004530C0) --------------------------------------------------------
 int nox_xxx_guiObjlistLoad_4530C0(int a1, int a2) {
 	int v2;          // edi
-	wchar_t* v3;     // eax
+	wchar2_t* v3;     // eax
 	int v4;          // esi
 	int v5;          // ebx
 	int v6;          // eax
-	wchar_t* v7;     // eax
+	wchar2_t* v7;     // eax
 	int v8;          // esi
 	int v9;          // ebx
 	int v10;         // eax
 	uint32_t* v11;   // eax
 	uint32_t* v12;   // eax
-	wchar_t v14[66]; // [esp+Ch] [ebp-84h]
+	wchar2_t v14[66]; // [esp+Ch] [ebp-84h]
 
 	v2 = 0;
 	dword_5d4594_1045468 = nox_new_window_from_file("objlst.wnd", sub_4533D0);

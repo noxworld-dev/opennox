@@ -30,7 +30,7 @@ var (
 func sub_44A4A0() int { return Sub_44A4A0() }
 
 //export nox_xxx_dialogMsgBoxCreate_449A10
-func nox_xxx_dialogMsgBoxCreate_449A10(win *nox_window, title, text *C.wchar_t, a4 int, a5, a6 unsafe.Pointer) unsafe.Pointer {
+func nox_xxx_dialogMsgBoxCreate_449A10(win *nox_window, title, text *wchar2_t, a4 int, a5, a6 unsafe.Pointer) unsafe.Pointer {
 	var fnc5, fnc6 func()
 	if a5 != nil {
 		fnc5 = func() {
@@ -47,10 +47,10 @@ func nox_xxx_dialogMsgBoxCreate_449A10(win *nox_window, title, text *C.wchar_t, 
 }
 
 //export sub_449E00
-func sub_449E00(a1 *wchar_t) int { return Sub_449E00(GoWString(a1)) }
+func sub_449E00(a1 *wchar2_t) int { return Sub_449E00(GoWString(a1)) }
 
 //export sub_449E30
-func sub_449E30(a1 *wchar_t) int { return Sub_449E30(GoWString(a1)) }
+func sub_449E30(a1 *wchar2_t) int { return Sub_449E30(GoWString(a1)) }
 
 //export sub_449E60
 func sub_449E60(a1 C.char) int { return Sub_449E60(int8(a1)) }

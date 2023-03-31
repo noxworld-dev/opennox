@@ -10,7 +10,7 @@ int sub_530A30_spell_execdur(int a1) {
 	int v1;      // esi
 	int v2;      // ebx
 	int v3;      // eax
-	wchar_t* v4; // eax
+	wchar2_t* v4; // eax
 	int result;  // eax
 	int v6;      // eax
 	float v7;    // ecx

@@ -84,7 +84,7 @@ uint32_t* nox_xxx_createPlayerShopSession_50E8F0(int a1, int a2) {
 int sub_50F0F0(int a1, int a2) {
 	int v2;      // ebx
 	int v3;      // ebp
-	wchar_t* v4; // eax
+	wchar2_t* v4; // eax
 	char v6[86]; // [esp+10h] [ebp-58h]
 
 	*(uint16_t*)v6 = 3529;
@@ -96,7 +96,7 @@ int sub_50F0F0(int a1, int a2) {
 		v3 = *(uint32_t*)(a2 + 12);
 	}
 	v4 = sub_4E39F0_obj_db((const char**)v2);
-	nox_wcsncpy((wchar_t*)&v6[4], v4, 0x18u);
+	nox_wcsncpy((wchar2_t*)&v6[4], v4, 0x18u);
 	*(uint16_t*)&v6[52] = 0;
 	strcpy(&v6[54], (const char*)(*(uint32_t*)(v2 + 692) + 1684));
 	*(uint16_t*)&v6[2] = *(uint16_t*)(v2 + 4);
@@ -109,7 +109,7 @@ int sub_50F1A0(int a1, int a2) {
 	int v2;      // eax
 	int v3;      // esi
 	int v4;      // edx
-	wchar_t* v6; // [esp-8h] [ebp-40h]
+	wchar2_t* v6; // [esp-8h] [ebp-40h]
 	char v8[52]; // [esp+4h] [ebp-34h]
 
 	*(uint16_t*)v8 = 3273;
@@ -117,19 +117,19 @@ int sub_50F1A0(int a1, int a2) {
 	v3 = *(uint32_t*)(a1 + 748);
 	if (a1 != v2) {
 		if (*(uint8_t*)(v2 + 8) & 4) {
-			nox_wcscpy((wchar_t*)&v8[2], (const wchar_t*)(*(uint32_t*)(*(uint32_t*)(v2 + 748) + 276) + 4704));
+			nox_wcscpy((wchar2_t*)&v8[2], (const wchar2_t*)(*(uint32_t*)(*(uint32_t*)(v2 + 748) + 276) + 4704));
 			return nox_xxx_netSendPacket1_4E5390(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064), (int)v8, 52, 0, 1);
 		}
 		v6 = sub_4E39F0_obj_db(*(const char***)(a2 + 12));
 	} else {
 		v4 = *(uint32_t*)(a2 + 12);
 		if (*(uint8_t*)(v4 + 8) & 4) {
-			nox_wcscpy((wchar_t*)&v8[2], (const wchar_t*)(*(uint32_t*)(*(uint32_t*)(v4 + 748) + 276) + 4704));
+			nox_wcscpy((wchar2_t*)&v8[2], (const wchar2_t*)(*(uint32_t*)(*(uint32_t*)(v4 + 748) + 276) + 4704));
 			return nox_xxx_netSendPacket1_4E5390(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064), (int)v8, 52, 0, 1);
 		}
 		v6 = sub_4E39F0_obj_db((const char**)v4);
 	}
-	nox_wcsncpy((wchar_t*)&v8[2], v6, 0x18u);
+	nox_wcsncpy((wchar2_t*)&v8[2], v6, 0x18u);
 	*(uint16_t*)&v8[50] = 0;
 	return nox_xxx_netSendPacket1_4E5390(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064), (int)v8, 52, 0, 1);
 }
@@ -335,16 +335,16 @@ int sub_5105D0(int a1) {
 uint32_t* nox_xxx_servShopStart_50EF10_trade(int a1, int a2) {
 	int v2;           // edx
 	int v3;           // eax
-	wchar_t* v4;      // eax
+	wchar2_t* v4;      // eax
 	int v6;           // ecx
 	int v7;           // eax
-	wchar_t* v8;      // eax
+	wchar2_t* v8;      // eax
 	uint32_t* v9;     // esi
 	char v10;         // al
 	int v11;          // eax
 	int v12;          // eax
 	int v13;          // [esp-4h] [ebp-114h]
-	wchar_t v14[128]; // [esp+10h] [ebp-100h]
+	wchar2_t v14[128]; // [esp+10h] [ebp-100h]
 
 	v2 = *(uint32_t*)(a1 + 8) & 4;
 	if (v2) {
@@ -435,8 +435,8 @@ int nox_xxx_tradeP2PAddOffer2_50F820_trade(int a1, int a2, float a3) {
 	int result;  // eax
 	int* v5;     // eax
 	int* v6;     // edi
-	wchar_t* v7; // eax
-	wchar_t* v8; // eax
+	wchar2_t* v7; // eax
+	wchar2_t* v8; // eax
 	int v9;      // eax
 	int v10;     // eax
 	int v11;     // eax
@@ -530,7 +530,7 @@ void sub_5100C0_trade(int a1, uint32_t* a2, int a3) {
 	unsigned int v7;                       // eax
 	unsigned int v8;                       // ebp
 	int v9;                                // ebx
-	wchar_t* v10;                          // eax
+	wchar2_t* v10;                          // eax
 	int v11;                               // eax
 	int v12;                               // ebx
 	uint32_t* v13;                         // eax
@@ -628,7 +628,7 @@ float* sub_510640_trade(int a1, int a2, int a3, float* a4) {
 	int v11;                               // edi
 	uint32_t* v12;                         // eax
 	void (*v13)(int, uint32_t*, int, int); // ecx
-	wchar_t* v14;                          // eax
+	wchar2_t* v14;                          // eax
 	int v15;                               // [esp+0h] [ebp-1Ch]
 	float v16;                             // [esp+0h] [ebp-1Ch]
 	float v17;                             // [esp+0h] [ebp-1Ch]
@@ -730,8 +730,8 @@ uint32_t* sub_5109C0_trade(int* a1, int a2, uint32_t* a3) {
 	int v3;           // ebx
 	int v4;           // esi
 	uint32_t* result; // eax
-	wchar_t* v6;      // eax
-	wchar_t* v7;      // eax
+	wchar2_t* v6;      // eax
+	wchar2_t* v7;      // eax
 	char v8[8];       // [esp+Ch] [ebp-8h]
 
 	v3 = a1[187];
@@ -773,8 +773,8 @@ uint32_t* sub_510BE0_trade(int* a1, int a2, uint32_t* a3) {
 	uint32_t* result; // eax
 	int v4;           // ebx
 	int v5;           // esi
-	wchar_t* v6;      // eax
-	wchar_t* v7;      // eax
+	wchar2_t* v6;      // eax
+	wchar2_t* v7;      // eax
 	int v8;           // eax
 
 	nox_xxx_playerGetGold_4FA6B0((int)a1);

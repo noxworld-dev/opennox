@@ -24,7 +24,7 @@
 
 unsigned int gameex_flags = 0x1E;
 
-int nox_CharToOemW(const wchar_t* pSrc, char* pDst) { return nox_sprintf(pDst, "%S", pSrc); }
+int nox_CharToOemW(const wchar2_t* pSrc, char* pDst) { return nox_sprintf(pDst, "%S", pSrc); }
 
 //----- (10001C20) --------------------------------------------------------
 char getPlayerClassFromObjPtr(int a1) { return *(uint8_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 2251); }
@@ -41,7 +41,7 @@ char playerInfoStructParser_0(void* a1p) {
 	if (!v1)
 		return 0;
 	while (1) {
-		nox_CharToOemW((const wchar_t*)v1 + 2352, &pDst);
+		nox_CharToOemW((const wchar2_t*)v1 + 2352, &pDst);
 		if (!strcmp(&pDst, a1 + 2))
 			break;
 		v1 = nox_common_playerInfoGetNext_416EE0((int)v1);
@@ -68,7 +68,7 @@ char playerInfoStructParser_1(void* a1p, int* a3) {
 	if (!v3)
 		return 0;
 	while (1) {
-		nox_CharToOemW((const wchar_t*)(a2 + 4704), &pDst);
+		nox_CharToOemW((const wchar2_t*)(a2 + 4704), &pDst);
 		if (!strcmp(&pDst, (const char*)(a1 + 2)))
 			break;
 		v4 = nox_common_playerInfoGetNext_416EE0(a2);

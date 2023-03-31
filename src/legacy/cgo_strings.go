@@ -3,6 +3,7 @@ package legacy
 /*
 #include <stddef.h>
 #include <stdlib.h>
+#include "nox_wchar.h"
 */
 import "C"
 import (
@@ -13,7 +14,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-type wchar_t = C.wchar_t
+type wchar2_t = C.wchar2_t
 
 func StrFree[T comparable](s *T) {
 	C.free(unsafe.Pointer(s))
@@ -76,7 +77,7 @@ func WStrLenBytes(s []byte) int {
 	return n
 }
 
-func WStrCopy(p *C.wchar_t, max int, src string) int {
+func WStrCopy(p *wchar2_t, max int, src string) int {
 	dst := unsafe.Slice((*uint16)(unsafe.Pointer(p)), max)
 	val := utf16.Encode([]rune(src))
 	n := copy(dst, val)
@@ -139,10 +140,10 @@ func CBytes(s []byte) unsafe.Pointer {
 }
 
 func GoWStringP(s unsafe.Pointer) string {
-	return GoWString((*C.wchar_t)(s))
+	return GoWString((*wchar2_t)(s))
 }
 
-func GoWString(s *C.wchar_t) string {
+func GoWString(s *wchar2_t) string {
 	n := alloc.StrLen(s)
 	if n == 0 {
 		return ""
@@ -151,7 +152,7 @@ func GoWString(s *C.wchar_t) string {
 	return GoWStringSlice(arr)
 }
 
-func GoWStringN(s *C.wchar_t, max int) string {
+func GoWStringN(s *wchar2_t, max int) string {
 	n := alloc.StrLenN(s, max)
 	if n == 0 {
 		return ""
@@ -173,18 +174,18 @@ func GoWStringBytes(arr []byte) string {
 	return GoWStringSlice(warr)
 }
 
-func CWString(s string) (*C.wchar_t, func()) {
+func CWString(s string) (*wchar2_t, func()) {
 	buf := utf16.Encode([]rune(s))
 	ptr, free := alloc.Calloc(len(buf)+1, 2)
 	copy(unsafe.Slice((*uint16)(ptr), len(buf)), buf)
-	return (*C.wchar_t)(ptr), free
+	return (*wchar2_t)(ptr), free
 }
 
 func CWLen(s string) int {
 	return len(utf16.Encode([]rune(s)))
 }
 
-func CWStringCopyTo(dst *C.wchar_t, dstSz int, src string) {
+func CWStringCopyTo(dst *wchar2_t, dstSz int, src string) {
 	str := unsafe.Slice((*uint16)(unsafe.Pointer(dst)), dstSz)
 	if len(src) == 0 {
 		str[0] = 0
@@ -194,12 +195,12 @@ func CWStringCopyTo(dst *C.wchar_t, dstSz int, src string) {
 	str[n] = 0
 }
 
-func GoWStrSlice(arr **C.wchar_t) []string {
+func GoWStrSlice(arr **C.wchar2_t) []string {
 	n := alloc.ZeroTermLen(arr)
 	return GoWStrSliceN(arr, n)
 }
 
-func GoWStrSliceN(arr **C.wchar_t, n int) []string {
+func GoWStrSliceN(arr **C.wchar2_t, n int) []string {
 	if n == 0 {
 		return nil
 	}
@@ -210,8 +211,8 @@ func GoWStrSliceN(arr **C.wchar_t, n int) []string {
 	return out
 }
 
-func CWStrSlice(arr []string) ([]*C.wchar_t, func()) {
-	out, freeList := alloc.Make([]*C.wchar_t{}, len(arr)+1)
+func CWStrSlice(arr []string) ([]*wchar2_t, func()) {
+	out, freeList := alloc.Make([]*wchar2_t{}, len(arr)+1)
 	out = out[:len(out)-1]
 	for i, s := range arr {
 		out[i], _ = CWString(s)

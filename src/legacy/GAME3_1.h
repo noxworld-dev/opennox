@@ -79,7 +79,7 @@ int nox_gui_itemAmount_init_4BFEF0();
 int sub_4C0030(int a1);
 int sub_4C01C0(int a1, int a2, int* a3, int a4);
 void nox_gui_itemAmount_free_4C03E0();
-int nox_gui_itemAmountDialog_4C0430(wchar_t* title, int x, int y, int a4, int a5, const void* a6, int a7, int a8,
+int nox_gui_itemAmountDialog_4C0430(wchar2_t* title, int x, int y, int a4, int a5, const void* a6, int a7, int a8,
 									void* accept, void* cancel);
 int sub_4C0560(int a1, int a2);
 int sub_4C05F0(int a1, int a2);
@@ -90,7 +90,7 @@ char sub_4C0910(int2* a1);
 int sub_4C0C90(int a1, int a2, int* a3, int a4);
 int nox_xxx_clientTrade_4C0CE0();
 int sub_4C0D00();
-int sub_4C1120(int a1, int a2, wchar_t** a3);
+int sub_4C1120(int a1, int a2, wchar2_t** a3);
 char sub_4C11E0(uint32_t* a1);
 int nox_xxx_closeP2PTradeWnd_4C12A0();
 int sub_4C12C0();

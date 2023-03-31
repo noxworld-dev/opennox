@@ -16,6 +16,6 @@ uint32_t* sub_43B630();
 void sub_43B6E0();
 void sub_43B750();
 void nox_gui_wol_newServerLine_43B7C0(nox_gui_server_ent_t* srv);
-wchar_t* nox_gui_wol_gameModeString_43BCB0(short a1);
+wchar2_t* nox_gui_wol_gameModeString_43BCB0(short a1);
 
 #endif // NOX_PORT_CLIENT_SHELL_NOXWORLD

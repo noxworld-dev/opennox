@@ -362,10 +362,10 @@ int nox_server_doPlayersAutoRespawn_40A5F0() {
 }
 
 //----- (0040A610) --------------------------------------------------------
-wchar_t* nox_xxx_sysopSetPass_40A610(wchar_t* a1) { return nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 3540), a1); }
+wchar2_t* nox_xxx_sysopSetPass_40A610(wchar2_t* a1) { return nox_wcscpy((wchar2_t*)getMemAt(0x5D4594, 3540), a1); }
 
 //----- (0040A630) --------------------------------------------------------
-wchar_t* nox_xxx_sysopGetPass_40A630() { return (wchar_t*)getMemAt(0x5D4594, 3540); }
+wchar2_t* nox_xxx_sysopGetPass_40A630() { return (wchar2_t*)getMemAt(0x5D4594, 3540); }
 
 //----- (0040A670) --------------------------------------------------------
 void nox_server_gameSettingsUpdated_40A670() { nox_server_gameSettingsUpdated = 1; }
@@ -3273,9 +3273,9 @@ int sub_415910(char* a1) {
 }
 
 //----- (00415960) --------------------------------------------------------
-int sub_415960(wchar_t* a1) {
+int sub_415960(wchar2_t* a1) {
 	int v1;             // edi
-	const wchar_t** v2; // eax
+	const wchar2_t** v2; // eax
 	unsigned char* v3;  // esi
 	int v4;             // ecx
 
@@ -3283,13 +3283,13 @@ int sub_415960(wchar_t* a1) {
 	if (!*getMemU32Ptr(0x587000, 33392)) {
 		return 0;
 	}
-	v2 = (const wchar_t**)getMemAt(0x587000, 33392);
+	v2 = (const wchar2_t**)getMemAt(0x587000, 33392);
 	v3 = getMemAt(0x587000, 33392);
 	while (_nox_wcsicmp(a1, *v2)) {
 		v4 = *((uint32_t*)v3 + 3);
 		v3 += 12;
 		++v1;
-		v2 = (const wchar_t**)v3;
+		v2 = (const wchar2_t**)v3;
 		if (!v4) {
 			return 0;
 		}
@@ -3463,9 +3463,9 @@ int sub_415D10(int a1) {
 }
 
 //----- (00415DA0) --------------------------------------------------------
-int sub_415DA0(wchar_t* a1) {
+int sub_415DA0(wchar2_t* a1) {
 	int v1;             // edi
-	const wchar_t** v2; // eax
+	const wchar2_t** v2; // eax
 	unsigned char* v3;  // esi
 	int v4;             // ecx
 
@@ -3473,13 +3473,13 @@ int sub_415DA0(wchar_t* a1) {
 	if (!*getMemU32Ptr(0x587000, 35496)) {
 		return 0;
 	}
-	v2 = (const wchar_t**)getMemAt(0x587000, 35496);
+	v2 = (const wchar2_t**)getMemAt(0x587000, 35496);
 	v3 = getMemAt(0x587000, 35496);
 	while (_nox_wcsicmp(a1, *v2)) {
 		v4 = *((uint32_t*)v3 + 3);
 		v3 += 12;
 		++v1;
-		v2 = (const wchar_t**)v3;
+		v2 = (const wchar2_t**)v3;
 		if (!v4) {
 			return 0;
 		}
@@ -3734,12 +3734,12 @@ void sub_416720() {
 }
 
 //----- (00416770) --------------------------------------------------------
-int* sub_416770(int a1, wchar_t* a2, const char* a3) {
+int* sub_416770(int a1, wchar2_t* a2, const char* a3) {
 	uint32_t* v3; // ebp
 
 	v3 = calloc(1, 0x60u);
 	sub_425770(v3);
-	nox_wcscpy((wchar_t*)v3 + 6, a2);
+	nox_wcscpy((wchar2_t*)v3 + 6, a2);
 	if (a3) {
 		strcpy((char*)v3 + 72, a3);
 	} else {
@@ -3809,10 +3809,10 @@ int* sub_416860(int a1) {
 }
 
 //----- (004168A0) --------------------------------------------------------
-int* sub_4168A0(wchar_t* a1) {
-	wchar_t* v1; // esi
+int* sub_4168A0(wchar2_t* a1) {
+	wchar2_t* v1; // esi
 
-	v1 = (wchar_t*)calloc(1, 0x40u);
+	v1 = (wchar2_t*)calloc(1, 0x40u);
 	sub_425770(v1);
 	nox_wcscpy(v1 + 6, a1);
 	nox_common_list_append_4258E0((int)getMemAt(0x5D4594, 371364), v1);
@@ -3910,7 +3910,7 @@ char* nox_xxx_playerForceSendLessons_416E50(int a1) {
 }
 
 //----- (004170D0) --------------------------------------------------------
-char* nox_xxx_playerByName_4170D0(wchar_t* a1) {
+char* nox_xxx_playerByName_4170D0(wchar2_t* a1) {
 	char* v1; // esi
 
 	if (!a1) {
@@ -3920,7 +3920,7 @@ char* nox_xxx_playerByName_4170D0(wchar_t* a1) {
 	if (!v1) {
 		return 0;
 	}
-	while (_nox_wcsicmp((const wchar_t*)v1 + 2352, a1)) {
+	while (_nox_wcsicmp((const wchar2_t*)v1 + 2352, a1)) {
 		v1 = nox_common_playerInfoGetNext_416EE0((int)v1);
 		if (!v1) {
 			return 0;
@@ -4825,7 +4825,7 @@ int sub_4183C0() {
 
 //----- (004184D0) --------------------------------------------------------
 void sub_4184D0(nox_team_t* a1p) {
-	wchar_t* a1 = a1p;
+	wchar2_t* a1 = a1p;
 	int v1;       // edi
 	uint32_t* v2; // ebp
 	char v3[18];  // [esp+4h] [ebp-14h]
@@ -4862,7 +4862,7 @@ int nox_xxx_wndGuiTeamCreate_4185B0() {
 	char* v2;    // edi
 	int v3;      // eax
 	char v4;     // bl
-	wchar_t* v5; // eax
+	wchar2_t* v5; // eax
 
 	nox_xxx_SetGameplayFlag_417D50(4);
 	nox_xxx_teamCreate_4186D0(0);
@@ -4876,10 +4876,10 @@ int nox_xxx_wndGuiTeamCreate_4185B0() {
 				v4 = v3;
 				v5 = nox_server_teamTitle_418C20(v3);
 				if (v5) {
-					sub_418800((wchar_t*)v2, v5, 1);
+					sub_418800((wchar2_t*)v2, v5, 1);
 				}
 				v2[56] = v4;
-				sub_4184D0((wchar_t*)v2);
+				sub_4184D0((wchar2_t*)v2);
 				*((uint32_t*)v2 + 18) = i;
 			}
 		}

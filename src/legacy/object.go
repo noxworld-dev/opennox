@@ -12,7 +12,7 @@ package legacy
 void nox_xxx_updateHarpoon_54F380(nox_object_t* a1);
 int nox_objectDropAudEvent_4EE2F0(nox_object_t* a1, nox_object_t* a2, float2* a3);
 void nox_xxx_script_forcedialog_548CD0(nox_object_t* a1, nox_object_t* a2);
-wchar_t* sub_4E39F0_obj_db(nox_object_t* a1);
+wchar2_t* sub_4E39F0_obj_db(nox_object_t* a1);
 void nox_xxx_scriptDialog_548D30(nox_object_t* a1, char a2);
 void nox_server_scriptFleeFrom_515F70(nox_object_t* a1, void* a2);
 */

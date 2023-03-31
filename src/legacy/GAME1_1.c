@@ -83,7 +83,7 @@ extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 
 //----- (00418800) --------------------------------------------------------
-void sub_418800(wchar_t* a1, wchar_t* a2, int a3) {
+void sub_418800(wchar2_t* a1, wchar2_t* a2, int a3) {
 	if (a1) {
 		nox_wcsncpy(a1, a2, 20);
 		a1[20] = 0;
@@ -131,9 +131,9 @@ int nox_xxx_unused_418840() {
 		v5 = nox_xxx_teamCreate_4186D0(0);
 		i[9] = (int)v5;
 		if (v5) {
-			sub_418800((wchar_t*)v5, (wchar_t*)i + 6, 0);
+			sub_418800((wchar2_t*)v5, (wchar2_t*)i + 6, 0);
 			sub_418830(i[9], i[8]);
-			sub_4184D0((wchar_t*)i[9]);
+			sub_4184D0((wchar2_t*)i[9]);
 			++v0;
 			for (j = nox_xxx_getFirstPlayerUnit_4DA7C0(); j; j = nox_xxx_getNextPlayerUnit_4DA7F0(j)) {
 				v7 = *(uint32_t**)(*(uint32_t*)(j + 748) + 276);
@@ -203,14 +203,14 @@ char* sub_418A10() {
 }
 
 //----- (00418A40) --------------------------------------------------------
-char* sub_418A40(wchar_t* a1) {
+char* sub_418A40(wchar2_t* a1) {
 	char* v1; // esi
 
 	v1 = nox_server_teamFirst_418B10();
 	if (!v1) {
 		return 0;
 	}
-	while (_nox_wcsicmp((const wchar_t*)v1, a1)) {
+	while (_nox_wcsicmp((const wchar2_t*)v1, a1)) {
 		v1 = nox_server_teamNext_418B60((int)v1);
 		if (!v1) {
 			return 0;
@@ -299,7 +299,7 @@ uint32_t* nox_xxx_objGetTeamByNetCode_418C80(int a1) {
 }
 
 //----- (00418CD0) --------------------------------------------------------
-void nox_xxx_teamRenameMB_418CD0(wchar_t* a1, wchar_t* a2) {
+void nox_xxx_teamRenameMB_418CD0(wchar2_t* a1, wchar2_t* a2) {
 	int v2;      // eax
 	char v3[46]; // [esp+4h] [ebp-30h]
 
@@ -310,7 +310,7 @@ void nox_xxx_teamRenameMB_418CD0(wchar_t* a1, wchar_t* a2) {
 			v2 = *((unsigned char*)a1 + 57);
 			*(uint16_t*)v3 = 1220;
 			*(uint32_t*)&v3[2] = v2;
-			nox_wcscpy((wchar_t*)&v3[6], a2);
+			nox_wcscpy((wchar2_t*)&v3[6], a2);
 			nox_xxx_netSendPacket1_4E5390(159, (int)v3, 46, 0, 1);
 		}
 		nox_wcscpy(a1, a2);
@@ -398,12 +398,12 @@ uint32_t* sub_418E40(int a1, int a2) {
 
 //----- (00418F20) --------------------------------------------------------
 void sub_418F20(nox_team_t* a1p, int a2) {
-	wchar_t* a1 = a1p;
+	wchar2_t* a1 = a1p;
 	int v2;         // edx
 	char* i;        // edi
 	uint32_t* v4;   // eax
 	char v5[6];     // [esp+8h] [ebp-30h]
-	wchar_t v6[20]; // [esp+10h] [ebp-28h]
+	wchar2_t v6[20]; // [esp+10h] [ebp-28h]
 
 	if (a1 && nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)a1 + 57))) {
 		nox_wcscpy(v6, a1);
@@ -458,14 +458,14 @@ void nox_xxx_netChangeTeamID_419090(int a1, int a2) {
 }
 
 //----- (004190F0) --------------------------------------------------------
-int sub_4190F0(wchar_t* a1) {
+int sub_4190F0(wchar2_t* a1) {
 	char* v1; // esi
 
 	v1 = nox_server_teamFirst_418B10();
 	if (!v1) {
 		return 0;
 	}
-	while (_nox_wcsicmp((const wchar_t*)v1, a1)) {
+	while (_nox_wcsicmp((const wchar2_t*)v1, a1)) {
 		v1 = nox_server_teamNext_418B60((int)v1);
 		if (!v1) {
 			return 0;
@@ -565,9 +565,9 @@ void nox_xxx_netChangeTeamMb_419570(void* a1p, int a2) {
 					if (nox_common_gameFlags_check_40A5C0(96) ||
 						nox_common_gameFlags_check_40A5C0(16) && nox_xxx_CheckGameplayFlags_417DA0(4)) {
 						*((uint32_t*)v2 + 15) = 0;
-						sub_418800((wchar_t*)v2, (wchar_t*)getMemAt(0x5D4594, 527664), 0);
+						sub_418800((wchar2_t*)v2, (wchar2_t*)getMemAt(0x5D4594, 527664), 0);
 					} else {
-						sub_418F20((wchar_t*)v2, 1);
+						sub_418F20((wchar2_t*)v2, 1);
 					}
 				}
 			}
@@ -607,7 +607,7 @@ int sub_4196D0(void* a1p, void* a2p, int a3, int a4) {
 }
 
 //----- (004197C0) --------------------------------------------------------
-void sub_4197C0(wchar_t* a1, int a2) {
+void sub_4197C0(wchar2_t* a1, int a2) {
 	int v2;       // edi
 	uint32_t* v3; // ebp
 	char v4[18];  // [esp+4h] [ebp-14h]
@@ -1113,7 +1113,7 @@ int sub_41A590(int a1, int a2) {
 		}
 	}
 LABEL_20:
-	LOBYTE(v14) = nox_wcslen((const wchar_t*)v2);
+	LOBYTE(v14) = nox_wcslen((const wchar2_t*)v2);
 	nox_xxx_fileReadWrite_426AC0_file3_fread(&v14, 1u);
 	if ((unsigned char)v14 >= 0x19u) {
 		return 0;
@@ -1121,10 +1121,10 @@ LABEL_20:
 	nox_xxx_fileReadWrite_426AC0_file3_fread((uint8_t*)v2, 2 * (unsigned char)v14);
 	*(uint16_t*)(v2 + 2 * (unsigned char)v14) = 0;
 	if (v3) {
-		nox_wcscpy((wchar_t*)(*(uint32_t*)(v3 + 276) + 4704), (const wchar_t*)v2);
+		nox_wcscpy((wchar2_t*)(*(uint32_t*)(v3 + 276) + 4704), (const wchar2_t*)v2);
 	}
 	if (nox_crypt_IsReadOnly() == 1 && v3) {
-		v6 = nox_wcslen((const wchar_t*)v2);
+		v6 = nox_wcslen((const wchar2_t*)v2);
 		v7 = nox_xxx_protectionStringCRCLen_56FAE0((int*)v2, 2 * v6);
 		nox_xxx_playerResetProtectionCRC_56F7D0(*(uint32_t*)(*(uint32_t*)(v3 + 276) + 4628), v7);
 	}
@@ -2323,7 +2323,7 @@ int nox_xxx_parseFileInfoData_41C3B0(int a1) {
 		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x85B3FC, 12204), 2 * (unsigned char)v3);
 		*getMemU16Ptr(0x85B3FC, 12204 + 2 * (unsigned char)v3) = 0;
 	} else {
-		LOBYTE(v3) = nox_wcslen((const wchar_t*)getMemAt(0x85B3FC, 12204));
+		LOBYTE(v3) = nox_wcslen((const wchar2_t*)getMemAt(0x85B3FC, 12204));
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v3, 1u);
 		nox_xxx_fileReadWrite_426AC0_file3_fread(getMemAt(0x85B3FC, 12204), 2 * (unsigned char)v3);
 	}
@@ -5473,12 +5473,12 @@ int sub_425AA0(int a1) {
 }
 
 //----- (00425AD0) --------------------------------------------------------
-wchar_t* sub_425AD0(int a1, wchar_t* a2) {
-	wchar_t* v2; // esi
+wchar2_t* sub_425AD0(int a1, wchar2_t* a2) {
+	wchar2_t* v2; // esi
 
 	v2 = 0;
 	if (!sub_425AA0(a1)) {
-		v2 = (wchar_t*)calloc(1, 0x34u);
+		v2 = (wchar2_t*)calloc(1, 0x34u);
 		*((uint32_t*)v2 + 8) = a1;
 		nox_wcscpy(v2 + 6, a2);
 		*((uint32_t*)v2 + 9) = 0;

@@ -40,7 +40,7 @@ extern int nox_win_width;
 //----- (0045AD70) --------------------------------------------------------
 void nox_xxx_bookShowMB_45AD70(int a1) {
 	unsigned int result; // eax
-	wchar_t* v2;         // eax
+	wchar2_t* v2;         // eax
 
 	result = nox_xxx_guiCursor_477600();
 	if (result) {
@@ -75,14 +75,14 @@ int nox_xxx_bookDrawList_45BD40(int a1) {
 	unsigned short* v12;    // eax
 	unsigned short* v13;    // eax
 	int v14;                // esi
-	wchar_t* v15;           // eax
+	wchar2_t* v15;           // eax
 	int v16;                // eax
 	int v17;                // eax
 	int v18;                // ebp
-	wchar_t* v19;           // eax
+	wchar2_t* v19;           // eax
 	int v20;                // ebx
-	wchar_t* v21;           // eax
-	wchar_t* v22;           // eax
+	wchar2_t* v21;           // eax
+	wchar2_t* v22;           // eax
 	int v23;                // esi
 	unsigned short* v24;    // eax
 	int v25;                // eax
@@ -105,14 +105,14 @@ int nox_xxx_bookDrawList_45BD40(int a1) {
 	uint16_t* v42;          // eax
 	int v43;                // esi
 	int v44;                // ebp
-	wchar_t* v45;           // eax
+	wchar2_t* v45;           // eax
 	int v46;                // esi
 	int v47;                // esi
 	unsigned short* v48;    // ebp
 	unsigned short* v49;    // ebp
 	unsigned short* v50;    // ebp
 	unsigned short* v51;    // ebp
-	wchar_t* v52;           // eax
+	wchar2_t* v52;           // eax
 	unsigned short* v53;    // eax
 	int v55;                // [esp-10h] [ebp-23Ch]
 	int v56;                // [esp-10h] [ebp-23Ch]
@@ -128,9 +128,9 @@ int nox_xxx_bookDrawList_45BD40(int a1) {
 	int v66;                // [esp+14h] [ebp-218h]
 	int v67;                // [esp+18h] [ebp-214h]
 	int v68;                // [esp+1Ch] [ebp-210h]
-	wchar_t WideCharStr[4]; // [esp+20h] [ebp-20Ch]
+	wchar2_t WideCharStr[4]; // [esp+20h] [ebp-20Ch]
 	int v70;                // [esp+28h] [ebp-204h]
-	wchar_t v71[256];       // [esp+2Ch] [ebp-200h]
+	wchar2_t v71[256];       // [esp+2Ch] [ebp-200h]
 
 	nox_gui_getWindowOffs_46AA20(a1, &v66, &v67);
 	v1 = v66 - 24;
@@ -388,9 +388,9 @@ LABEL_75:
 
 //----- (0045CF00) --------------------------------------------------------
 int nox_xxx_book_45CF00(uint32_t* a1) {
-	wchar_t* v1; // eax
-	wchar_t* v3; // eax
-	wchar_t* v4; // eax
+	wchar2_t* v1; // eax
+	wchar2_t* v3; // eax
+	wchar2_t* v4; // eax
 
 	if (*a1 == 1310) {
 		if (!*(uint8_t*)(dword_5d4594_1047516 + 2251)) {
