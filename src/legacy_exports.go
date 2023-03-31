@@ -336,4 +336,9 @@ func init() {
 	legacy.Nox_xxx_checkSummonedCreaturesLimit_500D70 = nox_xxx_checkSummonedCreaturesLimit_500D70
 	legacy.Nox_xxx_unitDoSummonAt_5016C0 = nox_xxx_unitDoSummonAt_5016C0
 	legacy.Sub_57AEE0 = sub_57AEE0
+	legacy.Nox_xxx___mkgmtime_538280 = nox_xxx___mkgmtime_538280
+	legacy.Sub_4E71F0 = sub_4E71F0
+	legacy.Nox_bomberDead_54A150 = nox_bomberDead_54A150
+	legacy.Nox_xxx_dieGlyph_54DF30 = nox_xxx_dieGlyph_54DF30
+	legacy.Nox_xxx_collideGlyph_4E9A00 = nox_xxx_collideGlyph_4E9A00
 }

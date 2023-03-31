@@ -101,7 +101,7 @@ type Ptrs struct {
 	Ptr_sub_549E70                          unsafe.Pointer
 	Ptr_sub_549E90                          unsafe.Pointer
 	Ptr_sub_549FA0                          unsafe.Pointer
-	Ptr_sub_54A150                          unsafe.Pointer
+	Ptr_nox_bomberDead_54A150               unsafe.Pointer
 	Ptr_sub_54A250                          unsafe.Pointer
 	Ptr_sub_54A310                          unsafe.Pointer
 	Ptr_sub_54A750                          unsafe.Pointer

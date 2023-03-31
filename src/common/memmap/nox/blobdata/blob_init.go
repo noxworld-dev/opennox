@@ -3204,7 +3204,7 @@ func Init(p *Ptrs) {
 	*memmap.PtrPtr(0x587000, 287224) = memmap.PtrOff(0x587000, 287584)
 	*memmap.PtrPtr(0x587000, 287228) = p.Ptr_sub_549FA0
 	*memmap.PtrPtr(0x587000, 287232) = memmap.PtrOff(0x587000, 287596)
-	*memmap.PtrPtr(0x587000, 287236) = p.Ptr_sub_54A150
+	*memmap.PtrPtr(0x587000, 287236) = p.Ptr_nox_bomberDead_54A150
 	*memmap.PtrPtr(0x587000, 287240) = memmap.PtrOff(0x587000, 287608)
 	*memmap.PtrPtr(0x587000, 287244) = p.Ptr_sub_54A250
 	*memmap.PtrPtr(0x587000, 287248) = memmap.PtrOff(0x587000, 287620)
