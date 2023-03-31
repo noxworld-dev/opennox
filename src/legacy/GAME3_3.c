@@ -2566,64 +2566,6 @@ int nox_server_testTwoPointsAndDirection_4E6E50(float2* a1, int a2, float2* a3) 
 	return *getMemU32Ptr(0x587000, 202504 + 4 * (sub_4E6CE0(a1, a3) + 16 * v3));
 }
 
-//----- (004E6EA0) --------------------------------------------------------
-int sub_4E6EA0(int a1, float a2, int a3) {
-	int result; // eax
-
-	result = a3;
-	if (a3) {
-		*getMemU32Ptr(0x5D4594, 1565648) = 0;
-		*getMemFloatPtr(0x5D4594, 1565644) = a2 * a2;
-		*(uint32_t*)(a3 + 36) = a1;
-		nox_xxx_unitsGetInCircle_517F90((float2*)(a1 + 56), a2, sub_4E6EF0, a3);
-		result = *getMemU32Ptr(0x5D4594, 1565648);
-	}
-	return result;
-}
-
-//----- (004E6EF0) --------------------------------------------------------
-void sub_4E6EF0(int a1, uint32_t* a2) {
-	int v2;    // eax
-	int v3;    // ecx
-	int v4;    // eax
-	int v5;    // eax
-	int v6;    // esi
-	double v7; // st7
-	double v8; // st6
-	double v9; // st5
-
-	if (!(*(uint8_t*)(a1 + 16) & 0x20) && !nox_xxx_unitsHaveSameTeam_4EC520(a1, a2[9]) &&
-		(!(*(uint8_t*)(a1 + 8) & 4) || !(*(uint8_t*)(*(uint32_t*)(*(uint32_t*)(a1 + 748) + 276) + 3680) & 1)) &&
-		(!a2[2] || nox_xxx_unitIsEnemyTo_5330C0(a2[9], a1))) {
-		if (nox_server_testTwoPointsAndDirection_4E6E50((float2*)(a2[9] + 56), *(short*)(a2[9] + 124),
-														(float2*)(a1 + 56)) &
-			*a2) {
-			v2 = a2[9];
-			if (a1 != v2 && (!a2[1] || nox_xxx_unitCanInteractWith_5370E0(v2, a1, 0))) {
-				v3 = *(uint32_t*)(a1 + 8);
-				if (a2[3] & v3) {
-					v4 = *(uint32_t*)(a1 + 16);
-					if (a2[7] & v4) {
-						if (!(v3 & a2[4]) && !(v4 & a2[8])) {
-							v5 = *(uint32_t*)(a1 + 12);
-							if (!v5 || v5 & a2[5] && !(v5 & a2[6])) {
-								v6 = a2[9];
-								v7 = *(float*)(a1 + 56) - *(float*)(v6 + 56);
-								v8 = *(float*)(a1 + 60) - *(float*)(v6 + 60);
-								v9 = v8 * v8 + v7 * v7;
-								if (v9 < *getMemFloatPtr(0x5D4594, 1565644)) {
-									*getMemFloatPtr(0x5D4594, 1565644) = v9;
-									*getMemU32Ptr(0x5D4594, 1565648) = a1;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
 //----- (004E7010) --------------------------------------------------------
 void nox_xxx_unitMove_4E7010(nox_object_t* obj, float2* a2) {
 	int a1 = obj;
@@ -2680,33 +2622,6 @@ void nox_xxx_teleportToMB_4E7190(uint8_t* a1, float* a2) {
 		(nox_common_gameFlags_check_40A5C0(2048) || a1[8] & 6)) {
 		nox_xxx_unitMove_4E7010((int)a1, (float2*)a2);
 	}
-}
-
-//----- (004E71F0) --------------------------------------------------------
-void sub_4E71F0(int a1) {
-	int* v1;    // esi
-	int v2;     // eax
-	int v3;     // ecx
-	int v4[3];  // [esp+8h] [ebp-34h]
-	int v5[10]; // [esp+14h] [ebp-28h]
-
-	v5[5] = -1;
-	v5[7] = -1;
-	v1 = *(int**)(a1 + 748);
-	v5[0] = 15;
-	v5[1] = 1;
-	v5[2] = 0;
-	v5[3] = 6;
-	v5[4] = 0;
-	v5[6] = 0;
-	v5[8] = 32800;
-	v2 = sub_4E6EA0(a1, 50.0, (int)v5);
-	if (v2) {
-		v3 = v1[4];
-		v4[0] = v2;
-		nox_xxx_spellAccept_4FD400(v1[3], v1[2], (uint32_t*)*v1, *v1, v4, v3);
-	}
-	nox_xxx_delayedDeleteObject_4E5CC0(a1);
 }
 
 //----- (004E7290) --------------------------------------------------------
@@ -4459,7 +4374,7 @@ void nox_xxx_collideBoom_4E9770(int a1, int a2, float* a3) {
 		}
 		nox_xxx_mapDamageUnitsAround_4E25B0(a1 + 56, *getMemFloatPtr(0x5D4594, 1567976), 5.0,
 											*getMemIntPtr(0x5D4594, 1567972), 7, a1, 0);
-		nox_xxx_mapPushUnitsAround_52E040(a1 + 56, *getMemFloatPtr(0x5D4594, 1567980), *getMemIntPtr(0x5D4594, 1567980),
+		nox_xxx_mapPushUnitsAround_52E040(a1 + 56, *getMemFloatPtr(0x5D4594, 1567980), *getMemFloatPtr(0x5D4594, 1567980),
 										  *getMemFloatPtr(0x5D4594, 1567984), a1, 0, 0);
 		nox_xxx_aud_501960(84, a1, 0, 0);
 		nox_xxx_delayedDeleteObject_4E5CC0(a1);
@@ -4484,19 +4399,10 @@ void nox_xxx_collideDie_4E99B0(int unit, int a2) {
 	}
 }
 
-//----- (004E9A00) --------------------------------------------------------
-char nox_xxx_collideGlyph_4E9A00(int a1, int a2) {
-	int v2; // eax
-
-	v2 = sub_4E9A30(a1, a2);
-	if (v2) {
-		LOBYTE(v2) = nox_xxx_trapBAH_537C10(a1, a2);
-	}
-	return v2;
-}
-
 //----- (004E9A30) --------------------------------------------------------
-int sub_4E9A30(int a1, int a2) {
+int sub_4E9A30(nox_object_t* a1p, nox_object_t* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v3; // esi
 	int v4; // eax
 	int v5; // esi
@@ -6318,7 +6224,9 @@ void nox_xxx_unitTransferSlaves_4EC4B0(nox_object_t* a1p) {
 }
 
 //----- (004EC520) --------------------------------------------------------
-int nox_xxx_unitsHaveSameTeam_4EC520(int a1, int a2) {
+int nox_xxx_unitsHaveSameTeam_4EC520(nox_object_t* a1p, nox_object_t* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int v2; // edi
 	int v3; // esi
 
@@ -6946,7 +6854,7 @@ int nox_xxx_dropDefault_4ED290(nox_object_t* a1p, nox_object_t* a2p, float2* a3)
 }
 
 //----- (004ED500) --------------------------------------------------------
-int sub_4ED500(int a1, int a2, float2* a3) {
+int nox_GlyphDrop_4ED500(int a1, int a2, float2* a3) {
 	short v3;  // ax
 	float2 v5; // [esp+Ch] [ebp-8h]
 

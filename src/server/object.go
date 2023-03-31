@@ -423,8 +423,8 @@ type Object struct {
 	HealthData    *HealthData                // 139, 556
 	Field140      [32]uint32                 // 140, 560
 	Init          unsafe.Pointer             // 172, 688
-	InitData      unsafe.Pointer             // 173, 692, // TODO: struct pointer; struct at least 8 bytes wide. see 4F3030.
-	Collide       unsafe.Pointer             // 174, 696
+	InitData      unsafe.Pointer             // 173, 692
+	Collide       unsafe.Pointer             // 174, 696; func(*Object, *Object, int)
 	CollideData   unsafe.Pointer             // 175, 700
 	Xfer          unsafe.Pointer             // 176, 704; func(*Object, int) int
 	Pickup        unsafe.Pointer             // 177, 708
