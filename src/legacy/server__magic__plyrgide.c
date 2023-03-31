@@ -39,7 +39,7 @@ int nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(int a1, int a2, int a3) {
 	int v12;            // eax
 	char* i;            // esi
 	int v14;            // eax
-	wchar_t* v16;       // eax
+	wchar2_t* v16;       // eax
 	unsigned char* v17; // [esp+10h] [ebp+4h]
 
 	v3 = a1;

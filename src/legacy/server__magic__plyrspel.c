@@ -35,7 +35,7 @@ int nox_xxx_netSendSpellAward_4D7F90(int a1, int a2, char a3, int a4) {
 
 //----- (004FB0B0) --------------------------------------------------------
 void nox_xxx_abilGetError_4FB0B0_magic_plyrspel(int a1) {
-	wchar_t* v1; // eax
+	wchar2_t* v1; // eax
 
 	v1 = nox_strman_loadString_40F1D0(*(char**)getMemAt(0x587000, 216380 + 4 * a1), 0,
 									  "C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c", 86);
@@ -48,7 +48,7 @@ int nox_xxx_spellGrantToPlayer_4FB550(nox_object_t* a1p, int a2, int a3, int a4,
 	int v5;        // ebp
 	int v6;        // esi
 	int v7;        // ebx
-	wchar_t* v8;   // eax
+	wchar2_t* v8;   // eax
 	uint32_t* v9;  // eax
 	int v10;       // edx
 	int v11;       // ebp

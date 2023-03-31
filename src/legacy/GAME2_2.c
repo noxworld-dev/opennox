@@ -608,13 +608,13 @@ void nox_video_drawCursorSelectCircle2_477470(uint32_t* a1, int a2, int a3) {
 int nox_xxx_guiCursor_477600() { return *getMemU32Ptr(0x5D4594, 1096672); }
 
 //----- (004776B0) --------------------------------------------------------
-void nox_xxx_cursorSetTooltip_4776B0(wchar_t* a1) {
+void nox_xxx_cursorSetTooltip_4776B0(wchar2_t* a1) {
 	if (a1) {
 		if ((int)nox_wcslen(a1) >= 256) {
-			nox_wcsncpy((wchar_t*)getMemAt(0x5D4594, 1096676), a1, 0xFFu);
+			nox_wcsncpy((wchar2_t*)getMemAt(0x5D4594, 1096676), a1, 0xFFu);
 			*getMemU16Ptr(0x5D4594, 1097186) = 0;
 		} else {
-			nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1096676), a1);
+			nox_wcscpy((wchar2_t*)getMemAt(0x5D4594, 1096676), a1);
 		}
 	} else {
 		*getMemU16Ptr(0x5D4594, 1096676) = 0;
@@ -972,7 +972,7 @@ int sub_478C80() {
 	unsigned int v8;   // [esp+18h] [ebp-50h]
 	int v9;            // [esp+1Ch] [ebp-4Ch]
 	int v10;           // [esp+20h] [ebp-48h]
-	wchar_t v11[32];   // [esp+28h] [ebp-40h]
+	wchar2_t v11[32];   // [esp+28h] [ebp-40h]
 
 	v8 = sub_4674A0();
 	nox_xxx_wndDraw_49F7F0();
@@ -1032,8 +1032,8 @@ int sub_478E50(int a1, int a2, unsigned int a3) {
 	int v3;       // ecx
 	int v4;       // edx
 	int v5;       // edx
-	wchar_t** v6; // eax
-	wchar_t* v7;  // eax
+	wchar2_t** v6; // eax
+	wchar2_t* v7;  // eax
 
 	if (dword_5d4594_1098628 == 2) {
 		v3 = ((unsigned short)a3 - *getMemU32Ptr(0x5D4594, 1098380)) / 50;
@@ -1045,7 +1045,7 @@ int sub_478E50(int a1, int a2, unsigned int a3) {
 			v4 = 9;
 		}
 		v5 = 35 * (v4 + 10 * v3);
-		v6 = (wchar_t**)getMemAt(0x5D4594, 1098636 + 4 * v5);
+		v6 = (wchar2_t**)getMemAt(0x5D4594, 1098636 + 4 * v5);
 		if (*getMemU32Ptr(0x5D4594, 1098640 + 4 * v5)) {
 			*((uint32_t*)*v6 + 32) = v6[2];
 			v7 = nox_xxx_clientAskInfoMb_4BF050(*v6);
@@ -5285,10 +5285,10 @@ int nox_xxx_wndEditProc_487D70_key(uint32_t* a1, int v4, int a3, int a4) {
 	}
 	if (nox_strman_get_lang_code() == 6 || nox_strman_get_lang_code() == 8) {
 		if (!*(uint32_t*)(v4 + 1036) && !*(uint32_t*)(v4 + 1032) && !*(uint32_t*)(v4 + 1028)) {
-			wchar_t* v8 = nox_input_getStringBuffer_57011C();
-			nox_wcscpy((wchar_t*)(v4 + 512), (const wchar_t*)v8);
+			wchar2_t* v8 = nox_input_getStringBuffer_57011C();
+			nox_wcscpy((wchar2_t*)(v4 + 512), (const wchar2_t*)v8);
 			nox_input_freeStringBuffer_57011C(v8);
-			*(uint16_t*)(v4 + 1054) = nox_wcslen((const wchar_t*)(v4 + 512));
+			*(uint16_t*)(v4 + 1054) = nox_wcslen((const wchar2_t*)(v4 + 512));
 			if (0) { // if (!nox_xxx_string_5702B4(*(uint32_t***)&dword_5d4594_1193348))
 				return 1;
 			}
@@ -5384,7 +5384,7 @@ int nox_xxx_wndEditDrawNoImage_488160(int a1, int a2) {
 	int v5;          // ecx
 	int v6;          // kr04_4
 	int v7;          // ebp
-	wchar_t* v8;     // ecx
+	wchar2_t* v8;     // ecx
 	signed short v9; // ax
 	size_t v10;      // edx
 	size_t v11;      // eax
@@ -5398,9 +5398,9 @@ int nox_xxx_wndEditDrawNoImage_488160(int a1, int a2) {
 	int v20;         // [esp-14h] [ebp-24Ch]
 	int v21;         // [esp+10h] [ebp-228h]
 	int v22;         // [esp+14h] [ebp-224h]
-	wchar_t* v23;    // [esp+18h] [ebp-220h]
+	wchar2_t* v23;    // [esp+18h] [ebp-220h]
 	int v24;         // [esp+1Ch] [ebp-21Ch]
-	wchar_t* v25;    // [esp+20h] [ebp-218h]
+	wchar2_t* v25;    // [esp+20h] [ebp-218h]
 	short* v26;      // [esp+24h] [ebp-214h]
 	int yTop;        // [esp+28h] [ebp-210h]
 	int xLeft;       // [esp+2Ch] [ebp-20Ch]
@@ -5410,8 +5410,8 @@ int nox_xxx_wndEditDrawNoImage_488160(int a1, int a2) {
 
 	v2 = a1;
 	v3 = *(uint32_t*)(a2 + 20);
-	v25 = *(wchar_t**)(a2 + 28);
-	v23 = *(wchar_t**)(a1 + 32);
+	v25 = *(wchar2_t**)(a2 + 28);
+	v23 = *(wchar2_t**)(a1 + 32);
 	v22 = 0;
 	v24 = 0;
 	*((uint32_t*)v23 + 261) = 0;
@@ -5429,7 +5429,7 @@ int nox_xxx_wndEditDrawNoImage_488160(int a1, int a2) {
 	}
 	if ((*(uint32_t*)(a1 + 4) >> 3) & 1) {
 		if (*(uint8_t*)a2 & 2) {
-			v25 = *(wchar_t**)(a2 + 36);
+			v25 = *(wchar2_t**)(a2 + 36);
 		}
 	} else {
 		v30 = *(uint32_t*)(a2 + 44);
@@ -5452,7 +5452,7 @@ int nox_xxx_wndEditDrawNoImage_488160(int a1, int a2) {
 		nox_client_drawRectFilledOpaque_49CE30(v4 + 1, yTop + 1, v21 - 2, *(uint32_t*)(a1 + 12) - 2);
 		v8 = v23;
 	}
-	if (v25 != (wchar_t*)0x80000000) {
+	if (v25 != (wchar2_t*)0x80000000) {
 		nox_client_drawSetColor_434460((int)v25);
 		nox_client_drawBorderLines_49CC70(v4, yTop, v21, *(uint32_t*)(a1 + 12));
 		v8 = v23;
@@ -5473,7 +5473,7 @@ int nox_xxx_wndEditDrawNoImage_488160(int a1, int a2) {
 			}
 			v31[v11] = 0;
 		} else {
-			nox_wcscpy((wchar_t*)v31, v8);
+			nox_wcscpy((wchar2_t*)v31, v8);
 		}
 		nox_xxx_drawGetStringSize_43F840(*(uint32_t*)(a2 + 200), (unsigned short*)v31, &v22, 0, 0);
 		v19 = *(uint32_t*)(a2 + 200);
@@ -5507,10 +5507,10 @@ int nox_xxx_wndEditDrawNoImage_488160(int a1, int a2) {
 	nox_draw_enableTextSmoothing_43F670(0);
 	return 1;
 }
-// 488160: using guessed type wchar_t var_200[256];
+// 488160: using guessed type wchar2_t var_200[256];
 
 //----- (00488500) --------------------------------------------------------
-nox_window* nox_gui_newEntryField_488500(nox_window* a1p, int a2, int a3, int a4, int a5, int a6, int a7, wchar_t* a8) {
+nox_window* nox_gui_newEntryField_488500(nox_window* a1p, int a2, int a3, int a4, int a5, int a6, int a7, wchar2_t* a8) {
 	int a1 = a1p;
 	uint32_t* v8;     // esi
 	bool v9;          // cc
@@ -5578,7 +5578,7 @@ nox_window* nox_gui_newEntryField_488500(nox_window* a1p, int a2, int a3, int a4
 }
 
 //----- (00488710) --------------------------------------------------------
-int nox_xxx_wndEditProcPre_488710(int a1, unsigned int a2, wchar_t* a3, int a4) {
+int nox_xxx_wndEditProcPre_488710(int a1, unsigned int a2, wchar2_t* a3, int a4) {
 	int v3; // esi
 	int v4; // eax
 	int v6; // eax
@@ -5587,9 +5587,9 @@ int nox_xxx_wndEditProcPre_488710(int a1, unsigned int a2, wchar_t* a3, int a4) 
 	v3 = *(uint32_t*)(a1 + 32);
 	if (a2 > 0x401D) {
 		if (a2 == 16414) {
-			nox_wcsncpy((wchar_t*)v3, a3, 0xFFu);
+			nox_wcsncpy((wchar2_t*)v3, a3, 0xFFu);
 			*(uint16_t*)(v3 + 510) = 0;
-			*(uint16_t*)(v3 + 1052) = nox_wcslen((const wchar_t*)v3);
+			*(uint16_t*)(v3 + 1052) = nox_wcslen((const wchar2_t*)v3);
 			*(uint16_t*)(v3 + 512) = 0;
 			*(uint16_t*)(v3 + 1054) = 0;
 		}
@@ -5663,15 +5663,15 @@ int nox_xxx_wndEditDrawWithImage_488870(int a1, int a2) {
 	int v17;        // [esp+14h] [ebp-21Ch]
 	short* v18;     // [esp+18h] [ebp-218h]
 	int v19;        // [esp+1Ch] [ebp-214h]
-	wchar_t* v20;   // [esp+20h] [ebp-210h]
+	wchar2_t* v20;   // [esp+20h] [ebp-210h]
 	int v21;        // [esp+24h] [ebp-20Ch]
-	wchar_t* v22;   // [esp+28h] [ebp-208h]
+	wchar2_t* v22;   // [esp+28h] [ebp-208h]
 	int v23;        // [esp+2Ch] [ebp-204h]
 	short v24[256]; // [esp+30h] [ebp-200h]
 
 	v2 = a1;
-	v20 = *(wchar_t**)(a2 + 24);
-	v22 = *(wchar_t**)(a1 + 32);
+	v20 = *(wchar2_t**)(a2 + 24);
+	v22 = *(wchar2_t**)(a1 + 32);
 	*((uint32_t*)v22 + 261) = 0;
 	v18 = v24;
 	nox_client_wndGetPosition_46AA60((uint32_t*)a1, &xLeft, &v21);
@@ -5714,7 +5714,7 @@ int nox_xxx_wndEditDrawWithImage_488870(int a1, int a2) {
 			}
 			v24[v9] = 0;
 		} else {
-			nox_wcscpy((wchar_t*)v24, v22);
+			nox_wcscpy((wchar2_t*)v24, v22);
 		}
 		nox_xxx_drawGetStringSize_43F840(*(uint32_t*)(a2 + 200), (unsigned short*)v24, &v17, 0, 0);
 		v20 = v22 + 256;
@@ -5743,7 +5743,7 @@ int nox_xxx_wndEditDrawWithImage_488870(int a1, int a2) {
 	nox_draw_enableTextSmoothing_43F670(0);
 	return 1;
 }
-// 488870: using guessed type wchar_t var_200[256];
+// 488870: using guessed type wchar2_t var_200[256];
 
 //----- (00488B60) --------------------------------------------------------
 int sub_488B60() {
@@ -5803,10 +5803,10 @@ void nox_xxx_onChar_488BD0(unsigned short a1) {
 									*(uint16_t*)(v2 + 2 * v3) = a1;
 									*(uint16_t*)(v2 + 2 * (unsigned short)++*(uint16_t*)(v2 + 1052)) = 0;
 								}
-								wchar_t* v4 = nox_input_getStringBuffer_57011C();
-								nox_wcscpy((wchar_t*)(v2 + 512), (const wchar_t*)v4);
+								wchar2_t* v4 = nox_input_getStringBuffer_57011C();
+								nox_wcscpy((wchar2_t*)(v2 + 512), (const wchar2_t*)v4);
 								nox_input_freeStringBuffer_57011C(v4);
-								*(uint16_t*)(v2 + 1054) = nox_wcslen((const wchar_t*)(v2 + 512));
+								*(uint16_t*)(v2 + 1054) = nox_wcslen((const wchar2_t*)(v2 + 512));
 								// nox_xxx_string_570392(*(uint32_t***)&dword_5d4594_1193348);
 								nox_window_set_hidden(*(uint32_t*)(v2 + 1048), 1);
 								break;
@@ -5832,7 +5832,7 @@ int sub_489870() {
 	int v0;            // eax
 	unsigned char* v1; // esi
 	uint32_t* v2;      // eax
-	const wchar_t* v3; // eax
+	const wchar2_t* v3; // eax
 	unsigned int v4;   // eax
 	int v5;            // edx
 	char v6;           // cl
@@ -5844,7 +5844,7 @@ int sub_489870() {
 		*(uint32_t*)v1 =
 			(nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1193380, 10028)->draw_data.field_0 >> 2) & 1;
 		v2 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1193380, 10031);
-		v3 = (const wchar_t*)nox_window_call_field_94((int)v2, 16413, 0, 0);
+		v3 = (const wchar2_t*)nox_window_call_field_94((int)v2, 16413, 0, 0);
 		*((uint32_t*)v1 + 4) = nox_wcstol(v3, 0, 10);
 		*((uint32_t*)v1 + 1) =
 			(nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1193380, 10029)->draw_data.field_0 >> 2) & 1;
@@ -5973,7 +5973,7 @@ uint32_t* sub_489B80(int a1) {
 	uint32_t* v10;     // esi
 	int v11;           // ebx
 	int v12;           // ebx
-	wchar_t v13[16];   // [esp+0h] [ebp-20h]
+	wchar2_t v13[16];   // [esp+0h] [ebp-20h]
 
 	result = nox_new_window_from_file("filter.wnd", nox_xxx_windowMplayFilterProc_489E70);
 	dword_5d4594_1193380 = result;

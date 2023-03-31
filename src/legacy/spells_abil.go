@@ -71,7 +71,7 @@ func sub_4FBE60(a1 unsafe.Pointer, abil int) int { return Sub_4FBE60(a1, abil) }
 func sub_4FBEA0(a1 unsafe.Pointer, abil, cd int) { Sub_4FBEA0(a1, abil, cd) }
 
 //export nox_xxx_abilityGetName_0_425260
-func nox_xxx_abilityGetName_0_425260(ca int) *wchar_t {
+func nox_xxx_abilityGetName_0_425260(ca int) *wchar2_t {
 	return internWStr(Nox_xxx_abilityGetName_0_425260(ca))
 }
 
@@ -89,7 +89,7 @@ func nox_xxx_probablyWarcryCheck_4FC3E0(a1 *nox_object_t, a2 int) int {
 func nox_xxx_abilityCooldown_4252D0(ca int) int { return Nox_xxx_abilityCooldown_4252D0(ca) }
 
 //export sub_4252F0
-func sub_4252F0(ca int) *wchar_t { return internWStr(Sub_4252F0(ca)) }
+func sub_4252F0(ca int) *wchar2_t { return internWStr(Sub_4252F0(ca)) }
 
 //export nox_xxx_spellGetAbilityIcon_425310
 func nox_xxx_spellGetAbilityIcon_425310(abil, icon int) *nox_video_bag_image_t {

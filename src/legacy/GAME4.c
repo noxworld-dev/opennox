@@ -7154,7 +7154,7 @@ int nox_xxx_netSendVote_506840(int a1) {
 }
 
 //----- (00506870) --------------------------------------------------------
-char sub_506870(int a1, int a2, wchar_t* a3) {
+char sub_506870(int a1, int a2, wchar2_t* a3) {
 	char result; // al
 
 	result = a2;
@@ -7180,7 +7180,7 @@ char sub_506870(int a1, int a2, wchar_t* a3) {
 }
 
 //----- (005068E0) --------------------------------------------------------
-char sub_5068E0(int a1, int a2, wchar_t* a3) {
+char sub_5068E0(int a1, int a2, wchar2_t* a3) {
 	int v3; // eax
 	int v4; // ebp
 	int v5; // esi
@@ -7198,7 +7198,7 @@ char sub_5068E0(int a1, int a2, wchar_t* a3) {
 					if (v3) {
 						while (1) {
 							if (*(uint32_t*)(v5 + 2092) == 1) {
-								v3 = nox_wcscmp((const wchar_t*)(v5 + 4704), a3);
+								v3 = nox_wcscmp((const wchar2_t*)(v5 + 4704), a3);
 								if (!v3) {
 									break;
 								}
@@ -7350,10 +7350,10 @@ uint32_t* sub_506B00(int a1, int a2) {
 }
 
 //----- (00506B80) --------------------------------------------------------
-uint32_t* sub_506B80(int a1, int a2, wchar_t* a3) {
+uint32_t* sub_506B80(int a1, int a2, wchar2_t* a3) {
 	uint32_t* result;  // eax
 	int v4;            // edi
-	const wchar_t* v5; // esi
+	const wchar2_t* v5; // esi
 	int v6;            // esi
 	char v7;           // cl
 
@@ -7366,7 +7366,7 @@ uint32_t* sub_506B80(int a1, int a2, wchar_t* a3) {
 				v4 = 1 << *((uint8_t*)result + 2064);
 				if (result[1198]) {
 					result = nox_common_playerInfoGetFirst_416EA0();
-					v5 = (const wchar_t*)result;
+					v5 = (const wchar2_t*)result;
 					if (result) {
 						while (1) {
 							if (*((uint32_t*)v5 + 523) == 1) {
@@ -7376,7 +7376,7 @@ uint32_t* sub_506B80(int a1, int a2, wchar_t* a3) {
 								}
 							}
 							result = nox_common_playerInfoGetNext_416EE0((int)v5);
-							v5 = (const wchar_t*)result;
+							v5 = (const wchar2_t*)result;
 							if (!result) {
 								return result;
 							}
@@ -7423,7 +7423,7 @@ uint32_t* sub_506B80(int a1, int a2, wchar_t* a3) {
 }
 
 //----- (00506C90) --------------------------------------------------------
-void sub_506C90(int a1, int a2, wchar_t* a3) {
+void sub_506C90(int a1, int a2, wchar2_t* a3) {
 	if (a2 && *(uint8_t*)(a2 + 8) & 4) {
 		switch (a1) {
 		case 0:
@@ -7445,7 +7445,7 @@ void sub_506C90(int a1, int a2, wchar_t* a3) {
 }
 
 //----- (00506D00) --------------------------------------------------------
-void sub_506D00(int a1, wchar_t* a2) {
+void sub_506D00(int a1, wchar2_t* a2) {
 	char* v2; // esi
 	int v3;   // esi
 	int v4;   // eax
@@ -7458,7 +7458,7 @@ void sub_506D00(int a1, wchar_t* a2) {
 			if (*(uint8_t*)(a1 + 8) & 4) {
 				v2 = nox_common_playerInfoGetFirst_416EA0();
 				if (v2) {
-					while (*((uint32_t*)v2 + 523) != 1 || nox_wcscmp((const wchar_t*)v2 + 2352, a2)) {
+					while (*((uint32_t*)v2 + 523) != 1 || nox_wcscmp((const wchar2_t*)v2 + 2352, a2)) {
 						v2 = nox_common_playerInfoGetNext_416EE0((int)v2);
 						if (!v2) {
 							return;
@@ -7526,7 +7526,7 @@ void sub_506DE0(int a1) {
 }
 
 //----- (00506E50) --------------------------------------------------------
-void sub_506E50(int a1, wchar_t* a2) {
+void sub_506E50(int a1, wchar2_t* a2) {
 	char* v2; // esi
 	int v3;   // esi
 	int v4;   // eax
@@ -7539,7 +7539,7 @@ void sub_506E50(int a1, wchar_t* a2) {
 			if (*(uint8_t*)(a1 + 8) & 4) {
 				v2 = nox_common_playerInfoGetFirst_416EA0();
 				if (v2) {
-					while (*((uint32_t*)v2 + 523) != 1 || nox_wcscmp((const wchar_t*)v2 + 2352, a2)) {
+					while (*((uint32_t*)v2 + 523) != 1 || nox_wcscmp((const wchar2_t*)v2 + 2352, a2)) {
 						v2 = nox_common_playerInfoGetNext_416EE0((int)v2);
 						if (!v2) {
 							return;
@@ -7589,7 +7589,7 @@ void sub_506F80(int a1) {
 	if (sub_507000(a1) == 1) {
 		v3 = *(uint32_t*)(v1 + 748);
 		nox_xxx_playerCallDisconnect_4DEAB0(*(unsigned char*)(*(uint32_t*)(v3 + 276) + 2064), 4);
-		sub_416770(15, (wchar_t*)(*(uint32_t*)(v3 + 276) + 4704), (const char*)(*(uint32_t*)(v3 + 276) + 2112));
+		sub_416770(15, (wchar2_t*)(*(uint32_t*)(v3 + 276) + 4704), (const char*)(*(uint32_t*)(v3 + 276) + 2112));
 		sub_5067B0(a1);
 	}
 }
@@ -7663,7 +7663,7 @@ void sub_507100(int a1) {
 	if (*(uint8_t*)(a1 + 4) >= *(uint8_t*)(a1 + 12)) {
 	LABEL_8:
 		sub_4DCFB0(v1);
-		sub_416770(15, (wchar_t*)(*(uint32_t*)(v2 + 276) + 4704), (const char*)(*(uint32_t*)(v2 + 276) + 2112));
+		sub_416770(15, (wchar2_t*)(*(uint32_t*)(v2 + 276) + 4704), (const char*)(*(uint32_t*)(v2 + 276) + 2112));
 		sub_5067B0(a1);
 		return;
 	}

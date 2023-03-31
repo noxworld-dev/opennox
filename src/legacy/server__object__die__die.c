@@ -17,9 +17,9 @@ void nox_xxx_dieArmor_54E170_obj_die(int a1) {
 	short v4;     // ax
 	int v5;       // ebp
 	short v6;     // ax
-	wchar_t* v7;  // esi
+	wchar2_t* v7;  // esi
 	int v8;       // edi
-	wchar_t* v9;  // eax
+	wchar2_t* v9;  // eax
 	float2* v10;  // [esp+14h] [ebp+4h]
 
 	v1 = a1;
@@ -27,7 +27,7 @@ void nox_xxx_dieArmor_54E170_obj_die(int a1) {
 	if (!nox_strman_get_lang_code() || nox_strman_get_lang_code() == 1) {
 		v3 = nox_xxx_equipClothFindDefByTT_413270(*(unsigned short*)(a1 + 4));
 		if (v3) {
-			v4 = *(uint16_t*)(v3[2] + 2 * nox_wcslen((const wchar_t*)v3[2]) - 2);
+			v4 = *(uint16_t*)(v3[2] + 2 * nox_wcslen((const wchar2_t*)v3[2]) - 2);
 			if (v4 == 83 || v4 == 115) {
 				v2 = 1;
 			}
@@ -87,12 +87,12 @@ void nox_xxx_dieWeapon_54E370_obj_die(int a1) {
 	int v1;      // edi
 	float2* v2;  // ebx
 	short v3;    // ax
-	wchar_t* v4; // eax
-	wchar_t* v5; // eax
-	wchar_t* v6; // eax
-	wchar_t* v7; // [esp-4h] [ebp-10h]
-	wchar_t* v8; // [esp-4h] [ebp-10h]
-	wchar_t* v9; // [esp-4h] [ebp-10h]
+	wchar2_t* v4; // eax
+	wchar2_t* v5; // eax
+	wchar2_t* v6; // eax
+	wchar2_t* v7; // [esp-4h] [ebp-10h]
+	wchar2_t* v8; // [esp-4h] [ebp-10h]
+	wchar2_t* v9; // [esp-4h] [ebp-10h]
 
 	v1 = *(uint32_t*)(a1 + 492);
 	v2 = (float2*)(v1 + 56);

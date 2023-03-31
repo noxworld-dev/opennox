@@ -47,7 +47,7 @@ func nox_xxx_playerResetControlBuffer_51AC30(pi int) {
 }
 
 //export sub_42E8E0
-func sub_42E8E0(key, a2 int) *C.wchar_t {
+func sub_42E8E0(key, a2 int) *wchar2_t {
 	s := GetCtrlEvent().Sub_42E8E0_go(keybind.Event(key), a2)
 	return internWStr(s)
 }

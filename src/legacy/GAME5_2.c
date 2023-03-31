@@ -1459,7 +1459,7 @@ int sub_57A3F0(char* a1, int a2, int a3, int a4) {
 	FILE* v5;        // esi
 	char* v6;        // eax
 	char v8[256];    // [esp+4h] [ebp-300h]
-	wchar_t v9[256]; // [esp+104h] [ebp-200h]
+	wchar2_t v9[256]; // [esp+104h] [ebp-200h]
 
 	dword_5d4594_2523764 = 6128;
 	v4 = nox_fs_open_text(a1);
@@ -1486,17 +1486,17 @@ int sub_57A3F0(char* a1, int a2, int a3, int a4) {
 }
 
 //----- (0057A4D0) --------------------------------------------------------
-void sub_57A4D0(wchar_t* a1, int a2, int a3, int a4) {
+void sub_57A4D0(wchar2_t* a1, int a2, int a3, int a4) {
 	unsigned char v4;      // bl
 	int v5;                // edi
-	const wchar_t* result; // eax
-	const wchar_t* v7;     // esi
+	const wchar2_t* result; // eax
+	const wchar2_t* v7;     // esi
 	int v8;                // ecx
-	const wchar_t* v9;     // eax
-	wchar_t* v10;          // esi
+	const wchar2_t* v9;     // eax
+	wchar2_t* v10;          // esi
 	unsigned char v11;     // [esp+10h] [ebp-284h]
 	int v12[32];           // [esp+14h] [ebp-280h]
-	wchar_t v13[256];      // [esp+94h] [ebp-200h]
+	wchar2_t v13[256];      // [esp+94h] [ebp-200h]
 
 	v4 = 0;
 	v5 = 0;
@@ -1522,7 +1522,7 @@ void sub_57A4D0(wchar_t* a1, int a2, int a3, int a4) {
 					++v9;
 				}
 				if (*v9 == 34) {
-					result = nox_wcstok((wchar_t*)v9 + 1, L"\"\n\r");
+					result = nox_wcstok((wchar2_t*)v9 + 1, L"\"\n\r");
 					v7 = result;
 					v5 = 1;
 				} else {
@@ -1532,10 +1532,10 @@ void sub_57A4D0(wchar_t* a1, int a2, int a3, int a4) {
 				}
 			} while (v7);
 			if (v4) {
-				result = (const wchar_t*)sub_57A620(v4, (const wchar_t**)v12, a2, a4);
+				result = (const wchar2_t*)sub_57A620(v4, (const wchar2_t**)v12, a2, a4);
 				if (!result) {
 					if (a3) {
-						v10 = (wchar_t*)calloc(1, 0x20Cu);
+						v10 = (wchar2_t*)calloc(1, 0x20Cu);
 						nox_wcscpy(v10 + 6, a1);
 						nox_common_list_append_4258E0(a3, v10);
 					}
@@ -1549,8 +1549,8 @@ void sub_57A4D0(wchar_t* a1, int a2, int a3, int a4) {
 //----- (0057A620) --------------------------------------------------------
 int sub_415EC0(char* a1);
 int sub_415A30(char* a1);
-int sub_57A620(unsigned char a1, const wchar_t** a2, int a3, int a4) {
-	const wchar_t** v4; // ebp
+int sub_57A620(unsigned char a1, const wchar2_t** a2, int a3, int a4) {
+	const wchar2_t** v4; // ebp
 	unsigned char v5;   // dl
 	int v6;             // esi
 	int v9;             // eax
@@ -1645,7 +1645,7 @@ int sub_57A620(unsigned char a1, const wchar_t** a2, int a3, int a4) {
 		nox_sprintf(v16, "%S", v4[2]);
 		v6 = nox_xxx_spellNameToN_4243F0(v16);
 		if (!v6) {
-			v6 = nox_xxx_spellByTitle_424960((wchar_t*)v4[2]);
+			v6 = nox_xxx_spellByTitle_424960((wchar2_t*)v4[2]);
 			if (!v6) {
 				return 0;
 			}

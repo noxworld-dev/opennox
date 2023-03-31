@@ -14,7 +14,7 @@ typedef struct nox_savegame_xxx {
 	char map_name[32]; // 1156
 	noxSYSTEMTIME timestamp; // 1188
 	uint8_t field_1204[20];
-	wchar_t player_name[25]; // 1224
+	wchar2_t player_name[25]; // 1224
 	uint8_t player_class; // 1274
 	uint8_t field_1275;
 	uint8_t field_1276;

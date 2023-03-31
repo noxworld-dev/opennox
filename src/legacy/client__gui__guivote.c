@@ -18,32 +18,32 @@ extern uint32_t nox_player_netCode_85319C;
 //----- (0048CB10) --------------------------------------------------------
 uint32_t* sub_48CB10(int a1) {
 	uint32_t* result;   // eax
-	wchar_t* v2;        // eax
+	wchar2_t* v2;        // eax
 	uint32_t* v3;       // esi
-	wchar_t* v4;        // eax
-	wchar_t* v5;        // eax
-	wchar_t* v6;        // eax
-	wchar_t* v7;        // eax
-	wchar_t* v8;        // eax
+	wchar2_t* v4;        // eax
+	wchar2_t* v5;        // eax
+	wchar2_t* v6;        // eax
+	wchar2_t* v7;        // eax
+	wchar2_t* v8;        // eax
 	uint32_t* v9;       // esi
-	wchar_t* v10;       // eax
-	wchar_t* v11;       // eax
-	wchar_t* v12;       // eax
+	wchar2_t* v10;       // eax
+	wchar2_t* v11;       // eax
+	wchar2_t* v12;       // eax
 	uint32_t* v13;      // esi
-	wchar_t* v14;       // eax
+	wchar2_t* v14;       // eax
 	uint32_t* v15;      // eax
 	char* v16;          // ebx
 	char* i;            // ebp
 	uint32_t* v18;      // eax
 	int v19;            // esi
-	const wchar_t* v20; // ebx
+	const wchar2_t* v20; // ebx
 	char* j;            // ebp
 	int v22;            // esi
-	const wchar_t* v23; // edi
-	wchar_t* v24;       // [esp-10h] [ebp-228h]
+	const wchar2_t* v23; // edi
+	wchar2_t* v24;       // [esp-10h] [ebp-228h]
 	int v25;            // [esp+10h] [ebp-208h]
 	char* v26;          // [esp+14h] [ebp-204h]
-	wchar_t v27[256];   // [esp+18h] [ebp-200h]
+	wchar2_t v27[256];   // [esp+18h] [ebp-200h]
 
 	v25 = 0;
 	nox_window_call_field_94(*(int*)&dword_5d4594_1197316, 16399, 0, 0);
@@ -115,9 +115,9 @@ uint32_t* sub_48CB10(int a1) {
 									*getMemU32Ptr(0x587000, 156400 + 8 * ((unsigned char)v16[57] % 10)));
 								v19 = 0;
 								if (dword_5d4594_1197324 > 0) {
-									v20 = (const wchar_t*)getMemAt(0x5D4594, 1193720);
+									v20 = (const wchar2_t*)getMemAt(0x5D4594, 1193720);
 									do {
-										if (!nox_wcscmp(v20, (const wchar_t*)i + 2352)) {
+										if (!nox_wcscmp(v20, (const wchar2_t*)i + 2352)) {
 											nox_window_call_field_94(*(int*)&dword_5d4594_1197316, 16405, v25, 0);
 										}
 										++v19;
@@ -137,9 +137,9 @@ uint32_t* sub_48CB10(int a1) {
 					nox_window_call_field_94(*(int*)&dword_5d4594_1197316, 16397, (int)(j + 4704), 4);
 					v22 = 0;
 					if (dword_5d4594_1197324 > 0) {
-						v23 = (const wchar_t*)getMemAt(0x5D4594, 1193720);
+						v23 = (const wchar2_t*)getMemAt(0x5D4594, 1193720);
 						do {
-							if (!nox_wcscmp(v23, (const wchar_t*)j + 2352)) {
+							if (!nox_wcscmp(v23, (const wchar2_t*)j + 2352)) {
 								nox_window_call_field_94(*(int*)&dword_5d4594_1197316, 16405, v25, 0);
 							}
 							++v22;

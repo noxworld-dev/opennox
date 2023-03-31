@@ -7,7 +7,7 @@ int nox_xxx_loadGuides_427070() {
 	char** v0;        // ebx
 	unsigned char* i; // ebp
 	int v2;           // esi
-	wchar_t* v3;      // eax
+	wchar2_t* v3;      // eax
 	int v4;           // ecx
 	int v5;           // edx
 	const char* v6;   // edi

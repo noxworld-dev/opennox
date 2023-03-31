@@ -14,7 +14,7 @@ extern uint32_t dword_5d4594_2523780;
 void sub_57AF30(int a1, int a2) {
 	int v2;       // ecx
 	uint32_t* v3; // eax
-	wchar_t* v4;  // eax
+	wchar2_t* v4;  // eax
 	int v5;       // esi
 
 	if (!(dword_5d4594_2523804 != 1 && !nox_xxx_checkGameFlagPause_413A50())) {

@@ -60,18 +60,18 @@ int sub_454640() {
 int* sub_454740() {
 	char* v0;                // esi
 	uint32_t* v1;            // edi
-	wchar_t* v2;             // eax
+	wchar2_t* v2;             // eax
 	uint32_t* v3;            // eax
 	uint32_t* v4;            // eax
 	uint32_t* v5;            // eax
-	wchar_t* v6;             // eax
-	wchar_t* v7;             // eax
-	wchar_t* v8;             // eax
+	wchar2_t* v6;             // eax
+	wchar2_t* v7;             // eax
+	wchar2_t* v8;             // eax
 	char v9;                 // dl
 	int v10;                 // ecx
 	int v11;                 // eax
 	char* i;                 // esi
-	wchar_t WideCharStr[18]; // [esp+Ch] [ebp-24h]
+	wchar2_t WideCharStr[18]; // [esp+Ch] [ebp-24h]
 
 	v0 = sub_416640();
 	v1 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045516, 10136);

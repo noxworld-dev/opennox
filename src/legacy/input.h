@@ -9,8 +9,8 @@ int nox_input_pollEvents_4453A0();
 
 void nox_input_enableTextEdit_5700CA();
 void nox_input_disableTextEdit_5700F6();
-wchar_t* nox_input_getStringBuffer_57011C();
-void nox_input_freeStringBuffer_57011C(wchar_t* p);
+wchar2_t* nox_input_getStringBuffer_57011C();
+void nox_input_freeStringBuffer_57011C(wchar2_t* p);
 
 unsigned short nox_input_scanCodeToAlpha_47F950(unsigned short a1);
 

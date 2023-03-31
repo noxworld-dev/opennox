@@ -38,7 +38,7 @@ void sub_478730(int* a1) {
 	unsigned int v7;   // ecx
 	int v8;            // ebp
 	const void* v9;    // ebx
-	wchar_t* v10;      // eax
+	wchar2_t* v10;      // eax
 	int v11;           // [esp-24h] [ebp-34h]
 	int v12;           // [esp-20h] [ebp-30h]
 	int v13;           // [esp-1Ch] [ebp-2Ch]
@@ -83,7 +83,7 @@ void sub_478730(int* a1) {
 
 //----- (00478880) --------------------------------------------------------
 void nox_client_tradeXxxBuyAccept_478880(int a1, short a2) {
-	wchar_t* v2; // eax
+	wchar2_t* v2; // eax
 
 	if (sub_467B00(a1, 1)) {
 		LOWORD(a1) = 5833;
@@ -99,7 +99,7 @@ void nox_client_tradeXxxBuyAccept_478880(int a1, short a2) {
 
 //----- (004788F0) --------------------------------------------------------
 void sub_4788F0(int a1, int a2) {
-	wchar_t* v2; // eax
+	wchar2_t* v2; // eax
 	char v3[5];  // [esp+8h] [ebp-8h]
 
 	if (sub_467B00(a1, a2)) {
@@ -117,9 +117,9 @@ void sub_4788F0(int a1, int a2) {
 }
 
 //----- (00478B10) --------------------------------------------------------
-wchar_t* sub_478B10(int2* a1) {
+wchar2_t* sub_478B10(int2* a1) {
 	uint32_t* v1;    // esi
-	wchar_t* result; // eax
+	wchar2_t* result; // eax
 	int v3;          // [esp+4h] [ebp-10h]
 	int v4;          // [esp+8h] [ebp-Ch]
 	int v5;          // [esp+Ch] [ebp-8h]
@@ -129,20 +129,20 @@ wchar_t* sub_478B10(int2* a1) {
 	nox_client_wndGetPosition_46AA60(v1, &v5, &v6);
 	nox_window_get_size((int)v1, &v4, &v3);
 	nox_client_drawImageAt_47D2C0(dword_5d4594_1098456, a1->field_0, a1->field_4);
-	result = *(wchar_t**)&dword_5d4594_1098596;
+	result = *(wchar2_t**)&dword_5d4594_1098596;
 	if (dword_5d4594_1098596 ||
 		(result = nox_strman_loadString_40F1D0("SellInstructions", *(uint32_t**)&dword_5d4594_1098596,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 597),
 		 (dword_5d4594_1098596 = result) != 0)) {
-		result = (wchar_t*)nox_xxx_drawStringWrap_43FAF0(0, result, v5 + 8, v6 + 8, v4 - 16, v3 - 16);
+		result = (wchar2_t*)nox_xxx_drawStringWrap_43FAF0(0, result, v5 + 8, v6 + 8, v4 - 16, v3 - 16);
 	}
 	return result;
 }
 
 //----- (00478BC0) --------------------------------------------------------
-wchar_t* sub_478BC0(int* a1) {
+wchar2_t* sub_478BC0(int* a1) {
 	uint32_t* v1;    // esi
-	wchar_t* result; // eax
+	wchar2_t* result; // eax
 	int v3;          // [esp+4h] [ebp-10h]
 	int v4;          // [esp+8h] [ebp-Ch]
 	int v5;          // [esp+Ch] [ebp-8h]
@@ -153,18 +153,18 @@ wchar_t* sub_478BC0(int* a1) {
 	nox_window_get_size((int)v1, &v4, &v3);
 	nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
 	nox_client_drawImageAt_47D2C0(dword_5d4594_1098456, *a1, a1[1]);
-	result = *(wchar_t**)&dword_5d4594_1098600;
+	result = *(wchar2_t**)&dword_5d4594_1098600;
 	if (dword_5d4594_1098600 ||
 		(result = nox_strman_loadString_40F1D0("RepairInstructions", *(uint32_t**)&dword_5d4594_1098600,
 											   "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 628),
 		 (dword_5d4594_1098600 = result) != 0)) {
-		result = (wchar_t*)nox_xxx_drawStringWrap_43FAF0(0, result, v5 + 8, v6 + 8, v4 - 16, v3 - 16);
+		result = (wchar2_t*)nox_xxx_drawStringWrap_43FAF0(0, result, v5 + 8, v6 + 8, v4 - 16, v3 - 16);
 	}
 	return result;
 }
 
 //----- (00478FD0) --------------------------------------------------------
-int nox_xxx_cliStartShopDlg_478FD0(const wchar_t* a1, char* a2, int a3) {
+int nox_xxx_cliStartShopDlg_478FD0(const wchar2_t* a1, char* a2, int a3) {
 	uint32_t* v3; // esi
 
 	v3 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1098576, 3810);
@@ -178,9 +178,9 @@ int nox_xxx_cliStartShopDlg_478FD0(const wchar_t* a1, char* a2, int a3) {
 	nox_client_setRenderGUI(0);
 	sub_467BB0();
 	if (a1) {
-		nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1097300), a1);
+		nox_wcscpy((wchar2_t*)getMemAt(0x5D4594, 1097300), a1);
 	} else {
-		nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1097300), (const wchar_t*)getMemAt(0x5D4594, 1107044));
+		nox_wcscpy((wchar2_t*)getMemAt(0x5D4594, 1097300), (const wchar2_t*)getMemAt(0x5D4594, 1107044));
 	}
 	sub_46AEE0((int)v3, (int)getMemAt(0x5D4594, 1097300));
 	if (strlen(a2)) {
@@ -200,11 +200,11 @@ int nox_xxx_cliStartShopDlg_478FD0(const wchar_t* a1, char* a2, int a3) {
 
 //----- (00479520) --------------------------------------------------------
 void sub_479520(int a1) {
-	wchar_t* v1; // eax
-	wchar_t* v2; // eax
+	wchar2_t* v1; // eax
+	wchar2_t* v2; // eax
 
 	v1 = nox_strman_loadString_40F1D0("NotEnoughGold", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1346);
-	nox_swprintf((wchar_t*)getMemAt(0x5D4594, 1097352), v1, a1);
+	nox_swprintf((wchar2_t*)getMemAt(0x5D4594, 1097352), v1, a1);
 	v2 = nox_strman_loadString_40F1D0("ShopInformationTitle", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1350);
 	nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1098576, (int)v2, (int)getMemAt(0x5D4594, 1097352), 33, 0,
 									  0);
@@ -234,7 +234,7 @@ int sub_4795E0(int a1, int a2) {
 			sub_4C05F0(1, a2);
 			v10 = sub_467700(a1);
 			v9 = *(uint32_t*)(v5 + 108);
-			wchar_t* str =
+			wchar2_t* str =
 				nox_strman_loadString_40F1D0("SellLabel", 0, "C:\\NoxPost\\src\\client\\Gui\\GUIShop.c", 1504);
 			result = nox_gui_itemAmountDialog_4C0430(str, mpos.x, mpos.y, a1, v9, v2, v10, 0, sub_479690, sub_479680);
 			dword_5d4594_1098616 = 1;
@@ -248,7 +248,7 @@ void sub_479740(int a1, unsigned int a2) {
 	const void* v2;   // ebp
 	int v4;           // eax
 	int v5;           // edi
-	wchar_t* v6;      // eax
+	wchar2_t* v6;      // eax
 	int v7;           // [esp-24h] [ebp-38h]
 	int v8;           // [esp-20h] [ebp-34h]
 	int v9;           // [esp-18h] [ebp-2Ch]

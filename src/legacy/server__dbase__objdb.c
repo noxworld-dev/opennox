@@ -3,7 +3,7 @@
 #include "common__strman.h"
 
 //----- (004E39F0) --------------------------------------------------------
-wchar_t* sub_4E39F0_obj_db(nox_object_t* a1p) {
+wchar2_t* sub_4E39F0_obj_db(nox_object_t* a1p) {
 	const char** a1 = a1p;
 	const char* v1;    // esi
 	char* v2;          // eax

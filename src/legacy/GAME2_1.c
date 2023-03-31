@@ -1263,7 +1263,7 @@ int nox_xxx_inventoryDrawAllMB_463430(int a1) {
 	int v13;         // et1
 	int v14;         // et1
 	int2 v16;        // [esp+10h] [ebp-28h]
-	wchar_t v17[16]; // [esp+18h] [ebp-20h]
+	wchar2_t v17[16]; // [esp+18h] [ebp-20h]
 
 	v1 = dword_587000_136184;
 	nox_window_setPos_46A9B0(*(uint32_t**)(a1 + 396), 0, v1);
@@ -1417,7 +1417,7 @@ int nox_xxx_guiDrawInventoryTray_4643B0(int a1, int a2) {
 	int v25;                 // [esp+24h] [ebp-30h]
 	int v26;                 // [esp+28h] [ebp-2Ch]
 	int v27;                 // [esp+2Ch] [ebp-28h]
-	wchar_t WideCharStr[16]; // [esp+34h] [ebp-20h]
+	wchar2_t WideCharStr[16]; // [esp+34h] [ebp-20h]
 	unsigned char* v29;      // [esp+58h] [ebp+4h]
 
 	v2 = a2;
@@ -2148,7 +2148,7 @@ int nox_xxx_inventoryDrawProc_466580(uint32_t* a1) {
 
 //----- (00466620) --------------------------------------------------------
 int sub_466620(int a1, int a2, unsigned int a3) {
-	wchar_t* v3; // eax
+	wchar2_t* v3; // eax
 	int2 a2a;    // [esp+0h] [ebp-8h]
 
 	a2a.field_4 = a3 >> 16;
@@ -3339,11 +3339,11 @@ void nox_client_chatStart_46A430(int a1) {
 int sub_46A4A0() { return dword_5d4594_1064868; }
 
 //----- (0046A4B0) --------------------------------------------------------
-size_t nox_xxx_cmdSayDo_46A4B0(wchar_t* a1, int a2) {
+size_t nox_xxx_cmdSayDo_46A4B0(wchar2_t* a1, int a2) {
 	uint32_t* v2;      // ebp
 	size_t v3;         // edi
 	size_t result;     // eax
-	const wchar_t* v5; // edi
+	const wchar2_t* v5; // edi
 	char v6;           // al
 	int v7;            // eax
 	char v8[520];      // [esp+Ch] [ebp-208h]
@@ -3368,7 +3368,7 @@ size_t nox_xxx_cmdSayDo_46A4B0(wchar_t* a1, int a2) {
 		}
 		v8[8] = nox_wcslen(v5) + 1;
 		if (v8[3] & 4) {
-			nox_wcscpy((wchar_t*)&v8[11], v5);
+			nox_wcscpy((wchar2_t*)&v8[11], v5);
 			v7 = 2;
 		} else {
 			nox_sprintf(&v8[11], "%S", v5);
@@ -3473,7 +3473,7 @@ int sub_46A7E0(uint32_t* a1, int a2, int a3, int a4) {
 int sub_46A820(int a1, int a2, int a3, int a4) {
 	if (a2 == 16415) {
 		if (*(uint16_t*)(dword_5d4594_1064864 + 1052)) {
-			nox_xxx_cmdSayDo_46A4B0(*(wchar_t**)&dword_5d4594_1064864, *getMemIntPtr(0x5D4594, 1064872));
+			nox_xxx_cmdSayDo_46A4B0(*(wchar2_t**)&dword_5d4594_1064864, *getMemIntPtr(0x5D4594, 1064872));
 		}
 		sub_46A6A0();
 	}
@@ -3565,7 +3565,7 @@ int sub_46AEE0(int a1, int a2) {
 }
 
 //----- (0046AF00) --------------------------------------------------------
-wchar_t* sub_46AF00(void* a1p) {
+wchar2_t* sub_46AF00(void* a1p) {
 	int a1 = a1p;
 	int v1;     // ecx
 	int result; // eax
@@ -3685,11 +3685,11 @@ int sub_46DC00(int a1, unsigned char a2, int a3) {
 }
 
 //----- (0046DC30) --------------------------------------------------------
-int sub_46DC30(int a1, unsigned char a2, wchar_t* a3, ...) {
+int sub_46DC30(int a1, unsigned char a2, wchar2_t* a3, ...) {
 	va_list va; // [esp+10h] [ebp+10h]
 
 	va_start(va, a3);
-	nox_vswprintf((wchar_t*)getMemAt(0x5D4594, 1089000), a3, va);
+	nox_vswprintf((wchar2_t*)getMemAt(0x5D4594, 1089000), a3, va);
 	return sub_46DC00(a1, a2, (int)getMemAt(0x5D4594, 1089000));
 }
 
@@ -3737,17 +3737,17 @@ char* sub_46DCC0() {
 	unsigned char v39; // al
 	int v40;           // ecx
 	unsigned int v41;  // [esp+0h] [ebp-8h]
-	wchar_t* v42;      // [esp+4h] [ebp-4h]
-	wchar_t* v43;      // [esp+4h] [ebp-4h]
+	wchar2_t* v42;      // [esp+4h] [ebp-4h]
+	wchar2_t* v43;      // [esp+4h] [ebp-4h]
 
 	if (dword_5d4594_1090120 == 5) {
 		v23 = nox_common_playerInfoCount_416F40();
-		v43 = (wchar_t*)v23;
+		v43 = (wchar2_t*)v23;
 		*getMemU8Ptr(0x5D4594, 1090117) = 0;
 		*getMemU8Ptr(0x5D4594, 1090118) = 0;
 		if (nox_common_gameFlags_check_40A5C0(1) &&
 			nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
-			v43 = (wchar_t*)--v23;
+			v43 = (wchar2_t*)--v23;
 		}
 		for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
 			v25 = *((uint32_t*)i + 920);
@@ -3790,8 +3790,8 @@ char* sub_46DCC0() {
 				*getMemU32Ptr(0x5D4594, 1084208 + v31) = *(uint32_t*)(v27 + 3680);
 				v34 = 80 * v30;
 				*getMemU32Ptr(0x5D4594, 1084204 + v34) = sub_46E080(v27);
-				nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1084132 + v34), (const wchar_t*)(v27 + 4704));
-				sub_46E170((wchar_t*)getMemAt(0x5D4594, 1084132 + 80 * getMemByte(0x5D4594, 1090117)));
+				nox_wcscpy((wchar2_t*)getMemAt(0x5D4594, 1084132 + v34), (const wchar2_t*)(v27 + 4704));
+				sub_46E170((wchar2_t*)getMemAt(0x5D4594, 1084132 + 80 * getMemByte(0x5D4594, 1090117)));
 				*getMemU8Ptr(0x5D4594, 1084188 + 80 * getMemByte(0x5D4594, 1090117)) = *(uint8_t*)(v27 + 2251);
 				v35 = nox_xxx_objGetTeamByNetCode_418C80(*(uint32_t*)(v27 + 2060));
 				v36 = v35;
@@ -3829,7 +3829,7 @@ char* sub_46DCC0() {
 		v41 = nox_common_playerInfoCount_416F40();
 		v2 = nox_xxx_getTeamCounter_417DD0();
 		*getMemU8Ptr(0x5D4594, 1090116) = 0;
-		v42 = (wchar_t*)v2;
+		v42 = (wchar2_t*)v2;
 		*getMemU8Ptr(0x5D4594, 1090117) = 0;
 		*getMemU8Ptr(0x5D4594, 1090118) = 0;
 		if (nox_common_gameFlags_check_40A5C0(1) &&
@@ -3850,8 +3850,8 @@ char* sub_46DCC0() {
 				*getMemU32Ptr(0x5D4594, 1087252 + v6) = *(uint32_t*)(v3 + 52);
 				*getMemU32Ptr(0x5D4594, 1087248 + v6) = *(unsigned char*)(v3 + 57);
 				*getMemU8Ptr(0x5D4594, 1087256 + v6) = *(uint8_t*)(v3 + 56);
-				nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1087204 + v6), (const wchar_t*)v3);
-				sub_46E170((wchar_t*)getMemAt(0x5D4594, 1087204 + 56 * getMemByte(0x5D4594, 1090116)));
+				nox_wcscpy((wchar2_t*)getMemAt(0x5D4594, 1087204 + v6), (const wchar2_t*)v3);
+				sub_46E170((wchar2_t*)getMemAt(0x5D4594, 1087204 + 56 * getMemByte(0x5D4594, 1090116)));
 				++*getMemU8Ptr(0x5D4594, 1090116);
 				v1 = v4;
 			} while (getMemByte(0x5D4594, 1090116) < (unsigned int)v42);
@@ -3888,8 +3888,8 @@ char* sub_46DCC0() {
 				*getMemU32Ptr(0x5D4594, 1084208 + v14) = *(uint32_t*)(v10 + 3680);
 				v16 = 80 * v13;
 				*getMemU32Ptr(0x5D4594, 1084204 + v16) = sub_46E080(v10);
-				nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1084132 + v16), (const wchar_t*)(v10 + 4704));
-				sub_46E170((wchar_t*)getMemAt(0x5D4594, 1084132 + 80 * getMemByte(0x5D4594, 1090117)));
+				nox_wcscpy((wchar2_t*)getMemAt(0x5D4594, 1084132 + v16), (const wchar2_t*)(v10 + 4704));
+				sub_46E170((wchar2_t*)getMemAt(0x5D4594, 1084132 + 80 * getMemByte(0x5D4594, 1090117)));
 				*getMemU8Ptr(0x5D4594, 1084188 + 80 * getMemByte(0x5D4594, 1090117)) = *(uint8_t*)(v10 + 2251);
 				v17 = nox_xxx_objGetTeamByNetCode_418C80(*(uint32_t*)(v10 + 2060));
 				v18 = v17;
@@ -3972,7 +3972,7 @@ int sub_46E130(int a1) {
 }
 
 //----- (0046E170) --------------------------------------------------------
-unsigned short* sub_46E170(wchar_t* a1) {
+unsigned short* sub_46E170(wchar2_t* a1) {
 	if (!a1 || !*getMemIntPtr(0x5D4594, 1084036)) {
 		return 0;
 	}
@@ -4040,11 +4040,11 @@ char* sub_46E4E0() {
 	char* result;      // eax
 	int v22;           // ecx
 	unsigned int v23;  // [esp+10h] [ebp-8h]
-	wchar_t* v24;      // [esp+14h] [ebp-4h]
+	wchar2_t* v24;      // [esp+14h] [ebp-4h]
 
 	v0 = 0x7FFFFFFF;
 	v1 = nox_xxx_getTeamCounter_417DD0();
-	v24 = (wchar_t*)v1;
+	v24 = (wchar2_t*)v1;
 	v23 = nox_common_playerInfoCount_416F40();
 	*getMemU8Ptr(0x5D4594, 1090116) = 0;
 	*getMemU8Ptr(0x5D4594, 1090117) = 0;
@@ -4066,8 +4066,8 @@ char* sub_46E4E0() {
 			*getMemU32Ptr(0x5D4594, 1087252 + v5) = *(uint32_t*)(v2 + 52);
 			*getMemU32Ptr(0x5D4594, 1087248 + v5) = *(unsigned char*)(v2 + 57);
 			*getMemU8Ptr(0x5D4594, 1087256 + v5) = *(uint8_t*)(v2 + 56);
-			nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1087204 + v5), (const wchar_t*)v2);
-			sub_46E170((wchar_t*)getMemAt(0x5D4594, 1087204 + 56 * getMemByte(0x5D4594, 1090116)));
+			nox_wcscpy((wchar2_t*)getMemAt(0x5D4594, 1087204 + v5), (const wchar2_t*)v2);
+			sub_46E170((wchar2_t*)getMemAt(0x5D4594, 1087204 + 56 * getMemByte(0x5D4594, 1090116)));
 			++*getMemU8Ptr(0x5D4594, 1090116);
 			v0 = v3;
 		} while (getMemByte(0x5D4594, 1090116) < (unsigned int)v24);
@@ -4104,8 +4104,8 @@ char* sub_46E4E0() {
 			v15 = 80 * v12;
 			*getMemU32Ptr(0x5D4594, 1084204 + v15) = sub_46E080(v9);
 			*getMemU32Ptr(0x5D4594, 1084208 + v15) = *(uint32_t*)(v9 + 3680);
-			nox_wcscpy((wchar_t*)getMemAt(0x5D4594, 1084132 + v15), (const wchar_t*)(v9 + 4704));
-			sub_46E170((wchar_t*)getMemAt(0x5D4594, 1084132 + 80 * getMemByte(0x5D4594, 1090117)));
+			nox_wcscpy((wchar2_t*)getMemAt(0x5D4594, 1084132 + v15), (const wchar2_t*)(v9 + 4704));
+			sub_46E170((wchar2_t*)getMemAt(0x5D4594, 1084132 + 80 * getMemByte(0x5D4594, 1090117)));
 			*getMemU8Ptr(0x5D4594, 1084188 + 80 * getMemByte(0x5D4594, 1090117)) = *(uint8_t*)(v9 + 2251);
 			v16 = nox_xxx_objGetTeamByNetCode_418C80(*(uint32_t*)(v9 + 2060));
 			v17 = v16;
@@ -4286,7 +4286,7 @@ unsigned char sub_46FFD0() {
 	int v8;               // eax
 	int v9;               // eax
 	int v10;              // eax
-	wchar_t* v11;         // eax
+	wchar2_t* v11;         // eax
 	int v12;              // eax
 	int v13;              // edx
 	int v14;              // eax
@@ -4331,8 +4331,8 @@ unsigned char sub_46FFD0() {
 					*getMemU32Ptr(0x5D4594, 1088996) = 0;
 				}
 				v6 = v21;
-				sub_46DC30(*getMemIntPtr(0x5D4594, 1090060), v21, (wchar_t*)getMemAt(0x587000, 147828), v2 - 52);
-				sub_46DC30(*getMemIntPtr(0x5D4594, 1090076), v6, (wchar_t*)getMemAt(0x587000, 147836), v4[4816]);
+				sub_46DC30(*getMemIntPtr(0x5D4594, 1090060), v21, (wchar2_t*)getMemAt(0x587000, 147828), v2 - 52);
+				sub_46DC30(*getMemIntPtr(0x5D4594, 1090076), v6, (wchar2_t*)getMemAt(0x587000, 147836), v4[4816]);
 				v7 = *((uint32_t*)v2 + 2);
 				v8 = v4[2282];
 				LOBYTE(v22) = 4;
@@ -4352,8 +4352,8 @@ unsigned char sub_46FFD0() {
 				} else {
 					LOBYTE(v22) = 6;
 				}
-				sub_46DC30(*getMemIntPtr(0x5D4594, 1090084), v22, (wchar_t*)getMemAt(0x587000, 147844), v8);
-				sub_46DC30(*getMemIntPtr(0x5D4594, 1090092), v6, (wchar_t*)getMemAt(0x587000, 147856),
+				sub_46DC30(*getMemIntPtr(0x5D4594, 1090084), v22, (wchar2_t*)getMemAt(0x587000, 147844), v8);
+				sub_46DC30(*getMemIntPtr(0x5D4594, 1090092), v6, (wchar2_t*)getMemAt(0x587000, 147856),
 						   *getMemU32Ptr(0x5D4594, 1084056 + 4 * v2[4]));
 				v11 = sub_46FB50(*((uint32_t*)v2 + 5), &v26);
 				sub_46DC60(*getMemIntPtr(0x5D4594, 1090068), v26, (int)v11);
@@ -4877,7 +4877,7 @@ int sub_471450(uint32_t* a1) {
 	uint32_t* v1;           // esi
 	int v3;                 // [esp+4h] [ebp-10h]
 	int v4;                 // [esp+8h] [ebp-Ch]
-	wchar_t WideCharStr[4]; // [esp+Ch] [ebp-8h]
+	wchar2_t WideCharStr[4]; // [esp+Ch] [ebp-8h]
 
 	v1 = a1;
 	nox_itow(nox_windows_arr_1093036[a1[8]].field_1, WideCharStr, 10);
@@ -4897,7 +4897,7 @@ int nox_xxx_guiBottleSlotDrawFn_471A80(uint32_t* a1) {
 	short* v5;     // esi
 	int v6;        // eax
 	int v8;        // [esp+4h] [ebp-14h]
-	wchar_t v9[8]; // [esp+8h] [ebp-10h]
+	wchar2_t v9[8]; // [esp+8h] [ebp-10h]
 
 	v1 = a1[8];
 	nox_client_wndGetPosition_46AA60(a1, &v8, &a1);
@@ -5087,24 +5087,24 @@ void nox_client_quickCurePoisonPotion_472260() {
 }
 
 //----- (00472280) --------------------------------------------------------
-wchar_t* sub_472280() {
-	wchar_t* result; // eax
+wchar2_t* sub_472280() {
+	wchar2_t* result; // eax
 	char* v1;        // eax
 	char* v2;        // eax
 	char* v3;        // eax
 
-	result = *(wchar_t**)getMemAt(0x8531A0, 2576);
+	result = *(wchar2_t**)getMemAt(0x8531A0, 2576);
 	if (*getMemU32Ptr(0x8531A0, 2576)) {
 		v1 = sub_42E8E0(38, 1);
-		nox_wcsncpy((wchar_t*)getMemAt(0x5D4594, 1091372), (const wchar_t*)v1, 3u);
+		nox_wcsncpy((wchar2_t*)getMemAt(0x5D4594, 1091372), (const wchar2_t*)v1, 3u);
 		*getMemU16Ptr(0x5D4594, 1091378) = 0;
 		v2 = sub_42E8E0(36, 1);
-		nox_wcsncpy((wchar_t*)getMemAt(0x5D4594, 1090300), (const wchar_t*)v2, 3u);
-		result = *(wchar_t**)getMemAt(0x8531A0, 2576);
+		nox_wcsncpy((wchar2_t*)getMemAt(0x5D4594, 1090300), (const wchar2_t*)v2, 3u);
+		result = *(wchar2_t**)getMemAt(0x8531A0, 2576);
 		*getMemU16Ptr(0x5D4594, 1090306) = 0;
 		if (*(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2251)) {
 			v3 = sub_42E8E0(37, 1);
-			result = nox_wcsncpy((wchar_t*)getMemAt(0x5D4594, 1090836), (const wchar_t*)v3, 3u);
+			result = nox_wcsncpy((wchar2_t*)getMemAt(0x5D4594, 1090836), (const wchar2_t*)v3, 3u);
 			*getMemU16Ptr(0x5D4594, 1090842) = 0;
 		}
 	}

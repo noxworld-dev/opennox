@@ -7,17 +7,17 @@
 //----- (004952E0) --------------------------------------------------------
 int sub_4952E0(uint16_t* a1) {
 	char* v1;        // eax
-	wchar_t* v2;     // eax
+	wchar2_t* v2;     // eax
 	char* v3;        // eax
-	wchar_t* v4;     // eax
+	wchar2_t* v4;     // eax
 	char* v5;        // eax
-	wchar_t* v6;     // eax
+	wchar2_t* v6;     // eax
 	int v8;          // [esp-4h] [ebp-108h]
-	wchar_t* v9;     // [esp-4h] [ebp-108h]
+	wchar2_t* v9;     // [esp-4h] [ebp-108h]
 	int v10;         // [esp+0h] [ebp-104h]
-	wchar_t v11[32]; // [esp+4h] [ebp-100h]
-	wchar_t v12[32]; // [esp+44h] [ebp-C0h]
-	wchar_t v13[64]; // [esp+84h] [ebp-80h]
+	wchar2_t v11[32]; // [esp+4h] [ebp-100h]
+	wchar2_t v12[32]; // [esp+44h] [ebp-C0h]
+	wchar2_t v13[64]; // [esp+84h] [ebp-80h]
 
 	if (a1[1] && (v1 = nox_common_playerInfoGetByID_417040((unsigned short)a1[1])) != 0) {
 		v8 = (int)(v1 + 4704);
@@ -47,5 +47,5 @@ int sub_4952E0(uint16_t* a1) {
 			nox_swprintf(v11, v6, v10);
 		}
 	}
-	return nox_gui_console_Printf_450C00(NOX_CONSOLE_WHITE, (wchar_t*)getMemAt(0x587000, 161668), v11, v13);
+	return nox_gui_console_Printf_450C00(NOX_CONSOLE_WHITE, (wchar2_t*)getMemAt(0x587000, 161668), v11, v13);
 }
