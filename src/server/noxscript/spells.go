@@ -19,6 +19,7 @@ func init() {
 	Register(asm.BuiltinEnchant, nsEnchant)
 	Register(asm.BuiltinEnchantOff, nsEnchantOff)
 	Register(asm.BuiltinAwardSpell, nsAwardSpell)
+	Register(asm.BuiltinTrapSpells, nsTrapSpells)
 }
 
 func nsEffect(s VM) int {
@@ -112,6 +113,17 @@ func nsAwardSpell(s VM) int {
 		s.PushBool(obj.AwardSpell(nsp.Spell(name)))
 	} else {
 		s.PushBool(false)
+	}
+	return 0
+}
+
+func nsTrapSpells(s VM) int {
+	sp3 := nsp.Spell(s.PopString())
+	sp2 := nsp.Spell(s.PopString())
+	sp1 := nsp.Spell(s.PopString())
+	obj := s.PopObjectNS()
+	if obj != nil {
+		obj.TrapSpells(sp1, sp2, sp3)
 	}
 	return 0
 }
