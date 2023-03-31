@@ -16,7 +16,7 @@ extern uint32_t dword_5d4594_2388648;
 //----- (005199F0) --------------------------------------------------------
 void nox_xxx_netSendMap_5199F0_net_mapsend(unsigned char* a1) {
 	char* v1;         // eax
-	wchar_t* v2;      // eax
+	wchar2_t* v2;      // eax
 	uint16_t* v3;     // ebp
 	unsigned int v4;  // eax
 	int v5;           // esi
@@ -26,15 +26,15 @@ void nox_xxx_netSendMap_5199F0_net_mapsend(unsigned char* a1) {
 	unsigned int v9;  // esi
 	int v10;          // ebp
 	char* v11;        // edi
-	wchar_t* v12;     // eax
+	wchar2_t* v12;     // eax
 	int v13;          // eax
-	wchar_t* v14;     // eax
+	wchar2_t* v14;     // eax
 	int v15;          // [esp-4h] [ebp-178h]
 	int v16;          // [esp-4h] [ebp-178h]
 	int v17;          // [esp+10h] [ebp-164h]
 	int v18;          // [esp+14h] [ebp-160h]
 	char v19[88];     // [esp+1Ch] [ebp-158h]
-	wchar_t v20[128]; // [esp+74h] [ebp-100h]
+	wchar2_t v20[128]; // [esp+74h] [ebp-100h]
 
 	if (a1) {
 		if (!*((uint32_t*)a1 + 6)) {
@@ -116,10 +116,10 @@ void nox_xxx_netSendMap_5199F0_net_mapsend(unsigned char* a1) {
 //----- (00519C80) --------------------------------------------------------
 void nox_xxx_netSendMapAbort_519C80_net_mapsend(unsigned char* a1, unsigned char a2) {
 	int v2;          // ecx
-	wchar_t* v3;     // eax
+	wchar2_t* v3;     // eax
 	int v4;          // [esp-Ch] [ebp-114h]
 	char v5[2];      // [esp+6h] [ebp-102h]
-	wchar_t v6[128]; // [esp+8h] [ebp-100h]
+	wchar2_t v6[128]; // [esp+8h] [ebp-100h]
 
 	if (a1) {
 		v2 = *a1;
@@ -139,7 +139,7 @@ void nox_xxx_netSendMapAbort_519C80_net_mapsend(unsigned char* a1, unsigned char
 //----- (00519D20) --------------------------------------------------------
 void nox_xxx_netMapSend_519D20(int a1) {
 	unsigned char* v1; // esi
-	wchar_t* v2;       // eax
+	wchar2_t* v2;       // eax
 	char* result;      // eax
 
 	v1 = getMemAt(0x5D4594, 2387148 + 48 * a1);
@@ -168,7 +168,7 @@ int nox_xxx_netMapSendCancelMap_519DE0_net_mapsend(int a1) {
 	unsigned char* v1; // esi
 	char* v2;          // ebx
 	int result;        // eax
-	wchar_t* v4;       // eax
+	wchar2_t* v4;       // eax
 
 	v1 = getMemAt(0x5D4594, 2387148 + 48 * a1);
 	v2 = nox_common_playerInfoFromNum_417090(a1);
@@ -198,11 +198,11 @@ int nox_xxx_netMapSendPrepair_519EB0_net_mapsend() {
 	void* v2;          // eax
 	const void* v3;    // esi
 	unsigned int v4;   // kr00_4
-	wchar_t* v5;       // eax
+	wchar2_t* v5;       // eax
 	char* v6;          // edi
 	unsigned char v7;  // cl
 	FILE* v8;          // ebx
-	wchar_t* v10;      // eax
+	wchar2_t* v10;      // eax
 	const char* v11;   // [esp+10h] [ebp-104h]
 	char v12[256];     // [esp+14h] [ebp-100h]
 

@@ -23,13 +23,13 @@ typedef struct nox_ctrlevent_key_t {
 } nox_ctrlevent_key_t;
 _Static_assert(sizeof(nox_ctrlevent_key_t) == 96, "wrong size of nox_ctrlevent_key_t structure!");
 
-char* nox_xxx_keybind_nameByTitle_42E960(wchar_t* title);
-wchar_t* nox_xxx_keybind_titleByKey_42EA00(unsigned int a1);
-wchar_t* nox_xxx_keybind_titleByKeyZero_42EA00(unsigned int a1);
-char* nox_xxx_bindevent_bindNameByTitle_42EA40(wchar_t* title);
+char* nox_xxx_keybind_nameByTitle_42E960(wchar2_t* title);
+wchar2_t* nox_xxx_keybind_titleByKey_42EA00(unsigned int a1);
+wchar2_t* nox_xxx_keybind_titleByKeyZero_42EA00(unsigned int a1);
+char* nox_xxx_bindevent_bindNameByTitle_42EA40(wchar2_t* title);
 
 void sub_42CD90();
 int nox_client_parseConfigHotkeysLine_42CF50(char* a1);
-wchar_t* sub_42E8E0(int a1, int a2);
+wchar2_t* sub_42E8E0(int a1, int a2);
 
 #endif // NOX_PORT_CLIENT_SYSTEM_CTRLEVNT

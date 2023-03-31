@@ -19,14 +19,14 @@ void nox_xxx_cliBuildJournalString_469BC0() {
 	int v4;            // eax
 	int v5;            // eax
 	int v6;            // eax
-	wchar_t* v7;       // eax
-	wchar_t* v8;       // [esp-20h] [ebp-1078h]
-	wchar_t* v9;       // [esp-20h] [ebp-1078h]
-	wchar_t* v10;      // [esp-20h] [ebp-1078h]
+	wchar2_t* v7;       // eax
+	wchar2_t* v8;       // [esp-20h] [ebp-1078h]
+	wchar2_t* v9;       // [esp-20h] [ebp-1078h]
+	wchar2_t* v10;      // [esp-20h] [ebp-1078h]
 	int v11;           // [esp+4h] [ebp-1054h]
 	int v12;           // [esp+8h] [ebp-1050h]
 	char v13[76];      // [esp+Ch] [ebp-104Ch]
-	wchar_t v14[2048]; // [esp+58h] [ebp-1000h]
+	wchar2_t v14[2048]; // [esp+58h] [ebp-1000h]
 
 	v0 = *getMemU32Ptr(0x8531A0, 2576); // Likely v0 is nox_playerInfo*
 	if (*getMemU32Ptr(0x8531A0, 2576)) {
@@ -77,15 +77,15 @@ void nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 	int i;             // eax
 	int v7;            // eax
 	int v8;            // edi
-	wchar_t* v9;       // eax
-	wchar_t* v10;      // eax
-	wchar_t* v11;      // eax
-	wchar_t* v12;      // eax
+	wchar2_t* v9;       // eax
+	wchar2_t* v10;      // eax
+	wchar2_t* v11;      // eax
+	wchar2_t* v12;      // eax
 	int v13;           // esi
 	int v14;           // [esp+10h] [ebp-1054h]
 	int v15;           // [esp+14h] [ebp-1050h]
 	char v16[76];      // [esp+18h] [ebp-104Ch]
-	wchar_t v17[2048]; // [esp+64h] [ebp-1000h]
+	wchar2_t v17[2048]; // [esp+64h] [ebp-1000h]
 
 	v3 = *getMemU32Ptr(0x8531A0, 2576);
 	v4 = yTop - a3;

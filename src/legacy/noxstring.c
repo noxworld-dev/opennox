@@ -1,4 +1,4 @@
-#include "noxstring.h"
+#include "nox_wchar.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,7 +7,7 @@
 
 char* nox_itoa(int val, char* s, int radix);
 
-wchar_t* nox_itow(int val, wchar_t* s, int radix) {
+wchar2_t* nox_itow(int val, wchar2_t* s, int radix) {
 	char tmp[32];
 	unsigned int i;
 
@@ -19,9 +19,9 @@ wchar_t* nox_itow(int val, wchar_t* s, int radix) {
 	return s;
 }
 
-int nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format, va_list ap) {
+int nox_vsnwprintf(wchar2_t* buffer, size_t count, const wchar2_t* format, va_list ap) {
 	int i = 0, j, out = 0;
-	wchar_t ch;
+	wchar2_t ch;
 
 #define EMIT(c)                                                                                                        \
 	do {                                                                                                               \
@@ -71,12 +71,12 @@ int nox_vsnwprintf(wchar_t* buffer, size_t count, const wchar_t* format, va_list
 
 		switch (ch) {
 		case 'c': {
-			wchar_t c = va_arg(ap, int);
+			wchar2_t c = va_arg(ap, int);
 			EMIT(c);
 		} break;
 		case 's': {
-			static const wchar_t null[] = {'(', 'n', 'u', 'l', 'l', ')', 0};
-			const wchar_t* pwch = va_arg(ap, const wchar_t*);
+			static const wchar2_t null[] = {'(', 'n', 'u', 'l', 'l', ')', 0};
+			const wchar2_t* pwch = va_arg(ap, const wchar2_t*);
 			if (pwch == NULL)
 				pwch = null;
 			for (j = 0; pwch[j]; j++)
@@ -229,8 +229,8 @@ int nox_vsnprintf(char* buffer, size_t count, const char* format, va_list ap) {
 				EMIT(pcch[j]);
 		} break;
 		case 'S': {
-			static const wchar_t null[] = {'(', 'n', 'u', 'l', 'l', ')', 0};
-			const wchar_t* pwch = va_arg(ap, const wchar_t*);
+			static const wchar2_t null[] = {'(', 'n', 'u', 'l', 'l', ')', 0};
+			const wchar2_t* pwch = va_arg(ap, const wchar2_t*);
 			if (pwch == NULL)
 				pwch = null;
 			for (j = 0; pwch[j]; j++)
@@ -306,8 +306,8 @@ int nox_sprintf(char* str, const char* format, ...) {
 	return ret;
 }
 
-wchar_t* nox_wcscat(wchar_t* dest, const wchar_t* src) {
-	wchar_t* ret = dest;
+wchar2_t* nox_wcscat(wchar2_t* dest, const wchar2_t* src) {
+	wchar2_t* ret = dest;
 
 	while (*dest)
 		dest++;
@@ -319,7 +319,7 @@ wchar_t* nox_wcscat(wchar_t* dest, const wchar_t* src) {
 	return ret;
 }
 
-wchar_t* nox_wcschr(wchar_t* nox_wcs, wchar_t wc) {
+wchar2_t* nox_wcschr(wchar2_t* nox_wcs, wchar2_t wc) {
 	size_t result;
 	for (result = 0; nox_wcs[result]; result++)
 		if (nox_wcs[result] == wc)
@@ -327,7 +327,7 @@ wchar_t* nox_wcschr(wchar_t* nox_wcs, wchar_t wc) {
 	return NULL;
 }
 
-int nox_wcscmp(const wchar_t* s1, const wchar_t* s2) {
+int nox_wcscmp(const wchar2_t* s1, const wchar2_t* s2) {
 	if (s1 == s2)
 		return 0;
 	if (!s1)
@@ -340,7 +340,7 @@ int nox_wcscmp(const wchar_t* s1, const wchar_t* s2) {
 	return s1[result] - s2[result];
 }
 
-wchar_t* nox_wcscpy(wchar_t* dest, const wchar_t* src) {
+wchar2_t* nox_wcscpy(wchar2_t* dest, const wchar2_t* src) {
 	size_t result;
 	for (result = 0; src[result]; result++)
 		dest[result] = src[result];
@@ -348,14 +348,14 @@ wchar_t* nox_wcscpy(wchar_t* dest, const wchar_t* src) {
 	return dest;
 }
 
-size_t nox_wcslen(const wchar_t* nox_wcs) {
+size_t nox_wcslen(const wchar2_t* nox_wcs) {
 	size_t result;
 	for (result = 0; nox_wcs[result]; result++)
 		;
 	return result;
 }
 
-wchar_t* nox_wcsncpy(wchar_t* dest, const wchar_t* src, size_t n) {
+wchar2_t* nox_wcsncpy(wchar2_t* dest, const wchar2_t* src, size_t n) {
 	size_t result;
 	for (result = 0; src[result] && result < n; result++)
 		dest[result] = src[result];
@@ -364,7 +364,7 @@ wchar_t* nox_wcsncpy(wchar_t* dest, const wchar_t* src, size_t n) {
 	return dest;
 }
 
-size_t nox_wcsspn(const wchar_t* nox_wcs, const wchar_t* accept) {
+size_t nox_wcsspn(const wchar2_t* nox_wcs, const wchar2_t* accept) {
 	size_t i;
 
 	for (i = 0; nox_wcs[i]; i++)
@@ -374,8 +374,8 @@ size_t nox_wcsspn(const wchar_t* nox_wcs, const wchar_t* accept) {
 	return i;
 }
 
-wchar_t* nox_wcstok(wchar_t* str, const wchar_t* delim) {
-	static wchar_t* next;
+wchar2_t* nox_wcstok(wchar2_t* str, const wchar2_t* delim) {
+	static wchar2_t* next;
 	size_t i;
 
 	if (str == NULL)
@@ -408,7 +408,7 @@ wchar_t* nox_wcstok(wchar_t* str, const wchar_t* delim) {
 	return str;
 }
 
-int _nox_wcsicmp(const wchar_t* string1, const wchar_t* string2) {
+int _nox_wcsicmp(const wchar2_t* string1, const wchar2_t* string2) {
 	size_t i;
 
 	for (i = 0; string1[i] && towlower(string1[i]) == towlower(string2[i]); i++)
@@ -438,7 +438,7 @@ int nox_strnicmp(const char* string1, const char* string2, int sz) {
 	return tolower(string1[i]) - tolower(string2[i]);
 }
 
-long nox_wcstol(const wchar_t* nptr, wchar_t** endptr, int base) {
+long nox_wcstol(const wchar2_t* nptr, wchar2_t** endptr, int base) {
 	long result;
 	size_t i, len = nox_wcslen(nptr);
 	char *tmp, *ptr;
@@ -458,7 +458,7 @@ long nox_wcstol(const wchar_t* nptr, wchar_t** endptr, int base) {
 	return result;
 }
 
-int nox_swprintf(wchar_t* str, const wchar_t* fmt, ...) {
+int nox_swprintf(wchar2_t* str, const wchar2_t* fmt, ...) {
 	int len;
 	va_list ap;
 	va_start(ap, fmt);
@@ -467,4 +467,4 @@ int nox_swprintf(wchar_t* str, const wchar_t* fmt, ...) {
 	return len;
 }
 
-int nox_vswprintf(wchar_t* str, const wchar_t* fmt, va_list ap) { return nox_vsnwprintf(str, 0x3fffffff, fmt, ap); }
+int nox_vswprintf(wchar2_t* str, const wchar2_t* fmt, va_list ap) { return nox_vsnwprintf(str, 0x3fffffff, fmt, ap); }

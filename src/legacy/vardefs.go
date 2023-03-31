@@ -807,7 +807,6 @@ extern unsigned int dword_5d4594_815044;
 extern nox_window* nox_wol_wnd_world_814980;
 extern unsigned int nox_wol_server_result_cnt_815088;
 extern int dword_5d4594_815104;
-extern unsigned long long qword_5d4594_815068;
 extern unsigned int nox_game_createOrJoin_815048;
 extern uint32_t dword_587000_87408;
 extern void* dword_5d4594_814984;

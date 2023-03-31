@@ -34,7 +34,7 @@ extern uint32_t nox_color_black_2650656;
 
 //----- (004C1D80) --------------------------------------------------------
 int nox_xxx_guiSummonCreatureLoad_4C1D80() {
-	wchar_t* v0;       // eax
+	wchar2_t* v0;       // eax
 	uint32_t* v1;      // esi
 	char* v2;          // eax
 	uint32_t* v3;      // eax
@@ -52,7 +52,7 @@ int nox_xxx_guiSummonCreatureLoad_4C1D80() {
 	nox_window_set_all_funcs(*(uint32_t**)&dword_5d4594_1321036, nox_xxx_wndSummonProc_4C2B10,
 							 nox_xxx_guiDrawSummonBox_4C1FE0, sub_4C2C20);
 	v0 = nox_strman_loadString_40F1D0("ToolTipSummon", 0, "C:\\NoxPost\\src\\Client\\Gui\\guisumn.c", 818);
-	nox_xxx_wndWddSetTooltip_46B000((wchar_t*)(dword_5d4594_1321036 + 36), v0);
+	nox_xxx_wndWddSetTooltip_46B000((wchar2_t*)(dword_5d4594_1321036 + 36), v0);
 	*getMemU32Ptr(0x5D4594, 1320996) = nox_xxx_gLoadImg_42F970("CreatureCageBottom");
 	v1 = nox_window_new(*(int*)&dword_5d4594_1321036, 160, 0, 0, 1, 1, 0);
 	v2 = nox_xxx_gLoadImg_42F970("CreatureCageTop");
@@ -234,9 +234,9 @@ int sub_4C27F0(uint32_t* a1) {
 
 //----- (004C2CE0) --------------------------------------------------------
 int sub_4C2CE0() {
-	wchar_t* v0; // eax
-	wchar_t* v2; // eax
-	wchar_t* v3; // eax
+	wchar2_t* v0; // eax
+	wchar2_t* v2; // eax
+	wchar2_t* v3; // eax
 
 	switch (*getMemU32Ptr(0x587000, 184448)) {
 	case 3:

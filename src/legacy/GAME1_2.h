@@ -121,7 +121,7 @@ uint32_t* sub_435690(uint32_t* a1);
 int nox_xxx_gameGetPlayState_4356B0();
 bool nox_client_drawable_testBuff_4356C0(nox_drawable* dr, char a2);
 void nox_xxx_spriteLoadError_4356E0();
-wchar_t* sub_435700(wchar_t* a1, int a2);
+wchar2_t* sub_435700(wchar2_t* a1, int a2);
 void nox_client_setServerConnectAddr_435720(char* addr);
 int nox_xxx_cliToggleObsWindow_4357A0();
 int sub_435F60();

@@ -1,6 +1,7 @@
 package legacy
 
 /*
+#include "nox_wchar.h"
 #include "GAME1.h"
 #include "GAME1_1.h"
 #include "GAME1_2.h"
@@ -47,7 +48,7 @@ void sub_4D2230();
 void sub_4DBA30(int a1);
 void sub_50AFA0();
 int sub_48C980();
-void nox_console_sendSysOpPass_4409D0(wchar_t* a1);
+void nox_console_sendSysOpPass_4409D0(wchar2_t* a1);
 char* nox_xxx_getSomeMapName_4D0CF0();
 int  nox_server_loadMapFile_4CF5F0(char* a1, int a2);
 int nox_xxx_mapLoadRequired_4DCC80();
@@ -56,7 +57,7 @@ void  sub_500510(const char* a1);
 int nox_xxx_guiChatIconLoad_445650();
 int nox_xxx_loadGuides_427070();
 
-wchar_t* nox_xxx_guiServerOptionsGetGametypeName_4573C0(short mode);
+wchar2_t* nox_xxx_guiServerOptionsGetGametypeName_4573C0(short mode);
 */
 import "C"
 import (
@@ -138,7 +139,7 @@ func nox_xxx_netServerCmd_440950_empty() {
 }
 
 //export nox_server_parseCmdText_443C80
-func nox_server_parseCmdText_443C80(cstr *C.wchar_t, _ int) int {
+func nox_server_parseCmdText_443C80(cstr *wchar2_t, _ int) int {
 	cmd := GoWString(cstr)
 	if cmd == "" {
 		return 0

@@ -9,7 +9,7 @@
 //----- (004F3A60) --------------------------------------------------------
 int nox_xxx_pickupGold_4F3A60_obj_pickup(int a1, int a2, int a3) {
 	int* v3;     // edi
-	wchar_t* v4; // eax
+	wchar2_t* v4; // eax
 	int result;  // eax
 	int v6;      // edi
 	int v7;      // [esp-8h] [ebp-10h]

@@ -18,7 +18,7 @@ short nox_xxx_mapGenClientText_4A9D00(unsigned char* a1) {
 	int v2;            // eax
 	int v3;            // edi
 	int v4;            // esi
-	wchar_t* v5;       // eax
+	wchar2_t* v5;       // eax
 	int v6;            // kr00_4
 	int v7;            // esi
 

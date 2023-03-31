@@ -66,21 +66,21 @@ func nox_get_thing(i int) *nox_thing {
 }
 
 //export nox_get_thing_pretty_name
-func nox_get_thing_pretty_name(i int) *wchar_t {
+func nox_get_thing_pretty_name(i int) *wchar2_t {
 	t := GetClient().Cli().Things.TypeByInd(i)
 	if t == nil {
 		return nil
 	}
-	return (*wchar_t)(unsafe.Pointer(t.PrettyName))
+	return (*wchar2_t)(unsafe.Pointer(t.PrettyName))
 }
 
 //export nox_get_thing_desc
-func nox_get_thing_desc(i int) *wchar_t {
+func nox_get_thing_desc(i int) *wchar2_t {
 	t := GetClient().Cli().Things.TypeByInd(i)
 	if t == nil {
 		return nil
 	}
-	return (*wchar_t)(unsafe.Pointer(t.Desc))
+	return (*wchar2_t)(unsafe.Pointer(t.Desc))
 }
 
 //export nox_get_thing_pretty_image

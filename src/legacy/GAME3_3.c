@@ -1029,7 +1029,7 @@ int sub_4E41B0(char* a1) {
 int sub_4E42C0(FILE* a1) {
 	char* v1;       // eax
 	char* v2;       // eax
-	wchar_t v4[26]; // [esp+Ch] [ebp-34h]
+	wchar2_t v4[26]; // [esp+Ch] [ebp-34h]
 
 	while (1) {
 		if (!nox_fs_fgets(a1, (char*)getMemAt(0x5D4594, 1563936), 1024)) {
@@ -1059,7 +1059,7 @@ int sub_4E42C0(FILE* a1) {
 //----- (004E4390) --------------------------------------------------------
 int sub_4E4390(FILE* a1) {
 	char* v1;       // eax
-	wchar_t v3[26]; // [esp+4h] [ebp-34h]
+	wchar2_t v3[26]; // [esp+4h] [ebp-34h]
 
 	while (nox_fs_fgets(a1, (char*)getMemAt(0x5D4594, 1563936), 1024)) {
 		v1 = strtok((char*)getMemAt(0x5D4594, 1563936), "\r\t\n");
@@ -6075,14 +6075,14 @@ void nox_xxx_collideAnkhQuest_4EBF40(int a1, int a2) {
 		v7 = v3 + 50;
 		do {
 			if (gameFrame() - *(uint32_t*)(v7 + 26) > (unsigned int)(240 * gameFPS())) {
-				nox_wcscpy((wchar_t*)(v7 - 50), (const wchar_t*)getMemAt(0x5D4594, 1568012));
+				nox_wcscpy((wchar2_t*)(v7 - 50), (const wchar2_t*)getMemAt(0x5D4594, 1568012));
 				*(uint8_t*)(v7 + 1) = getMemByte(0x5D4594, 1568016);
 				*(uint8_t*)v7 = 0;
 				*(uint32_t*)(v7 + 26) = 0;
 			}
 			v8 = *(uint32_t*)(v4 + 276);
 			if (*(uint8_t*)v7 == *(uint8_t*)(v8 + 2251) &&
-				!nox_wcscmp((const wchar_t*)(v7 - 50), (const wchar_t*)(v8 + 2185))) {
+				!nox_wcscmp((const wchar2_t*)(v7 - 50), (const wchar2_t*)(v8 + 2185))) {
 				if (!strcmp((const char*)(v7 + 1), (const char*)(*(uint32_t*)(v4 + 276) + 2112))) {
 					v9 = *(uint32_t*)(v4 + 276);
 					v10 = 0;
@@ -6137,8 +6137,8 @@ void nox_xxx_collideAnkhQuest_4EBF40(int a1, int a2) {
 			}
 			*(uint32_t*)(v13 + 4 * v14 + 4796) = a1;
 		LABEL_35:
-			nox_wcscpy((wchar_t*)(v3 + 80 * *(unsigned char*)(v3 + 5120)),
-					   (const wchar_t*)(*(uint32_t*)(v4 + 276) + 2185));
+			nox_wcscpy((wchar2_t*)(v3 + 80 * *(unsigned char*)(v3 + 5120)),
+					   (const wchar2_t*)(*(uint32_t*)(v4 + 276) + 2185));
 			*(uint8_t*)(80 * *(unsigned char*)(v3 + 5120) + v3 + 50) = *(uint8_t*)(*(uint32_t*)(v4 + 276) + 2251);
 			strcpy((char*)(80 * *(unsigned char*)(v3 + 5120) + v3 + 51), (const char*)(*(uint32_t*)(v4 + 276) + 2112));
 			*(uint32_t*)(80 * *(unsigned char*)(v3 + 5120) + v3 + 76) = gameFrame();
@@ -8214,7 +8214,7 @@ int nox_xxx_plrReadVals_4EEDC0(nox_object_t* a1p, int a2) {
 	*(uint32_t*)(v4 + 3656) = v23 > *(unsigned short*)(v2 + 490);
 	v13 = *(uint32_t*)(v3 + 276);
 	v21 = *(uint32_t*)(v13 + 4628);
-	v14 = nox_wcslen((const wchar_t*)(v13 + 2185));
+	v14 = nox_wcslen((const wchar2_t*)(v13 + 2185));
 	result = sub_56FB00((int*)(*(uint32_t*)(v3 + 276) + 2185), 2 * v14, v21);
 	*(uint8_t*)(v4 + 2184) = 1;
 	return result;
