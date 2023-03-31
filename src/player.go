@@ -769,7 +769,7 @@ func (s *Server) PlayerSpell(su *server.Object) {
 						}
 					}
 					arg.Pos = pl.CursorPos()
-					if s.nox_xxx_castSpellByUser4FDD20(spellInd, u.SObj(), arg) {
+					if s.nox_xxx_castSpellByUser4FDD20(spellInd, -1, u.SObj(), arg) {
 						nox_xxx_netInformTextMsg_4DA0F0(pl.Index(), 1, int(spellInd))
 					} else {
 						sub_4FD030(u, mana)
