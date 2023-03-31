@@ -16,7 +16,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nox_xxx_castGlyph_537FA0(sp spell.ID, a2, caster, targ *server.Object, sa *server.SpellAcceptArg, lvl int) int {
+func castGlyph(sp spell.ID, a2, caster, targ *server.Object, sa *server.SpellAcceptArg, lvl int) int {
 	s := noxServer
 	if !caster.Class().Has(object.ClassPlayer) {
 		return 1

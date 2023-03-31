@@ -71,7 +71,7 @@ func (s noxScriptNS) Effect(effect effect.Effect, p1, p2 ns4.Positioner) {
 	}
 }
 
-func (s noxScriptNS) CastSpell(name nsp.Spell, source, target ns4.Positioner) {
+func (s noxScriptNS) CastSpellLvl(name nsp.Spell, lvl int, source, target ns4.Positioner) {
 	sp := spell.ParseID(string(name))
 	if !sp.Valid() {
 		return
@@ -91,7 +91,41 @@ func (s noxScriptNS) CastSpell(name nsp.Spell, source, target ns4.Positioner) {
 		src = nox_xxx_imagCasterUnit_1569664
 	}
 	src.Direction1 = server.DirFromVec(targPos.Sub(src.Pos()))
-	s.s.castSpellBy(sp, src.SObj(), targH, targPos)
+	// TODO: pass spell level
+	s.s.castSpellBy(sp, lvl, src.SObj(), targH, targPos)
+}
+
+func (s noxScriptNS) CastSpell(name nsp.Spell, source, target ns4.Positioner) {
+	s.CastSpellLvl(name, -1, source, target)
+}
+
+func (s noxScriptNS) NewTrap(pos ns4.Positioner, spells []ns4.TrapSpell) ns4.Obj {
+	if pos == nil {
+		return nil
+	}
+	trap := s.s.NewObjectByTypeID("Glyph")
+	if trap == nil {
+		return nil
+	}
+	p := pos.Pos()
+	s.s.CreateObjectAt(trap, nil, p)
+
+	idata := trap.InitDataGlyph()
+	*idata = server.GlyphInitData{
+		SpellsCnt: 0,
+		SpellArg: server.SpellAcceptArg{
+			Pos: p,
+		},
+	}
+	for _, sp := range spells {
+		spl := spell.ParseID(string(sp.Spell))
+		if !spl.Valid() {
+			continue
+		}
+		idata.Spells[idata.SpellsCnt] = uint32(spl)
+		idata.SpellsCnt++
+	}
+	return nsObj{s.s, asObjectS(trap)}
 }
 
 func (obj nsObj) AwardSpell(name nsp.Spell) bool {
@@ -119,11 +153,28 @@ func (obj nsObj) EnchantOff(enc enchant.Enchant) {
 	obj.DisableEnchant(e)
 }
 
-func (obj nsObj) TrapSpells(spell1 nsp.Spell, spell2 nsp.Spell, spell3 nsp.Spell) {
-	sp1 := spell.ParseID(string(spell1))
-	sp2 := spell.ParseID(string(spell2))
-	sp3 := spell.ParseID(string(spell3))
-	obj.Object.SetTrapSpells(sp1, sp2, sp3)
+func (obj nsObj) TrapSpells(spells ...nsp.Spell) {
+	out := make([]spell.ID, 0, len(spells))
+	for _, name := range spells {
+		sp := spell.ParseID(string(name))
+		if !sp.Valid() {
+			continue
+		}
+		out = append(out, sp)
+	}
+	obj.Object.SetTrapSpells(out...)
+}
+
+func (obj nsObj) TrapSpellsAdv(spells []ns4.TrapSpell) {
+	out := make([]spell.ID, 0, len(spells))
+	for _, s := range spells {
+		sp := spell.ParseID(string(s.Spell))
+		if !sp.Valid() {
+			continue
+		}
+		out = append(out, sp)
+	}
+	obj.Object.SetTrapSpells(out...)
 }
 
 func (g nsObjGroup) AwardSpell(sp nsp.Spell) {
