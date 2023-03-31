@@ -188,6 +188,10 @@ type ObjectTeam struct {
 	Field1 byte
 }
 
+func (t *ObjectTeam) Has() bool { // nox_xxx_servObjectHasTeam_419130
+	return t != nil && t.Field1 != 0
+}
+
 func (t *ObjectTeam) C() unsafe.Pointer {
 	return unsafe.Pointer(t)
 }

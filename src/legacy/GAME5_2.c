@@ -1849,9 +1849,6 @@ int nox_xxx_playerCheckSpellClass_57AEA0(int a1, int a2) {
 	return result;
 }
 
-//----- (0057AEE0) --------------------------------------------------------
-int sub_57AEE0(int a1, int a2) { return a1 < 75 || a1 > 114 || nox_xxx_countControlledCreatures_500D10(a2) <= 4; }
-
 //----- (0057AF20) --------------------------------------------------------
 int nox_xxx_get_57AF20() { return dword_5d4594_2523804; }
 

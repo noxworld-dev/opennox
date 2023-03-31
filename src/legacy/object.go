@@ -21,6 +21,7 @@ import (
 	"image"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/spell"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -28,9 +29,12 @@ import (
 )
 
 var (
-	Sub_47A1F0                     func()
-	Nox_xxx_unitMonsterInit_4F0040 func(obj *server.Object)
-	Nox_xxx_setNPCColor_4E4A90     func(obj *server.Object, a2 byte, a3 *server.Color3)
+	Sub_47A1F0                                 func()
+	Nox_xxx_unitMonsterInit_4F0040             func(obj *server.Object)
+	Nox_xxx_setNPCColor_4E4A90                 func(obj *server.Object, a2 byte, a3 *server.Color3)
+	Nox_xxx_checkSummonedCreaturesLimit_500D70 func(u *server.Object, ind int) bool
+	Nox_xxx_unitDoSummonAt_5016C0              func(typID int, pos types.Pointf, owner *server.Object, dir server.Dir16) *server.Object
+	Sub_57AEE0                                 func(sp spell.ID, u *server.Object) bool
 )
 
 var _ = [1]struct{}{}[28-unsafe.Sizeof(Nox_object_Missile_data_t{})]
@@ -244,6 +248,22 @@ func nox_xxx_setNPCColor_4E4A90(obj *nox_object_t, a2 byte, p unsafe.Pointer) {
 	Nox_xxx_setNPCColor_4E4A90(asObjectS(obj), a2, (*server.Color3)(p))
 }
 
+//export nox_xxx_checkSummonedCreaturesLimit_500D70
+func nox_xxx_checkSummonedCreaturesLimit_500D70(obj *nox_object_t, ind int) C.bool {
+	return C.bool(Nox_xxx_checkSummonedCreaturesLimit_500D70(asObjectS(obj), ind))
+}
+
+//export nox_xxx_unitDoSummonAt_5016C0
+func nox_xxx_unitDoSummonAt_5016C0(typID int, cpos *float32, owner *nox_object_t, dir C.uchar) *nox_object_t {
+	pos := unsafe.Slice(cpos, 2)
+	return asObjectC(Nox_xxx_unitDoSummonAt_5016C0(typID, types.Ptf(pos[0], pos[1]), asObjectS(owner), server.Dir16(dir)))
+}
+
+//export sub_57AEE0
+func sub_57AEE0(sp int, u *nox_object_t) int {
+	return bool2int(Sub_57AEE0(spell.ID(sp), asObjectS(u)))
+}
+
 func Nox_server_getObjectFromNetCode_4ECCB0(a1 int) *server.Object {
 	return asObjectS(C.nox_server_getObjectFromNetCode_4ECCB0(C.int(a1)))
 }
@@ -414,4 +434,12 @@ func Sub_4E4500(obj *server.Object, a2 uint32, a3 uint32, a4 bool) {
 
 func Nox_xxx_playerTryEquip_4F2F70(obj, item *server.Object) bool {
 	return C.nox_xxx_playerTryEquip_4F2F70(asObjectC(obj), asObjectC(item)) != 0
+}
+
+func Nox_xxx_inventoryPutImpl_4F3070(obj, item *server.Object, a3 int) {
+	C.nox_xxx_inventoryPutImpl_4F3070(asObjectC(obj), asObjectC(item), C.int(a3))
+}
+
+func Nox_xxx_orderUnit_533900(owner, obj *server.Object, order uint32) {
+	C.nox_xxx_orderUnit_533900(asObjectC(owner), asObjectC(obj), C.int(order))
 }

@@ -2,7 +2,6 @@ package opennox
 
 import (
 	"encoding/binary"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/console"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
@@ -46,7 +45,7 @@ func (s *Server) nox_xxx_createCoopTeam_417E10() {
 		t = s.TeamCreate(1)
 	}
 	if v1 := nox_xxx_objGetTeamByNetCode_418C80(int(legacy.Get_nox_player_netCode_85319C())); v1 != nil {
-		legacy.Nox_xxx_createAtImpl_4191D0(t.Field_57, unsafe.Pointer(v1), 0, legacy.Get_nox_player_netCode_85319C(), 0)
+		legacy.Nox_xxx_createAtImpl_4191D0(t.Field_57, v1, 0, legacy.Get_nox_player_netCode_85319C(), 0)
 	}
 	if t != nil {
 		text := s.Strings().GetStringInFile("COOP", "C:\\NoxPost\\src\\common\\System\\team.c")
