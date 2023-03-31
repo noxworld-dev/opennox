@@ -601,7 +601,7 @@ func (s *Server) Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *ser
 	case spell.SPELL_FUMBLE:
 		fnc = legacy.Nox_xxx_castFumble_52C060
 	case spell.SPELL_GLYPH:
-		fnc = legacy.Nox_xxx_castGlyph_537FA0
+		fnc = nox_xxx_castGlyph_537FA0
 	case spell.SPELL_GREATER_HEAL:
 		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, legacy.Get_sub_52F220(), legacy.Get_sub_52F2E0(), nil, 0)
 	case spell.SPELL_HASTE:

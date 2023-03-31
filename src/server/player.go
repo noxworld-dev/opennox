@@ -294,7 +294,7 @@ type Player struct {
 	Pos3632Vec          types.Pointf   // 908, 3632
 	Obj3640             *Object        // 910, 3640
 	Journal             *PlayerJournal // 911, 3644, pointer to journal
-	field3648           uint32
+	SummonOrderAll      uint32         // 912, 3648
 	field3652           uint32
 	Field3656           uint32
 	field3660           uint32
@@ -413,9 +413,9 @@ func (p *Player) SetPos3632(pt types.Pointf) {
 
 func (p *Player) reset(ind int) {
 	*p = Player{
-		PlayerInd: byte(ind),
-		Active:    1,
-		field3648: 4,
+		PlayerInd:      byte(ind),
+		Active:         1,
+		SummonOrderAll: 4,
 	}
 }
 

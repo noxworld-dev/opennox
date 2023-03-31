@@ -665,7 +665,6 @@ extern uint32_t dword_5d4594_1098456;
 extern uint32_t dword_5d4594_2487804;
 extern uint32_t dword_5d4594_1062552;
 extern uint32_t nox_xxx_aSpellphoneme_3_587000_123008;
-extern uint32_t dword_5d4594_2488648;
 extern uint32_t dword_5d4594_811904;
 extern uint32_t dword_5d4594_2491580;
 extern uint32_t dword_5d4594_1200832;

@@ -1499,7 +1499,7 @@ func (s *Server) onPacketOp(pli int, op noxnet.Op, data []byte, pl *Player, u *O
 			}
 			netcode := int(binary.LittleEndian.Uint16(data[6:]))
 			obj := s.getObjectFromNetCode(netcode)
-			legacy.Nox_xxx_createAtImpl_4191D0(tm.Ind57(), unsafe.Pointer(obj.TeamPtr()), 1, uint32(netcode), 1)
+			legacy.Nox_xxx_createAtImpl_4191D0(tm.Ind57(), obj.TeamPtr(), 1, uint32(netcode), 1)
 			return 10, true
 		case 11:
 			netcode := int(binary.LittleEndian.Uint16(data[6:]))

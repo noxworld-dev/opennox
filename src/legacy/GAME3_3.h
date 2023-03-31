@@ -324,7 +324,7 @@ int nox_xxx_playerTryEquip_4F2F70(nox_object_t* a1, nox_object_t* item);
 int nox_xxx_playerTryDequip_4F2FB0(uint32_t* a1, const nox_object_t* object);
 int nox_xxx_itemApplyEngageEffect_4F2FF0(nox_object_t* item, int a2);
 int nox_xxx_itemApplyDisengageEffect_4F3030(const nox_object_t* object, int a2);
-void nox_xxx_inventoryPutImpl_4F3070(int a1, nox_object_t* item, int a3);
+void nox_xxx_inventoryPutImpl_4F3070(nox_object_t* a1, nox_object_t* item, int a3);
 bool nox_xxx_playerCheckStrength_4F3180(nox_object_t* a1, nox_object_t* item);
 int nox_xxx_pickupDefault_4F31E0(nox_object_t* a1p, nox_object_t* item, int a3);
 int nox_xxx_pickupFood_4F3350(int a1, int a2, int a3);

@@ -2809,6 +2809,7 @@ unsigned short sub_4FD030(int a1, short a2) {
 }
 
 //----- (004FD0E0) --------------------------------------------------------
+int sub_57AEE0(int a1, nox_object_t* a2);
 int sub_4FD0E0(nox_object_t* a1p, int a2) {
 	int a1 = a1p;
 	int v2; // ebx
@@ -5028,46 +5029,6 @@ int nox_xxx_creatureIsMonitored_500CC0(nox_object_t* a1p, nox_object_t* a2p) {
 	return result;
 }
 
-//----- (00500D10) --------------------------------------------------------
-int nox_xxx_countControlledCreatures_500D10(int a1) {
-	int v1; // esi
-	int i;  // edi
-
-	v1 = *(uint32_t*)(a1 + 516);
-	for (i = 0; v1; v1 = *(uint32_t*)(v1 + 512)) {
-		if (nox_xxx_creatureIsMonitored_500CC0(a1, v1)) {
-			i += sub_500D50(v1);
-		}
-	}
-	return i;
-}
-
-//----- (00500D50) --------------------------------------------------------
-int sub_500D50(int a1) {
-	int v1; // eax
-	int v3; // eax
-
-	v1 = *(uint32_t*)(a1 + 12);
-	if (v1 & 1) {
-		return 1;
-	}
-	v3 = -((v1 & 2) != 0);
-	LOBYTE(v3) = v3 & 0xFE;
-	return v3 + 4;
-}
-
-//----- (00500D70) --------------------------------------------------------
-int nox_cheat_summon_nolimit = 0;
-bool nox_xxx_checkSummonedCreaturesLimit_500D70(int a1, int a2) {
-	if (nox_cheat_summon_nolimit) {
-		return 1;
-	}
-	int v2; // ebx
-
-	v2 = nox_xxx_guideGetUnitSize_427460(a2);
-	return nox_xxx_countControlledCreatures_500D10(a1) + v2 <= 4;
-}
-
 //----- (00500DA0) --------------------------------------------------------
 int nox_xxx_summonStart_500DA0(int a1) {
 	int v1;                // eax
@@ -5234,6 +5195,7 @@ int sub_500F40(int a1, float a2) {
 }
 
 //----- (005010D0) --------------------------------------------------------
+nox_object_t* nox_xxx_unitDoSummonAt_5016C0(int a1, float* a2, nox_object_t* a3, unsigned char a4);
 int nox_xxx_summonFinish_5010D0(int a1) {
 	int v1;       // eax
 	int v2;       // edi
@@ -5492,51 +5454,6 @@ int nox_xxx_charmCreature2_501690(int a1) {
 		}
 	}
 	return result;
-}
-
-//----- (005016C0) --------------------------------------------------------
-uint32_t* nox_xxx_unitDoSummonAt_5016C0(int a1, int* a2, int a3, unsigned char a4) {
-	uint32_t* result; // eax
-	uint32_t* v5;     // esi
-	int v6;           // ebp
-	int v7;           // ecx
-	int v8;           // ebx
-	int v9;           // eax
-
-	result = nox_xxx_newObjectWithTypeInd_4E3450(a1);
-	v5 = result;
-	if (!result) {
-		return result;
-	}
-	nox_xxx_createAt_4DAA50((int)result, a3, *(float*)a2, *((float*)a2 + 1));
-	v6 = v5[187];
-	*((uint16_t*)v5 + 63) = a4;
-	*((uint16_t*)v5 + 62) = a4;
-	v7 = *(uint32_t*)(v6 + 1440);
-	LOBYTE(v7) = v7 | 0x80;
-	*(uint32_t*)(v6 + 1440) = v7;
-	if (!a3) {
-		return v5;
-	}
-	if (!(*(uint8_t*)(a3 + 8) & 4)) {
-		nox_xxx_orderUnit_533900(a3, (int)v5, 4);
-		*(uint32_t*)(v6 + 1360) = 38;
-		return v5;
-	}
-	v8 = *(uint32_t*)(a3 + 748);
-	nox_xxx_orderUnit_533900(a3, (int)v5, *(uint32_t*)(*(uint32_t*)(v8 + 276) + 3648));
-	*(uint32_t*)(v6 + 1360) = 38;
-	v5[3] |= 0x80u;
-	nox_xxx_netReportAcquireCreature_4D91A0(*(unsigned char*)(*(uint32_t*)(v8 + 276) + 2064), (int)v5);
-	nox_xxx_netMarkMinimapObject_417190(*(unsigned char*)(*(uint32_t*)(v8 + 276) + 2064), (int)v5, 1);
-	nox_xxx_netSendSimpleObject2_4DF360(*(unsigned char*)(*(uint32_t*)(v8 + 276) + 2064), (int)v5);
-	if (nox_xxx_servObjectHasTeam_419130(a3 + 48)) {
-		nox_xxx_createAtImpl_4191D0(*(uint8_t*)(a3 + 52), a3 + 48, 1, v5[9], 0);
-	}
-	v9 = v5[3];
-	BYTE1(v9) |= 1u;
-	v5[3] = v9;
-	return v5;
 }
 
 //----- (005017F0) --------------------------------------------------------
