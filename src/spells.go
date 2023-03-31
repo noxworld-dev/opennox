@@ -577,7 +577,7 @@ func (s *Server) Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *ser
 	case spell.SPELL_DETECT_MAGIC:
 		fnc = castDetectMagic
 	case spell.SPELL_DETONATE_GLYPHS:
-		fnc = legacy.Sub_537E60
+		fnc = castDetonateGlyphs
 	case spell.SPELL_TURN_UNDEAD:
 		return s.spells.duration.New(spellID, a2, obj3, obj4, sa, lvl, legacy.Get_nox_xxx_spellTurnUndeadCreate_531310(), legacy.Get_nox_xxx_spellTurnUndeadUpdate_531410(), legacy.Get_nox_xxx_spellTurnUndeadDelete_531420(), 70)
 	case spell.SPELL_DRAIN_MANA:

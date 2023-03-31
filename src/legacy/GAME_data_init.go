@@ -145,7 +145,7 @@ func InitBlobData() {
 		Ptr_sub_549E70:                          unsafe.Pointer(C.sub_549E70),
 		Ptr_sub_549E90:                          unsafe.Pointer(C.sub_549E90),
 		Ptr_sub_549FA0:                          unsafe.Pointer(C.sub_549FA0),
-		Ptr_sub_54A150:                          unsafe.Pointer(C.sub_54A150),
+		Ptr_nox_bomberDead_54A150:               unsafe.Pointer(C.nox_bomberDead_54A150),
 		Ptr_sub_54A250:                          unsafe.Pointer(C.sub_54A250),
 		Ptr_sub_54A310:                          unsafe.Pointer(C.sub_54A310),
 		Ptr_sub_54A750:                          unsafe.Pointer(C.sub_54A750),
