@@ -82,7 +82,7 @@ var (
 	Sub_5545A0                        func() uint16
 	Sub_554230                        func() string
 	Nox_xxx_netStatsMultiplier_4D9C20 func(a1p *server.Object) int
-	Sub_554240                        func(a1 int) int
+	Sub_554240                        func(a1 ntype.PlayerInd) int
 	Nox_xxx_net_getIP_554200          func(a1 netstr.Handle) uint32
 	Nox_xxx_netOnPacketRecvCli_48EA70 func(ind ntype.PlayerInd, buf *byte, sz int) int
 	Sub_43C6E0                        func() int
@@ -138,7 +138,7 @@ func nox_xxx_netStatsMultiplier_4D9C20(a1p *nox_object_t) int {
 }
 
 //export sub_554240
-func sub_554240(a1 int) int { return Sub_554240(a1) }
+func sub_554240(a1 int) int { return Sub_554240(ntype.PlayerInd(a1)) }
 
 //export nox_xxx_net_getIP_554200
 func nox_xxx_net_getIP_554200(a1 int) uint32 {
