@@ -388,7 +388,7 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 	}
 
 	ns = h.Get()
-	if h.g.Responded && ns.ID().Valid() {
+	if h.g.Responded && ns.Handle().Valid() {
 		data, err := opts.MarshalBinary()
 		if err != nil {
 			return err
@@ -403,7 +403,7 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 		_, _ = h.Send(buf, SendQueue|SendFlush)
 	}
 
-	if !ns.ID().Valid() {
+	if !ns.Handle().Valid() {
 		return NewConnectErr(-1, errors.New("invalid net struct id"))
 	}
 	return nil
@@ -484,7 +484,7 @@ func (ns *Conn) SetAddr(addr netip.AddrPort) {
 	ns.addr = addr
 }
 
-func (ns *Conn) ID() Handle {
+func (ns *Conn) Handle() Handle {
 	if ns == nil {
 		return Handle{nil, -1}
 	}
@@ -557,13 +557,13 @@ func (h Handle) Send(buf []byte, flags SendFlags) (int, error) {
 	} else {
 		si = h
 		ei = Handle{h.g, h.i + 1}
-		idd = ns.ID()
+		idd = ns.Handle()
 	}
 	if flags.Has(SendQueue) {
 		n := len(buf)
 		for i := si.i; i < ei.i; i++ {
 			ns2 := Handle{h.g, i}.Get()
-			if ns2 != nil && ns2.ID() == idd {
+			if ns2 != nil && ns2.Handle() == idd {
 				seq, err := ns2.addToQueue(buf)
 				if err != nil {
 					return -1, err
@@ -582,7 +582,7 @@ func (h Handle) Send(buf []byte, flags SendFlags) (int, error) {
 		if ns2 == nil {
 			continue
 		}
-		if ns2.ID() != idd {
+		if ns2.Handle() != idd {
 			continue
 		}
 		d2x := ns2.SendWriteBuf()
@@ -813,7 +813,7 @@ func (g *Streams) ReadPackets(ind Handle) int {
 	if ns == nil {
 		return 0
 	}
-	v4 := ns.ID()
+	v4 := ns.Handle()
 	var si, ei Handle
 	if v4.i == -1 {
 		si, ei = Handle{g, 0}, Handle{g, maxStructs}
@@ -830,7 +830,7 @@ func (g *Streams) ReadPackets(ind Handle) int {
 	for i := si.i; i < ei.i; i++ {
 		ii := Handle{g, i}
 		ns2 := ii.Get()
-		if ns2 == nil || ns2.ID() != v4 {
+		if ns2 == nil || ns2.Handle() != v4 {
 			continue
 		}
 		ii.SendReadPacket(true)
