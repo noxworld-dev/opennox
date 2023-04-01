@@ -570,7 +570,7 @@ func (h Handle) Send(buf []byte, flags SendFlags) (int, error) {
 				}
 				n = seq
 				if flags.Has(SendFlush) {
-					ns2.maybeSendQueue(byte(seq), true)
+					ns2.sendQueueSeq(byte(seq))
 				}
 			}
 		}
@@ -638,31 +638,37 @@ func (ns *Conn) addToQueue(buf []byte) (int, error) {
 	return int(seq), nil
 }
 
-func (ns *Conn) maybeSendQueue(hdrByte byte, checkHdr bool) int {
+func (ns *Conn) sendQueueSeq(seq byte) int {
 	if ns == nil {
 		return -3
 	}
 	for it := ns.queue; it != nil; it = it.next {
-		if checkHdr {
-			if it.data[1] == hdrByte {
-				sz := int(it.size)
-				it.active = false
-				it.retryAt = ns.g.ticks2 + 2*time.Second
-				if _, err := ns.WriteTo(it.data[:sz], ns.addr); err != nil {
-					ns.g.Log.Println(err)
-					return 0
-				}
-			}
-		} else {
-			if it.active {
-				sz := int(it.size)
-				it.active = false
-				it.retryAt = ns.g.ticks2 + 2*time.Second
-				if _, err := ns.WriteTo(it.data[:sz], ns.addr); err != nil {
-					ns.g.Log.Println(err)
-					return 0
-				}
-			}
+		if it.data[1] != seq {
+			continue
+		}
+		it.active = false
+		it.retryAt = ns.g.ticks2 + 2*time.Second
+		if _, err := ns.WriteTo(it.Data(), ns.addr); err != nil {
+			ns.g.Log.Println(err)
+			return 0
+		}
+	}
+	return 0
+}
+
+func (ns *Conn) sendQueueActive() int {
+	if ns == nil {
+		return -3
+	}
+	for it := ns.queue; it != nil; it = it.next {
+		if !it.active {
+			continue
+		}
+		it.active = false
+		it.retryAt = ns.g.ticks2 + 2*time.Second
+		if _, err := ns.WriteTo(it.Data(), ns.addr); err != nil {
+			ns.g.Log.Println(err)
+			return 0
 		}
 	}
 	return 0
@@ -742,7 +748,7 @@ func (h Handle) SendReadPacket(noHooks bool) int {
 		if ns2 == nil || ns2.id != find {
 			continue
 		}
-		ns2.maybeSendQueue(0, false)
+		ns2.sendQueueActive()
 		if !noHooks {
 			buf := ns2.SendWriteBuf()
 			n := ns2.callOnSend(h2, buf)
@@ -866,7 +872,7 @@ func (g *Streams) MaybeSendQueues() {
 	for _, ns := range g.streams {
 		if ns != nil {
 			ns.setActiveInQueue(0, false)
-			ns.maybeSendQueue(0, false)
+			ns.sendQueueActive()
 		}
 	}
 	g.lastQueueSend = now
