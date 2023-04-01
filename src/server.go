@@ -470,7 +470,7 @@ func (s *Server) updateRemotePlayers() error {
 			legacy.Nox_xxx_netInformTextMsg2_4DA180(3, unsafe.Pointer(&m))
 			var buf [1]byte
 			buf[0] = byte(noxnet.MSG_TIMEOUT_NOTIFICATION)
-			netstr.Global.Player(pl).Send(buf[:], netstr.SendQueue|netstr.SendFlush)
+			netstr.Global.ByPlayer(pl).Send(buf[:], netstr.SendQueue|netstr.SendFlush)
 			pl.Disconnect(3)
 		}
 		if pl.Field3680&0x80 != 0 {
@@ -492,7 +492,7 @@ func (s *Server) updateRemotePlayers() error {
 		if pl.UnitC().SObj() == legacy.HostPlayerUnit() {
 			legacy.Nox_xxx_netImportant_4E5770(byte(pl.Index()), 1)
 		} else if legacy.Get_dword_5d4594_2650652() == 0 || (s.Frame()%uint32(nox_xxx_rateGet_40A6C0()) == 0) || noxflags.HasGame(noxflags.GameFlag4) {
-			netstr.Global.Player(pl).SendReadPacket(false)
+			netstr.Global.ByPlayer(pl).SendReadPacket(false)
 		}
 	}
 	return nil
