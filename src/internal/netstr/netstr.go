@@ -154,11 +154,15 @@ type timingStruct struct {
 }
 
 type queueItem struct {
-	next   *queueItem
-	ticks  time.Duration
-	active bool
-	size   uint32
-	data   [1024]byte
+	next    *queueItem
+	retryAt time.Duration
+	active  bool
+	size    uint32
+	data    [1024]byte
+}
+
+func (q *queueItem) Data() []byte {
+	return q.data[:q.size]
 }
 
 type stream2 struct {
@@ -232,7 +236,7 @@ type Options struct {
 	BufferSize int
 	OnSend     Handler
 	OnReceive  Handler
-	Check14    JoinCheck
+	OnJoin     JoinCheck
 	Check17    Check17
 }
 
@@ -256,7 +260,7 @@ func (g *Streams) newStruct(opt *Options) *Conn {
 	ns.seqRecv = -1
 	ns.xorKey = 0
 
-	ns.onJoin = opt.Check14
+	ns.onJoin = opt.OnJoin
 	ns.check17 = opt.Check17
 	return ns
 }
@@ -277,7 +281,7 @@ func (ns *Conn) Close() error {
 }
 
 func (h Handle) Close() {
-	if ns := h.get(); ns != nil {
+	if ns := h.Get(); ns != nil {
 		_ = ns.Close()
 		h.g.streams[h.i] = nil
 	}
@@ -299,34 +303,6 @@ func (g *Streams) First() Handle {
 	return Handle{g, 0}
 }
 
-type Handle struct {
-	g *Streams
-	i int // hiding it in a struct helps prevent direct casts
-}
-
-func (h Handle) Raw() int {
-	return h.i
-}
-
-func (h Handle) Valid() bool {
-	return h.g != nil && h.i >= 0 && h.i < maxStructs
-}
-
-func (h Handle) IsFirst() bool {
-	return h.i == 0
-}
-
-func (h Handle) Player() ntype.PlayerInd {
-	return ntype.PlayerInd(h.i - 1)
-}
-
-func (h Handle) get() *Conn {
-	if !h.Valid() {
-		return nil
-	}
-	return h.g.streams[h.i]
-}
-
 func (g *Streams) NewClient(narg *Options) (Handle, error) {
 	if narg == nil {
 		return Handle{nil, -2}, NewConnectErr(-2, errors.New("empty options"))
@@ -344,7 +320,7 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 	if h.g.Debug {
 		h.g.Log.Println("NET_CONNECT", h, host, port)
 	}
-	ns := h.get()
+	ns := h.Get()
 	if ns == nil {
 		return NewConnectErr(-3, errors.New("no net struct"))
 	}
@@ -393,7 +369,7 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 
 	retries, counter := 60, 0
 	for {
-		ns := h.get()
+		ns := h.Get()
 		if ns == nil {
 			return NewConnectErr(-23, errors.New("no net struct"))
 		}
@@ -411,7 +387,7 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 		h.g.Sleep(30 * time.Millisecond)
 	}
 
-	ns = h.get()
+	ns = h.Get()
 	if h.g.Responded && ns.ID().Valid() {
 		data, err := opts.MarshalBinary()
 		if err != nil {
@@ -490,6 +466,13 @@ func (ns *Conn) reset() {
 	*ns = Conn{g: ns.g}
 }
 
+func (ns *Conn) String() string {
+	if ns == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("Conn(id: %d, addr: %s)", ns.id, ns.addr.String())
+}
+
 func (ns *Conn) Addr() netip.AddrPort {
 	if ns == nil {
 		return netip.AddrPort{}
@@ -550,7 +533,7 @@ const (
 )
 
 func (h Handle) Send(buf []byte, flags int) (int, error) {
-	ns := h.get()
+	ns := h.Get()
 	if ns == nil {
 		return -3, errors.New("no net struct")
 	}
@@ -573,7 +556,7 @@ func (h Handle) Send(buf []byte, flags int) (int, error) {
 	if flags&SendQueue != 0 {
 		n := len(buf)
 		for i := si.i; i < ei.i; i++ {
-			ns2 := Handle{h.g, i}.get()
+			ns2 := Handle{h.g, i}.Get()
 			if ns2 != nil && ns2.ID() == idd {
 				seq, err := ns2.addToQueue(buf)
 				if err != nil {
@@ -589,7 +572,7 @@ func (h Handle) Send(buf []byte, flags int) (int, error) {
 	}
 	n := len(buf)
 	for i := si.i; i < ei.i; i++ {
-		ns2 := Handle{h.g, i}.get()
+		ns2 := Handle{h.g, i}.Get()
 		if ns2 == nil {
 			continue
 		}
@@ -658,7 +641,7 @@ func (ns *Conn) maybeSendQueue(hdrByte byte, checkHdr bool) int {
 			if it.data[1] == hdrByte {
 				sz := int(it.size)
 				it.active = false
-				it.ticks = ns.g.ticks2 + 2*time.Second
+				it.retryAt = ns.g.ticks2 + 2*time.Second
 				if _, err := ns.WriteTo(it.data[:sz], ns.addr); err != nil {
 					ns.g.Log.Println(err)
 					return 0
@@ -668,7 +651,7 @@ func (ns *Conn) maybeSendQueue(hdrByte byte, checkHdr bool) int {
 			if it.active {
 				sz := int(it.size)
 				it.active = false
-				it.ticks = ns.g.ticks2 + 2*time.Second
+				it.retryAt = ns.g.ticks2 + 2*time.Second
 				if _, err := ns.WriteTo(it.data[:sz], ns.addr); err != nil {
 					ns.g.Log.Println(err)
 					return 0
@@ -690,7 +673,7 @@ func (ns *Conn) setActiveInQueue(hdrByte byte, checkHdr bool) int {
 				continue
 			}
 		} else {
-			if it.ticks <= ns.g.ticks2 {
+			if it.retryAt <= ns.g.ticks2 {
 				it.active = true
 				continue
 			}
@@ -733,7 +716,7 @@ func (g *Streams) NewServer(narg *Options) (Handle, error) {
 }
 
 func (h Handle) SendReadPacket(noHooks bool) int {
-	ns := h.get()
+	ns := h.Get()
 	if ns == nil {
 		return -3
 	}
@@ -820,7 +803,7 @@ func (g *Streams) ReadPackets(ind Handle) int {
 	if !ind.Valid() {
 		return -3
 	}
-	ns := ind.get()
+	ns := ind.Get()
 	if ns == nil {
 		return 0
 	}
@@ -831,7 +814,7 @@ func (g *Streams) ReadPackets(ind Handle) int {
 		v4 = ind
 	} else {
 		si, ei = ind, Handle{g, ind.i + 1}
-		ns2 := v4.get()
+		ns2 := v4.Get()
 		if ns2 == nil || ns2.id != -1 {
 			ns.reset()
 			g.streams[ind.i] = nil
@@ -840,7 +823,7 @@ func (g *Streams) ReadPackets(ind Handle) int {
 	}
 	for i := si.i; i < ei.i; i++ {
 		ii := Handle{g, i}
-		ns2 := ii.get()
+		ns2 := ii.Get()
 		if ns2 == nil || ns2.ID() != v4 {
 			continue
 		}
@@ -849,7 +832,7 @@ func (g *Streams) ReadPackets(ind Handle) int {
 		buf[0] = byte(code11)
 		_, _ = ii.Send(buf[:], 0)
 		ii.SendReadPacket(true)
-		v4.get().accepted--
+		v4.Get().accepted--
 		ns.maybeFreeQueue(0, 2)
 		ns2.reset()
 		g.streams[ii.i] = nil
@@ -887,8 +870,7 @@ func (g *Streams) GetTimingByInd1(ind int) int {
 	return int(g.timing[1+ind].field28)
 }
 
-func (h Handle) IP() netip.Addr {
-	ns := h.get()
+func (ns *Conn) IP() netip.Addr {
 	if ns == nil {
 		return netip.Addr{}
 	}
@@ -896,7 +878,7 @@ func (h Handle) IP() netip.Addr {
 }
 
 func (h Handle) SendClose() {
-	if h.get() == nil {
+	if h.Get() == nil {
 		return
 	}
 	h.SendReadPacket(false)
@@ -940,7 +922,7 @@ func (g *Streams) processStreamOp0(id Handle, out []byte, pid Handle, p1 byte, n
 	}
 	ns2 := g.newStruct(&Options{
 		BufferSize: len(ns1.sendBuf),
-		Check14:    ns1.onJoin,
+		OnJoin:     ns1.onJoin,
 		Check17:    ns1.check17,
 	})
 	g.streams[pid.i] = ns2
@@ -985,7 +967,7 @@ func (g *Streams) processStreamOp6(pid Handle, out []byte, ns1 *Conn, packetCur 
 	}
 	v := binary.LittleEndian.Uint32(packetCur[:4])
 
-	ns2 := pid.get()
+	ns2 := pid.Get()
 	if ns2 == nil {
 		return 0
 	}
@@ -1008,7 +990,7 @@ func (g *Streams) processStreamOp6(pid Handle, out []byte, ns1 *Conn, packetCur 
 }
 
 func (g *Streams) processStreamOp7(pid Handle, out []byte, ns1 *Conn) int {
-	ns4 := pid.get()
+	ns4 := pid.Get()
 	if ns4 == nil {
 		return 0
 	}
@@ -1029,7 +1011,7 @@ func (g *Streams) processStreamOp7(pid Handle, out []byte, ns1 *Conn) int {
 }
 
 func (g *Streams) processStreamOp8(pid Handle, out []byte, ns1 *Conn, packetCur []byte) int {
-	ns5 := pid.get()
+	ns5 := pid.Get()
 	if ns5 == nil && binary.LittleEndian.Uint32(packetCur) != uint32(ns5.ticks22/time.Millisecond) {
 		return 0
 	}
@@ -1115,10 +1097,10 @@ func (g *Streams) processStreamOp14(out []byte, packet []byte, ns1 *Conn, p1 byt
 	return copy(out, nx.nextPingPacket(t))
 }
 
-func (g *Streams) Sub552E70(ind Handle) int {
+func (g *Streams) SendCode6(ind Handle) int {
 	var buf [5]byte
 
-	ns := ind.get()
+	ns := ind.Get()
 	if ns == nil {
 		return -3
 	}
@@ -1149,11 +1131,11 @@ func (g *Streams) Sub552E70(ind Handle) int {
 }
 
 func (g *Streams) readXxx(id1, id2 Handle, a3 byte, buf []byte) bool {
-	ns2 := id2.get()
+	ns2 := id2.Get()
 	if ns2 == nil || ns2.field38 != 1 || ns2.seq39 > a3 {
 		return false
 	}
-	ns1 := id1.get()
+	ns1 := id1.Get()
 	if int(ns1.accepted) > (g.GetMaxPlayers() - 1) {
 		g.ReadPackets(id2)
 		return true
@@ -1175,7 +1157,7 @@ func (g *Streams) processStreamOp(id Handle, packet []byte, out []byte, from net
 	p1 := packet[1]
 	packetCur := packet[2:]
 
-	ns1 := id.get()
+	ns1 := id.Get()
 	if ns1 == nil {
 		return 0
 	}
@@ -1234,7 +1216,7 @@ func (g *Streams) processStreamOp(id Handle, packet []byte, out []byte, from net
 		case code10:
 			return g.processStreamOp10(id, pid, out, ns1)
 		case code11:
-			ns7 := pid.get()
+			ns7 := pid.Get()
 			if ns7 == nil {
 				return 0
 			}
@@ -1255,13 +1237,13 @@ func (g *Streams) processStreamOp(id Handle, packet []byte, out []byte, from net
 			v14 := packetCur[0]
 			packetCur = packetCur[1:]
 
-			ns8 := pidb.get()
+			ns8 := pidb.Get()
 			if ns8 == nil {
 				return 0
 			}
 			g.Log.Printf("switch 31: 0x%x 0x%x\n", v14, ns8.seqRecv)
 			if v14 != byte(ns8.seqRecv) {
-				ns9 := pid.get()
+				ns9 := pid.Get()
 				ns9.setActiveInQueue(v14, true)
 				ns9.maybeFreeQueue(v14, 1)
 				ns8.seqRecv = int8(v14)
@@ -1309,7 +1291,7 @@ func (g *Streams) processStreamOp10(id Handle, pid Handle, out []byte, ns1 *Conn
 	if pid.i == -1 {
 		return 0
 	}
-	ns6 := pid.get()
+	ns6 := pid.Get()
 	if ns6 == nil || ns6.field38 == 1 {
 		return 0
 	}
@@ -1379,7 +1361,7 @@ const (
 )
 
 func (h Handle) RecvLoop(flags int) int {
-	ns := h.get()
+	ns := h.Get()
 	if ns == nil {
 		return -3
 	}
@@ -1417,7 +1399,7 @@ func (h Handle) RecvLoop(flags int) int {
 		hdr := ns.recv.Bytes()[:3]
 		a0 := hdr[0]
 		h2 := Handle{h.g, int(a0 & maskID)}
-		a1 := hdr[1]
+		seq := hdr[1]
 		op := noxnet.Op(hdr[2])
 		if h.g.Debug {
 			h.g.Log.Printf("servNetInitialPackets: op=%d (%s)\n", int(op), op.String())
@@ -1447,19 +1429,19 @@ func (h Handle) RecvLoop(flags int) int {
 				inJoin = true
 			}
 			if ns.id == -1 {
-				dst = h2.get()
+				dst = h2.Get()
 			}
 			if a0&someIDFlag == 0 {
 				if dst == nil {
 					goto continueX
 				}
-				if a1 != byte(dst.seqRecv) {
-					ns9 := h2.get()
-					ns9.setActiveInQueue(a1, true)
-					ns9.maybeFreeQueue(a1, 1)
-					dst.seqRecv = int8(a1)
+				if seq != byte(dst.seqRecv) {
+					ns9 := h2.Get()
+					ns9.setActiveInQueue(seq, true)
+					ns9.maybeFreeQueue(seq, 1)
+					dst.seqRecv = int8(seq)
 					v20 := false
-					if h.g.readXxx(h, h2, a1, ns.recv.Bytes()) {
+					if h.g.readXxx(h, h2, seq, ns.recv.Bytes()) {
 						v20 = false
 					} else {
 						v20 = true
@@ -1487,11 +1469,11 @@ func (h Handle) RecvLoop(flags int) int {
 					goto continueX
 				}
 				hdr2 := dst.Data2hdr()
-				if hdr2[1] != a1 {
+				if hdr2[1] != seq {
 					goto continueX
 				}
 				hdr2[1]++
-				if h.g.readXxx(h, h2, a1, ns.recv.Bytes()) {
+				if h.g.readXxx(h, h2, seq, ns.recv.Bytes()) {
 					goto continueX
 				}
 			}
@@ -1532,14 +1514,14 @@ func (nx *stream2) nextPingPacket(t time.Duration) []byte {
 }
 
 func (h Handle) sendTime(ind2 int) (int, error) {
-	ns := h.get()
+	ns := h.Get()
 	ns2 := &h.g.streams2[ind2]
 	buf := ns2.nextPingPacket(h.g.Now())
 	return ns.WriteTo(buf, ns2.addr)
 }
 
 func (h Handle) sendCode20(ind2 int) (int, error) {
-	ns := h.get()
+	ns := h.Get()
 	var buf [3]byte
 	buf[0] = 0
 	buf[1] = 0
@@ -1552,7 +1534,7 @@ func (h Handle) sendCode20(ind2 int) (int, error) {
 }
 
 func (h Handle) sendCode19(code byte, ind2 int) (int, error) {
-	ns := h.get()
+	ns := h.Get()
 	var buf [4]byte
 	buf[0] = 0
 	buf[1] = 0
@@ -1611,7 +1593,7 @@ func (h Handle) ProcessStats(min, max time.Duration) {
 }
 
 func (h Handle) CountInQueue(ops ...noxnet.Op) int {
-	ns := h.get()
+	ns := h.Get()
 	if ns == nil {
 		return 0
 	}
@@ -1632,23 +1614,23 @@ func (h Handle) CountInQueue(ops ...noxnet.Op) int {
 	return cnt
 }
 
-func (h Handle) WaitServerResponse(a2 int, a3 int, flags int) int {
+func (h Handle) WaitServerResponse(seq int, try int, flags int) int {
 	if h.g.Debug {
-		Log.Printf("nox_xxx_cliWaitServerResponse_5525B0: %d, %d, %d, %d\n", h.i, a2, a3, flags)
+		Log.Printf("nox_xxx_cliWaitServerResponse_5525B0: %d, %d, %d, %d\n", h.i, seq, try, flags)
 	}
-	ns := h.get()
+	ns := h.Get()
 	if ns == nil {
 		return -3
 	}
 
-	if int(ns.seqRecv) >= a2 {
+	if int(ns.seqRecv) >= seq {
 		return 0
 	}
-	for v6 := 0; v6 <= 20*a3; v6++ {
+	for i := 0; i <= 20*try; i++ {
 		h.g.Sleep(50 * time.Millisecond)
 		h.RecvLoop(flags | RecvCanRead)
 		h.g.MaybeSendQueues()
-		if int(ns.seqRecv) >= a2 {
+		if int(ns.seqRecv) >= seq {
 			return 0
 		}
 		// FIXME(awesie)
@@ -1658,7 +1640,7 @@ func (h Handle) WaitServerResponse(a2 int, a3 int, flags int) int {
 }
 
 func (h Handle) SendSelfRaw(buf []byte) int {
-	return h.get().SendSelfRaw(buf)
+	return h.Get().SendSelfRaw(buf)
 }
 
 func (ns *Conn) SendSelfRaw(buf []byte) int {

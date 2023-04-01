@@ -253,7 +253,7 @@ func sub_43CCA0() {
 
 	if dt := platformTicks() - ticks815724; dt >= 2000 {
 		ticks815724 = platformTicks()
-		netstr.Global.Sub552E70(netstrClientConn)
+		netstr.Global.SendCode6(netstrClientConn)
 	}
 	if !noxflags.HasGame(noxflags.GameHost) {
 		legacy.Nox_xxx_netImportant_4E5770(0x1F, 0)
