@@ -674,24 +674,26 @@ func (ns *Conn) sendQueueActive() int {
 	return 0
 }
 
-func (ns *Conn) setActiveInQueue(hdrByte byte, checkHdr bool) int {
+func (ns *Conn) resendQueueBySeq(seq byte) {
 	if ns == nil {
-		return -3
+		return
 	}
 	for it := ns.queue; it != nil; it = it.next {
-		if checkHdr {
-			if it.data[1] == hdrByte {
-				it.active = true
-				continue
-			}
-		} else {
-			if it.retryAt <= ns.g.ticks2 {
-				it.active = true
-				continue
-			}
+		if it.data[1] == seq {
+			it.active = true
 		}
 	}
-	return 0
+}
+
+func (ns *Conn) queueByTime() {
+	if ns == nil {
+		return
+	}
+	for it := ns.queue; it != nil; it = it.next {
+		if it.retryAt <= ns.g.ticks2 {
+			it.active = true
+		}
+	}
 }
 
 func (g *Streams) NewServer(narg *Options) (Handle, error) {
@@ -871,7 +873,7 @@ func (g *Streams) MaybeSendQueues() {
 	}
 	for _, ns := range g.streams {
 		if ns != nil {
-			ns.setActiveInQueue(0, false)
+			ns.queueByTime()
 			ns.sendQueueActive()
 		}
 	}
@@ -1246,21 +1248,21 @@ func (g *Streams) processStreamOp(id Handle, packet []byte, out []byte, from net
 			if len(packetCur) < 1 {
 				return 0
 			}
-			v14 := packetCur[0]
+			seq := packetCur[0]
 			packetCur = packetCur[1:]
 
 			ns8 := pidb.Get()
 			if ns8 == nil {
 				return 0
 			}
-			g.Log.Printf("switch 31: 0x%x 0x%x\n", v14, ns8.seqRecv)
-			if v14 != byte(ns8.seqRecv) {
+			g.Log.Printf("switch 31: 0x%x 0x%x\n", seq, ns8.seqRecv)
+			if seq != byte(ns8.seqRecv) {
 				ns9 := pid.Get()
-				ns9.setActiveInQueue(v14, true)
-				ns9.maybeFreeQueue(v14, 1)
-				ns8.seqRecv = int8(v14)
+				ns9.resendQueueBySeq(seq)
+				ns9.maybeFreeQueue(seq, 1)
+				ns8.seqRecv = int8(seq)
 				out[0] = byte(code38)
-				out[1] = v14
+				out[1] = seq
 				ns1.callOnReceive(pid, out[:2])
 			}
 		}
@@ -1455,7 +1457,7 @@ func (h Handle) RecvLoop(flags RecvFlags) int {
 				}
 				if seq != byte(dst.seqRecv) {
 					ns9 := h2.Get()
-					ns9.setActiveInQueue(seq, true)
+					ns9.resendQueueBySeq(seq)
 					ns9.maybeFreeQueue(seq, 1)
 					dst.seqRecv = int8(seq)
 					v20 := false
