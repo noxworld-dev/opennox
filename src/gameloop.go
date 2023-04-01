@@ -432,11 +432,11 @@ func CONNECT_SERVER(host string, port int, opts *PlayerOpts) error {
 		}()
 	}
 	narg := &netstr.Options{
-		DataSize: 2048,
-		Port:     port,
-		Func2:    nox_xxx_netHandleCliPacket_43C860,
-		Check14:  nox_xxx_netBigSwitch_553210_op_14_check,
-		Check17:  nox_xxx_netBigSwitch_553210_op_17_check,
+		BufferSize: 2048,
+		Port:       port,
+		OnReceive:  nox_xxx_netHandleCliPacket_43C860,
+		Check14:    nox_xxx_netBigSwitch_553210_op_14_check,
+		Check17:    nox_xxx_netBigSwitch_553210_op_17_check,
 	}
 	dword_5d4594_815704 = false
 	dword_5d4594_815708 = false
