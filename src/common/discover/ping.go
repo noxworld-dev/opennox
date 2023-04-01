@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/noxworld-dev/lobby"
+	"github.com/noxworld-dev/opennox-lib/noxnet"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
@@ -179,7 +180,7 @@ func encodeGameDiscovery(token uint32) []byte {
 	data := make([]byte, 12)
 	data[0] = 0
 	data[1] = 0
-	data[2] = 12
+	data[2] = byte(noxnet.MSG_SERVER_DISCOVER)
 	// data[3] = ???
 	// data[4:5] = 0
 	// data[6] = ???
@@ -193,7 +194,7 @@ func decodeGameInfoToken(buf []byte) (uint32, bool) {
 		return 0, false
 	}
 	op := buf[2]
-	if op != 13 {
+	if op != byte(noxnet.MSG_SERVER_INFO) {
 		return 0, false
 	}
 	token := binary.LittleEndian.Uint32(buf[44:])
