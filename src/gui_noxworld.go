@@ -246,7 +246,7 @@ func clientWaitForLobbyResults() bool {
 	return true
 }
 
-func waitForLobbyResults(conn net.PacketConn, flag byte) (int, error) {
+func waitForLobbyResults(conn net.PacketConn, flag netstr.RecvFlags) (int, error) {
 	if conn == nil {
 		return 0, client.ErrLobbyNoSocket
 	}
