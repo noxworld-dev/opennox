@@ -871,7 +871,7 @@ func (g *Streams) maybeReadPackets() {
 func (g *Streams) MaybeSendQueues() {
 	now := g.Now()
 	g.ticks2 = now
-	if now-g.lastQueueSend <= 1000 {
+	if now-g.lastQueueSend <= 1*time.Second {
 		return
 	}
 	for _, ns := range g.streams {
