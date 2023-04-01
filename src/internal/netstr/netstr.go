@@ -174,13 +174,13 @@ type stream2 struct {
 	ticks   time.Duration
 }
 
-func (g *Streams) getFreeIndex() (Handle, bool) {
+func (g *Streams) getFreeIndex() (int, bool) {
 	for i := range g.streams {
 		if g.streams[i] == nil {
-			return Handle{g, i}, true
+			return i, true
 		}
 	}
-	return Handle{nil, -1}, false
+	return -1, false
 }
 
 func (g *Streams) getFreeNetStruct2Ind() int {
@@ -312,8 +312,8 @@ func (g *Streams) NewClient(narg *Options) (Handle, error) {
 		return Handle{nil, -8}, NewConnectErr(-8, errors.New("no more slots for net structs"))
 	}
 	ns := g.newStruct(narg)
-	g.streams[ind.i] = ns
-	return ind, nil
+	g.streams[ind] = ns
+	return Handle{g, ind}, nil
 }
 
 func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarshaler) error {
@@ -695,13 +695,13 @@ func (g *Streams) NewServer(narg *Options) (Handle, error) {
 	if narg.Max > maxStructs {
 		return Handle{nil, -2}, errors.New("max limit reached")
 	}
-	h, ok := g.getFreeIndex()
+	ind, ok := g.getFreeIndex()
 	if !ok {
 		return Handle{nil, -8}, errors.New("no more slots for net structs")
 	}
 	ns := g.newStruct(narg)
-	g.streams[h.i] = ns
-	ns.Data2hdr()[0] = byte(h.i)
+	g.streams[ind] = ns
+	ns.Data2hdr()[0] = byte(ind)
 	ns.id = -1
 
 	if narg.Port < 1024 || narg.Port > 0x10000 {
@@ -718,7 +718,7 @@ func (g *Streams) NewServer(narg *Options) (Handle, error) {
 		}
 		narg.Port++
 	}
-	return h, nil
+	return Handle{g, ind}, nil
 }
 
 func (h Handle) SendReadPacket(noHooks bool) int {
