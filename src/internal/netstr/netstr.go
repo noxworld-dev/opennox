@@ -256,8 +256,17 @@ type Options struct {
 	Check17    Check17
 }
 
-func (g *Streams) newStruct(opt *Options) *Conn {
-	ns := &Conn{g: g}
+func (g *Streams) newStream(opt *Options) *Conn {
+	ns := &Conn{
+		g:         g,
+		max:       uint32(opt.Max),
+		seqRecv:   -1,
+		xorKey:    0,
+		onSend:    opt.OnSend,
+		onReceive: opt.OnReceive,
+		onJoin:    opt.OnJoin,
+		check17:   opt.Check17,
+	}
 	if dsz := opt.BufferSize; dsz > 0 {
 		dsz -= dsz % 4
 		opt.BufferSize = dsz
@@ -269,16 +278,14 @@ func (g *Streams) newStruct(opt *Options) *Conn {
 	ns.sendBuf = make([]byte, 2+opt.BufferSize)
 	ns.sendWrite = 2
 	*ns.Data2hdr() = [2]byte{anyID, 0}
-
-	ns.max = uint32(opt.Max)
-	ns.onSend = opt.OnSend
-	ns.onReceive = opt.OnReceive
-	ns.seqRecv = -1
-	ns.xorKey = 0
-
-	ns.onJoin = opt.OnJoin
-	ns.check17 = opt.Check17
 	return ns
+}
+
+func (ns *Conn) reset() {
+	if ns == nil {
+		return
+	}
+	*ns = Conn{g: ns.g}
 }
 
 func (ns *Conn) Close() error {
@@ -303,6 +310,39 @@ func (h Handle) Close() {
 	}
 }
 
+func (g *Streams) Listen(narg *Options) (Handle, error) {
+	if narg == nil {
+		return Handle{nil, -2}, errors.New("empty options")
+	}
+	if narg.Max > maxStructs {
+		return Handle{nil, -2}, errors.New("max limit reached")
+	}
+	ind, ok := g.getFreeIndex()
+	if !ok {
+		return Handle{nil, -8}, errors.New("no more slots for net structs")
+	}
+	ns := g.newStream(narg)
+	g.streams[ind] = ns
+	ns.Data2hdr()[0] = byte(ind)
+	ns.id = -1
+
+	if narg.Port < 1024 || narg.Port > 0x10000 {
+		narg.Port = common.GamePort
+	}
+
+	for {
+		sock, err := listen(g.Log, netip.AddrPortFrom(netip.IPv4Unspecified(), uint16(narg.Port)))
+		if err == nil {
+			ns.pc = sock
+			break
+		} else if !ErrIsInUse(err) {
+			return Handle{nil, -5}, err
+		}
+		narg.Port++
+	}
+	return Handle{g, ind}, nil
+}
+
 func (g *Streams) NewClient(narg *Options) (Handle, error) {
 	if narg == nil {
 		return Handle{nil, -2}, NewConnectErr(-2, errors.New("empty options"))
@@ -311,7 +351,7 @@ func (g *Streams) NewClient(narg *Options) (Handle, error) {
 	if !ok {
 		return Handle{nil, -8}, NewConnectErr(-8, errors.New("no more slots for net structs"))
 	}
-	ns := g.newStruct(narg)
+	ns := g.newStream(narg)
 	g.streams[ind] = ns
 	return Handle{g, ind}, nil
 }
@@ -457,13 +497,6 @@ type Conn struct {
 	frame40   uint32
 	onJoin    JoinCheck
 	check17   Check17
-}
-
-func (ns *Conn) reset() {
-	if ns == nil {
-		return
-	}
-	*ns = Conn{g: ns.g}
 }
 
 func (ns *Conn) String() string {
@@ -696,39 +729,6 @@ func (ns *Conn) queueByTime() {
 	}
 }
 
-func (g *Streams) NewServer(narg *Options) (Handle, error) {
-	if narg == nil {
-		return Handle{nil, -2}, errors.New("empty options")
-	}
-	if narg.Max > maxStructs {
-		return Handle{nil, -2}, errors.New("max limit reached")
-	}
-	ind, ok := g.getFreeIndex()
-	if !ok {
-		return Handle{nil, -8}, errors.New("no more slots for net structs")
-	}
-	ns := g.newStruct(narg)
-	g.streams[ind] = ns
-	ns.Data2hdr()[0] = byte(ind)
-	ns.id = -1
-
-	if narg.Port < 1024 || narg.Port > 0x10000 {
-		narg.Port = common.GamePort
-	}
-
-	for {
-		sock, err := listen(g.Log, netip.AddrPortFrom(netip.IPv4Unspecified(), uint16(narg.Port)))
-		if err == nil {
-			ns.pc = sock
-			break
-		} else if !ErrIsInUse(err) {
-			return Handle{nil, -5}, err
-		}
-		narg.Port++
-	}
-	return Handle{g, ind}, nil
-}
-
 func (h Handle) SendReadPacket(noHooks bool) int {
 	ns := h.Get()
 	if ns == nil {
@@ -937,7 +937,7 @@ func (g *Streams) processStreamOp0(id Handle, out []byte, pid Handle, p1 byte, n
 		out[2] = byte(codeErr2)
 		return 3
 	}
-	ns2 := g.newStruct(&Options{
+	ns2 := g.newStream(&Options{
 		BufferSize: len(ns1.sendBuf),
 		OnJoin:     ns1.onJoin,
 		Check17:    ns1.check17,
