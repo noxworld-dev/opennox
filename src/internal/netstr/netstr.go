@@ -26,6 +26,9 @@ import (
 
 const (
 	maxStructs = 128
+	maskID     = byte(maxStructs - 1) // 0x7F
+	someIDFlag = byte(maxStructs)     // 0x80
+	anyID      = byte(0xff)
 )
 
 const (
@@ -223,14 +226,14 @@ func (g *Streams) hasStructWithIndAndAddr(ind Handle, addr netip.AddrPort) bool 
 type Handler func(id Handle, buf []byte, a3 unsafe.Pointer) int
 
 type Options struct {
-	Port      int
-	Max       int
-	DataSize  int
-	Data3Size int
-	Func1     Handler
-	Func2     Handler
-	Check14   Check14
-	Check17   Check17
+	Port       int
+	Max        int
+	BufferSize int
+	Data3Size  int
+	Func1      Handler
+	OnReceive  Handler
+	Check14    Check14
+	Check17    Check17
 }
 
 func (g *Streams) newStruct(opt *Options) *stream {
@@ -239,23 +242,23 @@ func (g *Streams) newStruct(opt *Options) *stream {
 	if opt.Data3Size > 0 {
 		ns.data3, _ = alloc.Malloc(uintptr(opt.Data3Size))
 	}
-	if dsz := opt.DataSize; dsz > 0 {
+	if dsz := opt.BufferSize; dsz > 0 {
 		dsz -= dsz % 4
-		opt.DataSize = dsz
+		opt.BufferSize = dsz
 	} else {
-		opt.DataSize = 1024
+		opt.BufferSize = 1024
 	}
-	ns.recv.Grow(2 + opt.DataSize)
+	ns.recv.Grow(2 + opt.BufferSize)
 
-	data2, _ := alloc.Make([]byte{}, opt.DataSize+2)
-	data2[0] = 0xff
+	data2, _ := alloc.Make([]byte{}, opt.BufferSize+2)
+	data2[0] = anyID
 	ns.data2 = data2
 	ns.data2xxx = 2
 	ns.data2yyy = 2
 
 	ns.max = uint32(opt.Max)
 	ns.func1 = opt.Func1
-	ns.func2 = opt.Func2
+	ns.onReceive = opt.OnReceive
 	ns.ind28 = -1
 	ns.xorKey = 0
 
@@ -405,7 +408,7 @@ func (h Handle) Dial(host string, port int, cport int, opts encoding.BinaryMarsh
 		if counter > 20*retries {
 			return NewConnectFailErr(-23, errors.New("timeout"))
 		}
-		h.ServeInitialPackets(ServeCanRead | ServeNoHandle2 | ServeJustOne)
+		h.RecvLoop(ServeCanRead | ServeNoHandle2 | ServeJustOne)
 		h.g.MaybeSendAll()
 		f28 := int(ns.ind28)
 		if f28 >= v11 {
@@ -446,7 +449,7 @@ func (h Handle) DialWait(timeout time.Duration, send func(), check func() bool) 
 		if timeout >= 0 && now >= deadline {
 			return NewConnectFailErr(-19, errors.New("timeout 2"))
 		}
-		h.ServeInitialPackets(ServeCanRead)
+		h.RecvLoop(ServeCanRead)
 		send()
 		h.g.MaybeSendAll()
 		if check() {
@@ -479,7 +482,7 @@ type stream struct {
 	queue       *queueItem
 	data3       unsafe.Pointer
 	func1       Handler
-	func2       Handler
+	onReceive   Handler
 	xorKey      byte
 	field38     byte
 	field39     byte
@@ -547,11 +550,11 @@ func (ns *stream) callFunc1(id Handle, buf []byte, data3 unsafe.Pointer) int {
 	return ns.func1(id, buf, data3)
 }
 
-func (ns *stream) callFunc2(id Handle, buf []byte, data3 unsafe.Pointer) int {
-	if ns.func2 == nil {
+func (ns *stream) callOnReceive(id Handle, buf []byte, data3 unsafe.Pointer) int {
+	if ns.onReceive == nil {
 		return 0
 	}
-	return ns.func2(id, buf, data3)
+	return ns.onReceive(id, buf, data3)
 }
 
 const (
@@ -654,7 +657,7 @@ func (ns *stream) addToQueue(buf []byte) (int, error) {
 
 	q.active = true
 	q.size = uint32(len(buf) + 2)
-	q.data[0] = ns.Data2hdr()[0] | 0x80
+	q.data[0] = ns.Data2hdr()[0] | someIDFlag
 	q.data[1] = ns.cnt28
 	ns.cnt28++
 	copy(q.data[2:], buf)
@@ -958,10 +961,10 @@ func (g *Streams) processStreamOp0(id Handle, out []byte, pid Handle, p1 byte, n
 		return 3
 	}
 	ns2 := g.newStruct(&Options{
-		Data3Size: 4,
-		DataSize:  len(ns1.data2),
-		Check14:   ns1.check14,
-		Check17:   ns1.check17,
+		Data3Size:  4,
+		BufferSize: len(ns1.data2),
+		Check14:    ns1.check14,
+		Check17:    ns1.check17,
 	})
 	g.streams[pid.i] = ns2
 	ns1.playerInd21++
@@ -974,7 +977,7 @@ func (g *Streams) processStreamOp0(id Handle, out []byte, pid Handle, p1 byte, n
 	ns2.id = id.i
 	ns2.pc = ns1.pc
 	ns2.func1 = ns1.func1
-	ns2.func2 = ns1.func2
+	ns2.onReceive = ns1.onReceive
 
 	g.timing[id.i] = timingStruct{field28: 1}
 	key := byte(g.KeyRand(1, 255))
@@ -1010,7 +1013,7 @@ func (g *Streams) processStreamOp6(pid Handle, out []byte, ns1 *stream, packetCu
 		return 0
 	}
 	out[0] = byte(code37)
-	ns1.callFunc2(pid, out[:1], ns2.data3)
+	ns1.callOnReceive(pid, out[:1], ns2.data3)
 
 	g.timing[pid.i].field4 = v
 	var v18 *[2]byte
@@ -1040,9 +1043,9 @@ func (g *Streams) processStreamOp7(pid Handle, out []byte, ns1 *stream) int {
 	out[0] = byte(code35)
 	binary.LittleEndian.PutUint32(out[1:], uint32(v32))
 	if ns1.id == -1 {
-		ns1.callFunc2(pid, out[:5], ns4.data3)
+		ns1.callOnReceive(pid, out[:5], ns4.data3)
 	} else {
-		ns1.callFunc2(pid, out[:5], ns1.data3)
+		ns1.callOnReceive(pid, out[:5], ns1.data3)
 	}
 	return 0
 }
@@ -1061,7 +1064,7 @@ func (g *Streams) processStreamOp8(pid Handle, out []byte, ns1 *stream, packetCu
 	} else {
 		v19 = ns1.data3
 	}
-	ns1.callFunc2(pid, out[:5], v19)
+	ns1.callOnReceive(pid, out[:5], v19)
 
 	out[0] = ns1.Data2hdr()[0]
 	out[1] = ns5.Data2hdr()[1]
@@ -1178,7 +1181,7 @@ func (g *Streams) readXxx(id1, id2 Handle, a3 byte, buf []byte) bool {
 		ns2.field38 = 2
 		ns2.field39 = 0xff
 		ns2.frame40 = 0
-		ns1.callFunc2(id2, buf[4:], ns2.data3)
+		ns1.callOnReceive(id2, buf[4:], ns2.data3)
 	}
 	return true
 }
@@ -1255,7 +1258,7 @@ func (g *Streams) processStreamOp(id Handle, packet []byte, out []byte, from net
 				return 0
 			}
 			out[0] = byte(code33)
-			ns1.callFunc2(pid, out[:1], ns7.data3)
+			ns1.callOnReceive(pid, out[:1], ns7.data3)
 			id.Close()
 			return 0
 		case code14: // join game request?
@@ -1283,7 +1286,7 @@ func (g *Streams) processStreamOp(id Handle, packet []byte, out []byte, from net
 				ns8.ind28 = int8(v14)
 				out[0] = byte(code38)
 				out[1] = v14
-				ns1.callFunc2(pid, out[:2], ns8.data3)
+				ns1.callOnReceive(pid, out[:2], ns8.data3)
 			}
 		}
 	}
@@ -1330,7 +1333,7 @@ func (g *Streams) processStreamOp10(id Handle, pid Handle, out []byte, ns1 *stre
 		return 0
 	}
 	out[0] = byte(code34)
-	ns1.callFunc2(pid, out[:1], ns6.data3)
+	ns1.callOnReceive(pid, out[:1], ns6.data3)
 
 	g.timing[id.i] = timingStruct{}
 
@@ -1391,12 +1394,12 @@ const (
 	ServeJustOne   = 0x4
 )
 
-func (h Handle) ServeInitialPackets(flags int) int {
+func (h Handle) RecvLoop(flags int) int {
 	ns := h.get()
 	if ns == nil {
 		return -3
 	}
-	ns2 := ns
+	dst := ns
 
 	argp := 1
 	var err error
@@ -1409,7 +1412,7 @@ func (h Handle) ServeInitialPackets(flags int) int {
 	tmp, bfree := alloc.Make([]byte{}, 256)
 	defer bfree()
 
-	v26 := 1
+	v26 := true
 	for {
 		n, src := h.g.recvRoot(&ns.recv, ns.pc)
 		if n == -1 {
@@ -1429,14 +1432,16 @@ func (h Handle) ServeInitialPackets(flags int) int {
 			continue
 		}
 		hdr := ns.recv.Bytes()[:3]
-		id2 := int(hdr[0])
-		h2 := Handle{h.g, id2 & 0x7F}
-		v9 := hdr[1]
+		a0 := hdr[0]
+		h2 := Handle{h.g, int(a0 & maskID)}
+		a1 := hdr[1]
 		op := noxnet.Op(hdr[2])
 		if h.g.Debug {
 			h.g.Log.Printf("servNetInitialPackets: op=%d (%s)\n", int(op), op.String())
 		}
 		if op == codeDiscover {
+			// Discover packets are not a part of the protocol, they are filtered out
+			// and handled separately. Responses are written directly to underlying conn.
 			n = h.g.OnDiscover(ns.recv.Bytes(), tmp)
 			if n > 0 {
 				n, _ = ns.WriteToRaw(tmp[:n], src)
@@ -1454,45 +1459,45 @@ func (h Handle) ServeInitialPackets(flags int) int {
 			continue
 		}
 		if op >= code14 && op <= codeOK {
-			v26 = 1
+			v26 = true
 		} else {
-			if id2 == 255 {
-				if v26 != 1 {
+			if a0 == anyID {
+				if !v26 {
 					goto continueX
 				}
 			} else {
-				v26 = 0
+				v26 = false
 				if !h.g.hasStructWithIndAndAddr(h2, src) {
 					goto continueX
 				}
-				v26 = 1
+				v26 = true
 			}
 			if ns.id == -1 {
-				ns2 = h2.get()
+				dst = h2.get()
 			}
-			if id2&maxStructs == 0 {
-				if ns2 == nil {
+			if a0&someIDFlag == 0 {
+				if dst == nil {
 					goto continueX
 				}
-				if v9 != byte(ns2.ind28) {
+				if a1 != byte(dst.ind28) {
 					ns9 := h2.get()
-					ns9.setActiveInQueue(v9, true)
-					ns9.maybeFreeQueue(v9, 1)
-					ns2.ind28 = int8(v9)
-					v20 := 0
-					if h.g.readXxx(h, h2, v9, ns.recv.Bytes()) {
-						v20 = 0
+					ns9.setActiveInQueue(a1, true)
+					ns9.maybeFreeQueue(a1, 1)
+					dst.ind28 = int8(a1)
+					v20 := false
+					if h.g.readXxx(h, h2, a1, ns.recv.Bytes()) {
+						v20 = false
 					} else {
-						v20 = 1
+						v20 = true
 					}
 					tmp[0] = byte(code38)
-					tmp[1] = byte(ns2.ind28)
-					ns.callFunc2(h2, tmp[:2], ns2.data3)
-					if v20 == 0 {
+					tmp[1] = byte(dst.ind28)
+					ns.callOnReceive(h2, tmp[:2], dst.data3)
+					if !v20 {
 						goto continueX
 					}
 				}
-			} else if id2 == 255 {
+			} else if a0 == anyID {
 				if op == 0 {
 					n = h.g.processStreamOp(h, ns.recv.Bytes(), tmp, src)
 					if n > 0 {
@@ -1502,30 +1507,29 @@ func (h Handle) ServeInitialPackets(flags int) int {
 				}
 			} else {
 				data := ns.recv.Bytes()
-				data[0] &= 0x7F
-				id2 = int(data[0])
-				h2 = Handle{h.g, id2}
-				if ns2 == nil {
+				data[0] &= maskID // TODO: fails without this
+				h2 = Handle{h.g, int(data[0])}
+				if dst == nil {
 					goto continueX
 				}
-				hdr2 := ns2.Data2hdr()
-				if hdr2[1] != v9 {
+				hdr2 := dst.Data2hdr()
+				if hdr2[1] != a1 {
 					goto continueX
 				}
 				hdr2[1]++
-				if h.g.readXxx(h, h2, v9, ns.recv.Bytes()) {
+				if h.g.readXxx(h, h2, a1, ns.recv.Bytes()) {
 					goto continueX
 				}
 			}
 		}
-		if op < 32 {
+		if op < code32 {
 			n = h.g.processStreamOp(h, ns.recv.Bytes(), tmp, src)
 			if n > 0 {
 				n, _ = ns.WriteTo(tmp[:n], src)
 			}
 		} else {
-			if ns2 != nil && flags&ServeNoHandle2 == 0 {
-				ns.callFunc2(h2, ns.recv.Bytes()[2:n], ns2.data3)
+			if dst != nil && flags&ServeNoHandle2 == 0 {
+				ns.callOnReceive(h2, ns.recv.Bytes()[2:n], dst.data3)
 			}
 		}
 	continueX:
@@ -1668,7 +1672,7 @@ func (h Handle) WaitServerResponse(a2 int, a3 int, flags int) int {
 	}
 	for v6 := 0; v6 <= 20*a3; v6++ {
 		platform.Sleep(50 * time.Millisecond)
-		h.ServeInitialPackets(flags | ServeCanRead)
+		h.RecvLoop(flags | ServeCanRead)
 		h.g.MaybeSendAll()
 		if int(ns.ind28) >= a2 {
 			return 0

@@ -251,10 +251,10 @@ func (c *Client) clientSendInputMouse(pli ntype.PlayerInd, mp image.Point) bool 
 
 func (s *Server) initConn(port int) (conn netstr.Handle, cport int, _ error) {
 	narg := &netstr.Options{
-		Port:     port,
-		Max:      s.getServerMaxPlayers(),
-		DataSize: 2048,
-		Func2: func(conn netstr.Handle, buf []byte, _ unsafe.Pointer) int {
+		Port:       port,
+		Max:        s.getServerMaxPlayers(),
+		BufferSize: 2048,
+		OnReceive: func(conn netstr.Handle, buf []byte, _ unsafe.Pointer) int {
 			// should pass the pointer unchanged, otherwise expect bugs!
 			s.onPacketRaw(conn.Player(), buf)
 			return 1
@@ -376,7 +376,7 @@ func nox_xxx_cliSendOutgoingClient_43CB50() int {
 	if conn.WaitServerResponse(v0, 20, netstr.ServeNoHandle2|netstr.ServeJustOne) != 0 {
 		return 0
 	}
-	conn.ServeInitialPackets(netstr.ServeCanRead | netstr.ServeNoHandle2)
+	conn.RecvLoop(netstr.ServeCanRead | netstr.ServeNoHandle2)
 	netlist.ResetByInd(common.MaxPlayers-1, netlist.Kind0)
 	return 1
 }
