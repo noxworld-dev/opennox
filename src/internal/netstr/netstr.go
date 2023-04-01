@@ -310,36 +310,31 @@ func (h Handle) Close() {
 	}
 }
 
-func (g *Streams) Listen(narg *Options) (Handle, error) {
-	if narg == nil {
+func (g *Streams) Listen(opt *Options) (Handle, error) {
+	if opt == nil {
 		return Handle{nil, -2}, errors.New("empty options")
 	}
-	if narg.Max > maxStructs {
+	if opt.Max > maxStructs {
 		return Handle{nil, -2}, errors.New("max limit reached")
 	}
+	if opt.Port < 1024 || opt.Port > 0x10000 {
+		opt.Port = common.GamePort
+	}
+	pc, port, err := listenOnFreePort(g.Log, opt.Port)
+	if err != nil {
+		return Handle{nil, -5}, err
+	}
+	opt.Port = port
 	ind, ok := g.getFreeIndex()
 	if !ok {
+		_ = pc.Close()
 		return Handle{nil, -8}, errors.New("no more slots for net structs")
 	}
-	ns := g.newStream(narg)
+	ns := g.newStream(opt)
+	ns.id = -1
+	ns.pc = pc
 	g.streams[ind] = ns
 	ns.Data2hdr()[0] = byte(ind)
-	ns.id = -1
-
-	if narg.Port < 1024 || narg.Port > 0x10000 {
-		narg.Port = common.GamePort
-	}
-
-	for {
-		sock, err := listen(g.Log, netip.AddrPortFrom(netip.IPv4Unspecified(), uint16(narg.Port)))
-		if err == nil {
-			ns.pc = sock
-			break
-		} else if !ErrIsInUse(err) {
-			return Handle{nil, -5}, err
-		}
-		narg.Port++
-	}
 	return Handle{g, ind}, nil
 }
 
