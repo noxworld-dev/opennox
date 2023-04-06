@@ -72,3 +72,4 @@ require (
 )
 
 replace github.com/timshannon/go-openal => github.com/noxworld-dev/go-openal v0.0.0-20220410091615-164a70f24e7c
+
