@@ -101,7 +101,7 @@ type Server interface {
 	Nox_xxx_mapReset5028E0()
 	Nox_xxx_free503F40()
 	ObjectDeleteLast(obj *server.Object)
-	ObjectsNewAdd()
+	ObjectsAddPending()
 	ObjectsClearPending()
 	FinalizeDeletingObjects()
 	TeamCreate(ind byte) *server.Team
