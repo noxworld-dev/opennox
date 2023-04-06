@@ -35,6 +35,7 @@ func init() {
 			Token: rt.Name, HelpID: strman.ID(rt.Name + "help"),
 			Help:  "execute " + rt.Title + " command",
 			Flags: console.Server | console.Cheat,
+			Raw:   true,
 			Func: func(ctx context.Context, c *console.Console, tokens []string) bool {
 				if len(tokens) == 0 {
 					return false
