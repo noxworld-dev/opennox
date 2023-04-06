@@ -147,7 +147,7 @@ func nox_xxx_getFirstUpdatable2Object_4DA840() *nox_object_t {
 
 //export nox_xxx_unitsNewAddToList_4DAC00
 func nox_xxx_unitsNewAddToList_4DAC00() {
-	GetServer().ObjectsNewAdd()
+	GetServer().ObjectsAddPending()
 }
 
 //export nox_xxx_unitClearPendingMB_4DB030

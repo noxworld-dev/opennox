@@ -229,7 +229,7 @@ func (s *Server) nox_xxx_serverParseEntireMap_4CFCE0(cf *cryptfile.CryptFile) er
 	s.attachPending()
 	if noxflags.HasGame(noxflags.GameHost) {
 		legacy.Nox_xxx_waypoint_5799C0()
-		s.ObjectsNewAdd()
+		s.ObjectsAddPending()
 	}
 	return nil
 }

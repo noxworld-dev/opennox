@@ -668,6 +668,14 @@ func (obj nsObj) Equip(item ns4.Obj) bool {
 	if item == nil {
 		return false
 	}
+	it := toObject(item.(server.Obj))
+	if obj.Flags().Has(object.FlagPending) || it.Flags().Has(object.FlagPending) {
+		// TODO: figure out a way to equip pending items directly
+		obj.getServer().Objs.QueueAction(func() {
+			obj.Equip(item)
+		})
+		return true
+	}
 	if !obj.HasItem(item) {
 		if !obj.Pickup(item) {
 			return false

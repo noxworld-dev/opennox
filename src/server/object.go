@@ -50,6 +50,7 @@ type serverObjects struct {
 	UpdatableList   *Object
 	UpdatableList2  *Object
 	DeletedList     *Object
+	PendingActions  []func()
 }
 
 func (s *serverObjects) GetAndZeroObjects() *Object { // nox_get_and_zero_server_objects_4DA3C0
@@ -270,7 +271,7 @@ func (s *serverObjects) RemoveFromUpdatable(obj *Object) {
 	obj.Obj130 = nil
 }
 
-func (s *Server) getObjectsUninited() []*Object {
+func (s *Server) getPending() []*Object {
 	var out []*Object
 	for p := s.Objs.Pending; p != nil; p = p.ObjNext {
 		out = append(out, p)
@@ -299,6 +300,10 @@ func (s *Server) GetObjectByID(id string) *Object {
 		}
 	}
 	return nil
+}
+
+func (s *serverObjects) QueueAction(fnc func()) {
+	s.PendingActions = append(s.PendingActions, fnc)
 }
 
 func (s *Server) ObjectsClearPending() {
