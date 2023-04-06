@@ -654,7 +654,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 		legacy.Sub_425F10(pl.S())
 	}
 	s.CreateObjectAt(punit, nil, types.Pointf{X: 2944.0, Y: 2944.0})
-	s.ObjectsNewAdd()
+	s.ObjectsAddPending()
 	var p28 types.Pointf
 	if noxflags.HasGame(noxflags.GameModeQuest) {
 		if p, ok := s.sub_4E8210(punit); !ok {

@@ -769,7 +769,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_A2(v2 bool) {
 		u.dropAllItems()
 		legacy.Nox_xxx_playerMakeDefItems_4EF7D0(u.SObj(), 1, 0)
 	}
-	s.ObjectsNewAdd()
+	s.ObjectsAddPending()
 	if noxflags.HasGame(noxflags.GameModeSolo10) {
 		return
 	}
@@ -1088,7 +1088,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	if !noxflags.HasGame(noxflags.GameModeCoop) {
 		s.mapSend.ReadMapFile()
 	}
-	s.ObjectsNewAdd()
+	s.ObjectsAddPending()
 	for _, k := range s.getPlayerUnits() {
 		legacy.Sub_4EF660(k.SObj())
 		v61 := s.nox_xxx_mapFindPlayerStart_4F7AB0(k)

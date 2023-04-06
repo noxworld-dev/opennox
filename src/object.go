@@ -167,7 +167,7 @@ func (s *Server) deletedObjectsUpdate() {
 	s.Objs.DeletedList = list.SObj()
 }
 
-func (s *Server) ObjectsNewAdd() {
+func (s *Server) ObjectsAddPending() {
 	var next *Object
 	for it := asObjectS(s.Objs.Pending); it != nil; it = next {
 		next = it.Next()
@@ -232,6 +232,10 @@ func (s *Server) ObjectsNewAdd() {
 		it.ObjFlags &^= uint32(object.FlagPending)
 	}
 	s.Objs.Pending = nil
+	for _, fnc := range s.Objs.PendingActions {
+		fnc()
+	}
+	s.Objs.PendingActions = nil
 }
 
 func (s *Server) sub_4DAE50(obj *server.Object) {
