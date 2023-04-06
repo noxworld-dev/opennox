@@ -3,6 +3,7 @@ package opennox
 import (
 	"context"
 
+	"github.com/noxworld-dev/opennox-lib/env"
 	"github.com/noxworld-dev/opennox-lib/log"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
@@ -21,6 +22,9 @@ var (
 )
 
 func initConsole(sm *strman.StringManager) {
+	if env.IsDevMode() {
+		noxConsole.SetCheats(true)
+	}
 	noxConsole.Localize(sm, "on", "off", "force", "ctf", "coop", "team", "respawn", "all")
 }
 
