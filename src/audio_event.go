@@ -12,8 +12,38 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
+type audioEventObj struct {
+	ID   sound.ID
+	Obj  *server.Object
+	Kind int
+	Code uint32
+}
+
+type audioEventPos struct {
+	ID   sound.ID
+	Pos  types.Pointf
+	Kind int
+	Code uint32
+}
+
+type audioData struct {
+	delayedObj []audioEventObj
+	delayedPos []audioEventPos
+	// inAudio indicates that the server is currently accepting audio events.
+	//
+	// If this flag is set, all audio events will be added directly to the list.
+	// And if not, we will queue then for the next frame.
+	inAudio bool
+}
+
 func (s *Server) AudioEventObj(id sound.ID, iobj server.Obj, kind int, code uint32) {
 	obj := toObjectS(iobj)
+	if !s.audio.inAudio {
+		s.audio.delayedObj = append(s.audio.delayedObj, audioEventObj{
+			ID: id, Obj: obj, Kind: kind, Code: code,
+		})
+		return
+	}
 	if noxflags.HasGame(noxflags.GameFlag20) {
 		return
 	}
@@ -30,6 +60,12 @@ func (s *Server) AudioEventObj(id sound.ID, iobj server.Obj, kind int, code uint
 }
 
 func (s *Server) AudioEventPos(id sound.ID, pos types.Pointf, kind int, code uint32) {
+	if !s.audio.inAudio {
+		s.audio.delayedPos = append(s.audio.delayedPos, audioEventPos{
+			ID: id, Pos: pos, Kind: kind, Code: code,
+		})
+		return
+	}
 	if noxflags.HasGame(noxflags.GameFlag20) {
 		return
 	}
@@ -42,7 +78,29 @@ func (s *Server) AudioEventPos(id sound.ID, pos types.Pointf, kind int, code uin
 	}
 }
 
+func (s *Server) AudioFree() {
+	s.Audio.Free()
+	s.audio.inAudio = false
+	s.audio.delayedObj = nil
+	s.audio.delayedPos = nil
+}
+
+func (s *Server) AudioReset() {
+	s.Audio.Reset()
+	s.audio.inAudio = true
+	// Replay events queued outside the audio loop.
+	for _, a := range s.audio.delayedObj {
+		s.AudioEventObj(a.ID, a.Obj, a.Kind, a.Code)
+	}
+	s.audio.delayedObj = s.audio.delayedObj[:0]
+	for _, a := range s.audio.delayedPos {
+		s.AudioEventPos(a.ID, a.Pos, a.Kind, a.Code)
+	}
+	s.audio.delayedPos = s.audio.delayedPos[:0]
+}
+
 func (s *Server) NetUpdateRemotePlrAudioEvents(obj *server.Object, v2 unsafe.Pointer, v18 int8) {
+	s.audio.inAudio = false
 	s.Audio.ResetBitmap()
 	var tm *server.Team
 	if server.Nox_xxx_servObjectHasTeam_419130(asObjectS(obj).TeamPtr()) {

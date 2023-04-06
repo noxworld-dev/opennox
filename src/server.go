@@ -87,6 +87,7 @@ type Server struct {
 	quest           questServer
 	springs         serverSprings
 	mapSend         serverMapSend
+	audio           audioData
 	mapSwitchWPName string
 	announce        bool
 
@@ -789,7 +790,7 @@ func (s *Server) nox_xxx_servEndSession_4D3200() {
 	nox_xxx_freeSpellRelated_4FCA80()
 	legacy.Sub_50ABF0()
 	s.Map.Free()
-	s.Audio.Free()
+	s.AudioFree()
 	legacy.Sub_4ECA90()
 	legacy.Sub_506720()
 	legacy.Sub_50D820()
