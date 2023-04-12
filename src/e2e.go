@@ -21,7 +21,11 @@ import (
 )
 
 var (
-	e2eLog      = log.New("E2E")
+	e2eLog = log.New("E2E")
+
+	e2ePlay     = os.Getenv("NOX_E2E")
+	e2eRecord   = os.Getenv("NOX_E2E_RECORD")
+	e2eSlow     = os.Getenv("NOX_E2E_SLOW")
 	e2eOverride = os.Getenv("NOX_E2E_OVERRIDE") == "true"
 	e2eFailFast = os.Getenv("NOX_E2E_FAILFAST") != "false"
 )
@@ -477,7 +481,7 @@ func e2eInit() {
 	opennoxDir := filepath.Dir(os.Args[0])
 	e2e.path = filepath.Join(opennoxDir, "e2e")
 	fname := filepath.Join(e2e.path, "e2e.yaml")
-	if s := os.Getenv("NOX_E2E_RECORD"); s != "" {
+	if s := e2eRecord; s != "" {
 		if filepath.Ext(s) == "" {
 			s = filepath.Join(s, "e2e.yaml")
 		}
@@ -485,12 +489,12 @@ func e2eInit() {
 		e2e.recording = true
 		fname = s
 		e2e.path = s
-	} else if s = os.Getenv("NOX_E2E"); s != "" && s != "true" {
+	} else if s = e2ePlay; s != "" && s != "true" {
 		s = e2eAbsPath(s)
 		fname = s
 		e2e.path = filepath.Dir(s)
 	}
-	if s := os.Getenv("NOX_E2E_SLOW"); s != "" {
+	if s := e2eSlow; s != "" {
 		dt, err := time.ParseDuration(s)
 		if err != nil {
 			panic(err)

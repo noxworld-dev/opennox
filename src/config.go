@@ -59,7 +59,7 @@ func registerOnConfigRead(fnc func()) {
 }
 
 func writeConfig() error {
-	if configReadOnly {
+	if configReadOnly || env.IsE2E() {
 		return nil
 	}
 	configLog.Printf("writing to %q", configPath)
