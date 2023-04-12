@@ -50,7 +50,8 @@ func noxConfigRead(path string, skip bool) error {
 
 func nox_common_readcfgfile(path string, skip bool) error {
 	if env.IsE2E() {
-		return nil
+		ctrlEvent.Reset()
+		return parseLegacyConfig(strings.NewReader(e2eInputConf), skip)
 	}
 	err := noxConfigRead(path, skip)
 	if err == nil {
