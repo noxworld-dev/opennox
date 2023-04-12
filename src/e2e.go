@@ -737,3 +737,54 @@ func e2eInputTick() {
 	}
 	e2e.input = e2e.input[:0]
 }
+
+const e2eInputConf = `
+---
+MousePickup = Left
+MOUSE_BUTTON_RIGHT = MoveForward
+MOUSE_BUTTON_LEFT = Action
+SPACE = Jump
+MOUSE_BUTTON_MID = Jump
+I = ToggleInventory
+Q = ToggleInventory
+B = ToggleBook
+TAB = ToggleMap
+1 = MapZoomOut
+2 = MapZoomIn
+A = InvokeSlot1
+S = InvokeSlot2
+D = InvokeSlot3
+F = InvokeSlot4
+G = InvokeSlot5
+MOUSE_WHEEL_UP = PreviousSpellSet
+W = PreviousSpellSet
+MOUSE_WHEEL_DOWN = NextSpellSet
+E = NextSpellSet
+R = SelectSpellSet
+LEFT_SHIFT = InvertSpellTarget
+RIGHT_SHIFT = InvertSpellTarget
+T = PlaceTrapBomber
+V = SwapWeapons
+X = QuickHealth
+C = QuickMana
+Z = QuickCurePoison
+ENTER = Chat
+BACKSPACE = TeamChat
+F1 = ToggleConsole
+ESC = ToggleQuitMenu
+HOME = ToggleServerMenu
+F9 = ToggleRank
+F10 = ToggleNetstat
+F11 = ToggleGUI
+F2 = AutoSave
+F4 = AutoLoad
+J = Taunt
+K = Point
+L = Laugh
+PAGEUP = IncreaseWindowSize
+PAGEDOWN = DecreaseWindowSize
+INS = IncreaseGamma
+DEL = DecreaseGamma
+F12 = ScreenShot
+---
+`
