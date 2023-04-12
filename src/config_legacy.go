@@ -10,6 +10,7 @@ import (
 
 	"github.com/noxworld-dev/opennox-lib/cfg"
 	"github.com/noxworld-dev/opennox-lib/common"
+	"github.com/noxworld-dev/opennox-lib/env"
 	"github.com/noxworld-dev/opennox-lib/ifs"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -48,6 +49,9 @@ func noxConfigRead(path string, skip bool) error {
 }
 
 func nox_common_readcfgfile(path string, skip bool) error {
+	if env.IsE2E() {
+		return nil
+	}
 	err := noxConfigRead(path, skip)
 	if err == nil {
 		return nil
@@ -615,6 +619,9 @@ func nox_common_skipcfgfile_4331E0(sect cfg.Section, skip bool) error {
 }
 
 func writeConfigLegacy(path string) error {
+	if env.IsE2E() {
+		return nil
+	}
 	configLog.Printf("writing legacy: %q", path)
 	cfile := &cfg.File{Sections: make([]cfg.Section, 2)}
 	writeConfigLegacyMain(&cfile.Sections[0])

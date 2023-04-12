@@ -217,6 +217,9 @@ func RunArgs(args []string) (gerr error) {
 		writeConfigLater()
 	}
 	maybeWriteConfig()
+	if env.IsE2E() {
+		viper.Reset() // defaults only
+	}
 	for _, fnc := range onDataPathSet {
 		fnc()
 	}
