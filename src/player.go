@@ -745,7 +745,7 @@ func (s *Server) PlayerSpell(su *server.Object) {
 		if !noxflags.HasGame(noxflags.GameModeQuest) {
 			targ := asObjectS(ud.CursorObj)
 			if s.SpellHasFlags(spellInd, things.SpellOffensive) {
-				if targ != nil && !u.isEnemyTo(targ) {
+				if targ != nil && !s.IsEnemyTo(u.SObj(), targ.SObj()) {
 					return
 				}
 			}
@@ -770,7 +770,7 @@ func (s *Server) PlayerSpell(su *server.Object) {
 					defer v14free()
 					arg.Obj = pl.Obj3640.SObj()
 					if noxflags.HasGame(noxflags.GameModeQuest) && s.SpellHasFlags(spellInd, things.SpellOffensive) {
-						if pl.Obj3640 != nil && !u.isEnemyTo(asObjectS(pl.Obj3640)) {
+						if pl.Obj3640 != nil && !s.IsEnemyTo(u.SObj(), pl.Obj3640) {
 							arg.Obj = nil
 						}
 					}
