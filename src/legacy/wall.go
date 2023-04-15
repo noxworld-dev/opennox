@@ -14,12 +14,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-var (
-	Sub_57B500 func(pos image.Point, flags byte) int8
-	Sub_4D72C0 func() bool
-	Sub_4D72B0 func(v bool)
-)
-
 func asWallP(p unsafe.Pointer) *server.Wall {
 	return (*server.Wall)(p)
 }
@@ -58,17 +52,17 @@ func nox_xxx_wallForeachFn_410640(cfnc unsafe.Pointer, data unsafe.Pointer) {
 
 //export sub_57B500
 func sub_57B500(x, y int, flags C.char) C.char {
-	return C.char(Sub_57B500(image.Pt(x, y), byte(int8(flags))))
+	return C.char(GetServer().S().Sub_57B500(image.Pt(x, y), byte(int8(flags))))
 }
 
 //export sub_4D72C0
 func sub_4D72C0() C.int {
-	return C.int(bool2int(Sub_4D72C0()))
+	return C.int(bool2int(GetServer().S().Doors.Sub_4D72C0()))
 }
 
 //export sub_4D72B0
 func sub_4D72B0(v C.int) {
-	Sub_4D72B0(v != 0)
+	GetServer().S().Doors.Sub_4D72B0(v != 0)
 }
 
 func Nox_xxx_wallTileByName_410D60(name string) byte {

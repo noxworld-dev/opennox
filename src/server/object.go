@@ -38,6 +38,10 @@ func toObjectC(p Obj) unsafe.Pointer {
 	return unsafe.Pointer(p.SObj().CObj())
 }
 
+func asObjectP(p unsafe.Pointer) *Object {
+	return (*Object)(p)
+}
+
 type serverObjects struct {
 	alloc           alloc.ClassT[Object]
 	Alive           int
