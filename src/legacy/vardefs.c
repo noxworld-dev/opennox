@@ -237,7 +237,6 @@ float nox_xxx_wizardMaximumMana_587000_312820 = 1.0f;
 
 uint32_t dword_5d4594_2487532 = 0;
 uint32_t nox_server_connectionType_3596 = 0;
-uint32_t dword_5d4594_2386924 = 0;
 uint32_t dword_5d4594_830872 = 0;
 uint32_t dword_5d4594_1200804 = 0;
 uint32_t dword_5d4594_1049484 = 0;

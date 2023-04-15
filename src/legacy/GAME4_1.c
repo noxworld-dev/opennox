@@ -48,7 +48,6 @@ extern uint32_t dword_5d4594_2386920;
 extern void* nox_alloc_monsterList_2386220;
 extern uint32_t dword_5d4594_2386160;
 extern uint32_t dword_5d4594_1599712;
-extern uint32_t dword_5d4594_2386924;
 extern uint32_t dword_5d4594_2386500;
 extern uint32_t dword_5d4594_2386576;
 extern uint32_t dword_5d4594_2386212;
@@ -65,6 +64,7 @@ extern nox_tileDef_t nox_tile_defs_arr[176];
 
 uint32_t nox_xxx_wallSounds_2386840 = 0;
 void* dword_5d4594_2386176 = 0;
+void* nox_monsterBin_head_2386924 = 0;
 
 //----- (005098A0) --------------------------------------------------------
 int sub_5098A0() {
@@ -5174,7 +5174,7 @@ int nox_xxx_loadMonsterBin_517010() {
 	FILE* v1;     // esi
 	char v2[256]; // [esp+4h] [ebp-100h]
 
-	dword_5d4594_2386924 = 0;
+	nox_monsterBin_head_2386924 = 0;
 	result = nox_binfile_open_408CC0("monster.bin", 0);
 	v1 = (FILE*)result;
 	if (result) {
@@ -5262,8 +5262,8 @@ int nox_xxx_servParseMonsterDef_517170(FILE* a1, const char* a2) {
 		strcpy((char*)result, a2);
 		while (1) {
 			if (!nox_xxx_readStr_517090(a1, v10) || !nox_strcmpi("END", v10)) {
-				v3[61] = dword_5d4594_2386924;
-				dword_5d4594_2386924 = v3;
+				v3[61] = nox_monsterBin_head_2386924;
+				nox_monsterBin_head_2386924 = v3;
 				return 1;
 			}
 			if (nox_common_gameFlags_check_40A5C0(2048) || nox_common_gameFlags_check_40A5C0(0x200000)) {
@@ -5377,14 +5377,14 @@ uint32_t* nox_xxx_monsterListFree_5174F0() {
 	uint32_t* result; // eax
 	uint32_t* v1;     // esi
 
-	result = *(uint32_t**)&dword_5d4594_2386924;
-	if (dword_5d4594_2386924) {
+	result = nox_monsterBin_head_2386924;
+	if (nox_monsterBin_head_2386924) {
 		do {
 			v1 = (uint32_t*)result[61];
 			free(result);
 			result = v1;
 		} while (v1);
-		dword_5d4594_2386924 = 0;
+		nox_monsterBin_head_2386924 = 0;
 	}
 	return result;
 }
@@ -5394,8 +5394,8 @@ int nox_xxx_monsterList_517520() {
 	int v0; // esi
 	int v1; // eax
 
-	v0 = dword_5d4594_2386924;
-	if (!dword_5d4594_2386924) {
+	v0 = nox_monsterBin_head_2386924;
+	if (!nox_monsterBin_head_2386924) {
 		return 1;
 	}
 	while (1) {
@@ -5417,8 +5417,8 @@ int nox_xxx_monsterList_517520() {
 uint32_t* nox_xxx_monsterDefByTT_517560(int a1) {
 	uint32_t* result; // eax
 
-	result = *(uint32_t**)&dword_5d4594_2386924;
-	if (!dword_5d4594_2386924) {
+	result = nox_monsterBin_head_2386924;
+	if (!nox_monsterBin_head_2386924) {
 		return 0;
 	}
 	while (result[60] != a1) {
