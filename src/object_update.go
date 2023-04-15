@@ -800,7 +800,7 @@ func nox_xxx_updatePixie_53CD20(cobj *server.Object) {
 	} else {
 		s.Map.EachMissilesInCircle(u.PosVec, 200.0, func(it *server.Object) bool {
 			if noxPixieObjID == 0 {
-				noxPixieObjID = noxServer.ObjectTypeID("Pixie")
+				noxPixieObjID = noxServer.Types.PixieID()
 			}
 			if int(it.TypeInd) != noxPixieObjID {
 				return true

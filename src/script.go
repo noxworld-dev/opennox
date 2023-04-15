@@ -238,7 +238,7 @@ func (t noxScriptObjType) CreateObject(p types.Pointf) script.Object {
 }
 
 func (s noxScriptImpl) ObjectTypeByID(id string) script.ObjectType {
-	tp := s.s.ObjectTypeByID(id)
+	tp := s.s.Types.ByID(id)
 	if tp == nil {
 		return nil
 	}
