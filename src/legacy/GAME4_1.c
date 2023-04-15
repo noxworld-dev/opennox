@@ -5414,7 +5414,7 @@ int nox_xxx_monsterList_517520() {
 }
 
 //----- (00517560) --------------------------------------------------------
-uint32_t* nox_xxx_monsterDefByTT_517560(int a1) {
+void* nox_xxx_monsterDefByTT_517560(int a1) {
 	uint32_t* result; // eax
 
 	result = nox_monsterBin_head_2386924;
