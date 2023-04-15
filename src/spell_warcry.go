@@ -44,7 +44,7 @@ func nox_xxx_warriorWarcry_53FF40(u *Object) {
 			}
 		} else if u2.Class().Has(object.ClassMonster) {
 			ud := u2.UpdateDataMonster()
-			if ud.StatusFlags&0x20 == 0 {
+			if !ud.StatusFlags.Has(object.MonStatusCanCastSpells) {
 				return true
 			}
 		}

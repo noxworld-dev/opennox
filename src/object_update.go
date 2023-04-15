@@ -750,7 +750,7 @@ func sub_4F9ED0(u *Object) {
 	if u.Flags().Has(object.FlagDead) {
 		return
 	}
-	if h != nil && (s.Frame()-u.Field134) > s.TickRate() {
+	if h != nil && (s.Frame()-u.Frame134) > s.TickRate() {
 		if h.Cur < h.Max && h.Max != 0 && (s.Frame()%(300*s.TickRate()/uint32(h.Max))) == 0 {
 			legacy.Nox_xxx_unitAdjustHP_4EE460(u.SObj(), 1)
 		}

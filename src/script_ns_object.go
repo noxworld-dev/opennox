@@ -310,6 +310,53 @@ func (obj nsObj) HasEnchant(enc enchant.Enchant) bool {
 	return obj.Object.HasEnchant(e)
 }
 
+func (obj nsObj) MonsterStatus() object.MonsterStatus {
+	if !obj.Class().Has(object.ClassMonster) {
+		return 0
+	}
+	ud := obj.UpdateDataMonster()
+	if ud == nil {
+		return 0
+	}
+	return ud.StatusFlags
+}
+
+func (obj nsObj) SetMonsterStatus(v object.MonsterStatus) {
+	if !obj.Class().Has(object.ClassMonster) {
+		return
+	}
+	ud := obj.UpdateDataMonster()
+	if ud == nil {
+		return
+	}
+	ud.StatusFlags = v
+	legacy.Nox_xxx_monsterMarkUpdate_4E8020(obj.SObj())
+}
+
+func (obj nsObj) MonsterStatusEnable(v object.MonsterStatus) {
+	if !obj.Class().Has(object.ClassMonster) {
+		return
+	}
+	ud := obj.UpdateDataMonster()
+	if ud == nil {
+		return
+	}
+	ud.StatusFlags |= v
+	legacy.Nox_xxx_monsterMarkUpdate_4E8020(obj.SObj())
+}
+
+func (obj nsObj) MonsterStatusDisable(v object.MonsterStatus) {
+	if !obj.Class().Has(object.ClassMonster) {
+		return
+	}
+	ud := obj.UpdateDataMonster()
+	if ud == nil {
+		return
+	}
+	ud.StatusFlags &^= v
+	legacy.Nox_xxx_monsterMarkUpdate_4E8020(obj.SObj())
+}
+
 func (obj nsObj) Direction() ns4.Direction {
 	return ns4.Direction(obj.Dir1())
 }
@@ -698,7 +745,7 @@ func (obj nsObj) SetColor(ind int, cl color.Color) {
 
 func (obj nsObj) ZombieStayDown() {
 	if obj.Class().Has(object.ClassMonster) {
-		obj.UpdateDataMonster().StatusFlags |= 0x100000
+		obj.UpdateDataMonster().StatusFlags |= object.MonStatusStayDead
 	}
 }
 

@@ -93,7 +93,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 				ud.Field101 = a.s.Frame() + a.s.TickRate()
 			}
 		case ai.DEPENDENCY_UNDER_ATTACK:
-			if sub_5347A0(u) {
+			if monsterIsInjured_5347A0(u) {
 				if u.Obj130 != nil {
 					v26 := getOwnerUnit(u.Obj130)
 					if v26 != nil && v26.Class().HasAny(object.MaskUnits) {
@@ -103,7 +103,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 			}
 			ok = a.s.Frame()-st.ArgU32(0) <= 10*a.s.TickRate()
 		case ai.DEPENDENCY_NOT_UNDER_ATTACK:
-			if !sub_5347A0(u) {
+			if !monsterIsInjured_5347A0(u) {
 				break
 			}
 			if u.Obj130 == nil {
@@ -243,9 +243,9 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 				ok = false
 			}
 		case ai.DEPENDENCY_NOT_FRUSTRATED:
-			if ud.StatusFlags&0x200000 != 0 {
+			if ud.StatusFlags.Has(object.MonStatusFrustrated) {
 				ok = false
-				ud.StatusFlags &= 0xFFDFFFFF
+				ud.StatusFlags &^= object.MonStatusFrustrated
 			}
 		case ai.DEPENDENCY_NOT_MOVED:
 			ok = u.Pos() == u.PrevPos
@@ -289,7 +289,7 @@ func sub_545E60(a1c *server.Object) int {
 	s := u.getServer()
 
 	ud := u.UpdateDataMonster()
-	ts := u.Field134
+	ts := u.Frame134
 	if ud.Field129 >= ts || s.Frame()-ts >= 10*s.TickRate() {
 		return 0
 	}
@@ -661,7 +661,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 		return
 	}
 	if !u.Flags().HasAny(object.FlagDead | object.FlagDestroyed) {
-		if ud.StatusFlags&0x200 != 0 {
+		if ud.StatusFlags.Has(object.MonStatusInjured) {
 			if v7 := legacy.Nox_xxx_monsterGetSoundSet_424300(u.SObj()); v7 != nil {
 				s.AudioEventObj(sound.ID(*(*uint32)(unsafe.Add(v7, 64))), u, 0, 0)
 			}
@@ -679,7 +679,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 	}
 
 	if h := u.HealthData; h != nil {
-		if !u.Flags().Has(object.FlagDead) && int(s.Frame()-u.Field134) > int(s.TickRate()) {
+		if !u.Flags().Has(object.FlagDead) && int(s.Frame()-u.Frame134) > int(s.TickRate()) {
 			if h.Cur < h.Max && h.Max != 0 && s.Frame()%(180*s.TickRate()/uint32(h.Max)) == 0 {
 				legacy.Nox_xxx_unitAdjustHP_4EE460(u.SObj(), 1)
 			}
@@ -717,7 +717,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 	if s.ai.stackChanged {
 		u.maybePrintAIStack("stack changed")
 	}
-	ud.StatusFlags &= 0xFFFFFDFF
+	ud.StatusFlags &^= object.MonStatusInjured
 	legacy.Nox_xxx_monsterPolygonEnter_421FF0(u.SObj())
 
 	if v := ud.Field282_0; v < 100 {
@@ -726,8 +726,8 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 	if s.IsMimic(u.SObj()) {
 		legacy.Nox_xxx_monsterMimicCheckMorph_534950(u.SObj())
 	}
-	if s.Frame()-u.Field134 > 3*s.TickRate() {
-		ud.StatusFlags &= 0xFFF7FFFF
+	if s.Frame()-u.Frame134 > 3*s.TickRate() {
+		ud.StatusFlags &^= object.MonStatusOnFire
 	}
 }
 
@@ -779,12 +779,12 @@ func sub_534440(u *Object) bool {
 	return u.UpdateDataMonster().Aggression < 0.079999998
 }
 
-func sub_5347A0(u *Object) bool {
-	return (u.UpdateDataMonster().StatusFlags>>9)&1 != 0
+func monsterIsInjured_5347A0(u *Object) bool {
+	return u.UpdateDataMonster().StatusFlags.Has(object.MonStatusInjured)
 }
 
 func nox_xxx_monsterLookAtDamager_5466B0(u *Object) bool {
-	if !sub_5347A0(u) {
+	if !monsterIsInjured_5347A0(u) {
 		return false
 	}
 	u.monsterPushAction(ai.ACTION_FACE_LOCATION, u.Pos132)
@@ -959,7 +959,7 @@ func (AIActionMorphIntoChest) Update(obj *server.Object) {
 	ud := u.UpdateDataMonster()
 	if ud.Field120_3 != 0 {
 		u.monsterPopAction()
-		ud.StatusFlags |= 0x40000
+		ud.StatusFlags |= object.MonStatusMorphed
 		legacy.Nox_xxx_monsterMarkUpdate_4E8020(u.SObj())
 	}
 }
@@ -979,7 +979,7 @@ func (AIActionMorphBackToSelf) Update(obj *server.Object) {
 	ud := u.UpdateDataMonster()
 	if ud.Field120_3 != 0 {
 		u.monsterPopAction()
-		ud.StatusFlags &^= 0x40000
+		ud.StatusFlags &^= object.MonStatusMorphed
 		legacy.Nox_xxx_monsterMarkUpdate_4E8020(u.SObj())
 	}
 }

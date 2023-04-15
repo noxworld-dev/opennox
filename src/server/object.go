@@ -498,7 +498,7 @@ type Object struct {
 	Obj130        *Object                    // 130, 520
 	Field131      uint32                     // 131, 524
 	Pos132        types.Pointf               // 132, 528
-	Field134      uint32                     // 134, 536, TODO: some timestamp
+	Frame134      uint32                     // 134, 536, TODO: some timestamp
 	Field540      byte                       // 135, 540
 	Field541      byte                       // 135, 541
 	Field542      uint16                     // 135, 542
@@ -1054,7 +1054,7 @@ func (s *Server) IsEnemyTo(obj, obj2 *Object) bool {
 		return false
 	}
 	if obj2.Class().HasAny(object.ClassMonster) {
-		if ud := obj2.UpdateDataMonster(); ud.StatusFlags&0x40000 != 0 {
+		if ud := obj2.UpdateDataMonster(); ud.StatusFlags.Has(object.MonStatusMorphed) {
 			return false
 		}
 	}
