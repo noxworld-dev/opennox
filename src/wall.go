@@ -18,7 +18,7 @@ const wallGridSize = 256
 
 var (
 	dword_5D4594_251544 []*server.Wall
-	dword_5d4594_251556 []unsafe.Pointer
+	dword_5d4594_251556 []*server.Wall
 )
 
 func asWallS(p *server.Wall) *Wall {
@@ -40,19 +40,19 @@ func allocWalls() int {
 	}
 	legacy.Set_dword_5D4594_251544(unsafe.Pointer(&dword_5D4594_251544[0]))
 
-	dword_5d4594_251556, _ = alloc.Make([]unsafe.Pointer{}, wallGridSize)
+	dword_5d4594_251556, _ = alloc.Make([]*server.Wall{}, wallGridSize)
 	if dword_5d4594_251556 == nil {
 		return 0
 	}
 	legacy.Set_dword_5d4594_251556(unsafe.Pointer(&dword_5d4594_251556[0]))
-	legacy.Set_dword_5d4594_251552(0)
+	legacy.Set_dword_5d4594_251552(nil)
 	for i := 0; i < 32*wallGridSize; i++ {
-		ptr, _ := alloc.New(Wall{})
+		ptr, _ := alloc.New(server.Wall{})
 		if ptr == nil {
 			return 0
 		}
 		ptr.Prev20 = legacy.Get_dword_5d4594_251548()
-		legacy.Set_dword_5d4594_251548(ptr.C())
+		legacy.Set_dword_5d4594_251548(ptr)
 	}
 	nox_xxx_wall_410160()
 	return 1
@@ -71,12 +71,12 @@ func nox_xxx_wall_410160() {
 		for it := ptr; it != nil; it = next {
 			next = it.Next16
 			it.Prev20 = prev
-			legacy.Set_dword_5d4594_251548(it.C())
+			legacy.Set_dword_5d4594_251548(it)
 			prev = it
 		}
 		dword_5D4594_251544[i] = nil
 	}
-	legacy.Set_dword_5d4594_251552(0)
+	legacy.Set_dword_5d4594_251552(nil)
 	for i := 0; i < wallGridSize; i++ {
 		dword_5d4594_251556[i] = nil
 	}
@@ -106,15 +106,65 @@ func freeWalls() {
 	legacy.Set_dword_5d4594_251556(nil)
 }
 
+func nox_xxx_wallCreateAt_410250(pos image.Point) *server.Wall {
+	s := noxServer
+	if pos.X < 0 || pos.X >= wallGridSize || pos.Y < 0 || pos.Y >= wallGridSize {
+		return nil
+	}
+	wl := s.getWallAtGrid(pos)
+	if wl != nil {
+		return wl
+	}
+	p := legacy.Get_dword_5d4594_251548()
+	if p == nil {
+		return nil
+	}
+	legacy.Set_dword_5d4594_251548(p.Prev20)
+	*p = server.Wall{
+		X5: byte(pos.X),
+		Y6: byte(pos.Y),
+	}
+	ind := wallArrayInd(pos)
+	p.Next16 = dword_5D4594_251544[ind]
+	dword_5D4594_251544[ind] = p
+	p.Prev20 = legacy.Get_dword_5d4594_251552()
+	legacy.Set_dword_5d4594_251552(p)
+
+	var prev *server.Wall
+	for it := dword_5d4594_251556[pos.Y]; it != nil; it = it.SortNext24 {
+		if p.X5 < it.X5 {
+			if prev != nil {
+				prev.SortNext24 = p
+			} else {
+				dword_5d4594_251556[pos.Y] = p
+			}
+			p.SortNext24 = it
+			return p
+		}
+		prev = it
+	}
+	if prev != nil {
+		prev.SortNext24 = p
+	} else {
+		dword_5d4594_251556[pos.Y] = p
+	}
+	p.SortNext24 = nil
+	return p
+}
+
 func (s *Server) nox_xxx_wallTileByName_410D60(name string) byte {
 	return legacy.Nox_xxx_wallTileByName_410D60(name)
+}
+
+func wallArrayInd(pos image.Point) uint16 {
+	return (uint16(pos.Y) + (uint16(pos.X) << 8)) & 0x1FFF
 }
 
 func (s *Server) getWallAtGrid(pos image.Point) *server.Wall { // nox_server_getWallAtGrid_410580
 	if (byte(pos.X)+byte(pos.Y))&0x1 != 0 {
 		return nil
 	}
-	ind := (uint16(pos.Y) + (uint16(pos.X) << 8)) & 0x1FFF
+	ind := wallArrayInd(pos)
 	for it := dword_5D4594_251544[ind]; it != nil; it = it.Next16 {
 		if pos == it.GridPos() && it.Field4&0x30 == 0 {
 			return it
@@ -124,8 +174,8 @@ func (s *Server) getWallAtGrid(pos image.Point) *server.Wall { // nox_server_get
 }
 
 func (s *Server) getWallAtGrid2(pos image.Point) *server.Wall { // nox_xxx_wall_4105E0
-	v2 := (uint16(pos.Y) + (uint16(pos.X) << 8)) & 0x1FFF
-	for it := dword_5D4594_251544[v2]; it != nil; it = it.Next16 {
+	ind := wallArrayInd(pos)
+	for it := dword_5D4594_251544[ind]; it != nil; it = it.Next16 {
 		if pos == it.GridPos() && it.Field4&0x20 == 0 {
 			return it
 		}
