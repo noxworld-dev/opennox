@@ -872,7 +872,7 @@ func (obj *Object) CallDrop(it server.Obj, pos types.Pointf) int {
 
 func (obj *Object) forceDrop(item *Object) int { // nox_xxx_invForceDropItem_4ED930
 	s := obj.getServer()
-	pos := s.randomReachablePointAround(50.0, obj.Pos())
+	pos := s.RandomReachablePointAround(50.0, obj.Pos())
 	return obj.forceDropAt(item, pos)
 }
 

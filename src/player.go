@@ -719,7 +719,7 @@ func (s *Server) sub_4E8210(u *Object) (types.Pointf, bool) {
 	}
 	ud := u.UpdateDataPlayer()
 	ud.Field77 = v2
-	out := s.randomReachablePointAround(60.0, legacy.AsPointf(unsafe.Add(v2, 7*8)))
+	out := s.RandomReachablePointAround(60.0, legacy.AsPointf(unsafe.Add(v2, 7*8)))
 	return out, true
 }
 
@@ -1065,7 +1065,7 @@ func sub_4EDD00(u *server.Object, cl object.Class) {
 		next = it.NextItem()
 		if it.Class().Has(cl) {
 			legacy.Sub_4ED0C0(u, it)
-			pos := s.randomReachablePointAround(60.0, u.Pos())
+			pos := s.RandomReachablePointAround(60.0, u.Pos())
 			s.CreateObjectAt(it, nil, pos)
 		}
 	}

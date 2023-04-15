@@ -49,7 +49,7 @@ func castGlyph(sp spell.ID, a2, caster, targ *server.Object, sa *server.SpellAcc
 			s.DelayedDelete(trap)
 			return 0
 		}
-		pos := s.randomReachablePointAround(50.0, targ.Pos())
+		pos := s.RandomReachablePointAround(50.0, targ.Pos())
 		var bomb *server.Object
 		if caster != nil {
 			bomb = nox_xxx_unitDoSummonAt_5016C0(s.BomberID(), pos, caster, caster.Direction1)
