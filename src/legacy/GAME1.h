@@ -81,7 +81,7 @@ void nox_xxx_wall_410160();
 void* nox_xxx_wallCreateAt_410250(int a1, int a2);
 uint8_t* nox_xxx_doorAttachWall_410360(int a1, int a2, int a3);
 uint32_t* sub_410390(int a1, int a2, int a3);
-uint32_t* nox_xxx_mapDelWallAtPt_410430(int a1, int a2);
+void nox_xxx_mapDelWallAtPt_410430(int a1, int a2);
 int* nox_xxx_wallDestroyedByWallid_410520(short a1);
 int sub_410550(short a1);
 void* nox_server_getWallAtGrid_410580(int a1, int a2);

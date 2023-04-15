@@ -50,9 +50,6 @@ extern uint32_t nox_player_netCode_85319C;
 
 int nox_server_gameSettingsUpdated; // If you define it as 1-byte bool, the game will crash
 
-
-uint32_t* dword_5D4594_251544 = 0;
-
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 
@@ -730,79 +727,6 @@ uint32_t* sub_410390(int a1, int a2, int a3) {
 			*((uint8_t*)v3 + 8) = 1;
 		}
 	}
-	return result;
-}
-
-//----- (00410430) --------------------------------------------------------
-uint32_t* nox_xxx_mapDelWallAtPt_410430(int a1, int a2) {
-	int v2;           // ecx
-	uint32_t* v3;     // esi
-	uint32_t* result; // eax
-	uint32_t* v5;     // ecx
-	uint32_t* v6;     // edx
-	int v7;           // esi
-	int v8;           // eax
-
-	v2 = ((uint16_t)a2 + ((uint16_t)a1 << 8)) & 0x1FFF;
-	v3 = 0;
-	result = (uint32_t*)(dword_5D4594_251544[v2]);
-	if (!result) {
-		return 0;
-	}
-	while (*((unsigned char*)result + 5) != a1 || *((unsigned char*)result + 6) != a2) {
-		v3 = result;
-		result = (uint32_t*)result[4];
-		if (!result) {
-			return result;
-		}
-	}
-	if (v3) {
-		v3[4] = result[4];
-	} else {
-		dword_5D4594_251544[v2] = result[4];
-	}
-	v5 = dword_5d4594_251552;
-	v6 = 0;
-	if (!dword_5d4594_251552) {
-		dword_5d4594_251552 = v5[5];
-	} else {
-		do {
-			if (v5 == result) {
-				break;
-			}
-			v6 = v5;
-			v5 = (uint32_t*)v5[5];
-		} while (v5);
-		if (v6) {
-			v6[5] = v5[5];
-		} else {
-			dword_5d4594_251552 = v5[5];
-		}
-	}
-	v7 = 0;
-	v8 = *(uint32_t*)(dword_5d4594_251556 + 4 * a2);
-	if (!v8) {
-		goto LABEL_25;
-	}
-	do {
-		if (*(unsigned char*)(v8 + 5) == a1 && *(unsigned char*)(v8 + 6) == a2) {
-			break;
-		}
-		v7 = v8;
-		v8 = *(uint32_t*)(v8 + 24);
-	} while (v8);
-	if (v7) {
-		*(uint32_t*)(v7 + 24) = v5[6];
-		result = *(uint32_t**)&dword_5d4594_251548;
-		v5[5] = dword_5d4594_251548;
-		dword_5d4594_251548 = v5;
-		return result;
-	}
-LABEL_25:
-	*(uint32_t*)(dword_5d4594_251556 + 4 * a2) = v5[6];
-	result = *(uint32_t**)&dword_5d4594_251548;
-	v5[5] = dword_5d4594_251548;
-	dword_5d4594_251548 = v5;
 	return result;
 }
 
