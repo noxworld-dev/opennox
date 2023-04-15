@@ -322,8 +322,8 @@ func (c *Client) nox_client_maybeDrawFrontWalls(vp *noxrender.Viewport) { // nox
 		}
 	} else {
 		for _, wl := range nox_frontWalls {
-			*(*byte)(wl.field(3)) = 0
-			*(*byte)(wl.field(4)) &= 0xFC
+			wl.Field3 = 0
+			wl.Field4 &= 0xFC
 		}
 	}
 	nox_frontWalls = nox_frontWalls[:0]

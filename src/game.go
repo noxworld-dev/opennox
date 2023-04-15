@@ -1542,7 +1542,7 @@ func (s *Server) mapTraceRayImpl(pi image.Point, p1, p2 types.Pointf, flags serv
 	} else {
 		wl = s.getWallAtGrid(pi)
 	}
-	if wl == nil || flags.Has(server.MapTraceFlag8) && wl.field4()&0x4 != 0 && *(*byte)(unsafe.Add(wl.field28(), 20))&0x2 != 0 {
+	if wl == nil || flags.Has(server.MapTraceFlag8) && wl.field4()&0x4 != 0 && *(*byte)(unsafe.Add(wl.Data28, 20))&0x2 != 0 {
 		return nil
 	}
 	flags2 := *memmap.PtrUint32(0x85B3FC, 43076+12332*uintptr(wl.tile()))
