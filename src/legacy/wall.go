@@ -14,47 +14,38 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-var (
-	Nox_server_getWallAtGrid_410580 func(x, y int) *server.Wall
-	Nox_xxx_wall_4105E0             func(x, y int) *server.Wall
-	Nox_xxx_wallCreateAt_410250     func(pos image.Point) *server.Wall
-	Nox_xxx_mapDelWallAtPt_410430   func(pos image.Point)
-	Sub_4106A0                      func(y int) *server.Wall
-	Nox_xxx_wallForeachFn_410640    func(fnc func(it *server.Wall))
-)
-
 func asWallP(p unsafe.Pointer) *server.Wall {
 	return (*server.Wall)(p)
 }
 
 //export nox_server_getWallAtGrid_410580
 func nox_server_getWallAtGrid_410580(x, y int) unsafe.Pointer {
-	return Nox_server_getWallAtGrid_410580(x, y).C()
+	return GetServer().S().Walls.GetWallAtGrid(image.Pt(x, y)).C()
 }
 
 //export nox_xxx_wall_4105E0
 func nox_xxx_wall_4105E0(x, y int) unsafe.Pointer {
-	return Nox_xxx_wall_4105E0(x, y).C()
+	return GetServer().S().Walls.GetWallAtGrid2(image.Pt(x, y)).C()
 }
 
 //export nox_xxx_wallCreateAt_410250
 func nox_xxx_wallCreateAt_410250(x, y int) unsafe.Pointer {
-	return Nox_xxx_wallCreateAt_410250(image.Pt(x, y)).C()
+	return GetServer().S().Walls.CreateAtGrid(image.Pt(x, y)).C()
 }
 
 //export nox_xxx_mapDelWallAtPt_410430
 func nox_xxx_mapDelWallAtPt_410430(x, y int) {
-	Nox_xxx_mapDelWallAtPt_410430(image.Pt(x, y))
+	GetServer().S().Walls.DeleteAtGrid(image.Pt(x, y))
 }
 
 //export sub_4106A0
 func sub_4106A0(y int) unsafe.Pointer {
-	return Sub_4106A0(y).C()
+	return GetServer().S().Walls.IndexByY(y).C()
 }
 
 //export nox_xxx_wallForeachFn_410640
 func nox_xxx_wallForeachFn_410640(cfnc unsafe.Pointer, data unsafe.Pointer) {
-	Nox_xxx_wallForeachFn_410640(func(it *server.Wall) {
+	GetServer().S().Walls.EachWallXxx(func(it *server.Wall) {
 		ccall.CallVoidPtr2(cfnc, it.C(), data)
 	})
 }

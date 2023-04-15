@@ -24,7 +24,7 @@ func (s noxScriptNS) WallByHandle(h ns.WallHandle) ns.WallObj {
 }
 
 func (s noxScriptNS) Wall(x int, y int) ns.WallObj {
-	w := s.s.getWallAtGrid(image.Pt(x, y))
+	w := s.s.Walls.GetWallAtGrid(image.Pt(x, y))
 	if w == nil {
 		return nil
 	}
