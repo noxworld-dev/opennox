@@ -1,7 +1,6 @@
 package opennox
 
 import (
-	"fmt"
 	"math"
 	"unsafe"
 
@@ -46,38 +45,6 @@ func (a *aiData) Init(s *Server) {
 
 func nox_ai_debug_print(str string) {
 	ai.Log.Printf("%s", str)
-}
-
-func aiStackSetArgs(s *server.AIStackItem, args ...any) {
-	if s == nil {
-		return
-	}
-	off := 0
-	for _, v := range args {
-		switch v := v.(type) {
-		case int:
-			s.Args[off] = uintptr(uint32(int32(v)))
-		case uint:
-			s.Args[off] = uintptr(uint32(v))
-		case int32:
-			s.Args[off] = uintptr(uint32(v))
-		case uint32:
-			s.Args[off] = uintptr(v)
-		case unsafe.Pointer:
-			s.Args[off] = uintptr(v)
-		case float32:
-			s.Args[off] = uintptr(math.Float32bits(v))
-		case server.Obj:
-			s.Args[off] = uintptr(unsafe.Pointer(toObjectS(v)))
-		case types.Pointf:
-			s.Args[off+0] = uintptr(math.Float32bits(v.X))
-			s.Args[off+1] = uintptr(math.Float32bits(v.Y))
-			off++
-		default:
-			panic(fmt.Errorf("unsupported arg: %T", v))
-		}
-		off++
-	}
 }
 
 func aiStackArgObj(s *server.AIStackItem, i int) *Object {
