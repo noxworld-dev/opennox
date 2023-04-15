@@ -4670,8 +4670,8 @@ int sub_4CA720(int a1, int a2) {
 	int result; // eax
 
 	v2 = gameFrame() - *(uint32_t*)(a2 + 316);
-	if (v2 >= 60 || (v3 = *(unsigned short*)(a2 + 432), abs32(*(uint32_t*)(a2 + 12) - (unsigned short)v3) < 10) &&
-						abs32(*(uint32_t*)(a2 + 16) - *(unsigned short*)(a2 + 434)) < 10) {
+	if (v2 >= 60 || (v3 = *(unsigned short*)(a2 + 432), abs(*(uint32_t*)(a2 + 12) - (unsigned short)v3) < 10) &&
+						abs(*(uint32_t*)(a2 + 16) - *(unsigned short*)(a2 + 434)) < 10) {
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(a2);
 		result = 0;
 	} else {

@@ -23,8 +23,6 @@
 #define NOX_CLIENT_VERS_CODE 0x0001039A
 #endif // NOX_HIGH_RES
 
-#define NOX_FILEPATH_MAX 1024
-
 #define NOX_PLAYER_MAX_LEVEL 10
 
 #include "common/platform/platform.h"
@@ -60,102 +58,22 @@
 
 #pragma warning(disable : 4028 4024 4700 4026 4070 4142 4022 4098 4113 4146 4090 4172 4101)
 
-enum {
-	NOX_NET_SEND_NO_LOCK = 0x1,
-	NOX_NET_SEND_FLAG2 = 0x2,
-};
-
 // For now bools are kept 1-byte long
 //_Static_assert(sizeof(bool) == 4, "boolean values must be aligned to 32-bit int");
 
 void nox_exit(int exitCode);
-
-#define abs32 abs
 
 static void memset32(uint32_t* x, uint32_t y, size_t z) {
 	while (z--)
 		*x++ = y;
 }
 
-static void* operator_new(size_t x) { return calloc(1, x); }
-
-static void operator_delete(void* x) { free(x); }
-
 static float COERCE_FLOAT(uint32_t x) { return *(float*)&x; }
-
-typedef struct struc_13 {
-	char field_0[80];
-	int field_50;
-} struc_13;
-
-/* 289 */
-typedef struct struc_15 {
-	char field_0[80];
-} struc_15;
-
-/* 290 */
-typedef struct struc_16 {
-	char field_0[24];
-} struc_16;
-
-/* 291 */
-typedef struct struc_17 {
-	int field_0;
-	int field_4;
-	int field_8;
-	int field_C;
-} struc_17;
-
-/* 292 */
-typedef struct struc_18 {
-	char field_0[2048];
-	int field_800;
-} struc_18;
 
 /* 293 */
 typedef struct nox_player_polygon_check_data {
 	int field_0[35];
 } nox_player_polygon_check_data;
-
-/* 294 */
-typedef struct struc_20 {
-	char field_0[80];
-} struc_20;
-
-/* 295 */
-typedef struct struc_21 {
-	char field_0[28];
-} struc_21;
-
-/* 296 */
-typedef struct struc_22 {
-	int field_0;
-	int field_4;
-	int field_8;
-	int field_C;
-	int field_10;
-	int field_14;
-} struc_22;
-
-/* 297 */
-typedef struct struc_23 {
-	char field_0[200];
-} struc_23;
-
-/* 298 */
-typedef struct struc_24 {
-	int field_0;
-	int field_4;
-	int field_8;
-	int field_C;
-	int field_10;
-	int field_14;
-} struc_24;
-
-/* 299 */
-typedef struct struc_25 {
-	char field_0[12332];
-} struc_25;
 
 /* 300 */
 typedef struct pixel888 {
@@ -247,29 +165,6 @@ typedef struct nox_shape {
 	float box_right_top_2;    // 12, 0x30
 } nox_shape;
 _Static_assert(sizeof(nox_shape) == 52, "wrong size of nox_shape structure!");
-
-typedef struct string {
-	int field_0;
-	int field_4;
-	int field_8;
-	int field_C;
-} string;
-
-/* 310 */
-typedef struct wstring {
-	int _A;
-	int _Ptr;
-	int _Len;
-	int _Rem;
-} wstring;
-
-typedef struct struc_35 {
-	uintptr_t field_0;
-	uintptr_t field_4;
-	int field_8;
-	int field_C;
-	int field_10;
-} struc_35;
 
 typedef struct nox_video_bag_image_t nox_video_bag_image_t;
 int nox_video_bag_image_type(nox_video_bag_image_t* img);
@@ -544,17 +439,6 @@ typedef struct nox_things_imageRef_t {
 } nox_things_imageRef_t;
 _Static_assert(sizeof(nox_things_imageRef_t) == 104, "wrong size of nox_things_imageRef_t structure!");
 
-typedef struct nox_things_imageRef2_t {
-	void (*on_end)(nox_things_imageRef_t*); // 0, 0
-	nox_video_bag_image_t** images; // 1, 4
-	uint8_t images_sz; // 2, 8
-	uint8_t field_2_1; // 2, 9
-	uint8_t anim_type; // 2, 10
-	uint8_t field_2_3; // 2, 11
-	uint32_t field_3; // 3, 12
-} nox_things_imageRef2_t;
-_Static_assert(sizeof(nox_things_imageRef2_t) == 16, "wrong size of nox_things_imageRef2_t structure!");
-
 typedef struct {
 	uint32_t field_0;  // 0, 0
 	wchar2_t text[256]; // 1, 4
@@ -599,12 +483,6 @@ typedef struct nox_window_yyy {
 	uint32_t color_2; // 16
 } nox_window_yyy;
 _Static_assert(sizeof(nox_window_yyy) == 20, "wrong size of nox_window_yyy structure!");
-
-typedef struct {
-	const char* name;
-	int (*fnc)(nox_window_data*, char*);
-} nox_parseWindowFunc;
-_Static_assert(sizeof(nox_parseWindowFunc) == 8, "wrong size of nox_parseWindowFunc structure!");
 
 typedef struct nox_drawable {
 	uint32_t field_0;     // 0, 0
@@ -883,53 +761,6 @@ typedef struct nox_parse_thing_draw_funcs_t {
 	unsigned int kind;
 	bool (*parse_fnc)(nox_thing*, nox_memfile*, char*);
 } nox_parse_thing_draw_funcs_t;
-
-typedef struct nox_video_mode {
-	int width;
-	int height;
-	int id;
-	wchar2_t* title;
-} nox_video_mode;
-
-enum { NOX_MOUSE_LEFT = 0, NOX_MOUSE_RIGHT = 1, NOX_MOUSE_MIDDLE = 2 };
-
-enum { NOX_MOUSE_DOWN = 1, NOX_MOUSE_DRAG_END = 2, NOX_MOUSE_UP = 3, NOX_MOUSE_PRESSED = 4 };
-
-typedef struct nox_mouse_btn_t {
-	int pressed;
-	uint32_t state;
-	uint32_t seq;
-} nox_mouse_btn_t;
-_Static_assert(sizeof(nox_mouse_btn_t) == 12, "wrong size of nox_mouse_btn_t structure!");
-
-typedef struct nox_mouse_state_t {
-	nox_point pos; // 0
-	int wheel;     // 8
-
-	nox_point dpos; // 12
-
-	nox_mouse_btn_t btn[3]; // 20, 32, 44
-} nox_mouse_state_t;
-_Static_assert(sizeof(nox_mouse_state_t) == 56, "wrong size of nox_mouse_state_t structure!");
-
-typedef struct nox_keyboard_btn_t {
-	uint8_t code;
-	uint8_t state;
-	uint8_t field_2;
-	uint8_t field_3;
-	uint32_t seq;
-} nox_keyboard_btn_t;
-_Static_assert(sizeof(nox_keyboard_btn_t) == 8, "wrong size of nox_keyboard_btn_t structure!");
-
-#define NOX_CTRLEVENT_XXX_MAX 128
-typedef struct nox_ctrlevent_xxx_t {
-	long long tick;          // 0
-	nox_ctrlevent_code code; // 8
-	uint32_t data;           // 12
-	int active;              // 16
-	uint32_t paddding;       // 20
-} nox_ctrlevent_xxx_t;
-_Static_assert(sizeof(nox_ctrlevent_xxx_t) == 24, "wrong size of nox_ctrlevent_xxx_t structure!");
 
 typedef struct nox_render_mat_t {
 	uint32_t field_0;  // 0, 0
@@ -1323,16 +1154,6 @@ _Static_assert(sizeof(nox_playerInfo) == 4828, "wrong size of nox_playerInfo str
 _Static_assert(offsetof(nox_playerInfo, info) == 2185, "wrong offset of nox_playerInfo.info field!");
 _Static_assert(offsetof(nox_playerInfo, frame_3596) == 3596, "wrong offset of nox_playerInfo.frame_3596 field!");
 _Static_assert(offsetof(nox_playerInfo, field_4580) == 4580, "wrong offset of nox_playerInfo.field_4580 field!");
-
-typedef struct {
-	uint32_t field_0; // 0
-	uint32_t field_1; // 4
-	uint32_t field_2; // 8
-	uint8_t field_3[4]; // 12
-	uint32_t field_4; // 16
-	uint32_t field_5; // 20
-} nox_player_ctrl_t;
-_Static_assert(sizeof(nox_player_ctrl_t) == 24, "wrong size of nox_player_ctrl_t structure!");
 
 typedef enum {
 	NOX_ENGINE_FLAG_1 = 1u << 0u,

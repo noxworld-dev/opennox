@@ -26,8 +26,6 @@ func asImage(p *nox_video_bag_image_t) *noxrender.Image {
 	return GetClient().R2().GetBag().AsImage(asImageH(p))
 }
 
-type nox_things_imageRef2_t = C.nox_things_imageRef2_t
-
 type ImageRefAnim struct {
 	OnEnd     unsafe.Pointer         // 0, 0, func(noxrender.ImageHandle)
 	ImagesPtr *noxrender.ImageHandle // 1, 4
