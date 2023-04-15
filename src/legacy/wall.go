@@ -10,26 +10,12 @@ import (
 	"image"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
-	Nox_xxx_wallFlags                  func(ind int) uint32
-	Nox_xxx_wallGetBrickObj_410E60     func(ind int, ind2 int) string
-	Nox_xxx_getWallSprite_46A3B0       func(ind int, a2 int, a3 int, a4 int) noxrender.ImageHandle
-	Nox_xxx_getWallDrawOffset_46A3F0   func(ind int, a2 int, a3 int, a4 int) image.Point
-	Nox_xxx_mapWallMaxVariation_410DD0 func(ind int, a2 int, a3 int) byte
-	Nox_xxx_map_410E00                 func(ind int) byte
-	Nox_xxx_mapWallGetHpByTile_410E20  func(ind int) byte
-	Nox_xxx_wallGetBrickTypeMB_410E40  func(ind int) byte
-	Nox_xxx_wallField36                func(ind int) uint16
-	Nox_xxx_wallSoundByTile_410EA0     func(ind int) string
-	Nox_xxx_wallFindOpenSound_410EE0   func(ind int) string
-	Nox_xxx_wallFindCloseSound_410F20  func(ind int) string
-	Nox_xxx_wallTileByName_410D60      func(name string) int
-	Sub_526CA0                         func(a1 string) int
+	Sub_526CA0 func(a1 string) int
 )
 
 var _ = [1]struct{}{}[12332-unsafe.Sizeof(server.WallDef{})]
@@ -87,69 +73,69 @@ func sub_4D72B0(v C.int) {
 
 //export nox_xxx_wallFlags
 func nox_xxx_wallFlags(ind int) uint32 {
-	return Nox_xxx_wallFlags(ind)
+	return GetServer().S().Walls.DefByInd(ind).Flags32
 }
 
 //export nox_xxx_wallGetBrickObj_410E60
 func nox_xxx_wallGetBrickObj_410E60(ind int, ind2 int) *C.char {
-	return internCStr(Nox_xxx_wallGetBrickObj_410E60(ind, ind2))
+	return internCStr(GetServer().S().Walls.DefByInd(ind).BrickObject(ind2))
 }
 
 //export nox_xxx_getWallSprite_46A3B0
 func nox_xxx_getWallSprite_46A3B0(ind int, a2 int, a3 int, a4 int) unsafe.Pointer {
-	return unsafe.Pointer(Nox_xxx_getWallSprite_46A3B0(ind, a2, a3, a4))
+	return GetServer().S().Walls.DefByInd(ind).Sprite(a2, a3, a4)
 }
 
 //export nox_xxx_getWallDrawOffset_46A3F0
 func nox_xxx_getWallDrawOffset_46A3F0(ind int, a2 int, a3 int, a4 int, px, py *C.int) {
-	v := Nox_xxx_getWallDrawOffset_46A3F0(ind, a2, a3, a4)
+	v := GetServer().S().Walls.DefByInd(ind).DrawOffset(a2, a3, a4)
 	*px = C.int(v.X)
 	*py = C.int(v.Y)
 }
 
 //export nox_xxx_mapWallMaxVariation_410DD0
 func nox_xxx_mapWallMaxVariation_410DD0(ind int, a2 int, a3 int) byte {
-	return Nox_xxx_mapWallMaxVariation_410DD0(ind, a2, a3)
+	return GetServer().S().Walls.DefByInd(ind).Variations(a2, a3)
 }
 
 //export nox_xxx_map_410E00
 func nox_xxx_map_410E00(ind int) byte {
-	return Nox_xxx_map_410E00(ind)
+	return GetServer().S().Walls.DefByInd(ind).Field749
 }
 
 //export nox_xxx_mapWallGetHpByTile_410E20
 func nox_xxx_mapWallGetHpByTile_410E20(ind int) byte {
-	return Nox_xxx_mapWallGetHpByTile_410E20(ind)
+	return GetServer().S().Walls.DefByInd(ind).Health41
 }
 
 //export nox_xxx_wallGetBrickTypeMB_410E40
 func nox_xxx_wallGetBrickTypeMB_410E40(ind int) byte {
-	return Nox_xxx_wallGetBrickTypeMB_410E40(ind)
+	return GetServer().S().Walls.DefByInd(ind).BrickType42
 }
 
 //export nox_xxx_wallField36
 func nox_xxx_wallField36(ind int) uint16 {
-	return Nox_xxx_wallField36(ind)
+	return GetServer().S().Walls.DefByInd(ind).Field36
 }
 
 //export nox_xxx_wallSoundByTile_410EA0
 func nox_xxx_wallSoundByTile_410EA0(ind int) *C.char {
-	return internCStr(Nox_xxx_wallSoundByTile_410EA0(ind))
+	return internCStr(GetServer().S().Walls.DefByInd(ind).BreakSound())
 }
 
 //export nox_xxx_wallFindOpenSound_410EE0
 func nox_xxx_wallFindOpenSound_410EE0(ind int) *C.char {
-	return internCStr(Nox_xxx_wallFindOpenSound_410EE0(ind))
+	return internCStr(GetServer().S().Walls.DefByInd(ind).OpenSound())
 }
 
 //export nox_xxx_wallFindCloseSound_410F20
 func nox_xxx_wallFindCloseSound_410F20(ind int) *C.char {
-	return internCStr(Nox_xxx_wallFindCloseSound_410F20(ind))
+	return internCStr(GetServer().S().Walls.DefByInd(ind).CloseSound())
 }
 
 //export nox_xxx_wallTileByName_410D60
 func nox_xxx_wallTileByName_410D60(name *C.char) int {
-	return Nox_xxx_wallTileByName_410D60(GoString(name))
+	return GetServer().S().Walls.DefIndByName(GoString(name))
 }
 
 //export sub_526CA0

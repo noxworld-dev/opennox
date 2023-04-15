@@ -1,6 +1,7 @@
 package server
 
 import (
+	"errors"
 	"fmt"
 	"image"
 	"sort"
@@ -9,16 +10,109 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 	"github.com/noxworld-dev/opennox-lib/wall"
 
+	"github.com/noxworld-dev/opennox/v1/internal/binfile"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 const WallGridSize = 256
 
 type serverWalls struct {
+	defs    [80]WallDef
+	defsCnt int
+
 	head     *Wall
 	freeList *Wall
 	byPos    []*Wall // index is wallArrayInd
 	indexY   []*Wall
+}
+
+func (s *serverWalls) ResetDefs() {
+	s.defsCnt = 0
+}
+
+func (s *serverWalls) Defs() []WallDef {
+	return s.defs[:s.defsCnt]
+}
+
+func (s *serverWalls) DefByInd(i int) *WallDef {
+	if i < 0 || i >= s.defsCnt {
+		return nil
+	}
+	return &s.defs[i]
+}
+
+func (s *serverWalls) ReadWall(f *binfile.MemFile) error {
+	if s.defsCnt >= cap(s.defs) {
+		return errors.New("too many wall definitions")
+	}
+	p := &s.defs[s.defsCnt]
+	f.Skip(4)
+	name, _ := f.ReadString8()
+	alloc.StrCopyZero(p.Field0[:], name)
+	p.Flags32 = f.ReadU32()
+	p.Field36 = uint16(int16(f.ReadI32()))
+	p.Field38 = uint16(int16(f.ReadI32()))
+	p.Field40 = f.ReadU8()
+	p.Health41 = f.ReadU8()
+	v39 := f.ReadU64Align()
+	p.BrickType42 = uint8(int8(v39))
+	p.Brick43 = [8][64]byte{}
+	for i := 0; i < int(p.BrickType42); i++ {
+		if i >= len(p.Brick43) {
+			return errors.New("too many wall sub defs")
+		}
+		v4, _ := f.ReadString8()
+		alloc.StrCopyZero(p.Brick43[i][:], v4)
+	}
+	v45, _ := f.ReadString8()
+	alloc.StrCopyZero(p.SoundOpen555[:], v45)
+	v46, _ := f.ReadString8()
+	alloc.StrCopyZero(p.SoundClose619[:], v46)
+	v47, _ := f.ReadString8()
+	alloc.StrCopyZero(p.Sound683[:], v47)
+	p.Field749 = f.ReadU8()
+	p.Sprite8432 = [4][15][16]unsafe.Pointer{}
+
+	for dir := WallDirUp; dir <= WallDirLeftHalfArrowUp; dir++ {
+		sz := f.ReadU64Align()
+		for jj := 0; jj < int(sz); jj++ {
+			for kk := 0; kk < 4; kk++ {
+				p.Variations12272[kk][dir] = uint8(int8(sz))
+				v1 := int(f.ReadI32())
+				v2 := int(f.ReadI32())
+				p.DrawOffs752[kk][dir][jj] = image.Pt(v1, v2)
+				if f.ReadI32() == -1 {
+					f.Skip(1)
+					f.SkipString8()
+				}
+			}
+		}
+	}
+	if f.ReadU32() != 0x454E4420 { // "END "
+		return errors.New("expected section end")
+	}
+	s.defsCnt++
+	return nil
+}
+
+func (s *serverWalls) DefIndByName(name string) int {
+	if s.defsCnt <= 0 {
+		return -1
+	}
+	for i := 0; i < s.defsCnt; i++ {
+		p := &s.defs[i]
+		if p.Name() == name {
+			return i
+		}
+	}
+	return -1
+}
+
+func (s *serverWalls) ResetSprites() {
+	for i := range s.defs {
+		p := &s.defs[i]
+		p.Sprite8432 = [4][15][16]unsafe.Pointer{}
+	}
 }
 
 func (s *serverWalls) Init() int {
@@ -346,29 +440,73 @@ var wallDirNames = []string{
 }
 
 type WallDef struct {
-	Field0        [32]byte                  // 0, 0
-	Field32       uint32                    // 8, 32
-	Field36       uint16                    // 9, 36
-	Field38       uint16                    // 9, 38
-	Field40       byte                      // 10, 40
-	Field41       byte                      // 10, 41
-	Field42       byte                      // 10, 42
-	Brick43       [8][64]byte               // 10, 43
-	SoundOpen555  [64]byte                  // 138, 555
-	SoundClose619 [64]byte                  // 154, 619
-	Sound683      [64]byte                  // 170, 683
-	Field747      byte                      // 186, 747
-	Field748      byte                      // 187, 748
-	Field749      byte                      // 187, 749
-	Field750      byte                      // 187, 750
-	Field751      byte                      // 187, 751
-	Field752      [4][15][16]image.Point    // 188, 752
-	Sprite8432    [4][15][16]unsafe.Pointer // 2108, 8432, TODO: noxrender.ImageHandle
-	Field12272    [4][15]byte               // 3068, 12272
+	Field0          [32]byte                  // 0, 0
+	Flags32         uint32                    // 8, 32
+	Field36         uint16                    // 9, 36
+	Field38         uint16                    // 9, 38
+	Field40         byte                      // 10, 40
+	Health41        byte                      // 10, 41
+	BrickType42     byte                      // 10, 42
+	Brick43         [8][64]byte               // 10, 43
+	SoundOpen555    [64]byte                  // 138, 555
+	SoundClose619   [64]byte                  // 154, 619
+	Sound683        [64]byte                  // 170, 683
+	Field747        byte                      // 186, 747
+	Field748        byte                      // 187, 748
+	Field749        byte                      // 187, 749
+	Field750        byte                      // 187, 750
+	Field751        byte                      // 187, 751
+	DrawOffs752     [4][15][16]image.Point    // 188, 752
+	Sprite8432      [4][15][16]unsafe.Pointer // 2108, 8432, TODO: noxrender.ImageHandle
+	Variations12272 [4][15]byte               // 3068, 12272
 }
 
 func (w *WallDef) Name() string {
 	return alloc.GoStringS(w.Field0[:])
+}
+
+func (w *WallDef) BrickObject(i int) string {
+	name := "Brick0"
+	if s := alloc.GoStringS(w.Brick43[i][:]); s != "" {
+		name = s
+	}
+	return name
+}
+
+func (w *WallDef) BreakSound() string {
+	name := "WallDestroyed"
+	if s := alloc.GoStringS(w.Sound683[:]); s != "" {
+		name = s
+	}
+	return name
+}
+
+func (w *WallDef) OpenSound() string {
+	name := "SecretWallOpen"
+	if s := alloc.GoStringS(w.SoundOpen555[:]); s != "" {
+		name = s
+	}
+	return name
+}
+
+func (w *WallDef) CloseSound() string {
+	name := "SecretWallClose"
+	if s := alloc.GoStringS(w.SoundClose619[:]); s != "" {
+		name = s
+	}
+	return name
+}
+
+func (w *WallDef) Variations(a2 int, a3 int) byte {
+	return w.Variations12272[a3][a2]
+}
+
+func (w *WallDef) Sprite(a2 int, a3 int, a4 int) unsafe.Pointer {
+	return w.Sprite8432[a4][a2][a3]
+}
+
+func (w *WallDef) DrawOffset(a2 int, a3 int, a4 int) image.Point {
+	return w.DrawOffs752[a4][a2][a3]
 }
 
 type WallFlags byte
