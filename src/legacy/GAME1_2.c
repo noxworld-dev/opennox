@@ -1728,7 +1728,7 @@ uint16_t* sub_42A8B0(uint8_t* a1, int* a2) {
 	}
 	if (v4) {
 		v6 = *a2;
-		v7 = operator_new(0x10u);
+		v7 = calloc(1, 0x10u);
 		if (v7) {
 			v8 = sub_42C910((int)v7, (char*)getMemAt(0x587000, 71480), v4, v6);
 		} else {
@@ -1745,7 +1745,6 @@ uint16_t* sub_42A8B0(uint8_t* a1, int* a2) {
 	}
 	return result;
 }
-// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0042A970) --------------------------------------------------------
 int sub_42A970(uint8_t* a1, uint8_t* a2, int* a3) {
@@ -2155,7 +2154,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	*(uint16_t*)v118 = 0;
 	*(uint16_t*)&v118[2] = 0;
 	*(uint32_t*)&v118[4] = 0;
-	v6 = operator_new(0x10u);
+	v6 = calloc(1, 0x10u);
 	if (v6) {
 		v7 = sub_42C8B0((int)v6, "MXPL", v5);
 	} else {
@@ -2163,7 +2162,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v7);
 	v8 = *(uint32_t*)(a1 + 12);
-	v9 = operator_new(0x10u);
+	v9 = calloc(1, 0x10u);
 	if (v9) {
 		v10 = sub_42C8B0((int)v9, "IDNO", v8);
 	} else {
@@ -2171,7 +2170,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v10);
 	v11 = *(uint32_t*)(a1 + 16);
-	v12 = operator_new(0x10u);
+	v12 = calloc(1, 0x10u);
 	if (v12) {
 		v13 = sub_42C8B0((int)v12, "GSKU", v11);
 	} else {
@@ -2179,7 +2178,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v13);
 	v14 = *(uint32_t*)(a1 + 20);
-	v15 = operator_new(0x10u);
+	v15 = calloc(1, 0x10u);
 	if (v15) {
 		v16 = sub_42C8B0((int)v15, "GSTY", v14);
 	} else {
@@ -2187,7 +2186,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v16);
 	v119 = *(uint8_t*)(a1 + 24);
-	v17 = operator_new(0x10u);
+	v17 = calloc(1, 0x10u);
 	if (v17) {
 		v18 = sub_42C7F0((int)v17, "CLGM", v119);
 	} else {
@@ -2195,7 +2194,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v18);
 	v19 = *(uint32_t*)(v4 + 32);
-	v20 = operator_new(0x10u);
+	v20 = calloc(1, 0x10u);
 	if (v20) {
 		v21 = sub_42C8B0((int)v20, "LIMT", v19);
 	} else {
@@ -2203,7 +2202,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v21);
 	v22 = *(uint32_t*)(v4 + 36);
-	v23 = operator_new(0x10u);
+	v23 = calloc(1, 0x10u);
 	if (v23) {
 		v24 = sub_42C8B0((int)v23, "TLMT", v22);
 	} else {
@@ -2211,7 +2210,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v24);
 	v120 = *(uint8_t*)(v4 + 40);
-	v25 = operator_new(0x10u);
+	v25 = calloc(1, 0x10u);
 	if (v25) {
 		v26 = sub_42C7F0((int)v25, "RSTC", v120);
 	} else {
@@ -2219,7 +2218,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v26);
 	v27 = *(uint32_t*)(v4 + 44);
-	v28 = operator_new(0x10u);
+	v28 = calloc(1, 0x10u);
 	if (v28) {
 		v29 = sub_42C8B0((int)v28, "MINE", v27);
 	} else {
@@ -2227,7 +2226,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v29);
 	v30 = *(uint32_t*)(v4 + 48);
-	v31 = operator_new(0x10u);
+	v31 = calloc(1, 0x10u);
 	if (v31) {
 		v32 = sub_42C8B0((int)v31, "MAXE", v30);
 	} else {
@@ -2235,7 +2234,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v32);
 	v33 = *(uint32_t*)(v4 + 52);
-	v34 = operator_new(0x10u);
+	v34 = calloc(1, 0x10u);
 	if (v34) {
 		v35 = sub_42C8B0((int)v34, "MINP", v33);
 	} else {
@@ -2243,7 +2242,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v35);
 	v36 = *(uint32_t*)(v4 + 56);
-	v37 = operator_new(0x10u);
+	v37 = calloc(1, 0x10u);
 	if (v37) {
 		v38 = sub_42C8B0((int)v37, "MAXP", v36);
 	} else {
@@ -2251,7 +2250,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v38);
 	v121 = *(uint8_t*)(v4 + 60);
-	v39 = operator_new(0x10u);
+	v39 = calloc(1, 0x10u);
 	if (v39) {
 		v40 = sub_42C7F0((int)v39, "VIDM", v121);
 	} else {
@@ -2259,7 +2258,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v40);
 	v122 = *(uint8_t*)(v4 + 61);
-	v41 = operator_new(0x10u);
+	v41 = calloc(1, 0x10u);
 	if (v41) {
 		v42 = sub_42C7F0((int)v41, "SVRS", v122);
 	} else {
@@ -2267,21 +2266,21 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v42);
 	v123 = *(uint8_t*)(v4 + 25);
-	v43 = operator_new(0x10u);
+	v43 = calloc(1, 0x10u);
 	if (v43) {
 		v44 = sub_42C7F0((int)v43, "NTMS", v123);
 	} else {
 		v44 = 0;
 	}
 	sub_42C360(v118, v44);
-	v45 = operator_new(0x10u);
+	v45 = calloc(1, 0x10u);
 	if (v45) {
 		v46 = sub_42C8E0((int)v45, "SCEN", (const char*)(v4 + 96));
 	} else {
 		v46 = 0;
 	}
 	sub_42C360(v118, v46);
-	v47 = operator_new(0x10u);
+	v47 = calloc(1, 0x10u);
 	if (v47) {
 		v48 = sub_42C8E0((int)v47, "GNAM", (const char*)(v4 + 352));
 	} else {
@@ -2289,7 +2288,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v48);
 	v49 = *(uint32_t*)(v4 + 64);
-	v50 = operator_new(0x10u);
+	v50 = calloc(1, 0x10u);
 	if (v50) {
 		v51 = sub_42C8B0((int)v50, "SPL1", v49);
 	} else {
@@ -2297,7 +2296,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v51);
 	v52 = *(uint32_t*)(v4 + 68);
-	v53 = operator_new(0x10u);
+	v53 = calloc(1, 0x10u);
 	if (v53) {
 		v54 = sub_42C8B0((int)v53, "SPL2", v52);
 	} else {
@@ -2305,7 +2304,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v54);
 	v55 = *(uint32_t*)(v4 + 72);
-	v56 = operator_new(0x10u);
+	v56 = calloc(1, 0x10u);
 	if (v56) {
 		v57 = sub_42C8B0((int)v56, "SPL3", v55);
 	} else {
@@ -2313,7 +2312,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v57);
 	v58 = *(uint32_t*)(v4 + 88);
-	v59 = operator_new(0x10u);
+	v59 = calloc(1, 0x10u);
 	if (v59) {
 		v60 = sub_42C8B0((int)v59, "ARMR", v58);
 	} else {
@@ -2321,7 +2320,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v60);
 	v124 = *(uint8_t*)(v4 + 84);
-	v61 = operator_new(0x10u);
+	v61 = calloc(1, 0x10u);
 	if (v61) {
 		v62 = sub_42C7F0((int)v61, "WPN1", v124);
 	} else {
@@ -2329,7 +2328,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v62);
 	v125 = *(uint8_t*)(v4 + 85);
-	v63 = operator_new(0x10u);
+	v63 = calloc(1, 0x10u);
 	if (v63) {
 		v64 = sub_42C7F0((int)v63, "WPN2", v125);
 	} else {
@@ -2337,7 +2336,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v64);
 	v126 = *(uint8_t*)(v4 + 86);
-	v65 = operator_new(0x10u);
+	v65 = calloc(1, 0x10u);
 	if (v65) {
 		v66 = sub_42C7F0((int)v65, "WPN3", v126);
 	} else {
@@ -2345,7 +2344,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v66);
 	v67 = *(uint32_t*)(v4 + 92);
-	v68 = operator_new(0x10u);
+	v68 = calloc(1, 0x10u);
 	if (v68) {
 		v69 = sub_42C8B0((int)v68, "STAF", v67);
 	} else {
@@ -2353,14 +2352,14 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v69);
 	v70 = *(uint32_t*)(v4 + 28);
-	v71 = operator_new(0x10u);
+	v71 = calloc(1, 0x10u);
 	if (v71) {
 		v72 = sub_42C8B0((int)v71, "DURA", v70);
 	} else {
 		v72 = 0;
 	}
 	sub_42C360(v118, v72);
-	v73 = operator_new(0x10u);
+	v73 = calloc(1, 0x10u);
 	if (v73) {
 		v74 = sub_42C7F0((int)v73, "FINI", 1);
 	} else {
@@ -2368,7 +2367,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	}
 	sub_42C360(v118, v74);
 	v127 = *(uint8_t*)(v4 + 26);
-	v75 = operator_new(0x10u);
+	v75 = calloc(1, 0x10u);
 	if (v75) {
 		v76 = sub_42C7F0((int)v75, "TRNY", v127);
 	} else {
@@ -2378,21 +2377,21 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	switch (a2) {
 	case 0:
 		*getMemU32Ptr(0x5D4594, 741668) = 0;
-		v77 = operator_new(0x10u);
+		v77 = calloc(1, 0x10u);
 		if (v77) {
 			v78 = sub_42C8B0((int)v77, "SEQU", 0);
 		} else {
 			v78 = 0;
 		}
 		sub_42C360(v118, v78);
-		v79 = operator_new(0x10u);
+		v79 = calloc(1, 0x10u);
 		if (v79) {
 			v80 = sub_42C7F0((int)v79, "ENDF", 0);
 		} else {
 			v80 = 0;
 		}
 		sub_42C360(v118, v80);
-		v81 = operator_new(0x10u);
+		v81 = calloc(1, 0x10u);
 		if (v81) {
 			v82 = sub_42C820((int)v81, (char*)getMemAt(0x587000, 71872), -1);
 			sub_42C360(v118, v82);
@@ -2404,14 +2403,14 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 		v83 = *getMemU32Ptr(0x5D4594, 741668) + 1;
 		*getMemU32Ptr(0x5D4594, 741668) = v83;
 		v84 = v83;
-		v85 = operator_new(0x10u);
+		v85 = calloc(1, 0x10u);
 		if (v85) {
 			v86 = sub_42C8B0((int)v85, "SEQU", v84);
 		} else {
 			v86 = 0;
 		}
 		sub_42C360(v118, v86);
-		v87 = operator_new(0x10u);
+		v87 = calloc(1, 0x10u);
 		if (v87) {
 			v88 = sub_42C7F0((int)v87, "ENDF", 1);
 		} else {
@@ -2419,7 +2418,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 		}
 		sub_42C360(v118, v88);
 		v89 = *(uint16_t*)(v4 + 6);
-		v90 = operator_new(0x10u);
+		v90 = calloc(1, 0x10u);
 		if (v90) {
 			v91 = sub_42C820((int)v90, (char*)getMemAt(0x587000, 71896), v89);
 		} else {
@@ -2430,7 +2429,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 		for (*getMemU32Ptr(0x5D4594, 741660) = 0; v92 < *(short*)(v4 + 6); *getMemU32Ptr(0x5D4594, 741660) = v92) {
 			*getMemU8Ptr(0x587000, 71491) = v92 + 48;
 			v93 = *(const char**)(*(uint32_t*)(v4 + 608) + 4 * v92);
-			v94 = operator_new(0x10u);
+			v94 = calloc(1, 0x10u);
 			if (v94) {
 				v95 = sub_42C8E0((int)v94, "LGL?", v93);
 			} else {
@@ -2439,7 +2438,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 			sub_42C360(v118, v95);
 			*getMemU8Ptr(0x587000, 71499) = getMemByte(0x5D4594, 741660) + 48;
 			v96 = *(uint32_t*)(*(uint32_t*)(v4 + 612) + 4 * *getMemU32Ptr(0x5D4594, 741660));
-			v97 = operator_new(0x10u);
+			v97 = calloc(1, 0x10u);
 			if (v97) {
 				v98 = sub_42C8B0((int)v97, "IPL?", v96);
 			} else {
@@ -2448,7 +2447,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 			sub_42C360(v118, v98);
 			*getMemU8Ptr(0x587000, 71515) = getMemByte(0x5D4594, 741660) + 48;
 			v99 = *(uint32_t*)(*(uint32_t*)(v4 + 616) + 4 * *getMemU32Ptr(0x5D4594, 741660));
-			v100 = operator_new(0x10u);
+			v100 = calloc(1, 0x10u);
 			if (v100) {
 				v101 = sub_42C8B0((int)v100, "CNL?", v99);
 			} else {
@@ -2457,7 +2456,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 			sub_42C360(v118, v101);
 			*getMemU8Ptr(0x587000, 71507) = getMemByte(0x5D4594, 741660) + 48;
 			v128 = *(uint8_t*)(*getMemU32Ptr(0x5D4594, 741660) + *(uint32_t*)(v4 + 620));
-			v102 = operator_new(0x10u);
+			v102 = calloc(1, 0x10u);
 			if (v102) {
 				v103 = sub_42C7F0((int)v102, "CLL?", v128);
 			} else {
@@ -2466,7 +2465,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 			sub_42C360(v118, v103);
 			*getMemU8Ptr(0x587000, 71523) = getMemByte(0x5D4594, 741660) + 48;
 			v129 = *(uint8_t*)(*(uint32_t*)(v4 + 624) + *getMemU32Ptr(0x5D4594, 741660));
-			v104 = operator_new(0x10u);
+			v104 = calloc(1, 0x10u);
 			if (v104) {
 				v105 = sub_42C7F0((int)v104, "CMP?", v129);
 			} else {
@@ -2475,7 +2474,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 			sub_42C360(v118, v105);
 			*getMemU8Ptr(0x587000, 71531) = getMemByte(0x5D4594, 741660) + 48;
 			v106 = *(uint32_t*)(*(uint32_t*)(v4 + 628) + 4 * *getMemU32Ptr(0x5D4594, 741660));
-			v107 = operator_new(0x10u);
+			v107 = calloc(1, 0x10u);
 			if (v107) {
 				v108 = sub_42C8B0((int)v107, "DUR?", v106);
 			} else {
@@ -2484,7 +2483,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 			sub_42C360(v118, v108);
 			*getMemU8Ptr(0x587000, 71539) = getMemByte(0x5D4594, 741660) + 48;
 			v117 = *(uint8_t*)(*(uint32_t*)(v4 + 632) + *getMemU32Ptr(0x5D4594, 741660));
-			v109 = operator_new(0x10u);
+			v109 = calloc(1, 0x10u);
 			if (v109) {
 				v110 = sub_42C7F0((int)v109, "PAR?", v117);
 			} else {
@@ -2494,7 +2493,7 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 			v92 = *getMemU32Ptr(0x5D4594, 741660) + 1;
 		}
 		v111 = *(const void**)(v4 + 636);
-		v112 = operator_new(0x10u);
+		v112 = calloc(1, 0x10u);
 		if (v112) {
 			v113 = sub_42C910((int)v112, (char*)getMemAt(0x587000, 71904), v111, 2 * a3);
 			sub_42C360(v118, v113);
@@ -2532,7 +2531,6 @@ uint16_t* sub_42ADA0(int a1, int a2, short a3, unsigned int* a4) {
 	sub_42C330(v118);
 	return v115;
 }
-// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0042B810) --------------------------------------------------------
 uint16_t* sub_42B810(short* a1, unsigned int* a2) {
@@ -2601,7 +2599,7 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 	*(uint16_t*)v59 = 0;
 	*(uint16_t*)&v59[2] = 0;
 	*(uint32_t*)&v59[4] = 0;
-	v4 = operator_new(0x10u);
+	v4 = calloc(1, 0x10u);
 	if (v4) {
 		v5 = sub_42C8B0((int)v4, "IDNO", v3);
 	} else {
@@ -2609,7 +2607,7 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 	}
 	sub_42C360(v59, v5);
 	v6 = *((uint32_t*)a1 + 2);
-	v7 = operator_new(0x10u);
+	v7 = calloc(1, 0x10u);
 	if (v7) {
 		v8 = sub_42C8B0((int)v7, "GSKU", v6);
 	} else {
@@ -2617,21 +2615,21 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 	}
 	sub_42C360(v59, v8);
 	v9 = *((uint32_t*)a1 + 3);
-	v10 = operator_new(0x10u);
+	v10 = calloc(1, 0x10u);
 	if (v10) {
 		v11 = sub_42C8B0((int)v10, "GSTY", v9);
 	} else {
 		v11 = 0;
 	}
 	sub_42C360(v59, v11);
-	v12 = operator_new(0x10u);
+	v12 = calloc(1, 0x10u);
 	if (v12) {
 		v13 = sub_42C8E0((int)v12, "SCEN", (const char*)a1 + 24);
 	} else {
 		v13 = 0;
 	}
 	sub_42C360(v59, v13);
-	v14 = operator_new(0x10u);
+	v14 = calloc(1, 0x10u);
 	if (v14) {
 		v15 = sub_42C8E0((int)v14, "GNAM", (const char*)a1 + 280);
 	} else {
@@ -2639,7 +2637,7 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 	}
 	sub_42C360(v59, v15);
 	v16 = *((uint32_t*)a1 + 5);
-	v17 = operator_new(0x10u);
+	v17 = calloc(1, 0x10u);
 	if (v17) {
 		v18 = sub_42C8B0((int)v17, "DURA", v16);
 	} else {
@@ -2647,7 +2645,7 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 	}
 	sub_42C360(v59, v18);
 	v60 = *((uint8_t*)a1 + 16);
-	v19 = operator_new(0x10u);
+	v19 = calloc(1, 0x10u);
 	if (v19) {
 		v20 = sub_42C7F0((int)v19, "TRNY", v60);
 	} else {
@@ -2655,7 +2653,7 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 	}
 	sub_42C360(v59, v20);
 	v21 = *v2;
-	v22 = operator_new(0x10u);
+	v22 = calloc(1, 0x10u);
 	if (v22) {
 		v23 = sub_42C820((int)v22, (char*)getMemAt(0x587000, 72000), v21);
 	} else {
@@ -2663,7 +2661,7 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 	}
 	sub_42C360(v59, v23);
 	v24 = getMemByte(0x5D4594, 741672);
-	v25 = operator_new(0x10u);
+	v25 = calloc(1, 0x10u);
 	if (v25) {
 		v26 = sub_42C8B0((int)v25, "SEQU", v24);
 	} else {
@@ -2674,7 +2672,7 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 	for (*getMemU32Ptr(0x5D4594, 741664) = 0; v27 < *v2; *getMemU32Ptr(0x5D4594, 741664) = v27) {
 		*getMemU8Ptr(0x587000, 71547) = v27 + 48;
 		v28 = *(const char**)(*((uint32_t*)v2 + 134) + 4 * v27);
-		v29 = operator_new(0x10u);
+		v29 = calloc(1, 0x10u);
 		if (v29) {
 			v30 = sub_42C8E0((int)v29, "LGLS", v28);
 		} else {
@@ -2683,7 +2681,7 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 		sub_42C360(v59, v30);
 		*getMemU8Ptr(0x587000, 71555) = getMemByte(0x5D4594, 741664) + 48;
 		v31 = *(uint32_t*)(*((uint32_t*)v2 + 135) + 4 * *getMemU32Ptr(0x5D4594, 741664));
-		v32 = operator_new(0x10u);
+		v32 = calloc(1, 0x10u);
 		if (v32) {
 			v33 = sub_42C8B0((int)v32, "IPLS", v31);
 		} else {
@@ -2692,7 +2690,7 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 		sub_42C360(v59, v33);
 		*getMemU8Ptr(0x587000, 71563) = getMemByte(0x5D4594, 741664) + 48;
 		v61 = *(uint8_t*)(*getMemU32Ptr(0x5D4594, 741664) + *((uint32_t*)v2 + 144));
-		v34 = operator_new(0x10u);
+		v34 = calloc(1, 0x10u);
 		if (v34) {
 			v35 = sub_42C7F0((int)v34, "CLLS", v61);
 		} else {
@@ -2701,7 +2699,7 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 		sub_42C360(v59, v35);
 		*getMemU8Ptr(0x587000, 71571) = getMemByte(0x5D4594, 741664) + 48;
 		v36 = *(uint32_t*)(*((uint32_t*)v2 + 136) + 4 * *getMemU32Ptr(0x5D4594, 741664));
-		v37 = operator_new(0x10u);
+		v37 = calloc(1, 0x10u);
 		if (v37) {
 			v38 = sub_42C8B0((int)v37, "CSTS", v36);
 		} else {
@@ -2710,7 +2708,7 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 		sub_42C360(v59, v38);
 		*getMemU8Ptr(0x587000, 71579) = getMemByte(0x5D4594, 741664) + 48;
 		v39 = *(uint32_t*)(*((uint32_t*)v2 + 137) + 4 * *getMemU32Ptr(0x5D4594, 741664));
-		v40 = operator_new(0x10u);
+		v40 = calloc(1, 0x10u);
 		if (v40) {
 			v41 = sub_42C8B0((int)v40, "HSTS", v39);
 		} else {
@@ -2719,7 +2717,7 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 		sub_42C360(v59, v41);
 		*getMemU8Ptr(0x587000, 71587) = getMemByte(0x5D4594, 741664) + 48;
 		v42 = *(uint32_t*)(*((uint32_t*)v2 + 138) + 4 * *getMemU32Ptr(0x5D4594, 741664));
-		v43 = operator_new(0x10u);
+		v43 = calloc(1, 0x10u);
 		if (v43) {
 			v44 = sub_42C8B0((int)v43, "MKLS", v42);
 		} else {
@@ -2728,7 +2726,7 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 		sub_42C360(v59, v44);
 		*getMemU8Ptr(0x587000, 71595) = getMemByte(0x5D4594, 741664) + 48;
 		v45 = *(uint32_t*)(*((uint32_t*)v2 + 139) + 4 * *getMemU32Ptr(0x5D4594, 741664));
-		v46 = operator_new(0x10u);
+		v46 = calloc(1, 0x10u);
 		if (v46) {
 			v47 = sub_42C8B0((int)v46, "ANKS", v45);
 		} else {
@@ -2737,7 +2735,7 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 		sub_42C360(v59, v47);
 		*getMemU8Ptr(0x587000, 71603) = getMemByte(0x5D4594, 741664) + 48;
 		v48 = *(uint32_t*)(*((uint32_t*)v2 + 140) + 4 * *getMemU32Ptr(0x5D4594, 741664));
-		v49 = operator_new(0x10u);
+		v49 = calloc(1, 0x10u);
 		if (v49) {
 			v50 = sub_42C8B0((int)v49, "GNDS", v48);
 		} else {
@@ -2746,7 +2744,7 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 		sub_42C360(v59, v50);
 		*getMemU8Ptr(0x587000, 71611) = getMemByte(0x5D4594, 741664) + 48;
 		v51 = *(uint32_t*)(*((uint32_t*)v2 + 141) + 4 * *getMemU32Ptr(0x5D4594, 741664));
-		v52 = operator_new(0x10u);
+		v52 = calloc(1, 0x10u);
 		if (v52) {
 			v53 = sub_42C8B0((int)v52, "SECS", v51);
 		} else {
@@ -2755,7 +2753,7 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 		sub_42C360(v59, v53);
 		*getMemU8Ptr(0x587000, 71619) = getMemByte(0x5D4594, 741664) + 48;
 		v54 = *(uint32_t*)(*((uint32_t*)v2 + 142) + 4 * *getMemU32Ptr(0x5D4594, 741664));
-		v55 = operator_new(0x10u);
+		v55 = calloc(1, 0x10u);
 		if (v55) {
 			v56 = sub_42C8B0((int)v55, "BPTS", v54);
 		} else {
@@ -2771,7 +2769,6 @@ uint16_t* sub_42B810(short* a1, unsigned int* a2) {
 	sub_42C330(v59);
 	return v57;
 }
-// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0042BCE0) --------------------------------------------------------
 int sub_42BCE0(uint32_t* this, char* a2, char a3) {
@@ -2780,7 +2777,7 @@ int sub_42BCE0(uint32_t* this, char* a2, char a3) {
 	int v5;       // eax
 
 	v3 = this;
-	v4 = operator_new(0x10u);
+	v4 = calloc(1, 0x10u);
 	if (v4) {
 		v5 = sub_42C7F0((int)v4, a2, a3);
 	} else {
@@ -2788,7 +2785,6 @@ int sub_42BCE0(uint32_t* this, char* a2, char a3) {
 	}
 	return sub_42C360(v3, v5);
 }
-// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0042BD50) --------------------------------------------------------
 int sub_42BD50(uint32_t* this, char* a2, char a3) {
@@ -2797,7 +2793,7 @@ int sub_42BD50(uint32_t* this, char* a2, char a3) {
 	int v5;       // eax
 
 	v3 = this;
-	v4 = operator_new(0x10u);
+	v4 = calloc(1, 0x10u);
 	if (v4) {
 		v5 = sub_42C820((int)v4, a2, a3);
 	} else {
@@ -2805,7 +2801,6 @@ int sub_42BD50(uint32_t* this, char* a2, char a3) {
 	}
 	return sub_42C360(v3, v5);
 }
-// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0042BDC0) --------------------------------------------------------
 int sub_42BDC0(uint32_t* this, char* a2, char a3) {
@@ -2814,7 +2809,7 @@ int sub_42BDC0(uint32_t* this, char* a2, char a3) {
 	int v5;       // eax
 
 	v3 = this;
-	v4 = operator_new(0x10u);
+	v4 = calloc(1, 0x10u);
 	if (v4) {
 		v5 = sub_42C8B0((int)v4, a2, a3);
 	} else {
@@ -2822,7 +2817,6 @@ int sub_42BDC0(uint32_t* this, char* a2, char a3) {
 	}
 	return sub_42C360(v3, v5);
 }
-// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0042BE30) --------------------------------------------------------
 int sub_42BE30(uint32_t* this, char* a2, const char* a3) {
@@ -2831,7 +2825,7 @@ int sub_42BE30(uint32_t* this, char* a2, const char* a3) {
 	int v5;       // eax
 
 	v3 = this;
-	v4 = operator_new(0x10u);
+	v4 = calloc(1, 0x10u);
 	if (v4) {
 		v5 = sub_42C8E0((int)v4, a2, a3);
 	} else {
@@ -2839,7 +2833,6 @@ int sub_42BE30(uint32_t* this, char* a2, const char* a3) {
 	}
 	return sub_42C360(v3, v5);
 }
-// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0042BEA0) --------------------------------------------------------
 int sub_42BEA0(uint32_t* this, char* a2, const void* a3, unsigned short a4) {
@@ -2848,7 +2841,7 @@ int sub_42BEA0(uint32_t* this, char* a2, const void* a3, unsigned short a4) {
 	int v6;       // eax
 
 	v4 = this;
-	v5 = operator_new(0x10u);
+	v5 = calloc(1, 0x10u);
 	if (v5) {
 		v6 = sub_42C910((int)v5, a2, a3, a4);
 	} else {
@@ -2856,7 +2849,6 @@ int sub_42BEA0(uint32_t* this, char* a2, const void* a3, unsigned short a4) {
 	}
 	return sub_42C360(v4, v6);
 }
-// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0042C330) --------------------------------------------------------
 void sub_42C330(uint32_t* this) {
@@ -2869,7 +2861,7 @@ void sub_42C330(uint32_t* this) {
 			v2 = (uint32_t*)v1[3];
 			if (v1) {
 				sub_42CC50(v1);
-				operator_delete(v1);
+				free(v1);
 			}
 			v1 = v2;
 		} while (v2);
@@ -2905,7 +2897,7 @@ uint16_t* sub_42C480(uint32_t* this, unsigned int* a2) {
 		*a2 = v4;
 		*a2 = *(unsigned short*)(i + 6) + v4 + (-(((unsigned char)*(uint16_t*)(i + 6) + (uint8_t)v4) & 3) & 3);
 	}
-	v5 = (uint16_t*)operator_new(*a2);
+	v5 = (uint16_t*)calloc(1, *a2);
 	*v5 = htons(*(uint16_t*)a2);
 	v5[1] = htons(*((uint16_t*)v2 + 1));
 	v6 = v2[1];
@@ -2926,7 +2918,6 @@ uint16_t* sub_42C480(uint32_t* this, unsigned int* a2) {
 	} while (v6);
 	return v5;
 }
-// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0042C770) --------------------------------------------------------
 int sub_42C770(void** this) {
@@ -2934,7 +2925,7 @@ int sub_42C770(void** this) {
 	int result; // eax
 
 	v1 = this;
-	operator_delete(this[2]);
+	free(this[2]);
 	result = 0;
 	strcpy((char*)v1, (const char*)getMemAt(0x5D4594, 741688));
 	*((uint16_t*)v1 + 2) = 0;
@@ -3005,14 +2996,13 @@ char* sub_42C9A0(void** this, char* a2, char a3) {
 	strncpy((char*)v3, a2, 4u);
 	*((uint16_t*)v3 + 2) = 2;
 	*((uint16_t*)v3 + 3) = 1;
-	result = (char*)operator_new(1u);
+	result = (char*)calloc(1, 1u);
 	v5 = *((unsigned short*)v3 + 3);
 	v3[2] = result;
 	memcpy(result, &a3, v5);
 	v3[3] = 0;
 	return result;
 }
-// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0042CA00) --------------------------------------------------------
 char* sub_42CA00(void** this, char* a2, char a3) {
@@ -3025,7 +3015,7 @@ char* sub_42CA00(void** this, char* a2, char a3) {
 	strncpy((char*)v3, a2, 4u);
 	*((uint16_t*)v3 + 2) = 3;
 	*((uint16_t*)v3 + 3) = 2;
-	result = (char*)operator_new(2u);
+	result = (char*)calloc(1, 2u);
 	v5 = *((unsigned short*)v3 + 3);
 	v3[2] = result;
 	int a3i = a3;
@@ -3033,7 +3023,6 @@ char* sub_42CA00(void** this, char* a2, char a3) {
 	v3[3] = 0;
 	return result;
 }
-// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0042CB20) --------------------------------------------------------
 char* sub_42CB20(void** this, char* a2, char a3) {
@@ -3046,7 +3035,7 @@ char* sub_42CB20(void** this, char* a2, char a3) {
 	strncpy((char*)v3, a2, 4u);
 	*((uint16_t*)v3 + 2) = 6;
 	*((uint16_t*)v3 + 3) = 4;
-	result = (char*)operator_new(4u);
+	result = (char*)calloc(1, 4u);
 	v5 = *((unsigned short*)v3 + 3);
 	v3[2] = result;
 	int a3i = a3;
@@ -3054,7 +3043,6 @@ char* sub_42CB20(void** this, char* a2, char a3) {
 	v3[3] = 0;
 	return result;
 }
-// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0042CB80) --------------------------------------------------------
 char* sub_42CB80(void** this, char* a2, const char* a3) {
@@ -3069,14 +3057,13 @@ char* sub_42CB80(void** this, char* a2, const char* a3) {
 	*((uint16_t*)v3 + 2) = 7;
 	v4 = strlen(a3) + 1;
 	*((uint16_t*)v3 + 3) = v4;
-	result = (char*)operator_new((unsigned short)v4);
+	result = (char*)calloc(1, (unsigned short)v4);
 	v6 = *((uint16_t*)v3 + 3);
 	v3[2] = result;
 	memcpy(result, a3, v6);
 	v3[3] = 0;
 	return result;
 }
-// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0042CBF0) --------------------------------------------------------
 void* sub_42CBF0(void** this, char* a2, const void* a3, unsigned short a4) {
@@ -3089,14 +3076,13 @@ void* sub_42CBF0(void** this, char* a2, const void* a3, unsigned short a4) {
 	strncpy((char*)v4, a2, 4u);
 	*((uint16_t*)v4 + 2) = 20;
 	*((uint16_t*)v4 + 3) = a4;
-	result = operator_new(a4);
+	result = calloc(1, a4);
 	v6 = *((unsigned short*)v4 + 3);
 	v4[2] = result;
 	memcpy(result, a3, v6);
 	v4[3] = 0;
 	return result;
 }
-// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (0042CC70) --------------------------------------------------------
 uint16_t sub_42CC70(int this) {

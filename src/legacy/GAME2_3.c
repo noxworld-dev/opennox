@@ -5191,7 +5191,7 @@ void sub_49A6A0(nox_draw_viewport_t* vp, nox_drawable* dr) {
 					v5 = *a1 + *(uint32_t*)(a2 + 12) - a1[4];
 					v6 = *(uint32_t*)(a2 + 16) + a1[1] + 2 * (v3 - v10) - *(short*)(a2 + 104) -
 						 (unsigned long long)(long long)*(float*)(a2 + 100) - a1[5];
-					nox_swprintf(v13, L"%d", abs32(*((short*)v8 + 2)));
+					nox_swprintf(v13, L"%d", abs(*((short*)v8 + 2)));
 					nox_xxx_drawGetStringSize_43F840(*(int*)&dword_5d4594_1301780, v13, &v12, 0, 0);
 					v7 = v12 / -2 + v5;
 					nox_xxx_drawSetTextColor_434390(nox_color_black_2650656);
