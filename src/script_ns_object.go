@@ -571,7 +571,7 @@ func (obj nsObj) IsAttackedBy(obj2 ns4.Obj) bool {
 	if obj2 == nil {
 		return false
 	}
-	return obj.isEnemyTo(obj2.(server.Obj))
+	return obj.s.IsEnemyTo(obj.SObj(), obj2.(server.Obj).SObj())
 }
 
 func (obj nsObj) HitMelee(p types.Pointf) {

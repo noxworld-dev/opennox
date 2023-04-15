@@ -284,10 +284,6 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 	}
 }
 
-func nox_xxx_checkMobAction_50A0D0(u *Object, act ai.ActionType) bool {
-	return legacy.Nox_xxx_checkMobAction_50A0D0(u.SObj(), act) != 0
-}
-
 func sub_545E60(a1c *server.Object) int {
 	u := asObjectS(a1c)
 	s := u.getServer()
@@ -300,11 +296,11 @@ func sub_545E60(a1c *server.Object) int {
 	ud.Field129 = ts
 	if u.Obj130 != nil {
 		if obj4 := getOwnerUnit(u.Obj130); obj4 != nil {
-			if !u.isEnemyTo(obj4) {
+			if !s.IsEnemyTo(u.SObj(), obj4) {
 				return 0
 			}
 			canInteract := nox_xxx_unitCanInteractWith_5370E0(u, obj4, 0)
-			if u.isPlant() {
+			if s.IsPlant(u.SObj()) {
 				if !canInteract {
 					return 0
 				}
@@ -323,7 +319,7 @@ func sub_545E60(a1c *server.Object) int {
 			return 1
 		}
 	}
-	if !nox_xxx_checkMobAction_50A0D0(u, ai.ACTION_ROAM) {
+	if !u.UpdateDataMonster().HasAction(ai.ACTION_ROAM) {
 		u.monsterPushAction(ai.DEPENDENCY_TIME, 5*s.TickRate())
 		u.monsterPushAction(ai.DEPENDENCY_NO_VISIBLE_ENEMY)
 		if nox_xxx_monsterCanAttackAtWill_534390(u) {
@@ -403,7 +399,7 @@ func (a *aiData) aiListenToSounds(u *Object) {
 	}
 
 	// Do not listen to anything if you are a fish, frog or rat
-	if u.isFish() || u.isFrog() || u.isRat() {
+	if a.s.IsFish(u.SObj()) || a.s.IsFrog(u.SObj()) || a.s.IsRat(u.SObj()) {
 		return
 	}
 
@@ -511,7 +507,7 @@ func (a *aiData) shouldUnitListen(u *Object, lis *MonsterListen) bool {
 			return false
 		}
 	} else {
-		if u.isEnemyTo(punit) {
+		if a.s.IsEnemyTo(u.SObj(), punit) {
 			if flags == 0 {
 				return false
 			}
@@ -727,7 +723,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 	if v := ud.Field282_0; v < 100 {
 		ud.Field282_0 = v + uint8(100/s.TickRate())
 	}
-	if u.isMimic() {
+	if s.IsMimic(u.SObj()) {
 		legacy.Nox_xxx_monsterMimicCheckMorph_534950(u.SObj())
 	}
 	if s.Frame()-u.Field134 > 3*s.TickRate() {
@@ -812,7 +808,7 @@ func (AIActionIdle) Update(obj *server.Object) {
 		}
 	}
 	if !u.Flags().Has(object.FlagEnabled) || sub_534440(u) || sub_545E60(u.SObj()) == 0 {
-		if u.isMimic() {
+		if s.IsMimic(u.SObj()) {
 			if !u.HasEnchant(server.ENCHANT_ANTI_MAGIC) {
 				legacy.Nox_xxx_mobHealSomeone_5411A0(u.SObj())
 			}

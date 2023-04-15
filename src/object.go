@@ -298,11 +298,6 @@ func (s *Server) attachPending() {
 
 func (s *Server) CreateObjectAt(a11 server.Obj, owner server.Obj, pos types.Pointf) {
 	obj := toObject(a11)
-	if memmap.Uint32(0x5D4594, 1556864) == 0 {
-		*memmap.PtrUint32(0x5D4594, 1556864) = uint32(s.Types.GoldID())
-		*memmap.PtrUint32(0x5D4594, 1556868) = uint32(s.Types.GoldPileID())
-		*memmap.PtrUint32(0x5D4594, 1556872) = uint32(s.Types.GoldChestID())
-	}
 	if obj.Flags().HasAny(object.FlagActive | object.FlagDestroyed) {
 		return
 	}
@@ -324,7 +319,7 @@ func (s *Server) CreateObjectAt(a11 server.Obj, owner server.Obj, pos types.Poin
 	obj.Field32 = s.Frame()
 	obj.Field34 = s.Frame()
 	if noxflags.HasGame(noxflags.GameOnline) && !noxflags.HasGame(noxflags.GameModeQuest) && !obj.Class().Has(object.ClassMissile) &&
-		(int(obj.TypeInd) == int(memmap.Uint32(0x5D4594, 1556864)) ||
+		(int(obj.TypeInd) == s.Types.GoldID() ||
 			obj.Class().HasAny(object.ClassFood|object.ClassInfoBook|object.ClassWand|object.ClassWeapon|object.ClassArmor)) {
 		obj.ObjFlags |= uint32(object.FlagNoCollide)
 	}
@@ -379,6 +374,10 @@ type Object server.Object
 
 func (obj *Object) getServer() *Server {
 	return noxServer // TODO: attach to object
+}
+
+func (obj *Object) Server() *server.Server {
+	return obj.SObj().Server()
 }
 
 func (obj *Object) UniqueKey() uintptr {
@@ -880,88 +879,6 @@ func (obj *Object) forceDropAt(item *Object, pos types.Pointf) int { // nox_xxx_
 	return legacy.Nox_xxx_drop_4ED790(obj.SObj(), item.SObj(), pos)
 }
 
-func (s *Server) IsEnemyTo(a1, a2 *server.Object) bool {
-	return asObjectS(a1).isEnemyTo(asObjectS(a2))
-}
-
-func (obj *Object) isEnemyTo(objp server.Obj) bool { // nox_xxx_unitIsEnemyTo_5330C0
-	obj2 := toObject(objp)
-	if obj == nil || obj2 == nil {
-		return false
-	}
-	if obj.SObj() == obj2.SObj() {
-		return false
-	}
-	srv := obj.getServer()
-	if obj2.Class().HasAny(object.ClassMonster) {
-		if ud := obj2.UpdateDataMonster(); ud.Flags360&0x40000 != 0 {
-			return false
-		}
-	}
-	if obj.Class().HasAny(object.ClassPlayer) && int(obj2.TypeInd) == srv.Types.PolypID() {
-		return true
-	}
-	if obj.Class().HasAny(object.ClassPlayer) && obj2.Class().HasAny(object.ClassMonsterGenerator) {
-		return true
-	}
-	if obj.Class().HasAny(object.ClassMonster) && obj2.Class().HasAny(object.ClassMonsterGenerator) {
-		return false
-	}
-	if obj.Class().HasAny(object.ClassPlayer) && obj2.Class().HasAny(object.ClassMonster) && (obj2.SubClass()&0x20 != 0) {
-		return false
-	}
-	if obj.Class().HasAny(object.ClassMonster) && obj2.Class().HasAny(object.ClassPlayer) && (obj.SubClass()&0x20 != 0) {
-		return false
-	}
-	if obj.isFish() || obj.isFrog() {
-		return !obj2.isFish() && !obj2.isFrog()
-	}
-	if obj.isRat() {
-		return !obj2.isRat()
-	}
-	if obj2.isFish() {
-		return false
-	}
-	if obj2.Class().HasAny(2) && (obj2.SubClass()&0x8 != 0) {
-		return false
-	}
-	if obj.Class().HasAny(2) && (obj.SubClass()&0x8 != 0) {
-		return false
-	}
-	if obj.HasEnchant(server.ENCHANT_CHARMING) || obj2.HasEnchant(server.ENCHANT_CHARMING) {
-		return false
-	}
-	if obj2.Class().HasAny(object.ClassPlayer) {
-		if pl := obj2.ControllingPlayer(); pl.Field3680&0x1 != 0 {
-			return false
-		}
-	}
-	own1 := obj.FindOwnerChainPlayer()
-	own2 := obj2.FindOwnerChainPlayer()
-	if own1 == own2 {
-		return false
-	}
-	if server.Nox_xxx_servCompareTeams_419150(own1.TeamPtr(), own2.TeamPtr()) {
-		return false
-	}
-	if own1.Class().HasAny(object.ClassPlayer) && own2.Class().HasAny(object.ClassMonsterGenerator) {
-		return true
-	}
-	if own1.Class().HasAny(object.ClassMonster) && own2.Class().HasAny(object.ClassMonsterGenerator) {
-		return false
-	}
-	if !noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().HasAny(object.ClassMonster) && int(obj2.TypeInd) == srv.Types.WillOWispID() {
-		return nox_xxx_checkMobAction_50A0D0(obj2, ai.ACTION_FIGHT)
-	}
-	if server.Nox_xxx_servObjectHasTeam_419130(own1.TeamPtr()) || server.Nox_xxx_servObjectHasTeam_419130(own2.TeamPtr()) {
-		return true
-	}
-	if own1.Class().HasAny(object.ClassMonster) && own2.Class().HasAny(object.ClassMonster) {
-		return false
-	}
-	return true
-}
-
 func (obj *Object) CanSee(obj2 script.Object) bool {
 	if obj == nil || obj2 == nil {
 		return false
@@ -979,58 +896,6 @@ func (obj *Object) CanSeeS(obj2 *Object) bool {
 		return false
 	}
 	return nox_xxx_unitCanInteractWith_5370E0(obj, obj2, 0)
-}
-
-func (s *Server) IsFish(obj *server.Object) bool {
-	return asObjectS(obj).isFish()
-}
-
-func (s *Server) IsRat(obj *server.Object) bool {
-	return asObjectS(obj).isRat()
-}
-
-func (s *Server) IsFrog(obj *server.Object) bool {
-	return asObjectS(obj).isFrog()
-}
-
-func (obj *Object) isFish() bool {
-	if obj == nil {
-		return false
-	}
-	srv := obj.getServer()
-	return int(obj.TypeInd) == srv.Types.FishSmallID() || int(obj.TypeInd) == srv.Types.FishBigID()
-}
-
-func (obj *Object) isRat() bool {
-	if obj == nil {
-		return false
-	}
-	srv := obj.getServer()
-	return int(obj.TypeInd) == srv.Types.RatID()
-}
-
-func (obj *Object) isFrog() bool {
-	if obj == nil {
-		return false
-	}
-	srv := obj.getServer()
-	return int(obj.TypeInd) == srv.Types.GreenFrogID()
-}
-
-func (obj *Object) isPlant() bool {
-	if obj == nil {
-		return false
-	}
-	srv := obj.getServer()
-	return int(obj.TypeInd) == srv.Types.CarnivorousPlantID()
-}
-
-func (obj *Object) isMimic() bool {
-	if obj == nil {
-		return false
-	}
-	srv := obj.getServer()
-	return int(obj.TypeInd) == srv.Types.MimicID()
 }
 
 func (obj *Object) FindOwnerChainPlayer() *Object { // nox_xxx_findParentChainPlayer_4EC580
