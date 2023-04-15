@@ -26,6 +26,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var (
@@ -33,7 +34,7 @@ var (
 	Sub_437260                            func()
 	Get_nox_client_texturedFloors_154956  func() bool
 	Sub_480860                            func(dst, src []uint16, w int, a4p, a5p []uint32)
-	Nox_xxx_drawList1096512_Append_4754C0 func(p unsafe.Pointer)
+	Nox_xxx_drawList1096512_Append_4754C0 func(p *server.Wall)
 	Sub_473970                            func(a1 image.Point) image.Point
 	Nox_client_isConnected                func() bool
 )
@@ -383,7 +384,7 @@ func sub_469920(p *C.nox_point) *C.char {
 
 //export nox_xxx_drawList1096512_Append_4754C0
 func nox_xxx_drawList1096512_Append_4754C0(p unsafe.Pointer) {
-	Nox_xxx_drawList1096512_Append_4754C0(p)
+	Nox_xxx_drawList1096512_Append_4754C0(asWallP(p))
 }
 
 //export nox_video_drawCircleColored_4C3270
