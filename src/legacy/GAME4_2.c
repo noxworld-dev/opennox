@@ -67,7 +67,6 @@ extern uint32_t dword_5d4594_2487560;
 extern uint32_t dword_5d4594_2487540;
 extern uint32_t dword_5d4594_2487712;
 extern uint32_t dword_5d4594_2487524;
-extern uint32_t nox_wall_def_cnt;
 extern uint32_t dword_5d4594_2487556;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
@@ -5142,6 +5141,7 @@ void sub_524B50(int a1, int a2, float* a3, int* a4) {
 }
 
 //----- (00524E00) --------------------------------------------------------
+int sub_526CA0(char* a1);
 void nox_xxx_gen_524E00(int a1, int a2) {
 	int v2;     // esi
 	char* v3;   // edi
@@ -6667,31 +6667,6 @@ int sub_526C80(int a1) {
 	}
 	dword_5d4594_3835368 = a1;
 	return 1;
-}
-
-//----- (00526CA0) --------------------------------------------------------
-int sub_526CA0(char* a1) {
-	int v1;   // edi
-	int i;    // esi
-	char* v3; // eax
-
-	v1 = 0;
-	for (i = 0; i < nox_wall_def_cnt; ++i) {
-		v3 = sub_410D40(i);
-		if (!nox_strcmpi(v3, a1)) {
-			*getMemU32Ptr(0x973F18, 35948) = i;
-			v1 = 1;
-		}
-	}
-	if (!nox_strcmpi(a1, "NONE")) {
-		*getMemU32Ptr(0x973F18, 35948) = 255;
-		return 1;
-	}
-	if (v1) {
-		return 1;
-	}
-	*getMemU32Ptr(0x973F18, 35948) = 0;
-	return 0;
 }
 
 //----- (00526D50) --------------------------------------------------------

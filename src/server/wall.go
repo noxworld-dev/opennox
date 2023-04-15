@@ -303,26 +303,72 @@ func (s *serverWalls) DeleteAtGrid(pos image.Point) {
 	s.freeList = wl
 }
 
+func ParseWallDir(name string) (WallDir, bool) {
+	for i, v := range wallDirNames {
+		if v == name {
+			return WallDir(i), true
+		}
+	}
+	return 0, false
+}
+
+type WallDir byte
+
+func (d WallDir) String() string {
+	if int(d) >= len(wallDirNames) {
+		return fmt.Sprintf("WallDir(%d)", int(d))
+	}
+	return wallDirNames[d]
+}
+
+const (
+	WallDirUp = WallDir(iota)
+	WallDirDown
+	WallDirCross
+	WallDirTNorthWest
+	WallDirTNorthEast
+	WallDirTSouthEast
+	WallDirTSouthWest
+	WallDirArrowDown
+	WallDirArrowLeft
+	WallDirArrowUp
+	WallDirArrowRight
+	WallDirWindowUp
+	WallDirWindowDown
+	WallDirRightHalfArrowUp
+	WallDirLeftHalfArrowUp
+)
+
+var wallDirNames = []string{
+	"UP", "DOWN", "CROSS", "TNORTHWEST", "TNORTHEAST",
+	"TSOUTHEAST", "TSOUTHWEST", "ARROWDOWN", "ARROWLEFT", "ARROWUP",
+	"ARROWRIGHT", "WINDOWUP", "WINDOWDOWN", "RIGHTHALFARROWUP", "LEFTHALFARROWUP",
+}
+
 type WallDef struct {
-	Field0     [32]byte     // 0, 0
-	Field32    uint32       // 8, 32
-	Field36    uint16       // 9, 36
-	Field38    uint16       // 9, 38
-	Field40    byte         // 10, 40
-	Field41    byte         // 10, 41
-	Field42    byte         // 10, 42
-	Field43    [512]byte    // 10, 43
-	Field555   [64]byte     // 138, 555
-	Field619   [64]byte     // 154, 619
-	Field683   [64]byte     // 170, 683
-	Field747   byte         // 186, 747
-	Field748   byte         // 187, 748
-	Field749   byte         // 187, 749
-	Field750   byte         // 187, 750
-	Field751   byte         // 187, 751
-	Field752   [1920]uint32 // 188, 752
-	Sprite8432 [960]uint32  // 2108, 8432
-	Field12272 [60]byte     // 3068, 12272
+	Field0        [32]byte                  // 0, 0
+	Field32       uint32                    // 8, 32
+	Field36       uint16                    // 9, 36
+	Field38       uint16                    // 9, 38
+	Field40       byte                      // 10, 40
+	Field41       byte                      // 10, 41
+	Field42       byte                      // 10, 42
+	Brick43       [8][64]byte               // 10, 43
+	SoundOpen555  [64]byte                  // 138, 555
+	SoundClose619 [64]byte                  // 154, 619
+	Sound683      [64]byte                  // 170, 683
+	Field747      byte                      // 186, 747
+	Field748      byte                      // 187, 748
+	Field749      byte                      // 187, 749
+	Field750      byte                      // 187, 750
+	Field751      byte                      // 187, 751
+	Field752      [4][15][16][2]uint32      // 188, 752
+	Sprite8432    [4][15][16]unsafe.Pointer // 2108, 8432, TODO: noxrender.ImageHandle
+	Field12272    [4][15]byte               // 3068, 12272
+}
+
+func (w *WallDef) Name() string {
+	return alloc.GoStringS(w.Field0[:])
 }
 
 type WallFlags byte
