@@ -362,7 +362,7 @@ type WallDef struct {
 	Field749      byte                      // 187, 749
 	Field750      byte                      // 187, 750
 	Field751      byte                      // 187, 751
-	Field752      [4][15][16][2]uint32      // 188, 752
+	Field752      [4][15][16]image.Point    // 188, 752
 	Sprite8432    [4][15][16]unsafe.Pointer // 2108, 8432, TODO: noxrender.ImageHandle
 	Field12272    [4][15]byte               // 3068, 12272
 }

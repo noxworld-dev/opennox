@@ -5730,7 +5730,8 @@ void nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data) {
 	int v42;           // eax
 	int v43;           // eax
 	int v44;           // edx
-	char* v45;         // eax
+	int v45x;         // eax
+	int v45y;         // eax
 	int v46;           // ebx
 	int v47;           // ebp
 	int v48;           // eax
@@ -5740,7 +5741,8 @@ void nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data) {
 	int v52;           // eax
 	int v53;           // eax
 	uint8_t* v54;      // edi
-	char* v55;         // eax
+	int v55x;         // eax
+	int v55y;         // eax
 	int v56;           // ebx
 	int v57;           // ebp
 	int v58;           // eax
@@ -6045,9 +6047,9 @@ LABEL_64:
 			break;
 		}
 		v74 = v34;
-		v45 = nox_xxx_getWallDrawOffset_46A3F0(v3[1], v84, v3[2], v73);
-		v46 = v82 + *(uint32_t*)v45 - 51;
-		v47 = -73 - *((uint32_t*)v45 + 1) + v7;
+		nox_xxx_getWallDrawOffset_46A3F0(v3[1], v84, v3[2], v73, &v45x, &v45y);
+		v46 = v82 + v45x - 51;
+		v47 = -73 - v45y + v7;
 		sub_4345F0(1);
 		v48 = *((uint8_t*)v32 + 8);
 		LOBYTE(v49) = *((uint8_t*)v32 + 4);
@@ -6077,9 +6079,9 @@ LABEL_64:
 		v77.field_0 = 23 * v3[5] + 11;
 		v77.field_4 = 23 * v53 + 11;
 		v54 = sub_469920(&v77);
-		v55 = nox_xxx_getWallDrawOffset_46A3F0(v3[1], v84, v3[2], v73);
-		v56 = v82 + *(uint32_t*)v55 - 50;
-		v57 = -72 - *((uint32_t*)v55 + 1) + v7;
+		nox_xxx_getWallDrawOffset_46A3F0(v3[1], v84, v3[2], v73, &v55x, &v55y);
+		v56 = v82 + v55x - 50;
+		v57 = -72 - v55y + v7;
 		sub_4345F0(1);
 		LOBYTE(v59) = v54[8];
 		v58 = v54[4];
