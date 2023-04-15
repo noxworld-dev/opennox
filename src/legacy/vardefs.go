@@ -744,7 +744,6 @@ extern unsigned int dword_5d4594_1556144;
 extern unsigned int dword_5d4594_251744;
 extern unsigned int dword_5d4594_815052;
 extern unsigned int dword_5d4594_1049508;
-extern uint32_t* dword_5D4594_251544;
 extern void* dword_5d4594_251548;
 extern unsigned int nox_client_translucentFrontWalls_805844;
 
@@ -1415,9 +1414,6 @@ func Set_dword_5d4594_2489460(v int) {
 }
 func Set_dword_5d4594_1548532(v unsafe.Pointer) {
 	C.dword_5d4594_1548532 = v
-}
-func Set_dword_5D4594_251544(v unsafe.Pointer) {
-	C.dword_5D4594_251544 = (*C.uint)(v)
 }
 func Set_dword_5d4594_251556(v unsafe.Pointer) {
 	C.dword_5d4594_251556 = C.uint(uintptr(v))
