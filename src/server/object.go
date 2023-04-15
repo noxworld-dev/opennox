@@ -1054,7 +1054,7 @@ func (s *Server) IsEnemyTo(obj, obj2 *Object) bool {
 		return false
 	}
 	if obj2.Class().HasAny(object.ClassMonster) {
-		if ud := obj2.UpdateDataMonster(); ud.Flags360&0x40000 != 0 {
+		if ud := obj2.UpdateDataMonster(); ud.StatusFlags&0x40000 != 0 {
 			return false
 		}
 	}

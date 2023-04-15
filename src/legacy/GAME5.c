@@ -4198,7 +4198,8 @@ int sub_54BF20(int a1, int a2, int* a3, int* a4, int a5) {
 }
 
 //----- (0054C0C0) --------------------------------------------------------
-short nox_xxx_monsterAutoSpells_54C0C0(int a1) {
+short nox_xxx_monsterAutoSpells_54C0C0(nox_object_t* a1p) {
+	int a1 = a1p;
 	int v1;   // esi
 	int v2;   // eax
 	short v3; // ax
@@ -4320,106 +4321,6 @@ short nox_xxx_monsterAutoSpells_54C0C0(int a1) {
 	*(uint8_t*)(v1 + 2036) = 1;
 	*(uint16_t*)(v1 + 1482) = 3 * v2;
 	return v2;
-}
-
-//----- (0054C480) --------------------------------------------------------
-char nox_xxx_monsterCreateFn_54C480(int a1) {
-	int v1;         // esi
-	const char* v2; // eax
-	uint32_t* v3;   // eax
-	double v4;      // st7
-	int v5;         // eax
-	double v6;      // st7
-	short v7;       // cx
-	short v8;       // cx
-	short v9;       // cx
-	int v10;        // eax
-	int v11;        // ecx
-
-	v1 = *(uint32_t*)(a1 + 748);
-	v2 = (const char*)nox_xxx_getUnitName_4E39D0(a1);
-	*(uint32_t*)(v1 + 488) = nox_xxx_getDefaultSoundSet_424350(v2);
-	v3 = nox_xxx_monsterDefByTT_517560(*(unsigned short*)(a1 + 4));
-	*(uint32_t*)(v1 + 484) = v3;
-	if (v3) {
-		v4 = (double)(int)v3[16];
-		v5 = *(uint32_t*)(a1 + 556);
-		*(float*)(a1 + 28) = v4;
-		*(uint16_t*)(v5 + 4) = *(uint16_t*)(*(uint32_t*)(v1 + 484) + 68);
-		**(uint16_t**)(a1 + 556) = *(uint16_t*)(*(uint32_t*)(v1 + 484) + 68);
-		*(uint16_t*)(*(uint32_t*)(a1 + 556) + 2) = *(uint16_t*)(*(uint32_t*)(v1 + 484) + 68);
-		v6 = (double)*(int*)(*(uint32_t*)(v1 + 484) + 76) * 0.03125;
-		*(float*)(a1 + 548) = v6;
-		*(float*)(a1 + 544) = v6;
-		*(uint32_t*)(v1 + 1336) = *(uint32_t*)(*(uint32_t*)(v1 + 484) + 80);
-		*(uint8_t*)(v1 + 1340) = 1;
-		*(uint32_t*)(v1 + 1344) = *(uint32_t*)(*(uint32_t*)(v1 + 484) + 84);
-		*(uint8_t*)(v1 + 1348) = 1;
-		*(uint32_t*)(v1 + 1440) = *(uint32_t*)(*(uint32_t*)(v1 + 484) + 92);
-		*(uint8_t*)(v1 + 1444) = 1;
-		*(uint32_t*)(v1 + 1356) = *(uint32_t*)(*(uint32_t*)(v1 + 484) + 88);
-	}
-	*(uint8_t*)(v1 + 544) = 0;
-	*(uint32_t*)(v1 + 552) = 0;
-	*(uint32_t*)(v1 + 1360) = 0;
-	*(uint32_t*)(v1 + 1308) = 1056964608;
-	*(uint32_t*)(v1 + 1304) = 1056964608;
-	*(uint32_t*)(v1 + 1320) = 1056964608;
-	*(uint32_t*)(v1 + 1328) = 1056964608;
-	*(uint32_t*)(v1 + 1312) = 1125515264;
-	*(uint32_t*)(v1 + 1316) = 1106247680;
-	*(uint8_t*)(v1 + 1332) = -1;
-	*(uint8_t*)(v1 + 1324) = 30;
-	*(uint32_t*)(v1 + 1352) = 1065353216;
-	*(uint32_t*)(v1 + 1228) = -1;
-	*(uint32_t*)(v1 + 1236) = -1;
-	*(uint32_t*)(v1 + 1244) = -1;
-	*(uint32_t*)(v1 + 1252) = -1;
-	*(uint32_t*)(v1 + 1260) = -1;
-	*(uint32_t*)(v1 + 1268) = -1;
-	*(uint32_t*)(v1 + 1276) = -1;
-	*(uint32_t*)(v1 + 1284) = -1;
-	*(uint32_t*)(v1 + 1292) = -1;
-	*(uint32_t*)(v1 + 1300) = -1;
-	*(uint32_t*)(v1 + 2040) = 1;
-	*(uint16_t*)(v1 + 1448) = 0;
-	*(uint16_t*)(v1 + 1450) = gameFPS() >> 1;
-	*(uint16_t*)(v1 + 1456) = 3 * (uint16_t)gameFPS();
-	*(uint16_t*)(v1 + 1458) = 10 * (uint16_t)gameFPS();
-	*(uint16_t*)(v1 + 1464) = 3 * (uint16_t)gameFPS();
-	v7 = (uint16_t)gameFPS();
-	*(uint16_t*)(v1 + 1472) = 0;
-	*(uint16_t*)(v1 + 1466) = 6 * v7;
-	v8 = (uint16_t)gameFPS();
-	*(uint16_t*)(v1 + 1480) = 0;
-	*(uint16_t*)(v1 + 1474) = 3 * v8;
-	v9 = (uint16_t)gameFPS();
-	*(uint32_t*)(v1 + 2096) = -1;
-	*(uint32_t*)(v1 + 2100) = -1;
-	*(uint32_t*)v1 = -559023410;
-	*(uint16_t*)(v1 + 1482) = 6 * v9;
-	nox_xxx_monsterAutoSpells_54C0C0(a1);
-	LOBYTE(v10) = *(uint8_t*)(a1 + 12);
-	if (v10 & 8) {
-		v10 = *(uint32_t*)(a1 + 692);
-		*(uint32_t*)(v10 + 1716) = 1065353216;
-		*(uint32_t*)(v10 + 1720) = 1051372091;
-	}
-	if (*(uint8_t*)(a1 + 12) & 0x20) {
-		v10 = v1 + 2077;
-		v11 = 6;
-		do {
-			*(uint8_t*)(v10 - 1) = -46;
-			*(uint8_t*)v10 = -82;
-			*(uint8_t*)(v10 + 1) = 121;
-			v10 += 3;
-			--v11;
-		} while (v11);
-	}
-	*(uint32_t*)(v1 + 4) = 0;
-	*(uint32_t*)(v1 + 288) = 0;
-	*(uint32_t*)(v1 + 292) = 0;
-	return v10;
 }
 
 //----- (0054C710) --------------------------------------------------------

@@ -166,7 +166,7 @@ int sub_517140(FILE* a1);
 int nox_xxx_servParseMonsterDef_517170(FILE* a1, const char* a2);
 uint32_t* nox_xxx_monsterListFree_5174F0();
 int nox_xxx_monsterList_517520();
-uint32_t* nox_xxx_monsterDefByTT_517560(int a1);
+void* nox_xxx_monsterDefByTT_517560(int a1);
 int sub_517590(float a1, float a2);
 short sub_517870(nox_object_t* a1);
 void sub_5178E0(int a1, void* a2);
