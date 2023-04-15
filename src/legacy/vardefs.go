@@ -117,7 +117,7 @@ extern uint32_t dword_5d4594_1046508;
 extern uint32_t dword_5d4594_1193384;
 extern uint32_t dword_5d4594_1045536;
 extern uint32_t nox_wol_servers_sorting_166704;
-extern uint32_t dword_5d4594_251540;
+extern uint32_t nox_wall_def_cnt;
 extern uint32_t dword_5d4594_371692;
 extern uint32_t dword_5d4594_3798832;
 extern uint32_t dword_5d4594_1197320;

@@ -3389,6 +3389,8 @@ unsigned int nox_xxx_mobRaiseZombie_534AB0(int a1) {
 }
 
 //----- (00534BC0) --------------------------------------------------------
+extern uint32_t nox_wall_def_cnt;
+extern nox_wallDef_t nox_wall_defs_arr[80];
 int nox_xxx_damageToMap_534BC0(int a1, int a2, int a3, int a4, nox_object_t* a5) {
 	unsigned char* v5; // esi
 	unsigned char v6;  // al
@@ -3416,7 +3418,7 @@ int nox_xxx_damageToMap_534BC0(int a1, int a2, int a3, int a4, nox_object_t* a5)
 		return 0;
 	}
 	if (!(v6 & 8)) {
-		sub_532FE0(*getMemU16Ptr(0x85B3FC, 43044 + 12332*v5[1] + 36), a5);
+		sub_532FE0(nox_wall_defs_arr[v5[1]].field_36, a5);
 		return 0;
 	}
 	if (!nox_common_gameFlags_check_40A5C0(4096) || !a5 || v5[1] != *getMemU32Ptr(0x5D4594, 2488556) ||
@@ -3440,7 +3442,7 @@ int nox_xxx_damageToMap_534BC0(int a1, int a2, int a3, int a4, nox_object_t* a5)
 				nox_xxx_objectApplyForce_52DF80((int)&v17, (int)v15, v16);
 			}
 		}
-		sub_533010(*getMemU16Ptr(0x85B3FC, 43044 + 12332*v5[1] + 36), a5);
+		sub_533010(nox_wall_defs_arr[v5[1]].field_36, a5);
 		result = 0;
 	} else {
 		v17.field_0 = a1;

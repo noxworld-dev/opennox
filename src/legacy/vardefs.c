@@ -119,7 +119,6 @@ uint32_t dword_5d4594_1046508 = 0;
 uint32_t dword_5d4594_1193384 = 0;
 uint32_t dword_5d4594_1045536 = 0;
 uint32_t nox_wol_servers_sorting_166704 = 0x6;
-uint32_t dword_5d4594_251540 = 0;
 uint32_t dword_5d4594_371692 = 0;
 uint32_t dword_5d4594_3798832 = 0;
 uint32_t dword_5d4594_1197320 = 0;

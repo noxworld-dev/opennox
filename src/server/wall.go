@@ -303,6 +303,28 @@ func (s *serverWalls) DeleteAtGrid(pos image.Point) {
 	s.freeList = wl
 }
 
+type WallDef struct {
+	Field0     [32]byte     // 0, 0
+	Field32    uint32       // 8, 32
+	Field36    uint16       // 9, 36
+	Field38    uint16       // 9, 38
+	Field40    byte         // 10, 40
+	Field41    byte         // 10, 41
+	Field42    byte         // 10, 42
+	Field43    [512]byte    // 10, 43
+	Field555   [64]byte     // 138, 555
+	Field619   [64]byte     // 154, 619
+	Field683   [64]byte     // 170, 683
+	Field747   byte         // 186, 747
+	Field748   byte         // 187, 748
+	Field749   byte         // 187, 749
+	Field750   byte         // 187, 750
+	Field751   byte         // 187, 751
+	Field752   [1920]uint32 // 188, 752
+	Sprite8432 [960]uint32  // 2108, 8432
+	Field12272 [60]byte     // 3068, 12272
+}
+
 type WallFlags byte
 
 func (f WallFlags) Has(f2 WallFlags) bool {
