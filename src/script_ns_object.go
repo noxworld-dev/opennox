@@ -698,7 +698,7 @@ func (obj nsObj) SetColor(ind int, cl color.Color) {
 
 func (obj nsObj) ZombieStayDown() {
 	if obj.Class().Has(object.ClassMonster) {
-		obj.UpdateDataMonster().Flags360 |= 0x100000
+		obj.UpdateDataMonster().StatusFlags |= 0x100000
 	}
 }
 
