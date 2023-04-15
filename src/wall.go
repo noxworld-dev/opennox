@@ -11,7 +11,13 @@ import (
 	"github.com/noxworld-dev/opennox-lib/wall"
 
 	"github.com/noxworld-dev/opennox/v1/legacy"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
+)
+
+var (
+	dword_5D4594_251544 []unsafe.Pointer
+	dword_5d4594_251556 []unsafe.Pointer
 )
 
 func asWall(p unsafe.Pointer) *Wall {
@@ -24,6 +30,79 @@ func nox_server_getWallAtGrid_410580(x, y int) unsafe.Pointer {
 
 func nox_xxx_wall_4105E0(x, y int) unsafe.Pointer {
 	return noxServer.getWallAtGrid2(image.Pt(x, y)).C()
+}
+
+func allocWalls() int {
+	dword_5D4594_251544, _ = alloc.Make([]unsafe.Pointer{}, 32*256)
+	if dword_5D4594_251544 == nil {
+		return 0
+	}
+	legacy.Set_dword_5D4594_251544(unsafe.Pointer(&dword_5D4594_251544[0]))
+
+	dword_5d4594_251556, _ = alloc.Make([]unsafe.Pointer{}, 256)
+	if dword_5d4594_251556 == nil {
+		return 0
+	}
+	legacy.Set_dword_5d4594_251556(unsafe.Pointer(&dword_5d4594_251556[0]))
+	legacy.Set_dword_5d4594_251552(0)
+	for i := 0; i < 32*256; i++ {
+		ptr, _ := alloc.Malloc(36)
+		if ptr == nil {
+			return 0
+		}
+		*(*unsafe.Pointer)(unsafe.Add(ptr, 20)) = legacy.Get_dword_5d4594_251548()
+		legacy.Set_dword_5d4594_251548(ptr)
+	}
+	nox_xxx_wall_410160()
+	return 1
+}
+
+func nox_xxx_wall_410160() {
+	for i := 0; i < 32*256; i++ {
+		ptr := dword_5D4594_251544[i]
+		if ptr == nil {
+			dword_5D4594_251544[i] = nil
+			continue
+		}
+
+		var next unsafe.Pointer
+		prev := legacy.Get_dword_5d4594_251548()
+		for it := ptr; it != nil; it = next {
+			next = *(*unsafe.Pointer)(unsafe.Add(it, 16))
+			*(*unsafe.Pointer)(unsafe.Add(it, 20)) = prev
+			legacy.Set_dword_5d4594_251548(it)
+			prev = it
+		}
+		dword_5D4594_251544[i] = nil
+	}
+	legacy.Set_dword_5d4594_251552(0)
+	for i := 0; i < 256; i++ {
+		dword_5d4594_251556[i] = nil
+	}
+}
+
+func freeWalls() {
+	for i := 0; i < 32*256; i++ {
+		var next unsafe.Pointer
+		for ptr := dword_5D4594_251544[i]; ptr != nil; ptr = next {
+			next = *(*unsafe.Pointer)(unsafe.Add(ptr, 16))
+			alloc.FreePtr(ptr)
+		}
+	}
+	var next unsafe.Pointer
+	for ptr := legacy.Get_dword_5d4594_251548(); ptr != nil; ptr = next {
+		next = *(*unsafe.Pointer)(unsafe.Add(ptr, 20))
+		alloc.FreePtr(ptr)
+	}
+	legacy.Set_dword_5d4594_251548(nil)
+
+	alloc.FreeSlice(dword_5D4594_251544)
+	dword_5D4594_251544 = nil
+	legacy.Set_dword_5D4594_251544(nil)
+
+	alloc.FreeSlice(dword_5d4594_251556)
+	dword_5d4594_251556 = nil
+	legacy.Set_dword_5d4594_251556(nil)
 }
 
 func (s *Server) nox_xxx_wallTileByName_410D60(name string) byte {
