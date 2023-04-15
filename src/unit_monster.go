@@ -18,27 +18,27 @@ func objectMonsterInit(sobj *server.Object) {
 	ud := obj.UpdateDataMonster()
 	if !obj.Flags().HasAny(object.FlagDead | object.FlagDestroyed) {
 		switch int(obj.TypeInd) {
-		case s.CarnivorousPlantID():
+		case s.Types.CarnivorousPlantID():
 			obj.clearActionStack()
 			ud.Field328 = float32(float64(*(*float32)(unsafe.Add(ud.Field121, 112))+obj.Shape.Circle.R) + 10.0)
 			ud.AIAction340 = uint32(ai.ACTION_GUARD)
-		case s.RatID():
+		case s.Types.RatID():
 			obj.clearActionStack()
 			obj.monsterPushAction(ai.ACTION_RANDOM_WALK)
 			ud.Aggression = 0.16
 			ud.AIAction340 = uint32(ai.ACTION_INVALID)
-		case s.FishSmallID(), s.FishBigID():
+		case s.Types.FishSmallID(), s.Types.FishBigID():
 			obj.clearActionStack()
 			obj.monsterPushAction(ai.ACTION_ROAM, 0, 0, 0xff)
 			ud.Aggression = 0.16
 			ud.AIAction340 = uint32(ai.ACTION_INVALID)
-		case s.GreenFrogID():
+		case s.Types.GreenFrogID():
 			obj.clearActionStack()
 			obj.monsterPushAction(ai.ACTION_IDLE)
 			ud.Aggression = 0.16
 			ud.AIAction340 = uint32(ai.ACTION_INVALID)
 			ud.Flags360 |= 0x100
-		case s.NPCID():
+		case s.Types.NPCID():
 			for i := 0; i < 6; i++ {
 				cl := s.Rand.RandomColor3()
 				nox_xxx_setNPCColor_4E4A90(obj.SObj(), byte(i), &cl)

@@ -17,15 +17,10 @@ import (
 )
 
 var (
-	Nox_xxx_unitDefGetCount_4E3AC0      func() int
-	Nox_xxx_newObjectWithTypeInd_4E3450 func(ind int) *server.Object
-	Nox_xxx_objectTypeByIndHealthData   func(ind int) unsafe.Pointer
-	Sub_4E4C50                          func(cobj *server.Object) int
-	Sub_4F40A0                          func(a1 *server.Object) int8
-	Sub_4E4C90                          func(a1 *server.Object, a2 uint) bool
-	Sub_4E3B80                          func(ind int) bool
-	Sub415A30                           func(a1 string) *server.ObjectType
-	Sub415EC0                           func(id string) *server.ObjectType
+	Sub_4E4C90 func(a1 *server.Object, a2 uint) bool
+	Sub_4E3B80 func(ind int) bool
+	Sub415A30  func(a1 string) *server.ObjectType
+	Sub415EC0  func(id string) *server.ObjectType
 )
 
 func init() {
@@ -57,35 +52,50 @@ func init() {
 }
 
 //export nox_xxx_unitDefGetCount_4E3AC0
-func nox_xxx_unitDefGetCount_4E3AC0() int { return Nox_xxx_unitDefGetCount_4E3AC0() }
+func nox_xxx_unitDefGetCount_4E3AC0() int { return GetServer().S().Types.Count() }
 
 //export nox_xxx_newObjectWithTypeInd_4E3450
 func nox_xxx_newObjectWithTypeInd_4E3450(ind int) *nox_object_t {
-	return asObjectC(Nox_xxx_newObjectWithTypeInd_4E3450(ind))
+	s := GetServer().S()
+	return asObjectC(s.Objs.NewObject(s.Types.ByInd(ind)))
 }
 
 //export nox_xxx_objectTypeByIndHealthData
 func nox_xxx_objectTypeByIndHealthData(ind int) unsafe.Pointer {
-	return Nox_xxx_objectTypeByIndHealthData(ind)
+	t := GetServer().S().Types.ByInd(ind)
+	if t == nil {
+		return nil
+	}
+	return t.Health().C()
 }
 
 //export sub_4E4C50
-func sub_4E4C50(cobj *nox_object_t) int { return Sub_4E4C50(asObjectS(cobj)) }
+func sub_4E4C50(cobj *nox_object_t) int {
+	item := asObjectS(cobj)
+	if item == nil {
+		return 0
+	}
+	typ := GetServer().S().Types.ByInd(int(item.TypeInd))
+	if typ == nil {
+		return 0
+	}
+	return int(typ.InitDataSize)
+}
 
 //export sub_4F40A0
-func sub_4F40A0(a1 *nox_object_t) C.char { return C.char(Sub_4F40A0(asObjectS(a1))) }
+func sub_4F40A0(a1 *nox_object_t) C.char { return C.char(GetServer().S().Sub_4F40A0(asObjectS(a1))) }
 
 //export sub_4E4C90
 func sub_4E4C90(a1 *nox_object_t, a2 uint) int { return bool2int(Sub_4E4C90(asObjectS(a1), a2)) }
 
 //export nox_xxx_getUnitDefDd10_4E3BA0
 func nox_xxx_getUnitDefDd10_4E3BA0(ind int) int {
-	return bool2int(GetServer().S().ObjectTypeByInd(ind).Allowed())
+	return bool2int(GetServer().S().Types.ByInd(ind).Allowed())
 }
 
 //export nox_xxx_getUnitName_4E39D0
 func nox_xxx_getUnitName_4E39D0(cobj *nox_object_t) *C.char {
-	return internCStr(GetServer().S().ObjectTypeByInd(int(asObjectS(cobj).TypeInd)).ID())
+	return internCStr(GetServer().S().Types.ByInd(int(asObjectS(cobj).TypeInd)).ID())
 }
 
 //export sub_4E3B80
@@ -96,12 +106,12 @@ func nox_xxx_getUnitNameByThingType_4E3A80(ind int) *C.char {
 	if ind == 0 {
 		return nil
 	}
-	return internCStr(GetServer().S().ObjectTypeByInd(ind).ID())
+	return internCStr(GetServer().S().Types.ByInd(ind).ID())
 }
 
 //export nox_objectTypeGetXfer
 func nox_objectTypeGetXfer(cstr *C.char) unsafe.Pointer {
-	t := GetServer().S().ObjectTypeByID(GoString(cstr))
+	t := GetServer().S().Types.ByID(GoString(cstr))
 	if t == nil {
 		return nil
 	}
@@ -110,7 +120,7 @@ func nox_objectTypeGetXfer(cstr *C.char) unsafe.Pointer {
 
 //export nox_objectTypeGetWorth
 func nox_objectTypeGetWorth(cstr *C.char) int {
-	t := GetServer().S().ObjectTypeByID(GoString(cstr))
+	t := GetServer().S().Types.ByID(GoString(cstr))
 	if t == nil {
 		return -1
 	}
@@ -128,7 +138,7 @@ func nox_xxx_newObjectByTypeID_4E3810(cstr *C.char) *nox_object_t {
 
 //export nox_xxx_getNameId_4E3AA0
 func nox_xxx_getNameId_4E3AA0(cstr *C.char) int {
-	return GetServer().S().ObjectTypeID(GoString(cstr))
+	return GetServer().S().Types.IndByID(GoString(cstr))
 }
 
 //export sub_415A30

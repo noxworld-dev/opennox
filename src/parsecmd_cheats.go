@@ -423,7 +423,7 @@ func noxCheatSpawn(ctx context.Context, c *console.Console, tokens []string) boo
 		}
 	case 1:
 	}
-	typ := s.ObjectTypeByID(tokens[0])
+	typ := s.Types.ByID(tokens[0])
 	if typ == nil {
 		c.Printf(console.ColorLightRed, "unknown object: %q", tokens[0])
 		return true

@@ -12,6 +12,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/things"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
@@ -231,80 +232,100 @@ type serverObjTypes struct {
 		bomber    int
 		glyph     int
 		silverKey int
+		gold      int
+		goldPile  int
+		goldChest int
+		pixie     int
 	}
 }
 
-func (s *serverObjTypes) Init() {
+func (s *serverObjTypes) init() {
 	s.dropSoundTable = make(map[uint16]sound.ID)
 	s.pickupSoundTable = make(map[uint16]sound.ID)
 	s.playerAnimFrames = make([][2]int, len(playerAnimTypes))
 }
 
-func (s *Server) cacheObjectTypeID(vr *int, id string) int {
+func (s *serverObjTypes) cacheObjectTypeID(vr *int, id string) int {
 	if *vr == 0 {
-		*vr = s.ObjectTypeID(id)
+		*vr = s.IndByID(id)
 	}
 	return *vr
 }
 
-func (s *Server) NPCID() int {
-	return s.cacheObjectTypeID(&s.types.fast.npc, "NPC")
+func (s *serverObjTypes) NPCID() int {
+	return s.cacheObjectTypeID(&s.fast.npc, "NPC")
 }
 
-func (s *Server) MimicID() int {
-	return s.cacheObjectTypeID(&s.types.fast.mimic, "Mimic")
+func (s *serverObjTypes) MimicID() int {
+	return s.cacheObjectTypeID(&s.fast.mimic, "Mimic")
 }
 
-func (s *Server) CarnivorousPlantID() int {
-	return s.cacheObjectTypeID(&s.types.fast.plant, "CarnivorousPlant")
+func (s *serverObjTypes) CarnivorousPlantID() int {
+	return s.cacheObjectTypeID(&s.fast.plant, "CarnivorousPlant")
 }
 
-func (s *Server) PolypID() int {
-	return s.cacheObjectTypeID(&s.types.fast.polyp, "Polyp")
+func (s *serverObjTypes) PolypID() int {
+	return s.cacheObjectTypeID(&s.fast.polyp, "Polyp")
 }
 
-func (s *Server) WillOWispID() int {
-	return s.cacheObjectTypeID(&s.types.fast.wisp, "WillOWisp")
+func (s *serverObjTypes) WillOWispID() int {
+	return s.cacheObjectTypeID(&s.fast.wisp, "WillOWisp")
 }
 
-func (s *Server) FishSmallID() int {
-	return s.cacheObjectTypeID(&s.types.fast.fishSmall, "FishSmall")
+func (s *serverObjTypes) FishSmallID() int {
+	return s.cacheObjectTypeID(&s.fast.fishSmall, "FishSmall")
 }
 
-func (s *Server) FishBigID() int {
-	return s.cacheObjectTypeID(&s.types.fast.fishBig, "FishBig")
+func (s *serverObjTypes) FishBigID() int {
+	return s.cacheObjectTypeID(&s.fast.fishBig, "FishBig")
 }
 
-func (s *Server) RatID() int {
-	return s.cacheObjectTypeID(&s.types.fast.rat, "Rat")
+func (s *serverObjTypes) RatID() int {
+	return s.cacheObjectTypeID(&s.fast.rat, "Rat")
 }
 
-func (s *Server) GreenFrogID() int {
-	return s.cacheObjectTypeID(&s.types.fast.frog, "GreenFrog")
+func (s *serverObjTypes) GreenFrogID() int {
+	return s.cacheObjectTypeID(&s.fast.frog, "GreenFrog")
 }
 
-func (s *Server) GameBallID() int {
-	return s.cacheObjectTypeID(&s.types.fast.ball, "GameBall")
+func (s *serverObjTypes) GameBallID() int {
+	return s.cacheObjectTypeID(&s.fast.ball, "GameBall")
 }
 
-func (s *Server) CrownID() int {
-	return s.cacheObjectTypeID(&s.types.fast.crown, "Crown")
+func (s *serverObjTypes) CrownID() int {
+	return s.cacheObjectTypeID(&s.fast.crown, "Crown")
 }
 
-func (s *Server) BomberID() int {
-	return s.cacheObjectTypeID(&s.types.fast.bomber, "Bomber")
+func (s *serverObjTypes) BomberID() int {
+	return s.cacheObjectTypeID(&s.fast.bomber, "Bomber")
 }
 
-func (s *Server) GlyphID() int {
-	return s.cacheObjectTypeID(&s.types.fast.glyph, "Glyph")
+func (s *serverObjTypes) GlyphID() int {
+	return s.cacheObjectTypeID(&s.fast.glyph, "Glyph")
 }
 
-func (s *Server) SilverKeyID() int {
-	return s.cacheObjectTypeID(&s.types.fast.silverKey, "SilverKey")
+func (s *serverObjTypes) SilverKeyID() int {
+	return s.cacheObjectTypeID(&s.fast.silverKey, "SilverKey")
+}
+
+func (s *serverObjTypes) GoldID() int {
+	return s.cacheObjectTypeID(&s.fast.gold, "Gold")
+}
+
+func (s *serverObjTypes) GoldPileID() int {
+	return s.cacheObjectTypeID(&s.fast.goldPile, "QuestGoldPile")
+}
+
+func (s *serverObjTypes) GoldChestID() int {
+	return s.cacheObjectTypeID(&s.fast.goldChest, "QuestGoldChest")
+}
+
+func (s *serverObjTypes) PixieID() int {
+	return s.cacheObjectTypeID(&s.fast.pixie, "Pixie")
 }
 
 func (s *Server) ReadObjectType(thg *things.Thing) error {
-	return s.types.readType(thg)
+	return s.Types.readType(thg)
 }
 
 func (s *serverObjTypes) readType(thg *things.Thing) error {
@@ -496,7 +517,7 @@ func (s *serverObjTypes) readType(thg *things.Thing) error {
 }
 
 func (s *Server) FreeObjectTypes() {
-	s.types.Free()
+	s.Types.Free()
 }
 
 func (s *serverObjTypes) Free() {
@@ -545,31 +566,31 @@ func (s *serverObjTypes) Free() {
 	s.crc = 0
 }
 
-func (s *Server) ObjectTypeByInd(ind int) *ObjectType {
+func (s *serverObjTypes) ByInd(ind int) *ObjectType {
 	if ind == math.MaxUint16 {
 		return nil
 	}
-	if ind < 0 || ind >= len(s.types.byInd) {
+	if ind < 0 || ind >= len(s.byInd) {
 		return nil
 	}
-	return s.types.byInd[ind]
+	return s.byInd[ind]
 }
 
-func (s *Server) ObjectTypeByID(id string) *ObjectType {
+func (s *serverObjTypes) ByID(id string) *ObjectType {
 	id = strings.ToLower(id)
-	return s.types.byID[id]
+	return s.byID[id]
 }
 
-func (s *Server) ObjectTypeID(id string) int {
-	typ := s.ObjectTypeByID(id)
+func (s *serverObjTypes) IndByID(id string) int {
+	typ := s.ByID(id)
 	if typ == nil {
 		return 0
 	}
 	return typ.Ind()
 }
 
-func (s *Server) ObjectTypes() (out []*ObjectType) {
-	for _, typ := range s.types.byInd {
+func (s *serverObjTypes) List() (out []*ObjectType) {
+	for _, typ := range s.byInd {
 		if typ == nil {
 			continue
 		}
@@ -578,8 +599,8 @@ func (s *Server) ObjectTypes() (out []*ObjectType) {
 	return
 }
 
-func (s *Server) ObjectTypesCount() int {
-	return len(s.types.byInd)
+func (s *serverObjTypes) Count() int {
+	return len(s.byInd)
 }
 
 func (s *serverObjTypes) disableObject(typ *ObjectType) {
@@ -628,7 +649,7 @@ func (s *serverObjTypes) protectType(typ *ObjectType) uint32 {
 }
 
 func (s *Server) ProtectTypeCheck() {
-	s.types.protectTypeCheck()
+	s.Types.protectTypeCheck()
 }
 
 func (s *serverObjTypes) protectTypeCheck() {
@@ -673,7 +694,41 @@ func (s *serverObjTypes) checkTypes() error {
 }
 
 func (s *Server) CheckTypes() error {
-	return s.types.checkTypes()
+	return s.Types.checkTypes()
+}
+
+func (s *Server) Sub_4F40A0(obj *Object) int8 {
+	if obj == nil {
+		return 0
+	}
+	if obj.ID() != "" {
+		return -1
+	}
+	if obj.InvFirstItem != nil {
+		return -1
+	}
+	if obj.Field129 != nil {
+		return -1
+	}
+	if byte(obj.Field13) != 0 {
+		return -1
+	}
+	typ := s.Types.ByInd(int(obj.TypeInd))
+	if (obj.Flags()^typ.Flags())&0x11408162 != 0 {
+		return -1
+	}
+	if (byte(obj.Field5)^byte(typ.Field9))&0x5E != 0 {
+		return -1
+	}
+	if noxflags.HasGame(noxflags.GameFlag22 | noxflags.GameFlag23) {
+		v3 := alloc.GoString((*byte)(obj.Field189))
+		if v3 != "" {
+			return -1
+		}
+	} else if noxflags.HasGame(noxflags.GameHost) && obj.Field192 != -1 {
+		return -1
+	}
+	return 0
 }
 
 type ShapeKind uint32
@@ -1049,7 +1104,7 @@ func (t *ObjectType) parseDrop(d *things.ProcFunc) error {
 }
 
 func (s *Server) DropSound(ind uint16) sound.ID {
-	return s.types.dropSoundTable[ind]
+	return s.Types.dropSoundTable[ind]
 }
 
 func (t *ObjectType) parsePickup(d *things.ProcFunc) error {
@@ -1071,7 +1126,7 @@ func (t *ObjectType) parsePickup(d *things.ProcFunc) error {
 }
 
 func (s *Server) PickupSound(ind uint16) sound.ID {
-	return s.types.pickupSoundTable[ind]
+	return s.Types.pickupSoundTable[ind]
 }
 
 func (t *ObjectType) parseXfer(d *things.ProcFunc) error {
@@ -1141,10 +1196,10 @@ func (t *ObjectType) parseDraw(d things.Draw) error {
 }
 
 func (s *Server) PlayerAnimFrames(i int) (_, _ int) {
-	if i < 0 || i >= len(s.types.playerAnimFrames) {
+	if i < 0 || i >= len(s.Types.playerAnimFrames) {
 		return 0, 0
 	}
-	v := s.types.playerAnimFrames[i]
+	v := s.Types.playerAnimFrames[i]
 	return v[0], v[1]
 }
 

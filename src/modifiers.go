@@ -49,7 +49,7 @@ func nox_xxx_equipWeapon_4131A0() {
 		for it := noxServer.Modif.Dword_5d4594_251600; it != nil; it = it.Next80 {
 			var ind int
 			if noxflags.HasGame(noxflags.GameHost | noxflags.GameFlag22) {
-				ind = noxServer.ObjectTypeID(it.Name())
+				ind = noxServer.Types.IndByID(it.Name())
 			} else {
 				if !noxflags.HasGame(noxflags.GameClient) {
 					return
@@ -61,7 +61,7 @@ func nox_xxx_equipWeapon_4131A0() {
 		for j := noxServer.Modif.Dword_5d4594_251608; j != nil; j = j.Next80 {
 			var ind int
 			if noxflags.HasGame(noxflags.GameHost | noxflags.GameFlag22) {
-				ind = noxServer.ObjectTypeID(j.Name())
+				ind = noxServer.Types.IndByID(j.Name())
 			} else {
 				if !noxflags.HasGame(noxflags.GameClient) {
 					return

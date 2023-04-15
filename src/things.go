@@ -261,17 +261,18 @@ func (s *Server) nox_read_things_alternative_4E2B60() error {
 }
 
 func sub_42BF10() {
+	c := noxClient
 	if objectTypeCode16ByInd != nil {
 		return
 	}
 	var sz int
 	if noxflags.HasGame(noxflags.GameHost | noxflags.GameFlag22) {
-		sz = nox_xxx_unitDefGetCount_4E3AC0()
+		sz = c.srv.Types.Count()
 	} else {
 		if !noxflags.HasGame(noxflags.GameClient) {
 			return
 		}
-		sz = noxClient.Things.TypesCnt()
+		sz = c.Things.TypesCnt()
 	}
 	objectTypeCode16ByInd = make([]uint16, sz)
 	objectTypeCode16ByInd_len = 0
@@ -429,9 +430,9 @@ func checkTypesMonsterGen(obj *Object, checkInd func(uint162 uint16)) {
 
 func sub_4E3AD0(ind int) int {
 	if memmap.Uint32(0x5D4594, 1563904) == 0 {
-		*memmap.PtrUint32(0x5D4594, 1563904) = uint32(noxServer.ObjectTypeID("Pixie"))
+		*memmap.PtrUint32(0x5D4594, 1563904) = uint32(noxServer.Types.PixieID())
 	}
-	typ := noxServer.ObjectTypeByInd(ind)
+	typ := noxServer.Types.ByInd(ind)
 	if cl := typ.Class(); !cl.Has(object.ClassMissile) && cl.Has(object.ClassImmobile) && !cl.Has(object.ClassVisibleEnable) {
 		if f := typ.Flags(); f.Has(object.FlagNoCollide) && !f.Has(object.FlagShadow) {
 			return 0

@@ -35,7 +35,7 @@ func (s *Server) PlayersHaveSilverKey() bool {
 		}
 		cnt := 0
 		for it := u.FirstItem(); it != nil; it = it.NextItem() {
-			if int(it.TypeInd) == s.SilverKeyID() {
+			if int(it.TypeInd) == s.Types.SilverKeyID() {
 				cnt++
 			}
 		}
@@ -47,7 +47,7 @@ func (s *Server) PlayersHaveSilverKey() bool {
 		return false
 	}
 	for it := found.FirstItem(); it != nil; it = it.NextItem() {
-		if int(it.TypeInd) == s.SilverKeyID() {
+		if int(it.TypeInd) == s.Types.SilverKeyID() {
 			return true
 		}
 	}
@@ -67,7 +67,7 @@ func (s *Server) DoorCheckKey(u, door *Object) bool {
 		if !it.Class().Has(object.ClassKey) {
 			continue
 		}
-		tname := s.ObjectTypeByInd(int(it.TypeInd)).ID()
+		tname := s.Types.ByInd(int(it.TypeInd)).ID()
 		exp := ""
 		switch *(*uint8)(unsafe.Add(ud2, 1)) {
 		case 1:

@@ -72,6 +72,7 @@ func NewServer(pr console.Printer, sm *strman.StringManager) *Server {
 	s.ai.Init(s)
 	s.noxScript.Init(s)
 	s.mapSend.init(s)
+	s.Objs.XFerInvLight = legacy.Get_nox_xxx_XFerInvLight_4F5AA0()
 	return s
 }
 
@@ -671,7 +672,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 	legacy.Set_nox_xxx_host_player_unit_3843628(nil)
 	legacy.Sub_4D7B40()
 	legacy.Sub_41E4B0(0)
-	s.ResetObjectScriptIDs()
+	s.Objs.ResetObjectScriptIDs()
 	legacy.Sub_56F1C0()
 	s.Players.ResetAll()
 	netlist.ResetAll()

@@ -254,7 +254,7 @@ func (s *noxScript) ReadScript(r io.Reader) error {
 
 func sub_511E60() {
 	if legacy.Get_dword_5d4594_2386836() == 0 {
-		legacy.Set_dword_5d4594_2386836(noxServer.ObjectTypeID("Mover"))
+		legacy.Set_dword_5d4594_2386836(noxServer.Types.IndByID("Mover"))
 	}
 	noxServer.noxScript.Reset()
 	noxServer.Activators.CancelAll()
@@ -704,7 +704,7 @@ func sub5165D0(which int) {
 
 func (s *Server) CinemaPlayers(enable bool) {
 	if nox_script_objTelekinesisHand == 0 {
-		nox_script_objTelekinesisHand = s.ObjectTypeID("TelekinesisHand")
+		nox_script_objTelekinesisHand = s.Types.IndByID("TelekinesisHand")
 	}
 	const (
 		perc       = 0.16
@@ -735,7 +735,7 @@ func (s *Server) CinemaPlayers(enable bool) {
 		for _, name := range []string{
 			"ToxicCloud", "SmallToxicCloud", "Meteor", "SmallFist", "MediumFist", "LargeFist", "Pixie",
 		} {
-			nox_script_objCinemaRemove = append(nox_script_objCinemaRemove, s.ObjectTypeID(name))
+			nox_script_objCinemaRemove = append(nox_script_objCinemaRemove, s.Types.IndByID(name))
 		}
 	}
 

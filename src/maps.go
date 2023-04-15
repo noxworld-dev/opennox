@@ -377,12 +377,12 @@ func nox_server_mapRWObjectData_504CF0_Read(cf *cryptfile.CryptFile, a2 unsafe.P
 	for {
 		_, _ = cf.ReadAlignedU32()
 		typInd := nox_xxx_objectTOCgetTT(v12)
-		typ := s.ObjectTypeByInd(typInd)
+		typ := s.Types.ByInd(typInd)
 		if typ == nil {
 			cf.Close()
 			return fmt.Errorf("cannot find object with type: %d", typInd)
 		}
-		obj := s.NewObject(typ)
+		obj := s.Objs.NewObject(typ)
 		var v9a2 unsafe.Pointer
 		if a2 != nil {
 			v9a2 = v16

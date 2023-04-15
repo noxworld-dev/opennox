@@ -299,9 +299,9 @@ func (s *Server) attachPending() {
 func (s *Server) CreateObjectAt(a11 server.Obj, owner server.Obj, pos types.Pointf) {
 	obj := toObject(a11)
 	if memmap.Uint32(0x5D4594, 1556864) == 0 {
-		*memmap.PtrUint32(0x5D4594, 1556864) = uint32(s.ObjectTypeID("Gold"))
-		*memmap.PtrUint32(0x5D4594, 1556868) = uint32(s.ObjectTypeID("QuestGoldPile"))
-		*memmap.PtrUint32(0x5D4594, 1556872) = uint32(s.ObjectTypeID("QuestGoldChest"))
+		*memmap.PtrUint32(0x5D4594, 1556864) = uint32(s.Types.GoldID())
+		*memmap.PtrUint32(0x5D4594, 1556868) = uint32(s.Types.GoldPileID())
+		*memmap.PtrUint32(0x5D4594, 1556872) = uint32(s.Types.GoldChestID())
 	}
 	if obj.Flags().HasAny(object.FlagActive | object.FlagDestroyed) {
 		return
@@ -311,7 +311,7 @@ func (s *Server) CreateObjectAt(a11 server.Obj, owner server.Obj, pos types.Poin
 	obj.PosVec = pos
 	obj.NewPos = pos
 	obj.Pos39 = pos
-	nox_xxx_objectUnkUpdateCoords_4E7290(obj)
+	obj.SObj().Nox_xxx_objectUnkUpdateCoords_4E7290()
 	if obj.Class().HasAny(object.MaskUnits) {
 		legacy.Nox_xxx_unitPostCreateNotify_4E7F10(obj.SObj())
 	}
@@ -660,7 +660,7 @@ func (obj *Object) ObjectTypeC() *server.ObjectType {
 	if obj == nil {
 		return nil
 	}
-	return obj.getServer().ObjectTypeByInd(int(obj.TypeInd))
+	return obj.getServer().Types.ByInd(int(obj.TypeInd))
 }
 
 func (obj *Object) ObjectType() script.ObjectType {
@@ -898,7 +898,7 @@ func (obj *Object) isEnemyTo(objp server.Obj) bool { // nox_xxx_unitIsEnemyTo_53
 			return false
 		}
 	}
-	if obj.Class().HasAny(object.ClassPlayer) && int(obj2.TypeInd) == srv.PolypID() {
+	if obj.Class().HasAny(object.ClassPlayer) && int(obj2.TypeInd) == srv.Types.PolypID() {
 		return true
 	}
 	if obj.Class().HasAny(object.ClassPlayer) && obj2.Class().HasAny(object.ClassMonsterGenerator) {
@@ -950,7 +950,7 @@ func (obj *Object) isEnemyTo(objp server.Obj) bool { // nox_xxx_unitIsEnemyTo_53
 	if own1.Class().HasAny(object.ClassMonster) && own2.Class().HasAny(object.ClassMonsterGenerator) {
 		return false
 	}
-	if !noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().HasAny(object.ClassMonster) && int(obj2.TypeInd) == srv.WillOWispID() {
+	if !noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().HasAny(object.ClassMonster) && int(obj2.TypeInd) == srv.Types.WillOWispID() {
 		return nox_xxx_checkMobAction_50A0D0(obj2, ai.ACTION_FIGHT)
 	}
 	if server.Nox_xxx_servObjectHasTeam_419130(own1.TeamPtr()) || server.Nox_xxx_servObjectHasTeam_419130(own2.TeamPtr()) {
@@ -998,7 +998,7 @@ func (obj *Object) isFish() bool {
 		return false
 	}
 	srv := obj.getServer()
-	return int(obj.TypeInd) == srv.FishSmallID() || int(obj.TypeInd) == srv.FishBigID()
+	return int(obj.TypeInd) == srv.Types.FishSmallID() || int(obj.TypeInd) == srv.Types.FishBigID()
 }
 
 func (obj *Object) isRat() bool {
@@ -1006,7 +1006,7 @@ func (obj *Object) isRat() bool {
 		return false
 	}
 	srv := obj.getServer()
-	return int(obj.TypeInd) == srv.RatID()
+	return int(obj.TypeInd) == srv.Types.RatID()
 }
 
 func (obj *Object) isFrog() bool {
@@ -1014,7 +1014,7 @@ func (obj *Object) isFrog() bool {
 		return false
 	}
 	srv := obj.getServer()
-	return int(obj.TypeInd) == srv.GreenFrogID()
+	return int(obj.TypeInd) == srv.Types.GreenFrogID()
 }
 
 func (obj *Object) isPlant() bool {
@@ -1022,7 +1022,7 @@ func (obj *Object) isPlant() bool {
 		return false
 	}
 	srv := obj.getServer()
-	return int(obj.TypeInd) == srv.CarnivorousPlantID()
+	return int(obj.TypeInd) == srv.Types.CarnivorousPlantID()
 }
 
 func (obj *Object) isMimic() bool {
@@ -1030,7 +1030,7 @@ func (obj *Object) isMimic() bool {
 		return false
 	}
 	srv := obj.getServer()
-	return int(obj.TypeInd) == srv.MimicID()
+	return int(obj.TypeInd) == srv.Types.MimicID()
 }
 
 func (obj *Object) FindOwnerChainPlayer() *Object { // nox_xxx_findParentChainPlayer_4EC580
