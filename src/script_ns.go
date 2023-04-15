@@ -46,11 +46,11 @@ func (s noxScriptNS) NewTimer(dt ns4.Duration, fnc ns4.Func, args ...any) ns4.Ti
 }
 
 func (s noxScriptNS) RandomFloat(min float32, max float32) float32 {
-	return float32(noxRndCounter1.FloatClamp(float64(min), float64(max)))
+	return float32(s.s.Rand.Logic.FloatClamp(float64(min), float64(max)))
 }
 
 func (s noxScriptNS) Random(min int, max int) int {
-	return noxRndCounter1.IntClamp(min, max)
+	return s.s.Rand.Logic.IntClamp(min, max)
 }
 
 func (s noxScriptNS) StopScript(val any) {

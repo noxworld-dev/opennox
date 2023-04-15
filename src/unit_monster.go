@@ -12,14 +12,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func randomColor3() server.Color3 {
-	return server.Color3{
-		R: byte(randomIntMinMax(0, 255)),
-		G: byte(randomIntMinMax(0, 255)),
-		B: byte(randomIntMinMax(0, 255)),
-	}
-}
-
 func objectMonsterInit(sobj *server.Object) {
 	obj := asObjectS(sobj)
 	s := obj.getServer()
@@ -48,7 +40,7 @@ func objectMonsterInit(sobj *server.Object) {
 			ud.Flags360 |= 0x100
 		case s.NPCID():
 			for i := 0; i < 6; i++ {
-				cl := randomColor3()
+				cl := s.Rand.RandomColor3()
 				nox_xxx_setNPCColor_4E4A90(obj.SObj(), byte(i), &cl)
 			}
 		}
@@ -87,7 +79,7 @@ func objectMonsterInit(sobj *server.Object) {
 	if obj.SubClass().AsMonster().HasAny(object.MonsterNPC | object.MonsterFemaleNPC) {
 		obj.SpeedBase = float32(1.7 + float64(ud.Field332)*0.5)
 	} else {
-		obj.SpeedBase = float32(float64(obj.SpeedBase) * noxRndCounter1.FloatClamp(0.94999999, 1.05))
+		obj.SpeedBase = float32(float64(obj.SpeedBase) * s.Rand.Logic.FloatClamp(0.94999999, 1.05))
 	}
 	if legacy.Nox_xxx_monsterCanCast_534300(obj.SObj()) {
 		ud.Field339 = 100
@@ -106,7 +98,7 @@ func (obj *Object) monsterCast(spellInd spell.ID, target *server.Object) {
 	obj.monsterPushAction(ai.DEPENDENCY_UNINTERRUPTABLE)
 	sp := s.SpellDefByInd(spellInd)
 	if sp.Def.Flags.Has(things.SpellDuration) {
-		ts := s.Frame() + uint32(noxRndCounter1.IntClamp(int(s.TickRate()/2), int(2*s.TickRate())))
+		ts := s.Frame() + uint32(s.Rand.Logic.IntClamp(int(s.TickRate()/2), int(2*s.TickRate())))
 		obj.monsterPushAction(ai.DEPENDENCY_TIME, ts)
 		obj.monsterPushAction(ai.ACTION_CAST_DURATION_SPELL, uint32(spellInd), 0, target)
 	} else {

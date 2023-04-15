@@ -28,6 +28,7 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 		loopHooks: make(chan func()),
 		port:      common.GamePort,
 	}
+	s.Rand.init(nil)
 	s.types.Init()
 	s.Modif.init(sm)
 	s.Players.init()
@@ -48,6 +49,7 @@ type Server struct {
 	tickHooks  tickHooks
 	loopHooks  chan func()
 
+	Rand      serverRandom
 	types     serverObjTypes
 	Objs      serverObjects
 	Modif     serverModifiers

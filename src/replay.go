@@ -144,7 +144,7 @@ func nox_xxx_replay_4D3860(pi *PlayerOpts) error {
 }
 
 func nox_xxx_replayWriteRndCounter_415F30(w io.Writer) {
-	i := noxRndCounter1.Index()
+	i := noxServer.Rand.Logic.Index()
 	var buf [4]byte
 	binary.LittleEndian.PutUint32(buf[:], uint32(i))
 	w.Write(buf[:])
@@ -154,7 +154,7 @@ func nox_xxx_replayReadeRndCounter_415F50(r io.Reader) {
 	var buf [4]byte
 	r.Read(buf[:])
 	i := int(binary.LittleEndian.Uint32(buf[:]))
-	noxRndCounter1.Reset(i)
+	noxServer.Rand.Logic.Reset(i)
 }
 
 func (s *Server) nox_xxx_replayStartReadingOrSaving_4D38D0() error {
