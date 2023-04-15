@@ -123,9 +123,6 @@ extern uint32_t nox_color_yellow_2589772;
 extern uint32_t nox_color_violet_2598268;
 extern uint32_t nox_color_black_2650656;
 
-extern uint32_t nox_wall_def_cnt;
-extern nox_wallDef_t nox_wall_defs_arr[80];
-
 nox_window* nox_win_unk5 = 0;
 nox_window* dword_5d4594_1062452 = 0;
 
@@ -3104,217 +3101,6 @@ char* nox_xxx_getAmbientColor_469BB0() { return (char*)getMemAt(0x587000, 142296
 //----- (00469FA0) --------------------------------------------------------
 int sub_469FA0() { return *getMemU32Ptr(0x5D4594, 1064848); }
 
-//----- (00469FB0) --------------------------------------------------------
-int sub_469FB0(const char* a1) {
-	int v1;          // ebp
-	const char** v2; // edi
-
-	v1 = 0;
-	v2 = (const char**)getMemAt(0x587000, 142868);
-	while (strcmp(*v2, a1)) {
-		++v2;
-		++v1;
-		if ((int)v2 >= (int)getMemAt(0x587000, 142928)) {
-			return -1;
-		}
-	}
-	return v1;
-}
-
-//----- (0046A010) --------------------------------------------------------
-int nox_thing_read_wall_46A010(nox_memfile* f, char* a2) {
-	uint32_t* a1 = f;
-	uint32_t* v2;       // esi
-	char* v3;           // ebx
-	unsigned char* v4;  // edx
-	int v8;             // ebp
-	unsigned char* v9;  // eax
-	unsigned char* v10; // eax
-	unsigned char* v11; // eax
-	unsigned char* v12; // eax
-	int v13;            // ebp
-	int v14;            // edi
-	unsigned char* v15; // ebp
-	int* v16;           // eax
-	int v17;            // ecx
-	int* v18;           // eax
-	int v19;            // ecx
-	int* v20;           // eax
-	int v21;            // ecx
-	char* v22;          // eax
-	char v23;           // cl
-	int v24;            // edi
-	char* v25;          // eax
-	unsigned char* v26; // ecx
-	bool v27;           // zf
-	int* v28;           // eax
-	int v29;            // ecx
-	uint32_t* v30;      // [esp-4h] [ebp-40h]
-	int v31;            // [esp+10h] [ebp-2Ch]
-	unsigned char* v32; // [esp+14h] [ebp-28h]
-	int v33;            // [esp+18h] [ebp-24h]
-	int v34;            // [esp+1Ch] [ebp-20h]
-	int v35;            // [esp+20h] [ebp-1Ch]
-	int v36;            // [esp+24h] [ebp-18h]
-	int v37;            // [esp+28h] [ebp-14h]
-	int v38;            // [esp+2Ch] [ebp-10h]
-	int v39;            // [esp+30h] [ebp-Ch]
-	int v40;            // [esp+34h] [ebp-8h]
-	const char* v41;    // [esp+38h] [ebp-4h]
-	unsigned char v42;  // [esp+40h] [ebp+4h]
-	unsigned char v43;  // [esp+40h] [ebp+4h]
-	unsigned char v44;  // [esp+40h] [ebp+4h]
-	unsigned char v45;  // [esp+40h] [ebp+4h]
-	unsigned char v46;  // [esp+40h] [ebp+4h]
-	const char** v47;   // [esp+40h] [ebp+4h]
-
-	v2 = a1;
-	v3 = a2;
-	v30 = a1;
-	v4 = (unsigned char*)(a1[2] + 4);
-	a1[2] = v4;
-	v42 = *v4;
-	v2[2] = v4 + 1;
-	nox_memfile_read(a2, 1u, v42, (int)v30);
-	a2[v42] = 0;
-	if (nox_wall_def_cnt <= 0) {
-		return 0;
-	}
-	int v49 = -1;
-	for (int i = 0; i < nox_wall_def_cnt; i++) {
-		nox_wallDef_t* p = &nox_wall_defs_arr[i];
-		if (!strcmp(&p->field_0[0], v3)) {
-			v49 = i;
-			break;
-		}
-	}
-	if (v49 == -1) {
-		return 0;
-	}
-	nox_wallDef_t* p = &nox_wall_defs_arr[v49];
-	v38 = 12332 * v49;
-	memset(&p->sprite_8432[0], 0, 4*960);
-	v2[2] += 14;
-	nox_memfile_read64align_40AD60((char*)&v31, 1, 1, v2);
-	v8 = 0;
-	if ((uint8_t)v31) {
-		if (v8 >= 8) {
-			return 0;
-		}
-		while (1) {
-			v9 = (unsigned char*)v2[2];
-			v43 = *v9;
-			v2[2] = v9 + 1;
-			nox_memfile_read(v3, 1u, v43, (int)v2);
-			v3[v43] = 0;
-			if (++v8 >= (unsigned char)v31) {
-				break;
-			}
-			if (v8 >= 8) {
-				return 0;
-			}
-		}
-	}
-	v10 = (unsigned char*)v2[2];
-	v44 = *v10;
-	v2[2] = v10 + 1;
-	nox_memfile_read(v3, 1u, v44, (int)v2);
-	v3[v44] = 0;
-	v11 = (unsigned char*)v2[2];
-	v45 = *v11;
-	v2[2] = v11 + 1;
-	nox_memfile_read(v3, 1u, v45, (int)v2);
-	v3[v45] = 0;
-	v12 = (unsigned char*)v2[2];
-	v46 = *v12;
-	v2[2] = v12 + 1;
-	nox_memfile_read(v3, 1u, v46, (int)v2);
-	v3[v46] = 0;
-	++v2[2];
-	v47 = (const char**)getMemAt(0x587000, 142868);
-	while (1) {
-		v13 = sub_469FB0(*v47);
-		v36 = v13;
-		if (v13 < 0) {
-			break;
-		}
-		nox_memfile_read64align_40AD60((char*)&v35, 1, 1, v2);
-		if ((unsigned char)v35 >= 0x10u) {
-			break;
-		}
-		v14 = 0;
-		v34 = 0;
-		if ((uint8_t)v35) {
-			v37 = 3083 * v49;
-			while (1) {
-				v33 = 4;
-				v32 = &p->sprite_8432[16*v13 + v14];
-				v15 = &p->field_752[2*(16*v13 + v14)+1];
-				do {
-					v16 = (int*)v2[2];
-					v17 = *v16;
-					v2[2] = v16 + 1;
-					*((uint32_t*)v15 - 1) = v17;
-					v18 = (int*)v2[2];
-					v19 = *v18;
-					v2[2] = v18 + 1;
-					*(uint32_t*)v15 = v19;
-					v20 = (int*)v2[2];
-					v21 = *v20;
-					v2[2] = v20 + 1;
-					v40 = v21;
-					*v3 = getMemByte(0x5D4594, 1064852);
-					if (v21 == -1) {
-						v22 = (char*)v2[2];
-						v23 = *v22++;
-						v2[2] = v22;
-						LOBYTE(v41) = v23;
-						LOBYTE(v39) = *v22;
-						v2[2] = v22 + 1;
-						v24 = (unsigned char)v39;
-						nox_memfile_read(v3, (unsigned char)v39, 1, (int)v2);
-						v21 = v40;
-						v3[v24] = 0;
-						v14 = v34;
-					}
-					v25 = nox_xxx_readImgMB_42FAA0(v21, v41, v3);
-					v26 = v32;
-					v15 += 1920;
-					*(uint32_t*)v32 = v25;
-					v27 = v33 == 1;
-					v32 = v26 + 960;
-					--v33;
-				} while (!v27);
-				v34 = ++v14;
-				if (v14 >= (unsigned char)v35) {
-					break;
-				}
-				v13 = v36;
-			}
-		}
-		++v47;
-		if ((int)v47 >= (int)getMemAt(0x587000, 142928)) {
-			v28 = (int*)v2[2];
-			v29 = *v28;
-			v2[2] = v28 + 1;
-			return v29 == 1162757152;
-		}
-	}
-	return 0;
-}
-
-//----- (0046A3B0) --------------------------------------------------------
-int nox_xxx_getWallSprite_46A3B0(int a1, int a2, int a3, int a4) {
-	nox_wallDef_t* p = &nox_wall_defs_arr[a1];
-	return p->sprite_8432[16*(12*a4 + 3*a4 + a2) + a3];
-}
-
-//----- (0046A3F0) --------------------------------------------------------
-char* nox_xxx_getWallDrawOffset_46A3F0(int a1, int a2, int a3, int a4) {
-	nox_wallDef_t* p = &nox_wall_defs_arr[a1];
-	return &p->field_752[2*(16*(12*a4 + 3*a4 + a2) + a3)];
-}
-
 //----- (0046A430) --------------------------------------------------------
 void nox_client_chatStart_46A430(int a1) {
 	if (!nox_common_gameFlags_check_40A5C0(2048)) {
@@ -5898,6 +5684,7 @@ int sub_473A10(uint32_t* a1, int2* a2, uint32_t* a3) {
 }
 
 //----- (00473C10) --------------------------------------------------------
+uint32_t nox_xxx_wallFlags(int i);
 void nox_xxx_drawWalls_473C10(nox_draw_viewport_t* vp, void* data) {
 	uint32_t* a1 = vp;
 	unsigned char* a2 = data;
@@ -6151,7 +5938,7 @@ LABEL_61:
 	v29 = (v27 & 8 | 4u) >> 2;
 LABEL_64:
 	v73 = v29;
-	if (v28 && nox_client_translucentFrontWalls_805844 && !(nox_wall_defs_arr[v3[1]].field_32 & 4)) {
+	if (v28 && nox_client_translucentFrontWalls_805844 && !(nox_xxx_wallFlags(v3[1]) & 4)) {
 		v30 = v72;
 		LOBYTE(v30) = v72 | 2;
 		v72 = v30;

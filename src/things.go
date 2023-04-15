@@ -77,9 +77,13 @@ func nox_xxx_loadAllBinFiles_415470() error {
 	return nil
 }
 
+func loadAllBinFileSectionsResetCounters() {
+	nox_wall_def_cnt = 0
+	legacy.LoadAllBinFileSectionsResetCounters()
+}
+
 func loadAllBinFileSections(thg *binfile.MemFile, buf []byte) error {
 	s := noxServer
-	legacy.LoadAllBinFileSectionsResetCounters()
 	isClient := noxflags.HasGame(noxflags.GameClient)
 	for {
 		sect := thg.ReadU32()
@@ -104,8 +108,8 @@ func loadAllBinFileSections(thg *binfile.MemFile, buf []byte) error {
 				return fmt.Errorf("failed to load AVNT")
 			}
 		case 0x57414C4C: // WALL
-			if legacy.Nox_thing_read_WALL_410900(thg, buf) == 0 {
-				return fmt.Errorf("failed to load walls")
+			if err := nox_thing_read_WALL_410900(thg); err != nil {
+				return err
 			}
 		case 0x464C4F52: // FLOR
 			if legacy.Nox_thing_read_FLOR_411540(thg, buf) == 0 {
@@ -280,7 +284,7 @@ func nox_xxx_parseThingBinClient_44C840_read_things() error {
 	noxClient.Nox_things_free_44C580()
 	legacy.Sub_485CF0()
 	legacy.Sub_485F30()
-	legacy.Sub_46A360()
+	sub_46A360()
 
 	thg, err := openThings()
 	if err != nil {
@@ -305,8 +309,8 @@ func nox_xxx_parseThingBinClient_44C840_read_things() error {
 		case 0x41564E54: // "AVNT"
 			legacy.Nox_thing_skip_AVNT_452B00(thg)
 		case 0x57414C4C: // "WALL"
-			if legacy.Nox_thing_read_wall_46A010(thg, buf) == 0 {
-				return fmt.Errorf("nox_thing_read_wall_46A010 failed")
+			if err := nox_thing_read_wall_46A010(thg, buf); err != nil {
+				return err
 			}
 		case 0x464C4F52: // "FLOR"
 			if legacy.Nox_thing_read_floor_485B30(thg, buf) == 0 {
