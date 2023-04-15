@@ -21,13 +21,10 @@ import (
 
 var (
 	nox_wall_def_cnt  int
-	nox_wall_defs_arr *[80]server.WallDef
+	nox_wall_defs_arr [80]server.WallDef
 )
 
 func nox_thing_read_WALL_410900(f *binfile.MemFile) error {
-	if nox_wall_defs_arr == nil {
-		nox_wall_defs_arr, _ = alloc.New([80]server.WallDef{})
-	}
 	if nox_wall_def_cnt >= cap(nox_wall_defs_arr) {
 		return errors.New("too many wall definitions")
 	}
@@ -64,9 +61,9 @@ func nox_thing_read_WALL_410900(f *binfile.MemFile) error {
 		for jj := 0; jj < int(sz); jj++ {
 			for kk := 0; kk < 4; kk++ {
 				p.Field12272[kk][dir] = uint8(int8(sz))
-				v1 := f.ReadU32()
-				v2 := f.ReadU32()
-				p.Field752[kk][dir][jj] = [2]uint32{v1, v2}
+				v1 := int(f.ReadI32())
+				v2 := int(f.ReadI32())
+				p.Field752[kk][dir][jj] = image.Pt(v1, v2)
 				if f.ReadI32() == -1 {
 					f.Skip(1)
 					f.SkipString8()
@@ -120,9 +117,9 @@ func nox_thing_read_wall_46A010(f *binfile.MemFile, _ []byte) error {
 		}
 		for jj := 0; jj < int(v35); jj++ {
 			for kk := 0; kk < 4; kk++ {
-				v1 := f.ReadU32()
-				v2 := f.ReadU32()
-				p.Field752[kk][dir][jj] = [2]uint32{v1, v2}
+				v1 := int(f.ReadI32())
+				v2 := int(f.ReadI32())
+				p.Field752[kk][dir][jj] = image.Pt(v1, v2)
 				v21 := int(f.ReadI32())
 				var (
 					v41   byte
@@ -168,9 +165,9 @@ func nox_xxx_getWallSprite_46A3B0(ind int, a2 int, a3 int, a4 int) noxrender.Ima
 	p := &nox_wall_defs_arr[ind]
 	return noxrender.ImageHandle(p.Sprite8432[a4][a2][a3])
 }
-func nox_xxx_getWallDrawOffset_46A3F0(ind int, a2 int, a3 int, a4 int) *[2]uint32 {
+func nox_xxx_getWallDrawOffset_46A3F0(ind int, a2 int, a3 int, a4 int) image.Point {
 	p := &nox_wall_defs_arr[ind]
-	return &p.Field752[a4][a2][a3]
+	return p.Field752[a4][a2][a3]
 }
 
 func sub_410D40(ind int) string {
