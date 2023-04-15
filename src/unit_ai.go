@@ -657,7 +657,7 @@ func nox_xxx_unitUpdateMonster_50A5C0(a1 *server.Object) {
 		return
 	}
 	s.ai.stackChanged = false
-	if ud.Field121 == nil {
+	if ud.MonsterDef == nil {
 		return
 	}
 	if !u.Flags().HasAny(object.FlagDead | object.FlagDestroyed) {
