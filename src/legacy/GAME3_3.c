@@ -3358,8 +3358,7 @@ unsigned char* nox_xxx_collideMimic_4E83D0(int a1, int a2) {
 }
 
 //----- (004E8460) --------------------------------------------------------
-extern uint32_t nox_wall_def_cnt;
-extern nox_wallDef_t nox_wall_defs_arr[80];
+uint32_t nox_xxx_wallFlags(int i);
 void nox_xxx_collidePlayer_4E8460(int a1, int a2) {
 	int v2;       // ecx
 	uint16_t* v3; // eax
@@ -3425,7 +3424,7 @@ LABEL_14:
 		nox_xxx_buffApplyTo_4FF380(a1, 5, v6, 5);
 	} else {
 		v7 = *(uint32_t*)(*(uint32_t*)(a1 + 748) + 296);
-		if (v7 && !(nox_wall_defs_arr[*(unsigned char*)(v7 + 1)].field_32 & 5)) {
+		if (v7 && !(nox_xxx_wallFlags(*(unsigned char*)(v7 + 1)) & 5)) {
 			nox_xxx_unitMove_4E7010(a1, (float2*)(a1 + 72));
 			goto LABEL_26;
 		}

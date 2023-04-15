@@ -1545,8 +1545,7 @@ func (s *Server) mapTraceRayImpl(pi image.Point, p1, p2 types.Pointf, flags serv
 	if wl == nil || flags.Has(server.MapTraceFlag8) && wl.Flags4.Has(server.WallFlag3) && *(*byte)(unsafe.Add(wl.Data28, 20))&0x2 != 0 {
 		return nil
 	}
-	wdefs := legacy.Get_nox_wall_defs_arr()
-	flags2 := wdefs[wl.Tile1].Field32
+	flags2 := nox_xxx_wallFlags(int(wl.Tile1))
 	if flags2&0x2 != 0 || flags.Has(server.MapTraceFlag7) && flags2&0x1 == 0 {
 		return nil
 	}
