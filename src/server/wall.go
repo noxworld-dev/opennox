@@ -10,21 +10,21 @@ import (
 )
 
 type Wall struct {
-	Dir0    byte           // 0, 0
-	Tile1   byte           // 0, 1
-	Field2  byte           // 0, 2
-	Field3  byte           // 0, 3
-	Field4  byte           // 1, 4
-	X5      byte           // 1, 5
-	Y6      byte           // 1, 6
-	Health7 byte           // 1, 7
-	Field8  uint32         // 2, 8
-	Field12 uint32         // 3, 12
-	Next16  *Wall          // 4, 16
-	Prev20  *Wall          // 5, 20
-	Field24 uint32         // 6, 24
-	Data28  unsafe.Pointer // 7, 28
-	Field32 uint32         // 8, 32
+	Dir0       byte           // 0, 0
+	Tile1      byte           // 0, 1
+	Field2     byte           // 0, 2
+	Field3     byte           // 0, 3
+	Field4     byte           // 1, 4
+	X5         byte           // 1, 5
+	Y6         byte           // 1, 6
+	Health7    byte           // 1, 7
+	Field8     uint32         // 2, 8
+	Field12    uint32         // 3, 12
+	Next16     *Wall          // 4, 16
+	Prev20     *Wall          // 5, 20
+	SortNext24 *Wall          // 6, 24
+	Data28     unsafe.Pointer // 7, 28
+	Field32    uint32         // 8, 32
 }
 
 func (w *Wall) C() unsafe.Pointer {

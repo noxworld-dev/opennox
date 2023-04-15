@@ -215,7 +215,6 @@ uint32_t dword_5d4594_2487540 = 0;
 void* dword_587000_81128 = 0;
 uint32_t dword_5d4594_3798800 = 0;
 uint32_t dword_5d4594_3798812 = 0;
-uint32_t dword_5d4594_251552 = 0;
 uint32_t dword_5d4594_1046952 = 0;
 uint32_t dword_5d4594_832536 = 0;
 uint32_t dword_587000_87408 = 0x1;
