@@ -2744,7 +2744,7 @@ void nox_xxx_drawBlack_496150(nox_draw_viewport_t* a1p) {
 				if (v10 != 255) {
 					v11 = v9[1];
 					v12 = v9[4];
-					if (getMemByte(0x85B3FC, 43076 + 12332 * v11) & 1) {
+					if (getMemByte(0x85B3FC, 43044 + 12332*v11 + 32) & 1) {
 						if (v12 & 0x40) {
 							if ((*getMemIntPtr(0x5D4594, 1217444) - v69 - 11) *
 										(*getMemIntPtr(0x5D4594, 1217444) - v69 - 11) +
@@ -2788,7 +2788,7 @@ void nox_xxx_drawBlack_496150(nox_draw_viewport_t* a1p) {
 							v15 = v13 | 2;
 						}
 						v9[4] = v15;
-						if (getMemByte(0x85B3FC, 43076 + 12332 * v11) & 4) {
+						if (getMemByte(0x85B3FC, 43044 + 12332*v11 + 32) & 4) {
 							nox_xxx_drawList1096512_Append_4754C0(v9);
 						}
 					}
