@@ -1093,7 +1093,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		if noxflags.HasGame(noxflags.GameModeChat) && s.TeamCount() != 0 {
 			if !noxflags.HasGamePlay(2) && !noxflags.HasGame(noxflags.GameFlag16) {
 				if t := k.Team(); t != nil {
-					v61 = s.randomReachablePointAround(50.0, legacy.AsPointf(unsafe.Add(t.Field_72, 56)))
+					v61 = s.RandomReachablePointAround(50.0, legacy.AsPointf(unsafe.Add(t.Field_72, 56)))
 				}
 			}
 		}
@@ -1214,7 +1214,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 				if legacy.Nox_xxx_isUnit_4E5B50(np.SObj()) != 0 {
 					n := np
 					ud := n.UpdateDataMonster()
-					v61 := s.randomReachablePointAround(50.0, m.Pos())
+					v61 := s.RandomReachablePointAround(50.0, m.Pos())
 					n.SetPos(v61)
 					ud.Field97 = 0
 					n.clearActionStack()
@@ -1303,24 +1303,6 @@ func (s *Server) sub_417160() {
 	for _, it := range s.GetPlayers() {
 		legacy.Nox_xxx_playerUnsetStatus_417530(it.S(), 16)
 	}
-}
-
-func (s *Server) randomReachablePointAround(dist float32, pos types.Pointf) types.Pointf { // sub_4ED970
-	step := dist * 0.015625
-	v11 := float32(s.Rand.Logic.FloatClamp(-math.Pi, math.Pi))
-	for v5 := 0; v5 < 64; v5++ {
-		v6 := v11 + 1.8849558
-		v11 = v6
-		p2 := types.Pointf{
-			X: float32(math.Cos(float64(v6)))*dist + pos.X,
-			Y: float32(math.Sin(float64(v11)))*dist + pos.Y,
-		}
-		if s.MapTraceRay(pos, p2, server.MapTraceFlag1) {
-			return p2
-		}
-		dist -= step
-	}
-	return pos
 }
 
 func (s *Server) MapTraceObstacles(from *server.Object, p1, p2 types.Pointf) bool { // nox_xxx_mapTraceObstacles_50B580
@@ -1416,41 +1398,6 @@ func (s *Server) MapTraceObstacles(from *server.Object, p1, p2 types.Pointf) boo
 		return true
 	})
 	return searching
-}
-
-func (s *Server) Sub_518460(pos types.Pointf, mask byte, scanSub bool) *server.Waypoint {
-	s.dword_5d4594_2386960++
-	s.dword_5d4594_2386928 = 1000.0
-	var found *Waypoint
-	for r := float32(0.0); r < 1000.0; {
-		x1 := server.RoundCoord(pos.X - r)
-		y1 := server.RoundCoord(pos.Y - r)
-		x2 := server.RoundCoord(pos.X + r)
-		y2 := server.RoundCoord(pos.Y + r)
-		s.dword_5d4594_2386948 = nil
-		s.sub_518550(image.Rect(x1, y1, x2, y2), pos, mask, scanSub)
-		if s.dword_5d4594_2386948 != nil {
-			found = s.dword_5d4594_2386948
-			r = s.dword_5d4594_2386928
-		} else {
-			if found != nil {
-				return found.S()
-			}
-			r += 85.0
-		}
-	}
-	return found.S()
-}
-
-func (s *Server) sub_518550(rect image.Rectangle, pos types.Pointf, mask byte, scanSub bool) {
-	s.Map.Sub518550Base(rect, mask, scanSub, &s.dword_5d4594_2386960, func(it *server.Waypoint) {
-		if dist := pos.Sub(it.Pos()).Len(); dist < float64(s.dword_5d4594_2386928) {
-			if s.MapTraceRayAt(pos, it.Pos(), nil, nil, server.MapTraceFlag1) {
-				s.dword_5d4594_2386948 = asWaypointS(it)
-				s.dword_5d4594_2386928 = float32(dist)
-			}
-		}
-	})
 }
 
 func nox_xxx_calcDistance_4E6C00(obj1, obj2 server.Obj) float32 {
