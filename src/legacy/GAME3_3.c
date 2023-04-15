@@ -39,7 +39,6 @@
 
 extern uint32_t nox_xxx_respawnAllow_587000_205200;
 extern uint32_t dword_5d4594_1567960;
-extern uint32_t dword_5d4594_1567956;
 extern uint32_t dword_5d4594_1568280;
 extern uint32_t dword_5d4594_1568288;
 extern uint32_t dword_5d4594_1563320;
@@ -3571,100 +3570,6 @@ void nox_xxx_collideProjectileSpark_4E8880(int a1, int a2) {
 		nox_xxx_damageToMap_534BC0(v4, v7, v8, 11, a1);
 		nox_xxx_delayedDeleteObject_4E5CC0(a1);
 	}
-}
-
-//----- (004E8910) --------------------------------------------------------
-int nox_xxx_doorGetSomeKey_4E8910(int a1, int a2) {
-	int v2;         // ebx
-	int v4;         // ebp
-	const char* v5; // esi
-
-	v2 = *(uint32_t*)(a2 + 748);
-	if (*(uint8_t*)(v2 + 1) == 5) {
-		return 0;
-	}
-	if (*(uint32_t*)(a2 + 508)) {
-		return 0;
-	}
-	v4 = *(uint32_t*)(a1 + 504);
-	if (v4) {
-		while (!(*(uint8_t*)(v4 + 8) & 0x40)) {
-		LABEL_15:
-			v4 = *(uint32_t*)(v4 + 496);
-			if (!v4) {
-				goto LABEL_16;
-			}
-		}
-		v5 = (const char*)nox_xxx_getUnitName_4E39D0(v4);
-		switch (*(unsigned char*)(v2 + 1)) {
-		case 1u:
-			if (strcmp(v5, "SilverKey")) {
-				goto LABEL_15;
-			}
-			break;
-		case 2u:
-			if (strcmp(v5, "GoldKey")) {
-				goto LABEL_15;
-			}
-			break;
-		case 3u:
-			if (strcmp(v5, "RubyKey")) {
-				goto LABEL_15;
-			}
-			break;
-		case 4u:
-			if (strcmp(v5, "SapphireKey")) {
-				goto LABEL_15;
-			}
-			break;
-		default:
-			goto LABEL_15;
-		}
-	}
-LABEL_16:
-	if (*(uint8_t*)(a1 + 8) & 4 && !v4 && nox_common_gameFlags_check_40A5C0(4096) && sub_4D72C0() == 1 &&
-		*(uint8_t*)(v2 + 1) == 1) {
-		v4 = sub_4E8A10();
-	}
-	return v4;
-}
-
-//----- (004E8A10) --------------------------------------------------------
-int sub_4E8A10() {
-	int v0;     // ebx
-	int i;      // esi
-	int v2;     // edi
-	int v3;     // eax
-	int result; // eax
-
-	v0 = 0;
-	if (!dword_5d4594_1567956) {
-		dword_5d4594_1567956 = nox_xxx_getNameId_4E3AA0("SilverKey");
-	}
-	for (i = nox_xxx_getFirstPlayerUnit_4DA7C0(); i; i = nox_xxx_getNextPlayerUnit_4DA7F0(i)) {
-		v2 = 0;
-		v3 = nox_xxx_inventoryGetFirst_4E7980(i);
-		if (v3) {
-			do {
-				if (*(unsigned short*)(v3 + 4) == dword_5d4594_1567956) {
-					++v2;
-				}
-				v3 = nox_xxx_inventoryGetNext_4E7990(v3);
-			} while (v3);
-			if (v2 > 0) {
-				v0 = i;
-			}
-		}
-	}
-	result = 0;
-	if (v0) {
-		for (result = nox_xxx_inventoryGetFirst_4E7980(v0); result; result = nox_xxx_inventoryGetNext_4E7990(result)) {
-			if (*(unsigned short*)(result + 4) == dword_5d4594_1567956) {
-				break;
-			}
-		}
-	}
-	return result;
 }
 
 //----- (004E8AC0) --------------------------------------------------------

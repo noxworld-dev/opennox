@@ -105,7 +105,6 @@ int sub_4D7150();
 int sub_4D71E0(int a1);
 unsigned int sub_4D71F0();
 int sub_4D7280(int a1, char a2);
-int sub_4D72B0(int a1);
 int sub_4D72C0();
 int sub_4D72D0(int a1);
 int sub_4D7300();

@@ -1160,6 +1160,7 @@ int nox_xxx_genPathToPoint_50B9A0(int a1, int a2, int a3, float* a4) {
 }
 
 //----- (0050BA00) --------------------------------------------------------
+void sub_57B4D0(nox_object_t* a1);
 void* nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int (*a5)(int, int, int), int a6) {
 	int v6;              // eax
 	double v7;           // st7
