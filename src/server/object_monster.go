@@ -214,7 +214,7 @@ type MonsterUpdateData struct {
 	Field120_2            uint8            // 120, 482
 	Field120_3            uint8            // 120, 483
 	MonsterDef            *MonsterDef      // 121, 484
-	Field122              uint32           // 122, 488
+	SoundSet122           unsafe.Pointer   // 122, 488
 	Field123              uint32           // 123, 492
 	Field124              uint32           // 124, 496
 	Field125              uint32           // 125, 500
@@ -272,8 +272,8 @@ type MonsterUpdateData struct {
 	Aggression            float32          // 326, 1304
 	Aggression2           float32          // 327, 1308
 	Field328              float32          // 328, 1312
-	Field329              uint32           // 329, 1316
-	Field330              uint32           // 330, 1320
+	Field329              float32          // 329, 1316
+	Field330              float32          // 330, 1320
 	Field331              uint32           // 331, 1324, TODO: strength stat?
 	Field332              float32          // 332, 1328, TODO: speed stat?
 	Field333              uint32           // 333, 1332, TODO: roam flags?
@@ -282,7 +282,7 @@ type MonsterUpdateData struct {
 	ResumeLevel           float32          // 336, 1344
 	Field337              uint32           // 337, 1348
 	Field338              float32          // 338, 1352, TODO: something health-related
-	Field339              float32          // 339, 1356, TODO: something spell-related; pseudo-mana?
+	FleeRange             float32          // 339, 1356
 	AIAction340           uint32           // 340, 1360
 	Field341              uint32           // 341, 1364
 	Field342              uint32           // 342, 1368
@@ -303,17 +303,22 @@ type MonsterUpdateData struct {
 	Field357              uint32           // 357, 1428
 	Field358              uint32           // 358, 1432
 	Field359              uint32           // 359, 1436
-	Flags360              uint32           // 360, 1440 // TODO: flags?
+	StatusFlags           MonsterStatus    // 360, 1440
 	Field361              uint32           // 361, 1444
-	Field362              uint32           // 362, 1448
+	Field362_0            uint16           // 362, 1448
+	Field362_2            uint16           // 362, 1450
 	Field363              uint32           // 363, 1452
-	Field364              uint32           // 364, 1456
+	Field364_0            uint16           // 364, 1456
+	Field364_2            uint16           // 364, 1458
 	Field365              uint32           // 365, 1460
-	Field366              uint32           // 366, 1464
+	Field366_0            uint16           // 366, 1464
+	Field366_2            uint16           // 366, 1466
 	Field367              uint32           // 367, 1468
-	Field368              uint32           // 368, 1472
+	Field368_0            uint16           // 368, 1472
+	Field368_2            uint16           // 368, 1474
 	Field369              uint32           // 369, 1476
-	Field370              uint32           // 370, 1480
+	Field370_0            uint16           // 370, 1480
+	Field370_2            uint16           // 370, 1482
 	Field371              uint32           // 371, 1484
 	Field372              uint32           // 372, 1488
 	Field373              uint32           // 373, 1492
@@ -549,7 +554,7 @@ type MonsterDef struct {
 	RetreatRatio80               float32        // 20, 80
 	ResumeRatio84                float32        // 21, 84
 	FleeRange88                  float32        // 22, 88
-	Status92                     MonsterStatus  // 23, 92
+	StatusFlags92                MonsterStatus  // 23, 92
 	RunMultiplier96              float32        // 24, 96
 	MoveSndFrameA100             uint32         // 25, 100
 	MoveSndFrameB104             uint32         // 26, 104
@@ -571,7 +576,7 @@ type MonsterDef struct {
 	DieFunc228                   unsafe.Pointer // 57, 228
 	DeadFunc232                  unsafe.Pointer // 58, 232
 	MeleeStrikeFunc236           unsafe.Pointer // 59, 236
-	Field240                     uint32         // 60, 240
+	TypeInd240                   uint32         // 60, 240
 	Next244                      *MonsterDef    // 61, 244
 }
 
