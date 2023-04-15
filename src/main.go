@@ -378,7 +378,7 @@ func RunArgs(args []string) (gerr error) {
 		return fmt.Errorf("failed to load gameex config file: %w", err)
 	}
 	inputClearKeyTimeouts()
-	noxCommonInitRandom()
+	noxServer.Rand.Reset()
 	legacy.Nox_xxx_loadLook_415D50()
 	legacy.Nox_xxx_loadModifyers_4158C0()
 	initConsole(noxServer.Strings())

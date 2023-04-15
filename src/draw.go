@@ -672,21 +672,21 @@ func (c *Client) drawCreatureBackEffects(vp *noxrender.Viewport, dr *client.Draw
 			v2 = 2
 		}
 		for ; v2 > 0; v2-- {
-			v22 := randomIntMinMax(3, 5)
-			v18 := randomIntMinMax(3, 6)
-			v14 := randomIntMinMax(2, 4)
+			v22 := c.srv.Rand.Other.Int(3, 5)
+			v18 := c.srv.Rand.Other.Int(3, 6)
+			v14 := c.srv.Rand.Other.Int(2, 4)
 			pos2 := image.Point{
-				X: randomIntMinMax(-10, 10),
-				Y: randomIntMinMax(-10, 10) + dr.Z(),
+				X: c.srv.Rand.Other.Int(-10, 10),
+				Y: c.srv.Rand.Other.Int(-10, 10) + dr.Z(),
 			}
 			legacy.Sub_499F60(drawWhiteBubbleParticle, pos.Add(pos2), 1, v14, v18, 0, 0, 0, v22)
 
-			v23 := randomIntMinMax(3, 5)
-			v19 := randomIntMinMax(3, 6)
-			v15 := randomIntMinMax(2, 4)
+			v23 := c.srv.Rand.Other.Int(3, 5)
+			v19 := c.srv.Rand.Other.Int(3, 6)
+			v15 := c.srv.Rand.Other.Int(2, 4)
 			pos3 := image.Point{
-				X: randomIntMinMax(-10, 10),
-				Y: randomIntMinMax(-10, 10) + dr.Z(),
+				X: c.srv.Rand.Other.Int(-10, 10),
+				Y: c.srv.Rand.Other.Int(-10, 10) + dr.Z(),
 			}
 			legacy.Sub_499F60(drawLightBlueBubbleParticle, pos.Add(pos3), 1, v15, v19, 0, 0, 0, v23)
 		}
@@ -702,21 +702,21 @@ func (c *Client) drawCreatureBackEffects(vp *noxrender.Viewport, dr *client.Draw
 			v5 = 2
 		}
 		for ; v5 > 0; v5-- {
-			v24 := randomIntMinMax(3, 5)
-			v20 := randomIntMinMax(3, 6)
-			v16 := randomIntMinMax(2, 4)
+			v24 := c.srv.Rand.Other.Int(3, 5)
+			v20 := c.srv.Rand.Other.Int(3, 6)
+			v16 := c.srv.Rand.Other.Int(2, 4)
 			pos2 := image.Point{
-				X: randomIntMinMax(-10, 10),
-				Y: randomIntMinMax(-10, 10) + dr.Z(),
+				X: c.srv.Rand.Other.Int(-10, 10),
+				Y: c.srv.Rand.Other.Int(-10, 10) + dr.Z(),
 			}
 			legacy.Sub_499F60(drawRedBubbleParticle, pos.Add(pos2), 1, v16, v20, 0, 0, 0, v24)
 
-			v25 := randomIntMinMax(3, 5)
-			v21 := randomIntMinMax(3, 6)
-			v17 := randomIntMinMax(2, 4)
+			v25 := c.srv.Rand.Other.Int(3, 5)
+			v21 := c.srv.Rand.Other.Int(3, 6)
+			v17 := c.srv.Rand.Other.Int(2, 4)
 			pos3 := image.Point{
-				X: randomIntMinMax(-10, 10),
-				Y: randomIntMinMax(-10, 10) + dr.Z(),
+				X: c.srv.Rand.Other.Int(-10, 10),
+				Y: c.srv.Rand.Other.Int(-10, 10) + dr.Z(),
 			}
 			legacy.Sub_499F60(drawOrangeBubbleParticle, pos.Add(pos3), 1, v17, v21, 0, 0, 0, v25)
 		}
@@ -774,13 +774,13 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *client.Dra
 		}
 		pos := dr.Pos()
 		for v12 := 0; v12 < 2; v12++ {
-			v40 := randomIntMinMax(3, 5)
-			v36 := randomIntMinMax(3, 6)
-			v34 := randomIntMinMax(1, 2)
-			v32 := randomIntMinMax(0, v44)
+			v40 := c.srv.Rand.Other.Int(3, 5)
+			v36 := c.srv.Rand.Other.Int(3, 6)
+			v34 := c.srv.Rand.Other.Int(1, 2)
+			v32 := c.srv.Rand.Other.Int(0, v44)
 			pos2 := image.Point{
-				X: randomIntMinMax(-v11, v11),
-				Y: randomIntMinMax(-v11, v11),
+				X: c.srv.Rand.Other.Int(-v11, v11),
+				Y: c.srv.Rand.Other.Int(-v11, v11),
 			}
 			legacy.Sub_499F60(drawYellowBubbleParticle, pos.Add(pos2), v32, v34, v36, -5, 0, 0, v40)
 		}
@@ -790,15 +790,15 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *client.Dra
 			drawGreenBubbleParticle = c.Things.IndByID("GreenBubbleParticle")
 		}
 		pos := dr.Pos()
-		v41 := randomIntMinMax(2, 3)
-		v37 := randomIntMinMax(3, 6)
-		v35 := randomIntMinMax(2, 4)
+		v41 := c.srv.Rand.Other.Int(2, 3)
+		v37 := c.srv.Rand.Other.Int(3, 6)
+		v35 := c.srv.Rand.Other.Int(2, 4)
 		v29 := int(dr.Field25()) + 12
 		v14 := int(dr.Field25())
-		v33 := randomIntMinMax(v14+8, v29)
+		v33 := c.srv.Rand.Other.Int(v14+8, v29)
 		pos2 := image.Point{
-			X: randomIntMinMax(-6, 6),
-			Y: randomIntMinMax(-10, 10),
+			X: c.srv.Rand.Other.Int(-6, 6),
+			Y: c.srv.Rand.Other.Int(-10, 10),
 		}
 		legacy.Sub_499F60(drawGreenBubbleParticle, pos.Add(pos2), v33, v35, v37, 1, 0, 0, v41)
 	}
@@ -806,14 +806,14 @@ func (c *Client) drawCreatureFrontEffects(vp *noxrender.Viewport, dr *client.Dra
 		pos := vp.ToScreenPos(dr.Pos())
 
 		for v16 := 0; v16 < 10; v16++ {
-			v17 := randomIntMinMax(1, 2)
+			v17 := c.srv.Rand.Other.Int(1, 2)
 			r := int(dr.Shape.Circle.R)
 			v20 := int(dr.Field25())
 			pos2 := pos.Add(image.Point{
-				X: randomIntMinMax(-r, r),
-				Y: randomIntMinMax(-10-v20, 0) + dr.Z(),
+				X: c.srv.Rand.Other.Int(-r, r),
+				Y: c.srv.Rand.Other.Int(-10-v20, 0) + dr.Z(),
 			})
-			v22 := randomIntMinMax(3, 4)
+			v22 := c.srv.Rand.Other.Int(3, 4)
 			c.r.DrawGlow(pos2, drawColorPurple, v17+v22, v17+2)
 			c.r.DrawPoint(pos2, v17, drawColorDarkPurple)
 		}

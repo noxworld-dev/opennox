@@ -592,7 +592,7 @@ func (c *Client) nox_xxx_cliLight16_469140(dr *client.Drawable) {
 	intens := int(dr.LightIntensityU16)
 	rad := int(dr.LightIntensityRad)
 	if dr.Flags30()&0x20000000 != 0 {
-		intens += randomIntMinMax(0, int(dr.LightIntensityU16)>>18) << 16
+		intens += c.srv.Rand.Other.Int(0, int(dr.LightIntensityU16)>>18) << 16
 		rad = client.LightRadius(float32(intens) / 0x10000)
 	}
 	if intens <= int(lightMinIntensity*0x10000) {
