@@ -113,7 +113,7 @@ int sub_411350(int* a1, int* a2, int a3);
 int sub_4113A0(int* a1, int a2);
 int sub_411490(int a1, int a2);
 int nox_thing_read_FLOR_411540(nox_memfile* f, uint8_t* a2);
-int nox_xxx_checkFacade_4117E0(const char* a1);
+int nox_xxx_checkFacade_4117E0(nox_tileDef_t* a1);
 int nox_thing_read_EDGE_411850(nox_memfile* f, uint8_t* a2);
 int nox_xxx_mapTileAllowTeleport_411A90(float2* a1);
 void* nox_xxx_getProjectileClassById_413250(int a1);

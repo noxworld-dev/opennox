@@ -43,7 +43,7 @@ extern uint32_t dword_5d4594_3484;
 extern void* dword_5d4594_251560;
 extern uint32_t dword_5d4594_371692;
 extern uint32_t dword_5d4594_251540;
-extern uint32_t dword_5d4594_251568;
+extern uint32_t nox_tile_def_cnt;
 extern uint32_t dword_5d4594_251572;
 extern uint32_t nox_player_netCode_85319C;
 
@@ -51,6 +51,10 @@ int nox_server_gameSettingsUpdated; // If you define it as 1-byte bool, the game
 
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
+
+
+uint32_t nox_tile_def_cnt = 0;
+nox_tileDef_t nox_tile_defs_arr[176] = {0};
 
 //----- (00409470) --------------------------------------------------------
 int nox_xxx_parseString_409470(FILE* a1, uint8_t* a2) {
@@ -1326,90 +1330,78 @@ int sub_411490(int a1, int a2) {
 
 //----- (00411540) --------------------------------------------------------
 int nox_thing_read_FLOR_411540(nox_memfile* f, uint8_t* a2) {
-	int v5;            // eax
-	char v7;           // cl
-	char v8;           // dl
-	char v9;           // dl
-	int v22;           // ecx
-	int v23;           // edx
-	int v24;           // ecx
-	int v26;           // ecx
-	uint8_t v29[6];    // [esp+0h] [ebp-28h]
-	int v30;           // [esp+0h] [ebp-28h]
-	char v31[32];      // [esp+8h] [ebp-20h]
-	unsigned char v32; // [esp+2Ch] [ebp+4h]
-	unsigned char v33; // [esp+2Ch] [ebp+4h]
-
-	if (dword_5d4594_251568 >= 176) {
+	if (nox_tile_def_cnt >= 176) {
 		return 0;
 	}
+	int ind = nox_tile_def_cnt;
+	nox_tileDef_t* p = &nox_tile_defs_arr[ind];
+
 	nox_memfile_skip(f, 4);
-	v32 = nox_memfile_read_u8(f);
-	nox_memfile_read(v31, 1, v32, f);
-	v31[v32] = 0;
-	v5 = 3 * dword_5d4594_251568;
-	strncpy((char*)getMemAt(0x85B3FC, 32484 + 20*v5), v31, 0x1Fu);
-	v7 = nox_memfile_read_i8(f);
-	v29[0] = v7;
-	v8 = nox_memfile_read_i8(f);
-	v29[1] = v8;
-	v9 = nox_memfile_read_i8(f);
-	v29[2] = v9;
-	if (v7 != -1 || v29[1] || v9 != -1) {
-		*getMemU32Ptr(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 48) =
-			nox_color_rgb_4344A0(*(int*)v29, *(int*)&v29[1], *(int*)&v29[2]);
+
+	int sz = nox_memfile_read_u8(f);
+	char buf[32];
+	nox_memfile_read(buf, 1, sz, f);
+	buf[sz] = 0;
+	strncpy(&p->name[0], buf, 31);
+
+	char v7 = nox_memfile_read_i8(f);
+	char v8 = nox_memfile_read_i8(f);
+	char v9 = nox_memfile_read_i8(f);
+	uint8_t cbuf[6];    // [esp+0h] [ebp-28h]
+	cbuf[0] = v7;
+	cbuf[1] = v8;
+	cbuf[2] = v9;
+	if (v7 != -1 || cbuf[1] || v9 != -1) {
+		// TODO: int addressing here doesn't look right!
+		p->color_48 = nox_color_rgb_4344A0(*(int*)&cbuf[0], *(int*)&cbuf[1], *(int*)&cbuf[2]);
 	} else {
-		*getMemU32Ptr(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 48) = 2147483648;
+		p->color_48 = 0x80000000;
 	}
-	*getMemU8Ptr(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 58) = 0;
-	if (nox_xxx_checkFacade_4117E0((const char*)getMemAt(0x85B3FC, 32484 + 60*dword_5d4594_251568)) == 1) {
-		*getMemU8Ptr(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 58) |= 1u;
+	p->field_58 = 0;
+	if (nox_xxx_checkFacade_4117E0(p) == 1) {
+		p->field_58 |= 1u;
 	}
 
-	*getMemU32Ptr(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 36) = nox_memfile_read_i32(f);
-	*getMemU32Ptr(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 40) = nox_memfile_read_i32(f);
+	p->field_36 = nox_memfile_read_i32(f);
+	p->field_40 = nox_memfile_read_i32(f);
 
 	uint8_t v14 = nox_memfile_read_u8(f);
-	*getMemU8Ptr(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 57) = v14;
+	p->field_57 = v14;
 	v14 = nox_memfile_read_u8(f);
-	*getMemU8Ptr(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 53) = v14;
+	p->field_53 = v14;
 	v14 = nox_memfile_read_u8(f);
-	*getMemU8Ptr(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 52) = v14;
+	p->field_52 = v14;
 	v14 = nox_memfile_read_u8(f);
-	*getMemU8Ptr(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 54) = v14;
-	*getMemU16Ptr(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 46) = 0;
+	p->field_54 = v14;
+	p->field_46 = 0;
 	v14 = nox_memfile_read_u8(f);
-	*getMemU8Ptr(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 55) = v14;
-	*getMemU8Ptr(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 56) = v14;
-	*getMemU16Ptr(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 44) =
-		getMemByte(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 52) * getMemByte(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 53);
-	v22 =
-		getMemByte(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 53) * getMemByte(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 54);
-	v23 = getMemByte(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 52);
-	*getMemU32Ptr(0x85B3FC, 32484 + 60*dword_5d4594_251568 + 32) = 0;
-	v24 = v23 * v22;
+	p->field_55 = v14;
+	p->field_56 = v14;
+	p->field_44 = (int)(p->field_52) * (int)(p->field_53);
+	int v22 = p->field_53 * p->field_54;
+	int v23 = p->field_52;
+	p->data_32 = 0;
+	int v24 = v23 * v22;
 	if (v24 > 0) {
-		v30 = v24;
-		do {
-			v26 = nox_memfile_read_i32(f);
+		for (int i = 0; i < v24; i++) {
+			int v26 = nox_memfile_read_i32(f);
 			*a2 = getMemByte(0x5D4594, 251576);
 			if (v26 == -1) {
 				nox_memfile_skip(f, 1);
-				v33 = nox_memfile_read_u8(f);
+				unsigned char v33 = nox_memfile_read_u8(f);
 				nox_memfile_read(a2, 1, v33, f);
 				a2[v33] = 0;
 			}
-			--v30;
-		} while (v30);
+		}
 	}
-	++dword_5d4594_251568;
+	++nox_tile_def_cnt;
 	return 1;
 }
 // 411618: variable 'v29' is possibly undefined
 // 411540: using guessed type char var_20[32];
 
 //----- (004117E0) --------------------------------------------------------
-int nox_xxx_checkFacade_4117E0(const char* a1) {
+int nox_xxx_checkFacade_4117E0(nox_tileDef_t* tile) {
 	const char* v1;    // eax
 	unsigned char* v2; // edi
 
@@ -1418,7 +1410,7 @@ int nox_xxx_checkFacade_4117E0(const char* a1) {
 		return 0;
 	}
 	v2 = getMemAt(0x587000, 26488);
-	while (strcmp(v1, a1)) {
+	while (strcmp(v1, &tile->name[0])) {
 		v1 = (const char*)*((uint32_t*)v2 + 1);
 		v2 += 4;
 		if (!v1) {
@@ -1506,30 +1498,23 @@ int nox_thing_read_EDGE_411850(nox_memfile* f, uint8_t* a2) {
 
 //----- (00411A90) --------------------------------------------------------
 int nox_xxx_mapTileAllowTeleport_411A90(float2* a1) {
-	int v1;         // edx
-	const char* v2; // eax
-	int v3;         // eax
-
 	if (*getMemIntPtr(0x587000, 26520) == -1) {
-		v1 = 0;
-		v2 = (const char*)getMemAt(0x85B3FC, 32484);
-		do {
-			if (!strcmp(v2, "WaterNoTeleport")) {
-				*getMemU32Ptr(0x587000, 26516) = v1;
-			} else if (!strcmp(v2, "WaterDeepNoTeleport")) {
-				*getMemU32Ptr(0x587000, 26520) = v1;
-			} else if (!strcmp(v2, "WaterShallowNoTeleport")) {
-				*getMemU32Ptr(0x587000, 26524) = v1;
-			} else if (!strcmp(v2, "WaterSwampDeepNoTeleport")) {
-				*getMemU32Ptr(0x587000, 26528) = v1;
-			} else if (!strcmp(v2, "WaterSwampShallowNoTeleport")) {
-				*getMemU32Ptr(0x587000, 26532) = v1;
+		for (int i = 0; i < 176; i++) {
+			nox_tileDef_t* p = &nox_tile_defs_arr[i];
+			if (!strcmp(&p->name[0], "WaterNoTeleport")) {
+				*getMemU32Ptr(0x587000, 26516) = i;
+			} else if (!strcmp(&p->name[0], "WaterDeepNoTeleport")) {
+				*getMemU32Ptr(0x587000, 26520) = i;
+			} else if (!strcmp(&p->name[0], "WaterShallowNoTeleport")) {
+				*getMemU32Ptr(0x587000, 26524) = i;
+			} else if (!strcmp(&p->name[0], "WaterSwampDeepNoTeleport")) {
+				*getMemU32Ptr(0x587000, 26528) = i;
+			} else if (!strcmp(&p->name[0], "WaterSwampShallowNoTeleport")) {
+				*getMemU32Ptr(0x587000, 26532) = i;
 			}
-			v2 += 60;
-			++v1;
-		} while ((int)v2 < (int)getMemAt(0x85B3FC, 43044));
+		}
 	}
-	v3 = nox_xxx_tileNFromPoint_411160(a1);
+	int v3 = nox_xxx_tileNFromPoint_411160(a1);
 	return v3 == *getMemU32Ptr(0x587000, 26516) || v3 == *getMemU32Ptr(0x587000, 26520) ||
 		   v3 == *getMemU32Ptr(0x587000, 26524) || v3 == *getMemU32Ptr(0x587000, 26528) ||
 		   v3 == *getMemU32Ptr(0x587000, 26532);

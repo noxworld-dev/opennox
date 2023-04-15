@@ -60,6 +60,9 @@ extern uint32_t dword_5d4594_2386224;
 extern uint32_t nox_gameDisableMapDraw_5d4594_2650672;
 extern nox_server_xxx nox_server_xxx_1599716[NOX_SERVER_XXX_SIZE * NOX_SERVER_XXX_SIZE];
 
+extern uint32_t nox_tile_def_cnt;
+extern nox_tileDef_t nox_tile_defs_arr[176];
+
 uint32_t nox_xxx_wallSounds_2386840 = 0;
 void* dword_5d4594_2386176 = 0;
 
@@ -6391,21 +6394,14 @@ float2* sub_51D3F0(float2* a1, float2* a2) {
 
 //----- (0051D4D0) --------------------------------------------------------
 int nox_xxx_tileGetDefByName_51D4D0(char* a1) {
-	int v1;         // ebx
-	int v2;         // edi
-	const char* v3; // esi
-
-	v1 = 0;
-	v2 = 0;
-	v3 = (const char*)getMemAt(0x85B3FC, 32484);
-	do {
-		if (!nox_strcmpi(v3, a1)) {
+	int v1 = 0;
+	for (int i = 0; i < 176; i++) {
+		nox_tileDef_t* p = &nox_tile_defs_arr[i];
+		if (!nox_strcmpi(&p->name[0], a1)) {
 			v1 = 1;
-			*getMemU32Ptr(0x973F18, 35912) = v2;
+			*getMemU32Ptr(0x973F18, 35912) = i;
 		}
-		v3 += 60;
-		++v2;
-	} while ((int)v3 < (int)getMemAt(0x85B3FC, 43044));
+	}
 	if (!nox_strcmpi(a1, "NONE")) {
 		*getMemU32Ptr(0x973F18, 35912) = 255;
 		return 1;
@@ -6435,9 +6431,9 @@ int nox_xxx_tileCheckImage_51D540(int a1) {
 int nox_xxx_tileCheckImageVari_51D570(int a1) {
 	int result; // eax
 
-	if (a1 <= getMemByte(0x85B3FC, 32484 + 52 + 60 * *getMemU32Ptr(0x973F18, 35912)) *
-					  getMemByte(0x85B3FC, 32484 + 53 + 60 * *getMemU32Ptr(0x973F18, 35912)) -
-				  1) {
+	int ind = *getMemU32Ptr(0x973F18, 35912);
+	nox_tileDef_t* p = &nox_tile_defs_arr[ind];
+	if (a1 <= p->field_52 * p->field_53 - 1) {
 		dword_5d4594_3835348 = a1;
 		result = 1;
 	} else {

@@ -12,7 +12,7 @@ package legacy
 #include "GAME5.h"
 #include "server__magic__plyrspel.h"
 
-extern uint32_t dword_5d4594_251568;
+extern uint32_t nox_tile_def_cnt;
 extern unsigned int dword_5d4594_2650652;
 
 void nox_xxx_updateProjectile_53AC10(nox_object_t* a1);
