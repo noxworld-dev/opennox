@@ -173,7 +173,8 @@ func sub_50D210() int {
 }
 
 func drawDebugAI(vp *noxrender.Viewport) {
-	r := noxClient.r
+	c := noxClient
+	r := c.r
 
 	if arr := legacy.Sub_50CB10(); len(arr) >= 2 {
 		cur := sub_50D210()
@@ -209,7 +210,7 @@ func drawDebugAI(vp *noxrender.Viewport) {
 		yi := common.GridStep * y
 		for x := xmin; x <= xmax; x++ {
 			xi := common.GridStep * x
-			if sub_57B500(image.Pt(x, y), 0x40) != -1 {
+			if c.srv.Sub_57B500(image.Pt(x, y), 0x40) != -1 {
 				r.Data().SetColor2(noxcolor.RGB5551Color(0, 0, 255))
 				r.DrawBorder(xi-vp.World.Min.X, yi-vp.World.Min.Y, common.GridStep, common.GridStep, r.Data().Color2())
 				continue
