@@ -24,6 +24,9 @@ extern uint32_t dword_5d4594_251572;
 
 extern int nox_parse_thing_draw_funcs_cnt;
 
+extern uint32_t nox_wall_def_cnt;
+extern nox_wallDef_t nox_wall_defs_arr[80];
+
 //----- (0044C200) --------------------------------------------------------
 bool nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value) {
 	const uint8_t read_len = nox_memfile_read_u8(f);
@@ -174,22 +177,14 @@ int sub_485F30() {
 
 //----- (0046A360) --------------------------------------------------------
 int sub_46A360() {
-	int i;             // ebx
-	int v1;            // edx
-	int v2;            // esi
-	unsigned char* v3; // edi
-
-	for (i = 0; i < 986560; i += 12332) {
-		v1 = 0;
-		do {
-			v2 = 15;
-			do {
-				v3 = getMemAt(0x85B3FC, 43044 + 8432 + i + v1);
-				v1 += 64;
-				--v2;
-				memset(v3, 0, 0x40u);
-			} while (v2);
-		} while (v1 < 3840);
+	for (int i = 0; i < 80; i++) {
+		for (int v1 = 0; v1 < 60;) {
+			for (int v2 = 15; v2 > 0; v2--) {
+				nox_wallDef_t* p = &nox_wall_defs_arr[i];
+				memset(&p->sprite_8432[16*v1], 0, 4*16);
+				v1++;
+			}
+		}
 	}
 	return 1;
 }
