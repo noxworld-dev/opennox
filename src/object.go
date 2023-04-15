@@ -1192,3 +1192,18 @@ func nox_xxx_monsterGoPatrol_515680(obj *server.Object, p1, p2 types.Pointf, dis
 func sub_516090(obj *server.Object, df int) {
 	legacy.Sub_516090(obj, df)
 }
+
+func sub_4E4500(obj *server.Object, val1 uint32, val2 uint32, set bool) {
+	for i := 0; i < 32; i++ {
+		if set {
+			obj.Field140[i] |= val2
+		} else {
+			obj.Field140[i] &^= val2
+		}
+		if obj.Field37&uint32(1<<i) != 0 {
+			obj.Field140[i] |= val1
+		} else if obj.Field140[i]&val2 == 0 {
+			obj.Field140[i] &^= val1
+		}
+	}
+}
