@@ -48,10 +48,10 @@ func init() {
 		return noxServer.getServerMaxPlayers()
 	}
 	netstr.Global.KeyRand = func(min, max int) int {
-		return noxRndCounter1.IntClamp(min, max)
+		return noxServer.Rand.Logic.IntClamp(min, max)
 	}
 	netstr.Global.PacketDropRand = func(min, max int) int {
-		return randomIntMinMax(min, max)
+		return noxServer.Rand.Other.Int(min, max)
 	}
 }
 

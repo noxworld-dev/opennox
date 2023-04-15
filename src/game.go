@@ -1307,7 +1307,7 @@ func (s *Server) sub_417160() {
 
 func (s *Server) randomReachablePointAround(dist float32, pos types.Pointf) types.Pointf { // sub_4ED970
 	step := dist * 0.015625
-	v11 := float32(noxRndCounter1.FloatClamp(-math.Pi, math.Pi))
+	v11 := float32(s.Rand.Logic.FloatClamp(-math.Pi, math.Pi))
 	for v5 := 0; v5 < 64; v5++ {
 		v6 := v11 + 1.8849558
 		v11 = v6

@@ -205,7 +205,7 @@ func mainloopConnectOrHost() (again bool, _ error) {
 	legacy.Sub_43D990()
 	g_v20 = true
 	noxAudioServeT(800)
-	noxCommonInitRandom()
+	noxServer.Rand.Reset()
 	noxServer.SetInitialFrame()
 	if mainloopConnectResultOK {
 		if debugMainloop {

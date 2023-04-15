@@ -67,11 +67,11 @@ func (c *Client) clientFXDeathRay(p1, p2 image.Point) {
 		if dr == nil {
 			continue
 		}
-		r1 := randomIntMinMax(0, 255)
-		r2 := randomIntMinMax(1, 200)
-		expire := randomIntMinMax(20, 40)
-		z := randomIntMinMax(15, 30)
-		vz := randomIntMinMax(-4, 4)
+		r1 := c.srv.Rand.Other.Int(0, 255)
+		r2 := c.srv.Rand.Other.Int(1, 200)
+		expire := c.srv.Rand.Other.Int(20, 40)
+		z := c.srv.Rand.Other.Int(15, 30)
+		vz := c.srv.Rand.Other.Int(-4, 4)
 		dr.Field_108 = uint32(pos.X) << 12
 		dr.Field_109 = uint32(pos.Y) << 12
 		dr.Field_74_4 = byte(r1)

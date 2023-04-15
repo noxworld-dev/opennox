@@ -195,13 +195,13 @@ func (c *Client) generateMouseSparks() {
 	if memmap.Uint32(0x5D4594, 816428) != 0 {
 		cnt := int(math.Sqrt(float64(r2)) * distanceSparks)
 		for i := cnt; i > 0; i-- {
-			v6 := randomIntMinMax(0, 100)
+			v6 := c.srv.Rand.Other.Int(0, 100)
 			v7 := int(memmap.Uint32(0x5D4594, 816420)) + dx*v6/100
 			v9 := int(memmap.Uint32(0x5D4594, 816424)) + dy*v6/100
-			v23 := randomIntMinMax(2, 5)
-			v22 := randomIntMinMax(2, 5)
-			v21 := randomIntMinMax(-7, 2)
-			v10 := randomIntMinMax(-5, 5)
+			v23 := c.srv.Rand.Other.Int(2, 5)
+			v22 := c.srv.Rand.Other.Int(2, 5)
+			v21 := c.srv.Rand.Other.Int(-7, 2)
+			v10 := c.srv.Rand.Other.Int(-5, 5)
 			legacy.Nox_client_newScreenParticle_431540(4, v7, v9, v10, v21, 1, v22, v23, 2, 1)
 		}
 		if r2 < 10 {
@@ -215,16 +215,16 @@ func (c *Client) generateMouseSparks() {
 	// explode with sparks when clicking
 	const explosionSparks = 75
 	if c.Inp.IsMousePressed(seat.MouseButtonLeft) {
-		randomIntMinMax(0, 2)
+		c.srv.Rand.Other.Int(0, 2)
 		if memmap.Uint32(0x5D4594, 816416) == 0 {
 			*memmap.PtrUint32(0x5D4594, 816416) = 1
 			clientPlaySoundSpecial(sound.SoundShellMouseBoom, 100)
 			for i := explosionSparks; i > 0; i-- {
-				v12 := randomIntMinMax(0, 255)
-				v13 := randomIntMinMax(6, 12)
+				v12 := c.srv.Rand.Other.Int(0, 255)
+				v13 := c.srv.Rand.Other.Int(6, 12)
 				pos := sincosTable16[v12].Mul(v13).Div(16).Add(image.Point{Y: -6})
-				v24 := randomIntMinMax(2, 5)
-				v16 := randomIntMinMax(2, 5)
+				v24 := c.srv.Rand.Other.Int(2, 5)
+				v16 := c.srv.Rand.Other.Int(2, 5)
 				legacy.Nox_client_newScreenParticle_431540(4, pos.X+mpos.X, pos.Y+mpos.Y, pos.X, pos.Y, 1, v16, v24, 2, 1)
 			}
 		}
