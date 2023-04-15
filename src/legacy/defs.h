@@ -147,6 +147,28 @@ static inline int noxSetRect(nox_rect* lprc, int xLeft, int yTop, int xRight, in
 	return true;
 }
 
+typedef struct nox_video_bag_image_t nox_video_bag_image_t;
+int nox_video_bag_image_type(nox_video_bag_image_t* img);
+
+typedef struct {
+	char name[32]; // 0, 0
+	nox_video_bag_image_t** data_32; // 8, 32
+	int field_36; // 9, 36
+	int field_40; // 10, 40
+	uint16_t field_44; // 11, 44
+	uint16_t field_46; // 11, 46
+	uint32_t color_48; // 12, 48
+	uint8_t field_52; // 13, 52
+	uint8_t field_53; // 13, 53
+	uint8_t field_54; // 13, 54
+	uint8_t field_55; // 13, 55
+	uint8_t field_56; // 14, 56
+	uint8_t field_57; // 14, 57
+	uint8_t field_58; // 14, 58
+	uint8_t field_59; // 14, 59
+} nox_tileDef_t;
+_Static_assert(sizeof(nox_tileDef_t) == 60, "wrong size of nox_tileDef_t structure!");
+
 typedef enum { NOX_SHAPE_NONE = 0, NOX_SHAPE_CENTER = 1, NOX_SHAPE_CIRCLE = 2, NOX_SHAPE_BOX = 3 } nox_shape_kind;
 
 typedef struct nox_shape {
@@ -165,9 +187,6 @@ typedef struct nox_shape {
 	float box_right_top_2;    // 12, 0x30
 } nox_shape;
 _Static_assert(sizeof(nox_shape) == 52, "wrong size of nox_shape structure!");
-
-typedef struct nox_video_bag_image_t nox_video_bag_image_t;
-int nox_video_bag_image_type(nox_video_bag_image_t* img);
 
 typedef struct nox_thing nox_thing;
 typedef struct nox_drawable nox_drawable;
