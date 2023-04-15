@@ -19,7 +19,7 @@ var (
 	Nox_xxx_wallFlags                  func(ind int) uint32
 	Nox_xxx_wallGetBrickObj_410E60     func(ind int, ind2 int) string
 	Nox_xxx_getWallSprite_46A3B0       func(ind int, a2 int, a3 int, a4 int) noxrender.ImageHandle
-	Nox_xxx_getWallDrawOffset_46A3F0   func(ind int, a2 int, a3 int, a4 int) *[2]uint32
+	Nox_xxx_getWallDrawOffset_46A3F0   func(ind int, a2 int, a3 int, a4 int) image.Point
 	Nox_xxx_mapWallMaxVariation_410DD0 func(ind int, a2 int, a3 int) byte
 	Nox_xxx_map_410E00                 func(ind int) byte
 	Nox_xxx_mapWallGetHpByTile_410E20  func(ind int) byte
@@ -101,8 +101,10 @@ func nox_xxx_getWallSprite_46A3B0(ind int, a2 int, a3 int, a4 int) unsafe.Pointe
 }
 
 //export nox_xxx_getWallDrawOffset_46A3F0
-func nox_xxx_getWallDrawOffset_46A3F0(ind int, a2 int, a3 int, a4 int) unsafe.Pointer {
-	return unsafe.Pointer(Nox_xxx_getWallDrawOffset_46A3F0(ind, a2, a3, a4))
+func nox_xxx_getWallDrawOffset_46A3F0(ind int, a2 int, a3 int, a4 int, px, py *C.int) {
+	v := Nox_xxx_getWallDrawOffset_46A3F0(ind, a2, a3, a4)
+	*px = C.int(v.X)
+	*py = C.int(v.Y)
 }
 
 //export nox_xxx_mapWallMaxVariation_410DD0

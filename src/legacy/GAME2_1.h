@@ -123,7 +123,7 @@ int sub_469B90(int* a1);
 char* nox_xxx_getAmbientColor_469BB0();
 int sub_469FA0();
 void* nox_xxx_getWallSprite_46A3B0(int a1, int a2, int a3, int a4);
-void* nox_xxx_getWallDrawOffset_46A3F0(int a1, int a2, int a3, int a4);
+void nox_xxx_getWallDrawOffset_46A3F0(int a1, int a2, int a3, int a4, int* px, int* py);
 void nox_client_chatStart_46A430(int a1);
 int sub_46A4A0();
 size_t nox_xxx_cmdSayDo_46A4B0(wchar2_t* a1, int a2);
