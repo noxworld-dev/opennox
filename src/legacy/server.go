@@ -88,9 +88,6 @@ type Server interface {
 	SwitchMap(name string)
 	GetFlag3592() bool
 	Sub40A040settings(a1 int, a2 int)
-	SetLastObjectScriptID(id server.ObjectScriptID)
-	LastObjectScriptID() server.ObjectScriptID
-	NextObjectScriptID() server.ObjectScriptID
 	CreateObjectAt(obj, owner server.Obj, pt types.Pointf)
 	FirstServerObject() *server.Object
 	AudioEventObj(id sound.ID, iobj server.Obj, kind int, code uint32)
@@ -147,17 +144,17 @@ func sub_40A040_settings(a1 C.short, a2 C.uchar) {
 
 //export nox_server_SetLastObjectScriptID
 func nox_server_SetLastObjectScriptID(id C.uint) {
-	GetServer().SetLastObjectScriptID(server.ObjectScriptID(id))
+	GetServer().S().Objs.SetLastObjectScriptID(server.ObjectScriptID(id))
 }
 
 //export nox_server_LastObjectScriptID
 func nox_server_LastObjectScriptID() C.uint {
-	return C.uint(GetServer().LastObjectScriptID())
+	return C.uint(GetServer().S().Objs.LastObjectScriptID())
 }
 
 //export nox_server_NextObjectScriptID
 func nox_server_NextObjectScriptID() C.uint {
-	return C.uint(GetServer().NextObjectScriptID())
+	return C.uint(GetServer().S().Objs.NextObjectScriptID())
 }
 
 //export nox_xxx_servGetPort_40A430

@@ -68,7 +68,7 @@ func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
 	tname, _ := cf.ReadString8()
 	var typ *server.ObjectType
 	if tname != "" {
-		typ = s.ObjectTypeByID(tname)
+		typ = s.Types.ByID(tname)
 		*(*int32)(unsafe.Add(a1, 0)) = int32(typ.Ind())
 	}
 	if a2 >= 47 {
@@ -77,7 +77,7 @@ func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
 			var v4 int
 			switch typ.Xfer {
 			case legacy.Get_nox_xxx_XFerFieldGuide_4F6390():
-				v4 = s.ObjectTypeID(name)
+				v4 = s.Types.IndByID(name)
 			case legacy.Get_nox_xxx_XFerAbilityReward_4F6240():
 				v4 = int(s.abilities.nox_xxx_abilityNameToN_424D80(name))
 			default:
@@ -107,13 +107,13 @@ func nox_xxx_XFer_ReadShopItem_52A840(a1 unsafe.Pointer, a2 int) {
 func nox_xxx_XFer_WriteShopItem_52A5F0(a1 unsafe.Pointer) {
 	cf := cryptfile.Global()
 	cf.WriteU8(*(*uint8)(unsafe.Add(a1, 4)))
-	typ := noxServer.ObjectTypeByInd(int(*(*int32)(unsafe.Add(a1, 0))))
+	typ := noxServer.Types.ByInd(int(*(*int32)(unsafe.Add(a1, 0))))
 	cf.WriteString8(typ.ID())
 	pind := int(*(*int32)(unsafe.Add(a1, 8)))
 	var pname string
 	switch typ.Xfer {
 	case legacy.Get_nox_xxx_XFerFieldGuide_4F6390():
-		pname = noxServer.ObjectTypeByInd(pind).ID()
+		pname = noxServer.Types.ByInd(pind).ID()
 	case legacy.Get_nox_xxx_XFerAbilityReward_4F6240():
 		pname = server.Ability(pind).String()
 	default:

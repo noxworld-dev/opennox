@@ -59,7 +59,7 @@ func sub_57AEE0(sp spell.ID, u *server.Object) bool {
 
 func nox_xxx_unitDoSummonAt_5016C0(typID int, pos types.Pointf, owner *server.Object, dir server.Dir16) *server.Object {
 	s := noxServer
-	obj := s.NewObject(s.ObjectTypeByInd(typID)).SObj()
+	obj := s.Objs.NewObject(s.Types.ByInd(typID)).SObj()
 	if obj == nil {
 		return obj
 	}

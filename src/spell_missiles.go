@@ -28,7 +28,7 @@ func (sp *spellMissiles) Cast(spellID spell.ID, a2, owner, caster *server.Object
 	opts := spl.Def.Missiles.Level(lvl)
 	typ, ok := sp.proj[spellID]
 	if !ok {
-		typ = sp.s.ObjectTypeID(opts.Projectile)
+		typ = sp.s.Types.IndByID(opts.Projectile)
 		sp.proj[spellID] = typ
 	}
 	curCnt := asObjectS(owner).countSubOfType(typ)

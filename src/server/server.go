@@ -16,10 +16,6 @@ import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
 
-const (
-	defaultFirstObjectScriptID = ObjectScriptID(1000000000)
-)
-
 var Log = log.New("server")
 
 func New(pr console.Printer, sm *strman.StringManager) *Server {
@@ -29,7 +25,7 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 		port:      common.GamePort,
 	}
 	s.Rand.init(nil)
-	s.types.Init()
+	s.Types.init()
 	s.Modif.init(sm)
 	s.Players.init()
 	s.Teams.init(sm)
@@ -49,20 +45,16 @@ type Server struct {
 	tickHooks  tickHooks
 	loopHooks  chan func()
 
-	Rand      serverRandom
-	Walls     serverWalls
-	wps       serverWaypoints
-	types     serverObjTypes
-	Objs      serverObjects
-	Modif     serverModifiers
-	Map       serverMap
-	Doors     serverDoors
-	MapGroups ServerMapGroups
-	Audio     serverAudio
-	objects   struct {
-		firstScriptID ObjectScriptID
-		lastScriptID  ObjectScriptID
-	}
+	Rand       serverRandom
+	Walls      serverWalls
+	wps        serverWaypoints
+	Types      serverObjTypes
+	Objs       serverObjects
+	Modif      serverModifiers
+	Map        serverMap
+	Doors      serverDoors
+	MapGroups  ServerMapGroups
+	Audio      serverAudio
 	Activators serverActivators
 	Players    serverPlayers
 	Teams      serverTeams
@@ -84,31 +76,6 @@ func (s *Server) Printf(cl console.Color, format string, args ...interface{}) {
 
 func (s *Server) Strings() *strman.StringManager {
 	return s.sm
-}
-
-func (s *Server) LastObjectScriptID() ObjectScriptID {
-	return s.objects.lastScriptID
-}
-
-func (s *Server) NextObjectScriptID() ObjectScriptID {
-	id := s.objects.lastScriptID
-	s.objects.lastScriptID++
-	return id
-}
-
-func (s *Server) SetLastObjectScriptID(id ObjectScriptID) {
-	s.objects.lastScriptID = id
-}
-
-func (s *Server) SetFirstObjectScriptID(id ObjectScriptID) {
-	s.objects.firstScriptID = id
-}
-
-func (s *Server) ResetObjectScriptIDs() {
-	s.SetLastObjectScriptID(defaultFirstObjectScriptID)
-	if s.objects.firstScriptID != 0 {
-		s.SetLastObjectScriptID(s.objects.firstScriptID)
-	}
 }
 
 func (s *Server) Frame() uint32 {

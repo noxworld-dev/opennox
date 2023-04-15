@@ -52,9 +52,9 @@ func castGlyph(sp spell.ID, a2, caster, targ *server.Object, sa *server.SpellAcc
 		pos := s.RandomReachablePointAround(50.0, targ.Pos())
 		var bomb *server.Object
 		if caster != nil {
-			bomb = nox_xxx_unitDoSummonAt_5016C0(s.BomberID(), pos, caster, caster.Direction1)
+			bomb = nox_xxx_unitDoSummonAt_5016C0(s.Types.BomberID(), pos, caster, caster.Direction1)
 		} else {
-			bomb = nox_xxx_unitDoSummonAt_5016C0(s.BomberID(), pos, nil, 0)
+			bomb = nox_xxx_unitDoSummonAt_5016C0(s.Types.BomberID(), pos, nil, 0)
 		}
 		if bomb != nil {
 			legacy.Nox_xxx_inventoryPutImpl_4F3070(bomb, trap, 1)
@@ -96,7 +96,7 @@ func setBomberSpells(u *server.Object, spells ...spell.ID) {
 		return
 	}
 	for it := u.FirstItem(); it != nil; it = it.NextItem() {
-		if int(it.TypeInd) != s.GlyphID() {
+		if int(it.TypeInd) != s.Types.GlyphID() {
 			s.DelayedDelete(it)
 			break
 		}
@@ -157,7 +157,7 @@ func castDetonateGlyphs(sp spell.ID, a2, a3, caster *server.Object, sa *server.S
 	for {
 		var found *server.Object
 		s.Map.EachObjInRect(rect, func(it *server.Object) bool {
-			if int(it.TypeInd) != s.GlyphID() || it.Flags().Has(object.FlagDestroyed) {
+			if int(it.TypeInd) != s.Types.GlyphID() || it.Flags().Has(object.FlagDestroyed) {
 				return true
 			}
 			owner := caster.FindOwnerChainPlayer()
@@ -229,7 +229,7 @@ func triggerTrap(trap, a2 *server.Object) {
 	rect := types.RectFromPointsf(pos.Sub(types.Ptf(dist, dist)), pos.Add(types.Ptf(dist, dist)))
 	s.Map.EachObjInRect(rect, func(it *server.Object) bool {
 		if it != trap && (int32(uint8(*(*float32)(unsafe.Add(unsafe.Pointer(it), unsafe.Sizeof(float32(0))*4))))&0x20) == 0 {
-			if int(it.TypeInd) == s.GlyphID() {
+			if int(it.TypeInd) == s.Types.GlyphID() {
 				if s.MapTraceRayAt(trap.Pos(), it.Pos(), nil, nil, 5) {
 					_ = nox_xxx___mkgmtime_538280
 					it.Update = legacy.Get_nox_xxx___mkgmtime_538280()

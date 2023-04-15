@@ -327,8 +327,8 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 	}
 	ud := u.UpdateDataPlayer()
 	if noxflags.HasGame(noxflags.GameModeKOTR | noxflags.GameModeCTF | noxflags.GameModeFlagBall) {
-		crown := s.ObjectTypeID("Crown")
-		ball := s.ObjectTypeID("GameBall")
+		crown := s.Types.CrownID()
+		ball := s.Types.GameBallID()
 		for it := u.FirstOwned516(); it != nil; it = it.NextOwned512() {
 			typ := int(it.TypeInd)
 			if typ == crown {

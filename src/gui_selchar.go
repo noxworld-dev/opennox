@@ -686,7 +686,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *gui.Window, e gui.WindowEvent) gui.Win
 	case *WindowEvent0x4007:
 		switch e.Win.ID() {
 		case 501:
-			noxServer.SetFirstObjectScriptID(1000000000)
+			noxServer.Objs.SetFirstObjectScriptID(1000000000)
 			sub_4A50A0()
 			nox_wnd_xxx_1307748.Func13Ptr = legacy.Get_nox_game_showSelClass_4A4840()
 		case 502:
@@ -731,12 +731,12 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *gui.Window, e gui.WindowEvent) gui.Win
 					noxServer.nox_xxx_gameSetMapPath_409D70(fbase)
 					legacy.Nox_xxx_mapLoadOrSaveMB_4DCC70(1)
 					v13, _ := sub41D090(alloc.GoStringS(sv.Path[:]))
-					noxServer.SetFirstObjectScriptID(server.ObjectScriptID(v13))
+					noxServer.Objs.SetFirstObjectScriptID(server.ObjectScriptID(v13))
 				} else if sub4D6F30() {
 					sub_4DCE60(int(sv.Stage))
 					noxServer.setQuestMapName(alloc.GoStringS(sv.Map_name[:]))
 					v14, _ := sub41D090(alloc.GoStringS(sv.Path[:]))
-					noxServer.SetFirstObjectScriptID(server.ObjectScriptID(v14))
+					noxServer.Objs.SetFirstObjectScriptID(server.ObjectScriptID(v14))
 				}
 				sub4A24C0(false)
 				sub_4A50A0()
