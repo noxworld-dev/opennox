@@ -147,7 +147,7 @@ int sub_485CF0() {
 	if (*(int*)&dword_5d4594_251568 <= 0) {
 		return 1;
 	}
-	v1 = (void**)getMemAt(0x85B3FC, 32516);
+	v1 = (void**)getMemAt(0x85B3FC, 32484 + 32);
 	do {
 		if (*v1) {
 			free(*v1);
