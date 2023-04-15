@@ -38,7 +38,6 @@ func allocWalls() int {
 	if dword_5D4594_251544 == nil {
 		return 0
 	}
-	legacy.Set_dword_5D4594_251544(unsafe.Pointer(&dword_5D4594_251544[0]))
 
 	dword_5d4594_251556, _ = alloc.Make([]*server.Wall{}, wallGridSize)
 	if dword_5d4594_251556 == nil {
@@ -99,7 +98,6 @@ func freeWalls() {
 
 	alloc.FreeSlice(dword_5D4594_251544)
 	dword_5D4594_251544 = nil
-	legacy.Set_dword_5D4594_251544(nil)
 
 	alloc.FreeSlice(dword_5d4594_251556)
 	dword_5d4594_251556 = nil
@@ -150,6 +148,60 @@ func nox_xxx_wallCreateAt_410250(pos image.Point) *server.Wall {
 	}
 	p.SortNext24 = nil
 	return p
+}
+
+func nox_xxx_mapDelWallAtPt_410430(pos image.Point) {
+	ind := wallArrayInd(pos)
+	list := dword_5D4594_251544[ind]
+	if list == nil {
+		return
+	}
+	var found *server.Wall
+	for list.X5 != byte(pos.X) || list.Y6 != byte(pos.Y) {
+		found = list
+		list = list.Next16
+		if list == nil {
+			return
+		}
+	}
+	if found != nil {
+		found.Next16 = list.Next16
+	} else {
+		dword_5D4594_251544[ind] = list.Next16
+	}
+	v5 := legacy.Get_dword_5d4594_251552()
+	var v6 *server.Wall
+	if v5 == nil {
+		legacy.Set_dword_5d4594_251552(v5.Prev20) // TODO: it's nil, it shouldn't be dereferenced
+	} else {
+		for ; v5 != nil; v5 = v5.Prev20 {
+			if v5 == list {
+				break
+			}
+			v6 = v5
+		}
+		if v6 != nil {
+			v6.Prev20 = v5.Prev20
+		} else {
+			legacy.Set_dword_5d4594_251552(v5.Prev20)
+		}
+	}
+	var prev *server.Wall
+	for v8 := dword_5d4594_251556[pos.Y]; v8 != nil; v8 = v8.SortNext24 {
+		if v8.X5 == byte(pos.X) && v8.Y6 == byte(pos.Y) {
+			break
+		}
+		prev = v8
+	}
+	if prev != nil {
+		prev.SortNext24 = v5.SortNext24
+		v5.Prev20 = legacy.Get_dword_5d4594_251548()
+		legacy.Set_dword_5d4594_251548(v5)
+	} else {
+		dword_5d4594_251556[pos.Y] = v5.SortNext24
+		v5.Prev20 = legacy.Get_dword_5d4594_251548()
+		legacy.Set_dword_5d4594_251548(v5)
+	}
 }
 
 func (s *Server) nox_xxx_wallTileByName_410D60(name string) byte {
