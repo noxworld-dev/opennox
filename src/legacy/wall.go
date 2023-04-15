@@ -10,6 +10,7 @@ import (
 	"image"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -19,6 +20,7 @@ var (
 	Nox_xxx_wallCreateAt_410250     func(pos image.Point) *server.Wall
 	Nox_xxx_mapDelWallAtPt_410430   func(pos image.Point)
 	Sub_4106A0                      func(y int) *server.Wall
+	Nox_xxx_wallForeachFn_410640    func(fnc func(it *server.Wall))
 )
 
 func asWallP(p unsafe.Pointer) *server.Wall {
@@ -48,6 +50,13 @@ func nox_xxx_mapDelWallAtPt_410430(x, y int) {
 //export sub_4106A0
 func sub_4106A0(y int) unsafe.Pointer {
 	return Sub_4106A0(y).C()
+}
+
+//export nox_xxx_wallForeachFn_410640
+func nox_xxx_wallForeachFn_410640(cfnc unsafe.Pointer, data unsafe.Pointer) {
+	Nox_xxx_wallForeachFn_410640(func(it *server.Wall) {
+		ccall.CallVoidPtr2(cfnc, it.C(), data)
+	})
 }
 
 func Nox_xxx_wallTileByName_410D60(name string) byte {

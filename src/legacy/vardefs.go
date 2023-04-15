@@ -212,7 +212,6 @@ extern uint32_t dword_5d4594_2487540;
 extern void* dword_587000_81128;
 extern uint32_t dword_5d4594_3798800;
 extern uint32_t dword_5d4594_3798812;
-extern void* dword_5d4594_251552;
 extern uint32_t dword_5d4594_1046952;
 extern uint32_t dword_5d4594_832536;
 extern uint32_t dword_587000_87408;
@@ -1409,12 +1408,6 @@ func Set_dword_5d4594_2489460(v int) {
 }
 func Set_dword_5d4594_1548532(v unsafe.Pointer) {
 	C.dword_5d4594_1548532 = v
-}
-func Get_dword_5d4594_251552() *server.Wall {
-	return asWallP(C.dword_5d4594_251552)
-}
-func Set_dword_5d4594_251552(v *server.Wall) {
-	C.dword_5d4594_251552 = v.C()
 }
 func Set_dword_5d4594_1307292(v *gui.Window) {
 	C.dword_5d4594_1307292 = v.C()
