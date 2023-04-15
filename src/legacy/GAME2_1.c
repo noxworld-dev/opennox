@@ -3200,7 +3200,7 @@ int nox_thing_read_wall_46A010(nox_memfile* f, char* a2) {
 		return 0;
 	}
 	v38 = 12332 * v5;
-	memset(getMemAt(0x85B3FC, 51476 + 12332 * v5), 0, 0xF00u);
+	memset(getMemAt(0x85B3FC, 43044 + 12332*v5 + 8432), 0, 0xF00u);
 	v2[2] += 14;
 	nox_memfile_read64align_40AD60((char*)&v31, 1, 1, v2);
 	v8 = 0;
@@ -3255,8 +3255,8 @@ int nox_thing_read_wall_46A010(nox_memfile* f, char* a2) {
 			v37 = 3083 * v49;
 			while (1) {
 				v33 = 4;
-				v32 = getMemAt(0x85B3FC, 51476 + 4 * (v14 + 16 * v13 + v37));
-				v15 = getMemAt(0x85B3FC, 43800 + 8 * (v14 + 16 * v13) + v38);
+				v32 = getMemAt(0x85B3FC, 43044 + 8432 + 4*(16*v13 + v14 + v37));
+				v15 = getMemAt(0x85B3FC, 43044 + 756 + 8*(16*v13 + v14) + v38);
 				do {
 					v16 = (int*)v2[2];
 					v17 = *v16;
@@ -3312,12 +3312,12 @@ int nox_thing_read_wall_46A010(nox_memfile* f, char* a2) {
 
 //----- (0046A3B0) --------------------------------------------------------
 int nox_xxx_getWallSprite_46A3B0(int a1, int a2, int a3, int a4) {
-	return *getMemU32Ptr(0x85B3FC, 51476 + 4 * (16 * (a2 + 12 * a4 + 3 * a4) + a3 + 3083 * a1));
+	return *getMemU32Ptr(0x85B3FC, 43044 + 8432 + 4*(16*(12*a4 + 3*a4 + a2) + 3083*a1 + a3));
 }
 
 //----- (0046A3F0) --------------------------------------------------------
 char* nox_xxx_getWallDrawOffset_46A3F0(int a1, int a2, int a3, int a4) {
-	return (char*)getMemAt(0x85B3FC, 43796 + 12332 * a1 + 8 * (a3 + 16 * (a2 + 12 * a4 + 3 * a4)));
+	return (char*)getMemAt(0x85B3FC, 43044 + 12332*a1 + 752 + 8*(16*(12*a4 + 3*a4 + a2) + a3));
 }
 
 //----- (0046A430) --------------------------------------------------------
@@ -6156,7 +6156,7 @@ LABEL_61:
 	v29 = (v27 & 8 | 4u) >> 2;
 LABEL_64:
 	v73 = v29;
-	if (v28 && nox_client_translucentFrontWalls_805844 && !(getMemByte(0x85B3FC, 43076 + 12332 * v3[1]) & 4)) {
+	if (v28 && nox_client_translucentFrontWalls_805844 && !(getMemByte(0x85B3FC, 43044 + 12332*v3[1] + 32) & 4)) {
 		v30 = v72;
 		LOBYTE(v30) = v72 | 2;
 		v72 = v30;
