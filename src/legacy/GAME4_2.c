@@ -7368,7 +7368,7 @@ short sub_528030(int a1) {
 	if (*(uint16_t*)(v2 + 10) == *v3) {
 		goto LABEL_5;
 	}
-	if (abs32(*v3 - *(unsigned short*)(v2 + 10)) >= v3[2] / 10 ||
+	if (abs(*v3 - *(unsigned short*)(v2 + 10)) >= v3[2] / 10 ||
 		(v5 = gameFrame(), v6 = *(uint32_t*)(v4 + 2176), v7 = gameFPS(),
 		 (unsigned int)(gameFrame() - v6) > (int)gameFPS() >> 2)) {
 		nox_xxx_netSendPlrHealthToTeam_4D86E0(v11);
@@ -7382,7 +7382,7 @@ short sub_528030(int a1) {
 	result = *(uint16_t*)(v2 + 4);
 	if (*(uint16_t*)(v2 + 6) != result) {
 		result = 0;
-		if (abs32(*(unsigned short*)(v2 + 4) - *(unsigned short*)(v2 + 6)) >= *(unsigned short*)(v2 + 8) / 10 ||
+		if (abs(*(unsigned short*)(v2 + 4) - *(unsigned short*)(v2 + 6)) >= *(unsigned short*)(v2 + 8) / 10 ||
 			v5 - *(uint32_t*)(*(uint32_t*)(v2 + 276) + 2180) > v7 >> 2) {
 			nox_xxx_netReportMana_4D8930(v11, v1);
 			v10 = *(uint32_t*)(v2 + 276);

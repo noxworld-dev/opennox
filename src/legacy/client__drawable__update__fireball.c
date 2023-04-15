@@ -31,7 +31,7 @@ void sub_4CCEA0(uint32_t* a1, int a2) {
 	v5 = a1[4] - a1[9];
 	v18 = v4;
 	v15 = v3;
-	v6 = abs32(v4) + abs32(v5);
+	v6 = abs(v4) + abs(v5);
 	if (v6 / 7 > 0) {
 		v16 = v6 / 7;
 		while (1) {
