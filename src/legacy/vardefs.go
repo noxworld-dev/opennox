@@ -212,7 +212,7 @@ extern uint32_t dword_5d4594_2487540;
 extern void* dword_587000_81128;
 extern uint32_t dword_5d4594_3798800;
 extern uint32_t dword_5d4594_3798812;
-extern uint32_t dword_5d4594_251552;
+extern void* dword_5d4594_251552;
 extern uint32_t dword_5d4594_1046952;
 extern uint32_t dword_5d4594_832536;
 extern uint32_t dword_587000_87408;
@@ -746,7 +746,6 @@ extern unsigned int dword_5d4594_815052;
 extern unsigned int dword_5d4594_1049508;
 extern uint32_t* dword_5D4594_251544;
 extern void* dword_5d4594_251548;
-extern uint32_t dword_5d4594_251552;
 extern unsigned int nox_client_translucentFrontWalls_805844;
 
 extern void* dword_5d4594_1307292;
@@ -1423,11 +1422,14 @@ func Set_dword_5D4594_251544(v unsafe.Pointer) {
 func Set_dword_5d4594_251556(v unsafe.Pointer) {
 	C.dword_5d4594_251556 = C.uint(uintptr(v))
 }
-func Set_dword_5d4594_251552(v int) {
-	C.dword_5d4594_251552 = C.uint(v)
+func Get_dword_5d4594_251552() *server.Wall {
+	return asWallP(C.dword_5d4594_251552)
 }
-func Set_dword_5d4594_251548(v unsafe.Pointer) {
-	C.dword_5d4594_251548 = v
+func Set_dword_5d4594_251552(v *server.Wall) {
+	C.dword_5d4594_251552 = v.C()
+}
+func Set_dword_5d4594_251548(v *server.Wall) {
+	C.dword_5d4594_251548 = v.C()
 }
 func Set_dword_5d4594_1307292(v *gui.Window) {
 	C.dword_5d4594_1307292 = v.C()

@@ -39,7 +39,6 @@ extern uint32_t dword_5d4594_10984;
 extern uint32_t dword_5d4594_251720;
 extern uint32_t dword_5d4594_251744;
 extern uint32_t dword_5d4594_251556;
-extern uint32_t dword_5d4594_251552;
 extern uint32_t dword_5d4594_251564;
 extern uint32_t dword_5d4594_3484;
 extern void* dword_5d4594_251560;
@@ -58,6 +57,7 @@ extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 
 void* dword_5d4594_251548 = 0;
+void* dword_5d4594_251552 = 0;
 
 //----- (00409470) --------------------------------------------------------
 int nox_xxx_parseString_409470(FILE* a1, uint8_t* a2) {
@@ -693,61 +693,6 @@ int nox_xxx_cliCanTalkMB_4100F0(short* a1) {
 	return 0;
 }
 
-//----- (00410250) --------------------------------------------------------
-void* nox_xxx_wallCreateAt_410250(int a1, int a2) {
-	void* result; // eax
-	int v3;       // edx
-	int v4;       // eax
-	int v5;       // eax
-	int v6;       // esi
-
-	if (a1 < 0 || a1 >= 256 || a2 < 0 || a2 >= 256) {
-		return 0;
-	}
-	result = (void*)nox_server_getWallAtGrid_410580(a1, a2);
-	if (result) {
-		return result;
-	}
-	v3 = dword_5d4594_251548;
-	if (!dword_5d4594_251548) {
-		return 0;
-	}
-	dword_5d4594_251548 = *(uint32_t*)((uint32_t)dword_5d4594_251548 + 20);
-	memset((void*)v3, 0, 0x24u);
-	*(uint8_t*)(v3 + 6) = a2;
-	*(uint8_t*)(v3 + 5) = a1;
-	v4 = ((uint16_t)a2 + ((uint16_t)a1 << 8)) & 0x1FFF;
-	*(uint32_t*)(v3 + 16) = dword_5D4594_251544[v4];
-	dword_5D4594_251544[v4] = v3;
-	*(uint32_t*)(v3 + 20) = dword_5d4594_251552;
-	dword_5d4594_251552 = v3;
-	v5 = *(uint32_t*)(dword_5d4594_251556 + 4 * a2);
-	if (v5) {
-		v6 = 0;
-		while (*(uint8_t*)(v3 + 5) >= *(uint8_t*)(v5 + 5)) {
-			v6 = v5;
-			v5 = *(uint32_t*)(v5 + 24);
-			if (!v5) {
-				*(uint32_t*)(v6 + 24) = v3;
-				*(uint32_t*)(v3 + 24) = 0;
-				return (void*)v3;
-			}
-		}
-		if (v6) {
-			*(uint32_t*)(v6 + 24) = v3;
-		} else {
-			*(uint32_t*)(dword_5d4594_251556 + 4 * a2) = v3;
-		}
-		*(uint32_t*)(v3 + 24) = v5;
-		result = (void*)v3;
-	} else {
-		*(uint32_t*)(dword_5d4594_251556 + 4 * a2) = v3;
-		*(uint32_t*)(v3 + 24) = 0;
-		result = (void*)v3;
-	}
-	return result;
-}
-
 //----- (00410360) --------------------------------------------------------
 uint8_t* nox_xxx_doorAttachWall_410360(int a1, int a2, int a3) {
 	uint8_t* result; // eax
@@ -816,7 +761,7 @@ uint32_t* nox_xxx_mapDelWallAtPt_410430(int a1, int a2) {
 	} else {
 		dword_5D4594_251544[v2] = result[4];
 	}
-	v5 = *(uint32_t**)&dword_5d4594_251552;
+	v5 = dword_5d4594_251552;
 	v6 = 0;
 	if (!dword_5d4594_251552) {
 		dword_5d4594_251552 = v5[5];
