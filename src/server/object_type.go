@@ -230,6 +230,7 @@ type serverObjTypes struct {
 		npc       int
 		bomber    int
 		glyph     int
+		silverKey int
 	}
 }
 
@@ -296,6 +297,10 @@ func (s *Server) BomberID() int {
 
 func (s *Server) GlyphID() int {
 	return s.cacheObjectTypeID(&s.types.fast.glyph, "Glyph")
+}
+
+func (s *Server) SilverKeyID() int {
+	return s.cacheObjectTypeID(&s.types.fast.silverKey, "SilverKey")
 }
 
 func (s *Server) ReadObjectType(thg *things.Thing) error {
