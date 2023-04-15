@@ -67,7 +67,7 @@ func nox_xxx_unitDoSummonAt_5016C0(typID int, pos types.Pointf, owner *server.Ob
 	ud := obj.UpdateDataMonster()
 	obj.Direction1 = dir
 	obj.Direction2 = dir
-	ud.StatusFlags |= 0x80
+	ud.StatusFlags |= object.MonStatusSummoned
 	if owner == nil {
 		return obj
 	}
