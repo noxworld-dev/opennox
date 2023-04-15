@@ -160,11 +160,10 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 			v25a := int(u.NetCode) + int(noxServer.Frame())
 			v25 := v25a / (v69 + 1) % v67
 			if !(v25 <= ((v25a-1)/(v69+1)%v67) || v25 != 2 && v25 != 8) {
-				if v26 := legacy.Nox_xxx_tileNFromPoint_411160(u.Pos()); v26 >= 0 && v26 < int(legacy.Get_dword_5d4594_251568(
-				// emit sound based on the tile material
-				)) {
-
-					switch memmap.Uint32(0x85B3FC, 32484+60*uintptr(v26)+36) {
+				tiles := legacy.Get_nox_tile_defs_arr()
+				if ti := legacy.Nox_xxx_tileNFromPoint_411160(u.Pos()); ti >= 0 && ti < len(tiles) {
+					// emit sound based on the tile material
+					switch tiles[ti].Field36 {
 					case 2:
 						// nop
 					case 8:
@@ -201,8 +200,9 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 			v32 := (v31 - 1) / (v69 + 1) % v67
 			v33 := v31 / (v69 + 1) % v67
 			if (!s.abilities.IsActive(u, server.AbilityTreadLightly) || a1) && v33 != v32 && (v33 == 3 || v33 == 9) {
-				if v34 := legacy.Nox_xxx_tileNFromPoint_411160(u.Pos()); v34 >= 0 && v34 < int(legacy.Get_dword_5d4594_251568()) {
-					switch memmap.Uint32(0x85B3FC, 32484+60*uintptr(v34)+36) {
+				tiles := legacy.Get_nox_tile_defs_arr()
+				if ti := legacy.Nox_xxx_tileNFromPoint_411160(u.Pos()); ti >= 0 && ti < len(tiles) {
+					switch tiles[ti].Field36 {
 					case 2:
 						// nop
 					case 8:

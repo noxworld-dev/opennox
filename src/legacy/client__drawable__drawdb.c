@@ -20,7 +20,6 @@
 
 extern uint64_t qword_581450_9544;
 extern uint64_t qword_581450_9552;
-extern uint32_t dword_5d4594_251568;
 extern uint32_t dword_5d4594_251572;
 
 extern int nox_parse_thing_draw_funcs_cnt;
@@ -139,23 +138,16 @@ bool nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_val
 }
 
 //----- (00485CF0) --------------------------------------------------------
-int sub_485CF0() {
-	int v0;    // edi
-	void** v1; // esi
-
-	v0 = 0;
-	if (*(int*)&dword_5d4594_251568 <= 0) {
-		return 1;
-	}
-	v1 = (void**)getMemAt(0x85B3FC, 32484 + 32);
-	do {
-		if (*v1) {
-			free(*v1);
-			*v1 = 0;
+extern uint32_t nox_tile_def_cnt;
+extern nox_tileDef_t nox_tile_defs_arr[176];
+int nox_free_tile_defs() {
+	for (int i = 0; i < nox_tile_def_cnt; i++) {
+		nox_tileDef_t* it = &nox_tile_defs_arr[i];
+		if (it->data_32) {
+			free(it->data_32);
+			it->data_32 = 0;
 		}
-		++v0;
-		v1 += 15;
-	} while (v0 < *(int*)&dword_5d4594_251568);
+	}
 	return 1;
 }
 

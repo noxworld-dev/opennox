@@ -72,7 +72,6 @@ extern uint32_t dword_5d4594_1193360;
 extern uint32_t nox_client_highResFrontWalls_80820;
 extern uint32_t dword_5d4594_3798836;
 extern uint32_t dword_5d4594_1107036;
-extern uint32_t dword_5d4594_251568;
 extern uint32_t dword_5d4594_251572;
 extern uint32_t dword_5d4594_1098628;
 extern uint32_t dword_5d4594_3798804;
@@ -92,6 +91,9 @@ extern uint32_t nox_color_yellow_2589772;
 extern nox_render_data_t* nox_draw_curDrawData_3799572;
 
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
+
+extern uint32_t nox_tile_def_cnt;
+extern nox_tileDef_t nox_tile_defs_arr[176];
 
 uint8_t** nox_pixbuffer_rows_3798784 = 0;
 
@@ -2049,7 +2051,6 @@ char nox_xxx_tileDraw_4815E0(uint32_t* a1, int a2) {
 bool get_nox_client_texturedFloors_154956();
 uint32_t dword_5d4594_1193156 = 0;
 char* sub_481770(uint32_t* a1, int a2, unsigned short a3) {
-	int v3;           // ebp
 	unsigned char v4; // cl
 	unsigned int v5;  // edx
 	unsigned int v6;  // esi
@@ -2060,10 +2061,11 @@ char* sub_481770(uint32_t* a1, int a2, unsigned short a3) {
 	char* result;     // eax
 	int v12;          // [esp+Ch] [ebp+Ch]
 
-	if (!get_nox_client_texturedFloors_154956() && (getMemByte(0x85B3FC, 32484 + 60*a3 + 58) & 1) == 1) {
+	nox_tileDef_t* tile = &nox_tile_defs_arr[a3];
+	if (!get_nox_client_texturedFloors_154956() && (tile->field_58 & 1) == 1) {
 		dword_5d4594_1193156 = 1;
 	}
-	v3 = *getMemU32Ptr(0x85B3FC, 32484 + 60*a3 + 48);
+	int cl = tile->color_48;
 	v4 = getMemByte(0x973F18, 7696);
 	v5 = nox_video_tileBuf_end_3798844;
 	v6 = dword_5d4594_3798804 * (dword_5d4594_3798840 + a1[1] - dword_5d4594_3798824) + (uint32_t)nox_video_tileBuf_ptr_3798796 +
@@ -2072,7 +2074,7 @@ char* sub_481770(uint32_t* a1, int a2, unsigned short a3) {
 		v6 += (uint32_t)nox_video_tileBuf_ptr_3798796 - (uint32_t)nox_video_tileBuf_end_3798844;
 	}
 	if (v6 + *getMemU32Ptr(0x973CE0, 376) < nox_video_tileBuf_end_3798844) {
-		result = (char*)sub_484450(v3, v6);
+		result = (char*)sub_484450(cl, v6);
 	} else {
 		v7 = 0;
 		v12 = 0;
@@ -2080,18 +2082,18 @@ char* sub_481770(uint32_t* a1, int a2, unsigned short a3) {
 			v8 = *getMemU32Ptr(0x973CE0, 192 + v7) << v4;
 			v9 = *getMemU32Ptr(0x973CE0, 384 + v7) << v4;
 			if (v6 + v9 + v8 < v5) {
-				result = (char*)sub_49D1C0(v6 + v8, v3, v9);
+				result = (char*)sub_49D1C0(v6 + v8, cl, v9);
 				v5 = nox_video_tileBuf_end_3798844;
 			} else {
 				v10 = v5 - v8 - v6;
 				if (v10 <= 0) {
 					v6 += (uint32_t)nox_video_tileBuf_ptr_3798796 - v5;
-					result = (char*)sub_49D1C0(v6 + v8, v3, v9);
+					result = (char*)sub_49D1C0(v6 + v8, cl, v9);
 					v5 = nox_video_tileBuf_end_3798844;
 					v7 = v12;
 				} else {
-					sub_49D1C0(v6 + v8, v3, v5 - v8 - v6);
-					sub_49D1C0(nox_video_tileBuf_ptr_3798796, v3, v9 - v10);
+					sub_49D1C0(v6 + v8, cl, v5 - v8 - v6);
+					sub_49D1C0(nox_video_tileBuf_ptr_3798796, cl, v9 - v10);
 					v5 = nox_video_tileBuf_end_3798844;
 					v7 = v12;
 					result = (char*)((uint32_t)nox_video_tileBuf_ptr_3798796 - (uint32_t)nox_video_tileBuf_end_3798844);
@@ -2144,9 +2146,10 @@ char nox_xxx_drawTexEdgesProbably_481900(uint32_t* a1, uint32_t* a2) {
 	char* v33;         // [esp+34h] [ebp+8h]
 	int* addr;
 
+	nox_tileDef_t* tile = &nox_tile_defs_arr[a2[0]];
+
 	v2 = dword_5d4594_3798824;
-	v3 = *(uint32_t*)(*getMemU32Ptr(0x85B3FC, 32484 + 32 + 60 * *a2) +
-					  4 * (a2[1] + *getMemU16Ptr(0x85B3FC, 32484 + 46 + 60 * *a2)));
+	v3 = tile->data_32[a2[1] + tile->field_46];
 	v4 = a2[2];
 	v5 = dword_5d4594_3798836;
 	addr = (*getMemU32Ptr(0x85B3FC, 28676 + 60 * v4) + 4 * (a2[3] + *getMemU16Ptr(0x85B3FC, 28690 + 60 * v4)));
@@ -2336,8 +2339,7 @@ void nox_xxx_tileDrawMB_481C20_A(nox_draw_viewport_t* vp, int v3) {
 			if (*(uint8_t*)v14 & 2) {
 				LOWORD(v13) = *(uint16_t*)(v14 + 24);
 				v15 = *(unsigned short*)(v14 + 24);
-				v62 = *(uint32_t*)(*getMemU32Ptr(0x85B3FC, 32484 + 60*v15 + 32) +
-								   4 * (*(uint32_t*)(v14 + 28) + *getMemU16Ptr(0x85B3FC, 32484 + 60*v15 + 46)));
+				v62 = nox_tile_defs_arr[v15].data_32[*(uint32_t*)(v14 + 28) + nox_tile_defs_arr[v15].field_46];
 				v68.field_0 = v76;
 				v68.field_4 = v11 + 23;
 				func_587000_154940(&v68, v62, v13);
@@ -2349,8 +2351,7 @@ void nox_xxx_tileDrawMB_481C20_A(nox_draw_viewport_t* vp, int v3) {
 			if (*(uint8_t*)v14 & 1) {
 				LOWORD(v13) = *(uint16_t*)(v14 + 4);
 				v16 = *(unsigned short*)(v14 + 4);
-				v63 = *(uint32_t*)(*getMemU32Ptr(0x85B3FC, 32484 + 60*v16 + 32) +
-								   4 * (*(uint32_t*)(v14 + 8) + *getMemU16Ptr(0x85B3FC, 32484 + 60*v16 + 46)));
+				v63 = nox_tile_defs_arr[v16].data_32[*(uint32_t*)(v14 + 8) + nox_tile_defs_arr[v16].field_46];
 				v68.field_0 = v76 + 23;
 				v68.field_4 = v11;
 				func_587000_154940(&v68, v63, v13);
@@ -2447,8 +2448,7 @@ void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, int v78) {
 			if (v29 & 2) {
 				LOWORD(v27) = *(uint16_t*)(v30 + 24);
 				v31 = *(unsigned short*)(v30 + 24);
-				v64 = *(uint32_t*)(*getMemU32Ptr(0x85B3FC, 32484 + 60*v31 + 32) +
-								   4 * (*(uint32_t*)(v30 + 28) + *getMemU16Ptr(0x85B3FC, 32484 + 60*v31 + 46)));
+				v64 = nox_tile_defs_arr[v31].data_32[*(uint32_t*)(v30 + 28) + nox_tile_defs_arr[v31].field_46];
 				v68.field_0 = v26;
 				v68.field_4 = v76 + 23;
 				func_587000_154940(&v68, v64, v27);
@@ -2460,8 +2460,7 @@ void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, int v78) {
 			if (*(uint8_t*)v30 & 1) {
 				LOWORD(v27) = *(uint16_t*)(v30 + 4);
 				v32 = *(unsigned short*)(v30 + 4);
-				v65 = *(uint32_t*)(*getMemU32Ptr(0x85B3FC, 32484 + 60*v32 + 32) +
-								   4 * (*(uint32_t*)(v30 + 8) + *getMemU16Ptr(0x85B3FC, 32484 + 60*v32 + 46)));
+				v65 = nox_tile_defs_arr[v32].data_32[*(uint32_t*)(v30 + 8) + nox_tile_defs_arr[v32].field_46];
 				v68.field_0 = v26 + 23;
 				v68.field_4 = v76;
 				func_587000_154940(&v68, v65, v27);
@@ -2535,11 +2534,11 @@ int nox_xxx_tileCheckRedrawMB_482570(nox_draw_viewport_t* vp) {
 	while (1) {
 		v8 = i + *v7;
 		if (*(uint8_t*)v8 & 1) {
-			if ((getMemByte(0x85B3FC, 32484 + 58 + 60 * *(uint32_t*)(v8 + 4)) & 1) == 1) {
+			if ((nox_tile_defs_arr[*(uint32_t*)(v8 + 4)].field_58 & 1) == 1) {
 				return 1;
 			}
 		}
-		if (*(uint8_t*)v8 & 2 && (getMemByte(0x85B3FC, 32484 + 58 + 60 * *(uint32_t*)(v8 + 24)) & 1) == 1) {
+		if (*(uint8_t*)v8 & 2 && (nox_tile_defs_arr[*(uint32_t*)(v8 + 24)].field_58 & 1) == 1) {
 			return 1;
 		}
 		++v6;
@@ -2631,9 +2630,7 @@ int nox_xxx_tileDrawImpl_4826A0(nox_draw_viewport_t* vp) {
 						if (v12 & 2) {
 							LOWORD(v10) = *(uint16_t*)(v13 + 24);
 							v14 = *(unsigned short*)(v13 + 24);
-							v18 =
-								*(uint32_t*)(*getMemU32Ptr(0x85B3FC, 32484 + 60*v14 + 32) +
-											 4 * (*(uint32_t*)(v13 + 28) + *getMemU16Ptr(0x85B3FC, 32484 + 60*v14 + 46)));
+							v18 = nox_tile_defs_arr[v14].data_32[*(uint32_t*)(v13 + 28) + nox_tile_defs_arr[v14].field_46];
 							v24.field_0 = v8;
 							v24.field_4 = v6 + 23;
 							func_587000_154940(&v24, v18, v10);
@@ -2645,8 +2642,7 @@ int nox_xxx_tileDrawImpl_4826A0(nox_draw_viewport_t* vp) {
 						if (*(uint8_t*)v13 & 1) {
 							LOWORD(v10) = *(uint16_t*)(v13 + 4);
 							v15 = *(unsigned short*)(v13 + 4);
-							v19 = *(uint32_t*)(*getMemU32Ptr(0x85B3FC, 32484 + 60*v15 + 32) +
-											   4 * (*(uint32_t*)(v13 + 8) + *getMemU16Ptr(0x85B3FC, 32484 + 60*v15 + 46)));
+							v19 = nox_tile_defs_arr[v15].data_32[*(uint32_t*)(v13 + 8) + nox_tile_defs_arr[v15].field_46];
 							v24.field_0 = v8 + 23;
 							v24.field_4 = v6;
 							func_587000_154940(&v24, v19, v10);
@@ -4036,13 +4032,8 @@ int nox_thing_read_floor_485B30(nox_memfile* f, char* a2) {
 	int a1 = f;
 	int v2;            // esi
 	uint8_t* v3;       // edi
-	int v4;            // eax
-	int v5;            // ebp
-	const char* v6;    // edx
-	int v7;            // ecx
 	uint8_t* v9;       // edx
 	int v10;           // edi
-	int v11;           // ebx
 	int* v12;          // eax
 	int v13;           // ecx
 	char* v14;         // eax
@@ -4051,7 +4042,6 @@ int nox_thing_read_floor_485B30(nox_memfile* f, char* a2) {
 	unsigned char v17; // [esp+10h] [ebp-2Ch]
 	int i;             // [esp+10h] [ebp-2Ch]
 	unsigned char v19; // [esp+14h] [ebp-28h]
-	int v20;           // [esp+14h] [ebp-28h]
 	const char* v21;   // [esp+18h] [ebp-24h]
 	char v22[32];      // [esp+1Ch] [ebp-20h]
 	unsigned char v23; // [esp+40h] [ebp+4h]
@@ -4063,25 +4053,20 @@ int nox_thing_read_floor_485B30(nox_memfile* f, char* a2) {
 	LOBYTE(a1) = *v3;
 	*(uint32_t*)(v2 + 8) = v3 + 1;
 	nox_memfile_read(v22, 1u, (unsigned char)a1, v16);
-	v4 = dword_5d4594_251568;
-	v5 = 0;
 	v22[(unsigned char)a1] = 0;
-	if (v4 <= 0) {
-	LABEL_5:
-		v7 = a1;
-	} else {
-		v6 = (const char*)getMemAt(0x85B3FC, 32484);
-		while (strcmp(v6, v22)) {
-			++v5;
-			v6 += 60;
-			if (v5 >= *(int*)&dword_5d4594_251568) {
-				goto LABEL_5;
+	int v7 = a1;
+	if (nox_tile_def_cnt > 0) {
+		int v5 = 0;
+		for (v5 = 0; v5 < nox_tile_def_cnt; v5++) {
+			nox_tileDef_t* p = &nox_tile_defs_arr[v5];
+			if (strcmp(&p->name[0], v22) == 0) {
+				v7 = v5;
+				break;
 			}
 		}
-		v7 = v5;
-	}
-	if (v5 == dword_5d4594_251568) {
-		return 0;
+		if (v5 == nox_tile_def_cnt) {
+			return 0;
+		}
 	}
 	v9 = (uint8_t*)(*(uint32_t*)(v2 + 8) + 12);
 	*(uint32_t*)(v2 + 8) = v9;
@@ -4092,11 +4077,9 @@ int nox_thing_read_floor_485B30(nox_memfile* f, char* a2) {
 	v17 = v9[2];
 	*(uint32_t*)(v2 + 8) = v9 + 4;
 	v10 = (unsigned char)v21 * v19 * v17;
-	v20 = 15 * v7;
-	*getMemU32Ptr(0x85B3FC, 32484 + 60*v7 + 32) = calloc(v10, 4);
-	v11 = 0;
-	for (i = 0; v11 < v10; *(uint32_t*)(*getMemU32Ptr(0x85B3FC, 32484 + 32 + 4*v20) + 4 * v11 - 4) =
-							   nox_xxx_readImgMB_42FAA0(v13, v21, a2)) {
+	nox_tile_defs_arr[v7].data_32 = calloc(v10, 4);
+	int v11 = 0;
+	for (i = 0; v11 < v10; ) {
 		v12 = *(int**)(v2 + 8);
 		v13 = *v12;
 		*(uint32_t*)(v2 + 8) = v12 + 1;
@@ -4113,7 +4096,9 @@ int nox_thing_read_floor_485B30(nox_memfile* f, char* a2) {
 			a2[v23] = 0;
 			v11 = i;
 		}
-		i = ++v11;
+		nox_tile_defs_arr[v7].data_32[v11] = nox_xxx_readImgMB_42FAA0(v13, v21, a2);
+		v11++;
+		i = v11;
 	}
 	return 1;
 }

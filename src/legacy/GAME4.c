@@ -47,7 +47,6 @@ extern uint32_t dword_5d4594_3835396;
 extern uint32_t dword_5d4594_1599596;
 extern uint32_t dword_5d4594_1599576;
 extern uint32_t dword_5d4594_1569752;
-extern uint32_t dword_5d4594_251568;
 extern uint32_t dword_5d4594_1570272;
 extern uint32_t dword_5d4594_1599656;
 extern uint32_t dword_5d4594_2650652;
@@ -6161,9 +6160,9 @@ uint32_t* nox_xxx_tileAllocTileInCoordList_5040A0(int a1, int a2, float a3) {
 }
 
 //----- (00504150) --------------------------------------------------------
+extern uint32_t nox_tile_def_cnt;
+extern nox_tileDef_t nox_tile_defs_arr[176];
 int nox_xxx_tileInit_504150(int a1, int a2) {
-	int v2;         // eax
-	const char* v3; // edx
 	int v5;         // edi
 	int* i;         // esi
 	float2 a1a;     // [esp+Ch] [ebp-50h]
@@ -6172,18 +6171,16 @@ int nox_xxx_tileInit_504150(int a1, int a2) {
 	float v10;      // [esp+64h] [ebp+8h]
 
 	if (*getMemIntPtr(0x587000, 229704) == -1) {
-		v2 = 0;
-		if (*(int*)&dword_5d4594_251568 > 0) {
-			v3 = (const char*)getMemAt(0x85B3FC, 32484);
-			while (strcmp(v3, "TransparentFloor")) {
-				++v2;
-				v3 += 60;
-				if (v2 >= *(int*)&dword_5d4594_251568) {
-					goto LABEL_8;
+		if (nox_tile_def_cnt > 0) {
+			int v2 = 0;
+			for (int i = 0; i < nox_tile_def_cnt; i++) {
+				nox_tileDef_t* p = &nox_tile_defs_arr[i];
+				if (strcmp(&p->name[0], "TransparentFloor") == 0) {
+					*getMemU32Ptr(0x587000, 229704) = i;
+					v2 = i;
+					break;
 				}
 			}
-			*getMemU32Ptr(0x587000, 229704) = v2;
-		LABEL_8:
 			if (v2 == -1) {
 				return 0;
 			}

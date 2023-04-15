@@ -76,7 +76,6 @@ extern uint32_t dword_5d4594_831236;
 extern uint32_t dword_5d4594_1047540;
 extern uint32_t dword_5d4594_1320964;
 extern uint32_t dword_5d4594_1049800_inventory_click_row_index;
-extern uint32_t dword_5d4594_251568;
 extern uint32_t dword_5d4594_1309720;
 extern uint32_t dword_5d4594_1569752;
 extern uint32_t dword_5d4594_1046936;
@@ -887,9 +886,6 @@ func Get_dword_5d4594_814996() *gui.Window {
 }
 func Get_dword_5d4594_814984() *gui.Window {
 	return AsWindowP(C.dword_5d4594_814984)
-}
-func Get_dword_5d4594_251568() int {
-	return int(C.dword_5d4594_251568)
 }
 func Get_dword_5d4594_2488604() int {
 	return int(C.dword_5d4594_2488604)
