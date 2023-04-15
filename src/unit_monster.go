@@ -12,6 +12,8 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
+var _ = [1]struct{}{}[248-unsafe.Sizeof(server.MonsterDef{})]
+
 func objectMonsterInit(sobj *server.Object) {
 	obj := asObjectS(sobj)
 	s := obj.getServer()
@@ -20,7 +22,7 @@ func objectMonsterInit(sobj *server.Object) {
 		switch int(obj.TypeInd) {
 		case s.Types.CarnivorousPlantID():
 			obj.clearActionStack()
-			ud.Field328 = float32(float64(*(*float32)(unsafe.Add(ud.Field121, 112))+obj.Shape.Circle.R) + 10.0)
+			ud.Field328 = float32(float64(ud.MonsterDef.MeleeAttackRange112+obj.Shape.Circle.R) + 10.0)
 			ud.AIAction340 = uint32(ai.ACTION_GUARD)
 		case s.Types.RatID():
 			obj.clearActionStack()
@@ -105,16 +107,13 @@ func (obj *Object) monsterCast(spellInd spell.ID, target *server.Object) {
 		obj.monsterPushAction(ai.ACTION_CAST_SPELL_ON_OBJECT, uint32(spellInd), 0, target)
 	}
 	if target.SObj() != obj.SObj() && !obj.monsterActionIsScheduled(ai.ACTION_FLEE) {
-		if !sp.Def.Flags.Has(things.SpellTargeted) { // TODO: looks like the flag name is incorrect
+		if !sp.Def.Flags.Has(things.SpellTargeted) { // TODO: looks like the flag name is incorrect on our side
 			obj.monsterPushAction(ai.ACTION_FACE_OBJECT, target)
 			obj.monsterPushAction(ai.DEPENDENCY_BLOCKED_LINE_OF_FIRE, target)
 		}
-
-		v9 := *(*uint32)(unsafe.Add(ud.Field121, 212))
-		obj.monsterPushAction(ai.DEPENDENCY_OBJECT_FARTHER_THAN, v9, 0, target)
+		obj.monsterPushAction(ai.DEPENDENCY_OBJECT_FARTHER_THAN, ud.MonsterDef.MissileAttackRange212, 0, target)
 		obj.monsterPushAction(ai.DEPENDENCY_OR)
-		pos2 := target.Pos()
-		obj.monsterPushAction(ai.ACTION_MOVE_TO, pos2.X, pos2.Y, target)
+		obj.monsterPushAction(ai.ACTION_MOVE_TO, target.Pos(), target)
 	}
 }
 
