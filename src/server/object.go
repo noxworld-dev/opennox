@@ -409,9 +409,9 @@ type Object struct {
 	Field122_1    uint8                      // 122, 489
 	CarryCapacity uint16                     // 122, 490
 	InvHolder     *Object                    // 123, 492 // Also health data, possibly same as 556, see 4E4560
-	InvNextItem   *Object                    // 124, 496, TODO: next item
+	InvNextItem   *Object                    // 124, 496
 	Field125      *Object                    // 125, 500, TODO: an Object*? see 4ED0C0
-	InvFirstItem  *Object                    // 126, 504, TODO: first item
+	InvFirstItem  *Object                    // 126, 504
 	ObjOwner      *Object                    // 127, 508
 	Field128      *Object                    // 128, 512
 	Field129      *Object                    // 129, 516

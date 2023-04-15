@@ -573,9 +573,6 @@ func Nox_xxx_mapLoadRequired_4DCC80() int {
 func Sub_40A970() {
 	C.sub_40A970()
 }
-func Sub_4D72C0() int {
-	return int(C.sub_4D72C0())
-}
 func Nox_gui_itemAmount_free_4C03E0() {
 	C.nox_gui_itemAmount_free_4C03E0()
 }
@@ -733,9 +730,6 @@ func Sub_4E81D0(a1 *server.Object) {
 }
 func Sub_4D71E0(a1 int) {
 	C.sub_4D71E0(C.int(a1))
-}
-func Sub_4D72B0(a1 int) {
-	C.sub_4D72B0(C.int(a1))
 }
 func Sub_4D7280(a1 int, a2 int8) {
 	C.sub_4D7280(C.int(a1), C.char(a2))

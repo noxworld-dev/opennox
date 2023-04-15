@@ -111,7 +111,6 @@ char sub_57B370(int a1, unsigned char a2, int a3);
 int nox_xxx_playerClassCanUseItem_57B3D0(nox_object_t* item, char a2);
 int nox_xxx_client_57B400(int a1);
 int sub_57B450(nox_drawable* a1p);
-int sub_57B4D0(int a1);
 char sub_57B500(int a1, int a2, char a3);
 char sub_57B630(int a1, int a2, int a3);
 float2* sub_57B770(float2* a1, float2* a2);
