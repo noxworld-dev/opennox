@@ -1,35 +1,15 @@
 package opennox
 
 import (
-	"unsafe"
-
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/legacy"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
-	"github.com/noxworld-dev/opennox/v1/server"
 )
-
-func (s *Server) itemsApplyUpdateEffect(a1 *server.Object) {
-	for it := asObjectS(a1.InvFirstItem); it != nil; it = asObjectS(it.InvNextItem) {
-		const maskItems = object.ClassFlag | object.ClassWeapon | object.ClassArmor | object.ClassWand
-		if it.Flags().Has(object.FlagEquipped) && it.Class().HasAny(maskItems) {
-			idata := unsafe.Slice((*unsafe.Pointer)(it.InitData), 4)
-			for _, mod := range idata {
-				if mod != nil {
-					if fnc := *(*unsafe.Pointer)(unsafe.Add(mod, 100)); fnc != nil {
-						ccall.CallVoidPtr3(fnc, mod, it.SObj().CObj(), nil)
-					}
-				}
-			}
-		}
-	}
-}
 
 func (s *Server) updateUnitsAAA() { // nox_xxx_updateUnits_51B100_A
 	for _, u := range s.getPlayerUnits() {
-		s.itemsApplyUpdateEffect(u.SObj())
+		s.ItemsApplyUpdateEffect(u.SObj())
 		ud := u.UpdateDataPlayer()
 		ud.CursorObj = legacy.Nox_xxx_findObjectAtCursor_54AF40(u.SObj())
 	}
