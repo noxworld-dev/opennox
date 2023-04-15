@@ -314,47 +314,28 @@ func (obj nsObj) MonsterStatus() object.MonsterStatus {
 	if !obj.Class().Has(object.ClassMonster) {
 		return 0
 	}
-	ud := obj.UpdateDataMonster()
-	if ud == nil {
-		return 0
-	}
-	return ud.StatusFlags
+	return obj.UpdateDataMonster().StatusFlags
 }
 
 func (obj nsObj) SetMonsterStatus(v object.MonsterStatus) {
-	if !obj.Class().Has(object.ClassMonster) {
-		return
+	if obj.Class().Has(object.ClassMonster) {
+		obj.UpdateDataMonster().StatusFlags = v
+		legacy.Nox_xxx_monsterMarkUpdate_4E8020(obj.SObj())
 	}
-	ud := obj.UpdateDataMonster()
-	if ud == nil {
-		return
-	}
-	ud.StatusFlags = v
-	legacy.Nox_xxx_monsterMarkUpdate_4E8020(obj.SObj())
 }
 
 func (obj nsObj) MonsterStatusEnable(v object.MonsterStatus) {
-	if !obj.Class().Has(object.ClassMonster) {
-		return
+	if obj.Class().Has(object.ClassMonster) {
+		obj.UpdateDataMonster().StatusFlags |= v
+		legacy.Nox_xxx_monsterMarkUpdate_4E8020(obj.SObj())
 	}
-	ud := obj.UpdateDataMonster()
-	if ud == nil {
-		return
-	}
-	ud.StatusFlags |= v
-	legacy.Nox_xxx_monsterMarkUpdate_4E8020(obj.SObj())
 }
 
 func (obj nsObj) MonsterStatusDisable(v object.MonsterStatus) {
-	if !obj.Class().Has(object.ClassMonster) {
-		return
+	if obj.Class().Has(object.ClassMonster) {
+		obj.UpdateDataMonster().StatusFlags &^= v
+		legacy.Nox_xxx_monsterMarkUpdate_4E8020(obj.SObj())
 	}
-	ud := obj.UpdateDataMonster()
-	if ud == nil {
-		return
-	}
-	ud.StatusFlags &^= v
-	legacy.Nox_xxx_monsterMarkUpdate_4E8020(obj.SObj())
 }
 
 func (obj nsObj) Direction() ns4.Direction {
