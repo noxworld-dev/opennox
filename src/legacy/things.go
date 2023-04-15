@@ -10,11 +10,11 @@ package legacy
 #include "GAME2_2.h"
 #include "GAME4.h"
 extern uint32_t dword_5d4594_251540;
-extern uint32_t dword_5d4594_251568;
+extern uint32_t nox_tile_def_cnt;
 extern uint32_t dword_5d4594_251572;
 void nox_xxx_equipArmor_415AB0();
 void nox_xxx_equipWeapon_4157C0();
-int sub_485CF0();
+int nox_free_tile_defs();
 int sub_485F30();
 int sub_46A360();
 int sub_4F0640();
@@ -66,7 +66,7 @@ func Sub_4F0640() {
 	C.sub_4F0640()
 }
 func Sub_485CF0() {
-	C.sub_485CF0()
+	C.nox_free_tile_defs()
 }
 func Sub_485F30() {
 	C.sub_485F30()
@@ -171,6 +171,6 @@ func Nox_thing_read_EDGE_411850(f *binfile.MemFile, buf []byte) int {
 
 func LoadAllBinFileSectionsResetCounters() {
 	C.dword_5d4594_251540 = 0
-	C.dword_5d4594_251568 = 0
+	C.nox_tile_def_cnt = 0
 	C.dword_5d4594_251572 = 0
 }

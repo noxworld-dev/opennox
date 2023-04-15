@@ -72,6 +72,7 @@ extern uint32_t dword_5d4594_2487556;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
 //----- (0051DA70) --------------------------------------------------------
+extern nox_tileDef_t nox_tile_defs_arr[176];
 int sub_51DA70(int a1, int a2, int a3, int a4, int a5) {
 	int v5;  // ebx
 	int v6;  // ebp
@@ -82,7 +83,6 @@ int sub_51DA70(int a1, int a2, int a3, int a4, int a5) {
 	int v11; // eax
 	int v12; // edx
 	int v13; // ecx
-	int v14; // edi
 	int v15; // ebx
 	int v16; // edi
 	int v17; // edx
@@ -136,10 +136,9 @@ int sub_51DA70(int a1, int a2, int a3, int a4, int a5) {
 	v30 = 0;
 LABEL_11:
 	v9 = *v7;
-	v14 = 60 * *v7;
-	v15 = getMemByte(0x85B3FC, 32484 + 52 + v14);
+	v15 = nox_tile_defs_arr[v9].field_52;
 	v29 = (v12 + v11) % v15;
-	v16 = getMemByte(0x85B3FC, 32484 + 53 + v14);
+	v16 = nox_tile_defs_arr[v9].field_53;
 	v17 = (v30 + a2 - v28) % v16;
 	v18 = v29;
 	if (v29 < 0) {
