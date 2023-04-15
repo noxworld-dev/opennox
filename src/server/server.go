@@ -14,9 +14,20 @@ import (
 	"github.com/noxworld-dev/opennox-lib/console"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/gsync"
 )
 
 var Log = log.New("server")
+
+var (
+	serverLast uintptr // atomic
+	servers    gsync.Map[uintptr, *Server]
+)
+
+func getServer(h uintptr) *Server {
+	s, _ := servers.Load(h)
+	return s
+}
 
 func New(pr console.Printer, sm *strman.StringManager) *Server {
 	s := &Server{
@@ -24,8 +35,11 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 		loopHooks: make(chan func()),
 		port:      common.GamePort,
 	}
+	s.handle = atomic.AddUintptr(&serverLast, 1)
+	servers.Store(s.handle, s)
 	s.Rand.init(nil)
 	s.Types.init()
+	s.Objs.init(s.handle)
 	s.Modif.init(sm)
 	s.Players.init()
 	s.Teams.init(sm)
@@ -36,6 +50,7 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 type ObjectScriptID uint32
 
 type Server struct {
+	handle     uintptr
 	pr         console.Printer
 	sm         *strman.StringManager
 	frame      uint32
@@ -64,6 +79,10 @@ type Server struct {
 	nat  natService
 
 	updateFunc2 func() bool
+}
+
+func (s *Server) Close() {
+	servers.Delete(s.handle)
 }
 
 func (s *Server) Printer() console.Printer {
