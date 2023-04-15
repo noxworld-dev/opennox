@@ -164,7 +164,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 				// emit sound based on the tile material
 				)) {
 
-					switch memmap.Uint32(0x85B3FC, 32520+60*uintptr(v26)) {
+					switch memmap.Uint32(0x85B3FC, 32484+60*uintptr(v26)+36) {
 					case 2:
 						// nop
 					case 8:
@@ -202,7 +202,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 			v33 := v31 / (v69 + 1) % v67
 			if (!s.abilities.IsActive(u, server.AbilityTreadLightly) || a1) && v33 != v32 && (v33 == 3 || v33 == 9) {
 				if v34 := legacy.Nox_xxx_tileNFromPoint_411160(u.Pos()); v34 >= 0 && v34 < int(legacy.Get_dword_5d4594_251568()) {
-					switch memmap.Uint32(0x85B3FC, 32520+60*uintptr(v34)) {
+					switch memmap.Uint32(0x85B3FC, 32484+60*uintptr(v34)+36) {
 					case 2:
 						// nop
 					case 8:
