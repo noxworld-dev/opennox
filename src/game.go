@@ -47,10 +47,6 @@ var (
 	dword_5d4594_2516476      byte
 	gameIsNotMultiplayer      bool
 	gameIsSwitchToSolo        bool
-
-	dword_5d4594_2523884 *server.Object
-	dword_5d4594_2523888 bool
-	dword_5d4594_1556140 bool
 )
 
 func init() {
@@ -1270,9 +1266,9 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	s.flag1548704 = false
 	if noxflags.HasGame(noxflags.GameModeQuest) {
 		legacy.Sub_4D71E0(0)
-		if sub_4D72C0() {
-			sub_4D72B0(false)
-			v57 := sub_4D72C0()
+		if s.Doors.Sub_4D72C0() {
+			s.Doors.Sub_4D72B0(false)
+			v57 := s.Doors.Sub_4D72C0()
 			legacy.Sub_4D7280(255, int8(bool2int(v57)))
 		}
 	}
@@ -1536,7 +1532,7 @@ func (s *Server) mapTraceRayImpl(pi image.Point, p1, p2 types.Pointf, flags serv
 	if flags.Has(server.MapTraceFlag1) {
 		v30 |= 0x10
 	}
-	tflag := sub_57B500(pi, v30)
+	tflag := s.Sub_57B500(pi, v30)
 	if tflag == -1 {
 		return nil
 	}
@@ -1600,157 +1596,6 @@ func (s *Server) mapTraceRayImpl(pi image.Point, p1, p2 types.Pointf, flags serv
 		}
 	}
 	return out
-}
-
-var table196184 = []image.Point{
-	{X: -23, Y: -23}, {X: -18, Y: -27}, {X: -12, Y: -30}, {X: -6, Y: -31},
-	{X: 0, Y: -32}, {X: 6, Y: -31}, {X: 12, Y: -30}, {X: 18, Y: -27},
-	{X: 23, Y: -23}, {X: 27, Y: -18}, {X: 30, Y: -12}, {X: 31, Y: -6},
-	{X: 32, Y: 0}, {X: 31, Y: 6}, {X: 30, Y: 12}, {X: 27, Y: 18},
-	{X: 23, Y: 23}, {X: 18, Y: 27}, {X: 12, Y: 30}, {X: 6, Y: 31},
-	{X: 0, Y: 32}, {X: -6, Y: 31}, {X: -12, Y: 30}, {X: -18, Y: 27},
-	{X: -23, Y: 23}, {X: -27, Y: 18}, {X: -30, Y: 12}, {X: -31, Y: 6},
-	{X: -32, Y: 0}, {X: -31, Y: -6}, {X: -30, Y: -12}, {X: -27, Y: -18},
-}
-
-func sub_57B4D0(v *server.Object) {
-	if v != nil {
-		dword_5d4594_2523884 = v
-		dword_5d4594_2523888 = true
-	} else {
-		dword_5d4594_2523888 = false
-	}
-}
-
-func sub_57B500(pos image.Point, flags byte) int8 {
-	s := noxServer
-	if pos.X < 0 || pos.X >= server.WallGridSize || pos.Y < 0 || pos.Y >= server.WallGridSize {
-		return -1
-	}
-	wl := s.Walls.GetWallAtGrid2(pos)
-	if wl == nil {
-		return -1
-	}
-	if !wl.Flags4.Has(server.WallFlag5) {
-		if flags&0x40 == 0 && wl.Flags4.Has(server.WallFlag7) || wl.Flags4.Has(server.WallFlag3) && int32(*(*uint8)(unsafe.Add(wl.Data28, 22))) > 11 {
-			return -1
-		}
-		return int8(wl.Dir0)
-	}
-	if flags&0x10 == 0 {
-		return -1
-	}
-	obj := asObject(wl.Data28).SObj()
-	if obj == nil {
-		return -1
-	}
-	ud := obj.UpdateData // TODO: which one?
-	if flags&0x8 != 0 {
-		if *(*uint8)(unsafe.Add(ud, 1)) == 0 {
-			return -1
-		}
-		if dword_5d4594_2523888 && nox_xxx_doorGetSomeKey_4E8910(dword_5d4594_2523884, obj) {
-			dword_5d4594_2523888 = false
-			return -1
-		}
-	}
-	if int32(int8(flags)) >= 0 && obj.SubClass().Has(0x4) {
-		return -1
-	}
-	ang := *(*uint32)(unsafe.Add(ud, 12))
-	if ang != *(*uint32)(unsafe.Add(ud, 4)) {
-		return -1
-	}
-	xi := table196184[ang].X
-	yi := table196184[ang].Y
-	if xi > 0 && yi > 0 {
-		return 1
-	} else if xi < 0 && yi < 0 {
-		return 1
-	} else if xi < 0 && yi > 0 {
-		return 0
-	} else if xi > 0 && yi < 0 {
-		return 0
-	}
-	return -1
-}
-
-func nox_xxx_doorGetSomeKey_4E8910(u, door *server.Object) bool {
-	s := noxServer
-	ud2 := door.UpdateData
-	if *(*uint8)(unsafe.Add(ud2, 1)) == 5 {
-		return false
-	}
-	if door.ObjOwner != nil {
-		return false
-	}
-	var found *server.Object
-	for it := u.FirstItem(); it != nil; it = it.NextItem() {
-		if !it.Class().Has(object.ClassKey) {
-			continue
-		}
-		tname := s.ObjectTypeByInd(int(it.TypeInd)).ID()
-		exp := ""
-		switch *(*uint8)(unsafe.Add(ud2, 1)) {
-		case 1:
-			exp = "SilverKey"
-		case 2:
-			exp = "GoldKey"
-		case 3:
-			exp = "RubyKey"
-		case 4:
-			exp = "SapphireKey"
-		}
-		if exp != "" && tname == exp {
-			found = it
-			break
-		}
-	}
-	if found == nil && u.Class().Has(object.ClassPlayer) && noxflags.HasGame(noxflags.GameModeQuest) &&
-		sub_4D72C0() && *(*uint8)(unsafe.Add(ud2, 1)) == 1 {
-		return sub_4E8A10()
-	}
-	return found != nil
-}
-
-func sub_4D72C0() bool {
-	return dword_5d4594_1556140
-}
-
-func sub_4D72B0(a1 bool) {
-	dword_5d4594_1556140 = a1
-}
-
-func sub_4E8A10() bool {
-	s := noxServer
-	var found *server.Object
-	for pl := s.PlayerFirst(); pl != nil; pl = s.PlayerNext(pl) {
-		if !pl.IsActive() {
-			continue
-		}
-		u := pl.UnitC()
-		if u == nil {
-			continue
-		}
-		cnt := 0
-		for it := u.FirstItem(); it != nil; it = it.NextItem() {
-			if int(it.TypeInd) == s.SilverKeyID() {
-				cnt++
-			}
-		}
-		if cnt > 0 {
-			found = u.SObj()
-		}
-	}
-	if found == nil {
-		return false
-	}
-	for it := found.FirstItem(); it != nil; it = it.NextItem() {
-		if int(it.TypeInd) == s.SilverKeyID() {
-			return true
-		}
-	}
-	return false
 }
 
 func sub_57CD30(p1, p2, c types.Pointf) types.Pointf {

@@ -53,6 +53,7 @@ type Server struct {
 	Modif     serverModifiers
 	Walls     serverWalls
 	Map       serverMap
+	Doors     serverDoors
 	MapGroups ServerMapGroups
 	Audio     serverAudio
 	objects   struct {
