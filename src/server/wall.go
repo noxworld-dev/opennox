@@ -100,7 +100,7 @@ func (s *serverWalls) GetWallAtGrid(pos image.Point) *Wall {
 	}
 	ind := wallArrayInd(pos)
 	for it := s.byPos[ind]; it != nil; it = it.NextByPos16 {
-		if pos == it.GridPos() && it.Flags4&0x30 == 0 {
+		if pos == it.GridPos() && !it.Flags4.HasAny(WallFlag5|WallFlag6) {
 			return it
 		}
 	}
@@ -110,7 +110,7 @@ func (s *serverWalls) GetWallAtGrid(pos image.Point) *Wall {
 func (s *serverWalls) GetWallAtGrid2(pos image.Point) *Wall {
 	ind := wallArrayInd(pos)
 	for it := s.byPos[ind]; it != nil; it = it.NextByPos16 {
-		if pos == it.GridPos() && it.Flags4&0x20 == 0 {
+		if pos == it.GridPos() && !it.Flags4.Has(WallFlag6) {
 			return it
 		}
 	}
@@ -132,7 +132,7 @@ func (s *serverWalls) EachWallXxx(fnc func(it *Wall)) {
 	var next *Wall
 	for it := s.head; it != nil; it = next {
 		next = it.Next20
-		if it.Flags4&0x30 == 0 {
+		if !it.Flags4.HasAny(WallFlag5 | WallFlag6) {
 			fnc(it)
 		}
 	}
@@ -303,12 +303,31 @@ func (s *serverWalls) DeleteAtGrid(pos image.Point) {
 	s.freeList = wl
 }
 
+type WallFlags byte
+
+func (f WallFlags) Has(f2 WallFlags) bool {
+	return f&f2 != 0
+}
+
+func (f WallFlags) HasAny(f2 WallFlags) bool {
+	return f&f2 != 0
+}
+
+const (
+	WallFlag1     = WallFlags(0x1)
+	WallFlagFront = WallFlags(0x2)
+	WallFlag3     = WallFlags(0x4)
+	WallFlag4     = WallFlags(0x8)
+	WallFlag5     = WallFlags(0x10)
+	WallFlag6     = WallFlags(0x20)
+)
+
 type Wall struct {
 	Dir0        byte           // 0, 0
 	Tile1       byte           // 0, 1
 	Field2      byte           // 0, 2
 	Field3      byte           // 0, 3
-	Flags4      byte           // 1, 4
+	Flags4      WallFlags      // 1, 4
 	X5          byte           // 1, 5
 	Y6          byte           // 1, 6
 	Health7     byte           // 1, 7

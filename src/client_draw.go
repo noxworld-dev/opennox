@@ -294,7 +294,7 @@ func (c *Client) nox_client_queueWallsDraw(vp *noxrender.Viewport, xmin, ymin in
 				continue
 			}
 			if memmap.Uint8(0x85B3FC, 43076+12332*uintptr(wl.Tile1))&4 == 0 {
-				if wl.Flags4&2 != 0 {
+				if wl.Flags4.Has(server.WallFlagFront) {
 					nox_frontWalls = append(nox_frontWalls, wl)
 				} else {
 					nox_backWalls = append(nox_backWalls, wl)
@@ -319,7 +319,7 @@ func (c *Client) nox_client_maybeDrawFrontWalls(vp *noxrender.Viewport) { // nox
 	} else {
 		for _, wl := range nox_frontWalls {
 			wl.Field3 = 0
-			wl.Flags4 &= 0xFC
+			wl.Flags4 &^= server.WallFlag1 | server.WallFlagFront
 		}
 	}
 	nox_frontWalls = nox_frontWalls[:0]
