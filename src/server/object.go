@@ -47,6 +47,7 @@ func asObjectP(p unsafe.Pointer) *Object {
 }
 
 type serverObjects struct {
+	handle          uintptr
 	alloc           alloc.ClassT[Object]
 	Alive           int
 	MaxAlive        int
@@ -63,6 +64,10 @@ type serverObjects struct {
 	PendingActions  []func()
 
 	XFerInvLight unsafe.Pointer
+}
+
+func (s *serverObjects) init(h uintptr) {
+	s.handle = h
 }
 
 func (s *serverObjects) LastObjectScriptID() ObjectScriptID {
@@ -191,19 +196,20 @@ func (s *serverObjects) FreeObject(obj *Object) int {
 func (s *serverObjects) NewObject(t *ObjectType) *Object {
 	obj := s.alloc.NewObject()
 	*obj = Object{
-		NetCode:     obj.NetCode,      // it is persisted by the allocator; so we basically reuse ID of the older object
-		TypeInd:     uint16(t.Ind2()), // TODO: why is it setting it and then overwriting again?
-		ObjClass:    uint32(t.Class()),
-		ObjSubClass: uint32(t.SubClass()),
-		ObjFlags:    uint32(t.Flags()),
-		Field5:      t.Field9,
-		Material:    uint16(t.Material()),
-		Experience:  t.Experience,
-		Worth:       uint32(t.Worth),
-		Float28:     t.Field13,
-		Mass:        t.Mass,
-		ZSize1:      t.ZSize1,
-		ZSize2:      t.ZSize2,
+		NetCode:      obj.NetCode,      // it is persisted by the allocator; so we basically reuse ID of the older object
+		TypeInd:      uint16(t.Ind2()), // TODO: why is it setting it and then overwriting again?
+		ObjClass:     uint32(t.Class()),
+		ObjSubClass:  uint32(t.SubClass()),
+		ObjFlags:     uint32(t.Flags()),
+		Field5:       t.Field9,
+		Material:     uint16(t.Material()),
+		Experience:   t.Experience,
+		Worth:        uint32(t.Worth),
+		Float28:      t.Field13,
+		Mass:         t.Mass,
+		ZSize1:       t.ZSize1,
+		ZSize2:       t.ZSize2,
+		serverHandle: s.handle,
 	}
 	obj.Shape = t.Shape
 	if !obj.Flags().Has(object.FlagNoCollide) {
@@ -521,6 +527,7 @@ type Object struct {
 	ScriptVars    unsafe.Pointer             // 190, 760; []uint32
 	Field191      uint32                     // 191, 764
 	Field192      int                        // 192, 768
+	serverHandle  uintptr                    // EXT
 }
 
 func (obj *Object) CObj() unsafe.Pointer {
@@ -532,6 +539,13 @@ func (obj *Object) SObj() *Object {
 		return nil
 	}
 	return obj
+}
+
+func (obj *Object) Server() *Server {
+	if obj == nil {
+		return nil
+	}
+	return getServer(obj.serverHandle)
 }
 
 func (obj *Object) ScriptID() int {
