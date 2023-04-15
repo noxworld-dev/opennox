@@ -234,7 +234,7 @@ extern float nox_xxx_wizardMaximumMana_587000_312820;
 
 extern uint32_t dword_5d4594_2487532;
 extern uint32_t nox_server_connectionType_3596;
-extern uint32_t dword_5d4594_2386924;
+extern void* nox_monsterBin_head_2386924;
 extern uint32_t dword_5d4594_830872;
 extern uint32_t dword_5d4594_1200804;
 extern uint32_t dword_5d4594_1049484;
