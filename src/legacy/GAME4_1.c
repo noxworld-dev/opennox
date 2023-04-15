@@ -6435,8 +6435,8 @@ int nox_xxx_tileCheckImage_51D540(int a1) {
 int nox_xxx_tileCheckImageVari_51D570(int a1) {
 	int result; // eax
 
-	if (a1 <= getMemByte(0x85B3FC, 32536 + 60 * *getMemU32Ptr(0x973F18, 35912)) *
-					  getMemByte(0x85B3FC, 32537 + 60 * *getMemU32Ptr(0x973F18, 35912)) -
+	if (a1 <= getMemByte(0x85B3FC, 32484 + 52 + 60 * *getMemU32Ptr(0x973F18, 35912)) *
+					  getMemByte(0x85B3FC, 32484 + 53 + 60 * *getMemU32Ptr(0x973F18, 35912)) -
 				  1) {
 		dword_5d4594_3835348 = a1;
 		result = 1;
