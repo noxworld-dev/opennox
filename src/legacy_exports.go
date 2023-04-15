@@ -146,7 +146,6 @@ func init() {
 	legacy.GetDoDamageWalls = func() bool {
 		return doDamageWalls
 	}
-	legacy.Nox_xxx_wall_410160 = nox_xxx_wall_410160
 	legacy.ClientPacketFade = clientPacketFade
 	legacy.Nox_video_inFadeTransition_44E0D0 = nox_video_inFadeTransition_44E0D0
 	legacy.Sub_4373A0 = sub_4373A0
@@ -184,12 +183,6 @@ func init() {
 	legacy.Nox_xxx_XFerDefault4F49A0 = nox_xxx_XFerDefault4F49A0
 	legacy.Nox_xxx_XFer_ReadShopItem_52A840 = nox_xxx_XFer_ReadShopItem_52A840
 	legacy.Nox_xxx_XFer_WriteShopItem_52A5F0 = nox_xxx_XFer_WriteShopItem_52A5F0
-	legacy.Nox_server_getWallAtGrid_410580 = nox_server_getWallAtGrid_410580
-	legacy.Nox_xxx_wallCreateAt_410250 = nox_xxx_wallCreateAt_410250
-	legacy.Nox_xxx_mapDelWallAtPt_410430 = nox_xxx_mapDelWallAtPt_410430
-	legacy.Nox_xxx_wallForeachFn_410640 = nox_xxx_wallForeachFn_410640
-	legacy.Sub_4106A0 = sub_4106A0
-	legacy.Nox_xxx_wall_4105E0 = nox_xxx_wall_4105E0
 	legacy.Sub_5002D0 = sub_5002D0
 	legacy.Sub_4FC670 = sub_4FC670
 	legacy.Nox_xxx_playerExecuteAbil_4FBB70 = nox_xxx_playerExecuteAbil_4FBB70

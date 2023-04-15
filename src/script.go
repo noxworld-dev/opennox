@@ -281,7 +281,7 @@ func (s noxScriptImpl) WaypointGroupByID(id string) *script.WaypointGroup {
 }
 
 func (s noxScriptImpl) WallAt(pos types.Pointf) script.Wall {
-	w := s.s.getWallAt(pos)
+	w := s.s.Walls.GetWallAt(pos)
 	if w == nil {
 		return nil
 	}
@@ -289,7 +289,7 @@ func (s noxScriptImpl) WallAt(pos types.Pointf) script.Wall {
 }
 
 func (s noxScriptImpl) WallNear(pos types.Pointf) script.Wall {
-	w := s.s.getWallNear(pos)
+	w := s.s.Walls.GetWallNear(pos)
 	if w == nil {
 		return nil
 	}
@@ -297,7 +297,7 @@ func (s noxScriptImpl) WallNear(pos types.Pointf) script.Wall {
 }
 
 func (s noxScriptImpl) WallAtGrid(pos image.Point) script.Wall {
-	w := s.s.getWallAtGrid(pos)
+	w := s.s.Walls.GetWallAtGrid(pos)
 	if w == nil {
 		return nil
 	}
