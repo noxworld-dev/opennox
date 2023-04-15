@@ -373,7 +373,7 @@ func toObject(obj server.Obj) *Object {
 	return asObjectS(obj.SObj())
 }
 
-var _ = [1]struct{}{}[772-unsafe.Sizeof(Object{})]
+var _ = [1]struct{}{}[776-unsafe.Sizeof(Object{})]
 
 type Object server.Object
 
