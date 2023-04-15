@@ -293,8 +293,8 @@ func (c *Client) nox_client_queueWallsDraw(vp *noxrender.Viewport, xmin, ymin in
 			if wl == nil {
 				continue
 			}
-			if memmap.Uint8(0x85B3FC, 43076+12332*uintptr(wl.tile()))&4 == 0 {
-				if wl.field4()&2 != 0 {
+			if memmap.Uint8(0x85B3FC, 43076+12332*uintptr(wl.Tile1))&4 == 0 {
+				if wl.Field4&2 != 0 {
 					nox_frontWalls = append(nox_frontWalls, wl)
 				} else {
 					nox_backWalls = append(nox_backWalls, wl)
@@ -304,13 +304,9 @@ func (c *Client) nox_client_queueWallsDraw(vp *noxrender.Viewport, xmin, ymin in
 	}
 }
 
-func nox_xxx_drawWalls_473C10(vp *noxrender.Viewport, p *Wall) {
-	legacy.Nox_xxx_drawWalls_473C10(vp, p.C())
-}
-
 func (c *Client) nox_client_drawBackWalls(vp *noxrender.Viewport) {
 	for _, v20 := range nox_backWalls {
-		nox_xxx_drawWalls_473C10(vp, v20)
+		legacy.Nox_xxx_drawWalls_473C10(vp, v20)
 	}
 	nox_backWalls = nox_backWalls[:0]
 }
@@ -318,7 +314,7 @@ func (c *Client) nox_client_drawBackWalls(vp *noxrender.Viewport) {
 func (c *Client) nox_client_maybeDrawFrontWalls(vp *noxrender.Viewport) { // nox_client_maybeDrawFrontWalls_475810_F
 	if nox_client_drawFrontWalls_80812 {
 		for _, wl := range nox_frontWalls {
-			nox_xxx_drawWalls_473C10(vp, wl)
+			legacy.Nox_xxx_drawWalls_473C10(vp, wl)
 		}
 	} else {
 		for _, wl := range nox_frontWalls {
@@ -409,7 +405,7 @@ LOOP:
 	for len(objects) > 0 || len(walls) > 0 {
 		if sy >= wy {
 			if len(walls) != 0 {
-				nox_xxx_drawWalls_473C10(vp, walls[0])
+				legacy.Nox_xxx_drawWalls_473C10(vp, walls[0])
 				walls = walls[1:]
 				if len(walls) != 0 {
 					wy = legacy.Sub_476080(walls[0].C())

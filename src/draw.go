@@ -525,9 +525,9 @@ var (
 	nox_drawable_list_2        []*client.Drawable
 	nox_drawable_list_4        []*client.Drawable
 
-	nox_backWalls  []*Wall
-	nox_frontWalls []*Wall
-	nox_wallsYyy   []*Wall
+	nox_backWalls  []*server.Wall
+	nox_frontWalls []*server.Wall
+	nox_wallsYyy   []*server.Wall
 )
 
 func initDrawableLists() {
@@ -536,9 +536,9 @@ func initDrawableLists() {
 	nox_drawable_list_2 = make([]*client.Drawable, 0, nox_drawable_lists_cap)
 	nox_drawable_list_4 = make([]*client.Drawable, 0, nox_drawable_lists_cap)
 
-	nox_backWalls = make([]*Wall, 0, noxDrawableWallsCap)
-	nox_frontWalls = make([]*Wall, 0, noxDrawableWallsCap)
-	nox_wallsYyy = make([]*Wall, 0, noxDrawableWallsCap)
+	nox_backWalls = make([]*server.Wall, 0, noxDrawableWallsCap)
+	nox_frontWalls = make([]*server.Wall, 0, noxDrawableWallsCap)
+	nox_wallsYyy = make([]*server.Wall, 0, noxDrawableWallsCap)
 }
 
 func sub_473B30_free() {
@@ -552,8 +552,8 @@ func sub_473B30_free() {
 	nox_wallsYyy = nil
 }
 
-func nox_xxx_drawList1096512_Append_4754C0(p unsafe.Pointer) {
-	nox_wallsYyy = append(nox_wallsYyy, asWall(p))
+func nox_xxx_drawList1096512_Append_4754C0(p *server.Wall) {
+	nox_wallsYyy = append(nox_wallsYyy, p)
 }
 
 func (c *Client) sub4745F0(vp *noxrender.Viewport) {

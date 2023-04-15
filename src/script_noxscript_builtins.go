@@ -194,7 +194,7 @@ func eachWallRecursive(s *Server, g *server.MapGroup, fnc func(w ns4.WallObj) bo
 	case server.MapGroupWalls:
 		for it := g.First(); it != nil; it = it.Next() {
 			if w := s.getWallAtGrid(image.Pt(it.Data1(), it.Data2())); w != nil {
-				if !fnc(w) {
+				if !fnc(asWallS(w)) {
 					return false
 				}
 			}
