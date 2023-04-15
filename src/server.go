@@ -643,7 +643,7 @@ func (s *Server) sub_519660(it unsafe.Pointer, u *Object) {
 		exp = u != nil
 	}
 	if isSet != exp {
-		wl := s.getWallAtGrid(image.Pt(int(*(*uint32)(unsafe.Add(it, 4))), int(*(*uint32)(unsafe.Add(it, 8)))))
+		wl := s.Walls.GetWallAtGrid(image.Pt(int(*(*uint32)(unsafe.Add(it, 4))), int(*(*uint32)(unsafe.Add(it, 8)))))
 		if exp {
 			legacy.Sub_4DF120(wl.C())
 			*(*uint32)(unsafe.Add(it, 28)) |= v2

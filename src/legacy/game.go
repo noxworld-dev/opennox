@@ -90,7 +90,6 @@ var (
 	Nox_xxx_gameIsSwitchToSolo_4DB240   func() bool
 	Nox_xxx_gameSetWallsDamage_4E25A0   func(v int)
 	GetDoDamageWalls                    func() bool
-	Nox_xxx_wall_410160                 func()
 	Sub_41CC00                          func(s string)
 	Nox_xxx_playerSendMOTD_4DD140       func(a1 ntype.PlayerInd)
 )
@@ -298,7 +297,7 @@ func nox_game_switchStates_43C0A0() int {
 
 //export nox_xxx_wall_410160
 func nox_xxx_wall_410160() {
-	Nox_xxx_wall_410160()
+	GetServer().S().Walls.Reset()
 }
 
 //export sub_4537F0
