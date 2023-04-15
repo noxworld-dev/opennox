@@ -3423,7 +3423,7 @@ LABEL_14:
 		nox_xxx_buffApplyTo_4FF380(a1, 5, v6, 5);
 	} else {
 		v7 = *(uint32_t*)(*(uint32_t*)(a1 + 748) + 296);
-		if (v7 && !(getMemByte(0x85B3FC, 43076 + 12332 * *(unsigned char*)(v7 + 1)) & 5)) {
+		if (v7 && !(getMemByte(0x85B3FC, 43044 + 32 + 12332 * *(unsigned char*)(v7 + 1)) & 5)) {
 			nox_xxx_unitMove_4E7010(a1, (float2*)(a1 + 72));
 			goto LABEL_26;
 		}
