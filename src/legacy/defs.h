@@ -169,29 +169,6 @@ typedef struct {
 } nox_tileDef_t;
 _Static_assert(sizeof(nox_tileDef_t) == 60, "wrong size of nox_tileDef_t structure!");
 
-typedef struct {
-	char field_0[32]; // 0, 0
-	uint32_t field_32; // 8, 32
-	uint16_t field_36; // 9, 36
-	uint16_t field_38; // 9, 38
-	uint8_t field_40; // 10, 40
-	uint8_t field_41; // 10, 41
-	uint8_t field_42; // 10, 42
-	uint8_t field_43[512]; // 10, 43
-	uint8_t field_555[64]; // 138, 555
-	uint8_t field_619[64]; // 154, 619
-	uint8_t field_683[64]; // 170, 683
-	uint8_t field_747; // 186, 747
-	uint8_t field_748; // 187, 748
-	uint8_t field_749; // 187, 749
-	uint8_t field_750; // 187, 750
-	uint8_t field_751; // 187, 751
-	uint32_t field_752[1920]; // 188, 752
-	uint32_t sprite_8432[960]; // 2108, 8432
-	uint8_t field_12272[60]; // 3068, 12272
-} nox_wallDef_t;
-_Static_assert(sizeof(nox_wallDef_t) == 12332, "wrong size of nox_wallDef_t structure!");
-
 typedef enum { NOX_SHAPE_NONE = 0, NOX_SHAPE_CENTER = 1, NOX_SHAPE_CIRCLE = 2, NOX_SHAPE_BOX = 3 } nox_shape_kind;
 
 typedef struct nox_shape {

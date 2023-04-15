@@ -170,7 +170,6 @@ int nox_xxx_mapGenRandFunc2_526B00(int a1, signed int a2);
 double sub_526BC0(float a1, float a2);
 int sub_526C40(int a1);
 int sub_526C80(int a1);
-int sub_526CA0(char* a1);
 int sub_526D50(int a1);
 int sub_526DD0(float2* a1, int* a2);
 int sub_526E60(float* a1);

@@ -9,14 +9,12 @@ package legacy
 #include "GAME2_1.h"
 #include "GAME2_2.h"
 #include "GAME4.h"
-extern uint32_t nox_wall_def_cnt;
 extern uint32_t nox_tile_def_cnt;
 extern uint32_t dword_5d4594_251572;
 void nox_xxx_equipArmor_415AB0();
 void nox_xxx_equipWeapon_4157C0();
 int nox_free_tile_defs();
 int sub_485F30();
-int sub_46A360();
 int sub_4F0640();
 */
 import "C"
@@ -71,9 +69,6 @@ func Sub_485CF0() {
 func Sub_485F30() {
 	C.sub_485F30()
 }
-func Sub_46A360() {
-	C.sub_46A360()
-}
 
 func Nox_thing_skip_spells_415100(f *binfile.MemFile) {
 	C.nox_thing_skip_spells_415100((*nox_memfile)(f.C()))
@@ -93,13 +88,6 @@ func Nox_thing_skip_AVNT_452B00(f *binfile.MemFile) {
 
 func Nox_thing_read_image_415240(f *binfile.MemFile) {
 	C.nox_thing_read_image_415240((*nox_memfile)(f.C()))
-}
-
-func Nox_thing_read_wall_46A010(f *binfile.MemFile, buf []byte) int {
-	if cap(buf) < 256*1024 {
-		panic(cap(buf))
-	}
-	return int(C.nox_thing_read_wall_46A010((*nox_memfile)(f.C()), (*C.char)(unsafe.Pointer(&buf[0]))))
 }
 
 func Nox_thing_read_floor_485B30(f *binfile.MemFile, buf []byte) int {
@@ -148,13 +136,6 @@ func Nox_thing_read_AVNT_452890(f *binfile.MemFile, buf []byte) int {
 	return int(C.nox_thing_read_AVNT_452890((*nox_memfile)(f.C()), unsafe.Pointer(&buf[0])))
 }
 
-func Nox_thing_read_WALL_410900(f *binfile.MemFile, buf []byte) int {
-	if cap(buf) < 256*1024 {
-		panic(cap(buf))
-	}
-	return int(C.nox_thing_read_WALL_410900((*nox_memfile)(f.C()), (*C.char)(unsafe.Pointer(&buf[0]))))
-}
-
 func Nox_thing_read_FLOR_411540(f *binfile.MemFile, buf []byte) int {
 	if cap(buf) < 256*1024 {
 		panic(cap(buf))
@@ -170,7 +151,6 @@ func Nox_thing_read_EDGE_411850(f *binfile.MemFile, buf []byte) int {
 }
 
 func LoadAllBinFileSectionsResetCounters() {
-	C.nox_wall_def_cnt = 0
 	C.nox_tile_def_cnt = 0
 	C.dword_5d4594_251572 = 0
 }

@@ -86,9 +86,6 @@ extern uint32_t nox_color_white_2523948;
 extern uint32_t nox_color_yellow_2589772;
 extern uint32_t nox_color_black_2650656;
 
-extern uint32_t nox_wall_def_cnt;
-extern nox_wallDef_t nox_wall_defs_arr[80];
-
 const int nox_max_npcs = 1024;
 nox_npc* npc_array;
 
@@ -2623,6 +2620,7 @@ int sub_496120() {
 
 //----- (00496150) --------------------------------------------------------
 int sub_57BA30(int2* a1, int2* a2, int4* a3);
+uint32_t nox_xxx_wallFlags(int i);
 void nox_xxx_drawBlack_496150(nox_draw_viewport_t* a1p) {
 	int* a1 = a1p;
 	int v1;             // esi
@@ -2747,7 +2745,7 @@ void nox_xxx_drawBlack_496150(nox_draw_viewport_t* a1p) {
 				if (v10 != 255) {
 					v11 = v9[1];
 					v12 = v9[4];
-					if (nox_wall_defs_arr[v11].field_32 & 1) {
+					if (nox_xxx_wallFlags(v11) & 1) {
 						if (v12 & 0x40) {
 							if ((*getMemIntPtr(0x5D4594, 1217444) - v69 - 11) *
 										(*getMemIntPtr(0x5D4594, 1217444) - v69 - 11) +
@@ -2791,7 +2789,7 @@ void nox_xxx_drawBlack_496150(nox_draw_viewport_t* a1p) {
 							v15 = v13 | 2;
 						}
 						v9[4] = v15;
-						if (nox_wall_defs_arr[v11].field_32 & 4) {
+						if (nox_xxx_wallFlags(v11) & 4) {
 							nox_xxx_drawList1096512_Append_4754C0(v9);
 						}
 					}
