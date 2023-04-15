@@ -50,10 +50,11 @@ type Server struct {
 	loopHooks  chan func()
 
 	Rand      serverRandom
+	Walls     serverWalls
+	wps       serverWaypoints
 	types     serverObjTypes
 	Objs      serverObjects
 	Modif     serverModifiers
-	Walls     serverWalls
 	Map       serverMap
 	Doors     serverDoors
 	MapGroups ServerMapGroups
