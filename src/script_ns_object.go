@@ -23,7 +23,7 @@ import (
 )
 
 func (s noxScriptNS) ObjectType(name string) ns4.ObjType {
-	typ := s.s.ObjectTypeByID(name)
+	typ := s.s.Types.ByID(name)
 	if typ == nil {
 		return nil
 	}
@@ -31,7 +31,7 @@ func (s noxScriptNS) ObjectType(name string) ns4.ObjType {
 }
 
 func (s noxScriptNS) ObjectTypeByInd(ind int) ns4.ObjType {
-	typ := s.s.ObjectTypeByInd(ind)
+	typ := s.s.Types.ByInd(ind)
 	if typ == nil {
 		return nil
 	}
@@ -172,14 +172,14 @@ func (s noxScriptNS) IsGameBall(obj ns4.Obj) bool {
 	if obj == nil {
 		return false
 	}
-	return s.s.GameBallID() == obj.Type().Index()
+	return s.s.Types.GameBallID() == obj.Type().Index()
 }
 
 func (s noxScriptNS) IsCrown(obj ns4.Obj) bool {
 	if obj == nil {
 		return false
 	}
-	return s.s.CrownID() == obj.Type().Index()
+	return s.s.Types.CrownID() == obj.Type().Index()
 }
 
 func (s noxScriptNS) IsSummoned(obj ns4.Obj) bool {
@@ -228,12 +228,12 @@ func (typ nsObjType) Create(p ns4.Positioner) ns4.Obj {
 	if p == nil {
 		return nil
 	}
-	obj := typ.s.NewObject(typ.t)
+	obj := typ.s.Objs.NewObject(typ.t)
 	if obj == nil {
 		return nil
 	}
 	typ.s.CreateObjectAt(obj, nil, p.Pos())
-	return nsObj{typ.s, obj}
+	return nsObj{typ.s, asObjectS(obj)}
 }
 
 func (typ nsObjType) Class() object.Class {
@@ -634,9 +634,9 @@ func (obj nsObj) Pickup(item ns4.Obj) bool {
 	}
 	s := obj.getServer()
 	it := toObject(item.(server.Obj))
-	gold := s.ObjectTypeID("Gold")
-	goldPile := s.ObjectTypeID("QuestGoldPile")
-	goldChest := s.ObjectTypeID("QuestGoldChest")
+	gold := s.Types.GoldID()
+	goldPile := s.Types.GoldPileID()
+	goldChest := s.Types.GoldChestID()
 	isPlayerInCoop := noxflags.HasGame(noxflags.GameModeCoop) && obj.Class().Has(object.ClassPlayer)
 	if isPlayerInCoop {
 		if f := s.Frame(); *memmap.PtrUint32(0x5D4594, 2386844) != f {

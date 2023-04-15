@@ -88,12 +88,9 @@ func (sp *noxDurSpell) C() unsafe.Pointer {
 }
 
 type spellsDuration struct {
-	s       *Server
-	lastID  uint16
-	list    *noxDurSpell
-	objects struct {
-		Glyph int
-	}
+	s      *Server
+	lastID uint16
+	list   *noxDurSpell
 }
 
 func (sp *spellsDuration) Init(s *Server) {
@@ -101,7 +98,6 @@ func (sp *spellsDuration) Init(s *Server) {
 }
 
 func (sp *spellsDuration) Free() {
-	sp.objects.Glyph = 0
 }
 
 func (sp *spellsDuration) newDur() *noxDurSpell {
@@ -237,10 +233,8 @@ func (sp *spellsDuration) spellCastByPlayer() {
 }
 
 func (sp *spellsDuration) New(spellID spell.ID, u1, u2, u3 *server.Object, sa *server.SpellAcceptArg, lvl int, create, update, destroy unsafe.Pointer, dt uint32) bool {
-	if sp.objects.Glyph == 0 {
-		sp.objects.Glyph = sp.s.ObjectTypeID("Glyph")
-	}
-	if u2 == nil || u2.Flags().HasAny(object.FlagDestroyed|object.FlagDead) && u3 != nil && int(u3.TypeInd) != sp.objects.Glyph {
+	glyphID := sp.s.Types.GlyphID()
+	if u2 == nil || u2.Flags().HasAny(object.FlagDestroyed|object.FlagDead) && u3 != nil && int(u3.TypeInd) != glyphID {
 		return false
 	}
 	if u2 != nil {
@@ -260,7 +254,7 @@ func (sp *spellsDuration) New(spellID spell.ID, u1, u2, u3 *server.Object, sa *s
 	p.obj16 = u2.SObj()
 	p.sub104 = nil
 	p.sub108 = nil
-	if u3 != nil && int(u3.TypeInd) == sp.objects.Glyph {
+	if u3 != nil && int(u3.TypeInd) == glyphID {
 		p.flag20 = 1
 		p.obj24 = u3.SObj()
 		p.pos = u3.Pos()

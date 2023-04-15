@@ -15,6 +15,10 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
+const (
+	defaultFirstObjectScriptID = ObjectScriptID(1000000000)
+)
+
 var (
 	_ Obj                 = &Object{}
 	_ script.Identifiable = &Object{}
@@ -54,7 +58,36 @@ type serverObjects struct {
 	UpdatableList   *Object
 	UpdatableList2  *Object
 	DeletedList     *Object
+	firstScriptID   ObjectScriptID
+	lastScriptID    ObjectScriptID
 	PendingActions  []func()
+
+	XFerInvLight unsafe.Pointer
+}
+
+func (s *serverObjects) LastObjectScriptID() ObjectScriptID {
+	return s.lastScriptID
+}
+
+func (s *serverObjects) NextObjectScriptID() ObjectScriptID {
+	id := s.lastScriptID
+	s.lastScriptID++
+	return id
+}
+
+func (s *serverObjects) SetLastObjectScriptID(id ObjectScriptID) {
+	s.lastScriptID = id
+}
+
+func (s *serverObjects) SetFirstObjectScriptID(id ObjectScriptID) {
+	s.firstScriptID = id
+}
+
+func (s *serverObjects) ResetObjectScriptIDs() {
+	s.SetLastObjectScriptID(defaultFirstObjectScriptID)
+	if s.firstScriptID != 0 {
+		s.SetLastObjectScriptID(s.firstScriptID)
+	}
 }
 
 func (s *serverObjects) GetAndZeroObjects() *Object { // nox_get_and_zero_server_objects_4DA3C0
@@ -222,7 +255,43 @@ func (s *serverObjects) NewObject(t *ObjectType) *Object {
 	obj.ScriptVars = nil
 	obj.DeathData = t.DeathData
 	obj.Field192 = -1
+	if noxflags.HasGame(noxflags.GameFlag22|noxflags.GameFlag23) && (obj.Class().HasAny(0x20A02) || obj.Xfer == s.XFerInvLight || obj.Weight != 0xff) {
+		obj.Field189, _ = alloc.Malloc(2572)
+	}
+	if t.Create != nil {
+		ccall.CallVoidPtr(t.Create, unsafe.Pointer(obj.SObj()))
+	}
+	if !noxflags.HasGame(noxflags.GameFlag22) {
+		obj.ScriptIDVal = int(s.NextObjectScriptID())
+	}
+	if obj.Class().Has(object.ClassSimple) {
+		s.CreatedSimple++
+	} else if obj.Class().Has(object.ClassImmobile) {
+		s.CreatedImmobile++
+	}
+	v8 := s.Alive + 1
+	s.Created++
+	s.Alive++
+	if s.Alive > s.MaxAlive {
+		s.MaxAlive = v8
+	}
 	return obj
+}
+
+func (s *Server) NewObjectByTypeInd(ind int) *Object { // nox_xxx_newObjectWithTypeInd_4E3450
+	typ := s.Types.ByInd(ind)
+	if typ == nil {
+		return nil
+	}
+	return s.Objs.NewObject(typ)
+}
+
+func (s *Server) NewObjectByTypeID(id string) *Object { // nox_xxx_newObjectByTypeID_4E3810
+	typ := s.Types.ByID(id)
+	if typ == nil {
+		return nil
+	}
+	return s.Objs.NewObject(typ)
 }
 
 func (s *Server) FirstServerObject() *Object { // nox_server_getFirstObject_4DA790
@@ -860,6 +929,10 @@ func (obj *Object) UpdateCollider(pos types.Pointf) {
 		obj.CollideP1 = pos.Add(types.Ptf(sh.Box.LeftBottom2, sh.Box.LeftBottom))
 		obj.CollideP2 = pos.Add(types.Ptf(sh.Box.RightTop, sh.Box.RightTop2))
 	}
+}
+
+func (obj *Object) Nox_xxx_objectUnkUpdateCoords_4E7290() {
+	obj.UpdateCollider(obj.PosVec)
 }
 
 func (obj *Object) NeedSync() { // nox_xxx_unitNeedSync_4E44F0

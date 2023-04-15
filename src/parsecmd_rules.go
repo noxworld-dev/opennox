@@ -54,7 +54,7 @@ func noxCmdSetArmor(ctx context.Context, c *console.Console, tokens []string) bo
 	}
 	switch strings.ToLower(tokens[1]) {
 	case "on":
-		if !s.ObjectTypeByInd(t.Ind()).Allowed() {
+		if !s.Types.ByInd(t.Ind()).Allowed() {
 			t.SetAllowed(true)
 			legacy.Nox_server_gameSettingsUpdated_40A670()
 			str := c.Strings().GetStringInFile("armorEnabled", "parsecmd.c")
@@ -62,7 +62,7 @@ func noxCmdSetArmor(ctx context.Context, c *console.Console, tokens []string) bo
 		}
 		return true
 	case "off":
-		if s.ObjectTypeByInd(t.Ind()).Allowed() {
+		if s.Types.ByInd(t.Ind()).Allowed() {
 			t.SetAllowed(false)
 			s.deleteAllObjectsOfType(t)
 			legacy.Nox_server_gameSettingsUpdated_40A670()
@@ -80,7 +80,7 @@ func noxCmdSetStaff(ctx context.Context, c *console.Console, tokens []string) bo
 	}
 	s := noxServer
 	id := tokens[0]
-	t := s.ObjectTypeByID(id)
+	t := s.Types.ByID(id)
 	if t == nil {
 		str := c.Strings().GetStringInFile("invalidstaff", "parsecmd.c")
 		c.Printf(console.ColorRed, str, id)
@@ -140,7 +140,7 @@ func noxCmdSetWeapon(ctx context.Context, c *console.Console, tokens []string) b
 	}
 	switch strings.ToLower(tokens[1]) {
 	case "on":
-		if s.ObjectTypeByInd(t.Ind()).Allowed() {
+		if s.Types.ByInd(t.Ind()).Allowed() {
 			return true
 		}
 		t.SetAllowed(true)
@@ -149,7 +149,7 @@ func noxCmdSetWeapon(ctx context.Context, c *console.Console, tokens []string) b
 		c.Printf(console.ColorRed, str, id)
 		return true
 	case "off":
-		if !s.ObjectTypeByInd(t.Ind()).Allowed() || legacy.Nox_xxx_ammoCheck_415880(t.Ind()) == 1 {
+		if !s.Types.ByInd(t.Ind()).Allowed() || legacy.Nox_xxx_ammoCheck_415880(t.Ind()) == 1 {
 			return true
 		}
 		t.SetAllowed(false)
@@ -171,7 +171,7 @@ func sub_415A60(id string) *server.ObjectType {
 	if v2 == 0 {
 		return nil
 	}
-	return noxServer.ObjectTypeByInd(int(v2))
+	return noxServer.Types.ByInd(v2)
 }
 
 func sub415A30(a1 string) *server.ObjectType {
@@ -183,7 +183,7 @@ func sub415A30(a1 string) *server.ObjectType {
 	if v2 == 0 {
 		return nil
 	}
-	return noxServer.ObjectTypeByInd(int(v2))
+	return noxServer.Types.ByInd(v2)
 }
 
 func sub_415EF0(id string) *server.ObjectType {
@@ -195,7 +195,7 @@ func sub_415EF0(id string) *server.ObjectType {
 	if v2 == 0 {
 		return nil
 	}
-	return noxServer.ObjectTypeByInd(int(v2))
+	return noxServer.Types.ByInd(v2)
 }
 
 func sub415EC0(id string) *server.ObjectType {
@@ -207,5 +207,5 @@ func sub415EC0(id string) *server.ObjectType {
 	if v2 == 0 {
 		return nil
 	}
-	return noxServer.ObjectTypeByInd(int(v2))
+	return noxServer.Types.ByInd(v2)
 }

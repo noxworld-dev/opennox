@@ -253,21 +253,22 @@ func (s *Server) spellEnableAll() {
 }
 
 func nox_xxx_allocSpellRelatedArrays_4FC9B0() error {
+	s := noxServer
 	nox_alloc_spellDur_1569724 = alloc.NewClassT("spellDuration", noxDurSpell{}, 512)
 	legacy.Set_nox_alloc_magicEnt_1569668(alloc.NewClass("magicEntityClass", 60, 64).UPtr())
-	nox_xxx_imagCasterUnit_1569664 = asObjectS(noxServer.NewObjectByTypeID("ImaginaryCaster"))
+	nox_xxx_imagCasterUnit_1569664 = asObjectS(s.NewObjectByTypeID("ImaginaryCaster"))
 	if nox_xxx_imagCasterUnit_1569664 == nil {
 		return errors.New("cannot find ImaginaryCaster object type")
 	}
-	noxServer.CreateObjectAt(nox_xxx_imagCasterUnit_1569664, nil, types.Pointf{X: 2944.0, Y: 2944.0})
-	noxPixieObjID = noxServer.ObjectTypeID("Pixie")
+	s.CreateObjectAt(nox_xxx_imagCasterUnit_1569664, nil, types.Pointf{X: 2944.0, Y: 2944.0})
+	noxPixieObjID = s.Types.PixieID()
 	*memmap.PtrUint32(0x5D4594, 1569676) = uint32(noxPixieObjID)
-	*memmap.PtrUint32(0x5D4594, 1569680) = uint32(noxServer.ObjectTypeID("MagicMissile"))
-	*memmap.PtrUint32(0x5D4594, 1569684) = uint32(noxServer.ObjectTypeID("SmallFist"))
-	*memmap.PtrUint32(0x5D4594, 1569688) = uint32(noxServer.ObjectTypeID("MediumFist"))
-	*memmap.PtrUint32(0x5D4594, 1569692) = uint32(noxServer.ObjectTypeID("LargeFist"))
-	*memmap.PtrUint32(0x5D4594, 1569696) = uint32(noxServer.ObjectTypeID("DeathBall"))
-	*memmap.PtrUint32(0x5D4594, 1569700) = uint32(noxServer.ObjectTypeID("Meteor"))
+	*memmap.PtrUint32(0x5D4594, 1569680) = uint32(s.Types.IndByID("MagicMissile"))
+	*memmap.PtrUint32(0x5D4594, 1569684) = uint32(s.Types.IndByID("SmallFist"))
+	*memmap.PtrUint32(0x5D4594, 1569688) = uint32(s.Types.IndByID("MediumFist"))
+	*memmap.PtrUint32(0x5D4594, 1569692) = uint32(s.Types.IndByID("LargeFist"))
+	*memmap.PtrUint32(0x5D4594, 1569696) = uint32(s.Types.IndByID("DeathBall"))
+	*memmap.PtrUint32(0x5D4594, 1569700) = uint32(s.Types.IndByID("Meteor"))
 	return nil
 }
 

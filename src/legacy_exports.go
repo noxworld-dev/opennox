@@ -230,11 +230,6 @@ func init() {
 	legacy.Nox_xxx_fireEffect_4E0550 = nox_xxx_fireEffect_4E0550
 	legacy.Nox_xxx_fireRingEffect_4E05B0 = nox_xxx_fireRingEffect_4E05B0
 	legacy.Nox_xxx_blueFREffect_4E05F0 = nox_xxx_blueFREffect_4E05F0
-	legacy.Nox_xxx_unitDefGetCount_4E3AC0 = nox_xxx_unitDefGetCount_4E3AC0
-	legacy.Nox_xxx_newObjectWithTypeInd_4E3450 = nox_xxx_newObjectWithTypeInd_4E3450
-	legacy.Nox_xxx_objectTypeByIndHealthData = nox_xxx_objectTypeByIndHealthData
-	legacy.Sub_4E4C50 = sub_4E4C50
-	legacy.Sub_4F40A0 = sub_4F40A0
 	legacy.Sub_4E4C90 = sub_4E4C90
 	legacy.Sub_4E3B80 = sub_4E3B80
 	legacy.Sub415A30 = sub415A30

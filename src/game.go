@@ -1111,10 +1111,10 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	*memmap.PtrUint32(0x5D4594, 1548528) = 0
 	legacy.Set_dword_5d4594_1548532(nil)
 	if memmap.Uint32(0x5D4594, 1548708) == 0 {
-		*memmap.PtrUint32(0x5D4594, 1548708) = uint32(s.ObjectTypeByID("PlayerStart").Ind())
+		*memmap.PtrUint32(0x5D4594, 1548708) = uint32(s.Types.ByID("PlayerStart").Ind())
 	}
 	if memmap.Uint32(0x5D4594, 1548712) == 0 {
-		*memmap.PtrUint32(0x5D4594, 1548712) = uint32(s.ObjectTypeByID("GameBallStart").Ind())
+		*memmap.PtrUint32(0x5D4594, 1548712) = uint32(s.Types.ByID("GameBallStart").Ind())
 	}
 	var starts struct {
 		playerN int
@@ -1557,12 +1557,12 @@ func (c *Client) nox_game_checkStateMenu_43C2F0() {
 func (s *Server) Sub4537F0() {
 	for i := 0; i < 26; i++ {
 		if ind := legacy.Sub_415CD0(1 << i); ind != 0 {
-			s.ObjectTypeByInd(ind).SetAllowed(true)
+			s.Types.ByInd(ind).SetAllowed(true)
 		}
 	}
 	for i := 0; i < 27; i++ {
 		if ind := legacy.Sub_415840(1 << i); ind != 0 {
-			s.ObjectTypeByInd(ind).SetAllowed(true)
+			s.Types.ByInd(ind).SetAllowed(true)
 		}
 	}
 }
