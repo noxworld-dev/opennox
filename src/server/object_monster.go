@@ -60,7 +60,7 @@ func (s *AIStackItem) SetArgs(args ...any) {
 		case float32:
 			s.Args[off] = uintptr(math.Float32bits(v))
 		case Obj:
-			s.Args[off] = uintptr(unsafe.Pointer(v.SObj()))
+			s.Args[off] = uintptr(v.SObj().CObj())
 		case types.Pointf:
 			s.Args[off+0] = uintptr(math.Float32bits(v.X))
 			s.Args[off+1] = uintptr(math.Float32bits(v.Y))
