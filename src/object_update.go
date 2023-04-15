@@ -183,7 +183,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 					}
 				}
 			}
-			if noxRndCounter1.IntClamp(0, 100) <= 1 {
+			if s.Rand.Logic.IntClamp(0, 100) <= 1 {
 				s.AudioEventObj(sound.SoundHumanMaleExertionLight, u, 0, 0)
 			}
 		}

@@ -7,10 +7,6 @@ import (
 )
 
 func init() {
-	legacy.Nox_common_randomInt_415FA0 = nox_common_randomInt_415FA0
-	legacy.Nox_common_randomIntMinMax_415FF0 = nox_common_randomIntMinMax_415FF0
-	legacy.Nox_common_randomFloat_416030 = nox_common_randomFloat_416030
-	legacy.Nox_common_randomFloatXxx_416090 = nox_common_randomFloatXxx_416090
 	legacy.WriteConfigLegacy = nox_common_writecfgfile
 	legacy.Sub_57C490_2 = sub_57C490_2
 	legacy.Nox_thing_debug_draw = nox_thing_debug_draw

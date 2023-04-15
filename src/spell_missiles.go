@@ -71,7 +71,7 @@ func (sp *spellMissiles) CastCustom(spellID spell.ID, owner, caster *server.Obje
 		msl := asObjectS(sp.s.NewObjectByTypeID(opts.Projectile))
 		mud := msl.updateDataMissile()
 		sp.s.CreateObjectAt(msl, owner, p2)
-		mspeed := float32(noxRndCounter1.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.curSpeed()))
+		mspeed := float32(sp.s.Rand.Logic.FloatClamp(opts.SpeedRndMin, opts.SpeedRndMax) * float64(msl.curSpeed()))
 		msl.SpeedCur = mspeed
 		msl.setAllDirs(dir)
 		msl.VelVec = cvel.Add(dv.Mul(mspeed * opts.VelMult))
