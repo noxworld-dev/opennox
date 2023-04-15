@@ -67,7 +67,7 @@ extern uint32_t dword_5d4594_2487560;
 extern uint32_t dword_5d4594_2487540;
 extern uint32_t dword_5d4594_2487712;
 extern uint32_t dword_5d4594_2487524;
-extern uint32_t dword_5d4594_251540;
+extern uint32_t nox_wall_def_cnt;
 extern uint32_t dword_5d4594_2487556;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 
@@ -6676,7 +6676,7 @@ int sub_526CA0(char* a1) {
 	char* v3; // eax
 
 	v1 = 0;
-	for (i = 0; i < dword_5d4594_251540; ++i) {
+	for (i = 0; i < nox_wall_def_cnt; ++i) {
 		v3 = sub_410D40(i);
 		if (!nox_strcmpi(v3, a1)) {
 			*getMemU32Ptr(0x973F18, 35948) = i;

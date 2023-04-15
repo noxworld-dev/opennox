@@ -293,7 +293,8 @@ func (c *Client) nox_client_queueWallsDraw(vp *noxrender.Viewport, xmin, ymin in
 			if wl == nil {
 				continue
 			}
-			if memmap.Uint8(0x85B3FC, 43044+12332*uintptr(wl.Tile1)+32)&4 == 0 {
+			wdefs := legacy.Get_nox_wall_defs_arr()
+			if wdefs[wl.Tile1].Field32&4 == 0 {
 				if wl.Flags4.Has(server.WallFlagFront) {
 					nox_frontWalls = append(nox_frontWalls, wl)
 				} else {
