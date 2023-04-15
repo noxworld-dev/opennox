@@ -20,6 +20,7 @@ var (
 	dword_5D4594_251544 []*server.Wall
 	dword_5d4594_251556 []*server.Wall
 	dword_5d4594_251548 *server.Wall
+	dword_5d4594_251552 *server.Wall
 )
 
 func asWallS(p *server.Wall) *Wall {
@@ -44,7 +45,7 @@ func allocWalls() int {
 	if dword_5d4594_251556 == nil {
 		return 0
 	}
-	legacy.Set_dword_5d4594_251552(nil)
+	dword_5d4594_251552 = nil
 	for i := 0; i < 32*wallGridSize; i++ {
 		ptr, _ := alloc.New(server.Wall{})
 		if ptr == nil {
@@ -75,7 +76,7 @@ func nox_xxx_wall_410160() {
 		}
 		dword_5D4594_251544[i] = nil
 	}
-	legacy.Set_dword_5d4594_251552(nil)
+	dword_5d4594_251552 = nil
 	for i := 0; i < wallGridSize; i++ {
 		dword_5d4594_251556[i] = nil
 	}
@@ -124,8 +125,8 @@ func nox_xxx_wallCreateAt_410250(pos image.Point) *server.Wall {
 	ind := wallArrayInd(pos)
 	p.Next16 = dword_5D4594_251544[ind]
 	dword_5D4594_251544[ind] = p
-	p.Prev20 = legacy.Get_dword_5d4594_251552()
-	legacy.Set_dword_5d4594_251552(p)
+	p.Prev20 = dword_5d4594_251552
+	dword_5d4594_251552 = p
 
 	var prev *server.Wall
 	for it := dword_5d4594_251556[pos.Y]; it != nil; it = it.SortNext24 {
@@ -168,10 +169,10 @@ func nox_xxx_mapDelWallAtPt_410430(pos image.Point) {
 	} else {
 		dword_5D4594_251544[ind] = list.Next16
 	}
-	v5 := legacy.Get_dword_5d4594_251552()
+	v5 := dword_5d4594_251552
 	var v6 *server.Wall
 	if v5 == nil {
-		legacy.Set_dword_5d4594_251552(v5.Prev20) // TODO: it's nil, it shouldn't be dereferenced
+		dword_5d4594_251552 = v5.Prev20 // TODO: it's nil, it shouldn't be dereferenced
 	} else {
 		for ; v5 != nil; v5 = v5.Prev20 {
 			if v5 == list {
@@ -182,7 +183,7 @@ func nox_xxx_mapDelWallAtPt_410430(pos image.Point) {
 		if v6 != nil {
 			v6.Prev20 = v5.Prev20
 		} else {
-			legacy.Set_dword_5d4594_251552(v5.Prev20)
+			dword_5d4594_251552 = v5.Prev20
 		}
 	}
 	var prev *server.Wall
@@ -208,6 +209,16 @@ func sub_4106A0(y int) *server.Wall {
 		return nil
 	}
 	return dword_5d4594_251556[y]
+}
+
+func nox_xxx_wallForeachFn_410640(fnc func(it *server.Wall)) {
+	var prev *server.Wall
+	for it := dword_5d4594_251552; it != nil; it = prev {
+		prev = it.Prev20
+		if it.Field4&0x30 == 0 {
+			fnc(it)
+		}
+	}
 }
 
 func (s *Server) nox_xxx_wallTileByName_410D60(name string) byte {
