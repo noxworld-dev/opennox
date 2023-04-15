@@ -385,3 +385,74 @@ func (w *Wall) IsEnabled() bool {
 	v3 := *(*byte)(unsafe.Add(w.Data28, 21))
 	return v3 == 1 || v3 == 2
 }
+
+func (s *serverDoors) SetKeyHolder(v *Object) {
+	if v != nil {
+		s.keyHolder = v
+		s.keyHolderSet = true
+	} else {
+		s.keyHolderSet = false
+	}
+}
+
+func (s *Server) Sub_57B500(pos image.Point, flags byte) int8 {
+	if pos.X < 0 || pos.X >= WallGridSize || pos.Y < 0 || pos.Y >= WallGridSize {
+		return -1
+	}
+	wl := s.Walls.GetWallAtGrid2(pos)
+	if wl == nil {
+		return -1
+	}
+	if !wl.Flags4.Has(WallFlag5) {
+		if flags&0x40 == 0 && wl.Flags4.Has(WallFlag7) || wl.Flags4.Has(WallFlag3) && int32(*(*uint8)(unsafe.Add(wl.Data28, 22))) > 11 {
+			return -1
+		}
+		return int8(wl.Dir0)
+	}
+	if flags&0x10 == 0 {
+		return -1
+	}
+	obj := asObjectP(wl.Data28)
+	if obj == nil {
+		return -1
+	}
+	ud := obj.UpdateData // TODO: which one? door?
+	if flags&0x8 != 0 {
+		if *(*uint8)(unsafe.Add(ud, 1)) == 0 {
+			return -1
+		}
+		if s.Doors.keyHolderSet && s.DoorCheckKey(s.Doors.keyHolder, obj) {
+			s.Doors.keyHolderSet = false
+			return -1
+		}
+	}
+	if int32(int8(flags)) >= 0 && obj.SubClass().Has(0x4) {
+		return -1
+	}
+	ang := *(*uint32)(unsafe.Add(ud, 12))
+	if ang != *(*uint32)(unsafe.Add(ud, 4)) {
+		return -1
+	}
+	dp := doorWallTable[ang]
+	if dp.X > 0 && dp.Y > 0 {
+		return 1
+	} else if dp.X < 0 && dp.Y < 0 {
+		return 1
+	} else if dp.X < 0 && dp.Y > 0 {
+		return 0
+	} else if dp.X > 0 && dp.Y < 0 {
+		return 0
+	}
+	return -1
+}
+
+var doorWallTable = []image.Point{
+	{X: -23, Y: -23}, {X: -18, Y: -27}, {X: -12, Y: -30}, {X: -6, Y: -31},
+	{X: 0, Y: -32}, {X: 6, Y: -31}, {X: 12, Y: -30}, {X: 18, Y: -27},
+	{X: 23, Y: -23}, {X: 27, Y: -18}, {X: 30, Y: -12}, {X: 31, Y: -6},
+	{X: 32, Y: 0}, {X: 31, Y: 6}, {X: 30, Y: 12}, {X: 27, Y: 18},
+	{X: 23, Y: 23}, {X: 18, Y: 27}, {X: 12, Y: 30}, {X: 6, Y: 31},
+	{X: 0, Y: 32}, {X: -6, Y: 31}, {X: -12, Y: 30}, {X: -18, Y: 27},
+	{X: -23, Y: 23}, {X: -27, Y: 18}, {X: -30, Y: 12}, {X: -31, Y: 6},
+	{X: -32, Y: 0}, {X: -31, Y: -6}, {X: -30, Y: -12}, {X: -27, Y: -18},
+}

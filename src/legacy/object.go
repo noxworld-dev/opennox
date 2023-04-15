@@ -39,8 +39,6 @@ var (
 	Nox_bomberDead_54A150                      func(obj *server.Object) int
 	Nox_xxx_dieGlyph_54DF30                    func(obj *server.Object)
 	Nox_xxx_collideGlyph_4E9A00                func(obj, obj2 *server.Object)
-	Sub_57B4D0                                 func(v *server.Object)
-	Nox_xxx_doorGetSomeKey_4E8910              func(u, door *server.Object) bool
 )
 
 var _ = [1]struct{}{}[28-unsafe.Sizeof(Nox_object_Missile_data_t{})]
@@ -292,12 +290,12 @@ func nox_xxx_collideGlyph_4E9A00(a1, a2 *nox_object_t) {
 
 //export sub_57B4D0
 func sub_57B4D0(obj *nox_object_t) {
-	Sub_57B4D0(asObjectS(obj))
+	GetServer().S().Doors.SetKeyHolder(asObjectS(obj))
 }
 
 //export nox_xxx_doorGetSomeKey_4E8910
 func nox_xxx_doorGetSomeKey_4E8910(u, door *nox_object_t) C.int {
-	return C.int(bool2int(Nox_xxx_doorGetSomeKey_4E8910(asObjectS(u), asObjectS(door))))
+	return C.int(bool2int(GetServer().S().DoorCheckKey(asObjectS(u), asObjectS(door))))
 }
 
 func Nox_server_getObjectFromNetCode_4ECCB0(a1 int) *server.Object {
