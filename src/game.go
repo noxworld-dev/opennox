@@ -41,8 +41,6 @@ var (
 	useXWIS                   = true
 	gameLog                   = log.New("game")
 	nox_game_playState_811372 int
-	dword_5D4594_251544       []unsafe.Pointer
-	dword_5d4594_251556       []unsafe.Pointer
 	movieFilesStackCur        int
 	movieFilesStack           [2]string
 	dword_587000_311372       = -1
@@ -1898,54 +1896,6 @@ func (c *Client) nox_game_checkStateMenu_43C2F0() {
 	c.GamePopStateUntil(client.StateMainMenu)
 }
 
-func nox_xxx_mapAlloc_4101D0() int {
-	dword_5D4594_251544, _ = alloc.Make([]unsafe.Pointer{}, 32*256)
-	if dword_5D4594_251544 == nil {
-		return 0
-	}
-	legacy.Set_dword_5D4594_251544(unsafe.Pointer(&dword_5D4594_251544[0]))
-
-	dword_5d4594_251556, _ = alloc.Make([]unsafe.Pointer{}, 256)
-	if dword_5d4594_251556 == nil {
-		return 0
-	}
-	legacy.Set_dword_5d4594_251556(unsafe.Pointer(&dword_5d4594_251556[0]))
-	legacy.Set_dword_5d4594_251552(0)
-	for v1 := 0; v1 < 32*256; v1++ {
-		ptr, _ := alloc.Malloc(36)
-		if ptr == nil {
-			return 0
-		}
-		*(*unsafe.Pointer)(unsafe.Add(ptr, 20)) = legacy.Get_dword_5d4594_251548()
-		legacy.Set_dword_5d4594_251548(ptr)
-	}
-	nox_xxx_wall_410160()
-	return 1
-}
-
-func nox_xxx_wall_410160() {
-	for i := 0; i < 32*256; i++ {
-		ptr := dword_5D4594_251544[i]
-		if ptr == nil {
-			dword_5D4594_251544[i] = nil
-			continue
-		}
-
-		var next unsafe.Pointer
-		prev := legacy.Get_dword_5d4594_251548()
-		for it := ptr; it != nil; it = next {
-			next = *(*unsafe.Pointer)(unsafe.Add(it, 16))
-			*(*unsafe.Pointer)(unsafe.Add(it, 20)) = prev
-			legacy.Set_dword_5d4594_251548(it)
-			prev = it
-		}
-		dword_5D4594_251544[i] = nil
-	}
-	legacy.Set_dword_5d4594_251552(0)
-	for i := 0; i < 256; i++ {
-		dword_5d4594_251556[i] = nil
-	}
-}
 func (s *Server) Sub4537F0() {
 	for i := 0; i < 26; i++ {
 		if ind := legacy.Sub_415CD0(1 << i); ind != 0 {

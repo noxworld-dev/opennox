@@ -91,10 +91,6 @@ func Nox_xxx_tileFree_410FC0_free() {
 	C.nox_xxx_tileFree_410FC0_free()
 }
 
-func Sub_4106C0() {
-	C.sub_4106C0()
-}
-
 func Sub_42EDC0() {
 	C.sub_42EDC0()
 }
