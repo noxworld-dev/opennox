@@ -43,7 +43,6 @@ func allocWalls() int {
 	if dword_5d4594_251556 == nil {
 		return 0
 	}
-	legacy.Set_dword_5d4594_251556(unsafe.Pointer(&dword_5d4594_251556[0]))
 	legacy.Set_dword_5d4594_251552(nil)
 	for i := 0; i < 32*wallGridSize; i++ {
 		ptr, _ := alloc.New(server.Wall{})
@@ -101,7 +100,6 @@ func freeWalls() {
 
 	alloc.FreeSlice(dword_5d4594_251556)
 	dword_5d4594_251556 = nil
-	legacy.Set_dword_5d4594_251556(nil)
 }
 
 func nox_xxx_wallCreateAt_410250(pos image.Point) *server.Wall {
@@ -202,6 +200,13 @@ func nox_xxx_mapDelWallAtPt_410430(pos image.Point) {
 		v5.Prev20 = legacy.Get_dword_5d4594_251548()
 		legacy.Set_dword_5d4594_251548(v5)
 	}
+}
+
+func sub_4106A0(y int) *server.Wall {
+	if y < 0 || y >= wallGridSize {
+		return nil
+	}
+	return dword_5d4594_251556[y]
 }
 
 func (s *Server) nox_xxx_wallTileByName_410D60(name string) byte {

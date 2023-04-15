@@ -38,7 +38,6 @@ extern uint32_t dword_5d4594_251716;
 extern uint32_t dword_5d4594_10984;
 extern uint32_t dword_5d4594_251720;
 extern uint32_t dword_5d4594_251744;
-extern uint32_t dword_5d4594_251556;
 extern uint32_t dword_5d4594_251564;
 extern uint32_t dword_5d4594_3484;
 extern void* dword_5d4594_251560;
@@ -783,18 +782,6 @@ int nox_xxx_wallForeachFn_410640(void (*a1)(int, int), int a2) {
 			}
 			result = v3;
 		} while (v3);
-	}
-	return result;
-}
-
-//----- (004106A0) --------------------------------------------------------
-int sub_4106A0(int a1) {
-	int result; // eax
-
-	if (a1 < 0 || a1 >= 256) {
-		result = 0;
-	} else {
-		result = *(uint32_t*)(dword_5d4594_251556 + 4 * a1);
 	}
 	return result;
 }
