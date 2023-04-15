@@ -6,20 +6,28 @@ package legacy
 extern void* dword_5d4594_251560;
 */
 import "C"
-import "unsafe"
+import (
+	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/server"
+)
 
 var (
-	Nox_server_getWallAtGrid_410580 func(x, y int) unsafe.Pointer
-	Nox_xxx_wall_4105E0             func(x, y int) unsafe.Pointer
+	Nox_server_getWallAtGrid_410580 func(x, y int) *server.Wall
+	Nox_xxx_wall_4105E0             func(x, y int) *server.Wall
 )
+
+func asWallP(p unsafe.Pointer) *server.Wall {
+	return (*server.Wall)(p)
+}
 
 //export nox_server_getWallAtGrid_410580
 func nox_server_getWallAtGrid_410580(x, y int) unsafe.Pointer {
-	return Nox_server_getWallAtGrid_410580(x, y)
+	return Nox_server_getWallAtGrid_410580(x, y).C()
 }
 
 //export nox_xxx_wall_4105E0
-func nox_xxx_wall_4105E0(x, y int) unsafe.Pointer { return Nox_xxx_wall_4105E0(x, y) }
+func nox_xxx_wall_4105E0(x, y int) unsafe.Pointer { return Nox_xxx_wall_4105E0(x, y).C() }
 func Nox_xxx_wallTileByName_410D60(name string) byte {
 	str := CString(name)
 	defer StrFree(str)
