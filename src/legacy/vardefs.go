@@ -1165,8 +1165,8 @@ func Get_dword_5d4594_2516356() int {
 func Get_dword_5d4594_1548524() int {
 	return int(C.dword_5d4594_1548524)
 }
-func Get_dword_5d4594_251548() unsafe.Pointer {
-	return C.dword_5d4594_251548
+func Get_dword_5d4594_251548() *server.Wall {
+	return asWallP(C.dword_5d4594_251548)
 }
 func Get_dword_587000_155144() unsafe.Pointer {
 	return C.dword_587000_155144

@@ -28,7 +28,7 @@ func (s noxScriptNS) Wall(x int, y int) ns.WallObj {
 	if w == nil {
 		return nil
 	}
-	return w
+	return asWallS(w)
 }
 
 func (s noxScriptNS) WallGroupByHandle(h ns.WallGroupHandle) ns.WallGroupObj {

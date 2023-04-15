@@ -285,7 +285,7 @@ func (s noxScriptImpl) WallAt(pos types.Pointf) script.Wall {
 	if w == nil {
 		return nil
 	}
-	return w
+	return asWallS(w)
 }
 
 func (s noxScriptImpl) WallNear(pos types.Pointf) script.Wall {
@@ -293,7 +293,7 @@ func (s noxScriptImpl) WallNear(pos types.Pointf) script.Wall {
 	if w == nil {
 		return nil
 	}
-	return w
+	return asWallS(w)
 }
 
 func (s noxScriptImpl) WallAtGrid(pos image.Point) script.Wall {
@@ -301,7 +301,7 @@ func (s noxScriptImpl) WallAtGrid(pos image.Point) script.Wall {
 	if w == nil {
 		return nil
 	}
-	return w
+	return asWallS(w)
 }
 
 func (s noxScriptImpl) WallGroupByID(id string) *script.WallGroup {

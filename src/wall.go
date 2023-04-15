@@ -1,7 +1,6 @@
 package opennox
 
 import (
-	"fmt"
 	"image"
 	"sort"
 	"unsafe"
@@ -18,24 +17,24 @@ import (
 const wallGridSize = 256
 
 var (
-	dword_5D4594_251544 []*Wall
+	dword_5D4594_251544 []*server.Wall
 	dword_5d4594_251556 []unsafe.Pointer
 )
 
-func asWall(p unsafe.Pointer) *Wall {
-	return (*Wall)(p)
+func asWallS(p *server.Wall) *Wall {
+	return (*Wall)(unsafe.Pointer(p))
 }
 
-func nox_server_getWallAtGrid_410580(x, y int) unsafe.Pointer {
-	return noxServer.getWallAtGrid(image.Pt(x, y)).C()
+func nox_server_getWallAtGrid_410580(x, y int) *server.Wall {
+	return noxServer.getWallAtGrid(image.Pt(x, y))
 }
 
-func nox_xxx_wall_4105E0(x, y int) unsafe.Pointer {
-	return noxServer.getWallAtGrid2(image.Pt(x, y)).C()
+func nox_xxx_wall_4105E0(x, y int) *server.Wall {
+	return noxServer.getWallAtGrid2(image.Pt(x, y))
 }
 
 func allocWalls() int {
-	dword_5D4594_251544, _ = alloc.Make([]*Wall{}, 32*wallGridSize)
+	dword_5D4594_251544, _ = alloc.Make([]*server.Wall{}, 32*wallGridSize)
 	if dword_5D4594_251544 == nil {
 		return 0
 	}
@@ -52,7 +51,7 @@ func allocWalls() int {
 		if ptr == nil {
 			return 0
 		}
-		ptr.Prev20 = asWall(legacy.Get_dword_5d4594_251548())
+		ptr.Prev20 = legacy.Get_dword_5d4594_251548()
 		legacy.Set_dword_5d4594_251548(ptr.C())
 	}
 	nox_xxx_wall_410160()
@@ -67,8 +66,8 @@ func nox_xxx_wall_410160() {
 			continue
 		}
 
-		var next *Wall
-		prev := asWall(legacy.Get_dword_5d4594_251548())
+		var next *server.Wall
+		prev := legacy.Get_dword_5d4594_251548()
 		for it := ptr; it != nil; it = next {
 			next = it.Next16
 			it.Prev20 = prev
@@ -85,14 +84,14 @@ func nox_xxx_wall_410160() {
 
 func freeWalls() {
 	for i := 0; i < 32*wallGridSize; i++ {
-		var next *Wall
+		var next *server.Wall
 		for ptr := dword_5D4594_251544[i]; ptr != nil; ptr = next {
 			next = ptr.Next16
 			alloc.Free(ptr)
 		}
 	}
-	var next *Wall
-	for ptr := asWall(legacy.Get_dword_5d4594_251548()); ptr != nil; ptr = next {
+	var next *server.Wall
+	for ptr := legacy.Get_dword_5d4594_251548(); ptr != nil; ptr = next {
 		next = ptr.Prev20
 		alloc.Free(ptr)
 	}
@@ -111,34 +110,34 @@ func (s *Server) nox_xxx_wallTileByName_410D60(name string) byte {
 	return legacy.Nox_xxx_wallTileByName_410D60(name)
 }
 
-func (s *Server) getWallAtGrid(pos image.Point) *Wall { // nox_server_getWallAtGrid_410580
+func (s *Server) getWallAtGrid(pos image.Point) *server.Wall { // nox_server_getWallAtGrid_410580
 	if (byte(pos.X)+byte(pos.Y))&0x1 != 0 {
 		return nil
 	}
 	ind := (uint16(pos.Y) + (uint16(pos.X) << 8)) & 0x1FFF
 	for it := dword_5D4594_251544[ind]; it != nil; it = it.Next16 {
-		if pos == it.GridPos() && it.field4()&0x30 == 0 {
+		if pos == it.GridPos() && it.Field4&0x30 == 0 {
 			return it
 		}
 	}
 	return nil
 }
 
-func (s *Server) getWallAtGrid2(pos image.Point) *Wall { // nox_xxx_wall_4105E0
+func (s *Server) getWallAtGrid2(pos image.Point) *server.Wall { // nox_xxx_wall_4105E0
 	v2 := (uint16(pos.Y) + (uint16(pos.X) << 8)) & 0x1FFF
 	for it := dword_5D4594_251544[v2]; it != nil; it = it.Next16 {
-		if pos == it.GridPos() && it.field4()&0x20 == 0 {
+		if pos == it.GridPos() && it.Field4&0x20 == 0 {
 			return it
 		}
 	}
 	return nil
 }
 
-func (s *Server) getWallAt(pos types.Pointf) *Wall {
+func (s *Server) getWallAt(pos types.Pointf) *server.Wall {
 	return s.getWallAtGrid(wall.PosToGrid(pos))
 }
 
-func (s *Server) getWallNear(pos types.Pointf) *Wall {
+func (s *Server) getWallNear(pos types.Pointf) *server.Wall {
 	if w := s.getWallAt(pos); w != nil {
 		return w
 	}
@@ -181,7 +180,7 @@ func (s *Server) getWallGroupByID(id string) *script.WallGroup {
 			X: it.Data1(),
 			Y: it.Data2(),
 		}); wl != nil {
-			list = append(list, wl)
+			list = append(list, asWallS(wl))
 		}
 	}
 	return script.NewWallGroup(id, list...)
@@ -200,81 +199,42 @@ func nox_xxx_wallSecretNext_410790(p unsafe.Pointer) unsafe.Pointer {
 
 var _ = [1]struct{}{}[36-unsafe.Sizeof(Wall{})]
 
-type Wall struct {
-	Dir0    byte           // 0, 0
-	Tile1   byte           // 0, 1
-	Field2  byte           // 0, 2
-	Field3  byte           // 0, 3
-	Field4  byte           // 1, 4
-	X5      byte           // 1, 5
-	Y6      byte           // 1, 6
-	Health7 byte           // 1, 7
-	Field8  uint32         // 2, 8
-	Field12 uint32         // 3, 12
-	Next16  *Wall          // 4, 16
-	Prev20  *Wall          // 5, 20
-	Field24 uint32         // 6, 24
-	Data28  unsafe.Pointer // 7, 28
-	Field32 uint32         // 8, 32
-}
+type Wall server.Wall
 
 func (w *Wall) C() unsafe.Pointer {
 	return unsafe.Pointer(w)
 }
 
-func (w *Wall) String() string {
-	pos := w.GridPos()
-	return fmt.Sprintf("Wall(%d, %d)", pos.X, pos.Y)
+func (w *Wall) S() *server.Wall {
+	if w == nil {
+		return nil
+	}
+	return (*server.Wall)(unsafe.Pointer(w))
 }
 
-func (w *Wall) ScriptID() int {
-	p := w.GridPos()
-	return (p.X << 16) | p.Y
+func (w *Wall) String() string {
+	return w.S().String()
 }
 
 func (w *Wall) WallScriptID() int {
-	p := w.GridPos()
-	return (p.X << 16) | p.Y
+	return w.S().WallScriptID()
 }
 
-func (w *Wall) dir() byte {
-	return w.Dir0
-}
-
-func (w *Wall) tile() byte {
-	return w.Tile1
-}
-
-func (w *Wall) field2() byte {
-	return w.Field2
-}
-
-func (w *Wall) field4() byte {
-	return w.Field4
-}
-
-func (w *Wall) health() byte {
-	return w.Health7
+func (w *Wall) ScriptID() int {
+	return w.S().ScriptID()
 }
 
 func (w *Wall) GridPos() image.Point {
-	x := int(w.X5)
-	y := int(w.Y6)
-	return image.Point{
-		X: x,
-		Y: y,
-	}
+	return w.S().GridPos()
 }
 
 func (w *Wall) Pos() types.Pointf {
-	p := w.GridPos()
-	return wall.GridToPos(p)
+	return w.S().Pos()
 }
 
 // IsEnabled checks if the wall is closed.
 func (w *Wall) IsEnabled() bool {
-	v3 := *(*byte)(unsafe.Add(w.Data28, 21))
-	return v3 == 1 || v3 == 2
+	return w.S().IsEnabled()
 }
 
 // Enable or disable (close or open) the wall.

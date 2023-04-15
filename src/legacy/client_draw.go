@@ -33,6 +33,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func Nox_xxx_clientDrawAll_436100_draw_A() {
@@ -119,8 +120,8 @@ func Nox_video_drawCursorSelectCircle_4773C0(vp *noxrender.Viewport) {
 func Sub_4C5060(vp *noxrender.Viewport) {
 	C.sub_4C5060((*nox_draw_viewport_t)(vp.C()))
 }
-func Nox_xxx_drawWalls_473C10(vp *noxrender.Viewport, a2 unsafe.Pointer) {
-	C.nox_xxx_drawWalls_473C10((*nox_draw_viewport_t)(vp.C()), a2)
+func Nox_xxx_drawWalls_473C10(vp *noxrender.Viewport, a2 *server.Wall) {
+	C.nox_xxx_drawWalls_473C10((*nox_draw_viewport_t)(vp.C()), a2.C())
 }
 func Sub_4761B0(dr *client.Drawable) int {
 	return int(C.sub_4761B0((*nox_drawable)(dr.C())))
