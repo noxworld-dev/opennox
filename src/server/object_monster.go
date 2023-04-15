@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"image/color"
 	"math"
 	"unsafe"
@@ -36,6 +37,38 @@ func (s *AIStackItem) ArgPos(i int) types.Pointf {
 	return types.Pointf{
 		X: math.Float32frombits(uint32(s.Args[i+0])),
 		Y: math.Float32frombits(uint32(s.Args[i+1])),
+	}
+}
+
+func (s *AIStackItem) SetArgs(args ...any) {
+	if s == nil {
+		return
+	}
+	off := 0
+	for _, v := range args {
+		switch v := v.(type) {
+		case int:
+			s.Args[off] = uintptr(uint32(int32(v)))
+		case uint:
+			s.Args[off] = uintptr(uint32(v))
+		case int32:
+			s.Args[off] = uintptr(uint32(v))
+		case uint32:
+			s.Args[off] = uintptr(v)
+		case unsafe.Pointer:
+			s.Args[off] = uintptr(v)
+		case float32:
+			s.Args[off] = uintptr(math.Float32bits(v))
+		case Obj:
+			s.Args[off] = uintptr(unsafe.Pointer(v.SObj()))
+		case types.Pointf:
+			s.Args[off+0] = uintptr(math.Float32bits(v.X))
+			s.Args[off+1] = uintptr(math.Float32bits(v.Y))
+			off++
+		default:
+			panic(fmt.Errorf("unsupported arg: %T", v))
+		}
+		off++
 	}
 }
 
