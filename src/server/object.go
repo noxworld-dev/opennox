@@ -11,6 +11,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
+	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
@@ -998,4 +999,125 @@ func (obj *Object) CallXfer(a2 unsafe.Pointer) error {
 		return fmt.Errorf("xfer for %s failed", obj.String())
 	}
 	return nil
+}
+
+func (s *Server) IsFish(obj *Object) bool {
+	if obj == nil {
+		return false
+	}
+	return int(obj.TypeInd) == s.Types.FishSmallID() || int(obj.TypeInd) == s.Types.FishBigID()
+}
+
+func (s *Server) IsRat(obj *Object) bool {
+	if obj == nil {
+		return false
+	}
+	return int(obj.TypeInd) == s.Types.RatID()
+}
+
+func (s *Server) IsFrog(obj *Object) bool {
+	if obj == nil {
+		return false
+	}
+	return int(obj.TypeInd) == s.Types.GreenFrogID()
+}
+
+func (s *Server) IsPlant(obj *Object) bool {
+	if obj == nil {
+		return false
+	}
+	return int(obj.TypeInd) == s.Types.CarnivorousPlantID()
+}
+
+func (s *Server) IsMimic(obj *Object) bool {
+	if obj == nil {
+		return false
+	}
+	return int(obj.TypeInd) == s.Types.MimicID()
+}
+
+func (obj *Object) IsEnemyTo(obj2 *Object) bool { // nox_xxx_unitIsEnemyTo_5330C0
+	if obj == nil || obj2 == nil {
+		return false
+	}
+	if obj.SObj() == obj2.SObj() {
+		return false
+	}
+	return obj.Server().IsEnemyTo(obj, obj2)
+}
+
+func (s *Server) IsEnemyTo(obj, obj2 *Object) bool {
+	if obj == nil || obj2 == nil {
+		return false
+	}
+	if obj.SObj() == obj2.SObj() {
+		return false
+	}
+	if obj2.Class().HasAny(object.ClassMonster) {
+		if ud := obj2.UpdateDataMonster(); ud.Flags360&0x40000 != 0 {
+			return false
+		}
+	}
+	if obj.Class().HasAny(object.ClassPlayer) && int(obj2.TypeInd) == s.Types.PolypID() {
+		return true
+	}
+	if obj.Class().HasAny(object.ClassPlayer) && obj2.Class().HasAny(object.ClassMonsterGenerator) {
+		return true
+	}
+	if obj.Class().HasAny(object.ClassMonster) && obj2.Class().HasAny(object.ClassMonsterGenerator) {
+		return false
+	}
+	if obj.Class().HasAny(object.ClassPlayer) && obj2.Class().HasAny(object.ClassMonster) && (obj2.SubClass()&0x20 != 0) {
+		return false
+	}
+	if obj.Class().HasAny(object.ClassMonster) && obj2.Class().HasAny(object.ClassPlayer) && (obj.SubClass()&0x20 != 0) {
+		return false
+	}
+	if s.IsFish(obj.SObj()) || s.IsFrog(obj.SObj()) {
+		return !s.IsFish(obj2.SObj()) && !s.IsFrog(obj2.SObj())
+	}
+	if s.IsRat(obj.SObj()) {
+		return !s.IsRat(obj2.SObj())
+	}
+	if s.IsFish(obj2.SObj()) {
+		return false
+	}
+	if obj2.Class().HasAny(object.ClassMonster) && (obj2.SubClass()&0x8 != 0) {
+		return false
+	}
+	if obj.Class().HasAny(object.ClassMonster) && (obj.SubClass()&0x8 != 0) {
+		return false
+	}
+	if obj.HasEnchant(ENCHANT_CHARMING) || obj2.HasEnchant(ENCHANT_CHARMING) {
+		return false
+	}
+	if obj2.Class().HasAny(object.ClassPlayer) {
+		if pl := obj2.ControllingPlayer(); pl.Field3680&0x1 != 0 {
+			return false
+		}
+	}
+	own1 := obj.FindOwnerChainPlayer()
+	own2 := obj2.FindOwnerChainPlayer()
+	if own1 == own2 {
+		return false
+	}
+	if Nox_xxx_servCompareTeams_419150(own1.TeamPtr(), own2.TeamPtr()) {
+		return false
+	}
+	if own1.Class().HasAny(object.ClassPlayer) && own2.Class().HasAny(object.ClassMonsterGenerator) {
+		return true
+	}
+	if own1.Class().HasAny(object.ClassMonster) && own2.Class().HasAny(object.ClassMonsterGenerator) {
+		return false
+	}
+	if !noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().HasAny(object.ClassMonster) && int(obj2.TypeInd) == s.Types.WillOWispID() {
+		return obj2.UpdateDataMonster().HasAction(ai.ACTION_FIGHT)
+	}
+	if Nox_xxx_servObjectHasTeam_419130(own1.TeamPtr()) || Nox_xxx_servObjectHasTeam_419130(own2.TeamPtr()) {
+		return true
+	}
+	if own1.Class().HasAny(object.ClassMonster) && own2.Class().HasAny(object.ClassMonster) {
+		return false
+	}
+	return true
 }

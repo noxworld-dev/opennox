@@ -525,3 +525,15 @@ func (ud *MonsterUpdateData) SetAggression(v float32) {
 func (ud *MonsterUpdateData) DialogPortrait() string {
 	return alloc.GoStringS(ud.DialogPortraitBuf[:])
 }
+
+func (ud *MonsterUpdateData) HasAction(act ai.ActionType) bool { // nox_xxx_checkMobAction_50A0D0
+	if ud == nil {
+		return false
+	}
+	for i := ud.AIStackInd; i >= 0; i-- {
+		if ud.AIStack[i].Type() == act {
+			return true
+		}
+	}
+	return false
+}

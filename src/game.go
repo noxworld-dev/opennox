@@ -1324,7 +1324,7 @@ func (s *Server) MapTraceObstacles(from *server.Object, p1, p2 types.Pointf) boo
 		}
 		if obj.Class().HasAny(object.MaskUnits) {
 			u2 := obj
-			if asObjectS(from).isEnemyTo(u2) {
+			if s.IsEnemyTo(from, u2.SObj()) {
 				return true
 			}
 		} else if !obj.Class().HasAny(object.ClassImmobile | object.ClassObstacle) {
