@@ -4,6 +4,8 @@ package legacy
 #include "GAME1.h"
 #include "GAME4_1.h"
 extern void* dword_5d4594_251560;
+extern uint32_t nox_wall_def_cnt;
+extern nox_wallDef_t nox_wall_defs_arr[80];
 */
 import "C"
 import (
@@ -13,6 +15,14 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
+
+var _ = [1]struct{}{}[12332-unsafe.Sizeof(server.WallDef{})]
+
+func Get_nox_wall_defs_arr() []server.WallDef {
+	ptr := (*server.WallDef)(unsafe.Pointer(&C.nox_wall_defs_arr[0]))
+	sz := int(C.nox_wall_def_cnt)
+	return unsafe.Slice(ptr, len(C.nox_wall_defs_arr))[:sz]
+}
 
 func asWallP(p unsafe.Pointer) *server.Wall {
 	return (*server.Wall)(p)
