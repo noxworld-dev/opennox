@@ -17,6 +17,7 @@ var (
 	Nox_server_getWallAtGrid_410580 func(x, y int) *server.Wall
 	Nox_xxx_wall_4105E0             func(x, y int) *server.Wall
 	Nox_xxx_wallCreateAt_410250     func(pos image.Point) *server.Wall
+	Nox_xxx_mapDelWallAtPt_410430   func(pos image.Point)
 )
 
 func asWallP(p unsafe.Pointer) *server.Wall {
@@ -36,6 +37,11 @@ func nox_xxx_wall_4105E0(x, y int) unsafe.Pointer {
 //export nox_xxx_wallCreateAt_410250
 func nox_xxx_wallCreateAt_410250(x, y int) unsafe.Pointer {
 	return Nox_xxx_wallCreateAt_410250(image.Pt(x, y)).C()
+}
+
+//export nox_xxx_mapDelWallAtPt_410430
+func nox_xxx_mapDelWallAtPt_410430(x, y int) {
+	Nox_xxx_mapDelWallAtPt_410430(image.Pt(x, y))
 }
 func Nox_xxx_wallTileByName_410D60(name string) byte {
 	str := CString(name)

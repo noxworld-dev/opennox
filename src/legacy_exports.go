@@ -186,6 +186,7 @@ func init() {
 	legacy.Nox_xxx_XFer_WriteShopItem_52A5F0 = nox_xxx_XFer_WriteShopItem_52A5F0
 	legacy.Nox_server_getWallAtGrid_410580 = nox_server_getWallAtGrid_410580
 	legacy.Nox_xxx_wallCreateAt_410250 = nox_xxx_wallCreateAt_410250
+	legacy.Nox_xxx_mapDelWallAtPt_410430 = nox_xxx_mapDelWallAtPt_410430
 	legacy.Nox_xxx_wall_4105E0 = nox_xxx_wall_4105E0
 	legacy.Sub_5002D0 = sub_5002D0
 	legacy.Sub_4FC670 = sub_4FC670
