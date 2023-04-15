@@ -40,7 +40,7 @@ func objectMonsterInit(sobj *server.Object) {
 			obj.monsterPushAction(ai.ACTION_IDLE)
 			ud.Aggression = 0.16
 			ud.AIAction340 = uint32(ai.ACTION_INVALID)
-			ud.StatusFlags |= 0x100
+			ud.StatusFlags |= object.MonStatusAlert
 		case s.Types.NPCID():
 			for i := 0; i < 6; i++ {
 				cl := s.Rand.RandomColor3()
@@ -87,11 +87,11 @@ func objectMonsterInit(sobj *server.Object) {
 	if legacy.Nox_xxx_monsterCanCast_534300(obj.SObj()) {
 		ud.FleeRange = 100
 	}
-	if ud.StatusFlags&0x40 != 0 {
+	if ud.StatusFlags.Has(object.MonStatusHoldYourGround) {
 		ud.FleeRange = 0
 	}
-	if ud.StatusFlags&0x8000 != 0 {
-		ud.StatusFlags |= 0x4000
+	if ud.StatusFlags.Has(object.MonStatusAlwaysRun) {
+		ud.StatusFlags |= object.MonStatusRunning
 	}
 }
 
