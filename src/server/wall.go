@@ -4,9 +4,11 @@ import (
 	"errors"
 	"fmt"
 	"image"
+	"math"
 	"sort"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/types"
 	"github.com/noxworld-dev/opennox-lib/wall"
 
@@ -661,4 +663,293 @@ var doorWallTable = []image.Point{
 	{X: 0, Y: 32}, {X: -6, Y: 31}, {X: -12, Y: 30}, {X: -18, Y: 27},
 	{X: -23, Y: 23}, {X: -27, Y: 18}, {X: -30, Y: 12}, {X: -31, Y: 6},
 	{X: -32, Y: 0}, {X: -31, Y: -6}, {X: -30, Y: -12}, {X: -27, Y: -18},
+}
+
+func (s *Server) MapTraceRay9(p1, p2 types.Pointf) bool { // nox_xxx_traceRay_5374B0
+	return s.MapTraceRay(p1, p2, MapTraceFlag1|MapTraceFlag4)
+}
+
+func (s *Server) MapTraceRay(p1, p2 types.Pointf, flags MapTraceFlags) bool {
+	return s.MapTraceRayAt(p1, p2, nil, nil, flags)
+}
+
+func (s *Server) MapTraceRayAt(p1, p2 types.Pointf, outPos *types.Pointf, outGrid *image.Point, flags MapTraceFlags) bool {
+	wx1 := int(p1.X / common.GridStep)
+	wy1 := int(p1.Y / common.GridStep)
+	if wx1 < 0 || wx1 >= 256 || wy1 < 0 || wy1 >= 256 {
+		return false
+	}
+	wx2 := int(p2.X / common.GridStep)
+	wy2 := int(p2.Y / common.GridStep)
+	if wx1 == wx2 {
+		step := +1
+		if p2.Y < p1.Y {
+			step = -1
+		}
+		if wy1 == wy2+step {
+			return true
+		}
+		for yi := wy1; yi != wy2+step; yi += step {
+			pi := image.Pt(wx1, yi)
+			if a4a := s.mapTraceRayImpl(pi, p1, p2, flags); len(a4a) != 0 {
+				if outPos != nil {
+					*outPos = a4a[0]
+				}
+				if outGrid != nil {
+					*outGrid = pi
+				}
+				return false
+			}
+		}
+		return true
+	}
+	if wy1 == wy2 {
+		step := +1
+		if p2.X < p1.X {
+			step = -1
+		}
+		if wx1 == wx2+step {
+			return true
+		}
+		for xi := wx1; xi != wx2+step; xi += step {
+			pi := image.Pt(xi, wy1)
+			if a4a := s.mapTraceRayImpl(pi, p1, p2, flags); len(a4a) != 0 {
+				if outPos != nil {
+					*outPos = a4a[0]
+				}
+				if outGrid != nil {
+					*outGrid = pi
+				}
+				return false
+			}
+		}
+		return true
+	}
+	dx := p2.X - p1.X
+	dy := p2.Y - p1.Y
+	if math.Abs(float64(dy)) >= math.Abs(float64(dx)) {
+		x1 := p1.X
+		x2 := p2.X
+		mulX := float32(+1.0)
+		if x1 >= x2 {
+			x1, x2 = x2, x1
+			mulX = -1.0
+		}
+		stepY := +1.0
+		if p1.Y >= p2.Y {
+			stepY = -1.0
+		}
+		slope := dy / dx
+		var xnext float32
+		for x := p1.X; mulX*x <= mulX*p2.X; x = xnext + 0.1*mulX {
+			xi := int(math.Trunc(float64(x / common.GridStep)))
+			xmin := float32(xi+0) * common.GridStep
+			xmax := float32(xi+1) * common.GridStep
+			if mulX <= 0 {
+				xmax, xmin = xmin, xmax
+			}
+			xnext = xmax
+			y1 := p1.Y + (xmin-p1.X)*slope
+			if (stepY > 0 && y1 < p1.Y) || (stepY < 0 && y1 > p1.Y) {
+				y1 = p1.Y
+			}
+			y2 := p1.Y + (xmax-p1.X)*slope
+			if (stepY > 0 && y2 > p2.Y) || (stepY < 0 && y2 < p2.Y) {
+				y2 = p2.Y
+			}
+			yi1 := int(math.Trunc(float64(y1/common.GridStep)) - stepY)
+			yi2 := int(math.Trunc(float64(y2/common.GridStep)) + stepY)
+			ddy := 1
+			if yi1 >= yi2 {
+				ddy = -1
+			}
+			for yi := yi1; yi != yi2+ddy; yi += ddy {
+				pi := image.Pt(xi, yi)
+				if a4a := s.mapTraceRayImpl(pi, p1, p2, flags); len(a4a) != 0 {
+					if outPos != nil {
+						*outPos = a4a[0]
+					}
+					if outGrid != nil {
+						*outGrid = pi
+					}
+					return false
+				}
+			}
+		}
+		return true
+	} else {
+		y1 := p1.Y
+		y2 := p2.Y
+		mulY := float32(+1.0)
+		if p1.Y >= p2.Y {
+			y1, y2 = y2, y1
+			mulY = -1.0
+		}
+		stepX := +1.0
+		if p1.X >= p2.X {
+			stepX = -1.0
+		}
+		slope := dx / dy
+		var ynext float32
+		for y := p1.Y; mulY*y <= mulY*p2.Y; y = ynext + 0.1*mulY {
+			yi := int(math.Trunc(float64(y / common.GridStep)))
+			ymin := float32(yi+0) * common.GridStep
+			ymax := float32(yi+1) * common.GridStep
+			if mulY <= 0 {
+				ymin, ymax = ymax, ymin
+			}
+			ynext = ymax
+			x1 := p1.X + (ymin-p1.Y)*slope
+			if (stepX > 0 && x1 < p1.X) || (stepX < 0 && x1 > p1.X) {
+				x1 = p1.X
+			}
+			x2 := p1.X + (ymax-p1.Y)*slope
+			if (stepX > 0 && x2 > p2.X) || (stepX < 0 && x2 < p2.X) {
+				x2 = p2.X
+			}
+			xi1 := int(math.Trunc(float64(x1/common.GridStep)) - stepX)
+			xi2 := int(math.Trunc(float64(x2/common.GridStep)) + stepX)
+			ddy := 1
+			if xi1 >= xi2 {
+				ddy = -1
+			}
+			for xi := xi1; xi != xi2+ddy; xi += ddy {
+				pi := image.Pt(xi, yi)
+				if out := s.mapTraceRayImpl(pi, p1, p2, flags); len(out) != 0 {
+					if outPos != nil {
+						*outPos = out[0]
+					}
+					if outGrid != nil {
+						*outGrid = pi
+					}
+					return false
+				}
+			}
+		}
+		return true
+	}
+}
+
+func (s *Server) mapTraceRayImpl(pi image.Point, p1, p2 types.Pointf, flags MapTraceFlags) []types.Pointf {
+	if pi.X < 0 || pi.X >= WallGridSize || pi.Y < 0 || pi.Y >= WallGridSize {
+		return nil
+	}
+	if flags.Has(MapTraceFlag4) {
+		v7 := float32(pi.X)*common.GridStep + 11.5 - p1.X
+		v8 := float32(pi.Y)*common.GridStep + 11.5 - p1.Y
+		if v8*v8+v7*v7 < 3600.0 {
+			flags |= MapTraceFlag3
+		}
+	}
+	v30 := byte(^flags&MapTraceFlag3) << 4
+	if flags.Has(MapTraceFlag1) {
+		v30 |= 0x10
+	}
+	tflag := s.Sub_57B500(pi, v30)
+	if tflag == -1 {
+		return nil
+	}
+	var wl *Wall
+	if flags.Has(MapTraceFlag1) {
+		wl = s.Walls.GetWallAtGrid2(pi)
+	} else {
+		wl = s.Walls.GetWallAtGrid(pi)
+	}
+	if wl == nil || flags.Has(MapTraceFlag8) && wl.Flags4.Has(WallFlag3) && *(*byte)(unsafe.Add(wl.Data28, 20))&0x2 != 0 {
+		return nil
+	}
+	flags2 := s.Walls.DefByInd(int(wl.Tile1)).Flags32
+	if flags2&0x2 != 0 || flags.Has(MapTraceFlag7) && flags2&0x1 == 0 {
+		return nil
+	}
+	x1 := p1.X
+	x2 := p2.X
+	if p1.X >= p2.X {
+		x1, x2 = x2, x1
+	}
+	y1 := p1.Y
+	y2 := p2.Y
+	if p1.Y >= p2.Y {
+		y1, y2 = y2, y1
+	}
+	a2a := types.Pointf{
+		X: float32(common.GridStep * pi.X),
+		Y: float32(common.GridStep * pi.Y),
+	}
+	var left types.Pointf
+	if tflag != 0 {
+		left = sub_57CD30(p1, p2, a2a)
+	}
+	var right types.Pointf
+	if tflag != 1 {
+		right = sub_57CD70(p1, p2, a2a.Add(types.Pointf{X: common.GridStep}))
+	}
+	var out []types.Pointf
+	if t := noxMapTable313272[2*int(tflag)+0]; t.Field0 != 0 &&
+		a2a.X+t.Field4 <= left.X &&
+		a2a.X+t.Field8 >= left.X &&
+		left.X >= x1 && left.X <= x2 &&
+		left.Y >= y1 && left.Y <= y2 {
+		out = append(out, left)
+	}
+	if t := noxMapTable313272[2*int(tflag)+1]; t.Field0 != 0 &&
+		a2a.X+t.Field4 <= right.X &&
+		a2a.X+t.Field8 >= right.X &&
+		right.X >= x1 && right.X <= x2 &&
+		right.Y >= y1 && right.Y <= y2 {
+		out = append(out, right)
+	}
+	if len(out) == 2 {
+		dxl := p1.X - left.X
+		dxr := p1.X - right.X
+		dyl := p1.Y - left.Y
+		dyr := p1.Y - right.Y
+		if dyr*dyr+dxr*dxr < dyl*dyl+dxl*dxl {
+			out[0], out[1] = out[1], out[0]
+		}
+	}
+	return out
+}
+
+var noxMapTable313272 = []struct {
+	Field0 byte
+	Field4 float32
+	Field8 float32
+}{
+	{Field0: 0, Field4: 0, Field8: 0},
+	{Field0: 1, Field4: 0, Field8: 23},
+	{Field0: 1, Field4: 0, Field8: 23},
+	{Field0: 0, Field4: 0, Field8: 0},
+	{Field0: 1, Field4: 0, Field8: 23},
+	{Field0: 1, Field4: 0, Field8: 23},
+	{Field0: 1, Field4: 0, Field8: 11.5},
+	{Field0: 1, Field4: 0, Field8: 23},
+	{Field0: 1, Field4: 0, Field8: 23},
+	{Field0: 1, Field4: 11.5, Field8: 23},
+	{Field0: 1, Field4: 11.5, Field8: 23},
+	{Field0: 1, Field4: 0, Field8: 23},
+	{Field0: 1, Field4: 0, Field8: 23},
+	{Field0: 1, Field4: 0, Field8: 11.5},
+	{Field0: 1, Field4: 0, Field8: 11.5},
+	{Field0: 1, Field4: 11.5, Field8: 23},
+	{Field0: 1, Field4: 11.5, Field8: 23},
+	{Field0: 1, Field4: 11.5, Field8: 23},
+	{Field0: 1, Field4: 11.5, Field8: 23},
+	{Field0: 1, Field4: 0, Field8: 11.5},
+	{Field0: 1, Field4: 0, Field8: 11.5},
+	{Field0: 1, Field4: 0, Field8: 11.5},
+}
+
+func sub_57CD30(p1, p2, c types.Pointf) types.Pointf {
+	dx := p2.X - p1.X
+	dy := p2.Y - p1.Y
+	v := ((c.Y-p1.Y)*dx - (c.X-p1.X)*dy) / (dy - dx)
+	return c.Add(types.Pointf{X: v, Y: v})
+}
+
+func sub_57CD70(p1, p2, a2 types.Pointf) types.Pointf {
+	dx := p2.X - p1.X
+	dy := p2.Y - p1.Y
+	v := ((a2.Y-p1.Y)*dx - (a2.X-p1.X)*dy) / (-dy - dx)
+	return a2.Add(types.Pointf{X: -v, Y: v})
 }
