@@ -213,7 +213,7 @@ type MonsterUpdateData struct {
 	Field120_1            uint8            // 120, 481
 	Field120_2            uint8            // 120, 482
 	Field120_3            uint8            // 120, 483
-	Field121              unsafe.Pointer   // 121, 484
+	MonsterDef            *MonsterDef      // 121, 484
 	Field122              uint32           // 122, 488
 	Field123              uint32           // 123, 492
 	Field124              uint32           // 124, 496
@@ -536,4 +536,93 @@ func (ud *MonsterUpdateData) HasAction(act ai.ActionType) bool { // nox_xxx_chec
 		}
 	}
 	return false
+}
+
+type MonsterStatus uint32
+
+type MonsterDef struct {
+	Name0                        [64]byte       // 0, 0, TODO: size is a guess
+	Experience64                 uint32         // 16, 64
+	Health68                     uint32         // 17, 68
+	HealthQuest72                uint32         // 18, 72
+	Speed76                      uint32         // 19, 76
+	RetreatRatio80               float32        // 20, 80
+	ResumeRatio84                float32        // 21, 84
+	FleeRange88                  float32        // 22, 88
+	Status92                     MonsterStatus  // 23, 92
+	RunMultiplier96              float32        // 24, 96
+	MoveSndFrameA100             uint32         // 25, 100
+	MoveSndFrameB104             uint32         // 26, 104
+	MeleeAttackFrame108          uint32         // 27, 108
+	MeleeAttackRange112          float32        // 28, 112
+	MeleeAttackDamage116         uint32         // 29, 116
+	MeleeAttackImpact120         float32        // 30, 120
+	MeleeAttackDamageType124     uint32         // 31, 124
+	MeleeAttackDelayMin128       uint32         // 32, 128
+	MeleeAttackDelayMax132       uint32         // 33, 132
+	MeleeAttackPoisonChange136   uint32         // 34, 136
+	MeleeAttackPoisonStrength140 uint32         // 35, 140
+	MeleeAttackPoisonMax144      uint32         // 36, 144
+	MissileName148               [64]byte       // 37, 148, TODO: size is a guess
+	MissileAttackRange212        float32        // 53, 212
+	MissileAttackFrame216        uint32         // 54, 216
+	MissileAttackDelayMin220     uint32         // 55, 220
+	MissileAttackDelayMax224     uint32         // 56, 224
+	DieFunc228                   unsafe.Pointer // 57, 228
+	DeadFunc232                  unsafe.Pointer // 58, 232
+	MeleeStrikeFunc236           unsafe.Pointer // 59, 236
+	Field240                     uint32         // 60, 240
+	Next244                      *MonsterDef    // 61, 244
+}
+
+type monsterFieldKind int
+
+const (
+	monsterFieldInt        = monsterFieldKind(0)
+	monsterFieldFloat      = monsterFieldKind(1)
+	monsterFieldSound      = monsterFieldKind(2)
+	monsterFieldStrikeFunc = monsterFieldKind(3)
+	monsterFieldDieFunc    = monsterFieldKind(4)
+	monsterFieldDeadFunc   = monsterFieldKind(5)
+	monsterFieldStatus     = monsterFieldKind(6)
+	monsterFieldString     = monsterFieldKind(7)
+	monsterFieldDamageType = monsterFieldKind(8)
+)
+
+type monsterDefField struct {
+	Name string
+	Kind monsterFieldKind
+	Off  int
+}
+
+var monsterDefFields = []monsterDefField{
+	{Name: "EXPERIENCE", Kind: monsterFieldInt, Off: 64},
+	{Name: "HEALTH", Kind: monsterFieldInt, Off: 68},
+	{Name: "SPEED", Kind: monsterFieldInt, Off: 76},
+	{Name: "RUN_MULTIPLIER", Kind: monsterFieldFloat, Off: 96},
+	{Name: "RETREAT_RATIO", Kind: monsterFieldFloat, Off: 80},
+	{Name: "RESUME_RATIO", Kind: monsterFieldFloat, Off: 84},
+	{Name: "STATUS", Kind: monsterFieldStatus, Off: 92},
+	{Name: "MOVE_SOUND_FRAME_A", Kind: monsterFieldInt, Off: 100},
+	{Name: "MOVE_SOUND_FRAME_B", Kind: monsterFieldInt, Off: 104},
+	{Name: "FLEE_RANGE", Kind: monsterFieldFloat, Off: 88},
+	{Name: "MELEE_ATTACK_DAMAGE", Kind: monsterFieldInt, Off: 116},
+	{Name: "MELEE_ATTACK_DAMAGE_TYPE", Kind: monsterFieldDamageType, Off: 124},
+	{Name: "MELEE_ATTACK_IMPACT", Kind: monsterFieldFloat, Off: 120},
+	{Name: "MELEE_ATTACK_RANGE", Kind: monsterFieldFloat, Off: 112},
+	{Name: "MELEE_ATTACK_FRAME", Kind: monsterFieldInt, Off: 108},
+	{Name: "MELEE_ATTACK_MIN_DELAY", Kind: monsterFieldInt, Off: 128},
+	{Name: "MELEE_ATTACK_MAX_DELAY", Kind: monsterFieldInt, Off: 132},
+	{Name: "MELEE_ATTACK_POISON_CHANCE", Kind: monsterFieldInt, Off: 136},
+	{Name: "MELEE_ATTACK_POISON_STRENGTH", Kind: monsterFieldInt, Off: 140},
+	{Name: "MELEE_ATTACK_POISON_MAX", Kind: monsterFieldInt, Off: 144},
+	{Name: "MISSILE_NAME", Kind: monsterFieldString, Off: 148},
+	{Name: "MISSILE_ATTACK_RANGE", Kind: monsterFieldFloat, Off: 212},
+	{Name: "MISSILE_ATTACK_FRAME", Kind: monsterFieldInt, Off: 216},
+	{Name: "MISSILE_ATTACK_MIN_DELAY", Kind: monsterFieldInt, Off: 220},
+	{Name: "MISSILE_ATTACK_MAX_DELAY", Kind: monsterFieldInt, Off: 224},
+	{Name: "MELEE_STRIKE_FUNCTION", Kind: monsterFieldStrikeFunc, Off: 236},
+	{Name: "DIE_FUNCTION", Kind: monsterFieldDieFunc, Off: 228},
+	{Name: "DEAD_FUNCTION", Kind: monsterFieldDeadFunc, Off: 232},
+	{Name: "QUESTHEALTH", Kind: monsterFieldInt, Off: 72},
 }
