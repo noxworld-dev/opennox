@@ -192,7 +192,7 @@ int sub_46A360() {
 		do {
 			v2 = 15;
 			do {
-				v3 = getMemAt(0x85B3FC, 51476 + i + v1);
+				v3 = getMemAt(0x85B3FC, 43044 + 8432 + i + v1);
 				v1 += 64;
 				--v2;
 				memset(v3, 0, 0x40u);
