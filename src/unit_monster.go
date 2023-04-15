@@ -132,6 +132,6 @@ func nox_xxx_setNPCColor_4E4A90(obj *server.Object, ind byte, cl *server.Color3)
 		}
 	} else {
 		val := sub_4E4C90(obj, 0x400)
-		legacy.Sub_4E4500(obj, 0x4000000, 1024, val)
+		sub_4E4500(obj, 0x4000000, 1024, val)
 	}
 }
