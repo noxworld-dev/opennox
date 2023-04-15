@@ -1,6 +1,7 @@
 package server
 
 import (
+	"image"
 	"strings"
 	"unsafe"
 
@@ -8,6 +9,12 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
+
+type serverWaypoints struct {
+	dword_5d4594_2386928 float32
+	dword_5d4594_2386948 *Waypoint
+	dword_5d4594_2386960 uint32
+}
 
 type WaypointSub struct {
 	Waypoint *Waypoint
@@ -94,4 +101,39 @@ func (w *Waypoint) SetPos(p types.Pointf) {
 
 func (w *Waypoint) HasFlag2Mask(mask byte) bool {
 	return mask&w.Flags2 != 0
+}
+
+func (s *Server) Sub_518460(pos types.Pointf, mask byte, scanSub bool) *Waypoint {
+	s.wps.dword_5d4594_2386960++
+	s.wps.dword_5d4594_2386928 = 1000.0
+	var found *Waypoint
+	for r := float32(0.0); r < 1000.0; {
+		x1 := RoundCoord(pos.X - r)
+		y1 := RoundCoord(pos.Y - r)
+		x2 := RoundCoord(pos.X + r)
+		y2 := RoundCoord(pos.Y + r)
+		s.wps.dword_5d4594_2386948 = nil
+		s.sub_518550(image.Rect(x1, y1, x2, y2), pos, mask, scanSub)
+		if s.wps.dword_5d4594_2386948 != nil {
+			found = s.wps.dword_5d4594_2386948
+			r = s.wps.dword_5d4594_2386928
+		} else {
+			if found != nil {
+				return found
+			}
+			r += 85.0
+		}
+	}
+	return found
+}
+
+func (s *Server) sub_518550(rect image.Rectangle, pos types.Pointf, mask byte, scanSub bool) {
+	s.Map.Sub518550Base(rect, mask, scanSub, &s.wps.dword_5d4594_2386960, func(it *Waypoint) {
+		if dist := pos.Sub(it.Pos()).Len(); dist < float64(s.wps.dword_5d4594_2386928) {
+			if s.MapTraceRayAt(pos, it.Pos(), nil, nil, MapTraceFlag1) {
+				s.wps.dword_5d4594_2386948 = it
+				s.wps.dword_5d4594_2386928 = float32(dist)
+			}
+		}
+	})
 }

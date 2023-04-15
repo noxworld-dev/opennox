@@ -953,3 +953,21 @@ func sub_57CD70(p1, p2, a2 types.Pointf) types.Pointf {
 	v := ((a2.Y-p1.Y)*dx - (a2.X-p1.X)*dy) / (-dy - dx)
 	return a2.Add(types.Pointf{X: -v, Y: v})
 }
+
+func (s *Server) RandomReachablePointAround(dist float32, pos types.Pointf) types.Pointf { // sub_4ED970
+	step := dist * 0.015625
+	v11 := float32(s.Rand.Logic.FloatClamp(-math.Pi, math.Pi))
+	for v5 := 0; v5 < 64; v5++ {
+		v6 := v11 + 1.8849558
+		v11 = v6
+		p2 := types.Pointf{
+			X: float32(math.Cos(float64(v6)))*dist + pos.X,
+			Y: float32(math.Sin(float64(v11)))*dist + pos.Y,
+		}
+		if s.MapTraceRay(pos, p2, MapTraceFlag1) {
+			return p2
+		}
+		dist -= step
+	}
+	return pos
+}
