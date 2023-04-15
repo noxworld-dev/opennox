@@ -235,6 +235,6 @@ int nox_xxx_wndGuiTeamCreate_4185B0();
 int nox_xxx_teamAssignFlags_418640();
 char* nox_xxx_toggleAllTeamFlags_418690(int a1);
 
-int nox_xxx_wallForeachFn_410640(void (*a1)(int, int), int a2);
+void nox_xxx_wallForeachFn_410640(void* a1, void* a2);
 
 #endif // NOX_PORT_GAME1

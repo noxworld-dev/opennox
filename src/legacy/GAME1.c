@@ -52,8 +52,6 @@ int nox_server_gameSettingsUpdated; // If you define it as 1-byte bool, the game
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 
-void* dword_5d4594_251552 = 0;
-
 //----- (00409470) --------------------------------------------------------
 int nox_xxx_parseString_409470(FILE* a1, uint8_t* a2) {
 	uint8_t* v2;          // ebx
@@ -765,24 +763,6 @@ int sub_410550(short a1) {
 		}
 	}
 	return v1[3];
-}
-
-//----- (00410640) --------------------------------------------------------
-int nox_xxx_wallForeachFn_410640(void (*a1)(int, int), int a2) {
-	int result; // eax
-	int v3;     // esi
-
-	result = dword_5d4594_251552;
-	if (dword_5d4594_251552) {
-		do {
-			v3 = *(uint32_t*)(result + 20);
-			if (!(*(uint8_t*)(result + 4) & 0x30)) {
-				a1(result, a2);
-			}
-			result = v3;
-		} while (v3);
-	}
-	return result;
 }
 
 //----- (00410730) --------------------------------------------------------
