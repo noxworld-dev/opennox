@@ -930,35 +930,6 @@ int sub_4106A0(int a1) {
 	return result;
 }
 
-//----- (004106C0) --------------------------------------------------------
-void sub_4106C0() {
-	uint32_t* v1; // eax
-	uint32_t* v2; // esi
-	uint32_t* v3; // eax
-	uint32_t* v4; // esi
-
-	for (int i = 0; i < 8192; i++) {
-		v1 = dword_5D4594_251544[i];
-		if (v1) {
-			do {
-				v2 = (uint32_t*)v1[4];
-				free(v1);
-				v1 = v2;
-			} while (v2);
-		}
-	}
-	v3 = *(uint32_t**)&dword_5d4594_251548;
-	if (dword_5d4594_251548) {
-		do {
-			v4 = (uint32_t*)v3[5];
-			free(v3);
-			v3 = v4;
-		} while (v4);
-	}
-	free(dword_5D4594_251544);
-	free(*(void**)&dword_5d4594_251556);
-}
-
 //----- (00410730) --------------------------------------------------------
 uint32_t* sub_410730() {
 	uint32_t* result; // eax
