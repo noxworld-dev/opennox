@@ -40,7 +40,7 @@ func toObjectC(p Obj) unsafe.Pointer {
 	if p == nil {
 		return nil
 	}
-	return unsafe.Pointer(p.SObj().CObj())
+	return p.SObj().CObj()
 }
 
 func asObjectP(p unsafe.Pointer) *Object {
@@ -266,7 +266,7 @@ func (s *serverObjects) NewObject(t *ObjectType) *Object {
 		obj.Field189, _ = alloc.Malloc(2572)
 	}
 	if t.Create != nil {
-		ccall.CallVoidPtr(t.Create, unsafe.Pointer(obj.SObj()))
+		ccall.CallVoidPtr(t.Create, obj.CObj())
 	}
 	if !noxflags.HasGame(noxflags.GameFlag22) {
 		obj.ScriptIDVal = int(s.NextObjectScriptID())
