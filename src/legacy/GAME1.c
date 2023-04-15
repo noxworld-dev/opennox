@@ -52,7 +52,6 @@ int nox_server_gameSettingsUpdated; // If you define it as 1-byte bool, the game
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 
-void* dword_5d4594_251548 = 0;
 void* dword_5d4594_251552 = 0;
 
 //----- (00409470) --------------------------------------------------------

@@ -19,6 +19,7 @@ const wallGridSize = 256
 var (
 	dword_5D4594_251544 []*server.Wall
 	dword_5d4594_251556 []*server.Wall
+	dword_5d4594_251548 *server.Wall
 )
 
 func asWallS(p *server.Wall) *Wall {
@@ -49,8 +50,8 @@ func allocWalls() int {
 		if ptr == nil {
 			return 0
 		}
-		ptr.Prev20 = legacy.Get_dword_5d4594_251548()
-		legacy.Set_dword_5d4594_251548(ptr)
+		ptr.Prev20 = dword_5d4594_251548
+		dword_5d4594_251548 = ptr
 	}
 	nox_xxx_wall_410160()
 	return 1
@@ -65,11 +66,11 @@ func nox_xxx_wall_410160() {
 		}
 
 		var next *server.Wall
-		prev := legacy.Get_dword_5d4594_251548()
+		prev := dword_5d4594_251548
 		for it := ptr; it != nil; it = next {
 			next = it.Next16
 			it.Prev20 = prev
-			legacy.Set_dword_5d4594_251548(it)
+			dword_5d4594_251548 = it
 			prev = it
 		}
 		dword_5D4594_251544[i] = nil
@@ -89,11 +90,11 @@ func freeWalls() {
 		}
 	}
 	var next *server.Wall
-	for ptr := legacy.Get_dword_5d4594_251548(); ptr != nil; ptr = next {
+	for ptr := dword_5d4594_251548; ptr != nil; ptr = next {
 		next = ptr.Prev20
 		alloc.Free(ptr)
 	}
-	legacy.Set_dword_5d4594_251548(nil)
+	dword_5d4594_251548 = nil
 
 	alloc.FreeSlice(dword_5D4594_251544)
 	dword_5D4594_251544 = nil
@@ -111,11 +112,11 @@ func nox_xxx_wallCreateAt_410250(pos image.Point) *server.Wall {
 	if wl != nil {
 		return wl
 	}
-	p := legacy.Get_dword_5d4594_251548()
+	p := dword_5d4594_251548
 	if p == nil {
 		return nil
 	}
-	legacy.Set_dword_5d4594_251548(p.Prev20)
+	dword_5d4594_251548 = p.Prev20
 	*p = server.Wall{
 		X5: byte(pos.X),
 		Y6: byte(pos.Y),
@@ -193,12 +194,12 @@ func nox_xxx_mapDelWallAtPt_410430(pos image.Point) {
 	}
 	if prev != nil {
 		prev.SortNext24 = v5.SortNext24
-		v5.Prev20 = legacy.Get_dword_5d4594_251548()
-		legacy.Set_dword_5d4594_251548(v5)
+		v5.Prev20 = dword_5d4594_251548
+		dword_5d4594_251548 = v5
 	} else {
 		dword_5d4594_251556[pos.Y] = v5.SortNext24
-		v5.Prev20 = legacy.Get_dword_5d4594_251548()
-		legacy.Set_dword_5d4594_251548(v5)
+		v5.Prev20 = dword_5d4594_251548
+		dword_5d4594_251548 = v5
 	}
 }
 
