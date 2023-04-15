@@ -3479,6 +3479,7 @@ int sub_4D71E0(int a1) {
 }
 
 //----- (004D71F0) --------------------------------------------------------
+void sub_4D72B0(int a1);
 unsigned int sub_4D71F0() {
 	unsigned int result; // eax
 	int v1;              // esi
@@ -3522,18 +3523,6 @@ int sub_4D7280(int a1, char a2) {
 	v4[2] = a2;
 	return nox_xxx_netSendPacket1_4E5390(a1, (int)v4, 3, 0, 1);
 }
-
-//----- (004D72B0) --------------------------------------------------------
-int sub_4D72B0(int a1) {
-	int result; // eax
-
-	result = a1;
-	*getMemU32Ptr(0x5D4594, 1556140) = a1;
-	return result;
-}
-
-//----- (004D72C0) --------------------------------------------------------
-int sub_4D72C0() { return *getMemU32Ptr(0x5D4594, 1556140); }
 
 //----- (004D72D0) --------------------------------------------------------
 int sub_4D72D0(int a1) {

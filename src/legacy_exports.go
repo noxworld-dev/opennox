@@ -334,4 +334,9 @@ func init() {
 	}
 	legacy.Sub_41CC00 = sub_41CC00
 	legacy.Nox_xxx_playerSendMOTD_4DD140 = nox_xxx_playerSendMOTD_4DD140
+	legacy.Sub_57B4D0 = sub_57B4D0
+	legacy.Sub_57B500 = sub_57B500
+	legacy.Nox_xxx_doorGetSomeKey_4E8910 = nox_xxx_doorGetSomeKey_4E8910
+	legacy.Sub_4D72C0 = sub_4D72C0
+	legacy.Sub_4D72B0 = sub_4D72B0
 }

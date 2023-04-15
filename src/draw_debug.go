@@ -209,7 +209,7 @@ func drawDebugAI(vp *noxrender.Viewport) {
 		yi := common.GridStep * y
 		for x := xmin; x <= xmax; x++ {
 			xi := common.GridStep * x
-			if legacy.Sub_57B500(x, y, 64) != -1 {
+			if sub_57B500(image.Pt(x, y), 0x40) != -1 {
 				r.Data().SetColor2(noxcolor.RGB5551Color(0, 0, 255))
 				r.DrawBorder(xi-vp.World.Min.X, yi-vp.World.Min.Y, common.GridStep, common.GridStep, r.Data().Color2())
 				continue

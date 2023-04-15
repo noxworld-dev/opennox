@@ -35,10 +35,6 @@ func Sub_50CB10() []types.Pointf {
 	return unsafe.Slice((*types.Pointf)(C.dword_5d4594_2386176), sz)
 }
 
-func Sub_57B500(x, y int, v byte) int {
-	return int(C.sub_57B500(C.int(x), C.int(y), C.char(v)))
-}
-
 func Sub_50AB50(x, y int) int {
 	return int(C.sub_50AB50(C.int(x), C.int(y)))
 }

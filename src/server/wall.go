@@ -320,6 +320,7 @@ const (
 	WallFlag4     = WallFlags(0x8)
 	WallFlag5     = WallFlags(0x10)
 	WallFlag6     = WallFlags(0x20)
+	WallFlag7     = WallFlags(0x40)
 )
 
 type Wall struct {
@@ -336,7 +337,7 @@ type Wall struct {
 	NextByPos16 *Wall          // 4, 16
 	Next20      *Wall          // 5, 20
 	NextByY24   *Wall          // 6, 24
-	Data28      unsafe.Pointer // 7, 28
+	Data28      unsafe.Pointer // 7, 28, TODO: *Object ?
 	Field32     uint32         // 8, 32
 }
 

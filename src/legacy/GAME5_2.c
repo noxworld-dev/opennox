@@ -35,7 +35,6 @@
 #include "operators.h"
 
 extern uint32_t dword_5d4594_2516352;
-extern uint32_t dword_5d4594_2523888;
 extern uint32_t dword_5d4594_2516380;
 extern uint32_t dword_5d4594_2523804;
 extern uint32_t dword_5d4594_2516372;
@@ -1993,109 +1992,6 @@ int sub_57B450(nox_drawable* a1p) {
 	}
 	v2 = 1 << *(uint8_t*)(*getMemU32Ptr(0x8531A0, 2576) + 2251);
 	return (v2 & (unsigned char)sub_57B370(a1[28], a1[29], a1[27])) != 0;
-}
-
-//----- (0057B4D0) --------------------------------------------------------
-int sub_57B4D0(int a1) {
-	int result; // eax
-
-	result = a1;
-	if (a1) {
-		*getMemU32Ptr(0x5D4594, 2523884) = a1;
-		dword_5d4594_2523888 = 1;
-	} else {
-		dword_5d4594_2523888 = 0;
-	}
-	return result;
-}
-
-//----- (0057B500) --------------------------------------------------------
-char sub_57B500(int a1, int a2, char a3) {
-	int v3;      // eax
-	char v4;     // cl
-	int v5;      // esi
-	int v6;      // edi
-	char result; // al
-	int v8;      // eax
-	int v9;      // ecx
-	bool v10;    // sf
-	bool v11;    // cc
-
-	if (a1 < 0) {
-		return -1;
-	}
-	if (a1 >= 256) {
-		return -1;
-	}
-	if (a2 < 0) {
-		return -1;
-	}
-	if (a2 >= 256) {
-		return -1;
-	}
-	v3 = nox_xxx_wall_4105E0(a1, a2);
-	if (!v3) {
-		return -1;
-	}
-	v4 = *(uint8_t*)(v3 + 4);
-	if (v4 & 0x10) {
-		if (!(a3 & 0x10)) {
-			return -1;
-		}
-		v5 = *(uint32_t*)(v3 + 28);
-		if (!v5) {
-			return -1;
-		}
-		v6 = *(uint32_t*)(v5 + 748);
-		if (a3 & 8) {
-			if (!*(uint8_t*)(v6 + 1)) {
-				return -1;
-			}
-			if (dword_5d4594_2523888 && nox_xxx_doorGetSomeKey_4E8910(*getMemIntPtr(0x5D4594, 2523884), v5)) {
-				dword_5d4594_2523888 = 0;
-				return -1;
-			}
-		}
-		if (a3 >= 0 && *(uint8_t*)(v5 + 12) & 4) {
-			return -1;
-		}
-		v8 = *(uint32_t*)(v6 + 12);
-		if (v8 != *(uint32_t*)(v6 + 4)) {
-			return -1;
-		}
-		v9 = *getMemIntPtr(0x587000, 196184 + 8 * v8);
-		v10 = v9 < 0;
-		v11 = v9 <= 0;
-		if (v9 > 0) {
-			if (*getMemIntPtr(0x587000, 196188 + 8 * v8) > 0) {
-				return 1;
-			}
-			v10 = v9 < 0;
-			v11 = v9 <= 0;
-		}
-		if (v10) {
-			if (*getMemIntPtr(0x587000, 196188 + 8 * v8) < 0) {
-				return 1;
-			}
-			v11 = v9 <= 0;
-			if (v9 < 0) {
-				if (*getMemIntPtr(0x587000, 196188 + 8 * v8) > 0) {
-					return 0;
-				}
-				v11 = v9 <= 0;
-			}
-		}
-		if (v11 || *getMemIntPtr(0x587000, 196188 + 8 * v8) >= 0) {
-			return -1;
-		}
-		result = 0;
-	} else {
-		if (!(a3 & 0x40) && v4 & 0x40 || v4 & 4 && *(uint8_t*)(*(uint32_t*)(v3 + 28) + 22) > 0xBu) {
-			return -1;
-		}
-		result = *(uint8_t*)v3;
-	}
-	return result;
 }
 
 //----- (0057B630) --------------------------------------------------------
