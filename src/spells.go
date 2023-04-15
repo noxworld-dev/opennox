@@ -750,7 +750,7 @@ func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo server.Obj
 	msl := toObject(mslo)
 	if self != nil && self.Class().Has(object.ClassPlayer) && sflags.Has(things.SpellOffensive) {
 		if curTarg := asObjectS(self.UpdateDataPlayer().CursorObj); curTarg != nil {
-			if self.isEnemyTo(curTarg) && ((a5 == 1) || (a5 == 0) && msl != curTarg) {
+			if s.IsEnemyTo(sself, curTarg.SObj()) && ((a5 == 1) || (a5 == 0) && msl != curTarg) {
 				return curTarg.SObj()
 			}
 		}
@@ -804,7 +804,7 @@ func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo server.Obj
 		}
 		it.FindOwnerChainPlayer() // FIXME: result unused!
 		cit := asObjectS(it)
-		if sflags.Has(things.SpellOffensive) && !msl.isEnemyTo(cit) {
+		if sflags.Has(things.SpellOffensive) && !s.IsEnemyTo(msl.SObj(), it) {
 			return true
 		}
 		opos := it.Pos()

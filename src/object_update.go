@@ -888,12 +888,13 @@ func nox_xxx_enemyAggro_5335D0(cobj *server.Object, r float32) *server.Object {
 }
 
 func nox_xxx_enemyAggro(self *server.Object, r, max float32) *server.Object {
+	s := noxServer
 	var (
 		found    *server.Object
 		min      = max
 		someFlag = false
 	)
-	noxServer.Map.EachObjInCircle(self.Pos(), r, func(it *server.Object) bool {
+	s.Map.EachObjInCircle(self.Pos(), r, func(it *server.Object) bool {
 		if self.SObj() == it {
 			return true
 		}
@@ -901,7 +902,7 @@ func nox_xxx_enemyAggro(self *server.Object, r, max float32) *server.Object {
 		if !it.Class().HasAny(object.ClassMonsterGenerator | object.MaskUnits) {
 			return true
 		}
-		if !asObjectS(self).isEnemyTo(cit) {
+		if !s.IsEnemyTo(self, it) {
 			return true
 		}
 		if it.Flags().HasAny(object.FlagDead) {
@@ -929,18 +930,18 @@ func nox_xxx_enemyAggro(self *server.Object, r, max float32) *server.Object {
 }
 
 func sub_5336D0(obj *server.Object) float64 {
+	s := noxServer
 	var (
-		found *Object
+		found *server.Object
 		minR2 = float32(math.MaxFloat32)
 	)
-	noxServer.Map.EachObjInCircle(obj.Pos(), 1000.0, func(it *server.Object) bool {
-		cit := asObjectS(it)
-		if it.Class().HasAny(object.MaskUnits) && asObjectS(obj).isEnemyTo(cit) && !it.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
+	s.Map.EachObjInCircle(obj.Pos(), 1000.0, func(it *server.Object) bool {
+		if it.Class().HasAny(object.MaskUnits) && s.IsEnemyTo(obj, it) && !it.Flags().HasAny(object.FlagDead|object.FlagDestroyed) {
 			vec := obj.Pos().Sub(it.Pos())
 			r2 := vec.X*vec.X + vec.Y*vec.Y
 			if r2 < minR2 {
 				minR2 = r2
-				found = cit
+				found = it
 			}
 		}
 		return true
