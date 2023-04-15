@@ -334,18 +334,5 @@ func init() {
 	}
 	legacy.Sub_41CC00 = sub_41CC00
 	legacy.Nox_xxx_playerSendMOTD_4DD140 = nox_xxx_playerSendMOTD_4DD140
-	legacy.Nox_xxx_wallFlags = nox_xxx_wallFlags
-	legacy.Nox_xxx_wallGetBrickObj_410E60 = nox_xxx_wallGetBrickObj_410E60
-	legacy.Nox_xxx_getWallSprite_46A3B0 = nox_xxx_getWallSprite_46A3B0
-	legacy.Nox_xxx_getWallDrawOffset_46A3F0 = nox_xxx_getWallDrawOffset_46A3F0
-	legacy.Nox_xxx_mapWallMaxVariation_410DD0 = nox_xxx_mapWallMaxVariation_410DD0
-	legacy.Nox_xxx_map_410E00 = nox_xxx_map_410E00
-	legacy.Nox_xxx_mapWallGetHpByTile_410E20 = nox_xxx_mapWallGetHpByTile_410E20
-	legacy.Nox_xxx_wallGetBrickTypeMB_410E40 = nox_xxx_wallGetBrickTypeMB_410E40
-	legacy.Nox_xxx_wallField36 = nox_xxx_wallField36
-	legacy.Nox_xxx_wallSoundByTile_410EA0 = nox_xxx_wallSoundByTile_410EA0
-	legacy.Nox_xxx_wallFindOpenSound_410EE0 = nox_xxx_wallFindOpenSound_410EE0
-	legacy.Nox_xxx_wallFindCloseSound_410F20 = nox_xxx_wallFindCloseSound_410F20
-	legacy.Nox_xxx_wallTileByName_410D60 = nox_xxx_wallTileByName_410D60
 	legacy.Sub_526CA0 = sub_526CA0
 }
