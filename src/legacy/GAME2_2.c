@@ -5749,7 +5749,7 @@ int nox_xxx_wndEditDrawWithImage_488870(int a1, int a2) {
 int sub_488B60() {
 	int** v0; // eax
 
-	v0 = (int**)operator_new(4u);
+	v0 = (int**)calloc(1, 4u);
 	if (v0) {
 		dword_5d4594_1193348 = v0;
 		// sub_570142(*(uint32_t***)&dword_5d4594_1193348, 11);
@@ -5759,7 +5759,6 @@ int sub_488B60() {
 	}
 	return 1;
 }
-// 5667CB: using guessed type void * operator_new(unsigned int);
 
 //----- (00488BA0) --------------------------------------------------------
 int sub_488BA0() {
@@ -5767,7 +5766,7 @@ int sub_488BA0() {
 
 	v0 = *(void**)&dword_5d4594_1193348;
 	if (dword_5d4594_1193348) {
-		operator_delete(v0);
+		free(v0);
 	}
 	dword_5d4594_1193348 = 0;
 	return 1;
