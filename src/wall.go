@@ -2,288 +2,21 @@ package opennox
 
 import (
 	"image"
-	"sort"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/script"
 	"github.com/noxworld-dev/opennox-lib/types"
-	"github.com/noxworld-dev/opennox-lib/wall"
 
 	"github.com/noxworld-dev/opennox/v1/legacy"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
-)
-
-const wallGridSize = 256
-
-var (
-	dword_5D4594_251544 []*server.Wall
-	dword_5d4594_251556 []*server.Wall
-	dword_5d4594_251548 *server.Wall
-	dword_5d4594_251552 *server.Wall
 )
 
 func asWallS(p *server.Wall) *Wall {
 	return (*Wall)(unsafe.Pointer(p))
 }
 
-func nox_server_getWallAtGrid_410580(x, y int) *server.Wall {
-	return noxServer.getWallAtGrid(image.Pt(x, y))
-}
-
-func nox_xxx_wall_4105E0(x, y int) *server.Wall {
-	return noxServer.getWallAtGrid2(image.Pt(x, y))
-}
-
-func allocWalls() int {
-	dword_5D4594_251544, _ = alloc.Make([]*server.Wall{}, 32*wallGridSize)
-	if dword_5D4594_251544 == nil {
-		return 0
-	}
-
-	dword_5d4594_251556, _ = alloc.Make([]*server.Wall{}, wallGridSize)
-	if dword_5d4594_251556 == nil {
-		return 0
-	}
-	dword_5d4594_251552 = nil
-	for i := 0; i < 32*wallGridSize; i++ {
-		ptr, _ := alloc.New(server.Wall{})
-		if ptr == nil {
-			return 0
-		}
-		ptr.Prev20 = dword_5d4594_251548
-		dword_5d4594_251548 = ptr
-	}
-	nox_xxx_wall_410160()
-	return 1
-}
-
-func nox_xxx_wall_410160() {
-	for i := 0; i < 32*wallGridSize; i++ {
-		ptr := dword_5D4594_251544[i]
-		if ptr == nil {
-			dword_5D4594_251544[i] = nil
-			continue
-		}
-
-		var next *server.Wall
-		prev := dword_5d4594_251548
-		for it := ptr; it != nil; it = next {
-			next = it.Next16
-			it.Prev20 = prev
-			dword_5d4594_251548 = it
-			prev = it
-		}
-		dword_5D4594_251544[i] = nil
-	}
-	dword_5d4594_251552 = nil
-	for i := 0; i < wallGridSize; i++ {
-		dword_5d4594_251556[i] = nil
-	}
-}
-
-func freeWalls() {
-	for i := 0; i < 32*wallGridSize; i++ {
-		var next *server.Wall
-		for ptr := dword_5D4594_251544[i]; ptr != nil; ptr = next {
-			next = ptr.Next16
-			alloc.Free(ptr)
-		}
-	}
-	var next *server.Wall
-	for ptr := dword_5d4594_251548; ptr != nil; ptr = next {
-		next = ptr.Prev20
-		alloc.Free(ptr)
-	}
-	dword_5d4594_251548 = nil
-
-	alloc.FreeSlice(dword_5D4594_251544)
-	dword_5D4594_251544 = nil
-
-	alloc.FreeSlice(dword_5d4594_251556)
-	dword_5d4594_251556 = nil
-}
-
-func nox_xxx_wallCreateAt_410250(pos image.Point) *server.Wall {
-	s := noxServer
-	if pos.X < 0 || pos.X >= wallGridSize || pos.Y < 0 || pos.Y >= wallGridSize {
-		return nil
-	}
-	wl := s.getWallAtGrid(pos)
-	if wl != nil {
-		return wl
-	}
-	p := dword_5d4594_251548
-	if p == nil {
-		return nil
-	}
-	dword_5d4594_251548 = p.Prev20
-	*p = server.Wall{
-		X5: byte(pos.X),
-		Y6: byte(pos.Y),
-	}
-	ind := wallArrayInd(pos)
-	p.Next16 = dword_5D4594_251544[ind]
-	dword_5D4594_251544[ind] = p
-	p.Prev20 = dword_5d4594_251552
-	dword_5d4594_251552 = p
-
-	var prev *server.Wall
-	for it := dword_5d4594_251556[pos.Y]; it != nil; it = it.SortNext24 {
-		if p.X5 < it.X5 {
-			if prev != nil {
-				prev.SortNext24 = p
-			} else {
-				dword_5d4594_251556[pos.Y] = p
-			}
-			p.SortNext24 = it
-			return p
-		}
-		prev = it
-	}
-	if prev != nil {
-		prev.SortNext24 = p
-	} else {
-		dword_5d4594_251556[pos.Y] = p
-	}
-	p.SortNext24 = nil
-	return p
-}
-
-func nox_xxx_mapDelWallAtPt_410430(pos image.Point) {
-	ind := wallArrayInd(pos)
-	list := dword_5D4594_251544[ind]
-	if list == nil {
-		return
-	}
-	var found *server.Wall
-	for list.X5 != byte(pos.X) || list.Y6 != byte(pos.Y) {
-		found = list
-		list = list.Next16
-		if list == nil {
-			return
-		}
-	}
-	if found != nil {
-		found.Next16 = list.Next16
-	} else {
-		dword_5D4594_251544[ind] = list.Next16
-	}
-	v5 := dword_5d4594_251552
-	var v6 *server.Wall
-	if v5 == nil {
-		dword_5d4594_251552 = v5.Prev20 // TODO: it's nil, it shouldn't be dereferenced
-	} else {
-		for ; v5 != nil; v5 = v5.Prev20 {
-			if v5 == list {
-				break
-			}
-			v6 = v5
-		}
-		if v6 != nil {
-			v6.Prev20 = v5.Prev20
-		} else {
-			dword_5d4594_251552 = v5.Prev20
-		}
-	}
-	var prev *server.Wall
-	for v8 := dword_5d4594_251556[pos.Y]; v8 != nil; v8 = v8.SortNext24 {
-		if v8.X5 == byte(pos.X) && v8.Y6 == byte(pos.Y) {
-			break
-		}
-		prev = v8
-	}
-	if prev != nil {
-		prev.SortNext24 = v5.SortNext24
-		v5.Prev20 = dword_5d4594_251548
-		dword_5d4594_251548 = v5
-	} else {
-		dword_5d4594_251556[pos.Y] = v5.SortNext24
-		v5.Prev20 = dword_5d4594_251548
-		dword_5d4594_251548 = v5
-	}
-}
-
-func sub_4106A0(y int) *server.Wall {
-	if y < 0 || y >= wallGridSize {
-		return nil
-	}
-	return dword_5d4594_251556[y]
-}
-
-func nox_xxx_wallForeachFn_410640(fnc func(it *server.Wall)) {
-	var prev *server.Wall
-	for it := dword_5d4594_251552; it != nil; it = prev {
-		prev = it.Prev20
-		if it.Field4&0x30 == 0 {
-			fnc(it)
-		}
-	}
-}
-
 func (s *Server) nox_xxx_wallTileByName_410D60(name string) byte {
 	return legacy.Nox_xxx_wallTileByName_410D60(name)
-}
-
-func wallArrayInd(pos image.Point) uint16 {
-	return (uint16(pos.Y) + (uint16(pos.X) << 8)) & 0x1FFF
-}
-
-func (s *Server) getWallAtGrid(pos image.Point) *server.Wall { // nox_server_getWallAtGrid_410580
-	if (byte(pos.X)+byte(pos.Y))&0x1 != 0 {
-		return nil
-	}
-	ind := wallArrayInd(pos)
-	for it := dword_5D4594_251544[ind]; it != nil; it = it.Next16 {
-		if pos == it.GridPos() && it.Field4&0x30 == 0 {
-			return it
-		}
-	}
-	return nil
-}
-
-func (s *Server) getWallAtGrid2(pos image.Point) *server.Wall { // nox_xxx_wall_4105E0
-	ind := wallArrayInd(pos)
-	for it := dword_5D4594_251544[ind]; it != nil; it = it.Next16 {
-		if pos == it.GridPos() && it.Field4&0x20 == 0 {
-			return it
-		}
-	}
-	return nil
-}
-
-func (s *Server) getWallAt(pos types.Pointf) *server.Wall {
-	return s.getWallAtGrid(wall.PosToGrid(pos))
-}
-
-func (s *Server) getWallNear(pos types.Pointf) *server.Wall {
-	if w := s.getWallAt(pos); w != nil {
-		return w
-	}
-	// TODO: a better way
-	pi := wall.PosToGrid(pos)
-	try := []image.Point{
-		{X: pi.X + 1, Y: pi.Y},
-		{X: pi.X - 1, Y: pi.Y},
-		{X: pi.X, Y: pi.Y + 1},
-		{X: pi.X, Y: pi.Y - 1},
-		{X: pi.X + 1, Y: pi.Y + 1},
-		{X: pi.X + 1, Y: pi.Y - 1},
-		{X: pi.X - 1, Y: pi.Y + 1},
-		{X: pi.X - 1, Y: pi.Y - 1},
-	}
-	sort.Slice(try, func(i, j int) bool {
-		p1, p2 := wall.GridToPos(try[i]), wall.GridToPos(try[j])
-		d1 := p1.Sub(pos).Len()
-		d2 := p2.Sub(pos).Len()
-		return d1 < d2
-	})
-	for _, p := range try {
-		if w := s.getWallAtGrid(p); w != nil {
-			return w
-		}
-	}
-	return nil
 }
 
 func (s *Server) getWallGroupByID(id string) *script.WallGroup {
@@ -295,7 +28,7 @@ func (s *Server) getWallGroupByID(id string) *script.WallGroup {
 	id = g.ID()
 	var list []script.Wall
 	for it := g.First(); it != nil; it = it.Next() {
-		if wl := s.getWallAtGrid(image.Point{
+		if wl := s.Walls.GetWallAtGrid(image.Point{
 			X: it.Data1(),
 			Y: it.Data2(),
 		}); wl != nil {

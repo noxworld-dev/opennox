@@ -409,7 +409,7 @@ func RunArgs(args []string) (gerr error) {
 	if err := nox_xxx_initInput_430190(); err != nil {
 		return fmt.Errorf("failed to init input: %w", err)
 	}
-	if allocWalls() == 0 {
+	if noxServer.Walls.Init() == 0 {
 		return fmt.Errorf("failed to init map")
 	}
 	if legacy.Nox_xxx_tileAlloc_410F60_init() == 0 {
@@ -504,7 +504,7 @@ func cleanup() {
 	noxClient.nox_video_freeFloorBuffer_430EC0()
 	nox_xxx_freeKeyboard_430210()
 	legacy.Nox_xxx_tileFree_410FC0_free()
-	freeWalls()
+	noxServer.Walls.Free()
 	nox_video_bagFree_42F4D0()
 	legacy.Sub_42EDC0()
 	ctrlEvent.Reset()

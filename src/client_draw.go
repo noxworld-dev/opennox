@@ -289,12 +289,12 @@ func (c *Client) nox_client_queueWallsDraw(vp *noxrender.Viewport, xmin, ymin in
 	ymax := ymin + int(vp.Size.Y)/common.GridStep + 4
 	for y := ymin; y <= ymax; y++ {
 		for x := xmin; x <= xmax; x++ {
-			wl := noxServer.getWallAtGrid(image.Point{X: x, Y: y})
+			wl := c.srv.Walls.GetWallAtGrid(image.Point{X: x, Y: y})
 			if wl == nil {
 				continue
 			}
 			if memmap.Uint8(0x85B3FC, 43076+12332*uintptr(wl.Tile1))&4 == 0 {
-				if wl.Field4&2 != 0 {
+				if wl.Flags4&2 != 0 {
 					nox_frontWalls = append(nox_frontWalls, wl)
 				} else {
 					nox_backWalls = append(nox_backWalls, wl)
@@ -319,7 +319,7 @@ func (c *Client) nox_client_maybeDrawFrontWalls(vp *noxrender.Viewport) { // nox
 	} else {
 		for _, wl := range nox_frontWalls {
 			wl.Field3 = 0
-			wl.Field4 &= 0xFC
+			wl.Flags4 &= 0xFC
 		}
 	}
 	nox_frontWalls = nox_frontWalls[:0]

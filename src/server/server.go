@@ -51,6 +51,7 @@ type Server struct {
 	types     serverObjTypes
 	Objs      serverObjects
 	Modif     serverModifiers
+	Walls     serverWalls
 	Map       serverMap
 	MapGroups ServerMapGroups
 	Audio     serverAudio
