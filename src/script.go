@@ -2,6 +2,7 @@ package opennox
 
 import (
 	"context"
+	"fmt"
 	"image"
 	"net/http"
 	"path/filepath"
@@ -129,7 +130,8 @@ func (s *Server) vmsInitMap() {
 		}
 		vm, err := rt.NewMap(noxScriptImpl{s}, mapsDir, mp)
 		if err != nil {
-			rt.Log.Printf("error opening script %q: %v (%T)", filepath.Join(maps.Dir, mp), err, err)
+			rt.Log.Println("error opening script %q: %v", filepath.Join(maps.Dir, mp), err)
+			noxConsole.Print(console.ColorRed, fmt.Sprintf("ERROR: %q: %v", filepath.Join(maps.Dir, mp), err))
 			continue
 		}
 		if vm != nil {
