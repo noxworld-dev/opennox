@@ -898,7 +898,6 @@ func nox_xxx_enemyAggro(self *server.Object, r, max float32) *server.Object {
 		if self.SObj() == it {
 			return true
 		}
-		cit := asObjectS(it)
 		if !it.Class().HasAny(object.ClassMonsterGenerator | object.MaskUnits) {
 			return true
 		}
@@ -908,7 +907,7 @@ func nox_xxx_enemyAggro(self *server.Object, r, max float32) *server.Object {
 		if it.Flags().HasAny(object.FlagDead) {
 			return true
 		}
-		if !nox_xxx_unitCanInteractWith_5370E0(self, cit, 0) {
+		if !nox_xxx_unitCanInteractWith_5370E0(self, it, 0) {
 			return true
 		}
 		vec := it.Pos().Sub(self.Pos())
@@ -921,7 +920,7 @@ func nox_xxx_enemyAggro(self *server.Object, r, max float32) *server.Object {
 			}
 			if dist2 < min {
 				min = dist2
-				found = cit.SObj()
+				found = it
 			}
 		}
 		return true

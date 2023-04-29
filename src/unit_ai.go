@@ -118,7 +118,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 			}
 		case ai.DEPENDENCY_CAN_SEE:
 			obj := aiStackArgObj(st, 0)
-			if obj == nil || !nox_xxx_unitCanInteractWith_5370E0(u, obj, 0) {
+			if obj == nil || !nox_xxx_unitCanInteractWith_5370E0(u.SObj(), obj.SObj(), 0) {
 				ok = false
 			}
 		case ai.DEPENDENCY_CANNOT_SEE:
@@ -137,7 +137,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 		case ai.DEPENDENCY_OBJECT_AT_VISIBLE_LOCATION:
 			v28 := aiStackArgObj(st, 2)
 			v29 := false
-			if v28 != nil && nox_xxx_unitCanInteractWith_5370E0(u, v28, 0) {
+			if v28 != nil && nox_xxx_unitCanInteractWith_5370E0(u.SObj(), v28.SObj(), 0) {
 				v29 = true
 				pos := v28.Pos()
 				st.Args[0] = uintptr(math.Float32bits(pos.X))
@@ -299,7 +299,7 @@ func sub_545E60(a1c *server.Object) int {
 			if !s.IsEnemyTo(u.SObj(), obj4) {
 				return 0
 			}
-			canInteract := nox_xxx_unitCanInteractWith_5370E0(u, obj4, 0)
+			canInteract := nox_xxx_unitCanInteractWith_5370E0(u.SObj(), obj4, 0)
 			if s.IsPlant(u.SObj()) {
 				if !canInteract {
 					return 0
