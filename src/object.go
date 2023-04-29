@@ -330,9 +330,9 @@ func (s *Server) CreateObjectAt(a11 server.Obj, owner server.Obj, pos types.Poin
 	}
 	s.Objs.Pending = obj.SObj()
 	obj.ObjFlags |= uint32(object.FlagPending)
-	if obj.Field13&0xff != 0 && (!obj.Class().Has(object.ClassFlag) || memmap.Int32(0x973F18, 3800) >= 0) {
+	if obj.TeamVal.ID != 0 && (!obj.Class().Has(object.ClassFlag) || memmap.Int32(0x973F18, 3800) >= 0) {
 		if noxflags.HasGame(noxflags.GameModeCoop) || noxflags.HasGamePlay(4) {
-			legacy.Nox_xxx_createAtImpl_4191D0(uint8(obj.Field13), obj.TeamPtr(), 0, obj.NetCode, 0)
+			legacy.Nox_xxx_createAtImpl_4191D0(obj.TeamVal.ID, obj.TeamPtr(), 0, obj.NetCode, 0)
 		}
 	}
 }
@@ -547,17 +547,6 @@ func (obj *Object) IsMovable() bool {
 	return obj.SObj().IsMovable()
 }
 
-func (obj *Object) team() byte {
-	return obj.TeamPtr().Field1
-}
-
-func (obj *Object) Team() *server.Team {
-	if obj == nil {
-		return nil
-	}
-	return obj.getServer().Teams.ByYyy(obj.team())
-}
-
 func (obj *Object) FindByID(id string) *Object {
 	return asObjectS(obj.SObj().FindByID(id))
 }
@@ -682,6 +671,13 @@ func (obj *Object) HasTeam() bool {
 		return false
 	}
 	return obj.SObj().HasTeam()
+}
+
+func (obj *Object) Team() *server.Team {
+	if obj == nil {
+		return nil
+	}
+	return obj.SObj().Team()
 }
 
 func (obj *Object) OwnerC() *Object {

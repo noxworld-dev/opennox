@@ -359,7 +359,7 @@ int sub_46F080(int a1, int a2) {
 		dword_587000_145664 = 0;
 		v7 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C);
 		if (v7) {
-			v2 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)v7 + 4));
+			v2 = nox_xxx_getTeamByID_418AB0(*((unsigned char*)v7 + 4));
 			v35 = v2;
 		}
 		if (*getMemU32Ptr(0x8531A0, 2576)) {

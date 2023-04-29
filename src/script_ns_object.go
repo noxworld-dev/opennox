@@ -432,7 +432,7 @@ func (obj nsObj) ChangeScore(val int) {
 		nox_xxx_changeScore_4D8E90(u, val)
 	}
 	s := obj.getServer()
-	if tm := s.Teams.ByYyy(u.team()); tm != nil {
+	if tm := u.Team(); tm != nil {
 		s.teamChangeLessons(tm, val+tm.Lessons)
 	}
 	nox_xxx_netReportLesson_4D8EF0(u)

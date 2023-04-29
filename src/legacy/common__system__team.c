@@ -63,7 +63,7 @@ void nox_xxx_createAtImpl_4191D0(unsigned char a1, void* a2p, int a3, int a4, in
 	if (!a2) {
 		return;
 	}
-	v6 = nox_xxx_clientGetTeamColor_418AB0(a1);
+	v6 = nox_xxx_getTeamByID_418AB0(a1);
 	if (v6) {
 		result = (char*)nox_xxx_teamCompare2_419180(a2, a1);
 		if (result) {

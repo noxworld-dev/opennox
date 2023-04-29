@@ -103,12 +103,12 @@ func (s *Server) NetUpdateRemotePlrAudioEvents(obj *server.Object, v2 unsafe.Poi
 	s.audio.inAudio = false
 	s.Audio.ResetBitmap()
 	var tm *server.Team
-	if asObjectS(obj).TeamPtr().Has() {
-		tm = s.Teams.ByYyy(byte(obj.Field13))
+	if obj.HasTeam() {
+		tm = s.Teams.ByID(obj.TeamVal.ID)
 	}
 	s.Audio.EachEvent(func(it *server.AudioEvent) {
 		if it.Kind == 1 {
-			tm2 := s.Teams.ByYyy(byte(it.Code))
+			tm2 := s.Teams.ByID(server.TeamID(it.Code))
 			if tm == nil || tm2 == nil || tm != tm2 {
 				return
 			}

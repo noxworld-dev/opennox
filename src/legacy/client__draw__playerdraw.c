@@ -72,7 +72,7 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 	if (nox_player_netCode_85319C == dr->field_32) {
 		v4 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C);
 		if (v4) {
-			v5 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)v4 + 4));
+			v5 = nox_xxx_getTeamByID_418AB0(*((unsigned char*)v4 + 4));
 			v29 = v5;
 		}
 	} else {
@@ -87,7 +87,7 @@ int nox_thing_player_draw(uint32_t* a1, nox_drawable* dr) {
 				if (nox_xxx_servCompareTeams_419150((int)v6, (int)v7)) {
 					v31 = 1;
 				}
-				v5 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)v8 + 4));
+				v5 = nox_xxx_getTeamByID_418AB0(*((unsigned char*)v8 + 4));
 				v29 = v5;
 			}
 		}

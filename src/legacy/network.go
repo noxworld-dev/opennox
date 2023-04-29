@@ -314,8 +314,8 @@ func Nox_xxx_netPlayerObjSend_518C30(a1 *server.Object, a2 *server.Object, a3 in
 func Nox_xxx_gameServerReadyMB_4DD180(a1 int) {
 	C.nox_xxx_gameServerReadyMB_4DD180(C.int(a1))
 }
-func Nox_xxx_teamCompare2_419180(a1 unsafe.Pointer, a2 uint8) int {
-	return int(C.nox_xxx_teamCompare2_419180(a1, C.uchar(a2)))
+func Nox_xxx_teamCompare2_419180(t *server.ObjectTeam, id server.TeamID) int {
+	return int(C.nox_xxx_teamCompare2_419180(unsafe.Pointer(t), C.uchar(id)))
 }
 func Sub_4D12A0(a1 int) int {
 	return int(C.sub_4D12A0(C.int(a1)))

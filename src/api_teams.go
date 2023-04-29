@@ -9,7 +9,7 @@ import (
 type debugTeamInfo struct {
 	Ind   int              `json:"ind"`
 	Color server.TeamColor `json:"color"`
-	Ind57 byte             `json:"ind_57"`
+	ID    server.TeamID    `json:"id"`
 	Ind60 int              `json:"ind_60"`
 	Name  string           `json:"name"`
 }
@@ -20,8 +20,8 @@ func dumpTeam(t *server.Team) *debugTeamInfo {
 	}
 	return &debugTeamInfo{
 		Ind:   t.Ind(),
-		Color: t.ColorInd(),
-		Ind57: t.Ind57(),
+		Color: t.ColorInd,
+		ID:    t.ID(),
 		Ind60: t.Ind60(),
 		Name:  t.Name(),
 	}

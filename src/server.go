@@ -1002,7 +1002,7 @@ func nox_gameModeFromMapPtr(a1 unsafe.Pointer) noxflags.GameFlag {
 		return noxflags.GameModeQuest
 	}
 	if v&0x1 != 0 {
-		return noxflags.GameModeSolo10
+		return noxflags.GameModeCoopTeam
 	}
 	return noxflags.GameModeChat
 }
@@ -1010,7 +1010,7 @@ func nox_gameModeFromMapPtr(a1 unsafe.Pointer) noxflags.GameFlag {
 func nox_mapToGameFlags(v int) noxflags.GameFlag {
 	var out noxflags.GameFlag
 	if v&1 != 0 {
-		out |= noxflags.GameModeSolo10
+		out |= noxflags.GameModeCoopTeam
 	}
 	if v&2 != 0 {
 		out |= noxflags.GameModeQuest
@@ -1056,7 +1056,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 	gameLog.Printf("checking map flags for %q", filepath.Base(mapname))
 	if err := nox_common_checkMapFile(mapname); err != nil {
 		gameLog.Println("check map file:", err)
-		if !noxflags.HasGame(noxflags.GameModeSolo10) {
+		if !noxflags.HasGame(noxflags.GameModeCoopTeam) {
 			noxflags.UnsetGame(noxflags.GameModeMask)
 			noxflags.SetGame(noxflags.GameModeArena)
 			legacy.Sub_4D0D90(1)
@@ -1068,7 +1068,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 	if vv&1 != 0 {
 		gameLog.Println("setting coop mode")
 		noxflags.UnsetGame(noxflags.GameModeMask)
-		s.nox_xxx_createCoopTeam_417E10()
+		s.createCoopTeam()
 		noxflags.SetGame(noxflags.GameModeCoop)
 	} else if vv&2 != 0 {
 		gameLog.Println("setting quest mode")

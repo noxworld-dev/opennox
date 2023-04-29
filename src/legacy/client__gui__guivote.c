@@ -102,7 +102,7 @@ uint32_t* sub_48CB10(int a1) {
 		sub_46AEE0((int)v13, (int)v14);
 		if (nox_xxx_getTeamCounter_417DD0()) {
 			v15 = nox_xxx_objGetTeamByNetCode_418C80(nox_player_netCode_85319C);
-			v16 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)v15 + 4));
+			v16 = nox_xxx_getTeamByID_418AB0(*((unsigned char*)v15 + 4));
 			v26 = v16;
 			if (v16) {
 				for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {

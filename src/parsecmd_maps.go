@@ -66,7 +66,7 @@ func noxCmdLoad(ctx context.Context, c *console.Console, tokens []string) bool {
 	}
 	mode := nox_xxx_mapGetTypeMB_4CFFA0(memmap.PtrOff(0x973F18, 2408))
 	if noxflags.HasGame(noxflags.GameOnline) {
-		if !noxMapsIgnoreMode && (mode == 0 || mode.Has(noxflags.GameModeSolo10)) {
+		if !noxMapsIgnoreMode && (mode == 0 || mode.Has(noxflags.GameModeCoopTeam)) {
 			c.Printf(console.ColorRed, "Switching maps to Solo is not allowed")
 			return true
 		}
@@ -80,7 +80,7 @@ func noxCmdLoad(ctx context.Context, c *console.Console, tokens []string) bool {
 			return true
 		}
 	} else {
-		if !noxMapsIgnoreMode && !mode.Has(noxflags.GameModeSolo10) {
+		if !noxMapsIgnoreMode && !mode.Has(noxflags.GameModeCoopTeam) {
 			c.Printf(console.ColorRed, "Switching to non-Solo maps is not allowed")
 			return true
 		}
