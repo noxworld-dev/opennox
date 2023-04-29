@@ -196,14 +196,14 @@ func (t *ObjectTeam) C() unsafe.Pointer {
 	return unsafe.Pointer(t)
 }
 
-func Nox_xxx_servCompareTeams_419150(p1, p2 *ObjectTeam) bool {
-	if p1 == nil || p2 == nil {
+func (t *ObjectTeam) SameAs(t2 *ObjectTeam) bool { // nox_xxx_servCompareTeams_419150
+	if t == nil || t2 == nil {
 		return false
 	}
-	if p1.Field1 == 0 || p2.Field1 == 0 {
+	if t.Field1 == 0 || t2.Field1 == 0 {
 		return false
 	}
-	return p1.Field1 == p2.Field1
+	return t.Field1 == t2.Field1
 }
 
 type TeamColor byte
