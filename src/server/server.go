@@ -42,7 +42,7 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 	s.Objs.init(s.handle)
 	s.Modif.init(sm)
 	s.Players.init()
-	s.Teams.init(sm)
+	s.Teams.init(sm, pr)
 	s.http.init()
 	return s
 }
