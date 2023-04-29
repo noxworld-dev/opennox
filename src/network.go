@@ -969,7 +969,7 @@ func (c *Client) nox_xxx_netOnPacketRecvCli48EA70_switch(ind ntype.PlayerInd, op
 
 			pl.Active = 0
 			tobj := nox_xxx_objGetTeamByNetCode_418C80(int(playerID))
-			if tobj != nil && server.Nox_xxx_servObjectHasTeam_419130(tobj) {
+			if tobj != nil && tobj.Has() {
 				legacy.Nox_xxx_netChangeTeamMb_419570(tobj, uint32(playerID))
 			}
 		} else {
@@ -1473,7 +1473,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		// team message
 		netcode := int(binary.LittleEndian.Uint16(data[1:]))
 		tm := nox_xxx_objGetTeamByNetCode_418C80(netcode)
-		if tm == nil || !server.Nox_xxx_servObjectHasTeam_419130(tm) {
+		if tm == nil || !tm.Has() {
 			return msz, true
 		}
 		tcl := s.Teams.ByYyy(tm.Field1)
