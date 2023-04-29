@@ -18,7 +18,7 @@ uint32_t* sub_418C70(uint32_t* a1);
 uint32_t* nox_xxx_objGetTeamByNetCode_418C80(int a1);
 void nox_xxx_teamRenameMB_418CD0(wchar2_t* a1, wchar2_t* a2);
 void sub_418D80(int a1);
-uint32_t* sub_418E40(int a1, int a2);
+uint32_t* sub_418E40(void* a1, void* a2);
 void sub_418F20(nox_team_t* a1, int a2);
 void nox_xxx_netChangeTeamID_419090(int a1, int a2);
 int sub_4190F0(wchar2_t* a1);
