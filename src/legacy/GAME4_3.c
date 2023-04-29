@@ -3917,7 +3917,9 @@ int sub_536E80(char* a1, int* a2) {
 }
 
 //----- (00536FB0) --------------------------------------------------------
-int nox_xxx_unitCanSee_536FB0(int a1, int a2, char a3) {
+int nox_xxx_unitCanSee_536FB0(nox_object_t* a1p, nox_object_t* a2p, char a3) {
+	int a1 = a1p;
+	int a2 = a2p;
 	int result; // eax
 	int v4;     // eax
 	int v5;     // eax
@@ -3958,17 +3960,6 @@ LABEL_10:
 				result = 0;
 			}
 		}
-	}
-	return result;
-}
-
-//----- (005370E0) --------------------------------------------------------
-int nox_xxx_unitCanInteractWith_5370E0(nox_object_t* a1, nox_object_t* a2, char a3) {
-	int result; // eax
-
-	result = nox_xxx_unitCanSee_536FB0(a1, a2, a3);
-	if (result) {
-		result = nox_xxx_mapCheck_537110(a1, a2);
 	}
 	return result;
 }

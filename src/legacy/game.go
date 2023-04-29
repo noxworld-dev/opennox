@@ -92,6 +92,7 @@ var (
 	GetDoDamageWalls                    func() bool
 	Sub_41CC00                          func(s string)
 	Nox_xxx_playerSendMOTD_4DD140       func(a1 ntype.PlayerInd)
+	Nox_xxx_unitCanInteractWith_5370E0  func(obj1, obj2 *server.Object, a3 int) bool
 )
 
 func init() {
@@ -313,6 +314,11 @@ func sub_41CC00(cstr *C.char) {
 //export nox_xxx_playerSendMOTD_4DD140
 func nox_xxx_playerSendMOTD_4DD140(a1 int) {
 	Nox_xxx_playerSendMOTD_4DD140(ntype.PlayerInd(a1))
+}
+
+//export nox_xxx_unitCanInteractWith_5370E0
+func nox_xxx_unitCanInteractWith_5370E0(a1, a2 *nox_object_t, a3 int) int {
+	return bool2int(Nox_xxx_unitCanInteractWith_5370E0(asObjectS(a1), asObjectS(a2), a3))
 }
 
 func Nox_xxx_sMakeScorch_537AF0(pos types.Pointf, a2 int) {
@@ -743,9 +749,6 @@ func Sub_427980(a1 *[4]float32, a2 *[4]float32) int {
 func Nox_xxx_calcDistance_4E6C00(a1 *server.Object, a2 *server.Object) float32 {
 	return float32(C.nox_xxx_calcDistance_4E6C00(asObjectC(a1), asObjectC(a2)))
 }
-func Nox_xxx_unitCanInteractWith_5370E0(a1 *server.Object, a2 *server.Object, a3 byte) bool {
-	return C.nox_xxx_unitCanInteractWith_5370E0(asObjectC(a1), asObjectC(a2), C.char(a3)) != 0
-}
 func Sub_415CD0(a1 int) int {
 	return int(C.sub_415CD0(C.int(a1)))
 }
@@ -763,4 +766,7 @@ func Get_nox_game_showMainMenu_4A1C00() unsafe.Pointer {
 }
 func Sub_41CAC0(a1 string, data []byte) {
 	C.sub_41CAC0(internCStr(a1), unsafe.Pointer(&data[0]))
+}
+func Nox_xxx_unitCanSee_536FB0(obj1, obj2 *server.Object, a3 int) bool {
+	return C.nox_xxx_unitCanSee_536FB0(asObjectC(obj1), asObjectC(obj2), C.char(a3)) != 0
 }

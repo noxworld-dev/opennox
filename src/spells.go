@@ -781,7 +781,7 @@ func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo server.Obj
 	}
 	var (
 		minDist float32 = 1e+08
-		found   *Object
+		found   *server.Object
 	)
 	s.Map.EachObjInRect(rect, func(it *server.Object) bool {
 		if !(a5 != 0 || msl.SObj() != it) {
@@ -803,7 +803,6 @@ func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo server.Obj
 			return true
 		}
 		it.FindOwnerChainPlayer() // FIXME: result unused!
-		cit := asObjectS(it)
 		if sflags.Has(things.SpellOffensive) && !s.IsEnemyTo(msl.SObj(), it) {
 			return true
 		}
@@ -814,14 +813,14 @@ func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo server.Obj
 		if odist > dist2 {
 			return true
 		}
-		if msl != nil && !nox_xxx_unitCanInteractWith_5370E0(msl, cit, 0) {
+		if msl != nil && !nox_xxx_unitCanInteractWith_5370E0(msl.SObj(), it, 0) {
 			return true
 		}
-		if owner != nil && !nox_xxx_unitCanInteractWith_5370E0(owner, cit, 0) {
+		if owner != nil && !nox_xxx_unitCanInteractWith_5370E0(owner.SObj(), it, 0) {
 			return true
 		}
 		if odist < minDist {
-			found = cit
+			found = it
 			minDist = odist
 		}
 		return true
