@@ -782,6 +782,13 @@ func (obj *Object) TeamPtr() *ObjectTeam {
 	return (*ObjectTeam)(unsafe.Pointer(&obj.Field12))
 }
 
+func (obj *Object) HasTeam() bool {
+	if obj == nil {
+		return false
+	}
+	return obj.TeamPtr().Has()
+}
+
 func (obj *Object) Push(p types.Pointf, force float32) {
 	vec := obj.Pos().Sub(p).Normalize()
 	obj.ApplyForce(vec.Mul(force))
@@ -1113,7 +1120,7 @@ func (s *Server) IsEnemyTo(obj, obj2 *Object) bool {
 	if !noxflags.HasGame(noxflags.GameModeQuest) && obj.Class().HasAny(object.ClassMonster) && int(obj2.TypeInd) == s.Types.WillOWispID() {
 		return obj2.UpdateDataMonster().HasAction(ai.ACTION_FIGHT)
 	}
-	if Nox_xxx_servObjectHasTeam_419130(own1.TeamPtr()) || Nox_xxx_servObjectHasTeam_419130(own2.TeamPtr()) {
+	if own1.HasTeam() || own2.HasTeam() {
 		return true
 	}
 	if own1.Class().HasAny(object.ClassMonster) && own2.Class().HasAny(object.ClassMonster) {

@@ -9,7 +9,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func (c *Client) Nox_new_drawable_for_thing(i int) *client.Drawable {
@@ -178,7 +177,7 @@ func (c *Client) Nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr *client.Drawable)
 	if dr.Flags28()&0x4 != 0 {
 		c.Objs.PlayerListDelete(dr)
 	}
-	if server.Nox_xxx_servObjectHasTeam_419130(dr.TeamPtr()) {
+	if dr.HasTeam() {
 		legacy.Nox_xxx_netChangeTeamMb_419570(dr.TeamPtr(), dr.Field_32)
 	}
 	c.Nox_xxx_spriteDelete_45A4B0(dr)
