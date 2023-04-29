@@ -185,14 +185,7 @@ func init() {
 	legacy.Sub_4FC0B0 = sub_4FC0B0
 	legacy.Nox_xxx_playerCancelAbils_4FC180 = nox_xxx_playerCancelAbils_4FC180
 	legacy.Sub_4FC300 = sub_4FC300
-	legacy.Sub_4FC070 = sub_4FC070
-	legacy.Sub_4FC030 = sub_4FC030
-	legacy.Sub_4FC440 = sub_4FC440
-	legacy.Sub_4FBE60 = sub_4FBE60
-	legacy.Sub_4FBEA0 = sub_4FBEA0
 	legacy.Nox_xxx_abilityGetName_0_425260 = nox_xxx_abilityGetName_0_425260
-	legacy.Nox_common_playerIsAbilityActive_4FC250 = nox_common_playerIsAbilityActive_4FC250
-	legacy.Nox_xxx_probablyWarcryCheck_4FC3E0 = nox_xxx_probablyWarcryCheck_4FC3E0
 	legacy.Nox_xxx_abilityCooldown_4252D0 = nox_xxx_abilityCooldown_4252D0
 	legacy.Sub_4252F0 = sub_4252F0
 	legacy.Nox_xxx_spellGetAbilityIcon_425310 = nox_xxx_spellGetAbilityIcon_425310

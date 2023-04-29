@@ -20,7 +20,7 @@ func nox_xxx_warriorTreadLightly_5400B0(u *Object, dur int) {
 			nox_xxx_playerSetState_4FA020(u, 13)
 		}
 		u.ApplyEnchant(server.ENCHANT_SNEAK, dur, int(asPlayerS(ud.Player).SpellLvl[server.AbilityTreadLightly]))
-		s.abilities.netAbilReportActive(u, server.AbilityTreadLightly, true)
+		s.abilities.netAbilReportActive(u.SObj(), server.AbilityTreadLightly, true)
 		legacy.Nox_xxx_frameCounterSetCopyToNextFrame_5281D0()
 	}
 }
