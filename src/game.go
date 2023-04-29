@@ -1404,10 +1404,6 @@ func nox_xxx_calcDistance_4E6C00(obj1, obj2 server.Obj) float32 {
 	return legacy.Nox_xxx_calcDistance_4E6C00(toObjectS(obj1), toObjectS(obj2))
 }
 
-func nox_xxx_unitCanInteractWith_5370E0(u, obj server.Obj, a3 byte) bool {
-	return legacy.Nox_xxx_unitCanInteractWith_5370E0(toObjectS(u), toObjectS(obj), a3)
-}
-
 var doDamageWalls = true
 
 func nox_xxx_gameSetWallsDamage_4E25A0(v int) {

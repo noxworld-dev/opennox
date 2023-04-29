@@ -898,7 +898,7 @@ func (obj *Object) CanSeeS(obj2 *Object) bool {
 	if abs(p1.X-p2.X) > 512.0 || abs(p1.Y-p2.Y) > 512.0 {
 		return false
 	}
-	return nox_xxx_unitCanInteractWith_5370E0(obj, obj2, 0)
+	return nox_xxx_unitCanInteractWith_5370E0(obj.SObj(), obj2.SObj(), 0)
 }
 
 func (obj *Object) FindOwnerChainPlayer() *Object { // nox_xxx_findParentChainPlayer_4EC580

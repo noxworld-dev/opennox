@@ -1182,3 +1182,11 @@ func nox_xxx_mapSwitchLevel_4D12E0_end() {
 	legacy.Sub_4E4F80()
 	noxflags.UnsetGame(noxflags.GameFlag20)
 }
+
+func nox_xxx_unitCanInteractWith_5370E0(obj1, obj2 *server.Object, a3 int) bool {
+	ok := legacy.Nox_xxx_unitCanSee_536FB0(obj1, obj2, a3)
+	if ok {
+		ok = legacy.Nox_xxx_mapCheck_537110(obj1, obj2) != 0
+	}
+	return ok
+}
