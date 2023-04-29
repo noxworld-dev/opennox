@@ -105,9 +105,9 @@ type Server interface {
 	ObjectsClearPending()
 	FinalizeDeletingObjects()
 	TeamCreate(ind server.TeamID) *server.Team
-	TeamCount() int
 	TeamsResetYyy() int
-	TeamsZzz(a1 int) int
+	TeamsRemoveActive(hooks bool) int
+	TeamRemove(t *server.Team, netUpd bool)
 	DelayedDelete(obj *server.Object)
 	PendingObjByScriptID4CFFE0(sid int) *server.Object
 	PendingWaypointByInd579C60(id uint32) *server.Waypoint

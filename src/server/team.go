@@ -16,9 +16,10 @@ type TeamDef struct {
 }
 
 type serverTeams struct {
-	sm   *strman.StringManager
-	defs map[TeamColor]*TeamDef
-	Arr  []Team
+	sm        *strman.StringManager
+	defs      map[TeamColor]*TeamDef
+	Arr       []Team
+	ActiveCnt int
 }
 
 const (
@@ -140,7 +141,11 @@ func (s *serverTeams) TeamTitle(c TeamColor) string {
 }
 
 func (s *serverTeams) Count() int {
-	return len(s.Arr)
+	return s.ActiveCnt
+}
+
+func (s *serverTeams) Max() int {
+	return len(s.Arr) - 1
 }
 
 func (s *serverTeams) getInactive() (*Team, int) {
@@ -236,6 +241,18 @@ type Team struct {
 	field_68 uint32         // 17, 68
 	Field_72 unsafe.Pointer // 18, 72 TODO: team flag? team spawn?
 	field_76 uint32         // 19, 76
+}
+
+func (t *Team) Reset() {
+	t.name[0] = 0
+	t.field_44 = 0
+	t.field_48 = 0
+	t.active = 0
+	t.field_60 = 0
+	t.field_68 = 0
+	t.Field_72 = nil
+	t.field_76 = 0
+	t.id = 0
 }
 
 func (t *Team) C() unsafe.Pointer {

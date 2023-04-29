@@ -70,7 +70,7 @@ func nox_xxx_materialGetTeamColor_418D50(t *nox_team_t) C.uint {
 
 //export nox_xxx_getTeamCounter_417DD0
 func nox_xxx_getTeamCounter_417DD0() C.uchar {
-	return C.uchar(GetServer().TeamCount())
+	return C.uchar(GetServer().S().Teams.Count())
 }
 
 //export nox_server_teamsResetYyy_417D00
@@ -80,7 +80,12 @@ func nox_server_teamsResetYyy_417D00() int {
 
 //export nox_server_teamsZzz_419030
 func nox_server_teamsZzz_419030(a1 int) int {
-	return GetServer().TeamsZzz(a1)
+	return GetServer().TeamsRemoveActive(a1 != 0)
+}
+
+//export sub_418F20
+func sub_418F20(t *nox_team_t, a2 int) {
+	GetServer().TeamRemove(asTeam(t), a2 != 0)
 }
 func Sub_459CD0() {
 	C.sub_459CD0()
@@ -88,6 +93,9 @@ func Sub_459CD0() {
 func Sub_456FA0() {
 	C.sub_456FA0()
 }
-func Sub_418F20(a1 unsafe.Pointer, a2 int) {
-	C.sub_418F20((*nox_team_t)(a1), C.int(a2))
+func Sub_418E40(t *server.Team, p *server.ObjectTeam) {
+	C.sub_418E40(t.C(), unsafe.Pointer(p))
+}
+func Sub_456EA0(name string) {
+	C.sub_456EA0(internWStr(name))
 }
