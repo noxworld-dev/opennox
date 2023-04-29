@@ -1108,7 +1108,7 @@ func (s *Server) IsEnemyTo(obj, obj2 *Object) bool {
 	if own1 == own2 {
 		return false
 	}
-	if Nox_xxx_servCompareTeams_419150(own1.TeamPtr(), own2.TeamPtr()) {
+	if own1.TeamPtr().SameAs(own2.TeamPtr()) {
 		return false
 	}
 	if own1.Class().HasAny(object.ClassPlayer) && own2.Class().HasAny(object.ClassMonsterGenerator) {
