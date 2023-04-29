@@ -48,7 +48,7 @@ func nox_xxx_warriorWarcry_53FF40(u *Object) {
 				return true
 			}
 		}
-		if !server.Nox_xxx_servCompareTeams_419150(u.TeamPtr(), u2.TeamPtr()) {
+		if !u.TeamPtr().SameAs(u2.TeamPtr()) {
 			if legacy.Nox_xxx_mapCheck_537110(u2.SObj(), u.SObj()) != 0 {
 				pos := u2.Pos()
 				sa, free := alloc.New(server.SpellAcceptArg{})
