@@ -315,7 +315,7 @@ func (s *Server) setupQuestGame() {
 		}
 	}
 	s.TeamsRemoveActive(true)
-	t := s.TeamCreate(0)
+	t := s.Teams.Create(0)
 	t.ColorInd = server.TeamOrange
 	if title := s.Teams.TeamTitle(server.TeamOrange); title != "" {
 		t.SetNameAnd68(title, 1)

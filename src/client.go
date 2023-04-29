@@ -37,6 +37,7 @@ func NewClient(pr console.Printer, srv *Server) (*Client, error) {
 	c.guiAdv.Init(c)
 	c.screenshots.Init(c)
 	c.mapsend.Init(c)
+	c.srv.Teams.OnCreateOrRemove(legacy.Sub_459CD0)
 	return c, nil
 }
 

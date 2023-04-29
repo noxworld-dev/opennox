@@ -4,8 +4,10 @@ import (
 	"image/color"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/console"
 	"github.com/noxworld-dev/opennox-lib/strman"
 
+	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
@@ -17,9 +19,12 @@ type TeamDef struct {
 
 type serverTeams struct {
 	sm        *strman.StringManager
+	pr        console.Printer
 	defs      map[TeamColor]*TeamDef
 	Arr       []Team
 	ActiveCnt int
+
+	onCreateOrRemove []func()
 }
 
 const (
@@ -35,8 +40,9 @@ const (
 	TeamOrange = TeamColor(9)
 )
 
-func (s *serverTeams) init(sm *strman.StringManager) {
+func (s *serverTeams) init(sm *strman.StringManager, pr console.Printer) {
 	s.sm = sm
+	s.pr = pr
 	s.defs = map[TeamColor]*TeamDef{
 		TeamNone:   {Name: "advserv.wnd:None", Color: nox_color_white_2523948},
 		TeamRed:    {Name: "modifier.db:MaterialTeamRedDesc", Color: nox_color_red_2589776},
@@ -57,6 +63,16 @@ func (s *serverTeams) init(sm *strman.StringManager) {
 func (s *serverTeams) teamsReloadTitles() {
 	for _, t := range s.defs {
 		t.Title = s.sm.GetStringInFile(t.Name, "team.c")
+	}
+}
+
+func (s *serverTeams) OnCreateOrRemove(fnc func()) {
+	s.onCreateOrRemove = append(s.onCreateOrRemove, fnc)
+}
+
+func (s *serverTeams) HookCreateOrRemove() {
+	for _, fnc := range s.onCreateOrRemove {
+		fnc()
 	}
 }
 
@@ -174,7 +190,7 @@ func (s *serverTeams) getFreeID() TeamID {
 	return 0
 }
 
-func (s *serverTeams) New(id TeamID) *Team {
+func (s *serverTeams) create(id TeamID) *Team {
 	t, ind := s.getInactive()
 	t.name[0] = 0
 	t.Lessons = 0
@@ -189,6 +205,29 @@ func (s *serverTeams) New(id TeamID) *Team {
 		id = s.getFreeID()
 	}
 	t.id = id
+	return t
+}
+
+func (s *serverTeams) GetOrCreate(id TeamID) *Team {
+	if t := s.ByID(id); t != nil {
+		return t
+	}
+	return s.Create(id)
+}
+
+func (s *serverTeams) Create(id TeamID) *Team {
+	if s.Count() >= s.Max() {
+		text := s.sm.GetStringInFile("teamexceed", "team.c")
+		s.pr.Printf(console.ColorRed, text)
+		return nil
+	}
+	t := s.create(id)
+	s.ActiveCnt++
+	s.HookCreateOrRemove()
+	if !noxflags.HasGame(noxflags.GameModeCoopTeam) {
+		text := s.sm.GetStringInFile("teamcreate", "team.c")
+		s.pr.Printf(console.ColorRed, text)
+	}
 	return t
 }
 

@@ -104,7 +104,6 @@ type Server interface {
 	ObjectsAddPending()
 	ObjectsClearPending()
 	FinalizeDeletingObjects()
-	TeamCreate(ind server.TeamID) *server.Team
 	TeamsResetYyy() int
 	TeamsRemoveActive(hooks bool) int
 	TeamRemove(t *server.Team, netUpd bool)
