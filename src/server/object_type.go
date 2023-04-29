@@ -236,6 +236,8 @@ type serverObjTypes struct {
 		goldPile  int
 		goldChest int
 		pixie     int
+		hecubah   int
+		necrom    int
 	}
 }
 
@@ -322,6 +324,14 @@ func (s *serverObjTypes) GoldChestID() int {
 
 func (s *serverObjTypes) PixieID() int {
 	return s.cacheObjectTypeID(&s.fast.pixie, "Pixie")
+}
+
+func (s *serverObjTypes) HecubahID() int {
+	return s.cacheObjectTypeID(&s.fast.hecubah, "Hecubah")
+}
+
+func (s *serverObjTypes) NecromancerID() int {
+	return s.cacheObjectTypeID(&s.fast.necrom, "Necromancer")
 }
 
 func (s *Server) ReadObjectType(thg *things.Thing) error {
