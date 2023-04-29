@@ -7415,6 +7415,7 @@ int nox_xxx_frameCounterSetCopy_5281E0() {
 }
 
 //----- (005281F0) --------------------------------------------------------
+int nox_xxx_unitCanSee_536FB0(nox_object_t* a1, nox_object_t* a2, int a3);
 void nox_xxx_unitUpdateSightMB_5281F0(nox_object_t* a1p) {
 	uint32_t a1 = a1p;
 	uint32_t v1;   // edi

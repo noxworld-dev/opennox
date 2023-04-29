@@ -3916,54 +3916,6 @@ int sub_536E80(char* a1, int* a2) {
 	return 1;
 }
 
-//----- (00536FB0) --------------------------------------------------------
-int nox_xxx_unitCanSee_536FB0(nox_object_t* a1p, nox_object_t* a2p, char a3) {
-	int a1 = a1p;
-	int a2 = a2p;
-	int result; // eax
-	int v4;     // eax
-	int v5;     // eax
-	int v6;     // eax
-
-	if (!*getMemU32Ptr(0x5D4594, 2488592)) {
-		*getMemU32Ptr(0x5D4594, 2488592) = nox_xxx_getNameId_4E3AA0("Pixie");
-		*getMemU32Ptr(0x5D4594, 2488596) = nox_xxx_getNameId_4E3AA0("Hecubah");
-		*getMemU32Ptr(0x5D4594, 2488600) = nox_xxx_getNameId_4E3AA0("Necromancer");
-	}
-	if (nox_xxx_testUnitBuffs_4FF350(a1, 2)) {
-		return 0;
-	}
-	if (a3 & 1 || !nox_xxx_testUnitBuffs_4FF350(a2, 0)) {
-		goto LABEL_10;
-	}
-	if (nox_common_gameFlags_check_40A5C0(4096)) {
-		v4 = *(unsigned short*)(a1 + 4);
-		if ((unsigned short)v4 == *getMemU32Ptr(0x5D4594, 2488596) || v4 == *getMemU32Ptr(0x5D4594, 2488600)) {
-			goto LABEL_10;
-		}
-	} else if (nox_xxx_testUnitBuffs_4FF350(a1, 21)) {
-		goto LABEL_10;
-	}
-	if (*(unsigned short*)(a1 + 4) != *getMemU32Ptr(0x5D4594, 2488592) || (v6 = *(uint32_t*)(a1 + 508)) == 0 ||
-		!nox_xxx_testUnitBuffs_4FF350(v6, 21)) {
-		if (*getMemFloatPtr(0x587000, 276732) >= fabs(*(float*)(a2 + 80)) &&
-			*getMemFloatPtr(0x587000, 276732) >= fabs(*(float*)(a2 + 84))) {
-			return 0;
-		}
-	}
-LABEL_10:
-	result = 1;
-	if (*(uint8_t*)(a1 + 8) & 2) {
-		v5 = *(uint32_t*)(a1 + 12);
-		if (v5 & 0x2000) {
-			if (nox_common_playerIsAbilityActive_4FC250(a2, 4)) {
-				result = 0;
-			}
-		}
-	}
-	return result;
-}
-
 //----- (00537110) --------------------------------------------------------
 int nox_xxx_mapCheck_537110(nox_object_t* a1p, nox_object_t* a2p) {
 	int a1 = a1p;

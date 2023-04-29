@@ -92,7 +92,6 @@ var (
 	GetDoDamageWalls                    func() bool
 	Sub_41CC00                          func(s string)
 	Nox_xxx_playerSendMOTD_4DD140       func(a1 ntype.PlayerInd)
-	Nox_xxx_unitCanInteractWith_5370E0  func(obj1, obj2 *server.Object, a3 int) bool
 )
 
 func init() {
@@ -318,7 +317,12 @@ func nox_xxx_playerSendMOTD_4DD140(a1 int) {
 
 //export nox_xxx_unitCanInteractWith_5370E0
 func nox_xxx_unitCanInteractWith_5370E0(a1, a2 *nox_object_t, a3 int) int {
-	return bool2int(Nox_xxx_unitCanInteractWith_5370E0(asObjectS(a1), asObjectS(a2), a3))
+	return bool2int(GetServer().CanInteract(asObjectS(a1), asObjectS(a2), a3))
+}
+
+//export nox_xxx_unitCanSee_536FB0
+func nox_xxx_unitCanSee_536FB0(a1, a2 *nox_object_t, a3 int) int {
+	return bool2int(GetServer().CanSee(asObjectS(a1), asObjectS(a2), a3))
 }
 
 func Nox_xxx_sMakeScorch_537AF0(pos types.Pointf, a2 int) {
@@ -766,7 +770,4 @@ func Get_nox_game_showMainMenu_4A1C00() unsafe.Pointer {
 }
 func Sub_41CAC0(a1 string, data []byte) {
 	C.sub_41CAC0(internCStr(a1), unsafe.Pointer(&data[0]))
-}
-func Nox_xxx_unitCanSee_536FB0(obj1, obj2 *server.Object, a3 int) bool {
-	return C.nox_xxx_unitCanSee_536FB0(asObjectC(obj1), asObjectC(obj2), C.char(a3)) != 0
 }
