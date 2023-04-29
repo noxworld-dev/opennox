@@ -1476,7 +1476,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		if tm == nil || !tm.Has() {
 			return msz, true
 		}
-		tcl := s.Teams.ByYyy(tm.Field1)
+		tcl := s.Teams.ByID(tm.ID)
 		if tcl == nil {
 			return msz, true
 		}
@@ -1485,7 +1485,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			if uit == nil {
 				continue
 			}
-			if legacy.Nox_xxx_teamCompare2_419180(unsafe.Pointer(uit.TeamPtr()), tcl.Ind57()) != 0 {
+			if legacy.Nox_xxx_teamCompare2_419180(uit.TeamPtr(), tcl.ID()) != 0 {
 				if noxflags.HasGame(noxflags.GameClient) && int(uit.NetCode) == legacy.ClientPlayerNetCode() {
 					noxClient.nox_xxx_netOnPacketRecvCli48EA70(it.PlayerIndex(), data[:msz])
 				} else {
@@ -1562,14 +1562,14 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		}
 		switch data[1] {
 		case 10:
-			ti := int(binary.LittleEndian.Uint32(data[2:]))
-			tm := s.Teams.ByYyy(byte(ti))
+			ti := server.TeamID(binary.LittleEndian.Uint32(data[2:]))
+			tm := s.Teams.ByID(ti)
 			if tm == nil {
 				return 10, true
 			}
 			netcode := int(binary.LittleEndian.Uint16(data[6:]))
 			obj := s.getObjectFromNetCode(netcode)
-			legacy.Nox_xxx_createAtImpl_4191D0(tm.Ind57(), obj.TeamPtr(), 1, uint32(netcode), 1)
+			legacy.Nox_xxx_createAtImpl_4191D0(tm.ID(), obj.TeamPtr(), 1, uint32(netcode), 1)
 			return 10, true
 		case 11:
 			netcode := int(binary.LittleEndian.Uint16(data[6:]))
@@ -1581,8 +1581,8 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 				pos := s.nox_xxx_mapFindPlayerStart_4F7AB0(u2)
 				u2.SetPos(pos)
 			}
-			ti := int(binary.LittleEndian.Uint32(data[2:]))
-			tm := s.Teams.ByYyy(byte(ti))
+			ti := server.TeamID(binary.LittleEndian.Uint32(data[2:]))
+			tm := s.Teams.ByID(ti)
 			if tm == nil {
 				return 10, true
 			}

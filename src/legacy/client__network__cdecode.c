@@ -972,7 +972,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 		}
 		return 7;
 	case 86: // MSG_REPORT_FLAG_BALL_WINNER
-		v144 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned short*)(data + 1));
+		v144 = nox_xxx_getTeamByID_418AB0(*(unsigned short*)(data + 1));
 		if (!nox_client_isConnected_43C700()) {
 			return 8;
 		}
@@ -1009,7 +1009,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 		nox_xxx_guiServerOptionsHide_4597E0(0);
 		return 8;
 	case 87: // MSG_REPORT_FLAG_WINNER
-		v172 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned short*)(data + 1));
+		v172 = nox_xxx_getTeamByID_418AB0(*(unsigned short*)(data + 1));
 		if (!nox_client_isConnected_43C700()) {
 			return 8;
 		}
@@ -1145,7 +1145,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 		nox_xxx_guiServerOptionsHide_4597E0(0);
 		return 8;
 	case 89: // MSG_REPORT_DEATHMATCH_TEAM_WINNER
-		v160 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned short*)(data + 1));
+		v160 = nox_xxx_getTeamByID_418AB0(*(unsigned short*)(data + 1));
 		if (!nox_client_isConnected_43C700()) {
 			return 8;
 		}
@@ -2401,7 +2401,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 				v271 = nox_server_teamTitle_418C20(*(unsigned char*)(data + 16));
 				nox_swprintf(v386, v271);
 			}
-			v272 = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));
+			v272 = nox_xxx_getTeamByID_418AB0(*(uint32_t*)(data + 2));
 			if (!v272) {
 				v272 = nox_xxx_teamCreate_4186D0(*(uint8_t*)(data + 2));
 				if (!v272) {
@@ -2443,7 +2443,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 				}
 				v276 = v5 + 24;
 				if ((uint32_t)v5 != (uint32_t)-24) {
-					LODWORD(v5) = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));
+					LODWORD(v5) = nox_xxx_getTeamByID_418AB0(*(uint32_t*)(data + 2));
 					v277 = v5;
 					if ((uint32_t)v5) {
 						nox_xxx_createAtImpl_4191D0(*(uint8_t*)(v5 + 57), v276, 0, *(unsigned short*)(data + 6), 0);
@@ -2465,7 +2465,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			if (nox_client_isConnected_43C700()) {
 				v278 = nox_xxx_objGetTeamByNetCode_418C80(*(unsigned short*)(data + 6));
 				if (v278) {
-					LODWORD(v5) = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));
+					LODWORD(v5) = nox_xxx_getTeamByID_418AB0(*(uint32_t*)(data + 2));
 					v279 = v5;
 					if ((uint32_t)v5) {
 						if (sub_4196D0((int)v278, v5, *(unsigned short*)(data + 6), 0)) {
@@ -2477,7 +2477,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			goto LABEL_908;
 		case 4u:
 			if (nox_client_isConnected_43C700()) {
-				LODWORD(v5) = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));
+				LODWORD(v5) = nox_xxx_getTeamByID_418AB0(*(uint32_t*)(data + 2));
 				if ((uint32_t)v5) {
 					nox_xxx_teamRenameMB_418CD0((wchar2_t*)v5, (wchar2_t*)(data + 6));
 				}
@@ -2485,7 +2485,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			return 46;
 		case 5u:
 			if (nox_client_isConnected_43C700()) {
-				LODWORD(v5) = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));
+				LODWORD(v5) = nox_xxx_getTeamByID_418AB0(*(uint32_t*)(data + 2));
 				if ((uint32_t)v5) {
 					sub_418D80(v5);
 				}
@@ -2493,7 +2493,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			goto LABEL_916;
 		case 6u:
 			if (nox_client_isConnected_43C700()) {
-				LODWORD(v5) = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2));
+				LODWORD(v5) = nox_xxx_getTeamByID_418AB0(*(uint32_t*)(data + 2));
 				v280 = (wchar2_t*)v5;
 				if ((uint32_t)v5) {
 					nox_wcscpy(v387, (const wchar2_t*)v5);
@@ -2510,7 +2510,7 @@ int nox_xxx_netOnPacketRecvCli_48EA70_switch(int a1, int op, unsigned char* data
 			return 2;
 		case 8u:
 			if (nox_client_isConnected_43C700() &&
-				(LODWORD(v5) = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(data + 2)), (uint32_t)v5)) {
+				(LODWORD(v5) = nox_xxx_getTeamByID_418AB0(*(uint32_t*)(data + 2)), (uint32_t)v5)) {
 				nox_xxx_netChangeTeamID_419090(v5, *(uint32_t*)(data + 6));
 				return 10;
 			}

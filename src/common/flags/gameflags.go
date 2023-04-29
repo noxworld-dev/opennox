@@ -36,7 +36,7 @@ const (
 	GameModeFlagBall    = GameFlag(0x40)       // 64
 	GameModeChat        = GameFlag(0x80)       // 128
 	GameModeArena       = GameFlag(0x100)      // 256
-	GameModeSolo10      = GameFlag(0x200)      // 512
+	GameModeCoopTeam    = GameFlag(0x200)      // 512
 	GameModeElimination = GameFlag(0x400)      // 1024
 	GameModeCoop        = GameFlag(0x800)      // 2048
 	GameModeQuest       = GameFlag(0x1000)     // 4096
@@ -64,7 +64,7 @@ const (
 const (
 	GameServerSettings = GameFlag(0x7FFF0)
 	GameModeMask       = GameModeKOTR | GameModeCTF | GameModeFlagBall |
-		GameModeChat | GameModeArena | GameModeSolo10 | GameModeElimination | GameModeQuest // 0x17F0, 6128
+		GameModeChat | GameModeArena | GameModeCoopTeam | GameModeElimination | GameModeQuest // 0x17F0, 6128
 )
 
 var (
@@ -183,8 +183,8 @@ func (f GameFlag) GoString() string {
 		return pkg + ".GameModeChat"
 	case GameModeArena:
 		return pkg + ".GameModeArena"
-	case GameModeSolo10:
-		return pkg + ".GameModeSolo10"
+	case GameModeCoopTeam:
+		return pkg + ".GameModeCoopTeam"
 	case GameModeElimination:
 		return pkg + ".GameModeElimination"
 	case GameModeCoop:
@@ -256,8 +256,8 @@ func (f GameFlag) String() string {
 		return "Chat"
 	case GameModeArena:
 		return "Arena"
-	case GameModeSolo10:
-		return "Solo10"
+	case GameModeCoopTeam:
+		return "CoopTeam"
 	case GameModeElimination:
 		return "Elimination"
 	case GameModeCoop:

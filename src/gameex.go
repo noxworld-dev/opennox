@@ -259,7 +259,7 @@ var wndEntryNames = [5][35]uint16{
 }
 
 func gameexDropTrap() {
-	if noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
+	if noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeCoopTeam) {
 		if legacy.Get_dword_5d4594_1064868() != 0 || noxClient.GUI.Captured() != nil {
 			return
 		}
@@ -295,7 +295,7 @@ func call_OnLibraryNotice_265(arg3 int) {
 	if (legacy.Get_gameex_flags()>>3)&1 == 0 {
 		return
 	}
-	if !noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
+	if !noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeCoopTeam) {
 		return
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
@@ -316,7 +316,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 	if ((legacy.Get_gameex_flags()>>3)&1 != 0) && (kcode == keybind.KeyLBracket || kcode == keybind.KeyRBracket) {
 		v8 := byte(bool2int(kcode == keybind.KeyLBracket))
 		// checks some gameFlags that are yet undiscovered
-		if noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
+		if noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeCoopTeam) {
 			if legacy.Get_dword_5d4594_1064868() != 0 || noxClient.GUI.Captured() != nil {
 				return
 			}
@@ -339,7 +339,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 			clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 			return
 		}
-		if !noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeSolo10) {
+		if !noxflags.HasGame(noxflags.GameFlag3 | noxflags.GameModeCoopTeam) {
 			return
 		}
 		clientPlaySoundSpecial(sound.SoundShellClick, 100)
@@ -351,7 +351,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 			if modifyWndPntr == nil {
 				return
 			}
-			if noxflags.HasGame(noxflags.GameModeSolo10) {
+			if noxflags.HasGame(noxflags.GameModeCoopTeam) {
 				modifyWndPntr.ChildByID(1938).Hide()
 				v11 := modifyWndPntr.ChildByID(1524)
 				legacy.Nox_xxx_wnd_46ABB0(v11, 0)
@@ -388,7 +388,7 @@ func modifyWndInputHandler(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventRe
 		case 1937:
 			destroyGameExWindow()
 		case 1938:
-			if !noxflags.HasGame(noxflags.GameModeSolo10) {
+			if !noxflags.HasGame(noxflags.GameModeCoopTeam) {
 				legacy.Sub_4BDFD0()
 				legacy.Get_dword_5d4594_1316972().SetPos(image.Point{X: 200, Y: 100})
 			}

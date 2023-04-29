@@ -178,7 +178,7 @@ void nox_server_checkVictory_509A60() {
 			int v11 = *(uint32_t*)(*(uint32_t*)(i + 748) + 276);
 			if (!(*(uint8_t*)(v11 + 3680) & 1) && *(uint32_t*)(v11 + 2140) < v8) {
 				if (nox_xxx_servObjectHasTeam_419130(i + 48)) {
-					char* v0 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(i + 52));
+					char* v0 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(i + 52));
 					if (v6) {
 						if (v6 != v0) {
 							return;

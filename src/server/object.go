@@ -436,8 +436,7 @@ type Object struct {
 	NetCode       uint32                     // 9, 36
 	Extent        uint32                     // 10, 40
 	ScriptIDVal   int                        // 11, 44
-	Field12       uint32                     // 12, 48
-	Field13       uint32                     // 13, 52, // TODO: first byte is team?
+	TeamVal       ObjectTeam                 // 12, 48
 	PosVec        types.Pointf               // 14, 56
 	NewPos        types.Pointf               // 16, 64
 	PrevPos       types.Pointf               // 18, 72
@@ -779,14 +778,24 @@ func (obj *Object) TeamPtr() *ObjectTeam {
 	if obj == nil {
 		return nil
 	}
-	return (*ObjectTeam)(unsafe.Pointer(&obj.Field12))
+	return &obj.TeamVal
 }
 
 func (obj *Object) HasTeam() bool {
 	if obj == nil {
 		return false
 	}
-	return obj.TeamPtr().Has()
+	return obj.TeamVal.Has()
+}
+
+func (obj *Object) Team() *Team {
+	if obj == nil {
+		return nil
+	}
+	if !obj.HasTeam() {
+		return nil
+	}
+	return obj.Server().Teams.ByID(obj.TeamVal.ID)
 }
 
 func (obj *Object) Push(p types.Pointf, force float32) {

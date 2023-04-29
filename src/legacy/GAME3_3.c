@@ -2412,7 +2412,7 @@ void nox_xxx_playerLeaveObserver_0_4E6AA0(nox_playerInfo* pl) {
 				nox_xxx_monsterMarkUpdate_4E8020(*(uint32_t*)(a1 + 2056));
 				if (nox_common_gameFlags_check_40A5C0(16)) {
 					if (nox_xxx_CheckGameplayFlags_417DA0(4)) {
-						v3 = *((uint32_t*)nox_xxx_clientGetTeamColor_418AB0(
+						v3 = *((uint32_t*)nox_xxx_getTeamByID_418AB0(
 								   *(unsigned char*)(*(uint32_t*)(a1 + 2056) + 52)) +
 							   19);
 						if (v3) {
@@ -4797,7 +4797,7 @@ void nox_xxx_pickupFlagCtf_4EA490(int a1, int a2) {
 						nox_xxx_changeScore_4D8E90(v3, 1);
 						nox_xxx_netReportLesson_4D8EF0(v3);
 						if (nox_xxx_servObjectHasTeam_419130(v3 + 48)) {
-							v10 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(v3 + 52));
+							v10 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(v3 + 52));
 							nox_xxx_netChangeTeamID_419090((int)v10, *((uint32_t*)v10 + 13) + 1);
 							if (dword_5d4594_2650652) {
 								if (a2) {
@@ -4839,7 +4839,7 @@ void nox_xxx_pickupFlagCtf_4EA490(int a1, int a2) {
 	} else {
 		v20 = *(uint32_t*)(a1 + 748);
 		if (!*(uint32_t*)(v2 + 492)) {
-			v12 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(v2 + 52));
+			v12 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(v2 + 52));
 			if (v12 && sub_418BC0((int)v12)) {
 				v13 = *(uint32_t**)(v3 + 504);
 				if (v13) {
@@ -4939,7 +4939,7 @@ short sub_4EA800(int a1, int a2) {
 		if (*v4 && *(uint8_t*)(*v4 + 16) & 0x20) {
 			*v4 = 0;
 		}
-		v5 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(a1 + 52));
+		v5 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(a1 + 52));
 		v2 = nox_server_teamNext_418B60((int)v5);
 		v6 = (int)v2;
 		if (!v2) {
@@ -5615,7 +5615,7 @@ void nox_xxx_collideBall_4EBA00(int a1, int a2) {
 	v2 = 0;
 	v3 = *(uint32_t**)(a1 + 748);
 	if (a2) {
-		v2 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(a2 + 52));
+		v2 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(a2 + 52));
 		if (*v3 == a2 && v2 && sub_418BC0((int)v2) > 1) {
 			if ((unsigned int)(gameFrame() - *getMemU32Ptr(0x5D4594, 1568008)) > 0x2D) {
 				nox_xxx_netPriMsgToPlayer_4DA2C0(a2, "objcoll.c:CantPickupBall", 0);
@@ -5701,10 +5701,10 @@ short nox_xxx_collideHomeBase_4EBB80(int a1, int a2) {
 			v5 = 0;
 			v6 = 0;
 			if (nox_xxx_servObjectHasTeam_419130(a1 + 48)) {
-				v5 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(a1 + 52));
+				v5 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(a1 + 52));
 			}
 			if (*v4 && nox_xxx_servObjectHasTeam_419130(*v4 + 48)) {
-				v6 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(*v4 + 52));
+				v6 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(*v4 + 52));
 			}
 			if (v5 == v6) {
 				nox_xxx_changeScore_4D8E90(*v4, 1);
@@ -10994,7 +10994,7 @@ int nox_xxx_pickupDefault_4F31E0(nox_object_t* a1p, nox_object_t* item, int a3) 
 	v4 = a1;
 	if (v3 || !nox_xxx_servObjectHasTeam_419130(&item->field_12) ||
 		nox_xxx_servCompareTeams_419150(v4 + 48, &item->field_12) ||
-		(v6 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)&item->field_13)) == 0) {
+		(v6 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)&item->field_13)) == 0) {
 		if (*(uint32_t*)&item->inv_holder) {
 			result = 0;
 		} else if (*(uint16_t*)(v4 + 490)) {
@@ -11166,7 +11166,7 @@ int nox_xxx_pickupTreasure_4F3580(int a1, int a2, int a3) {
 		return 1;
 	}
 	v4 = 0;
-	v5 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(a1 + 52));
+	v5 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(a1 + 52));
 	if (v5) {
 		for (j = nox_xxx_getFirstPlayerUnit_4DA7C0(); j; j = nox_xxx_getNextPlayerUnit_4DA7F0(j)) {
 			if (nox_xxx_teamCompare2_419180(j + 48, v5[57])) {

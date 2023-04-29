@@ -21,6 +21,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 const (
@@ -315,14 +316,14 @@ func (s *Server) setupQuestGame() {
 	}
 	s.TeamsZzz(1)
 	t := s.TeamCreate(0)
-	t.Def_ind = 9
-	if title := s.Teams.TeamTitle(9); title != "" {
+	t.ColorInd = server.TeamOrange
+	if title := s.Teams.TeamTitle(server.TeamOrange); title != "" {
 		t.SetNameAnd68(title, 1)
 	}
 	legacy.Sub_4184D0(t.C())
 	for _, u := range s.getPlayerUnits() {
 		if u.ControllingPlayer().Field4792 == 1 {
-			legacy.Nox_xxx_createAtImpl_4191D0(t.Ind57(), u.TeamPtr(), 1, u.NetCode, 0)
+			legacy.Nox_xxx_createAtImpl_4191D0(t.ID(), u.TeamPtr(), 1, u.NetCode, 0)
 		}
 	}
 	sub_4D6BE0()

@@ -229,7 +229,7 @@ LABEL_24:
 		return v23;
 	}
 	v16 = 0;
-	v17 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(v15 + 4));
+	v17 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(v15 + 4));
 	if (v17 && sub_495A80(*(uint32_t*)(v2 + 128))) {
 		v16 = 1;
 	}

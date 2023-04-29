@@ -768,7 +768,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_A2(v2 bool) {
 		legacy.Nox_xxx_playerMakeDefItems_4EF7D0(u.SObj(), 1, 0)
 	}
 	s.ObjectsAddPending()
-	if noxflags.HasGame(noxflags.GameModeSolo10) {
+	if noxflags.HasGame(noxflags.GameModeCoopTeam) {
 		return
 	}
 	v7 := nox_xxx_cliGamedataGet_416590(0)
@@ -1098,7 +1098,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 			}
 		}
 		k.SetPos(v61)
-		if !noxflags.HasGame(noxflags.GameModeSolo10) {
+		if !noxflags.HasGame(noxflags.GameModeCoopTeam) {
 			plx := k.ControllingPlayer()
 			plx.Lessons = 0
 			plx.Field2140 = 0

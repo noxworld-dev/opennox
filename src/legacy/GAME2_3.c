@@ -748,7 +748,7 @@ void sub_48D990(nox_draw_viewport_t* a1p) {
 					v20 = v5 + 4704;
 				}
 				if (v4) {
-					v6 = nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)v4 + 4));
+					v6 = nox_xxx_getTeamByID_418AB0(*((unsigned char*)v4 + 4));
 					if (v6) {
 						v7 = nox_xxx_materialGetTeamColor_418D50((int)v6);
 						v21 = v7;

@@ -710,7 +710,7 @@ func (s *Server) Sub_4F40A0(obj *Object) int8 {
 	if obj.Field129 != nil {
 		return -1
 	}
-	if byte(obj.Field13) != 0 {
+	if obj.TeamVal.ID != 0 {
 		return -1
 	}
 	typ := s.Types.ByInd(int(obj.TypeInd))

@@ -627,7 +627,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 	legacy.Nox_xxx_netNotifyRate_4D7F10(ind)
 	if noxflags.HasGame(noxflags.GameModeQuest) {
 		pl.GoObserver(false, true)
-	} else if noxflags.HasGame(noxflags.GameModeSolo10) {
+	} else if noxflags.HasGame(noxflags.GameModeCoopTeam) {
 		legacy.Nox_xxx_netReportPlayerStatus_417630(pl.S())
 	} else if pl.Index() == common.MaxPlayers-1 && noxflags.HasEngine(noxflags.EngineNoRendering) {
 		pl.GoObserver(false, true)

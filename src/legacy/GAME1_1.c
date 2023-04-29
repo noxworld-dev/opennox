@@ -405,7 +405,7 @@ void sub_418F20(nox_team_t* a1p, int a2) {
 	char v5[6];     // [esp+8h] [ebp-30h]
 	wchar2_t v6[20]; // [esp+10h] [ebp-28h]
 
-	if (a1 && nox_xxx_clientGetTeamColor_418AB0(*((unsigned char*)a1 + 57))) {
+	if (a1 && nox_xxx_getTeamByID_418AB0(*((unsigned char*)a1 + 57))) {
 		nox_wcscpy(v6, a1);
 		if (nox_common_gameFlags_check_40A5C0(1) && a2) {
 			v2 = *((unsigned char*)a1 + 57);
@@ -520,7 +520,7 @@ int nox_xxx_teamCompare2_419180(void* a1p, unsigned char a2) {
 	if (*(uint8_t*)(a1 + 4) != a2) {
 		return 0;
 	}
-	v2 = nox_xxx_clientGetTeamColor_418AB0(a2);
+	v2 = nox_xxx_getTeamByID_418AB0(a2);
 	if (!v2) {
 		return 0;
 	}
@@ -545,7 +545,7 @@ void nox_xxx_netChangeTeamMb_419570(void* a1p, int a2) {
 	char v4[6]; // [esp+8h] [ebp-8h]
 
 	if (a1) {
-		v2 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(a1 + 4));
+		v2 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(a1 + 4));
 		if (v2) {
 			if (nox_xxx_teamCompare2_419180(a1, *(uint8_t*)(a1 + 4))) {
 				if (nox_common_gameFlags_check_40A5C0(1) && nox_common_gameFlags_check_40A5C0(0x2000)) {
@@ -596,7 +596,7 @@ int sub_4196D0(void* a1p, void* a2p, int a3, int a4) {
 		nox_xxx_netSendPacket1_4E5390(159, (int)v7, 10, 0, 1);
 		sub_4571A0(a3, *(unsigned char*)(a2 + 57));
 	}
-	v5 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(a1 + 4));
+	v5 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(a1 + 4));
 	--*((uint32_t*)v5 + 12);
 	sub_418E40((int)v5, a1);
 	nox_xxx_createAtImpl_4191D0(*(uint8_t*)(a2 + 57), a1, 0, a3, a4);

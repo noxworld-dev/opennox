@@ -2210,7 +2210,7 @@ void sub_5488B0(int* a1, float* a2, int a3) {
 		} else if (gameFrame() > (unsigned int)v3[34]) {
 			v23 = *((unsigned char*)v3 + 52);
 			v3[34] = gameFrame() + gameFPS();
-			nox_xxx_clientGetTeamColor_418AB0(v23);
+			nox_xxx_getTeamByID_418AB0(v23);
 			nox_xxx_netPriMsgToPlayer_4DA2C0((int)v7, "objcoll.c:GateLockedMechanism", 0);
 		}
 	}
@@ -5145,12 +5145,12 @@ void nox_xxx_playerHandleElimDeath_54D7A0(int a1, int a2) {
 	v6 = a1 + 48;
 	v9 = *(uint32_t*)(a1 + 748);
 	if (nox_xxx_servObjectHasTeam_419130(v6)) {
-		v8 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(v2 + 52));
+		v8 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(v2 + 52));
 	}
 	if (a2) {
 		v3 = *(uint32_t*)(a2 + 748);
 		if (nox_xxx_servObjectHasTeam_419130(a2 + 48)) {
-			v4 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(a2 + 52));
+			v4 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(a2 + 52));
 		}
 	}
 	if (a2 == v2) {
@@ -5237,19 +5237,19 @@ void nox_xxx_playerUpdateScore_54D980(int a1, int a2, int a3, int a4) {
 	v6 = 0;
 	v16 = 0;
 	if (nox_xxx_servObjectHasTeam_419130(v12)) {
-		v14 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(v4 + 52));
+		v14 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(v4 + 52));
 	}
 	if (a2) {
 		v6 = *(uint32_t*)(a2 + 748);
 		if (nox_xxx_servObjectHasTeam_419130(a2 + 48)) {
-			v5 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(a2 + 52));
+			v5 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(a2 + 52));
 		}
 	}
 	if (a4) {
 		if (a3) {
 			v16 = *(char**)(a3 + 748);
 			if (nox_xxx_servObjectHasTeam_419130(a3 + 48)) {
-				v15 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(a3 + 52));
+				v15 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(a3 + 52));
 			}
 		}
 	}
@@ -5390,14 +5390,14 @@ void nox_xxx_playerHandleKotrDeath_54DC40(int a1, int a2) {
 	v16 = *(uint32_t*)(a1 + 748);
 	result = (char*)nox_xxx_servObjectHasTeam_419130(a1 + 48);
 	if (result) {
-		result = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(a1 + 52));
+		result = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(a1 + 52));
 		v3 = result;
 	}
 	if (a2) {
 		v5 = *(uint32_t*)(a2 + 748);
 		result = (char*)nox_xxx_servObjectHasTeam_419130(a2 + 48);
 		if (result) {
-			result = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(a2 + 52));
+			result = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(a2 + 52));
 			v2 = result;
 		}
 		if (*(uint8_t*)(a2 + 8) & 4) {
@@ -7500,7 +7500,7 @@ void sub_551250(unsigned int a1, float* a2, int a3) {
 							} else if (gameFrame() > *(uint32_t*)(v3 + 136)) {
 								v22 = *(unsigned char*)(v3 + 52);
 								*(uint32_t*)(v3 + 136) = gameFrame() + gameFPS();
-								nox_xxx_clientGetTeamColor_418AB0(v22);
+								nox_xxx_getTeamByID_418AB0(v22);
 								nox_xxx_netPriMsgToPlayer_4DA2C0((int)v4, "objcoll.c:GateLockedMechanism", 0);
 							}
 						}

@@ -38,14 +38,15 @@ func nox_xxx_objGetTeamByNetCode_418C80(code int) *server.ObjectTeam {
 	return nil
 }
 
-func (s *Server) nox_xxx_createCoopTeam_417E10() {
-	noxflags.SetGame(noxflags.GameModeSolo10)
-	t := s.Teams.ByYyy(1)
+func (s *Server) createCoopTeam() {
+	noxflags.SetGame(noxflags.GameModeCoopTeam)
+	const id = 1
+	t := s.Teams.ByID(id)
 	if t == nil {
-		t = s.TeamCreate(1)
+		t = s.TeamCreate(id)
 	}
 	if v1 := nox_xxx_objGetTeamByNetCode_418C80(int(legacy.Get_nox_player_netCode_85319C())); v1 != nil {
-		legacy.Nox_xxx_createAtImpl_4191D0(t.Field_57, v1, 0, legacy.Get_nox_player_netCode_85319C(), 0)
+		legacy.Nox_xxx_createAtImpl_4191D0(t.ID(), v1, 0, legacy.Get_nox_player_netCode_85319C(), 0)
 	}
 	if t != nil {
 		text := s.Strings().GetStringInFile("COOP", "C:\\NoxPost\\src\\common\\System\\team.c")
@@ -54,16 +55,16 @@ func (s *Server) nox_xxx_createCoopTeam_417E10() {
 	noxflags.UnsetGamePlay(1)
 }
 
-func (s *Server) TeamCreate(ind byte) *server.Team {
+func (s *Server) TeamCreate(id server.TeamID) *server.Team {
 	if int(memmap.Uint8(0x5D4594, 526280)) >= s.Teams.Count()-1 {
 		text := s.Strings().GetStringInFile("teamexceed", "C:\\NoxPost\\src\\common\\System\\team.c")
 		s.Printf(console.ColorRed, text)
 		return nil
 	}
-	t := s.Teams.New(ind)
+	t := s.Teams.New(id)
 	*memmap.PtrUint8(0x5D4594, 526280)++
 	legacy.Sub_459CD0() // TODO: GUI callback
-	if !noxflags.HasGame(noxflags.GameModeSolo10) {
+	if !noxflags.HasGame(noxflags.GameModeCoopTeam) {
 		text := s.Strings().GetStringInFile("teamcreate", "C:\\NoxPost\\src\\common\\System\\team.c")
 		s.Printf(console.ColorRed, text)
 	}
@@ -96,7 +97,7 @@ func (s *Server) teamChangeLessons(tm *server.Team, val int) { // nox_xxx_netCha
 	var buf [10]byte
 	buf[0] = byte(noxnet.MSG_TEAM_MSG)
 	buf[1] = 0x8
-	binary.LittleEndian.PutUint32(buf[2:], uint32(tm.Field_57))
+	binary.LittleEndian.PutUint32(buf[2:], uint32(tm.ID()))
 	binary.LittleEndian.PutUint32(buf[6:], uint32(val))
 	s.nox_xxx_netSendPacket1_4E5390(159, buf[:10], 0, 1)
 }

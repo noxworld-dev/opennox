@@ -84,7 +84,7 @@ func nox_xxx_unitDoSummonAt_5016C0(typID int, pos types.Pointf, owner *server.Ob
 	legacy.Nox_xxx_netMarkMinimapObject_417190(pl.Index(), obj, 1)
 	legacy.Nox_xxx_netSendSimpleObject2_4DF360(pl.Index(), obj)
 	if owner.HasTeam() {
-		legacy.Nox_xxx_createAtImpl_4191D0(byte(owner.Field13), owner.TeamPtr(), 1, obj.NetCode, 0)
+		legacy.Nox_xxx_createAtImpl_4191D0(owner.TeamVal.ID, owner.TeamPtr(), 1, obj.NetCode, 0)
 	}
 	obj.ObjSubClass |= uint32(object.MonsterMigrate)
 	return obj
