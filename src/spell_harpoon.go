@@ -163,7 +163,7 @@ func (a *abilityHarpoon) breakForOwner(u *Object, emitSound bool) {
 	}
 	if d.bolt != nil {
 		d.target = nil
-		a.s.abilities.DisableAbility(u, server.AbilityHarpoon)
+		a.s.abilities.DisableAbility(u.SObj(), server.AbilityHarpoon)
 		asObjectS(d.bolt).Delete()
 		d.bolt = nil
 	}

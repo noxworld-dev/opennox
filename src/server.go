@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"image"
-	"math"
 	"path/filepath"
 	"strings"
 	"unsafe"
@@ -699,7 +698,7 @@ func (s *Server) nox_xxx_servNewSession_4D1660() error {
 		return errors.New("nox_xxx_allocVisitNodesArray_50AB90 failed")
 	}
 	s.spells.Init(s)
-	s.abilities.Reset()
+	s.Abils.Reset()
 	if err := nox_xxx_allocSpellRelatedArrays_4FC9B0(); err != nil {
 		return err
 	}
@@ -1188,35 +1187,6 @@ func (s *Server) CanInteract(obj, targ *server.Object, flags int) bool {
 	ok := s.CanSee(obj, targ, flags)
 	if ok {
 		ok = legacy.Nox_xxx_mapCheck_537110(obj, targ) != 0
-	}
-	return ok
-}
-
-func (s *Server) CanSee(obj, targ *server.Object, flags int) bool {
-	if obj.HasEnchant(server.ENCHANT_BLINDED) {
-		return false
-	}
-	if flags&0x1 == 0 && targ.HasEnchant(server.ENCHANT_INVISIBLE) {
-		if noxflags.HasGame(noxflags.GameModeQuest) {
-			switch int(obj.TypeInd) {
-			case s.Types.HecubahID(), s.Types.NecromancerID():
-				goto check
-			}
-		} else if obj.HasEnchant(server.ENCHANT_INFRAVISION) {
-			goto check
-		}
-		if int(obj.TypeInd) != s.Types.PixieID() || obj.ObjOwner == nil || !obj.ObjOwner.HasEnchant(server.ENCHANT_INFRAVISION) {
-			if math.Abs(float64(targ.VelVec.X)) <= 6 && math.Abs(float64(targ.VelVec.Y)) <= 6 {
-				return false
-			}
-		}
-	}
-check:
-	ok := true
-	if obj.Class().Has(object.ClassMonster) && obj.SubClass().AsMonster().Has(object.MonsterBomber) {
-		if s.abilities.IsActive(asObjectS(targ), server.AbilityTreadLightly) {
-			ok = false
-		}
 	}
 	return ok
 }

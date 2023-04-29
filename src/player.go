@@ -319,7 +319,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 		return true
 	}
 	s := u.getServer()
-	if !keepPlayer && s.abilities.IsAnyActive(u) {
+	if !keepPlayer && s.Abils.IsAnyActive(u.SObj()) {
 		return false
 	}
 	if u.Update == legacy.Get_nox_xxx_updatePlayerMonsterBot_4FAB20() {

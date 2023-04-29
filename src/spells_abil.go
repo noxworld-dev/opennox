@@ -2,7 +2,6 @@ package opennox
 
 import (
 	"fmt"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 	"github.com/noxworld-dev/opennox-lib/object"
@@ -22,51 +21,23 @@ func sub_4FC670(a1 int) {
 }
 
 func nox_xxx_playerExecuteAbil_4FBB70(cu *server.Object, a2 int) {
-	noxServer.abilities.Do(asObjectS(cu), server.Ability(a2))
+	noxServer.abilities.Do(cu, server.Ability(a2))
 }
 
 func sub_4FC0B0(a1 *server.Object, a2 int) {
-	noxServer.abilities.ResetAbility(asObjectS(a1), server.Ability(a2))
+	noxServer.abilities.ResetAbility(a1, server.Ability(a2))
 }
 
 func nox_xxx_playerCancelAbils_4FC180(cu *server.Object) {
-	noxServer.abilities.CancelAbilities(asObjectS(cu))
+	noxServer.abilities.CancelAbilities(cu)
 }
 
 func sub_4FC300(cu *server.Object, a2 int) {
-	noxServer.abilities.DisableAbility(asObjectS(cu), server.Ability(a2))
-}
-
-func sub_4FC070(a1 *server.Object, a2, dt int) {
-	noxServer.abilities.sub4FC070(asObjectS(a1), server.Ability(a2), dt)
-}
-
-func sub_4FC030(a1 *server.Object, a2 int) int {
-	return noxServer.abilities.sub4FC030(asObjectS(a1), server.Ability(a2))
-}
-
-func sub_4FC440(a1 *server.Object, a2 int) {
-	noxServer.abilities.sub4FC440(asObjectS(a1), server.Ability(a2))
-}
-
-func sub_4FBE60(a1 unsafe.Pointer, abil int) int {
-	return noxServer.abilities.getCooldown(a1, server.Ability(abil))
-}
-
-func sub_4FBEA0(a1 unsafe.Pointer, abil, cd int) {
-	noxServer.abilities.setCooldown(a1, server.Ability(abil), cd)
+	noxServer.abilities.DisableAbility(cu, server.Ability(a2))
 }
 
 func nox_xxx_abilityGetName_0_425260(ca int) string {
 	return noxServer.abilities.getName(server.Ability(ca))
-}
-
-func nox_common_playerIsAbilityActive_4FC250(a1 *server.Object, a2 int) int {
-	return bool2int(noxServer.abilities.IsActive(asObjectS(a1), server.Ability(a2)))
-}
-
-func nox_xxx_probablyWarcryCheck_4FC3E0(a1 *server.Object, a2 int) int {
-	return bool2int(noxServer.abilities.IsActiveVal(asObjectS(a1), server.Ability(a2)))
 }
 
 func nox_xxx_abilityCooldown_4252D0(ca int) int {
@@ -104,7 +75,7 @@ func sub_425450(a1 int) int {
 }
 
 func nox_xxx_netAbilRepotState_4D8100(a1 *server.Object, a2 server.Ability, a3 byte) {
-	noxServer.abilities.netAbilReportState(asObjectS(a1), a2, a3)
+	noxServer.abilities.netAbilReportState(a1, a2, a3)
 }
 
 type AbilityDef struct {
@@ -123,15 +94,9 @@ type AbilityDef struct {
 	sound48  sound.ID         // 12, 48
 }
 
-type unitAbilities struct {
-	cooldowns [server.AbilityMax]int
-	execList  *execAbilityClass
-}
-
 type serverAbilities struct {
 	s      *Server
 	curxxx server.Ability
-	byUnit map[*server.Object]*unitAbilities
 	byName map[string]server.Ability
 	defs   [server.AbilityMax]AbilityDef
 
@@ -147,10 +112,6 @@ func (a *serverAbilities) Init(s *Server) {
 	a.harpoon.Init(s)
 }
 
-func (a *serverAbilities) Reset() {
-	a.byUnit = make(map[*server.Object]*unitAbilities)
-}
-
 func (a *serverAbilities) Free() {
 	a.harpoon.Free()
 }
@@ -162,37 +123,16 @@ func (a *serverAbilities) nox_xxx_abilityNameToN_424D80(name string) server.Abil
 	return a.byName[name]
 }
 
-type execAbilityClass struct {
-	abil   server.Ability    // 0, 0
-	frame  uint32            // 2, 8
-	active uint32            // 3, 12
-	next   *execAbilityClass // 4, 16
-	prev   *execAbilityClass // 5, 20
-}
-
 func (a *serverAbilities) sub_4FC680() {
 	if noxflags.HasGame(noxflags.GameModeCoop) && !noxflags.HasGame(noxflags.GameFlag20) && a.curxxx != 0 {
 		if u := a.s.PlayerFirst().UnitC(); u != nil {
-			a.Do(u, a.curxxx)
+			a.Do(u.SObj(), a.curxxx)
 			a.curxxx = 0
 		}
 	}
 }
 
-func (a *serverAbilities) getAbilitiesFor(u server.Obj) *unitAbilities {
-	if u == nil {
-		return nil
-	}
-	d := a.byUnit[u.SObj()]
-	if d != nil {
-		return d
-	}
-	d = new(unitAbilities)
-	a.byUnit[u.SObj()] = d
-	return d
-}
-
-func (a *serverAbilities) Do(u *Object, abil server.Ability) {
+func (a *serverAbilities) Do(u *server.Object, abil server.Ability) {
 	if u == nil {
 		return
 	}
@@ -221,25 +161,25 @@ func (a *serverAbilities) Do(u *Object, abil server.Ability) {
 				}
 			}
 		}
-		if a.IsActiveVal(u, server.AbilityWarcry) || a.IsActive(u, server.AbilityHarpoon) {
+		if a.s.Abils.IsActiveVal(u, server.AbilityWarcry) || a.s.Abils.IsActive(u, server.AbilityHarpoon) {
 			nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 2, 2)
 			a.s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
 			return
 		}
 	case server.AbilityWarcry:
-		if a.IsActive(u, server.AbilityBerserk) || a.IsActive(u, server.AbilityHarpoon) {
+		if a.s.Abils.IsActive(u, server.AbilityBerserk) || a.s.Abils.IsActive(u, server.AbilityHarpoon) {
 			nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 2, 2)
 			a.s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
 			return
 		}
 	case server.AbilityHarpoon:
-		if a.IsActiveVal(u, server.AbilityWarcry) || a.IsActive(u, server.AbilityBerserk) {
+		if a.s.Abils.IsActiveVal(u, server.AbilityWarcry) || a.s.Abils.IsActive(u, server.AbilityBerserk) {
 			nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 2, 2)
 			a.s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
 			return
 		}
 	}
-	if a.IsActive(u, abil) {
+	if a.s.Abils.IsActive(u, abil) {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 2, 2)
 		a.s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
 		return
@@ -258,8 +198,8 @@ func (a *serverAbilities) Do(u *Object, abil server.Ability) {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 2, 7)
 		return
 	}
-	ad := a.getAbilitiesFor(u)
-	cd := &ad.cooldowns[abil]
+	ad := a.s.Abils.GetFor(u)
+	cd := &ad.Cooldowns[abil]
 	if *cd != 0 {
 		nox_xxx_netInformTextMsg_4DA0F0(pl.PlayerIndex(), 2, 2)
 		a.s.AudioEventObj(sound.SoundPermanentFizzle, u, 0, 0)
@@ -270,16 +210,16 @@ func (a *serverAbilities) Do(u *Object, abil server.Ability) {
 		a.netAbilReportState(u, abil, 0)
 	}
 	if df := a.getDuration(abil); df > 0 {
-		ab := &execAbilityClass{
-			abil:   abil,
-			frame:  a.s.Frame() + uint32(df),
-			active: 1,
+		ab := &server.ExecAbilityClass{
+			Abil:   abil,
+			Frame:  a.s.Frame() + uint32(df),
+			Active: 1,
 		}
-		ab.next = ad.execList
-		if ad.execList != nil {
-			ad.execList.prev = ab
+		ab.Next = ad.ExecList
+		if ad.ExecList != nil {
+			ad.ExecList.Prev = ab
 		}
-		ad.execList = ab
+		ad.ExecList = ab
 	}
 	a.do(u, abil)
 	snd := a.getSound(abil, 0)
@@ -287,104 +227,103 @@ func (a *serverAbilities) Do(u *Object, abil server.Ability) {
 }
 
 func (a *serverAbilities) Update() {
-	for obj, ad := range a.byUnit {
-		u := asObjectS(obj)
+	for obj, ad := range a.s.Abils.ByUnit {
 		for i := server.AbilityInvalid; i < server.AbilityMax; i++ {
-			ptr := &ad.cooldowns[i]
+			ptr := &ad.Cooldowns[i]
 			if v := *ptr; v != 0 {
 				*ptr = v - 1
 				if *ptr == 0 {
-					a.netAbilReportState(u, i, 1)
+					a.netAbilReportState(obj, i, 1)
 				}
 			}
 		}
 	}
-	for obj, ad := range a.byUnit {
+	for obj, ad := range a.s.Abils.ByUnit {
 		u := asObjectS(obj)
-		var next *execAbilityClass
-		for p := ad.execList; p != nil; p = next {
-			next = p.next
+		var next *server.ExecAbilityClass
+		for p := ad.ExecList; p != nil; p = next {
+			next = p.Next
 			if !u.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
-				if a.s.Frame() <= p.frame {
+				if a.s.Frame() <= p.Frame {
 					continue
 				}
-				snd := a.getSound(p.abil, 2)
+				snd := a.getSound(p.Abil, 2)
 				a.s.AudioEventObj(snd, u, 0, 0)
-				a.netAbilReportActive(u, p.abil, false)
-				if p.abil == server.AbilityBerserk {
+				a.netAbilReportActive(obj, p.Abil, false)
+				if p.Abil == server.AbilityBerserk {
 					nox_xxx_playerSetState_4FA020(u, 13)
 				}
 			}
 			if next != nil {
-				next.prev = p.prev
+				next.Prev = p.Prev
 			}
-			if prev := p.prev; prev != nil {
-				prev.next = p.next
+			if prev := p.Prev; prev != nil {
+				prev.Next = p.Next
 			} else {
-				ad.execList = p.next
+				ad.ExecList = p.Next
 			}
-			*p = execAbilityClass{}
+			*p = server.ExecAbilityClass{}
 		}
 	}
 }
 
-func (a *serverAbilities) ResetAbility(u *Object, abil server.Ability) {
+func (a *serverAbilities) ResetAbility(u *server.Object, abil server.Ability) {
 	if u == nil {
 		return
 	}
-	ad, ok := a.byUnit[u.SObj()]
+	ad, ok := a.s.Abils.ByUnit[u]
 	if !ok {
 		return
 	}
-	ad.cooldowns[abil] = 0
+	ad.Cooldowns[abil] = 0
 	a.netAbilReset(u, abil)
-	var next *execAbilityClass
-	for it := ad.execList; it != nil; it = next {
-		next = it.next
-		if it.abil == abil {
-			a.netAbilReportActive(u, it.abil, false)
+	var next *server.ExecAbilityClass
+	for it := ad.ExecList; it != nil; it = next {
+		next = it.Next
+		if it.Abil == abil {
+			a.netAbilReportActive(u, it.Abil, false)
 			if next != nil {
-				next.prev = it.prev
+				next.Prev = it.Prev
 			}
-			if prev := it.prev; prev != nil {
-				prev.next = it.next
+			if prev := it.Prev; prev != nil {
+				prev.Next = it.Next
 			} else {
-				ad.execList = it.next
+				ad.ExecList = it.Next
 			}
-			*it = execAbilityClass{}
+			*it = server.ExecAbilityClass{}
 		}
 	}
 }
 
-func (a *serverAbilities) CancelAbilities(u *Object) {
+func (a *serverAbilities) CancelAbilities(u *server.Object) {
 	if u == nil {
 		return
 	}
-	ad, ok := a.byUnit[u.SObj()]
+	ad, ok := a.s.Abils.ByUnit[u]
 	if !ok {
 		return
 	}
 	for i := server.AbilityInvalid; i < server.AbilityMax; i++ {
-		ad.cooldowns[i] = 0
+		ad.Cooldowns[i] = 0
 	}
 	a.netAbilReset(u, 6)
-	var next *execAbilityClass
-	for it := ad.execList; it != nil; it = next {
-		next = it.next
-		a.netAbilReportActive(u, it.abil, false)
+	var next *server.ExecAbilityClass
+	for it := ad.ExecList; it != nil; it = next {
+		next = it.Next
+		a.netAbilReportActive(u, it.Abil, false)
 		if next != nil {
-			next.prev = it.prev
+			next.Prev = it.Prev
 		}
-		if prev := it.prev; prev != nil {
-			prev.next = it.next
+		if prev := it.Prev; prev != nil {
+			prev.Next = it.Next
 		} else {
-			ad.execList = it.next
+			ad.ExecList = it.Next
 		}
-		*it = execAbilityClass{}
+		*it = server.ExecAbilityClass{}
 	}
 }
 
-func (a *serverAbilities) DisableAbility(u *Object, abil server.Ability) {
+func (a *serverAbilities) DisableAbility(u *server.Object, abil server.Ability) {
 	if u == nil {
 		return
 	}
@@ -393,115 +332,37 @@ func (a *serverAbilities) DisableAbility(u *Object, abil server.Ability) {
 	}
 	switch abil {
 	case server.AbilityHarpoon:
-		a.harpoon.disable(u)
+		a.harpoon.disable(asObjectS(u))
 		break
 	case server.AbilityTreadLightly:
-		u.DisableEnchant(server.ENCHANT_SNEAK)
+		asObjectS(u).DisableEnchant(server.ENCHANT_SNEAK)
 		break
 	case server.AbilityInfravis:
 		return
 	}
 	a.netAbilReportActive(u, abil, false)
-	ad, ok := a.byUnit[u.SObj()]
-	if !ok {
-		return
-	}
-	var next *execAbilityClass
-	for it := ad.execList; it != nil; it = next {
-		next = it.next
-		if it.abil == abil {
-			if next != nil {
-				next.prev = it.prev
-			}
-			if prev := it.prev; prev != nil {
-				prev.next = it.next
-			} else {
-				ad.execList = it.next
-			}
-			*it = execAbilityClass{}
-		}
-	}
+	a.s.Abils.DisableAbilityAaa(u, abil)
 }
 
-func (a *serverAbilities) do(u *Object, abil server.Ability) {
+func (a *serverAbilities) do(u *server.Object, abil server.Ability) {
 	if u.Flags().HasAny(object.FlagDestroyed | object.FlagDead) {
 		return
 	}
 	switch abil {
 	case server.AbilityBerserk:
-		nox_xxx_warriorBerserker_53FEB0(u)
+		nox_xxx_warriorBerserker_53FEB0(asObjectS(u))
 	case server.AbilityWarcry:
-		nox_xxx_warriorWarcry_53FF40(u)
+		nox_xxx_warriorWarcry_53FF40(asObjectS(u))
 	case server.AbilityHarpoon:
-		a.harpoon.Do(u)
+		a.harpoon.Do(asObjectS(u))
 	case server.AbilityTreadLightly:
-		nox_xxx_warriorTreadLightly_5400B0(u, a.getDuration(abil))
+		nox_xxx_warriorTreadLightly_5400B0(asObjectS(u), a.getDuration(abil))
 	case server.AbilityInfravis:
-		nox_xxx_warriorInfravis_540110(u, a.getDuration(abil))
+		nox_xxx_warriorInfravis_540110(asObjectS(u), a.getDuration(abil))
 	}
 }
 
-func (a *serverAbilities) sub4FC030(u *Object, abil server.Ability) int {
-	ad, ok := a.byUnit[u.SObj()]
-	if !ok {
-		return -1
-	}
-	for it := ad.execList; it != nil; it = it.next {
-		if it.abil == abil {
-			return int(it.frame - a.s.Frame())
-		}
-	}
-	return -1
-}
-
-func (a *serverAbilities) sub4FC070(u *Object, abil server.Ability, dt int) {
-	ad, ok := a.byUnit[u.SObj()]
-	if !ok {
-		return
-	}
-	for it := ad.execList; it != nil; it = it.next {
-		if it.abil == abil {
-			it.frame = a.s.Frame() + uint32(dt)
-			break
-		}
-	}
-}
-
-func (a *serverAbilities) IsActive(u *Object, abil server.Ability) bool {
-	ad, ok := a.byUnit[u.SObj()]
-	if !ok {
-		return false
-	}
-	for it := ad.execList; it != nil; it = it.next {
-		if it.abil == abil {
-			return true
-		}
-	}
-	return false
-}
-
-func (a *serverAbilities) IsActiveVal(u *Object, abil server.Ability) bool {
-	ad, ok := a.byUnit[u.SObj()]
-	if !ok {
-		return false
-	}
-	for it := ad.execList; it != nil; it = it.next {
-		if it.abil == abil {
-			return it.active != 0
-		}
-	}
-	return false
-}
-
-func (a *serverAbilities) IsAnyActive(u *Object) bool {
-	ad, ok := a.byUnit[u.SObj()]
-	if !ok {
-		return false
-	}
-	return ad.execList != nil
-}
-
-func (a *serverAbilities) netAbilReportActive(u *Object, abil server.Ability, active bool) {
+func (a *serverAbilities) netAbilReportActive(u *server.Object, abil server.Ability, active bool) {
 	if u.Class().Has(object.ClassPlayer) {
 		var buf [3]byte
 		buf[0] = byte(noxnet.MSG_REPORT_ACTIVE_ABILITIES)
@@ -512,7 +373,7 @@ func (a *serverAbilities) netAbilReportActive(u *Object, abil server.Ability, ac
 	}
 }
 
-func (a *serverAbilities) netAbilReportState(u *Object, abil server.Ability, st byte) {
+func (a *serverAbilities) netAbilReportState(u *server.Object, abil server.Ability, st byte) {
 	if u.Class().Has(object.ClassPlayer) {
 		var buf [3]byte
 		buf[0] = byte(noxnet.MSG_REPORT_ABILITY_STATE)
@@ -523,7 +384,7 @@ func (a *serverAbilities) netAbilReportState(u *Object, abil server.Ability, st 
 	}
 }
 
-func (a *serverAbilities) netAbilReset(u *Object, abil server.Ability) {
+func (a *serverAbilities) netAbilReset(u *server.Object, abil server.Ability) {
 	if u.Class().Has(object.ClassPlayer) {
 		pl := u.ControllingPlayer()
 		var buf [2]byte
@@ -531,43 +392,6 @@ func (a *serverAbilities) netAbilReset(u *Object, abil server.Ability) {
 		buf[1] = byte(abil)
 		a.s.nox_xxx_netSendPacket0_4E5420(pl.Index(), buf[:2], 0, 1)
 	}
-}
-
-func (a *serverAbilities) sub4FC440(u *Object, abil server.Ability) {
-	ad, ok := a.byUnit[u.SObj()]
-	if !ok {
-		return
-	}
-	for it := ad.execList; it != nil; it = it.next {
-		if it.abil == abil {
-			it.active = 0
-			break
-		}
-	}
-}
-
-func (a *serverAbilities) getCooldown(a1 unsafe.Pointer, abil server.Ability) int {
-	pl := a.s.GetPlayerByID(int(*(*int32)(unsafe.Add(a1, 36))))
-	if pl == nil {
-		return 0
-	}
-	ad, ok := a.byUnit[pl.UnitC().SObj()]
-	if !ok {
-		return 0
-	}
-	return ad.cooldowns[abil]
-}
-
-func (a *serverAbilities) setCooldown(a1 unsafe.Pointer, abil server.Ability, cd int) {
-	pl := a.s.GetPlayerByID(int(*(*int32)(unsafe.Add(a1, 36))))
-	if pl == nil {
-		return
-	}
-	ad, ok := a.byUnit[pl.UnitC().SObj()]
-	if !ok {
-		return
-	}
-	ad.cooldowns[abil] = cd
 }
 
 func (a *serverAbilities) thingsReadAll(f *binfile.MemFile) error {
