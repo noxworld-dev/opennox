@@ -43,6 +43,7 @@ func New(pr console.Printer, sm *strman.StringManager) *Server {
 	s.Modif.init(sm)
 	s.Players.init()
 	s.Teams.init(sm, pr)
+	s.Abils.init(s)
 	s.http.init()
 	return s
 }
@@ -73,6 +74,7 @@ type Server struct {
 	Activators serverActivators
 	Players    serverPlayers
 	Teams      serverTeams
+	Abils      serverAbilities
 
 	port int
 	http httpService

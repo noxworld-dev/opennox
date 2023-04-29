@@ -1404,7 +1404,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			return 0, false
 		}
 		if !noxflags.HasGame(noxflags.GameModeChat) && pl.Field3680&0x3 == 0 {
-			s.abilities.Do(u, server.Ability(data[1]))
+			s.abilities.Do(u.SObj(), server.Ability(data[1]))
 		}
 		return 2, true
 	case noxnet.MSG_CLIENT_READY:

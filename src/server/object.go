@@ -47,6 +47,35 @@ func asObjectP(p unsafe.Pointer) *Object {
 	return (*Object)(p)
 }
 
+func (s *Server) CanSee(obj, targ *Object, flags int) bool {
+	if obj.HasEnchant(ENCHANT_BLINDED) {
+		return false
+	}
+	if flags&0x1 == 0 && targ.HasEnchant(ENCHANT_INVISIBLE) {
+		if noxflags.HasGame(noxflags.GameModeQuest) {
+			switch int(obj.TypeInd) {
+			case s.Types.HecubahID(), s.Types.NecromancerID():
+				goto check
+			}
+		} else if obj.HasEnchant(ENCHANT_INFRAVISION) {
+			goto check
+		}
+		if int(obj.TypeInd) != s.Types.PixieID() || obj.ObjOwner == nil || !obj.ObjOwner.HasEnchant(ENCHANT_INFRAVISION) {
+			if math.Abs(float64(targ.VelVec.X)) <= 6 && math.Abs(float64(targ.VelVec.Y)) <= 6 {
+				return false
+			}
+		}
+	}
+check:
+	ok := true
+	if obj.Class().Has(object.ClassMonster) && obj.SubClass().AsMonster().Has(object.MonsterBomber) {
+		if s.Abils.IsActive(targ, AbilityTreadLightly) {
+			ok = false
+		}
+	}
+	return ok
+}
+
 type serverObjects struct {
 	handle          uintptr
 	alloc           alloc.ClassT[Object]

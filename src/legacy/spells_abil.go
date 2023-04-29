@@ -9,26 +9,19 @@ import (
 )
 
 var (
-	Sub_4FC670                              func(a1 int)
-	Nox_xxx_playerExecuteAbil_4FBB70        func(cu *server.Object, a2 int)
-	Sub_4FC0B0                              func(a1 *server.Object, a2 int)
-	Nox_xxx_playerCancelAbils_4FC180        func(cu *server.Object)
-	Sub_4FC300                              func(cu *server.Object, a2 int)
-	Sub_4FC070                              func(a1 *server.Object, a2, dt int)
-	Sub_4FC030                              func(a1 *server.Object, a2 int) int
-	Sub_4FC440                              func(a1 *server.Object, a2 int)
-	Sub_4FBE60                              func(a1 unsafe.Pointer, abil int) int
-	Sub_4FBEA0                              func(a1 unsafe.Pointer, abil, cd int)
-	Nox_xxx_abilityGetName_0_425260         func(ca int) string
-	Nox_common_playerIsAbilityActive_4FC250 func(a1 *server.Object, a2 int) int
-	Nox_xxx_probablyWarcryCheck_4FC3E0      func(a1 *server.Object, a2 int) int
-	Nox_xxx_abilityCooldown_4252D0          func(ca int) int
-	Sub_4252F0                              func(ca int) string
-	Nox_xxx_spellGetAbilityIcon_425310      func(abil, icon int) noxrender.ImageHandle
-	Nox_xxx_bookFirstKnownAbil_425330       func() int
-	Nox_xxx_bookNextKnownAbil_425350        func(a1 int) int
-	Sub_425450                              func(a1 int) int
-	Nox_xxx_netAbilRepotState_4D8100        func(a1 *server.Object, a2 server.Ability, a3 byte)
+	Sub_4FC670                         func(a1 int)
+	Nox_xxx_playerExecuteAbil_4FBB70   func(cu *server.Object, a2 int)
+	Sub_4FC0B0                         func(a1 *server.Object, a2 int)
+	Nox_xxx_playerCancelAbils_4FC180   func(cu *server.Object)
+	Sub_4FC300                         func(cu *server.Object, a2 int)
+	Nox_xxx_abilityGetName_0_425260    func(ca int) string
+	Nox_xxx_abilityCooldown_4252D0     func(ca int) int
+	Sub_4252F0                         func(ca int) string
+	Nox_xxx_spellGetAbilityIcon_425310 func(abil, icon int) noxrender.ImageHandle
+	Nox_xxx_bookFirstKnownAbil_425330  func() int
+	Nox_xxx_bookNextKnownAbil_425350   func(a1 int) int
+	Sub_425450                         func(a1 int) int
+	Nox_xxx_netAbilRepotState_4D8100   func(a1 *server.Object, a2 server.Ability, a3 byte)
 )
 
 //export sub_4FC670
@@ -51,13 +44,19 @@ func nox_xxx_playerCancelAbils_4FC180(cu *nox_object_t) {
 func sub_4FC300(cu *nox_object_t, a2 int) { Sub_4FC300(asObjectS(cu), a2) }
 
 //export sub_4FC070
-func sub_4FC070(a1 *nox_object_t, a2, dt int) { Sub_4FC070(asObjectS(a1), a2, dt) }
+func sub_4FC070(a1 *nox_object_t, a2, dt int) {
+	GetServer().S().Abils.Sub4FC070(asObjectS(a1), server.Ability(a2), dt)
+}
 
 //export sub_4FC030
-func sub_4FC030(a1 *nox_object_t, a2 int) int { return Sub_4FC030(asObjectS(a1), a2) }
+func sub_4FC030(a1 *nox_object_t, a2 int) int {
+	return GetServer().S().Abils.Sub4FC030(asObjectS(a1), server.Ability(a2))
+}
 
 //export sub_4FC440
-func sub_4FC440(a1 *nox_object_t, a2 int) { Sub_4FC440(asObjectS(a1), a2) }
+func sub_4FC440(a1 *nox_object_t, a2 int) {
+	GetServer().S().Abils.Sub4FC440(asObjectS(a1), server.Ability(a2))
+}
 
 //export nox_xxx_abilityGetName_425250
 func nox_xxx_abilityGetName_425250(a1 int) *C.char {
@@ -65,10 +64,14 @@ func nox_xxx_abilityGetName_425250(a1 int) *C.char {
 }
 
 //export sub_4FBE60
-func sub_4FBE60(a1 unsafe.Pointer, abil int) int { return Sub_4FBE60(a1, abil) }
+func sub_4FBE60(a1 unsafe.Pointer, abil int) int {
+	return GetServer().S().Abils.GetCooldown(a1, server.Ability(abil))
+}
 
 //export sub_4FBEA0
-func sub_4FBEA0(a1 unsafe.Pointer, abil, cd int) { Sub_4FBEA0(a1, abil, cd) }
+func sub_4FBEA0(a1 unsafe.Pointer, abil, cd int) {
+	GetServer().S().Abils.SetCooldown(a1, server.Ability(abil), cd)
+}
 
 //export nox_xxx_abilityGetName_0_425260
 func nox_xxx_abilityGetName_0_425260(ca int) *wchar2_t {
@@ -77,12 +80,12 @@ func nox_xxx_abilityGetName_0_425260(ca int) *wchar2_t {
 
 //export nox_common_playerIsAbilityActive_4FC250
 func nox_common_playerIsAbilityActive_4FC250(a1 *nox_object_t, a2 int) int {
-	return Nox_common_playerIsAbilityActive_4FC250(asObjectS(a1), a2)
+	return bool2int(GetServer().S().Abils.IsActive(asObjectS(a1), server.Ability(a2)))
 }
 
 //export nox_xxx_probablyWarcryCheck_4FC3E0
 func nox_xxx_probablyWarcryCheck_4FC3E0(a1 *nox_object_t, a2 int) int {
-	return Nox_xxx_probablyWarcryCheck_4FC3E0(asObjectS(a1), a2)
+	return bool2int(GetServer().S().Abils.IsActiveVal(asObjectS(a1), server.Ability(a2)))
 }
 
 //export nox_xxx_abilityCooldown_4252D0

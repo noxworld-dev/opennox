@@ -152,7 +152,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 		dy := float64(dp.Y)
 		a1 = false
 		const runCursorDist = 100
-		if !(ud.Field22_0 != 5 && (dy*dy+dx*dx <= runCursorDist*runCursorDist) || s.abilities.IsActive(u, server.AbilityTreadLightly)) {
+		if !(ud.Field22_0 != 5 && (dy*dy+dx*dx <= runCursorDist*runCursorDist) || s.Abils.IsActive(u.SObj(), server.AbilityTreadLightly)) {
 			// switch from walking to running
 			a1 = true
 			u.SpeedCur *= 2
@@ -199,7 +199,7 @@ func (s *Server) unitUpdatePlayerImplA(u *Object) (a1, v68 bool, _ bool) {
 			v31 := int(u.NetCode) + int(noxServer.Frame())
 			v32 := (v31 - 1) / (v69 + 1) % v67
 			v33 := v31 / (v69 + 1) % v67
-			if (!s.abilities.IsActive(u, server.AbilityTreadLightly) || a1) && v33 != v32 && (v33 == 3 || v33 == 9) {
+			if (!s.Abils.IsActive(u.SObj(), server.AbilityTreadLightly) || a1) && v33 != v32 && (v33 == 3 || v33 == 9) {
 				tiles := legacy.Get_nox_tile_defs_arr()
 				if ti := legacy.Nox_xxx_tileNFromPoint_411160(u.Pos()); ti >= 0 && ti < len(tiles) {
 					switch tiles[ti].Field36 {
@@ -518,13 +518,13 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 		case player.CCOrientation:
 			if !u.HasEnchant(server.ENCHANT_FREEZE) &&
 				(!noxflags.HasGame(noxflags.GameModeQuest) || ud.Field70 == 0) &&
-				!s.abilities.IsActive(u, server.AbilityBerserk) {
+				!s.Abils.IsActive(u.SObj(), server.AbilityBerserk) {
 				u.Direction2 = server.Dir16(it.Uint16())
 			}
 		case player.CCMoveForward, player.CCMoveBackward, player.CCMoveLeft, player.CCMoveRight:
 			if legacy.Nox_xxx_playerCanMove_4F9BC0(u.SObj()) != 0 {
 				legacy.Nox_xxx_cancelAllSpells_4FEE90(u.SObj())
-				if !s.abilities.IsActive(u, server.AbilityBerserk) &&
+				if !s.Abils.IsActive(u.SObj(), server.AbilityBerserk) &&
 					(ud.Field22_0 != 1 || (pl.Field4&0x47F0000 != 0) && legacy.Nox_common_mapPlrActionToStateId_4FA2B0(u.SObj()) != 29) {
 					if ud.Field22_0 == 16 {
 						nox_xxx_playerSetState_4FA020(u, 17)
@@ -563,8 +563,8 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 				}
 			}
 		case player.CCJump:
-			if legacy.Nox_xxx_playerCanMove_4F9BC0(u.SObj()) == 0 || s.abilities.IsActive(u, server.AbilityBerserk) ||
-				s.abilities.IsActiveVal(u, server.AbilityWarcry) {
+			if legacy.Nox_xxx_playerCanMove_4F9BC0(u.SObj()) == 0 || s.Abils.IsActive(u.SObj(), server.AbilityBerserk) ||
+				s.Abils.IsActiveVal(u.SObj(), server.AbilityWarcry) {
 				break
 			}
 			legacy.Nox_xxx_cancelAllSpells_4FEE90(u.SObj())
@@ -695,8 +695,8 @@ func (s *Server) unitUpdatePlayerImplB(u *Object, a1, v68 bool) {
 
 LABEL_247:
 	if v68 && ud.Field22_0 != 0 && ud.Field22_0 != 5 {
-		if s.abilities.IsActive(u, server.AbilityTreadLightly) {
-			s.abilities.DisableAbility(u, server.AbilityTreadLightly)
+		if s.Abils.IsActive(u.SObj(), server.AbilityTreadLightly) {
+			s.abilities.DisableAbility(u.SObj(), server.AbilityTreadLightly)
 		}
 	}
 }
