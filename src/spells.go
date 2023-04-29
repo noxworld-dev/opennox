@@ -813,10 +813,10 @@ func (s *Server) Nox_xxx_spellFlySearchTarget(pos *types.Pointf, mslo server.Obj
 		if odist > dist2 {
 			return true
 		}
-		if msl != nil && !nox_xxx_unitCanInteractWith_5370E0(msl.SObj(), it, 0) {
+		if msl != nil && !s.CanInteract(msl.SObj(), it, 0) {
 			return true
 		}
-		if owner != nil && !nox_xxx_unitCanInteractWith_5370E0(owner.SObj(), it, 0) {
+		if owner != nil && !s.CanInteract(owner.SObj(), it, 0) {
 			return true
 		}
 		if odist < minDist {

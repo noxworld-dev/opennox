@@ -275,7 +275,7 @@ func sub_4E6EA0(a1 *server.Object, r float32, ta *trapSearchArg) *server.Object 
 		if uint32(legacy.Nox_server_testTwoPointsAndDirection_4E6E50(a1.Pos(), int16(a1.Direction1), it.Pos()))&ta.Field0 == 0 {
 			return true
 		}
-		if it == a1 || (ta.Field4 != 0 && !nox_xxx_unitCanInteractWith_5370E0(a1, it, 0)) {
+		if it == a1 || (ta.Field4 != 0 && !s.CanInteract(a1, it, 0)) {
 			return true
 		}
 		if !it.Class().HasAny(ta.ClassAllow12) || it.Class().HasAny(ta.ClassDisallow16) {

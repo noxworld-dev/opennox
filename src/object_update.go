@@ -907,7 +907,7 @@ func nox_xxx_enemyAggro(self *server.Object, r, max float32) *server.Object {
 		if it.Flags().HasAny(object.FlagDead) {
 			return true
 		}
-		if !nox_xxx_unitCanInteractWith_5370E0(self, it, 0) {
+		if !s.CanInteract(self, it, 0) {
 			return true
 		}
 		vec := it.Pos().Sub(self.Pos())

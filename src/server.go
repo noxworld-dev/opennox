@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"image"
+	"math"
 	"path/filepath"
 	"strings"
 	"unsafe"
@@ -1183,10 +1184,39 @@ func nox_xxx_mapSwitchLevel_4D12E0_end() {
 	noxflags.UnsetGame(noxflags.GameFlag20)
 }
 
-func nox_xxx_unitCanInteractWith_5370E0(obj1, obj2 *server.Object, a3 int) bool {
-	ok := legacy.Nox_xxx_unitCanSee_536FB0(obj1, obj2, a3)
+func (s *Server) CanInteract(obj, targ *server.Object, flags int) bool {
+	ok := s.CanSee(obj, targ, flags)
 	if ok {
-		ok = legacy.Nox_xxx_mapCheck_537110(obj1, obj2) != 0
+		ok = legacy.Nox_xxx_mapCheck_537110(obj, targ) != 0
+	}
+	return ok
+}
+
+func (s *Server) CanSee(obj, targ *server.Object, flags int) bool {
+	if obj.HasEnchant(server.ENCHANT_BLINDED) {
+		return false
+	}
+	if flags&0x1 == 0 && targ.HasEnchant(server.ENCHANT_INVISIBLE) {
+		if noxflags.HasGame(noxflags.GameModeQuest) {
+			switch int(obj.TypeInd) {
+			case s.Types.HecubahID(), s.Types.NecromancerID():
+				goto check
+			}
+		} else if obj.HasEnchant(server.ENCHANT_INFRAVISION) {
+			goto check
+		}
+		if int(obj.TypeInd) != s.Types.PixieID() || obj.ObjOwner == nil || !obj.ObjOwner.HasEnchant(server.ENCHANT_INFRAVISION) {
+			if math.Abs(float64(targ.VelVec.X)) <= 6 && math.Abs(float64(targ.VelVec.Y)) <= 6 {
+				return false
+			}
+		}
+	}
+check:
+	ok := true
+	if obj.Class().Has(object.ClassMonster) && obj.SubClass().AsMonster().Has(object.MonsterBomber) {
+		if s.abilities.IsActive(asObjectS(targ), server.AbilityTreadLightly) {
+			ok = false
+		}
 	}
 	return ok
 }

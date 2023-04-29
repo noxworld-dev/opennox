@@ -125,6 +125,8 @@ type Server interface {
 	SpellHasFlags(ind spell.ID, flag things.SpellFlags) bool
 	SpellFlags(ind spell.ID) things.SpellFlags
 	Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *server.Object, sa *server.SpellAcceptArg, lvl int) bool
+	CanInteract(obj, targ *server.Object, flags int) bool
+	CanSee(obj, targ *server.Object, flags int) bool
 }
 
 var (
