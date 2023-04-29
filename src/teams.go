@@ -3,7 +3,6 @@ package opennox
 import (
 	"encoding/binary"
 
-	"github.com/noxworld-dev/opennox-lib/console"
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
@@ -35,11 +34,7 @@ func nox_xxx_objGetTeamByNetCode_418C80(code int) *server.ObjectTeam {
 
 func (s *Server) createCoopTeam() {
 	noxflags.SetGame(noxflags.GameModeCoopTeam)
-	const id = 1
-	t := s.Teams.ByID(id)
-	if t == nil {
-		t = s.TeamCreate(id)
-	}
+	t := s.Teams.GetOrCreate(1)
 	if v1 := nox_xxx_objGetTeamByNetCode_418C80(int(legacy.Get_nox_player_netCode_85319C())); v1 != nil {
 		legacy.Nox_xxx_createAtImpl_4191D0(t.ID(), v1, 0, legacy.Get_nox_player_netCode_85319C(), 0)
 	}
@@ -48,22 +43,6 @@ func (s *Server) createCoopTeam() {
 		t.SetNameAnd68(text, 0)
 	}
 	noxflags.UnsetGamePlay(1)
-}
-
-func (s *Server) TeamCreate(id server.TeamID) *server.Team {
-	if s.Teams.Count() >= s.Teams.Max() {
-		text := s.Strings().GetStringInFile("teamexceed", "C:\\NoxPost\\src\\common\\System\\team.c")
-		s.Printf(console.ColorRed, text)
-		return nil
-	}
-	t := s.Teams.New(id)
-	s.Teams.ActiveCnt++
-	legacy.Sub_459CD0() // TODO: GUI callback
-	if !noxflags.HasGame(noxflags.GameModeCoopTeam) {
-		text := s.Strings().GetStringInFile("teamcreate", "C:\\NoxPost\\src\\common\\System\\team.c")
-		s.Printf(console.ColorRed, text)
-	}
-	return t
 }
 
 func (s *Server) TeamRemove(t *server.Team, netUpd bool) {
@@ -86,7 +65,7 @@ func (s *Server) TeamRemove(t *server.Team, netUpd bool) {
 	}
 	t.Reset()
 	s.Teams.ActiveCnt--
-	legacy.Sub_459CD0()
+	s.Teams.HookCreateOrRemove()
 	if noxflags.HasGame(noxflags.GameHost) {
 		legacy.Sub_456EA0(name)
 	}
