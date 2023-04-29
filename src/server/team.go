@@ -196,13 +196,6 @@ func (t *ObjectTeam) C() unsafe.Pointer {
 	return unsafe.Pointer(t)
 }
 
-func Nox_xxx_servObjectHasTeam_419130(p *ObjectTeam) bool {
-	if p == nil {
-		return false
-	}
-	return p.Field1 != 0
-}
-
 func Nox_xxx_servCompareTeams_419150(p1, p2 *ObjectTeam) bool {
 	if p1 == nil || p2 == nil {
 		return false

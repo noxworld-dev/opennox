@@ -100,7 +100,7 @@ func (s *Server) DelayedDelete(obj *server.Object) {
 	obj.DeletedNext = s.Objs.DeletedList.SObj()
 	s.Objs.DeletedList = obj.SObj()
 	obj.DeletedAt = s.Frame()
-	if server.Nox_xxx_servObjectHasTeam_419130(obj.TeamPtr()) {
+	if obj.HasTeam() {
 		legacy.Nox_xxx_netChangeTeamMb_419570(obj.TeamPtr(), obj.NetCode)
 	}
 }
@@ -675,6 +675,13 @@ func (obj *Object) TeamPtr() *server.ObjectTeam {
 		return nil
 	}
 	return obj.SObj().TeamPtr()
+}
+
+func (obj *Object) HasTeam() bool {
+	if obj == nil {
+		return false
+	}
+	return obj.SObj().HasTeam()
 }
 
 func (obj *Object) OwnerC() *Object {

@@ -625,7 +625,17 @@ func (s *Drawable) Field104() *Drawable { // sub_45A010
 }
 
 func (s *Drawable) TeamPtr() *server.ObjectTeam {
+	if s == nil {
+		return nil
+	}
 	return (*server.ObjectTeam)(unsafe.Pointer(&s.Field_6))
+}
+
+func (s *Drawable) HasTeam() bool {
+	if s == nil {
+		return false
+	}
+	return s.TeamPtr().Has()
 }
 
 func (s *Drawable) Z() int {
