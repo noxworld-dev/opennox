@@ -347,7 +347,9 @@ void sub_418D80(int a1) {
 }
 
 //----- (00418E40) --------------------------------------------------------
-uint32_t* sub_418E40(int a1, int a2) {
+uint32_t* sub_418E40(void* a1p, void* a2p) {
+	int a1 = a1p;
+	int a2 = a2p;
 	uint32_t* result; // eax
 	uint32_t* v3;     // esi
 	int v4;           // edi
@@ -394,47 +396,6 @@ uint32_t* sub_418E40(int a1, int a2) {
 		}
 	}
 	return result;
-}
-
-//----- (00418F20) --------------------------------------------------------
-void sub_418F20(nox_team_t* a1p, int a2) {
-	wchar2_t* a1 = a1p;
-	int v2;         // edx
-	char* i;        // edi
-	uint32_t* v4;   // eax
-	char v5[6];     // [esp+8h] [ebp-30h]
-	wchar2_t v6[20]; // [esp+10h] [ebp-28h]
-
-	if (a1 && nox_xxx_getTeamByID_418AB0(*((unsigned char*)a1 + 57))) {
-		nox_wcscpy(v6, a1);
-		if (nox_common_gameFlags_check_40A5C0(1) && a2) {
-			v2 = *((unsigned char*)a1 + 57);
-			v5[0] = -60;
-			v5[1] = 6;
-			*(uint32_t*)&v5[2] = v2;
-			nox_xxx_netSendPacket1_4E5390(159, (int)v5, 6, 0, 1);
-		}
-		for (i = nox_common_playerInfoGetFirst_416EA0(); i; i = nox_common_playerInfoGetNext_416EE0((int)i)) {
-			v4 = nox_xxx_objGetTeamByNetCode_418C80(*((uint32_t*)i + 515));
-			if (v4 && *((uint8_t*)v4 + 4) == *((uint8_t*)a1 + 57)) {
-				sub_418E40((int)a1, (int)v4);
-			}
-		}
-		*((uint32_t*)a1 + 12) = 0;
-		*((uint32_t*)a1 + 16) = 0;
-		*a1 = 0;
-		*((uint32_t*)a1 + 17) = 0;
-		*((uint32_t*)a1 + 11) = 0;
-		*((uint32_t*)a1 + 18) = 0;
-		*((uint32_t*)a1 + 19) = 0;
-		*((uint8_t*)a1 + 57) = 0;
-		*((uint32_t*)a1 + 15) = 0;
-		--*getMemU8Ptr(0x5D4594, 526280);
-		sub_459CD0();
-		if (nox_common_gameFlags_check_40A5C0(1)) {
-			sub_456EA0(v6);
-		}
-	}
 }
 
 //----- (00419090) --------------------------------------------------------

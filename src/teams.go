@@ -7,7 +7,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/noxnet"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
-	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -17,10 +16,6 @@ func (s *Server) teamsReset() {
 	noxflags.SetGamePlay(2)
 	noxflags.UnsetGamePlay(1)
 	noxflags.UnsetGamePlay(4)
-}
-
-func (s *Server) TeamCount() int {
-	return int(memmap.Uint8(0x5D4594, 526280))
 }
 
 func nox_xxx_objGetTeamByNetCode_418C80(code int) *server.ObjectTeam {
@@ -56,19 +51,45 @@ func (s *Server) createCoopTeam() {
 }
 
 func (s *Server) TeamCreate(id server.TeamID) *server.Team {
-	if int(memmap.Uint8(0x5D4594, 526280)) >= s.Teams.Count()-1 {
+	if s.Teams.Count() >= s.Teams.Max() {
 		text := s.Strings().GetStringInFile("teamexceed", "C:\\NoxPost\\src\\common\\System\\team.c")
 		s.Printf(console.ColorRed, text)
 		return nil
 	}
 	t := s.Teams.New(id)
-	*memmap.PtrUint8(0x5D4594, 526280)++
+	s.Teams.ActiveCnt++
 	legacy.Sub_459CD0() // TODO: GUI callback
 	if !noxflags.HasGame(noxflags.GameModeCoopTeam) {
 		text := s.Strings().GetStringInFile("teamcreate", "C:\\NoxPost\\src\\common\\System\\team.c")
 		s.Printf(console.ColorRed, text)
 	}
 	return t
+}
+
+func (s *Server) TeamRemove(t *server.Team, netUpd bool) {
+	if t == nil || s.Teams.ByID(t.ID()) == nil {
+		return
+	}
+	name := t.Name()
+	if noxflags.HasGame(noxflags.GameHost) && netUpd {
+		var buf [6]byte
+		buf[0] = byte(noxnet.MSG_TEAM_MSG)
+		buf[1] = 0x6
+		binary.LittleEndian.PutUint32(buf[2:], uint32(t.ID()))
+		s.nox_xxx_netSendPacket1_4E5390(0x9F, buf[:6], 0, 1)
+	}
+	for pl := s.Players.First(); pl != nil; pl = s.Players.Next(pl) {
+		objt := nox_xxx_objGetTeamByNetCode_418C80(pl.NetCode())
+		if objt != nil && objt.ID == t.ID() {
+			legacy.Sub_418E40(t, objt)
+		}
+	}
+	t.Reset()
+	s.Teams.ActiveCnt--
+	legacy.Sub_459CD0()
+	if noxflags.HasGame(noxflags.GameHost) {
+		legacy.Sub_456EA0(name)
+	}
 }
 
 func (s *Server) TeamsResetYyy() int {
@@ -83,7 +104,7 @@ func (s *Server) sendTeamPacket(op byte) int {
 	var buf [2]byte
 	buf[0] = byte(noxnet.MSG_TEAM_MSG)
 	buf[1] = op
-	return s.nox_xxx_netSendPacket1_4E5390(159, buf[:], 0, 1)
+	return s.nox_xxx_netSendPacket1_4E5390(0x9F, buf[:], 0, 1)
 }
 
 func (s *Server) teamChangeLessons(tm *server.Team, val int) { // nox_xxx_netChangeTeamID_419090
@@ -102,15 +123,15 @@ func (s *Server) teamChangeLessons(tm *server.Team, val int) { // nox_xxx_netCha
 	s.nox_xxx_netSendPacket1_4E5390(159, buf[:10], 0, 1)
 }
 
-func (s *Server) TeamsZzz(a1 int) int {
+func (s *Server) TeamsRemoveActive(hooks bool) int {
 	noxflags.UnsetGamePlay(4)
 	for i := 1; i < len(s.Teams.Arr); i++ {
 		t := &s.Teams.Arr[i]
 		if t.Active() {
-			legacy.Sub_418F20(t.C(), 0)
+			s.TeamRemove(t, false)
 		}
 	}
-	if a1 == 0 {
+	if !hooks {
 		return 0
 	}
 	legacy.Sub_456FA0() // TODO: GUI callback?

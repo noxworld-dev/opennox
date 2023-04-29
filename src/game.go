@@ -885,7 +885,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_C() bool {
 		legacy.Sub_416690()
 		if noxflags.HasGame(noxflags.GameModeChat) {
 			if noxflags.HasGame(noxflags.GameFlag16) {
-				s.TeamsZzz(1)
+				s.TeamsRemoveActive(true)
 			}
 			noxflags.UnsetGame(noxflags.GameFlag15 | noxflags.GameFlag16)
 		} else {
@@ -1090,7 +1090,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 	for _, k := range s.getPlayerUnits() {
 		legacy.Sub_4EF660(k.SObj())
 		v61 := s.nox_xxx_mapFindPlayerStart_4F7AB0(k)
-		if noxflags.HasGame(noxflags.GameModeChat) && s.TeamCount() != 0 {
+		if noxflags.HasGame(noxflags.GameModeChat) && s.Teams.Count() != 0 {
 			if !noxflags.HasGamePlay(2) && !noxflags.HasGame(noxflags.GameFlag16) {
 				if t := k.Team(); t != nil {
 					v61 = s.RandomReachablePointAround(50.0, legacy.AsPointf(unsafe.Add(t.Field_72, 56)))

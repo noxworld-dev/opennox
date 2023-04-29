@@ -71,7 +71,7 @@ func noxCmdLoad(ctx context.Context, c *console.Console, tokens []string) bool {
 			return true
 		}
 		if noxflags.HasGame(noxflags.GameModeChat) {
-			if mode.Has(noxflags.GameModeCTF|noxflags.GameModeFlagBall) && noxServer.TeamCount() != 2 {
+			if mode.Has(noxflags.GameModeCTF|noxflags.GameModeFlagBall) && noxServer.Teams.Count() != 2 {
 				legacy.Nox_xxx_wndGuiTeamCreate_4185B0()
 			}
 		} else if !noxMapsIgnoreMode && !noxflags.GetGame().Has(mode) {

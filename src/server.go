@@ -227,7 +227,7 @@ func (s *Server) nox_xxx_updateServer_4D2DA0(a1 uint64) {
 						break
 					}
 					if noxflags.HasGamePlay(4) {
-						if s.TeamCount() >= legacy.Sub_40AA40() {
+						if s.Teams.Count() >= legacy.Sub_40AA40() {
 							break
 						}
 						for tm := s.Teams.First(); tm != nil; tm = s.Teams.Next(tm) {
@@ -255,7 +255,7 @@ func (s *Server) nox_xxx_updateServer_4D2DA0(a1 uint64) {
 		legacy.Nox_xxx_netReportAllLatency_4D3050()
 		*memmap.PtrUint64(0x5D4594, 1548692) = a1
 	}
-	if noxflags.HasGame(noxflags.GameModeChat) && legacy.Sub_40A740() == 0 && s.TeamCount() != 0 && !noxflags.HasGamePlay(2) {
+	if noxflags.HasGame(noxflags.GameModeChat) && legacy.Sub_40A740() == 0 && s.Teams.Count() != 0 && !noxflags.HasGamePlay(2) {
 		legacy.Sub_4183C0()
 	}
 	if noxflags.HasGame(noxflags.GameModeQuest) {
@@ -1050,7 +1050,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 	legacy.Sub_456050()
 	if noxflags.HasGame(noxflags.GameModeQuest) && memmap.Int32(0x973F18, 3800) < 0 {
 		sub_4D6B10(true)
-		s.TeamsZzz(1)
+		s.TeamsRemoveActive(true)
 	}
 	mapname := s.getServerMap()
 	gameLog.Printf("checking map flags for %q", filepath.Base(mapname))
@@ -1123,7 +1123,7 @@ func (s *Server) nox_xxx_mapReadSetFlags_4CF990() {
 		legacy.Sub_40A1F0(0)
 		noxflags.UnsetGame(noxflags.GameModeMask)
 		noxflags.SetGame(noxflags.GameModeChat)
-		if s.TeamCount() != 0 {
+		if s.Teams.Count() != 0 {
 			legacy.Nox_xxx_teamAssignFlags_418640()
 			if !noxflags.HasGamePlay(2) && !noxflags.HasGame(noxflags.GameFlag16) {
 				legacy.Nox_xxx_toggleAllTeamFlags_418690(1)
