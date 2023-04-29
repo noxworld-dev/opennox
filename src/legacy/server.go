@@ -104,7 +104,7 @@ type Server interface {
 	ObjectsAddPending()
 	ObjectsClearPending()
 	FinalizeDeletingObjects()
-	TeamCreate(ind byte) *server.Team
+	TeamCreate(ind server.TeamID) *server.Team
 	TeamCount() int
 	TeamsResetYyy() int
 	TeamsZzz(a1 int) int

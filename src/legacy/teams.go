@@ -37,9 +37,9 @@ func nox_server_teamByXxx_418AE0(a1 int) *nox_team_t {
 	return (*nox_team_t)(GetServer().S().Teams.ByXxx(a1).C())
 }
 
-//export nox_xxx_clientGetTeamColor_418AB0
-func nox_xxx_clientGetTeamColor_418AB0(a1 int) *nox_team_t {
-	return (*nox_team_t)(GetServer().S().Teams.ByYyy(byte(a1)).C())
+//export nox_xxx_getTeamByID_418AB0
+func nox_xxx_getTeamByID_418AB0(a1 int) *nox_team_t {
+	return (*nox_team_t)(GetServer().S().Teams.ByID(server.TeamID(a1)).C())
 }
 
 //export nox_server_teamFirst_418B10
@@ -59,7 +59,7 @@ func nox_server_teamTitle_418C20(a1 int) *wchar2_t {
 
 //export nox_xxx_teamCreate_4186D0
 func nox_xxx_teamCreate_4186D0(a1 C.char) *nox_team_t {
-	return (*nox_team_t)(GetServer().TeamCreate(byte(a1)).C())
+	return (*nox_team_t)(GetServer().TeamCreate(server.TeamID(a1)).C())
 }
 
 //export nox_xxx_materialGetTeamColor_418D50

@@ -21,19 +21,32 @@ type serverTeams struct {
 	Arr  []Team
 }
 
+const (
+	TeamNone   = TeamColor(0)
+	TeamRed    = TeamColor(1)
+	TeamBlue   = TeamColor(2)
+	TeamGreen  = TeamColor(3)
+	TeamCyan   = TeamColor(4)
+	TeamYellow = TeamColor(5)
+	TeamViolet = TeamColor(6)
+	TeamBlack  = TeamColor(7)
+	TeamWhite  = TeamColor(8)
+	TeamOrange = TeamColor(9)
+)
+
 func (s *serverTeams) init(sm *strman.StringManager) {
 	s.sm = sm
 	s.defs = map[TeamColor]*TeamDef{
-		0: {Name: "advserv.wnd:None", Color: nox_color_white_2523948},
-		1: {Name: "modifier.db:MaterialTeamRedDesc", Color: nox_color_red_2589776},
-		2: {Name: "modifier.db:MaterialTeamBlueDesc", Color: nox_color_blue_2650684},
-		3: {Name: "modifier.db:MaterialTeamGreenDesc", Color: nox_color_green_2614268},
-		4: {Name: "modifier.db:MaterialTeamCyanDesc", Color: nox_color_cyan_2649820},
-		5: {Name: "modifier.db:MaterialTeamYellowDesc", Color: nox_color_yellow_2589772},
-		6: {Name: "modifier.db:MaterialTeamVioletDesc", Color: nox_color_violet_2598268},
-		7: {Name: "modifier.db:MaterialTeamBlackDesc", Color: nox_color_black_2650656},
-		8: {Name: "modifier.db:MaterialTeamWhiteDesc", Color: nox_color_white_2523948},
-		9: {Name: "modifier.db:MaterialTeamOrangeDesc", Color: nox_color_orange_2614256},
+		TeamNone:   {Name: "advserv.wnd:None", Color: nox_color_white_2523948},
+		TeamRed:    {Name: "modifier.db:MaterialTeamRedDesc", Color: nox_color_red_2589776},
+		TeamBlue:   {Name: "modifier.db:MaterialTeamBlueDesc", Color: nox_color_blue_2650684},
+		TeamGreen:  {Name: "modifier.db:MaterialTeamGreenDesc", Color: nox_color_green_2614268},
+		TeamCyan:   {Name: "modifier.db:MaterialTeamCyanDesc", Color: nox_color_cyan_2649820},
+		TeamYellow: {Name: "modifier.db:MaterialTeamYellowDesc", Color: nox_color_yellow_2589772},
+		TeamViolet: {Name: "modifier.db:MaterialTeamVioletDesc", Color: nox_color_violet_2598268},
+		TeamBlack:  {Name: "modifier.db:MaterialTeamBlackDesc", Color: nox_color_black_2650656},
+		TeamWhite:  {Name: "modifier.db:MaterialTeamWhiteDesc", Color: nox_color_white_2523948},
+		TeamOrange: {Name: "modifier.db:MaterialTeamOrangeDesc", Color: nox_color_orange_2614256},
 	}
 	s.teamsReloadTitles()
 	const teamsMax = 17
@@ -60,7 +73,7 @@ func (s *serverTeams) Next(t *Team) *Team { // nox_server_teamNext_418B60
 	if t == nil {
 		return nil
 	}
-	for i := t.Ind() + 1; i < len(s.Arr); i++ {
+	for i := int(t.ind) + 1; i < len(s.Arr); i++ {
 		t2 := &s.Arr[i]
 		if t2.Active() {
 			return t2
@@ -77,16 +90,6 @@ func (s *serverTeams) Teams() []*Team {
 	return out
 }
 
-func (s *serverTeams) Inactive() int {
-	for i := 1; i < len(s.Arr); i++ {
-		t := &s.Arr[i]
-		if !t.Active() {
-			return i
-		}
-	}
-	return 0
-}
-
 func (s *serverTeams) ByXxx(a1 int) *Team { // nox_server_teamByXxx_418AE0
 	for it := s.First(); it != nil; it = s.Next(it) {
 		if it.Ind60() == a1 {
@@ -96,9 +99,9 @@ func (s *serverTeams) ByXxx(a1 int) *Team { // nox_server_teamByXxx_418AE0
 	return nil
 }
 
-func (s *serverTeams) ByYyy(a1 byte) *Team { // nox_xxx_clientGetTeamColor_418AB0
+func (s *serverTeams) ByID(id TeamID) *Team { // nox_xxx_getTeamByID_418AB0
 	for t := s.First(); t != nil; t = s.Next(t) {
-		if t.Ind57() == a1 {
+		if t.ID() == id {
 			return t
 		}
 	}
@@ -111,7 +114,7 @@ func (s *serverTeams) Reset() {
 	}
 	for i := 0; i < len(s.Arr)-1; i++ { // TODO: why -1 ?
 		t := &s.Arr[i]
-		t.Field_57 = 0
+		t.id = 0
 		t.Field_72 = nil
 		t.field_76 = 0
 		t.field_60 = 0
@@ -119,28 +122,12 @@ func (s *serverTeams) Reset() {
 	s.teamsReloadTitles()
 }
 
-func (s *serverTeams) teamFindFreeInd() byte {
-	for i := 1; i < len(s.Arr); i++ {
-		ok := true
-		for it := s.First(); it != nil; it = s.Next(it) {
-			if it.Ind57() == byte(i) {
-				ok = false
-				break
-			}
-		}
-		if ok {
-			return byte(i)
-		}
-	}
-	return 0
-}
-
-func (s *serverTeams) GetTeamColor(t2 *Team) color.Color {
-	if t2 == nil {
+func (s *serverTeams) GetTeamColor(t *Team) color.Color {
+	if t == nil {
 		return nil
 	}
-	if t, ok := s.defs[t2.ColorInd()]; ok {
-		return t.Color
+	if d, ok := s.defs[t.ColorInd]; ok {
+		return d.Color
 	}
 	return nil
 }
@@ -156,23 +143,47 @@ func (s *serverTeams) Count() int {
 	return len(s.Arr)
 }
 
-func (s *serverTeams) New(ind byte) *Team {
-	ti := s.Inactive()
-	t := &s.Arr[ti]
+func (s *serverTeams) getInactive() (*Team, int) {
+	for i := 1; i < len(s.Arr); i++ {
+		t := &s.Arr[i]
+		if !t.Active() {
+			return t, i
+		}
+	}
+	return nil, -1
+}
+
+func (s *serverTeams) getFreeID() TeamID {
+	for i := 1; i < len(s.Arr); i++ {
+		ok := true
+		for it := s.First(); it != nil; it = s.Next(it) {
+			if it.ID() == TeamID(i) {
+				ok = false
+				break
+			}
+		}
+		if ok {
+			return TeamID(i)
+		}
+	}
+	return 0
+}
+
+func (s *serverTeams) New(id TeamID) *Team {
+	t, ind := s.getInactive()
 	t.name[0] = 0
+	t.Lessons = 0
+	t.ColorInd = TeamColor(ind)
+	t.ind = byte(ind)
+	t.active = 1
 	t.field_44 = 0
 	t.field_48 = 0
-	t.Lessons = 0
-	t.Def_ind = byte(ti)
-	t.ind = byte(ti)
 	t.field_60 = 0
-	t.active = 1
 	t.field_68 = 0
-	ci := ind
-	if ind == 0 {
-		ci = s.teamFindFreeInd()
+	if id == 0 {
+		id = s.getFreeID()
 	}
-	t.Field_57 = ci
+	t.id = id
 	return t
 }
 
@@ -185,11 +196,12 @@ func (s *serverTeams) ResetYyy() {
 
 type ObjectTeam struct {
 	Field0 uint32
-	Field1 byte
+	ID     TeamID
+	_      [3]byte
 }
 
 func (t *ObjectTeam) Has() bool { // nox_xxx_servObjectHasTeam_419130
-	return t != nil && t.Field1 != 0
+	return t != nil && t.ID != 0
 }
 
 func (t *ObjectTeam) C() unsafe.Pointer {
@@ -200,24 +212,25 @@ func (t *ObjectTeam) SameAs(t2 *ObjectTeam) bool { // nox_xxx_servCompareTeams_4
 	if t == nil || t2 == nil {
 		return false
 	}
-	if t.Field1 == 0 || t2.Field1 == 0 {
+	if t.ID == 0 || t2.ID == 0 {
 		return false
 	}
-	return t.Field1 == t2.Field1
+	return t.ID == t2.ID
 }
+
+type TeamID byte
 
 type TeamColor byte
 
 type Team struct {
-	name     [21]uint16     // 0, 0
-	field_42 uint16         // 10, 42
+	name     [22]uint16     // 0, 0
 	field_44 uint32         // 11, 44
 	field_48 uint32         // 12, 48
 	Lessons  int            // 13, 52
-	Def_ind  uint8          // 14, 56
-	Field_57 byte           // 14, 57 TODO: team def code?
-	ind      uint8          // 14, 58
-	field_59 uint8          // 14, 59
+	ColorInd TeamColor      // 14, 56
+	id       TeamID         // 14, 57 TODO: team def code?
+	ind      byte           // 14, 58
+	_        byte           // 14, 59
 	field_60 uint32         // 15, 60 TODO: id? net code?
 	active   uint32         // 16, 64
 	field_68 uint32         // 17, 68
@@ -233,14 +246,11 @@ func (t *Team) Name() string {
 	return alloc.GoString16S(t.name[:])
 }
 
-func (t *Team) ColorInd() TeamColor {
-	return TeamColor(t.Def_ind)
+func (t *Team) ID() TeamID {
+	return t.id
 }
 
-func (t *Team) Ind57() byte {
-	return t.Field_57
-}
-
+// Ind returns a server team array index.
 func (t *Team) Ind() int {
 	if t == nil {
 		return 0

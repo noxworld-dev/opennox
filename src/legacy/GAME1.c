@@ -3473,7 +3473,7 @@ int nox_xxx_mapInfoSetKotr_4180D0() {
 			v4 = v5;
 			continue;
 		}
-		v8 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(v4 + 52));
+		v8 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(v4 + 52));
 		if (v8) {
 			*((uint32_t*)v8 + 19) = v4;
 			nox_xxx_netMarkMinimapForAll_4174B0(v4, 1);
@@ -3614,7 +3614,7 @@ int sub_4183C0() {
 		if (!v2 || ((v3 = *(uint32_t*)(v2 + 276), *(uint32_t*)(v3 + 2060) != nox_player_netCode_85319C) ||
 					!nox_common_getEngineFlag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) &&
 					   ((v4 = *(uint32_t*)(v3 + 3680), !(v4 & 1)) || v4 & 0x20)) {
-			v5 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(i + 52));
+			v5 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(i + 52));
 			v6 = 0;
 			v12 = 1000000000.0;
 			v7 = nox_server_teamFirst_418B10();
@@ -3695,7 +3695,7 @@ int nox_xxx_wndGuiTeamCreate_4185B0() {
 	result = nox_server_getFirstObject_4DA790();
 	for (i = result; result; i = result) {
 		if (*(uint32_t*)(i + 8) & 0x10000000) {
-			v2 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(i + 52));
+			v2 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(i + 52));
 			if (v2) {
 				v3 = sub_4ECBD0(i);
 				v4 = v3;
@@ -3724,7 +3724,7 @@ int nox_xxx_teamAssignFlags_418640() {
 	for (i = result; result; i = result) {
 		if (*(uint32_t*)(i + 8) & 0x10000000) {
 			v2 = sub_4ECBD0(i);
-			v3 = nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(i + 52));
+			v3 = nox_xxx_getTeamByID_418AB0(*(unsigned char*)(i + 52));
 			if (v3) {
 				v3[56] = v2;
 				*((uint32_t*)v3 + 18) = i;

@@ -416,40 +416,39 @@ func (c *clientDrawables) EachInRect(rect image.Rectangle, fnc func(dr *Drawable
 }
 
 type Drawable struct {
-	Field_0           uint32         // 0, 0
-	Field_1           uint32         // 1, 4
-	Field_2           unsafe.Pointer // 2, 8
-	PosVec            image.Point    // 3, 12
-	Field_5           uint32         // 5, 20
-	Field_6           uint32         // 6, 24
-	Field_7           uint32         // 7, 28
-	Field_8           uint32         // 8, 32
-	Field_9           uint32         // 9, 36
-	Field_10          uint32         // 10, 40
-	Shape             server.Shape   // 11, 44
-	Field_24          float32        // 24, 96
-	Field_25          float32        // 25, 100
-	ZVal              uint16         // 26, 104
-	Field_26_1        uint16         // 26, 106
-	Field_27          uint32         // 27, 108, thing ID? pointer? union?
-	Flags28Val        uint32         // 28, 112
-	Flags29Val        uint32         // 29, 116
-	Flags30Val        uint32         // 30, 120
-	Buffs             uint32         // 31, 124
-	Field_32          uint32         // 32, 128, npc ID?
-	Field_33          uint32         // 33, 132
-	LightFlags        uint32         // 34, 136, 0
-	LightIntensity    float32        // 35, 140, 1
-	LightIntensityRad uint32         // 36, 144, 2
-	LightIntensityU16 uint32         // 37, 148, 3
-	LightColorR       uint32         // 38, 152, 4
-	LightColorG       uint32         // 39, 156, 5
-	LightColorB       uint32         // 40, 160, 6
-	Field_41_0        uint16         // 41, 164
-	Field_41_1        uint16         // 41, 166
-	Field_42          uint32         // 42, 168
-	Field_43          uint32         // 43, 172
-	Field_44          uint32         // 44, 176
+	Field_0           uint32            // 0, 0
+	Field_1           uint32            // 1, 4
+	Field_2           unsafe.Pointer    // 2, 8
+	PosVec            image.Point       // 3, 12
+	Field_5           uint32            // 5, 20
+	TeamVal           server.ObjectTeam // 6, 24
+	Field_8           uint32            // 8, 32
+	Field_9           uint32            // 9, 36
+	Field_10          uint32            // 10, 40
+	Shape             server.Shape      // 11, 44
+	Field_24          float32           // 24, 96
+	Field_25          float32           // 25, 100
+	ZVal              uint16            // 26, 104
+	Field_26_1        uint16            // 26, 106
+	Field_27          uint32            // 27, 108, thing ID? pointer? union?
+	Flags28Val        uint32            // 28, 112
+	Flags29Val        uint32            // 29, 116
+	Flags30Val        uint32            // 30, 120
+	Buffs             uint32            // 31, 124
+	Field_32          uint32            // 32, 128, npc ID?
+	Field_33          uint32            // 33, 132
+	LightFlags        uint32            // 34, 136, 0
+	LightIntensity    float32           // 35, 140, 1
+	LightIntensityRad uint32            // 36, 144, 2
+	LightIntensityU16 uint32            // 37, 148, 3
+	LightColorR       uint32            // 38, 152, 4
+	LightColorG       uint32            // 39, 156, 5
+	LightColorB       uint32            // 40, 160, 6
+	Field_41_0        uint16            // 41, 164
+	Field_41_1        uint16            // 41, 166
+	Field_42          uint32            // 42, 168
+	Field_43          uint32            // 43, 172
+	Field_44          uint32            // 44, 176
 	data_45           [5]uint32
 	data_50           [10]uint32
 	data_60           [5]uint32
@@ -628,14 +627,14 @@ func (s *Drawable) TeamPtr() *server.ObjectTeam {
 	if s == nil {
 		return nil
 	}
-	return (*server.ObjectTeam)(unsafe.Pointer(&s.Field_6))
+	return &s.TeamVal
 }
 
 func (s *Drawable) HasTeam() bool {
 	if s == nil {
 		return false
 	}
-	return s.TeamPtr().Has()
+	return s.TeamVal.Has()
 }
 
 func (s *Drawable) Z() int {

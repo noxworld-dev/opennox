@@ -1243,7 +1243,7 @@ void nox_xxx_mapFindPlayerStart_4F7AB0(float2* a1, nox_object_t* a2p) {
 	if (a2) {
 		if (nox_xxx_servObjectHasTeam_419130(a2 + 48)) {
 			v16 = *(unsigned char*)(a2 + 52);
-			nox_xxx_clientGetTeamColor_418AB0(v16);
+			nox_xxx_getTeamByID_418AB0(v16);
 			v3 = v16;
 		}
 		v4 = 0;
@@ -1471,7 +1471,7 @@ short nox_xxx_playerRespawn_4F7EF0(nox_object_t* a1p) {
 			if (nox_common_gameFlags_check_40A5C0(16)) {
 				if (nox_xxx_CheckGameplayFlags_417DA0(4)) {
 					v7 = *(
-						(uint32_t*)nox_xxx_clientGetTeamColor_418AB0(*(unsigned char*)(*(uint32_t*)(v4 + 2056) + 52)) +
+						(uint32_t*)nox_xxx_getTeamByID_418AB0(*(unsigned char*)(*(uint32_t*)(v4 + 2056) + 52)) +
 						19);
 					if (v7) {
 						if (!*(uint32_t*)(v7 + 492)) {

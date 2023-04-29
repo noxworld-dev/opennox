@@ -161,7 +161,7 @@ int nox_client_handlePacketInform_4C9BF0(int a1) {
 		nox_xxx_clientPlaySoundSpecial_452D80(305, 100);
 		return 6;
 	case 9u:
-		v38 = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(a1 + 6));
+		v38 = nox_xxx_getTeamByID_418AB0(*(uint32_t*)(a1 + 6));
 		v39 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(a1 + 2));
 		if (!v39) {
 			if (v38) {
@@ -183,7 +183,7 @@ int nox_client_handlePacketInform_4C9BF0(int a1) {
 		return 10;
 	case 0xAu:
 		v34 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(a1 + 2));
-		v35 = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(a1 + 6));
+		v35 = nox_xxx_getTeamByID_418AB0(*(uint32_t*)(a1 + 6));
 		if (v35) {
 			if (!v34) {
 				return 10;
@@ -207,7 +207,7 @@ int nox_client_handlePacketInform_4C9BF0(int a1) {
 		return result;
 	case 0xBu:
 		v30 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(a1 + 2));
-		v31 = nox_xxx_clientGetTeamColor_418AB0(*(uint32_t*)(a1 + 6));
+		v31 = nox_xxx_getTeamByID_418AB0(*(uint32_t*)(a1 + 6));
 		if (v31) {
 			if (v30) {
 				v60 = v31;

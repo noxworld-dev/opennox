@@ -26,7 +26,7 @@ nox_team_t* nox_server_teamByXxx_418AE0(int a1);
 nox_team_t* nox_server_teamFirst_418B10();
 nox_team_t* nox_server_teamNext_418B60(nox_team_t* a1);
 unsigned char nox_xxx_getTeamCounter_417DD0();
-nox_team_t* nox_xxx_clientGetTeamColor_418AB0(int a1);
+nox_team_t* nox_xxx_getTeamByID_418AB0(int a1);
 nox_team_t* nox_xxx_teamCreate_4186D0(char a1);
 wchar2_t* nox_server_teamTitle_418C20(int a1);
 uint32_t nox_xxx_materialGetTeamColor_418D50(nox_team_t* a1);
