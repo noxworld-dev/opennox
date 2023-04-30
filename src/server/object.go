@@ -84,6 +84,17 @@ func (s *Server) CanInteract(obj, targ *Object, flags int) bool {
 	return ok
 }
 
+func (s *Server) CanSeeDir(obj, targ *Object) bool {
+	if !s.CanInteract(obj, targ, 0) {
+		return false
+	}
+	dp := targ.Pos().Sub(obj.Pos())
+	dx, dy := float64(dp.X), float64(dp.Y)
+	dir := obj.Direction1.Vec()
+	dist := math.Sqrt(dx*dx+dy*dy) + 0.001
+	return dy/dist*float64(dir.Y)+dx/dist*float64(dir.X) > 0.5
+}
+
 type serverObjects struct {
 	handle          uintptr
 	alloc           alloc.ClassT[Object]

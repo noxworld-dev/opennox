@@ -2567,31 +2567,6 @@ int nox_xxx_projAddVelocitySmth_533080(int a1, int a2, float a3, int a4) {
 	return result;
 }
 
-//----- (00533360) --------------------------------------------------------
-int sub_533360(nox_object_t* a1p, nox_object_t* a2p) {
-	int a1 = a1p;
-	int a2 = a2p;
-	double v2;  // st7
-	double v3;  // st6
-	float* v4;  // eax
-	int result; // eax
-	float v6;   // [esp+Ch] [ebp-4h]
-	float v7;   // [esp+18h] [ebp+8h]
-
-	result = 0;
-	if (nox_xxx_unitCanInteractWith_5370E0(a1, a2, 0)) {
-		v2 = *(float*)(a2 + 56) - *(float*)(a1 + 56);
-		v3 = *(float*)(a2 + 60) - *(float*)(a1 + 60);
-		v6 = v3;
-		v4 = getMemFloatPtr(0x587000, 194136 + 8 * *(short*)(a1 + 124));
-		v7 = sqrt(v3 * v6 + v2 * v2) + 0.001;
-		if (v6 / v7 * v4[1] + v2 / v7 * *v4 > 0.5) {
-			result = 1;
-		}
-	}
-	return result;
-}
-
 //----- (00533790) --------------------------------------------------------
 int nox_xxx_mobActionToAnimation_533790(int a1) {
 	int v1;          // edi

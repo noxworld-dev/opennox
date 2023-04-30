@@ -130,9 +130,6 @@ func nox_xxx_monsterPushAction_50A260_impl(u *nox_object_t, act int, file *C.cha
 func nox_xxx_unitUpdateMonster_50A5C0(a1 *nox_object_t) {
 	Nox_xxx_unitUpdateMonster_50A5C0(asObjectS(a1))
 }
-func Sub_533360(a1 *server.Object, a2 *server.Object) int {
-	return int(C.sub_533360(asObjectC(a1), asObjectC(a2)))
-}
 func Nox_xxx_mobSearchEdible_544A00(a1 *server.Object, a2 float32) int {
 	return int(C.nox_xxx_mobSearchEdible_544A00(asObjectC(a1), C.float(a2)))
 }
