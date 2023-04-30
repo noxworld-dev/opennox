@@ -827,7 +827,6 @@ extern nox_render_data_t* nox_draw_curDrawData_3799572;
 
 extern unsigned int nox_xxx_wallSounds_2386840;
 
-extern nox_object_t* nox_xxx_host_player_unit_3843628;
 extern unsigned int nox_xxx_resetMapInit_1569652;
 */
 import "C"
@@ -836,7 +835,6 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
-	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func Sub_460D40() bool {
@@ -1486,9 +1484,6 @@ func Get_dword_5d4594_1599592_ptr() *uint32 {
 }
 func Get_nox_xxx_resetMapInit_1569652() int {
 	return int(C.nox_xxx_resetMapInit_1569652)
-}
-func Set_nox_xxx_host_player_unit_3843628(v *server.Object) {
-	C.nox_xxx_host_player_unit_3843628 = asObjectC(v)
 }
 func Get_dword_5d4594_1123524() *gui.Window {
 	return AsWindowP(C.dword_5d4594_1123524)
