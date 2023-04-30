@@ -22,13 +22,14 @@ import (
 )
 
 var (
-	Nox_ai_debug_print                    func(str string)
-	Sub_545E60                            func(a1c *server.Object) int
-	Sub_50D1C0                            func()
-	Nox_xxx_gameSetAudioFadeoutMb_501AC0  func(v int)
-	Nox_xxx_monsterPopAction_50A160       func(a1 *server.Object) int
-	Nox_xxx_monsterPushAction_50A260_impl func(u *server.Object, act int, file string, line int) unsafe.Pointer
-	Nox_xxx_unitUpdateMonster_50A5C0      func(a1 *server.Object)
+	Nox_ai_debug_print                     func(str string)
+	Sub_545E60                             func(a1c *server.Object) int
+	Sub_50D1C0                             func()
+	Nox_xxx_gameSetAudioFadeoutMb_501AC0   func(v int)
+	Nox_xxx_monsterPopAction_50A160        func(a1 *server.Object) int
+	Nox_xxx_monsterPushAction_50A260_impl  func(u *server.Object, act int, file string, line int) unsafe.Pointer
+	Nox_xxx_unitUpdateMonster_50A5C0       func(a1 *server.Object)
+	Nox_xxx_monsterClearActionStack_50A3A0 func(a1 *server.Object)
 )
 
 type Nox_player_polygon_check_data struct {
@@ -129,6 +130,11 @@ func nox_xxx_monsterPushAction_50A260_impl(u *nox_object_t, act int, file *C.cha
 //export nox_xxx_unitUpdateMonster_50A5C0
 func nox_xxx_unitUpdateMonster_50A5C0(a1 *nox_object_t) {
 	Nox_xxx_unitUpdateMonster_50A5C0(asObjectS(a1))
+}
+
+//export nox_xxx_monsterClearActionStack_50A3A0
+func nox_xxx_monsterClearActionStack_50A3A0(a1 *nox_object_t) {
+	Nox_xxx_monsterClearActionStack_50A3A0(asObjectS(a1))
 }
 func Nox_xxx_mobSearchEdible_544A00(a1 *server.Object, a2 float32) int {
 	return int(C.nox_xxx_mobSearchEdible_544A00(asObjectC(a1), C.float(a2)))

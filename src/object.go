@@ -32,6 +32,10 @@ func asObjectS(p *server.Object) *Object {
 	return (*Object)(unsafe.Pointer(p))
 }
 
+func nox_xxx_monsterClearActionStack_50A3A0(u *server.Object) {
+	asObjectS(u).clearActionStack()
+}
+
 func (s *Server) GetObjects() []*Object {
 	var out []*Object
 	for p := s.FirstServerObject(); p != nil; p = p.Next() {
@@ -1052,7 +1056,7 @@ func (obj *Object) Cast(sp spell.ID, lvl int, targ script.Positioner) bool {
 
 func (obj *Object) clearActionStack() { // aka nox_xxx_monsterClearActionStack_50A3A0
 	if obj.Class().Has(object.ClassMonster) {
-		for legacy.Sub_5341F0(obj.SObj()) == 0 {
+		for !aiStackEmptyAndIdle(obj.SObj()) {
 			obj.monsterPopAction()
 		}
 	}
