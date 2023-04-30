@@ -43,8 +43,10 @@ func objectMonsterInit(sobj *server.Object) {
 			ud.StatusFlags |= object.MonStatusAlert
 		case s.Types.NPCID():
 			for i := 0; i < 6; i++ {
-				cl := s.Rand.RandomColor3()
-				nox_xxx_setNPCColor_4E4A90(obj.SObj(), byte(i), &cl)
+				if ud.Color[i] == (server.Color3{}) {
+					cl := s.Rand.RandomColor3()
+					nox_xxx_setNPCColor_4E4A90(obj.SObj(), byte(i), &cl)
+				}
 			}
 		}
 	}
