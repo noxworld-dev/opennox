@@ -272,7 +272,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 		}
 		for {
 			u.monsterPopAction()
-			if !(int(ud.AIStackInd) >= i && legacy.Sub_5341F0(u.SObj()) == 0) {
+			if int(ud.AIStackInd) < i || aiStackEmptyAndIdle(u.SObj()) {
 				break
 			}
 		}
@@ -281,6 +281,11 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 		u.monsterActionReset()
 		u.maybePrintAIStack("procDep")
 	}
+}
+
+func aiStackEmptyAndIdle(u *server.Object) bool {
+	ud := u.UpdateDataMonster()
+	return ud.AIStackInd == 0 && ai.ActionType(ud.AIStack[0].Action) == ai.ACTION_IDLE
 }
 
 func sub_545E60(a1c *server.Object) int {

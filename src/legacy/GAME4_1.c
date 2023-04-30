@@ -476,15 +476,6 @@ int* nox_xxx_monsterAction_50A360(int a1, int a2) {
 	return result;
 }
 
-//----- (0050A3A0) --------------------------------------------------------
-void nox_xxx_monsterClearActionStack_50A3A0(int a1) {
-	if (*(uint8_t*)(a1 + 8) & 2) {
-		while (!sub_5341F0(a1)) {
-			nox_xxx_monsterPopAction_50A160(a1);
-		}
-	}
-}
-
 //----- (0050A3D0) --------------------------------------------------------
 int nox_xxx_monsterCallDieFn_50A3D0(uint32_t* a1) {
 	int v1;     // ebx
