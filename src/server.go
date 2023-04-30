@@ -1186,9 +1186,93 @@ func nox_xxx_mapSwitchLevel_4D12E0_end() {
 func (s *Server) CanInteract(obj, targ *server.Object, flags int) bool {
 	ok := s.CanSee(obj, targ, flags)
 	if ok {
-		ok = legacy.Nox_xxx_mapCheck_537110(obj, targ) != 0
+		ok = s.MapCheck(obj, targ)
 	}
 	return ok
+}
+
+func (s *Server) MapCheck(obj1, obj2 *server.Object) bool {
+	pos := obj1.Pos()
+	pos2 := obj2.Pos()
+	if int8(obj2.Class()) < 0 && obj2.SubClass().Has(0x4) { // TODO: door?
+		ud := obj2.UpdateData
+		val := *(*uint32)(unsafe.Add(ud, 12))
+		sz := server.DoorSize(byte(val))
+		pos2.X = float32(float64(sz.X/2) + float64(pos2.X))
+		pos2.Y = float32(float64(sz.Y/2) + float64(pos2.Y))
+	}
+	rect := types.RectFromPointsf(pos, pos2)
+	searching := true
+	line := types.RectFromPointsf(pos, pos2)
+	s.Map.EachObjInRect(rect, func(it *server.Object) bool {
+		if it == obj1 || it == obj2 {
+			return true
+		}
+		if !it.Flags().Has(object.FlagShadow) {
+			return true
+		}
+		if int8(it.Class()) < 0 { // TODO: door?
+			ud := it.UpdateData
+			if !it.SubClass().Has(4) {
+				val := *(*uint32)(unsafe.Add(ud, 12))
+				sz := server.DoorSize(byte(val))
+				p := it.Pos()
+				p2 := p.Sub(types.Ptf(float32(sz.X)*0.125, float32(sz.Y)*0.125))
+				p3 := p2.Add(types.Ptf(float32(sz.X)*1.125, float32(sz.Y)*1.125))
+				if sub_427980(line, types.RectFromPointsf(p2, p3)) {
+					searching = false
+					return false
+				}
+			}
+			return true
+		}
+		switch it.Shape.Kind {
+		case server.ShapeKindCircle:
+			if a3, ok := server.PointOnTheLine(pos, pos2, it.Pos()); ok {
+				dp := a3.Sub(it.Pos())
+				dx, dy := float64(dp.X), float64(dp.Y)
+				if dy*dy+dx*dx <= float64(it.Shape.Circle.R2) {
+					searching = false
+					return false
+				}
+			}
+		case server.ShapeKindBox:
+			p := it.Pos()
+			if sub_427980(line, types.RectFromPointsf(
+				p.Add(types.Ptf(it.Shape.Box.LeftTop, it.Shape.Box.LeftBottom)),
+				p.Add(types.Ptf(it.Shape.Box.LeftBottom2, it.Shape.Box.LeftTop2)),
+			)) {
+				searching = false
+				return false
+			}
+			if sub_427980(line, types.RectFromPointsf(
+				p.Add(types.Ptf(it.Shape.Box.LeftTop, it.Shape.Box.LeftBottom)),
+				p.Add(types.Ptf(it.Shape.Box.RightTop, it.Shape.Box.RightBottom)),
+			)) {
+				searching = false
+				return false
+			}
+			if sub_427980(line, types.RectFromPointsf(
+				p.Add(types.Ptf(it.Shape.Box.RightBottom2, it.Shape.Box.RightTop2)),
+				p.Add(types.Ptf(it.Shape.Box.RightTop, it.Shape.Box.RightBottom)),
+			)) {
+				searching = false
+				return false
+			}
+			if sub_427980(line, types.RectFromPointsf(
+				p.Add(types.Ptf(it.Shape.Box.RightBottom2, it.Shape.Box.RightTop2)),
+				p.Add(types.Ptf(it.Shape.Box.LeftBottom2, it.Shape.Box.LeftTop2)),
+			)) {
+				searching = false
+				return false
+			}
+		}
+		return true
+	})
+	if !searching {
+		return false
+	}
+	return s.MapTraceRayAt(pos, pos2, nil, nil, 9)
 }
 
 func sub_497180(r1, r2 types.Rectf) (types.Pointf, bool) {
@@ -1215,4 +1299,32 @@ func sub_4278B0(r1, r2 types.Rectf) (out types.Pointf, _ bool) {
 	out.X = dd2*r2w/dd + r2.Min.X
 	out.Y = dd2*r2h/dd + r2.Min.Y
 	return out, true
+}
+
+func sub_427980(r1, r2 types.Rectf) bool {
+	r1 = r1.Canon()
+	r2 = r2.Canon()
+	if r1.Max.X < r2.Min.X || r1.Min.X > r2.Max.X || r1.Max.Y < r2.Min.Y || r1.Min.Y > r2.Max.Y {
+		return false
+	}
+	if r1.Min.Y == r1.Max.Y && r2.Min.Y == r2.Max.Y {
+		return true
+	}
+	a1w := r1.Max.X - r1.Min.X
+	a1h := r1.Max.Y - r1.Min.Y
+	a2w := r2.Max.X - r2.Min.X
+	a2h := r2.Max.Y - r2.Min.Y
+	dx := r2.Min.X - r1.Min.X
+	dy := r2.Min.Y - r1.Min.Y
+	dd1 := dy*a1w - dx*a1h
+	dd2 := a2w*a1h - a2h*a1w
+	dd3 := dy*a2w - dx*a2h
+	if dd1 == 0.0 || dd2 == 0.0 || dd1 < 0.0 && dd2 > 0.0 {
+		return false
+	}
+	if float64(dd1) > 0.0 && float64(dd2) < 0.0 || sub_419A10(dd2) < sub_419A10(dd1) ||
+		dd3 < 0.0 && float64(dd2) > 0.0 || dd3 > 0.0 && float64(dd2) < 0.0 || sub_419A10(dd2) < sub_419A10(dd3) {
+		return false
+	}
+	return true
 }

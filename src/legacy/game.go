@@ -93,6 +93,7 @@ var (
 	Sub_41CC00                          func(s string)
 	Nox_xxx_playerSendMOTD_4DD140       func(a1 ntype.PlayerInd)
 	Sub_497180                          func(r1, r2 types.Rectf) (types.Pointf, bool)
+	Sub_427980                          func(r1, r2 types.Rectf) bool
 )
 
 func init() {
@@ -326,12 +327,22 @@ func nox_xxx_unitCanSee_536FB0(a1, a2 *nox_object_t, a3 int) int {
 	return bool2int(GetServer().CanSee(asObjectS(a1), asObjectS(a2), a3))
 }
 
+//export nox_xxx_mapCheck_537110
+func nox_xxx_mapCheck_537110(a1, a2 *nox_object_t) int {
+	return bool2int(GetServer().MapCheck(asObjectS(a1), asObjectS(a2)))
+}
+
 //export sub_497180
 func sub_497180(r1, r2 *C.float4, outp *C.float2) int {
 	out := (*types.Pointf)(unsafe.Pointer(outp))
 	p, ok := Sub_497180(*(*types.Rectf)(unsafe.Pointer(r1)), *(*types.Rectf)(unsafe.Pointer(r2)))
 	*out = p
 	return bool2int(ok)
+}
+
+//export sub_427980
+func sub_427980(r1, r2 *C.float4) int {
+	return bool2int(Sub_427980(*(*types.Rectf)(unsafe.Pointer(r1)), *(*types.Rectf)(unsafe.Pointer(r2))))
 }
 
 func Nox_xxx_sMakeScorch_537AF0(pos types.Pointf, a2 int) {
@@ -753,12 +764,6 @@ func Sub_4D71E0(a1 int) {
 func Sub_4D7280(a1 int, a2 int8) {
 	C.sub_4D7280(C.int(a1), C.char(a2))
 }
-func Nox_xxx_mathPointOnTheLine_57C8A0(a1 *[4]float32, a2 *types.Pointf, a3 *types.Pointf) int {
-	return int(C.nox_xxx_mathPointOnTheLine_57C8A0((*C.float4)(unsafe.Pointer(a1)), (*C.float2)(unsafe.Pointer(a2)), (*C.float2)(unsafe.Pointer(a3))))
-}
-func Sub_427980(a1 *[4]float32, a2 *[4]float32) int {
-	return int(C.sub_427980((*C.float4)(unsafe.Pointer(a1)), (*C.float4)(unsafe.Pointer(a2))))
-}
 func Nox_xxx_calcDistance_4E6C00(a1 *server.Object, a2 *server.Object) float32 {
 	return float32(C.nox_xxx_calcDistance_4E6C00(asObjectC(a1), asObjectC(a2)))
 }
@@ -779,4 +784,7 @@ func Get_nox_game_showMainMenu_4A1C00() unsafe.Pointer {
 }
 func Sub_41CAC0(a1 string, data []byte) {
 	C.sub_41CAC0(internCStr(a1), unsafe.Pointer(&data[0]))
+}
+func Nox_xxx_spell_4FE680(a1 *server.Object, a2 float32) {
+	C.nox_xxx_spell_4FE680(asObjectC(a1), C.float(a2))
 }
