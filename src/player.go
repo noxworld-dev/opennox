@@ -199,8 +199,15 @@ func (p *Player) Gold() int {
 }
 
 func (p *Player) IsHost() bool {
+	if p == nil {
+		return false
+	}
 	// TODO: better way
-	return p.UnitC().SObj() == legacy.HostPlayerUnit()
+	u := p.PlayerUnit
+	if u == nil {
+		return false
+	}
+	return u == u.Server().Players.HostUnit
 }
 
 func (p *Player) Print(text string) {
@@ -644,7 +651,7 @@ func (s *Server) newPlayer(ind ntype.PlayerInd, opts *PlayerOpts) int {
 	}
 	s.sendSettings(punit)
 	if pl.Index() == common.MaxPlayers-1 {
-		legacy.SetHostPlayerUnit(punit.SObj())
+		s.Players.HostUnit = punit.SObj()
 	}
 	var v30 [132]byte
 	nox_xxx_netNewPlayerMakePacket_4DDA90(v30[:], pl)

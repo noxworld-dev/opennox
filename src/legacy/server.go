@@ -29,7 +29,6 @@ extern unsigned int dword_5d4594_1569656;
 extern unsigned int dword_5d4594_2650652;
 extern unsigned int dword_5d4594_2649712;
 extern unsigned int dword_5d4594_1548524;
-extern nox_object_t* nox_xxx_host_player_unit_3843628;
 extern uint32_t dword_5d4594_1563096;
 extern uint32_t dword_5d4594_528252;
 extern uint32_t dword_5d4594_528260;
@@ -127,6 +126,11 @@ type Server interface {
 var (
 	GetServer func() Server
 )
+
+//export nox_getHostPlayerUnit
+func nox_getHostPlayerUnit() *nox_object_t {
+	return asObjectC(GetServer().S().Players.HostUnit)
+}
 
 //export nox_xxx_servStartCountdown_40A2A0
 func nox_xxx_servStartCountdown_40A2A0(a1 int, a2 *C.char) {
