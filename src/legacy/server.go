@@ -57,7 +57,6 @@ void nox_xxx_updateUnits_51B100_D();
 */
 import "C"
 import (
-	"image"
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
@@ -93,8 +92,6 @@ type Server interface {
 	AudioEventObj(id sound.ID, iobj server.Obj, kind int, code uint32)
 	AudioEventPos(id sound.ID, pos types.Pointf, kind int, code uint32)
 	NetUpdateRemotePlrAudioEvents(obj *server.Object, v2 unsafe.Pointer, v18 int8)
-	MapTraceRayAt(p1, p2 types.Pointf, outPos *types.Pointf, outGrid *image.Point, flags server.MapTraceFlags) bool
-	MapTraceObstacles(from *server.Object, p1, p2 types.Pointf) bool
 	Nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, dmg int, dtyp object.DamageType, who *server.Object, a7 server.Obj, damageWalls bool)
 	Sub_518460(pos types.Pointf, mask byte, scanSub bool) *server.Waypoint
 	Sub4537F0()
@@ -125,9 +122,6 @@ type Server interface {
 	SpellHasFlags(ind spell.ID, flag things.SpellFlags) bool
 	SpellFlags(ind spell.ID) things.SpellFlags
 	Nox_xxx_spellAccept4FD400(spellID spell.ID, a2, obj3, obj4 *server.Object, sa *server.SpellAcceptArg, lvl int) bool
-	CanInteract(obj, targ *server.Object, flags int) bool
-	MapCheck(obj1, obj2 *server.Object) bool
-	CanSee(obj, targ *server.Object, flags int) bool
 }
 
 var (

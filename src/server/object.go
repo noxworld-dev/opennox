@@ -76,6 +76,14 @@ check:
 	return ok
 }
 
+func (s *Server) CanInteract(obj, targ *Object, flags int) bool {
+	ok := s.CanSee(obj, targ, flags)
+	if ok {
+		ok = s.MapTraceVision(obj, targ)
+	}
+	return ok
+}
+
 type serverObjects struct {
 	handle          uintptr
 	alloc           alloc.ClassT[Object]

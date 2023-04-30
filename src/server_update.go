@@ -45,8 +45,8 @@ func (s *Server) updateUnitsBBB() { // nox_xxx_updateUnits_51B100_B
 			h.Field2 = h.Cur
 		}
 		obj.ObjFlags &^= uint32(object.FlagOnObject)
-		dxr := sub_419A10(obj.NewPos.X - obj.PosVec.X)
-		dyr := sub_419A10(obj.NewPos.Y - obj.PosVec.Y)
+		dxr := fabs(obj.NewPos.X - obj.PosVec.X)
+		dyr := fabs(obj.NewPos.Y - obj.PosVec.Y)
 		const dpos = 0.01
 		if obj.ForceVec.X <= -dpos || obj.ForceVec.X >= dpos || obj.ForceVec.Y <= -dpos || obj.ForceVec.Y >= dpos ||
 			obj.VelVec.X <= -dpos || obj.VelVec.X >= dpos || obj.VelVec.Y <= -dpos || obj.VelVec.Y >= dpos ||

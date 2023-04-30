@@ -92,8 +92,6 @@ var (
 	GetDoDamageWalls                    func() bool
 	Sub_41CC00                          func(s string)
 	Nox_xxx_playerSendMOTD_4DD140       func(a1 ntype.PlayerInd)
-	Sub_497180                          func(r1, r2 types.Rectf) (types.Pointf, bool)
-	Sub_427980                          func(r1, r2 types.Rectf) bool
 )
 
 func init() {
@@ -173,7 +171,7 @@ func nox_xxx_mapTraceRay_535250(a1 *C.float4, a2 *C.float2, a3 *C.int2, a4 C.cha
 	p2 := (*types.Pointf)(unsafe.Pointer(&a1.field_8))
 	outPos := (*types.Pointf)(unsafe.Pointer(a2))
 	outGrid := (*image.Point)(unsafe.Pointer(a3))
-	if GetServer().MapTraceRayAt(*p1, *p2, outPos, outGrid, server.MapTraceFlags(a4)) {
+	if GetServer().S().MapTraceRayAt(*p1, *p2, outPos, outGrid, server.MapTraceFlags(a4)) {
 		return 1
 	}
 	return 0
@@ -181,7 +179,7 @@ func nox_xxx_mapTraceRay_535250(a1 *C.float4, a2 *C.float2, a3 *C.int2, a4 C.cha
 
 //export nox_xxx_mapTraceObstacles_50B580
 func nox_xxx_mapTraceObstacles_50B580(from *nox_object_t, a2 *C.float4) int {
-	if GetServer().MapTraceObstacles(asObjectS(from), types.Pointf{
+	if GetServer().S().MapTraceObstacles(asObjectS(from), types.Pointf{
 		X: float32(a2.field_0),
 		Y: float32(a2.field_4),
 	}, types.Pointf{
@@ -319,30 +317,30 @@ func nox_xxx_playerSendMOTD_4DD140(a1 int) {
 
 //export nox_xxx_unitCanInteractWith_5370E0
 func nox_xxx_unitCanInteractWith_5370E0(a1, a2 *nox_object_t, a3 int) int {
-	return bool2int(GetServer().CanInteract(asObjectS(a1), asObjectS(a2), a3))
+	return bool2int(GetServer().S().CanInteract(asObjectS(a1), asObjectS(a2), a3))
 }
 
 //export nox_xxx_unitCanSee_536FB0
 func nox_xxx_unitCanSee_536FB0(a1, a2 *nox_object_t, a3 int) int {
-	return bool2int(GetServer().CanSee(asObjectS(a1), asObjectS(a2), a3))
+	return bool2int(GetServer().S().CanSee(asObjectS(a1), asObjectS(a2), a3))
 }
 
 //export nox_xxx_mapCheck_537110
 func nox_xxx_mapCheck_537110(a1, a2 *nox_object_t) int {
-	return bool2int(GetServer().MapCheck(asObjectS(a1), asObjectS(a2)))
+	return bool2int(GetServer().S().MapTraceVision(asObjectS(a1), asObjectS(a2)))
 }
 
 //export sub_497180
 func sub_497180(r1, r2 *C.float4, outp *C.float2) int {
 	out := (*types.Pointf)(unsafe.Pointer(outp))
-	p, ok := Sub_497180(*(*types.Rectf)(unsafe.Pointer(r1)), *(*types.Rectf)(unsafe.Pointer(r2)))
+	p, ok := server.LineTracePointXxx(*(*types.Rectf)(unsafe.Pointer(r1)), *(*types.Rectf)(unsafe.Pointer(r2)))
 	*out = p
 	return bool2int(ok)
 }
 
 //export sub_427980
 func sub_427980(r1, r2 *C.float4) int {
-	return bool2int(Sub_427980(*(*types.Rectf)(unsafe.Pointer(r1)), *(*types.Rectf)(unsafe.Pointer(r2))))
+	return bool2int(server.LineTraceXxx(*(*types.Rectf)(unsafe.Pointer(r1)), *(*types.Rectf)(unsafe.Pointer(r2))))
 }
 
 func Nox_xxx_sMakeScorch_537AF0(pos types.Pointf, a2 int) {

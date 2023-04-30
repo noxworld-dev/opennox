@@ -2,6 +2,7 @@ package server
 
 import (
 	"image"
+	"unsafe"
 
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
@@ -388,4 +389,207 @@ func (s *serverMap) Sub518550Base(rect image.Rectangle, mask byte, scanSub bool,
 			}
 		}
 	}
+}
+
+func (s *Server) MapTraceObstacles(from *Object, p1, p2 types.Pointf) bool {
+	rect := types.RectFromPointsf(p1, p2)
+
+	searching := true
+	s.Map.EachObjInRect(rect, func(it *Object) bool {
+		if !searching {
+			return false
+		}
+		if from.SObj() == it.SObj() {
+			return true
+		}
+		if it.Class().HasAny(object.MaskUnits) {
+			u2 := it
+			if s.IsEnemyTo(from, u2.SObj()) {
+				return true
+			}
+		} else if !it.Class().HasAny(object.ClassImmobile | object.ClassObstacle) {
+			return true
+		}
+		if it.Flags().HasAny(object.FlagNoCollide|object.FlagAllowOverlap) || it.Class().Has(object.ClassDoor) {
+			return true
+		}
+		pos := it.Pos()
+		sh := &it.Shape
+		switch sh.Kind {
+		case ShapeKindCircle:
+			if a3p, ok := PointOnTheLine(p1, p2, it.PosVec); ok {
+				dx := a3p.X - pos.X
+				dy := a3p.Y - pos.Y
+				if dy*dy+dx*dx <= sh.Circle.R2 {
+					searching = false
+					return false
+				}
+			}
+		case ShapeKindBox:
+			if LineTraceXxx(rect, types.RectFromPointsf(
+				pos.Add(types.Ptf(sh.Box.LeftTop, sh.Box.LeftBottom)),
+				pos.Add(types.Ptf(sh.Box.LeftBottom2, sh.Box.LeftTop2)),
+			)) {
+				searching = false
+				return false
+			}
+			if LineTraceXxx(rect, types.RectFromPointsf(
+				pos.Add(types.Ptf(sh.Box.LeftTop, sh.Box.LeftBottom)),
+				pos.Add(types.Ptf(sh.Box.RightTop, sh.Box.RightBottom)),
+			)) {
+				searching = false
+				return false
+			}
+			if LineTraceXxx(rect, types.RectFromPointsf(
+				pos.Add(types.Ptf(sh.Box.RightBottom2, sh.Box.RightTop2)),
+				pos.Add(types.Ptf(sh.Box.RightTop, sh.Box.RightBottom)),
+			)) {
+				searching = false
+				return false
+			}
+			if LineTraceXxx(rect, types.RectFromPointsf(
+				pos.Add(types.Ptf(sh.Box.RightBottom2, sh.Box.RightTop2)),
+				pos.Add(types.Ptf(sh.Box.LeftBottom2, sh.Box.LeftTop2)),
+			)) {
+				searching = false
+				return false
+			}
+		}
+		return true
+	})
+	return searching
+}
+
+func (s *Server) MapTraceVision(obj1, obj2 *Object) bool {
+	pos := obj1.Pos()
+	pos2 := obj2.Pos()
+	if int8(obj2.Class()) < 0 && obj2.SubClass().Has(0x4) { // TODO: door?
+		ud := obj2.UpdateData
+		val := *(*uint32)(unsafe.Add(ud, 12))
+		sz := DoorSize(byte(val))
+		pos2.X = float32(float64(sz.X/2) + float64(pos2.X))
+		pos2.Y = float32(float64(sz.Y/2) + float64(pos2.Y))
+	}
+	rect := types.RectFromPointsf(pos, pos2)
+	searching := true
+	line := types.RectFromPointsf(pos, pos2)
+	s.Map.EachObjInRect(rect, func(it *Object) bool {
+		if it == obj1 || it == obj2 {
+			return true
+		}
+		if !it.Flags().Has(object.FlagShadow) {
+			return true
+		}
+		if int8(it.Class()) < 0 { // TODO: door?
+			ud := it.UpdateData
+			if !it.SubClass().Has(4) {
+				val := *(*uint32)(unsafe.Add(ud, 12))
+				sz := DoorSize(byte(val))
+				p := it.Pos()
+				p2 := p.Sub(types.Ptf(float32(sz.X)*0.125, float32(sz.Y)*0.125))
+				p3 := p2.Add(types.Ptf(float32(sz.X)*1.125, float32(sz.Y)*1.125))
+				if LineTraceXxx(line, types.RectFromPointsf(p2, p3)) {
+					searching = false
+					return false
+				}
+			}
+			return true
+		}
+		switch it.Shape.Kind {
+		case ShapeKindCircle:
+			if a3, ok := PointOnTheLine(pos, pos2, it.Pos()); ok {
+				dp := a3.Sub(it.Pos())
+				dx, dy := float64(dp.X), float64(dp.Y)
+				if dy*dy+dx*dx <= float64(it.Shape.Circle.R2) {
+					searching = false
+					return false
+				}
+			}
+		case ShapeKindBox:
+			p := it.Pos()
+			if LineTraceXxx(line, types.RectFromPointsf(
+				p.Add(types.Ptf(it.Shape.Box.LeftTop, it.Shape.Box.LeftBottom)),
+				p.Add(types.Ptf(it.Shape.Box.LeftBottom2, it.Shape.Box.LeftTop2)),
+			)) {
+				searching = false
+				return false
+			}
+			if LineTraceXxx(line, types.RectFromPointsf(
+				p.Add(types.Ptf(it.Shape.Box.LeftTop, it.Shape.Box.LeftBottom)),
+				p.Add(types.Ptf(it.Shape.Box.RightTop, it.Shape.Box.RightBottom)),
+			)) {
+				searching = false
+				return false
+			}
+			if LineTraceXxx(line, types.RectFromPointsf(
+				p.Add(types.Ptf(it.Shape.Box.RightBottom2, it.Shape.Box.RightTop2)),
+				p.Add(types.Ptf(it.Shape.Box.RightTop, it.Shape.Box.RightBottom)),
+			)) {
+				searching = false
+				return false
+			}
+			if LineTraceXxx(line, types.RectFromPointsf(
+				p.Add(types.Ptf(it.Shape.Box.RightBottom2, it.Shape.Box.RightTop2)),
+				p.Add(types.Ptf(it.Shape.Box.LeftBottom2, it.Shape.Box.LeftTop2)),
+			)) {
+				searching = false
+				return false
+			}
+		}
+		return true
+	})
+	if !searching {
+		return false
+	}
+	return s.MapTraceRayAt(pos, pos2, nil, nil, 9)
+}
+
+func LineTraceXxx(r1, r2 types.Rectf) bool {
+	r1 = r1.Canon()
+	r2 = r2.Canon()
+	if r1.Max.X < r2.Min.X || r1.Min.X > r2.Max.X || r1.Max.Y < r2.Min.Y || r1.Min.Y > r2.Max.Y {
+		return false
+	}
+	if r1.Min.Y == r1.Max.Y && r2.Min.Y == r2.Max.Y {
+		return true
+	}
+	a1w := r1.Max.X - r1.Min.X
+	a1h := r1.Max.Y - r1.Min.Y
+	a2w := r2.Max.X - r2.Min.X
+	a2h := r2.Max.Y - r2.Min.Y
+	dx := r2.Min.X - r1.Min.X
+	dy := r2.Min.Y - r1.Min.Y
+	dd1 := dy*a1w - dx*a1h
+	dd2 := a2w*a1h - a2h*a1w
+	dd3 := dy*a2w - dx*a2h
+	if dd1 == 0.0 || dd2 == 0.0 || dd1 < 0.0 && dd2 > 0.0 {
+		return false
+	}
+	if float64(dd1) > 0.0 && float64(dd2) < 0.0 || fabs(dd2) < fabs(dd1) ||
+		dd3 < 0.0 && float64(dd2) > 0.0 || dd3 > 0.0 && float64(dd2) < 0.0 || fabs(dd2) < fabs(dd3) {
+		return false
+	}
+	return true
+}
+
+func LineTracePointXxx(r1, r2 types.Rectf) (out types.Pointf, _ bool) {
+	r1 = r1.Canon()
+	r2 = r2.Canon()
+	if r2.Min.X > r1.Max.X || r2.Max.X < r1.Min.X || r2.Min.Y > r1.Min.Y || r1.Max.Y < r1.Max.Y {
+		return out, false
+	}
+	r1w := r1.Max.X - r1.Min.X
+	r1h := r1.Max.Y - r1.Min.Y
+	r2w := r2.Max.X - r2.Min.X
+	r2h := r2.Max.Y - r2.Min.Y
+	dx := r2.Min.X - r1.Min.X
+	dy := r2.Min.Y - r1.Min.Y
+	dd := r2w*r1h - r2h*r1w
+	dd2 := dy*r1w - dx*r1h
+	if dd == 0.0 {
+		return out, false
+	}
+	out.X = dd2*r2w/dd + r2.Min.X
+	out.Y = dd2*r2h/dd + r2.Min.Y
+	return out, true
 }
