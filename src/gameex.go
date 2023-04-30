@@ -286,10 +286,11 @@ func gameex_sendPacket(buf []byte) int {
 }
 
 func call_OnLibraryNotice_265(arg3 int) {
+	c := noxClient
 	// toggles weapons by mouse wheel
 	// autoshield is actually implemented in appendix of nox_xxx_playerDequipWeapon_53A140
 	a2a := bool2int(arg3 > 0) // scroll weapons back or forth
-	if !noxClient.GUI.GameexCheck() {
+	if !c.GUI.GameexCheck() {
 		return
 	}
 	if (legacy.Get_gameex_flags()>>3)&1 == 0 {
@@ -299,7 +300,7 @@ func call_OnLibraryNotice_265(arg3 int) {
 		return
 	}
 	if noxflags.HasGame(noxflags.GameHost) {
-		if u := legacy.HostPlayerUnit(); u != nil && asObjectS(u).ControllingPlayer().PlayerClass() == player.Warrior {
+		if u := c.srv.Players.HostUnit; u != nil && asObjectS(u).ControllingPlayer().PlayerClass() == player.Warrior {
 			if legacy.Mix_MouseKeyboardWeaponRoll(u.SObj(), int8(a2a)) != 0 {
 				clientPlaySoundSpecial(sound.SoundNextWeapon, 100)
 			}
@@ -321,7 +322,7 @@ func gameexOnKeyboardPress(kcode keybind.Key) {
 				return
 			}
 			if noxflags.HasGame(noxflags.GameHost) { // isServer
-				if u := legacy.HostPlayerUnit(); u != nil && legacy.Mix_MouseKeyboardWeaponRoll(u.SObj(), int8(v8)) != 0 {
+				if u := noxServer.Players.HostUnit; u != nil && legacy.Mix_MouseKeyboardWeaponRoll(u.SObj(), int8(v8)) != 0 {
 					clientPlaySoundSpecial(sound.SoundNextWeapon, 100)
 				}
 			} else {
