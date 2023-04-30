@@ -85,8 +85,6 @@ extern uint32_t dword_5d4594_1548476;
 extern obj_5D4594_2650668_t** ptr_5D4594_2650668;
 extern int ptr_5D4594_2650668_cap;
 
-nox_object_t* nox_xxx_host_player_unit_3843628 = 0;
-
 nox_list_item_t nox_common_maplist = {0};
 
 //----- (004CDF80) --------------------------------------------------------

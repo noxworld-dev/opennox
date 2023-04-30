@@ -227,8 +227,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 				ok = false
 			}
 		case ai.DEPENDENCY_UNDER_CURSOR:
-			hu := legacy.HostPlayerUnit()
-			if hu == nil || legacy.Nox_xxx_findObjectAtCursor_54AF40(hu.SObj()) != u.SObj() {
+			if hu := a.s.Players.HostUnit; hu == nil || legacy.Nox_xxx_findObjectAtCursor_54AF40(hu) != u.SObj() {
 				ok = false
 			}
 		case ai.DEPENDENCY_NOT_CORNERED:

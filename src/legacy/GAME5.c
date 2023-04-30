@@ -38,7 +38,6 @@ extern uint32_t dword_5d4594_2491544;
 extern uint32_t dword_5d4594_2491552;
 extern uint32_t dword_5d4594_2491616;
 extern uint32_t dword_587000_292492;
-extern nox_object_t* nox_xxx_host_player_unit_3843628;
 extern uint32_t dword_5d4594_2650652;
 extern uint32_t nox_player_netCode_85319C;
 
@@ -1188,6 +1187,7 @@ void nox_xxx_monsterPopAttackActions_5471B0(int a1) {
 }
 
 //----- (00547210) --------------------------------------------------------
+nox_object_t* nox_getHostPlayerUnit();
 void nox_xxx_monsterMainAIFn_547210(nox_object_t* a1p) {
 	int a1 = a1p;
 	int v1;          // esi
@@ -1255,15 +1255,15 @@ void nox_xxx_monsterMainAIFn_547210(nox_object_t* a1p) {
 		if (nox_common_gameFlags_check_40A5C0(2048)) {
 			if (!nox_xxx_guiCursor_477600()) {
 				if (*(uint8_t*)(v1 + 20) & 0x10) {
-					if (nox_xxx_host_player_unit_3843628) {
-						if (!(*(uint8_t*)((uint32_t)nox_xxx_host_player_unit_3843628 + 16) & 2) &&
+					if (nox_getHostPlayerUnit()) {
+						if (!(*(uint8_t*)((uint32_t)nox_getHostPlayerUnit() + 16) & 2) &&
 							!nox_xxx_checkMobAction_50A0D0(v1, 2)) {
-							v7 = *(uint32_t**)((uint32_t)nox_xxx_host_player_unit_3843628 + 748);
+							v7 = *(uint32_t**)((uint32_t)nox_getHostPlayerUnit() + 748);
 							v8 = v7[69];
 							v9 = (double)*(int*)(v8 + 2284) - *(float*)(v1 + 56);
 							v10 = (double)*(int*)(v8 + 2288) - *(float*)(v1 + 60);
 							if (v10 * v10 + v9 * v9 < 100.0 &&
-								nox_xxx_findObjectAtCursor_54AF40(*(int*)&nox_xxx_host_player_unit_3843628) == v1) {
+								nox_xxx_findObjectAtCursor_54AF40(nox_getHostPlayerUnit()) == v1) {
 								v11 = *(uint32_t*)(v1 + 60);
 								*(uint32_t*)(v1 + 72) = *(uint32_t*)(v1 + 56);
 								*(uint32_t*)(v1 + 92) = 0;
@@ -1285,7 +1285,7 @@ void nox_xxx_monsterMainAIFn_547210(nox_object_t* a1p) {
 								}
 								v3 = nox_xxx_monsterPushAction_50A260(v1, 26);
 								if (v3) {
-									v3[1] = nox_xxx_host_player_unit_3843628;
+									v3[1] = nox_getHostPlayerUnit();
 								}
 								if (!v7[71] && !v7[70]) {
 									LOBYTE(v3) = (uint8_t)v44;
