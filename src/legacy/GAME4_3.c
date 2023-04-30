@@ -3008,15 +3008,6 @@ int sub_5341D0(int a1) {
 	return nox_xxx_spellBuffOff_4FF5B0(a1, 23);
 }
 
-//----- (005341F0) --------------------------------------------------------
-int sub_5341F0(nox_object_t* a1p) {
-	int a1 = a1p;
-	int v1; // eax
-
-	v1 = *(uint32_t*)(a1 + 748);
-	return !*(uint8_t*)(v1 + 544) && !*(uint32_t*)(v1 + 552);
-}
-
 //----- (00534220) --------------------------------------------------------
 int nox_xxx_monsterCanMelee_534220(int a1) {
 	int v1;     // edi
