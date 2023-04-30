@@ -13,7 +13,7 @@ func nox_xxx_math_roundDirI16(v int16) uint16 {
 	return uint16(uint8(v))
 }
 
-func sub_419A10(v float32) float32 {
+func fabs(v float32) float32 {
 	vi := math.Float32bits(v)
 	vi &= 0x7FFFFFFF
 	return math.Float32frombits(vi)

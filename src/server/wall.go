@@ -641,7 +641,7 @@ func (s *Server) Sub_57B500(pos image.Point, flags byte) int8 {
 	if ang != *(*uint32)(unsafe.Add(ud, 4)) {
 		return -1
 	}
-	dp := doorWallTable[ang]
+	dp := DoorSize(byte(ang))
 	if dp.X > 0 && dp.Y > 0 {
 		return 1
 	} else if dp.X < 0 && dp.Y < 0 {
@@ -652,17 +652,6 @@ func (s *Server) Sub_57B500(pos image.Point, flags byte) int8 {
 		return 0
 	}
 	return -1
-}
-
-var doorWallTable = []image.Point{
-	{X: -23, Y: -23}, {X: -18, Y: -27}, {X: -12, Y: -30}, {X: -6, Y: -31},
-	{X: 0, Y: -32}, {X: 6, Y: -31}, {X: 12, Y: -30}, {X: 18, Y: -27},
-	{X: 23, Y: -23}, {X: 27, Y: -18}, {X: 30, Y: -12}, {X: 31, Y: -6},
-	{X: 32, Y: 0}, {X: 31, Y: 6}, {X: 30, Y: 12}, {X: 27, Y: 18},
-	{X: 23, Y: 23}, {X: 18, Y: 27}, {X: 12, Y: 30}, {X: 6, Y: 31},
-	{X: 0, Y: 32}, {X: -6, Y: 31}, {X: -12, Y: 30}, {X: -18, Y: 27},
-	{X: -23, Y: 23}, {X: -27, Y: 18}, {X: -30, Y: 12}, {X: -31, Y: 6},
-	{X: -32, Y: 0}, {X: -31, Y: -6}, {X: -30, Y: -12}, {X: -27, Y: -18},
 }
 
 func (s *Server) MapTraceRay9(p1, p2 types.Pointf) bool { // nox_xxx_traceRay_5374B0
