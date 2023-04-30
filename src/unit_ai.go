@@ -123,7 +123,7 @@ func (a *aiData) nox_xxx_mobActionDependency(u *Object) {
 			}
 		case ai.DEPENDENCY_CANNOT_SEE:
 			obj := aiStackArgObj(st, 0)
-			if obj == nil || legacy.Sub_533360(u.SObj(), obj.SObj()) != 0 {
+			if obj == nil || a.s.CanSeeDir(u.SObj(), obj.SObj()) {
 				ok = false
 			}
 		case ai.DEPENDENCY_BLOCKED_LINE_OF_FIRE:
