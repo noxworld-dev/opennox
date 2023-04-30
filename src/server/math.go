@@ -32,6 +32,70 @@ func sincosDir(d byte) (cos, sin float32) { // 194136, 194140
 	return v[0], v[1]
 }
 
+func DoorSize(dir byte) image.Point {
+	return doorSize[dir]
+}
+
+func PointOnTheLine(p1, p2 types.Pointf, a2 types.Pointf) (out types.Pointf, ok bool) { // nox_xxx_mathPointOnTheLine_57C8A0
+	dpx := float64(p2.X - p1.X)
+	dpy := float64(p2.Y - p1.Y)
+	d2 := dpy*dpy + dpx*dpx
+	dd := float64(a2.Y-p1.Y)*dpy + float64(a2.X-p1.X)*dpx
+	out.X = float32(dpx*dd/d2 + float64(p1.X))
+	out.Y = float32(dpy*dd/d2 + float64(p1.Y))
+	var min, max types.Pointf
+	if p1.X >= p2.X {
+		min.X = p2.X
+		max.X = p1.X
+	} else {
+		min.X = p1.X
+		max.X = p2.X
+	}
+	if p1.Y >= p2.Y {
+		max.Y = p1.Y
+		min.Y = p2.Y
+	} else {
+		min.Y = p1.Y
+		max.Y = p2.Y
+	}
+	return out, min.X <= out.X && out.X <= max.X && min.Y <= out.Y && out.Y <= max.Y
+}
+
+var doorSize = []image.Point{
+	{-23, -23},
+	{-18, -27},
+	{-12, -30},
+	{-6, -31},
+	{0, -32},
+	{6, -31},
+	{12, -30},
+	{18, -27},
+	{23, -23},
+	{27, -18},
+	{30, -12},
+	{31, -6},
+	{32, 0},
+	{31, 6},
+	{30, 12},
+	{27, 18},
+	{23, 23},
+	{18, 27},
+	{12, 30},
+	{6, 31},
+	{0, 32},
+	{-6, 31},
+	{-12, 30},
+	{-18, 27},
+	{-23, 23},
+	{-27, 18},
+	{-30, 12},
+	{-31, 6},
+	{-32, 0},
+	{-31, -6},
+	{-30, -12},
+	{-27, -18},
+}
+
 var sincosDirTable = [][2]float32{
 	{1, 0},
 	{0.9996988, 0.02454123},

@@ -72,7 +72,7 @@ int sub_495D00(uint32_t* a1, int a2, uint32_t* a3);
 int sub_4960B0();
 int sub_496120();
 void nox_xxx_drawBlack_496150(nox_draw_viewport_t* a1p);
-int sub_497180(float* a1, float* a2, float* a3);
+int sub_497180(float4* a1, float4* a2, float2* a3);
 int sub_497260(int* a1);
 void sub_4974B0(int a1);
 int sub_497650(float a1);

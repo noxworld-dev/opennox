@@ -825,7 +825,7 @@ func nox_xxx_updatePixie_53CD20(cobj *server.Object) {
 	u.Float28 = 0.9
 	u.ForceVec = u.Direction2.Vec().Mul(u.curSpeed())
 	if (s.Frame()&8 == 0) && owner != nil {
-		if legacy.Nox_xxx_mapCheck_537110(u.SObj(), owner.SObj()) == 1 {
+		if s.MapCheck(u.SObj(), owner.SObj()) {
 			ud[6] = s.Frame()
 		}
 		if s.Frame()-ud[6] > memmap.Uint32(0x5D4594, 2488696) {

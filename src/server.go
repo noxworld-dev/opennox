@@ -499,8 +499,8 @@ func (s *Server) nox_xxx_secretWallCheckUnits_517F00(rect types.Rectf, fnc func(
 	for it := nox_xxx_wallSecretGetFirstWall_410780(); it != nil; it = nox_xxx_wallSecretNext_410790(it) {
 		x := float64(*(*int32)(unsafe.Add(it, 4)) * common.GridStep)
 		y := float64(*(*int32)(unsafe.Add(it, 8)) * common.GridStep)
-		if x > float64(rect.Left) && x < float64(rect.Right) &&
-			y > float64(rect.Top) && y < float64(rect.Bottom) {
+		if x > float64(rect.Min.X) && x < float64(rect.Max.X) &&
+			y > float64(rect.Min.Y) && y < float64(rect.Max.Y) {
 			fnc(it)
 		}
 	}
@@ -563,7 +563,7 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Object) {
 		if s.Frame()&8 != 0 {
 			plBit := uint32(1 << pl.Index())
 			for it := s.FirstServerObject(); it != nil; it = it.Next() {
-				if !it.Class().HasAny(object.ClassClientPersist|object.ClassImmobile) && legacy.Nox_xxx_playerMapTracksObj_4173D0(pl.Index(), it) == 0 && (float64(it.CollideP1.X) > float64(rect.Right) || float64(it.CollideP2.X) < float64(rect.Left) || float64(it.CollideP1.Y) > float64(rect.Bottom) || float64(it.CollideP2.Y) < float64(rect.Top)) {
+				if !it.Class().HasAny(object.ClassClientPersist|object.ClassImmobile) && legacy.Nox_xxx_playerMapTracksObj_4173D0(pl.Index(), it) == 0 && (float64(it.CollideP1.X) > float64(rect.Max.X) || float64(it.CollideP2.X) < float64(rect.Min.X) || float64(it.CollideP1.Y) > float64(rect.Max.Y) || float64(it.CollideP2.Y) < float64(rect.Min.Y)) {
 					if it.Field37&plBit != 0 {
 						s.nox_xxx_netObjectOutOfSight_528A60(pl.Index(), it)
 						it.Field38 |= plBit
@@ -572,7 +572,7 @@ func (s *Server) nox_xxx_netUpdate_518EE0(u *Object) {
 				}
 			}
 			for it := s.Objs.UpdatableList2; it != nil; it = it.Next() {
-				if !it.Class().HasAny(object.ClassClientPersist|object.ClassImmobile) && legacy.Nox_xxx_playerMapTracksObj_4173D0(pl.Index(), it) == 0 && (float64(it.CollideP1.X) > float64(rect.Right) || float64(it.CollideP2.X) < float64(rect.Left) || float64(it.CollideP1.Y) > float64(rect.Bottom) || float64(it.CollideP2.Y) < float64(rect.Top)) {
+				if !it.Class().HasAny(object.ClassClientPersist|object.ClassImmobile) && legacy.Nox_xxx_playerMapTracksObj_4173D0(pl.Index(), it) == 0 && (float64(it.CollideP1.X) > float64(rect.Max.X) || float64(it.CollideP2.X) < float64(rect.Min.X) || float64(it.CollideP1.Y) > float64(rect.Max.Y) || float64(it.CollideP2.Y) < float64(rect.Min.Y)) {
 					if it.Field37&plBit != 0 {
 						s.nox_xxx_netObjectOutOfSight_528A60(pl.Index(), it)
 						it.Field38 |= plBit
@@ -612,7 +612,7 @@ func (s *Server) sub_519760(u *Object, rect types.Rectf) {
 	}
 	if obj.Flags().Has(object.FlagDestroyed) {
 		s.nox_xxx_netMinimapUnmark4All_417430(obj)
-	} else if float64(obj.PosVec.X) < float64(rect.Left) || float64(obj.PosVec.X) > float64(rect.Right) || float64(obj.PosVec.Y) < float64(rect.Top) || float64(obj.PosVec.Y) > float64(rect.Bottom) {
+	} else if float64(obj.PosVec.X) < float64(rect.Min.X) || float64(obj.PosVec.X) > float64(rect.Max.X) || float64(obj.PosVec.Y) < float64(rect.Min.Y) || float64(obj.PosVec.Y) > float64(rect.Max.Y) {
 		obj.Field38 |= uint32(1 << pind)
 		legacy.Nox_xxx_netSendObjects2Plr_519410(u.SObj(), obj.SObj())
 		legacy.Nox_xxx_netReportUnitHeight_4D9020(pind, obj.SObj())
@@ -1186,7 +1186,145 @@ func nox_xxx_mapSwitchLevel_4D12E0_end() {
 func (s *Server) CanInteract(obj, targ *server.Object, flags int) bool {
 	ok := s.CanSee(obj, targ, flags)
 	if ok {
-		ok = legacy.Nox_xxx_mapCheck_537110(obj, targ) != 0
+		ok = s.MapCheck(obj, targ)
 	}
 	return ok
+}
+
+func (s *Server) MapCheck(obj1, obj2 *server.Object) bool {
+	pos := obj1.Pos()
+	pos2 := obj2.Pos()
+	if int8(obj2.Class()) < 0 && obj2.SubClass().Has(0x4) { // TODO: door?
+		ud := obj2.UpdateData
+		val := *(*uint32)(unsafe.Add(ud, 12))
+		sz := server.DoorSize(byte(val))
+		pos2.X = float32(float64(sz.X/2) + float64(pos2.X))
+		pos2.Y = float32(float64(sz.Y/2) + float64(pos2.Y))
+	}
+	rect := types.RectFromPointsf(pos, pos2)
+	searching := true
+	line := types.RectFromPointsf(pos, pos2)
+	s.Map.EachObjInRect(rect, func(it *server.Object) bool {
+		if it == obj1 || it == obj2 {
+			return true
+		}
+		if !it.Flags().Has(object.FlagShadow) {
+			return true
+		}
+		if int8(it.Class()) < 0 { // TODO: door?
+			ud := it.UpdateData
+			if !it.SubClass().Has(4) {
+				val := *(*uint32)(unsafe.Add(ud, 12))
+				sz := server.DoorSize(byte(val))
+				p := it.Pos()
+				p2 := p.Sub(types.Ptf(float32(sz.X)*0.125, float32(sz.Y)*0.125))
+				p3 := p2.Add(types.Ptf(float32(sz.X)*1.125, float32(sz.Y)*1.125))
+				if sub_427980(line, types.RectFromPointsf(p2, p3)) {
+					searching = false
+					return false
+				}
+			}
+			return true
+		}
+		switch it.Shape.Kind {
+		case server.ShapeKindCircle:
+			if a3, ok := server.PointOnTheLine(pos, pos2, it.Pos()); ok {
+				dp := a3.Sub(it.Pos())
+				dx, dy := float64(dp.X), float64(dp.Y)
+				if dy*dy+dx*dx <= float64(it.Shape.Circle.R2) {
+					searching = false
+					return false
+				}
+			}
+		case server.ShapeKindBox:
+			p := it.Pos()
+			if sub_427980(line, types.RectFromPointsf(
+				p.Add(types.Ptf(it.Shape.Box.LeftTop, it.Shape.Box.LeftBottom)),
+				p.Add(types.Ptf(it.Shape.Box.LeftBottom2, it.Shape.Box.LeftTop2)),
+			)) {
+				searching = false
+				return false
+			}
+			if sub_427980(line, types.RectFromPointsf(
+				p.Add(types.Ptf(it.Shape.Box.LeftTop, it.Shape.Box.LeftBottom)),
+				p.Add(types.Ptf(it.Shape.Box.RightTop, it.Shape.Box.RightBottom)),
+			)) {
+				searching = false
+				return false
+			}
+			if sub_427980(line, types.RectFromPointsf(
+				p.Add(types.Ptf(it.Shape.Box.RightBottom2, it.Shape.Box.RightTop2)),
+				p.Add(types.Ptf(it.Shape.Box.RightTop, it.Shape.Box.RightBottom)),
+			)) {
+				searching = false
+				return false
+			}
+			if sub_427980(line, types.RectFromPointsf(
+				p.Add(types.Ptf(it.Shape.Box.RightBottom2, it.Shape.Box.RightTop2)),
+				p.Add(types.Ptf(it.Shape.Box.LeftBottom2, it.Shape.Box.LeftTop2)),
+			)) {
+				searching = false
+				return false
+			}
+		}
+		return true
+	})
+	if !searching {
+		return false
+	}
+	return s.MapTraceRayAt(pos, pos2, nil, nil, 9)
+}
+
+func sub_497180(r1, r2 types.Rectf) (types.Pointf, bool) {
+	r1 = r1.Canon()
+	r2 = r2.Canon()
+	if r2.Min.X > r1.Max.X || r2.Max.X < r1.Min.X || r2.Min.Y > r1.Min.Y || r1.Max.Y < r1.Max.Y {
+		return types.Pointf{}, false
+	}
+	return sub_4278B0(r1, r2)
+}
+
+func sub_4278B0(r1, r2 types.Rectf) (out types.Pointf, _ bool) {
+	r1w := r1.Max.X - r1.Min.X
+	r1h := r1.Max.Y - r1.Min.Y
+	r2w := r2.Max.X - r2.Min.X
+	r2h := r2.Max.Y - r2.Min.Y
+	dx := r2.Min.X - r1.Min.X
+	dy := r2.Min.Y - r1.Min.Y
+	dd := r2w*r1h - r2h*r1w
+	dd2 := dy*r1w - dx*r1h
+	if dd == 0.0 {
+		return out, false
+	}
+	out.X = dd2*r2w/dd + r2.Min.X
+	out.Y = dd2*r2h/dd + r2.Min.Y
+	return out, true
+}
+
+func sub_427980(r1, r2 types.Rectf) bool {
+	r1 = r1.Canon()
+	r2 = r2.Canon()
+	if r1.Max.X < r2.Min.X || r1.Min.X > r2.Max.X || r1.Max.Y < r2.Min.Y || r1.Min.Y > r2.Max.Y {
+		return false
+	}
+	if r1.Min.Y == r1.Max.Y && r2.Min.Y == r2.Max.Y {
+		return true
+	}
+	a1w := r1.Max.X - r1.Min.X
+	a1h := r1.Max.Y - r1.Min.Y
+	a2w := r2.Max.X - r2.Min.X
+	a2h := r2.Max.Y - r2.Min.Y
+	dx := r2.Min.X - r1.Min.X
+	dy := r2.Min.Y - r1.Min.Y
+	dd1 := dy*a1w - dx*a1h
+	dd2 := a2w*a1h - a2h*a1w
+	dd3 := dy*a2w - dx*a2h
+	if dd1 == 0.0 || dd2 == 0.0 || dd1 < 0.0 && dd2 > 0.0 {
+		return false
+	}
+	if float64(dd1) > 0.0 && float64(dd2) < 0.0 || sub_419A10(dd2) < sub_419A10(dd1) ||
+		dd3 < 0.0 && float64(dd2) > 0.0 || dd3 > 0.0 && float64(dd2) < 0.0 || sub_419A10(dd2) < sub_419A10(dd3) {
+		return false
+	}
+	return true
 }

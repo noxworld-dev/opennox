@@ -1308,11 +1308,6 @@ func (s *Server) sub_417160() {
 func (s *Server) MapTraceObstacles(from *server.Object, p1, p2 types.Pointf) bool { // nox_xxx_mapTraceObstacles_50B580
 	rect := types.RectFromPointsf(p1, p2)
 
-	p, ppFree := alloc.New([4]float32{})
-	defer ppFree()
-	p[0], p[1] = p1.X, p1.Y
-	p[2], p[3] = p2.X, p2.Y
-
 	searching := true
 	s.Map.EachObjInRect(rect, func(it *server.Object) bool {
 		obj := asObjectS(it)
@@ -1337,9 +1332,7 @@ func (s *Server) MapTraceObstacles(from *server.Object, p1, p2 types.Pointf) boo
 		sh := &obj.Shape
 		switch sh.Kind {
 		case server.ShapeKindCircle:
-			a3p, a3Free := alloc.New(types.Pointf{})
-			defer a3Free()
-			if legacy.Nox_xxx_mathPointOnTheLine_57C8A0(p, &obj.PosVec, a3p) != 0 {
+			if a3p, ok := server.PointOnTheLine(p1, p2, obj.PosVec); ok {
 				dx := a3p.X - pos.X
 				dy := a3p.Y - pos.Y
 				if dy*dy+dx*dx <= sh.Circle.R2 {
@@ -1348,49 +1341,31 @@ func (s *Server) MapTraceObstacles(from *server.Object, p1, p2 types.Pointf) boo
 				}
 			}
 		case server.ShapeKindBox:
-			a2, a2Free := alloc.New([4]float32{})
-			defer a2Free()
-
-			v12 := sh.Box.LeftTop + pos.X
-			v5 := sh.Box.LeftBottom + pos.Y
-			a2[0] = v12
-			v13 := v5
-			v6 := sh.Box.LeftBottom2 + pos.X
-			a2[1] = v13
-			v9 := v6
-			v7 := sh.Box.LeftTop2 + pos.Y
-			a2[2] = v9
-			v10 := v7
-			v8 := sh.Box.RightTop + pos.X
-			a2[3] = v10
-			v11 := sh.Box.RightBottom + pos.Y
-			xx := sh.Box.RightBottom2 + pos.X
-			yy := sh.Box.RightTop2 + pos.Y
-			if legacy.Sub_427980(p, a2) != 0 {
+			if sub_427980(rect, types.RectFromPointsf(
+				pos.Add(types.Ptf(sh.Box.LeftTop, sh.Box.LeftBottom)),
+				pos.Add(types.Ptf(sh.Box.LeftBottom2, sh.Box.LeftTop2)),
+			)) {
 				searching = false
 				return false
 			}
-			a2[0] = v12
-			a2[1] = v13
-			a2[2] = v8
-			a2[3] = v11
-			if legacy.Sub_427980(p, a2) != 0 {
+			if sub_427980(rect, types.RectFromPointsf(
+				pos.Add(types.Ptf(sh.Box.LeftTop, sh.Box.LeftBottom)),
+				pos.Add(types.Ptf(sh.Box.RightTop, sh.Box.RightBottom)),
+			)) {
 				searching = false
 				return false
 			}
-			a2[0] = xx
-			a2[1] = yy
-			a2[2] = v8
-			a2[3] = v11
-			if legacy.Sub_427980(p, a2) != 0 {
+			if sub_427980(rect, types.RectFromPointsf(
+				pos.Add(types.Ptf(sh.Box.RightBottom2, sh.Box.RightTop2)),
+				pos.Add(types.Ptf(sh.Box.RightTop, sh.Box.RightBottom)),
+			)) {
 				searching = false
 				return false
 			}
-			a2[0] = xx
-			a2[1] = yy
-			a2[2] = v9
-			a2[3] = v10
-			if legacy.Sub_427980(p, a2) != 0 {
+			if sub_427980(rect, types.RectFromPointsf(
+				pos.Add(types.Ptf(sh.Box.RightBottom2, sh.Box.RightTop2)),
+				pos.Add(types.Ptf(sh.Box.LeftBottom2, sh.Box.LeftTop2)),
+			)) {
 				searching = false
 				return false
 			}
@@ -1416,10 +1391,8 @@ func (s *Server) Nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, 
 		rr = r2
 	}
 	rect := types.Rectf{
-		Left:   pos.X - rr,
-		Top:    pos.Y - rr,
-		Right:  pos.X + rr,
-		Bottom: pos.Y + rr,
+		Min: pos.Sub(types.Ptf(rr, rr)),
+		Max: pos.Add(types.Ptf(rr, rr)),
 	}
 	s.Map.EachObjInRect(rect, func(it *server.Object) bool {
 		u := asObjectS(it)
@@ -1447,10 +1420,10 @@ func (s *Server) Nox_xxx_mapDamageUnitsAround(pos types.Pointf, r1, r2 float32, 
 		return false
 	})
 	wrect := image.Rect(
-		int(rect.Left)/common.GridStep,
-		int(rect.Top)/common.GridStep,
-		int(rect.Right)/common.GridStep,
-		int(rect.Bottom)/common.GridStep,
+		int(rect.Min.X)/common.GridStep,
+		int(rect.Min.Y)/common.GridStep,
+		int(rect.Max.X)/common.GridStep,
+		int(rect.Max.Y)/common.GridStep,
 	)
 	s.nox_xxx_mapDamageToWalls_534FC0(wrect, pos, r1, dmg, dtyp, asObjectS(who))
 	doDamageWalls = true

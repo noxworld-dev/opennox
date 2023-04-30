@@ -320,4 +320,6 @@ func init() {
 	legacy.Nox_xxx_playerSendMOTD_4DD140 = nox_xxx_playerSendMOTD_4DD140
 	legacy.Sub_526CA0 = sub_526CA0
 	legacy.Nox_xxx_monsterCreateFn_54C480 = nox_xxx_monsterCreateFn_54C480
+	legacy.Sub_497180 = sub_497180
+	legacy.Sub_427980 = sub_427980
 }
