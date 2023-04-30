@@ -16,6 +16,12 @@ func RoundCoord(v float32) int {
 	return int(int32(math.Float32bits(v) & 0x7FFFFF))
 }
 
+func fabs(v float32) float32 {
+	vi := math.Float32bits(v)
+	vi &= 0x7FFFFFFF
+	return math.Float32frombits(vi)
+}
+
 // RoundPos is similar to RoundCoord, but accepts a point.
 func RoundPos(p types.Pointf) image.Point {
 	return image.Pt(RoundCoord(p.X), RoundCoord(p.Y))
@@ -33,7 +39,7 @@ func sincosDir(d byte) (cos, sin float32) { // 194136, 194140
 }
 
 func DoorSize(dir byte) image.Point {
-	return doorSize[dir]
+	return doorWallTable[dir]
 }
 
 func PointOnTheLine(p1, p2 types.Pointf, a2 types.Pointf) (out types.Pointf, ok bool) { // nox_xxx_mathPointOnTheLine_57C8A0
@@ -61,39 +67,15 @@ func PointOnTheLine(p1, p2 types.Pointf, a2 types.Pointf) (out types.Pointf, ok 
 	return out, min.X <= out.X && out.X <= max.X && min.Y <= out.Y && out.Y <= max.Y
 }
 
-var doorSize = []image.Point{
-	{-23, -23},
-	{-18, -27},
-	{-12, -30},
-	{-6, -31},
-	{0, -32},
-	{6, -31},
-	{12, -30},
-	{18, -27},
-	{23, -23},
-	{27, -18},
-	{30, -12},
-	{31, -6},
-	{32, 0},
-	{31, 6},
-	{30, 12},
-	{27, 18},
-	{23, 23},
-	{18, 27},
-	{12, 30},
-	{6, 31},
-	{0, 32},
-	{-6, 31},
-	{-12, 30},
-	{-18, 27},
-	{-23, 23},
-	{-27, 18},
-	{-30, 12},
-	{-31, 6},
-	{-32, 0},
-	{-31, -6},
-	{-30, -12},
-	{-27, -18},
+var doorWallTable = []image.Point{
+	{X: -23, Y: -23}, {X: -18, Y: -27}, {X: -12, Y: -30}, {X: -6, Y: -31},
+	{X: 0, Y: -32}, {X: 6, Y: -31}, {X: 12, Y: -30}, {X: 18, Y: -27},
+	{X: 23, Y: -23}, {X: 27, Y: -18}, {X: 30, Y: -12}, {X: 31, Y: -6},
+	{X: 32, Y: 0}, {X: 31, Y: 6}, {X: 30, Y: 12}, {X: 27, Y: 18},
+	{X: 23, Y: 23}, {X: 18, Y: 27}, {X: 12, Y: 30}, {X: 6, Y: 31},
+	{X: 0, Y: 32}, {X: -6, Y: 31}, {X: -12, Y: 30}, {X: -18, Y: 27},
+	{X: -23, Y: 23}, {X: -27, Y: 18}, {X: -30, Y: 12}, {X: -31, Y: 6},
+	{X: -32, Y: 0}, {X: -31, Y: -6}, {X: -30, Y: -12}, {X: -27, Y: -18},
 }
 
 var sincosDirTable = [][2]float32{

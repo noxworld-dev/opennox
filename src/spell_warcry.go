@@ -49,7 +49,7 @@ func nox_xxx_warriorWarcry_53FF40(u *Object) {
 			}
 		}
 		if !u.TeamPtr().SameAs(u2.TeamPtr()) {
-			if s.MapCheck(u2.SObj(), u.SObj()) {
+			if s.MapTraceVision(u2.SObj(), u.SObj()) {
 				pos := u2.Pos()
 				sa, free := alloc.New(server.SpellAcceptArg{})
 				defer free()
