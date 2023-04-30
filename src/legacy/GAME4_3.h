@@ -64,7 +64,6 @@ int sub_532FE0(unsigned short a1, int a2);
 int sub_533010(unsigned short a1, int a2);
 int nox_xxx_projAddVelocitySmth_533080(int a1, int a2, float a3, int a4);
 int nox_xxx_unitIsEnemyTo_5330C0(nox_object_t* a1, nox_object_t* a2);
-int sub_533360(nox_object_t* a1, nox_object_t* a2);
 nox_object_t* nox_xxx_enemyAggro_5335D0(nox_object_t* a1, float a2);
 double sub_5336D0(nox_object_t* a1);
 int nox_xxx_mobActionToAnimation_533790(int a1);
