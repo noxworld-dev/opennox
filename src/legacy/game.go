@@ -40,7 +40,6 @@ package legacy
 int sub_4EDD70();
 void sub_426060();
 void sub_417160();
-char* sub_4DB160();
 void sub_4D2160();
 void sub_4D22B0();
 void sub_4D2230();
@@ -477,9 +476,6 @@ func Sub_46DCC0() {
 }
 func Sub_409B80() string {
 	return GoString(C.sub_409B80())
-}
-func Sub_4DB160() string {
-	return GoString(C.sub_4DB160())
 }
 func Sub_4EDD70() {
 	C.sub_4EDD70()

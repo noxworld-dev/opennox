@@ -2,6 +2,7 @@ package opennox
 
 import (
 	ns4 "github.com/noxworld-dev/noxscript/ns/v4"
+	"github.com/noxworld-dev/opennox-lib/common"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 )
@@ -59,8 +60,8 @@ func (s noxScriptNS) StopScript(val any) {
 
 func (s noxScriptNS) AutoSave() {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
-		sub_4DB130("AUTOSAVE")
-		sub_4DB170(1, nil, 0)
+		setSaveFileName(common.SaveAuto)
+		sub_4DB170(true, nil, 0)
 	}
 }
 

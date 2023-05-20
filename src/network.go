@@ -1614,7 +1614,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 			if len(data) < 4 {
 				return 0, false
 			}
-			if nox_xxx_gameGet_4DB1B0() != 0 {
+			if nox_xxx_gameGet_4DB1B0() {
 				return 4, true
 			}
 			if pl.Field3680&0x3 != 0 {

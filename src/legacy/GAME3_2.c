@@ -5644,15 +5644,6 @@ uint32_t* nox_xxx_action_4DA9F0(nox_object_t* a1p) {
 	return result;
 }
 
-//----- (004DB130) --------------------------------------------------------
-unsigned int sub_4DB130(const char* a1) {
-	unsigned int result; // eax
-
-	result = strlen(a1) + 1;
-	memcpy(getMemAt(0x5D4594, 1557900), a1, result);
-	return result;
-}
-
 //----- (004DC550) --------------------------------------------------------
 int nox_client_countSaveFiles_4DC550() {
 	int v0;              // ebx

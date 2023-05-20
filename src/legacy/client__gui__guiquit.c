@@ -81,7 +81,7 @@ int nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
 		if ((v18 & 0x8000) == 0) {
 			sub_445C40();
 			if (nox_common_gameFlags_check_40A5C0(2048)) {
-				sub_4DB130("AUTOSAVE");
+				nox_setSaveFileName_4DB130("AUTOSAVE");
 				sub_4DB170(1, 0, 0);
 			}
 			goto LABEL_27;
