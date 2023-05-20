@@ -907,8 +907,8 @@ func nox_savegame_sub_46C920(win1 *gui.Window, ev gui.WindowEvent) gui.WindowEve
 				v13 := strMan.GetStringInFile("GUISave.c:OverwriteSaveMessage", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
 				v11 := strMan.GetStringInFile("GUISave.c:OverwriteSaveTitle", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
 				NewDialogWindow(dword_5d4594_1082856, v11, v13, 56, func() {
-					sub_4DB130(alloc.GoString((*byte)(memmap.PtrOff(0x5D4594, 1082840))))
-					sub_4DB170(1, nil, 0)
+					setSaveFileName(alloc.GoString((*byte)(memmap.PtrOff(0x5D4594, 1082840))))
+					sub_4DB170(true, nil, 0)
 					sub_46D6F0()
 				}, func() {
 					dword_5d4594_1082856.Capture(true)
@@ -921,8 +921,8 @@ func nox_savegame_sub_46C920(win1 *gui.Window, ev gui.WindowEvent) gui.WindowEve
 			} else {
 				v14 = common.SaveAuto
 			}
-			sub_4DB130(v14)
-			sub_4DB170(1, nil, 0)
+			setSaveFileName(v14)
+			sub_4DB170(true, nil, 0)
 			sub_46D6F0()
 			return nil
 		case 502:
@@ -994,17 +994,13 @@ func sub_450580() {
 	*memmap.PtrUint32(0x5D4594, 831296) = 0
 }
 
-func sub_4DB130(a1 string) {
-	alloc.StrCopy(unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 1557900)), len(a1)+1), a1)
-}
-
-func sub_4DB170(a1 int, a2 unsafe.Pointer, a3 int) {
+func sub_4DB170(a1 bool, a2 unsafe.Pointer, a3 int) {
 	dword_5d4594_1563092 = uint32(a3)
 	dword_5d4594_1563088 = noxServer.Frame()
 	dword_5d4594_1563084 = a2
 	dword_5d4594_1563080 = a1
 	legacy.Set_dword_5d4594_1563096(bool2int(a2 != nil))
-	if a1 == 0 {
+	if !a1 {
 		sub_4DCBD0(0)
 	}
 }

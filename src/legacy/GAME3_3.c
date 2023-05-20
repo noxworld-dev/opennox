@@ -3910,7 +3910,7 @@ void nox_xxx_collideExit_4E9090(int a1, int a2, int a3) {
 	}
 	sub_4DCBF0(1);
 	if (nox_common_gameFlags_check_40A5C0(2048)) {
-		sub_4DB130("WORKING");
+		nox_setSaveFileName_4DB130("WORKING");
 		sub_4DB170(1, a1, 0);
 		return;
 	}
