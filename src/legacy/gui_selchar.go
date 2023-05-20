@@ -37,7 +37,7 @@ var (
 	Nox_game_showSelChar_4A4DB0            func() int
 	Nox_savegame_sub_46D580                func()
 	Sub_450580                             func()
-	Sub_4DB170                             func(a1 int, a2 unsafe.Pointer, a3 int)
+	Sub_4DB170                             func(a1 bool, a2 unsafe.Pointer, a3 int)
 	Sub_44D8F0                             func()
 )
 
@@ -111,7 +111,7 @@ func nox_savegame_sub_46D580() { Nox_savegame_sub_46D580() }
 func sub_450580() { Sub_450580() }
 
 //export sub_4DB170
-func sub_4DB170(a1 int, a2 unsafe.Pointer, a3 int) { Sub_4DB170(a1, a2, a3) }
+func sub_4DB170(a1 int, a2 unsafe.Pointer, a3 int) { Sub_4DB170(a1 != 0, a2, a3) }
 
 //export sub_44D8F0
 func sub_44D8F0() { Sub_44D8F0() }
