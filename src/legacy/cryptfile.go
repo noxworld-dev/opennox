@@ -55,13 +55,15 @@ func nox_xxx_cryptSeekCur_40E0A0(a1 int) int {
 	return 0
 }
 
-//export nox_xxx_fileReadWrite_426AC0_file3_fread
-func nox_xxx_fileReadWrite_426AC0_file3_fread(a1 *C.uchar, a2 C.size_t) C.size_t {
+//export nox_xxx_fileReadWrite_426AC0_file3_fread_impl
+func nox_xxx_fileReadWrite_426AC0_file3_fread_impl(a1 *C.uchar, a2 C.size_t, cfname *C.char, line int) C.size_t {
+	fname := GoString(cfname)
 	buf := unsafe.Slice((*byte)(unsafe.Pointer(a1)), int(a2))
 	_, err := cryptfile.Global().ReadWrite(buf)
 	if err != nil {
 		return 0
 	}
+	_ = fname
 	return 1
 }
 
