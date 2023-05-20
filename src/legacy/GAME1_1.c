@@ -781,56 +781,55 @@ int sub_41A000(char* a1, nox_savegame_xxx* sv) {
 	return 1;
 }
 
+typedef struct table_55816_t {
+	const char* name;
+	unsigned int ind;
+	int (*fnc)(int, int, uint32_t, uint32_t);
+} table_55816_t;
+
+table_55816_t table_55816[] = {
+    {"Attrib Data", 0x2, &sub_41A590},     {"Status Data", 0x3, &sub_41AA30},    {"Inventory Data", 0x4, &sub_41AC30},
+    {"FieldGuide Data", 0x8, &nox_xxx_guiFieldbook_41B420}, {"Spellbook Data", 0x5, &nox_xxx_guiSpellbook_41B660}, {"Enchantment Data", 0x6, &nox_xxx_guiEnchantment_41B9C0},
+    {"Journal Data", 0x9, &sub_41BEC0},    {"Game Data", 0xa, &sub_41C080},      {"PAD_DATA", 0xb, &sub_41C200},
+    {0},
+};
+int table_55816_cnt = sizeof(table_55816) / sizeof(table_55816_t) - 1;
+
 //----- (0041A140) --------------------------------------------------------
 int nox_xxx_playerSaveToFile_41A140(char* a1, int a2) {
-	int result;        // eax
-	int v3;            // ebp
-	int v4;            // ebx
-	unsigned char* v5; // esi
-	int v7;            // edi
-	int v9;            // eax
-	int v10;           // [esp+18h] [ebp+8h]
-
-	result = nox_common_playerInfoFromNum_417090(a2);
+	int result = nox_common_playerInfoFromNum_417090(a2);
 	if (!result) {
 		return 0;
 	}
-	v3 = *(uint32_t*)(result + 2056);
+	int v3 = *(uint32_t*)(result + 2056);
 	if (!v3) {
 		nox_xxx_networkLog_printf_413D30("SaveServerPlayerData: NULL player object\n");
 		return 0;
 	}
-	v4 = result + 2185;
+	int v4 = result + 2185;
 	if (!nox_xxx_cryptOpen_426910(a1, 0, 27)) {
 		nox_xxx_networkLog_printf_413D30("SavePlayerData: Can't open file '%s'\n", a1);
 		return 0;
 	}
-	v10 = 0;
-	if (!*getMemU32Ptr(0x587000, 55816)) {
+
+	if (table_55816_cnt == 0) {
 		nox_xxx_cryptClose_4269F0();
 		return 1;
 	}
-	v5 = getMemAt(0x587000, 55824);
-	while (1) {
-		nox_xxx_fileReadWrite_426AC0_file3_fread(v5 - 4, 4u);
+	for (int i = 0; i < table_55816_cnt; i++) {
+		table_55816_t* sec = &table_55816[i];
+		nox_xxx_fileReadWrite_426AC0_file3_fread(&sec->ind, 4u);
 		nox_xxx_crypt_426C90();
-		v7 = (*(int (**)(int, int, uint32_t, uint32_t))v5)(v3, v4, 0, 0);
+		int ok = sec->fnc(v3, v4, 0, 0);
 		nox_xxx_crypt_426D40();
-		if (!v7) {
-			break;
-		}
-		v9 = *((uint32_t*)v5 + 1);
-		v5 += 12;
-		++v10;
-		if (!v9) {
+		if (!ok) {
+			nox_xxx_networkLog_printf_413D30("SavePlayerData: Error saving player data '%s'\n", sec->name);
 			nox_xxx_cryptClose_4269F0();
-			return 1;
+			return 0;
 		}
 	}
-	nox_xxx_networkLog_printf_413D30("SavePlayerData: Error saving player data '%s'\n",
-									 *getMemU32Ptr(0x587000, 55816 + 12 * v10));
 	nox_xxx_cryptClose_4269F0();
-	return 0;
+	return 1;
 }
 // 41A1C9: variable 'v6' is possibly undefined
 // 41A1DB: variable 'v8' is possibly undefined
@@ -879,28 +878,17 @@ int nox_xxx_mapSavePlayerDataMB_41A230(char* a1) {
 // 41A29F: variable 'v6' is possibly undefined
 
 //----- (0041A2E0) --------------------------------------------------------
-int nox_xxx_cliPlrInfoLoadFromFile_41A2E0(char* a1, int a2) {
-	char* result;       // eax
-	int v3;             // esi
-	char* v4;           // edi
-	int v5;             // ecx
-	unsigned char* v6;  // eax
-	int v7;             // ebx
-	int v8;             // eax
-	int v9;             // edi
-	unsigned short v10; // ax
-	unsigned short v11; // ax
-
-	result = nox_common_playerInfoFromNum_417090(a2);
+int nox_xxx_cliPlrInfoLoadFromFile_41A2E0(char* path, int pind) {
+	char* result = nox_common_playerInfoFromNum_417090(pind);
 	if (!result) {
 		return 0;
 	}
-	v3 = *((uint32_t*)result + 514);
+	int v3 = *((uint32_t*)result + 514);
 	if (!v3) {
 		return 0;
 	}
-	v4 = result + 2185;
-	result = (char*)nox_xxx_cryptOpen_426910(a1, 1, 27);
+	char* v4 = result + 2185;
+	result = (char*)nox_xxx_cryptOpen_426910(path, 1, 27);
 	if (!result) {
 		return 0;
 	}
@@ -913,53 +901,49 @@ int nox_xxx_cliPlrInfoLoadFromFile_41A2E0(char* a1, int a2) {
 	*getMemU32Ptr(0x5D4594, 527700) = *getMemU16Ptr(0x5D4594, 527700);
 	sub_4EFF10(v3);
 	sub_419E10(v3, 1);
-	do {
-		while (1) {
-			nox_xxx_fileReadWrite_426AC0_file3_fread(&a2, 4u);
-			if (!a2) {
-				nox_xxx_cryptClose_4269F0();
-				sub_4EF140(v3);
-				v10 = nox_xxx_unitGetMaxHP_4EE7A0(v3);
-				nox_xxx_unitDamageClear_4EE5E0(v3, v10 - *getMemU32Ptr(0x5D4594, 527696));
-				v11 = nox_xxx_playerGetMaxMana_4EECB0(v3);
-				nox_xxx_playerManaSub_4EEBF0(v3, v11 - *getMemU32Ptr(0x5D4594, 527700));
-				nox_xxx_playerHP_4EE730(v3);
-				sub_419E10(v3, 0);
-				return 1;
-			}
-			nox_xxx_fileCryptReadCrcMB_426C20(&a1, 4u);
-			v5 = 0;
-			if (!*getMemU32Ptr(0x587000, 55816)) {
-				nox_xxx_cryptSeekCur_40E0A0((int)a1);
-				continue;
-			}
-			v6 = getMemAt(0x587000, 55816);
-			while (1) {
-				if (a2 == *((uint32_t*)v6 + 1)) {
-					goto LABEL_13_1;
-				}
-				v7 = *((uint32_t*)v6 + 3);
-				v6 += 12;
-				++v5;
-				if (!v7) {
-					nox_xxx_cryptSeekCur_40E0A0((int)a1);
-					break;
-				}
+	while (1) {
+		int a2b = 0;
+		nox_xxx_fileReadWrite_426AC0_file3_fread(&a2b, 4u);
+		if (!a2b) {
+			nox_xxx_cryptClose_4269F0();
+			sub_4EF140(v3);
+			unsigned short v10 = nox_xxx_unitGetMaxHP_4EE7A0(v3);
+			nox_xxx_unitDamageClear_4EE5E0(v3, v10 - *getMemU32Ptr(0x5D4594, 527696));
+			unsigned short v11 = nox_xxx_playerGetMaxMana_4EECB0(v3);
+			nox_xxx_playerManaSub_4EEBF0(v3, v11 - *getMemU32Ptr(0x5D4594, 527700));
+			nox_xxx_playerHP_4EE730(v3);
+			sub_419E10(v3, 0);
+			return 1;
+		}
+		int a1b = 0;
+		nox_xxx_fileCryptReadCrcMB_426C20(&a1b, 4u);
+		table_55816_t* csec = 0;
+		for (int i = 0; i < table_55816_cnt; i++) {
+			table_55816_t* sec = &table_55816[i];
+			if (a2b == sec->ind) {
+				csec = sec;
+				break;
 			}
 		}
-	LABEL_13_1:;
-	} while ((*(int (**)(int, int))getMemAt(0x587000, 55824 + 12 * v5))(v3, (int)v4));
-	v8 = *(uint32_t*)(v3 + 504);
-	if (v8) {
-		do {
-			v9 = *(uint32_t*)(v8 + 496);
-			nox_xxx_delayedDeleteObject_4E5CC0(v8);
-			v8 = v9;
-		} while (v9);
+		if (!csec) {
+			nox_xxx_cryptSeekCur_40E0A0(a1b);
+			continue;
+		}
+		if (!csec->fnc(v3, v4, 0, 0)) {
+			int v8 = *(uint32_t*)(v3 + 504);
+			if (v8) {
+				int v9 = 0;
+				do {
+					v9 = *(uint32_t*)(v8 + 496);
+					nox_xxx_delayedDeleteObject_4E5CC0(v8);
+					v8 = v9;
+				} while (v9);
+			}
+			sub_419E10(v3, 0);
+			nox_xxx_cryptClose_4269F0();
+			return 0;
+		}
 	}
-	sub_419E10(v3, 0);
-	nox_xxx_cryptClose_4269F0();
-	return 0;
 }
 
 //----- (0041A480) --------------------------------------------------------
@@ -2355,127 +2339,99 @@ int sub_41C780(int a1) {
 
 //----- (0041CAC0) --------------------------------------------------------
 void sub_41CAC0(char* a1, void* a2) {
-	char** v3;         // esi
-	int v4;            // ebx
-	int v5;            // edi
-	int v6;            // eax
-	unsigned char* v7; // ecx
-	int v8;            // ebp
-	int v9;            // eax
-	uint32_t* v10;     // esi
-	int v11;           // edi
-	int v12;           // [esp+0h] [ebp-8h]
-	char* v13;         // [esp+4h] [ebp-4h]
-
-	nox_file_2 = nox_binfile_open_408CC0(a1, 0);
-	if (!nox_file_2) {
+	FILE* f = nox_binfile_open_408CC0(a1, 0);
+	nox_file_2 = f;
+	if (!f) {
 		return;
 	}
-	if (!nox_binfile_cryptSet_408D40(nox_file_2, 27)) {
+	if (!nox_binfile_cryptSet_408D40(f, 27)) {
 		return;
 	}
-	v3 = a2;
-	v4 = 0;
+	char* v3 = a2;
+	int v4 = 0;
 	while (1) {
-		nox_binfile_fread_408E40((char*)&v13, 4, 1, nox_file_2);
+		int v13 = 0;
+		nox_binfile_fread_408E40(&v13, 4, 1, f);
 		if (!v13) {
-			break;
+			*(uint32_t*)v3 = 0;
+			nox_binfile_close_408D90(f);
+			return;
 		}
-		v5 = nox_binfile_ftell_426A50(nox_file_2);
-		nox_binfile_fread_align_408FE0((char*)&v12, 4, 1, nox_file_2);
-		v6 = nox_binfile_ftell_426A50(nox_file_2);
-		if (!*getMemU32Ptr(0x587000, 55816)) {
-			nox_binfile_fseek_409050(nox_file_2, v12, SEEK_CUR);
+		int v5 = nox_binfile_ftell_426A50(f);
+		int v12 = 0;
+		nox_binfile_fread_align_408FE0(&v12, 4, 1, f);
+		int v6 = nox_binfile_ftell_426A50(f);
+		if (table_55816_cnt == 0) {
+			nox_binfile_fseek_409050(f, v12, SEEK_CUR);
 			continue;
 		}
-		v7 = getMemAt(0x587000, 55816);
-		while (1) {
-			if (v13 == *((char**)v7 + 1)) {
-				v9 = v6 - v5;
-				*v3 = v13;
-				v10 = (char**)((char*)v3 + v9 - 4);
-				v4 += v9 + 4;
-				*v10 = v12;
-				v3 = (char**)(v10 + 2);
-				if (v12) {
-					v11 = v12;
-					v4 += v12;
-					do {
-						nox_binfile_fread_408E40((char*)&a1, 1, 1, nox_file_2);
-						*(uint8_t*)v3 = (uint8_t)a1;
-						v3 = (char**)((char*)v3 + 1);
-						--v11;
-					} while (v11);
-				}
-				break;
-			}
-			v8 = *((uint32_t*)v7 + 3);
-			v7 += 12;
-			if (!v8) {
-				nox_binfile_fseek_409050(nox_file_2, v12, SEEK_CUR);
+		table_55816_t* csec = 0;
+		for (int i = 0; i < table_55816_cnt; i++) {
+			table_55816_t* sec = &table_55816[i];
+			if (v13 == sec->ind) {
+				csec = sec;
 				break;
 			}
 		}
+		if (!csec) {
+			nox_binfile_fseek_409050(f, v12, SEEK_CUR);
+			continue;
+		}
+		int v9 = v6 - v5;
+		*(uint32_t*)v3 = v13;
+		uint32_t* v10 = (char**)((char*)v3 + v9 - 4);
+		v4 += v9 + 4;
+		*v10 = v12;
+		v3 = (char**)(v10 + 2);
+		if (v12) {
+			v4 += v12;
+			for (int v11 = v12; v11 > 0; v11--) {
+				nox_binfile_fread_408E40(&a1, 1, 1, f);
+				*(uint8_t*)v3 = (uint8_t)a1;
+				v3 = (char**)((char*)v3 + 1);
+			}
+		}
 	}
-	*v3 = 0;
-	nox_binfile_close_408D90(nox_file_2);
 }
 
 //----- (0041CC50) --------------------------------------------------------
-int nox_xxx_computeServerPlayerDataBufferSize_41CC50(char* a1) {
-	char* v1;          // esi
-	FILE* v2;          // eax
-	int result;        // eax
-	int v4;            // edi
-	int v5;            // esi
-	int v6;            // eax
-	unsigned char* v7; // ecx
-	int v8;            // ebx
-	int v9;            // [esp+4h] [ebp-4h]
-
-	v1 = a1;
-	v2 = nox_binfile_open_408CC0(a1, 0);
-	nox_file_2 = v2;
-	if (v2) {
-		if (nox_binfile_cryptSet_408D40((int)v2, 27)) {
-			v4 = 0;
-			while (1) {
-				nox_binfile_fread_408E40((char*)&a1, 4, 1, nox_file_2);
-				if (nox_binfile_lastErr_409370(nox_file_2) == -1) {
-					break;
-				}
-				if (!a1) {
-					v4 += 4;
-					break;
-				}
-				v5 = nox_binfile_ftell_426A50(nox_file_2);
-				nox_binfile_fread_align_408FE0((char*)&v9, 4, 1, nox_file_2);
-				v6 = nox_binfile_ftell_426A50(nox_file_2) - v5;
-				if (*getMemU32Ptr(0x587000, 55816)) {
-					v7 = getMemAt(0x587000, 55816);
-					while (a1 != *((char**)v7 + 1)) {
-						v8 = *((uint32_t*)v7 + 3);
-						v7 += 12;
-						if (!v8) {
-							goto LABEL_14;
-						}
-					}
-					v4 += v9 + v6 + 4;
-				}
-			LABEL_14:
-				nox_binfile_fseek_409050(nox_file_2, v9, SEEK_CUR);
-			}
-			nox_binfile_close_408D90(nox_file_2);
-			result = v4;
-		} else {
-			nox_xxx_networkLog_printf_413D30("computeServerPlayerDataBufferSize: Can't key file '%s'\n", v1);
-			result = 0;
-		}
-	} else {
-		nox_xxx_networkLog_printf_413D30("computeServerPlayerDataBufferSize: Can't open file '%s'\n", v1);
-		result = 0;
+int nox_xxx_computeServerPlayerDataBufferSize_41CC50(char* path) {
+	FILE* f = nox_binfile_open_408CC0(path, 0);
+	nox_file_2 = f;
+	if (!f) {
+		nox_xxx_networkLog_printf_413D30("computeServerPlayerDataBufferSize: Can't open file '%s'\n", path);
+		return 0;
 	}
-	return result;
+	if (!nox_binfile_cryptSet_408D40(f, 27)) {
+		nox_xxx_networkLog_printf_413D30("computeServerPlayerDataBufferSize: Can't key file '%s'\n", path);
+		return 0;
+	}
+	int v4 = 0;
+	while (1) {
+		int a1b = 0;
+		nox_binfile_fread_408E40((char*)&a1b, 4, 1, f);
+		if (nox_binfile_lastErr_409370(f) == -1) {
+			break;
+		}
+		if (!a1b) {
+			v4 += 4;
+			break;
+		}
+		int v5 = nox_binfile_ftell_426A50(f);
+		int v9 = 0;
+		nox_binfile_fread_align_408FE0(&v9, 4, 1, f);
+		int v6 = nox_binfile_ftell_426A50(f) - v5;
+		for (int i = 0; i < table_55816_cnt; i++) {
+			table_55816_t* sec = &table_55816[i];
+			if (a1b == sec->ind) {
+				v4 += v9 + v6 + 4;
+				break;
+			}
+		}
+		nox_binfile_fseek_409050(f, v9, SEEK_CUR);
+	}
+	nox_binfile_close_408D90(f);
+	return v4;
 }
 
 //----- (0041CE00) --------------------------------------------------------
