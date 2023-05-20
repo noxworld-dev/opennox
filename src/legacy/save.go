@@ -91,12 +91,12 @@ func Nox_xxx_monstersAllBelongToHost_4DB6A0() {
 func Nox_xxx_playerSaveToFile_41A140(a1 string, a2 ntype.PlayerInd) int {
 	return int(C.nox_xxx_playerSaveToFile_41A140(internCStr(a1), C.int(a2)))
 }
-func Nox_xxx_mapSavePlayerDataMB_41A230(a1 string) int {
-	return int(C.nox_xxx_mapSavePlayerDataMB_41A230(internCStr(a1)))
+func Nox_xxx_mapSavePlayerDataMB_41A230(a1 string) bool {
+	return C.nox_xxx_mapSavePlayerDataMB_41A230(internCStr(a1)) != 0
 }
 func Nox_xxx_computeServerPlayerDataBufferSize_41CC50(a1 string) int {
 	return int(C.nox_xxx_computeServerPlayerDataBufferSize_41CC50(internCStr(a1)))
 }
-func Nox_xxx_mapSaveMap_51E010(a1 string, a2 int) int {
-	return int(C.nox_xxx_mapSaveMap_51E010(internCStr(a1), C.int(a2)))
+func Nox_xxx_mapSaveMap_51E010(a1 string, a2 int) bool {
+	return C.nox_xxx_mapSaveMap_51E010(internCStr(a1), C.int(a2)) != 0
 }

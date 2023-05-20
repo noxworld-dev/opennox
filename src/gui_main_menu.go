@@ -334,9 +334,9 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 				}
 				clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			} else {
-				v9 := strMan.GetStringInFile("caution", "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c")
-				v5 := strMan.GetStringInFile("solo", "C:\\NoxPost\\src\\Client\\shell\\mainmenu.c")
-				NewDialogWindow(winMainMenu, v5, v9, 33, nil, nil)
+				v9 := strMan.GetStringInFile("caution", "mainmenu.c")
+				v5 := strMan.GetStringInFile("solo", "mainmenu.c")
+				NewDialogWindow(winMainMenu, v5, v9, gui.DialogOKButton|gui.DialogFlag6, nil, nil)
 				sub_44A360(1)
 				sub_44A4B0()
 				clientPlaySoundSpecial(sound.SoundShellClick, 100)

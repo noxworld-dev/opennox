@@ -55,7 +55,7 @@ func init() {
 	legacy.Sub_4CBE70 = sub_4CBE70
 	legacy.Sub_4AAA10 = sub_4AAA10
 	legacy.Nox_new_window_from_file = nox_new_window_from_file
-	legacy.Sub_445B40 = sub_445B40
+	legacy.Sub_445B40 = clientLoadCoopAuto445B40
 	legacy.Nox_xxx_mapGenMakeInfo_4D5DB0 = nox_xxx_mapGenMakeInfo_4D5DB0
 	legacy.Nox_common_checkMapFile = nox_common_checkMapFile
 	legacy.Nox_xxx_mapWriteSectionsMB_426E20 = nox_xxx_mapWriteSectionsMB_426E20
@@ -227,7 +227,7 @@ func init() {
 	legacy.Sub_4E3B80 = sub_4E3B80
 	legacy.Sub415A30 = sub415A30
 	legacy.Sub415EC0 = sub415EC0
-	legacy.Nox_savegame_rm = nox_savegame_rm
+	legacy.Nox_savegame_rm = deleteSaveDir
 	legacy.Nox_client_countPlayerFiles04_4DC7D0 = nox_client_countPlayerFiles04_4DC7D0
 	legacy.Nox_xxx_gameGet_4DB1B0 = nox_xxx_gameGet_4DB1B0
 	legacy.Sub_4DCC90 = sub_4DCC90

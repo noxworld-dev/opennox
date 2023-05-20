@@ -821,20 +821,19 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_D() {
 		return
 	}
 	savedone := false
-	v24 := (u.Flags()>>15)&1 != 0
-	if !v24 {
+	dead := u.Flags().Has(object.FlagDead)
+	if !dead {
 		s.scriptOnEvent("MapShutdown")
 		noxflags.SetGame(noxflags.GameFlag28)
-		savename := Nox_getSaveFileName_4DB160()
-		savedone = nox_xxx_saveDoAutosaveMB_4DB370_savegame(savename) != 0
+		savedone = saveCoopGame(saveName1557900)
 		noxflags.UnsetGame(noxflags.GameFlag28)
 		if !savedone && noxflags.HasGame(noxflags.GameClient) {
 			v35 := strMan.GetStringInFile("GUISave.c:SaveErrorTitle", "C:\\NoxPost\\src\\Server\\System\\server.c")
-			NewDialogWindow(nil, v35, v35, 33, nil, nil)
+			NewDialogWindow(nil, v35, v35, gui.DialogOKButton|gui.DialogFlag6, nil, nil)
 		}
 	}
 	v28 := sub_4DB1C0()
-	if v24 || !savedone {
+	if dead || !savedone {
 		if v28 != nil && !savedone {
 			u.SetPos(legacy.AsPointf(unsafe.Pointer(*(*uintptr)(unsafe.Add(v28, 700)) + 80)))
 		}
@@ -1249,8 +1248,7 @@ func (s *Server) nox_xxx_mapExitAndCheckNext_4D1860_server() error {
 		s.nox_server_questMapNextLevel()
 	}
 	if noxflags.HasGame(noxflags.GameModeCoop) && legacy.Nox_xxx_mapLoadRequired_4DCC80() == 0 {
-		setSaveFileName(common.SaveAuto)
-		sub_4DB170(true, nil, 30)
+		SaveCoopX(common.SaveAuto, 30)
 	}
 	legacy.Nox_xxx_mapLoadOrSaveMB_4DCC70(0)
 	if noxflags.HasGame(noxflags.GameModeCoop) {
