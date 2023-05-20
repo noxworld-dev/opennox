@@ -2,15 +2,23 @@ package opennox
 
 import (
 	"bytes"
+	"encoding/hex"
 	"fmt"
+	"hash"
 	"image"
 	"image/png"
+	"io"
+	"io/fs"
 	"math"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
 
+	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/ifs"
+	"golang.org/x/crypto/blake2b"
+	"golang.org/x/exp/maps"
 	"gopkg.in/yaml.v2"
 
 	"github.com/noxworld-dev/opennox-lib/client/keybind"
@@ -243,6 +251,26 @@ func imageDiff(pix1, pix2 []byte) []byte {
 	return out
 }
 
+func (sc *e2eScenario) error(err error) {
+	if e2eFailFast {
+		panic(err)
+	}
+	e2eLog.Println(err)
+	sc.err = err
+}
+
+func (sc *e2eScenario) Save(name string, hashes map[string]string) {
+	sc.add(1, name, func() {
+		path := datapath.Save(name)
+		got := e2eHashDir(path)
+		if !maps.Equal(got, hashes) {
+			err := fmt.Errorf("unexpected save data:\ngot: %+v\nvs\nexp: %+v", got, hashes)
+			//sc.error(err) // TODO: figure out what changes the hash
+			e2eLog.Println(err)
+		}
+	})
+}
+
 func (sc *e2eScenario) Screen(name string) {
 	sc.add(0, name, func() {
 		fname := strings.ReplaceAll(strings.ToLower(name), " ", "_")
@@ -292,13 +320,7 @@ func (sc *e2eScenario) Screen(name string) {
 					panic(err)
 				}
 				_ = os.WriteFile(diffName, ibuf.Bytes(), 0644)
-
-				err = fmt.Errorf("unexpected screen state, see %q", gotName)
-				if e2eFailFast {
-					panic(err)
-				}
-				e2eLog.Println(err)
-				sc.err = err
+				sc.error(err)
 			}
 		} else if os.IsNotExist(err) {
 			_ = os.WriteFile(fname+".png", ibuf.Bytes(), 0644)
@@ -424,6 +446,8 @@ func (sc *e2eScenario) Load(path string) {
 		case "raw":
 			ev := l.Event
 			switch ev.Type {
+			case "save":
+				sc.Save(ev.SaveName, ev.Hashes)
 			case "move":
 				sc.Input(dt, "", &seat.MouseMoveEvent{
 					Relative: ev.Relative, Pos: ev.Pos, Rel: ev.Rel,
@@ -535,6 +559,9 @@ type e2eStepRaw struct {
 	Wheel int `yaml:"wheel,omitempty"`
 
 	Text string `yaml:"text,omitempty"`
+
+	SaveName string            `yaml:"savename,omitempty"`
+	Hashes   map[string]string `yaml:"hashes,omitempty"`
 }
 
 func e2eSaveRecording() {
@@ -543,56 +570,68 @@ func e2eSaveRecording() {
 	for _, r := range e2e.recorded {
 		dt := r.Time - last
 		last = r.Time
-		s := e2eStepYML{Action: "raw", Time: uint64(dt)}
-		switch ev := r.Event.(type) {
-		case *seat.MouseMoveEvent:
-			s.Event = &e2eStepRaw{
-				Type:     "move",
-				Relative: ev.Relative,
-				Pos:      ev.Pos,
-				Rel:      ev.Rel,
-			}
-		case *seat.MouseButtonEvent:
-			s.Event = &e2eStepRaw{
-				Type:    "button",
-				Pressed: ev.Pressed,
-				Button:  ev.Button,
-			}
-		case *seat.MouseWheelEvent:
-			s.Event = &e2eStepRaw{
-				Type:  "wheel",
-				Wheel: ev.Wheel,
-			}
-		case *seat.KeyboardEvent:
-			s.Event = &e2eStepRaw{
-				Type:    "key",
-				Pressed: ev.Pressed,
-				Key:     ev.Key,
-			}
-		case *seat.TextEditEvent:
-			s.Event = &e2eStepRaw{
-				Type: "text_edit",
-				Text: ev.Text,
-			}
-		case *seat.TextInputEvent:
-			s.Event = &e2eStepRaw{
-				Type: "text_input",
-				Text: ev.Text,
-			}
-		case seat.WindowEvent:
-			switch ev {
-			case seat.WindowClosed:
+		if r.Save != nil {
+			list.Steps = append(list.Steps, e2eStepYML{
+				Action: "raw",
+				Time:   uint64(dt),
+				Event: &e2eStepRaw{
+					Type:     "save",
+					SaveName: r.Save.Name,
+					Hashes:   r.Save.Hash,
+				},
+			})
+		} else if r.Input != nil {
+			s := e2eStepYML{Action: "raw", Time: uint64(dt)}
+			switch ev := r.Input.(type) {
+			case *seat.MouseMoveEvent:
 				s.Event = &e2eStepRaw{
-					Type: "closed",
+					Type:     "move",
+					Relative: ev.Relative,
+					Pos:      ev.Pos,
+					Rel:      ev.Rel,
+				}
+			case *seat.MouseButtonEvent:
+				s.Event = &e2eStepRaw{
+					Type:    "button",
+					Pressed: ev.Pressed,
+					Button:  ev.Button,
+				}
+			case *seat.MouseWheelEvent:
+				s.Event = &e2eStepRaw{
+					Type:  "wheel",
+					Wheel: ev.Wheel,
+				}
+			case *seat.KeyboardEvent:
+				s.Event = &e2eStepRaw{
+					Type:    "key",
+					Pressed: ev.Pressed,
+					Key:     ev.Key,
+				}
+			case *seat.TextEditEvent:
+				s.Event = &e2eStepRaw{
+					Type: "text_edit",
+					Text: ev.Text,
+				}
+			case *seat.TextInputEvent:
+				s.Event = &e2eStepRaw{
+					Type: "text_input",
+					Text: ev.Text,
+				}
+			case seat.WindowEvent:
+				switch ev {
+				case seat.WindowClosed:
+					s.Event = &e2eStepRaw{
+						Type: "closed",
+					}
+				default:
+					e2eLog.Printf("SKIPPED: %T", ev)
 				}
 			default:
 				e2eLog.Printf("SKIPPED: %T", ev)
 			}
-		default:
-			e2eLog.Printf("SKIPPED: %T", ev)
-		}
-		if s.Event != nil {
-			list.Steps = append(list.Steps, s)
+			if s.Event != nil {
+				list.Steps = append(list.Steps, s)
+			}
 		}
 	}
 	f, err := os.Create(e2e.path)
@@ -691,7 +730,25 @@ func e2eRun() {
 
 type e2eRecordedEvent struct {
 	Time  time.Duration
-	Event seat.InputEvent
+	Input seat.InputEvent
+	Save  *e2eSave
+}
+
+type e2eSave struct {
+	Name string            `json:"name"`
+	Hash map[string]string `json:"hash"`
+}
+
+func e2eOnSave(name string) {
+	if !e2e.recording {
+		return
+	}
+	t := platform.Ticks()
+	path := datapath.Save(name)
+	hash := e2eHashDir(path)
+	e2e.recorded = append(e2e.recorded, e2eRecordedEvent{
+		Time: t - 1, Save: &e2eSave{Name: name, Hash: hash},
+	})
 }
 
 func e2eRealInput(ev seat.InputEvent) {
@@ -701,7 +758,7 @@ func e2eRealInput(ev seat.InputEvent) {
 			e2eSaveRecording()
 		}
 		e2e.recorded = append(e2e.recorded, e2eRecordedEvent{
-			Time: t - 1, Event: ev,
+			Time: t - 1, Input: ev,
 		})
 		e2eQueueInput(ev)
 		return
@@ -788,3 +845,42 @@ DEL = DecreaseGamma
 F12 = ScreenShot
 ---
 `
+
+func e2eHash() hash.Hash {
+	h, err := blake2b.New256(nil)
+	if err != nil {
+		panic(err)
+	}
+	return h
+}
+
+func e2eHashDir(dir string) map[string]string {
+	hashes := make(map[string]string)
+	err := ifs.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if d.IsDir() {
+			return nil
+		}
+		h := e2eHash()
+		f, err := ifs.Open(path)
+		if err != nil {
+			return err
+		}
+		defer f.Close()
+		_, err = io.Copy(h, f)
+		if err != nil {
+			return err
+		}
+		name := strings.TrimPrefix(path, dir)
+		name = strings.TrimPrefix(name, string(filepath.Separator))
+		name = strings.ReplaceAll(name, string(filepath.Separator), "/")
+		hashes[name] = hex.EncodeToString(h.Sum(nil))
+		return nil
+	})
+	if err != nil {
+		panic(err)
+	}
+	return hashes
+}
