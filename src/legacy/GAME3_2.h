@@ -231,7 +231,7 @@ void nox_xxx_createAt_4DAA50(nox_object_t* obj, nox_object_t* owner, float a3, f
 void nox_xxx_unitsNewAddToList_4DAC00();
 void nox_xxx_servFinalizeDelObject_4DADE0(nox_object_t* item);
 void nox_xxx_unitClearPendingMB_4DB030();
-unsigned int sub_4DB130(const char* a1);
+void nox_setSaveFileName_4DB130(char* a1);
 void sub_4DB170(int a1, void* a2, int a3);
 int nox_xxx_gameGet_4DB1B0();
 void* sub_4DB1C0();

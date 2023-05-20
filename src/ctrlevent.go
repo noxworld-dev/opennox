@@ -573,8 +573,8 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			if noxflags.HasGame(noxflags.GameModeCoop) {
 				if legacy.Nox_xxx_game_4DCCB0() != 0 {
 					clientPlaySoundSpecial(sound.SoundShellClick, 100)
-					sub_4DB130(common.SaveAuto)
-					sub_4DB170(1, nil, 0)
+					setSaveFileName(common.SaveAuto)
+					sub_4DB170(true, nil, 0)
 				} else {
 					clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 				}

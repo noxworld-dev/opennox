@@ -380,7 +380,7 @@ func (s *Server) nox_xxx_gameTick_4D2580_server_E() {
 	if noxflags.HasEngine(noxflags.EngineReplayWrite | noxflags.EngineReplayRead) {
 		legacy.Sub_4E76C0()
 	}
-	if nox_xxx_gameGet_4DB1B0() != 0 {
+	if nox_xxx_gameGet_4DB1B0() {
 		s.nox_xxx_gameTick_4D2580_server_D()
 	}
 	sub_4139C0()
@@ -1152,7 +1152,7 @@ func sub_4DB0A0() {
 	questPlayerFile = ""
 	dword_5d4594_1563044 = false
 	dword_5d4594_1563048 = false
-	dword_5d4594_1563080 = 0
+	dword_5d4594_1563080 = false
 	dword_5d4594_1563084 = nil
 	dword_5d4594_1563088 = 0
 	dword_5d4594_1563092 = 0

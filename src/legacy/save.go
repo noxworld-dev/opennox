@@ -24,7 +24,7 @@ import (
 var (
 	Nox_savegame_rm                      func(name string, rmDir bool) error
 	Nox_client_countPlayerFiles04_4DC7D0 func() int
-	Nox_xxx_gameGet_4DB1B0               func() int
+	Nox_xxx_gameGet_4DB1B0               func() bool
 	Sub_4DCC90                           func() int
 	Sub_4DB1C0                           func() unsafe.Pointer
 	Sub_4DCBF0                           func(a1 int)
@@ -33,7 +33,13 @@ var (
 	Sub_4DCC10                           func(a1p *server.Object) int
 	Sub_4DCFB0                           func(a1p *server.Object)
 	Sub_4DD0B0                           func(a1p *server.Object)
+	Nox_setSaveFileName_4DB130           func(s string)
 )
+
+//export nox_setSaveFileName_4DB130
+func nox_setSaveFileName_4DB130(s *C.char) {
+	Nox_setSaveFileName_4DB130(GoString(s))
+}
 
 //export nox_savegame_rm_4DBE10
 func nox_savegame_rm_4DBE10(cname *C.char, rmDir int) {
@@ -48,7 +54,7 @@ func nox_savegame_rm_4DBE10(cname *C.char, rmDir int) {
 func nox_client_countPlayerFiles04_4DC7D0() int { return Nox_client_countPlayerFiles04_4DC7D0() }
 
 //export nox_xxx_gameGet_4DB1B0
-func nox_xxx_gameGet_4DB1B0() int { return Nox_xxx_gameGet_4DB1B0() }
+func nox_xxx_gameGet_4DB1B0() int { return bool2int(Nox_xxx_gameGet_4DB1B0()) }
 
 //export sub_4DCC90
 func sub_4DCC90() int { return Sub_4DCC90() }

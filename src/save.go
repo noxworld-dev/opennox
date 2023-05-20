@@ -30,13 +30,14 @@ var (
 	dword_5d4594_1563048           = false
 	dword_5d4594_825756            = false
 	nox_xxx_serverIsClosing_825764 = false
-	dword_5d4594_1563080           = 0
+	dword_5d4594_1563080           = false
 	dword_5d4594_1563084           unsafe.Pointer
 	dword_5d4594_825752            = 0
 	dword_5d4594_1563092           uint32
 	dword_5d4594_825768            uint32
 	dword_5d4594_1563088           uint32
 	dword_5d4594_1559960           string
+	saveName1557900                string
 )
 
 func nox_xxx_playerSaveToFile_41A140(path string, ind ntype.PlayerInd) bool {
@@ -192,7 +193,7 @@ func nox_xxx_savePlayerMB_41C8F0(data []byte) int {
 }
 
 func sub_4DB100() {
-	dword_5d4594_1563080 = 0
+	dword_5d4594_1563080 = false
 	dword_5d4594_1563084 = nil
 	legacy.Set_dword_5d4594_1563096(0)
 	dword_5d4594_1563064 = false
@@ -202,13 +203,13 @@ func sub_4DB100() {
 	*memmap.PtrUint32(0x5D4594, 1563068) = 0
 }
 
-func nox_xxx_gameGet_4DB1B0() int {
+func nox_xxx_gameGet_4DB1B0() bool {
 	return dword_5d4594_1563080
 }
 
 func sub_4DCC90() int {
 	v := 1
-	if dword_5d4594_1563080 != 1 {
+	if !dword_5d4594_1563080 {
 		v = bool2int(dword_5d4594_1563092 != 0)
 	}
 	return v
@@ -597,6 +598,14 @@ func nox_xxx_player_4D7980(a1 int) bool {
 
 func sub_450750() byte {
 	return memmap.Uint8(0x5D4594, 831252)
+}
+
+func Nox_getSaveFileName_4DB160() string {
+	return saveName1557900
+}
+
+func setSaveFileName(s string) {
+	saveName1557900 = s
 }
 
 func nox_xxx_saveDoAutosaveMB_4DB370_savegame(name string) int {
