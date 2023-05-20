@@ -10,6 +10,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/common"
 	"github.com/noxworld-dev/opennox-lib/console"
 	"github.com/noxworld-dev/opennox-lib/datapath"
+	"github.com/noxworld-dev/opennox-lib/env"
 	"github.com/noxworld-dev/opennox-lib/ifs"
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/types"
@@ -612,6 +613,9 @@ func SaveCoopX(name string, a3 int) {
 }
 
 func saveCoopGame(name string) bool {
+	if env.IsE2E() {
+		defer e2eOnSave(name)
+	}
 	sub_478000()
 	legacy.Nox_xxx_quickBarClose_4606B0()
 	s := noxServer
