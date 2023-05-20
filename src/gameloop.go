@@ -538,7 +538,7 @@ func nox_client_showConnError_43D0A0(errcode int) {
 	default:
 		desc = strMan.GetStringInFile("UnknownConnError", strfile)
 	}
-	NewDialogWindow(nil, title, desc, 33, nil, nil)
+	NewDialogWindow(nil, title, desc, gui.DialogOKButton|gui.DialogFlag6, nil, nil)
 	sub_44A360(1)
 }
 

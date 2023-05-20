@@ -573,8 +573,7 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 			if noxflags.HasGame(noxflags.GameModeCoop) {
 				if legacy.Nox_xxx_game_4DCCB0() != 0 {
 					clientPlaySoundSpecial(sound.SoundShellClick, 100)
-					setSaveFileName(common.SaveAuto)
-					sub_4DB170(true, nil, 0)
+					SaveCoop(common.SaveAuto)
 				} else {
 					clientPlaySoundSpecial(sound.SoundPermanentFizzle, 100)
 				}
@@ -585,11 +584,11 @@ func (c *CtrlEventHandler) nox_xxx_clientControl_42D6B0_B() {
 				if legacy.Nox_xxx_game_4DCCB0() != 0 {
 					clientPlaySoundSpecial(sound.SoundShellClick, 100)
 					sub_413A00(1)
-					v41 := strMan.GetStringInFile("GUIQuit.c:ReallyLoadMessage", "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c")
-					v40 := strMan.GetStringInFile("SelChar.c:LoadLabel", "C:\\NoxPost\\src\\Client\\System\\Ctrlevnt.c")
-					NewDialogWindow(nil, v40, v41, 56, func() {
+					v41 := strMan.GetStringInFile("GUIQuit.c:ReallyLoadMessage", "Ctrlevnt.c")
+					v40 := strMan.GetStringInFile("SelChar.c:LoadLabel", "Ctrlevnt.c")
+					NewDialogWindow(nil, v40, v41, gui.DialogYesButton|gui.DialogNoButton|gui.DialogFlag6, func() {
 						sub_413A00(0)
-						sub4DB790("AUTOSAVE")
+						clientLoadCoopGame(common.SaveAuto)
 					}, func() {
 						sub_413A00(0)
 					})
