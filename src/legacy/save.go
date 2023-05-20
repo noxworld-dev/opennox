@@ -94,9 +94,38 @@ func Nox_xxx_playerSaveToFile_41A140(a1 string, a2 ntype.PlayerInd) int {
 func Nox_xxx_mapSavePlayerDataMB_41A230(a1 string) bool {
 	return C.nox_xxx_mapSavePlayerDataMB_41A230(internCStr(a1)) != 0
 }
-func Nox_xxx_computeServerPlayerDataBufferSize_41CC50(a1 string) int {
-	return int(C.nox_xxx_computeServerPlayerDataBufferSize_41CC50(internCStr(a1)))
-}
 func Nox_xxx_mapSaveMap_51E010(a1 string, a2 int) bool {
 	return C.nox_xxx_mapSaveMap_51E010(internCStr(a1), C.int(a2)) != 0
+}
+
+func Sub_41A590(a1 unsafe.Pointer, a2 int) int {
+	return int(C.sub_41A590(a1, C.int(a2)))
+}
+
+func Sub_41AA30(a1 unsafe.Pointer, a2 int) int {
+	return int(C.sub_41AA30(a1, C.int(a2)))
+}
+
+func Sub_41AC30(a1 unsafe.Pointer, a2 int) int {
+	return int(C.sub_41AC30(a1, C.int(a2)))
+}
+
+func Nox_xxx_guiFieldbook_41B420(a1 unsafe.Pointer, a2 int) int {
+	return int(C.nox_xxx_guiFieldbook_41B420(a1, C.int(a2)))
+}
+
+func Nox_xxx_guiSpellbook_41B660(a1 unsafe.Pointer, a2 int) int {
+	return int(C.nox_xxx_guiSpellbook_41B660(a1, C.int(a2)))
+}
+
+func Nox_xxx_guiEnchantment_41B9C0(a1 unsafe.Pointer, a2 int) int {
+	return int(C.nox_xxx_guiEnchantment_41B9C0(a1, C.int(a2)))
+}
+
+func Sub_41BEC0(a1 unsafe.Pointer, a2 int) int {
+	return int(C.sub_41BEC0(a1, C.int(a2)))
+}
+
+func Sub_41C080(a1 unsafe.Pointer, a2 int) int {
+	return int(C.sub_41C080(a1, C.int(a2)))
 }

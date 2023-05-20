@@ -42,8 +42,6 @@
 #include "server__script__builtin.h"
 #include "server__script__script.h"
 
-FILE* nox_file_2 = 0;
-
 extern uint32_t dword_5d4594_527712;
 extern uint32_t dword_5d4594_739392;
 extern uint32_t dword_5d4594_527988;
@@ -784,7 +782,7 @@ int sub_41A000(char* a1, nox_savegame_xxx* sv) {
 typedef struct table_55816_t {
 	const char* name;
 	unsigned int ind;
-	int (*fnc)(int, int, uint32_t, uint32_t);
+	int (*fnc)(int, int);
 } table_55816_t;
 
 table_55816_t table_55816[] = {
@@ -820,7 +818,7 @@ int nox_xxx_playerSaveToFile_41A140(char* a1, int a2) {
 		table_55816_t* sec = &table_55816[i];
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&sec->ind, 4u);
 		nox_xxx_crypt_426C90();
-		int ok = sec->fnc(v3, v4, 0, 0);
+		int ok = sec->fnc(v3, v4);
 		nox_xxx_crypt_426D40();
 		if (!ok) {
 			nox_xxx_networkLog_printf_413D30("SavePlayerData: Error saving player data '%s'\n", sec->name);
@@ -929,7 +927,7 @@ int nox_xxx_cliPlrInfoLoadFromFile_41A2E0(char* path, int pind) {
 			nox_xxx_cryptSeekCur_40E0A0(a1b);
 			continue;
 		}
-		if (!csec->fnc(v3, v4, 0, 0)) {
+		if (!csec->fnc(v3, v4)) {
 			int v8 = *(uint32_t*)(v3 + 504);
 			if (v8) {
 				int v9 = 0;
@@ -995,7 +993,8 @@ int nox_xxx_plrLoad_41A480(char* a1) {
 }
 
 //----- (0041A590) --------------------------------------------------------
-int sub_41A590(int a1, int a2) {
+int sub_41A590(void* a1p, int a2) {
+	int a1 = a1p;
 	int v2;    // esi
 	int v3;    // edi
 	int v4;    // ebx
@@ -1149,7 +1148,8 @@ LABEL_20:
 }
 
 //----- (0041AA30) --------------------------------------------------------
-char* sub_41AA30(int a1) {
+int sub_41AA30(void* a1p, int a2) {
+	int a1 = a1p;
 	int v1;       // esi
 	int v2;       // ebp
 	char* result; // eax
@@ -1223,7 +1223,8 @@ char* sub_41AA30(int a1) {
 // 41AB12: variable 'v5' is possibly undefined
 
 //----- (0041AC30) --------------------------------------------------------
-int sub_41AC30(uint32_t* a1) {
+int sub_41AC30(void* a1p, int a2) {
+	uint32_t* a1 = a1p;
 	uint32_t* v1;  // ebp
 	int result;    // eax
 	int v3;        // eax
@@ -1609,7 +1610,8 @@ int sub_41B3E0(int a1) {
 }
 
 //----- (0041B420) --------------------------------------------------------
-int nox_xxx_guiFieldbook_41B420(int a1) {
+int nox_xxx_guiFieldbook_41B420(void* a1p, int a2) {
+	int a1 = a1p;
 	char* v1;      // esi
 	int result;    // eax
 	uint32_t* v3;  // ebp
@@ -1707,7 +1709,8 @@ int nox_xxx_guiFieldbook_41B420(int a1) {
 // 41B420: using guessed type char var_100[256];
 
 //----- (0041B660) --------------------------------------------------------
-int nox_xxx_guiSpellbook_41B660(int a1) {
+int nox_xxx_guiSpellbook_41B660(void* a1p, int a2) {
+	int a1 = a1p;
 	int result;    // eax
 	int v2;        // esi
 	uint8_t* v3;   // ebp
@@ -1862,7 +1865,8 @@ int nox_xxx_guiSpellbook_41B660(int a1) {
 // 41B660: using guessed type char var_100[256];
 
 //----- (0041B9C0) --------------------------------------------------------
-int nox_xxx_guiEnchantment_41B9C0(uint32_t* a1) {
+int nox_xxx_guiEnchantment_41B9C0(void* a1p, int a2) {
+	uint32_t* a1 = a1p;
 	int result;    // eax
 	int i;         // ebp
 	char* v3;      // ebx
@@ -2026,7 +2030,8 @@ int nox_xxx_guiEnchantment_41B9C0(uint32_t* a1) {
 // 41B9C0: using guessed type char var_100[256];
 
 //----- (0041BEC0) --------------------------------------------------------
-int sub_41BEC0(int a1) {
+int sub_41BEC0(void* a1p, int a2) {
+	int a1 = a1p;
 	int v1;       // edi
 	int v2;       // esi
 	int result;   // eax
@@ -2097,7 +2102,8 @@ int sub_41BEC0(int a1) {
 // 41BEC0: using guessed type char var_40[64];
 
 //----- (0041C080) --------------------------------------------------------
-int sub_41C080(int a1) {
+int sub_41C080(void* a1p, int a2) {
+	int a1 = a1p;
 	uint32_t* v1;    // ebp
 	int v2;          // ebx
 	int result;      // eax
@@ -2340,7 +2346,6 @@ int sub_41C780(int a1) {
 //----- (0041CAC0) --------------------------------------------------------
 void sub_41CAC0(char* a1, void* a2) {
 	FILE* f = nox_binfile_open_408CC0(a1, 0);
-	nox_file_2 = f;
 	if (!f) {
 		return;
 	}
@@ -2392,46 +2397,6 @@ void sub_41CAC0(char* a1, void* a2) {
 			}
 		}
 	}
-}
-
-//----- (0041CC50) --------------------------------------------------------
-int nox_xxx_computeServerPlayerDataBufferSize_41CC50(char* path) {
-	FILE* f = nox_binfile_open_408CC0(path, 0);
-	nox_file_2 = f;
-	if (!f) {
-		nox_xxx_networkLog_printf_413D30("computeServerPlayerDataBufferSize: Can't open file '%s'\n", path);
-		return 0;
-	}
-	if (!nox_binfile_cryptSet_408D40(f, 27)) {
-		nox_xxx_networkLog_printf_413D30("computeServerPlayerDataBufferSize: Can't key file '%s'\n", path);
-		return 0;
-	}
-	int v4 = 0;
-	while (1) {
-		int a1b = 0;
-		nox_binfile_fread_408E40((char*)&a1b, 4, 1, f);
-		if (nox_binfile_lastErr_409370(f) == -1) {
-			break;
-		}
-		if (!a1b) {
-			v4 += 4;
-			break;
-		}
-		int v5 = nox_binfile_ftell_426A50(f);
-		int v9 = 0;
-		nox_binfile_fread_align_408FE0(&v9, 4, 1, f);
-		int v6 = nox_binfile_ftell_426A50(f) - v5;
-		for (int i = 0; i < table_55816_cnt; i++) {
-			table_55816_t* sec = &table_55816[i];
-			if (a1b == sec->ind) {
-				v4 += v9 + v6 + 4;
-				break;
-			}
-		}
-		nox_binfile_fseek_409050(f, v9, SEEK_CUR);
-	}
-	nox_binfile_close_408D90(f);
-	return v4;
 }
 
 //----- (0041CE00) --------------------------------------------------------

@@ -89,6 +89,6 @@ func nox_xxx_crypt_426D40() {
 }
 
 //export sub_41C200
-func sub_41C200() int {
+func sub_41C200(a1 unsafe.Pointer, a2 int) int {
 	return cryptfile.Global().ReadWriteAlign()
 }
