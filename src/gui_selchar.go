@@ -443,7 +443,7 @@ func sub_4A5690(sv *legacy.Nox_savegame_xxx) int {
 
 func sub_4A5C70() {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
-		nox_savegame_rm(nox_savegame_name_1307752, true)
+		deleteSaveDir(nox_savegame_name_1307752, true)
 	} else {
 		ind := memmap.Uint32(0x5D4594, 1307772)
 		path := alloc.GoStringS(nox_xxx_saves_arr[ind].Path[:])
@@ -706,7 +706,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *gui.Window, e gui.WindowEvent) gui.Win
 			v20 := datapath.SaveNameFromPath(spath)
 			saveLog.Printf("loading slot %d: %q (%q, %q)", v10, v20, spath, alloc.GoStringS(sv.Map_name[:]))
 			var v23 legacy.Nox_savegame_xxx
-			if (!noxflags.HasGame(noxflags.GameModeCoop) || nox_client_copySave(v20, common.SaveTmp) == nil) && legacy.Sub_41A000(alloc.GoStringS(sv.Path[:]), &v23) != 0 {
+			if (!noxflags.HasGame(noxflags.GameModeCoop) || copySaveDir(v20, common.SaveTmp) == nil) && legacy.Sub_41A000(alloc.GoStringS(sv.Path[:]), &v23) != 0 {
 
 				v23d := (*legacy.Nox_savegame_xxx)(memmap.PtrOff(0x85B3FC, 10980))
 				*v23d = v23
@@ -890,8 +890,8 @@ func nox_savegame_sub_46C920(win1 *gui.Window, ev gui.WindowEvent) gui.WindowEve
 		clientPlaySoundSpecial(sound.SoundButtonPress, 100)
 		switch ev.Win.ID() {
 		case 501:
-			v8 := *(*int32)(unsafe.Add(dword_5d4594_1082864.WidgetData, 48))
-			if v8 < 0 {
+			saveNum := *(*int32)(unsafe.Add(dword_5d4594_1082864.WidgetData, 48))
+			if saveNum < 0 {
 				return nil
 			}
 			v9 := *(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8) + 120)))
@@ -900,29 +900,26 @@ func nox_savegame_sub_46C920(win1 *gui.Window, ev gui.WindowEvent) gui.WindowEve
 				legacy.Nox_xxx_wnd_46ABB0(v10, 0)
 				return nil
 			}
-			if alloc.GoStringS(nox_savegame_arr_1064948[v8].Path[:]) != "" {
-				path := datapath.SaveNameFromPath(alloc.GoStringS(nox_savegame_arr_1064948[v8].Path[:]))
+			if alloc.GoStringS(nox_savegame_arr_1064948[saveNum].Path[:]) != "" {
+				path := datapath.SaveNameFromPath(alloc.GoStringS(nox_savegame_arr_1064948[saveNum].Path[:]))
 				alloc.StrCopy(unsafe.Slice((*byte)(memmap.PtrOff(0x5D4594, 1082840)), 16), path)
 				dword_5d4594_1082856.Capture(false)
-				v13 := strMan.GetStringInFile("GUISave.c:OverwriteSaveMessage", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
-				v11 := strMan.GetStringInFile("GUISave.c:OverwriteSaveTitle", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
-				NewDialogWindow(dword_5d4594_1082856, v11, v13, 56, func() {
-					setSaveFileName(alloc.GoString((*byte)(memmap.PtrOff(0x5D4594, 1082840))))
-					sub_4DB170(true, nil, 0)
+				msg := strMan.GetStringInFile("GUISave.c:OverwriteSaveMessage", "GUISave.c")
+				title := strMan.GetStringInFile("GUISave.c:OverwriteSaveTitle", "GUISave.c")
+				NewDialogWindow(dword_5d4594_1082856, title, msg, gui.DialogYesButton|gui.DialogNoButton|gui.DialogFlag6, func() {
+					name := alloc.GoString((*byte)(memmap.PtrOff(0x5D4594, 1082840)))
+					SaveCoop(name)
 					sub_46D6F0()
 				}, func() {
 					dword_5d4594_1082856.Capture(true)
 				})
 				return nil
 			}
-			var v14 string
-			if v8 != 0 {
-				v14 = fmt.Sprintf(common.SaveFormat, v8)
-			} else {
-				v14 = common.SaveAuto
+			name := common.SaveAuto
+			if saveNum != 0 {
+				name = fmt.Sprintf(common.SaveFormat, saveNum)
 			}
-			setSaveFileName(v14)
-			sub_4DB170(true, nil, 0)
+			SaveCoop(name)
 			sub_46D6F0()
 			return nil
 		case 502:
@@ -962,9 +959,9 @@ func nox_savegame_sub_46CBD0() {
 		return
 	}
 	v3 := datapath.SaveNameFromPath(alloc.GoStringS(nox_savegame_arr_1064948[i].Path[:]))
-	if !sub4DB790(v3) {
-		v1 := strMan.GetStringInFile("SaveErrorTitle", "C:\\NoxPost\\src\\client\\Gui\\GUISave.c")
-		NewDialogWindow(nil, v1, v1, 33, nil, nil)
+	if !clientLoadCoopGame(v3) {
+		v1 := strMan.GetStringInFile("SaveErrorTitle", "GUISave.c")
+		NewDialogWindow(nil, v1, v1, gui.DialogOKButton|gui.DialogFlag6, nil, nil)
 	}
 	if sub_450560() {
 		sub_4505B0()

@@ -44,24 +44,24 @@ func nox_xxx_playerSaveToFile_41A140(path string, ind ntype.PlayerInd) bool {
 	return legacy.Nox_xxx_playerSaveToFile_41A140(path, ind) != 0
 }
 
-func sub4DB790(a1 string) bool {
+func clientLoadCoopGame(name string) bool {
 	legacy.Nox_xxx_mapLoadOrSaveMB_4DCC70(1)
 	noxflags.SetGame(noxflags.GameFlag28)
 	noxAudioServeT(500)
-	res := nox_xxx_soloLoadGame_4DB7E0_savegame(a1)
+	res := loadCoopGame(name)
 	noxAudioServe()
 	noxflags.UnsetGame(noxflags.GameFlag28)
 	*memmap.PtrUint32(0x5D4594, 1563068) = noxServer.Frame()
 	return res
 }
 
-func nox_client_makeSaveDir(name string) (string, error) {
+func makeSaveDir(name string) (string, error) {
 	dir := datapath.Save(name)
 	err := ifs.Mkdir(dir)
 	return dir, err
 }
 
-func nox_savegame_rm(name string, rmdir bool) error {
+func deleteSaveDir(name string, rmdir bool) error {
 	if name == "" {
 		return nil
 	}
@@ -79,12 +79,12 @@ func nox_savegame_rm(name string, rmdir bool) error {
 	return nil
 }
 
-func nox_client_copySave(from, to string) error {
+func copySaveDir(from, to string) error {
 	fromDir := datapath.Save(from)
-	if err := nox_savegame_rm(to, true); err != nil {
+	if err := deleteSaveDir(to, true); err != nil {
 		return err
 	}
-	toDir, err := nox_client_makeSaveDir(to)
+	toDir, err := makeSaveDir(to)
 	if err != nil {
 		return err
 	}
@@ -147,14 +147,12 @@ func sub_41A000_check0(path string) byte {
 	return save[0]
 }
 
-func nox_xxx_savePlayerMB_41C8F0(data []byte) int {
-	path := getString10984()
+func clientSavePlayerChar(path string, data []byte) int {
 	const expSize = 216 // TODO: limit was *getMemIntPtr(0x587000, 55984) == 700, see #304
 	if !noxflags.HasGame(noxflags.GameHost) && len(data) < expSize {
 		str := strMan.GetStringInFile("Wol.c:WolApierror", "XferPlyr.c")
 		noxConsole.Print(console.ColorBlue, str)
-		str2 := strMan.GetStringInFile("Wol.c:Wolapierror", "XferPlyr.c")
-		nox_xxx_printCentered_445490(str2)
+		nox_xxx_printCentered_445490(str)
 		saveLog.Printf("SavePlayerOnClient: Error - character file too small %q (%d vs %d)\n", path, len(data), expSize)
 		return 0
 	}
@@ -181,14 +179,13 @@ func nox_xxx_savePlayerMB_41C8F0(data []byte) int {
 	} else {
 		*memmap.PtrUint8(0x85B3FC, 12257) = 0
 	}
-	if legacy.Nox_xxx_mapSavePlayerDataMB_41A230(path) == 0 {
+	if !legacy.Nox_xxx_mapSavePlayerDataMB_41A230(path) {
 		networkLogPrint("SavePlayerOnClient: Unable to save client data to file\n")
 		return 0
 	}
 	str := strMan.GetStringInFile("CharacterSaved", "XferPlyr.c")
 	noxConsole.Print(console.ColorBlue, str)
-	str2 := strMan.GetStringInFile("CharacterSaved", "XferPlyr.c")
-	nox_xxx_printCentered_445490(str2)
+	nox_xxx_printCentered_445490(str)
 	return 1
 }
 
@@ -373,7 +370,8 @@ func nox_xxx_soloGameEscMenuCallback_40AF90(ind ntype.PlayerInd, a2 byte, act by
 	case 1:
 		sub_446520(1, data)
 	case 2:
-		nox_xxx_savePlayerMB_41C8F0(data)
+		path := getString10984()
+		clientSavePlayerChar(path, data)
 		if noxflags.HasGame(noxflags.GameModeQuest) {
 			if sub_4460B0() {
 				sub_446140()
@@ -428,8 +426,7 @@ func nox_xxx_SavePlayerDataFromClient_41CD70(path string, data []byte) bool {
 	return true
 }
 
-func sub_4DB9C0() {
-	s := noxServer
+func (s *Server) sub_4DB9C0() {
 	var next *server.Object
 	for it := s.FirstServerObject(); it != nil; it = next {
 		next = it.Next()
@@ -451,15 +448,16 @@ func sub_4738D0() int {
 	return 1
 }
 
-func nox_xxx_soloLoadGame_4DB7E0_savegame(a1 string) bool {
-	if a1 == "" {
+func loadCoopGame(name string) bool {
+	if name == "" {
 		return false
 	}
 	if noxflags.HasGame(noxflags.GameClient) && sub_4738D0() == 0 {
 		return false
 	}
-	sub_4DB9C0()
-	if a1 != common.SaveTmp && nox_client_copySave(a1, common.SaveTmp) != nil {
+	s := noxServer
+	s.sub_4DB9C0()
+	if name != common.SaveTmp && copySaveDir(name, common.SaveTmp) != nil {
 		return false
 	}
 	path := datapath.Save(common.SaveTmp, common.PlayerFile)
@@ -469,8 +467,8 @@ func nox_xxx_soloLoadGame_4DB7E0_savegame(a1 string) bool {
 		return false
 	}
 	v5, _ := sub41D090(path)
-	noxServer.Objs.SetFirstObjectScriptID(server.ObjectScriptID(v5))
-	noxServer.Objs.ResetObjectScriptIDs()
+	s.Objs.SetFirstObjectScriptID(server.ObjectScriptID(v5))
+	s.Objs.ResetObjectScriptIDs()
 	nox_xxx_gameSetSwitchSolo_4DB220(1)
 	nox_xxx_gameSetNoMPFlag_4DB230(1)
 	if legacy.Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(path, common.MaxPlayers-1) == 0 {
@@ -478,12 +476,12 @@ func nox_xxx_soloLoadGame_4DB7E0_savegame(a1 string) bool {
 	}
 	legacy.Nox_xxx_cliPrepareGameplay1_460E60()
 	legacy.Nox_xxx_cliPrepareGameplay2_4721D0()
-	pl := noxServer.GetPlayerByInd(common.MaxPlayers - 1)
+	pl := s.GetPlayerByInd(common.MaxPlayers - 1)
 	pl.Name()
 	mname := pl.SaveName()
-	noxServer.nox_xxx_gameSetMapPath_409D70(mname + ".map")
+	s.nox_xxx_gameSetMapPath_409D70(mname + ".map")
 	dword_5d4594_1559960 = datapath.Save(common.SaveTmp, mname, mname+".map")
-	noxServer.SwitchMap(mname + ".map")
+	s.SwitchMap(mname + ".map")
 	nox_xxx_cliPlayMapIntro_44E0B0(0)
 	if legacy.Nox_xxx_plrLoad_41A480(path) == 0 {
 		return false
@@ -600,76 +598,82 @@ func sub_450750() byte {
 	return memmap.Uint8(0x5D4594, 831252)
 }
 
-func Nox_getSaveFileName_4DB160() string {
-	return saveName1557900
-}
-
 func setSaveFileName(s string) {
 	saveName1557900 = s
 }
 
-func nox_xxx_saveDoAutosaveMB_4DB370_savegame(name string) int {
+func SaveCoop(name string) {
+	SaveCoopX(name, 0)
+}
+
+func SaveCoopX(name string, a3 int) {
+	setSaveFileName(name)
+	sub_4DB170(true, nil, a3)
+}
+
+func saveCoopGame(name string) bool {
 	sub_478000()
 	legacy.Nox_xxx_quickBarClose_4606B0()
-	pl := noxServer.GetPlayerByInd(common.MaxPlayers - 1)
+	s := noxServer
+	pl := s.GetPlayerByInd(common.MaxPlayers - 1)
 	if pl == nil {
-		return 0
+		return false
 	}
 	u := pl.UnitC()
 	if u == nil {
-		return 0
+		return false
 	}
 	if name == "" {
-		return 0
+		return false
 	}
 	if u.Flags().Has(object.FlagDead) {
-		return 0
+		return false
 	}
 	if err := ifs.Mkdir(datapath.Save()); err != nil {
 		saveLog.Printf("cannot create common saves dir: %v", err)
-		return 0
+		return false
 	}
-	if _, err := nox_client_makeSaveDir(common.SaveTmp); err != nil {
+	if _, err := makeSaveDir(common.SaveTmp); err != nil {
 		saveLog.Printf("cannot create temp save dir: %v", err)
-		return 0
+		return false
 	}
-	mname := noxServer.getServerMap()
+	mname := s.getServerMap()
 	if err := ifs.Mkdir(datapath.Save(common.SaveTmp, mname)); err != nil {
 		saveLog.Printf("cannot create save dir: %v", err)
-		return 0
+		return false
 	}
 	if !nox_xxx_saveMakePlayerLocation_4DB600(dword_5d4594_1563084) {
-		return 0
+		return false
 	}
-	mname = noxServer.getServerMap()
+	mname = s.getServerMap()
 	path := datapath.Save(common.SaveTmp, mname, mname+".map")
-	if legacy.Nox_xxx_mapSaveMap_51E010(path, 0) == 0 {
-		return 0
+	if !legacy.Nox_xxx_mapSaveMap_51E010(path, 0) {
+		return false
 	}
 	legacy.Nox_xxx_monstersAllBelongToHost_4DB6A0()
-	v14 := datapath.Save(common.SaveTmp, common.PlayerFile)
+	ppath := datapath.Save(common.SaveTmp, common.PlayerFile)
 	*memmap.PtrUint32(0x85B3FC, 10980) &= 0xFFFFFFF7
 	if memmap.Uint32(0x5D4594, 1563076) != 0 {
 		*memmap.PtrUint32(0x85B3FC, 10980) |= 8
 	}
 	*memmap.PtrUint8(0x85B3FC, 12257) = sub_450750()
-	if !nox_xxx_playerSaveToFile_41A140(v14, pl.PlayerIndex()) {
-		return 0
+	if !nox_xxx_playerSaveToFile_41A140(ppath, pl.PlayerIndex()) {
+		return false
 	}
-	if legacy.Nox_xxx_mapSavePlayerDataMB_41A230(v14) == 0 {
-		return 0
+	if !legacy.Nox_xxx_mapSavePlayerDataMB_41A230(ppath) {
+		return false
 	}
 	if name != common.SaveTmp {
 		str := strMan.GetStringInFile("AutoSaveComplete", "SaveGame.c")
 		legacy.PrintToPlayers(str)
-		if err := nox_client_copySave(common.SaveTmp, name); err != nil {
+		if err := copySaveDir(common.SaveTmp, name); err != nil {
 			saveLog.Printf("failed to copy save file: %v", err)
-			return 0
+			return false
 		}
 	}
 	dword_5d4594_1563092 = 0
 	dword_5d4594_1563088 = 0
-	return 1
+	return true
 }
 
 func nox_xxx_saveMakePlayerLocation_4DB600(a1 unsafe.Pointer) bool {

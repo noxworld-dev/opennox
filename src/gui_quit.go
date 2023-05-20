@@ -3,6 +3,8 @@ package opennox
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox-lib/common"
+
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -108,13 +110,12 @@ func sub_446380() {
 	sub_446060()
 }
 
-func sub_445B40() int {
+func clientLoadCoopAuto445B40() int {
 	sub_413A00(0)
-	if sub4DB790("AUTOSAVE") {
+	if clientLoadCoopGame(common.SaveAuto) {
 		return 1
 	}
-	v2 := strMan.GetStringInFile("GUISave.c:SaveErrorTitle", "guiquit.c")
-	v1 := strMan.GetStringInFile("GUISave.c:SaveErrorTitle", "guiquit.c")
-	NewDialogWindow(nil, v1, v2, 33, nil, nil)
+	str := strMan.GetStringInFile("GUISave.c:SaveErrorTitle", "guiquit.c")
+	NewDialogWindow(nil, str, str, gui.DialogOKButton|gui.DialogFlag6, nil, nil)
 	return 1
 }

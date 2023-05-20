@@ -60,8 +60,7 @@ func (s noxScriptNS) StopScript(val any) {
 
 func (s noxScriptNS) AutoSave() {
 	if noxflags.HasGame(noxflags.GameModeCoop) {
-		setSaveFileName(common.SaveAuto)
-		sub_4DB170(true, nil, 0)
+		SaveCoop(common.SaveAuto)
 	}
 }
 
