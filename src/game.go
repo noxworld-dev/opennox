@@ -607,7 +607,7 @@ func initGameSession435CC0() error {
 }
 
 func sub_41CC00(a1 string) {
-	sz := 4 + legacy.Nox_xxx_computeServerPlayerDataBufferSize_41CC50(a1)
+	sz := 4 + nox_xxx_computeServerPlayerDataBufferSize_41CC50(a1)
 	data, _ := alloc.Make([]byte{}, sz)
 	legacy.Sub_41CAC0(a1, data)
 	sub_40BC60(31, 3, "SAVE_SERVER", data, false)

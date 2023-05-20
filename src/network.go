@@ -84,6 +84,10 @@ func networkLogPrint(str string) {
 	noxConsole.Print(console.ColorGreen, str)
 }
 
+func networkLogPrintf(format string, args ...any) {
+	networkLogPrint(fmt.Sprintf(format, args...))
+}
+
 func netstrGetClientIndex() netstr.Handle { return netstrClientConn }
 
 func clientSetServerHost(host string) {

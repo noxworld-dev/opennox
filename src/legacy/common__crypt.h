@@ -16,6 +16,5 @@ size_t nox_xxx_fileReadWrite_426AC0_file3_fread_impl(unsigned char* a1, size_t a
 void nox_xxx_fileCryptReadCrcMB_426C20(unsigned char* a1, size_t a2);
 void nox_xxx_crypt_426C90();
 void nox_xxx_crypt_426D40();
-int sub_41C200();
 
 #endif // NOX_COMMON_CRYPT_H

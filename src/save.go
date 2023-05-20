@@ -1,6 +1,8 @@
 package opennox
 
 import (
+	"encoding/binary"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
@@ -19,6 +21,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
+	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -549,11 +552,72 @@ func nox_xxx_player_4D7960(a1 int) {
 	*memmap.PtrUint32(0x5D4594, 1556300) |= 1 << a1
 }
 
+var playerSaveSects = []struct {
+	name string
+	ind  int
+	fnc  func(a1 unsafe.Pointer, a2 int) int
+}{
+	{"Attrib Data", 2, legacy.Sub_41A590},
+	{"Status Data", 3, legacy.Sub_41AA30},
+	{"Inventory Data", 4, legacy.Sub_41AC30},
+	{"FieldGuide Data", 8, legacy.Nox_xxx_guiFieldbook_41B420},
+	{"Spellbook Data", 5, legacy.Nox_xxx_guiSpellbook_41B660},
+	{"Enchantment Data", 6, legacy.Nox_xxx_guiEnchantment_41B9C0},
+	{"Journal Data", 9, legacy.Sub_41BEC0},
+	{"Game Data", 10, legacy.Sub_41C080},
+	{"PAD_DATA", 11, func(_ unsafe.Pointer, _ int) int {
+		return cryptfile.Global().ReadWriteAlign()
+	}},
+}
+
+func nox_xxx_computeServerPlayerDataBufferSize_41CC50(path string) int64 {
+	f, err := binfile.BinfileOpen(path, binfile.ReadOnly)
+	if err != nil {
+		networkLogPrintf("computeServerPlayerDataBufferSize: Can't open file '%s': %v\n", path, err)
+		return 0
+	}
+	defer f.Close()
+	if err = f.SetKey(crypt.SaveKey); err != nil {
+		networkLogPrintf("computeServerPlayerDataBufferSize: Can't key file '%s': %v\n", path, err)
+		return 0
+	}
+	sz := int64(0)
+	var buf [4]byte
+	for {
+		_, err := io.ReadFull(f, buf[:4])
+		if err != nil {
+			break
+		}
+		id := int(binary.LittleEndian.Uint32(buf[:4]))
+		if id == 0 {
+			sz += 4
+			break
+		}
+		off1, _ := f.Seek(0, io.SeekCurrent)
+
+		_, err = f.ReadAligned(buf[:4])
+		if err != nil {
+			break
+		}
+		ssz := int64(binary.LittleEndian.Uint32(buf[:4]))
+		off2, _ := f.Seek(0, io.SeekCurrent)
+		doff := off2 - off1
+		for _, sec := range playerSaveSects {
+			if id == sec.ind {
+				sz += ssz + doff + 4
+				break
+			}
+		}
+		f.FileSeek(ssz, io.SeekCurrent)
+	}
+	return sz
+}
+
 func sub41CFA0(a1 string, a2 ntype.PlayerInd) bool {
 	if sub_419EE0(a2) {
 		return false
 	}
-	sz := legacy.Nox_xxx_computeServerPlayerDataBufferSize_41CC50(a1)
+	sz := nox_xxx_computeServerPlayerDataBufferSize_41CC50(a1)
 	if sz == 0 {
 		return false
 	}
