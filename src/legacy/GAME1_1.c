@@ -726,7 +726,6 @@ int sub_41A000(char* a1, nox_savegame_xxx* sv) {
 	char v7;           // al
 	uint8_t* v8;       // edi
 	char* v9;          // esi
-	int v10;           // [esp+10h] [ebp-508h]
 	int v11;           // [esp+14h] [ebp-504h]
 	char v12[1276];    // [esp+18h] [ebp-500h]
 	short v13;         // [esp+514h] [ebp-4h]
@@ -737,6 +736,7 @@ int sub_41A000(char* a1, nox_savegame_xxx* sv) {
 		return 0;
 	}
 	while (1) {
+		int v10 = 0;
 		nox_xxx_fileReadWrite_426AC0_file3_fread(&v10, 4u);
 		if (!v10) {
 			break;
