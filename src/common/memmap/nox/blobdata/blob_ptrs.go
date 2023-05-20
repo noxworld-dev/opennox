@@ -19,15 +19,6 @@ type Ptrs struct {
 	Ptr_nox_xxx_checkPoisonProtectEnch_4DFDE0 unsafe.Pointer
 	Ptr_sub_4E0140                            unsafe.Pointer
 
-	Ptr_sub_41A590                       unsafe.Pointer
-	Ptr_sub_41AA30                       unsafe.Pointer
-	Ptr_sub_41AC30                       unsafe.Pointer
-	Ptr_nox_xxx_guiFieldbook_41B420      unsafe.Pointer
-	Ptr_nox_xxx_guiSpellbook_41B660      unsafe.Pointer
-	Ptr_nox_xxx_guiEnchantment_41B9C0    unsafe.Pointer
-	Ptr_sub_41BEC0                       unsafe.Pointer
-	Ptr_sub_41C080                       unsafe.Pointer
-	Ptr_sub_41C200                       unsafe.Pointer
 	Ptr_sub_41C280                       unsafe.Pointer
 	Ptr_nox_xxx_parseFileInfoData_41C3B0 unsafe.Pointer
 	Ptr_sub_41C780                       unsafe.Pointer

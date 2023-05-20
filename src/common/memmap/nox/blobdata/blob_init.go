@@ -385,24 +385,6 @@ func Init(p *Ptrs) {
 	*memmap.PtrPtr(0x587000, 35800) = memmap.PtrOff(0x587000, 37728)
 	*memmap.PtrPtr(0x587000, 55744) = memmap.PtrOff(0x5D4594, 527672)
 
-	*memmap.PtrPtr(0x587000, 55816) = memmap.PtrOff(0x587000, 55988)
-	*memmap.PtrPtr(0x587000, 55824) = p.Ptr_sub_41A590
-	*memmap.PtrPtr(0x587000, 55828) = memmap.PtrOff(0x587000, 56000)
-	*memmap.PtrPtr(0x587000, 55836) = p.Ptr_sub_41AA30
-	*memmap.PtrPtr(0x587000, 55840) = memmap.PtrOff(0x587000, 56012)
-	*memmap.PtrPtr(0x587000, 55848) = p.Ptr_sub_41AC30
-	*memmap.PtrPtr(0x587000, 55852) = memmap.PtrOff(0x587000, 56028)
-	*memmap.PtrPtr(0x587000, 55860) = p.Ptr_nox_xxx_guiFieldbook_41B420
-	*memmap.PtrPtr(0x587000, 55864) = memmap.PtrOff(0x587000, 56044)
-	*memmap.PtrPtr(0x587000, 55872) = p.Ptr_nox_xxx_guiSpellbook_41B660
-	*memmap.PtrPtr(0x587000, 55876) = memmap.PtrOff(0x587000, 56060)
-	*memmap.PtrPtr(0x587000, 55884) = p.Ptr_nox_xxx_guiEnchantment_41B9C0
-	*memmap.PtrPtr(0x587000, 55888) = memmap.PtrOff(0x587000, 56080)
-	*memmap.PtrPtr(0x587000, 55896) = p.Ptr_sub_41BEC0
-	*memmap.PtrPtr(0x587000, 55900) = memmap.PtrOff(0x587000, 56096)
-	*memmap.PtrPtr(0x587000, 55908) = p.Ptr_sub_41C080
-	*memmap.PtrPtr(0x587000, 55912) = memmap.PtrOff(0x587000, 56108)
-	*memmap.PtrPtr(0x587000, 55920) = p.Ptr_sub_41C200
 	*memmap.PtrPtr(0x587000, 55936) = memmap.PtrOff(0x587000, 56120)
 	*memmap.PtrPtr(0x587000, 55944) = p.Ptr_sub_41C280
 	*memmap.PtrPtr(0x587000, 55948) = memmap.PtrOff(0x587000, 56132)
