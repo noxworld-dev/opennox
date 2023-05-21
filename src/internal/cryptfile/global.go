@@ -6,13 +6,17 @@ func Global() *CryptFile {
 	return global
 }
 
+func SetGlobal(cf *CryptFile) {
+	global = cf
+}
+
 func OpenGlobal(path string, cmode Mode, key int) error {
 	Close()
 	cf, err := OpenFile(path, cmode, key)
 	if err != nil {
 		return err
 	}
-	global = cf
+	SetGlobal(cf)
 	return nil
 }
 
@@ -21,6 +25,6 @@ func Close() error {
 		return nil
 	}
 	err := global.Close()
-	global = nil
+	SetGlobal(nil)
 	return err
 }

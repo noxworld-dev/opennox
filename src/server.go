@@ -919,7 +919,7 @@ func (s *Server) nox_server_xxxInitPlayerUnits_4FC6D0() {
 					ud := u.UpdateDataPlayer()
 					plx := asPlayerS(ud.Player)
 					pi := plx.PlayerIndex()
-					if plx.Field4792 == 1 && ud.Field138 == 0 && nox_xxx_playerSaveToFile_41A140(fname, pi) {
+					if plx.Field4792 == 1 && ud.Field138 == 0 && savePlayerData(fname, pi) {
 						v5 := sub_419EE0(pi)
 						nox_xxx_sendGauntlet_4DCF80(pi, 1)
 						if !sub41CFA0(fname, pi) && !v5 {
