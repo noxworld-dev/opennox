@@ -1555,7 +1555,7 @@ func (s *Server) onPacketOp(pli ntype.PlayerInd, op noxnet.Op, data []byte, pl *
 		} else {
 			fname := datapath.Save(common.SaveDir, "_temp_.dat")
 			defer ifs.Remove(fname)
-			if nox_xxx_playerSaveToFile_41A140(fname, pl.PlayerIndex()) {
+			if savePlayerData(fname, pl.PlayerIndex()) {
 				sub41CFA0(fname, pl.PlayerIndex())
 			}
 		}
