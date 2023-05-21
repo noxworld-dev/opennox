@@ -15,9 +15,10 @@ void nox_xxx_unitsNewAddToList_4DAC00();
 */
 import "C"
 import (
+	"errors"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/common/ntype"
+	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -88,9 +89,6 @@ func Nox_xxx_quickBarClose_4606B0() {
 func Nox_xxx_monstersAllBelongToHost_4DB6A0() {
 	C.nox_xxx_monstersAllBelongToHost_4DB6A0()
 }
-func Nox_xxx_playerSaveToFile_41A140(a1 string, a2 ntype.PlayerInd) int {
-	return int(C.nox_xxx_playerSaveToFile_41A140(internCStr(a1), C.int(a2)))
-}
 func Nox_xxx_mapSavePlayerDataMB_41A230(a1 string) bool {
 	return C.nox_xxx_mapSavePlayerDataMB_41A230(internCStr(a1)) != 0
 }
@@ -98,34 +96,82 @@ func Nox_xxx_mapSaveMap_51E010(a1 string, a2 int) bool {
 	return C.nox_xxx_mapSaveMap_51E010(internCStr(a1), C.int(a2)) != 0
 }
 
-func Sub_41A590(a1 unsafe.Pointer, a2 int) int {
-	return int(C.sub_41A590(a1, C.int(a2)))
+func Sub_41A590(cf *cryptfile.CryptFile, u *server.Object, pinfo *server.PlayerInfo) error {
+	old := cryptfile.Global()
+	cryptfile.SetGlobal(cf)
+	defer cryptfile.SetGlobal(old)
+	if C.sub_41A590(u.CObj(), pinfo.C()) == 0 {
+		return errors.New("failed")
+	}
+	return nil
 }
 
-func Sub_41AA30(a1 unsafe.Pointer, a2 int) int {
-	return int(C.sub_41AA30(a1, C.int(a2)))
+func Sub_41AA30(cf *cryptfile.CryptFile, u *server.Object, pinfo *server.PlayerInfo) error {
+	old := cryptfile.Global()
+	cryptfile.SetGlobal(cf)
+	defer cryptfile.SetGlobal(old)
+	if C.sub_41AA30(u.CObj(), pinfo.C()) == 0 {
+		return errors.New("failed")
+	}
+	return nil
 }
 
-func Sub_41AC30(a1 unsafe.Pointer, a2 int) int {
-	return int(C.sub_41AC30(a1, C.int(a2)))
+func Sub_41AC30(cf *cryptfile.CryptFile, u *server.Object, pinfo *server.PlayerInfo) error {
+	old := cryptfile.Global()
+	cryptfile.SetGlobal(cf)
+	defer cryptfile.SetGlobal(old)
+	if C.sub_41AC30(u.CObj(), pinfo.C()) == 0 {
+		return errors.New("failed")
+	}
+	return nil
 }
 
-func Nox_xxx_guiFieldbook_41B420(a1 unsafe.Pointer, a2 int) int {
-	return int(C.nox_xxx_guiFieldbook_41B420(a1, C.int(a2)))
+func Nox_xxx_guiFieldbook_41B420(cf *cryptfile.CryptFile, u *server.Object, pinfo *server.PlayerInfo) error {
+	old := cryptfile.Global()
+	cryptfile.SetGlobal(cf)
+	defer cryptfile.SetGlobal(old)
+	if C.nox_xxx_guiFieldbook_41B420(u.CObj(), pinfo.C()) == 0 {
+		return errors.New("failed")
+	}
+	return nil
 }
 
-func Nox_xxx_guiSpellbook_41B660(a1 unsafe.Pointer, a2 int) int {
-	return int(C.nox_xxx_guiSpellbook_41B660(a1, C.int(a2)))
+func Nox_xxx_guiSpellbook_41B660(cf *cryptfile.CryptFile, u *server.Object, pinfo *server.PlayerInfo) error {
+	old := cryptfile.Global()
+	cryptfile.SetGlobal(cf)
+	defer cryptfile.SetGlobal(old)
+	if C.nox_xxx_guiSpellbook_41B660(u.CObj(), pinfo.C()) == 0 {
+		return errors.New("failed")
+	}
+	return nil
 }
 
-func Nox_xxx_guiEnchantment_41B9C0(a1 unsafe.Pointer, a2 int) int {
-	return int(C.nox_xxx_guiEnchantment_41B9C0(a1, C.int(a2)))
+func Nox_xxx_guiEnchantment_41B9C0(cf *cryptfile.CryptFile, u *server.Object, pinfo *server.PlayerInfo) error {
+	old := cryptfile.Global()
+	cryptfile.SetGlobal(cf)
+	defer cryptfile.SetGlobal(old)
+	if C.nox_xxx_guiEnchantment_41B9C0(u.CObj(), pinfo.C()) == 0 {
+		return errors.New("failed")
+	}
+	return nil
 }
 
-func Sub_41BEC0(a1 unsafe.Pointer, a2 int) int {
-	return int(C.sub_41BEC0(a1, C.int(a2)))
+func Sub_41BEC0(cf *cryptfile.CryptFile, u *server.Object, pinfo *server.PlayerInfo) error {
+	old := cryptfile.Global()
+	cryptfile.SetGlobal(cf)
+	defer cryptfile.SetGlobal(old)
+	if C.sub_41BEC0(u.CObj(), pinfo.C()) == 0 {
+		return errors.New("failed")
+	}
+	return nil
 }
 
-func Sub_41C080(a1 unsafe.Pointer, a2 int) int {
-	return int(C.sub_41C080(a1, C.int(a2)))
+func Sub_41C080(cf *cryptfile.CryptFile, u *server.Object, pinfo *server.PlayerInfo) error {
+	old := cryptfile.Global()
+	cryptfile.SetGlobal(cf)
+	defer cryptfile.SetGlobal(old)
+	if C.sub_41C080(u.CObj(), pinfo.C()) == 0 {
+		return errors.New("failed")
+	}
+	return nil
 }

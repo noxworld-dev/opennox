@@ -2,6 +2,7 @@ package opennox
 
 import (
 	"encoding/binary"
+	"errors"
 	"io"
 	"os"
 	"path/filepath"
@@ -43,10 +44,6 @@ var (
 	dword_5d4594_1559960           string
 	saveName1557900                string
 )
-
-func nox_xxx_playerSaveToFile_41A140(path string, ind ntype.PlayerInd) bool {
-	return legacy.Nox_xxx_playerSaveToFile_41A140(path, ind) != 0
-}
 
 func clientLoadCoopGame(name string) bool {
 	legacy.Nox_xxx_mapLoadOrSaveMB_4DCC70(1)
@@ -511,7 +508,7 @@ func sub_4DCD40() {
 		ud := u.UpdateDataPlayer()
 		pl := asPlayerS(ud.Player)
 		if pl.Field4792 != 0 && ud.Field138 != 1 {
-			if nox_xxx_playerSaveToFile_41A140(path, pl.PlayerIndex()) {
+			if savePlayerData(path, pl.PlayerIndex()) {
 				sub41CFA0(path, pl.PlayerIndex())
 			}
 			ifs.Remove(path)
@@ -536,7 +533,7 @@ func sub_4DCFB0(a1p *server.Object) {
 		}
 		FileName := datapath.Save("_temp_.dat")
 		v2 := true
-		if nox_xxx_playerSaveToFile_41A140(FileName, pl.PlayerIndex()) {
+		if savePlayerData(FileName, pl.PlayerIndex()) {
 			v2 = sub41CFA0(FileName, pl.PlayerIndex())
 		}
 		ifs.Remove(FileName)
@@ -555,7 +552,7 @@ func nox_xxx_player_4D7960(a1 int) {
 var playerSaveSects = []struct {
 	name string
 	ind  int
-	fnc  func(a1 unsafe.Pointer, a2 int) int
+	fnc  func(cf *cryptfile.CryptFile, u *server.Object, pinfo *server.PlayerInfo) error
 }{
 	{"Attrib Data", 2, legacy.Sub_41A590},
 	{"Status Data", 3, legacy.Sub_41AA30},
@@ -565,8 +562,11 @@ var playerSaveSects = []struct {
 	{"Enchantment Data", 6, legacy.Nox_xxx_guiEnchantment_41B9C0},
 	{"Journal Data", 9, legacy.Sub_41BEC0},
 	{"Game Data", 10, legacy.Sub_41C080},
-	{"PAD_DATA", 11, func(_ unsafe.Pointer, _ int) int {
-		return cryptfile.Global().ReadWriteAlign()
+	{"PAD_DATA", 11, func(cf *cryptfile.CryptFile, _ *server.Object, _ *server.PlayerInfo) error {
+		if cf.ReadWriteAlign() == 0 {
+			return errors.New("alignment failed")
+		}
+		return nil
 	}},
 }
 
@@ -611,6 +611,39 @@ func nox_xxx_computeServerPlayerDataBufferSize_41CC50(path string) int64 {
 		f.FileSeek(ssz, io.SeekCurrent)
 	}
 	return sz
+}
+
+func savePlayerData(path string, ind ntype.PlayerInd) bool {
+	s := noxServer
+	pl := s.Players.ByInd(ind)
+	if pl == nil {
+		return false
+	}
+	u := pl.PlayerUnit
+	if u == nil {
+		networkLogPrintf("SaveServerPlayerData: nil player object\n")
+		return false
+	}
+	pinfo := pl.Info()
+
+	cf, err := cryptfile.OpenFile(path, cryptfile.WriteOnly, crypt.SaveKey)
+	if err != nil {
+		networkLogPrintf("SavePlayerData: Can't open file '%s': %v\n", path, err)
+		return false
+	}
+	defer cf.Close()
+
+	for _, sec := range playerSaveSects {
+		cf.WriteU32(uint32(sec.ind))
+		cf.SectionStart()
+		err := sec.fnc(cf, u, pinfo)
+		cf.SectionEnd()
+		if err != nil {
+			networkLogPrintf("SavePlayerData: Error saving player data '%s': %v\n", sec.name, err)
+			return false
+		}
+	}
+	return true
 }
 
 func sub41CFA0(a1 string, a2 ntype.PlayerInd) bool {
@@ -725,7 +758,7 @@ func saveCoopGame(name string) bool {
 		*memmap.PtrUint32(0x85B3FC, 10980) |= 8
 	}
 	*memmap.PtrUint8(0x85B3FC, 12257) = sub_450750()
-	if !nox_xxx_playerSaveToFile_41A140(ppath, pl.PlayerIndex()) {
+	if !savePlayerData(ppath, pl.PlayerIndex()) {
 		return false
 	}
 	if !legacy.Nox_xxx_mapSavePlayerDataMB_41A230(ppath) {

@@ -564,6 +564,10 @@ type PlayerInfo struct {
 	nameSuff    [8]byte  // 2274 (+89)
 }
 
+func (p *PlayerInfo) C() unsafe.Pointer {
+	return unsafe.Pointer(p)
+}
+
 func (p *PlayerInfo) PlayerClass() player.Class {
 	if p == nil {
 		return 0
