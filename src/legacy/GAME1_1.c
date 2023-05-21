@@ -793,45 +793,6 @@ table_55816_t table_55816[] = {
 };
 int table_55816_cnt = sizeof(table_55816) / sizeof(table_55816_t) - 1;
 
-//----- (0041A140) --------------------------------------------------------
-int nox_xxx_playerSaveToFile_41A140(char* a1, int a2) {
-	int result = nox_common_playerInfoFromNum_417090(a2);
-	if (!result) {
-		return 0;
-	}
-	int v3 = *(uint32_t*)(result + 2056);
-	if (!v3) {
-		nox_xxx_networkLog_printf_413D30("SaveServerPlayerData: NULL player object\n");
-		return 0;
-	}
-	int v4 = result + 2185;
-	if (!nox_xxx_cryptOpen_426910(a1, 0, 27)) {
-		nox_xxx_networkLog_printf_413D30("SavePlayerData: Can't open file '%s'\n", a1);
-		return 0;
-	}
-
-	if (table_55816_cnt == 0) {
-		nox_xxx_cryptClose_4269F0();
-		return 1;
-	}
-	for (int i = 0; i < table_55816_cnt; i++) {
-		table_55816_t* sec = &table_55816[i];
-		nox_xxx_fileReadWrite_426AC0_file3_fread(&sec->ind, 4u);
-		nox_xxx_crypt_426C90();
-		int ok = sec->fnc(v3, v4);
-		nox_xxx_crypt_426D40();
-		if (!ok) {
-			nox_xxx_networkLog_printf_413D30("SavePlayerData: Error saving player data '%s'\n", sec->name);
-			nox_xxx_cryptClose_4269F0();
-			return 0;
-		}
-	}
-	nox_xxx_cryptClose_4269F0();
-	return 1;
-}
-// 41A1C9: variable 'v6' is possibly undefined
-// 41A1DB: variable 'v8' is possibly undefined
-
 //----- (0041A230) --------------------------------------------------------
 int nox_xxx_mapSavePlayerDataMB_41A230(char* a1) {
 	char* v1;          // edi
@@ -993,8 +954,9 @@ int nox_xxx_plrLoad_41A480(char* a1) {
 }
 
 //----- (0041A590) --------------------------------------------------------
-int sub_41A590(void* a1p, int a2) {
+int sub_41A590(void* a1p, void* a2p) {
 	int a1 = a1p;
+	int a2 = a2p;
 	int v2;    // esi
 	int v3;    // edi
 	int v4;    // ebx
@@ -1148,8 +1110,9 @@ LABEL_20:
 }
 
 //----- (0041AA30) --------------------------------------------------------
-int sub_41AA30(void* a1p, int a2) {
+int sub_41AA30(void* a1p, void* a2p) {
 	int a1 = a1p;
+	int a2 = a2p;
 	int v1;       // esi
 	int v2;       // ebp
 	char* result; // eax
@@ -1223,8 +1186,9 @@ int sub_41AA30(void* a1p, int a2) {
 // 41AB12: variable 'v5' is possibly undefined
 
 //----- (0041AC30) --------------------------------------------------------
-int sub_41AC30(void* a1p, int a2) {
+int sub_41AC30(void* a1p, void* a2p) {
 	uint32_t* a1 = a1p;
+	int a2 = a2p;
 	uint32_t* v1;  // ebp
 	int result;    // eax
 	int v3;        // eax
@@ -1610,8 +1574,9 @@ int sub_41B3E0(int a1) {
 }
 
 //----- (0041B420) --------------------------------------------------------
-int nox_xxx_guiFieldbook_41B420(void* a1p, int a2) {
+int nox_xxx_guiFieldbook_41B420(void* a1p, void* a2p) {
 	int a1 = a1p;
+	int a2 = a2p;
 	char* v1;      // esi
 	int result;    // eax
 	uint32_t* v3;  // ebp
@@ -1709,8 +1674,9 @@ int nox_xxx_guiFieldbook_41B420(void* a1p, int a2) {
 // 41B420: using guessed type char var_100[256];
 
 //----- (0041B660) --------------------------------------------------------
-int nox_xxx_guiSpellbook_41B660(void* a1p, int a2) {
+int nox_xxx_guiSpellbook_41B660(void* a1p, void* a2p) {
 	int a1 = a1p;
+	int a2 = a2p;
 	int result;    // eax
 	int v2;        // esi
 	uint8_t* v3;   // ebp
@@ -1865,8 +1831,9 @@ int nox_xxx_guiSpellbook_41B660(void* a1p, int a2) {
 // 41B660: using guessed type char var_100[256];
 
 //----- (0041B9C0) --------------------------------------------------------
-int nox_xxx_guiEnchantment_41B9C0(void* a1p, int a2) {
+int nox_xxx_guiEnchantment_41B9C0(void* a1p, void* a2p) {
 	uint32_t* a1 = a1p;
+	int a2 = a2p;
 	int result;    // eax
 	int i;         // ebp
 	char* v3;      // ebx
@@ -2030,8 +1997,9 @@ int nox_xxx_guiEnchantment_41B9C0(void* a1p, int a2) {
 // 41B9C0: using guessed type char var_100[256];
 
 //----- (0041BEC0) --------------------------------------------------------
-int sub_41BEC0(void* a1p, int a2) {
+int sub_41BEC0(void* a1p, void* a2p) {
 	int a1 = a1p;
+	int a2 = a2p;
 	int v1;       // edi
 	int v2;       // esi
 	int result;   // eax
@@ -2102,8 +2070,9 @@ int sub_41BEC0(void* a1p, int a2) {
 // 41BEC0: using guessed type char var_40[64];
 
 //----- (0041C080) --------------------------------------------------------
-int sub_41C080(void* a1p, int a2) {
+int sub_41C080(void* a1p, void* a2p) {
 	int a1 = a1p;
+	int a2 = a2p;
 	uint32_t* v1;    // ebp
 	int v2;          // ebx
 	int result;      // eax
