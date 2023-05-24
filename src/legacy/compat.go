@@ -8,6 +8,9 @@ import (
 	"strconv"
 	"time"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox-lib/env"
+	"github.com/noxworld-dev/opennox-lib/platform"
 )
 
 //export nox_itoa
@@ -22,6 +25,9 @@ func nox_itoa(val C.int, s *C.char, radix int) *C.char {
 //export noxGetLocalTime
 func noxGetLocalTime(p *C.noxSYSTEMTIME) {
 	tm := time.Now()
+	if env.IsE2E() {
+		tm = time.Date(2022, 1, 1, 0, 0, 0, 0, time.UTC).Add(platform.Ticks())
+	}
 	p.wYear = C.ushort(tm.Year())
 	p.wMonth = C.ushort(tm.Month())
 	p.wDayOfWeek = C.ushort(tm.Weekday())
