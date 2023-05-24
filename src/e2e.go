@@ -51,10 +51,11 @@ var e2e struct {
 	realMouse  image.Point
 	realEnable bool
 
-	done     chan<- struct{}
-	steps    []e2eStep
-	input    []seat.InputEvent
-	recorded []e2eRecordedEvent
+	done      chan<- struct{}
+	steps     []e2eStep
+	input     []seat.InputEvent
+	recorded  []e2eRecordedEvent
+	checkSave *e2eCheckSave
 }
 
 type e2eStep struct {
@@ -259,15 +260,14 @@ func (sc *e2eScenario) error(err error) {
 	sc.err = err
 }
 
+type e2eCheckSave struct {
+	Name   string
+	Hashes map[string]string
+}
+
 func (sc *e2eScenario) Save(name string, hashes map[string]string) {
-	sc.add(1, name, func() {
-		path := datapath.Save(name)
-		got := e2eHashDir(path)
-		if !maps.Equal(got, hashes) {
-			err := fmt.Errorf("unexpected save data:\ngot: %+v\nvs\nexp: %+v", got, hashes)
-			//sc.error(err) // TODO: figure out what changes the hash
-			e2eLog.Println(err)
-		}
+	sc.add(0, name, func() {
+		e2e.checkSave = &e2eCheckSave{Name: name, Hashes: hashes}
 	})
 }
 
@@ -740,15 +740,25 @@ type e2eSave struct {
 }
 
 func e2eOnSave(name string) {
-	if !e2e.recording {
-		return
+	if e2e.recording {
+		t := platform.Ticks()
+		path := datapath.Save(name)
+		hash := e2eHashDir(path)
+		e2e.recorded = append(e2e.recorded, e2eRecordedEvent{
+			Time: t - 1, Save: &e2eSave{Name: name, Hash: hash},
+		})
+	} else if s := e2e.checkSave; s != nil {
+		defer func() {
+			e2e.checkSave = nil
+		}()
+		path := datapath.Save(name)
+		got := e2eHashDir(path)
+		if !maps.Equal(got, s.Hashes) {
+			err := fmt.Errorf("unexpected save data:\ngot: %+v\nvs\nexp: %+v", got, s.Hashes)
+			//sc.error(err) // TODO: figure out what changes the hash
+			e2eLog.Println(err)
+		}
 	}
-	t := platform.Ticks()
-	path := datapath.Save(name)
-	hash := e2eHashDir(path)
-	e2e.recorded = append(e2e.recorded, e2eRecordedEvent{
-		Time: t - 1, Save: &e2eSave{Name: name, Hash: hash},
-	})
 }
 
 func e2eRealInput(ev seat.InputEvent) {
