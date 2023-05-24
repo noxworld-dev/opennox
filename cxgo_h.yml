@@ -1,0 +1,13 @@
+root: ./src/legacy
+out: ./gonoxh
+package: opennox
+int_size: 4
+ptr_size: 4
+wchar_size: 2
+use_go_int: false
+unexported_fields: true
+forward_decl: true
+define:
+  - name: NOX_CGO
+files:
+  - name: '*.h'
