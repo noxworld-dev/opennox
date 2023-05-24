@@ -3,8 +3,6 @@
 
 #include "defs.h"
 
-int nox_script_printToCaller_512B10();
-int nox_script_printToAll_512B60();
 int nox_script_Fn5E_513F70();
 
 #endif // NOX_PORT_SERVER_SYSTEM_CSCRFUNC
