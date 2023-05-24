@@ -198,7 +198,7 @@ func run(root string) error {
 
 	// Scan Go source in the legacy package
 	err = scanDir(legacydir, func(file *ast.File) {
-		walkInDecl(file, "", nil, func(d ast.Decl) {
+		walkInDecl(file, "legacy.", nil, func(d ast.Decl) {
 			switch d := d.(type) {
 			case *ast.FuncDecl:
 				if strings.Contains(d.Doc.Text(), "export "+d.Name.Name) {
@@ -210,11 +210,18 @@ func run(root string) error {
 		}, func(n ast.Node) {
 			switch n := n.(type) {
 			case *ast.SelectorExpr:
-				if cname, ok := n.X.(*ast.Ident); !ok || cname.Name != "C" {
+				cname, ok := n.X.(*ast.Ident)
+				if !ok {
 					return
 				}
-				usedGo[n.Sel.Name]++
-				addNode("C." + n.Sel.Name)
+				switch cname.Name {
+				case "C":
+					usedGo[n.Sel.Name]++
+					addNode("C." + n.Sel.Name)
+				case "legacy":
+					usedGo["legacy."+n.Sel.Name]++
+					addNode("legacy." + n.Sel.Name)
+				}
 			}
 		})
 	})
@@ -273,7 +280,7 @@ func run(root string) error {
 
 	// Scan Go source in the legacy package
 	err = scanDir(legacydir, func(file *ast.File) {
-		walkInDecl(file, "", &curNode, nil, func(n ast.Node) {
+		walkInDecl(file, "legacy.", &curNode, nil, func(n ast.Node) {
 			switch n := n.(type) {
 			case *ast.SelectorExpr:
 				cname, ok := n.X.(*ast.Ident)
@@ -303,6 +310,34 @@ func run(root string) error {
 			}
 		})
 	})
+
+	// Scan Go source in the main package
+	err = scanDir(godir, func(file *ast.File) {
+		walkInDecl(file, "main.", &curNode, nil, func(n ast.Node) {
+			switch n := n.(type) {
+			case *ast.SelectorExpr:
+				cname, ok := n.X.(*ast.Ident)
+				if !ok {
+					return
+				}
+				switch cname.Name {
+				case "C":
+					usedGo[n.Sel.Name]++
+
+					_, okC := declsC[n.Sel.Name]
+					_, okGo := declsLegacy[n.Sel.Name]
+					_, ignore := ignoreC[n.Sel.Name]
+					_, isfnc := isFunc[n.Sel.Name]
+					if !ignore && isfnc && (okC || okGo) {
+						addNode("C." + n.Sel.Name)
+					}
+				case "legacy":
+					usedGo["legacy."+n.Sel.Name]++
+					addNode("legacy." + n.Sel.Name)
+				}
+			}
+		})
+	})
 	if err != nil {
 		return err
 	}
@@ -313,17 +348,17 @@ func run(root string) error {
 			unusedC = append(unusedC, name)
 		}
 	}
-	var unexportGo []string
+	var unexportLegacy []string
 	for name := range declsLegacy {
 		if usedC[name]+usedGo[name] == 0 {
-			unexportGo = append(unexportGo, name)
+			unexportLegacy = append(unexportLegacy, name)
 		}
 	}
 	log.Printf("candidates for removal: %d", len(unusedC))
-	log.Printf("candidates for unexport: %d", len(unexportGo))
+	log.Printf("candidates for unexport: %d", len(unexportLegacy))
 	sort.Strings(unusedC)
-	sort.Strings(unexportGo)
-	for _, name := range unexportGo {
+	sort.Strings(unexportLegacy)
+	for _, name := range unexportLegacy {
 		log.Printf("candidate for unexport: %s", name)
 	}
 	for _, name := range unusedC {
@@ -341,7 +376,19 @@ func walkInDecl(file *ast.File, cpref string, cur *string, dfnc func(d ast.Decl)
 		case *ast.FuncDecl:
 			if d.Body != nil {
 				if cur != nil {
-					*cur = cpref + d.Name.Name
+					if d.Recv != nil {
+						typ := d.Recv.List[0].Type
+						if x, ok := typ.(*ast.StarExpr); ok {
+							typ = x.X
+						}
+						if x, ok := typ.(*ast.IndexListExpr); ok {
+							typ = x.X
+						}
+						tname := typ.(*ast.Ident)
+						*cur = cpref + tname.Name + "." + d.Name.Name
+					} else {
+						*cur = cpref + d.Name.Name
+					}
 				}
 				ast.Inspect(d.Body, func(n ast.Node) bool {
 					fnc(n)
