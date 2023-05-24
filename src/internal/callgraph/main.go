@@ -68,10 +68,15 @@ func run(root string) error {
 		"nox_memfile_read_i16": 1,
 	}
 
+	// Function usages from C side.
 	usedC := make(map[string]int)
+	// Functions usages from Go side.
 	usedGo := make(map[string]int)
+	// Functions declared on C side.
 	declsC := make(map[string]struct{})
-	declsGo := make(map[string]struct{})
+	// Functions declared on Go side (legacy package).
+	declsLegacy := make(map[string]struct{})
+	// Helps distinguish function identifiers from variables.
 	isFunc := make(map[string]struct{})
 
 	for k := range ignoreC {
@@ -91,7 +96,8 @@ func run(root string) error {
 	cdir := filepath.Join(root, "gonox")   // requires cxgo run!
 	chdir := filepath.Join(root, "gonoxh") // requires cxgo run!
 
-	legacydir := filepath.Join(root, "src", "legacy")
+	godir := filepath.Join(root, "src")
+	legacydir := filepath.Join(godir, "legacy")
 
 	scanDir := func(dir string, fnc func(file *ast.File)) error {
 		return filepath.WalkDir(dir, func(path string, d fs.DirEntry, err error) error {
@@ -196,9 +202,9 @@ func run(root string) error {
 			switch d := d.(type) {
 			case *ast.FuncDecl:
 				if strings.Contains(d.Doc.Text(), "export "+d.Name.Name) {
-					declsGo[d.Name.Name] = struct{}{}
+					declsLegacy[d.Name.Name] = struct{}{}
 					isFunc[d.Name.Name] = struct{}{}
-					addEdge("C."+d.Name.Name, d.Name.Name)
+					addEdge("C."+d.Name.Name, "legacy."+d.Name.Name)
 				}
 			}
 		}, func(n ast.Node) {
@@ -216,8 +222,30 @@ func run(root string) error {
 		return err
 	}
 
+	// Scan Go source in the main package
+	err = scanDir(godir, func(file *ast.File) {
+		walkInDecl(file, "", nil, func(d ast.Decl) {
+			switch d := d.(type) {
+			case *ast.FuncDecl:
+				isFunc[d.Name.Name] = struct{}{}
+			}
+		}, func(n ast.Node) {
+			switch n := n.(type) {
+			case *ast.SelectorExpr:
+				if cname, ok := n.X.(*ast.Ident); !ok || cname.Name != "legacy" {
+					return
+				}
+				usedGo["legacy."+n.Sel.Name]++
+				addNode("legacy." + n.Sel.Name)
+			}
+		})
+	})
+	if err != nil {
+		return err
+	}
+
 	log.Printf("C decls: %d", len(declsC))
-	log.Printf("exported Go decls: %d", len(declsGo))
+	log.Printf("exported Go decls: %d", len(declsLegacy))
 
 	// =======================================
 	// Search for usages, build call graph
@@ -230,7 +258,7 @@ func run(root string) error {
 				usedC[n.Name]++
 
 				_, okC := declsC[n.Name]
-				_, okGo := declsGo[n.Name]
+				_, okGo := declsLegacy[n.Name]
 				_, ignore := ignoreC[n.Name]
 				_, isfnc := isFunc[n.Name]
 				if !ignore && isfnc && (okC || okGo) {
@@ -248,17 +276,29 @@ func run(root string) error {
 		walkInDecl(file, "", &curNode, nil, func(n ast.Node) {
 			switch n := n.(type) {
 			case *ast.SelectorExpr:
-				if cname, ok := n.X.(*ast.Ident); !ok || cname.Name != "C" {
+				cname, ok := n.X.(*ast.Ident)
+				if !ok {
 					return
 				}
-				usedGo[n.Sel.Name]++
+				switch cname.Name {
+				case "C":
+					usedGo[n.Sel.Name]++
 
-				_, okC := declsC[n.Sel.Name]
-				_, okGo := declsGo[n.Sel.Name]
-				_, ignore := ignoreC[n.Sel.Name]
-				_, isfnc := isFunc[n.Sel.Name]
-				if !ignore && isfnc && (okC || okGo) {
-					addNode("C." + n.Sel.Name)
+					_, okC := declsC[n.Sel.Name]
+					_, okGo := declsLegacy[n.Sel.Name]
+					_, ignore := ignoreC[n.Sel.Name]
+					_, isfnc := isFunc[n.Sel.Name]
+					if !ignore && isfnc && (okC || okGo) {
+						addNode("C." + n.Sel.Name)
+					}
+				case "legacy":
+					usedGo["legacy."+n.Sel.Name]++
+
+					_, okGo := declsLegacy[n.Sel.Name]
+					_, isfnc := isFunc[n.Sel.Name]
+					if isfnc && okGo {
+						addNode("legacy." + n.Sel.Name)
+					}
 				}
 			}
 		})
@@ -274,7 +314,7 @@ func run(root string) error {
 		}
 	}
 	var unexportGo []string
-	for name := range declsGo {
+	for name := range declsLegacy {
 		if usedC[name]+usedGo[name] == 0 {
 			unexportGo = append(unexportGo, name)
 		}
