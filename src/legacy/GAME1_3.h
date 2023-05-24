@@ -82,7 +82,6 @@ int nox_xxx_drawString_43F6E0(void* a1, wchar2_t* a2, int a3, int a4);
 int nox_draw_drawStringHL_43F730(void* a1, wchar2_t* a2, int a3, int a4);
 int nox_xxx_drawStringStyle_43F7B0(void* a1, wchar2_t* a2, int a3, int a4);
 int nox_xxx_drawGetStringSize_43F840(void* a1, wchar2_t* a2, int* a3, int* a4, int a5);
-int nox_draw_getFontAdvance_43F9E0(void* a1, wchar2_t* a2, int a3);
 int nox_xxx_bookGetStringSize_43FA80(void* a1, wchar2_t* a2, int* a3, int* a4, int a5);
 int nox_xxx_drawStringWrap_43FAF0(void* a1, wchar2_t* str, int a3, int a4, int a5, int a6);
 int nox_xxx_drawStringWrapHL_43FD00(void* a1, wchar2_t* a2, int a3, int a4, int a5, int a6);

@@ -2293,23 +2293,6 @@ void sub_548B60() {
 	dword_5d4594_2491552 = 0;
 }
 
-//----- (00548C80) --------------------------------------------------------
-void nox_xxx_scriptSetDialog_548C80(int a1, char a2, int a3, int a4) {
-	int v4; // eax
-
-	if (a1) {
-		if (*(uint8_t*)(a1 + 8) & 2) {
-			v4 = *(uint32_t*)(a1 + 748);
-			if (a3 != -1 && a4 != -1) {
-				*(uint32_t*)(v4 + 2096) = a3;
-				*(uint32_t*)(v4 + 2100) = a4;
-				*(uint8_t*)(v4 + 2104) = a2;
-				nox_xxx_unitSetXStatus_4E4800(a1, (int*)0x10);
-			}
-		}
-	}
-}
-
 //----- (00548CD0) --------------------------------------------------------
 void nox_xxx_script_forcedialog_548CD0(nox_object_t* a1p, nox_object_t* a2p) {
 	int a1 = a1p;

@@ -47,7 +47,6 @@ extern uint32_t dword_5d4594_2487932;
 extern uint32_t nox_xxx_lightningOwner_5d4594_2487900;
 extern uint32_t dword_587000_261388;
 extern uint32_t dword_5d4594_2487948;
-extern uint32_t dword_5d4594_2488640;
 extern uint32_t dword_5d4594_2488608;
 extern uint32_t dword_5d4594_2488652;
 extern uint32_t dword_5d4594_3835348;
