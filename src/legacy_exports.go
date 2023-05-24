@@ -40,7 +40,6 @@ func init() {
 	legacy.Sub_44A4E0 = sub_44A4E0
 	legacy.Sub_44A4B0 = sub_44A4B0
 	legacy.Sub_44A360 = sub_44A360
-	legacy.Sub_470A80 = sub_470A80
 	legacy.Sub_4706C0 = sub_4706C0
 	legacy.Sub_473670 = sub_473670
 	legacy.Nox_client_toggleMap_473610 = nox_client_toggleMap_473610
