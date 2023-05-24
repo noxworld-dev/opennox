@@ -41,18 +41,3 @@ func nox_alloc_class_free_obj_first(p *C.nox_alloc_class, obj unsafe.Pointer) {
 func nox_alloc_class_free_all(p *C.nox_alloc_class) {
 	alloc.AsClass(unsafe.Pointer(p)).FreeAllObjects()
 }
-
-//export nox_alloc_class_free_obj_last
-func nox_alloc_class_free_obj_last(p *C.nox_alloc_class, obj unsafe.Pointer) {
-	alloc.AsClass(unsafe.Pointer(p)).FreeObjectLast(obj)
-}
-
-//export nox_alloc_class_reset_stats
-func nox_alloc_class_reset_stats(p *C.nox_alloc_class) {
-	alloc.AsClass(unsafe.Pointer(p)).ResetStats()
-}
-
-//export nox_alloc_class_obj_keep
-func nox_alloc_class_obj_keep(p *C.nox_alloc_class, off int) {
-	alloc.AsClass(unsafe.Pointer(p)).Keep(uintptr(off))
-}
