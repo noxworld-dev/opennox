@@ -297,13 +297,6 @@ func nox_draw_setTabWidth_43FE20(v int) int {
 	return old
 }
 
-//export nox_draw_getFontAdvance_43F9E0
-func nox_draw_getFontAdvance_43F9E0(fnt unsafe.Pointer, sp *wchar2_t, maxW int) int {
-	// TODO: this may be incorrect
-	r := GetClient().R2()
-	return r.GetStringSizeWrapped(r.GetFonts().AsFont(fnt), GoWString(sp), maxW).X
-}
-
 //export nox_xxx_drawGetStringSize_43F840
 func nox_xxx_drawGetStringSize_43F840(font unsafe.Pointer, sp *wchar2_t, outW, outH *C.int, maxW int) int {
 	r := GetClient().R2()

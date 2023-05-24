@@ -428,7 +428,6 @@ uint32_t dword_5d4594_1308100 = 0;
 uint32_t nox_server_sanctuaryHelp_54276 = 0x1;
 uint32_t dword_5d4594_1045424 = 0;
 void* nox_alloc_pendingOwn_2386916 = 0;
-uint32_t dword_5d4594_2488640 = 0;
 uint32_t dword_5d4594_1313740 = 0;
 uint32_t dword_587000_237036 = 0x1;
 uint32_t dword_5d4594_1062492 = 0;

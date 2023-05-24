@@ -52,16 +52,6 @@ func nox_server_scriptValToObjectPtr_511B60(val int) *nox_object_t {
 	return asObjectC(GetServer().NoxScriptC().ScriptToObject(val))
 }
 
-//export nox_script_get_caller
-func nox_script_get_caller() unsafe.Pointer {
-	return GetServer().NoxScriptC().Caller().CObj()
-}
-
-//export nox_script_get_trigger
-func nox_script_get_trigger() unsafe.Pointer {
-	return GetServer().NoxScriptC().Trigger().CObj()
-}
-
 //export nox_script_push
 func nox_script_push(v int) {
 	GetServer().NoxScriptC().PushI32(int32(v))
