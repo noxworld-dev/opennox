@@ -1,0 +1,57 @@
+root: ./src/legacy
+out: ./gonox
+package: opennox
+int_size: 4
+ptr_size: 4
+wchar_size: 2
+use_go_int: false
+unexported_fields: true
+keep_free: true
+define:
+  - name: NOX_CGO
+#file_pref: cxgo_
+files:
+  - name: '*.c'
+replace:
+  - old: 'libc.CString'
+    new: 'internCStr'
+  - old: 'libc.BoolToInt'
+    new: 'bool2int32'
+  - old: 'libc.Free'
+    new: 'alloc.Free'
+  - old: 'libc.Calloc'
+    new: 'alloc.Calloc'
+  - old: 'libc.MemCpy'
+    new: 'alloc.Memcpy'
+  - old: 'libc.FuncAddr'
+    new: 'funAddr'
+  - old: 'libc.AsFunc'
+    new: 'asFunc'
+  - old: 'unsafe.Sizeof(uint32(0))'
+    new: '4'
+  - old: 'unsafe.Sizeof(int32(0))'
+    new: '4'
+  - old: 'libc.WChar'
+    new: 'uint16'
+  - old: 'stdio.File'
+    new: 'File'
+  - old: '(mem_getPtr'
+    new: '(memmap.PtrOff'
+  - old: 'mem_getPtr(0'
+    new: 'memmap.PtrOff(0'
+  - old: '*mem_getU64Ptr'
+    new: '*memmap.PtrUint64'
+  - old: '*mem_getU32Ptr'
+    new: '*memmap.PtrUint32'
+  - old: '*mem_getU16Ptr'
+    new: '*memmap.PtrUint16'
+  - old: '*mem_getU8Ptr'
+    new: '*memmap.PtrUint8'
+  - old: '*mem_getI64Ptr'
+    new: '*memmap.PtrInt64'
+  - old: '*mem_getI32Ptr'
+    new: '*memmap.PtrInt32'
+  - old: '*mem_getI16Ptr'
+    new: '*memmap.PtrInt16'
+  - old: '*mem_getI8Ptr'
+    new: '*memmap.PtrInt8'
