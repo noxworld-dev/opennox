@@ -33,7 +33,6 @@ package legacy
 #include "client__shell__mainmenu.h"
 #include "client__shell__selchar.h"
 #include "client__shell__selcolor.h"
-#include "server__network__playback.h"
 #include "client__drawable__drawable.h"
 #include "client__gui__guimeter.h"
 

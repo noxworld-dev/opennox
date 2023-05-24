@@ -3,8 +3,6 @@
 
 #include "defs.h"
 
-int nox_xxx_mapExitAndCheckNext_4D1860_server();
-int nox_xxx_gameTick_4D2580_server();
 unsigned int nox_server_NextObjectScriptID();
 unsigned int nox_server_LastObjectScriptID();
 void nox_server_SetLastObjectScriptID(unsigned int val);

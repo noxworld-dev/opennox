@@ -423,7 +423,6 @@ extern uint32_t dword_5d4594_1308100;
 extern uint32_t nox_server_sanctuaryHelp_54276;
 extern uint32_t dword_5d4594_1045424;
 extern void* nox_alloc_pendingOwn_2386916;
-extern uint32_t dword_5d4594_2488640;
 extern uint32_t dword_5d4594_1313740;
 extern uint32_t dword_587000_237036;
 extern uint32_t dword_5d4594_1062492;
