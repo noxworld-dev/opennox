@@ -55,7 +55,16 @@ var e2e struct {
 	steps     []e2eStep
 	input     []seat.InputEvent
 	recorded  []e2eRecordedEvent
+	err       error
 	checkSave *e2eCheckSave
+}
+
+func e2eError(err error) {
+	if e2eFailFast {
+		panic(err)
+	}
+	e2eLog.Println(err)
+	e2e.err = err
 }
 
 type e2eStep struct {
@@ -67,7 +76,6 @@ type e2eStep struct {
 type e2eScenario struct {
 	steps []e2eStep
 	done  chan struct{}
-	err   error
 }
 
 func (sc *e2eScenario) Exec() {
@@ -108,8 +116,8 @@ func (sc *e2eScenario) Quit(dt time.Duration) {
 	sc.Input(dt, "", seat.WindowClosed)
 	sc.Input(1, "", seat.WindowClosed)
 	sc.add(1, "", func() {
-		if sc.err != nil {
-			panic(sc.err)
+		if e2e.err != nil {
+			panic(e2e.err)
 		}
 	})
 }
@@ -252,14 +260,6 @@ func imageDiff(pix1, pix2 []byte) []byte {
 	return out
 }
 
-func (sc *e2eScenario) error(err error) {
-	if e2eFailFast {
-		panic(err)
-	}
-	e2eLog.Println(err)
-	sc.err = err
-}
-
 type e2eCheckSave struct {
 	Name   string
 	Hashes map[string]string
@@ -320,7 +320,7 @@ func (sc *e2eScenario) Screen(name string) {
 					panic(err)
 				}
 				_ = os.WriteFile(diffName, ibuf.Bytes(), 0644)
-				sc.error(err)
+				e2eError(err)
 			}
 		} else if os.IsNotExist(err) {
 			_ = os.WriteFile(fname+".png", ibuf.Bytes(), 0644)
@@ -755,8 +755,7 @@ func e2eOnSave(name string) {
 		got := e2eHashDir(path)
 		if !maps.Equal(got, s.Hashes) {
 			err := fmt.Errorf("unexpected save data:\ngot: %+v\nvs\nexp: %+v", got, s.Hashes)
-			//sc.error(err) // TODO: figure out what changes the hash
-			e2eLog.Println(err)
+			e2eError(err)
 		}
 	}
 }
