@@ -629,7 +629,7 @@ func (s *Server) Sub_57B500(pos image.Point, flags byte) int8 {
 		if *(*uint8)(unsafe.Add(ud, 1)) == 0 {
 			return -1
 		}
-		if s.Doors.keyHolderSet && s.DoorCheckKey(s.Doors.keyHolder, obj) {
+		if s.Doors.keyHolderSet && s.DoorCheckKey(s.Doors.keyHolder, obj) != nil {
 			s.Doors.keyHolderSet = false
 			return -1
 		}

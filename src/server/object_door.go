@@ -23,7 +23,7 @@ func (s *serverDoors) Sub_4D72B0(a1 bool) {
 	s.flagXxx = a1
 }
 
-func (s *Server) PlayersHaveSilverKey() bool {
+func (s *Server) PlayersHaveSilverKey() *Object {
 	var found *Object
 	for pl := s.Players.First(); pl != nil; pl = s.Players.Next(pl) {
 		if !pl.IsActive() {
@@ -44,23 +44,23 @@ func (s *Server) PlayersHaveSilverKey() bool {
 		}
 	}
 	if found == nil {
-		return false
+		return nil
 	}
 	for it := found.FirstItem(); it != nil; it = it.NextItem() {
 		if int(it.TypeInd) == s.Types.SilverKeyID() {
-			return true
+			return it
 		}
 	}
-	return false
+	return nil
 }
 
-func (s *Server) DoorCheckKey(u, door *Object) bool {
+func (s *Server) DoorCheckKey(u, door *Object) *Object {
 	ud2 := door.UpdateData
 	if *(*uint8)(unsafe.Add(ud2, 1)) == 5 {
-		return false
+		return nil
 	}
 	if door.ObjOwner != nil {
-		return false
+		return nil
 	}
 	var found *Object
 	for it := u.FirstItem(); it != nil; it = it.NextItem() {
@@ -88,5 +88,5 @@ func (s *Server) DoorCheckKey(u, door *Object) bool {
 		s.Doors.Sub_4D72C0() && *(*uint8)(unsafe.Add(ud2, 1)) == 1 {
 		return s.PlayersHaveSilverKey()
 	}
-	return found != nil
+	return found
 }
