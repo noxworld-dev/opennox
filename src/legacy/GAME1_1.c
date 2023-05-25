@@ -4563,7 +4563,10 @@ int nox_xxx_tile_422C10(int a1, int a2) {
 	LABEL_61:
 		v37 = v36;
 		if (v36 > v80) {
-			goto LABEL_78;
+			if (++v35 > v81) {
+				return 1;
+			}
+			goto LABEL_61;
 		}
 		v38 = 23 * v36 + 11;
 		while (1) {
@@ -4606,7 +4609,6 @@ int nox_xxx_tile_422C10(int a1, int a2) {
 			v38 += 23;
 			if (v37 > v80) {
 				v36 = v76;
-			LABEL_78:
 				if (++v35 > v81) {
 					return 1;
 				}
