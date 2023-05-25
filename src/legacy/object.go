@@ -294,8 +294,8 @@ func sub_57B4D0(obj *nox_object_t) {
 }
 
 //export nox_xxx_doorGetSomeKey_4E8910
-func nox_xxx_doorGetSomeKey_4E8910(u, door *nox_object_t) C.int {
-	return C.int(bool2int(GetServer().S().DoorCheckKey(asObjectS(u), asObjectS(door))))
+func nox_xxx_doorGetSomeKey_4E8910(u, door *nox_object_t) *nox_object_t {
+	return asObjectC(GetServer().S().DoorCheckKey(asObjectS(u), asObjectS(door)))
 }
 
 func Nox_server_getObjectFromNetCode_4ECCB0(a1 int) *server.Object {
