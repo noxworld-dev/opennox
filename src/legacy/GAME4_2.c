@@ -8994,6 +8994,7 @@ int nox_xxx_XFerNPC_52ADE0(int a1) {
 				nox_xxx_xferReadScriptHandler_4F5580(v1 + 1296, v14);
 			}
 		}
+		v47 = 0; // FIXME: set to direction? was uninitialized
 		v15 = nox_crypt_IsReadOnly();
 		if (nox_crypt_IsReadOnly() != 1 ||
 			(v16 = nox_xxx_xferDirectionToAngle_509E00(v55), *(uint16_t*)(a1 + 126) = v16, *(uint16_t*)(a1 + 124) = v16,
