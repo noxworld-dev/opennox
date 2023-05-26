@@ -349,9 +349,19 @@ int nox_xxx_wndListboxProcWithoutData10_4A28E0(uint32_t* a1, int a2, unsigned in
 		}
 		v20 = 0;
 		v21 = 0;
-		break;
+		while ((v21 <= 0 || *(uint32_t*)(v21 + *(uint32_t*)(v5 + 24) - 524) <= *(short*)(v5 + 52) + *(short*)(v5 + 54)) &&
+			   v20 != *(short*)(v5 + 44)) {
+			if (*(uint32_t*)(v21 + *(uint32_t*)(v5 + 24)) > (int)(v18 + *(short*)(v5 + 54) - a4)) {
+				nox_window_call_field_94(v4[13], 16401, (int)v4, v20);
+				return 1;
+			}
+			++v20;
+			v21 += 524;
+		}
+		v20 = -1;
+		nox_window_call_field_94(v4[13], 16401, (int)v4, v20);
+		return 1;
 	case 19:
-	LABEL_9:
 		v8 = *(uint32_t*)(v5 + 48);
 		if (v8 == -1) {
 			*(uint32_t*)(v5 + 48) = 0;
@@ -363,9 +373,9 @@ int nox_xxx_wndListboxProcWithoutData10_4A28E0(uint32_t* a1, int a2, unsigned in
 				nox_xxx_wndListBox_4A2D10((int)v4, -1, 1);
 			}
 		}
-		goto LABEL_21;
+		nox_window_call_field_94(v4[13], 16400, (int)v4, *(uint32_t*)(v5 + 48));
+		return 1;
 	case 20:
-	LABEL_6:
 		v7 = *(uint32_t*)(v5 + 48);
 		if (v7 == -1) {
 			*(uint32_t*)(v5 + 48) = 0;
@@ -378,7 +388,6 @@ int nox_xxx_wndListboxProcWithoutData10_4A28E0(uint32_t* a1, int a2, unsigned in
 				nox_xxx_wndListBox_4A2D10((int)v4, 1, 1);
 			}
 		}
-	LABEL_21:
 		nox_window_call_field_94(v4[13], 16400, (int)v4, *(uint32_t*)(v5 + 48));
 		return 1;
 	case 21:
@@ -389,52 +398,61 @@ int nox_xxx_wndListboxProcWithoutData10_4A28E0(uint32_t* a1, int a2, unsigned in
 				return 1;
 			}
 			nox_xxx_wndRetNULL_46A8A0();
-			result = 1;
-			break;
+			return 1;
 		case 0x1Cu:
 		case 0x39u:
 			if (a4 != 1) {
 				return 1;
 			}
 			nox_window_call_field_94(a1[13], 16400, (int)a1, *(uint32_t*)(v5 + 48));
-			result = 1;
-			break;
+			return 1;
 		case 0xC8u:
-			if (a4 == 2) {
-				goto LABEL_9;
+			if (a4 != 2) {
+				return 1;
 			}
+			v8 = *(uint32_t*)(v5 + 48);
+			if (v8 == -1) {
+				*(uint32_t*)(v5 + 48) = 0;
+				nox_xxx_wndListBox_4A2D10((int)v4, 0, 1);
+			} else if (v8 > 0) {
+				v11 = v8 - 1;
+				*(uint32_t*)(v5 + 48) = v11;
+				if (*(uint32_t*)(*(uint32_t*)(v5 + 24) + 524 * v11) < *(short*)(v5 + 54)) {
+					nox_xxx_wndListBox_4A2D10((int)v4, -1, 1);
+				}
+			}
+			nox_window_call_field_94(v4[13], 16400, (int)v4, *(uint32_t*)(v5 + 48));
 			return 1;
 		case 0xCBu:
 			if (a4 != 2) {
 				return 1;
 			}
 			nox_xxx_wndRetNULL_0_46A8B0();
-			result = 1;
-			break;
+			return 1;
 		case 0xD0u:
-			if (a4 == 2) {
-				goto LABEL_6;
+			if (a4 != 2) {
+				return 1;
 			}
+			v7 = *(uint32_t*)(v5 + 48);
+			if (v7 == -1) {
+				*(uint32_t*)(v5 + 48) = 0;
+				nox_xxx_wndListBox_4A2D10((int)v4, 0, 1);
+			} else if (v7 < *(short*)(v5 + 44) - 1) {
+				v9 = v7 + 1;
+				v10 = *(short*)(v5 + 52) + *(short*)(v5 + 54);
+				*(uint32_t*)(v5 + 48) = v9;
+				if (*(uint32_t*)(*(uint32_t*)(v5 + 24) + 524 * v9) > v10) {
+					nox_xxx_wndListBox_4A2D10((int)v4, 1, 1);
+				}
+			}
+			nox_window_call_field_94(v4[13], 16400, (int)v4, *(uint32_t*)(v5 + 48));
 			return 1;
 		default:
 			return 0;
 		}
-		return result;
 	default:
 		return 0;
 	}
-	while ((v21 <= 0 || *(uint32_t*)(v21 + *(uint32_t*)(v5 + 24) - 524) <= *(short*)(v5 + 52) + *(short*)(v5 + 54)) &&
-		   v20 != *(short*)(v5 + 44)) {
-		if (*(uint32_t*)(v21 + *(uint32_t*)(v5 + 24)) > (int)(v18 + *(short*)(v5 + 54) - a4)) {
-			goto LABEL_50;
-		}
-		++v20;
-		v21 += 524;
-	}
-	v20 = -1;
-LABEL_50:
-	nox_window_call_field_94(v4[13], 16401, (int)v4, v20);
-	return 1;
 }
 
 //----- (004A2D10) --------------------------------------------------------
@@ -523,54 +541,49 @@ int nox_xxx_wndListboxProcWithData10_4A2DE0(int a1, int a2, unsigned int a3, int
 		v10 = 0;
 		v11 = 0;
 		while (2) {
-			if (v11 <= 0) {
-				goto LABEL_12;
-			}
-			if (*(uint32_t*)(v11 + *(uint32_t*)(v5 + 24) - 524) > *(short*)(v5 + 52) + *(short*)(v5 + 54)) {
-				v10 = -1;
-			LABEL_16:
-				v4 = a1;
-				goto LABEL_17;
-			}
-			v4 = a1;
-		LABEL_12:
-			if (v10 != *(short*)(v5 + 44)) {
-				if (*(uint32_t*)(v11 + *(uint32_t*)(v5 + 24)) <= (int)(v7 + *(short*)(v5 + 54) - v9)) {
+			if (v11 > 0) {
+				if (*(uint32_t*)(v11 + *(uint32_t*)(v5 + 24) - 524) > *(short*)(v5 + 52) + *(short*)(v5 + 54)) {
+					v10 = -1;
 					v4 = a1;
-					++v10;
-					v11 += 524;
-					continue;
+					break;
 				}
-				goto LABEL_16;
+				v4 = a1;
 			}
-			break;
+			if (v10 == *(short*)(v5 + 44)) {
+				v10 = -1;
+				break;
+			} else  if (*(uint32_t*)(v11 + *(uint32_t*)(v5 + 24)) <= (int)(v7 + *(short*)(v5 + 54) - v9)) {
+				v4 = a1;
+				++v10;
+				v11 += 524;
+			} else {
+				v4 = a1;
+				break;
+			}
 		}
-		v10 = -1;
-	LABEL_17:
 		v12 = *(int**)(v5 + 48);
 		v13 = 0;
 		v14 = *v12;
-		if ((int)*v12 < 0) {
-		LABEL_24:
-			v12[v13] = v10;
-			*(uint32_t*)(*(uint32_t*)(v5 + 48) + 4 * v13 + 4) = -1;
-			nox_window_call_field_94(*(uint32_t*)(v4 + 52), 16400, v4, v10);
-			result = 1;
-		} else {
+		if ((int)*v12 >= 0) {
 			v15 = *(uint32_t*)(v5 + 48);
-			while (v14 != v10) {
+			while (1) {
+				if (v14 == v10) {
+					sub_4A3090((short*)v5, v13);
+					nox_window_call_field_94(*(uint32_t*)(v4 + 52), 16400, v4, v10);
+					return 1;
+				}
 				v14 = *(uint32_t*)(v15 + 4);
 				v15 += 4;
 				++v13;
 				if (v14 < 0) {
-					goto LABEL_24;
+					break;
 				}
 			}
-			sub_4A3090((short*)v5, v13);
-			nox_window_call_field_94(*(uint32_t*)(v4 + 52), 16400, v4, v10);
-			result = 1;
 		}
-		return result;
+		v12[v13] = v10;
+		*(uint32_t*)(*(uint32_t*)(v5 + 48) + 4 * v13 + 4) = -1;
+		nox_window_call_field_94(*(uint32_t*)(v4 + 52), 16400, v4, v10);
+		return 1;
 	case 8:
 		v21 = *(uint32_t*)(a1 + 44);
 		if (v21 & 0x100) {
@@ -591,17 +604,14 @@ int nox_xxx_wndListboxProcWithData10_4A2DE0(int a1, int a2, unsigned int a3, int
 		v19 = 0;
 		v20 = 0;
 		while (2) {
-			if (v20 <= 0) {
-				goto LABEL_32;
+			if (v20 > 0) {
+				if (*(uint32_t*)(v20 + *(uint32_t*)(v5 + 24) - 524) > *(short*)(v5 + 52) + *(short*)(v5 + 54)) {
+					v19 = -1;
+					nox_window_call_field_94(*(uint32_t*)(a1 + 52), 16401, a1, v19);
+					return 1;
+				}
+				v4 = a1;
 			}
-			if (*(uint32_t*)(v20 + *(uint32_t*)(v5 + 24) - 524) > *(short*)(v5 + 52) + *(short*)(v5 + 54)) {
-				v19 = -1;
-			LABEL_36:
-				nox_window_call_field_94(*(uint32_t*)(a1 + 52), 16401, a1, v19);
-				return 1;
-			}
-			v4 = a1;
-		LABEL_32:
 			if (v19 != *(short*)(v5 + 44)) {
 				if (*(uint32_t*)(v20 + *(uint32_t*)(v5 + 24)) <= (int)(v16 + *(short*)(v5 + 54) - v18)) {
 					v4 = a1;
@@ -609,7 +619,8 @@ int nox_xxx_wndListboxProcWithData10_4A2DE0(int a1, int a2, unsigned int a3, int
 					v20 += 524;
 					continue;
 				}
-				goto LABEL_36;
+				nox_window_call_field_94(*(uint32_t*)(a1 + 52), 16401, a1, v19);
+				return 1;
 			}
 			break;
 		}
@@ -2575,10 +2586,9 @@ int sub_4A7C40(char* a1) {
 int sub_4A7C60(char* a1) {
 	char* v1;   // eax
 	char* v2;   // eax
-	int result; // eax
 
 	if (!a1) {
-		goto LABEL_12;
+		return 0;
 	}
 	*getMemU32Ptr(0x5D4594, 1308736) = 0;
 	*getMemU32Ptr(0x5D4594, 1308732) = 0;
@@ -2591,12 +2601,10 @@ int sub_4A7C60(char* a1) {
 		*getMemU32Ptr(0x5D4594, 1308736) = atoi(v2);
 	}
 	if (*getMemU32Ptr(0x5D4594, 1308732) && *getMemU32Ptr(0x5D4594, 1308736)) {
-		result = 1;
+		return 1;
 	} else {
-	LABEL_12:
-		result = 0;
+		return 0;
 	}
-	return result;
 }
 
 //----- (004A7CE0) --------------------------------------------------------
@@ -2841,7 +2849,6 @@ int nox_xxx_wndButtonDraw_4A8380(uint32_t* a1, int a2) {
 int nox_xxx_wndRadioButtonProc_4A84E0(uint32_t* a1, int a2, int a3, int a4) {
 	int v4;      // eax
 	int v5;      // eax
-	int result;  // eax
 	int v7;      // ecx
 	int v8;      // edx
 	int v9;      // eax
@@ -2853,78 +2860,71 @@ int nox_xxx_wndRadioButtonProc_4A84E0(uint32_t* a1, int a2, int a3, int a4) {
 
 	switch (a2) {
 	case 5:
-		goto LABEL_31;
+		return 1;
 	case 6:
 	case 7:
 		v9 = a1[9];
 		v10 = a1[99];
 		if (v9 & 4) {
 			if (v9 & 2) {
-			LABEL_31:
-				result = 1;
+				return 1;
 			} else {
-			LABEL_16:
-				result = 0;
+				return 0;
 			}
-		} else {
-			nox_window_call_field_94(a1[13], 16391, (int)a1, a3);
-			if (v10) {
-				for (i = *(uint32_t**)(v10 + 400); i; i = (uint32_t*)i[97]) {
-					if (i != a1 && i[10] == a1[10]) {
-						i[9] &= 0xFFFFFFFB;
-					}
+		}
+		nox_window_call_field_94(a1[13], 16391, (int)a1, a3);
+		if (v10) {
+			for (i = *(uint32_t**)(v10 + 400); i; i = (uint32_t*)i[97]) {
+				if (i != a1 && i[10] == a1[10]) {
+					i[9] &= 0xFFFFFFFB;
 				}
 			}
-			v12 = a1[9];
-			LOBYTE(v12) = v12 | 4;
-			a1[9] = v12;
-			result = 1;
 		}
-		break;
+		v12 = a1[9];
+		LOBYTE(v12) = v12 | 4;
+		a1[9] = v12;
+		return 1;
 	case 8:
 		nox_window_call_field_94(a1[13], 0x4000, (int)a1, a3);
 		return 1;
 	case 17:
 		v4 = a1[11];
 		if (!(v4 & 0x100)) {
-			goto LABEL_31;
+			return 1;
 		}
 		v5 = a1[9];
 		LOBYTE(v5) = v5 | 2;
 		a1[9] = v5;
 		nox_window_call_field_94(a1[13], 16389, (int)a1, a3);
 		nox_xxx_windowFocus_46B500((int)a1);
-		result = 1;
-		break;
+		return 1;
 	case 18:
 		v7 = a1[11];
 		if (!(v7 & 0x100)) {
-			goto LABEL_31;
+			return 1;
 		}
 		v8 = a1[13];
 		a1[9] &= 0xFFFFFFFD;
 		nox_window_call_field_94(v8, 16390, (int)a1, a3);
-		result = 1;
-		break;
+		return 1;
 	case 21:
 		switch (a3) {
 		case 15:
 		case 205:
 		case 208:
 			if (a4 != 2) {
-				goto LABEL_31;
+				return 1;
 			}
 			nox_xxx_wndRetNULL_46A8A0();
-			result = 1;
-			break;
+			return 1;
 		case 28:
 		case 57:
 			if (a4 != 2) {
-				goto LABEL_31;
+				return 1;
 			}
 			v13 = a1[99];
 			if (a1[9] & 4) {
-				goto LABEL_31;
+				return 1;
 			}
 			nox_window_call_field_94(a1[13], 16391, (int)a1, 0);
 			if (v13) {
@@ -2935,22 +2935,19 @@ int nox_xxx_wndRadioButtonProc_4A84E0(uint32_t* a1, int a2, int a3, int a4) {
 				}
 			}
 			a1[9] ^= 4u;
-			result = 1;
-			break;
+			return 1;
 		case 200:
 		case 203:
 			if (a4 == 2) {
 				nox_xxx_wndRetNULL_0_46A8B0();
 			}
-			goto LABEL_31;
+			return 1;
 		default:
-			goto LABEL_16;
+			return 0;
 		}
-		return result;
 	default:
-		goto LABEL_16;
+		return 0;
 	}
-	return result;
 }
 
 //----- (004A87E0) --------------------------------------------------------
@@ -3105,84 +3102,72 @@ int nox_xxx_wndRadioButtonDraw_4A8A20(int a1, int a2) {
 int nox_xxx_wndCheckBoxProc_4A8C00(int a1, int a2, int a3, int a4) {
 	int v4;     // eax
 	int v5;     // eax
-	int result; // eax
 	int v7;     // ecx
 	int v8;     // esi
 	int v9;     // [esp-10h] [ebp-14h]
 
 	switch (a2) {
 	case 5:
-		goto LABEL_17;
+		return 1;
 	case 6:
 	case 7:
 		v8 = a1;
 		if (!(*(uint8_t*)(a1 + 36) & 2)) {
-			goto LABEL_18;
+			return 0;
 		}
 		nox_window_call_field_94(*(uint32_t*)(a1 + 52), 16391, a1, a3);
-	LABEL_9:
 		*(uint32_t*)(v8 + 36) ^= 4u;
-		result = 1;
-		break;
+		return 1;
 	case 8:
 		nox_window_call_field_94(*(uint32_t*)(a1 + 52), 0x4000, a1, a3);
 		return 1;
 	case 17:
 		v4 = *(uint32_t*)(a1 + 44);
-		if (!(v4 & 0x100)) {
-			goto LABEL_17;
+		if (v4 & 0x100) {
+			v5 = *(uint32_t*)(a1 + 52);
+			*(uint32_t*)(a1 + 36) |= 2u;
+			nox_window_call_field_94(v5, 16389, a1, a3);
+			nox_xxx_windowFocus_46B500(a1);
 		}
-		v5 = *(uint32_t*)(a1 + 52);
-		*(uint32_t*)(a1 + 36) |= 2u;
-		nox_window_call_field_94(v5, 16389, a1, a3);
-		nox_xxx_windowFocus_46B500(a1);
-		result = 1;
-		break;
+		return 1;
 	case 18:
 		v7 = *(uint32_t*)(a1 + 44);
 		if (v7 & 0x100) {
 			v9 = *(uint32_t*)(a1 + 52);
 			*(uint32_t*)(a1 + 36) &= 0xFFFFFFFD;
 			nox_window_call_field_94(v9, 16390, a1, a3);
-			result = 1;
-		} else {
-		LABEL_17:
-			result = 1;
 		}
-		break;
+		return 1;
 	case 21:
 		switch (a3) {
 		case 15:
 		case 205:
 		case 208:
 			if (a4 != 2) {
-				goto LABEL_17;
+				return 1;
 			}
 			nox_xxx_wndRetNULL_46A8A0();
 			return 1;
 		case 28:
 		case 57:
-			if (a4 != 2) {
-				goto LABEL_17;
+			if (a4 == 2) {
+				v8 = a1;
+				nox_window_call_field_94(*(uint32_t*)(v8 + 52), 16391, v8, 0);
+				*(uint32_t*)(v8 + 36) ^= 4u;
 			}
-			v8 = a1;
-			nox_window_call_field_94(*(uint32_t*)(v8 + 52), 16391, v8, 0);
-			goto LABEL_9;
+			return 1;
 		case 200:
 		case 203:
 			if (a4 == 2) {
 				nox_xxx_wndRetNULL_0_46A8B0();
 			}
-			goto LABEL_17;
+			return 1;
 		default:
-			goto LABEL_18;
+			return 0;
 		}
 	default:
-	LABEL_18:
-		result = 0;
-		break;
+		return 0;
 	}
-	return result;
 }
 
 //----- (004A8E60) --------------------------------------------------------
