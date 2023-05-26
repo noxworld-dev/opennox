@@ -115,7 +115,9 @@ int nox_client_handlePacketInform_4C9BF0(int a1) {
 		v16 = nox_strman_loadString_40F1D0("objcoll.c:FlagRetrieveNotice", 0,
 										   "C:\\NoxPost\\src\\client\\Network\\inform.c", 164);
 		nox_swprintf(v62, v16, v52);
-		goto LABEL_22;
+		nox_xxx_printCentered_445490(v62);
+		nox_xxx_clientPlaySoundSpecial_452D80(305, 100);
+		return 6;
 	case 5u:
 		v18 = nox_common_playerInfoGetByID_417040(*(uint32_t*)(a1 + 2));
 		if (!v18) {
@@ -156,7 +158,6 @@ int nox_client_handlePacketInform_4C9BF0(int a1) {
 		v17 = nox_strman_loadString_40F1D0("update.c:FlagRespawnNotice", 0,
 										   "C:\\NoxPost\\src\\client\\Network\\inform.c", 179);
 		nox_swprintf(v62, v17, v53);
-	LABEL_22:
 		nox_xxx_printCentered_445490(v62);
 		nox_xxx_clientPlaySoundSpecial_452D80(305, 100);
 		return 6;
@@ -272,21 +273,19 @@ int nox_client_handlePacketInform_4C9BF0(int a1) {
 	case 0xFu:
 		v42 = strlen((const char*)(a1 + 3)) + 1;
 		if (nox_xxx_gameGetPlayState_4356B0() != 3) {
-			goto LABEL_57;
+			return v42 + 3;
 		}
 		if (*(uint8_t*)(a1 + 2)) {
 			v47 = nox_strman_loadString_40F1D0((char*)(a1 + 3), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 397);
 			v43 = nox_strman_loadString_40F1D0("use.c:SignSays", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 396);
 			nox_swprintf(v63, v43, v47);
 			nox_xxx_printCentered_445490(v63);
-			result = v42 + 3;
+			return v42 + 3;
 		} else {
 			v44 = nox_strman_loadString_40F1D0((char*)(a1 + 3), 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 402);
 			nox_xxx_printCentered_445490(v44);
-		LABEL_57:
-			result = v42 + 3;
+			return v42 + 3;
 		}
-		return result;
 	case 0x10u:
 		v49 = nox_server_teamTitle_418C20(*(uint32_t*)(a1 + 2));
 		v9 = nox_strman_loadString_40F1D0("pickup.c:WrongTeam", 0, "C:\\NoxPost\\src\\client\\Network\\inform.c", 105);
