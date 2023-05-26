@@ -293,7 +293,6 @@ int sub_4383A0() {
 //----- (00438770) --------------------------------------------------------
 void sub_438770_waitList();
 int sub_438770() {
-	int result;   // eax
 	long long v1; // rax
 	wchar2_t* v2;  // eax
 	wchar2_t* v3;  // eax
@@ -307,22 +306,19 @@ int sub_438770() {
 		case 2:
 			sub_438BD0();
 			sub_43AF90(1);
-			result = 1;
-			break;
+			return 1;
 		case 3:
 			if ((unsigned long long)nox_platform_get_ticks() < *(uint64_t*)&qword_5d4594_814956) {
-				goto LABEL_29;
+				return 1;
 			}
 			nox_client_setConnError_43AFA0(8);
-			result = 1;
-			break;
+			return 1;
 		case 4:
 			sub_43AF90(3);
 			v2 = nox_strman_loadString_40F1D0("TestCon", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1343);
 			sub_449E30((int)v2);
 			*(uint64_t*)&qword_5d4594_814956 = nox_platform_get_ticks() + 20000;
-			result = 1;
-			break;
+			return 1;
 		case 5:
 			v3 = nox_strman_loadString_40F1D0("Password", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1349);
 			sub_449E00((int)v3);
@@ -333,8 +329,7 @@ int sub_438770() {
 			sub_44A360(0);
 			sub_43AF90(6);
 			sub_4A24C0(1);
-			result = 1;
-			break;
+			return 1;
 		case 7:
 			sub_44A360(1);
 			v5 = nox_strman_loadString_40F1D0("Connected", 0, "C:\\NoxPost\\src\\client\\shell\\noxworld.c", 1364);
@@ -342,34 +337,29 @@ int sub_438770() {
 			sub_449EA0(0);
 			nox_game_SetCliDrawFunc(nox_xxx_cliDrawConnectedLoop_43B360);
 			sub_43AF90(1);
-			result = 1;
-			break;
+			return 1;
 		case 8:
 			v1 = nox_platform_get_ticks();
 			dword_5d4594_814548 = 9;
 			*getMemU64Ptr(0x5D4594, 814972) = v1 + 1000;
-			result = 1;
-			break;
+			return 1;
 		case 9:
 			if ((unsigned long long)nox_platform_get_ticks() <= *getMemU64Ptr(0x5D4594, 814972)) {
-				goto LABEL_29;
+				return 1;
 			}
 			nox_client_joinGame_438A90();
-			result = 1;
-			break;
+			return 1;
 		case 0xA:
 			v6 = (uint16_t*)sub_449E60(4);
 			v7 = nox_xxx_wndGetChildByID_46B0C0(0, 4001);
 			if (v6 && *v6) {
 				nox_xxx_wnd_46ABB0((int)v7, 1);
-				result = 1;
 			} else {
 				nox_xxx_wnd_46ABB0((int)v7, 0);
-				result = 1;
 			}
-			break;
+			return 1;
 		default:
-			goto LABEL_29;
+			return 1;
 		}
 	} else {
 		if ((!wndIsShown_nox_xxx_wndIsShown_46ACC0(*(int*)&dword_5d4594_814984) ||
@@ -383,10 +373,8 @@ int sub_438770() {
 			}
 			sub_438770_waitList();
 		}
-	LABEL_29:
-		result = 1;
+		return 1;
 	}
-	return result;
 }
 
 //----- (00438BD0) --------------------------------------------------------
