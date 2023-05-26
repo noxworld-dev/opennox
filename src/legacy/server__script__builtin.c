@@ -483,34 +483,31 @@ int nox_script_HasSubclass_5162D0() {
 	v8 = nox_script_pop();
 	v0 = nox_script_pop();
 	v9 = nox_server_scriptValToObjectPtr_511B60(v0);
-	if (v9) {
-		v2 = getMemAt(0x587000, 237304);
-		v7 = getMemAt(0x587000, 237304);
-		for (i = (const char**)getMemAt(0x587000, 237304);; i += 32) {
-			v3 = 1;
-			v4 = *i;
-			if (*i) {
-				break;
-			}
-		LABEL_8:
-			v2 = v7 + 128;
-			v7 += 128;
-		}
-		while (strcmp(v4, nox_script_getString_512E40(v8))) {
-			v4 = (const char*)*((uint32_t*)v2 + 1);
-			v2 += 4;
-			v3 *= 2;
-			if (!v4) {
-				goto LABEL_8;
-			}
-		}
-		nox_script_push((v3 & *(uint32_t*)(v9 + 12)) != 0);
-		result = 0;
-	} else {
+	if (!v9) {
 		nox_script_push(0);
-		result = 0;
+		return 0;
 	}
-	return result;
+	v2 = getMemAt(0x587000, 237304);
+	v7 = getMemAt(0x587000, 237304);
+	for (i = (const char**)getMemAt(0x587000, 237304); 1; i += 32) {
+		v3 = 1;
+		v4 = *i;
+		if (*i) {
+			while (strcmp(v4, nox_script_getString_512E40(v8))) {
+				v4 = (const char*)*((uint32_t*)v2 + 1);
+				v2 += 4;
+				v3 *= 2;
+				if (!v4) {
+					goto LABEL_8;
+				}
+			}
+			nox_script_push((v3 & *(uint32_t*)(v9 + 12)) != 0);
+			return 0;
+		}
+	LABEL_8:
+		v2 = v7 + 128;
+		v7 += 128;
+	}
 }
 
 void nox_script_StartupScreen_516600_A() {
