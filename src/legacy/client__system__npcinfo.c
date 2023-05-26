@@ -20,54 +20,43 @@ int nox_xxx_spriteNPCInfo_49A4B0(uint32_t* a1, int a2, int a3) {
 			if (!result || !a1[77]) {
 				result = nox_common_randomIntMinMax_415FF0(23, 24, "C:\\NoxPost\\src\\client\\System\\NPCInfo.c", 286);
 			}
-			goto LABEL_12;
+			a1[108] = result;
+			return result;
 		}
-		result = sub_4FA280(a2 & 0xFFFFFFFC);
-		break;
+		return sub_4FA280(a2 & 0xFFFFFFFC);
 	case 4:
 	case 5:
 		if (a2 & 0x400) {
 			if (result && a1[77]) {
-			LABEL_12:
 				a1[108] = result;
 			} else {
 				result = nox_common_randomIntMinMax_415FF0(47, 49, "C:\\NoxPost\\src\\client\\System\\NPCInfo.c", 314);
 				a1[108] = result;
 			}
+			return result;
 		} else if (a2 & 0x7FF8000) {
-			result = 30;
+			return 30;
 		} else {
 			if (!(a3 & 0x3000000)) {
-				goto LABEL_22;
+				return (a2 & 0x400) != 0 ? 0x26 : 0;
 			}
-			result = 40;
+			return 40;
 		}
-		break;
 	case 6:
-		result = 21;
-		break;
+		return 21;
 	case 7:
-	LABEL_22:
-		result = (a2 & 0x400) != 0 ? 0x26 : 0;
-		break;
+		return (a2 & 0x400) != 0 ? 0x26 : 0;
 	case 8:
-		result = 1;
-		break;
+		return 1;
 	case 9:
-		result = 2;
-		break;
+		return 2;
 	case 11:
-		result = 4;
-		break;
+		return 4;
 	case 12:
-		result = 6;
-		break;
+		return 6;
 	case 13:
-		result = 50;
-		break;
+		return 50;
 	default:
-		result = 0;
-		break;
+		return 0;
 	}
-	return result;
 }
