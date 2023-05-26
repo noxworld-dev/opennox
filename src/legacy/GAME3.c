@@ -1283,15 +1283,16 @@ LABEL_13:
 							goto LABEL_32;
 						}
 					}
-				LABEL_30:
 					if (*(uint32_t*)(a2 + 52) != 0x80000000) {
 						nox_client_drawSetColor_434460(*(uint32_t*)(a2 + 52));
 						nox_client_drawRectFilledOpaque_49CE30(xLeft, v21, v22, v12);
 					}
-					goto LABEL_32;
 				}
 			} else if (v24 == *(uint32_t*)(v2 + 48)) {
-				goto LABEL_30;
+				if (*(uint32_t*)(a2 + 52) != 0x80000000) {
+					nox_client_drawSetColor_434460(*(uint32_t*)(a2 + 52));
+					nox_client_drawRectFilledOpaque_49CE30(xLeft, v21, v22, v12);
+				}
 			}
 		LABEL_32:
 			nox_xxx_drawSetTextColor_434390(*(uint32_t*)(*(uint32_t*)(v2 + 24) + v9 + 516));
@@ -1424,15 +1425,16 @@ int nox_xxx_wndListboxDrawWithImage_4A3FC0(uint32_t* a1, int a2) {
 							goto LABEL_29;
 						}
 					}
-				LABEL_27:
 					if (*(uint32_t*)(a2 + 52) != 0x80000000) {
 						nox_client_drawSetColor_434460(*(uint32_t*)(a2 + 52));
 						nox_client_drawRectFilledOpaque_49CE30(xLeft, v25, v22, v13);
 					}
-					goto LABEL_29;
 				}
 			} else if (v26 == *(uint32_t*)(v3 + 48)) {
-				goto LABEL_27;
+				if (*(uint32_t*)(a2 + 52) != 0x80000000) {
+					nox_client_drawSetColor_434460(*(uint32_t*)(a2 + 52));
+					nox_client_drawRectFilledOpaque_49CE30(xLeft, v25, v22, v13);
+				}
 			}
 		LABEL_29:
 			nox_xxx_drawSetTextColor_434390(*(uint32_t*)(v10 + *(uint32_t*)(v3 + 24) + 516));
@@ -4469,35 +4471,36 @@ int nox_xxx_colorLightClientLoad_4AC980(int a1) {
 		}
 		if (*(float*)(v2 + 140) <= 63.0 &&
 			(double)*(int*)(v2 + 148) * *getMemDoublePtr(0x581450, 9752) <= *getMemDoublePtr(0x581450, 9744)) {
-		LABEL_13:
-			*(uint8_t*)(v2 + 432) = 0;
-			*(uint8_t*)(v2 + 433) = 0;
-			*(uint8_t*)(v2 + 434) = 0;
-			v5 = (uint8_t*)(v2 + 242);
-			v6 = (uint8_t*)(v2 + 179);
-			do {
-				if (*(v6 - 1) || *v6 || v6[1]) {
-					++*(uint8_t*)(v2 + 432);
-				}
-				if (*(v5 - 16)) {
-					++*(uint8_t*)(v2 + 433);
-				}
-				if (*v5) {
-					++*(uint8_t*)(v2 + 434);
-				}
-				v6 += 3;
-				++v5;
-			} while ((int)&v5[-242 - v2] < 16);
-			a1 = *v4;
-			*(uint16_t*)(v2 + 268) =
-				(long long)((double)a1 * *getMemDoublePtr(0x581450, 9752) * *getMemDoublePtr(0x581450, 9736));
-			goto LABEL_24;
+			goto LABEL_13;
 		}
 		sub_484CE0(v2 + 136, 63.0);
 	}
 	if (nox_crypt_IsReadOnly() == 1) {
 		goto LABEL_13;
+	} else {
+		goto LABEL_24;
 	}
+LABEL_13:
+	*(uint8_t*)(v2 + 432) = 0;
+	*(uint8_t*)(v2 + 433) = 0;
+	*(uint8_t*)(v2 + 434) = 0;
+	v5 = (uint8_t*)(v2 + 242);
+	v6 = (uint8_t*)(v2 + 179);
+	do {
+		if (*(v6 - 1) || *v6 || v6[1]) {
+			++*(uint8_t*)(v2 + 432);
+		}
+		if (*(v5 - 16)) {
+			++*(uint8_t*)(v2 + 433);
+		}
+		if (*v5) {
+			++*(uint8_t*)(v2 + 434);
+		}
+		v6 += 3;
+		++v5;
+	} while ((int)&v5[-242 - v2] < 16);
+	a1 = *v4;
+	*(uint16_t*)(v2 + 268) = (long long)((double)a1 * *getMemDoublePtr(0x581450, 9752) * *getMemDoublePtr(0x581450, 9736));
 LABEL_24:
 	*(uint32_t*)(v2 + 288) = 0;
 	nox_xxx_spriteSetActiveMB_45A990_drawable(v2);
@@ -4654,7 +4657,6 @@ int nox_xxx_windowServerOptionsGeneralProc_4AD5D0(int a1, int a2, int* a3, int a
 	int v8;        // eax
 	int v9;        // esi
 	uint32_t* v10; // eax
-	int result;    // eax
 	int v12;       // esi
 	uint32_t* v13; // esi
 
@@ -4668,54 +4670,47 @@ int nox_xxx_windowServerOptionsGeneralProc_4AD5D0(int a1, int a2, int* a3, int a
 			} else {
 				nox_xxx_ruleSetNoRespawn_40A5E0(1);
 			}
-			result = 0;
-			break;
+			return 0;
 		case 10302:
 			nox_server_sendMotd_108752 ^= 1u;
-			result = 0;
-			break;
+			return 0;
 		case 10304:
 			if (sub_4D0D70()) {
 				sub_4D0D90(0);
 			} else {
 				sub_4D0D90(1);
 			}
-			result = 0;
-			break;
+			return 0;
 		case 10305:
 			sub_409EF0(2);
-			result = 0;
-			break;
+			return 0;
 		case 10306:
 			sub_409EF0(0x2000);
 			if (sub_409F40(0x2000)) {
-				goto LABEL_24;
+				return 0;
 			}
 			sub_4D7EA0();
-			result = 0;
-			break;
+			return 0;
 		case 10316:
 			v13 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1309812, 10317);
 			nox_window_set_hidden((int)v13, 0);
 			nox_xxx_wndShowModalMB_46A8C0((int)v13);
 			nox_xxx_wndSetCaptureMain_46ADC0((int)v13);
-			result = 0;
-			break;
+			return 0;
 		case 10319:
 			sub_4BDFD0();
-			goto LABEL_24;
+			return 0;
 		default:
-			goto LABEL_24;
+			return 0;
 		}
 	} else if (a2 == 16393) {
 		nox_xxx_rateUpdate_40A6D0(4 - a4);
-		result = 0;
+		return 0;
 	} else if (a2 != 16400 || nox_xxx_wndGetID_46B0A0(a3) != 10317 ||
 			   (v4 = nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1309812, 10316),
 				v5 = nox_window_call_field_94((int)a3, 16404, 0, 0), v6 = v5, v5 < 0) ||
 			   v5 >= *(short*)(a3[8] + 44)) {
-	LABEL_24:
-		result = 0;
+		return 0;
 	} else {
 		v7 = nox_window_call_field_94((int)a3, 16406, a4, 0);
 		nox_window_call_field_94((int)v4, 16385, v7, -1);
@@ -4727,9 +4722,8 @@ int nox_xxx_windowServerOptionsGeneralProc_4AD5D0(int a1, int a2, int* a3, int a
 		nox_window_call_field_94((int)v10, 16394, v9, 0);
 		nox_window_set_hidden((int)a3, 1);
 		nox_xxx_wndClearCaptureMain_46ADE0((int)a3);
-		result = 0;
+		return 0;
 	}
-	return result;
 }
 
 //----- (004AD820) --------------------------------------------------------
@@ -5198,7 +5192,6 @@ long long sub_4AEE30() {
 int sub_4B4860(int a1, int a2, int a3, int a4) {
 	int v4;     // edi
 	int v5;     // eax
-	int result; // eax
 	int v7;     // eax
 	int v8;     // eax
 	int v9;     // ebx
@@ -5211,7 +5204,7 @@ int sub_4B4860(int a1, int a2, int a3, int a4) {
 	v4 = *(uint32_t*)(a1 + 32);
 	switch (a2) {
 	case 5:
-		goto LABEL_22;
+		return 1;
 	case 6:
 	case 7:
 		v9 = a3;
@@ -5226,54 +5219,47 @@ int sub_4B4860(int a1, int a2, int a3, int a4) {
 	case 8:
 		v8 = *(uint32_t*)(a1 + 44);
 		if (!(v8 & 0x100)) {
-			goto LABEL_22;
+			return 1;
 		}
 		nox_window_call_field_94(*(uint32_t*)(a1 + 52), 0x4000, a1, 0);
-		result = 1;
-		break;
+		return 1;
 	case 17:
 		v5 = *(uint32_t*)(a1 + 44);
 		if (!(v5 & 0x100)) {
-			goto LABEL_22;
+			return 1;
 		}
 		nox_xxx_wndSetRectColor2MB_46AFE0(a1, *(uint32_t*)(a1 + 72));
 		nox_window_call_field_94(*(uint32_t*)(a1 + 52), 16389, a1, 0);
 		nox_xxx_windowFocus_46B500(a1);
-		result = 1;
-		break;
+		return 1;
 	case 18:
 		v7 = *(uint32_t*)(a1 + 44);
 		if (v7 & 0x100) {
 			nox_xxx_wndSetRectColor2MB_46AFE0(a1, *(uint32_t*)(a1 + 64));
 			nox_window_call_field_94(*(uint32_t*)(a1 + 52), 16390, a1, 0);
-			result = 1;
-		} else {
-		LABEL_22:
-			result = 1;
 		}
-		break;
+		return 1;
 	case 21:
 		switch (a3) {
 		case 15:
 		case 208:
 			if (a4 != 2) {
-				goto LABEL_22;
+				return 1;
 			}
 			nox_xxx_wndRetNULL_46A8A0();
-			result = 1;
-			break;
+			return 1;
 		case 200:
 			if (a4 == 2) {
 				nox_xxx_wndRetNULL_0_46A8B0();
 			}
-			goto LABEL_22;
+			return 1;
 		case 203:
 			if (a4 != 2) {
-				goto LABEL_22;
+				return 1;
 			}
 			v13 = *(uint32_t*)(v4 + 12);
 			if (v13 >= *(int*)(v4 + 4) - 1) {
-				goto LABEL_22;
+				return 1;
 			}
 			v14 = v13 + 2;
 			*(uint32_t*)(v4 + 12) = v14;
@@ -5281,15 +5267,14 @@ int sub_4B4860(int a1, int a2, int a3, int a4) {
 			nox_window_setPos_46A9B0(
 				*(uint32_t**)(a1 + 400),
 				(long long)((double)(int)(*(uint32_t*)(v4 + 12) - *(uint32_t*)v4) * *(float*)(v4 + 8)), 0);
-			result = 1;
-			break;
+			return 1;
 		case 205:
 			if (a4 != 2) {
-				goto LABEL_22;
+				return 1;
 			}
 			v11 = *(uint32_t*)(v4 + 12);
 			if (v11 <= *(int*)v4 + 1) {
-				goto LABEL_22;
+				return 1;
 			}
 			v12 = v11 - 2;
 			*(uint32_t*)(v4 + 12) = v12;
@@ -5297,25 +5282,19 @@ int sub_4B4860(int a1, int a2, int a3, int a4) {
 			nox_window_setPos_46A9B0(
 				*(uint32_t**)(a1 + 400),
 				(long long)((double)(int)(*(uint32_t*)(v4 + 12) - *(uint32_t*)v4) * *(float*)(v4 + 8)), 0);
-			result = 1;
-			break;
+			return 1;
 		default:
-			goto LABEL_23;
+			return 0;
 		}
-		break;
 	default:
-	LABEL_23:
-		result = 0;
-		break;
+		return 0;
 	}
-	return result;
 }
 
 //----- (004B4BA0) --------------------------------------------------------
 int nox_xxx_wndScrollBoxDraw_4B4BA0(int a1, int a2, unsigned int a3, int a4) {
 	int v4;         // edi
 	int v5;         // eax
-	int result;     // eax
 	int v7;         // eax
 	int v8;         // eax
 	int v9;         // ebx
@@ -5328,7 +5307,7 @@ int nox_xxx_wndScrollBoxDraw_4B4BA0(int a1, int a2, unsigned int a3, int a4) {
 	v4 = *(uint32_t*)(a1 + 32);
 	switch (a2) {
 	case 5:
-		goto LABEL_22;
+		return 1;
 	case 6:
 	case 7:
 		v9 = a3;
@@ -5343,49 +5322,42 @@ int nox_xxx_wndScrollBoxDraw_4B4BA0(int a1, int a2, unsigned int a3, int a4) {
 	case 8:
 		v8 = *(uint32_t*)(a1 + 44);
 		if (!(v8 & 0x100)) {
-			goto LABEL_22;
+			return 1;
 		}
 		nox_window_call_field_94(*(uint32_t*)(a1 + 52), 0x4000, a1, 0);
-		result = 1;
-		break;
+		return 1;
 	case 17:
 		v5 = *(uint32_t*)(a1 + 44);
 		if (!(v5 & 0x100)) {
-			goto LABEL_22;
+			return 1;
 		}
 		nox_xxx_wndSetRectColor2MB_46AFE0(a1, *(uint32_t*)(a1 + 72));
 		nox_window_call_field_94(*(uint32_t*)(a1 + 52), 16389, a1, 0);
 		nox_xxx_windowFocus_46B500(a1);
-		result = 1;
-		break;
+		return 1;
 	case 18:
 		v7 = *(uint32_t*)(a1 + 44);
 		if (v7 & 0x100) {
 			nox_xxx_wndSetRectColor2MB_46AFE0(a1, *(uint32_t*)(a1 + 64));
 			nox_window_call_field_94(*(uint32_t*)(a1 + 52), 16390, a1, 0);
-			result = 1;
-		} else {
-		LABEL_22:
-			result = 1;
 		}
-		break;
+		return 1;
 	case 21:
 		switch (a3) {
 		case 0xFu:
 		case 0xCDu:
 			if (a4 != 2) {
-				goto LABEL_22;
+				return 1;
 			}
 			nox_xxx_wndRetNULL_46A8A0();
-			result = 1;
-			break;
+			return 1;
 		case 0xC8u:
 			if (a4 != 2) {
-				goto LABEL_22;
+				return 1;
 			}
 			v11 = *(uint32_t*)(v4 + 12);
 			if (v11 >= *(int*)(v4 + 4) - 1) {
-				goto LABEL_22;
+				return 1;
 			}
 			v12 = v11 + 2;
 			*(uint32_t*)(v4 + 12) = v12;
@@ -5393,20 +5365,19 @@ int nox_xxx_wndScrollBoxDraw_4B4BA0(int a1, int a2, unsigned int a3, int a4) {
 			nox_window_setPos_46A9B0(
 				*(uint32_t**)(a1 + 400), 0,
 				(long long)((double)(int)(*(uint32_t*)(v4 + 4) - *(uint32_t*)(v4 + 12)) * *(float*)(v4 + 8)));
-			result = 1;
-			break;
+			return 1;
 		case 0xCBu:
 			if (a4 == 2) {
 				nox_xxx_wndRetNULL_0_46A8B0();
 			}
-			goto LABEL_22;
+			return 1;
 		case 0xD0u:
 			if (a4 != 2) {
-				goto LABEL_22;
+				return 1;
 			}
 			v13 = *(uint32_t*)(v4 + 12);
 			if (v13 <= *(int*)v4 + 1) {
-				goto LABEL_22;
+				return 1;
 			}
 			v14 = v13 - 2;
 			*(uint32_t*)(v4 + 12) = v14;
@@ -5414,18 +5385,13 @@ int nox_xxx_wndScrollBoxDraw_4B4BA0(int a1, int a2, unsigned int a3, int a4) {
 			nox_window_setPos_46A9B0(
 				*(uint32_t**)(a1 + 400), 0,
 				(long long)((double)(int)(*(uint32_t*)(v4 + 4) - *(uint32_t*)(v4 + 12)) * *(float*)(v4 + 8)));
-			result = 1;
-			break;
+			return 1;
 		default:
-			goto LABEL_23;
+			return 0;
 		}
-		break;
 	default:
-	LABEL_23:
-		result = 0;
-		break;
+		return 0;
 	}
-	return result;
 }
 
 //----- (004B4EE0) --------------------------------------------------------
@@ -5522,9 +5488,9 @@ int sub_4B5010(int a1, unsigned int a2, int a3, int a4) {
 		if (v10 < a3) {
 			nox_window_setPos_46A9B0(*(uint32_t**)(v4 + 400), 0, 0);
 			v11 = *(uint32_t*)v5;
-		LABEL_15:
 			*(uint32_t*)(v5 + 12) = v11;
-			goto LABEL_16;
+			nox_window_call_field_94(*(uint32_t*)(v4 + 52), 16393, v4, *(uint32_t*)(v5 + 12));
+			return 0;
 		}
 		v12 = *(uint32_t*)(v4 + 8);
 		if (v10 < v12 + a3) {
@@ -5533,13 +5499,14 @@ int sub_4B5010(int a1, unsigned int a2, int a3, int a4) {
 			v11 = *(uint32_t*)(v5 + 4);
 			*(uint32_t*)(v5 + 12) = v13;
 			if ((int)v13 > v11) {
-				goto LABEL_15;
+				*(uint32_t*)(v5 + 12) = v11;
+				nox_window_call_field_94(*(uint32_t*)(v4 + 52), 16393, v4, *(uint32_t*)(v5 + 12));
+				return 0;
 			}
 		} else {
 			nox_window_setPos_46A9B0(*(uint32_t**)(v4 + 400), v12 - *(uint32_t*)(*(uint32_t*)(v4 + 400) + 8), 0);
 			*(uint32_t*)(v5 + 12) = *(uint32_t*)(v5 + 4);
 		}
-	LABEL_16:
 		nox_window_call_field_94(*(uint32_t*)(v4 + 52), 16393, v4, *(uint32_t*)(v5 + 12));
 		return 0;
 	}
@@ -6111,12 +6078,12 @@ int sub_4B6B80(int* a1, nox_drawable* dr, int a3) {
 	if (v4 == *getMemU32Ptr(0x5D4594, 1313660) || v4 == *getMemU32Ptr(0x5D4594, 1313684)) {
 		v5 = dword_5d4594_1313540;
 		v21 = dword_5d4594_1313536;
-		goto LABEL_13;
+		v19 = v5;
+		goto LABEL_14;
 	}
 	if (v4 == *getMemU32Ptr(0x5D4594, 1313668)) {
 		v5 = *getMemU32Ptr(0x5D4594, 1313584);
 		v21 = *getMemU32Ptr(0x5D4594, 1313580);
-	LABEL_13:
 		v19 = v5;
 		goto LABEL_14;
 	}
