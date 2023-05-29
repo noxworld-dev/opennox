@@ -43,65 +43,62 @@ int nox_thing_monster_gen_draw(int* a1, nox_drawable* dr) {
 	switch (*(unsigned int*)(v4 + 4 * v5 + 36)) {
 	case 0:
 		v7 = v5 + v4 + 29;
-		goto LABEL_12;
+		break;
 	case 2:
 		v7 = (gameFrame() + *(unsigned int*)(v2 + 128)) / ((unsigned int)*(unsigned char*)(v5 + v4 + 29) + 1);
 		if (v7 >= v6) {
 			v7 %= v6;
 		}
-		goto LABEL_12;
+		break;
 	case 4:
 		v7 = nox_common_randomIntMinMax_415FF0(0, v6, "C:\\NoxPost\\src\\client\\Draw\\MGenDraw.c", 86);
-		goto LABEL_12;
+		break;
 	case 5:
 		v7 = *(unsigned int*)(v2 + 308);
-	LABEL_12:
-		v8 = *(unsigned int*)(v2 + 280);
-		if (v8 & 0x800) {
-			v9 = *(unsigned int*)(v2 + 120) & 0xDFFFFFFF;
-			v7 = v6 - 1;
-			*(unsigned int*)(v2 + 112) &= 0xFFF7FFFF;
-			*(unsigned int*)(v2 + 120) = v9;
-		}
-		v10 = *(unsigned int*)(v2 + 432);
-		if (v10) {
-			v7 = ((*v21 + 1) * (unsigned int)*v19 - v10) / ((unsigned int)*v21 + 1);
-			if (v7 >= v6) {
-				v7 = v6 - 1;
-			}
-			if (v7 < 0) {
-				v7 = 0;
-			}
-			v11 = v10 - 1;
-			*(unsigned int*)(v2 + 432) = v11;
-			if (!v11) {
-				v12 = *(unsigned int*)(v2 + 280);
-				BYTE1(v12) = BYTE1(v12) & 0xFB | 8;
-				*(unsigned int*)(v2 + 280) = v12;
-			}
-		}
-		nox_xxx_drawObject_4C4770_draw(a1, (unsigned char*)v2, *(unsigned int*)(v20 + 4 * v7));
-		v13 = *(unsigned int*)(v2 + 280);
-		if (!(v13 & 0xC00)) {
-			v14 = *(unsigned char*)(v4 + 28);
-			v15 = (gameFrame() + *(unsigned int*)(v2 + 128)) / ((unsigned int)*(unsigned char*)(v4 + 33) + 1);
-			if (v15 >= v14) {
-				v15 %= v14;
-			}
-			nox_xxx_drawObject_4C4770_draw(a1, (unsigned char*)v2,
-										   *(unsigned int*)(*(unsigned int*)(v4 + 20) + 4 * v15));
-		}
-		v16 = *(unsigned int*)(v2 + 280);
-		if (v16 & 0x800) {
-			v17 = *(unsigned int*)(v2 + 120);
-			LOBYTE(v17) = v17 | 1;
-			*(unsigned int*)(v2 + 120) = v17;
-		}
-		result = 1;
 		break;
 	default:
-		result = 0;
-		break;
+		return 0;
 	}
-	return result;
+	v8 = *(unsigned int*)(v2 + 280);
+	if (v8 & 0x800) {
+		v9 = *(unsigned int*)(v2 + 120) & 0xDFFFFFFF;
+		v7 = v6 - 1;
+		*(unsigned int*)(v2 + 112) &= 0xFFF7FFFF;
+		*(unsigned int*)(v2 + 120) = v9;
+	}
+	v10 = *(unsigned int*)(v2 + 432);
+	if (v10) {
+		v7 = ((*v21 + 1) * (unsigned int)*v19 - v10) / ((unsigned int)*v21 + 1);
+		if (v7 >= v6) {
+			v7 = v6 - 1;
+		}
+		if (v7 < 0) {
+			v7 = 0;
+		}
+		v11 = v10 - 1;
+		*(unsigned int*)(v2 + 432) = v11;
+		if (!v11) {
+			v12 = *(unsigned int*)(v2 + 280);
+			BYTE1(v12) = BYTE1(v12) & 0xFB | 8;
+			*(unsigned int*)(v2 + 280) = v12;
+		}
+	}
+	nox_xxx_drawObject_4C4770_draw(a1, (unsigned char*)v2, *(unsigned int*)(v20 + 4 * v7));
+	v13 = *(unsigned int*)(v2 + 280);
+	if (!(v13 & 0xC00)) {
+		v14 = *(unsigned char*)(v4 + 28);
+		v15 = (gameFrame() + *(unsigned int*)(v2 + 128)) / ((unsigned int)*(unsigned char*)(v4 + 33) + 1);
+		if (v15 >= v14) {
+			v15 %= v14;
+		}
+		nox_xxx_drawObject_4C4770_draw(a1, (unsigned char*)v2,
+									   *(unsigned int*)(*(unsigned int*)(v4 + 20) + 4 * v15));
+	}
+	v16 = *(unsigned int*)(v2 + 280);
+	if (v16 & 0x800) {
+		v17 = *(unsigned int*)(v2 + 120);
+		LOBYTE(v17) = v17 | 1;
+		*(unsigned int*)(v2 + 120) = v17;
+	}
+	return 1;
 }

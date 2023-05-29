@@ -18,37 +18,42 @@ int nox_thing_boulder_draw(int* a1, nox_drawable* dr) {
 	}
 	v3 = *(uint32_t*)(a2 + 12) - *(uint32_t*)(a2 + 432);
 	v4 = *(uint32_t*)(a2 + 16) - *(uint32_t*)(a2 + 436);
-	if (v3 * v3 + v4 * v4 >= 100) {
-		if (v3 <= 0) {
-			if (v4 > 0) {
-				*(uint32_t*)(a2 + 444) = 0;
-			LABEL_8:
-				v5 = *(uint32_t*)(a2 + 440) + 1;
-				*(uint32_t*)(a2 + 440) = v5;
-				if (v5 >= 0x10) {
-					*(uint32_t*)(a2 + 440) = 0;
-				}
-				goto LABEL_17;
-			}
-			*(uint32_t*)(a2 + 444) = 16;
-		} else {
-			if (v4 > 0) {
-				*(uint32_t*)(a2 + 444) = 16;
-				goto LABEL_8;
-			}
-			*(uint32_t*)(a2 + 444) = 0;
-		}
-		v6 = *(uint32_t*)(a2 + 440);
-		if (v6) {
-			*(uint32_t*)(a2 + 440) = v6 - 1;
-		} else {
-			*(uint32_t*)(a2 + 440) = 15;
-		}
-	LABEL_17:
-		*(uint32_t*)(a2 + 432) = *(uint32_t*)(a2 + 12);
-		*(uint32_t*)(a2 + 436) = *(uint32_t*)(a2 + 16);
+	if (v3 * v3 + v4 * v4 < 100) {
+		nox_xxx_drawObject_4C4770_draw(a1, dr, *(uint32_t*)(*(uint32_t*)(v2 + 4) + 4 * (*(uint32_t*)(a2 + 440) + *(uint32_t*)(a2 + 444))));
+		return 1;
 	}
-	nox_xxx_drawObject_4C4770_draw(
-		a1, dr, *(uint32_t*)(*(uint32_t*)(v2 + 4) + 4 * (*(uint32_t*)(a2 + 440) + *(uint32_t*)(a2 + 444))));
+	if (v3 <= 0) {
+		if (v4 > 0) {
+			*(uint32_t*)(a2 + 444) = 0;
+			v5 = *(uint32_t*)(a2 + 440) + 1;
+			*(uint32_t*)(a2 + 440) = v5;
+			if (v5 >= 0x10) {
+				*(uint32_t*)(a2 + 440) = 0;
+			}
+			goto LABEL_17;
+		}
+		*(uint32_t*)(a2 + 444) = 16;
+	} else {
+		if (v4 > 0) {
+			*(uint32_t*)(a2 + 444) = 16;
+			v5 = *(uint32_t*)(a2 + 440) + 1;
+			*(uint32_t*)(a2 + 440) = v5;
+			if (v5 >= 0x10) {
+				*(uint32_t*)(a2 + 440) = 0;
+			}
+			goto LABEL_17;
+		}
+		*(uint32_t*)(a2 + 444) = 0;
+	}
+	v6 = *(uint32_t*)(a2 + 440);
+	if (v6) {
+		*(uint32_t*)(a2 + 440) = v6 - 1;
+	} else {
+		*(uint32_t*)(a2 + 440) = 15;
+	}
+LABEL_17:
+	*(uint32_t*)(a2 + 432) = *(uint32_t*)(a2 + 12);
+	*(uint32_t*)(a2 + 436) = *(uint32_t*)(a2 + 16);
+	nox_xxx_drawObject_4C4770_draw(a1, dr, *(uint32_t*)(*(uint32_t*)(v2 + 4) + 4 * (*(uint32_t*)(a2 + 440) + *(uint32_t*)(a2 + 444))));
 	return 1;
 }
