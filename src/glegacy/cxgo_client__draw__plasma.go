@@ -87,8 +87,8 @@ func sub_4BA230(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 		}
 		for {
 			v11 = (i*30 + v10) * 28
-			v12 = int32(*memmap.PtrUint32(0x5D4594, uint32(v11)+1313900) + *memmap.PtrUint32(0x5D4594, uint32(v11)+1313896))
-			*memmap.PtrUint32(0x5D4594, uint32(v11)+1313896) = uint32(v12)
+			v12 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v11)+1313900) + *memmap.PtrUint32(0x5D4594, uintptr(v11)+1313896))
+			*memmap.PtrUint32(0x5D4594, uintptr(v11)+1313896) = uint32(v12)
 			if v12 < 256 {
 				if v12 >= 0 {
 					goto LABEL_14
@@ -97,43 +97,43 @@ func sub_4BA230(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 			} else {
 				v13 = v12 - 256
 			}
-			*memmap.PtrUint32(0x5D4594, uint32(v11)+1313896) = uint32(v13)
+			*memmap.PtrUint32(0x5D4594, uintptr(v11)+1313896) = uint32(v13)
 		LABEL_14:
 			if v10 == 0 {
-				*memmap.PtrUint32(0x5D4594, uint32(i*840)+1313896) = uint32(a1)
+				*memmap.PtrUint32(0x5D4594, uintptr(i*840)+1313896) = uint32(a1)
 			}
-			v14 = int32(*memmap.PtrUint32(0x5D4594, uint32(v11)+1313904) + *memmap.PtrUint32(0x5D4594, uint32(v11)+1313900))
-			*memmap.PtrUint32(0x5D4594, uint32(v11)+1313900) = uint32(v14)
+			v14 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v11)+1313904) + *memmap.PtrUint32(0x5D4594, uintptr(v11)+1313900))
+			*memmap.PtrUint32(0x5D4594, uintptr(v11)+1313900) = uint32(v14)
 			if i == 1 {
 				if v14 <= 10 {
 					if v14 < -10 {
-						*memmap.PtrUint32(0x5D4594, uint32(v10*28)+1314740) = 4294967286
+						*memmap.PtrUint32(0x5D4594, uintptr(v10*28)+1314740) = 4294967286
 					}
 				} else {
-					*memmap.PtrUint32(0x5D4594, uint32(v10*28)+1314740) = 10
+					*memmap.PtrUint32(0x5D4594, uintptr(v10*28)+1314740) = 10
 				}
 			} else if v14 <= 25 {
 				if v14 < -25 {
-					*memmap.PtrUint32(0x5D4594, uint32(v11)+1313900) = 4294967271
+					*memmap.PtrUint32(0x5D4594, uintptr(v11)+1313900) = 4294967271
 				}
 			} else {
-				*memmap.PtrUint32(0x5D4594, uint32(v11)+1313900) = 25
+				*memmap.PtrUint32(0x5D4594, uintptr(v11)+1313900) = 25
 			}
-			v15 = int32(*memmap.PtrUint32(0x5D4594, uint32(v11)+1313908) - 1)
-			*memmap.PtrUint32(0x5D4594, uint32(v11)+1313908) = uint32(v15)
+			v15 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v11)+1313908) - 1)
+			*memmap.PtrUint32(0x5D4594, uintptr(v11)+1313908) = uint32(v15)
 			if v15 <= 0 {
-				*memmap.PtrUint32(0x5D4594, uint32(v11)+1313908) = uint32(nox_common_randomIntMinMax_415FF0(10, 90, internCStr("C:\\NoxPost\\src\\client\\Draw\\Plasma.c"), 378))
-				*memmap.PtrUint32(0x5D4594, uint32(v11)+1313904) = uint32(nox_common_randomIntMinMax_415FF0(4, 8, internCStr("C:\\NoxPost\\src\\client\\Draw\\Plasma.c"), 382))
+				*memmap.PtrUint32(0x5D4594, uintptr(v11)+1313908) = uint32(nox_common_randomIntMinMax_415FF0(10, 90, internCStr("C:\\NoxPost\\src\\client\\Draw\\Plasma.c"), 378))
+				*memmap.PtrUint32(0x5D4594, uintptr(v11)+1313904) = uint32(nox_common_randomIntMinMax_415FF0(4, 8, internCStr("C:\\NoxPost\\src\\client\\Draw\\Plasma.c"), 382))
 				if nox_common_randomIntMinMax_415FF0(0, 1, internCStr("C:\\NoxPost\\src\\client\\Draw\\Plasma.c"), 385) != 0 {
-					*memmap.PtrUint32(0x5D4594, uint32(v11)+1313904) = -*memmap.PtrUint32(0x5D4594, uint32(v11)+1313904)
+					*memmap.PtrUint32(0x5D4594, uintptr(v11)+1313904) = -*memmap.PtrUint32(0x5D4594, uintptr(v11)+1313904)
 				}
 				if i == 1 {
-					*memmap.PtrUint32(0x5D4594, uint32(v10*28)+1314732) = uint32(nox_common_randomIntMinMax_415FF0(40, 50, internCStr("C:\\NoxPost\\src\\client\\Draw\\Plasma.c"), 392))
+					*memmap.PtrUint32(0x5D4594, uintptr(v10*28)+1314732) = uint32(nox_common_randomIntMinMax_415FF0(40, 50, internCStr("C:\\NoxPost\\src\\client\\Draw\\Plasma.c"), 392))
 				} else {
-					*memmap.PtrUint32(0x5D4594, uint32(v11)+1313892) = uint32(nox_common_randomIntMinMax_415FF0(80, 110, internCStr("C:\\NoxPost\\src\\client\\Draw\\Plasma.c"), 395))
+					*memmap.PtrUint32(0x5D4594, uintptr(v11)+1313892) = uint32(nox_common_randomIntMinMax_415FF0(80, 110, internCStr("C:\\NoxPost\\src\\client\\Draw\\Plasma.c"), 395))
 					if v10 < 4 && nox_common_randomIntMinMax_415FF0(0, 100, internCStr("C:\\NoxPost\\src\\client\\Draw\\Plasma.c"), 402) > 90 {
-						*memmap.PtrUint32(0x5D4594, uint32(v11)+1313892) = uint32(nox_common_randomIntMinMax_415FF0(150, 200, internCStr("C:\\NoxPost\\src\\client\\Draw\\Plasma.c"), 407))
-						*memmap.PtrUint32(0x5D4594, uint32(v11)+1313908) *= 2
+						*memmap.PtrUint32(0x5D4594, uintptr(v11)+1313892) = uint32(nox_common_randomIntMinMax_415FF0(150, 200, internCStr("C:\\NoxPost\\src\\client\\Draw\\Plasma.c"), 407))
+						*memmap.PtrUint32(0x5D4594, uintptr(v11)+1313908) *= 2
 					}
 				}
 			}
@@ -147,7 +147,7 @@ func sub_4BA230(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 	}
 	for j = 0; j < 3; j++ {
 		if result > 0 {
-			v17 = (*uint8)(memmap.PtrOff(0x5D4594, uint32(j*840)+1313896))
+			v17 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(j*840)+1313896))
 			for {
 				v36 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v17))), -int(4*1)))))
 				v18 = int32(*(*uint32)(unsafe.Pointer(v17)))
@@ -173,8 +173,8 @@ func sub_4BA230(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 				a4a.field_0 = v26
 				v31 = v37 * *mem_getFloatPtr(0x587000, uint32(v27*8)+194140)
 				a4a.field_4 = nox_float2int(v31)
-				sub_4BE800(int32(*memmap.PtrUint32(0x5D4594, uint32(j*4)+1313828)))
-				sub_4BE810(1, int32(*memmap.PtrUint32(0x5D4594, uint32(j*4)+1313828)), int32(*memmap.PtrUint32(0x5D4594, uint32(j*4)+1313844)), int8(*memmap.PtrUint8(0x5D4594, uint32(j)+1313840)))
+				sub_4BE800(int32(*memmap.PtrUint32(0x5D4594, uintptr(j*4)+1313828)))
+				sub_4BE810(1, int32(*memmap.PtrUint32(0x5D4594, uintptr(j*4)+1313828)), int32(*memmap.PtrUint32(0x5D4594, uintptr(j*4)+1313844)), int8(*memmap.PtrUint8(0x5D4594, uintptr(j)+1313840)))
 				if j == 1 {
 					sub_4BEAD0(&a1a, &a2a, &a3a, &a4a, 8, 1)
 				} else {
@@ -206,10 +206,10 @@ func sub_4BA8B0(a1 *int32, a2 *int32, a3 *int32) int8 {
 	}
 	v6 = int32((dword_5d4594_1316412 + uint32(v3*30)) * 28)
 	v5 = int32(dword_5d4594_1316412 + 1)
-	*memmap.PtrUint32(0x5D4594, uint32(v6)+1313884) = uint32(*a1)
-	*memmap.PtrUint32(0x5D4594, uint32(v6)+1313888) = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)))
-	*memmap.PtrUint32(0x5D4594, uint32(v6)+1313912) = uint32(*a2)
-	*memmap.PtrUint32(0x5D4594, uint32(v6)+1313916) = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*1)))
+	*memmap.PtrUint32(0x5D4594, uintptr(v6)+1313884) = uint32(*a1)
+	*memmap.PtrUint32(0x5D4594, uintptr(v6)+1313888) = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)))
+	*memmap.PtrUint32(0x5D4594, uintptr(v6)+1313912) = uint32(*a2)
+	*memmap.PtrUint32(0x5D4594, uintptr(v6)+1313916) = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*1)))
 	*((*uint8)(unsafe.Pointer(&v6))) = uint8(gameFrame())
 	dword_5d4594_1316412 = uint32(v5)
 	if int32(uint8(gameFrame()))&4 != 0 {

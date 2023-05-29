@@ -32,7 +32,7 @@ func sub_4E39F0_obj_db(a1p *nox_object_t) *wchar2_t {
 	v4 = v3
 	libc.StrCpy((*byte)(memmap.PtrOff(0x5D4594, 1563460)), internCStr("NPC:"))
 	v5 = uint8(*v3)
-	v6 = (*uint8)(memmap.PtrOff(0x5D4594, uint32(libc.StrLen((*byte)(memmap.PtrOff(0x5D4594, 1563460)))+1563460)))
+	v6 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(libc.StrLen((*byte)(memmap.PtrOff(0x5D4594, 1563460)))+1563460)))
 	for i = (*uint8)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v4), 1)))); int32(v5) != 0; i = (*uint8)(unsafe.Add(unsafe.Pointer(i), 1)) {
 		if int32(v5) != 95 {
 			*func() *uint8 {

@@ -48,7 +48,7 @@ func sub_455D80(a1 uint8, a2 int8) {
 		v3     *wchar2_t
 		v4     *wchar2_t
 	)
-	*memmap.PtrUint8(0x5D4594, uint32(a1)+1045611) = uint8(a2)
+	*memmap.PtrUint8(0x5D4594, uintptr(a1)+1045611) = uint8(a2)
 	result = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045604)))), int32(a1)+8810)))
 	v3 = result
 	if result != nil {

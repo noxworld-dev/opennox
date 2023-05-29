@@ -1806,7 +1806,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 						v254 = int32(v252)
 					}
 					v255 = nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\Client\\Network\\cdecode.c"), 5541)
-					*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v5))), 4*0)) = uint32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1200784), int32(*(*int16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))))+v254**memmap.PtrInt32(0x587000, uint32(v255*8)+192088)/16, int32(*(*int16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3)))))+v254**memmap.PtrInt32(0x587000, uint32(v255*8)+192092)/16))))
+					*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v5))), 4*0)) = uint32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1200784), int32(*(*int16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))))+v254**memmap.PtrInt32(0x587000, uintptr(v255*8)+192088)/16, int32(*(*int16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3)))))+v254**memmap.PtrInt32(0x587000, uintptr(v255*8)+192092)/16))))
 					v256 = int32(v5)
 					if uint32(int32(v5)) != 0 {
 						*(*uint32)(unsafe.Pointer(uintptr(v5 + 432))) = *(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) << 12

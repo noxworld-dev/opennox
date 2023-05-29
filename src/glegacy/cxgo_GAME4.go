@@ -1820,7 +1820,7 @@ func sub_4FA280(a1 int32) int32 {
 			return 0
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uint32(v1*4)+215824))
+	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*4)+215824))
 }
 func nox_common_mapPlrActionToStateId_4FA2B0(a1p *nox_object_t) int32 {
 	var (
@@ -4532,16 +4532,16 @@ func sub_500330(a1 int8, a2 int8, a3 int32, a4 int8, a5 int8, a6 int8, a7 int8, 
 	if *(*int32)(unsafe.Pointer(&dword_5d4594_1569756)) < 15 {
 		result = int32(dword_5d4594_1569756 * 16)
 		v11 = int32(dword_5d4594_1569756 + 1)
-		*memmap.PtrUint8(0x5D4594, uint32(result)+1569764) = uint8(a1)
-		*memmap.PtrUint8(0x5D4594, uint32(result)+1569765) = uint8(a2)
-		*memmap.PtrUint32(0x5D4594, uint32(result)+1569768) = uint32(a3)
-		*memmap.PtrUint8(0x5D4594, uint32(result)+1569772) = uint8(a4)
-		*memmap.PtrUint8(0x5D4594, uint32(result)+1569773) = uint8(a5)
-		*memmap.PtrUint8(0x5D4594, uint32(result)+1569774) = uint8(a6)
-		*memmap.PtrUint8(0x5D4594, uint32(result)+1569775) = uint8(a7)
-		*memmap.PtrUint8(0x5D4594, uint32(result)+1569776) = uint8(a8)
-		*memmap.PtrUint8(0x5D4594, uint32(result)+1569777) = uint8(a9)
-		*memmap.PtrUint8(0x5D4594, uint32(result)+1569778) = uint8(a10)
+		*memmap.PtrUint8(0x5D4594, uintptr(result)+1569764) = uint8(a1)
+		*memmap.PtrUint8(0x5D4594, uintptr(result)+1569765) = uint8(a2)
+		*memmap.PtrUint32(0x5D4594, uintptr(result)+1569768) = uint32(a3)
+		*memmap.PtrUint8(0x5D4594, uintptr(result)+1569772) = uint8(a4)
+		*memmap.PtrUint8(0x5D4594, uintptr(result)+1569773) = uint8(a5)
+		*memmap.PtrUint8(0x5D4594, uintptr(result)+1569774) = uint8(a6)
+		*memmap.PtrUint8(0x5D4594, uintptr(result)+1569775) = uint8(a7)
+		*memmap.PtrUint8(0x5D4594, uintptr(result)+1569776) = uint8(a8)
+		*memmap.PtrUint8(0x5D4594, uintptr(result)+1569777) = uint8(a9)
+		*memmap.PtrUint8(0x5D4594, uintptr(result)+1569778) = uint8(a10)
 		dword_5d4594_1569756 = uint32(v11)
 	}
 }
@@ -4610,9 +4610,9 @@ func nox_xxx_scriptGetJournal_5005E0(a1 *byte) *byte {
 		v5 = v7
 	} else {
 		libc.StrCpy((*byte)(memmap.PtrOff(0x5D4594, 1570140)), (*byte)(memmap.PtrOff(0x5D4594, 1570008)))
-		*memmap.PtrUint16(0x5D4594, uint32(libc.StrLen((*byte)(memmap.PtrOff(0x5D4594, 1570140)))+1570140)) = *memmap.PtrUint16(0x587000, 217952)
+		*memmap.PtrUint16(0x5D4594, uintptr(libc.StrLen((*byte)(memmap.PtrOff(0x5D4594, 1570140)))+1570140)) = *memmap.PtrUint16(0x587000, 217952)
 		v1 = uint32(libc.StrLen(a1) + 1)
-		v2 = (*uint8)(memmap.PtrOff(0x5D4594, uint32(libc.StrLen((*byte)(memmap.PtrOff(0x5D4594, 1570140)))+1570140)))
+		v2 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(libc.StrLen((*byte)(memmap.PtrOff(0x5D4594, 1570140)))+1570140)))
 		alloc.Memcpy(unsafe.Pointer(v2), unsafe.Pointer(a1), int((v1>>2)*4))
 		v4 = (*byte)(unsafe.Add(unsafe.Pointer(a1), (v1>>2)*4))
 		v3 = (*uint8)(unsafe.Add(unsafe.Pointer(v2), (v1>>2)*4))
@@ -4826,7 +4826,7 @@ func sub_5009B0(a1 *byte) uint32 {
 		*((*uint8)(unsafe.Pointer(&v1))) = uint8(v2)
 		result = 0
 		alloc.Memcpy(unsafe.Pointer(v3), unsafe.Pointer(v4), int(v1&3))
-		*memmap.PtrUint16(0x5D4594, uint32(libc.StrLen((*byte)(memmap.PtrOff(0x5D4594, 1570140)))+1570140)) = *memmap.PtrUint16(0x587000, 217960)
+		*memmap.PtrUint16(0x5D4594, uintptr(libc.StrLen((*byte)(memmap.PtrOff(0x5D4594, 1570140)))+1570140)) = *memmap.PtrUint16(0x587000, 217960)
 		libc.StrCat((*byte)(memmap.PtrOff(0x5D4594, 1570140)), a1)
 	}
 	return result
@@ -4916,7 +4916,7 @@ func nox_xxx_orderUnitLocal_500C70(owner int32, orderType int32) int32 {
 func sub_500CA0(a1 int32, a2 int32) int32 {
 	var result int32
 	if a2 != 0 && int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 8))))&4 != 0 {
-		result = int32(*memmap.PtrUint32(0x587000, uint32(a1*4)+217668))
+		result = int32(*memmap.PtrUint32(0x587000, uintptr(a1*4)+217668))
 	} else {
 		result = 0
 	}
@@ -5548,9 +5548,9 @@ func nox_xxx_mapgenMakeScript_502790(a1 *FILE, a2 *byte) int32 {
 		nox_binfile_fseek_409050(a1, 1, stdio.SEEK_CUR)
 		v4 = 0
 		v5 = int32(uint8(int8(v6))) * 268
-		if int32(*memmap.PtrUint8(0x587000, uint32(v5)+218640)) != 0 {
+		if int32(*memmap.PtrUint8(0x587000, uintptr(v5)+218640)) != 0 {
 			for {
-				switch *memmap.PtrUint32(0x587000, uint32(v4*8)+218648+uint32(v5)) {
+				switch *memmap.PtrUint32(0x587000, uintptr(v4*8)+218648+uint32(v5)) {
 				case 0:
 					fallthrough
 				case 3:
@@ -5572,7 +5572,7 @@ func nox_xxx_mapgenMakeScript_502790(a1 *FILE, a2 *byte) int32 {
 				}
 				v4++
 				v5 = int32(uint8(int8(v6))) * 268
-				if v4 >= int32(*memmap.PtrUint8(0x587000, uint32(v5)+218640)) {
+				if v4 >= int32(*memmap.PtrUint8(0x587000, uintptr(v5)+218640)) {
 					break
 				}
 			}

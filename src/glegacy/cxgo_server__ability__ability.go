@@ -26,7 +26,7 @@ func nox_xxx_netAbilityReport_4D8060(a1 int32, a2 int32, a3 int32) int32 {
 }
 func nox_xxx_abilGetSuccess_4FB960_ability(a1 int32) {
 	var v1 *wchar2_t
-	v1 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uint32(a1*4)+217092)), nil, internCStr("C:\\NoxPost\\src\\Server\\Ability\\Ability.c"), 75)
+	v1 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(a1*4)+217092)), nil, internCStr("C:\\NoxPost\\src\\Server\\Ability\\Ability.c"), 75)
 	nox_xxx_printCentered_445490(v1)
 }
 func nox_xxx_abilityRewardServ_4FB9C0_ability(a1 int32, a2 int32, a3 int32) int32 {

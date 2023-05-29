@@ -114,7 +114,7 @@ func nox_xxx_gameSetMapPath_409D70(a1 *byte) *byte {
 			}
 			result = libc.StrNCpy((*byte)(memmap.PtrOff(0x85B3FC, 36)), (*byte)(memmap.PtrOff(0x5D4594, 2598188)), int(v3))
 		}
-		*memmap.PtrUint8(0x85B3FC, uint32(v3+36)) = 0
+		*memmap.PtrUint8(0x85B3FC, uintptr(v3+36)) = 0
 		nox_server_gameSettingsUpdated = 1
 	}
 	return result
@@ -193,10 +193,10 @@ func nox_xxx_servGetPlrLimit_409FA0() int32 {
 	return int32(*memmap.PtrUint32(0x5D4594, 3464))
 }
 func nox_xxx_servGamedataGet_40A020(a1 int16) int16 {
-	return int16(*memmap.PtrUint16(0x5D4594, uint32(sub_409A70(a1)*2+3488)))
+	return int16(*memmap.PtrUint16(0x5D4594, uintptr(sub_409A70(a1)*2+3488)))
 }
 func sub_40A180(a1 int16) uint8 {
-	return *memmap.PtrUint8(0x5D4594, uint32(sub_409A70(a1)+3500))
+	return *memmap.PtrUint8(0x5D4594, uintptr(sub_409A70(a1)+3500))
 }
 func sub_40A1F0(a1 int32) int32 {
 	var result int32
@@ -223,7 +223,7 @@ func sub_40A250() int64 {
 	v0 = int16(uint16(nox_common_gameFlags_getVal_40A5B0()))
 	v1 = sub_409A70(v0)
 	v2 = int64(nox_platform_get_ticks())
-	result = int64(int32(*memmap.PtrUint8(0x5D4594, uint32(v1+3500))) * 60000)
+	result = int64(int32(*memmap.PtrUint8(0x5D4594, uintptr(v1+3500))) * 60000)
 	*memmap.PtrUint64(0x5D4594, 3468) = uint64(result + v2)
 	return result
 }
@@ -340,7 +340,7 @@ func sub_40A710(a1 int32) int32 {
 			return 1
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uint32(v1*8+4668)))
+	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*8+4668)))
 }
 func sub_40A740() int32 {
 	var v0 *byte
@@ -992,8 +992,8 @@ func sub_411490(a1 int32, a2 int32) int32 {
 		v3 int32
 		v5 int32
 	)
-	v2 = int32(*memmap.PtrUint8(0x85B3FC, uint32(a1*60+28696)))
-	v3 = int32(*memmap.PtrUint8(0x85B3FC, uint32(a1*60+28697)))
+	v2 = int32(*memmap.PtrUint8(0x85B3FC, uintptr(a1*60+28696)))
+	v3 = int32(*memmap.PtrUint8(0x85B3FC, uintptr(a1*60+28697)))
 	if v2 == 3 && v3 == 3 {
 		return a2
 	}
@@ -1127,7 +1127,7 @@ func nox_thing_read_EDGE_411850(f *nox_memfile, a2 *uint8) int32 {
 	nox_memfile_read(unsafe.Pointer(&v29[0]), 1, int32(v30), f)
 	v5 = int32(dword_5d4594_251572 * 3)
 	v29[v30] = 0
-	libc.StrCpy((*byte)(memmap.PtrOff(0x85B3FC, uint32(v5*20+28644))), &v29[0])
+	libc.StrCpy((*byte)(memmap.PtrOff(0x85B3FC, uintptr(v5*20+28644))), &v29[0])
 	v7 = nox_memfile_read_i32(f)
 	*memmap.PtrUint32(0x85B3FC, dword_5d4594_251572*60+28680) = uint32(v7)
 	v9 = nox_memfile_read_i32(f)
@@ -1137,12 +1137,12 @@ func nox_thing_read_EDGE_411850(f *nox_memfile, a2 *uint8) int32 {
 	*((*uint8)(unsafe.Pointer(&v9))) = nox_memfile_read_u8(f)
 	v28 = uint8(int8(v9))
 	v12 = int32(dword_5d4594_251572 * 60)
-	*memmap.PtrUint8(0x85B3FC, uint32(v12+28698)) = uint8(int8(v9))
-	*memmap.PtrUint16(0x85B3FC, uint32(v12+28690)) = 0
+	*memmap.PtrUint8(0x85B3FC, uintptr(v12+28698)) = uint8(int8(v9))
+	*memmap.PtrUint16(0x85B3FC, uintptr(v12+28690)) = 0
 	*((*uint8)(unsafe.Pointer(&v9))) = nox_memfile_read_u8(f)
 	v14 = int32(dword_5d4594_251572 * 60)
-	*memmap.PtrUint8(0x85B3FC, uint32(v14+28699)) = uint8(int8(v9))
-	*memmap.PtrUint8(0x85B3FC, uint32(v14+28700)) = uint8(int8(v9))
+	*memmap.PtrUint8(0x85B3FC, uintptr(v14+28699)) = uint8(int8(v9))
+	*memmap.PtrUint8(0x85B3FC, uintptr(v14+28700)) = uint8(int8(v9))
 	*((*uint8)(unsafe.Pointer(&v9))) = nox_memfile_read_u8(f)
 	if int32(uint8(int8(v9))) == 1 {
 		return 0
@@ -1151,9 +1151,9 @@ func nox_thing_read_EDGE_411850(f *nox_memfile, a2 *uint8) int32 {
 	*memmap.PtrUint8(0x85B3FC, dword_5d4594_251572*60+28697) = v17
 	v19 = nox_memfile_read_u8(f)
 	v20 = int32(dword_5d4594_251572 * 60)
-	*memmap.PtrUint8(0x85B3FC, uint32(v20+28696)) = v19
-	*memmap.PtrUint16(0x85B3FC, uint32(v20+28688)) = uint16(int16((int32(v17) + int32(v19)) * 2))
-	*memmap.PtrUint32(0x85B3FC, uint32(v20+28676)) = 0
+	*memmap.PtrUint8(0x85B3FC, uintptr(v20+28696)) = v19
+	*memmap.PtrUint16(0x85B3FC, uintptr(v20+28688)) = uint16(int16((int32(v17) + int32(v19)) * 2))
+	*memmap.PtrUint32(0x85B3FC, uintptr(v20+28676)) = 0
 	if int32(v28)*2*(int32(v17)+int32(v19)) > 0 {
 		v21 = int32(v28) * 2 * (int32(v17) + int32(v19))
 		for {
@@ -1242,7 +1242,7 @@ func sub_413420(a1 int8) int32 {
 			return 0
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uint32(v2*20+27340)))
+	return int32(*memmap.PtrUint32(0x587000, uintptr(v2*20+27340)))
 }
 func sub_4134D0() int32 {
 	dword_5d4594_251708 = 0
@@ -1272,7 +1272,7 @@ func sub_413890() *byte {
 	if int32(*memmap.PtrUint8(0x5D4594, 251636)) == 0 {
 		return nil
 	}
-	v0 = (*uint8)(memmap.PtrOff(0x5D4594, uint32(libc.StrLen((*byte)(memmap.PtrOff(0x5D4594, 251636)))+251637)))
+	v0 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(libc.StrLen((*byte)(memmap.PtrOff(0x5D4594, 251636)))+251637)))
 	v1 = int32(*memmap.PtrUint32(0x587000, 32316))
 	v2 = int16(*memmap.PtrUint16(0x587000, 32320))
 	*(*uint32)(unsafe.Pointer(func() *uint8 {
@@ -1349,12 +1349,12 @@ func nox_xxx_gameLoopMemDump_413E30() {
 					}
 				}
 				v0 = v9
-				*memmap.PtrUint32(0x5D4594, uint32(v4*84)+252364) += *(*uint32)(unsafe.Pointer(uintptr(v3 + 16)))
+				*memmap.PtrUint32(0x5D4594, uintptr(v4*84)+252364) += *(*uint32)(unsafe.Pointer(uintptr(v3 + 16)))
 			}
 		LABEL_10:
 			if v4 == v0 {
-				*memmap.PtrUint32(0x5D4594, uint32(v4*84)+252364) = *(*uint32)(unsafe.Pointer(uintptr(v3 + 16)))
-				libc.StrCpy((*byte)(memmap.PtrOff(0x5D4594, uint32(v4*84)+252284)), (*byte)(unsafe.Pointer(uintptr(v3+20))))
+				*memmap.PtrUint32(0x5D4594, uintptr(v4*84)+252364) = *(*uint32)(unsafe.Pointer(uintptr(v3 + 16)))
+				libc.StrCpy((*byte)(memmap.PtrOff(0x5D4594, uintptr(v4*84)+252284)), (*byte)(unsafe.Pointer(uintptr(v3+20))))
 				v9 = func() int32 {
 					p := &v0
 					*p++
@@ -1395,7 +1395,7 @@ func sub_414BD0(a1 int32) int32 {
 	if v1 >= 25736 {
 		v1 %= 0x6488
 	}
-	return int32(*memmap.PtrUint32(0x85B3FC, uint32(((v1<<12)/25736)*4+12260)))
+	return int32(*memmap.PtrUint32(0x85B3FC, uintptr(((v1<<12)/25736)*4+12260)))
 }
 func sub_414C50(a1 int32) int32 {
 	var (
@@ -1962,7 +1962,7 @@ func sub_415840(a1 int32) int32 {
 			return 0
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uint32(v1*12+33068)))
+	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*12+33068)))
 }
 func nox_xxx_ammoCheck_415880(typ_ind uint16) int32 {
 	var (
@@ -1981,7 +1981,7 @@ func nox_xxx_ammoCheck_415880(typ_ind uint16) int32 {
 			return 0
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uint32(v1*12+33072)))
+	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*12+33072)))
 }
 func sub_415910(a1 *byte) int32 {
 	var (
@@ -2005,7 +2005,7 @@ func sub_415910(a1 *byte) int32 {
 			return 0
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uint32(v1*12+33072)))
+	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*12+33072)))
 }
 func sub_415960(a1 *wchar2_t) int32 {
 	var (
@@ -2029,7 +2029,7 @@ func sub_415960(a1 *wchar2_t) int32 {
 			return 0
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uint32(v1*12+33400)))
+	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*12+33400)))
 }
 func sub_4159B0(a1 *byte) *byte {
 	var (
@@ -2048,7 +2048,7 @@ func sub_4159B0(a1 *byte) *byte {
 			return nil
 		}
 	}
-	return *(**byte)(memmap.PtrOff(0x587000, uint32(v1*12+33064)))
+	return *(**byte)(memmap.PtrOff(0x587000, uintptr(v1*12+33064)))
 }
 func sub_4159F0(a1 int32) int32 {
 	var (
@@ -2067,7 +2067,7 @@ func sub_4159F0(a1 int32) int32 {
 			return 0
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uint32(v1*12+33392)))
+	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*12+33392)))
 }
 func sub_415BD0(a1 int32) float64 {
 	var (
@@ -2120,7 +2120,7 @@ func nox_xxx_unitArmorInventoryEquipFlags_415C70(item *nox_object_t) int32 {
 	if v1 < 0 {
 		result = 0
 	} else {
-		result = int32(*memmap.PtrUint32(0x587000, uint32(v1*24+34860)))
+		result = int32(*memmap.PtrUint32(0x587000, uintptr(v1*24+34860)))
 	}
 	return result
 }
@@ -2169,7 +2169,7 @@ func sub_415CD0(a1 int32) int32 {
 			return 0
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uint32(v1*24+34856)))
+	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*24+34856)))
 }
 func sub_415D10(a1 int32) int32 {
 	var (
@@ -2188,7 +2188,7 @@ func sub_415D10(a1 int32) int32 {
 			return 0
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uint32(v1*24+34860)))
+	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*24+34860)))
 }
 func sub_415DA0(a1 *wchar2_t) int32 {
 	var (
@@ -2212,7 +2212,7 @@ func sub_415DA0(a1 *wchar2_t) int32 {
 			return 0
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uint32(v1*12+35504)))
+	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*12+35504)))
 }
 func sub_415DF0(a1 *byte) int32 {
 	var (
@@ -2236,7 +2236,7 @@ func sub_415DF0(a1 *byte) int32 {
 			return 0
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uint32(v1*24+34860)))
+	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*24+34860)))
 }
 func sub_415E40(a1 *byte) *byte {
 	var (
@@ -2255,7 +2255,7 @@ func sub_415E40(a1 *byte) *byte {
 			return nil
 		}
 	}
-	return *(**byte)(memmap.PtrOff(0x587000, uint32(v1*24+34848)))
+	return *(**byte)(memmap.PtrOff(0x587000, uintptr(v1*24+34848)))
 }
 func sub_415E80(a1 int32) int32 {
 	var (
@@ -2274,7 +2274,7 @@ func sub_415E80(a1 int32) int32 {
 			return 0
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uint32(v1*12+35496)))
+	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*12+35496)))
 }
 func sub_4161E0() int32 {
 	var (
@@ -2347,7 +2347,7 @@ func sub_4161E0() int32 {
 	v6 = 0
 	v9 = 0
 	for {
-		if *memmap.PtrUint32(0x5D4594, uint32(int32(v9)*4+(371380+24))) != uint32(v15[v9]) {
+		if *memmap.PtrUint32(0x5D4594, uintptr(int32(v9)*4+(371380+24))) != uint32(v15[v9]) {
 			break
 		}
 		v9 = func() uint8 {
@@ -2373,7 +2373,7 @@ func sub_4161E0() int32 {
 	v7 = 0
 	v10 = 0
 	for {
-		if (*memmap.PtrUint8(0x5D4594, uint32(int32(v10)+(371380+44)))) != uint8(v11[v10]) {
+		if (*memmap.PtrUint8(0x5D4594, uintptr(int32(v10)+(371380+44)))) != uint8(v11[v10]) {
 			break
 		}
 		v10 = func() uint8 {
@@ -2400,19 +2400,19 @@ func sub_416580() int32 {
 	return int32(*memmap.PtrUint32(0x5D4594, 371688))
 }
 func nox_xxx_cliGamedataGet_416590(a1 int32) *byte {
-	return (*byte)(memmap.PtrOff(0x5D4594, uint32(a1*58)+371380))
+	return (*byte)(memmap.PtrOff(0x5D4594, uintptr(a1*58)+371380))
 }
 func sub_4165B0() *byte {
 	return (*byte)(memmap.PtrOff(0x5D4594, *memmap.PtrUint32(0x5D4594, 371688)*58+371380))
 }
 func sub_4165D0(a1 int32) *byte {
 	*memmap.PtrUint32(0x5D4594, 371688) = uint32(a1)
-	return (*byte)(memmap.PtrOff(0x5D4594, uint32(a1*58)+371380))
+	return (*byte)(memmap.PtrOff(0x5D4594, uintptr(a1*58)+371380))
 }
 func sub_4165F0(a1 int32, a2 int32) int32 {
 	var result int32
 	result = a2
-	alloc.Memcpy(memmap.PtrOff(0x5D4594, uint32(a2*58)+371380), memmap.PtrOff(0x5D4594, uint32(a1*58)+371380), 0x3A)
+	alloc.Memcpy(memmap.PtrOff(0x5D4594, uintptr(a2*58)+371380), memmap.PtrOff(0x5D4594, uintptr(a1*58)+371380), 0x3A)
 	return result
 }
 func sub_416630() *byte {

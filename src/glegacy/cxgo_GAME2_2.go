@@ -75,21 +75,21 @@ func sub_4761B0(a1p *nox_drawable) int32 {
 		v4     int32
 	)
 	if *memmap.PtrUint32(0x852978, 8) == 0 {
-		return int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 16))) + uint32(*memmap.PtrInt32(0x587000, uint32(int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 299))))*8)+196188)/2))
+		return int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 16))) + uint32(*memmap.PtrInt32(0x587000, uintptr(int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 299))))*8)+196188)/2))
 	}
 	result = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 16))))
 	v2 = int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 299)))) * 8
-	v3 = int32((*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8) + 16)))-uint32(result))*uint32(*memmap.PtrInt32(0x587000, uint32(v2)+196184)) - (*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8) + 12)))-*(*uint32)(unsafe.Pointer(uintptr(a1 + 12))))*uint32(*memmap.PtrInt32(0x587000, uint32(v2)+196188)))
-	if *memmap.PtrInt32(0x587000, uint32(v2)+196184) < 0 {
-		v3 = int32((*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8) + 12)))-*(*uint32)(unsafe.Pointer(uintptr(a1 + 12))))*uint32(*memmap.PtrInt32(0x587000, uint32(int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 299))))*8)+196188)) - (*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8) + 16)))-uint32(result))*uint32(*memmap.PtrInt32(0x587000, uint32(int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 299))))*8)+196184)))
+	v3 = int32((*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8) + 16)))-uint32(result))*uint32(*memmap.PtrInt32(0x587000, uintptr(v2)+196184)) - (*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8) + 12)))-*(*uint32)(unsafe.Pointer(uintptr(a1 + 12))))*uint32(*memmap.PtrInt32(0x587000, uintptr(v2)+196188)))
+	if *memmap.PtrInt32(0x587000, uintptr(v2)+196184) < 0 {
+		v3 = int32((*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8) + 12)))-*(*uint32)(unsafe.Pointer(uintptr(a1 + 12))))*uint32(*memmap.PtrInt32(0x587000, uintptr(int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 299))))*8)+196188)) - (*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x852978, 8) + 16)))-uint32(result))*uint32(*memmap.PtrInt32(0x587000, uintptr(int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 299))))*8)+196184)))
 	}
-	v4 = result + *memmap.PtrInt32(0x587000, uint32(int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 299))))*8)+196188)
+	v4 = result + *memmap.PtrInt32(0x587000, uintptr(int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 299))))*8)+196188)
 	if v3 >= 0 {
 		if v4 <= result {
-			result += *memmap.PtrInt32(0x587000, uint32(int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 299))))*8)+196188)
+			result += *memmap.PtrInt32(0x587000, uintptr(int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 299))))*8)+196188)
 		}
 	} else if v4 > result {
-		result += *memmap.PtrInt32(0x587000, uint32(int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 299))))*8)+196188)
+		result += *memmap.PtrInt32(0x587000, uintptr(int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 299))))*8)+196188)
 	}
 	return result
 }
@@ -280,7 +280,7 @@ func sub_476D70(a1 *uint32, a2 *int32, a3 uint32) int16 {
 func nox_client_setPhonemeFrame_476E00(a1 int32) int32 {
 	var result int32
 	result = a1
-	*memmap.PtrUint32(0x5D4594, uint32(a1*4)+1096596) = gameFrame()
+	*memmap.PtrUint32(0x5D4594, uintptr(a1*4)+1096596) = gameFrame()
 	return result
 }
 func sub_476E20() *uint32 {
@@ -291,8 +291,8 @@ func sub_476E20() *uint32 {
 	)
 	v0 = 0
 	for {
-		v1 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uint32(v0)+151272)))))
-		*memmap.PtrUint32(0x5D4594, uint32(v0)+1096564) = uint32(uintptr(unsafe.Pointer(v1)))
+		v1 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uintptr(v0)+151272)))))
+		*memmap.PtrUint32(0x5D4594, uintptr(v0)+1096564) = uint32(uintptr(unsafe.Pointer(v1)))
 		if v1 == nil {
 			break
 		}
@@ -315,10 +315,10 @@ func sub_476E90() int32 {
 	v0 = (*uint8)(memmap.PtrOff(0x587000, 151208))
 	v1 = 0
 	for {
-		if *memmap.PtrUint32(0x5D4594, uint32(v1)+1096596) != 0 {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uint32(v1)+1096564)))), int32(uint32(nox_win_width/2)+*(*uint32)(unsafe.Pointer(v0))-16), int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v0))), 4*1)))+uint32(nox_win_height/2)-41))
-			if (gameFrame() - *memmap.PtrUint32(0x5D4594, uint32(v1)+1096596)) > 3 {
-				*memmap.PtrUint32(0x5D4594, uint32(v1)+1096596) = 0
+		if *memmap.PtrUint32(0x5D4594, uintptr(v1)+1096596) != 0 {
+			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v1)+1096564)))), int32(uint32(nox_win_width/2)+*(*uint32)(unsafe.Pointer(v0))-16), int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v0))), 4*1)))+uint32(nox_win_height/2)-41))
+			if (gameFrame() - *memmap.PtrUint32(0x5D4594, uintptr(v1)+1096596)) > 3 {
+				*memmap.PtrUint32(0x5D4594, uintptr(v1)+1096596) = 0
 			}
 		}
 		v0 = (*uint8)(unsafe.Add(unsafe.Pointer(v0), 8))
@@ -602,7 +602,7 @@ func sub_4780A0(a1 int32) *byte {
 						goto LABEL_7
 					}
 				}
-				return (*byte)(memmap.PtrOff(0x5D4594, uint32((v1+v3*10)*140)+1098636))
+				return (*byte)(memmap.PtrOff(0x5D4594, uintptr((v1+v3*10)*140)+1098636))
 			}
 		LABEL_7:
 			v3++
@@ -906,7 +906,7 @@ func sub_478C80() int32 {
 	v7 = (*uint8)(memmap.PtrOff(0x5D4594, 1098640))
 	for {
 		if v1 > *memmap.PtrInt32(0x5D4594, 1098384)-50 {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uint32((v6%2)*4)+1098424)))), v0, v1)
+			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr((v6%2)*4)+1098424)))), v0, v1)
 			v3 = v0 + 5
 			v4 = 6
 			for {
@@ -967,8 +967,8 @@ func sub_478E50(a1 int32, a2 int32, a3 uint32) int32 {
 			v4 = 9
 		}
 		v5 = (v4 + v3*10) * 35
-		v6 = (**wchar2_t)(memmap.PtrOff(0x5D4594, uint32(v5*4)+1098636))
-		if *memmap.PtrUint32(0x5D4594, uint32(v5*4)+1098640) != 0 {
+		v6 = (**wchar2_t)(memmap.PtrOff(0x5D4594, uintptr(v5*4)+1098636))
+		if *memmap.PtrUint32(0x5D4594, uintptr(v5*4)+1098640) != 0 {
 			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(*v6))), 4*32))) = uint32(uintptr(unsafe.Pointer(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof((*wchar2_t)(nil))*2)))))
 			v7 = nox_xxx_clientAskInfoMb_4BF050((*nox_drawable)(unsafe.Pointer(*v6)))
 			nox_xxx_cursorSetTooltip_4776B0(v7)
@@ -1145,7 +1145,7 @@ func sub_4793C0(a1 int32) *byte {
 		v4 = v2
 		for {
 			if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v4))), 4*1))) != 0 && *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v4)) + 108))) == uint32(a1) && (*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v4)) + 112)))&0x4000000) == 0 {
-				return (*byte)(memmap.PtrOff(0x5D4594, uint32((v1+v3*10)*140)+1098636))
+				return (*byte)(memmap.PtrOff(0x5D4594, uintptr((v1+v3*10)*140)+1098636))
 			}
 			v3++
 			v4 = (*uint8)(unsafe.Add(unsafe.Pointer(v4), 1400))
@@ -1176,7 +1176,7 @@ func sub_479430() *byte {
 		v3 = v1
 		for {
 			if *(*uint32)(unsafe.Pointer(v3)) == 0 {
-				return (*byte)(memmap.PtrOff(0x5D4594, uint32((v0+v2*10)*140)+1098636))
+				return (*byte)(memmap.PtrOff(0x5D4594, uintptr((v0+v2*10)*140)+1098636))
 			}
 			v2++
 			v3 = (*uint8)(unsafe.Add(unsafe.Pointer(v3), 1400))
@@ -1329,8 +1329,8 @@ func sub_4798A0(a1 *uint32) int32 {
 		v3 = 9
 	}
 	v4 = (v3 + v2*10) * 35
-	v5 = (*uint8)(memmap.PtrOff(0x5D4594, uint32(v4*4)+1098636))
-	if *memmap.PtrUint32(0x5D4594, uint32(v4*4)+1098640) == 0 {
+	v5 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v4*4)+1098636))
+	if *memmap.PtrUint32(0x5D4594, uintptr(v4*4)+1098640) == 0 {
 		return 0
 	}
 	*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v5)) + 128))) = *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v5))), 4*2)))
@@ -1561,10 +1561,10 @@ func sub_47FCE0(a1 *uint32, a2 int32) int32 {
 LABEL_8:
 	v4 = int32(dword_5d4594_3804684 * 16)
 	v5 = int32(dword_5d4594_3804684 + 1)
-	*memmap.PtrUint32(0x973F18, uint32(v4+6088)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*3))
-	*memmap.PtrUint32(0x973F18, uint32(v4+6092)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2))
-	*memmap.PtrUint32(0x973F18, uint32(v4+6096)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*21))
-	*memmap.PtrUint32(0x973F18, uint32(v4+6100)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*26))
+	*memmap.PtrUint32(0x973F18, uintptr(v4+6088)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*3))
+	*memmap.PtrUint32(0x973F18, uintptr(v4+6092)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2))
+	*memmap.PtrUint32(0x973F18, uintptr(v4+6096)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*21))
+	*memmap.PtrUint32(0x973F18, uintptr(v4+6100)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*26))
 	dword_5d4594_3804684 = uint32(v5)
 	return 1
 }
@@ -1907,8 +1907,8 @@ func nox_xxx_tileDraw_4815E0(a1 *uint32, a2 int32) int8 {
 		if uintptr(unsafe.Pointer(uintptr(v2+uint32(*memmap.PtrInt32(0x973CE0, 376))))) >= uintptr(nox_video_tileBuf_end_3798844) {
 			v6 = 0
 			for i = 0; ; v6 = i {
-				v7 = int32(*memmap.PtrUint32(0x973CE0, uint32(v6+192)) << uint32(*memmap.PtrUint8(0x973F18, 7696)))
-				v8 = *memmap.PtrUint32(0x973CE0, uint32(v6+384)) << uint32(*memmap.PtrUint8(0x973F18, 7696))
+				v7 = int32(*memmap.PtrUint32(0x973CE0, uintptr(v6+192)) << uint32(*memmap.PtrUint8(0x973F18, 7696)))
+				v8 = *memmap.PtrUint32(0x973CE0, uintptr(v6+384)) << uint32(*memmap.PtrUint8(0x973F18, 7696))
 				if v2+uint32(v7)+v8 < v5 {
 					alloc.Memcpy(unsafe.Pointer(uintptr(uint32(v7)+v2)), unsafe.Pointer(v4), int((v8>>2)*4))
 					v11 = (*byte)(unsafe.Add(unsafe.Pointer(v4), (v8>>2)*4))
@@ -1979,8 +1979,8 @@ func sub_481770(a1 *uint32, a2 int32, a3 uint16) *byte {
 		v7 = 0
 		v12 = 0
 		for {
-			v8 = int32(*memmap.PtrUint32(0x973CE0, uint32(v7+192)) << uint32(v4))
-			v9 = int32(*memmap.PtrUint32(0x973CE0, uint32(v7+384)) << uint32(v4))
+			v8 = int32(*memmap.PtrUint32(0x973CE0, uintptr(v7+192)) << uint32(v4))
+			v9 = int32(*memmap.PtrUint32(0x973CE0, uintptr(v7+384)) << uint32(v4))
 			if v6+uint32(v9)+uint32(v8) < v5 {
 				result = (*byte)(unsafe.Pointer(uintptr(sub_49D1C0(unsafe.Pointer(uintptr(v6+uint32(v8))), cl, v9))))
 				v5 = uint32(uintptr(nox_video_tileBuf_end_3798844))
@@ -2050,10 +2050,10 @@ func nox_xxx_drawTexEdgesProbably_481900(a1 *uint32, a2 *uint32) int8 {
 	v3 = int32(uintptr(unsafe.Pointer(*(**nox_video_bag_image_t)(unsafe.Add(unsafe.Pointer(tile.data_32), unsafe.Sizeof((*nox_video_bag_image_t)(nil))*uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*1))+uint32(tile.field_46)))))))
 	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*2)))
 	v5 = int32(dword_5d4594_3798836)
-	addr = (*int32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x85B3FC, uint32(v4*60+28676)) + (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))+uint32(*memmap.PtrUint16(0x85B3FC, uint32(v4*60+28690))))*4)))
+	addr = (*int32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x85B3FC, uintptr(v4*60+28676)) + (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))+uint32(*memmap.PtrUint16(0x85B3FC, uintptr(v4*60+28690))))*4)))
 	v6 = int32(*(*uint32)(unsafe.Pointer(addr)))
 	v7 = int32(dword_5d4594_3798840)
-	*memmap.PtrUint32(0x5D4594, uint32(v4*4)+2523980) = 1
+	*memmap.PtrUint32(0x5D4594, uintptr(v4*4)+2523980) = 1
 	v8 = int32(dword_5d4594_3798804*(uint32(v7)+*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1))-uint32(v2)) + uint32(uintptr(nox_video_tileBuf_ptr_3798796)) + ((uint32(v5) + *a1 - dword_5d4594_3798820) << uint32(*memmap.PtrUint8(0x973F18, 7696))))
 	v9 = int32(uintptr(nox_video_getImagePixdata_42FB30((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(v6))))))
 	if v9 != 0 {
@@ -2067,7 +2067,7 @@ func nox_xxx_drawTexEdgesProbably_481900(a1 *uint32, a2 *uint32) int8 {
 			v9 = int32(v32)
 			v13 = dword_5d4594_3798804*uint32(v32) + uint32(v8)
 			v31 = v13
-			v14 = (*byte)(unsafe.Pointer(uintptr((*memmap.PtrUint32(0x973CE0, uint32(int32(v32)*+4)) << uint32(*memmap.PtrUint8(0x973F18, 7696))) + uint32(v11))))
+			v14 = (*byte)(unsafe.Pointer(uintptr((*memmap.PtrUint32(0x973CE0, uintptr(int32(v32)*+4)) << uint32(*memmap.PtrUint8(0x973F18, 7696))) + uint32(v11))))
 			v27 = v14
 			if uintptr(unsafe.Pointer(uintptr(v13))) >= uintptr(nox_video_tileBuf_end_3798844) {
 				v13 += uint32(uintptr(nox_video_tileBuf_ptr_3798796)) - uint32(uintptr(nox_video_tileBuf_end_3798844))
@@ -2077,9 +2077,9 @@ func nox_xxx_drawTexEdgesProbably_481900(a1 *uint32, a2 *uint32) int8 {
 			v30 = int32(v25)
 			if int32(v32) <= int32(v25) {
 				for {
-					v24 = int32(*memmap.PtrUint32(0x973CE0, uint32(v9*4+384)))
+					v24 = int32(*memmap.PtrUint32(0x973CE0, uintptr(v9*4+384)))
 					v26 = v14
-					v15 = (*byte)(unsafe.Pointer(uintptr(v13 + (*memmap.PtrUint32(0x973CE0, uint32(v9*4+192)) << uint32(*memmap.PtrUint8(0x973F18, 7696))))))
+					v15 = (*byte)(unsafe.Pointer(uintptr(v13 + (*memmap.PtrUint32(0x973CE0, uintptr(v9*4+192)) << uint32(*memmap.PtrUint8(0x973F18, 7696))))))
 					if v24 > 0 {
 						for {
 							*((*uint8)(unsafe.Pointer(&v9))) = *v10
@@ -2132,9 +2132,9 @@ func nox_xxx_drawTexEdgesProbably_481900(a1 *uint32, a2 *uint32) int8 {
 						}
 						v9 = v28
 					}
-					v14 = (*byte)(unsafe.Add(unsafe.Pointer(v27), *memmap.PtrUint32(0x973CE0, uint32(v9*4+384))<<uint32(*memmap.PtrUint8(0x973F18, 7696))))
+					v14 = (*byte)(unsafe.Add(unsafe.Pointer(v27), *memmap.PtrUint32(0x973CE0, uintptr(v9*4+384))<<uint32(*memmap.PtrUint8(0x973F18, 7696))))
 					v13 += dword_5d4594_3798804
-					v27 = (*byte)(unsafe.Add(unsafe.Pointer(v27), *memmap.PtrUint32(0x973CE0, uint32(v9*4+384))<<uint32(*memmap.PtrUint8(0x973F18, 7696))))
+					v27 = (*byte)(unsafe.Add(unsafe.Pointer(v27), *memmap.PtrUint32(0x973CE0, uintptr(v9*4+384))<<uint32(*memmap.PtrUint8(0x973F18, 7696))))
 					v31 = v13
 					if v13 >= v12 {
 						v13 += uint32(uintptr(nox_video_tileBuf_ptr_3798796)) - v12
@@ -2250,7 +2250,7 @@ func nox_xxx_tileDrawMB_481C20_A(vp *nox_draw_viewport_t, v3 int32) {
 				v68.field_0 = v76
 				v68.field_4 = v11 + 23
 				func_587000_154940(&v68, uint32(v62), uint32(v13))
-				*memmap.PtrUint32(0x85B3FC, uint32(v15*4+228)) = 1
+				*memmap.PtrUint32(0x85B3FC, uintptr(v15*4+228)) = 1
 				if *(*uint32)(unsafe.Pointer(uintptr(v14 + 40))) != 0 {
 					nox_xxx_tileCallDrawEdges_481BF0(int32(uintptr(unsafe.Pointer(&v68))), int32(*(*uint32)(unsafe.Pointer(uintptr(v14 + 40)))))
 				}
@@ -2262,7 +2262,7 @@ func nox_xxx_tileDrawMB_481C20_A(vp *nox_draw_viewport_t, v3 int32) {
 				v68.field_0 = v76 + 23
 				v68.field_4 = v11
 				func_587000_154940(&v68, uint32(v63), uint32(v13))
-				*memmap.PtrUint32(0x85B3FC, uint32(v16*4+228)) = 1
+				*memmap.PtrUint32(0x85B3FC, uintptr(v16*4+228)) = 1
 				v17 = int32(*(*uint32)(unsafe.Pointer(uintptr(v14 + 20))))
 				if v17 != 0 {
 					nox_xxx_tileCallDrawEdges_481BF0(int32(uintptr(unsafe.Pointer(&v68))), v17)
@@ -2364,7 +2364,7 @@ func nox_xxx_tileDrawMB_481C20_B(vp *nox_draw_viewport_t, v78 int32) {
 				v68.field_0 = v26
 				v68.field_4 = v76 + 23
 				func_587000_154940(&v68, uint32(v64), uint32(v27))
-				*memmap.PtrUint32(0x85B3FC, uint32(v31*4+228)) = 1
+				*memmap.PtrUint32(0x85B3FC, uintptr(v31*4+228)) = 1
 				if *(*uint32)(unsafe.Pointer(uintptr(v30 + 40))) != 0 {
 					nox_xxx_tileCallDrawEdges_481BF0(int32(uintptr(unsafe.Pointer(&v68))), int32(*(*uint32)(unsafe.Pointer(uintptr(v30 + 40)))))
 				}
@@ -2376,7 +2376,7 @@ func nox_xxx_tileDrawMB_481C20_B(vp *nox_draw_viewport_t, v78 int32) {
 				v68.field_0 = v26 + 23
 				v68.field_4 = v76
 				func_587000_154940(&v68, uint32(v65), uint32(v27))
-				*memmap.PtrUint32(0x85B3FC, uint32(v32*4+228)) = 1
+				*memmap.PtrUint32(0x85B3FC, uintptr(v32*4+228)) = 1
 				v33 = int32(*(*uint32)(unsafe.Pointer(uintptr(v30 + 20))))
 				if v33 != 0 {
 					nox_xxx_tileCallDrawEdges_481BF0(int32(uintptr(unsafe.Pointer(&v68))), v33)
@@ -2551,7 +2551,7 @@ func nox_xxx_tileDrawImpl_4826A0(vp *nox_draw_viewport_t) int32 {
 							v24.field_0 = v8
 							v24.field_4 = v6 + 23
 							func_587000_154940(&v24, uint32(v18), uint32(v10))
-							*memmap.PtrUint32(0x85B3FC, uint32(v14*4+228)) = 1
+							*memmap.PtrUint32(0x85B3FC, uintptr(v14*4+228)) = 1
 							if *(*uint32)(unsafe.Pointer(uintptr(v13 + 40))) != 0 {
 								nox_xxx_tileCallDrawEdges_481BF0(int32(uintptr(unsafe.Pointer(&v24))), int32(*(*uint32)(unsafe.Pointer(uintptr(v13 + 40)))))
 							}
@@ -2563,7 +2563,7 @@ func nox_xxx_tileDrawImpl_4826A0(vp *nox_draw_viewport_t) int32 {
 							v24.field_0 = v8 + 23
 							v24.field_4 = v6
 							func_587000_154940(&v24, uint32(v19), uint32(v10))
-							*memmap.PtrUint32(0x85B3FC, uint32(v15*4+228)) = 1
+							*memmap.PtrUint32(0x85B3FC, uintptr(v15*4+228)) = 1
 							v16 = int32(*(*uint32)(unsafe.Pointer(uintptr(v13 + 20))))
 							if v16 != 0 {
 								nox_xxx_tileCallDrawEdges_481BF0(int32(uintptr(unsafe.Pointer(&v24))), v16)
@@ -4092,10 +4092,10 @@ func nox_thing_read_edge_485D40(f *nox_memfile, a2 *byte) int32 {
 	result = int32(uintptr(alloc.Calloc(int(v14), 5)))
 	libc.MemSet(unsafe.Pointer(uintptr(result)), 0, int(v14*5))
 	v24 = v7 * 15
-	*memmap.PtrUint32(0x85B3FC, uint32(v7*60+28676)) = uint32(result)
+	*memmap.PtrUint32(0x85B3FC, uintptr(v7*60+28676)) = uint32(result)
 	if result != 0 {
 		v15 = 0
-		for i = 0; v15 < v14; *(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x85B3FC, uint32(v24*4+28676)) + uint32(v15*4) - 4))) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v17, int8(uint8(v25)), a2)))) {
+		for i = 0; v15 < v14; *(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x85B3FC, uintptr(v24*4+28676)) + uint32(v15*4) - 4))) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v17, int8(uint8(v25)), a2)))) {
 			v16 = *(**int32)(unsafe.Pointer(uintptr(v2 + 8)))
 			v17 = *v16
 			*(*uint32)(unsafe.Pointer(uintptr(v2 + 8))) = uint32(uintptr(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v16), 4*1)))))
@@ -5692,8 +5692,8 @@ func sub_489870() int32 {
 		v7 int32
 	)
 	v0 = 0
-	v1 = (*uint8)(memmap.PtrOff(0x5D4594, uint32(v0*44)+1193388))
-	if *memmap.PtrUint32(0x5D4594, uint32(v0*4)+1193372) == 2 {
+	v1 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v0*44)+1193388))
+	if *memmap.PtrUint32(0x5D4594, uintptr(v0*4)+1193372) == 2 {
 		*(*uint32)(unsafe.Pointer(v1)) = (nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10028).draw_data.field_0 >> 2) & 1
 		v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10031)))
 		v3 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), 16413, 0, 0))))
@@ -5740,8 +5740,8 @@ func nox_xxx_checkSomeFlagsOnJoin_4899C0(srv *nox_gui_server_ent_t) int32 {
 	)
 	v1 = 0
 	v2 = v1 * 11
-	v3 = int32(*memmap.PtrUint32(0x5D4594, uint32(v1*4)+1193372))
-	v4 = (*uint8)(memmap.PtrOff(0x5D4594, uint32(v2*4)+1193388))
+	v3 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v1*4)+1193372))
+	v4 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v2*4)+1193388))
 	if v3 == 0 {
 		return 1
 	}
@@ -5834,7 +5834,7 @@ func sub_489B80(a1 int32) *uint32 {
 	if result != nil {
 		dword_5d4594_1193384 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(result)), 10012))))
 		v2 = 0
-		v3 = (*uint8)(memmap.PtrOff(0x5D4594, uint32(v2*44)+1193388))
+		v3 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v2*44)+1193388))
 		sub_46B120((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), (*nox_window)(unsafe.Pointer(uintptr(a1))))
 		sub_46B120((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193384)))), (*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1193380))))))
 		nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&dword_5d4594_1193384)), func(arg1 int32, arg2 int32, arg3 int32, arg4 int32) int32 {
@@ -5874,7 +5874,7 @@ func sub_489B80(a1 int32) *uint32 {
 			v10 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10018)))
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v10), 4*9)) |= 4
 		}
-		v11 = int32(*memmap.PtrUint32(0x5D4594, uint32(v2*4)+1193372))
+		v11 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v2*4)+1193372))
 		if v11 != 0 {
 			v12 = v11 - 1
 			if v12 != 0 {
@@ -5938,16 +5938,16 @@ func nox_xxx_windowMplayFilterProc_489E70(a1 int32, a2 int32, a3 *int32, a4 int3
 		return 0
 	case 10024:
 		v7 = int32(dword_5d4594_1193384)
-		*memmap.PtrUint32(0x5D4594, uint32(v3*4)+1193372) = 0
+		*memmap.PtrUint32(0x5D4594, uintptr(v3*4)+1193372) = 0
 		nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(v7))), 1)
 		result = 0
 	case 10025:
 		v8 = int32(dword_5d4594_1193384)
-		*memmap.PtrUint32(0x5D4594, uint32(v3*4)+1193372) = 1
+		*memmap.PtrUint32(0x5D4594, uintptr(v3*4)+1193372) = 1
 		nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(v8))), 1)
 		result = 0
 	case 10026:
-		*memmap.PtrUint32(0x5D4594, uint32(v3*4)+1193372) = 2
+		*memmap.PtrUint32(0x5D4594, uintptr(v3*4)+1193372) = 2
 		sub_489DC0()
 		result = 0
 	case 10028:
@@ -5972,9 +5972,9 @@ func sub_489FB0() int32 {
 }
 func sub_489FF0(a1 int32, a2 int32, a3 unsafe.Pointer) int32 {
 	var result int32
-	*memmap.PtrUint32(0x5D4594, uint32(a1*4)+1193372) = uint32(a2)
+	*memmap.PtrUint32(0x5D4594, uintptr(a1*4)+1193372) = uint32(a2)
 	result = a1 * 11
-	alloc.Memcpy(memmap.PtrOff(0x5D4594, uint32(a1*44)+1193388), a3, 0x2C)
+	alloc.Memcpy(memmap.PtrOff(0x5D4594, uintptr(a1*44)+1193388), a3, 0x2C)
 	return result
 }
 func nox_xxx_setSomeFunc_48A210(a1 int32) int32 {

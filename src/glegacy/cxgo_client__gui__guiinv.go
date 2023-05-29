@@ -1560,7 +1560,7 @@ func nox_xxx_inventoryNameSignInit_4671E0() int32 {
 		result = int32(*(*byte)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576) + 3684))))
 	}
 	if v1 != 0 {
-		nox_sprintf(&v5[0], internCStr("experience:%s%d"), *memmap.PtrUint32(0x587000, uint32(int32(*(*uint8)(unsafe.Pointer(uintptr(v1 + 2251))))*4+29456)), result)
+		nox_sprintf(&v5[0], internCStr("experience:%s%d"), *memmap.PtrUint32(0x587000, uintptr(int32(*(*uint8)(unsafe.Pointer(uintptr(v1 + 2251))))*4+29456)), result)
 		v4 = nox_strman_loadString_40F1D0(&v5[0], nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 4763)
 		v3 = int32(*memmap.PtrUint32(0x8531A0, 2576) + 4704)
 		v2 = nox_strman_loadString_40F1D0(internCStr("ElaborateNameFormat"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 4761)

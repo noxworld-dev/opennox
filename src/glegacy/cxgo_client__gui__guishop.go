@@ -34,8 +34,8 @@ func sub_478730(a1 *int32) {
 		v2 = 9
 	}
 	v3 = v2 + v1*10
-	result = *(**uint32)(memmap.PtrOff(0x5D4594, uint32(v3*140)+1098640))
-	v5 = (*uint8)(memmap.PtrOff(0x5D4594, uint32(v3*140)+1098636))
+	result = *(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v3*140)+1098640))
+	v5 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v3*140)+1098636))
 	if result == nil {
 		return
 	}

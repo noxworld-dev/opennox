@@ -63,8 +63,8 @@ func nox_xxx_updDrawDBallCharge_4CE0C0(a1 int32, a2 int32) int32 {
 	for {
 		v4 = nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c"), 102)
 		v5 = int16(nox_common_randomIntMinMax_415FF0(2, 8, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c"), 105))
-		v6 = int16(int32(*(*uint16)(unsafe.Pointer(uintptr(a2 + 16)))) + int32(v5)*int32(*memmap.PtrInt16(0x587000, uint32(v4*8)+192092)))
-		v11[2] = int16(int32(*(*uint16)(unsafe.Pointer(uintptr(a2 + 12)))) + int32(v5)*int32(*memmap.PtrInt16(0x587000, uint32(v4*8)+192088)))
+		v6 = int16(int32(*(*uint16)(unsafe.Pointer(uintptr(a2 + 16)))) + int32(v5)*int32(*memmap.PtrInt16(0x587000, uintptr(v4*8)+192092)))
+		v11[2] = int16(int32(*(*uint16)(unsafe.Pointer(uintptr(a2 + 12)))) + int32(v5)*int32(*memmap.PtrInt16(0x587000, uintptr(v4*8)+192088)))
 		v11[3] = v6
 		if nox_common_randomIntMinMax_415FF0(0, 100, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c"), 112) < 50 {
 			v10 = int8(nox_common_randomIntMinMax_415FF0(6, 10, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\dball.c"), 116))

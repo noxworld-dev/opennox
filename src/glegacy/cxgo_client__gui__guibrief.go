@@ -38,17 +38,17 @@ func sub_44E410() *wchar2_t {
 			} else {
 				v3 = 1
 			}
-			nox_sprintf(&v8[0], internCStr("Briefing:%sChapterBegin%d"), *memmap.PtrUint32(0x587000, uint32(v1*4)+122944), i)
+			nox_sprintf(&v8[0], internCStr("Briefing:%sChapterBegin%d"), *memmap.PtrUint32(0x587000, uintptr(v1*4)+122944), i)
 			v4 = (v1 + v0 + v1*10) * 32
-			*memmap.PtrUint32(0x5D4594, uint32(v4)+831300) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(&v8[9]))))
-			*memmap.PtrUint32(0x5D4594, uint32(v4)+831304) = uint32(uintptr(unsafe.Pointer(nox_strman_loadString_40F1D0(&v8[0], (**byte)(memmap.PtrOff(0x5D4594, uint32(v4)+831308)), internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1221))))
-			v6 = int32(*memmap.PtrUint32(0x587000, uint32(v1*4)+122944))
-			*memmap.PtrUint32(0x5D4594, uint32(v4)+831312) = uint32(v3)
+			*memmap.PtrUint32(0x5D4594, uintptr(v4)+831300) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(&v8[9]))))
+			*memmap.PtrUint32(0x5D4594, uintptr(v4)+831304) = uint32(uintptr(unsafe.Pointer(nox_strman_loadString_40F1D0(&v8[0], (**byte)(memmap.PtrOff(0x5D4594, uintptr(v4)+831308)), internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1221))))
+			v6 = int32(*memmap.PtrUint32(0x587000, uintptr(v1*4)+122944))
+			*memmap.PtrUint32(0x5D4594, uintptr(v4)+831312) = uint32(v3)
 			nox_sprintf(&v8[0], internCStr("Briefing:%sChapterLoss%d"), v6, i)
-			*memmap.PtrUint32(0x5D4594, uint32(v4)+831316) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(&v8[9]))))
+			*memmap.PtrUint32(0x5D4594, uintptr(v4)+831316) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(&v8[9]))))
 			v1++
-			*memmap.PtrUint32(0x5D4594, uint32(v4)+831320) = uint32(uintptr(unsafe.Pointer(nox_strman_loadString_40F1D0(&v8[0], (**byte)(memmap.PtrOff(0x5D4594, uint32(v4)+831324)), internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1227))))
-			*memmap.PtrUint32(0x5D4594, uint32(v4)+831328) = uint32(v3)
+			*memmap.PtrUint32(0x5D4594, uintptr(v4)+831320) = uint32(uintptr(unsafe.Pointer(nox_strman_loadString_40F1D0(&v8[0], (**byte)(memmap.PtrOff(0x5D4594, uintptr(v4)+831324)), internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIBrief.c"), 1227))))
+			*memmap.PtrUint32(0x5D4594, uintptr(v4)+831328) = uint32(v3)
 			if v1 >= 3 {
 				break
 			}

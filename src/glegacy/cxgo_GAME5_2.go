@@ -1311,7 +1311,7 @@ func sub_57A1B0(a1 int16) *byte {
 			return nil
 		}
 	}
-	return *(**byte)(memmap.PtrOff(0x587000, uint32(v1*8)+312208))
+	return *(**byte)(memmap.PtrOff(0x587000, uintptr(v1*8)+312208))
 }
 func sub_57A1E0(a1 *int32, a2 *byte, a3 *int32, a4 int8, a5 int16) int8 {
 	var (
@@ -1494,8 +1494,8 @@ func sub_57A620(a1 uint8, a2 **wchar2_t, a3 int32, a4 int32) int32 {
 	v5 = 0
 	v17 = 0
 	for {
-		if libc.StrCmp(*(**byte)(memmap.PtrOff(0x587000, uint32(int32(v17)*8)+312208)), &v16[0]) == 0 {
-			dword_5d4594_2523764 = *memmap.PtrUint32(0x587000, uint32(int32(v17)*8)+312212)
+		if libc.StrCmp(*(**byte)(memmap.PtrOff(0x587000, uintptr(int32(v17)*8)+312208)), &v16[0]) == 0 {
+			dword_5d4594_2523764 = *memmap.PtrUint32(0x587000, uintptr(int32(v17)*8)+312212)
 			return bool2int32(uint32(a4) == dword_5d4594_2523764)
 		}
 		v17 = func() uint8 {
@@ -1760,7 +1760,7 @@ func sub_57AE30(a1 *byte) int32 {
 			return 0
 		}
 	}
-	return int32(*memmap.PtrUint32(0x587000, uint32(v1*8)+312212))
+	return int32(*memmap.PtrUint32(0x587000, uintptr(v1*8)+312212))
 }
 func nox_xxx_playerCheckSpellClass_57AEA0(a1 int32, a2 int32) int32 {
 	var (
@@ -1947,11 +1947,11 @@ func sub_57B630(a1 int32, a2 int32, a3 int32) int8 {
 					v6 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 748))))
 					v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(v6 + 12))))
 					if v7 == *(*int32)(unsafe.Pointer(uintptr(v6 + 4))) {
-						v8 = *memmap.PtrInt32(0x587000, uint32(v7*8)+196184)
+						v8 = *memmap.PtrInt32(0x587000, uintptr(v7*8)+196184)
 						v9 = v8 < 0
 						v10 = v8 <= 0
 						if v8 > 0 {
-							if *memmap.PtrInt32(0x587000, uint32(v7*8)+196188) > 0 {
+							if *memmap.PtrInt32(0x587000, uintptr(v7*8)+196188) > 0 {
 								v11 = 1
 								if *(*uint32)(unsafe.Pointer(uintptr(v5 + 508))) != 0 {
 									if nox_common_randomInt_415FA0(0, 100) >= 50 {
@@ -1966,7 +1966,7 @@ func sub_57B630(a1 int32, a2 int32, a3 int32) int8 {
 							v10 = v8 <= 0
 						}
 						if v9 {
-							if *memmap.PtrInt32(0x587000, uint32(v7*8)+196188) < 0 {
+							if *memmap.PtrInt32(0x587000, uintptr(v7*8)+196188) < 0 {
 								v11 = 1
 								if *(*uint32)(unsafe.Pointer(uintptr(v5 + 508))) != 0 {
 									if nox_common_randomInt_415FA0(0, 100) >= 50 {
@@ -1979,7 +1979,7 @@ func sub_57B630(a1 int32, a2 int32, a3 int32) int8 {
 							}
 							v10 = v8 <= 0
 							if v8 < 0 {
-								if *memmap.PtrInt32(0x587000, uint32(v7*8)+196188) > 0 {
+								if *memmap.PtrInt32(0x587000, uintptr(v7*8)+196188) > 0 {
 									v11 = 0
 									if *(*uint32)(unsafe.Pointer(uintptr(v5 + 508))) != 0 {
 										if nox_common_randomInt_415FA0(0, 100) >= 50 {
@@ -1993,7 +1993,7 @@ func sub_57B630(a1 int32, a2 int32, a3 int32) int8 {
 								v10 = v8 <= 0
 							}
 						}
-						if !v10 && *memmap.PtrInt32(0x587000, uint32(v7*8)+196188) < 0 {
+						if !v10 && *memmap.PtrInt32(0x587000, uintptr(v7*8)+196188) < 0 {
 							v11 = 0
 							if *(*uint32)(unsafe.Pointer(uintptr(v5 + 508))) != 0 {
 								if nox_common_randomInt_415FA0(0, 100) >= 50 {

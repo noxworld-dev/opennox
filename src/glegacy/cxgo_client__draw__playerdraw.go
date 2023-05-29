@@ -261,8 +261,8 @@ func nox_thing_player_waypoint_draw(a1 int32, dr *nox_drawable) int32 {
 	nox_client_drawSetColor_434460(v2)
 	v7 = 5
 	for {
-		nox_client_drawAddPoint_49F500(v4+*memmap.PtrInt32(0x587000, uint32(v5*8)+192088)*10/16, v3+*memmap.PtrInt32(0x587000, uint32(v5*8)+192092)*10/16)
-		nox_client_drawAddPoint_49F500(v4+*memmap.PtrInt32(0x587000, uint32(((v5+102)%256)*8)+192088)*10/16, v3+*memmap.PtrInt32(0x587000, uint32(((v5+102)%256)*8)+192092)*10/16)
+		nox_client_drawAddPoint_49F500(v4+*memmap.PtrInt32(0x587000, uintptr(v5*8)+192088)*10/16, v3+*memmap.PtrInt32(0x587000, uintptr(v5*8)+192092)*10/16)
+		nox_client_drawAddPoint_49F500(v4+*memmap.PtrInt32(0x587000, uintptr(((v5+102)%256)*8)+192088)*10/16, v3+*memmap.PtrInt32(0x587000, uintptr(((v5+102)%256)*8)+192092)*10/16)
 		nox_client_drawLineFromPoints_49E4B0()
 		v5 = (v5 + 102) % 256
 		v7--

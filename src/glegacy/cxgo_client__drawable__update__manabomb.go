@@ -19,7 +19,7 @@ func nox_xxx_updDrawManabombCharge_4CCAC0(a1 int32, a2 *uint32) int32 {
 			v5 = rad
 		}
 		var v6 int32 = nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\ManaBomb.c"), 68)
-		var v7 int32 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1522960), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))+uint32(v5**memmap.PtrInt32(0x587000, uint32(v6*8)+192088)/16)), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4))+uint32(v5**memmap.PtrInt32(0x587000, uint32(v6*8)+192092)/16))))))
+		var v7 int32 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1522960), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))+uint32(v5**memmap.PtrInt32(0x587000, uintptr(v6*8)+192088)/16)), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4))+uint32(v5**memmap.PtrInt32(0x587000, uintptr(v6*8)+192092)/16))))))
 		if v7 != 0 {
 			*(*uint32)(unsafe.Pointer(uintptr(v7 + 432))) = *(*uint32)(unsafe.Pointer(uintptr(v7 + 12))) << 12
 			*(*uint32)(unsafe.Pointer(uintptr(v7 + 436))) = *(*uint32)(unsafe.Pointer(uintptr(v7 + 16))) << 12
@@ -38,7 +38,7 @@ func nox_xxx_updDrawManabombCharge_4CCAC0(a1 int32, a2 *uint32) int32 {
 			vv1[0] = *((*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(a2))), unsafe.Sizeof(int16(0))*6)))
 			vv1[1] = *((*int16)(unsafe.Add(unsafe.Pointer((*int16)(unsafe.Pointer(a2))), unsafe.Sizeof(int16(0))*8)))
 			for v10 := int32(int32(gameFrame() % 51)); v10 < 256; v10 += 51 {
-				var tbl *int16 = (*int16)(memmap.PtrOff(0x587000, uint32(v10*8)+192088))
+				var tbl *int16 = (*int16)(memmap.PtrOff(0x587000, uintptr(v10*8)+192088))
 				vv1[2] = int16(int32(vv1[0]) + (rad/16)*int32(*(*int16)(unsafe.Add(unsafe.Pointer(tbl), unsafe.Sizeof(int16(0))*0))))
 				vv1[3] = int16(int32(vv1[1]) + (rad/16)*int32(*(*int16)(unsafe.Add(unsafe.Pointer(tbl), unsafe.Sizeof(int16(0))*2))))
 				sub_499520(int32(dword_5d4594_1522956), &vv1[0], int16(v10), 0, 0)

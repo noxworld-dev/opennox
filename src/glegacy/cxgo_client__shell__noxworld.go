@@ -361,7 +361,7 @@ func sub_438BD0() int32 {
 		sub_449E00((*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))))
 		v0 = int32(nox_client_connError_814552)
 	}
-	v2 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uint32(v0*4)+87416)), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 1265)
+	v2 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(v0*4)+87416)), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 1265)
 	sub_449E30((*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))))
 	dword_5d4594_815044 = 0
 	sub_449EA0(1)
@@ -1029,11 +1029,11 @@ func nox_gui_wol_newServerLine_43B7C0(srv *nox_gui_server_ent_t) {
 		if *(*int32)(unsafe.Pointer(&dword_587000_87412)) == -1 {
 			var (
 				v1 int32 = sub_437860(int32(*(*int16)(unsafe.Pointer(uintptr(a1 + 44)))), int32(*(*int16)(unsafe.Pointer(uintptr(a1 + 46)))))
-				v2 int16 = int16(*memmap.PtrUint16(0x587000, uint32(v1*8)+87528))
+				v2 int16 = int16(*memmap.PtrUint16(0x587000, uintptr(v1*8)+87528))
 			)
 			v1 += 10054
 			*(*uint16)(unsafe.Pointer(uintptr(a1 + 44))) -= uint16(v2)
-			*(*uint16)(unsafe.Pointer(uintptr(a1 + 46))) -= *memmap.PtrUint16(0x587000, uint32(v1*8+7098))
+			*(*uint16)(unsafe.Pointer(uintptr(a1 + 46))) -= *memmap.PtrUint16(0x587000, uintptr(v1*8+7098))
 			*(*uint16)(unsafe.Pointer(uintptr(a1 + 44))) >>= 1
 			*(*uint16)(unsafe.Pointer(uintptr(a1 + 46))) >>= 1
 			var v3 *uint32 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_814988)))), v1)))

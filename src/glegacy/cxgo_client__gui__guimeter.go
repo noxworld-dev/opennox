@@ -296,7 +296,7 @@ func nox_xxx_guiHealthManaTubeDraw_471D10(xLeft int32) int32 {
 		if v2 < 2 && nox_client_renderBubbles_80844 == 1 {
 			v19 = 64
 			v7 = mem_getI32Ptr(0x5D4594, uint32(v2*1536)+1093188)
-			v21 = (*uint8)(memmap.PtrOff(0x5D4594, uint32(v2*1536)+1093188))
+			v21 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v2*1536)+1093188))
 			for {
 				if *(*int32)(unsafe.Add(unsafe.Pointer(v7), 4*2)) != 0 {
 					v8 = *((*int32)(unsafe.Add(unsafe.Pointer(v7), -int(4*1)))) >> 4
@@ -373,7 +373,7 @@ func nox_xxx_guiHealthManaTubeDraw_471D10(xLeft int32) int32 {
 					dword_5d4594_1096256 = 0
 				}
 			}
-			nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1090276)), int32(*memmap.PtrUint32(0x5D4594, uint32(v16*4)+1092996)))
+			nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1090276)), int32(*memmap.PtrUint32(0x5D4594, uintptr(v16*4)+1092996)))
 		}
 		sub_472080()
 		result = 1

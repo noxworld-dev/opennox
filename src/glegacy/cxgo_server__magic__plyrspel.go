@@ -27,7 +27,7 @@ func nox_xxx_netSendSpellAward_4D7F90(a1 int32, a2 int32, a3 int8, a4 int32) int
 }
 func nox_xxx_abilGetError_4FB0B0_magic_plyrspel(a1 int32) {
 	var v1 *wchar2_t
-	v1 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uint32(a1*4)+216380)), nil, internCStr("C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c"), 86)
+	v1 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(a1*4)+216380)), nil, internCStr("C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c"), 86)
 	nox_xxx_printCentered_445490(v1)
 }
 func nox_xxx_spellGrantToPlayer_4FB550(a1p *nox_object_t, a2 int32, a3 int32, a4 int32, a5 int32) int32 {

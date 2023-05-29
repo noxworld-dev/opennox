@@ -78,7 +78,7 @@ func nox_thing_arrow_tail_link_draw(a1 *uint32, dr *nox_drawable) int32 {
 		if v7 >= 64 {
 			v7 = 63
 		}
-		nox_client_drawSetColor_434460(int32(*memmap.PtrUint32(0x5D4594, uint32(v7*4)+1313012)))
+		nox_client_drawSetColor_434460(int32(*memmap.PtrUint32(0x5D4594, uintptr(v7*4)+1313012)))
 		nox_client_drawEnableAlpha_434560(1)
 		nox_client_drawSetAlpha_434580(0x80)
 		nox_client_drawAddPoint_49F500(v3, v4-4)
@@ -108,7 +108,7 @@ func nox_thing_weak_arrow_tail_link_draw(a1 *uint32, dr *nox_drawable) int32 {
 		if v7 >= 64 {
 			v7 = 63
 		}
-		nox_client_drawSetColor_434460(int32(*memmap.PtrUint32(0x5D4594, uint32(v7*4)+1313268)))
+		nox_client_drawSetColor_434460(int32(*memmap.PtrUint32(0x5D4594, uintptr(v7*4)+1313268)))
 		nox_client_drawEnableAlpha_434560(1)
 		nox_client_drawSetAlpha_434580(0x80)
 		nox_client_drawAddPoint_49F500(v3, v4-4)

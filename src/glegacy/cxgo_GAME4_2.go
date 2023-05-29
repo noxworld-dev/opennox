@@ -196,9 +196,9 @@ func sub_51DD50(a1 int32, a2 int32, a3 int32, a4 int32) {
 						*p++
 						return x
 					}() * 12)
-					*memmap.PtrUint32(0x973F18, uint32(v7+16200)) = uint32(a1)
-					*memmap.PtrUint32(0x973F18, uint32(v7+16204)) = uint32(a2)
-					*memmap.PtrUint32(0x973F18, uint32(v7+16208)) = uint32(v4)
+					*memmap.PtrUint32(0x973F18, uintptr(v7+16200)) = uint32(a1)
+					*memmap.PtrUint32(0x973F18, uintptr(v7+16204)) = uint32(a2)
+					*memmap.PtrUint32(0x973F18, uintptr(v7+16208)) = uint32(v4)
 				}
 			}
 		}
@@ -214,7 +214,7 @@ func sub_51DE30(a1 *uint32, a2 *uint32, a3 *uint32) int32 {
 	}
 	v3 = int32(dword_5d4594_2487248 - 1)
 	dword_5d4594_2487248 = uint32(v3)
-	*a1 = *memmap.PtrUint32(0x973F18, uint32(v3*12+16200))
+	*a1 = *memmap.PtrUint32(0x973F18, uintptr(v3*12+16200))
 	*a2 = *memmap.PtrUint32(0x973F18, dword_5d4594_2487248*12+16204)
 	result = 1
 	*a3 = *memmap.PtrUint32(0x973F18, dword_5d4594_2487248*12+16208)
@@ -783,7 +783,7 @@ func nox_xxx_genReadAlgData_51EBB0(a1 int32, a2 *FILE) int32 {
 																							}
 																						}
 																					}
-																					if *memmap.PtrUint32(0x587000, uint32(v2*4)+253244) != 0 {
+																					if *memmap.PtrUint32(0x587000, uintptr(v2*4)+253244) != 0 {
 																						*(*uint32)(unsafe.Pointer(uintptr(a1))) = uint32(v2)
 																					} else {
 																						*(*uint32)(unsafe.Pointer(uintptr(a1))) = 0
@@ -1634,7 +1634,7 @@ func nox_xxx_genDecorReadDecorSet_51FFA0(a1 int32, a2 *FILE) int32 {
 				}
 				v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2))) + 1)
 				*(*uint32)(unsafe.Pointer(uintptr(v2))) = uint32(v8)
-				if *memmap.PtrUint32(0x587000, uint32(v8*4)+253216) == 0 {
+				if *memmap.PtrUint32(0x587000, uintptr(v8*4)+253216) == 0 {
 					break
 				}
 			}
@@ -1793,7 +1793,7 @@ LABEL_2:
 					}
 				}
 			}
-			if *memmap.PtrUint32(0x587000, uint32(v4*4)+253216) == 0 {
+			if *memmap.PtrUint32(0x587000, uintptr(v4*4)+253216) == 0 {
 				alloc.Free(unsafe.Pointer(v2))
 				break
 			}
@@ -1981,7 +1981,7 @@ func nox_xxx_genDecorReadOccurConstraint_520810(a1 int32, a2 *FILE) int32 {
 						}
 					}
 				}
-				if *memmap.PtrUint32(0x587000, uint32(v4*4)+253144) == 0 {
+				if *memmap.PtrUint32(0x587000, uintptr(v4*4)+253144) == 0 {
 					break
 				}
 				*(*uint8)(unsafe.Pointer(uintptr(a1 + 64))) |= uint8(int8(1 << v4))
@@ -3153,7 +3153,7 @@ func nox_xxx_mapGenMakeEnchantedItem_5221A0(a1 *byte, a2 *byte, a3 int32) *uint3
 		*(*uint32)(unsafe.Pointer(&v13[12])) = 0
 		for {
 			if *v8 != 0 {
-				if uint32(nox_xxx_mapGenRandFunc_526AC0(1, 100)) <= *memmap.PtrUint32(0x587000, uint32(v9)+254688) {
+				if uint32(nox_xxx_mapGenRandFunc_526AC0(1, 100)) <= *memmap.PtrUint32(0x587000, uintptr(v9)+254688) {
 					v10 = (*byte)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(v8), -int(4*4)))) + uint32(nox_xxx_mapGenRandFunc_526AC0(0, int32(*v8-1))*60))))
 					if nox_strcmpi(internCStr("none"), v10) != 0 {
 						v11 = nox_xxx_modifGetIdByName_413290(v10)
@@ -4069,7 +4069,7 @@ func sub_523920(a1 int32) int32 {
 	return 3
 }
 func sub_523960(a1 int32) int32 {
-	return int32(*memmap.PtrUint32(0x587000, uint32(a1*4)+254952))
+	return int32(*memmap.PtrUint32(0x587000, uintptr(a1*4)+254952))
 }
 func sub_523970(a1 int32) int32 {
 	var result int32
@@ -5989,9 +5989,9 @@ func sub_525DF0(a1 float32) {
 	if v2 > 0 {
 		for {
 			v6 = nox_xxx_mapGenRandFunc_526AC0(0, v2-2)
-			v7 = int32(*memmap.PtrUint32(0x5D4594, uint32(v6*4)+2487588))
-			*memmap.PtrUint32(0x5D4594, uint32(v6*4)+2487588) = *memmap.PtrUint32(0x5D4594, uint32(v6*4)+2487592)
-			*memmap.PtrUint32(0x5D4594, uint32(v6*4)+2487592) = uint32(v7)
+			v7 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v6*4)+2487588))
+			*memmap.PtrUint32(0x5D4594, uintptr(v6*4)+2487588) = *memmap.PtrUint32(0x5D4594, uintptr(v6*4)+2487592)
+			*memmap.PtrUint32(0x5D4594, uintptr(v6*4)+2487592) = uint32(v7)
 			v2 = int32(dword_5d4594_2487652)
 			v5++
 			if v5 >= *(*int32)(unsafe.Pointer(&dword_5d4594_2487652)) {
@@ -6572,10 +6572,10 @@ func sub_526950() *byte {
 					v5 = 0
 					if int32(*memmap.PtrUint8(0x587000, 255032)) != 0 {
 						for {
-							if libc.StrChr(v4, byte(int8(*memmap.PtrUint8(0x587000, uint32(v5)+255032)))) != nil {
+							if libc.StrChr(v4, byte(int8(*memmap.PtrUint8(0x587000, uintptr(v5)+255032)))) != nil {
 								*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*15))) |= uint32(1 << v5)
 							}
-							v6 = *memmap.PtrUint8(0x587000, uint32(func() int32 {
+							v6 = *memmap.PtrUint8(0x587000, uintptr(func() int32 {
 								p := &v5
 								x := *p
 								*p++
@@ -6974,21 +6974,21 @@ func sub_527450(a1 *uint32) int32 {
 				if v16 > 0 && *(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(*(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(v16-1)))))) + uint32(v14*44) + 4))) != math.MaxUint8 {
 					v15 |= 1
 				}
-				if *memmap.PtrUint32(0x587000, uint32(v15*4)+255052) != math.MaxUint8 {
+				if *memmap.PtrUint32(0x587000, uintptr(v15*4)+255052) != math.MaxUint8 {
 					v18 = (*uint8)(nox_server_getWallAtGrid_410580(v34, v35))
 					v19 = v18
 					if v18 != nil {
 						if int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v18), 4)))&0x8C != 0 {
 							goto LABEL_45
 						}
-						if uint32(*v18) == *memmap.PtrUint32(0x587000, uint32(v15*4)+255052) {
+						if uint32(*v18) == *memmap.PtrUint32(0x587000, uintptr(v15*4)+255052) {
 							goto LABEL_45
 						}
 						v20 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v18), 1)))
 						if uint32(v20) == *memmap.PtrUint32(0x973F18, 35948) {
 							goto LABEL_45
 						}
-						v21 = *memmap.PtrUint8(0x587000, uint32(v15*4)+255052)
+						v21 = *memmap.PtrUint8(0x587000, uintptr(v15*4)+255052)
 						*(*uint8)(unsafe.Add(unsafe.Pointer(v18), 2)) = 0
 						*v18 = v21
 						if int32(v21) != 0 {
@@ -7003,7 +7003,7 @@ func sub_527450(a1 *uint32) int32 {
 						if v23 == nil {
 							goto LABEL_45
 						}
-						v24 = *memmap.PtrUint8(0x587000, uint32(v15*4)+255052)
+						v24 = *memmap.PtrUint8(0x587000, uintptr(v15*4)+255052)
 						*(*uint8)(unsafe.Add(unsafe.Pointer(v23), 2)) = 0
 						*v23 = v24
 						*(*uint8)(unsafe.Add(unsafe.Pointer(v23), 1)) = *memmap.PtrUint8(0x973F18, 35948)
@@ -7040,14 +7040,14 @@ func sub_527450(a1 *uint32) int32 {
 						}
 					}
 				}
-				if *memmap.PtrUint32(0x587000, uint32(v39*4)+255052) != math.MaxUint8 {
+				if *memmap.PtrUint32(0x587000, uintptr(v39*4)+255052) != math.MaxUint8 {
 					v28 = (*uint8)(nox_server_getWallAtGrid_410580(v34-1, v35-1))
 					v29 = v28
 					if v28 != nil {
-						if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v28), 4)))&0x8C) == 0 && uint32(*v28) != *memmap.PtrUint32(0x587000, uint32(v39*4)+255052) {
+						if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v28), 4)))&0x8C) == 0 && uint32(*v28) != *memmap.PtrUint32(0x587000, uintptr(v39*4)+255052) {
 							v30 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v28), 1)))
 							if uint32(v30) != *memmap.PtrUint32(0x973F18, 35948) {
-								v31 = *memmap.PtrUint8(0x587000, uint32(v39*4)+255052)
+								v31 = *memmap.PtrUint8(0x587000, uintptr(v39*4)+255052)
 								*(*uint8)(unsafe.Add(unsafe.Pointer(v28), 2)) = 0
 								*v28 = v31
 								if int32(v31) == 0 || int32(v31) == 1 {
@@ -7060,7 +7060,7 @@ func sub_527450(a1 *uint32) int32 {
 					} else {
 						v29 = (*uint8)(nox_xxx_wallCreateAt_410250(v34-1, v35-1))
 						if v29 != nil {
-							v33 = *memmap.PtrUint8(0x587000, uint32(v39*4)+255052)
+							v33 = *memmap.PtrUint8(0x587000, uintptr(v39*4)+255052)
 							*(*uint8)(unsafe.Add(unsafe.Pointer(v29), 2)) = 0
 							*v29 = v33
 							*(*uint8)(unsafe.Add(unsafe.Pointer(v29), 1)) = *memmap.PtrUint8(0x973F18, 35948)
@@ -8723,7 +8723,7 @@ func sub_52A440(a1 int32, a2 int32, a3 int32) int32 {
 	v11[uint8(int8(v10))] = 0
 	v3 = nox_xxx_actionByName_534670(&v11[0])
 	*(*uint32)(unsafe.Pointer(uintptr(a2))) = uint32(v3)
-	*((*uint8)(unsafe.Pointer(&v8))) = *memmap.PtrUint8(0x587000, uint32(v3*16)+255604)
+	*((*uint8)(unsafe.Pointer(&v8))) = *memmap.PtrUint8(0x587000, uintptr(v3*16)+255604)
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v8)), 1)
 	v4 = 0
 	if int32(uint8(int8(v8))) > 0 {
@@ -9933,7 +9933,7 @@ func nox_xxx_castFireball_52C790(a1 int32, a2 int32, a3 int32, a4 int32, a5 int3
 		v22 float32
 	)
 	v6 = a6
-	v7 = (*float32)(unsafe.Pointer(nox_xxx_newObjectByTypeID_4E3810(*(**byte)(memmap.PtrOff(0x587000, uint32(a6*4)+258864)))))
+	v7 = (*float32)(unsafe.Pointer(nox_xxx_newObjectByTypeID_4E3810(*(**byte)(memmap.PtrOff(0x587000, uintptr(a6*4)+258864)))))
 	if v7 == nil {
 		return 1
 	}
@@ -10353,7 +10353,7 @@ func nox_xxx_castFist_52D3C0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a
 		}
 		return 9
 	}())) != 0 {
-		v14 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectWithTypeInd_4E3450(int32(*memmap.PtrUint32(0x5D4594, uint32(a6*4)+2487736)))))
+		v14 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectWithTypeInd_4E3450(int32(*memmap.PtrUint32(0x5D4594, uintptr(a6*4)+2487736)))))
 		v15 = int32(uintptr(unsafe.Pointer(v14)))
 		if v14 != nil {
 			v16 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v14), 4*187)))))
@@ -10447,7 +10447,7 @@ func nox_xxx_spellCastCleansingFlame_52D5C0(a1 int32, a2p *nox_object_t, a3p *no
 	for {
 		v8 = a6 - nox_common_randomInt_415FA0(0, 1)
 		if v8 >= 1 {
-			v9 = (*float32)(unsafe.Pointer(nox_xxx_newObjectWithTypeInd_4E3450(int32(*memmap.PtrUint32(0x5D4594, uint32(((func() int32 {
+			v9 = (*float32)(unsafe.Pointer(nox_xxx_newObjectWithTypeInd_4E3450(int32(*memmap.PtrUint32(0x5D4594, uintptr(((func() int32 {
 				if a1 != 10 {
 					return 5
 				}
@@ -11457,7 +11457,7 @@ func nox_xxx_firewalkTick_52ED40(a1 *float32) int32 {
 			v12 = 2
 			for {
 				v13 = nox_common_randomInt_415FA0(0, v10)
-				v14 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectWithTypeInd_4E3450(int32(*memmap.PtrUint32(0x5D4594, uint32(v13*4)+2487888)))))
+				v14 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectWithTypeInd_4E3450(int32(*memmap.PtrUint32(0x5D4594, uintptr(v13*4)+2487888)))))
 				v15 = v14
 				if v14 != nil {
 					nox_xxx_createAt_4DAA50((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v14)))))), nil, v18.field_0, v18.field_4)

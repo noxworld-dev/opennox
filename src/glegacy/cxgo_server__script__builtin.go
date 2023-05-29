@@ -644,7 +644,7 @@ func nox_script_OblivionGive_516890() int32 {
 		nox_xxx_delayedDeleteObject_4E5CC0((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))))
 	}
 LABEL_7:
-	v4 = (*uint32)(unsafe.Pointer(nox_xxx_playerRespawnItem_4EF750((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v0)))))), *(**byte)(memmap.PtrOff(0x587000, uint32(v2*4)+247336)), nil, 1, 1)))
+	v4 = (*uint32)(unsafe.Pointer(nox_xxx_playerRespawnItem_4EF750((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v0)))))), *(**byte)(memmap.PtrOff(0x587000, uintptr(v2*4)+247336)), nil, 1, 1)))
 	if v1 != 0 {
 		nox_xxx_playerTryEquip_4F2F70((*nox_object_t)(unsafe.Pointer(v0)), (*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))))
 	}

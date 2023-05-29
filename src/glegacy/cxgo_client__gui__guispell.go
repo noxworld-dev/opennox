@@ -424,8 +424,8 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 		v66 = 0
 		v69 = 5
 		v48 = int32(v64) << 8
-		v49 = int32(*memmap.PtrUint32(0x5D4594, uint32(v48)+1048404))
-		v71 = (*uint8)(memmap.PtrOff(0x5D4594, uint32(v48)+1048196))
+		v49 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v48)+1048404))
+		v71 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v48)+1048196))
 		v50 = mem_getI32Ptr(0x5D4594, uint32(v48)+1048428)
 		v51 = int32(*(*uint32)(unsafe.Pointer(uintptr(v49 + 16))) + 10)
 		v52 = int32(*(*uint32)(unsafe.Pointer(uintptr(v49 + 20))) + 5)
@@ -462,7 +462,7 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v58), 4*92)) = uint32(v0 | int32(v64)<<16)
 			}
 			if int32(v64) == 4 {
-				v59 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uint32(v66)+1049452)))), 1032, 13, 39, 10, 10, nil)))
+				v59 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v66)+1049452)))), 1032, 13, 39, 10, 10, nil)))
 				nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v59)), nil, func(arg1 *nox_window, arg2 unsafe.Pointer) int32 {
 					return sub_45F5D0((*uint32)(unsafe.Pointer(arg1)))
 				}, nil)
@@ -476,7 +476,7 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 				nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*v50))), 1)
 			}
 			v50 = (*int32)(unsafe.Add(unsafe.Pointer(v50), 4*1))
-			v60 = int32(*memmap.PtrUint32(0x587000, uint32(v66)+133488))
+			v60 = int32(*memmap.PtrUint32(0x587000, uintptr(v66)+133488))
 			v51 += v60
 			v67 = v51
 			v61 = v69 == 1
@@ -498,12 +498,12 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 	}
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576) + 2251)))) == 0 {
 		for j = 0; j < 120; j += 24 {
-			*memmap.PtrUint32(0x5D4594, uint32(j+(1047764+24*1))) = *memmap.PtrUint32(0x587000, uint32(j)+133536)
-			*memmap.PtrUint32(0x5D4594, uint32(j+(1047764+24*1+4))) = *memmap.PtrUint32(0x587000, uint32(j+(133536+4)))
-			*memmap.PtrUint32(0x5D4594, uint32(j+(1047764+24*1+8))) = *memmap.PtrUint32(0x587000, uint32(j+(133536+8)))
-			*memmap.PtrUint32(0x5D4594, uint32(j+(1047764+24*1+12))) = *memmap.PtrUint32(0x587000, uint32(j+(133536+12)))
-			*memmap.PtrUint32(0x5D4594, uint32(j+(1047764+24*1+16))) = *memmap.PtrUint32(0x587000, uint32(j+(133536+16)))
-			*memmap.PtrUint32(0x5D4594, uint32(j+(1047764+24*1+20))) = 0
+			*memmap.PtrUint32(0x5D4594, uintptr(j+(1047764+24*1))) = *memmap.PtrUint32(0x587000, uintptr(j)+133536)
+			*memmap.PtrUint32(0x5D4594, uintptr(j+(1047764+24*1+4))) = *memmap.PtrUint32(0x587000, uintptr(j+(133536+4)))
+			*memmap.PtrUint32(0x5D4594, uintptr(j+(1047764+24*1+8))) = *memmap.PtrUint32(0x587000, uintptr(j+(133536+8)))
+			*memmap.PtrUint32(0x5D4594, uintptr(j+(1047764+24*1+12))) = *memmap.PtrUint32(0x587000, uintptr(j+(133536+12)))
+			*memmap.PtrUint32(0x5D4594, uintptr(j+(1047764+24*1+16))) = *memmap.PtrUint32(0x587000, uintptr(j+(133536+16)))
+			*memmap.PtrUint32(0x5D4594, uintptr(j+(1047764+24*1+20))) = 0
 		}
 	}
 	nox_xxx_clientUpdateButtonRow_45E110(0)
@@ -521,7 +521,7 @@ func nox_xxx_quickbarButtonBook_45F3F0() int32 {
 }
 func sub_45F480(a1 int32) int32 {
 	var v1 *wchar2_t
-	if sub_45F500(int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 368)))), int32(uintptr(memmap.PtrOff(0x5D4594, uint32(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(a1 + 368)))>>16))*256)+1048196)))) != 0 {
+	if sub_45F500(int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 368)))), int32(uintptr(memmap.PtrOff(0x5D4594, uintptr(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(a1 + 368)))>>16))*256)+1048196)))) != 0 {
 		v1 = nox_strman_loadString_40F1D0(internCStr("ToolTipCastOnMe"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 941)
 	} else {
 		v1 = nox_strman_loadString_40F1D0(internCStr("ToolTipCastAtOther"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 945)
@@ -634,7 +634,7 @@ func nox_xxx_quickBarDrawFn_45FBD0(yTop int32) int32 {
 			v19 = 1
 		}
 		v16 = *v7
-		if *memmap.PtrUint32(0x5D4594, uint32(*v7*24+(1047764+12))) != 0 {
+		if *memmap.PtrUint32(0x5D4594, uintptr(*v7*24+(1047764+12))) != 0 {
 			v10 = nox_xxx_abilityGetName_0_425260(v16)
 			nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(v1+36))), v10)
 			if v9 != 0 {
@@ -660,11 +660,11 @@ func nox_xxx_quickBarDrawFn_45FBD0(yTop int32) int32 {
 			}
 		}
 		v13 = *v7 * 24
-		if *memmap.PtrUint32(0x5D4594, uint32(v13+(1047764+12))) != 0 || *memmap.PtrUint32(0x5D4594, uint32(v13+(1047764+8))) == 0 || nox_xxx_playerAnimCheck_4372B0() != 0 {
+		if *memmap.PtrUint32(0x5D4594, uintptr(v13+(1047764+12))) != 0 || *memmap.PtrUint32(0x5D4594, uintptr(v13+(1047764+8))) == 0 || nox_xxx_playerAnimCheck_4372B0() != 0 {
 			v14 = uint32(nox_xxx_abilityCooldown_4252D0(*v7))
 			if v14/gameFPS() != 0 {
 				if v19 == 0 {
-					nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, 34, int32(34-(gameFrame()-*memmap.PtrUint32(0x5D4594, uint32(*v7*24+(1047764+20))))/(v14/gameFPS())))
+					nox_client_drawRectFilledAlpha_49CF10(xLeft, yTop, 34, int32(34-(gameFrame()-*memmap.PtrUint32(0x5D4594, uintptr(*v7*24+(1047764+20))))/(v14/gameFPS())))
 				}
 			}
 		}
@@ -722,9 +722,9 @@ func nox_xxx_quickBarWarriorDraw_45FDE0(yTop int32) int32 {
 		}
 		v8 = *(*int32)(unsafe.Add(unsafe.Pointer(v4), 4*uintptr(v2*2)))
 		v9 = v7
-		v10 = *memmap.PtrUint8(0x5D4594, uint32(v8)+1049544)
+		v10 = *memmap.PtrUint8(0x5D4594, uintptr(v8)+1049544)
 		if int32(int8(v10)) > 0 {
-			*memmap.PtrUint8(0x5D4594, uint32(v8)+1049544) = uint8(int8(int32(v10) - 1))
+			*memmap.PtrUint8(0x5D4594, uintptr(v8)+1049544) = uint8(int8(int32(v10) - 1))
 		}
 		v11 = nox_xxx_spellTitle_424930(*(*int32)(unsafe.Add(unsafe.Pointer(v4), 4*uintptr(v2*2))))
 		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(v1+36))), v11)

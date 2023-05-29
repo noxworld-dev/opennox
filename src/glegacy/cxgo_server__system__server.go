@@ -76,17 +76,17 @@ func nox_xxx_getSomeMapName_4D0CF0() *byte {
 	)
 	v0 = int32(nox_common_gameFlags_getVal_40A5B0())
 	v1 = sub_4D0D50(v0)
-	v2 = int32(*memmap.PtrUint32(0x5D4594, uint32(v1*4)+1548428))
+	v2 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v1*4)+1548428))
 	if v2 == 0 {
 		return nil
 	}
-	v4 = int32(*memmap.PtrUint32(0x5D4594, uint32(v1*4)+1548452))
+	v4 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v1*4)+1548452))
 	if v4 > v2 {
-		*memmap.PtrUint32(0x5D4594, uint32(v1*4)+1548452) = 0
+		*memmap.PtrUint32(0x5D4594, uintptr(v1*4)+1548452) = 0
 		v4 = 0
 	}
-	*memmap.PtrUint32(0x5D4594, uint32(v1*4)+1548452) = (*memmap.PtrUint32(0x5D4594, uint32(v1*4)+1548452) + 1) % uint32(v2)
-	return (*byte)(memmap.PtrOff(0x5D4594, uint32((v4+v1*20+v1*5)*128)+1529228))
+	*memmap.PtrUint32(0x5D4594, uintptr(v1*4)+1548452) = (*memmap.PtrUint32(0x5D4594, uintptr(v1*4)+1548452) + 1) % uint32(v2)
+	return (*byte)(memmap.PtrOff(0x5D4594, uintptr((v4+v1*20+v1*5)*128)+1529228))
 }
 func sub_4D10F0(a1 *byte) {
 	var (
@@ -114,13 +114,13 @@ func sub_4D10F0(a1 *byte) {
 			v4 = v1 * 32
 			v5 = int32(dword_5d4594_1548480)
 			*memmap.PtrUint32(0x587000, 191880) = uint32(v1)
-			*memmap.PtrUint32(0x5D4594, uint32(v4)+1525156) = *memmap.PtrUint32(0x5D4594, uint32(v1*32)+1525156) + 1
+			*memmap.PtrUint32(0x5D4594, uintptr(v4)+1525156) = *memmap.PtrUint32(0x5D4594, uintptr(v1*32)+1525156) + 1
 			v6 = 0
-			*memmap.PtrUint32(0x5D4594, uint32(v4)+1525160) = uint32(v5)
+			*memmap.PtrUint32(0x5D4594, uintptr(v4)+1525160) = uint32(v5)
 			if v3 > 0 {
 				v7 = (*uint8)(memmap.PtrOff(0x5D4594, 1525156))
 				for {
-					if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v7))), -int(4*6)))) == *memmap.PtrUint32(0x5D4594, uint32(v1*32)+1525132) && v1 != v6 {
+					if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v7))), -int(4*6)))) == *memmap.PtrUint32(0x5D4594, uintptr(v1*32)+1525132) && v1 != v6 {
 						*(*uint32)(unsafe.Pointer(v7))++
 						*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v7))), 4*1))) = uint32(v5)
 					}

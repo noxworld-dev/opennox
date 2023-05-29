@@ -377,7 +377,7 @@ func sub_43DBA0() {
 	if dword_5d4594_816372 > 0 {
 		v1 = int32(dword_5d4594_816372 - 1)
 		dword_5d4594_816372 = uint32(v1)
-		dword_5d4594_816368 = *memmap.PtrUint32(0x5D4594, uint32(v1*4)+816076)
+		dword_5d4594_816368 = *memmap.PtrUint32(0x5D4594, uintptr(v1*4)+816076)
 		sub_43DAD0()
 	} else {
 		dword_5d4594_816372 = 0
@@ -730,7 +730,7 @@ func nox_xxx_drawMessageLines_445530() int32 {
 		v3 = v2 * 161
 		result = int32(gameFrame())
 		v5 = v3 * 4
-		if *memmap.PtrUint32(0x5D4594, uint32(v5)+824440) < gameFrame() {
+		if *memmap.PtrUint32(0x5D4594, uintptr(v5)+824440) < gameFrame() {
 			break
 		}
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_black_2650656))
@@ -838,15 +838,15 @@ func nox_motd_4463E0(a1 int32) int32 {
 		v3     *byte
 	)
 	dword_5d4594_826036 = nil
-	*memmap.PtrUint32(0x5D4594, uint32(a1*4)+826040) = 0
+	*memmap.PtrUint32(0x5D4594, uintptr(a1*4)+826040) = 0
 	result = nox_fs_open(internCStr("motd.txt"))
 	v2 = result
 	if result != nil {
-		*memmap.PtrUint32(0x5D4594, uint32(a1*4)+826040) = uint32(nox_fs_fsize(v2))
-		v3 = (*byte)(alloc.Calloc(int(*memmap.PtrUint32(0x5D4594, uint32(a1*4)+826040)+1), 1))
+		*memmap.PtrUint32(0x5D4594, uintptr(a1*4)+826040) = uint32(nox_fs_fsize(v2))
+		v3 = (*byte)(alloc.Calloc(int(*memmap.PtrUint32(0x5D4594, uintptr(a1*4)+826040)+1), 1))
 		dword_5d4594_826036 = unsafe.Pointer(v3)
 		if v3 != nil {
-			nox_binfile_fread_raw_40ADD0(v3, *memmap.PtrUint32(0x5D4594, uint32(a1*4)+826040), 1, v2)
+			nox_binfile_fread_raw_40ADD0(v3, *memmap.PtrUint32(0x5D4594, uintptr(a1*4)+826040), 1, v2)
 			v3 = *(**byte)(unsafe.Pointer(&dword_5d4594_826036))
 		}
 		*(*byte)(unsafe.Add(unsafe.Pointer(v3), func() uint32 {
@@ -867,7 +867,7 @@ func sub_446490(a1 int32) unsafe.Pointer {
 		result = unsafe.Pointer(uintptr(a1))
 	}
 	dword_5d4594_826036 = nil
-	*memmap.PtrUint32(0x5D4594, uint32(a1)*4+826040) = 0
+	*memmap.PtrUint32(0x5D4594, uintptr(a1)*4+826040) = 0
 	return result
 }
 func nox_xxx_guiMotdLoad_4465C0() int32 {

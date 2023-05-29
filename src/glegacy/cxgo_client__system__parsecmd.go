@@ -721,7 +721,7 @@ func nox_cmd_offonly2(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 				}
 			}
 			*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v4))), unsafe.Sizeof(uint16(0))*26))) &= 0xE80F
-			*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v4))), unsafe.Sizeof(uint16(0))*26))) |= *memmap.PtrUint16(0x587000, uint32(v6*8)+94404)
+			*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v4))), unsafe.Sizeof(uint16(0))*26))) |= *memmap.PtrUint16(0x587000, uintptr(v6*8)+94404)
 		}
 		result = 1
 	}

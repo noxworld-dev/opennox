@@ -142,7 +142,7 @@ func sub_4C15D0(a1 int32) int32 {
 			v5 = int32(uintptr(unsafe.Pointer(v3)))
 			for {
 				if sub_4C1760(v5, int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 2))))) != 0 {
-					v6 = (*uint8)(memmap.PtrOff(0x5D4594, uint32((v2+v4*2)*140)+1319284))
+					v6 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr((v2+v4*2)*140)+1319284))
 					goto LABEL_18
 				}
 				v4++
@@ -165,7 +165,7 @@ func sub_4C15D0(a1 int32) int32 {
 			v10 = int32(uintptr(unsafe.Pointer(v8)))
 			for {
 				if sub_4C1760(v10, int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 2))))) != 0 {
-					v12 = (*uint8)(memmap.PtrOff(0x5D4594, uint32((v7+v9*2)*140)+1320308))
+					v12 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr((v7+v9*2)*140)+1320308))
 					goto LABEL_17
 				}
 				v9++

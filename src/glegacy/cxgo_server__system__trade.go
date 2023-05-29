@@ -56,8 +56,8 @@ func nox_xxx_createPlayerShopSession_50E8F0(a1 int32, a2 int32) *uint32 {
 	v2 = 0
 	if nox_common_gameFlags_check_40A5C0(4096) && (func() *uint32 {
 		v3 = int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))) + 276))) + 2064))))
-		v4 = *(**uint32)(memmap.PtrOff(0x5D4594, uint32(v3*4)+2386364))
-		*memmap.PtrUint32(0x5D4594, uint32(v3*4)+2386364) = 0
+		v4 = *(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v3*4)+2386364))
+		*memmap.PtrUint32(0x5D4594, uintptr(v3*4)+2386364) = 0
 		return v4
 	}()) != nil {
 		v2 = 1

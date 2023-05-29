@@ -38,5 +38,5 @@ func sub_413480(a1 int8) *wchar2_t {
 			return nil
 		}
 	}
-	return nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uint32(v1*20+27344))), nil, internCStr("C:\\NoxPost\\src\\common\\Object\\Modifier.c"), 2087)
+	return nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1*20+27344))), nil, internCStr("C:\\NoxPost\\src\\common\\Object\\Modifier.c"), 2087)
 }

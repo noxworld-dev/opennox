@@ -139,7 +139,7 @@ func sub_453C00(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 		if dword_5d4594_2650652 != 0 {
 			sub_57A1E0(&v19[0], nil, nil, 4, 6128)
 			for i = 0; i < 5; i++ {
-				*memmap.PtrUint32(0x5D4594, uint32(i*4)+1045488) &= uint32(v19[i+6])
+				*memmap.PtrUint32(0x5D4594, uintptr(i*4)+1045488) &= uint32(v19[i+6])
 			}
 		}
 		sub_454120()

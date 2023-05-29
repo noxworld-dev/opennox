@@ -106,7 +106,7 @@ func nox_thing_magic_missle_tail_link_draw(a1 *uint32, dr *nox_drawable) int32 {
 		if v6 >= 64 {
 			v6 = 63
 		}
-		v7 = int32(*memmap.PtrUint32(0x5D4594, uint32(v6*4)+1312756))
+		v7 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v6*4)+1312756))
 		v8 = v2 + 136
 		nox_xxx_spriteChangeLightColor_484BE0((*uint32)(unsafe.Pointer(uintptr(v2+136))), math.MaxUint8, 128, 50)
 		v10 = float32(float64(v14) * 20.0 / float64(v13))
@@ -152,7 +152,7 @@ func nox_thing_magic_tail_link_draw(a1 *uint32, dr *nox_drawable) int32 {
 		if int32(v8/gameFPS()) >= 64 {
 			v7 = 63
 		}
-		v9 = int32(*memmap.PtrUint32(0x5D4594, uint32(v7*4)+1312500))
+		v9 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v7*4)+1312500))
 		v10 = v2 + 136
 		nox_xxx_spriteChangeLightColor_484BE0((*uint32)(unsafe.Pointer(uintptr(v2+136))), 128, 128, math.MaxUint8)
 		v12 = float32(float64(v15) * 20.0 / float64(int32(gameFPS())))

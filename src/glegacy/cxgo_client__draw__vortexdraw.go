@@ -30,8 +30,8 @@ func nox_thing_vortex_draw(a1 *int32, dr *nox_drawable) int32 {
 	}
 	v2 = int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 448)))) * 8
 	v3 = int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 450))))
-	a2a.field_0 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 440))) + uint32(v3**memmap.PtrInt32(0x587000, uint32(v2)+192088)/16))
-	a2a.field_4 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 444))) + uint32(v3**memmap.PtrInt32(0x587000, uint32(v2)+192092)/16))
+	a2a.field_0 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 440))) + uint32(v3**memmap.PtrInt32(0x587000, uintptr(v2)+192088)/16))
+	a2a.field_4 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 444))) + uint32(v3**memmap.PtrInt32(0x587000, uintptr(v2)+192092)/16))
 	sub_4739E0((*uint32)(unsafe.Pointer(a1)), &a2a, &xLeft)
 	v4 = xLeft.field_4 - int32(*(*int16)(unsafe.Pointer(uintptr(a2 + 104))))
 	v5 = xLeft.field_0 <= *a1
@@ -62,8 +62,8 @@ func nox_thing_vortex_draw(a1 *int32, dr *nox_drawable) int32 {
 		v7 -= 256
 	}
 	v8 = int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 450))))
-	a2a.field_0 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 440))) + uint32(v8)**memmap.PtrUint32(0x587000, uint32(v7*8)+192088)/16)
-	a2a.field_4 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 444))) + uint32(v8)**memmap.PtrUint32(0x587000, uint32(v7*8)+192092)/16)
+	a2a.field_0 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 440))) + uint32(v8)**memmap.PtrUint32(0x587000, uintptr(v7*8)+192088)/16)
+	a2a.field_4 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 444))) + uint32(v8)**memmap.PtrUint32(0x587000, uintptr(v7*8)+192092)/16)
 	sub_4739E0((*uint32)(unsafe.Pointer(a1)), &a2a, &xLeft)
 	xLeft.field_4 -= int32(*(*int16)(unsafe.Pointer(uintptr(a2 + 104))))
 	nox_client_drawAddPoint_49F500(xLeft.field_0, xLeft.field_4)

@@ -32,7 +32,7 @@ func nox_xxx_guiServerPlayersLoad_456270(a1 int32) int32 {
 	if dword_5d4594_1045684 != 0 {
 		return 0
 	}
-	dword_5d4594_1045684 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(*(**byte)(memmap.PtrOff(0x587000, uint32(v1*4)+129048)), unsafe.Pointer(funAddr(sub_4567C0))))))
+	dword_5d4594_1045684 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1*4)+129048)), unsafe.Pointer(funAddr(sub_4567C0))))))
 	dword_5d4594_1045688 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045684)))), 10507))))
 	dword_5d4594_1045692 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045684)))), 10509))))
 	sub_46B120((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045684)))), (*nox_window)(unsafe.Pointer(uintptr(a1))))

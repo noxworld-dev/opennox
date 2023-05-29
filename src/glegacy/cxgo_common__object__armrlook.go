@@ -29,7 +29,7 @@ func sub_415B60(a1 int32) *wchar2_t {
 			return nox_strman_loadString_40F1D0(internCStr("result:ERROR"), nil, internCStr("C:\\NoxPost\\src\\common\\Object\\ArmrLook.c"), 263)
 		}
 	}
-	return nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uint32(v1*24+34852))), nil, internCStr("C:\\NoxPost\\src\\common\\Object\\ArmrLook.c"), 261)
+	return nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1*24+34852))), nil, internCStr("C:\\NoxPost\\src\\common\\Object\\ArmrLook.c"), 261)
 }
 func nox_xxx_loadLook_415D50() **byte {
 	var (

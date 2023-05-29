@@ -27,7 +27,7 @@ func nox_xxx_updDrawVortexSource_4CC950(a1 int32, a2 int32) int32 {
 	v9 = int32(*memmap.PtrUint32(0x5D4594, 1522948))
 	v4 = nox_common_randomIntMinMax_415FF0(0, math.MaxUint8, internCStr("C:\\NoxPost\\src\\client\\Drawable\\Update\\VortexUp.c"), 54)
 	v5 = int8(v4)
-	v6 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(v3, int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 12)))+uint32(*memmap.PtrInt32(0x587000, uint32(v4*8)+192088)*50/16)), int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 16)))+uint32(*memmap.PtrInt32(0x587000, uint32(v4*8)+192092)*50/16))))))
+	v6 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(v3, int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 12)))+uint32(*memmap.PtrInt32(0x587000, uintptr(v4*8)+192088)*50/16)), int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 16)))+uint32(*memmap.PtrInt32(0x587000, uintptr(v4*8)+192092)*50/16))))))
 	v7 = v6
 	if v6 != 0 {
 		*(*uint8)(unsafe.Pointer(uintptr(v6 + 448))) = uint8(v5)

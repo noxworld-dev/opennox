@@ -87,10 +87,10 @@ func nox_parse_thing_client_update(obj *nox_thing, f *nox_memfile, attr_value *b
 			}
 		}
 	}
-	if *memmap.PtrUint32(0x587000, uint32(v5*8)+175072) == 0 {
+	if *memmap.PtrUint32(0x587000, uintptr(v5*8)+175072) == 0 {
 		return false
 	}
-	obj.client_update = *memmap.PtrUint32(0x587000, uint32(v5*8)+175076)
+	obj.client_update = *memmap.PtrUint32(0x587000, uintptr(v5*8)+175076)
 	return true
 }
 func nox_parse_thing_pretty_image(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
