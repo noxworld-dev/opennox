@@ -1,11 +1,14 @@
 package legacy
 
 import (
+	"math"
+	"unsafe"
+
 	"github.com/gotranspile/cxgo/runtime/csys"
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/gotranspile/cxgo/runtime/stdio"
-	"math"
-	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 type _FIND_FILE struct {
@@ -24,7 +27,7 @@ func fill_find_data(path *byte, lpFindFileData LPWIN32_FIND_DATAA) {
 		filename = (*byte)(unsafe.Add(unsafe.Pointer(filename), 1))
 	}
 	csys.Stat(path, &st)
-	*lpFindFileData = _WIN32_FIND_DATAA{}
+	*lpFindFileData = WIN32_FIND_DATAA{}
 	if csys.IsDir(st.Mode) != 0 {
 		lpFindFileData.dwFileAttributes = uint32(FILE_ATTRIBUTE_DIRECTORY)
 	} else {

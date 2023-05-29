@@ -11,7 +11,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 )
 
-type nox_window = nox_window
+type nox_window = gui.Window
 
 func AsWindowP(win unsafe.Pointer) *gui.Window {
 	w := (*gui.Window)(win)

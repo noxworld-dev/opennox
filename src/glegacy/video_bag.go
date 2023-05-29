@@ -12,7 +12,7 @@ var (
 	Nox_xxx_gLoadAnim func(name string) *ImageRef
 )
 
-type nox_video_bag_image_t = nox_video_bag_image_t
+type nox_video_bag_image_t = [0]byte
 
 func asImageH(p *nox_video_bag_image_t) noxrender.ImageHandle {
 	return noxrender.ImageHandle(unsafe.Pointer(p))
@@ -44,11 +44,6 @@ func AsImageRefP(p unsafe.Pointer) *ImageRef {
 	return (*ImageRef)(p)
 }
 
-func asImageRef(p *nox_things_imageRef_t) *ImageRef {
-	return AsImageRefP(unsafe.Pointer(p))
-}
-
-type nox_things_imageRef_t = nox_things_imageRef_t
 type ImageRef struct {
 	NameBuf    [32]byte       // 0, 0
 	Name2Buf   [64]byte       // 8, 32
@@ -112,6 +107,6 @@ func nox_xxx_gLoadImg_42F970(name *char) *nox_video_bag_image_t {
 }
 
 // nox_xxx_gLoadAnim_42FA20
-func nox_xxx_gLoadAnim_42FA20(name *char) *nox_things_imageRef_t {
-	return (*nox_things_imageRef_t)(Nox_xxx_gLoadAnim(GoString(name)).C())
+func nox_xxx_gLoadAnim_42FA20(name *char) *ImageRef {
+	return (*ImageRef)(Nox_xxx_gLoadAnim(GoString(name)).C())
 }

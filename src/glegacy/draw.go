@@ -21,7 +21,7 @@ var (
 	Nox_client_isConnected                func() bool
 )
 
-type nox_draw_viewport_t = nox_draw_viewport_t
+type nox_draw_viewport_t = noxrender.Viewport
 
 func asViewportP(p unsafe.Pointer) *noxrender.Viewport {
 	return (*noxrender.Viewport)(p)
@@ -37,13 +37,13 @@ func get_nox_client_texturedFloors_154956() bool {
 }
 
 // sub_4C42A0
-func sub_4C42A0(a1 *int2, a2 *int2, a3 *int, a4 *int) int32 {
+func sub_4C42A0(a1 *int2, a2 *int2, a3 *int32, a4 *int32) int32 {
 	return GetClient().Sub4C42A0(AsPoint(unsafe.Pointer(a1)), AsPoint(unsafe.Pointer(a2)), a3, a4)
 }
 
 // sub_4C5630
-func sub_4C5630(a1 int, a2 int, a3 int) int {
-	return GetClient().Sub4C5630(a1, a2, a3)
+func sub_4C5630(a1 int32, a2 int32, a3 int32) int {
+	return GetClient().Sub4C5630(int(a1), int(a2), int(a3))
 }
 
 // nox_draw_getViewport_437250
@@ -52,15 +52,15 @@ func nox_draw_getViewport_437250() *nox_draw_viewport_t {
 }
 
 // sub_4355B0
-func sub_4355B0(a1 int) {
-	GetClient().Viewport().Field12 = a1
+func sub_4355B0(a1 int32) {
+	GetClient().Viewport().Field12 = int(a1)
 }
 
 // nox_xxx_getSomeCoods_435670
 func nox_xxx_getSomeCoods_435670(a1 *int2) {
 	p := GetClient().Viewport().World.Max
-	a1.field_0 = int(p.X)
-	a1.field_4 = int(p.Y)
+	a1.field_0 = int32(p.X)
+	a1.field_4 = int32(p.Y)
 }
 
 // nox_xxx_cliUpdateCameraPos_435600
@@ -97,41 +97,41 @@ func sub_434080(a1 int) {
 }
 
 // nox_xxx_drawSetTextColor_434390
-func nox_xxx_drawSetTextColor_434390(a1 int) {
+func nox_xxx_drawSetTextColor_434390(a1 int32) {
 	GetClient().R2().Data().SetTextColor(noxcolor.RGBA5551(a1))
 }
 
 // nox_xxx_drawSetColor_4343E0
-func nox_xxx_drawSetColor_4343E0(a1 int) {
+func nox_xxx_drawSetColor_4343E0(a1 int32) {
 	GetClient().R2().Data().SetColor(noxcolor.RGBA5551(a1))
 }
 
 // nox_client_drawSetColor_434460
-func nox_client_drawSetColor_434460(a1 int) {
+func nox_client_drawSetColor_434460(a1 int32) {
 	GetClient().R2().Data().SetColor2(noxcolor.RGBA5551(a1))
 }
 
 // nox_client_drawEnableAlpha_434560
-func nox_client_drawEnableAlpha_434560(a1 int) {
+func nox_client_drawEnableAlpha_434560(a1 int32) {
 	GetClient().R2().Data().SetAlphaEnabled(a1 != 0)
 }
 
 // sub_4345F0
-func sub_4345F0(a1 int) {
-	GetClient().R2().Data().SetMultiply14(a1)
+func sub_4345F0(a1 int32) {
+	GetClient().R2().Data().SetMultiply14(int(a1))
 }
 
 // nox_xxx_draw_434600
-func nox_xxx_draw_434600(a1 int) {
-	GetClient().R2().Data().SetColorize17(a1)
+func nox_xxx_draw_434600(a1 int32) {
+	GetClient().R2().Data().SetColorize17(int(a1))
 }
 
 // sub_434990
-func sub_434990(r, g, b int) {
+func sub_434990(r, g, b int32) {
 	GetClient().R2().Data().SetLightColor(noxrender.RGB{
-		R: r,
-		G: g,
-		B: b,
+		R: int(r),
+		G: int(g),
+		B: int(b),
 	})
 }
 
@@ -166,7 +166,7 @@ func nox_client_drawSetAlpha_434580(a byte) {
 }
 
 // nox_draw_enableTextSmoothing_43F670
-func nox_draw_enableTextSmoothing_43F670(v int) {
+func nox_draw_enableTextSmoothing_43F670(v int32) {
 	GetClient().R2().SetTextSmooting(v != 0)
 }
 
@@ -176,24 +176,24 @@ func nox_client_drawResetPoints_49F5A0() {
 }
 
 // nox_client_drawAddPoint_49F500
-func nox_client_drawAddPoint_49F500(x, y int) {
-	GetClient().R2().AddPoint(image.Pt(x, y))
+func nox_client_drawAddPoint_49F500(x, y int32) {
+	GetClient().R2().AddPoint(image.Pt(int(x), int(y)))
 }
 
 // nox_xxx_rasterPointRel_49F570
-func nox_xxx_rasterPointRel_49F570(x, y int) {
-	GetClient().R2().AddPointRel(image.Pt(x, y))
+func nox_xxx_rasterPointRel_49F570(x, y int32) {
+	GetClient().R2().AddPointRel(image.Pt(int(x), int(y)))
 }
 
 // nox_client_drawLineFromPoints_49E4B0
-func nox_client_drawLineFromPoints_49E4B0() int {
+func nox_client_drawLineFromPoints_49E4B0() int32 {
 	r := GetClient().R2()
-	return bool2int(r.DrawLineFromPoints(r.Data().Color2()))
+	return bool2int32(r.DrawLineFromPoints(r.Data().Color2()))
 }
 
 // sub_49E4F0
-func sub_49E4F0(a1 int) int {
-	return bool2int(GetClient().R2().DrawParticles49ED80(a1))
+func sub_49E4F0(a1 int) int32 {
+	return bool2int32(GetClient().R2().DrawParticles49ED80(a1))
 }
 
 // sub_480860
@@ -211,7 +211,7 @@ func nox_draw_setColorMultAndIntensityRGB_433CD0(r, g, b byte) int {
 }
 
 // nox_draw_set54RGB32_434040
-func nox_draw_set54RGB32_434040(cl int) {
+func nox_draw_set54RGB32_434040(cl int32) {
 	c := noxrender.SplitColor(noxcolor.RGBA5551(cl))
 	GetClient().R2().Data().SetColorInt54(noxrender.RGB{
 		R: int(c.R),
@@ -221,7 +221,7 @@ func nox_draw_set54RGB32_434040(cl int) {
 }
 
 // nox_draw_setColorMultAndIntensity_433E40
-func nox_draw_setColorMultAndIntensity_433E40(cl int) int {
+func nox_draw_setColorMultAndIntensity_433E40(cl int32) int {
 	c := noxcolor.RGBA5551(cl).ColorNRGBA()
 	return int(GetClient().R2().SetColorMultAndIntensityRGB(c.R, c.G, c.B))
 }
@@ -232,9 +232,9 @@ func sub_437290() {
 }
 
 // nox_client_drawRectFilledOpaque_49CE30
-func nox_client_drawRectFilledOpaque_49CE30(a1, a2, a3, a4 int) {
+func nox_client_drawRectFilledOpaque_49CE30(a1, a2, a3, a4 int32) {
 	r := GetClient().R2()
-	r.DrawRectFilledOpaque(a1, a2, a3, a4, r.Data().Color2())
+	r.DrawRectFilledOpaque(int(a1), int(a2), int(a3), int(a4), r.Data().Color2())
 }
 
 // nox_client_drawRectFilledAlpha_49CF10
@@ -261,9 +261,9 @@ func nox_client_drawPoint_4B0BC0(a1, a2, a3 int) {
 }
 
 // nox_xxx_drawPointMB_499B70
-func nox_xxx_drawPointMB_499B70(a1, a2, a3 int) {
+func nox_xxx_drawPointMB_499B70(a1, a2, a3 int32) {
 	r := GetClient().R2()
-	r.DrawPoint(image.Pt(a1, a2), a3, r.Data().Color2())
+	r.DrawPoint(image.Pt(int(a1), int(a2)), int(a3), r.Data().Color2())
 }
 
 // nox_xxx_guiFontHeightMB_43F320
@@ -273,9 +273,9 @@ func nox_xxx_guiFontHeightMB_43F320(fnt unsafe.Pointer) int {
 }
 
 // nox_draw_setTabWidth_43FE20
-func nox_draw_setTabWidth_43FE20(v int) int {
+func nox_draw_setTabWidth_43FE20(v int32) int {
 	old := GetClient().R2().TabWidth()
-	GetClient().R2().SetTabWidth(v)
+	GetClient().R2().SetTabWidth(int(v))
 	return old
 }
 
@@ -457,7 +457,7 @@ func Nox_xxx_drawShinySpot_4C4F40(vp *noxrender.Viewport, dr *client.Drawable) {
 }
 
 func Sub_499F60(p int, pos image.Point, a4 int, a5, a6, a7, a8, a9 int, a10 int) {
-	sub_499F60(int(p), int(pos.X), int(pos.Y), int16(a4), char(a5), char(a6), char(a7), char(a8), char(a9), int(a10))
+	sub_499F60(int32(p), int32(pos.X), int32(pos.Y), int16(a4), char(a5), char(a6), char(a7), char(a8), char(a9), int32(a10))
 }
 
 func Get_sub_480250() unsafe.Pointer {
@@ -491,13 +491,13 @@ func Nox_xxx_wndDraw_49F7F0() {
 	nox_xxx_wndDraw_49F7F0()
 }
 func Sub_49F780(a1 int, a2 int) {
-	sub_49F780(int(a1), int(a2))
+	sub_49F780(int32(a1), int32(a2))
 }
 func Sub_49F860() {
 	sub_49F860()
 }
 func Nox_xxx_drawEnergyBolt_499710(a1 int, a2 int, a3 int, a4 int) {
-	nox_xxx_drawEnergyBolt_499710(int(a1), int(a2), int16(a3), int(a4))
+	nox_xxx_drawEnergyBolt_499710(int32(a1), int32(a2), int16(a3), int32(a4))
 }
 func Nox_xxx_drawShield_499810(vp *noxrender.Viewport, dr *client.Drawable) {
 	nox_xxx_drawShield_499810((*nox_draw_viewport_t)(vp.C()), (*nox_drawable)(dr.C()))

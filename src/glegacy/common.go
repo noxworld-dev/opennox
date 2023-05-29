@@ -2,6 +2,8 @@ package legacy
 
 import noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 
+type nox_engine_flag uint32
+
 // nox_common_setEngineFlag
 func nox_common_setEngineFlag(flags nox_engine_flag) {
 	noxflags.SetEngine(noxflags.EngineFlag(flags))
@@ -23,8 +25,8 @@ func nox_common_randomInt_415FA0(min, max int) int {
 }
 
 // nox_common_randomIntMinMax_415FF0
-func nox_common_randomIntMinMax_415FF0(min, max int, file *char, line int) int {
-	return GetServer().S().Rand.Other.Int(min, max)
+func nox_common_randomIntMinMax_415FF0(min, max int32, file *char, line int) int32 {
+	return int32(GetServer().S().Rand.Other.Int(int(min), int(max)))
 }
 
 // nox_common_randomFloat_416030

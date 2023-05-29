@@ -8,7 +8,7 @@ import (
 
 var _ = [1]struct{}{}[16-unsafe.Sizeof(binfile.MemFile{})]
 
-type nox_memfile = nox_memfile
+type nox_memfile = binfile.MemFile
 
 func asMemfile(p *nox_memfile) *binfile.MemFile {
 	return asMemfileP(unsafe.Pointer(p))

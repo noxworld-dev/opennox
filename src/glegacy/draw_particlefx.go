@@ -7,6 +7,6 @@ import (
 )
 
 // sub_4B6720
-func sub_4B6720(a1 *int2, a2, a3 int, a4 char) {
+func sub_4B6720(a1 *int2, a2, a3 int32, a4 char) {
 	GetClient().R2().DrawGlow(AsPoint(unsafe.Pointer(a1)), noxcolor.RGBA5551(a2), int(a3), int(a4))
 }

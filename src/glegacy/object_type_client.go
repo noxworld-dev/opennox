@@ -17,7 +17,7 @@ func init() {
 	client.ThingDrawDefault = nox_thing_debug_draw
 }
 
-type nox_thing = nox_thing
+type nox_thing = client.ObjectType
 
 // nox_xxx_getTTByNameSpriteMB_44CFC0
 func nox_xxx_getTTByNameSpriteMB_44CFC0(cstr *char) int {

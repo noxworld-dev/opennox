@@ -9,6 +9,28 @@ import (
 	"github.com/noxworld-dev/opennox-lib/platform"
 )
 
+const MAX_PATH = 260
+
+type FILETIME struct {
+	dwLowDateTime  uint32
+	dwHighDateTime uint32
+}
+
+type noxSYSTEMTIME struct {
+	wYear         uint16
+	wMonth        uint16
+	wDayOfWeek    uint16
+	wDay          uint16
+	wHour         uint16
+	wMinute       uint16
+	wSecond       uint16
+	wMilliseconds uint16
+}
+
+type HANDLE = uintptr
+type HSTREAM = uintptr
+type HSAMPLE = uintptr
+
 // nox_itoa
 func nox_itoa(val int, s *char, radix int) *char {
 	str := strconv.FormatInt(int64(val), radix)

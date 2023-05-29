@@ -26,7 +26,6 @@ var (
 	Sub_43ECB0                    func(a1 unsafe.Pointer) int
 )
 
-type _WIN32_FIND_DATAA = struct__WIN32_FIND_DATAA
 type WIN32_FIND_DATAA struct {
 	FileAttributes     uint32
 	ftCreationTime     FILETIME
@@ -41,15 +40,15 @@ type WIN32_FIND_DATAA struct {
 }
 
 func FindFirstFileA(a1 *byte, f *WIN32_FIND_DATAA) uintptr {
-	return uintptr(unsafe.Pointer(FindFirstFileA((*char)(unsafe.Pointer(a1)), (*_WIN32_FIND_DATAA)(unsafe.Pointer(f)))))
+	return uintptr(unsafe.Pointer(compatFindFirstFileA((*char)(unsafe.Pointer(a1)), (*WIN32_FIND_DATAA)(unsafe.Pointer(f)))))
 }
 
 func FindNextFileA(h uintptr, f *WIN32_FIND_DATAA) int {
-	return int(FindNextFileA(HANDLE(unsafe.Pointer(h)), (*_WIN32_FIND_DATAA)(unsafe.Pointer(f))))
+	return int(compatFindNextFileA(HANDLE(unsafe.Pointer(h)), (*WIN32_FIND_DATAA)(unsafe.Pointer(f))))
 }
 
 func FindClose(h uintptr) {
-	FindClose(HANDLE(unsafe.Pointer(h)))
+	compatFindClose(HANDLE(unsafe.Pointer(h)))
 }
 
 var _ = [1]struct{}{}[32-unsafe.Sizeof(AudioSample{})]
@@ -87,28 +86,28 @@ func sub_43F030(a1 int) int {
 }
 
 // AIL_set_stream_volume
-func AIL_set_stream_volume(s HSTREAM, volume int32_t) {
+func AIL_set_stream_volume(s HSTREAM, volume int32) {
 	ail.Stream(unsafe.Pointer(s)).SetVolume(int(volume))
 }
 
 // AIL_stream_position
-func AIL_stream_position(s HSTREAM) int32_t {
-	return int32_t(ail.Stream(unsafe.Pointer(s)).Position())
+func AIL_stream_position(s HSTREAM) int32 {
+	return int32(ail.Stream(unsafe.Pointer(s)).Position())
 }
 
 // AIL_stream_status
-func AIL_stream_status(s HSTREAM) int32_t {
-	return int32_t(ail.Stream(unsafe.Pointer(s)).Status())
+func AIL_stream_status(s HSTREAM) int32 {
+	return int32(ail.Stream(unsafe.Pointer(s)).Status())
 }
 
 // AIL_load_sample_buffer
-func AIL_load_sample_buffer(s HSAMPLE, num uint32_t, buf unsafe.Pointer, sz uint32_t) {
+func AIL_load_sample_buffer(s HSAMPLE, num uint32, buf unsafe.Pointer, sz uint32) {
 	ail.Sample(unsafe.Pointer(s)).LoadBuffer(uint32(num), unsafe.Slice((*byte)(buf), int(sz)))
 }
 
 // AIL_sample_buffer_ready
-func AIL_sample_buffer_ready(s HSAMPLE) int32_t {
-	return int32_t(ail.Sample(unsafe.Pointer(s)).BufferReady())
+func AIL_sample_buffer_ready(s HSAMPLE) int32 {
+	return int32(ail.Sample(unsafe.Pointer(s)).BufferReady())
 }
 
 // AIL_sample_user_data
@@ -158,7 +157,7 @@ func sub_43F130() int {
 }
 
 // sub_43ED00
-func sub_43ED00(a1p *uint32_t) int {
+func sub_43ED00(a1p *uint32) int {
 	return Sub_43ED00(unsafe.Pointer(a1p))
 }
 
@@ -198,7 +197,7 @@ func sub_44D660(a1 *char) int {
 }
 
 // sub_43F060
-func sub_43F060(a1p *uint32_t) int {
+func sub_43F060(a1p *uint32) int {
 	return Sub_43F060(unsafe.Pointer(a1p))
 }
 
@@ -221,7 +220,7 @@ func Sub_43D2D0() {
 }
 
 func Sub_486620(v unsafe.Pointer) {
-	sub_486620((*uint32_t)(v))
+	sub_486620((*uint32)(v))
 }
 
 func Sub_42EBB0(a1 int, a2 unsafe.Pointer, a3 int, a4 string) {

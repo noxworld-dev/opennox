@@ -16,7 +16,7 @@ func AsDrawableP(p unsafe.Pointer) *client.Drawable {
 	return (*client.Drawable)(p)
 }
 
-type nox_drawable = nox_drawable
+type nox_drawable = client.Drawable
 
 // nox_xxx_sprite_49AA00_drawable
 func nox_xxx_sprite_49AA00_drawable(d *nox_drawable) {
@@ -40,8 +40,8 @@ func nox_drawable_find_49ABF0(pt *nox_point, r int) *nox_drawable {
 }
 
 // nox_xxx_spriteLoadAdd_45A360_drawable
-func nox_xxx_spriteLoadAdd_45A360_drawable(id, x, y int) *nox_drawable {
-	return (*nox_drawable)(GetClient().Nox_xxx_spriteLoadAdd_45A360_drawable(id, image.Pt(x, y)).C())
+func nox_xxx_spriteLoadAdd_45A360_drawable(id, x, y int32) *nox_drawable {
+	return (*nox_drawable)(GetClient().Nox_xxx_spriteLoadAdd_45A360_drawable(int(id), image.Pt(int(x), int(y))).C())
 }
 
 // nox_xxx_sprite_45A110_drawable

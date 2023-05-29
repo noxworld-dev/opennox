@@ -1,8 +1,9 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 func nox_xxx_netDrawRays_49BDD0(a1 *uint8) int32 {
@@ -96,7 +97,7 @@ func nox_xxx_netDrawRays_49BDD0(a1 *uint8) int32 {
 			*(*uint32)(unsafe.Pointer(uintptr(result + 437))) = *(*uint32)(unsafe.Pointer(v3))
 			*(*uint32)(unsafe.Pointer(uintptr(result + 441))) = *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*1)))
 			v11 = int32(*memmap.PtrUint32(0x5D4594, 1304308))
-			*memmap.PtrUint32(0x5D4594, *memmap.PtrUint32(0x5D4594, 1304308)*4+1303540) = uint32(result)
+			*memmap.PtrUint32(0x5D4594, uintptr(memmap.Uint32(0x5D4594, 1304308))*4+1303540) = uint32(result)
 			*memmap.PtrUint32(0x5D4594, 1304308) = uint32(v11 + 1)
 		}
 	}

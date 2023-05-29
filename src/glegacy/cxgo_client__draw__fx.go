@@ -1,7 +1,6 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"math"
 	"unsafe"
 )
@@ -32,7 +31,7 @@ func sub_499520(a1 int32, a2 *int16, a3 int16, a4 int8, a5 int8) {
 	)
 	v6 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*2)))
 	v5 = int32(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*3)))
-	result = &nox_xxx_spriteLoadAdd_45A360_drawable(a1, v6, v5).field_0
+	result = &nox_xxx_spriteLoadAdd_45A360_drawable(a1, v6, v5).Field_0
 	v8 = result
 	if result != nil {
 		*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(result))), unsafe.Sizeof(uint16(0))*216))) = uint16(*(*int16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(int16(0))*0)))

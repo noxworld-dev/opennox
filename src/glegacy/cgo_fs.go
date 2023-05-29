@@ -19,7 +19,7 @@ var files struct {
 	byHandle map[unsafe.Pointer]*binfile.File
 }
 
-type FILE = FILE
+type FILE = [0]byte
 
 // nox_fs_root
 func nox_fs_root() *char {
@@ -130,13 +130,13 @@ func nox_fs_fgets(f *FILE, dst *char, sz int) bool {
 }
 
 // nox_fs_fputs
-func nox_fs_fputs(f *FILE, str *char) int {
+func nox_fs_fputs(f *FILE, str *char) int32 {
 	fp := fileByHandle(f)
 	n, err := fp.WriteString(GoString(str))
 	if err != nil {
 		return -1
 	}
-	return n
+	return int32(n)
 }
 
 // nox_fs_feof

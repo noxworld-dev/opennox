@@ -1,8 +1,10 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 func nox_thing_cond_animate_draw(a1 *uint32, dr *nox_drawable) int32 {
@@ -16,8 +18,8 @@ func nox_thing_cond_animate_draw(a1 *uint32, dr *nox_drawable) int32 {
 		v8  int32
 		v10 int32
 	)
-	v2 = int32(uintptr(dr.field_76))
-	if dr.flags30&0x1000000 != 0 {
+	v2 = int32(uintptr(dr.Field_76))
+	if dr.Flags30()&0x1000000 != 0 {
 		v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 4))))
 		v4 = int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 24))))
 		v5 = int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 29))))
@@ -35,12 +37,12 @@ func nox_thing_cond_animate_draw(a1 *uint32, dr *nox_drawable) int32 {
 			if v8 != 1 {
 				return 0
 			}
-			v10 = int32(dr.field_77)
+			v10 = int32(dr.Field_77)
 		} else {
 			v10 = nox_common_randomIntMinMax_415FF0(0, v4, internCStr("C:\\NoxPost\\src\\client\\Draw\\CAniDraw.c"), 57)
 		}
 	} else {
-		v10 = int32((gameFrame() + dr.field_32) / uint32(v5+1))
+		v10 = int32((gameFrame() + dr.Field_32) / uint32(v5+1))
 		if v10 >= v4 {
 			v10 %= v4
 		}
@@ -75,9 +77,9 @@ func nox_things_cond_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_val
 	v25 = nox_memfile_read_u8(f)
 	v23 = int32(v25)
 	if int32(v25) <= 0 {
-		obj.field_5c = unsafe.Pointer(v3)
-		obj.draw_func = nox_thing_cond_animate_draw
-		obj.field_60 = 0
+		obj.Field_5c = unsafe.Pointer(v3)
+		obj.DrawFunc = nox_thing_cond_animate_draw
+		obj.Field_60 = 0
 		return true
 	}
 	v6 = (*uint8)(unsafe.Pointer(attr_value))
@@ -128,9 +130,9 @@ func nox_things_cond_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_val
 		v20 = (*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*1))
 		if int32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v7), v22))))) >= v23 {
 			v3 = v24
-			obj.field_5c = unsafe.Pointer(v3)
-			obj.draw_func = nox_thing_cond_animate_draw
-			obj.field_60 = 0
+			obj.Field_5c = unsafe.Pointer(v3)
+			obj.DrawFunc = nox_thing_cond_animate_draw
+			obj.Field_60 = 0
 			return true
 		}
 	}

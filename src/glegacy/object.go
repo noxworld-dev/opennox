@@ -62,7 +62,7 @@ type Nox_object_Mover_data_t struct {
 	Field_8 uint32         // 8, 32
 }
 
-type nox_object_t = nox_object_t
+type nox_object_t = server.Object
 
 func asObjectC(p *server.Object) *nox_object_t {
 	return (*nox_object_t)(p.CObj())
@@ -153,7 +153,7 @@ func nox_xxx_getNextUpdatableObject_4DA8B0(obj *nox_object_t) *nox_object_t {
 	if obj == nil {
 		return nil
 	}
-	return obj.updatable_next
+	return obj.UpdatableNext
 }
 
 // sub_548600
@@ -282,7 +282,7 @@ func nox_xxx_doorGetSomeKey_4E8910(u, door *nox_object_t) *nox_object_t {
 }
 
 func Nox_server_getObjectFromNetCode_4ECCB0(a1 int) *server.Object {
-	return asObjectS(nox_server_getObjectFromNetCode_4ECCB0(int(a1)))
+	return asObjectS(nox_server_getObjectFromNetCode_4ECCB0(int32(a1)))
 }
 func Nox_xxx_creatureIsMonitored_500CC0(a1 *server.Object, a2 *server.Object) int {
 	return int(nox_xxx_creatureIsMonitored_500CC0(asObjectC(a1), asObjectC(a2)))
@@ -348,10 +348,10 @@ func Nox_xxx_unitPostCreateNotify_4E7F10(a1 *server.Object) {
 	nox_xxx_unitPostCreateNotify_4E7F10(asObjectC(a1))
 }
 func Nox_xxx_buffApplyTo_4FF380(a1 *server.Object, a2 server.EnchantID, a3 int, a4 int) {
-	nox_xxx_buffApplyTo_4FF380(asObjectC(a1), int(a2), int16(a3), char(a4))
+	nox_xxx_buffApplyTo_4FF380(asObjectC(a1), int32(a2), int16(a3), char(a4))
 }
 func Nox_xxx_spellBuffOff_4FF5B0(a1 *server.Object, a2 server.EnchantID) {
-	nox_xxx_spellBuffOff_4FF5B0(asObjectC(a1), int(a2))
+	nox_xxx_spellBuffOff_4FF5B0(asObjectC(a1), int32(a2))
 }
 func Nox_xxx_unitClearOwner_4EC300(a1 *server.Object) {
 	nox_xxx_unitClearOwner_4EC300(asObjectC(a1))
@@ -375,7 +375,7 @@ func Nox_xxx_drop_4ED790(a1 *server.Object, a2 *server.Object, pos types.Pointf)
 	return int(nox_xxx_drop_4ED790(asObjectC(a1), asObjectC(a2), (*float2)(unsafe.Pointer(cpos))))
 }
 func Nox_xxx_dropAllItems_4EDA40(a1 *server.Object) {
-	nox_xxx_dropAllItems_4EDA40((*uint)(a1.CObj()))
+	nox_xxx_dropAllItems_4EDA40((*uint32)(a1.CObj()))
 }
 
 func Get_nox_objectDropAudEvent_4EE2F0() unsafe.Pointer {
@@ -394,13 +394,13 @@ func Nox_object_getGold_4FA6D0(obj *server.Object) int {
 	return int(nox_object_getGold_4FA6D0(asObjectC(obj)))
 }
 func Nox_object_setGold_4FA620(obj *server.Object, v int) {
-	nox_object_setGold_4FA620(asObjectC(obj), int(v))
+	nox_object_setGold_4FA620(asObjectC(obj), int32(v))
 }
 func Nox_xxx_unitSetXStatus_4E4800(obj *server.Object, a2 int) {
-	nox_xxx_unitSetXStatus_4E4800(asObjectC(obj), int(a2))
+	nox_xxx_unitSetXStatus_4E4800(asObjectC(obj), int32(a2))
 }
 func Nox_xxx_unitUnsetXStatus_4E4780(obj *server.Object, a2 int) {
-	nox_xxx_unitUnsetXStatus_4E4780(asObjectC(obj), int(a2))
+	nox_xxx_unitUnsetXStatus_4E4780(asObjectC(obj), int32(a2))
 }
 func Nox_xxx_script_forcedialog_548CD0(obj, obj2 *server.Object) {
 	nox_xxx_script_forcedialog_548CD0(asObjectC(obj), asObjectC(obj2))
@@ -438,7 +438,7 @@ func Nox_xxx_monsterGoPatrol_515680(obj *server.Object, p1, p2 types.Pointf, dis
 }
 
 func Sub_516090(obj *server.Object, df int) {
-	sub_516090(asObjectC(obj), uint(df))
+	sub_516090(asObjectC(obj), uint32(df))
 }
 
 func Nox_xxx_monsterCanCast_534300(obj *server.Object) bool {
@@ -450,11 +450,11 @@ func Nox_xxx_playerTryEquip_4F2F70(obj, item *server.Object) bool {
 }
 
 func Nox_xxx_inventoryPutImpl_4F3070(obj, item *server.Object, a3 int) {
-	nox_xxx_inventoryPutImpl_4F3070(asObjectC(obj), asObjectC(item), int(a3))
+	nox_xxx_inventoryPutImpl_4F3070(asObjectC(obj), asObjectC(item), int32(a3))
 }
 
 func Nox_xxx_orderUnit_533900(owner, obj *server.Object, order uint32) {
-	nox_xxx_orderUnit_533900(asObjectC(owner), asObjectC(obj), int(order))
+	nox_xxx_orderUnit_533900(asObjectC(owner), asObjectC(obj), int32(order))
 }
 
 func Sub_4E9A30(a1, a2 *server.Object) bool {
@@ -469,5 +469,5 @@ func Nox_xxx_mapPushUnitsAround_52E040(pos types.Pointf, a2 float32, a3 float32,
 	cpos, free := alloc.New(types.Pointf{})
 	defer free()
 	*cpos = pos
-	nox_xxx_mapPushUnitsAround_52E040(unsafe.Pointer(cpos), float32(a2), float32(a3), float32(a4), asObjectC(a5), int(a6), int(a7))
+	nox_xxx_mapPushUnitsAround_52E040(unsafe.Pointer(cpos), float32(a2), float32(a3), float32(a4), asObjectC(a5), int32(a6), int32(a7))
 }

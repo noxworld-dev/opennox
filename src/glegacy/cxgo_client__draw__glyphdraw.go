@@ -3,6 +3,8 @@ package legacy
 import (
 	"math"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 func nox_thing_glyph_draw(a1 *int32, dr *nox_drawable) int32 {
@@ -12,7 +14,7 @@ func nox_thing_glyph_draw(a1 *int32, dr *nox_drawable) int32 {
 		v5 int32
 		v6 int32
 		v7 int32
-		a2 *uint32 = &dr.field_0
+		a2 *uint32 = &dr.Field_0
 	)
 	if !nox_common_gameFlags_check_40A5C0(2) || *memmap.PtrUint32(0x852978, 8) == 0 {
 		goto LABEL_10

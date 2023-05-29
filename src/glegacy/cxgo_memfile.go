@@ -1,79 +1,35 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-type nox_memfile struct {
-	data *byte
-	size int32
-	cur  *byte
-	end  *byte
-}
-
 func nox_memfile_read_i8(f *nox_memfile) int8 {
-	if f.data == nil {
-		return 0
-	}
-	var v int8 = *(*int8)(unsafe.Pointer(f.cur))
-	f.cur = (*byte)(unsafe.Add(unsafe.Pointer(f.cur), 1))
-	return v
+	return f.ReadI8()
 }
 func nox_memfile_read_u8(f *nox_memfile) uint8 {
-	if f.data == nil {
-		return 0
-	}
-	var v uint8 = *(*uint8)(unsafe.Pointer(f.cur))
-	f.cur = (*byte)(unsafe.Add(unsafe.Pointer(f.cur), 1))
-	return v
+	return f.ReadU8()
 }
 func nox_memfile_read_i16(f *nox_memfile) int16 {
-	if f.data == nil {
-		return 0
-	}
-	var v int16 = *(*int16)(unsafe.Pointer(f.cur))
-	f.cur = (*byte)(unsafe.Add(unsafe.Pointer(f.cur), 2))
-	return v
+	return f.ReadI16()
 }
 func nox_memfile_read_u16(f *nox_memfile) uint16 {
-	if f.data == nil {
-		return 0
-	}
-	var v uint16 = *(*uint16)(unsafe.Pointer(f.cur))
-	f.cur = (*byte)(unsafe.Add(unsafe.Pointer(f.cur), 2))
-	return v
+	return f.ReadU16()
 }
 func nox_memfile_read_i32(f *nox_memfile) int32 {
-	if f.data == nil {
-		return 0
-	}
-	var v int32 = *(*int32)(unsafe.Pointer(f.cur))
-	f.cur = (*byte)(unsafe.Add(unsafe.Pointer(f.cur), 4))
-	return v
+	return f.ReadI32()
 }
 func nox_memfile_read_u32(f *nox_memfile) uint32 {
-	if f.data == nil {
-		return 0
-	}
-	var v uint32 = *(*uint32)(unsafe.Pointer(f.cur))
-	f.cur = (*byte)(unsafe.Add(unsafe.Pointer(f.cur), 4))
-	return v
+	return f.ReadU32()
 }
 func nox_memfile_skip(f *nox_memfile, n int32) {
-	if f.data == nil {
-		return
-	}
-	f.cur = (*byte)(unsafe.Add(unsafe.Pointer(f.cur), n))
+	f.Skip(int(n))
 }
 func nox_memfile_read(dst unsafe.Pointer, sz uint32, cnt int32, f *nox_memfile) uint32 {
-	var n uint32 = uint32(cnt) * sz
-	if uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(f.cur), n)))) > uintptr(unsafe.Pointer(f.end)) {
-		n = uint32(int32(uintptr(unsafe.Pointer(f.end)) - uintptr(unsafe.Pointer(f.cur))))
-	}
-	alloc.Memcpy(dst, unsafe.Pointer(f.cur), int(n))
-	f.cur = (*byte)(unsafe.Add(unsafe.Pointer(f.cur), n))
-	return n / sz
+	n, _ := f.Read(unsafe.Slice((*byte)(dst), sz*uint32(cnt)))
+	return uint32(n) / sz
 }
 func nox_memfile_read64align_40AD60(dest *byte, sz int32, cnt int32, f *nox_memfile) uint32 {
 	var (

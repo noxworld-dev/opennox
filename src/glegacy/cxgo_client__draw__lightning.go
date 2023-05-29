@@ -1,9 +1,10 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"math"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 func nox_xxx_drawLightningStep_4BB070(a1 int32, a2 int32) int32 {

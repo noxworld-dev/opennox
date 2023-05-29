@@ -1,7 +1,6 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
 )
 
@@ -26,31 +25,31 @@ func nox_thing_door_draw(a1 *uint32, dr *nox_drawable) int32 {
 	if !nox_common_gameFlags_check_40A5C0(4096) || int32(dr.field_108_1) != 1 {
 		return 1
 	}
-	if dr.field_109 == 0 {
-		dr.field_110 = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DoorLockSilverSW")))))
-		dr.field_109 = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DoorLockSilverSE")))))
-		dr.field_111 = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DoorLockGoldSW")))))
+	if dr.Field_109 == 0 {
+		dr.Field_110 = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DoorLockSilverSW")))))
+		dr.Field_109 = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DoorLockSilverSE")))))
+		dr.Field_111 = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DoorLockGoldSW")))))
 		dr.field_112 = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DoorLockGoldSE")))))
 	}
-	sub_4739E0(a1, (*int2)(unsafe.Pointer(&dr.pos)), &a3)
+	sub_4739E0(a1, (*int2)(unsafe.Pointer(&dr.PosVec)), &a3)
 	a3.field_0 -= 64
 	a3.field_4 -= 79
-	v2 = (*uint8)(unsafe.Pointer(sub_469920(&dr.pos)))
+	v2 = (*uint8)(unsafe.Pointer(sub_469920(&dr.PosVec)))
 	sub_4345F0(1)
 	*((*uint8)(unsafe.Pointer(&v4))) = *(*uint8)(unsafe.Add(unsafe.Pointer(v2), 8))
 	v3 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v2), 4)))
 	*((*uint8)(unsafe.Pointer(&v5))) = *v2
 	nox_draw_setColorMultAndIntensityRGB_433CD0(uint8(int8(v5)), uint8(int8(v3)), uint8(int8(v4)))
-	v6 = int8(dr.field_74_4)
+	v6 = int8(dr.Field_74_4)
 	if int32(v6) == 0 {
 		v7 = int8(dr.field_108_2)
 		v12 = a3.field_4 - 20
 		a3.field_0 -= 15
 		a3.field_4 -= 20
 		if int32(v7) == 1 {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.field_110))), a3.field_0, v12)
+			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.Field_110))), a3.field_0, v12)
 		} else {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.field_111))), a3.field_0, v12)
+			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.Field_111))), a3.field_0, v12)
 		}
 		return 1
 	} else if int32(v6) == 8 {
@@ -59,7 +58,7 @@ func nox_thing_door_draw(a1 *uint32, dr *nox_drawable) int32 {
 		a3.field_0 += 15
 		a3.field_4 -= 20
 		if int32(v9) == 1 {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.field_109))), a3.field_0, v13)
+			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.Field_109))), a3.field_0, v13)
 		} else {
 			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.field_112))), a3.field_0, v13)
 		}
@@ -70,9 +69,9 @@ func nox_thing_door_draw(a1 *uint32, dr *nox_drawable) int32 {
 		a3.field_0 += 8
 		a3.field_4 += 2
 		if int32(v10) == 1 {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.field_110))), a3.field_0, v14)
+			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.Field_110))), a3.field_0, v14)
 		} else {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.field_111))), a3.field_0, v14)
+			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.Field_111))), a3.field_0, v14)
 		}
 		return 1
 	} else {
@@ -81,7 +80,7 @@ func nox_thing_door_draw(a1 *uint32, dr *nox_drawable) int32 {
 		a3.field_0 -= 8
 		a3.field_4 += 2
 		if int32(v11) == 1 {
-			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.field_109))), a3.field_0, v15)
+			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.Field_109))), a3.field_0, v15)
 		} else {
 			nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(dr.field_112))), a3.field_0, v15)
 		}
@@ -89,8 +88,8 @@ func nox_thing_door_draw(a1 *uint32, dr *nox_drawable) int32 {
 	}
 }
 func nox_things_door_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
-	obj.draw_func = nox_thing_door_draw
+	obj.DrawFunc = nox_thing_door_draw
 	var v3 unsafe.Pointer = nox_xxx_spriteLoadStaticRandomData_44C000(attr_value, f)
-	obj.field_5c = v3
+	obj.Field_5c = v3
 	return v3 != nil
 }

@@ -5,7 +5,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/stdio"
 )
 
-func nox_fs_fprintf(f *File, format *byte, _rest ...interface{}) int32 {
+func nox_fs_fprintf(f *FILE, format *byte, _rest ...interface{}) int32 {
 	var (
 		buf  [2048]byte = [2048]byte{}
 		args libc.ArgList

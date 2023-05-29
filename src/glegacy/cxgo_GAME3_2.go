@@ -1,10 +1,10 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
-	"github.com/gotranspile/cxgo/runtime/stdio"
 	"math"
 	"unsafe"
+
+	"github.com/gotranspile/cxgo/runtime/libc"
 )
 
 var nox_common_maplist nox_list_item_t = nox_list_item_t{}
@@ -315,7 +315,7 @@ func sub_4CED40(a1 *byte) unsafe.Pointer {
 	var (
 		result       HANDLE
 		v2           HANDLE
-		FindFileData _WIN32_FIND_DATAA
+		FindFileData WIN32_FIND_DATAA
 		FileName     [64]byte
 		v5           [100]wchar2_t
 	)
@@ -5429,7 +5429,7 @@ func nox_client_countPlayerFiles02_4DC630() int32 {
 		v1           *byte
 		v5           HANDLE
 		v6           *byte
-		FindFileData _WIN32_FIND_DATAA
+		FindFileData WIN32_FIND_DATAA
 		PathName     [1024]byte
 		v10          [1280]byte
 		v11          [1024]byte

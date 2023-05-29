@@ -1,8 +1,10 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 func nox_thing_animate_draw(a1 *uint32, dr *nox_drawable) int32 {
@@ -13,39 +15,39 @@ func nox_thing_animate_draw(a1 *uint32, dr *nox_drawable) int32 {
 		v6 int32
 		v7 int32
 	)
-	v2 = int32(uintptr(dr.field_76))
+	v2 = int32(uintptr(dr.Field_76))
 	switch *(*uint32)(unsafe.Pointer(uintptr(v2 + 12))) {
 	case 0:
-		v3 = int32((gameFrame() - dr.field_79) / (uint32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 9)))) + 1))
+		v3 = int32((gameFrame() - dr.Field_79) / (uint32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 9)))) + 1))
 		v7 = int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 8))))
 		if v3 >= v7 {
 			v3 = v7 - 1
 		}
 	case 1:
-		v3 = int32((gameFrame() - dr.field_79) / (uint32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 9)))) + 1))
+		v3 = int32((gameFrame() - dr.Field_79) / (uint32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 9)))) + 1))
 		if v3 >= int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 8)))) {
 			nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 			return 0
 		}
 	case 2:
-		if dr.flags30&0x1000000 != 0 {
-			v3 = int32((gameFrame() + dr.field_32) / (uint32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 9)))) + 1))
+		if dr.Flags30()&0x1000000 != 0 {
+			v3 = int32((gameFrame() + dr.Field_32) / (uint32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 9)))) + 1))
 			v4 = int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 8))))
 			if v3 >= v4 {
 				v3 %= v4
 			}
 			break
 		}
-		if dr.flags28&0x10000000 != 0 {
+		if dr.Flags28()&0x10000000 != 0 {
 			if nox_common_gameFlags_check_40A5C0(32) {
-				v3 = int32((gameFrame() + dr.field_32) / (uint32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 9)))) + 1))
+				v3 = int32((gameFrame() + dr.Field_32) / (uint32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 9)))) + 1))
 				v4 = int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 8))))
 				if v3 >= v4 {
 					v3 %= v4
 				}
 				break
 			}
-			if dr.flags28&0x10000000 != 0 {
+			if dr.Flags28()&0x10000000 != 0 {
 				return 1
 			}
 		}
@@ -53,7 +55,7 @@ func nox_thing_animate_draw(a1 *uint32, dr *nox_drawable) int32 {
 	case 3:
 		v6 = int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 8)))) * 2
 		nox_client_drawEnableAlpha_434560(1)
-		v3 = int32((gameFrame() - dr.field_79) / (uint32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 9)))) + 1))
+		v3 = int32((gameFrame() - dr.Field_79) / (uint32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 9)))) + 1))
 		if v3 >= v6 {
 			nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 			return 0
@@ -66,7 +68,7 @@ func nox_thing_animate_draw(a1 *uint32, dr *nox_drawable) int32 {
 	case 4:
 		v3 = nox_common_randomIntMinMax_415FF0(0, int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 8))))-1, internCStr("C:\\NoxPost\\src\\Client\\Draw\\animdraw.c"), 24)
 	case 5:
-		v3 = int32(dr.field_77)
+		v3 = int32(dr.Field_77)
 	default:
 		return 1
 	}
@@ -84,10 +86,10 @@ func nox_thing_animate_state_draw(a1 *uint32, dr *nox_drawable) int32 {
 		v5     int32
 		result int32
 	)
-	v2 = int32(dr.flags70)
-	v3 = int32(uintptr(dr.field_76))
+	v2 = int32(dr.Flags70())
+	v3 = int32(uintptr(dr.Field_76))
 	if v2&2 != 0 {
-		dr.field_79 = gameFrame()
+		dr.Field_79 = gameFrame()
 		v4 = 0
 	} else if v2&4 != 0 {
 		v4 = 1
@@ -96,7 +98,7 @@ func nox_thing_animate_state_draw(a1 *uint32, dr *nox_drawable) int32 {
 	}
 	v5 = v4*48 + v3 + 4
 	if *(*uint32)(unsafe.Pointer(uintptr(v5 + 44))) == 2 {
-		dr.field_79 = gameFrame()
+		dr.Field_79 = gameFrame()
 	}
 	if int32(*(*uint16)(unsafe.Pointer(uintptr(v5 + 40)))) != 0 {
 		result = sub_4BC6B0((*int32)(unsafe.Pointer(a1)), dr, v5)

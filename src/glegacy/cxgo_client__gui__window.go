@@ -1,7 +1,6 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
 )
 
@@ -13,50 +12,6 @@ const (
 	NOX_WIN_LAYER_BACK  nox_window_flags = 0x40
 )
 
-type nox_window struct {
-	id           int32
-	flags        nox_window_flags
-	width        int32
-	height       int32
-	off_x        int32
-	off_y        int32
-	end_x        int32
-	end_y        int32
-	widget_data  unsafe.Pointer
-	draw_data    nox_window_data
-	field_92     uint32
-	field_93     func(*nox_window, int32, int32, int32) int32
-	field_94     func(*nox_window, int32, int32, int32) int32
-	draw_func    func(*nox_window, *nox_window_data) int32
-	tooltip_func func(*nox_window, *nox_window_data, int32) int32
-	prev         *nox_window
-	next         *nox_window
-	parent       *nox_window
-	field_100    *nox_window
-}
-type nox_window_data struct {
-	field_0    uint32
-	group      int32
-	style      int32
-	status     int32
-	win        *nox_window
-	bg_color   uint32
-	bg_image   unsafe.Pointer
-	en_color   uint32
-	en_image   unsafe.Pointer
-	hl_color   uint32
-	hl_image   unsafe.Pointer
-	dis_color  uint32
-	dis_image  unsafe.Pointer
-	sel_color  uint32
-	sel_image  unsafe.Pointer
-	img_px     int32
-	img_py     int32
-	text_color uint32
-	text       [64]wchar2_t
-	font       unsafe.Pointer
-	tooltip    [64]wchar2_t
-}
 type nox_window_ref struct {
 	win  *nox_window
 	next *nox_window_ref
@@ -84,19 +39,19 @@ func nox_gui_getWindowOffs_46AA20(win *nox_window, px *uint32, py *uint32) int32
 		*py = 0
 		return -2
 	}
-	*px = uint32(win.off_x)
-	*py = uint32(win.off_y)
+	*px = uint32(win.Off.X)
+	*py = uint32(win.Off.Y)
 	return 0
 }
 func nox_client_wndGetPosition_46AA60(win *nox_window, px *uint32, py *uint32) int32 {
 	if win == nil {
 		return -2
 	}
-	*px = uint32(win.off_x)
-	*py = uint32(win.off_y)
-	for i := (*nox_window)(win.parent); i != nil; i = i.parent {
-		*px += uint32(i.off_x)
-		*py += uint32(i.off_y)
+	*px = uint32(win.Off.X)
+	*py = uint32(win.Off.Y)
+	for i := win.Parent(); i != nil; i = i.Parent() {
+		*px += uint32(i.Off.X)
+		*py += uint32(i.Off.Y)
 	}
 	return 0
 }
@@ -131,8 +86,8 @@ func nox_window_get_size(win *nox_window, outW *int32, outH *int32) int32 {
 		*outH = 0
 		return -2
 	}
-	*outW = win.width
-	*outH = win.height
+	*outW = int32(win.Size().X)
+	*outH = int32(win.Size().Y)
 	return 0
 }
 func nox_xxx_wnd_46ABB0(win *nox_window, a2 int32) int32 {
@@ -193,7 +148,7 @@ func nox_window_is_child(a1 *nox_window, a2 *nox_window) int32 {
 	}
 	var cur *nox_window = a2
 	for {
-		cur = cur.parent
+		cur = cur.Parent()
 		if a1 == cur {
 			break
 		}
