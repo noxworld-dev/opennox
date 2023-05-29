@@ -3581,7 +3581,7 @@ func sub_4379C0() {
 }
 func sub_438330() int32 {
 	var v0 func() int32
-	v0 = nox_wnd_xxx_815040.field_13
+	v0 = nox_wnd_xxx_815040.Func13Ptr
 	nox_gui_freeAnimation_43C570(nox_wnd_xxx_815040)
 	if !nox_common_gameFlags_check_40A5C0(0x10000000) {
 		nox_client_guiXxx_43A9D0()
@@ -3592,10 +3592,10 @@ func sub_438330() int32 {
 	return 1
 }
 func sub_438370() int32 {
-	if nox_wnd_xxx_815040.state == nox_gui_anim_state(NOX_GUI_ANIM_OUT_DONE) {
+	if nox_wnd_xxx_815040.State() == nox_gui_anim_state(NOX_GUI_ANIM_OUT_DONE) {
 		return sub_438330()
 	}
-	nox_wnd_xxx_815040.state = nox_gui_anim_state(NOX_GUI_ANIM_OUT)
+	nox_wnd_xxx_815040.SetState(nox_gui_anim_state(NOX_GUI_ANIM_OUT))
 	sub_43BE40(2)
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100)
 	return 1

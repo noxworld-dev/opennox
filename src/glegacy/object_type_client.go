@@ -20,9 +20,9 @@ func init() {
 type nox_thing = client.ObjectType
 
 // nox_xxx_getTTByNameSpriteMB_44CFC0
-func nox_xxx_getTTByNameSpriteMB_44CFC0(cstr *char) int {
+func nox_xxx_getTTByNameSpriteMB_44CFC0(cstr *char) int32 {
 	id := GoString(cstr)
-	return GetClient().Cli().Things.TypeByID(id).Index()
+	return int32(GetClient().Cli().Things.TypeByID(id).Index())
 }
 
 // sub_44D330
@@ -32,8 +32,8 @@ func sub_44D330(cstr *char) *nox_thing {
 }
 
 // nox_get_thing_name
-func nox_get_thing_name(i int) *char {
-	t := GetClient().Cli().Things.TypeByInd(i)
+func nox_get_thing_name(i int32) *char {
+	t := GetClient().Cli().Things.TypeByInd(int(i))
 	if t == nil {
 		return nil
 	}
@@ -41,8 +41,8 @@ func nox_get_thing_name(i int) *char {
 }
 
 // nox_get_thing
-func nox_get_thing(i int) *nox_thing {
-	t := GetClient().Cli().Things.TypeByInd(i)
+func nox_get_thing(i int32) *nox_thing {
+	t := GetClient().Cli().Things.TypeByInd(int(i))
 	if t == nil {
 		return nil
 	}
@@ -50,8 +50,8 @@ func nox_get_thing(i int) *nox_thing {
 }
 
 // nox_get_thing_pretty_name
-func nox_get_thing_pretty_name(i int) *wchar2_t {
-	t := GetClient().Cli().Things.TypeByInd(i)
+func nox_get_thing_pretty_name(i int32) *wchar2_t {
+	t := GetClient().Cli().Things.TypeByInd(int(i))
 	if t == nil {
 		return nil
 	}
@@ -59,8 +59,8 @@ func nox_get_thing_pretty_name(i int) *wchar2_t {
 }
 
 // nox_get_thing_desc
-func nox_get_thing_desc(i int) *wchar2_t {
-	t := GetClient().Cli().Things.TypeByInd(i)
+func nox_get_thing_desc(i int32) *wchar2_t {
+	t := GetClient().Cli().Things.TypeByInd(int(i))
 	if t == nil {
 		return nil
 	}
@@ -68,23 +68,23 @@ func nox_get_thing_desc(i int) *wchar2_t {
 }
 
 // nox_get_thing_pretty_image
-func nox_get_thing_pretty_image(i int) int {
-	t := GetClient().Cli().Things.TypeByInd(i)
+func nox_get_thing_pretty_image(i int32) int32 {
+	t := GetClient().Cli().Things.TypeByInd(int(i))
 	if t == nil {
 		return 0
 	}
-	return int(t.PrettyImage)
+	return int32(t.PrettyImage)
 }
 
 // nox_drawable_link_thing
-func nox_drawable_link_thing(a1c *nox_drawable, i int) int {
-	return GetClient().Cli().DrawableLinkThing(asDrawable(a1c), i)
+func nox_drawable_link_thing(a1c *nox_drawable, i int32) int32 {
+	return int32(GetClient().Cli().DrawableLinkThing(asDrawable(a1c), int(i)))
 }
 
 func wrapClientThingFuncC(fnc unsafe.Pointer) client.ThingFieldFunc {
 	return func(typ *client.ObjectType, f *binfile.MemFile, str string, buf []byte) error {
 		StrNCopyBytes(buf, str)
-		if !go_nox_drawable_call_parse_func((*[0]byte)(fnc), (*nox_thing)(typ.C()), (*nox_memfile)(f.C()), unsafe.Pointer(&buf[0])) {
+		if !asFuncT[func(*nox_thing, *nox_memfile, unsafe.Pointer) bool](uintptr(fnc))((*nox_thing)(typ.C()), (*nox_memfile)(f.C()), unsafe.Pointer(&buf[0])) {
 			return fmt.Errorf("failed to parse %q", str)
 		}
 		return nil

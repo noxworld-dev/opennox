@@ -2,7 +2,7 @@ package legacy
 
 import noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 
-type nox_engine_flag uint32
+type nox_engine_flag = noxflags.EngineFlag
 
 // nox_common_setEngineFlag
 func nox_common_setEngineFlag(flags nox_engine_flag) {

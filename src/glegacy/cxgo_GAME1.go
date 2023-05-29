@@ -15,6 +15,24 @@ var nox_server_gameSettingsUpdated int32
 var nox_tile_def_cnt uint32 = 0
 var nox_tile_defs_arr [176]nox_tileDef_t = [176]nox_tileDef_t{}
 
+type nox_tileDef_t struct {
+	name     [32]byte
+	data_32  **nox_video_bag_image_t
+	field_36 int32
+	field_40 int32
+	field_44 uint16
+	field_46 uint16
+	color_48 uint32
+	field_52 uint8
+	field_53 uint8
+	field_54 uint8
+	field_55 uint8
+	field_56 uint8
+	field_57 uint8
+	field_58 uint8
+	field_59 uint8
+}
+
 func nox_xxx_parseString_409470(a1 *FILE, a2 *uint8) int32 {
 	var (
 		v2       *uint8

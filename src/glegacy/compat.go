@@ -1,6 +1,7 @@
 package legacy
 
 import (
+	"math"
 	"strconv"
 	"time"
 	"unsafe"
@@ -9,7 +10,18 @@ import (
 	"github.com/noxworld-dev/opennox-lib/platform"
 )
 
+const FLT_MIN = math.SmallestNonzeroFloat32 // FIXME: check
+
 const MAX_PATH = 260
+
+const (
+	FILE_ATTRIBUTE_DIRECTORY = 0x10
+	FILE_ATTRIBUTE_NORMAL    = 0x80
+)
+
+func strtol(a1, a2 *byte, a3 int32) int32 {
+
+}
 
 type FILETIME struct {
 	dwLowDateTime  uint32
@@ -30,6 +42,14 @@ type noxSYSTEMTIME struct {
 type HANDLE = uintptr
 type HSTREAM = uintptr
 type HSAMPLE = uintptr
+
+type LPWIN32_FIND_DATAA = *WIN32_FIND_DATAA
+
+const (
+	SEEK_SET = iota // FIXME: check if it's correct
+	SEEK_CUR
+	SEEK_END
+)
 
 // nox_itoa
 func nox_itoa(val int, s *char, radix int) *char {

@@ -24,6 +24,8 @@ var (
 
 var _ = [1]struct{}{}[332-unsafe.Sizeof(gui.WindowData{})]
 
+type nox_window_data = gui.WindowData
+
 func asWindowDataP(data unsafe.Pointer) *gui.WindowData {
 	return (*gui.WindowData)(data)
 }

@@ -41,15 +41,15 @@ func nox_window_new_go(par *nox_window, flags, a3, a4, w, h int, fnc unsafe.Poin
 }
 
 // nox_xxx_wndGetID_46B0A0
-func nox_xxx_wndGetID_46B0A0(win *nox_window) int {
+func nox_xxx_wndGetID_46B0A0(win *nox_window) int32 {
 	if win == nil {
 		return -2
 	}
-	return int(asWindow(win).ID())
+	return int32(asWindow(win).ID())
 }
 
 // nox_xxx_wndSetID_46B080
-func nox_xxx_wndSetID_46B080(win *nox_window, id int) int {
+func nox_xxx_wndSetID_46B080(win *nox_window, id int32) int32 {
 	if win == nil {
 		return -2
 	}
@@ -58,7 +58,7 @@ func nox_xxx_wndSetID_46B080(win *nox_window, id int) int {
 }
 
 // nox_window_set_all_funcs_go
-func nox_window_set_all_funcs_go(p *nox_window, a2 unsafe.Pointer, draw unsafe.Pointer, tooltip unsafe.Pointer) int {
+func nox_window_set_all_funcs_go(p *nox_window, a2 unsafe.Pointer, draw unsafe.Pointer, tooltip unsafe.Pointer) int32 {
 	if p == nil {
 		return -2
 	}
@@ -70,7 +70,7 @@ func nox_window_set_all_funcs_go(p *nox_window, a2 unsafe.Pointer, draw unsafe.P
 }
 
 // nox_xxx_wndSetWindowProc_46B300_go
-func nox_xxx_wndSetWindowProc_46B300_go(win *nox_window, fnc unsafe.Pointer) int {
+func nox_xxx_wndSetWindowProc_46B300_go(win *nox_window, fnc unsafe.Pointer) int32 {
 	if win == nil {
 		return -2
 	}
@@ -79,7 +79,7 @@ func nox_xxx_wndSetWindowProc_46B300_go(win *nox_window, fnc unsafe.Pointer) int
 }
 
 // nox_xxx_wndSetProc_46B2C0_go
-func nox_xxx_wndSetProc_46B2C0_go(win *nox_window, fnc unsafe.Pointer) int {
+func nox_xxx_wndSetProc_46B2C0_go(win *nox_window, fnc unsafe.Pointer) int32 {
 	if win == nil {
 		return -2
 	}
@@ -88,7 +88,7 @@ func nox_xxx_wndSetProc_46B2C0_go(win *nox_window, fnc unsafe.Pointer) int {
 }
 
 // nox_xxx_wndSetDrawFn_46B340_go
-func nox_xxx_wndSetDrawFn_46B340_go(win *nox_window, fnc unsafe.Pointer) int {
+func nox_xxx_wndSetDrawFn_46B340_go(win *nox_window, fnc unsafe.Pointer) int32 {
 	if win == nil {
 		return -2
 	}
@@ -102,7 +102,7 @@ func nox_gui_winSetFunc96_46B070(win *nox_window, fnc unsafe.Pointer) {
 }
 
 // nox_xxx_wndSetRectColor2MB_46AFE0
-func nox_xxx_wndSetRectColor2MB_46AFE0(win *nox_window, a2 int) int {
+func nox_xxx_wndSetRectColor2MB_46AFE0(win *nox_window, a2 int32) int32 {
 	if win == nil {
 		return -2
 	}
@@ -127,15 +127,15 @@ func nox_window_call_field_94_fnc(p *nox_window, a2, a3, a4 int32) int32 {
 }
 
 // nox_window_call_field_93
-func nox_window_call_field_93(p *nox_window, a2, a3, a4 int) int {
+func nox_window_call_field_93(p *nox_window, a2, a3, a4 int32) int32 {
 	if p == nil {
 		return 0
 	}
-	r := asWindow(p).Func93(gui.AsWindowEvent(a2, uintptr(a3), uintptr(a4)))
+	r := asWindow(p).Func93(gui.AsWindowEvent(int(a2), uintptr(a3), uintptr(a4)))
 	if r == nil {
 		return 0
 	}
-	return int(r.EventRespC())
+	return int32(r.EventRespC())
 }
 
 // nox_xxx_wndGetChildByID_46B0C0

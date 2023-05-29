@@ -1,8 +1,8 @@
 package legacy
 
-const (
-	NOX_DEFAULT_WIDTH  = 640
-	NOX_DEFAULT_HEIGHT = 480
+import (
+	"math"
+	"unsafe"
 )
 
 type char = int8
@@ -53,6 +53,25 @@ func bool2int32(v bool) int32 {
 	return 0
 }
 
+func COERCE_FLOAT(x uint32) float32 {
+	return math.Float32frombits(x)
+}
+
 func funAddr(fnc any) uintptr {
 
+}
+
+func asFuncT[T any](h uintptr) T {
+
+}
+
+func asFunc[T any](h int32, typ *T) any {
+	return asFuncT[T](uintptr(h))
+}
+
+func memset32(x *uint32, y uint32, z uint32) {
+	arr := unsafe.Slice(x, z)
+	for i := range arr {
+		arr[i] = y
+	}
 }

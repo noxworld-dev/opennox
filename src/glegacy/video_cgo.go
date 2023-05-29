@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 )
 
 var (
@@ -31,7 +32,7 @@ var (
 	Sub_478000                              func() int
 )
 
-type nox_render_data_t = nox_render_data_t
+type nox_render_data_t = noxrender.RenderData
 
 // nox_video_getCutSize_4766D0
 func nox_video_getCutSize_4766D0() int { return Nox_video_getCutSize_4766D0() }
@@ -116,16 +117,16 @@ func Sub_467CD0() {
 	sub_467CD0()
 }
 func Nox_xxx_setSomeFunc_48A210(a1 unsafe.Pointer) {
-	nox_xxx_setSomeFunc_48A210(int(uintptr(a1)))
+	nox_xxx_setSomeFunc_48A210(int32(uintptr(a1)))
 }
 func Sub_49F6D0(a1 int) int {
-	return int(sub_49F6D0(int(a1)))
+	return int(sub_49F6D0(int32(a1)))
 }
 func Sub_430B50(a1 int, a2 int, a3 int, a4 int) {
-	sub_430B50(int(a1), int(a2), int(a3), int(a4))
+	sub_430B50(int32(a1), int32(a2), int32(a3), int32(a4))
 }
 func Sub_495A80(a1 uint32) int {
-	return int(sub_495A80(int(a1)))
+	return int(sub_495A80(int32(a1)))
 }
 
 func Get_sub_47FCE0() unsafe.Pointer {

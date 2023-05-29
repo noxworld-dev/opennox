@@ -62,7 +62,7 @@ func nox_client_setServerConnectAddr_435720(addr *char) {
 func nox_client_joinGame_438A90() int { return Nox_client_joinGame_438A90() }
 
 // sub_5550D0
-func sub_5550D0(addr int, port uint16_t, cdata *char) int {
+func sub_5550D0(addr int, port uint16, cdata *char) int {
 	buf := unsafe.Slice((*byte)(unsafe.Pointer(cdata)), 22)
 	n, err := SendXXX_5550D0(netip.AddrPortFrom(int2ip(uint32(addr)), uint16(port)), buf)
 	return convSendToServerErr(n, err)
@@ -123,7 +123,7 @@ func Nox_xxx_netSendLineMessage_4D9EB0(u *server.Object, s string) bool {
 	_ = noxnet.MSG_TEXT_MESSAGE
 	cstr, free := CWString(s)
 	defer free()
-	return nox_xxx_netSendLineMessage_go(asObjectC(u), cstr) != 0
+	return nox_xxx_netSendLineMessage_4D9EB0(asObjectC(u), cstr) != 0
 }
 
 func Nox_xxx_earthquakeSend_4D9110(pos types.Pointf, a2 int) {

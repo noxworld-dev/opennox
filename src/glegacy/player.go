@@ -129,7 +129,7 @@ func Nox_xxx_netMsgFadeBeginPlayer(ind int, dir int, a3 int) {
 func PrintToPlayers(text string) {
 	cstr, free := CWString(text)
 	defer free()
-	nox_xxx_printToAll_4D9FD0_go(0, cstr)
+	nox_xxx_printToAll_4D9FD0(0, cstr)
 }
 
 func ClientPlayerNetCode() int {
@@ -137,11 +137,11 @@ func ClientPlayerNetCode() int {
 }
 
 func ClientSetPlayerNetCode(id int) {
-	nox_player_netCode_85319C = uint(id)
+	nox_player_netCode_85319C = uint32(id)
 }
 
 func Nox_xxx_playerForceDisconnect_4DE7C0(ind ntype.PlayerInd) {
-	nox_xxx_playerForceDisconnect_4DE7C0(int(ind))
+	nox_xxx_playerForceDisconnect_4DE7C0(int32(ind))
 }
 
 func Get_nox_xxx_updatePlayerMonsterBot_4FAB20() unsafe.Pointer {

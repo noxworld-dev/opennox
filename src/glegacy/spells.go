@@ -191,25 +191,25 @@ func Nox_xxx_spellCastByBook_4FCB80() {
 	nox_xxx_spellCastByBook_4FCB80()
 }
 func Nox_xxx_playerResetProtectionCRC_56F7D0(a1 uintptr, a2 int) {
-	nox_xxx_playerResetProtectionCRC_56F7D0(int(a1), int(a2))
+	nox_xxx_playerResetProtectionCRC_56F7D0(int32(a1), int32(a2))
 }
 func Nox_xxx_playerAwardSpellProtectionCRC_56FCE0(a1 uintptr, a2 int, a3 int) {
-	nox_xxx_playerAwardSpellProtectionCRC_56FCE0(int(a1), int(a2), int(a3))
+	nox_xxx_playerAwardSpellProtectionCRC_56FCE0(int32(a1), int32(a2), int32(a3))
 }
 func Nox_xxx_playerApplyProtectionCRC_56FD50(a1 uintptr, a2 unsafe.Pointer, a3 int) {
-	nox_xxx_playerApplyProtectionCRC_56FD50(int(a1), a2, int(a3))
+	nox_xxx_playerApplyProtectionCRC_56FD50(int32(a1), a2, int32(a3))
 }
 func Nox_xxx_spellGrantToPlayer_4FB550(a1 *server.Object, a2 spell.ID, a3 int, a4 int, a5 int) int {
-	return int(nox_xxx_spellGrantToPlayer_4FB550(asObjectC(a1), int(a2), int(a3), int(a4), int(a5)))
+	return int(nox_xxx_spellGrantToPlayer_4FB550(asObjectC(a1), int32(a2), int32(a3), int32(a4), int32(a5)))
 }
 func Nox_xxx_gameCaptureMagic_4FDC10(a1 spell.ID, a2 *server.Object) int {
-	return int(nox_xxx_gameCaptureMagic_4FDC10(int(a1), asObjectC(a2)))
+	return int(nox_xxx_gameCaptureMagic_4FDC10(int32(a1), asObjectC(a2)))
 }
 func Nox_spells_call_intint6_go(a1 unsafe.Pointer, a2 spell.ID, a3 *server.Object, a4 *server.Object, a5 *server.Object, a6 *server.SpellAcceptArg, a7 int) int {
-	return int(nox_spells_call_intint6_go((*[0]byte)(a1), int(a2), asObjectC(a3), asObjectC(a4), asObjectC(a5), unsafe.Pointer(a6), int(a7)))
+	return int(asFuncT[func(int32, *nox_object_t, *nox_object_t, *nox_object_t, unsafe.Pointer, int32) int32](uintptr(a1))(int32(a2), asObjectC(a3), asObjectC(a4), asObjectC(a5), unsafe.Pointer(a6), int32(a7)))
 }
 func Nox_xxx_createSpellFly_4FDDA0(a1 *server.Object, a2 *server.Object, a3 spell.ID) {
-	nox_xxx_createSpellFly_4FDDA0(asObjectC(a1), asObjectC(a2), int(a3))
+	nox_xxx_createSpellFly_4FDDA0(asObjectC(a1), asObjectC(a2), int32(a3))
 }
 func Nox_xxx_spellGetPower_4FE7B0(a1 spell.ID, a2 *server.Object) int {
 	return int(nox_xxx_spellGetPower_4FE7B0(int(a1), asObjectC(a2)))
