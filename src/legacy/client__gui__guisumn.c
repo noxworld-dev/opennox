@@ -138,13 +138,12 @@ LABEL_11:
 	v13 = v7;
 	if (v7 < 0) {
 		v7 = 0;
-	LABEL_15:
 		v13 = v7;
 		goto LABEL_16;
 	}
 	if (v6 + v7 >= nox_win_height) {
 		v7 = nox_win_width - v6 - 1;
-		goto LABEL_15;
+		v13 = v7;
 	}
 LABEL_16:
 	dword_5d4594_1321044 = nox_window_new(0, 40, v5, v7, *(int*)&nox_xxx_screenWidth_587000_184452, 5 * v3 + 12, 0);

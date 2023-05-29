@@ -268,7 +268,12 @@ int nox_xxx_bookDrawList_45BD40(int a1) {
 			nox_xxx_drawGetStringSize_43F840(0, v28, 0, WideCharStr, 92);
 			v31 = *(uint32_t*)WideCharStr;
 			v32 = v66 + 153;
-			goto LABEL_53;
+			v37 = (141 - v31) / 2 + v67 + 17;
+			if (v37 > v30) {
+				v37 = v30;
+			}
+			nox_xxx_drawStringWrap_43FAF0(0, v29, v32, v37, 92, 0);
+			goto LABEL_75;
 		}
 	} else {
 		if (!*(uint8_t*)(dword_5d4594_1047516 + 2251)) {
@@ -295,12 +300,12 @@ int nox_xxx_bookDrawList_45BD40(int a1) {
 			nox_xxx_drawGetStringSize_43F840(0, v36, 0, WideCharStr, 92);
 			v31 = *(uint32_t*)WideCharStr;
 			v32 = v66 + 153;
-		LABEL_53:
 			v37 = (141 - v31) / 2 + v67 + 17;
 			if (v37 > v30) {
-				goto LABEL_73;
+				v37 = v30;
 			}
-			goto LABEL_74;
+			nox_xxx_drawStringWrap_43FAF0(0, v29, v32, v37, 92, 0);
+			goto LABEL_75;
 		}
 		v38 = nox_xxx_spellFlags_424A70(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
 		v39 = (unsigned short*)nox_xxx_spellTitle_424930(*getMemU32Ptr(0x5D4594, 1046960 + 4 * dword_5d4594_1046932));
@@ -370,10 +375,8 @@ int nox_xxx_bookDrawList_45BD40(int a1) {
 			v32 = v66 + 153;
 			v37 = (141 - *(uint32_t*)WideCharStr) / 2 + v67 + 17;
 			if (v37 > v30) {
-			LABEL_73:
 				v37 = v30;
 			}
-		LABEL_74:
 			nox_xxx_drawStringWrap_43FAF0(0, v29, v32, v37, 92, 0);
 			goto LABEL_75;
 		}
@@ -482,9 +485,7 @@ int nox_xxx_bookDrawFn_45C7D0(uint32_t* a1) {
 	*(float*)&dword_5d4594_1046640 = *(float*)&dword_5d4594_1046640 + obj_5d4594_1046620.field_4;
 	if ((double)*getMemIntPtr(0x5D4594, 1046668) <= *(float*)&dword_5d4594_1046636 &&
 		(double)*getMemIntPtr(0x5D4594, 1046672) <= *(float*)&dword_5d4594_1046640) {
-	LABEL_26:
-		nox_xxx_book_45DBE0(*(void**)getMemAt(0x5D4594, 1046676), *(int*)&dword_5d4594_1047524,
-							*(int*)&dword_5d4594_1046852);
+		nox_xxx_book_45DBE0(*(void**)getMemAt(0x5D4594, 1046676), *(int*)&dword_5d4594_1047524, *(int*)&dword_5d4594_1046852);
 		sub_45D810();
 		goto LABEL_27;
 	}
@@ -513,7 +514,8 @@ int nox_xxx_bookDrawFn_45C7D0(uint32_t* a1) {
 			}
 			goto LABEL_27;
 		}
-		goto LABEL_26;
+		nox_xxx_book_45DBE0(*(void**)getMemAt(0x5D4594, 1046676), *(int*)&dword_5d4594_1047524, *(int*)&dword_5d4594_1046852);
+		sub_45D810();
 	}
 LABEL_27:
 	v23 = nox_float2int(*(float*)&dword_5d4594_1046640);
