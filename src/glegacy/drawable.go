@@ -1,23 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-extern int nox_drawable_count;
-extern void* dword_5d4594_1096640;
-extern void* nox_client_spriteUnderCursorXxx_1096644;
-int  nox_xxx_client_4984B0_drawable(nox_drawable* dr);
-void sub_495B50(void* a1);
-int sub_4523D0(void* a1);
-void sub_495FC0(void* a1, nox_drawable* a2);
-int sub_49C520(nox_drawable* a1);
-static int go_nox_drawable_call_draw_func(nox_draw_viewport_t* vp, nox_drawable* dr) {
-	return dr->draw_func(vp, dr);
-}
-static void go_nox_drawable_call_sprite_func(void(* fnc)(nox_drawable*, int), nox_drawable* dr, int arg) {
-	fnc(dr, arg);
-}
-*/
-
 import (
 	"image"
 	"unsafe"

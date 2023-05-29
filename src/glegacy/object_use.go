@@ -1,11 +1,5 @@
 package legacy
 
-/*
-#include "GAME4_3.h"
-
-static int nox_call_objectType_parseUse_go(int (*fnc)(char*, void*), char* arg1, void* arg2) { return fnc(arg1, arg2); }
-*/
-
 import (
 	"fmt"
 	"strings"

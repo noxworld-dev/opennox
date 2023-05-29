@@ -1,12 +1,5 @@
 package legacy
 
-/*
-#include "GAME1_3.h"
-#include "GAME2_1.h"
-#include "GAME3.h"
-void sub_431290();
-*/
-
 func Sub_43DBD0() {
 	sub_43DBD0()
 }

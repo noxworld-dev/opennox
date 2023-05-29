@@ -1,9 +1,5 @@
 package legacy
 
-/*
-#include <stdbool.h>
-*/
-
 import "github.com/noxworld-dev/opennox-lib/platform"
 
 var (

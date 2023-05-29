@@ -1,26 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-#include "server__magic__plyrspel.h"
-#include "GAME3_2.h"
-#include "GAME3_3.h"
-#include "GAME4.h"
-#include "GAME4_2.h"
-#include "GAME4_3.h"
-#include "GAME5_2.h"
-#include "server__magic__spell__execdur.h"
-void nox_xxx_spellCastByBook_4FCB80();
-void nox_xxx_spellCastByPlayer_4FEEF0();
-
-extern void* nox_alloc_magicEnt_1569668;
-extern uint32_t dword_5d4594_1569672;
-
-int nox_xxx_spellCastCleansingFlame_52D5C0(int a1, nox_object_t* a2p, nox_object_t* a3p, nox_object_t* a4p, void* a5p, int a6);
-
-static int nox_spells_call_intint6_go(int (*f)(int, void*, nox_object_t*, nox_object_t*, void*, int), int a1, nox_object_t* a2, nox_object_t* a3, nox_object_t* a4, void* a5, int a6) { return f(a1, a2, a3, a4, a5, a6); }
-*/
-
 import (
 	"unsafe"
 

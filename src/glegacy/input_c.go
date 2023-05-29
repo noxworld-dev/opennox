@@ -1,24 +1,5 @@
 package legacy
 
-/*
-#include "nox_wchar.h"
-#include "GAME1_2.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME2_2.h"
-#include "GAME3_1.h"
-#include "GAME5_2.h"
-#include "client__io__win95__focus.h"
-#include "client__system__parsecmd.h"
-#include "input_common.h"
-#include "MixPatch.h"
-#include "client__gui__tooltip.h"
-#include "client__gui__gamewin__gamewin.h"
-
-static bool iswalpha_go(wchar2_t r) { return iswalpha(r); }
-*/
-
 import (
 	"image"
 	"unsafe"

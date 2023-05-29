@@ -1,42 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-int nox_script_Fn5E_513F70();
-int nox_script_GetHostInfo_513FA0();
-int nox_script_SetQuestInt_514BE0();
-int nox_script_SetQuestFloat_514C10();
-int nox_script_GetQuestInt_514C40();
-int nox_script_GetQuestFloat_514C60();
-int nox_script_ResetQuestStatus_514C90();
-int nox_script_HitLocation_5159E0();
-int nox_script_HitLocationGroup_515AE0();
-int nox_script_HitFarLocation_515B30();
-int nox_script_HitFarLocationGroup_515BF0();
-int nox_script_SetRoamFlag_515C40();
-int nox_script_SetRoamFlagGroup_515CB0();
-int nox_script_JournalDelete_515550();
-int nox_script_JournalEdit_5155A0();
-int nox_script_RetreatLevel_515DF0();
-int nox_script_RetreatLevelGroup_515E50();
-int nox_script_SetResumeLevel_515E80();
-int nox_script_SetResumeLevelGroup_515EE0();
-int nox_script_GiveExp_516190();
-int nox_script_HasSubclass_5162D0();
-int nox_script_IsTalking_5166A0();
-int nox_script_MakeFriendly_516720();
-int nox_script_MakeEnemy_516760();
-int nox_script_BecomePet_5167D0();
-int nox_script_BecomeEnemy_516810();
-int nox_script_builtin_516790();
-int nox_script_builtin_516850();
-int nox_script_OblivionGive_516890();
-int nox_script_PlayerIsTrading_5166E0();
-int nox_script_SetShopkeeperGreet_516BE0();
-int nox_script_IsSummoned_516C30();
-void nox_script_StartupScreen_516600_A();
-*/
-
 import (
 	"unsafe"
 

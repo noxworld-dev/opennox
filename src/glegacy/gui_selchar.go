@@ -1,28 +1,5 @@
 package legacy
 
-/*
-#include "GAME1.h"
-#include "GAME1_1.h"
-#include "GAME1_2.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME2_2.h"
-#include "GAME2_3.h"
-#include "GAME3.h"
-#include "GAME3_1.h"
-#include "GAME3_2.h"
-#include "GAME4.h"
-#include "client__shell__optsback.h"
-#include "client__gui__servopts__guiserv.h"
-#include "client__shell__noxworld.h"
-#include "client__gui__guicon.h"
-#include "client__gui__guibook.h"
-#include "client__gui__guisave.h"
-#include "client__shell__selchar.h"
-#include "client__shell__mainmenu.h"
-*/
-
 import "unsafe"
 
 var (

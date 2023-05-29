@@ -1,16 +1,5 @@
 package legacy
 
-/*
-#include "GAME1.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME3_2.h"
-
-void sub_409FB0_settings(short a1, unsigned short a2);
-int sub_4D0DC0(int a1, int a2);
-int sub_489FF0(int a1, int a2, const void* a3);
-*/
-
 import "unsafe"
 
 func Sub_453070() int {

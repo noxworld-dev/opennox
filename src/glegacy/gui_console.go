@@ -1,12 +1,5 @@
 package legacy
 
-/*
-#include "client__gui__window.h"
-#include "client__gui__guicon.h"
-void nox_xxx_consoleEsc_49B7A0();
-unsigned int nox_gui_xxx_check_446360();
-*/
-
 import "github.com/noxworld-dev/opennox-lib/console"
 
 var (

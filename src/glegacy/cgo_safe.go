@@ -2,24 +2,6 @@
 
 package legacy
 
-/*
-#cgo CFLAGS: -g -O0 -DNOX_CGO_MEMMAP
-#cgo CFLAGS: -fsanitize=address
-#cgo LDFLAGS: -fsanitize=address
-#cgo CFLAGS: -Dmalloc=nox_malloc
-#cgo CFLAGS: -Drealloc=nox_realloc
-#cgo CFLAGS: -Dcalloc=nox_calloc
-#cgo CFLAGS: -Dfree=nox_free
-#cgo CFLAGS: -Dmemset=nox_memset
-#cgo CFLAGS: -Dmemcpy=nox_memcpy
-#cgo CFLAGS: -Dmemcmp=nox_memcmp
-#cgo CFLAGS: -Dstrlen=nox_strlen
-#cgo CFLAGS: -Dstrcpy=nox_strcpy
-#cgo CFLAGS: -Dstrcat=nox_strcat
-#cgo CFLAGS: -Dstrcmp=nox_strcmp
-#include <stdbool.h>
-*/
-
 import (
 	"fmt"
 	"os"

@@ -1,15 +1,5 @@
 package legacy
 
-/*
-#include "GAME1.h"
-#include "GAME1_2.h"
-#include "GAME1_1.h"
-#include "GAME1_3.h"
-#include "GAME2_2.h"
-#include "GAME2_3.h"
-#include "MixPatch.h"
-*/
-
 import (
 	"unsafe"
 

@@ -1,11 +1,5 @@
 package legacy
 
-/*
-#include <stdint.h>
-
-extern uint32_t dword_5d4594_816444;
-*/
-
 import "unsafe"
 
 // nox_xxx_guiFontPtrByName_43F360

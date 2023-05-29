@@ -1,17 +1,5 @@
 package legacy
 
-/*
-#include "GAME1_2.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME2_2.h"
-#include "GAME2_3.h"
-#include "GAME3.h"
-#include "GAME3_1.h"
-#include "common__magic__speltree.h"
-*/
-
 import (
 	"image"
 	"unsafe"

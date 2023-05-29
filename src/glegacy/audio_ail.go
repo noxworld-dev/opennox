@@ -1,51 +1,5 @@
 package legacy
 
-/*
-#include <stdint.h>
-#include "compat.h"
-#include "GAME2_2.h"
-#include "client/audio/ail/compat_mss.h"
-#include "client__io__win95__focus.h"
-
-void sub_43E910(int a1);
-void sub_43E8E0(int a1);
-void sub_43D2D0();
-uint32_t* sub_486620(uint32_t* a1);
-void sub_43EDB0(HSAMPLE a1);
-int sub_43EE00(void* a1);
-int sub_43F060(uint32_t* a1);
-int sub_43F0E0(uint32_t* a1);
-void sub_44D5C0(int a1, int a2);
-char* sub_413890();
-uint32_t* sub_486320(uint32_t* a1, int a2);
-void sub_43D3C0(int a1, int a2);
-int sub_486350(void* a1, int a2);
-int sub_486640(void* a1, int a2);
-int nox_xxx_parseSoundSetBin_424170(char* a1);
-
-extern void* dword_587000_127004;
-extern uint32_t dword_5d4594_816092;
-extern uint32_t dword_5d4594_816364;
-extern uint32_t dword_5d4594_816376;
-extern uint32_t dword_5d4594_830872;
-extern uint32_t dword_5d4594_831088;
-extern uint32_t dword_5d4594_831092;
-extern uint32_t dword_587000_122856;
-extern uint32_t dword_587000_122848;
-
-void sub_43DC00();
-int sub_43D8E0();
-void sub_44D960();
-void sub_453050();
-int sub_451850(int a2, void* a3);
-int nox_xxx_WorkerHurt_44D810();
-extern void* dword_587000_122852;
-extern void* dword_587000_81128;
-extern void* dword_587000_93164;
-extern void* dword_5d4594_805984;
-extern void* dword_587000_155144;
-*/
-
 import (
 	"unsafe"
 

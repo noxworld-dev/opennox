@@ -1,11 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-extern nox_waypoint_t* nox_xxx_waypointsHead_2523752;
-nox_waypoint_t* nox_xxx_waypointNew_5798F0(float a1, float a2);
-*/
-
 import (
 	"unsafe"
 

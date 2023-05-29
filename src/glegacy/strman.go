@@ -1,10 +1,5 @@
 package legacy
 
-/*
-#include <stddef.h>
-#include <stdlib.h>
-*/
-
 import (
 	"unsafe"
 

@@ -1,15 +1,5 @@
 package legacy
 
-/*
-#include "GAME3_3.h"
-#include "GAME4.h"
-#include "GAME4_1.h"
-#include "GAME4_3.h"
-#include "GAME5_2.h"
-#include "server__script__builtin.h"
-void nox_server_gotoHome(nox_object_t* obj);
-*/
-
 import (
 	"unsafe"
 

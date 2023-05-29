@@ -1,14 +1,5 @@
 package legacy
 
-/*
-#include "GAME3_3.h"
-#include "GAME4_3.h"
-#include "GAME5.h"
-
-int nox_objectCollideDefault(int a1, int a2, float* a3);
-static int nox_call_objectType_parseCollide_go(int (*fnc)(char*, void*), char* arg1, void* arg2) { return fnc(arg1, arg2); }
-*/
-
 import (
 	"fmt"
 	"strings"

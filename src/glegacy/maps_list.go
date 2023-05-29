@@ -1,14 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-void nox_common_list_clear_425760(nox_list_item_t* list);
-extern nox_list_item_t nox_common_maplist;
-void nox_common_scanAddMap(char* filename);
-void nox_common_maplist_add_4D0760(nox_map_list_item* mp);
-void* sub_425770(void* a1p);
-*/
-
 import "unsafe"
 
 var _ = [1]struct{}{}[36-unsafe.Sizeof(Nox_map_list_item{})]

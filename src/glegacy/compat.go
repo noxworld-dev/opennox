@@ -1,9 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-*/
-
 import (
 	"strconv"
 	"time"

@@ -1,10 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-#include "server__script__script.h"
-*/
-
 import (
 	"github.com/noxworld-dev/opennox-lib/log"
 )

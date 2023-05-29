@@ -1,9 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-*/
-
 import noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 
 // nox_common_setEngineFlag

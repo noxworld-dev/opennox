@@ -1,14 +1,5 @@
 package legacy
 
-/*
-#include "server__script__script.h"
-#include "server__script__internal.h"
-#include "GAME4_1.h" // for nox_xxx_scriptPrepareFoundUnit_511D70 and nox_xxx_script_511C50
-int sub_516570();
-int nox_xxx_gameIsSwitchToSolo_4DB240();
-size_t nox_script_readWriteWww_5417C0(FILE* a1, FILE* a2, FILE* a3);
-*/
-
 import (
 	"unsafe"
 

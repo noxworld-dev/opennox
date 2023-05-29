@@ -1,27 +1,5 @@
 package legacy
 
-/*
-#include "GAME1.h"
-#include "GAME1_2.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME2_2.h"
-#include "GAME3_1.h"
-#include "GAME3_2.h"
-#include "GAME4_1.h"
-#include "GAME5_2.h"
-#include "client__gui__guicon.h"
-#include "client__gui__guisave.h"
-#include "client__gui__guispell.h"
-#include "client__gui__servopts__guiserv.h"
-
-extern void* nox_gui_itemAmount_dialog_1319228;
-
-int nox_ctrlevent_add_ticks_42E630();
-void nox_client_orderCreature(int creature, int command);
-*/
-
 import (
 	"unsafe"
 

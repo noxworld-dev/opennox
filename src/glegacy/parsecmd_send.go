@@ -1,10 +1,5 @@
 package legacy
 
-/*
-#include "GAME2_1.h"
-#include "client__system__parsecmd.h"
-*/
-
 import "github.com/noxworld-dev/opennox/v1/server"
 
 func Nox_xxx_serverHandleClientConsole_443E90(a1 *server.Player, a2 byte, cmd string) {

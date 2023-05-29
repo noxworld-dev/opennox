@@ -1,9 +1,5 @@
 package legacy
 
-/*
-#include <stdbool.h>
-*/
-
 import (
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/server"

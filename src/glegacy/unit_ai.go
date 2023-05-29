@@ -1,18 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-#include "GAME1_1.h"
-#include "GAME3_3.h"
-#include "GAME4.h"
-#include "GAME4_1.h"
-#include "GAME4_2.h"
-#include "GAME4_3.h"
-#include "GAME5.h"
-#include "server__script__script.h"
-extern unsigned int dword_5d4594_2489460;
-*/
-
 import (
 	"unsafe"
 

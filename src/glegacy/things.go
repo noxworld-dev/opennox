@@ -1,23 +1,5 @@
 package legacy
 
-/*
-#include "memfile.h"
-#include "defs.h"
-#include "GAME1.h"
-#include "GAME1_1.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME2_2.h"
-#include "GAME4.h"
-extern uint32_t nox_tile_def_cnt;
-extern uint32_t dword_5d4594_251572;
-void nox_xxx_equipArmor_415AB0();
-void nox_xxx_equipWeapon_4157C0();
-int nox_free_tile_defs();
-int sub_485F30();
-int sub_4F0640();
-*/
-
 import (
 	"unsafe"
 

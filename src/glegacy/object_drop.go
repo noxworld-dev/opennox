@@ -1,11 +1,5 @@
 package legacy
 
-/*
-#include "GAME3_3.h"
-#include "GAME4_3.h"
-int nox_objectDropAudEvent_4EE2F0(nox_object_t* a1, nox_object_t* a2, float2* a3);
-*/
-
 import (
 	"unsafe"
 

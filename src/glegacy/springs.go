@@ -1,10 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-char nox_xxx_unitHasCollideOrUpdateFn_537610(nox_object_t* a1);
-*/
-
 import "github.com/noxworld-dev/opennox/v1/server"
 
 var (

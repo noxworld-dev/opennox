@@ -1,11 +1,5 @@
 package legacy
 
-/*
-#include "GAME1_3.h"
-#include "GAME2_1.h"
-#include "client__gui__window.h"
-*/
-
 import (
 	"unsafe"
 

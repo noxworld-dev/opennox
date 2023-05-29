@@ -1,17 +1,5 @@
 package legacy
 
-/*
-#include "client__gui__guiquit.h"
-#include "GAME1_1.h"
-#include "GAME1_3.h"
-#include "GAME3_2.h"
-#include "GAME4_1.h"
-extern nox_window* nox_wnd_quitMenu_825760;
-extern unsigned int dword_5d4594_2650652;
-extern uint32_t dword_5d4594_830272;
-int* nox_xxx_guiServerOptionsHide_4597E0(int a1);
-*/
-
 import (
 	"unsafe"
 

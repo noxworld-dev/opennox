@@ -1,9 +1,5 @@
 package legacy
 
-/*
-unsigned int sub_4D42E0(const char* a1);
-*/
-
 var (
 	Sub_57C490_2 func(key string)
 )

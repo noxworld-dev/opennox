@@ -1,11 +1,5 @@
 package legacy
 
-/*
-#include "GAME3_2.h"
-#include "GAME3_3.h"
-#include "GAME4_3.h"
-*/
-
 import "github.com/noxworld-dev/opennox/v1/server"
 
 func init() {

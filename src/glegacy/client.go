@@ -1,12 +1,5 @@
 package legacy
 
-/*
-void sub_4519C0();
-int sub_495430();
-void sub_44D3A0();
-void sub_43D440();
-*/
-
 import (
 	"image"
 	"image/color"

@@ -1,12 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-#include "GAME2.h"
-#include "GAME2_3.h"
-#include "GAME3.h"
-*/
-
 import (
 	"unsafe"
 

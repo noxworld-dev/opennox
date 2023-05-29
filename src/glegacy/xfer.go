@@ -1,15 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-#include "GAME1.h"
-#include "GAME3_3.h"
-#include "GAME4.h"
-#include "GAME4_2.h"
-int nox_xxx_mapReadWriteObjData_4F4530(nox_object_t* a1p, int a2);
-int nox_xxx_xfer_4F3E30(unsigned short a1, nox_object_t* a2, int a3);
-*/
-
 import (
 	"unsafe"
 

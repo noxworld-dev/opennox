@@ -1,11 +1,5 @@
 package legacy
 
-/*
-#include "GAME1.h"
-#include "GAME4_1.h"
-extern void* dword_5d4594_251560;
-*/
-
 import (
 	"image"
 	"unsafe"

@@ -1,10 +1,5 @@
 package legacy
 
-/*
-#include "GAME4_3.h"
-#include "GAME5_2.h"
-*/
-
 import "github.com/noxworld-dev/opennox/v1/server"
 
 var (

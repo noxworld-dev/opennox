@@ -1,18 +1,5 @@
 package legacy
 
-/*
-#include "GAME1.h"
-#include "GAME1_1.h"
-#include "GAME3_2.h"
-#include "GAME3_3.h"
-#include "GAME4_1.h"
-int  sub_51A920(int a1);
-void sub_4D10F0(char* a1);
-void sub_4F1F20();
-void sub_51A1F0(int a1);
-extern unsigned int nox_client_gui_flag_1556112;
-*/
-
 import (
 	"unsafe"
 

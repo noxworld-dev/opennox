@@ -1,36 +1,5 @@
 package legacy
 
-/*
-#include "GAME1.h"
-#include "GAME1_1.h"
-#include "GAME1_2.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME3_2.h"
-#include "GAME3_3.h"
-#include "GAME4.h"
-#include "GAME4_1.h"
-#include "common__net_list.h"
-#include "defs.h"
-extern unsigned int dword_5d4594_1046492;
-extern unsigned int dword_5d4594_2650652;
-extern unsigned int nox_player_netCode_85319C;
-void nox_xxx_WideScreenDo_515240(bool enable);
-static void nox_xxx_printToAll_4D9FD0_go(int a1, wchar2_t* str) {
-	nox_xxx_printToAll_4D9FD0(a1, str);
-}
-
-extern float nox_xxx_warriorMaxHealth_587000_312784;
-extern float nox_xxx_warriorMaxMana_587000_312788;
-
-extern float nox_xxx_conjurerMaxHealth_587000_312800;
-extern float nox_xxx_conjurerMaxMana_587000_312804;
-
-extern float nox_xxx_wizardMaxHealth_587000_312816;
-extern float nox_xxx_wizardMaximumMana_587000_312820;
-
-*/
-
 import (
 	"unsafe"
 

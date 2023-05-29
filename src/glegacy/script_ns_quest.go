@@ -1,10 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-void nox_xxx_comJournalEntryAdd_427500(nox_object_t* a1, char* a2, short a3);
-*/
-
 import (
 	"github.com/noxworld-dev/noxscript/ns/v4"
 

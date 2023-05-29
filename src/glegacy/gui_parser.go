@@ -1,9 +1,5 @@
 package legacy
 
-/*
-#include "client__gui__window.h"
-*/
-
 import (
 	"unsafe"
 

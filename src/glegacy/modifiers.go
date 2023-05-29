@@ -1,53 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-
-void nullsub_22();
-void nullsub_36();
-void nullsub_38();
-void nullsub_39();
-void nullsub_40();
-void nullsub_41();
-void nullsub_42();
-void nullsub_43();
-void nullsub_44();
-
-int nox_xxx_spellCastCleansingFlame_52D5C0(int a1, nox_object_t* a2p, nox_object_t* a3p, nox_object_t* a4p, void* a5p, int a6);
-
-void sub_4DFE10(int a1, int a2);
-float* sub_4E0370(int a1, int a2, int a3, int a4, int a5, float* a6);
-float* sub_4E0380(int a1, int a2, int a3, int a4, int a5, float* a6);
-float* nox_xxx_effectDamageMultiplier_4E04C0(int a1, int a2, int a3, int a4, float* a5);
-void nox_xxx_attribContinualReplen_4E02C0(int a1, uint32_t* a2);
-void nox_xxx_confuseEffect_4E0670(int a1, int a2, int a3, int a4);
-void nox_xxx_drainMEffect_4E0740(int a1, int a2, int a3, int a4, int* a5);
-void nox_xxx_sympathyEffect_4E08E0(int a1, int a2, int a3, int a4, int* a5);
-int nox_xxx_effectProjectileSpeed_4E09B0(int a1, int a2, int a3, int a4, int a5);
-void nox_xxx_buff_4DFD80(int a1, int a2);
-void nox_xxx_checkPoisonProtectEnch_4DFDE0(int a1, int a2);
-int nox_xxx_gripEffect_4E0480(int a1, int a2, int a3, int a4, int a5, int* a6);
-void nox_xxx_effectRegeneration_4E01D0(int a1, int a2);
-void nox_xxx_stunEffect_4E04D0(int a1, int a2, int a3, int a4);
-void nox_xxx_fireEffect_4E0550(void* a1, nox_object_t* a2, nox_object_t* a3, nox_object_t* a4);
-void nox_xxx_fireRingEffect_4E05B0(void* a1, nox_object_t* a2, nox_object_t* a3, nox_object_t* a4);
-void nox_xxx_blueFREffect_4E05F0(void* a1, nox_object_t* a2, nox_object_t* a3, nox_object_t* a4);
-void nox_xxx_recoilEffect_4E0640(int a1, int a2, int a3, int a4);
-void nox_xxx_lightngEffect_4E06F0(int a1, int a2, int a3, int a4);
-void nox_xxx_vampirismEffect_4E07C0(int a1, int a2, int a3, int a4, int* a5);
-void nox_xxx_poisonEffect_4E0850(int a1, int a2, int a3, int a4);
-int nox_xxx_inversionEffect_4E03D0(int a1, int a2, int a3, int a4, int a5, int* a6);
-void sub_4DFB50(int a1, int a2);
-void sub_4DFB80(int a1, int a2);
-void nox_xxx_effectSpeedEngage_4DFC30(int a1, int a2);
-void nox_xxx_effectSpeedDisengage_4DFCA0(int a1, int a2);
-void sub_4DFD10(int a1, int a2);
-void nox_xxx_modifFireProtection_4DFD40(int a1, int a2, int a3);
-void sub_4DFDB0(int a1, int a2);
-void sub_4E0140(int a1, int a2);
-void sub_4E0170(int a1, int a2);
-*/
-
 import (
 	"unsafe"
 

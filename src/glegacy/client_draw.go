@@ -2,32 +2,6 @@
 
 package legacy
 
-/*
-#include "defs.h"
-#include "GAME1.h"
-#include "GAME1_1.h"
-#include "GAME1_2.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME2_2.h"
-#include "GAME2_3.h"
-#include "GAME3_1.h"
-#include "client__draw__glowdraw.h"
-#include "client__draw__selectdw.h"
-#include "client__gui__guiggovr.h"
-void nox_xxx_tileDrawMB_481C20_A(nox_draw_viewport_t* vp, int v3);
-void nox_xxx_tileDrawMB_481C20_B(nox_draw_viewport_t* vp, int v78);
-void nox_xxx_tileDrawMB_481C20_C_textured(nox_draw_viewport_t* vp, int v72, int v78);
-void  nox_xxx_cliLight16_469140(nox_drawable* dr, nox_draw_viewport_t* vp);
-void nox_xxx_clientDrawAll_436100_draw_A();
-void nox_xxx_clientDrawAll_436100_draw_B();
-void nox_xxx_drawAllMB_475810_draw_A(nox_draw_viewport_t* vp);
-int nox_xxx_drawAllMB_475810_draw_B(nox_draw_viewport_t* vp);
-void nox_xxx_drawAllMB_475810_draw_C(nox_draw_viewport_t* vp, int v36, int v7);
-int sub_436F50();
-*/
-
 import (
 	"unsafe"
 

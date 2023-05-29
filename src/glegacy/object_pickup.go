@@ -1,13 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-#include "GAME3_3.h"
-#include "GAME4_3.h"
-int nox_xxx_pickupGold_4F3A60_obj_pickup(int a1, int a2, int a3);
-int nox_objectPickupAudEvent_4F3D50(nox_object_t* a1, nox_object_t* a2, int a3);
-*/
-
 import "github.com/noxworld-dev/opennox/v1/server"
 
 var (

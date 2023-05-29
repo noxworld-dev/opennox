@@ -1,8 +1,5 @@
 package legacy
 
-/*
- */
-
 import (
 	"unsafe"
 

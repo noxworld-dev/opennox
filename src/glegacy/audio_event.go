@@ -1,11 +1,5 @@
 package legacy
 
-/*
-#include <defs.h>
-char sub_501C00(float* a1, nox_object_t* a2);
-int sub_419E60(nox_object_t* a1);
-*/
-
 import (
 	"unsafe"
 

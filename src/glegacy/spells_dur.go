@@ -1,11 +1,5 @@
 package legacy
 
-/*
-#include <stdint.h>
-void nox_xxx_plrCastSmth_4FEDA0(void* a1);
-char nox_xxx_spellCancelSpellDo_4FE9D0(void* a1);
-*/
-
 import (
 	"unsafe"
 

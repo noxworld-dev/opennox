@@ -1,10 +1,5 @@
 package legacy
 
-/*
-#include <stdbool.h>
-#include <stdio.h>
-*/
-
 import (
 	"os"
 	"unsafe"

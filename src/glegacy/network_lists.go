@@ -1,14 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-extern unsigned int dword_5d4594_2650652;
-int nox_xxx_netOnPacketRecvCli_48EA70(int a1, unsigned char* data, int sz);
-int sub_48D660();
-int sub_4DF9B0(void* a1, void* a2, void* a3, int a4);
-void nox_xxx_netImportant_4E5770(unsigned char a1, int a2);
-*/
-
 import (
 	"unsafe"
 

@@ -1,28 +1,5 @@
 package legacy
 
-/*
-#include "GAME1_2.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME3.h"
-#include "GAME3_2.h"
-#include "GAME4.h"
-#include "GAME4_1.h"
-#include "GAME5_2.h"
-#include "client__shell__noxworld.h"
-#include "client__shell__selchar.h"
-#include "client__shell__mainmenu.h"
-extern void* dword_5d4594_1307292;
-extern void* dword_5d4594_831236;
-extern unsigned int dword_5d4594_831220;
-extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
-extern uint32_t dword_5d4594_831260;
-int winMainMenuAnimOutStartFnc();
-int winMainMenuAnimOutDoneFnc();
-int nox_client_drawGeneralCallback_4A2200();
-*/
-
 import (
 	"unsafe"
 

@@ -1,12 +1,5 @@
 package legacy
 
-/*
-#include <stdint.h>
-extern void* dword_5d4594_2523756;
-extern uint32_t dword_5d4594_3835312;
-int  nox_server_scriptGetGroupId_57C2D0(int** a1);
-*/
-
 import (
 	"unsafe"
 

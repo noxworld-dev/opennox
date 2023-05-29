@@ -1,21 +1,5 @@
 package legacy
 
-/*
-#include "GAME2_3.h"
-#include "client__draw__debugdraw.h"
-void nox_xxx_draw_44C650_free(void* lpMem, void* draw);
-
-bool nox_parse_thing_draw(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_light_dir(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_light_penumbra(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_client_update(nox_thing* obj, nox_memfile* f, char* attr_value);
-bool nox_parse_thing_pretty_image(nox_thing* obj, nox_memfile* f, char* attr_value);
-
-static bool go_nox_drawable_call_parse_func(bool (*fnc)(nox_thing*, nox_memfile*, char*), nox_thing* a1, nox_memfile* a2, void* a3) {
-	return fnc(a1, a2, a3);
-}
-*/
-
 import (
 	"fmt"
 	"unsafe"

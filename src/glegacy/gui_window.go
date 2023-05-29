@@ -1,22 +1,5 @@
 package legacy
 
-/*
-#include <stdlib.h>
-#include "client__gui__window.h"
-
-static int nox_window_call_draw_func_go(int (*fnc)(nox_window*, nox_window_data*), nox_window* win, nox_window_data* data) {
-	return fnc(win, data);
-}
-static int nox_window_call_func_go(int (*fnc)(nox_window*, int, int, int), nox_window* win, int a2, int a3, int a4) {
-	return fnc(win, a2, a3, a4);
-}
-static void nox_window_call_tooltip_func(nox_window* win, nox_window_data* data, int a3) {
-	if (!win || !win->tooltip_func)
-		return;
-	win->tooltip_func(win, data, a3);
-}
-*/
-
 import (
 	"image"
 	"runtime/debug"

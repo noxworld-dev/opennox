@@ -1,30 +1,5 @@
 package legacy
 
-/*
-#include "GAME1.h"
-#include "GAME1_2.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_2.h"
-#include "GAME3_2.h"
-#include "GAME5.h"
-#include "common__net_list.h"
-#include "client__system__parsecmd.h"
-#include "common__object__armrlook.h"
-#include "common__object__weaplook.h"
-#include "common__log.h"
-
-extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
-
-extern unsigned int dword_5d4594_2650652;
-extern void* dword_587000_81128;
-extern unsigned int dword_587000_93156;
-extern unsigned int dword_5d4594_816340;
-extern unsigned int dword_5d4594_816348;
-
-extern nox_gui_animation* nox_wnd_xxx_1309740;
-*/
-
 var (
 	Nox_exit                                              func(exitCode int)
 	Nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode func(w, h, d *int)

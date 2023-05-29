@@ -1,23 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-#include "GAME1.h"
-#include "GAME1_1.h"
-#include "GAME1_2.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME2_2.h"
-#include "GAME2_3.h"
-#include "GAME3_1.h"
-#include "GAME5_2.h"
-#include "common__system__team.h"
-#include "client__gui__guiquit.h"
-#include "client__draw__debugdraw.h"
-#include "client__draw__fx.h"
-*/
-
 import (
 	"image"
 	"unsafe"

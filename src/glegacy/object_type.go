@@ -1,15 +1,5 @@
 package legacy
 
-/*
-#include "common/alloc/classes/alloc_class.h"
-#include "GAME3_2.h"
-#include "GAME3_3.h"
-#include "GAME4_3.h"
-#include "GAME5.h"
-
-static void nox_call_objectType_new_go(void (*fnc)(nox_object_t*), nox_object_t* arg1) { fnc(arg1); }
-*/
-
 import (
 	"unsafe"
 

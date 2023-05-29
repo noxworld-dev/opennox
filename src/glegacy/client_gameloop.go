@@ -2,23 +2,6 @@
 
 package legacy
 
-/*
-#include "GAME1.h"
-#include "GAME1_2.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME2_3.h"
-#include "GAME3.h"
-#include "GAME3_1.h"
-#include "GAME3_3.h"
-#include "GAME5.h"
-#include "GAME5_2.h"
-
-extern unsigned int nox_client_gui_flag_1556112;
-extern unsigned int dword_5d4594_2650652;
-*/
-
 import "github.com/noxworld-dev/opennox/v1/client/noxrender"
 
 func Sub_43CEB0() {

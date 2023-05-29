@@ -1,25 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-#include "GAME1.h"
-#include "GAME1_1.h"
-#include "GAME3_2.h"
-#include "GAME3_3.h"
-#include "GAME4.h"
-#include "GAME4_1.h"
-#include "GAME4_3.h"
-#include "GAME5.h"
-#include "server__magic__plyrspel.h"
-
-extern uint32_t nox_tile_def_cnt;
-extern unsigned int dword_5d4594_2650652;
-
-void nox_xxx_updateProjectile_53AC10(nox_object_t* a1);
-static int nox_call_objectType_parseUpdate_go(int (*fnc)(char*, void*), char* arg1, void* arg2) { return fnc(arg1, arg2); }
-void nox_xxx___mkgmtime_538280(nox_object_t* a1);
-*/
-
 import (
 	"fmt"
 	"strings"

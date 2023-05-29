@@ -1,9 +1,5 @@
 package legacy
 
-/*
-#include <stdio.h>
-*/
-
 import (
 	"io"
 	"os"

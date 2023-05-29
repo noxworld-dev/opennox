@@ -1,20 +1,5 @@
 package legacy
 
-/*
-#include "client__gui__window.h"
-extern unsigned int nox_client_translucentFrontWalls_805844;
-extern unsigned int nox_client_highResFrontWalls_80820;
-extern unsigned int nox_client_highResFloors_154952;
-extern unsigned int nox_client_fadeObjects_80836;
-extern unsigned int nox_client_renderBubbles_80844;
-extern unsigned int dword_5d4594_1193156;
-extern unsigned int dword_5d4594_1301812;
-extern unsigned int dword_5d4594_1301816;
-extern unsigned int dword_5d4594_1301808;
-extern unsigned int dword_5d4594_1301796;
-int nox_xxx_tileSetDrawFn_481420();
-*/
-
 import "unsafe"
 
 // nox_client_advVideoOpts_New_4CB590

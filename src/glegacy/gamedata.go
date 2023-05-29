@@ -1,9 +1,5 @@
 package legacy
 
-/*
-int nox_xxx_loadMonsterBin_517010();
-*/
-
 var (
 	GamedataFloat    func(key string) float64
 	GamedataFloatInd func(key string, ind int) float64

@@ -1,9 +1,5 @@
 package legacy
 
-/*
-#include "common/alloc/classes/alloc_class.h"
-*/
-
 import (
 	"unsafe"
 

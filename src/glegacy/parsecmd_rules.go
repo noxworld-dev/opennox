@@ -1,10 +1,5 @@
 package legacy
 
-/*
-#include "GAME1.h"
-int sub_4AD840();
-*/
-
 func Sub_4AD840() {
 	sub_4AD840()
 }

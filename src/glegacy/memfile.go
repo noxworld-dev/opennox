@@ -1,9 +1,5 @@
 package legacy
 
-/*
-#include "memfile.h"
-*/
-
 import (
 	"unsafe"
 

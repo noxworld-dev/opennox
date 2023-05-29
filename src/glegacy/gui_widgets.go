@@ -1,12 +1,5 @@
 package legacy
 
-/*
-#include "GAME2_2.h"
-#include "GAME3.h"
-#include "GAME3_1.h"
-#include "client__gui__gadgets__listbox.h"
-*/
-
 import (
 	"unsafe"
 

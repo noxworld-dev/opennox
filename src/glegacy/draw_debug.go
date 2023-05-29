@@ -1,13 +1,5 @@
 package legacy
 
-/*
-#include "defs.h"
-#include "GAME4_1.h"
-#include "GAME5_2.h"
-extern void* dword_5d4594_2386176;
-extern uint32_t dword_5d4594_2386180;
-*/
-
 import (
 	"unsafe"
 

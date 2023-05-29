@@ -1,48 +1,5 @@
 package legacy
 
-/*
-#include "GAME1.h"
-#include "GAME1_1.h"
-#include "GAME1_2.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME3.h"
-#include "GAME3_1.h"
-#include "GAME3_2.h"
-#include "GAME3_3.h"
-#include "GAME4.h"
-#include "GAME4_1.h"
-#include "GAME4_2.h"
-#include "GAME4_3.h"
-#include "GAME5.h"
-#include "GAME5_2.h"
-#include "client__system__parsecmd.h"
-#include "common__object__modifier.h"
-#include "server__system__cscrfunc.h"
-#include "server__script__script.h"
-#include "client__draw__animdraw.h"
-#include "client__draw__canidraw.h"
-#include "client__draw__slavedraw.h"
-#include "client__draw__staticdraw.h"
-#include "client__draw__vectdraw.h"
-#include "client__drawable__update__dball.h"
-#include "client__drawable__update__drainup.h"
-#include "client__drawable__update__healup.h"
-#include "client__drawable__update__manabomb.h"
-#include "client__drawable__update__mmislup.h"
-#include "client__drawable__update__mtailup.h"
-#include "client__drawable__update__sparklup.h"
-#include "client__drawable__update__telwake.h"
-#include "client__drawable__update__vortexup.h"
-extern void* nox_xxx_aClosewoodengat_587000_133480;
-extern void* dword_587000_155144;
-extern void* dword_587000_127004;
-extern void* dword_587000_93164;
-extern void* dword_587000_122852;
-extern void* dword_587000_81128;
-*/
-
 import (
 	"unsafe"
 

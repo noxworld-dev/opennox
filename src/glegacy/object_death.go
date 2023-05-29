@@ -1,13 +1,5 @@
 package legacy
 
-/*
-#include "server__object__die__die.h"
-#include "GAME4_3.h"
-#include "GAME5.h"
-
-static int nox_call_objectType_parseDeath_go(int (*fnc)(char*, void*), char* arg1, void* arg2) { return fnc(arg1, arg2); }
-*/
-
 import (
 	"fmt"
 	"strings"
