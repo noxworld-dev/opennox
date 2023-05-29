@@ -3303,7 +3303,7 @@ func sub_456D60(a1 int32) *int32 {
 		for {
 			v2 = (*int32)(unsafe.Pointer(nox_common_list_getNextSafe_4258A0((*nox_list_item_t)(unsafe.Pointer(v1)))))
 			nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v1))))
-			alloc.Free(unsafe.Pointer(v1))
+			alloc.Free(v1)
 			v1 = v2
 			if v2 == nil {
 				break
@@ -3316,7 +3316,7 @@ func sub_456D60(a1 int32) *int32 {
 		for {
 			v5 = (*int32)(unsafe.Pointer(nox_common_list_getNextSafe_4258A0((*nox_list_item_t)(unsafe.Pointer(v4)))))
 			nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v4))))
-			alloc.Free(unsafe.Pointer(v4))
+			alloc.Free(v4)
 			v4 = v5
 			if v5 == nil {
 				break
@@ -3362,7 +3362,7 @@ func sub_456E40(a1 int32, a2 int32) int32 {
 	}
 	if a2 != 0 {
 		nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v2))))
-		alloc.Free(unsafe.Pointer(v2))
+		alloc.Free(v2)
 	}
 	return v3
 }
@@ -3413,7 +3413,7 @@ func sub_456F10(a1 *wchar2_t, a2 int32) int32 {
 	}
 	if a2 != 0 {
 		nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v2))))
-		alloc.Free(unsafe.Pointer(v2))
+		alloc.Free(v2)
 	}
 	return v3
 }
@@ -3430,7 +3430,7 @@ func sub_456FA0() int32 {
 			for {
 				v2 = (*int32)(unsafe.Pointer(nox_common_list_getNextSafe_4258A0((*nox_list_item_t)(unsafe.Pointer(v1)))))
 				nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v1))))
-				alloc.Free(unsafe.Pointer(v1))
+				alloc.Free(v1)
 				v1 = v2
 				if v2 == nil {
 					break

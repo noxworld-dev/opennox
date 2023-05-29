@@ -2526,7 +2526,7 @@ func sub_416820(a1 int32) {
 		}
 	}
 	nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v2))))
-	alloc.Free(unsafe.Pointer(v2))
+	alloc.Free(v2)
 }
 func sub_416860(a1 int32) *int32 {
 	var (
@@ -2556,7 +2556,7 @@ func sub_416860(a1 int32) *int32 {
 			}
 		}
 		nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v2))))
-		alloc.Free(unsafe.Pointer(v2))
+		alloc.Free(v2)
 	}
 	return result
 }
@@ -2599,7 +2599,7 @@ func sub_416950() *int32 {
 		for {
 			v1 = sub_4168F0(v0)
 			nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v0))))
-			alloc.Free(unsafe.Pointer(v0))
+			alloc.Free(v0)
 			v0 = v1
 			if v1 == nil {
 				break
@@ -2612,7 +2612,7 @@ func sub_416950() *int32 {
 		for {
 			v4 = sub_416910(v3)
 			nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v3))))
-			alloc.Free(unsafe.Pointer(v3))
+			alloc.Free(v3)
 			v3 = v4
 			if v4 == nil {
 				break
@@ -2790,7 +2790,7 @@ func nox_xxx_netUnmarkMinimapObj_417300(a1 int32, a2p *nox_object_t, a3 int32) i
 						*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*2)) + 12))) = *(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*3))
 						*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*3)) + 8))) = *(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*2))
 					}
-					alloc.Free(unsafe.Pointer(v5))
+					alloc.Free(v5)
 					v9 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 20))))
 					*((*uint8)(unsafe.Pointer(&v9))) = uint8(int8(v9 & 0xFE))
 					*(*uint32)(unsafe.Pointer(uintptr(a2 + 20))) = uint32(v9)
@@ -3610,7 +3610,7 @@ func sub_4184D0(a1p *nox_team_t) {
 		*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v2))), unsafe.Sizeof(uint16(0))*8))) = *(*uint16)(unsafe.Pointer(&v3[16]))
 		alloc.Memcpy(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(v2))), 18), unsafe.Pointer(a1), uintptr(int32(uint8(v3[15]))*2))
 		nox_xxx_netSendPacket1_4E5390(159, int32(uintptr(unsafe.Pointer(v2))), v1+18, 0, 1)
-		alloc.Free(unsafe.Pointer(v2))
+		alloc.Free(v2)
 	}
 }
 func nox_xxx_wndGuiTeamCreate_4185B0() int32 {

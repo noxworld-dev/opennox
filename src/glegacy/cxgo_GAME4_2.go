@@ -936,7 +936,7 @@ func nox_xxx_mapGenFreeStr_51F1F0(lpMem unsafe.Pointer) {
 	v2 = 4
 	for {
 		if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*4))) != 0 {
-			alloc.Free(*(*unsafe.Pointer)(unsafe.Pointer(v1)))
+			alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(v1)))
 		}
 		v1 = (*byte)(unsafe.Add(unsafe.Pointer(v1), 4))
 		v2--
@@ -944,7 +944,7 @@ func nox_xxx_mapGenFreeStr_51F1F0(lpMem unsafe.Pointer) {
 			break
 		}
 	}
-	alloc.Free(lpMem)
+	alloc.FreePtr(lpMem)
 }
 func sub_51F230(a1 int32, a2 *FILE) int32 {
 	var (
@@ -1641,7 +1641,7 @@ func nox_xxx_genDecorReadDecorSet_51FFA0(a1 int32, a2 *FILE) int32 {
 			}
 		}
 		if *memmap.PtrUint32(0x587000, *(*uint32)(unsafe.Pointer(uintptr(v2)))*4+253216) == 0 {
-			alloc.Free(unsafe.Pointer(uintptr(v2)))
+			alloc.FreePtr(unsafe.Pointer(uintptr(v2)))
 			return 0
 		}
 		switch *(*uint32)(unsafe.Pointer(uintptr(v2))) {
@@ -1649,19 +1649,19 @@ func nox_xxx_genDecorReadDecorSet_51FFA0(a1 int32, a2 *FILE) int32 {
 			fallthrough
 		case 1:
 			if nox_xxx_mapGenReadLine_51E540(a2, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
-				alloc.Free(unsafe.Pointer(uintptr(v2)))
+				alloc.FreePtr(unsafe.Pointer(uintptr(v2)))
 				return 0
 			}
 			libc.StrCpy((*byte)(unsafe.Pointer(uintptr(v2+4))), (*byte)(memmap.PtrOff(0x5D4594, 2487264)))
 			if nox_xxx_mapGenReadLine_51E540(a2, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
-				alloc.Free(unsafe.Pointer(uintptr(v2)))
+				alloc.FreePtr(unsafe.Pointer(uintptr(v2)))
 				return 0
 			}
 			if nox_strcmpi(internCStr("DENSITY"), (*byte)(memmap.PtrOff(0x5D4594, 2487264))) != 0 {
 				*(*uint32)(unsafe.Pointer(uintptr(v2 + 64))) = 0
 				*(*uint32)(unsafe.Pointer(uintptr(v2 + 68))) = uint32(libc.Atoi(libc.GoString((*byte)(memmap.PtrOff(0x5D4594, 2487264)))))
 				if nox_xxx_mapGenReadLine_51E540(a2, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
-					alloc.Free(unsafe.Pointer(uintptr(v2)))
+					alloc.FreePtr(unsafe.Pointer(uintptr(v2)))
 					return 0
 				}
 				*(*uint32)(unsafe.Pointer(uintptr(v2 + 72))) = uint32(libc.Atoi(libc.GoString((*byte)(memmap.PtrOff(0x5D4594, 2487264)))))
@@ -1688,7 +1688,7 @@ func nox_xxx_genDecorReadDecorSet_51FFA0(a1 int32, a2 *FILE) int32 {
 					}
 				}
 			}
-			alloc.Free(unsafe.Pointer(uintptr(v2)))
+			alloc.FreePtr(unsafe.Pointer(uintptr(v2)))
 			return 0
 		case 3:
 			fallthrough
@@ -1696,7 +1696,7 @@ func nox_xxx_genDecorReadDecorSet_51FFA0(a1 int32, a2 *FILE) int32 {
 			fallthrough
 		case 5:
 			if nox_xxx_mapGenReadLine_51E540(a2, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
-				alloc.Free(unsafe.Pointer(uintptr(v2)))
+				alloc.FreePtr(unsafe.Pointer(uintptr(v2)))
 				return 0
 			}
 			libc.StrCpy((*byte)(unsafe.Pointer(uintptr(v2+4))), (*byte)(memmap.PtrOff(0x5D4594, 2487264)))
@@ -1795,7 +1795,7 @@ LABEL_2:
 				}
 			}
 			if *memmap.PtrUint32(0x587000, uintptr(v4*4)+253216) == 0 {
-				alloc.Free(unsafe.Pointer(v2))
+				alloc.Free(v2)
 				break
 			}
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*513))*16+1))) = uint32(v4)
@@ -1813,7 +1813,7 @@ LABEL_2:
 	if v1 != nil {
 		for {
 			v14 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*514)))))
-			alloc.Free(unsafe.Pointer(v13))
+			alloc.Free(v13)
 			v13 = v14
 			if v14 == nil {
 				break
@@ -1836,7 +1836,7 @@ func nox_xxx_gen_5205B0(a1 *FILE) *uint32 {
 			*result = uint32(nox_xxx_getNameId_4E3AA0((*byte)(memmap.PtrOff(0x5D4594, 2487264))))
 			if nox_xxx_mapGenReadLine_51E540(a1, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) != 0 {
 				if nox_strcmpi(internCStr("CONTAINS"), (*byte)(memmap.PtrOff(0x5D4594, 2487264))) != 0 {
-					alloc.Free(unsafe.Pointer(v2))
+					alloc.Free(v2)
 					result = nil
 				} else {
 					v3 = nox_xxx_gen_520380(a1)
@@ -1844,12 +1844,12 @@ func nox_xxx_gen_5205B0(a1 *FILE) *uint32 {
 					if v3 != nil {
 						result = v2
 					} else {
-						alloc.Free(unsafe.Pointer(v2))
+						alloc.Free(v2)
 						result = nil
 					}
 				}
 			} else {
-				alloc.Free(unsafe.Pointer(v2))
+				alloc.Free(v2)
 				result = nil
 			}
 		}
@@ -2194,7 +2194,7 @@ func sub_520D50(a1 *uint32) *uint32 {
 	if v1 != nil {
 		for {
 			v2 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*55)))))
-			alloc.Free(unsafe.Pointer(v1))
+			alloc.Free(v1)
 			v1 = v2
 			if v2 == nil {
 				break
@@ -2205,7 +2205,7 @@ func sub_520D50(a1 *uint32) *uint32 {
 	if v3 != nil {
 		for {
 			v4 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*55)))))
-			alloc.Free(unsafe.Pointer(v3))
+			alloc.Free(v3)
 			v3 = v4
 			if v4 == nil {
 				break
@@ -2238,7 +2238,7 @@ func sub_520D50(a1 *uint32) *uint32 {
 	if result != nil {
 		for {
 			v10 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*39)))))
-			alloc.Free(unsafe.Pointer(result))
+			alloc.Free(result)
 			result = v10
 			if v10 == nil {
 				break
@@ -2350,9 +2350,9 @@ func sub_520EA0(a1 int32) int32 {
 func sub_520F80() {
 	var i int32
 	for i = 0; i < *(*int32)(unsafe.Pointer(&dword_5d4594_2487540)); i++ {
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(dword_5d4594_2487532 + uint32(i*4)))))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(dword_5d4594_2487532 + uint32(i*4)))))
 	}
-	alloc.Free(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_2487532)))
+	alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_2487532)))
 }
 func sub_521100(a1 int32) int32 {
 	var (
@@ -2568,7 +2568,7 @@ func nox_xxx_mapgenAllocBuffer_5213E0() int32 {
 	return bool2int32(dword_5d4594_2487556 != 0)
 }
 func nox_xxx_mapgenFreeBuffer_521400() {
-	alloc.Free(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_2487556)))
+	alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_2487556)))
 }
 func nox_xxx_mapGenGetTopRoom_521710() unsafe.Pointer {
 	return *(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_2487560))
@@ -2763,14 +2763,14 @@ func sub_521A10(lpMem unsafe.Pointer) {
 	if v1 != nil {
 		for {
 			v2 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*6)))))
-			alloc.Free(unsafe.Pointer(v1))
+			alloc.Free(v1)
 			v1 = v2
 			if v2 == nil {
 				break
 			}
 		}
 	}
-	alloc.Free(lpMem)
+	alloc.FreePtr(lpMem)
 }
 func nox_xxx_mapGenFreeTopRoom_521A40() *uint32 {
 	var (
@@ -2864,7 +2864,7 @@ func sub_521C10(a1 int32) *uint32 {
 				} else {
 					*(*uint32)(unsafe.Pointer(uintptr(a1 + 368))) = uint32(uintptr(unsafe.Pointer(v3)))
 				}
-				alloc.Free(unsafe.Pointer(result))
+				alloc.Free(result)
 			} else {
 				v1 = result
 			}
@@ -2977,7 +2977,7 @@ func sub_521CB0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 	}
 	v14 = v4
 LABEL_18:
-	alloc.Free(unsafe.Pointer(v14))
+	alloc.Free(v14)
 	return 0
 }
 func sub_521EB0(a1 *float32, a2 *float32) int32 {
@@ -3100,7 +3100,7 @@ func nox_xxx_mapGenMakeSpellbook_5220E0(a1 int32, a2 *byte) *uint32 {
 		nox_xxx_mapGenFinishSpellbook_527DB0(int32(uintptr(unsafe.Pointer(v3))), v4)
 		return v3
 	}
-	alloc.Free(unsafe.Pointer(v3))
+	alloc.Free(v3)
 	return nil
 }
 func nox_xxx_mapGenMakeEnchantedItem_5221A0(a1 *byte, a2 *byte, a3 int32) *uint32 {

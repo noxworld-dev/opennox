@@ -441,7 +441,7 @@ func sub_48D660() int32 {
 			nox_xxx_netOnPacketRecvCli_48EA70(31, (*uint8)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v1), 4*8)))))))), int32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v1))), unsafe.Sizeof(uint16(0))*12)))))
 			*memmap.PtrUint16(0x5D4594, 1197360)++
 			nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v1))))
-			alloc.Free(unsafe.Pointer(v1))
+			alloc.Free(v1)
 			v1 = v2
 			if v2 == nil {
 				break
@@ -471,7 +471,7 @@ func sub_48D760() {
 		for {
 			v1 = (*int32)(unsafe.Pointer(nox_common_list_getNextSafe_4258A0((*nox_list_item_t)(unsafe.Pointer(v0)))))
 			nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v0))))
-			alloc.Free(unsafe.Pointer(v0))
+			alloc.Free(v0)
 			v0 = v1
 			if v1 == nil {
 				break
@@ -2415,7 +2415,7 @@ func sub_4960B0() int32 {
 }
 func sub_496120() int32 {
 	if dword_5d4594_1217456 != 0 {
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1217456)))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1217456)))
 		dword_5d4594_1217456 = 0
 	}
 	return 1
@@ -5148,7 +5148,7 @@ func sub_49AEA0() int32 {
 		nox_alloc_pixelSpan_1301844 = nil
 	}
 	if dword_5d4594_1301848 != 0 {
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1301848)))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1301848)))
 		dword_5d4594_1301848 = 0
 	}
 	return 1
@@ -5832,7 +5832,7 @@ func sub_49FFA0(a1 int32) *int32 {
 			if a1 != 0 {
 				nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*7))))))
 			}
-			alloc.Free(unsafe.Pointer(v2))
+			alloc.Free(v2)
 			v2 = v3
 			if v3 == nil {
 				break

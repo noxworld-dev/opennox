@@ -4547,7 +4547,7 @@ func sub_486FE0(a1 int32) *uint32 {
 func sub_487030(lpMem unsafe.Pointer) {
 	(*(*func(unsafe.Pointer))(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*3))) + 24))))(lpMem)
 	*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*3))) + 12))) &= 0xFFFFFFFE
-	alloc.Free(lpMem)
+	alloc.FreePtr(lpMem)
 }
 func sub_487050(a1 *uint32) {
 	nox_common_list_append_4258E0((*nox_list_item_t)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_587000_155144))))), (*nox_list_item_t)(unsafe.Pointer(a1)))
@@ -4672,7 +4672,7 @@ func sub_4872C0(lpMem unsafe.Pointer) {
 	if v2 < 0 {
 		*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*5))) + 16))) = 0
 	}
-	alloc.Free(lpMem)
+	alloc.FreePtr(lpMem)
 }
 func sub_487310(a1 *uint32) int32 {
 	var result int32
@@ -5452,7 +5452,7 @@ func nox_xxx_wndEditProcPre_488710(a1 int32, a2 uint32, a3 *wchar2_t, a4 int32) 
 	}
 	if a2 == 2 {
 		nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(v3 + 1048))))))
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(a1 + 32))))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(a1 + 32))))
 		return 0
 	}
 	if a2 != 23 {
@@ -5619,7 +5619,7 @@ func sub_488BA0() int32 {
 	var v0 unsafe.Pointer
 	v0 = *(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1193348))
 	if dword_5d4594_1193348 != 0 {
-		alloc.Free(v0)
+		alloc.FreePtr(v0)
 	}
 	dword_5d4594_1193348 = 0
 	return 1
@@ -5676,7 +5676,7 @@ func nox_xxx_onChar_488BD0(a1 uint16) {
 }
 func sub_4896E0() int32 {
 	if dword_5d4594_1193360 != 0 {
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1193360)))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1193360)))
 	}
 	return 1
 }

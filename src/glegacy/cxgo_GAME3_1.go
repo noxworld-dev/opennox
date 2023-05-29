@@ -398,7 +398,7 @@ func sub_4BD280(a1 int32, a2 int32) *uint32 {
 	return result
 }
 func sub_4BD2D0(lpMem unsafe.Pointer) {
-	alloc.Free(lpMem)
+	alloc.FreePtr(lpMem)
 }
 func sub_4BD2E0(a1 **uint32) *uint32 {
 	var (
@@ -446,7 +446,7 @@ func sub_4BD3C0(lpMem unsafe.Pointer) {
 	if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*2))) != 0 {
 		sub_4BD2D0(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer((*unsafe.Pointer)(lpMem)), unsafe.Sizeof(unsafe.Pointer(nil))*2))))
 	}
-	alloc.Free(lpMem)
+	alloc.FreePtr(lpMem)
 }
 func sub_4BD420(a1 int32, a2 int32) *uint32 {
 	var result *uint32
@@ -612,7 +612,7 @@ func sub_4BD720(a1 int32) *uint32 {
 }
 func sub_4BD7A0(lpMem unsafe.Pointer) {
 	(*(*func(unsafe.Pointer))(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*43))) + 8))))(lpMem)
-	alloc.Free(lpMem)
+	alloc.FreePtr(lpMem)
 }
 func sub_4BD7C0(a1 *uint32) *uint32 {
 	var result *uint32

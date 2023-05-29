@@ -212,7 +212,7 @@ func sub_509CB0() *int32 {
 			for {
 				v2 = (*int32)(unsafe.Pointer(nox_common_list_getNextSafe_4258A0((*nox_list_item_t)(unsafe.Pointer(v1)))))
 				nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v1))))
-				alloc.Free(unsafe.Pointer(v1))
+				alloc.Free(v1)
 				v1 = v2
 				if v2 == nil {
 					break
@@ -693,7 +693,7 @@ func nox_xxx_allocVisitNodesArray_50AB90() int32 {
 	return result
 }
 func sub_50ABF0() {
-	alloc.Free(dword_5d4594_2386176)
+	alloc.FreePtr(dword_5d4594_2386176)
 	nox_free_alloc_class((*nox_alloc_class)(nox_alloc_visitNode_2386184))
 	nox_alloc_visitNode_2386184 = nil
 }
@@ -5178,7 +5178,7 @@ func nox_xxx_servParseMonsterDef_517170(a1 *FILE, a2 *byte) int32 {
 			}
 		}
 		if *(*uint32)(unsafe.Pointer(v4)) == 0 {
-			alloc.Free(unsafe.Pointer(v3))
+			alloc.Free(v3)
 			return 0
 		}
 		v6 = (*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(v3))), *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v4))), 4*2)))))
@@ -5257,7 +5257,7 @@ func nox_xxx_monsterListFree_5174F0() *uint32 {
 	if nox_monsterBin_head_2386924 != nil {
 		for {
 			v1 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*61)))))
-			alloc.Free(unsafe.Pointer(result))
+			alloc.Free(result)
 			result = v1
 			if v1 == nil {
 				break

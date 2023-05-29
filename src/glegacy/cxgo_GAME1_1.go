@@ -2630,9 +2630,9 @@ func sub_41EC30() int32 {
 				for {
 					v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 40))))
 					if *(*uint32)(unsafe.Pointer(uintptr(v1))) != 0 {
-						alloc.Free(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(v1))))
+						alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(v1))))
 					}
-					alloc.Free(unsafe.Pointer(uintptr(v1)))
+					alloc.FreePtr(unsafe.Pointer(uintptr(v1)))
 					v1 = v2
 					if v2 == 0 {
 						break
@@ -2668,9 +2668,9 @@ func sub_41F4B0() int32 {
 		for {
 			v1 = int32(*(*uint32)(unsafe.Pointer(uintptr(v0 + 20))))
 			if *(*uint32)(unsafe.Pointer(uintptr(v0))) != 0 {
-				alloc.Free(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(v0))))
+				alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(v0))))
 			}
-			alloc.Free(unsafe.Pointer(uintptr(v0)))
+			alloc.FreePtr(unsafe.Pointer(uintptr(v0)))
 			v0 = v1
 			if v1 == 0 {
 				break
@@ -2894,7 +2894,7 @@ func sub_420C70() *uint32 {
 	if dword_5d4594_588068 != 0 {
 		for {
 			v1 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2)))))
-			alloc.Free(unsafe.Pointer(result))
+			alloc.Free(result)
 			result = v1
 			if v1 == nil {
 				break
@@ -3072,14 +3072,14 @@ func sub_421430() unsafe.Pointer {
 	for i := int32(0); i < math.MaxUint8; i++ {
 		if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v0))), -int(4*27)))) != 0 {
 			if *memmap.PtrUint32(0x5D4594, 588076) != 0 {
-				alloc.Free(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(v0))), -int(unsafe.Sizeof(unsafe.Pointer(nil))*27)))))
+				alloc.FreePtr(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(v0))), -int(unsafe.Sizeof(unsafe.Pointer(nil))*27)))))
 			}
 			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v0))), -int(4*27)))) = 0
 		}
 		result = *(*unsafe.Pointer)(unsafe.Pointer(v0))
 		if *(*uint32)(unsafe.Pointer(v0)) != 0 {
 			if *memmap.PtrUint32(0x5D4594, 588076) != 0 {
-				alloc.Free(*(*unsafe.Pointer)(unsafe.Pointer(v0)))
+				alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(v0)))
 			}
 			*(*uint32)(unsafe.Pointer(v0)) = 0
 		}
@@ -3174,7 +3174,7 @@ func sub_4210E0(a1 int32) *byte {
 	if v1 >= uint32(*(*int32)(unsafe.Pointer(&nox_xxx_polygonNextIdx_587000_60352))) {
 		return nil
 	}
-	for i = (*uint8)(memmap.PtrOff(0x5D4594, v1*140+552312)); *(*uint32)(unsafe.Pointer(i)) == 0; i = (*uint8)(unsafe.Add(unsafe.Pointer(i), 140)) {
+	for i = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v1)*140+552312)); *(*uint32)(unsafe.Pointer(i)) == 0; i = (*uint8)(unsafe.Add(unsafe.Pointer(i), 140)) {
 		if func() uint32 {
 			p := &v1
 			*p++
@@ -3183,7 +3183,7 @@ func sub_4210E0(a1 int32) *byte {
 			return nil
 		}
 	}
-	return (*byte)(memmap.PtrOff(0x5D4594, v1*140+552228))
+	return (*byte)(memmap.PtrOff(0x5D4594, uintptr(v1)*140+552228))
 }
 func sub_421130() int32 {
 	var (
@@ -3252,7 +3252,7 @@ func sub_421230() *uint8 {
 		v2 = (*uint8)(alloc.Calloc(1, 0x100))
 		*(*uint32)(unsafe.Pointer(v1)) = uint32(uintptr(unsafe.Pointer(v2)))
 		if v2 == nil {
-			alloc.Free(unsafe.Pointer(v1))
+			alloc.FreePtr(unsafe.Pointer(v1))
 			return nil
 		}
 		*v2 = 0
@@ -5228,7 +5228,7 @@ func sub_4259F0() *int32 {
 				for {
 					v4 = sub_425BE0(v3)
 					nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v3))))
-					alloc.Free(unsafe.Pointer(v3))
+					alloc.Free(v3)
 					v3 = v4
 					if v4 == nil {
 						break
@@ -5236,7 +5236,7 @@ func sub_4259F0() *int32 {
 				}
 			}
 			nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v1))))
-			alloc.Free(unsafe.Pointer(v1))
+			alloc.Free(v1)
 			v1 = v2
 			if v2 == nil {
 				break
@@ -5318,13 +5318,13 @@ func sub_425B60(lpMem unsafe.Pointer, a2 int32) *byte {
 			}
 		}
 		nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v2))))
-		alloc.Free(unsafe.Pointer(v2))
+		alloc.Free(v2)
 	}
 LABEL_6:
 	result = (*byte)(unsafe.Add(unsafe.Pointer((*byte)(lpMem)), 40))
 	if *((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer((*unsafe.Pointer)(lpMem)), unsafe.Sizeof(unsafe.Pointer(nil))*11))) == unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(lpMem)), 40))) {
 		nox_common_list_remove_425920(lpMem)
-		alloc.Free(lpMem)
+		alloc.FreePtr(lpMem)
 	}
 	return result
 }
@@ -5841,7 +5841,7 @@ func nox_xxx_journalEntryRemove_427590(a1p *nox_playerInfo, a2 *byte) int32 {
 	if uint32(v2) == *(*uint32)(unsafe.Pointer(uintptr(a1 + 3644))) {
 		*(*uint32)(unsafe.Pointer(uintptr(a1 + 3644))) = *(*uint32)(unsafe.Pointer(uintptr(v2 + 64)))
 	}
-	alloc.Free(unsafe.Pointer(uintptr(v2)))
+	alloc.FreePtr(unsafe.Pointer(uintptr(v2)))
 	return 1
 }
 func nox_xxx_comJournalEntryRemove_427630(a1 int32, a2 *byte) {
@@ -5939,7 +5939,7 @@ func sub_4277B0(a1p *nox_object_t, a2 uint16) int32 {
 				if uint32(result) == *(*uint32)(unsafe.Pointer(uintptr(v2 + 3644))) {
 					*(*uint32)(unsafe.Pointer(uintptr(v2 + 3644))) = *(*uint32)(unsafe.Pointer(uintptr(result + 64)))
 				}
-				alloc.Free(unsafe.Pointer(uintptr(result)))
+				alloc.FreePtr(unsafe.Pointer(uintptr(result)))
 			}
 			result = v4
 			if v4 == 0 {

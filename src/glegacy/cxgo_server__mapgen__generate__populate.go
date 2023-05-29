@@ -129,7 +129,7 @@ func sub_5259D0() float64 {
 	return float64(*(*float32)(unsafe.Pointer(&dword_5d4594_2487580)))
 }
 func sub_526A90() {
-	alloc.Free(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_2487672)))
+	alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_2487672)))
 }
 func nox_xxx_mapGenFinishPopulate_5228B0_mapgen_populate(a1 int32) {
 	var (

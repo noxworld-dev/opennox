@@ -4694,7 +4694,7 @@ func sub_500790(lpMem unsafe.Pointer) {
 	if lpMem == *(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1570272)) {
 		dword_5d4594_1570272 = *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*35)))
 	}
-	alloc.Free(lpMem)
+	alloc.FreePtr(lpMem)
 }
 func sub_5007E0(a1 *byte) *byte {
 	var (
@@ -6028,7 +6028,7 @@ func nox_xxx_tileAllocTileInCoordList_5040A0(a1 int32, a2 int32, a3 float32) *ui
 				*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v4))), unsafe.Sizeof(float32(0))*2))) = float32(float64(v8) + 23.0)
 			}
 		} else {
-			alloc.Free(unsafe.Pointer(v4))
+			alloc.Free(v4)
 			result = nil
 		}
 	}
@@ -6230,7 +6230,7 @@ func sub_5044B0(a1 int32, a2 float32, a3 float32) *uint32 {
 				*(*uint32)(unsafe.Pointer(uintptr(*v4 + 484))) = 0
 			}
 		} else {
-			alloc.Free(unsafe.Pointer(v4))
+			alloc.Free(v4)
 			result = nil
 		}
 	}
@@ -6376,14 +6376,14 @@ func sub_504A10(a1 int32) int32 {
 		*(*uint32)(unsafe.Pointer(uintptr(v6 + 444))) = *(*uint32)(unsafe.Pointer(uintptr(*v1 + 444)))
 	}
 	nox_xxx_objectFreeMem_4E38A0((*nox_object_t)(unsafe.Pointer(uintptr(*v1))))
-	alloc.Free(unsafe.Pointer(v1))
+	alloc.Free(v1)
 	return 1
 }
 func sub_505060() unsafe.Pointer {
 	var result unsafe.Pointer
 	result = *(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1599616))
 	if dword_5d4594_1599616 != 0 {
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1599616)))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1599616)))
 		dword_5d4594_1599616 = 0
 	}
 	return result

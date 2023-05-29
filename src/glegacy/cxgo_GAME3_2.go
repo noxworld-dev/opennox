@@ -856,7 +856,7 @@ func nox_common_maplist_free_4D0970() {
 		for {
 			v2 = (*int32)(unsafe.Pointer(nox_common_list_getNextSafe_4258A0((*nox_list_item_t)(unsafe.Pointer(v1)))))
 			nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v1))))
-			alloc.Free(unsafe.Pointer(v1))
+			alloc.Free(v1)
 			v1 = v2
 			if v2 == nil {
 				break
@@ -1232,7 +1232,7 @@ func sub_4D11D0() {
 		for {
 			v2 = (*int32)(unsafe.Pointer(nox_common_list_getNextSafe_4258A0((*nox_list_item_t)(unsafe.Pointer(v1)))))
 			nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v1))))
-			alloc.Free(unsafe.Pointer(v1))
+			alloc.Free(v1)
 			v1 = v2
 			if v2 == nil {
 				break
@@ -1273,7 +1273,7 @@ func sub_4D1250(a1 int32) *int32 {
 			}
 		}
 		nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v2))))
-		alloc.Free(unsafe.Pointer(v2))
+		alloc.Free(v2)
 	}
 	return result
 }

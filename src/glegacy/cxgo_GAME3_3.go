@@ -9923,7 +9923,7 @@ func sub_4F2210() int32 {
 						}
 					}
 				}
-				alloc.Free(unsafe.Pointer(v0))
+				alloc.Free(v0)
 			}
 			v21 = v30
 			if v30 != 0 {
@@ -9957,7 +9957,7 @@ func sub_4F2210() int32 {
 						}
 					}
 				}
-				alloc.Free(unsafe.Pointer(lpMem))
+				alloc.Free(lpMem)
 			}
 		}
 	}

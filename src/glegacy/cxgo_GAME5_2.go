@@ -227,7 +227,7 @@ func sub_56F3B0() *uint32 {
 	if dword_5d4594_2516344 != 0 {
 		for {
 			v1 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2)))))
-			alloc.Free(unsafe.Pointer(result))
+			alloc.Free(result)
 			result = v1
 			if v1 == nil {
 				break
@@ -312,7 +312,7 @@ func sub_56F510(a1 int32) int32 {
 	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*1)) ^ uint32(v4))
 	*memmap.PtrUint16(0x587000, 311204)--
 	dword_5d4594_2516328 = uint32(v5)
-	alloc.Free(unsafe.Pointer(v1))
+	alloc.Free(v1)
 	return 1
 }
 func sub_56F590(a1 int32) *uint32 {
@@ -1174,7 +1174,7 @@ func nox_xxx_waypointDeleteAll_579DD0() {
 			if nox_common_gameFlags_check_40A5C0(1) {
 				sub_517A70((*nox_waypoint_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v0)))))))
 			}
-			alloc.Free(unsafe.Pointer(v0))
+			alloc.Free(v0)
 			v0 = v1
 			if v1 == nil {
 				break
@@ -1737,7 +1737,7 @@ func sub_57ADF0(a1 *int32) *int32 {
 		for {
 			v3 = (*int32)(unsafe.Pointer(nox_common_list_getNextSafe_4258A0((*nox_list_item_t)(unsafe.Pointer(v2)))))
 			nox_common_list_remove_425920(unsafe.Pointer((**uint32)(unsafe.Pointer(v2))))
-			alloc.Free(unsafe.Pointer(v2))
+			alloc.Free(v2)
 			v2 = v3
 			if v3 == nil {
 				break

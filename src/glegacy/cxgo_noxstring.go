@@ -1010,7 +1010,7 @@ func nox_wcstol(nptr *wchar2_t, endptr **wchar2_t, base int32) int32 {
 	if endptr != nil {
 		*endptr = (*wchar2_t)(unsafe.Add(unsafe.Pointer(nptr), unsafe.Sizeof(wchar2_t(0))*uintptr(int32(uintptr(unsafe.Pointer(ptr))-uintptr(unsafe.Pointer(tmp))))))
 	}
-	alloc.Free(unsafe.Pointer(tmp))
+	alloc.Free(tmp)
 	return result
 }
 func nox_swprintf(str *wchar2_t, fmt *wchar2_t, _rest ...interface{}) int32 {

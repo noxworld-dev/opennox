@@ -263,7 +263,7 @@ func sub_428540(a1 int32, a2 *byte, a3 int32) uint32 {
 		v5     int8
 	)
 	if *(*uint32)(unsafe.Pointer(uintptr(a1 + 636))) != 0 {
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(a1 + 636))))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(a1 + 636))))
 		*(*uint32)(unsafe.Pointer(uintptr(a1 + 636))) = 0
 	}
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 636))) = uint32(uintptr(alloc.Calloc(int(a3), 2)))
@@ -1678,7 +1678,7 @@ func sub_42A8B0(a1 *uint8, a2 *int32) *uint16 {
 	sub_42A970(a1, v3, a2)
 	v4 = sub_42AC50(v3, (*uint32)(unsafe.Pointer(a2)))
 	if v3 != nil {
-		alloc.Free(unsafe.Pointer(v3))
+		alloc.Free(v3)
 	}
 	if v4 != nil {
 		v6 = *a2
@@ -1689,7 +1689,7 @@ func sub_42A8B0(a1 *uint8, a2 *int32) *uint16 {
 			v8 = 0
 		}
 		sub_42C360((*uint32)(unsafe.Pointer(&v10[0])), v8)
-		alloc.Free(unsafe.Pointer(v4))
+		alloc.Free(v4)
 		v9 = sub_42C480((*uint32)(unsafe.Pointer(&v10[0])), (*uint32)(unsafe.Pointer(a2)))
 		sub_42C330((*uint32)(unsafe.Pointer(&v10[0])))
 		result = v9
@@ -2010,12 +2010,12 @@ func sub_42AC50(a1 *uint8, a2 *uint32) *uint8 {
 		}
 		v18 = lpMem
 		*v2 += 5
-		alloc.Free(v18)
+		alloc.FreePtr(v18)
 		result = v5
 	} else {
 		*a2 = 4294967294
-		alloc.Free(v3)
-		alloc.Free(unsafe.Pointer(v5))
+		alloc.FreePtr(v3)
+		alloc.Free(v5)
 		result = nil
 	}
 	return result
@@ -2850,7 +2850,7 @@ func sub_42C330(this *uint32) {
 			v2 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3)))))
 			if v1 != nil {
 				sub_42CC50((*unsafe.Pointer)(unsafe.Pointer(v1)))
-				alloc.Free(unsafe.Pointer(v1))
+				alloc.Free(v1)
 			}
 			v1 = v2
 			if v2 == nil {
@@ -2914,7 +2914,7 @@ func sub_42C770(this *unsafe.Pointer) int32 {
 		result int32
 	)
 	v1 = this
-	alloc.Free(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(this), unsafe.Sizeof(unsafe.Pointer(nil))*2)))
+	alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(this), unsafe.Sizeof(unsafe.Pointer(nil))*2)))
 	result = 0
 	libc.StrCpy((*byte)(unsafe.Pointer(v1)), (*byte)(memmap.PtrOff(0x5D4594, 741688)))
 	*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v1))), unsafe.Sizeof(uint16(0))*2))) = 0
@@ -3156,11 +3156,11 @@ func sub_42EBA0() int32 {
 }
 func sub_42EDC0() {
 	if ptr_5D4594_754088 != nil {
-		alloc.Free(unsafe.Pointer(ptr_5D4594_754088))
+		alloc.Free(ptr_5D4594_754088)
 		ptr_5D4594_754088 = nil
 	}
 	if ptr_5D4594_754092 != nil {
-		alloc.Free(unsafe.Pointer(ptr_5D4594_754092))
+		alloc.Free(ptr_5D4594_754092)
 		ptr_5D4594_754092 = nil
 	}
 }

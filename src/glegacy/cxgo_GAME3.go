@@ -1000,23 +1000,23 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *nox_window, ev uint32, a3 uint32, a4 
 	}
 	if ev == 2 {
 		if sdata != nil {
-			alloc.Free(unsafe.Pointer(sdata.items))
+			alloc.Free(sdata.items)
 			if sdata.field_4 != 0 {
-				alloc.Free(unsafe.Pointer(sdata.field_12))
+				alloc.Free(sdata.field_12)
 			}
-			alloc.Free(unsafe.Pointer(sdata))
+			alloc.Free(sdata)
 		}
-		win.widget_data = nil
+		win.WidgetData = nil
 		return 0
 	}
 	if ev == 23 {
 		if a3 != 0 {
-			win.draw_data.field_0 |= 2
+			win.DrawData().field_0 |= 2
 		} else {
-			win.draw_data.field_0 &= 0xFFFFFFFD
+			win.DrawData().field_0 &= 0xFFFFFFFD
 		}
 		var v7 int32 = nox_xxx_wndGetID_46B0A0(win)
-		nox_window_call_field_94_fnc(win.draw_data.win, 16387, int32(a3), v7)
+		nox_window_call_field_94_fnc(win.DrawData().win, 16387, int32(a3), v7)
 		return 1
 	}
 	return 0
@@ -5342,7 +5342,7 @@ func sub_4B5010(a1 int32, a2 uint32, a3 int32, a4 int32) int32 {
 		return 0
 	}
 	if a2 == 2 {
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(a1 + 32))))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(a1 + 32))))
 		return 0
 	}
 	if a2 != 23 {
@@ -5476,7 +5476,7 @@ func nox_xxx_wndScrollBoxProc_4B5320(a1 int32, a2 uint32, a3 int32, a4 uint32) i
 		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16396, a1, int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))))
 		return 0
 	case 2:
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(a1 + 32))))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(a1 + 32))))
 		return 0
 	case 0x17:
 		v11 = a3

@@ -46,8 +46,8 @@ type HSAMPLE = uintptr
 type LPWIN32_FIND_DATAA = *WIN32_FIND_DATAA
 
 // nox_itoa
-func nox_itoa(val int, s *byte, radix int) *byte {
-	str := strconv.FormatInt(int64(val), radix)
+func nox_itoa(val int32, s *byte, radix int32) *byte {
+	str := strconv.FormatInt(int64(val), int(radix))
 	buf := unsafe.Slice(s, len(str)+1)
 	i := copy(buf, str)
 	buf[i] = 0

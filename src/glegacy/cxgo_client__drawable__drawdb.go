@@ -130,7 +130,7 @@ func sub_485F30() int32 {
 	v1 = (*unsafe.Pointer)(memmap.PtrOff(0x85B3FC, 28676))
 	for {
 		if *v1 != nil {
-			alloc.Free(*v1)
+			alloc.FreePtr(*v1)
 			*v1 = nil
 		}
 		v0++

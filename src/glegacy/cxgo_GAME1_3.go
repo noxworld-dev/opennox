@@ -863,7 +863,7 @@ func sub_446490(a1 int32) unsafe.Pointer {
 	var result unsafe.Pointer
 	result = dword_5d4594_826036
 	if dword_5d4594_826036 != nil {
-		alloc.Free(dword_5d4594_826036)
+		alloc.FreePtr(dword_5d4594_826036)
 		result = unsafe.Pointer(uintptr(a1))
 	}
 	dword_5d4594_826036 = nil
