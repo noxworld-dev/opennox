@@ -71,7 +71,7 @@ func nox_gui_newScrollListBox_4A4310(a1p *nox_window, a2 int32, a3 int32, a4 int
 	*(*int16)(unsafe.Add(unsafe.Pointer(a8), unsafe.Sizeof(int16(0))*22)) = 0
 	*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*10))) = 0
 	if v11 != 0 {
-		v12 = alloc.Calloc(int(opts.count), 4)
+		v12 = alloc.Calloc1(int(opts.count), 4)
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*12))) = uint32(uintptr(v12))
 		if v12 == nil {
 			alloc.FreePtr(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer((*unsafe.Pointer)(unsafe.Pointer(a8))), unsafe.Sizeof(unsafe.Pointer(nil))*6))))

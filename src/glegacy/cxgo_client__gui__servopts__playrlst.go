@@ -260,7 +260,7 @@ func sub_457230(a1 *wchar2_t) *byte {
 	v1 = sub_4165B0()
 	result = *(**byte)(unsafe.Pointer(&dword_5d4594_1045684))
 	if dword_5d4594_1045684 != 0 {
-		v3 = (*uint32)(alloc.Calloc(1, 0x48))
+		v3 = (*uint32)(alloc.Calloc1(1, 0x48))
 		result = sub_418A40(a1)
 		v4 = result
 		if result != nil {

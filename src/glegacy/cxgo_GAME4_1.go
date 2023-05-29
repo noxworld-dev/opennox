@@ -192,7 +192,7 @@ func sub_509C30(pl *nox_playerInfo) {
 		nox_common_list_clear_425760((*nox_list_item_t)(memmap.PtrOff(0x5D4594, 1599676)))
 		dword_5d4594_1599688 = 1
 	}
-	v1 = (*byte)(alloc.Calloc(1, 0x20))
+	v1 = (*byte)(alloc.Calloc1(1, 0x20))
 	*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*6))) = *(*uint32)(unsafe.Pointer(uintptr(a1 + 2068)))
 	libc.StrCpy((*byte)(unsafe.Add(unsafe.Pointer(v1), 12)), (*byte)(unsafe.Pointer(uintptr(a1+2096))))
 	*(*byte)(unsafe.Add(unsafe.Pointer(v1), 28)) = byte(*(*uint8)(unsafe.Pointer(uintptr(a1 + 2251))))
@@ -681,7 +681,7 @@ func nox_xxx_allocVisitNodesArray_50AB90() int32 {
 	result = int32(uintptr(unsafe.Pointer(nox_new_alloc_class(internCStr("VisitNodes"), 16, 1024))))
 	nox_alloc_visitNode_2386184 = unsafe.Pointer(uintptr(result))
 	if result != 0 {
-		dword_5d4594_2386176 = alloc.Calloc(1, 0x2000)
+		dword_5d4594_2386176 = alloc.Calloc1(1, 0x2000)
 		if dword_5d4594_2386176 != nil {
 			dword_5d4594_2386172 = 0
 			result = 1
@@ -5130,7 +5130,7 @@ func nox_xxx_servParseMonsterDef_517170(a1 *FILE, a2 *byte) int32 {
 		v9     int32
 		v10    [256]byte
 	)
-	result = int32(uintptr(alloc.Calloc(1, 0xF8)))
+	result = int32(uintptr(alloc.Calloc1(1, 0xF8)))
 	v3 = (*uint32)(unsafe.Pointer(uintptr(result)))
 	if result == 0 {
 		return 0

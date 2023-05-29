@@ -843,7 +843,7 @@ func nox_motd_4463E0(a1 int32) int32 {
 	v2 = result
 	if result != nil {
 		*memmap.PtrUint32(0x5D4594, uintptr(a1*4)+826040) = uint32(nox_fs_fsize(v2))
-		v3 = (*byte)(alloc.Calloc(int(*memmap.PtrUint32(0x5D4594, uintptr(a1*4)+826040)+1), 1))
+		v3 = (*byte)(alloc.Calloc1(int(*memmap.PtrUint32(0x5D4594, uintptr(a1*4)+826040)+1), 1))
 		dword_5d4594_826036 = unsafe.Pointer(v3)
 		if v3 != nil {
 			nox_binfile_fread_raw_40ADD0(v3, *memmap.PtrUint32(0x5D4594, uintptr(a1*4)+826040), 1, v2)
@@ -1058,7 +1058,7 @@ func sub_44B940(a1 *uint32, a2 int32, f *nox_memfile) int32 {
 		} else {
 			v13 = v4
 		}
-		v5 = alloc.Calloc(int(v3), 4)
+		v5 = alloc.Calloc1(int(v3), 4)
 		*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(a1))), v13))), 4)))) = uint32(uintptr(v5))
 		if v5 == nil {
 			break

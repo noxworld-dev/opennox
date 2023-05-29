@@ -389,7 +389,7 @@ func sub_48D5A0(a1 int32) *uint32 {
 	if result == nil {
 		result = (*uint32)(unsafe.Pointer(uintptr(sub_48D560(*(*uint16)(unsafe.Pointer(uintptr(a1 + 1)))))))
 		if result == nil {
-			result = (*uint32)(alloc.Calloc(int(int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 3))))+32), 1))
+			result = (*uint32)(alloc.Calloc1(int(int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 3))))+32), 1))
 			v2 = result
 			if result != nil {
 				sub_425770(unsafe.Pointer(result))
@@ -2405,7 +2405,7 @@ func sub_495FC0(a1p unsafe.Pointer, a2p *nox_drawable) {
 }
 func sub_4960B0() int32 {
 	var result int32
-	result = int32(uintptr(alloc.Calloc(1, int((nox_win_width*4/23*(nox_win_height/23)/2)*4))))
+	result = int32(uintptr(alloc.Calloc1(1, int((nox_win_width*4/23*(nox_win_height/23)/2)*4))))
 	dword_5d4594_1217456 = uint32(result)
 	if result != 0 {
 		sub_4CA860()

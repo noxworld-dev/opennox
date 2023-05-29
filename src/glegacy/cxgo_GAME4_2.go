@@ -888,7 +888,7 @@ func nox_xxx_genReadWeaponSet_51F030(a1 int32, a2 *FILE) int32 {
 			break
 		}
 		if nox_strcmpi(internCStr("WEAPON"), (*byte)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
-			v2 = (*byte)(alloc.Calloc(1, 0x9C))
+			v2 = (*byte)(alloc.Calloc1(1, 0x9C))
 			if v2 == nil || nox_xxx_mapGenReadLine_51E540(a2, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
 				return 0
 			}
@@ -1155,7 +1155,7 @@ func sub_51F230(a1 int32, a2 *FILE) int32 {
 				v24 = v9 == 0
 			LABEL_49:
 				if !v24 {
-					v36 = alloc.Calloc(int(v9), 0x3C)
+					v36 = alloc.Calloc1(int(v9), 0x3C)
 					*v49 = uint32(uintptr(v36))
 					if v36 == nil {
 						return 0
@@ -1239,7 +1239,7 @@ func nox_xxx_genReadArmorSet_51F640(a1 int32, a2 *FILE) int32 {
 			break
 		}
 		if nox_strcmpi(internCStr("ARMOR"), (*byte)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
-			v2 = (*byte)(alloc.Calloc(1, 0x9C))
+			v2 = (*byte)(alloc.Calloc1(1, 0x9C))
 			if v2 == nil || nox_xxx_mapGenReadLine_51E540(a2, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
 				return 0
 			}
@@ -1352,7 +1352,7 @@ func nox_xxx_genReadDecor_51F9F0(a1 *uint32, a2 *FILE) int32 {
 		v15    *byte
 	)
 	v15 = nil
-	v2 = (*uint8)(alloc.Calloc(1, 0xE0))
+	v2 = (*uint8)(alloc.Calloc1(1, 0xE0))
 	v3 = int32(uintptr(unsafe.Pointer(v2)))
 	if v2 == nil {
 		return 0
@@ -1492,7 +1492,7 @@ func nox_xxx_genDecorReadWallFloor_51FE00(a1 int32, a2 *FILE) *byte {
 		v3     *byte
 		v4     int32
 	)
-	result = (*byte)(alloc.Calloc(1, 0x80))
+	result = (*byte)(alloc.Calloc1(1, 0x80))
 	v3 = result
 	if result != nil {
 		result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_mapGenReadLine_51E540(a2, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))))))
@@ -1518,7 +1518,7 @@ func sub_51FEC0(a1 int32, a2 int32, a3 *FILE) int32 {
 		v5     int32
 		i      int32
 	)
-	result = int32(uintptr(alloc.Calloc(1, 0x80)))
+	result = int32(uintptr(alloc.Calloc1(1, 0x80)))
 	v4 = result
 	if result != 0 {
 		*(*uint32)(unsafe.Pointer(uintptr(result))) = uint32(a2)
@@ -1559,7 +1559,7 @@ func nox_xxx_genDecorReadDecorSet_51FFA0(a1 int32, a2 *FILE) int32 {
 		v12    int32
 	)
 	v2 = 0
-	result = int32(uintptr(alloc.Calloc(1, 0x18)))
+	result = int32(uintptr(alloc.Calloc1(1, 0x18)))
 	v4 = (*int32)(unsafe.Pointer(uintptr(result)))
 	v12 = result
 	if result == 0 {
@@ -1622,7 +1622,7 @@ func nox_xxx_genDecorReadDecorSet_51FFA0(a1 int32, a2 *FILE) int32 {
 			}
 			return 0
 		}
-		v7 = (*uint32)(alloc.Calloc(1, 0x64))
+		v7 = (*uint32)(alloc.Calloc1(1, 0x64))
 		v2 = int32(uintptr(unsafe.Pointer(v7)))
 		if v7 == nil {
 			return 0
@@ -1734,7 +1734,7 @@ func nox_xxx_gen_520380(a1 *FILE) *uint32 {
 	v15 = 0
 	v16 = 100
 LABEL_2:
-	v2 = (*uint32)(alloc.Calloc(1, 0x80C))
+	v2 = (*uint32)(alloc.Calloc1(1, 0x80C))
 	if v2 != nil && nox_xxx_mapGenReadLine_51E540(a1, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) != 0 {
 		if libc.StrCmp(internCStr("*"), (*byte)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
 			*v2 = math.MaxUint32
@@ -1830,7 +1830,7 @@ func nox_xxx_gen_5205B0(a1 *FILE) *uint32 {
 	)
 	result = (*uint32)(unsafe.Pointer(uintptr(nox_xxx_mapGenReadLine_51E540(a1, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))))))
 	if result != nil {
-		result = (*uint32)(alloc.Calloc(1, 0xC))
+		result = (*uint32)(alloc.Calloc1(1, 0xC))
 		v2 = result
 		if result != nil {
 			*result = uint32(nox_xxx_getNameId_4E3AA0((*byte)(memmap.PtrOff(0x5D4594, 2487264))))
@@ -1913,7 +1913,7 @@ func nox_xxx_genDecorReadCopy_520660(a1 *uint32, a2 *byte, a3 *FILE) int32 {
 		}
 	}
 	for i = (*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v7))), 4*21)))))); i != nil; i = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*31))))) {
-		v9 = (*uint32)(alloc.Calloc(1, 0x80))
+		v9 = (*uint32)(alloc.Calloc1(1, 0x80))
 		if v9 == nil {
 			return 0
 		}
@@ -1930,7 +1930,7 @@ func nox_xxx_genDecorReadCopy_520660(a1 *uint32, a2 *byte, a3 *FILE) int32 {
 		}
 	}
 	for k = (*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v7))), 4*23)))))); k != nil; v11 = v14 {
-		v14 = (*uint32)(alloc.Calloc(1, 0x18))
+		v14 = (*uint32)(alloc.Calloc1(1, 0x18))
 		if v14 == nil {
 			return 0
 		}
@@ -2166,7 +2166,7 @@ func sub_520CE0(a1 int32, a2 *FILE) *byte {
 	)
 	result = (*byte)(unsafe.Pointer(uintptr(nox_xxx_mapGenReadLine_51E540(a2, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))))))
 	if result != nil {
-		result = (*byte)(alloc.Calloc(1, 0xA0))
+		result = (*byte)(alloc.Calloc1(1, 0xA0))
 		if result != nil {
 			libc.StrCpy(result, (*byte)(memmap.PtrOff(0x5D4594, 2487264)))
 			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*39))) = *(*uint32)(unsafe.Pointer(uintptr(a1 + 80)))
@@ -2294,7 +2294,7 @@ func sub_520EA0(a1 int32) int32 {
 	)
 	dword_5d4594_2487540 = *(*uint32)(unsafe.Pointer(uintptr(a1 + 68)))*2 + 1
 	dword_5d4594_2487536 = *(*uint32)(unsafe.Pointer(uintptr(a1 + 68)))
-	dword_5d4594_2487532 = uint32(uintptr(alloc.Calloc(int(dword_5d4594_2487540), 4)))
+	dword_5d4594_2487532 = uint32(uintptr(alloc.Calloc1(int(dword_5d4594_2487540), 4)))
 	if dword_5d4594_2487532 == 0 {
 		return 0
 	}
@@ -2302,7 +2302,7 @@ func sub_520EA0(a1 int32) int32 {
 	v3 = 0
 	if dword_5d4594_2487540 > 0 {
 		for {
-			*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_2487532 + uint32(v3*4)))) = uint32(uintptr(alloc.Calloc(int(v2), 20)))
+			*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_2487532 + uint32(v3*4)))) = uint32(uintptr(alloc.Calloc1(int(v2), 20)))
 			if *(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_2487532 + uint32(v3*4)))) == 0 {
 				return 0
 			}
@@ -2564,7 +2564,7 @@ func sub_5212B0(a1 int32, a2 *uint32) int32 {
 	}
 }
 func nox_xxx_mapgenAllocBuffer_5213E0() int32 {
-	dword_5d4594_2487556 = uint32(uintptr(alloc.Calloc(1, 0x2000)))
+	dword_5d4594_2487556 = uint32(uintptr(alloc.Calloc1(1, 0x2000)))
 	return bool2int32(dword_5d4594_2487556 != 0)
 }
 func nox_xxx_mapgenFreeBuffer_521400() {
@@ -2712,7 +2712,7 @@ func sub_521900(a1 int32, a2 int32, a3 int32) int32 {
 }
 func nox_xxx_mapGenMakeRoomStruct_521940(a1 int32, a2 int32) *float32 {
 	var result *float32
-	result = (*float32)(alloc.Calloc(1, 0x178))
+	result = (*float32)(alloc.Calloc1(1, 0x178))
 	if result != nil {
 		*(*uint32)(unsafe.Pointer(result)) = 1
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*3))) = uint32(a1)
@@ -2836,7 +2836,7 @@ func sub_521B90(a1 int32, a2 int32) float64 {
 }
 func sub_521BC0(a1 int32, a2 *float2, a3 float32, a4 float32) *float32 {
 	var result *float32
-	result = (*float32)(alloc.Calloc(1, 0x1C))
+	result = (*float32)(alloc.Calloc1(1, 0x1C))
 	if result != nil {
 		*result = 0.0
 		*(*float2)(unsafe.Pointer((*float32)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(float32(0))*1)))) = *a2
@@ -2921,7 +2921,7 @@ func sub_521CB0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 		v20 float2
 		v22 int32
 	)
-	v4 = (*float32)(alloc.Calloc(1, 0x1C))
+	v4 = (*float32)(alloc.Calloc1(1, 0x1C))
 	if v4 == nil {
 		return 0
 	}
@@ -4327,7 +4327,7 @@ func sub_523D30(a1 *float32, a2 *float32) *float32 {
 }
 func sub_523E30(a1 int32, a2 int32, a3 int32) *float32 {
 	var result *float32
-	result = (*float32)(alloc.Calloc(1, 0x178))
+	result = (*float32)(alloc.Calloc1(1, 0x178))
 	if result != nil {
 		*(*uint32)(unsafe.Pointer(result)) = uint32(a1)
 		switch a1 {
@@ -6556,7 +6556,7 @@ func sub_526950() *byte {
 	)
 	v0 = sub_502A20()
 	dword_5d4594_2487676 = uint32(v0)
-	result = (*byte)(alloc.Calloc(int(v0), 0x40))
+	result = (*byte)(alloc.Calloc1(int(v0), 0x40))
 	v2 = 0
 	dword_5d4594_2487672 = uint32(uintptr(unsafe.Pointer(result)))
 	if result != nil {

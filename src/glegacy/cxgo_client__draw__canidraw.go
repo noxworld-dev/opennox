@@ -71,7 +71,7 @@ func nox_things_cond_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_val
 		v27 uint8
 		v28 int32
 	)
-	v3 = (*uint32)(alloc.Calloc(1, 0x38))
+	v3 = (*uint32)(alloc.Calloc1(1, 0x38))
 	*v3 = 16
 	v24 = v3
 	v25 = nox_memfile_read_u8(f)
@@ -96,7 +96,7 @@ func nox_things_cond_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_val
 		*(*uint8)(unsafe.Add(unsafe.Pointer(v6), v26)) = 0
 		v13 = v20
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v20), 4*8)) = uint32(get_animation_kind_id_44B4C0((*byte)(unsafe.Pointer(v6))))
-		v14 = alloc.Calloc(int(*v7), 4)
+		v14 = alloc.Calloc1(int(*v7), 4)
 		*v20 = uint32(uintptr(v14))
 		if v14 == nil {
 			break

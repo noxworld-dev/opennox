@@ -2041,7 +2041,7 @@ func nox_xxx_playerBotCreate_4FA700(a1 int32) int32 {
 	result = a1
 	v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
 	if *(*uint32)(unsafe.Pointer(uintptr(v2 + 292))) == 0 {
-		result = int32(uintptr(alloc.Calloc(1, 0x898)))
+		result = int32(uintptr(alloc.Calloc1(1, 0x898)))
 		*(*uint32)(unsafe.Pointer(uintptr(v2 + 292))) = uint32(result)
 	}
 	v3 = *(**uint32)(unsafe.Pointer(uintptr(v2 + 292)))
@@ -4572,7 +4572,7 @@ func nox_xxx_journalQuestSet_500540(a1 *byte, a2 int32) *byte {
 	if result != nil {
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*34))) = uint32(a2)
 	} else {
-		result = (*byte)(alloc.Calloc(1, 0x94))
+		result = (*byte)(alloc.Calloc1(1, 0x94))
 		v3 = result
 		if result != nil {
 			libc.StrCpy(result, (*byte)(memmap.PtrOff(0x5D4594, 1570140)))
@@ -4635,7 +4635,7 @@ func nox_xxx_journalQuestSetBool_5006B0(a1 *byte, a2 int32) *byte {
 	if result != nil {
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*34))) = uint32(a2)
 	} else {
-		result = (*byte)(alloc.Calloc(1, 0x94))
+		result = (*byte)(alloc.Calloc1(1, 0x94))
 		v3 = result
 		if result != nil {
 			libc.StrCpy(result, (*byte)(memmap.PtrOff(0x5D4594, 1570140)))
@@ -5653,13 +5653,13 @@ func sub_502B10() int32 {
 	)
 	dword_5d4594_1599596 = 0
 	if dword_5d4594_1599588 == nil {
-		dword_5d4594_1599588 = alloc.Calloc(1, 0x800)
+		dword_5d4594_1599588 = alloc.Calloc1(1, 0x800)
 	}
 	if dword_5d4594_1599592 == nil {
-		dword_5d4594_1599592 = alloc.Calloc(1, 0x800)
+		dword_5d4594_1599592 = alloc.Calloc1(1, 0x800)
 	}
 	if dword_5d4594_1599576 == 0 {
-		dword_5d4594_1599576 = uint32(uintptr(alloc.Calloc(1, 0x26000)))
+		dword_5d4594_1599576 = uint32(uintptr(alloc.Calloc1(1, 0x26000)))
 	}
 	result = 0
 	if libc.StrLen((*byte)(dword_5d4594_1599588)) != 0 {
@@ -6002,10 +6002,10 @@ func nox_xxx_tileAllocTileInCoordList_5040A0(a1 int32, a2 int32, a3 float32) *ui
 		v7     bool
 		v8     float32
 	)
-	result = (*uint32)(alloc.Calloc(1, 0x18))
+	result = (*uint32)(alloc.Calloc1(1, 0x18))
 	v4 = result
 	if result != nil {
-		v5 = alloc.Calloc(1, 0x14)
+		v5 = alloc.Calloc1(1, 0x14)
 		*v4 = uint32(uintptr(v5))
 		if v5 != nil {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*5)) = 0
@@ -6095,7 +6095,7 @@ func sub_504290(a1 int8, a2 int8) *uint32 {
 		v3     *uint32
 		v4     *uint8
 	)
-	result = (*uint32)(alloc.Calloc(1, 0xC))
+	result = (*uint32)(alloc.Calloc1(1, 0xC))
 	v3 = result
 	if result != nil {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*2)) = 0
@@ -6104,7 +6104,7 @@ func sub_504290(a1 int8, a2 int8) *uint32 {
 			*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_5d4594_1599532)) + 8))) = uint32(uintptr(unsafe.Pointer(result)))
 		}
 		dword_5d4594_1599532 = unsafe.Pointer(result)
-		v4 = (*uint8)(alloc.Calloc(1, 0x24))
+		v4 = (*uint8)(alloc.Calloc1(1, 0x24))
 		*v3 = uint32(uintptr(unsafe.Pointer(v4)))
 		*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 5)) = uint8(a1)
 		*(*uint8)(unsafe.Pointer(uintptr(*v3 + 6))) = uint8(a2)
@@ -6204,7 +6204,7 @@ func sub_5044B0(a1 int32, a2 float32, a3 float32) *uint32 {
 		v5     *uint32
 		v6     *uint32
 	)
-	result = (*uint32)(alloc.Calloc(1, 0xC))
+	result = (*uint32)(alloc.Calloc1(1, 0xC))
 	v4 = result
 	if result != nil {
 		v5 = sub_579E70()
@@ -6263,7 +6263,7 @@ func nox_xxx_unitAddToList_5048A0(a1 int32) *uint32 {
 		result *uint32
 		v2     *uint32
 	)
-	result = (*uint32)(alloc.Calloc(1, 0xC))
+	result = (*uint32)(alloc.Calloc1(1, 0xC))
 	if result == nil {
 		return nil
 	}
@@ -6460,7 +6460,7 @@ func nox_server_mapRWMapIntro_505080() int32 {
 			}
 			v14 = (*uint8)(unsafe.Pointer(uintptr(v18)))
 		} else {
-			v13 = (*uint8)(alloc.Calloc(1, int(v17)))
+			v13 = (*uint8)(alloc.Calloc1(1, int(v17)))
 			dword_5d4594_1599616 = uint32(uintptr(unsafe.Pointer(v13)))
 			if v13 == nil {
 				return 0

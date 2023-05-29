@@ -50,7 +50,7 @@ func nox_things_vector_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_v
 		v3     *uint32
 		result int32
 	)
-	v2 = (*uint32)(alloc.Calloc(1, 0x30))
+	v2 = (*uint32)(alloc.Calloc1(1, 0x30))
 	v3 = v2
 	*v2 = 48
 	result = nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(int32(uintptr(unsafe.Pointer(v2))), f)

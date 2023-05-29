@@ -23,7 +23,7 @@ func nox_things_static_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *by
 		v6   *byte
 		v8   int32
 		v11  uint8
-		data *uint32 = (*uint32)(alloc.Calloc(1, 8))
+		data *uint32 = (*uint32)(alloc.Calloc1(1, 8))
 	)
 	if data == nil {
 		return false

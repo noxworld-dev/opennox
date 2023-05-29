@@ -163,7 +163,7 @@ func nox_xxx_protectionCreateStructForInt_56F280(a1 int32, a2 int32) int32 {
 		v3 int32
 		v4 int32
 	)
-	v2 = (*uint32)(alloc.Calloc(1, 0x10))
+	v2 = (*uint32)(alloc.Calloc1(1, 0x10))
 	if v2 == nil {
 		return 0
 	}
@@ -260,7 +260,7 @@ func nox_xxx_protectionCreateStructForFloat_56F480(a1 int32, val float32) int32 
 		v3 int32
 		v4 int32
 	)
-	v2 = (*uint32)(alloc.Calloc(1, 0x10))
+	v2 = (*uint32)(alloc.Calloc1(1, 0x10))
 	if v2 == nil {
 		return 0
 	}
@@ -912,7 +912,7 @@ func nox_xxx_waypointNew_5798F0(a1 float32, a2 float32) *nox_waypoint_t {
 		v3 uint32
 		v4 int32
 	)
-	v2 = (*uint32)(alloc.Calloc(1, 0x204))
+	v2 = (*uint32)(alloc.Calloc1(1, 0x204))
 	v3 = nox_xxx_waypoint_5798C0()
 	v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*120)))
 	*v2 = v3
@@ -934,7 +934,7 @@ func nox_xxx_waypointNewNotMap_579970(a1 int32, a2 float32, a3 float32) *float32
 		result *float32
 		v4     int32
 	)
-	result = (*float32)(alloc.Calloc(1, 0x204))
+	result = (*float32)(alloc.Calloc1(1, 0x204))
 	*(*uint32)(unsafe.Pointer(result)) = uint32(a1)
 	*(*float32)(unsafe.Add(unsafe.Pointer(result), unsafe.Sizeof(float32(0))*3)) = a3
 	v4 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*120))) | 1)
@@ -1187,7 +1187,7 @@ func nox_xxx_waypointDeleteAll_579DD0() {
 }
 func sub_579E70() *uint32 {
 	var result *uint32
-	result = (*uint32)(alloc.Calloc(1, 0x204))
+	result = (*uint32)(alloc.Calloc1(1, 0x204))
 	if result != nil {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*120)) |= 0x1000000
 	}
@@ -1465,7 +1465,7 @@ func sub_57A4D0(a1 *wchar2_t, a2 int32, a3 int32, a4 int32) {
 				result = (*wchar2_t)(unsafe.Pointer(uintptr(sub_57A620(v4, (**wchar2_t)(unsafe.Pointer(&v12[0])), a2, a4))))
 				if result == nil {
 					if a3 != 0 {
-						v10 = (*wchar2_t)(alloc.Calloc(1, 0x20C))
+						v10 = (*wchar2_t)(alloc.Calloc1(1, 0x20C))
 						nox_wcscpy((*wchar2_t)(unsafe.Add(unsafe.Pointer(v10), unsafe.Sizeof(wchar2_t(0))*6)), a1)
 						nox_common_list_append_4258E0((*nox_list_item_t)(unsafe.Pointer(uintptr(a3))), (*nox_list_item_t)(unsafe.Pointer(v10)))
 					}

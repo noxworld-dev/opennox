@@ -5264,7 +5264,7 @@ func nox_gui_newSlider_4B4EE0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, 
 			v12 = float64(v9-10) / float64(int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*1)))-uint32(v11)))
 		}
 		*(*float32)(unsafe.Add(unsafe.Pointer(a8), unsafe.Sizeof(float32(0))*2)) = float32(v12)
-		v13 = (*float32)(alloc.Calloc(1, 0x10))
+		v13 = (*float32)(alloc.Calloc1(1, 0x10))
 		*v13 = *a8
 		*(*float32)(unsafe.Add(unsafe.Pointer(v13), unsafe.Sizeof(float32(0))*1)) = *(*float32)(unsafe.Add(unsafe.Pointer(a8), unsafe.Sizeof(float32(0))*1))
 		*(*float32)(unsafe.Add(unsafe.Pointer(v13), unsafe.Sizeof(float32(0))*2)) = *(*float32)(unsafe.Add(unsafe.Pointer(a8), unsafe.Sizeof(float32(0))*2))

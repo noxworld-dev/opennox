@@ -23,12 +23,12 @@ func nox_xxx_spriteLoadStaticRandomData_44C000(attr_value *byte, f *nox_memfile)
 		v15    uint8
 		v16    int32
 	)
-	v2 = (*uint32)(alloc.Calloc(1, 0xC))
+	v2 = (*uint32)(alloc.Calloc1(1, 0xC))
 	v4 = v2
 	*v2 = 12
 	v15 = nox_memfile_read_u8(f)
 	*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v4))), 8))) = v15
-	result = alloc.Calloc(int(v15), 4)
+	result = alloc.Calloc1(int(v15), 4)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1)) = uint32(uintptr(result))
 	if result != nil {
 		v7 = 0
@@ -102,7 +102,7 @@ func nox_xxx_loadVectorAnimated_44BC50(a1 int32, f *nox_memfile) int32 {
 			v13 = v2
 		}
 		v3 = a1
-		v4 = alloc.Calloc(int(*(*int16)(unsafe.Pointer(uintptr(a1 + 40)))), 4)
+		v4 = alloc.Calloc1(int(*(*int16)(unsafe.Pointer(uintptr(a1 + 40)))), 4)
 		*(*uint32)(unsafe.Pointer(uintptr(v13 + a1 + 4))) = uint32(uintptr(v4))
 		if v4 == nil {
 			break

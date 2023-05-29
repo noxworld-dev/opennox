@@ -9854,14 +9854,14 @@ func sub_4F2210() int32 {
 			}
 		}
 		if v3 != 0 {
-			v0 = (*uint32)(alloc.Calloc(int(v3), 4))
+			v0 = (*uint32)(alloc.Calloc1(int(v3), 4))
 			if v4 == 0 {
 				goto LABEL_21
 			}
 		} else if v4 == 0 {
 			return result
 		}
-		lpMem = (*uint32)(alloc.Calloc(int(v4), 4))
+		lpMem = (*uint32)(alloc.Calloc1(int(v4), 4))
 	LABEL_21:
 		v7 = 0
 		v30 = 0
@@ -11295,7 +11295,7 @@ func nox_xxx_readObjectOldVer_4F4170(a1 int32, a2 int32, a3 int32) int32 {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v19)), 1)
 		if nox_crypt_IsReadOnly() == 1 {
 			if int32(uint8(int8(v19))) != 0 {
-				result = int32(uintptr(alloc.Calloc(1, int(int32(uint8(int8(v19)))+1))))
+				result = int32(uintptr(alloc.Calloc1(1, int(int32(uint8(int8(v19)))+1))))
 				*v3 = (*uint8)(unsafe.Pointer(uintptr(result)))
 				if result == 0 {
 					return result
@@ -11475,7 +11475,7 @@ func nox_xxx_mapReadWriteObjData_4F4530(a1p *nox_object_t, a2 int32) int32 {
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a2)), 1)
 	if nox_crypt_IsReadOnly() != 1 || int32(uint8(int8(a2))) == 0 || (func() bool {
-		result = int32(uintptr(alloc.Calloc(1, int(int32(uint8(int8(a2)))+1))))
+		result = int32(uintptr(alloc.Calloc1(1, int(int32(uint8(int8(a2)))+1))))
 		return (func() int32 {
 			p := v2
 			*v2 = result

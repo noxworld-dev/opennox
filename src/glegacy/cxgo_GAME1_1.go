@@ -474,7 +474,7 @@ func sub_4197C0(a1 *wchar2_t, a2 int32) {
 		}
 		v4[15] = byte(nox_wcslen(a1))
 		v2 = int32(uint8(v4[15])) * 2
-		v3, _ = alloc.Calloc(1, uintptr(v2+18))
+		v3 = (*uint32)(alloc.Calloc1(1, uintptr(v2+18)))
 		*(*uint64)(unsafe.Pointer(v3)) = *(*uint64)(unsafe.Pointer(&v4[0]))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2)) = *(*uint32)(unsafe.Pointer(&v4[8]))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*3)) = *(*uint32)(unsafe.Pointer(&v4[12]))
@@ -2876,7 +2876,7 @@ func sub_4207E0() int32 {
 }
 func sub_420C40(a1 int32, a2 int32) *uint32 {
 	var result *uint32
-	result = (*uint32)(alloc.Calloc(1, 0xC))
+	result = (*uint32)(alloc.Calloc1(1, 0xC))
 	if result != nil {
 		*result = uint32(a1)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1)) = uint32(a2)
@@ -3249,7 +3249,7 @@ func sub_421230() *uint8 {
 	v1 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v0*140)+552228))
 	*(*uint32)(unsafe.Pointer(v1)) = 0
 	if nox_common_gameFlags_check_40A5C0(0x200000) {
-		v2 = (*uint8)(alloc.Calloc(1, 0x100))
+		v2 = (*uint8)(alloc.Calloc1(1, 0x100))
 		*(*uint32)(unsafe.Pointer(v1)) = uint32(uintptr(unsafe.Pointer(v2)))
 		if v2 == nil {
 			alloc.FreePtr(unsafe.Pointer(v1))
@@ -3286,7 +3286,7 @@ func sub_4214D0() {
 	if int32(*memmap.PtrUint16(0x5D4594, 588072)) >= 3 {
 		v0 = sub_421230()
 		if v0 != nil {
-			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v0))), 4*27))) = uint32(uintptr(alloc.Calloc(int(*memmap.PtrUint16(0x5D4594, 588072)), 4)))
+			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v0))), 4*27))) = uint32(uintptr(alloc.Calloc1(int(*memmap.PtrUint16(0x5D4594, 588072)), 4)))
 			v1 = 0
 			*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v0))), unsafe.Sizeof(uint16(0))*64))) = *memmap.PtrUint16(0x5D4594, 588072)
 			if int32(*memmap.PtrUint16(0x5D4594, 588072)) != 0 {
@@ -3795,7 +3795,7 @@ func nox_xxx_tileListAddNewSubtile_422160(a1 int32, a2 int32, a3 int32, a4 int32
 	)
 	result = *(**int32)(unsafe.Pointer(&dword_5d4594_588084))
 	if dword_5d4594_588084 == 0 {
-		v5 = (*byte)(alloc.Calloc(1, 0xC8))
+		v5 = (*byte)(alloc.Calloc1(1, 0xC8))
 		dword_5d4594_588084 = uint32(uintptr(unsafe.Pointer(v5)))
 		for i = 0; i < 180; i += 20 {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v5), i+16)) = uint32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v5), i+20)))))
@@ -4844,11 +4844,11 @@ func nox_xxx_parseSoundSetBin_424170(a1 *byte) int32 {
 		return 0
 	}
 	for nox_xxx_parseString_409470(v2, (*uint8)(unsafe.Pointer(&v6[0]))) != 0 {
-		v3 = (*uint32)(alloc.Calloc(1, 0x54))
+		v3 = (*uint32)(alloc.Calloc1(1, 0x54))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*19)) = dword_5d4594_588120
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*20)) = 0
 		dword_5d4594_588120 = uint32(uintptr(unsafe.Pointer(v3)))
-		v4 = (*byte)(alloc.Calloc(libc.StrLen(&v6[0])+1, 1))
+		v4 = (*byte)(alloc.Calloc1(libc.StrLen(&v6[0])+1, 1))
 		*v3 = uint32(uintptr(unsafe.Pointer(v4)))
 		libc.StrCpy(v4, &v6[0])
 		for nox_xxx_parseString_409470(v2, (*uint8)(unsafe.Pointer(&v6[0]))) != 0 && libc.StrCmp(&v6[0], internCStr("END")) != 0 && nox_xxx_parseString_409470(v2, (*uint8)(unsafe.Pointer(&v7[0]))) != 0 {
@@ -5283,7 +5283,7 @@ func sub_425AD0(a1 int32, a2 *wchar2_t) *wchar2_t {
 	var v2 *wchar2_t
 	v2 = nil
 	if sub_425AA0(a1) == 0 {
-		v2 = (*wchar2_t)(alloc.Calloc(1, 0x34))
+		v2 = (*wchar2_t)(alloc.Calloc1(1, 0x34))
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*8))) = uint32(a1)
 		nox_wcscpy((*wchar2_t)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(wchar2_t(0))*6)), a2)
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*9))) = 0
@@ -5298,7 +5298,7 @@ func sub_425B30(a1 unsafe.Pointer, a2 int32) {
 		v2 *uint32
 		v3 *uint32
 	)
-	v2 = (*uint32)(alloc.Calloc(1, 0x10))
+	v2 = (*uint32)(alloc.Calloc1(1, 0x10))
 	v3 = v2
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3)) = uint32(a2)
 	sub_425770(unsafe.Pointer(v2))
@@ -5779,7 +5779,7 @@ func nox_xxx_journalEntryAdd_427490(a1p *nox_playerInfo, a2 *byte, a3 int16) *no
 		v4     *uint8
 		v5     int32
 	)
-	result = (*uint8)(alloc.Calloc(1, 0x4C))
+	result = (*uint8)(alloc.Calloc1(1, 0x4C))
 	v4 = result
 	if result != nil {
 		libc.MemSet(unsafe.Pointer(result), 0, 0x4C)

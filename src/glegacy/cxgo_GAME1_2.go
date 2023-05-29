@@ -206,7 +206,7 @@ func sub_4282F0(a1 int32, a2 int32, a3 uint32) unsafe.Pointer {
 		*(*uint32)(unsafe.Pointer(uintptr(a1 + 632))) = 0
 	}
 	v6 = a3 * 4
-	*(*uint32)(unsafe.Pointer(uintptr(a1 + 608))) = uint32(uintptr(alloc.Calloc(int(a3), 4)))
+	*(*uint32)(unsafe.Pointer(uintptr(a1 + 608))) = uint32(uintptr(alloc.Calloc1(int(a3), 4)))
 	if a3 != 0 {
 		for {
 			*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 608))) + func() uint32 {
@@ -214,18 +214,18 @@ func sub_4282F0(a1 int32, a2 int32, a3 uint32) unsafe.Pointer {
 				x := *p
 				*p++
 				return x
-			}()*4))) = uint32(uintptr(alloc.Calloc(1, 0xA)))
+			}()*4))) = uint32(uintptr(alloc.Calloc1(1, 0xA)))
 			if v4 >= a3 {
 				break
 			}
 		}
 	}
-	*(*uint32)(unsafe.Pointer(uintptr(a1 + 612))) = uint32(uintptr(alloc.Calloc(1, int(v6))))
-	*(*uint32)(unsafe.Pointer(uintptr(a1 + 616))) = uint32(uintptr(alloc.Calloc(1, int(v6))))
-	*(*uint32)(unsafe.Pointer(uintptr(a1 + 620))) = uint32(uintptr(alloc.Calloc(1, int(a3))))
-	*(*uint32)(unsafe.Pointer(uintptr(a1 + 624))) = uint32(uintptr(alloc.Calloc(1, int(a3))))
-	*(*uint32)(unsafe.Pointer(uintptr(a1 + 628))) = uint32(uintptr(alloc.Calloc(1, int(v6))))
-	result = alloc.Calloc(1, int(a3))
+	*(*uint32)(unsafe.Pointer(uintptr(a1 + 612))) = uint32(uintptr(alloc.Calloc1(1, int(v6))))
+	*(*uint32)(unsafe.Pointer(uintptr(a1 + 616))) = uint32(uintptr(alloc.Calloc1(1, int(v6))))
+	*(*uint32)(unsafe.Pointer(uintptr(a1 + 620))) = uint32(uintptr(alloc.Calloc1(1, int(a3))))
+	*(*uint32)(unsafe.Pointer(uintptr(a1 + 624))) = uint32(uintptr(alloc.Calloc1(1, int(a3))))
+	*(*uint32)(unsafe.Pointer(uintptr(a1 + 628))) = uint32(uintptr(alloc.Calloc1(1, int(v6))))
+	result = alloc.Calloc1(1, int(a3))
 	v8 = 0
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 632))) = uint32(uintptr(result))
 	if a3 != 0 {
@@ -266,7 +266,7 @@ func sub_428540(a1 int32, a2 *byte, a3 int32) uint32 {
 		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(a1 + 636))))
 		*(*uint32)(unsafe.Pointer(uintptr(a1 + 636))) = 0
 	}
-	*(*uint32)(unsafe.Pointer(uintptr(a1 + 636))) = uint32(uintptr(alloc.Calloc(int(a3), 2)))
+	*(*uint32)(unsafe.Pointer(uintptr(a1 + 636))) = uint32(uintptr(alloc.Calloc1(int(a3), 2)))
 	result = 0
 	if a3*2 != 0 {
 		v4 = a2
@@ -315,7 +315,7 @@ func sub_4285C0(a1 *int16) *byte {
 	if int32(int16(uintptr(unsafe.Pointer(result)))) <= 0 {
 		dword_5d4594_741332 = uint32(*a1)
 	} else {
-		v3 = alloc.Calloc(int(int16(uintptr(unsafe.Pointer(result)))), 4)
+		v3 = alloc.Calloc1(int(int16(uintptr(unsafe.Pointer(result)))), 4)
 		v4 = 0
 		v5 = int32(*a1) == 0
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*134))) = uint32(uintptr(v3))
@@ -326,34 +326,34 @@ func sub_4285C0(a1 *int16) *byte {
 					x := *p
 					*p++
 					return x
-				}()*4))) = uint32(uintptr(alloc.Calloc(1, 0xA)))
+				}()*4))) = uint32(uintptr(alloc.Calloc1(1, 0xA)))
 				if v4 >= uint32(*a1) {
 					break
 				}
 			}
 		}
-		v6 = alloc.Calloc(int(*a1), 4)
+		v6 = alloc.Calloc1(int(*a1), 4)
 		v19 = uint32(*a1)
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*135))) = uint32(uintptr(v6))
-		v7 = alloc.Calloc(1, int(v19))
+		v7 = alloc.Calloc1(1, int(v19))
 		v18 = uint32(int32(*a1) * 4)
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*144))) = uint32(uintptr(v7))
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*136))) = uint32(uintptr(alloc.Calloc(1, int(v18))))
-		v8 = alloc.Calloc(int(*a1), 4)
+		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*136))) = uint32(uintptr(alloc.Calloc1(1, int(v18))))
+		v8 = alloc.Calloc1(int(*a1), 4)
 		v17 = uint32(int32(*a1) * 4)
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*137))) = uint32(uintptr(v8))
-		v9 = alloc.Calloc(1, int(v17))
+		v9 = alloc.Calloc1(1, int(v17))
 		v16 = uint32(int32(*a1) * 4)
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*138))) = uint32(uintptr(v9))
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*139))) = uint32(uintptr(alloc.Calloc(1, int(v16))))
-		v10 = alloc.Calloc(int(*a1), 4)
+		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*139))) = uint32(uintptr(alloc.Calloc1(1, int(v16))))
+		v10 = alloc.Calloc1(int(*a1), 4)
 		v15 = uint32(int32(*a1) * 4)
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*140))) = uint32(uintptr(v10))
-		v11 = alloc.Calloc(1, uintptr(v15))
+		v11 = alloc.Calloc1(1, uintptr(v15))
 		v14 = uint32(int32(*a1) * 4)
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*141))) = uint32(uintptr(v11))
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*142))) = uint32(uintptr(alloc.Calloc(1, uintptr(v14))))
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*143))) = uint32(uintptr(alloc.Calloc(int(*a1), 4)))
+		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*142))) = uint32(uintptr(alloc.Calloc1(1, uintptr(v14))))
+		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*143))) = uint32(uintptr(alloc.Calloc1(int(*a1), 4)))
 		v20 = 0
 		result = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0()))
 		v12 = result
@@ -642,7 +642,7 @@ func nox_server_mapRWPolygons_428CD0(a1 int32) int32 {
 				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v10), 130)), 1)
 				v11 = (*uint16)(unsafe.Add(unsafe.Pointer(v10), 128))
 				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v10), 128)), 2)
-				v12 = (*uint8)(alloc.Calloc(int(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v10))), unsafe.Sizeof(uint16(0))*64)))), 4))
+				v12 = (*uint8)(alloc.Calloc1(int(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v10))), unsafe.Sizeof(uint16(0))*64)))), 4))
 				*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*27))) = uint32(uintptr(unsafe.Pointer(v12)))
 				if v12 == nil {
 					return 0
@@ -1030,7 +1030,7 @@ func nox_server_mapRWSecretWalls_4297C0(a1 *uint32) int32 {
 		return 1
 	}
 	for {
-		v2 = (*byte)(alloc.Calloc(1, 0x20))
+		v2 = (*byte)(alloc.Calloc1(1, 0x20))
 		v3 = (*int32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v2), 4))))
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 4)), 8)
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 16)), 4)
@@ -1674,7 +1674,7 @@ func sub_42A8B0(a1 *uint8, a2 *int32) *uint16 {
 	*(*uint16)(unsafe.Pointer(&v10[2])) = 0
 	v2 = *a2
 	*(*uint32)(unsafe.Pointer(&v10[4])) = 0
-	v3 = (*uint8)(alloc.Calloc(int(v2), 2))
+	v3 = (*uint8)(alloc.Calloc1(int(v2), 2))
 	sub_42A970(a1, v3, a2)
 	v4 = sub_42AC50(v3, (*uint32)(unsafe.Pointer(a2)))
 	if v3 != nil {
@@ -1682,7 +1682,7 @@ func sub_42A8B0(a1 *uint8, a2 *int32) *uint16 {
 	}
 	if v4 != nil {
 		v6 = *a2
-		v7 = alloc.Calloc(1, 0x10)
+		v7 = alloc.Calloc1(1, 0x10)
 		if v7 != nil {
 			v8 = sub_42C910(int32(uintptr(v7)), (*byte)(memmap.PtrOff(0x587000, 71480)), unsafe.Pointer(v4), uint16(int16(v6)))
 		} else {
@@ -1956,10 +1956,10 @@ func sub_42AC50(a1 *uint8, a2 *uint32) *uint8 {
 	)
 	v2 = a2
 	v19 = 0
-	v3 = alloc.Calloc(1, int(*a2))
+	v3 = alloc.Calloc1(1, int(*a2))
 	v4 = *a2 + 5
 	lpMem = v3
-	v5 = (*uint8)(alloc.Calloc(1, int(v4)))
+	v5 = (*uint8)(alloc.Calloc1(1, int(v4)))
 	if int32(*a2) >= 15 {
 		v7 = libc.GetTime(nil)
 		v8 = int32(v7)
@@ -2153,7 +2153,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	*(*uint16)(unsafe.Pointer(&v118[0])) = 0
 	*(*uint16)(unsafe.Pointer(&v118[2])) = 0
 	*(*uint32)(unsafe.Pointer(&v118[4])) = 0
-	v6 = alloc.Calloc(1, 0x10)
+	v6 = alloc.Calloc1(1, 0x10)
 	if v6 != nil {
 		v7 = sub_42C8B0(int32(uintptr(v6)), internCStr("MXPL"), int8(v5))
 	} else {
@@ -2161,7 +2161,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v7)
 	v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 12))))
-	v9 = alloc.Calloc(1, 0x10)
+	v9 = alloc.Calloc1(1, 0x10)
 	if v9 != nil {
 		v10 = sub_42C8B0(int32(uintptr(v9)), internCStr("IDNO"), int8(v8))
 	} else {
@@ -2169,7 +2169,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v10)
 	v11 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 16))))
-	v12 = alloc.Calloc(1, 0x10)
+	v12 = alloc.Calloc1(1, 0x10)
 	if v12 != nil {
 		v13 = sub_42C8B0(int32(uintptr(v12)), internCStr("GSKU"), int8(v11))
 	} else {
@@ -2177,7 +2177,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v13)
 	v14 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 20))))
-	v15 = alloc.Calloc(1, 0x10)
+	v15 = alloc.Calloc1(1, 0x10)
 	if v15 != nil {
 		v16 = sub_42C8B0(int32(uintptr(v15)), internCStr("GSTY"), int8(v14))
 	} else {
@@ -2185,7 +2185,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v16)
 	v119 = int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 24))))
-	v17 = alloc.Calloc(1, 0x10)
+	v17 = alloc.Calloc1(1, 0x10)
 	if v17 != nil {
 		v18 = sub_42C7F0(int32(uintptr(v17)), internCStr("CLGM"), v119)
 	} else {
@@ -2193,7 +2193,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v18)
 	v19 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 32))))
-	v20 = alloc.Calloc(1, 0x10)
+	v20 = alloc.Calloc1(1, 0x10)
 	if v20 != nil {
 		v21 = sub_42C8B0(int32(uintptr(v20)), internCStr("LIMT"), int8(v19))
 	} else {
@@ -2201,7 +2201,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v21)
 	v22 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 36))))
-	v23 = alloc.Calloc(1, 0x10)
+	v23 = alloc.Calloc1(1, 0x10)
 	if v23 != nil {
 		v24 = sub_42C8B0(int32(uintptr(v23)), internCStr("TLMT"), int8(v22))
 	} else {
@@ -2209,7 +2209,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v24)
 	v120 = int8(*(*uint8)(unsafe.Pointer(uintptr(v4 + 40))))
-	v25 = alloc.Calloc(1, 0x10)
+	v25 = alloc.Calloc1(1, 0x10)
 	if v25 != nil {
 		v26 = sub_42C7F0(int32(uintptr(v25)), internCStr("RSTC"), v120)
 	} else {
@@ -2217,7 +2217,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v26)
 	v27 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 44))))
-	v28 = alloc.Calloc(1, 0x10)
+	v28 = alloc.Calloc1(1, 0x10)
 	if v28 != nil {
 		v29 = sub_42C8B0(int32(uintptr(v28)), internCStr("MINE"), int8(v27))
 	} else {
@@ -2225,7 +2225,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v29)
 	v30 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 48))))
-	v31 = alloc.Calloc(1, 0x10)
+	v31 = alloc.Calloc1(1, 0x10)
 	if v31 != nil {
 		v32 = sub_42C8B0(int32(uintptr(v31)), internCStr("MAXE"), int8(v30))
 	} else {
@@ -2233,7 +2233,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v32)
 	v33 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52))))
-	v34 = alloc.Calloc(1, 0x10)
+	v34 = alloc.Calloc1(1, 0x10)
 	if v34 != nil {
 		v35 = sub_42C8B0(int32(uintptr(v34)), internCStr("MINP"), int8(v33))
 	} else {
@@ -2241,7 +2241,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v35)
 	v36 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 56))))
-	v37 = alloc.Calloc(1, 0x10)
+	v37 = alloc.Calloc1(1, 0x10)
 	if v37 != nil {
 		v38 = sub_42C8B0(int32(uintptr(v37)), internCStr("MAXP"), int8(v36))
 	} else {
@@ -2249,7 +2249,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v38)
 	v121 = int8(*(*uint8)(unsafe.Pointer(uintptr(v4 + 60))))
-	v39 = alloc.Calloc(1, 0x10)
+	v39 = alloc.Calloc1(1, 0x10)
 	if v39 != nil {
 		v40 = sub_42C7F0(int32(uintptr(v39)), internCStr("VIDM"), v121)
 	} else {
@@ -2257,7 +2257,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v40)
 	v122 = int8(*(*uint8)(unsafe.Pointer(uintptr(v4 + 61))))
-	v41 = alloc.Calloc(1, 0x10)
+	v41 = alloc.Calloc1(1, 0x10)
 	if v41 != nil {
 		v42 = sub_42C7F0(int32(uintptr(v41)), internCStr("SVRS"), v122)
 	} else {
@@ -2265,21 +2265,21 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v42)
 	v123 = int8(*(*uint8)(unsafe.Pointer(uintptr(v4 + 25))))
-	v43 = alloc.Calloc(1, 0x10)
+	v43 = alloc.Calloc1(1, 0x10)
 	if v43 != nil {
 		v44 = sub_42C7F0(int32(uintptr(v43)), internCStr("NTMS"), v123)
 	} else {
 		v44 = 0
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v44)
-	v45 = alloc.Calloc(1, 0x10)
+	v45 = alloc.Calloc1(1, 0x10)
 	if v45 != nil {
 		v46 = sub_42C8E0(int32(uintptr(v45)), internCStr("SCEN"), (*byte)(unsafe.Pointer(uintptr(v4+96))))
 	} else {
 		v46 = 0
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v46)
-	v47 = alloc.Calloc(1, 0x10)
+	v47 = alloc.Calloc1(1, 0x10)
 	if v47 != nil {
 		v48 = sub_42C8E0(int32(uintptr(v47)), internCStr("GNAM"), (*byte)(unsafe.Pointer(uintptr(v4+352))))
 	} else {
@@ -2287,7 +2287,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v48)
 	v49 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 64))))
-	v50 = alloc.Calloc(1, 0x10)
+	v50 = alloc.Calloc1(1, 0x10)
 	if v50 != nil {
 		v51 = sub_42C8B0(int32(uintptr(v50)), internCStr("SPL1"), int8(v49))
 	} else {
@@ -2295,7 +2295,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v51)
 	v52 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 68))))
-	v53 = alloc.Calloc(1, 0x10)
+	v53 = alloc.Calloc1(1, 0x10)
 	if v53 != nil {
 		v54 = sub_42C8B0(int32(uintptr(v53)), internCStr("SPL2"), int8(v52))
 	} else {
@@ -2303,7 +2303,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v54)
 	v55 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 72))))
-	v56 = alloc.Calloc(1, 0x10)
+	v56 = alloc.Calloc1(1, 0x10)
 	if v56 != nil {
 		v57 = sub_42C8B0(int32(uintptr(v56)), internCStr("SPL3"), int8(v55))
 	} else {
@@ -2311,7 +2311,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v57)
 	v58 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 88))))
-	v59 = alloc.Calloc(1, 0x10)
+	v59 = alloc.Calloc1(1, 0x10)
 	if v59 != nil {
 		v60 = sub_42C8B0(int32(uintptr(v59)), internCStr("ARMR"), int8(v58))
 	} else {
@@ -2319,7 +2319,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v60)
 	v124 = int8(*(*uint8)(unsafe.Pointer(uintptr(v4 + 84))))
-	v61 = alloc.Calloc(1, 0x10)
+	v61 = alloc.Calloc1(1, 0x10)
 	if v61 != nil {
 		v62 = sub_42C7F0(int32(uintptr(v61)), internCStr("WPN1"), v124)
 	} else {
@@ -2327,7 +2327,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v62)
 	v125 = int8(*(*uint8)(unsafe.Pointer(uintptr(v4 + 85))))
-	v63 = alloc.Calloc(1, 0x10)
+	v63 = alloc.Calloc1(1, 0x10)
 	if v63 != nil {
 		v64 = sub_42C7F0(int32(uintptr(v63)), internCStr("WPN2"), v125)
 	} else {
@@ -2335,7 +2335,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v64)
 	v126 = int8(*(*uint8)(unsafe.Pointer(uintptr(v4 + 86))))
-	v65 = alloc.Calloc(1, 0x10)
+	v65 = alloc.Calloc1(1, 0x10)
 	if v65 != nil {
 		v66 = sub_42C7F0(int32(uintptr(v65)), internCStr("WPN3"), v126)
 	} else {
@@ -2343,7 +2343,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v66)
 	v67 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 92))))
-	v68 = alloc.Calloc(1, 0x10)
+	v68 = alloc.Calloc1(1, 0x10)
 	if v68 != nil {
 		v69 = sub_42C8B0(int32(uintptr(v68)), internCStr("STAF"), int8(v67))
 	} else {
@@ -2351,14 +2351,14 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v69)
 	v70 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 28))))
-	v71 = alloc.Calloc(1, 0x10)
+	v71 = alloc.Calloc1(1, 0x10)
 	if v71 != nil {
 		v72 = sub_42C8B0(int32(uintptr(v71)), internCStr("DURA"), int8(v70))
 	} else {
 		v72 = 0
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v72)
-	v73 = alloc.Calloc(1, 0x10)
+	v73 = alloc.Calloc1(1, 0x10)
 	if v73 != nil {
 		v74 = sub_42C7F0(int32(uintptr(v73)), internCStr("FINI"), 1)
 	} else {
@@ -2366,7 +2366,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v74)
 	v127 = int8(*(*uint8)(unsafe.Pointer(uintptr(v4 + 26))))
-	v75 = alloc.Calloc(1, 0x10)
+	v75 = alloc.Calloc1(1, 0x10)
 	if v75 != nil {
 		v76 = sub_42C7F0(int32(uintptr(v75)), internCStr("TRNY"), v127)
 	} else {
@@ -2376,21 +2376,21 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 	switch a2 {
 	case 0:
 		*memmap.PtrUint32(0x5D4594, 741668) = 0
-		v77 = alloc.Calloc(1, 0x10)
+		v77 = alloc.Calloc1(1, 0x10)
 		if v77 != nil {
 			v78 = sub_42C8B0(int32(uintptr(v77)), internCStr("SEQU"), 0)
 		} else {
 			v78 = 0
 		}
 		sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v78)
-		v79 = alloc.Calloc(1, 0x10)
+		v79 = alloc.Calloc1(1, 0x10)
 		if v79 != nil {
 			v80 = sub_42C7F0(int32(uintptr(v79)), internCStr("ENDF"), 0)
 		} else {
 			v80 = 0
 		}
 		sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v80)
-		v81 = alloc.Calloc(1, 0x10)
+		v81 = alloc.Calloc1(1, 0x10)
 		if v81 != nil {
 			v82 = sub_42C820(int32(uintptr(v81)), (*byte)(memmap.PtrOff(0x587000, 71872)), -1)
 			sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v82)
@@ -2401,14 +2401,14 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 		v83 = int32(*memmap.PtrUint32(0x5D4594, 741668) + 1)
 		*memmap.PtrUint32(0x5D4594, 741668) = uint32(v83)
 		v84 = int8(v83)
-		v85 = alloc.Calloc(1, 0x10)
+		v85 = alloc.Calloc1(1, 0x10)
 		if v85 != nil {
 			v86 = sub_42C8B0(int32(uintptr(v85)), internCStr("SEQU"), v84)
 		} else {
 			v86 = 0
 		}
 		sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v86)
-		v87 = alloc.Calloc(1, 0x10)
+		v87 = alloc.Calloc1(1, 0x10)
 		if v87 != nil {
 			v88 = sub_42C7F0(int32(uintptr(v87)), internCStr("ENDF"), 1)
 		} else {
@@ -2416,7 +2416,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 		}
 		sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v88)
 		v89 = int16(*(*uint16)(unsafe.Pointer(uintptr(v4 + 6))))
-		v90 = alloc.Calloc(1, 0x10)
+		v90 = alloc.Calloc1(1, 0x10)
 		if v90 != nil {
 			v91 = sub_42C820(int32(uintptr(v90)), (*byte)(memmap.PtrOff(0x587000, 71896)), int8(v89))
 		} else {
@@ -2427,7 +2427,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 		for *memmap.PtrUint32(0x5D4594, 741660) = 0; v92 < int32(*(*int16)(unsafe.Pointer(uintptr(v4 + 6)))); *memmap.PtrUint32(0x5D4594, 741660) = uint32(v92) {
 			*memmap.PtrUint8(0x587000, 71491) = uint8(int8(v92 + 48))
 			v93 = *(**byte)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 608))) + uint32(v92*4))))
-			v94 = alloc.Calloc(1, 0x10)
+			v94 = alloc.Calloc1(1, 0x10)
 			if v94 != nil {
 				v95 = sub_42C8E0(int32(uintptr(v94)), internCStr("LGL?"), v93)
 			} else {
@@ -2436,7 +2436,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 			sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v95)
 			*memmap.PtrUint8(0x587000, 71499) = uint8(int8(int32(*memmap.PtrUint8(0x5D4594, 741660)) + 48))
 			v96 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 612))) + *memmap.PtrUint32(0x5D4594, 741660)*4))))
-			v97 = alloc.Calloc(1, 0x10)
+			v97 = alloc.Calloc1(1, 0x10)
 			if v97 != nil {
 				v98 = sub_42C8B0(int32(uintptr(v97)), internCStr("IPL?"), int8(v96))
 			} else {
@@ -2445,7 +2445,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 			sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v98)
 			*memmap.PtrUint8(0x587000, 71515) = uint8(int8(int32(*memmap.PtrUint8(0x5D4594, 741660)) + 48))
 			v99 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 616))) + *memmap.PtrUint32(0x5D4594, 741660)*4))))
-			v100 = alloc.Calloc(1, 0x10)
+			v100 = alloc.Calloc1(1, 0x10)
 			if v100 != nil {
 				v101 = sub_42C8B0(int32(uintptr(v100)), internCStr("CNL?"), int8(v99))
 			} else {
@@ -2454,7 +2454,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 			sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v101)
 			*memmap.PtrUint8(0x587000, 71507) = uint8(int8(int32(*memmap.PtrUint8(0x5D4594, 741660)) + 48))
 			v128 = int8(*(*uint8)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 741660) + *(*uint32)(unsafe.Pointer(uintptr(v4 + 620)))))))
-			v102 = alloc.Calloc(1, 0x10)
+			v102 = alloc.Calloc1(1, 0x10)
 			if v102 != nil {
 				v103 = sub_42C7F0(int32(uintptr(v102)), internCStr("CLL?"), v128)
 			} else {
@@ -2463,7 +2463,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 			sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v103)
 			*memmap.PtrUint8(0x587000, 71523) = uint8(int8(int32(*memmap.PtrUint8(0x5D4594, 741660)) + 48))
 			v129 = int8(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 624))) + *memmap.PtrUint32(0x5D4594, 741660)))))
-			v104 = alloc.Calloc(1, 0x10)
+			v104 = alloc.Calloc1(1, 0x10)
 			if v104 != nil {
 				v105 = sub_42C7F0(int32(uintptr(v104)), internCStr("CMP?"), v129)
 			} else {
@@ -2472,7 +2472,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 			sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v105)
 			*memmap.PtrUint8(0x587000, 71531) = uint8(int8(int32(*memmap.PtrUint8(0x5D4594, 741660)) + 48))
 			v106 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 628))) + *memmap.PtrUint32(0x5D4594, 741660)*4))))
-			v107 = alloc.Calloc(1, 0x10)
+			v107 = alloc.Calloc1(1, 0x10)
 			if v107 != nil {
 				v108 = sub_42C8B0(int32(uintptr(v107)), internCStr("DUR?"), int8(v106))
 			} else {
@@ -2481,7 +2481,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 			sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v108)
 			*memmap.PtrUint8(0x587000, 71539) = uint8(int8(int32(*memmap.PtrUint8(0x5D4594, 741660)) + 48))
 			v117 = int8(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 632))) + *memmap.PtrUint32(0x5D4594, 741660)))))
-			v109 = alloc.Calloc(1, 0x10)
+			v109 = alloc.Calloc1(1, 0x10)
 			if v109 != nil {
 				v110 = sub_42C7F0(int32(uintptr(v109)), internCStr("PAR?"), v117)
 			} else {
@@ -2491,7 +2491,7 @@ func sub_42ADA0(a1 int32, a2 int32, a3 int16, a4 *uint32) *uint16 {
 			v92 = int32(*memmap.PtrUint32(0x5D4594, 741660) + 1)
 		}
 		v111 = *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v4 + 636)))
-		v112 = alloc.Calloc(1, 0x10)
+		v112 = alloc.Calloc1(1, 0x10)
 		if v112 != nil {
 			v113 = sub_42C910(int32(uintptr(v112)), (*byte)(memmap.PtrOff(0x587000, 71904)), v111, uint16(int16(int32(a3)*2)))
 			sub_42C360((*uint32)(unsafe.Pointer(&v118[0])), v113)
@@ -2594,7 +2594,7 @@ func sub_42B810(a1 *int16, a2 *uint32) *uint16 {
 	*(*uint16)(unsafe.Pointer(&v59[0])) = 0
 	*(*uint16)(unsafe.Pointer(&v59[2])) = 0
 	*(*uint32)(unsafe.Pointer(&v59[4])) = 0
-	v4 = alloc.Calloc(1, 0x10)
+	v4 = alloc.Calloc1(1, 0x10)
 	if v4 != nil {
 		v5 = sub_42C8B0(int32(uintptr(v4)), internCStr("IDNO"), int8(v3))
 	} else {
@@ -2602,7 +2602,7 @@ func sub_42B810(a1 *int16, a2 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v59[0])), v5)
 	v6 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*2))))
-	v7 = alloc.Calloc(1, 0x10)
+	v7 = alloc.Calloc1(1, 0x10)
 	if v7 != nil {
 		v8 = sub_42C8B0(int32(uintptr(v7)), internCStr("GSKU"), int8(v6))
 	} else {
@@ -2610,21 +2610,21 @@ func sub_42B810(a1 *int16, a2 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v59[0])), v8)
 	v9 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*3))))
-	v10 = alloc.Calloc(1, 0x10)
+	v10 = alloc.Calloc1(1, 0x10)
 	if v10 != nil {
 		v11 = sub_42C8B0(int32(uintptr(v10)), internCStr("GSTY"), int8(v9))
 	} else {
 		v11 = 0
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v59[0])), v11)
-	v12 = alloc.Calloc(1, 0x10)
+	v12 = alloc.Calloc1(1, 0x10)
 	if v12 != nil {
 		v13 = sub_42C8E0(int32(uintptr(v12)), internCStr("SCEN"), (*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(a1))), 24)))
 	} else {
 		v13 = 0
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v59[0])), v13)
-	v14 = alloc.Calloc(1, 0x10)
+	v14 = alloc.Calloc1(1, 0x10)
 	if v14 != nil {
 		v15 = sub_42C8E0(int32(uintptr(v14)), internCStr("GNAM"), (*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(a1))), 280)))
 	} else {
@@ -2632,7 +2632,7 @@ func sub_42B810(a1 *int16, a2 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v59[0])), v15)
 	v16 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*5))))
-	v17 = alloc.Calloc(1, 0x10)
+	v17 = alloc.Calloc1(1, 0x10)
 	if v17 != nil {
 		v18 = sub_42C8B0(int32(uintptr(v17)), internCStr("DURA"), int8(v16))
 	} else {
@@ -2640,7 +2640,7 @@ func sub_42B810(a1 *int16, a2 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v59[0])), v18)
 	v60 = int8(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(a1))), 16))))
-	v19 = alloc.Calloc(1, 0x10)
+	v19 = alloc.Calloc1(1, 0x10)
 	if v19 != nil {
 		v20 = sub_42C7F0(int32(uintptr(v19)), internCStr("TRNY"), v60)
 	} else {
@@ -2648,7 +2648,7 @@ func sub_42B810(a1 *int16, a2 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v59[0])), v20)
 	v21 = *v2
-	v22 = alloc.Calloc(1, 0x10)
+	v22 = alloc.Calloc1(1, 0x10)
 	if v22 != nil {
 		v23 = sub_42C820(int32(uintptr(v22)), (*byte)(memmap.PtrOff(0x587000, 72000)), int8(v21))
 	} else {
@@ -2656,7 +2656,7 @@ func sub_42B810(a1 *int16, a2 *uint32) *uint16 {
 	}
 	sub_42C360((*uint32)(unsafe.Pointer(&v59[0])), v23)
 	v24 = int8(*memmap.PtrUint8(0x5D4594, 741672))
-	v25 = alloc.Calloc(1, 0x10)
+	v25 = alloc.Calloc1(1, 0x10)
 	if v25 != nil {
 		v26 = sub_42C8B0(int32(uintptr(v25)), internCStr("SEQU"), v24)
 	} else {
@@ -2667,7 +2667,7 @@ func sub_42B810(a1 *int16, a2 *uint32) *uint16 {
 	for *memmap.PtrUint32(0x5D4594, 741664) = 0; v27 < int32(*v2); *memmap.PtrUint32(0x5D4594, 741664) = uint32(v27) {
 		*memmap.PtrUint8(0x587000, 71547) = uint8(int8(v27 + 48))
 		v28 = *(**byte)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*134))) + uint32(v27*4))))
-		v29 = alloc.Calloc(1, 0x10)
+		v29 = alloc.Calloc1(1, 0x10)
 		if v29 != nil {
 			v30 = sub_42C8E0(int32(uintptr(v29)), internCStr("LGLS"), v28)
 		} else {
@@ -2676,7 +2676,7 @@ func sub_42B810(a1 *int16, a2 *uint32) *uint16 {
 		sub_42C360((*uint32)(unsafe.Pointer(&v59[0])), v30)
 		*memmap.PtrUint8(0x587000, 71555) = uint8(int8(int32(*memmap.PtrUint8(0x5D4594, 741664)) + 48))
 		v31 = int32(*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*135))) + *memmap.PtrUint32(0x5D4594, 741664)*4))))
-		v32 = alloc.Calloc(1, 0x10)
+		v32 = alloc.Calloc1(1, 0x10)
 		if v32 != nil {
 			v33 = sub_42C8B0(int32(uintptr(v32)), internCStr("IPLS"), int8(v31))
 		} else {
@@ -2685,7 +2685,7 @@ func sub_42B810(a1 *int16, a2 *uint32) *uint16 {
 		sub_42C360((*uint32)(unsafe.Pointer(&v59[0])), v33)
 		*memmap.PtrUint8(0x587000, 71563) = uint8(int8(int32(*memmap.PtrUint8(0x5D4594, 741664)) + 48))
 		v61 = int8(*(*uint8)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 741664) + *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*144)))))))
-		v34 = alloc.Calloc(1, 0x10)
+		v34 = alloc.Calloc1(1, 0x10)
 		if v34 != nil {
 			v35 = sub_42C7F0(int32(uintptr(v34)), internCStr("CLLS"), v61)
 		} else {
@@ -2694,7 +2694,7 @@ func sub_42B810(a1 *int16, a2 *uint32) *uint16 {
 		sub_42C360((*uint32)(unsafe.Pointer(&v59[0])), v35)
 		*memmap.PtrUint8(0x587000, 71571) = uint8(int8(int32(*memmap.PtrUint8(0x5D4594, 741664)) + 48))
 		v36 = int32(*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*136))) + *memmap.PtrUint32(0x5D4594, 741664)*4))))
-		v37 = alloc.Calloc(1, 0x10)
+		v37 = alloc.Calloc1(1, 0x10)
 		if v37 != nil {
 			v38 = sub_42C8B0(int32(uintptr(v37)), internCStr("CSTS"), int8(v36))
 		} else {
@@ -2703,7 +2703,7 @@ func sub_42B810(a1 *int16, a2 *uint32) *uint16 {
 		sub_42C360((*uint32)(unsafe.Pointer(&v59[0])), v38)
 		*memmap.PtrUint8(0x587000, 71579) = uint8(int8(int32(*memmap.PtrUint8(0x5D4594, 741664)) + 48))
 		v39 = int32(*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*137))) + *memmap.PtrUint32(0x5D4594, 741664)*4))))
-		v40 = alloc.Calloc(1, 0x10)
+		v40 = alloc.Calloc1(1, 0x10)
 		if v40 != nil {
 			v41 = sub_42C8B0(int32(uintptr(v40)), internCStr("HSTS"), int8(v39))
 		} else {
@@ -2712,7 +2712,7 @@ func sub_42B810(a1 *int16, a2 *uint32) *uint16 {
 		sub_42C360((*uint32)(unsafe.Pointer(&v59[0])), v41)
 		*memmap.PtrUint8(0x587000, 71587) = uint8(int8(int32(*memmap.PtrUint8(0x5D4594, 741664)) + 48))
 		v42 = int32(*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*138))) + *memmap.PtrUint32(0x5D4594, 741664)*4))))
-		v43 = alloc.Calloc(1, 0x10)
+		v43 = alloc.Calloc1(1, 0x10)
 		if v43 != nil {
 			v44 = sub_42C8B0(int32(uintptr(v43)), internCStr("MKLS"), int8(v42))
 		} else {
@@ -2721,7 +2721,7 @@ func sub_42B810(a1 *int16, a2 *uint32) *uint16 {
 		sub_42C360((*uint32)(unsafe.Pointer(&v59[0])), v44)
 		*memmap.PtrUint8(0x587000, 71595) = uint8(int8(int32(*memmap.PtrUint8(0x5D4594, 741664)) + 48))
 		v45 = int32(*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*139))) + *memmap.PtrUint32(0x5D4594, 741664)*4))))
-		v46 = alloc.Calloc(1, 0x10)
+		v46 = alloc.Calloc1(1, 0x10)
 		if v46 != nil {
 			v47 = sub_42C8B0(int32(uintptr(v46)), internCStr("ANKS"), int8(v45))
 		} else {
@@ -2730,7 +2730,7 @@ func sub_42B810(a1 *int16, a2 *uint32) *uint16 {
 		sub_42C360((*uint32)(unsafe.Pointer(&v59[0])), v47)
 		*memmap.PtrUint8(0x587000, 71603) = uint8(int8(int32(*memmap.PtrUint8(0x5D4594, 741664)) + 48))
 		v48 = int32(*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*140))) + *memmap.PtrUint32(0x5D4594, 741664)*4))))
-		v49 = alloc.Calloc(1, 0x10)
+		v49 = alloc.Calloc1(1, 0x10)
 		if v49 != nil {
 			v50 = sub_42C8B0(int32(uintptr(v49)), internCStr("GNDS"), int8(v48))
 		} else {
@@ -2739,7 +2739,7 @@ func sub_42B810(a1 *int16, a2 *uint32) *uint16 {
 		sub_42C360((*uint32)(unsafe.Pointer(&v59[0])), v50)
 		*memmap.PtrUint8(0x587000, 71611) = uint8(int8(int32(*memmap.PtrUint8(0x5D4594, 741664)) + 48))
 		v51 = int32(*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*141))) + *memmap.PtrUint32(0x5D4594, 741664)*4))))
-		v52 = alloc.Calloc(1, 0x10)
+		v52 = alloc.Calloc1(1, 0x10)
 		if v52 != nil {
 			v53 = sub_42C8B0(int32(uintptr(v52)), internCStr("SECS"), int8(v51))
 		} else {
@@ -2748,7 +2748,7 @@ func sub_42B810(a1 *int16, a2 *uint32) *uint16 {
 		sub_42C360((*uint32)(unsafe.Pointer(&v59[0])), v53)
 		*memmap.PtrUint8(0x587000, 71619) = uint8(int8(int32(*memmap.PtrUint8(0x5D4594, 741664)) + 48))
 		v54 = int32(*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*142))) + *memmap.PtrUint32(0x5D4594, 741664)*4))))
-		v55 = alloc.Calloc(1, 0x10)
+		v55 = alloc.Calloc1(1, 0x10)
 		if v55 != nil {
 			v56 = sub_42C8B0(int32(uintptr(v55)), internCStr("BPTS"), int8(v54))
 		} else {
@@ -2771,7 +2771,7 @@ func sub_42BCE0(this *uint32, a2 *byte, a3 int8) int32 {
 		v5 int32
 	)
 	v3 = this
-	v4 = alloc.Calloc(1, 0x10)
+	v4 = alloc.Calloc1(1, 0x10)
 	if v4 != nil {
 		v5 = sub_42C7F0(int32(uintptr(v4)), a2, a3)
 	} else {
@@ -2786,7 +2786,7 @@ func sub_42BD50(this *uint32, a2 *byte, a3 int8) int32 {
 		v5 int32
 	)
 	v3 = this
-	v4 = alloc.Calloc(1, 0x10)
+	v4 = alloc.Calloc1(1, 0x10)
 	if v4 != nil {
 		v5 = sub_42C820(int32(uintptr(v4)), a2, a3)
 	} else {
@@ -2801,7 +2801,7 @@ func sub_42BDC0(this *uint32, a2 *byte, a3 int8) int32 {
 		v5 int32
 	)
 	v3 = this
-	v4 = alloc.Calloc(1, 0x10)
+	v4 = alloc.Calloc1(1, 0x10)
 	if v4 != nil {
 		v5 = sub_42C8B0(int32(uintptr(v4)), a2, a3)
 	} else {
@@ -2816,7 +2816,7 @@ func sub_42BE30(this *uint32, a2 *byte, a3 *byte) int32 {
 		v5 int32
 	)
 	v3 = this
-	v4 = alloc.Calloc(1, 0x10)
+	v4 = alloc.Calloc1(1, 0x10)
 	if v4 != nil {
 		v5 = sub_42C8E0(int32(uintptr(v4)), a2, a3)
 	} else {
@@ -2831,7 +2831,7 @@ func sub_42BEA0(this *uint32, a2 *byte, a3 unsafe.Pointer, a4 uint16) int32 {
 		v6 int32
 	)
 	v4 = this
-	v5 = alloc.Calloc(1, 0x10)
+	v5 = alloc.Calloc1(1, 0x10)
 	if v5 != nil {
 		v6 = sub_42C910(int32(uintptr(v5)), a2, a3, a4)
 	} else {
@@ -2884,7 +2884,7 @@ func sub_42C480(this *uint32, a2 *uint32) *uint16 {
 		*a2 = v4
 		*a2 = uint32(*(*uint16)(unsafe.Pointer(uintptr(i + 6)))) + v4 + uint32(-((int32(uint8(*(*uint16)(unsafe.Pointer(uintptr(i + 6)))))+int32(uint8(v4)))&3)&3)
 	}
-	v5 = (*uint16)(alloc.Calloc(1, int(*a2)))
+	v5 = (*uint16)(alloc.Calloc1(1, int(*a2)))
 	*v5 = cnet.Htons(*(*uint16)(unsafe.Pointer(a2)))
 	*(*uint16)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(uint16(0))*1)) = cnet.Htons(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v2))), unsafe.Sizeof(uint16(0))*1))))
 	v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*1)))
@@ -2969,7 +2969,7 @@ func sub_42C9A0(this *unsafe.Pointer, a2 *byte, a3 int8) *byte {
 	libc.StrNCpy((*byte)(unsafe.Pointer(v3)), a2, 4)
 	*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*2))) = 2
 	*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*3))) = 1
-	result = (*byte)(alloc.Calloc(1, 1))
+	result = (*byte)(alloc.Calloc1(1, 1))
 	v5 = uint32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*3))))
 	*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(unsafe.Pointer(nil))*2)) = unsafe.Pointer(result)
 	alloc.Memcpy(unsafe.Pointer(result), unsafe.Pointer(&a3), uintptr(v5))
@@ -2987,7 +2987,7 @@ func sub_42CA00(this *unsafe.Pointer, a2 *byte, a3 int8) *byte {
 	libc.StrNCpy((*byte)(unsafe.Pointer(v3)), a2, 4)
 	*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*2))) = 3
 	*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*3))) = 2
-	result = (*byte)(alloc.Calloc(1, 2))
+	result = (*byte)(alloc.Calloc1(1, 2))
 	v5 = uint32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*3))))
 	*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(unsafe.Pointer(nil))*2)) = unsafe.Pointer(result)
 	var a3i int32 = int32(a3)
@@ -3006,7 +3006,7 @@ func sub_42CB20(this *unsafe.Pointer, a2 *byte, a3 int8) *byte {
 	libc.StrNCpy((*byte)(unsafe.Pointer(v3)), a2, 4)
 	*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*2))) = 6
 	*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*3))) = 4
-	result = (*byte)(alloc.Calloc(1, 4))
+	result = (*byte)(alloc.Calloc1(1, 4))
 	v5 = uint32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*3))))
 	*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(unsafe.Pointer(nil))*2)) = unsafe.Pointer(result)
 	var a3i int32 = int32(a3)
@@ -3027,7 +3027,7 @@ func sub_42CB80(this *unsafe.Pointer, a2 *byte, a3 *byte) *byte {
 	*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*2))) = 7
 	v4 = uint32(libc.StrLen(a3) + 1)
 	*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*3))) = uint16(v4)
-	result = (*byte)(alloc.Calloc(1, int(uint16(v4))))
+	result = (*byte)(alloc.Calloc1(1, int(uint16(v4))))
 	v6 = *((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*3)))
 	*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(unsafe.Pointer(nil))*2)) = unsafe.Pointer(result)
 	alloc.Memcpy(unsafe.Pointer(result), unsafe.Pointer(a3), uintptr(v6))
@@ -3045,7 +3045,7 @@ func sub_42CBF0(this *unsafe.Pointer, a2 *byte, a3 unsafe.Pointer, a4 uint16) un
 	libc.StrNCpy((*byte)(unsafe.Pointer(v4)), a2, 4)
 	*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v4))), unsafe.Sizeof(uint16(0))*2))) = 20
 	*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v4))), unsafe.Sizeof(uint16(0))*3))) = a4
-	result = alloc.Calloc(1, uintptr(a4))
+	result = alloc.Calloc1(1, uintptr(a4))
 	v6 = uint32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v4))), unsafe.Sizeof(uint16(0))*3))))
 	*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(unsafe.Pointer(nil))*2)) = result
 	alloc.Memcpy(result, a3, uintptr(v6))

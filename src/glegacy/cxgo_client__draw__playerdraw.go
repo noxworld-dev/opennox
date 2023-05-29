@@ -293,7 +293,7 @@ func nox_things_player_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *by
 		v22 uint8
 		v23 uint8
 	)
-	v3 = (*uint32)(alloc.Calloc(1, 14524))
+	v3 = (*uint32)(alloc.Calloc1(1, 14524))
 	v5 = v3
 	v21 = v3
 	*v3 = 14524
@@ -326,7 +326,7 @@ LABEL_3:
 		nox_memfile_read(unsafe.Pointer(a3), 1, int32(v23), f)
 		*((*uint8)(unsafe.Add(unsafe.Pointer(a3), v23))) = 0
 		if libc.StrCmp(internCStr("NAKED"), (*byte)(unsafe.Pointer(a3))) == 0 {
-			v14 = (*uint32)(alloc.Calloc(1, 0x28))
+			v14 = (*uint32)(alloc.Calloc1(1, 0x28))
 			v15 = int32(*(*int16)(unsafe.Pointer(uintptr(v11 + 40))))
 			*(*uint32)(unsafe.Pointer(uintptr(v11 + 48))) = uint32(uintptr(unsafe.Pointer(v14)))
 			v16 = sub_44B940(v14, v15, f)
@@ -337,11 +337,11 @@ LABEL_3:
 				if v19 < 0 {
 					return false
 				}
-				v20 = (*uint32)(alloc.Calloc(1, 0x28))
+				v20 = (*uint32)(alloc.Calloc1(1, 0x28))
 				*(*uint32)(unsafe.Pointer(uintptr(v11 + v19*4 + 156))) = uint32(uintptr(unsafe.Pointer(v20)))
 				v16 = sub_44B940(v20, int32(*(*int16)(unsafe.Pointer(uintptr(v11 + 40)))), f)
 			} else {
-				v18 = (*uint32)(alloc.Calloc(1, 0x28))
+				v18 = (*uint32)(alloc.Calloc1(1, 0x28))
 				*(*uint32)(unsafe.Pointer(uintptr(v11 + v17*4 + 52))) = uint32(uintptr(unsafe.Pointer(v18)))
 				v16 = sub_44B940(v18, int32(*(*int16)(unsafe.Pointer(uintptr(v11 + 40)))), f)
 			}

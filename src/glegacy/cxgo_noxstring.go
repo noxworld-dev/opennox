@@ -997,7 +997,7 @@ func nox_wcstol(nptr *wchar2_t, endptr **wchar2_t, base int32) int32 {
 		tmp    *byte
 		ptr    *byte
 	)
-	tmp, _ = alloc.Calloc(int(len_+1), 1)
+	tmp = (*byte)(alloc.Calloc1(int(len_+1), 1))
 	for i = 0; i < len_; i++ {
 		if *(*wchar2_t)(unsafe.Add(unsafe.Pointer(nptr), unsafe.Sizeof(wchar2_t(0))*uintptr(i))) < 0x80 {
 			*(*byte)(unsafe.Add(unsafe.Pointer(tmp), i)) = byte(*(*wchar2_t)(unsafe.Add(unsafe.Pointer(nptr), unsafe.Sizeof(wchar2_t(0))*uintptr(i))))

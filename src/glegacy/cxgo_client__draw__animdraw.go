@@ -124,7 +124,7 @@ func nox_things_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *b
 		v21    uint8
 		v22    int32
 	)
-	v3 = (*uint32)(alloc.Calloc(1, 0x10))
+	v3 = (*uint32)(alloc.Calloc1(1, 0x10))
 	v5 = v3
 	v6 = a3
 	*v3 = 16
@@ -136,7 +136,7 @@ func nox_things_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *b
 	nox_memfile_read(unsafe.Pointer(a3), 1, int32(v20), f)
 	*(*uint8)(unsafe.Add(unsafe.Pointer(a3), v20)) = 0
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*3)) = uint32(get_animation_kind_id_44B4C0((*byte)(unsafe.Pointer(a3))))
-	result = int32(uintptr(alloc.Calloc(int(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v5))), 8)))), 4)))
+	result = int32(uintptr(alloc.Calloc1(int(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v5))), 8)))), 4)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*1)) = uint32(result)
 	if result == 0 {
 		return false
@@ -184,7 +184,7 @@ func sub_44BE90(a1 int32, f *nox_memfile) int32 {
 		v12    [128]byte
 	)
 	v2 = a1
-	result = int32(uintptr(alloc.Calloc(int(*(*int16)(unsafe.Pointer(uintptr(a1 + 40)))), 4)))
+	result = int32(uintptr(alloc.Calloc1(int(*(*int16)(unsafe.Pointer(uintptr(a1 + 40)))), 4)))
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 4))) = uint32(result)
 	if result != 0 {
 		v4 = 0
@@ -218,7 +218,7 @@ func sub_44BE90(a1 int32, f *nox_memfile) int32 {
 func nox_things_animate_state_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
 	var (
 		data_sz      uint32  = 0x94
-		draw_cb_data *uint32 = (*uint32)(alloc.Calloc(1, int(data_sz)))
+		draw_cb_data *uint32 = (*uint32)(alloc.Calloc1(1, int(data_sz)))
 	)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(draw_cb_data), 4*0)) = data_sz
 	for {

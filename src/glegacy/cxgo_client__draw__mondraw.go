@@ -234,7 +234,7 @@ func nox_things_monster_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *b
 		v6 uint8
 		v9 int32
 	)
-	v2 = (*uint32)(alloc.Calloc(1, 0x304))
+	v2 = (*uint32)(alloc.Calloc1(1, 0x304))
 	*v2 = 772
 	for {
 		v4 = int32(nox_memfile_read_u32(f))

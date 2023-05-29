@@ -378,7 +378,7 @@ func sub_4BD280(a1 int32, a2 int32) *uint32 {
 		v5     int32
 	)
 	v2 = a2 + 4
-	result = (*uint32)(alloc.Calloc(1, int(a1*(a2+4)+4)))
+	result = (*uint32)(alloc.Calloc1(1, int(a1*(a2+4)+4)))
 	if result != nil {
 		v4 = (*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1))
 		*result = uint32(uintptr(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1)))))
@@ -422,7 +422,7 @@ func sub_4BD300(a1 *uint32, a2 int32) int32 {
 }
 func sub_4BD340(a1 int32, a2 int32, a3 int32, a4 int32) *uint32 {
 	var v4 *uint32
-	v4 = (*uint32)(alloc.Calloc(1, 0x1C))
+	v4 = (*uint32)(alloc.Calloc1(1, 0x1C))
 	libc.MemSet(unsafe.Pointer(v4), 0, 0x1C)
 	*v4 = uint32(a1)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*6)) = uint32(a4)
@@ -594,7 +594,7 @@ func sub_4BD710(a1 int32) int32 {
 }
 func sub_4BD720(a1 int32) *uint32 {
 	var v1 *uint32
-	v1 = (*uint32)(alloc.Calloc(1, 0x138))
+	v1 = (*uint32)(alloc.Calloc1(1, 0x138))
 	libc.MemSet(unsafe.Pointer(v1), 0, 0x138)
 	sub_425770(unsafe.Pointer(v1))
 	sub_4BDC00(int32(uintptr(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*30))))))
@@ -4739,7 +4739,7 @@ func sub_4CADD0() int32 {
 	if *memmap.PtrUint32(0x5D4594, 1522584) == 0 {
 		v1 = 0
 		for {
-			v2 = (*uint32)(alloc.Calloc(1, 0x3C))
+			v2 = (*uint32)(alloc.Calloc1(1, 0x3C))
 			if v2 == nil {
 				nox_exit(-1)
 			}

@@ -790,7 +790,7 @@ func nox_xxx_wallBreackableListClear_410810() *uint32 {
 }
 func nox_xxx_wallBreackableListAdd_410840(a1 int32) *uint32 {
 	var result *uint32
-	result = (*uint32)(alloc.Calloc(1, 8))
+	result = (*uint32)(alloc.Calloc1(1, 8))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1)) = uint32(a1)
 	*result = dword_5d4594_251564
 	dword_5d4594_251564 = uint32(uintptr(unsafe.Pointer(result)))
@@ -2482,7 +2482,7 @@ func sub_416720() {
 }
 func sub_416770(a1 int32, a2 *wchar2_t, a3 *byte) *int32 {
 	var v3 *uint32
-	v3 = (*uint32)(alloc.Calloc(1, 0x60))
+	v3 = (*uint32)(alloc.Calloc1(1, 0x60))
 	sub_425770(unsafe.Pointer(v3))
 	nox_wcscpy((*wchar2_t)(unsafe.Add(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(v3))), unsafe.Sizeof(wchar2_t(0))*6)), a2)
 	if a3 != nil {
@@ -2562,7 +2562,7 @@ func sub_416860(a1 int32) *int32 {
 }
 func sub_4168A0(a1 *wchar2_t) *int32 {
 	var v1 *wchar2_t
-	v1 = (*wchar2_t)(alloc.Calloc(1, 0x40))
+	v1 = (*wchar2_t)(alloc.Calloc1(1, 0x40))
 	sub_425770(unsafe.Pointer(v1))
 	nox_wcscpy((*wchar2_t)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(wchar2_t(0))*6)), a1)
 	nox_common_list_append_4258E0((*nox_list_item_t)(unsafe.Pointer(uintptr(int32(uintptr(memmap.PtrOff(0x5D4594, 371364)))))), (*nox_list_item_t)(unsafe.Pointer(v1)))
@@ -2704,7 +2704,7 @@ func nox_xxx_netMarkMinimapObject_417190(a1 int32, a2p *nox_object_t, a3 int32) 
 			v6 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*2)))))
 		}
 	}
-	v8 = (*uint32)(alloc.Calloc(1, 0x10))
+	v8 = (*uint32)(alloc.Calloc1(1, 0x10))
 	if v8 == nil {
 		return v3
 	}
@@ -3603,7 +3603,7 @@ func sub_4184D0(a1p *nox_team_t) {
 		}
 		v3[15] = byte(nox_wcslen(a1))
 		v1 = int32(uint8(v3[15])) * 2
-		v2 = (*uint32)(alloc.Calloc(1, int(v1+18)))
+		v2 = (*uint32)(alloc.Calloc1(1, int(v1+18)))
 		*(*uint64)(unsafe.Pointer(v2)) = *(*uint64)(unsafe.Pointer(&v3[0]))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)) = *(*uint32)(unsafe.Pointer(&v3[8]))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3)) = *(*uint32)(unsafe.Pointer(&v3[12]))

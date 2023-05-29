@@ -3454,7 +3454,7 @@ func sub_457140(a1 int32, a2 *wchar2_t) int32 {
 	)
 	result = int32(dword_5d4594_1045684)
 	if dword_5d4594_1045684 != 0 {
-		v3 = (*wchar2_t)(alloc.Calloc(1, 0x48))
+		v3 = (*wchar2_t)(alloc.Calloc1(1, 0x48))
 		sub_425770(unsafe.Pointer(v3))
 		nox_common_list_append_4258E0((*nox_list_item_t)(unsafe.Pointer(uintptr(int32(uintptr(memmap.PtrOff(0x5D4594, 1045652)))))), (*nox_list_item_t)(unsafe.Pointer(v3)))
 		nox_wcscpy((*wchar2_t)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(wchar2_t(0))*6)), a2)

@@ -1251,7 +1251,7 @@ func sub_4D1210(a1 int32) {
 		result = unsafe.Pointer(nox_common_playerInfoFromNum_417090(a1))
 		v2 = result
 		if result != nil {
-			v3 = (*uint32)(alloc.Calloc(1, 0x10))
+			v3 = (*uint32)(alloc.Calloc1(1, 0x10))
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*3)) = uint32(uintptr(v2))
 			nox_common_list_append_4258E0((*nox_list_item_t)(unsafe.Pointer(uintptr(int32(uintptr(memmap.PtrOff(0x5D4594, 1548492)))))), (*nox_list_item_t)(unsafe.Pointer(v3)))
 		}
@@ -2309,7 +2309,7 @@ func nox_xxx_mapGenMkSmallRoom_4D4F40(a1 *uint32) *float32 {
 		v5 = &v30[v24]
 		v27 = *v25
 		for {
-			result = (*float32)(alloc.Calloc(1, 0x178))
+			result = (*float32)(alloc.Calloc1(1, 0x178))
 			v6 = result
 			*v5 = int32(uintptr(unsafe.Pointer(result)))
 			if result == nil {
@@ -2385,7 +2385,7 @@ func nox_xxx_mapGenMkSmallRoom_4D4F40(a1 *uint32) *float32 {
 				v22.field_0 = *(*float32)(unsafe.Add(unsafe.Pointer(v26), unsafe.Sizeof(float32(0))*5))
 				v22.field_4 = *(*float32)(unsafe.Add(unsafe.Pointer(v26), unsafe.Sizeof(float32(0))*8)) + *(*float32)(unsafe.Add(unsafe.Pointer(v26), unsafe.Sizeof(float32(0))*6))
 				for {
-					result = (*float32)(alloc.Calloc(1, 0x178))
+					result = (*float32)(alloc.Calloc1(1, 0x178))
 					v16 = result
 					*v13 = int32(uintptr(unsafe.Pointer(result)))
 					if result == nil {
