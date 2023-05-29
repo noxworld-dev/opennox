@@ -1,10 +1,11 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
-	"github.com/gotranspile/cxgo/runtime/stdio"
 	"math"
 	"unsafe"
+
+	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/gotranspile/cxgo/runtime/stdio"
 )
 
 func nox_xxx_onFrameLightning_52F8A0(a1 float32) int32 {
@@ -1562,15 +1563,15 @@ func sub_531C10(a1 int32, a2 int32) *int32 {
 		v3     *int32
 		result *int32
 	)
-	v2 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 60, internCStr(__FILE__), __LINE__))
+	v2 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 60))
 	if v2 != nil {
 		*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*1)) = a2
 	}
-	v3 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 42, internCStr(__FILE__), __LINE__))
+	v3 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 42))
 	if v3 != nil {
 		*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*1)) = a2
 	}
-	result = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 7, internCStr(__FILE__), __LINE__))
+	result = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 7))
 	if result != nil {
 		*(*int32)(unsafe.Add(unsafe.Pointer(result), 4*1)) = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 56))))
 		*(*int32)(unsafe.Add(unsafe.Pointer(result), 4*2)) = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 60))))
@@ -1592,42 +1593,42 @@ func nox_xxx_monsterAction_531C60(a1 int32, a2 int32) *int32 {
 		result *int32
 	)
 	v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
-	v3 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 60, internCStr(__FILE__), __LINE__))
+	v3 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 60))
 	if v3 != nil {
 		*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*1)) = a2
 	}
-	v4 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 42, internCStr(__FILE__), __LINE__))
+	v4 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 42))
 	if v4 != nil {
 		*(*int32)(unsafe.Add(unsafe.Pointer(v4), 4*1)) = a2
 	}
 	if nox_xxx_monsterCanShoot_534280(a1) != 0 {
-		v5 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 50, internCStr(__FILE__), __LINE__))
+		v5 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 50))
 		if v5 != nil {
 			v6 = float64(*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v2 + 484))) + 212)))) * 0.60000002
 			*(*int32)(unsafe.Add(unsafe.Pointer(v5), 4*3)) = a2
 			*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v5))), unsafe.Sizeof(float32(0))*1))) = float32(v6)
 		}
 	}
-	v7 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 45, internCStr(__FILE__), __LINE__))
+	v7 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 45))
 	if v7 != nil {
 		*(*int32)(unsafe.Add(unsafe.Pointer(v7), 4*1)) = a2
 	}
-	nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 16, internCStr(__FILE__), __LINE__)
-	v8 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 26, internCStr(__FILE__), __LINE__))
+	nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 16)
+	v8 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 26))
 	if v8 != nil {
 		*(*int32)(unsafe.Add(unsafe.Pointer(v8), 4*1)) = a2
 	}
-	v9 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 49, internCStr(__FILE__), __LINE__))
+	v9 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 49))
 	if v9 != nil {
 		v10 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v2 + 484))) + 112))))
 		*(*int32)(unsafe.Add(unsafe.Pointer(v9), 4*3)) = a2
 		*(*int32)(unsafe.Add(unsafe.Pointer(v9), 4*1)) = v10
 	}
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 12))))&0x10 != 0 {
-		nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 65, internCStr(__FILE__), __LINE__)
-		nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 40, internCStr(__FILE__), __LINE__)
+		nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 65)
+		nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 40)
 	}
-	result = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 7, internCStr(__FILE__), __LINE__))
+	result = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 7))
 	if result != nil {
 		*(*int32)(unsafe.Add(unsafe.Pointer(result), 4*1)) = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 56))))
 		*(*int32)(unsafe.Add(unsafe.Pointer(result), 4*2)) = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 60))))
@@ -1648,38 +1649,38 @@ func sub_531D50(a1 int32, a2 int32) *int32 {
 		v10    int32
 	)
 	v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
-	v3 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 60, internCStr(__FILE__), __LINE__))
+	v3 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 60))
 	if v3 != nil {
 		*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*1)) = a2
 	}
-	v4 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 45, internCStr(__FILE__), __LINE__))
+	v4 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 45))
 	if v4 != nil {
 		*(*int32)(unsafe.Add(unsafe.Pointer(v4), 4*1)) = a2
 	}
-	v5 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 17, internCStr(__FILE__), __LINE__))
+	v5 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 17))
 	if v5 != nil {
 		*(*int32)(unsafe.Add(unsafe.Pointer(v5), 4*1)) = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 56))))
 		*(*int32)(unsafe.Add(unsafe.Pointer(v5), 4*2)) = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 60))))
 		*(*int32)(unsafe.Add(unsafe.Pointer(v5), 4*3)) = a2
 	}
-	v6 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 26, internCStr(__FILE__), __LINE__))
+	v6 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 26))
 	if v6 != nil {
 		*(*int32)(unsafe.Add(unsafe.Pointer(v6), 4*1)) = a2
 	}
 	result = (*int32)(unsafe.Pointer(uintptr(sub_534710(a1))))
 	if result == nil {
-		v8 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 47, internCStr(__FILE__), __LINE__))
+		v8 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 47))
 		if v8 != nil {
 			*(*int32)(unsafe.Add(unsafe.Pointer(v8), 4*1)) = a2
 		}
-		v9 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 49, internCStr(__FILE__), __LINE__))
+		v9 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 49))
 		if v9 != nil {
 			v10 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v2 + 484))) + 212))))
 			*(*int32)(unsafe.Add(unsafe.Pointer(v9), 4*3)) = a2
 			*(*int32)(unsafe.Add(unsafe.Pointer(v9), 4*1)) = v10
 		}
-		nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 40, internCStr(__FILE__), __LINE__)
-		result = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 7, internCStr(__FILE__), __LINE__))
+		nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 40)
+		result = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 7))
 		if result != nil {
 			*(*int32)(unsafe.Add(unsafe.Pointer(result), 4*1)) = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 56))))
 			*(*int32)(unsafe.Add(unsafe.Pointer(result), 4*2)) = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 60))))
@@ -1770,8 +1771,8 @@ func nox_xxx_mobActionFight_531EC0(a1 int32) int8 {
 			*((*uint8)(unsafe.Pointer(&v3))) = uint8(int8(nox_xxx_monsterPopAction_50A160((*nox_object_t)(unsafe.Pointer(uintptr(a1))))))
 			return int8(uintptr(unsafe.Pointer(v3)))
 		}
-		nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 56, internCStr(__FILE__), __LINE__)
-		v3 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 7, internCStr(__FILE__), __LINE__))
+		nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 56)
+		v3 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 7))
 		if v3 != nil {
 			*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*1)) = int32(*(*uint32)(unsafe.Pointer(v4)))
 			*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*2)) = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 8))))
@@ -1808,7 +1809,7 @@ func nox_xxx_monsterShieldBlockStart_532070(a1 int32) int8 {
 		nox_xxx_monsterPopAction_50A160((*nox_object_t)(unsafe.Pointer(uintptr(a1))))
 		*((*uint8)(unsafe.Pointer(&v2))) = *(*uint8)(unsafe.Pointer(uintptr(a1 + 12)))
 		if (v2 & 0x10) == 0 {
-			*((*uint8)(unsafe.Pointer(&v2))) = uint8(uint32(uintptr(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 22, internCStr(__FILE__), __LINE__))))
+			*((*uint8)(unsafe.Pointer(&v2))) = uint8(uint32(uintptr(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 22))))
 		}
 	}
 	return int8(uint8(v2))
@@ -1878,15 +1879,15 @@ func nox_xxx_mobActionMelee1_532130(a1 int32) *int32 {
 			v8 = int32(uintptr(unsafe.Pointer(nox_xxx_getUnitName_4E39D0((*nox_object_t)(unsafe.Pointer(uintptr(a1)))))))
 			nox_ai_debug_printf_5341A0(internCStr("%d: %s(#%d) Tried to MELEE_ATTACK but friend in the way\n"), gameFrame(), v8, v13)
 			nox_xxx_monsterPopAction_50A160((*nox_object_t)(unsafe.Pointer(uintptr(a1))))
-			v9 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 27, internCStr(__FILE__), __LINE__))
+			v9 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 27))
 			if v9 != nil {
 				*(*int32)(unsafe.Add(unsafe.Pointer(v9), 4*1)) = int32(*(*int16)(unsafe.Pointer(uintptr(a1 + 124))))
 			}
-			v10 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 41, internCStr(__FILE__), __LINE__))
+			v10 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 41))
 			if v10 != nil {
 				*(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) = int32(gameFrame() + uint32(nox_common_randomInt_415FA0(int32(gameFPS()>>2), int32(gameFPS()>>1))))
 			}
-			result = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 24, internCStr(__FILE__), __LINE__))
+			result = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 24))
 			if result != nil {
 				v11 = int32(dword_5d4594_2487948 + 56)
 				*(*int32)(unsafe.Add(unsafe.Pointer(result), 4*1)) = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_2487948 + 56))))
@@ -1904,12 +1905,12 @@ func nox_xxx_mobActionMelee1_532130(a1 int32) *int32 {
 			}
 		}
 	} else {
-		v2 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 50, internCStr(__FILE__), __LINE__))
+		v2 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 50))
 		if v2 != nil {
 			*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v2))), unsafe.Sizeof(float32(0))*1))) = float32(float64(*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v1 + 484))) + 112)))) * 1.2)
 			*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*3)) = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 1196))))
 		}
-		result = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 1, internCStr(__FILE__), __LINE__))
+		result = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 1))
 		if result != nil {
 			*(*int32)(unsafe.Add(unsafe.Pointer(result), 4*1)) = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 512))))
 		}
@@ -2015,12 +2016,12 @@ func sub_532540(a1 int32) *uint32 {
 			nox_xxx_aud_501960(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*10))), (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
 		}
 	} else {
-		v2 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 50, internCStr(__FILE__), __LINE__))
+		v2 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 50))
 		if v2 != nil {
 			*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v2))), unsafe.Sizeof(float32(0))*1))) = float32(float64(*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*121)) + 212)))) * 1.2)
 			*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*3)) = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*299)))
 		}
-		result = (*uint32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 1, internCStr(__FILE__), __LINE__))
+		result = (*uint32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 1))
 		if result != nil {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*128))
 		}
@@ -2590,7 +2591,7 @@ func nox_xxx_enactUnitOrder_5339A0(source int32, unit int32, orderId int32) {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*326)) = 1056964608
 					*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*360)) = v7
 					nox_xxx_monsterClearActionStack_50A3A0((*nox_object_t)(unsafe.Pointer(uintptr(unit))))
-					nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(unit))), 0, internCStr(__FILE__), __LINE__)
+					nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(unit))), 0)
 				case 3:
 					if nox_xxx_monsterIsMoveing_534320(unit) != 0 {
 						if int32(*(*uint8)(unsafe.Pointer(uintptr(source + 8))))&4 != 0 {
@@ -2608,7 +2609,7 @@ func nox_xxx_enactUnitOrder_5339A0(source int32, unit int32, orderId int32) {
 						}
 						*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*328)) = 1132068864
 						nox_xxx_monsterClearActionStack_50A3A0((*nox_object_t)(unsafe.Pointer(uintptr(unit))))
-						v10 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(unit))), 4, internCStr(__FILE__), __LINE__))
+						v10 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(unit))), 4))
 						if v10 != nil {
 							*(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) = int32(*(*uint32)(unsafe.Pointer(uintptr(unit + 56))))
 							*(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*2)) = int32(*(*uint32)(unsafe.Pointer(uintptr(unit + 60))))
@@ -2629,7 +2630,7 @@ func nox_xxx_enactUnitOrder_5339A0(source int32, unit int32, orderId int32) {
 						*(*uint32)(unsafe.Pointer(uintptr(v11 + 1304))) = 1062501089
 						*(*uint32)(unsafe.Pointer(uintptr(v11 + 1440))) = v13
 						nox_xxx_monsterClearActionStack_50A3A0((*nox_object_t)(unsafe.Pointer(uintptr(unit))))
-						v14 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(unit))), 3, internCStr(__FILE__), __LINE__))
+						v14 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(unit))), 3))
 						if v14 != nil {
 							*(*int32)(unsafe.Add(unsafe.Pointer(v14), 4*1)) = int32(*(*uint32)(unsafe.Pointer(uintptr(source + 56))))
 							v15 = int32(*(*uint32)(unsafe.Pointer(uintptr(source + 60))))
@@ -2650,7 +2651,7 @@ func nox_xxx_enactUnitOrder_5339A0(source int32, unit int32, orderId int32) {
 						*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*326)) = 1062501089
 						*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*360)) = v17
 						nox_xxx_monsterClearActionStack_50A3A0((*nox_object_t)(unsafe.Pointer(uintptr(unit))))
-						nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(unit))), 5, internCStr(__FILE__), __LINE__)
+						nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(unit))), 5)
 					}
 				default:
 					return
@@ -3096,14 +3097,14 @@ func nox_xxx_monsterMimicCheckMorph_534950(a1p *nox_object_t) {
 		return v5*v5+v4*v4 > 64.0
 	}())) {
 		if v2 != 34 && *(*uint32)(unsafe.Pointer(uintptr(v1 + 1440)))&0x40000 != 0 {
-			nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 61, internCStr(__FILE__), __LINE__)
-			nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 34, internCStr(__FILE__), __LINE__)
+			nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 61)
+			nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 34)
 			nox_xxx_aud_501960(460, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
 			return
 		}
 	} else if (*(*uint32)(unsafe.Pointer(uintptr(v1 + 1440)))&0x40000) == 0 && (gameFrame()-*(*uint32)(unsafe.Pointer(uintptr(v1 + 548)))) > uint32(int32(gameFPS())) {
-		nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 61, internCStr(__FILE__), __LINE__)
-		nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 33, internCStr(__FILE__), __LINE__)
+		nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 61)
+		nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 33)
 		nox_xxx_aud_501960(460, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
 		return
 	}
@@ -3141,8 +3142,8 @@ func nox_xxx_mobRaiseZombie_534AB0(a1 int32) uint32 {
 		result = uint32(nox_xxx_mobActionGet_50A020(a1))
 		if result == 31 {
 			nox_xxx_monsterPopAction_50A160((*nox_object_t)(unsafe.Pointer(uintptr(a1))))
-			nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 61, internCStr(__FILE__), __LINE__)
-			nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 35, internCStr(__FILE__), __LINE__)
+			nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 61)
+			nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 35)
 			nox_xxx_aud_501960(469, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
 			nox_xxx_unitHPsetOnMax_4EE6F0(a1)
 			result = *(*uint32)(unsafe.Pointer(uintptr(a1 + 16))) & 0xFFFF7FA7
@@ -10143,15 +10144,15 @@ func nox_xxx_mobActionMoveTo_5443F0(a1 int32) int8 {
 			nox_xxx_monsterPopAction_50A160((*nox_object_t)(unsafe.Pointer(uintptr(v1))))
 		}
 		if v11 != 0 {
-			v12 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(v1))), 41, internCStr(__FILE__), __LINE__))
+			v12 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(v1))), 41))
 			if v12 != nil {
 				*(*int32)(unsafe.Add(unsafe.Pointer(v12), 4*1)) = int32(gameFrame() + uint32(nox_common_randomInt_415FA0(int32(gameFPS()*2), int32(gameFPS()*4))))
 			}
-			nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(v1))), 29, internCStr(__FILE__), __LINE__)
+			nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(v1))), 29)
 			*(*uint32)(unsafe.Pointer(uintptr(v2 + 1440))) |= 0x200000
 		}
 		if int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 284)))) != 0 {
-			v13 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(v1))), 1, internCStr(__FILE__), __LINE__))
+			v13 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(v1))), 1))
 			if v13 != nil {
 				*(*int32)(unsafe.Add(unsafe.Pointer(v13), 4*1)) = int32(gameFrame() + uint32(nox_common_randomInt_415FA0(int32(gameFPS()>>1), int32(gameFPS()))))
 			}
@@ -10173,7 +10174,7 @@ func nox_xxx_mobActionMoveToFar_5445C0(a1 *int32) int8 {
 	}()) == 0 {
 		if nox_xxx_monsterCanAttackAtWill_534390((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1))))))) != 0 {
 			if *(*uint32)(unsafe.Pointer(uintptr(v1 + 1196))) != 0 {
-				v3 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 15, internCStr(__FILE__), __LINE__))
+				v3 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 15))
 				if v3 != nil {
 					v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 1196))))
 					*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*1)) = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 56))))
@@ -10305,7 +10306,7 @@ func sub_544950(a1 int32) int8 {
 func nox_xxx_mobActionHunt_5449D0(a1 int32) *int32 {
 	var result *int32
 	*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))) + 1304))) = 1062501089
-	result = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 10, internCStr(__FILE__), __LINE__))
+	result = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 10))
 	if result != nil {
 		*(*int32)(unsafe.Add(unsafe.Pointer(result), 4*1)) = 0
 		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 12))) = 128

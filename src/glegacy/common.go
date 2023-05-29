@@ -25,7 +25,7 @@ func nox_common_randomInt_415FA0(min, max int) int {
 }
 
 // nox_common_randomIntMinMax_415FF0
-func nox_common_randomIntMinMax_415FF0(min, max int32, file *char, line int) int32 {
+func nox_common_randomIntMinMax_415FF0(min, max int32) int32 {
 	return int32(GetServer().S().Rand.Other.Int(int(min), int(max)))
 }
 

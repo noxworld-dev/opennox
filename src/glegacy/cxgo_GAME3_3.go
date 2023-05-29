@@ -1,10 +1,10 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
-	"github.com/gotranspile/cxgo/runtime/stdio"
 	"math"
 	"unsafe"
+
+	"github.com/gotranspile/cxgo/runtime/libc"
 )
 
 func nox_server_handler_PlayerDamage_4E17B0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
@@ -2757,7 +2757,7 @@ func nox_xxx_unitFreeze_4E79C0(obj *nox_object_t, a2 int32) int8 {
 		if v2&2 != 0 {
 			v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 16))))
 			if (v2 & 0x8000) == 0 {
-				*((*uint8)(unsafe.Pointer(&v2))) = uint8(uint32(uintptr(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, internCStr(__FILE__), __LINE__))))
+				*((*uint8)(unsafe.Pointer(&v2))) = uint8(uint32(uintptr(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0))))
 			}
 		}
 	}
@@ -3218,11 +3218,11 @@ func nox_xxx_collideMimic_4E83D0(a1 int32, a2 int32) *uint8 {
 	if a2 != 0 {
 		v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 16))))
 		if (v2&0x8000) == 0 && int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 8))))&6 != 0 && nox_xxx_unitIsEnemyTo_5330C0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), (*nox_object_t)(unsafe.Pointer(uintptr(a2)))) != 0 && nox_xxx_monsterIsActionScheduled_50A090(a1, 15) == 0 {
-			v3 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 43, internCStr(__FILE__), __LINE__))
+			v3 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 43))
 			if v3 != nil {
 				*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*1)) = int32(gameFrame())
 			}
-			v4 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 15, internCStr(__FILE__), __LINE__))
+			v4 = (*int32)(nox_xxx_monsterPushAction_50A260_impl((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 15))
 			if v4 != nil {
 				*(*int32)(unsafe.Add(unsafe.Pointer(v4), 4*1)) = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 56))))
 				*(*int32)(unsafe.Add(unsafe.Pointer(v4), 4*2)) = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 60))))
@@ -11122,15 +11122,15 @@ func nox_xxx_xfer_4F3E30(a1 uint16, a2p *nox_object_t, a3 int32) int32 {
 	}
 	for {
 		if int32(a1) < 0x3C {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v10)), 1, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v13[0])), uint32(uint8(int8(v10))), internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v10)), 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v13[0])), uint32(uint8(int8(v10))))
 			v13[uint8(int8(v10))] = 0
 			v4 = uint16(int16(nox_xxx_getNameId_4E3AA0(&v13[0])))
 			if int32(v4) == 0 {
 				return 0
 			}
 		} else {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v11)), 2, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v11)), 2)
 			v4 = uint16(int16(nox_xxx_objectTOCgetTT_42C2B0(uint16(int16(v11)))))
 			if int32(v4) == 0 {
 				return 0
@@ -11243,10 +11243,10 @@ func nox_xxx_readObjectOldVer_4F4170(a1 int32, a2 int32, a3 int32) int32 {
 	if nox_crypt_IsReadOnly() == 1 {
 		*(*uint32)(unsafe.Pointer(uintptr(a1 + 136))) = 0
 	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 40)), 4, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 40)), 4)
 	v4 = *(**uint8)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof((*uint8)(nil))*4))
 	v21 = int32(uint32(uintptr(unsafe.Pointer(*(**uint8)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof((*uint8)(nil))*4))))) & 0x11408162)
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v21)), 4, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v21)), 4)
 	v5 = uint32(uintptr(unsafe.Pointer(*(**uint8)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof((*uint8)(nil))*4))))) & 0xEEBF7E9D
 	*(**uint8)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof((*uint8)(nil))*4)) = (*uint8)(unsafe.Pointer(uintptr(v5)))
 	v6 = (*uint8)(unsafe.Pointer(uintptr(v5)))
@@ -11267,21 +11267,21 @@ func nox_xxx_readObjectOldVer_4F4170(a1 int32, a2 int32, a3 int32) int32 {
 	v9 = a2
 	if nox_crypt_IsReadOnly() != 0 {
 		if a3 < 40 || a2 < 4 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v23[0])), 8, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v23[0])), 8)
 			v10 = (*uint32)(unsafe.Pointer((**uint8)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof((*uint8)(nil))*14))))
 			*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v3))), unsafe.Sizeof(float32(0))*14))) = float32(float64(v23[0]))
 			*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v3))), unsafe.Sizeof(float32(0))*15))) = float32(float64(v23[1]))
 		} else {
 			v10 = (*uint32)(unsafe.Pointer((**uint8)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof((*uint8)(nil))*14))))
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 56)), 4, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 60)), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 56)), 4)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 60)), 4)
 		}
 		v11 = (*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v10), 4*1)))))
 		*(**uint8)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof((*uint8)(nil))*16)) = (*uint8)(unsafe.Pointer(uintptr(*v10)))
 		*(**uint8)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof((*uint8)(nil))*17)) = v11
 	} else {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 56)), 4, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 60)), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 56)), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 60)), 4)
 	}
 	if v8 >= 10 {
 		if *v3 != nil {
@@ -11289,7 +11289,7 @@ func nox_xxx_readObjectOldVer_4F4170(a1 int32, a2 int32, a3 int32) int32 {
 		} else {
 			*((*uint8)(unsafe.Pointer(&v19))) = 0
 		}
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v19)), 1, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v19)), 1)
 		if nox_crypt_IsReadOnly() == 1 {
 			if int32(uint8(int8(v19))) != 0 {
 				result = int32(uintptr(alloc.Calloc(1, int(int32(uint8(int8(v19)))+1))))
@@ -11299,27 +11299,27 @@ func nox_xxx_readObjectOldVer_4F4170(a1 int32, a2 int32, a3 int32) int32 {
 				}
 			}
 		}
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(*v3, uint32(uint8(int8(v19))), internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(*v3, uint32(uint8(int8(v19))))
 		if *v3 != nil {
 			*(*uint8)(unsafe.Add(unsafe.Pointer(*v3), uint8(int8(v19)))) = 0
 		}
 	}
 	if v8 >= 20 {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 52)), 1, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 52)), 1)
 	}
 	if v8 >= 30 {
 		v13 = *(**uint8)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof((*uint8)(nil))*126))
 		for *((*uint8)(unsafe.Pointer(&v20))) = 0; v13 != nil; *((*uint8)(unsafe.Pointer(&v20))) = uint8(int8(v20 + 1)) {
 			v13 = (*uint8)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v13))), 4*124))))))
 		}
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v20)), 1, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v20)), 1)
 		if nox_crypt_IsReadOnly() == 1 {
 			*(**uint8)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof((*uint8)(nil))*34)) = (*uint8)(unsafe.Pointer(uintptr(uint8(int8(v20)))))
 		}
 	}
 	if v8 >= 40 {
 		v14 = (*int32)(unsafe.Pointer((**uint8)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof((*uint8)(nil))*11))))
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 44)), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 44)), 4)
 		if *(**uint8)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof((*uint8)(nil))*11)) == nil && nox_crypt_IsReadOnly() == 1 && !nox_common_gameFlags_check_40A5C0(0x200000) && !nox_common_gameFlags_check_40A5C0(0x400000) {
 			*v14 = int32(nox_server_NextObjectScriptID())
 		}
@@ -11341,14 +11341,14 @@ func nox_xxx_readObjectOldVer_4F4170(a1 int32, a2 int32, a3 int32) int32 {
 			}
 			if v9 < 5 {
 				v22 = int32(v16)
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v22)), 4, internCStr(__FILE__), __LINE__)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v22)), 4)
 				a1 = v22
 			} else {
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2, internCStr(__FILE__), __LINE__)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2)
 			}
 			if nox_crypt_IsReadOnly() != 0 {
 				for i = 0; i < uint32(uint16(int16(a1))); i++ {
-					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a3)), 4, internCStr(__FILE__), __LINE__)
+					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a3)), 4)
 					if !nox_common_gameFlags_check_40A5C0(0x200000) && !nox_common_gameFlags_check_40A5C0(0x400000) {
 						sub_516F90(*v14, a3)
 					}
@@ -11356,14 +11356,14 @@ func nox_xxx_readObjectOldVer_4F4170(a1 int32, a2 int32, a3 int32) int32 {
 			} else {
 				for j = *(**uint8)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof((*uint8)(nil))*129)); j != nil; j = (*uint8)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(j))), 4*128)))))) {
 					if (int32(*(*uint8)(unsafe.Add(unsafe.Pointer(j), 16)))&0x20) == 0 && sub_4E3B80(int32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(j))), unsafe.Sizeof(uint16(0))*2))))) != 0 {
-						nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(j), 44)), 4, internCStr(__FILE__), __LINE__)
+						nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(j), 44)), 4)
 					}
 				}
 			}
 		}
 		if v9 >= 3 {
 			v21 = int32(uint32(uintptr(unsafe.Pointer(*(**uint8)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof((*uint8)(nil))*5))))) & 0x5E)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v21)), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v21)), 4)
 			nox_xxx_unitUnsetXStatus_4E4780((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))), 94)
 			nox_xxx_unitSetXStatus_4E4800((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))), int32(uintptr(unsafe.Pointer((*int32)(unsafe.Pointer(uintptr(v21)))))))
 		}
@@ -11405,7 +11405,7 @@ func nox_xxx_mapReadWriteObjData_4F4530(a1p *nox_object_t, a2 int32) int32 {
 	v23 = v4
 	if a2 >= 40 || nox_crypt_IsReadOnly() == 0 {
 		v18 = 64
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v18)), 2, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v18)), 2)
 		v5 = int16(v18)
 		if int32(int16(v18)) > 64 {
 			return 0
@@ -11417,38 +11417,38 @@ func nox_xxx_mapReadWriteObjData_4F4530(a1p *nox_object_t, a2 int32) int32 {
 	if nox_crypt_IsReadOnly() == 1 {
 		*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*34)) = 0
 	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v2))), 40)), 4, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v2))), 40)), 4)
 	v7 = (*int32)(unsafe.Add(unsafe.Pointer(v2), 4*11))
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v2))), 44)), 4, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v2))), 44)), 4)
 	if *(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*11)) == 0 && nox_crypt_IsReadOnly() == 1 && !nox_common_gameFlags_check_40A5C0(0x200000) && !nox_common_gameFlags_check_40A5C0(0x400000) {
 		*v7 = int32(nox_server_NextObjectScriptID())
 	}
 	if nox_crypt_IsReadOnly() != 0 {
 		if int32(int16(v18)) < 4 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v22[0])), 8, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v22[0])), 8)
 			v8 = (*int32)(unsafe.Add(unsafe.Pointer(v2), 4*14))
 			*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v2))), unsafe.Sizeof(float32(0))*14))) = float32(float64(v22[0]))
 			*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v2))), unsafe.Sizeof(float32(0))*15))) = float32(float64(v22[1]))
 		} else {
 			v8 = (*int32)(unsafe.Add(unsafe.Pointer(v2), 4*14))
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v2))), 56)), 4, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v2))), 60)), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v2))), 56)), 4)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v2))), 60)), 4)
 		}
 		v9 = *(*int32)(unsafe.Add(unsafe.Pointer(v8), 4*1))
 		*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*16)) = *v8
 		*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*17)) = v9
 	} else {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v2))), 56)), 4, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v2))), 60)), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v2))), 56)), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v2))), 60)), 4)
 	}
 	*((*uint8)(unsafe.Pointer(&a1))) = uint8(sub_4F40A0((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2))))))))
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 1, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 1)
 	if int32(uint8(uintptr(unsafe.Pointer(a1)))) == 0 {
 		return 1
 	}
 	v10 = *(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*4))
 	v21 = int32(uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*4))) & 0x11408162)
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v21)), 4, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v21)), 4)
 	v11 = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*4))) & 0xEEBF7E9D
 	*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*4)) = int32(v11)
 	v12 = v11
@@ -11470,7 +11470,7 @@ func nox_xxx_mapReadWriteObjData_4F4530(a1p *nox_object_t, a2 int32) int32 {
 	} else {
 		*((*uint8)(unsafe.Pointer(&a2))) = 0
 	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a2)), 1, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a2)), 1)
 	if nox_crypt_IsReadOnly() != 1 || int32(uint8(int8(a2))) == 0 || (func() bool {
 		result = int32(uintptr(alloc.Calloc(1, int(int32(uint8(int8(a2)))+1))))
 		return (func() int32 {
@@ -11479,16 +11479,16 @@ func nox_xxx_mapReadWriteObjData_4F4530(a1p *nox_object_t, a2 int32) int32 {
 			return *p
 		}()) != 0
 	}()) {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(*v2))), uint32(uint8(int8(a2))), internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(*v2))), uint32(uint8(int8(a2))))
 		if *v2 != 0 {
 			*(*uint8)(unsafe.Pointer(uintptr(int32(uint8(int8(a2))) + *v2))) = 0
 		}
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v2))), 52)), 1, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v2))), 52)), 1)
 		v14 = *(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*126))
 		for *((*uint8)(unsafe.Pointer(&v19))) = 0; v14 != 0; *((*uint8)(unsafe.Pointer(&v19))) = uint8(int8(v19 + 1)) {
 			v14 = int32(*(*uint32)(unsafe.Pointer(uintptr(v14 + 496))))
 		}
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v19)), 1, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v19)), 1)
 		if nox_crypt_IsReadOnly() == 1 {
 			*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*34)) = int32(uint8(int8(v19)))
 		}
@@ -11498,10 +11498,10 @@ func nox_xxx_mapReadWriteObjData_4F4530(a1p *nox_object_t, a2 int32) int32 {
 				i++
 			}
 		}
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&i)), 2, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&i)), 2)
 		if nox_crypt_IsReadOnly() != 0 {
 			for j = 0; j < uint32(uint16(int16(i))); j++ {
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v22[0])), 4, internCStr(__FILE__), __LINE__)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v22[0])), 4)
 				if !nox_common_gameFlags_check_40A5C0(0x200000) && !nox_common_gameFlags_check_40A5C0(0x400000) {
 					sub_516F90(*v7, v22[0])
 				}
@@ -11509,12 +11509,12 @@ func nox_xxx_mapReadWriteObjData_4F4530(a1p *nox_object_t, a2 int32) int32 {
 		} else {
 			for k = *(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*129)); k != 0; k = int32(*(*uint32)(unsafe.Pointer(uintptr(k + 512)))) {
 				if (int32(*(*uint8)(unsafe.Pointer(uintptr(k + 16))))&0x20) == 0 && sub_4E3B80(int32(*(*uint16)(unsafe.Pointer(uintptr(k + 4))))) != 0 {
-					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(k+44))), 4, internCStr(__FILE__), __LINE__)
+					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(k+44))), 4)
 				}
 			}
 		}
 		v21 = *(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*5)) & 0x5E
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v21)), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v21)), 4)
 		nox_xxx_unitUnsetXStatus_4E4780((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), 94)
 		nox_xxx_unitSetXStatus_4E4800((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), int32(uintptr(unsafe.Pointer((*int32)(unsafe.Pointer(uintptr(v21)))))))
 		if int32(int16(v18)) < 63 || (func() int32 {
@@ -11523,7 +11523,7 @@ func nox_xxx_mapReadWriteObjData_4F4530(a1p *nox_object_t, a2 int32) int32 {
 		}()) != 0 {
 			if int32(int16(v18)) >= 64 {
 				v22[0] = int32(uint32(v23) - gameFrame())
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v22[0])), 4, internCStr(__FILE__), __LINE__)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v22[0])), 4)
 				if v22[0] > 0 && nox_crypt_IsReadOnly() == 1 {
 					if uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*4)))&0x400000 != 0 {
 						*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*32)) = v22[0]
@@ -11544,13 +11544,13 @@ func nox_xxx_XFerSpellPagePedistal_4F4A20(a1 int32) int32 {
 	v1 = a1
 	v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 136))))
 	a1 = 60
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2)
 	if int32(int16(a1)) > 60 {
 		return 0
 	}
 	result = nox_xxx_mapReadWriteObjData_4F4530((*nox_object_t)(unsafe.Pointer(uintptr(v1))), int32(int16(a1)))
 	if result != 0 {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(*(**uint8)(unsafe.Pointer(uintptr(v1 + 700))), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(*(**uint8)(unsafe.Pointer(uintptr(v1 + 700))), 4)
 		if *(*uint32)(unsafe.Pointer(uintptr(v1 + 136))) == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
 			result = nox_xxx_xfer_4F3E30(uint16(int16(a1)), (*nox_object_t)(unsafe.Pointer(uintptr(v1))), int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 136)))))
 			return result
@@ -11574,17 +11574,17 @@ func nox_xxx_XFerReadable_4F4AB0(a1 int32) int32 {
 	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 136))))
 	v5 = uint32(libc.StrLen(*(**byte)(unsafe.Pointer(uintptr(a1 + 736)))) + 1)
 	a1 = 60
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2)
 	if int32(int16(a1)) > 60 {
 		return 0
 	}
 	result = nox_xxx_mapReadWriteObjData_4F4530((*nox_object_t)(unsafe.Pointer(v1)), int32(int16(a1)))
 	if result != 0 {
 		if int32(int16(a1)) >= 2 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v5)), 4, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2))), v5, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v5)), 4)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2))), v5)
 		} else {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2))), v5, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2))), v5)
 		}
 		if nox_crypt_IsReadOnly() != 1 || (func() bool {
 			*(*uint32)(unsafe.Pointer(uintptr(v2 + 256))) = 0
@@ -11613,28 +11613,28 @@ func nox_xxx_XFerExit_4F4B90(a1 int32) int32 {
 	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 136))))
 	v6 = uint32(libc.StrLen(*(**byte)(unsafe.Pointer(uintptr(a1 + 700)))) + 1)
 	a1 = 60
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2)
 	if int32(int16(a1)) > 60 {
 		return 0
 	}
 	result = nox_xxx_mapReadWriteObjData_4F4530((*nox_object_t)(unsafe.Pointer(v1)), int32(int16(a1)))
 	if result != 0 {
 		if int32(int16(a1)) >= 2 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6)), 4, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v2, v6, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6)), 4)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v2, v6)
 		} else if nox_crypt_IsReadOnly() == 1 {
 			for i = v2; ; i = (*uint8)(unsafe.Add(unsafe.Pointer(i), 1)) {
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl(i, 1, internCStr(__FILE__), __LINE__)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl(i, 1)
 				if int32(*i) == 0 {
 					break
 				}
 			}
 		} else {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v2, v6, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v2, v6)
 		}
 		if int32(int16(a1)) >= 31 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 80)), 4, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 84)), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 80)), 4)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 84)), 4)
 		}
 		if *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)) == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
 			result = nox_xxx_xfer_4F3E30(uint16(int16(a1)), (*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)))
@@ -11663,7 +11663,7 @@ func nox_xxx_XFerDoor_4F4CB0(a1 int32) int32 {
 	v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
 	v10 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 136))))
 	v7 = 60
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v7)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v7)), 2)
 	if int32(int16(v7)) > 60 {
 		return 0
 	}
@@ -11674,12 +11674,12 @@ func nox_xxx_XFerDoor_4F4CB0(a1 int32) int32 {
 			v8 = int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 1))))
 			v6 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 4))))
 		}
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 4, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v8)), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v8)), 4)
 		if int32(int16(v7)) < 41 {
 			v6 = a1
 		} else {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6)), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6)), 4)
 		}
 		if nox_crypt_IsReadOnly() == 1 {
 			*(*uint32)(unsafe.Pointer(uintptr(v2 + 12))) = uint32(a1)
@@ -11725,15 +11725,15 @@ func nox_xxx_unitTriggerXfer_4F4E50(a1 float32) int32 {
 	v2 = *(**uint8)(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&a1))), 4*0))) + 748)))
 	v13 = int32(*(*uint32)(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&a1))), 4*0))) + 136))))
 	v11 = 61
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v11)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v11)), 2)
 	if int32(int16(v11)) > 61 {
 		return 0
 	}
 	result = nox_xxx_mapReadWriteObjData_4F4530((*nox_object_t)(unsafe.Pointer(uintptr(v1))), int32(int16(v11)))
 	if result != 0 {
 		if nox_crypt_IsReadOnly() != 0 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 4, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 4)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 4)
 			v5 = float64(*(*int32)(unsafe.Add(unsafe.Pointer((*int32)(unsafe.Pointer(&a1))), 4*0)))
 			a1 = float32(v5)
 			*(*float32)(unsafe.Pointer(uintptr(v1 + 184))) = float32(v5)
@@ -11749,23 +11749,23 @@ func nox_xxx_unitTriggerXfer_4F4E50(a1 float32) int32 {
 			v4 = float64(*(*float32)(unsafe.Pointer(uintptr(v1 + 188))))
 			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&a1))), 4*0)) = uint32(int32(int64(*(*float32)(unsafe.Pointer(uintptr(v1 + 184))))))
 			v12 = int32(int64(v4))
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 4, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 4)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 4)
 		}
 		nox_shape_box_calc((*nox_shape)(unsafe.Pointer(uintptr(v1 + 172))))
 		if int32(int16(v11)) < 41 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 3, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 3, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 3, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 3)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 3)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 3)
 		} else {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 54)), 1, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 55)), 1, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 56)), 1, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 57)), 1, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 58)), 1, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 59)), 1, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 54)), 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 55)), 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 56)), 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 57)), 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 58)), 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 59)), 1)
 		}
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v2, 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v2, 4)
 		if int32(int16(v11)) >= 3 {
 			v7 = *(**byte)(unsafe.Pointer(uintptr(v1 + 756)))
 			if v7 != nil {
@@ -11793,29 +11793,29 @@ func nox_xxx_unitTriggerXfer_4F4E50(a1 float32) int32 {
 			sub_4F5540(int32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v2), 28))))))
 		}
 		if nox_crypt_IsReadOnly() == 1 && int32(int16(v11)) < 31 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 1, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 1)
 			nox_xxx_cryptSeekCur_40E0A0(int32(*((*uint8)(unsafe.Pointer(&a1)))) * 4)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 1, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 1)
 			nox_xxx_cryptSeekCur_40E0A0(int32(*((*uint8)(unsafe.Pointer(&a1)))) * 4)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 1, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 1)
 			nox_xxx_cryptSeekCur_40E0A0(int32(*((*uint8)(unsafe.Pointer(&a1)))) * 4)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 1, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 1)
 			nox_xxx_cryptSeekCur_40E0A0(int32(*((*uint8)(unsafe.Pointer(&a1)))) * 4)
 		}
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 44)), 4, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 48)), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 44)), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 48)), 4)
 		if nox_crypt_IsReadOnly() == 1 {
 			*(*uint8)(unsafe.Add(unsafe.Pointer(v2), 52)) = 0
 			*(*uint8)(unsafe.Add(unsafe.Pointer(v2), 53)) = 0
 		}
 		if nox_crypt_IsReadOnly() == 0 || int32(int16(v11)) >= 21 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 52)), 1, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 53)), 1, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 52)), 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 53)), 1)
 		}
 		if int32(int16(v11)) >= 61 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 8)), 1, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 9)), 1, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v1+132))), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 8)), 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 9)), 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v1+132))), 4)
 			if nox_crypt_IsReadOnly() == 1 {
 				nox_xxx_servMarkObjAnimFrame_4E4880(v1, int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 132)))))
 			}
@@ -11844,7 +11844,7 @@ func nox_xxx_XFerHole_4F51D0(a1 int32) int32 {
 	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 700))))
 	v6 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 136))))
 	a1 = 60
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2)
 	if int32(int16(a1)) > 60 {
 		return 0
 	}
@@ -11853,10 +11853,10 @@ func nox_xxx_XFerHole_4F51D0(a1 int32) int32 {
 		if int32(int16(a1)) < 42 {
 			*(*uint32)(unsafe.Pointer(uintptr(v3 + 24))) = 0
 		} else {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v3+24))), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v3+24))), 4)
 		}
 		if int32(int16(a1)) < 41 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v3+8))), 8, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v3+8))), 8)
 			*(*uint32)(unsafe.Pointer(uintptr(v3 + 4))) = math.MaxUint32
 			*(*uint32)(unsafe.Pointer(uintptr(v3))) = 0
 			*(*uint32)(unsafe.Pointer(uintptr(v3 + 16))) = 0
@@ -11868,9 +11868,9 @@ func nox_xxx_XFerHole_4F51D0(a1 int32) int32 {
 				v5 = nil
 			}
 			nox_xxx_xferReadScriptHandler_4F5580(v3, v5)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v3+8))), 8, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v3+16))), 4, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v3+20))), 2, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v3+8))), 8)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v3+16))), 4)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v3+20))), 2)
 		}
 		if *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)) == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
 			result = nox_xxx_xfer_4F3E30(uint16(int16(a1)), (*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)))
@@ -11894,21 +11894,21 @@ func nox_xxx_XFerTransporter_4F5300(a1 int32) int32 {
 	v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
 	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 136))))
 	a1 = 60
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2)
 	if int32(int16(a1)) > 60 {
 		return 0
 	}
 	result = nox_xxx_mapReadWriteObjData_4F4530((*nox_object_t)(unsafe.Pointer(v1)), int32(int16(a1)))
 	if result != 0 {
 		if nox_crypt_IsReadOnly() != 0 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+16))), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+16))), 4)
 		} else {
 			if *(*uint32)(unsafe.Pointer(uintptr(v2 + 12))) != 0 {
 				v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 16))))
 			} else {
 				v5 = 0
 			}
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v5)), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v5)), 4)
 		}
 		if *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)) == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
 			result = nox_xxx_xfer_4F3E30(uint16(int16(a1)), (*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)))
@@ -11931,18 +11931,18 @@ func nox_xxx_XFerElevator_4F53D0(a1 int32) int32 {
 	v2 = *(**uint8)(unsafe.Pointer(uintptr(a1 + 748)))
 	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 136))))
 	a1 = 61
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2)
 	if int32(int16(a1)) > 61 {
 		return 0
 	}
 	result = nox_xxx_mapReadWriteObjData_4F4530((*nox_object_t)(unsafe.Pointer(v1)), int32(int16(a1)))
 	if result != 0 {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 8)), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 8)), 4)
 		if int32(int16(a1)) >= 41 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 16)), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 16)), 4)
 		}
 		if int32(int16(a1)) >= 61 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 12)), 1, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 12)), 1)
 		}
 		if *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)) == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
 			result = nox_xxx_xfer_4F3E30(uint16(int16(a1)), (*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)))
@@ -11965,13 +11965,13 @@ func nox_xxx_XFerElevatorShaft_4F54A0(a1 int32) int32 {
 	v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
 	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 136))))
 	a1 = 60
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2)
 	if int32(int16(a1)) > 60 {
 		return 0
 	}
 	result = nox_xxx_mapReadWriteObjData_4F4530((*nox_object_t)(unsafe.Pointer(v1)), int32(int16(a1)))
 	if result != 0 {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+8))), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+8))), 4)
 		if *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)) == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
 			result = nox_xxx_xfer_4F3E30(uint16(int16(a1)), (*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)))
 			return result
@@ -12012,38 +12012,38 @@ func nox_xxx_XFerMover_4F5730(a1 int32) int32 {
 	v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
 	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 136))))
 	v7 = 60
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v7)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v7)), 2)
 	if int32(int16(v7)) > 60 {
 		return 0
 	}
 	result = nox_xxx_mapReadWriteObjData_4F4530((*nox_object_t)(unsafe.Pointer(uintptr(v1))), int32(int16(v7)))
 	if result != 0 {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+4))), 4, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+8))), 4, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+32))), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+4))), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+8))), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+32))), 4)
 		if int32(int16(v7)) >= 41 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2))), 1, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2))), 1)
 			if nox_crypt_IsReadOnly() != 0 {
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+16))), 4, internCStr(__FILE__), __LINE__)
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+24))), 4, internCStr(__FILE__), __LINE__)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+16))), 4)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+24))), 4)
 			} else {
 				v5 = *(**int32)(unsafe.Pointer(uintptr(v2 + 12)))
 				a1 = 0
 				if v5 != nil {
 					a1 = *v5
 				}
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 4, internCStr(__FILE__), __LINE__)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 4)
 				v6 = *(**int32)(unsafe.Pointer(uintptr(v2 + 20)))
 				a1 = 0
 				if v6 != nil {
 					a1 = *v6
 				}
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 4, internCStr(__FILE__), __LINE__)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 4)
 			}
 		}
 		if int32(int16(v7)) >= 42 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v1+548))), 4, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v1+544))), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v1+548))), 4)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v1+544))), 4)
 		}
 		if *(*uint32)(unsafe.Pointer(uintptr(v1 + 136))) == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
 			result = nox_xxx_xfer_4F3E30(uint16(int16(v7)), (*nox_object_t)(unsafe.Pointer(uintptr(v1))), int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 136)))))
@@ -12080,7 +12080,7 @@ func nox_xxx_XFerGlyph_4F5890(a1 int32) int32 {
 	v13 = *(**int32)(unsafe.Pointer(uintptr(a1 + 692)))
 	v14 = v3
 	v12 = 60
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 2)
 	if int32(int16(v12)) > 60 {
 		return 0
 	}
@@ -12089,16 +12089,16 @@ func nox_xxx_XFerGlyph_4F5890(a1 int32) int32 {
 		return 0
 	}
 	if int32(int16(v12)) < 41 {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v15)), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v15)), 4)
 	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(a1+124))), 1, internCStr(__FILE__), __LINE__)
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+28))), 4, internCStr(__FILE__), __LINE__)
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+32))), 4, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(a1+124))), 1)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+28))), 4)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+32))), 4)
 	v5 = (*uint8)(unsafe.Pointer(uintptr(v2 + 20)))
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+20))), 1, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+20))), 1)
 	if nox_crypt_IsReadOnly() == 1 {
 		if int32(int16(v12)) < 31 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2))), 0x14, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2))), 0x14)
 			goto LABEL_16
 		}
 		v6 = 0
@@ -12109,8 +12109,8 @@ func nox_xxx_XFerGlyph_4F5890(a1 int32) int32 {
 		}
 		v7 = v13
 		for {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v11)), 1, internCStr(__FILE__), __LINE__)
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v16[0])), uint32(uint8(int8(v11))), internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v11)), 1)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v16[0])), uint32(uint8(int8(v11))))
 			v16[uint8(int8(v11))] = 0
 			*v7 = nox_xxx_spellNameToN_4243F0(&v16[0])
 			v6++
@@ -12126,10 +12126,10 @@ func nox_xxx_XFerGlyph_4F5890(a1 int32) int32 {
 		}
 		for {
 			*((*uint8)(unsafe.Pointer(&v11))) = uint8(int8(libc.StrLen(nox_xxx_spellNameByN_424870(int32(*(*uint32)(unsafe.Pointer(uintptr(v2))))))))
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v11)), 1, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v11)), 1)
 			v10 = uint32(uint8(int8(v11)))
 			v9 = nox_xxx_spellNameByN_424870(int32(*(*uint32)(unsafe.Pointer(uintptr(v2)))))
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(v9)), v10, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(v9)), v10)
 			v8++
 			v2 += 4
 			if v8 >= int32(*v5) {
@@ -12168,7 +12168,7 @@ func nox_xxx_XFerInvLight_4F5AA0(a1 *int32) int32 {
 	v5 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*34))
 	*(*[140]byte)(unsafe.Pointer(&v6[0])) = [140]byte{}
 	v3 = 60
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v3)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v3)), 2)
 	if int32(int16(v3)) > 60 {
 		return 0
 	}
@@ -12201,30 +12201,30 @@ func nox_xxx_XFerInvLight_4F5AA0(a1 *int32) int32 {
 	alloc.Memcpy(unsafe.Pointer(&v6[0]), unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*34))), int(140))
 LABEL_14:
 	if int32(int16(v3)) >= 2 {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[0])), 4, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[4])), 4, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[8])), 4, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[12])), 4, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[16])), 0xC, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[28])), 2, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[30])), 2, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[32])), 4, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[40])), 2, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[42])), 0x30, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[90])), 0x10, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[106])), 0x10, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[122])), 2, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[124])), 2, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[126])), 2, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[128])), 4, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[134])), 2, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[136])), 2, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[138])), 1, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[0])), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[4])), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[8])), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[12])), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[16])), 0xC)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[28])), 2)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[30])), 2)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[32])), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[40])), 2)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[42])), 0x30)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[90])), 0x10)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[106])), 0x10)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[122])), 2)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[124])), 2)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[126])), 2)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[128])), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[134])), 2)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[136])), 2)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[138])), 1)
 		if int32(int16(v3)) > 40 {
 			if int32(int16(v3)) >= 42 {
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[36])), 4, internCStr(__FILE__), __LINE__)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[36])), 4)
 			} else {
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v4)), 1, internCStr(__FILE__), __LINE__)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v4)), 1)
 				*(*uint32)(unsafe.Pointer(&v6[36])) = uint32(uint8(int8(v4)))
 			}
 			if nox_crypt_IsReadOnly() == 1 {
@@ -12237,14 +12237,14 @@ LABEL_14:
 		}
 		*(*uint32)(unsafe.Pointer(&v6[36])) = 0
 	} else {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[0])), 4, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[4])), 4, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[8])), 4, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[12])), 4, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[16])), 0xC, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[28])), 2, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[30])), 2, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[32])), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[0])), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[4])), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[8])), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[12])), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[16])), 0xC)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[28])), 2)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[30])), 2)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[32])), 4)
 		*(*uint16)(unsafe.Pointer(&v6[40])) = 0
 		*(*uint16)(unsafe.Pointer(&v6[122])) = 0
 		*(*uint16)(unsafe.Pointer(&v6[124])) = 0
@@ -12288,19 +12288,19 @@ func nox_xxx_XFerSentry_4F5E50(a1 int32) int32 {
 	v2 = *(**uint8)(unsafe.Pointer(uintptr(a1 + 748)))
 	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 136))))
 	a1 = 61
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 2)
 	if int32(int16(a1)) > 61 {
 		return 0
 	}
 	result = nox_xxx_mapReadWriteObjData_4F4530((*nox_object_t)(unsafe.Pointer(v1)), int32(int16(a1)))
 	if result != 0 {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 4)), 4, internCStr(__FILE__), __LINE__)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 8)), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 4)), 4)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v2), 8)), 4)
 		if nox_crypt_IsReadOnly() == 1 || nox_common_gameFlags_check_40A5C0(0x200000) {
 			*(*uint32)(unsafe.Pointer(v2)) = *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*1)))
 		}
 		if int32(int16(a1)) >= 61 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v2, 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v2, 4)
 		}
 		if *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)) == 0 || nox_crypt_IsReadOnly() != 1 || (func() int32 {
 			result = nox_xxx_xfer_4F3E30(uint16(int16(a1)), (*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*34)))

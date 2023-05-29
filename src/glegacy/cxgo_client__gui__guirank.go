@@ -1,9 +1,10 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"math"
 	"unsafe"
+
+	"github.com/gotranspile/cxgo/runtime/libc"
 )
 
 var dword_5d4594_1090048 *nox_window = nil
@@ -499,11 +500,11 @@ func sub_46F080(a1 int32, a2 int32) int32 {
 			if wndIsShown_nox_xxx_wndIsShown_46ACC0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090100)))))) != 0 {
 				nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090100))))), 0)
 			}
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090100))))), 16385, int32(uintptr(memmap.PtrOff(0x5D4594, 1086692))), 0, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090100))))), 16385, int32(uintptr(memmap.PtrOff(0x5D4594, 1086692))), 0)
 		} else if wndIsShown_nox_xxx_wndIsShown_46ACC0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090100)))))) == 0 {
 			nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090100))))), 1)
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1090104)))), 16385, int32(uintptr(unsafe.Pointer(v22))), 0, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1090104)))), 16385, int32(uintptr(unsafe.Pointer(v22))), 0)
 		sub_46FC50()
 		sub_46FD80()
 	}
@@ -624,7 +625,7 @@ func sub_46FC50() int8 {
 			v6 = v3 / 60000
 			v4 = nox_strman_loadString_40F1D0(internCStr("TimeRemaining"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 352)
 			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1084068)), v4, v6, v7)
-			*((*uint8)(unsafe.Pointer(&v2))) = uint8(int8(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090108))))), 16385, int32(uintptr(memmap.PtrOff(0x5D4594, 1084068))), 0, internCStr(__FILE__), __LINE__)))
+			*((*uint8)(unsafe.Pointer(&v2))) = uint8(int8(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090108))))), 16385, int32(uintptr(memmap.PtrOff(0x5D4594, 1084068))), 0)))
 		}
 	} else {
 		v2 = wndIsShown_nox_xxx_wndIsShown_46ACC0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090108))))))
@@ -660,7 +661,7 @@ func sub_46FD80() int32 {
 		v4 = v2
 		v3 = nox_strman_loadString_40F1D0(internCStr("LessonLimit"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 390)
 		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1083972)), v3, v4)
-		result = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090112))))), 16385, int32(uintptr(memmap.PtrOff(0x5D4594, 1083972))), 0, internCStr(__FILE__), __LINE__)
+		result = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090112))))), 16385, int32(uintptr(memmap.PtrOff(0x5D4594, 1083972))), 0)
 	}
 	return result
 }

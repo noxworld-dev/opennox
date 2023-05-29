@@ -1,7 +1,6 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
 )
 
@@ -48,7 +47,7 @@ func nox_xxx_cliShowHelpGui_49C560() *uint32 {
 		}
 		nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1304400)), v4, v7)
 		nox_wcscat((*wchar2_t)(memmap.PtrOff(0x5D4594, 1304656)), (*wchar2_t)(memmap.PtrOff(0x5D4594, 1304400)))
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), 16385, int32(uintptr(memmap.PtrOff(0x5D4594, 1304656))), 0, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), 16385, int32(uintptr(memmap.PtrOff(0x5D4594, 1304656))), 0)
 		if nox_common_gameFlags_check_40A5C0(1) {
 			if sub_459DA0() == 0 {
 				nox_xxx_guiServerOptsLoad_457500()

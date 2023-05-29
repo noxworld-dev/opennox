@@ -1,7 +1,6 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
 )
 
@@ -24,13 +23,13 @@ func sub_49C820() int32 {
 	v1 = (**byte)(memmap.PtrOff(0x587000, 164928))
 	for {
 		v2 = nox_strman_loadString_40F1D0(*v1, nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\conntype.c"), 158)
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v0)))))), 16397, int32(uintptr(unsafe.Pointer(v2))), -1, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v0)))))), 16397, int32(uintptr(unsafe.Pointer(v2))), -1)
 		v1 = (**byte)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof((*byte)(nil))*1))
 		if int32(uintptr(unsafe.Pointer(v1))) >= int32(uintptr(memmap.PtrOff(0x587000, 164944))) {
 			break
 		}
 	}
-	return nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v0)))))), 16403, 0, 0, internCStr(__FILE__), __LINE__)
+	return nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v0)))))), 16403, 0, 0)
 }
 func sub_49C910() *uint32 {
 	var (

@@ -112,7 +112,7 @@ func sub_4A2610(a1 int32, a2 *uint32, a3 *int32) int32 {
 					nox_sprintAddrPort_43BC80((*byte)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v11))+12))), *(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v11)) + 109))), &v16[0])
 				}
 				nox_swprintf(&v17[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S   %dms"))), &v16[0], *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v11)) + 96))))
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v7)))))), 16397, int32(uintptr(unsafe.Pointer(&v17[0]))), -1, internCStr(__FILE__), __LINE__)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v7)))))), 16397, int32(uintptr(unsafe.Pointer(&v17[0]))), -1)
 				v10++
 				v11 = (*uint8)(unsafe.Add(unsafe.Pointer(v11), 4))
 				if v10 >= *(*int32)(unsafe.Pointer(&dword_5d4594_1307720)) {
@@ -231,12 +231,12 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 				*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))) = v17
 			}
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))), internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
 		return 1
 	case 8:
 		v22 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*11)))
 		if v22&0x100 != 0 {
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 0x4000, int32(uintptr(unsafe.Pointer(a1))), 0, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 0x4000, int32(uintptr(unsafe.Pointer(a1))), 0)
 		}
 		return 1
 	case 10:
@@ -252,14 +252,14 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 		v21 = 0
 		for (v21 <= 0 || *(*uint32)(unsafe.Pointer(uintptr(uint32(v21) + *(*uint32)(unsafe.Pointer(uintptr(v5 + 24))) - 524))) <= uint32(int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 52))))+int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54)))))) && v20 != int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 44)))) {
 			if *(*uint32)(unsafe.Pointer(uintptr(uint32(v21) + *(*uint32)(unsafe.Pointer(uintptr(v5 + 24)))))) > uint32(int32(v18+uint32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54))))-uint32(a4))) {
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16401, int32(uintptr(unsafe.Pointer(v4))), v20, internCStr(__FILE__), __LINE__)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16401, int32(uintptr(unsafe.Pointer(v4))), v20)
 				return 1
 			}
 			v20++
 			v21 += 524
 		}
 		v20 = -1
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16401, int32(uintptr(unsafe.Pointer(v4))), v20, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16401, int32(uintptr(unsafe.Pointer(v4))), v20)
 		return 1
 	case 19:
 		v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))))
@@ -273,7 +273,7 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 				nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(v4))), -1, 1)
 			}
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))), internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
 		return 1
 	case 20:
 		v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))))
@@ -288,7 +288,7 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 				nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(v4))), 1, 1)
 			}
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))), internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
 		return 1
 	case 21:
 		switch a3 {
@@ -306,7 +306,7 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 			if a4 != 1 {
 				return 1
 			}
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(a1))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))), internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(a1))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
 			return 1
 		case 0xC8:
 			if a4 != 2 {
@@ -323,7 +323,7 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 					nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(v4))), -1, 1)
 				}
 			}
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))), internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
 			return 1
 		case 0xCB:
 			if a4 != 2 {
@@ -347,7 +347,7 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 					nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(v4))), 1, 1)
 				}
 			}
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))), internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
 			return 1
 		default:
 			return 0
@@ -392,7 +392,7 @@ func nox_xxx_wndListBox_4A2D10(a1 int32, a2 int32, a3 int32) int32 {
 		}
 		*(*float32)(unsafe.Pointer(uintptr(result + 8))) = float32(float64(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 36))) + 12)))-*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 36))) + 400))) + 12))))) / float64(*(*int32)(unsafe.Pointer(uintptr(result + 4)))))
 		if a3 != 0 {
-			result = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 36)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(result + 4)))-uint32(*(*int16)(unsafe.Pointer(uintptr(v3 + 54))))), 0, internCStr(__FILE__), __LINE__)
+			result = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 36)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(result + 4)))-uint32(*(*int16)(unsafe.Pointer(uintptr(v3 + 54))))), 0)
 		}
 	}
 	return result
@@ -471,7 +471,7 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(a1 int32, a2 int32, a3 uint32, a4 i
 			for {
 				if v14 == v10 {
 					sub_4A3090((*int16)(unsafe.Pointer(uintptr(v5))), v13)
-					nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16400, v4, v10, internCStr(__FILE__), __LINE__)
+					nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16400, v4, v10)
 					return 1
 				}
 				v14 = int32(*(*uint32)(unsafe.Pointer(uintptr(v15 + 4))))
@@ -484,12 +484,12 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(a1 int32, a2 int32, a3 uint32, a4 i
 		}
 		*(*int32)(unsafe.Add(unsafe.Pointer(v12), 4*uintptr(v13))) = v10
 		*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))) + uint32(v13*4) + 4))) = math.MaxUint32
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16400, v4, v10, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16400, v4, v10)
 		return 1
 	case 8:
 		v21 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))))
 		if v21&0x100 != 0 {
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 0x4000, a1, 0, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 0x4000, a1, 0)
 		}
 		return 1
 	case 10:
@@ -510,7 +510,7 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(a1 int32, a2 int32, a3 uint32, a4 i
 			if v20 > 0 {
 				if *(*uint32)(unsafe.Pointer(uintptr(uint32(v20) + *(*uint32)(unsafe.Pointer(uintptr(v5 + 24))) - 524))) > uint32(int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 52))))+int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54))))) {
 					v19 = -1
-					nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16401, a1, v19, internCStr(__FILE__), __LINE__)
+					nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16401, a1, v19)
 					return 1
 				}
 				v4 = a1
@@ -522,12 +522,12 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(a1 int32, a2 int32, a3 uint32, a4 i
 					v20 += 524
 					continue
 				}
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16401, a1, v19, internCStr(__FILE__), __LINE__)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16401, a1, v19)
 				return 1
 			}
 			break
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16401, v4, -1, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16401, v4, -1)
 		return 1
 	case 19:
 		if *(*uint32)(unsafe.Pointer(uintptr(v5 + 28))) == 0 || int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54)))) <= 0 {
@@ -630,7 +630,7 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *nox_window, ev uint32, a3 uint32, a4 
 			v38 = int32(sdata.field_13_1)
 			sdata.field_12 = (*uint32)(unsafe.Pointer(uintptr(ind)))
 			if *(*uint32)(unsafe.Pointer(uintptr(v37))) < uint32(v38) {
-				nox_window_call_field_94_fnc(win, 16412, ind, 0, internCStr(__FILE__), __LINE__)
+				nox_window_call_field_94_fnc(win, 16412, ind, 0)
 				return 0
 			}
 			v39 = int16(sdata.field_13_0)
@@ -817,7 +817,7 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *nox_window, ev uint32, a3 uint32, a4 
 					if sdata.field_2 == 0 {
 						return 0
 					}
-					nox_window_call_field_94_fnc(win, 16411, 1, 0, internCStr(__FILE__), __LINE__)
+					nox_window_call_field_94_fnc(win, 16411, 1, 0)
 					v23 = int32(sdata.field_11_0) - 1
 					if v23 >= int32(sdata.field_11_1) {
 						v24 = v23 * 524
@@ -838,7 +838,7 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *nox_window, ev uint32, a3 uint32, a4 
 				if sdata.field_2 == 0 {
 					return 0
 				}
-				nox_window_call_field_94_fnc(win, 16411, 1, 0, internCStr(__FILE__), __LINE__)
+				nox_window_call_field_94_fnc(win, 16411, 1, 0)
 				nox_xxx_wndListBoxAddLine_4A3AC0((*wchar2_t)(unsafe.Pointer(uintptr(a3))), a4, (*uint32)(unsafe.Pointer(win)))
 			} else {
 				nox_xxx_wndListBoxAddLine_4A3AC0((*wchar2_t)(unsafe.Pointer(uintptr(a3))), a4, (*uint32)(unsafe.Pointer(win)))
@@ -1016,7 +1016,7 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *nox_window, ev uint32, a3 uint32, a4 
 			win.draw_data.field_0 &= 0xFFFFFFFD
 		}
 		var v7 int32 = nox_xxx_wndGetID_46B0A0(win)
-		nox_window_call_field_94_fnc(win.draw_data.win, 16387, int32(a3), v7, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc(win.draw_data.win, 16387, int32(a3), v7)
 		return 1
 	}
 	return 0
@@ -1541,7 +1541,7 @@ func sub_4A5E90() int32 {
 	dword_5d4594_1308152 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308084)))), 751))))
 	result = int32(dword_587000_171388)
 	if dword_587000_171388 == 0 {
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1308152))))), 16414, *(*int32)(unsafe.Pointer(&dword_5d4594_1307784)), 0, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1308152))))), 16414, *(*int32)(unsafe.Pointer(&dword_5d4594_1307784)), 0)
 		sub_4A61E0(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308096)), 2, (*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1307784+71))))
 		sub_4A61E0(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308100)), 1, (*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1307784+68))))
 		sub_4A61E0(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308104)), 1, (*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1307784+74))))
@@ -2593,23 +2593,23 @@ func nox_xxx_wndButtonProc_4A7F50(win *nox_window, ev int32, a3 int32, a4 int32)
 		if (win.draw_data.field_0 & 4) == 0 {
 			return 0
 		}
-		nox_window_call_field_94_fnc(win.draw_data.win, 0x4000|7, int32(uintptr(unsafe.Pointer(win))), a3, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc(win.draw_data.win, 0x4000|7, int32(uintptr(unsafe.Pointer(win))), a3)
 		win.draw_data.field_0 &= 0xFFFFFFFB
 		return 1
 	case 8:
-		nox_window_call_field_94_fnc(win.draw_data.win, 0x4000, int32(uintptr(unsafe.Pointer(win))), a3, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc(win.draw_data.win, 0x4000, int32(uintptr(unsafe.Pointer(win))), a3)
 		return 1
 	case 17:
 		if win.draw_data.style&0x100 != 0 {
 			win.draw_data.field_0 |= 2
-			nox_window_call_field_94_fnc(win.draw_data.win, 0x4000|5, int32(uintptr(unsafe.Pointer(win))), a3, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc(win.draw_data.win, 0x4000|5, int32(uintptr(unsafe.Pointer(win))), a3)
 			nox_xxx_windowFocus_46B500(win)
 		}
 		return 1
 	case 18:
 		if win.draw_data.style&0x100 != 0 {
 			win.draw_data.field_0 &= 0xFFFFFFFD
-			nox_window_call_field_94_fnc(win.draw_data.win, 0x4000|6, int32(uintptr(unsafe.Pointer(win))), a3, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc(win.draw_data.win, 0x4000|6, int32(uintptr(unsafe.Pointer(win))), a3)
 		}
 		if win.draw_data.field_0&4 != 0 {
 			win.draw_data.field_0 &= 0xFFFFFFFB
@@ -2634,7 +2634,7 @@ func nox_xxx_wndButtonProc_4A7F50(win *nox_window, ev int32, a3 int32, a4 int32)
 				return 1
 			}
 			if win.draw_data.field_0&4 != 0 {
-				nox_window_call_field_94_fnc(win.draw_data.win, 0x4000|7, int32(uintptr(unsafe.Pointer(win))), 0, internCStr(__FILE__), __LINE__)
+				nox_window_call_field_94_fnc(win.draw_data.win, 0x4000|7, int32(uintptr(unsafe.Pointer(win))), 0)
 				win.draw_data.field_0 &= 0xFFFFFFFB
 			}
 			return 1
@@ -2799,7 +2799,7 @@ func nox_xxx_wndRadioButtonProc_4A84E0(a1 *uint32, a2 int32, a3 int32, a4 int32)
 				return 0
 			}
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 16391, int32(uintptr(unsafe.Pointer(a1))), a3, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 16391, int32(uintptr(unsafe.Pointer(a1))), a3)
 		if v10 != 0 {
 			for i = *(**uint32)(unsafe.Pointer(uintptr(v10 + 400))); i != nil; i = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*97))))) {
 				if i != a1 && *(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*10)) == *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*10)) {
@@ -2812,7 +2812,7 @@ func nox_xxx_wndRadioButtonProc_4A84E0(a1 *uint32, a2 int32, a3 int32, a4 int32)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*9)) = uint32(v12)
 		return 1
 	case 8:
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 0x4000, int32(uintptr(unsafe.Pointer(a1))), a3, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 0x4000, int32(uintptr(unsafe.Pointer(a1))), a3)
 		return 1
 	case 17:
 		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*11)))
@@ -2822,7 +2822,7 @@ func nox_xxx_wndRadioButtonProc_4A84E0(a1 *uint32, a2 int32, a3 int32, a4 int32)
 		v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
 		*((*uint8)(unsafe.Pointer(&v5))) = uint8(int8(v5 | 2))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*9)) = uint32(v5)
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 16389, int32(uintptr(unsafe.Pointer(a1))), a3, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 16389, int32(uintptr(unsafe.Pointer(a1))), a3)
 		nox_xxx_windowFocus_46B500((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))))
 		return 1
 	case 18:
@@ -2832,7 +2832,7 @@ func nox_xxx_wndRadioButtonProc_4A84E0(a1 *uint32, a2 int32, a3 int32, a4 int32)
 		}
 		v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*9)) &= 0xFFFFFFFD
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(v8))), 16390, int32(uintptr(unsafe.Pointer(a1))), a3, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(v8))), 16390, int32(uintptr(unsafe.Pointer(a1))), a3)
 		return 1
 	case 21:
 		switch a3 {
@@ -2856,7 +2856,7 @@ func nox_xxx_wndRadioButtonProc_4A84E0(a1 *uint32, a2 int32, a3 int32, a4 int32)
 			if *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*9))&4 != 0 {
 				return 1
 			}
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 16391, int32(uintptr(unsafe.Pointer(a1))), 0, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 16391, int32(uintptr(unsafe.Pointer(a1))), 0)
 			if v13 != 0 {
 				for j = *(**uint32)(unsafe.Pointer(uintptr(v13 + 400))); j != nil; j = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(j), 4*97))))) {
 					if j != a1 && *(*uint32)(unsafe.Add(unsafe.Pointer(j), 4*10)) == *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*10)) {
@@ -3047,18 +3047,18 @@ func nox_xxx_wndCheckBoxProc_4A8C00(a1 int32, a2 int32, a3 int32, a4 int32) int3
 		if (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 36)))) & 2) == 0 {
 			return 0
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16391, a1, a3, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16391, a1, a3)
 		*(*uint32)(unsafe.Pointer(uintptr(v8 + 36))) ^= 4
 		return 1
 	case 8:
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 0x4000, a1, a3, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 0x4000, a1, a3)
 		return 1
 	case 17:
 		v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))))
 		if v4&0x100 != 0 {
 			v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52))))
 			*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))) |= 2
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(v5))), 16389, a1, a3, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(v5))), 16389, a1, a3)
 			nox_xxx_windowFocus_46B500((*nox_window)(unsafe.Pointer(uintptr(a1))))
 		}
 		return 1
@@ -3067,7 +3067,7 @@ func nox_xxx_wndCheckBoxProc_4A8C00(a1 int32, a2 int32, a3 int32, a4 int32) int3
 		if v7&0x100 != 0 {
 			v9 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52))))
 			*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))) &= 0xFFFFFFFD
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(v9))), 16390, a1, a3, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(v9))), 16390, a1, a3)
 		}
 		return 1
 	case 21:
@@ -3087,7 +3087,7 @@ func nox_xxx_wndCheckBoxProc_4A8C00(a1 int32, a2 int32, a3 int32, a4 int32) int3
 		case 57:
 			if a4 == 2 {
 				v8 = a1
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v8 + 52)))))), 16391, v8, 0, internCStr(__FILE__), __LINE__)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v8 + 52)))))), 16391, v8, 0)
 				*(*uint32)(unsafe.Pointer(uintptr(v8 + 36))) ^= 4
 			}
 			return 1
@@ -3283,7 +3283,7 @@ func nox_xxx_wndButtonProcPre_4A9250(a1 int32, a2 int32, a3 *wchar2_t, a4 int32)
 			*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))) = uint32(v4)
 		}
 		v5 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(uintptr(a1))))
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16387, int32(uintptr(unsafe.Pointer(a3))), v5, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16387, int32(uintptr(unsafe.Pointer(a3))), v5)
 		result = 1
 	} else {
 		if a2 == 16385 {
@@ -3307,7 +3307,7 @@ func nox_xxx_wndCheckboxProcMB_4A92C0(a1 int32, a2 int32, a3 *wchar2_t, a4 int32
 			*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))) = uint32(v4)
 		}
 		v5 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(uintptr(a1))))
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16387, int32(uintptr(unsafe.Pointer(a3))), v5, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16387, int32(uintptr(unsafe.Pointer(a3))), v5)
 		result = 1
 	} else {
 		if a2 == 16385 {
@@ -3334,7 +3334,7 @@ func nox_xxx_wndRadioButtonProcPre_4A93C0(a1 int32, a2 int32, a3 *wchar2_t, a4 i
 			v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 396))))
 			if (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 36)))) & 4) == 0 {
 				if uintptr(unsafe.Pointer(a3)) == uintptr(1) {
-					nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16391, a1, 0, internCStr(__FILE__), __LINE__)
+					nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16391, a1, 0)
 				}
 				if v3 != 0 {
 					for i = *(**uint32)(unsafe.Pointer(uintptr(v3 + 400))); i != nil; i = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*97))))) {
@@ -3357,7 +3357,7 @@ func nox_xxx_wndRadioButtonProcPre_4A93C0(a1 int32, a2 int32, a3 *wchar2_t, a4 i
 		*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))) = uint32(v7)
 	}
 	v8 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(uintptr(a1))))
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16387, int32(uintptr(unsafe.Pointer(a3))), v8, internCStr(__FILE__), __LINE__)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16387, int32(uintptr(unsafe.Pointer(a3))), v8)
 	return 1
 }
 func nox_xxx_compassGenStrings_4A9C80() int32 {
@@ -3449,8 +3449,8 @@ func nox_game_showOptions_4AA6B0() int32 {
 	v16 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSliderLit"))))
 	v2 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSlider"))))
 	sub_4B5700(int32(uintptr(unsafe.Pointer(v1))), 0, 0, int32(uintptr(unsafe.Pointer(v2))), int32(uintptr(unsafe.Pointer(v16))), int32(uintptr(unsafe.Pointer(v19))))
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16395, 0, 0x4000, internCStr(__FILE__), __LINE__)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_127004)) + 4)))>>16), 0, internCStr(__FILE__), __LINE__)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16395, 0, 0x4000)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_127004)) + 4)))>>16), 0)
 	dword_5d4594_1309728 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309720)))), 361))))
 	v3 = sub_453070()
 	v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1309728 + 36))))
@@ -3467,8 +3467,8 @@ func nox_game_showOptions_4AA6B0() int32 {
 	v17 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSliderLit"))))
 	v7 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSlider"))))
 	sub_4B5700(int32(uintptr(unsafe.Pointer(v6))), 0, 0, int32(uintptr(unsafe.Pointer(v7))), int32(uintptr(unsafe.Pointer(v17))), int32(uintptr(unsafe.Pointer(v20))))
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16395, 0, 0x4000, internCStr(__FILE__), __LINE__)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_122852)) + 4)))>>16), 0, internCStr(__FILE__), __LINE__)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16395, 0, 0x4000)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_122852)) + 4)))>>16), 0)
 	dword_5d4594_1309732 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309720)))), 362))))
 	v8 = sub_44D990()
 	v9 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1309732 + 36))))
@@ -3485,8 +3485,8 @@ func nox_game_showOptions_4AA6B0() int32 {
 	v18 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSliderLit"))))
 	v12 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSlider"))))
 	sub_4B5700(int32(uintptr(unsafe.Pointer(v11))), 0, 0, int32(uintptr(unsafe.Pointer(v12))), int32(uintptr(unsafe.Pointer(v18))), int32(uintptr(unsafe.Pointer(v21))))
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v11)))))), 16395, 0, 0x4000, internCStr(__FILE__), __LINE__)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v11)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_93164)) + 4)))>>16), 0, internCStr(__FILE__), __LINE__)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v11)))))), 16395, 0, 0x4000)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v11)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_93164)) + 4)))>>16), 0)
 	dword_5d4594_1309736 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309720)))), 363))))
 	v13 = sub_43DC30()
 	v14 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1309736 + 36))))
@@ -3517,7 +3517,7 @@ func sub_4AAA70() *uint32 {
 	} else {
 		v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309720)))), 332)))
 	}
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16392, 1, 0, internCStr(__FILE__), __LINE__)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16392, 1, 0)
 	v4 = nox_video_getCutSize_4766D0()
 	*memmap.PtrUint32(0x587000, 172884) = uint32(v4)
 	if v4 > 69 {
@@ -3536,7 +3536,7 @@ func sub_4AAA70() *uint32 {
 	result = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309720)))), v7)))
 LABEL_22:
 	if result != nil {
-		result = (*uint32)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(result)))))), 16392, 1, 0, internCStr(__FILE__), __LINE__))))
+		result = (*uint32)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(result)))))), 16392, 1, 0))))
 	}
 	return result
 }
@@ -3905,34 +3905,34 @@ func sub_4ABDA0(a1 int32, a2 int16, a3 int16, a4 *uint32) int32 {
 		v18    int32
 		v19    [256]byte
 	)
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v15)), 4, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v15)), 4)
 	*a4 += 4
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v16)), 4, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v16)), 4)
 	*a4 += 4
 	if int32(a3) < 40 || int32(a2) < 4 {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v13[0])), 8, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v13[0])), 8)
 		*a4 += 8
 	} else {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v11)), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v11)), 4)
 		*a4 += 4
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v17)), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v17)), 4)
 		v9 = v11
 		*a4 += 4
 		v13[0] = nox_float2int(v9)
 		v13[1] = nox_float2int(v17)
 	}
 	if int32(a3) >= 10 {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 1, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 1)
 		*a4++
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v19[0])), uint32(uint8(int8(v12))), internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v19[0])), uint32(uint8(int8(v12))))
 		*a4 += uint32(uint8(int8(v12)))
 	}
 	if int32(a3) >= 20 {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v10)), 1, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v10)), 1)
 		*a4++
 	}
 	if int32(a3) >= 30 {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 1, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 1)
 		*a4++
 	}
 	if int32(a3) >= 40 {
@@ -3940,11 +3940,11 @@ func sub_4ABDA0(a1 int32, a2 int16, a3 int16, a4 *uint32) int32 {
 		*a4 += 4
 		if int32(a2) >= 2 {
 			if int32(a2) < 5 {
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v14)), 4, internCStr(__FILE__), __LINE__)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v14)), 4)
 				*a4 += 4
 				v11 = v14
 			} else {
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v11)), 2, internCStr(__FILE__), __LINE__)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v11)), 2)
 				*a4 += 2
 			}
 			v4 = int32(uint16(int16(int32(*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v11))), unsafe.Sizeof(uint16(0))*0))) * 4)))
@@ -3952,7 +3952,7 @@ func sub_4ABDA0(a1 int32, a2 int16, a3 int16, a4 *uint32) int32 {
 			*a4 += uint32(v4)
 		}
 		if int32(a2) >= 3 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v18)), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v18)), 4)
 			*a4 += 4
 		}
 	}
@@ -4012,20 +4012,20 @@ func nox_xxx_spriteLoadFromMap_4AC020(thingInd int32, a2 int16, a3 *uint32) int3
 	if int32(a2) < 40 {
 		return sub_4ABDA0(thingInd, v5, v4, v3)
 	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v23)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v23)), 2)
 	v5 = int16(v23)
 	v6 = int32(int16(v23)) < 61
 	*v3 += 2
 	if v6 {
 		return sub_4ABDA0(thingInd, v5, v4, v3)
 	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v25)), 4, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v25)), 4)
 	*v3 += 4
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v29)), 4, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v29)), 4)
 	*v3 += 4
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v30)), 4, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v30)), 4)
 	*v3 += 4
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v31)), 4, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v31)), 4)
 	v20 = v31
 	*v3 += 4
 	v22 = nox_float2int(v20)
@@ -4035,33 +4035,33 @@ func nox_xxx_spriteLoadFromMap_4AC020(thingInd int32, a2 int16, a3 *uint32) int3
 		return 0
 	}
 	*(*uint32)(unsafe.Pointer(uintptr(v9 + 128))) = uint32(v25)
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a2)), 1, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a2)), 1)
 	v10 = int32(uint8(int8(a2))) == 0
 	*v3++
 	if !v10 {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v26)), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v26)), 4)
 		v11 = v26
 		*v3 += 4
 		*(*uint32)(unsafe.Pointer(uintptr(v9 + 120))) = uint32(v11) | (*(*uint32)(unsafe.Pointer(uintptr(v9 + 120))) & 0xEEBF7E9D)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a3)), 1, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a3)), 1)
 		v12 = int32(uint8(uintptr(unsafe.Pointer(a3))))
 		v21 = int32(uint8(uintptr(unsafe.Pointer(a3))))
 		*v3++
 		nox_xxx_cryptSeekCur_40E0A0(v21)
 		*v3 += uint32(v12)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&thingInd)), 1, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&thingInd)), 1)
 		v13 = int8(thingInd)
 		*v3++
 		*(*uint8)(unsafe.Pointer(uintptr(v9 + 28))) = uint8(v13)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a3)), 1, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a3)), 1)
 		*v3++
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v27)), 2, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v27)), 2)
 		v14 = int32(uint16(int16(v27))) * 4
 		v19 = int32(uint16(int16(v27))) * 4
 		*v3 += 2
 		nox_xxx_cryptSeekCur_40E0A0(v19)
 		*v3 += uint32(v14)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v28)), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v28)), 4)
 		v15 = v28
 		*v3 += 4
 		v16 = int32(*(*uint32)(unsafe.Pointer(uintptr(v9 + 280))))
@@ -4070,7 +4070,7 @@ func nox_xxx_spriteLoadFromMap_4AC020(thingInd int32, a2 int16, a3 *uint32) int3
 		if int32(int16(v23)) >= 63 {
 			nox_xxx_cryptSeekCur_40E0A0(2)
 			*v3 += 2
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v24)), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v24)), 4)
 			*v3 += 4
 			nox_xxx_cryptSeekCur_40E0A0(v24)
 			*v3 += uint32(v24)
@@ -4107,14 +4107,14 @@ func nox_client_mapSpecialRWObjectData_4AC610() int32 {
 		v6 int32
 	)
 	v6 = 1
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6)), 2)
 	if int32(int16(v6)) > 1 {
 		return 0
 	}
 	if nox_crypt_IsReadOnly() == 0 {
 		return 0
 	}
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v4)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v4)), 2)
 	if int32(uint16(int16(v4))) != 0 {
 		for {
 			nox_xxx_fileCryptReadCrcMB_426C20((*uint8)(unsafe.Pointer(&v5)), 4)
@@ -4130,7 +4130,7 @@ func nox_client_mapSpecialRWObjectData_4AC610() int32 {
 			if v5 > 0 {
 				nox_xxx_cryptSeekCur_40E0A0(v5)
 			}
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v4)), 2, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v4)), 2)
 			if int32(uint16(int16(v4))) == 0 {
 				return 1
 			}
@@ -4179,7 +4179,7 @@ func sub_4AC7B0(a1 int32) int32 {
 		v13    float32
 		v14    int32
 	)
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 2)
 	v11 = 2
 	v1 = nox_xxx_spriteLoadFromMap_4AC020(a1, int16(v12), (*uint32)(unsafe.Pointer(&v11)))
 	v2 = v1
@@ -4187,8 +4187,8 @@ func sub_4AC7B0(a1 int32) int32 {
 		v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 112))))
 		if (v4 & 0x80) == 0 {
 			if v4&0x200 != 0 {
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 4, internCStr(__FILE__), __LINE__)
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v14)), 4, internCStr(__FILE__), __LINE__)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 4)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v14)), 4)
 				v9 = float64(a1)
 				v11 += 8
 				v13 = float32(v9)
@@ -4204,9 +4204,9 @@ func sub_4AC7B0(a1 int32) int32 {
 				nox_shape_box_calc((*nox_shape)(unsafe.Pointer(uintptr(v2 + 44))))
 			}
 		} else {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v13)), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v13)), 4)
 			v11 += 4
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v14)), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v14)), 4)
 			v5 = int8(v14)
 			v11 += 4
 			*(*uint8)(unsafe.Pointer(uintptr(v2 + 433))) = uint8(int8(v14))
@@ -4217,7 +4217,7 @@ func sub_4AC7B0(a1 int32) int32 {
 			v6 = v13
 			a1 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v13))), 4*0)))
 			if int32(int16(v12)) >= 41 {
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 4, internCStr(__FILE__), __LINE__)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 4)
 				v6 = *(*float32)(unsafe.Pointer(&a1))
 				v11 += 4
 			}
@@ -4244,7 +4244,7 @@ func nox_xxx_colorLightClientLoad_4AC980(a1 int32) int32 {
 		v7 int32
 		v8 int32
 	)
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v8)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v8)), 2)
 	v7 = 2
 	v1 = nox_xxx_spriteLoadFromMap_4AC020(a1, int16(v8), (*uint32)(unsafe.Pointer(&v7)))
 	v2 = v1
@@ -4253,72 +4253,72 @@ func nox_xxx_colorLightClientLoad_4AC980(a1 int32) int32 {
 		return 0
 	}
 	if int32(int16(v8)) >= 2 {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v1+136))), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v1+136))), 4)
 		v7 += 4
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+140))), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+140))), 4)
 		v7 += 4
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+144))), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+144))), 4)
 		v7 += 4
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+148))), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+148))), 4)
 		v7 += 4
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+152))), 0xC, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+152))), 0xC)
 		v4 = (*uint16)(unsafe.Pointer(uintptr(v2 + 164)))
 		v7 += 12
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+164))), 2, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+164))), 2)
 		v7 += 2
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+166))), 2, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+166))), 2)
 		v7 += 2
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+168))), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+168))), 4)
 		v7 += 4
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+176))), 2, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+176))), 2)
 		v7 += 2
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+178))), 0x30, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+178))), 0x30)
 		v7 += 48
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+226))), 0x10, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+226))), 0x10)
 		v7 += 16
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+242))), 0x10, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+242))), 0x10)
 		v7 += 16
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+258))), 2, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+258))), 2)
 		v7 += 2
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+260))), 2, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+260))), 2)
 		v7 += 2
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+262))), 2, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+262))), 2)
 		v7 += 2
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+264))), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+264))), 4)
 		v7 += 4
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+270))), 2, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+270))), 2)
 		v7 += 2
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+272))), 2, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+272))), 2)
 		v7 += 2
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+274))), 1, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+274))), 1)
 		v7++
 		if int32(int16(v8)) > 40 {
 			if int32(int16(v8)) >= 42 {
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+172))), 4, internCStr(__FILE__), __LINE__)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+172))), 4)
 				v7 += 4
 			} else {
-				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 1, internCStr(__FILE__), __LINE__)
+				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 1)
 				v7++
 				*(*uint32)(unsafe.Pointer(uintptr(v2 + 172))) = uint32(uint8(int8(a1)))
 			}
 		}
 	} else {
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v1+136))), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v1+136))), 4)
 		v7 += 4
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+140))), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+140))), 4)
 		v7 += 4
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+144))), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+144))), 4)
 		v7 += 4
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+148))), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+148))), 4)
 		v7 += 4
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+152))), 0xC, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+152))), 0xC)
 		v4 = (*uint16)(unsafe.Pointer(uintptr(v2 + 164)))
 		v7 += 12
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+164))), 2, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+164))), 2)
 		v7 += 2
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+166))), 2, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+166))), 2)
 		v7 += 2
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+168))), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(uintptr(v2+168))), 4)
 		v7 += 4
 		*(*uint16)(unsafe.Pointer(uintptr(v2 + 176))) = 0
 		*(*uint16)(unsafe.Pointer(uintptr(v2 + 258))) = 0
@@ -4381,7 +4381,7 @@ func nox_xxx_cliLoadTeamBase_4ACE00(a1 int32) int32 {
 		v8     int32
 		v9     [256]byte
 	)
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v8)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v8)), 2)
 	v6 = 2
 	v1 = nox_xxx_spriteLoadFromMap_4AC020(a1, int16(v8), (*uint32)(unsafe.Pointer(&v6)))
 	v2 = v1
@@ -4389,9 +4389,9 @@ func nox_xxx_cliLoadTeamBase_4ACE00(a1 int32) int32 {
 		*(*uint32)(unsafe.Pointer(uintptr(v1 + 288))) = 0
 		nox_xxx_spriteSetActiveMB_45A990_drawable(v1)
 		for i = 0; i < 16; i += 4 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v7)), 1, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v7)), 1)
 			v6++
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v9[0])), uint32(uint8(int8(v7))), internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v9[0])), uint32(uint8(int8(v7))))
 			v6 += int32(uint8(int8(v7)))
 			v9[uint8(int8(v7))] = 0
 			v5 = nox_xxx_modifGetIdByName_413290(&v9[0])
@@ -4417,7 +4417,7 @@ func sub_4ACEF0(a1 int32) int32 {
 		v7     int32
 		v8     *uint8
 	)
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v7)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v7)), 2)
 	v5 = 2
 	v1 = nox_xxx_spriteLoadFromMap_4AC020(a1, int16(v7), (*uint32)(unsafe.Pointer(&v5)))
 	v2 = v1
@@ -4425,10 +4425,10 @@ func sub_4ACEF0(a1 int32) int32 {
 		v4 = (*uint8)(unsafe.Pointer(uintptr(v1 + 432)))
 		*(*uint32)(unsafe.Pointer(uintptr(v1 + 288))) = 0
 		nox_xxx_spriteSetActiveMB_45A990_drawable(v1)
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6)), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6)), 4)
 		*(*float32)(unsafe.Pointer(uintptr(v2 + 56))) = float32(float64(v6))
 		v5 += 4
-		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6)), 4, internCStr(__FILE__), __LINE__)
+		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6)), 4)
 		*(*float32)(unsafe.Pointer(uintptr(v2 + 60))) = float32(float64(v6))
 		v5 += 4
 		nox_shape_box_calc((*nox_shape)(unsafe.Pointer(uintptr(v2 + 44))))
@@ -4440,17 +4440,17 @@ func sub_4ACEF0(a1 int32) int32 {
 		*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 5)) = 10
 		v8 = (*uint8)(unsafe.Add(unsafe.Pointer(v4), 5))
 		if int32(int16(v7)) >= 41 {
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v4, 1, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v4, 1)
 			v5++
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v4), 1)), 1, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v4), 1)), 1)
 			v5++
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v4), 2)), 1, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v4), 2)), 1)
 			v5++
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v4), 3)), 1, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v4), 3)), 1)
 			v5++
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v4), 4)), 1, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v4), 4)), 1)
 			v5++
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v8, 1, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v8, 1)
 			v5++
 		}
 		result = v5
@@ -4468,15 +4468,15 @@ func sub_4AD040(a1 int32) int32 {
 		v4     int32
 		v5     int32
 	)
-	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v4)), 2, internCStr(__FILE__), __LINE__)
+	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v4)), 2)
 	v3 = 2
 	v1 = nox_xxx_spriteLoadFromMap_4AC020(a1, int16(v4), (*uint32)(unsafe.Pointer(&v3)))
 	if v1 != 0 {
 		if int32(int16(v4)) >= 61 {
 			*((*uint8)(unsafe.Pointer(&a1))) = 0
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v5)), 4, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v5)), 4)
 			v3 += 4
-			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 1, internCStr(__FILE__), __LINE__)
+			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&a1)), 1)
 			v3++
 			if int32(uint8(int8(a1))) == 1 {
 				sub_459DD0((*nox_drawable)(unsafe.Pointer(uintptr(v1))), 1)
@@ -4565,20 +4565,20 @@ func nox_xxx_windowServerOptionsGeneralProc_4AD5D0(a1 int32, a2 int32, a3 *int32
 		return 0
 	} else if a2 != 16400 || nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(a3))) != 10317 || (func() bool {
 		v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10316)))
-		v5 = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a3)))))), 16404, 0, 0, internCStr(__FILE__), __LINE__)
+		v5 = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a3)))))), 16404, 0, 0)
 		v6 = v5
 		return v5 < 0
 	}()) || v5 >= int32(*(*int16)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*8)) + 44)))) {
 		return 0
 	} else {
-		v7 = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a3)))))), 16406, a4, 0, internCStr(__FILE__), __LINE__)
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))), 16385, v7, -1, internCStr(__FILE__), __LINE__)
+		v7 = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a3)))))), 16406, a4, 0)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))), 16385, v7, -1)
 		nox_server_connectionType_3596 = uint32(v6 + 1)
 		v8 = sub_40A710(v6 + 1)
 		nox_xxx_rateUpdate_40A6D0(v8)
 		v9 = 4 - nox_xxx_rateGet_40A6C0()
 		v10 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10312)))
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16394, v9, 0, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16394, v9, 0)
 		nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a3)))))), 1)
 		nox_xxx_wndClearCaptureMain_46ADE0((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a3)))))))
 		return 0
@@ -4633,7 +4633,7 @@ func sub_4ADA40() int32 {
 	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309820)))), v3)))
 LABEL_9:
 	if v1 != nil {
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16392, 0, 0, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16392, 0, 0)
 	}
 	return nox_draw_setTabWidth_43FE20(15)
 }
@@ -4687,8 +4687,8 @@ func nox_game_initOptionsInGame_4ADAD0() int32 {
 	v25 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSliderLit"))))
 	v2 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSlider"))))
 	sub_4B5700(int32(uintptr(unsafe.Pointer(v1))), 0, 0, int32(uintptr(unsafe.Pointer(v2))), int32(uintptr(unsafe.Pointer(v25))), int32(uintptr(unsafe.Pointer(v28))))
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16395, 0, 0x4000, internCStr(__FILE__), __LINE__)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_127004)) + 4)))>>16), 0, internCStr(__FILE__), __LINE__)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16395, 0, 0x4000)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_127004)) + 4)))>>16), 0)
 	dword_5d4594_1309828 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309820)))), 361))))
 	v3 = sub_453070()
 	v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1309828 + 36))))
@@ -4705,8 +4705,8 @@ func nox_game_initOptionsInGame_4ADAD0() int32 {
 	v26 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSliderLit"))))
 	v7 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSlider"))))
 	sub_4B5700(int32(uintptr(unsafe.Pointer(v6))), 0, 0, int32(uintptr(unsafe.Pointer(v7))), int32(uintptr(unsafe.Pointer(v26))), int32(uintptr(unsafe.Pointer(v29))))
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16395, 0, 0x4000, internCStr(__FILE__), __LINE__)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_122852)) + 4)))>>16), 0, internCStr(__FILE__), __LINE__)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16395, 0, 0x4000)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_122852)) + 4)))>>16), 0)
 	dword_5d4594_1309836 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309820)))), 362))))
 	v8 = sub_44D990()
 	v9 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1309836 + 36))))
@@ -4723,8 +4723,8 @@ func nox_game_initOptionsInGame_4ADAD0() int32 {
 	v27 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSliderLit"))))
 	v12 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSlider"))))
 	sub_4B5700(int32(uintptr(unsafe.Pointer(v11))), 0, 0, int32(uintptr(unsafe.Pointer(v12))), int32(uintptr(unsafe.Pointer(v27))), int32(uintptr(unsafe.Pointer(v30))))
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v11)))))), 16395, 0, 0x4000, internCStr(__FILE__), __LINE__)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v11)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_93164)) + 4)))>>16), 0, internCStr(__FILE__), __LINE__)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v11)))))), 16395, 0, 0x4000)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v11)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_93164)) + 4)))>>16), 0)
 	dword_5d4594_1309832 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309820)))), 363))))
 	v13 = sub_43DC30()
 	v14 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1309832 + 36))))
@@ -4740,7 +4740,7 @@ func nox_game_initOptionsInGame_4ADAD0() int32 {
 	} else {
 		v17 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309820)))), 334)))
 	}
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v17)))))), 16392, 1, 0, internCStr(__FILE__), __LINE__)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v17)))))), 16392, 1, 0)
 	for i = 320; i <= 332; i++ {
 		v19 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309820)))), i)))
 		if v19 != nil && (*(*uint32)(unsafe.Add(unsafe.Pointer(v19), 4*9))&4) == 0 {
@@ -5047,14 +5047,14 @@ func sub_4B4860(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 			v10 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 8))) + uint32(a4) - 10)
 		}
 		nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(a1 + 400))))), v10-a4-5, 0)
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(a1))), 0x4000, 0, v9, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(a1))), 0x4000, 0, v9)
 		return 1
 	case 8:
 		v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))))
 		if (v8 & 0x100) == 0 {
 			return 1
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 0x4000, a1, 0, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 0x4000, a1, 0)
 		return 1
 	case 17:
 		v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))))
@@ -5062,14 +5062,14 @@ func sub_4B4860(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 			return 1
 		}
 		nox_xxx_wndSetRectColor2MB_46AFE0((*nox_window)(unsafe.Pointer(uintptr(a1))), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 72)))))
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16389, a1, 0, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16389, a1, 0)
 		nox_xxx_windowFocus_46B500((*nox_window)(unsafe.Pointer(uintptr(a1))))
 		return 1
 	case 18:
 		v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))))
 		if v7&0x100 != 0 {
 			nox_xxx_wndSetRectColor2MB_46AFE0((*nox_window)(unsafe.Pointer(uintptr(a1))), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 64)))))
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16390, a1, 0, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16390, a1, 0)
 		}
 		return 1
 	case 21:
@@ -5097,7 +5097,7 @@ func sub_4B4860(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 			}
 			v14 = v13 + 2
 			*(*uint32)(unsafe.Pointer(uintptr(v4 + 12))) = uint32(v14)
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16393, a1, v14, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16393, a1, v14)
 			nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(a1 + 400))))), int32(int64(float64(int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 12)))-*(*uint32)(unsafe.Pointer(uintptr(v4)))))*float64(*(*float32)(unsafe.Pointer(uintptr(v4 + 8)))))), 0)
 			return 1
 		case 205:
@@ -5110,7 +5110,7 @@ func sub_4B4860(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 			}
 			v12 = v11 - 2
 			*(*uint32)(unsafe.Pointer(uintptr(v4 + 12))) = uint32(v12)
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16393, a1, v12, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16393, a1, v12)
 			nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(a1 + 400))))), int32(int64(float64(int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 12)))-*(*uint32)(unsafe.Pointer(uintptr(v4)))))*float64(*(*float32)(unsafe.Pointer(uintptr(v4 + 8)))))), 0)
 			return 1
 		default:
@@ -5148,14 +5148,14 @@ func nox_xxx_wndScrollBoxDraw_4B4BA0(a1 int32, a2 int32, a3 uint32, a4 int32) in
 			v10 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 12))) + uint32(a4) - 10)
 		}
 		nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(a1 + 400))))), 0, v10-a4-5)
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(a1))), 0x4000, 0, v9, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(a1))), 0x4000, 0, v9)
 		return 1
 	case 8:
 		v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))))
 		if (v8 & 0x100) == 0 {
 			return 1
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 0x4000, a1, 0, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 0x4000, a1, 0)
 		return 1
 	case 17:
 		v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))))
@@ -5163,14 +5163,14 @@ func nox_xxx_wndScrollBoxDraw_4B4BA0(a1 int32, a2 int32, a3 uint32, a4 int32) in
 			return 1
 		}
 		nox_xxx_wndSetRectColor2MB_46AFE0((*nox_window)(unsafe.Pointer(uintptr(a1))), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 72)))))
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16389, a1, 0, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16389, a1, 0)
 		nox_xxx_windowFocus_46B500((*nox_window)(unsafe.Pointer(uintptr(a1))))
 		return 1
 	case 18:
 		v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))))
 		if v7&0x100 != 0 {
 			nox_xxx_wndSetRectColor2MB_46AFE0((*nox_window)(unsafe.Pointer(uintptr(a1))), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 64)))))
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16390, a1, 0, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16390, a1, 0)
 		}
 		return 1
 	case 21:
@@ -5193,7 +5193,7 @@ func nox_xxx_wndScrollBoxDraw_4B4BA0(a1 int32, a2 int32, a3 uint32, a4 int32) in
 			}
 			v12 = v11 + 2
 			*(*uint32)(unsafe.Pointer(uintptr(v4 + 12))) = uint32(v12)
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16393, a1, v12, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16393, a1, v12)
 			nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(a1 + 400))))), 0, int32(int64(float64(int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 4)))-*(*uint32)(unsafe.Pointer(uintptr(v4 + 12)))))*float64(*(*float32)(unsafe.Pointer(uintptr(v4 + 8)))))))
 			return 1
 		case 0xCB:
@@ -5211,7 +5211,7 @@ func nox_xxx_wndScrollBoxDraw_4B4BA0(a1 int32, a2 int32, a3 uint32, a4 int32) in
 			}
 			v14 = v13 - 2
 			*(*uint32)(unsafe.Pointer(uintptr(v4 + 12))) = uint32(v14)
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16393, a1, v14, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16393, a1, v14)
 			nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(a1 + 400))))), 0, int32(int64(float64(int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 4)))-*(*uint32)(unsafe.Pointer(uintptr(v4 + 12)))))*float64(*(*float32)(unsafe.Pointer(uintptr(v4 + 8)))))))
 			return 1
 		default:
@@ -5320,7 +5320,7 @@ func sub_4B5010(a1 int32, a2 uint32, a3 int32, a4 int32) int32 {
 			nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(v4 + 400))))), 0, 0)
 			v11 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5))))
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) = uint32(v11)
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16393, v4, int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))), internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16393, v4, int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))))
 			return 0
 		}
 		v12 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 8))))
@@ -5331,14 +5331,14 @@ func sub_4B5010(a1 int32, a2 uint32, a3 int32, a4 int32) int32 {
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) = uint32(int32(v13))
 			if int32(v13) > v11 {
 				*(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) = uint32(v11)
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16393, v4, int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))), internCStr(__FILE__), __LINE__)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16393, v4, int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))))
 				return 0
 			}
 		} else {
 			nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(v4 + 400))))), int32(uint32(v12)-*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 400))) + 8)))), 0)
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) = *(*uint32)(unsafe.Pointer(uintptr(v5 + 4)))
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16393, v4, int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))), internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16393, v4, int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))))
 		return 0
 	}
 	if a2 == 2 {
@@ -5358,7 +5358,7 @@ func sub_4B5010(a1 int32, a2 uint32, a3 int32, a4 int32) int32 {
 	v18 = (*int32)(unsafe.Pointer(uintptr(a1)))
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))) = uint32(v7)
 	v8 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(v18)))
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16387, v6, v8, internCStr(__FILE__), __LINE__)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16387, v6, v8)
 	return 1
 }
 func sub_4B51A0(a1 int32) int32 {
@@ -5473,7 +5473,7 @@ func nox_xxx_wndScrollBoxProc_4B5320(a1 int32, a2 uint32, a3 int32, a4 uint32) i
 	}
 	switch a2 {
 	case 0x4007:
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16396, a1, int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))), internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16396, a1, int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))))
 		return 0
 	case 2:
 		alloc.Free(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(a1 + 32))))
@@ -5489,7 +5489,7 @@ func nox_xxx_wndScrollBoxProc_4B5320(a1 int32, a2 uint32, a3 int32, a4 uint32) i
 		v20 = (*int32)(unsafe.Pointer(uintptr(a1)))
 		*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))) = uint32(v12)
 		v13 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(v20)))
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16387, v11, v13, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16387, v11, v13)
 		return 1
 	}
 	if a2 != 0x4000 {
@@ -5516,7 +5516,7 @@ func nox_xxx_wndScrollBoxProc_4B5320(a1 int32, a2 uint32, a3 int32, a4 uint32) i
 		nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(v4 + 400))))), 0, 0)
 		*(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) = *(*uint32)(unsafe.Pointer(uintptr(v5 + 4)))
 	}
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16393, v4, int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))), internCStr(__FILE__), __LINE__)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16393, v4, int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))))
 	return 0
 }
 func nox_xxx_wndScrollBoxSetAllFn_4B5500(a1 int32) int32 {

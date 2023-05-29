@@ -1,11 +1,12 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/cmath"
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"math"
 	"sync/atomic"
 	"unsafe"
+
+	"github.com/gotranspile/cxgo/runtime/cmath"
+	"github.com/gotranspile/cxgo/runtime/libc"
 )
 
 var nox_max_npcs int32 = 1024
@@ -161,10 +162,10 @@ func sub_48D120() int32 {
 	dword_5d4594_1197328 = dword_5d4594_1197324
 	alloc.Memcpy(memmap.PtrOff(0x5D4594, 1195512), memmap.PtrOff(0x5D4594, 1193720), 0x700)
 	dword_5d4594_1197324 = 0
-	v1 = (*int32)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197316))))), 16404, 0, 0, internCStr(__FILE__), __LINE__))))
+	v1 = (*int32)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197316))))), 16404, 0, 0))))
 	v2 = v1
 	for i = *v1; i != -1; v2 = (*int32)(unsafe.Add(unsafe.Pointer(v2), 4*1)) {
-		v4 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197316))))), 16406, i, 0, internCStr(__FILE__), __LINE__))))
+		v4 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197316))))), 16406, i, 0))))
 		if v4 != nil {
 			nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, dword_5d4594_1197324*56+1193720)), v4)
 			dword_5d4594_1197324++
@@ -276,7 +277,7 @@ func nox_xxx_netSendRenameMb_48D2D0(a1 *wchar2_t) *byte {
 }
 func sub_48D340() int32 {
 	var result int32
-	if nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197320))))), 16404, 0, 0, internCStr(__FILE__), __LINE__) != 0 {
+	if nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197320))))), 16404, 0, 0) != 0 {
 		result = 0
 		dword_5d4594_1197332 = 0
 		if dword_5d4594_1197336 == 1 {
@@ -310,7 +311,7 @@ func nox_xxx_clientVote_48D3E0() int32 {
 }
 func sub_48D410() *uint32 {
 	var result *uint32
-	result = (*uint32)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197320))))), 16404, 0, 0, internCStr(__FILE__), __LINE__))))
+	result = (*uint32)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197320))))), 16404, 0, 0))))
 	if result == nil {
 		return sub_48CB10(2)
 	}
@@ -5551,7 +5552,7 @@ func sub_49CA60(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 				sub_459D80(0)
 			}
 			v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305684)))), 10352)))
-			v5 = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))), 16404, 0, 0, internCStr(__FILE__), __LINE__)
+			v5 = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))), 16404, 0, 0)
 			nox_server_connectionType_3596 = uint32(v5 + 1)
 			v6 = sub_40A710(v5 + 1)
 			nox_xxx_rateUpdate_40A6D0(v6)

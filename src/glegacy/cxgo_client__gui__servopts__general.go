@@ -1,7 +1,6 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
 )
 
@@ -47,7 +46,7 @@ func nox_xxx_gui_4AD320(a1 int32) int32 {
 		v7 = (**byte)(memmap.PtrOff(0x587000, 173540))
 		for {
 			v8 = nox_strman_loadString_40F1D0(*v7, nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c"), 308)
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16397, int32(uintptr(unsafe.Pointer(v8))), -1, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16397, int32(uintptr(unsafe.Pointer(v8))), -1)
 			v7 = (**byte)(unsafe.Add(unsafe.Pointer(v7), unsafe.Sizeof((*byte)(nil))*1))
 			if int32(uintptr(unsafe.Pointer(v7))) >= int32(uintptr(memmap.PtrOff(0x587000, 173556))) {
 				break
@@ -145,10 +144,10 @@ func sub_4AD840() int32 {
 		if false {
 			v6 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10316)))
 			v7 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, nox_server_connectionType_3596*4+173536)), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c"), 391)
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16385, int32(uintptr(unsafe.Pointer(v7))), -1, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16385, int32(uintptr(unsafe.Pointer(v7))), -1)
 			v8 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10312)))
 			v9 = nox_xxx_rateGet_40A6C0()
-			result = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), 16394, 4-v9, 0, internCStr(__FILE__), __LINE__)
+			result = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), 16394, 4-v9, 0)
 		}
 	}
 	return result

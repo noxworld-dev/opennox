@@ -6,7 +6,6 @@ import (
 	"unsafe"
 
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
-	"github.com/noxworld-dev/opennox-lib/log"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 )
@@ -16,9 +15,8 @@ type nox_window = gui.Window
 func AsWindowP(win unsafe.Pointer) *gui.Window {
 	w := (*gui.Window)(win)
 	if false && cgoSafe && w.ID() == DeadWord {
-		log.Println("memory corruption detected")
 		debug.PrintStack()
-		abort()
+		panic("memory corruption detected")
 	}
 	return w
 }
@@ -114,12 +112,12 @@ func nox_xxx_wndSetRectColor2MB_46AFE0(win *nox_window, a2 int) int {
 }
 
 // nox_window_call_field_94_fnc
-func nox_window_call_field_94_fnc(p *nox_window, a2, a3, a4 int, file *char, line int) int {
+func nox_window_call_field_94_fnc(p *nox_window, a2, a3, a4 int) int {
 	if p == nil {
 		return 0
 	}
 	if guiDebug {
-		guiLog.Printf("nox_window_call_field_94(%p, %x, %x, %x): %s:%d", p, a2, a3, a4, GoString(file), line)
+		guiLog.Printf("nox_window_call_field_94(%p, %x, %x, %x)", p, a2, a3, a4)
 	}
 	r := asWindow(p).Func94(gui.AsWindowEvent(a2, uintptr(a3), uintptr(a4)))
 	if r == nil {

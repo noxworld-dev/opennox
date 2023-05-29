@@ -110,8 +110,8 @@ func nox_xxx_monsterPopAction_50A160(a1 *nox_object_t) int {
 }
 
 // nox_xxx_monsterPushAction_50A260_impl
-func nox_xxx_monsterPushAction_50A260_impl(u *nox_object_t, act int, file *char, line int) unsafe.Pointer {
-	return Nox_xxx_monsterPushAction_50A260_impl(asObjectS(u), act, GoString(file), line)
+func nox_xxx_monsterPushAction_50A260_impl(u *nox_object_t, act int) unsafe.Pointer {
+	return Nox_xxx_monsterPushAction_50A260_impl(asObjectS(u), act, "", 0)
 }
 
 // nox_xxx_unitUpdateMonster_50A5C0

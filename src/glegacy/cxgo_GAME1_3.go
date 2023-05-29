@@ -1,10 +1,10 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
-	"github.com/gotranspile/cxgo/runtime/stdio"
 	"math"
 	"unsafe"
+
+	"github.com/gotranspile/cxgo/runtime/libc"
 )
 
 var dword_5d4594_830236 unsafe.Pointer = nil
@@ -955,7 +955,7 @@ func nox_xxx_motdAddSomeTextMB_446730(a1 *uint8) *uint8 {
 	result = a1
 	if int32(*a1) != 0 {
 		nox_swprintf(&v2[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), a1)
-		result = (*uint8)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_826032))))), 16397, int32(uintptr(unsafe.Pointer(&v2[0]))), -1, internCStr(__FILE__), __LINE__))))
+		result = (*uint8)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_826032))))), 16397, int32(uintptr(unsafe.Pointer(&v2[0]))), -1))))
 	}
 	return result
 }
@@ -967,7 +967,7 @@ func sub_446780() int32 {
 	nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_826028))))), 1)
 	*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_826028 + 4))) &= 0xFFFFFFF7
 	*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_826032 + 4))) &= 0xFFFFFFF7
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_826032))))), 16399, 0, 0, internCStr(__FILE__), __LINE__)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_826032))))), 16399, 0, 0)
 	return 1
 }
 func nox_xxx_motd_4467F0() {

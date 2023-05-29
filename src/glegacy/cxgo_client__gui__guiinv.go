@@ -1,7 +1,6 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
 )
 
@@ -293,7 +292,7 @@ func sub_462740() int32 {
 	v0 = nox_strman_loadString_40F1D0(internCStr("thing.db:IdentifyDescription"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2361)
 	nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, 1063124)), v0)
 	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1062476)))), 9156)))
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16399, 0, 0, internCStr(__FILE__), __LINE__)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16399, 0, 0)
 	nox_xxx_wndClearCaptureMain_46ADE0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062456))))))
 	dword_5d4594_1049864 = 0
 	nox_client_setCursorType_477610(0)
@@ -415,7 +414,7 @@ LABEL_14:
 			v5 = nox_strman_loadString_40F1D0(internCStr("thing.db:IdentifyDescription"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2529)
 			nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, 1063124)), v5)
 			v6 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1062476)))), 9156)))
-			result = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16399, 0, 0, internCStr(__FILE__), __LINE__)
+			result = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16399, 0, 0)
 		}
 		return result
 	}
@@ -434,7 +433,7 @@ LABEL_14:
 	v9 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1062476)))), 9151)))
 	sub_46AEE0(int32(uintptr(unsafe.Pointer(v9))), int32(uintptr(memmap.PtrOff(0x5D4594, 1063124))))
 	v10 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1062476)))), 9156)))
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16399, 0, 0, internCStr(__FILE__), __LINE__)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16399, 0, 0)
 	if nox_common_gameFlags_check_40A5C0(2048) {
 		if int32(*(*uint16)(unsafe.Pointer(uintptr(dword_5d4594_1063116 + 294)))) != 0 {
 			sub_4633B0(*(*int32)(unsafe.Pointer(&dword_5d4594_1063116)), &v71, &v68)
@@ -466,13 +465,13 @@ LABEL_14:
 		default:
 		}
 	}
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1, internCStr(__FILE__), __LINE__)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(memmap.PtrOff(0x5D4594, 1063656))), -1, internCStr(__FILE__), __LINE__)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(memmap.PtrOff(0x5D4594, 1063656))), -1)
 	v64 = int32(*(*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1063116 + 298))))
 	v14 = nox_strman_loadString_40F1D0(internCStr("IdentifyWeight"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2620)
 	nox_swprintf(&v75[0], v14, v64)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1, internCStr(__FILE__), __LINE__)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(memmap.PtrOff(0x5D4594, 1063660))), -1, internCStr(__FILE__), __LINE__)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(memmap.PtrOff(0x5D4594, 1063660))), -1)
 	v15 = int32(dword_5d4594_1063116)
 	v16 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1063116 + 112))))
 	if (uint32(v16) & 0x2000000) == 0 {
@@ -547,26 +546,26 @@ LABEL_14:
 			v54 = nox_strman_loadString_40F1D0(internCStr("WeaponDamageLabelUnknownPlus"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2773)
 			nox_swprintf(&v75[0], v54, v57)
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1)
 		nox_wcscpy(&v75[0], (*wchar2_t)(unsafe.Pointer(internCStr("  "))))
 		v59 = float64(v68)
 		v35 = nox_strman_loadString_40F1D0(internCStr("BaseDamageLabel"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2785)
 		nox_swprintf(&v76[0], v35, v59)
 		nox_wcscat(&v75[0], &v76[0])
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1)
 		nox_wcscpy(&v75[0], (*wchar2_t)(unsafe.Pointer(internCStr("  "))))
 		v60 = float64(v69)
 		v36 = nox_strman_loadString_40F1D0(internCStr("StrengthDamageLabel"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2792)
 		nox_swprintf(&v76[0], v36, v60)
 		nox_wcscat(&v75[0], &v76[0])
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1)
 		if float64(v72) > 0.0 {
 			nox_wcscpy(&v75[0], (*wchar2_t)(unsafe.Pointer(internCStr("  "))))
 			v61 = float64(v72)
 			v37 = nox_strman_loadString_40F1D0(internCStr("FireDamageLabel"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2801)
 			nox_swprintf(&v76[0], v37, v61)
 			nox_wcscat(&v75[0], &v76[0])
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1)
 		}
 		if float64(v71) > 0.0 {
 			nox_wcscpy(&v75[0], (*wchar2_t)(unsafe.Pointer(internCStr("  "))))
@@ -574,9 +573,9 @@ LABEL_14:
 			v38 = nox_strman_loadString_40F1D0(internCStr("ElectricalDamageLabel"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2811)
 			nox_swprintf(&v76[0], v38, v62)
 			nox_wcscat(&v75[0], &v76[0])
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1)
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(memmap.PtrOff(0x5D4594, 1063668))), -1, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(memmap.PtrOff(0x5D4594, 1063668))), -1)
 		goto LABEL_71
 	}
 	v17 = (*float32)(nox_xxx_equipClothFindDefByTT_413270(int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1063116 + 108))))))
@@ -595,8 +594,8 @@ LABEL_14:
 		v22 = nox_strman_loadString_40F1D0(internCStr("ArmorValueLabel"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2649)
 		nox_swprintf(&v75[0], v22, v66)
 	}
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1, internCStr(__FILE__), __LINE__)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(memmap.PtrOff(0x5D4594, 1063664))), -1, internCStr(__FILE__), __LINE__)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(memmap.PtrOff(0x5D4594, 1063664))), -1)
 LABEL_71:
 	v15 = int32(dword_5d4594_1063116)
 LABEL_72:
@@ -617,12 +616,12 @@ LABEL_72:
 			if v44 != 0 && *(*uint32)(unsafe.Pointer(uintptr(v44 + 16))) != 0 {
 				v45 = nox_strman_loadString_40F1D0(internCStr("IdentifySpecialAttributes"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2851)
 				nox_swprintf(&v75[0], v45)
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1, internCStr(__FILE__), __LINE__)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1)
 				v46 = 0
 				nox_wcscpy(&v75[0], (*wchar2_t)(unsafe.Pointer(internCStr("  "))))
 				nox_swprintf(&v76[0], *(**wchar2_t)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v43 + 8))) + 16))))
 				nox_wcscat(&v75[0], &v76[0])
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1, internCStr(__FILE__), __LINE__)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1)
 				v15 = int32(dword_5d4594_1063116)
 			} else {
 				v46 = v73
@@ -632,34 +631,34 @@ LABEL_72:
 				if v46 == 1 {
 					v48 = nox_strman_loadString_40F1D0(internCStr("IdentifySpecialAttributes"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2868)
 					nox_swprintf(&v75[0], v48)
-					nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1, internCStr(__FILE__), __LINE__)
+					nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1)
 					v73 = 0
 					v46 = 0
 				}
 				nox_wcscpy(&v75[0], (*wchar2_t)(unsafe.Pointer(internCStr("  "))))
 				nox_swprintf(&v76[0], *(**wchar2_t)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v43 + 12))) + 16))))
 				nox_wcscat(&v75[0], &v76[0])
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1, internCStr(__FILE__), __LINE__)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1)
 				v15 = int32(dword_5d4594_1063116)
 			}
 			if v46 != 0 {
 				goto LABEL_91
 			}
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(memmap.PtrOff(0x5D4594, 1063672))), -1, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(memmap.PtrOff(0x5D4594, 1063672))), -1)
 		} else {
 			v41 = nox_strman_loadString_40F1D0(internCStr("IdentifySpecialAttributes"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2835)
 			nox_swprintf(&v75[0], v41)
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1)
 			v42 = nox_strman_loadString_40F1D0(internCStr("IdentifyUnknown"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 2837)
 			nox_swprintf(&v75[0], v42)
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1, internCStr(__FILE__), __LINE__)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, int32(uintptr(unsafe.Pointer(&v75[0]))), -1)
 		}
 		v15 = int32(dword_5d4594_1063116)
 	}
 LABEL_91:
 	v49 = int32(uintptr(unsafe.Pointer(nox_get_thing_desc(int32(*(*uint32)(unsafe.Pointer(uintptr(v15 + 108))))))))
 	if v49 != 0 {
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, v49, -1, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16397, v49, -1)
 	}
 	v67 = nox_get_thing_pretty_image(int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1063116 + 108)))))
 	v50 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1062476)))), 9155)))
@@ -1292,7 +1291,7 @@ func sub_464BD0(a1 int32, a2 int32, a3 uint32) int32 {
 			}
 			return 0
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062456))))), 16391, *memmap.PtrInt32(0x5D4594, 1062500), 0, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062456))))), 16391, *memmap.PtrInt32(0x5D4594, 1062500), 0)
 		return 1
 	case 20:
 		if nox_xxx_playerAnimCheck_4372B0() != 0 {
@@ -1312,7 +1311,7 @@ func sub_464BD0(a1 int32, a2 int32, a3 uint32) int32 {
 			}
 			return 0
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062456))))), 16391, *memmap.PtrInt32(0x5D4594, 1062504), 0, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062456))))), 16391, *memmap.PtrInt32(0x5D4594, 1062504), 0)
 		return 1
 	default:
 		if dword_5d4594_1049864 == 5 {

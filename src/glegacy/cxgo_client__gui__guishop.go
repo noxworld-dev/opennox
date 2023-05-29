@@ -1,8 +1,9 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
+
+	"github.com/gotranspile/cxgo/runtime/libc"
 )
 
 func sub_478730(a1 *int32) {
@@ -167,7 +168,7 @@ func nox_xxx_cliStartShopDlg_478FD0(a1 *wchar2_t, a2 *byte, a3 int32) int32 {
 		nox_xxx_playDialogFile_44D900((*byte)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1098608)))), 100)
 	}
 	dword_5d4594_1107036 = 0
-	return nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098580))))), 16394, *(*int32)(unsafe.Pointer(&dword_5d4594_1098592)), 0, internCStr(__FILE__), __LINE__)
+	return nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098580))))), 16394, *(*int32)(unsafe.Pointer(&dword_5d4594_1098592)), 0)
 }
 func sub_479520(a1 int32) {
 	var (

@@ -1,7 +1,6 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
 )
 
@@ -47,7 +46,7 @@ func sub_4A4A20(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 		v8 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))), 605)))
 		*(*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1307724 + 66))) = uint8(int8(v7 - 89))
 		v9 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uint32(int32(uint8(int8(v7-89)))*4)+170208)), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\SelClass.c"), 279)
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), 16385, int32(uintptr(unsafe.Pointer(v9))), 0, internCStr(__FILE__), __LINE__)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), 16385, int32(uintptr(unsafe.Pointer(v9))), 0)
 		*memmap.PtrUint32(0x5D4594, 1307740) = uint32(v7)
 	}
 	nox_xxx_clientPlaySoundSpecial_452D80(920, 100)
