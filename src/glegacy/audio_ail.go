@@ -40,7 +40,7 @@ type WIN32_FIND_DATAA struct {
 }
 
 func FindFirstFileA(a1 *byte, f *WIN32_FIND_DATAA) uintptr {
-	return uintptr(unsafe.Pointer(compatFindFirstFileA((*char)(unsafe.Pointer(a1)), (*WIN32_FIND_DATAA)(unsafe.Pointer(f)))))
+	return uintptr(unsafe.Pointer(compatFindFirstFileA((*byte)(unsafe.Pointer(a1)), (*WIN32_FIND_DATAA)(unsafe.Pointer(f)))))
 }
 
 func FindNextFileA(h uintptr, f *WIN32_FIND_DATAA) int {
@@ -224,15 +224,15 @@ func Sub_486620(v unsafe.Pointer) {
 }
 
 func Sub_42EBB0(a1 int, a2 unsafe.Pointer, a3 int, a4 string) {
-	sub_42EBB0(uint(a1), (*[0]byte)(a2), int(a3), internCStr(a4))
+	sub_42EBB0(uint32(a1), a2, int32(a3), internCStr(a4))
 }
 
 func Get_sub_43E910() unsafe.Pointer {
-	return sub_43E910
+	return funAddrP(sub_43E910)
 }
 
 func Get_sub_43E8E0() unsafe.Pointer {
-	return sub_43E8E0
+	return funAddrP(sub_43E8E0)
 }
 
 func Get_dword_587000_127004() unsafe.Pointer {
@@ -240,7 +240,7 @@ func Get_dword_587000_127004() unsafe.Pointer {
 }
 
 func Sub_43F0E0(v unsafe.Pointer) int {
-	return int(sub_43F0E0((*uint)(v)))
+	return int(sub_43F0E0((*uint32)(v)))
 }
 
 func Sub_43EE00(v *AudioSample) {
@@ -256,11 +256,11 @@ func Get_dword_5d4594_816364() ail.Stream {
 }
 
 func Set_dword_5d4594_816364(v ail.Stream) {
-	dword_5d4594_816364 = uint(v)
+	dword_5d4594_816364 = uint32(v)
 }
 
 func Set_dword_5d4594_816092(v int) {
-	dword_5d4594_816092 = uint(v)
+	dword_5d4594_816092 = uint32(v)
 }
 
 func Get_dword_5d4594_831088() ail.Stream {
@@ -268,7 +268,7 @@ func Get_dword_5d4594_831088() ail.Stream {
 }
 
 func Set_dword_5d4594_831088(v ail.Stream) {
-	dword_5d4594_831088 = uint(v)
+	dword_5d4594_831088 = uint32(v)
 }
 
 func Sub_413890() string {
@@ -280,7 +280,7 @@ func Nox_xxx_parseSoundSetBin_424170(path string) int {
 }
 
 func Sub_486670(v int, ind int) {
-	sub_486670(int(v), int(ind))
+	sub_486670(int32(v), int32(ind))
 }
 
 func Nox_xxx_WorkerHurt_44D810() {
@@ -304,7 +304,7 @@ func Sub_453050() {
 }
 
 func Sub_44D5C0(s ail.Stream, a2 int) {
-	sub_44D5C0(int(s), int(a2))
+	sub_44D5C0(int32(s), int32(a2))
 }
 
 func Get_dword_5d4594_816376() ail.Driver {
@@ -312,15 +312,15 @@ func Get_dword_5d4594_816376() ail.Driver {
 }
 
 func Sub_486320(p unsafe.Pointer, a2 int) {
-	sub_486320((*uint)(p), int(a2))
+	sub_486320((*uint32)(p), int32(a2))
 }
 
 func Sub_486350(p unsafe.Pointer, a2 int) {
-	sub_486350(p, int(a2))
+	sub_486350(p, int32(a2))
 }
 
 func Sub_43D3C0(s ail.Stream, a2 int) {
-	sub_43D3C0(int(s), int(a2))
+	sub_43D3C0(int32(s), int32(a2))
 }
 
 func Get_dword_587000_122856() int {
@@ -336,11 +336,11 @@ func Get_dword_5d4594_830872() int {
 }
 
 func Set_dword_587000_122856(v int) {
-	dword_587000_122856 = uint(v)
+	dword_587000_122856 = uint32(v)
 }
 
 func Sub_486640(a1 unsafe.Pointer, a2 int) int {
-	return int(sub_486640(a1, int(a2)))
+	return int(sub_486640(a1, int32(a2)))
 }
 
 func Get_dword_5d4594_805984() unsafe.Pointer {
@@ -356,29 +356,29 @@ func Set_dword_587000_81128(v unsafe.Pointer) {
 }
 
 func Sub_4864A0(v unsafe.Pointer) {
-	sub_4864A0((*uint)(v))
+	sub_4864A0((*uint32)(v))
 }
 
 func Sub_451850(a1 unsafe.Pointer, a2 unsafe.Pointer) {
-	sub_451850(int(uintptr(a1)), a2)
+	sub_451850(int32(uintptr(a1)), a2)
 }
 
 func Sub_4866A0(a1 int) int {
-	return int(sub_4866A0(int(a1)))
+	return int(sub_4866A0(int32(a1)))
 }
 
 func Sub_486FA0(a1 int) {
-	sub_486FA0(int(a1))
+	sub_486FA0(int32(a1))
 }
 
 func Sub_487D00(a1 unsafe.Pointer) {
-	sub_487D00((*uint)(a1))
+	sub_487D00((*uint32)(a1))
 }
 
 func Sub_487150(a1 int, a2 unsafe.Pointer) unsafe.Pointer {
-	return unsafe.Pointer(sub_487150(int(a1), a2))
+	return unsafe.Pointer(sub_487150(int32(a1), a2))
 }
 
 func Sub_487790(a1 unsafe.Pointer, a2 int) int {
-	return int(sub_487790(int(uintptr(a1)), int(a2)))
+	return int(sub_487790(int32(uintptr(a1)), int32(a2)))
 }

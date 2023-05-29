@@ -123,12 +123,12 @@ func nox_cmd_set_name(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 			nox_sprintf(&v14[0], internCStr("%S"), *v12)
 			v5 = uint32(libc.StrLen(&v14[0]) + 1)
 			v6 = &v13[libc.StrLen(&v13[0])]
-			alloc.Memcpy(unsafe.Pointer(v6), unsafe.Pointer(&v14[0]), int((v5>>2)*4))
+			alloc.Memcpy(unsafe.Pointer(v6), unsafe.Pointer(&v14[0]), uintptr((v5>>2)*4))
 			v8 = &v14[(v5>>2)*4]
 			v7 = (*byte)(unsafe.Add(unsafe.Pointer(v6), (v5>>2)*4))
 			v9 = int8(uint8(v5))
 			v10 = v3 + 1
-			alloc.Memcpy(unsafe.Pointer(v7), unsafe.Pointer(v8), int(int32(v9)&3))
+			alloc.Memcpy(unsafe.Pointer(v7), unsafe.Pointer(v8), uintptr(int32(v9)&3))
 			if v3+1 < tokCnt {
 				*(*uint16)(unsafe.Pointer(&v13[libc.StrLen(&v13[0])])) = *memmap.PtrUint16(0x587000, 104484)
 			}

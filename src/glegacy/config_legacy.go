@@ -27,26 +27,26 @@ func Nox_xxx_sysopSetPass_40A610(a1 string) {
 	nox_xxx_sysopSetPass_40A610(internWStr(a1))
 }
 func Nox_xxx_rateUpdate_40A6D0(a1 int) {
-	nox_xxx_rateUpdate_40A6D0(int(a1))
+	nox_xxx_rateUpdate_40A6D0(int32(a1))
 }
 func Sub_4D0D90(a1 int) {
-	sub_4D0D90(int(a1))
+	sub_4D0D90(int32(a1))
 }
 func Sub_409FB0_settings(a1 int16, a2 uint16) {
 	sub_409FB0_settings(int16(a1), uint16(a2))
 }
 func Sub_409EC0(a1 int) {
-	sub_409EC0(int(a1))
+	sub_409EC0(int32(a1))
 }
 func Sub_4D0DC0(a1 uint32, a2 int) {
-	sub_4D0DC0(int(a1), int(a2))
+	sub_4D0DC0(int32(a1), int32(a2))
 }
 func Sub_489FF0(a1 int, a2 int, a3 unsafe.Pointer) {
-	sub_489FF0(int(a1), int(a2), a3)
+	sub_489FF0(int32(a1), int32(a2), a3)
 }
 func Sub_409F40(a1 int) int {
-	return int(sub_409F40(int(a1)))
+	return int(sub_409F40(int32(a1)))
 }
 func Sub_4D0DE0(a1 uint32) int {
-	return int(sub_4D0DE0(int(a1)))
+	return int(sub_4D0DE0(int32(a1)))
 }

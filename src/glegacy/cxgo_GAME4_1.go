@@ -880,7 +880,7 @@ func nox_xxx_aiTestUnitDangerous_50B2C0(a1 int32) int32 {
 	result = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 8))))
 	if (result&0xC080) == 0 && (result&0x2000 != 0 || (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 16))))&0x49) == 0) && (result&0x2008 != 0 || int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 16))))&2 != 0) {
 		if uint32(result)&0x10000 != 0 {
-			alloc.Memcpy(unsafe.Pointer(&v25[0]), unsafe.Pointer(uintptr(a1+172)), int(60))
+			alloc.Memcpy(unsafe.Pointer(&v25[0]), unsafe.Pointer(uintptr(a1+172)), 60)
 			if *(*uint32)(unsafe.Pointer(uintptr(a1 + 172))) == 2 {
 				v3 = float64(*(*float32)(unsafe.Pointer(&dword_587000_234176)) + *(*float32)(unsafe.Pointer(uintptr(a1 + 176))))
 				*(*float32)(unsafe.Pointer(uintptr(a1 + 176))) = float32(v3)

@@ -1523,12 +1523,12 @@ func sub_4D39F0(a3 *byte) int32 {
 		v1 = uint32(libc.StrLen(a3) + 1)
 		v2 = int8(uint8(v1))
 		v1 >>= 2
-		alloc.Memcpy(memmap.PtrOff(0x973F18, 42152), unsafe.Pointer(a3), int(v1*4))
+		alloc.Memcpy(memmap.PtrOff(0x973F18, 42152), unsafe.Pointer(a3), uintptr(v1*4))
 		v4 = (*byte)(unsafe.Add(unsafe.Pointer(a3), v1*4))
-		v3 = (*uint8)(memmap.PtrOff(0x973F18, v1*4+42152))
+		v3 = (*uint8)(memmap.PtrOff(0x973F18, uintptr(v1)*4+42152))
 		*((*uint8)(unsafe.Pointer(&v1))) = uint8(v2)
 		v5 = int32(*memmap.PtrUint32(0x587000, 197560))
-		alloc.Memcpy(unsafe.Pointer(v3), unsafe.Pointer(v4), int(v1&3))
+		alloc.Memcpy(unsafe.Pointer(v3), unsafe.Pointer(v4), uintptr(v1&3))
 		libc.StrCpy((*byte)(memmap.PtrOff(0x973F18, 36008)), a3)
 		v6 = int32(*memmap.PtrUint32(0x587000, 197564))
 		v7 = (*uint8)(memmap.PtrOff(0x973F18, uintptr(libc.StrLen((*byte)(memmap.PtrOff(0x973F18, 36008)))+36008)))
@@ -1538,12 +1538,12 @@ func sub_4D39F0(a3 *byte) int32 {
 		v8 = uint32(libc.StrLen(a3) + 1)
 		*((*uint8)(unsafe.Pointer(&v5))) = uint8(v8)
 		v8 >>= 2
-		alloc.Memcpy(memmap.PtrOff(0x973F18, 38056), unsafe.Pointer(a3), int(v8*4))
+		alloc.Memcpy(memmap.PtrOff(0x973F18, 38056), unsafe.Pointer(a3), uintptr(v8*4))
 		v10 = (*byte)(unsafe.Add(unsafe.Pointer(a3), v8*4))
-		v9 = (*uint8)(memmap.PtrOff(0x973F18, v8*4+38056))
+		v9 = (*uint8)(memmap.PtrOff(0x973F18, uintptr(v8)*4+38056))
 		*((*uint8)(unsafe.Pointer(&v8))) = uint8(int8(v5))
 		*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v5))), unsafe.Sizeof(uint16(0))*0)) = *memmap.PtrUint16(0x587000, 197576)
-		alloc.Memcpy(unsafe.Pointer(v9), unsafe.Pointer(v10), int(v8&3))
+		alloc.Memcpy(unsafe.Pointer(v9), unsafe.Pointer(v10), uintptr(v8&3))
 		v11 = (*uint8)(memmap.PtrOff(0x973F18, uintptr(libc.StrLen((*byte)(memmap.PtrOff(0x973F18, 38056)))+38057)))
 		v12 = int32(*memmap.PtrUint32(0x587000, 197572))
 		*(*uint32)(unsafe.Pointer(func() *uint8 {
@@ -1743,7 +1743,7 @@ func sub_4D3FF0(a1 int32) int32 {
 func sub_4D42E0(a1 *byte) uint32 {
 	var result uint32
 	result = uint32(libc.StrLen(a1) + 1)
-	alloc.Memcpy(memmap.PtrOff(0x587000, 197860), unsafe.Pointer(a1), int(result))
+	alloc.Memcpy(memmap.PtrOff(0x587000, 197860), unsafe.Pointer(a1), uintptr(result))
 	return result
 }
 func nox_xxx_getRandMapName_4D4310() *byte {
@@ -5567,7 +5567,7 @@ func nox_xxx_netNewPlayerMakePacket_4DDA90(buf *uint8, pl *nox_playerInfo) {
 	*(*uint8)(unsafe.Add(unsafe.Pointer(buf), 117)) = uint8(pl.field_2156)
 	*(*uint8)(unsafe.Add(unsafe.Pointer(buf), 118)) = uint8(int8(bool2int32(int32(pl.field_3676) == 3)))
 	*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(buf), 112)))) = pl.field_3680 & 0x423
-	alloc.Memcpy(unsafe.Add(unsafe.Pointer(buf), 119), unsafe.Pointer(&pl.field_2096[0]), libc.StrLen(&pl.field_2096[0])+1)
+	alloc.Memcpy(unsafe.Add(unsafe.Pointer(buf), 119), unsafe.Pointer(&pl.field_2096[0]), uintptr(libc.StrLen(&pl.field_2096[0])+1))
 	alloc.Memcpy(unsafe.Add(unsafe.Pointer(buf), 3), unsafe.Pointer(&pl.info), 97)
 }
 func sub_4DDE10(a1 int32, a2p *nox_playerInfo) {

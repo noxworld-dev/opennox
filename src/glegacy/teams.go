@@ -25,13 +25,13 @@ func asTeamP(p unsafe.Pointer) *server.Team {
 }
 
 // nox_server_teamByXxx_418AE0
-func nox_server_teamByXxx_418AE0(a1 int) *nox_team_t {
-	return (*nox_team_t)(GetServer().S().Teams.ByXxx(a1).C())
+func nox_server_teamByXxx_418AE0(a1 int32) *nox_team_t {
+	return (*nox_team_t)(GetServer().S().Teams.ByXxx(int(a1)).C())
 }
 
 // nox_xxx_getTeamByID_418AB0
-func nox_xxx_getTeamByID_418AB0(a1 int) *nox_team_t {
-	return (*nox_team_t)(GetServer().S().Teams.ByID(server.TeamID(a1)).C())
+func nox_xxx_getTeamByID_418AB0(a1 int32) *nox_team_t {
+	return (*nox_team_t)(GetServer().S().Teams.ByID(server.TeamID(int(a1))).C())
 }
 
 // nox_server_teamFirst_418B10
@@ -45,7 +45,7 @@ func nox_server_teamNext_418B60(t *nox_team_t) *nox_team_t {
 }
 
 // nox_server_teamTitle_418C20
-func nox_server_teamTitle_418C20(a1 int) *wchar2_t {
+func nox_server_teamTitle_418C20(a1 int32) *wchar2_t {
 	return internWStr(GetServer().S().Teams.TeamTitle(server.TeamColor(a1)))
 }
 
@@ -55,9 +55,9 @@ func nox_xxx_teamCreate_4186D0(a1 char) *nox_team_t {
 }
 
 // nox_xxx_materialGetTeamColor_418D50
-func nox_xxx_materialGetTeamColor_418D50(t *nox_team_t) uint {
+func nox_xxx_materialGetTeamColor_418D50(t *nox_team_t) uint32 {
 	c := GetServer().S().Teams.GetTeamColor(asTeam(t))
-	return uint(noxcolor.ToRGBA5551Color(c).Color32())
+	return noxcolor.ToRGBA5551Color(c).Color32()
 }
 
 // nox_xxx_getTeamCounter_417DD0

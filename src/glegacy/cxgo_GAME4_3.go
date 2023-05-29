@@ -3587,12 +3587,12 @@ func sub_5364E0(a1 *byte, a2 int32) int32 {
 	v2 = uint32(libc.StrLen(&v7[0]) + 1)
 	v3 = int8(uint8(v2))
 	v2 >>= 2
-	alloc.Memcpy(unsafe.Pointer(uintptr(a2+16)), unsafe.Pointer(&v7[0]), int(v2*4))
+	alloc.Memcpy(unsafe.Pointer(uintptr(a2+16)), unsafe.Pointer(&v7[0]), uintptr(v2*4))
 	v5 = &v7[v2*4]
 	v4 = (*byte)(unsafe.Pointer(uintptr(uint32(a2+16) + v2*4)))
 	*((*uint8)(unsafe.Pointer(&v2))) = uint8(v3)
 	result = 1
-	alloc.Memcpy(unsafe.Pointer(v4), unsafe.Pointer(v5), int(v2&3))
+	alloc.Memcpy(unsafe.Pointer(v4), unsafe.Pointer(v5), uintptr(v2&3))
 	*(*uint32)(unsafe.Pointer(uintptr(a2 + 12))) = 0
 	return result
 }

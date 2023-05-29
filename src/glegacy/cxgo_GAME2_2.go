@@ -1849,7 +1849,7 @@ func nox_xxx_edgeDraw_480EF0(a1 int32, a2 int32, a3 int32, a4 *int32, a5 *int32,
 			}
 		} else {
 			if v31 != nil && v30 != 0 {
-				alloc.Memcpy(unsafe.Pointer(v52), v31, int(v30))
+				alloc.Memcpy(unsafe.Pointer(v52), v31, uintptr(v30))
 			}
 			for j = v43; j > 0; j -= int32(v58) {
 				v34 = int8(*v16)
@@ -1910,26 +1910,26 @@ func nox_xxx_tileDraw_4815E0(a1 *uint32, a2 int32) int8 {
 				v7 = int32(*memmap.PtrUint32(0x973CE0, uintptr(v6+192)) << uint32(*memmap.PtrUint8(0x973F18, 7696)))
 				v8 = *memmap.PtrUint32(0x973CE0, uintptr(v6+384)) << uint32(*memmap.PtrUint8(0x973F18, 7696))
 				if v2+uint32(v7)+v8 < v5 {
-					alloc.Memcpy(unsafe.Pointer(uintptr(uint32(v7)+v2)), unsafe.Pointer(v4), int((v8>>2)*4))
+					alloc.Memcpy(unsafe.Pointer(uintptr(uint32(v7)+v2)), unsafe.Pointer(v4), uintptr((v8>>2)*4))
 					v11 = (*byte)(unsafe.Add(unsafe.Pointer(v4), (v8>>2)*4))
 					v10 = (*byte)(unsafe.Pointer(uintptr(uint32(v7) + v2 + (v8>>2)*4)))
 					v12 = int8(uint8(v8))
 				} else {
 					v9 = int32(v5 - uint32(v7) - v2)
 					if v9 > 0 {
-						alloc.Memcpy(unsafe.Pointer(uintptr(uint32(v7)+v2)), unsafe.Pointer(v4), int(v9))
-						alloc.Memcpy(nox_video_tileBuf_ptr_3798796, unsafe.Add(unsafe.Pointer(v14), v9), int(v8-uint32(v9)))
+						alloc.Memcpy(unsafe.Pointer(uintptr(uint32(v7)+v2)), unsafe.Pointer(v4), uintptr(v9))
+						alloc.Memcpy(nox_video_tileBuf_ptr_3798796, unsafe.Add(unsafe.Pointer(v14), v9), uintptr(v8-uint32(v9)))
 						v5 = uint32(uintptr(nox_video_tileBuf_end_3798844))
 						v2 += uint32(uintptr(nox_video_tileBuf_ptr_3798796)) - uint32(uintptr(nox_video_tileBuf_end_3798844))
 						goto LABEL_13
 					}
 					v2 += uint32(uintptr(nox_video_tileBuf_ptr_3798796)) - v5
-					alloc.Memcpy(unsafe.Pointer(uintptr(uint32(v7)+v2)), unsafe.Pointer(v4), int((v8>>2)*4))
+					alloc.Memcpy(unsafe.Pointer(uintptr(uint32(v7)+v2)), unsafe.Pointer(v4), uintptr((v8>>2)*4))
 					v11 = (*byte)(unsafe.Add(unsafe.Pointer(v4), (v8>>2)*4))
 					v10 = (*byte)(unsafe.Pointer(uintptr(uint32(v7) + v2 + (v8>>2)*4)))
 					v12 = int8(uint8(v8))
 				}
-				alloc.Memcpy(unsafe.Pointer(v10), unsafe.Pointer(v11), int(int32(v12)&3))
+				alloc.Memcpy(unsafe.Pointer(v10), unsafe.Pointer(v11), uintptr(int32(v12)&3))
 				v5 = uint32(uintptr(nox_video_tileBuf_end_3798844))
 			LABEL_13:
 				v2 += dword_5d4594_3798804
@@ -2093,23 +2093,23 @@ func nox_xxx_drawTexEdgesProbably_481900(a1 *uint32, a2 *uint32) int8 {
 									v18 = uint32(int32(v29) << int32(*memmap.PtrUint8(0x973F18, 7696)))
 									v17 = v15
 								} else {
-									alloc.Memcpy(unsafe.Pointer(v15), unsafe.Pointer(v33), int(v12-uint32(uintptr(unsafe.Pointer(v15)))))
+									alloc.Memcpy(unsafe.Pointer(v15), unsafe.Pointer(v33), uintptr(v12-uint32(uintptr(unsafe.Pointer(v15)))))
 									v17 = (*byte)(nox_video_tileBuf_ptr_3798796)
 									v18 = uint32(v16) - (v12 - uint32(uintptr(unsafe.Pointer(v15))))
 									v19 = (*byte)(unsafe.Add(unsafe.Pointer(v33), v12-uint32(uintptr(unsafe.Pointer(v15)))))
 								}
-								alloc.Memcpy(unsafe.Pointer(v17), unsafe.Pointer(v19), int(v18))
+								alloc.Memcpy(unsafe.Pointer(v17), unsafe.Pointer(v19), uintptr(v18))
 								v12 = uint32(uintptr(nox_video_tileBuf_end_3798844))
 								v13 = v31
 								v33 = (*byte)(unsafe.Add(unsafe.Pointer(v33), v16))
 							case 3:
 								if uint32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v15), v16))))) < v12 {
-									alloc.Memcpy(unsafe.Pointer(v15), unsafe.Pointer(v14), int(v16))
+									alloc.Memcpy(unsafe.Pointer(v15), unsafe.Pointer(v14), uintptr(v16))
 								} else {
 									v20 = v12 - uint32(uintptr(unsafe.Pointer(v15)))
-									alloc.Memcpy(unsafe.Pointer(v15), unsafe.Pointer(v14), int(v20))
+									alloc.Memcpy(unsafe.Pointer(v15), unsafe.Pointer(v14), uintptr(v20))
 									v14 = v26
-									alloc.Memcpy(nox_video_tileBuf_ptr_3798796, unsafe.Add(unsafe.Pointer(v26), v20), int(uint32(v16)-v20))
+									alloc.Memcpy(nox_video_tileBuf_ptr_3798796, unsafe.Add(unsafe.Pointer(v26), v20), uintptr(uint32(v16)-v20))
 								}
 								v12 = uint32(uintptr(nox_video_tileBuf_end_3798844))
 								v13 = v31

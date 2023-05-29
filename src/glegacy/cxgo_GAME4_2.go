@@ -1139,13 +1139,13 @@ func sub_51F230(a1 int32, a2 *FILE) int32 {
 						v31 = v26
 						v26 = (*byte)(unsafe.Add(unsafe.Pointer(v26), 60))
 						v28 >>= 2
-						alloc.Memcpy(unsafe.Pointer(v31), unsafe.Pointer(v30), int(v28*4))
+						alloc.Memcpy(unsafe.Pointer(v31), unsafe.Pointer(v30), uintptr(v28*4))
 						v33 = (*byte)(unsafe.Add(unsafe.Pointer(v30), v28*4))
 						v32 = (*byte)(unsafe.Add(unsafe.Pointer(v31), v28*4))
 						v34 = int32(v29) & 3
 						v35 = (*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(v46))), -1))))
 						v24 = uintptr(unsafe.Pointer(v46)) == uintptr(1)
-						alloc.Memcpy(unsafe.Pointer(v32), unsafe.Pointer(v33), int(v34))
+						alloc.Memcpy(unsafe.Pointer(v32), unsafe.Pointer(v33), uintptr(v34))
 						v46 = v35
 						if v24 {
 							break

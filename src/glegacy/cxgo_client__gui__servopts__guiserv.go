@@ -11,14 +11,23 @@ import (
 )
 
 type nox_gui_gamemode struct {
-	name  *byte
+	name  *char
 	title *wchar2_t
 	mode  uint32
 	hide  bool
 }
 
-var nox_gui_gamemodes [8]nox_gui_gamemode = [8]nox_gui_gamemode{{name: internCStr("CTF"), title: nil, mode: 0x20, hide: false}, {name: internCStr("Arena"), title: nil, mode: 0x100, hide: false}, {name: internCStr("Highlander"), title: nil, mode: 0x400, hide: false}, {name: internCStr("KotR"), title: nil, mode: 0x10, hide: false}, {name: internCStr("Flagball"), title: nil, mode: 0x40, hide: false}, {name: internCStr("Quest"), title: nil, mode: 0x1000, hide: true}, {name: internCStr("Noxworld.c:Chat"), title: nil, mode: 0x80, hide: false}, {}}
-var nox_gui_gamemode_cnt int32 = int32(unsafe.Sizeof([8]nox_gui_gamemode{})/unsafe.Sizeof(nox_gui_gamemode{}) - 1)
+var nox_gui_gamemodes = []nox_gui_gamemode{
+	{name: internCStr("CTF"), title: nil, mode: 0x20, hide: false},
+	{name: internCStr("Arena"), title: nil, mode: 0x100, hide: false},
+	{name: internCStr("Highlander"), title: nil, mode: 0x400, hide: false},
+	{name: internCStr("KotR"), title: nil, mode: 0x10, hide: false},
+	{name: internCStr("Flagball"), title: nil, mode: 0x40, hide: false},
+	{name: internCStr("Quest"), title: nil, mode: 0x1000, hide: true},
+	{name: internCStr("Noxworld.c:Chat"), title: nil, mode: 0x80, hide: false},
+	{},
+}
+var nox_gui_gamemode_cnt int32 = int32(len(nox_gui_gamemodes) - 1)
 var nox_gui_gamemode_loaded_1046548 int32 = 0
 
 func nox_gui_gamemode_load_457410() {

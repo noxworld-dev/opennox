@@ -43,24 +43,20 @@ func nox_server_scriptValToObjectPtr_511B60(val int) *nox_object_t {
 	return asObjectC(GetServer().NoxScriptC().ScriptToObject(val))
 }
 
-// nox_script_push
-func nox_script_push(v int) {
-	GetServer().NoxScriptC().PushI32(int32(v))
+func nox_script_push(v int32) {
+	GetServer().NoxScriptC().PushI32(v)
 }
 
-// nox_script_pop
-func nox_script_pop() int {
-	return int(GetServer().NoxScriptC().PopI32())
+func nox_script_pop() int32 {
+	return GetServer().NoxScriptC().PopI32()
 }
 
-// nox_script_pushf
 func nox_script_pushf(v float32) {
-	GetServer().NoxScriptC().PushF32(float32(v))
+	GetServer().NoxScriptC().PushF32(v)
 }
 
-// nox_script_popf
 func nox_script_popf() float32 {
-	return float32(GetServer().NoxScriptC().PopF32())
+	return GetServer().NoxScriptC().PopF32()
 }
 
 // nox_script_indexByEvent
@@ -119,7 +115,7 @@ func Sub_516570() {
 	sub_516570()
 }
 func Nox_xxx_script_511C50(a1 int) *server.Object {
-	return asObjectS(nox_xxx_script_511C50(int(a1)))
+	return asObjectS(nox_xxx_script_511C50(int32(a1)))
 }
 func Nox_xxx_scriptPrepareFoundUnit_511D70(a1 *server.Object) {
 	nox_xxx_scriptPrepareFoundUnit_511D70(asObjectC(a1))

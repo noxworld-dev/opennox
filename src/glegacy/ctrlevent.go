@@ -61,15 +61,15 @@ func Nox_xxx_packetGetMarshall_476F40() uint32 {
 }
 
 func Nox_xxx_clientUpdateButtonRow_45E110(ind int) {
-	nox_xxx_clientUpdateButtonRow_45E110(int(ind))
+	nox_xxx_clientUpdateButtonRow_45E110(int32(ind))
 }
 
 func Nox_client_trapSetSelect_4604B0(ind int) {
-	nox_client_trapSetSelect_4604B0(int(ind))
+	nox_client_trapSetSelect_4604B0(int32(ind))
 }
 
 func Nox_client_orderCreature(a1, a2 int) {
-	nox_client_orderCreature(int(a1), int(a2))
+	nox_client_orderCreature(int32(a1), int32(a2))
 }
 
 func Get_nox_gui_itemAmount_dialog_1319228() *gui.Window {
@@ -77,11 +77,11 @@ func Get_nox_gui_itemAmount_dialog_1319228() *gui.Window {
 }
 
 func Sub_4C01C0(a1, a2 int, a3 unsafe.Pointer, a4 int) {
-	sub_4C01C0(int(a1), int(a2), (*int)(a3), int(a4))
+	sub_4C01C0(int32(a1), int32(a2), (*int32)(a3), int32(a4))
 }
 
 func Nox_client_chatStart_46A430(v int) {
-	nox_client_chatStart_46A430(int(v))
+	nox_client_chatStart_46A430(int32(v))
 }
 
 func Nox_client_toggleSpellbook_45AC70() {
@@ -152,8 +152,8 @@ func Nox_client_mousePriKey_430AF0() int {
 	return int(nox_client_mousePriKey_430AF0())
 }
 func Sub_42EB90(a1 int) {
-	sub_42EB90(int(a1))
+	sub_42EB90(int32(a1))
 }
 func Nox_client_invokeSpellSlot_45DA50(a1 int) {
-	nox_client_invokeSpellSlot_45DA50(int(a1))
+	nox_client_invokeSpellSlot_45DA50(int32(a1))
 }

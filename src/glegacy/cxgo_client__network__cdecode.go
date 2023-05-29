@@ -2446,7 +2446,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			if nox_client_isConnected_43C700() == 0 {
 				goto LABEL_888
 			}
-			alloc.Memcpy(unsafe.Pointer(&v386[0]), unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 18))), int(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 15))))*2))
+			alloc.Memcpy(unsafe.Pointer(&v386[0]), unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 18))), uintptr(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 15))))*2))
 			v386[*((*uint8)(unsafe.Add(unsafe.Pointer(data), 15)))] = 0
 			if int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 17)))) != 0 {
 				v271 = nox_server_teamTitle_418C20(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 16)))))

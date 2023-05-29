@@ -562,22 +562,22 @@ func sub_43EE00(a1p unsafe.Pointer) int32 {
 							v9 = v5
 							v10 = int8(uint8(v6))
 							v11 = v6 >> 2
-							alloc.Memcpy(unsafe.Pointer(v22), unsafe.Pointer(v9), int(v11*4))
+							alloc.Memcpy(unsafe.Pointer(v22), unsafe.Pointer(v9), uintptr(v11*4))
 							v13 = (*byte)(unsafe.Add(unsafe.Pointer(v9), v11*4))
 							v12 = (*byte)(unsafe.Add(unsafe.Pointer(v22), v11*4))
 							v19 = v22
 							v14 = int32(v10) & 3
 							v5 = nil
-							alloc.Memcpy(unsafe.Pointer(v12), unsafe.Pointer(v13), int(v14))
+							alloc.Memcpy(unsafe.Pointer(v12), unsafe.Pointer(v13), uintptr(v14))
 						}
-						alloc.Memcpy(unsafe.Pointer(v17), *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v3 + 296))), int(v8))
+						alloc.Memcpy(unsafe.Pointer(v17), *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v3 + 296))), uintptr(v8))
 						v4 = v21
 					} else if v6 == 0 {
 						v5 = *(**byte)(unsafe.Pointer(uintptr(v3 + 296)))
 						v22 = v17
 						v18 = v8
 					} else {
-						alloc.Memcpy(unsafe.Pointer(v17), *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v3 + 296))), int(v8))
+						alloc.Memcpy(unsafe.Pointer(v17), *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v3 + 296))), uintptr(v8))
 						v4 = v21
 					}
 					v7 = v8

@@ -112,7 +112,7 @@ func nox_free_tile_defs() int32 {
 	for i := int32(0); uint32(i) < nox_tile_def_cnt; i++ {
 		var it *nox_tileDef_t = &nox_tile_defs_arr[i]
 		if it.data_32 != nil {
-			alloc.Free(unsafe.Pointer(it.data_32))
+			alloc.Free(it.data_32)
 			it.data_32 = nil
 		}
 	}

@@ -739,7 +739,7 @@ LABEL_2:
 					v2 = v24
 					v8 = (*uint8)(unsafe.Pointer(&nox_client_inventory_grid_1050020[v5]))
 				}
-				alloc.Memcpy(unsafe.Pointer(v21), unsafe.Pointer(v8), int(unsafe.Sizeof(nox_inventory_cell_t{})))
+				alloc.Memcpy(unsafe.Pointer(v21), unsafe.Pointer(v8), unsafe.Sizeof(nox_inventory_cell_t{}))
 				if *(*uint32)(unsafe.Pointer(v20)) != 0 {
 					dword_5d4594_1062480 = uint32(uintptr(unsafe.Pointer(v21)))
 				}
@@ -3182,7 +3182,7 @@ func nox_gui_windowCopyDrawData_46AF80(win *nox_window, p unsafe.Pointer) int32 
 	if p == nil {
 		return -3
 	}
-	alloc.Memcpy(unsafe.Pointer(&win.draw_data), p, int(unsafe.Sizeof(nox_window_data{})))
+	alloc.Memcpy(unsafe.Pointer(&win.draw_data), p, unsafe.Sizeof(nox_window_data{}))
 	return 0
 }
 func sub_46B630(a1p *nox_window, a2 int32, a3 int32) *nox_window {

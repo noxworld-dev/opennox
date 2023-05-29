@@ -194,7 +194,7 @@ func nox_xxx_objGetTeamByNetCode_418C80(a1 int32) *uint32 {
 			return (*uint32)(unsafe.Pointer(uintptr(v1 + 48)))
 		}
 	} else {
-		v3 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(a1).field_0
+		v3 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(a1).Field_0
 		if v3 != nil {
 			return (*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*6))
 		}
@@ -474,14 +474,14 @@ func sub_4197C0(a1 *wchar2_t, a2 int32) {
 		}
 		v4[15] = byte(nox_wcslen(a1))
 		v2 = int32(uint8(v4[15])) * 2
-		v3 = (*uint32)(alloc.Calloc(1, int(v2+18)))
+		v3 = (*uint32)(alloc.Calloc(1, uintptr(v2+18)))
 		*(*uint64)(unsafe.Pointer(v3)) = *(*uint64)(unsafe.Pointer(&v4[0]))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2)) = *(*uint32)(unsafe.Pointer(&v4[8]))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*3)) = *(*uint32)(unsafe.Pointer(&v4[12]))
 		*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v3))), unsafe.Sizeof(uint16(0))*8))) = *(*uint16)(unsafe.Pointer(&v4[16]))
-		alloc.Memcpy(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(v3))), 18), unsafe.Pointer(a1), int(int32(uint8(v4[15]))*2))
+		alloc.Memcpy(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(v3))), 18), unsafe.Pointer(a1), uintptr(uint8(v4[15]))*2)
 		nox_xxx_netSendPacket1_4E5390(a2, int32(uintptr(unsafe.Pointer(v3))), v2+18, 0, 1)
-		alloc.Free(unsafe.Pointer(v3))
+		alloc.Free(v3)
 	}
 }
 func sub_4198A0(a1 int32, a2 int32, a3 int32) {
@@ -613,7 +613,7 @@ func sub_41A000(a1 *byte, sv *Nox_savegame_xxx) int32 {
 		v12    [1276]byte
 		v13    int16
 	)
-	sv.field_1028[0] = *memmap.PtrUint8(0x5D4594, 527728)
+	sv.Field_1028[0] = *memmap.PtrUint8(0x5D4594, 527728)
 	result = nox_xxx_cryptOpen_426910(a1, 1, 27)
 	if result == 0 {
 		return 0
@@ -626,7 +626,7 @@ func sub_41A000(a1 *byte, sv *Nox_savegame_xxx) int32 {
 		}
 		nox_xxx_fileCryptReadCrcMB_426C20((*uint8)(unsafe.Pointer(&v11)), 4)
 		if v10 == 1 {
-			alloc.Memcpy(unsafe.Pointer(&v12[0]), memmap.PtrOff(0x85B3FC, 10980), int(1276))
+			alloc.Memcpy(unsafe.Pointer(&v12[0]), memmap.PtrOff(0x85B3FC, 10980), 1276)
 			v3 = 0
 			v13 = int16(*memmap.PtrUint16(0x85B3FC, 12256))
 			if *memmap.PtrUint32(0x587000, 55936) != 0 {
@@ -645,7 +645,7 @@ func sub_41A000(a1 *byte, sv *Nox_savegame_xxx) int32 {
 				}
 			}
 		LABEL_10:
-			alloc.Memcpy(unsafe.Pointer(sv), memmap.PtrOff(0x85B3FC, 10980), int(unsafe.Sizeof(Nox_savegame_xxx{})))
+			alloc.Memcpy(unsafe.Pointer(sv), memmap.PtrOff(0x85B3FC, 10980), unsafe.Sizeof(Nox_savegame_xxx{}))
 			alloc.Memcpy(memmap.PtrOff(0x85B3FC, 10980), unsafe.Pointer(&v12[0]), 0x4FC)
 			*memmap.PtrUint16(0x85B3FC, 12256) = uint16(v13)
 		} else {
@@ -656,40 +656,51 @@ func sub_41A000(a1 *byte, sv *Nox_savegame_xxx) int32 {
 	v6 = uint32(libc.StrLen(a1) + 1)
 	v7 = int8(uint8(v6))
 	v6 >>= 2
-	alloc.Memcpy(unsafe.Pointer(&sv.path[0]), unsafe.Pointer(a1), int(v6*4))
+	alloc.Memcpy(unsafe.Pointer(&sv.Path[0]), unsafe.Pointer(a1), uintptr(v6*4))
 	v9 = (*byte)(unsafe.Add(unsafe.Pointer(a1), v6*4))
-	v8 = (*uint8)(unsafe.Pointer(&sv.path[v6*4]))
+	v8 = (*uint8)(unsafe.Pointer(&sv.Path[v6*4]))
 	*((*uint8)(unsafe.Pointer(&v6))) = uint8(v7)
-	alloc.Memcpy(unsafe.Pointer(v8), unsafe.Pointer(v9), int(v6&3))
+	alloc.Memcpy(unsafe.Pointer(v8), unsafe.Pointer(v9), uintptr(v6&3))
 	return 1
 }
 
 type table_55816_t struct {
-	name *byte
+	name *char
 	ind  uint32
 	fnc  func(int32, int32) int32
 }
 
-var table_55816 [10]table_55816_t = [10]table_55816_t{{name: internCStr("Attrib Data"), ind: 0x2, fnc: func(arg1 int32, arg2 int32) int32 {
-	return sub_41A590(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
-}}, {name: internCStr("Status Data"), ind: 0x3, fnc: func(arg1 int32, arg2 int32) int32 {
-	return sub_41AA30(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
-}}, {name: internCStr("Inventory Data"), ind: 0x4, fnc: func(arg1 int32, arg2 int32) int32 {
-	return sub_41AC30(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
-}}, {name: internCStr("FieldGuide Data"), ind: 0x8, fnc: func(arg1 int32, arg2 int32) int32 {
-	return nox_xxx_guiFieldbook_41B420(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
-}}, {name: internCStr("Spellbook Data"), ind: 0x5, fnc: func(arg1 int32, arg2 int32) int32 {
-	return nox_xxx_guiSpellbook_41B660(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
-}}, {name: internCStr("Enchantment Data"), ind: 0x6, fnc: func(arg1 int32, arg2 int32) int32 {
-	return nox_xxx_guiEnchantment_41B9C0(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
-}}, {name: internCStr("Journal Data"), ind: 0x9, fnc: func(arg1 int32, arg2 int32) int32 {
-	return sub_41BEC0(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
-}}, {name: internCStr("Game Data"), ind: 0xA, fnc: func(arg1 int32, arg2 int32) int32 {
-	return sub_41C080(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
-}}, {name: internCStr("PAD_DATA"), ind: 0xB, fnc: func(arg1 int32, arg2 int32) int32 {
-	return sub_41C200(unsafe.Pointer(uintptr(arg1)), arg2)
-}}, {}}
-var table_55816_cnt int32 = int32(unsafe.Sizeof([10]table_55816_t{})/unsafe.Sizeof(table_55816_t{}) - 1)
+var table_55816 = []table_55816_t{
+	{name: internCStr("Attrib Data"), ind: 0x2, fnc: func(arg1 int32, arg2 int32) int32 {
+		return sub_41A590(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
+	}},
+	{name: internCStr("Status Data"), ind: 0x3, fnc: func(arg1 int32, arg2 int32) int32 {
+		return sub_41AA30(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
+	}},
+	{name: internCStr("Inventory Data"), ind: 0x4, fnc: func(arg1 int32, arg2 int32) int32 {
+		return sub_41AC30(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
+	}},
+	{name: internCStr("FieldGuide Data"), ind: 0x8, fnc: func(arg1 int32, arg2 int32) int32 {
+		return nox_xxx_guiFieldbook_41B420(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
+	}},
+	{name: internCStr("Spellbook Data"), ind: 0x5, fnc: func(arg1 int32, arg2 int32) int32 {
+		return nox_xxx_guiSpellbook_41B660(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
+	}},
+	{name: internCStr("Enchantment Data"), ind: 0x6, fnc: func(arg1 int32, arg2 int32) int32 {
+		return nox_xxx_guiEnchantment_41B9C0(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
+	}},
+	{name: internCStr("Journal Data"), ind: 0x9, fnc: func(arg1 int32, arg2 int32) int32 {
+		return sub_41BEC0(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
+	}},
+	{name: internCStr("Game Data"), ind: 0xA, fnc: func(arg1 int32, arg2 int32) int32 {
+		return sub_41C080(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
+	}},
+	{name: internCStr("PAD_DATA"), ind: 0xB, fnc: func(arg1 int32, arg2 int32) int32 {
+		return sub_41C200(unsafe.Pointer(uintptr(arg1)), arg2)
+	}},
+	{},
+}
+var table_55816_cnt = int32(len(table_55816) - 1)
 
 func nox_xxx_mapSavePlayerDataMB_41A230(a1 *byte) int32 {
 	var (
@@ -2327,7 +2338,7 @@ func sub_41CEE0(a1p unsafe.Pointer, a2 int32) int32 {
 		v6 int32
 		v8 int32
 	)
-	alloc.Memcpy(memmap.PtrOff(0x85B3FC, 10980), unsafe.Pointer(uintptr(a1)), int(unsafe.Sizeof(Nox_savegame_xxx{})))
+	alloc.Memcpy(memmap.PtrOff(0x85B3FC, 10980), unsafe.Pointer(uintptr(a1)), unsafe.Sizeof(Nox_savegame_xxx{}))
 	if nox_xxx_cryptOpen_426910((*byte)(memmap.PtrOff(0x85B3FC, 10984)), 0, 27) == 0 {
 		return 0
 	}
@@ -5503,7 +5514,7 @@ func sub_425F10(pl *nox_playerInfo) {
 							break
 						}
 					}
-					alloc.Memcpy(memmap.PtrOff(0x5D4594, uintptr(v6)+600124), unsafe.Add(unsafe.Pointer(v5), v3+1), int(^v3))
+					alloc.Memcpy(memmap.PtrOff(0x5D4594, uintptr(v6)+600124), unsafe.Add(unsafe.Pointer(v5), v3+1), uintptr(^v3))
 					if int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 2064)))) == 31 {
 						v8 = int32(nox_xxx_net_getIP_554200(0))
 						*memmap.PtrUint32(0x5D4594, uintptr(v6)+600136) = cnet.Htonl(uint32(v8))

@@ -4604,7 +4604,7 @@ func nox_xxx_scriptGetJournal_5005E0(a1 *byte) *byte {
 		v6 = uint32(libc.StrLen(a1) + 1)
 		v7 = int8(uint8(v6))
 		v6 >>= 2
-		alloc.Memcpy(memmap.PtrOff(0x5D4594, 1570140), unsafe.Pointer(a1), int(v6*4))
+		alloc.Memcpy(memmap.PtrOff(0x5D4594, 1570140), unsafe.Pointer(a1), uintptr(v6*4))
 		v4 = (*byte)(unsafe.Add(unsafe.Pointer(a1), v6*4))
 		v3 = (*uint8)(memmap.PtrOff(0x5D4594, v6*4+1570140))
 		v5 = v7
@@ -4613,12 +4613,12 @@ func nox_xxx_scriptGetJournal_5005E0(a1 *byte) *byte {
 		*memmap.PtrUint16(0x5D4594, uintptr(libc.StrLen((*byte)(memmap.PtrOff(0x5D4594, 1570140)))+1570140)) = *memmap.PtrUint16(0x587000, 217952)
 		v1 = uint32(libc.StrLen(a1) + 1)
 		v2 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(libc.StrLen((*byte)(memmap.PtrOff(0x5D4594, 1570140)))+1570140)))
-		alloc.Memcpy(unsafe.Pointer(v2), unsafe.Pointer(a1), int((v1>>2)*4))
+		alloc.Memcpy(unsafe.Pointer(v2), unsafe.Pointer(a1), uintptr((v1>>2)*4))
 		v4 = (*byte)(unsafe.Add(unsafe.Pointer(a1), (v1>>2)*4))
 		v3 = (*uint8)(unsafe.Add(unsafe.Pointer(v2), (v1>>2)*4))
 		v5 = int8(uint8(v1))
 	}
-	alloc.Memcpy(unsafe.Pointer(v3), unsafe.Pointer(v4), int(int32(v5)&3))
+	alloc.Memcpy(unsafe.Pointer(v3), unsafe.Pointer(v4), uintptr(int32(v5)&3))
 	for i = int32(dword_5d4594_1570272); i != 0; i = int32(*(*uint32)(unsafe.Pointer(uintptr(i + 140)))) {
 		if nox_strcmpi((*byte)(unsafe.Pointer(uintptr(i))), (*byte)(memmap.PtrOff(0x5D4594, 1570140))) == 0 {
 			break
@@ -4815,17 +4815,17 @@ func sub_5009B0(a1 *byte) uint32 {
 	)
 	if libc.StrChr(a1, 58) != nil {
 		result = uint32(libc.StrLen(a1) + 1)
-		alloc.Memcpy(memmap.PtrOff(0x5D4594, 1570140), unsafe.Pointer(a1), int(result))
+		alloc.Memcpy(memmap.PtrOff(0x5D4594, 1570140), unsafe.Pointer(a1), uintptr(result))
 	} else {
 		v1 = uint32(libc.StrLen((*byte)(memmap.PtrOff(0x5D4594, 1570008))) + 1)
 		v2 = int8(uint8(v1))
 		v1 >>= 2
-		alloc.Memcpy(memmap.PtrOff(0x5D4594, 1570140), memmap.PtrOff(0x5D4594, 1570008), int(v1*4))
-		v4 = (*uint8)(memmap.PtrOff(0x5D4594, v1*4+1570008))
-		v3 = (*uint8)(memmap.PtrOff(0x5D4594, v1*4+1570140))
+		alloc.Memcpy(memmap.PtrOff(0x5D4594, 1570140), memmap.PtrOff(0x5D4594, 1570008), uintptr(v1*4))
+		v4 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v1)*4+1570008))
+		v3 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v1)*4+1570140))
 		*((*uint8)(unsafe.Pointer(&v1))) = uint8(v2)
 		result = 0
-		alloc.Memcpy(unsafe.Pointer(v3), unsafe.Pointer(v4), int(v1&3))
+		alloc.Memcpy(unsafe.Pointer(v3), unsafe.Pointer(v4), uintptr(v1&3))
 		*memmap.PtrUint16(0x5D4594, uintptr(libc.StrLen((*byte)(memmap.PtrOff(0x5D4594, 1570140)))+1570140)) = *memmap.PtrUint16(0x587000, 217960)
 		libc.StrCat((*byte)(memmap.PtrOff(0x5D4594, 1570140)), a1)
 	}
@@ -6059,7 +6059,7 @@ func nox_xxx_tileInit_504150(a1 int32, a2 int32) int32 {
 			}
 		}
 	}
-	alloc.Memcpy(unsafe.Pointer(&v8[0]), unsafe.Pointer(sub_4D3C70()), int(72))
+	alloc.Memcpy(unsafe.Pointer(&v8[0]), unsafe.Pointer(sub_4D3C70()), 72)
 	v5 = int32(uintptr(dword_5d4594_1599556))
 	if dword_5d4594_1599556 != nil {
 		v9 = float32(float64(a1))

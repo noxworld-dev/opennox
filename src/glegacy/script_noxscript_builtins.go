@@ -1,11 +1,8 @@
 package legacy
 
 import (
-	"unsafe"
-
 	"github.com/noxworld-dev/noxscript/ns/asm"
 
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server/noxscript"
 )
 
@@ -24,9 +21,9 @@ func nox_script_shouldReadEvenMoreXxx(fi int) bool {
 	return bool(Nox_script_shouldReadEvenMoreXxx(asm.Builtin(fi)))
 }
 
-func wrapScriptC(fnc unsafe.Pointer) noxscript.Builtin {
+func wrapScriptC(fnc func() int32) noxscript.Builtin {
 	return func(_ noxscript.VM) int {
-		return ccall.CallIntVoid(fnc)
+		return int(fnc())
 	}
 }
 

@@ -24,23 +24,23 @@ func nox_server_getWallAtGrid_410580(x, y int) unsafe.Pointer {
 }
 
 // nox_xxx_wall_4105E0
-func nox_xxx_wall_4105E0(x, y int) unsafe.Pointer {
-	return GetServer().S().Walls.GetWallAtGrid2(image.Pt(x, y)).C()
+func nox_xxx_wall_4105E0(x, y int32) unsafe.Pointer {
+	return GetServer().S().Walls.GetWallAtGrid2(image.Pt(int(x), int(y))).C()
 }
 
 // nox_xxx_wallCreateAt_410250
-func nox_xxx_wallCreateAt_410250(x, y int) unsafe.Pointer {
-	return GetServer().S().Walls.CreateAtGrid(image.Pt(x, y)).C()
+func nox_xxx_wallCreateAt_410250(x, y int32) unsafe.Pointer {
+	return GetServer().S().Walls.CreateAtGrid(image.Pt(int(x), int(y))).C()
 }
 
 // nox_xxx_mapDelWallAtPt_410430
-func nox_xxx_mapDelWallAtPt_410430(x, y int) {
-	GetServer().S().Walls.DeleteAtGrid(image.Pt(x, y))
+func nox_xxx_mapDelWallAtPt_410430(x, y int32) {
+	GetServer().S().Walls.DeleteAtGrid(image.Pt(int(x), int(y)))
 }
 
 // sub_4106A0
-func sub_4106A0(y int) unsafe.Pointer {
-	return GetServer().S().Walls.IndexByY(y).C()
+func sub_4106A0(y int32) unsafe.Pointer {
+	return GetServer().S().Walls.IndexByY(int(y)).C()
 }
 
 // nox_xxx_wallForeachFn_410640

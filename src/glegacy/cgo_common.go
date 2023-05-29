@@ -57,6 +57,10 @@ func COERCE_FLOAT(x uint32) float32 {
 	return math.Float32frombits(x)
 }
 
+func funAddrP(fnc any) unsafe.Pointer {
+
+}
+
 func funAddr(fnc any) uintptr {
 
 }

@@ -1623,7 +1623,7 @@ func nox_xxx_netSendPacket_4E5030(a1 int32, a2 unsafe.Pointer, a3 int32, a4 int3
 				return 0
 			}
 		}
-		alloc.Memcpy(unsafe.Add(unsafe.Pointer(v8), 251), a2, int(a3))
+		alloc.Memcpy(unsafe.Add(unsafe.Pointer(v8), 251), a2, uintptr(a3))
 		*(*byte)(unsafe.Add(unsafe.Pointer(v8), 401)) = byte(int8(a3))
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v8))), 4*101))) = uint32(a4)
 		*(*byte)(unsafe.Add(unsafe.Pointer(v8), 250)) = byte(int8(a1))
@@ -2056,7 +2056,7 @@ func nox_xxx_netImportant_4E5770(a1 uint8, a2 int32) {
 				*memmap.PtrUint8(0x5D4594, 1564964) = 204
 				*memmap.PtrUint16(0x5D4594, 1564965) = *(*uint16)(unsafe.Pointer(uintptr(v4 + int32(a1)*2 + 186)))
 				*memmap.PtrUint8(0x5D4594, 1564967) = *(*uint8)(unsafe.Pointer(uintptr(v4 + 401)))
-				alloc.Memcpy(memmap.PtrOff(0x5D4594, 1564968), unsafe.Pointer(uintptr(v4+251)), int(*(*uint8)(unsafe.Pointer(uintptr(v4 + 401)))))
+				alloc.Memcpy(memmap.PtrOff(0x5D4594, 1564968), unsafe.Pointer(uintptr(v4+251)), uintptr(*(*uint8)(unsafe.Pointer(uintptr(v4 + 401)))))
 				v11 = v13(int32(a1), a2, (*uint8)(memmap.PtrOff(0x5D4594, 1564964)), int32(*(*uint8)(unsafe.Pointer(uintptr(v4 + 401))))+4)
 				v2 = v16
 			LABEL_36:
@@ -12201,7 +12201,7 @@ func nox_xxx_XFerInvLight_4F5AA0(a1 *int32) int32 {
 	if v2 == nil {
 		panic("abort")
 	}
-	alloc.Memcpy(unsafe.Pointer(&v6[0]), unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*34))), int(140))
+	alloc.Memcpy(unsafe.Pointer(&v6[0]), unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*34))), 140)
 LABEL_14:
 	if int32(int16(v3)) >= 2 {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v6[0])), 4)

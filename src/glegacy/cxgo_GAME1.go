@@ -49,7 +49,7 @@ func nox_xxx_parseString_409470(a1 *FILE, a2 *uint8) int32 {
 	for {
 		for {
 			v5 = v3
-			nox_binfile_fread_408E40((*byte)(unsafe.Pointer(&CharType[0])), 1, 1, a1)
+			nox_binfile_fread_408E40((*char)(unsafe.Pointer(&CharType[0])), 1, 1, a1)
 			if nox_binfile_lastErr_409370(a1) == -1 {
 				return 0
 			}
@@ -105,7 +105,7 @@ func nox_xxx_mapGetMapName_409B40() *byte {
 func sub_409B50(a1 *byte) uint32 {
 	var result uint32
 	result = uint32(libc.StrLen(a1) + 1)
-	alloc.Memcpy(memmap.PtrOff(0x5D4594, 3452), unsafe.Pointer(a1), int(result))
+	alloc.Memcpy(memmap.PtrOff(0x5D4594, 3452), unsafe.Pointer(a1), uintptr(result))
 	return result
 }
 func sub_409B80() *byte {
@@ -117,7 +117,7 @@ func nox_xxx_gameSetMapPath_409D70(a1 *byte) *byte {
 		v2     *byte
 		v3     int32
 	)
-	result = (*byte)(unsafe.Pointer(uintptr(nox_strcmpi((*byte)(memmap.PtrOff(0x5D4594, 2598188)), a1))))
+	result = (*byte)(unsafe.Pointer(uintptr(nox_strcmpi((*char)(memmap.PtrOff(0x5D4594, 2598188)), a1))))
 	if result != nil {
 		libc.StrNCpy((*byte)(memmap.PtrOff(0x5D4594, 2598188)), a1, 0x50)
 		*memmap.PtrUint8(0x5D4594, 2598267) = 0
@@ -711,7 +711,7 @@ func sub_410730() *uint32 {
 	if dword_5d4594_251560 != nil {
 		for {
 			v1 = (*uint32)(unsafe.Pointer(uintptr(*result)))
-			alloc.Free(unsafe.Pointer(result))
+			alloc.Free(result)
 			result = v1
 			if v1 == nil {
 				break
@@ -763,7 +763,7 @@ func sub_4107A0(lpMem unsafe.Pointer) *int32 {
 		} else {
 			*v2 = nox_xxx_wallSecretNext_410790(result)
 		}
-		alloc.Free(lpMem)
+		alloc.FreePtr(lpMem)
 	}
 	return result
 }
@@ -776,7 +776,7 @@ func nox_xxx_wallBreackableListClear_410810() *uint32 {
 	if dword_5d4594_251564 != 0 {
 		for {
 			v1 = (*uint32)(unsafe.Pointer(uintptr(*result)))
-			alloc.Free(unsafe.Pointer(result))
+			alloc.Free(result)
 			result = v1
 			if v1 == nil {
 				break
@@ -825,7 +825,7 @@ func nox_xxx_tileFree_410FC0_free() {
 	for i := int32(0); i < ptr_5D4594_2650668_cap; i++ {
 		var ptr *obj_5D4594_2650668_t = *(**obj_5D4594_2650668_t)(unsafe.Add(unsafe.Pointer(ptr_5D4594_2650668), unsafe.Sizeof((*obj_5D4594_2650668_t)(nil))*uintptr(i)))
 		if ptr != nil {
-			alloc.Free(unsafe.Pointer(ptr))
+			alloc.Free(ptr)
 		}
 	}
 }
@@ -1509,30 +1509,30 @@ func nox_thing_read_FLOR_414DB0(f *nox_memfile) int32 {
 		v14 uint8
 		v15 uint8
 	)
-	v2 = (*uint8)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(f.cur), 4))))
-	f.cur = (*byte)(unsafe.Pointer(v2))
+	v2 = (*uint8)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(f.Cur), 4))))
+	f.Cur = unsafe.Pointer(v2)
 	v3 = (*uint8)(unsafe.Add(unsafe.Pointer(v2), int32(*v2)+13))
-	f.cur = (*byte)(unsafe.Pointer(v3))
-	v4 = (*uint8)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(f.cur), 1))))
+	f.Cur = unsafe.Pointer(v3)
+	v4 = (*uint8)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(f.Cur), 1))))
 	v14 = *v3
-	f.cur = (*byte)(unsafe.Pointer(v4))
+	f.Cur = unsafe.Pointer(v4)
 	v15 = *v4
-	f.cur = (*byte)(unsafe.Add(unsafe.Pointer(v4), 1))
+	f.Cur = unsafe.Add(unsafe.Pointer(v4), 1)
 	v4 = (*uint8)(unsafe.Add(unsafe.Pointer(v4), 3))
 	v5 = int32(v14) * int32(v15)
 	v14 = *((*uint8)(unsafe.Add(unsafe.Pointer(v4), -2)))
-	f.cur = (*byte)(unsafe.Pointer(v4))
+	f.Cur = unsafe.Pointer(v4)
 	v6 = v5 * int32(v14)
 	if v6 > 0 {
 		for {
-			v7 = (*int32)(unsafe.Pointer(f.cur))
+			v7 = (*int32)(unsafe.Pointer(f.Cur))
 			v8 = *v7
 			v9 = int32(uintptr(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v7), 4*1)))))
-			f.cur = (*byte)(unsafe.Pointer(uintptr(v9)))
+			f.Cur = unsafe.Pointer(uintptr(v9))
 			if v8 == -1 {
 				v10 = (*uint8)(unsafe.Pointer(uintptr(v9 + 1)))
-				f.cur = (*byte)(unsafe.Pointer(v10))
-				f.cur = (*byte)(unsafe.Add(unsafe.Pointer(f.cur), int32(*v10)+1))
+				f.Cur = unsafe.Pointer(v10)
+				f.Cur = unsafe.Add(unsafe.Pointer(f.Cur), int32(*v10)+1)
 			}
 			v6--
 			if v6 == 0 {
@@ -1540,9 +1540,9 @@ func nox_thing_read_FLOR_414DB0(f *nox_memfile) int32 {
 			}
 		}
 	}
-	v11 = (*int32)(unsafe.Pointer(f.cur))
+	v11 = (*int32)(unsafe.Pointer(f.Cur))
 	v12 = *v11
-	f.cur = (*byte)(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v11), 4*1))))
+	f.Cur = unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(v11), 4*1)))
 	return bool2int32(uint32(v12) == 1162757152)
 }
 func nox_thing_read_EDGE_414E70(f *nox_memfile, a2 unsafe.Pointer) int32 {
@@ -1961,7 +1961,7 @@ func nox_xxx_weaponInventoryEquipFlags_415820(item *nox_object_t) int32 {
 	if item == nil {
 		return 0
 	}
-	return nox_xxx_ammoCheck_415880(item.typ_ind)
+	return nox_xxx_ammoCheck_415880(item.TypeInd)
 }
 func sub_415840(a1 int32) int32 {
 	var (
@@ -2158,7 +2158,7 @@ func sub_415C90(item *nox_object_t) int32 {
 	}
 	*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v2))), unsafe.Sizeof(uint16(0))*1)) = 0
 	for i = (*uint8)(memmap.PtrOff(0x587000, 34848)); ; i = (*uint8)(unsafe.Add(unsafe.Pointer(i), 24)) {
-		*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v2))), unsafe.Sizeof(uint16(0))*0)) = item.typ_ind
+		*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v2))), unsafe.Sizeof(uint16(0))*0)) = item.TypeInd
 		if uint32(v2) == *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*2))) {
 			break
 		}
@@ -2687,11 +2687,11 @@ func nox_xxx_netMarkMinimapObject_417190(a1 int32, a2p *nox_object_t, a3 int32) 
 		return v3
 	}
 	var pl *nox_playerInfo = nox_common_playerInfoFromNumRaw(a1)
-	v4 = (*uint32)(pl.field_4580)
+	v4 = (*uint32)(pl.Field4580)
 	v5 = (*uint8)(unsafe.Pointer(pl))
 	if v4 != nil {
 		if *(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1)) == uint32(a2) {
-			v6 = (*uint32)(pl.field_4580)
+			v6 = (*uint32)(pl.Field4580)
 			*v6 |= uint32(a3)
 			return 1
 		}
@@ -2736,7 +2736,7 @@ func sub_417270(a1 int32) int32 {
 	result = 0
 	if a1 >= 0 && a1 < NOX_PLAYERINFO_MAX {
 		var pl *nox_playerInfo = nox_common_playerInfoFromNumRaw(a1)
-		v2 = int32(uintptr(pl.field_4580))
+		v2 = int32(uintptr(pl.Field4580))
 		if v2 != 0 {
 			v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 8))))
 			for result = 1; v3 != v2; result++ {
@@ -2762,14 +2762,14 @@ func nox_xxx_netUnmarkMinimapObj_417300(a1 int32, a2p *nox_object_t, a3 int32) i
 		if a2 != 0 {
 			var pl *nox_playerInfo = nox_common_playerInfoFromNumRaw(a1)
 			v4 = (*uint8)(unsafe.Pointer(pl))
-			v5 = (*uint32)(pl.field_4580)
+			v5 = (*uint32)(pl.Field4580)
 			if v5 != nil {
 				for {
 					v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*2)))
 					if *(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*1)) == uint32(a2) {
 						break
 					}
-					if unsafe.Pointer(uintptr(v6)) != pl.field_4580 {
+					if unsafe.Pointer(uintptr(v6)) != pl.Field4580 {
 						v5 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*2)))))
 						if v6 != 0 {
 							continue
@@ -2813,11 +2813,11 @@ func nox_xxx_playerMapTracksObj_4173D0(a1 int32, a2p *nox_object_t) int32 {
 	if a1 >= 0 && a1 < NOX_PLAYERINFO_MAX {
 		if a2 != 0 {
 			var pl *nox_playerInfo = nox_common_playerInfoFromNumRaw(a1)
-			v3 = int32(uintptr(pl.field_4580))
+			v3 = int32(uintptr(pl.Field4580))
 			if v3 != 0 {
 				for *(*uint32)(unsafe.Pointer(uintptr(v3 + 4))) != uint32(a2) {
 					v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 8))))
-					if unsafe.Pointer(uintptr(v3)) == pl.field_4580 || v3 == 0 {
+					if unsafe.Pointer(uintptr(v3)) == pl.Field4580 || v3 == 0 {
 						return result
 					}
 				}
@@ -3608,7 +3608,7 @@ func sub_4184D0(a1p *nox_team_t) {
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)) = *(*uint32)(unsafe.Pointer(&v3[8]))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3)) = *(*uint32)(unsafe.Pointer(&v3[12]))
 		*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v2))), unsafe.Sizeof(uint16(0))*8))) = *(*uint16)(unsafe.Pointer(&v3[16]))
-		alloc.Memcpy(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(v2))), 18), unsafe.Pointer(a1), int(int32(uint8(v3[15]))*2))
+		alloc.Memcpy(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(v2))), 18), unsafe.Pointer(a1), uintptr(int32(uint8(v3[15]))*2))
 		nox_xxx_netSendPacket1_4E5390(159, int32(uintptr(unsafe.Pointer(v2))), v1+18, 0, 1)
 		alloc.Free(unsafe.Pointer(v2))
 	}

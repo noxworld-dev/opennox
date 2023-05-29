@@ -396,7 +396,7 @@ func sub_48D5A0(a1 int32) *uint32 {
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*2)) = uint32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 1))))
 				*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v2))), unsafe.Sizeof(uint16(0))*12))) = uint16(*(*uint8)(unsafe.Pointer(uintptr(a1 + 3))))
 				*((*uint64)(unsafe.Add(unsafe.Pointer((*uint64)(unsafe.Pointer(v2))), unsafe.Sizeof(uint64(0))*2))) = uint64(nox_platform_get_ticks())
-				alloc.Memcpy(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*8))), unsafe.Pointer(uintptr(a1+4)), int(*(*uint8)(unsafe.Pointer(uintptr(a1 + 3)))))
+				alloc.Memcpy(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*8))), unsafe.Pointer(uintptr(a1+4)), uintptr(*(*uint8)(unsafe.Pointer(uintptr(a1 + 3)))))
 				if int32(*memmap.PtrUint16(0x5D4594, 1197360)) == int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 1)))) {
 					dword_5d4594_1197352 = uint32(uintptr(unsafe.Pointer(v2)))
 				}
@@ -5856,7 +5856,7 @@ func nox_wol_servers_addResult_4A0030(srv *nox_gui_server_ent_t) int32 {
 		v9  *wchar2_t
 		rec *nox_gui_server_ent_t = new(nox_gui_server_ent_t)
 	)
-	alloc.Memcpy(unsafe.Pointer(rec), unsafe.Pointer(srv), int(unsafe.Sizeof(nox_gui_server_ent_t{})))
+	alloc.Memcpy(unsafe.Pointer(rec), unsafe.Pointer(srv), unsafe.Sizeof(nox_gui_server_ent_t{}))
 	var v2 int32 = 0
 	switch nox_wol_servers_sorting_166704 {
 	case 0:

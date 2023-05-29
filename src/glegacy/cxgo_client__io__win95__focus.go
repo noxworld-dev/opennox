@@ -8,7 +8,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-func sub_42EBB0(a1 uint32, fnc func(int32), field_4 int32, name *byte) {
+func sub_42EBB0(a1 uint32, fnc unsafe.Pointer, field_4 int32, name *byte) {
 	var v6 *wchar2_t
 	_ = v6
 	var v8 *wchar2_t
@@ -32,7 +32,7 @@ func sub_42EBB0(a1 uint32, fnc func(int32), field_4 int32, name *byte) {
 		(*(*obj_5D4594_754088_t)(unsafe.Add(unsafe.Pointer(arr), unsafe.Sizeof(obj_5D4594_754088_t{})*uintptr(ptr_5D4594_754092_cnt)))).fnc = fnc
 		(*(*obj_5D4594_754088_t)(unsafe.Add(unsafe.Pointer(arr), unsafe.Sizeof(obj_5D4594_754088_t{})*uintptr(ptr_5D4594_754092_cnt)))).field_4 = field_4
 		var sz int32 = int32(libc.StrLen(name) + 1)
-		alloc.Memcpy(unsafe.Pointer(&(*(*obj_5D4594_754088_t)(unsafe.Add(unsafe.Pointer(arr), unsafe.Sizeof(obj_5D4594_754088_t{})*uintptr(ptr_5D4594_754092_cnt)))).name[0]), unsafe.Pointer(name), int(sz))
+		alloc.Memcpy(unsafe.Pointer(&(*(*obj_5D4594_754088_t)(unsafe.Add(unsafe.Pointer(arr), unsafe.Sizeof(obj_5D4594_754088_t{})*uintptr(ptr_5D4594_754092_cnt)))).name[0]), unsafe.Pointer(name), uintptr(sz))
 		ptr_5D4594_754092_cnt++
 	}
 }

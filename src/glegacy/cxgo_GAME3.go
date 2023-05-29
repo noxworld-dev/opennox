@@ -2373,12 +2373,12 @@ func sub_4A7A80(a1 *byte) int32 {
 	v2 = uint32(libc.StrLen(a1) + 1)
 	v3 = int8(uint8(v2))
 	v2 >>= 2
-	alloc.Memcpy(memmap.PtrOff(0x5D4594, 1308644), unsafe.Pointer(a1), int(v2*4))
+	alloc.Memcpy(memmap.PtrOff(0x5D4594, 1308644), unsafe.Pointer(a1), uintptr(v2*4))
 	v5 = (*byte)(unsafe.Add(unsafe.Pointer(a1), v2*4))
-	v4 = (*uint8)(memmap.PtrOff(0x5D4594, v2*4+1308644))
+	v4 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v2)*4+1308644))
 	*((*uint8)(unsafe.Pointer(&v2))) = uint8(v3)
 	result = 1
-	alloc.Memcpy(unsafe.Pointer(v4), unsafe.Pointer(v5), int(v2&3))
+	alloc.Memcpy(unsafe.Pointer(v4), unsafe.Pointer(v5), uintptr(v2&3))
 	return result
 }
 func sub_4A7AC0(a1 *byte) int32 {
@@ -2395,12 +2395,12 @@ func sub_4A7AC0(a1 *byte) int32 {
 	v2 = uint32(libc.StrLen(a1) + 1)
 	v3 = int8(uint8(v2))
 	v2 >>= 2
-	alloc.Memcpy(memmap.PtrOff(0x5D4594, 1308172), unsafe.Pointer(a1), int(v2*4))
+	alloc.Memcpy(memmap.PtrOff(0x5D4594, 1308172), unsafe.Pointer(a1), uintptr(v2*4))
 	v5 = (*byte)(unsafe.Add(unsafe.Pointer(a1), v2*4))
-	v4 = (*uint8)(memmap.PtrOff(0x5D4594, v2*4+1308172))
+	v4 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v2)*4+1308172))
 	*((*uint8)(unsafe.Pointer(&v2))) = uint8(v3)
 	result = 1
-	alloc.Memcpy(unsafe.Pointer(v4), unsafe.Pointer(v5), int(v2&3))
+	alloc.Memcpy(unsafe.Pointer(v4), unsafe.Pointer(v5), uintptr(v2&3))
 	return result
 }
 func sub_4A7B00(a1 *byte) int32 {
@@ -2417,12 +2417,12 @@ func sub_4A7B00(a1 *byte) int32 {
 	v2 = uint32(libc.StrLen(a1) + 1)
 	v3 = int8(uint8(v2))
 	v2 >>= 2
-	alloc.Memcpy(memmap.PtrOff(0x5D4594, 1308352), unsafe.Pointer(a1), int(v2*4))
+	alloc.Memcpy(memmap.PtrOff(0x5D4594, 1308352), unsafe.Pointer(a1), uintptr(v2*4))
 	v5 = (*byte)(unsafe.Add(unsafe.Pointer(a1), v2*4))
-	v4 = (*uint8)(memmap.PtrOff(0x5D4594, v2*4+1308352))
+	v4 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v2)*4+1308352))
 	*((*uint8)(unsafe.Pointer(&v2))) = uint8(v3)
 	result = 1
-	alloc.Memcpy(unsafe.Pointer(v4), unsafe.Pointer(v5), int(v2&3))
+	alloc.Memcpy(unsafe.Pointer(v4), unsafe.Pointer(v5), uintptr(v2&3))
 	return result
 }
 func sub_4A7B40(a1 *byte) int32 {
@@ -2473,12 +2473,12 @@ func sub_4A7BC0(a1 *byte) int32 {
 	v2 = uint32(libc.StrLen(a1) + 1)
 	v3 = int8(uint8(v2))
 	v2 >>= 2
-	alloc.Memcpy(memmap.PtrOff(0x5D4594, 1308324), unsafe.Pointer(a1), int(v2*4))
+	alloc.Memcpy(memmap.PtrOff(0x5D4594, 1308324), unsafe.Pointer(a1), uintptr(v2*4))
 	v5 = (*byte)(unsafe.Add(unsafe.Pointer(a1), v2*4))
-	v4 = (*uint8)(memmap.PtrOff(0x5D4594, v2*4+1308324))
+	v4 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v2)*4+1308324))
 	*((*uint8)(unsafe.Pointer(&v2))) = uint8(v3)
 	result = 1
-	alloc.Memcpy(unsafe.Pointer(v4), unsafe.Pointer(v5), int(v2&3))
+	alloc.Memcpy(unsafe.Pointer(v4), unsafe.Pointer(v5), uintptr(v2&3))
 	return result
 }
 func sub_4A7C00(a1 *byte) int32 {
@@ -2495,12 +2495,12 @@ func sub_4A7C00(a1 *byte) int32 {
 	v2 = uint32(libc.StrLen(a1) + 1)
 	v3 = int8(uint8(v2))
 	v2 >>= 2
-	alloc.Memcpy(memmap.PtrOff(0x5D4594, 1308364), unsafe.Pointer(a1), int(v2*4))
+	alloc.Memcpy(memmap.PtrOff(0x5D4594, 1308364), unsafe.Pointer(a1), uintptr(v2*4))
 	v5 = (*byte)(unsafe.Add(unsafe.Pointer(a1), v2*4))
-	v4 = (*uint8)(memmap.PtrOff(0x5D4594, v2*4+1308364))
+	v4 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v2)*4+1308364))
 	*((*uint8)(unsafe.Pointer(&v2))) = uint8(v3)
 	result = 1
-	alloc.Memcpy(unsafe.Pointer(v4), unsafe.Pointer(v5), int(v2&3))
+	alloc.Memcpy(unsafe.Pointer(v4), unsafe.Pointer(v5), uintptr(v2&3))
 	return result
 }
 func sub_4A7C40(a1 *byte) int32 {
@@ -2561,12 +2561,12 @@ func sub_4A7D00(a1 *byte) int32 {
 		v2 = uint32(libc.StrLen(a1) + 1)
 		v3 = int8(uint8(v2))
 		v2 >>= 2
-		alloc.Memcpy(memmap.PtrOff(0x5D4594, 1308192), unsafe.Pointer(a1), int(v2*4))
+		alloc.Memcpy(memmap.PtrOff(0x5D4594, 1308192), unsafe.Pointer(a1), uintptr(v2*4))
 		v5 = (*byte)(unsafe.Add(unsafe.Pointer(a1), v2*4))
-		v4 = (*uint8)(memmap.PtrOff(0x5D4594, v2*4+1308192))
+		v4 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v2)*4+1308192))
 		*((*uint8)(unsafe.Pointer(&v2))) = uint8(v3)
 		result = 1
-		alloc.Memcpy(unsafe.Pointer(v4), unsafe.Pointer(v5), int(v2&3))
+		alloc.Memcpy(unsafe.Pointer(v4), unsafe.Pointer(v5), uintptr(v2&3))
 	}
 	return result
 }

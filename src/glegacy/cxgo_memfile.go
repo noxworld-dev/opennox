@@ -44,6 +44,6 @@ func nox_memfile_read64align_40AD60(dest *byte, sz int32, cnt int32, f *nox_memf
 	if result != 1 {
 		return result
 	}
-	alloc.Memcpy(unsafe.Pointer(dest), unsafe.Pointer(&buf[0]), int(cnt*sz))
+	alloc.Memcpy(unsafe.Pointer(dest), unsafe.Pointer(&buf[0]), uintptr(cnt*sz))
 	return 1
 }

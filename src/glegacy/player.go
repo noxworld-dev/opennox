@@ -53,32 +53,32 @@ func nox_common_playerInfoGetNext_416EE0(it *nox_playerInfo) *nox_playerInfo {
 }
 
 // nox_common_playerInfoCount_416F40
-func nox_common_playerInfoCount_416F40() int {
-	return GetServer().S().Players.Count()
+func nox_common_playerInfoCount_416F40() int32 {
+	return int32(GetServer().S().Players.Count())
 }
 
 // nox_common_playerInfoGetByID_417040
-func nox_common_playerInfoGetByID_417040(id int) *nox_playerInfo {
-	return (*nox_playerInfo)(GetServer().S().Players.ByID(id).C())
+func nox_common_playerInfoGetByID_417040(id int32) *nox_playerInfo {
+	return (*nox_playerInfo)(GetServer().S().Players.ByID(int(id)).C())
 }
 
 // nox_common_playerInfoFromNum_417090
-func nox_common_playerInfoFromNum_417090(ind int) *nox_playerInfo {
+func nox_common_playerInfoFromNum_417090(ind int32) *nox_playerInfo {
 	return (*nox_playerInfo)(GetServer().S().Players.ByInd(ntype.PlayerInd(ind)).C())
 }
 
 // nox_common_playerInfoFromNumRaw
-func nox_common_playerInfoFromNumRaw(ind int) *nox_playerInfo {
+func nox_common_playerInfoFromNumRaw(ind int32) *nox_playerInfo {
 	return (*nox_playerInfo)(GetServer().S().Players.ByIndRaw(ntype.PlayerInd(ind)).C())
 }
 
 // nox_xxx_playerDisconnByPlrID_4DEB00
-func nox_xxx_playerDisconnByPlrID_4DEB00(id int) {
+func nox_xxx_playerDisconnByPlrID_4DEB00(id int32) {
 	Nox_xxx_playerDisconnByPlrID_4DEB00(ntype.PlayerInd(id))
 }
 
 // nox_xxx_playerCallDisconnect_4DEAB0
-func nox_xxx_playerCallDisconnect_4DEAB0(ind int, v char) *char {
+func nox_xxx_playerCallDisconnect_4DEAB0(ind int32, v char) *char {
 	Nox_xxx_playerCallDisconnect_4DEAB0(ntype.PlayerInd(ind), int8(v))
 	return nil
 }
@@ -99,8 +99,8 @@ func nox_xxx_playerGetPossess_4DDF30(cplayer *nox_object_t) *nox_object_t {
 }
 
 // nox_xxx_playerGoObserver_4E6860
-func nox_xxx_playerGoObserver_4E6860(pl *nox_playerInfo, a2 int, a3 int) int {
-	return Nox_xxx_playerGoObserver_4E6860(asPlayerS(pl), a2, a3)
+func nox_xxx_playerGoObserver_4E6860(pl *nox_playerInfo, a2 int32, a3 int32) int {
+	return Nox_xxx_playerGoObserver_4E6860(asPlayerS(pl), int(a2), int(a3))
 }
 
 // nox_xxx_playerObserveClear_4DDEF0
@@ -123,7 +123,7 @@ func Nox_xxx_scavengerTreasureMax_4D1600() uint32 {
 }
 
 func Nox_xxx_netMsgFadeBeginPlayer(ind int, dir int, a3 int) {
-	nox_xxx_netMsgFadeBeginPlayer(int(ind), int(dir), int(a3))
+	nox_xxx_netMsgFadeBeginPlayer(int32(ind), int32(dir), int32(a3))
 }
 
 func PrintToPlayers(text string) {
@@ -149,15 +149,15 @@ func Get_nox_xxx_updatePlayerMonsterBot_4FAB20() unsafe.Pointer {
 }
 
 func Nox_xxx_netNeedTimestampStatus_4174F0(pl *server.Player, v int) {
-	nox_xxx_netNeedTimestampStatus_4174F0((*nox_playerInfo)(pl.C()), int(v))
+	nox_xxx_netNeedTimestampStatus_4174F0((*nox_playerInfo)(pl.C()), int32(v))
 }
 
 func Sub_40A1F0(v int) {
-	sub_40A1F0(int(v))
+	sub_40A1F0(int32(v))
 }
 
 func Nox_game_sendQuestStage_4D6960(v ntype.PlayerInd) {
-	nox_game_sendQuestStage_4D6960(int(v))
+	nox_game_sendQuestStage_4D6960(int32(v))
 }
 
 func Nox_xxx_playerForceSendLessons_416E50(v int) {
@@ -193,7 +193,7 @@ func Nox_xxx_playerUnsetStatus_417530(p *server.Player, a2 int) {
 }
 
 func Nox_xxx_playerResetImportantCtr_4E4F40(v ntype.PlayerInd) {
-	nox_xxx_playerResetImportantCtr_4E4F40(int(v))
+	nox_xxx_playerResetImportantCtr_4E4F40(int32(v))
 }
 
 func Get_dword_5d4594_1046492() int {
@@ -205,15 +205,15 @@ func Nox_xxx_playerInitColors_461460(pl *server.Player) {
 }
 
 func Sub_425B30(a1 unsafe.Pointer, a2 ntype.PlayerInd) {
-	sub_425B30(a1, int(a2))
+	sub_425B30(a1, int32(a2))
 }
 
 func Sub_425A70(a1 int) unsafe.Pointer {
-	return unsafe.Pointer(sub_425A70(int(a1)))
+	return unsafe.Pointer(sub_425A70(int32(a1)))
 }
 
 func Sub_425AD0(a1 int, a2 *uint16) unsafe.Pointer {
-	return unsafe.Pointer(sub_425AD0(int(a1), (*uint16)(unsafe.Pointer(a2))))
+	return unsafe.Pointer(sub_425AD0(int32(a1), (*uint16)(unsafe.Pointer(a2))))
 }
 
 func Sub_41D670(a1 string) {
@@ -245,7 +245,7 @@ func Nox_xxx_playerLeaveObserver_0_4E6AA0(p *server.Player) {
 }
 
 func Nox_xxx_netGuiGameSettings_4DD9B0(a1 int, a2 unsafe.Pointer, a3 int) {
-	nox_xxx_netGuiGameSettings_4DD9B0(char(a1), a2, int(a3))
+	nox_xxx_netGuiGameSettings_4DD9B0(char(a1), a2, int32(a3))
 }
 
 func Sub_459AA0(a1 unsafe.Pointer) {
@@ -253,11 +253,11 @@ func Sub_459AA0(a1 unsafe.Pointer) {
 }
 
 func Nox_xxx_netNotifyRate_4D7F10(v ntype.PlayerInd) {
-	nox_xxx_netNotifyRate_4D7F10(int(v))
+	nox_xxx_netNotifyRate_4D7F10(int32(v))
 }
 
 func Nox_xxx_plrReadVals_4EEDC0(obj *server.Object, a2 int) {
-	nox_xxx_plrReadVals_4EEDC0(asObjectC(obj), int(a2))
+	nox_xxx_plrReadVals_4EEDC0(asObjectC(obj), int32(a2))
 }
 
 func Nox_xxx_playerManaAdd_4EEB80(obj *server.Object, v int) {
@@ -265,15 +265,15 @@ func Nox_xxx_playerManaAdd_4EEB80(obj *server.Object, v int) {
 }
 
 func Sub_4FD0E0(obj *server.Object, sp spell.ID) int {
-	return int(sub_4FD0E0(asObjectC(obj), int(sp)))
+	return int(sub_4FD0E0(asObjectC(obj), int32(sp)))
 }
 
 func Nox_xxx_checkPlrCantCastSpell_4FD150(obj *server.Object, sp spell.ID, a3 int) int {
-	return int(nox_xxx_checkPlrCantCastSpell_4FD150(asObjectC(obj), int(sp), int(a3)))
+	return int(nox_xxx_checkPlrCantCastSpell_4FD150(asObjectC(obj), int32(sp), int32(a3)))
 }
 
 func Sub_4FCF90(obj *server.Object, sp spell.ID, a3 int) int {
-	return int(sub_4FCF90(asObjectC(obj), int(sp), int(a3)))
+	return int(sub_4FCF90(asObjectC(obj), int32(sp), int32(a3)))
 }
 
 func Get_nox_xxx_warriorMaxHealth_587000_312784() float32 {

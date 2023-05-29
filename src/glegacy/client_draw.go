@@ -75,7 +75,7 @@ func Sub_498AE0() {
 }
 
 func Get_nox_thing_glow_orb_draw() unsafe.Pointer {
-	return nox_thing_glow_orb_draw
+	return funAddrP(nox_thing_glow_orb_draw)
 }
 
 func Sub_49BD70(vp *noxrender.Viewport) {
@@ -125,10 +125,10 @@ func Nox_xxx_tileDrawImpl_4826A0(vp *noxrender.Viewport) {
 	nox_xxx_tileDrawImpl_4826A0((*nox_draw_viewport_t)(vp.C()))
 }
 func Nox_xxx_tileDrawMB_481C20_A(vp *noxrender.Viewport, a2 int) {
-	nox_xxx_tileDrawMB_481C20_A((*nox_draw_viewport_t)(vp.C()), int(a2))
+	nox_xxx_tileDrawMB_481C20_A((*nox_draw_viewport_t)(vp.C()), int32(a2))
 }
 func Nox_xxx_tileDrawMB_481C20_B(vp *noxrender.Viewport, a2 int) {
-	nox_xxx_tileDrawMB_481C20_B((*nox_draw_viewport_t)(vp.C()), int(a2))
+	nox_xxx_tileDrawMB_481C20_B((*nox_draw_viewport_t)(vp.C()), int32(a2))
 }
 func Sub_4989A0() {
 	sub_4989A0()

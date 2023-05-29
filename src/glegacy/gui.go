@@ -35,16 +35,16 @@ func asWindowData(data *nox_window_data) *gui.WindowData {
 }
 
 // nox_client_gui_set_flag_815132
-func nox_client_gui_set_flag_815132(v int) { Nox_client_gui_set_flag_815132(v) }
+func nox_client_gui_set_flag_815132(v int32) { Nox_client_gui_set_flag_815132(int(v)) }
 
 // nox_client_onClientStatusA
-func nox_client_onClientStatusA(v int) { Nox_client_onClientStatusA(v) }
+func nox_client_onClientStatusA(v int32) { Nox_client_onClientStatusA(int(v)) }
 
 // nox_client_setRenderGUI
-func nox_client_setRenderGUI(v int) { Nox_client_setRenderGUI(v) }
+func nox_client_setRenderGUI(v int32) { Nox_client_setRenderGUI(int(v)) }
 
 // nox_client_getRenderGUI
-func nox_client_getRenderGUI() int { return Nox_client_getRenderGUI() }
+func nox_client_getRenderGUI() int32 { return int32(Nox_client_getRenderGUI()) }
 
 // nox_xxx_wndGetFocus_46B4F0
 func nox_xxx_wndGetFocus_46B4F0() *nox_window {
@@ -87,12 +87,12 @@ func nox_gui_draw() {
 }
 
 // nox_color_rgb_4344A0
-func nox_color_rgb_4344A0(r, g, b int) uint32 {
+func nox_color_rgb_4344A0(r, g, b int32) uint32 {
 	return uint32(noxcolor.RGB5551Color(byte(r), byte(g), byte(b)).Color32())
 }
 
 // nox_set_color_rgb_434430
-func nox_set_color_rgb_434430(r, g, b int) {
+func nox_set_color_rgb_434430(r, g, b int32) {
 	GetClient().R2().Data().SetColor2(noxcolor.RGB5551Color(byte(r), byte(g), byte(b)))
 }
 
@@ -119,7 +119,7 @@ func Sub_46A4A0() int {
 func Nox_xxx_wndEditProc_487D70(a1 *gui.Window, ev gui.WindowEvent) gui.RawEventResp {
 	a2 := ev.EventCode()
 	a3, a4 := ev.EventArgsC()
-	return gui.RawEventResp(nox_xxx_wndEditProc_487D70((*nox_window)(a1.C()), int(a2), int(a3), int(a4)))
+	return gui.RawEventResp(nox_xxx_wndEditProc_487D70((*nox_window)(a1.C()), int32(a2), int32(a3), int32(a4)))
 }
 
 func Nox_gui_xxx_check_446360() int {

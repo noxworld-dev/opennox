@@ -162,7 +162,7 @@ func nox_gui_newScrollListBox_4A4310(a1p *nox_window, a2 int32, a3 int32, a4 int
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a8))), 4*9))) = uint32(uintptr(unsafe.Pointer(nox_gui_newSlider_4B4EE0(int32(uintptr(unsafe.Pointer(v8))), v17, a5-v19, v22+v23, v19, v10-v23*2, (*uint32)(unsafe.Pointer(&v25[0])), (*float32)(unsafe.Pointer(&v24[0]))))))
 	}
 	v20 = (*int16)(unsafe.Pointer(new(nox_scrollListBox_data)))
-	alloc.Memcpy(unsafe.Pointer(v20), unsafe.Pointer(opts), int(unsafe.Sizeof(nox_scrollListBox_data{})))
+	alloc.Memcpy(unsafe.Pointer(v20), unsafe.Pointer(opts), unsafe.Sizeof(nox_scrollListBox_data{}))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*8)) = uint32(uintptr(unsafe.Pointer(v20)))
 	return (*nox_window)(unsafe.Pointer(v8))
 }

@@ -29,39 +29,38 @@ func fill_find_data(path *byte, lpFindFileData LPWIN32_FIND_DATAA) {
 	csys.Stat(path, &st)
 	*lpFindFileData = WIN32_FIND_DATAA{}
 	if csys.IsDir(st.Mode) != 0 {
-		lpFindFileData.dwFileAttributes = uint32(FILE_ATTRIBUTE_DIRECTORY)
+		lpFindFileData.FileAttributes = uint32(FILE_ATTRIBUTE_DIRECTORY)
 	} else {
-		lpFindFileData.dwFileAttributes = uint32(FILE_ATTRIBUTE_NORMAL)
+		lpFindFileData.FileAttributes = uint32(FILE_ATTRIBUTE_NORMAL)
 	}
 	lpFindFileData.nFileSizeHigh = uint32(st.Size >> 32)
 	lpFindFileData.nFileSizeLow = uint32(st.Size)
 	libc.StrCpy(&lpFindFileData.cFileName[0], filename)
 }
 func compatFindFirstFileA(lpFileName *byte, lpFindFileData LPWIN32_FIND_DATAA) HANDLE {
-	var (
-		converted *byte       = nox_fs_normalize(lpFileName)
-		len_      int32       = int32(libc.StrLen(converted))
-		ff        *_FIND_FILE = (*_FIND_FILE)(alloc.Calloc(int(unsafe.Sizeof(_FIND_FILE{})), 1))
-	)
+	converted := nox_fs_normalize((*char)(unsafe.Pointer(lpFileName)))
+	len_ := int32(libc.StrLen(lpFileName))
+	ff, _ := alloc.New(_FIND_FILE{})
+	var ()
 	if len_ >= 2 && *(*byte)(unsafe.Add(unsafe.Pointer(converted), len_-2)) == '.' && *(*byte)(unsafe.Add(unsafe.Pointer(converted), len_-1)) == '*' {
 		*(*byte)(unsafe.Add(unsafe.Pointer(converted), len_-2)) = 0
 	}
-	if ff.globbuf.Glob(converted, int32(stdio.GlobNoEscape), nil) != 0 {
-		alloc.Free(unsafe.Pointer(converted))
-		alloc.Free(unsafe.Pointer(ff))
-		return unsafe.Pointer(uintptr(math.MaxUint32))
+	if ff.globbuf.Glob((*byte)(unsafe.Pointer(converted)), int32(stdio.GlobNoEscape), nil) != 0 {
+		alloc.Free(converted)
+		alloc.Free(ff)
+		return HANDLE(math.MaxUint32)
 	}
-	alloc.Free(unsafe.Pointer(converted))
+	alloc.Free(converted)
 	fill_find_data(*(**byte)(unsafe.Add(unsafe.Pointer(ff.globbuf.Paths), unsafe.Sizeof((*byte)(nil))*uintptr(func() uint32 {
 		p := &ff.idx
 		x := *p
 		*p++
 		return x
 	}()))), lpFindFileData)
-	return HANDLE(ff)
+	return HANDLE(unsafe.Pointer(ff))
 }
 func compatFindNextFileA(hFindFile HANDLE, lpFindFileData LPWIN32_FIND_DATAA) int32 {
-	var ff *_FIND_FILE = (*_FIND_FILE)(hFindFile)
+	ff := (*_FIND_FILE)(unsafe.Pointer(hFindFile))
 	if ff.idx >= uint32(ff.globbuf.Num) {
 		return 0
 	}
@@ -74,7 +73,7 @@ func compatFindNextFileA(hFindFile HANDLE, lpFindFileData LPWIN32_FIND_DATAA) in
 	return 1
 }
 func compatFindClose(hFindFile HANDLE) int32 {
-	var ff *_FIND_FILE = (*_FIND_FILE)(hFindFile)
+	var ff *_FIND_FILE = (*_FIND_FILE)(unsafe.Pointer(hFindFile))
 	ff.globbuf.Free()
 	alloc.Free(ff)
 	return 1
