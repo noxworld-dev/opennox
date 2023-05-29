@@ -59,7 +59,8 @@ void sub_4CD150(int a1, uint32_t* a2, int a3, int a4) {
 			v8 = *(unsigned short*)(a3 + 439) + v10;
 			LOWORD(v9) = *(uint16_t*)(a3 + 443);
 		}
-		goto LABEL_19;
+		LOWORD(v25) = v9;
+		goto LABEL_20;
 	}
 	if (a3 == -432) {
 		return;
@@ -90,7 +91,6 @@ void sub_4CD150(int a1, uint32_t* a2, int a3, int a4) {
 		v7 = *(uint32_t*)(v17 + 12);
 		v8 = v14[4] + v19;
 		v9 = *(uint32_t*)(v17 + 16);
-	LABEL_19:
 		LOWORD(v25) = v9;
 		goto LABEL_20;
 	}
