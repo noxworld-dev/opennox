@@ -1396,142 +1396,136 @@ int nox_xxx_genReadDecor_51F9F0(uint32_t* a1, FILE* a2) {
 	v15 = 0;
 	v2 = calloc(1u, 0xE0u);
 	v3 = (int)v2;
-	if (v2) {
-		v4 = a2;
-		v2[64] = 0;
-		*((uint32_t*)v2 + 18) = 1000;
-		*((uint32_t*)v2 + 19) = 0;
-		*((uint32_t*)v2 + 20) = 999999;
-		if (nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
-			if (nox_xxx_mapGenReadLine_51E540(a2, (uint8_t*)v3)) {
-				if (!nox_strcmpi("ROOM", (const char*)getMemAt(0x5D4594, 2487264))) {
-					*(uint32_t*)(v3 + 60) = 0;
-					goto LABEL_12;
-				}
-				if (!nox_strcmpi("HALL", (const char*)getMemAt(0x5D4594, 2487264))) {
-					*(uint32_t*)(v3 + 60) = 1;
-					goto LABEL_12;
-				}
-				if (!nox_strcmpi("TEMPLATE", (const char*)getMemAt(0x5D4594, 2487264))) {
-					*(uint32_t*)(v3 + 60) = 2;
-					goto LABEL_12;
-				}
-				if (!nox_strcmpi("BACKDROP", (const char*)getMemAt(0x5D4594, 2487264))) {
-					*(uint32_t*)(v3 + 60) = 3;
-				LABEL_12:
-					while (nox_xxx_mapGenReadLine_51E540(v4, getMemAt(0x5D4594, 2487264))) {
-						if (!nox_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
-							switch (*(uint32_t*)(v3 + 60)) {
-							case 0:
-								*(uint32_t*)(v3 + 220) = a1[22];
-								v10 = a1[23];
-								a1[22] = v3;
-								a1[23] = v10 + 1;
-								result = 1;
-								break;
-							case 1:
-								*(uint32_t*)(v3 + 220) = a1[30];
-								v12 = a1[31];
-								a1[30] = v3;
-								a1[31] = v12 + 1;
-								result = 1;
-								break;
-							case 2:
-								*(uint32_t*)(v3 + 220) = a1[38];
-								v13 = a1[39];
-								a1[38] = v3;
-								a1[39] = v13 + 1;
-								result = 1;
-								break;
-							case 3:
-								*(uint32_t*)(v3 + 220) = a1[46];
-								v14 = a1[47] + 1;
-								a1[46] = v3;
-								a1[47] = v14;
-								goto LABEL_57;
-							default:
-							LABEL_57:
-								result = 1;
-								break;
-							}
-							return result;
-						}
-						if (nox_strcmpi("WALL_FLOOR", (const char*)getMemAt(0x5D4594, 2487264))) {
-							if (nox_strcmpi("OCCUR_CONSTRAINT", (const char*)getMemAt(0x5D4594, 2487264))) {
-								if (nox_strcmpi("OCCUR_LIMIT", (const char*)getMemAt(0x5D4594, 2487264))) {
-									if (nox_strcmpi("MUST_OCCUR", (const char*)getMemAt(0x5D4594, 2487264))) {
-										if (nox_strcmpi("FREQUENCY", (const char*)getMemAt(0x5D4594, 2487264))) {
-											if (nox_strcmpi("DOOR", (const char*)getMemAt(0x5D4594, 2487264))) {
-												if (nox_strcmpi("DOUBLE_DOOR", (const char*)getMemAt(0x5D4594, 2487264))) {
-													if (nox_strcmpi("ROOM_"
-																 "SIZE_"
-																 "CONSTR"
-																 "AINT",
-																 (const char*)getMemAt(0x5D4594, 2487264))) {
-														if (nox_strcmpi("COPY",
-																	 (const char*)getMemAt(0x5D4594, 2487264))) {
-															if (nox_strcmpi("DECOR_SET",
-																		 (const char*)getMemAt(0x5D4594, 2487264))) {
-																v5 = 0;
-																v6 = 0;
-																if (!*getMemU32Ptr(0x587000, 253200)) {
-																	return 0;
-																}
-																v7 = (const char**)getMemAt(0x587000, 253200);
-																v8 = getMemAt(0x587000, 253200);
-																do {
-																	if (!nox_strcmpi(*v7, (const char*)getMemAt(
-																						   0x5D4594, 2487264))) {
-																		if (!v15 || !sub_51FEC0((int)v15, v6, a2)) {
-																			return 0;
-																		}
-																		v5 = 1;
-																	}
-																	v9 = *((uint32_t*)v8 + 1);
-																	v8 += 4;
-																	++v6;
-																	v7 = (const char**)v8;
-																} while (v9);
-																if (!v5) {
-																	return 0;
-																}
-																v4 = a2;
-															} else if (!nox_xxx_genDecorReadDecorSet_51FFA0(v3, v4)) {
-																return 0;
-															}
-														} else if (!nox_xxx_genDecorReadCopy_520660(a1, (const char*)v3,
-																									v4)) {
-															return 0;
-														}
-													} else if (!nox_xxx_genDecorReadRoomSizeCon_5209F0(v3, v4)) {
-														return 0;
-													}
-												} else if (!nox_xxx_genDecorReadDoubleDoor_520AB0(v3, v4)) {
+	if (!v2) {
+		return 0;
+	}
+	v4 = a2;
+	v2[64] = 0;
+	*((uint32_t*)v2 + 18) = 1000;
+	*((uint32_t*)v2 + 19) = 0;
+	*((uint32_t*)v2 + 20) = 999999;
+	if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
+		return 0;
+	}
+	if (!nox_xxx_mapGenReadLine_51E540(a2, (uint8_t*)v3)) {
+		return 0;
+	}
+	if (!nox_strcmpi("ROOM", (const char*)getMemAt(0x5D4594, 2487264))) {
+		*(uint32_t*)(v3 + 60) = 0;
+	} else if (!nox_strcmpi("HALL", (const char*)getMemAt(0x5D4594, 2487264))) {
+		*(uint32_t*)(v3 + 60) = 1;
+	} else if (!nox_strcmpi("TEMPLATE", (const char*)getMemAt(0x5D4594, 2487264))) {
+		*(uint32_t*)(v3 + 60) = 2;
+	} else if (!nox_strcmpi("BACKDROP", (const char*)getMemAt(0x5D4594, 2487264))) {
+		*(uint32_t*)(v3 + 60) = 3;
+	} else {
+		return 0;
+	}
+	while (1) {
+		if (!nox_xxx_mapGenReadLine_51E540(v4, getMemAt(0x5D4594, 2487264))) {
+			return 0;
+		}
+		if (!nox_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
+			switch (*(uint32_t*)(v3 + 60)) {
+			case 0:
+				*(uint32_t*)(v3 + 220) = a1[22];
+				v10 = a1[23];
+				a1[22] = v3;
+				a1[23] = v10 + 1;
+				result = 1;
+				break;
+			case 1:
+				*(uint32_t*)(v3 + 220) = a1[30];
+				v12 = a1[31];
+				a1[30] = v3;
+				a1[31] = v12 + 1;
+				result = 1;
+				break;
+			case 2:
+				*(uint32_t*)(v3 + 220) = a1[38];
+				v13 = a1[39];
+				a1[38] = v3;
+				a1[39] = v13 + 1;
+				result = 1;
+				break;
+			case 3:
+				*(uint32_t*)(v3 + 220) = a1[46];
+				v14 = a1[47] + 1;
+				a1[46] = v3;
+				a1[47] = v14;
+				result = 1;
+				break;
+			default:
+				result = 1;
+				break;
+			}
+			return result;
+		}
+		if (nox_strcmpi("WALL_FLOOR", (const char*)getMemAt(0x5D4594, 2487264))) {
+			if (nox_strcmpi("OCCUR_CONSTRAINT", (const char*)getMemAt(0x5D4594, 2487264))) {
+				if (nox_strcmpi("OCCUR_LIMIT", (const char*)getMemAt(0x5D4594, 2487264))) {
+					if (nox_strcmpi("MUST_OCCUR", (const char*)getMemAt(0x5D4594, 2487264))) {
+						if (nox_strcmpi("FREQUENCY", (const char*)getMemAt(0x5D4594, 2487264))) {
+							if (nox_strcmpi("DOOR", (const char*)getMemAt(0x5D4594, 2487264))) {
+								if (nox_strcmpi("DOUBLE_DOOR", (const char*)getMemAt(0x5D4594, 2487264))) {
+									if (nox_strcmpi("ROOM_SIZE_CONSTRAINT", (const char*)getMemAt(0x5D4594, 2487264))) {
+										if (nox_strcmpi("COPY", (const char*)getMemAt(0x5D4594, 2487264))) {
+											if (nox_strcmpi("DECOR_SET", (const char*)getMemAt(0x5D4594, 2487264))) {
+												v5 = 0;
+												v6 = 0;
+												if (!*getMemU32Ptr(0x587000, 253200)) {
 													return 0;
 												}
-											} else if (!nox_xxx_genDecorReadDoor_520A90(v3, v4)) {
+												v7 = (const char**)getMemAt(0x587000, 253200);
+												v8 = getMemAt(0x587000, 253200);
+												do {
+													if (!nox_strcmpi(*v7, (const char*)getMemAt(
+																		   0x5D4594, 2487264))) {
+														if (!v15 || !sub_51FEC0((int)v15, v6, a2)) {
+															return 0;
+														}
+														v5 = 1;
+													}
+													v9 = *((uint32_t*)v8 + 1);
+													v8 += 4;
+													++v6;
+													v7 = (const char**)v8;
+												} while (v9);
+												if (!v5) {
+													return 0;
+												}
+												v4 = a2;
+											} else if (!nox_xxx_genDecorReadDecorSet_51FFA0(v3, v4)) {
 												return 0;
 											}
-										} else if (!nox_xxx_genDecorReadFrequency_520910(v3, v4)) {
+										} else if (!nox_xxx_genDecorReadCopy_520660(a1, (const char*)v3, v4)) {
 											return 0;
 										}
-									} else {
-										*(uint8_t*)(v3 + 67) = 1;
+									} else if (!nox_xxx_genDecorReadRoomSizeCon_5209F0(v3, v4)) {
+										return 0;
 									}
-								} else if (!nox_xxx_genDecorReadOccurLimit_5208D0(v3, v4)) {
+								} else if (!nox_xxx_genDecorReadDoubleDoor_520AB0(v3, v4)) {
 									return 0;
 								}
-							} else if (!nox_xxx_genDecorReadOccurConstraint_520810(v3, v4)) {
+							} else if (!nox_xxx_genDecorReadDoor_520A90(v3, v4)) {
 								return 0;
 							}
-						} else {
-							v15 = nox_xxx_genDecorReadWallFloor_51FE00(v3, v4);
-							if (!v15) {
-								return 0;
-							}
+						} else if (!nox_xxx_genDecorReadFrequency_520910(v3, v4)) {
+							return 0;
 						}
+					} else {
+						*(uint8_t*)(v3 + 67) = 1;
 					}
+				} else if (!nox_xxx_genDecorReadOccurLimit_5208D0(v3, v4)) {
+					return 0;
 				}
+			} else if (!nox_xxx_genDecorReadOccurConstraint_520810(v3, v4)) {
+				return 0;
+			}
+		} else {
+			v15 = nox_xxx_genDecorReadWallFloor_51FE00(v3, v4);
+			if (!v15) {
+				return 0;
 			}
 		}
 	}
@@ -1616,142 +1610,148 @@ int nox_xxx_genDecorReadDecorSet_51FFA0(int a1, FILE* a2) {
 	result = (int)calloc(1u, 0x18u);
 	v4 = (int*)result;
 	v12 = result;
-	if (result) {
-		result = nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264));
-		if (result) {
-			*v4 = atoi((const char*)getMemAt(0x5D4594, 2487264));
-			result = nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264));
-			if (result) {
-				v4[1] = atoi((const char*)getMemAt(0x5D4594, 2487264));
-				while (1) {
-					while (1) {
-					LABEL_5:
-						if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
-							goto LABEL_41;
-						}
-						if (!nox_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
-							v10 = *(uint32_t*)(a1 + 92);
-							if (v10) {
-								for (i = *(uint32_t*)(v10 + 20); i; i = *(uint32_t*)(i + 20)) {
-									v10 = i;
-								}
-								*(uint32_t*)(v10 + 20) = v4;
-							} else {
-								*(uint32_t*)(a1 + 92) = v4;
-							}
-							v4[5] = 0;
-							++*(uint32_t*)(a1 + 96);
-							return 1;
-						}
-						if (nox_strcmpi("FOREACH", (const char*)getMemAt(0x5D4594, 2487264))) {
-							break;
-						}
-						if (!v2) {
-							goto LABEL_41;
-						}
-						if (*(uint32_t*)v2 != 1) {
-							goto LABEL_41;
-						}
-						v5 = nox_xxx_gen_5205B0(a2);
-						if (!v5) {
-							goto LABEL_41;
-						}
-						v5[2] = *(uint32_t*)(v2 + 84);
-						*(uint32_t*)(v2 + 84) = v5;
-					}
-					if (nox_strcmpi("CONTAINS", (const char*)getMemAt(0x5D4594, 2487264))) {
-						break;
-					}
-					if (v2) {
-						if (!*(uint32_t*)v2) {
-							v6 = nox_xxx_gen_520380(a2);
-							*(uint32_t*)(v2 + 80) = v6;
-							if (v6) {
-								continue;
-							}
-						}
-					}
-					goto LABEL_41;
-				}
-				v7 = calloc(1u, 0x64u);
-				v2 = (int)v7;
-				if (v7) {
-					*v7 = 0;
-					if (*getMemU32Ptr(0x587000, 253216)) {
-						do {
-							if (!nox_strcmpi(*(const char**)getMemAt(0x587000, 253216 + 4 * *(uint32_t*)v2),
-										  (const char*)getMemAt(0x5D4594, 2487264))) {
-								break;
-							}
-							v8 = *(uint32_t*)v2 + 1;
-							*(uint32_t*)v2 = v8;
-						} while (*getMemU32Ptr(0x587000, 253216 + 4 * v8));
-					}
-					if (*getMemU32Ptr(0x587000, 253216 + 4 * *(uint32_t*)v2)) {
-						switch (*(uint32_t*)v2) {
-						case 0:
-						case 1:
-							if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
-								break;
-							}
-							strcpy((char*)(v2 + 4), (const char*)getMemAt(0x5D4594, 2487264));
-							if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
-								break;
-							}
-							if (nox_strcmpi("DENSITY", (const char*)getMemAt(0x5D4594, 2487264))) {
-								*(uint32_t*)(v2 + 64) = 0;
-								*(uint32_t*)(v2 + 68) = atoi((const char*)getMemAt(0x5D4594, 2487264));
-								if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
-									break;
-								}
-								goto LABEL_35;
-							}
-							*(uint32_t*)(v2 + 64) = 1;
-							if (nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
-								*(float*)(v2 + 76) = atof((const char*)getMemAt(0x5D4594, 2487264));
-								if (nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
-									*(uint32_t*)(v2 + 68) = !strcmp("*", (const char*)getMemAt(0x5D4594, 2487264))
-																? 0
-																: atoi((const char*)getMemAt(0x5D4594, 2487264));
-									if (nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
-										if (!strcmp("*", (const char*)getMemAt(0x5D4594, 2487264))) {
-											*(uint32_t*)(v2 + 72) = 999999;
-											goto LABEL_38;
-										}
-									LABEL_35:
-										*(uint32_t*)(v2 + 72) = atoi((const char*)getMemAt(0x5D4594, 2487264));
-										goto LABEL_38;
-									}
-								}
-							}
-							break;
-						case 3:
-						case 4:
-						case 5:
-							if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
-								break;
-							}
-							strcpy((char*)(v2 + 4), (const char*)getMemAt(0x5D4594, 2487264));
-						LABEL_38:
-							v4 = (int*)v12;
-							goto LABEL_39;
-						default:
-						LABEL_39:
-							*(uint32_t*)(v2 + 88) = v4[2];
-							v9 = v4[3] + 1;
-							v4[2] = v2;
-							v4[3] = v9;
-							goto LABEL_5;
-						}
-					}
-					free((void*)v2);
-				}
-			LABEL_41:
-				result = 0;
-			}
-		}
+	if (!result) {
+		return 0;
 	}
-	return result;
+	result = nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264));
+	if (!result) {
+		return 0;
+	}
+	*v4 = atoi((const char*)getMemAt(0x5D4594, 2487264));
+	result = nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264));
+	if (!result) {
+		return 0;
+	}
+	v4[1] = atoi((const char*)getMemAt(0x5D4594, 2487264));
+	while (1) {
+		while (1) {
+			if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
+				return 0;
+			}
+			if (!nox_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
+				v10 = *(uint32_t*)(a1 + 92);
+				if (v10) {
+					for (i = *(uint32_t*)(v10 + 20); i; i = *(uint32_t*)(i + 20)) {
+						v10 = i;
+					}
+					*(uint32_t*)(v10 + 20) = v4;
+				} else {
+					*(uint32_t*)(a1 + 92) = v4;
+				}
+				v4[5] = 0;
+				++*(uint32_t*)(a1 + 96);
+				return 1;
+			}
+			if (nox_strcmpi("FOREACH", (const char*)getMemAt(0x5D4594, 2487264))) {
+				break;
+			}
+			if (!v2) {
+				return 0;
+			}
+			if (*(uint32_t*)v2 != 1) {
+				return 0;
+			}
+			v5 = nox_xxx_gen_5205B0(a2);
+			if (!v5) {
+				return 0;
+			}
+			v5[2] = *(uint32_t*)(v2 + 84);
+			*(uint32_t*)(v2 + 84) = v5;
+		}
+		if (!nox_strcmpi("CONTAINS", (const char*)getMemAt(0x5D4594, 2487264))) {
+			if (v2) {
+				if (!*(uint32_t*)v2) {
+					v6 = nox_xxx_gen_520380(a2);
+					*(uint32_t*)(v2 + 80) = v6;
+					if (v6) {
+						continue;
+					}
+				}
+			}
+			return 0;
+		}
+		v7 = calloc(1u, 0x64u);
+		v2 = (int)v7;
+		if (!v7) {
+			return 0;
+		}
+		*v7 = 0;
+		if (*getMemU32Ptr(0x587000, 253216)) {
+			do {
+				if (!nox_strcmpi(*(const char**)getMemAt(0x587000, 253216 + 4 * *(uint32_t*)v2),
+							  (const char*)getMemAt(0x5D4594, 2487264))) {
+					break;
+				}
+				v8 = *(uint32_t*)v2 + 1;
+				*(uint32_t*)v2 = v8;
+			} while (*getMemU32Ptr(0x587000, 253216 + 4 * v8));
+		}
+		if (!*getMemU32Ptr(0x587000, 253216 + 4 * *(uint32_t*)v2)) {
+			free((void*)v2);
+			return 0;
+		}
+		switch (*(uint32_t*)v2) {
+		case 0:
+		case 1:
+			if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
+				free((void*)v2);
+				return 0;
+			}
+			strcpy((char*)(v2 + 4), (const char*)getMemAt(0x5D4594, 2487264));
+			if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
+				free((void*)v2);
+				return 0;
+			}
+			if (nox_strcmpi("DENSITY", (const char*)getMemAt(0x5D4594, 2487264))) {
+				*(uint32_t*)(v2 + 64) = 0;
+				*(uint32_t*)(v2 + 68) = atoi((const char*)getMemAt(0x5D4594, 2487264));
+				if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
+					free((void*)v2);
+					return 0;
+				}
+				*(uint32_t*)(v2 + 72) = atoi((const char*)getMemAt(0x5D4594, 2487264));
+				v4 = (int*)v12;
+				goto LABEL_39;
+			}
+			*(uint32_t*)(v2 + 64) = 1;
+			if (nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
+				*(float*)(v2 + 76) = atof((const char*)getMemAt(0x5D4594, 2487264));
+				if (nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
+					*(uint32_t*)(v2 + 68) = !strcmp("*", (const char*)getMemAt(0x5D4594, 2487264))
+												? 0
+												: atoi((const char*)getMemAt(0x5D4594, 2487264));
+					if (nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
+						if (!strcmp("*", (const char*)getMemAt(0x5D4594, 2487264))) {
+							*(uint32_t*)(v2 + 72) = 999999;
+						} else {
+							*(uint32_t*)(v2 + 72) = atoi((const char*)getMemAt(0x5D4594, 2487264));
+						}
+						v4 = (int*)v12;
+						goto LABEL_39;
+					}
+				}
+			}
+			free((void*)v2);
+			return 0;
+		case 3:
+		case 4:
+		case 5:
+			if (!nox_xxx_mapGenReadLine_51E540(a2, getMemAt(0x5D4594, 2487264))) {
+				free((void*)v2);
+				return 0;
+			}
+			strcpy((char*)(v2 + 4), (const char*)getMemAt(0x5D4594, 2487264));
+			v4 = (int*)v12;
+			break;
+		default:
+			break;
+		}
+	LABEL_39:
+		*(uint32_t*)(v2 + 88) = v4[2];
+		v9 = v4[3] + 1;
+		v4[2] = v2;
+		v4[3] = v9;
+	}
 }
 
 //----- (00520380) --------------------------------------------------------
@@ -1791,33 +1791,34 @@ LABEL_2:
 		while (nox_xxx_mapGenReadLine_51E540(a1, getMemAt(0x5D4594, 2487264))) {
 			if (!nox_strcmpi("END", (const char*)getMemAt(0x5D4594, 2487264))) {
 				v17 = 1;
-			LABEL_19:
-				if (v1) {
-					v9 = (uint32_t*)v1[514];
-					for (i = v1; v9; v9 = (uint32_t*)v9[514]) {
-						i = v9;
-					}
-					i[514] = v2;
-				} else {
-					v1 = v2;
-				}
-				if (v17) {
-					if (v15) {
-						v11 = v1;
-						do {
-							if ((int)*v11 < 0) {
-								*v11 = v16 / v15 + 1;
-							}
-							v11 = (uint32_t*)v11[514];
-						} while (v11);
-					}
-					return v1;
-				}
-				goto LABEL_2;
+			} else if (!nox_strcmpi("OR", (const char*)getMemAt(0x5D4594, 2487264))) {
+				// nop
+			} else {
+				goto LABEL_A;
 			}
-			if (!nox_strcmpi("OR", (const char*)getMemAt(0x5D4594, 2487264))) {
-				goto LABEL_19;
+			if (v1) {
+				v9 = (uint32_t*)v1[514];
+				for (i = v1; v9; v9 = (uint32_t*)v9[514]) {
+					i = v9;
+				}
+				i[514] = v2;
+			} else {
+				v1 = v2;
 			}
+			if (v17) {
+				if (v15) {
+					v11 = v1;
+					do {
+						if ((int)*v11 < 0) {
+							*v11 = v16 / v15 + 1;
+						}
+						v11 = (uint32_t*)v11[514];
+					} while (v11);
+				}
+				return v1;
+			}
+			goto LABEL_2;
+		LABEL_A:
 			v4 = 0;
 			if (*getMemU32Ptr(0x587000, 253216)) {
 				v5 = (const char**)getMemAt(0x587000, 253216);
@@ -3110,16 +3111,18 @@ void nox_xxx_mapgen_521FE0(int a1, int a2, uint32_t* a3) {
 					switch (*((uint32_t*)v6 - 1)) {
 					case 0:
 						v7 = nox_xxx_newObjectByTypeID_4E3810(v6);
-						goto LABEL_14;
+						v5 = v7;
+						break;
 					case 3:
 						v7 = nox_xxx_mapGenMakeEnchantedItem_5221A0(v6, *(char**)(a1 + 1100), *(uint32_t*)(a1 + 1104));
-						goto LABEL_14;
+						v5 = v7;
+						break;
 					case 4:
 						v7 = nox_xxx_mapGenMakeEnchantedItem_5221A0(v6, *(char**)(a1 + 1108), *(uint32_t*)(a1 + 1112));
-						goto LABEL_14;
+						v5 = v7;
+						break;
 					case 5:
 						v7 = nox_xxx_mapGenMakeSpellbook_5220E0(a1, v6);
-					LABEL_14:
 						v5 = v7;
 						break;
 					default:
@@ -4855,7 +4858,8 @@ int nox_xxx_gen_524680(int a1, int a2, int a3) {
 		v22 = v6;
 		if (v8) {
 			if (*v8 != 1) {
-				goto LABEL_18;
+				v22 = ++v6;
+				break;
 			}
 			v22 = --v6;
 		}
@@ -4881,7 +4885,6 @@ int nox_xxx_gen_524680(int a1, int a2, int a3) {
 				v24 = v12 + 32.526913;
 			} else {
 				v24 = v12 - 32.526913;
-			LABEL_18:
 				v22 = ++v6;
 			}
 		}
@@ -4905,7 +4908,8 @@ int nox_xxx_gen_524680(int a1, int a2, int a3) {
 			v17 = v23;
 			if (*v16 != 1) {
 				v23 = v17 - 32.526913;
-				goto LABEL_27;
+				v21 = ++result;
+				break;
 			}
 			v21 = --result;
 			v23 = v17 + 32.526913;
@@ -4929,7 +4933,6 @@ int nox_xxx_gen_524680(int a1, int a2, int a3) {
 			if (*v19 == 1) {
 				v21 = --result;
 			} else {
-			LABEL_27:
 				v21 = ++result;
 			}
 		}
@@ -5294,7 +5297,8 @@ int sub_524FB0(int a1, int a2, int a3) {
 			a2a.field_0 = *(float*)(a1 + 44);
 		}
 		a2a.field_4 = v8;
-		goto LABEL_42;
+		result = sub_5253B0(&a2a.field_0);
+		break;
 	case 1:
 		if (*(float*)(a2 + 36) >= (double)*(float*)(a1 + 36)) {
 			v9 = *(float*)(a2 + 36);
@@ -5396,7 +5400,6 @@ int sub_524FB0(int a1, int a2, int a3) {
 			v32 = *(float*)(a1 + 48);
 		}
 		a2a.field_4 = v32;
-	LABEL_42:
 		result = sub_5253B0(&a2a.field_0);
 		break;
 	default:
@@ -5490,43 +5493,40 @@ int sub_5253B0(float* a1) {
 	switch (v6) {
 	case 3u:
 		sub_526D50(1);
-		goto LABEL_21;
+		return sub_526E60(a1);
 	case 5u:
 		sub_526D50(10);
-		goto LABEL_21;
+		return sub_526E60(a1);
 	case 6u:
 		sub_526D50(9);
-		goto LABEL_21;
+		return sub_526E60(a1);
 	case 7u:
 		sub_526D50(6);
-		goto LABEL_21;
+		return sub_526E60(a1);
 	case 9u:
 		sub_526D50(7);
-		goto LABEL_21;
+		return sub_526E60(a1);
 	case 0xAu:
 		sub_526D50(8);
-		goto LABEL_21;
+		return sub_526E60(a1);
 	case 0xBu:
 		sub_526D50(4);
-		goto LABEL_21;
+		return sub_526E60(a1);
 	case 0xCu:
 		sub_526D50(0);
-		goto LABEL_21;
+		return sub_526E60(a1);
 	case 0xDu:
 		sub_526D50(3);
-		goto LABEL_21;
+		return sub_526E60(a1);
 	case 0xEu:
 		sub_526D50(5);
-		goto LABEL_21;
+		return sub_526E60(a1);
 	case 0xFu:
 		sub_526D50(2);
-	LABEL_21:
-		result = sub_526E60(a1);
-		break;
+		return sub_526E60(a1);
 	default:
 		return result;
 	}
-	return result;
 }
 
 //----- (00525510) --------------------------------------------------------
@@ -5894,25 +5894,27 @@ float* sub_525C90() {
 		v2 = dword_5d4594_2487584;
 		if (dword_5d4594_2487584) {
 			v3 = 0;
-			while (i[89] >= (double)*(float*)(v2 + 356)) {
+			while (1) {
+				if (i[89] < (double)*(float*)(v2 + 356)) {
+					v4 = *(uint32_t*)(v2 + 68);
+					if (v4) {
+						*(uint32_t*)(v4 + 64) = i;
+					} else {
+						dword_5d4594_2487584 = i;
+					}
+					v5 = *(uint32_t*)(v2 + 68);
+					*((uint32_t*)i + 16) = v2;
+					*((uint32_t*)i + 17) = v5;
+					*(uint32_t*)(v2 + 68) = i;
+					break;
+				}
 				v3 = v2;
 				v2 = *(uint32_t*)(v2 + 64);
 				if (!v2) {
-					goto LABEL_12;
+					break;
 				}
 			}
-			v4 = *(uint32_t*)(v2 + 68);
-			if (v4) {
-				*(uint32_t*)(v4 + 64) = i;
-			} else {
-				dword_5d4594_2487584 = i;
-			}
-			v5 = *(uint32_t*)(v2 + 68);
-			*((uint32_t*)i + 16) = v2;
-			*((uint32_t*)i + 17) = v5;
-			*(uint32_t*)(v2 + 68) = i;
 			if (!v2) {
-			LABEL_12:
 				*((uint32_t*)i + 17) = v3;
 				i[16] = 0.0;
 				*(uint32_t*)(v3 + 64) = i;
@@ -6206,7 +6208,7 @@ int sub_5262F0(int a1, int a2) {
 	v2 = sub_5029A0((char*)a2);
 	*(uint32_t*)(a2 + 68) = v2;
 	if (v2 == -1) {
-		goto LABEL_44;
+		return 0;
 	}
 	sub_502D70(v2);
 	v3 = sub_502E70(*(uint32_t*)(a2 + 68));
@@ -6301,12 +6303,10 @@ int sub_5262F0(int a1, int a2) {
 	} while (v19);
 	if (*(uint32_t*)(a2 + 144) > v20 || v21 > 2 ||
 		(*(uint32_t*)(a2 + 92) || *(uint32_t*)(a2 + 108)) && (*(uint32_t*)(a2 + 124) || *(uint32_t*)(a2 + 140))) {
-	LABEL_44:
-		result = 0;
+		return 0;
 	} else {
-		result = 1;
+		return 1;
 	}
-	return result;
 }
 
 //----- (00526550) --------------------------------------------------------
@@ -6357,57 +6357,57 @@ int sub_526550(int a1, int a2) {
 				switch (a2) {
 				case 0:
 					if (v9 < 0) {
-						goto LABEL_11;
+						break;
 					}
-					break;
+					goto LABEL_A;
 				case 1:
 					if (v9 > 0) {
-						goto LABEL_11;
+						break;
 					}
-					break;
+					goto LABEL_A;
 				case 2:
 					if (v8 > 0) {
-						goto LABEL_11;
+						break;
 					}
-					break;
+					goto LABEL_A;
 				case 3:
 					if (v8 < 0) {
-						goto LABEL_11;
+						break;
 					}
-					break;
+					goto LABEL_A;
 				default:
-				LABEL_11:
-					v10 = v8 * v8 + v9 * v9;
-					if (v3 >= 24) {
-						if (*(&v25 + v5) > v10) {
-							*(&v27 + v5) = (int)v7;
-							*(&v25 + v5) = v10;
-						}
-					} else {
-						++v4;
-						*(int*)((char*)&v27 + v3) = (int)v7;
-						*(int*)((char*)&v25 + v3) = v10;
-						v29 = v4;
-						v3 += 4;
-					}
-					v11 = v25;
-					v5 = 0;
-					v12 = 1;
-					if (v3 > 4) {
-						v13 = v26;
-						do {
-							if (*v13 > v11) {
-								v5 = v12;
-								v11 = *v13;
-							}
-							++v12;
-							++v13;
-						} while (v12 < v29);
-						v4 = v29;
-					}
 					break;
 				}
+				v10 = v8 * v8 + v9 * v9;
+				if (v3 >= 24) {
+					if (*(&v25 + v5) > v10) {
+						*(&v27 + v5) = (int)v7;
+						*(&v25 + v5) = v10;
+					}
+				} else {
+					++v4;
+					*(int*)((char*)&v27 + v3) = (int)v7;
+					*(int*)((char*)&v25 + v3) = v10;
+					v29 = v4;
+					v3 += 4;
+				}
+				v11 = v25;
+				v5 = 0;
+				v12 = 1;
+				if (v3 > 4) {
+					v13 = v26;
+					do {
+						if (*v13 > v11) {
+							v5 = v12;
+							v11 = *v13;
+						}
+						++v12;
+						++v13;
+					} while (v12 < v29);
+					v4 = v29;
+				}
 			}
+		LABEL_A:
 			v14 = sub_521720((int)v7);
 			v7 = (int*)v14;
 		} while (v14);
