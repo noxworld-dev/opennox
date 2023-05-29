@@ -37,7 +37,6 @@ type Nox_savegame_xxx struct {
 
 var _ = [1]struct{}{}[52-unsafe.Sizeof(Nox_screenParticle{})]
 
-type nox_screenParticle = nox_screenParticle
 type Nox_screenParticle struct {
 	Draw_fnc unsafe.Pointer      // 0, 0, func(unsafe.Pointer, *Nox_screenParticle) int
 	Field_4  uint32              // 1, 4
@@ -134,7 +133,7 @@ func Nox_xxx_bookShowMB_45AD70(a1 int) {
 func Sub_41A000(a1 string, a2 *Nox_savegame_xxx) int {
 	cstr := CString(a1)
 	defer StrFree(cstr)
-	return int(sub_41A000(cstr, (*nox_savegame_xxx)(unsafe.Pointer(a2))))
+	return int(sub_41A000(cstr, (*Nox_savegame_xxx)(unsafe.Pointer(a2))))
 }
 func Sub_43D9E0(a1 unsafe.Pointer) {
 	sub_43D9E0((*int4)(a1))

@@ -22,7 +22,7 @@ var (
 	Nox_xxx_playerObserveMonster_4DDE80 func(cplayer, cunit *server.Object)
 )
 
-type nox_playerInfo = nox_playerInfo
+type nox_playerInfo = server.Player
 
 func asPlayerS(p *nox_playerInfo) *server.Player {
 	return (*server.Player)(unsafe.Pointer(p))

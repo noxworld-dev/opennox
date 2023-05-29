@@ -1,9 +1,10 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"math"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 func nox_thing_npc_draw(a1 *int32, dr *nox_drawable) int32 {

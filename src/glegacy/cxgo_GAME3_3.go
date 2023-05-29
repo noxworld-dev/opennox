@@ -5,6 +5,9 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 func nox_server_handler_PlayerDamage_4E17B0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
@@ -925,7 +928,7 @@ func sub_4E4100() int32 {
 	return result
 }
 func sub_4E41B0(a1 *byte) int32 {
-	var v1 *File
+	var v1 *FILE
 	v1 = nox_fs_open_text(a1)
 	if v1 != nil {
 		for {
@@ -955,7 +958,7 @@ func sub_4E41B0(a1 *byte) int32 {
 	}
 	return 0
 }
-func sub_4E42C0(a1 *File) int32 {
+func sub_4E42C0(a1 *FILE) int32 {
 	var (
 		v1 *byte
 		v2 *byte
@@ -985,7 +988,7 @@ func sub_4E42C0(a1 *File) int32 {
 	}
 	return 0
 }
-func sub_4E4390(a1 *File) int32 {
+func sub_4E4390(a1 *FILE) int32 {
 	var (
 		v1 *byte
 		v3 [26]wchar2_t
@@ -1000,10 +1003,10 @@ func sub_4E4390(a1 *File) int32 {
 	}
 	return 1
 }
-func sub_4E43F0(a1 *byte) *File {
+func sub_4E43F0(a1 *byte) *FILE {
 	var (
-		result *File
-		v2     *File
+		result *FILE
+		v2     *FILE
 		i      *int32
 		j      *int32
 	)
@@ -1026,7 +1029,7 @@ func sub_4E43F0(a1 *byte) *File {
 			nox_fs_fprintf(v2, internCStr("%S\n"), (*int32)(unsafe.Add(unsafe.Pointer(j), 4*3)))
 		}
 		nox_fs_close(v2)
-		result = (*File)(unsafe.Pointer(uintptr(1)))
+		result = (*FILE)(unsafe.Pointer(uintptr(1)))
 	}
 	return result
 }
@@ -11985,7 +11988,7 @@ func nox_xxx_XFerElevatorShaft_4F54A0(a1 int32) int32 {
 func sub_4F5540(a1 int32) int32 {
 	var (
 		result int32
-		v2     *File
+		v2     *FILE
 	)
 	result = nox_crypt_IsReadOnly()
 	if nox_crypt_IsReadOnly() == 1 {

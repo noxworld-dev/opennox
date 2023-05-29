@@ -1,8 +1,11 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
+
+	"github.com/gotranspile/cxgo/runtime/libc"
+
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 func sub_4D42C0() int32 {

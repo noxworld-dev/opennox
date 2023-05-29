@@ -2,6 +2,9 @@ package legacy
 
 import (
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 func nox_xxx_guiServerPlayersLoad_456270(a1 int32) int32 {

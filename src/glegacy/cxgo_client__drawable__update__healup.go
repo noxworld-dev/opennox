@@ -1,8 +1,9 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 func sub_4CD450(a1 *uint32, a2 int32) int32 {

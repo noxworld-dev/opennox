@@ -5,6 +5,8 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var dword_5d4594_1090048 *nox_window = nil

@@ -1,7 +1,6 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
 )
 
@@ -61,10 +60,10 @@ func sub_4CD150(a1 int32, a2 *uint32, a3 int32, a4 int32) {
 	}
 	if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(a3 + 437)))) != 0 {
 		v11 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(a3 + 437))))))
-		v12 = &nox_xxx_netSpriteByCodeStatic_45A720(v11).field_0
+		v12 = &nox_xxx_netSpriteByCodeStatic_45A720(v11).Field_0
 	} else {
 		v13 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(a3 + 437))))))
-		v12 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(v13).field_0
+		v12 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(v13).Field_0
 	}
 	v14 = v12
 	if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(a3 + 441)))) != 0 {

@@ -1,6 +1,10 @@
 package legacy
 
-import "unsafe"
+import (
+	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+)
 
 func nox_thing_black_powder_draw(a1 *uint32, dr *nox_drawable) int32 {
 	var (

@@ -7,6 +7,9 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/cmath"
 	"github.com/gotranspile/cxgo/runtime/libc"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 func sub_51DA70(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
@@ -345,8 +348,8 @@ func nox_xxx_mapGenSpellIdByName_51E1D0(a1 *byte) int32 {
 }
 func nox_xxx_mapGenReadTheme_51E260(a1 *int32, a2 int32) int32 {
 	var (
-		v2 *File
-		v3 *File
+		v2 *FILE
+		v3 *FILE
 		v4 int32
 		v5 int32
 		v7 [256]byte
@@ -377,7 +380,7 @@ func nox_xxx_mapGenReadTheme_51E260(a1 *int32, a2 int32) int32 {
 	*memmap.PtrUint32(0x5D4594, 2487520) = 0
 	v2 = nox_binfile_open_408CC0(&v7[0], 0)
 	v3 = v2
-	if v2 == nil || nox_binfile_cryptSet_408D40((*File)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), 1) == 0 {
+	if v2 == nil || nox_binfile_cryptSet_408D40((*FILE)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), 1) == 0 {
 		return 0
 	}
 	for nox_xxx_mapGenReadLine_51E540(v3, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) != 0 {
@@ -438,7 +441,7 @@ LABEL_27:
 	}
 	return 0
 }
-func nox_xxx_mapGenReadLine_51E540(a1 *File, a2 *uint8) int32 {
+func nox_xxx_mapGenReadLine_51E540(a1 *FILE, a2 *uint8) int32 {
 	var result int32
 	result = sub_51E570(a1, a2)
 	if result != 0 {
@@ -446,7 +449,7 @@ func nox_xxx_mapGenReadLine_51E540(a1 *File, a2 *uint8) int32 {
 	}
 	return result
 }
-func sub_51E570(a1 *File, a2 *uint8) int32 {
+func sub_51E570(a1 *FILE, a2 *uint8) int32 {
 	var (
 		v2       *uint8
 		v3       int32
@@ -496,9 +499,9 @@ func sub_51E570(a1 *File, a2 *uint8) int32 {
 	*v2 = 0
 	return 1
 }
-func sub_51E630(a1 *File) int32 {
+func sub_51E630(a1 *FILE) int32 {
 	var (
-		v1     *File
+		v1     *FILE
 		result int32
 	)
 	v1 = a1
@@ -516,7 +519,7 @@ func sub_51E630(a1 *File) int32 {
 	}
 	return result
 }
-func sub_51E670(a1 *File) int32 {
+func sub_51E670(a1 *FILE) int32 {
 	var (
 		result int32
 		v2     int32
@@ -546,7 +549,7 @@ func sub_51E670(a1 *File) int32 {
 	}
 	return result
 }
-func sub_51E720(a1 *File) int32 {
+func sub_51E720(a1 *FILE) int32 {
 	for {
 		for {
 			if sub_51E570(a1, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
@@ -565,7 +568,7 @@ func sub_51E720(a1 *File) int32 {
 	}
 	return 1
 }
-func sub_51E780(a1 *File) int32 {
+func sub_51E780(a1 *FILE) int32 {
 	for {
 		for {
 			if sub_51E570(a1, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
@@ -586,7 +589,7 @@ func sub_51E780(a1 *File) int32 {
 }
 func sub_51E800(a1 int32, a2 *uint32) int32 {
 	var (
-		v2 *File
+		v2 *FILE
 		v3 *uint32
 	)
 	_ = v3
@@ -598,8 +601,8 @@ func sub_51E800(a1 int32, a2 *uint32) int32 {
 	var v9 int32
 	var v10 int32
 	var v11 int32
-	v2 = (*File)(unsafe.Pointer(uintptr(a1)))
-	if nox_xxx_mapGenReadLine_51E540((*File)(unsafe.Pointer(uintptr(a1))), (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
+	v2 = (*FILE)(unsafe.Pointer(uintptr(a1)))
+	if nox_xxx_mapGenReadLine_51E540((*FILE)(unsafe.Pointer(uintptr(a1))), (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
 		return 0
 	}
 	if nox_strcmpi(internCStr("WIZARD"), (*byte)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
@@ -706,7 +709,7 @@ func sub_51E800(a1 int32, a2 *uint32) int32 {
 }
 func sub_51EAF0(a1 int32, a2 *uint32) int32 {
 	var result int32
-	if nox_xxx_mapGenReadLine_51E540((*File)(unsafe.Pointer(uintptr(a1))), (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
+	if nox_xxx_mapGenReadLine_51E540((*FILE)(unsafe.Pointer(uintptr(a1))), (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
 		return 0
 	}
 	if nox_strcmpi(internCStr("<"), (*byte)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
@@ -729,7 +732,7 @@ func sub_51EAF0(a1 int32, a2 *uint32) int32 {
 	*a2 = 3
 	return result
 }
-func nox_xxx_genReadAlgData_51EBB0(a1 int32, a2 *File) int32 {
+func nox_xxx_genReadAlgData_51EBB0(a1 int32, a2 *FILE) int32 {
 	var (
 		v2 int32
 		v3 **byte
@@ -847,7 +850,7 @@ func nox_xxx_genReadAlgData_51EBB0(a1 int32, a2 *File) int32 {
 	}
 	return 0
 }
-func nox_xxx_genReadSpellSet_51EFB0(a1 int32, a2 *File) int32 {
+func nox_xxx_genReadSpellSet_51EFB0(a1 int32, a2 *FILE) int32 {
 	var v2 int32
 	for {
 		if nox_xxx_mapGenReadLine_51E540(a2, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
@@ -868,7 +871,7 @@ func nox_xxx_genReadSpellSet_51EFB0(a1 int32, a2 *File) int32 {
 	}
 	return 1
 }
-func nox_xxx_genReadWeaponSet_51F030(a1 int32, a2 *File) int32 {
+func nox_xxx_genReadWeaponSet_51F030(a1 int32, a2 *FILE) int32 {
 	var (
 		v2 *byte
 		v3 int32
@@ -942,7 +945,7 @@ func nox_xxx_mapGenFreeStr_51F1F0(lpMem unsafe.Pointer) {
 	}
 	alloc.Free(lpMem)
 }
-func sub_51F230(a1 int32, a2 *File) int32 {
+func sub_51F230(a1 int32, a2 *FILE) int32 {
 	var (
 		v2  int32
 		v3  int32
@@ -1219,7 +1222,7 @@ func sub_51F230(a1 int32, a2 *File) int32 {
 		}
 	}
 }
-func nox_xxx_genReadArmorSet_51F640(a1 int32, a2 *File) int32 {
+func nox_xxx_genReadArmorSet_51F640(a1 int32, a2 *FILE) int32 {
 	var (
 		v2 *byte
 		v3 int32
@@ -1274,7 +1277,7 @@ func nox_xxx_genReadArmorSet_51F640(a1 int32, a2 *File) int32 {
 	dword_5d4594_2487524 = 0
 	return 1
 }
-func nox_xxx_genReadExit_51F800(a1 int32, a2 *File) int32 {
+func nox_xxx_genReadExit_51F800(a1 int32, a2 *FILE) int32 {
 	for {
 		if nox_xxx_mapGenReadLine_51E540(a2, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
 			return 0
@@ -1330,11 +1333,11 @@ func nox_xxx_genReadExit_51F800(a1 int32, a2 *File) int32 {
 	}
 	return 1
 }
-func nox_xxx_genReadDecor_51F9F0(a1 *uint32, a2 *File) int32 {
+func nox_xxx_genReadDecor_51F9F0(a1 *uint32, a2 *FILE) int32 {
 	var (
 		v2     *uint8
 		v3     int32
-		v4     *File
+		v4     *FILE
 		v5     int32
 		v6     int32
 		v7     **byte
@@ -1482,7 +1485,7 @@ func nox_xxx_genReadDecor_51F9F0(a1 *uint32, a2 *File) int32 {
 	}
 	return 0
 }
-func nox_xxx_genDecorReadWallFloor_51FE00(a1 int32, a2 *File) *byte {
+func nox_xxx_genDecorReadWallFloor_51FE00(a1 int32, a2 *FILE) *byte {
 	var (
 		result *byte
 		v3     *byte
@@ -1507,7 +1510,7 @@ func nox_xxx_genDecorReadWallFloor_51FE00(a1 int32, a2 *File) *byte {
 	}
 	return result
 }
-func sub_51FEC0(a1 int32, a2 int32, a3 *File) int32 {
+func sub_51FEC0(a1 int32, a2 int32, a3 *FILE) int32 {
 	var (
 		result int32
 		v4     int32
@@ -1540,7 +1543,7 @@ func sub_51FEC0(a1 int32, a2 int32, a3 *File) int32 {
 	}
 	return result
 }
-func nox_xxx_genDecorReadDecorSet_51FFA0(a1 int32, a2 *File) int32 {
+func nox_xxx_genDecorReadDecorSet_51FFA0(a1 int32, a2 *FILE) int32 {
 	var (
 		v2     int32
 		result int32
@@ -1706,7 +1709,7 @@ func nox_xxx_genDecorReadDecorSet_51FFA0(a1 int32, a2 *File) int32 {
 		*(*int32)(unsafe.Add(unsafe.Pointer(v4), 4*3)) = v9
 	}
 }
-func nox_xxx_gen_520380(a1 *File) *uint32 {
+func nox_xxx_gen_520380(a1 *FILE) *uint32 {
 	var (
 		v1  *uint32
 		v2  *uint32
@@ -1818,7 +1821,7 @@ LABEL_2:
 	}
 	return nil
 }
-func nox_xxx_gen_5205B0(a1 *File) *uint32 {
+func nox_xxx_gen_5205B0(a1 *FILE) *uint32 {
 	var (
 		result *uint32
 		v2     *uint32
@@ -1852,7 +1855,7 @@ func nox_xxx_gen_5205B0(a1 *File) *uint32 {
 	}
 	return result
 }
-func nox_xxx_genDecorReadCopy_520660(a1 *uint32, a2 *byte, a3 *File) int32 {
+func nox_xxx_genDecorReadCopy_520660(a1 *uint32, a2 *byte, a3 *FILE) int32 {
 	var (
 		result int32
 		v4     int32
@@ -1945,7 +1948,7 @@ func nox_xxx_genDecorReadCopy_520660(a1 *uint32, a2 *byte, a3 *File) int32 {
 	}
 	return 1
 }
-func nox_xxx_genDecorReadOccurConstraint_520810(a1 int32, a2 *File) int32 {
+func nox_xxx_genDecorReadOccurConstraint_520810(a1 int32, a2 *FILE) int32 {
 	var (
 		v3 *byte
 		v4 int32
@@ -1992,7 +1995,7 @@ func nox_xxx_genDecorReadOccurConstraint_520810(a1 int32, a2 *File) int32 {
 	}
 	return 1
 }
-func nox_xxx_genDecorReadOccurLimit_5208D0(a1 int32, a2 *File) int32 {
+func nox_xxx_genDecorReadOccurLimit_5208D0(a1 int32, a2 *FILE) int32 {
 	var result int32
 	result = nox_xxx_mapGenReadLine_51E540(a2, (*uint8)(memmap.PtrOff(0x5D4594, 2487264)))
 	if result != 0 {
@@ -2001,7 +2004,7 @@ func nox_xxx_genDecorReadOccurLimit_5208D0(a1 int32, a2 *File) int32 {
 	}
 	return result
 }
-func nox_xxx_genDecorReadFrequency_520910(a1 int32, a2 *File) int32 {
+func nox_xxx_genDecorReadFrequency_520910(a1 int32, a2 *FILE) int32 {
 	var result int32
 	result = nox_xxx_mapGenReadLine_51E540(a2, (*uint8)(memmap.PtrOff(0x5D4594, 2487264)))
 	if result != 0 {
@@ -2032,7 +2035,7 @@ func nox_xxx_genDecorReadFrequency_520910(a1 int32, a2 *File) int32 {
 	}
 	return result
 }
-func nox_xxx_genDecorReadRoomSizeCon_5209F0(a1 int32, a2 *File) int32 {
+func nox_xxx_genDecorReadRoomSizeCon_5209F0(a1 int32, a2 *FILE) int32 {
 	var result int32
 	result = nox_xxx_mapGenReadLine_51E540(a2, (*uint8)(memmap.PtrOff(0x5D4594, 2487264)))
 	if result != 0 {
@@ -2053,10 +2056,10 @@ func nox_xxx_genDecorReadRoomSizeCon_5209F0(a1 int32, a2 *File) int32 {
 	}
 	return result
 }
-func nox_xxx_genDecorReadDoor_520A90(a1 int32, a2 *File) int32 {
+func nox_xxx_genDecorReadDoor_520A90(a1 int32, a2 *FILE) int32 {
 	return bool2int32(nox_xxx_mapGenReadLine_51E540(a2, (*uint8)(unsafe.Pointer(uintptr(a1+100)))) != 0)
 }
-func nox_xxx_genDecorReadDoubleDoor_520AB0(a1 int32, a2 *File) int32 {
+func nox_xxx_genDecorReadDoubleDoor_520AB0(a1 int32, a2 *FILE) int32 {
 	return bool2int32(nox_xxx_mapGenReadLine_51E540(a2, (*uint8)(unsafe.Pointer(uintptr(a1+160)))) != 0)
 }
 func nox_xxx_mapgenCheckSettings_520AD0(a1 *int32) int32 {
@@ -2112,7 +2115,7 @@ func nox_xxx_mapgenCheckSettings_520AD0(a1 *int32) int32 {
 	}
 	return 0
 }
-func nox_xxx_genReadPrefab_520BF0(a1 int32, a2 *File) int32 {
+func nox_xxx_genReadPrefab_520BF0(a1 int32, a2 *FILE) int32 {
 	var (
 		v2 *byte
 		v3 int32
@@ -2155,7 +2158,7 @@ func nox_xxx_genReadPrefab_520BF0(a1 int32, a2 *File) int32 {
 	}
 	return 0
 }
-func sub_520CE0(a1 int32, a2 *File) *byte {
+func sub_520CE0(a1 int32, a2 *FILE) *byte {
 	var (
 		result *byte
 		v3     int32

@@ -6,6 +6,9 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 var nox_xxx_wallSounds_2386840 uint32 = 0
@@ -5035,14 +5038,14 @@ func sub_516FC0() {
 func nox_xxx_loadMonsterBin_517010() int32 {
 	var (
 		result int32
-		v1     *File
+		v1     *FILE
 		v2     [256]byte
 	)
 	nox_monsterBin_head_2386924 = nil
 	result = int32(uintptr(unsafe.Pointer(nox_binfile_open_408CC0(internCStr("monster.bin"), 0))))
-	v1 = (*File)(unsafe.Pointer(uintptr(result)))
+	v1 = (*FILE)(unsafe.Pointer(uintptr(result)))
 	if result != 0 {
-		result = nox_binfile_cryptSet_408D40((*File)(unsafe.Pointer(uintptr(result))), 23)
+		result = nox_binfile_cryptSet_408D40((*FILE)(unsafe.Pointer(uintptr(result))), 23)
 		if result != 0 {
 			for nox_xxx_readStr_517090(v1, (*uint8)(unsafe.Pointer(&v2[0]))) != 0 && nox_xxx_servParseMonsterDef_517170(v1, &v2[0]) != 0 {
 			}
@@ -5052,7 +5055,7 @@ func nox_xxx_loadMonsterBin_517010() int32 {
 	}
 	return result
 }
-func nox_xxx_readStr_517090(a1 *File, a2 *uint8) int32 {
+func nox_xxx_readStr_517090(a1 *FILE, a2 *uint8) int32 {
 	var (
 		v2       *uint8
 		v3       int32
@@ -5099,9 +5102,9 @@ func nox_xxx_readStr_517090(a1 *File, a2 *uint8) int32 {
 	*v2 = 0
 	return 1
 }
-func sub_517140(a1 *File) int32 {
+func sub_517140(a1 *FILE) int32 {
 	var (
-		v1     *File
+		v1     *FILE
 		result int32
 	)
 	v1 = a1
@@ -5115,7 +5118,7 @@ func sub_517140(a1 *File) int32 {
 	}
 	return result
 }
-func nox_xxx_servParseMonsterDef_517170(a1 *File, a2 *byte) int32 {
+func nox_xxx_servParseMonsterDef_517170(a1 *FILE, a2 *byte) int32 {
 	var (
 		result int32
 		v3     *uint32

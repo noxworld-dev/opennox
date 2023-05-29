@@ -4,6 +4,8 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+
+	memmap "github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 func nox_game_showSelColor_4A5D00() int32 {
@@ -178,7 +180,7 @@ func sub_4A75C0() int32 {
 		v17 int32
 		v18 *byte
 		i   int32
-		v20 *File
+		v20 *FILE
 		v21 *byte
 		v23 int8
 		v24 [16]byte

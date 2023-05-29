@@ -407,10 +407,10 @@ func Set_nox_alloc_screenParticles_806044(v unsafe.Pointer) {
 	nox_alloc_screenParticles_806044 = v
 }
 func Set_nox_screenParticles_head(v unsafe.Pointer) {
-	nox_screenParticles_head = (*nox_screenParticle)(v)
+	nox_screenParticles_head = (*Nox_screenParticle)(v)
 }
 func Set_dword_5d4594_806052(v unsafe.Pointer) {
-	dword_5d4594_806052 = (*nox_screenParticle)(v)
+	dword_5d4594_806052 = (*Nox_screenParticle)(v)
 }
 func Set_dword_5d4594_830236(v unsafe.Pointer) {
 	dword_5d4594_830236 = v

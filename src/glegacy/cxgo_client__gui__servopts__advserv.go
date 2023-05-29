@@ -2,6 +2,8 @@ package legacy
 
 import (
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 func sub_4BE2C0(a1 int32) int32 {

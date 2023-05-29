@@ -1,5 +1,10 @@
 package legacy
 
+const (
+	NOX_DEFAULT_WIDTH  = 640
+	NOX_DEFAULT_HEIGHT = 480
+)
+
 type char = int8
 type size_t = int32
 type long = int32
@@ -22,6 +27,13 @@ type float2 struct {
 	field_4 float32
 }
 
+type float4 struct {
+	field_0 float32
+	field_4 float32
+	field_8 float32
+	field_C float32
+}
+
 type nox_point struct {
 	x int32
 	y int32
@@ -39,4 +51,8 @@ func bool2int32(v bool) int32 {
 		return 1
 	}
 	return 0
+}
+
+func funAddr(fnc any) uintptr {
+
 }

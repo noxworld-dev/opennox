@@ -1,18 +1,21 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
-	"github.com/gotranspile/cxgo/runtime/stdio"
 	"math"
 	"unicode"
 	"unsafe"
+
+	"github.com/gotranspile/cxgo/runtime/libc"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 var nox_server_gameSettingsUpdated int32
 var nox_tile_def_cnt uint32 = 0
 var nox_tile_defs_arr [176]nox_tileDef_t = [176]nox_tileDef_t{}
 
-func nox_xxx_parseString_409470(a1 *File, a2 *uint8) int32 {
+func nox_xxx_parseString_409470(a1 *FILE, a2 *uint8) int32 {
 	var (
 		v2       *uint8
 		v3       int32

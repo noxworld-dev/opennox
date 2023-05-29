@@ -50,13 +50,13 @@ func nox_xxx_sprite_45A110_drawable(dr *nox_drawable) {
 }
 
 // nox_xxx_netSpriteByCodeStatic_45A720
-func nox_xxx_netSpriteByCodeStatic_45A720(id int) *nox_drawable {
-	return (*nox_drawable)(GetClient().Cli().Objs.ByNetCodeStatic(id).C())
+func nox_xxx_netSpriteByCodeStatic_45A720(id int32) *nox_drawable {
+	return (*nox_drawable)(GetClient().Cli().Objs.ByNetCodeStatic(int(id)).C())
 }
 
 // nox_xxx_netSpriteByCodeDynamic_45A6F0
-func nox_xxx_netSpriteByCodeDynamic_45A6F0(id int) *nox_drawable {
-	return (*nox_drawable)(GetClient().Cli().Objs.ByNetCodeDynamic(id).C())
+func nox_xxx_netSpriteByCodeDynamic_45A6F0(id int32) *nox_drawable {
+	return (*nox_drawable)(GetClient().Cli().Objs.ByNetCodeDynamic(int(id)).C())
 }
 
 // nox_xxx_cliRemoveHealthbar_459E30

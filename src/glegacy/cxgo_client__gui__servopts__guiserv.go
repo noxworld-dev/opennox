@@ -5,6 +5,9 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 type nox_gui_gamemode struct {
@@ -320,7 +323,7 @@ func nox_client_guiserv_updateMapList_458230(mode int32, current *byte, a3 bool)
 	var v18 int32 = -1
 	*memmap.PtrUint32(0x5D4594, 1046552) = uint32(mode)
 	var v17 int32 = 0
-	for it := (*nox_map_list_item)(nox_common_maplist_first_4D09B0()); it != nil; it = nox_common_maplist_next_4D09C0(it) {
+	for it := (*Nox_map_list_item)(nox_common_maplist_first_4D09B0()); it != nil; it = nox_common_maplist_next_4D09C0(it) {
 		if it.field_6 == 0 {
 			continue
 		}

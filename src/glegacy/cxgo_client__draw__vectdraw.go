@@ -1,8 +1,9 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 func sub_4BC5D0(dr *nox_drawable, a2 int32) int32 {

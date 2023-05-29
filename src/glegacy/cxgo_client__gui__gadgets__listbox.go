@@ -1,9 +1,12 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"math"
 	"unsafe"
+
+	"github.com/gotranspile/cxgo/runtime/libc"
+
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 func nox_gui_newScrollListBox_4A4310(a1p *nox_window, a2 int32, a3 int32, a4 int32, a5 int32, a6 int32, a7 int32, opts *nox_scrollListBox_data) *nox_window {

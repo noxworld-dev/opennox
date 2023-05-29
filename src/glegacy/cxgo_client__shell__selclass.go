@@ -2,6 +2,8 @@ package legacy
 
 import (
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 func sub_4A4A20(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {

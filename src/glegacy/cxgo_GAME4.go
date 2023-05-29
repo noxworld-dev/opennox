@@ -6,9 +6,12 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/gotranspile/cxgo/runtime/stdio"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-var nox_file_8 *File = nil
+var nox_file_8 *FILE = nil
 var nox_cheat_charmall int32 = 0
 var dword_5d4594_1599480 uint32 = 0
 var dword_5d4594_1599476 uint32 = 0
@@ -5523,7 +5526,7 @@ func nox_server_scriptExecuteFnForEachGroupObj_502670(groupPtr *uint8, expectedT
 	default:
 	}
 }
-func nox_xxx_mapgenMakeScript_502790(a1 *File, a2 *byte) int32 {
+func nox_xxx_mapgenMakeScript_502790(a1 *FILE, a2 *byte) int32 {
 	var (
 		result int32
 		i      int32
@@ -5712,26 +5715,26 @@ func sub_502D70(a1 int32) int32 {
 	dword_5d4594_3835396 = uint32(a1)
 	return bool2int32(nox_xxx_mapgenSaveMap_503830(a1) == 0)
 }
-func sub_502DA0(a1 *byte) *File {
-	var result *File
+func sub_502DA0(a1 *byte) *FILE {
+	var result *FILE
 	result = nox_file_8
-	if nox_file_8 != nil || (func() *File {
-		result = (*File)(unsafe.Pointer(uintptr(nox_xxx_cryptOpen_426910(a1, 1, -1))))
+	if nox_file_8 != nil || (func() *FILE {
+		result = (*FILE)(unsafe.Pointer(uintptr(nox_xxx_cryptOpen_426910(a1, 1, -1))))
 		return result
 	}()) != nil && (func() bool {
 		result = nox_xxx_mapgenGetSomeFile_426A60()
-		return (func() *File {
+		return (func() *FILE {
 			nox_file_8 = result
 			return nox_file_8
 		}()) != nil
 	}()) {
 		nox_fs_fseek(result, 0, stdio.SEEK_SET)
-		result = (*File)(unsafe.Pointer(uintptr(1)))
+		result = (*FILE)(unsafe.Pointer(uintptr(1)))
 	}
 	return result
 }
-func sub_502DF0() *File {
-	var result *File
+func sub_502DF0() *FILE {
+	var result *FILE
 	result = nox_file_8
 	if nox_file_8 != nil {
 		nox_xxx_cryptClose_4269F0()
@@ -5739,7 +5742,7 @@ func sub_502DF0() *File {
 	}
 	return result
 }
-func sub_502E10(a1 int32) *File {
+func sub_502E10(a1 int32) *FILE {
 	if nox_file_8 == nil || a1 < 0 || a1 >= *(*int32)(unsafe.Pointer(&dword_5d4594_1599596)) {
 		return nil
 	}
@@ -5766,7 +5769,7 @@ func sub_502EA0(a1 int32) float64 {
 }
 func nox_xxx_mapgenSaveMap_503830(a1 int32) int32 {
 	var (
-		v1  *File
+		v1  *FILE
 		v2  *uint32
 		v3  int32
 		v5  uint8
@@ -6387,7 +6390,7 @@ func sub_505060() unsafe.Pointer {
 }
 func nox_server_mapRWMapIntro_505080() int32 {
 	var (
-		v0     *File
+		v0     *FILE
 		v1     int32
 		v2     *byte
 		v3     int16
@@ -6397,8 +6400,8 @@ func nox_server_mapRWMapIntro_505080() int32 {
 		v7     uint8
 		v8     int16
 		v9     int32
-		v10    *File
-		v11    *File
+		v10    *FILE
+		v11    *FILE
 		result int32
 		v13    *uint8
 		v14    *uint8
@@ -6484,7 +6487,7 @@ func nox_server_mapRWMapIntro_505080() int32 {
 	}
 	if v1 != 0 && (func() bool {
 		v10 = nox_fs_open(&v19[0])
-		return (func() *File {
+		return (func() *FILE {
 			v11 = v10
 			return v11
 		}()) != nil

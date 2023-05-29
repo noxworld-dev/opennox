@@ -5,6 +5,9 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 var dword_5d4594_830236 unsafe.Pointer = nil
@@ -644,8 +647,8 @@ func sub_4417E0(a1 *wchar2_t, a2 *byte) {
 }
 func nox_xxx_doExecrul_4438A0(a1 int32) int32 {
 	var (
-		v1 *File
-		v2 *File
+		v1 *FILE
+		v2 *FILE
 		v3 *byte
 		v5 [256]byte
 		v6 [256]byte
@@ -830,8 +833,8 @@ func nox_gui_xxx_check_446360() uint32 {
 }
 func nox_motd_4463E0(a1 int32) int32 {
 	var (
-		result *File
-		v2     *File
+		result *FILE
+		v2     *FILE
 		v3     *byte
 	)
 	dword_5d4594_826036 = nil

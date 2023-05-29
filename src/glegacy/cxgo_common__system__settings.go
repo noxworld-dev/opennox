@@ -1,6 +1,8 @@
 package legacy
 
-import "github.com/gotranspile/cxgo/runtime/libc"
+import (
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+)
 
 func sub_409FB0_settings(a1 int16, a2 uint16) {
 	var (

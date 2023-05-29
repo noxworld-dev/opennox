@@ -7,6 +7,9 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/gotranspile/cxgo/runtime/stdio"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 var nox_pixbuffer_rows_3798784 **uint8 = nil
@@ -4365,9 +4368,9 @@ func sub_486AA0(a1 *uint32, a2 int32, a3 *uint32) int32 {
 func sub_486B60(a1 int32, a2 int32) int32 {
 	var (
 		v2  int32
-		v3  *File
-		v6  *File
-		v7  *File
+		v3  *FILE
+		v6  *FILE
+		v7  *FILE
 		v8  int32
 		v9  int32
 		v10 int32
@@ -4379,7 +4382,7 @@ func sub_486B60(a1 int32, a2 int32) int32 {
 	v12 = 1
 	v2 = sub_4866D0((*uint32)(unsafe.Pointer(uintptr(a1))), a2)
 	sub_486E00(a1)
-	v3 = *(**File)(unsafe.Pointer(uintptr(a1 + 268)))
+	v3 = *(**FILE)(unsafe.Pointer(uintptr(a1 + 268)))
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 280))) = uint32(uintptr(unsafe.Pointer(v3)))
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 284))) = *(*uint32)(unsafe.Pointer(uintptr(v2 + 20)))
 	if nox_fs_fseek(v3, int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 16)))), stdio.SEEK_SET) != 0 {
@@ -4404,7 +4407,7 @@ func sub_486B60(a1 int32, a2 int32) int32 {
 	if nox_binfile_fread_raw_40ADD0((*byte)(unsafe.Pointer(&v15[0])), 0xC, 1, v6) != 1 || uint32(v15[0]) != 1179011410 || uint32(v15[2]) != 1163280727 {
 		stdio.Printf("error: '%s' is bad - cannot read\n", &v15[3])
 		if *(*uint32)(unsafe.Pointer(uintptr(a1 + 272))) != 0 {
-			nox_fs_close(*(**File)(unsafe.Pointer(uintptr(a1 + 272))))
+			nox_fs_close(*(**FILE)(unsafe.Pointer(uintptr(a1 + 272))))
 			*(*uint32)(unsafe.Pointer(uintptr(a1 + 272))) = 0
 		}
 		return v12
@@ -4457,7 +4460,7 @@ func sub_486DB0(a1 int32, a2 *byte, a3 int32) int32 {
 		v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 284))))
 	}
 	if v4 <= 0 || (func() bool {
-		result = nox_binfile_fread_raw_40ADD0(a2, 1, uint32(v4), *(**File)(unsafe.Pointer(uintptr(a1 + 280))))
+		result = nox_binfile_fread_raw_40ADD0(a2, 1, uint32(v4), *(**FILE)(unsafe.Pointer(uintptr(a1 + 280))))
 		return result < 0
 	}()) {
 		result = 0
@@ -4465,9 +4468,9 @@ func sub_486DB0(a1 int32, a2 *byte, a3 int32) int32 {
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 284))) -= uint32(result)
 	return result
 }
-func sub_486E00(a1 int32) *File {
-	var result *File
-	result = *(**File)(unsafe.Pointer(uintptr(a1 + 272)))
+func sub_486E00(a1 int32) *FILE {
+	var result *FILE
+	result = *(**FILE)(unsafe.Pointer(uintptr(a1 + 272)))
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 280))) = 0
 	if result != nil {
 		nox_fs_close(result)

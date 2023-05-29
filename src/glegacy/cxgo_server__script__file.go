@@ -1,32 +1,35 @@
 package legacy
 
 import (
+	"unsafe"
+
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/gotranspile/cxgo/runtime/stdio"
-	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 var dword_5d4594_2489420 uint32 = 0
 var dword_5d4594_2489424 uint32 = 0
 var dword_5d4594_2489428 uint32 = 0
 
-func nox_script_readInt_542B70(f *File) int32 {
+func nox_script_readInt_542B70(f *FILE) int32 {
 	var v int32 = 0
 	nox_fs_fread(f, unsafe.Pointer(&v), 4)
 	return v
 }
-func nox_script_readFloat_542B90(f *File) float64 {
+func nox_script_readFloat_542B90(f *FILE) float64 {
 	var v float32 = 0
 	nox_fs_fread(f, unsafe.Pointer(&v), 4)
 	return float64(v)
 }
-func nox_script_writeFloat_542BD0(v float32, f *File) int32 {
+func nox_script_writeFloat_542BD0(v float32, f *FILE) int32 {
 	return nox_fs_fwrite(f, unsafe.Pointer(&v), 4) / 4
 }
-func nox_script_writeInt_542BB0(v int32, f *File) int32 {
+func nox_script_writeInt_542BB0(v int32, f *FILE) int32 {
 	return nox_fs_fwrite(f, unsafe.Pointer(&v), 4) / 4
 }
-func nox_script_readWriteYyy_542380(f1 *File, f2 *File, a3 int32) int32 {
+func nox_script_readWriteYyy_542380(f1 *FILE, f2 *FILE, a3 int32) int32 {
 	var (
 		result int32
 		v6     int32
@@ -264,7 +267,7 @@ func nox_script_readWriteYyy_542380(f1 *File, f2 *File, a3 int32) int32 {
 		}
 	}
 }
-func nox_script_readWriteJjj_5418C0(a1 *File, a2 *File, a3 *File) int32 {
+func nox_script_readWriteJjj_5418C0(a1 *FILE, a2 *FILE, a3 *FILE) int32 {
 	var (
 		i      int32
 		result int32
@@ -303,7 +306,7 @@ func nox_script_readWriteJjj_5418C0(a1 *File, a2 *File, a3 *File) int32 {
 	}
 	return result
 }
-func nox_script_readWriteVvv_541E40(a1 *File, a2 *File, a3 *File) int32 {
+func nox_script_readWriteVvv_541E40(a1 *FILE, a2 *FILE, a3 *FILE) int32 {
 	var (
 		v4  uint32
 		v5  int32
@@ -409,7 +412,7 @@ func nox_script_readWriteVvv_541E40(a1 *File, a2 *File, a3 *File) int32 {
 	nox_fs_fseek(a3, -4, stdio.SEEK_CUR)
 	return nox_script_readWriteYyy_542380(a2, a3, 1)
 }
-func nox_script_readWriteIii_541D80(a1 *File, a2 *File) int32 {
+func nox_script_readWriteIii_541D80(a1 *FILE, a2 *FILE) int32 {
 	var (
 		v2     int32
 		result int32
@@ -439,7 +442,7 @@ func nox_script_readWriteIii_541D80(a1 *File, a2 *File) int32 {
 	}
 	return result
 }
-func nox_script_readWriteXxx_541A50(f1 *File, f2 *File, f3 *File) int32 {
+func nox_script_readWriteXxx_541A50(f1 *FILE, f2 *FILE, f3 *FILE) int32 {
 	var (
 		v3     uint32
 		result int32
@@ -511,7 +514,7 @@ func nox_script_readWriteXxx_541A50(f1 *File, f2 *File, f3 *File) int32 {
 	}
 	return result
 }
-func nox_script_readWriteWww_5417C0(a1 *File, a2 *File, a3 *File) uint32 {
+func nox_script_readWriteWww_5417C0(a1 *FILE, a2 *FILE, a3 *FILE) uint32 {
 	var (
 		v3 uint32
 		v4 uint32
@@ -538,8 +541,8 @@ func sub_543110(lpExistingFileName *byte, a2 *int32) int32 {
 		v2          int32
 		v3          int32
 		v4          *byte
-		v6          *File
-		v7          *File
+		v6          *FILE
+		v7          *FILE
 		v8          uint32
 		i           int32
 		v10         int32

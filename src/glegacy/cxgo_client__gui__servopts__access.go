@@ -3,6 +3,8 @@ package legacy
 import (
 	"math"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 func sub_454640() int32 {

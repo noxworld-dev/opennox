@@ -112,18 +112,18 @@ func nox_xxx_wndSetRectColor2MB_46AFE0(win *nox_window, a2 int) int {
 }
 
 // nox_window_call_field_94_fnc
-func nox_window_call_field_94_fnc(p *nox_window, a2, a3, a4 int) int {
+func nox_window_call_field_94_fnc(p *nox_window, a2, a3, a4 int32) int32 {
 	if p == nil {
 		return 0
 	}
 	if guiDebug {
 		guiLog.Printf("nox_window_call_field_94(%p, %x, %x, %x)", p, a2, a3, a4)
 	}
-	r := asWindow(p).Func94(gui.AsWindowEvent(a2, uintptr(a3), uintptr(a4)))
+	r := asWindow(p).Func94(gui.AsWindowEvent(int(a2), uintptr(a3), uintptr(a4)))
 	if r == nil {
 		return 0
 	}
-	return int(r.EventRespC())
+	return int32(r.EventRespC())
 }
 
 // nox_window_call_field_93
@@ -173,12 +173,12 @@ func nox_xxx_wndShowModalMB_46A8C0(p *nox_window) int {
 }
 
 // nox_window_setPos_46A9B0
-func nox_window_setPos_46A9B0(p *nox_window, x, y int) int {
+func nox_window_setPos_46A9B0(p *nox_window, x, y int32) int {
 	win := asWindow(p)
 	if win == nil {
 		return -2
 	}
-	win.SetPos(image.Point{X: x, Y: y})
+	win.SetPos(image.Point{X: int(x), Y: int(y)})
 	return 0
 }
 
@@ -203,5 +203,5 @@ func sub_46C690(p *nox_window) int {
 }
 
 func Nox_xxx_wnd_46ABB0(p *gui.Window, v int) int {
-	return int(nox_xxx_wnd_46ABB0((*nox_window)(p.C()), int(v)))
+	return int(nox_xxx_wnd_46ABB0((*nox_window)(p.C()), int32(v)))
 }

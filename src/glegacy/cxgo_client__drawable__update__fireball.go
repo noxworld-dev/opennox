@@ -1,10 +1,12 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/cmath"
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"math"
 	"unsafe"
+
+	"github.com/gotranspile/cxgo/runtime/cmath"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 func sub_4CCEA0(a1 *uint32, a2 int32) {

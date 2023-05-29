@@ -1,26 +1,9 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
 )
 
-type nox_team_t struct {
-	name     [21]wchar2_t
-	field_42 uint16
-	field_44 uint32
-	field_48 uint32
-	lessons  int32
-	def_ind  uint8
-	field_57 uint8
-	ind      uint8
-	field_59 uint8
-	field_60 uint32
-	active   uint32
-	field_68 uint32
-	field_72 unsafe.Pointer
-	field_76 uint32
-}
 type nox_team_info_t struct {
 	name  *byte
 	title *wchar2_t

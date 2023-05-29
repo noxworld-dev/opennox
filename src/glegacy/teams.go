@@ -8,7 +8,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-type nox_team_t = nox_team_t
+type nox_team_t = server.Team
 
 func asTeam(p *nox_team_t) *server.Team {
 	if p == nil {

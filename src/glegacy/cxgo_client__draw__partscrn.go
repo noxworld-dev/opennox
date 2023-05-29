@@ -1,11 +1,10 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
 )
 
-func nox_client_screenParticleDraw_489700(a1p unsafe.Pointer, p *nox_screenParticle) int32 {
+func nox_client_screenParticleDraw_489700(a1p unsafe.Pointer, p *Nox_screenParticle) int32 {
 	var (
 		a1    int32 = int32(uintptr(a1p))
 		v7    int32

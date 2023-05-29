@@ -7,6 +7,9 @@ import (
 	"github.com/gotranspile/cxgo/runtime/cnet"
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/gotranspile/cxgo/runtime/stdio"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 func sub_418800(a1 *wchar2_t, a2 *wchar2_t, a3 int32) {
@@ -596,7 +599,7 @@ func sub_419E60(a1p *nox_object_t) int32 {
 func sub_419EA0() int32 {
 	return bool2int32(dword_5d4594_527712 != 0)
 }
-func sub_41A000(a1 *byte, sv *nox_savegame_xxx) int32 {
+func sub_41A000(a1 *byte, sv *Nox_savegame_xxx) int32 {
 	var (
 		result int32
 		v3     int32
@@ -642,7 +645,7 @@ func sub_41A000(a1 *byte, sv *nox_savegame_xxx) int32 {
 				}
 			}
 		LABEL_10:
-			alloc.Memcpy(unsafe.Pointer(sv), memmap.PtrOff(0x85B3FC, 10980), int(unsafe.Sizeof(nox_savegame_xxx{})))
+			alloc.Memcpy(unsafe.Pointer(sv), memmap.PtrOff(0x85B3FC, 10980), int(unsafe.Sizeof(Nox_savegame_xxx{})))
 			alloc.Memcpy(memmap.PtrOff(0x85B3FC, 10980), unsafe.Pointer(&v12[0]), 0x4FC)
 			*memmap.PtrUint16(0x85B3FC, 12256) = uint16(v13)
 		} else {
@@ -2255,7 +2258,7 @@ func sub_41C780(a1 int32) int32 {
 	return 1
 }
 func sub_41CAC0(a1 *byte, a2 unsafe.Pointer) {
-	var f *File = nox_binfile_open_408CC0(a1, 0)
+	var f *FILE = nox_binfile_open_408CC0(a1, 0)
 	if f == nil {
 		return
 	}
@@ -2324,7 +2327,7 @@ func sub_41CEE0(a1p unsafe.Pointer, a2 int32) int32 {
 		v6 int32
 		v8 int32
 	)
-	alloc.Memcpy(memmap.PtrOff(0x85B3FC, 10980), unsafe.Pointer(uintptr(a1)), int(unsafe.Sizeof(nox_savegame_xxx{})))
+	alloc.Memcpy(memmap.PtrOff(0x85B3FC, 10980), unsafe.Pointer(uintptr(a1)), int(unsafe.Sizeof(Nox_savegame_xxx{})))
 	if nox_xxx_cryptOpen_426910((*byte)(memmap.PtrOff(0x85B3FC, 10984)), 0, 27) == 0 {
 		return 0
 	}
@@ -4815,7 +4818,7 @@ func sub_4240F0(a1 int32, a2 *byte, a3 int32) int32 {
 }
 func nox_xxx_parseSoundSetBin_424170(a1 *byte) int32 {
 	var (
-		v2 *File
+		v2 *FILE
 		v3 *uint32
 		v4 *byte
 		v5 int32

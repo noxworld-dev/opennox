@@ -6,6 +6,9 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/cnet"
 	"github.com/gotranspile/cxgo/runtime/libc"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 var nox_win_width int32 = 0
@@ -14,8 +17,8 @@ var ptr_5D4594_754088 *obj_5D4594_754088_t = nil
 var ptr_5D4594_754088_cnt int32 = 0
 var ptr_5D4594_754092 *obj_5D4594_754088_t = nil
 var ptr_5D4594_754092_cnt int32 = 0
-var nox_screenParticles_head *nox_screenParticle = nil
-var dword_5d4594_806052 *nox_screenParticle = nil
+var nox_screenParticles_head *Nox_screenParticle = nil
+var dword_5d4594_806052 *Nox_screenParticle = nil
 var dword_5d4594_814624 unsafe.Pointer = nil
 var dword_5d4594_805984 unsafe.Pointer = nil
 
@@ -3215,7 +3218,7 @@ func sub_431380() {
 	sub_488BA0()
 	sub_4896E0()
 }
-func nox_client_newScreenParticle_431540(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a6 int32, a7 int8, a8 int8, a9 int8, a10 int8) *nox_screenParticle {
+func nox_client_newScreenParticle_431540(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a6 int32, a7 int8, a8 int8, a9 int8, a10 int8) *Nox_screenParticle {
 	var (
 		v10 int32
 		v11 int32
@@ -3242,7 +3245,7 @@ func nox_client_newScreenParticle_431540(a1 int32, a2 int32, a3 int32, a4 int32,
 	default:
 		return nil
 	}
-	var p *nox_screenParticle = (*nox_screenParticle)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_screenParticles_806044)))
+	var p *Nox_screenParticle = (*Nox_screenParticle)(nox_alloc_class_new_obj_zero((*nox_alloc_class)(nox_alloc_screenParticles_806044)))
 	if p == nil {
 		p = dword_5d4594_806052
 		if p == nil {
@@ -3272,7 +3275,7 @@ func nox_client_newScreenParticle_431540(a1 int32, a2 int32, a3 int32, a4 int32,
 	}
 	return p
 }
-func nox_client_addScreenParticle_431680(p *nox_screenParticle) {
+func nox_client_addScreenParticle_431680(p *Nox_screenParticle) {
 	p.field_44 = nox_screenParticles_head
 	p.field_48 = nil
 	if nox_screenParticles_head != nil {
@@ -3282,15 +3285,15 @@ func nox_client_addScreenParticle_431680(p *nox_screenParticle) {
 	}
 	nox_screenParticles_head = p
 }
-func sub_4316C0(p *nox_screenParticle) {
+func sub_4316C0(p *Nox_screenParticle) {
 	if p == dword_5d4594_806052 {
 		dword_5d4594_806052 = p.field_48
 	}
-	var v2 *nox_screenParticle = p.field_44
+	var v2 *Nox_screenParticle = p.field_44
 	if v2 != nil {
 		v2.field_48 = p.field_48
 	}
-	var v3 *nox_screenParticle = p.field_48
+	var v3 *Nox_screenParticle = p.field_48
 	if v3 != nil {
 		v3.field_44 = p.field_44
 	} else {
@@ -3298,7 +3301,7 @@ func sub_4316C0(p *nox_screenParticle) {
 	}
 }
 func sub_431700(a1 *uint64) {
-	sub_4316C0((*nox_screenParticle)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))))
+	sub_4316C0((*Nox_screenParticle)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))))
 	nox_alloc_class_free_obj_first((*nox_alloc_class)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_alloc_screenParticles_806044)))), unsafe.Pointer(a1))
 }
 func nox_client_screenParticlesDraw_431720(rdr *nox_draw_viewport_t) {
@@ -3306,8 +3309,8 @@ func nox_client_screenParticlesDraw_431720(rdr *nox_draw_viewport_t) {
 		return
 	}
 	sub_430B50(rdr.x1, rdr.y1, rdr.x2, rdr.y2)
-	var p2 *nox_screenParticle = nil
-	for p := (*nox_screenParticle)(nox_screenParticles_head); p != nil; p = p2 {
+	var p2 *Nox_screenParticle = nil
+	for p := (*Nox_screenParticle)(nox_screenParticles_head); p != nil; p = p2 {
 		set_dword_5d4594_3799468(1)
 		p2 = p.field_44
 		p.draw_fnc(unsafe.Pointer(rdr), p)

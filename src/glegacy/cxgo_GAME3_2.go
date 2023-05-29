@@ -5,6 +5,9 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 var nox_common_maplist nox_list_item_t = nox_list_item_t{}
@@ -786,8 +789,8 @@ func sub_4D0550(a1 *byte) int32 {
 func sub_4D0670(a1 *byte) int32 {
 	var (
 		v1 int32
-		v2 *File
-		v3 *File
+		v2 *FILE
+		v3 *FILE
 		v4 *byte
 		v5 int32
 		v7 [255]byte
@@ -826,14 +829,14 @@ func sub_4D0670(a1 *byte) int32 {
 	nox_fs_close(v3)
 	return 1
 }
-func nox_common_maplist_add_4D0760(map_ *nox_map_list_item) {
-	var it *nox_map_list_item = (*nox_map_list_item)(unsafe.Pointer(nox_common_list_getFirstSafe_425890(&nox_common_maplist)))
+func nox_common_maplist_add_4D0760(map_ *Nox_map_list_item) {
+	var it *Nox_map_list_item = (*Nox_map_list_item)(unsafe.Pointer(nox_common_list_getFirstSafe_425890(&nox_common_maplist)))
 	if it == nil {
 		nox_common_list_append_4258E0(&nox_common_maplist, &map_.list)
 		return
 	}
 	for libc.StrCmp(&map_.name[0], &it.name[0]) > 0 {
-		it = (*nox_map_list_item)(unsafe.Pointer(nox_common_list_getNextSafe_4258A0(&it.list)))
+		it = (*Nox_map_list_item)(unsafe.Pointer(nox_common_list_getNextSafe_4258A0(&it.list)))
 		if it == nil {
 			nox_common_list_append_4258E0(&nox_common_maplist, &map_.list)
 			return
@@ -861,17 +864,17 @@ func nox_common_maplist_free_4D0970() {
 		}
 	}
 }
-func nox_common_maplist_first_4D09B0() *nox_map_list_item {
-	return (*nox_map_list_item)(unsafe.Pointer(nox_common_list_getFirstSafe_425890(&nox_common_maplist)))
+func nox_common_maplist_first_4D09B0() *Nox_map_list_item {
+	return (*Nox_map_list_item)(unsafe.Pointer(nox_common_list_getFirstSafe_425890(&nox_common_maplist)))
 }
-func nox_common_maplist_next_4D09C0(list *nox_map_list_item) *nox_map_list_item {
-	return (*nox_map_list_item)(unsafe.Pointer(nox_common_list_getNextSafe_4258A0(&list.list)))
+func nox_common_maplist_next_4D09C0(list *Nox_map_list_item) *Nox_map_list_item {
+	return (*Nox_map_list_item)(unsafe.Pointer(nox_common_list_getNextSafe_4258A0(&list.list)))
 }
-func nox_xxx_loadMapCycle_4D0A30() *File {
+func nox_xxx_loadMapCycle_4D0A30() *FILE {
 	var (
 		v0     int32
-		result *File
-		v7     *File
+		result *FILE
+		v7     *FILE
 		v8     int32
 		v9     int32
 		v10    int32
@@ -879,7 +882,7 @@ func nox_xxx_loadMapCycle_4D0A30() *File {
 		v12    *byte
 		v13    int32
 		v14    int32
-		v15    *File
+		v15    *FILE
 		v16    [128]byte
 		v17    [128]byte
 	)
@@ -1023,7 +1026,7 @@ func nox_xxx_mapSelectFirst_4D0E00() int32 {
 	var v12 int32
 	var v13 int32
 	dword_5d4594_1548476 = 0
-	for i = (*int32)(unsafe.Pointer(nox_common_maplist_first_4D09B0())); i != nil; i = (*int32)(unsafe.Pointer(nox_common_maplist_next_4D09C0((*nox_map_list_item)(unsafe.Pointer(i))))) {
+	for i = (*int32)(unsafe.Pointer(nox_common_maplist_first_4D09B0())); i != nil; i = (*int32)(unsafe.Pointer(nox_common_maplist_next_4D09C0((*Nox_map_list_item)(unsafe.Pointer(i))))) {
 		if *(*int32)(unsafe.Add(unsafe.Pointer(i), 4*6)) != 0 {
 			if sub_4CFFC0(int32(uintptr(unsafe.Pointer(i))))&0x1000 != 0 {
 				if *(*int32)(unsafe.Pointer(&dword_5d4594_1548476)) < 128 {
@@ -5445,7 +5448,7 @@ func nox_client_countPlayerFiles02_4DC630() int32 {
 	if uintptr(v5) != uintptr(math.MaxUint32) {
 		if (FindFileData.dwFileAttributes & 0x10) == 0 {
 			nox_sprintf(&PathName[0], internCStr("%s%s"), &v11[0], &FindFileData.cFileName[0])
-			sub_41A000(&PathName[0], (*nox_savegame_xxx)(unsafe.Pointer(&v10[0])))
+			sub_41A000(&PathName[0], (*Nox_savegame_xxx)(unsafe.Pointer(&v10[0])))
 			if v10[0]&2 != 0 {
 				v0 = 1
 			}
@@ -5453,7 +5456,7 @@ func nox_client_countPlayerFiles02_4DC630() int32 {
 		for compatFindNextFileA(v5, &FindFileData) != 0 {
 			if (FindFileData.dwFileAttributes & 0x10) == 0 {
 				nox_sprintf(&PathName[0], internCStr("%s%s"), &v11[0], &FindFileData.cFileName[0])
-				sub_41A000(&PathName[0], (*nox_savegame_xxx)(unsafe.Pointer(&v10[0])))
+				sub_41A000(&PathName[0], (*Nox_savegame_xxx)(unsafe.Pointer(&v10[0])))
 				if v10[0]&2 != 0 {
 					v0++
 				}

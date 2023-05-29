@@ -76,6 +76,6 @@ func compatFindNextFileA(hFindFile HANDLE, lpFindFileData LPWIN32_FIND_DATAA) in
 func compatFindClose(hFindFile HANDLE) int32 {
 	var ff *_FIND_FILE = (*_FIND_FILE)(hFindFile)
 	ff.globbuf.Free()
-	alloc.Free(unsafe.Pointer(ff))
+	alloc.Free(ff)
 	return 1
 }

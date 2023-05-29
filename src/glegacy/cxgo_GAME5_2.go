@@ -1,10 +1,13 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
-	"github.com/gotranspile/cxgo/runtime/stdio"
 	"math"
 	"unsafe"
+
+	"github.com/gotranspile/cxgo/runtime/libc"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 var dword_5d4594_2523756 unsafe.Pointer = nil
@@ -1373,8 +1376,8 @@ func sub_57A1E0(a1 *int32, a2 *byte, a3 *int32, a4 int8, a5 int16) int8 {
 }
 func sub_57A3F0(a1 *byte, a2 int32, a3 int32, a4 int32) int32 {
 	var (
-		v4 *File
-		v5 *File
+		v4 *FILE
+		v5 *FILE
 		v6 *byte
 		v8 [256]byte
 		v9 [256]wchar2_t
@@ -1616,8 +1619,8 @@ func sub_57A9F0(a1 *byte, a2 *byte) int32 {
 }
 func sub_57AAA0(a1 *byte, a2 *byte, a3 *int32) int8 {
 	var (
-		v3       *File
-		v4       *File
+		v3       *FILE
+		v4       *FILE
 		i        *int32
 		v6       *byte
 		v7       int32

@@ -17,7 +17,7 @@ var (
 	_ = [1]struct{}{}[516-unsafe.Sizeof(nox_waypoint_t{})]
 )
 
-type nox_waypoint_t = nox_waypoint_t
+type nox_waypoint_t = server.Waypoint
 
 func asWaypointS(p *nox_waypoint_t) *server.Waypoint {
 	return (*server.Waypoint)(unsafe.Pointer(p))

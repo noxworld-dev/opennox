@@ -4,6 +4,8 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
 func sub_478730(a1 *int32) {

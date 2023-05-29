@@ -20,12 +20,12 @@ func nox_common_getEngineFlag(flags nox_engine_flag) bool {
 }
 
 // nox_common_randomInt_415FA0
-func nox_common_randomInt_415FA0(min, max int) int {
-	return GetServer().S().Rand.Logic.IntClamp(min, max)
+func nox_common_randomInt_415FA0(min, max int32) int32 {
+	return int32(GetServer().S().Rand.Logic.IntClamp(int(min), int(max)))
 }
 
 // nox_common_randomIntMinMax_415FF0
-func nox_common_randomIntMinMax_415FF0(min, max int32) int32 {
+func nox_common_randomIntMinMax_415FF0(min, max int32, _ *char, _ int32) int32 {
 	return int32(GetServer().S().Rand.Other.Int(int(min), int(max)))
 }
 

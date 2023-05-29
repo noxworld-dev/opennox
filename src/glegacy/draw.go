@@ -238,20 +238,20 @@ func nox_client_drawRectFilledOpaque_49CE30(a1, a2, a3, a4 int32) {
 }
 
 // nox_client_drawRectFilledAlpha_49CF10
-func nox_client_drawRectFilledAlpha_49CF10(a1, a2, a3, a4 int) {
-	GetClient().R2().DrawRectFilledAlpha(a1, a2, a3, a4)
+func nox_client_drawRectFilledAlpha_49CF10(a1, a2, a3, a4 int32) {
+	GetClient().R2().DrawRectFilledAlpha(int(a1), int(a2), int(a3), int(a4))
 }
 
 // nox_client_drawBorderLines_49CC70
-func nox_client_drawBorderLines_49CC70(a1, a2, a3, a4 int) {
+func nox_client_drawBorderLines_49CC70(a1, a2, a3, a4 int32) {
 	r := GetClient().R2()
-	r.DrawBorder(a1, a2, a3, a4, r.Data().Color2())
+	r.DrawBorder(int(a1), int(a2), int(a3), int(a4), r.Data().Color2())
 }
 
 // nox_client_drawPixel_49EFA0
-func nox_client_drawPixel_49EFA0(a1, a2 int) {
+func nox_client_drawPixel_49EFA0(a1, a2 int32) {
 	r := GetClient().R2()
-	r.DrawPixel(image.Pt(a1, a2), r.Data().Color2())
+	r.DrawPixel(image.Pt(int(a1), int(a2)), r.Data().Color2())
 }
 
 // nox_client_drawPoint_4B0BC0
@@ -373,12 +373,12 @@ func nox_video_drawCircle_4B0B90(a1, a2, a3 int) {
 }
 
 // nox_client_drawImageAt_47D2C0
-func nox_client_drawImageAt_47D2C0(img *nox_video_bag_image_t, x, y int) {
-	GetClient().R2().DrawImageAt(asImage(img), image.Point{X: x, Y: y})
+func nox_client_drawImageAt_47D2C0(img *nox_video_bag_image_t, x, y int32) {
+	GetClient().R2().DrawImageAt(asImage(img), image.Point{X: int(x), Y: int(y)})
 }
 
 // nox_draw_imageMeta_47D5C0
-func nox_draw_imageMeta_47D5C0(img *nox_video_bag_image_t, px, py, pw, ph *uint) int {
+func nox_draw_imageMeta_47D5C0(img *nox_video_bag_image_t, px, py, pw, ph *uint32) int32 {
 	if img == nil {
 		return 0
 	}
@@ -393,16 +393,16 @@ func nox_draw_imageMeta_47D5C0(img *nox_video_bag_image_t, px, py, pw, ph *uint)
 		return 0
 	}
 	if px != nil {
-		*px += uint(off.X)
+		*px += uint32(off.X)
 	}
 	if py != nil {
-		*py += uint(off.Y)
+		*py += uint32(off.Y)
 	}
 	if pw != nil {
-		*pw = uint(sz.X)
+		*pw = uint32(sz.X)
 	}
 	if ph != nil {
-		*ph = uint(sz.Y)
+		*ph = uint32(sz.Y)
 	}
 	return 1
 }

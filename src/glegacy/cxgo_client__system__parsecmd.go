@@ -1,9 +1,13 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"math"
 	"unsafe"
+
+	"github.com/gotranspile/cxgo/runtime/libc"
+
+	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 var nox_console_playerWhoSent_823692 *nox_playerInfo = nil
@@ -782,7 +786,7 @@ func nox_cmd_list_maps(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 			nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), (*wchar2_t)(memmap.PtrOff(0x587000, 103276)), memmap.PtrOff(0x5D4594, 822404))
 			*memmap.PtrUint16(0x5D4594, 822404) = 0
 		}
-		v0 = (*int32)(unsafe.Pointer(nox_common_maplist_next_4D09C0((*nox_map_list_item)(unsafe.Pointer(v0)))))
+		v0 = (*int32)(unsafe.Pointer(nox_common_maplist_next_4D09C0((*Nox_map_list_item)(unsafe.Pointer(v0)))))
 	}
 	v3 = int32(uint32(i-1) & 0x80000003)
 	v2 = v3 == 0
