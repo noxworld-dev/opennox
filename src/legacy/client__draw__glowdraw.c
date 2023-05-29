@@ -64,24 +64,20 @@ int sub_4B6770(int* a1, nox_drawable* dr, int a3, int a4) {
 				nox_xxx_drawPointMB_499B70(xLeft.field_0, xLeft.field_4, v15);
 			}
 		}
-		result = 1;
+		return 1;
 	} else {
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
-		result = 0;
+		return 0;
 	}
-	return result;
 }
 
 //----- (004B6B00) --------------------------------------------------------
 int nox_thing_magic_sparkle_draw(int* a1, nox_drawable* dr) {
-	int result; // eax
-
 	if (nox_common_randomIntMinMax_415FF0(0, 10, "C:\\NoxPost\\src\\Client\\Draw\\Glowdraw.c", 317) >= 5) {
-		result = sub_4B6770(a1, dr, nox_color_white_2523948, *(int*)&dword_5d4594_1313540);
+		return sub_4B6770(a1, dr, nox_color_white_2523948, *(int*)&dword_5d4594_1313540);
 	} else {
-		result = sub_4B6770(a1, dr, *(int*)&dword_5d4594_1313540, *(int*)&dword_5d4594_1313536);
+		return sub_4B6770(a1, dr, *(int*)&dword_5d4594_1313540, *(int*)&dword_5d4594_1313536);
 	}
-	return result;
 }
 
 //----- (004B6E80) --------------------------------------------------------
@@ -107,15 +103,12 @@ int nox_thing_pixie_draw(int* a1, nox_drawable* dr) {
 	if (v2) {
 		if (v3 > 0) {
 			v4 = v3 - 1;
-		LABEL_6:
 			*(uint16_t*)(a2 + 104) = v4;
-			goto LABEL_7;
 		}
 	} else if (v3 < 35) {
 		v4 = v3 + 1;
-		goto LABEL_6;
+		*(uint16_t*)(a2 + 104) = v4;
 	}
-LABEL_7:
 	v5 = *a1;
 	v6 = a1[1];
 	v7 = *a1 + *(uint32_t*)(a2 + 12) - a1[4];

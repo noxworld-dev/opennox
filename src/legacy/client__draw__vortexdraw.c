@@ -41,7 +41,8 @@ int nox_thing_vortex_draw(int* a1, nox_drawable* dr) {
 	v5 = xLeft.field_0 <= *a1;
 	xLeft.field_4 -= *(short*)(a2 + 104);
 	if (v5 || xLeft.field_0 >= a1[2] || v4 <= a1[1] || v4 >= a1[3]) {
-		goto LABEL_22;
+		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
+		return 0;
 	}
 	if (a2a.field_4 >= *(int*)(a2 + 444)) {
 		sub_4B6720(&xLeft, *(uint32_t*)(a2 + 432), 3, 5);
@@ -78,12 +79,10 @@ int nox_thing_vortex_draw(int* a1, nox_drawable* dr) {
 	v11 = (double)*(short*)(a2 + 104) * 0.0024999999 * 50.0;
 	v9 = nox_float2int(v11);
 	if (50 - v9 <= 0) {
-	LABEL_22:
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
-		result = 0;
+		return 0;
 	} else {
 		*(uint8_t*)(a2 + 450) = 50 - v9;
-		result = 1;
+		return 1;
 	}
-	return result;
 }
