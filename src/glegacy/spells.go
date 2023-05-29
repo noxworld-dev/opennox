@@ -205,126 +205,123 @@ func Nox_xxx_spellGrantToPlayer_4FB550(a1 *server.Object, a2 spell.ID, a3 int, a
 func Nox_xxx_gameCaptureMagic_4FDC10(a1 spell.ID, a2 *server.Object) int {
 	return int(nox_xxx_gameCaptureMagic_4FDC10(int32(a1), asObjectC(a2)))
 }
-func Nox_spells_call_intint6_go(a1 unsafe.Pointer, a2 spell.ID, a3 *server.Object, a4 *server.Object, a5 *server.Object, a6 *server.SpellAcceptArg, a7 int) int {
-	return int(asFuncT[func(int32, *nox_object_t, *nox_object_t, *nox_object_t, unsafe.Pointer, int32) int32](uintptr(a1))(int32(a2), asObjectC(a3), asObjectC(a4), asObjectC(a5), unsafe.Pointer(a6), int32(a7)))
-}
 func Nox_xxx_createSpellFly_4FDDA0(a1 *server.Object, a2 *server.Object, a3 spell.ID) {
 	nox_xxx_createSpellFly_4FDDA0(asObjectC(a1), asObjectC(a2), int32(a3))
 }
 func Nox_xxx_spellGetPower_4FE7B0(a1 spell.ID, a2 *server.Object) int {
-	return int(nox_xxx_spellGetPower_4FE7B0(int(a1), asObjectC(a2)))
+	return int(nox_xxx_spellGetPower_4FE7B0(int32(a1), asObjectC(a2)))
 }
 
 func Nox_xxx_spellArachna_52DC80(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_spellArachna_52DC80, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_spellArachna_52DC80(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), int32(uintptr(unsafe.Pointer(sa))), lvl))
 }
 
 func Nox_xxx_castBurn_52C3E0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castBurn_52C3E0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castBurn_52C3E0(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), int32(uintptr(unsafe.Pointer(sa))), lvl))
 }
 
 func Nox_xxx_spellCastCleansingFlame_52D5C0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_spellCastCleansingFlame_52D5C0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_spellCastCleansingFlame_52D5C0(int32(spellID), a2.SObj(), a3.SObj(), a4.SObj(), unsafe.Pointer(sa), int32(lvl)))
 }
 
 func Nox_xxx_castConfuse_52C1E0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castConfuse_52C1E0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castConfuse_52C1E0(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), (*int32)(unsafe.Pointer(sa)), int8(lvl)))
 }
 
 func Nox_xxx_castCounterSpell_52BBB0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castCounterSpell_52BBB0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castCounterSpell_52BBB0(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), sa, lvl))
 }
 
 func Nox_xxx_castCurePoison_52CDB0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castCurePoison_52CDB0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castCurePoison_52CDB0(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), (*int32)(unsafe.Pointer(sa)), int32(lvl)))
 }
 
 func Nox_xxx_castEquake_52DE40(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castEquake_52DE40, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castEquake_52DE40(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), int32(uintptr(unsafe.Pointer(sa))), int32(lvl)))
 }
 
 func Nox_xxx_castFireball_52C790(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castFireball_52C790, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castFireball_52C790(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), int32(uintptr(unsafe.Pointer(sa))), int32(lvl)))
 }
 
 func Nox_xxx_castFist_52D3C0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castFist_52D3C0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castFist_52D3C0(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), int32(uintptr(unsafe.Pointer(sa))), int32(lvl)))
 }
 
 func Nox_xxx_castFumble_52C060(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castFumble_52C060, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castFumble_52C060(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), (*int32)(unsafe.Pointer(sa)), lvl))
 }
 
 func Sub_52BEB0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(sub_52BEB0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(sub_52BEB0(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), sa, lvl))
 }
 
 func Sub_52DD50(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(sub_52DD50, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(sub_52DD50(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), unsafe.Pointer(sa), lvl))
 }
 
 func Nox_xxx_castLock_52CE90(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castLock_52CE90, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castLock_52CE90(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), sa, lvl))
 }
 
 func Sub_52CA80(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(sub_52CA80, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(sub_52CA80(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), sa, lvl))
 }
 
 func Sub_52CBD0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(sub_52CBD0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(sub_52CBD0(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), sa, lvl))
 }
 
 func Nox_xxx_castMeteor_52D9D0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castMeteor_52D9D0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castMeteor_52D9D0(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), int32(uintptr(unsafe.Pointer(sa))), int32(lvl)))
 }
 
 func Nox_xxx_castMeteorShower_52D8A0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castMeteorShower_52D8A0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castMeteorShower_52D8A0(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), int32(uintptr(unsafe.Pointer(sa))), int32(lvl)))
 }
 
 func Nox_xxx_castPixies_540440(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castPixies_540440, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castPixies_540440(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), int32(uintptr(unsafe.Pointer(sa))), int32(lvl)))
 }
 
 func Nox_xxx_castPoison_52C720(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castPoison_52C720, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castPoison_52C720(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), (*int32)(unsafe.Pointer(sa)), int32(lvl)))
 }
 
 func Nox_xxx_castPull_52BFA0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castPull_52BFA0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castPull_52BFA0(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), int32(uintptr(unsafe.Pointer(sa))), int32(lvl)))
 }
 
 func Nox_xxx_castPush_52C000(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castPush_52C000, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castPush_52C000(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), int32(uintptr(unsafe.Pointer(sa))), int32(lvl)))
 }
 
 func Nox_xxx_castSpellWinkORrestoreHealth_52BF20(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castSpellWinkORrestoreHealth_52BF20, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castSpellWinkORrestoreHealth_52BF20(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), (*int32)(unsafe.Pointer(sa)), lvl))
 }
 
 func Sub_52BF50(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(sub_52BF50, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(sub_52BF50(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), (*int32)(unsafe.Pointer(sa)), lvl))
 }
 
 func Nox_xxx_useShock_52C5A0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_useShock_52C5A0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_useShock_52C5A0(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), (*int32)(unsafe.Pointer(sa)), int32(lvl)))
 }
 
 func Nox_xxx_castStun_52C2C0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castStun_52C2C0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castStun_52C2C0(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), (*int32)(unsafe.Pointer(sa)), int8(lvl)))
 }
 
 func Nox_xxx_castTelekinesis_52D330(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castTelekinesis_52D330, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castTelekinesis_52D330(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), (*int32)(unsafe.Pointer(sa)), int8(lvl)))
 }
 
 func Nox_xxx_castToxicCloud_52DB60(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(nox_xxx_castToxicCloud_52DB60, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(nox_xxx_castToxicCloud_52DB60(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), int32(uintptr(unsafe.Pointer(sa))), lvl))
 }
 
 func Sub_52CCD0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return Nox_spells_call_intint6_go(sub_52CCD0, spellID, a2.SObj(), a3.SObj(), a4.SObj(), sa, lvl)
+	return int(sub_52CCD0(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), a4, sa, lvl))
 }
 
 func Get_nox_xxx_spellBlink2_530310() unsafe.Pointer {

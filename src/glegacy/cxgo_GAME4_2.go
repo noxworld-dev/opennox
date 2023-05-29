@@ -10,6 +10,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func sub_51DA70(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
@@ -9513,7 +9514,7 @@ func sub_52BAF0(a1 int32) int32 {
 	}
 	return result
 }
-func nox_xxx_castCounterSpell_52BBB0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
+func nox_xxx_castCounterSpell_52BBB0(a1 int32, a2 int32, a3 int32, a4 int32, a5 *server.SpellAcceptArg, a6 int) int32 {
 	var (
 		v4  *float2
 		i   int32
@@ -9637,7 +9638,7 @@ func nox_xxx_changeOwner_52BE40(a1 int32, a2 int32) {
 		}
 	}
 }
-func sub_52BEB0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
+func sub_52BEB0(a1 int32, a2 int32, a3 int32, a4 int32, a5 *server.SpellAcceptArg, a6 int) int32 {
 	var (
 		v4 int32
 		v6 float32
@@ -9648,7 +9649,7 @@ func sub_52BEB0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 	nox_xxx_aud_501960(v4, (*nox_object_t)(unsafe.Pointer(uintptr(a4))), 0, 0)
 	return 1
 }
-func nox_xxx_castSpellWinkORrestoreHealth_52BF20(a1 int32, a2 int32, a3 int32, a4 int32, a5 *int32) int32 {
+func nox_xxx_castSpellWinkORrestoreHealth_52BF20(a1 int32, a2 int32, a3 int32, a4 int32, a5 *int32, a6 int) int32 {
 	var result int32
 	result = *a5
 	if *a5 != 0 {
@@ -9658,7 +9659,7 @@ func nox_xxx_castSpellWinkORrestoreHealth_52BF20(a1 int32, a2 int32, a3 int32, a
 	}
 	return result
 }
-func sub_52BF50(a1 int32, a2 int32, a3 int32, a4 int32, a5 *int32) int32 {
+func sub_52BF50(a1 int32, a2 int32, a3 int32, a4 int32, a5 *int32, a6 int) int32 {
 	var result int32
 	result = *a5
 	if *a5 != 0 {
@@ -9692,7 +9693,7 @@ func nox_xxx_castPush_52C000(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a
 	nox_xxx_aud_501960(v6, (*nox_object_t)(unsafe.Pointer(uintptr(a3))), 0, 0)
 	return 1
 }
-func nox_xxx_castFumble_52C060(a1 int32, a2 int32, a3 int32, a4 int32, a5 *int32) int32 {
+func nox_xxx_castFumble_52C060(a1 int32, a2 int32, a3 int32, a4 int32, a5 *int32, a6 int) int32 {
 	var (
 		result int32
 		v6     int32
@@ -9810,7 +9811,7 @@ func nox_xxx_castStun_52C2C0(a1 int32, a2 int32, a3 int32, a4 int32, a5 *int32, 
 	sub_4E7540((*nox_object_t)(unsafe.Pointer(uintptr(a3))), (*nox_object_t)(unsafe.Pointer(uintptr(*a5))))
 	return 1
 }
-func nox_xxx_castBurn_52C3E0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
+func nox_xxx_castBurn_52C3E0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a6 int) int32 {
 	var (
 		v5  int32
 		v6  int32
@@ -9970,7 +9971,7 @@ func nox_xxx_castFireball_52C790(a1 int32, a2 int32, a3 int32, a4 int32, a5 int3
 	nox_xxx_aud_501960(v17, (*nox_object_t)(unsafe.Pointer(uintptr(v8))), 0, 0)
 	return 1
 }
-func sub_52CA80(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
+func sub_52CA80(a1 int32, a2 int32, a3 int32, a4 int32, a5 *server.SpellAcceptArg, a6 int) int32 {
 	var (
 		v4  int32
 		v5  int32
@@ -10049,7 +10050,7 @@ func sub_52CA80(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 	}
 	return 1
 }
-func sub_52CBD0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
+func sub_52CBD0(a1 int32, a2 int32, a3 int32, a4 int32, a5 *server.SpellAcceptArg, a6 int) int32 {
 	var (
 		v4  int32
 		v5  int32
@@ -10111,7 +10112,7 @@ func sub_52CBD0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 	}
 	return 1
 }
-func sub_52CCD0(a1 int32, a2 int32, a3 int32) int32 {
+func sub_52CCD0(a1 int32, a2 int32, a3 int32, a4 *nox_object_t, a5 *server.SpellAcceptArg, a6 int) int32 {
 	var (
 		v3 int32
 		v4 float64
@@ -10190,7 +10191,7 @@ func sub_52CE60(a1 int32) {
 		*(*uint32)(unsafe.Pointer(uintptr(a1 + 136))) = gameFrame() + gameFPS()*60
 	}
 }
-func nox_xxx_castLock_52CE90(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
+func nox_xxx_castLock_52CE90(a1 int32, a2 int32, a3 int32, a4 int32, a5 *server.SpellAcceptArg, a6 int) int32 {
 	var (
 		v5 int32
 		v7 int32
@@ -10636,7 +10637,7 @@ LABEL_6:
 	}
 	return result
 }
-func nox_xxx_castToxicCloud_52DB60(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
+func nox_xxx_castToxicCloud_52DB60(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a6 int) int32 {
 	var (
 		v5     int32
 		v6     int32
@@ -10685,7 +10686,7 @@ func nox_xxx_castToxicCloud_52DB60(a1 int32, a2 int32, a3 int32, a4 int32, a5 in
 	}
 	return result
 }
-func nox_xxx_spellArachna_52DC80(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
+func nox_xxx_spellArachna_52DC80(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a6 int) int32 {
 	var (
 		v5     int32
 		v6     int32
@@ -10725,7 +10726,7 @@ func nox_xxx_spellArachna_52DC80(a1 int32, a2 int32, a3 int32, a4 int32, a5 int3
 	}
 	return result
 }
-func sub_52DD50(a1 int32, a2 int32, a3 int32, a4 int32, a5 unsafe.Pointer) int32 {
+func sub_52DD50(a1 int32, a2 int32, a3 int32, a4 int32, a5 unsafe.Pointer, a6 int) int32 {
 	var (
 		v5  unsafe.Pointer
 		v6  int32
