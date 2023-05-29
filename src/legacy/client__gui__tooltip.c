@@ -87,7 +87,8 @@ wchar2_t* nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 				nox_wcscat((wchar2_t*)getMemAt(0x5D4594, 1317000), v20);
 				nox_wcscat((wchar2_t*)getMemAt(0x5D4594, 1317000), L" ");
 				v21 = nox_strman_loadString_40F1D0("BookOf", 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 288);
-				goto LABEL_90;
+				nox_wcscat((wchar2_t*)getMemAt(0x5D4594, 1317000), v21);
+				goto LABEL_93;
 			}
 			return (wchar2_t*)getMemAt(0x5D4594, 1317000);
 		}
@@ -132,7 +133,6 @@ wchar2_t* nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 				nox_wcscat((wchar2_t*)getMemAt(0x5D4594, 1317000), v30);
 				nox_wcscat((wchar2_t*)getMemAt(0x5D4594, 1317000), L" ");
 				v21 = nox_strman_loadString_40F1D0("BookOf", 0, "C:\\NoxPost\\src\\client\\Gui\\ToolTip.c", 342);
-			LABEL_90:
 				nox_wcscat((wchar2_t*)getMemAt(0x5D4594, 1317000), v21);
 				goto LABEL_93;
 			}
@@ -238,7 +238,9 @@ wchar2_t* nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 				return (wchar2_t*)getMemAt(0x5D4594, 1317000);
 			}
 			nox_wcscat((wchar2_t*)getMemAt(0x5D4594, 1317000), L" ");
-			goto LABEL_67;
+			nox_wcscat((wchar2_t*)getMemAt(0x5D4594, 1317000), a1);
+			result = (wchar2_t*)getMemAt(0x5D4594, 1317000);
+			break;
 		case 5:
 			nox_wcscat((wchar2_t*)getMemAt(0x5D4594, 1317000), v12);
 			if (v34) {
@@ -298,7 +300,6 @@ wchar2_t* nox_xxx_clientAskInfoMb_4BF050(nox_drawable* a1p) {
 				return (wchar2_t*)getMemAt(0x5D4594, 1317000);
 			}
 			nox_wcscat((wchar2_t*)getMemAt(0x5D4594, 1317000), L" ");
-		LABEL_67:
 			nox_wcscat((wchar2_t*)getMemAt(0x5D4594, 1317000), a1);
 			result = (wchar2_t*)getMemAt(0x5D4594, 1317000);
 			break;

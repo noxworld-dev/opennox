@@ -106,7 +106,8 @@ void nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 				switch (v7) {
 				case 1:
 					v8 = nox_color_white_2523948;
-					goto LABEL_12;
+					v17[0] = 0;
+					break;
 				case 2:
 					v8 = *getMemU32Ptr(0x85B3FC, 940);
 					v9 = nox_strman_loadString_40F1D0("Journal:QuestLabel", 0,
@@ -127,7 +128,6 @@ void nox_xxx_guiDrawJournal_469D40(int xLeft, int yTop, int a3) {
 					break;
 				default:
 					v8 = *getMemU32Ptr(0x8531A0, 2572);
-				LABEL_12:
 					v17[0] = 0;
 					break;
 				}

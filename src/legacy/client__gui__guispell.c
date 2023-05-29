@@ -43,7 +43,6 @@ int nox_xxx_spellPutInBox_45DEB0(int* a1, int a2, int a3, int a4) {
 	v4 = nox_xxx_spellBoxPointToWnd_45DE60((int)a1, a3, a4);
 	if (v4 >= 0) {
 		if (a1 != getMemIntPtr(0x5D4594, 1047940)) {
-		LABEL_8:
 			nox_xxx_spellKeyPackSetSpell_45DC40((int)a1, a2, v4);
 			return 1;
 		}
@@ -54,7 +53,8 @@ int nox_xxx_spellPutInBox_45DEB0(int* a1, int a2, int a3, int a4) {
 				++v7;
 				v6 += 2;
 				if (v7 >= 3) {
-					goto LABEL_8;
+				nox_xxx_spellKeyPackSetSpell_45DC40((int)a1, a2, v4);
+				return 1;
 				}
 			}
 			v5 = nox_strman_loadString_40F1D0("OneSpellPerTrap", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 504);
@@ -628,41 +628,41 @@ int nox_xxx_quickBarDrawFn_45FBD0(int yTop) {
 			v10 = (wchar2_t*)nox_xxx_abilityGetName_0_425260(v16);
 			nox_xxx_wndWddSetTooltip_46B000((wchar2_t*)(v1 + 36), v10);
 			if (v9) {
-			LABEL_14:
 				nox_client_drawImageAt_47D2C0(v9, xLeft, yTop);
-			LABEL_19:
-				v13 = 24 * *v7;
-				if (*getMemU32Ptr(0x5D4594, 1047764 + 12 + v13) || !*getMemU32Ptr(0x5D4594, 1047764 + 8 + v13) ||
-					nox_xxx_playerAnimCheck_4372B0()) {
-					v14 = nox_xxx_abilityCooldown_4252D0(*v7);
-					if (v14 / gameFPS()) {
-						if (!v19) {
-							nox_client_drawRectFilledAlpha_49CF10(
-								xLeft, yTop, 34,
-								34 - (gameFrame() - *getMemU32Ptr(0x5D4594, 1047764 + 20 + 24 * *v7)) /
-										 (v14 / gameFPS()));
-						}
-					}
-				}
-				return 1;
+			} else {
+				nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
+				v17 = yTop + v5 + 2;
+				v15 = xLeft + 6;
+				v11 = (short*)nox_strman_loadString_40F1D0("NoIcon", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1388);
+				nox_xxx_drawString_43F6E0(0, v11, v15, v17);
 			}
-			nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
-			v17 = yTop + v5 + 2;
-			v15 = xLeft + 6;
-			v11 = (short*)nox_strman_loadString_40F1D0("NoIcon", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1388);
 		} else {
 			v12 = (wchar2_t*)nox_xxx_abilityGetName_0_425260(v16);
 			nox_xxx_wndWddSetTooltip_46B000((wchar2_t*)(v1 + 36), v12);
 			if (v9) {
-				goto LABEL_14;
+				nox_client_drawImageAt_47D2C0(v9, xLeft, yTop);
+			} else {
+				nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
+				v17 = yTop + v5 + 2;
+				v15 = xLeft + 6;
+				v11 = (short*)nox_strman_loadString_40F1D0("NoIcon", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1401);
+				nox_xxx_drawString_43F6E0(0, v11, v15, v17);
 			}
-			nox_xxx_drawSetTextColor_434390(nox_color_white_2523948);
-			v17 = yTop + v5 + 2;
-			v15 = xLeft + 6;
-			v11 = (short*)nox_strman_loadString_40F1D0("NoIcon", 0, "C:\\NoxPost\\src\\Client\\Gui\\guispell.c", 1401);
 		}
-		nox_xxx_drawString_43F6E0(0, v11, v15, v17);
-		goto LABEL_19;
+		v13 = 24 * *v7;
+		if (*getMemU32Ptr(0x5D4594, 1047764 + 12 + v13) || !*getMemU32Ptr(0x5D4594, 1047764 + 8 + v13) ||
+			nox_xxx_playerAnimCheck_4372B0()) {
+			v14 = nox_xxx_abilityCooldown_4252D0(*v7);
+			if (v14 / gameFPS()) {
+				if (!v19) {
+					nox_client_drawRectFilledAlpha_49CF10(
+						xLeft, yTop, 34,
+						34 - (gameFrame() - *getMemU32Ptr(0x5D4594, 1047764 + 20 + 24 * *v7)) /
+								 (v14 / gameFPS()));
+				}
+			}
+		}
+		return 1;
 	}
 	return 1;
 }
