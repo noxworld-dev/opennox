@@ -31,12 +31,12 @@ func nox_xxx_netUpdateRemotePlr_501CA0_B(a1p *nox_object_t, v2 unsafe.Pointer, v
 }
 
 // nox_xxx_utilFindSound_40AF50
-func nox_xxx_utilFindSound_40AF50(name *char) int {
+func nox_xxx_utilFindSound_40AF50(name *byte) int {
 	return int(sound.ByName(GoString(name)))
 }
 
 // nox_xxx_getSndName_40AF80
-func nox_xxx_getSndName_40AF80(id int) *char {
+func nox_xxx_getSndName_40AF80(id int) *byte {
 	return internCStr(sound.ID(id).String())
 }
 

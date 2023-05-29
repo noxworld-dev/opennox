@@ -76,14 +76,14 @@ func Nox_thing_read_floor_485B30(f *binfile.MemFile, buf []byte) int {
 	if cap(buf) < 256*1024 {
 		panic(cap(buf))
 	}
-	return int(nox_thing_read_floor_485B30((*nox_memfile)(f.C()), (*char)(unsafe.Pointer(&buf[0]))))
+	return int(nox_thing_read_floor_485B30((*nox_memfile)(f.C()), &buf[0]))
 }
 
 func Nox_thing_read_edge_485D40(f *binfile.MemFile, buf []byte) int {
 	if cap(buf) < 256*1024 {
 		panic(cap(buf))
 	}
-	return int(nox_thing_read_edge_485D40((*nox_memfile)(f.C()), (*char)(unsafe.Pointer(&buf[0]))))
+	return int(nox_thing_read_edge_485D40((*nox_memfile)(f.C()), &buf[0]))
 }
 
 func Nox_thing_read_WALL_414F60(f *binfile.MemFile, buf []byte) int {
@@ -108,7 +108,7 @@ func Nox_thing_read_audio_415660(f *binfile.MemFile, buf []byte) int {
 	if cap(buf) < 256*1024 {
 		panic(cap(buf))
 	}
-	return int(nox_thing_read_audio_415660((*nox_memfile)(f.C()), (*char)(unsafe.Pointer(&buf[0]))))
+	return int(nox_thing_read_audio_415660((*nox_memfile)(f.C()), &buf[0]))
 }
 
 func Nox_thing_read_AVNT_452890(f *binfile.MemFile, buf []byte) int {

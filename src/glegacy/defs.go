@@ -93,7 +93,7 @@ type obj_5D4594_2650668_t struct {
 	field_10  unsafe.Pointer
 }
 type nox_parse_thing_draw_funcs_t struct {
-	name      *byte
+	name      string
 	draw      unsafe.Pointer
 	kind      uint32
 	parse_fnc func(*nox_thing, *nox_memfile, *byte) bool

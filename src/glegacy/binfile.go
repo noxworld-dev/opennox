@@ -8,7 +8,7 @@ import (
 )
 
 // nox_binfile_open_408CC0
-func nox_binfile_open_408CC0(cpath *char, cmode int) *FILE {
+func nox_binfile_open_408CC0(cpath *byte, cmode int) *FILE {
 	file, err := binfile.BinfileOpen(GoString(cpath), binfile.Mode(cmode))
 	if os.IsNotExist(err) {
 		return nil
@@ -55,13 +55,13 @@ func nox_binfile_cryptSet_408D40(cfile *FILE, ckey int) int {
 }
 
 // nox_binfile_fread_408E40
-func nox_binfile_fread_408E40(cbuf *char, sz, cnt int, cfile *FILE) int {
+func nox_binfile_fread_408E40(cbuf *byte, sz, cnt int, cfile *FILE) int {
 	if sz*cnt == 0 {
 		return 0
 	}
 	file := fileByHandle(cfile)
 	bin := file.Bin
-	buf := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), sz*cnt)
+	buf := unsafe.Slice(cbuf, sz*cnt)
 	n, err := bin.Read(buf)
 	if err != nil {
 		file.Err = err
@@ -70,7 +70,7 @@ func nox_binfile_fread_408E40(cbuf *char, sz, cnt int, cfile *FILE) int {
 }
 
 // nox_binfile_fread_raw_40ADD0
-func nox_binfile_fread_raw_40ADD0(cbuf *char, sz, cnt size_t, cfile *FILE) int {
+func nox_binfile_fread_raw_40ADD0(cbuf *byte, sz, cnt size_t, cfile *FILE) int {
 	if sz*cnt == 0 {
 		return 0
 	}
@@ -82,13 +82,13 @@ func nox_binfile_fread_raw_40ADD0(cbuf *char, sz, cnt size_t, cfile *FILE) int {
 }
 
 // nox_binfile_fread_align_408FE0
-func nox_binfile_fread_align_408FE0(cbuf *char, sz, cnt int, cfile *FILE) int {
+func nox_binfile_fread_align_408FE0(cbuf *byte, sz, cnt int, cfile *FILE) int {
 	if sz*cnt == 0 {
 		return 0
 	}
 	file := fileByHandle(cfile)
 	bin := file.Bin
-	buf := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), sz*cnt)
+	buf := unsafe.Slice(cbuf, sz*cnt)
 	n, err := bin.ReadAligned(buf)
 	if err != nil {
 		n = -1
@@ -110,7 +110,7 @@ func nox_binfile_skipLine_409520(cfile *FILE) int {
 }
 
 // nox_binfile_fseek_409050
-func nox_binfile_fseek_409050(cfile *FILE, coff, cwhence int) int {
+func nox_binfile_fseek_409050(cfile *FILE, coff, cwhence int32) int32 {
 	file := fileByHandle(cfile)
 	err := file.Bin.FileSeek(int64(coff), convWhence(cwhence))
 	if err != nil {

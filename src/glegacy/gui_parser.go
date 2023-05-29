@@ -11,6 +11,6 @@ var (
 )
 
 // nox_new_window_from_file
-func nox_new_window_from_file(cname *char, fnc unsafe.Pointer) *nox_window {
+func nox_new_window_from_file(cname *byte, fnc unsafe.Pointer) *nox_window {
 	return (*nox_window)(Nox_new_window_from_file(GoString(cname), gui.WrapFuncC(fnc)).C())
 }

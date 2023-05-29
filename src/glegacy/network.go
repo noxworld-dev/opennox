@@ -49,12 +49,12 @@ func ip2int(ip netip.Addr) uint32 {
 }
 
 // nox_xxx_networkLog_print
-func nox_xxx_networkLog_print(cstr *char) {
+func nox_xxx_networkLog_print(cstr *byte) {
 	NetworkLogPrint(GoString(cstr))
 }
 
 // nox_client_setServerConnectAddr_435720
-func nox_client_setServerConnectAddr_435720(addr *char) {
+func nox_client_setServerConnectAddr_435720(addr *byte) {
 	ClientSetServerHost(GoString(addr))
 }
 
@@ -62,8 +62,8 @@ func nox_client_setServerConnectAddr_435720(addr *char) {
 func nox_client_joinGame_438A90() int { return Nox_client_joinGame_438A90() }
 
 // sub_5550D0
-func sub_5550D0(addr int, port uint16, cdata *char) int {
-	buf := unsafe.Slice((*byte)(unsafe.Pointer(cdata)), 22)
+func sub_5550D0(addr int, port uint16, cdata *byte) int {
+	buf := unsafe.Slice(cdata, 22)
 	n, err := SendXXX_5550D0(netip.AddrPortFrom(int2ip(uint32(addr)), uint16(port)), buf)
 	return convSendToServerErr(n, err)
 }
@@ -72,7 +72,7 @@ func sub_5550D0(addr int, port uint16, cdata *char) int {
 func sub_5545A0() int16 { return int16(Sub_5545A0()) }
 
 // sub_554230
-func sub_554230() *char { return internCStr(Sub_554230()) }
+func sub_554230() *byte { return internCStr(Sub_554230()) }
 
 // nox_xxx_netStatsMultiplier_4D9C20
 func nox_xxx_netStatsMultiplier_4D9C20(a1p *nox_object_t) int {
@@ -106,13 +106,13 @@ func ClientGetServerPort() int {
 }
 
 func Sub_43AF90(v int) {
-	dword_5d4594_814548 = uint(v)
+	dword_5d4594_814548 = uint32(v)
 }
 
 func Nox_xxx_netSendPacket_4E5030(a1 int, buf []byte, a4, a5, a6 int) int {
 	b, free := alloc.CloneSlice(buf)
 	defer free()
-	return int(nox_xxx_netSendPacket_4E5030(int(a1), unsafe.Pointer(&b[0]), int(len(b)), int(a4), int(a5), char(a6)))
+	return int(nox_xxx_netSendPacket_4E5030(int32(a1), unsafe.Pointer(&b[0]), int32(len(b)), int32(a4), int32(a5), int8(a6)))
 }
 
 func Nox_client_getServerAddr_43B300() netip.Addr {
@@ -132,7 +132,7 @@ func Nox_xxx_earthquakeSend_4D9110(pos types.Pointf, a2 int) {
 	cpos[0] = pos.X
 	cpos[1] = pos.Y
 
-	nox_xxx_earthquakeSend_4D9110((*float32)(unsafe.Pointer(&cpos[0])), int(a2))
+	nox_xxx_earthquakeSend_4D9110((*float32)(unsafe.Pointer(&cpos[0])), int32(a2))
 }
 
 func Nox_xxx_netSendFxAllCli_523030(pos types.Pointf, data []byte) bool {
@@ -145,7 +145,7 @@ func Nox_xxx_netSendFxAllCli_523030(pos types.Pointf, data []byte) bool {
 	cpos[0] = pos.X
 	cpos[1] = pos.Y
 
-	return nox_xxx_netSendFxAllCli_523030((*float2)(unsafe.Pointer(&cpos[0])), unsafe.Pointer(&cdata[0]), int(len(data))) != 0
+	return nox_xxx_netSendFxAllCli_523030((*float2)(unsafe.Pointer(&cpos[0])), unsafe.Pointer(&cdata[0]), int32(len(data))) != 0
 }
 
 func Nox_xxx_servCode_523340(p1, p2 image.Point, data []byte) bool {
@@ -160,14 +160,14 @@ func Nox_xxx_servCode_523340(p1, p2 image.Point, data []byte) bool {
 	cpos[2] = int32(p2.X)
 	cpos[3] = int32(p2.Y)
 
-	return nox_xxx_servCode_523340((*int)(unsafe.Pointer(&cpos[0])), unsafe.Pointer(&cdata[0]), int(len(data))) != 0
+	return nox_xxx_servCode_523340(&cpos[0], unsafe.Pointer(&cdata[0]), int32(len(data))) != 0
 }
 
 func Nox_server_makeServerInfoPacket_554040(src, dst []byte) int {
 	csrc, free := alloc.Make([]byte{}, len(src))
 	defer free()
 	copy(csrc, src)
-	return int(nox_server_makeServerInfoPacket_554040((*char)(unsafe.Pointer(&src[0])), int(len(src)), (*char)(unsafe.Pointer(&dst[0]))))
+	return int(nox_server_makeServerInfoPacket_554040(&src[0], int32(len(src)), &dst[0]))
 }
 
 func Sub_40A740() int {
@@ -215,71 +215,71 @@ func convSendToServerErr(n int, err error) int {
 	return n
 }
 func Nox_xxx_netClientSend2_4E53C0(a1 int, a2 unsafe.Pointer, a3 int, a4 int, a5 int) {
-	nox_xxx_netClientSend2_4E53C0(int(a1), a2, int(a3), int(a4), int(a5))
+	nox_xxx_netClientSend2_4E53C0(int32(a1), a2, int32(a3), int32(a4), int32(a5))
 }
 func Nox_xxx_gameClearAll_467DF0(a1 int) {
-	nox_xxx_gameClearAll_467DF0(int(a1))
+	nox_xxx_gameClearAll_467DF0(int32(a1))
 }
 func Sub_57B920(a1 unsafe.Pointer) {
 	sub_57B920(a1)
 }
 func Nox_xxx_cliSetSettingsAcquired_4169D0(a1 int) {
-	nox_xxx_cliSetSettingsAcquired_4169D0(int(a1))
+	nox_xxx_cliSetSettingsAcquired_4169D0(int32(a1))
 }
 func Sub_457140(a1 int, a2 *uint16) {
-	sub_457140(int(a1), (*uint16)(unsafe.Pointer(a2)))
+	sub_457140(int32(a1), (*uint16)(unsafe.Pointer(a2)))
 }
 func Sub_455920(a1 *uint16) {
 	sub_455920((*uint16)(unsafe.Pointer(a1)))
 }
 func Sub_456DF0(a1 int) {
-	sub_456DF0(int(a1))
+	sub_456DF0(int32(a1))
 }
 func Sub_455950(a1 *uint16) {
 	sub_455950((*uint16)(unsafe.Pointer(a1)))
 }
 func Nox_xxx_netChangeTeamMb_419570(a1 *server.ObjectTeam, a2 uint32) {
-	nox_xxx_netChangeTeamMb_419570(a1.C(), int(a2))
+	nox_xxx_netChangeTeamMb_419570(a1.C(), int32(a2))
 }
 func Sub_49BB80(a1 byte) {
-	sub_49BB80(char(a1))
+	sub_49BB80(int8(a1))
 }
 func Nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 ntype.PlayerInd, a2 noxnet.Op, data []byte) int {
-	return int(nox_xxx_netOnPacketRecvCli_48EA70_switch(int(a1), int(a2), (*byte)(unsafe.Pointer(&data[0])), int(len(data))))
+	return int(nox_xxx_netOnPacketRecvCli_48EA70_switch(int32(a1), int32(a2), &data[0], int32(len(data))))
 }
 func Sub_4DDE10(a1 int, a2 *server.Player) {
-	sub_4DDE10(int(a1), (*nox_playerInfo)(a2.C()))
+	sub_4DDE10(int32(a1), (*nox_playerInfo)(a2.C()))
 }
 func Nox_xxx_netPlayerObjSend_518C30(a1 *server.Object, a2 *server.Object, a3 int, a4 int) int {
-	return int(nox_xxx_netPlayerObjSend_518C30(asObjectC(a1), asObjectC(a2), int(a3), int(a4)))
+	return int(nox_xxx_netPlayerObjSend_518C30(asObjectC(a1), asObjectC(a2), int32(a3), int32(a4)))
 }
 func Nox_xxx_gameServerReadyMB_4DD180(a1 int) {
-	nox_xxx_gameServerReadyMB_4DD180(int(a1))
+	nox_xxx_gameServerReadyMB_4DD180(int32(a1))
 }
 func Nox_xxx_teamCompare2_419180(t *server.ObjectTeam, id server.TeamID) int {
 	return int(nox_xxx_teamCompare2_419180(unsafe.Pointer(t), byte(id)))
 }
 func Sub_4D12A0(a1 int) int {
-	return int(sub_4D12A0(int(a1)))
+	return int(sub_4D12A0(int32(a1)))
 }
 func Sub_4D1210(a1 int) {
-	sub_4D1210(int(a1))
+	sub_4D1210(int32(a1))
 }
 func Nox_net_importantACK_4E55A0(a1 int, a2 int) {
-	nox_net_importantACK_4E55A0(int(a1), int(a2))
+	nox_net_importantACK_4E55A0(int32(a1), int32(a2))
 }
 func Sub_4196D0(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int, a4 int) {
-	sub_4196D0(a1, a2, int(a3), int(a4))
+	sub_4196D0(a1, a2, int32(a3), int32(a4))
 }
 func Nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 ntype.PlayerInd, data []byte, a4 *server.Player, a5 *server.Object, a6 unsafe.Pointer) int {
-	return int(nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int(a1), (*byte)(unsafe.Pointer(&data[0])), int(len(data)), (*nox_playerInfo)(a4.C()), asObjectC(a5), a6))
+	return int(nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int32(a1), &data[0], int32(len(data)), (*nox_playerInfo)(a4.C()), asObjectC(a5), a6))
 }
 func Nox_xxx_netReportAcquireCreature_4D91A0(pli int, obj *server.Object) {
-	nox_xxx_netReportAcquireCreature_4D91A0(int(pli), asObjectC(obj))
+	nox_xxx_netReportAcquireCreature_4D91A0(int32(pli), asObjectC(obj))
 }
 func Nox_xxx_netMarkMinimapObject_417190(pli int, obj *server.Object, a3 int) {
-	nox_xxx_netMarkMinimapObject_417190(int(pli), asObjectC(obj), int(a3))
+	nox_xxx_netMarkMinimapObject_417190(int32(pli), asObjectC(obj), int32(a3))
 }
 func Nox_xxx_netSendSimpleObject2_4DF360(pli int, obj *server.Object) {
-	nox_xxx_netSendSimpleObject2_4DF360(int(pli), asObjectC(obj))
+	nox_xxx_netSendSimpleObject2_4DF360(int32(pli), asObjectC(obj))
 }

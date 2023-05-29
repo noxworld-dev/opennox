@@ -38,7 +38,7 @@ func fill_find_data(path *byte, lpFindFileData LPWIN32_FIND_DATAA) {
 	libc.StrCpy(&lpFindFileData.cFileName[0], filename)
 }
 func compatFindFirstFileA(lpFileName *byte, lpFindFileData LPWIN32_FIND_DATAA) HANDLE {
-	converted := nox_fs_normalize((*char)(unsafe.Pointer(lpFileName)))
+	converted := nox_fs_normalize(lpFileName)
 	len_ := int32(libc.StrLen(lpFileName))
 	ff, _ := alloc.New(_FIND_FILE{})
 	var ()

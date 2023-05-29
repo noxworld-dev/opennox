@@ -474,7 +474,7 @@ func sub_4197C0(a1 *wchar2_t, a2 int32) {
 		}
 		v4[15] = byte(nox_wcslen(a1))
 		v2 = int32(uint8(v4[15])) * 2
-		v3 = (*uint32)(alloc.Calloc(1, uintptr(v2+18)))
+		v3, _ = alloc.Calloc(1, uintptr(v2+18))
 		*(*uint64)(unsafe.Pointer(v3)) = *(*uint64)(unsafe.Pointer(&v4[0]))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*2)) = *(*uint32)(unsafe.Pointer(&v4[8]))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*3)) = *(*uint32)(unsafe.Pointer(&v4[12]))
@@ -665,37 +665,37 @@ func sub_41A000(a1 *byte, sv *Nox_savegame_xxx) int32 {
 }
 
 type table_55816_t struct {
-	name *char
+	name string
 	ind  uint32
 	fnc  func(int32, int32) int32
 }
 
 var table_55816 = []table_55816_t{
-	{name: internCStr("Attrib Data"), ind: 0x2, fnc: func(arg1 int32, arg2 int32) int32 {
+	{name: "Attrib Data", ind: 0x2, fnc: func(arg1 int32, arg2 int32) int32 {
 		return sub_41A590(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
 	}},
-	{name: internCStr("Status Data"), ind: 0x3, fnc: func(arg1 int32, arg2 int32) int32 {
+	{name: "Status Data", ind: 0x3, fnc: func(arg1 int32, arg2 int32) int32 {
 		return sub_41AA30(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
 	}},
-	{name: internCStr("Inventory Data"), ind: 0x4, fnc: func(arg1 int32, arg2 int32) int32 {
+	{name: "Inventory Data", ind: 0x4, fnc: func(arg1 int32, arg2 int32) int32 {
 		return sub_41AC30(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
 	}},
-	{name: internCStr("FieldGuide Data"), ind: 0x8, fnc: func(arg1 int32, arg2 int32) int32 {
+	{name: "FieldGuide Data", ind: 0x8, fnc: func(arg1 int32, arg2 int32) int32 {
 		return nox_xxx_guiFieldbook_41B420(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
 	}},
-	{name: internCStr("Spellbook Data"), ind: 0x5, fnc: func(arg1 int32, arg2 int32) int32 {
+	{name: "Spellbook Data", ind: 0x5, fnc: func(arg1 int32, arg2 int32) int32 {
 		return nox_xxx_guiSpellbook_41B660(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
 	}},
-	{name: internCStr("Enchantment Data"), ind: 0x6, fnc: func(arg1 int32, arg2 int32) int32 {
+	{name: "Enchantment Data", ind: 0x6, fnc: func(arg1 int32, arg2 int32) int32 {
 		return nox_xxx_guiEnchantment_41B9C0(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
 	}},
-	{name: internCStr("Journal Data"), ind: 0x9, fnc: func(arg1 int32, arg2 int32) int32 {
+	{name: "Journal Data", ind: 0x9, fnc: func(arg1 int32, arg2 int32) int32 {
 		return sub_41BEC0(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
 	}},
-	{name: internCStr("Game Data"), ind: 0xA, fnc: func(arg1 int32, arg2 int32) int32 {
+	{name: "Game Data", ind: 0xA, fnc: func(arg1 int32, arg2 int32) int32 {
 		return sub_41C080(unsafe.Pointer(uintptr(arg1)), unsafe.Pointer(uintptr(arg2)))
 	}},
-	{name: internCStr("PAD_DATA"), ind: 0xB, fnc: func(arg1 int32, arg2 int32) int32 {
+	{name: "PAD_DATA", ind: 0xB, fnc: func(arg1 int32, arg2 int32) int32 {
 		return sub_41C200(unsafe.Pointer(uintptr(arg1)), arg2)
 	}},
 	{},

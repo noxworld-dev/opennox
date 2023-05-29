@@ -5,7 +5,7 @@ var (
 )
 
 // sub_57C490_2
-func sub_57C490_2(a1 *char) {
+func sub_57C490_2(a1 *byte) {
 	Sub_57C490_2(GoString(a1))
 }
 

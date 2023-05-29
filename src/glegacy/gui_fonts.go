@@ -3,7 +3,7 @@ package legacy
 import "unsafe"
 
 // nox_xxx_guiFontPtrByName_43F360
-func nox_xxx_guiFontPtrByName_43F360(cname *char) unsafe.Pointer {
+func nox_xxx_guiFontPtrByName_43F360(cname *byte) unsafe.Pointer {
 	name := GoString(cname)
 	return GetClient().R2().GetFonts().FontPtrByName(name)
 }

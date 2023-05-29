@@ -46,8 +46,8 @@ func sub_416150(key, ts int) int { return Sub_416150(key, ts) }
 // nox_client_getMousePos_4309F0
 func nox_client_getMousePos_4309F0() (out nox_point) {
 	mpos := GetClient().GetMousePos()
-	out.x = int(mpos.X)
-	out.y = int(mpos.Y)
+	out.x = int32(mpos.X)
+	out.y = int32(mpos.Y)
 	return
 }
 
@@ -100,7 +100,7 @@ func nox_input_freeStringBuffer_57011C(p *wchar2_t) {
 }
 
 // nox_xxx_keybind_nameByTitle_42E960
-func nox_xxx_keybind_nameByTitle_42E960(title *wchar2_t) *char {
+func nox_xxx_keybind_nameByTitle_42E960(title *wchar2_t) *byte {
 	k := Nox_xxx_keybind_nameByTitle_42E960(GoWString(title))
 	if k == 0 {
 		return nil
@@ -127,7 +127,7 @@ func nox_xxx_keybind_titleByKeyZero_42EA00(key uint) *wchar2_t {
 }
 
 // nox_xxx_bindevent_bindNameByTitle_42EA40
-func nox_xxx_bindevent_bindNameByTitle_42EA40(title *wchar2_t) *char {
+func nox_xxx_bindevent_bindNameByTitle_42EA40(title *wchar2_t) *byte {
 	b := Nox_xxx_bindevent_bindNameByTitle_42EA40(GoWString(title))
 	if b == nil {
 		return nil

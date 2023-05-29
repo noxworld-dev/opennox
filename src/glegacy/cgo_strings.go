@@ -14,8 +14,8 @@ func StrFree[T comparable](s *T) {
 	alloc.Free(s)
 }
 
-func CStringArray(arr []string) []*char {
-	out := make([]*char, 0, len(arr)+1)
+func CStringArray(arr []string) []*byte {
+	out := make([]*byte, 0, len(arr)+1)
 	for _, arg := range arr {
 		out = append(out, CString(arg))
 	}
@@ -31,18 +31,18 @@ func StrLenBytes(s []byte) int {
 	return i
 }
 
-func StrCopy(dst *char, max int, src string) int {
-	d := unsafe.Slice((*byte)(unsafe.Pointer(dst)), max)
+func StrCopy(dst *byte, max int, src string) int {
+	d := unsafe.Slice(dst, max)
 	return StrCopyBytes(d, src)
 }
 
-func StrNCopy(dst *char, max int, src string) int {
-	d := unsafe.Slice((*byte)(unsafe.Pointer(dst)), max)
+func StrNCopy(dst *byte, max int, src string) int {
+	d := unsafe.Slice(dst, max)
 	return StrNCopyBytes(d, src)
 }
 
 func StrCopyP(dst unsafe.Pointer, max int, src string) int {
-	return StrCopy((*char)(dst), max, src)
+	return StrCopy((*byte)(dst), max, src)
 }
 
 func StrCopyBytes(dst []byte, src string) int {
@@ -100,15 +100,15 @@ func WStrCopySlice(dst []uint16, src string) int {
 	return n
 }
 
-func GoString(s *char) string {
-	return GoString(s)
+func GoString(s *byte) string {
+	return alloc.GoString(s)
 }
 
 func GoStringP(s unsafe.Pointer) string {
-	return GoString((*char)(s))
+	return GoString((*byte)(s))
 }
 
-func GoStringN(s *char, n int) string {
+func GoStringN(s *byte, n int) string {
 	return GoStringNP(unsafe.Pointer(s), n)
 }
 
@@ -125,12 +125,15 @@ func GoStringS(s []byte) string {
 	return string(s[:StrLenBytes(s)])
 }
 
-func CString(s string) *char {
-	return CString(s)
+func CString(s string) *byte {
+	c, _ := alloc.CString(s)
+	return c
 }
 
 func CBytes(s []byte) unsafe.Pointer {
-	return CBytes(s)
+	b, _ := alloc.Make([]byte{}, len(s))
+	copy(b, s)
+	return unsafe.Pointer(&b[0])
 }
 
 func GoWStringP(s unsafe.Pointer) string {

@@ -5,6 +5,6 @@ var (
 )
 
 // sub_4E8290
-func sub_4E8290(a1 char, a2 int16) int {
+func sub_4E8290(a1 int8, a2 int16) int {
 	return Sub_4E8290(byte(a1), uint16(a2))
 }

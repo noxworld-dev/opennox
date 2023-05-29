@@ -78,7 +78,7 @@ func nox_xxx_playerDisconnByPlrID_4DEB00(id int32) {
 }
 
 // nox_xxx_playerCallDisconnect_4DEAB0
-func nox_xxx_playerCallDisconnect_4DEAB0(ind int32, v char) *char {
+func nox_xxx_playerCallDisconnect_4DEAB0(ind int32, v int8) *byte {
 	Nox_xxx_playerCallDisconnect_4DEAB0(ntype.PlayerInd(ind), int8(v))
 	return nil
 }
@@ -245,7 +245,7 @@ func Nox_xxx_playerLeaveObserver_0_4E6AA0(p *server.Player) {
 }
 
 func Nox_xxx_netGuiGameSettings_4DD9B0(a1 int, a2 unsafe.Pointer, a3 int) {
-	nox_xxx_netGuiGameSettings_4DD9B0(char(a1), a2, int32(a3))
+	nox_xxx_netGuiGameSettings_4DD9B0(int8(a1), a2, int32(a3))
 }
 
 func Sub_459AA0(a1 unsafe.Pointer) {
@@ -325,11 +325,11 @@ func Set_nox_xxx_wizardMaximumMana_587000_312820(v float32) {
 }
 
 func Sub_4D79A0(pli ntype.PlayerInd) {
-	sub_4D79A0(char(pli))
+	sub_4D79A0(int8(pli))
 }
 
 func Sub_4E80C0(pli ntype.PlayerInd) {
-	sub_4E80C0(char(pli))
+	sub_4E80C0(int8(pli))
 }
 
 func Nox_xxx_player_4E3CE0() int {
@@ -337,7 +337,7 @@ func Nox_xxx_player_4E3CE0() int {
 }
 
 func Sub_425E90(pl *server.Player, a2 int8) {
-	sub_425E90(pl.C(), char(a2))
+	sub_425E90(pl.C(), int8(a2))
 }
 
 func Sub_4E55F0(pli ntype.PlayerInd) {

@@ -24,7 +24,7 @@ var (
 )
 
 // nox_common_checkMapFile_4CFE10
-func nox_common_checkMapFile_4CFE10(name *char) int {
+func nox_common_checkMapFile_4CFE10(name *byte) int {
 	if err := Nox_common_checkMapFile(GoString(name)); err != nil {
 		gameLog.Println("check map file:", err)
 		return 0
@@ -33,7 +33,7 @@ func nox_common_checkMapFile_4CFE10(name *char) int {
 }
 
 // nox_xxx_mapReadSection_426EA0
-func nox_xxx_mapReadSection_426EA0(a1 unsafe.Pointer, cname *char, cerr *uint) int {
+func nox_xxx_mapReadSection_426EA0(a1 unsafe.Pointer, cname *byte, cerr *uint) int {
 	panic("TODO")
 }
 
@@ -43,7 +43,7 @@ func nox_xxx_mapWriteSectionsMB_426E20(a1 unsafe.Pointer) int {
 }
 
 // nox_xxx_nxzCompressFile_57BDD0
-func nox_xxx_nxzCompressFile_57BDD0(a1, a2 *char) int {
+func nox_xxx_nxzCompressFile_57BDD0(a1, a2 *byte) int {
 	if err := cnxz.CompressFile(GoString(a1), GoString(a2)); err != nil {
 		mapLog.Println(err)
 		return 0

@@ -5,6 +5,6 @@ var (
 )
 
 // nox_common_writecfgfile
-func nox_common_writecfgfile(str *char) {
+func nox_common_writecfgfile(str *byte) {
 	WriteConfigLegacy(GoString(str))
 }

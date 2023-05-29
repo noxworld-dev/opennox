@@ -40,5 +40,5 @@ func wrapObjectDeathParseC(ptr unsafe.Pointer) server.ObjectParseFunc {
 func Nox_call_objectType_parseDeath_go(a1 unsafe.Pointer, a2 string, a3 unsafe.Pointer) int {
 	cstr := CString(a2)
 	defer StrFree(cstr)
-	return int(asFuncT[func(*char, unsafe.Pointer) int32](uintptr(a1))(cstr, a3))
+	return int(asFuncT[func(*byte, unsafe.Pointer) int32](uintptr(a1))(cstr, a3))
 }

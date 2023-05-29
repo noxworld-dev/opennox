@@ -49,7 +49,7 @@ func nox_xxx_parseString_409470(a1 *FILE, a2 *uint8) int32 {
 	for {
 		for {
 			v5 = v3
-			nox_binfile_fread_408E40((*char)(unsafe.Pointer(&CharType[0])), 1, 1, a1)
+			nox_binfile_fread_408E40((*byte)(unsafe.Pointer(&CharType[0])), 1, 1, a1)
 			if nox_binfile_lastErr_409370(a1) == -1 {
 				return 0
 			}
@@ -117,7 +117,7 @@ func nox_xxx_gameSetMapPath_409D70(a1 *byte) *byte {
 		v2     *byte
 		v3     int32
 	)
-	result = (*byte)(unsafe.Pointer(uintptr(nox_strcmpi((*char)(memmap.PtrOff(0x5D4594, 2598188)), a1))))
+	result = (*byte)(unsafe.Pointer(uintptr(nox_strcmpi((*byte)(memmap.PtrOff(0x5D4594, 2598188)), a1))))
 	if result != nil {
 		libc.StrNCpy((*byte)(memmap.PtrOff(0x5D4594, 2598188)), a1, 0x50)
 		*memmap.PtrUint8(0x5D4594, 2598267) = 0
@@ -1147,11 +1147,11 @@ func nox_thing_read_EDGE_411850(f *nox_memfile, a2 *uint8) int32 {
 	v29[v30] = 0
 	libc.StrCpy((*byte)(memmap.PtrOff(0x85B3FC, uintptr(v5*20+28644))), &v29[0])
 	v7 = nox_memfile_read_i32(f)
-	*memmap.PtrUint32(0x85B3FC, dword_5d4594_251572*60+28680) = uint32(v7)
+	*memmap.PtrUint32(0x85B3FC, uintptr(dword_5d4594_251572)*60+28680) = uint32(v7)
 	v9 = nox_memfile_read_i32(f)
-	*memmap.PtrUint32(0x85B3FC, dword_5d4594_251572*60+28684) = uint32(v9)
+	*memmap.PtrUint32(0x85B3FC, uintptr(dword_5d4594_251572)*60+28684) = uint32(v9)
 	*((*uint8)(unsafe.Pointer(&v9))) = nox_memfile_read_u8(f)
-	*memmap.PtrUint8(0x85B3FC, dword_5d4594_251572*60+28701) = uint8(int8(v9))
+	*memmap.PtrUint8(0x85B3FC, uintptr(dword_5d4594_251572)*60+28701) = uint8(int8(v9))
 	*((*uint8)(unsafe.Pointer(&v9))) = nox_memfile_read_u8(f)
 	v28 = uint8(int8(v9))
 	v12 = int32(dword_5d4594_251572 * 60)
@@ -1166,7 +1166,7 @@ func nox_thing_read_EDGE_411850(f *nox_memfile, a2 *uint8) int32 {
 		return 0
 	}
 	v17 = nox_memfile_read_u8(f)
-	*memmap.PtrUint8(0x85B3FC, dword_5d4594_251572*60+28697) = v17
+	*memmap.PtrUint8(0x85B3FC, uintptr(dword_5d4594_251572)*60+28697) = v17
 	v19 = nox_memfile_read_u8(f)
 	v20 = int32(dword_5d4594_251572 * 60)
 	*memmap.PtrUint8(0x85B3FC, uintptr(v20+28696)) = v19

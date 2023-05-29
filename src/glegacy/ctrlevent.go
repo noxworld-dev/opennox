@@ -36,7 +36,7 @@ func sub_42CD90() {
 }
 
 // nox_client_parseConfigHotkeysLine_42CF50
-func nox_client_parseConfigHotkeysLine_42CF50(a1 *char) int {
+func nox_client_parseConfigHotkeysLine_42CF50(a1 *byte) int {
 	return Nox_client_parseConfigHotkeysLine_42CF50(GoString(a1))
 }
 

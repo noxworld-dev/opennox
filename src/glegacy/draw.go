@@ -151,7 +151,7 @@ func sub_47D370(a1 int) {
 }
 
 // sub_47D400
-func sub_47D400(a1 int, a2 char) {
+func sub_47D400(a1 int, a2 int8) {
 	GetClient().R2().SetInterlacing(a1 != 0, int(a2))
 }
 
@@ -267,29 +267,29 @@ func nox_xxx_drawPointMB_499B70(a1, a2, a3 int32) {
 }
 
 // nox_xxx_guiFontHeightMB_43F320
-func nox_xxx_guiFontHeightMB_43F320(fnt unsafe.Pointer) int {
+func nox_xxx_guiFontHeightMB_43F320(fnt unsafe.Pointer) int32 {
 	r := GetClient().R2()
-	return r.FontHeight(r.GetFonts().AsFont(fnt))
+	return int32(r.FontHeight(r.GetFonts().AsFont(fnt)))
 }
 
 // nox_draw_setTabWidth_43FE20
-func nox_draw_setTabWidth_43FE20(v int32) int {
+func nox_draw_setTabWidth_43FE20(v int32) int32 {
 	old := GetClient().R2().TabWidth()
 	GetClient().R2().SetTabWidth(int(v))
-	return old
+	return int32(old)
 }
 
 // nox_xxx_drawGetStringSize_43F840
-func nox_xxx_drawGetStringSize_43F840(font unsafe.Pointer, sp *wchar2_t, outW, outH *int, maxW int) int {
+func nox_xxx_drawGetStringSize_43F840(font unsafe.Pointer, sp *wchar2_t, outW, outH *int32, maxW int32) int32 {
 	r := GetClient().R2()
-	sz := r.GetStringSizeWrapped(r.GetFonts().AsFont(font), GoWString(sp), maxW)
+	sz := r.GetStringSizeWrapped(r.GetFonts().AsFont(font), GoWString(sp), int(maxW))
 	if outW != nil {
-		*outW = int(sz.X)
+		*outW = int32(sz.X)
 	}
 	if outH != nil {
-		*outH = int(sz.Y)
+		*outH = int32(sz.Y)
 	}
-	return bool2int(sz != (image.Point{}))
+	return bool2int32(sz != (image.Point{}))
 }
 
 // nox_xxx_bookGetStringSize_43FA80
@@ -352,9 +352,9 @@ func sub_484C60(a1 float32) int {
 }
 
 // sub_469920
-func sub_469920(p *nox_point) *char {
+func sub_469920(p *nox_point) *byte {
 	dst := GetClient().Sub469920(AsPoint(unsafe.Pointer(p)))
-	return (*char)(unsafe.Pointer(&dst[0]))
+	return (*byte)(unsafe.Pointer(&dst[0]))
 }
 
 // nox_xxx_drawList1096512_Append_4754C0
@@ -457,26 +457,26 @@ func Nox_xxx_drawShinySpot_4C4F40(vp *noxrender.Viewport, dr *client.Drawable) {
 }
 
 func Sub_499F60(p int, pos image.Point, a4 int, a5, a6, a7, a8, a9 int, a10 int) {
-	sub_499F60(int32(p), int32(pos.X), int32(pos.Y), int16(a4), char(a5), char(a6), char(a7), char(a8), char(a9), int32(a10))
+	sub_499F60(int32(p), int32(pos.X), int32(pos.Y), int16(a4), int8(a5), int8(a6), int8(a7), int8(a8), int8(a9), int32(a10))
 }
 
 func Get_sub_480250() unsafe.Pointer {
-	return sub_480250
+	return funAddrP(sub_480250)
 }
 func Get_sub_480220() unsafe.Pointer {
-	return sub_480220
+	return funAddrP(sub_480220)
 }
 func Get_nox_xxx_tileDraw_4815E0() unsafe.Pointer {
-	return nox_xxx_tileDraw_4815E0
+	return funAddrP(nox_xxx_tileDraw_4815E0)
 }
 func Get_nox_xxx_drawTexEdgesProbably_481900() unsafe.Pointer {
-	return nox_xxx_drawTexEdgesProbably_481900
+	return funAddrP(nox_xxx_drawTexEdgesProbably_481900)
 }
 func Get_sub_481770() unsafe.Pointer {
-	return sub_481770
+	return funAddrP(sub_481770)
 }
 func Get_nullsub_8() unsafe.Pointer {
-	return nullsub_8
+	return funAddrP(nullsub_8)
 }
 func Sub_435120(a1 unsafe.Pointer, a2 unsafe.Pointer) {
 	sub_435120(a1, a2)
@@ -485,7 +485,7 @@ func Sub_435040() {
 	sub_435040()
 }
 func Sub_435150(a1 unsafe.Pointer, a2 unsafe.Pointer) {
-	sub_435150((*byte)(a1), (*char)(a2))
+	sub_435150((*byte)(a1), (*byte)(a2))
 }
 func Nox_xxx_wndDraw_49F7F0() {
 	nox_xxx_wndDraw_49F7F0()

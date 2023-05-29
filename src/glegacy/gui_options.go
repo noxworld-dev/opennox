@@ -24,7 +24,7 @@ func nox_video_setMenuOptions(cwin *nox_window) { Nox_video_setMenuOptions(asWin
 func nox_gui_menu_proc_ext(id int) int { return Nox_gui_menu_proc_ext(id) }
 
 // sub_4A19F0
-func sub_4A19F0(name *char) { Sub_4A19F0(strman.ID(GoString(name))) }
+func sub_4A19F0(name *byte) { Sub_4A19F0(strman.ID(GoString(name))) }
 
 // sub_4AAA10
 func sub_4AAA10() int { return Sub_4AAA10() }

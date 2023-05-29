@@ -58,7 +58,7 @@ func sub_4FC440(a1 *nox_object_t, a2 int) {
 }
 
 // nox_xxx_abilityGetName_425250
-func nox_xxx_abilityGetName_425250(a1 int) *char {
+func nox_xxx_abilityGetName_425250(a1 int) *byte {
 	return internCStr(server.Ability(a1).String())
 }
 
@@ -108,6 +108,6 @@ func nox_xxx_bookNextKnownAbil_425350(a1 int) int { return Nox_xxx_bookNextKnown
 func sub_425450(a1 int) int { return Sub_425450(a1) }
 
 // nox_xxx_netAbilRepotState_4D8100
-func nox_xxx_netAbilRepotState_4D8100(a1 *nox_object_t, a2, a3 char) {
+func nox_xxx_netAbilRepotState_4D8100(a1 *nox_object_t, a2, a3 int8) {
 	Nox_xxx_netAbilRepotState_4D8100(asObjectS(a1), server.Ability(a2), byte(a3))
 }

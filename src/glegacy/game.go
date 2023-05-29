@@ -58,7 +58,7 @@ func nox_xxx_gameGetPlayState_4356B0() int {
 }
 
 // nox_xxx_GetEndgameDialog_578D80
-func nox_xxx_GetEndgameDialog_578D80() *char {
+func nox_xxx_GetEndgameDialog_578D80() *byte {
 	if s := Nox_xxx_GetEndgameDialog(); s != "" {
 		return internCStr(s)
 	}
@@ -106,7 +106,7 @@ func nox_xxx_gameIsSwitchToSolo_4DB240() int {
 }
 
 // nox_xxx_mapTraceRay_535250
-func nox_xxx_mapTraceRay_535250(a1 *float4, a2 *float2, a3 *int2, a4 char) int {
+func nox_xxx_mapTraceRay_535250(a1 *float4, a2 *float2, a3 *int2, a4 int8) int {
 	p1 := (*types.Pointf)(unsafe.Pointer(&a1.field_0))
 	p2 := (*types.Pointf)(unsafe.Pointer(&a1.field_8))
 	outPos := (*types.Pointf)(unsafe.Pointer(a2))
@@ -246,7 +246,7 @@ func sub_4537F0() {
 }
 
 // sub_41CC00
-func sub_41CC00(cstr *char) {
+func sub_41CC00(cstr *byte) {
 	Sub_41CC00(GoString(cstr))
 }
 
@@ -664,25 +664,25 @@ func Sub_500510(a1 string) {
 	sub_500510(internCStr(a1))
 }
 func Nox_xxx_mapSwitchLevel_4D12E0(a1 int) {
-	nox_xxx_mapSwitchLevel_4D12E0(int(a1))
+	nox_xxx_mapSwitchLevel_4D12E0(int32(a1))
 }
 func Sub_57A1E0(a1 unsafe.Pointer, a2 string, a3 unsafe.Pointer, a4 int, a5 noxflags.GameFlag) {
-	sub_57A1E0((*int)(a1), internCStr(a2), (*int)(a3), char(a4), int16(a5))
+	sub_57A1E0((*int32)(a1), internCStr(a2), (*int32)(a3), int8(a4), int16(a5))
 }
 func Sub_57AAA0(a1 string, a2 *byte, a3 unsafe.Pointer) {
-	sub_57AAA0(internCStr(a1), (*char)(unsafe.Pointer(a2)), (*int)(a3))
+	sub_57AAA0(internCStr(a1), a2, (*int32)(a3))
 }
 func Sub_4EF660(a1 *server.Object) {
 	sub_4EF660(asObjectC(a1))
 }
 func Nox_xxx_resetMapInit_4FC570(a1 int) {
-	nox_xxx_resetMapInit_4FC570(int(a1))
+	nox_xxx_resetMapInit_4FC570(int32(a1))
 }
 func Sub_4DBA30(a1 bool) {
-	sub_4DBA30(int(bool2int(a1)))
+	sub_4DBA30(bool2int32(a1))
 }
 func Sub_4FC580(a1 int) {
-	sub_4FC580(int(a1))
+	sub_4FC580(int32(a1))
 }
 func Nox_xxx_isUnit_4E5B50(a1 *server.Object) int {
 	return int(nox_xxx_isUnit_4E5B50(asObjectC(a1)))
@@ -694,28 +694,28 @@ func Sub_4E81D0(a1 *server.Object) {
 	sub_4E81D0(asObjectC(a1))
 }
 func Sub_4D71E0(a1 int) {
-	sub_4D71E0(int(a1))
+	sub_4D71E0(int32(a1))
 }
 func Sub_4D7280(a1 int, a2 int8) {
-	sub_4D7280(int(a1), char(a2))
+	sub_4D7280(int32(a1), int8(a2))
 }
 func Nox_xxx_calcDistance_4E6C00(a1 *server.Object, a2 *server.Object) float32 {
 	return float32(nox_xxx_calcDistance_4E6C00(asObjectC(a1), asObjectC(a2)))
 }
 func Sub_415CD0(a1 int) int {
-	return int(sub_415CD0(int(a1)))
+	return int(sub_415CD0(int32(a1)))
 }
 func Sub_415840(a1 int) int {
-	return int(sub_415840(int(a1)))
+	return int(sub_415840(int32(a1)))
 }
 func Get_nox_game_switchStates_43C0A0() unsafe.Pointer {
-	return nox_game_switchStates_43C0A0
+	return funAddrP(nox_game_switchStates_43C0A0)
 }
 func Get_nox_game_showOptions_4AA6B0() unsafe.Pointer {
-	return nox_game_showOptions_4AA6B0
+	return funAddrP(nox_game_showOptions_4AA6B0)
 }
 func Get_nox_game_showMainMenu_4A1C00() unsafe.Pointer {
-	return nox_game_showMainMenu_4A1C00
+	return funAddrP(nox_game_showMainMenu_4A1C00)
 }
 func Sub_41CAC0(a1 string, data []byte) {
 	sub_41CAC0(internCStr(a1), unsafe.Pointer(&data[0]))

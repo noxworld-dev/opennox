@@ -50,7 +50,7 @@ func nox_server_teamTitle_418C20(a1 int32) *wchar2_t {
 }
 
 // nox_xxx_teamCreate_4186D0
-func nox_xxx_teamCreate_4186D0(a1 char) *nox_team_t {
+func nox_xxx_teamCreate_4186D0(a1 int8) *nox_team_t {
 	return (*nox_team_t)(GetServer().S().Teams.Create(server.TeamID(a1)).C())
 }
 

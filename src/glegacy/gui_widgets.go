@@ -49,7 +49,7 @@ func Nox_xxx_wndRadioButtonSetAllFn_4A87E0(win *gui.Window) {
 }
 
 var (
-	Nox_xxx_wndButtonProcPre_4A9250      = gui.WrapFuncC(nox_xxx_wndButtonProcPre_4A9250)
-	Nox_xxx_wndCheckboxProcMB_4A92C0     = gui.WrapFuncC(nox_xxx_wndCheckboxProcMB_4A92C0)
-	Nox_xxx_wndRadioButtonProcPre_4A93C0 = gui.WrapFuncC(nox_xxx_wndRadioButtonProcPre_4A93C0)
+	Nox_xxx_wndButtonProcPre_4A9250      = gui.WrapFuncC(funAddrP(nox_xxx_wndButtonProcPre_4A9250))
+	Nox_xxx_wndCheckboxProcMB_4A92C0     = gui.WrapFuncC(funAddrP(nox_xxx_wndCheckboxProcMB_4A92C0))
+	Nox_xxx_wndRadioButtonProcPre_4A93C0 = gui.WrapFuncC(funAddrP(nox_xxx_wndRadioButtonProcPre_4A93C0))
 )

@@ -17,7 +17,7 @@ func nox_server_scriptGetGroup_57C0A0(a1 int) unsafe.Pointer {
 }
 
 // sub_504600
-func sub_504600(name *char, ind uint32, typ uint8) {
+func sub_504600(name *byte, ind uint32, typ uint8) {
 	GetServer().S().MapGroups.Sub504600(GoString(name), ind, typ)
 }
 
@@ -50,7 +50,7 @@ func sub_579C60(id uint32) *nox_waypoint_t {
 }
 
 // nox_server_mapLoadAddGroup_57C0C0
-func nox_server_mapLoadAddGroup_57C0C0(name *char, ind uint32, typ byte) int32 {
+func nox_server_mapLoadAddGroup_57C0C0(name *byte, ind uint32, typ byte) int32 {
 	return GetServer().S().MapGroups.MapLoadAddGroup57C0C0(GoString(name), ind, typ)
 }
 

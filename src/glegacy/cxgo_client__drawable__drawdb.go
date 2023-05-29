@@ -23,10 +23,10 @@ func nox_parse_thing_draw(obj *nox_thing, f *nox_memfile, attr_value *byte) bool
 	if *(*uint32)(unsafe.Pointer(&nox_parse_thing_draw_funcs[0])) == 0 {
 		return true
 	}
-	var item *nox_parse_thing_draw_funcs_t = nil
-	for i := int32(0); i < nox_parse_thing_draw_funcs_cnt; i++ {
-		var cur *nox_parse_thing_draw_funcs_t = &nox_parse_thing_draw_funcs[i]
-		if libc.StrCmp(cur.name, &read_str[0]) == 0 {
+	var item *nox_parse_thing_draw_funcs_t
+	for i := range nox_parse_thing_draw_funcs {
+		cur := &nox_parse_thing_draw_funcs[i]
+		if cur.name == GoString(&read_str[0]) {
 			item = cur
 			break
 		}
@@ -298,7 +298,7 @@ func nox_xxx_draw_44C780(a1 int32) unsafe.Pointer {
 		}
 		result = *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v2 + a1)))
 		if result != nil {
-			alloc.Free(result)
+			alloc.FreePtr(result)
 		}
 	}
 	return result
@@ -318,14 +318,14 @@ func sub_44C7B0(a1 int32) unsafe.Pointer {
 	for {
 		if *v1 != nil {
 			nox_xxx_draw_44C780(int32(uintptr(*v1)) + 4)
-			alloc.Free(*v1)
+			alloc.FreePtr(*v1)
 		}
 		v3 = (*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(unsafe.Pointer(nil))*1))
 		v4 = 26
 		for {
 			if *v3 != nil {
 				nox_xxx_draw_44C780(int32(uintptr(*v3)) + 4)
-				alloc.Free(*v3)
+				alloc.FreePtr(*v3)
 			}
 			v3 = (*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(unsafe.Pointer(nil))*1))
 			v4--
@@ -339,7 +339,7 @@ func sub_44C7B0(a1 int32) unsafe.Pointer {
 			result = *v5
 			if *v5 != nil {
 				nox_xxx_draw_44C780(int32(uintptr(result)) + 4)
-				alloc.Free(*v5)
+				alloc.FreePtr(*v5)
 			}
 			v5 = (*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(unsafe.Pointer(nil))*1))
 			v6--
@@ -357,11 +357,11 @@ func sub_44C7B0(a1 int32) unsafe.Pointer {
 }
 func nox_xxx_draw_44C650_free(lpMem unsafe.Pointer, draw unsafe.Pointer) {
 	var kind int32 = 0
-	if *(*uint32)(unsafe.Pointer(&nox_parse_thing_draw_funcs[0])) != 0 {
-		var item *nox_parse_thing_draw_funcs_t = nil
-		for i := int32(0); i < nox_parse_thing_draw_funcs_cnt; i++ {
-			var cur *nox_parse_thing_draw_funcs_t = &nox_parse_thing_draw_funcs[i]
-			if cur.name == nil {
+	if nox_parse_thing_draw_funcs[0].name != "" {
+		var item *nox_parse_thing_draw_funcs_t
+		for i := range nox_parse_thing_draw_funcs {
+			cur := &nox_parse_thing_draw_funcs[i]
+			if cur.name == "" {
 				break
 			}
 			if cur.draw == draw {
@@ -384,15 +384,15 @@ func nox_xxx_draw_44C650_free(lpMem unsafe.Pointer, draw unsafe.Pointer) {
 		fallthrough
 	case 3:
 		if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*1))) != 0 {
-			alloc.Free(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer((*unsafe.Pointer)(lpMem)), unsafe.Sizeof(unsafe.Pointer(nil))*1))))
+			alloc.FreePtr(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer((*unsafe.Pointer)(lpMem)), unsafe.Sizeof(unsafe.Pointer(nil))*1))))
 		}
-		alloc.Free(lpMem)
+		alloc.FreePtr(lpMem)
 	case 4:
 		v7 = (*unsafe.Pointer)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(lpMem)), 4))))
 		v8 = 5
 		for {
 			if *v7 != nil {
-				alloc.Free(*v7)
+				alloc.FreePtr(*v7)
 			}
 			v7 = (*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v7), unsafe.Sizeof(unsafe.Pointer(nil))*1))
 			v8--
@@ -400,13 +400,13 @@ func nox_xxx_draw_44C650_free(lpMem unsafe.Pointer, draw unsafe.Pointer) {
 				break
 			}
 		}
-		alloc.Free(lpMem)
+		alloc.FreePtr(lpMem)
 	case 5:
 		nox_xxx_draw_44C780(int32(uintptr(lpMem)) + 4)
-		alloc.Free(lpMem)
+		alloc.FreePtr(lpMem)
 	case 6:
 		sub_44C7B0(int32(uintptr(lpMem)))
-		alloc.Free(lpMem)
+		alloc.FreePtr(lpMem)
 	case 7:
 		v9 = (*byte)(unsafe.Add(unsafe.Pointer((*byte)(lpMem)), 8))
 		v10 = 16
@@ -418,7 +418,7 @@ func nox_xxx_draw_44C650_free(lpMem unsafe.Pointer, draw unsafe.Pointer) {
 				break
 			}
 		}
-		alloc.Free(lpMem)
+		alloc.FreePtr(lpMem)
 	case 8:
 		v11 = (*byte)(unsafe.Add(unsafe.Pointer((*byte)(lpMem)), 8))
 		v12 = 3
@@ -430,8 +430,8 @@ func nox_xxx_draw_44C650_free(lpMem unsafe.Pointer, draw unsafe.Pointer) {
 				break
 			}
 		}
-		alloc.Free(lpMem)
+		alloc.FreePtr(lpMem)
 	default:
-		alloc.Free(lpMem)
+		alloc.FreePtr(lpMem)
 	}
 }

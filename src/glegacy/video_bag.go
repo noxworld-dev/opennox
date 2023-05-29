@@ -97,16 +97,16 @@ func nox_video_bag_image_type(img *nox_video_bag_image_t) int {
 }
 
 // nox_xxx_readImgMB_42FAA0
-func nox_xxx_readImgMB_42FAA0(known_idx int, typ char, cname2 *char) *nox_video_bag_image_t {
+func nox_xxx_readImgMB_42FAA0(known_idx int, typ int8, cname2 *byte) *nox_video_bag_image_t {
 	return (*nox_video_bag_image_t)(GetClient().R2().GetBag().ImageRef(int(known_idx), byte(typ), GoString(cname2)).C())
 }
 
 // nox_xxx_gLoadImg_42F970
-func nox_xxx_gLoadImg_42F970(name *char) *nox_video_bag_image_t {
+func nox_xxx_gLoadImg_42F970(name *byte) *nox_video_bag_image_t {
 	return (*nox_video_bag_image_t)(Nox_xxx_gLoadImg(GoString(name)).C())
 }
 
 // nox_xxx_gLoadAnim_42FA20
-func nox_xxx_gLoadAnim_42FA20(name *char) *ImageRef {
+func nox_xxx_gLoadAnim_42FA20(name *byte) *ImageRef {
 	return (*ImageRef)(Nox_xxx_gLoadAnim(GoString(name)).C())
 }

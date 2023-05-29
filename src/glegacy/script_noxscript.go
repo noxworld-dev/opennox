@@ -60,10 +60,10 @@ func nox_script_popf() float32 {
 }
 
 // nox_script_indexByEvent
-func nox_script_indexByEvent(cname *char) int { return Nox_script_indexByEvent(GoString(cname)) }
+func nox_script_indexByEvent(cname *byte) int { return Nox_script_indexByEvent(GoString(cname)) }
 
 // nox_script_getString_512E40
-func nox_script_getString_512E40(i int) *char {
+func nox_script_getString_512E40(i int) *byte {
 	s, ok := Nox_script_getString_512E40(i)
 	if !ok {
 		return nil
@@ -75,8 +75,8 @@ func nox_script_getString_512E40(i int) *char {
 func nox_setImaginaryCaster() int { return Nox_setImaginaryCaster() }
 
 // nox_script_readWriteZzz_541670
-func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *char) int {
-	return Nox_script_readWriteZzz_541670((*byte)(unsafe.Pointer(cpath)), (*byte)(unsafe.Pointer(cpath2)), (*byte)(unsafe.Pointer(cdst)))
+func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *byte) int {
+	return Nox_script_readWriteZzz_541670(cpath, cpath2, cdst)
 }
 
 // nox_xxx_scriptCallByEventBlock_502490
@@ -85,21 +85,21 @@ func nox_xxx_scriptCallByEventBlock_502490(a1 unsafe.Pointer, a2, a3 unsafe.Poin
 }
 
 // nox_script_callByIndex_507310
-func nox_script_callByIndex_507310(index int, a2 unsafe.Pointer, a3 unsafe.Pointer) {
-	if err := GetServer().NoxScriptC().CallByIndex(index, AsObjectP(a2), AsObjectP(a3)); err != nil {
+func nox_script_callByIndex_507310(index int32, a2 unsafe.Pointer, a3 unsafe.Pointer) {
+	if err := GetServer().NoxScriptC().CallByIndex(int(index), AsObjectP(a2), AsObjectP(a3)); err != nil {
 		scriptLog.Println(err)
 	}
 }
 
 // nox_script_callbackName
-func nox_script_callbackName(h int) *char {
-	s := Nox_script_callbackName(h)
+func nox_script_callbackName(h int32) *byte {
+	s := Nox_script_callbackName(int(h))
 	return internCStr(s)
 }
 
 // nox_script_objCallbackName_508CB0
-func nox_script_objCallbackName_508CB0(obj *nox_object_t, event int) *char {
-	s, ok := Nox_script_objCallbackName_508CB0(asObjectS(obj), event)
+func nox_script_objCallbackName_508CB0(obj *nox_object_t, event int32) *byte {
+	s, ok := Nox_script_objCallbackName_508CB0(asObjectS(obj), int(event))
 	if !ok {
 		return nil
 	}

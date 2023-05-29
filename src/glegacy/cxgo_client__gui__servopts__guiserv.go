@@ -11,20 +11,20 @@ import (
 )
 
 type nox_gui_gamemode struct {
-	name  *char
+	name  string
 	title *wchar2_t
 	mode  uint32
 	hide  bool
 }
 
 var nox_gui_gamemodes = []nox_gui_gamemode{
-	{name: internCStr("CTF"), title: nil, mode: 0x20, hide: false},
-	{name: internCStr("Arena"), title: nil, mode: 0x100, hide: false},
-	{name: internCStr("Highlander"), title: nil, mode: 0x400, hide: false},
-	{name: internCStr("KotR"), title: nil, mode: 0x10, hide: false},
-	{name: internCStr("Flagball"), title: nil, mode: 0x40, hide: false},
-	{name: internCStr("Quest"), title: nil, mode: 0x1000, hide: true},
-	{name: internCStr("Noxworld.c:Chat"), title: nil, mode: 0x80, hide: false},
+	{name: "CTF", title: nil, mode: 0x20, hide: false},
+	{name: "Arena", title: nil, mode: 0x100, hide: false},
+	{name: "Highlander", title: nil, mode: 0x400, hide: false},
+	{name: "KotR", title: nil, mode: 0x10, hide: false},
+	{name: "Flagball", title: nil, mode: 0x40, hide: false},
+	{name: "Quest", title: nil, mode: 0x1000, hide: true},
+	{name: "Noxworld.c:Chat", title: nil, mode: 0x80, hide: false},
 	{},
 }
 var nox_gui_gamemode_cnt int32 = int32(len(nox_gui_gamemodes) - 1)
@@ -34,12 +34,12 @@ func nox_gui_gamemode_load_457410() {
 	if nox_gui_gamemode_loaded_1046548 != 0 {
 		return
 	}
-	for i := int32(0); i < nox_gui_gamemode_cnt; i++ {
-		var p *nox_gui_gamemode = &nox_gui_gamemodes[i]
-		if p.name == nil {
+	for i := range nox_gui_gamemodes {
+		p := &nox_gui_gamemodes[i]
+		if p.name == "" {
 			break
 		}
-		p.title = nox_strman_loadString_40F1D0(p.name, nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 212)
+		p.title = nox_strman_loadString_40F1D0(internCStr(p.name), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 212)
 	}
 	nox_gui_gamemode_loaded_1046548 = 1
 }

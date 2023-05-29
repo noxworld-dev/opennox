@@ -46,12 +46,12 @@ func nox_xxx_getEnchantSpell_424920(enc int) int {
 }
 
 // nox_xxx_getEnchantName_4248F0
-func nox_xxx_getEnchantName_4248F0(enc int) *char {
+func nox_xxx_getEnchantName_4248F0(enc int) *byte {
 	return internCStr(server.EnchantID(enc).String())
 }
 
 // nox_xxx_enchantByName_424880
-func nox_xxx_enchantByName_424880(cname *char) int {
+func nox_xxx_enchantByName_424880(cname *byte) int {
 	id, ok := server.ParseEnchant(GoString(cname))
 	if !ok {
 		return -1
@@ -60,7 +60,7 @@ func nox_xxx_enchantByName_424880(cname *char) int {
 }
 
 // nox_xxx_spellNameByN_424870
-func nox_xxx_spellNameByN_424870(ind int) *char {
+func nox_xxx_spellNameByN_424870(ind int) *byte {
 	s := spell.ID(ind).String()
 	if s == "" {
 		return nil
@@ -69,7 +69,7 @@ func nox_xxx_spellNameByN_424870(ind int) *char {
 }
 
 // nox_xxx_spellNameToN_4243F0
-func nox_xxx_spellNameToN_4243F0(cid *char) int {
+func nox_xxx_spellNameToN_4243F0(cid *byte) int {
 	id := GoString(cid)
 	ind := spell.ParseID(id)
 	if ind <= 0 {
@@ -126,13 +126,13 @@ func nox_xxx_spellByTitle_424960(ctitle *wchar2_t) int {
 func nox_xxx_spellManaCost_4249A0(ind, a2 int) int { return Nox_xxx_spellManaCost_4249A0(ind, a2) }
 
 // nox_xxx_spellPhonemes_424A20
-func nox_xxx_spellPhonemes_424A20(ind, ind2 int) char {
-	return char(Nox_xxx_spellPhonemes_424A20(ind, ind2))
+func nox_xxx_spellPhonemes_424A20(ind, ind2 int) int8 {
+	return int8(Nox_xxx_spellPhonemes_424A20(ind, ind2))
 }
 
 // nox_xxx_spellHasFlags_424A50
 func nox_xxx_spellHasFlags_424A50(ind, flags int) bool {
-	return bool(GetServer().SpellHasFlags(spell.ID(ind), things.SpellFlags(flags)))
+	return GetServer().SpellHasFlags(spell.ID(ind), things.SpellFlags(flags))
 }
 
 // nox_xxx_spellFlags_424A70

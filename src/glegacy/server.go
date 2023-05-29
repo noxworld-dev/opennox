@@ -78,7 +78,7 @@ func nox_getHostPlayerUnit() *nox_object_t {
 }
 
 // nox_xxx_servStartCountdown_40A2A0
-func nox_xxx_servStartCountdown_40A2A0(a1 int, a2 *char) {
+func nox_xxx_servStartCountdown_40A2A0(a1 int, a2 *byte) {
 	GetServer().ServStartCountdown(a1, strman.ID(GoString(a2)))
 }
 
@@ -113,7 +113,7 @@ func sub_40A300() int {
 }
 
 // nox_xxx_mapLoad_4D2450
-func nox_xxx_mapLoad_4D2450(a1 *char) {
+func nox_xxx_mapLoad_4D2450(a1 *byte) {
 	GetServer().SwitchMap(GoString(a1))
 }
 

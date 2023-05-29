@@ -348,7 +348,7 @@ func Nox_xxx_unitPostCreateNotify_4E7F10(a1 *server.Object) {
 	nox_xxx_unitPostCreateNotify_4E7F10(asObjectC(a1))
 }
 func Nox_xxx_buffApplyTo_4FF380(a1 *server.Object, a2 server.EnchantID, a3 int, a4 int) {
-	nox_xxx_buffApplyTo_4FF380(asObjectC(a1), int32(a2), int16(a3), char(a4))
+	nox_xxx_buffApplyTo_4FF380(asObjectC(a1), int32(a2), int16(a3), int8(a4))
 }
 func Nox_xxx_spellBuffOff_4FF5B0(a1 *server.Object, a2 server.EnchantID) {
 	nox_xxx_spellBuffOff_4FF5B0(asObjectC(a1), int32(a2))
@@ -409,7 +409,7 @@ func Sub_4E39F0_obj_db(obj *server.Object) string {
 	return GoWString(sub_4E39F0_obj_db(asObjectC(obj)))
 }
 func Nox_xxx_scriptDialog_548D30(obj *server.Object, a2 byte) {
-	nox_xxx_scriptDialog_548D30(asObjectC(obj), char(a2))
+	nox_xxx_scriptDialog_548D30(asObjectC(obj), int8(a2))
 }
 func Nox_xxx_mobSetFightTarg_515D30(obj, targ *server.Object) {
 	nox_xxx_mobSetFightTarg_515D30(asObjectC(obj), asObjectC(targ))

@@ -51,23 +51,23 @@ func nox_client_drawGeneralCallback_4A2200() int {
 }
 
 func Get_nox_client_drawGeneralCallback_4A2200() unsafe.Pointer {
-	return unsafe.Pointer(nox_client_drawGeneralCallback_4A2200)
+	return funAddrP(nox_client_drawGeneralCallback_4A2200)
 }
 
 func Get_nox_game_showGameSel_4379F0() unsafe.Pointer {
-	return unsafe.Pointer(nox_game_showGameSel_4379F0)
+	return funAddrP(nox_game_showGameSel_4379F0)
 }
 
 func Sub_461440(v int) {
-	sub_461440(int(v))
+	sub_461440(int32(v))
 }
 
 func Sub_4D7440(v int) {
-	sub_4D7440(int(v))
+	sub_4D7440(int32(v))
 }
 
 func Nox_xxx_cliSetMinimapZoom_472520(v int) {
-	nox_xxx_cliSetMinimapZoom_472520(int(v))
+	nox_xxx_cliSetMinimapZoom_472520(int32(v))
 }
 func Nox_xxx_monsterListFree_5174F0() {
 	nox_xxx_monsterListFree_5174F0()
@@ -76,36 +76,36 @@ func Nox_client_countSaveFiles_4DC550() int {
 	return int(nox_client_countSaveFiles_4DC550())
 }
 func Sub_4A7A60(a1 int) {
-	sub_4A7A60(int(a1))
+	sub_4A7A60(int32(a1))
 }
 func Nox_client_lockScreenBriefing_450160(a1 int, a2 int, a3 int) {
-	nox_client_lockScreenBriefing_450160(int(a1), int(a2), char(a3))
+	nox_client_lockScreenBriefing_450160(int32(a1), int32(a2), int8(a3))
 }
 func Sub_43E8C0(a1 int) {
-	sub_43E8C0(int(a1))
+	sub_43E8C0(int32(a1))
 }
 func Sub_43D9B0(a1 int, a2 int) {
-	sub_43D9B0(int(a1), int(a2))
+	sub_43D9B0(int32(a1), int32(a2))
 }
 func Sub_4D6F80(a1 int) {
-	sub_4D6F80(int(a1))
+	sub_4D6F80(int32(a1))
 }
 func Sub_4A7A70(a1 int) {
-	sub_4A7A70(int(a1))
+	sub_4A7A70(int32(a1))
 }
 
 func Get_nox_game_showSelChar_4A4DB0() unsafe.Pointer {
-	return nox_game_showSelChar_4A4DB0
+	return funAddrP(nox_game_showSelChar_4A4DB0)
 }
 func Get_nox_game_showSelClass_4A4840() unsafe.Pointer {
-	return nox_game_showSelClass_4A4840
+	return funAddrP(nox_game_showSelClass_4A4840)
 }
 func Get_winMainMenuAnimOutStartFnc() unsafe.Pointer {
-	return winMainMenuAnimOutStartFnc
+	return funAddrP(winMainMenuAnimOutStartFnc)
 }
 func Get_winMainMenuAnimOutDoneFnc() unsafe.Pointer {
-	return winMainMenuAnimOutDoneFnc
+	return funAddrP(winMainMenuAnimOutDoneFnc)
 }
 func Get_sub_4A22A0() unsafe.Pointer {
-	return sub_4A22A0
+	return funAddrP(sub_4A22A0)
 }

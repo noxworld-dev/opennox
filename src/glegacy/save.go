@@ -24,12 +24,12 @@ var (
 )
 
 // nox_setSaveFileName_4DB130
-func nox_setSaveFileName_4DB130(s *char) {
+func nox_setSaveFileName_4DB130(s *byte) {
 	Nox_setSaveFileName_4DB130(GoString(s))
 }
 
 // nox_savegame_rm_4DBE10
-func nox_savegame_rm_4DBE10(cname *char, rmDir int) {
+func nox_savegame_rm_4DBE10(cname *byte, rmDir int) {
 	if cname == nil {
 		return
 	}
@@ -79,7 +79,7 @@ func Nox_xxx_mapSavePlayerDataMB_41A230(a1 string) bool {
 	return nox_xxx_mapSavePlayerDataMB_41A230(internCStr(a1)) != 0
 }
 func Nox_xxx_mapSaveMap_51E010(a1 string, a2 int) bool {
-	return nox_xxx_mapSaveMap_51E010(internCStr(a1), int(a2)) != 0
+	return nox_xxx_mapSaveMap_51E010(internCStr(a1), int32(a2)) != 0
 }
 
 func Sub_41A590(cf *cryptfile.CryptFile, u *server.Object, pinfo *server.PlayerInfo) error {

@@ -9,35 +9,35 @@ import (
 )
 
 func init() {
-	client.RegisterThingParse("DRAW", wrapClientThingFuncC(nox_parse_thing_draw))
-	client.RegisterThingParse("LIGHTDIRECTION", wrapClientThingFuncC(nox_parse_thing_light_dir))
-	client.RegisterThingParse("LIGHTPENUMBRA", wrapClientThingFuncC(nox_parse_thing_light_penumbra))
-	client.RegisterThingParse("CLIENTUPDATE", wrapClientThingFuncC(nox_parse_thing_client_update))
-	client.RegisterThingParse("PRETTYIMAGE", wrapClientThingFuncC(nox_parse_thing_pretty_image))
-	client.ThingDrawDefault = nox_thing_debug_draw
+	client.RegisterThingParse("DRAW", wrapClientThingFuncC(funAddrP(nox_parse_thing_draw)))
+	client.RegisterThingParse("LIGHTDIRECTION", wrapClientThingFuncC(funAddrP(nox_parse_thing_light_dir)))
+	client.RegisterThingParse("LIGHTPENUMBRA", wrapClientThingFuncC(funAddrP(nox_parse_thing_light_penumbra)))
+	client.RegisterThingParse("CLIENTUPDATE", wrapClientThingFuncC(funAddrP(nox_parse_thing_client_update)))
+	client.RegisterThingParse("PRETTYIMAGE", wrapClientThingFuncC(funAddrP(nox_parse_thing_pretty_image)))
+	client.ThingDrawDefault = funAddrP(nox_thing_debug_draw)
 }
 
 type nox_thing = client.ObjectType
 
 // nox_xxx_getTTByNameSpriteMB_44CFC0
-func nox_xxx_getTTByNameSpriteMB_44CFC0(cstr *char) int32 {
+func nox_xxx_getTTByNameSpriteMB_44CFC0(cstr *byte) int32 {
 	id := GoString(cstr)
 	return int32(GetClient().Cli().Things.TypeByID(id).Index())
 }
 
 // sub_44D330
-func sub_44D330(cstr *char) *nox_thing {
+func sub_44D330(cstr *byte) *nox_thing {
 	id := GoString(cstr)
 	return (*nox_thing)(GetClient().Cli().Things.TypeByID(id).C())
 }
 
 // nox_get_thing_name
-func nox_get_thing_name(i int32) *char {
+func nox_get_thing_name(i int32) *byte {
 	t := GetClient().Cli().Things.TypeByInd(int(i))
 	if t == nil {
 		return nil
 	}
-	return (*char)(unsafe.Pointer(t.Name))
+	return t.Name
 }
 
 // nox_get_thing
@@ -55,7 +55,7 @@ func nox_get_thing_pretty_name(i int32) *wchar2_t {
 	if t == nil {
 		return nil
 	}
-	return (*wchar2_t)(unsafe.Pointer(t.PrettyName))
+	return t.PrettyName
 }
 
 // nox_get_thing_desc
@@ -64,7 +64,7 @@ func nox_get_thing_desc(i int32) *wchar2_t {
 	if t == nil {
 		return nil
 	}
-	return (*wchar2_t)(unsafe.Pointer(t.Desc))
+	return t.Desc
 }
 
 // nox_get_thing_pretty_image

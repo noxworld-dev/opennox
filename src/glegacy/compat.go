@@ -45,16 +45,10 @@ type HSAMPLE = uintptr
 
 type LPWIN32_FIND_DATAA = *WIN32_FIND_DATAA
 
-const (
-	SEEK_SET = iota // FIXME: check if it's correct
-	SEEK_CUR
-	SEEK_END
-)
-
 // nox_itoa
-func nox_itoa(val int, s *char, radix int) *char {
+func nox_itoa(val int, s *byte, radix int) *byte {
 	str := strconv.FormatInt(int64(val), radix)
-	buf := unsafe.Slice((*byte)(unsafe.Pointer(s)), len(str)+1)
+	buf := unsafe.Slice(s, len(str)+1)
 	i := copy(buf, str)
 	buf[i] = 0
 	return s

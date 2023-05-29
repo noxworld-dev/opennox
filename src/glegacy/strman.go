@@ -8,9 +8,9 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-func internCStr(s string) *char {
+func internCStr(s string) *byte {
 	p := alloc.InternCString(s)
-	return (*char)(unsafe.Pointer(p))
+	return (*byte)(unsafe.Pointer(p))
 }
 
 func internWStr(s string) *wchar2_t {
@@ -19,7 +19,7 @@ func internWStr(s string) *wchar2_t {
 }
 
 // nox_strman_loadString_40F1D0
-func nox_strman_loadString_40F1D0(name *char, strOut **char, srcFile *char, srcLine int) *wchar2_t {
+func nox_strman_loadString_40F1D0(name *byte, strOut **byte, srcFile *byte, srcLine int) *wchar2_t {
 	if strOut != nil {
 		*strOut = nil
 		v, _ := GetServer().S().Strings().GetVariantInFile(strman.ID(GoString(name)), GoString(srcFile))

@@ -349,10 +349,10 @@ func sub_4285C0(a1 *int16) *byte {
 		v10 = alloc.Calloc(int(*a1), 4)
 		v15 = uint32(int32(*a1) * 4)
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*140))) = uint32(uintptr(v10))
-		v11 = alloc.Calloc(1, int(v15))
+		v11 = alloc.Calloc(1, uintptr(v15))
 		v14 = uint32(int32(*a1) * 4)
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*141))) = uint32(uintptr(v11))
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*142))) = uint32(uintptr(alloc.Calloc(1, int(v14))))
+		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*142))) = uint32(uintptr(alloc.Calloc(1, uintptr(v14))))
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*143))) = uint32(uintptr(alloc.Calloc(int(*a1), 4)))
 		v20 = 0
 		result = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0()))
@@ -400,12 +400,12 @@ func sub_428810(a1 int32, a2 int32) int32 {
 	)
 	v2 = sub_42ADA0(a1, a2, *memmap.PtrInt16(0x5D4594, 741308), mem_getU32Ptr(0x5D4594, 741312))
 	v3 = sub_42A8B0((*uint8)(unsafe.Pointer(v2)), mem_getI32Ptr(0x5D4594, 741312))
-	alloc.Free(unsafe.Pointer(v2))
+	alloc.Free(v2)
 	v4 = 1
 	if sub_420360(&v6[0], (*uint16)(unsafe.Pointer(&a2))) != 0 {
 		panic("abort")
 	}
-	alloc.Free(unsafe.Pointer(v3))
+	alloc.Free(v3)
 	return v4
 }
 func sub_428890(a1 *int16) int32 {
@@ -417,12 +417,12 @@ func sub_428890(a1 *int16) int32 {
 	)
 	v1 = sub_42B810(a1, mem_getU32Ptr(0x5D4594, 741300))
 	v2 = sub_42A8B0((*uint8)(unsafe.Pointer(v1)), mem_getI32Ptr(0x5D4594, 741300))
-	alloc.Free(unsafe.Pointer(v1))
+	alloc.Free(v1)
 	v3 = 1
 	if sub_420360(&v5[0], (*uint16)(unsafe.Pointer(&a1))) != 0 {
 		panic("abort")
 	}
-	alloc.Free(unsafe.Pointer(v2))
+	alloc.Free(v2)
 	return v3
 }
 func sub_4289D0(a1 *unsafe.Pointer) unsafe.Pointer {
@@ -432,51 +432,51 @@ func sub_4289D0(a1 *unsafe.Pointer) unsafe.Pointer {
 	)
 	if *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*134)) != nil {
 		for i = 0; i < uint32(*(*int32)(unsafe.Pointer(&dword_5d4594_741332))); i++ {
-			alloc.Free(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer((*unsafe.Pointer)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*134)))), unsafe.Sizeof(unsafe.Pointer(nil))*uintptr(i)))))
+			alloc.FreePtr(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer((*unsafe.Pointer)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*134)))), unsafe.Sizeof(unsafe.Pointer(nil))*uintptr(i)))))
 			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*134)))), 4*uintptr(i)))) = 0
 		}
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*134)))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*134)))
 		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*134)) = nil
 	}
 	if *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*135)) != nil {
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*135)))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*135)))
 		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*135)) = nil
 	}
 	if *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*144)) != nil {
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*144)))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*144)))
 		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*144)) = nil
 	}
 	if *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*136)) != nil {
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*136)))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*136)))
 		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*136)) = nil
 	}
 	if *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*137)) != nil {
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*137)))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*137)))
 		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*137)) = nil
 	}
 	if *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*138)) != nil {
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*138)))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*138)))
 		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*138)) = nil
 	}
 	if *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*139)) != nil {
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*139)))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*139)))
 		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*139)) = nil
 	}
 	if *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*140)) != nil {
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*140)))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*140)))
 		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*140)) = nil
 	}
 	if *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*141)) != nil {
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*141)))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*141)))
 		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*141)) = nil
 	}
 	if *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*142)) != nil {
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*142)))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*142)))
 		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*142)) = nil
 	}
 	result = *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*143))
 	if result != nil {
-		alloc.Free(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*143)))
+		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*143)))
 		*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(unsafe.Pointer(nil))*143)) = nil
 	}
 	return result

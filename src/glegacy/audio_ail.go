@@ -192,7 +192,7 @@ func nox_xxx_musicStartPlay_43D6C0(a1p *int) int {
 }
 
 // sub_44D660
-func sub_44D660(a1 *char) int {
+func sub_44D660(a1 *byte) int {
 	return bool2int(Sub_44D660(GoString(a1)))
 }
 

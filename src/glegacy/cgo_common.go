@@ -5,7 +5,6 @@ import (
 	"unsafe"
 )
 
-type char = int8
 type size_t = int32
 type long = int32
 type ulonglong = uint64

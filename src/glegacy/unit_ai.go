@@ -93,7 +93,7 @@ func (a cgoAIAction) Cancel(u *server.Object) {
 }
 
 // nox_ai_debug_print
-func nox_ai_debug_print(str *char) { Nox_ai_debug_print(GoString(str)) }
+func nox_ai_debug_print(str *byte) { Nox_ai_debug_print(GoString(str)) }
 
 // sub_545E60
 func sub_545E60(a1c *nox_object_t) int { return Sub_545E60(asObjectS(a1c)) }
