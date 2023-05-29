@@ -1,6 +1,6 @@
 root: ./src/legacy
 out: ./gonox
-package: opennox
+package: legacy
 int_size: 4
 ptr_size: 4
 wchar_size: 2
@@ -9,7 +9,7 @@ unexported_fields: true
 keep_free: true
 define:
   - name: NOX_CGO
-#file_pref: cxgo_
+file_pref: cxgo_
 files:
   - name: '*.c'
 replace:

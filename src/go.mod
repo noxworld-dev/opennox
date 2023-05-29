@@ -3,6 +3,8 @@ module github.com/noxworld-dev/opennox/v1
 go 1.19
 
 require (
+	github.com/chewxy/math32 v1.10.1
+	github.com/gotranspile/cxgo v0.3.7
 	github.com/noxworld-dev/lobby v0.0.0-20220306183851-3877f0a7002d
 	github.com/noxworld-dev/nat v0.1.0
 	github.com/noxworld-dev/noxcrypt v0.0.0-20220809211245-2c69b67c4ae9
@@ -69,6 +71,7 @@ require (
 	gopkg.in/ini.v1 v1.62.0 // indirect
 	gopkg.in/irc.v3 v3.1.4 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+	maze.io/x/math32 v0.0.0-20181106113604-c78ed91899f1 // indirect
 )
 
 replace github.com/timshannon/go-openal => github.com/noxworld-dev/go-openal v0.0.0-20220410091615-164a70f24e7c
