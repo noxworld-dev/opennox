@@ -32,11 +32,11 @@ func Nox_gui_newScrollListBox_4A4310(par *gui.Window, status gui.StatusFlags, px
 }
 
 func Nox_gui_newEntryField_488500(par *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, tdata *gui.EntryFieldData) *gui.Window {
-	return asWindow((*nox_window)(nox_gui_newEntryField_488500((*nox_window)(par.C()), int(status), int(px), int(py), int(w), int(h), int(uintptr(draw.C())), (*ushort)(unsafe.Pointer(tdata)))))
+	return asWindow((*nox_window)(nox_gui_newEntryField_488500((*nox_window)(par.C()), int(status), int(px), int(py), int(w), int(h), int(uintptr(draw.C())), (*uint16)(unsafe.Pointer(tdata)))))
 }
 
 func Nox_gui_newSlider_4B4EE0(par *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData, tdata *gui.SliderData) *gui.Window {
-	return asWindow((*nox_window)(nox_gui_newSlider_4B4EE0(int(uintptr(par.C())), int(status), int(px), int(py), int(w), int(h), (*uint)(draw.C()), (*float)(unsafe.Pointer(tdata)))))
+	return asWindow((*nox_window)(nox_gui_newSlider_4B4EE0(int(uintptr(par.C())), int(status), int(px), int(py), int(w), int(h), (*uint)(draw.C()), (*float32)(unsafe.Pointer(tdata)))))
 }
 
 func Nox_gui_newProgressBar_4CAF10(par *gui.Window, status gui.StatusFlags, px, py, w, h int, draw *gui.WindowData) *gui.Window {

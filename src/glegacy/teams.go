@@ -69,8 +69,8 @@ func nox_xxx_materialGetTeamColor_418D50(t *nox_team_t) uint {
 }
 
 // nox_xxx_getTeamCounter_417DD0
-func nox_xxx_getTeamCounter_417DD0() uchar {
-	return uchar(GetServer().S().Teams.Count())
+func nox_xxx_getTeamCounter_417DD0() byte {
+	return byte(GetServer().S().Teams.Count())
 }
 
 // nox_server_teamsResetYyy_417D00

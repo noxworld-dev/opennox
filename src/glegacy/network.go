@@ -127,7 +127,7 @@ func sub_5550D0(addr int, port uint16_t, cdata *char) int {
 }
 
 // sub_5545A0
-func sub_5545A0() short { return short(Sub_5545A0()) }
+func sub_5545A0() int16 { return int16(Sub_5545A0()) }
 
 // sub_554230
 func sub_554230() *char { return internCStr(Sub_554230()) }
@@ -190,7 +190,7 @@ func Nox_xxx_earthquakeSend_4D9110(pos types.Pointf, a2 int) {
 	cpos[0] = pos.X
 	cpos[1] = pos.Y
 
-	nox_xxx_earthquakeSend_4D9110((*float)(unsafe.Pointer(&cpos[0])), int(a2))
+	nox_xxx_earthquakeSend_4D9110((*float32)(unsafe.Pointer(&cpos[0])), int(a2))
 }
 
 func Nox_xxx_netSendFxAllCli_523030(pos types.Pointf, data []byte) bool {
@@ -285,16 +285,16 @@ func Nox_xxx_cliSetSettingsAcquired_4169D0(a1 int) {
 	nox_xxx_cliSetSettingsAcquired_4169D0(int(a1))
 }
 func Sub_457140(a1 int, a2 *uint16) {
-	sub_457140(int(a1), (*ushort)(unsafe.Pointer(a2)))
+	sub_457140(int(a1), (*uint16)(unsafe.Pointer(a2)))
 }
 func Sub_455920(a1 *uint16) {
-	sub_455920((*ushort)(unsafe.Pointer(a1)))
+	sub_455920((*uint16)(unsafe.Pointer(a1)))
 }
 func Sub_456DF0(a1 int) {
 	sub_456DF0(int(a1))
 }
 func Sub_455950(a1 *uint16) {
-	sub_455950((*ushort)(unsafe.Pointer(a1)))
+	sub_455950((*uint16)(unsafe.Pointer(a1)))
 }
 func Nox_xxx_netChangeTeamMb_419570(a1 *server.ObjectTeam, a2 uint32) {
 	nox_xxx_netChangeTeamMb_419570(a1.C(), int(a2))
@@ -303,7 +303,7 @@ func Sub_49BB80(a1 byte) {
 	sub_49BB80(char(a1))
 }
 func Nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 ntype.PlayerInd, a2 noxnet.Op, data []byte) int {
-	return int(nox_xxx_netOnPacketRecvCli_48EA70_switch(int(a1), int(a2), (*uchar)(unsafe.Pointer(&data[0])), int(len(data))))
+	return int(nox_xxx_netOnPacketRecvCli_48EA70_switch(int(a1), int(a2), (*byte)(unsafe.Pointer(&data[0])), int(len(data))))
 }
 func Sub_4DDE10(a1 int, a2 *server.Player) {
 	sub_4DDE10(int(a1), (*nox_playerInfo)(a2.C()))
@@ -315,7 +315,7 @@ func Nox_xxx_gameServerReadyMB_4DD180(a1 int) {
 	nox_xxx_gameServerReadyMB_4DD180(int(a1))
 }
 func Nox_xxx_teamCompare2_419180(t *server.ObjectTeam, id server.TeamID) int {
-	return int(nox_xxx_teamCompare2_419180(unsafe.Pointer(t), uchar(id)))
+	return int(nox_xxx_teamCompare2_419180(unsafe.Pointer(t), byte(id)))
 }
 func Sub_4D12A0(a1 int) int {
 	return int(sub_4D12A0(int(a1)))
@@ -330,7 +330,7 @@ func Sub_4196D0(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int, a4 int) {
 	sub_4196D0(a1, a2, int(a3), int(a4))
 }
 func Nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 ntype.PlayerInd, data []byte, a4 *server.Player, a5 *server.Object, a6 unsafe.Pointer) int {
-	return int(nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int(a1), (*uchar)(unsafe.Pointer(&data[0])), int(len(data)), (*nox_playerInfo)(a4.C()), asObjectC(a5), a6))
+	return int(nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int(a1), (*byte)(unsafe.Pointer(&data[0])), int(len(data)), (*nox_playerInfo)(a4.C()), asObjectC(a5), a6))
 }
 func Nox_xxx_netReportAcquireCreature_4D91A0(pli int, obj *server.Object) {
 	nox_xxx_netReportAcquireCreature_4D91A0(int(pli), asObjectC(obj))

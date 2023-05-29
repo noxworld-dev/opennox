@@ -253,7 +253,7 @@ func nox_xxx_getUnitsInRect_517C10(rect *float4, fnc unsafe.Pointer, data unsafe
 }
 
 // nox_xxx_unitsGetInCircle_517F90
-func nox_xxx_unitsGetInCircle_517F90(pos *float2, r float, fnc unsafe.Pointer, data unsafe.Pointer) {
+func nox_xxx_unitsGetInCircle_517F90(pos *float2, r float32, fnc unsafe.Pointer, data unsafe.Pointer) {
 	p := *(*types.Pointf)(unsafe.Pointer(pos))
 	GetServer().S().Map.EachObjInCircle(p, float32(r), func(it *server.Object) bool {
 		ccall.CallVoidPtr2(fnc, it.CObj(), data)
@@ -267,7 +267,7 @@ func nox_xxx_gameSetWallsDamage_4E25A0(v int) {
 }
 
 // nox_xxx_mapDamageUnitsAround_4E25B0
-func nox_xxx_mapDamageUnitsAround_4E25B0(a1 *float, a2, a3 float, a4, a5 int, a6, a7 *nox_object_t) {
+func nox_xxx_mapDamageUnitsAround_4E25B0(a1 *float32, a2, a3 float32, a4, a5 int, a6, a7 *nox_object_t) {
 	cpos := unsafe.Slice(a1, 2)
 	pos := types.Pointf{X: float32(cpos[0]), Y: float32(cpos[1])}
 	GetServer().Nox_xxx_mapDamageUnitsAround(pos, float32(a2), float32(a3), int(a4), object.DamageType(a5), asObjectS(a6), ToObjS(a7), GetDoDamageWalls())
@@ -346,7 +346,7 @@ func Nox_xxx_sMakeScorch_537AF0(pos types.Pointf, a2 int) {
 	defer pfree()
 	cpos[0] = pos.X
 	cpos[1] = pos.Y
-	nox_xxx_sMakeScorch_537AF0((*float)(unsafe.Pointer(&cpos[0])), int(a2))
+	nox_xxx_sMakeScorch_537AF0((*float32)(unsafe.Pointer(&cpos[0])), int(a2))
 }
 
 func Nox_xxx_mapDamageToWalls_534FC0(rect image.Rectangle, pos types.Pointf, rad float32, dmg int, dtyp object.DamageType, who *server.Object) {
@@ -362,7 +362,7 @@ func Nox_xxx_mapDamageToWalls_534FC0(rect image.Rectangle, pos types.Pointf, rad
 	cpos[0] = pos.X
 	cpos[1] = pos.Y
 
-	nox_xxx_mapDamageToWalls_534FC0((*int4)(unsafe.Pointer(&crect[0])), unsafe.Pointer(&cpos[0]), float(rad), int(dmg), int(dtyp), who.CObj())
+	nox_xxx_mapDamageToWalls_534FC0((*int4)(unsafe.Pointer(&crect[0])), unsafe.Pointer(&cpos[0]), float32(rad), int(dmg), int(dtyp), who.CObj())
 }
 
 func Nox_xxx_getSomeMapName_4D0CF0() string {
@@ -651,13 +651,13 @@ func Sub_460D50() {
 	sub_460D50()
 }
 func Nox_xxx_guiServerOptionsGetGametypeName_4573C0(a1 noxflags.GameFlag) string {
-	return GoWString(nox_xxx_guiServerOptionsGetGametypeName_4573C0(short(a1)))
+	return GoWString(nox_xxx_guiServerOptionsGetGametypeName_4573C0(int16(a1)))
 }
 func Sub_40A180(a1 noxflags.GameFlag) int {
-	return int(sub_40A180(short(a1)))
+	return int(sub_40A180(int16(a1)))
 }
 func Nox_xxx_servGamedataGet_40A020(a1 int16) int {
-	return int(nox_xxx_servGamedataGet_40A020(short(a1)))
+	return int(nox_xxx_servGamedataGet_40A020(int16(a1)))
 }
 func Sub_41D1A0(a1 int) {
 	sub_41D1A0(int(a1))
@@ -725,7 +725,7 @@ func Nox_xxx_mapSwitchLevel_4D12E0(a1 int) {
 	nox_xxx_mapSwitchLevel_4D12E0(int(a1))
 }
 func Sub_57A1E0(a1 unsafe.Pointer, a2 string, a3 unsafe.Pointer, a4 int, a5 noxflags.GameFlag) {
-	sub_57A1E0((*int)(a1), internCStr(a2), (*int)(a3), char(a4), short(a5))
+	sub_57A1E0((*int)(a1), internCStr(a2), (*int)(a3), char(a4), int16(a5))
 }
 func Sub_57AAA0(a1 string, a2 *byte, a3 unsafe.Pointer) {
 	sub_57AAA0(internCStr(a1), (*char)(unsafe.Pointer(a2)), (*int)(a3))
@@ -779,5 +779,5 @@ func Sub_41CAC0(a1 string, data []byte) {
 	sub_41CAC0(internCStr(a1), unsafe.Pointer(&data[0]))
 }
 func Nox_xxx_spell_4FE680(a1 *server.Object, a2 float32) {
-	nox_xxx_spell_4FE680(asObjectC(a1), float(a2))
+	nox_xxx_spell_4FE680(asObjectC(a1), float32(a2))
 }

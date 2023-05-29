@@ -43,5 +43,5 @@ func FirstWaypoint() *server.Waypoint {
 }
 
 func NewWaypoint(pos types.Pointf) *server.Waypoint {
-	return asWaypointS(nox_xxx_waypointNew_5798F0(float(pos.X), float(pos.Y)))
+	return asWaypointS(nox_xxx_waypointNew_5798F0(float32(pos.X), float32(pos.Y)))
 }

@@ -63,13 +63,13 @@ func nox_script_pop() int {
 }
 
 // nox_script_pushf
-func nox_script_pushf(v float) {
+func nox_script_pushf(v float32) {
 	GetServer().NoxScriptC().PushF32(float32(v))
 }
 
 // nox_script_popf
-func nox_script_popf() float {
-	return float(GetServer().NoxScriptC().PopF32())
+func nox_script_popf() float32 {
+	return float32(GetServer().NoxScriptC().PopF32())
 }
 
 // nox_script_indexByEvent

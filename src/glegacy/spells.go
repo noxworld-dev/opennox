@@ -109,7 +109,7 @@ func nox_xxx_spellAwardAll2_4EFC80(p *nox_playerInfo) { Nox_xxx_spellAwardAll2_4
 func nox_xxx_spellAwardAll3_4EFE10(p *nox_playerInfo) { Nox_xxx_spellAwardAll3_4EFE10(asPlayerS(p)) }
 
 // nox_xxx_spellFlySearchTarget_540610
-func nox_xxx_spellFlySearchTarget_540610(cpos *float2, msl *nox_object_t, sflags int, dist float, a5 int, self *nox_object_t) *nox_object_t {
+func nox_xxx_spellFlySearchTarget_540610(cpos *float2, msl *nox_object_t, sflags int, dist float32, a5 int, self *nox_object_t) *nox_object_t {
 	var pos *types.Pointf
 	if cpos != nil {
 		pos = &types.Pointf{X: float32(cpos.field_0), Y: float32(cpos.field_4)}

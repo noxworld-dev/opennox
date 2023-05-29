@@ -1302,7 +1302,7 @@ func Set_dword_5d4594_1305748(v int) {
 	dword_5d4594_1305748 = uint(v)
 }
 func Set_nox_pixbuffer_rows_3798784(v unsafe.Pointer) {
-	nox_pixbuffer_rows_3798784 = (**uchar)(v)
+	nox_pixbuffer_rows_3798784 = (**byte)(v)
 }
 func Set_dword_5d4594_1193188(v int) {
 	dword_5d4594_1193188 = uint(v)

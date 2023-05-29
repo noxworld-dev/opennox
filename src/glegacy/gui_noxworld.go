@@ -204,7 +204,7 @@ func sub_4373A0() { Sub_4373A0() }
 func Sub_4A0410(addr string, port int) bool {
 	cstr := CString(addr)
 	defer StrFree(cstr)
-	v := sub_4A0410(cstr, short(port))
+	v := sub_4A0410(cstr, int16(port))
 	return v != 0
 }
 

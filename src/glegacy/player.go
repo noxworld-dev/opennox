@@ -140,7 +140,7 @@ func nox_xxx_playerObserveClear_4DDEF0(cplayer *nox_object_t) {
 }
 
 // nox_client_onClassStats
-func nox_client_onClassStats(cbuf *uchar, sz int) {
+func nox_client_onClassStats(cbuf *byte, sz int) {
 	data := unsafe.Slice((*byte)(unsafe.Pointer(cbuf)), sz)
 	Nox_client_onClassStats(data)
 }
@@ -244,7 +244,7 @@ func Sub_425A70(a1 int) unsafe.Pointer {
 }
 
 func Sub_425AD0(a1 int, a2 *uint16) unsafe.Pointer {
-	return unsafe.Pointer(sub_425AD0(int(a1), (*ushort)(unsafe.Pointer(a2))))
+	return unsafe.Pointer(sub_425AD0(int(a1), (*uint16)(unsafe.Pointer(a2))))
 }
 
 func Sub_41D670(a1 string) {
@@ -292,7 +292,7 @@ func Nox_xxx_plrReadVals_4EEDC0(obj *server.Object, a2 int) {
 }
 
 func Nox_xxx_playerManaAdd_4EEB80(obj *server.Object, v int) {
-	nox_xxx_playerManaAdd_4EEB80(asObjectC(obj), short(v))
+	nox_xxx_playerManaAdd_4EEB80(asObjectC(obj), int16(v))
 }
 
 func Sub_4FD0E0(obj *server.Object, sp spell.ID) int {
@@ -332,27 +332,27 @@ func Get_nox_xxx_wizardMaximumMana_587000_312820() float32 {
 }
 
 func Set_nox_xxx_warriorMaxHealth_587000_312784(v float32) {
-	nox_xxx_warriorMaxHealth_587000_312784 = float(v)
+	nox_xxx_warriorMaxHealth_587000_312784 = float32(v)
 }
 
 func Set_nox_xxx_warriorMaxMana_587000_312788(v float32) {
-	nox_xxx_warriorMaxMana_587000_312788 = float(v)
+	nox_xxx_warriorMaxMana_587000_312788 = float32(v)
 }
 
 func Set_nox_xxx_conjurerMaxHealth_587000_312800(v float32) {
-	nox_xxx_conjurerMaxHealth_587000_312800 = float(v)
+	nox_xxx_conjurerMaxHealth_587000_312800 = float32(v)
 }
 
 func Set_nox_xxx_conjurerMaxMana_587000_312804(v float32) {
-	nox_xxx_conjurerMaxMana_587000_312804 = float(v)
+	nox_xxx_conjurerMaxMana_587000_312804 = float32(v)
 }
 
 func Set_nox_xxx_wizardMaxHealth_587000_312816(v float32) {
-	nox_xxx_wizardMaxHealth_587000_312816 = float(v)
+	nox_xxx_wizardMaxHealth_587000_312816 = float32(v)
 }
 
 func Set_nox_xxx_wizardMaximumMana_587000_312820(v float32) {
-	nox_xxx_wizardMaximumMana_587000_312820 = float(v)
+	nox_xxx_wizardMaximumMana_587000_312820 = float32(v)
 }
 
 func Sub_4D79A0(pli ntype.PlayerInd) {
@@ -372,5 +372,5 @@ func Sub_425E90(pl *server.Player, a2 int8) {
 }
 
 func Sub_4E55F0(pli ntype.PlayerInd) {
-	sub_4E55F0(uchar(pli))
+	sub_4E55F0(byte(pli))
 }

@@ -68,7 +68,7 @@ func sub_44A4B0() { Sub_44A4B0() }
 func sub_44A360(a1 int) { Sub_44A360(a1) }
 
 func Sub_41DA70(a1, a2 int) {
-	sub_41DA70(int(a1), short(a2))
+	sub_41DA70(int(a1), int16(a2))
 }
 func Sub_445C20() {
 	sub_445C20()

@@ -28,14 +28,14 @@ func noxGetLocalTime(p *noxSYSTEMTIME) {
 	if env.IsE2E() {
 		tm = time.Date(2022, 1, 1, 0, 0, 0, 0, time.UTC).Add(platform.Ticks())
 	}
-	p.wYear = ushort(tm.Year())
-	p.wMonth = ushort(tm.Month())
-	p.wDayOfWeek = ushort(tm.Weekday())
-	p.wDay = ushort(tm.Day())
-	p.wHour = ushort(tm.Hour())
-	p.wMinute = ushort(tm.Minute())
-	p.wSecond = ushort(tm.Second())
-	p.wMilliseconds = ushort(tm.Nanosecond() / 1e6)
+	p.wYear = uint16(tm.Year())
+	p.wMonth = uint16(tm.Month())
+	p.wDayOfWeek = uint16(tm.Weekday())
+	p.wDay = uint16(tm.Day())
+	p.wHour = uint16(tm.Hour())
+	p.wMinute = uint16(tm.Minute())
+	p.wSecond = uint16(tm.Second())
+	p.wMilliseconds = uint16(tm.Nanosecond() / 1e6)
 }
 
 var _ = [1]struct{}{}[16-unsafe.Sizeof(SYSTEMTIME{})]

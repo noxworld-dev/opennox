@@ -54,5 +54,5 @@ func Sub_501C00(p types.Pointf, obj *server.Object) int {
 	cp, free := alloc.New(types.Pointf{})
 	defer free()
 	*cp = p
-	return int(sub_501C00((*float)(unsafe.Pointer(cp)), asObjectC(obj)))
+	return int(sub_501C00((*float32)(unsafe.Pointer(cp)), asObjectC(obj)))
 }

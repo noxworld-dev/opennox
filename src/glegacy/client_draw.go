@@ -127,7 +127,7 @@ func Sub_4761B0(dr *client.Drawable) int {
 	return int(sub_4761B0((*nox_drawable)(dr.C())))
 }
 func Sub_476080(a1 unsafe.Pointer) int {
-	return int(sub_476080((*uchar)(a1)))
+	return int(sub_476080((*byte)(a1)))
 }
 func Sub_459DB0(dr *client.Drawable) int {
 	return int(sub_459DB0((*nox_drawable)(dr.C())))

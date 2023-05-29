@@ -49,12 +49,12 @@ func nox_xxx_setKeybTimeout_4160D0(key int) int {
 }
 
 // nox_xxx_checkKeybTimeout_4160F0
-func nox_xxx_checkKeybTimeout_4160F0(key uchar, dt uint) bool {
+func nox_xxx_checkKeybTimeout_4160F0(key byte, dt uint) bool {
 	return bool(InputKeyCheckTimeoutLegacy(byte(key), uint32(dt)))
 }
 
 // sub_416120
-func sub_416120(key uchar) bool { return bool(Sub_416120(byte(key))) }
+func sub_416120(key byte) bool { return bool(Sub_416120(byte(key))) }
 
 // sub_416170
 func sub_416170(key int) int { return Sub_416170(key) }
@@ -93,7 +93,7 @@ func nox_input_pollEvents_4453A0() int {
 }
 
 // nox_input_setSensitivity
-func nox_input_setSensitivity(v float) {
+func nox_input_setSensitivity(v float32) {
 	GetClient().SetSensitivity(float32(v))
 }
 
@@ -164,8 +164,8 @@ func sub_4CBBF0() { Sub_4CBBF0() }
 func nox_input_reset_430140(a1 int) { Nox_input_reset_430140(a1) }
 
 // nox_input_scanCodeToAlpha_47F950
-func nox_input_scanCodeToAlpha_47F950(r ushort) ushort {
-	return ushort(GetClient().Cli().Inp.KeyToWChar(keybind.Key(r)))
+func nox_input_scanCodeToAlpha_47F950(r uint16) uint16 {
+	return uint16(GetClient().Cli().Inp.KeyToWChar(keybind.Key(r)))
 }
 
 func NoxInputOnChar(c uint16) {

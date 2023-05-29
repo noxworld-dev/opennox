@@ -38,16 +38,16 @@ var (
 func sub_42BFB0() { Sub_42BFB0() }
 
 // nox_xxx_objectTOCgetTT_42C2B0
-func nox_xxx_objectTOCgetTT_42C2B0(a1 ushort) int { return Nox_xxx_objectTOCgetTT(uint16(a1)) }
+func nox_xxx_objectTOCgetTT_42C2B0(a1 uint16) int { return Nox_xxx_objectTOCgetTT(uint16(a1)) }
 
 // sub_42C310
-func sub_42C310(a1 int, a2 ushort) { Sub_42C310(int(a1), uint16(a2)) }
+func sub_42C310(a1 int, a2 uint16) { Sub_42C310(int(a1), uint16(a2)) }
 
 // sub_42C2E0
-func sub_42C2E0(a1 int) ushort { return ushort(Sub_42C2E0(a1)) }
+func sub_42C2E0(a1 int) uint16 { return uint16(Sub_42C2E0(a1)) }
 
 // sub_42C300
-func sub_42C300() ushort { return ushort(Sub_42C300()) }
+func sub_42C300() uint16 { return uint16(Sub_42C300()) }
 
 // sub_42BFE0
 func sub_42BFE0() { Sub_42BFE0() }
@@ -140,14 +140,14 @@ func Nox_thing_read_FLOR_411540(f *binfile.MemFile, buf []byte) int {
 	if cap(buf) < 256*1024 {
 		panic(cap(buf))
 	}
-	return int(nox_thing_read_FLOR_411540((*nox_memfile)(f.C()), (*uchar)(unsafe.Pointer(&buf[0]))))
+	return int(nox_thing_read_FLOR_411540((*nox_memfile)(f.C()), (*byte)(unsafe.Pointer(&buf[0]))))
 }
 
 func Nox_thing_read_EDGE_411850(f *binfile.MemFile, buf []byte) int {
 	if cap(buf) < 256*1024 {
 		panic(cap(buf))
 	}
-	return int(nox_thing_read_EDGE_411850((*nox_memfile)(f.C()), (*uchar)(unsafe.Pointer(&buf[0]))))
+	return int(nox_thing_read_EDGE_411850((*nox_memfile)(f.C()), (*byte)(unsafe.Pointer(&buf[0]))))
 }
 
 func LoadAllBinFileSectionsResetCounters() {

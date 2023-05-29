@@ -1,37 +1,23 @@
 package legacy
 
-/*
-#cgo CFLAGS: -fshort-wchar -fno-strict-aliasing -fno-strict-overflow
-#cgo linux CFLAGS: -fstack-protector-strong
+type char = int8
+type size_t = int32
+type long = int32
+type ulonglong = uint64
 
-#cgo CFLAGS: -Werror=return-type
-#cgo CFLAGS: -Werror=implicit-function-declaration
-#cgo CFLAGS: -Werror=pointer-arith
-#cgo CFLAGS: -Werror=implicit-int
-#cgo CFLAGS: -Werror=unused-label
-#cgo CFLAGS: -Werror=address
-//#cgo CFLAGS: -Werror=unused-variable
-//#cgo CFLAGS: -Werror=cast-function-type
-#cgo CFLAGS: -Werror=stringop-overflow
-//#cgo linux CFLAGS: -Werror=attribute-warning
-#cgo linux CFLAGS: -Werror=uninitialized
-//#cgo linux CFLAGS: -Werror=parentheses // FIXME: resolve issues related to this flag
-//#cgo linux CFLAGS: -Werror=switch-outside-range
+type int2 struct {
+	field_0 int32
+	field_4 int32
+}
 
-#cgo CFLAGS: -Wno-pointer-to-int-cast
-#cgo CFLAGS: -Wno-int-to-pointer-cast
-#cgo CFLAGS: -Wno-incompatible-pointer-types
-#cgo CFLAGS: -Wno-int-conversion
-#cgo CFLAGS: -Wno-format
-#cgo CFLAGS: -Wno-shift-count-overflow
-#cgo CFLAGS: -Wno-pedantic
-#cgo CFLAGS: -Wno-bad-function-cast
-#cgo CFLAGS: -Wno-strict-prototypes
-#cgo CFLAGS: -Wno-discarded-qualifiers
-#cgo CFLAGS: -Wno-return-local-addr
-#cgo CFLAGS: -Wno-unused-result
+type nox_point struct {
+	x int32
+	y int32
+}
 
-#cgo windows LDFLAGS: -lws2_32
-#cgo linux LDFLAGS: -lm
-#cgo CFLAGS: -DNOX_CGO
-*/
+type nox_rect struct {
+	min_x int32
+	min_y int32
+	max_x int32
+	max_y int32
+}

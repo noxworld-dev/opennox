@@ -138,7 +138,7 @@ func nox_xxx_servStartCountdown_40A2A0(a1 int, a2 *char) {
 }
 
 // sub_40A040_settings
-func sub_40A040_settings(a1 short, a2 uchar) {
+func sub_40A040_settings(a1 int16, a2 byte) {
 	GetServer().Sub40A040settings(int(a1), int(a2))
 }
 
@@ -192,10 +192,10 @@ func gameFrame() uint32 {
 	return GetServer().Frame()
 }
 func Sub_409A70(a1 int) int {
-	return int(sub_409A70(short(a1)))
+	return int(sub_409A70(int16(a1)))
 }
 func Nox_xxx_netInformTextMsg2_4DA180(a1 int, a2 unsafe.Pointer) {
-	nox_xxx_netInformTextMsg2_4DA180(int(a1), (*uchar)(a2))
+	nox_xxx_netInformTextMsg2_4DA180(int(a1), (*byte)(a2))
 }
 func Nox_xxx_netReportUnitHeight_4D9020(a1 ntype.PlayerInd, a2 *server.Object) {
 	nox_xxx_netReportUnitHeight_4D9020(int(a1), asObjectC(a2))
@@ -246,7 +246,7 @@ func Nox_xxx_allocHitArray_5486D0() {
 	nox_xxx_allocHitArray_5486D0()
 }
 func Nox_xxx_updateObjectsVelocity_5118A0(a1 float32) {
-	nox_xxx_updateObjectsVelocity_5118A0(float(a1))
+	nox_xxx_updateObjectsVelocity_5118A0(float32(a1))
 }
 func Sub_548B60() {
 	sub_548B60()

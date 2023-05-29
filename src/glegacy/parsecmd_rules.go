@@ -12,7 +12,7 @@ func Sub_409E70(a1 int) {
 	sub_409E70(int(a1))
 }
 func Nox_xxx_ammoCheck_415880(a1 int) int {
-	return int(nox_xxx_ammoCheck_415880(ushort(a1)))
+	return int(nox_xxx_ammoCheck_415880(uint16(a1)))
 }
 func Sub_415960(a1 string) int {
 	return int(sub_415960(internWStr(a1)))

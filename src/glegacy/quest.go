@@ -97,7 +97,7 @@ func Sub_4184D0(a1 unsafe.Pointer) {
 	sub_4184D0((*nox_team_t)(a1))
 }
 func Nox_xxx_createAtImpl_4191D0(a1 server.TeamID, a2 *server.ObjectTeam, a3 int, a4 uint32, a5 int) {
-	nox_xxx_createAtImpl_4191D0(uchar(a1), a2.C(), int(a3), int(a4), int(a5))
+	nox_xxx_createAtImpl_4191D0(byte(a1), a2.C(), int(a3), int(a4), int(a5))
 }
 func Nox_xxx_cliPlrInfoLoadFromFile_41A2E0(a1 string, a2 ntype.PlayerInd) int {
 	return int(nox_xxx_cliPlrInfoLoadFromFile_41A2E0(internCStr(a1), int(a2)))

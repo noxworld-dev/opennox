@@ -90,5 +90,5 @@ func Nox_xxx_mapReadWriteObjData_4F4530(a1 *server.Object, a2 int) int {
 	return int(nox_xxx_mapReadWriteObjData_4F4530(asObjectC(a1), int(a2)))
 }
 func Nox_xxx_xfer_4F3E30(a1 int, a2 *server.Object, a3 uint32) int {
-	return int(nox_xxx_xfer_4F3E30(ushort(a1), asObjectC(a2), int(a3)))
+	return int(nox_xxx_xfer_4F3E30(uint16(a1), asObjectC(a2), int(a3)))
 }

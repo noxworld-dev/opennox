@@ -174,7 +174,7 @@ func nox_xxx_getNextUpdatableObject_4DA8B0(obj *nox_object_t) *nox_object_t {
 }
 
 // sub_548600
-func sub_548600(a1 *nox_object_t, a2, a3 float) {
+func sub_548600(a1 *nox_object_t, a2, a3 float32) {
 	asObjectS(a1).Sub548600(types.Pointf{X: float32(a2), Y: float32(a3)})
 }
 
@@ -199,7 +199,7 @@ func AsPoint(p unsafe.Pointer) image.Point {
 }
 
 // nox_xxx_createAt_4DAA50
-func nox_xxx_createAt_4DAA50(cobj *nox_object_t, cowner *nox_object_t, x float, y float) {
+func nox_xxx_createAt_4DAA50(cobj *nox_object_t, cowner *nox_object_t, x float32, y float32) {
 	var owner server.Obj
 	if cowner != nil {
 		owner = asObjectS(cowner)
@@ -258,7 +258,7 @@ func nox_xxx_checkSummonedCreaturesLimit_500D70(obj *nox_object_t, ind int) bool
 }
 
 // nox_xxx_unitDoSummonAt_5016C0
-func nox_xxx_unitDoSummonAt_5016C0(typID int, cpos *float32, owner *nox_object_t, dir uchar) *nox_object_t {
+func nox_xxx_unitDoSummonAt_5016C0(typID int, cpos *float32, owner *nox_object_t, dir byte) *nox_object_t {
 	pos := unsafe.Slice(cpos, 2)
 	return asObjectC(Nox_xxx_unitDoSummonAt_5016C0(typID, types.Ptf(pos[0], pos[1]), asObjectS(owner), server.Dir16(dir)))
 }
@@ -365,7 +365,7 @@ func Nox_xxx_unitPostCreateNotify_4E7F10(a1 *server.Object) {
 	nox_xxx_unitPostCreateNotify_4E7F10(asObjectC(a1))
 }
 func Nox_xxx_buffApplyTo_4FF380(a1 *server.Object, a2 server.EnchantID, a3 int, a4 int) {
-	nox_xxx_buffApplyTo_4FF380(asObjectC(a1), int(a2), short(a3), char(a4))
+	nox_xxx_buffApplyTo_4FF380(asObjectC(a1), int(a2), int16(a3), char(a4))
 }
 func Nox_xxx_spellBuffOff_4FF5B0(a1 *server.Object, a2 server.EnchantID) {
 	nox_xxx_spellBuffOff_4FF5B0(asObjectC(a1), int(a2))
@@ -377,7 +377,7 @@ func Nox_xxx_unitSetOwner_4EC290(a1 *server.Object, a2 *server.Object) {
 	nox_xxx_unitSetOwner_4EC290(asObjectC(a1), asObjectC(a2))
 }
 func Nox_xxx_unitRaise_4E46F0(a1 *server.Object, a2 float32) {
-	nox_xxx_unitRaise_4E46F0(asObjectC(a1), float(a2))
+	nox_xxx_unitRaise_4E46F0(asObjectC(a1), float32(a2))
 }
 func Nox_xxx_objectSetOff_4E7600(a1 *server.Object) {
 	nox_xxx_objectSetOff_4E7600(asObjectC(a1))
@@ -486,5 +486,5 @@ func Nox_xxx_mapPushUnitsAround_52E040(pos types.Pointf, a2 float32, a3 float32,
 	cpos, free := alloc.New(types.Pointf{})
 	defer free()
 	*cpos = pos
-	nox_xxx_mapPushUnitsAround_52E040(unsafe.Pointer(cpos), float(a2), float(a3), float(a4), asObjectC(a5), int(a6), int(a7))
+	nox_xxx_mapPushUnitsAround_52E040(unsafe.Pointer(cpos), float32(a2), float32(a3), float32(a4), asObjectC(a5), int(a6), int(a7))
 }

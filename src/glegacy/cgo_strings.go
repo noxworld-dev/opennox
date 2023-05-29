@@ -1,11 +1,5 @@
 package legacy
 
-/*
-#include <stddef.h>
-#include <stdlib.h>
-#include "nox_wchar.h"
-*/
-
 import (
 	"bytes"
 	"unicode/utf16"
@@ -14,10 +8,10 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-type wchar2_t = wchar2_t
+type wchar2_t = uint16
 
 func StrFree[T comparable](s *T) {
-	free(unsafe.Pointer(s))
+	alloc.Free(s)
 }
 
 func CStringArray(arr []string) []*char {
