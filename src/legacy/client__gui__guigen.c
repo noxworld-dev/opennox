@@ -39,13 +39,14 @@ short nox_xxx_mapGenClientText_4A9D00(unsigned char* a1) {
 	switch (*v1) {
 	case 0x9Bu:
 		v5 = nox_strman_loadString_40F1D0("Generating", 0, "C:\\NoxPost\\src\\client\\Gui\\guigen.c", 89);
-		goto LABEL_8;
+		*getMemU32Ptr(0x5D4594, 1309660) = v5;
+		break;
 	case 0x9Cu:
 		v5 = nox_strman_loadString_40F1D0("Assembling", 0, "C:\\NoxPost\\src\\client\\Gui\\guigen.c", 92);
-		goto LABEL_8;
+		*getMemU32Ptr(0x5D4594, 1309660) = v5;
+		break;
 	case 0x9Du:
 		v5 = nox_strman_loadString_40F1D0("Populating", 0, "C:\\NoxPost\\src\\client\\Gui\\guigen.c", 95);
-	LABEL_8:
 		*getMemU32Ptr(0x5D4594, 1309660) = v5;
 		break;
 	}
