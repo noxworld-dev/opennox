@@ -111,7 +111,7 @@ func nox_xxx_enemyAggro_5335D0(cobj *nox_object_t, r float32) *nox_object_t {
 }
 
 // sub_5336D0
-func sub_5336D0(cobj *nox_object_t) double { return double(Sub_5336D0(asObjectS(cobj))) }
+func sub_5336D0(cobj *nox_object_t) float64 { return float64(Sub_5336D0(asObjectS(cobj))) }
 
 // nox_xxx_updatePlayerObserver_4E62F0
 func nox_xxx_updatePlayerObserver_4E62F0(a1p *nox_object_t) {

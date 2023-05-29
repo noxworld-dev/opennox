@@ -28,11 +28,11 @@ func nox_common_randomIntMinMax_415FF0(min, max int, file *char, line int) int {
 }
 
 // nox_common_randomFloat_416030
-func nox_common_randomFloat_416030(min, max float32) double {
-	return double(GetServer().S().Rand.Logic.FloatClamp(float64(min), float64(max)))
+func nox_common_randomFloat_416030(min, max float32) float64 {
+	return float64(GetServer().S().Rand.Logic.FloatClamp(float64(min), float64(max)))
 }
 
 // nox_common_randomFloatXxx_416090
-func nox_common_randomFloatXxx_416090(min, max float32) double {
-	return double(GetServer().S().Rand.Other.Float(float64(min), float64(max)))
+func nox_common_randomFloatXxx_416090(min, max float32) float64 {
+	return float64(GetServer().S().Rand.Other.Float(float64(min), float64(max)))
 }
