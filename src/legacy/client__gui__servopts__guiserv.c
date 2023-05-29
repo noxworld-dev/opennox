@@ -617,9 +617,9 @@ int nox_xxx_guiServerOptionsProcPre_4585D0(int a1, unsigned int a2, int a3, int 
 				}
 				*((uint16_t*)v25 + 26) &= 0x3FFFu;
 			}
-			goto LABEL_58;
+			nox_xxx_guiServerOptionsHide_4597E0(0);
+			return 1;
 		case 10149:
-		LABEL_58:
 			nox_xxx_guiServerOptionsHide_4597E0(0);
 			return 1;
 		case 10152:

@@ -103,7 +103,6 @@ int sub_453C00(int a1, int a2, int* a3, int a4) {
 			a3 == nox_xxx_wndGetChildByID_46B0C0(*(uint32_t**)&dword_5d4594_1045484, 1114)) {
 			nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 0x4000, (int)a3, 0);
 			nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 0x4000, (int)a3, 0);
-		LABEL_37:
 			sub_454120();
 		}
 		return 0;
@@ -119,7 +118,8 @@ int sub_453C00(int a1, int a2, int* a3, int a4) {
 	case 1114:
 		nox_window_call_field_94(*(int*)&dword_5d4594_1045480, 0x4000, (int)v3, 0);
 		nox_window_call_field_94(*(int*)&dword_5d4594_1045508, 0x4000, (int)v3, 0);
-		goto LABEL_37;
+		sub_454120();
+		return 0;
 	case 1115:
 	case 1116:
 		v5 = *(short**)(dword_5d4594_1045480 + 32);
@@ -151,7 +151,9 @@ int sub_453C00(int a1, int a2, int* a3, int a4) {
 			}
 		}
 		sub_454120();
-		goto LABEL_19;
+		sub_459D50(1);
+		nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
+		return 0;
 	case 1120:
 	case 1121:
 	case 1122:
@@ -170,11 +172,15 @@ int sub_453C00(int a1, int a2, int* a3, int a4) {
 		v12 = (wchar2_t*)(*(uint32_t*)(v11 + 24) +
 						 524 * (sub_4A4800(*(uint32_t*)(dword_5d4594_1045480 + 32)) + v4 - 1120) + 4);
 		if (!v12) {
-			goto LABEL_19;
+			sub_459D50(1);
+			nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
+			return 0;
 		}
 		v13 = nox_xxx_spellByTitle_424960(v12);
 		if (!v13) {
-			goto LABEL_19;
+			sub_459D50(1);
+			nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
+			return 0;
 		}
 		if (!dword_5d4594_2650652 || (sub_57A1E0(v19, 0, 0, 4, 6128), sub_454000((int)&v19[6], v13))) {
 			v15 = sub_4165B0();
@@ -192,8 +198,9 @@ int sub_453C00(int a1, int a2, int* a3, int a4) {
 				} else {
 					sub_453FA0((int)getMemAt(0x5D4594, 1045488), v13, 1);
 				}
-			LABEL_19:
 				sub_459D50(1);
+				nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
+				return 0;
 			}
 		} else {
 			v3[9] ^= 4u;
@@ -203,12 +210,11 @@ int sub_453C00(int a1, int a2, int* a3, int a4) {
 			nox_xxx_dialogMsgBoxCreate_449A10(*(int*)&dword_5d4594_1045484, (int)v14, (int)v17, 33, 0, 0);
 			sub_44A360(1);
 		}
-	LABEL_20:
 		nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
-		result = 0;
-		break;
+		return 0;
 	default:
-		goto LABEL_20;
+		nox_xxx_clientPlaySoundSpecial_452D80(766, 100);
+		return 0;
 	}
 	return result;
 }

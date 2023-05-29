@@ -84,7 +84,11 @@ int nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
 				nox_setSaveFileName_4DB130("AUTOSAVE");
 				sub_4DB170(1, 0, 0);
 			}
-			goto LABEL_27;
+			v21 = a3[9];
+			LOBYTE(v21) = v21 & 0xFD;
+			a3[9] = v21;
+			result = 0;
+			break;
 		}
 		v19 = nox_xxx_wndGetChildByID_46B0C0(a1, v3);
 		nox_xxx_wnd_46ABB0((int)v19, 0);
@@ -101,7 +105,11 @@ int nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
 			nox_xxx_netSavePlayer_41CE00();
 		}
 		if (sub_43C6E0()) {
-			goto LABEL_27;
+			v21 = a3[9];
+			LOBYTE(v21) = v21 & 0xFD;
+			a3[9] = v21;
+			result = 0;
+			break;
 		}
 		sub_43CF70();
 		v12 = a3[9];
@@ -131,12 +139,16 @@ int nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
 		result = 0;
 		break;
 	case 9006:
-		goto LABEL_11;
+		sub_445C40();
+		v9 = a3[9];
+		LOBYTE(v9) = v9 & 0xFD;
+		a3[9] = v9;
+		result = 0;
+		break;
 	case 9007:
 		if (nox_common_gameFlags_check_40A5C0(1)) {
 			v8 = nox_common_playerInfoGetByID_417040(nox_player_netCode_85319C);
 			nox_xxx_serverHandleClientConsole_443E90((int)v8, 0, 0);
-		LABEL_11:
 			sub_445C40();
 			v9 = a3[9];
 			LOBYTE(v9) = v9 & 0xFD;
@@ -172,7 +184,6 @@ int nox_xxx_menuGameOnButton_445840(uint32_t* a1, int a2, int* a3, int a4) {
 		result = 0;
 		break;
 	default:
-	LABEL_27:
 		v21 = a3[9];
 		LOBYTE(v21) = v21 & 0xFD;
 		a3[9] = v21;
