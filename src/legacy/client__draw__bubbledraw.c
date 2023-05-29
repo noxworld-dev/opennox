@@ -25,20 +25,23 @@ int nox_thing_bubble_draw(uint32_t* a1, nox_drawable* dr) {
 	int a2 = dr;
 
 	if (*(uint8_t*)(a2 + 441) == 3) {
-		goto LABEL_29;
-	}
-	v2 = *(uint32_t*)(a2 + 356);
-	if (v2 && v2 <= gameFrame()) {
-		*(uint8_t*)(a2 + 441) = 3;
-		*(uint8_t*)(a2 + 442) = 4;
-		*(uint8_t*)(a2 + 443) = 4;
-		nox_xxx_spriteTransparentDecay_49B950((uint32_t*)a2, (int)gameFPS());
-	}
-	if (*(uint8_t*)(a2 + 441) == 3) {
-	LABEL_29:
 		if (!*(uint8_t*)(a2 + 440)) {
 			nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
 			return 0;
+		}
+	} else {
+		v2 = *(uint32_t*)(a2 + 356);
+		if (v2 && v2 <= gameFrame()) {
+			*(uint8_t*)(a2 + 441) = 3;
+			*(uint8_t*)(a2 + 442) = 4;
+			*(uint8_t*)(a2 + 443) = 4;
+			nox_xxx_spriteTransparentDecay_49B950((uint32_t*)a2, (int)gameFPS());
+		}
+		if (*(uint8_t*)(a2 + 441) == 3) {
+			if (!*(uint8_t*)(a2 + 440)) {
+				nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr);
+				return 0;
+			}
 		}
 	}
 	v4 = a1[1];
