@@ -15,7 +15,7 @@ static bool go_nox_drawable_call_parse_func(bool (*fnc)(nox_thing*, nox_memfile*
 	return fnc(a1, a2, a3);
 }
 */
-import "C"
+
 import (
 	"fmt"
 	"unsafe"
@@ -25,38 +25,38 @@ import (
 )
 
 func init() {
-	client.RegisterThingParse("DRAW", wrapClientThingFuncC(C.nox_parse_thing_draw))
-	client.RegisterThingParse("LIGHTDIRECTION", wrapClientThingFuncC(C.nox_parse_thing_light_dir))
-	client.RegisterThingParse("LIGHTPENUMBRA", wrapClientThingFuncC(C.nox_parse_thing_light_penumbra))
-	client.RegisterThingParse("CLIENTUPDATE", wrapClientThingFuncC(C.nox_parse_thing_client_update))
-	client.RegisterThingParse("PRETTYIMAGE", wrapClientThingFuncC(C.nox_parse_thing_pretty_image))
-	client.ThingDrawDefault = C.nox_thing_debug_draw
+	client.RegisterThingParse("DRAW", wrapClientThingFuncC(nox_parse_thing_draw))
+	client.RegisterThingParse("LIGHTDIRECTION", wrapClientThingFuncC(nox_parse_thing_light_dir))
+	client.RegisterThingParse("LIGHTPENUMBRA", wrapClientThingFuncC(nox_parse_thing_light_penumbra))
+	client.RegisterThingParse("CLIENTUPDATE", wrapClientThingFuncC(nox_parse_thing_client_update))
+	client.RegisterThingParse("PRETTYIMAGE", wrapClientThingFuncC(nox_parse_thing_pretty_image))
+	client.ThingDrawDefault = nox_thing_debug_draw
 }
 
-type nox_thing = C.nox_thing
+type nox_thing = nox_thing
 
-//export nox_xxx_getTTByNameSpriteMB_44CFC0
-func nox_xxx_getTTByNameSpriteMB_44CFC0(cstr *C.char) int {
+// nox_xxx_getTTByNameSpriteMB_44CFC0
+func nox_xxx_getTTByNameSpriteMB_44CFC0(cstr *char) int {
 	id := GoString(cstr)
 	return GetClient().Cli().Things.TypeByID(id).Index()
 }
 
-//export sub_44D330
-func sub_44D330(cstr *C.char) *nox_thing {
+// sub_44D330
+func sub_44D330(cstr *char) *nox_thing {
 	id := GoString(cstr)
-	return (*C.nox_thing)(GetClient().Cli().Things.TypeByID(id).C())
+	return (*nox_thing)(GetClient().Cli().Things.TypeByID(id).C())
 }
 
-//export nox_get_thing_name
-func nox_get_thing_name(i int) *C.char {
+// nox_get_thing_name
+func nox_get_thing_name(i int) *char {
 	t := GetClient().Cli().Things.TypeByInd(i)
 	if t == nil {
 		return nil
 	}
-	return (*C.char)(unsafe.Pointer(t.Name))
+	return (*char)(unsafe.Pointer(t.Name))
 }
 
-//export nox_get_thing
+// nox_get_thing
 func nox_get_thing(i int) *nox_thing {
 	t := GetClient().Cli().Things.TypeByInd(i)
 	if t == nil {
@@ -65,7 +65,7 @@ func nox_get_thing(i int) *nox_thing {
 	return (*nox_thing)(t.C())
 }
 
-//export nox_get_thing_pretty_name
+// nox_get_thing_pretty_name
 func nox_get_thing_pretty_name(i int) *wchar2_t {
 	t := GetClient().Cli().Things.TypeByInd(i)
 	if t == nil {
@@ -74,7 +74,7 @@ func nox_get_thing_pretty_name(i int) *wchar2_t {
 	return (*wchar2_t)(unsafe.Pointer(t.PrettyName))
 }
 
-//export nox_get_thing_desc
+// nox_get_thing_desc
 func nox_get_thing_desc(i int) *wchar2_t {
 	t := GetClient().Cli().Things.TypeByInd(i)
 	if t == nil {
@@ -83,7 +83,7 @@ func nox_get_thing_desc(i int) *wchar2_t {
 	return (*wchar2_t)(unsafe.Pointer(t.Desc))
 }
 
-//export nox_get_thing_pretty_image
+// nox_get_thing_pretty_image
 func nox_get_thing_pretty_image(i int) int {
 	t := GetClient().Cli().Things.TypeByInd(i)
 	if t == nil {
@@ -92,7 +92,7 @@ func nox_get_thing_pretty_image(i int) int {
 	return int(t.PrettyImage)
 }
 
-//export nox_drawable_link_thing
+// nox_drawable_link_thing
 func nox_drawable_link_thing(a1c *nox_drawable, i int) int {
 	return GetClient().Cli().DrawableLinkThing(asDrawable(a1c), i)
 }
@@ -100,12 +100,12 @@ func nox_drawable_link_thing(a1c *nox_drawable, i int) int {
 func wrapClientThingFuncC(fnc unsafe.Pointer) client.ThingFieldFunc {
 	return func(typ *client.ObjectType, f *binfile.MemFile, str string, buf []byte) error {
 		StrNCopyBytes(buf, str)
-		if !C.go_nox_drawable_call_parse_func((*[0]byte)(fnc), (*nox_thing)(typ.C()), (*nox_memfile)(f.C()), unsafe.Pointer(&buf[0])) {
+		if !go_nox_drawable_call_parse_func((*[0]byte)(fnc), (*nox_thing)(typ.C()), (*nox_memfile)(f.C()), unsafe.Pointer(&buf[0])) {
 			return fmt.Errorf("failed to parse %q", str)
 		}
 		return nil
 	}
 }
 func Nox_xxx_draw_44C650_free(a1 unsafe.Pointer, a2 unsafe.Pointer) {
-	C.nox_xxx_draw_44C650_free(a1, a2)
+	nox_xxx_draw_44C650_free(a1, a2)
 }

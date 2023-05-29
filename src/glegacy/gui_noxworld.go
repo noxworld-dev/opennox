@@ -9,7 +9,7 @@ package legacy
 #include "GAME2_3.h"
 #include "MixPatch.h"
 */
-import "C"
+
 import (
 	"unsafe"
 
@@ -72,8 +72,8 @@ type Nox_gui_server_ent_t struct {
 	Field_42      byte     // 42, 168
 }
 
-func (s *Nox_gui_server_ent_t) C() *C.nox_gui_server_ent_t {
-	return (*C.nox_gui_server_ent_t)(unsafe.Pointer(s))
+func (s *Nox_gui_server_ent_t) C() *nox_gui_server_ent_t {
+	return (*nox_gui_server_ent_t)(unsafe.Pointer(s))
 }
 
 func (s *Nox_gui_server_ent_t) Players() int {
@@ -181,13 +181,13 @@ func (s *Nox_gui_server_ent_t) SetFlags(v noxflags.GameFlag) {
 	*(*uint16)(unsafe.Pointer(&s.FlagsVal)) = uint16(v) // flags
 }
 
-//export nox_client_refreshServerList_4378B0
+// nox_client_refreshServerList_4378B0
 func nox_client_refreshServerList_4378B0() { Nox_client_refreshServerList_4378B0() }
 
-//export sub_438770_waitList
+// sub_438770_waitList
 func sub_438770_waitList() { Sub_438770_waitList() }
 
-//export nox_xxx_createSocketLocal_554B40
+// nox_xxx_createSocketLocal_554B40
 func nox_xxx_createSocketLocal_554B40(port uint16) int {
 	if err := Nox_xxx_createSocketLocal(int(port)); err != nil {
 		return -1
@@ -195,46 +195,46 @@ func nox_xxx_createSocketLocal_554B40(port uint16) int {
 	return 0
 }
 
-//export sub_554D10
+// sub_554D10
 func sub_554D10() int { return Sub_554D10() }
 
-//export sub_4373A0
+// sub_4373A0
 func sub_4373A0() { Sub_4373A0() }
 
 func Sub_4A0410(addr string, port int) bool {
 	cstr := CString(addr)
 	defer StrFree(cstr)
-	v := C.sub_4A0410(cstr, C.short(port))
+	v := sub_4A0410(cstr, short(port))
 	return v != 0
 }
 
 func Sub_43B6D0() int {
-	return int(C.sub_43B6D0())
+	return int(sub_43B6D0())
 }
 
 func Sub_43AF80() int {
-	return int(C.sub_43AF80())
+	return int(sub_43AF80())
 }
 
 func Sub_4379C0() {
-	C.sub_4379C0()
+	sub_4379C0()
 }
 
 func Sub_4A0360() {
-	C.sub_4A0360()
+	sub_4A0360()
 }
 func Sub_49FFA0(a1 int) {
-	C.sub_49FFA0(C.int(a1))
+	sub_49FFA0(int(a1))
 }
 func Sub_437860(a1 int, a2 int) int {
-	return int(C.sub_437860(C.int(a1), C.int(a2)))
+	return int(sub_437860(int(a1), int(a2)))
 }
 func Nox_xxx_checkSomeFlagsOnJoin_4899C0(a1 *Nox_gui_server_ent_t) int {
-	return int(C.nox_xxx_checkSomeFlagsOnJoin_4899C0(a1.C()))
+	return int(nox_xxx_checkSomeFlagsOnJoin_4899C0(a1.C()))
 }
 func Nox_wol_servers_addResult_4A0030(a1 *Nox_gui_server_ent_t) {
-	C.nox_wol_servers_addResult_4A0030(a1.C())
+	nox_wol_servers_addResult_4A0030(a1.C())
 }
 func Sub_4375C0(a1 int) {
-	C.sub_4375C0(C.int(a1))
+	sub_4375C0(int(a1))
 }

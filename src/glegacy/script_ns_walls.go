@@ -2,4 +2,3 @@ package legacy
 
 /*
  */
-import "C"

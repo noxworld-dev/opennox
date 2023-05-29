@@ -22,7 +22,7 @@ package legacy
 #include "client__shell__selchar.h"
 #include "client__shell__mainmenu.h"
 */
-import "C"
+
 import "unsafe"
 
 var (
@@ -60,7 +60,7 @@ type Nox_savegame_xxx struct {
 
 var _ = [1]struct{}{}[52-unsafe.Sizeof(Nox_screenParticle{})]
 
-type nox_screenParticle = C.nox_screenParticle
+type nox_screenParticle = nox_screenParticle
 type Nox_screenParticle struct {
 	Draw_fnc unsafe.Pointer      // 0, 0, func(unsafe.Pointer, *Nox_screenParticle) int
 	Field_4  uint32              // 1, 4
@@ -77,98 +77,98 @@ type Nox_screenParticle struct {
 	Field_48 *Nox_screenParticle // 12, 48, prev
 }
 
-//export sub_4A1BE0
+// sub_4A1BE0
 func sub_4A1BE0(a1 int) int { return Sub_4A1BE0(a1) }
 
-//export sub_41E300
+// sub_41E300
 func sub_41E300(a1 int) int { return Sub_41E300(a1) }
 
-//export sub_4A50A0
+// sub_4A50A0
 func sub_4A50A0() int { return Sub_4A50A0() }
 
-//export sub_4A50D0
+// sub_4A50D0
 func sub_4A50D0() int { return Sub_4A50D0() }
 
-//export nox_client_resetScreenParticles_431510
+// nox_client_resetScreenParticles_431510
 func nox_client_resetScreenParticles_431510() { Nox_client_resetScreenParticles_431510() }
 
-//export sub_46D6F0
+// sub_46D6F0
 func sub_46D6F0() int { return Sub_46D6F0() }
 
-//export sub_413A00
+// sub_413A00
 func sub_413A00(a1 int) { Sub_413A00(a1) }
 
-//export sub_44A400
+// sub_44A400
 func sub_44A400() { Sub_44A400() }
 
-//export nox_game_showSelChar_4A4DB0
+// nox_game_showSelChar_4A4DB0
 func nox_game_showSelChar_4A4DB0() int { return Nox_game_showSelChar_4A4DB0() }
 
-//export nox_savegame_sub_46D580
+// nox_savegame_sub_46D580
 func nox_savegame_sub_46D580() { Nox_savegame_sub_46D580() }
 
-//export sub_450580
+// sub_450580
 func sub_450580() { Sub_450580() }
 
-//export sub_4DB170
+// sub_4DB170
 func sub_4DB170(a1 int, a2 unsafe.Pointer, a3 int) { Sub_4DB170(a1 != 0, a2, a3) }
 
-//export sub_44D8F0
+// sub_44D8F0
 func sub_44D8F0() { Sub_44D8F0() }
 func Sub_41E470() {
-	C.sub_41E470()
+	sub_41E470()
 }
 func Nox_xxx_reconStart_41E400() {
-	C.nox_xxx_reconStart_41E400()
+	nox_xxx_reconStart_41E400()
 }
 func Sub_467C10() int {
-	return int(C.sub_467C10())
+	return int(sub_467C10())
 }
 func Nox_xxx_guiServerOptionsTryHide_4574D0() int {
-	return int(C.nox_xxx_guiServerOptionsTryHide_4574D0())
+	return int(nox_xxx_guiServerOptionsTryHide_4574D0())
 }
 func Sub_446780() {
-	C.sub_446780()
+	sub_446780()
 }
 func Sub_460660() {
-	C.sub_460660()
+	sub_460660()
 }
 func Sub_467BB0() {
-	C.sub_467BB0()
+	sub_467BB0()
 }
 func Sub_4602F0() {
-	C.sub_4602F0()
+	sub_4602F0()
 }
 func Nox_xxx_playerAnimCheck_4372B0() int {
-	return int(C.nox_xxx_playerAnimCheck_4372B0())
+	return int(nox_xxx_playerAnimCheck_4372B0())
 }
 func Sub_41DA10(a1 int) {
-	C.sub_41DA10(C.int(a1))
+	sub_41DA10(int(a1))
 }
 func Nox_xxx_bookHideMB_45ACA0(a1 int) int {
-	return int(C.nox_xxx_bookHideMB_45ACA0(C.int(a1)))
+	return int(nox_xxx_bookHideMB_45ACA0(int(a1)))
 }
 func Sub_4AD9B0(a1 int) {
-	C.sub_4AD9B0(C.int(a1))
+	sub_4AD9B0(int(a1))
 }
 func Nox_xxx_bookShowMB_45AD70(a1 int) {
-	C.nox_xxx_bookShowMB_45AD70(C.int(a1))
+	nox_xxx_bookShowMB_45AD70(int(a1))
 }
 func Sub_41A000(a1 string, a2 *Nox_savegame_xxx) int {
 	cstr := CString(a1)
 	defer StrFree(cstr)
-	return int(C.sub_41A000(cstr, (*C.nox_savegame_xxx)(unsafe.Pointer(a2))))
+	return int(sub_41A000(cstr, (*nox_savegame_xxx)(unsafe.Pointer(a2))))
 }
 func Sub_43D9E0(a1 unsafe.Pointer) {
-	C.sub_43D9E0((*C.int4)(a1))
+	sub_43D9E0((*int4)(a1))
 }
 
 func Get_sub_4A18E0() unsafe.Pointer {
-	return C.sub_4A18E0
+	return sub_4A18E0
 }
 func Get_sub_4A50A0() unsafe.Pointer {
-	return C.sub_4A50A0
+	return sub_4A50A0
 }
 func Get_sub_4A50D0() unsafe.Pointer {
-	return C.sub_4A50D0
+	return sub_4A50D0
 }

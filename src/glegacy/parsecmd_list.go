@@ -1,3 +1,1 @@
 package legacy
-
-import "C"

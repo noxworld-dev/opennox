@@ -3,7 +3,7 @@ package legacy
 /*
 #include "defs.h"
 */
-import "C"
+
 import (
 	"strconv"
 	"time"
@@ -13,8 +13,8 @@ import (
 	"github.com/noxworld-dev/opennox-lib/platform"
 )
 
-//export nox_itoa
-func nox_itoa(val C.int, s *C.char, radix int) *C.char {
+// nox_itoa
+func nox_itoa(val int, s *char, radix int) *char {
 	str := strconv.FormatInt(int64(val), radix)
 	buf := unsafe.Slice((*byte)(unsafe.Pointer(s)), len(str)+1)
 	i := copy(buf, str)
@@ -22,20 +22,20 @@ func nox_itoa(val C.int, s *C.char, radix int) *C.char {
 	return s
 }
 
-//export noxGetLocalTime
-func noxGetLocalTime(p *C.noxSYSTEMTIME) {
+// noxGetLocalTime
+func noxGetLocalTime(p *noxSYSTEMTIME) {
 	tm := time.Now()
 	if env.IsE2E() {
 		tm = time.Date(2022, 1, 1, 0, 0, 0, 0, time.UTC).Add(platform.Ticks())
 	}
-	p.wYear = C.ushort(tm.Year())
-	p.wMonth = C.ushort(tm.Month())
-	p.wDayOfWeek = C.ushort(tm.Weekday())
-	p.wDay = C.ushort(tm.Day())
-	p.wHour = C.ushort(tm.Hour())
-	p.wMinute = C.ushort(tm.Minute())
-	p.wSecond = C.ushort(tm.Second())
-	p.wMilliseconds = C.ushort(tm.Nanosecond() / 1e6)
+	p.wYear = ushort(tm.Year())
+	p.wMonth = ushort(tm.Month())
+	p.wDayOfWeek = ushort(tm.Weekday())
+	p.wDay = ushort(tm.Day())
+	p.wHour = ushort(tm.Hour())
+	p.wMinute = ushort(tm.Minute())
+	p.wSecond = ushort(tm.Second())
+	p.wMilliseconds = ushort(tm.Nanosecond() / 1e6)
 }
 
 var _ = [1]struct{}{}[16-unsafe.Sizeof(SYSTEMTIME{})]

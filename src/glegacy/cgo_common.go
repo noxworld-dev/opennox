@@ -35,4 +35,3 @@ package legacy
 #cgo linux LDFLAGS: -lm
 #cgo CFLAGS: -DNOX_CGO
 */
-import "C"

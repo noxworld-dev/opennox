@@ -3,7 +3,7 @@ package legacy
 /*
 #include "memfile.h"
 */
-import "C"
+
 import (
 	"unsafe"
 
@@ -12,7 +12,7 @@ import (
 
 var _ = [1]struct{}{}[16-unsafe.Sizeof(binfile.MemFile{})]
 
-type nox_memfile = C.nox_memfile
+type nox_memfile = nox_memfile
 
 func asMemfile(p *nox_memfile) *binfile.MemFile {
 	return asMemfileP(unsafe.Pointer(p))

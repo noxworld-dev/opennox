@@ -24,13 +24,12 @@ extern uint32_t nox_server_resetQuestMinVotes_229988;
 extern uint32_t nox_server_sanctuaryHelp_54276;
 extern uint32_t nox_server_sendMotd_108752;
 */
-import "C"
 
 var (
 	WriteConfigLegacy func(name string)
 )
 
-//export nox_common_writecfgfile
-func nox_common_writecfgfile(str *C.char) {
+// nox_common_writecfgfile
+func nox_common_writecfgfile(str *char) {
 	WriteConfigLegacy(GoString(str))
 }

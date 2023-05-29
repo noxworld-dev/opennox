@@ -5,7 +5,7 @@ package legacy
 #include <stdlib.h>
 #include "nox_wchar.h"
 */
-import "C"
+
 import (
 	"bytes"
 	"unicode/utf16"
@@ -14,14 +14,14 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-type wchar2_t = C.wchar2_t
+type wchar2_t = wchar2_t
 
 func StrFree[T comparable](s *T) {
-	C.free(unsafe.Pointer(s))
+	free(unsafe.Pointer(s))
 }
 
-func CStringArray(arr []string) []*C.char {
-	out := make([]*C.char, 0, len(arr)+1)
+func CStringArray(arr []string) []*char {
+	out := make([]*char, 0, len(arr)+1)
 	for _, arg := range arr {
 		out = append(out, CString(arg))
 	}
@@ -37,18 +37,18 @@ func StrLenBytes(s []byte) int {
 	return i
 }
 
-func StrCopy(dst *C.char, max int, src string) int {
+func StrCopy(dst *char, max int, src string) int {
 	d := unsafe.Slice((*byte)(unsafe.Pointer(dst)), max)
 	return StrCopyBytes(d, src)
 }
 
-func StrNCopy(dst *C.char, max int, src string) int {
+func StrNCopy(dst *char, max int, src string) int {
 	d := unsafe.Slice((*byte)(unsafe.Pointer(dst)), max)
 	return StrNCopyBytes(d, src)
 }
 
 func StrCopyP(dst unsafe.Pointer, max int, src string) int {
-	return StrCopy((*C.char)(dst), max, src)
+	return StrCopy((*char)(dst), max, src)
 }
 
 func StrCopyBytes(dst []byte, src string) int {
@@ -106,15 +106,15 @@ func WStrCopySlice(dst []uint16, src string) int {
 	return n
 }
 
-func GoString(s *C.char) string {
-	return C.GoString(s)
+func GoString(s *char) string {
+	return GoString(s)
 }
 
 func GoStringP(s unsafe.Pointer) string {
-	return GoString((*C.char)(s))
+	return GoString((*char)(s))
 }
 
-func GoStringN(s *C.char, n int) string {
+func GoStringN(s *char, n int) string {
 	return GoStringNP(unsafe.Pointer(s), n)
 }
 
@@ -131,12 +131,12 @@ func GoStringS(s []byte) string {
 	return string(s[:StrLenBytes(s)])
 }
 
-func CString(s string) *C.char {
-	return C.CString(s)
+func CString(s string) *char {
+	return CString(s)
 }
 
 func CBytes(s []byte) unsafe.Pointer {
-	return C.CBytes(s)
+	return CBytes(s)
 }
 
 func GoWStringP(s unsafe.Pointer) string {
@@ -195,12 +195,12 @@ func CWStringCopyTo(dst *wchar2_t, dstSz int, src string) {
 	str[n] = 0
 }
 
-func GoWStrSlice(arr **C.wchar2_t) []string {
+func GoWStrSlice(arr **wchar2_t) []string {
 	n := alloc.ZeroTermLen(arr)
 	return GoWStrSliceN(arr, n)
 }
 
-func GoWStrSliceN(arr **C.wchar2_t, n int) []string {
+func GoWStrSliceN(arr **wchar2_t, n int) []string {
 	if n == 0 {
 		return nil
 	}

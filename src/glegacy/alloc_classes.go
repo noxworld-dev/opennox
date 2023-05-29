@@ -3,7 +3,7 @@ package legacy
 /*
 #include "common/alloc/classes/alloc_class.h"
 */
-import "C"
+
 import (
 	"unsafe"
 
@@ -12,32 +12,32 @@ import (
 
 const DeadWord = 0xacacacac
 
-//export nox_new_alloc_class
-func nox_new_alloc_class(name *C.char, size, cnt int) *C.nox_alloc_class {
-	return (*C.nox_alloc_class)(alloc.NewClass(GoString(name), uintptr(size), cnt).UPtr())
+// nox_new_alloc_class
+func nox_new_alloc_class(name *char, size, cnt int) *nox_alloc_class {
+	return (*nox_alloc_class)(alloc.NewClass(GoString(name), uintptr(size), cnt).UPtr())
 }
 
-//export nox_new_alloc_class_dynamic
-func nox_new_alloc_class_dynamic(name *C.char, size, cnt int) *C.nox_alloc_class {
-	return (*C.nox_alloc_class)(alloc.NewDynamicClass(GoString(name), uintptr(size), cnt).UPtr())
+// nox_new_alloc_class_dynamic
+func nox_new_alloc_class_dynamic(name *char, size, cnt int) *nox_alloc_class {
+	return (*nox_alloc_class)(alloc.NewDynamicClass(GoString(name), uintptr(size), cnt).UPtr())
 }
 
-//export nox_free_alloc_class
-func nox_free_alloc_class(p *C.nox_alloc_class) {
+// nox_free_alloc_class
+func nox_free_alloc_class(p *nox_alloc_class) {
 	alloc.AsClass(unsafe.Pointer(p)).Free()
 }
 
-//export nox_alloc_class_new_obj_zero
-func nox_alloc_class_new_obj_zero(p *C.nox_alloc_class) unsafe.Pointer {
+// nox_alloc_class_new_obj_zero
+func nox_alloc_class_new_obj_zero(p *nox_alloc_class) unsafe.Pointer {
 	return alloc.AsClass(unsafe.Pointer(p)).NewObject()
 }
 
-//export nox_alloc_class_free_obj_first
-func nox_alloc_class_free_obj_first(p *C.nox_alloc_class, obj unsafe.Pointer) {
+// nox_alloc_class_free_obj_first
+func nox_alloc_class_free_obj_first(p *nox_alloc_class, obj unsafe.Pointer) {
 	alloc.AsClass(unsafe.Pointer(p)).FreeObjectFirst(obj)
 }
 
-//export nox_alloc_class_free_all
-func nox_alloc_class_free_all(p *C.nox_alloc_class) {
+// nox_alloc_class_free_all
+func nox_alloc_class_free_all(p *nox_alloc_class) {
 	alloc.AsClass(unsafe.Pointer(p)).FreeAllObjects()
 }

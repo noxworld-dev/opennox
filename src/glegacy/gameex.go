@@ -14,7 +14,7 @@ char  playerDropATrap(int playerObj);
 char playerInfoStructParser_0(void* a1);
 char playerInfoStructParser_1(void* a1, int* a3);
 */
-import "C"
+
 import (
 	"unsafe"
 
@@ -22,20 +22,20 @@ import (
 )
 
 func Sub_4BDFD0() {
-	C.sub_4BDFD0()
+	sub_4BDFD0()
 }
 func Mix_MouseKeyboardWeaponRoll(a1 *server.Object, a2 int8) int {
-	return int(C.mix_MouseKeyboardWeaponRoll(asObjectC(a1), C.char(a2)))
+	return int(mix_MouseKeyboardWeaponRoll(asObjectC(a1), char(a2)))
 }
 func PlayerInfoStructParser_0(a1 unsafe.Pointer) int {
-	return int(C.playerInfoStructParser_0(a1))
+	return int(playerInfoStructParser_0(a1))
 }
 func PlayerInfoStructParser_1(a1 unsafe.Pointer, a2 *int32) int {
-	return int(C.playerInfoStructParser_1(a1, (*C.int)(unsafe.Pointer(a2))))
+	return int(playerInfoStructParser_1(a1, (*int)(unsafe.Pointer(a2))))
 }
 func PlayerDropATrap(a1 *server.Object) {
-	C.playerDropATrap(C.int(uintptr(a1.CObj())))
+	playerDropATrap(int(uintptr(a1.CObj())))
 }
 func GetFlagValueFromFlagIndex(a1 int) uint32 {
-	return uint32(C.getFlagValueFromFlagIndex(C.int(a1)))
+	return uint32(getFlagValueFromFlagIndex(int(a1)))
 }
