@@ -584,7 +584,8 @@ char nox_xxx_updateNPCAnimData_50A850(nox_object_t* a1p) {
 		if (v2) {
 			v1[480] = v2[9];
 			if (!v2[9]) {
-				goto LABEL_13;
+				v1[483] = 1;
+				return (char)v2;
 			}
 			v3 = v1[482] + 1;
 			v1[482] = v3;
@@ -600,7 +601,6 @@ char nox_xxx_updateNPCAnimData_50A850(nox_object_t* a1p) {
 						return (char)v2;
 					}
 					v1[481] = v6 - 1;
-				LABEL_13:
 					v1[483] = 1;
 					return (char)v2;
 				}
@@ -634,69 +634,72 @@ int nox_xxx_mobAction_50A910(nox_object_t* a1p) {
 		*(uint32_t*)(v1 + 1216) = 0;
 	}
 	result = *(char*)(v1 + 544);
-	if (result >= 0) {
-		v4 = (uint32_t*)(v1 + 8 * (3 * result + 69));
-		v13 = result + 1;
-		while (1) {
-			v5 = 0;
-			if (*getMemU32Ptr(0x587000, 230388 + 16 * *v4) > 0) {
-				v6 = v4 + 1;
-				do {
-					if (*getMemU32Ptr(0x587000, 230392 + 4 * (v5 + 4 * *v4)) == 1 && *v6) {
-						sub_509FF0((int)v6);
-					}
-					++v5;
-					v6 += 2;
-				} while (v5 < *getMemIntPtr(0x587000, 230388 + 16 * *v4));
-				v1 = v12;
-			}
-			switch (*v4) {
-			case 3:
-				v7 = v4[3];
-				if (v7) {
-					goto LABEL_26;
+	if (result < 0) {
+		return result;
+	}
+	v4 = (uint32_t*)(v1 + 8 * (3 * result + 69));
+	v13 = result + 1;
+	while (1) {
+		v5 = 0;
+		if (*getMemU32Ptr(0x587000, 230388 + 16 * *v4) > 0) {
+			v6 = v4 + 1;
+			do {
+				if (*getMemU32Ptr(0x587000, 230392 + 4 * (v5 + 4 * *v4)) == 1 && *v6) {
+					sub_509FF0((int)v6);
 				}
-				break;
-			case 7:
-			case 8:
-				v10 = v4[3];
-				if (v10) {
-					if (nox_xxx_unitCanInteractWith_5370E0(a1, v10, 0) || nox_xxx_checkMobAction_50A0D0(a1, 3)) {
-						v7 = v4[3];
-						v11 = *(uint32_t*)(v7 + 56);
-						goto LABEL_27;
-					}
-					v4[3] = 0;
-				}
-				break;
-			case 0xF:
-				v7 = *(uint32_t*)(v1 + 1196);
-				if (v7) {
-				LABEL_26:
-					v11 = *(uint32_t*)(v7 + 56);
-				LABEL_27:
-					v4[1] = v11;
-					v4[2] = *(uint32_t*)(v7 + 60);
-				}
-				break;
-			case 0x11:
-				v8 = v4[3];
-				if (v8 && nox_xxx_unitCanInteractWith_5370E0(a1, v8, 0)) {
-					v9 = v4[3];
-					v4[1] = *(uint32_t*)(v9 + 56);
-					v4[2] = *(uint32_t*)(v9 + 60);
-				}
-				break;
-			default:
-				break;
-			}
-			v4 -= 6;
-			result = --v13;
-			if (!v13) {
-				break;
-			}
+				++v5;
+				v6 += 2;
+			} while (v5 < *getMemIntPtr(0x587000, 230388 + 16 * *v4));
 			v1 = v12;
 		}
+		switch (*v4) {
+		case 3:
+			v7 = v4[3];
+			if (v7) {
+				v11 = *(uint32_t*)(v7 + 56);
+				v4[1] = v11;
+				v4[2] = *(uint32_t*)(v7 + 60);
+			}
+			break;
+		case 7:
+		case 8:
+			v10 = v4[3];
+			if (v10) {
+				if (nox_xxx_unitCanInteractWith_5370E0(a1, v10, 0) || nox_xxx_checkMobAction_50A0D0(a1, 3)) {
+					v7 = v4[3];
+					v11 = *(uint32_t*)(v7 + 56);
+					v4[1] = v11;
+					v4[2] = *(uint32_t*)(v7 + 60);
+				} else {
+					v4[3] = 0;
+				}
+			}
+			break;
+		case 0xF:
+			v7 = *(uint32_t*)(v1 + 1196);
+			if (v7) {
+				v11 = *(uint32_t*)(v7 + 56);
+				v4[1] = v11;
+				v4[2] = *(uint32_t*)(v7 + 60);
+			}
+			break;
+		case 0x11:
+			v8 = v4[3];
+			if (v8 && nox_xxx_unitCanInteractWith_5370E0(a1, v8, 0)) {
+				v9 = v4[3];
+				v4[1] = *(uint32_t*)(v9 + 56);
+				v4[2] = *(uint32_t*)(v9 + 60);
+			}
+			break;
+		default:
+			break;
+		}
+		v4 -= 6;
+		result = --v13;
+		if (!v13) {
+			break;
+		}
+		v1 = v12;
 	}
 	return result;
 }
@@ -856,24 +859,25 @@ int sub_50AC20(int a3, uint16_t* a2) {
 		}
 		return 0;
 	}
-	if (v6 & 8) {
-		a3 = 0x8000;
-		sub_517B70(&a1, sub_50AE80, (int)&a3);
-		v10 = dword_5d4594_2386152;
-		if (dword_5d4594_2386152) {
-			v11 = *(uint32_t*)(*(uint32_t*)(dword_5d4594_2386152 + 748) + 4);
-		LABEL_18:
-			if (v11 && *(uint32_t*)(v10 + 16) & 0x1000000) {
-				v19 = *(float*)(v11 + 56) * 0.043478262;
-				v15 = nox_float2int(v19);
-				v16 = a2;
-				*a2 = v15;
-				v20 = *(float*)(v11 + 60) * 0.043478262;
-				v16[1] = nox_float2int(v20);
-				return 1;
-			}
-			return 0;
-		}
+	if ((v6 & 8) == 0) {
+		return 0;
+	}
+	a3 = 0x8000;
+	sub_517B70(&a1, sub_50AE80, (int)&a3);
+	v10 = dword_5d4594_2386152;
+	if (!dword_5d4594_2386152) {
+		return 0;
+	}
+	v11 = *(uint32_t*)(*(uint32_t*)(dword_5d4594_2386152 + 748) + 4);
+LABEL_18:
+	if (v11 && *(uint32_t*)(v10 + 16) & 0x1000000) {
+		v19 = *(float*)(v11 + 56) * 0.043478262;
+		v15 = nox_float2int(v19);
+		v16 = a2;
+		*a2 = v15;
+		v20 = *(float*)(v11 + 60) * 0.043478262;
+		v16[1] = nox_float2int(v20);
+		return 1;
 	}
 	return 0;
 }
@@ -1332,10 +1336,10 @@ void* nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int (*a5)(in
 						v29 = *(uint32_t*)(a2 + 16);
 						if (v29 & 0x4000) {
 							if (nox_xxx_mapTraceRay_535250(&v76, 0, 0, 5)) {
-								goto LABEL_31;
+								v30 = a2;
+								goto LABEL_32;
 							}
 						} else if (nox_xxx_mapTraceRay_535250(&v76, 0, 0, 1)) {
-						LABEL_31:
 							v30 = a2;
 							goto LABEL_32;
 						}
@@ -1353,14 +1357,18 @@ void* nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int (*a5)(in
 							continue;
 						}
 						LOBYTE(v37) = sub_57B500(*v15 + 1, v15[1], v60);
-						goto LABEL_54;
+						v37 = (unsigned char)v37;
+						if ((unsigned char)v37 == 1 || v37 == 4 || v37 == 7) {
+							goto LABEL_86;
+						}
+						v38 = v37 == 8;
+						break;
 					case 5:
 						v39 = (unsigned char)sub_57B500(*v15 - 1, v15[1], v60);
 						if (v39 != 1 && v39 != 6 && v39 != 10 && v39 != 9 && v39 != 255) {
 							continue;
 						}
 						LOBYTE(v37) = sub_57B500(*v15, v15[1] - 1, v60);
-					LABEL_54:
 						v37 = (unsigned char)v37;
 						if ((unsigned char)v37 == 1 || v37 == 4 || v37 == 7) {
 							goto LABEL_86;
@@ -1440,11 +1448,9 @@ void* nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int (*a5)(in
 				if (!v31) {
 					v55 = *(uint32_t*)(v30 + 36);
 					v47 = nox_xxx_getUnitName_4E39D0(v30);
-					nox_ai_debug_printf_5341A0("%d: %s(#%d), buildPath: Exhausted search storage\n",
-											   gameFrame(), v47, v55);
-				LABEL_130:
+					nox_ai_debug_printf_5341A0("%d: %s(#%d), buildPath: Exhausted search storage\n", gameFrame(), v47, v55);
 					dword_5d4594_1599712 = 1;
-					return (void*)sub_50C320(v30, v67, 0);
+					return sub_50C320(v30, v67, 0);
 				}
 				*v31 = v23;
 				v31[1] = v24;
@@ -1452,24 +1458,22 @@ void* nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int (*a5)(in
 				*((uint32_t*)v31 + 2) = v77;
 				v77 = v31;
 			}
-			if (!sub_50AC20((int)v15, v68)) {
-				goto LABEL_38;
+			if (sub_50AC20((int)v15, v68)) {
+				*((uint8_t*)v15 + 12) |= 2u;
+				v32 = (unsigned short*)nox_alloc_class_new_obj_zero(*(uint32_t**)&nox_alloc_visitNode_2386184);
+				if (!v32) {
+					v30 = a2;
+					v56 = *(uint32_t*)(a2 + 36);
+					v48 = nox_xxx_getUnitName_4E39D0(a2);
+					nox_ai_debug_printf_5341A0("%d: %s(#%d), buildPath: Exhausted search storage\n", gameFrame(), v48, v56);
+					dword_5d4594_1599712 = 1;
+					return sub_50C320(v30, v67, 0);
+				}
+				*(uint32_t*)v32 = *(uint32_t*)v68;
+				*((uint32_t*)v32 + 1) = v15;
+				*((uint32_t*)v32 + 2) = v77;
+				v77 = v32;
 			}
-			*((uint8_t*)v15 + 12) |= 2u;
-			v32 = (unsigned short*)nox_alloc_class_new_obj_zero(*(uint32_t**)&nox_alloc_visitNode_2386184);
-			if (!v32) {
-				v30 = a2;
-				v56 = *(uint32_t*)(a2 + 36);
-				v48 = nox_xxx_getUnitName_4E39D0(a2);
-				nox_ai_debug_printf_5341A0("%d: %s(#%d), buildPath: Exhausted search storage\n", gameFrame(),
-										   v48, v56);
-				goto LABEL_130;
-			}
-			*(uint32_t*)v32 = *(uint32_t*)v68;
-			*((uint32_t*)v32 + 1) = v15;
-			*((uint32_t*)v32 + 2) = v77;
-			v77 = v32;
-		LABEL_38:
 			v15 = (unsigned short*)*((uint32_t*)v15 + 2);
 			if (v15) {
 				continue;
@@ -1522,7 +1526,9 @@ void* nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int (*a5)(in
 				v50 = nox_xxx_getUnitName_4E39D0(a2);
 				nox_ai_debug_printf_5341A0("%d: %s(#%d), buildPath: Reached search depth limit\n",
 										   gameFrame(), v50, v58);
-				goto LABEL_134;
+				v30 = a2;
+				dword_5d4594_1599712 = 2;
+				return sub_50C320(v30, v67, 0);
 			}
 			++v66;
 			continue;
@@ -1532,10 +1538,9 @@ void* nox_xxx_pathFind_50BA00(int a1, int a2, float* a3, float* a4, int (*a5)(in
 	v57 = *(uint32_t*)(a2 + 36);
 	v49 = nox_xxx_getUnitName_4E39D0(a2);
 	nox_ai_debug_printf_5341A0("%d: %s(#%d), buildPath: Exhausted search space\n", gameFrame(), v49, v57);
-LABEL_134:
 	v30 = a2;
 	dword_5d4594_1599712 = 2;
-	return (void*)sub_50C320(v30, v67, 0);
+	return sub_50C320(v30, v67, 0);
 }
 
 //----- (0050C320) --------------------------------------------------------
@@ -1598,38 +1603,102 @@ int sub_50C320(int a1, int a2, uint32_t* a3) {
 			v10 = *((uint8_t*)v7 + 12);
 			v11 = v7[1] - v4[1];
 			a2 = *v7 - *v4;
-			if (!(v10 & 2)) {
-				goto LABEL_19;
-			}
-			if (!sub_50AEA0((int)v7, &v26, &a1)) {
-				break;
-			}
-			v12 = v25;
-			*(float*)((int)dword_5d4594_2386176 + 8 * v8) = v26.field_0;
-			*(float*)((int)dword_5d4594_2386176 + 8 * v8 + 4) = v26.field_4;
-			if (*(uint8_t*)(v25 + 2172) < 8u) {
-				a2 = a2 * a2 + v11 * v11;
-				if ((double)a2 > 4761.0) {
-					goto LABEL_17;
-				}
-				v13 = v7[1];
-				a2 = 23 * *v7 + 11;
-				v14 = 23 * v13;
-				v15 = *v4;
-				v27.field_0 = (double)a2;
-				a2 = v14 + 11;
-				v16 = 23 * v15;
-				v17 = v4[1];
-				v27.field_4 = (double)(v14 + 11);
-				v27.field_8 = (double)(v16 + 11);
-				a2 = 23 * v17 + 11;
-				v27.field_C = (double)a2;
-				if (!nox_xxx_mapTraceRay_535250(&v27, 0, 0, 1)) {
+			if ((v10 & 2)) {
+				if (!sub_50AEA0((int)v7, &v26, &a1)) {
+					v9 = a2;
+				} else {
 					v12 = v25;
-				LABEL_17:
-					*(uint32_t*)(v12 + 4 * (unsigned char)(*(uint8_t*)(v12 + 2172))++ + 2140) = a1;
+					*(float*)((int)dword_5d4594_2386176 + 8 * v8) = v26.field_0;
+					*(float*)((int)dword_5d4594_2386176 + 8 * v8 + 4) = v26.field_4;
+					if (*(uint8_t*)(v25 + 2172) < 8u) {
+						a2 = a2 * a2 + v11 * v11;
+						if ((double)a2 > 4761.0) {
+							*(uint32_t*)(v12 + 4 * (unsigned char)(*(uint8_t*)(v12 + 2172))++ + 2140) = a1;
+							goto LABEL_38;
+						}
+						v13 = v7[1];
+						a2 = 23 * *v7 + 11;
+						v14 = 23 * v13;
+						v15 = *v4;
+						v27.field_0 = (double)a2;
+						a2 = v14 + 11;
+						v16 = 23 * v15;
+						v17 = v4[1];
+						v27.field_4 = (double)(v14 + 11);
+						v27.field_8 = (double)(v16 + 11);
+						a2 = 23 * v17 + 11;
+						v27.field_C = (double)a2;
+						if (!nox_xxx_mapTraceRay_535250(&v27, 0, 0, 1)) {
+							v12 = v25;
+							*(uint32_t*)(v12 + 4 * (unsigned char)(*(uint8_t*)(v12 + 2172))++ + 2140) = a1;
+							goto LABEL_38;
+						}
+					}
 					goto LABEL_38;
 				}
+			}
+			if (v9 <= 0) {
+				if (v9 < 0) {
+					if (v11 > 0) {
+						a2 = *v7;
+						*(float*)((int)dword_5d4594_2386176 + 8 * v8) = (double)a2 * 23.0 + 23.0 - 2.3;
+						a2 = v7[1];
+						v20 = (double)a2;
+						*(float*)((int)dword_5d4594_2386176 + 8 * v8 + 4) = v20 * 23.0 + 2.3;
+						goto LABEL_38;
+					}
+					if (v11 < 0) {
+						a2 = *v7;
+						*(float*)((int)dword_5d4594_2386176 + 8 * v8) = (double)a2 * 23.0 + 23.0 - 2.3;
+						a2 = v7[1];
+						v18 = (double)a2;
+						*(float*)((int)dword_5d4594_2386176 + 8 * v8 + 4) = v18 * 23.0 + 23.0 - 2.3;
+						goto LABEL_38;
+					}
+					a2 = *v7;
+					*(float*)((int)dword_5d4594_2386176 + 8 * v8) = (double)a2 * 23.0 + 23.0 - 2.3;
+					a2 = v7[1];
+					v19 = (double)a2;
+					*(float*)((int)dword_5d4594_2386176 + 8 * v8 + 4) = v19 * 23.0 + 11.5;
+					goto LABEL_38;
+				}
+				if (v11 > 0) {
+					a2 = *v7;
+					*(float*)((int)dword_5d4594_2386176 + 8 * v8) = (double)a2 * 23.0 + 11.5;
+					a2 = v7[1];
+					v20 = (double)a2;
+					*(float*)((int)dword_5d4594_2386176 + 8 * v8 + 4) = v20 * 23.0 + 2.3;
+					goto LABEL_38;
+				}
+				if (v11 < 0) {
+					a2 = *v7;
+					*(float*)((int)dword_5d4594_2386176 + 8 * v8) = (double)a2 * 23.0 + 11.5;
+					a2 = v7[1];
+					v18 = (double)a2;
+					*(float*)((int)dword_5d4594_2386176 + 8 * v8 + 4) = v18 * 23.0 + 23.0 - 2.3;
+					goto LABEL_38;
+				}
+			} else {
+				if (v11 <= 0) {
+					if (v11 < 0) {
+						a2 = *v7;
+						*(float*)((int)dword_5d4594_2386176 + 8 * v8) = (double)a2 * 23.0 + 2.3;
+						a2 = v7[1];
+						v18 = (double)a2;
+						*(float*)((int)dword_5d4594_2386176 + 8 * v8 + 4) = v18 * 23.0 + 23.0 - 2.3;
+						goto LABEL_38;
+					}
+					a2 = *v7;
+					*(float*)((int)dword_5d4594_2386176 + 8 * v8) = (double)a2 * 23.0 + 2.3;
+					a2 = v7[1];
+					v19 = (double)a2;
+					*(float*)((int)dword_5d4594_2386176 + 8 * v8 + 4) = v19 * 23.0 + 11.5;
+					goto LABEL_38;
+				}
+				a2 = *v7;
+				*(float*)((int)dword_5d4594_2386176 + 8 * v8) = (double)a2 * 23.0 + 2.3;
+				a2 = v7[1];
+				*(float*)((int)dword_5d4594_2386176 + 8 * v8 + 4) = (double)a2 * 23.0 + 2.3;
 			}
 		LABEL_38:
 			v4 = v7;
@@ -1639,71 +1708,6 @@ int sub_50C320(int a1, int a2, uint32_t* a3) {
 				goto LABEL_39;
 			}
 		}
-		v9 = a2;
-	LABEL_19:
-		if (v9 <= 0) {
-			if (v9 < 0) {
-				if (v11 > 0) {
-					a2 = *v7;
-					*(float*)((int)dword_5d4594_2386176 + 8 * v8) = (double)a2 * 23.0 + 23.0 - 2.3;
-					a2 = v7[1];
-					v20 = (double)a2;
-				LABEL_29:
-					*(float*)((int)dword_5d4594_2386176 + 8 * v8 + 4) = v20 * 23.0 + 2.3;
-					goto LABEL_38;
-				}
-				if (v11 < 0) {
-					a2 = *v7;
-					*(float*)((int)dword_5d4594_2386176 + 8 * v8) = (double)a2 * 23.0 + 23.0 - 2.3;
-					a2 = v7[1];
-					v18 = (double)a2;
-					goto LABEL_37;
-				}
-				a2 = *v7;
-				*(float*)((int)dword_5d4594_2386176 + 8 * v8) = (double)a2 * 23.0 + 23.0 - 2.3;
-				a2 = v7[1];
-				v19 = (double)a2;
-				goto LABEL_25;
-			}
-			if (v11 > 0) {
-				a2 = *v7;
-				*(float*)((int)dword_5d4594_2386176 + 8 * v8) = (double)a2 * 23.0 + 11.5;
-				a2 = v7[1];
-				v20 = (double)a2;
-				goto LABEL_29;
-			}
-			if (v11 < 0) {
-				a2 = *v7;
-				*(float*)((int)dword_5d4594_2386176 + 8 * v8) = (double)a2 * 23.0 + 11.5;
-				a2 = v7[1];
-				v18 = (double)a2;
-				goto LABEL_37;
-			}
-		} else {
-			if (v11 <= 0) {
-				if (v11 < 0) {
-					a2 = *v7;
-					*(float*)((int)dword_5d4594_2386176 + 8 * v8) = (double)a2 * 23.0 + 2.3;
-					a2 = v7[1];
-					v18 = (double)a2;
-				LABEL_37:
-					*(float*)((int)dword_5d4594_2386176 + 8 * v8 + 4) = v18 * 23.0 + 23.0 - 2.3;
-					goto LABEL_38;
-				}
-				a2 = *v7;
-				*(float*)((int)dword_5d4594_2386176 + 8 * v8) = (double)a2 * 23.0 + 2.3;
-				a2 = v7[1];
-				v19 = (double)a2;
-			LABEL_25:
-				*(float*)((int)dword_5d4594_2386176 + 8 * v8 + 4) = v19 * 23.0 + 11.5;
-				goto LABEL_38;
-			}
-			a2 = *v7;
-			*(float*)((int)dword_5d4594_2386176 + 8 * v8) = (double)a2 * 23.0 + 2.3;
-			a2 = v7[1];
-			*(float*)((int)dword_5d4594_2386176 + 8 * v8 + 4) = (double)a2 * 23.0 + 2.3;
-		}
-		goto LABEL_38;
 	}
 LABEL_39:
 	v21 = 0;
@@ -2038,7 +2042,6 @@ int nox_xxx_creatureActuallyMove_50D3B0(float* a1) {
 		v19 = 0;
 		v17 = 10000000.0;
 		if (v4 >= *(int*)(v1 + 8)) {
-		LABEL_14:
 			*(uint32_t*)(v1 + 8) = 0;
 			return 0;
 		}
@@ -2070,7 +2073,8 @@ int nox_xxx_creatureActuallyMove_50D3B0(float* a1) {
 		} while (v4 < *(int*)(v1 + 8));
 		if (!v16) {
 			if (!v18) {
-				goto LABEL_14;
+				*(uint32_t*)(v1 + 8) = 0;
+				return 0;
 			}
 			v2 = v19;
 		}
@@ -2143,7 +2147,6 @@ int nox_xxx_creatureSetMovePath_50D5A0(int a1) {
 				sub_50D2A0(a1, (int)v3);
 			}
 			if (*(uint32_t*)(v1 + 296)) {
-			LABEL_16:
 				if (sub_50D2E0(a1)) {
 					*(uint32_t*)(v1 + 8) = 0;
 					*(uint32_t*)(v1 + 296) = 0;
@@ -2160,7 +2163,12 @@ int nox_xxx_creatureSetMovePath_50D5A0(int a1) {
 		nox_xxx_creatureSetDetailedPath_50D220(a1, (int)v3);
 	}
 	if (*(uint32_t*)(v1 + 296)) {
-		goto LABEL_16;
+		if (sub_50D2E0(a1)) {
+			*(uint32_t*)(v1 + 8) = 0;
+			*(uint32_t*)(v1 + 296) = 0;
+			return 1;
+		}
+		return 0;
 	}
 	if (*(uint32_t*)(v1 + 8) && nox_xxx_creatureActuallyMove_50D3B0((float*)a1)) {
 		*(uint32_t*)(v1 + 8) = 0;
@@ -2222,19 +2230,15 @@ void sub_50D8D0() {
 			v1 = (int*)v0[1];
 			v2 = 1;
 			v3 = nox_xxx_getFirstPlayerUnit_4DA7C0();
-			if (!v3) {
-				goto LABEL_13;
-			}
-			do {
+			while (v3) {
 				v4 = *(uint32_t*)(v3 + 748);
 				if (*(uint32_t*)(*(uint32_t*)(v4 + 276) + 4792) == 1 && !*(uint32_t*)(v4 + 312) &&
 					nox_xxx_calcDistance_4E6C00(v3, *v0) < 700.0) {
 					v2 = 0;
 				}
 				v3 = nox_xxx_getNextPlayerUnit_4DA7F0(v3);
-			} while (v3);
+			}
 			if (v2 == 1) {
-			LABEL_13:
 				nox_xxx_delayedDeleteObject_4E5CC0(*v0);
 			}
 			v0 = v1;
@@ -2841,7 +2845,6 @@ int nox_xxx_shopGetItemCost_50E3D0(int a1, int a2, float a3) {
 		v8 = *(uint32_t*)(LODWORD(v3) + 12);
 		if (v8 & 1) {
 			v9 = (double)(unsigned short)nox_xxx_spellPrice_424C40(**(uint8_t**)(LODWORD(v3) + 736));
-		LABEL_16:
 			v31 = v9;
 			goto LABEL_17;
 		}
@@ -2852,7 +2855,8 @@ int nox_xxx_shopGetItemCost_50E3D0(int a1, int a2, float a3) {
 			}
 			if (nox_common_gameFlags_check_40A5C0(4096)) {
 				v9 = nox_xxx_gamedataGetFloat_419D40("QuestGuideWorthMultiplier") * v31;
-				goto LABEL_16;
+				v31 = v9;
+				goto LABEL_17;
 			}
 		}
 	}
@@ -4266,16 +4270,15 @@ int nox_xxx_unitSetDecayTime_511660(nox_object_t* a1p, int a2) {
 		v4 = 0;
 		a1[34] = gameFrame() + a2;
 		v5 = dword_5d4594_2386576;
-		if (!dword_5d4594_2386576) {
-			goto LABEL_14;
+		if (dword_5d4594_2386576) {
+			do {
+				if (v3 < *(int*)(v5 + 136)) {
+					break;
+				}
+				v4 = v5;
+				v5 = *(uint32_t*)(v5 + 468);
+			} while (v5);
 		}
-		do {
-			if (v3 < *(int*)(v5 + 136)) {
-				break;
-			}
-			v4 = v5;
-			v5 = *(uint32_t*)(v5 + 468);
-		} while (v5);
 		if (v4) {
 			*(uint32_t*)(v4 + 468) = a1;
 			if (!v5) {
@@ -4286,7 +4289,6 @@ int nox_xxx_unitSetDecayTime_511660(nox_object_t* a1p, int a2) {
 				return result;
 			}
 		} else {
-		LABEL_14:
 			dword_5d4594_2386576 = a1;
 		}
 		a1[117] = v5;
@@ -5249,115 +5251,117 @@ int nox_xxx_servParseMonsterDef_517170(FILE* a1, const char* a2) {
 
 	result = (int)calloc(1u, 0xF8u);
 	v3 = (uint32_t*)result;
-	if (result) {
-		strcpy((char*)result, a2);
-		while (1) {
-			if (!nox_xxx_readStr_517090(a1, v10) || !nox_strcmpi("END", v10)) {
-				v3[61] = nox_monsterBin_head_2386924;
-				nox_monsterBin_head_2386924 = v3;
-				return 1;
-			}
-			if (nox_common_gameFlags_check_40A5C0(2048) || nox_common_gameFlags_check_40A5C0(0x200000)) {
-				if (nox_strcmpi("ARENA", v10)) {
-					if (nox_strcmpi("SOLO", v10)) {
-						goto LABEL_10;
-					}
-				} else {
-					sub_517140(a1);
+	if (!result) {
+		return 0;
+	}
+	strcpy((char*)result, a2);
+	while (1) {
+		if (!nox_xxx_readStr_517090(a1, v10) || !nox_strcmpi("END", v10)) {
+			v3[61] = nox_monsterBin_head_2386924;
+			nox_monsterBin_head_2386924 = v3;
+			return 1;
+		}
+		if (nox_common_gameFlags_check_40A5C0(2048) || nox_common_gameFlags_check_40A5C0(0x200000)) {
+			if (nox_strcmpi("ARENA", v10)) {
+				if (nox_strcmpi("SOLO", v10)) {
+					goto LABEL_10;
 				}
 			} else {
-			LABEL_10:
-				if (!nox_common_gameFlags_check_40A5C0(0x2000)) {
-					goto LABEL_14;
-				}
-				if (nox_strcmpi("SOLO", v10)) {
-					if (nox_strcmpi("ARENA", v10)) {
-					LABEL_14:
-						v4 = getMemAt(0x587000, 248192);
-						if (*getMemU32Ptr(0x587000, 248192)) {
-							do {
-								if (!nox_strcmpi(*(const char**)v4, v10)) {
-									break;
-								}
-								v5 = *((uint32_t*)v4 + 3);
-								v4 += 12;
-							} while (v5);
-						}
-						if (!*(uint32_t*)v4) {
-							free(v3);
-							return 0;
-						}
-						v6 = (char*)v3 + *((uint32_t*)v4 + 2);
-						switch (*((uint32_t*)v4 + 1)) {
-						case 0:
-							nox_xxx_readStr_517090(a1, v10);
-							*(uint32_t*)v6 = atoi(v10);
-							continue;
-						case 1:
-							nox_xxx_readStr_517090(a1, v10);
-							*(float*)v6 = atof(v10);
-							continue;
-						case 2:
-							nox_xxx_readStr_517090(a1, v10);
-							*(uint32_t*)v6 = nox_xxx_utilFindSound_40AF50(v10);
-							continue;
-						case 3:
-							nox_xxx_readStr_517090(a1, v10);
-							if (nox_xxx_monsterLoadStrikeFn_549040((int)v3, v10)) {
-								continue;
-							}
-							return 0;
-						case 4:
-							nox_xxx_readStr_517090(a1, v10);
-							if (nox_xxx_monsterLoadDieFn_5490E0((int)v3, v10)) {
-								continue;
-							}
-							return 0;
-						case 5:
-							nox_xxx_readStr_517090(a1, v10);
-							if (nox_xxx_monsterLoadDeadFn_549180((int)v3, v10)) {
-								continue;
-							}
-							return 0;
-						case 6:
-							v9 = 0;
-							nox_xxx_readStr_517090(a1, v10);
-							set_bitmask_flags_from_plus_separated_names_423930(
-								v10, &v9, (const char**)getMemAt(0x587000, 247536));
-							*(uint16_t*)v6 = v9;
-							continue;
-						case 7:
-							nox_xxx_readStr_517090(a1, v6);
-							if (!strcmp("NULL", v6)) {
-								*v6 = 0;
-							}
-							continue;
-						case 8:
-							nox_xxx_readStr_517090(a1, v10);
-							v3[31] = 18;
-							v7 = 0;
-							v8 = getMemAt(0x587000, 247464);
-							break;
-						default:
-							continue;
-						}
-						while (nox_strcmpi(v10, (const char*)(*(uint32_t*)v8 + 7))) {
-							v8 += 4;
-							++v7;
-							if ((int)v8 >= (int)getMemAt(0x587000, 247536)) {
-								goto LABEL_27;
-							}
-						}
-						v3[31] = v7;
-					LABEL_27:
-						if (v3[31] == 18) {
-							return 0;
-						}
-					}
-				} else {
-					sub_517140(a1);
-				}
+				sub_517140(a1);
 			}
+			continue;
+		}
+	LABEL_10:
+		if (!nox_common_gameFlags_check_40A5C0(0x2000)) {
+			goto LABEL_14;
+		}
+		if (!nox_strcmpi("SOLO", v10)) {
+			sub_517140(a1);
+			continue;
+		}
+		if (!nox_strcmpi("ARENA", v10)) {
+			continue;
+		}
+	LABEL_14:
+		v4 = getMemAt(0x587000, 248192);
+		if (*getMemU32Ptr(0x587000, 248192)) {
+			do {
+				if (!nox_strcmpi(*(const char**)v4, v10)) {
+					break;
+				}
+				v5 = *((uint32_t*)v4 + 3);
+				v4 += 12;
+			} while (v5);
+		}
+		if (!*(uint32_t*)v4) {
+			free(v3);
+			return 0;
+		}
+		v6 = (char*)v3 + *((uint32_t*)v4 + 2);
+		switch (*((uint32_t*)v4 + 1)) {
+		case 0:
+			nox_xxx_readStr_517090(a1, v10);
+			*(uint32_t*)v6 = atoi(v10);
+			continue;
+		case 1:
+			nox_xxx_readStr_517090(a1, v10);
+			*(float*)v6 = atof(v10);
+			continue;
+		case 2:
+			nox_xxx_readStr_517090(a1, v10);
+			*(uint32_t*)v6 = nox_xxx_utilFindSound_40AF50(v10);
+			continue;
+		case 3:
+			nox_xxx_readStr_517090(a1, v10);
+			if (nox_xxx_monsterLoadStrikeFn_549040((int)v3, v10)) {
+				continue;
+			}
+			return 0;
+		case 4:
+			nox_xxx_readStr_517090(a1, v10);
+			if (nox_xxx_monsterLoadDieFn_5490E0((int)v3, v10)) {
+				continue;
+			}
+			return 0;
+		case 5:
+			nox_xxx_readStr_517090(a1, v10);
+			if (nox_xxx_monsterLoadDeadFn_549180((int)v3, v10)) {
+				continue;
+			}
+			return 0;
+		case 6:
+			v9 = 0;
+			nox_xxx_readStr_517090(a1, v10);
+			set_bitmask_flags_from_plus_separated_names_423930(
+				v10, &v9, (const char**)getMemAt(0x587000, 247536));
+			*(uint16_t*)v6 = v9;
+			continue;
+		case 7:
+			nox_xxx_readStr_517090(a1, v6);
+			if (!strcmp("NULL", v6)) {
+				*v6 = 0;
+			}
+			continue;
+		case 8:
+			nox_xxx_readStr_517090(a1, v10);
+			v3[31] = 18;
+			v7 = 0;
+			v8 = getMemAt(0x587000, 247464);
+			break;
+		default:
+			continue;
+		}
+		while (nox_strcmpi(v10, (const char*)(*(uint32_t*)v8 + 7))) {
+			v8 += 4;
+			++v7;
+			if ((int)v8 >= (int)getMemAt(0x587000, 247536)) {
+				goto LABEL_27;
+			}
+		}
+		v3[31] = v7;
+	LABEL_27:
+		if (v3[31] == 18) {
+			return 0;
 		}
 	}
 	return result;
