@@ -49,16 +49,16 @@ int nox_xxx_netDrawRays_49BDD0(unsigned char* a1) {
 		switch (*a1) {
 		case 0x7Du:
 			v20 = *getMemU32Ptr(0x5D4594, 1304332);
-			goto LABEL_17;
+			break;
 		case 0x8Cu:
 			v20 = *getMemU32Ptr(0x5D4594, 1304316);
-			goto LABEL_17;
+			break;
 		case 0x8Du:
 			v20 = *getMemU32Ptr(0x5D4594, 1304324);
-			goto LABEL_17;
+			break;
 		case 0x8Eu:
 			v20 = *getMemU32Ptr(0x5D4594, 1304320);
-			goto LABEL_17;
+			break;
 		case 0x8Fu:
 			v18 = nox_common_randomIntMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 137);
 			v20 = dword_5d4594_1304328;
@@ -67,7 +67,7 @@ int nox_xxx_netDrawRays_49BDD0(unsigned char* a1) {
 				v10 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 142);
 				sub_499490(*getMemIntPtr(0x5D4594, 1304336), v3, v10, v15, v18, 0);
 			}
-			goto LABEL_17;
+			break;
 		case 0x90u:
 			v16 = nox_common_randomIntMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 101);
 			v20 = dword_5d4594_1304328;
@@ -84,7 +84,7 @@ int nox_xxx_netDrawRays_49BDD0(unsigned char* a1) {
 				v8 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 114);
 				sub_499490(*getMemIntPtr(0x5D4594, 1304344), v19, v8, v13, v16, 0);
 			}
-			goto LABEL_17;
+			break;
 		case 0x91u:
 			v17 = nox_common_randomIntMinMax_415FF0(6, 12, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 123);
 			v20 = dword_5d4594_1304328;
@@ -93,19 +93,18 @@ int nox_xxx_netDrawRays_49BDD0(unsigned char* a1) {
 				v9 = nox_common_randomIntMinMax_415FF0(-20, 20, "C:\\NoxPost\\src\\Client\\Draw\\drawrays.c", 128);
 				sub_499490(*getMemIntPtr(0x5D4594, 1304340), v3, v9, v14, v17, 0);
 			}
-		LABEL_17:
-			result = nox_xxx_spriteLoadAdd_45A360_drawable(v20, v4, v5);
-			if (result) {
-				*(uint8_t*)(result + 432) = 0;
-				*(uint32_t*)(result + 437) = *(uint32_t*)v3;
-				*(uint32_t*)(result + 441) = *((uint32_t*)v3 + 1);
-				v11 = *getMemU32Ptr(0x5D4594, 1304308);
-				*getMemU32Ptr(0x5D4594, 1303540 + 4 * *getMemU32Ptr(0x5D4594, 1304308)) = result;
-				*getMemU32Ptr(0x5D4594, 1304308) = v11 + 1;
-			}
 			break;
 		default:
 			return result;
+		}
+		result = nox_xxx_spriteLoadAdd_45A360_drawable(v20, v4, v5);
+		if (result) {
+			*(uint8_t*)(result + 432) = 0;
+			*(uint32_t*)(result + 437) = *(uint32_t*)v3;
+			*(uint32_t*)(result + 441) = *((uint32_t*)v3 + 1);
+			v11 = *getMemU32Ptr(0x5D4594, 1304308);
+			*getMemU32Ptr(0x5D4594, 1303540 + 4 * *getMemU32Ptr(0x5D4594, 1304308)) = result;
+			*getMemU32Ptr(0x5D4594, 1304308) = v11 + 1;
 		}
 	}
 	return result;

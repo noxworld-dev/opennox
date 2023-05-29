@@ -53,11 +53,11 @@ char sub_4BC490(int a1) {
 							*(uint32_t*)(a1 + 308) = v2 + 1;
 							return v1;
 						}
-					LABEL_11:
 						*(uint32_t*)(a1 + 308) = v2 - 1;
 						return v1;
 					case 1:
-						goto LABEL_11;
+						*(uint32_t*)(a1 + 308) = v2 - 1;
+						return v1;
 					case 2:
 						*(uint32_t*)(a1 + 308) = v2 + 1;
 						break;
