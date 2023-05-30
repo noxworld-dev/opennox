@@ -72,11 +72,7 @@ func nox_vsnwprintf(buffer *wchar2_t, count uint32, format *wchar2_t, ap libc.Ar
 			return x
 		}())))
 		switch ch {
-		case '+':
-			fallthrough
-		case '-':
-			fallthrough
-		case '0':
+		case '+', '-', '0':
 			flag = int8(uint8(ch))
 			ch = *(*wchar2_t)(unsafe.Add(unsafe.Pointer(format), unsafe.Sizeof(wchar2_t(0))*uintptr(func() int32 {
 				p := &i
@@ -180,9 +176,7 @@ func nox_vsnwprintf(buffer *wchar2_t, count uint32, format *wchar2_t, ap libc.Ar
 					}
 				}
 			}
-		case 'd':
-			fallthrough
-		case 'i':
+		case 'd', 'i':
 			var (
 				tmp  [32]byte
 				len_ int32
@@ -262,13 +256,7 @@ func nox_vsnwprintf(buffer *wchar2_t, count uint32, format *wchar2_t, ap libc.Ar
 					}
 				}
 			}
-		case 'X':
-			fallthrough
-		case 'x':
-			fallthrough
-		case 'o':
-			fallthrough
-		case 'u':
+		case 'X', 'x', 'o', 'u':
 			var (
 				tmp  [32]byte
 				len_ int32
@@ -498,11 +486,7 @@ func nox_vsnprintf(buffer *byte, count uint32, format *byte, ap libc.ArgList) in
 			return x
 		}())))
 		switch ch {
-		case '+':
-			fallthrough
-		case '-':
-			fallthrough
-		case '0':
+		case '+', '-', '0':
 			flag = ch
 			ch = int8(*(*byte)(unsafe.Add(unsafe.Pointer(format), func() int32 {
 				p := &i
@@ -606,9 +590,7 @@ func nox_vsnprintf(buffer *byte, count uint32, format *byte, ap libc.ArgList) in
 					}
 				}
 			}
-		case 'd':
-			fallthrough
-		case 'i':
+		case 'd', 'i':
 			var (
 				tmp  [32]byte
 				len_ int32
@@ -688,13 +670,7 @@ func nox_vsnprintf(buffer *byte, count uint32, format *byte, ap libc.ArgList) in
 					}
 				}
 			}
-		case 'X':
-			fallthrough
-		case 'x':
-			fallthrough
-		case 'o':
-			fallthrough
-		case 'u':
+		case 'X', 'x', 'o', 'u':
 			var (
 				tmp  [32]byte
 				len_ int32

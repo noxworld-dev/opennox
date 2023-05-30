@@ -380,9 +380,7 @@ func nox_xxx_draw_44C650_free(lpMem unsafe.Pointer, draw unsafe.Pointer) {
 	var v11 *byte = nil
 	var v12 int32 = 0
 	switch kind {
-	case 2:
-		fallthrough
-	case 3:
+	case 2, 3:
 		if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*1))) != 0 {
 			alloc.FreePtr(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer((*unsafe.Pointer)(lpMem)), unsafe.Sizeof(unsafe.Pointer(nil))*1))))
 		}

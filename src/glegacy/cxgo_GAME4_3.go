@@ -2183,11 +2183,7 @@ func sub_532930(a1 int32, a2 uint16, a3 uint16) {
 			} else {
 				result = int32(a3) - 1
 				switch a3 {
-				case 1:
-					fallthrough
-				case 2:
-					fallthrough
-				case 4:
+				case 1, 2, 4:
 					nox_xxx_aud_501960(863, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
 				case 8:
 					nox_xxx_aud_501960(853, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
@@ -2198,11 +2194,7 @@ func sub_532930(a1 int32, a2 uint16, a3 uint16) {
 		} else {
 			result = int32(a2) - 1
 			switch a2 {
-			case 1:
-				fallthrough
-			case 2:
-				fallthrough
-			case 4:
+			case 1, 2, 4:
 				result = int32(a3)
 				if int32(a3) > 16 {
 					if int32(a3) == 32 {
@@ -2215,11 +2207,7 @@ func sub_532930(a1 int32, a2 uint16, a3 uint16) {
 				} else {
 					result = int32(a3) - 1
 					switch a3 {
-					case 1:
-						fallthrough
-					case 2:
-						fallthrough
-					case 4:
+					case 1, 2, 4:
 						nox_xxx_aud_501960(867, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
 					case 8:
 						nox_xxx_aud_501960(857, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
@@ -2240,11 +2228,7 @@ func sub_532930(a1 int32, a2 uint16, a3 uint16) {
 				} else {
 					result = int32(a3) - 1
 					switch a3 {
-					case 1:
-						fallthrough
-					case 2:
-						fallthrough
-					case 4:
+					case 1, 2, 4:
 						nox_xxx_aud_501960(865, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
 					case 8:
 						nox_xxx_aud_501960(855, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
@@ -2265,11 +2249,7 @@ func sub_532930(a1 int32, a2 uint16, a3 uint16) {
 				} else {
 					result = int32(a3) - 1
 					switch a3 {
-					case 1:
-						fallthrough
-					case 2:
-						fallthrough
-					case 4:
+					case 1, 2, 4:
 						nox_xxx_aud_501960(866, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
 					case 8:
 						nox_xxx_aud_501960(856, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
@@ -2299,11 +2279,7 @@ func sub_532930(a1 int32, a2 uint16, a3 uint16) {
 		} else if int32(a3) != 16 {
 			result = int32(a3) - 1
 			switch a3 {
-			case 1:
-				fallthrough
-			case 2:
-				fallthrough
-			case 4:
+			case 1, 2, 4:
 				nox_xxx_aud_501960(872, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
 			case 8:
 				nox_xxx_aud_501960(870, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
@@ -2327,11 +2303,7 @@ func sub_532930(a1 int32, a2 uint16, a3 uint16) {
 	} else {
 		result = int32(a3) - 1
 		switch a3 {
-		case 1:
-			fallthrough
-		case 2:
-			fallthrough
-		case 4:
+		case 1, 2, 4:
 			nox_xxx_aud_501960(864, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
 		case 8:
 			nox_xxx_aud_501960(854, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
@@ -2388,15 +2360,7 @@ func sub_532EC0(a1 int32, a2 uint16) {
 func sub_532F70(a1 int32) int32 {
 	var result int32
 	switch a1 {
-	case 0:
-		fallthrough
-	case 2:
-		fallthrough
-	case 3:
-		fallthrough
-	case 10:
-		fallthrough
-	case 11:
+	case 0, 2, 3, 10, 11:
 		result = 1
 	default:
 		result = 0
@@ -2446,19 +2410,7 @@ func nox_xxx_mobActionToAnimation_533790(a1 int32) int32 {
 		v3 = 8
 	} else {
 		switch *(*uint32)(unsafe.Pointer(uintptr(v1 + (int32(v2)+23)*24))) {
-		case 7:
-			fallthrough
-		case 8:
-			fallthrough
-		case 0xA:
-			fallthrough
-		case 0xD:
-			fallthrough
-		case 0x1D:
-			fallthrough
-		case 0x24:
-			fallthrough
-		case 0x25:
+		case 7, 8, 0xA, 0xD, 0x1D, 0x24, 0x25:
 			v3 = (*(*uint32)(unsafe.Pointer(uintptr(v1 + 1440)))&0x4000 | 0x30000) >> 14
 		case 9:
 			v3 = 12
@@ -2466,15 +2418,9 @@ func nox_xxx_mobActionToAnimation_533790(a1 int32) int32 {
 			v3 = 1
 		case 0x11:
 			v3 = 3
-		case 0x12:
-			fallthrough
-		case 0x13:
-			fallthrough
-		case 0x14:
+		case 0x12, 0x13, 0x14:
 			v3 = 7
-		case 0x15:
-			fallthrough
-		case 0x17:
+		case 0x15, 0x17:
 			v3 = 5
 		case 0x16:
 			v3 = 6
@@ -2484,9 +2430,7 @@ func nox_xxx_mobActionToAnimation_533790(a1 int32) int32 {
 			v3 = 9
 		case 0x1F:
 			v3 = 10
-		case 0x21:
-			fallthrough
-		case 0x23:
+		case 0x21, 0x23:
 			v3 = 14
 		case 0x22:
 			v3 = 15
@@ -2687,20 +2631,14 @@ func nox_xxx_unitNPCActionToAnim_533D00(a1 int32) *uint8 {
 		v6 = 0
 		v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + v2*24))))
 		switch v3 {
-		case 16:
-			fallthrough
-		case 17:
+		case 16, 17:
 			if *(*uint32)(unsafe.Pointer(uintptr(v1 + 2056)))&0xFFFFFFFC != 0 {
 				v4 = sub_4FA280(int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 2056))) & 0xFFFFFFFC))
 			} else {
 				v4 = int32(*(*uint8)(unsafe.Pointer(uintptr(v1 + 2068))))
 			}
 			nox_xxx_animPlayerGetFrameRange_4F9F90(v4, &a1, &v6)
-		case 18:
-			fallthrough
-		case 19:
-			fallthrough
-		case 20:
+		case 18, 19, 20:
 			nox_xxx_animPlayerGetFrameRange_4F9F90(21, &a1, &v6)
 		case 30:
 			nox_xxx_animPlayerGetFrameRange_4F9F90(1, &a1, &v6)
@@ -5198,7 +5136,7 @@ func nox_xxx_playerDequipWeapon_53A140(a1 *uint32, item *nox_object_t, a3 int32,
 	if *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2))&2 != 0 {
 		return nox_xxx_equipWeaponNPC_53A030(int32(uintptr(unsafe.Pointer(a1))), int32(uintptr(unsafe.Pointer(item))))
 	}
-	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2))&4) == 0 || (item.obj_class&0x1001000) == 0 {
+	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2))&4) == 0 || (item.ObjClass&0x1001000) == 0 {
 		return 0
 	}
 	var v10 int32 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*187)))
@@ -5214,7 +5152,7 @@ func nox_xxx_playerDequipWeapon_53A140(a1 *uint32, item *nox_object_t, a3 int32,
 	}
 	sub_4FEB60(int32(uintptr(unsafe.Pointer(a1))), int32(uintptr(unsafe.Pointer(item))))
 	if eflags == 2 {
-		item.obj_flags &= 0xFFFFFEFF
+		item.ObjFlags &= 0xFFFFFEFF
 		*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v10 + 276))) + 4))) &= 0xFFFFFFFD
 		if a3 != 0 {
 			nox_xxx_netReportDequip_4D8590(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v10 + 276))) + 2064)))), item)
@@ -5263,10 +5201,10 @@ func nox_xxx_NPCEquipWeapon_53A2C0(a1 int32, item *nox_object_t) int32 {
 		v8     int32
 	)
 	v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
-	if (item.obj_class & 0x1001000) == 0 {
+	if (item.ObjClass & 0x1001000) == 0 {
 		return 0
 	}
-	v4 = int32(item.obj_flags)
+	v4 = int32(item.ObjFlags)
 	if v4&0x100 != 0 {
 		return 0
 	}
@@ -5281,10 +5219,10 @@ func nox_xxx_NPCEquipWeapon_53A2C0(a1 int32, item *nox_object_t) int32 {
 		}
 	}
 	*(*uint8)(unsafe.Pointer(uintptr(v2 + 2068))) = 0
-	if (item.obj_subclass & 0xC) == 0 {
+	if (item.ObjSubClass & 0xC) == 0 {
 		sub_53A0F0(a1, 1, 1)
 	}
-	v5 = int32(item.obj_subclass)
+	v5 = int32(item.ObjSubClass)
 	if (v5 & 2) == 0 {
 		v6 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 504))))
 		if v6 != 0 {
@@ -5304,13 +5242,13 @@ func nox_xxx_NPCEquipWeapon_53A2C0(a1 int32, item *nox_object_t) int32 {
 		}
 	}
 LABEL_22:
-	v8 = int32(item.obj_flags)
+	v8 = int32(item.ObjFlags)
 	*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v8))), 1)) |= 1
-	item.obj_flags = uint32(v8)
+	item.ObjFlags = uint32(v8)
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 12))))&0x10 != 0 {
 		nox_xxx_npcSetItemEquipFlags_4E4B20(a1, item, 1)
 	}
-	if (item.obj_subclass & 2) == 0 {
+	if (item.ObjSubClass & 2) == 0 {
 		*(*uint32)(unsafe.Pointer(uintptr(v2 + 2064))) = uint32(uintptr(unsafe.Pointer(item)))
 	}
 	nox_xxx_itemApplyEngageEffect_4F2FF0(item, a1)
@@ -5339,10 +5277,10 @@ func sub_53A3D0(a1 *uint32) {
 }
 func nox_xxx_playerEquipWeapon_53A420(a1 *uint32, item *nox_object_t, a3 int32, a4 int32) int32 {
 	var v4 int32 = nox_xxx_weaponInventoryEquipFlags_415820(item)
-	if (item.obj_class & 0x1001000) == 0 {
+	if (item.ObjClass & 0x1001000) == 0 {
 		return 0
 	}
-	var v5 int32 = int32(item.obj_flags)
+	var v5 int32 = int32(item.ObjFlags)
 	if v5&0x100 != 0 {
 		return 0
 	}
@@ -5399,16 +5337,16 @@ func nox_xxx_playerEquipWeapon_53A420(a1 *uint32, item *nox_object_t, a3 int32, 
 	if v10 != 0 && v4 != 2 && nox_xxx_playerDequipWeapon_53A140(a1, (*nox_object_t)(unsafe.Pointer(uintptr(v10))), 1, 1) == 0 {
 		return 0
 	}
-	var v11 int32 = int32(item.obj_flags)
+	var v11 int32 = int32(item.ObjFlags)
 	*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v11))), 1)) |= 1
-	item.obj_flags = uint32(v11)
+	item.ObjFlags = uint32(v11)
 	*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v8 + 276))) + 4))) |= uint32(v4)
 	nox_xxx_netReportEquip_4D8540(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v8 + 276))) + 2064)))), (*uint32)(unsafe.Pointer(item)), a3)
 	if v4 != 2 {
 		*(*uint32)(unsafe.Pointer(uintptr(v8 + 104))) = uint32(uintptr(unsafe.Pointer(item)))
 	}
-	var v12 int32 = int32(item.obj_class)
-	if v12&0x1000 != 0 && (item.obj_subclass&0x47F0000) != 0 {
+	var v12 int32 = int32(item.ObjClass)
+	if v12&0x1000 != 0 && (item.ObjSubClass&0x47F0000) != 0 {
 		nox_xxx_netReportCharges_4D82B0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v8 + 276))) + 2064)))), (*nox_object_t)(unsafe.Pointer((*uint32)(unsafe.Pointer(item)))), int8(*(*uint8)(unsafe.Pointer(uintptr(int32(uintptr(item.use_data)) + 108)))), int8(*(*uint8)(unsafe.Pointer(uintptr(int32(uintptr(item.use_data)) + 109)))))
 	} else if uint32(v12)&0x1000000 != 0 {
 		if v4&0x82 != 0 {
@@ -5443,7 +5381,7 @@ func sub_53A6C0(a1 int32, item *nox_object_t) {
 		v3 int16
 	)
 	if a1 != 0 && item != nil {
-		v2 = int32(item.obj_class)
+		v2 = int32(item.ObjClass)
 		if v2&0x1000 != 0 {
 			nox_xxx_aud_501960(830, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
 		} else {
@@ -5472,10 +5410,10 @@ func sub_53A720(a1 int32, item *nox_object_t, a3 int32, a4 int32) int32 {
 	v5 = 0
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&4 != 0 {
 		if nox_common_gameFlags_check_40A5C0(4096) {
-			if item.obj_subclass&0x200000 != 0 {
+			if item.ObjSubClass&0x200000 != 0 {
 				v12 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ForceOfNatureStaffLimit")))
 				v6 = nox_float2int(v12)
-				if nox_xxx_inventoryCountObjects_4E7D30(a1, int32(item.obj_flags)) >= v6 {
+				if nox_xxx_inventoryCountObjects_4E7D30(a1, int32(item.ObjFlags)) >= v6 {
 					nox_xxx_netPriMsgToPlayer_4DA2C0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), internCStr("pickup.c:MaxSameItem"), 0)
 					nox_xxx_aud_501960(925, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
 					return 0
@@ -5484,10 +5422,10 @@ func sub_53A720(a1 int32, item *nox_object_t, a3 int32, a4 int32) int32 {
 		}
 	}
 	if !nox_common_gameFlags_check_40A5C0(2048) && !nox_common_gameFlags_check_40A5C0(4096) && sub_409F40(2) != 0 {
-		if (item.obj_subclass&0x82) == 0 && sub_4E7EC0(a1, item) != 0 {
+		if (item.ObjSubClass&0x82) == 0 && sub_4E7EC0(a1, item) != 0 {
 			v5 = 1
 		}
-		if item.obj_subclass&0x40 != 0 {
+		if item.ObjSubClass&0x40 != 0 {
 			v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 516))))
 			if v8 != 0 {
 				for (*(*uint32)(unsafe.Pointer(uintptr(v8 + 8)))&0x1000000) == 0 || (int32(*(*uint8)(unsafe.Pointer(uintptr(v8 + 12))))&0x40) == 0 {
@@ -5535,10 +5473,10 @@ func sub_53A720(a1 int32, item *nox_object_t, a3 int32, a4 int32) int32 {
 			}
 		}
 		if v9 == 0 {
-			v11 = int32(item.obj_class)
-			if v11&0x1000 != 0 && (item.obj_subclass&0x47F0000) != 0 {
+			v11 = int32(item.ObjClass)
+			if v11&0x1000 != 0 && (item.ObjSubClass&0x47F0000) != 0 {
 				nox_xxx_netReportCharges_4D82B0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v13 + 276))) + 2064)))), item, int8(*(*uint8)(unsafe.Pointer(uintptr(int32(uintptr(item.use_data)) + 108)))), int8(*(*uint8)(unsafe.Pointer(uintptr(int32(uintptr(item.use_data)) + 109)))))
-			} else if uint32(v11)&0x1000000 != 0 && (item.obj_subclass&0x82) != 0 {
+			} else if uint32(v11)&0x1000000 != 0 && (item.ObjSubClass&0x82) != 0 {
 				nox_xxx_netReportCharges_4D82B0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v13 + 276))) + 2064)))), item, int8(*(*uint8)(unsafe.Pointer(uintptr(int32(uintptr(item.use_data)) + 1)))), int8(*(*uint8)(item.use_data)))
 			}
 		}
@@ -5554,7 +5492,7 @@ func nox_xxx_sendMsgOblivionPickup_53A9C0(a1 int32, item *nox_object_t, a3 int32
 	)
 	v4 = sub_53A720(a1, item, a3, a4)
 	if v4 == 1 && int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&4 != 0 && sub_419E60((*nox_object_t)(unsafe.Pointer(uintptr(a1)))) == 0 {
-		v5 = int32(item.obj_subclass)
+		v5 = int32(item.ObjSubClass)
 		if uint32(v5)&0x800000 != 0 {
 			nox_xxx_netPriMsgToPlayer_4DA2C0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), internCStr("weapon.c:PickupHalberdOblivion"), 0)
 			nox_xxx_aud_501960(914, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
@@ -7776,10 +7714,10 @@ func sub_53E3A0(a1 int32, object *nox_object_t) int32 {
 		result int32
 		v3     int32
 	)
-	if (object.obj_class & 0x2000000) == 0 {
+	if (object.ObjClass & 0x2000000) == 0 {
 		return 0
 	}
-	v3 = int32(object.obj_flags)
+	v3 = int32(object.ObjFlags)
 	if (v3 & 0x100) == 0 {
 		return 0
 	}
@@ -7794,11 +7732,11 @@ func sub_53E3A0(a1 int32, object *nox_object_t) int32 {
 		}
 	}
 	*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v3))), 1)) &= 0xFE
-	object.obj_flags = uint32(v3)
+	object.ObjFlags = uint32(v3)
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 12))))&0x10 != 0 {
 		nox_xxx_npcSetItemEquipFlags_4E4B20(a1, object, 0)
 	}
-	object.obj_flags &= 0xEFFFFFFF
+	object.ObjFlags &= 0xEFFFFFFF
 	nox_xxx_recalculateArmorVal_53E300((*uint32)(unsafe.Pointer(uintptr(a1))))
 	nox_xxx_itemApplyDisengageEffect_4F3030(object, a1)
 	return 1
@@ -7813,10 +7751,10 @@ func sub_53E430(a1 *uint32, object *nox_object_t, a3 int32, a4 int32) int32 {
 	)
 	_ = v9
 	var v10 int8
-	if (object.obj_class & 0x2000000) == 0 {
+	if (object.ObjClass & 0x2000000) == 0 {
 		return 0
 	}
-	v4 = int32(object.obj_flags)
+	v4 = int32(object.ObjFlags)
 	if (v4 & 0x100) == 0 {
 		return 0
 	}
@@ -7838,7 +7776,7 @@ func sub_53E430(a1 *uint32, object *nox_object_t, a3 int32, a4 int32) int32 {
 			return 0
 		}
 	}
-	object.obj_flags = uint32(v4) & 0xEFFFFEFF
+	object.ObjFlags = uint32(v4) & 0xEFFFFEFF
 	v9 = *(**uint32)(unsafe.Pointer(uintptr(v8 + 276)))
 	*v9 &= uint32(^nox_xxx_unitArmorInventoryEquipFlags_415C70(object))
 	if a3 != 0 {
@@ -7931,10 +7869,10 @@ func nox_xxx_playerEquipArmor_53E650(a1 *uint32, item *nox_object_t, a3 int32, a
 		v11 *uint32
 	)
 	_ = v11
-	if (item.obj_class & 0x2000000) == 0 {
+	if (item.ObjClass & 0x2000000) == 0 {
 		return 0
 	}
-	v4 = int32(item.obj_flags)
+	v4 = int32(item.ObjFlags)
 	if v4&0x100 != 0 {
 		return 0
 	}
@@ -7965,18 +7903,18 @@ func nox_xxx_playerEquipArmor_53E650(a1 *uint32, item *nox_object_t, a3 int32, a
 	if v8 != nil {
 		sub_53E430(a1, (*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), 1, 1)
 	}
-	v10 = int32(item.obj_flags)
+	v10 = int32(item.ObjFlags)
 	*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v10))), 1)) |= 1
-	item.obj_flags = uint32(v10)
+	item.ObjFlags = uint32(v10)
 	v11 = *(**uint32)(unsafe.Pointer(uintptr(v7 + 276)))
 	*v11 |= uint32(nox_xxx_unitArmorInventoryEquipFlags_415C70(item))
 	nox_xxx_netReportEquip_4D8540(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 276))) + 2064)))), (*uint32)(unsafe.Pointer(uintptr(a2))), a3)
 	if sub_53E2D0(a2) == 0 {
-		item.obj_flags |= 0x10000000
+		item.ObjFlags |= 0x10000000
 	}
 	nox_xxx_recalculateArmorVal_53E300(a1)
 	nox_xxx_itemApplyEngageEffect_4F2FF0(item, int32(uintptr(unsafe.Pointer(a1))))
-	if item.obj_subclass&0x2 != 0 {
+	if item.ObjSubClass&0x2 != 0 {
 		sub_53E600(a1)
 	}
 	return 1

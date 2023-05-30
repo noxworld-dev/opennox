@@ -1887,7 +1887,7 @@ func nox_xxx_playerClassCanUseItem_57B3D0(item *nox_object_t, a2 int8) int32 {
 	if nox_cheat_allowall != 0 {
 		return 1
 	}
-	return bool2int32((int32(uint8(int8(1<<int32(a2)))) & int32(uint8(sub_57B370(int32(item.obj_class), uint8(item.obj_subclass), int32(item.typ_ind))))) != 0)
+	return bool2int32((int32(uint8(int8(1<<int32(a2)))) & int32(uint8(sub_57B370(int32(item.ObjClass), uint8(item.ObjSubClass), int32(item.TypeInd))))) != 0)
 }
 func nox_xxx_client_57B400(a1 int32) int32 {
 	var v1 int32
@@ -2589,7 +2589,6 @@ func sub_57CDB0(a1 *int2, a2 *float32, a3 *float2) int32 {
 			v8.field_4 = 0.70709997
 			return 1
 		}
-		fallthrough
 	default:
 		return 0
 	}

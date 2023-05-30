@@ -1508,9 +1508,7 @@ func sub_464770(a1 int32, a2 int32, a3 uint32) int32 {
 		return 1
 	}
 	switch a2 {
-	case 5:
-		fallthrough
-	case 8:
+	case 5, 8:
 		return 1
 	case 6:
 		if *memmap.PtrUint32(0x5D4594, 1049848) == 0 {
@@ -4219,11 +4217,7 @@ func sub_470E90(a1 int32, a2 int32) int32 {
 	case 5:
 		nox_client_invAlterWeapon_4672C0()
 		return 1
-	case 8:
-		fallthrough
-	case 12:
-		fallthrough
-	case 16:
+	case 8, 12, 16:
 		return 0
 	default:
 		return 1
@@ -4474,11 +4468,7 @@ func nox_xxx_guiBottleSlotProc_471B90(a1 int32, a2 int32) int32 {
 			nox_xxx_cliUseCurePoison_4674E0(int32(*memmap.PtrUint32(0x5D4594, *(*uint32)(unsafe.Pointer(uintptr(a1 + 32)))*536+1090308)))
 		}
 		return 1
-	case 8:
-		fallthrough
-	case 12:
-		fallthrough
-	case 16:
+	case 8, 12, 16:
 		return 0
 	default:
 		return 1
@@ -4550,11 +4540,7 @@ func nox_xxx_guiHealthManaTubeProc_472100(a1 int32, a2 int32) int32 {
 		}
 		nox_xxx_clientPlaySoundSpecial_452D80(901, 100)
 		return 1
-	case 8:
-		fallthrough
-	case 12:
-		fallthrough
-	case 16:
+	case 8, 12, 16:
 		return 0
 	default:
 		return 1
@@ -5652,9 +5638,7 @@ LABEL_64:
 	}
 	if *memmap.PtrUint32(0x587000, 80816) != 0 {
 		switch v74 {
-		case 0:
-			fallthrough
-		case 3:
+		case 0, 3:
 			v31 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 6)))
 			v77.field_0 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 5))) * 23
 			v77.field_4 = (v31 + 1) * 23
@@ -5669,9 +5653,7 @@ LABEL_64:
 			v77.field_0 += 23
 			v77.field_4 -= 23
 			v34 = int32(uintptr(unsafe.Pointer(sub_469920((*nox_point)(unsafe.Pointer(&v77))))))
-		case 1:
-			fallthrough
-		case 4:
+		case 1, 4:
 			v35 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 6)))
 			v77.field_0 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v3), 5))) * 23
 			v77.field_4 = v35 * 23

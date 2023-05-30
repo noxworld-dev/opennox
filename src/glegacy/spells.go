@@ -237,7 +237,7 @@ func Nox_xxx_castConfuse_52C1E0(spellID spell.ID, a2, a3, a4 *server.Object, sa 
 }
 
 func Nox_xxx_castCounterSpell_52BBB0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {
-	return int(nox_xxx_castCounterSpell_52BBB0(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj())), sa, lvl))
+	return int(nox_xxx_castCounterSpell_52BBB0(int32(spellID), int32(uintptr(a2.CObj())), int32(uintptr(a3.CObj())), int32(uintptr(a4.CObj()))))
 }
 
 func Nox_xxx_castCurePoison_52CDB0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcceptArg, lvl int) int {

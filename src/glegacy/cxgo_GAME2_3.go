@@ -754,10 +754,10 @@ func sub_48DCF0(a1 *uint32) {
 			*(*uint32)(unsafe.Pointer(uintptr(v2 + 668))) = 0
 			if nox_xxx_netTestHighBit_578B70(v5) != 0 {
 				v7 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(v2 + 656))))))
-				v8 = &nox_xxx_netSpriteByCodeStatic_45A720(v7).field_0
+				v8 = &nox_xxx_netSpriteByCodeStatic_45A720(v7).Field_0
 			} else {
 				v9 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(v2 + 656))))))
-				v8 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(v9).field_0
+				v8 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(v9).Field_0
 			}
 			*(*uint32)(unsafe.Pointer(uintptr(v2 + 668))) = uint32(uintptr(unsafe.Pointer(v8)))
 			if v8 != nil {
@@ -1263,9 +1263,9 @@ func nox_xxx_spriteCreate_48E970(a1 int32, a2 uint32, a3 int32, a4 int32) *uint3
 	v5 = v4
 	v10 = v4
 	if nox_xxx_netTestHighBit_578B70(a2) != 0 {
-		v6 = &nox_xxx_netSpriteByCodeStatic_45A720(v10).field_0
+		v6 = &nox_xxx_netSpriteByCodeStatic_45A720(v10).Field_0
 	} else {
-		v6 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(v10).field_0
+		v6 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(v10).Field_0
 	}
 	v7 = v6
 	if v6 != nil {
@@ -1933,9 +1933,7 @@ func sub_495500(a1 *int32) *int32 {
 	if *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) != 1 {
 		if *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4)) == 2 {
 			switch *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*3)) {
-			case 1:
-				fallthrough
-			case 12:
+			case 1, 12:
 				v8 = int32(uintptr(nox_xxx_spellIcon_424A90(5)))
 				goto LABEL_26
 			case 2:
@@ -1947,9 +1945,7 @@ func sub_495500(a1 *int32) *int32 {
 			case 5:
 				v8 = int32(uintptr(nox_xxx_spellIcon_424A90(60)))
 				goto LABEL_26
-			case 9:
-				fallthrough
-			case 17:
+			case 9, 17:
 				v8 = int32(uintptr(nox_xxx_spellIcon_424A90(43)))
 				goto LABEL_26
 			case 15:
@@ -2724,17 +2720,7 @@ LABEL_32:
 				}
 				v78 = *(*float2)(unsafe.Pointer(&v83.field_8))
 				v18 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v19 + 20))) + 128))))
-			case 8:
-				fallthrough
-			case 9:
-				fallthrough
-			case 0xA:
-				fallthrough
-			case 0xB:
-				fallthrough
-			case 0xD:
-				fallthrough
-			case 0xE:
+			case 8, 9, 0xA, 0xB, 0xD, 0xE:
 				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v19 + 20))) + 132))) = 1
 				switch *(*uint8)(unsafe.Pointer(uintptr(v19 + 56))) {
 				case 8:
@@ -3338,16 +3324,12 @@ func sub_4977C0(a1 int32) int32 {
 		v24 = float32((float64(v34)-float64(*(*int32)(unsafe.Pointer(&dword_5d4594_1217448))))*(float64(v34)-float64(*(*int32)(unsafe.Pointer(&dword_5d4594_1217448)))) + v12*v12)
 		v13 = nox_float2int(v24)
 		result = sub_497F60(v5, v7, 8, v13, v1)
-	case 4:
-		fallthrough
-	case 9:
+	case 4, 9:
 		v22 = float64(int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 12))) - *memmap.PtrUint32(0x5D4594, 1217444)))
 		v29 = float32(float64(int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 16)))-dword_5d4594_1217448))*float64(int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 16)))-dword_5d4594_1217448)) + v22*v22)
 		v23 = nox_float2int(v29)
 		result = sub_497F60(v7, v9, 14, v23, v1)
-	case 5:
-		fallthrough
-	case 8:
+	case 5, 8:
 		v20 = float64(int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 12))) - *memmap.PtrUint32(0x5D4594, 1217444)))
 		v28 = float32(float64(int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 16)))-dword_5d4594_1217448))*float64(int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 16)))-dword_5d4594_1217448)) + v20*v20)
 		v21 = nox_float2int(v28)
@@ -5520,7 +5502,7 @@ func sub_49C7A0() int32 {
 	var result int32
 	result = int32(dword_5d4594_1305680)
 	if dword_5d4594_1305680 != 0 {
-		nox_server_sanctuaryHelp_54276 = (^nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305680)))), 4104).DrawData().field_0 >> 2) & 1
+		nox_server_sanctuaryHelp_54276 = (^nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305680)))), 4104).DrawData().Field0 >> 2) & 1
 		nox_xxx_wnd_46C6E0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1305680))))))
 		nox_xxx_wndClearCaptureMain_46ADE0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1305680))))))
 		nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305680)))))
@@ -5575,7 +5557,7 @@ func sub_49CD30(xLeft int32, yTop int32, a3 int32, a4 int32, a5 int32, a6 int32)
 		if a4 != 0 {
 			if nox_draw_curDrawData_3799572.flag_0 == 0 || (func() *int4 {
 				noxSetRect(&rc, xLeft, yTop, xLeft+a3, yTop+a4)
-				return nox_xxx_utilRect_49F930((*int4)(unsafe.Pointer(&rc)), (*int4)(unsafe.Pointer(&rc)), (*int4)(unsafe.Pointer(&nox_draw_curDrawData_3799572.clip)))
+				return nox_xxx_utilRect_49F930((*int4)(unsafe.Pointer(&rc)), (*int4)(unsafe.Pointer(&rc)), (*int4)(unsafe.Pointer(&nox_draw_curDrawData_3799572.ClipRect())))
 			}()) != nil {
 				nox_draw_set54RGB32_434040(a5)
 				sub_434080(a6)
@@ -5641,10 +5623,10 @@ func nox_client_copyRect_49F6F0(xLeft int32, yTop int32, a3 int32, a4 int32) *in
 	noxSetRect(&rc, xLeft, yTop, xLeft+a3, yTop+a4)
 	result = nox_xxx_utilRect_49F930((*int4)(unsafe.Pointer(&rcSrc)), (*int4)(unsafe.Pointer(&rc)), (*int4)(unsafe.Pointer(&nox_draw_curDrawData_3799572.rect3)))
 	if result != nil {
-		noxCopyRect(&nox_draw_curDrawData_3799572.clip, &rcSrc)
+		noxCopyRect(&nox_draw_curDrawData_3799572.ClipRect(), &rcSrc)
 		rcSrc.max_x--
 		rcSrc.max_y--
-		result = (*int4)(unsafe.Pointer(uintptr(noxCopyRect(&nox_draw_curDrawData_3799572.rect2, &rcSrc))))
+		result = (*int4)(unsafe.Pointer(uintptr(noxCopyRect(&nox_draw_curDrawData_3799572.ClipRect2(), &rcSrc))))
 	}
 	return result
 }
@@ -5654,26 +5636,26 @@ func sub_49F780(xLeft int32, a2 int32) *int4 {
 		v3 int32
 	)
 	v2 = xLeft
-	if xLeft < nox_draw_curDrawData_3799572.clip.min_x {
-		v2 = nox_draw_curDrawData_3799572.clip.min_x
+	if xLeft < nox_draw_curDrawData_3799572.ClipRect().min_x {
+		v2 = nox_draw_curDrawData_3799572.ClipRect().min_x
 	}
 	v3 = a2
-	if a2 > nox_draw_curDrawData_3799572.clip.max_x {
-		v3 = nox_draw_curDrawData_3799572.clip.max_x
+	if a2 > nox_draw_curDrawData_3799572.ClipRect().max_x {
+		v3 = nox_draw_curDrawData_3799572.ClipRect().max_x
 	}
-	return nox_client_copyRect_49F6F0(v2, nox_draw_curDrawData_3799572.clip.min_y, v3-v2, nox_draw_curDrawData_3799572.clip.max_y-nox_draw_curDrawData_3799572.clip.min_y)
+	return nox_client_copyRect_49F6F0(v2, nox_draw_curDrawData_3799572.ClipRect().min_y, v3-v2, nox_draw_curDrawData_3799572.ClipRect().max_y-nox_draw_curDrawData_3799572.ClipRect().min_y)
 }
 func nox_xxx_wndDraw_49F7F0() {
 	if dword_5d4594_1305748 == 0 {
 		*memmap.PtrUint32(0x5D4594, 1305772) = uint32(nox_draw_curDrawData_3799572.flag_0)
-		*memmap.PtrUint32(0x5D4594, 1305756) = uint32(nox_draw_curDrawData_3799572.clip.min_x)
-		*memmap.PtrUint32(0x5D4594, 1305760) = uint32(nox_draw_curDrawData_3799572.clip.min_y)
-		*memmap.PtrUint32(0x5D4594, 1305764) = uint32(nox_draw_curDrawData_3799572.clip.max_x)
-		*memmap.PtrUint32(0x5D4594, 1305768) = uint32(nox_draw_curDrawData_3799572.clip.max_y)
-		*memmap.PtrUint32(0x5D4594, 1305732) = uint32(nox_draw_curDrawData_3799572.rect2.min_x)
-		*memmap.PtrUint32(0x5D4594, 1305736) = uint32(nox_draw_curDrawData_3799572.rect2.min_y)
-		*memmap.PtrUint32(0x5D4594, 1305740) = uint32(nox_draw_curDrawData_3799572.rect2.max_x)
-		*memmap.PtrUint32(0x5D4594, 1305744) = uint32(nox_draw_curDrawData_3799572.rect2.max_y)
+		*memmap.PtrUint32(0x5D4594, 1305756) = uint32(nox_draw_curDrawData_3799572.ClipRect().min_x)
+		*memmap.PtrUint32(0x5D4594, 1305760) = uint32(nox_draw_curDrawData_3799572.ClipRect().min_y)
+		*memmap.PtrUint32(0x5D4594, 1305764) = uint32(nox_draw_curDrawData_3799572.ClipRect().max_x)
+		*memmap.PtrUint32(0x5D4594, 1305768) = uint32(nox_draw_curDrawData_3799572.ClipRect().max_y)
+		*memmap.PtrUint32(0x5D4594, 1305732) = uint32(nox_draw_curDrawData_3799572.ClipRect2().min_x)
+		*memmap.PtrUint32(0x5D4594, 1305736) = uint32(nox_draw_curDrawData_3799572.ClipRect2().min_y)
+		*memmap.PtrUint32(0x5D4594, 1305740) = uint32(nox_draw_curDrawData_3799572.ClipRect2().max_x)
+		*memmap.PtrUint32(0x5D4594, 1305744) = uint32(nox_draw_curDrawData_3799572.ClipRect2().max_y)
 		dword_5d4594_1305748 = 1
 	}
 }
@@ -5682,12 +5664,12 @@ func sub_49F860() int32 {
 	result = int32(dword_5d4594_1305748)
 	if dword_5d4594_1305748 != 0 {
 		nox_draw_curDrawData_3799572.flag_0 = int32(*memmap.PtrUint32(0x5D4594, 1305772))
-		var v1 *nox_rect = &nox_draw_curDrawData_3799572.clip
+		var v1 *nox_rect = &nox_draw_curDrawData_3799572.ClipRect()
 		v1.min_x = int32(*memmap.PtrUint32(0x5D4594, 1305756))
 		v1.min_y = int32(*memmap.PtrUint32(0x5D4594, 1305760))
 		v1.max_x = int32(*memmap.PtrUint32(0x5D4594, 1305764))
 		v1.max_y = int32(*memmap.PtrUint32(0x5D4594, 1305768))
-		var v2 *nox_rect = &nox_draw_curDrawData_3799572.rect2
+		var v2 *nox_rect = &nox_draw_curDrawData_3799572.ClipRect2()
 		v2.min_x = int32(*memmap.PtrUint32(0x5D4594, 1305732))
 		v2.min_y = int32(*memmap.PtrUint32(0x5D4594, 1305736))
 		result = int32(*memmap.PtrUint32(0x5D4594, 1305740))

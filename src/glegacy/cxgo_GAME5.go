@@ -1123,23 +1123,7 @@ func nox_xxx_monsterPopAttackActions_5471B0(a1 int32) {
 	v1 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
 	for {
 		switch *(*uint32)(unsafe.Pointer(uintptr(v1 + int32((*(*byte)(unsafe.Pointer(uintptr(v1 + 544)))+23)*24)))) {
-		case 0x10:
-			fallthrough
-		case 0x11:
-			fallthrough
-		case 0x12:
-			fallthrough
-		case 0x13:
-			fallthrough
-		case 0x14:
-			fallthrough
-		case 0x19:
-			fallthrough
-		case 0x1A:
-			fallthrough
-		case 0x1B:
-			fallthrough
-		case 0x1C:
+		case 0x10, 0x11, 0x12, 0x13, 0x14, 0x19, 0x1A, 0x1B, 0x1C:
 			nox_xxx_monsterPopAction_50A160((*nox_object_t)(unsafe.Pointer(uintptr(a1))))
 		default:
 			return

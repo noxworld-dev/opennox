@@ -451,13 +451,7 @@ func sub_46F080(a1 int32, a2 int32) int32 {
 			v9 = int32(dword_5d4594_1090120)
 		}
 		switch v9 {
-		case 1:
-			fallthrough
-		case 2:
-			fallthrough
-		case 4:
-			fallthrough
-		case 5:
+		case 1, 2, 4, 5:
 			switch v9 {
 			case 2:
 				v22 = nox_strman_loadString_40F1D0(internCStr("TeamPlayerRank"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1475)

@@ -390,7 +390,7 @@ func sub_4DBA30(a1 int32) {
 						for {
 							{
 								var v21 *nox_object_t = nox_xxx_getNextUpdatable2Object_4DA850(obj)
-								if int32(obj.obj_flags) >= 0 {
+								if int32(obj.ObjFlags) >= 0 {
 									if sub_4E5B80(obj) != 0 {
 										nox_xxx_delayedDeleteObject_4E5CC0(obj)
 									}
@@ -792,9 +792,7 @@ func nox_xxx_voteUptate_506F30() {
 		for {
 			v1 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*11)))))
 			switch *result {
-			case 0:
-				fallthrough
-			case 1:
+			case 0, 1:
 				sub_506F80(int32(uintptr(unsafe.Pointer(result))))
 			case 2:
 				sub_507090(int32(uintptr(unsafe.Pointer(result))))

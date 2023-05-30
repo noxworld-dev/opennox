@@ -1,8 +1,9 @@
 package legacy
 
 import (
-	"github.com/gotranspile/cxgo/runtime/libc"
 	"unsafe"
+
+	"github.com/gotranspile/cxgo/runtime/libc"
 )
 
 func nox_client_handlePacketInform_4C9BF0(a1 int32) int32 {
@@ -249,12 +250,10 @@ func nox_client_handlePacketInform_4C9BF0(a1 int32) int32 {
 			nox_swprintf(&v63[0], v43, v47)
 			nox_xxx_printCentered_445490(&v63[0])
 			return int32(v42 + 3)
-		} else {
-			v44 = nox_strman_loadString_40F1D0((*byte)(unsafe.Pointer(uintptr(a1+3))), nil, internCStr("C:\\NoxPost\\src\\client\\Network\\inform.c"), 402)
-			nox_xxx_printCentered_445490(v44)
-			return int32(v42 + 3)
 		}
-		fallthrough
+		v44 = nox_strman_loadString_40F1D0((*byte)(unsafe.Pointer(uintptr(a1+3))), nil, internCStr("C:\\NoxPost\\src\\client\\Network\\inform.c"), 402)
+		nox_xxx_printCentered_445490(v44)
+		return int32(v42 + 3)
 	case 0x10:
 		v49 = nox_server_teamTitle_418C20(int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 2)))))
 		v9 = nox_strman_loadString_40F1D0(internCStr("pickup.c:WrongTeam"), nil, internCStr("C:\\NoxPost\\src\\client\\Network\\inform.c"), 105)

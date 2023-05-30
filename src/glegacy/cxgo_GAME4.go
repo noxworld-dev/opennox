@@ -1754,9 +1754,7 @@ func nox_xxx_playerSetState_4FA020(a1p *nox_object_t, a2 int32) int32 {
 	if a2 != 1 {
 		*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 276))) + 8))) = 0
 		switch a2 {
-		case 3:
-			fallthrough
-		case 4:
+		case 3, 4:
 			*(*uint16)(unsafe.Pointer(uintptr(v5 + 160))) = 0
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 164))) = 0
 		case 25:
@@ -1833,11 +1831,7 @@ func nox_common_mapPlrActionToStateId_4FA2B0(a1p *nox_object_t) int32 {
 	switch *(*uint8)(unsafe.Pointer(uintptr(v1 + 88))) {
 	case 0:
 		result = 4
-	case 1:
-		fallthrough
-	case 0xE:
-		fallthrough
-	case 0x16:
+	case 1, 0xE, 0x16:
 		if nox_common_playerIsAbilityActive_4FC250((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 2) != 0 && nox_xxx_probablyWarcryCheck_4FC3E0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 2) != 0 {
 			result = 46
 		} else if nox_common_playerIsAbilityActive_4FC250((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 1) != 0 {
@@ -1857,9 +1851,7 @@ func nox_common_mapPlrActionToStateId_4FA2B0(a1p *nox_object_t) int32 {
 				result = int32(uint8(int8(result)))
 			}
 		}
-	case 2:
-		fallthrough
-	case 0xA:
+	case 2, 0xA:
 		result = 21
 	case 3:
 		result = 1
@@ -1875,11 +1867,7 @@ func nox_common_mapPlrActionToStateId_4FA2B0(a1p *nox_object_t) int32 {
 		} else {
 			result = 0
 		}
-	case 0xF:
-		fallthrough
-	case 0x10:
-		fallthrough
-	case 0x11:
+	case 0xF, 0x10, 0x11:
 		result = 40
 	case 0x12:
 		result = 48
@@ -1897,11 +1885,7 @@ func nox_common_mapPlrActionToStateId_4FA2B0(a1p *nox_object_t) int32 {
 		result = 20
 	case 0x1A:
 		result = 15
-	case 0x1B:
-		fallthrough
-	case 0x1C:
-		fallthrough
-	case 0x1D:
+	case 0x1B, 0x1C, 0x1D:
 		result = 16
 	case 0x1E:
 		result = 52
@@ -2242,15 +2226,7 @@ func nox_xxx_monsterActionToPlrState_4FABC0(a1 int32) int8 {
 		return 13
 	}
 	switch *(*uint32)(unsafe.Pointer(uintptr(v1 + (int32(v2)+23)*24))) {
-	case 7:
-		fallthrough
-	case 8:
-		fallthrough
-	case 0xA:
-		fallthrough
-	case 0xD:
-		fallthrough
-	case 0x1D:
+	case 7, 8, 0xA, 0xD, 0x1D:
 		if (*(*uint32)(unsafe.Pointer(uintptr(v1 + 1440))) & 0x4000) != 0 {
 			result = 5
 		} else {
@@ -2258,19 +2234,11 @@ func nox_xxx_monsterActionToPlrState_4FABC0(a1 int32) int8 {
 		}
 	case 9:
 		result = 0
-	case 0x10:
-		fallthrough
-	case 0x11:
+	case 0x10, 0x11:
 		result = 1
-	case 0x12:
-		fallthrough
-	case 0x13:
-		fallthrough
-	case 0x14:
+	case 0x12, 0x13, 0x14:
 		result = 2
-	case 0x15:
-		fallthrough
-	case 0x17:
+	case 0x15, 0x17:
 		result = 16
 	case 0x16:
 		result = 17
@@ -2496,7 +2464,7 @@ func nox_xxx_Fn_4FCAC0(a1 int32, a2 int32) int32 {
 	nox_alloc_class_free_all((*nox_alloc_class)(nox_alloc_magicEnt_1569668))
 	dword_5d4594_1569672 = 0
 	for u := (*nox_object_t)(nox_xxx_getFirstPlayerUnit_4DA7C0()); u != nil; u = nox_xxx_getNextPlayerUnit_4DA7F0(u) {
-		var v3 int32 = int32(uintptr(u.data_update))
+		var v3 int32 = int32(uintptr(u.UpdateData))
 		*(*uint8)(unsafe.Pointer(uintptr(v3 + 188))) = 0
 		*(*uint32)(unsafe.Pointer(uintptr(v3 + 216))) = 0
 		*(*uint32)(unsafe.Pointer(uintptr(v3 + 192))) = 0
@@ -3793,7 +3761,7 @@ func nox_xxx_testUnitBuffs_4FF350(unit *nox_object_t, buff int8) int32 {
 	if unit == nil || int32(buff) < 0 || int32(buff) >= 32 {
 		return 0
 	}
-	return bool2int32((uint32(1<<int32(buff)) & unit.buffs) != 0)
+	return bool2int32((uint32(1<<int32(buff)) & unit.Buffs) != 0)
 }
 func nox_xxx_buffApplyTo_4FF380(unit *nox_object_t, buff int32, dur int16, power int8) {
 	var (
@@ -3843,8 +3811,8 @@ func nox_xxx_buffApplyTo_4FF380(unit *nox_object_t, buff int32, dur int16, power
 			if buff != 0 {
 				nox_xxx_spellBuffOff_4FF5B0(unit, 0)
 			}
-			unit.buffs_dur[buff] = uint16(dur)
-			unit.buffs_power[buff] = uint8(power)
+			unit.BuffsDur[buff] = uint16(dur)
+			unit.BuffsPower[buff] = uint8(power)
 			nox_xxx_setUnitBuffFlags_4E48F0(int32(uintptr(unsafe.Pointer(unit))), int32(uint32(1<<buff)|unit.buffs))
 			v5 = nox_xxx_getEnchantSpell_424920(buff)
 			v6 = nox_xxx_spellGetAud44_424800(v5, 1)
@@ -3856,19 +3824,19 @@ func nox_xxx_unitGetBuffTimer_4FF550(unit *nox_object_t, buff int32) int32 {
 	if unit == nil || buff < 0 || buff >= 32 {
 		return 0
 	}
-	return int32(unit.buffs_dur[buff])
+	return int32(unit.BuffsDur[buff])
 }
 func nox_xxx_buffGetPower_4FF570(unit *nox_object_t, buff int32) int8 {
 	if unit == nil || buff < 0 || buff >= 32 {
 		return 0
 	}
-	return int8(unit.buffs_power[buff])
+	return int8(unit.BuffsPower[buff])
 }
 func nox_xxx_unitClearBuffs_4FF580(unit *nox_object_t) {
 	nox_xxx_setUnitBuffFlags_4E48F0(int32(uintptr(unsafe.Pointer(unit))), 0)
 	for i := int32(0); i < 32; i++ {
-		unit.buffs_dur[i] = 0
-		unit.buffs_power[i] = 0
+		unit.BuffsDur[i] = 0
+		unit.BuffsPower[i] = 0
 	}
 }
 func nox_xxx_spellBuffOff_4FF5B0(a1p *nox_object_t, a2 int32) int32 {
@@ -4119,9 +4087,7 @@ func sub_4FFA40(a1 int32) int8 {
 	switch a1 {
 	case 1:
 		result = 7
-	case 2:
-		fallthrough
-	case 6:
+	case 2, 6:
 		result = 1
 	case 3:
 		result = 8
@@ -5551,21 +5517,11 @@ func nox_xxx_mapgenMakeScript_502790(a1 *FILE, a2 *byte) int32 {
 		if int32(*memmap.PtrUint8(0x587000, uintptr(v5)+218640)) != 0 {
 			for {
 				switch *memmap.PtrUint32(0x587000, uintptr(v4*8)+218648+uint32(v5)) {
-				case 0:
-					fallthrough
-				case 3:
-					fallthrough
-				case 4:
-					fallthrough
-				case 5:
-					fallthrough
-				case 6:
+				case 0, 3, 4, 5, 6:
 					nox_binfile_fseek_409050(a1, 4, stdio.SEEK_CUR)
 				case 1:
 					nox_binfile_fseek_409050(a1, 8, stdio.SEEK_CUR)
-				case 2:
-					fallthrough
-				case 7:
+				case 2, 7:
 					nox_binfile_fread_408E40((*byte)(unsafe.Pointer(&v9)), 1, 1, a1)
 					nox_binfile_fseek_409050(a1, int32(uint8(int8(v9))), stdio.SEEK_CUR)
 				default:
@@ -7074,13 +7030,9 @@ func sub_506A20(a1 int32, a2 int32) *uint32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*6)) = gameFrame()
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*4)) = uint32(a2 + 48)
 	switch a1 {
-	case 0:
-		fallthrough
-	case 1:
+	case 0, 1:
 		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 12))) = *memmap.PtrUint8(0x587000, 229980)
-	case 2:
-		fallthrough
-	case 3:
+	case 2, 3:
 		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 12))) = 6
 	default:
 		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v3))), 12))) = *memmap.PtrUint8(0x587000, 229984)

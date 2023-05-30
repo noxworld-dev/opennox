@@ -680,15 +680,7 @@ func nox_xxx_windowMultiplayerSub_439E70(a1 int32, a2 uint32, a3 *int32, a4 int3
 		case 10010:
 			sub_4373A0()
 			return 0
-		case 10047:
-			fallthrough
-		case 10048:
-			fallthrough
-		case 10049:
-			fallthrough
-		case 10050:
-			fallthrough
-		case 10051:
+		case 10047, 10048, 10049, 10050, 10051:
 			sub_4379C0()
 			nox_wol_servers_sortBtnHandler_4A0290(v5)
 			sub_4A0390()

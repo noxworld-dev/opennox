@@ -546,7 +546,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *nox_playerInfo, a2 int8, a3 *w
 		v21    *wchar2_t
 		v22    [128]byte
 	)
-	if pl == nil || pl.playerUnit == nil {
+	if pl == nil || pl.PlayerUnit == nil {
 		return 0
 	}
 	if a3 != nil {
@@ -582,7 +582,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *nox_playerInfo, a2 int8, a3 *w
 				sub_5095E0()
 			}
 		}
-		v8 = int32(uintptr(unsafe.Pointer(pl.playerUnit)))
+		v8 = int32(uintptr(unsafe.Pointer(pl.PlayerUnit)))
 		if v8 != 0 {
 			nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(uintptr(v8+48)), int32(pl.netCode))
 		}
@@ -603,7 +603,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *nox_playerInfo, a2 int8, a3 *w
 		if v11 != -1 && nox_console_playerWhoSent_823692 != nil {
 			v12 = nox_strman_loadString_40F1D0(internCStr("ExecutingFunction"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 4332)
 			nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_RED)), v12, v10)
-			nox_script_callByIndex_507310(v11, unsafe.Pointer(nox_console_playerWhoSent_823692.playerUnit), unsafe.Pointer(nox_console_playerWhoSent_823692.playerUnit))
+			nox_script_callByIndex_507310(v11, unsafe.Pointer(nox_console_playerWhoSent_823692.PlayerUnit), unsafe.Pointer(nox_console_playerWhoSent_823692.PlayerUnit))
 			nox_console_playerWhoSent_823692 = nil
 		} else {
 			v21 = v10
@@ -650,7 +650,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *nox_playerInfo, a2 int8, a3 *w
 		}
 		for {
 			if _nox_wcsicmp(a3, (*wchar2_t)(unsafe.Add(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(v17))), unsafe.Sizeof(wchar2_t(0))*2352))) == 0 {
-				nox_xxx_playerCameraFollow_4E6060(nox_console_playerWhoSent_823692.playerUnit, (*nox_object_t)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v17))), 4*514)))))))
+				nox_xxx_playerCameraFollow_4E6060(nox_console_playerWhoSent_823692.PlayerUnit, (*nox_object_t)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v17))), 4*514)))))))
 			}
 			v17 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v17)))))))))
 			if v17 == nil {

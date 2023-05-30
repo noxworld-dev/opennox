@@ -3,6 +3,8 @@ package legacy
 import (
 	"math"
 	"unsafe"
+
+	"github.com/gotranspile/cxgo/runtime/libc"
 )
 
 type size_t = uint32
@@ -77,4 +79,12 @@ func memset32(x *uint32, y uint32, z uint32) {
 	for i := range arr {
 		arr[i] = y
 	}
+}
+
+func atoi(s *byte) int {
+	return libc.Atoi(GoString(s))
+}
+
+func atof(s *byte) float64 {
+	return libc.Atof(GoString(s))
 }

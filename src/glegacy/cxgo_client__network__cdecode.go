@@ -921,9 +921,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			}
 		}
 		return 11
-	case 79:
-		fallthrough
-	case 80:
+	case 79, 80:
 		if nox_client_isConnected_43C700() == 0 {
 			return 7
 		}
@@ -936,9 +934,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			nox_xxx_clientEquip_49A3D0(int8(*data), int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))), int32(*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))), int32(uintptr(unsafe.Pointer(&v367))))
 		}
 		return 7
-	case 81:
-		fallthrough
-	case 82:
+	case 81, 82:
 		*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v5))), 4*0)) = uint32(nox_client_isConnected_43C700())
 		if uint32(int32(v5)) == 0 {
 			goto LABEL_437
@@ -956,10 +952,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		}
 	LABEL_437:
 		return 11
-		fallthrough
-	case 83:
-		fallthrough
-	case 84:
+	case 83, 84:
 		if nox_client_isConnected_43C700() == 0 {
 			return 7
 		}
@@ -1614,13 +1607,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			nox_xxx_netSpellRewardCli_45CFE0(int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))), int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 2)))), int32(*((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))&math.MaxInt8, v139)
 		}
 		return 4
-	case 125:
-		fallthrough
-	case 140:
-		fallthrough
-	case 141:
-		fallthrough
-	case 142:
+	case 125, 140, 141, 142:
 		if nox_client_isConnected_43C700() == 0 {
 			goto LABEL_732
 		}
@@ -1641,7 +1628,6 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		}
 	LABEL_732:
 		return 9
-		fallthrough
 	case 0x7E:
 		if nox_client_isConnected_43C700() != 0 {
 			nox_xxx_netHandleSummonPacket_4B7C40(int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 5))))), (*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))), *(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 7)))), *((*uint8)(unsafe.Add(unsafe.Pointer(data), 9))), int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 10))))))
@@ -1680,21 +1666,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			nox_xxx_makePointFxCli_499610(*(*int32)(unsafe.Pointer(&dword_5d4594_1200796)), 25, 500, 25, int32(*(*int16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))), int32(*(*int16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))))
 		}
 		return 5
-	case 0x85:
-		fallthrough
-	case 0x86:
-		fallthrough
-	case 0x87:
-		fallthrough
-	case 0x88:
-		fallthrough
-	case 0x89:
-		fallthrough
-	case 0x8A:
-		fallthrough
-	case 0x8B:
-		fallthrough
-	case 0xA3:
+	case 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0xA3:
 		if nox_client_isConnected_43C700() != 0 {
 			k = 0
 			switch op {
@@ -1835,11 +1807,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			return 5
 		}
 		return -1
-	case 0x8F:
-		fallthrough
-	case 0x90:
-		fallthrough
-	case 0x91:
+	case 0x8F, 0x90, 0x91:
 		if nox_client_isConnected_43C700() != 0 {
 			nox_xxx_netDrawRays_49BDD0(data)
 		}
@@ -1960,11 +1928,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			nox_xxx____setargv_11_473920()
 		}
 		return 5
-	case 0x9B:
-		fallthrough
-	case 0x9C:
-		fallthrough
-	case 0x9D:
+	case 0x9B, 0x9C, 0x9D:
 		if nox_client_isConnected_43C700() != 0 {
 			nox_xxx_mapGenClientText_4A9D00(data)
 		}
@@ -1972,36 +1936,12 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 	case 0x9E:
 		*((*uint8)(unsafe.Pointer(&v376))) = *((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))
 		switch uint8(int8(v376)) {
-		case 1:
-			fallthrough
-		case 2:
-			fallthrough
-		case 3:
-			fallthrough
-		case 4:
-			fallthrough
-		case 5:
-			fallthrough
-		case 6:
-			fallthrough
-		case 7:
+		case 1, 2, 3, 4, 5, 6, 7:
 			if nox_client_isConnected_43C700() != 0 {
 				nox_xxx_clientAddRayEffect_49C160(int32(uintptr(unsafe.Pointer(data))))
 			}
 			return 7
-		case 8:
-			fallthrough
-		case 9:
-			fallthrough
-		case 0xA:
-			fallthrough
-		case 0xB:
-			fallthrough
-		case 0xC:
-			fallthrough
-		case 0xD:
-			fallthrough
-		case 0xE:
+		case 8, 9, 0xA, 0xB, 0xC, 0xD, 0xE:
 			if nox_client_isConnected_43C700() == 0 {
 				return 7
 			}
@@ -2010,7 +1950,6 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		default:
 			return -1
 		}
-		fallthrough
 	case 0x9F:
 		v297 = nox_xxx_netClearHighBit_578B30(int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		v298 = v297
@@ -2112,9 +2051,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v5))), 4*0)) = uint32(-int32(v5))
 		}
 		return int32(uint32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v15), v5))))) - uint32(uintptr(unsafe.Pointer(old))))
-	case 0xA6:
-		fallthrough
-	case 0xA7:
+	case 0xA6, 0xA7:
 		if nox_client_isConnected_43C700() == 0 {
 			goto LABEL_651
 		}
@@ -2128,7 +2065,6 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		sub_452DC0(v317, v321, v338)
 	LABEL_651:
 		return 4
-		fallthrough
 	case 0xA8:
 		v198 = nox_xxx_netClearHighBit_578B30(int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1))))))
 		v199 = v198
@@ -3093,17 +3029,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 				}
 			}
 			return 5
-		case 5:
-			fallthrough
-		case 6:
-			fallthrough
-		case 7:
-			fallthrough
-		case 8:
-			fallthrough
-		case 9:
-			fallthrough
-		case 0xA:
+		case 5, 6, 7, 8, 9, 0xA:
 			nox_client_isConnected_43C700()
 			return 4
 		case 0xB:

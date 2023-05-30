@@ -3058,13 +3058,9 @@ func sub_42CC70(this int32) uint16 {
 	)
 	v1 = this
 	switch *(*uint16)(unsafe.Pointer(uintptr(this + 4))) {
-	case 3:
-		fallthrough
-	case 4:
+	case 3, 4:
 		**(**uint16)(unsafe.Pointer(uintptr(this + 8))) = cnet.Htons(**(**uint16)(unsafe.Pointer(uintptr(this + 8))))
-	case 5:
-		fallthrough
-	case 6:
+	case 5, 6:
 		**(**uint32)(unsafe.Pointer(uintptr(this + 8))) = cnet.Htonl(**(**uint32)(unsafe.Pointer(uintptr(this + 8))))
 	default:
 	}
@@ -3089,14 +3085,10 @@ func sub_42CCE0(this *uint16) int16 {
 	*(*uint16)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(uint16(0))*3)) = cnet.Ntohs(v3)
 	*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v4))), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(uint16(0))*2))) - 3))
 	switch *(*uint16)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(uint16(0))*2)) {
-	case 3:
-		fallthrough
-	case 4:
+	case 3, 4:
 		*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v4))), unsafe.Sizeof(uint16(0))*0)) = cnet.Ntohs(**((**uint16)(unsafe.Add(unsafe.Pointer((**uint16)(unsafe.Pointer(v1))), unsafe.Sizeof((*uint16)(nil))*2))))
 		**((**uint16)(unsafe.Add(unsafe.Pointer((**uint16)(unsafe.Pointer(v1))), unsafe.Sizeof((*uint16)(nil))*2))) = uint16(v4)
-	case 5:
-		fallthrough
-	case 6:
+	case 5, 6:
 		v4 = cnet.Ntohl(**((**uint32)(unsafe.Add(unsafe.Pointer((**uint32)(unsafe.Pointer(v1))), unsafe.Sizeof((*uint32)(nil))*2))))
 		**((**uint32)(unsafe.Add(unsafe.Pointer((**uint32)(unsafe.Pointer(v1))), unsafe.Sizeof((*uint32)(nil))*2))) = v4
 	default:

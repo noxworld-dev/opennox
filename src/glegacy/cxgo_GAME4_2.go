@@ -791,7 +791,7 @@ func nox_xxx_genReadAlgData_51EBB0(a1 int32, a2 *FILE) int32 {
 																					}
 																				}
 																			} else {
-																				*(*uint32)(unsafe.Pointer(uintptr(a1 + 52))) = uint32(libc.Atoi((*byte)(unsafe.Pointer(&v7))))
+																				*(*uint32)(unsafe.Pointer(uintptr(a1 + 52))) = uint32(atoi((*byte)(unsafe.Pointer(&v7))))
 																			}
 																		} else if nox_strcmpi((*byte)(unsafe.Pointer(&v7)), internCStr("true")) != 0 {
 																			*(*uint32)(unsafe.Pointer(uintptr(a1 + 60))) = 0
@@ -804,49 +804,49 @@ func nox_xxx_genReadAlgData_51EBB0(a1 int32, a2 *FILE) int32 {
 																		*(*uint32)(unsafe.Pointer(uintptr(a1 + 56))) = 1
 																	}
 																} else {
-																	*(*uint32)(unsafe.Pointer(uintptr(a1 + 48))) = uint32(libc.Atoi((*byte)(unsafe.Pointer(&v7))))
+																	*(*uint32)(unsafe.Pointer(uintptr(a1 + 48))) = uint32(atoi((*byte)(unsafe.Pointer(&v7))))
 																}
 															} else {
-																*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))) = uint32(libc.Atoi((*byte)(unsafe.Pointer(&v7))))
+																*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))) = uint32(atoi((*byte)(unsafe.Pointer(&v7))))
 															}
 														} else {
-															*(*uint32)(unsafe.Pointer(uintptr(a1 + 76))) = uint32(libc.Atoi((*byte)(unsafe.Pointer(&v7))))
+															*(*uint32)(unsafe.Pointer(uintptr(a1 + 76))) = uint32(atoi((*byte)(unsafe.Pointer(&v7))))
 														}
 													} else {
-														*(*uint32)(unsafe.Pointer(uintptr(a1 + 72))) = uint32(libc.Atoi((*byte)(unsafe.Pointer(&v7))))
+														*(*uint32)(unsafe.Pointer(uintptr(a1 + 72))) = uint32(atoi((*byte)(unsafe.Pointer(&v7))))
 													}
 												} else {
-													*(*float32)(unsafe.Pointer(uintptr(a1 + 64))) = float32(libc.Atof((*byte)(unsafe.Pointer(&v7))))
+													*(*float32)(unsafe.Pointer(uintptr(a1 + 64))) = float32(atof((*byte)(unsafe.Pointer(&v7))))
 												}
 											} else {
-												*(*uint32)(unsafe.Pointer(uintptr(a1 + 40))) = uint32(libc.Atoi((*byte)(unsafe.Pointer(&v7))))
+												*(*uint32)(unsafe.Pointer(uintptr(a1 + 40))) = uint32(atoi((*byte)(unsafe.Pointer(&v7))))
 											}
 										} else {
-											*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))) = uint32(libc.Atoi((*byte)(unsafe.Pointer(&v7))))
+											*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))) = uint32(atoi((*byte)(unsafe.Pointer(&v7))))
 										}
 									} else {
-										*(*uint32)(unsafe.Pointer(uintptr(a1 + 32))) = uint32(libc.Atoi((*byte)(unsafe.Pointer(&v7))))
+										*(*uint32)(unsafe.Pointer(uintptr(a1 + 32))) = uint32(atoi((*byte)(unsafe.Pointer(&v7))))
 									}
 								} else {
-									*(*uint32)(unsafe.Pointer(uintptr(a1 + 28))) = uint32(libc.Atoi((*byte)(unsafe.Pointer(&v7))))
+									*(*uint32)(unsafe.Pointer(uintptr(a1 + 28))) = uint32(atoi((*byte)(unsafe.Pointer(&v7))))
 								}
 							} else {
-								*(*uint32)(unsafe.Pointer(uintptr(a1 + 24))) = uint32(libc.Atoi((*byte)(unsafe.Pointer(&v7))))
+								*(*uint32)(unsafe.Pointer(uintptr(a1 + 24))) = uint32(atoi((*byte)(unsafe.Pointer(&v7))))
 							}
 						} else {
-							*(*uint32)(unsafe.Pointer(uintptr(a1 + 20))) = uint32(libc.Atoi((*byte)(unsafe.Pointer(&v7))))
+							*(*uint32)(unsafe.Pointer(uintptr(a1 + 20))) = uint32(atoi((*byte)(unsafe.Pointer(&v7))))
 						}
 					} else {
-						*(*uint32)(unsafe.Pointer(uintptr(a1 + 16))) = uint32(libc.Atoi((*byte)(unsafe.Pointer(&v7))))
+						*(*uint32)(unsafe.Pointer(uintptr(a1 + 16))) = uint32(atoi((*byte)(unsafe.Pointer(&v7))))
 					}
 				} else {
-					*(*uint32)(unsafe.Pointer(uintptr(a1 + 12))) = uint32(libc.Atoi((*byte)(unsafe.Pointer(&v7))))
+					*(*uint32)(unsafe.Pointer(uintptr(a1 + 12))) = uint32(atoi((*byte)(unsafe.Pointer(&v7))))
 				}
 			} else {
-				*(*uint32)(unsafe.Pointer(uintptr(a1 + 8))) = uint32(libc.Atoi((*byte)(unsafe.Pointer(&v7))))
+				*(*uint32)(unsafe.Pointer(uintptr(a1 + 8))) = uint32(atoi((*byte)(unsafe.Pointer(&v7))))
 			}
 		} else {
-			*(*uint32)(unsafe.Pointer(uintptr(a1 + 4))) = uint32(libc.Atoi((*byte)(unsafe.Pointer(&v7))))
+			*(*uint32)(unsafe.Pointer(uintptr(a1 + 4))) = uint32(atoi((*byte)(unsafe.Pointer(&v7))))
 		}
 	}
 	return 0
@@ -1645,9 +1645,7 @@ func nox_xxx_genDecorReadDecorSet_51FFA0(a1 int32, a2 *FILE) int32 {
 			return 0
 		}
 		switch *(*uint32)(unsafe.Pointer(uintptr(v2))) {
-		case 0:
-			fallthrough
-		case 1:
+		case 0, 1:
 			if nox_xxx_mapGenReadLine_51E540(a2, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
 				alloc.FreePtr(unsafe.Pointer(uintptr(v2)))
 				return 0
@@ -1690,11 +1688,7 @@ func nox_xxx_genDecorReadDecorSet_51FFA0(a1 int32, a2 *FILE) int32 {
 			}
 			alloc.FreePtr(unsafe.Pointer(uintptr(v2)))
 			return 0
-		case 3:
-			fallthrough
-		case 4:
-			fallthrough
-		case 5:
+		case 3, 4, 5:
 			if nox_xxx_mapGenReadLine_51E540(a2, (*uint8)(memmap.PtrOff(0x5D4594, 2487264))) == 0 {
 				alloc.FreePtr(unsafe.Pointer(uintptr(v2)))
 				return 0
@@ -4331,17 +4325,13 @@ func sub_523E30(a1 int32, a2 int32, a3 int32) *float32 {
 	if result != nil {
 		*(*uint32)(unsafe.Pointer(result)) = uint32(a1)
 		switch a1 {
-		case 2:
-			fallthrough
-		case 3:
+		case 2, 3:
 			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*3))) = uint32(a2)
 			if a2 < 1 {
 				*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*3))) = 1
 			}
 			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*4))) = uint32(a3)
-		case 4:
-			fallthrough
-		case 5:
+		case 4, 5:
 			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*3))) = uint32(a3)
 			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(result))), 4*4))) = uint32(a2)
 			if a2 < 1 {
@@ -5519,9 +5509,7 @@ func nox_xxx_mapgen_525570(a1 int32, a2 int32, a3 int32, a4 int32) {
 		v9 float2
 	)
 	switch a4 {
-	case 0:
-		fallthrough
-	case 1:
+	case 0, 1:
 		if float64(*(*float32)(unsafe.Pointer(uintptr(a3 + 36)))) >= float64(*(*float32)(unsafe.Pointer(uintptr(a2 + 36)))) {
 			v4 = float64(*(*float32)(unsafe.Pointer(uintptr(a3 + 36))))
 		} else {
@@ -5540,9 +5528,7 @@ func nox_xxx_mapgen_525570(a1 int32, a2 int32, a3 int32, a4 int32) {
 		if v5 >= 2 && (v5 == 2 || nox_xxx_mapgen_525740(a2, (*float2)(unsafe.Pointer((*int32)(unsafe.Pointer(&v9)))), v5) == 0) {
 			nox_xxx_mapgen_525690(a2, &v9, v5)
 		}
-	case 2:
-		fallthrough
-	case 3:
+	case 2, 3:
 		if a4 == 3 {
 			v9.field_0 = *(*float32)(unsafe.Pointer(uintptr(a2 + 36)))
 		} else {
@@ -5687,13 +5673,9 @@ func sub_5259F0(a1 int32, a2 int32, a3 float32) {
 		switch *(*uint32)(unsafe.Pointer(uintptr(a2))) {
 		case 1:
 			v3 = math.Sqrt(float64(*(*float32)(unsafe.Pointer(uintptr(a2 + 28)))**(*float32)(unsafe.Pointer(uintptr(a2 + 28))) + *(*float32)(unsafe.Pointer(uintptr(a2 + 32)))**(*float32)(unsafe.Pointer(uintptr(a2 + 32)))))
-		case 2:
-			fallthrough
-		case 3:
+		case 2, 3:
 			v3 = float64(*(*float32)(unsafe.Pointer(uintptr(a2 + 32))))
-		case 4:
-			fallthrough
-		case 5:
+		case 4, 5:
 			v3 = float64(*(*float32)(unsafe.Pointer(uintptr(a2 + 28))))
 		default:
 			v3 = float64(a3)
@@ -6057,9 +6039,7 @@ LABEL_10:
 			dword_5d4594_2487628 = 0
 			*(*float32)(unsafe.Pointer(&dword_5d4594_2487632)) = v16
 		}
-	case 4:
-		fallthrough
-	case 5:
+	case 4, 5:
 		*memmap.PtrUint32(0x5D4594, 2487644) = 0
 		v13 = float64(-v16)
 		*mem_getFloatPtr(0x5D4594, 2487612) = float32(v13)
@@ -8759,11 +8739,7 @@ func sub_52A440(a1 int32, a2 int32, a3 int32) int32 {
 					v9 = 0
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v9)), 4)
 				}
-			case 3:
-				fallthrough
-			case 4:
-				fallthrough
-			case 6:
+			case 3, 4, 6:
 				v7 = 4
 				nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(v5)), v7)
 			case 5:
@@ -9514,7 +9490,7 @@ func sub_52BAF0(a1 int32) int32 {
 	}
 	return result
 }
-func nox_xxx_castCounterSpell_52BBB0(a1 int32, a2 int32, a3 int32, a4 int32, a5 *server.SpellAcceptArg, a6 int) int32 {
+func nox_xxx_castCounterSpell_52BBB0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 	var (
 		v4  *float2
 		i   int32

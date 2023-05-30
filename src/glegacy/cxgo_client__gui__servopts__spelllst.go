@@ -101,16 +101,12 @@ func sub_453C00(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 	v4 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(a3)))
 	v21 = v4
 	switch v4 {
-	case 1113:
-		fallthrough
-	case 1114:
+	case 1113, 1114:
 		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045480))))), 0x4000, int32(uintptr(unsafe.Pointer(v3))), 0)
 		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045508))))), 0x4000, int32(uintptr(unsafe.Pointer(v3))), 0)
 		sub_454120()
 		return 0
-	case 1115:
-		fallthrough
-	case 1116:
+	case 1115, 1116:
 		v5 = *(**int16)(unsafe.Pointer(uintptr(dword_5d4594_1045480 + 32)))
 		v6 = 0
 		v20 = sub_4165B0()
@@ -146,33 +142,7 @@ func sub_453C00(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 		sub_459D50(1)
 		nox_xxx_clientPlaySoundSpecial_452D80(766, 100)
 		return 0
-	case 1120:
-		fallthrough
-	case 1121:
-		fallthrough
-	case 1122:
-		fallthrough
-	case 1123:
-		fallthrough
-	case 1124:
-		fallthrough
-	case 1125:
-		fallthrough
-	case 1126:
-		fallthrough
-	case 1127:
-		fallthrough
-	case 1128:
-		fallthrough
-	case 1129:
-		fallthrough
-	case 1130:
-		fallthrough
-	case 1131:
-		fallthrough
-	case 1132:
-		fallthrough
-	case 1133:
+	case 1120, 1121, 1122, 1123, 1124, 1125, 1126, 1127, 1128, 1129, 1130, 1131, 1132, 1133:
 		v11 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1045480 + 32))))
 		v12 = (*wchar2_t)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v11 + 24))) + uint32((sub_4A4800(int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1045480 + 32)))))+v4-1120)*524) + 4)))
 		if v12 == nil {

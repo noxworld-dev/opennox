@@ -133,9 +133,7 @@ func nox_script_readWriteYyy_542380(f1 *FILE, f2 *FILE, a3 int32) int32 {
 			nox_script_writeInt_542BB0(21, f2)
 			v12 = int8(uint8(uint32(nox_script_readInt_542B70(f1))))
 			nox_script_writeInt_542BB0(int32(v12), f2)
-		case 0x16:
-			fallthrough
-		case 0x18:
+		case 0x16, 0x18:
 			nox_script_writeInt_542BB0(result, f2)
 		case 0x17:
 			nox_script_writeInt_542BB0(23, f2)

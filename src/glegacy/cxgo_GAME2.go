@@ -1494,22 +1494,10 @@ func nox_thing_skip_AVNT_inner_452B30(f *nox_memfile) int32 {
 		switch v8 {
 		case 0:
 			result = bool2int32(int32(v3) == 0)
-		case 1:
-			fallthrough
-		case 2:
-			fallthrough
-		case 3:
-			fallthrough
-		case 4:
-			fallthrough
-		case 5:
+		case 1, 2, 3, 4, 5:
 			nox_memfile_skip(f, 1)
 			continue
-		case 6:
-			fallthrough
-		case 9:
-			fallthrough
-		case 0xA:
+		case 6, 9, 0xA:
 			nox_memfile_skip(f, 2)
 			continue
 		case 7:
@@ -1852,9 +1840,7 @@ func sub_4533D0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 	}
 	v3 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(uintptr(a3))))
 	switch v3 {
-	case 1513:
-		fallthrough
-	case 1514:
+	case 1513, 1514:
 		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045464))))), 0x4000, a3, 0)
 		sub_453750()
 		return 0
@@ -1874,33 +1860,7 @@ func sub_4533D0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 		}
 		sub_453750()
 		sub_459D50(1)
-	case 1520:
-		fallthrough
-	case 1521:
-		fallthrough
-	case 1522:
-		fallthrough
-	case 1523:
-		fallthrough
-	case 1524:
-		fallthrough
-	case 1525:
-		fallthrough
-	case 1526:
-		fallthrough
-	case 1527:
-		fallthrough
-	case 1528:
-		fallthrough
-	case 1529:
-		fallthrough
-	case 1530:
-		fallthrough
-	case 1531:
-		fallthrough
-	case 1532:
-		fallthrough
-	case 1533:
+	case 1520, 1521, 1522, 1523, 1524, 1525, 1526, 1527, 1528, 1529, 1530, 1531, 1532, 1533:
 		v5 = sub_4A4800(int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1045464 + 32)))))
 		v11 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045464))))), 16406, v5+v3-1520, 0))))
 		if dword_5d4594_1045460 != 0 {
@@ -3974,7 +3934,7 @@ func sub_459AA0(a1p unsafe.Pointer) *byte {
 	if *v3 != 0 {
 		*(*uint8)(unsafe.Pointer(uintptr(a1 + 56))) = uint8(int8(nox_wcstol(v3, nil, 10)))
 	}
-	*(*uint8)(unsafe.Pointer(uintptr(a1 + 57))) = uint8((nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10122).DrawData().field_0 >> 2) & 1)
+	*(*uint8)(unsafe.Pointer(uintptr(a1 + 57))) = uint8((nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10122).DrawData().Field0 >> 2) & 1)
 	result = (*byte)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046496))))), 16404, 0, 0))))
 	if int32(uintptr(unsafe.Pointer(result))) >= 0 && (func() bool {
 		v5 = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046496))))), 16406, int32(uintptr(unsafe.Pointer(result))), 0)
@@ -4608,9 +4568,7 @@ func nox_xxx_bookListWndProc_45B5F0(a1 int32, a2 uint32, a3 uint32) int32 {
 			nox_xxx_clientPlaySoundSpecial_452D80(793, 100)
 			result = 1
 		}
-	case 6:
-		fallthrough
-	case 7:
+	case 6, 7:
 		if int32(nox_xxx_aNox_cfg_0_587000_132136) >= 0 {
 			v12 = int32(dword_5d4594_1047532 - uint32(v4))
 			if *(*int32)(unsafe.Pointer(&dword_5d4594_1047532))-v4 < 0 {
@@ -4874,9 +4832,7 @@ func nox_xxx_bookWndFn_45CC10(a1 *uint32, a2 int32, a3 uint32) int32 {
 		}
 		dword_5d4594_1047540 = 0
 		return 1
-	case 6:
-		fallthrough
-	case 7:
+	case 6, 7:
 		if dword_5d4594_1047540 == 0 {
 			return 1
 		}
@@ -5728,9 +5684,7 @@ func nox_xxx_quickBarWnd_45EF50(a1 int32, a2 int32, a3 uint32) int32 {
 			dword_5d4594_1049696 = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v3), 4*51)))
 			nox_xxx_clientPlaySoundSpecial_452D80(793, 100)
 			return 1
-		case 6:
-			fallthrough
-		case 7:
+		case 6, 7:
 			if nox_xxx_wndGetCaptureMain_46AE00() == nil {
 				return 1
 			}
@@ -5825,11 +5779,7 @@ func nox_xxx_quickBarWnd_45EF50(a1 int32, a2 int32, a3 uint32) int32 {
 			}
 			nox_xxx_bookSpellDnDclear_477660()
 			return 1
-		case 8:
-			fallthrough
-		case 12:
-			fallthrough
-		case 16:
+		case 8, 12, 16:
 			return 0
 		default:
 			return 1

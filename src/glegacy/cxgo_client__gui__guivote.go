@@ -82,11 +82,7 @@ func sub_48CB10(a1 int32) *uint32 {
 			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197320))))), 16403, 1, 0)
 		}
 		return (*uint32)(unsafe.Pointer(uintptr(nox_xxx_wndShowModalMB_46A8C0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197312)))))))))
-	case 0:
-		fallthrough
-	case 1:
-		fallthrough
-	case 3:
+	case 0, 1, 3:
 		nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197316))))), 0)
 		nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197320))))), 1)
 		v13 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1197312)))), 4301)))

@@ -189,15 +189,9 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 	v4 = a1
 	v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8)))
 	switch a2 {
-	case 5:
-		fallthrough
-	case 17:
-		fallthrough
-	case 18:
+	case 5, 17, 18:
 		return 1
-	case 6:
-		fallthrough
-	case 7:
+	case 6, 7:
 		v12 = a3
 		a3 = *(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))
 		v13 = v12 >> 16
@@ -239,9 +233,7 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 0x4000, int32(uintptr(unsafe.Pointer(a1))), 0)
 		}
 		return 1
-	case 10:
-		fallthrough
-	case 11:
+	case 10, 11:
 		v18 = a3 >> 16
 		nox_client_wndGetPosition_46AA60((*nox_window)(unsafe.Pointer(a1)), &a3, (*uint32)(unsafe.Pointer(&a4)))
 		if int32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v4))), unsafe.Sizeof(uint16(0))*54)))) != 0 {
@@ -292,17 +284,13 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 		return 1
 	case 21:
 		switch a3 {
-		case 0xF:
-			fallthrough
-		case 0xCD:
+		case 0xF, 0xCD:
 			if a4 != 2 {
 				return 1
 			}
 			nox_xxx_wndRetNULL_46A8A0()
 			return 1
-		case 0x1C:
-			fallthrough
-		case 0x39:
+		case 0x1C, 0x39:
 			if a4 != 1 {
 				return 1
 			}
@@ -352,7 +340,6 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 		default:
 			return 0
 		}
-		fallthrough
 	default:
 		return 0
 	}
@@ -422,15 +409,9 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(a1 int32, a2 int32, a3 uint32, a4 i
 	v4 = a1
 	v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 32))))
 	switch a2 {
-	case 5:
-		fallthrough
-	case 17:
-		fallthrough
-	case 18:
+	case 5, 17, 18:
 		return 1
-	case 6:
-		fallthrough
-	case 7:
+	case 6, 7:
 		v7 = a3 >> 16
 		nox_client_wndGetPosition_46AA60((*nox_window)(unsafe.Pointer(uintptr(a1))), (*uint32)(unsafe.Pointer(&a2)), &a3)
 		if int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 108)))) != 0 {
@@ -492,9 +473,7 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(a1 int32, a2 int32, a3 uint32, a4 i
 			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 0x4000, a1, 0)
 		}
 		return 1
-	case 10:
-		fallthrough
-	case 11:
+	case 10, 11:
 		v16 = a3 >> 16
 		nox_client_wndGetPosition_46AA60((*nox_window)(unsafe.Pointer(uintptr(a1))), (*uint32)(unsafe.Pointer(&a2)), &a3)
 		if int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 108)))) != 0 {
@@ -506,7 +485,7 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(a1 int32, a2 int32, a3 uint32, a4 i
 		}
 		v19 = 0
 		v20 = 0
-		for 2 != 0 {
+		for {
 			if v20 > 0 {
 				if *(*uint32)(unsafe.Pointer(uintptr(uint32(v20) + *(*uint32)(unsafe.Pointer(uintptr(v5 + 24))) - 524))) > uint32(int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 52))))+int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54))))) {
 					v19 = -1
@@ -1011,9 +990,9 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *nox_window, ev uint32, a3 uint32, a4 
 	}
 	if ev == 23 {
 		if a3 != 0 {
-			win.DrawData().field_0 |= 2
+			win.DrawData().Field0 |= 2
 		} else {
-			win.DrawData().field_0 &= 0xFFFFFFFD
+			win.DrawData().Field0 &= 0xFFFFFFFD
 		}
 		var v7 int32 = nox_xxx_wndGetID_46B0A0(win)
 		nox_window_call_field_94_fnc(win.DrawData().win, 16387, int32(a3), v7)
@@ -2198,102 +2177,21 @@ func sub_4A7330(a1 int32, a2 int32, a3 *int32, a4 uint32) int32 {
 			dword_5d4594_1307792 = uint32(v6)
 			sub_4A7530(2)
 			sub_4A7580(int32(uint16(a4)), v5)
-		case 721:
-			fallthrough
-		case 722:
-			fallthrough
-		case 723:
-			fallthrough
-		case 724:
+		case 721, 722, 723, 724:
 			dword_5d4594_1307792 = uint32(v6)
 			sub_4A7530(1)
 			sub_4A7580(int32(uint16(a4)), v5)
-		case 725:
-			fallthrough
-		case 726:
-			fallthrough
-		case 727:
-			fallthrough
-		case 728:
-			fallthrough
-		case 729:
+		case 725, 726, 727, 728, 729:
 			dword_5d4594_1307792 = uint32(v6)
 			sub_4A7530(0)
 			sub_4A7580(int32(uint16(a4)), v5)
-		case 731:
-			fallthrough
-		case 732:
-			fallthrough
-		case 733:
-			fallthrough
-		case 734:
+		case 731, 732, 733, 734:
 			v7 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308084)))), v6-20)))
 			if v7 != nil {
 				nox_xxx_wnd_46ABB0((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v7)))))), int32((^*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*1))>>3)&1))
 			}
-		case 761:
-			fallthrough
-		case 762:
-			fallthrough
-		case 763:
-			fallthrough
-		case 764:
-			fallthrough
-		case 765:
-			fallthrough
-		case 766:
-			fallthrough
-		case 767:
-			fallthrough
-		case 768:
-			fallthrough
-		case 769:
-			fallthrough
-		case 770:
-			fallthrough
-		case 771:
-			fallthrough
-		case 772:
-			fallthrough
-		case 773:
-			fallthrough
-		case 774:
-			fallthrough
-		case 775:
-			fallthrough
-		case 776:
-			fallthrough
-		case 777:
-			fallthrough
-		case 778:
-			fallthrough
-		case 779:
-			fallthrough
-		case 780:
-			fallthrough
-		case 781:
-			fallthrough
-		case 782:
-			fallthrough
-		case 783:
-			fallthrough
-		case 784:
-			fallthrough
-		case 785:
-			fallthrough
-		case 786:
-			fallthrough
-		case 787:
-			fallthrough
-		case 788:
-			fallthrough
-		case 789:
-			fallthrough
-		case 790:
-			fallthrough
-		case 791:
-			fallthrough
-		case 792:
+		case 761, 762, 763, 764, 765, 766, 767, 768, 769, 770, 771, 772, 773, 774, 775, 776, 777, 778,
+			779, 780, 781, 782, 783, 784, 785, 786, 787, 788, 789, 790, 791, 792:
 			sub_4A72D0(uint16(int16(v6 - 761)))
 		case 799:
 			if *memmap.PtrUint32(0x5D4594, 1308168) == 1 {
@@ -2585,62 +2483,52 @@ func sub_4A7EF0() *byte {
 func nox_xxx_wndButtonProc_4A7F50(win *nox_window, ev int32, a3 int32, a4 int32) int32 {
 	switch ev {
 	case 5:
-		win.DrawData().field_0 |= 4
+		win.DrawData().Field0 |= 4
 		return 1
-	case 6:
-		fallthrough
-	case 7:
-		if (win.DrawData().field_0 & 4) == 0 {
+	case 6, 7:
+		if (win.DrawData().Field0 & 4) == 0 {
 			return 0
 		}
-		nox_window_call_field_94_fnc(win.DrawData().win, 0x4000|7, int32(uintptr(unsafe.Pointer(win))), a3)
-		win.DrawData().field_0 &= 0xFFFFFFFB
+		nox_window_call_field_94_fnc(win.DrawData().Window, 0x4000|7, int32(uintptr(unsafe.Pointer(win))), a3)
+		win.DrawData().Field0 &= 0xFFFFFFFB
 		return 1
 	case 8:
-		nox_window_call_field_94_fnc(win.DrawData().win, 0x4000, int32(uintptr(unsafe.Pointer(win))), a3)
+		nox_window_call_field_94_fnc(win.DrawData().Window, 0x4000, int32(uintptr(unsafe.Pointer(win))), a3)
 		return 1
 	case 17:
-		if win.DrawData().style&0x100 != 0 {
-			win.DrawData().field_0 |= 2
-			nox_window_call_field_94_fnc(win.DrawData().win, 0x4000|5, int32(uintptr(unsafe.Pointer(win))), a3)
+		if win.DrawData().Style&0x100 != 0 {
+			win.DrawData().Field0 |= 2
+			nox_window_call_field_94_fnc(win.DrawData().Window, 0x4000|5, int32(uintptr(unsafe.Pointer(win))), a3)
 			nox_xxx_windowFocus_46B500(win)
 		}
 		return 1
 	case 18:
-		if win.DrawData().style&0x100 != 0 {
-			win.DrawData().field_0 &= 0xFFFFFFFD
-			nox_window_call_field_94_fnc(win.DrawData().win, 0x4000|6, int32(uintptr(unsafe.Pointer(win))), a3)
+		if win.DrawData().Style&0x100 != 0 {
+			win.DrawData().Field0 &= 0xFFFFFFFD
+			nox_window_call_field_94_fnc(win.DrawData().Window, 0x4000|6, int32(uintptr(unsafe.Pointer(win))), a3)
 		}
-		if win.DrawData().field_0&4 != 0 {
-			win.DrawData().field_0 &= 0xFFFFFFFB
+		if win.DrawData().Field0&4 != 0 {
+			win.DrawData().Field0 &= 0xFFFFFFFB
 		}
 		return 1
 	case 21:
 		switch a3 {
-		case 15:
-			fallthrough
-		case 205:
-			fallthrough
-		case 208:
+		case 15, 205, 208:
 			if a4 == 2 {
 				nox_xxx_wndRetNULL_46A8A0()
 			}
 			return 1
-		case 28:
-			fallthrough
-		case 57:
+		case 28, 57:
 			if a4 != 1 {
-				win.DrawData().field_0 |= 4
+				win.DrawData().Field0 |= 4
 				return 1
 			}
-			if win.DrawData().field_0&4 != 0 {
-				nox_window_call_field_94_fnc(win.DrawData().win, 0x4000|7, int32(uintptr(unsafe.Pointer(win))), 0)
-				win.DrawData().field_0 &= 0xFFFFFFFB
+			if win.DrawData().Field0&4 != 0 {
+				nox_window_call_field_94_fnc(win.DrawData().Window, 0x4000|7, int32(uintptr(unsafe.Pointer(win))), 0)
+				win.DrawData().Field0 &= 0xFFFFFFFB
 			}
 			return 1
-		case 200:
-			fallthrough
-		case 203:
+		case 200, 203:
 			if a4 == 2 {
 				nox_xxx_wndRetNULL_0_46A8B0()
 			}
@@ -2648,7 +2536,6 @@ func nox_xxx_wndButtonProc_4A7F50(win *nox_window, ev int32, a3 int32, a4 int32)
 		default:
 			return 0
 		}
-		fallthrough
 	default:
 		return 0
 	}
@@ -2787,9 +2674,7 @@ func nox_xxx_wndRadioButtonProc_4A84E0(a1 *uint32, a2 int32, a3 int32, a4 int32)
 	switch a2 {
 	case 5:
 		return 1
-	case 6:
-		fallthrough
-	case 7:
+	case 6, 7:
 		v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
 		v10 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*99)))
 		if v9&4 != 0 {
@@ -2836,19 +2721,13 @@ func nox_xxx_wndRadioButtonProc_4A84E0(a1 *uint32, a2 int32, a3 int32, a4 int32)
 		return 1
 	case 21:
 		switch a3 {
-		case 15:
-			fallthrough
-		case 205:
-			fallthrough
-		case 208:
+		case 15, 205, 208:
 			if a4 != 2 {
 				return 1
 			}
 			nox_xxx_wndRetNULL_46A8A0()
 			return 1
-		case 28:
-			fallthrough
-		case 57:
+		case 28, 57:
 			if a4 != 2 {
 				return 1
 			}
@@ -2866,9 +2745,7 @@ func nox_xxx_wndRadioButtonProc_4A84E0(a1 *uint32, a2 int32, a3 int32, a4 int32)
 			}
 			*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*9)) ^= 4
 			return 1
-		case 200:
-			fallthrough
-		case 203:
+		case 200, 203:
 			if a4 == 2 {
 				nox_xxx_wndRetNULL_0_46A8B0()
 			}
@@ -2876,7 +2753,6 @@ func nox_xxx_wndRadioButtonProc_4A84E0(a1 *uint32, a2 int32, a3 int32, a4 int32)
 		default:
 			return 0
 		}
-		fallthrough
 	default:
 		return 0
 	}
@@ -3040,9 +2916,7 @@ func nox_xxx_wndCheckBoxProc_4A8C00(a1 int32, a2 int32, a3 int32, a4 int32) int3
 	switch a2 {
 	case 5:
 		return 1
-	case 6:
-		fallthrough
-	case 7:
+	case 6, 7:
 		v8 = a1
 		if (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 36)))) & 2) == 0 {
 			return 0
@@ -3072,28 +2946,20 @@ func nox_xxx_wndCheckBoxProc_4A8C00(a1 int32, a2 int32, a3 int32, a4 int32) int3
 		return 1
 	case 21:
 		switch a3 {
-		case 15:
-			fallthrough
-		case 205:
-			fallthrough
-		case 208:
+		case 15, 205, 208:
 			if a4 != 2 {
 				return 1
 			}
 			nox_xxx_wndRetNULL_46A8A0()
 			return 1
-		case 28:
-			fallthrough
-		case 57:
+		case 28, 57:
 			if a4 == 2 {
 				v8 = a1
 				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v8 + 52)))))), 16391, v8, 0)
 				*(*uint32)(unsafe.Pointer(uintptr(v8 + 36))) ^= 4
 			}
 			return 1
-		case 200:
-			fallthrough
-		case 203:
+		case 200, 203:
 			if a4 == 2 {
 				nox_xxx_wndRetNULL_0_46A8B0()
 			}
@@ -3101,7 +2967,6 @@ func nox_xxx_wndCheckBoxProc_4A8C00(a1 int32, a2 int32, a3 int32, a4 int32) int3
 		default:
 			return 0
 		}
-		fallthrough
 	default:
 		return 0
 	}
@@ -5037,9 +4902,7 @@ func sub_4B4860(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 	switch a2 {
 	case 5:
 		return 1
-	case 6:
-		fallthrough
-	case 7:
+	case 6, 7:
 		v9 = a3
 		v10 = int32(uint16(int16(a3)))
 		nox_client_wndGetPosition_46AA60((*nox_window)(unsafe.Pointer(uintptr(a1))), (*uint32)(unsafe.Pointer(&a4)), (*uint32)(unsafe.Pointer(&a3)))
@@ -5074,9 +4937,7 @@ func sub_4B4860(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 		return 1
 	case 21:
 		switch a3 {
-		case 15:
-			fallthrough
-		case 208:
+		case 15, 208:
 			if a4 != 2 {
 				return 1
 			}
@@ -5116,7 +4977,6 @@ func sub_4B4860(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 		default:
 			return 0
 		}
-		fallthrough
 	default:
 		return 0
 	}
@@ -5138,9 +4998,7 @@ func nox_xxx_wndScrollBoxDraw_4B4BA0(a1 int32, a2 int32, a3 uint32, a4 int32) in
 	switch a2 {
 	case 5:
 		return 1
-	case 6:
-		fallthrough
-	case 7:
+	case 6, 7:
 		v9 = int32(a3)
 		v10 = int32(a3 >> 16)
 		nox_client_wndGetPosition_46AA60((*nox_window)(unsafe.Pointer(uintptr(a1))), &a3, (*uint32)(unsafe.Pointer(&a4)))
@@ -5175,9 +5033,7 @@ func nox_xxx_wndScrollBoxDraw_4B4BA0(a1 int32, a2 int32, a3 uint32, a4 int32) in
 		return 1
 	case 21:
 		switch a3 {
-		case 0xF:
-			fallthrough
-		case 0xCD:
+		case 0xF, 0xCD:
 			if a4 != 2 {
 				return 1
 			}
@@ -5217,7 +5073,6 @@ func nox_xxx_wndScrollBoxDraw_4B4BA0(a1 int32, a2 int32, a3 uint32, a4 int32) in
 		default:
 			return 0
 		}
-		fallthrough
 	default:
 		return 0
 	}

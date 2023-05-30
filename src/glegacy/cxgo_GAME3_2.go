@@ -1971,9 +1971,7 @@ func nox_xxx_mapgen_Doors_4D4790() *float32 {
 		for {
 			if int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v1))), v4))), 216)))) == 0 && nox_xxx_mapGenRandFunc_526AC0(1, 100) <= *memmap.PtrInt32(0x5D4594, 1549848) {
 				switch v4 {
-				case 0:
-					fallthrough
-				case 1:
+				case 0, 1:
 					a1.field_0 = int32(*(*float32)(unsafe.Add(unsafe.Pointer(v1), unsafe.Sizeof(float32(0))*1)))
 					if v4 == 1 {
 						a1.field_4 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*2))) + *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*4))))
@@ -2106,9 +2104,7 @@ func nox_xxx_mapgen_Doors_4D4790() *float32 {
 						}
 					}
 					fallthrough
-				case 2:
-					fallthrough
-				case 3:
+				case 2, 3:
 					if v4 == 2 {
 						a1.field_0 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*1))) + *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*3))))
 					} else {
@@ -2454,13 +2450,9 @@ func sub_4D52F0() {
 			switch *v0 {
 			case 1:
 				sub_4D5350(v0, 0, 0, 0, 0)
-			case 2:
-				fallthrough
-			case 3:
+			case 2, 3:
 				sub_4D5350(v0, 0, 0, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*3))), 0)
-			case 4:
-				fallthrough
-			case 5:
+			case 4, 5:
 				sub_4D5350(v0, 0, 0, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*4))), 0)
 			default:
 			}
@@ -3980,7 +3972,7 @@ func nox_xxx_netReportDequip_4D84C0(a1 int32, object *nox_object_t) int32 {
 		v7     [7]byte
 	)
 	result = int32(uintptr(unsafe.Pointer(object)))
-	v3 = int32(object.obj_class)
+	v3 = int32(object.ObjClass)
 	if uint32(v3)&0x11001000 != 0 {
 		v4 = int32(uintptr(unsafe.Pointer(object.inv_holder)))
 		v7[0] = 84
@@ -4245,12 +4237,12 @@ func nox_xxx_netReportPickup_4D8A60(a1 int32, item *nox_object_t) int32 {
 		v4 int16
 		v5 [5]byte
 	)
-	if item.obj_class&0x13001000 != 0 {
+	if item.ObjClass&0x13001000 != 0 {
 		return nox_xxx_netReportModifiablePickup_4D8AD0(a1, item)
 	}
 	v5[0] = 75
 	v3 = int16(uint16(nox_xxx_netGetUnitCodeServ_578AC0(item)))
-	v4 = int16(item.typ_ind)
+	v4 = int16(item.TypeInd)
 	*(*uint16)(unsafe.Pointer(&v5[1])) = uint16(v3)
 	*(*uint16)(unsafe.Pointer(&v5[3])) = uint16(v4)
 	nox_xxx_netSendPacket1_4E5390(a1, int32(uintptr(unsafe.Pointer(&v5[0]))), 5, 0, 0)
@@ -4264,9 +4256,9 @@ func nox_xxx_netReportModifiablePickup_4D8AD0(a1 int32, item *nox_object_t) int3
 		v6 [9]byte
 	)
 	v6[0] = 76
-	v2 = int32(uintptr(item.init_data))
+	v2 = int32(uintptr(item.InitData))
 	*(*uint16)(unsafe.Pointer(&v6[1])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0(item))
-	*(*uint16)(unsafe.Pointer(&v6[3])) = item.typ_ind
+	*(*uint16)(unsafe.Pointer(&v6[3])) = item.TypeInd
 	v3 = 0
 	v4 = v2
 	for {
@@ -5036,21 +5028,7 @@ func nox_xxx_netInformTextMsg_4DA0F0(a1 int32, a2 int32, a3 *int32) int32 {
 	)
 	result = a2
 	switch a2 {
-	case 0:
-		fallthrough
-	case 1:
-		fallthrough
-	case 2:
-		fallthrough
-	case 12:
-		fallthrough
-	case 13:
-		fallthrough
-	case 16:
-		fallthrough
-	case 20:
-		fallthrough
-	case 21:
+	case 0, 1, 2, 12, 13, 16, 20, 21:
 		v5[1] = byte(int8(a2))
 		v4 = *a3
 		v5[0] = 169
@@ -5074,17 +5052,7 @@ func nox_xxx_netInformTextMsg2_4DA180(a1 int32, a2 *uint8) int32 {
 	)
 	result = a1
 	switch a1 {
-	case 3:
-		fallthrough
-	case 4:
-		fallthrough
-	case 8:
-		fallthrough
-	case 18:
-		fallthrough
-	case 19:
-		fallthrough
-	case 21:
+	case 3, 4, 8, 18, 19, 21:
 		v6[1] = byte(int8(a1))
 		v6[0] = 169
 		*(*uint32)(unsafe.Pointer(&v6[2])) = *(*uint32)(unsafe.Pointer(a2))
@@ -5093,17 +5061,7 @@ func nox_xxx_netInformTextMsg2_4DA180(a1 int32, a2 *uint8) int32 {
 			nox_netlist_addToMsgListCli_40EBC0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(i + 748))) + 276))) + 2064)))), 1, (*uint8)(unsafe.Pointer(&v6[0])), 6)
 			result = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*nox_object_t)(unsafe.Pointer(uintptr(i)))))))
 		}
-	case 5:
-		fallthrough
-	case 6:
-		fallthrough
-	case 7:
-		fallthrough
-	case 9:
-		fallthrough
-	case 10:
-		fallthrough
-	case 11:
+	case 5, 6, 7, 9, 10, 11:
 		*a2 = 169
 		*(*uint8)(unsafe.Add(unsafe.Pointer(a2), 1)) = uint8(int8(a1))
 		result = int32(uintptr(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0())))
@@ -5320,8 +5278,8 @@ func sub_4DA660(a1 int32, a2 *byte) int32 {
 }
 func nox_xxx_getFirstPlayerUnit_4DA7C0() *nox_object_t {
 	for p := (*nox_playerInfo)(nox_common_playerInfoGetFirst_416EA0()); p != nil; p = nox_common_playerInfoGetNext_416EE0(p) {
-		if p.playerUnit != nil {
-			return p.playerUnit
+		if p.PlayerUnit != nil {
+			return p.PlayerUnit
 		}
 	}
 	return nil
@@ -5558,17 +5516,17 @@ func nox_xxx_netGuiGameSettings_4DD9B0(a1 int8, a2 unsafe.Pointer, a3 int32) int
 }
 func nox_xxx_netNewPlayerMakePacket_4DDA90(buf *uint8, pl *nox_playerInfo) {
 	*buf = 45
-	*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(buf), 1)))) = uint16(pl.netCode)
-	*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(buf), 100)))) = uint16(int16(pl.lessons))
-	*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(buf), 102)))) = uint16(pl.field_2140)
-	*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(buf), 104)))) = pl.field_0
-	*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(buf), 108)))) = pl.field_4
-	*(*uint8)(unsafe.Add(unsafe.Pointer(buf), 116)) = uint8(pl.field_2152)
-	*(*uint8)(unsafe.Add(unsafe.Pointer(buf), 117)) = uint8(pl.field_2156)
-	*(*uint8)(unsafe.Add(unsafe.Pointer(buf), 118)) = uint8(int8(bool2int32(int32(pl.field_3676) == 3)))
-	*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(buf), 112)))) = pl.field_3680 & 0x423
-	alloc.Memcpy(unsafe.Add(unsafe.Pointer(buf), 119), unsafe.Pointer(&pl.field_2096[0]), uintptr(libc.StrLen(&pl.field_2096[0])+1))
-	alloc.Memcpy(unsafe.Add(unsafe.Pointer(buf), 3), unsafe.Pointer(&pl.info), 97)
+	*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(buf), 1)))) = uint16(pl.NetCodeVal)
+	*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(buf), 100)))) = uint16(int16(pl.Lessons))
+	*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(buf), 102)))) = uint16(pl.Field2140)
+	*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(buf), 104)))) = pl.Field0
+	*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(buf), 108)))) = pl.Field4
+	*(*uint8)(unsafe.Add(unsafe.Pointer(buf), 116)) = uint8(pl.Field2152)
+	*(*uint8)(unsafe.Add(unsafe.Pointer(buf), 117)) = uint8(pl.Field2156)
+	*(*uint8)(unsafe.Add(unsafe.Pointer(buf), 118)) = uint8(int8(bool2int32(int32(pl.Field3676) == 3)))
+	*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(buf), 112)))) = pl.Field3680 & 0x423
+	alloc.Memcpy(unsafe.Add(unsafe.Pointer(buf), 119), unsafe.Pointer(&pl.Field2096Buf[0]), uintptr(libc.StrLen(&pl.Field2096Buf[0])+1))
+	alloc.Memcpy(unsafe.Add(unsafe.Pointer(buf), 3), unsafe.Pointer(pl.Info()), 97)
 }
 func sub_4DDE10(a1 int32, a2p *nox_playerInfo) {
 	var (
@@ -5821,21 +5779,21 @@ func nox_xxx_playerForceDisconnect_4DE7C0(ind int32) {
 	if sub_4D12A0(ind) != 0 {
 		sub_4D1250(ind)
 	}
-	if plr.field_2068 != 0 {
-		var v3 *int32 = sub_425A70(int32(plr.field_2068))
+	if plr.Field2068 != 0 {
+		var v3 *int32 = sub_425A70(int32(plr.Field2068))
 		if v3 != nil {
 			sub_425B60(unsafe.Pointer(v3), ind)
 		}
 	}
-	var v4 int32 = int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(plr.playerUnit))) + 748))))
+	var v4 int32 = int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(plr.PlayerUnit))) + 748))))
 	if *(*uint32)(unsafe.Pointer(uintptr(v4 + 280))) != 0 {
 		nox_xxx_shopCancelSession_510DC0(*(**uint32)(unsafe.Pointer(uintptr(v4 + 280))))
 	}
 	*(*uint32)(unsafe.Pointer(uintptr(v4 + 280))) = 0
-	sub_510E20(int32(plr.playerInd))
-	sub_4FF990(1 << int32(plr.playerInd))
+	sub_510E20(int32(plr.PlayerInd))
+	sub_4FF990(1 << int32(plr.PlayerInd))
 	if !nox_common_gameFlags_check_40A5C0(2) {
-		plr.active = 0
+		plr.Active = 0
 	}
 	var pl *byte = (*byte)(unsafe.Pointer(plr))
 	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer((*int32)(unsafe.Pointer(pl))), 4*1146)))
@@ -5856,10 +5814,10 @@ func nox_xxx_playerForceDisconnect_4DE7C0(ind int32) {
 	sub_56F4F0((*int32)(unsafe.Add(unsafe.Pointer((*int32)(unsafe.Pointer(pl))), 4*1161)))
 	var buf [3]byte
 	buf[0] = 46
-	*(*uint16)(unsafe.Pointer(&buf[1])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0(plr.playerUnit))
+	*(*uint16)(unsafe.Pointer(&buf[1])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0(plr.PlayerUnit))
 	nox_xxx_netSendPacket0_4E5420(ind|0x80, unsafe.Pointer(&buf[0]), 3, 0, 0)
-	nox_xxx_delayedDeleteObject_4E5CC0(plr.playerUnit)
-	plr.playerUnit = nil
+	nox_xxx_delayedDeleteObject_4E5CC0(plr.PlayerUnit)
+	plr.PlayerUnit = nil
 	for i := int32(int32(uintptr(unsafe.Pointer(nox_xxx_getFirstPlayerUnit_4DA7C0())))); i != 0; i = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*nox_object_t)(unsafe.Pointer(uintptr(i))))))) {
 		var v7 int32 = int32(*(*uint32)(unsafe.Pointer(uintptr(i + 748))))
 		*(*uint8)(unsafe.Pointer(uintptr(ind + v7 + 452))) = 0

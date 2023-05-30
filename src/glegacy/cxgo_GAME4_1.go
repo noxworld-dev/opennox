@@ -595,9 +595,7 @@ func nox_xxx_mobAction_50A910(a1p *nox_object_t) int32 {
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1)) = uint32(v11)
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*2)) = *(*uint32)(unsafe.Pointer(uintptr(v7 + 60)))
 			}
-		case 7:
-			fallthrough
-		case 8:
+		case 7, 8:
 			v10 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*3)))
 			if v10 != 0 {
 				if nox_xxx_unitCanInteractWith_5370E0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), (*nox_object_t)(unsafe.Pointer(uintptr(v10))), 0) != 0 || nox_xxx_checkMobAction_50A0D0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 3) != 0 {
@@ -4213,10 +4211,10 @@ func nox_xxx_decay_5116F0(item *nox_object_t) int32 {
 		result int32
 		v2     int32
 	)
-	result = int32(item.obj_flags)
+	result = int32(item.ObjFlags)
 	if uint32(result)&0x400000 != 0 {
 		v2 = 0
-		item.obj_flags = uint32(result) & 0xFFBFFFFF
+		item.ObjFlags = uint32(result) & 0xFFBFFFFF
 		result = int32(dword_5d4594_2386576)
 		if dword_5d4594_2386576 != 0 {
 			for unsafe.Pointer(uintptr(result)) != unsafe.Pointer(item) {
@@ -6166,7 +6164,7 @@ func sub_51D120(a1 *float32) *uint32 {
 	)
 	result = (*uint32)(unsafe.Pointer(uintptr(nox_xxx_mapGenFixCoords_4D3D90((*float2)(unsafe.Pointer(a1)), &v3))))
 	if result != nil {
-		result = &nox_xxx_waypointNew_5798F0(v3.field_0, v3.field_4).ind
+		result = &nox_xxx_waypointNew_5798F0(v3.field_0, v3.field_4).Index
 		v2 = result
 		if result != nil {
 			if dword_5d4594_2487244 != 0 {

@@ -14,42 +14,34 @@ func mem_getPtrSize(base uint32, off uint32, size uint32) unsafe.Pointer {
 		if off+size <= uint32(23472) {
 			return unsafe.Pointer(&byte_581450[off])
 		}
-		fallthrough
 	case 0x587000:
 		if off+size <= uint32(316820) {
 			return unsafe.Pointer(&byte_587000[off])
 		}
-		fallthrough
 	case 0x5D4594:
 		if off+size <= uint32(2598284) {
 			return unsafe.Pointer(&byte_5D4594[off])
 		}
-		fallthrough
 	case 0x8531A0:
 		if off+size <= uint32(2592) {
 			return unsafe.Pointer(&byte_8531A0[off])
 		}
-		fallthrough
 	case 0x973CE0:
 		if off+size <= uint32(568) {
 			return unsafe.Pointer(&byte_973CE0[off])
 		}
-		fallthrough
 	case 0x973F18:
 		if off+size <= uint32(44881) {
 			return unsafe.Pointer(&byte_973F18[off])
 		}
-		fallthrough
 	case 0x85B3FC:
 		if off+size <= uint32(1029636) {
 			return unsafe.Pointer(&byte_85B3FC[off])
 		}
-		fallthrough
 	case 0x852978:
 		if off+size <= uint32(40) {
 			return unsafe.Pointer(&byte_852978[off])
 		}
-		fallthrough
 	case 0x973A20:
 		if off+size <= uint32(704) {
 			return unsafe.Pointer(&byte_973A20[off])
