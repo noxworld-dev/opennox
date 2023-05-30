@@ -34,13 +34,13 @@ func nox_script_activatorResolveObjs_51B0C0() {
 }
 
 // nox_xxx_netGetUnitCodeServ_578AC0
-func nox_xxx_netGetUnitCodeServ_578AC0(cobj *nox_object_t) uint {
-	return uint(GetServer().GetUnitNetCode(asObjectS(cobj)))
+func nox_xxx_netGetUnitCodeServ_578AC0(cobj *nox_object_t) uint32 {
+	return uint32(GetServer().GetUnitNetCode(asObjectS(cobj)))
 }
 
 // nox_server_scriptValToObjectPtr_511B60
-func nox_server_scriptValToObjectPtr_511B60(val int) *nox_object_t {
-	return asObjectC(GetServer().NoxScriptC().ScriptToObject(val))
+func nox_server_scriptValToObjectPtr_511B60(val int32) *nox_object_t {
+	return asObjectC(GetServer().NoxScriptC().ScriptToObject(int(val)))
 }
 
 func nox_script_push(v int32) {
@@ -60,11 +60,13 @@ func nox_script_popf() float32 {
 }
 
 // nox_script_indexByEvent
-func nox_script_indexByEvent(cname *byte) int { return Nox_script_indexByEvent(GoString(cname)) }
+func nox_script_indexByEvent(cname *byte) int32 {
+	return int32(Nox_script_indexByEvent(GoString(cname)))
+}
 
 // nox_script_getString_512E40
-func nox_script_getString_512E40(i int) *byte {
-	s, ok := Nox_script_getString_512E40(i)
+func nox_script_getString_512E40(i int32) *byte {
+	s, ok := Nox_script_getString_512E40(int(i))
 	if !ok {
 		return nil
 	}

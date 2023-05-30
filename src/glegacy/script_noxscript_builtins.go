@@ -12,12 +12,12 @@ var (
 )
 
 // nox_script_shouldReadMoreXxx
-func nox_script_shouldReadMoreXxx(fi int) bool {
+func nox_script_shouldReadMoreXxx(fi int32) bool {
 	return bool(Nox_script_shouldReadMoreXxx(asm.Builtin(fi)))
 }
 
 // nox_script_shouldReadEvenMoreXxx
-func nox_script_shouldReadEvenMoreXxx(fi int) bool {
+func nox_script_shouldReadEvenMoreXxx(fi int32) bool {
 	return bool(Nox_script_shouldReadEvenMoreXxx(asm.Builtin(fi)))
 }
 

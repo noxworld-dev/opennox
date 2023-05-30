@@ -11,7 +11,7 @@ var _ = [1]struct{}{}[56-unsafe.Sizeof(gui.ScrollListBoxData{})]
 var _ = [1]struct{}{}[1056-unsafe.Sizeof(gui.EntryFieldData{})]
 
 // nox_gui_newStaticText_489300
-func nox_gui_newStaticText_489300(par *nox_window, status int, px, py, w, h int, draw *nox_window_data, data *nox_staticText_data) *nox_window {
+func nox_gui_newStaticText_489300(par *nox_window, status int32, px, py, w, h int32, draw *nox_window_data, data *nox_staticText_data) *nox_window {
 	return (*nox_window)(GetClient().Cli().GUI.NewStaticTextRaw(asWindow(par), gui.StatusFlags(status), int(px), int(py), int(w), int(h), asWindowData(draw), (*gui.StaticTextData)(unsafe.Pointer(data))).C())
 }
 

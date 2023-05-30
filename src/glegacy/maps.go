@@ -33,17 +33,17 @@ func nox_common_checkMapFile_4CFE10(name *byte) int {
 }
 
 // nox_xxx_mapReadSection_426EA0
-func nox_xxx_mapReadSection_426EA0(a1 unsafe.Pointer, cname *byte, cerr *uint) int {
+func nox_xxx_mapReadSection_426EA0(a1 unsafe.Pointer, cname *byte, cerr *uint) int32 {
 	panic("TODO")
 }
 
 // nox_xxx_mapWriteSectionsMB_426E20
-func nox_xxx_mapWriteSectionsMB_426E20(a1 unsafe.Pointer) int {
-	return Nox_xxx_mapWriteSectionsMB_426E20(a1)
+func nox_xxx_mapWriteSectionsMB_426E20(a1 unsafe.Pointer) int32 {
+	return int32(Nox_xxx_mapWriteSectionsMB_426E20(a1))
 }
 
 // nox_xxx_nxzCompressFile_57BDD0
-func nox_xxx_nxzCompressFile_57BDD0(a1, a2 *byte) int {
+func nox_xxx_nxzCompressFile_57BDD0(a1, a2 *byte) int32 {
 	if err := cnxz.CompressFile(GoString(a1), GoString(a2)); err != nil {
 		mapLog.Println(err)
 		return 0
@@ -148,7 +148,7 @@ func Nox_xxx_waypoint_5799C0() {
 }
 
 func Nox_xxx_servMapLoadPlaceObj_4F3F50(obj *server.Object, a2 int, a3 unsafe.Pointer) int {
-	return int(nox_xxx_servMapLoadPlaceObj_4F3F50(asObjectC(obj), int(a2), a3))
+	return int(nox_xxx_servMapLoadPlaceObj_4F3F50(asObjectC(obj), int32(a2), a3))
 }
 
 func Nox_xxx_prepareLightningEffects_4BAB30() {
@@ -192,7 +192,7 @@ func Sub_461450() int {
 }
 
 func Nox_xxx_cliShowHideTubes_470AA0(v int) {
-	nox_xxx_cliShowHideTubes_470AA0(int(v))
+	nox_xxx_cliShowHideTubes_470AA0(int32(v))
 }
 
 func Sub_51DED0() int {
@@ -211,7 +211,7 @@ func Nox_xxx_tileNFromPoint_411160(p types.Pointf) int {
 }
 
 func Nox_xxx_unitSetDecayTime_511660(obj *server.Object, a2 int) {
-	nox_xxx_unitSetDecayTime_511660(asObjectC(obj), int(a2))
+	nox_xxx_unitSetDecayTime_511660(asObjectC(obj), int32(a2))
 }
 
 func Nox_xxx_tileFreeTileOne_4221E0(p unsafe.Pointer) {
@@ -223,5 +223,5 @@ func Get_nox_client_mapSpecialRWObjectData_4AC610() unsafe.Pointer {
 }
 
 func Sub_4DE410(pli ntype.PlayerInd) {
-	sub_4DE410(int(pli))
+	sub_4DE410(int32(pli))
 }

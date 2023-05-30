@@ -152,8 +152,8 @@ func sub_43EC10() int {
 }
 
 // sub_43F130
-func sub_43F130() int {
-	return Sub_43F130()
+func sub_43F130() int32 {
+	return int32(Sub_43F130())
 }
 
 // sub_43ED00
@@ -182,8 +182,8 @@ func sub_44D640() {
 }
 
 // sub_44D7E0
-func sub_44D7E0(a1 int) int {
-	return Sub_44D7E0(a1)
+func sub_44D7E0(a1 int32) int {
+	return Sub_44D7E0(int(a1))
 }
 
 // nox_xxx_musicStartPlay_43D6C0

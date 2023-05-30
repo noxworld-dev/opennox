@@ -24,13 +24,13 @@ func nox_xxx_sprite_49AA00_drawable(d *nox_drawable) {
 }
 
 // nox_xxx_forEachSprite_49AB00
-func nox_xxx_forEachSprite_49AB00(a1 *int4, cfnc unsafe.Pointer, data int) {
+func nox_xxx_forEachSprite_49AB00(a1 *int4, cfnc unsafe.Pointer, data int32) {
 	if cfnc == nil {
 		return
 	}
 	rect := image.Rect(int(a1.field_0), int(a1.field_4), int(a1.field_8), int(a1.field_C))
 	GetClient().Cli().Objs.EachInRect(rect, func(dr *client.Drawable) {
-		asFuncT[func(*nox_drawable, int32)](uintptr(cfnc))((*nox_drawable)(dr.C()), int32(data))
+		asFuncT[func(*nox_drawable, int32)](uintptr(cfnc))((*nox_drawable)(dr.C()), data)
 	})
 }
 
@@ -70,8 +70,8 @@ func sub_45A670(a1 uint32) {
 }
 
 // nox_xxx_spriteTransparentDecay_49B950
-func nox_xxx_spriteTransparentDecay_49B950(dr *nox_drawable, a2 int) {
-	GetClient().Cli().Objs.TransparentDecay(asDrawable(dr), a2)
+func nox_xxx_spriteTransparentDecay_49B950(dr *nox_drawable, a2 int32) {
+	GetClient().Cli().Objs.TransparentDecay(asDrawable(dr), int(a2))
 }
 
 // sub_459DD0
@@ -85,13 +85,13 @@ func nox_xxx_spriteToList_49BC80_drawable(dr *nox_drawable) {
 }
 
 // nox_xxx_spriteDelete_45A4B0
-func nox_xxx_spriteDelete_45A4B0(dr *nox_drawable) int {
-	return GetClient().Nox_xxx_spriteDelete_45A4B0(asDrawable(dr))
+func nox_xxx_spriteDelete_45A4B0(dr *nox_drawable) int32 {
+	return int32(GetClient().Nox_xxx_spriteDelete_45A4B0(asDrawable(dr)))
 }
 
 // nox_new_drawable_for_thing
-func nox_new_drawable_for_thing(i int) *nox_drawable {
-	return (*nox_drawable)(GetClient().Nox_new_drawable_for_thing(i).C())
+func nox_new_drawable_for_thing(i int32) *nox_drawable {
+	return (*nox_drawable)(GetClient().Nox_new_drawable_for_thing(int(i)).C())
 }
 
 // nox_xxx_spriteDeleteStatic_45A4E0_drawable
@@ -145,8 +145,8 @@ func sub_49BCD0(dr *nox_drawable) {
 }
 
 // nox_xxx_spriteDeleteAll_45A5E0
-func nox_xxx_spriteDeleteAll_45A5E0(a1 int) {
-	GetClient().Nox_xxx_spriteDeleteAll_45A5E0(a1)
+func nox_xxx_spriteDeleteAll_45A5E0(a1 int32) {
+	GetClient().Nox_xxx_spriteDeleteAll_45A5E0(int(a1))
 }
 
 func CallDrawFunc(s *client.Drawable, vp *noxrender.Viewport) int {

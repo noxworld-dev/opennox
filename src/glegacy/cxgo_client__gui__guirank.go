@@ -222,7 +222,7 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 	v30 = v46 + 1
 	v45[1] = 0
 	v45[2] = 0
-	dword_5d4594_1090100 = uint32(uintptr(unsafe.Pointer(nox_gui_newStaticText_489300((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090048))))), 1088, 0, v46, *(*int32)(unsafe.Pointer(&dword_5d4594_1090040)), v46+1, (*nox_window_data)(unsafe.Pointer(&v49[0])), (*nox_staticText_data)(unsafe.Pointer(&v45[0]))))))
+	dword_5d4594_1090100 = unsafe.Pointer(nox_gui_newStaticText_489300((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090048))))), 1088, 0, v46, *(*int32)(unsafe.Pointer(&dword_5d4594_1090040)), v46+1, (*nox_window_data)(unsafe.Pointer(&v49[0])), (*nox_staticText_data)(unsafe.Pointer(&v45[0]))))
 	*(*uint32)(unsafe.Pointer(&v49[68])) = nox_color_white_2523948
 	v45[0] = int32(uintptr(unsafe.Pointer(nox_strman_loadString_40F1D0(internCStr("WindowDir:Empty"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guirank.c"), 1782))))
 	dword_5d4594_1090112 = uint32(uintptr(unsafe.Pointer(nox_gui_newStaticText_489300((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090048))))), 1088, 0, v20, *(*int32)(unsafe.Pointer(&dword_5d4594_1090040)), v30, (*nox_window_data)(unsafe.Pointer(&v49[0])), (*nox_staticText_data)(unsafe.Pointer(&v45[0]))))))

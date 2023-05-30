@@ -3182,7 +3182,7 @@ func nox_gui_windowCopyDrawData_46AF80(win *nox_window, p unsafe.Pointer) int32 
 	if p == nil {
 		return -3
 	}
-	alloc.Memcpy(unsafe.Pointer(&win.draw_data), p, unsafe.Sizeof(nox_window_data{}))
+	alloc.Memcpy(unsafe.Pointer(&win.DrawData()), p, unsafe.Sizeof(nox_window_data{}))
 	return 0
 }
 func sub_46B630(a1p *nox_window, a2 int32, a3 int32) *nox_window {
@@ -5852,14 +5852,14 @@ LABEL_9:
 }
 func nox_xxx_sprite_4756E0_drawable(dr *nox_drawable) int32 {
 	var (
-		a1     *uint32 = &dr.field_0
+		a1     *uint32 = &dr.Field_0
 		result int32
 		v2     func(*int32, int32) int32
 		v3     int32
 		v4     int32
 	)
 	result = 0
-	v2 = asFunc(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*75)), (*func(*int32, int32) int32)(nil)).(func(*int32, int32) int32)
+	v2 = asFunc(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*75)), (*func(*int32, int32) int32)(nil)).(func(*int32, int32) int32)
 	if v2 != nil {
 		v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*30)))
 		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*28)))
@@ -5871,14 +5871,14 @@ func nox_xxx_sprite_4756E0_drawable(dr *nox_drawable) int32 {
 }
 func nox_xxx_sprite_475740_drawable(dr *nox_drawable) int32 {
 	var (
-		a1     *uint32 = &dr.field_0
+		a1     *uint32 = &dr.Field_0
 		result int32
 		v2     func(*int32, int32) int32
 		v3     int32
 		v4     int32
 	)
 	result = 0
-	v2 = asFunc(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*75)), (*func(*int32, int32) int32)(nil)).(func(*int32, int32) int32)
+	v2 = asFunc(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*75)), (*func(*int32, int32) int32)(nil)).(func(*int32, int32) int32)
 	if v2 != nil {
 		v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*30)))
 		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*28)))

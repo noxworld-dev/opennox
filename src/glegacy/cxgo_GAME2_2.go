@@ -131,7 +131,7 @@ func sub_476AE0(vp *nox_draw_viewport_t, dr *nox_drawable) unsafe.Pointer {
 		v33     func(uint32, *uint8, int32)
 	)
 	v2 = a2
-	result2 = asFunc(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a2))), 4*75))), (*func(*int32, int32) int32)(nil)).(func(*int32, int32) int32)
+	result2 = asFunc(*((*int32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a2))), 4*75))), (*func(*int32, int32) int32)(nil)).(func(*int32, int32) int32)
 	if funAddr(result2) == funAddr(nox_thing_static_draw) {
 		if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a2))), 4*28)))&0x40000 != 0 && (*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a2))), 4*30)))&0x1000000) == 0 {
 			return unsafe.Pointer(funAddr(result2))
@@ -5694,19 +5694,19 @@ func sub_489870() int32 {
 	v0 = 0
 	v1 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v0*44)+1193388))
 	if *memmap.PtrUint32(0x5D4594, uintptr(v0*4)+1193372) == 2 {
-		*(*uint32)(unsafe.Pointer(v1)) = (nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10028).draw_data.field_0 >> 2) & 1
+		*(*uint32)(unsafe.Pointer(v1)) = (nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10028).DrawData().field_0 >> 2) & 1
 		v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10031)))
 		v3 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), 16413, 0, 0))))
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*4))) = uint32(nox_wcstol(v3, nil, 10))
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*1))) = (nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10029).draw_data.field_0 >> 2) & 1
-		v4 = nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10030).draw_data.field_0
+		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*1))) = (nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10029).DrawData().field_0 >> 2) & 1
+		v4 = nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10030).DrawData().field_0
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*3))) = 0
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*2))) = (v4 >> 2) & 1
-		if nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10015).draw_data.field_0&4 != 0 {
+		if nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10015).DrawData().field_0&4 != 0 {
 			v5 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*3))))
 			*((*uint8)(unsafe.Pointer(&v5))) = uint8(int8(v5 | 0x80))
 			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*3))) = uint32(v5)
-			v6 = int8(*((*uint8)(unsafe.Pointer(&nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10016).draw_data.field_0))))
+			v6 = int8(*((*uint8)(unsafe.Pointer(&nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10016).DrawData().field_0))))
 			v7 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*3))))
 			if int32(v6)&4 != 0 {
 				*((*uint8)(unsafe.Pointer(&v7))) = uint8(int8(v7 | 1))
@@ -5715,8 +5715,8 @@ func sub_489870() int32 {
 			}
 			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*3))) = uint32(v7)
 		}
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*5))) = (nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10014).draw_data.field_0 >> 2) & 1
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*10))) = (nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10018).draw_data.field_0 >> 2) & 1
+		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*5))) = (nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10014).DrawData().field_0 >> 2) & 1
+		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*10))) = (nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10018).DrawData().field_0 >> 2) & 1
 	}
 	return nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1193380))))), 1)
 }
@@ -5901,14 +5901,14 @@ func sub_489DC0() {
 		v1 *uint32
 	)
 	nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1193384))))), 0)
-	if nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193384)))), 10028).draw_data.field_0&4 != 0 {
+	if nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193384)))), 10028).DrawData().field_0&4 != 0 {
 		v0 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193384)))), 10031)))
 		nox_xxx_wnd_46ABB0((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v0)))))), 1)
 	} else {
 		v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193384)))), 10031)))
 		nox_xxx_wnd_46ABB0((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 0)
 	}
-	if nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193384)))), 10015).draw_data.field_0&4 != 0 {
+	if nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193384)))), 10015).DrawData().field_0&4 != 0 {
 		sub_46AD20(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193384)), 10016, 10017, 1)
 	} else {
 		sub_46AD20(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193384)), 10016, 10017, 0)

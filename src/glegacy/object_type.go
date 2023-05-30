@@ -45,14 +45,14 @@ func init() {
 func nox_xxx_unitDefGetCount_4E3AC0() int { return GetServer().S().Types.Count() }
 
 // nox_xxx_newObjectWithTypeInd_4E3450
-func nox_xxx_newObjectWithTypeInd_4E3450(ind int) *nox_object_t {
+func nox_xxx_newObjectWithTypeInd_4E3450(ind int32) *nox_object_t {
 	s := GetServer().S()
-	return asObjectC(s.Objs.NewObject(s.Types.ByInd(ind)))
+	return asObjectC(s.Objs.NewObject(s.Types.ByInd(int(ind))))
 }
 
 // nox_xxx_objectTypeByIndHealthData
-func nox_xxx_objectTypeByIndHealthData(ind int) unsafe.Pointer {
-	t := GetServer().S().Types.ByInd(ind)
+func nox_xxx_objectTypeByIndHealthData(ind int32) unsafe.Pointer {
+	t := GetServer().S().Types.ByInd(int(ind))
 	if t == nil {
 		return nil
 	}
@@ -60,7 +60,7 @@ func nox_xxx_objectTypeByIndHealthData(ind int) unsafe.Pointer {
 }
 
 // sub_4E4C50
-func sub_4E4C50(cobj *nox_object_t) int {
+func sub_4E4C50(cobj *nox_object_t) int32 {
 	item := asObjectS(cobj)
 	if item == nil {
 		return 0
@@ -69,14 +69,16 @@ func sub_4E4C50(cobj *nox_object_t) int {
 	if typ == nil {
 		return 0
 	}
-	return int(typ.InitDataSize)
+	return int32(typ.InitDataSize)
 }
 
 // sub_4F40A0
 func sub_4F40A0(a1 *nox_object_t) int8 { return int8(GetServer().S().Sub_4F40A0(asObjectS(a1))) }
 
 // sub_4E4C90
-func sub_4E4C90(a1 *nox_object_t, a2 uint) int { return bool2int(Sub_4E4C90(asObjectS(a1), a2)) }
+func sub_4E4C90(a1 *nox_object_t, a2 uint32) int32 {
+	return bool2int32(Sub_4E4C90(asObjectS(a1), uint(a2)))
+}
 
 // nox_xxx_getUnitDefDd10_4E3BA0
 func nox_xxx_getUnitDefDd10_4E3BA0(ind int32) int32 {
@@ -89,14 +91,14 @@ func nox_xxx_getUnitName_4E39D0(cobj *nox_object_t) *byte {
 }
 
 // sub_4E3B80
-func sub_4E3B80(ind int) int { return bool2int(Sub_4E3B80(ind)) }
+func sub_4E3B80(ind int32) int32 { return bool2int32(Sub_4E3B80(int(ind))) }
 
 // nox_xxx_getUnitNameByThingType_4E3A80
-func nox_xxx_getUnitNameByThingType_4E3A80(ind int) *byte {
+func nox_xxx_getUnitNameByThingType_4E3A80(ind int32) *byte {
 	if ind == 0 {
 		return nil
 	}
-	return internCStr(GetServer().S().Types.ByInd(ind).ID())
+	return internCStr(GetServer().S().Types.ByInd(int(ind)).ID())
 }
 
 // nox_objectTypeGetXfer
@@ -109,12 +111,12 @@ func nox_objectTypeGetXfer(cstr *byte) unsafe.Pointer {
 }
 
 // nox_objectTypeGetWorth
-func nox_objectTypeGetWorth(cstr *byte) int {
+func nox_objectTypeGetWorth(cstr *byte) int32 {
 	t := GetServer().S().Types.ByID(GoString(cstr))
 	if t == nil {
 		return -1
 	}
-	return t.Worth
+	return int32(t.Worth)
 }
 
 // nox_xxx_newObjectByTypeID_4E3810
@@ -127,26 +129,26 @@ func nox_xxx_newObjectByTypeID_4E3810(cstr *byte) *nox_object_t {
 }
 
 // nox_xxx_getNameId_4E3AA0
-func nox_xxx_getNameId_4E3AA0(cstr *byte) int {
-	return GetServer().S().Types.IndByID(GoString(cstr))
+func nox_xxx_getNameId_4E3AA0(cstr *byte) int32 {
+	return int32(GetServer().S().Types.IndByID(GoString(cstr)))
 }
 
 // sub_415A30
-func sub_415A30(a1 *byte) int {
+func sub_415A30(a1 *byte) int32 {
 	t := Sub415A30(GoString(a1))
 	if t == nil {
 		return -1
 	}
-	return t.Ind()
+	return int32(t.Ind())
 }
 
 // sub_415EC0
-func sub_415EC0(a1 *byte) int {
+func sub_415EC0(a1 *byte) int32 {
 	t := Sub415EC0(GoString(a1))
 	if t == nil {
 		return -1
 	}
-	return t.Ind()
+	return int32(t.Ind())
 }
 
 func Get_nox_xxx_XFerInvLight_4F5AA0() unsafe.Pointer {

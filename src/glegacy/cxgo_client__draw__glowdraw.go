@@ -288,7 +288,7 @@ func nox_thing_particle_draw(a1 int32, dr *nox_drawable) int32 {
 	v2 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*108)))))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*20)) >> 16
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*21)) >> 16
-	v3 = asFunc(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*31)), (*func(*uint32))(nil)).(func(*uint32))
+	v3 = asFunc(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*31)), (*func(*uint32))(nil)).(func(*uint32))
 	if v3 != nil {
 		v3(v2)
 	}

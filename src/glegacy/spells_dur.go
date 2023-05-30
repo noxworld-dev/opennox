@@ -26,7 +26,7 @@ func nox_xxx_spellCastedNext_4FE940(a1 unsafe.Pointer) unsafe.Pointer {
 }
 
 // sub_4FE8A0
-func sub_4FE8A0(a1 int) { Sub_4FE8A0(a1) }
+func sub_4FE8A0(a1 int32) { Sub_4FE8A0(int(a1)) }
 
 // sub_4FE900
 func sub_4FE900(a1 unsafe.Pointer) { Sub_4FE900(a1) }

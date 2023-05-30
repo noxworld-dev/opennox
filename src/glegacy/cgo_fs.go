@@ -106,27 +106,27 @@ func nox_fs_fsize(f *FILE) long {
 }
 
 // nox_fs_fread
-func nox_fs_fread(f *FILE, dst unsafe.Pointer, sz int) int {
+func nox_fs_fread(f *FILE, dst unsafe.Pointer, sz int32) int32 {
 	fp := fileByHandle(f)
 	n, _ := fp.Read(unsafe.Slice((*byte)(dst), sz))
-	return n
+	return int32(n)
 }
 
 // nox_fs_fwrite
-func nox_fs_fwrite(f *FILE, dst unsafe.Pointer, sz int) int {
+func nox_fs_fwrite(f *FILE, dst unsafe.Pointer, sz int32) int32 {
 	fp := fileByHandle(f)
 	n, _ := fp.Write(unsafe.Slice((*byte)(dst), sz))
-	return n
+	return int32(n)
 }
 
 // nox_fs_fgets
-func nox_fs_fgets(f *FILE, dst *byte, sz int) bool {
+func nox_fs_fgets(f *FILE, dst *byte, sz int32) bool {
 	fp := fileByHandle(f)
 	out, err := fp.ReadString()
 	if err != nil && !errors.Is(err, io.EOF) {
 		return false
 	}
-	StrCopy(dst, sz, string(out))
+	StrCopy(dst, int(sz), string(out))
 	return bool(!errors.Is(err, io.EOF))
 }
 

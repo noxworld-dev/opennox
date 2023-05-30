@@ -92,12 +92,12 @@ func (r *ImageRef) Field24ptr() *ImageRefAnim {
 }
 
 // nox_video_bag_image_type
-func nox_video_bag_image_type(img *nox_video_bag_image_t) int {
-	return asImage(img).Type()
+func nox_video_bag_image_type(img *nox_video_bag_image_t) int32 {
+	return int32(asImage(img).Type())
 }
 
 // nox_xxx_readImgMB_42FAA0
-func nox_xxx_readImgMB_42FAA0(known_idx int, typ int8, cname2 *byte) *nox_video_bag_image_t {
+func nox_xxx_readImgMB_42FAA0(known_idx int32, typ int8, cname2 *byte) *nox_video_bag_image_t {
 	return (*nox_video_bag_image_t)(GetClient().R2().GetBag().ImageRef(int(known_idx), byte(typ), GoString(cname2)).C())
 }
 

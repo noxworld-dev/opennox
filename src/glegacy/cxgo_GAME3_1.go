@@ -378,7 +378,7 @@ func sub_4BD280(a1 int32, a2 int32) *uint32 {
 		v5     int32
 	)
 	v2 = a2 + 4
-	result = (*uint32)(alloc.Calloc1(1, int(a1*(a2+4)+4)))
+	result = (*uint32)(alloc.Calloc1(1, uintptr(a1*(a2+4)+4)))
 	if result != nil {
 		v4 = (*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1))
 		*result = uint32(uintptr(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1)))))
@@ -722,7 +722,7 @@ func sub_4BD9B0(a2 *uint32) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*31)) = uint32(v1)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*32)) = 0
 	sub_4864A0((*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4)))
-	v2 = asFunc(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*36)), (*func(*uint32) int32)(nil)).(func(*uint32) int32)
+	v2 = asFunc(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*36)), (*func(*uint32) int32)(nil)).(func(*uint32) int32)
 	if v2 != nil {
 		result = v2(a2)
 	} else {
@@ -1909,20 +1909,20 @@ func sub_4C0030(a1 int32) int32 {
 	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(nox_gui_itemAmount_item_1319256)) + 12))) = uint32(v5) + dword_587000_183456
 	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(nox_gui_itemAmount_item_1319256)) + 16))) = uint32(v6) + dword_587000_183460
 	(*(*func(*uint8, uint32))(unsafe.Pointer(uintptr(uint32(uintptr(nox_gui_itemAmount_item_1319256)) + 300))))((*uint8)(memmap.PtrOff(0x5D4594, 1319108)), uint32(uintptr(nox_gui_itemAmount_item_1319256)))
-	if nox_xxx_wndGetChildByID_46B0C0((*nox_window)(nox_gui_itemAmount_dialog_1319228), 3603).draw_data.field_0&4 != 0 {
+	if nox_xxx_wndGetChildByID_46B0C0((*nox_window)(nox_gui_itemAmount_dialog_1319228), 3603).DrawData().field_0&4 != 0 {
 		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1319204)))), v5, v6)
 	}
-	if nox_xxx_wndGetChildByID_46B0C0((*nox_window)(nox_gui_itemAmount_dialog_1319228), 3602).draw_data.field_0&4 != 0 {
+	if nox_xxx_wndGetChildByID_46B0C0((*nox_window)(nox_gui_itemAmount_dialog_1319228), 3602).DrawData().field_0&4 != 0 {
 		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1319200)))), v5, v6)
 	}
-	if nox_xxx_wndGetChildByID_46B0C0((*nox_window)(nox_gui_itemAmount_dialog_1319228), 3604).draw_data.field_0&4 != 0 {
+	if nox_xxx_wndGetChildByID_46B0C0((*nox_window)(nox_gui_itemAmount_dialog_1319228), 3604).DrawData().field_0&4 != 0 {
 		v2 = int32(*memmap.PtrUint32(0x5D4594, 1319208))
 		if dword_5d4594_1319264 == 0 {
 			v2 = int32(*memmap.PtrUint32(0x5D4594, 1319220))
 		}
 		nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(v2))), v5, v6)
 	}
-	if nox_xxx_wndGetChildByID_46B0C0((*nox_window)(nox_gui_itemAmount_dialog_1319228), 3605).draw_data.field_0&4 != 0 {
+	if nox_xxx_wndGetChildByID_46B0C0((*nox_window)(nox_gui_itemAmount_dialog_1319228), 3605).DrawData().field_0&4 != 0 {
 		v3 = int32(*memmap.PtrUint32(0x5D4594, 1319212))
 		if dword_5d4594_1319264 == 0 {
 			v3 = int32(*memmap.PtrUint32(0x5D4594, 1319224))

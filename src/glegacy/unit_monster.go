@@ -12,7 +12,7 @@ var (
 )
 
 // nox_xxx_monsterCast_540A30
-func nox_xxx_monsterCast_540A30(cu *nox_object_t, spellInd int, a3p *nox_object_t) {
+func nox_xxx_monsterCast_540A30(cu *nox_object_t, spellInd int32, a3p *nox_object_t) {
 	Nox_xxx_monsterCast_540A30(asObjectS(cu), int(spellInd), asObjectS(a3p))
 }
 
@@ -22,7 +22,7 @@ func nox_xxx_monsterCreateFn_54C480(u *nox_object_t) {
 }
 
 func Nox_xxx_monsterDefByTT_517560(typ int) *server.MonsterDef {
-	return (*server.MonsterDef)(nox_xxx_monsterDefByTT_517560(int(typ)))
+	return (*server.MonsterDef)(nox_xxx_monsterDefByTT_517560(int32(typ)))
 }
 
 func Nox_xxx_monsterAutoSpells_54C0C0(u *server.Object) {

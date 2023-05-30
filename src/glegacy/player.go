@@ -38,8 +38,8 @@ func nox_xxx_playerSpell_4FB2A0_magic_plyrspel(up *nox_object_t) {
 }
 
 // nox_xxx_updateSpellRelated_424830
-func nox_xxx_updateSpellRelated_424830(p unsafe.Pointer, ph int) unsafe.Pointer {
-	return Nox_xxx_updateSpellRelated_424830(p, ph)
+func nox_xxx_updateSpellRelated_424830(p unsafe.Pointer, ph int32) unsafe.Pointer {
+	return Nox_xxx_updateSpellRelated_424830(p, int(ph))
 }
 
 // nox_common_playerInfoGetFirst_416EA0
@@ -161,7 +161,7 @@ func Nox_game_sendQuestStage_4D6960(v ntype.PlayerInd) {
 }
 
 func Nox_xxx_playerForceSendLessons_416E50(v int) {
-	nox_xxx_playerForceSendLessons_416E50(int(v))
+	nox_xxx_playerForceSendLessons_416E50(int32(v))
 }
 
 func Get_nox_xxx_updatePlayerObserver_4E62F0() unsafe.Pointer {
@@ -189,7 +189,7 @@ func Get_nox_xxx_updatePlayer_4F8100() unsafe.Pointer {
 }
 
 func Nox_xxx_playerUnsetStatus_417530(p *server.Player, a2 int) {
-	nox_xxx_playerUnsetStatus_417530((*nox_playerInfo)(p.C()), int(a2))
+	nox_xxx_playerUnsetStatus_417530((*nox_playerInfo)(p.C()), int32(a2))
 }
 
 func Nox_xxx_playerResetImportantCtr_4E4F40(v ntype.PlayerInd) {

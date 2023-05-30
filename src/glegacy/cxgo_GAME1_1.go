@@ -1208,7 +1208,7 @@ func sub_41AC30(a1p unsafe.Pointer, a2p unsafe.Pointer) int32 {
 				if v24 == nil {
 					return 0
 				}
-				if (asFunc(*(*uint32)(unsafe.Add(unsafe.Pointer(v24), 4*176)), (*func(*uint32, uint32) int32)(nil)).(func(*uint32, uint32) int32))(v24, 0) == 0 {
+				if (asFunc(*(*int32)(unsafe.Add(unsafe.Pointer(v24), 4*176)), (*func(*uint32, uint32) int32)(nil)).(func(*uint32, uint32) int32))(v24, 0) == 0 {
 					return 0
 				}
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v25), 4*14)) = 1161297920
@@ -2727,9 +2727,9 @@ func sub_41FBE0(a1 *uint32, a2 *uint32) int32 {
 	if *(*int32)(unsafe.Pointer(&dword_587000_60044)) == -1 {
 		return 0
 	}
-	*a1 = uint32(uintptr(memmap.PtrOff(0x5D4594, dword_587000_60044*24+531660)))
+	*a1 = uint32(uintptr(memmap.PtrOff(0x5D4594, uintptr(dword_587000_60044)*24+531660)))
 	result = 1
-	*a2 = uint32(uintptr(memmap.PtrOff(0x5D4594, dword_587000_60044*24+531670)))
+	*a2 = uint32(uintptr(memmap.PtrOff(0x5D4594, uintptr(dword_587000_60044)*24+531670)))
 	return result
 }
 func nox_xxx_officialStringCmp_41FDE0() int32 {
@@ -2935,7 +2935,7 @@ func nox_xxx_polygon_420CD0(a1 *uint32) *byte {
 	if v1 >= uint32(*(*int32)(unsafe.Pointer(&nox_xxx_polygonNextAngle_587000_60356))) {
 		return nil
 	}
-	for i = (*uint8)(memmap.PtrOff(0x5D4594, v1*16+535856)); *(*uint32)(unsafe.Pointer(i)) == 0; i = (*uint8)(unsafe.Add(unsafe.Pointer(i), 16)) {
+	for i = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v1)*16+535856)); *(*uint32)(unsafe.Pointer(i)) == 0; i = (*uint8)(unsafe.Add(unsafe.Pointer(i), 16)) {
 		if func() uint32 {
 			p := &v1
 			*p++
@@ -2944,7 +2944,7 @@ func nox_xxx_polygon_420CD0(a1 *uint32) *byte {
 			return nil
 		}
 	}
-	return (*byte)(memmap.PtrOff(0x5D4594, v1*16+535844))
+	return (*byte)(memmap.PtrOff(0x5D4594, uintptr(v1)*16+535844))
 }
 func sub_420D10() int32 {
 	var (
@@ -2990,9 +2990,9 @@ func nox_xxx_polygonSetAngle_420D40(a1 int32, a2 int32, a3 uint32, a4 int32) *ui
 	if !v4 {
 		nox_xxx_polygonNextAngle_587000_60356 = a3 + 1
 	}
-	*memmap.PtrUint32(0x5D4594, a3*16+535848) = uint32(a1)
-	*memmap.PtrUint32(0x5D4594, a3*16+535852) = uint32(a2)
-	*memmap.PtrUint32(0x5D4594, a3*16+535856) = 1
+	*memmap.PtrUint32(0x5D4594, uintptr(a3)*16+535848) = uint32(a1)
+	*memmap.PtrUint32(0x5D4594, uintptr(a3)*16+535852) = uint32(a2)
+	*memmap.PtrUint32(0x5D4594, uintptr(a3)*16+535856) = 1
 	return result
 }
 func sub_420DA0(a1 float32, a2 float32) *uint32 {
@@ -3298,7 +3298,7 @@ func sub_4214D0() {
 					}
 				}
 			}
-			v2 = (*uint8)(memmap.PtrOff(0x5D4594, **((**uint32)(unsafe.Add(unsafe.Pointer((**uint32)(unsafe.Pointer(v0))), unsafe.Sizeof((*uint32)(nil))*27)))*16+535844))
+			v2 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(**((**uint32)(unsafe.Add(unsafe.Pointer((**uint32)(unsafe.Pointer(v0))), unsafe.Sizeof((*uint32)(nil))*27))))*16+535844))
 			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v0))), 4*22))) = uint32(nox_float2int(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v2))), unsafe.Sizeof(float32(0))*1)))))
 			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v0))), 4*23))) = uint32(nox_float2int(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v2))), unsafe.Sizeof(float32(0))*2)))))
 			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v0))), 4*24))) = uint32(nox_float2int(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v2))), unsafe.Sizeof(float32(0))*1)))))
@@ -3367,7 +3367,7 @@ func nox_xxx_polygon_421660(a1 *int32, a2 int32) int32 {
 	} else {
 		v16.field_C = 0
 	}
-	v7 = (*uint8)(memmap.PtrOff(0x5D4594, *v6*16+535844))
+	v7 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(*v6)*16+535844))
 	v12.field_0 = nox_float2int(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v7))), unsafe.Sizeof(float32(0))*1))))
 	v8 = nox_float2int(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v7))), unsafe.Sizeof(float32(0))*2))))
 	v9 = *(*uint16)(unsafe.Pointer(uintptr(a2 + 128)))
@@ -5423,7 +5423,7 @@ func sub_425CA0(a1 int32, a2 int32) *byte {
 					*((*uint8)(unsafe.Pointer(&v12))) = math.MaxUint8
 				}
 				v11 = int32(dword_5d4594_739392)
-				*memmap.PtrUint8(0x5D4594, dword_5d4594_739392*2+608320) = uint8(int8(v13))
+				*memmap.PtrUint8(0x5D4594, uintptr(dword_5d4594_739392)*2+608320) = uint8(int8(v13))
 				*memmap.PtrUint8(0x5D4594, uintptr(v11*2)+608321) = uint8(int8(v12))
 				dword_5d4594_739392 = uint32(v11 + 1)
 				result = *(**byte)(unsafe.Pointer(&dword_5d4594_608316))

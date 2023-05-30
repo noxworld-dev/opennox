@@ -214,10 +214,10 @@ func Sub_4A0360() {
 	sub_4A0360()
 }
 func Sub_49FFA0(a1 int) {
-	sub_49FFA0(int(a1))
+	sub_49FFA0(int32(a1))
 }
 func Sub_437860(a1 int, a2 int) int {
-	return int(sub_437860(int(a1), int(a2)))
+	return int(sub_437860(int32(a1), int32(a2)))
 }
 func Nox_xxx_checkSomeFlagsOnJoin_4899C0(a1 *Nox_gui_server_ent_t) int {
 	return int(nox_xxx_checkSomeFlagsOnJoin_4899C0(a1.C()))
@@ -226,5 +226,5 @@ func Nox_wol_servers_addResult_4A0030(a1 *Nox_gui_server_ent_t) {
 	nox_wol_servers_addResult_4A0030(a1.C())
 }
 func Sub_4375C0(a1 int) {
-	sub_4375C0(int(a1))
+	sub_4375C0(int32(a1))
 }

@@ -41,26 +41,26 @@ func nox_xxx_spellGetDefArrayPtr_424820() unsafe.Pointer {
 }
 
 // nox_xxx_getEnchantSpell_424920
-func nox_xxx_getEnchantSpell_424920(enc int) int {
-	return int(server.EnchantID(enc).Spell())
+func nox_xxx_getEnchantSpell_424920(enc int32) int32 {
+	return int32(server.EnchantID(enc).Spell())
 }
 
 // nox_xxx_getEnchantName_4248F0
-func nox_xxx_getEnchantName_4248F0(enc int) *byte {
+func nox_xxx_getEnchantName_4248F0(enc int32) *byte {
 	return internCStr(server.EnchantID(enc).String())
 }
 
 // nox_xxx_enchantByName_424880
-func nox_xxx_enchantByName_424880(cname *byte) int {
+func nox_xxx_enchantByName_424880(cname *byte) int32 {
 	id, ok := server.ParseEnchant(GoString(cname))
 	if !ok {
 		return -1
 	}
-	return int(id)
+	return int32(id)
 }
 
 // nox_xxx_spellNameByN_424870
-func nox_xxx_spellNameByN_424870(ind int) *byte {
+func nox_xxx_spellNameByN_424870(ind int32) *byte {
 	s := spell.ID(ind).String()
 	if s == "" {
 		return nil
@@ -69,13 +69,13 @@ func nox_xxx_spellNameByN_424870(ind int) *byte {
 }
 
 // nox_xxx_spellNameToN_4243F0
-func nox_xxx_spellNameToN_4243F0(cid *byte) int {
+func nox_xxx_spellNameToN_4243F0(cid *byte) int32 {
 	id := GoString(cid)
 	ind := spell.ParseID(id)
 	if ind <= 0 {
 		return 0
 	}
-	return int(ind)
+	return int32(ind)
 }
 
 // nox_xxx_spellAwardAll1_4EFD80
@@ -88,7 +88,7 @@ func nox_xxx_spellAwardAll2_4EFC80(p *nox_playerInfo) { Nox_xxx_spellAwardAll2_4
 func nox_xxx_spellAwardAll3_4EFE10(p *nox_playerInfo) { Nox_xxx_spellAwardAll3_4EFE10(asPlayerS(p)) }
 
 // nox_xxx_spellFlySearchTarget_540610
-func nox_xxx_spellFlySearchTarget_540610(cpos *float2, msl *nox_object_t, sflags int, dist float32, a5 int, self *nox_object_t) *nox_object_t {
+func nox_xxx_spellFlySearchTarget_540610(cpos *float2, msl *nox_object_t, sflags int32, dist float32, a5 int32, self *nox_object_t) *nox_object_t {
 	var pos *types.Pointf
 	if cpos != nil {
 		pos = &types.Pointf{X: float32(cpos.field_0), Y: float32(cpos.field_4)}
@@ -97,11 +97,13 @@ func nox_xxx_spellFlySearchTarget_540610(cpos *float2, msl *nox_object_t, sflags
 }
 
 // nox_xxx_spellGetAud44_424800
-func nox_xxx_spellGetAud44_424800(ind, a2 int) int { return Nox_xxx_spellGetAud44_424800(ind, a2) }
+func nox_xxx_spellGetAud44_424800(ind, a2 int32) int32 {
+	return int32(Nox_xxx_spellGetAud44_424800(int(ind), int(a2)))
+}
 
 // nox_xxx_spellTitle_424930
-func nox_xxx_spellTitle_424930(ind int) *wchar2_t {
-	s, ok := Nox_xxx_spellTitle_424930(ind)
+func nox_xxx_spellTitle_424930(ind int32) *wchar2_t {
+	s, ok := Nox_xxx_spellTitle_424930(int(ind))
 	if !ok {
 		return nil
 	}
@@ -109,8 +111,8 @@ func nox_xxx_spellTitle_424930(ind int) *wchar2_t {
 }
 
 // nox_xxx_spellDescription_424A30
-func nox_xxx_spellDescription_424A30(ind int) *wchar2_t {
-	s, ok := Nox_xxx_spellDescription_424A30(ind)
+func nox_xxx_spellDescription_424A30(ind int32) *wchar2_t {
+	s, ok := Nox_xxx_spellDescription_424A30(int(ind))
 	if !ok {
 		return nil
 	}
@@ -118,59 +120,65 @@ func nox_xxx_spellDescription_424A30(ind int) *wchar2_t {
 }
 
 // nox_xxx_spellByTitle_424960
-func nox_xxx_spellByTitle_424960(ctitle *wchar2_t) int {
-	return Nox_xxx_spellByTitle_424960(GoWString(ctitle))
+func nox_xxx_spellByTitle_424960(ctitle *wchar2_t) int32 {
+	return int32(Nox_xxx_spellByTitle_424960(GoWString(ctitle)))
 }
 
 // nox_xxx_spellManaCost_4249A0
-func nox_xxx_spellManaCost_4249A0(ind, a2 int) int { return Nox_xxx_spellManaCost_4249A0(ind, a2) }
+func nox_xxx_spellManaCost_4249A0(ind, a2 int32) int32 {
+	return int32(Nox_xxx_spellManaCost_4249A0(int(ind), int(a2)))
+}
 
 // nox_xxx_spellPhonemes_424A20
-func nox_xxx_spellPhonemes_424A20(ind, ind2 int) int8 {
-	return int8(Nox_xxx_spellPhonemes_424A20(ind, ind2))
+func nox_xxx_spellPhonemes_424A20(ind, ind2 int32) int8 {
+	return int8(Nox_xxx_spellPhonemes_424A20(int(ind), int(ind2)))
 }
 
 // nox_xxx_spellHasFlags_424A50
-func nox_xxx_spellHasFlags_424A50(ind, flags int) bool {
+func nox_xxx_spellHasFlags_424A50(ind, flags int32) bool {
 	return GetServer().SpellHasFlags(spell.ID(ind), things.SpellFlags(flags))
 }
 
 // nox_xxx_spellFlags_424A70
-func nox_xxx_spellFlags_424A70(ind int) uint { return uint(GetServer().SpellFlags(spell.ID(ind))) }
+func nox_xxx_spellFlags_424A70(ind int32) uint32 {
+	return uint32(GetServer().SpellFlags(spell.ID(ind)))
+}
 
 // nox_xxx_spellIcon_424A90
-func nox_xxx_spellIcon_424A90(ind int) unsafe.Pointer { return Nox_xxx_spellIcon_424A90(ind) }
+func nox_xxx_spellIcon_424A90(ind int32) unsafe.Pointer { return Nox_xxx_spellIcon_424A90(int(ind)) }
 
 // nox_xxx_spellIconHighlight_424AB0
-func nox_xxx_spellIconHighlight_424AB0(ind int) unsafe.Pointer {
-	return Nox_xxx_spellIconHighlight_424AB0(ind)
+func nox_xxx_spellIconHighlight_424AB0(ind int32) unsafe.Pointer {
+	return Nox_xxx_spellIconHighlight_424AB0(int(ind))
 }
 
 // nox_xxx_spellFirstValid_424AD0
-func nox_xxx_spellFirstValid_424AD0() int { return Nox_xxx_spellFirstValid_424AD0() }
+func nox_xxx_spellFirstValid_424AD0() int32 { return int32(Nox_xxx_spellFirstValid_424AD0()) }
 
 // nox_xxx_spellNextValid_424AF0
-func nox_xxx_spellNextValid_424AF0(ind int) int { return Nox_xxx_spellNextValid_424AF0(ind) }
+func nox_xxx_spellNextValid_424AF0(ind int32) int32 {
+	return int32(Nox_xxx_spellNextValid_424AF0(int(ind)))
+}
 
 // nox_xxx_spellIsValid_424B50
-func nox_xxx_spellIsValid_424B50(ind int) bool { return bool(Nox_xxx_spellIsValid_424B50(ind)) }
+func nox_xxx_spellIsValid_424B50(ind int32) bool { return Nox_xxx_spellIsValid_424B50(int(ind)) }
 
 // nox_xxx_spellIsEnabled_424B70
-func nox_xxx_spellIsEnabled_424B70(ind int) bool { return bool(Nox_xxx_spellIsEnabled_424B70(ind)) }
+func nox_xxx_spellIsEnabled_424B70(ind int32) bool { return Nox_xxx_spellIsEnabled_424B70(int(ind)) }
 
 // nox_xxx_spellEnable_424B90
-func nox_xxx_spellEnable_424B90(ind int) bool { return bool(Nox_xxx_spellEnable_424B90(ind)) }
+func nox_xxx_spellEnable_424B90(ind int32) bool { return Nox_xxx_spellEnable_424B90(int(ind)) }
 
 // nox_xxx_spellDisable_424BB0
-func nox_xxx_spellDisable_424BB0(ind int) bool { return bool(Nox_xxx_spellDisable_424BB0(ind)) }
+func nox_xxx_spellDisable_424BB0(ind int32) bool { return Nox_xxx_spellDisable_424BB0(int(ind)) }
 
 // nox_xxx_spellCanUseInTrap_424BF0
-func nox_xxx_spellCanUseInTrap_424BF0(ind int) bool {
-	return bool(Nox_xxx_spellCanUseInTrap_424BF0(ind))
+func nox_xxx_spellCanUseInTrap_424BF0(ind int32) bool {
+	return bool(Nox_xxx_spellCanUseInTrap_424BF0(int(ind)))
 }
 
 // nox_xxx_spellPrice_424C40
-func nox_xxx_spellPrice_424C40(ind int) int { return Nox_xxx_spellPrice_424C40(ind) }
+func nox_xxx_spellPrice_424C40(ind int32) int32 { return int32(Nox_xxx_spellPrice_424C40(int(ind))) }
 
 // nox_xxx_spellEnableAll_424BD0
 func nox_xxx_spellEnableAll_424BD0() { Nox_xxx_spellEnableAll_424BD0() }

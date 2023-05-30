@@ -4,7 +4,7 @@ func Sub_4AD840() {
 	sub_4AD840()
 }
 func Sub_409E70(a1 int) {
-	sub_409E70(int(a1))
+	sub_409E70(int32(a1))
 }
 func Nox_xxx_ammoCheck_415880(a1 int) int {
 	return int(nox_xxx_ammoCheck_415880(uint16(a1)))

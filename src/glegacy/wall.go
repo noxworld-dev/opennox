@@ -56,23 +56,23 @@ func sub_57B500(x, y int32, flags int8) int8 {
 }
 
 // sub_4D72C0
-func sub_4D72C0() int {
-	return int(bool2int(GetServer().S().Doors.Sub_4D72C0()))
+func sub_4D72C0() int32 {
+	return bool2int32(GetServer().S().Doors.Sub_4D72C0())
 }
 
 // sub_4D72B0
-func sub_4D72B0(v int) {
+func sub_4D72B0(v int32) {
 	GetServer().S().Doors.Sub_4D72B0(v != 0)
 }
 
 // nox_xxx_wallFlags
-func nox_xxx_wallFlags(ind int) uint32 {
-	return GetServer().S().Walls.DefByInd(ind).Flags32
+func nox_xxx_wallFlags(ind int32) uint32 {
+	return GetServer().S().Walls.DefByInd(int(ind)).Flags32
 }
 
 // nox_xxx_wallGetBrickObj_410E60
-func nox_xxx_wallGetBrickObj_410E60(ind int, ind2 int) *byte {
-	return internCStr(GetServer().S().Walls.DefByInd(ind).BrickObject(ind2))
+func nox_xxx_wallGetBrickObj_410E60(ind int32, ind2 int32) *byte {
+	return internCStr(GetServer().S().Walls.DefByInd(int(ind)).BrickObject(int(ind2)))
 }
 
 // nox_xxx_getWallSprite_46A3B0
@@ -93,28 +93,28 @@ func nox_xxx_mapWallMaxVariation_410DD0(ind int32, a2 int32, a3 int32) byte {
 }
 
 // nox_xxx_map_410E00
-func nox_xxx_map_410E00(ind int) byte {
-	return GetServer().S().Walls.DefByInd(ind).Field749
+func nox_xxx_map_410E00(ind int32) byte {
+	return GetServer().S().Walls.DefByInd(int(ind)).Field749
 }
 
 // nox_xxx_mapWallGetHpByTile_410E20
-func nox_xxx_mapWallGetHpByTile_410E20(ind int) byte {
-	return GetServer().S().Walls.DefByInd(ind).Health41
+func nox_xxx_mapWallGetHpByTile_410E20(ind int32) byte {
+	return GetServer().S().Walls.DefByInd(int(ind)).Health41
 }
 
 // nox_xxx_wallGetBrickTypeMB_410E40
-func nox_xxx_wallGetBrickTypeMB_410E40(ind int) byte {
-	return GetServer().S().Walls.DefByInd(ind).BrickType42
+func nox_xxx_wallGetBrickTypeMB_410E40(ind int32) byte {
+	return GetServer().S().Walls.DefByInd(int(ind)).BrickType42
 }
 
 // nox_xxx_wallField36
-func nox_xxx_wallField36(ind int) uint16 {
-	return GetServer().S().Walls.DefByInd(ind).Field36
+func nox_xxx_wallField36(ind int32) uint16 {
+	return GetServer().S().Walls.DefByInd(int(ind)).Field36
 }
 
 // nox_xxx_wallSoundByTile_410EA0
-func nox_xxx_wallSoundByTile_410EA0(ind int) *byte {
-	return internCStr(GetServer().S().Walls.DefByInd(ind).BreakSound())
+func nox_xxx_wallSoundByTile_410EA0(ind int32) *byte {
+	return internCStr(GetServer().S().Walls.DefByInd(int(ind)).BreakSound())
 }
 
 // nox_xxx_wallFindOpenSound_410EE0

@@ -42,8 +42,8 @@ func sub_4C42A0(a1 *int2, a2 *int2, a3 *int32, a4 *int32) int32 {
 }
 
 // sub_4C5630
-func sub_4C5630(a1 int32, a2 int32, a3 int32) int {
-	return GetClient().Sub4C5630(int(a1), int(a2), int(a3))
+func sub_4C5630(a1 int32, a2 int32, a3 int32) int32 {
+	return int32(GetClient().Sub4C5630(int(a1), int(a2), int(a3)))
 }
 
 // nox_draw_getViewport_437250
@@ -64,8 +64,8 @@ func nox_xxx_getSomeCoods_435670(a1 *int2) {
 }
 
 // nox_xxx_cliUpdateCameraPos_435600
-func nox_xxx_cliUpdateCameraPos_435600(x, y int) {
-	Nox_xxx_cliUpdateCameraPos_435600(x, y)
+func nox_xxx_cliUpdateCameraPos_435600(x, y int32) {
+	Nox_xxx_cliUpdateCameraPos_435600(int(x), int(y))
 }
 
 // sub_437260
@@ -82,18 +82,18 @@ func nox_draw_splitColor_435280(cl int16, pr, pg, pb *byte) {
 }
 
 // nox_draw_setMaterial_4340A0
-func nox_draw_setMaterial_4340A0(ind, r, g, b int) {
-	GetClient().R2().Data().SetMaterialRGB(ind, r, g, b)
+func nox_draw_setMaterial_4340A0(ind, r, g, b int32) {
+	GetClient().R2().Data().SetMaterialRGB(int(ind), int(r), int(g), int(b))
 }
 
 // nox_draw_setMaterial_4341D0
-func nox_draw_setMaterial_4341D0(ind, cl int) {
-	GetClient().R2().Data().SetMaterial(ind, noxcolor.RGBA5551(cl))
+func nox_draw_setMaterial_4341D0(ind, cl int32) {
+	GetClient().R2().Data().SetMaterial(int(ind), noxcolor.RGBA5551(cl))
 }
 
 // sub_434080
-func sub_434080(a1 int) {
-	GetClient().R2().Data().SetField262(a1)
+func sub_434080(a1 int32) {
+	GetClient().R2().Data().SetField262(int(a1))
 }
 
 // nox_xxx_drawSetTextColor_434390
@@ -146,12 +146,12 @@ func sub_4349C0(a1 *uint) {
 }
 
 // sub_47D370
-func sub_47D370(a1 int) {
-	GetClient().R2().Set_dword_5d4594_3799484(a1)
+func sub_47D370(a1 int32) {
+	GetClient().R2().Set_dword_5d4594_3799484(int(a1))
 }
 
 // sub_47D400
-func sub_47D400(a1 int, a2 int8) {
+func sub_47D400(a1 int32, a2 int8) {
 	GetClient().R2().SetInterlacing(a1 != 0, int(a2))
 }
 
@@ -192,17 +192,17 @@ func nox_client_drawLineFromPoints_49E4B0() int32 {
 }
 
 // sub_49E4F0
-func sub_49E4F0(a1 int) int32 {
-	return bool2int32(GetClient().R2().DrawParticles49ED80(a1))
+func sub_49E4F0(a1 int32) int32 {
+	return bool2int32(GetClient().R2().DrawParticles49ED80(int(a1)))
 }
 
 // sub_480860
-func sub_480860(a1, a2 *uint16, w int, a4, a5 *int) {
+func sub_480860(a1, a2 *uint16, w int32, a4, a5 *int32) {
 	dst := unsafe.Slice((*uint16)(unsafe.Pointer(a1)), w)
 	src := unsafe.Slice((*uint16)(unsafe.Pointer(a2)), w)
 	a4p := unsafe.Slice((*uint32)(unsafe.Pointer(a4)), 3)
 	a5p := unsafe.Slice((*uint32)(unsafe.Pointer(a5)), 3)
-	Sub_480860(dst, src, w, a4p, a5p)
+	Sub_480860(dst, src, int(w), a4p, a5p)
 }
 
 // nox_draw_setColorMultAndIntensityRGB_433CD0
@@ -221,9 +221,9 @@ func nox_draw_set54RGB32_434040(cl int32) {
 }
 
 // nox_draw_setColorMultAndIntensity_433E40
-func nox_draw_setColorMultAndIntensity_433E40(cl int32) int {
+func nox_draw_setColorMultAndIntensity_433E40(cl int32) int32 {
 	c := noxcolor.RGBA5551(cl).ColorNRGBA()
-	return int(GetClient().R2().SetColorMultAndIntensityRGB(c.R, c.G, c.B))
+	return int32(GetClient().R2().SetColorMultAndIntensityRGB(c.R, c.G, c.B))
 }
 
 // sub_437290
@@ -255,9 +255,9 @@ func nox_client_drawPixel_49EFA0(a1, a2 int32) {
 }
 
 // nox_client_drawPoint_4B0BC0
-func nox_client_drawPoint_4B0BC0(a1, a2, a3 int) {
+func nox_client_drawPoint_4B0BC0(a1, a2, a3 int32) {
 	r := GetClient().R2()
-	r.DrawPointRad(image.Pt(a1, a2), a3, r.Data().Color2())
+	r.DrawPointRad(image.Pt(int(a1), int(a2)), int(a3), r.Data().Color2())
 }
 
 // nox_xxx_drawPointMB_499B70
@@ -293,62 +293,62 @@ func nox_xxx_drawGetStringSize_43F840(font unsafe.Pointer, sp *wchar2_t, outW, o
 }
 
 // nox_xxx_bookGetStringSize_43FA80
-func nox_xxx_bookGetStringSize_43FA80(font unsafe.Pointer, sp *wchar2_t, outW, outH *int, maxW int) int {
+func nox_xxx_bookGetStringSize_43FA80(font unsafe.Pointer, sp *wchar2_t, outW, outH *int32, maxW int32) int32 {
 	r := GetClient().R2()
-	sz := r.GetStringSizeWrappedStyle(r.GetFonts().AsFont(font), GoWString(sp), maxW)
+	sz := r.GetStringSizeWrappedStyle(r.GetFonts().AsFont(font), GoWString(sp), int(maxW))
 	if outW != nil {
-		*outW = int(sz.X)
+		*outW = int32(sz.X)
 	}
 	if outH != nil {
-		*outH = int(sz.Y)
+		*outH = int32(sz.Y)
 	}
-	return bool2int(sz != (image.Point{}))
+	return bool2int32(sz != (image.Point{}))
 }
 
 // nox_xxx_drawString_43F6E0
-func nox_xxx_drawString_43F6E0(font unsafe.Pointer, sp *wchar2_t, x, y int) int {
+func nox_xxx_drawString_43F6E0(font unsafe.Pointer, sp *wchar2_t, x, y int32) int32 {
 	r := GetClient().R2()
-	return r.DrawString(r.GetFonts().AsFont(font), GoWString(sp), image.Point{X: x, Y: y})
+	return int32(r.DrawString(r.GetFonts().AsFont(font), GoWString(sp), image.Point{X: int(x), Y: int(y)}))
 }
 
 // nox_draw_drawStringHL_43F730
-func nox_draw_drawStringHL_43F730(font unsafe.Pointer, sp *wchar2_t, x, y int) int {
+func nox_draw_drawStringHL_43F730(font unsafe.Pointer, sp *wchar2_t, x, y int32) int32 {
 	r := GetClient().R2()
-	return r.DrawStringHL(r.GetFonts().AsFont(font), GoWString(sp), image.Point{X: x, Y: y})
+	return int32(r.DrawStringHL(r.GetFonts().AsFont(font), GoWString(sp), image.Point{X: int(x), Y: int(y)}))
 }
 
 // nox_xxx_drawStringWrap_43FAF0
-func nox_xxx_drawStringWrap_43FAF0(font unsafe.Pointer, sp *wchar2_t, x, y, maxW, maxH int) int {
+func nox_xxx_drawStringWrap_43FAF0(font unsafe.Pointer, sp *wchar2_t, x, y, maxW, maxH int32) int32 {
 	r := GetClient().R2()
-	return r.DrawStringWrapped(r.GetFonts().AsFont(font), GoWString(sp), image.Rect(x, y, x+maxW, y+maxH))
+	return int32(r.DrawStringWrapped(r.GetFonts().AsFont(font), GoWString(sp), image.Rect(int(x), int(y), int(x+maxW), int(y+maxH))))
 }
 
 // nox_xxx_drawStringWrapHL_43FD00
-func nox_xxx_drawStringWrapHL_43FD00(font unsafe.Pointer, sp *wchar2_t, x, y, maxW, maxH int) int {
+func nox_xxx_drawStringWrapHL_43FD00(font unsafe.Pointer, sp *wchar2_t, x, y, maxW, maxH int32) int32 {
 	r := GetClient().R2()
-	return r.DrawStringWrappedHL(r.GetFonts().AsFont(font), GoWString(sp), image.Rect(x, y, x+maxW, y+maxH))
+	return int32(r.DrawStringWrappedHL(r.GetFonts().AsFont(font), GoWString(sp), image.Rect(int(x), int(y), int(x+maxW), int(y+maxH))))
 }
 
 // nox_xxx_bookDrawString_43FA80_43FD80
-func nox_xxx_bookDrawString_43FA80_43FD80(font unsafe.Pointer, s *wchar2_t, x, y, maxW, maxH int) int {
+func nox_xxx_bookDrawString_43FA80_43FD80(font unsafe.Pointer, s *wchar2_t, x, y, maxW, maxH int32) int32 {
 	r := GetClient().R2()
-	return r.DrawStringWrappedStyle(r.GetFonts().AsFont(font), GoWString(s), image.Rect(x, y, x+maxW, y+maxH))
+	return int32(r.DrawStringWrappedStyle(r.GetFonts().AsFont(font), GoWString(s), image.Rect(int(x), int(y), int(x+maxW), int(y+maxH))))
 }
 
 // nox_xxx_drawStringStyle_43F7B0
-func nox_xxx_drawStringStyle_43F7B0(font unsafe.Pointer, sp *wchar2_t, x, y int) int {
+func nox_xxx_drawStringStyle_43F7B0(font unsafe.Pointer, sp *wchar2_t, x, y int32) int32 {
 	r := GetClient().R2()
-	return r.DrawStringStyle(r.GetFonts().AsFont(font), GoWString(sp), image.Point{X: x, Y: y})
+	return int32(r.DrawStringStyle(r.GetFonts().AsFont(font), GoWString(sp), image.Point{X: int(x), Y: int(y)}))
 }
 
 // nox_video_drawAnimatedImageOrCursorAt_4BE6D0
-func nox_video_drawAnimatedImageOrCursorAt_4BE6D0(a1, a2, a3 int) {
-	GetClient().Nox_video_drawAnimatedImageOrCursorAt(AsImageRefP(unsafe.Pointer(uintptr(a1))), image.Point{X: a2, Y: a3})
+func nox_video_drawAnimatedImageOrCursorAt_4BE6D0(a1, a2, a3 int32) {
+	GetClient().Nox_video_drawAnimatedImageOrCursorAt(AsImageRefP(unsafe.Pointer(uintptr(a1))), image.Point{X: int(a2), Y: int(a3)})
 }
 
 // sub_484C60
-func sub_484C60(a1 float32) int {
-	return client.LightRadius(float32(a1))
+func sub_484C60(a1 float32) int32 {
+	return int32(client.LightRadius(float32(a1)))
 }
 
 // sub_469920
@@ -363,13 +363,13 @@ func nox_xxx_drawList1096512_Append_4754C0(p unsafe.Pointer) {
 }
 
 // nox_video_drawCircleColored_4C3270
-func nox_video_drawCircleColored_4C3270(a1, a2, a3, a4 int) {
-	GetClient().R2().DrawCircle(a1, a2, a3, noxcolor.RGBA5551(a4))
+func nox_video_drawCircleColored_4C3270(a1, a2, a3, a4 int32) {
+	GetClient().R2().DrawCircle(int(a1), int(a2), int(a3), noxcolor.RGBA5551(a4))
 }
 
 // nox_video_drawCircle_4B0B90
-func nox_video_drawCircle_4B0B90(a1, a2, a3 int) {
-	GetClient().R2().DrawCircle(a1, a2, a3, GetClient().R2().Data().Color2())
+func nox_video_drawCircle_4B0B90(a1, a2, a3 int32) {
+	GetClient().R2().DrawCircle(int(a1), int(a2), int(a3), GetClient().R2().Data().Color2())
 }
 
 // nox_client_drawImageAt_47D2C0
@@ -417,8 +417,8 @@ func nox_video_getImagePixdata_42FB30(img *nox_video_bag_image_t) unsafe.Pointer
 }
 
 // sub_4AE6F0
-func sub_4AE6F0(cx, cy, rad, ang, ccl int) {
-	GetClient().R2().DrawCircleSegment(cx, cy, rad, ang, noxcolor.RGBA5551(ccl))
+func sub_4AE6F0(cx, cy, rad, ang, ccl int32) {
+	GetClient().R2().DrawCircleSegment(int(cx), int(cy), int(rad), int(ang), noxcolor.RGBA5551(ccl))
 }
 
 // sub_473970
@@ -429,8 +429,8 @@ func sub_473970(a1, a2p *int2) {
 }
 
 // nox_client_isConnected_43C700
-func nox_client_isConnected_43C700() int {
-	return bool2int(Nox_client_isConnected())
+func nox_client_isConnected_43C700() int32 {
+	return bool2int32(Nox_client_isConnected())
 }
 
 func toRect(cr *nox_rect) image.Rectangle {

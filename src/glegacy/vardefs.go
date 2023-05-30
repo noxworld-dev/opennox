@@ -12,7 +12,7 @@ func Sub_460D40() bool {
 }
 
 func Sub_4D7140(a1 uint32) {
-	dword_5d4594_1556144 = uint(a1)
+	dword_5d4594_1556144 = uint32(a1)
 }
 
 func Sub_43AF30() uint32 {
@@ -324,7 +324,7 @@ func Get_nox_client_gui_flag_1556112() int {
 }
 
 func Set_dword_5d4594_1599628(v int) {
-	dword_5d4594_1599628 = uint(v)
+	dword_5d4594_1599628 = uint32(v)
 }
 
 func Sub_41E2F0() int {
@@ -344,16 +344,16 @@ func Nox_xxx_get_57AF20() int {
 }
 
 func Set_nox_xxx_wallSounds_2386840(v int) {
-	nox_xxx_wallSounds_2386840 = uint(v)
+	nox_xxx_wallSounds_2386840 = uint32(v)
 }
 func Set_dword_5d4594_1599644(v int) {
-	dword_5d4594_1599644 = uint(v)
+	dword_5d4594_1599644 = uint32(v)
 }
 func Set_dword_5d4594_1599480(v uint32) {
-	dword_5d4594_1599480 = uint(v)
+	dword_5d4594_1599480 = uint32(v)
 }
 func Set_dword_5d4594_1599476(v int) {
-	dword_5d4594_1599476 = uint(v)
+	dword_5d4594_1599476 = uint32(v)
 }
 func Set_dword_5d4594_1599540(v unsafe.Pointer) {
 	dword_5d4594_1599540 = v
@@ -371,37 +371,37 @@ func Get_dword_5d4594_2386836() int {
 	return int(dword_5d4594_2386836)
 }
 func Set_dword_5d4594_2386836(v int) {
-	dword_5d4594_2386836 = uint(v)
+	dword_5d4594_2386836 = uint32(v)
 }
 func Set_dword_5d4594_2386848(v int) {
-	dword_5d4594_2386848 = int(v)
+	dword_5d4594_2386848 = int32(v)
 }
 func Set_dword_5d4594_2386852(v int) {
-	dword_5d4594_2386852 = uint(v)
+	dword_5d4594_2386852 = uint32(v)
 }
 func Set_dword_5d4594_815104(v int) {
-	dword_5d4594_815104 = int(v)
+	dword_5d4594_815104 = int32(v)
 }
 func Set_nox_wol_server_result_cnt_815088(v int) {
-	nox_wol_server_result_cnt_815088 = uint(v)
+	nox_wol_server_result_cnt_815088 = uint32(v)
 }
 func Set_qword_5d4594_815068(v uint64) {
 	qword_5d4594_815068 = ulonglong(v)
 }
 func Set_nox_client_connError_814552(v int) {
-	nox_client_connError_814552 = uint(v)
+	nox_client_connError_814552 = uint32(v)
 }
 func Set_dword_5d4594_815056(v int) {
-	dword_5d4594_815056 = uint(v)
+	dword_5d4594_815056 = uint32(v)
 }
 func Set_nox_game_createOrJoin_815048(v int) {
-	nox_game_createOrJoin_815048 = uint(v)
+	nox_game_createOrJoin_815048 = uint32(v)
 }
 func Set_dword_5d4594_527988(v int) {
-	dword_5d4594_527988 = uint(v)
+	dword_5d4594_527988 = uint32(v)
 }
 func Set_dword_5d4594_10984(v int) {
-	dword_5d4594_10984 = uint(v)
+	dword_5d4594_10984 = uint32(v)
 }
 func Set_nox_alloc_screenParticles_806044(v unsafe.Pointer) {
 	nox_alloc_screenParticles_806044 = v
@@ -416,109 +416,109 @@ func Set_dword_5d4594_830236(v unsafe.Pointer) {
 	dword_5d4594_830236 = v
 }
 func Set_nox_gameDisableMapDraw_5d4594_2650672(v int) {
-	nox_gameDisableMapDraw_5d4594_2650672 = uint(v)
+	nox_gameDisableMapDraw_5d4594_2650672 = uint32(v)
 }
 func Set_dword_5d4594_831224(v int) {
-	dword_5d4594_831224 = uint(v)
+	dword_5d4594_831224 = uint32(v)
 }
 func Set_dword_5d4594_1563096(v int) {
-	dword_5d4594_1563096 = uint(v)
+	dword_5d4594_1563096 = uint32(v)
 }
 func Set_dword_5d4594_830872(v int) {
-	dword_5d4594_830872 = uint(v)
+	dword_5d4594_830872 = uint32(v)
 }
 func Set_dword_5d4594_830972(v int) {
-	dword_5d4594_830972 = uint(v)
+	dword_5d4594_830972 = uint32(v)
 }
 func Set_nox_win_width(v int) {
-	nox_win_width = int(v)
+	nox_win_width = int32(v)
 }
 func Set_nox_win_height(v int) {
-	nox_win_height = int(v)
+	nox_win_height = int32(v)
 }
 func Set_dword_5d4594_823776(v int) {
-	dword_5d4594_823776 = uint(v)
+	dword_5d4594_823776 = uint32(v)
 }
 func Set_nox_draw_curDrawData_3799572(v *noxrender.RenderData) {
 	nox_draw_curDrawData_3799572 = (*nox_render_data_t)(v.C())
 }
 func Set_nox_color_black_2650656(v uint32) {
-	nox_color_black_2650656 = uint(v)
+	nox_color_black_2650656 = uint32(v)
 }
 func Set_nox_color_white_2523948(v uint32) {
-	nox_color_white_2523948 = uint(v)
+	nox_color_white_2523948 = uint32(v)
 }
 func Set_nox_color_violet_2598268(v uint32) {
-	nox_color_violet_2598268 = uint(v)
+	nox_color_violet_2598268 = uint32(v)
 }
 func Set_nox_color_red_2589776(v uint32) {
-	nox_color_red_2589776 = uint(v)
+	nox_color_red_2589776 = uint32(v)
 }
 func Set_nox_color_green_2614268(v uint32) {
-	nox_color_green_2614268 = uint(v)
+	nox_color_green_2614268 = uint32(v)
 }
 func Set_nox_color_cyan_2649820(v uint32) {
-	nox_color_cyan_2649820 = uint(v)
+	nox_color_cyan_2649820 = uint32(v)
 }
 func Set_nox_color_blue_2650684(v uint32) {
-	nox_color_blue_2650684 = uint(v)
+	nox_color_blue_2650684 = uint32(v)
 }
 func Set_nox_color_orange_2614256(v uint32) {
-	nox_color_orange_2614256 = uint(v)
+	nox_color_orange_2614256 = uint32(v)
 }
 func Set_nox_color_yellow_2589772(v uint32) {
-	nox_color_yellow_2589772 = uint(v)
+	nox_color_yellow_2589772 = uint32(v)
 }
 func Set_dword_5d4594_1305748(v int) {
-	dword_5d4594_1305748 = uint(v)
+	dword_5d4594_1305748 = uint32(v)
 }
 func Set_nox_pixbuffer_rows_3798784(v unsafe.Pointer) {
 	nox_pixbuffer_rows_3798784 = (**byte)(v)
 }
 func Set_dword_5d4594_1193188(v int) {
-	dword_5d4594_1193188 = uint(v)
+	dword_5d4594_1193188 = uint32(v)
 }
 func Set_dword_5d4594_2649712(v uint32) {
-	dword_5d4594_2649712 = uint(v)
+	dword_5d4594_2649712 = uint32(v)
 }
 func Set_dword_5d4594_1548524(v int) {
-	dword_5d4594_1548524 = uint(v)
+	dword_5d4594_1548524 = uint32(v)
 }
 func Set_nox_client_gui_flag_1556112(v int) {
-	nox_client_gui_flag_1556112 = uint(v)
+	nox_client_gui_flag_1556112 = uint32(v)
 }
 func Set_dword_5d4594_3798812(v int) {
-	dword_5d4594_3798812 = uint(v)
+	dword_5d4594_3798812 = uint32(v)
 }
 func Set_dword_5d4594_3798800(v int) {
-	dword_5d4594_3798800 = uint(v)
+	dword_5d4594_3798800 = uint32(v)
 }
 func Set_dword_5d4594_3798816(v int) {
-	dword_5d4594_3798816 = uint(v)
+	dword_5d4594_3798816 = uint32(v)
 }
 func Set_dword_5d4594_3798808(v int) {
-	dword_5d4594_3798808 = uint(v)
+	dword_5d4594_3798808 = uint32(v)
 }
 func Set_dword_5d4594_3798804(v int) {
-	dword_5d4594_3798804 = uint(v)
+	dword_5d4594_3798804 = uint32(v)
 }
 func Set_dword_5d4594_3798820(v int) {
-	dword_5d4594_3798820 = uint(v)
+	dword_5d4594_3798820 = uint32(v)
 }
 func Set_dword_5d4594_3798824(v int) {
-	dword_5d4594_3798824 = uint(v)
+	dword_5d4594_3798824 = uint32(v)
 }
 func Set_dword_5d4594_3798828(v int) {
-	dword_5d4594_3798828 = uint(v)
+	dword_5d4594_3798828 = uint32(v)
 }
 func Set_dword_5d4594_3798832(v int) {
-	dword_5d4594_3798832 = uint(v)
+	dword_5d4594_3798832 = uint32(v)
 }
 func Set_dword_5d4594_3798836(v int) {
-	dword_5d4594_3798836 = uint(v)
+	dword_5d4594_3798836 = uint32(v)
 }
 func Set_dword_5d4594_3798840(v int) {
-	dword_5d4594_3798840 = uint(v)
+	dword_5d4594_3798840 = uint32(v)
 }
 func Set_nox_video_tileBuf_ptr_3798796(v unsafe.Pointer) {
 	nox_video_tileBuf_ptr_3798796 = v
@@ -527,37 +527,37 @@ func Set_nox_video_tileBuf_end_3798844(v unsafe.Pointer) {
 	nox_video_tileBuf_end_3798844 = v
 }
 func Set_func_587000_154940(v unsafe.Pointer) {
-	func_587000_154940 = (*[0]byte)(v)
+	func_587000_154940 = v
 }
 func Set_func_587000_154944(v unsafe.Pointer) {
-	func_587000_154944 = (*[0]byte)(v)
+	func_587000_154944 = v
 }
 func Set_dword_5d4594_3799452(v int) {
-	dword_5d4594_3799452 = uint(v)
+	dword_5d4594_3799452 = uint32(v)
 }
 func Set_nox_alloc_chat_1197364(v unsafe.Pointer) {
 	nox_alloc_chat_1197364 = v
 }
 func Set_dword_587000_145664(v int) {
-	dword_587000_145664 = uint(v)
+	dword_587000_145664 = uint32(v)
 }
 func Set_dword_587000_145668(v int) {
-	dword_587000_145668 = uint(v)
+	dword_587000_145668 = uint32(v)
 }
 func Set_dword_5d4594_1090120(v int) {
-	dword_5d4594_1090120 = uint(v)
+	dword_5d4594_1090120 = uint32(v)
 }
 func Set_dword_5d4594_251744(v int) {
-	dword_5d4594_251744 = uint(v)
+	dword_5d4594_251744 = uint32(v)
 }
 func Set_dword_5d4594_816340(v int) {
-	dword_5d4594_816340 = uint(v)
+	dword_5d4594_816340 = uint32(v)
 }
 func Set_dword_5d4594_816348(v int) {
-	dword_5d4594_816348 = uint(v)
+	dword_5d4594_816348 = uint32(v)
 }
 func Set_dword_5d4594_2489460(v int) {
-	dword_5d4594_2489460 = uint(v)
+	dword_5d4594_2489460 = uint32(v)
 }
 func Set_dword_5d4594_1548532(v unsafe.Pointer) {
 	dword_5d4594_1548532 = v
@@ -566,37 +566,37 @@ func Set_dword_5d4594_1307292(v *gui.Window) {
 	dword_5d4594_1307292 = v.C()
 }
 func Set_dword_5d4594_831260(v int) {
-	dword_5d4594_831260 = uint(v)
+	dword_5d4594_831260 = uint32(v)
 }
 func Set_nox_client_translucentFrontWalls_805844(v int) {
-	nox_client_translucentFrontWalls_805844 = uint(v)
+	nox_client_translucentFrontWalls_805844 = uint32(v)
 }
 func Set_nox_client_highResFrontWalls_80820(v int) {
-	nox_client_highResFrontWalls_80820 = uint(v)
+	nox_client_highResFrontWalls_80820 = uint32(v)
 }
 func Set_nox_client_highResFloors_154952(v int) {
-	nox_client_highResFloors_154952 = uint(v)
+	nox_client_highResFloors_154952 = uint32(v)
 }
 func Set_nox_client_fadeObjects_80836(v int) {
-	nox_client_fadeObjects_80836 = uint(v)
+	nox_client_fadeObjects_80836 = uint32(v)
 }
 func Set_nox_client_renderBubbles_80844(v int) {
-	nox_client_renderBubbles_80844 = uint(v)
+	nox_client_renderBubbles_80844 = uint32(v)
 }
 func Set_nox_server_sanctuaryHelp_54276(v int) {
-	nox_server_sanctuaryHelp_54276 = uint(v)
+	nox_server_sanctuaryHelp_54276 = uint32(v)
 }
 func Set_nox_server_sendMotd_108752(v int) {
-	nox_server_sendMotd_108752 = uint(v)
+	nox_server_sendMotd_108752 = uint32(v)
 }
 func Set_nox_server_connectionType_3596(v int) {
-	nox_server_connectionType_3596 = uint(v)
+	nox_server_connectionType_3596 = uint32(v)
 }
 func Set_nox_server_resetQuestMinVotes_229988(v int) {
-	nox_server_resetQuestMinVotes_229988 = uint(v)
+	nox_server_resetQuestMinVotes_229988 = uint32(v)
 }
 func Set_nox_server_kickQuestPlayerMinVotes_229992(v int) {
-	nox_server_kickQuestPlayerMinVotes_229992 = uint(v)
+	nox_server_kickQuestPlayerMinVotes_229992 = uint32(v)
 }
 func Set_dword_5d4594_1308156(v unsafe.Pointer) {
 	dword_5d4594_1308156 = v
@@ -608,28 +608,28 @@ func Set_dword_5d4594_1308164(v unsafe.Pointer) {
 	dword_5d4594_1308164 = v
 }
 func Set_dword_5d4594_2650676(v int) {
-	dword_5d4594_2650676 = uint(v)
+	dword_5d4594_2650676 = uint32(v)
 }
 func Set_dword_5d4594_2650680(v int) {
-	dword_5d4594_2650680 = uint(v)
+	dword_5d4594_2650680 = uint32(v)
 }
 func Set_qword_5d4594_814956(v uint64) {
 	qword_5d4594_814956 = ulonglong(v)
 }
 func Set_dword_5d4594_1200804(v uint32) {
-	dword_5d4594_1200804 = uint(v)
+	dword_5d4594_1200804 = uint32(v)
 }
 func Set_nox_player_netCode_85319C(v uint32) {
-	nox_player_netCode_85319C = uint(v)
+	nox_player_netCode_85319C = uint32(v)
 }
 func Set_dword_5d4594_1200832(v int) {
-	dword_5d4594_1200832 = uint(v)
+	dword_5d4594_1200832 = uint32(v)
 }
 func Set_nox_alloc_magicEnt_1569668(v unsafe.Pointer) {
 	nox_alloc_magicEnt_1569668 = v
 }
 func Set_dword_5d4594_1569672(v int) {
-	dword_5d4594_1569672 = uint(v)
+	dword_5d4594_1569672 = uint32(v)
 }
 func Inc_nox_xxx_waypointCounterMB_587000_154948() {
 	nox_xxx_waypointCounterMB_587000_154948++
@@ -659,7 +659,7 @@ func Get_dword_5d4594_1123524() *gui.Window {
 	return AsWindowP(dword_5d4594_1123524)
 }
 func Set_dword_5d4594_1123520(v int) {
-	dword_5d4594_1123520 = uint(v)
+	dword_5d4594_1123520 = uint32(v)
 }
 func Get_dword_5d4594_826036() *byte {
 	return (*byte)(dword_5d4594_826036)

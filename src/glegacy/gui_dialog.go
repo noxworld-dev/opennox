@@ -46,7 +46,7 @@ func sub_449E00(a1 *wchar2_t) int { return Sub_449E00(GoWString(a1)) }
 func sub_449E30(a1 *wchar2_t) int { return Sub_449E30(GoWString(a1)) }
 
 // sub_449E60
-func sub_449E60(a1 int8) int { return Sub_449E60(int8(a1)) }
+func sub_449E60(a1 int8) int32 { return int32(Sub_449E60(int8(a1))) }
 
 // sub_449EA0
 func sub_449EA0(a1 int) { Sub_449EA0(gui.DialogFlags(a1)) }
@@ -61,7 +61,7 @@ func sub_44A4B0() { Sub_44A4B0() }
 func sub_44A360(a1 int) { Sub_44A360(a1) }
 
 func Sub_41DA70(a1, a2 int) {
-	sub_41DA70(int(a1), int16(a2))
+	sub_41DA70(int32(a1), int16(a2))
 }
 func Sub_445C20() {
 	sub_445C20()

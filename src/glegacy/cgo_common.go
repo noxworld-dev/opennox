@@ -5,7 +5,7 @@ import (
 	"unsafe"
 )
 
-type size_t = int32
+type size_t = uint32
 type long = int32
 type ulonglong = uint64
 

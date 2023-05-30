@@ -64,7 +64,7 @@ func sub_44D3A0() {
 		}
 	case 2:
 		sub_486320((*uint32)(memmap.PtrOff(0x5D4594, 830876)), 0x4000)
-		if sub_44D7E0(*memmap.PtrInt32(0x5D4594, 830868)) == 0 {
+		if sub_44D7E0(memmap.Int32(0x5D4594, 830868)) == 0 {
 			dword_5d4594_830864 = 0
 			dword_5d4594_830872 = 0
 		} else {
@@ -185,84 +185,84 @@ func sub_44E110() *uint32 {
 	v0 = *(**uint32)(unsafe.Pointer(&dword_5d4594_832496))
 	if dword_5d4594_832496 == 0 {
 		v1 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("GauntletExitB"))
-		v0 = &nox_new_drawable_for_thing(v1).field_0
+		v0 = &nox_new_drawable_for_thing(v1).Field_0
 		dword_5d4594_832496 = uint32(uintptr(unsafe.Pointer(v0)))
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*30)) |= 0x1000000
 	v2 = *(**uint32)(unsafe.Pointer(&dword_5d4594_832492))
 	if dword_5d4594_832492 == 0 {
 		v3 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("BeholderGenerator"))
-		v2 = &nox_new_drawable_for_thing(v3).field_0
+		v2 = &nox_new_drawable_for_thing(v3).Field_0
 		dword_5d4594_832492 = uint32(uintptr(unsafe.Pointer(v2)))
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*30)) |= 0x1000000
 	v4 = *(**uint32)(unsafe.Pointer(&dword_5d4594_832500))
 	if dword_5d4594_832500 == 0 {
 		v5 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("Ankh"))
-		v4 = &nox_new_drawable_for_thing(v5).field_0
+		v4 = &nox_new_drawable_for_thing(v5).Field_0
 		dword_5d4594_832500 = uint32(uintptr(unsafe.Pointer(v4)))
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*30)) |= 0x1000000
 	v6 = *(**uint32)(unsafe.Pointer(&dword_5d4594_832504))
 	if dword_5d4594_832504 == 0 {
 		v7 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SoulGate"))
-		v6 = &nox_new_drawable_for_thing(v7).field_0
+		v6 = &nox_new_drawable_for_thing(v7).Field_0
 		dword_5d4594_832504 = uint32(uintptr(unsafe.Pointer(v6)))
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*30)) |= 0x1000000
 	v8 = *(**uint32)(unsafe.Pointer(&dword_5d4594_832508))
 	if dword_5d4594_832508 == 0 {
 		v9 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SilverKey"))
-		v8 = &nox_new_drawable_for_thing(v9).field_0
+		v8 = &nox_new_drawable_for_thing(v9).Field_0
 		dword_5d4594_832508 = uint32(uintptr(unsafe.Pointer(v8)))
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*30)) |= 0x1000000
 	v10 = *(**uint32)(unsafe.Pointer(&dword_5d4594_832512))
 	if dword_5d4594_832512 == 0 {
 		v11 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("GoldKey"))
-		v10 = &nox_new_drawable_for_thing(v11).field_0
+		v10 = &nox_new_drawable_for_thing(v11).Field_0
 		dword_5d4594_832512 = uint32(uintptr(unsafe.Pointer(v10)))
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v10), 4*30)) |= 0x1000000
 	v12 = *(**uint32)(unsafe.Pointer(&dword_5d4594_832516))
 	if dword_5d4594_832516 == 0 {
 		v13 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("QuestGoldChest"))
-		v12 = &nox_new_drawable_for_thing(v13).field_0
+		v12 = &nox_new_drawable_for_thing(v13).Field_0
 		dword_5d4594_832516 = uint32(uintptr(unsafe.Pointer(v12)))
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v12), 4*30)) |= 0x1000000
 	v14 = *(**uint32)(unsafe.Pointer(&dword_5d4594_832520))
 	if dword_5d4594_832520 == 0 {
 		v15 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("QuestGoldPile"))
-		v14 = &nox_new_drawable_for_thing(v15).field_0
+		v14 = &nox_new_drawable_for_thing(v15).Field_0
 		dword_5d4594_832520 = uint32(uintptr(unsafe.Pointer(v14)))
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v14), 4*30)) |= 0x1000000
 	v16 = *(**uint32)(unsafe.Pointer(&dword_5d4594_832524))
 	if dword_5d4594_832524 == 0 {
 		v17 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("DunMirChest4"))
-		v16 = &nox_new_drawable_for_thing(v17).field_0
+		v16 = &nox_new_drawable_for_thing(v17).Field_0
 		dword_5d4594_832524 = uint32(uintptr(unsafe.Pointer(v16)))
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v16), 4*30)) |= 0x1000000
 	v18 = *(**uint32)(unsafe.Pointer(&dword_5d4594_832528))
 	if dword_5d4594_832528 == 0 {
 		v19 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("WarHammer"))
-		v18 = &nox_new_drawable_for_thing(v19).field_0
+		v18 = &nox_new_drawable_for_thing(v19).Field_0
 		dword_5d4594_832528 = uint32(uintptr(unsafe.Pointer(v18)))
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v18), 4*30)) |= 0x1000000
 	v20 = *(**uint32)(unsafe.Pointer(&dword_5d4594_832532))
 	if dword_5d4594_832532 == 0 {
 		v21 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("HastePotion"))
-		v20 = &nox_new_drawable_for_thing(v21).field_0
+		v20 = &nox_new_drawable_for_thing(v21).Field_0
 		dword_5d4594_832532 = uint32(uintptr(unsafe.Pointer(v20)))
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v20), 4*30)) |= 0x1000000
 	result = *(**uint32)(unsafe.Pointer(&dword_5d4594_832536))
 	if dword_5d4594_832536 == 0 {
 		v23 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("ConjurerSpellBook"))
-		result = &nox_new_drawable_for_thing(v23).field_0
+		result = &nox_new_drawable_for_thing(v23).Field_0
 		dword_5d4594_832536 = uint32(uintptr(unsafe.Pointer(result)))
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*30)) |= 0x1000000
@@ -3974,7 +3974,7 @@ func sub_459AA0(a1p unsafe.Pointer) *byte {
 	if *v3 != 0 {
 		*(*uint8)(unsafe.Pointer(uintptr(a1 + 56))) = uint8(int8(nox_wcstol(v3, nil, 10)))
 	}
-	*(*uint8)(unsafe.Pointer(uintptr(a1 + 57))) = uint8((nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10122).draw_data.field_0 >> 2) & 1)
+	*(*uint8)(unsafe.Pointer(uintptr(a1 + 57))) = uint8((nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10122).DrawData().field_0 >> 2) & 1)
 	result = (*byte)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046496))))), 16404, 0, 0))))
 	if int32(uintptr(unsafe.Pointer(result))) >= 0 && (func() bool {
 		v5 = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046496))))), 16406, int32(uintptr(unsafe.Pointer(result))), 0)
@@ -4849,14 +4849,14 @@ func nox_xxx_bookWndFn_45CC10(a1 *uint32, a2 int32, a3 uint32) int32 {
 		}
 		v6 = int8(*(*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1047516 + 2251))))
 		if int32(v6) == 0 && dword_5d4594_1046868 == 0 {
-			dword_5d4594_1047540 = *memmap.PtrUint32(0x5D4594, dword_5d4594_1046932*4+1046960)
+			dword_5d4594_1047540 = *memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960)
 			nox_xxx_bookSaveSpellForDragDrop_477640(*(*int32)(unsafe.Pointer(&dword_5d4594_1047540)), 1)
 			nox_xxx_wndSetCaptureMain_46ADC0((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))))
 			nox_xxx_clientPlaySoundSpecial_452D80(793, 100)
 			return 1
 		}
 		if int32(v6) == 2 && dword_5d4594_1046868 == 1 {
-			dword_5d4594_1047540 = *memmap.PtrUint32(0x5D4594, dword_5d4594_1046932*4+1046960) + 74
+			dword_5d4594_1047540 = *memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1046932)*4+1046960) + 74
 			nox_xxx_bookSaveSpellForDragDrop_477640(*(*int32)(unsafe.Pointer(&dword_5d4594_1047540)), 1)
 			nox_xxx_wndSetCaptureMain_46ADC0((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))))
 			nox_xxx_clientPlaySoundSpecial_452D80(793, 100)

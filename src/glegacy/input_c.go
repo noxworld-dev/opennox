@@ -24,13 +24,13 @@ var (
 )
 
 // nox_xxx_setKeybTimeout_4160D0
-func nox_xxx_setKeybTimeout_4160D0(key int) int {
+func nox_xxx_setKeybTimeout_4160D0(key int32) int32 {
 	InputSetKeyTimeoutLegacy(byte(key))
 	return key
 }
 
 // nox_xxx_checkKeybTimeout_4160F0
-func nox_xxx_checkKeybTimeout_4160F0(key byte, dt uint) bool {
+func nox_xxx_checkKeybTimeout_4160F0(key byte, dt uint32) bool {
 	return bool(InputKeyCheckTimeoutLegacy(byte(key), uint32(dt)))
 }
 
@@ -52,18 +52,18 @@ func nox_client_getMousePos_4309F0() (out nox_point) {
 }
 
 // nox_xxx_bookGet_430B40_get_mouse_prev_seq
-func nox_xxx_bookGet_430B40_get_mouse_prev_seq() int {
-	return int(GetClient().GetInputSeq())
+func nox_xxx_bookGet_430B40_get_mouse_prev_seq() int32 {
+	return int32(GetClient().GetInputSeq())
 }
 
 // nox_client_changeMousePos_430A00
-func nox_client_changeMousePos_430A00(x, y int, isAbs bool) {
-	GetClient().ChangeMousePos(image.Pt(x, y), bool(isAbs))
+func nox_client_changeMousePos_430A00(x, y int32, isAbs bool) {
+	GetClient().ChangeMousePos(image.Pt(int(x), int(y)), isAbs)
 }
 
 // nox_xxx_setMouseBounds_430A70
-func nox_xxx_setMouseBounds_430A70(xmin, xmax, ymin, ymax int) {
-	GetClient().SetMouseBounds(image.Rect(xmin, ymin, xmax, ymax))
+func nox_xxx_setMouseBounds_430A70(xmin, xmax, ymin, ymax int32) {
+	GetClient().SetMouseBounds(image.Rect(int(xmin), int(ymin), int(xmax), int(ymax)))
 }
 
 // nox_input_pollEvents_4453A0
@@ -195,7 +195,7 @@ func Nox_xxx_clientPickup_46C140(a1 *client.Drawable) {
 	nox_xxx_clientPickup_46C140((*nox_drawable)(a1.C()))
 }
 func Sub_46B630(a1 *gui.Window, a2 int, a3 int) *gui.Window {
-	return asWindow(sub_46B630((*nox_window)(a1.C()), int(a2), int(a3)))
+	return asWindow(sub_46B630((*nox_window)(a1.C()), int32(a2), int32(a3)))
 }
 
 func Get_nox_input_reset_430140() unsafe.Pointer {

@@ -10,8 +10,8 @@ import (
 )
 
 // nox_crypt_IsReadOnly
-func nox_crypt_IsReadOnly() int {
-	return bool2int(cryptfile.Global().ReadOnly())
+func nox_crypt_IsReadOnly() int32 {
+	return bool2int32(cryptfile.Global().ReadOnly())
 }
 
 // nox_xxx_cryptSetTypeMB_426A50
@@ -31,8 +31,8 @@ func nox_xxx_cryptOpen_426910(a1 *byte, cmode, key int) int32 {
 }
 
 // nox_xxx_cryptFlush_4268E0
-func nox_xxx_cryptFlush_4268E0() int {
-	return cryptfile.Global().Flush()
+func nox_xxx_cryptFlush_4268E0() int32 {
+	return int32(cryptfile.Global().Flush())
 }
 
 // nox_xxx_cryptClose_4269F0
@@ -46,13 +46,13 @@ func nox_xxx_mapgenGetSomeFile_426A60() *FILE {
 }
 
 // nox_xxx_cryptSeekCur_40E0A0
-func nox_xxx_cryptSeekCur_40E0A0(a1 int) int {
+func nox_xxx_cryptSeekCur_40E0A0(a1 int32) int32 {
 	cryptfile.Global().Seek(int64(a1), io.SeekCurrent)
 	return 0
 }
 
 // nox_xxx_fileReadWrite_426AC0_file3_fread_impl
-func nox_xxx_fileReadWrite_426AC0_file3_fread_impl(a1 *byte, a2 size_t) size_t {
+func nox_xxx_fileReadWrite_426AC0_file3_fread_impl(a1 *byte, a2 uint32) uint32 {
 	buf := unsafe.Slice((*byte)(unsafe.Pointer(a1)), int(a2))
 	_, err := cryptfile.Global().ReadWrite(buf)
 	if err != nil {
@@ -73,7 +73,7 @@ func nox_xxx_crypt_426C90() {
 }
 
 // sub_4268F0
-func sub_4268F0(off int) {
+func sub_4268F0(off int32) {
 	cryptfile.Global().WriteChecksumAt(int64(off))
 }
 

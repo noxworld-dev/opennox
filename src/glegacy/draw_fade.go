@@ -22,19 +22,19 @@ func clientPacketFade(flag4 bool, a2 bool) {
 }
 
 // nox_video_inFadeTransition_44E0D0
-func nox_video_inFadeTransition_44E0D0() int {
-	return Nox_video_inFadeTransition_44E0D0()
+func nox_video_inFadeTransition_44E0D0() int32 {
+	return int32(Nox_video_inFadeTransition_44E0D0())
 }
 
 // nox_video_fadeInScreen_44DAB0
-func nox_video_fadeInScreen_44DAB0(a1, a2 int, fnc unsafe.Pointer) {
+func nox_video_fadeInScreen_44DAB0(a1, a2 int32, fnc unsafe.Pointer) {
 	GetClient().R2().FadeInScreen(int(a1), a2 != 0, func() {
 		ccall.CallVoidVoid(fnc)
 	})
 }
 
 // nox_video_fadeOutScreen_44DB30
-func nox_video_fadeOutScreen_44DB30(a1, a2 int, fnc unsafe.Pointer) {
+func nox_video_fadeOutScreen_44DB30(a1, a2 int32, fnc unsafe.Pointer) {
 	GetClient().R2().FadeOutScreen(int(a1), a2 != 0, func() {
 		ccall.CallVoidVoid(fnc)
 	})

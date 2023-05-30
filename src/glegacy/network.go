@@ -59,10 +59,10 @@ func nox_client_setServerConnectAddr_435720(addr *byte) {
 }
 
 // nox_client_joinGame_438A90
-func nox_client_joinGame_438A90() int { return Nox_client_joinGame_438A90() }
+func nox_client_joinGame_438A90() int32 { return int32(Nox_client_joinGame_438A90()) }
 
 // sub_5550D0
-func sub_5550D0(addr int, port uint16, cdata *byte) int {
+func sub_5550D0(addr int32, port uint16, cdata *byte) int {
 	buf := unsafe.Slice(cdata, 22)
 	n, err := SendXXX_5550D0(netip.AddrPortFrom(int2ip(uint32(addr)), uint16(port)), buf)
 	return convSendToServerErr(n, err)
@@ -80,16 +80,16 @@ func nox_xxx_netStatsMultiplier_4D9C20(a1p *nox_object_t) int {
 }
 
 // sub_554240
-func sub_554240(a1 int) int { return Sub_554240(ntype.PlayerInd(a1)) }
+func sub_554240(a1 int32) int { return Sub_554240(ntype.PlayerInd(a1)) }
 
 // nox_xxx_net_getIP_554200
-func nox_xxx_net_getIP_554200(a1 int) uint32 {
-	return Nox_xxx_net_getIP_554200(netstr.Global.ByIndexRaw(a1))
+func nox_xxx_net_getIP_554200(a1 int32) uint32 {
+	return Nox_xxx_net_getIP_554200(netstr.Global.ByIndexRaw(int(a1)))
 }
 
 // nox_xxx_netOnPacketRecvCli_48EA70
-func nox_xxx_netOnPacketRecvCli_48EA70(ind int, buf *byte, sz int) int {
-	return Nox_xxx_netOnPacketRecvCli_48EA70(ntype.PlayerInd(ind), buf, sz)
+func nox_xxx_netOnPacketRecvCli_48EA70(ind int32, buf *byte, sz int32) int32 {
+	return int32(Nox_xxx_netOnPacketRecvCli_48EA70(ntype.PlayerInd(ind), buf, int(sz)))
 }
 
 // sub_43C6E0

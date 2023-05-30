@@ -35,64 +35,66 @@ var (
 type nox_render_data_t = noxrender.RenderData
 
 // nox_video_getCutSize_4766D0
-func nox_video_getCutSize_4766D0() int { return Nox_video_getCutSize_4766D0() }
+func nox_video_getCutSize_4766D0() int32 { return int32(Nox_video_getCutSize_4766D0()) }
 
 // nox_video_setCutSize_4766A0
-func nox_video_setCutSize_4766A0(v int) { Nox_video_setCutSize_4766A0(v) }
+func nox_video_setCutSize_4766A0(v int32) { Nox_video_setCutSize_4766A0(int(v)) }
 
 // nox_video_setGammaSlider
-func nox_video_setGammaSlider(v int) { Nox_video_setGammaSlider(v) }
+func nox_video_setGammaSlider(v int32) { Nox_video_setGammaSlider(int(v)) }
 
 // sub_43BE50_get_video_mode_id
-func sub_43BE50_get_video_mode_id() int { return Sub_43BE50_get_video_mode_id() }
+func sub_43BE50_get_video_mode_id() int32 { return int32(Sub_43BE50_get_video_mode_id()) }
 
 // get_video_mode_string
-func get_video_mode_string(id int) *wchar2_t { return internWStr(Get_video_mode_string(id)) }
+func get_video_mode_string(id int32) *wchar2_t { return internWStr(Get_video_mode_string(int(id))) }
 
 // nox_getBackbufWidth
-func nox_getBackbufWidth() int { return Nox_getBackbufWidth() }
+func nox_getBackbufWidth() int32 { return int32(Nox_getBackbufWidth()) }
 
 // nox_getBackbufHeight
-func nox_getBackbufHeight() int { return Nox_getBackbufHeight() }
+func nox_getBackbufHeight() int32 { return int32(Nox_getBackbufHeight()) }
 
 // nox_video_getFullScreen
-func nox_video_getFullScreen() int { return Nox_video_getFullScreen() }
+func nox_video_getFullScreen() int32 { return int32(Nox_video_getFullScreen()) }
 
 // nox_video_setFullScreen
-func nox_video_setFullScreen(v int) { Nox_video_setFullScreen(v) }
+func nox_video_setFullScreen(v int32) { Nox_video_setFullScreen(int(v)) }
 
 // sub_430C30_set_video_max
-func sub_430C30_set_video_max(w, h int) { Sub_430C30_set_video_max(w, h) }
+func sub_430C30_set_video_max(w, h int32) { Sub_430C30_set_video_max(int(w), int(h)) }
 
 // nox_xxx_screenGetSize_430C50_get_video_max
-func nox_xxx_screenGetSize_430C50_get_video_max(pw, ph *int) {
+func nox_xxx_screenGetSize_430C50_get_video_max(pw, ph *int32) {
 	sz := VideoGetMaxSize()
-	*pw = int(sz.X)
-	*ph = int(sz.Y)
+	*pw = int32(sz.X)
+	*ph = int32(sz.Y)
 }
 
 // nox_video_callCopyBackBuffer_4AD170
 func nox_video_callCopyBackBuffer_4AD170() { Nox_video_callCopyBackBuffer_4AD170() }
 
 // nox_getBackbufferPitch
-func nox_getBackbufferPitch() int { return Nox_getBackbufferPitch() }
+func nox_getBackbufferPitch() int32 { return int32(Nox_getBackbufferPitch()) }
 
 // nox_client_clearScreen_440900
 func nox_client_clearScreen_440900() { Nox_client_clearScreen_440900() }
 
 // nox_draw_setCutSize_476700
-func nox_draw_setCutSize_476700(cutPerc int, a2 int) { Nox_draw_setCutSize_476700(int(cutPerc), a2) }
+func nox_draw_setCutSize_476700(cutPerc int32, a2 int32) {
+	Nox_draw_setCutSize_476700(int(cutPerc), int(a2))
+}
 
 // nox_xxx_bookSaveSpellForDragDrop_477640
-func nox_xxx_bookSaveSpellForDragDrop_477640(a1, a2 int) {
-	Nox_xxx_bookSaveSpellForDragDrop_477640(a1, a2)
+func nox_xxx_bookSaveSpellForDragDrop_477640(a1, a2 int32) {
+	Nox_xxx_bookSaveSpellForDragDrop_477640(int(a1), int(a2))
 }
 
 // nox_xxx_bookSpellDnDclear_477660
 func nox_xxx_bookSpellDnDclear_477660() { Nox_xxx_bookSpellDnDclear_477660() }
 
 // nox_xxx_bookGetSpellDnDType_477670
-func nox_xxx_bookGetSpellDnDType_477670() int { return Nox_xxx_bookGetSpellDnDType_477670() }
+func nox_xxx_bookGetSpellDnDType_477670() int32 { return int32(Nox_xxx_bookGetSpellDnDType_477670()) }
 
 // nox_xxx_cursorSetDraggedItem_477690
 func nox_xxx_cursorSetDraggedItem_477690(a1 *nox_drawable) {
@@ -130,5 +132,5 @@ func Sub_495A80(a1 uint32) int {
 }
 
 func Get_sub_47FCE0() unsafe.Pointer {
-	return sub_47FCE0
+	return funAddrP(sub_47FCE0)
 }

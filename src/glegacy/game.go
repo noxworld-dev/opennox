@@ -91,22 +91,22 @@ func nox_server_parseCmdText_443C80(cstr *wchar2_t, _ int) int {
 }
 
 // nox_xxx_gameIsNotMultiplayer_4DB250
-func nox_xxx_gameIsNotMultiplayer_4DB250() int {
-	return bool2int(Nox_xxx_gameIsNotMultiplayer_4DB250())
+func nox_xxx_gameIsNotMultiplayer_4DB250() int32 {
+	return bool2int32(Nox_xxx_gameIsNotMultiplayer_4DB250())
 }
 
 // nox_xxx_gameSetSwitchSolo_4DB220
-func nox_xxx_gameSetSwitchSolo_4DB220(a1 int) {
-	Nox_xxx_gameSetSwitchSolo_4DB220(a1)
+func nox_xxx_gameSetSwitchSolo_4DB220(a1 int32) {
+	Nox_xxx_gameSetSwitchSolo_4DB220(int(a1))
 }
 
 // nox_xxx_gameIsSwitchToSolo_4DB240
-func nox_xxx_gameIsSwitchToSolo_4DB240() int {
-	return bool2int(Nox_xxx_gameIsSwitchToSolo_4DB240())
+func nox_xxx_gameIsSwitchToSolo_4DB240() int32 {
+	return bool2int32(Nox_xxx_gameIsSwitchToSolo_4DB240())
 }
 
 // nox_xxx_mapTraceRay_535250
-func nox_xxx_mapTraceRay_535250(a1 *float4, a2 *float2, a3 *int2, a4 int8) int {
+func nox_xxx_mapTraceRay_535250(a1 *float4, a2 *float2, a3 *int2, a4 int8) int32 {
 	p1 := (*types.Pointf)(unsafe.Pointer(&a1.field_0))
 	p2 := (*types.Pointf)(unsafe.Pointer(&a1.field_8))
 	outPos := (*types.Pointf)(unsafe.Pointer(a2))
@@ -204,25 +204,25 @@ func nox_xxx_unitsGetInCircle_517F90(pos *float2, r float32, fnc unsafe.Pointer,
 }
 
 // nox_xxx_gameSetWallsDamage_4E25A0
-func nox_xxx_gameSetWallsDamage_4E25A0(v int) {
-	Nox_xxx_gameSetWallsDamage_4E25A0(v)
+func nox_xxx_gameSetWallsDamage_4E25A0(v int32) {
+	Nox_xxx_gameSetWallsDamage_4E25A0(int(v))
 }
 
 // nox_xxx_mapDamageUnitsAround_4E25B0
-func nox_xxx_mapDamageUnitsAround_4E25B0(a1 *float32, a2, a3 float32, a4, a5 int, a6, a7 *nox_object_t) {
+func nox_xxx_mapDamageUnitsAround_4E25B0(a1 *float32, a2, a3 float32, a4, a5 int32, a6, a7 *nox_object_t) {
 	cpos := unsafe.Slice(a1, 2)
 	pos := types.Pointf{X: float32(cpos[0]), Y: float32(cpos[1])}
 	GetServer().Nox_xxx_mapDamageUnitsAround(pos, float32(a2), float32(a3), int(a4), object.DamageType(a5), asObjectS(a6), ToObjS(a7), GetDoDamageWalls())
 }
 
 // nox_game_addStateCode_43BDD0
-func nox_game_addStateCode_43BDD0(code int) {
+func nox_game_addStateCode_43BDD0(code int32) {
 	GetClient().GameAddStateCode(gui.StateID(code))
 }
 
 // nox_game_getStateCode_43BE10
-func nox_game_getStateCode_43BE10() int {
-	return int(GetClient().GameGetStateCode())
+func nox_game_getStateCode_43BE10() int32 {
+	return int32(GetClient().GameGetStateCode())
 }
 
 // nox_game_decStateInd_43BDC0
@@ -251,18 +251,18 @@ func sub_41CC00(cstr *byte) {
 }
 
 // nox_xxx_playerSendMOTD_4DD140
-func nox_xxx_playerSendMOTD_4DD140(a1 int) {
+func nox_xxx_playerSendMOTD_4DD140(a1 int32) {
 	Nox_xxx_playerSendMOTD_4DD140(ntype.PlayerInd(a1))
 }
 
 // nox_xxx_unitCanInteractWith_5370E0
-func nox_xxx_unitCanInteractWith_5370E0(a1, a2 *nox_object_t, a3 int) int {
-	return bool2int(GetServer().S().CanInteract(asObjectS(a1), asObjectS(a2), a3))
+func nox_xxx_unitCanInteractWith_5370E0(a1, a2 *nox_object_t, a3 int32) int {
+	return bool2int(GetServer().S().CanInteract(asObjectS(a1), asObjectS(a2), int(a3)))
 }
 
 // nox_xxx_unitCanSee_536FB0
-func nox_xxx_unitCanSee_536FB0(a1, a2 *nox_object_t, a3 int) int {
-	return bool2int(GetServer().S().CanSee(asObjectS(a1), asObjectS(a2), a3))
+func nox_xxx_unitCanSee_536FB0(a1, a2 *nox_object_t, a3 int32) int {
+	return bool2int(GetServer().S().CanSee(asObjectS(a1), asObjectS(a2), int(a3)))
 }
 
 // nox_xxx_mapCheck_537110
@@ -288,7 +288,7 @@ func Nox_xxx_sMakeScorch_537AF0(pos types.Pointf, a2 int) {
 	defer pfree()
 	cpos[0] = pos.X
 	cpos[1] = pos.Y
-	nox_xxx_sMakeScorch_537AF0((*float32)(unsafe.Pointer(&cpos[0])), int(a2))
+	nox_xxx_sMakeScorch_537AF0((*float32)(unsafe.Pointer(&cpos[0])), int32(a2))
 }
 
 func Nox_xxx_mapDamageToWalls_534FC0(rect image.Rectangle, pos types.Pointf, rad float32, dmg int, dtyp object.DamageType, who *server.Object) {
@@ -304,7 +304,7 @@ func Nox_xxx_mapDamageToWalls_534FC0(rect image.Rectangle, pos types.Pointf, rad
 	cpos[0] = pos.X
 	cpos[1] = pos.Y
 
-	nox_xxx_mapDamageToWalls_534FC0((*int4)(unsafe.Pointer(&crect[0])), unsafe.Pointer(&cpos[0]), float32(rad), int(dmg), int(dtyp), who.CObj())
+	nox_xxx_mapDamageToWalls_534FC0((*int4)(unsafe.Pointer(&crect[0])), unsafe.Pointer(&cpos[0]), float32(rad), int32(dmg), int32(dtyp), who.CObj())
 }
 
 func Nox_xxx_getSomeMapName_4D0CF0() string {
@@ -325,11 +325,11 @@ func Nox_server_testTwoPointsAndDirection_4E6E50(p1 types.Pointf, dir int16, p2 
 	cp2, free2 := alloc.New(types.Pointf{})
 	defer free2()
 	*cp1, *cp2 = p1, p2
-	return int(nox_server_testTwoPointsAndDirection_4E6E50((*float2)(unsafe.Pointer(cp1)), int(dir), (*float2)(unsafe.Pointer(cp2))))
+	return int(nox_server_testTwoPointsAndDirection_4E6E50((*float2)(unsafe.Pointer(cp1)), int32(dir), (*float2)(unsafe.Pointer(cp2))))
 }
 
 func Nox_xxx_mapLoadOrSaveMB_4DCC70(v int) {
-	nox_xxx_mapLoadOrSaveMB_4DCC70(int(v))
+	nox_xxx_mapLoadOrSaveMB_4DCC70(int32(v))
 }
 func Sub_4165B0() unsafe.Pointer {
 	return unsafe.Pointer(sub_4165B0())
@@ -602,10 +602,10 @@ func Nox_xxx_servGamedataGet_40A020(a1 int16) int {
 	return int(nox_xxx_servGamedataGet_40A020(int16(a1)))
 }
 func Sub_41D1A0(a1 int) {
-	sub_41D1A0(int(a1))
+	sub_41D1A0(int32(a1))
 }
 func Nox_xxx_netPlayerIncomingServ_4DDF60(a1 int) {
-	nox_xxx_netPlayerIncomingServ_4DDF60(int(a1))
+	nox_xxx_netPlayerIncomingServ_4DDF60(int32(a1))
 }
 func Nox_xxx_plrLoad_41A480(a1 string) int {
 	str := CString(a1)
@@ -613,43 +613,43 @@ func Nox_xxx_plrLoad_41A480(a1 string) int {
 	return int(nox_xxx_plrLoad_41A480(str))
 }
 func Sub_465DE0(a1 int) {
-	sub_465DE0(int(a1))
+	sub_465DE0(int32(a1))
 }
 func Sub_4E79B0(a1 int) {
-	sub_4E79B0(int(a1))
+	sub_4E79B0(int32(a1))
 }
 func Nox_xxx_playerMakeDefItems_4EF7D0(a1 *server.Object, a2 int, a3 int) {
-	nox_xxx_playerMakeDefItems_4EF7D0(int(uintptr(a1.CObj())), int(a2), int(a3))
+	nox_xxx_playerMakeDefItems_4EF7D0(int32(uintptr(a1.CObj())), int32(a2), int32(a3))
 }
 func Nox_xxx_cliGamedataGet_416590(a1 int) unsafe.Pointer {
-	return unsafe.Pointer(nox_xxx_cliGamedataGet_416590(int(a1)))
+	return unsafe.Pointer(nox_xxx_cliGamedataGet_416590(int32(a1)))
 }
 func Sub_4181F0(a1 int) {
-	sub_4181F0(int(a1))
+	sub_4181F0(int32(a1))
 }
 func Sub_4AB4A0(a1 int) {
-	sub_4AB4A0(int(a1))
+	sub_4AB4A0(int32(a1))
 }
 func Sub_4AB4D0(a1 int) {
-	sub_4AB4D0(int(a1))
+	sub_4AB4D0(int32(a1))
 }
 func Sub_4721A0(a1 int) {
-	sub_4721A0(int(a1))
+	sub_4721A0(int32(a1))
 }
 func Sub_460EA0(a1 int) {
-	sub_460EA0(int(a1))
+	sub_460EA0(int32(a1))
 }
 func Nox_window_set_visible_unk5(a1 int) {
-	nox_window_set_visible_unk5(int(a1))
+	nox_window_set_visible_unk5(int32(a1))
 }
 func Sub_45D500(a1 int) {
-	sub_45D500(int(a1))
+	sub_45D500(int32(a1))
 }
 func Sub_455A00(a1 int) {
-	sub_455A00(int(a1))
+	sub_455A00(int32(a1))
 }
 func Sub_455F10(a1 int) {
-	sub_455F10(int(a1))
+	sub_455F10(int32(a1))
 }
 func Nox_xxx_mapFindPlayerStart_4F7AB0(a2 *server.Object) types.Pointf {
 	cp, freeCp := alloc.New(float2{})

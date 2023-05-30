@@ -136,9 +136,9 @@ func sub_43CEB0() {
 	v9 = uint32(v0)
 	for {
 		for {
-			v6 = int32(*memmap.PtrUint32(0x5D4594, v5*8+815220) + v2)
-			v3 = uint32(((((uint64(*memmap.PtrUint32(0x5D4594, v5*8+815224))) << 32) | uint64(*memmap.PtrUint32(0x5D4594, v5*8+815220))) + (((uint64(v3)) << 32) | uint64(v2))) >> 32)
-			v2 += *memmap.PtrUint32(0x5D4594, v5*8+815220)
+			v6 = int32(*memmap.PtrUint32(0x5D4594, uintptr(v5)*8+815220) + v2)
+			v3 = uint32(((((uint64(*memmap.PtrUint32(0x5D4594, uintptr(v5)*8+815224))) << 32) | uint64(*memmap.PtrUint32(0x5D4594, v5*8+815220))) + (((uint64(v3)) << 32) | uint64(v2))) >> 32)
+			v2 += *memmap.PtrUint32(0x5D4594, uintptr(v5)*8+815220)
 			v7 = v5 + 1
 			v1 = uint32(((((uint64(v1)) << 32) | uint64(func() uint32 {
 				p := &v5
@@ -812,7 +812,7 @@ func sub_445FF0() *uint32 {
 		result *uint32
 	)
 	if nox_wnd_quitMenu_825760 != nil {
-		nox_wnd_quitMenu_825760.draw_data.bg_color = nox_color_black_2650656
+		nox_wnd_quitMenu_825760.DrawData().bg_color = nox_color_black_2650656
 	}
 	for i = 9001; i <= 9006; i++ {
 		result = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, i)))

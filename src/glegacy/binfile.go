@@ -27,14 +27,14 @@ func nox_binfile_close_408D90(cfile *FILE) int {
 }
 
 // nox_binfile_ftell_426A50
-func nox_binfile_ftell_426A50(cfile *FILE) int {
+func nox_binfile_ftell_426A50(cfile *FILE) int32 {
 	file := fileByHandle(cfile)
 	off := file.Bin.Written()
-	return int(off)
+	return int32(off)
 }
 
 // nox_binfile_lastErr_409370
-func nox_binfile_lastErr_409370(cfile *FILE) int {
+func nox_binfile_lastErr_409370(cfile *FILE) int32 {
 	file := fileByHandle(cfile)
 	if file.Err != nil {
 		return -1
@@ -43,10 +43,10 @@ func nox_binfile_lastErr_409370(cfile *FILE) int {
 }
 
 // nox_binfile_cryptSet_408D40
-func nox_binfile_cryptSet_408D40(cfile *FILE, ckey int) int {
+func nox_binfile_cryptSet_408D40(cfile *FILE, ckey int32) int32 {
 	file := fileByHandle(cfile)
 	bin := file.Bin
-	err := bin.SetKey(ckey)
+	err := bin.SetKey(int(ckey))
 	if err != nil {
 		binfile.Log.Println(err)
 		return 0
@@ -55,7 +55,7 @@ func nox_binfile_cryptSet_408D40(cfile *FILE, ckey int) int {
 }
 
 // nox_binfile_fread_408E40
-func nox_binfile_fread_408E40(cbuf *byte, sz, cnt int, cfile *FILE) int {
+func nox_binfile_fread_408E40(cbuf *byte, sz, cnt int32, cfile *FILE) int32 {
 	if sz*cnt == 0 {
 		return 0
 	}
@@ -66,23 +66,23 @@ func nox_binfile_fread_408E40(cbuf *byte, sz, cnt int, cfile *FILE) int {
 	if err != nil {
 		file.Err = err
 	}
-	return n / sz
+	return int32(n) / sz
 }
 
 // nox_binfile_fread_raw_40ADD0
-func nox_binfile_fread_raw_40ADD0(cbuf *byte, sz, cnt size_t, cfile *FILE) int {
+func nox_binfile_fread_raw_40ADD0(cbuf *byte, sz, cnt size_t, cfile *FILE) int32 {
 	if sz*cnt == 0 {
 		return 0
 	}
-	n := nox_fs_fread(cfile, unsafe.Pointer(cbuf), int(sz*cnt))
+	n := nox_fs_fread(cfile, unsafe.Pointer(cbuf), int32(sz*cnt))
 	if n >= 0 {
-		n /= int(sz)
+		n /= int32(sz)
 	}
-	return n
+	return int32(n)
 }
 
 // nox_binfile_fread_align_408FE0
-func nox_binfile_fread_align_408FE0(cbuf *byte, sz, cnt int, cfile *FILE) int {
+func nox_binfile_fread_align_408FE0(cbuf *byte, sz, cnt int32, cfile *FILE) int32 {
 	if sz*cnt == 0 {
 		return 0
 	}
@@ -96,7 +96,7 @@ func nox_binfile_fread_align_408FE0(cbuf *byte, sz, cnt int, cfile *FILE) int {
 	if err != nil {
 		file.Err = err
 	}
-	return n / sz
+	return int32(n) / sz
 }
 
 // nox_binfile_skipLine_409520

@@ -78,8 +78,8 @@ func nox_getHostPlayerUnit() *nox_object_t {
 }
 
 // nox_xxx_servStartCountdown_40A2A0
-func nox_xxx_servStartCountdown_40A2A0(a1 int, a2 *byte) {
-	GetServer().ServStartCountdown(a1, strman.ID(GoString(a2)))
+func nox_xxx_servStartCountdown_40A2A0(a1 int32, a2 *byte) {
+	GetServer().ServStartCountdown(int(a1), strman.ID(GoString(a2)))
 }
 
 // sub_40A040_settings
@@ -88,28 +88,28 @@ func sub_40A040_settings(a1 int16, a2 byte) {
 }
 
 // nox_server_SetLastObjectScriptID
-func nox_server_SetLastObjectScriptID(id uint) {
+func nox_server_SetLastObjectScriptID(id uint32) {
 	GetServer().S().Objs.SetLastObjectScriptID(server.ObjectScriptID(id))
 }
 
 // nox_server_LastObjectScriptID
-func nox_server_LastObjectScriptID() uint {
-	return uint(GetServer().S().Objs.LastObjectScriptID())
+func nox_server_LastObjectScriptID() uint32 {
+	return uint32(GetServer().S().Objs.LastObjectScriptID())
 }
 
 // nox_server_NextObjectScriptID
-func nox_server_NextObjectScriptID() uint {
-	return uint(GetServer().S().Objs.NextObjectScriptID())
+func nox_server_NextObjectScriptID() uint32 {
+	return uint32(GetServer().S().Objs.NextObjectScriptID())
 }
 
 // nox_xxx_servGetPort_40A430
-func nox_xxx_servGetPort_40A430() int {
-	return GetServer().ServerPort()
+func nox_xxx_servGetPort_40A430() int32 {
+	return int32(GetServer().ServerPort())
 }
 
 // sub_40A300
-func sub_40A300() int {
-	return bool2int(GetServer().GetFlag3592())
+func sub_40A300() int32 {
+	return bool2int32(GetServer().GetFlag3592())
 }
 
 // nox_xxx_mapLoad_4D2450
@@ -118,13 +118,13 @@ func nox_xxx_mapLoad_4D2450(a1 *byte) {
 }
 
 // nox_mapToGameFlags_4CFF50
-func nox_mapToGameFlags_4CFF50(v int) int {
-	return int(Nox_mapToGameFlags(v))
+func nox_mapToGameFlags_4CFF50(v int32) int32 {
+	return int32(Nox_mapToGameFlags(int(v)))
 }
 
 // sub_40A1A0
-func sub_40A1A0() int {
-	return Sub_40A1A0()
+func sub_40A1A0() int32 {
+	return int32(Sub_40A1A0())
 }
 
 // gameFPS
@@ -140,16 +140,16 @@ func Sub_409A70(a1 int) int {
 	return int(sub_409A70(int16(a1)))
 }
 func Nox_xxx_netInformTextMsg2_4DA180(a1 int, a2 unsafe.Pointer) {
-	nox_xxx_netInformTextMsg2_4DA180(int(a1), (*byte)(a2))
+	nox_xxx_netInformTextMsg2_4DA180(int32(a1), (*byte)(a2))
 }
 func Nox_xxx_netReportUnitHeight_4D9020(a1 ntype.PlayerInd, a2 *server.Object) {
-	nox_xxx_netReportUnitHeight_4D9020(int(a1), asObjectC(a2))
+	nox_xxx_netReportUnitHeight_4D9020(int32(a1), asObjectC(a2))
 }
 func Sub_4FF7B0(pl *server.Player) {
 	sub_4FF7B0((*nox_playerInfo)(pl.C()))
 }
 func Sub_511100(a1 int) {
-	sub_511100(int(a1))
+	sub_511100(int32(a1))
 }
 func Nox_xxx_netUpdateRemotePlr_501CA0(a1 *server.Object) {
 	nox_xxx_netUpdateRemotePlr_501CA0(asObjectC(a1))
@@ -158,22 +158,22 @@ func Nox_xxx_netSendObjects2Plr_519410(a1 *server.Object, a2 *server.Object) {
 	nox_xxx_netSendObjects2Plr_519410(asObjectC(a1), asObjectC(a2))
 }
 func Nox_xxx_netUnmarkMinimapObj_417300(a1 ntype.PlayerInd, a2 *server.Object, a3 int) {
-	nox_xxx_netUnmarkMinimapObj_417300(int(a1), asObjectC(a2), int(a3))
+	nox_xxx_netUnmarkMinimapObj_417300(int32(a1), asObjectC(a2), int32(a3))
 }
 func Sub_4D6770(a1 ntype.PlayerInd) {
-	sub_4D6770(int(a1))
+	sub_4D6770(int32(a1))
 }
 func Sub_4D6880(a1 int, a2 int) {
-	sub_4D6880(int(a1), int(a2))
+	sub_4D6880(int32(a1), int32(a2))
 }
 func Sub_4D60B0() {
 	sub_4D60B0()
 }
 func Sub_4CFDF0(a1 int) {
-	sub_4CFDF0(int(a1))
+	sub_4CFDF0(int32(a1))
 }
 func Nox_xxx_playerMapTracksObj_4173D0(a1 int, a2 *server.Object) int {
-	return int(nox_xxx_playerMapTracksObj_4173D0(int(a1), asObjectC(a2)))
+	return int(nox_xxx_playerMapTracksObj_4173D0(int32(a1), asObjectC(a2)))
 }
 func Sub_519710(a1 unsafe.Pointer) int {
 	return int(sub_519710(a1))
@@ -203,7 +203,7 @@ func Nox_xxx_collide_548740() {
 	nox_xxx_collide_548740()
 }
 func Nox_xxx_updatePoison_4EE8F0(a1 *server.Object, a2 int) {
-	nox_xxx_updatePoison_4EE8F0(asObjectC(a1), int(a2))
+	nox_xxx_updatePoison_4EE8F0(asObjectC(a1), int32(a2))
 }
 func Nox_xxx_updateUnitBuffs_4FF620(a1 *server.Object) {
 	nox_xxx_updateUnitBuffs_4FF620(asObjectC(a1))
@@ -236,7 +236,7 @@ func Sub_40A6B0() int {
 	return int(sub_40A6B0())
 }
 func Sub_40A6A0(a1 int) {
-	sub_40A6A0(int(a1))
+	sub_40A6A0(int32(a1))
 }
 func Nox_xxx_netReportAllLatency_4D3050() {
 	nox_xxx_netReportAllLatency_4D3050()
@@ -302,7 +302,7 @@ func Sub_4D7B40() {
 	sub_4D7B40()
 }
 func Sub_41E4B0(a1 int) {
-	sub_41E4B0(int(a1))
+	sub_41E4B0(int32(a1))
 }
 func Sub_56F1C0() {
 	sub_56F1C0()
@@ -311,7 +311,7 @@ func Sub_4E4ED0() {
 	sub_4E4ED0()
 }
 func Nox_motd_4463E0(a1 int) {
-	nox_motd_4463E0(int(a1))
+	nox_motd_4463E0(int32(a1))
 }
 func Sub_4259C0() {
 	sub_4259C0()
@@ -395,7 +395,7 @@ func Sub_4D0550(a1 string) {
 	sub_4D0550(internCStr(a1))
 }
 func Sub_4165F0(a1 int, a2 int) {
-	sub_4165F0(int(a1), int(a2))
+	sub_4165F0(int32(a1), int32(a2))
 }
 func Sub_4D7430() int {
 	return int(sub_4D7430())
@@ -404,10 +404,10 @@ func Sub_4D76F0() int {
 	return int(sub_4D76F0())
 }
 func Sub_4D76E0(a1 int) {
-	sub_4D76E0(int(a1))
+	sub_4D76E0(int32(a1))
 }
 func Nox_xxx_ruleSetNoRespawn_40A5E0(a1 int) {
-	nox_xxx_ruleSetNoRespawn_40A5E0(int(a1))
+	nox_xxx_ruleSetNoRespawn_40A5E0(int32(a1))
 }
 func Sub_455C10() {
 	sub_455C10()
@@ -431,7 +431,7 @@ func Nox_xxx_teamAssignFlags_418640() {
 	nox_xxx_teamAssignFlags_418640()
 }
 func Nox_xxx_toggleAllTeamFlags_418690(a1 int) {
-	nox_xxx_toggleAllTeamFlags_418690(int(a1))
+	nox_xxx_toggleAllTeamFlags_418690(int32(a1))
 }
 func Sub_410730() {
 	sub_410730()

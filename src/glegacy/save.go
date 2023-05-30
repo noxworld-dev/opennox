@@ -41,7 +41,7 @@ func nox_savegame_rm_4DBE10(cname *byte, rmDir int) {
 func nox_client_countPlayerFiles04_4DC7D0() int { return Nox_client_countPlayerFiles04_4DC7D0() }
 
 // nox_xxx_gameGet_4DB1B0
-func nox_xxx_gameGet_4DB1B0() int { return bool2int(Nox_xxx_gameGet_4DB1B0()) }
+func nox_xxx_gameGet_4DB1B0() int32 { return bool2int32(Nox_xxx_gameGet_4DB1B0()) }
 
 // sub_4DCC90
 func sub_4DCC90() int { return Sub_4DCC90() }

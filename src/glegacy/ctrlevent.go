@@ -20,13 +20,13 @@ var (
 )
 
 // nox_xxx_playerResetControlBuffer_51AC30
-func nox_xxx_playerResetControlBuffer_51AC30(pi int) {
-	GetServer().S().Players.Control.Player(pi).Reset()
+func nox_xxx_playerResetControlBuffer_51AC30(pi int32) {
+	GetServer().S().Players.Control.Player(int(pi)).Reset()
 }
 
 // sub_42E8E0
-func sub_42E8E0(key, a2 int) *wchar2_t {
-	s := GetCtrlEvent().Sub_42E8E0_go(keybind.Event(key), a2)
+func sub_42E8E0(key, a2 int32) *wchar2_t {
+	s := GetCtrlEvent().Sub_42E8E0_go(keybind.Event(key), int(a2))
 	return internWStr(s)
 }
 

@@ -557,7 +557,7 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(a1 int32, a2 int32, a3 uint32, a4 i
 func sub_4A3090(a1 *int16, a2 int32) *int16 {
 	var result *int16
 	result = a1
-	alloc.Memcpy(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*12)))+uint32(a2*4))), unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*12)))+uint32(a2*4)+4)), int((int32(*a1)-a2)*4))
+	alloc.Memcpy(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*12)))+uint32(a2*4))), unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*12)))+uint32(a2*4)+4)), uintptr((int32(*a1)-a2)*4))
 	*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*12))) + uint32(int32(*a1)*4) - 4))) = math.MaxUint32
 	return result
 }
@@ -959,8 +959,8 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *nox_window, ev uint32, a3 uint32, a4 
 	}
 	if ev == 16385 {
 		wstr = (*wchar2_t)(unsafe.Pointer(uintptr(a3)))
-		nox_wcsncpy(&win.draw_data.text[0], wstr, 63)
-		win.draw_data.text[nox_wcslen(wstr)] = 0
+		nox_wcsncpy(&win.DrawData().text[0], wstr, 63)
+		win.DrawData().text[nox_wcslen(wstr)] = 0
 		return 0
 	}
 	if ev == 16388 {
@@ -978,8 +978,8 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *nox_window, ev uint32, a3 uint32, a4 
 			sub_46AB20((*uint32)(sdata.field_9), int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(sdata.field_9)) + 8)))), int32(uint32(a4)-*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(sdata.field_9)) + 400))) + 12)))*2))
 		}
 		sdata.field_13_0 = uint16(int16(a4))
-		if win.draw_data.text[0] != 0 {
-			sdata.field_13_0 -= uint16(int16(nox_xxx_guiFontHeightMB_43F320(win.draw_data.font)))
+		if win.DrawData().text[0] != 0 {
+			sdata.field_13_0 -= uint16(int16(nox_xxx_guiFontHeightMB_43F320(win.DrawData().font)))
 		}
 		return 0
 	}
@@ -2585,34 +2585,34 @@ func sub_4A7EF0() *byte {
 func nox_xxx_wndButtonProc_4A7F50(win *nox_window, ev int32, a3 int32, a4 int32) int32 {
 	switch ev {
 	case 5:
-		win.draw_data.field_0 |= 4
+		win.DrawData().field_0 |= 4
 		return 1
 	case 6:
 		fallthrough
 	case 7:
-		if (win.draw_data.field_0 & 4) == 0 {
+		if (win.DrawData().field_0 & 4) == 0 {
 			return 0
 		}
-		nox_window_call_field_94_fnc(win.draw_data.win, 0x4000|7, int32(uintptr(unsafe.Pointer(win))), a3)
-		win.draw_data.field_0 &= 0xFFFFFFFB
+		nox_window_call_field_94_fnc(win.DrawData().win, 0x4000|7, int32(uintptr(unsafe.Pointer(win))), a3)
+		win.DrawData().field_0 &= 0xFFFFFFFB
 		return 1
 	case 8:
-		nox_window_call_field_94_fnc(win.draw_data.win, 0x4000, int32(uintptr(unsafe.Pointer(win))), a3)
+		nox_window_call_field_94_fnc(win.DrawData().win, 0x4000, int32(uintptr(unsafe.Pointer(win))), a3)
 		return 1
 	case 17:
-		if win.draw_data.style&0x100 != 0 {
-			win.draw_data.field_0 |= 2
-			nox_window_call_field_94_fnc(win.draw_data.win, 0x4000|5, int32(uintptr(unsafe.Pointer(win))), a3)
+		if win.DrawData().style&0x100 != 0 {
+			win.DrawData().field_0 |= 2
+			nox_window_call_field_94_fnc(win.DrawData().win, 0x4000|5, int32(uintptr(unsafe.Pointer(win))), a3)
 			nox_xxx_windowFocus_46B500(win)
 		}
 		return 1
 	case 18:
-		if win.draw_data.style&0x100 != 0 {
-			win.draw_data.field_0 &= 0xFFFFFFFD
-			nox_window_call_field_94_fnc(win.draw_data.win, 0x4000|6, int32(uintptr(unsafe.Pointer(win))), a3)
+		if win.DrawData().style&0x100 != 0 {
+			win.DrawData().field_0 &= 0xFFFFFFFD
+			nox_window_call_field_94_fnc(win.DrawData().win, 0x4000|6, int32(uintptr(unsafe.Pointer(win))), a3)
 		}
-		if win.draw_data.field_0&4 != 0 {
-			win.draw_data.field_0 &= 0xFFFFFFFB
+		if win.DrawData().field_0&4 != 0 {
+			win.DrawData().field_0 &= 0xFFFFFFFB
 		}
 		return 1
 	case 21:
@@ -2630,12 +2630,12 @@ func nox_xxx_wndButtonProc_4A7F50(win *nox_window, ev int32, a3 int32, a4 int32)
 			fallthrough
 		case 57:
 			if a4 != 1 {
-				win.draw_data.field_0 |= 4
+				win.DrawData().field_0 |= 4
 				return 1
 			}
-			if win.draw_data.field_0&4 != 0 {
-				nox_window_call_field_94_fnc(win.draw_data.win, 0x4000|7, int32(uintptr(unsafe.Pointer(win))), 0)
-				win.draw_data.field_0 &= 0xFFFFFFFB
+			if win.DrawData().field_0&4 != 0 {
+				nox_window_call_field_94_fnc(win.DrawData().win, 0x4000|7, int32(uintptr(unsafe.Pointer(win))), 0)
+				win.DrawData().field_0 &= 0xFFFFFFFB
 			}
 			return 1
 		case 200:

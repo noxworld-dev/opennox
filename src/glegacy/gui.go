@@ -52,7 +52,7 @@ func nox_xxx_wndGetFocus_46B4F0() *nox_window {
 }
 
 // nox_xxx_windowFocus_46B500
-func nox_xxx_windowFocus_46B500(win *nox_window) int {
+func nox_xxx_windowFocus_46B500(win *nox_window) int32 {
 	GetClient().Cli().GUI.Focus(asWindow(win))
 	return 0
 }
@@ -63,7 +63,7 @@ func nox_client_getWin1064916_46C720() *nox_window {
 }
 
 // nox_xxx_wndSetCaptureMain_46ADC0
-func nox_xxx_wndSetCaptureMain_46ADC0(win *nox_window) int {
+func nox_xxx_wndSetCaptureMain_46ADC0(win *nox_window) int32 {
 	if !asWindow(win).Capture(true) {
 		return -4
 	}
@@ -71,7 +71,7 @@ func nox_xxx_wndSetCaptureMain_46ADC0(win *nox_window) int {
 }
 
 // nox_xxx_wndClearCaptureMain_46ADE0
-func nox_xxx_wndClearCaptureMain_46ADE0(win *nox_window) int {
+func nox_xxx_wndClearCaptureMain_46ADE0(win *nox_window) int32 {
 	asWindow(win).Capture(false)
 	return 0
 }
@@ -108,8 +108,8 @@ func nox_xxx_wndWddSetTooltip_46B000(draw *nox_window_data, str *wchar2_t) {
 }
 
 // sub_46B120
-func sub_46B120(a1, a2 *nox_window) int {
-	return asWindow(a1).SetParent(asWindow(a2))
+func sub_46B120(a1, a2 *nox_window) int32 {
+	return int32(asWindow(a1).SetParent(asWindow(a2)))
 }
 
 func Sub_46A4A0() int {

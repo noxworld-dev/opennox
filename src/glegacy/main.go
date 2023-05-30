@@ -10,7 +10,7 @@ var (
 func nox_exit(exitCode int) { Nox_exit(exitCode) }
 
 // nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode
-func nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d *int) {
+func nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d *int32) {
 	Nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d)
 }
 
@@ -110,9 +110,9 @@ func Sub_43D990() {
 }
 
 func Nox_xxx_servSetPlrLimit_409F80(v int) {
-	nox_xxx_servSetPlrLimit_409F80(int(v))
+	nox_xxx_servSetPlrLimit_409F80(int32(v))
 }
 
 func Nox_xxx_guiChatShowHide_445730(v bool) {
-	nox_xxx_guiChatShowHide_445730(int(bool2int(v)))
+	nox_xxx_guiChatShowHide_445730(int32(bool2int(v)))
 }

@@ -28,8 +28,8 @@ func asWaypointC(p *server.Waypoint) *nox_waypoint_t {
 }
 
 // nox_server_getWaypointById_579C40
-func nox_server_getWaypointById_579C40(a1 int) *nox_waypoint_t {
-	return asWaypointC(Nox_server_getWaypointById_579C40(a1))
+func nox_server_getWaypointById_579C40(a1 int32) *nox_waypoint_t {
+	return asWaypointC(Nox_server_getWaypointById_579C40(int(a1)))
 }
 
 func FirstWaypoint() *server.Waypoint {

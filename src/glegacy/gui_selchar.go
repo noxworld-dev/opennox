@@ -57,7 +57,7 @@ type Nox_screenParticle struct {
 func sub_4A1BE0(a1 int) int { return Sub_4A1BE0(a1) }
 
 // sub_41E300
-func sub_41E300(a1 int) int { return Sub_41E300(a1) }
+func sub_41E300(a1 int32) int32 { return int32(Sub_41E300(int(a1))) }
 
 // sub_4A50A0
 func sub_4A50A0() int { return Sub_4A50A0() }
@@ -119,16 +119,16 @@ func Nox_xxx_playerAnimCheck_4372B0() int {
 	return int(nox_xxx_playerAnimCheck_4372B0())
 }
 func Sub_41DA10(a1 int) {
-	sub_41DA10(int(a1))
+	sub_41DA10(int32(a1))
 }
 func Nox_xxx_bookHideMB_45ACA0(a1 int) int {
-	return int(nox_xxx_bookHideMB_45ACA0(int(a1)))
+	return int(nox_xxx_bookHideMB_45ACA0(int32(a1)))
 }
 func Sub_4AD9B0(a1 int) {
-	sub_4AD9B0(int(a1))
+	sub_4AD9B0(int32(a1))
 }
 func Nox_xxx_bookShowMB_45AD70(a1 int) {
-	nox_xxx_bookShowMB_45AD70(int(a1))
+	nox_xxx_bookShowMB_45AD70(int32(a1))
 }
 func Sub_41A000(a1 string, a2 *Nox_savegame_xxx) int {
 	cstr := CString(a1)

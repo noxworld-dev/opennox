@@ -218,7 +218,7 @@ func sub_44BE90(a1 int32, f *nox_memfile) int32 {
 func nox_things_animate_state_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
 	var (
 		data_sz      uint32  = 0x94
-		draw_cb_data *uint32 = (*uint32)(alloc.Calloc1(1, int(data_sz)))
+		draw_cb_data *uint32 = (*uint32)(alloc.Calloc1(1, uintptr(data_sz)))
 	)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(draw_cb_data), 4*0)) = data_sz
 	for {

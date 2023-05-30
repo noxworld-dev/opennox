@@ -31,6 +31,6 @@ func nox_strman_loadString_40F1D0(name *byte, strOut **byte, srcFile *byte, srcL
 }
 
 // nox_strman_get_lang_code
-func nox_strman_get_lang_code() int {
-	return GetServer().S().Strings().Lang()
+func nox_strman_get_lang_code() int32 {
+	return int32(GetServer().S().Strings().Lang())
 }

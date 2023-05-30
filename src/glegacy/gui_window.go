@@ -139,12 +139,12 @@ func nox_window_call_field_93(p *nox_window, a2, a3, a4 int32) int32 {
 }
 
 // nox_xxx_wndGetChildByID_46B0C0
-func nox_xxx_wndGetChildByID_46B0C0(root *nox_window, id int) *nox_window {
+func nox_xxx_wndGetChildByID_46B0C0(root *nox_window, id int32) *nox_window {
 	return (*nox_window)(asWindow(root).ChildByID(uint(id)).C())
 }
 
 // nox_xxx_windowDestroyMB_46C4E0
-func nox_xxx_windowDestroyMB_46C4E0(a1 *nox_window) int {
+func nox_xxx_windowDestroyMB_46C4E0(a1 *nox_window) int32 {
 	win := asWindow(a1)
 	if win == nil {
 		return -2
@@ -154,7 +154,7 @@ func nox_xxx_windowDestroyMB_46C4E0(a1 *nox_window) int {
 }
 
 // nox_window_set_hidden
-func nox_window_set_hidden(p *nox_window, hidden int) int {
+func nox_window_set_hidden(p *nox_window, hidden int32) int32 {
 	if p == nil {
 		return -2
 	}
@@ -168,12 +168,12 @@ func nox_window_set_hidden(p *nox_window, hidden int) int {
 }
 
 // nox_xxx_wndShowModalMB_46A8C0
-func nox_xxx_wndShowModalMB_46A8C0(p *nox_window) int {
-	return asWindow(p).ShowModal()
+func nox_xxx_wndShowModalMB_46A8C0(p *nox_window) int32 {
+	return int32(asWindow(p).ShowModal())
 }
 
 // nox_window_setPos_46A9B0
-func nox_window_setPos_46A9B0(p *nox_window, x, y int32) int {
+func nox_window_setPos_46A9B0(p *nox_window, x, y int32) int32 {
 	win := asWindow(p)
 	if win == nil {
 		return -2
@@ -183,23 +183,23 @@ func nox_window_setPos_46A9B0(p *nox_window, x, y int32) int {
 }
 
 // wndIsShown_nox_xxx_wndIsShown_46ACC0
-func wndIsShown_nox_xxx_wndIsShown_46ACC0(p *nox_window) int {
+func wndIsShown_nox_xxx_wndIsShown_46ACC0(p *nox_window) int32 {
 	if p == nil {
 		return 1
 	}
 	win := asWindow(p)
 	is := win.GetFlags().IsHidden()
-	return bool2int(is)
+	return bool2int32(is)
 }
 
 // nox_xxx_wnd_46C6E0
-func nox_xxx_wnd_46C6E0(p *nox_window) int {
-	return asWindow(p).StackPop()
+func nox_xxx_wnd_46C6E0(p *nox_window) int32 {
+	return int32(asWindow(p).StackPop())
 }
 
 // sub_46C690
-func sub_46C690(p *nox_window) int {
-	return asWindow(p).StackPush()
+func sub_46C690(p *nox_window) int32 {
+	return int32(asWindow(p).StackPush())
 }
 
 func Nox_xxx_wnd_46ABB0(p *gui.Window, v int) int {

@@ -10,7 +10,7 @@ var (
 )
 
 // nox_xxx_setGameFlags_40A4D0
-func nox_xxx_setGameFlags_40A4D0(f uint) {
+func nox_xxx_setGameFlags_40A4D0(f uint32) {
 	noxflags.SetGame(noxflags.GameFlag(f))
 }
 
@@ -20,12 +20,12 @@ func nox_common_gameFlags_unset_40A540(f uint) {
 }
 
 // nox_common_gameFlags_getVal_40A5B0
-func nox_common_gameFlags_getVal_40A5B0() uint {
-	return uint(noxflags.GetGame())
+func nox_common_gameFlags_getVal_40A5B0() uint32 {
+	return uint32(noxflags.GetGame())
 }
 
 // nox_common_gameFlags_check_40A5C0
-func nox_common_gameFlags_check_40A5C0(f uint) bool {
+func nox_common_gameFlags_check_40A5C0(f uint32) bool {
 	return bool(noxflags.HasGame(noxflags.GameFlag(f)))
 }
 
@@ -35,17 +35,17 @@ func nox_xxx_GetGameplayFlags_417D90() int {
 }
 
 // nox_xxx_CheckGameplayFlags_417DA0
-func nox_xxx_CheckGameplayFlags_417DA0(v int) bool {
+func nox_xxx_CheckGameplayFlags_417DA0(v int32) bool {
 	return bool(noxflags.HasGamePlay(uint32(v)))
 }
 
 // nox_xxx_SetGameplayFlag_417D50
-func nox_xxx_SetGameplayFlag_417D50(v int) {
+func nox_xxx_SetGameplayFlag_417D50(v int32) {
 	noxflags.SetGamePlay(uint32(v))
 }
 
 // nox_xxx_UnsetGameplayFlags_417D70
-func nox_xxx_UnsetGameplayFlags_417D70(v int) {
+func nox_xxx_UnsetGameplayFlags_417D70(v int32) {
 	noxflags.UnsetGamePlay(uint32(v))
 }
 

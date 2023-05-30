@@ -2405,7 +2405,7 @@ func sub_495FC0(a1p unsafe.Pointer, a2p *nox_drawable) {
 }
 func sub_4960B0() int32 {
 	var result int32
-	result = int32(uintptr(alloc.Calloc1(1, int((nox_win_width*4/23*(nox_win_height/23)/2)*4))))
+	result = int32(uintptr(alloc.Calloc1(1, uintptr((nox_win_width*4/23*(nox_win_height/23)/2)*4))))
 	dword_5d4594_1217456 = uint32(result)
 	if result != 0 {
 		sub_4CA860()
@@ -4910,7 +4910,7 @@ func nox_npc_by_id(id int32) *nox_npc {
 		n   int32    = 0
 		cur *nox_npc = npc_array
 	)
-	for cur.id != id || !cur.live {
+	for cur.id != id || cur.live == 0 {
 		cur = (*nox_npc)(unsafe.Add(unsafe.Pointer(cur), unsafe.Sizeof(nox_npc{})*1))
 		n++
 		if n >= nox_max_npcs {
@@ -5310,10 +5310,10 @@ func sub_49BD70(a1p *nox_draw_viewport_t) {
 	var v2 int32 = int32(uintptr(unsafe.Pointer(nox_xxx_getSomeSprite_49BD40())))
 	for v2 != 0 {
 		var v3 int32 = nox_xxx_getSprite178_49BD50(v2)
-		v4 = asFunc(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(uintptr(v2)))), 4*116))), (*func(int32, uint32) int32)(nil)).(func(int32, uint32) int32)
+		v4 = asFunc(*((*int32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(uintptr(v2)))), 4*116))), (*func(int32, uint32) int32)(nil)).(func(int32, uint32) int32)
 		if v4 == nil || v4(a1, uint32(v2)) != 0 {
 			result2 = func(arg1 int32, arg2 int32) {
-				asFunc(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(uintptr(v2)))), 4*115))), (*func(int32, int32) int32)(nil)).(func(int32, int32) int32)(arg1, arg2)
+				asFunc(*((*int32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(uintptr(v2)))), 4*115))), (*func(int32, int32) int32)(nil)).(func(int32, int32) int32)(arg1, arg2)
 			}
 			if result2 != nil {
 				result2(a1, v2)
@@ -5520,7 +5520,7 @@ func sub_49C7A0() int32 {
 	var result int32
 	result = int32(dword_5d4594_1305680)
 	if dword_5d4594_1305680 != 0 {
-		nox_server_sanctuaryHelp_54276 = (^nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305680)))), 4104).draw_data.field_0 >> 2) & 1
+		nox_server_sanctuaryHelp_54276 = (^nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305680)))), 4104).DrawData().field_0 >> 2) & 1
 		nox_xxx_wnd_46C6E0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1305680))))))
 		nox_xxx_wndClearCaptureMain_46ADE0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1305680))))))
 		nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305680)))))

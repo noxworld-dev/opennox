@@ -28,5 +28,5 @@ func Sub_50CB10() []types.Pointf {
 }
 
 func Sub_50AB50(x, y int) int {
-	return int(sub_50AB50(int(x), int(y)))
+	return int(sub_50AB50(int32(x), int32(y)))
 }

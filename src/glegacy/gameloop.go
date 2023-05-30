@@ -19,13 +19,13 @@ var (
 )
 
 // nox_client_getIntroScreenDuration_44E3B0
-func nox_client_getIntroScreenDuration_44E3B0() int {
-	return Nox_client_getIntroScreenDuration_44E3B0()
+func nox_client_getIntroScreenDuration_44E3B0() int32 {
+	return int32(Nox_client_getIntroScreenDuration_44E3B0())
 }
 
 // nox_client_getBriefDuration
-func nox_client_getBriefDuration() int {
-	return Nox_client_getBriefDuration()
+func nox_client_getBriefDuration() int32 {
+	return int32(Nox_client_getBriefDuration())
 }
 
 // nox_game_SetCliDrawFunc
@@ -40,7 +40,7 @@ func nox_game_SetCliDrawFunc(fnc unsafe.Pointer) {
 }
 
 // sub_43DE40
-func sub_43DE40(fnc unsafe.Pointer) int {
+func sub_43DE40(fnc unsafe.Pointer) int32 {
 	if fnc == nil {
 		GetServer().SetUpdateFunc2(nil)
 	} else {
@@ -180,19 +180,19 @@ func Sub_4D39F0(a1 string) {
 	sub_4D39F0(internCStr(a1))
 }
 func Sub_48D4B0(a1 int) {
-	sub_48D4B0(int(a1))
+	sub_48D4B0(int32(a1))
 }
 func Nox_xxx_set3512_40A340(a1 int) {
-	nox_xxx_set3512_40A340(int(a1))
+	nox_xxx_set3512_40A340(int32(a1))
 }
 func Sub_459D50(a1 int) {
-	sub_459D50(int(a1))
+	sub_459D50(int32(a1))
 }
 func Nox_xxx_gameSetMapPath_409D70(a1 string) {
 	nox_xxx_gameSetMapPath_409D70(internCStr(a1))
 }
 func Nox_xxx_gui_43E1A0(a1 int) {
-	nox_xxx_gui_43E1A0(int(a1))
+	nox_xxx_gui_43E1A0(int32(a1))
 }
 func Nox_xxx_printCentered_445490(str string) {
 	wstr, free := CWString(str)
@@ -200,7 +200,7 @@ func Nox_xxx_printCentered_445490(str string) {
 	nox_xxx_printCentered_445490(wstr)
 }
 func Nox_xxx_mapValidateMB_4CF470(a1 string, a2 uint32) int {
-	return int(nox_xxx_mapValidateMB_4CF470(internCStr(a1), int(a2)))
+	return int(nox_xxx_mapValidateMB_4CF470(internCStr(a1), int32(a2)))
 }
 func Nox_xxx_copyServerIPAndPort_431790(a1 string) {
 	nox_xxx_copyServerIPAndPort_431790(internCStr(a1))

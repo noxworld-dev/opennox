@@ -39,11 +39,11 @@ func Sub_41EC30() {
 }
 
 func Sub_446490(v int) {
-	sub_446490(int(v))
+	sub_446490(int32(v))
 }
 
 func Nox_xxx_guiServerOptionsHide_4597E0(v int) {
-	nox_xxx_guiServerOptionsHide_4597E0(int(v))
+	nox_xxx_guiServerOptionsHide_4597E0(int32(v))
 }
 
 func Sub_445C40() {
@@ -63,11 +63,11 @@ func Get_dword_5d4594_2650652() int {
 }
 
 func Set_dword_5d4594_2650652(v int) {
-	dword_5d4594_2650652 = uint(v)
+	dword_5d4594_2650652 = uint32(v)
 }
 
 func Sub_41CEE0(p unsafe.Pointer, a2 int) {
-	sub_41CEE0(p, int(a2))
+	sub_41CEE0(p, int32(a2))
 }
 
 func Get_nox_xxx_menuGameOnButton_445840() unsafe.Pointer {

@@ -201,13 +201,13 @@ func nox_xxx_findParentChainPlayer_4EC580(obj *nox_object_t) *nox_object_t {
 }
 
 // nox_xxx_unitHasThatParent_4EC4F0
-func nox_xxx_unitHasThatParent_4EC4F0(obj, owner *nox_object_t) int {
-	return bool2int(asObjectS(obj).HasOwner(asObjectS(owner)))
+func nox_xxx_unitHasThatParent_4EC4F0(obj, owner *nox_object_t) int32 {
+	return bool2int32(asObjectS(obj).HasOwner(asObjectS(owner)))
 }
 
 // nox_xxx_unitIsEnemyTo_5330C0
-func nox_xxx_unitIsEnemyTo_5330C0(a, b *nox_object_t) int {
-	return bool2int(GetServer().IsEnemyTo(asObjectS(a), asObjectS(b)))
+func nox_xxx_unitIsEnemyTo_5330C0(a, b *nox_object_t) int32 {
+	return bool2int32(GetServer().IsEnemyTo(asObjectS(a), asObjectS(b)))
 }
 
 // nox_get_and_zero_server_objects_4DA3C0
@@ -236,19 +236,19 @@ func nox_xxx_setNPCColor_4E4A90(obj *nox_object_t, a2 byte, p unsafe.Pointer) {
 }
 
 // nox_xxx_checkSummonedCreaturesLimit_500D70
-func nox_xxx_checkSummonedCreaturesLimit_500D70(obj *nox_object_t, ind int) bool {
-	return bool(Nox_xxx_checkSummonedCreaturesLimit_500D70(asObjectS(obj), ind))
+func nox_xxx_checkSummonedCreaturesLimit_500D70(obj *nox_object_t, ind int32) bool {
+	return bool(Nox_xxx_checkSummonedCreaturesLimit_500D70(asObjectS(obj), int(ind)))
 }
 
 // nox_xxx_unitDoSummonAt_5016C0
-func nox_xxx_unitDoSummonAt_5016C0(typID int, cpos *float32, owner *nox_object_t, dir byte) *nox_object_t {
+func nox_xxx_unitDoSummonAt_5016C0(typID int32, cpos *float32, owner *nox_object_t, dir byte) *nox_object_t {
 	pos := unsafe.Slice(cpos, 2)
-	return asObjectC(Nox_xxx_unitDoSummonAt_5016C0(typID, types.Ptf(pos[0], pos[1]), asObjectS(owner), server.Dir16(dir)))
+	return asObjectC(Nox_xxx_unitDoSummonAt_5016C0(int(typID), types.Ptf(pos[0], pos[1]), asObjectS(owner), server.Dir16(dir)))
 }
 
 // sub_57AEE0
-func sub_57AEE0(sp int, u *nox_object_t) int {
-	return bool2int(Sub_57AEE0(spell.ID(sp), asObjectS(u)))
+func sub_57AEE0(sp int32, u *nox_object_t) int32 {
+	return bool2int32(Sub_57AEE0(spell.ID(sp), asObjectS(u)))
 }
 
 // sub_4E71F0

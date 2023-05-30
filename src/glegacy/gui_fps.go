@@ -5,4 +5,4 @@ var (
 )
 
 // sub_4706C0
-func sub_4706C0(a1 int) { Sub_4706C0(a1) }
+func sub_4706C0(a1 int32) { Sub_4706C0(int(a1)) }
