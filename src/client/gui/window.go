@@ -14,6 +14,13 @@ const deadWord = 0xacacacac
 type WindowFunc func(win *Window, ev WindowEvent) WindowEventResp
 type WindowDrawFunc func(win *Window, draw *WindowData) int
 
+/*
+func (win *gui.Window, draw *gui.WindowData) int {
+	var (
+		a1 = int32(uintptr(win.C()))
+		a2 = int32(uintptr(draw.C()))
+*/
+
 func WrapFuncC(h unsafe.Pointer) WindowFunc {
 	if h == nil {
 		return nil
@@ -35,13 +42,6 @@ func WrapFunc(fnc func(*Window, uintptr, uintptr, uintptr) uintptr) WindowFunc {
 		}
 		return RawEventResp(r)
 	}
-}
-
-func WrapDrawFuncC(h unsafe.Pointer) WindowDrawFunc {
-	if h == nil {
-		return nil
-	}
-	return ccall.AsFunc[func(*Window, *WindowData) int](h)
 }
 
 type windowExt struct {

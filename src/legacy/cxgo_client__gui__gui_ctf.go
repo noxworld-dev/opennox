@@ -4,7 +4,6 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func sub_455C30() int32 {
@@ -23,7 +22,7 @@ func sub_455C30() int32 {
 		v1 = 8811
 		for {
 			v2 = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(uintptr(result))), v1)))
-			nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v2)), nil, ccall.FuncAddr(sub_455CD0), nil)
+			nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v2)), nil, sub_455CD0, nil)
 			v3 = nox_strman_loadString_40F1D0(internCStr("FlagHomeTT"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c"), 201)
 			nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(wchar2_t(0))*18)))), v3)
 			if func() int32 {

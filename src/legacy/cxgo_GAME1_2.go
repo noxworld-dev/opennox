@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/cnet"
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -3621,7 +3622,7 @@ func sub_438480() {
 	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815028))))), 16410, uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(nox_wol_wnd_gameList_815012 + 32))) + 36)))), 0)
 	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815032))))), 16410, uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(nox_wol_wnd_gameList_815012 + 32))) + 36)))), 0)
 }
-func sub_438C80(a1 int32, a2 int32) int32 {
+func sub_438C80(win *gui.Window, draw *gui.WindowData) int {
 	var (
 		v2   [404]byte
 		mpos nox_point = nox_client_getMousePos_4309F0()
@@ -3661,8 +3662,9 @@ func sub_438DD0(a1 uint32, a2 uint32) int32 {
 	}
 	return 0
 }
-func sub_438E30(a1 *uint32, a2 int32) int32 {
+func sub_438E30(win *gui.Window, draw *gui.WindowData) int {
 	var (
+		a1 = (*uint32)(win.C())
 		v1 *uint32
 		v2 int32
 		v3 int32
@@ -3737,11 +3739,11 @@ func sub_439050(win *nox_window, p2, p3, p4 uintptr) uintptr {
 		if a2 == 16400 {
 			v7 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(a3)))
 			if v7 >= 10038 && v7 <= 10042 {
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815016))))), 16403, p4, 0)
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815020))))), 16403, p4, 0)
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815024))))), 16403, p4, 0)
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815028))))), 16403, p4, 0)
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815032))))), 16403, p4, 0)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815016))))), 16403, uintptr(p4), 0)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815020))))), 16403, uintptr(p4), 0)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815024))))), 16403, uintptr(p4), 0)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815028))))), 16403, uintptr(p4), 0)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815032))))), 16403, uintptr(p4), 0)
 				if a4 < uint32(*(*int32)(unsafe.Pointer(&nox_wol_server_result_cnt_815088))) {
 					var pos nox_point = nox_client_getMousePos_4309F0()
 					dword_5d4594_814624 = unsafe.Pointer(sub_4A04C0(int32(a4)))

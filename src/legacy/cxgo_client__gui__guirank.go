@@ -6,8 +6,8 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var dword_5d4594_1090048 *nox_window = nil
@@ -157,7 +157,7 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 	dword_5d4594_1090040 = uint32(v14)
 	dword_5d4594_1090044 = uint32(439 - v0)
 	dword_5d4594_1090048 = nox_window_new(nil, 1560, 0, int(v0)+40, 1, 1, nil)
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1090048)))), sub_46F060, ccall.FuncAddr(sub_46F080), nil)
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1090048)))), sub_46F060, sub_46F080, nil)
 	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(dword_5d4594_1090048))) + 56))) = 0x80000000
 	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(dword_5d4594_1090048))) + 64))) = 0x80000000
 	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(dword_5d4594_1090048))) + 72))) = 0x80000000
@@ -242,8 +242,10 @@ func sub_46F030() *wchar2_t {
 	}
 	return result
 }
-func sub_46F080(a1 int32, a2 int32) int32 {
+func sub_46F080(win *gui.Window, draw *gui.WindowData) int {
 	var (
+		a1    = int32(uintptr(win.C()))
+		a2    = int32(uintptr(draw.C()))
 		v2    *byte
 		v4    *byte
 		v5    int16

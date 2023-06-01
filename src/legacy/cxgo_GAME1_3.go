@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -770,8 +771,9 @@ func nox_xxx_drawMessageLines_445530() int32 {
 	}
 	return result
 }
-func nox_xxx_guiChatMode_4456E0(a1 *int32) int32 {
+func nox_xxx_guiChatMode_4456E0(win *gui.Window, draw *gui.WindowData) int {
 	var (
+		a1 = (*int32)(win.C())
 		v1 *int32
 		v2 int32
 		v4 int32

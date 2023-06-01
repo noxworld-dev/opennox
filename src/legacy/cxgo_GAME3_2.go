@@ -6,6 +6,7 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -295,7 +296,7 @@ func sub_4CEBA0(a1 int32, a2 *byte) int32 {
 	dword_5d4594_1523044 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1523024)))), 10174))))
 	dword_5d4594_1523048 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1523024)))), 10175))))
 	v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1523024)))), 10176)))
-	nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v2)), ccall.FuncAddr(sub_4CEED0))
+	nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v2)), sub_4CEED0)
 	sub_46B120((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1523024)))), (*nox_window)(unsafe.Pointer(uintptr(a1))))
 	v3 = *(**uint32)(unsafe.Pointer(uintptr(dword_5d4594_1523028 + 32)))
 	v9 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UISlider"))))
@@ -345,8 +346,10 @@ func sub_4CED40(a1 *byte) {
 		compatFindClose(v2)
 	}
 }
-func sub_4CEED0(a1 int32, a2 int32) int32 {
+func sub_4CEED0(win *gui.Window, draw *gui.WindowData) int {
 	var (
+		a1    = int32(uintptr(win.C()))
+		a2    = int32(uintptr(draw.C()))
 		v2    int32
 		v3    int8
 		v4    *uint16

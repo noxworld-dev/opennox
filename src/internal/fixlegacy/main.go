@@ -110,7 +110,7 @@ func run() error {
 					}
 				case "nox_xxx_wndSetDrawFn_46B340":
 					if len(n.Args) == 2 {
-						changed = fixFuncRef(&n.Args[1]) || changed
+						changed = fixFuncIdent(&n.Args[1]) || changed
 					}
 				case "nox_xxx_wndSetProc_46B2C0", "nox_xxx_wndSetWindowProc_46B300":
 					if len(n.Args) == 2 {
@@ -119,7 +119,7 @@ func run() error {
 				case "nox_window_set_all_funcs":
 					if len(n.Args) == 4 {
 						changed = fixFuncIdent(&n.Args[1]) || changed
-						changed = fixFuncRef(&n.Args[2]) || changed
+						changed = fixFuncIdent(&n.Args[2]) || changed
 						changed = fixFuncRef(&n.Args[3]) || changed
 					}
 				case "nox_window_call_field_94_fnc":

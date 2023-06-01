@@ -1,8 +1,6 @@
 package legacy
 
 import (
-	"unsafe"
-
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 )
 
@@ -11,4 +9,6 @@ var (
 )
 
 // sub_4C26F0
-func sub_4C26F0(a1 unsafe.Pointer) int32 { return int32(Sub_4C26F0(AsWindowP(a1))) }
+func sub_4C26F0(win *gui.Window, draw *gui.WindowData) int {
+	return int(Sub_4C26F0(win))
+}

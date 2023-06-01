@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/cmath"
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -1843,7 +1844,7 @@ func nox_gui_itemAmount_init_4BFEF0() int32 {
 	if nox_gui_itemAmount_dialog_1319228 == nil {
 		return 0
 	}
-	nox_window_set_all_funcs((*nox_window)(nox_gui_itemAmount_dialog_1319228), sub_4BFDD0, ccall.FuncAddr(sub_4C0030), nil)
+	nox_window_set_all_funcs((*nox_window)(nox_gui_itemAmount_dialog_1319228), sub_4BFDD0, sub_4C0030, nil)
 	dword_5d4594_1319232 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(nox_gui_itemAmount_dialog_1319228), 3601))))
 	dword_5d4594_1319236 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(nox_gui_itemAmount_dialog_1319228), 3607))))
 	nox_window_set_hidden((*nox_window)(nox_gui_itemAmount_dialog_1319228), 1)
@@ -1866,8 +1867,9 @@ func nox_gui_itemAmount_init_4BFEF0() int32 {
 	*memmap.PtrUint32(0x5D4594, 1319224) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("MultiMoveNoPressedNoTag")))))
 	return 1
 }
-func sub_4C0030(a1 int32) int32 {
+func sub_4C0030(win *gui.Window, draw *gui.WindowData) int {
 	var (
+		a1 = int32(uintptr(win.C()))
 		v1 int32
 		v2 int32
 		v3 int32
@@ -2212,7 +2214,7 @@ func nox_xxx_clientTrade_4C0CE0() int32 {
 	v1[1] = 17
 	return nox_netlist_addToMsgListCli_40EBC0(31, 0, (*uint8)(unsafe.Pointer(&v1[0])), 2)
 }
-func sub_4C0D00() int32 {
+func sub_4C0D00(win *gui.Window, draw *gui.WindowData) int {
 	var (
 		v0  *uint32
 		v1  *uint32
@@ -2863,8 +2865,9 @@ func sub_4C1CA0(a1 int32) int32 {
 	}
 	return result
 }
-func nox_xxx_guiDrawSummonBox_4C1FE0(a1 *uint32) int32 {
+func nox_xxx_guiDrawSummonBox_4C1FE0(win *gui.Window, draw *gui.WindowData) int {
 	var (
+		a1   = (*uint32)(win.C())
 		v2   *uint8
 		v3   int32
 		v4   int32
@@ -3053,7 +3056,7 @@ func nox_xxx_guiHideSummonWindow_4C2470() int32 {
 	*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1321040 + 36))) &= 0xFFFFFFFD
 	return result
 }
-func sub_4C24A0() int32 {
+func sub_4C24A0(win *gui.Window, draw *gui.WindowData) int {
 	return 1
 }
 func nox_xxx_wndSummonBigButtonProc_4C24B0(win *nox_window, a2, a3, p4 uintptr) uintptr {
@@ -3590,12 +3593,13 @@ func sub_4C3390() int32 {
 	*memmap.PtrUint32(0x5D4594, 1321220) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("VoteInProgress")))))
 	dword_5d4594_1321216 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 136, int(nox_win_width)-50, int(nox_win_height)/2-100, 50, 50, nil))))
 	nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1321216)), *memmap.PtrInt32(0x5D4594, 1321220))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1321216)))), nil, ccall.FuncAddr(sub_4C3410), nil)
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1321216)))), nil, sub_4C3410, nil)
 	nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1321216))))), 1)
 	return 1
 }
-func sub_4C3410(a1 *int32) int32 {
+func sub_4C3410(win *gui.Window, draw *gui.WindowData) int {
 	var (
+		a1 = (*int32)(win.C())
 		v1 *int32
 		v2 int32
 		v4 int32
@@ -4798,15 +4802,17 @@ func sub_4CAFB0(a1 int32) int32 {
 	result = a1
 	if a1 != 0 {
 		if int32(int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 4))))) >= 0 {
-			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), nil, ccall.FuncAddr(sub_4CAFF0), nil)
+			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), nil, sub_4CAFF0, nil)
 		} else {
-			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), nil, ccall.FuncAddr(sub_4CB1A0), nil)
+			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), nil, sub_4CB1A0, nil)
 		}
 	}
 	return result
 }
-func sub_4CAFF0(a1 *uint32, a2 *uint32) int32 {
+func sub_4CAFF0(win *gui.Window, draw *gui.WindowData) int {
 	var (
+		a1    = (*uint32)(win.C())
+		a2    = (*uint32)(draw.C())
 		v2    int32
 		v3    int32
 		v4    int32
@@ -4854,8 +4860,10 @@ func sub_4CAFF0(a1 *uint32, a2 *uint32) int32 {
 	}
 	return 1
 }
-func sub_4CB1A0(a1 *uint32, a2 int32) int32 {
+func sub_4CB1A0(win *gui.Window, draw *gui.WindowData) int {
 	var (
+		a1    = (*uint32)(win.C())
+		a2    = int32(uintptr(draw.C()))
 		v2    int32
 		v3    *uint32
 		v4    int32

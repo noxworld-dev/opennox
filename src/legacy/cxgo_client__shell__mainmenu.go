@@ -3,11 +3,14 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func sub_4A22A0(a1 int32, a2 *int32) int32 {
+func Sub_4A22A0(win *gui.Window, draw *gui.WindowData) int {
 	var (
+		a1    = int32(uintptr(win.C()))
+		a2    = (*int32)(draw.C())
 		v2    int32
 		v3    int32
 		v4    *uint8

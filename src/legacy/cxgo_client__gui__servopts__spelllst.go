@@ -14,7 +14,7 @@ func nox_xxx_guiSpelllistLoad_453850(a1 int32) int32 {
 		v10 *uint32
 	)
 	dword_5d4594_1045484 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("spelllst.wnd"), ccall.FuncAddr(sub_453C00)))))
-	nox_xxx_wndSetDrawFn_46B340(*(**nox_window)(unsafe.Pointer(&dword_5d4594_1045484)), ccall.FuncAddr(sub_453B80))
+	nox_xxx_wndSetDrawFn_46B340(*(**nox_window)(unsafe.Pointer(&dword_5d4594_1045484)), sub_453B80)
 	sub_46B120((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045484)))), (*nox_window)(unsafe.Pointer(uintptr(a1))))
 	nox_xxx_wnd_46B280(*(*int32)(unsafe.Pointer(&dword_5d4594_1045484)), a1)
 	dword_5d4594_1045480 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045484)))), 1110))))

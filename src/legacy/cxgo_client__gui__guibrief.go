@@ -5,6 +5,7 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
@@ -67,8 +68,9 @@ func sub_44E410() *wchar2_t {
 	*memmap.PtrUint32(0x5D4594, 831268) = uint32(uintptr(unsafe.Pointer(result)))
 	return result
 }
-func sub_44E8E0(a1 int32, a2 int32) int32 {
+func sub_44E8E0(a1 int32, a2p *gui.WindowData) int32 {
 	var (
+		a2          = int32(uintptr(a2p.C()))
 		v2          int32
 		v3          int32
 		v4          *wchar2_t
@@ -275,8 +277,9 @@ func sub_44E8E0(a1 int32, a2 int32) int32 {
 	nox_xxx_drawSetTextColor_434390(v33)
 	return nox_xxx_drawString_43F6E0(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2 + 200))))), (*wchar2_t)(unsafe.Pointer((*int16)(unsafe.Pointer(v34)))), v35, v50+450)
 }
-func sub_44F0F0(a1 int32, a2 int32) int32 {
+func sub_44F0F0(a1 int32, a2p *gui.WindowData) int32 {
 	var (
+		a2     = int32(uintptr(a2p.C()))
 		v2     int32
 		v3     int32
 		v4     *wchar2_t
@@ -326,8 +329,9 @@ func sub_44F0F0(a1 int32, a2 int32) int32 {
 	nox_xxx_drawSetTextColor_434390(v12)
 	return nox_xxx_drawString_43F6E0(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2 + 200))))), (*wchar2_t)(unsafe.Pointer((*int16)(unsafe.Pointer(v8)))), v9, v7+462)
 }
-func sub_44F300(a1 int32, a2 int32) int32 {
+func sub_44F300(a1 int32, a2p *gui.WindowData) int32 {
 	var (
+		a2     = int32(uintptr(a2p.C()))
 		v2     *byte
 		v3     int32
 		v4     int32

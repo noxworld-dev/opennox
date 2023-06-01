@@ -58,12 +58,12 @@ func nox_xxx_wndSetID_46B080(win *nox_window, id int32) int32 {
 	return 0
 }
 
-func nox_window_set_all_funcs(win *nox_window, proc WindowFunc, draw unsafe.Pointer, tooltip unsafe.Pointer) int32 {
+func nox_window_set_all_funcs(win *nox_window, proc WindowFunc, draw gui.WindowDrawFunc, tooltip unsafe.Pointer) int32 {
 	if win == nil {
 		return -2
 	}
 	win.SetFunc93(gui.WrapFunc(proc))
-	win.SetDraw(gui.WrapDrawFuncC(draw))
+	win.SetDraw(draw)
 	win.SetTooltipFunc(tooltip)
 	return 0
 }
@@ -84,11 +84,11 @@ func nox_xxx_wndSetProc_46B2C0(win *nox_window, fnc WindowFunc) int32 {
 	return 0
 }
 
-func nox_xxx_wndSetDrawFn_46B340(win *nox_window, fnc unsafe.Pointer) int32 {
+func nox_xxx_wndSetDrawFn_46B340(win *nox_window, fnc gui.WindowDrawFunc) int32 {
 	if win == nil {
 		return -2
 	}
-	asWindow(win).SetDraw(gui.WrapDrawFuncC(fnc))
+	asWindow(win).SetDraw(fnc)
 	return 0
 }
 

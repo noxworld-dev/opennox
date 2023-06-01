@@ -88,7 +88,7 @@ func (c *Client) nox_xxx_wndLoadMainBG_4A2210() int {
 	}
 	v1 := gui.MainBg.ChildByID(98)
 	v1.SetFunc93(sub4A18E0)
-	v1.SetDraw(gui.WrapDrawFuncC(legacy.Get_sub_4A22A0()))
+	v1.SetDraw(legacy.Sub_4A22A0)
 	if memmap.Uint32(0x587000, 168832) != 0 {
 		v3 := memmap.PtrOff(0x587000, 168832)
 		v2 := *(**byte)(v3)

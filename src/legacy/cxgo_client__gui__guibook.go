@@ -3,6 +3,7 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -31,8 +32,9 @@ func nox_xxx_bookShowMB_45AD70(a1 int32) {
 		nox_xxx_clientPlaySoundSpecial_452D80(925, 100)
 	}
 }
-func nox_xxx_bookDrawList_45BD40(a1 int32) int32 {
+func nox_xxx_bookDrawList_45BD40(win *gui.Window, draw *gui.WindowData) int {
 	var (
+		a1          = int32(uintptr(win.C()))
 		v1          int32
 		v2          int32
 		v3          int32
@@ -376,7 +378,7 @@ func nox_xxx_book_45CF00(a1 *uint32) int32 {
 	}
 	return 1
 }
-func nox_xxx_bookDrawFn_45C7D0(a1 *uint32) int32 {
+func nox_xxx_bookDrawFn_45C7D0(win *gui.Window, draw *gui.WindowData) int {
 	var (
 		v1  int32
 		v3  int32
@@ -414,7 +416,7 @@ func nox_xxx_bookDrawFn_45C7D0(a1 *uint32) int32 {
 	if dword_5d4594_1046648 != 0 && uint32(nox_xxx_bookGet_430B40_get_mouse_prev_seq())-dword_5d4594_1046648 < (gameFPS()*2) {
 		return 1
 	}
-	nox_client_wndGetPosition_46AA60((*nox_window)(unsafe.Pointer(a1)), (*uint32)(unsafe.Pointer(&v25)), (*uint32)(unsafe.Pointer(&v24)))
+	nox_client_wndGetPosition_46AA60(win, (*uint32)(unsafe.Pointer(&v25)), (*uint32)(unsafe.Pointer(&v24)))
 	if dword_5d4594_1046648 != 0 {
 		v3 = 50
 		for {
@@ -490,7 +492,7 @@ func nox_xxx_bookDrawFn_45C7D0(a1 *uint32) int32 {
 LABEL_27:
 	v23 = int32(*(*float32)(unsafe.Pointer(&dword_5d4594_1046640)))
 	v12 = int32(*(*float32)(unsafe.Pointer(&dword_5d4594_1046636)))
-	nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(a1)), v12, v23)
+	nox_window_setPos_46A9B0(win, v12, v23)
 	return 1
 }
 func sub_45D870() {

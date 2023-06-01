@@ -120,7 +120,7 @@ func nox_game_showGameSel_4379F0() int32 {
 	v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10003)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*9)) &= 0xFFFFFFFB
 	v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10046)))
-	nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v4)), ccall.FuncAddr(sub_438C80))
+	nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v4)), sub_438C80)
 	nox_xxx_wndSetProc_46B2C0(*(**nox_window)(unsafe.Pointer(&nox_wol_wnd_gameList_815012)), nox_xxx_windowMultiplayerSub_439E70)
 	nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&nox_wol_wnd_gameList_815012))))), 1)
 	nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(dword_5d4594_815000))), 1)
@@ -206,15 +206,15 @@ func nox_game_showGameSel_4379F0() int32 {
 	if sub_44A4A0() != 0 {
 		sub_44A4B0()
 	}
-	nox_xxx_wndSetDrawFn_46B340(*(**nox_window)(unsafe.Pointer(&dword_5d4594_814984)), ccall.FuncAddr(sub_438E30))
+	nox_xxx_wndSetDrawFn_46B340(*(**nox_window)(unsafe.Pointer(&dword_5d4594_814984)), sub_438E30)
 	v19 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10054)))
-	nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v19)), ccall.FuncAddr(sub_438E30))
+	nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v19)), sub_438E30)
 	v20 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10055)))
-	nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v20)), ccall.FuncAddr(sub_438E30))
+	nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v20)), sub_438E30)
 	v21 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10056)))
-	nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v21)), ccall.FuncAddr(sub_438E30))
+	nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v21)), sub_438E30)
 	v22 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10057)))
-	nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v22)), ccall.FuncAddr(sub_438E30))
+	nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v22)), sub_438E30)
 	if dword_587000_87408 == 0 {
 		sub_46ACE0(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)), 10047, 10051, 1)
 	}

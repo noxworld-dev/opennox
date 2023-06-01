@@ -151,7 +151,7 @@ func nox_xxx_guiServerOptsLoad_457500() int32 {
 		nox_draw_setTabWidth_43FE20(100)
 		nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), int32(uint32(nox_win_width)-*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1046492 + 8)))-10), 0)
 		nox_xxx_wndSetWindowProc_46B300(*(**nox_window)(unsafe.Pointer(&dword_5d4594_1046492)), nox_xxx_guiServerOptionsProc_458590)
-		nox_xxx_wndSetDrawFn_46B340(*(**nox_window)(unsafe.Pointer(&dword_5d4594_1046492)), ccall.FuncAddr(nox_xxx_windowServerOptionsDrawProc_458500))
+		nox_xxx_wndSetDrawFn_46B340(*(**nox_window)(unsafe.Pointer(&dword_5d4594_1046492)), nox_xxx_windowServerOptionsDrawProc_458500)
 		dword_5d4594_1046512 = nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10101)
 		dword_5d4594_1046496 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10114))))
 		dword_5d4594_1046500 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10183))))

@@ -108,6 +108,3 @@ func Get_winMainMenuAnimOutStartFnc() unsafe.Pointer {
 func Get_winMainMenuAnimOutDoneFnc() unsafe.Pointer {
 	return ccall.FuncAddr(winMainMenuAnimOutDoneFnc)
 }
-func Get_sub_4A22A0() unsafe.Pointer {
-	return ccall.FuncAddr(sub_4A22A0)
-}
