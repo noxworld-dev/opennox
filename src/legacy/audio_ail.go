@@ -133,7 +133,7 @@ func sub_43EA20(a1 unsafe.Pointer) int {
 }
 
 // sub_43E9F0
-func sub_43E9F0() {
+func sub_43E9F0(a1 unsafe.Pointer) {
 	Sub_43E9F0()
 }
 
@@ -148,8 +148,8 @@ func sub_43EFD0(a1 unsafe.Pointer) int {
 }
 
 // sub_43EC10
-func sub_43EC10() int {
-	return Sub_43EC10()
+func sub_43EC10(a1 unsafe.Pointer) {
+	Sub_43EC10()
 }
 
 // sub_43F130
@@ -208,8 +208,8 @@ func sub_43EC30(a1p unsafe.Pointer) int {
 }
 
 // sub_43ECB0
-func sub_43ECB0(a1p unsafe.Pointer) int {
-	return Sub_43ECB0(unsafe.Pointer(a1p))
+func sub_43ECB0(a1p unsafe.Pointer) {
+	Sub_43ECB0(unsafe.Pointer(a1p))
 }
 
 func Get_dword_5d4594_831092() ail.Driver {

@@ -90,7 +90,7 @@ func sub_4A50D0() int {
 	winSelSave.Destroy()
 	winSelSave = nil
 	if v0 != nil {
-		ccall.AsFunc[func() int32](v0)()
+		ccall.AsFunc[func() int](v0)()
 		return 1
 	}
 	nox_client_resetScreenParticles_431510()

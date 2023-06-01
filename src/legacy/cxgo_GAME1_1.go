@@ -631,7 +631,7 @@ func sub_41A000(a1 *byte, sv *Nox_savegame_xxx) int32 {
 						goto LABEL_10
 					}
 				}
-				if ccall.AsFunc[func(uint32) int32](memmap.PtrOff(0x587000, 55956))(0) == 0 {
+				if ccall.AsFunc[func(int32) int32](*memmap.PtrPtr(0x587000, 55956))(0) == 0 {
 					nox_xxx_cryptClose_4269F0()
 					return 0
 				}

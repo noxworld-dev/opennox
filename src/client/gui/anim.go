@@ -129,11 +129,11 @@ func (a *Anim) Window() *Window {
 }
 
 func (a *Anim) Func12() int {
-	return int(ccall.AsFunc[func() int32](a.Func12Ptr)())
+	return ccall.AsFunc[func() int](a.Func12Ptr)()
 }
 
 func (a *Anim) Func13() int {
-	return int(ccall.AsFunc[func() int32](a.Func13Ptr)())
+	return ccall.AsFunc[func() int](a.Func13Ptr)()
 }
 
 func (a *Anim) doOut() {
@@ -170,7 +170,7 @@ func (a *Anim) doOut() {
 		a.SetState(AnimOutDone)
 		SetAnimGlobalState(AnimOutDone)
 		if a.FncDoneOutPtr != nil {
-			ccall.AsFunc[func() int32](a.FncDoneOutPtr)()
+			ccall.AsFunc[func() int](a.FncDoneOutPtr)()
 		}
 	}
 }

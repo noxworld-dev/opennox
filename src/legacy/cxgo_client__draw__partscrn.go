@@ -2,11 +2,13 @@ package legacy
 
 import (
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/client/noxrender"
 )
 
-func nox_client_screenParticleDraw_489700(a1p unsafe.Pointer, p *Nox_screenParticle) int32 {
+func nox_client_screenParticleDraw_489700(a1p *noxrender.Viewport, p *Nox_screenParticle) {
 	var (
-		a1    int32 = int32(uintptr(a1p))
+		a1    int32 = int32(uintptr(a1p.C()))
 		v7    int32
 		v10   int32
 		v11   int8
@@ -17,7 +19,7 @@ func nox_client_screenParticleDraw_489700(a1p unsafe.Pointer, p *Nox_screenParti
 	xLeft.field_4 = int32(p.Field_28 >> 16)
 	if xLeft.field_0 <= 0 || xLeft.field_4 <= 0 || xLeft.field_0 >= *(*int32)(unsafe.Pointer(uintptr(a1 + 32))) || xLeft.field_4 >= *(*int32)(unsafe.Pointer(uintptr(a1 + 36))) {
 		sub_431700((*uint64)(unsafe.Pointer(p)))
-		return 0
+		return
 	}
 	sub_4B6720(&xLeft, int32(p.Field_8), int32(p.Field_40[0]), int8(p.Field_40[0]))
 	nox_client_drawSetColor_434460(int32(p.Field_12))
@@ -39,7 +41,7 @@ func nox_client_screenParticleDraw_489700(a1p unsafe.Pointer, p *Nox_screenParti
 				p.Field_40[0] = uint8(v6)
 				if int32(v6) == 0 {
 					sub_431700((*uint64)(unsafe.Pointer(p)))
-					return 0
+					return
 				}
 			}
 			p.Field_40[1] = p.Field_40[3]
@@ -54,5 +56,4 @@ func nox_client_screenParticleDraw_489700(a1p unsafe.Pointer, p *Nox_screenParti
 	}
 	p.Field_24 += p.Field_16
 	p.Field_28 += p.Field_20
-	return 1
 }

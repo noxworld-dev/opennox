@@ -4509,7 +4509,7 @@ func sub_486FE0(a1 int32) *uint32 {
 	return nil
 }
 func sub_487030(lpMem unsafe.Pointer) {
-	ccall.AsFunc[func(unsafe.Pointer)](unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*3))) + 24)))(lpMem)
+	ccall.AsFunc[func(unsafe.Pointer)](*(*unsafe.Pointer)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*3))) + 24))))(lpMem)
 	*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*3))) + 12))) &= 0xFFFFFFFE
 	alloc.FreePtr(lpMem)
 }
@@ -4628,7 +4628,7 @@ func sub_4872C0(lpMem unsafe.Pointer) {
 		v2 int32
 	)
 	sub_487910(int32(uintptr(lpMem)), -1)
-	ccall.AsFunc[func(unsafe.Pointer)](unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*5))) + 12))) + 32)))(lpMem)
+	ccall.AsFunc[func(unsafe.Pointer)](*(*unsafe.Pointer)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*5))) + 12))) + 32))))(lpMem)
 	*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*5))) + *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*6)))*4 + 24))) = 0
 	v1 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*5))))
 	v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 16))) - 1)

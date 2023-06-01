@@ -613,7 +613,7 @@ func sub_4BD720(a1 int32) *uint32 {
 	return nil
 }
 func sub_4BD7A0(lpMem unsafe.Pointer) {
-	ccall.AsFunc[func(unsafe.Pointer)](unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*43))) + 8)))(lpMem)
+	ccall.AsFunc[func(unsafe.Pointer)](*(*unsafe.Pointer)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*43))) + 8))))(lpMem)
 	alloc.FreePtr(lpMem)
 }
 func sub_4BD7C0(a1 *uint32) *uint32 {
@@ -745,7 +745,7 @@ func sub_4BDA80(a1 int32) int32 {
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 124))))&5 != 0 {
 		ccall.AsFunc[func(int32)](unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 172))) + 16)))(a1)
 	}
-	result2 = ccall.AsFunc[func(int32) int32](unsafe.Pointer(uintptr(a1 + 148)))
+	result2 = ccall.AsFunc[func(int32) int32](*(*unsafe.Pointer)(unsafe.Pointer(uintptr(a1 + 148))))
 	if result2 != nil {
 		result = result2(a1)
 	}

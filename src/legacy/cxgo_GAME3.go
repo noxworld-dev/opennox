@@ -3254,7 +3254,7 @@ func nox_xxx_compassGenStrings_4A9C80() int32 {
 	}
 	return 1
 }
-func nox_game_showOptions_4AA6B0() int32 {
+func nox_game_showOptions_4AA6B0() int {
 	var (
 		v1  *uint32
 		v2  *byte
