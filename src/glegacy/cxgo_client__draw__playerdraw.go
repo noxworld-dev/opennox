@@ -213,7 +213,7 @@ func nox_thing_player_draw(a1 *uint32, dr *nox_drawable) int32 {
 			}
 			*(*uint32)(unsafe.Add(dword_5d4594_1313796, 12)) = uint32(int32(dr.PosVec.X) + *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*0)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*4)))
 			*(*uint32)(unsafe.Add(dword_5d4594_1313796, 16)) = uint32(int32(dr.PosVec.Y) + *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*5)) - 50)
-			asFuncT[func(*int32, uint32)](unsafe.Add(dword_5d4594_1313796, 300))(&v36[0], dword_5d4594_1313796)
+			asFuncT[func(*int32, unsafe.Pointer)](unsafe.Add(dword_5d4594_1313796, 300))(&v36[0], dword_5d4594_1313796)
 		}
 		if nox_client_drawable_testBuff_4356C0(dr, 30) {
 			v36[0] = 0
@@ -230,7 +230,7 @@ func nox_thing_player_draw(a1 *uint32, dr *nox_drawable) int32 {
 			}
 			*(*uint32)(unsafe.Add(dword_5d4594_1313800, 12)) = uint32(int32(dr.PosVec.X) + *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*0)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*4)))
 			*(*uint32)(unsafe.Add(dword_5d4594_1313800, 16)) = uint32(int32(dr.PosVec.Y) + *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*5)) - 50)
-			asFuncT[func(*int32, uint32)](unsafe.Add(dword_5d4594_1313800, 300))(&v36[0], dword_5d4594_1313800)
+			asFuncT[func(*int32, unsafe.Pointer)](unsafe.Add(dword_5d4594_1313800, 300))(&v36[0], dword_5d4594_1313800)
 		}
 		for i := int32(0); i < 6; i++ {
 			nox_draw_setMaterial_4341D0(i, int32(nox_color_white_2523948))

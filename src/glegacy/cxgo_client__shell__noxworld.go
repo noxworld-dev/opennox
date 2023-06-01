@@ -88,7 +88,7 @@ func nox_game_showGameSel_4379F0() int32 {
 	}
 	sub_49FF20()
 	nox_xxx_wndShowModalMB_46A8C0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&nox_wol_wnd_world_814980))))))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), funAddrP(sub_439D00), funAddrP(nil), funAddrP(nil))
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), funAddrP(sub_439D00), nil, nil)
 	nox_wnd_xxx_815040 = nox_gui_makeAnimation_43C5B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 0, 0, 0, -480, 0, 20, 0, -40)
 	if nox_wnd_xxx_815040 == nil {
 		return 0

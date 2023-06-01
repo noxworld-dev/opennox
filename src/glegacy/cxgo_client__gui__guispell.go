@@ -194,14 +194,14 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 		return 0
 	}
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576) + 2251)))) != 0 {
-		nox_xxx_quickBarInitWindow_4601F0(*(*int32)(unsafe.Pointer(&nox_xxx_aClosewoodengat_587000_133480)), int32(dword_5d4594_1047548+69), int32(dword_5d4594_1047552+32), 5, 0, int32(funAddr(nox_xxx_quickBarWnd_45EF50)), int32(funAddr(nox_xxx_quickBarWarriorDraw_45FDE0)))
+		nox_xxx_quickBarInitWindow_4601F0(*(*int32)(unsafe.Pointer(&nox_xxx_aClosewoodengat_587000_133480)), int32(dword_5d4594_1047548+69), int32(dword_5d4594_1047552+32), 5, 0, funAddrP(nox_xxx_quickBarWnd_45EF50), funAddrP(nox_xxx_quickBarWarriorDraw_45FDE0))
 	} else {
-		nox_xxx_quickBarInitWindow_4601F0(*(*int32)(unsafe.Pointer(&nox_xxx_aClosewoodengat_587000_133480)), int32(dword_5d4594_1047548+69), int32(dword_5d4594_1047552+32), 5, 0, int32(funAddr(nox_xxx_quickBarWnd_45EF50)), int32(funAddr(nox_xxx_quickBarDrawFn_45FBD0)))
+		nox_xxx_quickBarInitWindow_4601F0(*(*int32)(unsafe.Pointer(&nox_xxx_aClosewoodengat_587000_133480)), int32(dword_5d4594_1047548+69), int32(dword_5d4594_1047552+32), 5, 0, funAddrP(nox_xxx_quickBarWnd_45EF50), funAddrP(nox_xxx_quickBarDrawFn_45FBD0))
 	}
 	v4 = (*uint8)(memmap.PtrOff(0x5D4594, 1048964))
 	for {
 		v2 -= 60
-		nox_xxx_quickBarInitWindow_4601F0(int32(uintptr(unsafe.Pointer(v4))), v1, v2, 5, 0, int32(funAddr(nox_xxx_quickBarWnd_45EF50)), int32(funAddr(nox_xxx_quickBarWarriorDraw_45FDE0)))
+		nox_xxx_quickBarInitWindow_4601F0(int32(uintptr(unsafe.Pointer(v4))), v1, v2, 5, 0, funAddrP(nox_xxx_quickBarWnd_45EF50), funAddrP(nox_xxx_quickBarWarriorDraw_45FDE0))
 		nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v4))), 4*52)))))), 1)
 		*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 200)) = 0
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v4))), 4*51))) = uint32(uintptr(unsafe.Pointer(v4)))
@@ -211,13 +211,13 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 		}
 	}
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576) + 2251)))) != 0 {
-		dword_5d4594_1049504 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 1160, int32(dword_5d4594_1047548+260), *(*int32)(unsafe.Pointer(&dword_5d4594_1047552)), 45, 66, funAddrP(nil)))))
+		dword_5d4594_1049504 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 1160, int32(dword_5d4594_1047548+260), *(*int32)(unsafe.Pointer(&dword_5d4594_1047552)), 45, 66, nil))))
 		nox_xxx_wndSetOffsetMB_46AE40(*(*int32)(unsafe.Pointer(&dword_5d4594_1049504)), -263, 0)
 		dword_5d4594_1049536 = uint32(nox_win_height - 74)
 		nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_1049504)), funAddrP(nox_xxx_quickbar_45F8D0))
-		dword_5d4594_1049520 = uint32(uintptr(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049504))))), 1032, 9, 33, 32, 32, funAddrP(nil)))))
-		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1049520)))), funAddrP(nox_xxx_quickbarTrapButtonProc_45F7A0), funAddrP(nox_xxx_quickbarDrawFn_460000), funAddrP(nil))
-		dword_5d4594_1049500 = uint32(uintptr(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049504))))), 1160, 0, 19, 12, 12, funAddrP(nil)))))
+		dword_5d4594_1049520 = uint32(uintptr(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049504))))), 1032, 9, 33, 32, 32, nil))))
+		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1049520)))), funAddrP(nox_xxx_quickbarTrapButtonProc_45F7A0), funAddrP(nox_xxx_quickbarDrawFn_460000), nil)
+		dword_5d4594_1049500 = uint32(uintptr(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049504))))), 1160, 0, 19, 12, 12, nil))))
 		nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_1049500)), funAddrP(nox_xxx_quickbarTrapProc_45FB90))
 		nox_xxx_wndSetOffsetMB_46AE40(*(*int32)(unsafe.Pointer(&dword_5d4594_1049500)), -265, -23)
 		v5 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarTrapButton"))))
@@ -225,7 +225,7 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 		v6 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarTrapButtonLit"))))
 		nox_xxx_wndSetIconLit_46AEA0(*(*int32)(unsafe.Pointer(&dword_5d4594_1049500)), int32(uintptr(unsafe.Pointer(v6))))
 	} else {
-		dword_5d4594_1049504 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 1672, int32(dword_5d4594_1047548+260), *(*int32)(unsafe.Pointer(&dword_5d4594_1047552)), 45, 66, funAddrP(nil)))))
+		dword_5d4594_1049504 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 1672, int32(dword_5d4594_1047548+260), *(*int32)(unsafe.Pointer(&dword_5d4594_1047552)), 45, 66, nil))))
 		nox_xxx_wndSetOffsetMB_46AE40(*(*int32)(unsafe.Pointer(&dword_5d4594_1049504)), -263, 0)
 		dword_5d4594_1049536 = uint32(nox_win_height - 74)
 		nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_1049504)), funAddrP(nox_xxx_quickbar_45F8D0))
@@ -281,7 +281,7 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 		nox_xxx_wndSetIconLit_46AEA0(*(*int32)(unsafe.Pointer(&dword_5d4594_1049504)), int32(uintptr(unsafe.Pointer(v20))))
 	}
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576) + 2251)))) != 0 {
-		nox_xxx_quickBarInitWindow_4601F0(int32(uintptr(memmap.PtrOff(0x5D4594, 1047940))), int32(dword_5d4594_1047548+122), int32(dword_5d4594_1047552-17), 3, 21, int32(funAddr(nox_xxx_quickBarWnd_45EF50)), int32(funAddr(nox_xxx_quickBarWarriorDraw_45FDE0)))
+		nox_xxx_quickBarInitWindow_4601F0(int32(uintptr(memmap.PtrOff(0x5D4594, 1047940))), int32(dword_5d4594_1047548+122), int32(dword_5d4594_1047552-17), 3, 21, funAddrP(nox_xxx_quickBarWnd_45EF50), funAddrP(nox_xxx_quickBarWarriorDraw_45FDE0))
 		v21 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarTrapTray"))))
 		nox_xxx_wndSetIcon_46AE60(*memmap.PtrInt32(0x5D4594, 1048148), int32(uintptr(unsafe.Pointer(v21))))
 		nox_xxx_wndSetOffsetMB_46AE40(*memmap.PtrInt32(0x5D4594, 1048148), -40, -20)
@@ -290,87 +290,87 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 		*memmap.PtrUint32(0x5D4594, 1048192) = uint32(v22)
 		nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1048148)))), 1)
 		dword_5d4594_1049484 = 0
-		v23 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1048148)))), 1032, 20, -7, 110, v68, funAddrP(nil))))
-		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v23)), funAddrP(nil), funAddrP(nox_xxx_quickbarDraw_45FAC0), funAddrP(nil))
-		v24 = (*wchar2_t)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1048148)))), 1032, 15, 12, 10, 14, funAddrP(nil))))
+		v23 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1048148)))), 1032, 20, -7, 110, v68, nil)))
+		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v23)), nil, funAddrP(nox_xxx_quickbarDraw_45FAC0), nil)
+		v24 = (*wchar2_t)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1048148)))), 1032, 15, 12, 10, 14, nil)))
 		nox_xxx_wndSetIcon_46AE60(int32(uintptr(unsafe.Pointer(v24))), 0)
 		v25 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarTrapTrayUpLit"))))
 		nox_xxx_wndSetIconLit_46AEA0(int32(uintptr(unsafe.Pointer(v24))), int32(uintptr(unsafe.Pointer(v25))))
-		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v24)), funAddrP(nox_xxx_quickbarTrapUpDownProc_45F630), funAddrP(nox_xxx_quickbarTrapUpDownDraw_45F6F0), funAddrP(nil))
+		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v24)), funAddrP(nox_xxx_quickbarTrapUpDownProc_45F630), funAddrP(nox_xxx_quickbarTrapUpDownDraw_45F6F0), nil)
 		nox_xxx_wndSetOffsetMB_46AE40(int32(uintptr(unsafe.Pointer(v24))), -55, -32)
 		v26 = nox_strman_loadString_40F1D0(internCStr("ToolTipPrevTrap"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1883)
 		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v24), unsafe.Sizeof(wchar2_t(0))*18)))), v26)
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v24))), 4*92))) = 3
-		v27 = (*wchar2_t)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1048148)))), 1032, 15, 32, 10, 14, funAddrP(nil))))
+		v27 = (*wchar2_t)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1048148)))), 1032, 15, 32, 10, 14, nil)))
 		nox_xxx_wndSetIcon_46AE60(int32(uintptr(unsafe.Pointer(v27))), 0)
 		v28 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarTrapTrayDownLit"))))
 		nox_xxx_wndSetIconLit_46AEA0(int32(uintptr(unsafe.Pointer(v27))), int32(uintptr(unsafe.Pointer(v28))))
-		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v27)), funAddrP(nox_xxx_quickbarTrapUpDownProc_45F630), funAddrP(nox_xxx_quickbarTrapUpDownDraw_45F6F0), funAddrP(nil))
+		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v27)), funAddrP(nox_xxx_quickbarTrapUpDownProc_45F630), funAddrP(nox_xxx_quickbarTrapUpDownDraw_45F6F0), nil)
 		nox_xxx_wndSetOffsetMB_46AE40(int32(uintptr(unsafe.Pointer(v27))), -55, -52)
 		v29 = nox_strman_loadString_40F1D0(internCStr("ToolTipNextTrap"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1892)
 		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v27), unsafe.Sizeof(wchar2_t(0))*18)))), v29)
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v27))), 4*92))) = 4
-		dword_5d4594_1049508 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 1032, int32(dword_5d4594_1047548-1), int32(dword_5d4594_1047552+26), 61, 48, funAddrP(nil)))))
+		dword_5d4594_1049508 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 1032, int32(dword_5d4594_1047548-1), int32(dword_5d4594_1047552+26), 61, 48, nil))))
 		nox_xxx_wndSetOffsetMB_46AE40(*(*int32)(unsafe.Pointer(&dword_5d4594_1049508)), 1, -26)
 		v30 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarSpellSetBase"))))
 		nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1049508)), int32(uintptr(unsafe.Pointer(v30))))
 		v31 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarSpellSetBase"))))
 		nox_xxx_wndSetIconLit_46AEA0(*(*int32)(unsafe.Pointer(&dword_5d4594_1049508)), int32(uintptr(unsafe.Pointer(v31))))
 		*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1049508 + 368))) = 5
-		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1049508)))), funAddrP(nox_xxx_quickbar_45F8D0), funAddrP(nox_xxx_quickbarTrapUpDownDraw_45F6F0), funAddrP(nil))
+		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1049508)))), funAddrP(nox_xxx_quickbar_45F8D0), funAddrP(nox_xxx_quickbarTrapUpDownDraw_45F6F0), nil)
 	} else {
-		dword_5d4594_1049508 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 1032, int32(dword_5d4594_1047548-1), int32(dword_5d4594_1047552+26), 61, 48, funAddrP(nil)))))
+		dword_5d4594_1049508 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 1032, int32(dword_5d4594_1047548-1), int32(dword_5d4594_1047552+26), 61, 48, nil))))
 		nox_xxx_wndSetOffsetMB_46AE40(*(*int32)(unsafe.Pointer(&dword_5d4594_1049508)), 1, -26)
 		v32 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarWarriorLeft"))))
 		nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1049508)), int32(uintptr(unsafe.Pointer(v32))))
 		v33 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarWarriorLeft"))))
 		nox_xxx_wndSetIconLit_46AEA0(*(*int32)(unsafe.Pointer(&dword_5d4594_1049508)), int32(uintptr(unsafe.Pointer(v33))))
-		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1049508)))), funAddrP(nox_xxx_quickbar_45F8D0), funAddrP(nox_xxx_quickbarTrapUpDownDraw_45F6F0), funAddrP(nil))
+		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1049508)))), funAddrP(nox_xxx_quickbar_45F8D0), funAddrP(nox_xxx_quickbarTrapUpDownDraw_45F6F0), nil)
 	}
-	dword_5d4594_1049524 = uint32(uintptr(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049508))))), 1160, 0, 9, 29, 30, funAddrP(nil)))))
+	dword_5d4594_1049524 = uint32(uintptr(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049508))))), 1160, 0, 9, 29, 30, nil))))
 	v34 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("SpellbookButton"))))
 	nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1049524)), int32(uintptr(unsafe.Pointer(v34))))
 	v35 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("SpellbookButtonLit"))))
 	nox_xxx_wndSetIconLit_46AEA0(*(*int32)(unsafe.Pointer(&dword_5d4594_1049524)), int32(uintptr(unsafe.Pointer(v35))))
-	*memmap.PtrUint32(0x5D4594, 1049528) = uint32(uintptr(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049524))))), 1064, 1, 2, 28, 28, funAddrP(nil)))))
+	*memmap.PtrUint32(0x5D4594, 1049528) = uint32(uintptr(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049524))))), 1064, 1, 2, 28, 28, nil))))
 	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, 1049528)))), funAddrP(nox_xxx_quickbarButtonBookWnd_45F450), funAddrP(nox_xxx_quickbarButtonBookDraw_45EF30), funAddrP(nox_xxx_quickbarButtonBook_45F3F0))
 	v36 = nox_strman_loadString_40F1D0(internCStr("OpenSpellBookTT"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1931)
 	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 1049528)+36))), v36)
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576) + 2251)))) != 0 {
-		v37 = (*wchar2_t)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049508))))), 1032, 30, 0, 15, 19, funAddrP(nil))))
+		v37 = (*wchar2_t)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049508))))), 1032, 30, 0, 15, 19, nil)))
 		nox_xxx_wndSetOffsetMB_46AE40(int32(uintptr(unsafe.Pointer(v37))), -29, -26)
 		nox_xxx_wndSetIcon_46AE60(int32(uintptr(unsafe.Pointer(v37))), 0)
 		v38 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarSpellSetUpLit"))))
 		nox_xxx_wndSetIconLit_46AEA0(int32(uintptr(unsafe.Pointer(v37))), int32(uintptr(unsafe.Pointer(v38))))
-		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v37)), funAddrP(nox_xxx_quickbarTrapUpDownProc_45F630), funAddrP(nox_xxx_quickbarTrapUpDownDraw_45F6F0), funAddrP(nil))
+		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v37)), funAddrP(nox_xxx_quickbarTrapUpDownProc_45F630), funAddrP(nox_xxx_quickbarTrapUpDownDraw_45F6F0), nil)
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v37))), 4*92))) = 0
 		v39 = nox_strman_loadString_40F1D0(internCStr("ToolTipPrevSpellSet"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1943)
 		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v37), unsafe.Sizeof(wchar2_t(0))*18)))), v39)
-		v40 = (*wchar2_t)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049508))))), 1032, 30, 29, 15, 19, funAddrP(nil))))
+		v40 = (*wchar2_t)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049508))))), 1032, 30, 29, 15, 19, nil)))
 		nox_xxx_wndSetOffsetMB_46AE40(int32(uintptr(unsafe.Pointer(v40))), -29, -55)
 		nox_xxx_wndSetIcon_46AE60(int32(uintptr(unsafe.Pointer(v40))), 0)
 		v41 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarSpellSetDownLit"))))
 		nox_xxx_wndSetIconLit_46AEA0(int32(uintptr(unsafe.Pointer(v40))), int32(uintptr(unsafe.Pointer(v41))))
-		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v40)), funAddrP(nox_xxx_quickbarTrapUpDownProc_45F630), funAddrP(nox_xxx_quickbarTrapUpDownDraw_45F6F0), funAddrP(nil))
+		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v40)), funAddrP(nox_xxx_quickbarTrapUpDownProc_45F630), funAddrP(nox_xxx_quickbarTrapUpDownDraw_45F6F0), nil)
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v40))), 4*92))) = 1
 		v42 = nox_strman_loadString_40F1D0(internCStr("ToolTipNextSpellSet"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1953)
 		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v40), unsafe.Sizeof(wchar2_t(0))*18)))), v42)
-		v43 = (*wchar2_t)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049508))))), 1032, 48, 16, 13, 17, funAddrP(nil))))
+		v43 = (*wchar2_t)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049508))))), 1032, 48, 16, 13, 17, nil)))
 		nox_xxx_wndSetOffsetMB_46AE40(int32(uintptr(unsafe.Pointer(v43))), -47, -42)
 		nox_xxx_wndSetIcon_46AE60(int32(uintptr(unsafe.Pointer(v43))), 0)
 		v44 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarSpellSetMaxLit"))))
 		nox_xxx_wndSetIconLit_46AEA0(int32(uintptr(unsafe.Pointer(v43))), int32(uintptr(unsafe.Pointer(v44))))
-		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v43)), funAddrP(nox_xxx_quickbarTrapUpDownProc_45F630), funAddrP(nox_xxx_quickbarTrapUpDownDraw_45F6F0), funAddrP(nil))
+		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v43)), funAddrP(nox_xxx_quickbarTrapUpDownProc_45F630), funAddrP(nox_xxx_quickbarTrapUpDownDraw_45F6F0), nil)
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v43))), 4*92))) = 2
 		v45 = nox_strman_loadString_40F1D0(internCStr("ToolTipAllSpellSets"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1963)
 		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v43), unsafe.Sizeof(wchar2_t(0))*18)))), v45)
-		dword_5d4594_1049516 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 1032, 0, 0, 1, 1, funAddrP(nil)))))
-		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1049516)))), funAddrP(sub_45EF40), funAddrP(sub_45F8F0), funAddrP(nil))
-		dword_5d4594_1049512 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 1152, *(*int32)(unsafe.Pointer(&dword_5d4594_1047548)), *(*int32)(unsafe.Pointer(&dword_5d4594_1047552)), 2, 2, funAddrP(nil)))))
+		dword_5d4594_1049516 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 1032, 0, 0, 1, 1, nil))))
+		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1049516)))), funAddrP(sub_45EF40), funAddrP(sub_45F8F0), nil)
+		dword_5d4594_1049512 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 1152, *(*int32)(unsafe.Pointer(&dword_5d4594_1047548)), *(*int32)(unsafe.Pointer(&dword_5d4594_1047552)), 2, 2, nil))))
 		v46 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarTitle"))))
 		nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1049512)), int32(uintptr(unsafe.Pointer(v46))))
-		v47 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049512))))), 8, 115, 6, 101, 14, funAddrP(nil))))
-		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v47)), funAddrP(nil), funAddrP(sub_45F9B0), funAddrP(nil))
+		v47 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049512))))), 8, 115, 6, 101, 14, nil)))
+		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v47)), nil, funAddrP(sub_45F9B0), nil)
 	}
 	v64 = 0
 	for {
@@ -385,7 +385,7 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 		v52 = int32(*(*uint32)(unsafe.Pointer(uintptr(v49 + 20))) + 5)
 		v67 = v51
 		for i = v52; ; v52 = i {
-			v53 = (*uint32)(unsafe.Pointer(nox_window_new(nil, 1160, v51, v52, 30, 10, funAddrP(nil))))
+			v53 = (*uint32)(unsafe.Pointer(nox_window_new(nil, 1160, v51, v52, 30, 10, nil)))
 			v63 = v0 + 1
 			if int32(*(*uint8)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576) + 2251)))) != 0 {
 				nox_sprintf(&v72[0], internCStr("QuickBarNugget%d"), v63)
@@ -403,17 +403,17 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 				nox_xxx_wndSetIconLit_46AEA0(int32(uintptr(unsafe.Pointer(v53))), int32(uintptr(unsafe.Pointer(v57))))
 			}
 			nox_xxx_wndSetOffsetMB_46AE40(int32(uintptr(unsafe.Pointer(v53))), int32(-70-v65), -23)
-			nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v53)), funAddrP(nox_xxx_quickbar_45F8D0), funAddrP(nil), funAddrP(nil))
+			nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v53)), funAddrP(nox_xxx_quickbar_45F8D0), nil, nil)
 			*v50 = int32(uintptr(unsafe.Pointer(v53)))
 			nox_xxx_updateSpellIconDir_45DE10(v0, int32(uintptr(unsafe.Pointer(v71))))
 			if int32(*(*uint8)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576) + 2251)))) != 0 {
-				v58 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*v50))), 1032, 12, 0, 10, 10, funAddrP(nil))))
+				v58 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*v50))), 1032, 12, 0, 10, 10, nil)))
 				nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v58)), funAddrP(sub_45F520), funAddrP(nox_xxx_quickbarButtonBookDraw_45EF30), funAddrP(sub_45F480))
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v58), 4*92)) = uint32(v0 | int32(v64)<<16)
 			}
 			if int32(v64) == 4 {
-				v59 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v66)+1049452)))), 1032, 13, 39, 10, 10, funAddrP(nil))))
-				nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v59)), funAddrP(nil), funAddrP(sub_45F5D0), funAddrP(nil))
+				v59 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v66)+1049452)))), 1032, 13, 39, 10, 10, nil)))
+				nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v59)), nil, funAddrP(sub_45F5D0), nil)
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v59), 4*92)) = uint32(func() int32 {
 					p := &v0
 					x := *p
@@ -741,7 +741,7 @@ func sub_460070() int32 {
 			v8 = nox_strman_loadString_40F1D0(internCStr("ToolTipTrapConstruct"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1547)
 			nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(dword_5d4594_1049500+36))), v8)
 			nox_xxx_wnd_46AD60(*(*int32)(unsafe.Pointer(&dword_5d4594_1049500)), 8)
-			result = nox_xxx_wndSetDrawFn_46B340(*(*int32)(unsafe.Pointer(&dword_5d4594_1049500)), funAddrP(nil))
+			result = nox_xxx_wndSetDrawFn_46B340(*(*int32)(unsafe.Pointer(&dword_5d4594_1049500)), nil)
 		} else {
 			result = int32(*(*uint8)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576) + 2251)))) - 2
 			if int32(*(*uint8)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576) + 2251)))) == 2 {
@@ -755,7 +755,7 @@ func sub_460070() int32 {
 				v4 = nox_strman_loadString_40F1D0(internCStr("ToolTipTrapConstruct"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1562)
 				nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(dword_5d4594_1049500+36))), v4)
 				nox_xxx_wnd_46AD60(*(*int32)(unsafe.Pointer(&dword_5d4594_1049500)), 8)
-				result = nox_xxx_wndSetDrawFn_46B340(*(*int32)(unsafe.Pointer(&dword_5d4594_1049500)), funAddrP(nil))
+				result = nox_xxx_wndSetDrawFn_46B340(*(*int32)(unsafe.Pointer(&dword_5d4594_1049500)), nil)
 			}
 		}
 	}

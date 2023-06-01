@@ -1844,7 +1844,7 @@ func nox_gui_itemAmount_init_4BFEF0() int32 {
 	if nox_gui_itemAmount_dialog_1319228 == nil {
 		return 0
 	}
-	nox_window_set_all_funcs((*nox_window)(nox_gui_itemAmount_dialog_1319228), funAddrP(sub_4BFDD0), funAddrP(sub_4C0030), funAddrP(nil))
+	nox_window_set_all_funcs((*nox_window)(nox_gui_itemAmount_dialog_1319228), funAddrP(sub_4BFDD0), funAddrP(sub_4C0030), nil)
 	dword_5d4594_1319232 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(nox_gui_itemAmount_dialog_1319228), 3601))))
 	dword_5d4594_1319236 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(nox_gui_itemAmount_dialog_1319228), 3607))))
 	nox_window_set_hidden((*nox_window)(nox_gui_itemAmount_dialog_1319228), 1)
@@ -3591,9 +3591,9 @@ func nox_xxx_spriteDrawCircleMB_4C32A0(a1 int32, a2 int32, a3 int32, a4 int32) i
 }
 func sub_4C3390() int32 {
 	*memmap.PtrUint32(0x5D4594, 1321220) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("VoteInProgress")))))
-	dword_5d4594_1321216 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 136, nox_win_width-50, nox_win_height/2-100, 50, 50, funAddrP(nil)))))
+	dword_5d4594_1321216 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 136, nox_win_width-50, nox_win_height/2-100, 50, 50, nil))))
 	nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1321216)), *memmap.PtrInt32(0x5D4594, 1321220))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1321216)))), funAddrP(nil), funAddrP(sub_4C3410), funAddrP(nil))
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1321216)))), nil, funAddrP(sub_4C3410), nil)
 	nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1321216))))), 1)
 	return 1
 }
@@ -4801,9 +4801,9 @@ func sub_4CAFB0(a1 int32) int32 {
 	result = a1
 	if a1 != 0 {
 		if int32(int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 4))))) >= 0 {
-			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nil), funAddrP(sub_4CAFF0), funAddrP(nil))
+			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), nil, funAddrP(sub_4CAFF0), nil)
 		} else {
-			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nil), funAddrP(sub_4CB1A0), funAddrP(nil))
+			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), nil, funAddrP(sub_4CB1A0), nil)
 		}
 	}
 	return result

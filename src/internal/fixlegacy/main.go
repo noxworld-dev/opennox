@@ -217,6 +217,9 @@ func fixFuncRef(p *ast.Expr) bool {
 	default:
 		return false
 	case *ast.Ident:
+		if x.Name == "nil" {
+			return false
+		}
 		*p = &ast.CallExpr{Fun: ast.NewIdent("funAddrP"), Args: []ast.Expr{x}}
 		return true
 	case *ast.FuncLit:
@@ -288,6 +291,17 @@ func fixExpr(p *ast.Expr) bool {
 					newCall("unsafe.Pointer", newCall("uintptr", call.Args[0])),
 				}}
 				return true
+			}
+		}
+	case *ast.CallExpr:
+		name, _ := asIdent(x.Fun)
+		switch name {
+		case "funAddrP":
+			if len(x.Args) == 1 {
+				if a, _ := asIdent(x.Args[0]); a == "nil" {
+					*p = x.Args[0]
+					return true
+				}
 			}
 		}
 	}

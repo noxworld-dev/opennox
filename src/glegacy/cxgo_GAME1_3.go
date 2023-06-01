@@ -452,7 +452,7 @@ func sub_43DD70(a1 int32, a2 int32) {
 func nox_xxx_gui_43E1A0(a1 int32) *uint32 {
 	var result *uint32
 	if a1 != 0 {
-		result = (*uint32)(unsafe.Pointer(nox_window_new(nil, 552, 0, 0, nox_win_width, nox_win_height, funAddrP(nil))))
+		result = (*uint32)(unsafe.Pointer(nox_window_new(nil, 552, 0, 0, nox_win_width, nox_win_height, nil)))
 		dword_5d4594_816412 = uint32(uintptr(unsafe.Pointer(result)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*14)) = nox_color_black_2650656
 	} else {

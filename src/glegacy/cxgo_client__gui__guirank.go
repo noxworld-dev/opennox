@@ -155,8 +155,8 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 	}
 	dword_5d4594_1090040 = uint32(v14)
 	dword_5d4594_1090044 = uint32(439 - v0)
-	dword_5d4594_1090048 = nox_window_new(nil, 1560, 0, v0+40, 1, 1, funAddrP(nil))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1090048)))), funAddrP(sub_46F060), funAddrP(sub_46F080), funAddrP(nil))
+	dword_5d4594_1090048 = nox_window_new(nil, 1560, 0, v0+40, 1, 1, nil)
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1090048)))), funAddrP(sub_46F060), funAddrP(sub_46F080), nil)
 	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(dword_5d4594_1090048))) + 56))) = 0x80000000
 	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(dword_5d4594_1090048))) + 64))) = 0x80000000
 	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(dword_5d4594_1090048))) + 72))) = 0x80000000

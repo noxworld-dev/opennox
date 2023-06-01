@@ -320,7 +320,7 @@ func nox_client_wndQuestBriefProc_44E630(a1 int32, a2 int32, a3 int32, a4 int32)
 			dword_5d4594_831256 = 1
 			nox_savegame_sub_46D580()
 		}
-		nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_831236)), funAddrP(nil))
+		nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_831236)), nil)
 	}
 	return 1
 }
@@ -360,7 +360,7 @@ func sub_44E6F0(a1 *uint32, xLeft int32) int32 {
 			nox_xxx_wndClearCaptureMain_46ADE0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_831236))))))
 			dword_5d4594_831256 = 1
 			nox_savegame_sub_46D580()
-			nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_831236)), funAddrP(nil))
+			nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_831236)), nil)
 		}
 		nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(a1))), funAddrP(sub_44E8D0))
 	}
@@ -488,7 +488,7 @@ func nox_client_lockScreenBriefing_450160(a1 int32, a2 int32, a3 int8) int32 {
 			nox_xxx_wndClearCaptureMain_46ADE0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_831236))))))
 			dword_5d4594_831256 = 1
 			nox_savegame_sub_46D580()
-			nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_831236)), funAddrP(nil))
+			nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_831236)), nil)
 		} else {
 			dword_5d4594_831224 = 1
 			*(*uint32)(unsafe.Pointer(uintptr(v14 + v3*4 + 4408))) = 1
@@ -3067,7 +3067,7 @@ func sub_456050() int32 {
 func sub_456070() int32 {
 	if dword_5d4594_1045636 == 0 {
 		dword_5d4594_1045636 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("gui_fb.wnd"), nil))))
-		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045636)))), funAddrP(nil), funAddrP(sub_4560D0), funAddrP(nil))
+		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045636)))), nil, funAddrP(sub_4560D0), nil)
 		if dword_5d4594_1045636 == 0 {
 			return 0
 		}
@@ -4692,36 +4692,36 @@ func nox_xxx_bookInit_45B9D0() int32 {
 		return 0
 	}
 	**(**uint32)(unsafe.Pointer(uintptr(result + 96))) = uint32(funAddr(nox_xxx_bookClickSpell_45B1F0))
-	nox_win_unk1 = nox_window_new(nil, 1196, 5, nox_win_height-323, 285, 168, funAddrP(nil))
-	nox_window_set_all_funcs(nox_win_unk1, funAddrP(nox_xxx_bookListWndProc_45B5F0), funAddrP(nox_xxx_bookDrawList_45BD40), funAddrP(nil))
+	nox_win_unk1 = nox_window_new(nil, 1196, 5, nox_win_height-323, 285, 168, nil)
+	nox_window_set_all_funcs(nox_win_unk1, funAddrP(nox_xxx_bookListWndProc_45B5F0), funAddrP(nox_xxx_bookDrawList_45BD40), nil)
 	nox_window_set_hidden(nox_win_unk1, 1)
-	result = int32(uintptr(unsafe.Pointer(nox_window_new(nox_win_unk1, 8, 257, 15, 27, 40, funAddrP(nil)))))
+	result = int32(uintptr(unsafe.Pointer(nox_window_new(nox_win_unk1, 8, 257, 15, 27, 40, nil))))
 	v1 = (*uint32)(unsafe.Pointer(uintptr(result)))
 	if result == 0 {
 		return 0
 	}
 	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(result))), funAddrP(nox_xxx_bookChildWndProcMB_45B360), funAddrP(nox_xxx_book_45BD30), funAddrP(nox_xxx_book_45CF00))
 	*v1 = 1320
-	result = int32(uintptr(unsafe.Pointer(nox_window_new(nox_win_unk1, 8, 253, 61, 27, 40, funAddrP(nil)))))
+	result = int32(uintptr(unsafe.Pointer(nox_window_new(nox_win_unk1, 8, 253, 61, 27, 40, nil))))
 	v2 = (*uint32)(unsafe.Pointer(uintptr(result)))
 	if result == 0 {
 		return 0
 	}
 	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(result))), funAddrP(nox_xxx_bookChildWndProcMB_45B360), funAddrP(nox_xxx_book_45BD30), funAddrP(nox_xxx_book_45CF00))
 	*v2 = 1310
-	dword_5d4594_1046944 = uint32(uintptr(unsafe.Pointer(nox_window_new(nox_win_unk1, 136, 24, 138, 20, 20, funAddrP(nil)))))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046944)))), funAddrP(nox_xxx_book_45B210), funAddrP(nil), funAddrP(nil))
+	dword_5d4594_1046944 = uint32(uintptr(unsafe.Pointer(nox_window_new(nox_win_unk1, 136, 24, 138, 20, 20, nil))))
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046944)))), funAddrP(nox_xxx_book_45B210), nil, nil)
 	v3 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ArrowW"))))
 	nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1046944)), int32(uintptr(unsafe.Pointer(v3))))
-	dword_5d4594_1046948 = uint32(uintptr(unsafe.Pointer(nox_window_new(nox_win_unk1, 136, 233, 138, 20, 20, funAddrP(nil)))))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046948)))), funAddrP(nox_xxx_bookWndProc_45B070), funAddrP(nil), funAddrP(nil))
+	dword_5d4594_1046948 = uint32(uintptr(unsafe.Pointer(nox_window_new(nox_win_unk1, 136, 233, 138, 20, 20, nil))))
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046948)))), funAddrP(nox_xxx_bookWndProc_45B070), nil, nil)
 	v4 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ArrowE"))))
 	nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1046948)), int32(uintptr(unsafe.Pointer(v4))))
-	dword_5d4594_1046952 = uint32(uintptr(unsafe.Pointer(nox_window_new(nox_win_unk1, 8, 63, 19, 30, 30, funAddrP(nil)))))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046952)))), funAddrP(nox_xxx_bookWndFn_45CC10), funAddrP(nox_xxx_bookDrawIconFn_45CB30), funAddrP(nil))
+	dword_5d4594_1046952 = uint32(uintptr(unsafe.Pointer(nox_window_new(nox_win_unk1, 8, 63, 19, 30, 30, nil))))
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046952)))), funAddrP(nox_xxx_bookWndFn_45CC10), funAddrP(nox_xxx_bookDrawIconFn_45CB30), nil)
 	nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046952))))), 1)
-	dword_5d4594_1046956 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 40, 0, 0, 30, 30, funAddrP(nil)))))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046956)))), funAddrP(nil), funAddrP(nox_xxx_bookDrawFn_45C7D0), funAddrP(nil))
+	dword_5d4594_1046956 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 40, 0, 0, 30, 30, nil))))
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046956)))), nil, funAddrP(nox_xxx_bookDrawFn_45C7D0), nil)
 	nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046956))))), 1)
 	dword_5d4594_1046868 = 0
 	dword_5d4594_1046872 = 0
@@ -6057,7 +6057,7 @@ func nox_xxx_quickbarDrawFn_460000() int32 {
 	}
 	return result
 }
-func nox_xxx_quickBarInitWindow_4601F0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a6 int32, a7 int32) int32 {
+func nox_xxx_quickBarInitWindow_4601F0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a6 unsafe.Pointer, a7 unsafe.Pointer) int32 {
 	var (
 		v7     int32
 		v8     *byte
@@ -6070,7 +6070,7 @@ func nox_xxx_quickBarInitWindow_4601F0(a1 int32, a2 int32, a3 int32, a4 int32, a
 		v15    int32
 	)
 	v7 = a1
-	*(*uint32)(unsafe.Pointer(uintptr(a1 + 208))) = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 1224, a2-10, a3-15, 199, 59, funAddrP(nil)))))
+	*(*uint32)(unsafe.Pointer(uintptr(a1 + 208))) = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 1224, a2-10, a3-15, 199, 59, nil))))
 	v8 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("QuickBarBase"))))
 	nox_xxx_wndSetIcon_46AE60(int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 208)))), int32(uintptr(unsafe.Pointer(v8))))
 	nox_xxx_wndSetOffsetMB_46AE40(int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 208)))), -61, -18)
@@ -6081,9 +6081,9 @@ func nox_xxx_quickBarInitWindow_4601F0(a1 int32, a2 int32, a3 int32, a4 int32, a
 		v11 = (*int32)(unsafe.Pointer(uintptr(a1 + 212)))
 		v15 = a4
 		for {
-			v12 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 208)))))), 1032, v9, 15, 34, 34, funAddrP(nil))))
+			v12 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 208)))))), 1032, v9, 15, 34, 34, nil)))
 			*v11 = int32(uintptr(unsafe.Pointer(v12)))
-			nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v12)), asFuncT[func(int32, int32, int32, int32) int32](unsafe.Pointer(uintptr(a6))), asFuncT[func(*nox_window, unsafe.Pointer) int32](unsafe.Pointer(uintptr(a7))), funAddrP(nil))
+			nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v12)), a6, a7, nil)
 			v13 = *v11
 			v11 = (*int32)(unsafe.Add(unsafe.Pointer(v11), 4*1))
 			v10 = (*uint8)(unsafe.Add(unsafe.Pointer(v10), 4))

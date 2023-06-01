@@ -290,8 +290,8 @@ func sub_476E20() *uint32 {
 		}
 		v0 += 4
 		if v0 >= 32 {
-			v2 = (*uint32)(unsafe.Pointer(nox_window_new(nil, 64, (nox_win_width-100)/2, (nox_win_height-100)/2, 1, 1, funAddrP(nil))))
-			nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v2)), funAddrP(nil), funAddrP(sub_476E90), funAddrP(nil))
+			v2 = (*uint32)(unsafe.Pointer(nox_window_new(nil, 64, (nox_win_width-100)/2, (nox_win_height-100)/2, 1, 1, nil)))
+			nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v2)), nil, funAddrP(sub_476E90), nil)
 			return v2
 		}
 	}
@@ -634,7 +634,7 @@ func sub_478110() int32 {
 	if v0 == nil {
 		return 0
 	}
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v0)), funAddrP(sub_478650), funAddrP(sub_478970), funAddrP(nil))
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v0)), funAddrP(sub_478650), funAddrP(sub_478970), nil)
 	v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1098576)))), 3806)))
 	nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), funAddrP(sub_478E50))
 	v3 = (*uint8)(memmap.PtrOff(0x5D4594, 1098636))
@@ -5403,9 +5403,9 @@ func nox_xxx_wndEdit_488830(a1 int32) int32 {
 	result = a1
 	if a1 != 0 {
 		if int32(int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 4))))) >= 0 {
-			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndEditProc_487D70), funAddrP(nox_xxx_wndEditDrawNoImage_488160), funAddrP(nil))
+			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndEditProc_487D70), funAddrP(nox_xxx_wndEditDrawNoImage_488160), nil)
 		} else {
-			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndEditProc_487D70), funAddrP(nox_xxx_wndEditDrawWithImage_488870), funAddrP(nil))
+			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndEditProc_487D70), funAddrP(nox_xxx_wndEditDrawWithImage_488870), nil)
 		}
 	}
 	return result

@@ -2581,9 +2581,9 @@ func nox_xxx_wndButtonDrawNoImg_4A81D0(a1 int32, a2 int32) int32 {
 func nox_xxx_wndButtonInit_4A8340(a1 int32) int32 {
 	var result int32
 	if int32(int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 4))))) >= 0 {
-		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndButtonProc_4A7F50), funAddrP(nox_xxx_wndButtonDrawNoImg_4A81D0), funAddrP(nil))
+		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndButtonProc_4A7F50), funAddrP(nox_xxx_wndButtonDrawNoImg_4A81D0), nil)
 	} else {
-		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndButtonProc_4A7F50), funAddrP(nox_xxx_wndButtonDraw_4A8380), funAddrP(nil))
+		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndButtonProc_4A7F50), funAddrP(nox_xxx_wndButtonDraw_4A8380), nil)
 	}
 	return result
 }
@@ -2740,9 +2740,9 @@ func nox_xxx_wndRadioButtonProc_4A84E0(a1 *uint32, a2 int32, a3 int32, a4 int32)
 func nox_xxx_wndRadioButtonSetAllFn_4A87E0(a1 int32) int32 {
 	var result int32
 	if int32(int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 4))))) >= 0 {
-		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndRadioButtonProc_4A84E0), funAddrP(nox_xxx_wndRadioButtonDrawNoImg_4A8820), funAddrP(nil))
+		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndRadioButtonProc_4A84E0), funAddrP(nox_xxx_wndRadioButtonDrawNoImg_4A8820), nil)
 	} else {
-		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndRadioButtonProc_4A84E0), funAddrP(nox_xxx_wndRadioButtonDraw_4A8A20), funAddrP(nil))
+		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndRadioButtonProc_4A84E0), funAddrP(nox_xxx_wndRadioButtonDraw_4A8A20), nil)
 	}
 	return result
 }
@@ -2946,9 +2946,9 @@ func nox_xxx_wndCheckBoxProc_4A8C00(a1 int32, a2 int32, a3 int32, a4 int32) int3
 func nox_xxx_wndCheckBoxInit_4A8E60(a1 int32) int32 {
 	var result int32
 	if int32(int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 4))))) >= 0 {
-		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndCheckBoxProc_4A8C00), funAddrP(nox_xxx_wndDrawCheckBoxNoImg_4A8EA0), funAddrP(nil))
+		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndCheckBoxProc_4A8C00), funAddrP(nox_xxx_wndDrawCheckBoxNoImg_4A8EA0), nil)
 	} else {
-		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndCheckBoxProc_4A8C00), funAddrP(nox_xxx_wndDrawCheckBox_4A9050), funAddrP(nil))
+		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndCheckBoxProc_4A8C00), funAddrP(nox_xxx_wndDrawCheckBox_4A9050), nil)
 	}
 	return result
 }
@@ -3606,9 +3606,9 @@ func sub_4AB0C0() int32 {
 }
 func sub_4AB260() int32 {
 	*memmap.PtrUint32(0x5D4594, 1309752) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DisconnectIcon")))))
-	dword_5d4594_1309756 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 136, nox_win_width-50, nox_win_height/2+3, 50, 50, funAddrP(nil)))))
+	dword_5d4594_1309756 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 136, nox_win_width-50, nox_win_height/2+3, 50, 50, nil))))
 	nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1309756)), *memmap.PtrInt32(0x5D4594, 1309752))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309756)))), funAddrP(nil), funAddrP(sub_4AB420), funAddrP(nil))
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309756)))), nil, funAddrP(sub_4AB420), nil)
 	dword_5d4594_1309748 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("discon.wnd"), funAddrP(sub_4AB390)))))
 	nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_1309748)), funAddrP(sub_4AB340))
 	sub_46B120((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309748)))), nil)
@@ -4571,12 +4571,12 @@ func nox_game_initOptionsInGame_4ADAD0() int32 {
 			nox_xxx_wndClearFlag_46AD80(int32(uintptr(unsafe.Pointer(v19))), 8)
 		}
 	}
-	dword_5d4594_1309824 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 32, 0, 0, 1, 1, funAddrP(nil)))))
+	dword_5d4594_1309824 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 32, 0, 0, 1, 1, nil))))
 	v20 = int32(*memmap.PtrUint32(0x587000, 174072))
 	if *memmap.PtrInt32(0x587000, 174072) != -1 {
 		v21 = mem_getI32Ptr(0x587000, 174080)
 		for {
-			v22 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1309824))))), 0, v20, *((*int32)(unsafe.Add(unsafe.Pointer(v21), -int(4*1)))), *v21, *(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*1)), funAddrP(nil))))
+			v22 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1309824))))), 0, v20, *((*int32)(unsafe.Add(unsafe.Pointer(v21), -int(4*1)))), *v21, *(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*1)), nil)))
 			nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v22))), funAddrP(sub_4ADEF0))
 			v20 = *(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*2))
 			v21 = (*int32)(unsafe.Add(unsafe.Pointer(v21), 4*4))
@@ -5174,9 +5174,9 @@ func sub_4B51A0(a1 int32) int32 {
 	result = a1
 	if a1 != 0 {
 		if int32(int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 4))))) >= 0 {
-			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(sub_4B4860), funAddrP(sub_4B51E0), funAddrP(nil))
+			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(sub_4B4860), funAddrP(sub_4B51E0), nil)
 		} else {
-			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(sub_4B4860), funAddrP(sub_4B52C0), funAddrP(nil))
+			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(sub_4B4860), funAddrP(sub_4B52C0), nil)
 		}
 	}
 	return result
@@ -5328,9 +5328,9 @@ func nox_xxx_wndScrollBoxSetAllFn_4B5500(a1 int32) int32 {
 	result = a1
 	if a1 != 0 {
 		if int32(int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 4))))) >= 0 {
-			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndScrollBoxDraw_4B4BA0), funAddrP(nox_xxx_wndScrollBoxDraw_4B5540), funAddrP(nil))
+			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndScrollBoxDraw_4B4BA0), funAddrP(nox_xxx_wndScrollBoxDraw_4B5540), nil)
 		} else {
-			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndScrollBoxDraw_4B4BA0), funAddrP(nox_xxx_wndScrollBoxDraw_4B5620), funAddrP(nil))
+			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), funAddrP(nox_xxx_wndScrollBoxDraw_4B4BA0), funAddrP(nox_xxx_wndScrollBoxDraw_4B5620), nil)
 		}
 	}
 	return result
