@@ -1,15 +1,5 @@
 package legacy
 
-/*
-#include "common/alloc/classes/alloc_class.h"
-#include "GAME3_2.h"
-#include "GAME3_3.h"
-#include "GAME4_3.h"
-#include "GAME5.h"
-
-static void nox_call_objectType_new_go(void (*fnc)(nox_object_t*), nox_object_t* arg1) { fnc(arg1); }
-*/
-import "C"
 import (
 	"unsafe"
 
@@ -24,53 +14,53 @@ var (
 )
 
 func init() {
-	server.DefaultDamage = C.nox_xxx_damageDefaultProc_4E0B30
-	server.DefaultDamageSound = C.nox_xxx_soundDefaultDamageSound_532E20
-	server.DefaultXfer = C.nox_xxx_XFerDefault_4F49A0
+	server.DefaultDamage = funAddrP(nox_xxx_damageDefaultProc_4E0B30)
+	server.DefaultDamageSound = funAddrP(nox_xxx_soundDefaultDamageSound_532E20)
+	server.DefaultXfer = funAddrP(nox_xxx_XFerDefault_4F49A0)
 
-	server.RegisterObjectCreate("MonsterCreate", C.nox_xxx_monsterCreateFn_54C480)
-	server.RegisterObjectCreate("ArmorCreate", C.sub_54C950)
-	server.RegisterObjectCreate("WeaponCreate", C.nox_xxx_createWeapon_54C710)
-	server.RegisterObjectCreate("ObeliskCreate", C.nox_xxx_createFnObelisk_54CA10)
-	server.RegisterObjectCreate("AnimCreate", C.nox_xxx_createFnAnim_54CA50)
-	server.RegisterObjectCreate("TriggerCreate", C.nox_xxx_createTrigger_54CA60)
-	server.RegisterObjectCreate("MonsterGeneratorCreate", C.nox_xxx_createMonsterGen_54CA90)
-	server.RegisterObjectCreate("RewardMarkerCreate", C.nox_xxx_createRewardMarker_54CAC0)
+	server.RegisterObjectCreate("MonsterCreate", funAddrP(nox_xxx_monsterCreateFn_54C480))
+	server.RegisterObjectCreate("ArmorCreate", funAddrP(sub_54C950))
+	server.RegisterObjectCreate("WeaponCreate", funAddrP(nox_xxx_createWeapon_54C710))
+	server.RegisterObjectCreate("ObeliskCreate", funAddrP(nox_xxx_createFnObelisk_54CA10))
+	server.RegisterObjectCreate("AnimCreate", funAddrP(nox_xxx_createFnAnim_54CA50))
+	server.RegisterObjectCreate("TriggerCreate", funAddrP(nox_xxx_createTrigger_54CA60))
+	server.RegisterObjectCreate("MonsterGeneratorCreate", funAddrP(nox_xxx_createMonsterGen_54CA90))
+	server.RegisterObjectCreate("RewardMarkerCreate", funAddrP(nox_xxx_createRewardMarker_54CAC0))
 
-	server.RegisterObjectInit("MonsterInit", C.nox_xxx_unitMonsterInit_4F0040, 0)
-	server.RegisterObjectInit("PlayerInit", C.nox_xxx_unitInitPlayer_4EFE80, 0)
-	server.RegisterObjectInit("SparkInit", C.nox_xxx_unitSparkInit_4F0390, 0)
-	server.RegisterObjectInit("FrogInit", C.nox_xxx_initFrog_4F03B0, 0)
-	server.RegisterObjectInit("ChestInit", C.nox_xxx_initChest_4F0400, 0)
-	server.RegisterObjectInit("BoulderInit", C.nox_xxx_unitBoulderInit_4F0420, 0)
-	server.RegisterObjectInit("BreakInit", C.nox_xxx_breakInit_4F0570, 0)
-	server.RegisterObjectInit("MonsterGeneratorInit", C.nox_xxx_unitInitGenerator_4F0590, 0)
-	server.RegisterObjectInit("ShopkeeperInit", C.nox_xxx_unitMonsterInit_4F0040, 1724)
-	server.RegisterObjectInit("SkullInit", C.sub_4F0450, 8)
-	server.RegisterObjectInit("DirectionInit", C.sub_4F0490, 8)
-	server.RegisterObjectInit("GoldInit", C.nox_xxx_unitInitGold_4F04B0, 4)
+	server.RegisterObjectInit("MonsterInit", funAddrP(nox_xxx_unitMonsterInit_4F0040), 0)
+	server.RegisterObjectInit("PlayerInit", funAddrP(nox_xxx_unitInitPlayer_4EFE80), 0)
+	server.RegisterObjectInit("SparkInit", funAddrP(nox_xxx_unitSparkInit_4F0390), 0)
+	server.RegisterObjectInit("FrogInit", funAddrP(nox_xxx_initFrog_4F03B0), 0)
+	server.RegisterObjectInit("ChestInit", funAddrP(nox_xxx_initChest_4F0400), 0)
+	server.RegisterObjectInit("BoulderInit", funAddrP(nox_xxx_unitBoulderInit_4F0420), 0)
+	server.RegisterObjectInit("BreakInit", funAddrP(nox_xxx_breakInit_4F0570), 0)
+	server.RegisterObjectInit("MonsterGeneratorInit", funAddrP(nox_xxx_unitInitGenerator_4F0590), 0)
+	server.RegisterObjectInit("ShopkeeperInit", funAddrP(nox_xxx_unitMonsterInit_4F0040), 1724)
+	server.RegisterObjectInit("SkullInit", funAddrP(sub_4F0450), 8)
+	server.RegisterObjectInit("DirectionInit", funAddrP(sub_4F0490), 8)
+	server.RegisterObjectInit("GoldInit", funAddrP(nox_xxx_unitInitGold_4F04B0), 4)
 }
 
-//export nox_xxx_unitDefGetCount_4E3AC0
+// nox_xxx_unitDefGetCount_4E3AC0
 func nox_xxx_unitDefGetCount_4E3AC0() int { return GetServer().S().Types.Count() }
 
-//export nox_xxx_newObjectWithTypeInd_4E3450
-func nox_xxx_newObjectWithTypeInd_4E3450(ind int) *nox_object_t {
+// nox_xxx_newObjectWithTypeInd_4E3450
+func nox_xxx_newObjectWithTypeInd_4E3450(ind int32) *nox_object_t {
 	s := GetServer().S()
-	return asObjectC(s.Objs.NewObject(s.Types.ByInd(ind)))
+	return asObjectC(s.Objs.NewObject(s.Types.ByInd(int(ind))))
 }
 
-//export nox_xxx_objectTypeByIndHealthData
-func nox_xxx_objectTypeByIndHealthData(ind int) unsafe.Pointer {
-	t := GetServer().S().Types.ByInd(ind)
+// nox_xxx_objectTypeByIndHealthData
+func nox_xxx_objectTypeByIndHealthData(ind int32) unsafe.Pointer {
+	t := GetServer().S().Types.ByInd(int(ind))
 	if t == nil {
 		return nil
 	}
 	return t.Health().C()
 }
 
-//export sub_4E4C50
-func sub_4E4C50(cobj *nox_object_t) int {
+// sub_4E4C50
+func sub_4E4C50(cobj *nox_object_t) int32 {
 	item := asObjectS(cobj)
 	if item == nil {
 		return 0
@@ -79,38 +69,40 @@ func sub_4E4C50(cobj *nox_object_t) int {
 	if typ == nil {
 		return 0
 	}
-	return int(typ.InitDataSize)
+	return int32(typ.InitDataSize)
 }
 
-//export sub_4F40A0
-func sub_4F40A0(a1 *nox_object_t) C.char { return C.char(GetServer().S().Sub_4F40A0(asObjectS(a1))) }
+// sub_4F40A0
+func sub_4F40A0(a1 *nox_object_t) int8 { return int8(GetServer().S().Sub_4F40A0(asObjectS(a1))) }
 
-//export sub_4E4C90
-func sub_4E4C90(a1 *nox_object_t, a2 uint) int { return bool2int(Sub_4E4C90(asObjectS(a1), a2)) }
-
-//export nox_xxx_getUnitDefDd10_4E3BA0
-func nox_xxx_getUnitDefDd10_4E3BA0(ind int) int {
-	return bool2int(GetServer().S().Types.ByInd(ind).Allowed())
+// sub_4E4C90
+func sub_4E4C90(a1 *nox_object_t, a2 uint32) int32 {
+	return bool2int32(Sub_4E4C90(asObjectS(a1), uint(a2)))
 }
 
-//export nox_xxx_getUnitName_4E39D0
-func nox_xxx_getUnitName_4E39D0(cobj *nox_object_t) *C.char {
+// nox_xxx_getUnitDefDd10_4E3BA0
+func nox_xxx_getUnitDefDd10_4E3BA0(ind int32) int32 {
+	return bool2int32(GetServer().S().Types.ByInd(int(ind)).Allowed())
+}
+
+// nox_xxx_getUnitName_4E39D0
+func nox_xxx_getUnitName_4E39D0(cobj *nox_object_t) *byte {
 	return internCStr(GetServer().S().Types.ByInd(int(asObjectS(cobj).TypeInd)).ID())
 }
 
-//export sub_4E3B80
-func sub_4E3B80(ind int) int { return bool2int(Sub_4E3B80(ind)) }
+// sub_4E3B80
+func sub_4E3B80(ind int32) int32 { return bool2int32(Sub_4E3B80(int(ind))) }
 
-//export nox_xxx_getUnitNameByThingType_4E3A80
-func nox_xxx_getUnitNameByThingType_4E3A80(ind int) *C.char {
+// nox_xxx_getUnitNameByThingType_4E3A80
+func nox_xxx_getUnitNameByThingType_4E3A80(ind int32) *byte {
 	if ind == 0 {
 		return nil
 	}
-	return internCStr(GetServer().S().Types.ByInd(ind).ID())
+	return internCStr(GetServer().S().Types.ByInd(int(ind)).ID())
 }
 
-//export nox_objectTypeGetXfer
-func nox_objectTypeGetXfer(cstr *C.char) unsafe.Pointer {
+// nox_objectTypeGetXfer
+func nox_objectTypeGetXfer(cstr *byte) unsafe.Pointer {
 	t := GetServer().S().Types.ByID(GoString(cstr))
 	if t == nil {
 		return nil
@@ -118,17 +110,17 @@ func nox_objectTypeGetXfer(cstr *C.char) unsafe.Pointer {
 	return t.Xfer
 }
 
-//export nox_objectTypeGetWorth
-func nox_objectTypeGetWorth(cstr *C.char) int {
+// nox_objectTypeGetWorth
+func nox_objectTypeGetWorth(cstr *byte) int32 {
 	t := GetServer().S().Types.ByID(GoString(cstr))
 	if t == nil {
 		return -1
 	}
-	return t.Worth
+	return int32(t.Worth)
 }
 
-//export nox_xxx_newObjectByTypeID_4E3810
-func nox_xxx_newObjectByTypeID_4E3810(cstr *C.char) *nox_object_t {
+// nox_xxx_newObjectByTypeID_4E3810
+func nox_xxx_newObjectByTypeID_4E3810(cstr *byte) *nox_object_t {
 	obj := GetServer().NewObjectByTypeID(GoString(cstr))
 	if obj == nil {
 		return nil
@@ -136,32 +128,32 @@ func nox_xxx_newObjectByTypeID_4E3810(cstr *C.char) *nox_object_t {
 	return asObjectC(obj)
 }
 
-//export nox_xxx_getNameId_4E3AA0
-func nox_xxx_getNameId_4E3AA0(cstr *C.char) int {
-	return GetServer().S().Types.IndByID(GoString(cstr))
+// nox_xxx_getNameId_4E3AA0
+func nox_xxx_getNameId_4E3AA0(cstr *byte) int32 {
+	return int32(GetServer().S().Types.IndByID(GoString(cstr)))
 }
 
-//export sub_415A30
-func sub_415A30(a1 *C.char) int {
+// sub_415A30
+func sub_415A30(a1 *byte) int32 {
 	t := Sub415A30(GoString(a1))
 	if t == nil {
 		return -1
 	}
-	return t.Ind()
+	return int32(t.Ind())
 }
 
-//export sub_415EC0
-func sub_415EC0(a1 *C.char) int {
+// sub_415EC0
+func sub_415EC0(a1 *byte) int32 {
 	t := Sub415EC0(GoString(a1))
 	if t == nil {
 		return -1
 	}
-	return t.Ind()
+	return int32(t.Ind())
 }
 
 func Get_nox_xxx_XFerInvLight_4F5AA0() unsafe.Pointer {
-	return unsafe.Pointer(C.nox_xxx_XFerInvLight_4F5AA0)
+	return funAddrP(nox_xxx_XFerInvLight_4F5AA0)
 }
 func Nox_call_objectType_new_go(a1 unsafe.Pointer, a2 *server.Object) {
-	C.nox_call_objectType_new_go((*[0]byte)(a1), asObjectC(a2))
+	asFuncT[func(*nox_object_t)](a1)(asObjectC(a2))
 }

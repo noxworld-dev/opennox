@@ -1,8 +1,0 @@
-#ifndef NOX_PORT_CLIENT_NETWORK_DEATHMSG
-#define NOX_PORT_CLIENT_NETWORK_DEATHMSG
-
-#include "defs.h"
-
-int sub_4952E0(uint16_t* a1);
-
-#endif // NOX_PORT_CLIENT_NETWORK_DEATHMSG

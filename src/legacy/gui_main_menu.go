@@ -1,27 +1,5 @@
 package legacy
 
-/*
-#include "GAME1_2.h"
-#include "GAME1_3.h"
-#include "GAME2.h"
-#include "GAME2_1.h"
-#include "GAME3.h"
-#include "GAME3_2.h"
-#include "GAME4.h"
-#include "GAME4_1.h"
-#include "GAME5_2.h"
-#include "client__shell__noxworld.h"
-#include "client__shell__selchar.h"
-#include "client__shell__mainmenu.h"
-extern void* dword_5d4594_831236;
-extern unsigned int dword_5d4594_831220;
-extern unsigned int nox_gameDisableMapDraw_5d4594_2650672;
-extern uint32_t dword_5d4594_831260;
-int winMainMenuAnimOutStartFnc();
-int winMainMenuAnimOutDoneFnc();
-int nox_client_drawGeneralCallback_4A2200();
-*/
-import "C"
 import (
 	"unsafe"
 
@@ -39,32 +17,34 @@ var (
 	Sub_4A18E0                   func(a1 *gui.Window, a2, a3, a4 int) int
 )
 
-//export winMainMenuAnimOutStartFnc
+// winMainMenuAnimOutStartFnc
 func winMainMenuAnimOutStartFnc() int { return WinMainMenuAnimOutStartFnc() }
 
-//export sub_44E320
+// sub_44E320
 func sub_44E320() { Sub_44E320() }
 
-//export winMainMenuAnimOutDoneFnc
+// winMainMenuAnimOutDoneFnc
 func winMainMenuAnimOutDoneFnc() int { return WinMainMenuAnimOutDoneFnc() }
 
-//export sub_4A24C0
-func sub_4A24C0(a1 int) int { return Sub_4A24C0(a1) }
+// sub_4A24C0
+func sub_4A24C0(a1 int) int32 { return int32(Sub_4A24C0(a1)) }
 
-//export nox_game_showMainMenu_4A1C00
+// nox_game_showMainMenu_4A1C00
 func nox_game_showMainMenu_4A1C00() int { return Nox_game_showMainMenu_4A1C00() }
 
-//export sub_43BE40
-func sub_43BE40(a1 int) { Sub_43BE40(a1) }
+// sub_43BE40
+func sub_43BE40(a1 int32) { Sub_43BE40(int(a1)) }
 
-//export sub_43BE30
-func sub_43BE30() int { return Sub_43BE30() }
+// sub_43BE30
+func sub_43BE30() int32 { return int32(Sub_43BE30()) }
 
-//export sub_4A18E0
-func sub_4A18E0(a1 unsafe.Pointer, a2, a3, a4 int) int { return Sub_4A18E0(AsWindowP(a1), a2, a3, a4) }
+// sub_4A18E0
+func sub_4A18E0(a1 unsafe.Pointer, a2, a3, a4 int32) int32 {
+	return int32(Sub_4A18E0(AsWindowP(a1), int(a2), int(a3), int(a4)))
+}
 
-//export nox_client_drawGeneralCallback_4A2200
-func nox_client_drawGeneralCallback_4A2200() int {
+// nox_client_drawGeneralCallback_4A2200
+func nox_client_drawGeneralCallback_4A2200() int32 {
 	if err := GetClient().DrawGeneral(false); err != nil {
 		guiLog.Println(err)
 		return 0
@@ -73,61 +53,61 @@ func nox_client_drawGeneralCallback_4A2200() int {
 }
 
 func Get_nox_client_drawGeneralCallback_4A2200() unsafe.Pointer {
-	return unsafe.Pointer(C.nox_client_drawGeneralCallback_4A2200)
+	return funAddrP(nox_client_drawGeneralCallback_4A2200)
 }
 
 func Get_nox_game_showGameSel_4379F0() unsafe.Pointer {
-	return unsafe.Pointer(C.nox_game_showGameSel_4379F0)
+	return funAddrP(nox_game_showGameSel_4379F0)
 }
 
 func Sub_461440(v int) {
-	C.sub_461440(C.int(v))
+	sub_461440(int32(v))
 }
 
 func Sub_4D7440(v int) {
-	C.sub_4D7440(C.int(v))
+	sub_4D7440(int32(v))
 }
 
 func Nox_xxx_cliSetMinimapZoom_472520(v int) {
-	C.nox_xxx_cliSetMinimapZoom_472520(C.int(v))
+	nox_xxx_cliSetMinimapZoom_472520(int32(v))
 }
 func Nox_xxx_monsterListFree_5174F0() {
-	C.nox_xxx_monsterListFree_5174F0()
+	nox_xxx_monsterListFree_5174F0()
 }
 func Nox_client_countSaveFiles_4DC550() int {
-	return int(C.nox_client_countSaveFiles_4DC550())
+	return int(nox_client_countSaveFiles_4DC550())
 }
 func Sub_4A7A60(a1 int) {
-	C.sub_4A7A60(C.int(a1))
+	sub_4A7A60(int32(a1))
 }
 func Nox_client_lockScreenBriefing_450160(a1 int, a2 int, a3 int) {
-	C.nox_client_lockScreenBriefing_450160(C.int(a1), C.int(a2), C.char(a3))
+	nox_client_lockScreenBriefing_450160(int32(a1), int32(a2), int8(a3))
 }
 func Sub_43E8C0(a1 int) {
-	C.sub_43E8C0(C.int(a1))
+	sub_43E8C0(int32(a1))
 }
 func Sub_43D9B0(a1 int, a2 int) {
-	C.sub_43D9B0(C.int(a1), C.int(a2))
+	sub_43D9B0(int32(a1), int32(a2))
 }
 func Sub_4D6F80(a1 int) {
-	C.sub_4D6F80(C.int(a1))
+	sub_4D6F80(int32(a1))
 }
 func Sub_4A7A70(a1 int) {
-	C.sub_4A7A70(C.int(a1))
+	sub_4A7A70(int32(a1))
 }
 
 func Get_nox_game_showSelChar_4A4DB0() unsafe.Pointer {
-	return C.nox_game_showSelChar_4A4DB0
+	return funAddrP(nox_game_showSelChar_4A4DB0)
 }
 func Get_nox_game_showSelClass_4A4840() unsafe.Pointer {
-	return C.nox_game_showSelClass_4A4840
+	return funAddrP(nox_game_showSelClass_4A4840)
 }
 func Get_winMainMenuAnimOutStartFnc() unsafe.Pointer {
-	return C.winMainMenuAnimOutStartFnc
+	return funAddrP(winMainMenuAnimOutStartFnc)
 }
 func Get_winMainMenuAnimOutDoneFnc() unsafe.Pointer {
-	return C.winMainMenuAnimOutDoneFnc
+	return funAddrP(winMainMenuAnimOutDoneFnc)
 }
 func Get_sub_4A22A0() unsafe.Pointer {
-	return C.sub_4A22A0
+	return funAddrP(sub_4A22A0)
 }

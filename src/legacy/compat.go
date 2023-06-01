@@ -1,10 +1,7 @@
 package legacy
 
-/*
-#include "defs.h"
-*/
-import "C"
 import (
+	"math"
 	"strconv"
 	"time"
 	"unsafe"
@@ -13,29 +10,64 @@ import (
 	"github.com/noxworld-dev/opennox-lib/platform"
 )
 
-//export nox_itoa
-func nox_itoa(val C.int, s *C.char, radix int) *C.char {
-	str := strconv.FormatInt(int64(val), radix)
-	buf := unsafe.Slice((*byte)(unsafe.Pointer(s)), len(str)+1)
+const FLT_MIN = math.SmallestNonzeroFloat32 // FIXME: check
+
+const MAX_PATH = 260
+
+const (
+	FILE_ATTRIBUTE_DIRECTORY = 0x10
+	FILE_ATTRIBUTE_NORMAL    = 0x80
+)
+
+func strtol(a1 *byte, a2 **byte, a3 int32) int32 {
+
+}
+
+type FILETIME struct {
+	dwLowDateTime  uint32
+	dwHighDateTime uint32
+}
+
+type noxSYSTEMTIME struct {
+	wYear         uint16
+	wMonth        uint16
+	wDayOfWeek    uint16
+	wDay          uint16
+	wHour         uint16
+	wMinute       uint16
+	wSecond       uint16
+	wMilliseconds uint16
+}
+
+type HANDLE = uintptr
+type HSTREAM = uintptr
+type HSAMPLE = uintptr
+
+type LPWIN32_FIND_DATAA = *WIN32_FIND_DATAA
+
+// nox_itoa
+func nox_itoa(val int32, s *byte, radix int32) *byte {
+	str := strconv.FormatInt(int64(val), int(radix))
+	buf := unsafe.Slice(s, len(str)+1)
 	i := copy(buf, str)
 	buf[i] = 0
 	return s
 }
 
-//export noxGetLocalTime
-func noxGetLocalTime(p *C.noxSYSTEMTIME) {
+// noxGetLocalTime
+func noxGetLocalTime(p *noxSYSTEMTIME) {
 	tm := time.Now()
 	if env.IsE2E() {
 		tm = time.Date(2022, 1, 1, 0, 0, 0, 0, time.UTC).Add(platform.Ticks())
 	}
-	p.wYear = C.ushort(tm.Year())
-	p.wMonth = C.ushort(tm.Month())
-	p.wDayOfWeek = C.ushort(tm.Weekday())
-	p.wDay = C.ushort(tm.Day())
-	p.wHour = C.ushort(tm.Hour())
-	p.wMinute = C.ushort(tm.Minute())
-	p.wSecond = C.ushort(tm.Second())
-	p.wMilliseconds = C.ushort(tm.Nanosecond() / 1e6)
+	p.wYear = uint16(tm.Year())
+	p.wMonth = uint16(tm.Month())
+	p.wDayOfWeek = uint16(tm.Weekday())
+	p.wDay = uint16(tm.Day())
+	p.wHour = uint16(tm.Hour())
+	p.wMinute = uint16(tm.Minute())
+	p.wSecond = uint16(tm.Second())
+	p.wMilliseconds = uint16(tm.Nanosecond() / 1e6)
 }
 
 var _ = [1]struct{}{}[16-unsafe.Sizeof(SYSTEMTIME{})]

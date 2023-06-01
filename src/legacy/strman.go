@@ -1,10 +1,5 @@
 package legacy
 
-/*
-#include <stddef.h>
-#include <stdlib.h>
-*/
-import "C"
 import (
 	"unsafe"
 
@@ -13,9 +8,9 @@ import (
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
-func internCStr(s string) *C.char {
+func internCStr(s string) *byte {
 	p := alloc.InternCString(s)
-	return (*C.char)(unsafe.Pointer(p))
+	return (*byte)(unsafe.Pointer(p))
 }
 
 func internWStr(s string) *wchar2_t {
@@ -23,8 +18,8 @@ func internWStr(s string) *wchar2_t {
 	return (*wchar2_t)(unsafe.Pointer(p))
 }
 
-//export nox_strman_loadString_40F1D0
-func nox_strman_loadString_40F1D0(name *C.char, strOut **C.char, srcFile *C.char, srcLine int) *wchar2_t {
+// nox_strman_loadString_40F1D0
+func nox_strman_loadString_40F1D0(name *byte, strOut **byte, srcFile *byte, srcLine int) *wchar2_t {
 	if strOut != nil {
 		*strOut = nil
 		v, _ := GetServer().S().Strings().GetVariantInFile(strman.ID(GoString(name)), GoString(srcFile))
@@ -35,7 +30,7 @@ func nox_strman_loadString_40F1D0(name *C.char, strOut **C.char, srcFile *C.char
 	return internWStr(s)
 }
 
-//export nox_strman_get_lang_code
-func nox_strman_get_lang_code() int {
-	return GetServer().S().Strings().Lang()
+// nox_strman_get_lang_code
+func nox_strman_get_lang_code() int32 {
+	return int32(GetServer().S().Strings().Lang())
 }

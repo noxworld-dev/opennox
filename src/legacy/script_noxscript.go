@@ -1,14 +1,5 @@
 package legacy
 
-/*
-#include "server__script__script.h"
-#include "server__script__internal.h"
-#include "GAME4_1.h" // for nox_xxx_scriptPrepareFoundUnit_511D70 and nox_xxx_script_511C50
-int sub_516570();
-int nox_xxx_gameIsSwitchToSolo_4DB240();
-size_t nox_script_readWriteWww_5417C0(FILE* a1, FILE* a2, FILE* a3);
-*/
-import "C"
 import (
 	"unsafe"
 
@@ -37,102 +28,100 @@ type NoxScript interface {
 	Trigger() *server.Object
 }
 
-//export nox_script_activatorResolveObjs_51B0C0
+// nox_script_activatorResolveObjs_51B0C0
 func nox_script_activatorResolveObjs_51B0C0() {
 	GetServer().NoxScriptC().ActResolveObjs()
 }
 
-//export nox_xxx_netGetUnitCodeServ_578AC0
-func nox_xxx_netGetUnitCodeServ_578AC0(cobj *nox_object_t) C.uint {
-	return C.uint(GetServer().GetUnitNetCode(asObjectS(cobj)))
+// nox_xxx_netGetUnitCodeServ_578AC0
+func nox_xxx_netGetUnitCodeServ_578AC0(cobj *nox_object_t) uint32 {
+	return uint32(GetServer().GetUnitNetCode(asObjectS(cobj)))
 }
 
-//export nox_server_scriptValToObjectPtr_511B60
-func nox_server_scriptValToObjectPtr_511B60(val int) *nox_object_t {
-	return asObjectC(GetServer().NoxScriptC().ScriptToObject(val))
+// nox_server_scriptValToObjectPtr_511B60
+func nox_server_scriptValToObjectPtr_511B60(val int32) *nox_object_t {
+	return asObjectC(GetServer().NoxScriptC().ScriptToObject(int(val)))
 }
 
-//export nox_script_push
-func nox_script_push(v int) {
-	GetServer().NoxScriptC().PushI32(int32(v))
+func nox_script_push(v int32) {
+	GetServer().NoxScriptC().PushI32(v)
 }
 
-//export nox_script_pop
-func nox_script_pop() int {
-	return int(GetServer().NoxScriptC().PopI32())
+func nox_script_pop() int32 {
+	return GetServer().NoxScriptC().PopI32()
 }
 
-//export nox_script_pushf
-func nox_script_pushf(v C.float) {
-	GetServer().NoxScriptC().PushF32(float32(v))
+func nox_script_pushf(v float32) {
+	GetServer().NoxScriptC().PushF32(v)
 }
 
-//export nox_script_popf
-func nox_script_popf() C.float {
-	return C.float(GetServer().NoxScriptC().PopF32())
+func nox_script_popf() float32 {
+	return GetServer().NoxScriptC().PopF32()
 }
 
-//export nox_script_indexByEvent
-func nox_script_indexByEvent(cname *C.char) int { return Nox_script_indexByEvent(GoString(cname)) }
+// nox_script_indexByEvent
+func nox_script_indexByEvent(cname *byte) int32 {
+	return int32(Nox_script_indexByEvent(GoString(cname)))
+}
 
-//export nox_script_getString_512E40
-func nox_script_getString_512E40(i int) *C.char {
-	s, ok := Nox_script_getString_512E40(i)
+// nox_script_getString_512E40
+func nox_script_getString_512E40(i int32) *byte {
+	s, ok := Nox_script_getString_512E40(int(i))
 	if !ok {
 		return nil
 	}
 	return internCStr(s)
 }
 
-//export nox_setImaginaryCaster
+// nox_setImaginaryCaster
 func nox_setImaginaryCaster() int { return Nox_setImaginaryCaster() }
 
-//export nox_script_readWriteZzz_541670
-func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *C.char) int {
-	return Nox_script_readWriteZzz_541670((*byte)(unsafe.Pointer(cpath)), (*byte)(unsafe.Pointer(cpath2)), (*byte)(unsafe.Pointer(cdst)))
+// nox_script_readWriteZzz_541670
+func nox_script_readWriteZzz_541670(cpath, cpath2, cdst *byte) int {
+	return Nox_script_readWriteZzz_541670(cpath, cpath2, cdst)
 }
 
-//export nox_xxx_scriptCallByEventBlock_502490
+// nox_xxx_scriptCallByEventBlock_502490
 func nox_xxx_scriptCallByEventBlock_502490(a1 unsafe.Pointer, a2, a3 unsafe.Pointer, eventCode int32) unsafe.Pointer {
 	return GetServer().NoxScriptC().ScriptCallback((*server.ScriptCallback)(a1), AsObjectP(a2), AsObjectP(a3), server.ScriptEventType(eventCode))
 }
 
-//export nox_script_callByIndex_507310
-func nox_script_callByIndex_507310(index int, a2 unsafe.Pointer, a3 unsafe.Pointer) {
-	if err := GetServer().NoxScriptC().CallByIndex(index, AsObjectP(a2), AsObjectP(a3)); err != nil {
+// nox_script_callByIndex_507310
+func nox_script_callByIndex_507310(index int32, a2 unsafe.Pointer, a3 unsafe.Pointer) {
+	if err := GetServer().NoxScriptC().CallByIndex(int(index), AsObjectP(a2), AsObjectP(a3)); err != nil {
 		scriptLog.Println(err)
 	}
 }
 
-//export nox_script_callbackName
-func nox_script_callbackName(h int) *C.char {
-	s := Nox_script_callbackName(h)
+// nox_script_callbackName
+func nox_script_callbackName(h int32) *byte {
+	s := Nox_script_callbackName(int(h))
 	return internCStr(s)
 }
 
-//export nox_script_objCallbackName_508CB0
-func nox_script_objCallbackName_508CB0(obj *nox_object_t, event int) *C.char {
-	s, ok := Nox_script_objCallbackName_508CB0(asObjectS(obj), event)
+// nox_script_objCallbackName_508CB0
+func nox_script_objCallbackName_508CB0(obj *nox_object_t, event int32) *byte {
+	s, ok := Nox_script_objCallbackName_508CB0(asObjectS(obj), int(event))
 	if !ok {
 		return nil
 	}
 	return internCStr(s)
 }
 
-//export sub_511E60
+// sub_511E60
 func sub_511E60() {
 	Sub_511E60()
 }
 
 func Sub_516570() {
-	C.sub_516570()
+	sub_516570()
 }
 func Nox_xxx_script_511C50(a1 int) *server.Object {
-	return asObjectS(C.nox_xxx_script_511C50(C.int(a1)))
+	return asObjectS(nox_xxx_script_511C50(int32(a1)))
 }
 func Nox_xxx_scriptPrepareFoundUnit_511D70(a1 *server.Object) {
-	C.nox_xxx_scriptPrepareFoundUnit_511D70(asObjectC(a1))
+	nox_xxx_scriptPrepareFoundUnit_511D70(asObjectC(a1))
 }
 func Nox_script_readWriteWww_5417C0(a1 *binfile.File, a2 *binfile.File, a3 *binfile.File) {
-	C.nox_script_readWriteWww_5417C0(NewFileHandle(a1), NewFileHandle(a2), NewFileHandle(a3))
+	nox_script_readWriteWww_5417C0(NewFileHandle(a1), NewFileHandle(a2), NewFileHandle(a3))
 }

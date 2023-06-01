@@ -1,8 +1,0 @@
-#ifndef NOX_PORT_SERVER_SYSTEM_CSCRFUNC
-#define NOX_PORT_SERVER_SYSTEM_CSCRFUNC
-
-#include "defs.h"
-
-int nox_script_Fn5E_513F70();
-
-#endif // NOX_PORT_SERVER_SYSTEM_CSCRFUNC
