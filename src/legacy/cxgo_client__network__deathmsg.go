@@ -6,7 +6,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func sub_4952E0(a1 *uint16) int32 {
+func sub_4952E0(a1 *uint16) {
 	var (
 		v1  *byte
 		v2  *wchar2_t
@@ -48,5 +48,5 @@ func sub_4952E0(a1 *uint16) int32 {
 			nox_swprintf(&v11[0], v6, v10)
 		}
 	}
-	return nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_WHITE)), (*wchar2_t)(memmap.PtrOff(0x587000, 161668)), &v11[0], &v13[0])
+	nox_gui_console_Printf_450C00(uint8(int8(NOX_CONSOLE_WHITE)), (*wchar2_t)(memmap.PtrOff(0x587000, 161668)), &v11[0], &v13[0])
 }

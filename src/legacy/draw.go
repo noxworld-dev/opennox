@@ -8,6 +8,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/noxrender"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -433,17 +434,6 @@ func nox_client_isConnected_43C700() int32 {
 	return bool2int32(Nox_client_isConnected())
 }
 
-func toRect(cr *nox_rect) image.Rectangle {
-	return image.Rect(int(cr.min_x), int(cr.min_y), int(cr.max_x), int(cr.max_y))
-}
-
-func setRect(cr *nox_rect, r image.Rectangle) {
-	cr.min_x = int32(r.Min.X)
-	cr.min_y = int32(r.Min.Y)
-	cr.max_x = int32(r.Max.X)
-	cr.max_y = int32(r.Max.Y)
-}
-
 func Sub_437180() {
 	sub_48D990((*nox_draw_viewport_t)(GetClient().Viewport().C()))
 }
@@ -461,22 +451,10 @@ func Sub_499F60(p int, pos image.Point, a4 int, a5, a6, a7, a8, a9 int, a10 int)
 }
 
 func Get_sub_480250() unsafe.Pointer {
-	return funAddrP(sub_480250)
+	return ccall.FuncAddr(sub_480250)
 }
 func Get_sub_480220() unsafe.Pointer {
-	return funAddrP(sub_480220)
-}
-func Get_nox_xxx_tileDraw_4815E0() unsafe.Pointer {
-	return funAddrP(nox_xxx_tileDraw_4815E0)
-}
-func Get_nox_xxx_drawTexEdgesProbably_481900() unsafe.Pointer {
-	return funAddrP(nox_xxx_drawTexEdgesProbably_481900)
-}
-func Get_sub_481770() unsafe.Pointer {
-	return funAddrP(sub_481770)
-}
-func Get_nullsub_8() unsafe.Pointer {
-	return funAddrP(nullsub_8)
+	return ccall.FuncAddr(sub_480220)
 }
 func Sub_435120(a1 unsafe.Pointer, a2 unsafe.Pointer) {
 	sub_435120(a1, a2)

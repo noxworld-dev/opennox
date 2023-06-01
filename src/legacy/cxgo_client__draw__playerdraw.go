@@ -8,6 +8,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func nox_thing_player_draw(a1 *uint32, dr *nox_drawable) int32 {
@@ -110,7 +111,7 @@ func nox_thing_player_draw(a1 *uint32, dr *nox_drawable) int32 {
 			}
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v11), 4*3)) = uint32(int32(dr.PosVec.X) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*4)) + *v10 + 15)
 			*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1313792 + 16))) = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*5)) + int32(dr.PosVec.Y) - 25)
-			asFuncT[func(*int32, uint32)](unsafe.Pointer(uintptr(dword_5d4594_1313792+300)))(&v36[0], dword_5d4594_1313792)
+			ccall.AsFunc[func(*int32, uint32)](unsafe.Pointer(uintptr(dword_5d4594_1313792+300)))(&v36[0], dword_5d4594_1313792)
 		}
 	}
 	var colors [6]uint32
@@ -213,7 +214,7 @@ func nox_thing_player_draw(a1 *uint32, dr *nox_drawable) int32 {
 			}
 			*(*uint32)(unsafe.Add(dword_5d4594_1313796, 12)) = uint32(int32(dr.PosVec.X) + *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*0)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*4)))
 			*(*uint32)(unsafe.Add(dword_5d4594_1313796, 16)) = uint32(int32(dr.PosVec.Y) + *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*5)) - 50)
-			asFuncT[func(*int32, unsafe.Pointer)](unsafe.Add(dword_5d4594_1313796, 300))(&v36[0], dword_5d4594_1313796)
+			ccall.AsFunc[func(*int32, unsafe.Pointer)](unsafe.Add(dword_5d4594_1313796, 300))(&v36[0], dword_5d4594_1313796)
 		}
 		if nox_client_drawable_testBuff_4356C0(dr, 30) {
 			v36[0] = 0
@@ -230,7 +231,7 @@ func nox_thing_player_draw(a1 *uint32, dr *nox_drawable) int32 {
 			}
 			*(*uint32)(unsafe.Add(dword_5d4594_1313800, 12)) = uint32(int32(dr.PosVec.X) + *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*0)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*4)))
 			*(*uint32)(unsafe.Add(dword_5d4594_1313800, 16)) = uint32(int32(dr.PosVec.Y) + *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(v10), 4*5)) - 50)
-			asFuncT[func(*int32, unsafe.Pointer)](unsafe.Add(dword_5d4594_1313800, 300))(&v36[0], dword_5d4594_1313800)
+			ccall.AsFunc[func(*int32, unsafe.Pointer)](unsafe.Add(dword_5d4594_1313800, 300))(&v36[0], dword_5d4594_1313800)
 		}
 		for i := int32(0); i < 6; i++ {
 			nox_draw_setMaterial_4341D0(i, int32(nox_color_white_2523948))
@@ -350,7 +351,7 @@ LABEL_3:
 			return false
 		}
 	}
-	obj.DrawFunc = funAddrP(nox_thing_player_draw)
+	obj.DrawFunc = ccall.FuncAddr(nox_thing_player_draw)
 	obj.Field_5c = unsafe.Pointer(v21)
 	return true
 }

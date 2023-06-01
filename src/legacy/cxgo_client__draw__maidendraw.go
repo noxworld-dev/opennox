@@ -2,6 +2,8 @@ package legacy
 
 import (
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func nox_thing_maiden_draw(a1 *uint32, dr *nox_drawable) int32 {
@@ -59,6 +61,6 @@ func nox_thing_maiden_draw(a1 *uint32, dr *nox_drawable) int32 {
 }
 func nox_things_maiden_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
 	var result int32 = bool2int32(nox_things_monster_draw_parse(obj, f, attr_value))
-	obj.DrawFunc = funAddrP(nox_thing_maiden_draw)
+	obj.DrawFunc = ccall.FuncAddr(nox_thing_maiden_draw)
 	return result != 0
 }

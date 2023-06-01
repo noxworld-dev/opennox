@@ -6,15 +6,16 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/internal/binfile"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func init() {
-	client.RegisterThingParse("DRAW", wrapClientThingFuncC(funAddrP(nox_parse_thing_draw)))
-	client.RegisterThingParse("LIGHTDIRECTION", wrapClientThingFuncC(funAddrP(nox_parse_thing_light_dir)))
-	client.RegisterThingParse("LIGHTPENUMBRA", wrapClientThingFuncC(funAddrP(nox_parse_thing_light_penumbra)))
-	client.RegisterThingParse("CLIENTUPDATE", wrapClientThingFuncC(funAddrP(nox_parse_thing_client_update)))
-	client.RegisterThingParse("PRETTYIMAGE", wrapClientThingFuncC(funAddrP(nox_parse_thing_pretty_image)))
-	client.ThingDrawDefault = funAddrP(nox_thing_debug_draw)
+	client.RegisterThingParse("DRAW", wrapClientThingFuncC(ccall.FuncAddr(nox_parse_thing_draw)))
+	client.RegisterThingParse("LIGHTDIRECTION", wrapClientThingFuncC(ccall.FuncAddr(nox_parse_thing_light_dir)))
+	client.RegisterThingParse("LIGHTPENUMBRA", wrapClientThingFuncC(ccall.FuncAddr(nox_parse_thing_light_penumbra)))
+	client.RegisterThingParse("CLIENTUPDATE", wrapClientThingFuncC(ccall.FuncAddr(nox_parse_thing_client_update)))
+	client.RegisterThingParse("PRETTYIMAGE", wrapClientThingFuncC(ccall.FuncAddr(nox_parse_thing_pretty_image)))
+	client.ThingDrawDefault = ccall.FuncAddr(nox_thing_debug_draw)
 }
 
 type nox_thing = client.ObjectType
@@ -84,7 +85,7 @@ func nox_drawable_link_thing(a1c *nox_drawable, i int32) int32 {
 func wrapClientThingFuncC(fnc unsafe.Pointer) client.ThingFieldFunc {
 	return func(typ *client.ObjectType, f *binfile.MemFile, str string, buf []byte) error {
 		StrNCopyBytes(buf, str)
-		if !asFuncT[func(*nox_thing, *nox_memfile, unsafe.Pointer) bool](fnc)((*nox_thing)(typ.C()), (*nox_memfile)(f.C()), unsafe.Pointer(&buf[0])) {
+		if !ccall.AsFunc[func(*nox_thing, *nox_memfile, unsafe.Pointer) bool](fnc)((*nox_thing)(typ.C()), (*nox_memfile)(f.C()), unsafe.Pointer(&buf[0])) {
 			return fmt.Errorf("failed to parse %q", str)
 		}
 		return nil

@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/legacy/client/audio/ail"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var (
@@ -228,11 +229,11 @@ func Sub_42EBB0(a1 int, a2 unsafe.Pointer, a3 int, a4 string) {
 }
 
 func Get_sub_43E910() unsafe.Pointer {
-	return funAddrP(sub_43E910)
+	return ccall.FuncAddr(sub_43E910)
 }
 
 func Get_sub_43E8E0() unsafe.Pointer {
-	return funAddrP(sub_43E8E0)
+	return ccall.FuncAddr(sub_43E8E0)
 }
 
 func Get_dword_587000_127004() unsafe.Pointer {

@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func sub_4710B0() int32 {
@@ -53,10 +54,10 @@ func sub_471160(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 	)
 	nox_windows_arr_1093036[5].win = nox_window_new((*nox_window)(unsafe.Pointer(uintptr(a1))), 1032, a2, a3, a4, a5, nil)
 	nox_windows_arr_1093036[6].win = nox_window_new((*nox_window)(unsafe.Pointer(uintptr(a1))), 1032, a2-17, a3-15, 15, 15, nil)
-	nox_window_set_all_funcs(nox_windows_arr_1093036[5].win, nil, funAddrP(sub_471250), nil)
+	nox_window_set_all_funcs(nox_windows_arr_1093036[5].win, nil, ccall.FuncAddr(sub_471250), nil)
 	v5 = nox_strman_loadString_40F1D0(internCStr("ToolTipCharges"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 921)
 	nox_xxx_wndWddSetTooltip_46B000(nox_windows_arr_1093036[5].win.DrawData(), v5)
-	nox_window_set_all_funcs(nox_windows_arr_1093036[6].win, nil, funAddrP(sub_471450), nil)
+	nox_window_set_all_funcs(nox_windows_arr_1093036[6].win, nil, ccall.FuncAddr(sub_471450), nil)
 	v6 = nox_strman_loadString_40F1D0(internCStr("ToolTipCharges"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 925)
 	nox_xxx_wndWddSetTooltip_46B000(nox_windows_arr_1093036[6].win.DrawData(), v6)
 	result = int32(uintptr(unsafe.Pointer(nox_windows_arr_1093036[5].win)))
@@ -121,7 +122,7 @@ func nox_xxx_guiHealthManaInit_4714E0() int32 {
 	dword_5d4594_1090276 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 136, nox_win_width-91, nox_win_height-201, 91, 201, nil))))
 	nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1090276)), *memmap.PtrInt32(0x5D4594, 1092996))
 	dword_5d4594_1091364 = uint32(uintptr(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090276))))), 8, 6, 166, 28, 30, nil))))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1091364)))), funAddrP(nox_xxx_guiBottleSlotProc_471B90), funAddrP(nox_xxx_guiBottleSlotDrawFn_471A80), nil)
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1091364)))), ccall.FuncAddr(nox_xxx_guiBottleSlotProc_471B90), ccall.FuncAddr(nox_xxx_guiBottleSlotDrawFn_471A80), nil)
 	v3 = nox_strman_loadString_40F1D0(internCStr("CurePoisonSlotTT"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 1029)
 	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(dword_5d4594_1091364+36))), v3)
 	*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1091364 + 32))) = 2
@@ -138,7 +139,7 @@ func nox_xxx_guiHealthManaInit_4714E0() int32 {
 	}
 	*memmap.PtrUint32(0x5D4594, 1091380) = dword_5d4594_1096276
 	dword_5d4594_1090292 = uint32(uintptr(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090276))))), 8, 34, 166, 28, 30, nil))))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1090292)))), funAddrP(nox_xxx_guiBottleSlotProc_471B90), funAddrP(nox_xxx_guiBottleSlotDrawFn_471A80), nil)
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1090292)))), ccall.FuncAddr(nox_xxx_guiBottleSlotProc_471B90), ccall.FuncAddr(nox_xxx_guiBottleSlotDrawFn_471A80), nil)
 	v5 = nox_strman_loadString_40F1D0(internCStr("HealthSlotTT"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 1060)
 	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(dword_5d4594_1090292+36))), v5)
 	*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1090292 + 32))) = 0
@@ -147,7 +148,7 @@ func nox_xxx_guiHealthManaInit_4714E0() int32 {
 	*memmap.PtrUint32(0x5D4594, 1090308) = 0
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576) + 2251)))) != 0 {
 		dword_5d4594_1090828 = uint32(uintptr(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1090276))))), 8, 62, 166, 28, 30, nil))))
-		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1090828)))), funAddrP(nox_xxx_guiBottleSlotProc_471B90), funAddrP(nox_xxx_guiBottleSlotDrawFn_471A80), nil)
+		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1090828)))), ccall.FuncAddr(nox_xxx_guiBottleSlotProc_471B90), ccall.FuncAddr(nox_xxx_guiBottleSlotDrawFn_471A80), nil)
 		v6 = nox_strman_loadString_40F1D0(internCStr("ManaSlotTT"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 1083)
 		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(dword_5d4594_1090828+36))), v6)
 		*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1090828 + 32))) = 1
@@ -168,20 +169,20 @@ func nox_xxx_guiHealthManaInit_4714E0() int32 {
 		v9 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("HealthManaTubes"))))
 		nox_xxx_wndSetIcon_46AE60(int32(uintptr(unsafe.Pointer(v8))), int32(uintptr(unsafe.Pointer(v9))))
 		nox_windows_arr_1093036[1].win = nox_window_new((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), 8, 60, 34, 25, 125, nil)
-		nox_window_set_all_funcs(nox_windows_arr_1093036[1].win, funAddrP(nox_xxx_guiHealthManaTubeProc_472100), funAddrP(nox_xxx_guiHealthManaTubeDraw_471D10), nil)
+		nox_window_set_all_funcs(nox_windows_arr_1093036[1].win, ccall.FuncAddr(nox_xxx_guiHealthManaTubeProc_472100), ccall.FuncAddr(nox_xxx_guiHealthManaTubeDraw_471D10), nil)
 		v10 = nox_strman_loadString_40F1D0(internCStr("ToolTipMana"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 1122)
 		nox_xxx_wndWddSetTooltip_46B000(nox_windows_arr_1093036[1].win.DrawData(), v10)
 		nox_windows_arr_1093036[1].win.WidgetData = unsafe.Pointer(uintptr(1))
 		nox_windows_arr_1093036[0].win = nox_window_new((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), 8, 34, 34, 25, 125, nil)
-		nox_window_set_all_funcs(nox_windows_arr_1093036[0].win, funAddrP(nox_xxx_guiHealthManaTubeProc_472100), funAddrP(nox_xxx_guiHealthManaTubeDraw_471D10), nil)
+		nox_window_set_all_funcs(nox_windows_arr_1093036[0].win, ccall.FuncAddr(nox_xxx_guiHealthManaTubeProc_472100), ccall.FuncAddr(nox_xxx_guiHealthManaTubeDraw_471D10), nil)
 		v11 = nox_strman_loadString_40F1D0(internCStr("ToolTipHealth"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 1135)
 		nox_xxx_wndWddSetTooltip_46B000(nox_windows_arr_1093036[0].win.DrawData(), v11)
 		nox_windows_arr_1093036[0].win.WidgetData = nil
 		nox_windows_arr_1093036[2].win = nox_window_new(nil, 8, 0, 0, 0, 0, nil)
-		nox_window_set_all_funcs(nox_windows_arr_1093036[2].win, nil, funAddrP(nox_xxx_drawHealthManaBar_471C00), nil)
+		nox_window_set_all_funcs(nox_windows_arr_1093036[2].win, nil, ccall.FuncAddr(nox_xxx_drawHealthManaBar_471C00), nil)
 		nox_windows_arr_1093036[2].win.WidgetData = nil
 		nox_windows_arr_1093036[3].win = nox_window_new(nil, 8, 0, 0, 0, 0, nil)
-		nox_window_set_all_funcs(nox_windows_arr_1093036[3].win, nil, funAddrP(nox_xxx_drawHealthManaBar_471C00), nil)
+		nox_window_set_all_funcs(nox_windows_arr_1093036[3].win, nil, ccall.FuncAddr(nox_xxx_drawHealthManaBar_471C00), nil)
 		nox_windows_arr_1093036[3].win.WidgetData = unsafe.Pointer(uintptr(1))
 		*memmap.PtrUint32(0x5D4594, 1093176) = 1
 	} else {
@@ -190,12 +191,12 @@ func nox_xxx_guiHealthManaInit_4714E0() int32 {
 		v13 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("WarriorHealthTube"))))
 		nox_xxx_wndSetIcon_46AE60(int32(uintptr(unsafe.Pointer(v12))), int32(uintptr(unsafe.Pointer(v13))))
 		nox_windows_arr_1093036[0].win = nox_window_new((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v12)))))), 8, 34, 34, 25, 125, nil)
-		nox_window_set_all_funcs(nox_windows_arr_1093036[0].win, funAddrP(nox_xxx_guiHealthManaTubeProc_472100), funAddrP(nox_xxx_guiHealthManaTubeDraw_471D10), nil)
+		nox_window_set_all_funcs(nox_windows_arr_1093036[0].win, ccall.FuncAddr(nox_xxx_guiHealthManaTubeProc_472100), ccall.FuncAddr(nox_xxx_guiHealthManaTubeDraw_471D10), nil)
 		v14 = nox_strman_loadString_40F1D0(internCStr("ToolTipHealth"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guimeter.c"), 1173)
 		nox_xxx_wndWddSetTooltip_46B000(nox_windows_arr_1093036[0].win.DrawData(), v14)
 		nox_windows_arr_1093036[0].win.WidgetData = nil
 		nox_windows_arr_1093036[2].win = nox_window_new(nil, 24, 0, 0, 0, 0, nil)
-		nox_window_set_all_funcs(nox_windows_arr_1093036[2].win, nil, funAddrP(nox_xxx_drawHealthManaBar_471C00), nil)
+		nox_window_set_all_funcs(nox_windows_arr_1093036[2].win, nil, ccall.FuncAddr(nox_xxx_drawHealthManaBar_471C00), nil)
 		nox_windows_arr_1093036[2].win.WidgetData = nil
 	}
 	sub_472280()

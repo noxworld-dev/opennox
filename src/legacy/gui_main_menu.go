@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var (
@@ -53,11 +54,11 @@ func nox_client_drawGeneralCallback_4A2200() int32 {
 }
 
 func Get_nox_client_drawGeneralCallback_4A2200() unsafe.Pointer {
-	return funAddrP(nox_client_drawGeneralCallback_4A2200)
+	return ccall.FuncAddr(nox_client_drawGeneralCallback_4A2200)
 }
 
 func Get_nox_game_showGameSel_4379F0() unsafe.Pointer {
-	return funAddrP(nox_game_showGameSel_4379F0)
+	return ccall.FuncAddr(nox_game_showGameSel_4379F0)
 }
 
 func Sub_461440(v int) {
@@ -97,17 +98,17 @@ func Sub_4A7A70(a1 int) {
 }
 
 func Get_nox_game_showSelChar_4A4DB0() unsafe.Pointer {
-	return funAddrP(nox_game_showSelChar_4A4DB0)
+	return ccall.FuncAddr(nox_game_showSelChar_4A4DB0)
 }
 func Get_nox_game_showSelClass_4A4840() unsafe.Pointer {
-	return funAddrP(nox_game_showSelClass_4A4840)
+	return ccall.FuncAddr(nox_game_showSelClass_4A4840)
 }
 func Get_winMainMenuAnimOutStartFnc() unsafe.Pointer {
-	return funAddrP(winMainMenuAnimOutStartFnc)
+	return ccall.FuncAddr(winMainMenuAnimOutStartFnc)
 }
 func Get_winMainMenuAnimOutDoneFnc() unsafe.Pointer {
-	return funAddrP(winMainMenuAnimOutDoneFnc)
+	return ccall.FuncAddr(winMainMenuAnimOutDoneFnc)
 }
 func Get_sub_4A22A0() unsafe.Pointer {
-	return funAddrP(sub_4A22A0)
+	return ccall.FuncAddr(sub_4A22A0)
 }

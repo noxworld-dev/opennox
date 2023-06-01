@@ -48,7 +48,7 @@ func (c *Client) sub_43C060() bool {
 	return true
 }
 
-func (c *Client) Sub4C42A0(a1, a2 image.Point, a3 *int, a4 *int) int32 {
+func (c *Client) Sub4C42A0(a1, a2 image.Point, a3 *int32, a4 *int32) int32 {
 	panic("unreachable")
 }
 

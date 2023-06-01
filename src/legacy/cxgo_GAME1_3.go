@@ -9,6 +9,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var dword_5d4594_830236 unsafe.Pointer = nil
@@ -480,7 +481,7 @@ func sub_43EDB0(a1 HSAMPLE) {
 	v2 = v1
 	result = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 28))))
 	if result == 0 {
-		result = asFuncT[func(uint32) int32](unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v2 + 4))) + 284)))(*(*uint32)(unsafe.Pointer(uintptr(v2 + 4))))
+		result = ccall.AsFunc[func(uint32) int32](unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v2 + 4))) + 284)))(*(*uint32)(unsafe.Pointer(uintptr(v2 + 4))))
 		*(*uint32)(unsafe.Pointer(uintptr(v2 + 28))) = 1
 	}
 }
@@ -531,10 +532,10 @@ func sub_43EE00(a1p unsafe.Pointer) int32 {
 				}
 				v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 300))))
 				if v8 == 0 {
-					asFuncT[func(int32)](unsafe.Pointer(uintptr(v3 + 276)))(v3)
+					ccall.AsFunc[func(int32)](unsafe.Pointer(uintptr(v3 + 276)))(v3)
 					v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 300))))
 					if v8 == 0 {
-						asFuncT[func(int32)](unsafe.Pointer(uintptr(v3 + 280)))(v3)
+						ccall.AsFunc[func(int32)](unsafe.Pointer(uintptr(v3 + 280)))(v3)
 						v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 300))))
 						if v8 == 0 {
 							*(*uint32)(unsafe.Pointer(uintptr(a1 + 12))) = 1
@@ -882,7 +883,7 @@ func nox_xxx_guiMotdLoad_4465C0() int32 {
 		v7 *byte
 		v8 *uint32
 	)
-	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("motd.wnd"), funAddrP(sub_4466C0))))
+	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("motd.wnd"), ccall.FuncAddr(sub_4466C0))))
 	dword_5d4594_826028 = uint32(uintptr(unsafe.Pointer(v0)))
 	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(v0)), 4203)))
 	dword_5d4594_826032 = uint32(uintptr(unsafe.Pointer(v1)))

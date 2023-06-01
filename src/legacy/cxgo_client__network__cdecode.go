@@ -8,6 +8,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var nox_client_fadeObjects_80836 uint32 = 1
@@ -513,7 +514,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if uint32(int32(v5)) == 0 {
 			return 3
 		}
-		if *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v5 + 300))) == funAddrP(nox_thing_animate_draw) {
+		if *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v5 + 300))) == ccall.FuncAddr(nox_thing_animate_draw) {
 			v47 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 304))))
 			if v47 != 0 {
 				if *(*uint32)(unsafe.Pointer(uintptr(v47 + 12))) == 1 {
@@ -548,7 +549,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		if uint32(int32(v5)) == 0 {
 			return 3
 		}
-		if *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v5 + 300))) == funAddrP(nox_thing_animate_draw) {
+		if *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v5 + 300))) == ccall.FuncAddr(nox_thing_animate_draw) {
 			v52 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 304))))
 			if v52 != 0 {
 				if *(*uint32)(unsafe.Pointer(uintptr(v52 + 12))) == 1 {
@@ -594,7 +595,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			if uint32(int32(v5)) != *memmap.PtrUint32(0x852978, 8) {
 				nox_xxx_spriteTransparentDecay_49B950((*nox_drawable)(unsafe.Pointer(uintptr(v5))), int32(gameFPS()))
 			}
-		} else if *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v5 + 300))) != funAddrP(nox_thing_animate_draw) || (func() int32 {
+		} else if *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v5 + 300))) != ccall.FuncAddr(nox_thing_animate_draw) || (func() int32 {
 			v56 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 304))))
 			return v56
 		}()) == 0 || *(*uint32)(unsafe.Pointer(uintptr(v56 + 12))) != 1 {
@@ -2331,7 +2332,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 316))) = gameFrame()
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 324))) = uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 5)))))
 			v32 = int32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 7)))))
-			*(*uint32)(unsafe.Pointer(uintptr(v5 + 460))) = uint32(funAddr(nox_xxx_sprite_4CA540))
+			*(*uint32)(unsafe.Pointer(uintptr(v5 + 460))) = uint32(uintptr(ccall.FuncAddr(nox_xxx_sprite_4CA540)))
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 328))) = uint32(v32)
 			nox_xxx_spriteToList_49BC80_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v5))))
 		}

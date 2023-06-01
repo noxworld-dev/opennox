@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var nox_xxx_resetMapInit_1569652 uint32 = 0
@@ -681,7 +682,7 @@ func sub_4F1F20() {
 					}
 				}
 				nox_xxx_delayedDeleteObject_4E5CC0((*nox_object_t)(unsafe.Pointer(uintptr(v0))))
-			} else if funAddr(asFuncT[func(int32) *int32](unsafe.Pointer(uintptr(v0+688)))) == funAddr(nox_xxx_initChest_4F0400) {
+			} else if *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v0 + 688))) == ccall.FuncAddr(nox_xxx_initChest_4F0400) {
 				v2 = nox_xxx_inventoryGetFirst_4E7980(v0)
 				if v2 != 0 {
 					for {
@@ -743,9 +744,9 @@ func nox_xxx_playerSomeWallsUpdate_5003B0(obj *nox_object_t) int32 {
 		if v1 == 0 {
 			return 0
 		}
-		*(*uint32)(unsafe.Pointer(uintptr(v1 + 92))) = uint32(funAddr(nox_xxx_spellWallCreate_4FFA90))
-		*(*uint32)(unsafe.Pointer(uintptr(v1 + 96))) = uint32(funAddr(nox_xxx_spellWallUpdate_500070))
-		*(*uint32)(unsafe.Pointer(uintptr(v1 + 100))) = uint32(funAddr(nox_xxx_spellWallDestroy_500080))
+		*(*uint32)(unsafe.Pointer(uintptr(v1 + 92))) = uint32(uintptr(ccall.FuncAddr(nox_xxx_spellWallCreate_4FFA90)))
+		*(*uint32)(unsafe.Pointer(uintptr(v1 + 96))) = uint32(uintptr(ccall.FuncAddr(nox_xxx_spellWallUpdate_500070)))
+		*(*uint32)(unsafe.Pointer(uintptr(v1 + 100))) = uint32(uintptr(ccall.FuncAddr(nox_xxx_spellWallDestroy_500080)))
 		*(*uint32)(unsafe.Pointer(uintptr(v1 + 48))) = 0
 	}
 	v3 = 0
@@ -1211,7 +1212,7 @@ func nox_xxx_updateUnits_51B100_D() {
 				v66.field_4 = float32(v65 - 42.5)
 				v66.field_8 = float32(v56 + 42.5)
 				v66.field_C = float32(v65 + 42.5)
-				nox_xxx_getUnitsInRect_517C10(&v66, funAddrP(sub_51B860), nil)
+				nox_xxx_getUnitsInRect_517C10(&v66, ccall.FuncAddr(sub_51B860), nil)
 			}
 		}
 	}

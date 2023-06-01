@@ -1,8 +1,10 @@
 package legacy
 
 import (
+	"bytes"
 	"unsafe"
 
+	"github.com/gotranspile/cxgo/runtime/stdio"
 	"github.com/noxworld-dev/opennox-lib/console"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
@@ -254,19 +256,9 @@ type nox_server_xxx struct {
 	field_10 uint16
 }
 
-func nox_gui_console_Printf_450C00(cl byte, format *wchar2_t, args ...any) int32 {
-
-}
-
-func noxSetRect(lprc *nox_rect, xLeft int32, yTop int32, xRight int32, yBottom int32) int32 {
-	lprc.min_x = xLeft
-	lprc.min_y = yTop
-	lprc.max_x = xRight
-	lprc.max_y = yBottom
-	return 1
-}
-
-func noxCopyRect(lprcDst *nox_rect, lprcSrc *nox_rect) int32 {
-	*lprcDst = *lprcSrc
-	return 1
+func nox_gui_console_Printf_450C00(cl byte, format *wchar2_t, args ...any) {
+	// since legacy code still calls it, we redirect into global printer instead of GUI printer
+	var buf bytes.Buffer
+	stdio.FprintfGo(&buf, GoWString(format), args...)
+	GetConsole().Print(console.Color(cl), buf.String())
 }

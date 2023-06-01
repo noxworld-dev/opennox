@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func nox_gui_newScrollListBox_4A4310(a1p *nox_window, a2 nox_window_flags, a3 int32, a4 int32, a5 int32, a6 int32, a7 int32, opts *nox_scrollListBox_data) *nox_window {
@@ -40,7 +41,7 @@ func nox_gui_newScrollListBox_4A4310(a1p *nox_window, a2 nox_window_flags, a3 in
 	if (int32(*(*uint8)(unsafe.Pointer(uintptr(a7 + 8)))) & 0x20) == 0 {
 		return nil
 	}
-	v8 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(a1))), a2, a3, a4, a5, a6, funAddrP(nox_xxx_wndListboxProcPre_4A30D0))))
+	v8 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(a1))), a2, a3, a4, a5, a6, ccall.FuncAddr(nox_xxx_wndListboxProcPre_4A30D0))))
 	nox_xxx_wndListboxInit_4A3C00(int32(uintptr(unsafe.Pointer(v8))), int32(uintptr(unsafe.Pointer(opts))))
 	if v8 == nil {
 		return nil

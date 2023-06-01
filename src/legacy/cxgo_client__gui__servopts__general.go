@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func nox_xxx_gui_4AD320(a1 int32) int32 {
@@ -25,10 +26,10 @@ func nox_xxx_gui_4AD320(a1 int32) int32 {
 	if dword_5d4594_1309812 != 0 {
 		return 0
 	}
-	v3 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1*4)+173556)), funAddrP(nox_xxx_windowServerOptionsGeneralProc_4AD5D0))))
+	v3 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1*4)+173556)), ccall.FuncAddr(nox_xxx_windowServerOptionsGeneralProc_4AD5D0))))
 	dword_5d4594_1309812 = uint32(uintptr(unsafe.Pointer(v3)))
 	sub_46B120((*nox_window)(unsafe.Pointer(v3)), (*nox_window)(unsafe.Pointer(uintptr(a1))))
-	nox_xxx_wndSetDrawFn_46B340(*(*int32)(unsafe.Pointer(&dword_5d4594_1309812)), funAddrP(sub_4AD570))
+	nox_xxx_wndSetDrawFn_46B340(*(*int32)(unsafe.Pointer(&dword_5d4594_1309812)), ccall.FuncAddr(sub_4AD570))
 	v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10306)))
 	if nox_common_gameFlags_check_40A5C0(1056) {
 		nox_xxx_wnd_46ABB0((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))), 0)
@@ -39,7 +40,7 @@ func nox_xxx_gui_4AD320(a1 int32) int32 {
 		sub_4AD4B0()
 		v5 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10310)))
 		nox_xxx_wnd_46B280(int32(uintptr(unsafe.Pointer(v5))), *(*int32)(unsafe.Pointer(&dword_5d4594_1309812)))
-		nox_xxx_wndSetProc_46B2C0(int32(uintptr(unsafe.Pointer(v5))), funAddrP(nox_xxx_windowServerOptionsGeneralProc_4AD5D0))
+		nox_xxx_wndSetProc_46B2C0(int32(uintptr(unsafe.Pointer(v5))), ccall.FuncAddr(nox_xxx_windowServerOptionsGeneralProc_4AD5D0))
 		v6 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10317)))
 		v7 = (**byte)(memmap.PtrOff(0x587000, 173540))
 		for {

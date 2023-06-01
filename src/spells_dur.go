@@ -226,7 +226,7 @@ func (sp *spellsDuration) spellCastByPlayer() {
 		if obj24 := it.obj24; obj24 != nil && obj24.Flags().Has(object.FlagDestroyed) {
 			it.obj24 = nil
 		}
-		if it.frame68 != it.frame60 && it.frame68 <= noxServer.Frame() || it.update != nil && ccall.CallIntPtr(it.update, it.C()) != 0 {
+		if it.frame68 != it.frame60 && it.frame68 <= noxServer.Frame() || it.update != nil && ccall.AsFunc[func(unsafe.Pointer) int32](it.update)(it.C()) != 0 {
 			legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(it.C())
 		}
 	}
@@ -280,7 +280,7 @@ func (sp *spellsDuration) New(spellID spell.ID, u1, u2, u3 *server.Object, sa *s
 	}
 	aud := sp.s.SpellDefByInd(spellID).GetAudio(sid)
 	sp.s.AudioEventObj(aud, u2, 0, 0)
-	if create == nil || ccall.CallIntPtr(create, p.C()) == 0 {
+	if create == nil || ccall.AsFunc[func(unsafe.Pointer) int32](create)(p.C()) == 0 {
 		return true
 	}
 	legacy.Nox_xxx_spellCancelSpellDo_4FE9D0(p.C())

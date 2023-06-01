@@ -7,6 +7,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var dword_5d4594_1090048 *nox_window = nil
@@ -156,7 +157,7 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 	dword_5d4594_1090040 = uint32(v14)
 	dword_5d4594_1090044 = uint32(439 - v0)
 	dword_5d4594_1090048 = nox_window_new(nil, 1560, 0, v0+40, 1, 1, nil)
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1090048)))), funAddrP(sub_46F060), funAddrP(sub_46F080), nil)
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1090048)))), ccall.FuncAddr(sub_46F060), ccall.FuncAddr(sub_46F080), nil)
 	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(dword_5d4594_1090048))) + 56))) = 0x80000000
 	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(dword_5d4594_1090048))) + 64))) = 0x80000000
 	*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(dword_5d4594_1090048))) + 72))) = 0x80000000
@@ -199,7 +200,7 @@ func nox_xxx_guiDrawRank_46E870() int32 {
 		v29 = int32(dword_5d4594_1090044)
 		*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090084) = uint32(uintptr(unsafe.Pointer(v28)))
 		*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090092) = uint32(uintptr(unsafe.Pointer(nox_gui_newScrollListBox_4A4310((*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090052)))), 1088, int32(*memmap.PtrUint32(0x5D4594, 1084036)+*memmap.PtrUint32(0x5D4594, 1084040)+*memmap.PtrUint32(0x5D4594, 1084048)+*memmap.PtrUint32(0x5D4594, 1084044)), v20, *memmap.PtrInt32(0x5D4594, 1084052), v29-v19, int32(uintptr(unsafe.Pointer(&v49[0]))), (*nox_scrollListBox_data)(unsafe.Pointer((*int16)(unsafe.Pointer(&v48[0]))))))))
-		nox_xxx_wndSetProc_46B2C0(int32(*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090052)), funAddrP(nox_xxx_Proc_46F070))
+		nox_xxx_wndSetProc_46B2C0(int32(*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090052)), ccall.FuncAddr(nox_xxx_Proc_46F070))
 		sub_46B120((*nox_window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v17*4)+1090060)))), (*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090052)))))
 		sub_46B120((*nox_window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v17*4)+1090068)))), (*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090052)))))
 		sub_46B120((*nox_window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(v17*4)+1090076)))), (*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v17*4)+1090052)))))

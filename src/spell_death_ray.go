@@ -72,12 +72,12 @@ func (c *Client) clientFXDeathRay(p1, p2 image.Point) {
 		expire := c.srv.Rand.Other.Int(20, 40)
 		z := c.srv.Rand.Other.Int(15, 30)
 		vz := c.srv.Rand.Other.Int(-4, 4)
-		dr.Field_108 = uint32(pos.X) << 12
+		*(*uint32)(unsafe.Pointer(&dr.Field_108_0)) = uint32(pos.X) << 12
 		dr.Field_109 = uint32(pos.Y) << 12
 		dr.Field_74_4 = byte(r1)
 		dr.Field_110 = uint32(r2)
 		dr.Field_111 = c.srv.Frame()
-		*(*uint32)(unsafe.Pointer(&dr.Field_112_0)) = c.srv.Frame() + uint32(expire)
+		dr.Field_112 = int32(c.srv.Frame() + uint32(expire))
 		dr.ZVal = uint16(z)
 		dr.VelZ = int8(vz)
 		c.Objs.List34Add(dr)

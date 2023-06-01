@@ -5,6 +5,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func nox_xxx_spritePickup_461660(a1 int32, a2 int32, a3 unsafe.Pointer) int32 {
@@ -516,7 +517,7 @@ LABEL_14:
 		v71 = float32(sub_4626C0(*(*int32)(unsafe.Pointer(&dword_5d4594_1063116))))
 		v72 = float32(sub_462700(*(*int32)(unsafe.Pointer(&dword_5d4594_1063116))))
 		v27 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v68))), 4*0))))))
-		if *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v68))), 4*0))))) != 0 && *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v27)), 40)) == funAddrP(nox_xxx_effectDamageMultiplier_4E04C0) {
+		if *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v68))), 4*0))))) != 0 && *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v27)), 40)) == ccall.FuncAddr(nox_xxx_effectDamageMultiplier_4E04C0) {
 			v69 = *(*float32)(unsafe.Pointer(uintptr(v27 + 44)))
 		}
 		v28 = nox_xxx_calcBoltDamage_4EF1E0(int32(*(*uint32)(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v70))), 4*0))) + 2239)))), int32(uintptr(unsafe.Pointer(v26))))
@@ -584,7 +585,7 @@ LABEL_14:
 	v17 = (*float32)(nox_xxx_equipClothFindDefByTT_413270(int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1063116 + 108))))))
 	v18 = 1.0
 	v19 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1063116 + 432))))
-	if v19 != 0 && *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v19 + 76))) == funAddrP(sub_4E0370) {
+	if v19 != 0 && *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v19 + 76))) == ccall.FuncAddr(sub_4E0370) {
 		v18 = float64(*(*float32)(unsafe.Pointer(uintptr(v19 + 80))))
 	}
 	v65 = float32(v18*float64(*(*float32)(unsafe.Add(unsafe.Pointer(v17), unsafe.Sizeof(float32(0))*16)))*1000.0 + 0.5)
@@ -1155,7 +1156,7 @@ func sub_464BD0(a1 int32, a2 int32, a3 uint32) int32 {
 					v52 = int32(*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 1049848) + 128))))
 					v51 = v58
 					v50 = nox_strman_loadString_40F1D0(internCStr("DropLabel"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 4148)
-					nox_gui_itemAmountDialog_4C0430((*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v50)))))), v51.field_0, v51.field_4, v52, v53, v49, v48+1, 0, funAddrP(sub_465CD0), nil)
+					nox_gui_itemAmountDialog_4C0430((*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v50)))))), v51.field_0, v51.field_4, v52, v53, v49, v48+1, 0, ccall.FuncAddr(sub_465CD0), nil)
 				} else if sub_4C12C0() == 0 {
 					nox_xxx_clientDrop_465BE0(&v57)
 				}
@@ -1328,7 +1329,7 @@ func nox_xxx_cliInventorySpriteUpd_465A30() {
 		if v1 != nil {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*30)) |= 0x40000000
 			*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(v1))) + 128))) = nox_client_inventory_grid_1050020[inventory_item_idx].field_4
-			alloc.Memcpy(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(v1)))+432)), unsafe.Pointer(&nox_client_inventory_grid_1050020[inventory_item_idx].field_0.field_108_1), 24)
+			alloc.Memcpy(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(v1)))+432)), unsafe.Pointer(&nox_client_inventory_grid_1050020[inventory_item_idx].field_0.Field_108_1), 24)
 			*(*uint16)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(v1))) + 292))) = nox_client_inventory_grid_1050020[inventory_item_idx].field_0.Field_73_1
 			*(*uint16)(unsafe.Pointer(uintptr(uint32(uintptr(unsafe.Pointer(v1))) + 294))) = nox_client_inventory_grid_1050020[inventory_item_idx].field_0.Field_73_2
 			var v3 [2]*int32

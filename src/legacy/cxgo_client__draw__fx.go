@@ -3,6 +3,8 @@ package legacy
 import (
 	"math"
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func sub_499490(a1 int32, a2 *uint16, a3 int32, a4 int32, a5 int8, a6 int8) {
@@ -44,7 +46,7 @@ func sub_499520(a1 int32, a2 *int16, a3 int16, a4 int8, a5 int8) {
 		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 444))) = uint8(int8(nox_common_randomIntMinMax_415FF0(3, 10, internCStr("C:\\NoxPost\\src\\client\\Draw\\Fx.c"), 182)))
 		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v8))), 446))) = uint8(a5)
 		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v8))), 445))) = uint8(a5)
-		*(*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*116)) = uint32(funAddr(sub_4CA720))
+		*(*uint32)(unsafe.Add(unsafe.Pointer(v8), 4*116)) = uint32(uintptr(ccall.FuncAddr(sub_4CA720)))
 		*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v8))), unsafe.Sizeof(uint16(0))*254))) = uint16(a3)
 		nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(v8)))
 	}

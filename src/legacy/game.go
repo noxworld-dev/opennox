@@ -153,7 +153,7 @@ func sub_517B70(pos *float2, fnc unsafe.Pointer, data unsafe.Pointer) {
 		return
 	}
 	GetServer().S().Map.Sub517B70(*(*types.Pointf)(unsafe.Pointer(pos)), func(it *server.Object) {
-		ccall.CallVoidPtr2(fnc, it.CObj(), data)
+		ccall.AsFunc[func(*nox_object_t, unsafe.Pointer)](fnc)(it, data)
 	})
 }
 
@@ -171,7 +171,7 @@ func sub_518740(a1 *float2, a2 uint8) *nox_waypoint_t {
 func nox_xxx_getMissilesInCircle_518170(pos *float2, r float32, fnc unsafe.Pointer, a4 *nox_object_t) {
 	p := *(*types.Pointf)(unsafe.Pointer(pos))
 	GetServer().S().Map.EachMissilesInCircle(p, r, func(it *server.Object) bool {
-		ccall.CallVoidPtr2(fnc, it.CObj(), unsafe.Pointer(a4))
+		ccall.AsFunc[func(*nox_object_t, unsafe.Pointer)](fnc)(it, unsafe.Pointer(a4))
 		return true
 	})
 }
@@ -180,7 +180,7 @@ func nox_xxx_getMissilesInCircle_518170(pos *float2, r float32, fnc unsafe.Point
 func nox_xxx_getUnitsInRectAdv_517ED0(rect *float4, fnc unsafe.Pointer, data unsafe.Pointer) {
 	r := *(*types.Rectf)(unsafe.Pointer(rect))
 	GetServer().S().Map.EachObjAndMissileInRect(r, func(it *server.Object) bool {
-		ccall.CallVoidPtr2(fnc, it.CObj(), data)
+		ccall.AsFunc[func(*nox_object_t, unsafe.Pointer)](fnc)(it, data)
 		return true
 	})
 }
@@ -189,7 +189,7 @@ func nox_xxx_getUnitsInRectAdv_517ED0(rect *float4, fnc unsafe.Pointer, data uns
 func nox_xxx_getUnitsInRect_517C10(rect *float4, fnc unsafe.Pointer, data unsafe.Pointer) {
 	r := *(*types.Rectf)(unsafe.Pointer(rect))
 	GetServer().S().Map.EachObjInRect(r, func(it *server.Object) bool {
-		ccall.CallVoidPtr2(fnc, it.CObj(), data)
+		ccall.AsFunc[func(*nox_object_t, unsafe.Pointer)](fnc)(it, data)
 		return true
 	})
 }
@@ -198,7 +198,7 @@ func nox_xxx_getUnitsInRect_517C10(rect *float4, fnc unsafe.Pointer, data unsafe
 func nox_xxx_unitsGetInCircle_517F90(pos *float2, r float32, fnc unsafe.Pointer, data unsafe.Pointer) {
 	p := *(*types.Pointf)(unsafe.Pointer(pos))
 	GetServer().S().Map.EachObjInCircle(p, float32(r), func(it *server.Object) bool {
-		ccall.CallVoidPtr2(fnc, it.CObj(), data)
+		ccall.AsFunc[func(*nox_object_t, unsafe.Pointer)](fnc)(it, data)
 		return true
 	})
 }
@@ -709,13 +709,13 @@ func Sub_415840(a1 int) int {
 	return int(sub_415840(int32(a1)))
 }
 func Get_nox_game_switchStates_43C0A0() unsafe.Pointer {
-	return funAddrP(nox_game_switchStates_43C0A0)
+	return ccall.FuncAddr(nox_game_switchStates_43C0A0)
 }
 func Get_nox_game_showOptions_4AA6B0() unsafe.Pointer {
-	return funAddrP(nox_game_showOptions_4AA6B0)
+	return ccall.FuncAddr(nox_game_showOptions_4AA6B0)
 }
 func Get_nox_game_showMainMenu_4A1C00() unsafe.Pointer {
-	return funAddrP(nox_game_showMainMenu_4A1C00)
+	return ccall.FuncAddr(nox_game_showMainMenu_4A1C00)
 }
 func Sub_41CAC0(a1 string, data []byte) {
 	sub_41CAC0(internCStr(a1), unsafe.Pointer(&data[0]))

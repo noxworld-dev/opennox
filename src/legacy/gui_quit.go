@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var (
@@ -71,5 +72,5 @@ func Sub_41CEE0(p unsafe.Pointer, a2 int) {
 }
 
 func Get_nox_xxx_menuGameOnButton_445840() unsafe.Pointer {
-	return funAddrP(nox_xxx_menuGameOnButton_445840)
+	return ccall.FuncAddr(nox_xxx_menuGameOnButton_445840)
 }

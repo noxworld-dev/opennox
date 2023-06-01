@@ -211,7 +211,7 @@ func (s *Server) ObjectsAddPending() {
 			legacy.Sub_5117F0(it.SObj())
 		}
 		if it.Init != nil {
-			ccall.CallVoidPtr2(it.Init, it.SObj().CObj(), nil)
+			ccall.AsFunc[func(*server.Object, unsafe.Pointer)](it.Init)(it.SObj(), nil)
 		}
 		var v6 bool
 		if it.Class().Has(object.ClassImmobile) {

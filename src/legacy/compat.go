@@ -20,7 +20,7 @@ const (
 )
 
 func strtol(a1 *byte, a2 **byte, a3 int32) int32 {
-
+	panic("FIXME")
 }
 
 type FILETIME struct {

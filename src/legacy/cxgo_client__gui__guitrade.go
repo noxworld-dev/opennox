@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func sub_4C09D0() int32 {
@@ -30,12 +31,12 @@ func sub_4C09D0() int32 {
 		v20 int32
 		v21 *wchar2_t
 	)
-	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("Trade.wnd"), funAddrP(sub_4C0C90))))
+	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("Trade.wnd"), ccall.FuncAddr(sub_4C0C90))))
 	dword_5d4594_1320940 = uint32(uintptr(unsafe.Pointer(v0)))
 	if v0 == nil {
 		return 0
 	}
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v0)), funAddrP(sub_4C0630), funAddrP(sub_4C0D00), nil)
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v0)), ccall.FuncAddr(sub_4C0630), ccall.FuncAddr(sub_4C0D00), nil)
 	v2 = nox_strman_loadString_40F1D0(internCStr("TradeMain"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUITrade.c"), 692)
 	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(dword_5d4594_1320940+36))), v2)
 	v3 = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1320940)))), 3702)))
@@ -45,9 +46,9 @@ func sub_4C09D0() int32 {
 	v6 = nox_strman_loadString_40F1D0(internCStr("TradeVendorName"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUITrade.c"), 698)
 	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v5), unsafe.Sizeof(wchar2_t(0))*18)))), v6)
 	v7 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1320940)))), 3704)))
-	nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v7)))))), funAddrP(sub_4C1120))
+	nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v7)))))), ccall.FuncAddr(sub_4C1120))
 	v8 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1320940)))), 3705)))
-	nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), funAddrP(sub_4C1120))
+	nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), ccall.FuncAddr(sub_4C1120))
 	v9 = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1320940)))), 3708)))
 	v10 = nox_strman_loadString_40F1D0(internCStr("TradePlayerAccept"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUITrade.c"), 709)
 	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v9), unsafe.Sizeof(wchar2_t(0))*18)))), v10)

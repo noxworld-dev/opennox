@@ -40,13 +40,6 @@ type nox_point struct {
 	y int32
 }
 
-type nox_rect struct {
-	min_x int32
-	min_y int32
-	max_x int32
-	max_y int32
-}
-
 func bool2int32(v bool) int32 {
 	if v {
 		return 1
@@ -56,18 +49,6 @@ func bool2int32(v bool) int32 {
 
 func COERCE_FLOAT(x uint32) float32 {
 	return math.Float32frombits(x)
-}
-
-func funAddrP(fnc any) unsafe.Pointer {
-
-}
-
-func funAddr(fnc any) uintptr {
-
-}
-
-func asFuncT[T any](h unsafe.Pointer) T {
-
 }
 
 func memset32(x *uint32, y uint32, z uint32) {

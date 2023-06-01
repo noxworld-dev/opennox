@@ -2,6 +2,8 @@ package legacy
 
 import (
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func sub_451CF0(a1 *uint32) int32 {
@@ -172,9 +174,9 @@ func sub_452580(a1 *uint32) int32 {
 		sub_486320((*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44))+48))), v4+100)
 		sub_4BDB20(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44))))
 		*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44)) + 152))) = uint32(uintptr(unsafe.Pointer(a1)))
-		*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44)) + 140))) = uint32(funAddr(sub_452770))
-		*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44)) + 144))) = uint32(funAddr(sub_4526F0))
-		*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44)) + 148))) = uint32(funAddr(sub_4526D0))
+		*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44)) + 140))) = uint32(uintptr(ccall.FuncAddr(sub_452770)))
+		*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44)) + 144))) = uint32(uintptr(ccall.FuncAddr(sub_4526F0)))
+		*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44)) + 148))) = uint32(uintptr(ccall.FuncAddr(sub_4526D0)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*7)) = 1
 		*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*44)) + 112))) = uint32(uintptr(unsafe.Pointer((*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*46)))))
 		if int32(*(*uint8)(unsafe.Pointer(uintptr(v1 + 4))))&8 != 0 {

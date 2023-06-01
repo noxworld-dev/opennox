@@ -1,6 +1,7 @@
 package legacy
 
 import (
+	"image"
 	"math"
 	"sync/atomic"
 	"unsafe"
@@ -10,6 +11,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var nox_max_npcs int32 = 1024
@@ -100,7 +102,7 @@ func sub_48CAD0() int32 {
 }
 func sub_48D000() int32 {
 	var v0 *uint32
-	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("GuiKick.wnd"), funAddrP(nox_xxx_guiKick_48D0A0))))
+	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("GuiKick.wnd"), ccall.FuncAddr(nox_xxx_guiKick_48D0A0))))
 	dword_5d4594_1197312 = uint32(uintptr(unsafe.Pointer(v0)))
 	if v0 == nil {
 		return 0
@@ -1797,7 +1799,7 @@ func sub_4951C0() *byte {
 func nox_xxx_unitSpriteCheckAlly_4951F0(a1 int32) int32 {
 	return bool2int32(sub_495020(a1) != nil)
 }
-func sub_495210(a1 int32) int32 {
+func sub_495210(a1 int32) {
 	var (
 		v1 int32
 		v2 int32
@@ -1829,7 +1831,7 @@ LABEL_9:
 	*memmap.PtrUint32(0x5D4594, uintptr(v3)+1201444) = uint32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 10))))
 	*memmap.PtrUint32(0x5D4594, uintptr(v3)+1201448) = gameFrame()
 	dword_5d4594_1203836 = uint32((v1 + 1) % 100)
-	return sub_4952E0((*uint16)(unsafe.Pointer(uintptr(a1))))
+	sub_4952E0((*uint16)(unsafe.Pointer(uintptr(a1))))
 }
 func sub_495430() int32 {
 	var (
@@ -2212,7 +2214,7 @@ func sub_495BF0(a1 int32, a2 int32, a3 int32) int32 {
 			nox_client_drawSetAlpha_434580(v13)
 			*(*uint32)(unsafe.Pointer(uintptr(a1 + 12))) = *v9
 			*(*uint32)(unsafe.Pointer(uintptr(a1 + 16))) = *(*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*1))
-			asFuncT[func(int32, int32)](unsafe.Pointer(uintptr(a1+300)))(a3, a1)
+			ccall.AsFunc[func(int32, int32)](unsafe.Pointer(uintptr(a1+300)))(a3, a1)
 			v8++
 			v9 = (*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*2))
 			if v8 >= int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 56)))) {
@@ -4747,7 +4749,7 @@ func nox_xxx_drawShield_499810(vp *nox_draw_viewport_t, dr *nox_drawable) int32 
 	*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 297))))*4)+1217468) + 12))) = *(*uint32)(unsafe.Pointer(uintptr(a2 + 12))) + *memmap.PtrUint32(0x587000, uintptr(int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 297))))*8)+161776)
 	*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 297))))*4)+1217468) + 16))) = *(*uint32)(unsafe.Pointer(uintptr(a2 + 16))) + uint32(*(*int16)(unsafe.Pointer(uintptr(a2 + 104)))) + *memmap.PtrUint32(0x587000, uintptr(int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 297))))*8)+161780)
 	v3 = int32(*memmap.PtrUint32(0x5D4594, uintptr(int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 297))))*4)+1217468))
-	asFuncT[func(int32, int32)](unsafe.Pointer(uintptr(v3+300)))(a1, v3)
+	ccall.AsFunc[func(int32, int32)](unsafe.Pointer(uintptr(v3+300)))(a1, v3)
 	return 0
 }
 func nox_xxx_fxDrawTurnUndead_499880(a1 *int16) *uint32 {
@@ -4774,7 +4776,7 @@ func nox_xxx_fxDrawTurnUndead_499880(a1 *int16) *uint32 {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*79)) = gameFrame()
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*81)) = uint32(*a1)
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*82)) = uint32(*(*int16)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(int16(0))*1)))
-			*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*115)) = uint32(funAddr(nox_xxx_sprite_4CA540))
+			*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*115)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_sprite_4CA540)))
 			nox_xxx_spriteToList_49BC80_drawable((*nox_drawable)(unsafe.Pointer(v3)))
 			nox_xxx_spriteToSightDestroyList_49BAB0_drawable((*nox_drawable)(unsafe.Pointer(v3)))
 		}
@@ -5136,7 +5138,7 @@ func sub_49AEA0() int32 {
 }
 func sub_49B3E0() int32 {
 	var result int32
-	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("GGOver.wnd"), funAddrP(sub_49B420)))))
+	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("GGOver.wnd"), ccall.FuncAddr(sub_49B420)))))
 	dword_5d4594_1303452 = uint32(result)
 	if result != 0 {
 		nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(result))), 1)
@@ -5291,10 +5293,10 @@ func sub_49BD70(a1p *nox_draw_viewport_t) {
 	var v2 int32 = int32(uintptr(unsafe.Pointer(nox_xxx_getSomeSprite_49BD40())))
 	for v2 != 0 {
 		var v3 int32 = nox_xxx_getSprite178_49BD50(v2)
-		v4 = asFuncT[func(int32, uint32) int32](unsafe.Pointer(uintptr(*((*int32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(uintptr(v2)))), 4*116))))))
+		v4 = ccall.AsFunc[func(int32, uint32) int32](unsafe.Pointer(uintptr(*((*int32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(uintptr(v2)))), 4*116))))))
 		if v4 == nil || v4(a1, uint32(v2)) != 0 {
 			result2 = func(arg1 int32, arg2 int32) {
-				asFuncT[func(int32, int32) int32](unsafe.Pointer(uintptr(*((*int32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(uintptr(v2)))), 4*115))))))(arg1, arg2)
+				ccall.AsFunc[func(int32, int32) int32](unsafe.Pointer(uintptr(*((*int32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(uintptr(v2)))), 4*115))))))(arg1, arg2)
 			}
 			if result2 != nil {
 				result2(a1, v2)
@@ -5551,11 +5553,11 @@ func sub_49CB40() int32 {
 	return bool2int32(dword_5d4594_1305684 != 0)
 }
 func sub_49CD30(xLeft int32, yTop int32, a3 int32, a4 int32, a5 int32, a6 int32) {
-	var rc nox_rect
+	var rc image.Rectangle
 	if a3 != 0 {
 		if a4 != 0 {
 			if !nox_draw_curDrawData_3799572.Clip() || (func() *int4 {
-				noxSetRect(&rc, xLeft, yTop, xLeft+a3, yTop+a4)
+				rc = image.Rect(int(xLeft), int(yTop), int(xLeft+a3), int(yTop+a4))
 				return nox_xxx_utilRect_49F930((*int4)(unsafe.Pointer(&rc)), (*int4)(unsafe.Pointer(&rc)), (*int4)(unsafe.Pointer(nox_draw_curDrawData_3799572.ClipRectPtr())))
 			}()) != nil {
 				nox_draw_set54RGB32_434040(a5)
@@ -5613,23 +5615,21 @@ func sub_49F6D0(a1 int32) int32 {
 	nox_draw_curDrawData_3799572.SetClip(a1 != 0)
 	return result
 }
-func nox_client_copyRect_49F6F0(xLeft int32, yTop int32, a3 int32, a4 int32) *int4 {
+func nox_client_copyRect_49F6F0(xLeft int32, yTop int32, a3 int32, a4 int32) {
 	var (
 		result *int4
-		rcSrc  nox_rect
-		rc     nox_rect
+		rcSrc  image.Rectangle
 	)
-	noxSetRect(&rc, xLeft, yTop, xLeft+a3, yTop+a4)
+	rc := image.Rect(int(xLeft), int(yTop), int(xLeft+a3), int(yTop+a4))
 	result = nox_xxx_utilRect_49F930((*int4)(unsafe.Pointer(&rcSrc)), (*int4)(unsafe.Pointer(&rc)), (*int4)(unsafe.Pointer(nox_draw_curDrawData_3799572.Rect3Ptr())))
 	if result != nil {
-		noxCopyRect(nox_draw_curDrawData_3799572.ClipRectPtr(), &rcSrc)
-		rcSrc.max_x--
-		rcSrc.max_y--
-		result = (*int4)(unsafe.Pointer(uintptr(noxCopyRect(nox_draw_curDrawData_3799572.ClipRect2Ptr(), &rcSrc))))
+		nox_draw_curDrawData_3799572.SetClipRect(rcSrc)
+		rcSrc.Max.X--
+		rcSrc.Max.Y--
+		nox_draw_curDrawData_3799572.SetClipRect2(rcSrc)
 	}
-	return result
 }
-func sub_49F780(xLeft int32, a2 int32) *int4 {
+func sub_49F780(xLeft int32, a2 int32) {
 	var (
 		v2 int32
 		v3 int32
@@ -5642,7 +5642,7 @@ func sub_49F780(xLeft int32, a2 int32) *int4 {
 	if a2 > int32(nox_draw_curDrawData_3799572.ClipRect().Max.X) {
 		v3 = int32(nox_draw_curDrawData_3799572.ClipRect().Max.X)
 	}
-	return nox_client_copyRect_49F6F0(v2, int32(nox_draw_curDrawData_3799572.ClipRect().Min.Y), v3-v2, int32(nox_draw_curDrawData_3799572.ClipRect().Max.Y-nox_draw_curDrawData_3799572.ClipRect().Min.Y))
+	nox_client_copyRect_49F6F0(v2, int32(nox_draw_curDrawData_3799572.ClipRect().Min.Y), v3-v2, int32(nox_draw_curDrawData_3799572.ClipRect().Max.Y-nox_draw_curDrawData_3799572.ClipRect().Min.Y))
 }
 func nox_xxx_wndDraw_49F7F0() {
 	if dword_5d4594_1305748 == 0 {
@@ -5663,17 +5663,17 @@ func sub_49F860() int32 {
 	result = int32(dword_5d4594_1305748)
 	if dword_5d4594_1305748 != 0 {
 		nox_draw_curDrawData_3799572.SetClip(memmap.Uint32(0x5D4594, 1305772) != 0)
-		var v1 *nox_rect = (*nox_rect)(unsafe.Pointer(nox_draw_curDrawData_3799572.ClipRectPtr()))
-		v1.min_x = int32(*memmap.PtrUint32(0x5D4594, 1305756))
-		v1.min_y = int32(*memmap.PtrUint32(0x5D4594, 1305760))
-		v1.max_x = int32(*memmap.PtrUint32(0x5D4594, 1305764))
-		v1.max_y = int32(*memmap.PtrUint32(0x5D4594, 1305768))
-		var v2 *nox_rect = (*nox_rect)(unsafe.Pointer(nox_draw_curDrawData_3799572.ClipRect2Ptr()))
-		v2.min_x = int32(*memmap.PtrUint32(0x5D4594, 1305732))
-		v2.min_y = int32(*memmap.PtrUint32(0x5D4594, 1305736))
+		v1 := nox_draw_curDrawData_3799572.ClipRectPtr()
+		v1.Min.X = int(*memmap.PtrUint32(0x5D4594, 1305756))
+		v1.Min.Y = int(*memmap.PtrUint32(0x5D4594, 1305760))
+		v1.Max.X = int(*memmap.PtrUint32(0x5D4594, 1305764))
+		v1.Max.Y = int(*memmap.PtrUint32(0x5D4594, 1305768))
+		v2 := nox_draw_curDrawData_3799572.ClipRect2Ptr()
+		v2.Min.X = int(*memmap.PtrUint32(0x5D4594, 1305732))
+		v2.Min.Y = int(*memmap.PtrUint32(0x5D4594, 1305736))
 		result = int32(*memmap.PtrUint32(0x5D4594, 1305740))
-		v2.max_x = int32(*memmap.PtrUint32(0x5D4594, 1305740))
-		v2.max_y = int32(*memmap.PtrUint32(0x5D4594, 1305744))
+		v2.Max.X = int(*memmap.PtrUint32(0x5D4594, 1305740))
+		v2.Max.Y = int(*memmap.PtrUint32(0x5D4594, 1305744))
 		dword_5d4594_1305748 = 0
 	}
 	return result

@@ -8,6 +8,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var (
@@ -199,5 +200,5 @@ func Sub_46B630(a1 *gui.Window, a2 int, a3 int) *gui.Window {
 }
 
 func Get_nox_input_reset_430140() unsafe.Pointer {
-	return funAddrP(nox_input_reset_430140)
+	return ccall.FuncAddr(nox_input_reset_430140)
 }

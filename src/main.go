@@ -463,13 +463,13 @@ func nox_exit(exitCode int) {
 	panic(ErrExit(exitCode))
 }
 
-func nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d *int) {
+func nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode(w, h, d *int32) {
 	mode := noxClient.videoGetGameMode()
 	if w != nil {
-		*w = mode.X
+		*w = int32(mode.X)
 	}
 	if h != nil {
-		*h = mode.Y
+		*h = int32(mode.Y)
 	}
 	if d != nil {
 		*d = 16

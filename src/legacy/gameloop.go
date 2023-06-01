@@ -34,7 +34,7 @@ func nox_game_SetCliDrawFunc(fnc unsafe.Pointer) {
 		GetClient().SetDrawFunc(nil)
 	} else {
 		GetClient().SetDrawFunc(func() bool {
-			return ccall.CallIntVoid(fnc) != 0
+			return ccall.AsFunc[func() int](fnc)() != 0
 		})
 	}
 }
@@ -45,7 +45,7 @@ func sub_43DE40(fnc unsafe.Pointer) int32 {
 		GetServer().SetUpdateFunc2(nil)
 	} else {
 		GetServer().SetUpdateFunc2(func() bool {
-			return ccall.CallIntVoid(fnc) != 0
+			return ccall.AsFunc[func() int](fnc)() != 0
 		})
 	}
 	return 1

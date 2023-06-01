@@ -4,6 +4,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func sub_4A4A20(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
@@ -35,7 +36,7 @@ func sub_4A4A20(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 					sub_4A4B70(v5)
 				}
 				sub_4A4970()
-				nox_wnd_xxx_1307732.Func13Ptr = funAddrP(nox_game_showSelColor_4A5D00)
+				nox_wnd_xxx_1307732.Func13Ptr = ccall.FuncAddr(nox_game_showSelColor_4A5D00)
 			}
 		}
 		nox_xxx_clientPlaySoundSpecial_452D80(921, 100)

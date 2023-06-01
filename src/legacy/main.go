@@ -2,7 +2,7 @@ package legacy
 
 var (
 	Nox_exit                                              func(exitCode int)
-	Nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode func(w, h, d *int)
+	Nox_xxx_gameGetScreenBoundaries_43BEB0_get_video_mode func(w, h, d *int32)
 	Sub_4AA9C0                                            func() int
 )
 

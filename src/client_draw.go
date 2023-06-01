@@ -876,7 +876,7 @@ func (c *Client) sub_4C52E0(points []image.Point) {
 	}
 }
 
-func (c *Client) Sub4C42A0(a1, a2 image.Point, a3 *int, a4 *int) int32 {
+func (c *Client) Sub4C42A0(a1, a2 image.Point, a3 *int32, a4 *int32) int32 {
 	v4 := a1.Y
 	v5 := a2.Y
 	if v4 == v5 {
@@ -916,17 +916,17 @@ func (c *Client) Sub4C42A0(a1, a2 image.Point, a3 *int, a4 *int) int32 {
 			v12 := v11it[0]
 			v13 := v11it[1]
 			if float64(v11it[0]) > float64(v51) {
-				if *a3 < v12 {
-					*a3 = v12
+				if int(*a3) < v12 {
+					*a3 = int32(v12)
 				}
-				if float64(v13) < float64(v43) && *a4 > v13 {
-					*a4 = v13
+				if float64(v13) < float64(v43) && int(*a4) > v13 {
+					*a4 = int32(v13)
 				}
 				return 1
 			}
 			if float64(v51) <= float64(v13) && float64(v43) > float64(v13) {
-				if *a4 > v13 {
-					*a4 = v13
+				if int(*a4) > v13 {
+					*a4 = int32(v13)
 				}
 				return 1
 			}
@@ -982,16 +982,16 @@ func (c *Client) Sub4C42A0(a1, a2 image.Point, a3 *int, a4 *int) int32 {
 		v58 := v15 - nox_win_height + 1
 		v15 = nox_win_height - 1
 		v52 = float32(float64(v58)*float64(v49) + float64(v52))
-		if *a3 < int(v52) {
-			*a3 = int(v52)
+		if int(*a3) < int(v52) {
+			*a3 = int32(v52)
 		}
 	}
 	if v16 >= 0 {
 		if v16 >= v19 {
 			v59 := v19 - v16 + v18 - 1
 			v44 = float32(float64(v59)*float64(v49) + float64(v52))
-			if *a4 > int(v44) {
-				*a4 = int(v44)
+			if int(*a4) > int(v44) {
+				*a4 = int32(v44)
 			}
 			v18 = v59
 		}
@@ -1029,8 +1029,8 @@ func (c *Client) Sub4C42A0(a1, a2 image.Point, a3 *int, a4 *int) int32 {
 					for j := 0; j < n; j += 2 {
 						v34 := c.tiles.nox_arr_957820[v28].arr[j : j+2]
 						if float64(v34[0]) <= float64(v53) && float64(v34[1]+2) >= float64(v53) {
-							if *a3 < int(v53)-1 {
-								*a3 = int(v53) - 1
+							if int(*a3) < int(v53)-1 {
+								*a3 = int32(v53) - 1
 							}
 							break loop1
 						}
@@ -1054,8 +1054,8 @@ func (c *Client) Sub4C42A0(a1, a2 image.Point, a3 *int, a4 *int) int32 {
 	for {
 		v37 := c.tiles.nox_arr_956A00[si]
 		if v37 <= 0 {
-			if *a4 > int(v53) {
-				*a4 = int(v53)
+			if int(*a4) > int(v53) {
+				*a4 = int32(v53)
 			}
 			return 1
 		}
@@ -1067,8 +1067,8 @@ func (c *Client) Sub4C42A0(a1, a2 image.Point, a3 *int, a4 *int) int32 {
 			v39 += 2
 			v40 = v40[2:]
 			if v39 >= v37 {
-				if *a4 > int(v53) {
-					*a4 = int(v53)
+				if int(*a4) > int(v53) {
+					*a4 = int32(v53)
 				}
 				return 1
 			}

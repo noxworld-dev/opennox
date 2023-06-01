@@ -5,6 +5,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func nox_thing_animate_draw(a1 *uint32, dr *nox_drawable) int32 {
@@ -169,7 +170,7 @@ func nox_things_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *b
 		}
 	}
 	obj.Field_5c = unsafe.Pointer(v5)
-	obj.DrawFunc = funAddrP(nox_thing_animate_draw)
+	obj.DrawFunc = ccall.FuncAddr(nox_thing_animate_draw)
 	return true
 }
 func sub_44BE90(a1 int32, f *nox_memfile) int32 {
@@ -252,7 +253,7 @@ func nox_things_animate_state_draw_parse(obj *nox_thing, f *nox_memfile, attr_va
 		}
 	}
 	obj.Field_54 = 2
-	obj.DrawFunc = funAddrP(nox_thing_animate_state_draw)
+	obj.DrawFunc = ccall.FuncAddr(nox_thing_animate_state_draw)
 	obj.Field_5c = unsafe.Pointer(draw_cb_data)
 	return true
 }

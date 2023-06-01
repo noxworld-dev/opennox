@@ -9,6 +9,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var nox_file_8 *FILE = nil
@@ -863,7 +864,7 @@ func nox_xxx_XFerMonsterGen_4F7130(a1 *int32) int32 {
 					}
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v26)), 2)
 					nox_xxx_fileCryptReadCrcMB_426C20((*uint8)(unsafe.Pointer(&v32)), 4)
-					if (asFuncT[func(*uint32, uint32) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v18), 4*176))))))(v18, 0) == 0 {
+					if (ccall.AsFunc[func(*uint32, uint32) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v18), 4*176))))))(v18, 0) == 0 {
 						return 0
 					}
 					v19 = func() int32 {
@@ -1922,11 +1923,11 @@ func nox_xxx_checkInversionEffect_4FA4F0(a1 int32, a2 int32) int32 {
 					v6 = *v5
 					v10 = 0
 					if v6 != 0 {
-						v7 = asFuncT[func(int32, int32, int32, int32, int32, *int32) int32](unsafe.Pointer(uintptr(v6 + 88)))
+						v7 = ccall.AsFunc[func(int32, int32, int32, int32, int32, *int32) int32](unsafe.Pointer(uintptr(v6 + 88)))
 						if v7 != nil {
-							if funAddr(v7) == funAddr(nox_xxx_inversionEffect_4E03D0) {
+							if ccall.FuncAddr(v7) == ccall.FuncAddr(nox_xxx_inversionEffect_4E03D0) {
 								v8 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*nox_object_t)(unsafe.Pointer(uintptr(a2)))))))
-								asFuncT[func(int32, *uint32, int32, int32, int32, *int32)](unsafe.Pointer(uintptr(v6+88)))(v6, v2, a1, a2, v8, &v10)
+								ccall.AsFunc[func(int32, *uint32, int32, int32, int32, *int32)](unsafe.Pointer(uintptr(v6+88)))(v6, v2, a1, a2, v8, &v10)
 								result = 1
 								if v10 == 1 {
 									return result
@@ -2210,7 +2211,7 @@ func nox_xxx_updatePlayerMonsterBot_4FAB20(a1 *uint32) int32 {
 			*(*uint32)(unsafe.Pointer(uintptr(v6 + 3636))) = uint32(result)
 		}
 	} else {
-		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*186)) = uint32(funAddr(nox_xxx_updatePlayer_4F8100))
+		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*186)) = uint32(uintptr(ccall.FuncAddr(nox_xxx_updatePlayer_4F8100)))
 	}
 	return result
 }
@@ -3058,7 +3059,7 @@ func nox_xxx_collide_4FDF90(a1 int32, a2 int32) {
 		nox_xxx_spellBuffOff_4FF5B0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 22)
 		v5 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("ShockDamage"), v2))
 		v3 = int32(v5)
-		asFuncT[func(int32, int32, int32, int32, int32)](unsafe.Pointer(uintptr(a2+716)))(a2, a1, a1, v3, 9)
+		ccall.AsFunc[func(int32, int32, int32, int32, int32)](unsafe.Pointer(uintptr(a2+716)))(a2, a1, a1, v3, 9)
 	}
 	result = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 8))))
 	if uint32(result)&0x20006 != 0 {
@@ -3541,7 +3542,7 @@ func nox_xxx_plrCastSmth_4FEDA0(a1p unsafe.Pointer) {
 		v1 = nox_xxx_spellGetAud44_424800(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)), 2)
 		nox_xxx_aud_501960(v1, (*nox_object_t)(unsafe.Pointer(uintptr(v5))), 0, 0)
 	}
-	v2 = asFuncT[func(*int32)](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*25)))))
+	v2 = ccall.AsFunc[func(*int32)](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*25)))))
 	if v2 != nil {
 		v2(a1)
 	}
@@ -5807,7 +5808,7 @@ func nox_xxx_mapgenSaveMap_503830(a1 int32) int32 {
 			if v2 == nil {
 				return 0
 			}
-			if (asFuncT[func(*uint32, *int4) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*176))))))(v2, &v25) == 0 {
+			if (ccall.AsFunc[func(*uint32, *int4) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*176))))))(v2, &v25) == 0 {
 				nox_xxx_objectFreeMem_4E38A0((*nox_object_t)(unsafe.Pointer(uintptr(v3))))
 				sub_502DF0()
 				return 0

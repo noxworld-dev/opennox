@@ -8,6 +8,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -379,16 +380,16 @@ func Nox_xxx_dropAllItems_4EDA40(a1 *server.Object) {
 }
 
 func Get_nox_objectDropAudEvent_4EE2F0() unsafe.Pointer {
-	return funAddrP(nox_objectDropAudEvent_4EE2F0)
+	return ccall.FuncAddr(nox_objectDropAudEvent_4EE2F0)
 }
 func Get_nox_xxx_XFerDefault_4F49A0() unsafe.Pointer {
-	return funAddrP(nox_xxx_XFerDefault_4F49A0)
+	return ccall.FuncAddr(nox_xxx_XFerDefault_4F49A0)
 }
 func Get_nox_xxx_updateHarpoon_54F380() unsafe.Pointer {
-	return funAddrP(nox_xxx_updateHarpoon_54F380)
+	return ccall.FuncAddr(nox_xxx_updateHarpoon_54F380)
 }
 func Get_nox_xxx_updatePixie_53CD20() unsafe.Pointer {
-	return funAddrP(nox_xxx_updatePixie_53CD20)
+	return ccall.FuncAddr(nox_xxx_updatePixie_53CD20)
 }
 func Nox_object_getGold_4FA6D0(obj *server.Object) int {
 	return int(nox_object_getGold_4FA6D0(asObjectC(obj)))

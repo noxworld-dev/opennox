@@ -272,7 +272,7 @@ func nox_xxx_mapReadSectionSpecial_426F40(a1 unsafe.Pointer, name string, fnc un
 		mapLog.Printf("unsupported map section: %q", name)
 		return nil // TODO: why is returns true here?
 	}
-	if ccall.CallIntPtr(fnc, a1) == 0 {
+	if ccall.AsFunc[func(unsafe.Pointer) int32](fnc)(a1) == 0 {
 		return fmt.Errorf("cannot parse map section: %q", name)
 	}
 	return nil

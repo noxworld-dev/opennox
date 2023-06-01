@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func sub_4B6770(a1 *int32, dr *nox_drawable, a3 int32, a4 int32) int32 {
@@ -288,7 +289,7 @@ func nox_thing_particle_draw(a1 int32, dr *nox_drawable) int32 {
 	v2 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*108)))))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*20)) >> 16
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*21)) >> 16
-	v3 = asFuncT[func(*uint32)](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*31)))))
+	v3 = ccall.AsFunc[func(*uint32)](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*31)))))
 	if v3 != nil {
 		v3(v2)
 	}

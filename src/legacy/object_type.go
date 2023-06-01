@@ -3,6 +3,7 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -14,31 +15,31 @@ var (
 )
 
 func init() {
-	server.DefaultDamage = funAddrP(nox_xxx_damageDefaultProc_4E0B30)
-	server.DefaultDamageSound = funAddrP(nox_xxx_soundDefaultDamageSound_532E20)
-	server.DefaultXfer = funAddrP(nox_xxx_XFerDefault_4F49A0)
+	server.DefaultDamage = ccall.FuncAddr(nox_xxx_damageDefaultProc_4E0B30)
+	server.DefaultDamageSound = ccall.FuncAddr(nox_xxx_soundDefaultDamageSound_532E20)
+	server.DefaultXfer = ccall.FuncAddr(nox_xxx_XFerDefault_4F49A0)
 
-	server.RegisterObjectCreate("MonsterCreate", funAddrP(nox_xxx_monsterCreateFn_54C480))
-	server.RegisterObjectCreate("ArmorCreate", funAddrP(sub_54C950))
-	server.RegisterObjectCreate("WeaponCreate", funAddrP(nox_xxx_createWeapon_54C710))
-	server.RegisterObjectCreate("ObeliskCreate", funAddrP(nox_xxx_createFnObelisk_54CA10))
-	server.RegisterObjectCreate("AnimCreate", funAddrP(nox_xxx_createFnAnim_54CA50))
-	server.RegisterObjectCreate("TriggerCreate", funAddrP(nox_xxx_createTrigger_54CA60))
-	server.RegisterObjectCreate("MonsterGeneratorCreate", funAddrP(nox_xxx_createMonsterGen_54CA90))
-	server.RegisterObjectCreate("RewardMarkerCreate", funAddrP(nox_xxx_createRewardMarker_54CAC0))
+	server.RegisterObjectCreate("MonsterCreate", ccall.FuncAddr(nox_xxx_monsterCreateFn_54C480))
+	server.RegisterObjectCreate("ArmorCreate", ccall.FuncAddr(sub_54C950))
+	server.RegisterObjectCreate("WeaponCreate", ccall.FuncAddr(nox_xxx_createWeapon_54C710))
+	server.RegisterObjectCreate("ObeliskCreate", ccall.FuncAddr(nox_xxx_createFnObelisk_54CA10))
+	server.RegisterObjectCreate("AnimCreate", ccall.FuncAddr(nox_xxx_createFnAnim_54CA50))
+	server.RegisterObjectCreate("TriggerCreate", ccall.FuncAddr(nox_xxx_createTrigger_54CA60))
+	server.RegisterObjectCreate("MonsterGeneratorCreate", ccall.FuncAddr(nox_xxx_createMonsterGen_54CA90))
+	server.RegisterObjectCreate("RewardMarkerCreate", ccall.FuncAddr(nox_xxx_createRewardMarker_54CAC0))
 
-	server.RegisterObjectInit("MonsterInit", funAddrP(nox_xxx_unitMonsterInit_4F0040), 0)
-	server.RegisterObjectInit("PlayerInit", funAddrP(nox_xxx_unitInitPlayer_4EFE80), 0)
-	server.RegisterObjectInit("SparkInit", funAddrP(nox_xxx_unitSparkInit_4F0390), 0)
-	server.RegisterObjectInit("FrogInit", funAddrP(nox_xxx_initFrog_4F03B0), 0)
-	server.RegisterObjectInit("ChestInit", funAddrP(nox_xxx_initChest_4F0400), 0)
-	server.RegisterObjectInit("BoulderInit", funAddrP(nox_xxx_unitBoulderInit_4F0420), 0)
-	server.RegisterObjectInit("BreakInit", funAddrP(nox_xxx_breakInit_4F0570), 0)
-	server.RegisterObjectInit("MonsterGeneratorInit", funAddrP(nox_xxx_unitInitGenerator_4F0590), 0)
-	server.RegisterObjectInit("ShopkeeperInit", funAddrP(nox_xxx_unitMonsterInit_4F0040), 1724)
-	server.RegisterObjectInit("SkullInit", funAddrP(sub_4F0450), 8)
-	server.RegisterObjectInit("DirectionInit", funAddrP(sub_4F0490), 8)
-	server.RegisterObjectInit("GoldInit", funAddrP(nox_xxx_unitInitGold_4F04B0), 4)
+	server.RegisterObjectInit("MonsterInit", ccall.FuncAddr(nox_xxx_unitMonsterInit_4F0040), 0)
+	server.RegisterObjectInit("PlayerInit", ccall.FuncAddr(nox_xxx_unitInitPlayer_4EFE80), 0)
+	server.RegisterObjectInit("SparkInit", ccall.FuncAddr(nox_xxx_unitSparkInit_4F0390), 0)
+	server.RegisterObjectInit("FrogInit", ccall.FuncAddr(nox_xxx_initFrog_4F03B0), 0)
+	server.RegisterObjectInit("ChestInit", ccall.FuncAddr(nox_xxx_initChest_4F0400), 0)
+	server.RegisterObjectInit("BoulderInit", ccall.FuncAddr(nox_xxx_unitBoulderInit_4F0420), 0)
+	server.RegisterObjectInit("BreakInit", ccall.FuncAddr(nox_xxx_breakInit_4F0570), 0)
+	server.RegisterObjectInit("MonsterGeneratorInit", ccall.FuncAddr(nox_xxx_unitInitGenerator_4F0590), 0)
+	server.RegisterObjectInit("ShopkeeperInit", ccall.FuncAddr(nox_xxx_unitMonsterInit_4F0040), 1724)
+	server.RegisterObjectInit("SkullInit", ccall.FuncAddr(sub_4F0450), 8)
+	server.RegisterObjectInit("DirectionInit", ccall.FuncAddr(sub_4F0490), 8)
+	server.RegisterObjectInit("GoldInit", ccall.FuncAddr(nox_xxx_unitInitGold_4F04B0), 4)
 }
 
 // nox_xxx_unitDefGetCount_4E3AC0
@@ -152,8 +153,8 @@ func sub_415EC0(a1 *byte) int32 {
 }
 
 func Get_nox_xxx_XFerInvLight_4F5AA0() unsafe.Pointer {
-	return funAddrP(nox_xxx_XFerInvLight_4F5AA0)
+	return ccall.FuncAddr(nox_xxx_XFerInvLight_4F5AA0)
 }
 func Nox_call_objectType_new_go(a1 unsafe.Pointer, a2 *server.Object) {
-	asFuncT[func(*nox_object_t)](a1)(asObjectC(a2))
+	ccall.AsFunc[func(*nox_object_t)](a1)(asObjectC(a2))
 }

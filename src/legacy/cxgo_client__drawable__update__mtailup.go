@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func nox_xxx_updDrawMagic_4CDD80(a1 int32, a2 *uint32) {
@@ -53,7 +54,7 @@ func nox_xxx_updDrawMagic_4CDD80(a1 int32, a2 *uint32) {
 		v10 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1523004), v8, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*9))+uint32(v6/4)+uint32(v9))))))
 		v11 = v10
 		if v10 != 0 {
-			*(*uint32)(unsafe.Pointer(uintptr(v10 + 300))) = uint32(funAddr(nox_thing_magic_sparkle_draw))
+			*(*uint32)(unsafe.Pointer(uintptr(v10 + 300))) = uint32(uintptr(ccall.FuncAddr(nox_thing_magic_sparkle_draw)))
 			nox_xxx_spriteChangeLightColor_484BE0((*uint32)(unsafe.Pointer(uintptr(v10+136))), 128, 128, math.MaxUint8)
 			*(*uint32)(unsafe.Pointer(uintptr(v11 + 432))) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3)) << 12
 			*(*uint32)(unsafe.Pointer(uintptr(v11 + 436))) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4)) << 12

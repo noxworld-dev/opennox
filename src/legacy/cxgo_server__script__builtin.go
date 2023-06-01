@@ -373,19 +373,17 @@ func nox_script_HitFarLocationGroup_515BF0() int32 {
 	}, int32(uintptr(unsafe.Pointer(&v4[0]))))
 	return 0
 }
-func nox_script_SetRoamFlag_515C40(a1 int32) int32 {
+func nox_script_SetRoamFlag_515C40() int32 {
 	var (
 		v1 int8
 		v2 int32
 		v3 int32
-		v5 int8
 	)
-	v5 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&a1))), 4-1)))
 	v1 = int8(nox_script_pop())
 	v2 = nox_script_pop()
 	v3 = int32(uintptr(unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v2))))
 	if v3 != 0 {
-		v5 = v1
+		v5 := v1
 		sub_515C80(v3, (*uint8)(unsafe.Pointer(&v5)))
 	}
 	return 0
@@ -553,19 +551,17 @@ func nox_script_MakeEnemy_516760() int32 {
 	}
 	return 0
 }
-func nox_script_builtin_516790(this unsafe.Pointer) int32 {
+func nox_script_builtin_516790() int32 {
 	var (
 		v1 int32
 		v2 int32
-		v4 unsafe.Pointer
 	)
-	v4 = this
 	v1 = nox_script_pop()
 	v2 = int32(uintptr(unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v1))))
 	if v2 != 0 {
 		nox_script_push(int32((*(*uint32)(unsafe.Pointer(uintptr(v2 + 12))) >> 8) & 1))
 	} else {
-		nox_script_push(int32(uintptr(v4)))
+		nox_script_push(0)
 	}
 	return 0
 }
@@ -605,19 +601,17 @@ func nox_script_BecomeEnemy_516810() int32 {
 	}
 	return 0
 }
-func nox_script_builtin_516850(this unsafe.Pointer) int32 {
+func nox_script_builtin_516850() int32 {
 	var (
 		v1 int32
 		v2 int32
-		v4 unsafe.Pointer
 	)
-	v4 = this
 	v1 = nox_script_pop()
 	v2 = int32(uintptr(unsafe.Pointer(nox_server_scriptValToObjectPtr_511B60(v1))))
 	if v2 != 0 {
 		nox_script_push(int32((*(*uint32)(unsafe.Pointer(uintptr(v2 + 12))) & math.MaxUint8) >> 7))
 	} else {
-		nox_script_push(int32(uintptr(v4)))
+		nox_script_push(0)
 	}
 	return 0
 }

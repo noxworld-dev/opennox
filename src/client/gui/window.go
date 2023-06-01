@@ -14,14 +14,22 @@ const deadWord = 0xacacacac
 type WindowFunc func(win *Window, ev WindowEvent) WindowEventResp
 type WindowDrawFunc func(win *Window, draw *WindowData) int
 
-func WrapFuncC(fnc unsafe.Pointer) WindowFunc {
+func WrapFuncC(h unsafe.Pointer) WindowFunc {
+	if h == nil {
+		return nil
+	}
+	fnc := ccall.AsFunc[func(*Window, uintptr, uintptr, uintptr) uintptr](h)
+	return WrapFunc(fnc)
+}
+
+func WrapFunc(fnc func(*Window, uintptr, uintptr, uintptr) uintptr) WindowFunc {
 	if fnc == nil {
 		return nil
 	}
 	return func(win *Window, e WindowEvent) WindowEventResp {
 		ev := e.EventCode()
 		a1, a2 := e.EventArgsC()
-		r := ccall.CallUPtrUPtr4(fnc, uintptr(win.C()), uintptr(ev), a1, a2)
+		r := fnc(win, uintptr(ev), a1, a2)
 		if r == 0 {
 			return nil
 		}
@@ -29,13 +37,11 @@ func WrapFuncC(fnc unsafe.Pointer) WindowFunc {
 	}
 }
 
-func WrapDrawFuncC(fnc unsafe.Pointer) WindowDrawFunc {
-	if fnc == nil {
+func WrapDrawFuncC(h unsafe.Pointer) WindowDrawFunc {
+	if h == nil {
 		return nil
 	}
-	return func(win *Window, draw *WindowData) int {
-		return ccall.CallIntPtr2(fnc, win.C(), draw.C())
-	}
+	return ccall.AsFunc[func(*Window, *WindowData) int](h)
 }
 
 type windowExt struct {
@@ -378,7 +384,7 @@ func (win *Window) Func93(e WindowEvent) WindowEventResp {
 	}
 	ev := e.EventCode()
 	a1, a2 := e.EventArgsC()
-	r := ccall.CallUPtrUPtr4(win.field93, uintptr(win.C()), uintptr(ev), a1, a2)
+	r := ccall.AsFunc[func(*Window, uintptr, uintptr, uintptr) uintptr](win.field93)(win, uintptr(ev), a1, a2)
 	if r == 0 {
 		return nil
 	}
@@ -397,7 +403,7 @@ func (win *Window) Func94(e WindowEvent) WindowEventResp {
 	}
 	ev := e.EventCode()
 	a1, a2 := e.EventArgsC()
-	r := ccall.CallUPtrUPtr4(win.field94, uintptr(win.C()), uintptr(ev), a1, a2)
+	r := ccall.AsFunc[func(*Window, uintptr, uintptr, uintptr) uintptr](win.field94)(win, uintptr(ev), a1, a2)
 	if r == 0 {
 		return nil
 	}
@@ -415,7 +421,7 @@ func (win *Window) Draw() {
 	if win.drawFunc == nil || uintptr(win.drawFunc) == deadWord {
 		return
 	}
-	ccall.CallVoidPtr2(win.drawFunc, win.C(), win.DrawData().C())
+	ccall.AsFunc[func(*Window, *WindowData)](win.drawFunc)(win, win.DrawData())
 }
 
 func (win *Window) TooltipFunc(a1 uintptr) {
@@ -425,7 +431,7 @@ func (win *Window) TooltipFunc(a1 uintptr) {
 	if win.TooltipFuncPtr == nil || uintptr(win.TooltipFuncPtr) == deadWord {
 		return
 	}
-	ccall.CallVoidUPtr3(win.TooltipFuncPtr, uintptr(win.C()), uintptr(win.DrawData().C()), a1)
+	ccall.AsFunc[func(*Window, *WindowData, uintptr)](win.TooltipFuncPtr)(win, win.DrawData(), a1)
 }
 
 func (win *Window) Focus() {

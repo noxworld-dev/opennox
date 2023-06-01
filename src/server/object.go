@@ -314,7 +314,7 @@ func (s *serverObjects) NewObject(t *ObjectType) *Object {
 		obj.Field189, _ = alloc.Malloc(2572)
 	}
 	if t.Create != nil {
-		ccall.CallVoidPtr(t.Create, obj.CObj())
+		ccall.AsFunc[func(*Object)](t.Create)(obj)
 	}
 	if !noxflags.HasGame(noxflags.GameFlag22) {
 		obj.ScriptIDVal = int(s.NextObjectScriptID())
@@ -1114,18 +1114,18 @@ func (obj *Object) CallUpdate() {
 	if obj.Update == nil {
 		return
 	}
-	ccall.CallVoidPtr(obj.Update, obj.CObj())
+	ccall.AsFunc[func(*Object)](obj.Update)(obj)
 }
 
 func (obj *Object) CallCollide(a2, a3 int) {
 	if obj.Collide != nil {
-		ccall.CallVoidUPtr3(obj.Collide, uintptr(obj.CObj()), uintptr(a2), uintptr(a3))
+		ccall.AsFunc[func(*Object, uintptr, uintptr)](obj.Collide)(obj, uintptr(a2), uintptr(a3))
 	}
 }
 
 func (obj *Object) CallDamage(who Obj, a3 Obj, dmg int, typ object.DamageType) int {
 	if obj.Damage != nil {
-		return ccall.CallIntUPtr5(obj.Damage, uintptr(obj.CObj()), uintptr(toObjectC(who)), uintptr(toObjectC(a3)), uintptr(uint(dmg)), uintptr(typ))
+		return ccall.AsFunc[func(*Object, *Object, *Object, int, object.DamageType) int](obj.Damage)(obj, toObject(who), toObject(a3), dmg, typ)
 	}
 	return 0
 }
@@ -1139,11 +1139,11 @@ func (obj *Object) CallDrop(it Obj, pos types.Pointf) int {
 	*cpos = pos
 	ptr := unsafe.Pointer(cpos)
 
-	return ccall.CallIntPtr3(obj.Drop, obj.CObj(), toObjectC(it), ptr)
+	return ccall.AsFunc[func(*Object, *Object, unsafe.Pointer) int](obj.Drop)(obj, toObject(it), ptr)
 }
 
 func (obj *Object) CallXfer(a2 unsafe.Pointer) error {
-	if ccall.CallIntPtr2(obj.Xfer, obj.CObj(), a2) == 0 {
+	if ccall.AsFunc[func(*Object, unsafe.Pointer) int](obj.Xfer)(obj, a2) == 0 {
 		return fmt.Errorf("xfer for %s failed", obj.String())
 	}
 	return nil
@@ -1278,7 +1278,7 @@ func (s *Server) ItemsApplyUpdateEffect(obj *Object) {
 			for _, mod := range idata {
 				if mod != nil {
 					if fnc := *(*unsafe.Pointer)(unsafe.Add(mod, 100)); fnc != nil {
-						ccall.CallVoidPtr3(fnc, mod, it.SObj().CObj(), nil)
+						ccall.AsFunc[func(unsafe.Pointer, *Object, unsafe.Pointer)](fnc)(mod, it, nil)
 					}
 				}
 			}

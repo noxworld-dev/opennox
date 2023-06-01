@@ -5,6 +5,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func nox_thing_static_draw(a1 *uint32, dr *nox_drawable) int32 {
@@ -39,12 +40,12 @@ func nox_things_static_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *by
 		*(*byte)(unsafe.Add(unsafe.Pointer(v6), v11)) = 0
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(data), 4*1)) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v8, int8(uintptr(unsafe.Pointer(a3))), v6))))
-	obj.DrawFunc = funAddrP(nox_thing_static_draw)
+	obj.DrawFunc = ccall.FuncAddr(nox_thing_static_draw)
 	obj.Field_5c = unsafe.Pointer(data)
 	return true
 }
 func nox_things_static_random_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
-	obj.DrawFunc = funAddrP(nox_thing_static_random_draw)
+	obj.DrawFunc = ccall.FuncAddr(nox_thing_static_random_draw)
 	obj.Field_5c = nox_xxx_spriteLoadStaticRandomData_44C000(attr_value, f)
 	return obj.Field_5c != nil
 }

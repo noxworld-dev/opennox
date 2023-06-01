@@ -8,6 +8,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func sub_50E7A0(a1 *uint32, a2 int32) int32 {
@@ -588,7 +589,7 @@ func sub_5100C0_trade(a1 int32, a2 *uint32, a3 int32) {
 				v13 = (*uint32)(unsafe.Pointer(uintptr(v6)))
 			}
 			if *(*uint32)(unsafe.Add(unsafe.Pointer(v13), 4*2))&0x110 != 0 || (func() func(int32, *uint32, int32, int32) {
-				v14 = asFuncT[func(int32, *uint32, int32, int32)](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v13), 4*177)))))
+				v14 = ccall.AsFunc[func(int32, *uint32, int32, int32)](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v13), 4*177)))))
 				return v14
 			}()) == nil {
 				nox_xxx_inventoryPutImpl_4F3070((*nox_object_t)(unsafe.Pointer(uintptr(v3))), (*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v13)))))), 1)
@@ -693,7 +694,7 @@ func sub_510640_trade(a1 int32, a2 int32, a3 int32, a4 *float32) *float32 {
 			} else {
 				v12 = (*uint32)(unsafe.Pointer(uintptr(v7)))
 			}
-			v13 = asFuncT[func(int32, *uint32, int32, int32)](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v12), 4*177)))))
+			v13 = ccall.AsFunc[func(int32, *uint32, int32, int32)](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v12), 4*177)))))
 			if v13 != nil {
 				v13(v4, v12, 1, 1)
 			} else {

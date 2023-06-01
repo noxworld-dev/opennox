@@ -2,6 +2,8 @@ package legacy
 
 import (
 	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8, dsz int32, v8p *nox_playerInfo, unitp *nox_object_t, v10p unsafe.Pointer) int32 {
@@ -237,7 +239,7 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 		if (int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v85 + 276))) + 3680))))&3) == 0 && *(*uint32)(unsafe.Pointer(uintptr(v85 + 280))) == 0 && *(*uint32)(unsafe.Pointer(uintptr(v85 + 284))) == 0 {
 			v29 = int32(uintptr(unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(v28))))
 			if v29 != 0 {
-				v30 = asFuncT[func(int32, int32, uint32)](unsafe.Pointer(uintptr(v29 + 696)))
+				v30 = ccall.AsFunc[func(int32, int32, uint32)](unsafe.Pointer(uintptr(v29 + 696)))
 				if v30 != nil {
 					v30(v29, unit, 0)
 				}

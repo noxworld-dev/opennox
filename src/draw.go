@@ -503,11 +503,11 @@ func (c *Client) nox_video_freeFloorBuffer_430EC0() {
 
 func nox_xxx_tileSetDrawFn_481420() {
 	if nox_client_texturedFloors_154956 {
-		legacy.Set_func_587000_154940(legacy.Get_nox_xxx_tileDraw_4815E0())
-		legacy.Set_func_587000_154944(legacy.Get_nox_xxx_drawTexEdgesProbably_481900())
+		legacy.Set_func_587000_154940(legacy.Nox_xxx_tileDraw_4815E0)
+		legacy.Set_func_587000_154944(legacy.Nox_xxx_drawTexEdgesProbably_481900)
 	} else {
-		legacy.Set_func_587000_154940(legacy.Get_sub_481770())
-		legacy.Set_func_587000_154944(legacy.Get_nullsub_8())
+		legacy.Set_func_587000_154940(legacy.Sub_481770)
+		legacy.Set_func_587000_154944(legacy.Nullsub_8)
 	}
 	legacy.Set_dword_5d4594_1193188(1)
 }

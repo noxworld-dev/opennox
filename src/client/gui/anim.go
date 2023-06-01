@@ -129,11 +129,11 @@ func (a *Anim) Window() *Window {
 }
 
 func (a *Anim) Func12() int {
-	return ccall.CallIntVoid(a.Func12Ptr)
+	return int(ccall.AsFunc[func() int32](a.Func12Ptr)())
 }
 
 func (a *Anim) Func13() int {
-	return ccall.CallIntVoid(a.Func13Ptr)
+	return int(ccall.AsFunc[func() int32](a.Func13Ptr)())
 }
 
 func (a *Anim) doOut() {
@@ -170,7 +170,7 @@ func (a *Anim) doOut() {
 		a.SetState(AnimOutDone)
 		SetAnimGlobalState(AnimOutDone)
 		if a.FncDoneOutPtr != nil {
-			ccall.CallIntVoid(a.FncDoneOutPtr)
+			ccall.AsFunc[func() int32](a.FncDoneOutPtr)()
 		}
 	}
 }
@@ -209,7 +209,7 @@ func (a *Anim) doIn() {
 		a.SetState(AnimInDone)
 		SetAnimGlobalState(AnimInDone)
 		if a.FncDoneInPtr != nil {
-			ccall.CallVoidVoid(a.FncDoneInPtr)
+			ccall.AsFunc[func() int32](a.FncDoneInPtr)()
 		}
 		FocusMainBg()
 	}

@@ -46,7 +46,7 @@ func sub_4106A0(y int32) unsafe.Pointer {
 // nox_xxx_wallForeachFn_410640
 func nox_xxx_wallForeachFn_410640(cfnc unsafe.Pointer, data unsafe.Pointer) {
 	GetServer().S().Walls.EachWallXxx(func(it *server.Wall) {
-		ccall.CallVoidPtr2(cfnc, it.C(), data)
+		ccall.AsFunc[func(*server.Wall, unsafe.Pointer)](cfnc)(it, data)
 	})
 }
 

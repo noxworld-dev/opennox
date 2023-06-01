@@ -23,7 +23,7 @@ func (c *Client) getCursorAnimFrame(ref *legacy.ImageRef, dt int) *noxrender.Ima
 		if ind+1 >= len(imgs) {
 			ind = len(imgs) - 1
 			if anim.OnEnd != nil {
-				ccall.CallVoidPtr(anim.OnEnd, ref.C())
+				ccall.AsFunc[func(*legacy.ImageRef)](anim.OnEnd)(ref)
 			}
 		}
 		return c.r.Bag.AsImage(imgs[ind])

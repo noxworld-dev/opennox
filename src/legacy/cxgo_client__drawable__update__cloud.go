@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func sub_4CE200(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
@@ -42,7 +43,7 @@ func sub_4CE200(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 				*(*uint16)(unsafe.Pointer(uintptr(v11 + 104))) = 0
 				nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v11))))
 				*(*uint8)(unsafe.Pointer(uintptr(v12 + 432))) = uint8(int8(nox_common_randomIntMinMax_415FF0(1, 3, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c"), 57)))
-				*(*uint32)(unsafe.Pointer(uintptr(v12 + 460))) = uint32(funAddr(sub_4CE340))
+				*(*uint32)(unsafe.Pointer(uintptr(v12 + 460))) = uint32(uintptr(ccall.FuncAddr(sub_4CE340)))
 				v13 = nox_common_randomIntMinMax_415FF0(10, 32, internCStr("C:\\NoxPost\\src\\Client\\Drawable\\Update\\cloud.c"), 61)
 				nox_xxx_spriteTransparentDecay_49B950((*nox_drawable)(unsafe.Pointer(uintptr(v12))), v13)
 				nox_xxx_spriteToList_49BC80_drawable((*nox_drawable)(unsafe.Pointer(uintptr(v12))))

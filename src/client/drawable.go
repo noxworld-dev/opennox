@@ -501,12 +501,13 @@ type Drawable struct {
 	Field_105         *Drawable      // 105, 420
 	Field_106         *Drawable      // 106, 424
 	Field_107         *Drawable      // 107, 428
-	Field_108         uint32         // 108, 432 // TODO: union?
+	Field_108_0       uint8          // 108, 432 // TODO: union?
+	Field_108_1       uint8          // 108, 433 // TODO: union?
+	Field_108_2       uint16         // 108, 434 // TODO: union?
 	Field_109         uint32         // 109, 436, SE?
 	Field_110         uint32         // 110, 440, SW?
 	Field_111         uint32         // 111, 444, SW?
-	Field_112_0       int16          // 112, 448
-	Field_112_2       int16          // 112, 450
+	Field_112         int32          // 112, 448
 	Field_113         uint32         // 113, 452
 	Field_114         *DrawableFX    // 114, 456
 	Field_115         uint32         // 115, 460
@@ -747,11 +748,12 @@ func (s *Drawable) LinkType(i int, typ *ObjectType) {
 		}
 	}
 	if s.Flags28Val&0x13001000 != 0 {
-		s.Field_108 = 0
+		s.Field_108_0 = 0
+		s.Field_108_1 = 0
+		s.Field_108_2 = 0
 		s.Field_109 = 0
 		s.Field_110 = 0
 		s.Field_111 = 0
-		s.Field_112_0 = -1
-		s.Field_112_2 = -1
+		s.Field_112 = -1
 	}
 }

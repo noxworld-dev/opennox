@@ -1,6 +1,10 @@
 package legacy
 
-import "unsafe"
+import (
+	"unsafe"
+
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
+)
 
 var (
 	Sub_4A1BE0                             func(a1 int) int
@@ -140,11 +144,11 @@ func Sub_43D9E0(a1 unsafe.Pointer) {
 }
 
 func Get_sub_4A18E0() unsafe.Pointer {
-	return funAddrP(sub_4A18E0)
+	return ccall.FuncAddr(sub_4A18E0)
 }
 func Get_sub_4A50A0() unsafe.Pointer {
-	return funAddrP(sub_4A50A0)
+	return ccall.FuncAddr(sub_4A50A0)
 }
 func Get_sub_4A50D0() unsafe.Pointer {
-	return funAddrP(sub_4A50D0)
+	return ccall.FuncAddr(sub_4A50D0)
 }

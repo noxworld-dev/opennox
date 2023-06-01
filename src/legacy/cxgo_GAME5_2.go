@@ -2664,7 +2664,7 @@ func nox_xxx_j_inventoryNameSignInit_467460() int32 {
 func nox_alloc_npcs_2() {
 	nox_alloc_npcs()
 }
-func nullsub_8(a1 int32, a2 int32) int32 {
+func Nullsub_8(a1 *uint32, a2 *uint32) int8 {
 	return 0
 }
 func nullsub_28(a1 uint32) {

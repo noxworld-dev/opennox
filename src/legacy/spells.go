@@ -7,6 +7,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/things"
 	"github.com/noxworld-dev/opennox-lib/types"
 
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -333,213 +334,213 @@ func Sub_52CCD0(spellID spell.ID, a2, a3, a4 *server.Object, sa *server.SpellAcc
 }
 
 func Get_nox_xxx_spellBlink2_530310() unsafe.Pointer {
-	return funAddrP(nox_xxx_spellBlink2_530310)
+	return ccall.FuncAddr(nox_xxx_spellBlink2_530310)
 }
 
 func Get_nox_xxx_spellBlink1_530380() unsafe.Pointer {
-	return funAddrP(nox_xxx_spellBlink1_530380)
+	return ccall.FuncAddr(nox_xxx_spellBlink1_530380)
 }
 
 func Get_sub_52F460() unsafe.Pointer {
-	return funAddrP(sub_52F460)
+	return ccall.FuncAddr(sub_52F460)
 }
 
 func Get_nox_xxx_charmCreature1_5011F0() unsafe.Pointer {
-	return funAddrP(nox_xxx_charmCreature1_5011F0)
+	return ccall.FuncAddr(nox_xxx_charmCreature1_5011F0)
 }
 
 func Get_nox_xxx_charmCreatureFinish_5013E0() unsafe.Pointer {
-	return funAddrP(nox_xxx_charmCreatureFinish_5013E0)
+	return ccall.FuncAddr(nox_xxx_charmCreatureFinish_5013E0)
 }
 
 func Get_nox_xxx_charmCreature2_501690() unsafe.Pointer {
-	return funAddrP(nox_xxx_charmCreature2_501690)
+	return ccall.FuncAddr(nox_xxx_charmCreature2_501690)
 }
 
 func Get_nox_xxx_spellTurnUndeadCreate_531310() unsafe.Pointer {
-	return funAddrP(nox_xxx_spellTurnUndeadCreate_531310)
+	return ccall.FuncAddr(nox_xxx_spellTurnUndeadCreate_531310)
 }
 
 func Get_nox_xxx_spellTurnUndeadUpdate_531410() unsafe.Pointer {
-	return funAddrP(nox_xxx_spellTurnUndeadUpdate_531410)
+	return ccall.FuncAddr(nox_xxx_spellTurnUndeadUpdate_531410)
 }
 
 func Get_nox_xxx_spellTurnUndeadDelete_531420() unsafe.Pointer {
-	return funAddrP(nox_xxx_spellTurnUndeadDelete_531420)
+	return ccall.FuncAddr(nox_xxx_spellTurnUndeadDelete_531420)
 }
 
 func Get_nox_xxx_spellDrainMana_52E210() unsafe.Pointer {
-	return funAddrP(nox_xxx_spellDrainMana_52E210)
+	return ccall.FuncAddr(nox_xxx_spellDrainMana_52E210)
 }
 
 func Get_nox_xxx_spellEnergyBoltStop_52E820() unsafe.Pointer {
-	return funAddrP(nox_xxx_spellEnergyBoltStop_52E820)
+	return ccall.FuncAddr(nox_xxx_spellEnergyBoltStop_52E820)
 }
 
 func Get_nox_xxx_spellEnergyBoltTick_52E850() unsafe.Pointer {
-	return funAddrP(nox_xxx_spellEnergyBoltTick_52E850)
+	return ccall.FuncAddr(nox_xxx_spellEnergyBoltTick_52E850)
 }
 
 func Get_nullsub_29() unsafe.Pointer {
-	return funAddrP(nullsub_29)
+	return ccall.FuncAddr(nullsub_29)
 }
 
 func Get_nox_xxx_firewalkTick_52ED40() unsafe.Pointer {
-	return funAddrP(nox_xxx_firewalkTick_52ED40)
+	return ccall.FuncAddr(nox_xxx_firewalkTick_52ED40)
 }
 
 func Get_sub_52EF30() unsafe.Pointer {
-	return funAddrP(sub_52EF30)
+	return ccall.FuncAddr(sub_52EF30)
 }
 
 func Get_sub_52EFD0() unsafe.Pointer {
-	return funAddrP(sub_52EFD0)
+	return ccall.FuncAddr(sub_52EFD0)
 }
 
 func Get_sub_52F1D0() unsafe.Pointer {
-	return funAddrP(sub_52F1D0)
+	return ccall.FuncAddr(sub_52F1D0)
 }
 
 func Get_sub_52F220() unsafe.Pointer {
-	return funAddrP(sub_52F220)
+	return ccall.FuncAddr(sub_52F220)
 }
 
 func Get_sub_52F2E0() unsafe.Pointer {
-	return funAddrP(sub_52F2E0)
+	return ccall.FuncAddr(sub_52F2E0)
 }
 
 func Get_nox_xxx_onStartLightning_52F820() unsafe.Pointer {
-	return funAddrP(nox_xxx_onStartLightning_52F820)
+	return ccall.FuncAddr(nox_xxx_onStartLightning_52F820)
 }
 
 func Get_nox_xxx_onFrameLightning_52F8A0() unsafe.Pointer {
-	return funAddrP(nox_xxx_onFrameLightning_52F8A0)
+	return ccall.FuncAddr(nox_xxx_onFrameLightning_52F8A0)
 }
 
 func Get_sub_530100() unsafe.Pointer {
-	return funAddrP(sub_530100)
+	return ccall.FuncAddr(sub_530100)
 }
 
 func Get_nox_xxx_castShield1_52F5A0() unsafe.Pointer {
-	return funAddrP(nox_xxx_castShield1_52F5A0)
+	return ccall.FuncAddr(nox_xxx_castShield1_52F5A0)
 }
 
 func Get_sub_52F650() unsafe.Pointer {
-	return funAddrP(sub_52F650)
+	return ccall.FuncAddr(sub_52F650)
 }
 
 func Get_sub_52F670() unsafe.Pointer {
-	return funAddrP(sub_52F670)
+	return ccall.FuncAddr(sub_52F670)
 }
 
 func Get_nox_xxx_spellCreateMoonglow_531A00() unsafe.Pointer {
-	return funAddrP(nox_xxx_spellCreateMoonglow_531A00)
+	return ccall.FuncAddr(nox_xxx_spellCreateMoonglow_531A00)
 }
 
 func Get_sub_531AF0() unsafe.Pointer {
-	return funAddrP(sub_531AF0)
+	return ccall.FuncAddr(sub_531AF0)
 }
 
 func Get_nox_xxx_manaBomb_530F90() unsafe.Pointer {
-	return funAddrP(nox_xxx_manaBomb_530F90)
+	return ccall.FuncAddr(nox_xxx_manaBomb_530F90)
 }
 
 func Get_nox_xxx_manaBombBoom_5310C0() unsafe.Pointer {
-	return funAddrP(nox_xxx_manaBombBoom_5310C0)
+	return ccall.FuncAddr(nox_xxx_manaBombBoom_5310C0)
 }
 
 func Get_sub_531290() unsafe.Pointer {
-	return funAddrP(sub_531290)
+	return ccall.FuncAddr(sub_531290)
 }
 
 func Get_nox_xxx_plasmaSmth_531580() unsafe.Pointer {
-	return funAddrP(nox_xxx_plasmaSmth_531580)
+	return ccall.FuncAddr(nox_xxx_plasmaSmth_531580)
 }
 
 func Get_nox_xxx_plasmaShot_531600() unsafe.Pointer {
-	return funAddrP(nox_xxx_plasmaShot_531600)
+	return ccall.FuncAddr(nox_xxx_plasmaShot_531600)
 }
 
 func Get_sub_5319E0() unsafe.Pointer {
-	return funAddrP(sub_5319E0)
+	return ccall.FuncAddr(sub_5319E0)
 }
 
 func Get_sub_531490() unsafe.Pointer {
-	return funAddrP(sub_531490)
+	return ccall.FuncAddr(sub_531490)
 }
 
 func Get_sub_5314F0() unsafe.Pointer {
-	return funAddrP(sub_5314F0)
+	return ccall.FuncAddr(sub_5314F0)
 }
 
 func Get_sub_531560() unsafe.Pointer {
-	return funAddrP(sub_531560)
+	return ccall.FuncAddr(sub_531560)
 }
 
 func Get_nox_xxx_summonStart_500DA0() unsafe.Pointer {
-	return funAddrP(nox_xxx_summonStart_500DA0)
+	return ccall.FuncAddr(nox_xxx_summonStart_500DA0)
 }
 
 func Get_nox_xxx_summonFinish_5010D0() unsafe.Pointer {
-	return funAddrP(nox_xxx_summonFinish_5010D0)
+	return ccall.FuncAddr(nox_xxx_summonFinish_5010D0)
 }
 
 func Get_nox_xxx_summonCancel_5011C0() unsafe.Pointer {
-	return funAddrP(nox_xxx_summonCancel_5011C0)
+	return ccall.FuncAddr(nox_xxx_summonCancel_5011C0)
 }
 
 func Get_sub_530CA0() unsafe.Pointer {
-	return funAddrP(sub_530CA0)
+	return ccall.FuncAddr(sub_530CA0)
 }
 
 func Get_sub_530D30() unsafe.Pointer {
-	return funAddrP(sub_530D30)
+	return ccall.FuncAddr(sub_530D30)
 }
 
 func Get_nox_xxx_spellTagCreature_530160() unsafe.Pointer {
-	return funAddrP(nox_xxx_spellTagCreature_530160)
+	return ccall.FuncAddr(nox_xxx_spellTagCreature_530160)
 }
 
 func Get_sub_530250() unsafe.Pointer {
-	return funAddrP(sub_530250)
+	return ccall.FuncAddr(sub_530250)
 }
 
 func Get_sub_530270() unsafe.Pointer {
-	return funAddrP(sub_530270)
+	return ccall.FuncAddr(sub_530270)
 }
 
 func Get_sub_5305D0() unsafe.Pointer {
-	return funAddrP(sub_5305D0)
+	return ccall.FuncAddr(sub_5305D0)
 }
 
 func Get_sub_530650() unsafe.Pointer {
-	return funAddrP(sub_530650)
+	return ccall.FuncAddr(sub_530650)
 }
 
 func Get_nox_xxx_castTele_530820() unsafe.Pointer {
-	return funAddrP(nox_xxx_castTele_530820)
+	return ccall.FuncAddr(nox_xxx_castTele_530820)
 }
 
 func Get_sub_530880() unsafe.Pointer {
-	return funAddrP(sub_530880)
+	return ccall.FuncAddr(sub_530880)
 }
 
 func Get_sub_530A30_spell_execdur() unsafe.Pointer {
-	return funAddrP(sub_530A30_spell_execdur)
+	return ccall.FuncAddr(sub_530A30_spell_execdur)
 }
 
 func Get_nox_xxx_castTTT_530B70() unsafe.Pointer {
-	return funAddrP(nox_xxx_castTTT_530B70)
+	return ccall.FuncAddr(nox_xxx_castTTT_530B70)
 }
 
 func Get_nox_xxx_spellWallCreate_4FFA90() unsafe.Pointer {
-	return funAddrP(nox_xxx_spellWallCreate_4FFA90)
+	return ccall.FuncAddr(nox_xxx_spellWallCreate_4FFA90)
 }
 
 func Get_nox_xxx_spellWallUpdate_500070() unsafe.Pointer {
-	return funAddrP(nox_xxx_spellWallUpdate_500070)
+	return ccall.FuncAddr(nox_xxx_spellWallUpdate_500070)
 }
 
 func Get_nox_xxx_spellWallDestroy_500080() unsafe.Pointer {
-	return funAddrP(nox_xxx_spellWallDestroy_500080)
+	return ccall.FuncAddr(nox_xxx_spellWallDestroy_500080)
 }

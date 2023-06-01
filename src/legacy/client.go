@@ -20,7 +20,7 @@ type Client interface {
 	SetDrawFunc(fnc func() bool)
 	Nox_client_setCursorType(c gui.Cursor)
 	DrawGeneral(v bool) error
-	Sub4C42A0(a1, a2 image.Point, a3 *int, a4 *int) int32
+	Sub4C42A0(a1, a2 image.Point, a3 *int32, a4 *int32) int32
 	Sub4C5630(a1 int, a2 int, a3 int) int
 	Nox_video_drawAnimatedImageOrCursorAt(ref *ImageRef, pos image.Point)
 	Sub469920(p image.Point) []uint32
