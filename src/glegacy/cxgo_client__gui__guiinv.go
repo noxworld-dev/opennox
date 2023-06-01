@@ -516,7 +516,7 @@ LABEL_14:
 		v71 = float32(sub_4626C0(*(*int32)(unsafe.Pointer(&dword_5d4594_1063116))))
 		v72 = float32(sub_462700(*(*int32)(unsafe.Pointer(&dword_5d4594_1063116))))
 		v27 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v68))), 4*0))))))
-		if *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v68))), 4*0))))) != 0 && funAddr(*(*func(int32, int32, int32, int32, *float32) *float32)(unsafe.Pointer(uintptr(v27 + 40)))) == funAddr(nox_xxx_effectDamageMultiplier_4E04C0) {
+		if *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v68))), 4*0))))) != 0 && *(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(v27)), 40)) == funAddrP(nox_xxx_effectDamageMultiplier_4E04C0) {
 			v69 = *(*float32)(unsafe.Pointer(uintptr(v27 + 44)))
 		}
 		v28 = nox_xxx_calcBoltDamage_4EF1E0(int32(*(*uint32)(unsafe.Pointer(uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v70))), 4*0))) + 2239)))), int32(uintptr(unsafe.Pointer(v26))))
@@ -584,7 +584,7 @@ LABEL_14:
 	v17 = (*float32)(nox_xxx_equipClothFindDefByTT_413270(int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1063116 + 108))))))
 	v18 = 1.0
 	v19 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1063116 + 432))))
-	if v19 != 0 && funAddr(*(*func(int32, int32, int32, int32, int32, *float32) *float32)(unsafe.Pointer(uintptr(v19 + 76)))) == funAddr(sub_4E0370) {
+	if v19 != 0 && *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v19 + 76))) == funAddrP(sub_4E0370) {
 		v18 = float64(*(*float32)(unsafe.Pointer(uintptr(v19 + 80))))
 	}
 	v65 = float32(v18*float64(*(*float32)(unsafe.Add(unsafe.Pointer(v17), unsafe.Sizeof(float32(0))*16)))*1000.0 + 0.5)

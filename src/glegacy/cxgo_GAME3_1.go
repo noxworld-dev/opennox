@@ -666,7 +666,7 @@ func sub_4BD8C0(a1 int32) int32 {
 		v3     int32
 		v4     int32
 	)
-	v1 = *(*func(int32) int32)(unsafe.Pointer(uintptr(a1 + 136)))
+	v1 = asFuncT[func(int32) int32](unsafe.Pointer(uintptr(a1 + 136)))
 	if v1 != nil {
 		result = v1(a1)
 		if result != 0 {
@@ -701,7 +701,7 @@ func sub_4BD940(a1 int32) int32 {
 	} else {
 		sub_4BDB90((*uint32)(unsafe.Pointer(uintptr(a1))), nil)
 	}
-	v1 = *(*func(int32))(unsafe.Pointer(uintptr(a1 + 140)))
+	v1 = asFuncT[func(int32)](unsafe.Pointer(uintptr(a1 + 140)))
 	if v1 != nil {
 		v1(a1)
 	}
@@ -743,7 +743,7 @@ func sub_4BDA80(a1 int32) int32 {
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 124))))&5 != 0 {
 		asFuncT[func(int32)](unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 172))) + 16)))(a1)
 	}
-	result2 = *(*func(int32) int32)(unsafe.Pointer(uintptr(a1 + 148)))
+	result2 = asFuncT[func(int32) int32](unsafe.Pointer(uintptr(a1 + 148)))
 	if result2 != nil {
 		result = result2(a1)
 	}
@@ -956,7 +956,7 @@ func sub_4BDF90(a1 *int32) int32 {
 	sub_453F70(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(a1), 4*6))))
 	sub_4535E0((*int32)(unsafe.Add(unsafe.Pointer(a1), 4*11)))
 	sub_4535F0(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12)))
-	result2 = *(*func() int32)(memmap.PtrOff(0x587000, uintptr(dword_5d4594_1316704)*4+180016))
+	result2 = asFuncT[func() int32](memmap.PtrOff(0x587000, uintptr(dword_5d4594_1316704)*4+180016))
 	if result2 != nil {
 		result = result2()
 	}

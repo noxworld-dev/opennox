@@ -1922,7 +1922,7 @@ func nox_xxx_checkInversionEffect_4FA4F0(a1 int32, a2 int32) int32 {
 					v6 = *v5
 					v10 = 0
 					if v6 != 0 {
-						v7 = *(*func(int32, int32, int32, int32, int32, *int32) int32)(unsafe.Pointer(uintptr(v6 + 88)))
+						v7 = asFuncT[func(int32, int32, int32, int32, int32, *int32) int32](unsafe.Pointer(uintptr(v6 + 88)))
 						if v7 != nil {
 							if funAddr(v7) == funAddr(nox_xxx_inversionEffect_4E03D0) {
 								v8 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*nox_object_t)(unsafe.Pointer(uintptr(a2)))))))

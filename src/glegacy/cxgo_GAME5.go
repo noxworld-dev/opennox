@@ -1830,11 +1830,11 @@ func sub_548360(a1 int32, a2 int32) int32 {
 		*memmap.PtrUint32(0x5D4594, 2490516) = uint32(v2)
 	}
 	v3 = a2
-	v4 = *(*func(int32) int32)(unsafe.Pointer(uintptr(a1 + 696)))
+	v4 = asFuncT[func(int32) int32](unsafe.Pointer(uintptr(a1 + 696)))
 	if funAddr(v4) == funAddr(nox_xxx_collidePentagram_4EAB20) && int32(*(*uint16)(unsafe.Pointer(uintptr(a2 + 4)))) == v2 {
 		return 0
 	}
-	v5 = *(*func(int32) int32)(unsafe.Pointer(uintptr(a2 + 696)))
+	v5 = asFuncT[func(int32) int32](unsafe.Pointer(uintptr(a2 + 696)))
 	if funAddr(v5) == funAddr(nox_xxx_collidePentagram_4EAB20) && int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 4)))) == v2 {
 		return 0
 	}

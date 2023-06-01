@@ -681,7 +681,7 @@ func sub_4F1F20() {
 					}
 				}
 				nox_xxx_delayedDeleteObject_4E5CC0((*nox_object_t)(unsafe.Pointer(uintptr(v0))))
-			} else if funAddr(*(*func(int32) *int32)(unsafe.Pointer(uintptr(v0 + 688)))) == funAddr(nox_xxx_initChest_4F0400) {
+			} else if funAddr(asFuncT[func(int32) *int32](unsafe.Pointer(uintptr(v0+688)))) == funAddr(nox_xxx_initChest_4F0400) {
 				v2 = nox_xxx_inventoryGetFirst_4E7980(v0)
 				if v2 != 0 {
 					for {

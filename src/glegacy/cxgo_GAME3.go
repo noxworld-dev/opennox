@@ -3467,7 +3467,7 @@ func sub_4AABE0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 					return 0
 				}
 				v15 = int32(dword_5d4594_1309728)
-				v16 = *(*func(int32, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309728 + 372)))
+				v16 = asFuncT[func(int32, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309728 + 372)))
 				if v16 == nil {
 					nox_xxx_clientPlaySoundSpecial_452D80(768, 100)
 					return 0
@@ -3479,7 +3479,7 @@ func sub_4AABE0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 			if sub_453070() != 1 {
 				return 0
 			}
-			v14 = *(*func(uint32, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309728 + 372)))
+			v14 = asFuncT[func(uint32, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309728 + 372)))
 			if v14 == nil {
 				return 0
 			}
@@ -3493,7 +3493,7 @@ func sub_4AABE0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 					return 0
 				}
 				v12 = *(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1309732))
-				v13 = *(*func(unsafe.Pointer, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309732 + 372)))
+				v13 = asFuncT[func(unsafe.Pointer, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309732 + 372)))
 				if v13 == nil {
 					sub_4AA650()
 					return 0
@@ -3505,7 +3505,7 @@ func sub_4AABE0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 			if sub_44D990() != 1 {
 				return 0
 			}
-			v11 = *(*func(uint32, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309732 + 372)))
+			v11 = asFuncT[func(uint32, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309732 + 372)))
 			if v11 == nil {
 				return 0
 			}
@@ -3517,7 +3517,7 @@ func sub_4AABE0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 				if sub_43DC30() != 0 {
 					return 0
 				}
-				v10 = *(*func(uint32, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309736 + 372)))
+				v10 = asFuncT[func(uint32, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309736 + 372)))
 				if v10 == nil {
 					return 0
 				}
@@ -3527,7 +3527,7 @@ func sub_4AABE0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 				if sub_43DC30() != 1 {
 					return 0
 				}
-				v9 = *(*func(uint32, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309736 + 372)))
+				v9 = asFuncT[func(uint32, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309736 + 372)))
 				if v9 == nil {
 					return 0
 				}
@@ -3551,7 +3551,7 @@ func sub_4AABE0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 			if a4 != 0 {
 				if sub_44D990() == 0 {
 					v12 = *(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1309732))
-					v13 = *(*func(unsafe.Pointer, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309732 + 372)))
+					v13 = asFuncT[func(unsafe.Pointer, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309732 + 372)))
 					if v13 != nil {
 						v13(v12, 21, 28, 2)
 					}
@@ -3562,7 +3562,7 @@ func sub_4AABE0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 				if sub_44D990() != 1 {
 					return 0
 				}
-				v18 = *(*func(uint32, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309732 + 372)))
+				v18 = asFuncT[func(uint32, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309732 + 372)))
 				if v18 == nil {
 					return 0
 				}
@@ -3574,7 +3574,7 @@ func sub_4AABE0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 			if a4 != 0 {
 				if sub_453070() == 0 {
 					v15 = int32(dword_5d4594_1309728)
-					v16 = *(*func(int32, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309728 + 372)))
+					v16 = asFuncT[func(int32, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309728 + 372)))
 					if v16 != nil {
 						v16(v15, 21, 28, 2)
 					}
@@ -3585,7 +3585,7 @@ func sub_4AABE0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 			if sub_453070() != 1 {
 				return 0
 			}
-			v19 = *(*func(uint32, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309728 + 372)))
+			v19 = asFuncT[func(uint32, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309728 + 372)))
 			if v19 == nil {
 				return 0
 			}
@@ -4678,7 +4678,7 @@ func nox_xxx_windowOptionsProc_4ADF30(a1 int32, a2 int32, a3 *int32, a4 int32) i
 					return 0
 				}
 				v13 = int32(dword_5d4594_1309828)
-				v14 = *(*func(int32, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309828 + 372)))
+				v14 = asFuncT[func(int32, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309828 + 372)))
 				if v14 == nil {
 					nox_xxx_clientPlaySoundSpecial_452D80(768, 100)
 					return 0
@@ -4690,7 +4690,7 @@ func nox_xxx_windowOptionsProc_4ADF30(a1 int32, a2 int32, a3 *int32, a4 int32) i
 			if sub_453070() != 1 {
 				return 0
 			}
-			v12 = *(*func(uint32, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309828 + 372)))
+			v12 = asFuncT[func(uint32, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309828 + 372)))
 			if v12 == nil {
 				return 0
 			}
@@ -4704,7 +4704,7 @@ func nox_xxx_windowOptionsProc_4ADF30(a1 int32, a2 int32, a3 *int32, a4 int32) i
 					return 0
 				}
 				v10 = *(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1309836))
-				v11 = *(*func(unsafe.Pointer, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309836 + 372)))
+				v11 = asFuncT[func(unsafe.Pointer, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309836 + 372)))
 				if v11 == nil {
 					sub_4AA650()
 					return 0
@@ -4716,7 +4716,7 @@ func nox_xxx_windowOptionsProc_4ADF30(a1 int32, a2 int32, a3 *int32, a4 int32) i
 			if sub_44D990() != 1 {
 				return 0
 			}
-			v9 = *(*func(uint32, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309836 + 372)))
+			v9 = asFuncT[func(uint32, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309836 + 372)))
 			if v9 == nil {
 				return 0
 			}
@@ -4728,7 +4728,7 @@ func nox_xxx_windowOptionsProc_4ADF30(a1 int32, a2 int32, a3 *int32, a4 int32) i
 				if sub_43DC30() != 0 {
 					return 0
 				}
-				v8 = *(*func(uint32, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309832 + 372)))
+				v8 = asFuncT[func(uint32, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309832 + 372)))
 				if v8 == nil {
 					return 0
 				}
@@ -4738,7 +4738,7 @@ func nox_xxx_windowOptionsProc_4ADF30(a1 int32, a2 int32, a3 *int32, a4 int32) i
 				if sub_43DC30() != 1 {
 					return 0
 				}
-				v7 = *(*func(uint32, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309832 + 372)))
+				v7 = asFuncT[func(uint32, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309832 + 372)))
 				if v7 == nil {
 					return 0
 				}
@@ -4762,7 +4762,7 @@ func nox_xxx_windowOptionsProc_4ADF30(a1 int32, a2 int32, a3 *int32, a4 int32) i
 			if a4 != 0 {
 				if sub_44D990() == 0 {
 					v10 = *(*unsafe.Pointer)(unsafe.Pointer(&dword_5d4594_1309836))
-					v11 = *(*func(unsafe.Pointer, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309836 + 372)))
+					v11 = asFuncT[func(unsafe.Pointer, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309836 + 372)))
 					if v11 != nil {
 						v11(v10, 21, 28, 2)
 					}
@@ -4773,7 +4773,7 @@ func nox_xxx_windowOptionsProc_4ADF30(a1 int32, a2 int32, a3 *int32, a4 int32) i
 				if sub_44D990() != 1 {
 					return 0
 				}
-				v16 = *(*func(uint32, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309836 + 372)))
+				v16 = asFuncT[func(uint32, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309836 + 372)))
 				if v16 == nil {
 					return 0
 				}
@@ -4785,7 +4785,7 @@ func nox_xxx_windowOptionsProc_4ADF30(a1 int32, a2 int32, a3 *int32, a4 int32) i
 			if a4 != 0 {
 				if sub_453070() == 0 {
 					v13 = int32(dword_5d4594_1309828)
-					v14 = *(*func(int32, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309828 + 372)))
+					v14 = asFuncT[func(int32, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309828 + 372)))
 					if v14 != nil {
 						v14(v13, 21, 28, 2)
 					}
@@ -4796,7 +4796,7 @@ func nox_xxx_windowOptionsProc_4ADF30(a1 int32, a2 int32, a3 *int32, a4 int32) i
 			if sub_453070() != 1 {
 				return 0
 			}
-			v17 = *(*func(uint32, int32, int32, int32))(unsafe.Pointer(uintptr(dword_5d4594_1309828 + 372)))
+			v17 = asFuncT[func(uint32, int32, int32, int32)](unsafe.Pointer(uintptr(dword_5d4594_1309828 + 372)))
 			if v17 == nil {
 				return 0
 			}

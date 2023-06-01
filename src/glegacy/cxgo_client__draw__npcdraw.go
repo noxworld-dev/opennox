@@ -30,10 +30,8 @@ func nox_thing_npc_draw(a1 *int32, dr *nox_drawable) int32 {
 		v21 *int32
 		v22 int8
 		v23 int32
-		v24 *func(*byte, int32)
 		v25 *byte
 		v26 int32
-		v27 *func(*byte, int32)
 		v28 *byte
 		i   int32
 		v30 int32
@@ -147,9 +145,9 @@ func nox_thing_npc_draw(a1 *int32, dr *nox_drawable) int32 {
 					*(*uint32)(unsafe.Add(dword_5d4594_1313796, 12)) = uint32(*v21) + *(*uint32)(unsafe.Pointer(uintptr(v4 + 12))) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*4)))
 					*(*uint32)(unsafe.Add(dword_5d4594_1313796, 16)) = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*1))-*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*5))) + *(*uint32)(unsafe.Pointer(uintptr(v4 + 16))) - 50
 					v31 = int32(uintptr(dword_5d4594_1313796))
-					v24 = (*func(*byte, int32))(unsafe.Add(dword_5d4594_1313796, 300))
+					v24 := asFuncT[func(*byte, int32)](unsafe.Add(dword_5d4594_1313796, 300))
 					v25 = (*byte)(unsafe.Pointer(nox_draw_getViewport_437250()))
-					(*v24)(v25, v31)
+					v24(v25, v31)
 				}
 				if nox_client_drawable_testBuff_4356C0((*nox_drawable)(unsafe.Pointer(uintptr(v4))), 30) {
 					if dword_5d4594_1313800 == nil {
@@ -160,9 +158,9 @@ func nox_thing_npc_draw(a1 *int32, dr *nox_drawable) int32 {
 					*(*uint32)(unsafe.Add(dword_5d4594_1313800, 12)) = uint32(*v21) + *(*uint32)(unsafe.Pointer(uintptr(v4 + 12))) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*4)))
 					*(*uint32)(unsafe.Add(dword_5d4594_1313800, 16)) = uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*1))-*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*5))) + *(*uint32)(unsafe.Pointer(uintptr(v4 + 16))) - 50
 					v32 = int32(uintptr(dword_5d4594_1313800))
-					v27 = (*func(*byte, int32))(unsafe.Add(dword_5d4594_1313800, 300))
+					v27 := asFuncT[func(*byte, int32)](unsafe.Add(dword_5d4594_1313800, 300))
 					v28 = (*byte)(unsafe.Pointer(nox_draw_getViewport_437250()))
-					(*v27)(v28, v32)
+					v27(v28, v32)
 				}
 				if nox_xxx_unitSpriteCheckAlly_4951F0(int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 128))))) != 0 {
 					v33 = nil

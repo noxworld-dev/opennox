@@ -3121,13 +3121,13 @@ func nox_xxx_loadShopItems_50E970(a1 int32) {
 												*(*uint32)(unsafe.Pointer(&v44[12])) = uint32(v39)
 												nox_xxx_modifSetItemAttrs_4E4990((*nox_object_t)(unsafe.Pointer(uintptr(v36))), (*int32)(unsafe.Pointer(&v44[0])))
 											}
-											if funAddr(*(*func(*int32) int32)(unsafe.Pointer(uintptr(v36 + 704)))) == funAddr(nox_xxx_XFerSpellReward_4F5F30) {
+											if funAddr(asFuncT[func(*int32) int32](unsafe.Pointer(uintptr(v36+704)))) == funAddr(nox_xxx_XFerSpellReward_4F5F30) {
 												**(**uint8)(unsafe.Pointer(uintptr(v36 + 736))) = *(*uint8)(unsafe.Add(unsafe.Pointer(v34), 4))
 											}
-											if funAddr(*(*func(*int32) int32)(unsafe.Pointer(uintptr(v36 + 704)))) == funAddr(nox_xxx_XFerAbilityReward_4F6240) {
+											if funAddr(asFuncT[func(*int32) int32](unsafe.Pointer(uintptr(v36+704)))) == funAddr(nox_xxx_XFerAbilityReward_4F6240) {
 												**(**uint8)(unsafe.Pointer(uintptr(v36 + 736))) = *(*uint8)(unsafe.Add(unsafe.Pointer(v34), 4))
 											}
-											if funAddr(*(*func(*int32) int32)(unsafe.Pointer(uintptr(v36 + 704)))) == funAddr(nox_xxx_XFerFieldGuide_4F6390) {
+											if funAddr(asFuncT[func(*int32) int32](unsafe.Pointer(uintptr(v36+704)))) == funAddr(nox_xxx_XFerFieldGuide_4F6390) {
 												libc.StrCpy(*(**byte)(unsafe.Pointer(uintptr(v36 + 736))), nox_xxx_getUnitNameByThingType_4E3A80(int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v34))), 4*1))))))
 												v1 = a1
 												v33 = v43

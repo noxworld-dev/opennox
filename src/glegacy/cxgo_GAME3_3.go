@@ -2339,7 +2339,7 @@ func nox_xxx_playerLeaveObserver_0_4E6AA0(pl *nox_playerInfo) {
 	if a1 != 0 {
 		v1 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 2056))))
 		if v1 != 0 {
-			if funAddr(*(*func(*uint32) int32)(unsafe.Pointer(uintptr(v1 + 744)))) != funAddr(nox_xxx_updatePlayerMonsterBot_4FAB20) {
+			if funAddr(asFuncT[func(*uint32) int32](unsafe.Pointer(uintptr(v1+744)))) != funAddr(nox_xxx_updatePlayerMonsterBot_4FAB20) {
 				nox_xxx_playerUnsetStatus_417530((*nox_playerInfo)(unsafe.Pointer(uintptr(a1))), 289)
 				nox_xxx_spellBuffOff_4FF5B0((*nox_object_t)(unsafe.Pointer(uintptr(v1))), 0)
 				v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 16))))
@@ -4037,7 +4037,7 @@ func nox_xxx_collideDie_4E99B0(unit int32, a2 int32) {
 	)
 	if a2 != 0 && nox_xxx_unitsHaveSameTeam_4EC520((*nox_object_t)(unsafe.Pointer(uintptr(unit))), (*nox_object_t)(unsafe.Pointer(uintptr(a2)))) == 0 && int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 8))))&6 != 0 {
 		v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(unit + 16))))
-		deleteOverride = *(*func(int32))(unsafe.Pointer(uintptr(unit + 724)))
+		deleteOverride = asFuncT[func(int32)](unsafe.Pointer(uintptr(unit + 724)))
 		*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v2))), 1)) |= 0x80
 		*(*uint32)(unsafe.Pointer(uintptr(unit + 16))) = uint32(v2)
 		if deleteOverride != nil {
@@ -4197,7 +4197,7 @@ func nox_xxx_collideSulphurShot2_4E9D80(a1 int32, a2 int32, a3 *float32) {
 	v3 = *(**int32)(unsafe.Pointer(uintptr(a1 + 700)))
 	if a2 != 0 {
 		if nox_xxx_unitsHaveSameTeam_4EC520((*nox_object_t)(unsafe.Pointer(uintptr(a1))), (*nox_object_t)(unsafe.Pointer(uintptr(a2)))) == 0 {
-			if nox_common_gameFlags_check_40A5C0(4096) && funAddr(*(*func(int32, int32, int32))(unsafe.Pointer(uintptr(a1 + 696)))) == funAddr(nox_xxx_collideSulphurShot_4E9E50) {
+			if nox_common_gameFlags_check_40A5C0(4096) && funAddr(asFuncT[func(int32, int32, int32)](unsafe.Pointer(uintptr(a1+696)))) == funAddr(nox_xxx_collideSulphurShot_4E9E50) {
 				v5 = *v3 * 3
 			} else {
 				v5 = *v3
@@ -7138,7 +7138,7 @@ func nox_xxx_unitDamageClear_4EE5E0(unitp *nox_object_t, damageAmount int32) {
 						if int32(*(*uint8)(unsafe.Pointer(uintptr(unit + 8))))&2 != 0 {
 							nox_xxx_monsterCallDieFn_50A3D0((*uint32)(unsafe.Pointer(uintptr(unit))))
 						} else {
-							deleteOverride = *(*func(int32))(unsafe.Pointer(uintptr(unit + 724)))
+							deleteOverride = asFuncT[func(int32)](unsafe.Pointer(uintptr(unit + 724)))
 							if deleteOverride != nil {
 								deleteOverride(unit)
 							} else {
@@ -10505,7 +10505,7 @@ func nox_xxx_itemApplyEngageEffect_4F2FF0(item *nox_object_t, a2 int32) int32 {
 	for {
 		result = *v3
 		if *v3 != 0 {
-			v5 = *(*func(int32, int32, int32) int32)(unsafe.Pointer(uintptr(result + 112)))
+			v5 = asFuncT[func(int32, int32, int32) int32](unsafe.Pointer(uintptr(result + 112)))
 			if v5 != nil {
 				result = v5(result, a2, int32(uintptr(unsafe.Pointer(item))))
 			}
@@ -10530,7 +10530,7 @@ func nox_xxx_itemApplyDisengageEffect_4F3030(object *nox_object_t, a2 int32) int
 	for {
 		result = *v3
 		if *v3 != 0 {
-			v5 = *(*func(int32, int32, int32) int32)(unsafe.Pointer(uintptr(result + 116)))
+			v5 = asFuncT[func(int32, int32, int32) int32](unsafe.Pointer(uintptr(result + 116)))
 			if v5 != nil {
 				result = v5(result, a2, int32(uintptr(unsafe.Pointer(object))))
 			}
@@ -10833,7 +10833,7 @@ func nox_xxx_inventoryServPlace_4F36F0(a1p *nox_object_t, a2p *nox_object_t, a3 
 	if (v4&0x8000) != 0 || nox_xxx_getUnitDefDd10_4E3BA0(int32(*(*uint16)(unsafe.Pointer(uintptr(a2 + 4))))) == 0 || (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&6) == 0 {
 		return 0
 	}
-	v5 = *(*func(int32, int32, int32, int32) int32)(unsafe.Pointer(uintptr(a2 + 708)))
+	v5 = asFuncT[func(int32, int32, int32, int32) int32](unsafe.Pointer(uintptr(a2 + 708)))
 	if v5 != nil {
 		v6 = v5(a1, a2, a3, a4)
 	} else {

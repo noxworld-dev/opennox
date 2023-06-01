@@ -1977,7 +1977,7 @@ func nox_xxx_mobActionMeleeAtt_532440(a1 int32) int8 {
 		}
 	} else {
 		v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 484))))
-		v5 = *(*func(int32) int32)(unsafe.Pointer(uintptr(v4 + 236)))
+		v5 = asFuncT[func(int32) int32](unsafe.Pointer(uintptr(v4 + 236)))
 		if v5 != nil {
 			if uint32(*(*uint8)(unsafe.Pointer(uintptr(v1 + 481)))) == *(*uint32)(unsafe.Pointer(uintptr(v4 + 108))) && int32(*(*uint8)(unsafe.Pointer(uintptr(v1 + 482)))) == 0 {
 				v7 = v5(a1)
@@ -3689,7 +3689,7 @@ func nox_xxx_unitHasCollideOrUpdateFn_537610(a1p *nox_object_t) int8 {
 			v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 8))))
 			return v2 & 0xE080
 		}()) != 0 || (func() bool {
-			v4 = *(*func(int32, int32))(unsafe.Pointer(uintptr(a1 + 696)))
+			v4 = asFuncT[func(int32, int32)](unsafe.Pointer(uintptr(a1 + 696)))
 			return funAddr(v4) == funAddr(nox_xxx_collideFist_4EADF0)
 		}()) || funAddr(v4) == funAddr(nox_xxx_collideUndeadKiller_4EBD40) || (func() bool {
 			v5 = int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 4))))
@@ -3992,7 +3992,7 @@ func nox_xxx_playerPreAttackEffects_538290(a1 int32, a2 int32, a3 int32, a4 int3
 					for {
 						v8 = *v7
 						if *v7 != 0 {
-							v9 = *(*func(int32, int32, int32, int32, int32))(unsafe.Pointer(uintptr(v8 + 52)))
+							v9 = asFuncT[func(int32, int32, int32, int32, int32)](unsafe.Pointer(uintptr(v8 + 52)))
 							if v9 != nil {
 								v9(v8, a3, a2, v6, a4)
 							}
@@ -4221,7 +4221,7 @@ func nox_xxx_itemApplyAttackEffect_538840(a1 int32, a2 int32, a3 int32) int32 {
 	for {
 		v5 = *v4
 		if *v4 != 0 {
-			v6 = *(*func(int32, int32, int32, uint32, int32))(unsafe.Pointer(uintptr(v5 + 40)))
+			v6 = asFuncT[func(int32, int32, int32, uint32, int32)](unsafe.Pointer(uintptr(v5 + 40)))
 			if v6 != nil {
 				v6(v5, v3, a2, 0, a3)
 			}
@@ -5018,10 +5018,10 @@ func nox_xxx_shootApplyEffects_539F40(a1 int32, a2 int32, a3 int32) int32 {
 	for {
 		v6 = *v5
 		if *v5 != 0 {
-			if funAddr(*(*func(int32, int32, int32, int32) int8)(unsafe.Pointer(uintptr(v6 + 52)))) == funAddr(nox_xxx_recoilEffect_4E0640) {
+			if funAddr(asFuncT[func(int32, int32, int32, int32) int8](unsafe.Pointer(uintptr(v6+52)))) == funAddr(nox_xxx_recoilEffect_4E0640) {
 				*(*uint32)(unsafe.Pointer(uintptr(v10 + 12))) = uint32(v6)
 			} else {
-				v7 = *(*func(int32, int32, int32, int32, int32) int32)(unsafe.Pointer(uintptr(v6 + 40)))
+				v7 = asFuncT[func(int32, int32, int32, int32, int32) int32](unsafe.Pointer(uintptr(v6 + 40)))
 				if funAddr(v7) == funAddr(nox_xxx_effectProjectileSpeed_4E09B0) {
 					v7(v6, v4, a1, 0, v3)
 				}
@@ -6099,7 +6099,7 @@ func nox_xxx_updatePhantomPlayer_53B860(a1 int32) {
 func nox_xxx_updateLifetime_53B8F0(unit int32) {
 	var deleteOverride func(int32)
 	if (gameFrame() - *(*uint32)(unsafe.Pointer(uintptr(unit + 128)))) > **(**uint32)(unsafe.Pointer(uintptr(unit + 748))) {
-		deleteOverride = *(*func(int32))(unsafe.Pointer(uintptr(unit + 724)))
+		deleteOverride = asFuncT[func(int32)](unsafe.Pointer(uintptr(unit + 724)))
 		*(*uint32)(unsafe.Pointer(uintptr(unit + 16))) |= 0x8000
 		if deleteOverride != nil {
 			deleteOverride(unit)
@@ -6845,7 +6845,7 @@ func nox_xxx_getRechargeRate_53C940(a1 *uint32) int32 {
 		for i = (*int32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*173)) + 8))); ; i = (*int32)(unsafe.Add(unsafe.Pointer(i), 4*1)) {
 			v5 = *i
 			if *i != 0 {
-				if funAddr(*(*func() int32)(unsafe.Pointer(uintptr(v5 + 40)))) == funAddr(nullsub_36) {
+				if funAddr(asFuncT[func() int32](unsafe.Pointer(uintptr(v5+40)))) == funAddr(nullsub_36) {
 					break
 				}
 			}
@@ -10348,7 +10348,7 @@ func nox_xxx_mobGenericDeath_544C40(a1 int32) int32 {
 		nox_xxx_aud_501960(int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 60)))), (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
 	}
 	nox_xxx_scriptCallByEventBlock_502490(unsafe.Pointer(uintptr(v1+1264)), nil, unsafe.Pointer(uintptr(a1)), 7)
-	result2 = *(*func(int32) int32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v1 + 484))) + 228)))
+	result2 = asFuncT[func(int32) int32](unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v1 + 484))) + 228)))
 	if result2 != nil {
 		result = result2(a1)
 	}
@@ -10411,7 +10411,7 @@ func nox_xxx_mobActionDead1_544D80(a1 *uint32) int8 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*22)) = 0
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*25)) = 0
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*24)) = 0
-	v2 = *(*func(*uint32))(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v1 + 484))) + 232)))
+	v2 = asFuncT[func(*uint32)](unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v1 + 484))) + 232)))
 	if v2 != nil {
 		v2(a1)
 	}

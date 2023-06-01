@@ -92,7 +92,7 @@ func run() error {
 			case *ast.ExprStmt:
 				changed = fixExpr(&n.X) || changed
 			case *ast.CallExpr:
-				changed = fixFuncDeref(n) || changed
+				changed = fixFuncDerefCall(n) || changed
 				name, _ := asIdent(n.Fun)
 				switch name {
 				case "asFuncT":
@@ -245,7 +245,7 @@ func fixFuncRef(p *ast.Expr) bool {
 	}
 }
 
-func fixFuncDeref(call *ast.CallExpr) bool {
+func fixFuncDerefCall(call *ast.CallExpr) bool {
 	fnc := call.Fun
 	if x, ok := fnc.(*ast.ParenExpr); ok {
 		fnc = x.X
@@ -271,6 +271,35 @@ func fixFuncDeref(call *ast.CallExpr) bool {
 		return false
 	}
 	call.Fun = &ast.CallExpr{Fun: &ast.IndexListExpr{
+		X:       ast.NewIdent("asFuncT"),
+		Indices: []ast.Expr{typ},
+	}, Args: conv.Args}
+	return true
+}
+
+func fixFuncDerefStar(p *ast.Expr) bool {
+	e := *p
+	deref, ok := e.(*ast.StarExpr)
+	if !ok {
+		return false
+	}
+	conv, ok := deref.X.(*ast.CallExpr)
+	if !ok || len(conv.Args) != 1 {
+		return false
+	}
+	ctyp := conv.Fun
+	if x, ok := ctyp.(*ast.ParenExpr); ok {
+		ctyp = x.X
+	}
+	ptr, ok := ctyp.(*ast.StarExpr)
+	if !ok {
+		return false
+	}
+	typ, ok := ptr.X.(*ast.FuncType)
+	if !ok {
+		return false
+	}
+	*p = &ast.CallExpr{Fun: &ast.IndexListExpr{
 		X:       ast.NewIdent("asFuncT"),
 		Indices: []ast.Expr{typ},
 	}, Args: conv.Args}
@@ -305,7 +334,9 @@ func fixExpr(p *ast.Expr) bool {
 			}
 		}
 	}
-	return false
+	changed := false
+	changed = fixFuncDerefStar(p) || changed
+	return changed
 }
 
 func newCall(name string, args ...ast.Expr) ast.Expr {

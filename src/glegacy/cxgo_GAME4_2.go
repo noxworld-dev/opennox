@@ -11193,7 +11193,6 @@ func nox_xxx_spellEnergyBoltTick_52E850(a1 float32) int32 {
 		v2     int32
 		result int32
 		v5     int32
-		v6     *func(uint32, uint32, uint32, int32, int32)
 		v7     int32
 		v8     int32
 		v9     int32
@@ -11334,10 +11333,10 @@ func nox_xxx_spellEnergyBoltTick_52E850(a1 float32) int32 {
 	v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 16))))
 	nox_xxx_unitsGetInCircle_517F90(&v29, v31, funAddrP(nox_xxx_spellEnergyBoltSetTarget_52EC60), unsafe.Pointer(uintptr(v5)))
 	if nox_xxx_energyBoltTarget_5d4594_2487880 != 0 {
-		v6 = (*func(uint32, uint32, uint32, int32, int32))(unsafe.Pointer(uintptr(nox_xxx_energyBoltTarget_5d4594_2487880 + 716)))
+		v6 := asFuncT[func(uint32, uint32, uint32, int32, int32)](unsafe.Pointer(uintptr(nox_xxx_energyBoltTarget_5d4594_2487880 + 716)))
 		v27 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("EnergyBoltGlyphDamage")))
 		v7 = nox_float2int(v27)
-		(*v6)(nox_xxx_energyBoltTarget_5d4594_2487880, *(*uint32)(unsafe.Pointer(uintptr(v1 + 12))), 0, v7, 17)
+		v6(nox_xxx_energyBoltTarget_5d4594_2487880, *(*uint32)(unsafe.Pointer(uintptr(v1 + 12))), 0, v7, 17)
 		v26 = int32(nox_xxx_energyBoltTarget_5d4594_2487880)
 		v8 = nox_xxx_spellGetAud44_424800(24, 0)
 		nox_xxx_aud_501960(v8, (*nox_object_t)(unsafe.Pointer(uintptr(v26))), 0, 0)

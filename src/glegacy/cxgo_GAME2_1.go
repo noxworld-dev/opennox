@@ -1099,7 +1099,7 @@ func sub_4626C0(a1 int32) float64 {
 	for i = (*int32)(unsafe.Pointer(uintptr(a1 + 440))); ; i = (*int32)(unsafe.Add(unsafe.Pointer(i), 4*1)) {
 		v3 = *i
 		if *i != 0 {
-			if funAddr(*(*func(int32, int32, int32, int32))(unsafe.Pointer(uintptr(v3 + 52)))) == funAddr(nox_xxx_lightngEffect_4E06F0) {
+			if funAddr(asFuncT[func(int32, int32, int32, int32)](unsafe.Pointer(uintptr(v3+52)))) == funAddr(nox_xxx_lightngEffect_4E06F0) {
 				break
 			}
 		}
@@ -1126,7 +1126,7 @@ func sub_462700(a1 int32) float64 {
 	for i = (*int32)(unsafe.Pointer(uintptr(a1 + 440))); ; i = (*int32)(unsafe.Add(unsafe.Pointer(i), 4*1)) {
 		v3 = *i
 		if *i != 0 {
-			if funAddr(*(*func(int32, int32, int32, int32) *uint32)(unsafe.Pointer(uintptr(v3 + 52)))) == funAddr(nox_xxx_fireEffect_4E0550) {
+			if funAddr(asFuncT[func(int32, int32, int32, int32) *uint32](unsafe.Pointer(uintptr(v3+52)))) == funAddr(nox_xxx_fireEffect_4E0550) {
 				break
 			}
 		}
@@ -1166,7 +1166,7 @@ func sub_4633B0(a1 int32, a2 *float32, a3 *float32) int32 {
 	if *(*uint32)(unsafe.Pointer(uintptr(a1 + 112)))&0x13001000 != 0 {
 		v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 436))))
 		if v4 != 0 {
-			if funAddr(*(*func(int32, int32, int32, int32, int32, *float32) *float32)(unsafe.Pointer(uintptr(v4 + 76)))) == funAddr(sub_4E0380) {
+			if funAddr(asFuncT[func(int32, int32, int32, int32, int32, *float32) *float32](unsafe.Pointer(uintptr(v4+76)))) == funAddr(sub_4E0380) {
 				v5 = float32(float64(*a2) * float64(*(*float32)(unsafe.Pointer(uintptr(v4 + 80)))))
 				*a2 = float32(nox_float2int(v5))
 				v6 = float32(float64(*a3) * float64(*(*float32)(unsafe.Pointer(uintptr(v4 + 80)))))
