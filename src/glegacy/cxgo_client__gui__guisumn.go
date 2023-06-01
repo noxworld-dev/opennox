@@ -179,7 +179,7 @@ func sub_4C27F0(a1 *uint32) int32 {
 		result = 1
 		return *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8)) != 1
 	}()) {
-		v2 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8))*4+184344)), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guisumn.c"), 446)))
+		v2 = (*uint16)(unsafe.Pointer(nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*8)))*4+184344)), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guisumn.c"), 446)))
 		nox_client_wndGetPosition_46AA60((*nox_window)(unsafe.Pointer(a1)), (*uint32)(unsafe.Pointer(&v11)), (*uint32)(unsafe.Pointer(&v10)))
 		nox_xxx_drawGetStringSize_43F840(nil, (*wchar2_t)(unsafe.Pointer(v2)), &v12, nil, 0)
 		var mpos nox_point = nox_client_getMousePos_4309F0()

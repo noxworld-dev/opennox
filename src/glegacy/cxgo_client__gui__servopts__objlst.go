@@ -71,7 +71,7 @@ func nox_xxx_guiObjlistLoad_4530C0(a1 int32, a2 int32) int32 {
 	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045464))))), 16408, int32(uintptr(unsafe.Pointer(v11))), 0)
 	v12 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045468)))), 1514)))
 	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045464))))), 16409, int32(uintptr(unsafe.Pointer(v12))), 0)
-	*memmap.PtrUint32(0x5D4594, dword_5d4594_1045460*4+1045472) = uint32(v2)
+	*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1045460)*4+1045472) = uint32(v2)
 	sub_453750()
 	if !nox_common_gameFlags_check_40A5C0(1) || nox_common_gameFlags_check_40A5C0(49152) {
 		sub_46AD20(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045468)), 1515, 1533, 0)

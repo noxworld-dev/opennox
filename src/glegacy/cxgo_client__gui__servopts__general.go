@@ -145,7 +145,7 @@ func sub_4AD840() int32 {
 		}
 		if false {
 			v6 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10316)))
-			v7 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, nox_server_connectionType_3596*4+173536)), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c"), 391)
+			v7 = nox_strman_loadString_40F1D0(*(**byte)(memmap.PtrOff(0x587000, uintptr(nox_server_connectionType_3596)*4+173536)), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\general.c"), 391)
 			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16385, int32(uintptr(unsafe.Pointer(v7))), -1)
 			v8 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10312)))
 			v9 = nox_xxx_rateGet_40A6C0()

@@ -17,7 +17,7 @@ func sub_512E80(a1 int32) int32 {
 	var v1 int32
 	v1 = int32(dword_5d4594_1599628)
 	if *(*int32)(unsafe.Pointer(&dword_5d4594_1599628)) < 1024 {
-		*memmap.PtrUint32(0x973F18, dword_5d4594_1599628*4+26664) = uint32(a1)
+		*memmap.PtrUint32(0x973F18, uintptr(dword_5d4594_1599628)*4+26664) = uint32(a1)
 		dword_5d4594_1599628 = uint32(func() int32 {
 			p := &v1
 			*p++

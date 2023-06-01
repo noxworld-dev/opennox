@@ -91,12 +91,12 @@ var dword_5d4594_1565512 uint32
 var dword_5d4594_815028 uint32
 var dword_5d4594_1301848 uint32
 var dword_5d4594_1316712 uint32
-var dword_5d4594_1313800 uint32
+var dword_5d4594_1313800 unsafe.Pointer
 var dword_5d4594_1321232 uint32
 var dword_5d4594_815024 uint32
 var nox_client_highResFrontWalls_80820 uint32 = 0x1
 var dword_5d4594_1045528 uint32
-var dword_5d4594_1313796 uint32
+var dword_5d4594_1313796 unsafe.Pointer
 var dword_5d4594_815020 uint32
 var dword_5d4594_1305680 uint32
 var dword_5d4594_815032 uint32

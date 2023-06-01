@@ -3180,7 +3180,7 @@ func nox_gui_windowCopyDrawData_46AF80(win *nox_window, p unsafe.Pointer) int32 
 	if p == nil {
 		return -3
 	}
-	alloc.Memcpy(unsafe.Pointer(&win.DrawData()), p, unsafe.Sizeof(nox_window_data{}))
+	alloc.Memcpy(unsafe.Pointer(win.DrawData()), p, unsafe.Sizeof(nox_window_data{}))
 	return 0
 }
 func sub_46B630(a1p *nox_window, a2 int32, a3 int32) *nox_window {
@@ -3728,8 +3728,8 @@ func sub_46FAE0() {
 		yTop int32
 		v1   int32
 	)
-	nox_client_wndGetPosition_46AA60((*nox_window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, *memmap.PtrUint32(0x5D4594, 1088996)*4+1090060)))), (*uint32)(unsafe.Pointer(&v1)), (*uint32)(unsafe.Pointer(&yTop)))
-	yTop += int32(dword_587000_145672*uint32(*(*int16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, *memmap.PtrUint32(0x5D4594, 1088996)*4+1090060) + 32))) + 2)))) + uint32(int32(*(*int16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, *memmap.PtrUint32(0x5D4594, 1088996)*4+1090060) + 32))) + 2))))/2))
+	nox_client_wndGetPosition_46AA60((*nox_window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 1088996))*4+1090060)))), (*uint32)(unsafe.Pointer(&v1)), (*uint32)(unsafe.Pointer(&yTop)))
+	yTop += int32(dword_587000_145672*uint32(*(*int16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 1088996))*4+1090060) + 32))) + 2)))) + uint32(int32(*(*int16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 1088996))*4+1090060) + 32))) + 2))))/2))
 	nox_client_drawSetColor_434460(int32(nox_color_yellow_2589772))
 	nox_xxx_drawPointMB_499B70(v1+1, yTop, 3)
 }
@@ -4464,8 +4464,8 @@ func nox_xxx_guiBottleSlotDrawFn_471A80(a1 *uint32) int32 {
 func nox_xxx_guiBottleSlotProc_471B90(a1 int32, a2 int32) int32 {
 	switch a2 {
 	case 5:
-		if *memmap.PtrUint32(0x5D4594, *(*uint32)(unsafe.Pointer(uintptr(a1 + 32)))*536+1090308) != 0 {
-			nox_xxx_cliUseCurePoison_4674E0(int32(*memmap.PtrUint32(0x5D4594, *(*uint32)(unsafe.Pointer(uintptr(a1 + 32)))*536+1090308)))
+		if *memmap.PtrUint32(0x5D4594, uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 32))))*536+1090308) != 0 {
+			nox_xxx_cliUseCurePoison_4674E0(int32(*memmap.PtrUint32(0x5D4594, uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 32))))*536+1090308)))
 		}
 		return 1
 	case 8, 12, 16:

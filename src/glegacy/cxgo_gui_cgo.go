@@ -7,7 +7,7 @@ import (
 func nox_window_set_all_funcs(win *nox_window, a2 func(int32, int32, int32, int32) int32, draw func(*nox_window, unsafe.Pointer) int32, a4 unsafe.Pointer) int32 {
 	return nox_window_set_all_funcs_go(win, unsafe.Pointer(funAddr(a2)), unsafe.Pointer(funAddr(draw)), a4)
 }
-func nox_window_new(a1 *nox_window, flags int32, a3 int32, a4 int32, w int32, h int32, fnc func(int32, int32, int32, int32) int32) *nox_window {
+func nox_window_new(a1 *nox_window, flags nox_window_flags, a3 int32, a4 int32, w int32, h int32, fnc func(int32, int32, int32, int32) int32) *nox_window {
 	return nox_window_new_go(a1, int(flags), int(a3), int(a4), int(w), int(h), unsafe.Pointer(funAddr(fnc)))
 }
 func nox_xxx_wndSetProc_46B2C0(a1 int32, a2 func(int32, int32, int32, int32) int32) int32 {

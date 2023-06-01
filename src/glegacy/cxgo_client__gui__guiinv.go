@@ -73,7 +73,7 @@ func sub_4617C0(a1 int32, a2 int32, a3 unsafe.Pointer, a4 *int2) int32 {
 				v7 = int32(i)
 				v8 = int32(v4)
 				v9 = (*uint8)(unsafe.Pointer(&nox_client_inventory_grid_1050020[int32(v4)+NOX_INVENTORY_ROW_COUNT*int32(i)]))
-				v10 = &nox_new_drawable_for_thing(a2).field_0
+				v10 = &nox_new_drawable_for_thing(a2).Field_0
 				*(*uint32)(unsafe.Pointer(v9)) = uint32(uintptr(unsafe.Pointer(v10)))
 				if v10 != nil {
 					*(*uint32)(unsafe.Add(unsafe.Pointer(v10), 4*30)) |= 0x40000000
@@ -206,7 +206,7 @@ func sub_462040(a1 int32) {
 		nox_xxx_printCentered_445490(v7)
 		return
 	}
-	v5 = &nox_new_drawable_for_thing(int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 108))))).field_0
+	v5 = &nox_new_drawable_for_thing(int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 108))))).Field_0
 	v6 = v5
 	if v5 == nil {
 		v7 = nox_strman_loadString_40F1D0(internCStr("DrawablesExhausted"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 1619)
@@ -904,7 +904,7 @@ func sub_4649B0(a1 int32, a2 int32, a3 int32) int32 {
 		return 0
 	}
 	if int32(v5) == 0 {
-		v6 = &nox_new_drawable_for_thing(int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 108))))).field_0
+		v6 = &nox_new_drawable_for_thing(int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 108))))).Field_0
 		*(*uint32)(unsafe.Pointer(v4)) = uint32(uintptr(unsafe.Pointer(v6)))
 		if v6 == nil {
 			v7 = nox_strman_loadString_40F1D0(internCStr("DrawablesExhausted"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 898)
@@ -1326,7 +1326,7 @@ func sub_464BD0(a1 int32, a2 int32, a3 uint32) int32 {
 func nox_xxx_cliInventorySpriteUpd_465A30() {
 	var inventory_item_idx int32 = int32(dword_5d4594_1049800_inventory_click_row_index + NOX_INVENTORY_ROW_COUNT*dword_5d4594_1049796_inventory_click_column_index)
 	if int32(nox_client_inventory_grid_1050020[inventory_item_idx].field_140) != 0 {
-		var v1 *uint32 = &nox_new_drawable_for_thing(int32(nox_client_inventory_grid_1050020[inventory_item_idx].field_0.field_27)).field_0
+		var v1 *uint32 = &nox_new_drawable_for_thing(int32(nox_client_inventory_grid_1050020[inventory_item_idx].field_0.field_27)).Field_0
 		*memmap.PtrUint32(0x5D4594, 1049848) = uint32(uintptr(unsafe.Pointer(v1)))
 		if v1 != nil {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*30)) |= 0x40000000

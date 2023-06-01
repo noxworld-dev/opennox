@@ -3308,7 +3308,7 @@ func sub_4214D0() {
 			*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v0))), 4*25))) = uint32(v3)
 			if !v5 {
 				for {
-					v6 = (*uint8)(memmap.PtrOff(0x5D4594, *(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v0))), 4*27))) + uint32(v4*4))))*16+535844))
+					v6 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v0))), 4*27))) + uint32(v4*4)))))*16+535844))
 					if float64(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v6))), unsafe.Sizeof(float32(0))*1)))) >= float64(*((*int32)(unsafe.Add(unsafe.Pointer((*int32)(unsafe.Pointer(v0))), 4*22)))) {
 						if float64(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v6))), unsafe.Sizeof(float32(0))*1)))) > float64(*((*int32)(unsafe.Add(unsafe.Pointer((*int32)(unsafe.Pointer(v0))), 4*24)))) {
 							*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v0))), 4*24))) = uint32(nox_float2int(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v6))), unsafe.Sizeof(float32(0))*1)))))
@@ -3373,7 +3373,7 @@ func nox_xxx_polygon_421660(a1 *int32, a2 int32) int32 {
 	v9 = *(*uint16)(unsafe.Pointer(uintptr(a2 + 128)))
 	v10 = 1
 	for v12.field_4 = v8; int32(v10) <= int32(v9); v10++ {
-		v11 = (*uint8)(memmap.PtrOff(0x5D4594, *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2 + 108))) + uint32((int32(v10)%int32(v9))*4))))*16+535844))
+		v11 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2 + 108))) + uint32((int32(v10)%int32(v9))*4)))))*16+535844))
 		if int32(v10)&1 != 0 {
 			v12.field_8 = nox_float2int(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v11))), unsafe.Sizeof(float32(0))*1))))
 			v12.field_C = nox_float2int(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v11))), unsafe.Sizeof(float32(0))*2))))
@@ -3454,7 +3454,7 @@ func sub_421880(a1 int32, a2 int32, a3 float32) int32 {
 		v7 *uint8
 		v9 int4 = int4{}
 	)
-	v3 = (*uint8)(memmap.PtrOff(0x5D4594, **(**uint32)(unsafe.Pointer(uintptr(a2 + 108)))*16+535844))
+	v3 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(**(**uint32)(unsafe.Pointer(uintptr(a2 + 108))))*16+535844))
 	v9.field_0 = nox_float2int(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v3))), unsafe.Sizeof(float32(0))*1))))
 	v4 = nox_float2int(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v3))), unsafe.Sizeof(float32(0))*2))))
 	v5 = 1
@@ -3464,7 +3464,7 @@ func sub_421880(a1 int32, a2 int32, a3 float32) int32 {
 		return 0
 	}
 	for {
-		v7 = (*uint8)(memmap.PtrOff(0x5D4594, *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2 + 108))) + uint32((v5%v6)*4))))*16+535844))
+		v7 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2 + 108))) + uint32((v5%v6)*4)))))*16+535844))
 		if v5&1 != 0 {
 			v9.field_8 = nox_float2int(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v7))), unsafe.Sizeof(float32(0))*1))))
 			v9.field_C = nox_float2int(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v7))), unsafe.Sizeof(float32(0))*2))))

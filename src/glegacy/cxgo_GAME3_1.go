@@ -958,7 +958,7 @@ func sub_4BDF90(a1 *int32) int32 {
 	sub_453F70(unsafe.Pointer((*int32)(unsafe.Add(unsafe.Pointer(a1), 4*6))))
 	sub_4535E0((*int32)(unsafe.Add(unsafe.Pointer(a1), 4*11)))
 	sub_4535F0(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12)))
-	result2 = *(*func() int32)(memmap.PtrOff(0x587000, dword_5d4594_1316704*4+180016))
+	result2 = *(*func() int32)(memmap.PtrOff(0x587000, uintptr(dword_5d4594_1316704)*4+180016))
 	if result2 != nil {
 		result = result2()
 	}
@@ -2648,7 +2648,7 @@ func nox_xxx_tradeClientAddItem_4C1790(a1 int32) *byte {
 LABEL_12:
 	if v3 != nil {
 		if *(*uint32)(unsafe.Pointer(v3)) == 0 {
-			v4 = &nox_new_drawable_for_thing(int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 3))))).field_0
+			v4 = &nox_new_drawable_for_thing(int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 3))))).Field_0
 			*(*uint32)(unsafe.Pointer(v3)) = uint32(uintptr(unsafe.Pointer(v4)))
 			if *(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*28))&0x13001000 != 0 {
 				v5 = int32(-11 - a1)

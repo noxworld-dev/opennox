@@ -35,7 +35,7 @@ func nox_xxx_clientDrawAll_436100_draw_B() {
 	var v16 int32 = (nox_win_height - 200) / 2
 	var v15 *int32 = mem_getI32Ptr(0x5D4594, *memmap.PtrUint32(0x5D4594, 811060)*4+811888)
 	if *v15 == 0 {
-		*v15 = int32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, *memmap.PtrUint32(0x5D4594, 811060)*4+85712))))))
+		*v15 = int32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(*(**byte)(memmap.PtrOff(0x587000, uintptr(*memmap.PtrUint32(0x5D4594, 811060))*4+85712))))))
 	}
 	nox_client_drawImageAt_47D2C0((*nox_video_bag_image_t)(unsafe.Pointer(uintptr(*v15))), v14, v16)
 	var v22 int32 = 0

@@ -251,7 +251,7 @@ func sub_509D80(a1 int32) int32 {
 	return 1
 }
 func nox_xxx_xferDirectionToAngle_509E00(a1 *uint32) int32 {
-	return int32(*memmap.PtrUint32(0x587000, (*a1+*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1))*3)*4+230072))
+	return int32(*memmap.PtrUint32(0x587000, uintptr((*a1+*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1))*3))*4+230072))
 }
 func nox_xxx_xferIndexedDirection_509E20(a1 int32, a2 *int2) int32 {
 	var (
@@ -573,15 +573,15 @@ func nox_xxx_mobAction_50A910(a1p *nox_object_t) int32 {
 	v13 = result + 1
 	for {
 		v5 = 0
-		if *memmap.PtrUint32(0x587000, *v4*16+230388) > 0 {
+		if *memmap.PtrUint32(0x587000, uintptr(*v4)*16+230388) > 0 {
 			v6 = (*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*1))
 			for {
-				if *memmap.PtrUint32(0x587000, (uint32(v5)+*v4*4)*4+230392) == 1 && *v6 != 0 {
+				if *memmap.PtrUint32(0x587000, uintptr((uint32(v5)+*v4*4))*4+230392) == 1 && *v6 != 0 {
 					sub_509FF0(int32(uintptr(unsafe.Pointer(v6))))
 				}
 				v5++
 				v6 = (*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*2))
-				if v5 >= *memmap.PtrInt32(0x587000, *v4*16+230388) {
+				if v5 >= *memmap.PtrInt32(0x587000, uintptr(*v4)*16+230388) {
 					break
 				}
 			}

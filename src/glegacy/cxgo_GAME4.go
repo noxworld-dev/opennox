@@ -4160,7 +4160,7 @@ func nox_xxx_spellWallCreate_4FFA90(a1 int32) int32 {
 	a1 = int32(int64(*(*float32)(unsafe.Pointer(uintptr(v1 + 56)))) / 23)
 	v17 = uint8(sub_4FFA40(v10))
 	if sub_4FFD00(v1, v11, v13, v17) != 0 {
-		for i = 0; i < *memmap.PtrInt32(0x587000, *(*uint32)(unsafe.Pointer(uintptr(v1 + 8)))*4+217844); i++ {
+		for i = 0; i < *memmap.PtrInt32(0x587000, uintptr(*(*uint32)(unsafe.Pointer(uintptr(v1 + 8))))*4+217844); i++ {
 			v11 = int32(uint8(nox_xxx_spellWallCreateCalcXMB_4FFEF0(v10, v16, v11, 0)))
 			v13 = int32(uint8(nox_xxx_spellWallCreateCalcYMB_4FFFB0(v10, a1, v13, 0)))
 			v18 = uint8(nox_xxx_spellWallCreateCalcDirMB_4FF9B0(v10, v16, a1, v11, v13))
@@ -4170,7 +4170,7 @@ func nox_xxx_spellWallCreate_4FFA90(a1 int32) int32 {
 		}
 		v14 = v16
 		v15 = a1
-		for j = 0; j < *memmap.PtrInt32(0x587000, *(*uint32)(unsafe.Pointer(uintptr(v1 + 8)))*4+217844); j++ {
+		for j = 0; j < *memmap.PtrInt32(0x587000, uintptr(*(*uint32)(unsafe.Pointer(uintptr(v1 + 8))))*4+217844); j++ {
 			v14 = int32(uint8(nox_xxx_spellWallCreateCalcXMB_4FFEF0(v10, v16, v14, 1)))
 			v15 = int32(uint8(nox_xxx_spellWallCreateCalcYMB_4FFFB0(v10, a1, v15, 1)))
 			v19 = uint8(nox_xxx_spellWallCreateCalcDirMB_4FF9B0(v10, v16, a1, v14, v15))
@@ -4572,7 +4572,7 @@ func nox_xxx_scriptGetJournal_5005E0(a1 *byte) *byte {
 		v6 >>= 2
 		alloc.Memcpy(memmap.PtrOff(0x5D4594, 1570140), unsafe.Pointer(a1), uintptr(v6*4))
 		v4 = (*byte)(unsafe.Add(unsafe.Pointer(a1), v6*4))
-		v3 = (*uint8)(memmap.PtrOff(0x5D4594, v6*4+1570140))
+		v3 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v6)*4+1570140))
 		v5 = v7
 	} else {
 		libc.StrCpy((*byte)(memmap.PtrOff(0x5D4594, 1570140)), (*byte)(memmap.PtrOff(0x5D4594, 1570008)))
@@ -4699,7 +4699,7 @@ func sub_5007E0(a1 *byte) *byte {
 					}
 				}
 			}
-		} else if unsafe.Pointer(v1) == memmap.PtrOff(0x5D4594, v3+1570138) {
+		} else if unsafe.Pointer(v1) == memmap.PtrOff(0x5D4594, uintptr(v3)+1570138) {
 			v5 = int32(dword_5d4594_1570272)
 			if dword_5d4594_1570272 != 0 {
 				for {

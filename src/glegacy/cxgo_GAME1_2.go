@@ -3869,7 +3869,7 @@ func sub_439D90(a1 uint32, a2 uint32) int32 {
 	result = sub_438DD0(a1, a2)
 	if result != 0 {
 		v3 = int16(uint16(a2 + uint32(*memmap.PtrUint16(0x587000, uintptr(dword_587000_87412)*8+87530)) - 27))
-		*memmap.PtrUint16(0x5D4594, 814916) = uint16(a1 + uint32(*memmap.PtrUint16(0x587000, dword_587000_87412*8+87528)) - 216)
+		*memmap.PtrUint16(0x5D4594, 814916) = uint16(a1 + uint32(*memmap.PtrUint16(0x587000, uintptr(dword_587000_87412)*8+87528)) - 216)
 		*memmap.PtrUint16(0x5D4594, 814918) = uint16(v3)
 		sub_43B460()
 		if sub_43BDB0()&2 != 0 {

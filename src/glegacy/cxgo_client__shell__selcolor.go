@@ -102,12 +102,12 @@ func sub_4A68C0() *wchar2_t {
 		v2 = nox_strman_loadString_40F1D0(internCStr("DefaultName"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\SelColor.c"), 232)
 		nox_wcscpy(*(**wchar2_t)(unsafe.Pointer(&dword_5d4594_1307784)), v2)
 	}
-	v3 = (*uint8)(memmap.PtrOff(0x5D4594, ((*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308096 + 32)))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308096 + 32)))))*32))*3+1307796))
+	v3 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(((*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308096 + 32)))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308096 + 32)))))*32)))*3+1307796))
 	v4 = int32(dword_5d4594_1307784 + 71)
 	*(*uint16)(unsafe.Pointer(uintptr(dword_5d4594_1307784 + 71))) = *(*uint16)(unsafe.Pointer(v3))
 	*(*uint8)(unsafe.Pointer(uintptr(v4 + 2))) = *(*uint8)(unsafe.Add(unsafe.Pointer(v3), 2))
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1308136 + 4))))&8 != 0 {
-		v7 = (*uint8)(memmap.PtrOff(0x5D4594, ((*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308100 + 32)))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308100 + 32)))))*32))*3+1307796))
+		v7 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(((*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308100 + 32)))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308100 + 32)))))*32)))*3+1307796))
 		v8 = int32(dword_5d4594_1307784 + 68)
 		*(*uint16)(unsafe.Pointer(uintptr(dword_5d4594_1307784 + 68))) = *(*uint16)(unsafe.Pointer(v7))
 		*(*uint8)(unsafe.Pointer(uintptr(v8 + 2))) = *(*uint8)(unsafe.Add(unsafe.Pointer(v7), 2))
@@ -119,7 +119,7 @@ func sub_4A68C0() *wchar2_t {
 	}
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1308140 + 4))))&8 != 0 {
 		v11 = int32(dword_5d4594_1307784 + 74)
-		v12 = (*uint8)(memmap.PtrOff(0x5D4594, ((*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308104 + 32)))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308104 + 32)))))*32))*3+1307796))
+		v12 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(((*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308104 + 32)))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308104 + 32)))))*32)))*3+1307796))
 		*(*uint16)(unsafe.Pointer(uintptr(dword_5d4594_1307784 + 74))) = *(*uint16)(unsafe.Pointer(v12))
 		*(*uint8)(unsafe.Pointer(uintptr(v11 + 2))) = *(*uint8)(unsafe.Add(unsafe.Pointer(v12), 2))
 	} else {
@@ -130,7 +130,7 @@ func sub_4A68C0() *wchar2_t {
 	}
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1308144 + 4))))&8 != 0 {
 		v15 = int32(dword_5d4594_1307784 + 77)
-		v16 = (*uint8)(memmap.PtrOff(0x5D4594, ((*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308108 + 32)))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308108 + 32)))))*32))*3+1307796))
+		v16 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(((*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308108 + 32)))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308108 + 32)))))*32)))*3+1307796))
 		*(*uint16)(unsafe.Pointer(uintptr(dword_5d4594_1307784 + 77))) = *(*uint16)(unsafe.Pointer(v16))
 		*(*uint8)(unsafe.Pointer(uintptr(v15 + 2))) = *(*uint8)(unsafe.Add(unsafe.Pointer(v16), 2))
 	} else {
@@ -141,7 +141,7 @@ func sub_4A68C0() *wchar2_t {
 	}
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1308148 + 4))))&8 != 0 {
 		v19 = int32(dword_5d4594_1307784 + 80)
-		v20 = (*uint8)(memmap.PtrOff(0x5D4594, ((*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308112 + 32)))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308112 + 32)))))*32))*3+1307796))
+		v20 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(((*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308112 + 32)))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308112 + 32)))))*32)))*3+1307796))
 		*(*uint16)(unsafe.Pointer(uintptr(dword_5d4594_1307784 + 80))) = *(*uint16)(unsafe.Pointer(v20))
 		*(*uint8)(unsafe.Pointer(uintptr(v19 + 2))) = *(*uint8)(unsafe.Add(unsafe.Pointer(v20), 2))
 	} else {
@@ -204,7 +204,7 @@ func sub_4A75C0() int32 {
 	v3 = int8(*(*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1307784 + 66))))
 	v25[1276] = 1
 	v25[1274] = byte(v3)
-	v4 = (*uint8)(memmap.PtrOff(0x5D4594, ((*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308096 + 32)))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308096 + 32)))))*32))*3+1307796))
+	v4 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(((*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308096 + 32)))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308096 + 32)))))*32)))*3+1307796))
 	*(*uint16)(unsafe.Pointer(&v25[1204])) = *(*uint16)(unsafe.Pointer(v4))
 	v5 = int16(*(*uint16)(unsafe.Pointer(v4)))
 	v25[1206] = byte(*(*uint8)(unsafe.Add(unsafe.Pointer(v4), 2)))
@@ -220,7 +220,7 @@ func sub_4A75C0() int32 {
 	}
 	v25[1209] = byte(v7)
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1308140 + 4))))&8 != 0 {
-		v10 = (*uint8)(memmap.PtrOff(0x5D4594, ((*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308104 + 32)))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308104 + 32)))))*32))*3+1307796))
+		v10 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(((*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308104 + 32)))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308104 + 32)))))*32)))*3+1307796))
 		*(*uint16)(unsafe.Pointer(&v25[1210])) = *(*uint16)(unsafe.Pointer(v10))
 		v25[1212] = byte(*(*uint8)(unsafe.Add(unsafe.Pointer(v10), 2)))
 		v9 = v23
@@ -238,7 +238,7 @@ func sub_4A75C0() int32 {
 		v25[1215] = byte(v9)
 	}
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1308148 + 4))))&8 != 0 {
-		v12 = (*uint8)(memmap.PtrOff(0x5D4594, ((*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308112 + 32)))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308112 + 32)))))*32))*3+1307796))
+		v12 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(((*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308112 + 32)))>>16)+uint32(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1308112 + 32)))))*32)))*3+1307796))
 		*(*uint16)(unsafe.Pointer(&v25[1216])) = *(*uint16)(unsafe.Pointer(v12))
 		v25[1218] = byte(*(*uint8)(unsafe.Add(unsafe.Pointer(v12), 2)))
 	} else {

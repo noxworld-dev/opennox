@@ -4252,8 +4252,8 @@ func nox_xxx_collideDeathBall_4E9E90(a1 int32, a2 int32, a3 *float32) {
 			*(*uint32)(unsafe.Pointer(uintptr(a1 + 68))) = uint32(v7)
 			v8 = float64(*(*float32)(unsafe.Pointer(uintptr(a2 + 56))) - *(*float32)(unsafe.Pointer(uintptr(a1 + 72))))
 			v9 = float64(*(*float32)(unsafe.Pointer(uintptr(a2 + 60))) - *(*float32)(unsafe.Pointer(uintptr(a1 + 76))))
-			a2a.field_0 = float32(-float64(*memmap.PtrInt32(0x587000, *(*uint32)(unsafe.Pointer(uintptr(v6 + 12)))*8+196188)))
-			v10 = float64(*memmap.PtrInt32(0x587000, *(*uint32)(unsafe.Pointer(uintptr(v6 + 12)))*8+196184))
+			a2a.field_0 = float32(-float64(*memmap.PtrInt32(0x587000, uintptr(*(*uint32)(unsafe.Pointer(uintptr(v6 + 12))))*8+196188)))
+			v10 = float64(*memmap.PtrInt32(0x587000, uintptr(*(*uint32)(unsafe.Pointer(uintptr(v6 + 12))))*8+196184))
 			a2a.field_4 = float32(v10)
 			if v10*v9+float64(a2a.field_0)*v8 > 0.0 {
 				a2a.field_0 = -a2a.field_0

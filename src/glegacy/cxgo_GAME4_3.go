@@ -147,7 +147,7 @@ func nox_xxx_onFrameLightning_52F8A0(a1 float32) int32 {
 		}
 	}
 	index = int32(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)
-	*memmap.PtrUint32(0x5D4594, nox_xxx_lightningTargetArrayIndex_5d4594_2487904*4+2487844) = uint32(target)
+	*memmap.PtrUint32(0x5D4594, uintptr(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)*4+2487844) = uint32(target)
 	nox_xxx_lightningTargetArrayIndex_5d4594_2487904 = uint32(index + 1)
 	if spellLevel > 1 {
 		nox_xxx_lightningTarget_5d4594_2487908 = 0
@@ -156,7 +156,7 @@ func nox_xxx_onFrameLightning_52F8A0(a1 float32) int32 {
 		nox_xxx_unitsGetInCircle_517F90((*float2)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 2487844)+56))), range1, unsafe.Pointer(funAddr(nox_xxx_lightningCanAttackCheck_52FF10)), unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 2487844))))
 		if nox_xxx_lightningTarget_5d4594_2487908 != 0 {
 			v15 = int32(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)
-			*memmap.PtrUint32(0x5D4594, nox_xxx_lightningTargetArrayIndex_5d4594_2487904*4+2487844) = nox_xxx_lightningTarget_5d4594_2487908
+			*memmap.PtrUint32(0x5D4594, uintptr(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)*4+2487844) = nox_xxx_lightningTarget_5d4594_2487908
 			nox_xxx_lightningTargetArrayIndex_5d4594_2487904 = uint32(v15 + 1)
 		}
 	}
@@ -167,7 +167,7 @@ func nox_xxx_onFrameLightning_52F8A0(a1 float32) int32 {
 		nox_xxx_unitsGetInCircle_517F90((*float2)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 2487844)+56))), range2, unsafe.Pointer(funAddr(nox_xxx_lightningCanAttackCheck_52FF10)), unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 2487844))))
 		if nox_xxx_lightningTarget_5d4594_2487908 != 0 {
 			v16 = int32(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)
-			*memmap.PtrUint32(0x5D4594, nox_xxx_lightningTargetArrayIndex_5d4594_2487904*4+2487844) = nox_xxx_lightningTarget_5d4594_2487908
+			*memmap.PtrUint32(0x5D4594, uintptr(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)*4+2487844) = nox_xxx_lightningTarget_5d4594_2487908
 			nox_xxx_lightningTargetArrayIndex_5d4594_2487904 = uint32(v16 + 1)
 		}
 	}
@@ -179,7 +179,7 @@ func nox_xxx_onFrameLightning_52F8A0(a1 float32) int32 {
 			nox_xxx_unitsGetInCircle_517F90((*float2)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 2487848)+56))), range3, unsafe.Pointer(funAddr(nox_xxx_lightningCanAttackCheck_52FF10)), unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(mem_getU32Ptr(0x5D4594, 2487848))))))
 			if nox_xxx_lightningTarget_5d4594_2487908 != 0 {
 				v17 = int32(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)
-				*memmap.PtrUint32(0x5D4594, nox_xxx_lightningTargetArrayIndex_5d4594_2487904*4+2487844) = nox_xxx_lightningTarget_5d4594_2487908
+				*memmap.PtrUint32(0x5D4594, uintptr(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)*4+2487844) = nox_xxx_lightningTarget_5d4594_2487908
 				nox_xxx_lightningTargetArrayIndex_5d4594_2487904 = uint32(v17 + 1)
 			}
 		}
@@ -193,7 +193,7 @@ func nox_xxx_onFrameLightning_52F8A0(a1 float32) int32 {
 			nox_xxx_unitsGetInCircle_517F90((*float2)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 2487852)+56))), range4, unsafe.Pointer(funAddr(nox_xxx_lightningCanAttackCheck_52FF10)), unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(mem_getU32Ptr(0x5D4594, 2487852))))))
 			if nox_xxx_lightningTarget_5d4594_2487908 != 0 {
 				v18 = int32(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)
-				*memmap.PtrUint32(0x5D4594, nox_xxx_lightningTargetArrayIndex_5d4594_2487904*4+2487844) = nox_xxx_lightningTarget_5d4594_2487908
+				*memmap.PtrUint32(0x5D4594, uintptr(nox_xxx_lightningTargetArrayIndex_5d4594_2487904)*4+2487844) = nox_xxx_lightningTarget_5d4594_2487908
 				nox_xxx_lightningTargetArrayIndex_5d4594_2487904 = uint32(v18 + 1)
 			}
 		}

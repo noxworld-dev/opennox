@@ -899,7 +899,7 @@ func nox_xxx_loadMapCycle_4D0A30() *FILE {
 			v8 = sub_4D0C80(&v16[0])
 			if v8 < 0 {
 				v9 = int32(*memmap.PtrUint32(0x5D4594, 1548432))
-				libc.StrCpy((*byte)(memmap.PtrOff(0x5D4594, *memmap.PtrUint32(0x5D4594, 1548432)*128+1532428)), &v16[0])
+				libc.StrCpy((*byte)(memmap.PtrOff(0x5D4594, uintptr(*memmap.PtrUint32(0x5D4594, 1548432))*128+1532428)), &v16[0])
 				*memmap.PtrUint32(0x5D4594, 1548432) = uint32(v9 + 1)
 			} else {
 				v0 = v8
@@ -1031,7 +1031,7 @@ func nox_xxx_mapSelectFirst_4D0E00() int32 {
 			if sub_4CFFC0(int32(uintptr(unsafe.Pointer(i))))&0x1000 != 0 {
 				if *(*int32)(unsafe.Pointer(&dword_5d4594_1548476)) < 128 {
 					v3 = int32(dword_5d4594_1548476 * 32)
-					libc.StrCpy((*byte)(memmap.PtrOff(0x5D4594, dword_5d4594_1548476*32+1525136)), (*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(i))), 12)))
+					libc.StrCpy((*byte)(memmap.PtrOff(0x5D4594, uintptr(dword_5d4594_1548476)*32+1525136)), (*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(i))), 12)))
 					v4 = *memmap.PtrUint8(0x587000, 192004)
 					v5 = (*uint8)(memmap.PtrOff(0x5D4594, uintptr(v3)+1525136+uint32(libc.StrLen((*byte)(memmap.PtrOff(0x5D4594, uintptr(v3)+1525136))))))
 					*(*uint32)(unsafe.Pointer(v5)) = *memmap.PtrUint32(0x587000, 192000)
@@ -1180,7 +1180,7 @@ func nox_xxx_getQuestMapFile_4D0F60() *byte {
 	v10 = 0
 	v11 = (*uint8)(memmap.PtrOff(0x5D4594, 1525132))
 	for {
-		if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v11))), 4*6))) < uint32(v16) && uint32(v10) != *memmap.PtrUint32(0x587000, 191880) && *(*uint32)(unsafe.Pointer(v11)) != *memmap.PtrUint32(0x5D4594, *memmap.PtrUint32(0x587000, 191880)*32+1525132) && dword_5d4594_1548480-*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v11))), 4*7))) > 4 {
+		if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v11))), 4*6))) < uint32(v16) && uint32(v10) != *memmap.PtrUint32(0x587000, 191880) && *(*uint32)(unsafe.Pointer(v11)) != *memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x587000, 191880))*32+1525132) && dword_5d4594_1548480-*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v11))), 4*7))) > 4 {
 			v9++
 		}
 		v10++
@@ -1196,7 +1196,7 @@ func nox_xxx_getQuestMapFile_4D0F60() *byte {
 		return (*byte)(memmap.PtrOff(0x5D4594, uintptr(v12*32)+1525136))
 	}
 	for i = (*uint8)(memmap.PtrOff(0x5D4594, 1525132)); ; i = (*uint8)(unsafe.Add(unsafe.Pointer(i), 32)) {
-		if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*6))) >= uint32(v16) || uint32(v14) == *memmap.PtrUint32(0x587000, 191880) || *(*uint32)(unsafe.Pointer(i)) == *memmap.PtrUint32(0x5D4594, *memmap.PtrUint32(0x587000, 191880)*32+1525132) || dword_5d4594_1548480-*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*7))) <= 4 {
+		if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*6))) >= uint32(v16) || uint32(v14) == *memmap.PtrUint32(0x587000, 191880) || *(*uint32)(unsafe.Pointer(i)) == *memmap.PtrUint32(0x5D4594, uintptr(*memmap.PtrUint32(0x587000, 191880))*32+1525132) || dword_5d4594_1548480-*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*7))) <= 4 {
 			goto LABEL_36
 		}
 		if v13 == v12 {
@@ -2739,7 +2739,7 @@ func sub_4D5630(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) int32 {
 	if v6 != 2 && v6 != 8 && v6 != 32 && v6 != 64 {
 		goto LABEL_43
 	}
-	v13 = nox_xxx_mapGenMakeHall_523EC0(int32(uintptr(memmap.PtrOff(0x5D4594, 1549796))), int32(*memmap.PtrUint32(0x587000, *(*uint32)(unsafe.Pointer(uintptr(a1)))*4+197812)), a4)
+	v13 = nox_xxx_mapGenMakeHall_523EC0(int32(uintptr(memmap.PtrOff(0x5D4594, 1549796))), int32(*memmap.PtrUint32(0x587000, uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1))))*4+197812)), a4)
 	v14 = v13
 	if v13 == nil {
 		return 0
@@ -2821,7 +2821,7 @@ LABEL_43:
 	if v45 != 4 && v45 != 16 && v45 != 32 && v45 != 64 {
 		goto LABEL_71
 	}
-	v22 = nox_xxx_mapGenMakeHall_523EC0(int32(uintptr(memmap.PtrOff(0x5D4594, 1549796))), int32(*memmap.PtrUint32(0x587000, *(*uint32)(unsafe.Pointer(uintptr(v5)))*4+197836)), a4)
+	v22 = nox_xxx_mapGenMakeHall_523EC0(int32(uintptr(memmap.PtrOff(0x5D4594, 1549796))), int32(*memmap.PtrUint32(0x587000, uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5))))*4+197836)), a4)
 	if v22 == nil {
 		return 0
 	}

@@ -76,7 +76,7 @@ func sub_4A2610(a1 int32, a2 *uint32, a3 *int32) int32 {
 	for i = (*int32)(unsafe.Pointer(nox_common_list_getFirstSafe_425890((*nox_list_item_t)(unsafe.Pointer(a3))))); i != nil; i = (*int32)(unsafe.Pointer(nox_common_list_getNextSafe_4258A0((*nox_list_item_t)(unsafe.Pointer(i))))) {
 		if sub_4A2560(a2, int32(uintptr(unsafe.Pointer(i)))) != 0 {
 			v4 = int32(dword_5d4594_1307720)
-			*memmap.PtrUint32(0x5D4594, dword_5d4594_1307720*4+1307316) = uint32(uintptr(unsafe.Pointer(i)))
+			*memmap.PtrUint32(0x5D4594, uintptr(dword_5d4594_1307720)*4+1307316) = uint32(uintptr(unsafe.Pointer(i)))
 			dword_5d4594_1307720 = uint32(v4 + 1)
 		}
 	}
@@ -4087,8 +4087,8 @@ func sub_4AC7B0(a1 int32) int32 {
 				v11 += 4
 			}
 			*(*uint8)(unsafe.Pointer(uintptr(v2 + 299))) = *((*uint8)(unsafe.Pointer(&v13)))
-			v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 12))) + uint32(*memmap.PtrInt32(0x587000, (*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v6))), 4*0)))*8+196184)/2))
-			sub_410390(v2, v7/23, int32((*(*uint32)(unsafe.Pointer(uintptr(v2 + 16)))+uint32(*memmap.PtrInt32(0x587000, (*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v6))), 4*0)))*8+196188)/2))/23))
+			v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 12))) + uint32(*memmap.PtrInt32(0x587000, uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v6))), 4*0))))*8+196184)/2))
+			sub_410390(v2, v7/23, int32((*(*uint32)(unsafe.Pointer(uintptr(v2 + 16)))+uint32(*memmap.PtrInt32(0x587000, uintptr((*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v6))), 4*0))))*8+196188)/2))/23))
 		}
 		*(*uint32)(unsafe.Pointer(uintptr(v2 + 288))) = 0
 		nox_xxx_spriteSetActiveMB_45A990_drawable(v2)
@@ -5849,10 +5849,10 @@ func nox_xxx_netHandleSummonPacket_4B7C40(a1 int16, a2 *uint16, a3 uint16, a4 ui
 	v10 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(uint16(0))*1)))
 	v9 = int32(*a2)
 	v5 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SummonEffect"))
-	result = &nox_xxx_spriteLoadAdd_45A360_drawable(v5, v9, v10).field_0
+	result = &nox_xxx_spriteLoadAdd_45A360_drawable(v5, v9, v10).Field_0
 	v7 = result
 	if result != nil {
-		result = &nox_new_drawable_for_thing(int32(a3)).field_0
+		result = &nox_new_drawable_for_thing(int32(a3)).Field_0
 		v8 = result
 		if result != nil {
 			*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*3)) = uint32(*a2)

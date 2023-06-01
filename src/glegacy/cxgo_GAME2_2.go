@@ -1095,7 +1095,7 @@ func sub_479300(a1 int32, a2 int32, a3 int32, a4 int16, a5 int32) *uint32 {
 	v6 = result
 	if result != nil {
 		if *result == 0 {
-			result = &nox_new_drawable_for_thing(a1).field_0
+			result = &nox_new_drawable_for_thing(a1).Field_0
 			*v6 = uint32(uintptr(unsafe.Pointer(result)))
 			if result == nil {
 				return result
@@ -1486,21 +1486,21 @@ func sub_47D380(a1 int32, a2 int32) int32 {
 		v2 = a2
 		v3 = a1
 	}
-	v4 = nox_draw_curDrawData_3799572.ClipRect().min_x
+	v4 = int32(nox_draw_curDrawData_3799572.ClipRect().Min.X)
 	if v2 >= v4 {
-		if v2 >= nox_draw_curDrawData_3799572.ClipRect().max_x {
+		if v2 >= int32(nox_draw_curDrawData_3799572.ClipRect().Max.X) {
 			return 0
 		}
 	} else {
-		v2 = nox_draw_curDrawData_3799572.ClipRect().min_x
+		v2 = int32(nox_draw_curDrawData_3799572.ClipRect().Min.X)
 	}
-	v5 = nox_draw_curDrawData_3799572.ClipRect().max_x
+	v5 = int32(nox_draw_curDrawData_3799572.ClipRect().Max.X)
 	if v3 < v5 {
 		if v3 < v4 {
 			return 0
 		}
 	} else {
-		v3 = nox_draw_curDrawData_3799572.ClipRect().max_x
+		v3 = int32(nox_draw_curDrawData_3799572.ClipRect().Max.X)
 	}
 	if v2 == v3 {
 		return 0
