@@ -319,13 +319,13 @@ func nox_client_guiserv_updateMapList_458230(mode int32, current *byte, a3 bool)
 	*memmap.PtrUint32(0x5D4594, 1046552) = uint32(mode)
 	var v17 int32 = 0
 	for it := (*Nox_map_list_item)(nox_common_maplist_first_4D09B0()); it != nil; it = nox_common_maplist_next_4D09C0(it) {
-		if it.field_6 == 0 {
+		if it.Field_6 == 0 {
 			continue
 		}
 		if (sub_4CFFC0(int32(uintptr(unsafe.Pointer(it)))) & mode) == 0 {
 			continue
 		}
-		libc.StrCpy(&v19[0], &it.name[0])
+		libc.StrCpy(&v19[0], &it.Name[0])
 		alloc.Memcpy(unsafe.Pointer(&v20[0]), unsafe.Pointer(&v19[0]), 0x38)
 		*(*uint16)(unsafe.Pointer(&v20[56])) = *(*uint16)(unsafe.Pointer(&v19[56]))
 		sub_57A1E0((*int32)(unsafe.Pointer(&v19[0])), nil, nil, 1, int16(mode))
@@ -346,12 +346,12 @@ func nox_client_guiserv_updateMapList_458230(mode int32, current *byte, a3 bool)
 				v6 = 6
 			}
 		}
-		var v16 int32 = int32(it.field_8_1)
-		var v15 int32 = int32(it.field_8_0)
+		var v16 int32 = int32(it.Field_8_1)
+		var v15 int32 = int32(it.Field_8_0)
 		var v9 *wchar2_t = nox_strman_loadString_40F1D0(internCStr("RecPlayers"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 823)
-		nox_swprintf(&v21[0], v9, &it.name[0], v15, v16)
+		nox_swprintf(&v21[0], v9, &it.Name[0], v15, v16)
 		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046496))))), 16397, int32(uintptr(unsafe.Pointer(&v21[0]))), v6)
-		if nox_strcmpi(current, &it.name[0]) == 0 {
+		if nox_strcmpi(current, &it.Name[0]) == 0 {
 			v18 = v17
 			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046496))))), 16403, v17, 0)
 			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046496))))), 16412, v17, 0)

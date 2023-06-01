@@ -48,7 +48,7 @@ func nox_xxx_awardBeastGuide_4FAE80_magic_plyrgide(a1 int32, a2 int32, a3 int32)
 	}
 	if a2 <= 0 || a2 >= 41 {
 		v16 = nox_strman_loadString_40F1D0(internCStr("AwardGuideError"), nil, internCStr("C:\\NoxPost\\src\\Server\\Magic\\PlyrGide.c"), 39)
-		nox_xxx_netSendLineMessage_4D9EB0(a1, v16)
+		nox_xxx_netSendLineMessage_4D9EB0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), v16)
 		return 0
 	}
 	v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))

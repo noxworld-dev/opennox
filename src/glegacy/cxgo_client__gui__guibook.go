@@ -488,8 +488,8 @@ func nox_xxx_bookDrawFn_45C7D0(a1 *uint32) int32 {
 		sub_45D810()
 	}
 LABEL_27:
-	v23 = nox_float2int(*(*float32)(unsafe.Pointer(&dword_5d4594_1046640)))
-	v12 = nox_float2int(*(*float32)(unsafe.Pointer(&dword_5d4594_1046636)))
+	v23 = int32(*(*float32)(unsafe.Pointer(&dword_5d4594_1046640)))
+	v12 = int32(*(*float32)(unsafe.Pointer(&dword_5d4594_1046636)))
 	nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(a1)), v12, v23)
 	return 1
 }
@@ -511,10 +511,10 @@ func sub_45D870() {
 		} else {
 			v1 = 3
 		}
-		v9 = (int32(*memmap.PtrUint32(0x5D4594, 1046668)) - nox_float2int(*(*float32)(unsafe.Pointer(&dword_5d4594_1046636)))) / 50
-		v10 = (int32(*memmap.PtrUint32(0x5D4594, 1046672)) - nox_float2int(*(*float32)(unsafe.Pointer(&dword_5d4594_1046640)))) / 50
-		v3 = nox_float2int(*(*float32)(unsafe.Pointer(&dword_5d4594_1046636)))
-		v4 = nox_float2int(*(*float32)(unsafe.Pointer(&dword_5d4594_1046640)))
+		v9 = (int32(*memmap.PtrUint32(0x5D4594, 1046668)) - int32(*(*float32)(unsafe.Pointer(&dword_5d4594_1046636)))) / 50
+		v10 = (int32(*memmap.PtrUint32(0x5D4594, 1046672)) - int32(*(*float32)(unsafe.Pointer(&dword_5d4594_1046640)))) / 50
+		v3 = int32(*(*float32)(unsafe.Pointer(&dword_5d4594_1046636)))
+		v4 = int32(*(*float32)(unsafe.Pointer(&dword_5d4594_1046640)))
 		v5 = 50
 		for {
 			v8 = int8(nox_common_randomIntMinMax_415FF0(3, 4, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guibook.c"), 2483))

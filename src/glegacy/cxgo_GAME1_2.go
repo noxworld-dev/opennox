@@ -647,10 +647,10 @@ func nox_server_mapRWPolygons_428CD0(a1 int32) int32 {
 				nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v12, uint32(int32(*v11)*4))
 				sub_421040(int32(uintptr(unsafe.Pointer(v10))))
 				v13 = nox_xxx_polygonGetAngle_421030(int32(**((**uint32)(unsafe.Add(unsafe.Pointer((**uint32)(unsafe.Pointer(v10))), unsafe.Sizeof((*uint32)(nil))*27)))))
-				*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*22))) = uint32(nox_float2int(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v13))), unsafe.Sizeof(float32(0))*1)))))
-				*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*23))) = uint32(nox_float2int(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v13))), unsafe.Sizeof(float32(0))*2)))))
-				*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*24))) = uint32(nox_float2int(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v13))), unsafe.Sizeof(float32(0))*1)))))
-				v14 = nox_float2int(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v13))), unsafe.Sizeof(float32(0))*2))))
+				*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*22))) = uint32(int32(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v13))), unsafe.Sizeof(float32(0))*1)))))
+				*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*23))) = uint32(int32(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v13))), unsafe.Sizeof(float32(0))*2)))))
+				*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*24))) = uint32(int32(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v13))), unsafe.Sizeof(float32(0))*1)))))
+				v14 = int32(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v13))), unsafe.Sizeof(float32(0))*2))))
 				v15 = 1
 				v16 = int32(*v11) <= 1
 				*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*25))) = uint32(v14)
@@ -663,10 +663,10 @@ func nox_server_mapRWPolygons_428CD0(a1 int32) int32 {
 							v19 = float64(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v17))), unsafe.Sizeof(float32(0))*1))))
 							v29[0] = *((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v17))), unsafe.Sizeof(float32(0))*1)))
 							if v19 > float64(*((*int32)(unsafe.Add(unsafe.Pointer((*int32)(unsafe.Pointer(v10))), 4*24)))) {
-								*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*24))) = uint32(nox_float2int(v29[0]))
+								*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*24))) = uint32(int32(v29[0]))
 							}
 						} else {
-							*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*22))) = uint32(nox_float2int(v29[0]))
+							*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*22))) = uint32(int32(v29[0]))
 						}
 						v20 = float64(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v17))), unsafe.Sizeof(float32(0))*2))))
 						v29[0] = *((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v17))), unsafe.Sizeof(float32(0))*2)))
@@ -674,10 +674,10 @@ func nox_server_mapRWPolygons_428CD0(a1 int32) int32 {
 							v21 = float64(*((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v17))), unsafe.Sizeof(float32(0))*2))))
 							v29[0] = *((*float32)(unsafe.Add(unsafe.Pointer((*float32)(unsafe.Pointer(v17))), unsafe.Sizeof(float32(0))*2)))
 							if v21 > float64(*((*int32)(unsafe.Add(unsafe.Pointer((*int32)(unsafe.Pointer(v10))), 4*25)))) {
-								*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*25))) = uint32(nox_float2int(v29[0]))
+								*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*25))) = uint32(int32(v29[0]))
 							}
 						} else {
-							*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*23))) = uint32(nox_float2int(v29[0]))
+							*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v10))), 4*23))) = uint32(int32(v29[0]))
 						}
 						v15++
 						if v15 >= uint32(*v11) {

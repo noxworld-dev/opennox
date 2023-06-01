@@ -19,7 +19,7 @@ const (
 	FILE_ATTRIBUTE_NORMAL    = 0x80
 )
 
-func strtol(a1, a2 *byte, a3 int32) int32 {
+func strtol(a1 *byte, a2 **byte, a3 int32) int32 {
 
 }
 

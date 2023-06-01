@@ -247,8 +247,8 @@ func sub_4BA670(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32) {
 	v15 = (1.0 - v14) * float64(v8) * 2.3
 	*mem_getFloatPtr(0x5D4594, 1313868) = float32(v9 * v15)
 	*mem_getFloatPtr(0x5D4594, 1313872) = float32(v10 * v15)
-	a3a.field_0 = nox_float2int(*mem_getFloatPtr(0x5D4594, 1313868))
-	v16 = nox_float2int(*mem_getFloatPtr(0x5D4594, 1313872))
+	a3a.field_0 = int32(*mem_getFloatPtr(0x5D4594, 1313868))
+	v16 = int32(*mem_getFloatPtr(0x5D4594, 1313872))
 	a4a.field_0 = v6
 	v17 = 0
 	a3a.field_4 = v16
@@ -328,15 +328,15 @@ func nox_xxx_spriteDrawMonsterHP_4BC080(a1 *uint32, a2 int32, a3 uint16, a4 uint
 	if a2 != 0 {
 		v5 = int32(*a1 + *(*uint32)(unsafe.Pointer(uintptr(a2 + 12))) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
 		v10 = *(*float32)(unsafe.Pointer(uintptr(a2 + 48))) + *(*float32)(unsafe.Pointer(uintptr(a2 + 48)))
-		v6 = nox_float2int(v10) + v5
+		v6 = int32(v10) + v5
 		v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 16))) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - uint32(*(*int16)(unsafe.Pointer(uintptr(a2 + 104)))) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))
 		v11 = *(*float32)(unsafe.Pointer(uintptr(a2 + 100))) - *(*float32)(unsafe.Pointer(uintptr(a2 + 96)))
-		v8 = nox_float2int(v11)
+		v8 = int32(v11)
 		if v8 < 30 {
 			v8 = 30
 		}
 		v12 = *(*float32)(unsafe.Pointer(uintptr(a2 + 96))) + *(*float32)(unsafe.Pointer(uintptr(a2 + 100)))
-		v9 = v7 + nox_float2int(v12)/(-2) - v8/2
+		v9 = v7 + int32(v12)/(-2) - v8/2
 		if int32(a4) != 0 {
 			nox_client_drawSetColor_434460(int32(nox_color_black_2650656))
 			nox_client_drawRectFilledOpaque_49CE30(v6, v9, 2, v8)
@@ -1344,8 +1344,8 @@ func sub_4BEAD0(a1 *int2, a2 *int2, a3 *int2, a4 *int2, a5 int32, a6 int32) {
 			*(*float32)(unsafe.Pointer(&v40[4])) = *(*float32)(unsafe.Pointer(&v40[4])) + *(*float32)(unsafe.Pointer(&v40[5]))
 			*(*float32)(unsafe.Pointer(&v40[5])) = *(*float32)(unsafe.Pointer(&v40[6])) + *(*float32)(unsafe.Pointer(&v40[5]))
 			*(*float32)(unsafe.Pointer(&v40[6])) = *(*float32)(unsafe.Pointer(&v40[7])) + *(*float32)(unsafe.Pointer(&v40[6]))
-			v27 = nox_float2int(*(*float32)(unsafe.Pointer(&v40[0])))
-			v28 = nox_float2int(*(*float32)(unsafe.Pointer(&v40[4])))
+			v27 = int32(*(*float32)(unsafe.Pointer(&v40[0])))
+			v28 = int32(*(*float32)(unsafe.Pointer(&v40[4])))
 			nox_client_drawAddPoint_49F500(v13, v41)
 			nox_client_drawAddPoint_49F500(v27, v28)
 			nox_client_drawSetColor_434460(*memmap.PtrInt32(0x5D4594, 1316980))
@@ -1493,9 +1493,9 @@ func sub_4BEDE0(a1 *int2, a2 *int2, a3 *int2, a4 *int2, a5 int32, a6 float32, a7
 			v44 = float32(v18)
 			v37 = float32(v18 * float64(v22))
 			v19 = v43*v44 + v45*v37 + v34*v22 + v32
-			v35[0].field_0 = nox_float2int(v19)
+			v35[0].field_0 = int32(v19)
 			v20 = v30*v44 + v28*v37 + v26*v22 + v24
-			v35[0].field_4 = nox_float2int(v20)
+			v35[0].field_4 = int32(v20)
 			v39 = float32(v16)
 			v21 = v22 - v39
 			(asFuncT[func(*int2, *int2, int32)](unsafe.Pointer(uintptr(a7))))(&v35[2], &v35[0], a8)
@@ -3318,7 +3318,7 @@ func sub_4C2EF0(a1 int32) int32 {
 		v1 int32
 		v3 int32
 	)
-	v1 = int32(nox_get_thing(a1).sub_class)
+	v1 = int32(nox_get_thing(a1).ObjSubClass)
 	if v1&1 != 0 {
 		return 1
 	}
@@ -4074,7 +4074,7 @@ func nox_xxx_drawObject_4C4770_draw(a1 *int32, dr *nox_drawable, a3 int32) {
 				if v47 == 0 {
 					v47 = 1
 				}
-				v48 = nox_double2int(math.Sqrt(float64(v42*v42+v43*v43))) / v47
+				v48 = int32(math.Sqrt(float64(v42*v42+v43*v43))) / v47
 				v30 = a1a.field_0
 				v42 = v48
 				v46 = int32(*memmap.PtrUint32(0x852978, 8))
@@ -4370,9 +4370,9 @@ func nox_xxx_sprite_4CA540(a1 *uint32, a2 int32) int32 {
 	}
 	v14 = float32(v6)
 	v11 = float32(float64(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*81)))) + v3)
-	v8 = nox_float2int(v11)
+	v8 = int32(v11)
 	v12 = float32(float64(int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*82)))) + float64(v14))
-	v9 = nox_float2int(v12)
+	v9 = int32(v12)
 	if v8 > 0 && v9 > 0 && v8 < 5888 && v9 < 5888 {
 		nox_xxx_updateSpritePosition_49AA90((*nox_drawable)(unsafe.Pointer(v2)), v8, v9)
 		if sub_4992B0(int32(*a1+*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*3))-*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*4))+*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1))-*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)))) != 0 {
@@ -4547,18 +4547,18 @@ func sub_4CA960(a1 *uint32, a2 int8, a3 *float4, a4 *float2) {
 	a1a.field_4 = v4 * 23
 	switch a2 {
 	case 1:
-		v6 = nox_float2int(11.5)
+		v6 = 11
 		sub_4CAA90(&a1a, a3, a4, v6, 23)
 	case 2:
-		v5 = nox_float2int(11.5)
+		v5 = 11
 		sub_4CAC30(&a1a, a3, a4, 0, v5)
 	case 4:
-		v8 = nox_float2int(11.5)
+		v8 = 11
 		sub_4CAC30(&a1a, a3, a4, v8, 23)
 	case 6:
 		sub_4CAC30(&a1a, a3, a4, 0, 23)
 	case 8:
-		v7 = nox_float2int(11.5)
+		v7 = 11
 		sub_4CAA90(&a1a, a3, a4, 0, v7)
 	case 9:
 		sub_4CAA90(&a1a, a3, a4, 0, 23)
@@ -4592,7 +4592,7 @@ func sub_4CAA90(a1 *int2, a2 *float4, a3 *float2, a4 int32, a5 int32) {
 	v7 = float64(v5)
 	v23 = float32(v7)
 	v18 = float32(v7 + float64(v6))
-	v8 = nox_float2int(v18)
+	v8 = int32(v18)
 	if a2.field_8 == a2.field_0 {
 		v9 = float64(a2.field_8)
 		a3.field_0 = a2.field_8
@@ -4609,10 +4609,10 @@ func sub_4CAA90(a1 *int2, a2 *float4, a3 *float2, a4 int32, a5 int32) {
 			}
 			v14 = float64(v8)
 			v20 = float32(v14)
-			v15 = float64(nox_double2float((v14 - (float64(a2.field_4) - v13*float64(a2.field_0))) / (v13 + *(*float64)(unsafe.Pointer(&qword_581450_9512)))))
+			v15 = float64(float32((v14 - (float64(a2.field_4) - v13*float64(a2.field_0))) / (v13 + *(*float64)(unsafe.Pointer(&qword_581450_9512)))))
 			v16 = cmath.Modf(v15, &v21)
-			v19 = nox_double2float(v16)
-			v17 = float64(nox_double2float(v21))
+			v19 = float32(v16)
+			v17 = float64(float32(v21))
 			a3.field_0 = float32(v17)
 			if float64(v19) <= *(*float64)(unsafe.Pointer(&qword_581450_9544)) {
 				if float64(v19) < *mem_getDoublePtr(0x581450, 9968) {
@@ -4655,7 +4655,7 @@ func sub_4CAC30(a1 *int2, a2 *float4, a3 *float2, a4 int32, a5 int32) {
 	v17 = float32(float64(a1.field_0 + a4))
 	v18 = float32(float64(v6))
 	v13 = float32(float64(v5) - float64(v17))
-	v7 = nox_float2int(v13)
+	v7 = int32(v13)
 	if a2.field_8 == a2.field_0 {
 		a3.field_0 = a2.field_8
 		a3.field_4 = float32(float64(v7) + float64(a2.field_8))
@@ -4669,10 +4669,10 @@ func sub_4CAC30(a1 *int2, a2 *float4, a3 *float2, a4 int32, a5 int32) {
 		}
 		v9 = float64(v7)
 		v15 = float32(v9)
-		v10 = float64(nox_double2float((v9 - (float64(a2.field_4) - v8*float64(a2.field_0))) / (v8 - *(*float64)(unsafe.Pointer(&qword_581450_9512)))))
+		v10 = float64(float32((v9 - (float64(a2.field_4) - v8*float64(a2.field_0))) / (v8 - *(*float64)(unsafe.Pointer(&qword_581450_9512)))))
 		v11 = cmath.Modf(v10, &v16)
-		v14 = nox_double2float(v11)
-		v12 = float64(nox_double2float(v16))
+		v14 = float32(v11)
+		v12 = float64(float32(v16))
 		a3.field_0 = float32(v12)
 		if float64(v14) <= *(*float64)(unsafe.Pointer(&qword_581450_9544)) {
 			if float64(v14) < *mem_getDoublePtr(0x581450, 9968) {

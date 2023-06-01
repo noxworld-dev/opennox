@@ -46,7 +46,7 @@ func nox_xxx_abilityRewardServ_4FB9C0_ability(a1 int32, a2 int32, a3 int32) int3
 	}
 	if a2 <= 0 || a2 >= 6 {
 		v10 = nox_strman_loadString_40F1D0(internCStr("AwardAbilityError"), nil, internCStr("C:\\NoxPost\\src\\Server\\Ability\\Ability.c"), 108)
-		nox_xxx_netSendLineMessage_4D9EB0(a1, v10)
+		nox_xxx_netSendLineMessage_4D9EB0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), v10)
 		return 0
 	}
 	v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))

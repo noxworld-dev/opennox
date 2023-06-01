@@ -613,7 +613,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *nox_playerInfo, a2 int8, a3 *w
 		}
 		return 1
 	case 2:
-		if sub_4D12A0(int32(pl.playerInd)) == 0 && uint32(pl.playerInd) != nox_player_netCode_85319C && !nox_common_gameFlags_check_40A5C0(2048) {
+		if sub_4D12A0(int32(pl.PlayerInd)) == 0 && uint32(pl.PlayerInd) != nox_player_netCode_85319C && !nox_common_gameFlags_check_40A5C0(2048) {
 			nox_console_playerWhoSent_823692 = nil
 			return 1
 		}

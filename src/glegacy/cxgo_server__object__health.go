@@ -68,7 +68,7 @@ func nox_xxx_soloMonsterKillReward_4EE500_obj_health(a1 int32) {
 	v6 = nox_xxx_unitGiveXP_4EF270(v4, *(*float32)(unsafe.Pointer(uintptr(v1 + 28))))
 	if v6 > 0.0 {
 		v7 = nox_strman_loadString_40F1D0(internCStr("gainpoints"), nil, internCStr("C:\\NoxPost\\src\\Server\\Object\\health.c"), 172)
-		nox_xxx_netSendLineMessage_4D9EB0(v4, v7, uint32(int32(int64(v6))))
+		nox_xxx_netSendLineMessage_4D9EB0((*nox_object_t)(unsafe.Pointer(uintptr(v4))), v7, uint32(int32(int64(v6))))
 	}
 	return
 }

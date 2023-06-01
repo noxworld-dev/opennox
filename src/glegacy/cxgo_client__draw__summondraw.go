@@ -25,7 +25,7 @@ func nox_thing_summon_effect_draw(a1 *int32, dr *nox_drawable) int32 {
 		v16    int64
 		v17    int32
 		v18    int32
-		a2     *uint32 = &dr.field_0
+		a2     *uint32 = (*uint32)(unsafe.Pointer(dr))
 	)
 	v2 = a2
 	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3)))

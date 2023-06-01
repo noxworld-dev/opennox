@@ -484,8 +484,8 @@ func sub_461600(a1 int32) int32 {
 		v1     *int32
 		result int32
 	)
-	v1 = (*int32)(unsafe.Pointer(&array_5D4594_1049872[0]))
-	for {
+	for i := range array_5D4594_1049872 {
+		v1 = (*int32)(unsafe.Pointer(&array_5D4594_1049872[i]))
 		result = *v1
 		if *v1 != 0 {
 			for *(*uint32)(unsafe.Pointer(uintptr(result + 108))) != uint32(a1) {
@@ -497,11 +497,8 @@ func sub_461600(a1 int32) int32 {
 			return result
 		}
 	LABEL_5:
-		v1 = (*int32)(unsafe.Add(unsafe.Pointer(v1), 4*1))
-		if uintptr(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))) >= uintptr(unsafe.Pointer(&array_5D4594_1049872[9])) {
-			return 0
-		}
 	}
+	return 0
 }
 func nox_xxx_send2ServInvenFail_461630(a1 int16) int32 {
 	var v3 [3]byte
@@ -514,8 +511,8 @@ func sub_461930() int32 {
 		v0 *uint8
 		v1 int32
 	)
-	v0 = (*uint8)(unsafe.Pointer(&array_5D4594_1049872[0]))
-	for {
+	for i := range array_5D4594_1049872 {
+		v0 = (*uint8)(unsafe.Pointer(&array_5D4594_1049872[i]))
 		v1 = int32(*(*uint32)(unsafe.Pointer(v0)))
 		if *(*uint32)(unsafe.Pointer(v0)) != 0 {
 			for (*(*uint32)(unsafe.Pointer(uintptr(v1 + 112))) & 0x1001000) == 0 {
@@ -527,18 +524,15 @@ func sub_461930() int32 {
 			return 1
 		}
 	LABEL_5:
-		v0 = (*uint8)(unsafe.Add(unsafe.Pointer(v0), 4))
-		if uintptr(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v0)))))) >= uintptr(unsafe.Pointer(&array_5D4594_1049872[9])) {
-			return 0
-		}
 	}
+	return 0
 }
 func sub_461970(a1 int32, a2 int32) *int32 {
 	var (
 		v2 *int32
 		v3 int32
 	)
-	if (nox_get_thing(a2).pri_class & 0x4000000) == 0 {
+	if (nox_get_thing(a2).ObjClass & 0x4000000) == 0 {
 		v2 = (*int32)(unsafe.Pointer(&nox_client_inventory_grid_1050020[0]))
 		for {
 			{
@@ -870,16 +864,14 @@ func sub_461EF0(a1 int32) *byte {
 }
 func sub_461F90(a1 int32) int32 {
 	var (
-		v1 int32
 		v2 *uint8
 		v3 int32
 		v5 int32
 		v6 int32
 		v7 int32
 	)
-	v1 = 0
-	v2 = (*uint8)(unsafe.Pointer(&array_5D4594_1049872[0]))
-	for {
+	for i := range array_5D4594_1049872 {
+		v2 = (*uint8)(unsafe.Pointer(&array_5D4594_1049872[i]))
 		v3 = int32(*(*uint32)(unsafe.Pointer(v2)))
 		if *(*uint32)(unsafe.Pointer(v2)) != 0 {
 			for *(*uint32)(unsafe.Pointer(uintptr(v3 + 128))) != uint32(a1) {
@@ -892,7 +884,7 @@ func sub_461F90(a1 int32) int32 {
 			if v5 != 0 {
 				*(*uint32)(unsafe.Pointer(uintptr(v5 + 368))) = *(*uint32)(unsafe.Pointer(uintptr(v3 + 368)))
 			} else {
-				array_5D4594_1049872[v1] = *(*uint32)(unsafe.Pointer(uintptr(v3 + 368)))
+				array_5D4594_1049872[i] = *(*uint32)(unsafe.Pointer(uintptr(v3 + 368)))
 			}
 			v6 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 368))))
 			if v6 != 0 {
@@ -905,12 +897,8 @@ func sub_461F90(a1 int32) int32 {
 			return v3
 		}
 	LABEL_5:
-		v2 = (*uint8)(unsafe.Add(unsafe.Pointer(v2), 4))
-		v1++
-		if uintptr(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))) >= uintptr(unsafe.Pointer(&array_5D4594_1049872[9])) {
-			return 0
-		}
 	}
+	return 0
 }
 func sub_4622E0(a1 int32) int32 {
 	var (
@@ -1168,9 +1156,9 @@ func sub_4633B0(a1 int32, a2 *float32, a3 *float32) int32 {
 		if v4 != 0 {
 			if funAddr(asFuncT[func(int32, int32, int32, int32, int32, *float32) *float32](unsafe.Pointer(uintptr(v4+76)))) == funAddr(sub_4E0380) {
 				v5 = float32(float64(*a2) * float64(*(*float32)(unsafe.Pointer(uintptr(v4 + 80)))))
-				*a2 = float32(nox_float2int(v5))
+				*a2 = float32(int32(v5))
 				v6 = float32(float64(*a3) * float64(*(*float32)(unsafe.Pointer(uintptr(v4 + 80)))))
-				result = nox_float2int(v6)
+				result = int32(v6)
 				*a3 = float32(result)
 			}
 		}
@@ -2798,9 +2786,9 @@ func sub_467CD0() int32 {
 			v1 = sub_461EF0(int32(*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 1049848) + 128)))))
 			v2 = v1
 			if v1 != nil {
-				v3 = (*uint8)(unsafe.Pointer(&array_5D4594_1049872[0]))
 				*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v1)) + 132))) = 0
-				for {
+				for i := range array_5D4594_1049872 {
+					v3 = (*uint8)(unsafe.Pointer(&array_5D4594_1049872[i]))
 					v4 = int32(*(*uint32)(unsafe.Pointer(v3)))
 					if *(*uint32)(unsafe.Pointer(v3)) != 0 {
 						for *(*uint32)(unsafe.Pointer(uintptr(v4 + 128))) != *(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 1049848) + 128))) {
@@ -2816,10 +2804,6 @@ func sub_467CD0() int32 {
 						}
 					}
 				LABEL_12:
-					v3 = (*uint8)(unsafe.Add(unsafe.Pointer(v3), 4))
-					if uintptr(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))) >= uintptr(unsafe.Pointer(&array_5D4594_1049872[9])) {
-						break
-					}
 				}
 			}
 		}
@@ -3894,7 +3878,7 @@ func sub_46FFD0() uint8 {
 					v10 = sub_470CC0()
 					v24 = v10
 					v16 = float32(float64(v10) / float64(v25) * 100.0)
-					v8 = nox_float2int(v16)
+					v8 = int32(v16)
 				}
 				if v8 > 25 {
 					if v8 <= 50 {

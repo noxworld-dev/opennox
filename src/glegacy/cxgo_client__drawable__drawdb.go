@@ -60,7 +60,7 @@ func nox_parse_thing_light_penumbra(obj *nox_thing, f *nox_memfile, attr_value *
 	if deg < 0 || deg >= 180 {
 		return false
 	}
-	obj.light_penumbra = uint16(int16(int64(float64(deg)**mem_getDoublePtr(0x581450, 9560)**(*float64)(unsafe.Pointer(&qword_581450_9552)) + *(*float64)(unsafe.Pointer(&qword_581450_9544)))))
+	obj.LightPenumbra = uint16(int16(int64(float64(deg)**mem_getDoublePtr(0x581450, 9560)**(*float64)(unsafe.Pointer(&qword_581450_9552)) + *(*float64)(unsafe.Pointer(&qword_581450_9544)))))
 	return true
 }
 func nox_parse_thing_client_update(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
@@ -90,7 +90,7 @@ func nox_parse_thing_client_update(obj *nox_thing, f *nox_memfile, attr_value *b
 	if *memmap.PtrUint32(0x587000, uintptr(v5*8)+175072) == 0 {
 		return false
 	}
-	obj.client_update = *memmap.PtrUint32(0x587000, uintptr(v5*8)+175076)
+	obj.ClientUpdate = *memmap.PtrUint32(0x587000, uintptr(v5*8)+175076)
 	return true
 }
 func nox_parse_thing_pretty_image(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {

@@ -55,18 +55,18 @@ func nox_xxx_spellGrantToPlayer_4FB550(a1p *nox_object_t, a2 int32, a3 int32, a4
 	v6 = a2
 	if a2 <= 0 || a2 >= 137 {
 		v8 = nox_strman_loadString_40F1D0(internCStr("AwardSpellError"), nil, internCStr("C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c"), 339)
-		nox_xxx_netSendLineMessage_4D9EB0(a1, v8)
+		nox_xxx_netSendLineMessage_4D9EB0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), v8)
 		return 0
 	}
 	v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
 	if nox_common_gameFlags_check_40A5C0(6144) && *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 276))) + uint32(a2*4) + 3696))) == 3 || *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 276))) + uint32(a2*4) + 3696))) == 5 {
 		v8 = nox_strman_loadString_40F1D0(internCStr("MaxSpellLevel"), nil, internCStr("C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c"), 351)
-		nox_xxx_netSendLineMessage_4D9EB0(a1, v8)
+		nox_xxx_netSendLineMessage_4D9EB0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), v8)
 		return 0
 	}
 	if nox_common_gameFlags_check_40A5C0(4096) && (a2 == 34 || a2 == 134 || a2 == 45 || a2 == 46 || a2 == 47 || a2 == 48 || a2 == 49 || a2 == 117 || a2 == 118 || a2 == 119 || a2 == 120 || a2 == 121 || a2 == 122 || a2 == 123 || a2 == 124 || a2 == 125 || a2 == 19) && *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 276))) + uint32(a2*4) + 3696))) != 0 {
 		v8 = nox_strman_loadString_40F1D0(internCStr("MaxSpellLevel"), nil, internCStr("C:\\NoxPost\\src\\Server\\Magic\\plyrspel.c"), 386)
-		nox_xxx_netSendLineMessage_4D9EB0(a1, v8)
+		nox_xxx_netSendLineMessage_4D9EB0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), v8)
 		return 0
 	}
 	*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 276))) + uint32(a2*4) + 3696)))++

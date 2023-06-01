@@ -3,6 +3,7 @@ package legacy
 import (
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
@@ -193,7 +194,7 @@ func sub_445C40() {
 				if nox_xxx_checkGameFlagPause_413A50() != 1 {
 					nox_xxx_clientPlaySoundSpecial_452D80(921, 100)
 					nox_xxx_wndShowModalMB_46A8C0(nox_wnd_quitMenu_825760)
-					nox_wnd_quitMenu_825760.flags |= 8
+					nox_wnd_quitMenu_825760.Flags |= 8
 					nox_xxx_wndSetCaptureMain_46ADC0(nox_wnd_quitMenu_825760)
 					if nox_common_gameFlags_check_40A5C0(2048) {
 						v20 = nox_strman_loadString_40F1D0(internCStr("SoloSaveLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guiquit.c"), 396)
@@ -259,7 +260,8 @@ func sub_445C40() {
 		nox_xxx_windowFocus_46B500(nil)
 		nox_xxx_wndClearCaptureMain_46ADE0(nox_wnd_quitMenu_825760)
 		nox_window_set_hidden(nox_wnd_quitMenu_825760, 1)
-		nox_wnd_quitMenu_825760.flags &= -0x9
+		f := -0x9
+		nox_wnd_quitMenu_825760.Flags &= gui.StatusFlags(f)
 		sub_413A00(0)
 	}
 }

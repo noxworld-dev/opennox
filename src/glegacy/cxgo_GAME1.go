@@ -500,9 +500,9 @@ func sub_40A970() {
 	*memmap.PtrUint32(0x5D4594, 3520) = gameFrame()
 	*memmap.PtrUint32(0x5D4594, 3536) = 0
 	v3 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("SuddenDeathPlayerThreshold")))
-	*memmap.PtrUint32(0x5D4594, 3476) = uint32(nox_float2int(v3))
+	*memmap.PtrUint32(0x5D4594, 3476) = uint32(int32(v3))
 	v4 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("SuddenDeathLifeTime")))
-	*memmap.PtrUint32(0x5D4594, 1392) = uint32(nox_float2int(v4))
+	*memmap.PtrUint32(0x5D4594, 1392) = uint32(int32(v4))
 	for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(i))))))))) {
 		v1 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*920))))
 		if v1&0x100 != 0 {
@@ -833,12 +833,12 @@ func nox_xxx_tileNFromPoint_411160(a1 *float2) int32 {
 	var (
 		v12 float32 = float32((float64(a1.field_0) + 11.5) * 0.021739131)
 		v13 float32 = float32((float64(a1.field_4) + 11.5) * 0.021739131)
-		i   int32   = nox_float2int(v12)
-		j   int32   = nox_float2int(v13)
+		i   int32   = int32(v12)
+		j   int32   = int32(v13)
 		v14 float32 = float32(float64(a1.field_0) + 11.5)
 		v15 float32 = float32(float64(a1.field_4) + 11.5)
-		v4  int32   = nox_float2int(v14) % 46
-		v5  int32   = nox_float2int(v15) % 46
+		v4  int32   = int32(v14) % 46
+		v5  int32   = int32(v15) % 46
 	)
 	if i-1 <= 0 || i >= math.MaxInt8 || j-1 <= 0 || j >= math.MaxInt8 {
 		return -1
@@ -3305,7 +3305,7 @@ func sub_417F50(a1 int32) int32 {
 	v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*187)))
 	*(*uint64)(unsafe.Pointer(uintptr(v8 + 8))) = uint64(nox_platform_get_ticks())
 	v10 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("FlagballPossDuration")))
-	*(*uint32)(unsafe.Pointer(uintptr(v8 + 20))) = uint32(nox_float2int(v10))
+	*(*uint32)(unsafe.Pointer(uintptr(v8 + 20))) = uint32(int32(v10))
 	*(*float32)(unsafe.Pointer(uintptr(v8 + 24))) = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("FlagballResetVel")))
 	nox_xxx_netMarkMinimapForAll_4174B0(int32(uintptr(unsafe.Pointer(v7))), 1)
 	nox_xxx_createAt_4DAA50((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v7)))))), nil, 0.0, 0.0)

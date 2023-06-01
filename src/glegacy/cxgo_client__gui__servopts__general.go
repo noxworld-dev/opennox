@@ -91,7 +91,7 @@ func sub_4AD4B0() int32 {
 			break
 		}
 	}
-	result = nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10316).width
+	result = int32(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10316).Size().X)
 	v7 = v3 + 7
 	if v7 <= result {
 		v7 = result

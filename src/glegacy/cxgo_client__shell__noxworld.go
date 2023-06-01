@@ -63,8 +63,8 @@ func nox_game_showGameSel_4379F0() int32 {
 	}
 	if nox_wol_wnd_world_814980 != nil {
 		dword_5d4594_815044 = 0
-		nox_wnd_xxx_815040.state = nox_gui_anim_state(NOX_GUI_ANIM_IN)
-		nox_wnd_xxx_815040.fnc_done_out = sub_438330
+		nox_wnd_xxx_815040.SetState(NOX_GUI_ANIM_IN)
+		nox_wnd_xxx_815040.FncDoneOutPtr = funAddrP(sub_438330)
 		sub_43BE40(3)
 		nox_xxx_clientPlaySoundSpecial_452D80(922, 100)
 		nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&nox_wol_wnd_world_814980))))), 0)
@@ -93,18 +93,18 @@ func nox_game_showGameSel_4379F0() int32 {
 	if nox_wnd_xxx_815040 == nil {
 		return 0
 	}
-	nox_wnd_xxx_815040.field_0 = 10000
-	nox_wnd_xxx_815040.field_12 = sub_438370
-	nox_wnd_xxx_815040.fnc_done_out = sub_438330
-	dword_5d4594_814984 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10020))))
+	nox_wnd_xxx_815040.StateID = 10000
+	nox_wnd_xxx_815040.Func12Ptr = funAddrP(sub_438370)
+	nox_wnd_xxx_815040.FncDoneOutPtr = funAddrP(sub_438330)
+	dword_5d4594_814984 = unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10020))
 	dword_5d4594_814988 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10021))))
 	nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_814984)), funAddrP(sub_439D00))
 	nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_814988)), funAddrP(sub_439D00))
 	nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&dword_5d4594_814988)), funAddrP(nox_xxx_windowMultiplayerSub_439E70))
-	dword_5d4594_814996 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10011))))
+	dword_5d4594_814996 = unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10011))
 	nox_wol_wnd_gameList_815012 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10037))))
 	dword_5d4594_815004 = nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10034)
-	dword_5d4594_815000 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10033))))
+	dword_5d4594_815000 = unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10033))
 	dword_5d4594_814992 = uint32(uintptr(unsafe.Pointer(sub_489B80(*(*int32)(unsafe.Pointer(&nox_wol_wnd_world_814980))))))
 	*memmap.PtrUint32(0x5D4594, 815008) = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10001))))
 	dword_5d4594_815016 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10038))))

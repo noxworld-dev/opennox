@@ -140,7 +140,7 @@ func Get_dword_5d4594_1090120() int {
 	return int(dword_5d4594_1090120)
 }
 func Get_dword_5d4594_1090100() *gui.Window {
-	return asWindow(dword_5d4594_1090100)
+	return AsWindowP(dword_5d4594_1090100)
 }
 func Get_dword_5d4594_814624() unsafe.Pointer {
 	return dword_5d4594_814624
@@ -526,10 +526,10 @@ func Set_nox_video_tileBuf_ptr_3798796(v unsafe.Pointer) {
 func Set_nox_video_tileBuf_end_3798844(v unsafe.Pointer) {
 	nox_video_tileBuf_end_3798844 = v
 }
-func Set_func_587000_154940(v unsafe.Pointer) {
+func Set_func_587000_154940(v func(a1 *uint32, a2 int32, a3 int32) int8) {
 	func_587000_154940 = v
 }
-func Set_func_587000_154944(v unsafe.Pointer) {
+func Set_func_587000_154944(v func(a1 *uint32, a2 *uint32) int8) {
 	func_587000_154944 = v
 }
 func Set_dword_5d4594_3799452(v int) {

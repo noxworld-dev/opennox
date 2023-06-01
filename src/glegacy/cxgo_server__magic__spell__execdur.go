@@ -30,7 +30,7 @@ func sub_530A30_spell_execdur(a1 int32) int32 {
 	}
 	if nox_xxx_mapTileAllowTeleport_411A90((*float2)(unsafe.Pointer(uintptr(v1+52)))) != 0 {
 		v4 = nox_strman_loadString_40F1D0(internCStr("UnseenTarget"), nil, internCStr("C:\\NoxPost\\src\\Server\\Magic\\Spell\\ExecDur.c"), 2912)
-		nox_xxx_netSendLineMessage_4D9EB0(int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 48)))), v4)
+		nox_xxx_netSendLineMessage_4D9EB0((*nox_object_t)(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(v1 + 48)))), v4)
 		nox_xxx_aud_501960(231, (*nox_object_t)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v1 + 48)))))), 0, 0)
 		result = 1
 	} else {
@@ -45,7 +45,7 @@ func sub_530A30_spell_execdur(a1 int32) int32 {
 		if v9 == 0 || int32(uint8(int8(nox_xxx_traceRay_5374B0(&v12)))) != 0 {
 			if nox_common_gameFlags_check_40A5C0(2048) {
 				v11 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("TeleportDelay"), int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 8)))-1)))
-				*(*uint32)(unsafe.Pointer(uintptr(v1 + 68))) = gameFrame() + uint32(nox_float2int(v11))
+				*(*uint32)(unsafe.Pointer(uintptr(v1 + 68))) = gameFrame() + uint32(int32(v11))
 				result = 0
 			} else {
 				result = 0

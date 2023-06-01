@@ -2357,7 +2357,7 @@ func sub_4FB050(a1 int32, a2 int32, a3 *int32) int32 {
 	result = sub_4FB000(a1, a2)
 	if result != 0 {
 		v4 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("FieldGuideDamageBonus"))*float64(*a3) + 0.5)
-		result = nox_float2int(v4)
+		result = int32(v4)
 		*a3 = result
 	}
 	return result
@@ -3057,7 +3057,7 @@ func nox_xxx_collide_4FDF90(a1 int32, a2 int32) {
 		nox_xxx_aud_501960(135, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
 		nox_xxx_spellBuffOff_4FF5B0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 22)
 		v5 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("ShockDamage"), v2))
-		v3 = nox_float2int(v5)
+		v3 = int32(v5)
 		asFuncT[func(int32, int32, int32, int32, int32)](unsafe.Pointer(uintptr(a2+716)))(a2, a1, a1, v3, 9)
 	}
 	result = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 8))))
@@ -4980,7 +4980,7 @@ func nox_xxx_summonStart_500DA0(a1 int32) int32 {
 		v11 = nox_xxx_gamedataGetFloatTable_419D70(internCStr("SummonDuration"), 0)
 	}
 	v15 = float32(v11)
-	v12 = nox_float2int(v15)
+	v12 = int32(v15)
 LABEL_22:
 	v13 = int32(uint32(v12) + gameFrame())
 	v16 = int16(v12)
@@ -5135,7 +5135,7 @@ func nox_xxx_charmCreature1_5011F0(a1 *int32) int32 {
 	)
 	if *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) != 0 {
 		v14 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ConfuseEnchantDuration")))
-		v1 = int16(nox_float2int(v14))
+		v1 = int16(int32(v14))
 		nox_xxx_buffApplyTo_4FF380((*nox_object_t)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12))))), 3, v1, int8(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*2))))
 		sub_4E7540((*nox_object_t)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4))))), (*nox_object_t)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12))))))
 		return 1
@@ -5181,7 +5181,7 @@ func nox_xxx_charmCreature1_5011F0(a1 *int32) int32 {
 			v9 = nox_xxx_gamedataGetFloatTable_419D70(internCStr("CharmLargeDuration"), *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*2))-1)
 		}
 		v16 = float32(v9)
-		v10 = (*int32)(unsafe.Pointer(uintptr(nox_float2int(v16))))
+		v10 = (*int32)(unsafe.Pointer(uintptr(int32(v16))))
 	LABEL_20:
 		v11 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*12))
 		*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*17)) = int32(uint32(int32(uintptr(unsafe.Pointer(v10)))) + gameFrame())
@@ -5385,10 +5385,10 @@ func sub_501C00(a1 *float32, a2p *nox_object_t) int8 {
 		}
 	}
 LABEL_8:
-	v5 = nox_float2int(*a1)
+	v5 = int32(*a1)
 	v6 = *(*float32)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(float32(0))*1))
 	v9.field_0 = v5
-	v9.field_4 = nox_float2int(v6)
+	v9.field_4 = int32(v6)
 	v7 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v9, 0)
 	if v7 != nil {
 		return int8(*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v7.field_0[32]))), 2)))
@@ -5423,10 +5423,10 @@ func nox_xxx_netUpdateRemotePlr_501CA0(a1p *nox_object_t) {
 		v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 748))) + 276))))
 		v18 = int8(*(*uint8)(unsafe.Pointer(uintptr(v5 + 3668))))
 	} else {
-		v6 = nox_float2int(*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 3628))) + 56))))
+		v6 = int32(*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 3628))) + 56))))
 		v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 276))))
 		v17.field_0 = v6
-		v17.field_4 = nox_float2int(*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 3628))) + 60))))
+		v17.field_4 = int32(*(*float32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 3628))) + 60))))
 		v8 = nox_xxx_polygonIsPlayerInPolygon_4217B0(&v17, 0)
 		if v8 != nil {
 			v18 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v8.field_0[32]))), 2)))

@@ -77,7 +77,7 @@ func nox_thing_vortex_draw(a1 *int32, dr *nox_drawable) int32 {
 	*(*uint16)(unsafe.Pointer(uintptr(a2 + 104))) += uint16(*(*uint8)(unsafe.Pointer(uintptr(a2 + 451))))
 	sub_4739E0((*uint32)(unsafe.Pointer(a1)), (*int2)(unsafe.Pointer(uintptr(a2+12))), &a3)
 	v11 = float32(float64(*(*int16)(unsafe.Pointer(uintptr(a2 + 104)))) * 0.0024999999 * 50.0)
-	v9 = nox_float2int(v11)
+	v9 = int32(v11)
 	if 50-v9 <= 0 {
 		nox_xxx_spriteDeleteStatic_45A4E0_drawable(dr)
 		return 0

@@ -37,7 +37,7 @@ func sub_4EF2E0_exp_level(a1 int32) {
 		} else {
 			nox_xxx_aud_501960(902, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 2, int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 36)))))
 			v2 = nox_strman_loadString_40F1D0(internCStr("LevelUP"), nil, internCStr("C:\\NoxPost\\src\\Server\\GameMech\\explevel.c"), 253)
-			nox_xxx_netSendLineMessage_4D9EB0(a1, v2)
+			nox_xxx_netSendLineMessage_4D9EB0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), v2)
 		}
 	}
 }
@@ -51,6 +51,6 @@ func nox_xxx_plyrGiveExp_4EF3A0_exp_level(a1 int32, a2 float32) {
 	sub_56FA40(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v2 + 276))) + 4604)))), a2)
 	sub_4D81A0(a1)
 	v3 = nox_strman_loadString_40F1D0(internCStr("health.c:gainpoints"), nil, internCStr("C:\\NoxPost\\src\\Server\\GameMech\\explevel.c"), 381)
-	nox_xxx_netSendLineMessage_4D9EB0(a1, v3, uint32(int32(int64(a2))))
+	nox_xxx_netSendLineMessage_4D9EB0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), v3, uint32(int32(int64(a2))))
 	sub_4EF2E0_exp_level(a1)
 }

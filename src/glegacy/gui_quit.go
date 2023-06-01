@@ -71,5 +71,5 @@ func Sub_41CEE0(p unsafe.Pointer, a2 int) {
 }
 
 func Get_nox_xxx_menuGameOnButton_445840() unsafe.Pointer {
-	return nox_xxx_menuGameOnButton_445840
+	return funAddrP(nox_xxx_menuGameOnButton_445840)
 }

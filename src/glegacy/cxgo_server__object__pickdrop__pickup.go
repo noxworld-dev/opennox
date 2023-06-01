@@ -18,7 +18,7 @@ func nox_xxx_pickupGold_4F3A60_obj_pickup(a1 int32, a2 int32, a3 int32) int32 {
 		nox_xxx_delayedDeleteObject_4E5CC0((*nox_object_t)(unsafe.Pointer(uintptr(a2))))
 		v7 = *v3
 		v4 = nox_strman_loadString_40F1D0(internCStr("GoldPickup"), nil, internCStr("C:\\NoxPost\\src\\Server\\Object\\pickdrop\\pickup.c"), 709)
-		nox_xxx_netSendLineMessage_4D9EB0(a1, v4, v7)
+		nox_xxx_netSendLineMessage_4D9EB0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), v4, v7)
 		nox_xxx_aud_501960(307, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
 		result = 1
 	} else {

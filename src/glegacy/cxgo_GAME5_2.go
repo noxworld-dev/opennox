@@ -891,9 +891,9 @@ func nox_xxx_waypoint_5798C0() uint32 {
 		v0     *uint32
 		result uint32
 	)
-	v0 = &nox_xxx_waypointsHead_2523752.ind
 	result = 1
 	if nox_xxx_waypointsHead_2523752 != nil {
+		v0 = (*uint32)(unsafe.Pointer(nox_xxx_waypointsHead_2523752))
 		for {
 			if result <= *v0 {
 				result = *v0 + 1
@@ -1167,8 +1167,8 @@ func nox_xxx_waypointDeleteAll_579DD0() {
 		v0 *uint32
 		v1 *uint32
 	)
-	v0 = &nox_xxx_waypointsHead_2523752.ind
 	if nox_xxx_waypointsHead_2523752 != nil {
+		v0 = (*uint32)(unsafe.Pointer(nox_xxx_waypointsHead_2523752))
 		for {
 			v1 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*121)))))
 			if nox_common_gameFlags_check_40A5C0(1) {
@@ -2603,8 +2603,8 @@ func sub_57F1D0(a1 *float2) int8 {
 		v7 uint8
 	)
 	v1 = 0
-	v2 = nox_float2int(a1.field_0)
-	v7 = uint8(int8(nox_float2int(a1.field_4) % 23))
+	v2 = int32(a1.field_0)
+	v7 = uint8(int8(int32(a1.field_4) % 23))
 	v3 = float64(uint8(int8(v2 % 23)))
 	if v3 >= 11.5 {
 		v4 = float64(v7)
@@ -2636,9 +2636,9 @@ func sub_57F2A0(a1 *float2, a2 int32, a3 int32) int32 {
 		v8     float32
 	)
 	v7 = float32(float64(a1.field_0) - float64(a2*23))
-	v3 = nox_float2int(v7)
+	v3 = int32(v7)
 	v8 = float32(float64(a1.field_4) - float64(a3*23))
-	v4 = nox_float2int(v8)
+	v4 = int32(v8)
 	if v3 <= v4 {
 		*((*uint8)(unsafe.Pointer(&v4))) = uint8(int8(bool2int32(22-v3 <= v4)))
 		v6 = v4 - 1

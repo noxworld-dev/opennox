@@ -21,7 +21,7 @@ func nox_thing_door_draw(a1 *uint32, dr *nox_drawable) int32 {
 		v15 int32
 		a3  int2
 	)
-	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(dr.Field_76)), 4)))) + uint32(int32(dr.field_74_4)*4))))))
+	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(dr.Field_76)), 4)))) + uint32(int32(dr.Field_74_4)*4))))))
 	if !nox_common_gameFlags_check_40A5C0(4096) || int32(dr.field_108_1) != 1 {
 		return 1
 	}
@@ -34,7 +34,7 @@ func nox_thing_door_draw(a1 *uint32, dr *nox_drawable) int32 {
 	sub_4739E0(a1, (*int2)(unsafe.Pointer(&dr.PosVec)), &a3)
 	a3.field_0 -= 64
 	a3.field_4 -= 79
-	v2 = (*uint8)(unsafe.Pointer(sub_469920(&dr.PosVec)))
+	v2 = (*uint8)(unsafe.Pointer(sub_469920((*nox_point)(unsafe.Pointer(&dr.PosVec)))))
 	sub_4345F0(1)
 	*((*uint8)(unsafe.Pointer(&v4))) = *(*uint8)(unsafe.Add(unsafe.Pointer(v2), 8))
 	v3 = int32(*(*uint8)(unsafe.Add(unsafe.Pointer(v2), 4)))

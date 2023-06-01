@@ -23,7 +23,7 @@ func sub_44D040(i int32) int32 {
 	if obj == nil {
 		return 0
 	}
-	return int32((obj.pri_class >> 22) & 1)
+	return int32((obj.ObjClass >> 22) & 1)
 }
 func sub_44D060(a1 int32) int32 {
 	var v1 int32
@@ -333,7 +333,7 @@ func sub_44E6F0(a1 *uint32, xLeft int32) int32 {
 		v3 int32
 	)
 	*(*float32)(unsafe.Pointer(&dword_5d4594_831276)) = float32(float64(*(*float32)(unsafe.Pointer(&dword_5d4594_831276))) - sub_44E8B0())
-	v2 = nox_float2int(*(*float32)(unsafe.Pointer(&dword_5d4594_831276)))
+	v2 = int32(*(*float32)(unsafe.Pointer(&dword_5d4594_831276)))
 	nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(a1)), 0, v2)
 	nox_client_copyRect_49F6F0(*memmap.PtrInt32(0x5D4594, 831284), *memmap.PtrInt32(0x5D4594, 831288), NOX_DEFAULT_WIDTH, NOX_DEFAULT_HEIGHT)
 	if int32(*memmap.PtrUint8(0x5D4594, 832472))&1 != 0 {

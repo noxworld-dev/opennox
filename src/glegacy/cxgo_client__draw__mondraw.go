@@ -221,7 +221,7 @@ LABEL_24:
 		v18 = int32(nox_xxx_materialGetTeamColor_418D50((*nox_team_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v17))))))))
 		nox_client_drawSetColor_434460(v18)
 		v19 = int32(uint32(*v12) + *(*uint32)(unsafe.Pointer(uintptr(v2 + 12))) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v12), 4*4))))
-		v20 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 16))) + uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v12), 4*1))) - uint32(*(*int16)(unsafe.Pointer(uintptr(v2 + 104)))) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))) - uint32(nox_float2int(*(*float32)(unsafe.Pointer(uintptr(v2 + 100))))*2))
+		v20 = int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 16))) + uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v12), 4*1))) - uint32(*(*int16)(unsafe.Pointer(uintptr(v2 + 104)))) - uint32(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5))) - uint32(int32(*(*float32)(unsafe.Pointer(uintptr(v2 + 100))))*2))
 		nox_client_drawPoint_4B0BC0(v19, v20, 3)
 	}
 	nox_client_drawEnableAlpha_434560(0)

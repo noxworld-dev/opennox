@@ -238,11 +238,11 @@ func nox_thing_rain_orb_draw(a1 *uint32, dr *nox_drawable) int32 {
 		v23[2] = int16(v4)
 		v23[3] = v6
 		v20 = float32(float64(*mem_getFloatPtr(0x587000, uint32(v7*8)+194136))*150.0 + float64(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*108))))
-		v8 = int16(nox_float2int(v20))
+		v8 = int16(int32(v20))
 		v9 = float64(*mem_getFloatPtr(0x587000, uint32(v7*8)+194140)) * 150.0
 		v23[0] = v8
 		v21 = float32(v9 + float64(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*109))))
-		v10 = int16(nox_float2int(v21))
+		v10 = int16(int32(v21))
 		v11 = int32(*memmap.PtrUint32(0x5D4594, 1313700))
 		v23[1] = v10
 		if uint32(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*27))) != dword_5d4594_1313692 {
@@ -283,7 +283,7 @@ func nox_thing_particle_draw(a1 int32, dr *nox_drawable) int32 {
 	var (
 		v2 *uint32
 		v3 func(*uint32)
-		a2 *uint32 = &dr.field_0
+		a2 *uint32 = (*uint32)(unsafe.Pointer(dr))
 	)
 	v2 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*108)))))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*20)) >> 16

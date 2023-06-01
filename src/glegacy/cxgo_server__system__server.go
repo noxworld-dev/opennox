@@ -864,36 +864,36 @@ func sub_50AFA0() {
 		if (v1 & 0x80) == 0 {
 			if v1&0x800 != 0 {
 				v23 = float32(float64(*(*float32)(unsafe.Pointer(uintptr(i + 56)))) * 0.043478262)
-				v2 = nox_float2int(v23)
+				v2 = int32(v23)
 				v24 = float32(float64(*(*float32)(unsafe.Pointer(uintptr(i + 60)))) * 0.043478262)
-				v3 = nox_float2int(v24)
+				v3 = int32(v24)
 				nox_server_xxx_1599716[v3+(v2<<8)].field_8 |= 0x10
 			} else if v1&0x400 != 0 {
 				v25 = float32(float64(*(*float32)(unsafe.Pointer(uintptr(i + 56)))) * 0.043478262)
-				v4 = nox_float2int(v25)
+				v4 = int32(v25)
 				v26 = float32(float64(*(*float32)(unsafe.Pointer(uintptr(i + 60)))) * 0.043478262)
-				v5 = nox_float2int(v26)
+				v5 = int32(v26)
 				nox_server_xxx_1599716[v5+(v4<<8)].field_8 |= 0x20
 			} else if v1&0x4000 != 0 {
 				v27 = float32(float64(*(*float32)(unsafe.Pointer(uintptr(i + 56)))) * 0.043478262)
-				v6 = nox_float2int(v27)
+				v6 = int32(v27)
 				v28 = float32(float64(*(*float32)(unsafe.Pointer(uintptr(i + 60)))) * 0.043478262)
-				v7 = nox_float2int(v28)
+				v7 = int32(v28)
 				nox_server_xxx_1599716[v7+(v6<<8)].field_8 |= 0x4
 			} else if (v1 & 0x8000) == 0 {
 				if (int32(*(*uint8)(unsafe.Pointer(uintptr(i + 16)))) & 0x49) == 0 {
 					if uint32(v1)&0x400000 != 0 {
 						v31 = float32(float64(*(*float32)(unsafe.Pointer(uintptr(i + 232)))) * 0.043478262)
-						v10 = nox_float2int(v31)
+						v10 = int32(v31)
 						v11 = float64(*(*float32)(unsafe.Pointer(uintptr(i + 236)))) * 0.043478262
 						v12 = v10
 						v44 = v10
 						v32 = float32(v11)
-						v13 = nox_float2int(v32)
+						v13 = int32(v32)
 						v33 = float32(float64(*(*float32)(unsafe.Pointer(uintptr(i + 240)))) * 0.043478262)
-						v39 = nox_float2int(v33)
+						v39 = int32(v33)
 						v34 = float32(float64(*(*float32)(unsafe.Pointer(uintptr(i + 244)))) * 0.043478262)
-						v14 = nox_float2int(v34)
+						v14 = int32(v34)
 						v15 = v13
 						v40 = v14
 						for j = v13; v15 <= v14; j = v15 {
@@ -940,9 +940,9 @@ func sub_50AFA0() {
 				}
 			} else {
 				v29 = float32(float64(*(*float32)(unsafe.Pointer(uintptr(i + 56)))) * 0.043478262)
-				v8 = nox_float2int(v29)
+				v8 = int32(v29)
 				v30 = float32(float64(*(*float32)(unsafe.Pointer(uintptr(i + 60)))) * 0.043478262)
-				v9 = nox_float2int(v30)
+				v9 = int32(v30)
 				nox_server_xxx_1599716[v9+(v8<<8)].field_8 |= 0x8
 			}
 		}
@@ -951,9 +951,9 @@ func sub_50AFA0() {
 	for k = result; result != nil; k = result {
 		if sub_579EE0((*nox_waypoint_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(k)))))), 0x80) != 0 {
 			v35 = float32(float64(*(*float32)(unsafe.Add(unsafe.Pointer(k), unsafe.Sizeof(float32(0))*2))) * 0.043478262)
-			v21 = nox_float2int(v35)
+			v21 = int32(v35)
 			v36 = float32(float64(*(*float32)(unsafe.Add(unsafe.Pointer(k), unsafe.Sizeof(float32(0))*3))) * 0.043478262)
-			v22 = nox_float2int(v36)
+			v22 = int32(v36)
 			nox_server_xxx_1599716[v22+(v21<<8)].field_8 |= 0x40
 		}
 		result = (*float32)(unsafe.Pointer(uintptr(nox_xxx_waypointNext_579870(int32(uintptr(unsafe.Pointer(k)))))))
@@ -1003,7 +1003,7 @@ func sub_51A1F0(a1 int32) {
 	v1 = nox_game_getQuestStage_4E3CC0()
 	v22 = v1
 	v19 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("QuestHardcoreStage")))
-	v24 = uint32(nox_float2int(v19))
+	v24 = uint32(int32(v19))
 	if *memmap.PtrUint32(0x5D4594, 2388668) == 0 {
 		*memmap.PtrUint32(0x5D4594, 2388668) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("HecubahMarker")))
 		*memmap.PtrUint32(0x5D4594, 2388672) = uint32(nox_xxx_getNameId_4E3AA0(internCStr("NecromancerMarker")))
@@ -1079,7 +1079,7 @@ func sub_51A1F0(a1 int32) {
 	sub_51A940(0)
 	if v1 >= 5 {
 		v20 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("MinionsAlwaysStage")))
-		v13 = nox_float2int(v20)
+		v13 = int32(v20)
 		if v1 == 5 || v1 >= v13 || v1&1 != 0 && nox_common_randomInt_415FA0(1, 100) >= 50 {
 			sub_51A940(1)
 			if v23 != 0 {

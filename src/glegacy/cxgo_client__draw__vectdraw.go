@@ -8,7 +8,7 @@ import (
 
 func sub_4BC5D0(dr *nox_drawable, a2 int32) int32 {
 	var (
-		a1     *uint32 = &dr.field_0
+		a1     *uint32 = (*uint32)(unsafe.Pointer(dr))
 		result int32
 		v3     int32
 		v4     int32
@@ -42,7 +42,7 @@ func sub_4BC5D0(dr *nox_drawable, a2 int32) int32 {
 	return result
 }
 func nox_thing_vector_animate_draw(a1 *int32, dr *nox_drawable) int32 {
-	return sub_4BC6B0(a1, dr, int32(*(*uint32)(unsafe.Pointer(&dr.field_76))))
+	return sub_4BC6B0(a1, dr, int32(*(*uint32)(unsafe.Pointer(&dr.Field_76))))
 }
 func nox_things_vector_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
 	var (
@@ -55,10 +55,8 @@ func nox_things_vector_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_v
 	*v2 = 48
 	result = nox_xxx_spriteLoadVectoAnimatedImpl_44BFA0(int32(uintptr(unsafe.Pointer(v2))), f)
 	if result != 0 {
-		obj.draw_func = func(arg1 *uint32, arg2 *nox_drawable) int32 {
-			return nox_thing_vector_animate_draw((*int32)(unsafe.Pointer(arg1)), arg2)
-		}
-		obj.field_5c = unsafe.Pointer(v3)
+		obj.DrawFunc = funAddrP(nox_thing_vector_animate_draw)
+		obj.Field_5c = unsafe.Pointer(v3)
 		result = 1
 	}
 	return result != 0

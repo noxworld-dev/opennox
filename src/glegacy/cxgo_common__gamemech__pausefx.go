@@ -54,7 +54,7 @@ func sub_57AF30(a1 int32, a2 int32) {
 		}
 		nox_xxx_aud_501960(902, (*nox_object_t)(unsafe.Pointer(uintptr(v2))), 2, int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 36)))))
 		v4 = nox_strman_loadString_40F1D0(internCStr("expLevel.c:LevelUP"), nil, internCStr("C:\\NoxPost\\src\\common\\GameMech\\PauseFX.c"), 109)
-		nox_xxx_netSendLineMessage_4D9EB0(*(*int32)(unsafe.Pointer(&dword_5d4594_2523780)), v4)
+		nox_xxx_netSendLineMessage_4D9EB0((*nox_object_t)(unsafe.Pointer(uintptr(dword_5d4594_2523780))), v4)
 		v2 = int32(dword_5d4594_2523780)
 	}
 	if v2 != 0 {

@@ -147,7 +147,7 @@ func sub_44E8E0(a1 int32, a2 int32) int32 {
 	nox_xxx_drawString_43F6E0(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2 + 200))))), (*wchar2_t)(unsafe.Pointer((*int16)(unsafe.Pointer(&v57[0])))), v2-v39/2, v38+v3-240)
 	v40 = int32(*memmap.PtrUint32(0x587000, 122968) - *memmap.PtrUint32(0x587000, 122964))
 	v36 = float32(float64(v38) * 1.5)
-	v41 = nox_float2int(v36)
+	v41 = int32(v36)
 	v6 = (*uint8)(memmap.PtrOff(0x587000, 122964))
 	v43 = 0
 	v42 = 0

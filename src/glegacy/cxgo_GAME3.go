@@ -3742,8 +3742,8 @@ func sub_4ABDA0(a1 int32, a2 int16, a3 int16, a4 *uint32) int32 {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v17)), 4)
 		v9 = v11
 		*a4 += 4
-		v13[0] = nox_float2int(v9)
-		v13[1] = nox_float2int(v17)
+		v13[0] = int32(v9)
+		v13[1] = int32(v17)
 	}
 	if int32(a3) >= 10 {
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v12)), 1)
@@ -3852,8 +3852,8 @@ func nox_xxx_spriteLoadFromMap_4AC020(thingInd int32, a2 int16, a3 *uint32) int3
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v31)), 4)
 	v20 = v31
 	*v3 += 4
-	v22 = nox_float2int(v20)
-	v7 = nox_float2int(v30)
+	v22 = int32(v20)
+	v7 = int32(v30)
 	var v9 int32 = int32(uintptr(unsafe.Pointer(nox_xxx_spriteLoadAdd_45A360_drawable(thingInd, v7, v22))))
 	if v9 == 0 {
 		return 0
@@ -6291,7 +6291,7 @@ func nox_xxx_drawOtherPlayerHP_4B8EB0(a1 *uint32, dr *nox_drawable, a3 uint16, a
 	if a2 != 0 {
 		v4 = int32(*a1 + *(*uint32)(unsafe.Pointer(uintptr(a2 + 12))) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
 		v7 = *(*float32)(unsafe.Pointer(uintptr(a2 + 48))) + *(*float32)(unsafe.Pointer(uintptr(a2 + 48)))
-		v5 = nox_float2int(v7) + v4
+		v5 = int32(v7) + v4
 		v6 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 16))) + *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - uint32(*(*int16)(unsafe.Pointer(uintptr(a2 + 104)))) - *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) - 48)
 		nox_client_drawSetColor_434460(int32(nox_color_black_2650656))
 		nox_client_drawRectFilledOpaque_49CE30(v5, v6, 2, 48)
@@ -6349,5 +6349,5 @@ func sub_4B8FA0(dr *nox_drawable, a2 *int32, a3 *int32) int32 {
 	if a3 != nil {
 		*a3 = v8
 	}
-	return int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v6 + 48))) + uint32(int32(dr.field_74_2)*4) + 4))) + uint32(v8*4)))))
+	return int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v6 + 48))) + uint32(int32(dr.Field_74_2)*4) + 4))) + uint32(v8*4)))))
 }
