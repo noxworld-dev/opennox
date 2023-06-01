@@ -4175,7 +4175,7 @@ func nox_xxx_collideChest_4E9C40(a1 *uint32, a2 int32) {
 		return
 	}
 LABEL_14:
-	v6 = asFunc(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*181)), (*func(*uint32))(nil)).(func(*uint32))
+	v6 = asFuncT[func(*uint32)](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*181)))))
 	if v6 != nil {
 		v6(a1)
 	}
@@ -5654,7 +5654,7 @@ func nox_xxx_collideAnkhQuest_4EBF40(a1 int32, a2 int32) {
 		if *(*uint32)(unsafe.Pointer(uintptr(v4 + 320))) < uint32(nox_float2int(v17)) {
 			v12 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectByTypeID_4E3810(internCStr("AnkhTradable"))))
 			if v12 != nil {
-				(asFunc(*(*int32)(unsafe.Add(unsafe.Pointer(v12), 4*177)), (*func(int32, *uint32, int32, uint32))(nil)).(func(int32, *uint32, int32, uint32)))(v2, v12, 1, 0)
+				(asFuncT[func(int32, *uint32, int32, uint32)](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v12), 4*177))))))(v2, v12, 1, 0)
 			}
 			*(*uint32)(unsafe.Pointer(uintptr(a1 + 136))) = gameFrame()
 			nox_xxx_aud_501960(1004, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
@@ -6561,7 +6561,7 @@ func nox_xxx_drop_4ED790(a1p *nox_object_t, a2p *nox_object_t, a3 *float2) int32
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4)) |= 0x40
 		nox_xxx_unit_511810((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a2)))))))
 	}
-	v4 = asFunc(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*178)), (*func(int32, *uint32, *float2) int32)(nil)).(func(int32, *uint32, *float2) int32)
+	v4 = asFuncT[func(int32, *uint32, *float2) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*178)))))
 	if v4 != nil {
 		result = v4(a1, a2, a3)
 	} else {
@@ -7809,7 +7809,7 @@ func nox_xxx_playerRespawnItem_4EF750(a1p *nox_object_t, a2 *byte, a3 *int32, a4
 	v5 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectByTypeID_4E3810(a2)))
 	v6 = v5
 	if v5 != nil {
-		v7 = asFunc(*(*int32)(unsafe.Add(unsafe.Pointer(v5), 4*172)), (*func(*uint32, uint32))(nil)).(func(*uint32, uint32))
+		v7 = asFuncT[func(*uint32, uint32)](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v5), 4*172)))))
 		if v7 != nil {
 			v7(v6, 0)
 		}
@@ -11112,7 +11112,7 @@ func nox_xxx_xfer_4F3E30(a1 uint16, a2p *nox_object_t, a3 int32) int32 {
 		nox_xxx_fileCryptReadCrcMB_426C20((*uint8)(unsafe.Pointer(&v12)), 4)
 		v5 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectWithTypeInd_4E3450(int32(v4))))
 		v6 = v5
-		if v5 == nil || (asFunc(*(*int32)(unsafe.Add(unsafe.Pointer(v5), 4*176)), (*func(*uint32, uint32) int32)(nil)).(func(*uint32, uint32) int32))(v5, 0) == 0 {
+		if v5 == nil || (asFuncT[func(*uint32, uint32) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v5), 4*176))))))(v5, 0) == 0 {
 			break
 		}
 		v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 504))))

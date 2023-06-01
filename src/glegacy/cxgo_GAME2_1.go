@@ -5799,7 +5799,7 @@ func nox_xxx_sprite_4756E0_drawable(dr *nox_drawable) int32 {
 		v4     int32
 	)
 	result = 0
-	v2 = asFunc(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*75)), (*func(*int32, int32) int32)(nil)).(func(*int32, int32) int32)
+	v2 = asFuncT[func(*int32, int32) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*75)))))
 	if v2 != nil {
 		v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*30)))
 		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*28)))
@@ -5818,7 +5818,7 @@ func nox_xxx_sprite_475740_drawable(dr *nox_drawable) int32 {
 		v4     int32
 	)
 	result = 0
-	v2 = asFunc(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*75)), (*func(*int32, int32) int32)(nil)).(func(*int32, int32) int32)
+	v2 = asFuncT[func(*int32, int32) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*75)))))
 	if v2 != nil {
 		v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*30)))
 		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*28)))

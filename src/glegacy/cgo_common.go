@@ -70,10 +70,6 @@ func asFuncT[T any](h unsafe.Pointer) T {
 
 }
 
-func asFunc[T any](h int32, typ *T) any {
-	return asFuncT[T](unsafe.Pointer(uintptr(h)))
-}
-
 func memset32(x *uint32, y uint32, z uint32) {
 	arr := unsafe.Slice(x, z)
 	for i := range arr {

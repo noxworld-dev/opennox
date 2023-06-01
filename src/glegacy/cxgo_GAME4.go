@@ -863,7 +863,7 @@ func nox_xxx_XFerMonsterGen_4F7130(a1 *int32) int32 {
 					}
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v26)), 2)
 					nox_xxx_fileCryptReadCrcMB_426C20((*uint8)(unsafe.Pointer(&v32)), 4)
-					if (asFunc(*(*int32)(unsafe.Add(unsafe.Pointer(v18), 4*176)), (*func(*uint32, uint32) int32)(nil)).(func(*uint32, uint32) int32))(v18, 0) == 0 {
+					if (asFuncT[func(*uint32, uint32) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v18), 4*176))))))(v18, 0) == 0 {
 						return 0
 					}
 					v19 = func() int32 {
@@ -3541,7 +3541,7 @@ func nox_xxx_plrCastSmth_4FEDA0(a1p unsafe.Pointer) {
 		v1 = nox_xxx_spellGetAud44_424800(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)), 2)
 		nox_xxx_aud_501960(v1, (*nox_object_t)(unsafe.Pointer(uintptr(v5))), 0, 0)
 	}
-	v2 = asFunc(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*25)), (*func(*int32))(nil)).(func(*int32))
+	v2 = asFuncT[func(*int32)](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*25)))))
 	if v2 != nil {
 		v2(a1)
 	}
@@ -5807,7 +5807,7 @@ func nox_xxx_mapgenSaveMap_503830(a1 int32) int32 {
 			if v2 == nil {
 				return 0
 			}
-			if (asFunc(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*176)), (*func(*uint32, *int4) int32)(nil)).(func(*uint32, *int4) int32))(v2, &v25) == 0 {
+			if (asFuncT[func(*uint32, *int4) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v2), 4*176))))))(v2, &v25) == 0 {
 				nox_xxx_objectFreeMem_4E38A0((*nox_object_t)(unsafe.Pointer(uintptr(v3))))
 				sub_502DF0()
 				return 0

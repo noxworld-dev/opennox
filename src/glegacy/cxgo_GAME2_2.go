@@ -123,7 +123,7 @@ func sub_476AE0(vp *nox_draw_viewport_t, dr *nox_drawable) unsafe.Pointer {
 		v33     func(uint32, *uint8, int32)
 	)
 	v2 = a2
-	result2 = asFunc(*((*int32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a2))), 4*75))), (*func(*int32, int32) int32)(nil)).(func(*int32, int32) int32)
+	result2 = asFuncT[func(*int32, int32) int32](unsafe.Pointer(uintptr(*((*int32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a2))), 4*75))))))
 	if funAddr(result2) == funAddr(nox_thing_static_draw) {
 		if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a2))), 4*28)))&0x40000 != 0 && (*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a2))), 4*30)))&0x1000000) == 0 {
 			return funAddrP(result2)

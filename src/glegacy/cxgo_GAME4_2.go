@@ -10876,7 +10876,7 @@ func nox_xxx_unitPushAroundFn_52E0E0(a1 int32, a2 **int32) {
 				v11 = *(**int32)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof((*int32)(nil))*5))
 				v18 = float32(float64(v17) / v10)
 				if v11 != nil {
-					(asFunc(v11, (*func(int32, uint32, *int32))(nil)).(func(int32, uint32, *int32)))(v2, *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v16))), 4*0)), *(**int32)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof((*int32)(nil))*6)))
+					(asFuncT[func(int32, uint32, *int32)](unsafe.Pointer(uintptr(v11))))(v2, *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v16))), 4*0)), *(**int32)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof((*int32)(nil))*6)))
 				}
 				v12 = (int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 8)))) & 1) == 0
 				*(*float32)(unsafe.Pointer(uintptr(v2 + 88))) = v18*v13/v16 + *(*float32)(unsafe.Pointer(uintptr(v2 + 88)))

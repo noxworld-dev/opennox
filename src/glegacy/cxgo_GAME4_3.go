@@ -9491,7 +9491,7 @@ func sub_542BF0(a1 int32, a2 int32, a3 int32) *byte {
 					v8 = a3
 				}
 				v10 = nox_xxx_getUnitName_4E39D0((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))))
-				v11 = asFunc(nox_objectTypeGetXfer(v10), (*func(*int32) int32)(nil)).(func(*int32) int32)
+				v11 = asFuncT[func(*int32) int32](unsafe.Pointer(uintptr(nox_objectTypeGetXfer(v10))))
 				if funAddr(v11) == funAddr(nox_xxx_unitTriggerXfer_4F4E50) {
 					v12 = nox_script_objCallbackName_508CB0((*nox_object_t)(unsafe.Pointer(v4)), 1)
 					if libc.StrLen(v12) != 0 {

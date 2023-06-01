@@ -722,7 +722,7 @@ func sub_4BD9B0(a2 *uint32) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*31)) = uint32(v1)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*32)) = 0
 	sub_4864A0((*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4)))
-	v2 = asFunc(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*36)), (*func(*uint32) int32)(nil)).(func(*uint32) int32)
+	v2 = asFuncT[func(*uint32) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*36)))))
 	if v2 != nil {
 		result = v2(a2)
 	} else {
@@ -1498,7 +1498,7 @@ func sub_4BEDE0(a1 *int2, a2 *int2, a3 *int2, a4 *int2, a5 int32, a6 float32, a7
 			v35[0].field_4 = nox_float2int(v20)
 			v39 = float32(v16)
 			v21 = v22 - v39
-			(asFunc(a7, (*func(*int2, *int2, int32))(nil)).(func(*int2, *int2, int32)))(&v35[2], &v35[0], a8)
+			(asFuncT[func(*int2, *int2, int32)](unsafe.Pointer(uintptr(a7))))(&v35[2], &v35[0], a8)
 			v15--
 			v35[2].field_0 = v35[0].field_0
 			v35[2].field_4 = v35[0].field_4

@@ -74,6 +74,23 @@ func run() error {
 		changed := false
 		ast.Inspect(file, func(n ast.Node) bool {
 			switch n := n.(type) {
+			case *ast.AssignStmt:
+				for i := range n.Rhs {
+					changed = fixExpr(&n.Rhs[i]) || changed
+				}
+			case *ast.BinaryExpr:
+				changed = fixExpr(&n.X) || changed
+				changed = fixExpr(&n.Y) || changed
+			case *ast.UnaryExpr:
+				changed = fixExpr(&n.X) || changed
+			case *ast.ParenExpr:
+				changed = fixExpr(&n.X) || changed
+			case *ast.ReturnStmt:
+				for i := range n.Results {
+					changed = fixExpr(&n.Results[i]) || changed
+				}
+			case *ast.ExprStmt:
+				changed = fixExpr(&n.X) || changed
 			case *ast.CallExpr:
 				changed = fixFuncDeref(n) || changed
 				name, _ := asIdent(n.Fun)
@@ -121,6 +138,10 @@ func run() error {
 							changed = memmapFixOffset(n.Args[1]) || changed
 						}
 					}
+				}
+				changed = fixExpr(&n.Fun) || changed
+				for i := range n.Args {
+					changed = fixExpr(&n.Args[i]) || changed
 				}
 			}
 			return true
@@ -251,4 +272,28 @@ func fixFuncDeref(call *ast.CallExpr) bool {
 		Indices: []ast.Expr{typ},
 	}, Args: conv.Args}
 	return true
+}
+
+func fixExpr(p *ast.Expr) bool {
+	x := *p
+	switch x := x.(type) {
+	case *ast.TypeAssertExpr:
+		if call, ok := x.X.(*ast.CallExpr); ok {
+			name, _ := asIdent(call.Fun)
+			if name == "asFunc" {
+				*p = &ast.CallExpr{Fun: &ast.IndexListExpr{
+					X:       ast.NewIdent("asFuncT"),
+					Indices: []ast.Expr{x.Type},
+				}, Args: []ast.Expr{
+					newCall("unsafe.Pointer", newCall("uintptr", call.Args[0])),
+				}}
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func newCall(name string, args ...ast.Expr) ast.Expr {
+	return &ast.CallExpr{Fun: ast.NewIdent(name), Args: args}
 }

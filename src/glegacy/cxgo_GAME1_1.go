@@ -1208,7 +1208,7 @@ func sub_41AC30(a1p unsafe.Pointer, a2p unsafe.Pointer) int32 {
 				if v24 == nil {
 					return 0
 				}
-				if (asFunc(*(*int32)(unsafe.Add(unsafe.Pointer(v24), 4*176)), (*func(*uint32, uint32) int32)(nil)).(func(*uint32, uint32) int32))(v24, 0) == 0 {
+				if (asFuncT[func(*uint32, uint32) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v24), 4*176))))))(v24, 0) == 0 {
 					return 0
 				}
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v25), 4*14)) = 1161297920

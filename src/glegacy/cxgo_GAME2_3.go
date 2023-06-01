@@ -5292,10 +5292,10 @@ func sub_49BD70(a1p *nox_draw_viewport_t) {
 	var v2 int32 = int32(uintptr(unsafe.Pointer(nox_xxx_getSomeSprite_49BD40())))
 	for v2 != 0 {
 		var v3 int32 = nox_xxx_getSprite178_49BD50(v2)
-		v4 = asFunc(*((*int32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(uintptr(v2)))), 4*116))), (*func(int32, uint32) int32)(nil)).(func(int32, uint32) int32)
+		v4 = asFuncT[func(int32, uint32) int32](unsafe.Pointer(uintptr(*((*int32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(uintptr(v2)))), 4*116))))))
 		if v4 == nil || v4(a1, uint32(v2)) != 0 {
 			result2 = func(arg1 int32, arg2 int32) {
-				asFunc(*((*int32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(uintptr(v2)))), 4*115))), (*func(int32, int32) int32)(nil)).(func(int32, int32) int32)(arg1, arg2)
+				asFuncT[func(int32, int32) int32](unsafe.Pointer(uintptr(*((*int32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(uintptr(v2)))), 4*115))))))(arg1, arg2)
 			}
 			if result2 != nil {
 				result2(a1, v2)

@@ -652,7 +652,7 @@ func nox_xxx_interesting_xfer_4D0010(a1 *uint32, a2 int32) int32 {
 	}
 	for {
 		v4 = nox_xxx_getUnitName_4E39D0((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))))
-		v5 = asFunc(nox_objectTypeGetXfer(v4), (*func(int32) int32)(nil)).(func(int32) int32)
+		v5 = asFuncT[func(int32) int32](unsafe.Pointer(uintptr(nox_objectTypeGetXfer(v4))))
 		if funAddr(v5) == funAddr(nox_xxx_XFerElevator_4F53D0) {
 			v6 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*187)))
 			v7 = int32(uintptr(unsafe.Pointer(sub_4CFFE0(int32(*(*uint32)(unsafe.Pointer(uintptr(v6 + 8))))))))

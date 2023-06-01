@@ -6083,7 +6083,7 @@ func nox_xxx_quickBarInitWindow_4601F0(a1 int32, a2 int32, a3 int32, a4 int32, a
 		for {
 			v12 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v7 + 208)))))), 1032, v9, 15, 34, 34, funAddrP(nil))))
 			*v11 = int32(uintptr(unsafe.Pointer(v12)))
-			nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v12)), asFunc(a6, (*func(int32, int32, int32, int32) int32)(nil)).(func(int32, int32, int32, int32) int32), asFunc(a7, (*func(*nox_window, unsafe.Pointer) int32)(nil)).(func(*nox_window, unsafe.Pointer) int32), funAddrP(nil))
+			nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v12)), asFuncT[func(int32, int32, int32, int32) int32](unsafe.Pointer(uintptr(a6))), asFuncT[func(*nox_window, unsafe.Pointer) int32](unsafe.Pointer(uintptr(a7))), funAddrP(nil))
 			v13 = *v11
 			v11 = (*int32)(unsafe.Add(unsafe.Pointer(v11), 4*1))
 			v10 = (*uint8)(unsafe.Add(unsafe.Pointer(v10), 4))
