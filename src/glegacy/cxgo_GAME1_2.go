@@ -3302,7 +3302,7 @@ func nox_client_screenParticlesDraw_431720(rdr *nox_draw_viewport_t) {
 	for p := (*Nox_screenParticle)(nox_screenParticles_head); p != nil; p = p2 {
 		set_dword_5d4594_3799468(1)
 		p2 = p.Field_44
-		asFuncT[func(*nox_draw_viewport_t, *Nox_screenParticle)](uintptr(p.Draw_fnc))(rdr, p)
+		asFuncT[func(*nox_draw_viewport_t, *Nox_screenParticle)](p.Draw_fnc)(rdr, p)
 	}
 }
 func nox_xxx_getHostInfoPtr_431770() *byte {
@@ -3569,7 +3569,7 @@ func sub_4379C0() {
 	}
 }
 func sub_438330() int32 {
-	v0 := asFuncT[func() int32](uintptr(nox_wnd_xxx_815040.Func13Ptr))
+	v0 := asFuncT[func() int32](nox_wnd_xxx_815040.Func13Ptr)
 	nox_gui_freeAnimation_43C570(nox_wnd_xxx_815040)
 	if !nox_common_gameFlags_check_40A5C0(0x10000000) {
 		nox_client_guiXxx_43A9D0()

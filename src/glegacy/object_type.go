@@ -155,5 +155,5 @@ func Get_nox_xxx_XFerInvLight_4F5AA0() unsafe.Pointer {
 	return funAddrP(nox_xxx_XFerInvLight_4F5AA0)
 }
 func Nox_call_objectType_new_go(a1 unsafe.Pointer, a2 *server.Object) {
-	asFuncT[func(*nox_object_t)](uintptr(a1))(asObjectC(a2))
+	asFuncT[func(*nox_object_t)](a1)(asObjectC(a2))
 }

@@ -1436,7 +1436,7 @@ func sub_4A4970() int32 {
 	return 1
 }
 func sub_4A49A0() int32 {
-	v0 := asFuncT[func() int32](uintptr(nox_wnd_xxx_1307732.Func13Ptr))
+	v0 := asFuncT[func() int32](nox_wnd_xxx_1307732.Func13Ptr)
 	nox_gui_freeAnimation_43C570(nox_wnd_xxx_1307732)
 	nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))))
 	v0()
@@ -1866,7 +1866,7 @@ func sub_4A6B50(a1 *wchar2_t) int32 {
 	return v2
 }
 func sub_4A6C90() int32 {
-	v0 := asFuncT[func() int32](uintptr(nox_wnd_xxx_1308092.Func13Ptr))
+	v0 := asFuncT[func() int32](nox_wnd_xxx_1308092.Func13Ptr)
 	nox_gui_freeAnimation_43C570(nox_wnd_xxx_1308092)
 	nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308084)))))
 	nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308088)))))
@@ -3598,7 +3598,7 @@ func sub_4AABE0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 	return result
 }
 func sub_4AB0C0() int32 {
-	v0 := asFuncT[func() int32](uintptr(nox_wnd_xxx_1309740.Func13Ptr))
+	v0 := asFuncT[func() int32](nox_wnd_xxx_1309740.Func13Ptr)
 	nox_gui_freeAnimation_43C570(nox_wnd_xxx_1309740)
 	nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309720)))))
 	v0()

@@ -84,7 +84,7 @@ func nox_drawable_link_thing(a1c *nox_drawable, i int32) int32 {
 func wrapClientThingFuncC(fnc unsafe.Pointer) client.ThingFieldFunc {
 	return func(typ *client.ObjectType, f *binfile.MemFile, str string, buf []byte) error {
 		StrNCopyBytes(buf, str)
-		if !asFuncT[func(*nox_thing, *nox_memfile, unsafe.Pointer) bool](uintptr(fnc))((*nox_thing)(typ.C()), (*nox_memfile)(f.C()), unsafe.Pointer(&buf[0])) {
+		if !asFuncT[func(*nox_thing, *nox_memfile, unsafe.Pointer) bool](fnc)((*nox_thing)(typ.C()), (*nox_memfile)(f.C()), unsafe.Pointer(&buf[0])) {
 			return fmt.Errorf("failed to parse %q", str)
 		}
 		return nil

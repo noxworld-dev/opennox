@@ -78,6 +78,15 @@ func run() error {
 				changed = fixFuncDeref(n) || changed
 				name, _ := asIdent(n.Fun)
 				switch name {
+				case "asFuncT":
+					if len(n.Args) == 1 {
+						if conv, ok := n.Args[0].(*ast.CallExpr); ok && len(conv.Args) == 1 {
+							if typ, _ := asIdent(conv.Fun); typ == "uintptr" {
+								n.Args[0] = conv.Args[0]
+								changed = true
+							}
+						}
+					}
 				case "nox_window_new":
 					if len(n.Args) == 7 {
 						changed = fixFuncRef(&n.Args[6]) || changed
@@ -130,6 +139,12 @@ func asIdent(n ast.Node) (string, bool) {
 			return "", false
 		}
 		return pre + "." + n.Sel.Name, true
+	case *ast.ParenExpr:
+		return asIdent(n.X)
+	case *ast.IndexListExpr:
+		return asIdent(n.X)
+	case *ast.IndexExpr:
+		return asIdent(n.X)
 	default:
 		return "", false
 	}

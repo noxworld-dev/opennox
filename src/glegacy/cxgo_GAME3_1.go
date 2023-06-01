@@ -4963,7 +4963,7 @@ func sub_4CBB70() int32 {
 	return 1
 }
 func sub_4CBBB0() int32 {
-	v0 := asFuncT[func() int32](uintptr(nox_wnd_xxx_1522608.Func13Ptr))
+	v0 := asFuncT[func() int32](nox_wnd_xxx_1522608.Func13Ptr)
 	nox_gui_freeAnimation_43C570(nox_wnd_xxx_1522608)
 	nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1522604)))))
 	nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1522612)))))

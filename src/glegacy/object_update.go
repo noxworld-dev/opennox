@@ -151,7 +151,7 @@ func Sub_4E4100() uint32 {
 func Nox_call_objectType_parseUpdate_go(a1 unsafe.Pointer, a2 string, a3 unsafe.Pointer) int {
 	cstr := CString(a2)
 	defer StrFree(cstr)
-	return int(asFuncT[func(*byte, unsafe.Pointer) int32](uintptr(a1))(cstr, a3))
+	return int(asFuncT[func(*byte, unsafe.Pointer) int32](a1)(cstr, a3))
 }
 func Nox_xxx_questCheckSecretArea_421C70(a1 *server.Object) {
 	nox_xxx_questCheckSecretArea_421C70(asObjectC(a1))
