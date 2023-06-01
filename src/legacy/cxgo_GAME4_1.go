@@ -1183,14 +1183,14 @@ func nox_xxx_pathFind_50BA00(a1 int32, a2 int32, a3 *float32, a4 *float32, a5 fu
 	v14 = v11
 	v66 = 0
 	nox_server_xxx_1599716[int32(v13)+(int32(v12)<<8)].field_0 = dword_5d4594_2386160
-	for 2 != 0 {
+	for {
 		v15 = v14
 		v14 = nil
 		v77 = nil
 		if v15 == nil {
 			goto LABEL_40
 		}
-		for 2 != 0 {
+		for {
 			v16 = int32(*v15)
 			v17 = int32(*(*uint16)(unsafe.Add(unsafe.Pointer(v15), unsafe.Sizeof(uint16(0))*1)))
 			v18 = (int32(uint16(int16(v16)))-v73)*(int32(uint16(int16(v16)))-v73) + (int32(uint16(int16(v17)))-v74)*(int32(uint16(int16(v17)))-v74)

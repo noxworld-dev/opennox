@@ -27,7 +27,7 @@ func nox_game_showSelColor_4A5D00() int32 {
 	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("SelColor.wnd"), ccall.FuncAddr(sub_4A7330)))))
 	dword_5d4594_1308084 = uint32(result)
 	if result != 0 {
-		nox_xxx_wndSetWindowProc_46B300(result, ccall.FuncAddr(sub_4A18E0))
+		nox_xxx_wndSetWindowProc_46B300((*nox_window)(unsafe.Pointer(uintptr(result))), sub_4A18E0)
 		result = int32(uintptr(unsafe.Pointer(nox_gui_makeAnimation_43C5B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308084)))), 0, 0, 0, -440, 0, 20, 0, -40))))
 		nox_wnd_xxx_1308092 = (*nox_gui_animation)(unsafe.Pointer(uintptr(result)))
 		if result != 0 {
@@ -37,24 +37,24 @@ func nox_game_showSelColor_4A5D00() int32 {
 			sub_4A5E90()
 			for i = 720; i <= 729; i++ {
 				v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308084)))), i)))
-				nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v3))), ccall.FuncAddr(sub_4A6D20))
+				nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v3)), ccall.FuncAddr(sub_4A6D20))
 			}
 			for j = 761; j <= 792; j++ {
 				v5 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308084)))), j)))
-				nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v5))), ccall.FuncAddr(sub_4A6D20))
+				nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v5)), ccall.FuncAddr(sub_4A6D20))
 			}
 			if dword_587000_171388 != 0 {
 				v6 = nox_strman_loadString_40F1D0(internCStr("DefaultName"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\SelColor.c"), 1138)
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1308152))))), 16414, int32(uintptr(unsafe.Pointer(v6))), 0)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1308152))))), 16414, uintptr(unsafe.Pointer(v6)), 0)
 			}
 			nox_xxx_wndRetNULL_46A8A0()
 			dword_5d4594_1308088 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308084)))), 760))))
-			nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&dword_5d4594_1308088)), ccall.FuncAddr(sub_4A7330))
-			nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_1308088)), ccall.FuncAddr(sub_4A7270))
+			nox_xxx_wndSetProc_46B2C0(*(**nox_window)(unsafe.Pointer(&dword_5d4594_1308088)), sub_4A7330)
+			nox_xxx_wndSetWindowProc_46B300(*(**nox_window)(unsafe.Pointer(&dword_5d4594_1308088)), sub_4A7270)
 			sub_46B120((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308088)))), nil)
 			sub_4BFAD0()
 			v7 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308084)))), 740)))
-			nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v7))), ccall.FuncAddr(sub_4A6DC0))
+			nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v7)), ccall.FuncAddr(sub_4A6DC0))
 			result = 1
 		}
 	}

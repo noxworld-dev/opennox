@@ -170,7 +170,7 @@ func sub_48D120() int32 {
 	v1 = (*int32)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197316))))), 16404, 0, 0))))
 	v2 = v1
 	for i = *v1; i != -1; v2 = (*int32)(unsafe.Add(unsafe.Pointer(v2), 4*1)) {
-		v4 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197316))))), 16406, i, 0))))
+		v4 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1197316))))), 16406, uintptr(i), 0))))
 		if v4 != nil {
 			nox_wcscpy((*wchar2_t)(memmap.PtrOff(0x5D4594, uintptr(dword_5d4594_1197324)*56+1193720)), v4)
 			dword_5d4594_1197324++
@@ -5538,7 +5538,7 @@ func sub_49CA60(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
 				sub_459D80(0)
 			}
 			v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1305684)))), 10352)))
-			v5 = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))), 16404, 0, 0)
+			v5 = int32(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))), 16404, 0, 0))
 			nox_server_connectionType_3596 = uint32(v5 + 1)
 			v6 = sub_40A710(v5 + 1)
 			nox_xxx_rateUpdate_40A6D0(v6)

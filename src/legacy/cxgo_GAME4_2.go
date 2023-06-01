@@ -10298,7 +10298,7 @@ func nox_xxx_castFist_52D3C0(a1 int32, a2 int32, a3 int32, a4 int32, a5 int32, a
 	}
 	v6 = int32(*(*uint32)(unsafe.Pointer(uintptr(a3 + 516))))
 	if v6 != 0 {
-		for 2 != 0 {
+		for {
 			v7 = (*uint8)(memmap.PtrOff(0x5D4594, 2487740))
 			for {
 				if uint32(*(*uint16)(unsafe.Pointer(uintptr(v6 + 4)))) == *(*uint32)(unsafe.Pointer(v7)) {
@@ -10398,7 +10398,7 @@ func nox_xxx_spellCastCleansingFlame_52D5C0(a1 int32, a2p *nox_object_t, a3p *no
 	if a2 != 0 {
 		v6 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 516))))
 		if v6 != 0 {
-			for 2 != 0 {
+			for {
 				v7 = (*uint8)(memmap.PtrOff(0x5D4594, 2487760))
 				for {
 					if uint32(*(*uint16)(unsafe.Pointer(uintptr(v6 + 4)))) == *(*uint32)(unsafe.Pointer(v7)) {

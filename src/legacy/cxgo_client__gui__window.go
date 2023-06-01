@@ -77,7 +77,7 @@ func sub_46AB20(a1 *uint32, a2 int32, a3 int32) int32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*2)) = uint32(a2)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*3)) = uint32(a3)
 	*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*7)) = uint32(v4)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 16388, a2, a3)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))), 16388, uintptr(a2), uintptr(a3))
 	return 0
 }
 func nox_window_get_size(win *nox_window, outW *int32, outH *int32) int32 {

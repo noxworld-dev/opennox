@@ -34,7 +34,7 @@ func AsFunc[T any](h unsafe.Pointer) T {
 	}
 	r, ok := funcs[h]
 	if !ok {
-		panic("not found")
+		panic("function reference not found; check call site")
 	}
 	fnc, ok := r.Func.(T)
 	if !ok {

@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	fDir = flag.String("dir", "./glegacy", "source directory")
+	fDir = flag.String("dir", "./legacy", "source directory")
 )
 
 func main() {
@@ -106,17 +106,27 @@ func run() error {
 					}
 				case "nox_window_new":
 					if len(n.Args) == 7 {
-						changed = fixFuncRef(&n.Args[6]) || changed
+						changed = fixFuncIdent(&n.Args[6]) || changed
 					}
-				case "nox_xxx_wndSetDrawFn_46B340", "nox_xxx_wndSetProc_46B2C0", "nox_xxx_wndSetWindowProc_46B300":
+				case "nox_xxx_wndSetDrawFn_46B340":
 					if len(n.Args) == 2 {
 						changed = fixFuncRef(&n.Args[1]) || changed
 					}
+				case "nox_xxx_wndSetProc_46B2C0", "nox_xxx_wndSetWindowProc_46B300":
+					if len(n.Args) == 2 {
+						changed = fixFuncIdent(&n.Args[1]) || changed
+					}
 				case "nox_window_set_all_funcs":
 					if len(n.Args) == 4 {
-						changed = fixFuncRef(&n.Args[1]) || changed
+						changed = fixFuncIdent(&n.Args[1]) || changed
 						changed = fixFuncRef(&n.Args[2]) || changed
 						changed = fixFuncRef(&n.Args[3]) || changed
+					}
+				case "nox_window_call_field_94_fnc":
+					if len(n.Args) == 4 {
+						changed = fixUptr(&n.Args[1]) || changed
+						changed = fixUptr(&n.Args[2]) || changed
+						changed = fixUptr(&n.Args[3]) || changed
 					}
 				case "unsafe.Pointer":
 					if len(n.Args) == 1 {
@@ -242,6 +252,98 @@ func fixFuncRef(p *ast.Expr) bool {
 		}
 		*p = &ast.CallExpr{Fun: ast.NewIdent("funAddrP"), Args: []ast.Expr{call.Fun}}
 		return true
+	}
+}
+
+func fixFuncIdent(p *ast.Expr) bool {
+	x := *p
+	switch x := x.(type) {
+	default:
+		return false
+	case *ast.CallExpr:
+		if len(x.Args) == 1 {
+			name, _ := asIdent(x.Fun)
+			if name == "ccall.FuncAddr" {
+				*p = x.Args[0]
+				return true
+			}
+		}
+		return false
+	case *ast.FuncLit:
+		if len(x.Body.List) != 1 {
+			return false
+		}
+		st := x.Body.List[0]
+		var ce ast.Expr
+		switch st := st.(type) {
+		case *ast.ReturnStmt:
+			ce = st.Results[0]
+		case *ast.ExprStmt:
+			ce = st.X
+		default:
+			return false
+		}
+		call, ok := ce.(*ast.CallExpr)
+		if !ok {
+			return false
+		}
+		*p = call.Fun
+		return true
+	}
+}
+
+func fixUptr(p *ast.Expr) bool {
+	x := *p
+	switch x := x.(type) {
+	case *ast.Ident:
+		if x.Name == "nil" {
+			*p = ast.NewIdent("0")
+			return true
+		}
+		*p = newCall("uintptr", x)
+		return true
+	case *ast.BinaryExpr:
+		*p = newCall("uintptr", x)
+		return true
+	case *ast.CallExpr:
+		if len(x.Args) == 1 {
+			name, _ := asIdent(x.Fun)
+			switch name {
+			case "uintptr":
+				return false
+			case "int32", "uint32", "int", "uint":
+				*p = x.Args[0]
+				fixUptr(p)
+				return true
+			}
+		}
+		return false
+	case *ast.StarExpr:
+		if conv, ok := x.X.(*ast.CallExpr); ok && len(conv.Args) == 1 {
+			typ := conv.Fun
+			if t, ok := typ.(*ast.ParenExpr); ok {
+				typ = t.X
+			}
+			if ptr, ok := typ.(*ast.StarExpr); ok {
+				tname, _ := asIdent(ptr.X)
+				switch tname {
+				case "int32", "uint32", "int", "uint":
+					*p = newCall("uintptr", x)
+					return true
+				}
+			}
+		}
+		return false
+	case *ast.UnaryExpr:
+		if x.Op == token.SUB {
+			if v, ok := x.X.(*ast.BasicLit); ok && v.Value == "1" {
+				*p = ast.NewIdent("math.MaxUint32")
+				return true
+			}
+		}
+		return false
+	default:
+		return false
 	}
 }
 

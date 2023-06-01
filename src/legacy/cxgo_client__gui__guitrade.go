@@ -36,7 +36,7 @@ func sub_4C09D0() int32 {
 	if v0 == nil {
 		return 0
 	}
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v0)), ccall.FuncAddr(sub_4C0630), ccall.FuncAddr(sub_4C0D00), nil)
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v0)), sub_4C0630, ccall.FuncAddr(sub_4C0D00), nil)
 	v2 = nox_strman_loadString_40F1D0(internCStr("TradeMain"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUITrade.c"), 692)
 	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(dword_5d4594_1320940+36))), v2)
 	v3 = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1320940)))), 3702)))
@@ -134,7 +134,7 @@ func sub_4C15D0(a1 int32) int32 {
 	v12 = nil
 	if dword_5d4594_1320964 != 0 {
 		v3 = (*uint8)(memmap.PtrOff(0x5D4594, 1319284))
-		for 2 != 0 {
+		for {
 			v4 = 0
 			v5 = int32(uintptr(unsafe.Pointer(v3)))
 			for {
@@ -157,7 +157,7 @@ func sub_4C15D0(a1 int32) int32 {
 		}
 		v7 = 0
 		v8 = (*uint8)(memmap.PtrOff(0x5D4594, 1320308))
-		for 2 != 0 {
+		for {
 			v9 = 0
 			v10 = int32(uintptr(unsafe.Pointer(v8)))
 			for {

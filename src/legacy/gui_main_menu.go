@@ -39,9 +39,8 @@ func sub_43BE40(a1 int32) { Sub_43BE40(int(a1)) }
 // sub_43BE30
 func sub_43BE30() int32 { return int32(Sub_43BE30()) }
 
-// sub_4A18E0
-func sub_4A18E0(a1 unsafe.Pointer, a2, a3, a4 int32) int32 {
-	return int32(Sub_4A18E0(AsWindowP(a1), int(a2), int(a3), int(a4)))
+func sub_4A18E0(a1 *nox_window, a2, a3, a4 uintptr) uintptr {
+	return uintptr(Sub_4A18E0(a1, int(a2), int(a3), int(a4)))
 }
 
 // nox_client_drawGeneralCallback_4A2200

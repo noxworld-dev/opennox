@@ -142,7 +142,7 @@ func sub_478BC0(a1 *int32) *wchar2_t {
 	}
 	return result
 }
-func nox_xxx_cliStartShopDlg_478FD0(a1 *wchar2_t, a2 *byte, a3 int32) int32 {
+func nox_xxx_cliStartShopDlg_478FD0(a1 *wchar2_t, a2 *byte, a3 int32) {
 	var v3 *uint32
 	v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1098576)))), 3810)))
 	sub_445C20()
@@ -171,7 +171,7 @@ func nox_xxx_cliStartShopDlg_478FD0(a1 *wchar2_t, a2 *byte, a3 int32) int32 {
 		nox_xxx_playDialogFile_44D900((*byte)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1098608)))), 100)
 	}
 	dword_5d4594_1107036 = 0
-	return nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098580))))), 16394, *(*int32)(unsafe.Pointer(&dword_5d4594_1098592)), 0)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098580))))), 16394, uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1098592))), 0)
 }
 func sub_479520(a1 int32) {
 	var (

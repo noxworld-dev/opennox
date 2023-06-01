@@ -113,7 +113,7 @@ func sub_4A2610(a1 int32, a2 *uint32, a3 *int32) int32 {
 					nox_sprintAddrPort_43BC80((*byte)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v11))+12))), *(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v11)) + 109))), &v16[0])
 				}
 				nox_swprintf(&v17[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S   %dms"))), &v16[0], *(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(v11)) + 96))))
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v7)))))), 16397, int32(uintptr(unsafe.Pointer(&v17[0]))), -1)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v7)))))), 16397, uintptr(unsafe.Pointer(&v17[0])), math.MaxUint32)
 				v10++
 				v11 = (*uint8)(unsafe.Add(unsafe.Pointer(v11), 4))
 				if v10 >= *(*int32)(unsafe.Pointer(&dword_5d4594_1307720)) {
@@ -164,13 +164,14 @@ func sub_4A28C0(a1 int32) int32 {
 	}
 	return result
 }
-func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32, a4 int32) int32 {
+func nox_xxx_wndListboxProcWithoutData10_4A28E0(win *nox_window, a2, p3, p4 uintptr) uintptr {
 	var (
-		v4     *uint32
-		v5     int32
-		result int32
+		a1 = (*uint32)(win.C())
+		a3 = uint32(p3)
+		a4 = int32(p4)
+		v4 *uint32
+		v5 int32
 	)
-	_ = result
 	var v7 int32
 	var v8 int32
 	var v9 int32
@@ -204,7 +205,7 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 		v15 = 0
 		*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))) = 4294967294
 		v16 = 0
-		for 2 != 0 {
+		for {
 			if v16 > 0 && *(*int32)(unsafe.Pointer(uintptr(uint32(v16) + *(*uint32)(unsafe.Pointer(uintptr(v5 + 24))) - 524))) > int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 52))))+int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54)))) || v15 == int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 44)))) {
 				*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))) = math.MaxUint32
 			} else if *(*int32)(unsafe.Pointer(uintptr(uint32(v16) + *(*uint32)(unsafe.Pointer(uintptr(v5 + 24)))))) <= int32(v13+uint32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54))))-uint32(a4)) {
@@ -226,12 +227,12 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 				*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))) = v17
 			}
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, uintptr(unsafe.Pointer(v4)), uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
 		return 1
 	case 8:
 		v22 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*11)))
 		if v22&0x100 != 0 {
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 0x4000, int32(uintptr(unsafe.Pointer(a1))), 0)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 0x4000, uintptr(unsafe.Pointer(a1)), 0)
 		}
 		return 1
 	case 10, 11:
@@ -245,14 +246,14 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 		v21 = 0
 		for (v21 <= 0 || *(*uint32)(unsafe.Pointer(uintptr(uint32(v21) + *(*uint32)(unsafe.Pointer(uintptr(v5 + 24))) - 524))) <= uint32(int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 52))))+int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54)))))) && v20 != int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 44)))) {
 			if *(*uint32)(unsafe.Pointer(uintptr(uint32(v21) + *(*uint32)(unsafe.Pointer(uintptr(v5 + 24)))))) > uint32(int32(v18+uint32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54))))-uint32(a4))) {
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16401, int32(uintptr(unsafe.Pointer(v4))), v20)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16401, uintptr(unsafe.Pointer(v4)), uintptr(v20))
 				return 1
 			}
 			v20++
 			v21 += 524
 		}
 		v20 = -1
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16401, int32(uintptr(unsafe.Pointer(v4))), v20)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16401, uintptr(unsafe.Pointer(v4)), uintptr(v20))
 		return 1
 	case 19:
 		v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))))
@@ -266,7 +267,7 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 				nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(v4))), -1, 1)
 			}
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, uintptr(unsafe.Pointer(v4)), uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
 		return 1
 	case 20:
 		v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))))
@@ -281,7 +282,7 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 				nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(v4))), 1, 1)
 			}
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, uintptr(unsafe.Pointer(v4)), uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
 		return 1
 	case 21:
 		switch a3 {
@@ -295,7 +296,7 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 			if a4 != 1 {
 				return 1
 			}
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(a1))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 16400, uintptr(unsafe.Pointer(a1)), uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
 			return 1
 		case 0xC8:
 			if a4 != 2 {
@@ -312,7 +313,7 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 					nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(v4))), -1, 1)
 				}
 			}
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, uintptr(unsafe.Pointer(v4)), uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
 			return 1
 		case 0xCB:
 			if a4 != 2 {
@@ -336,7 +337,7 @@ func nox_xxx_wndListboxProcWithoutData10_4A28E0(a1 *uint32, a2 int32, a3 uint32,
 					nox_xxx_wndListBox_4A2D10(int32(uintptr(unsafe.Pointer(v4))), 1, 1)
 				}
 			}
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, int32(uintptr(unsafe.Pointer(v4))), int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*13))))), 16400, uintptr(unsafe.Pointer(v4)), uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48)))))
 			return 1
 		default:
 			return 0
@@ -380,13 +381,15 @@ func nox_xxx_wndListBox_4A2D10(a1 int32, a2 int32, a3 int32) int32 {
 		}
 		*(*float32)(unsafe.Pointer(uintptr(result + 8))) = float32(float64(int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 36))) + 12)))-*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 36))) + 400))) + 12))))) / float64(*(*int32)(unsafe.Pointer(uintptr(result + 4)))))
 		if a3 != 0 {
-			result = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 36)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(result + 4)))-uint32(*(*int16)(unsafe.Pointer(uintptr(v3 + 54))))), 0)
+			result = int32(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v3 + 36)))))), 16394, uintptr(*(*uint32)(unsafe.Pointer(uintptr(result + 4)))-uint32(*(*int16)(unsafe.Pointer(uintptr(v3 + 54))))), 0))
 		}
 	}
 	return result
 }
-func nox_xxx_wndListboxProcWithData10_4A2DE0(a1 int32, a2 int32, a3 uint32, a4 int32) int32 {
+func nox_xxx_wndListboxProcWithData10_4A2DE0(win *nox_window, a2, p3, a4 uintptr) uintptr {
 	var (
+		a1     = int32(uintptr(win.C()))
+		a3     = uint32(p3)
 		v4     int32
 		v5     int32
 		result int32
@@ -424,7 +427,7 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(a1 int32, a2 int32, a3 uint32, a4 i
 		}
 		v10 = 0
 		v11 = 0
-		for 2 != 0 {
+		for {
 			if v11 > 0 {
 				if *(*uint32)(unsafe.Pointer(uintptr(uint32(v11) + *(*uint32)(unsafe.Pointer(uintptr(v5 + 24))) - 524))) > uint32(int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 52))))+int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54))))) {
 					v10 = -1
@@ -453,7 +456,7 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(a1 int32, a2 int32, a3 uint32, a4 i
 			for {
 				if v14 == v10 {
 					sub_4A3090((*int16)(unsafe.Pointer(uintptr(v5))), v13)
-					nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16400, v4, v10)
+					nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16400, uintptr(v4), uintptr(v10))
 					return 1
 				}
 				v14 = int32(*(*uint32)(unsafe.Pointer(uintptr(v15 + 4))))
@@ -466,12 +469,12 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(a1 int32, a2 int32, a3 uint32, a4 i
 		}
 		*(*int32)(unsafe.Add(unsafe.Pointer(v12), 4*uintptr(v13))) = v10
 		*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 48))) + uint32(v13*4) + 4))) = math.MaxUint32
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16400, v4, v10)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16400, uintptr(v4), uintptr(v10))
 		return 1
 	case 8:
 		v21 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))))
 		if v21&0x100 != 0 {
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 0x4000, a1, 0)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 0x4000, uintptr(a1), 0)
 		}
 		return 1
 	case 10, 11:
@@ -490,7 +493,7 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(a1 int32, a2 int32, a3 uint32, a4 i
 			if v20 > 0 {
 				if *(*uint32)(unsafe.Pointer(uintptr(uint32(v20) + *(*uint32)(unsafe.Pointer(uintptr(v5 + 24))) - 524))) > uint32(int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 52))))+int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54))))) {
 					v19 = -1
-					nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16401, a1, v19)
+					nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16401, uintptr(a1), uintptr(v19))
 					return 1
 				}
 				v4 = a1
@@ -502,12 +505,12 @@ func nox_xxx_wndListboxProcWithData10_4A2DE0(a1 int32, a2 int32, a3 uint32, a4 i
 					v20 += 524
 					continue
 				}
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16401, a1, v19)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16401, uintptr(a1), uintptr(v19))
 				return 1
 			}
 			break
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16401, v4, -1)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16401, uintptr(v4), math.MaxUint32)
 		return 1
 	case 19:
 		if *(*uint32)(unsafe.Pointer(uintptr(v5 + 28))) == 0 || int32(*(*int16)(unsafe.Pointer(uintptr(v5 + 54)))) <= 0 {
@@ -541,7 +544,7 @@ func sub_4A3090(a1 *int16, a2 int32) *int16 {
 	*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a1))), 4*12))) + uint32(int32(*a1)*4) - 4))) = math.MaxUint32
 	return result
 }
-func nox_xxx_wndListboxProcPre_4A30D0(win *nox_window, ev uint32, a3 uint32, a4 int32) int32 {
+func nox_xxx_wndListboxProcPre_4A30D0(win *nox_window, ev, a3, a4 uintptr) uintptr {
 	var (
 		v9    *uint32
 		v10   *uint32
@@ -610,7 +613,7 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *nox_window, ev uint32, a3 uint32, a4 
 			v38 = int32(sdata.field_13_1)
 			sdata.field_12 = (*uint32)(unsafe.Pointer(uintptr(ind)))
 			if *(*uint32)(unsafe.Pointer(uintptr(v37))) < uint32(v38) {
-				nox_window_call_field_94_fnc(win, 16412, ind, 0)
+				nox_window_call_field_94_fnc(win, 16412, uintptr(ind), 0)
 				return 0
 			}
 			v39 = int16(sdata.field_13_0)
@@ -625,7 +628,7 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *nox_window, ev uint32, a3 uint32, a4 
 			}
 			return 0
 		case 0x4014:
-			return int32(uintptr(unsafe.Pointer(sdata.field_12)))
+			return uintptr(unsafe.Pointer(sdata.field_12))
 		case 0x4015:
 			ind = int32(a3)
 			if ind < 0 || ind >= int32(sdata.count) {
@@ -664,10 +667,10 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *nox_window, ev uint32, a3 uint32, a4 
 			if ind < 0 || ind >= int32(sdata.count) {
 				return 0
 			}
-			return int32(uintptr(unsafe.Pointer(&(*(*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(ind)))).text[0])))
+			return uintptr(unsafe.Pointer(&(*(*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(ind)))).text[0]))
 		case 0x4017:
-			ind = a4
-			wstr = (*wchar2_t)(unsafe.Pointer(uintptr(a3)))
+			ind = int32(a4)
+			wstr = (*wchar2_t)(unsafe.Pointer(a3))
 			if ind < 0 || ind >= int32(sdata.count) {
 				return 0
 			}
@@ -762,7 +765,7 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *nox_window, ev uint32, a3 uint32, a4 
 		switch ev {
 		case 0x4009:
 			v29 = int16(sdata.field_13_0)
-			v30 = int16(int32(*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(sdata.field_9)) + 32))) + 4)))) - a4)
+			v30 = int16(int32(*(*uint16)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(sdata.field_9)) + 32))) + 4)))) - int32(a4))
 			v31 = int32(sdata.field_10 - uint32(v29) + 1)
 			sdata.field_13_1 = uint16(v30)
 			if int32(v30) > v31 {
@@ -792,7 +795,7 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *nox_window, ev uint32, a3 uint32, a4 
 						}
 						v4 = (*uint32)(unsafe.Pointer(win))
 					}
-					nox_xxx_wndListBoxAddLine_4A3AC0((*wchar2_t)(unsafe.Pointer(uintptr(a3))), a4, v4)
+					nox_xxx_wndListBoxAddLine_4A3AC0((*wchar2_t)(unsafe.Pointer(uintptr(a3))), int32(a4), v4)
 				} else {
 					if sdata.field_2 == 0 {
 						return 0
@@ -812,16 +815,16 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *nox_window, ev uint32, a3 uint32, a4 
 						}
 						v4 = (*uint32)(unsafe.Pointer(win))
 					}
-					nox_xxx_wndListBoxAddLine_4A3AC0((*wchar2_t)(unsafe.Pointer(uintptr(a3))), a4, v4)
+					nox_xxx_wndListBoxAddLine_4A3AC0((*wchar2_t)(unsafe.Pointer(uintptr(a3))), int32(a4), v4)
 				}
 			} else if int32(v18) >= int32(sdata.count) {
 				if sdata.field_2 == 0 {
 					return 0
 				}
 				nox_window_call_field_94_fnc(win, 16411, 1, 0)
-				nox_xxx_wndListBoxAddLine_4A3AC0((*wchar2_t)(unsafe.Pointer(uintptr(a3))), a4, (*uint32)(unsafe.Pointer(win)))
+				nox_xxx_wndListBoxAddLine_4A3AC0((*wchar2_t)(unsafe.Pointer(uintptr(a3))), int32(a4), (*uint32)(unsafe.Pointer(win)))
 			} else {
-				nox_xxx_wndListBoxAddLine_4A3AC0((*wchar2_t)(unsafe.Pointer(uintptr(a3))), a4, (*uint32)(unsafe.Pointer(win)))
+				nox_xxx_wndListBoxAddLine_4A3AC0((*wchar2_t)(unsafe.Pointer(uintptr(a3))), int32(a4), (*uint32)(unsafe.Pointer(win)))
 			}
 			if sdata.field_1 != 0 {
 				for (*(*nox_scrollListBox_item)(unsafe.Add(unsafe.Pointer(sdata.items), unsafe.Sizeof(nox_scrollListBox_item{})*uintptr(int32(sdata.field_11_1)-1)))).field_0 >= uint32(int32(sdata.field_13_1)+int32(sdata.field_13_0)) {
@@ -996,7 +999,7 @@ func nox_xxx_wndListboxProcPre_4A30D0(win *nox_window, ev uint32, a3 uint32, a4 
 			win.DrawData().Field0 &= 0xFFFFFFFD
 		}
 		var v7 int32 = nox_xxx_wndGetID_46B0A0(win)
-		nox_window_call_field_94_fnc(win.DrawData().Window, 16387, int32(a3), v7)
+		nox_window_call_field_94_fnc(win.DrawData().Window, 16387, uintptr(a3), uintptr(v7))
 		return 1
 	}
 	return 0
@@ -1069,17 +1072,17 @@ func nox_xxx_wndListBoxAddLine_4A3AC0(a1 *wchar2_t, a2 int32, a3 *uint32) int32 
 	*(*uint16)(unsafe.Pointer(uintptr(v4 + 44)))++
 	return nox_xxx_wndListBox_4A3A70(int32(uintptr(unsafe.Pointer(v3))))
 }
-func nox_xxx_wndListboxInit_4A3C00(a1 int32, a2 int32) {
-	if a1 != 0 {
-		if int32(int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 4))))) >= 0 {
+func nox_xxx_wndListboxInit_4A3C00(a1 *nox_window, a2 int32) {
+	if a1 != nil {
+		if int32(int8(*(*uint8)(unsafe.Add(a1.C(), 4)))) >= 0 {
 			nox_xxx_wndSetDrawFn_46B340(a1, ccall.FuncAddr(nox_xxx_wndListboxDrawNoImage_4A3C50))
 		} else {
 			nox_xxx_wndSetDrawFn_46B340(a1, ccall.FuncAddr(nox_xxx_wndListboxDrawWithImage_4A3FC0))
 		}
 		if *(*uint32)(unsafe.Pointer(uintptr(a2 + 16))) != 0 {
-			nox_xxx_wndSetWindowProc_46B300(a1, ccall.FuncAddr(nox_xxx_wndListboxProcWithData10_4A2DE0))
+			nox_xxx_wndSetWindowProc_46B300(a1, nox_xxx_wndListboxProcWithData10_4A2DE0)
 		} else {
-			nox_xxx_wndSetWindowProc_46B300(a1, ccall.FuncAddr(nox_xxx_wndListboxProcWithoutData10_4A28E0))
+			nox_xxx_wndSetWindowProc_46B300(a1, nox_xxx_wndListboxProcWithoutData10_4A28E0)
 		}
 	}
 }
@@ -1407,7 +1410,7 @@ func nox_game_showSelClass_4A4840() int32 {
 	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("SelClass.wnd"), ccall.FuncAddr(sub_4A4A20)))))
 	dword_5d4594_1307736 = uint32(result)
 	if result != 0 {
-		nox_xxx_wndSetWindowProc_46B300(result, ccall.FuncAddr(sub_4A18E0))
+		nox_xxx_wndSetWindowProc_46B300((*nox_window)(unsafe.Pointer(uintptr(result))), sub_4A18E0)
 		result = int32(uintptr(unsafe.Pointer(nox_gui_makeAnimation_43C5B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))), 0, 0, 0, -460, 0, 20, 0, -40))))
 		nox_wnd_xxx_1307732 = (*nox_gui_animation)(unsafe.Pointer(uintptr(result)))
 		if result != 0 {
@@ -1415,11 +1418,11 @@ func nox_game_showSelClass_4A4840() int32 {
 			nox_wnd_xxx_1307732.Func12Ptr = ccall.FuncAddr(sub_4A4970)
 			nox_wnd_xxx_1307732.FncDoneOutPtr = ccall.FuncAddr(sub_4A49A0)
 			v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))), 601)))
-			nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v1))), ccall.FuncAddr(sub_4A49D0))
+			nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v1)), ccall.FuncAddr(sub_4A49D0))
 			v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))), 603)))
-			nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v2))), ccall.FuncAddr(sub_4A49D0))
+			nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v2)), ccall.FuncAddr(sub_4A49D0))
 			v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))), 602)))
-			nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v3))), ccall.FuncAddr(sub_4A49D0))
+			nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v3)), ccall.FuncAddr(sub_4A49D0))
 			*memmap.PtrUint32(0x5D4594, 1307728) = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))), 610))))
 			nox_xxx_wndRetNULL_46A8A0()
 			*memmap.PtrUint32(0x5D4594, 1307740) = 0
@@ -1510,7 +1513,7 @@ func sub_4A5E90() int32 {
 	dword_5d4594_1308152 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308084)))), 751))))
 	result = int32(dword_587000_171388)
 	if dword_587000_171388 == 0 {
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1308152))))), 16414, *(*int32)(unsafe.Pointer(&dword_5d4594_1307784)), 0)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1308152))))), 16414, uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1307784))), 0)
 		sub_4A61E0(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308096)), 2, (*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1307784+71))))
 		sub_4A61E0(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308100)), 1, (*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1307784+68))))
 		sub_4A61E0(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308104)), 1, (*uint8)(unsafe.Pointer(uintptr(dword_5d4594_1307784+74))))
@@ -2119,7 +2122,8 @@ func sub_4A6DC0(a1 *uint32, a2 int32) int32 {
 	}
 	return 1
 }
-func sub_4A7270(a1 int32, a2 int32, a3 uint32, a4 int32) int32 {
+func sub_4A7270(win *nox_window, a2, a3, p4 uintptr) uintptr {
+	a1 := int32(uintptr(win.C()))
 	var (
 		v3 int32
 		v5 int2
@@ -2148,16 +2152,15 @@ func sub_4A72D0(a1 uint16) *uint32 {
 	}
 	return result
 }
-func sub_4A7330(a1 int32, a2 int32, a3 *int32, a4 uint32) int32 {
+func sub_4A7330(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
-		result int32
-		v5     int32
-		v6     int32
-		v7     *uint32
+		v5 int32
+		v6 int32
+		v7 *uint32
 	)
 	if a2 == 16389 {
 		nox_xxx_clientPlaySoundSpecial_452D80(920, 100)
-		result = 1
+		return 1
 	} else if a2 == 16391 {
 		v5 = int32(a4 >> 16)
 		v6 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(a3)))
@@ -2204,11 +2207,10 @@ func sub_4A7330(a1 int32, a2 int32, a3 *int32, a4 uint32) int32 {
 		default:
 		}
 		nox_xxx_clientPlaySoundSpecial_452D80(921, 100)
-		result = 1
+		return 1
 	} else {
-		result = 0
+		return 0
 	}
-	return result
 }
 func sub_4A7530(a1 uint16) *uint32 {
 	var (
@@ -2469,7 +2471,7 @@ func sub_4A7D50(a1 *byte) int32 {
 func sub_4A7EF0() *byte {
 	return (*byte)(memmap.PtrOff(0x5D4594, 1308732))
 }
-func nox_xxx_wndButtonProc_4A7F50(win *nox_window, ev int32, a3 int32, a4 int32) int32 {
+func nox_xxx_wndButtonProc_4A7F50(win *nox_window, ev, a3, a4 uintptr) uintptr {
 	switch ev {
 	case 5:
 		win.DrawData().Field0 |= 4
@@ -2478,23 +2480,23 @@ func nox_xxx_wndButtonProc_4A7F50(win *nox_window, ev int32, a3 int32, a4 int32)
 		if (win.DrawData().Field0 & 4) == 0 {
 			return 0
 		}
-		nox_window_call_field_94_fnc(win.DrawData().Window, 0x4000|7, int32(uintptr(unsafe.Pointer(win))), a3)
+		nox_window_call_field_94_fnc(win.DrawData().Window, uintptr(0x4000|7), uintptr(unsafe.Pointer(win)), uintptr(a3))
 		win.DrawData().Field0 &= 0xFFFFFFFB
 		return 1
 	case 8:
-		nox_window_call_field_94_fnc(win.DrawData().Window, 0x4000, int32(uintptr(unsafe.Pointer(win))), a3)
+		nox_window_call_field_94_fnc(win.DrawData().Window, 0x4000, uintptr(unsafe.Pointer(win)), uintptr(a3))
 		return 1
 	case 17:
 		if win.DrawData().Style&0x100 != 0 {
 			win.DrawData().Field0 |= 2
-			nox_window_call_field_94_fnc(win.DrawData().Window, 0x4000|5, int32(uintptr(unsafe.Pointer(win))), a3)
+			nox_window_call_field_94_fnc(win.DrawData().Window, uintptr(0x4000|5), uintptr(unsafe.Pointer(win)), uintptr(a3))
 			nox_xxx_windowFocus_46B500(win)
 		}
 		return 1
 	case 18:
 		if win.DrawData().Style&0x100 != 0 {
 			win.DrawData().Field0 &= 0xFFFFFFFD
-			nox_window_call_field_94_fnc(win.DrawData().Window, 0x4000|6, int32(uintptr(unsafe.Pointer(win))), a3)
+			nox_window_call_field_94_fnc(win.DrawData().Window, uintptr(0x4000|6), uintptr(unsafe.Pointer(win)), uintptr(a3))
 		}
 		if win.DrawData().Field0&4 != 0 {
 			win.DrawData().Field0 &= 0xFFFFFFFB
@@ -2513,7 +2515,7 @@ func nox_xxx_wndButtonProc_4A7F50(win *nox_window, ev int32, a3 int32, a4 int32)
 				return 1
 			}
 			if win.DrawData().Field0&4 != 0 {
-				nox_window_call_field_94_fnc(win.DrawData().Window, 0x4000|7, int32(uintptr(unsafe.Pointer(win))), 0)
+				nox_window_call_field_94_fnc(win.DrawData().Window, uintptr(0x4000|7), uintptr(unsafe.Pointer(win)), 0)
 				win.DrawData().Field0 &= 0xFFFFFFFB
 			}
 			return 1
@@ -2582,9 +2584,9 @@ func nox_xxx_wndButtonDrawNoImg_4A81D0(a1 int32, a2 int32) int32 {
 func nox_xxx_wndButtonInit_4A8340(a1 int32) int32 {
 	var result int32
 	if int32(int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 4))))) >= 0 {
-		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), ccall.FuncAddr(nox_xxx_wndButtonProc_4A7F50), ccall.FuncAddr(nox_xxx_wndButtonDrawNoImg_4A81D0), nil)
+		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), nox_xxx_wndButtonProc_4A7F50, ccall.FuncAddr(nox_xxx_wndButtonDrawNoImg_4A81D0), nil)
 	} else {
-		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), ccall.FuncAddr(nox_xxx_wndButtonProc_4A7F50), ccall.FuncAddr(nox_xxx_wndButtonDraw_4A8380), nil)
+		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), nox_xxx_wndButtonProc_4A7F50, ccall.FuncAddr(nox_xxx_wndButtonDraw_4A8380), nil)
 	}
 	return result
 }
@@ -2639,8 +2641,9 @@ func nox_xxx_wndButtonDraw_4A8380(a1 *uint32, a2 int32) int32 {
 	}
 	return 1
 }
-func nox_xxx_wndRadioButtonProc_4A84E0(a1 *uint32, a2 int32, a3 int32, a4 int32) int32 {
+func nox_xxx_wndRadioButtonProc_4A84E0(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
+		a1  = (*uint32)(win.C())
 		v4  int32
 		v5  int32
 		v7  int32
@@ -2665,7 +2668,7 @@ func nox_xxx_wndRadioButtonProc_4A84E0(a1 *uint32, a2 int32, a3 int32, a4 int32)
 				return 0
 			}
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 16391, int32(uintptr(unsafe.Pointer(a1))), a3)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 16391, uintptr(unsafe.Pointer(a1)), uintptr(a3))
 		if v10 != 0 {
 			for i = *(**uint32)(unsafe.Pointer(uintptr(v10 + 400))); i != nil; i = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*97))))) {
 				if i != a1 && *(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*10)) == *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*10)) {
@@ -2678,7 +2681,7 @@ func nox_xxx_wndRadioButtonProc_4A84E0(a1 *uint32, a2 int32, a3 int32, a4 int32)
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*9)) = uint32(v12)
 		return 1
 	case 8:
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 0x4000, int32(uintptr(unsafe.Pointer(a1))), a3)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 0x4000, uintptr(unsafe.Pointer(a1)), uintptr(a3))
 		return 1
 	case 17:
 		v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*11)))
@@ -2688,7 +2691,7 @@ func nox_xxx_wndRadioButtonProc_4A84E0(a1 *uint32, a2 int32, a3 int32, a4 int32)
 		v5 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*9)))
 		*((*uint8)(unsafe.Pointer(&v5))) = uint8(int8(v5 | 2))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*9)) = uint32(v5)
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 16389, int32(uintptr(unsafe.Pointer(a1))), a3)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 16389, uintptr(unsafe.Pointer(a1)), uintptr(a3))
 		nox_xxx_windowFocus_46B500((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1)))))))
 		return 1
 	case 18:
@@ -2698,7 +2701,7 @@ func nox_xxx_wndRadioButtonProc_4A84E0(a1 *uint32, a2 int32, a3 int32, a4 int32)
 		}
 		v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*9)) &= 0xFFFFFFFD
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(v8))), 16390, int32(uintptr(unsafe.Pointer(a1))), a3)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(v8))), 16390, uintptr(unsafe.Pointer(a1)), uintptr(a3))
 		return 1
 	case 21:
 		switch a3 {
@@ -2716,7 +2719,7 @@ func nox_xxx_wndRadioButtonProc_4A84E0(a1 *uint32, a2 int32, a3 int32, a4 int32)
 			if *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*9))&4 != 0 {
 				return 1
 			}
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 16391, int32(uintptr(unsafe.Pointer(a1))), 0)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*13))))), 16391, uintptr(unsafe.Pointer(a1)), 0)
 			if v13 != 0 {
 				for j = *(**uint32)(unsafe.Pointer(uintptr(v13 + 400))); j != nil; j = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(j), 4*97))))) {
 					if j != a1 && *(*uint32)(unsafe.Add(unsafe.Pointer(j), 4*10)) == *(*uint32)(unsafe.Add(unsafe.Pointer(a1), 4*10)) {
@@ -2741,9 +2744,9 @@ func nox_xxx_wndRadioButtonProc_4A84E0(a1 *uint32, a2 int32, a3 int32, a4 int32)
 func nox_xxx_wndRadioButtonSetAllFn_4A87E0(a1 int32) int32 {
 	var result int32
 	if int32(int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 4))))) >= 0 {
-		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), ccall.FuncAddr(nox_xxx_wndRadioButtonProc_4A84E0), ccall.FuncAddr(nox_xxx_wndRadioButtonDrawNoImg_4A8820), nil)
+		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), nox_xxx_wndRadioButtonProc_4A84E0, ccall.FuncAddr(nox_xxx_wndRadioButtonDrawNoImg_4A8820), nil)
 	} else {
-		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), ccall.FuncAddr(nox_xxx_wndRadioButtonProc_4A84E0), ccall.FuncAddr(nox_xxx_wndRadioButtonDraw_4A8A20), nil)
+		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), nox_xxx_wndRadioButtonProc_4A84E0, ccall.FuncAddr(nox_xxx_wndRadioButtonDraw_4A8A20), nil)
 	}
 	return result
 }
@@ -2878,8 +2881,9 @@ func nox_xxx_wndRadioButtonDraw_4A8A20(a1 int32, a2 int32) int32 {
 	nox_draw_enableTextSmoothing_43F670(0)
 	return 1
 }
-func nox_xxx_wndCheckBoxProc_4A8C00(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
+func nox_xxx_wndCheckBoxProc_4A8C00(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
+		a1 = int32(uintptr(win.C()))
 		v4 int32
 		v5 int32
 		v7 int32
@@ -2894,18 +2898,18 @@ func nox_xxx_wndCheckBoxProc_4A8C00(a1 int32, a2 int32, a3 int32, a4 int32) int3
 		if (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 36)))) & 2) == 0 {
 			return 0
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16391, a1, a3)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16391, uintptr(a1), uintptr(a3))
 		*(*uint32)(unsafe.Pointer(uintptr(v8 + 36))) ^= 4
 		return 1
 	case 8:
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 0x4000, a1, a3)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 0x4000, uintptr(a1), uintptr(a3))
 		return 1
 	case 17:
 		v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))))
 		if v4&0x100 != 0 {
 			v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52))))
 			*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))) |= 2
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(v5))), 16389, a1, a3)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(v5))), 16389, uintptr(a1), uintptr(a3))
 			nox_xxx_windowFocus_46B500((*nox_window)(unsafe.Pointer(uintptr(a1))))
 		}
 		return 1
@@ -2914,7 +2918,7 @@ func nox_xxx_wndCheckBoxProc_4A8C00(a1 int32, a2 int32, a3 int32, a4 int32) int3
 		if v7&0x100 != 0 {
 			v9 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52))))
 			*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))) &= 0xFFFFFFFD
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(v9))), 16390, a1, a3)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(v9))), 16390, uintptr(a1), uintptr(a3))
 		}
 		return 1
 	case 21:
@@ -2928,7 +2932,7 @@ func nox_xxx_wndCheckBoxProc_4A8C00(a1 int32, a2 int32, a3 int32, a4 int32) int3
 		case 28, 57:
 			if a4 == 2 {
 				v8 = a1
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v8 + 52)))))), 16391, v8, 0)
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v8 + 52)))))), 16391, uintptr(v8), 0)
 				*(*uint32)(unsafe.Pointer(uintptr(v8 + 36))) ^= 4
 			}
 			return 1
@@ -2944,14 +2948,12 @@ func nox_xxx_wndCheckBoxProc_4A8C00(a1 int32, a2 int32, a3 int32, a4 int32) int3
 		return 0
 	}
 }
-func nox_xxx_wndCheckBoxInit_4A8E60(a1 int32) int32 {
-	var result int32
+func nox_xxx_wndCheckBoxInit_4A8E60(a1 int32) {
 	if int32(int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 4))))) >= 0 {
-		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), ccall.FuncAddr(nox_xxx_wndCheckBoxProc_4A8C00), ccall.FuncAddr(nox_xxx_wndDrawCheckBoxNoImg_4A8EA0), nil)
+		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), nox_xxx_wndCheckBoxProc_4A8C00, ccall.FuncAddr(nox_xxx_wndDrawCheckBoxNoImg_4A8EA0), nil)
 	} else {
-		result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), ccall.FuncAddr(nox_xxx_wndCheckBoxProc_4A8C00), ccall.FuncAddr(nox_xxx_wndDrawCheckBox_4A9050), nil)
+		nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), nox_xxx_wndCheckBoxProc_4A8C00, ccall.FuncAddr(nox_xxx_wndDrawCheckBox_4A9050), nil)
 	}
-	return result
 }
 func nox_xxx_wndDrawCheckBoxNoImg_4A8EA0(a1 int32, a2 int32) int32 {
 	var (
@@ -3073,9 +3075,9 @@ LABEL_12:
 	}
 	return 1
 }
-func nox_gui_newButtonOrCheckbox_4A91A0(parent *nox_window, a2 nox_window_flags, a3 int32, a4 int32, a5 int32, a6 int32, draw *nox_window_data) *nox_window {
+func nox_gui_newButtonOrCheckbox_4A91A0(parent *nox_window, a2 nox_window_flags, a3, a4, a5, a6 int, draw *nox_window_data) *nox_window {
 	if draw.Style&1 != 0 {
-		var btn *nox_window = nox_window_new(parent, a2, a3, a4, a5, a6, ccall.FuncAddr(nox_xxx_wndButtonProcPre_4A9250))
+		var btn *nox_window = nox_window_new(parent, a2, a3, a4, a5, a6, nox_xxx_wndButtonProcPre_4A9250)
 		if btn == nil {
 			return nil
 		}
@@ -3087,7 +3089,7 @@ func nox_gui_newButtonOrCheckbox_4A91A0(parent *nox_window, a2 nox_window_flags,
 		return btn
 	}
 	if draw.Style&4 != 0 {
-		var btn *nox_window = nox_window_new(parent, a2, a3, a4, a5, a6, ccall.FuncAddr(nox_xxx_wndCheckboxProcMB_4A92C0))
+		var btn *nox_window = nox_window_new(parent, a2, a3, a4, a5, a6, nox_xxx_wndCheckboxProcMB_4A92C0)
 		if btn == nil {
 			return nil
 		}
@@ -3114,7 +3116,7 @@ func nox_xxx_wndButtonProcPre_4A9250(win *nox_window, a2, p3, p4 uintptr) uintpt
 			*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))) = uint32(v4)
 		}
 		v5 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(uintptr(a1))))
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16387, int32(uintptr(unsafe.Pointer(a3))), v5)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16387, uintptr(unsafe.Pointer(a3)), uintptr(v5))
 		return 1
 	} else {
 		if a2 == 16385 {
@@ -3138,7 +3140,7 @@ func nox_xxx_wndCheckboxProcMB_4A92C0(win *nox_window, a2, p3, p4 uintptr) uintp
 			*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))) = uint32(v4)
 		}
 		v5 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(uintptr(a1))))
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16387, int32(uintptr(unsafe.Pointer(a3))), v5)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16387, uintptr(unsafe.Pointer(a3)), uintptr(v5))
 		return 1
 	} else {
 		if a2 == 16385 {
@@ -3166,7 +3168,7 @@ func nox_xxx_wndRadioButtonProcPre_4A93C0(win *nox_window, a2, p3, p4 uintptr) u
 			v3 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 396))))
 			if (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 36)))) & 4) == 0 {
 				if uintptr(unsafe.Pointer(a3)) == uintptr(1) {
-					nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16391, a1, 0)
+					nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16391, uintptr(a1), 0)
 				}
 				if v3 != 0 {
 					for i = *(**uint32)(unsafe.Pointer(uintptr(v3 + 400))); i != nil; i = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(i), 4*97))))) {
@@ -3189,7 +3191,7 @@ func nox_xxx_wndRadioButtonProcPre_4A93C0(win *nox_window, a2, p3, p4 uintptr) u
 		*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))) = uint32(v7)
 	}
 	v8 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(uintptr(a1))))
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16387, int32(uintptr(unsafe.Pointer(a3))), v8)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16387, uintptr(unsafe.Pointer(a3)), uintptr(v8))
 	return 1
 }
 func nox_xxx_compassGenStrings_4A9C80() int32 {
@@ -3263,7 +3265,7 @@ func nox_game_showOptions_4AA6B0() int32 {
 	if nox_client_advVideoOpts_New_4CB590((*nox_window)(unsafe.Pointer(uintptr(dword_5d4594_1309720)))) == 0 {
 		return 0
 	}
-	nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_1309720)), ccall.FuncAddr(sub_4A18E0))
+	nox_xxx_wndSetWindowProc_46B300(*(**nox_window)(unsafe.Pointer(&dword_5d4594_1309720)), sub_4A18E0)
 	nox_draw_setTabWidth_43FE20(15)
 	nox_wnd_xxx_1309740 = nox_gui_makeAnimation_43C5B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309720)))), 0, 0, 0, -480, 0, 20, 0, -40)
 	if nox_wnd_xxx_1309740 == nil {
@@ -3280,7 +3282,7 @@ func nox_game_showOptions_4AA6B0() int32 {
 	v2 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSlider"))))
 	sub_4B5700(int32(uintptr(unsafe.Pointer(v1))), 0, 0, int32(uintptr(unsafe.Pointer(v2))), int32(uintptr(unsafe.Pointer(v16))), int32(uintptr(unsafe.Pointer(v19))))
 	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16395, 0, 0x4000)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_127004)) + 4)))>>16), 0)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16394, uintptr(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_127004)) + 4)))>>16), 0)
 	dword_5d4594_1309728 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309720)))), 361))))
 	v3 = sub_453070()
 	v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1309728 + 36))))
@@ -3298,7 +3300,7 @@ func nox_game_showOptions_4AA6B0() int32 {
 	v7 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSlider"))))
 	sub_4B5700(int32(uintptr(unsafe.Pointer(v6))), 0, 0, int32(uintptr(unsafe.Pointer(v7))), int32(uintptr(unsafe.Pointer(v17))), int32(uintptr(unsafe.Pointer(v20))))
 	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16395, 0, 0x4000)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_122852)) + 4)))>>16), 0)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16394, uintptr(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_122852)) + 4)))>>16), 0)
 	dword_5d4594_1309732 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309720)))), 362))))
 	v8 = sub_44D990()
 	v9 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1309732 + 36))))
@@ -3316,7 +3318,7 @@ func nox_game_showOptions_4AA6B0() int32 {
 	v12 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSlider"))))
 	sub_4B5700(int32(uintptr(unsafe.Pointer(v11))), 0, 0, int32(uintptr(unsafe.Pointer(v12))), int32(uintptr(unsafe.Pointer(v18))), int32(uintptr(unsafe.Pointer(v21))))
 	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v11)))))), 16395, 0, 0x4000)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v11)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_93164)) + 4)))>>16), 0)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v11)))))), 16394, uintptr(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_93164)) + 4)))>>16), 0)
 	dword_5d4594_1309736 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309720)))), 363))))
 	v13 = sub_43DC30()
 	v14 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1309736 + 36))))
@@ -3609,16 +3611,16 @@ func sub_4AB0C0() int32 {
 }
 func sub_4AB260() int32 {
 	*memmap.PtrUint32(0x5D4594, 1309752) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("DisconnectIcon")))))
-	dword_5d4594_1309756 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 136, nox_win_width-50, nox_win_height/2+3, 50, 50, nil))))
+	dword_5d4594_1309756 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 136, int(nox_win_width)-50, int(nox_win_height)/2+3, 50, 50, nil))))
 	nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1309756)), *memmap.PtrInt32(0x5D4594, 1309752))
 	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309756)))), nil, ccall.FuncAddr(sub_4AB420), nil)
 	dword_5d4594_1309748 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("discon.wnd"), ccall.FuncAddr(sub_4AB390)))))
-	nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_1309748)), ccall.FuncAddr(sub_4AB340))
+	nox_xxx_wndSetWindowProc_46B300(*(**nox_window)(unsafe.Pointer(&dword_5d4594_1309748)), sub_4AB340)
 	sub_46B120((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309748)))), nil)
 	nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309748)))), int32(uint32(nox_win_width/2)-*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1309748 + 24)))/2), int32(uint32(nox_win_height/2)-*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1309748 + 28)))/2))
 	return 1
 }
-func sub_4AB340(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
+func sub_4AB340(win *nox_window, a2, a3, p4 uintptr) uintptr {
 	if a2 != 21 {
 		return 0
 	}
@@ -3627,7 +3629,7 @@ func sub_4AB340(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 	}
 	if a3 == 57 {
 		var mpos nox_point = nox_client_getMousePos_4309F0()
-		nox_window_call_field_93((*nox_window)(unsafe.Pointer(uintptr(a1))), 5, mpos.x|mpos.y<<16, 0)
+		nox_window_call_field_93(win, 5, mpos.x|mpos.y<<16, 0)
 	}
 	return 0
 }
@@ -4332,7 +4334,7 @@ func sub_4AD570() int32 {
 	}
 	return 1
 }
-func nox_xxx_windowServerOptionsGeneralProc_4AD5D0(a1 int32, a2 int32, a3 *int32, a4 int32) int32 {
+func nox_xxx_windowServerOptionsGeneralProc_4AD5D0(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
 		v4  *uint32
 		v5  int32
@@ -4388,24 +4390,24 @@ func nox_xxx_windowServerOptionsGeneralProc_4AD5D0(a1 int32, a2 int32, a3 *int32
 			return 0
 		}
 	} else if a2 == 16393 {
-		nox_xxx_rateUpdate_40A6D0(4 - a4)
+		nox_xxx_rateUpdate_40A6D0(4 - int32(a4))
 		return 0
 	} else if a2 != 16400 || nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(a3))) != 10317 || (func() bool {
 		v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10316)))
-		v5 = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a3)))))), 16404, 0, 0)
+		v5 = int32(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a3)))))), 16404, 0, 0))
 		v6 = v5
 		return v5 < 0
 	}()) || v5 >= int32(*(*int16)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*8)) + 44)))) {
 		return 0
 	} else {
-		v7 = nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a3)))))), 16406, a4, 0)
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))), 16385, v7, -1)
+		v7 = int32(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a3)))))), 16406, uintptr(a4), 0))
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))), 16385, uintptr(v7), math.MaxUint32)
 		nox_server_connectionType_3596 = uint32(v6 + 1)
 		v8 = sub_40A710(v6 + 1)
 		nox_xxx_rateUpdate_40A6D0(v8)
 		v9 = 4 - nox_xxx_rateGet_40A6C0()
 		v10 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309812)))), 10312)))
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16394, v9, 0)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), 16394, uintptr(v9), 0)
 		nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a3)))))), 1)
 		nox_xxx_wndClearCaptureMain_46ADE0((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a3)))))))
 		return 0
@@ -4515,7 +4517,7 @@ func nox_game_initOptionsInGame_4ADAD0() int32 {
 	v2 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSlider"))))
 	sub_4B5700(int32(uintptr(unsafe.Pointer(v1))), 0, 0, int32(uintptr(unsafe.Pointer(v2))), int32(uintptr(unsafe.Pointer(v25))), int32(uintptr(unsafe.Pointer(v28))))
 	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16395, 0, 0x4000)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_127004)) + 4)))>>16), 0)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v1)))))), 16394, uintptr(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_127004)) + 4)))>>16), 0)
 	dword_5d4594_1309828 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309820)))), 361))))
 	v3 = sub_453070()
 	v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1309828 + 36))))
@@ -4533,7 +4535,7 @@ func nox_game_initOptionsInGame_4ADAD0() int32 {
 	v7 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSlider"))))
 	sub_4B5700(int32(uintptr(unsafe.Pointer(v6))), 0, 0, int32(uintptr(unsafe.Pointer(v7))), int32(uintptr(unsafe.Pointer(v26))), int32(uintptr(unsafe.Pointer(v29))))
 	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16395, 0, 0x4000)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_122852)) + 4)))>>16), 0)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), 16394, uintptr(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_122852)) + 4)))>>16), 0)
 	dword_5d4594_1309836 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309820)))), 362))))
 	v8 = sub_44D990()
 	v9 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1309836 + 36))))
@@ -4551,7 +4553,7 @@ func nox_game_initOptionsInGame_4ADAD0() int32 {
 	v12 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("OptionsVolumeSlider"))))
 	sub_4B5700(int32(uintptr(unsafe.Pointer(v11))), 0, 0, int32(uintptr(unsafe.Pointer(v12))), int32(uintptr(unsafe.Pointer(v27))), int32(uintptr(unsafe.Pointer(v30))))
 	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v11)))))), 16395, 0, 0x4000)
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v11)))))), 16394, int32(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_93164)) + 4)))>>16), 0)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v11)))))), 16394, uintptr(*(*uint32)(unsafe.Pointer(uintptr(uint32(uintptr(dword_587000_93164)) + 4)))>>16), 0)
 	dword_5d4594_1309832 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309820)))), 363))))
 	v13 = sub_43DC30()
 	v14 = int32(*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1309832 + 36))))
@@ -4579,8 +4581,8 @@ func nox_game_initOptionsInGame_4ADAD0() int32 {
 	if *memmap.PtrInt32(0x587000, 174072) != -1 {
 		v21 = mem_getI32Ptr(0x587000, 174080)
 		for {
-			v22 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1309824))))), 0, v20, *((*int32)(unsafe.Add(unsafe.Pointer(v21), -int(4*1)))), *v21, *(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*1)), nil)))
-			nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v22))), ccall.FuncAddr(sub_4ADEF0))
+			v22 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1309824))))), 0, int(v20), int(*((*int32)(unsafe.Add(unsafe.Pointer(v21), -int(4*1))))), int(*v21), int(*(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*1))), nil)))
+			nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v22)), ccall.FuncAddr(sub_4ADEF0))
 			v20 = *(*int32)(unsafe.Add(unsafe.Pointer(v21), 4*2))
 			v21 = (*int32)(unsafe.Add(unsafe.Pointer(v21), 4*4))
 			if v20 == -1 {
@@ -4845,8 +4847,9 @@ func sub_4AEE30() int64 {
 	}
 	return result
 }
-func sub_4B4860(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
+func sub_4B4860(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
+		a1  = int32(uintptr(win.C()))
 		v4  int32
 		v5  int32
 		v7  int32
@@ -4863,21 +4866,21 @@ func sub_4B4860(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 	case 5:
 		return 1
 	case 6, 7:
-		v9 = a3
+		v9 = int32(a3)
 		v10 = int32(uint16(int16(a3)))
 		nox_client_wndGetPosition_46AA60((*nox_window)(unsafe.Pointer(uintptr(a1))), (*uint32)(unsafe.Pointer(&a4)), (*uint32)(unsafe.Pointer(&a3)))
-		if v10 > *(*int32)(unsafe.Pointer(uintptr(a1 + 8)))+a4-10 {
-			v10 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 8))) + uint32(a4) - 10)
+		if v10 > *(*int32)(unsafe.Pointer(uintptr(a1 + 8)))+int32(uint32(a4))-10 {
+			v10 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 8))) + uint32(uint32(a4)) - 10)
 		}
-		nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(a1 + 400))))), v10-a4-5, 0)
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(a1))), 0x4000, 0, v9)
+		nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(a1 + 400))))), v10-int32(uint32(a4))-5, 0)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(a1))), 0x4000, 0, uintptr(v9))
 		return 1
 	case 8:
 		v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))))
 		if (v8 & 0x100) == 0 {
 			return 1
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 0x4000, a1, 0)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 0x4000, uintptr(a1), 0)
 		return 1
 	case 17:
 		v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))))
@@ -4885,14 +4888,14 @@ func sub_4B4860(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 			return 1
 		}
 		nox_xxx_wndSetRectColor2MB_46AFE0((*nox_window)(unsafe.Pointer(uintptr(a1))), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 72)))))
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16389, a1, 0)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16389, uintptr(a1), 0)
 		nox_xxx_windowFocus_46B500((*nox_window)(unsafe.Pointer(uintptr(a1))))
 		return 1
 	case 18:
 		v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))))
 		if v7&0x100 != 0 {
 			nox_xxx_wndSetRectColor2MB_46AFE0((*nox_window)(unsafe.Pointer(uintptr(a1))), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 64)))))
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16390, a1, 0)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16390, uintptr(a1), 0)
 		}
 		return 1
 	case 21:
@@ -4918,7 +4921,7 @@ func sub_4B4860(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 			}
 			v14 = v13 + 2
 			*(*uint32)(unsafe.Pointer(uintptr(v4 + 12))) = uint32(v14)
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16393, a1, v14)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16393, uintptr(a1), uintptr(v14))
 			nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(a1 + 400))))), int32(int64(float64(int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 12)))-*(*uint32)(unsafe.Pointer(uintptr(v4)))))*float64(*(*float32)(unsafe.Pointer(uintptr(v4 + 8)))))), 0)
 			return 1
 		case 205:
@@ -4931,7 +4934,7 @@ func sub_4B4860(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 			}
 			v12 = v11 - 2
 			*(*uint32)(unsafe.Pointer(uintptr(v4 + 12))) = uint32(v12)
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16393, a1, v12)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16393, uintptr(a1), uintptr(v12))
 			nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(a1 + 400))))), int32(int64(float64(int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 12)))-*(*uint32)(unsafe.Pointer(uintptr(v4)))))*float64(*(*float32)(unsafe.Pointer(uintptr(v4 + 8)))))), 0)
 			return 1
 		default:
@@ -4941,8 +4944,9 @@ func sub_4B4860(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 		return 0
 	}
 }
-func nox_xxx_wndScrollBoxDraw_4B4BA0(a1 int32, a2 int32, a3 uint32, a4 int32) int32 {
+func nox_xxx_wndScrollBoxDraw_4B4BA0(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
+		a1  = int32(uintptr(win.C()))
 		v4  int32
 		v5  int32
 		v7  int32
@@ -4961,19 +4965,23 @@ func nox_xxx_wndScrollBoxDraw_4B4BA0(a1 int32, a2 int32, a3 uint32, a4 int32) in
 	case 6, 7:
 		v9 = int32(a3)
 		v10 = int32(a3 >> 16)
-		nox_client_wndGetPosition_46AA60((*nox_window)(unsafe.Pointer(uintptr(a1))), &a3, (*uint32)(unsafe.Pointer(&a4)))
-		if v10 > *(*int32)(unsafe.Pointer(uintptr(a1 + 12)))+a4-10 {
-			v10 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 12))) + uint32(a4) - 10)
+		var (
+			tmp uint32
+			py  uint32
+		)
+		nox_client_wndGetPosition_46AA60((*nox_window)(unsafe.Pointer(uintptr(a1))), &tmp, &py)
+		if v10 > *(*int32)(unsafe.Pointer(uintptr(a1 + 12)))+int32(py)-10 {
+			v10 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 12))) + py - 10)
 		}
-		nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(a1 + 400))))), 0, v10-a4-5)
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(a1))), 0x4000, 0, v9)
+		nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(a1 + 400))))), 0, v10-int32(py)-5)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(a1))), 0x4000, 0, uintptr(v9))
 		return 1
 	case 8:
 		v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))))
 		if (v8 & 0x100) == 0 {
 			return 1
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 0x4000, a1, 0)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 0x4000, uintptr(a1), 0)
 		return 1
 	case 17:
 		v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))))
@@ -4981,14 +4989,14 @@ func nox_xxx_wndScrollBoxDraw_4B4BA0(a1 int32, a2 int32, a3 uint32, a4 int32) in
 			return 1
 		}
 		nox_xxx_wndSetRectColor2MB_46AFE0((*nox_window)(unsafe.Pointer(uintptr(a1))), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 72)))))
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16389, a1, 0)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16389, uintptr(a1), 0)
 		nox_xxx_windowFocus_46B500((*nox_window)(unsafe.Pointer(uintptr(a1))))
 		return 1
 	case 18:
 		v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 44))))
 		if v7&0x100 != 0 {
 			nox_xxx_wndSetRectColor2MB_46AFE0((*nox_window)(unsafe.Pointer(uintptr(a1))), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 64)))))
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16390, a1, 0)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16390, uintptr(a1), 0)
 		}
 		return 1
 	case 21:
@@ -5009,7 +5017,7 @@ func nox_xxx_wndScrollBoxDraw_4B4BA0(a1 int32, a2 int32, a3 uint32, a4 int32) in
 			}
 			v12 = v11 + 2
 			*(*uint32)(unsafe.Pointer(uintptr(v4 + 12))) = uint32(v12)
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16393, a1, v12)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16393, uintptr(a1), uintptr(v12))
 			nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(a1 + 400))))), 0, int32(int64(float64(int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 4)))-*(*uint32)(unsafe.Pointer(uintptr(v4 + 12)))))*float64(*(*float32)(unsafe.Pointer(uintptr(v4 + 8)))))))
 			return 1
 		case 0xCB:
@@ -5027,7 +5035,7 @@ func nox_xxx_wndScrollBoxDraw_4B4BA0(a1 int32, a2 int32, a3 uint32, a4 int32) in
 			}
 			v14 = v13 - 2
 			*(*uint32)(unsafe.Pointer(uintptr(v4 + 12))) = uint32(v14)
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16393, a1, v14)
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16393, uintptr(a1), uintptr(v14))
 			nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(a1 + 400))))), 0, int32(int64(float64(int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 4)))-*(*uint32)(unsafe.Pointer(uintptr(v4 + 12)))))*float64(*(*float32)(unsafe.Pointer(uintptr(v4 + 8)))))))
 			return 1
 		default:
@@ -5037,7 +5045,7 @@ func nox_xxx_wndScrollBoxDraw_4B4BA0(a1 int32, a2 int32, a3 uint32, a4 int32) in
 		return 0
 	}
 }
-func nox_gui_newSlider_4B4EE0(a1 int32, a2 nox_window_flags, a3 int32, a4 int32, a5 int32, a6 int32, a7 *uint32, a8 *float32) *nox_window {
+func nox_gui_newSlider_4B4EE0(a1 int32, a2 nox_window_flags, a3, a4, a5, a6 int, a7 *uint32, a8 *float32) *nox_window {
 	var (
 		v8  int32
 		v9  int32
@@ -5048,15 +5056,15 @@ func nox_gui_newSlider_4B4EE0(a1 int32, a2 nox_window_flags, a3 int32, a4 int32,
 	)
 	v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a7), 4*2)))
 	if v8&0x10 != 0 {
-		v9 = a6
-		v10 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(a1))), a2|0x100, a3, a4, a5, a6, ccall.FuncAddr(sub_4B5010))))
+		v9 = int32(a6)
+		v10 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(a1))), a2|0x100, a3, a4, a5, a6, sub_4B5010)))
 		sub_4B51A0(int32(uintptr(unsafe.Pointer(v10))))
 	} else {
 		if (v8 & 8) == 0 {
 			return nil
 		}
-		v9 = a6
-		v10 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(a1))), a2|0x100, a3, a4, a5, a6, ccall.FuncAddr(nox_xxx_wndScrollBoxProc_4B5320))))
+		v9 = int32(a6)
+		v10 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(a1))), a2|0x100, a3, a4, a5, a6, nox_xxx_wndScrollBoxProc_4B5320)))
 		nox_xxx_wndScrollBoxSetAllFn_4B5500(int32(uintptr(unsafe.Pointer(v10))))
 	}
 	if v10 != nil {
@@ -5084,8 +5092,9 @@ func nox_gui_newSlider_4B4EE0(a1 int32, a2 nox_window_flags, a3 int32, a4 int32,
 	}
 	return (*nox_window)(unsafe.Pointer(v10))
 }
-func sub_4B5010(a1 int32, a2 uint32, a3 int32, a4 int32) int32 {
+func sub_4B5010(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
+		a1  = int32(uintptr(win.C()))
 		v4  int32
 		v5  int32
 		v6  int32
@@ -5105,19 +5114,18 @@ func sub_4B5010(a1 int32, a2 uint32, a3 int32, a4 int32) int32 {
 	v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 32))))
 	if a2 > 0x4000 {
 		if a2 == 16394 {
-			if a3 >= *(*int32)(unsafe.Pointer(uintptr(v5))) && a3 <= *(*int32)(unsafe.Pointer(uintptr(v5 + 4))) {
+			if int32(a3) >= *(*int32)(unsafe.Pointer(uintptr(v5))) && int32(a3) <= *(*int32)(unsafe.Pointer(uintptr(v5 + 4))) {
 				v17 = float64(a3)
 				*(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) = uint32(a3)
 				nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(v4 + 400))))), int32(int64(v17*float64(*(*float32)(unsafe.Pointer(uintptr(v5 + 8)))))), 0)
 			}
 		} else if a2 == 16395 {
-			v14 = a3
-			v15 = a4
+			v14 = int32(a3)
+			v15 = int32(a4)
 			*(*uint32)(unsafe.Pointer(uintptr(v5))) = uint32(a3)
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 4))) = uint32(v15)
 			v16 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 8))) - 10)
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) = uint32(v14)
-			a3 = v15 - v14
 			*(*float32)(unsafe.Pointer(uintptr(v5 + 8))) = float32(float64(v16) / float64(v15-v14))
 			nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(v4 + 400))))), 0, 0)
 			return 0
@@ -5127,29 +5135,28 @@ func sub_4B5010(a1 int32, a2 uint32, a3 int32, a4 int32) int32 {
 	if a2 == 0x4000 {
 		v10 = int32(uint16(int16(a4)))
 		nox_client_wndGetPosition_46AA60((*nox_window)(unsafe.Pointer(uintptr(a1))), (*uint32)(unsafe.Pointer(&a3)), (*uint32)(unsafe.Pointer(&a1)))
-		if v10 < a3 {
+		if v10 < int32(a3) {
 			nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(v4 + 400))))), 0, 0)
 			v11 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5))))
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) = uint32(v11)
-			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16393, v4, int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))))
+			nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16393, uintptr(v4), uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))))
 			return 0
 		}
 		v12 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 8))))
-		if v10 < v12+a3 {
-			a4 = v10 - a3
-			v13 = int64(float64(v10-a3) / float64(*(*float32)(unsafe.Pointer(uintptr(v5 + 8)))))
+		if v10 < v12+int32(a3) {
+			v13 = int64(float64(v10-int32(a3)) / float64(*(*float32)(unsafe.Pointer(uintptr(v5 + 8)))))
 			v11 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 4))))
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) = uint32(int32(v13))
 			if int32(v13) > v11 {
 				*(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) = uint32(v11)
-				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16393, v4, int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))))
+				nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16393, uintptr(v4), uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))))
 				return 0
 			}
 		} else {
 			nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(v4 + 400))))), int32(uint32(v12)-*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 400))) + 8)))), 0)
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) = *(*uint32)(unsafe.Pointer(uintptr(v5 + 4)))
 		}
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16393, v4, int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))))
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16393, uintptr(v4), uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))))
 		return 0
 	}
 	if a2 == 2 {
@@ -5159,7 +5166,7 @@ func sub_4B5010(a1 int32, a2 uint32, a3 int32, a4 int32) int32 {
 	if a2 != 23 {
 		return 0
 	}
-	v6 = a3
+	v6 = int32(a3)
 	v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))))
 	if a3 != 0 {
 		*((*uint8)(unsafe.Pointer(&v7))) = uint8(int8(v7 | 2))
@@ -5169,20 +5176,18 @@ func sub_4B5010(a1 int32, a2 uint32, a3 int32, a4 int32) int32 {
 	v18 = (*int32)(unsafe.Pointer(uintptr(a1)))
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))) = uint32(v7)
 	v8 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(v18)))
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16387, v6, v8)
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16387, uintptr(v6), uintptr(v8))
 	return 1
 }
 func sub_4B51A0(a1 int32) int32 {
-	var result int32
-	result = a1
-	if a1 != 0 {
-		if int32(int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 4))))) >= 0 {
-			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), ccall.FuncAddr(sub_4B4860), ccall.FuncAddr(sub_4B51E0), nil)
-		} else {
-			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), ccall.FuncAddr(sub_4B4860), ccall.FuncAddr(sub_4B52C0), nil)
-		}
+	if a1 == 0 {
+		return 0
 	}
-	return result
+	if int32(int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 4))))) >= 0 {
+		return nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), sub_4B4860, ccall.FuncAddr(sub_4B51E0), nil)
+	} else {
+		return nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), sub_4B4860, ccall.FuncAddr(sub_4B52C0), nil)
+	}
 }
 func sub_4B51E0(a1 int32, a2 int32) int32 {
 	var (
@@ -5230,8 +5235,9 @@ func sub_4B52C0(a1 int32, a2 int32) int32 {
 	}
 	return 1
 }
-func nox_xxx_wndScrollBoxProc_4B5320(a1 int32, a2 uint32, a3 int32, a4 uint32) int32 {
+func nox_xxx_wndScrollBoxProc_4B5320(win *nox_window, a2, a3, a4 uintptr) uintptr {
 	var (
+		a1  = int32(uintptr(win.C()))
 		v4  int32
 		v5  int32
 		v6  int32
@@ -5253,25 +5259,23 @@ func nox_xxx_wndScrollBoxProc_4B5320(a1 int32, a2 uint32, a3 int32, a4 uint32) i
 	v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 32))))
 	if a2 > 0x4007 {
 		if a2 == 16394 {
-			if a3 >= *(*int32)(unsafe.Pointer(uintptr(v5))) {
+			if int32(a3) >= *(*int32)(unsafe.Pointer(uintptr(v5))) {
 				v18 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 4))))
-				if a3 <= v18 {
-					v19 = v18 - a3
+				if int32(a3) <= v18 {
+					v19 = v18 - int32(a3)
 					*(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) = uint32(a3)
-					a3 = v19
 					nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(v4 + 400))))), 0, int32(int64(float64(v19)*float64(*(*float32)(unsafe.Pointer(uintptr(v5 + 8)))))))
 				}
 			}
 		} else if a2 == 16395 {
-			v14 = a4
-			v15 = a3
-			*(*uint32)(unsafe.Pointer(uintptr(v5 + 4))) = a4
+			v14 = uint32(a4)
+			v15 = int32(a3)
+			*(*uint32)(unsafe.Pointer(uintptr(v5 + 4))) = uint32(a4)
 			*(*uint32)(unsafe.Pointer(uintptr(v5))) = uint32(v15)
-			a3 = int32(v14 - uint32(v15))
+			a3b := int32(v14 - uint32(v15))
 			v16 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 12))))
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) = uint32(v15)
-			v17 = float64(a3)
-			a3 = v16 - 10
+			v17 = float64(a3b)
 			*(*float32)(unsafe.Pointer(uintptr(v5 + 8))) = float32(float64(v16-10) / v17)
 			nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(v4 + 400))))), 0, int32(int64(v17*float64(*(*float32)(unsafe.Pointer(uintptr(v5 + 8)))))))
 			return 0
@@ -5280,13 +5284,13 @@ func nox_xxx_wndScrollBoxProc_4B5320(a1 int32, a2 uint32, a3 int32, a4 uint32) i
 	}
 	switch a2 {
 	case 0x4007:
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16396, a1, int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))))
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 52)))))), 16396, uintptr(a1), uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))))
 		return 0
 	case 2:
 		alloc.FreePtr(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(a1 + 32))))
 		return 0
 	case 0x17:
-		v11 = a3
+		v11 = int32(a3)
 		v12 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))))
 		if a3 != 0 {
 			*((*uint8)(unsafe.Pointer(&v12))) = uint8(int8(v12 | 2))
@@ -5296,7 +5300,7 @@ func nox_xxx_wndScrollBoxProc_4B5320(a1 int32, a2 uint32, a3 int32, a4 uint32) i
 		v20 = (*int32)(unsafe.Pointer(uintptr(a1)))
 		*(*uint32)(unsafe.Pointer(uintptr(a1 + 36))) = uint32(v12)
 		v13 = nox_xxx_wndGetID_46B0A0((*nox_window)(unsafe.Pointer(v20)))
-		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16387, v11, v13)
+		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16387, uintptr(v11), uintptr(v13))
 		return 1
 	}
 	if a2 != 0x4000 {
@@ -5304,11 +5308,10 @@ func nox_xxx_wndScrollBoxProc_4B5320(a1 int32, a2 uint32, a3 int32, a4 uint32) i
 	}
 	v6 = int32(a4 >> 16)
 	nox_client_wndGetPosition_46AA60((*nox_window)(unsafe.Pointer(uintptr(a1))), (*uint32)(unsafe.Pointer(&a1)), (*uint32)(unsafe.Pointer(&a3)))
-	if v6 >= a3 {
+	if v6 >= int32(a3) {
 		v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 12))))
-		if v6 < v7+a3 {
-			a4 = uint32(v6 - a3)
-			v8 = int64(float64(v6-a3) / float64(*(*float32)(unsafe.Pointer(uintptr(v5 + 8)))))
+		if v6 < v7+int32(a3) {
+			v8 = int64(float64(v6-int32(a3)) / float64(*(*float32)(unsafe.Pointer(uintptr(v5 + 8)))))
 			v9 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 4))))
 			*(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) = uint32(int32(v8))
 			if int32(v8) > v9 {
@@ -5323,7 +5326,7 @@ func nox_xxx_wndScrollBoxProc_4B5320(a1 int32, a2 uint32, a3 int32, a4 uint32) i
 		nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(uintptr(v4 + 400))))), 0, 0)
 		*(*uint32)(unsafe.Pointer(uintptr(v5 + 12))) = *(*uint32)(unsafe.Pointer(uintptr(v5 + 4)))
 	}
-	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16393, v4, int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))))
+	nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 52)))))), 16393, uintptr(v4), uintptr(*(*uint32)(unsafe.Pointer(uintptr(v5 + 12)))))
 	return 0
 }
 func nox_xxx_wndScrollBoxSetAllFn_4B5500(a1 int32) int32 {
@@ -5331,9 +5334,9 @@ func nox_xxx_wndScrollBoxSetAllFn_4B5500(a1 int32) int32 {
 	result = a1
 	if a1 != 0 {
 		if int32(int8(*(*uint8)(unsafe.Pointer(uintptr(a1 + 4))))) >= 0 {
-			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), ccall.FuncAddr(nox_xxx_wndScrollBoxDraw_4B4BA0), ccall.FuncAddr(nox_xxx_wndScrollBoxDraw_4B5540), nil)
+			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), nox_xxx_wndScrollBoxDraw_4B4BA0, ccall.FuncAddr(nox_xxx_wndScrollBoxDraw_4B5540), nil)
 		} else {
-			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), ccall.FuncAddr(nox_xxx_wndScrollBoxDraw_4B4BA0), ccall.FuncAddr(nox_xxx_wndScrollBoxDraw_4B5620), nil)
+			result = nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(a1))), nox_xxx_wndScrollBoxDraw_4B4BA0, ccall.FuncAddr(nox_xxx_wndScrollBoxDraw_4B5620), nil)
 		}
 	}
 	return result
@@ -5405,9 +5408,9 @@ func nox_xxx_wndScrollBoxButtonCreate_4B5640(a1 int32, a2 nox_window_flags, a3 i
 		*(*uint32)(unsafe.Pointer(&v6[40])) = *(*uint32)(unsafe.Pointer(uintptr(a3 + 40)))
 	}
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a3 + 8))))&0x10 != 0 {
-		result = int32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*nox_window)(unsafe.Pointer(uintptr(a1))), v4, 0, 0, 10, int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 12)))), (*nox_window_data)(unsafe.Pointer(&v6[0]))))))
+		result = int32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*nox_window)(unsafe.Pointer(uintptr(a1))), v4, 0, 0, 10, int(*(*uint32)(unsafe.Pointer(uintptr(a1 + 12)))), (*nox_window_data)(unsafe.Pointer(&v6[0]))))))
 	} else {
-		result = int32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*nox_window)(unsafe.Pointer(uintptr(a1))), v4, 0, 0, int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 8)))), 10, (*nox_window_data)(unsafe.Pointer(&v6[0]))))))
+		result = int32(uintptr(unsafe.Pointer(nox_gui_newButtonOrCheckbox_4A91A0((*nox_window)(unsafe.Pointer(uintptr(a1))), v4, 0, 0, int(*(*uint32)(unsafe.Pointer(uintptr(a1 + 8)))), 10, (*nox_window_data)(unsafe.Pointer(&v6[0]))))))
 	}
 	return result
 }

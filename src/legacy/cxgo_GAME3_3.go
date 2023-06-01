@@ -5862,7 +5862,7 @@ func nox_xxx_unitsHaveSameTeam_4EC520(a1p *nox_object_t, a2p *nox_object_t) int3
 	)
 	v2 = a1
 	if a1 != 0 && a2 != 0 {
-		for 2 != 0 {
+		for {
 			v3 = a2
 			for {
 				if nox_xxx_servCompareTeams_419150(v2+48, v3+48) != 0 || v2 == v3 {
@@ -6719,7 +6719,7 @@ func nox_xxx_dropAllItems_4EDA40(a1 *uint32) *uint32 {
 	if result == nil {
 		return result
 	}
-	for 2 != 0 {
+	for {
 		v19 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*124)))))
 		if nox_xxx_unitDropCheckSome_4EDCD0(int32(uintptr(unsafe.Pointer(v1))), int32(uintptr(unsafe.Pointer(result)))) == 0 {
 			v8 = 1

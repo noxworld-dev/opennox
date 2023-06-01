@@ -31,13 +31,13 @@ func sub_4A19F0(name *byte) { Sub_4A19F0(strman.ID(GoString(name))) }
 func sub_4AAA10() int32 { return int32(Sub_4AAA10()) }
 
 // sub_4C3A90
-func sub_4C3A90(a1, a2 int32, a3 *int32, a4 int32) int32 {
-	return int32(Sub_4C3A90(int(a1), int(a2), unsafe.Pointer(a3), int(a4)))
+func sub_4C3A90(win *nox_window, a2, a3, a4 uintptr) uintptr {
+	return uintptr(Sub_4C3A90(int(uintptr(win.C())), int(a2), unsafe.Pointer(a3), int(a4)))
 }
 
 // sub_4CBE70
-func sub_4CBE70(a1, a2 int32, a3 *int32, a4 int32) int32 {
-	return int32(Sub_4CBE70(int(a1), int(a2), unsafe.Pointer(a3), int(a4)))
+func sub_4CBE70(win *nox_window, a2, a3, a4 uintptr) uintptr {
+	return uintptr(Sub_4CBE70(int(uintptr(win.C())), int(a2), unsafe.Pointer(a3), int(a4)))
 }
 
 //export sub_4A1A40

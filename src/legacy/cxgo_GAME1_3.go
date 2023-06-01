@@ -453,7 +453,7 @@ func sub_43DD70(a1 int32, a2 int32) {
 func nox_xxx_gui_43E1A0(a1 int32) *uint32 {
 	var result *uint32
 	if a1 != 0 {
-		result = (*uint32)(unsafe.Pointer(nox_window_new(nil, 552, 0, 0, nox_win_width, nox_win_height, nil)))
+		result = (*uint32)(unsafe.Pointer(nox_window_new(nil, 552, 0, 0, int(nox_win_width), int(nox_win_height), nil)))
 		dword_5d4594_816412 = uint32(uintptr(unsafe.Pointer(result)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*14)) = nox_color_black_2650656
 	} else {
@@ -960,7 +960,7 @@ func nox_xxx_motdAddSomeTextMB_446730(a1 *uint8) *uint8 {
 	result = a1
 	if int32(*a1) != 0 {
 		nox_swprintf(&v2[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), a1)
-		result = (*uint8)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_826032))))), 16397, int32(uintptr(unsafe.Pointer(&v2[0]))), -1))))
+		result = (*uint8)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_826032))))), 16397, uintptr(unsafe.Pointer(&v2[0])), math.MaxUint32))))
 	}
 	return result
 }
