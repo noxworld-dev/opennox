@@ -64,29 +64,28 @@ func init() {
 	server.RegisterObjectCollide("SoulGateCollide", ccall.FuncAddr(sub_4EBE40), 4)
 	server.RegisterObjectCollide("AnkhCollide", ccall.FuncAddr(nox_xxx_collideAnkhQuest_4EBF40), 0)
 
-	server.RegisterObjectCollideParse("ProjectileCollide", wrapObjectCollideParseC(ccall.FuncAddr(sub_536D80)))
-	server.RegisterObjectCollideParse("ProjectileSparkCollide", wrapObjectCollideParseC(ccall.FuncAddr(sub_536D80)))
-	server.RegisterObjectCollideParse("DamageCollide", wrapObjectCollideParseC(ccall.FuncAddr(nox_xxx_collideDamageLoad_536E10)))
-	server.RegisterObjectCollideParse("ManaDrainCollide", wrapObjectCollideParseC(ccall.FuncAddr(sub_536E50)))
-	server.RegisterObjectCollideParse("SparkExplosionCollide", wrapObjectCollideParseC(ccall.FuncAddr(sub_536DE0)))
-	server.RegisterObjectCollideParse("WallReflectCollide", wrapObjectCollideParseC(ccall.FuncAddr(sub_536D80)))
-	server.RegisterObjectCollideParse("WallReflectSparkCollide", wrapObjectCollideParseC(ccall.FuncAddr(sub_536D80)))
-	server.RegisterObjectCollideParse("PixieCollide", wrapObjectCollideParseC(ccall.FuncAddr(sub_536D80)))
-	server.RegisterObjectCollideParse("AudioEventCollide", wrapObjectCollideParseC(ccall.FuncAddr(sub_536DA0)))
-	server.RegisterObjectCollideParse("MonsterArrowCollide", wrapObjectCollideParseC(ccall.FuncAddr(sub_536E80)))
-	server.RegisterObjectCollideParse("YellowStarShotCollide", wrapObjectCollideParseC(ccall.FuncAddr(sub_536D80)))
+	server.RegisterObjectCollideParse("ProjectileCollide", wrapObjectCollideParseC(sub_536D80))
+	server.RegisterObjectCollideParse("ProjectileSparkCollide", wrapObjectCollideParseC(sub_536D80))
+	server.RegisterObjectCollideParse("DamageCollide", wrapObjectCollideParseC(nox_xxx_collideDamageLoad_536E10))
+	server.RegisterObjectCollideParse("ManaDrainCollide", wrapObjectCollideParseC(sub_536E50))
+	server.RegisterObjectCollideParse("SparkExplosionCollide", wrapObjectCollideParseC(sub_536DE0))
+	server.RegisterObjectCollideParse("WallReflectCollide", wrapObjectCollideParseC(sub_536D80))
+	server.RegisterObjectCollideParse("WallReflectSparkCollide", wrapObjectCollideParseC(sub_536D80))
+	server.RegisterObjectCollideParse("PixieCollide", wrapObjectCollideParseC(sub_536D80))
+	server.RegisterObjectCollideParse("AudioEventCollide", wrapObjectCollideParseC(sub_536DA0))
+	server.RegisterObjectCollideParse("MonsterArrowCollide", wrapObjectCollideParseC(sub_536E80))
+	server.RegisterObjectCollideParse("YellowStarShotCollide", wrapObjectCollideParseC(sub_536D80))
 }
 
-func wrapObjectCollideParseC(ptr unsafe.Pointer) server.ObjectParseFunc {
+type ObjectParseFunc = func(buf *byte, data unsafe.Pointer) int
+
+func wrapObjectCollideParseC(fnc ObjectParseFunc) server.ObjectParseFunc {
 	return func(objt *server.ObjectType, args []string) error {
-		if Nox_call_objectType_parseCollide_go(ptr, strings.Join(args, " "), objt.CollideData) == 0 {
+		cstr := CString(strings.Join(args, " "))
+		defer StrFree(cstr)
+		if fnc(cstr, objt.CollideData) == 0 {
 			return fmt.Errorf("cannot parse collide data for %q", objt.ID())
 		}
 		return nil
 	}
-}
-func Nox_call_objectType_parseCollide_go(a1 unsafe.Pointer, a2 string, a3 unsafe.Pointer) int {
-	cstr := CString(a2)
-	defer StrFree(cstr)
-	return int(ccall.AsFunc[func(*byte, unsafe.Pointer) int32](a1)(cstr, a3))
 }

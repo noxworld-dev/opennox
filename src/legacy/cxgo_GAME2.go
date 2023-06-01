@@ -270,15 +270,12 @@ func sub_44E110() *uint32 {
 	*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*30)) |= 0x1000000
 	return result
 }
-func nox_xxx_playGMCAPsmth_44E3E0() int32 {
-	var result int32
-	result = int32(dword_5d4594_831224)
+func nox_xxx_playGMCAPsmth_44E3E0() {
 	*memmap.PtrUint32(0x5D4594, 831248) = 1
 	if dword_5d4594_831224 != 0 {
-		result = nox_xxx_playDialogFile_44D900((*byte)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_831240))))), 100)
+		nox_xxx_playDialogFile_44D900((*byte)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_831240))))), 100)
 		dword_5d4594_831244 = 1
 	}
-	return result
 }
 func sub_44E560() *uint32 {
 	var (

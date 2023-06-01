@@ -3570,8 +3570,8 @@ func sub_4379C0() {
 		nox_window_call_field_94_fnc((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&nox_wol_wnd_gameList_815012))))), 16399, 0, 0)
 	}
 }
-func sub_438330() int32 {
-	v0 := ccall.AsFunc[func() int32](nox_wnd_xxx_815040.Func13Ptr)
+func sub_438330() int {
+	v0 := ccall.AsFunc[func() int](nox_wnd_xxx_815040.Func13Ptr)
 	nox_gui_freeAnimation_43C570(nox_wnd_xxx_815040)
 	if !nox_common_gameFlags_check_40A5C0(0x10000000) {
 		nox_client_guiXxx_43A9D0()
@@ -3581,11 +3581,11 @@ func sub_438330() int32 {
 	}
 	return 1
 }
-func sub_438370() int32 {
-	if nox_wnd_xxx_815040.State() == nox_gui_anim_state(NOX_GUI_ANIM_OUT_DONE) {
+func sub_438370() int {
+	if nox_wnd_xxx_815040.State() == NOX_GUI_ANIM_OUT_DONE {
 		return sub_438330()
 	}
-	nox_wnd_xxx_815040.SetState(nox_gui_anim_state(NOX_GUI_ANIM_OUT))
+	nox_wnd_xxx_815040.SetState(NOX_GUI_ANIM_OUT)
 	sub_43BE40(2)
 	nox_xxx_clientPlaySoundSpecial_452D80(923, 100)
 	return 1
@@ -4042,7 +4042,7 @@ func sub_43B460() int32 {
 	nox_xxx_wnd_46C6E0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815000))))))
 	return nox_xxx_wnd_46ABB0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_814984))))), 0)
 }
-func sub_43B490() int32 {
+func sub_43B490() int {
 	if nox_game_getStateCode_43BE10() == 1700 {
 		return sub_438330()
 	}

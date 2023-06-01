@@ -43,21 +43,12 @@ func sub_4A18E0(a1 *nox_window, a2, a3, a4 uintptr) uintptr {
 	return uintptr(Sub_4A18E0(a1, int(a2), int(a3), int(a4)))
 }
 
-// nox_client_drawGeneralCallback_4A2200
-func nox_client_drawGeneralCallback_4A2200() int32 {
+func Nox_client_drawGeneralCallback_4A2200() int {
 	if err := GetClient().DrawGeneral(false); err != nil {
 		guiLog.Println(err)
 		return 0
 	}
 	return 1
-}
-
-func Get_nox_client_drawGeneralCallback_4A2200() unsafe.Pointer {
-	return ccall.FuncAddr(nox_client_drawGeneralCallback_4A2200)
-}
-
-func Get_nox_game_showGameSel_4379F0() unsafe.Pointer {
-	return ccall.FuncAddr(nox_game_showGameSel_4379F0)
 }
 
 func Sub_461440(v int) {

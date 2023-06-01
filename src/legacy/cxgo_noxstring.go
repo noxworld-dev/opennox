@@ -2,6 +2,7 @@ package legacy
 
 import (
 	"math"
+	"reflect"
 	"unicode"
 	"unsafe"
 
@@ -437,6 +438,22 @@ func nox_vsnwprintf(buffer *wchar2_t, count uint32, format *wchar2_t, ap libc.Ar
 	}
 	return out - 1
 }
+func asPtr(v any) unsafe.Pointer {
+	switch v := v.(type) {
+	case nil:
+		return nil
+	case unsafe.Pointer:
+		return nil
+	case uintptr:
+		return unsafe.Pointer(v)
+	case uint32:
+		return unsafe.Pointer(uintptr(v))
+	case int32:
+		return unsafe.Pointer(uintptr(v))
+	default:
+		return reflect.ValueOf(v).UnsafePointer()
+	}
+}
 func nox_vsnprintf(buffer *byte, count uint32, format *byte, ap libc.ArgList) int32 {
 	var (
 		i   int32 = 0
@@ -544,7 +561,7 @@ func nox_vsnprintf(buffer *byte, count uint32, format *byte, ap libc.ArgList) in
 				}
 			}
 		case 's':
-			var pcch *byte = ap.Arg().(*byte)
+			var pcch *byte = (*byte)(asPtr(ap.Arg()))
 			if pcch == nil {
 				pcch = internCStr("(null)")
 			}

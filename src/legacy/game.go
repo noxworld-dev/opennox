@@ -45,10 +45,10 @@ func init() {
 		return nox_game_showSelColor_4A5D00() != 0
 	})
 	gui.RegisterState(client.StateServerList, "ServerList", func() bool {
-		return nox_game_showGameSel_4379F0() != 0
+		return Nox_game_showGameSel_4379F0() != 0
 	})
 	gui.RegisterState(client.StateXxx, "StateXxx", func() bool {
-		return nox_game_showGameSel_4379F0() != 0
+		return Nox_game_showGameSel_4379F0() != 0
 	})
 }
 

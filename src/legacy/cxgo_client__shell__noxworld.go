@@ -13,7 +13,7 @@ import (
 var dword_5d4594_815104 int32 = 0
 var nox_wnd_xxx_815040 *nox_gui_animation = nil
 
-func nox_game_showGameSel_4379F0() int32 {
+func Nox_game_showGameSel_4379F0() int {
 	var (
 		v2 *uint32
 		v3 *uint32
@@ -202,7 +202,7 @@ func nox_game_showGameSel_4379F0() int32 {
 		sub_44A360(1)
 		dword_5d4594_815100 = 0
 	}
-	sub_43DE40(ccall.FuncAddr(sub_438770))
+	sub_43DE40(sub_438770)
 	if sub_44A4A0() != 0 {
 		sub_44A4B0()
 	}
@@ -247,7 +247,7 @@ func sub_4383A0() int32 {
 	dword_587000_87408 = 1
 	return 0
 }
-func sub_438770() int32 {
+func sub_438770() bool {
 	var (
 		v1 int64
 		v2 *wchar2_t
@@ -262,19 +262,19 @@ func sub_438770() int32 {
 		case 2:
 			sub_438BD0()
 			sub_43AF90(1)
-			return 1
+			return true
 		case 3:
 			if uint64(nox_platform_get_ticks()) < qword_5d4594_814956 {
-				return 1
+				return true
 			}
 			nox_client_setConnError_43AFA0(8)
-			return 1
+			return true
 		case 4:
 			sub_43AF90(3)
 			v2 = nox_strman_loadString_40F1D0(internCStr("TestCon"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 1343)
 			sub_449E30((*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))))
 			qword_5d4594_814956 = uint64(nox_platform_get_ticks() + 20000)
-			return 1
+			return true
 		case 5:
 			v3 = nox_strman_loadString_40F1D0(internCStr("Password"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 1349)
 			sub_449E00((*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))))
@@ -284,7 +284,7 @@ func sub_438770() int32 {
 			sub_44A360(0)
 			sub_43AF90(6)
 			sub_4A24C0(1)
-			return 1
+			return true
 		case 7:
 			sub_44A360(1)
 			v5 = nox_strman_loadString_40F1D0(internCStr("Connected"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 1364)
@@ -292,18 +292,18 @@ func sub_438770() int32 {
 			sub_449EA0(0)
 			nox_game_SetCliDrawFunc(ccall.FuncAddr(nox_xxx_cliDrawConnectedLoop_43B360))
 			sub_43AF90(1)
-			return 1
+			return true
 		case 8:
 			v1 = int64(nox_platform_get_ticks())
 			dword_5d4594_814548 = 9
 			*memmap.PtrUint64(0x5D4594, 814972) = uint64(v1 + 1000)
-			return 1
+			return true
 		case 9:
 			if uint64(nox_platform_get_ticks()) <= *memmap.PtrUint64(0x5D4594, 814972) {
-				return 1
+				return true
 			}
 			nox_client_joinGame_438A90()
-			return 1
+			return true
 		case 0xA:
 			v6 = (*uint16)(unsafe.Pointer(uintptr(sub_449E60(4))))
 			v7 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nil, 4001)))
@@ -312,19 +312,19 @@ func sub_438770() int32 {
 			} else {
 				nox_xxx_wnd_46ABB0((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v7)))))), 0)
 			}
-			return 1
+			return true
 		default:
-			return 1
+			return true
 		}
 	} else {
 		if (wndIsShown_nox_xxx_wndIsShown_46ACC0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_814984)))))) == 0 || wndIsShown_nox_xxx_wndIsShown_46ACC0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_814988)))))) == 0 || wndIsShown_nox_xxx_wndIsShown_46ACC0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&nox_wol_wnd_gameList_815012)))))) == 0) && nox_game_createOrJoin_815048 == 0 && dword_5d4594_815044 == 0 && dword_5d4594_815052 == 0 && wndIsShown_nox_xxx_wndIsShown_46ACC0((*nox_window)(unsafe.Pointer(uintptr(dword_5d4594_815000)))) != 0 {
 			if uint64(nox_platform_get_ticks()) > qword_5d4594_815068 {
 				nox_client_refreshServerList_4378B0()
-				return 1
+				return true
 			}
 			sub_438770_waitList()
 		}
-		return 1
+		return true
 	}
 }
 func sub_438BD0() int32 {
@@ -828,7 +828,7 @@ func nox_xxx_windowMultiplayerSub_439E70(win *nox_window, a2, a3, a4 uintptr) ui
 		}
 		if sub_43AF80() == 1 {
 			sub_43A920()
-			nox_game_showGameSel_4379F0()
+			Nox_game_showGameSel_4379F0()
 			return 0
 		}
 		if dword_5d4594_815104 != 0 {
@@ -840,7 +840,7 @@ func nox_xxx_windowMultiplayerSub_439E70(win *nox_window, a2, a3, a4 uintptr) ui
 	v9 = v8 - 1
 	if v9 == 0 {
 		sub_43A920()
-		nox_game_showGameSel_4379F0()
+		Nox_game_showGameSel_4379F0()
 		return 0
 	}
 	if v9 != 5999 || dword_5d4594_815044 != 0 {

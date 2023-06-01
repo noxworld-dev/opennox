@@ -82,12 +82,12 @@ func init() {
 	server.RegisterObjectUpdate("HarpoonUpdate", ccall.FuncAddr(nox_xxx_updateHarpoon_54F380), 4)
 	server.RegisterObjectUpdate("MonsterGeneratorUpdate", ccall.FuncAddr(nox_xxx_updateMonsterGenerator_54E930), 164)
 
-	server.RegisterObjectUpdateParse("PushUpdate", wrapObjectUpdateParseC(ccall.FuncAddr(sub_536550)))
-	server.RegisterObjectUpdateParse("TriggerUpdate", wrapObjectUpdateParseC(ccall.FuncAddr(sub_5365B0)))
-	server.RegisterObjectUpdateParse("ToggleUpdate", wrapObjectUpdateParseC(ccall.FuncAddr(sub_5365B0)))
-	server.RegisterObjectUpdateParse("LoopAndDamageUpdate", wrapObjectUpdateParseC(ccall.FuncAddr(sub_536580)))
-	server.RegisterObjectUpdateParse("LifetimeUpdate", wrapObjectUpdateParseC(ccall.FuncAddr(sub_536600)))
-	server.RegisterObjectUpdateParse("SkullUpdate", wrapObjectUpdateParseC(ccall.FuncAddr(sub_5364E0)))
+	server.RegisterObjectUpdateParse("PushUpdate", wrapObjectUpdateParseC(sub_536550))
+	server.RegisterObjectUpdateParse("TriggerUpdate", wrapObjectUpdateParseC(sub_5365B0))
+	server.RegisterObjectUpdateParse("ToggleUpdate", wrapObjectUpdateParseC(sub_5365B0))
+	server.RegisterObjectUpdateParse("LoopAndDamageUpdate", wrapObjectUpdateParseC(sub_536580))
+	server.RegisterObjectUpdateParse("LifetimeUpdate", wrapObjectUpdateParseC(sub_536600))
+	server.RegisterObjectUpdateParse("SkullUpdate", wrapObjectUpdateParseC(sub_5364E0))
 }
 
 // nox_xxx_updatePlayer_4F8100
@@ -133,10 +133,11 @@ func Get_nox_xxx___mkgmtime_538280() unsafe.Pointer {
 	return ccall.FuncAddr(nox_xxx___mkgmtime_538280)
 }
 
-func wrapObjectUpdateParseC(ptr unsafe.Pointer) server.ObjectParseFunc {
+func wrapObjectUpdateParseC(fnc ObjectParseFunc) server.ObjectParseFunc {
 	return func(objt *server.ObjectType, args []string) error {
-
-		if Nox_call_objectType_parseUpdate_go(ptr, strings.Join(args, " "), objt.UpdateData) == 0 {
+		cstr := CString(strings.Join(args, " "))
+		defer StrFree(cstr)
+		if fnc(cstr, objt.UpdateData) == 0 {
 			return fmt.Errorf("cannot parse update data for %q", objt.ID())
 		}
 		return nil
@@ -148,11 +149,6 @@ func Nox_server_doPlayersAutoRespawn_40A5F0() int {
 }
 func Sub_4E4100() uint32 {
 	return uint32(sub_4E4100())
-}
-func Nox_call_objectType_parseUpdate_go(a1 unsafe.Pointer, a2 string, a3 unsafe.Pointer) int {
-	cstr := CString(a2)
-	defer StrFree(cstr)
-	return int(ccall.AsFunc[func(*byte, unsafe.Pointer) int32](a1)(cstr, a3))
 }
 func Nox_xxx_questCheckSecretArea_421C70(a1 *server.Object) {
 	nox_xxx_questCheckSecretArea_421C70(asObjectC(a1))

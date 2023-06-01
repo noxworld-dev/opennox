@@ -3,7 +3,6 @@ package legacy
 import (
 	"fmt"
 	"strings"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -25,21 +24,17 @@ func init() {
 	server.RegisterObjectDeath("GameBallDie", ccall.FuncAddr(nox_xxx_dieGameBall_54E620), 0)
 	server.RegisterObjectDeath("MonsterGeneratorDie", ccall.FuncAddr(nox_xxx_dieMonsterGen_54E630), 0)
 
-	server.RegisterObjectDeathParse("CreateObjectDie", wrapObjectDeathParseC(ccall.FuncAddr(sub_536B40)))
-	server.RegisterObjectDeathParse("SpawnObjectDie", wrapObjectDeathParseC(ccall.FuncAddr(sub_536B40)))
+	server.RegisterObjectDeathParse("CreateObjectDie", wrapObjectDeathParseC(sub_536B40))
+	server.RegisterObjectDeathParse("SpawnObjectDie", wrapObjectDeathParseC(sub_536B40))
 }
 
-func wrapObjectDeathParseC(ptr unsafe.Pointer) server.ObjectParseFunc {
+func wrapObjectDeathParseC(fnc ObjectParseFunc) server.ObjectParseFunc {
 	return func(objt *server.ObjectType, args []string) error {
-		if Nox_call_objectType_parseDeath_go(ptr, strings.Join(args, " "), objt.DeathData) == 0 {
+		cstr := CString(strings.Join(args, " "))
+		defer StrFree(cstr)
+		if fnc(cstr, objt.DeathData) == 0 {
 			return fmt.Errorf("cannot parse death data for %q", objt.ID())
 		}
 		return nil
 	}
-}
-
-func Nox_call_objectType_parseDeath_go(a1 unsafe.Pointer, a2 string, a3 unsafe.Pointer) int {
-	cstr := CString(a2)
-	defer StrFree(cstr)
-	return int(ccall.AsFunc[func(*byte, unsafe.Pointer) int32](a1)(cstr, a3))
 }

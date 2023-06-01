@@ -12,6 +12,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/sound"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var (
@@ -362,7 +363,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 				nox_client_gui_flag_815132 = 0
 				return nil
 			}
-			winMainMenuAnimTop.Func13Ptr = legacy.Get_nox_game_showGameSel_4379F0()
+			winMainMenuAnimTop.Func13Ptr = ccall.FuncAddr(legacy.Nox_game_showGameSel_4379F0)
 			legacy.Sub_43AF50()
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		case 121:
@@ -376,7 +377,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 			sub4B0640(func() {
 				noxClient.GameStateSwitch()
 			})
-			winMainMenuAnimTop.Func13Ptr = legacy.Get_nox_client_drawGeneralCallback_4A2200()
+			winMainMenuAnimTop.Func13Ptr = ccall.FuncAddr(legacy.Nox_client_drawGeneralCallback_4A2200)
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 			return gui.RawEventResp(1)
 		case 122:
@@ -408,7 +409,7 @@ func nox_xxx_windowMainMenuProc_4A1DC0(a1 *gui.Window, ev gui.WindowEvent) gui.W
 				nox_client_gui_flag_815132 = 0
 				return nil
 			}
-			winMainMenuAnimTop.Func13Ptr = legacy.Get_nox_game_showGameSel_4379F0()
+			winMainMenuAnimTop.Func13Ptr = ccall.FuncAddr(legacy.Nox_game_showGameSel_4379F0)
 			legacy.Sub_43AF50()
 			clientPlaySoundSpecial(sound.SoundShellClick, 100)
 		default:

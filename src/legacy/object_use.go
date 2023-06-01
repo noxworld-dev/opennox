@@ -3,7 +3,6 @@ package legacy
 import (
 	"fmt"
 	"strings"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
@@ -25,26 +24,22 @@ func init() {
 	server.RegisterObjectUse("FieldGuideUse", ccall.FuncAddr(sub_53F930), 64)
 	server.RegisterObjectUse("PotionUse", ccall.FuncAddr(nox_xxx_usePotion_53EF70), 4)
 
-	server.RegisterObjectUseParse("ConsumeUse", wrapObjectUseParseC(ccall.FuncAddr(sub_536390)))
-	server.RegisterObjectUseParse("ConsumeConfuseUse", wrapObjectUseParseC(ccall.FuncAddr(sub_536390)))
-	server.RegisterObjectUseParse("CastUse", wrapObjectUseParseC(ccall.FuncAddr(sub_536180)))
-	server.RegisterObjectUseParse("EnchantUse", wrapObjectUseParseC(ccall.FuncAddr(sub_536130)))
-	server.RegisterObjectUseParse("WandUse", wrapObjectUseParseC(ccall.FuncAddr(sub_536260)))
-	server.RegisterObjectUseParse("WandCastUse", wrapObjectUseParseC(ccall.FuncAddr(sub_5361B0)))
-	server.RegisterObjectUseParse("PotionUse", wrapObjectUseParseC(ccall.FuncAddr(sub_5363C0)))
+	server.RegisterObjectUseParse("ConsumeUse", wrapObjectUseParseC(sub_536390))
+	server.RegisterObjectUseParse("ConsumeConfuseUse", wrapObjectUseParseC(sub_536390))
+	server.RegisterObjectUseParse("CastUse", wrapObjectUseParseC(sub_536180))
+	server.RegisterObjectUseParse("EnchantUse", wrapObjectUseParseC(sub_536130))
+	server.RegisterObjectUseParse("WandUse", wrapObjectUseParseC(sub_536260))
+	server.RegisterObjectUseParse("WandCastUse", wrapObjectUseParseC(sub_5361B0))
+	server.RegisterObjectUseParse("PotionUse", wrapObjectUseParseC(sub_5363C0))
 }
 
-func wrapObjectUseParseC(ptr unsafe.Pointer) server.ObjectParseFunc {
+func wrapObjectUseParseC(fnc ObjectParseFunc) server.ObjectParseFunc {
 	return func(objt *server.ObjectType, args []string) error {
-		if Nox_call_objectType_parseUse_go(ptr, strings.Join(args, " "), objt.UseData) == 0 {
+		cstr := CString(strings.Join(args, " "))
+		defer StrFree(cstr)
+		if fnc(cstr, objt.UseData) == 0 {
 			return fmt.Errorf("cannot parse use data for %q", objt.ID())
 		}
 		return nil
 	}
-}
-
-func Nox_call_objectType_parseUse_go(a1 unsafe.Pointer, a2 string, a3 unsafe.Pointer) int {
-	cstr := CString(a2)
-	defer StrFree(cstr)
-	return int(ccall.AsFunc[func(*byte, unsafe.Pointer) int32](a1)(cstr, a3))
 }

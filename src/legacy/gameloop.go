@@ -39,14 +39,11 @@ func nox_game_SetCliDrawFunc(fnc unsafe.Pointer) {
 	}
 }
 
-// sub_43DE40
-func sub_43DE40(fnc unsafe.Pointer) int32 {
+func sub_43DE40(fnc func() bool) int32 {
 	if fnc == nil {
 		GetServer().SetUpdateFunc2(nil)
 	} else {
-		GetServer().SetUpdateFunc2(func() bool {
-			return ccall.AsFunc[func() int](fnc)() != 0
-		})
+		GetServer().SetUpdateFunc2(fnc)
 	}
 	return 1
 }

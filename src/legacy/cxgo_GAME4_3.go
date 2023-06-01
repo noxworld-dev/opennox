@@ -3394,7 +3394,7 @@ LABEL_10:
 	}
 	return v7 > 0
 }
-func sub_536130(a1 *byte, a2 *int32) *byte {
+func sub_536130(a1 *byte, a2 unsafe.Pointer) int {
 	var (
 		result *byte
 		v3     int32
@@ -3403,53 +3403,52 @@ func sub_536130(a1 *byte, a2 *int32) *byte {
 	result = libc.StrTok(a1, internCStr(" "))
 	if result != nil {
 		v3 = nox_xxx_enchantByName_424880(result)
-		*a2 = v3
+		*(*int32)(a2) = v3
 		if v3 == -1 {
-			result = nil
+			return 0
 		} else {
 			v4 = libc.StrTok(nil, internCStr(" "))
-			*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*1)) = int32(libc.Atoi(libc.GoString(v4)))
-			result = (*byte)(unsafe.Pointer(uintptr(1)))
+			*(*int32)(unsafe.Add(a2, 4*1)) = int32(libc.Atoi(libc.GoString(v4)))
+			return 1
 		}
 	}
-	return result
+	return 0
 }
-func sub_536180(a1 *byte, a2 *int32) *byte {
-	var result *byte
-	result = libc.StrTok(a1, internCStr(" "))
+func sub_536180(a1 *byte, a2 unsafe.Pointer) int {
+	result := libc.StrTok(a1, internCStr(" "))
 	if result != nil {
-		*a2 = nox_xxx_spellNameToN_4243F0(result)
-		result = (*byte)(unsafe.Pointer(uintptr(1)))
+		*(*int32)(a2) = nox_xxx_spellNameToN_4243F0(result)
+		return 1
 	}
-	return result
+	return 0
 }
-func sub_5361B0(a1 *byte, a2 int32) *byte {
+func sub_5361B0(a1 *byte, a2 unsafe.Pointer) int {
 	var (
 		result *byte
 		v3     int8
 		v4     float64
 	)
-	*(*uint32)(unsafe.Pointer(uintptr(a2))) = 1
+	*(*uint32)(unsafe.Add(a2, 0)) = 1
 	result = libc.StrTok(a1, internCStr(" "))
 	if result != nil {
 		v3 = int8(libc.Atoi(libc.GoString(result)))
-		*(*uint8)(unsafe.Pointer(uintptr(a2 + 109))) = uint8(v3)
-		*(*uint8)(unsafe.Pointer(uintptr(a2 + 108))) = uint8(v3)
-		*(*uint32)(unsafe.Pointer(uintptr(a2 + 112))) = 100
+		*(*uint8)(unsafe.Add(a2, 109)) = uint8(v3)
+		*(*uint8)(unsafe.Add(a2, 108)) = uint8(v3)
+		*(*uint32)(unsafe.Add(a2, 112)) = 100
 		result = libc.StrTok(nil, internCStr(" "))
 		if result != nil {
 			v4 = float64(gameFPS())
-			*(*uint32)(unsafe.Pointer(uintptr(a2 + 100))) = uint32(int32(int64(v4 / libc.Atof(libc.GoString(result)))))
+			*(*uint32)(unsafe.Add(a2, 100)) = uint32(int32(int64(v4 / libc.Atof(libc.GoString(result)))))
 			result = libc.StrTok(nil, internCStr(" "))
 			if result != nil {
-				*(*uint32)(unsafe.Pointer(uintptr(a2 + 92))) = uint32(nox_xxx_spellNameToN_4243F0(result))
-				result = (*byte)(unsafe.Pointer(uintptr(1)))
+				*(*uint32)(unsafe.Add(a2, 92)) = uint32(nox_xxx_spellNameToN_4243F0(result))
+				return 1
 			}
 		}
 	}
-	return result
+	return 0
 }
-func sub_536260(a1 *byte, a2 int32) *byte {
+func sub_536260(a1 *byte, a2 unsafe.Pointer) int {
 	var (
 		result *byte
 		v3     int8
@@ -3459,163 +3458,159 @@ func sub_536260(a1 *byte, a2 int32) *byte {
 		v7     float64
 		v8     float64
 	)
-	*(*uint32)(unsafe.Pointer(uintptr(a2))) = 0
+	*(*uint32)(unsafe.Add(a2, 0)) = 0
 	result = libc.StrTok(a1, internCStr(" "))
 	if result != nil {
 		v3 = int8(libc.Atoi(libc.GoString(result)))
-		*(*uint8)(unsafe.Pointer(uintptr(a2 + 109))) = uint8(v3)
-		*(*uint8)(unsafe.Pointer(uintptr(a2 + 108))) = uint8(v3)
-		*(*uint32)(unsafe.Pointer(uintptr(a2 + 112))) = 100
+		*(*uint8)(unsafe.Add(a2, 109)) = uint8(v3)
+		*(*uint8)(unsafe.Add(a2, 108)) = uint8(v3)
+		*(*uint32)(unsafe.Add(a2, 112)) = 100
 		result = libc.StrTok(nil, internCStr(" "))
 		if result != nil {
-			libc.StrCpy((*byte)(unsafe.Pointer(uintptr(a2+4))), result)
-			*(*uint32)(unsafe.Pointer(uintptr(a2 + 84))) = 0
+			libc.StrCpy((*byte)(unsafe.Add(a2, 4)), result)
+			*(*uint32)(unsafe.Add(a2, 84)) = 0
 			result = libc.StrTok(nil, internCStr(" "))
 			if result != nil {
 				v7 = float64(gameFPS())
 				v8 = libc.Atof(libc.GoString(result))
 				if v8 == 0.0 {
-					*(*uint32)(unsafe.Pointer(uintptr(a2 + 100))) = 0
+					*(*uint32)(unsafe.Add(a2, 100)) = 0
 				} else {
-					*(*uint32)(unsafe.Pointer(uintptr(a2 + 100))) = uint32(int32(int64(v7 / v8)))
+					*(*uint32)(unsafe.Add(a2, 100)) = uint32(int32(int64(v7 / v8)))
 				}
 				v4 = libc.StrTok(nil, internCStr(" "))
 				if v4 != nil && libc.StrCmp(v4, internCStr("MULTI_SHOT")) == 0 {
-					v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 96))))
+					v5 = int32(*(*uint32)(unsafe.Add(a2, 96)))
 					*((*uint8)(unsafe.Pointer(&v5))) = uint8(int8(v5 | 1))
-					*(*uint32)(unsafe.Pointer(uintptr(a2 + 96))) = uint32(v5)
+					*(*uint32)(unsafe.Add(a2, 96)) = uint32(v5)
 				}
 				v6 = libc.StrTok(nil, internCStr(" "))
 				if v6 != nil {
-					*(*uint32)(unsafe.Pointer(uintptr(a2 + 88))) = uint32(nox_xxx_utilFindSound_40AF50(v6))
+					*(*uint32)(unsafe.Add(a2, 88)) = uint32(nox_xxx_utilFindSound_40AF50(v6))
 				}
-				result = (*byte)(unsafe.Pointer(uintptr(1)))
+				return 1
 			}
 		}
 	}
-	return result
+	return 0
 }
-func sub_536390(a1 *byte, a2 *int32) *byte {
-	var result *byte
-	result = libc.StrTok(a1, internCStr(" "))
+func sub_536390(a1 *byte, a2 unsafe.Pointer) int {
+	result := libc.StrTok(a1, internCStr(" "))
 	if result != nil {
-		*a2 = int32(libc.Atoi(libc.GoString(result)))
-		result = (*byte)(unsafe.Pointer(uintptr(1)))
+		*(*int32)(a2) = int32(libc.Atoi(libc.GoString(result)))
+		return 1
 	}
-	return result
+	return 0
 }
-func sub_5363C0(a1 *byte, a2 *int32) *byte {
-	var result *byte
-	result = libc.StrTok(a1, internCStr(" "))
+func sub_5363C0(a1 *byte, a2 unsafe.Pointer) int {
+	result := libc.StrTok(a1, internCStr(" "))
 	if result != nil {
-		*a2 = int32(libc.Atoi(libc.GoString(result)))
-		result = (*byte)(unsafe.Pointer(uintptr(1)))
+		*(*int32)(a2) = int32(libc.Atoi(libc.GoString(result)))
+		return 1
 	}
-	return result
+	return 0
 }
-func sub_5364E0(a1 *byte, a2 int32) int32 {
+func sub_5364E0(a1 *byte, a2 unsafe.Pointer) int {
 	var (
-		v2     uint32
-		v3     int8
-		v4     *byte
-		v5     *byte
-		result int32
-		v7     [256]byte
+		v2 uint32
+		v3 int8
+		v4 *byte
+		v5 *byte
+		v7 [256]byte
 	)
 	stdio.Sscanf(a1, "%s", &v7[0])
 	v2 = uint32(libc.StrLen(&v7[0]) + 1)
 	v3 = int8(uint8(v2))
 	v2 >>= 2
-	alloc.Memcpy(unsafe.Pointer(uintptr(a2+16)), unsafe.Pointer(&v7[0]), uintptr(v2*4))
+	alloc.Memcpy(unsafe.Add(a2, 16), unsafe.Pointer(&v7[0]), uintptr(v2*4))
 	v5 = &v7[v2*4]
-	v4 = (*byte)(unsafe.Pointer(uintptr(uint32(a2+16) + v2*4)))
+	v4 = (*byte)(unsafe.Add(a2, 16+v2*4))
 	*((*uint8)(unsafe.Pointer(&v2))) = uint8(v3)
-	result = 1
 	alloc.Memcpy(unsafe.Pointer(v4), unsafe.Pointer(v5), uintptr(v2&3))
-	*(*uint32)(unsafe.Pointer(uintptr(a2 + 12))) = 0
-	return result
-}
-func sub_536550(a1 *byte, a2 *uint32) int32 {
-	stdio.Sscanf(a1, "%f %f", a2, (*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*2)))
-	*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*1)) = *a2
+	*(*uint32)(unsafe.Add(a2, 12)) = 0
 	return 1
 }
-func sub_536580(a1 *byte, a2 int32) int32 {
-	stdio.Sscanf(a1, "%d %d %d", a2, a2+4, a2+8)
+func sub_536550(a1 *byte, a2 unsafe.Pointer) int {
+	stdio.Sscanf(a1, "%f %f", a2, (*uint32)(unsafe.Add(a2, 4*2)))
+	*(*uint32)(unsafe.Add(a2, 4*1)) = *(*uint32)(a2)
 	return 1
 }
-func sub_5365B0(a1 *byte, a2 int32) int32 {
+func sub_536580(a1 *byte, a2 unsafe.Pointer) int {
+	stdio.Sscanf(a1, "%d %d %d", a2, unsafe.Add(a2, 4), unsafe.Add(a2, 8))
+	return 1
+}
+func sub_5365B0(a1 *byte, a2 unsafe.Pointer) int {
 	var (
 		v2 *byte
 		v3 *byte
 	)
 	v2 = libc.StrTok(a1, internCStr(" "))
 	if v2 != nil {
-		*(*uint32)(unsafe.Pointer(uintptr(a2 + 36))) = uint32(nox_xxx_utilFindSound_40AF50(v2))
+		*(*uint32)(unsafe.Add(a2, 36)) = uint32(nox_xxx_utilFindSound_40AF50(v2))
 	}
 	v3 = libc.StrTok(nil, internCStr(" "))
 	if v3 != nil {
-		*(*uint32)(unsafe.Pointer(uintptr(a2 + 40))) = uint32(nox_xxx_utilFindSound_40AF50(v3))
+		*(*uint32)(unsafe.Add(a2, 40)) = uint32(nox_xxx_utilFindSound_40AF50(v3))
 	}
 	return 1
 }
-func sub_536600(a1 *byte, a2 int32) int32 {
+func sub_536600(a1 *byte, a2 unsafe.Pointer) int {
 	stdio.Sscanf(a1, "%d", a2)
 	return 1
 }
-func sub_536B40(a1 *byte, a2 int32) int32 {
+func sub_536B40(a1 *byte, a2 unsafe.Pointer) int {
 	var v3 [64]byte
 	stdio.Sscanf(a1, "%s %s", a2, &v3[0])
-	*(*uint32)(unsafe.Pointer(uintptr(a2 + 128))) = uint32(nox_xxx_utilFindSound_40AF50(&v3[0]))
+	*(*uint32)(unsafe.Add(a2, 128)) = uint32(nox_xxx_utilFindSound_40AF50(&v3[0]))
 	return 1
 }
-func sub_536D80(a1 *byte, a2 int32) int32 {
+func sub_536D80(a1 *byte, a2 unsafe.Pointer) int {
 	stdio.Sscanf(a1, "%d", a2)
 	return 1
 }
-func sub_536DA0(a1 *byte, a2 *int32) int32 {
+func sub_536DA0(a1 *byte, a2 unsafe.Pointer) int {
 	var (
 		v2 int32
 		v4 [256]byte
 	)
 	stdio.Sscanf(a1, "%s", &v4[0])
 	v2 = nox_xxx_utilFindSound_40AF50(&v4[0])
-	*a2 = v2
-	return bool2int32(v2 != 0)
+	*(*int32)(a2) = v2
+	return bool2int(v2 != 0)
 }
-func sub_536DE0(a1 *byte, a2 *uint8) int32 {
+func sub_536DE0(a1 *byte, a2 unsafe.Pointer) int {
 	stdio.Sscanf(a1, "%d", &a1)
-	*a2 = uint8(uintptr(unsafe.Pointer(a1)))
+	*(*uint8)(a2) = uint8(uintptr(unsafe.Pointer(a1)))
 	return 1
 }
-func nox_xxx_collideDamageLoad_536E10(a1 *byte, a2 int32) int32 {
+func nox_xxx_collideDamageLoad_536E10(a1 *byte, a2 unsafe.Pointer) int {
 	var (
 		v2 *byte
 		v3 *byte
 		v4 int32
 	)
 	v2 = libc.StrTok(a1, internCStr(" "))
-	*(*uint8)(unsafe.Pointer(uintptr(a2))) = uint8(int8(libc.Atoi(libc.GoString(v2))))
+	*(*uint8)(unsafe.Add(a2, 0)) = uint8(int8(libc.Atoi(libc.GoString(v2))))
 	v3 = libc.StrTok(nil, internCStr(" "))
 	v4 = nox_xxx_parseDamageTypeByName_4E0A00(v3)
-	*(*uint32)(unsafe.Pointer(uintptr(a2 + 4))) = uint32(v4)
-	return bool2int32(v4 != 18)
+	*(*uint32)(unsafe.Add(a2, 4)) = uint32(v4)
+	return bool2int(v4 != 18)
 }
-func sub_536E50(a1 *byte, a2 *uint8) int32 {
+func sub_536E50(a1 *byte, a2 unsafe.Pointer) int {
 	var v2 *byte
 	v2 = libc.StrTok(a1, internCStr(" "))
-	*a2 = uint8(int8(libc.Atoi(libc.GoString(v2))))
+	*(*uint8)(a2) = uint8(int8(libc.Atoi(libc.GoString(v2))))
 	return 1
 }
-func sub_536E80(a1 *byte, a2 *int32) int32 {
+func sub_536E80(a1 *byte, a2 unsafe.Pointer) int {
 	var (
 		v2 *byte
 		v3 *byte
 	)
 	v2 = libc.StrTok(a1, internCStr(" "))
-	*a2 = int32(libc.Atoi(libc.GoString(v2)))
+	*(*int32)(unsafe.Add(a2, 0)) = int32(libc.Atoi(libc.GoString(v2)))
 	v3 = libc.StrTok(a1, internCStr(" "))
-	*(*int32)(unsafe.Add(unsafe.Pointer(a2), 4*1)) = int32(libc.Atoi(libc.GoString(v3)))
+	*(*int32)(unsafe.Add(a2, 4)) = int32(libc.Atoi(libc.GoString(v3)))
 	return 1
 }
 func nox_xxx_traceRay_5374B0(a1 *float4) int32 {
