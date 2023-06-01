@@ -1077,7 +1077,7 @@ func sub_4625D0(a1 *uint32) int32 {
 		if dword_5d4594_1062480 != 0 && **(**uint32)(unsafe.Pointer(&dword_5d4594_1062480)) != 0 {
 			*(*uint32)(unsafe.Pointer(uintptr(**(**uint32)(unsafe.Pointer(&dword_5d4594_1062480)) + 12))) = uint32(v3 + v5/2)
 			*(*uint32)(unsafe.Pointer(uintptr(**(**uint32)(unsafe.Pointer(&dword_5d4594_1062480)) + 16))) = uint32(v4 + v6/2)
-			(*(*func(*uint8, uint32))(unsafe.Pointer(uintptr(**(**uint32)(unsafe.Pointer(&dword_5d4594_1062480)) + 300))))((*uint8)(memmap.PtrOff(0x5D4594, 1049732)), **(**uint32)(unsafe.Pointer(&dword_5d4594_1062480)))
+			asFuncT[func(*uint8, uint32)](unsafe.Pointer(uintptr(**(**uint32)(unsafe.Pointer(&dword_5d4594_1062480))+300)))((*uint8)(memmap.PtrOff(0x5D4594, 1049732)), **(**uint32)(unsafe.Pointer(&dword_5d4594_1062480)))
 		}
 		v2 = (*int16)(unsafe.Pointer(sub_42E8E0(35, 1)))
 		if v2 != nil {
@@ -1432,7 +1432,7 @@ func nox_xxx_guiDrawInventoryTray_4643B0(a1 int32, a2 int32) int32 {
 						nox_client_drawEnableAlpha_434560(0)
 						*(*uint32)(unsafe.Pointer(uintptr(v7 + 16))) = uint32(v5 + 25)
 						*(*uint32)(unsafe.Pointer(uintptr(v7 + 12))) = uint32(v6 + 25)
-						(*(*func(*uint8, int32))(unsafe.Pointer(uintptr(v7 + 300))))((*uint8)(memmap.PtrOff(0x5D4594, 1049732)), v7)
+						asFuncT[func(*uint8, int32)](unsafe.Pointer(uintptr(v7+300)))((*uint8)(memmap.PtrOff(0x5D4594, 1049732)), v7)
 						if dword_5d4594_1049864 == 6 {
 							if *(*uint32)(unsafe.Pointer(uintptr(v7 + 112)))&0x13001000 != 0 {
 								if (*(*uint32)(unsafe.Pointer(uintptr(v7 + 112))) & 0x1000) == 4096 {
@@ -1763,7 +1763,7 @@ func sub_465D50_draw(a1 int32) int32 {
 	if v2 != 0 {
 		*(*uint32)(unsafe.Pointer(uintptr(v2 + 12))) = uint32(v4 + 51)
 		*(*uint32)(unsafe.Pointer(uintptr(v2 + 16))) = uint32(a1 + 81)
-		(*(*func(*uint8, int32))(unsafe.Pointer(uintptr(v2 + 300))))((*uint8)(memmap.PtrOff(0x5D4594, 1049732)), v2)
+		asFuncT[func(*uint8, int32)](unsafe.Pointer(uintptr(v2+300)))((*uint8)(memmap.PtrOff(0x5D4594, 1049732)), v2)
 		result = 1
 	} else {
 		if dword_5d4594_1062496 == 0 && dword_5d4594_1062492 == 0 {
@@ -4405,7 +4405,7 @@ func nox_xxx_guiBottleSlotDrawFn_471A80(a1 *uint32) int32 {
 		if v3 != 0 {
 			*(*uint32)(unsafe.Pointer(uintptr(v3 + 12))) = uint32(v8 + 14)
 			*(*uint32)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v2)+1090296) + 16))) = uint32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(unsafe.Pointer(a1))), 15)))))
-			(*(*func(*uint8, uint32))(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v2)+1090296) + 300))))((*uint8)(memmap.PtrOff(0x5D4594, 1091908)), *memmap.PtrUint32(0x5D4594, uintptr(v2)+1090296))
+			asFuncT[func(*uint8, uint32)](unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, uintptr(v2)+1090296)+300)))((*uint8)(memmap.PtrOff(0x5D4594, 1091908)), *memmap.PtrUint32(0x5D4594, uintptr(v2)+1090296))
 		}
 		nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 		nox_swprintf(&v9[0], (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), *memmap.PtrUint16(0x5D4594, uintptr(v2)+1090312))

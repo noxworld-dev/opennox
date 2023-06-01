@@ -79,7 +79,7 @@ func nox_thing_summon_effect_draw(a1 *int32, dr *nox_drawable) int32 {
 		v16 = int64(gameFrame())
 		*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v16))), 4*0)) = *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*79))
 		nox_client_drawSetAlpha_434580(uint8(int8(int64((float64(gameFrame()) - float64(v16)) / float64(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v2))), unsafe.Sizeof(uint16(0))*218)))) * 255.0))))
-		(*(*func(*int32, uint32))(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*108)) + 300))))(a1, *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*108)))
+		asFuncT[func(*int32, uint32)](unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*108))+300)))(a1, *(*uint32)(unsafe.Add(unsafe.Pointer(v2), 4*108)))
 		nox_client_drawEnableAlpha_434560(0)
 		result = 1
 	} else {

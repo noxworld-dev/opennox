@@ -9534,7 +9534,7 @@ func nox_xxx_cspellRemoveSpell_52BC90(a1 int32) {
 			nox_xxx_delayedDeleteObject_4E5CC0((*nox_object_t)(unsafe.Pointer(uintptr(a1))))
 			return
 		}
-		(*(*func(int32, uint32, uint32))(unsafe.Pointer(uintptr(a1 + 696))))(a1, 0, 0)
+		asFuncT[func(int32, uint32, uint32)](unsafe.Pointer(uintptr(a1+696)))(a1, 0, 0)
 		if (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 16)))) & 0x20) == 0 {
 			nox_xxx_delayedDeleteObject_4E5CC0((*nox_object_t)(unsafe.Pointer(uintptr(a1))))
 			return
@@ -9870,7 +9870,7 @@ func nox_xxx_useShock_52C5A0(a1 int32, a2 int32, a3 int32, a4 int32, a5 *int32, 
 	if a4 != 0 && int32(*(*uint16)(unsafe.Pointer(uintptr(a4 + 4)))) == v7 {
 		v10 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("ShockTrapDamage"), a6-1))
 		v8 = nox_float2int(v10)
-		(*(*func(int32, int32, int32, int32, int32))(unsafe.Pointer(uintptr(*a5 + 716))))(*a5, a3, a3, v8, 9)
+		asFuncT[func(int32, int32, int32, int32, int32)](unsafe.Pointer(uintptr(*a5+716)))(*a5, a3, a3, v8, 9)
 		result = 1
 	} else {
 		v11 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("ShockEnchantDuration")))
@@ -10785,7 +10785,7 @@ func nox_xxx_equakeDamage_52DEC0(a1 int32, a2 int32) int16 {
 				v7 = float32(nox_xxx_calcDistance_4E6C00((*nox_object_t)(unsafe.Pointer(uintptr(a1))), (*nox_object_t)(unsafe.Pointer(uintptr(a2)))))
 				v8 = float32(1.0 - float64(v7)/nox_xxx_gamedataGetFloat_419D40(internCStr("EarthquakeRange")))
 				v5 = nox_xxx_gamedataGetFloatTable_419D70(internCStr("EarthquakeDamage"), int32(*memmap.PtrUint32(0x5D4594, 2487700)-1)) * float64(v8)
-				*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v3))), unsafe.Sizeof(uint16(0))*0)) = uint16(int16((*(*func(int32, int32, int32, uint32, int32) int32)(unsafe.Pointer(uintptr(a1 + 716))))(a1, v4, v2, uint32(int32(int64(v5))), 11)))
+				*(*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(&v3))), unsafe.Sizeof(uint16(0))*0)) = uint16(int16(asFuncT[func(int32, int32, int32, uint32, int32) int32](unsafe.Pointer(uintptr(a1+716)))(a1, v4, v2, uint32(int32(int64(v5))), 11)))
 			}
 		}
 	}
@@ -11291,7 +11291,7 @@ func nox_xxx_spellEnergyBoltTick_52E850(a1 float32) int32 {
 		}
 		v34 = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 48))))
 		v21 = nox_float2int(v16)
-		(*(*func(uint32, uint32, uint32, int32, int32))(unsafe.Pointer(uintptr(v34 + 716))))(*(*uint32)(unsafe.Pointer(uintptr(v1 + 48))), *(*uint32)(unsafe.Pointer(uintptr(v1 + 16))), 0, v21, 17)
+		asFuncT[func(uint32, uint32, uint32, int32, int32)](unsafe.Pointer(uintptr(v34+716)))(*(*uint32)(unsafe.Pointer(uintptr(v1 + 48))), *(*uint32)(unsafe.Pointer(uintptr(v1 + 16))), 0, v21, 17)
 		v22 = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 48))))
 		if *(*uint32)(unsafe.Pointer(uintptr(v22 + 16)))&0x8020 != 0 {
 			nox_xxx_netSendPointFx_522FF0(-126, (*float2)(unsafe.Pointer(uintptr(v22+56))))

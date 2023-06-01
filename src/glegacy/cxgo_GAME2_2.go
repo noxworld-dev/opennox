@@ -899,7 +899,7 @@ func sub_478C80() int32 {
 				if *(*uint32)(unsafe.Pointer(v2)) != 0 {
 					*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), -int(4*1)))) + 12))) = uint32(v3 + 20)
 					*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), -int(4*1)))) + 16))) = uint32(v1 + 25)
-					(*(*func(*uint8, uint32))(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), -int(4*1)))) + 300))))((*uint8)(memmap.PtrOff(0x5D4594, 1098492)), *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), -int(4*1)))))
+					asFuncT[func(*uint8, uint32)](unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), -int(4*1))))+300)))((*uint8)(memmap.PtrOff(0x5D4594, 1098492)), *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), -int(4*1)))))
 					if v8 < *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*33))) {
 						nox_client_drawRectFilledAlpha_49CF10(v3-5, v1, 50, 50)
 					}
@@ -4502,7 +4502,7 @@ func sub_486FE0(a1 int32) *uint32 {
 	sub_425770(unsafe.Pointer(v1))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*4)) = 0
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3)) = uint32(a1)
-	if (*(*func(*uint32) int32)(unsafe.Pointer(uintptr(a1 + 20))))(v1) == 0 {
+	if asFuncT[func(*uint32) int32](unsafe.Pointer(uintptr(a1+20)))(v1) == 0 {
 		return v1
 	}
 	if v1 != nil {
@@ -4511,7 +4511,7 @@ func sub_486FE0(a1 int32) *uint32 {
 	return nil
 }
 func sub_487030(lpMem unsafe.Pointer) {
-	(*(*func(unsafe.Pointer))(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*3))) + 24))))(lpMem)
+	asFuncT[func(unsafe.Pointer)](unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*3))) + 24)))(lpMem)
 	*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*3))) + 12))) &= 0xFFFFFFFE
 	alloc.FreePtr(lpMem)
 }
@@ -4616,7 +4616,7 @@ func sub_4871C0(a1 int32, a2 int32, a3 unsafe.Pointer) *uint32 {
 	if a3 != nil {
 		sub_487590(int32(uintptr(unsafe.Pointer(v4))), a3)
 	}
-	if (*(*func(*uint32) int32)(unsafe.Pointer(uintptr(v3 + 28))))(v4) == 0 {
+	if asFuncT[func(*uint32) int32](unsafe.Pointer(uintptr(v3+28)))(v4) == 0 {
 		return v4
 	}
 	if v4 != nil {
@@ -4630,7 +4630,7 @@ func sub_4872C0(lpMem unsafe.Pointer) {
 		v2 int32
 	)
 	sub_487910(int32(uintptr(lpMem)), -1)
-	(*(*func(unsafe.Pointer))(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*5))) + 12))) + 32))))(lpMem)
+	asFuncT[func(unsafe.Pointer)](unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*5))) + 12))) + 32)))(lpMem)
 	*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*5))) + *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*6)))*4 + 24))) = 0
 	v1 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(lpMem)), 4*5))))
 	v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 16))) - 1)
@@ -4742,7 +4742,7 @@ func sub_4873C0(a3 int32) int32 {
 						return v17
 					}()) != 0 || sub_486550((*uint8)(unsafe.Pointer(uintptr(v12+16)))) != 0 || *(*uint32)(unsafe.Pointer(uintptr(v12 + 116))) != 0 && sub_486550(*(**uint8)(unsafe.Pointer(uintptr(v12 + 116)))) != 0 || *(*uint32)(unsafe.Pointer(uintptr(v12 + 112))) != 0 && sub_486550(*(**uint8)(unsafe.Pointer(uintptr(v12 + 112)))) != 0 {
 						sub_4BD840(v12)
-						(*(*func(int32))(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v12 + 172))) + 32))))(v12)
+						asFuncT[func(int32)](unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v12 + 172))) + 32)))(v12)
 					}
 				}
 				v12 = v13

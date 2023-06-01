@@ -480,7 +480,7 @@ func sub_43EDB0(a1 HSAMPLE) {
 	v2 = v1
 	result = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 28))))
 	if result == 0 {
-		result = (*(*func(uint32) int32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v2 + 4))) + 284))))(*(*uint32)(unsafe.Pointer(uintptr(v2 + 4))))
+		result = asFuncT[func(uint32) int32](unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v2 + 4))) + 284)))(*(*uint32)(unsafe.Pointer(uintptr(v2 + 4))))
 		*(*uint32)(unsafe.Pointer(uintptr(v2 + 28))) = 1
 	}
 }
@@ -531,10 +531,10 @@ func sub_43EE00(a1p unsafe.Pointer) int32 {
 				}
 				v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 300))))
 				if v8 == 0 {
-					(*(*func(int32))(unsafe.Pointer(uintptr(v3 + 276))))(v3)
+					asFuncT[func(int32)](unsafe.Pointer(uintptr(v3 + 276)))(v3)
 					v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 300))))
 					if v8 == 0 {
-						(*(*func(int32))(unsafe.Pointer(uintptr(v3 + 280))))(v3)
+						asFuncT[func(int32)](unsafe.Pointer(uintptr(v3 + 280)))(v3)
 						v8 = int32(*(*uint32)(unsafe.Pointer(uintptr(v3 + 300))))
 						if v8 == 0 {
 							*(*uint32)(unsafe.Pointer(uintptr(a1 + 12))) = 1

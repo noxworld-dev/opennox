@@ -4086,7 +4086,7 @@ func nox_xxx_sentry_511020(a1 int32, a2 int32) {
 		if float64(*(*float32)(unsafe.Pointer(uintptr(a1 + 176)))**(*float32)(unsafe.Pointer(uintptr(a1 + 176)))) > v3*v3+float64((*(*float32)(unsafe.Pointer(uintptr(a1 + 56)))-a3.field_0)*(*(*float32)(unsafe.Pointer(uintptr(a1 + 56)))-a3.field_0)) {
 			v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2))))
 			v6 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*nox_object_t)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2))))))))))
-			(*(*func(int32, int32, int32, int32, int32))(unsafe.Pointer(uintptr(a1 + 716))))(a1, v6, v7, 500, 16)
+			asFuncT[func(int32, int32, int32, int32, int32)](unsafe.Pointer(uintptr(a1+716)))(a1, v6, v7, 500, 16)
 			nox_xxx_aud_501960(298, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
 		}
 	}
@@ -5388,7 +5388,7 @@ func sub_5180B0(a1 int32, a2 int32) {
 		v5 = float64(*(*float32)(unsafe.Pointer(uintptr(a2 + 4)))) - v4
 	LABEL_9:
 		if v5 > 0.0 {
-			(*(*func(int32, uint32))(unsafe.Pointer(uintptr(a2 + 8))))(a1, *(*uint32)(unsafe.Pointer(uintptr(a2 + 12))))
+			asFuncT[func(int32, uint32)](unsafe.Pointer(uintptr(a2+8)))(a1, *(*uint32)(unsafe.Pointer(uintptr(a2 + 12))))
 		}
 	}
 }

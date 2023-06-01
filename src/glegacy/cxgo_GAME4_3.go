@@ -251,7 +251,7 @@ LABEL_55:
 			nox_xxx_netStartDurationRaySpell_4FF130(int32(uintptr(unsafe.Pointer(v21))))
 		}
 		if v20 > 0 {
-			(*(*func(uint32, uint32, uint32, int32, int32))(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v21), 4*12)) + 716))))(*(*uint32)(unsafe.Add(unsafe.Pointer(v21), 4*12)), *(*uint32)(unsafe.Pointer(uintptr(source + 16))), 0, v20, 17)
+			asFuncT[func(uint32, uint32, uint32, int32, int32)](unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v21), 4*12))+716)))(*(*uint32)(unsafe.Add(unsafe.Pointer(v21), 4*12)), *(*uint32)(unsafe.Pointer(uintptr(source + 16))), 0, v20, 17)
 		}
 		v24 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v21), 4*12)))
 		if *(*uint32)(unsafe.Pointer(uintptr(v24 + 16)))&0x8020 != 0 {
@@ -378,7 +378,7 @@ func nox_xxx_lightningSpellTrapEffect_530020(a1 int32, a2 int32) {
 						if nox_xxx_mapTraceRay_535250(&v9, nil, nil, 9) != 0 {
 							v8 = float32(nox_xxx_gamedataGetFloat_419D40(internCStr("LightningGlyphDamage")))
 							v6 = nox_float2int(v8)
-							(*(*func(int32, uint32, uint32, int32, int32))(unsafe.Pointer(uintptr(a1 + 716))))(a1, 0, 0, v6, 17)
+							asFuncT[func(int32, uint32, uint32, int32, int32)](unsafe.Pointer(uintptr(a1+716)))(a1, 0, 0, v6, 17)
 							nox_xxx_netSendPointFx_522FF0(-127, (*float2)(unsafe.Pointer(uintptr(a1+56))))
 							v7 = nox_xxx_spellGetAud44_424800(43, 0)
 							nox_xxx_aud_501960(v7, (*nox_object_t)(unsafe.Pointer(uintptr(a1))), 0, 0)
@@ -1385,7 +1385,7 @@ LABEL_A:
 		}
 		v20 = float32(v9)
 		v10 = nox_float2int(v20)
-		(*(*func(uint32, uint32, uint32, int32, int32))(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 48))) + 716))))(*(*uint32)(unsafe.Pointer(uintptr(a1 + 48))), *(*uint32)(unsafe.Pointer(uintptr(a1 + 16))), 0, v10, 14)
+		asFuncT[func(uint32, uint32, uint32, int32, int32)](unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 48)))+716)))(*(*uint32)(unsafe.Pointer(uintptr(a1 + 48))), *(*uint32)(unsafe.Pointer(uintptr(a1 + 16))), 0, v10, 14)
 		v11 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 48))))
 		if *(*uint32)(unsafe.Pointer(uintptr(v11 + 16)))&0x8020 != 0 {
 			nox_xxx_netSendPointFx_522FF0(-125, (*float2)(unsafe.Pointer(uintptr(v11+56))))
@@ -3772,13 +3772,13 @@ func sub_537770(a1p *nox_object_t) {
 				v1 = int32(*(*uint16)(unsafe.Pointer(uintptr(v3 + 4))))
 				return uint32(uint16(int16(v1))) != *memmap.PtrUint32(0x5D4594, 2488624)
 			}()) && uint32(v1) != *memmap.PtrUint32(0x5D4594, 2488628) && uint32(v1) != *memmap.PtrUint32(0x5D4594, 2488632) {
-				(*(*func(int32, int32, *float2))(unsafe.Pointer(uintptr(a1 + 696))))(a1, v3, &v4)
+				asFuncT[func(int32, int32, *float2)](unsafe.Pointer(uintptr(a1+696)))(a1, v3, &v4)
 				*((*uint8)(unsafe.Pointer(&v1))) = uint8(int8(v3))
 				dword_5d4594_2488620 = 0
 				if v3 != 0 {
 					v4.field_0 = -v4.field_0
 					v4.field_4 = -v4.field_4
-					*((*uint8)(unsafe.Pointer(&v1))) = uint8(int8((*(*func(int32, int32, *float2) int32)(unsafe.Pointer(uintptr(v3 + 696))))(v3, a1, &v4)))
+					*((*uint8)(unsafe.Pointer(&v1))) = uint8(int8(asFuncT[func(int32, int32, *float2) int32](unsafe.Pointer(uintptr(v3+696)))(v3, a1, &v4)))
 				}
 			}
 		}
@@ -4119,7 +4119,7 @@ func sub_538510(a1 int32, a2 int32) {
 							v12.field_C = v5
 							if nox_xxx_mapTraceRay_535250(&v12, nil, nil, 5) != 0 {
 								nox_xxx_playerPreAttackEffects_538290(a1, int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 12)))), int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 28)))), a2)
-								(*(*func(int32, uint32, uint32, uint32, uint32))(unsafe.Pointer(uintptr(a1 + 716))))(a1, *(*uint32)(unsafe.Pointer(uintptr(a2 + 12))), *(*uint32)(unsafe.Pointer(uintptr(a2 + 28))), uint32(int32(int64(float64(*(*float32)(unsafe.Pointer(uintptr(a2))))+0.5))), uint32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 4)))))
+								asFuncT[func(int32, uint32, uint32, uint32, uint32)](unsafe.Pointer(uintptr(a1+716)))(a1, *(*uint32)(unsafe.Pointer(uintptr(a2 + 12))), *(*uint32)(unsafe.Pointer(uintptr(a2 + 28))), uint32(int32(int64(float64(*(*float32)(unsafe.Pointer(uintptr(a2))))+0.5))), uint32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 4)))))
 								if nox_common_gameFlags_check_40A5C0(2048) {
 									if int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2 + 12))) + 8))))&4 != 0 {
 										if (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8)))) & 2) == 0 {
@@ -6286,7 +6286,7 @@ func nox_xxx_updateMagicMissile_53BDA0(a1 int32) int32 {
 	v1 = *(**int32)(unsafe.Pointer(uintptr(a1 + 748)))
 	v2 = *v1
 	if (int32(*(*uint8)(unsafe.Pointer(uintptr(*v1 + 16))))&0x20) != 0 || gameFrame()-*(*uint32)(unsafe.Pointer(uintptr(a1 + 128))) > (gameFPS()*3) {
-		return (*(*func(int32, uint32, uint32) int32)(unsafe.Pointer(uintptr(a1 + 696))))(a1, 0, 0)
+		return asFuncT[func(int32, uint32, uint32) int32](unsafe.Pointer(uintptr(a1+696)))(a1, 0, 0)
 	}
 	v3 = *(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*1))
 	if v3 != 0 {
@@ -7273,7 +7273,7 @@ func sub_53D8C0(a1 int32, a2 int32) {
 		if nox_xxx_mapTraceRay_535250(&v8, nil, nil, 5) != 0 {
 			v7 = nox_common_randomInt_415FA0(3, 10)
 			v5 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*nox_object_t)(unsafe.Pointer(uintptr(a2)))))))
-			(*(*func(int32, int32, int32, int32, int32))(unsafe.Pointer(uintptr(a1 + 716))))(a1, v5, a2, v7, 5)
+			asFuncT[func(int32, int32, int32, int32, int32)](unsafe.Pointer(uintptr(a1+716)))(a1, v5, a2, v7, 5)
 			v6 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*nox_object_t)(unsafe.Pointer(uintptr(a2)))))))
 			if nox_xxx_unitIsEnemyTo_5330C0((*nox_object_t)(unsafe.Pointer(uintptr(v6))), (*nox_object_t)(unsafe.Pointer(uintptr(a1)))) != 0 {
 				nox_xxx_activatePoison_4EE7E0(a1, 1, 1)
@@ -7314,7 +7314,7 @@ func nox_xxx_toxicCloudPoison_53D9D0(a1 int32, a2 int32) {
 		v7.field_C = v4
 		if nox_xxx_mapTraceRay_535250(&v7, nil, nil, 5) != 0 {
 			v5 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*nox_object_t)(unsafe.Pointer(uintptr(a2)))))))
-			(*(*func(int32, int32, int32, uint32, int32))(unsafe.Pointer(uintptr(a1 + 716))))(a1, v5, a2, 0, 5)
+			asFuncT[func(int32, int32, int32, uint32, int32)](unsafe.Pointer(uintptr(a1+716)))(a1, v5, a2, 0, 5)
 			v6 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*nox_object_t)(unsafe.Pointer(uintptr(a2)))))))
 			if nox_xxx_unitIsEnemyTo_5330C0((*nox_object_t)(unsafe.Pointer(uintptr(v6))), (*nox_object_t)(unsafe.Pointer(uintptr(a1)))) != 0 {
 				nox_xxx_activatePoison_4EE7E0(a1, 1, 1)
@@ -8666,7 +8666,7 @@ func nox_xxx_useByNetCode_53F8E0(a1 int32, a2 int32) int32 {
 	}
 	result = sub_419E60((*nox_object_t)(unsafe.Pointer(uintptr(a1))))
 	if result != 1 {
-		result = (*(*func(int32, int32) int32)(unsafe.Pointer(uintptr(a2 + 732))))(a1, a2)
+		result = asFuncT[func(int32, int32) int32](unsafe.Pointer(uintptr(a2+732)))(a1, a2)
 	}
 	return result
 }

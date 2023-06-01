@@ -639,7 +639,7 @@ func sub_41A000(a1 *byte, sv *Nox_savegame_xxx) int32 {
 						goto LABEL_10
 					}
 				}
-				if (*(*func(uint32) int32)(memmap.PtrOff(0x587000, 55956)))(0) == 0 {
+				if asFuncT[func(uint32) int32](memmap.PtrOff(0x587000, 55956))(0) == 0 {
 					nox_xxx_cryptClose_4269F0()
 					return 0
 				}
@@ -724,7 +724,7 @@ func nox_xxx_mapSavePlayerDataMB_41A230(a1 *byte) int32 {
 		for {
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v3), -4)), 4)
 			nox_xxx_crypt_426C90()
-			v5 = (*(*func(uint32) int32)(unsafe.Pointer(v3)))(0)
+			v5 = asFuncT[func(uint32) int32](unsafe.Pointer(v3))(0)
 			nox_xxx_crypt_426D40()
 			if v5 == 0 {
 				nox_xxx_cryptClose_4269F0()
@@ -840,7 +840,7 @@ func nox_xxx_plrLoad_41A480(a1 *byte) int32 {
 		v3 = (*uint8)(memmap.PtrOff(0x587000, 55936))
 		for {
 			if uint32(v5) == *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*1))) {
-				if (*(*func(unsafe.Pointer) int32)(memmap.PtrOff(0x587000, uintptr(v2*12+55944))))(nil) == 0 {
+				if asFuncT[func(unsafe.Pointer) int32](memmap.PtrOff(0x587000, uintptr(v2*12+55944)))(nil) == 0 {
 					nox_xxx_cryptClose_4269F0()
 					return 0
 				}
@@ -1322,7 +1322,7 @@ func sub_41AC30(a1p unsafe.Pointer, a2p unsafe.Pointer) int32 {
 					v34 = uint32(uint8(int8(v39)))
 					v16 = (*uint8)(unsafe.Pointer(nox_xxx_getUnitName_4E39D0((*nox_object_t)(unsafe.Pointer(uintptr(v15))))))
 					nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v16, v34)
-					if (*(*func(int32, uint32) int32)(unsafe.Pointer(uintptr(v15 + 704))))(v15, 0) == 0 {
+					if asFuncT[func(int32, uint32) int32](unsafe.Pointer(uintptr(v15+704)))(v15, 0) == 0 {
 						return 0
 					}
 				}
@@ -1358,7 +1358,7 @@ func sub_41AC30(a1p unsafe.Pointer, a2p unsafe.Pointer) int32 {
 							v33 = uint32(uint8(int8(v39)))
 							v14 = (*uint8)(unsafe.Pointer(nox_xxx_getUnitName_4E39D0((*nox_object_t)(unsafe.Pointer(uintptr(v13))))))
 							nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v14, v33)
-							if (*(*func(int32, uint32) int32)(unsafe.Pointer(uintptr(v13 + 704))))(v13, 0) == 0 {
+							if asFuncT[func(int32, uint32) int32](unsafe.Pointer(uintptr(v13+704)))(v13, 0) == 0 {
 								return 0
 							}
 							v10++

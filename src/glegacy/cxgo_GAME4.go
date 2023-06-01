@@ -1926,7 +1926,7 @@ func nox_xxx_checkInversionEffect_4FA4F0(a1 int32, a2 int32) int32 {
 						if v7 != nil {
 							if funAddr(v7) == funAddr(nox_xxx_inversionEffect_4E03D0) {
 								v8 = int32(uintptr(unsafe.Pointer(nox_xxx_findParentChainPlayer_4EC580((*nox_object_t)(unsafe.Pointer(uintptr(a2)))))))
-								(*(*func(int32, *uint32, int32, int32, int32, *int32))(unsafe.Pointer(uintptr(v6 + 88))))(v6, v2, a1, a2, v8, &v10)
+								asFuncT[func(int32, *uint32, int32, int32, int32, *int32)](unsafe.Pointer(uintptr(v6+88)))(v6, v2, a1, a2, v8, &v10)
 								result = 1
 								if v10 == 1 {
 									return result
@@ -3058,7 +3058,7 @@ func nox_xxx_collide_4FDF90(a1 int32, a2 int32) {
 		nox_xxx_spellBuffOff_4FF5B0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 22)
 		v5 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("ShockDamage"), v2))
 		v3 = nox_float2int(v5)
-		(*(*func(int32, int32, int32, int32, int32))(unsafe.Pointer(uintptr(a2 + 716))))(a2, a1, a1, v3, 9)
+		asFuncT[func(int32, int32, int32, int32, int32)](unsafe.Pointer(uintptr(a2+716)))(a2, a1, a1, v3, 9)
 	}
 	result = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 8))))
 	if uint32(result)&0x20006 != 0 {

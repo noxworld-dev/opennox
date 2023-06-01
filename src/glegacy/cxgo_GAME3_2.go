@@ -5594,7 +5594,7 @@ func nox_xxx_netPlayerIncomingServ_4DDF60(a1 int32) int32 {
 	v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(v13 + 60))))
 	nox_xxx_newPlayerSendAllPlayers_4DE300(v1)
 	*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*1175))) = 0
-	(*(*func(int32, uint32))(unsafe.Pointer(uintptr(v13 + 688))))(v13, 0)
+	asFuncT[func(int32, uint32)](unsafe.Pointer(uintptr(v13+688)))(v13, 0)
 	*(*byte)(unsafe.Add(unsafe.Pointer(v2), 3676)) = 3
 	if !nox_common_gameFlags_check_40A5C0(512) {
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*908))) = uint32(v4)
@@ -6706,7 +6706,7 @@ func nox_xxx_confuseEffect_4E0670(a1 int32, a2 int32, a3 int32, a4 int32) {
 }
 func nox_xxx_lightngEffect_4E06F0(a1 int32, a2 int32, a3 int32, a4 int32) {
 	if a4 != 0 {
-		(*(*func(int32, int32, int32, uint32, int32))(unsafe.Pointer(uintptr(a4 + 716))))(a4, a3, a2, uint32(int32(int64(*(*float32)(unsafe.Pointer(uintptr(a1 + 56)))))), 9)
+		asFuncT[func(int32, int32, int32, uint32, int32)](unsafe.Pointer(uintptr(a4+716)))(a4, a3, a2, uint32(int32(int64(*(*float32)(unsafe.Pointer(uintptr(a1 + 56)))))), 9)
 		nox_xxx_netSendPointFx_522FF0(-127, (*float2)(unsafe.Pointer(uintptr(a4+56))))
 		nox_xxx_aud_501960(225, (*nox_object_t)(unsafe.Pointer(uintptr(a4))), 0, 0)
 	}
@@ -6978,7 +6978,7 @@ func nox_xxx_damageDefaultProc_4E0B30(a1 int32, a2 int32, a3 int32, a4 int32, a5
 						nox_xxx_spellBuffOff_4FF5B0((*nox_object_t)(unsafe.Pointer(uintptr(a1))), 22)
 						v41 = float32(nox_xxx_gamedataGetFloatTable_419D70(internCStr("ShockDamage"), 4))
 						v13 = nox_float2int(v41)
-						(*(*func(int32, int32, uint32, int32, int32))(unsafe.Pointer(uintptr(a2 + 716))))(a2, a1, 0, v13, 9)
+						asFuncT[func(int32, int32, uint32, int32, int32)](unsafe.Pointer(uintptr(a2+716)))(a2, a1, 0, v13, 9)
 						if int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 8))))&4 != 0 {
 							nox_xxx_playerSetState_4FA020((*nox_object_t)(unsafe.Pointer(uintptr(a2))), 23)
 						}
@@ -7257,7 +7257,7 @@ func nox_xxx_itemApplyDefendEffect2_4E1320(a1 int32, a2 int32, a3 int32, a4 *int
 						if *(*uint32)(unsafe.Pointer(uintptr(v9 + 76))) != 0 {
 							v10.field_0 = *a4
 							v10.field_4 = v7
-							(*(*func(int32, *uint32, int32, int32, int32, *int2))(unsafe.Pointer(uintptr(v9 + 76))))(v9, v6, a1, a3, a2, &v10)
+							asFuncT[func(int32, *uint32, int32, int32, int32, *int2)](unsafe.Pointer(uintptr(v9+76)))(v9, v6, a1, a3, a2, &v10)
 							*a4 = v10.field_0
 						}
 					}
@@ -7412,7 +7412,7 @@ func nox_xxx_playerDamageWeapon_4E1560(a1 int32, a2 int32, a3 int32, a4 int32, a
 				*v6 = float32(float64(a5) - float64(v9))
 				if v9 > 0 {
 					v10 = **(**uint16)(unsafe.Pointer(uintptr(a1 + 556)))
-					(*(*func(int32, int32, int32, int32, int32))(unsafe.Pointer(uintptr(a1 + 716))))(a1, a3, a4, v9, a6)
+					asFuncT[func(int32, int32, int32, int32, int32)](unsafe.Pointer(uintptr(a1+716)))(a1, a3, a4, v9, a6)
 					if a2 != 0 {
 						if int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 8))))&4 != 0 {
 							v11 = **(**uint16)(unsafe.Pointer(uintptr(a1 + 556)))
@@ -7468,7 +7468,7 @@ func nox_xxx_equipDamage_4E16D0(a1 int32, a2 int32, a3 int32, a4 int32, a5 float
 		*v6 = float32(float64(a5) - float64(v9))
 		if v9 > 0 {
 			v10 = **(**uint16)(unsafe.Pointer(uintptr(a1 + 556)))
-			(*(*func(int32, int32, int32, int32, int32))(unsafe.Pointer(uintptr(a1 + 716))))(a1, a3, a4, v9, a6)
+			asFuncT[func(int32, int32, int32, int32, int32)](unsafe.Pointer(uintptr(a1+716)))(a1, a3, a4, v9, a6)
 			if int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 8))))&4 != 0 {
 				v11 = **(**uint16)(unsafe.Pointer(uintptr(a1 + 556)))
 				if int32(v10) != int32(v11) {
