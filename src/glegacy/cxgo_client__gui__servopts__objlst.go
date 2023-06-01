@@ -22,8 +22,8 @@ func nox_xxx_guiObjlistLoad_4530C0(a1 int32, a2 int32) int32 {
 		v14 [66]wchar2_t
 	)
 	v2 = 0
-	dword_5d4594_1045468 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("objlst.wnd"), unsafe.Pointer(funAddr(sub_4533D0))))))
-	nox_xxx_wndSetDrawFn_46B340(*(*int32)(unsafe.Pointer(&dword_5d4594_1045468)), sub_453350)
+	dword_5d4594_1045468 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("objlst.wnd"), funAddrP(sub_4533D0)))))
+	nox_xxx_wndSetDrawFn_46B340(*(*int32)(unsafe.Pointer(&dword_5d4594_1045468)), funAddrP(sub_453350))
 	sub_46B120((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045468)))), (*nox_window)(unsafe.Pointer(uintptr(a1))))
 	nox_xxx_wnd_46B280(*(*int32)(unsafe.Pointer(&dword_5d4594_1045468)), a1)
 	dword_5d4594_1045464 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1045468)))), 1510))))

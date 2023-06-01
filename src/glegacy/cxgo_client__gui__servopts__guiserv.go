@@ -146,13 +146,11 @@ func nox_xxx_guiServerOptsLoad_457500() int32 {
 		if nox_xxx_guiFontHeightMB_43F320(nil) > 10 {
 			v1 = 2
 		}
-		dword_5d4594_1046492 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1*4)+129760)), unsafe.Pointer(funAddr(nox_xxx_guiServerOptionsProcPre_4585D0))))))
+		dword_5d4594_1046492 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(*(**byte)(memmap.PtrOff(0x587000, uintptr(v1*4)+129760)), funAddrP(nox_xxx_guiServerOptionsProcPre_4585D0)))))
 		nox_draw_setTabWidth_43FE20(100)
 		nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), int32(uint32(nox_win_width)-*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1046492 + 8)))-10), 0)
-		nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_1046492)), nox_xxx_guiServerOptionsProc_458590)
-		nox_xxx_wndSetDrawFn_46B340(*(*int32)(unsafe.Pointer(&dword_5d4594_1046492)), func(arg1 int32, arg2 int32) int32 {
-			return nox_xxx_windowServerOptionsDrawProc_458500((*uint32)(unsafe.Pointer(uintptr(arg1))), arg2)
-		})
+		nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_1046492)), funAddrP(nox_xxx_guiServerOptionsProc_458590))
+		nox_xxx_wndSetDrawFn_46B340(*(*int32)(unsafe.Pointer(&dword_5d4594_1046492)), funAddrP(nox_xxx_windowServerOptionsDrawProc_458500))
 		dword_5d4594_1046512 = nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10101)
 		dword_5d4594_1046496 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10114))))
 		dword_5d4594_1046500 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10183))))
@@ -163,33 +161,21 @@ func nox_xxx_guiServerOptsLoad_457500() int32 {
 		dword_5d4594_1046520 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10135))))
 		dword_5d4594_1046536 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10153))))
 		v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10331)))
-		nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), unsafe.Pointer(funAddr(nox_xxx_options_457AA0)))
+		nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), funAddrP(nox_xxx_options_457AA0))
 		v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10333)))
-		nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))), unsafe.Pointer(funAddr(nox_xxx_options_457B00)))
+		nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))), funAddrP(nox_xxx_options_457B00))
 		nox_xxx_wnd_46B280(*(*int32)(unsafe.Pointer(&dword_5d4594_1046524)), *(*int32)(unsafe.Pointer(&dword_5d4594_1046492)))
 		nox_xxx_wnd_46B280(*(*int32)(unsafe.Pointer(&dword_5d4594_1046532)), *(*int32)(unsafe.Pointer(&dword_5d4594_1046492)))
 		nox_xxx_wnd_46B280(*(*int32)(unsafe.Pointer(&dword_5d4594_1046536)), *(*int32)(unsafe.Pointer(&dword_5d4594_1046492)))
 		nox_xxx_wnd_46B280(*(*int32)(unsafe.Pointer(&dword_5d4594_1046500)), *(*int32)(unsafe.Pointer(&dword_5d4594_1046492)))
 		nox_xxx_wnd_46B280(*(*int32)(unsafe.Pointer(&dword_5d4594_1046504)), *(*int32)(unsafe.Pointer(&dword_5d4594_1046492)))
 		nox_xxx_wnd_46B280(*(*int32)(unsafe.Pointer(&dword_5d4594_1046508)), *(*int32)(unsafe.Pointer(&dword_5d4594_1046492)))
-		nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&dword_5d4594_1046524)), func(arg1 int32, arg2 int32, arg3 int32, arg4 int32) int32 {
-			return nox_xxx_guiServerOptionsProcPre_4585D0(arg1, uint32(arg2), arg3, arg4)
-		})
-		nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&dword_5d4594_1046532)), func(arg1 int32, arg2 int32, arg3 int32, arg4 int32) int32 {
-			return nox_xxx_guiServerOptionsProcPre_4585D0(arg1, uint32(arg2), arg3, arg4)
-		})
-		nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&dword_5d4594_1046536)), func(arg1 int32, arg2 int32, arg3 int32, arg4 int32) int32 {
-			return nox_xxx_guiServerOptionsProcPre_4585D0(arg1, uint32(arg2), arg3, arg4)
-		})
-		nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&dword_5d4594_1046500)), func(arg1 int32, arg2 int32, arg3 int32, arg4 int32) int32 {
-			return nox_xxx_guiServerOptionsProcPre_4585D0(arg1, uint32(arg2), arg3, arg4)
-		})
-		nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&dword_5d4594_1046504)), func(arg1 int32, arg2 int32, arg3 int32, arg4 int32) int32 {
-			return nox_xxx_guiServerOptionsProcPre_4585D0(arg1, uint32(arg2), arg3, arg4)
-		})
-		nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&dword_5d4594_1046508)), func(arg1 int32, arg2 int32, arg3 int32, arg4 int32) int32 {
-			return nox_xxx_guiServerOptionsProcPre_4585D0(arg1, uint32(arg2), arg3, arg4)
-		})
+		nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&dword_5d4594_1046524)), funAddrP(nox_xxx_guiServerOptionsProcPre_4585D0))
+		nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&dword_5d4594_1046532)), funAddrP(nox_xxx_guiServerOptionsProcPre_4585D0))
+		nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&dword_5d4594_1046536)), funAddrP(nox_xxx_guiServerOptionsProcPre_4585D0))
+		nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&dword_5d4594_1046500)), funAddrP(nox_xxx_guiServerOptionsProcPre_4585D0))
+		nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&dword_5d4594_1046504)), funAddrP(nox_xxx_guiServerOptionsProcPre_4585D0))
+		nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&dword_5d4594_1046508)), funAddrP(nox_xxx_guiServerOptionsProcPre_4585D0))
 		*memmap.PtrUint32(0x5D4594, 1046352) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UITabs1")))))
 		dword_5d4594_1046356 = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UITabs2")))))
 		dword_5d4594_1046360 = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UITabs3")))))
@@ -524,7 +510,7 @@ func nox_xxx_guiServerOptionsProcPre_4585D0(a1 int32, a2 uint32, a3 int32, a4 in
 					v21 = v19 <= 2
 					if v19 < 2 {
 						v22 = nox_strman_loadString_40F1D0(internCStr("NeedTeams"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 1363)
-						nox_xxx_dialogMsgBoxCreate_449A10((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046492))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(memmap.PtrOff(0x5D4594, 1046560)))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v22)))))), 56, unsafe.Pointer(funAddr(sub_459150)), nil)
+						nox_xxx_dialogMsgBoxCreate_449A10((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046492))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(memmap.PtrOff(0x5D4594, 1046560)))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v22)))))), 56, funAddrP(sub_459150), nil)
 						sub_44A360(1)
 						return 1
 					}

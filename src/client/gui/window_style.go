@@ -73,6 +73,10 @@ func (d *WindowData) Text() string {
 	return string(utf16.Decode(d.text[:n]))
 }
 
+func (d *WindowData) TextBuf() []uint16 {
+	return d.text[:]
+}
+
 func (d *WindowData) Tooltip() string {
 	n := alloc.StrLenS(d.tooltip[:])
 	return string(utf16.Decode(d.tooltip[:n]))

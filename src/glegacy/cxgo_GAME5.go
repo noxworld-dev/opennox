@@ -1739,7 +1739,7 @@ func sub_5481C0(a1 int32) {
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 96))) = 0
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 100))) = 0
 	if (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 16)))) & 0x60) == 0 {
-		nox_xxx_getUnitsInRect_517C10((*float4)(unsafe.Pointer(uintptr(a1+232))), unsafe.Pointer(funAddr(sub_548220)), unsafe.Pointer(uintptr(a1)))
+		nox_xxx_getUnitsInRect_517C10((*float4)(unsafe.Pointer(uintptr(a1+232))), funAddrP(sub_548220), unsafe.Pointer(uintptr(a1)))
 		if (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 16)))) & 8) == 0 {
 			if *(*uint32)(unsafe.Pointer(uintptr(a1 + 172))) == 2 {
 				sub_54FEF0(a1)
@@ -2472,7 +2472,7 @@ func nox_xxx_monsterPickMeleeTarget_549440(a3 int32, a2 int32) int32 {
 	v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v2 + 484))) + 112))))
 	*memmap.PtrUint32(0x5D4594, 2491564) = 0
 	*memmap.PtrUint32(0x5D4594, 2491572) = uint32(v5)
-	nox_xxx_getUnitsInRect_517C10(&a1, unsafe.Pointer(funAddr(sub_5494C0)), unsafe.Pointer(uintptr(a3)))
+	nox_xxx_getUnitsInRect_517C10(&a1, funAddrP(sub_5494C0), unsafe.Pointer(uintptr(a3)))
 	return int32(*memmap.PtrUint32(0x5D4594, 2491564))
 }
 func sub_5494C0(a1 *float32, a2 int32) {
@@ -5563,7 +5563,7 @@ func nox_xxx_dieBoulder_54E4B0(a1 int32) {
 		v9 = float32(nox_common_randomFloat_416030(10.0, 70.0))
 		nox_xxx_unitRaise_4E46F0((*nox_object_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), v9)
 		*(*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*27)) = float32(nox_common_randomFloat_416030(-2.0, 0.0))
-		v7 = float64(*memmap.PtrUint8(0x587000, dword_5d4594_2491704+290328))
+		v7 = float64(*memmap.PtrUint8(0x587000, uintptr(dword_5d4594_2491704)+290328))
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v6))), 4*4))) |= 0x800000
 		*(*float32)(unsafe.Add(unsafe.Pointer(v6), unsafe.Sizeof(float32(0))*29)) = float32(v7)
 		v10 = float32(nox_common_randomFloat_416030(5.0, 20.0))
@@ -5654,7 +5654,7 @@ func sub_54E810(a1 int32, a2 *float2, a3 int32) int32 {
 	a3a[1] = 0
 	a3a[2] = a3
 	a3a[3] = int32(uintptr(unsafe.Pointer(a2)))
-	sub_517B70(a2, unsafe.Pointer(funAddr(sub_54E850)), unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(&a3a[0]))))))
+	sub_517B70(a2, funAddrP(sub_54E850), unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(&a3a[0]))))))
 	return a3a[1]
 }
 func sub_54E850(a1 int32, a2 int32) {
@@ -5942,7 +5942,7 @@ func sub_54EF00(a3 *float32) int32 {
 	a1.field_4 = float32(float64(*(*float32)(unsafe.Add(unsafe.Pointer(a3), unsafe.Sizeof(float32(0))*1))) - 15.0)
 	a1.field_8 = float32(float64(*a3) + 15.0)
 	a1.field_C = float32(float64(*(*float32)(unsafe.Add(unsafe.Pointer(a3), unsafe.Sizeof(float32(0))*1))) + 15.0)
-	nox_xxx_getUnitsInRect_517C10(&a1, unsafe.Pointer(funAddr(sub_54EF60)), unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a3))))))
+	nox_xxx_getUnitsInRect_517C10(&a1, funAddrP(sub_54EF60), unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a3))))))
 	return int32(*memmap.PtrUint32(0x5D4594, 2491708))
 }
 func sub_54EF60(a1 *float32, a2 int32) {
@@ -6178,7 +6178,7 @@ func nox_xxx_unitUpdateMover_54F740(a1 int32) {
 	switch *v2 {
 	case 0:
 		if *(*uint32)(unsafe.Pointer(uintptr(a1 + 16)))&0x1000000 != 0 {
-			v6 = &nox_server_getWaypointById_579C40(int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*2))))).ind
+			v6 = (*uint32)(unsafe.Pointer(nox_server_getWaypointById_579C40(int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*2)))))))
 			if v6 != nil {
 				nox_xxx_unitMove_4E7010((*nox_object_t)(unsafe.Pointer(uintptr(a1))), (*float2)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*7)))+56))))
 				v7 = float64(*((*int32)(unsafe.Add(unsafe.Pointer((*int32)(unsafe.Pointer(v2))), 4*1))))
@@ -6365,7 +6365,7 @@ func sub_54FBF0(a3 int32) int32 {
 	v1 = float64(*(*float32)(unsafe.Pointer(uintptr(a3 + 60)))) + 350.0
 	*memmap.PtrUint32(0x5D4594, 2491764) = 0
 	a1.field_C = float32(v1)
-	nox_xxx_getUnitsInRect_517C10(&a1, unsafe.Pointer(funAddr(nox_xxx_unitIsAttackReachable_54FC50)), unsafe.Pointer(uintptr(a3)))
+	nox_xxx_getUnitsInRect_517C10(&a1, funAddrP(nox_xxx_unitIsAttackReachable_54FC50), unsafe.Pointer(uintptr(a3)))
 	return int32(*memmap.PtrUint32(0x5D4594, 2491764))
 }
 func nox_xxx_unitIsAttackReachable_54FC50(a1 int32, a2 int32) {

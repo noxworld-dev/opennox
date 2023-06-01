@@ -65,8 +65,8 @@ func sub_436F50() int32 {
 	)
 	v0 = nox_xxx_guiFontHeightMB_43F320(nil)
 	var rdr *nox_draw_viewport_t = nox_draw_getViewport_437250()
-	v2 = rdr.x1 + 10
-	v3 = rdr.y1 + 90
+	v2 = int32(rdr.Screen.Min.X + 10)
+	v3 = int32(rdr.Screen.Min.Y + 90)
 	nox_xxx_drawSetTextColor_434390(int32(nox_color_white_2523948))
 	v4 = nox_server_currentMapGetFilename_409B30()
 	nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 811120)), (*wchar2_t)(unsafe.Pointer(internCStr("%S"))), v4)

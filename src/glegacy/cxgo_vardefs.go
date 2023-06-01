@@ -78,7 +78,7 @@ var dword_5d4594_2386152 uint32
 var dword_5d4594_1197312 uint32
 var dword_5d4594_831236 uint32
 var dword_5d4594_1047540 uint32
-var dword_5d4594_814984 uint32
+var dword_5d4594_814984 unsafe.Pointer
 var dword_5d4594_1320964 uint32
 var dword_5d4594_1049800_inventory_click_row_index uint32
 var dword_5d4594_1309720 unsafe.Pointer
@@ -268,7 +268,7 @@ var dword_5d4594_832508 uint32
 var dword_5d4594_1090100 unsafe.Pointer
 var dword_5d4594_3835356 uint32
 var nox_client_renderBubbles_80844 uint32 = 0x1
-var dword_5d4594_814996 uint32
+var dword_5d4594_814996 unsafe.Pointer
 var dword_5d4594_1049532 uint32
 var nox_alloc_chat_1197364 unsafe.Pointer
 var dword_5d4594_1046520 uint32

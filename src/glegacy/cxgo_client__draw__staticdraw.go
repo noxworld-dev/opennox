@@ -8,13 +8,13 @@ import (
 )
 
 func nox_thing_static_draw(a1 *uint32, dr *nox_drawable) int32 {
-	if (dr.flags28&0x40000) == 0 || dr.flags30&0x1000000 != 0 {
-		nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(dr.field_76)), 4))))))
+	if (dr.Flags28()&0x40000) == 0 || dr.Flags30()&0x1000000 != 0 {
+		nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(dr.Field_76)), 4))))))
 	}
 	return 1
 }
 func nox_thing_static_random_draw(a1 *uint32, dr *nox_drawable) int32 {
-	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(dr.field_76)), 4)))) + dr.field_77*4)))))
+	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(dr.Field_76)), 4)))) + dr.Field_77*4)))))
 	return 1
 }
 func nox_things_static_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
@@ -39,12 +39,12 @@ func nox_things_static_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *by
 		*(*byte)(unsafe.Add(unsafe.Pointer(v6), v11)) = 0
 	}
 	*(*uint32)(unsafe.Add(unsafe.Pointer(data), 4*1)) = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(v8, int8(uintptr(unsafe.Pointer(a3))), v6))))
-	obj.draw_func = nox_thing_static_draw
-	obj.field_5c = unsafe.Pointer(data)
+	obj.DrawFunc = funAddrP(nox_thing_static_draw)
+	obj.Field_5c = unsafe.Pointer(data)
 	return true
 }
 func nox_things_static_random_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
-	obj.draw_func = nox_thing_static_random_draw
-	obj.field_5c = nox_xxx_spriteLoadStaticRandomData_44C000(attr_value, f)
-	return obj.field_5c != nil
+	obj.DrawFunc = funAddrP(nox_thing_static_random_draw)
+	obj.Field_5c = nox_xxx_spriteLoadStaticRandomData_44C000(attr_value, f)
+	return obj.Field_5c != nil
 }

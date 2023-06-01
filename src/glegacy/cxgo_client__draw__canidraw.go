@@ -78,7 +78,7 @@ func nox_things_cond_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_val
 	v23 = int32(v25)
 	if int32(v25) <= 0 {
 		obj.Field_5c = unsafe.Pointer(v3)
-		obj.DrawFunc = nox_thing_cond_animate_draw
+		obj.DrawFunc = funAddrP(nox_thing_cond_animate_draw)
 		obj.Field_60 = 0
 		return true
 	}
@@ -131,7 +131,7 @@ func nox_things_cond_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_val
 		if int32(uintptr(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(v7), v22))))) >= v23 {
 			v3 = v24
 			obj.Field_5c = unsafe.Pointer(v3)
-			obj.DrawFunc = nox_thing_cond_animate_draw
+			obj.DrawFunc = funAddrP(nox_thing_cond_animate_draw)
 			obj.Field_60 = 0
 			return true
 		}

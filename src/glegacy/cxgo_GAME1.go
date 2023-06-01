@@ -1316,8 +1316,8 @@ func sub_413900(a1 int32) {
 	}
 }
 func sub_413920() int32 {
-	sub_42EBB0(1, sub_413900, 0, internCStr("Pause"))
-	sub_42EBB0(2, sub_4138E0, 0, internCStr("Pause"))
+	sub_42EBB0(1, funAddrP(sub_413900), 0, internCStr("Pause"))
+	sub_42EBB0(2, funAddrP(sub_4138E0), 0, internCStr("Pause"))
 	dword_5d4594_251744 = 0
 	return 1
 }

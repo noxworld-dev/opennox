@@ -694,7 +694,7 @@ func nox_xxx_XFerObelisk_4F6F60(a1 *int32) int32 {
 				nullsub_35(uint32(uintptr(unsafe.Pointer(v1))), *(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v7))), 4*0)))
 			}
 			if nox_common_gameFlags_check_40A5C0(2048) {
-				v5 = &nox_xxx_netSpriteByCodeStatic_45A720(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*10))).field_0
+				v5 = &nox_xxx_netSpriteByCodeStatic_45A720(*(*int32)(unsafe.Add(unsafe.Pointer(v1), 4*10))).Field_0
 				if v5 != nil {
 					v6 = int32(uintptr(unsafe.Pointer(nox_xxx_cliFirstMinimapObj_459EB0())))
 					if v6 != 0 {
@@ -3097,7 +3097,7 @@ func nox_xxx_spellGetPhoneme_4FE1C0(a1 int32, a2 int8) int32 {
 				return 0
 			}
 		}
-	} else if (*(*uint32)(unsafe.Add(unsafe.Pointer(&nox_xxx_netSpriteByCodeDynamic_45A6F0(a1).field_0), 4*28)) & 4) == 0 {
+	} else if (*(*uint32)(unsafe.Add(unsafe.Pointer(&nox_xxx_netSpriteByCodeDynamic_45A6F0(a1).Field_0), 4*28)) & 4) == 0 {
 		switch a2 {
 		case 0:
 			return 193
@@ -3813,7 +3813,7 @@ func nox_xxx_buffApplyTo_4FF380(unit *nox_object_t, buff int32, dur int16, power
 			}
 			unit.BuffsDur[buff] = uint16(dur)
 			unit.BuffsPower[buff] = uint8(power)
-			nox_xxx_setUnitBuffFlags_4E48F0(int32(uintptr(unsafe.Pointer(unit))), int32(uint32(1<<buff)|unit.buffs))
+			nox_xxx_setUnitBuffFlags_4E48F0(int32(uintptr(unsafe.Pointer(unit))), int32(uint32(1<<buff)|unit.Buffs))
 			v5 = nox_xxx_getEnchantSpell_424920(buff)
 			v6 = nox_xxx_spellGetAud44_424800(v5, 1)
 			nox_xxx_aud_501960(v6, unit, 0, 0)
@@ -4876,7 +4876,7 @@ func sub_500B70() int32 {
 	return 1
 }
 func nox_xxx_orderUnitLocal_500C70(owner int32, orderType int32) int32 {
-	*((*uint32)(unsafe.Add(unsafe.Pointer(&nox_common_playerInfoFromNum_417090(owner).field_0), 4*912))) = uint32(orderType)
+	*((*uint32)(unsafe.Add(unsafe.Pointer(nox_common_playerInfoFromNum_417090(owner)), 4*912))) = uint32(orderType)
 	return nox_xxx_netCreatureCmd_4D7EE0(owner, int8(orderType))
 }
 func sub_500CA0(a1 int32, a2 int32) int32 {
@@ -5466,7 +5466,7 @@ func nox_server_scriptExecuteFnForEachGroupObj_502670(groupPtr *uint8, expectedT
 			break
 		}
 		for j = (*int32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(groupPtr))), 4*21)))))); j != nil; j = (*int32)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(j), 4*2))))) {
-			v7 = &nox_server_getWaypointById_579C40(*j).ind
+			v7 = (*uint32)(unsafe.Pointer(nox_server_getWaypointById_579C40(*j)))
 			if v7 != nil {
 				a3(int32(uintptr(unsafe.Pointer(v7))), a4)
 			}
@@ -5516,7 +5516,7 @@ func nox_xxx_mapgenMakeScript_502790(a1 *FILE, a2 *byte) int32 {
 		v5 = int32(uint8(int8(v6))) * 268
 		if int32(*memmap.PtrUint8(0x587000, uintptr(v5)+218640)) != 0 {
 			for {
-				switch *memmap.PtrUint32(0x587000, uintptr(v4*8)+218648+uint32(v5)) {
+				switch *memmap.PtrUint32(0x587000, uintptr(v4)*8+218648+uintptr(v5)) {
 				case 0, 3, 4, 5, 6:
 					nox_binfile_fseek_409050(a1, 4, stdio.SEEK_CUR)
 				case 1:
@@ -7108,7 +7108,7 @@ func sub_506B80(a1 int32, a2 int32, a3 *wchar2_t) *uint32 {
 				result = *(**uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2 + 748))) + 276)))
 				v4 = 1 << int32(*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(result))), 2064))))
 				if *(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*1198)) != 0 {
-					result = &nox_common_playerInfoGetFirst_416EA0().field_0
+					result = (*uint32)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0()))
 					v5 = (*wchar2_t)(unsafe.Pointer(result))
 					if result != nil {
 						for {
@@ -7118,7 +7118,7 @@ func sub_506B80(a1 int32, a2 int32, a3 *wchar2_t) *uint32 {
 									break
 								}
 							}
-							result = &nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5))))))).field_0
+							result = (*uint32)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))))))
 							v5 = (*wchar2_t)(unsafe.Pointer(result))
 							if result == nil {
 								return result

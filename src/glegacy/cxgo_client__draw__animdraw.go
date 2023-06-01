@@ -168,8 +168,8 @@ func nox_things_animate_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *b
 			}
 		}
 	}
-	obj.field_5c = unsafe.Pointer(v5)
-	obj.draw_func = nox_thing_animate_draw
+	obj.Field_5c = unsafe.Pointer(v5)
+	obj.DrawFunc = funAddrP(nox_thing_animate_draw)
 	return true
 }
 func sub_44BE90(a1 int32, f *nox_memfile) int32 {
@@ -251,8 +251,8 @@ func nox_things_animate_state_draw_parse(obj *nox_thing, f *nox_memfile, attr_va
 			return false
 		}
 	}
-	obj.field_54 = 2
-	obj.draw_func = nox_thing_animate_state_draw
-	obj.field_5c = unsafe.Pointer(draw_cb_data)
+	obj.Field_54 = 2
+	obj.DrawFunc = funAddrP(nox_thing_animate_state_draw)
+	obj.Field_5c = unsafe.Pointer(draw_cb_data)
 	return true
 }

@@ -318,15 +318,15 @@ func nox_thing_lightning_draw(a1 *int32, dr *nox_drawable) int32 {
 		a2a.field_4 = a3.field_4 - v4 + v19 - 20
 	} else {
 		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437)))) != 0 {
-			v7 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))).field_0
+			v7 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))).Field_0
 		} else {
-			v7 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))).field_0
+			v7 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))).Field_0
 		}
 		v8 = v7
 		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441)))) != 0 {
-			v9 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))).field_0
+			v9 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))).Field_0
 		} else {
-			v9 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))).field_0
+			v9 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))).Field_0
 		}
 		if v8 == nil || v9 == nil {
 			return 1
@@ -393,15 +393,15 @@ func nox_thing_chain_lightning_bolt_draw(a1 *int32, dr *nox_drawable) int32 {
 		a2a.field_4 = int32(v8) - v5 + v6 - 20
 	} else {
 		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437)))) != 0 {
-			v9 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))).field_0
+			v9 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))).Field_0
 		} else {
-			v9 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))).field_0
+			v9 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))).Field_0
 		}
 		v10 = v9
 		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441)))) != 0 {
-			v11 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))).field_0
+			v11 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))).Field_0
 		} else {
-			v11 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))).field_0
+			v11 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))).Field_0
 		}
 		if v10 == nil || v11 == nil {
 			return 1
@@ -472,15 +472,15 @@ func nox_thing_energy_bolt_draw(a1 *int32, dr *nox_drawable) int32 {
 		a2a.field_4 = a3.field_4 - v6 + v21 - 20
 	} else {
 		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(v2 + 437)))) != 0 {
-			v9 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 437))))).field_0
+			v9 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 437))))).Field_0
 		} else {
-			v9 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 437))))).field_0
+			v9 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 437))))).Field_0
 		}
 		v10 = v9
 		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(v2 + 441)))) != 0 {
-			v11 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 441))))).field_0
+			v11 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 441))))).Field_0
 		} else {
-			v11 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 441))))).field_0
+			v11 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 441))))).Field_0
 		}
 		if v10 == nil || v11 == nil {
 			return 1
@@ -530,15 +530,15 @@ func nox_thing_green_bolt_draw(a1 *int32, dr *nox_drawable) int32 {
 	)
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 432)))) != 0 {
 		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437)))) != 0 {
-			v10 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))).field_0
+			v10 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))).Field_0
 		} else {
-			v10 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))).field_0
+			v10 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))).Field_0
 		}
 		v11 = v10
 		if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441)))) != 0 {
-			v12 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))).field_0
+			v12 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))).Field_0
 		} else {
-			v12 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))).field_0
+			v12 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))).Field_0
 		}
 		if v11 == nil || v12 == nil {
 			return 1

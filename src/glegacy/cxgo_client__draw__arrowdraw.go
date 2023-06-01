@@ -12,7 +12,7 @@ func nox_thing_arrow_draw(a1 *int32, dr *nox_drawable) int32 {
 		v3 int32
 		v4 *uint32
 		v5 int32
-		a2 *uint32 = &dr.field_0
+		a2 *uint32 = &dr.Field_0
 	)
 	v2 = int32(*memmap.PtrUint32(0x5D4594, 1313720))
 	if *memmap.PtrUint32(0x5D4594, 1313720) == 0 {
@@ -21,7 +21,7 @@ func nox_thing_arrow_draw(a1 *int32, dr *nox_drawable) int32 {
 	}
 	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*81)))
 	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))-uint32(v3))*(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))-uint32(v3))+(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4))-*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*82)))*(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4))-*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*82))) > 200 {
-		v4 = &nox_xxx_spriteLoadAdd_45A360_drawable(v2, v3, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*82)))).field_0
+		v4 = &nox_xxx_spriteLoadAdd_45A360_drawable(v2, v3, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*82)))).Field_0
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*108)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*109)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4))
 		nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(v4)))
@@ -38,7 +38,7 @@ func nox_thing_weak_arrow_draw(a1 *int32, dr *nox_drawable) int32 {
 		v3 int32
 		v4 *uint32
 		v5 int32
-		a2 *uint32 = &dr.field_0
+		a2 *uint32 = &dr.Field_0
 	)
 	v2 = int32(*memmap.PtrUint32(0x5D4594, 1313724))
 	if *memmap.PtrUint32(0x5D4594, 1313724) == 0 {
@@ -47,7 +47,7 @@ func nox_thing_weak_arrow_draw(a1 *int32, dr *nox_drawable) int32 {
 	}
 	v3 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*81)))
 	if (*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))-uint32(v3))*(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))-uint32(v3))+(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4))-*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*82)))*(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4))-*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*82))) > 200 {
-		v4 = &nox_xxx_spriteLoadAdd_45A360_drawable(v2, v3, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*82)))).field_0
+		v4 = &nox_xxx_spriteLoadAdd_45A360_drawable(v2, v3, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*82)))).Field_0
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*108)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v4), 4*109)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4))
 		nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(v4)))

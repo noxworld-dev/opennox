@@ -29,14 +29,14 @@ func nox_thing_monster_gen_draw(a1 *int32, dr *nox_drawable) int32 {
 	var v20 int32
 	var v21 *uint8
 	v2 = int32(uintptr(unsafe.Pointer(dr)))
-	v3 = int32(dr.flags70)
-	v4 = int32(*(*uint32)(unsafe.Pointer(&dr.field_76)))
+	v3 = int32(dr.Flags70())
+	v4 = int32(*(*uint32)(unsafe.Pointer(&dr.Field_76)))
 	if v3&0x100 != 0 {
 		v5 = 1
 	} else if v3&0x200 != 0 {
 		v5 = 2
 	} else {
-		if (dr.flags70 & 0xC00) != 0 {
+		if (dr.Flags70() & 0xC00) != 0 {
 			v5 = 3
 		} else {
 			v5 = 0

@@ -41,18 +41,18 @@ func sub_4CD450(a1 *uint32, a2 int32) int32 {
 			}
 			if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437)))) != 0 {
 				v5 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))))
-				v6 = &nox_xxx_netSpriteByCodeStatic_45A720(v5).field_0
+				v6 = &nox_xxx_netSpriteByCodeStatic_45A720(v5).Field_0
 			} else {
 				v7 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(a2 + 437))))))
-				v6 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(v7).field_0
+				v6 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(v7).Field_0
 			}
 			v8 = v6
 			if nox_xxx_netTestHighBit_578B70(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441)))) != 0 {
 				v9 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))))
-				v10 = &nox_xxx_netSpriteByCodeStatic_45A720(v9).field_0
+				v10 = &nox_xxx_netSpriteByCodeStatic_45A720(v9).Field_0
 			} else {
 				v11 = nox_xxx_netClearHighBit_578B30(int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(a2 + 441))))))
-				v10 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(v11).field_0
+				v10 = &nox_xxx_netSpriteByCodeDynamic_45A6F0(v11).Field_0
 			}
 			v12 = v10
 			if v8 == nil || v10 == nil {

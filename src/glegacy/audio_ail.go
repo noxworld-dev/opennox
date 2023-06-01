@@ -187,7 +187,7 @@ func sub_44D7E0(a1 int32) int {
 }
 
 // nox_xxx_musicStartPlay_43D6C0
-func nox_xxx_musicStartPlay_43D6C0(a1p *int) int {
+func nox_xxx_musicStartPlay_43D6C0(a1p *int32) int {
 	return Nox_xxx_musicStartPlay_43D6C0(unsafe.Pointer(a1p))
 }
 

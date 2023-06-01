@@ -10,7 +10,7 @@ func sub_499490(a1 int32, a2 *uint16, a3 int32, a4 int32, a5 int8, a6 int8) {
 		result *uint32
 		v7     *uint32
 	)
-	result = &nox_xxx_spriteLoadAdd_45A360_drawable(a1, a3+int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(uint16(0))*2))), a4+int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(uint16(0))*3)))).field_0
+	result = &nox_xxx_spriteLoadAdd_45A360_drawable(a1, a3+int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(uint16(0))*2))), a4+int32(*(*uint16)(unsafe.Add(unsafe.Pointer(a2), unsafe.Sizeof(uint16(0))*3)))).Field_0
 	v7 = result
 	if result != nil {
 		*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(result))), unsafe.Sizeof(uint16(0))*216))) = *a2

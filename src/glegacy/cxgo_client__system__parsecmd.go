@@ -584,7 +584,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *nox_playerInfo, a2 int8, a3 *w
 		}
 		v8 = int32(uintptr(unsafe.Pointer(pl.PlayerUnit)))
 		if v8 != 0 {
-			nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(uintptr(v8+48)), int32(pl.netCode))
+			nox_xxx_netChangeTeamMb_419570(unsafe.Pointer(uintptr(v8+48)), int32(pl.NetCodeVal))
 		}
 		v21 = v6
 		v9 = nox_strman_loadString_40F1D0(internCStr("observermode"), nil, internCStr("C:\\NoxPost\\src\\Client\\System\\parsecmd.c"), 4308)
@@ -592,7 +592,7 @@ func nox_xxx_serverHandleClientConsole_443E90(pl *nox_playerInfo, a2 int8, a3 *w
 		nox_console_playerWhoSent_823692 = nil
 		return 1
 	case 1:
-		if sub_4D12A0(int32(pl.playerInd)) == 0 && uint32(pl.playerInd) != nox_player_netCode_85319C && !nox_common_gameFlags_check_40A5C0(2048) {
+		if sub_4D12A0(int32(pl.PlayerInd)) == 0 && uint32(pl.PlayerInd) != nox_player_netCode_85319C && !nox_common_gameFlags_check_40A5C0(2048) {
 			nox_console_playerWhoSent_823692 = nil
 			return 1
 		}

@@ -33,7 +33,7 @@ func nox_common_checkMapFile_4CFE10(name *byte) int {
 }
 
 // nox_xxx_mapReadSection_426EA0
-func nox_xxx_mapReadSection_426EA0(a1 unsafe.Pointer, cname *byte, cerr *uint) int32 {
+func nox_xxx_mapReadSection_426EA0(a1 unsafe.Pointer, cname *byte, cerr *uint32) int32 {
 	panic("TODO")
 }
 
@@ -219,7 +219,7 @@ func Nox_xxx_tileFreeTileOne_4221E0(p unsafe.Pointer) {
 }
 
 func Get_nox_client_mapSpecialRWObjectData_4AC610() unsafe.Pointer {
-	return nox_client_mapSpecialRWObjectData_4AC610
+	return funAddrP(nox_client_mapSpecialRWObjectData_4AC610)
 }
 
 func Sub_4DE410(pli ntype.PlayerInd) {

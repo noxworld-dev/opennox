@@ -37,7 +37,7 @@ func nox_parse_thing_draw(obj *nox_thing, f *nox_memfile, attr_value *byte) bool
 	if item.parse_fnc != nil {
 		item.parse_fnc(obj, f, attr_value)
 	}
-	obj.draw_func = asFunc(item.draw, (*func(*uint32, *nox_drawable) int32)(nil)).(func(*uint32, *nox_drawable) int32)
+	obj.DrawFunc = item.draw
 	return true
 }
 func nox_parse_thing_light_dir(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
@@ -48,8 +48,8 @@ func nox_parse_thing_light_dir(obj *nox_thing, f *nox_memfile, attr_value *byte)
 	if deg < 0 || deg >= 360 {
 		return false
 	}
-	obj.light_dir = uint16(int16(int64(float64(deg)**mem_getDoublePtr(0x581450, 9560)**(*float64)(unsafe.Pointer(&qword_581450_9552)) + *(*float64)(unsafe.Pointer(&qword_581450_9544)))))
-	obj.field_10 = 0
+	obj.LightDir = uint16(int16(int64(float64(deg)**mem_getDoublePtr(0x581450, 9560)**(*float64)(unsafe.Pointer(&qword_581450_9552)) + *(*float64)(unsafe.Pointer(&qword_581450_9544)))))
+	obj.Field_10 = 0
 	return true
 }
 func nox_parse_thing_light_penumbra(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
@@ -99,13 +99,13 @@ func nox_parse_thing_pretty_image(obj *nox_thing, f *nox_memfile, attr_value *by
 		known_idx uint32 = nox_memfile_read_u32(f)
 	)
 	if known_idx != math.MaxUint32 {
-		obj.pretty_image = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(int32(known_idx), 0, &v10[0]))))
+		obj.PrettyImage = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(int32(known_idx), 0, &v10[0]))))
 		return true
 	}
 	var v8 int32 = int32(nox_memfile_read_u8(f))
 	var n int32 = int32(nox_memfile_read_u8(f))
 	nox_memfile_read(unsafe.Pointer(&v10[0]), 1, n, f)
-	obj.pretty_image = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(int32(known_idx), int8(v8), &v10[0]))))
+	obj.PrettyImage = uint32(uintptr(unsafe.Pointer(nox_xxx_readImgMB_42FAA0(int32(known_idx), int8(v8), &v10[0]))))
 	return true
 }
 func nox_free_tile_defs() int32 {

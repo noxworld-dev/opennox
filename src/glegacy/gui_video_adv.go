@@ -21,7 +21,7 @@ func Sub_49B3C0() {
 }
 
 func Set_dword_5d4594_1193156(v int) {
-	dword_5d4594_1193156 = uint(v)
+	dword_5d4594_1193156 = uint32(v)
 }
 
 func Get_nox_client_fadeObjects_80836_ptr() *uint32 {

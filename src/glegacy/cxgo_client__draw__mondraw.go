@@ -109,7 +109,7 @@ func nox_thing_monster_draw(a1 *int32, dr *nox_drawable) int32 {
 	)
 	v2 = int32(uintptr(unsafe.Pointer(dr)))
 	v23 = 1
-	v3 = int32(*(*uint32)(unsafe.Pointer(&dr.field_76)))
+	v3 = int32(*(*uint32)(unsafe.Pointer(&dr.Field_76)))
 	if !nox_common_gameFlags_check_40A5C0(0x200000) {
 		v4 = int8(*(*uint8)(unsafe.Pointer(uintptr(v2 + 432))))
 		if int32(*(*uint8)(unsafe.Pointer(uintptr(v2 + 297)))) != int32(v4) {
@@ -174,13 +174,13 @@ LABEL_24:
 		v36[5] = 0
 		v36[8] = nox_win_width
 		v36[9] = nox_win_height
-		if dword_5d4594_1313796 == 0 {
-			dword_5d4594_1313796 = uint32(uintptr(unsafe.Pointer(nox_new_drawable_for_thing(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SpinningSkull"))))))
-			*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1313796 + 120))) |= 0x1000000
+		if dword_5d4594_1313796 == nil {
+			dword_5d4594_1313796 = unsafe.Pointer(nox_new_drawable_for_thing(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("SpinningSkull"))))
+			*(*uint32)(unsafe.Add(dword_5d4594_1313796, 120)) |= 0x1000000
 		}
-		*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1313796 + 12))) = uint32(dr.pos.x + *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*0)) - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
-		*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1313796 + 16))) = uint32(dr.pos.y + *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) - 50)
-		(*(*func(*int32, uint32))(unsafe.Pointer(uintptr(dword_5d4594_1313796 + 300))))(&v36[0], dword_5d4594_1313796)
+		*(*uint32)(unsafe.Add(dword_5d4594_1313796, 12)) = uint32(int32(dr.PosVec.X) + *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*0)) - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*4)))
+		*(*uint32)(unsafe.Add(dword_5d4594_1313796, 16)) = uint32(int32(dr.PosVec.Y) + *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1)) - *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*5)) - 50)
+		(*(*func(*int32, uint32))(unsafe.Add(dword_5d4594_1313796, 300)))(&v36[0], dword_5d4594_1313796)
 	}
 	if nox_xxx_unitSpriteCheckAlly_4951F0(int32(*(*uint32)(unsafe.Pointer(uintptr(v2 + 128))))) != 0 {
 		v22 = 0
@@ -257,9 +257,7 @@ func nox_things_monster_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *b
 		}
 		return false
 	}
-	obj.draw_func = func(arg1 *uint32, arg2 *nox_drawable) int32 {
-		return nox_thing_monster_draw((*int32)(unsafe.Pointer(arg1)), arg2)
-	}
-	obj.field_5c = unsafe.Pointer(v2)
+	obj.DrawFunc = funAddrP(nox_thing_monster_draw)
+	obj.Field_5c = unsafe.Pointer(v2)
 	return true
 }

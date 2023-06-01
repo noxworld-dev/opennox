@@ -31,7 +31,7 @@ func nox_xxx_updDrawMagic_4CDD80(a1 int32, a2 *uint32) {
 			v4 = nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("MagicTailLink"))
 			*memmap.PtrUint32(0x5D4594, 1523000) = uint32(v4)
 		}
-		v5 = &nox_xxx_spriteLoadAdd_45A360_drawable(v4, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*108))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*109)))).field_0
+		v5 = &nox_xxx_spriteLoadAdd_45A360_drawable(v4, int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*108))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*109)))).Field_0
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*108)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*3))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(v5), 4*109)) = *(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*4))
 		nox_xxx_sprite_45A110_drawable((*nox_drawable)(unsafe.Pointer(v5)))

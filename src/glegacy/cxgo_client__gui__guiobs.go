@@ -25,10 +25,8 @@ func sub_48C9F0(a1 *int32) int32 {
 }
 func sub_48C980() int32 {
 	*memmap.PtrUint32(0x5D4594, 1193716) = uint32(uintptr(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("ObserverIcon")))))
-	dword_5d4594_1193712 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 136, nox_win_width-50, nox_win_height/2-100, 50, 50, nil))))
+	dword_5d4594_1193712 = uint32(uintptr(unsafe.Pointer(nox_window_new(nil, 136, nox_win_width-50, nox_win_height/2-100, 50, 50, funAddrP(nil)))))
 	nox_xxx_wndSetIcon_46AE60(*(*int32)(unsafe.Pointer(&dword_5d4594_1193712)), *memmap.PtrInt32(0x5D4594, 1193716))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193712)))), nil, func(arg1 *nox_window, arg2 unsafe.Pointer) int32 {
-		return sub_48C9F0(&arg1.id)
-	}, nil)
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193712)))), funAddrP(nil), funAddrP(sub_48C9F0), funAddrP(nil))
 	return 1
 }

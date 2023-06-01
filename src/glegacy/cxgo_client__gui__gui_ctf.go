@@ -22,9 +22,7 @@ func sub_455C30() int32 {
 		v1 = 8811
 		for {
 			v2 = (*wchar2_t)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(uintptr(result))), v1)))
-			nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v2)), nil, func(arg1 *nox_window, arg2 unsafe.Pointer) int32 {
-				return sub_455CD0((*uint8)(unsafe.Pointer(arg1)), (*uint32)(arg2))
-			}, nil)
+			nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v2)), funAddrP(nil), funAddrP(sub_455CD0), funAddrP(nil))
 			v3 = nox_strman_loadString_40F1D0(internCStr("FlagHomeTT"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUI_CTF.c"), 201)
 			nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer((*wchar2_t)(unsafe.Add(unsafe.Pointer(v2), unsafe.Sizeof(wchar2_t(0))*18)))), v3)
 			if func() int32 {

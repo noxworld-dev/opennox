@@ -21,7 +21,7 @@ func nox_thing_door_draw(a1 *uint32, dr *nox_drawable) int32 {
 		v15 int32
 		a3  int2
 	)
-	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(dr.field_76)), 4)))) + uint32(int32(dr.field_74_4)*4))))))
+	nox_xxx_drawObject_4C4770_draw((*int32)(unsafe.Pointer(a1)), dr, int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer((*byte)(dr.Field_76)), 4)))) + uint32(int32(dr.field_74_4)*4))))))
 	if !nox_common_gameFlags_check_40A5C0(4096) || int32(dr.field_108_1) != 1 {
 		return 1
 	}
@@ -88,7 +88,7 @@ func nox_thing_door_draw(a1 *uint32, dr *nox_drawable) int32 {
 	}
 }
 func nox_things_door_draw_parse(obj *nox_thing, f *nox_memfile, attr_value *byte) bool {
-	obj.DrawFunc = nox_thing_door_draw
+	obj.DrawFunc = funAddrP(nox_thing_door_draw)
 	var v3 unsafe.Pointer = nox_xxx_spriteLoadStaticRandomData_44C000(attr_value, f)
 	obj.Field_5c = v3
 	return v3 != nil

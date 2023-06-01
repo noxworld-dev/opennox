@@ -229,7 +229,7 @@ func sub_4CE8C0(a1 int32) {
 		v4 int32
 	)
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 176))))&0x40 != 0 {
-		v1 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 264))))).field_0
+		v1 = &nox_xxx_netSpriteByCodeStatic_45A720(int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 264))))).Field_0
 		if v1 != nil {
 			v2 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*4)) - *(*uint32)(unsafe.Pointer(uintptr(a1 + 16))))
 			v4 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*3)) - *(*uint32)(unsafe.Pointer(uintptr(a1 + 12))))
@@ -286,7 +286,7 @@ func sub_4CEBA0(a1 int32, a2 *byte) int32 {
 		v8 *uint32
 		v9 *byte
 	)
-	dword_5d4594_1523024 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("rulelist.wnd"), unsafe.Pointer(funAddr(sub_4CF060))))))
+	dword_5d4594_1523024 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("rulelist.wnd"), funAddrP(sub_4CF060)))))
 	dword_5d4594_1523028 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1523024)))), 10170))))
 	dword_5d4594_1523032 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1523024)))), 10171))))
 	dword_5d4594_1523036 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1523024)))), 10172))))
@@ -294,7 +294,7 @@ func sub_4CEBA0(a1 int32, a2 *byte) int32 {
 	dword_5d4594_1523044 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1523024)))), 10174))))
 	dword_5d4594_1523048 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1523024)))), 10175))))
 	v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1523024)))), 10176)))
-	nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v2))), sub_4CEED0)
+	nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v2))), funAddrP(sub_4CEED0))
 	sub_46B120((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1523024)))), (*nox_window)(unsafe.Pointer(uintptr(a1))))
 	v3 = *(**uint32)(unsafe.Pointer(uintptr(dword_5d4594_1523028 + 32)))
 	v9 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("UISlider"))))
@@ -314,7 +314,7 @@ func sub_4CEBA0(a1 int32, a2 *byte) int32 {
 	sub_4CED40(a2)
 	return int32(dword_5d4594_1523024)
 }
-func sub_4CED40(a1 *byte) unsafe.Pointer {
+func sub_4CED40(a1 *byte) {
 	var (
 		result       HANDLE
 		v2           HANDLE
@@ -341,9 +341,8 @@ func sub_4CED40(a1 *byte) unsafe.Pointer {
 				}
 			}
 		}
-		result = unsafe.Pointer(uintptr(compatFindClose(v2)))
+		compatFindClose(v2)
 	}
-	return result
 }
 func sub_4CEED0(a1 int32, a2 int32) int32 {
 	var (
@@ -835,7 +834,7 @@ func nox_common_maplist_add_4D0760(map_ *Nox_map_list_item) {
 		nox_common_list_append_4258E0(&nox_common_maplist, &map_.list)
 		return
 	}
-	for libc.StrCmp(&map_.name[0], &it.name[0]) > 0 {
+	for libc.StrCmp(&map_.Name[0], &it.Name[0]) > 0 {
 		it = (*Nox_map_list_item)(unsafe.Pointer(nox_common_list_getNextSafe_4258A0(&it.list)))
 		if it == nil {
 			nox_common_list_append_4258E0(&nox_common_maplist, &map_.list)
@@ -3974,7 +3973,7 @@ func nox_xxx_netReportDequip_4D84C0(a1 int32, object *nox_object_t) int32 {
 	result = int32(uintptr(unsafe.Pointer(object)))
 	v3 = int32(object.ObjClass)
 	if uint32(v3)&0x11001000 != 0 {
-		v4 = int32(uintptr(unsafe.Pointer(object.inv_holder)))
+		v4 = int32(uintptr(unsafe.Pointer(object.InvHolder)))
 		v7[0] = 84
 		*(*uint16)(unsafe.Pointer(&v7[1])) = *(*uint16)(unsafe.Pointer(uintptr(v4 + 36)))
 		v5 = nox_xxx_weaponInventoryEquipFlags_415820(object)
@@ -3982,7 +3981,7 @@ func nox_xxx_netReportDequip_4D84C0(a1 int32, object *nox_object_t) int32 {
 		if (uint32(v3) & 0x2000000) == 0 {
 			return result
 		}
-		v6 = int32(uintptr(unsafe.Pointer(object.inv_holder)))
+		v6 = int32(uintptr(unsafe.Pointer(object.InvHolder)))
 		v7[0] = 83
 		*(*uint16)(unsafe.Pointer(&v7[1])) = *(*uint16)(unsafe.Pointer(uintptr(v6 + 36)))
 		v5 = nox_xxx_unitArmorInventoryEquipFlags_415C70(object)
@@ -4113,12 +4112,12 @@ func nox_xxx_itemReportHealth_4D87A0(a1 int32, item *nox_object_t) int32 {
 		v3     *uint16
 		v4     [7]byte
 	)
-	result = int32(uintptr(item.health_data))
+	result = int32(uintptr(unsafe.Pointer(item.HealthData)))
 	if result != 0 {
 		if int32(*(*uint16)(unsafe.Pointer(uintptr(result + 4)))) != 0 {
 			v4[0] = 68
 			*(*uint16)(unsafe.Pointer(&v4[1])) = uint16(nox_xxx_netGetUnitCodeServ_578AC0(item))
-			v3 = (*uint16)(item.health_data)
+			v3 = (*uint16)(unsafe.Pointer(item.HealthData))
 			*(*uint16)(unsafe.Pointer(&v4[3])) = *(*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*0))
 			*(*uint16)(unsafe.Pointer(&v4[5])) = *(*uint16)(unsafe.Add(unsafe.Pointer(v3), unsafe.Sizeof(uint16(0))*2))
 			result = nox_xxx_netSendPacket1_4E5390(a1, int32(uintptr(unsafe.Pointer(&v4[0]))), 7, 0, 0)
@@ -4944,8 +4943,9 @@ func nox_xxx_netGauntlet_4D9E70(a1 int32) int32 {
 	v2[1] = 20
 	return nox_xxx_netSendPacket0_4E5420(a1, unsafe.Pointer(&v2[0]), 2, 0, 1)
 }
-func nox_xxx_netSendLineMessage_4D9EB0(a1 int32, a2 *wchar2_t, _rest ...interface{}) int32 {
+func nox_xxx_netSendLineMessage_4D9EB0(a1p *nox_object_t, a2 *wchar2_t, _rest ...interface{}) int32 {
 	var (
+		a1     int32 = int32(uintptr(unsafe.Pointer(a1p)))
 		result int32
 		v3     int32
 		v4     int8
@@ -5404,7 +5404,7 @@ func nox_client_countPlayerFiles02_4DC630() int32 {
 	nox_fs_set_workdir(&PathName[0])
 	v5 = compatFindFirstFileA(internCStr("*.plr"), &FindFileData)
 	if uintptr(v5) != uintptr(math.MaxUint32) {
-		if (FindFileData.dwFileAttributes & 0x10) == 0 {
+		if (FindFileData.FileAttributes & 0x10) == 0 {
 			nox_sprintf(&PathName[0], internCStr("%s%s"), &v11[0], &FindFileData.cFileName[0])
 			sub_41A000(&PathName[0], (*Nox_savegame_xxx)(unsafe.Pointer(&v10[0])))
 			if v10[0]&2 != 0 {
@@ -5412,7 +5412,7 @@ func nox_client_countPlayerFiles02_4DC630() int32 {
 			}
 		}
 		for compatFindNextFileA(v5, &FindFileData) != 0 {
-			if (FindFileData.dwFileAttributes & 0x10) == 0 {
+			if (FindFileData.FileAttributes & 0x10) == 0 {
 				nox_sprintf(&PathName[0], internCStr("%s%s"), &v11[0], &FindFileData.cFileName[0])
 				sub_41A000(&PathName[0], (*Nox_savegame_xxx)(unsafe.Pointer(&v10[0])))
 				if v10[0]&2 != 0 {

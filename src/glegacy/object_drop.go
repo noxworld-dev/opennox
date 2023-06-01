@@ -13,17 +13,17 @@ var (
 )
 
 func init() {
-	server.RegisterObjectDrop("DefaultDrop", nox_xxx_dropDefault_4ED290)
-	server.RegisterObjectDrop("ArmorDrop", nox_xxx_dropArmor_53EB70)
-	server.RegisterObjectDrop("WeaponDrop", nox_xxx_dropWeapon_53AB10)
-	server.RegisterObjectDrop("TreasureDrop", nox_xxx_dropTreasure_4ED710)
-	server.RegisterObjectDrop("GlyphDrop", nox_GlyphDrop_4ED500)
-	server.RegisterObjectDrop("PotionDrop", sub_4EDDE0)
-	server.RegisterObjectDrop("TrapDrop", nox_xxx_dropTrap_4ED580)
-	server.RegisterObjectDrop("FoodDrop", nox_xxx_dropFood_4EDE50)
-	server.RegisterObjectDrop("CrownDrop", nox_xxx_dropCrown_4ED5E0)
-	server.RegisterObjectDrop("AudEventDrop", nox_objectDropAudEvent_4EE2F0)
-	server.RegisterObjectDrop("AnkhTradableDrop", nox_xxx_dropAnkhTradable_4EE370)
+	server.RegisterObjectDrop("DefaultDrop", funAddrP(nox_xxx_dropDefault_4ED290))
+	server.RegisterObjectDrop("ArmorDrop", funAddrP(nox_xxx_dropArmor_53EB70))
+	server.RegisterObjectDrop("WeaponDrop", funAddrP(nox_xxx_dropWeapon_53AB10))
+	server.RegisterObjectDrop("TreasureDrop", funAddrP(nox_xxx_dropTreasure_4ED710))
+	server.RegisterObjectDrop("GlyphDrop", funAddrP(nox_GlyphDrop_4ED500))
+	server.RegisterObjectDrop("PotionDrop", funAddrP(sub_4EDDE0))
+	server.RegisterObjectDrop("TrapDrop", funAddrP(nox_xxx_dropTrap_4ED580))
+	server.RegisterObjectDrop("FoodDrop", funAddrP(nox_xxx_dropFood_4EDE50))
+	server.RegisterObjectDrop("CrownDrop", funAddrP(nox_xxx_dropCrown_4ED5E0))
+	server.RegisterObjectDrop("AudEventDrop", funAddrP(nox_objectDropAudEvent_4EE2F0))
+	server.RegisterObjectDrop("AnkhTradableDrop", funAddrP(nox_xxx_dropAnkhTradable_4EE370))
 }
 
 // nox_objectDropAudEvent_4EE2F0

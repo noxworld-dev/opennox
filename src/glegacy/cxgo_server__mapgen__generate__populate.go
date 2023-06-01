@@ -97,7 +97,7 @@ func sub_527D50(a1 int32, a2 *byte) int32 {
 		return 0
 	}
 	v3 = nox_xxx_getUnitName_4E39D0((*nox_object_t)(unsafe.Pointer(uintptr(a1))))
-	if funAddr(asFunc(nox_objectTypeGetXfer(v3), (*func(a1 int32) int32)(nil)).(func(a1 int32) int32)) != funAddr(nox_xxx_XFerExit_4F4B90) {
+	if nox_objectTypeGetXfer(v3) != funAddrP(nox_xxx_XFerExit_4F4B90) {
 		return 0
 	}
 	libc.StrNCpy(*(**byte)(unsafe.Pointer(uintptr(a1 + 700))), a2, 0x50)

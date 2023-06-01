@@ -49,7 +49,7 @@ func sub_48C730(a1 uint32) uint32 {
 			} else if a1 < 0x40 {
 				result = int32(*memmap.PtrUint8(0x587000, uintptr(a1)*4+155956)) >> 5
 			} else {
-				result = int32(*memmap.PtrUint8(0x587000, a1+155956)) >> 4
+				result = int32(*memmap.PtrUint8(0x587000, uintptr(a1)+155956)) >> 4
 			}
 		} else if a1 < 0x1000 {
 			if a1 < 0x400 {
@@ -100,7 +100,7 @@ func sub_48CAD0() int32 {
 }
 func sub_48D000() int32 {
 	var v0 *uint32
-	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("GuiKick.wnd"), unsafe.Pointer(funAddr(nox_xxx_guiKick_48D0A0)))))
+	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("GuiKick.wnd"), funAddrP(nox_xxx_guiKick_48D0A0))))
 	dword_5d4594_1197312 = uint32(uintptr(unsafe.Pointer(v0)))
 	if v0 == nil {
 		return 0
@@ -1968,7 +1968,7 @@ func sub_495500(a1 *int32) *int32 {
 	if t9.pri_class&0x1001000 != 0 {
 		sub_4B9650(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*3)))
 	}
-	v8 = int32(t9.pretty_image)
+	v8 = int32(t9.PrettyImage)
 LABEL_26:
 	if v8 == 0 {
 		v8 = int32(*memmap.PtrUint32(0x5D4594, 1203828))
@@ -2136,7 +2136,7 @@ func sub_495B50(a1p unsafe.Pointer) {
 }
 func sub_495BB0(dr *nox_drawable, vp *nox_draw_viewport_t) *uint32 {
 	var (
-		a1     *uint32 = &dr.field_0
+		a1     *uint32 = &dr.Field_0
 		a2     *uint32 = (*uint32)(unsafe.Pointer(vp))
 		result *uint32
 		v3     *uint32
@@ -2418,7 +2418,7 @@ func sub_496120() int32 {
 }
 func nox_xxx_drawBlack_496150(a1p *nox_draw_viewport_t) {
 	var (
-		a1  *int32 = &a1p.x1
+		a1  *int32 = (*int32)(unsafe.Pointer(a1p))
 		v1  int32
 		v2  int32
 		v3  int32
@@ -4763,7 +4763,7 @@ func nox_xxx_fxDrawTurnUndead_499880(a1 *int16) *uint32 {
 		*memmap.PtrUint32(0x5D4594, 1217508) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("UndeadKiller")))
 	}
 	for i = 0; i < 256; i += 6 {
-		result = &nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1217508), int32(*a1), int32(*(*int16)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(int16(0))*1)))).field_0
+		result = &nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1217508), int32(*a1), int32(*(*int16)(unsafe.Add(unsafe.Pointer(a1), unsafe.Sizeof(int16(0))*1)))).Field_0
 		v3 = result
 		if result != nil {
 			v4 = int32(int16(i)) * 8
@@ -4830,7 +4830,7 @@ func sub_499F60(a1 int32, a2 int32, a3 int32, a4 int16, a5 int8, a6 int8, a7 int
 		*memmap.PtrUint32(0x5D4594, 1217536) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("LightVioletBubbleParticle")))
 		*memmap.PtrUint32(0x5D4594, 1217540) = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("YellowBubbleParticle")))
 	}
-	result = &nox_xxx_spriteLoadAdd_45A360_drawable(a1, a2, a3).field_0
+	result = &nox_xxx_spriteLoadAdd_45A360_drawable(a1, a2, a3).Field_0
 	v13 = result
 	if result != nil {
 		*(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&v11))), 1)) = *(*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(&a4))), unsafe.Sizeof(int16(0))-1))
@@ -5137,7 +5137,7 @@ func sub_49AEA0() int32 {
 }
 func sub_49B3E0() int32 {
 	var result int32
-	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("GGOver.wnd"), unsafe.Pointer(funAddr(sub_49B420))))))
+	result = int32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("GGOver.wnd"), funAddrP(sub_49B420)))))
 	dword_5d4594_1303452 = uint32(result)
 	if result != 0 {
 		nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(result))), 1)
@@ -5346,14 +5346,14 @@ func nox_xxx_clientAddRayEffect_49C160(a1 int32) *uint32 {
 				return nox_xxx_netSpriteByCodeStatic_45A720(v3)
 			}
 			return nox_xxx_netSpriteByCodeDynamic_45A6F0(v3)
-		}().field_0
+		}().Field_0
 		v7 = v6
 		result = &func() *nox_drawable {
 			if nox_xxx_netTestHighBit_578B70(uint32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 5))))) != 0 {
 				return nox_xxx_netSpriteByCodeStatic_45A720(v5)
 			}
 			return nox_xxx_netSpriteByCodeDynamic_45A6F0(v5)
-		}().field_0
+		}().Field_0
 		if v7 != nil && result != nil {
 			v8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*3)))
 			v9 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v7), 4*4)))
@@ -5380,7 +5380,7 @@ func nox_xxx_clientAddRayEffect_49C160(a1 int32) *uint32 {
 			default:
 				return result
 			}
-			result = &nox_xxx_spriteLoadAdd_45A360_drawable(v12, v11, v9+v10/2).field_0
+			result = &nox_xxx_spriteLoadAdd_45A360_drawable(v12, v11, v9+v10/2).Field_0
 			if result == nil {
 				return result
 			}
@@ -5555,9 +5555,9 @@ func sub_49CD30(xLeft int32, yTop int32, a3 int32, a4 int32, a5 int32, a6 int32)
 	var rc nox_rect
 	if a3 != 0 {
 		if a4 != 0 {
-			if nox_draw_curDrawData_3799572.flag_0 == 0 || (func() *int4 {
+			if !nox_draw_curDrawData_3799572.Clip() || (func() *int4 {
 				noxSetRect(&rc, xLeft, yTop, xLeft+a3, yTop+a4)
-				return nox_xxx_utilRect_49F930((*int4)(unsafe.Pointer(&rc)), (*int4)(unsafe.Pointer(&rc)), (*int4)(unsafe.Pointer(&nox_draw_curDrawData_3799572.ClipRect())))
+				return nox_xxx_utilRect_49F930((*int4)(unsafe.Pointer(&rc)), (*int4)(unsafe.Pointer(&rc)), (*int4)(unsafe.Pointer(nox_draw_curDrawData_3799572.ClipRectPtr())))
 			}()) != nil {
 				nox_draw_set54RGB32_434040(a5)
 				sub_434080(a6)
@@ -5610,8 +5610,8 @@ func sub_49E3C0(a1 *uint32, a2 int32, a3 uint32) {
 }
 func sub_49F6D0(a1 int32) int32 {
 	var result int32
-	result = nox_draw_curDrawData_3799572.flag_0
-	nox_draw_curDrawData_3799572.flag_0 = a1
+	result = bool2int32(nox_draw_curDrawData_3799572.Clip())
+	nox_draw_curDrawData_3799572.SetClip(a1 != 0)
 	return result
 }
 func nox_client_copyRect_49F6F0(xLeft int32, yTop int32, a3 int32, a4 int32) *int4 {
@@ -5623,10 +5623,10 @@ func nox_client_copyRect_49F6F0(xLeft int32, yTop int32, a3 int32, a4 int32) *in
 	noxSetRect(&rc, xLeft, yTop, xLeft+a3, yTop+a4)
 	result = nox_xxx_utilRect_49F930((*int4)(unsafe.Pointer(&rcSrc)), (*int4)(unsafe.Pointer(&rc)), (*int4)(unsafe.Pointer(&nox_draw_curDrawData_3799572.rect3)))
 	if result != nil {
-		noxCopyRect(&nox_draw_curDrawData_3799572.ClipRect(), &rcSrc)
+		noxCopyRect(nox_draw_curDrawData_3799572.ClipRectPtr(), &rcSrc)
 		rcSrc.max_x--
 		rcSrc.max_y--
-		result = (*int4)(unsafe.Pointer(uintptr(noxCopyRect(&nox_draw_curDrawData_3799572.ClipRect2(), &rcSrc))))
+		result = (*int4)(unsafe.Pointer(uintptr(noxCopyRect(nox_draw_curDrawData_3799572.ClipRect2Ptr(), &rcSrc))))
 	}
 	return result
 }
@@ -5636,26 +5636,26 @@ func sub_49F780(xLeft int32, a2 int32) *int4 {
 		v3 int32
 	)
 	v2 = xLeft
-	if xLeft < nox_draw_curDrawData_3799572.ClipRect().min_x {
-		v2 = nox_draw_curDrawData_3799572.ClipRect().min_x
+	if xLeft < int32(nox_draw_curDrawData_3799572.ClipRect().Min.X) {
+		v2 = int32(nox_draw_curDrawData_3799572.ClipRect().Min.X)
 	}
 	v3 = a2
-	if a2 > nox_draw_curDrawData_3799572.ClipRect().max_x {
-		v3 = nox_draw_curDrawData_3799572.ClipRect().max_x
+	if a2 > int32(nox_draw_curDrawData_3799572.ClipRect().Max.X) {
+		v3 = int32(nox_draw_curDrawData_3799572.ClipRect().Max.X)
 	}
-	return nox_client_copyRect_49F6F0(v2, nox_draw_curDrawData_3799572.ClipRect().min_y, v3-v2, nox_draw_curDrawData_3799572.ClipRect().max_y-nox_draw_curDrawData_3799572.ClipRect().min_y)
+	return nox_client_copyRect_49F6F0(v2, int32(nox_draw_curDrawData_3799572.ClipRect().Min.Y), v3-v2, int32(nox_draw_curDrawData_3799572.ClipRect().Max.Y-nox_draw_curDrawData_3799572.ClipRect().Min.Y))
 }
 func nox_xxx_wndDraw_49F7F0() {
 	if dword_5d4594_1305748 == 0 {
-		*memmap.PtrUint32(0x5D4594, 1305772) = uint32(nox_draw_curDrawData_3799572.flag_0)
-		*memmap.PtrUint32(0x5D4594, 1305756) = uint32(nox_draw_curDrawData_3799572.ClipRect().min_x)
-		*memmap.PtrUint32(0x5D4594, 1305760) = uint32(nox_draw_curDrawData_3799572.ClipRect().min_y)
-		*memmap.PtrUint32(0x5D4594, 1305764) = uint32(nox_draw_curDrawData_3799572.ClipRect().max_x)
-		*memmap.PtrUint32(0x5D4594, 1305768) = uint32(nox_draw_curDrawData_3799572.ClipRect().max_y)
-		*memmap.PtrUint32(0x5D4594, 1305732) = uint32(nox_draw_curDrawData_3799572.ClipRect2().min_x)
-		*memmap.PtrUint32(0x5D4594, 1305736) = uint32(nox_draw_curDrawData_3799572.ClipRect2().min_y)
-		*memmap.PtrUint32(0x5D4594, 1305740) = uint32(nox_draw_curDrawData_3799572.ClipRect2().max_x)
-		*memmap.PtrUint32(0x5D4594, 1305744) = uint32(nox_draw_curDrawData_3799572.ClipRect2().max_y)
+		*memmap.PtrUint32(0x5D4594, 1305772) = uint32(bool2int32(nox_draw_curDrawData_3799572.Clip()))
+		*memmap.PtrUint32(0x5D4594, 1305756) = uint32(nox_draw_curDrawData_3799572.ClipRect().Min.X)
+		*memmap.PtrUint32(0x5D4594, 1305760) = uint32(nox_draw_curDrawData_3799572.ClipRect().Min.Y)
+		*memmap.PtrUint32(0x5D4594, 1305764) = uint32(nox_draw_curDrawData_3799572.ClipRect().Max.X)
+		*memmap.PtrUint32(0x5D4594, 1305768) = uint32(nox_draw_curDrawData_3799572.ClipRect().Max.Y)
+		*memmap.PtrUint32(0x5D4594, 1305732) = uint32(nox_draw_curDrawData_3799572.ClipRect2().Min.X)
+		*memmap.PtrUint32(0x5D4594, 1305736) = uint32(nox_draw_curDrawData_3799572.ClipRect2().Min.Y)
+		*memmap.PtrUint32(0x5D4594, 1305740) = uint32(nox_draw_curDrawData_3799572.ClipRect2().Max.X)
+		*memmap.PtrUint32(0x5D4594, 1305744) = uint32(nox_draw_curDrawData_3799572.ClipRect2().Max.Y)
 		dword_5d4594_1305748 = 1
 	}
 }
@@ -5663,13 +5663,13 @@ func sub_49F860() int32 {
 	var result int32
 	result = int32(dword_5d4594_1305748)
 	if dword_5d4594_1305748 != 0 {
-		nox_draw_curDrawData_3799572.flag_0 = int32(*memmap.PtrUint32(0x5D4594, 1305772))
-		var v1 *nox_rect = &nox_draw_curDrawData_3799572.ClipRect()
+		nox_draw_curDrawData_3799572.SetClip(memmap.Uint32(0x5D4594, 1305772) != 0)
+		var v1 *nox_rect = (*nox_rect)(unsafe.Pointer(nox_draw_curDrawData_3799572.ClipRectPtr()))
 		v1.min_x = int32(*memmap.PtrUint32(0x5D4594, 1305756))
 		v1.min_y = int32(*memmap.PtrUint32(0x5D4594, 1305760))
 		v1.max_x = int32(*memmap.PtrUint32(0x5D4594, 1305764))
 		v1.max_y = int32(*memmap.PtrUint32(0x5D4594, 1305768))
-		var v2 *nox_rect = &nox_draw_curDrawData_3799572.ClipRect2()
+		var v2 *nox_rect = (*nox_rect)(unsafe.Pointer(nox_draw_curDrawData_3799572.ClipRect2Ptr()))
 		v2.min_x = int32(*memmap.PtrUint32(0x5D4594, 1305732))
 		v2.min_y = int32(*memmap.PtrUint32(0x5D4594, 1305736))
 		result = int32(*memmap.PtrUint32(0x5D4594, 1305740))

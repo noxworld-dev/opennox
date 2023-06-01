@@ -139,6 +139,10 @@ func (p *RenderData) ClipRect() image.Rectangle {
 	return p.clip
 }
 
+func (p *RenderData) ClipRectPtr() *image.Rectangle {
+	return &p.clip
+}
+
 func (p *RenderData) SetClipRect(r image.Rectangle) {
 	p.clip = r
 }
@@ -147,12 +151,20 @@ func (p *RenderData) ClipRect2() image.Rectangle {
 	return p.clip2
 }
 
+func (p *RenderData) ClipRect2Ptr() *image.Rectangle {
+	return &p.clip2
+}
+
 func (p *RenderData) SetClipRect2(r image.Rectangle) {
 	p.clip2 = r
 }
 
 func (p *RenderData) Rect3() image.Rectangle {
 	return p.rect3
+}
+
+func (p *RenderData) Rect3Ptr() *image.Rectangle {
+	return &p.rect3
 }
 
 func (p *RenderData) SetRect3(r image.Rectangle) {

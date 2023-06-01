@@ -629,7 +629,7 @@ func nox_script_OblivionGive_516890() int32 {
 		v3 *uint32
 		v4 *uint32
 	)
-	v0 = (*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(&nox_common_playerInfoFromNum_417090(31).field_0), 4*514))))))
+	v0 = (*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer(nox_common_playerInfoFromNum_417090(31)), 4*514))))))
 	v1 = 0
 	v2 = nox_script_pop()
 	v3 = (*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v0), 4*126)))))

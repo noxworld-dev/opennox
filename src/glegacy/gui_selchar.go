@@ -140,11 +140,11 @@ func Sub_43D9E0(a1 unsafe.Pointer) {
 }
 
 func Get_sub_4A18E0() unsafe.Pointer {
-	return sub_4A18E0
+	return funAddrP(sub_4A18E0)
 }
 func Get_sub_4A50A0() unsafe.Pointer {
-	return sub_4A50A0
+	return funAddrP(sub_4A50A0)
 }
 func Get_sub_4A50D0() unsafe.Pointer {
-	return sub_4A50D0
+	return funAddrP(sub_4A50D0)
 }

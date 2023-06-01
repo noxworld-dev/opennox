@@ -33,7 +33,7 @@ func nox_memfile_read(dst unsafe.Pointer, sz uint32, cnt int32, f *nox_memfile) 
 }
 func nox_memfile_read64align_40AD60(dest *byte, sz int32, cnt int32, f *nox_memfile) uint32 {
 	var (
-		cur_offset uint32 = uint32(int32(uintptr(unsafe.Pointer(f.cur)) - uintptr(unsafe.Pointer(f.data))))
+		cur_offset uint32 = uint32(int32(uintptr(f.Cur) - uintptr(f.DataPtr)))
 		over       uint8  = uint8(cur_offset % 8)
 		buf        [8]byte
 	)

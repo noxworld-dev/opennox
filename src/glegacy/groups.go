@@ -60,7 +60,7 @@ func sub_504720(a1, a2 uint32) int32 {
 }
 
 func Nox_server_scriptGetGroupId_57C2D0(g unsafe.Pointer) server.MapGroupKind {
-	return server.MapGroupKind(nox_server_scriptGetGroupId_57C2D0((**int)(g)))
+	return server.MapGroupKind(nox_server_scriptGetGroupId_57C2D0((**int32)(g)))
 }
 
 func Get_dword_5d4594_2523756() *server.Waypoint {

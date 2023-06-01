@@ -82,15 +82,13 @@ func nox_game_showGameSel_4379F0() int32 {
 		}
 		return 1
 	}
-	nox_wol_wnd_world_814980 = nox_new_window_from_file(internCStr("noxworld.wnd"), unsafe.Pointer(funAddr(nox_xxx_windowMultiplayerSub_439E70)))
+	nox_wol_wnd_world_814980 = nox_new_window_from_file(internCStr("noxworld.wnd"), funAddrP(nox_xxx_windowMultiplayerSub_439E70))
 	if nox_wol_wnd_world_814980 == nil {
 		return 0
 	}
 	sub_49FF20()
 	nox_xxx_wndShowModalMB_46A8C0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&nox_wol_wnd_world_814980))))))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), func(arg1 int32, arg2 int32, arg3 int32, arg4 int32) int32 {
-		return sub_439D00((*int32)(unsafe.Pointer(uintptr(arg1))), arg2, uint32(arg3), arg4)
-	}, nil, nil)
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), funAddrP(sub_439D00), funAddrP(nil), funAddrP(nil))
 	nox_wnd_xxx_815040 = nox_gui_makeAnimation_43C5B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 0, 0, 0, -480, 0, 20, 0, -40)
 	if nox_wnd_xxx_815040 == nil {
 		return 0
@@ -100,15 +98,9 @@ func nox_game_showGameSel_4379F0() int32 {
 	nox_wnd_xxx_815040.fnc_done_out = sub_438330
 	dword_5d4594_814984 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10020))))
 	dword_5d4594_814988 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10021))))
-	nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_814984)), func(arg1 int32, arg2 int32, arg3 int32, arg4 int32) int32 {
-		return sub_439D00((*int32)(unsafe.Pointer(uintptr(arg1))), arg2, uint32(arg3), arg4)
-	})
-	nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_814988)), func(arg1 int32, arg2 int32, arg3 int32, arg4 int32) int32 {
-		return sub_439D00((*int32)(unsafe.Pointer(uintptr(arg1))), arg2, uint32(arg3), arg4)
-	})
-	nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&dword_5d4594_814988)), func(arg1 int32, arg2 int32, arg3 int32, arg4 int32) int32 {
-		return nox_xxx_windowMultiplayerSub_439E70(arg1, uint32(arg2), (*int32)(unsafe.Pointer(uintptr(arg3))), arg4)
-	})
+	nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_814984)), funAddrP(sub_439D00))
+	nox_xxx_wndSetWindowProc_46B300(*(*int32)(unsafe.Pointer(&dword_5d4594_814988)), funAddrP(sub_439D00))
+	nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&dword_5d4594_814988)), funAddrP(nox_xxx_windowMultiplayerSub_439E70))
 	dword_5d4594_814996 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10011))))
 	nox_wol_wnd_gameList_815012 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10037))))
 	dword_5d4594_815004 = nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10034)
@@ -127,10 +119,8 @@ func nox_game_showGameSel_4379F0() int32 {
 	v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10003)))
 	*(*uint32)(unsafe.Add(unsafe.Pointer(v3), 4*9)) &= 0xFFFFFFFB
 	v4 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10046)))
-	nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v4))), sub_438C80)
-	nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&nox_wol_wnd_gameList_815012)), func(arg1 int32, arg2 int32, arg3 int32, arg4 int32) int32 {
-		return nox_xxx_windowMultiplayerSub_439E70(arg1, uint32(arg2), (*int32)(unsafe.Pointer(uintptr(arg3))), arg4)
-	})
+	nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v4))), funAddrP(sub_438C80))
+	nox_xxx_wndSetProc_46B2C0(*(*int32)(unsafe.Pointer(&nox_wol_wnd_gameList_815012)), funAddrP(nox_xxx_windowMultiplayerSub_439E70))
 	nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&nox_wol_wnd_gameList_815012))))), 1)
 	nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(dword_5d4594_815000))), 1)
 	nox_xxx_wnd_46B280(*memmap.PtrInt32(0x5D4594, 815008), *(*int32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))
@@ -211,29 +201,19 @@ func nox_game_showGameSel_4379F0() int32 {
 		sub_44A360(1)
 		dword_5d4594_815100 = 0
 	}
-	sub_43DE40(unsafe.Pointer(funAddr(sub_438770)))
+	sub_43DE40(funAddrP(sub_438770))
 	if sub_44A4A0() != 0 {
 		sub_44A4B0()
 	}
-	nox_xxx_wndSetDrawFn_46B340(*(*int32)(unsafe.Pointer(&dword_5d4594_814984)), func(arg1 int32, arg2 int32) int32 {
-		return sub_438E30((*uint32)(unsafe.Pointer(uintptr(arg1))), arg2)
-	})
+	nox_xxx_wndSetDrawFn_46B340(*(*int32)(unsafe.Pointer(&dword_5d4594_814984)), funAddrP(sub_438E30))
 	v19 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10054)))
-	nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v19))), func(arg1 int32, arg2 int32) int32 {
-		return sub_438E30((*uint32)(unsafe.Pointer(uintptr(arg1))), arg2)
-	})
+	nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v19))), funAddrP(sub_438E30))
 	v20 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10055)))
-	nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v20))), func(arg1 int32, arg2 int32) int32 {
-		return sub_438E30((*uint32)(unsafe.Pointer(uintptr(arg1))), arg2)
-	})
+	nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v20))), funAddrP(sub_438E30))
 	v21 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10056)))
-	nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v21))), func(arg1 int32, arg2 int32) int32 {
-		return sub_438E30((*uint32)(unsafe.Pointer(uintptr(arg1))), arg2)
-	})
+	nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v21))), funAddrP(sub_438E30))
 	v22 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10057)))
-	nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v22))), func(arg1 int32, arg2 int32) int32 {
-		return sub_438E30((*uint32)(unsafe.Pointer(uintptr(arg1))), arg2)
-	})
+	nox_xxx_wndSetDrawFn_46B340(int32(uintptr(unsafe.Pointer(v22))), funAddrP(sub_438E30))
 	if dword_587000_87408 == 0 {
 		sub_46ACE0(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)), 10047, 10051, 1)
 	}
@@ -309,7 +289,7 @@ func sub_438770() int32 {
 			v5 = nox_strman_loadString_40F1D0(internCStr("Connected"), nil, internCStr("C:\\NoxPost\\src\\client\\shell\\noxworld.c"), 1364)
 			sub_449E30((*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))))
 			sub_449EA0(0)
-			nox_game_SetCliDrawFunc(unsafe.Pointer(funAddr(nox_xxx_cliDrawConnectedLoop_43B360)))
+			nox_game_SetCliDrawFunc(funAddrP(nox_xxx_cliDrawConnectedLoop_43B360))
 			sub_43AF90(1)
 			return 1
 		case 8:
@@ -1050,9 +1030,7 @@ func nox_gui_wol_newServerLine_43B7C0(srv *nox_gui_server_ent_t) {
 			nox_swprintf(&wbuf[0], (*wchar2_t)(unsafe.Pointer(internCStr("%S %dms"))), &v13[0], *(*uint32)(unsafe.Pointer(uintptr(a1 + 96))))
 		}
 		nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 28)))+36))), &wbuf[0])
-		nox_xxx_wndSetProc_46B2C0(int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 28)))), func(arg1 int32, arg2 int32, arg3 int32, arg4 int32) int32 {
-			return nox_xxx_windowMultiplayerSub_439E70(arg1, uint32(arg2), (*int32)(unsafe.Pointer(uintptr(arg3))), arg4)
-		})
+		nox_xxx_wndSetProc_46B2C0(int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 28)))), funAddrP(nox_xxx_windowMultiplayerSub_439E70))
 		var result *uint32 = *(**uint32)(unsafe.Pointer(uintptr(a1 + 28)))
 		_ = result
 		*result = *(*uint32)(unsafe.Pointer(uintptr(a1 + 36))) + 10070

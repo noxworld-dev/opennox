@@ -109,7 +109,7 @@ func nox_xxx_keybind_nameByTitle_42E960(title *wchar2_t) *byte {
 }
 
 // nox_xxx_keybind_titleByKey_42EA00
-func nox_xxx_keybind_titleByKey_42EA00(key uint) *wchar2_t {
+func nox_xxx_keybind_titleByKey_42EA00(key uint32) *wchar2_t {
 	k := keybind.Key(key)
 	if !k.IsValid() {
 		return internWStr("")
@@ -118,7 +118,7 @@ func nox_xxx_keybind_titleByKey_42EA00(key uint) *wchar2_t {
 }
 
 // nox_xxx_keybind_titleByKeyZero_42EA00
-func nox_xxx_keybind_titleByKeyZero_42EA00(key uint) *wchar2_t {
+func nox_xxx_keybind_titleByKeyZero_42EA00(key uint32) *wchar2_t {
 	k := keybind.Key(key)
 	if !k.IsValid() {
 		return nil
@@ -199,5 +199,5 @@ func Sub_46B630(a1 *gui.Window, a2 int, a3 int) *gui.Window {
 }
 
 func Get_nox_input_reset_430140() unsafe.Pointer {
-	return nox_input_reset_430140
+	return funAddrP(nox_input_reset_430140)
 }

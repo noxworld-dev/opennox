@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+	noxcolor "github.com/noxworld-dev/opennox-lib/color"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -451,7 +452,7 @@ func sub_43DD70(a1 int32, a2 int32) {
 func nox_xxx_gui_43E1A0(a1 int32) *uint32 {
 	var result *uint32
 	if a1 != 0 {
-		result = (*uint32)(unsafe.Pointer(nox_window_new(nil, 552, 0, 0, nox_win_width, nox_win_height, nil)))
+		result = (*uint32)(unsafe.Pointer(nox_window_new(nil, 552, 0, 0, nox_win_width, nox_win_height, funAddrP(nil))))
 		dword_5d4594_816412 = uint32(uintptr(unsafe.Pointer(result)))
 		*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*14)) = nox_color_black_2650656
 	} else {
@@ -724,7 +725,7 @@ func nox_xxx_drawMessageLines_445530() int32 {
 	)
 	v13 = 0
 	var rdr *nox_draw_viewport_t = nox_draw_getViewport_437250()
-	v1 = rdr.Size.Y*3/4 + rdr.y1 - 15
+	v1 = int32(rdr.Size.Y*3/4 + rdr.Screen.Min.Y - 15)
 	v2 = int32(dword_5d4594_825736)
 	for i = int32(dword_5d4594_825736); ; v2 = i {
 		v3 = v2 * 161
@@ -812,7 +813,7 @@ func sub_445FF0() *uint32 {
 		result *uint32
 	)
 	if nox_wnd_quitMenu_825760 != nil {
-		nox_wnd_quitMenu_825760.DrawData().bg_color = nox_color_black_2650656
+		nox_wnd_quitMenu_825760.DrawData().SetBackgroundColor(noxcolor.RGBA5551(nox_color_black_2650656))
 	}
 	for i = 9001; i <= 9006; i++ {
 		result = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0(nox_wnd_quitMenu_825760, i)))
@@ -881,7 +882,7 @@ func nox_xxx_guiMotdLoad_4465C0() int32 {
 		v7 *byte
 		v8 *uint32
 	)
-	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("motd.wnd"), unsafe.Pointer(funAddr(sub_4466C0)))))
+	v0 = (*uint32)(unsafe.Pointer(nox_new_window_from_file(internCStr("motd.wnd"), funAddrP(sub_4466C0))))
 	dword_5d4594_826028 = uint32(uintptr(unsafe.Pointer(v0)))
 	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(v0)), 4203)))
 	dword_5d4594_826032 = uint32(uintptr(unsafe.Pointer(v1)))

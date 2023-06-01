@@ -80,7 +80,7 @@ func nox_xxx_netStatsMultiplier_4D9C20(a1p *nox_object_t) int {
 }
 
 // sub_554240
-func sub_554240(a1 int32) int { return Sub_554240(ntype.PlayerInd(a1)) }
+func sub_554240(a1 int32) int32 { return int32(Sub_554240(ntype.PlayerInd(a1))) }
 
 // nox_xxx_net_getIP_554200
 func nox_xxx_net_getIP_554200(a1 int32) uint32 {

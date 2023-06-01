@@ -20,7 +20,7 @@ func nox_xxx_updDrawAddRndSpark_4CDFA0(a1 int32, a2 *uint32) *uint32 {
 	if int32(uintptr(unsafe.Pointer(a2))) > 0 {
 		v3 = a2
 		for {
-			result = &nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1523008), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 12)))), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 16))))).field_0
+			result = &nox_xxx_spriteLoadAdd_45A360_drawable(*memmap.PtrInt32(0x5D4594, 1523008), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 12)))), int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 16))))).Field_0
 			v4 = result
 			if result != nil {
 				*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*108)) = *(*uint32)(unsafe.Pointer(uintptr(a1 + 12))) << 12

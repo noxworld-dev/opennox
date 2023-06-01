@@ -59,7 +59,7 @@ func sub_478730(a1 *int32) {
 	v12 = *(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*1))
 	v11 = *a1
 	v10 = nox_strman_loadString_40F1D0(internCStr("BuyLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 328)
-	nox_gui_itemAmountDialog_4C0430((*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), v11, v12, v13, v14, v9, v8, 0, unsafe.Pointer(funAddr(sub_478850)), nil)
+	nox_gui_itemAmountDialog_4C0430((*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v10)))))), v11, v12, v13, v14, v9, v8, 0, funAddrP(sub_478850), nil)
 }
 func nox_client_tradeXxxBuyAccept_478880(a1 int32, a2 int16) {
 	var v2 *wchar2_t
@@ -208,7 +208,7 @@ func sub_4795E0(a1 int32, a2 int32) int32 {
 			v10 = sub_467700(a1)
 			v9 = int32(*(*uint32)(unsafe.Pointer(uintptr(v5 + 108))))
 			var str *wchar2_t = nox_strman_loadString_40F1D0(internCStr("SellLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 1504)
-			result = nox_gui_itemAmountDialog_4C0430(str, mpos.x, mpos.y, a1, v9, v2, v10, 0, unsafe.Pointer(funAddr(sub_479690)), unsafe.Pointer(funAddr(sub_479680)))
+			result = nox_gui_itemAmountDialog_4C0430(str, mpos.x, mpos.y, a1, v9, v2, v10, 0, funAddrP(sub_479690), funAddrP(sub_479680))
 			dword_5d4594_1098616 = 1
 		}
 	}
@@ -244,7 +244,7 @@ func sub_479740(a1 int32, a2 uint32) {
 				v8 = mpos.y
 				v7 = mpos.x
 				v6 = nox_strman_loadString_40F1D0(internCStr("RepairLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\GUIShop.c"), 1580)
-				nox_gui_itemAmountDialog_4C0430((*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), v7, v8, a1, v9, v2, 1, 0, unsafe.Pointer(funAddr(sub_479820)), unsafe.Pointer(funAddr(sub_479810)))
+				nox_gui_itemAmountDialog_4C0430((*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))), v7, v8, a1, v9, v2, 1, 0, funAddrP(sub_479820), funAddrP(sub_479810))
 				dword_5d4594_1098620 = 1
 			}
 		}

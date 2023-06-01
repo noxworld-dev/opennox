@@ -49,7 +49,7 @@ func nox_xxx_menuGameOnButton_445840(a1 *uint32, a2 int32, a3 *int32, a4 int32) 
 		} else {
 			v23 = nox_strman_loadString_40F1D0(internCStr("GUIQuit.c:ReallyLoadMessage"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guiquit.c"), 199)
 			v15 = nox_strman_loadString_40F1D0(internCStr("SelChar.c:LoadLabel"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guiquit.c"), 198)
-			nox_xxx_dialogMsgBoxCreate_449A10(nil, (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v15)))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v23)))))), 56, unsafe.Pointer(funAddr(sub_445B40)), unsafe.Pointer(funAddr(sub_445BA0)))
+			nox_xxx_dialogMsgBoxCreate_449A10(nil, (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v15)))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v23)))))), 56, funAddrP(sub_445B40), funAddrP(sub_445BA0))
 			v16 = *(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*9))
 			*((*uint8)(unsafe.Pointer(&v16))) = uint8(int8(v16 & 0xFD))
 			*(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*9)) = v16
@@ -98,7 +98,7 @@ func nox_xxx_menuGameOnButton_445840(a1 *uint32, a2 int32, a3 *int32, a4 int32) 
 		nox_xxx_wndClearCaptureMain_46ADE0(nox_wnd_quitMenu_825760)
 		v22 = nox_strman_loadString_40F1D0(internCStr("GUIQuit.c:ReallyQuitMessage"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guiquit.c"), 185)
 		v13 = nox_strman_loadString_40F1D0(internCStr("GUIQuit.c:ReallyQuitTitle"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\guiquit.c"), 184)
-		nox_xxx_dialogMsgBoxCreate_449A10(nox_wnd_quitMenu_825760, (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v13)))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v22)))))), 56, unsafe.Pointer(funAddr(nox_xxx_quitDialogYes_445B20)), unsafe.Pointer(funAddr(nox_xxx_quitDialogNo_445B30)))
+		nox_xxx_dialogMsgBoxCreate_449A10(nox_wnd_quitMenu_825760, (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v13)))))), (*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v22)))))), 56, funAddrP(nox_xxx_quitDialogYes_445B20), funAddrP(nox_xxx_quitDialogNo_445B30))
 		v14 = *(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*9))
 		*((*uint8)(unsafe.Pointer(&v14))) = uint8(int8(v14 & 0xFD))
 		*(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*9)) = v14

@@ -10,7 +10,7 @@ import (
 
 func sub_4E39F0_obj_db(a1p *nox_object_t) *wchar2_t {
 	var (
-		a1 **byte = &a1p.id
+		a1 **byte = (**byte)(unsafe.Pointer(a1p))
 		v1 *byte
 		v2 *byte
 		v3 *byte

@@ -4,7 +4,7 @@ import (
 	"unsafe"
 )
 
-type nox_window_flags int32
+type nox_window_flags uint32
 
 const (
 	NOX_WIN_HIDDEN      nox_window_flags = 0x10
