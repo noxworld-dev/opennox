@@ -9,8 +9,6 @@ import (
 var (
 	Sub_4A1BE0                             func(a1 int) int
 	Sub_41E300                             func(a1 int) int
-	Sub_4A50A0                             func() int
-	Sub_4A50D0                             func() int
 	Nox_client_resetScreenParticles_431510 func()
 	Sub_46D6F0                             func() int
 	Sub_413A00                             func(a1 int)
@@ -62,12 +60,6 @@ func sub_4A1BE0(a1 int) int { return Sub_4A1BE0(a1) }
 
 // sub_41E300
 func sub_41E300(a1 int32) int32 { return int32(Sub_41E300(int(a1))) }
-
-// sub_4A50A0
-func sub_4A50A0() int { return Sub_4A50A0() }
-
-// sub_4A50D0
-func sub_4A50D0() int { return Sub_4A50D0() }
 
 // nox_client_resetScreenParticles_431510
 func nox_client_resetScreenParticles_431510() { Nox_client_resetScreenParticles_431510() }
@@ -145,10 +137,4 @@ func Sub_43D9E0(a1 unsafe.Pointer) {
 
 func Get_sub_4A18E0() unsafe.Pointer {
 	return ccall.FuncAddr(sub_4A18E0)
-}
-func Get_sub_4A50A0() unsafe.Pointer {
-	return ccall.FuncAddr(sub_4A50A0)
-}
-func Get_sub_4A50D0() unsafe.Pointer {
-	return ccall.FuncAddr(sub_4A50D0)
 }

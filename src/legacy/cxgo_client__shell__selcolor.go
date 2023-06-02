@@ -6,7 +6,6 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 
 	memmap "github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func nox_game_showSelColor_4A5D00() int {
@@ -32,8 +31,8 @@ func nox_game_showSelColor_4A5D00() int {
 		nox_wnd_xxx_1308092 = (*nox_gui_animation)(unsafe.Pointer(uintptr(result)))
 		if result != 0 {
 			nox_wnd_xxx_1308092.StateID = 700
-			nox_wnd_xxx_1308092.Func12Ptr = ccall.FuncAddr(sub_4A6890)
-			nox_wnd_xxx_1308092.FncDoneOutPtr = ccall.FuncAddr(sub_4A6C90)
+			nox_wnd_xxx_1308092.Func12Ptr.Set(sub_4A6890)
+			nox_wnd_xxx_1308092.FncDoneOutPtr.Set(sub_4A6C90)
 			sub_4A5E90()
 			for i = 720; i <= 729; i++ {
 				v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308084)))), i)))

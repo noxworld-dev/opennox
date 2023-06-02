@@ -2,7 +2,6 @@ package gui
 
 import (
 	"image"
-	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -60,9 +59,9 @@ func NewAnim(win *Window, p1, p2, dpIn, dpOut image.Point) *Anim {
 	a.p2 = p2
 	a.dpIn = dpIn
 	a.dpOut = dpOut
-	a.Func12Ptr = nil
-	a.FncDoneOutPtr = nil
-	a.FncDoneInPtr = nil
+	a.Func12Ptr.Set(nil)
+	a.FncDoneOutPtr.Set(nil)
+	a.FncDoneInPtr.Set(nil)
 	a.SetState(AnimIn)
 	SetAnimGlobalState(AnimIn)
 	return a
@@ -80,19 +79,19 @@ func newAnim(win *Window) *Anim {
 }
 
 type Anim struct {
-	StateID       StateID        // 0, 0
-	win           *Window        // 1, 4
-	p2            image.Point    // 2, 8
-	p1            image.Point    // 4, 16
-	dpOut         image.Point    // 6, 24
-	dpIn          image.Point    // 8, 32
-	next          *Anim          // 10, 40
-	prev          *Anim          // 11, 44
-	Func12Ptr     unsafe.Pointer // // 12, 48; func() int
-	Func13Ptr     unsafe.Pointer // 13, 52; func() int
-	FncDoneOutPtr unsafe.Pointer // 14, 56; func() int
-	FncDoneInPtr  unsafe.Pointer // 15, 60; func()
-	state         AnimState      // 16, 64
+	StateID       StateID                // 0, 0
+	win           *Window                // 1, 4
+	p2            image.Point            // 2, 8
+	p1            image.Point            // 4, 16
+	dpOut         image.Point            // 6, 24
+	dpIn          image.Point            // 8, 32
+	next          *Anim                  // 10, 40
+	prev          *Anim                  // 11, 44
+	Func12Ptr     ccall.Func[func() int] // // 12, 48; func() int
+	Func13Ptr     ccall.Func[func() int] // 13, 52; func() int
+	FncDoneOutPtr ccall.Func[func() int] // 14, 56; func() int
+	FncDoneInPtr  ccall.Func[func()]     // 15, 60; func()
+	state         AnimState              // 16, 64
 }
 
 func (a *Anim) Free() {
@@ -129,11 +128,11 @@ func (a *Anim) Window() *Window {
 }
 
 func (a *Anim) Func12() int {
-	return ccall.AsFunc[func() int](a.Func12Ptr)()
+	return a.Func12Ptr.Get()()
 }
 
 func (a *Anim) Func13() int {
-	return ccall.AsFunc[func() int](a.Func13Ptr)()
+	return a.Func13Ptr.Get()()
 }
 
 func (a *Anim) doOut() {
@@ -169,8 +168,8 @@ func (a *Anim) doOut() {
 	if maxed == 2 {
 		a.SetState(AnimOutDone)
 		SetAnimGlobalState(AnimOutDone)
-		if a.FncDoneOutPtr != nil {
-			ccall.AsFunc[func() int](a.FncDoneOutPtr)()
+		if fnc := a.FncDoneOutPtr.Get(); fnc != nil {
+			fnc()
 		}
 	}
 }
@@ -208,8 +207,8 @@ func (a *Anim) doIn() {
 	if maxed == 2 {
 		a.SetState(AnimInDone)
 		SetAnimGlobalState(AnimInDone)
-		if a.FncDoneInPtr != nil {
-			ccall.AsFunc[func() int](a.FncDoneInPtr)()
+		if fnc := a.FncDoneInPtr.Get(); fnc != nil {
+			fnc()
 		}
 		FocusMainBg()
 	}

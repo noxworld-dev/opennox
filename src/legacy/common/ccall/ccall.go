@@ -15,6 +15,10 @@ type funcReg struct {
 
 var funcs = make(map[unsafe.Pointer]funcReg)
 
+func FuncPtr[T any](fnc T) Func[T] {
+	return Func[T]{h: FuncAddr(fnc)}
+}
+
 func FuncAddr(fnc any) unsafe.Pointer {
 	if fnc == nil {
 		return nil
@@ -53,4 +57,20 @@ func caller(skip int) string {
 		fnc = f.Name()
 	}
 	return fmt.Sprintf("%s, %s:%d", fnc, file, line)
+}
+
+type Func[T any] struct {
+	h unsafe.Pointer
+}
+
+func (f Func[T]) IsZero() bool {
+	return f.h == nil
+}
+
+func (f Func[T]) Get() T {
+	return AsFunc[T](f.h)
+}
+
+func (f *Func[T]) Set(v T) {
+	f.h = FuncAddr(v)
 }

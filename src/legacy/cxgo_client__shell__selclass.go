@@ -4,7 +4,6 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func sub_4A4A20(win *nox_window, a2, a3, a4 uintptr) uintptr {
@@ -36,7 +35,7 @@ func sub_4A4A20(win *nox_window, a2, a3, a4 uintptr) uintptr {
 					sub_4A4B70(v5)
 				}
 				sub_4A4970()
-				nox_wnd_xxx_1307732.Func13Ptr = ccall.FuncAddr(nox_game_showSelColor_4A5D00)
+				nox_wnd_xxx_1307732.Func13Ptr.Set(nox_game_showSelColor_4A5D00)
 			}
 		}
 		nox_xxx_clientPlaySoundSpecial_452D80(921, 100)

@@ -3571,7 +3571,7 @@ func sub_4379C0() {
 	}
 }
 func sub_438330() int {
-	v0 := ccall.AsFunc[func() int](nox_wnd_xxx_815040.Func13Ptr)
+	v0 := nox_wnd_xxx_815040.Func13Ptr.Get()
 	nox_gui_freeAnimation_43C570(nox_wnd_xxx_815040)
 	if !nox_common_gameFlags_check_40A5C0(0x10000000) {
 		nox_client_guiXxx_43A9D0()
@@ -3879,7 +3879,7 @@ func sub_439D90(a1 uint32, a2 uint32) int32 {
 			return nox_client_setCursorType_477610(0)
 		}
 		sub_4A7A70(0)
-		nox_game_showSelClass_4A4840()
+		Nox_game_showSelClass_4A4840()
 		nox_client_setCursorType_477610(0)
 	}
 	return result
@@ -4038,7 +4038,7 @@ func sub_43B340() int32 {
 }
 func sub_43B460() int32 {
 	sub_438370()
-	nox_wnd_xxx_815040.FncDoneOutPtr = ccall.FuncAddr(sub_43B490)
+	nox_wnd_xxx_815040.FncDoneOutPtr.Set(sub_43B490)
 	nox_xxx_wnd_46C6E0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_815000))))))
 	return nox_xxx_wnd_46ABB0((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_814984))))), 0)
 }

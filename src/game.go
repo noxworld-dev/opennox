@@ -1418,7 +1418,7 @@ func (c *Client) nox_game_checkStateSwitch_43C1E0() {
 	p := gui.FindAnimForStateID(c.GameGetStateCode())
 	if p != nil {
 		p.Func12()
-		p.Func13Ptr = legacy.Get_nox_game_switchStates_43C0A0()
+		p.Func13Ptr.Set(legacy.Nox_game_switchStates_43C0A0)
 		c.GamePopState()
 	}
 }
@@ -1430,7 +1430,7 @@ func (c *Client) nox_game_checkStateOptions_43C220() {
 	p := gui.FindAnimForStateID(c.GameGetStateCode())
 	if p != nil {
 		p.Func12()
-		p.Func13Ptr = legacy.Get_nox_game_showOptions_4AA6B0()
+		p.Func13Ptr.Set(legacy.Nox_game_showOptions_4AA6B0)
 	}
 }
 
@@ -1444,8 +1444,7 @@ func (c *Client) nox_game_checkStateMenu_43C2F0() {
 			nox_game_showMainMenu_4A1C00()
 		} else {
 			p.Func12()
-			_ = nox_game_showMainMenu_4A1C00
-			p.Func13Ptr = legacy.Get_nox_game_showMainMenu_4A1C00()
+			p.Func13Ptr.Set(nox_game_showMainMenu_4A1C00)
 		}
 	}
 	c.GamePopStateUntil(client.StateMainMenu)

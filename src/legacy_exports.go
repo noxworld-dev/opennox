@@ -201,11 +201,8 @@ func init() {
 	legacy.Nox_setImaginaryCaster = nox_setImaginaryCaster
 	legacy.Nox_script_readWriteZzz_541670 = nox_script_readWriteZzz_541670
 	legacy.Sub_4C26F0 = sub_4C26F0
-	legacy.WinMainMenuAnimOutStartFnc = winMainMenuAnimOutStartFnc
 	legacy.Sub_44E320 = sub_44E320
-	legacy.WinMainMenuAnimOutDoneFnc = winMainMenuAnimOutDoneFnc
 	legacy.Sub_4A24C0 = sub_4A24C0
-	legacy.Nox_game_showMainMenu_4A1C00 = nox_game_showMainMenu_4A1C00
 	legacy.Sub_43BE40 = sub_43BE40
 	legacy.Sub_43BE30 = sub_43BE30
 	legacy.Sub_4A18E0 = sub_4A18E0
@@ -276,8 +273,6 @@ func init() {
 	legacy.Nox_objectPickupAudEvent_4F3D50 = nox_objectPickupAudEvent_4F3D50
 	legacy.Sub_4A1BE0 = sub_4A1BE0
 	legacy.Sub_41E300 = sub_41E300
-	legacy.Sub_4A50A0 = sub_4A50A0
-	legacy.Sub_4A50D0 = sub_4A50D0
 	legacy.Nox_client_resetScreenParticles_431510 = nox_client_resetScreenParticles_431510
 	legacy.Sub_46D6F0 = sub_46D6F0
 	legacy.Sub_413A00 = sub_413A00

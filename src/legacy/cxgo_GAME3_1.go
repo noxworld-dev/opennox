@@ -4904,8 +4904,8 @@ func sub_4CB880() int {
 		nox_wnd_xxx_1522608 = (*nox_gui_animation)(unsafe.Pointer(uintptr(result)))
 		if result != 0 {
 			nox_wnd_xxx_1522608.StateID = 900
-			nox_wnd_xxx_1522608.Func12Ptr = ccall.FuncAddr(sub_4CBB70)
-			nox_wnd_xxx_1522608.FncDoneOutPtr = ccall.FuncAddr(sub_4CBBB0)
+			nox_wnd_xxx_1522608.Func12Ptr.Set(sub_4CBB70)
+			nox_wnd_xxx_1522608.FncDoneOutPtr.Set(sub_4CBBB0)
 			dword_5d4594_1522616 = nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1522604)))), 910)
 			dword_5d4594_1522620 = nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1522604)))), 911)
 			dword_5d4594_1522624 = nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1522604)))), 912)
@@ -4968,7 +4968,7 @@ func sub_4CBB70() int {
 	return 1
 }
 func sub_4CBBB0() int {
-	v0 := ccall.AsFunc[func() int](nox_wnd_xxx_1522608.Func13Ptr)
+	v0 := nox_wnd_xxx_1522608.Func13Ptr.Get()
 	nox_gui_freeAnimation_43C570(nox_wnd_xxx_1522608)
 	nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1522604)))))
 	nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1522612)))))

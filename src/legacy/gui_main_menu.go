@@ -1,37 +1,22 @@
 package legacy
 
 import (
-	"unsafe"
-
 	"github.com/noxworld-dev/opennox/v1/client/gui"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var (
-	WinMainMenuAnimOutStartFnc   func() int
-	Sub_44E320                   func()
-	WinMainMenuAnimOutDoneFnc    func() int
-	Sub_4A24C0                   func(a1 int) int
-	Nox_game_showMainMenu_4A1C00 func() int
-	Sub_43BE40                   func(a1 int)
-	Sub_43BE30                   func() int
-	Sub_4A18E0                   func(a1 *gui.Window, a2, a3, a4 int) int
+	Sub_44E320 func()
+	Sub_4A24C0 func(a1 int) int
+	Sub_43BE40 func(a1 int)
+	Sub_43BE30 func() int
+	Sub_4A18E0 func(a1 *gui.Window, a2, a3, a4 int) int
 )
-
-// winMainMenuAnimOutStartFnc
-func winMainMenuAnimOutStartFnc() int { return WinMainMenuAnimOutStartFnc() }
 
 // sub_44E320
 func sub_44E320() { Sub_44E320() }
 
-// winMainMenuAnimOutDoneFnc
-func winMainMenuAnimOutDoneFnc() int { return WinMainMenuAnimOutDoneFnc() }
-
 // sub_4A24C0
 func sub_4A24C0(a1 int) int32 { return int32(Sub_4A24C0(a1)) }
-
-// nox_game_showMainMenu_4A1C00
-func nox_game_showMainMenu_4A1C00() int { return Nox_game_showMainMenu_4A1C00() }
 
 // sub_43BE40
 func sub_43BE40(a1 int32) { Sub_43BE40(int(a1)) }
@@ -85,17 +70,4 @@ func Sub_4D6F80(a1 int) {
 }
 func Sub_4A7A70(a1 int) {
 	sub_4A7A70(int32(a1))
-}
-
-func Get_nox_game_showSelChar_4A4DB0() unsafe.Pointer {
-	return ccall.FuncAddr(nox_game_showSelChar_4A4DB0)
-}
-func Get_nox_game_showSelClass_4A4840() unsafe.Pointer {
-	return ccall.FuncAddr(nox_game_showSelClass_4A4840)
-}
-func Get_winMainMenuAnimOutStartFnc() unsafe.Pointer {
-	return ccall.FuncAddr(winMainMenuAnimOutStartFnc)
-}
-func Get_winMainMenuAnimOutDoneFnc() unsafe.Pointer {
-	return ccall.FuncAddr(winMainMenuAnimOutDoneFnc)
 }

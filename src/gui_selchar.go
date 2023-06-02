@@ -26,7 +26,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/cryptfile"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -84,13 +83,13 @@ func sub_4A50A0() int {
 }
 
 func sub_4A50D0() int {
-	v0 := nox_wnd_xxx_1307748.Func13Ptr
+	v0 := nox_wnd_xxx_1307748.Func13Ptr.Get()
 	nox_wnd_xxx_1307748.Free()
 	nox_wnd_xxx_1307748 = nil
 	winSelSave.Destroy()
 	winSelSave = nil
 	if v0 != nil {
-		ccall.AsFunc[func() int](v0)()
+		v0()
 		return 1
 	}
 	nox_client_resetScreenParticles_431510()
@@ -275,8 +274,8 @@ func nox_game_showSelChar4A4DB0() bool {
 		return false
 	}
 	anim.StateID = client.StateCharSelect
-	anim.Func12Ptr = legacy.Get_sub_4A50A0()
-	anim.FncDoneOutPtr = legacy.Get_sub_4A50D0()
+	anim.Func12Ptr.Set(sub_4A50A0)
+	anim.FncDoneOutPtr.Set(sub_4A50D0)
 	wlist := win.ChildByID(510)
 	wnames := win.ChildByID(511)
 	wstyle := win.ChildByID(512)
@@ -688,7 +687,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *gui.Window, e gui.WindowEvent) gui.Win
 		case 501:
 			noxServer.Objs.SetFirstObjectScriptID(1000000000)
 			sub_4A50A0()
-			nox_wnd_xxx_1307748.Func13Ptr = legacy.Get_nox_game_showSelClass_4A4840()
+			nox_wnd_xxx_1307748.Func13Ptr.Set(legacy.Nox_game_showSelClass_4A4840)
 		case 502:
 			v7 := winCharListNames.WidgetData
 			v10 := *(*int32)(unsafe.Add(v7, 48))
@@ -740,7 +739,7 @@ func nox_xxx_windowSelCharProc_4A5710(a1 *gui.Window, e gui.WindowEvent) gui.Win
 				}
 				sub4A24C0(false)
 				sub_4A50A0()
-				nox_wnd_xxx_1307748.Func13Ptr = nil
+				nox_wnd_xxx_1307748.Func13Ptr.Set(nil)
 			}
 		case 503:
 			v7 := winCharListNames.WidgetData

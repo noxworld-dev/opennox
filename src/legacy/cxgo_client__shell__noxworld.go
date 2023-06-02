@@ -65,7 +65,7 @@ func Nox_game_showGameSel_4379F0() int {
 	if nox_wol_wnd_world_814980 != nil {
 		dword_5d4594_815044 = 0
 		nox_wnd_xxx_815040.SetState(NOX_GUI_ANIM_IN)
-		nox_wnd_xxx_815040.FncDoneOutPtr = ccall.FuncAddr(sub_438330)
+		nox_wnd_xxx_815040.FncDoneOutPtr.Set(sub_438330)
 		sub_43BE40(3)
 		nox_xxx_clientPlaySoundSpecial_452D80(922, 100)
 		nox_window_set_hidden((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&nox_wol_wnd_world_814980))))), 0)
@@ -95,8 +95,8 @@ func Nox_game_showGameSel_4379F0() int {
 		return 0
 	}
 	nox_wnd_xxx_815040.StateID = 10000
-	nox_wnd_xxx_815040.Func12Ptr = ccall.FuncAddr(sub_438370)
-	nox_wnd_xxx_815040.FncDoneOutPtr = ccall.FuncAddr(sub_438330)
+	nox_wnd_xxx_815040.Func12Ptr.Set(sub_438370)
+	nox_wnd_xxx_815040.FncDoneOutPtr.Set(sub_438330)
 	dword_5d4594_814984 = unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10020))
 	dword_5d4594_814988 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_wol_wnd_world_814980)))), 10021))))
 	nox_xxx_wndSetWindowProc_46B300(*(**nox_window)(unsafe.Pointer(&dword_5d4594_814984)), sub_439D00)
@@ -868,7 +868,7 @@ func nox_xxx_windowMultiplayerSub_439E70(win *nox_window, a2, a3, a4 uintptr) ui
 		return 0
 	}
 	sub_4A7A70(0)
-	nox_game_showSelClass_4A4840()
+	Nox_game_showSelClass_4A4840()
 	dword_5d4594_815044 = 1
 	sub_4A2890()
 	return 0

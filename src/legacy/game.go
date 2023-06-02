@@ -36,10 +36,10 @@ var (
 
 func init() {
 	gui.RegisterState(client.StateOptions, "Options", func() bool {
-		return nox_game_showOptions_4AA6B0() != 0
+		return Nox_game_showOptions_4AA6B0() != 0
 	})
 	gui.RegisterState(client.StateClassSelect, "ClassSelect", func() bool {
-		return nox_game_showSelClass_4A4840() != 0
+		return Nox_game_showSelClass_4A4840() != 0
 	})
 	gui.RegisterState(client.StateColorSelect, "ColorSelect", func() bool {
 		return nox_game_showSelColor_4A5D00() != 0
@@ -230,8 +230,8 @@ func nox_game_decStateInd_43BDC0() {
 	GetClient().GamePopState()
 }
 
-// nox_game_switchStates_43C0A0
-func nox_game_switchStates_43C0A0() int {
+// Nox_game_switchStates_43C0A0
+func Nox_game_switchStates_43C0A0() int {
 	return bool2int(GetClient().GameStateSwitch())
 }
 
@@ -707,15 +707,6 @@ func Sub_415CD0(a1 int) int {
 }
 func Sub_415840(a1 int) int {
 	return int(sub_415840(int32(a1)))
-}
-func Get_nox_game_switchStates_43C0A0() unsafe.Pointer {
-	return ccall.FuncAddr(nox_game_switchStates_43C0A0)
-}
-func Get_nox_game_showOptions_4AA6B0() unsafe.Pointer {
-	return ccall.FuncAddr(nox_game_showOptions_4AA6B0)
-}
-func Get_nox_game_showMainMenu_4A1C00() unsafe.Pointer {
-	return ccall.FuncAddr(nox_game_showMainMenu_4A1C00)
 }
 func Sub_41CAC0(a1 string, data []byte) {
 	sub_41CAC0(internCStr(a1), unsafe.Pointer(&data[0]))

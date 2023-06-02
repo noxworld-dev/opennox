@@ -1402,7 +1402,7 @@ func sub_4A4800(a1 int32) int32 {
 	}
 	return result
 }
-func nox_game_showSelClass_4A4840() int {
+func Nox_game_showSelClass_4A4840() int {
 	var (
 		result int32
 		v1     *uint32
@@ -1421,8 +1421,8 @@ func nox_game_showSelClass_4A4840() int {
 		nox_wnd_xxx_1307732 = (*nox_gui_animation)(unsafe.Pointer(uintptr(result)))
 		if result != 0 {
 			nox_wnd_xxx_1307732.StateID = 600
-			nox_wnd_xxx_1307732.Func12Ptr = ccall.FuncAddr(sub_4A4970)
-			nox_wnd_xxx_1307732.FncDoneOutPtr = ccall.FuncAddr(sub_4A49A0)
+			nox_wnd_xxx_1307732.Func12Ptr.Set(sub_4A4970)
+			nox_wnd_xxx_1307732.FncDoneOutPtr.Set(sub_4A49A0)
 			v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))), 601)))
 			nox_xxx_wndSetDrawFn_46B340((*nox_window)(unsafe.Pointer(v1)), sub_4A49D0)
 			v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))), 603)))
@@ -1446,7 +1446,7 @@ func sub_4A4970() int {
 	return 1
 }
 func sub_4A49A0() int {
-	v0 := ccall.AsFunc[func() int](nox_wnd_xxx_1307732.Func13Ptr)
+	v0 := nox_wnd_xxx_1307732.Func13Ptr.Get()
 	nox_gui_freeAnimation_43C570(nox_wnd_xxx_1307732)
 	nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307736)))))
 	v0()
@@ -1878,7 +1878,7 @@ func sub_4A6B50(a1 *wchar2_t) int32 {
 	return v2
 }
 func sub_4A6C90() int {
-	v0 := ccall.AsFunc[func() int](nox_wnd_xxx_1308092.Func13Ptr)
+	v0 := nox_wnd_xxx_1308092.Func13Ptr.Get()
 	nox_gui_freeAnimation_43C570(nox_wnd_xxx_1308092)
 	nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308084)))))
 	nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1308088)))))
@@ -2212,7 +2212,7 @@ func sub_4A7330(win *nox_window, a2, a3, a4 uintptr) uintptr {
 				}
 				sub_4A24C0(0)
 				sub_4A6890()
-				nox_wnd_xxx_1308092.Func13Ptr = nil
+				nox_wnd_xxx_1308092.Func13Ptr.Set(nil)
 			}
 		default:
 		}
@@ -3255,7 +3255,7 @@ func nox_xxx_compassGenStrings_4A9C80() int32 {
 	}
 	return 1
 }
-func nox_game_showOptions_4AA6B0() int {
+func Nox_game_showOptions_4AA6B0() int {
 	var (
 		v1  *uint32
 		v2  *byte
@@ -3294,8 +3294,8 @@ func nox_game_showOptions_4AA6B0() int {
 		return 0
 	}
 	nox_wnd_xxx_1309740.StateID = 300
-	nox_wnd_xxx_1309740.Func12Ptr = ccall.FuncAddr(sub_4AA9C0)
-	nox_wnd_xxx_1309740.FncDoneOutPtr = ccall.FuncAddr(sub_4AAA10)
+	nox_wnd_xxx_1309740.Func12Ptr.Set(sub_4AA9C0)
+	nox_wnd_xxx_1309740.FncDoneOutPtr.Set(sub_4AAA10)
 	v1 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309720)))), 351)))
 	*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*100)) + 8))) = 24
 	*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Add(unsafe.Pointer(v1), 4*100)) + 12))) = 20
@@ -3452,8 +3452,8 @@ func sub_4AABE0(a1 *nox_window, a2, a3, a4 uintptr) uintptr {
 			}
 		} else if v4 == 341 {
 			sub_4AA9C0()
-			nox_wnd_xxx_1309740.FncDoneOutPtr = ccall.FuncAddr(sub_4AB0C0)
-			nox_wnd_xxx_1309740.Func13Ptr = ccall.FuncAddr(sub_4CB880)
+			nox_wnd_xxx_1309740.FncDoneOutPtr.Set(sub_4AB0C0)
+			nox_wnd_xxx_1309740.Func13Ptr.Set(sub_4CB880)
 		} else {
 			switch v4 {
 			case 311:
@@ -3625,7 +3625,7 @@ func sub_4AABE0(a1 *nox_window, a2, a3, a4 uintptr) uintptr {
 	return uintptr(result)
 }
 func sub_4AB0C0() int {
-	v0 := ccall.AsFunc[func() int](nox_wnd_xxx_1309740.Func13Ptr)
+	v0 := nox_wnd_xxx_1309740.Func13Ptr.Get()
 	nox_gui_freeAnimation_43C570(nox_wnd_xxx_1309740)
 	nox_xxx_windowDestroyMB_46C4E0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1309720)))))
 	v0()
