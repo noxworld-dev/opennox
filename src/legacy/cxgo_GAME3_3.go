@@ -2363,7 +2363,7 @@ func nox_xxx_playerLeaveObserver_0_4E6AA0(pl *server.Player) {
 						v3 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 2056))) + 52)))))))), 4*19))))
 						if v3 != 0 {
 							if *(*uint32)(unsafe.Pointer(uintptr(v3 + 492))) == 0 {
-								sub_4F3400(int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 2056)))), v3, 1)
+								sub_4F3400(AsObjectP(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(a1 + 2056)))), AsObjectP(unsafe.Pointer(uintptr(v3))), 1, 0)
 							}
 						}
 					}
@@ -5470,11 +5470,10 @@ LABEL_25:
 	return
 }
 func sub_4EBB50(obj *server.Object, obj2 *server.Object, pos *types.Pointf) {
-	a1 := int32(uintptr(obj.CObj()))
 	a2 := int32(uintptr(obj2.CObj()))
 	if a2 != 0 && (*(*uint32)(unsafe.Pointer(uintptr(a2 + 16)))&0x8020) == 0 {
 		if int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 8))))&4 != 0 {
-			sub_4F3400(a2, a1, 1)
+			sub_4F3400(obj2, obj, 1, 0)
 		}
 	}
 }
@@ -10695,7 +10694,7 @@ func nox_xxx_playerCheckStrength_4F3180(a1p *server.Object, item *server.Object)
 	}
 	return result
 }
-func nox_xxx_pickupDefault_4F31E0(a1p *server.Object, item *server.Object, a3 int32) int32 {
+func Nox_xxx_pickupDefault_4F31E0(a1p *server.Object, item *server.Object, a3 int, a4 int) int {
 	var (
 		a1     int32 = int32(uintptr(unsafe.Pointer(a1p)))
 		v3     int32
@@ -10736,7 +10735,7 @@ func nox_xxx_pickupDefault_4F31E0(a1p *server.Object, item *server.Object, a3 in
 					return v13 < 0
 				}()) {
 					nox_xxx_servFinalizeDelObject_4DADE0(item)
-					nox_xxx_inventoryPutImpl_4F3070((*server.Object)(unsafe.Pointer(uintptr(v4))), item, a3)
+					nox_xxx_inventoryPutImpl_4F3070((*server.Object)(unsafe.Pointer(uintptr(v4))), item, int32(a3))
 					result = 1
 				} else {
 					nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(v4))), internCStr("pickup.c:MaxSameItem"), 0)
@@ -10757,9 +10756,11 @@ func nox_xxx_pickupDefault_4F31E0(a1p *server.Object, item *server.Object, a3 in
 		}
 		result = 0
 	}
-	return result
+	return int(result)
 }
-func nox_xxx_pickupFood_4F3350(a1 int32, a2 int32, a3 int32) int32 {
+func nox_xxx_pickupFood_4F3350(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var (
 		v4 int32
 		v5 *uint8
@@ -10773,22 +10774,24 @@ func nox_xxx_pickupFood_4F3350(a1 int32, a2 int32, a3 int32) int32 {
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 16))))&0x20 != 0 {
 		return 1
 	}
-	v4 = nox_xxx_pickupDefault_4F31E0((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), a3)
+	v4 = int32(Nox_xxx_pickupDefault_4F31E0(obj, obj2, a3, a4))
 	if v4 != 0 {
 		v5 = (*uint8)(memmap.PtrOff(0x587000, 215640))
 		if int32(*memmap.PtrUint16(0x587000, 215646)) != 0 {
 			for (*(*uint32)(unsafe.Pointer(uintptr(a2 + 12)))&*(*uint32)(unsafe.Pointer(v5))) == 0 && (int32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v5))), unsafe.Sizeof(uint16(0))*2))))&int32(*(*uint16)(unsafe.Pointer(uintptr(a2 + 24))))) == 0 {
 				v5 = (*uint8)(unsafe.Add(unsafe.Pointer(v5), 8))
 				if int32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v5))), unsafe.Sizeof(uint16(0))*3)))) == 0 {
-					return v4
+					return int(v4)
 				}
 			}
 			nox_xxx_aud_501960(int32(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v5))), unsafe.Sizeof(uint16(0))*3)))), (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
 		}
 	}
-	return v4
+	return int(v4)
 }
-func sub_4F3400(a1 int32, a2 int32, a3 int32) int32 {
+func sub_4F3400(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var (
 		v3     int32
 		result int32
@@ -10799,7 +10802,7 @@ func sub_4F3400(a1 int32, a2 int32, a3 int32) int32 {
 	if (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8)))) & 4) == 0 {
 		return 0
 	}
-	v5 = nox_xxx_pickupDefault_4F31E0((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), a3)
+	v5 = int32(Nox_xxx_pickupDefault_4F31E0(obj, obj2, a3, a4))
 	if v5 != 0 {
 		*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))) + 264))) = gameFrame()
 		nox_xxx_unitSetOwner_4EC290((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))))
@@ -10816,25 +10819,27 @@ func sub_4F3400(a1 int32, a2 int32, a3 int32) int32 {
 	}
 	result = v5
 	*(*uint32)(unsafe.Pointer(uintptr(v3 + 4))) = 0
-	return result
+	return int(result)
 }
-func nox_xxx_pickupUse_4F34D0(a1 int32, a2 int32, a3 int32) int32 {
-	var result int32
+func nox_xxx_pickupUse_4F34D0(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	nox_xxx_useByNetCode_53F8E0(a1, a2)
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 16))))&0x20 != 0 {
-		result = 1
+		return 1
 	} else {
-		result = nox_xxx_pickupDefault_4F31E0((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), a3)
+		return Nox_xxx_pickupDefault_4F31E0(obj, obj2, a3, a4)
 	}
-	return result
 }
-func nox_xxx_pickupTrap_4F3510(a1 int32, a2 int32, a3 int32) int32 {
+func nox_xxx_pickupTrap_4F3510(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var (
 		v3     int32
 		result int32
 	)
 	if nox_xxx_unitHasThatParent_4EC4F0((*server.Object)(unsafe.Pointer(uintptr(a2))), (*server.Object)(unsafe.Pointer(uintptr(a1)))) != 0 {
-		v3 = nox_xxx_pickupDefault_4F31E0((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), a3)
+		v3 = int32(Nox_xxx_pickupDefault_4F31E0(obj, obj2, a3, a4))
 		if v3 != 0 {
 			nox_xxx_aud_501960(824, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
 		}
@@ -10845,9 +10850,10 @@ func nox_xxx_pickupTrap_4F3510(a1 int32, a2 int32, a3 int32) int32 {
 		}
 		result = 0
 	}
-	return result
+	return int(result)
 }
-func nox_xxx_pickupTreasure_4F3580(a1 int32, a2 int32, a3 int32) int32 {
+func nox_xxx_pickupTreasure_4F3580(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v3 int32
 		v4 int32
@@ -10855,7 +10861,7 @@ func nox_xxx_pickupTreasure_4F3580(a1 int32, a2 int32, a3 int32) int32 {
 		j  int32
 		i  int32
 	)
-	if nox_xxx_pickupDefault_4F31E0((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), a3) == 0 {
+	if Nox_xxx_pickupDefault_4F31E0(obj, obj2, a3, a4) == 0 {
 		return 0
 	}
 	if (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8)))) & 4) == 0 {
@@ -10902,7 +10908,6 @@ func nox_xxx_inventoryServPlace_4F36F0(a1p *server.Object, a2p *server.Object, a
 		a1 int32 = int32(uintptr(unsafe.Pointer(a1p)))
 		a2 int32 = int32(uintptr(unsafe.Pointer(a2p)))
 		v4 int32
-		v5 func(int32, int32, int32, int32) int32
 		v6 int32
 		v7 int32
 		v8 int32
@@ -10923,11 +10928,11 @@ func nox_xxx_inventoryServPlace_4F36F0(a1p *server.Object, a2p *server.Object, a
 	if (v4&0x8000) != 0 || nox_xxx_getUnitDefDd10_4E3BA0(int32(*(*uint16)(unsafe.Pointer(uintptr(a2 + 4))))) == 0 || (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&6) == 0 {
 		return 0
 	}
-	v5 = ccall.AsFunc[func(int32, int32, int32, int32) int32](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(uintptr(a2)), 708)))
-	if v5 != nil {
-		v6 = v5(a1, a2, a3, a4)
+
+	if pickup := a2p.Pickup.Get(); pickup != nil {
+		v6 = int32(pickup(a1p, a2p, int(a3), int(a4)))
 	} else {
-		v6 = nox_xxx_pickupDefault_4F31E0((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), a3)
+		v6 = int32(Nox_xxx_pickupDefault_4F31E0(a1p, a2p, int(a3), int(a4)))
 	}
 	v7 = v6
 	if v6 != 0 {
@@ -10946,7 +10951,9 @@ func nox_xxx_inventoryServPlace_4F36F0(a1p *server.Object, a2p *server.Object, a
 	}
 	return v7
 }
-func nox_xxx_pickupPotion_4F37D0(a1 int32, a2 int32, a3 int32) int32 {
+func nox_xxx_pickupPotion_4F37D0(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var (
 		v3  int32
 		v4  *int32
@@ -10957,7 +10964,6 @@ func nox_xxx_pickupPotion_4F37D0(a1 int32, a2 int32, a3 int32) int32 {
 		v10 int8
 		v11 float64
 		v12 int32
-		v13 int32
 		v14 float32
 		v15 float32
 		v16 int32
@@ -11042,16 +11048,16 @@ LABEL_30:
 	}
 LABEL_36:
 	nox_xxx_decay_5116F0((*server.Object)(unsafe.Pointer(uintptr(v3))))
-	v13 = nox_xxx_pickupDefault_4F31E0((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(v3))), a3)
+	v13 := Nox_xxx_pickupDefault_4F31E0(obj, (*server.Object)(unsafe.Pointer(uintptr(v3))), a3, a4)
 	if v13 == 1 {
 		nox_xxx_aud_501960(832, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
 	}
 	return v13
 }
-func nox_xxx_pickupAmmo_4F3B00(a1 int32, item *server.Object, a3 int32, a4 int32) int32 {
+func nox_xxx_pickupAmmo_4F3B00(obj *server.Object, item *server.Object, a3 int, a4 int) int {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v5  int32
-		v6  int32
 		v7  int32
 		v8  *uint32
 		v9  *byte
@@ -11068,21 +11074,20 @@ func nox_xxx_pickupAmmo_4F3B00(a1 int32, item *server.Object, a3 int32, a4 int32
 		v21 int32
 	)
 	v5 = nox_xxx_weaponInventoryEquipFlags_415820(item)
-	v6 = a1
 	v18 = v5
 	if (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8)))) & 4) == 0 {
-		return sub_53A720(v6, item, a3, a4)
+		return sub_53A720(obj, item, a3, a4)
 	}
 	v21 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
 	if (v5 & 0x82) == 0 {
-		return sub_53A720(v6, item, a3, a4)
+		return sub_53A720(obj, item, a3, a4)
 	}
 	v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 504))))
 	v8 = (*uint32)(item.InitData)
 	v20 = (*uint32)(item.InitData)
 	v19 = (*uint8)(item.UseData)
 	if v7 == 0 {
-		return sub_53A720(v6, item, a3, a4)
+		return sub_53A720(obj, item, a3, a4)
 	}
 	for {
 		if int32(*(*uint16)(unsafe.Pointer(uintptr(v7 + 4)))) != int32(item.TypeInd) || (*(*uint32)(unsafe.Pointer(uintptr(v7 + 8)))&0x1000000) == 0 || (nox_xxx_weaponInventoryEquipFlags_415820((*server.Object)(unsafe.Pointer(uintptr(v7))))&v18) == 0 {
@@ -11106,12 +11111,11 @@ func nox_xxx_pickupAmmo_4F3B00(a1 int32, item *server.Object, a3 int32, a4 int32
 		if v12 == 1 && *(*byte)(unsafe.Add(unsafe.Pointer(v9), 2)) == 0 && int32(*v19)+int32(uint8(*v9)) <= 250 {
 			break
 		}
-		v6 = a1
 		v8 = v20
 	LABEL_15:
 		v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(v7 + 496))))
 		if v7 == 0 {
-			return sub_53A720(v6, item, a3, a4)
+			return sub_53A720(obj, item, a3, a4)
 		}
 	}
 	v15 = int8(*(*uint8)(unsafe.Add(unsafe.Pointer(v19), 1)) + uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v9), 1))))
@@ -11124,15 +11128,16 @@ func nox_xxx_pickupAmmo_4F3B00(a1 int32, item *server.Object, a3 int32, a4 int32
 	sub_53A6C0(a1, item)
 	return 1
 }
-func nox_xxx_pickupSpellbook_4F3C60(a1 int32, a2 int32, a3 int32) int32 {
-	var v4 int32
+func nox_xxx_pickupSpellbook_4F3C60(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	if noxflags.HasGame(6144) {
 		nox_xxx_useByNetCode_53F8E0(a1, a2)
 	}
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 16))))&0x20 != 0 {
 		return 1
 	}
-	v4 = nox_xxx_pickupDefault_4F31E0((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), a3)
+	v4 := Nox_xxx_pickupDefault_4F31E0(obj, obj2, a3, a4)
 	if v4 != 0 {
 		if int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 12))))&1 != 0 {
 			nox_xxx_aud_501960(826, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
@@ -11142,26 +11147,28 @@ func nox_xxx_pickupSpellbook_4F3C60(a1 int32, a2 int32, a3 int32) int32 {
 	}
 	return v4
 }
-func nox_xxx_pickupAbilitybook_4F3CE0(a1 int32, a2 int32, a3 int32) int32 {
-	var v4 int32
+func nox_xxx_pickupAbilitybook_4F3CE0(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	if noxflags.HasGame(6144) {
 		nox_xxx_useByNetCode_53F8E0(a1, a2)
 	}
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 16))))&0x20 != 0 {
 		return 1
 	}
-	v4 = nox_xxx_pickupDefault_4F31E0((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), a3)
+	v4 := Nox_xxx_pickupDefault_4F31E0(obj, obj2, a3, a4)
 	if v4 != 0 {
 		nox_xxx_aud_501960(826, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
 	}
 	return v4
 }
-func sub_4F3DD0(a1 int32, a2 int32) int32 {
+func sub_4F3DD0(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
+	a1 := int32(uintptr(obj.CObj()))
 	if (int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8)))) & 4) == 0 {
 		return 0
 	}
 	*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))) + 320)))++
-	nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a2))))
+	nox_xxx_delayedDeleteObject_4E5CC0(obj2)
 	nox_xxx_aud_501960(1004, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
 	return 1
 }

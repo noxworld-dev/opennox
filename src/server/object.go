@@ -559,7 +559,7 @@ type Object struct {
 	Collide       ccall.Func[ObjectCollideFunc]     // 174, 696
 	CollideData   unsafe.Pointer                    // 175, 700
 	Xfer          ccall.Func[ObjectXferFunc]        // 176, 704
-	Pickup        unsafe.Pointer                    // 177, 708
+	Pickup        ccall.Func[ObjectPickupFunc]      // 177, 708
 	Drop          ccall.Func[ObjectDropFunc]        // 178, 712
 	Damage        ccall.Func[ObjectDamageFunc]      // 179, 716
 	DamageSound   ccall.Func[ObjectDamageSoundFunc] // 180, 720

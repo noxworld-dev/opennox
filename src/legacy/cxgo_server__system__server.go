@@ -164,7 +164,7 @@ func sub_4D2160() {
 					break
 				}
 			}
-			sub_4F3400(int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(j))), 4*514)))), int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*19)))), 1)
+			sub_4F3400(AsObjectP(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(j))), 4*514)))), AsObjectP(*((*unsafe.Pointer)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*19)))), 1, 0)
 		}
 		result = (*byte)(unsafe.Pointer(nox_server_teamNext_418B60((*nox_team_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(i)))))))))
 	}

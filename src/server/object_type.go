@@ -51,7 +51,7 @@ var (
 			return nil
 		},
 	}
-	pickupFuncs      = make(map[string]unsafe.Pointer)
+	pickupFuncs      = make(map[string]ccall.Func[ObjectPickupFunc])
 	pickupParseFuncs = map[string]ObjectParseFunc{
 		"AudEventPickup": func(t *ObjectType, args []string) error {
 			if len(args) != 0 {
@@ -74,6 +74,7 @@ type ObjectDamageSoundFunc func(obj, obj2 *Object) int
 type ObjectUseFunc func(obj, obj2 *Object) int
 type ObjectCollideFunc func(obj, obj2 *Object, pos *types.Pointf)
 type ObjectDropFunc func(obj, obj2 *Object, pos *types.Pointf) int
+type ObjectPickupFunc func(obj, obj2 *Object, a3 int, a4 int) int
 type ObjectXferFunc func(obj *Object, data unsafe.Pointer) int
 
 type ObjectParseFunc func(objt *ObjectType, args []string) error
@@ -221,11 +222,11 @@ func RegisterObjectDrop(name string, fnc ObjectDropFunc) {
 	dropFuncs[name] = ccall.FuncPtr(fnc)
 }
 
-func RegisterObjectPickup(name string, fnc unsafe.Pointer) {
+func RegisterObjectPickup(name string, fnc ObjectPickupFunc) {
 	if _, ok := pickupFuncs[name]; ok {
 		panic("already registered")
 	}
-	pickupFuncs[name] = fnc
+	pickupFuncs[name] = ccall.FuncPtr(fnc)
 }
 
 func RegisterObjectXfer(name string, fnc ObjectXferFunc) {
@@ -876,7 +877,7 @@ type ObjectType struct {
 	Init            ccall.Func[ObjectInitFunc]
 	InitData        unsafe.Pointer
 	InitDataSize    uintptr
-	Pickup          unsafe.Pointer
+	Pickup          ccall.Func[ObjectPickupFunc]
 	Update          ccall.Func[ObjectUpdateFunc]
 	UpdateData      unsafe.Pointer
 	UpdateDataSize  uintptr

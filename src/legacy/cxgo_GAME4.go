@@ -1511,7 +1511,7 @@ func nox_xxx_playerRespawn_4F7EF0(a1p *server.Object) int16 {
 					v7 = int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(nox_xxx_getTeamByID_418AB0(int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v4 + 2056))) + 52)))))))), 4*19))))
 					if v7 != 0 {
 						if *(*uint32)(unsafe.Pointer(uintptr(v7 + 492))) == 0 {
-							sub_4F3400(int32(*(*uint32)(unsafe.Pointer(uintptr(v4 + 2056)))), v7, 1)
+							sub_4F3400(AsObjectP(*(*unsafe.Pointer)(unsafe.Pointer(uintptr(v4 + 2056)))), AsObjectP(unsafe.Pointer(uintptr(v7))), 1, 0)
 						}
 					}
 				}

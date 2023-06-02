@@ -5395,7 +5395,8 @@ func sub_53A6C0(a1 int32, item *server.Object) {
 		}
 	}
 }
-func sub_53A720(a1 int32, item *server.Object, a3 int32, a4 int32) int32 {
+func sub_53A720(obj *server.Object, item *server.Object, a3 int, a4 int) int {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v4  *uint32
 		v5  int32
@@ -5456,20 +5457,20 @@ func sub_53A720(a1 int32, item *server.Object, a3 int32, a4 int32) int32 {
 		nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(uintptr(a1))), 2, int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 36)))))
 		return 0
 	}
-	if nox_xxx_pickupDefault_4F31E0((*server.Object)(unsafe.Pointer(uintptr(a1))), item, a3) != 1 {
+	if Nox_xxx_pickupDefault_4F31E0(obj, item, a3, a4) != 1 {
 		return 0
 	}
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&4 != 0 {
 		v9 = 0
 		v13 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))))
 		if *(*uint32)(unsafe.Pointer(uintptr(v13 + 104))) == 0 && sub_419E60((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4))))))) == 0 && nox_xxx_weaponInventoryEquipFlags_415820(item) != 2 {
-			v9 = nox_xxx_playerEquipWeapon_53A420(v4, item, a4, 0)
+			v9 = nox_xxx_playerEquipWeapon_53A420(v4, item, int32(a4), 0)
 		}
 		if sub_419E60((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4))))))) == 0 && nox_xxx_weaponInventoryEquipFlags_415820(item) == 2 {
 			v10 = int32(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v13 + 276))) + 4))))
 			if v10&0xC != 0 {
 				if (v10 & 2) == 0 {
-					v9 = nox_xxx_playerEquipWeapon_53A420(v4, item, a4, 0)
+					v9 = nox_xxx_playerEquipWeapon_53A420(v4, item, int32(a4), 0)
 				}
 			}
 		}
@@ -5486,12 +5487,13 @@ func sub_53A720(a1 int32, item *server.Object, a3 int32, a4 int32) int32 {
 	nox_xxx_decay_5116F0(item)
 	return 1
 }
-func nox_xxx_sendMsgOblivionPickup_53A9C0(a1 int32, item *server.Object, a3 int32, a4 int32) int32 {
+func nox_xxx_sendMsgOblivionPickup_53A9C0(obj *server.Object, item *server.Object, a3 int, a4 int) int {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v4 int32
 		v5 int32
 	)
-	v4 = sub_53A720(a1, item, a3, a4)
+	v4 = int32(sub_53A720(obj, item, a3, a4))
 	if v4 == 1 && int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&4 != 0 && sub_419E60((*server.Object)(unsafe.Pointer(uintptr(a1)))) == 0 {
 		v5 = int32(item.ObjSubClass)
 		if uint32(v5)&0x800000 != 0 {
@@ -5510,7 +5512,7 @@ func nox_xxx_sendMsgOblivionPickup_53A9C0(a1 int32, item *server.Object, a3 int3
 		sub_57AF30(a1, 1)
 		nox_xxx_playerTryEquip_4F2F70((*server.Object)(unsafe.Pointer(uintptr(a1))), item)
 	}
-	return v4
+	return int(v4)
 }
 func sub_53AAB0(a1 int32) {
 	var (
@@ -7695,7 +7697,7 @@ func nox_xxx_updateCrown_53E1D0(obj *server.Object) {
 			}
 		}
 	} else {
-		sub_4F3400(v2, a1, 1)
+		sub_4F3400(AsObjectP(unsafe.Pointer(uintptr(v2))), obj, 1, 0)
 	}
 }
 func sub_53E2D0(a1 int32) int32 {
@@ -7960,7 +7962,9 @@ func nox_xxx_armorHaveSameSubclass_53E7B0(a1 int32, a2 int32) *uint32 {
 	}
 	return result
 }
-func nox_xxx_pickupArmor_53E7F0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
+func nox_xxx_pickupArmor_53E7F0(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var (
 		v5  *uint32
 		v6  int32
@@ -7995,7 +7999,7 @@ func nox_xxx_pickupArmor_53E7F0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 		nox_xxx_aud_501960(925, (*server.Object)(unsafe.Pointer(uintptr(a1))), 2, int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 36)))))
 		return 0
 	}
-	if nox_xxx_pickupDefault_4F31E0((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), a3) != 1 {
+	if Nox_xxx_pickupDefault_4F31E0(obj, obj2, a3, a4) != 1 {
 		return 0
 	}
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&4 != 0 {
@@ -8018,18 +8022,18 @@ func nox_xxx_pickupArmor_53E7F0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 						v9 = (*uint32)(unsafe.Add(unsafe.Pointer(v9), 4*1))
 					}
 					if i == 4 {
-						nox_xxx_playerEquipArmor_53E650((*uint32)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), a4, 0)
+						nox_xxx_playerEquipArmor_53E650((*uint32)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), int32(a4), 0)
 					}
 					goto LABEL_40
 				}
 			}
 			if (int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 12)))) & 2) == 0 {
-				nox_xxx_playerEquipArmor_53E650((*uint32)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), a4, 0)
+				nox_xxx_playerEquipArmor_53E650((*uint32)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), int32(a4), 0)
 			} else {
 				if v7 == nil {
 					v11 = int32(*(*uint32)(unsafe.Pointer(uintptr(v6 + 104))))
 					if v11 == 0 || (*(*uint32)(unsafe.Pointer(uintptr(v11 + 12)))&0x7FFE40C) == 0 {
-						nox_xxx_playerEquipArmor_53E650((*uint32)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), a4, 0)
+						nox_xxx_playerEquipArmor_53E650((*uint32)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), int32(a4), 0)
 					}
 					goto LABEL_40
 				}
@@ -8054,7 +8058,7 @@ func nox_xxx_pickupArmor_53E7F0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 									v18 = (*uint32)(unsafe.Add(unsafe.Pointer(v18), 4*1))
 								}
 								if k != 4 {
-									nox_xxx_playerEquipArmor_53E650((*uint32)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), a4, 0)
+									nox_xxx_playerEquipArmor_53E650((*uint32)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), int32(a4), 0)
 								}
 							}
 						} else if uint32(v16) == dword_5d4594_2488724 {
@@ -8065,7 +8069,7 @@ func nox_xxx_pickupArmor_53E7F0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 								v12 = (*uint32)(unsafe.Add(unsafe.Pointer(v12), 4*1))
 							}
 							if l == 4 {
-								nox_xxx_playerEquipArmor_53E650((*uint32)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), a4, 0)
+								nox_xxx_playerEquipArmor_53E650((*uint32)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), int32(a4), 0)
 							}
 						}
 					}
@@ -8078,7 +8082,7 @@ func nox_xxx_pickupArmor_53E7F0(a1 int32, a2 int32, a3 int32, a4 int32) int32 {
 					v12 = (*uint32)(unsafe.Add(unsafe.Pointer(v12), 4*1))
 				}
 				if m == 4 {
-					nox_xxx_playerEquipArmor_53E650((*uint32)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), a4, 0)
+					nox_xxx_playerEquipArmor_53E650((*uint32)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), int32(a4), 0)
 				}
 			}
 		}

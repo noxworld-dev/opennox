@@ -6,7 +6,9 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nox_xxx_pickupGold_4F3A60_obj_pickup(a1 int32, a2 int32, a3 int32) int32 {
+func nox_xxx_pickupGold_4F3A60_obj_pickup(obj *server.Object, obj2 *server.Object, a3 int, a4 int) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var (
 		v3     *int32
 		v4     *wchar2_t
@@ -24,11 +26,11 @@ func nox_xxx_pickupGold_4F3A60_obj_pickup(a1 int32, a2 int32, a3 int32) int32 {
 		nox_xxx_aud_501960(307, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
 		result = 1
 	} else {
-		v6 = nox_xxx_pickupDefault_4F31E0((*server.Object)(unsafe.Pointer(uintptr(a1))), (*server.Object)(unsafe.Pointer(uintptr(a2))), a3)
+		v6 = int32(Nox_xxx_pickupDefault_4F31E0(obj, obj2, a3, a4))
 		if v6 != 0 {
 			nox_xxx_aud_501960(307, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
 		}
 		result = v6
 	}
-	return result
+	return int(result)
 }
