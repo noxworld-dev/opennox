@@ -11,6 +11,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var nox_win_width int32 = 0
@@ -377,7 +378,7 @@ func sub_4285C0(a1 *int16) *byte {
 						return x
 					}()*4)))) = sub_4D6540(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v12), 2064)))))
 				}
-				v12 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v12)))))))))
+				v12 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v12)))))))))
 				if v12 == nil {
 					break
 				}

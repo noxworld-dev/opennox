@@ -6,6 +6,7 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 func sub_454640() int32 {
@@ -137,7 +138,7 @@ func sub_454740() *int32 {
 	}
 	nox_itow(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v0), 104)))), &WideCharStr[0], 10)
 	nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1045592)))), 16414, uintptr(unsafe.Pointer(&WideCharStr[0])), 0)
-	for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(i))))))))) {
+	for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(i))))))))) {
 		if *(*byte)(unsafe.Add(unsafe.Pointer(i), 2064)) != 31 || !nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) {
 			sub_455920((*wchar2_t)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(i), 4704)))))))))
 		}

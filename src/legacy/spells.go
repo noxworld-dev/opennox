@@ -80,13 +80,13 @@ func nox_xxx_spellNameToN_4243F0(cid *byte) int32 {
 }
 
 // nox_xxx_spellAwardAll1_4EFD80
-func nox_xxx_spellAwardAll1_4EFD80(p *nox_playerInfo) { Nox_xxx_spellAwardAll1_4EFD80(asPlayerS(p)) }
+func nox_xxx_spellAwardAll1_4EFD80(p *server.Player) { Nox_xxx_spellAwardAll1_4EFD80(asPlayerS(p)) }
 
 // nox_xxx_spellAwardAll2_4EFC80
-func nox_xxx_spellAwardAll2_4EFC80(p *nox_playerInfo) { Nox_xxx_spellAwardAll2_4EFC80(asPlayerS(p)) }
+func nox_xxx_spellAwardAll2_4EFC80(p *server.Player) { Nox_xxx_spellAwardAll2_4EFC80(asPlayerS(p)) }
 
 // nox_xxx_spellAwardAll3_4EFE10
-func nox_xxx_spellAwardAll3_4EFE10(p *nox_playerInfo) { Nox_xxx_spellAwardAll3_4EFE10(asPlayerS(p)) }
+func nox_xxx_spellAwardAll3_4EFE10(p *server.Player) { Nox_xxx_spellAwardAll3_4EFE10(asPlayerS(p)) }
 
 // nox_xxx_spellFlySearchTarget_540610
 func nox_xxx_spellFlySearchTarget_540610(cpos *float2, msl *server.Object, sflags int32, dist float32, a5 int32, self *server.Object) *server.Object {

@@ -80,7 +80,7 @@ func sub_554290() uint32 {
 			}
 			v1++
 		}
-		v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))))))
+		v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))))))
 		if v2 == nil {
 			break
 		}
@@ -108,7 +108,7 @@ func sub_554300() int32 {
 			v0 += sub_554240(int32(uint8(*(*byte)(unsafe.Add(unsafe.Pointer(v2), 2064)))))
 			v1++
 		}
-		v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))))))
+		v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))))))
 		if v2 == nil {
 			break
 		}

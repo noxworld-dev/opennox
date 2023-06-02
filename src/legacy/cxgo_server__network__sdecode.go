@@ -7,7 +7,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8, dsz int32, v8p *nox_playerInfo, unitp *server.Object, v10p unsafe.Pointer) int32 {
+func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8, dsz int32, v8p *server.Player, unitp *server.Object, v10p unsafe.Pointer) int32 {
 	var (
 		v8   int32  = int32(uintptr(unsafe.Pointer(v8p)))
 		unit int32  = int32(uintptr(unsafe.Pointer(unitp)))

@@ -248,7 +248,7 @@ func Nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 ntype.PlayerInd, a2 noxnet.Op, 
 	return int(nox_xxx_netOnPacketRecvCli_48EA70_switch(int32(a1), int32(a2), &data[0], int32(len(data))))
 }
 func Sub_4DDE10(a1 int, a2 *server.Player) {
-	sub_4DDE10(int32(a1), (*nox_playerInfo)(a2.C()))
+	sub_4DDE10(int32(a1), (*server.Player)(a2.C()))
 }
 func Nox_xxx_netPlayerObjSend_518C30(a1 *server.Object, a2 *server.Object, a3 int, a4 int) int {
 	return int(nox_xxx_netPlayerObjSend_518C30(asObjectC(a1), asObjectC(a2), int32(a3), int32(a4)))
@@ -272,7 +272,7 @@ func Sub_4196D0(a1 unsafe.Pointer, a2 unsafe.Pointer, a3 int, a4 int) {
 	sub_4196D0(a1, a2, int32(a3), int32(a4))
 }
 func Nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 ntype.PlayerInd, data []byte, a4 *server.Player, a5 *server.Object, a6 unsafe.Pointer) int {
-	return int(nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int32(a1), &data[0], int32(len(data)), (*nox_playerInfo)(a4.C()), asObjectC(a5), a6))
+	return int(nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(int32(a1), &data[0], int32(len(data)), (*server.Player)(a4.C()), asObjectC(a5), a6))
 }
 func Nox_xxx_netReportAcquireCreature_4D91A0(pli int, obj *server.Object) {
 	nox_xxx_netReportAcquireCreature_4D91A0(int32(pli), asObjectC(obj))

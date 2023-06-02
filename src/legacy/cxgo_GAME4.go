@@ -3943,7 +3943,7 @@ func nox_xxx_mapWall_4FF790() {
 	nox_alloc_class_free_all((*nox_alloc_class)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&nox_alloc_magicWall_1569748)))))
 	dword_5d4594_1569752 = 0
 }
-func sub_4FF7B0(a1p *nox_playerInfo) {
+func sub_4FF7B0(a1p *server.Player) {
 	var (
 		a1 int32 = int32(uintptr(unsafe.Pointer(a1p)))
 		v1 int8
@@ -6975,7 +6975,7 @@ func sub_5068E0(a1 int32, a2 int32, a3 *wchar2_t) int8 {
 				break
 			}
 		}
-		v3 = int32(uintptr(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(v5)))))))
+		v3 = int32(uintptr(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(v5)))))))
 		v5 = v3
 		if v3 == 0 {
 			return int8(v3)
@@ -7132,7 +7132,7 @@ func sub_506B80(a1 int32, a2 int32, a3 *wchar2_t) *uint32 {
 									break
 								}
 							}
-							result = (*uint32)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))))))
+							result = (*uint32)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v5)))))))))
 							v5 = (*wchar2_t)(unsafe.Pointer(result))
 							if result == nil {
 								return result
@@ -7207,7 +7207,7 @@ func sub_506D00(a1 int32, a2 *wchar2_t) {
 				v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0()))
 				if v2 != nil {
 					for *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*523))) != 1 || nox_wcscmp((*wchar2_t)(unsafe.Add(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(v2))), unsafe.Sizeof(wchar2_t(0))*2352)), a2) != 0 {
-						v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))))))
+						v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))))))
 						if v2 == nil {
 							return
 						}
@@ -7291,7 +7291,7 @@ func sub_506E50(a1 int32, a2 *wchar2_t) {
 				v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0()))
 				if v2 != nil {
 					for *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*523))) != 1 || nox_wcscmp((*wchar2_t)(unsafe.Add(unsafe.Pointer((*wchar2_t)(unsafe.Pointer(v2))), unsafe.Sizeof(wchar2_t(0))*2352)), a2) != 0 {
-						v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))))))
+						v2 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))))))
 						if v2 == nil {
 							return
 						}

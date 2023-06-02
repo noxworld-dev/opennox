@@ -6,6 +6,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var nox_wnd_quitMenu_825760 *gui.Window = nil
@@ -121,7 +122,7 @@ func nox_xxx_menuGameOnButton_445840(a1 *uint32, a2 int32, a3 *int32, a4 int32) 
 	case 9007:
 		if nox_common_gameFlags_check_40A5C0(1) {
 			v8 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetByID_417040(int32(nox_player_netCode_85319C))))
-			nox_xxx_serverHandleClientConsole_443E90((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), 0, nil)
+			nox_xxx_serverHandleClientConsole_443E90((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v8)))))), 0, nil)
 			sub_445C40()
 			v9 = *(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*9))
 			*((*uint8)(unsafe.Pointer(&v9))) = uint8(int8(v9 & 0xFD))

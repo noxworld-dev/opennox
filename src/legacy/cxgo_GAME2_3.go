@@ -248,7 +248,7 @@ func nox_xxx_voteSend_48D260(a1 *wchar2_t) *byte {
 	v2 = int32(uintptr(unsafe.Pointer(result)))
 	if result != nil {
 		for nox_wcscmp((*wchar2_t)(unsafe.Pointer(uintptr(v2+4704))), a1) != 0 {
-			result = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(v2))))))
+			result = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(v2))))))
 			v2 = int32(uintptr(unsafe.Pointer(result)))
 			if result == nil {
 				return result
@@ -270,7 +270,7 @@ func nox_xxx_netSendRenameMb_48D2D0(a1 *wchar2_t) *byte {
 	v2 = int32(uintptr(unsafe.Pointer(result)))
 	if result != nil {
 		for nox_wcscmp((*wchar2_t)(unsafe.Pointer(uintptr(v2+4704))), a1) != 0 {
-			result = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(v2))))))
+			result = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(v2))))))
 			v2 = int32(uintptr(unsafe.Pointer(result)))
 			if result == nil {
 				return result
@@ -1330,7 +1330,7 @@ func sub_4947E0(a1 int32) *byte {
 				*(*uint32)(unsafe.Pointer(uintptr(i + 2136))) = uint32(v2 - 1)
 			}
 		}
-		result = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(i))))))
+		result = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(i))))))
 	}
 	return result
 }

@@ -9,6 +9,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
 var nox_client_fadeObjects_80836 uint32 = 1
@@ -1512,8 +1513,8 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 			return 7
 		}
 		if !nox_common_gameFlags_check_40A5C0(1) {
-			nox_xxx_playerUnsetStatus_417530((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v119)))))), 1059)
-			nox_xxx_netNeedTimestampStatus_4174F0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v119)))))), int32(*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))&0x423))
+			nox_xxx_playerUnsetStatus_417530((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v119)))))), 1059)
+			nox_xxx_netNeedTimestampStatus_4174F0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v119)))))), int32(*(*uint32)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 3))))&0x423))
 		}
 		if nox_common_getEngineFlag(nox_engine_flag(NOX_ENGINE_FLAG_DISABLE_GRAPHICS_RENDERING)) || (func() bool {
 			*(*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(&v5))), 4*1)) = uint32(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 1)))))
@@ -2188,7 +2189,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 					sub_455F60()
 				}
 				if v363 == 1 && !nox_common_gameFlags_check_40A5C0(4096) {
-					for j = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); j != nil; j = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(j))))))))) {
+					for j = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); j != nil; j = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(j))))))))) {
 						nox_xxx_cliPlayerRespawn_417680(int32(uintptr(unsafe.Pointer(j))), -1)
 					}
 				}
@@ -2700,7 +2701,7 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		case 1:
 			if nox_client_isConnected_43C700() != 0 {
 				if v296 != 0 {
-					nox_xxx_journalEntryAdd_427490((*nox_playerInfo)(unsafe.Pointer(uintptr(v296))), (*byte)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 2)))), int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 66))))))
+					nox_xxx_journalEntryAdd_427490((*server.Player)(unsafe.Pointer(uintptr(v296))), (*byte)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 2)))), int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 66))))))
 				}
 				nox_xxx_cliBuildJournalString_469BC0()
 			}
@@ -2708,14 +2709,14 @@ func nox_xxx_netOnPacketRecvCli_48EA70_switch(a1 int32, op int32, data *uint8, s
 		case 2:
 			if nox_client_isConnected_43C700() != 0 {
 				if v296 != 0 {
-					nox_xxx_journalEntryRemove_427590((*nox_playerInfo)(unsafe.Pointer(uintptr(v296))), (*byte)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 2)))))
+					nox_xxx_journalEntryRemove_427590((*server.Player)(unsafe.Pointer(uintptr(v296))), (*byte)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 2)))))
 				}
 				nox_xxx_cliBuildJournalString_469BC0()
 			}
 			return 68
 		case 3:
 			if nox_client_isConnected_43C700() != 0 && v296 != 0 {
-				nox_xxx_journalUpdateEntry_4276B0((*nox_playerInfo)(unsafe.Pointer(uintptr(v296))), (*byte)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 2)))), int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 66))))))
+				nox_xxx_journalUpdateEntry_4276B0((*server.Player)(unsafe.Pointer(uintptr(v296))), (*byte)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 2)))), int16(*(*uint16)(unsafe.Pointer((*uint8)(unsafe.Add(unsafe.Pointer(data), 66))))))
 			}
 			return 68
 		}

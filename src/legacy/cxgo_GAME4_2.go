@@ -613,7 +613,7 @@ func sub_51E800(a1 int32, a2 *uint32) int32 {
 		v4 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0()))
 		if v4 != nil {
 			for *(*byte)(unsafe.Add(unsafe.Pointer(v4), 2251)) != 1 {
-				v4 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))))))
+				v4 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))))))
 				if v4 == nil {
 					return 1
 				}
@@ -629,7 +629,7 @@ func sub_51E800(a1 int32, a2 *uint32) int32 {
 		v6 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0()))
 		if v6 != nil {
 			for *(*byte)(unsafe.Add(unsafe.Pointer(v6), 2251)) != 2 {
-				v6 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))))))
+				v6 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v6)))))))))
 				if v6 == nil {
 					return 1
 				}
@@ -645,7 +645,7 @@ func sub_51E800(a1 int32, a2 *uint32) int32 {
 		v7 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0()))
 		if v7 != nil {
 			for *(*byte)(unsafe.Add(unsafe.Pointer(v7), 2251)) != 0 {
-				v7 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v7)))))))))
+				v7 = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v7)))))))))
 				if v7 == nil {
 					return 1
 				}
@@ -7750,7 +7750,7 @@ func nox_xxx_netReportDestroyObject_5289D0(a1p *server.Object) {
 		if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 8))))&6 != 0 {
 			nox_xxx_netFriendAddRemove_4D97A0(int32(*(*uint8)(unsafe.Pointer(uintptr(i + 2064)))), (*uint32)(unsafe.Pointer(uintptr(a1))), 0)
 		}
-		result = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*nox_playerInfo)(unsafe.Pointer(uintptr(i))))))
+		result = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(i))))))
 	}
 }
 func nox_xxx_netObjectOutOfSight_528A60(a1 int32, a2 *uint32) int32 {

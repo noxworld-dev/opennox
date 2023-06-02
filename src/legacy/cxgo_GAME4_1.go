@@ -185,7 +185,7 @@ func nox_server_checkVictory_509A60() {
 		}
 	}
 }
-func sub_509C30(pl *nox_playerInfo) {
+func sub_509C30(pl *server.Player) {
 	var (
 		a1 int32 = int32(uintptr(unsafe.Pointer(pl)))
 		v1 *byte
