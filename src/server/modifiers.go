@@ -13,36 +13,73 @@ import (
 	"github.com/noxworld-dev/opennox-lib/strman"
 
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 var (
-	modDamageEffects = make(map[string]modFuncs)
-	modDefendEffects = make(map[string]modFuncs)
-	modUpdateEffects = make(map[string]modFuncs)
-	modEngageEffects = make(map[string]modFuncs)
+	modDamageEffects = make(map[string]modFuncs[ccall.Func[ModifierDamageFunc]])
+	modDefendEffects = make(map[string]modFuncs[unsafe.Pointer])
+	modUpdateEffects = make(map[string]modFuncs[unsafe.Pointer])
+	modEngageEffects = make(map[string]modFuncs[unsafe.Pointer])
 )
 
-func registerModif(m map[string]modFuncs, name string, fnc unsafe.Pointer, parse ModifierParseFunc) {
+func registerModifVoid[T any](m map[string]modFuncs[T], name string, fnc T) {
 	if _, ok := m[name]; ok {
 		panic("already registered")
 	}
-	m[name] = modFuncs{Func: fnc, Parse: parse}
+	m[name] = modFuncs[T]{Func: fnc}
 }
 
-func RegisterModifDamageEffect(name string, fnc unsafe.Pointer, parse ModifierParseFunc) {
-	registerModif(modDamageEffects, name, fnc, parse)
+func registerModifInt[T any](m map[string]modFuncs[T], name string, fnc T) {
+	if _, ok := m[name]; ok {
+		panic("already registered")
+	}
+	m[name] = modFuncs[T]{Func: fnc, ParseInt: modEffectParseInt}
 }
 
-func RegisterModifDefendEffect(name string, fnc unsafe.Pointer, parse ModifierParseFunc) {
-	registerModif(modDefendEffects, name, fnc, parse)
+func registerModifFloat[T any](m map[string]modFuncs[T], name string, fnc T) {
+	if _, ok := m[name]; ok {
+		panic("already registered")
+	}
+	m[name] = modFuncs[T]{Func: fnc, ParseFloat: ModEffectParseFloat}
 }
 
-func RegisterModifUpdateEffect(name string, fnc unsafe.Pointer, parse ModifierParseFunc) {
-	registerModif(modUpdateEffects, name, fnc, parse)
+type ModifierDamageFunc func(a1 unsafe.Pointer, a2p, a3p, a4p *Object, a5 unsafe.Pointer, a6 *int32)
+
+func RegisterModifDamageEffectInt(name string, fnc ModifierDamageFunc) {
+	registerModifInt(modDamageEffects, name, ccall.FuncPtr(fnc))
 }
 
-func RegisterModifEngageEffect(name string, fnc unsafe.Pointer, parse ModifierParseFunc) {
-	registerModif(modEngageEffects, name, fnc, parse)
+func RegisterModifDamageEffectFloat(name string, fnc ModifierDamageFunc) {
+	registerModifFloat(modDamageEffects, name, ccall.FuncPtr(fnc))
+}
+
+func RegisterModifDefendEffectInt(name string, fnc unsafe.Pointer) {
+	registerModifInt(modDefendEffects, name, fnc)
+}
+
+func RegisterModifDefendEffectFloat(name string, fnc unsafe.Pointer) {
+	registerModifFloat(modDefendEffects, name, fnc)
+}
+
+func RegisterModifUpdateEffectInt(name string, fnc unsafe.Pointer) {
+	registerModifInt(modUpdateEffects, name, fnc)
+}
+
+func RegisterModifUpdateEffectFloat(name string, fnc unsafe.Pointer) {
+	registerModifFloat(modUpdateEffects, name, fnc)
+}
+
+func RegisterModifEngageEffectInt(name string, fnc unsafe.Pointer) {
+	registerModifInt(modEngageEffects, name, fnc)
+}
+
+func RegisterModifEngageEffectFloat(name string, fnc unsafe.Pointer) {
+	registerModifFloat(modEngageEffects, name, fnc)
+}
+
+func RegisterModifEngageEffectVoid(name string, fnc unsafe.Pointer) {
+	registerModifVoid(modEngageEffects, name, fnc)
 }
 
 type serverModifiers struct {
@@ -100,38 +137,38 @@ func (p *Modifier) Desc() string {
 	return alloc.GoString16(p.desc8)
 }
 
-type ModifierEffFnc struct {
-	fnc  unsafe.Pointer
+type ModifierEffFnc[T any] struct {
+	fnc  T
 	valf float32
 	val  int32
 }
 
 type ModifierEff struct { // obj_412ae0_t
-	name0             *byte          // 0, 0
-	ind4              uint32         // 1, 4
-	desc8             *uint16        // 2, 8
-	secdesc12         *uint16        // 3, 12
-	identdesc16       *uint16        // 4, 16
-	price20           int32          // 5, 20
-	color24           ModColor       // 6, 24
-	_                 byte           // 6, 27
-	allowWeapons28    uint32         // 7, 28
-	allowArmor32      uint32         // 8, 32
-	allowPos36        uint32         // 9, 36
-	attack40          ModifierEffFnc // 10, 40
-	attackPreHit52    ModifierEffFnc // 13, 52
-	attackPreDmg64    ModifierEffFnc // 16, 64
-	defend76          ModifierEffFnc // 19, 76
-	defendCollide88   ModifierEffFnc // 22, 88
-	update100         ModifierEffFnc // 25, 100
-	engage112         unsafe.Pointer // 28, 112
-	disengage116      unsafe.Pointer // 29, 116
-	engageFloat120    float32        // 30, 120
-	engageInt124      int32          // 31, 124
-	disengageFloat128 float32        // 32, 128
-	disengageInt132   int32          // 33, 132
-	next136           *ModifierEff   // 34, 136
-	prev140           *ModifierEff   // 35, 140
+	name0             *byte                                          // 0, 0
+	ind4              uint32                                         // 1, 4
+	desc8             *uint16                                        // 2, 8
+	secdesc12         *uint16                                        // 3, 12
+	identdesc16       *uint16                                        // 4, 16
+	price20           int32                                          // 5, 20
+	color24           ModColor                                       // 6, 24
+	_                 byte                                           // 6, 27
+	allowWeapons28    uint32                                         // 7, 28
+	allowArmor32      uint32                                         // 8, 32
+	allowPos36        uint32                                         // 9, 36
+	attack40          ModifierEffFnc[ccall.Func[ModifierDamageFunc]] // 10, 40
+	attackPreHit52    ModifierEffFnc[ccall.Func[ModifierDamageFunc]] // 13, 52
+	attackPreDmg64    ModifierEffFnc[ccall.Func[ModifierDamageFunc]] // 16, 64
+	defend76          ModifierEffFnc[unsafe.Pointer]                 // 19, 76
+	defendCollide88   ModifierEffFnc[unsafe.Pointer]                 // 22, 88
+	update100         ModifierEffFnc[unsafe.Pointer]                 // 25, 100
+	engage112         unsafe.Pointer                                 // 28, 112
+	disengage116      unsafe.Pointer                                 // 29, 116
+	engageFloat120    float32                                        // 30, 120
+	engageInt124      int32                                          // 31, 124
+	disengageFloat128 float32                                        // 32, 128
+	disengageInt132   int32                                          // 33, 132
+	next136           *ModifierEff                                   // 34, 136
+	prev140           *ModifierEff                                   // 35, 140
 }
 
 func (p *ModifierEff) C() unsafe.Pointer {
@@ -280,23 +317,33 @@ func (s *serverModifiers) nox_xxx_parseModifDesc_412AE0(typ int, arr []modifiers
 		p.price20 = int32(v.Price)
 		p.color24 = ModColor{R: byte(v.Color.R), G: byte(v.Color.G), B: byte(v.Color.B)}
 		for _, d := range []struct {
+			text string
+			dst  *ModifierEffFnc[ccall.Func[ModifierDamageFunc]]
+			src  string
+		}{
+			{"damage", &p.attack40, v.Attack},
+			{"damage", &p.attackPreHit52, v.AttackPreHit},
+			{"damage", &p.attackPreDmg64, v.AttackPreDamage},
+		} {
+			if err := modParseEffect(d.text, modDamageEffects, p, &d.dst.fnc, &d.dst.val, &d.dst.valf, d.src); err != nil {
+				return err
+			}
+		}
+		for _, d := range []struct {
 			text  string
-			table map[string]modFuncs
+			table map[string]modFuncs[unsafe.Pointer]
 			fnc   *unsafe.Pointer
 			fval  *float32
 			ival  *int32
 			src   string
 		}{
-			{"damage", modDamageEffects, &p.attack40.fnc, &p.attack40.valf, &p.attack40.val, v.Attack},
-			{"damage", modDamageEffects, &p.attackPreHit52.fnc, &p.attackPreHit52.valf, &p.attackPreHit52.val, v.AttackPreHit},
-			{"damage", modDamageEffects, &p.attackPreDmg64.fnc, &p.attackPreDmg64.valf, &p.attackPreDmg64.val, v.AttackPreDamage},
 			{"defend", modDefendEffects, &p.defend76.fnc, &p.defend76.valf, &p.defend76.val, v.Defend},
 			{"defend", modDefendEffects, &p.defendCollide88.fnc, &p.defendCollide88.valf, &p.defendCollide88.val, v.DefendCollide},
 			{"update", modUpdateEffects, &p.update100.fnc, &p.update100.valf, &p.update100.val, v.Update},
 			{"engage", modEngageEffects, &p.engage112, &p.engageFloat120, &p.engageInt124, v.Engage},
 			{"engage", modEngageEffects, &p.disengage116, &p.disengageFloat128, &p.disengageInt132, v.Disengage},
 		} {
-			if err := modParseEffect(d.text, d.table, p, ModParseTarg{d.fnc, d.fval, d.ival}, d.src); err != nil {
+			if err := modParseEffect(d.text, d.table, p, d.fnc, d.ival, d.fval, d.src); err != nil {
 				return err
 			}
 		}
@@ -466,13 +513,7 @@ func (s *serverModifiers) Nox_xxx_freeWeaponArmorDefAndModifs_413060() {
 	s.byte_5D4594_251596 = 0
 }
 
-type ModParseTarg struct {
-	Func  *unsafe.Pointer
-	Float *float32
-	Int   *int32
-}
-
-func modParseEffect(text string, table map[string]modFuncs, mod *ModifierEff, p ModParseTarg, v string) error {
+func modParseEffect[T any](text string, table map[string]modFuncs[T], mod *ModifierEff, pfnc *T, pint *int32, pflt *float32, v string) error {
 	if v == "" {
 		return nil
 	}
@@ -485,36 +526,41 @@ func modParseEffect(text string, table map[string]modFuncs, mod *ModifierEff, p 
 	if !ok {
 		return fmt.Errorf("unsupported %s effect: %q", text, v)
 	}
-	*p.Func = e.Func
-	if e.Parse != nil && !e.Parse(mod, p, args) {
-		return fmt.Errorf("cannot parse %s effect: %q", text, v)
+	*pfnc = e.Func
+	if e.ParseInt != nil {
+		if !e.ParseInt(mod, pint, args) {
+			return fmt.Errorf("cannot parse %s effect: %q", text, v)
+		}
+	} else if e.ParseFloat != nil {
+		if !e.ParseFloat(mod, pflt, args) {
+			return fmt.Errorf("cannot parse %s effect: %q", text, v)
+		}
 	}
 	return nil
 }
 
-type modFuncs struct {
-	Func  unsafe.Pointer
-	Parse func(mod *ModifierEff, p ModParseTarg, v string) bool
+type modFuncs[T any] struct {
+	Func       T
+	ParseInt   func(mod *ModifierEff, p *int32, v string) bool
+	ParseFloat func(mod *ModifierEff, p *float32, v string) bool
 }
 
-type ModifierParseFunc func(mod *ModifierEff, p ModParseTarg, v string) bool
-
-func ModEffectParseInt(_ *ModifierEff, p ModParseTarg, s string) bool {
+func modEffectParseInt(_ *ModifierEff, p *int32, s string) bool {
 	v, err := strconv.ParseInt(firstWord(s), 10, 32)
 	if err != nil {
-		*p.Int = -1
+		*p = -1
 	} else {
-		*p.Int = int32(v)
+		*p = int32(v)
 	}
 	return true
 }
 
-func ModEffectParseFloat(_ *ModifierEff, p ModParseTarg, s string) bool {
+func ModEffectParseFloat(_ *ModifierEff, p *float32, s string) bool {
 	v, err := strconv.ParseFloat(firstWord(s), 32)
 	if err != nil {
-		*p.Float = -1
+		*p = -1
 	} else {
-		*p.Float = float32(v)
+		*p = float32(v)
 	}
 	return true
 }

@@ -4,15 +4,16 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
+	"github.com/noxworld-dev/opennox/v1/server"
 )
 
-func nullsub_22() {
+func nullsub_22(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
 }
-func nullsub_36() {
+func nullsub_36(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
 }
-func nullsub_38() {
+func nullsub_38(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
 }
-func nullsub_39() {
+func nullsub_39(a1 unsafe.Pointer, a2p, a3p, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
 }
 func nullsub_40() {
 }

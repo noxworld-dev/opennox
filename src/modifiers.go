@@ -74,7 +74,7 @@ func nox_xxx_equipWeapon_4131A0() {
 	}
 }
 
-func nox_xxx_fireEffect_4E0550(a1 unsafe.Pointer, a2, src, targ *server.Object) {
+func nox_xxx_fireEffect_4E0550(a1 unsafe.Pointer, a2, src, targ *server.Object, a5 unsafe.Pointer, a6 *int32) {
 	v5 := *(*float32)(unsafe.Add(a1, 56))
 	if targ != nil {
 		targ.CallDamage(src, a2, int(v5), object.DamageExplosion)
@@ -83,7 +83,7 @@ func nox_xxx_fireEffect_4E0550(a1 unsafe.Pointer, a2, src, targ *server.Object) 
 	}
 }
 
-func nox_xxx_fireRingEffect_4E05B0(a1 unsafe.Pointer, a2p, src, a4p *server.Object) {
+func nox_xxx_fireRingEffect_4E05B0(a1 unsafe.Pointer, a2p, src, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
 	if src != nil {
 		sa, free := alloc.New(server.SpellAcceptArg{})
 		defer free()
@@ -93,7 +93,7 @@ func nox_xxx_fireRingEffect_4E05B0(a1 unsafe.Pointer, a2p, src, a4p *server.Obje
 	}
 }
 
-func nox_xxx_blueFREffect_4E05F0(a1 unsafe.Pointer, a2p, src, a4p *server.Object) {
+func nox_xxx_blueFREffect_4E05F0(a1 unsafe.Pointer, a2p, src, a4p *server.Object, a5 unsafe.Pointer, a6 *int32) {
 	if src != nil {
 		sa, free := alloc.New(server.SpellAcceptArg{})
 		defer free()
