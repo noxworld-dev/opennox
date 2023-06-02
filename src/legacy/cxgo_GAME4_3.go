@@ -8172,7 +8172,9 @@ func sub_53EC80(a1 int32, a2 int32) int32 {
 	}
 	return bool2int32((uint32(a2) & *memmap.PtrUint32(0x587000, uintptr(v2*12)+279440)) != 0)
 }
-func nox_xxx_useMushroom_53ECE0(a1 int32, a2 int32) int32 {
+func nox_xxx_useMushroom_53ECE0(obj, obj2 *server.Object) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var v2 int32
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 540)))) != 0 {
 		nox_xxx_removePoison_4EE9D0(a1)
@@ -8186,12 +8188,16 @@ func nox_xxx_useMushroom_53ECE0(a1 int32, a2 int32) int32 {
 	nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a2))))
 	return 1
 }
-func nox_xxx_useEnchant_53ED60(a1 int32, a2 int32) int32 {
+func nox_xxx_useEnchant_53ED60(obj, obj2 *server.Object) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	nox_xxx_buffApplyTo_4FF380((*server.Object)(unsafe.Pointer(uintptr(a1))), int32(**(**uint32)(unsafe.Pointer(uintptr(a2 + 736)))), int16(uint16(*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a2 + 736))) + 4))))), 5)
 	nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a2))))
 	return 1
 }
-func nox_xxx_useCast_53ED90(a1 int32, a2 *uint32) int32 {
+func nox_xxx_useCast_53ED90(obj, obj2 *server.Object) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := (*uint32)(obj2.CObj())
 	var (
 		v2 *int32
 		v3 int32
@@ -8213,7 +8219,9 @@ func nox_xxx_useCast_53ED90(a1 int32, a2 *uint32) int32 {
 	nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a2)))))))
 	return 1
 }
-func nox_xxx_useConsume_53EE10(a1 int32, a2 int32) int32 {
+func nox_xxx_useConsume_53EE10(obj, obj2 *server.Object) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var (
 		v2 *uint16
 		v3 int32
@@ -8251,20 +8259,23 @@ func nox_xxx_useConsume_53EE10(a1 int32, a2 int32) int32 {
 	}
 	return 1
 }
-func nox_xxx_useCiderConfuse_53EF00(a1 int32, a2 int32) int32 {
-	var v2 int32
+func nox_xxx_useCiderConfuse_53EF00(obj, obj2 *server.Object) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	if a1 == 0 || a2 == 0 || *(*uint32)(unsafe.Pointer(uintptr(a1 + 556))) == 0 {
 		return 1
 	}
 	nox_xxx_buffApplyTo_4FF380((*server.Object)(unsafe.Pointer(uintptr(a1))), 3, int16(int32(uint16(gameFPS()))*5), 4)
 	nox_xxx_netPriMsgToPlayer_4DA2C0((*server.Object)(unsafe.Pointer(uintptr(a1))), internCStr("Use.c:CiderConfuse"), 0)
-	v2 = nox_xxx_useConsume_53EE10(a1, a2)
+	v2 := nox_xxx_useConsume_53EE10(obj, obj2)
 	if v2 != 0 {
-		nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a2))))
+		nox_xxx_delayedDeleteObject_4E5CC0(obj2)
 	}
 	return v2
 }
-func nox_xxx_usePotion_53EF70(a1 int32, a2 int32) int32 {
+func nox_xxx_usePotion_53EF70(obj, obj2 *server.Object) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var (
 		v2     int32
 		v3     int32
@@ -8300,7 +8311,7 @@ func nox_xxx_usePotion_53EF70(a1 int32, a2 int32) int32 {
 		v5 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 16))))
 		return (v5 & 0x8000) == 0
 	}()) {
-		return result
+		return int(result)
 	}
 	if (int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 12))))&0x10) == 0 || (func() *uint16 {
 		v6 = *(**uint16)(unsafe.Pointer(uintptr(a1 + 556)))
@@ -8422,7 +8433,9 @@ LABEL_27:
 	nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(v2))))
 	return 1
 }
-func nox_xxx_useLesserFireballStaff_53F290(a1 int32, a2 *uint32) int32 {
+func nox_xxx_useLesserFireballStaff_53F290(obj, obj2 *server.Object) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := (*uint32)(obj2.CObj())
 	var (
 		v2     int32
 		result int32
@@ -8492,7 +8505,7 @@ func nox_xxx_useLesserFireballStaff_53F290(a1 int32, a2 *uint32) int32 {
 		nox_xxx_aud_501960(222, (*server.Object)(unsafe.Pointer(uintptr(a1))), 0, 0)
 		result = 0
 	}
-	return result
+	return int(result)
 }
 func nox_xxx_wandShot_53F480(a1 int32, a2 int32, a3 *int32, a4 *uint32) *uint32 {
 	var (
@@ -8513,7 +8526,9 @@ func nox_xxx_wandShot_53F480(a1 int32, a2 int32, a3 *int32, a4 *uint32) *uint32 
 	}
 	return result
 }
-func nox_xxx_useWandCastSpell_53F4F0(a1 int32, a2 *uint32) int32 {
+func nox_xxx_useWandCastSpell_53F4F0(obj, obj2 *server.Object) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := (*uint32)(obj2.CObj())
 	var (
 		v2  int32
 		v4  int32
@@ -8571,7 +8586,9 @@ LABEL_13:
 	}
 	return 1
 }
-func nox_xxx_useFireWand_53F670(a1 int32, a2 int32) int32 {
+func nox_xxx_useFireWand_53F670(obj, obj2 *server.Object) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var (
 		v2  int32
 		v3  int32
@@ -8609,7 +8626,9 @@ func nox_xxx_useFireWand_53F670(a1 int32, a2 int32) int32 {
 	}
 	return 0
 }
-func nox_xxx_useRead_53F7C0(a1 int32, a2 int32) int32 {
+func nox_xxx_useRead_53F7C0(obj, obj2 *server.Object) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var (
 		v2 int32
 		v3 int32
@@ -8624,7 +8643,9 @@ func nox_xxx_useRead_53F7C0(a1 int32, a2 int32) int32 {
 	}
 	return 1
 }
-func sub_53F830(a1 int32, a2 int32) int32 {
+func sub_53F830(obj, obj2 *server.Object) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var (
 		v2 int32
 		v3 int32
@@ -8668,7 +8689,9 @@ func nox_xxx_useByNetCode_53F8E0(a1 int32, a2 int32) int32 {
 	}
 	return result
 }
-func sub_53F930(a1 int32, a2 int32) int32 {
+func sub_53F930(obj, obj2 *server.Object) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var (
 		v2     int32
 		v3     int32
@@ -8691,9 +8714,11 @@ func sub_53F930(a1 int32, a2 int32) int32 {
 		nox_xxx_delayedDeleteObject_4E5CC0((*server.Object)(unsafe.Pointer(uintptr(a2))))
 		result = 1
 	}
-	return result
+	return int(result)
 }
-func nox_xxx_useSpellReward_53F9E0(a1 int32, a2 int32) int32 {
+func nox_xxx_useSpellReward_53F9E0(obj, obj2 *server.Object) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var (
 		v2 *uint8
 		v3 int32
@@ -8729,7 +8754,9 @@ func nox_xxx_useSpellReward_53F9E0(a1 int32, a2 int32) int32 {
 	}
 	return 1
 }
-func nox_xxx_useAbilityReward_53FAE0(a1 int32, a2 int32) int32 {
+func nox_xxx_useAbilityReward_53FAE0(obj, obj2 *server.Object) int {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var (
 		v2     *uint8
 		v3     int32
@@ -8757,7 +8784,7 @@ func nox_xxx_useAbilityReward_53FAE0(a1 int32, a2 int32) int32 {
 		}
 		result = 1
 	}
-	return result
+	return int(result)
 }
 func nox_xxx_respawnPlayerImpl_53FBC0(a1 *float32, a2 int32) *uint32 {
 	var (

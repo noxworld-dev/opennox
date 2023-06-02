@@ -565,7 +565,7 @@ type Object struct {
 	DamageSound   unsafe.Pointer                // 180, 720
 	Death         ccall.Func[ObjectDeathFunc]   // 181, 724
 	DeathData     unsafe.Pointer                // 182, 728
-	Use           unsafe.Pointer                // 183, 732
+	Use           ccall.Func[ObjectUseFunc]     // 183, 732
 	UseData       unsafe.Pointer                // 184, 736
 	Field185      uint32                        // 185, 740
 	Update        unsafe.Pointer                // 186, 744; func(*Object)

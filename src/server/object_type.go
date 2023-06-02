@@ -34,7 +34,7 @@ var (
 	updateParseFuncs  = make(map[string]ObjectParseFunc)
 	collideFuncs      = make(map[string]objectDefFunc[ccall.Func[ObjectCollideFunc]])
 	collideParseFuncs = make(map[string]ObjectParseFunc)
-	useFuncs          = make(map[string]objectDefFunc[unsafe.Pointer])
+	useFuncs          = make(map[string]objectDefFunc[ccall.Func[ObjectUseFunc]])
 	useParseFuncs     = make(map[string]ObjectParseFunc)
 	damageFuncs       = make(map[string]unsafe.Pointer)
 	damageSoundFuncs  = make(map[string]unsafe.Pointer)
@@ -68,6 +68,7 @@ var (
 type ObjectInitFunc func(obj *Object)
 type ObjectCreateFunc func(obj *Object)
 type ObjectDeathFunc func(obj *Object)
+type ObjectUseFunc func(obj, obj2 *Object) int
 type ObjectCollideFunc func(obj, obj2 *Object, pos *types.Pointf)
 type ObjectXferFunc func(obj *Object, data unsafe.Pointer) int
 
@@ -158,11 +159,14 @@ func RegisterObjectCollideParse(name string, fnc ObjectParseFunc) {
 	collideParseFuncs[name] = fnc
 }
 
-func RegisterObjectUse(name string, fnc unsafe.Pointer, sz uintptr) {
+func RegisterObjectUse(name string, fnc ObjectUseFunc, sz uintptr) {
 	if _, ok := useFuncs[name]; ok {
 		panic("already registered")
 	}
-	useFuncs[name] = objectDefFunc[unsafe.Pointer]{Func: fnc, DataSize: sz}
+	useFuncs[name] = objectDefFunc[ccall.Func[ObjectUseFunc]]{
+		Func:     ccall.FuncPtr(fnc),
+		DataSize: sz,
+	}
 }
 
 func RegisterObjectUseParse(name string, fnc ObjectParseFunc) {
@@ -869,7 +873,7 @@ type ObjectType struct {
 	Update          unsafe.Pointer
 	UpdateData      unsafe.Pointer
 	UpdateDataSize  uintptr
-	Use             unsafe.Pointer
+	Use             ccall.Func[ObjectUseFunc]
 	UseData         unsafe.Pointer
 	UseDataSize     uintptr
 	Xfer            ccall.Func[ObjectXferFunc]
