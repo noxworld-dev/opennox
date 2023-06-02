@@ -2190,7 +2190,7 @@ func nox_xxx_mobMorphToPlayer_4FAAF0(a1 *uint32) int8 {
 	}
 	return int8(v1)
 }
-func nox_xxx_updatePlayerMonsterBot_4FAB20(a1 *uint32) int32 {
+func Nox_xxx_updatePlayerMonsterBot_4FAB20(a1 *uint32) int32 {
 	var (
 		v1     int32
 		result int32

@@ -231,8 +231,7 @@ func triggerTrap(trap, a2 *server.Object) {
 		if it != trap && (int32(uint8(*(*float32)(unsafe.Add(unsafe.Pointer(it), unsafe.Sizeof(float32(0))*4))))&0x20) == 0 {
 			if int(it.TypeInd) == s.Types.GlyphID() {
 				if s.MapTraceRayAt(trap.Pos(), it.Pos(), nil, nil, 5) {
-					_ = nox_xxx___mkgmtime_538280
-					it.Update = legacy.Get_nox_xxx___mkgmtime_538280()
+					it.Update.Set(nox_xxx___mkgmtime_538280)
 					s.Objs.AddToUpdatable(it)
 				}
 			}

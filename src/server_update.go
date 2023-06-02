@@ -29,7 +29,7 @@ func (s *Server) updateUnitsBBB() { // nox_xxx_updateUnits_51B100_B
 				obj.Obj130 = obj5.SObj()
 			}
 		}
-		if obj.Update != nil {
+		if obj.Update.Get() != nil {
 			if !obj.Flags().Has(object.FlagNoUpdate) {
 				obj.CallUpdate()
 			}
@@ -61,7 +61,7 @@ func (s *Server) updateUnitsBBB() { // nox_xxx_updateUnits_51B100_B
 			obj.NewPos = obj.PosVec
 			obj.Field27 = 0
 			obj.ObjFlags |= uint32(object.FlagStill)
-			if obj.Update == nil {
+			if obj.Update.Get() == nil {
 				s.Objs.RemoveFromUpdatable(obj.SObj())
 			}
 		}

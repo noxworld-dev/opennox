@@ -3984,7 +3984,8 @@ func sub_510E20(a1 int32) {
 func sub_510E50() {
 	dword_5d4594_2386564 = 0
 }
-func nox_xxx_updateSentryGlobe_510E60(a1 int32) int32 {
+func nox_xxx_updateSentryGlobe_510E60(obj *server.Object) {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		result int32
 		v2     int32
@@ -4051,7 +4052,6 @@ func nox_xxx_updateSentryGlobe_510E60(a1 int32) int32 {
 	} else {
 		*(*uint32)(unsafe.Pointer(uintptr(v2))) = *(*uint32)(unsafe.Pointer(uintptr(v2 + 4)))
 	}
-	return result
 }
 func nox_xxx_sentryUpdateList_510FD0(a1 *uint32) *uint32 {
 	var (

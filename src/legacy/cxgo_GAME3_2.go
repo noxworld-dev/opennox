@@ -1337,7 +1337,7 @@ func nox_xxx_mapSwitchLevel_4D12E0(a1 int32) {
 				nox_xxx_shopCancelSession_510DC0(v4)
 			}
 			*(*uint32)(unsafe.Pointer(uintptr(v3 + 280))) = 0
-			if *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v2 + 744))) == ccall.FuncAddr(nox_xxx_updatePlayerMonsterBot_4FAB20) {
+			if *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v2 + 744))) == ccall.FuncAddr(Nox_xxx_updatePlayerMonsterBot_4FAB20) {
 				nox_xxx_playerBotCreate_4FA700(v2)
 			}
 			v2 = int32(uintptr(unsafe.Pointer(nox_xxx_getNextPlayerUnit_4DA7F0((*server.Object)(unsafe.Pointer(uintptr(v2)))))))

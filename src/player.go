@@ -25,6 +25,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/internal/netstr"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
+	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -329,7 +330,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 	if !keepPlayer && s.Abils.IsAnyActive(u.SObj()) {
 		return false
 	}
-	if u.Update == legacy.Get_nox_xxx_updatePlayerMonsterBot_4FAB20() {
+	if u.Update.Ptr() == ccall.FuncAddr(legacy.Nox_xxx_updatePlayerMonsterBot_4FAB20) {
 		return false
 	}
 	ud := u.UpdateDataPlayer()
@@ -376,8 +377,7 @@ func (p *Player) GoObserver(notify, keepPlayer bool) bool { // nox_xxx_playerGoO
 	}
 	legacy.Nox_xxx_playerRemoveSpawnedStuff_4E5AD0(u.SObj())
 	ud.CurTraps = 0
-	_ = nox_xxx_updatePlayerObserver_4E62F0
-	u.Update = legacy.Get_nox_xxx_updatePlayerObserver_4E62F0()
+	u.Update.Set(nox_xxx_updatePlayerObserver_4E62F0)
 	legacy.Sub_4D7E50(u.SObj())
 	return true
 }
@@ -405,8 +405,7 @@ func (obj *Object) observeClear() {
 	if pl.Field3680&2 != 0 {
 		legacy.Nox_xxx_playerUnsetStatus_417530(pl.S(), 2)
 		pl.CameraUnlock()
-		_ = nox_xxx_updatePlayer_4F8100
-		obj.Update = legacy.Get_nox_xxx_updatePlayer_4F8100()
+		obj.Update.Set(nox_xxx_updatePlayer_4F8100)
 	}
 }
 
@@ -947,8 +946,7 @@ func nox_xxx_playerObserveMonster_4DDE80(cplayer, cunit *server.Object) {
 	}
 	legacy.Nox_xxx_netNeedTimestampStatus_4174F0(pl.S(), 2)
 	pl.CameraFollow(targ)
-	_ = nox_xxx_updatePlayerObserver_4E62F0
-	pu.Update = legacy.Get_nox_xxx_updatePlayerObserver_4E62F0()
+	pu.Update.Set(nox_xxx_updatePlayerObserver_4E62F0)
 }
 
 func (s *Server) nox_xxx_playerLeaveObsByObserved_4E60A0(obj server.Obj) {

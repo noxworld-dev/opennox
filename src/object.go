@@ -194,7 +194,7 @@ func (s *Server) ObjectsAddPending() {
 			if it.Flags().Has(object.FlagRespawn) && !noxflags.HasGame(noxflags.GameModeQuest) {
 				legacy.Nox_xxx_respawnAdd_4EC5E0(it.SObj())
 			}
-			if it.Update != nil || it.Vel() != (types.Pointf{}) { // TODO: had a weird check: ... && *(*uint8)(&it.obj_class) >= 0
+			if it.Update.Get() != nil || it.Vel() != (types.Pointf{}) { // TODO: had a weird check: ... && *(*uint8)(&it.obj_class) >= 0
 				s.Objs.AddToUpdatable(it.SObj())
 			}
 			it.ObjNext = s.Objs.List.SObj()
@@ -858,21 +858,7 @@ func (obj *Object) ControllingPlayer() *Player {
 }
 
 func (obj *Object) CallUpdate() {
-	if obj.Update == nil {
-		return
-	}
-	switch obj.Update {
-	case unsafe.Pointer(legacy.Get_nox_xxx_updatePlayer_4F8100()):
-		nox_xxx_updatePlayer_4F8100(obj.SObj())
-	case unsafe.Pointer(legacy.Get_nox_xxx_updatePlayerObserver_4E62F0()):
-		nox_xxx_updatePlayerObserver_4E62F0(obj.SObj())
-	case unsafe.Pointer(legacy.Get_nox_xxx_updateHarpoon_54F380()):
-		nox_xxx_updateHarpoon_54F380(obj.SObj())
-	case unsafe.Pointer(legacy.Get_nox_xxx_updatePixie_53CD20()):
-		nox_xxx_updatePixie_53CD20(obj.SObj())
-	default:
-		obj.SObj().CallUpdate()
-	}
+	obj.SObj().CallUpdate()
 }
 
 func (obj *Object) CallXfer(a2 unsafe.Pointer) error {

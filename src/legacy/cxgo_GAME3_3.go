@@ -2343,7 +2343,7 @@ func nox_xxx_playerLeaveObserver_0_4E6AA0(pl *server.Player) {
 	if a1 != 0 {
 		v1 = int32(*(*uint32)(unsafe.Pointer(uintptr(a1 + 2056))))
 		if v1 != 0 {
-			if *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v1 + 744))) != ccall.FuncAddr(nox_xxx_updatePlayerMonsterBot_4FAB20) {
+			if *(*unsafe.Pointer)(unsafe.Pointer(uintptr(v1 + 744))) != ccall.FuncAddr(Nox_xxx_updatePlayerMonsterBot_4FAB20) {
 				nox_xxx_playerUnsetStatus_417530((*server.Player)(unsafe.Pointer(uintptr(a1))), 289)
 				nox_xxx_spellBuffOff_4FF5B0((*server.Object)(unsafe.Pointer(uintptr(v1))), 0)
 				v2 = int32(*(*uint32)(unsafe.Pointer(uintptr(v1 + 16))))

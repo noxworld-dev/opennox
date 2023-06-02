@@ -168,7 +168,6 @@ func init() {
 	legacy.Nox_xxx_teleportAllPixies_4FD090 = nox_xxx_teleportAllPixies_4FD090
 	legacy.Nox_xxx_enemyAggro_5335D0 = nox_xxx_enemyAggro_5335D0
 	legacy.Sub_5336D0 = sub_5336D0
-	legacy.Nox_xxx_updatePlayerObserver_4E62F0 = nox_xxx_updatePlayerObserver_4E62F0
 	legacy.Nox_xxx_updateProjectile_53AC10 = nox_xxx_updateProjectile_53AC10
 	legacy.Nox_xxx_lightningSpellDuration_52FFD0 = nox_xxx_lightningSpellDuration_52FFD0
 	legacy.Sub_44A4A0 = sub_44A4A0
@@ -303,7 +302,6 @@ func init() {
 	legacy.Nox_xxx_checkSummonedCreaturesLimit_500D70 = nox_xxx_checkSummonedCreaturesLimit_500D70
 	legacy.Nox_xxx_unitDoSummonAt_5016C0 = nox_xxx_unitDoSummonAt_5016C0
 	legacy.Sub_57AEE0 = sub_57AEE0
-	legacy.Nox_xxx___mkgmtime_538280 = nox_xxx___mkgmtime_538280
 	legacy.Sub_4E71F0 = sub_4E71F0
 	legacy.Nox_bomberDead_54A150 = nox_bomberDead_54A150
 	legacy.Nox_xxx_dieGlyph_54DF30 = nox_xxx_dieGlyph_54DF30

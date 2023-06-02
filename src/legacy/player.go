@@ -6,7 +6,6 @@ import (
 	"github.com/noxworld-dev/opennox-lib/spell"
 
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -143,10 +142,6 @@ func Nox_xxx_playerForceDisconnect_4DE7C0(ind ntype.PlayerInd) {
 	nox_xxx_playerForceDisconnect_4DE7C0(int32(ind))
 }
 
-func Get_nox_xxx_updatePlayerMonsterBot_4FAB20() unsafe.Pointer {
-	return ccall.FuncAddr(nox_xxx_updatePlayerMonsterBot_4FAB20)
-}
-
 func Nox_xxx_netNeedTimestampStatus_4174F0(pl *server.Player, v int) {
 	nox_xxx_netNeedTimestampStatus_4174F0((*server.Player)(pl.C()), int32(v))
 }
@@ -163,10 +158,6 @@ func Nox_xxx_playerForceSendLessons_416E50(v int) {
 	nox_xxx_playerForceSendLessons_416E50(int32(v))
 }
 
-func Get_nox_xxx_updatePlayerObserver_4E62F0() unsafe.Pointer {
-	return ccall.FuncAddr(nox_xxx_updatePlayerObserver_4E62F0)
-}
-
 func Nox_xxx_playerRemoveSpawnedStuff_4E5AD0(u *server.Object) {
 	nox_xxx_playerRemoveSpawnedStuff_4E5AD0(asObjectC(u))
 }
@@ -181,10 +172,6 @@ func Nox_xxx_playerObserverFindGoodSlave0_4E6280(p *server.Player) *server.Objec
 
 func Sub_4E6150(p *server.Player) *server.Object {
 	return asObjectS(sub_4E6150((*server.Player)(p.C())))
-}
-
-func Get_nox_xxx_updatePlayer_4F8100() unsafe.Pointer {
-	return ccall.FuncAddr(nox_xxx_updatePlayer_4F8100)
 }
 
 func Nox_xxx_playerUnsetStatus_417530(p *server.Player, a2 int) {

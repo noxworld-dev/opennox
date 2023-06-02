@@ -568,7 +568,7 @@ type Object struct {
 	Use           ccall.Func[ObjectUseFunc]     // 183, 732
 	UseData       unsafe.Pointer                // 184, 736
 	Field185      uint32                        // 185, 740
-	Update        unsafe.Pointer                // 186, 744; func(*Object)
+	Update        ccall.Func[ObjectUpdateFunc]  // 186, 744
 	UpdateData    unsafe.Pointer                // 187, 748
 	Field188      uint32                        // 188, 752
 	Field189      unsafe.Pointer                // 189, 756
@@ -1111,10 +1111,9 @@ func (obj *Object) SetDialogPortrait(name string) {
 }
 
 func (obj *Object) CallUpdate() {
-	if obj.Update == nil {
-		return
+	if fnc := obj.Update.Get(); fnc != nil {
+		fnc(obj)
 	}
-	ccall.AsFunc[func(*Object)](obj.Update)(obj)
 }
 
 func (obj *Object) CallCollide(obj2 *Object, pos *types.Pointf) {

@@ -30,7 +30,7 @@ var (
 			return nil
 		},
 	}
-	updateFuncs       = make(map[string]objectDefFunc[unsafe.Pointer])
+	updateFuncs       = make(map[string]objectDefFunc[ccall.Func[ObjectUpdateFunc]])
 	updateParseFuncs  = make(map[string]ObjectParseFunc)
 	collideFuncs      = make(map[string]objectDefFunc[ccall.Func[ObjectCollideFunc]])
 	collideParseFuncs = make(map[string]ObjectParseFunc)
@@ -68,6 +68,7 @@ var (
 type ObjectInitFunc func(obj *Object)
 type ObjectCreateFunc func(obj *Object)
 type ObjectDeathFunc func(obj *Object)
+type ObjectUpdateFunc func(obj *Object)
 type ObjectUseFunc func(obj, obj2 *Object) int
 type ObjectCollideFunc func(obj, obj2 *Object, pos *types.Pointf)
 type ObjectXferFunc func(obj *Object, data unsafe.Pointer) int
@@ -128,11 +129,14 @@ func RegisterObjectInit(name string, fnc ObjectInitFunc, sz uintptr) {
 	}
 }
 
-func RegisterObjectUpdate(name string, fnc unsafe.Pointer, sz uintptr) {
+func RegisterObjectUpdate(name string, fnc ObjectUpdateFunc, sz uintptr) {
 	if _, ok := updateFuncs[name]; ok {
 		panic("already registered")
 	}
-	updateFuncs[name] = objectDefFunc[unsafe.Pointer]{Func: fnc, DataSize: sz}
+	updateFuncs[name] = objectDefFunc[ccall.Func[ObjectUpdateFunc]]{
+		Func:     ccall.FuncPtr(fnc),
+		DataSize: sz,
+	}
 }
 
 func RegisterObjectUpdateParse(name string, fnc ObjectParseFunc) {
@@ -870,7 +874,7 @@ type ObjectType struct {
 	InitData        unsafe.Pointer
 	InitDataSize    uintptr
 	Pickup          unsafe.Pointer
-	Update          unsafe.Pointer
+	Update          ccall.Func[ObjectUpdateFunc]
 	UpdateData      unsafe.Pointer
 	UpdateDataSize  uintptr
 	Use             ccall.Func[ObjectUseFunc]

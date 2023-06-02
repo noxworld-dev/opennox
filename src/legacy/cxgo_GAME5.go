@@ -5702,7 +5702,8 @@ func sub_54E850(a1 int32, a2 int32) {
 		}
 	}
 }
-func nox_xxx_updateMonsterGenerator_54E930(a1 *uint32) int8 {
+func nox_xxx_updateMonsterGenerator_54E930(obj *server.Object) {
+	a1 := (*uint32)(obj.CObj())
 	var (
 		v1  uint32
 		v2  int32
@@ -5813,7 +5814,6 @@ func nox_xxx_updateMonsterGenerator_54E930(a1 *uint32) int8 {
 			}
 		}
 	}
-	return int8(uint8(v4))
 }
 func nox_xxx_mobGeneratorPick_54EBA0(a1 *uint32, a2 *float2, a4 int32) int32 {
 	var (
@@ -6135,7 +6135,8 @@ func nox_xxx_unitCreatureCopyUC_54F2B0(a1 int32, a2 int32) {
 	*(*uint16)(unsafe.Pointer(uintptr(a2 + 124))) = uint16(result)
 	*(*uint16)(unsafe.Pointer(uintptr(a2 + 126))) = uint16(result)
 }
-func nox_xxx_unitUpdateMover_54F740(a1 int32) {
+func nox_xxx_unitUpdateMover_54F740(obj *server.Object) {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		v1  *float32
 		v2  *uint8
@@ -6256,7 +6257,8 @@ func nox_xxx_unitUpdateMover_54F740(a1 int32) {
 		return
 	}
 }
-func nox_xxx_updateShootingTrap_54F9A0(a1 int32) int32 {
+func nox_xxx_updateShootingTrap_54F9A0(obj *server.Object) {
+	a1 := int32(uintptr(obj.CObj()))
 	var (
 		result int32
 		v2     *int32
@@ -6304,7 +6306,6 @@ func nox_xxx_updateShootingTrap_54F9A0(a1 int32) int32 {
 	} else {
 		*((*uint8)(unsafe.Add(unsafe.Pointer((*uint8)(unsafe.Pointer(v2))), 48))) = 0
 	}
-	return result
 }
 func nox_xxx_createArrowTrapProjectile_54FA80(a1 int32, a2 int32) {
 	var (
