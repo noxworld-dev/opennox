@@ -20,7 +20,6 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
 	"github.com/noxworld-dev/opennox/v1/legacy"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -209,8 +208,8 @@ func (s *Server) ObjectsAddPending() {
 		if it.Collide != nil {
 			legacy.Sub_5117F0(it.SObj())
 		}
-		if it.Init != nil {
-			ccall.AsFunc[func(*server.Object)](it.Init)(it.SObj())
+		if fnc := it.Init.Get(); fnc != nil {
+			fnc(it.SObj())
 		}
 		var v6 bool
 		if it.Class().Has(object.ClassImmobile) {

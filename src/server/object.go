@@ -554,7 +554,7 @@ type Object struct {
 	SpeedBonus    float32                    // 138, 552
 	HealthData    *HealthData                // 139, 556
 	Field140      [32]uint32                 // 140, 560
-	Init          unsafe.Pointer             // 172, 688
+	Init          ccall.Func[ObjectInitFunc] // 172, 688
 	InitData      unsafe.Pointer             // 173, 692
 	Collide       unsafe.Pointer             // 174, 696; func(*Object, *Object, int)
 	CollideData   unsafe.Pointer             // 175, 700

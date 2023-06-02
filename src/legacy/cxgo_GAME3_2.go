@@ -5600,7 +5600,7 @@ func nox_xxx_netPlayerIncomingServ_4DDF60(a1 int32) int32 {
 	nox_xxx_newPlayerSendAllPlayers_4DE300(v1)
 	*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*1175))) = 0
 	v13p := AsObjectP(unsafe.Pointer(uintptr(v13)))
-	ccall.AsFunc[func(*server.Object)](v13p.Init)(v13p)
+	v13p.Init.Get()(v13p)
 	*(*byte)(unsafe.Add(unsafe.Pointer(v2), 3676)) = 3
 	if !noxflags.HasGame(512) {
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v2))), 4*908))) = uint32(v4)
