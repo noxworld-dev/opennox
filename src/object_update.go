@@ -1112,7 +1112,7 @@ func nox_xxx_updatePlayerObserver_4E62F0(a1p *server.Object) {
 
 func nox_xxx_updateProjectile_53AC10(obj *server.Object) {
 	if (noxServer.Frame() - obj.Field32) > 40 {
-		obj.CallCollide(0, 0)
+		obj.CallCollide(nil, nil)
 		asObjectS(obj).Delete()
 	}
 }

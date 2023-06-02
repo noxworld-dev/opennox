@@ -470,112 +470,112 @@ type ScriptCallback struct {
 }
 
 type Object struct {
-	IDPtr         unsafe.Pointer              // 0, 0
-	TypeInd       uint16                      // 1, 4
-	Field1_2      uint16                      // 1, 6
-	ObjClass      uint32                      // 2, 8
-	ObjSubClass   uint32                      // 3, 12
-	ObjFlags      uint32                      // 4, 16
-	Field5        uint32                      // 5, 20
-	Material      uint16                      // 6, 24
-	Field6_2      uint16                      // 6, 26
-	Experience    float32                     // 7, 28
-	Worth         uint32                      // 8, 32
-	NetCode       uint32                      // 9, 36
-	Extent        uint32                      // 10, 40
-	ScriptIDVal   int                         // 11, 44
-	TeamVal       ObjectTeam                  // 12, 48
-	PosVec        types.Pointf                // 14, 56
-	NewPos        types.Pointf                // 16, 64
-	PrevPos       types.Pointf                // 18, 72
-	VelVec        types.Pointf                // 20, 80
-	ForceVec      types.Pointf                // 22, 88
-	Pos24         types.Pointf                // 24, 96, // TODO: something related to acceleration/direction
-	ZVal          float32                     // 26, 104
-	Field27       float32                     // 27, 108
-	Float28       float32                     // 28, 112, // TODO: damping/drag?
-	Field29       uint32                      // 29, 116
-	Mass          float32                     // 30, 120
-	Direction1    Dir16                       // 31, 124
-	Direction2    Dir16                       // 31, 126
-	Field32       uint32                      // 32, 128, TODO: some frame/timestamp
-	Field33       uint32                      // 33, 132
-	Field34       uint32                      // 34, 136, TODO: some frame/timestamp
-	Field35       uint32                      // 35, 140
-	Field36       uint32                      // 36, 144
-	Field37       uint32                      // 37, 148
-	Field38       uint32                      // 38, 152
-	Pos39         types.Pointf                // 39, 156
-	Field41       uint32                      // 41, 164
-	Field42       uint32                      // 42, 168
-	Shape         Shape                       // 43, 172
-	ZSize1        float32                     // 56, 224
-	ZSize2        float32                     // 57, 228
-	CollideP1     types.Pointf                // 58, 232
-	CollideP2     types.Pointf                // 60, 240
-	Field62       [getInRectStackSize]uint32  // 62, 248
-	ObjIndexBase  ObjectIndex                 // 64, 256
-	ObjIndex      [4]ObjectIndex              // 68, 272
-	ObjIndexCur   uint32                      // 84, 336
-	Buffs         uint32                      // 85, 340
-	BuffsDur      [32]uint16                  // 86, 344
-	BuffsPower    [32]uint8                   // 102, 408
-	Field110      uint32                      // 110, 440
-	ObjNext       *Object                     // 111, 444
-	ObjPrev       *Object                     // 112, 448
-	DeletedNext   *Object                     // 113, 452
-	DeletedAt     uint32                      // 114, 456
-	Field115      uint32                      // 115, 460
-	Field116      uint32                      // 116, 464
-	Field117      uint32                      // 117, 468
-	Field118      uint32                      // 118, 472
-	UpdatableNext *Object                     // 119, 476
-	UpdatablePrev *Object                     // 120, 480
-	IsUpdatable   uint32                      // 121, 484
-	Weight        uint8                       // 122, 488
-	Field122_1    uint8                       // 122, 489
-	CarryCapacity uint16                      // 122, 490
-	InvHolder     *Object                     // 123, 492 // Also health data, possibly same as 556, see 4E4560
-	InvNextItem   *Object                     // 124, 496
-	Field125      *Object                     // 125, 500, TODO: an Object*? see 4ED0C0
-	InvFirstItem  *Object                     // 126, 504
-	ObjOwner      *Object                     // 127, 508
-	Field128      *Object                     // 128, 512
-	Field129      *Object                     // 129, 516
-	Obj130        *Object                     // 130, 520
-	Field131      uint32                      // 131, 524
-	Pos132        types.Pointf                // 132, 528
-	Frame134      uint32                      // 134, 536, TODO: some timestamp
-	Field540      byte                        // 135, 540
-	Field541      byte                        // 135, 541
-	Field542      uint16                      // 135, 542
-	SpeedCur      float32                     // 136, 544
-	SpeedBase     float32                     // 137, 548
-	SpeedBonus    float32                     // 138, 552
-	HealthData    *HealthData                 // 139, 556
-	Field140      [32]uint32                  // 140, 560
-	Init          ccall.Func[ObjectInitFunc]  // 172, 688
-	InitData      unsafe.Pointer              // 173, 692
-	Collide       unsafe.Pointer              // 174, 696; func(*Object, *Object, int)
-	CollideData   unsafe.Pointer              // 175, 700
-	Xfer          ccall.Func[ObjectXferFunc]  // 176, 704
-	Pickup        unsafe.Pointer              // 177, 708
-	Drop          unsafe.Pointer              // 178, 712
-	Damage        unsafe.Pointer              // 179, 716; func(*Object, *Object, int, int, int) int
-	DamageSound   unsafe.Pointer              // 180, 720
-	Death         ccall.Func[ObjectDeathFunc] // 181, 724
-	DeathData     unsafe.Pointer              // 182, 728
-	Use           unsafe.Pointer              // 183, 732
-	UseData       unsafe.Pointer              // 184, 736
-	Field185      uint32                      // 185, 740
-	Update        unsafe.Pointer              // 186, 744; func(*Object)
-	UpdateData    unsafe.Pointer              // 187, 748
-	Field188      uint32                      // 188, 752
-	Field189      unsafe.Pointer              // 189, 756
-	ScriptVars    unsafe.Pointer              // 190, 760; []uint32
-	Field191      uint32                      // 191, 764
-	Field192      int                         // 192, 768
-	serverHandle  uintptr                     // EXT
+	IDPtr         unsafe.Pointer                // 0, 0
+	TypeInd       uint16                        // 1, 4
+	Field1_2      uint16                        // 1, 6
+	ObjClass      uint32                        // 2, 8
+	ObjSubClass   uint32                        // 3, 12
+	ObjFlags      uint32                        // 4, 16
+	Field5        uint32                        // 5, 20
+	Material      uint16                        // 6, 24
+	Field6_2      uint16                        // 6, 26
+	Experience    float32                       // 7, 28
+	Worth         uint32                        // 8, 32
+	NetCode       uint32                        // 9, 36
+	Extent        uint32                        // 10, 40
+	ScriptIDVal   int                           // 11, 44
+	TeamVal       ObjectTeam                    // 12, 48
+	PosVec        types.Pointf                  // 14, 56
+	NewPos        types.Pointf                  // 16, 64
+	PrevPos       types.Pointf                  // 18, 72
+	VelVec        types.Pointf                  // 20, 80
+	ForceVec      types.Pointf                  // 22, 88
+	Pos24         types.Pointf                  // 24, 96, // TODO: something related to acceleration/direction
+	ZVal          float32                       // 26, 104
+	Field27       float32                       // 27, 108
+	Float28       float32                       // 28, 112, // TODO: damping/drag?
+	Field29       uint32                        // 29, 116
+	Mass          float32                       // 30, 120
+	Direction1    Dir16                         // 31, 124
+	Direction2    Dir16                         // 31, 126
+	Field32       uint32                        // 32, 128, TODO: some frame/timestamp
+	Field33       uint32                        // 33, 132
+	Field34       uint32                        // 34, 136, TODO: some frame/timestamp
+	Field35       uint32                        // 35, 140
+	Field36       uint32                        // 36, 144
+	Field37       uint32                        // 37, 148
+	Field38       uint32                        // 38, 152
+	Pos39         types.Pointf                  // 39, 156
+	Field41       uint32                        // 41, 164
+	Field42       uint32                        // 42, 168
+	Shape         Shape                         // 43, 172
+	ZSize1        float32                       // 56, 224
+	ZSize2        float32                       // 57, 228
+	CollideP1     types.Pointf                  // 58, 232
+	CollideP2     types.Pointf                  // 60, 240
+	Field62       [getInRectStackSize]uint32    // 62, 248
+	ObjIndexBase  ObjectIndex                   // 64, 256
+	ObjIndex      [4]ObjectIndex                // 68, 272
+	ObjIndexCur   uint32                        // 84, 336
+	Buffs         uint32                        // 85, 340
+	BuffsDur      [32]uint16                    // 86, 344
+	BuffsPower    [32]uint8                     // 102, 408
+	Field110      uint32                        // 110, 440
+	ObjNext       *Object                       // 111, 444
+	ObjPrev       *Object                       // 112, 448
+	DeletedNext   *Object                       // 113, 452
+	DeletedAt     uint32                        // 114, 456
+	Field115      uint32                        // 115, 460
+	Field116      uint32                        // 116, 464
+	Field117      uint32                        // 117, 468
+	Field118      uint32                        // 118, 472
+	UpdatableNext *Object                       // 119, 476
+	UpdatablePrev *Object                       // 120, 480
+	IsUpdatable   uint32                        // 121, 484
+	Weight        uint8                         // 122, 488
+	Field122_1    uint8                         // 122, 489
+	CarryCapacity uint16                        // 122, 490
+	InvHolder     *Object                       // 123, 492 // Also health data, possibly same as 556, see 4E4560
+	InvNextItem   *Object                       // 124, 496
+	Field125      *Object                       // 125, 500, TODO: an Object*? see 4ED0C0
+	InvFirstItem  *Object                       // 126, 504
+	ObjOwner      *Object                       // 127, 508
+	Field128      *Object                       // 128, 512
+	Field129      *Object                       // 129, 516
+	Obj130        *Object                       // 130, 520
+	Field131      uint32                        // 131, 524
+	Pos132        types.Pointf                  // 132, 528
+	Frame134      uint32                        // 134, 536, TODO: some timestamp
+	Field540      byte                          // 135, 540
+	Field541      byte                          // 135, 541
+	Field542      uint16                        // 135, 542
+	SpeedCur      float32                       // 136, 544
+	SpeedBase     float32                       // 137, 548
+	SpeedBonus    float32                       // 138, 552
+	HealthData    *HealthData                   // 139, 556
+	Field140      [32]uint32                    // 140, 560
+	Init          ccall.Func[ObjectInitFunc]    // 172, 688
+	InitData      unsafe.Pointer                // 173, 692
+	Collide       ccall.Func[ObjectCollideFunc] // 174, 696
+	CollideData   unsafe.Pointer                // 175, 700
+	Xfer          ccall.Func[ObjectXferFunc]    // 176, 704
+	Pickup        unsafe.Pointer                // 177, 708
+	Drop          unsafe.Pointer                // 178, 712
+	Damage        unsafe.Pointer                // 179, 716; func(*Object, *Object, int, int, int) int
+	DamageSound   unsafe.Pointer                // 180, 720
+	Death         ccall.Func[ObjectDeathFunc]   // 181, 724
+	DeathData     unsafe.Pointer                // 182, 728
+	Use           unsafe.Pointer                // 183, 732
+	UseData       unsafe.Pointer                // 184, 736
+	Field185      uint32                        // 185, 740
+	Update        unsafe.Pointer                // 186, 744; func(*Object)
+	UpdateData    unsafe.Pointer                // 187, 748
+	Field188      uint32                        // 188, 752
+	Field189      unsafe.Pointer                // 189, 756
+	ScriptVars    unsafe.Pointer                // 190, 760; []uint32
+	Field191      uint32                        // 191, 764
+	Field192      int                           // 192, 768
+	serverHandle  uintptr                       // EXT
 }
 
 func (obj *Object) CObj() unsafe.Pointer {
@@ -1117,9 +1117,9 @@ func (obj *Object) CallUpdate() {
 	ccall.AsFunc[func(*Object)](obj.Update)(obj)
 }
 
-func (obj *Object) CallCollide(a2, a3 int) {
-	if obj.Collide != nil {
-		ccall.AsFunc[func(*Object, uintptr, uintptr)](obj.Collide)(obj, uintptr(a2), uintptr(a3))
+func (obj *Object) CallCollide(obj2 *Object, pos *types.Pointf) {
+	if fnc := obj.Collide.Get(); fnc != nil {
+		fnc(obj, obj2, pos)
 	}
 }
 

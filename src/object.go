@@ -205,7 +205,7 @@ func (s *Server) ObjectsAddPending() {
 			s.Objs.List = it.SObj()
 		}
 		s.Map.AddMissileXxx(it.SObj())
-		if it.Collide != nil {
+		if it.Collide.Get() != nil {
 			legacy.Sub_5117F0(it.SObj())
 		}
 		if fnc := it.Init.Get(); fnc != nil {
@@ -883,8 +883,8 @@ func (obj *Object) CallDamage(who, a3 server.Obj, dmg int, typ object.DamageType
 	return obj.SObj().CallDamage(who, a3, dmg, typ)
 }
 
-func (obj *Object) CallCollide(a2, a3 int) {
-	obj.SObj().CallCollide(a2, a3)
+func (obj *Object) CallCollide(obj2 *server.Object, pos *types.Pointf) {
+	obj.SObj().CallCollide(obj2, pos)
 }
 
 func (obj *Object) CallDrop(it server.Obj, pos types.Pointf) int {

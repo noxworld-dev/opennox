@@ -22,7 +22,7 @@ var (
 	Sub_4E71F0                                 func(obj *server.Object)
 	Nox_bomberDead_54A150                      func(obj *server.Object) int
 	Nox_xxx_dieGlyph_54DF30                    func(obj *server.Object)
-	Nox_xxx_collideGlyph_4E9A00                func(obj, obj2 *server.Object)
+	Nox_xxx_collideGlyph_4E9A00                func(obj, obj2 *server.Object, pos *types.Pointf)
 )
 
 var _ = [1]struct{}{}[28-unsafe.Sizeof(Nox_object_Missile_data_t{})]
@@ -265,8 +265,8 @@ func nox_xxx_dieGlyph_54DF30(a1 *server.Object) {
 }
 
 // nox_xxx_collideGlyph_4E9A00
-func nox_xxx_collideGlyph_4E9A00(a1, a2 *server.Object) {
-	Nox_xxx_collideGlyph_4E9A00(asObjectS(a1), asObjectS(a2))
+func nox_xxx_collideGlyph_4E9A00(a1, a2 *server.Object, pos *types.Pointf) {
+	Nox_xxx_collideGlyph_4E9A00(asObjectS(a1), asObjectS(a2), pos)
 }
 
 // sub_57B4D0

@@ -1,10 +1,14 @@
 package legacy
 
-import "github.com/noxworld-dev/opennox/v1/server"
+import (
+	"github.com/noxworld-dev/opennox-lib/types"
+
+	"github.com/noxworld-dev/opennox/v1/server"
+)
 
 var (
 	Nox_xxx_harpoonBreakForPlr_537520 func(u *server.Object)
-	Nox_xxx_collideHarpoon_4EB6A0     func(a1c *server.Object, a2c *server.Object)
+	Nox_xxx_collideHarpoon_4EB6A0     func(a1c, a2c *server.Object, pos *types.Pointf)
 	Nox_xxx_updateHarpoon_54F380      func(a1c *server.Object)
 )
 
@@ -14,8 +18,8 @@ func nox_xxx_harpoonBreakForPlr_537520(u *server.Object) {
 }
 
 // nox_xxx_collideHarpoon_4EB6A0
-func nox_xxx_collideHarpoon_4EB6A0(a1c *server.Object, a2c *server.Object) {
-	Nox_xxx_collideHarpoon_4EB6A0(asObjectS(a1c), asObjectS(a2c))
+func nox_xxx_collideHarpoon_4EB6A0(a1c, a2c *server.Object, pos *types.Pointf) {
+	Nox_xxx_collideHarpoon_4EB6A0(a1c, a2c, pos)
 }
 
 // nox_xxx_updateHarpoon_54F380

@@ -11,6 +11,7 @@ import (
 	"github.com/noxworld-dev/opennox-lib/object"
 	"github.com/noxworld-dev/opennox-lib/player"
 	"github.com/noxworld-dev/opennox-lib/things"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/sound"
@@ -31,7 +32,7 @@ var (
 	}
 	updateFuncs       = make(map[string]objectDefFunc[unsafe.Pointer])
 	updateParseFuncs  = make(map[string]ObjectParseFunc)
-	collideFuncs      = make(map[string]objectDefFunc[unsafe.Pointer])
+	collideFuncs      = make(map[string]objectDefFunc[ccall.Func[ObjectCollideFunc]])
 	collideParseFuncs = make(map[string]ObjectParseFunc)
 	useFuncs          = make(map[string]objectDefFunc[unsafe.Pointer])
 	useParseFuncs     = make(map[string]ObjectParseFunc)
@@ -67,6 +68,7 @@ var (
 type ObjectInitFunc func(obj *Object)
 type ObjectCreateFunc func(obj *Object)
 type ObjectDeathFunc func(obj *Object)
+type ObjectCollideFunc func(obj, obj2 *Object, pos *types.Pointf)
 type ObjectXferFunc func(obj *Object, data unsafe.Pointer) int
 
 type ObjectParseFunc func(objt *ObjectType, args []string) error
@@ -139,11 +141,14 @@ func RegisterObjectUpdateParse(name string, fnc ObjectParseFunc) {
 	updateParseFuncs[name] = fnc
 }
 
-func RegisterObjectCollide(name string, fnc unsafe.Pointer, sz uintptr) {
+func RegisterObjectCollide(name string, fnc ObjectCollideFunc, sz uintptr) {
 	if _, ok := collideFuncs[name]; ok {
 		panic("already registered")
 	}
-	collideFuncs[name] = objectDefFunc[unsafe.Pointer]{Func: fnc, DataSize: sz}
+	collideFuncs[name] = objectDefFunc[ccall.Func[ObjectCollideFunc]]{
+		Func:     ccall.FuncPtr(fnc),
+		DataSize: sz,
+	}
 }
 
 func RegisterObjectCollideParse(name string, fnc ObjectParseFunc) {
@@ -489,7 +494,7 @@ func (s *serverObjTypes) readType(thg *things.Thing) error {
 	if err := typ.parseDraw(thg.Draw); err != nil {
 		return err
 	}
-	if typ.Collide == nil {
+	if typ.Collide.Get() == nil {
 		typ.flags |= object.FlagNoCollide
 	}
 	typ.ind2 = typ.ind
@@ -849,7 +854,7 @@ type ObjectType struct {
 	SpeedBase       float32
 	SpeedBonus      float32
 	health          *HealthData
-	Collide         unsafe.Pointer
+	Collide         ccall.Func[ObjectCollideFunc]
 	CollideData     unsafe.Pointer
 	CollideDataSize uintptr
 	Damage          unsafe.Pointer

@@ -140,7 +140,7 @@ func nox_xxx_dieGlyph_54DF30(obj *server.Object) {
 	triggerTrap(obj, nil)
 }
 
-func nox_xxx_collideGlyph_4E9A00(a1, a2 *server.Object) {
+func nox_xxx_collideGlyph_4E9A00(a1, a2 *server.Object, pos *types.Pointf) {
 	if !legacy.Sub_4E9A30(a1, a2) {
 		return
 	}

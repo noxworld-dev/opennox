@@ -5,6 +5,7 @@ import (
 	"unsafe"
 
 	"github.com/gotranspile/cxgo/runtime/libc"
+	"github.com/noxworld-dev/opennox-lib/types"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -6380,7 +6381,9 @@ func nox_xxx_unitIsAttackReachable_54FC50(a1 int32, a2 int32) {
 		}
 	}
 }
-func nox_xxx_collideTrigger_54FCD0(a1 int32, a2 int32) {
+func nox_xxx_collideTrigger_54FCD0(obj *server.Object, obj2 *server.Object, pos *types.Pointf) {
+	a1 := int32(uintptr(obj.CObj()))
+	a2 := int32(uintptr(obj2.CObj()))
 	var (
 		v2 *int32
 		v3 int32
