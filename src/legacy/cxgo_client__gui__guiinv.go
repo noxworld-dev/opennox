@@ -4,6 +4,7 @@ import (
 	"math"
 	"unsafe"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -1343,7 +1344,7 @@ func nox_xxx_cliInventorySpriteUpd_465A30() {
 		}
 	}
 }
-func sub_466160() int32 {
+func sub_466160(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
 	var v0 *wchar2_t
 	if int32(*memmap.PtrUint8(0x5D4594, 1049868)) == 2 {
 		v0 = nox_strman_loadString_40F1D0(internCStr("CloseInventoryTT"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guiinv.c"), 410)
@@ -1353,7 +1354,7 @@ func sub_466160() int32 {
 	nox_xxx_cursorSetTooltip_4776B0(v0)
 	return 1
 }
-func sub_4661D0() int32 {
+func sub_4661D0(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
 	var (
 		v0 *wchar2_t
 		v2 *wchar2_t
@@ -1425,7 +1426,7 @@ func sub_466660(a1 int32, a2 *int2) *wchar2_t {
 	}
 	return result
 }
-func nox_xxx_inventroryOnHovewerSub_4667E0(a1 int32, a2 int32, a3 uint32) int32 {
+func nox_xxx_inventroryOnHovewerSub_4667E0(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
 	var (
 		v3  int32
 		v4  int32
@@ -1505,7 +1506,8 @@ func nox_xxx_inventroryOnHovewerSub_4667E0(a1 int32, a2 int32, a3 uint32) int32 
 		return 1
 	}
 }
-func sub_466E20(a1 *uint32) int32 {
+func sub_466E20(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
+	a1 := (*uint32)(win.C())
 	var v1 *wchar2_t
 	switch *a1 {
 	case 0x2391:

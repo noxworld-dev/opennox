@@ -4711,14 +4711,14 @@ func nox_xxx_bookInit_45B9D0() int32 {
 	if result == 0 {
 		return 0
 	}
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(result))), nox_xxx_bookChildWndProcMB_45B360, nox_xxx_book_45BD30, ccall.FuncAddr(nox_xxx_book_45CF00))
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(result))), nox_xxx_bookChildWndProcMB_45B360, nox_xxx_book_45BD30, nox_xxx_book_45CF00)
 	*v1 = 1320
 	result = int32(uintptr(unsafe.Pointer(nox_window_new(nox_win_unk1, 8, 253, 61, 27, 40, nil))))
 	v2 = (*uint32)(unsafe.Pointer(uintptr(result)))
 	if result == 0 {
 		return 0
 	}
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(result))), nox_xxx_bookChildWndProcMB_45B360, nox_xxx_book_45BD30, ccall.FuncAddr(nox_xxx_book_45CF00))
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(uintptr(result))), nox_xxx_bookChildWndProcMB_45B360, nox_xxx_book_45BD30, nox_xxx_book_45CF00)
 	*v2 = 1310
 	dword_5d4594_1046944 = uint32(uintptr(unsafe.Pointer(nox_window_new(nox_win_unk1, 136, 24, 138, 20, 20, nil))))
 	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046944)))), nox_xxx_book_45B210, nil, nil)

@@ -6,6 +6,7 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
@@ -162,9 +163,9 @@ func nox_xxx_guiServerOptsLoad_457500() int32 {
 		dword_5d4594_1046520 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10135))))
 		dword_5d4594_1046536 = uint32(uintptr(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10153))))
 		v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10331)))
-		nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), ccall.FuncAddr(nox_xxx_options_457AA0))
+		nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), nox_xxx_options_457AA0)
 		v3 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10333)))
-		nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))), ccall.FuncAddr(nox_xxx_options_457B00))
+		nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v3)))))), nox_xxx_options_457B00)
 		nox_xxx_wnd_46B280(*(*int32)(unsafe.Pointer(&dword_5d4594_1046524)), *(*int32)(unsafe.Pointer(&dword_5d4594_1046492)))
 		nox_xxx_wnd_46B280(*(*int32)(unsafe.Pointer(&dword_5d4594_1046532)), *(*int32)(unsafe.Pointer(&dword_5d4594_1046492)))
 		nox_xxx_wnd_46B280(*(*int32)(unsafe.Pointer(&dword_5d4594_1046536)), *(*int32)(unsafe.Pointer(&dword_5d4594_1046492)))
@@ -229,7 +230,8 @@ func nox_xxx_guiServerOptsLoad_457500() int32 {
 	}
 	return 1
 }
-func nox_xxx_options_457AA0(a1 int32, a2 *uint8) int32 {
+func nox_xxx_options_457AA0(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
+	a2 := (*uint32)(draw.C())
 	var v2 *wchar2_t
 	if int32(*a2)&4 != 0 {
 		v2 = nox_strman_loadString_40F1D0(internCStr("AutoAssignOnTT"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 446)
@@ -239,7 +241,8 @@ func nox_xxx_options_457AA0(a1 int32, a2 *uint8) int32 {
 	nox_xxx_cursorSetTooltip_4776B0(v2)
 	return 1
 }
-func nox_xxx_options_457B00(a1 int32, a2 *uint8) int32 {
+func nox_xxx_options_457B00(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
+	a2 := (*uint8)(draw.C())
 	var v2 *wchar2_t
 	if int32(*a2)&4 != 0 {
 		v2 = nox_strman_loadString_40F1D0(internCStr("TeamDamageOnTT"), nil, internCStr("C:\\NoxPost\\src\\client\\Gui\\ServOpts\\guiserv.c"), 465)

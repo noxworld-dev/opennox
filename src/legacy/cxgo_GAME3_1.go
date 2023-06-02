@@ -2333,7 +2333,7 @@ func sub_4C0D00(win *gui.Window, draw *gui.WindowData) int {
 	}
 	return 1
 }
-func sub_4C1120(a1 int32, a2 int32, a3 **wchar2_t) int32 {
+func sub_4C1120(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
 	var (
 		v3  *uint32
 		v4  **wchar2_t
@@ -2351,7 +2351,7 @@ func sub_4C1120(a1 int32, a2 int32, a3 **wchar2_t) int32 {
 		if nox_xxx_wndPointInWnd_46AAB0(v5, a1a.field_0, a1a.field_4) {
 			*((*uint8)(unsafe.Pointer(&v4))) = uint8(sub_4C11E0((*uint32)(unsafe.Pointer(&a1a))))
 		} else {
-			v4 = a3
+			v4 = (**wchar2_t)(unsafe.Pointer(a3))
 		}
 	}
 	if *v4 != nil {
@@ -3191,7 +3191,8 @@ func sub_4C2BF0() *int32 {
 	}
 	return result
 }
-func sub_4C2C20(a1 *uint32, a2 int32, a3 uint32) int32 {
+func sub_4C2C20(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
+	a1 := (*uint32)(win.C())
 	var (
 		v3  *wchar2_t
 		a2a int2

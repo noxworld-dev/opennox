@@ -71,6 +71,10 @@ func (f Func[T]) Get() T {
 	return AsFunc[T](f.h)
 }
 
+func (f Func[T]) GetPtr() unsafe.Pointer {
+	return f.h
+}
+
 func (f *Func[T]) Set(v T) {
 	f.h = FuncAddr(v)
 }

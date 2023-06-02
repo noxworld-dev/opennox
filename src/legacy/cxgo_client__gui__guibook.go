@@ -357,7 +357,8 @@ LABEL_75:
 	}
 	return 1
 }
-func nox_xxx_book_45CF00(a1 *uint32) int32 {
+func nox_xxx_book_45CF00(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
+	a1 := (*uint32)(win.C())
 	var (
 		v1 *wchar2_t
 		v3 *wchar2_t

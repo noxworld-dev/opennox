@@ -13,23 +13,19 @@ const deadWord = 0xacacacac
 
 type WindowFunc func(win *Window, ev WindowEvent) WindowEventResp
 type WindowDrawFunc func(win *Window, draw *WindowData) int
+type WindowTooltipFunc func(win *Window, draw *WindowData, a3 uintptr) int
 
-/*
-func (win *gui.Window, draw *gui.WindowData) int {
-	var (
-		a1 = int32(uintptr(win.C()))
-		a2 = int32(uintptr(draw.C()))
-*/
+type WindowFuncLegacy = func(*Window, uintptr, uintptr, uintptr) uintptr
 
 func WrapFuncC(h unsafe.Pointer) WindowFunc {
 	if h == nil {
 		return nil
 	}
-	fnc := ccall.AsFunc[func(*Window, uintptr, uintptr, uintptr) uintptr](h)
+	fnc := ccall.AsFunc[WindowFuncLegacy](h)
 	return WrapFunc(fnc)
 }
 
-func WrapFunc(fnc func(*Window, uintptr, uintptr, uintptr) uintptr) WindowFunc {
+func WrapFunc(fnc WindowFuncLegacy) WindowFunc {
 	if fnc == nil {
 		return nil
 	}
@@ -56,22 +52,22 @@ type WidgetData interface {
 }
 
 type Window struct {
-	id             int32          // 0, 0
-	Flags          StatusFlags    // 1, 4
-	size           image.Point    // 2, 8
-	Off            image.Point    // 4, 16
-	EndPos         image.Point    // 6, 24
-	WidgetData     unsafe.Pointer // 8, 32; different types
-	drawData       WindowData     // 9, 36
-	field92        uint32         // 92, 368
-	field93        unsafe.Pointer // 93
-	field94        unsafe.Pointer // 94, 376
-	drawFunc       unsafe.Pointer // 95, 380, second arg is &field_9
-	TooltipFuncPtr unsafe.Pointer // 96, 384
-	prev           *Window        // 97, 388
-	next           *Window        // 98, 392
-	parent         *Window        // 99, 396
-	field100       *Window        // 100, 400
+	id             int32                         // 0, 0
+	Flags          StatusFlags                   // 1, 4
+	size           image.Point                   // 2, 8
+	Off            image.Point                   // 4, 16
+	EndPos         image.Point                   // 6, 24
+	WidgetData     unsafe.Pointer                // 8, 32; different types
+	drawData       WindowData                    // 9, 36
+	field92        uint32                        // 92, 368
+	field93        ccall.Func[WindowFuncLegacy]  // 93
+	field94        ccall.Func[WindowFuncLegacy]  // 94, 376
+	drawFunc       ccall.Func[WindowDrawFunc]    // 95, 380, second arg is &field_9
+	TooltipFuncPtr ccall.Func[WindowTooltipFunc] // 96, 384
+	prev           *Window                       // 97, 388
+	next           *Window                       // 98, 392
+	parent         *Window                       // 99, 396
+	field100       *Window                       // 100, 400
 }
 
 func (win *Window) C() unsafe.Pointer {
@@ -328,14 +324,14 @@ func (win *Window) SetDraw(fnc WindowDrawFunc) { // nox_xxx_wndSetDrawFn_46B340
 	win.ext().Draw = fnc
 }
 
-func (win *Window) SetTooltipFunc(fnc unsafe.Pointer) {
+func (win *Window) SetTooltipFunc(fnc WindowTooltipFunc) {
 	if win.isNilOrDead() {
 		return
 	}
-	win.TooltipFuncPtr = fnc
+	win.TooltipFuncPtr.Set(fnc)
 }
 
-func (win *Window) SetAllFuncs(a2 WindowFunc, draw WindowDrawFunc, tooltip unsafe.Pointer) {
+func (win *Window) SetAllFuncs(a2 WindowFunc, draw WindowDrawFunc, tooltip WindowTooltipFunc) {
 	if win.isNilOrDead() {
 		return
 	}
@@ -379,20 +375,20 @@ func (win *Window) Func93(e WindowEvent) WindowEventResp {
 	if ext := win.ext(); ext != nil && ext.Func93 != nil {
 		return ext.Func93(win, e)
 	}
-	if win.field93 == nil || uintptr(win.field93) == deadWord {
+	if ptr := win.field93.GetPtr(); ptr == nil || uintptr(ptr) == deadWord {
 		return nil
 	}
 	ev := e.EventCode()
 	a1, a2 := e.EventArgsC()
-	r := ccall.AsFunc[func(*Window, uintptr, uintptr, uintptr) uintptr](win.field93)(win, uintptr(ev), a1, a2)
+	r := win.field93.Get()(win, uintptr(ev), a1, a2)
 	if r == 0 {
 		return nil
 	}
 	return RawEventResp(r)
 }
 
-func (win *Window) Func94Ptr() unsafe.Pointer {
-	return win.field94
+func (win *Window) GetFunc94() WindowFuncLegacy {
+	return win.field94.Get()
 }
 
 func (win *Window) Func94(e WindowEvent) WindowEventResp {
@@ -402,12 +398,12 @@ func (win *Window) Func94(e WindowEvent) WindowEventResp {
 	if ext := win.ext(); ext != nil && ext.Func94 != nil {
 		return ext.Func94(win, e)
 	}
-	if win.field94 == nil || uintptr(win.field94) == deadWord {
+	if ptr := win.field94.GetPtr(); ptr == nil || uintptr(ptr) == deadWord {
 		return nil
 	}
 	ev := e.EventCode()
 	a1, a2 := e.EventArgsC()
-	r := ccall.AsFunc[func(*Window, uintptr, uintptr, uintptr) uintptr](win.field94)(win, uintptr(ev), a1, a2)
+	r := win.field94.Get()(win, uintptr(ev), a1, a2)
 	if r == 0 {
 		return nil
 	}
@@ -422,20 +418,20 @@ func (win *Window) Draw() {
 		ext.Draw(win, win.DrawData())
 		return
 	}
-	if win.drawFunc == nil || uintptr(win.drawFunc) == deadWord {
+	if ptr := win.drawFunc.GetPtr(); ptr == nil || uintptr(ptr) == deadWord {
 		return
 	}
-	ccall.AsFunc[func(*Window, *WindowData)](win.drawFunc)(win, win.DrawData())
+	win.drawFunc.Get()(win, win.DrawData())
 }
 
 func (win *Window) TooltipFunc(a1 uintptr) {
 	if win.isNilOrDead() {
 		return
 	}
-	if win.TooltipFuncPtr == nil || uintptr(win.TooltipFuncPtr) == deadWord {
+	if ptr := win.TooltipFuncPtr.GetPtr(); ptr == nil || uintptr(ptr) == deadWord {
 		return
 	}
-	ccall.AsFunc[func(*Window, *WindowData, uintptr)](win.TooltipFuncPtr)(win, win.DrawData(), a1)
+	win.TooltipFuncPtr.Get()(win, win.DrawData(), a1)
 }
 
 func (win *Window) Focus() {

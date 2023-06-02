@@ -8,7 +8,7 @@ import (
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 )
 
-func sub_4710B0() int32 {
+func sub_4710B0(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
 	var (
 		v0     *wchar2_t
 		v1     *wchar2_t
@@ -44,7 +44,7 @@ func sub_4710B0() int32 {
 		nox_xxx_cursorSetTooltip_4776B0(v7)
 		result = 1
 	}
-	return result
+	return int(result)
 }
 func sub_471160(a1 int32, a2, a3, a4, a5 int) {
 	nox_windows_arr_1093036[5].win = nox_window_new((*nox_window)(unsafe.Pointer(uintptr(a1))), 1032, a2, a3, a4, a5, nil)

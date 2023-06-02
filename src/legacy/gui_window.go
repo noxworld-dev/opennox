@@ -35,7 +35,7 @@ func set_dword_5d4594_3799468(v int) {
 	GetClient().Cli().GUI.ValYYY = v
 }
 
-type WindowFunc = func(win *nox_window, p2, p3, p4 uintptr) uintptr
+type WindowFunc = gui.WindowFuncLegacy
 
 func nox_window_new(par *nox_window, flags nox_window_flags, a3, a4, w, h int, fnc WindowFunc) *nox_window {
 	return (*nox_window)(GetClient().Cli().GUI.NewWindowRaw(asWindow(par), gui.StatusFlags(flags), a3, a4, w, h, gui.WrapFunc(fnc)).C())
@@ -58,7 +58,7 @@ func nox_xxx_wndSetID_46B080(win *nox_window, id int32) int32 {
 	return 0
 }
 
-func nox_window_set_all_funcs(win *nox_window, proc WindowFunc, draw gui.WindowDrawFunc, tooltip unsafe.Pointer) int32 {
+func nox_window_set_all_funcs(win *nox_window, proc WindowFunc, draw gui.WindowDrawFunc, tooltip gui.WindowTooltipFunc) int32 {
 	if win == nil {
 		return -2
 	}
@@ -93,7 +93,7 @@ func nox_xxx_wndSetDrawFn_46B340(win *nox_window, fnc gui.WindowDrawFunc) int32 
 }
 
 // nox_gui_winSetFunc96_46B070
-func nox_gui_winSetFunc96_46B070(win *nox_window, fnc unsafe.Pointer) {
+func nox_gui_winSetFunc96_46B070(win *nox_window, fnc gui.WindowTooltipFunc) {
 	asWindow(win).SetTooltipFunc(fnc)
 }
 

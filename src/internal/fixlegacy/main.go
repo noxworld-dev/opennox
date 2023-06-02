@@ -120,7 +120,7 @@ func run() error {
 					if len(n.Args) == 4 {
 						changed = fixFuncIdent(&n.Args[1]) || changed
 						changed = fixFuncIdent(&n.Args[2]) || changed
-						changed = fixFuncRef(&n.Args[3]) || changed
+						changed = fixFuncIdent(&n.Args[3]) || changed
 					}
 				case "nox_window_call_field_94_fnc":
 					if len(n.Args) == 4 {

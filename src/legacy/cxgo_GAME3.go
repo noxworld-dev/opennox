@@ -84,7 +84,7 @@ func sub_4A2610(win *nox_window, a2 *uint32, a3 *int32) int32 {
 		}
 	}
 	if dword_5d4594_1307720 > 0 {
-		dword_5d4594_1307716 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("proxlist.wnd"), ccall.AsFunc[WindowFunc](win.Func94Ptr())))))
+		dword_5d4594_1307716 = uint32(uintptr(unsafe.Pointer(nox_new_window_from_file(internCStr("proxlist.wnd"), win.GetFunc94()))))
 		sub_4A2830(int32(*a2+216), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(a2), 4*1))+27), (*uint32)(unsafe.Pointer(&v15[0])))
 		nox_window_setPos_46A9B0((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1307716)))), v15[0], v15[1])
 		nox_xxx_wnd_46B280(*(*int32)(unsafe.Pointer(&dword_5d4594_1307716)), a1)

@@ -7,7 +7,6 @@ import (
 
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func nox_xxx_spellPutInBox_45DEB0(a1 *int32, a2 int32, a3 int32, a4 int32) int32 {
@@ -335,7 +334,7 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 	v35 = (*byte)(unsafe.Pointer(nox_xxx_gLoadImg_42F970(internCStr("SpellbookButtonLit"))))
 	nox_xxx_wndSetIconLit_46AEA0(*(*int32)(unsafe.Pointer(&dword_5d4594_1049524)), int32(uintptr(unsafe.Pointer(v35))))
 	*memmap.PtrUint32(0x5D4594, 1049528) = uint32(uintptr(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1049524))))), 1064, 1, 2, 28, 28, nil))))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, 1049528)))), nox_xxx_quickbarButtonBookWnd_45F450, nox_xxx_quickbarButtonBookDraw_45EF30, ccall.FuncAddr(nox_xxx_quickbarButtonBook_45F3F0))
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, 1049528)))), nox_xxx_quickbarButtonBookWnd_45F450, nox_xxx_quickbarButtonBookDraw_45EF30, nox_xxx_quickbarButtonBook_45F3F0)
 	v36 = nox_strman_loadString_40F1D0(internCStr("OpenSpellBookTT"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 1931)
 	nox_xxx_wndWddSetTooltip_46B000((*nox_window_data)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x5D4594, 1049528)+36))), v36)
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576) + 2251)))) != 0 {
@@ -410,7 +409,7 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 			nox_xxx_updateSpellIconDir_45DE10(v0, int32(uintptr(unsafe.Pointer(v71))))
 			if int32(*(*uint8)(unsafe.Pointer(uintptr(*memmap.PtrUint32(0x8531A0, 2576) + 2251)))) != 0 {
 				v58 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*v50))), 1032, 12, 0, 10, 10, nil)))
-				nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v58)), sub_45F520, nox_xxx_quickbarButtonBookDraw_45EF30, ccall.FuncAddr(sub_45F480))
+				nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v58)), sub_45F520, nox_xxx_quickbarButtonBookDraw_45EF30, sub_45F480)
 				*(*uint32)(unsafe.Add(unsafe.Pointer(v58), 4*92)) = uint32(v0 | int32(v64)<<16)
 			}
 			if int32(v64) == 4 {
@@ -459,7 +458,7 @@ func nox_xxx_quickBarCreate_45E190() int32 {
 	nox_xxx_clientUpdateButtonRow_45E110(0)
 	return 1
 }
-func nox_xxx_quickbarButtonBook_45F3F0() int32 {
+func nox_xxx_quickbarButtonBook_45F3F0(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
 	var v0 *wchar2_t
 	if sub_45CFC0() != 0 {
 		v0 = nox_strman_loadString_40F1D0(internCStr("CloseSpellbookTT"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 901)
@@ -469,7 +468,8 @@ func nox_xxx_quickbarButtonBook_45F3F0() int32 {
 	nox_xxx_cursorSetTooltip_4776B0(v0)
 	return 1
 }
-func sub_45F480(a1 int32) int32 {
+func sub_45F480(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
+	a1 := int32(uintptr(win.C()))
 	var v1 *wchar2_t
 	if sub_45F500(int32(*(*uint16)(unsafe.Pointer(uintptr(a1 + 368)))), int32(uintptr(memmap.PtrOff(0x5D4594, uintptr(int32(uint16(*(*uint32)(unsafe.Pointer(uintptr(a1 + 368)))>>16))*256)+1048196)))) != 0 {
 		v1 = nox_strman_loadString_40F1D0(internCStr("ToolTipCastOnMe"), nil, internCStr("C:\\NoxPost\\src\\Client\\Gui\\guispell.c"), 941)

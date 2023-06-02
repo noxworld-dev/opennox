@@ -1790,14 +1790,14 @@ func nox_xxx_wndCreateInventoryMB_465E00() int32 {
 	dword_5d4594_1062452 = nox_window_new(nil, 552, 0, 0, 563, 264, nil)
 	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1062452)))), nil, nox_xxx_movEax1Sub_4661C0, nil)
 	v0 = (*uint32)(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062452))))), 8, 0, 224, int(nox_win_width), 40, nil)))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v0)), nox_xxx_XorEaxEaxSub_464BA0, nox_xxx_movEax1Sub_4661C0, ccall.FuncAddr(nox_xxx_inventroryOnHovewerSub_4667E0))
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v0)), nox_xxx_XorEaxEaxSub_464BA0, nox_xxx_movEax1Sub_4661C0, nox_xxx_inventroryOnHovewerSub_4667E0)
 	dword_5d4594_1062456 = uint32(uintptr(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062452))))), 40, 0, 0, 563, 224, sub_466220))))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1062456)))), sub_464BD0, nox_xxx_inventoryDrawAllMB_463430, ccall.FuncAddr(sub_466620))
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1062456)))), sub_464BD0, nox_xxx_inventoryDrawAllMB_463430, sub_466620)
 	*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1062456 + 44))) |= 0x100
 	*memmap.PtrUint32(0x5D4594, 1062472) = uint32(uintptr(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062452))))), 40, 0, 0, 1, 1, nil))))
 	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(memmap.PtrOff(0x5D4594, 1062472)))), sub_464BD0, nox_xxx_movEax1Sub_4661C0, nil)
 	dword_5d4594_1062468 = uint32(uintptr(unsafe.Pointer(nox_window_new((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062456))))), 40, 173, 174, 50, 50, nil))))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1062468)))), sub_464770, sub_4625D0, ccall.FuncAddr(sub_4661D0))
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1062468)))), sub_464770, sub_4625D0, sub_4661D0)
 	*(*uint32)(unsafe.Pointer(uintptr(dword_5d4594_1062468 + 44))) |= 0x100
 	result = sub_466950(*(*int32)(unsafe.Pointer(&dword_5d4594_1062456)))
 	if result == 0 {
@@ -1825,7 +1825,7 @@ func nox_xxx_wndCreateInventoryMB_465E00() int32 {
 	sub_471160(int32(uintptr(unsafe.Pointer(nox_win_unk5))), 79, 40, 20, math.MaxInt8)
 	sub_470D70()
 	v5 = (*uint32)(unsafe.Pointer(nox_window_new(nox_win_unk5, 8, 5, 11, 28, 29, nil)))
-	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v5)), sub_466550, nox_xxx_movEax1Sub_4661C0, ccall.FuncAddr(sub_466160))
+	nox_window_set_all_funcs((*nox_window)(unsafe.Pointer(v5)), sub_466550, nox_xxx_movEax1Sub_4661C0, sub_466160)
 	libc.MemSet(unsafe.Pointer(&nox_client_inventory_grid_1050020[0]), 0, int(uintptr(NOX_INVENTORY_ROW_COUNT*NOX_INVENTORY_COL_COUNT)*unsafe.Sizeof(nox_inventory_cell_t{})))
 	if dword_5d4594_1062560 == 0 {
 		dword_5d4594_1062560 = uint32(nox_xxx_getTTByNameSpriteMB_44CFC0(internCStr("Gold")))
@@ -1987,7 +1987,8 @@ func nox_xxx_inventoryDrawProc_466580(win *gui.Window, draw *gui.WindowData) int
 	}
 	return 1
 }
-func sub_466620(a1 int32, a2 int32, a3 uint32) int32 {
+func sub_466620(win *gui.Window, draw *gui.WindowData, a3 uintptr) int {
+	a1 := (int32)(uintptr(win.C()))
 	var (
 		v3  *wchar2_t
 		a2a int2
@@ -2104,7 +2105,7 @@ func sub_466C40(a1 int32) int32 {
 		return 0
 	}
 	nox_xxx_wndSetID_46B080((*nox_window)(unsafe.Pointer(v1)), 9105)
-	nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062528))))), ccall.FuncAddr(sub_466E20))
+	nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062528))))), sub_466E20)
 	*(*[332]byte)(unsafe.Pointer(&v5[0])) = [332]byte{}
 	*(*uint32)(unsafe.Pointer(&v5[24])) = dword_5d4594_1049992
 	*(*uint32)(unsafe.Pointer(&v5[48])) = 0
@@ -2121,7 +2122,7 @@ func sub_466C40(a1 int32) int32 {
 		return 0
 	}
 	nox_xxx_wndSetID_46B080((*nox_window)(unsafe.Pointer(v3)), 9107)
-	nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062524))))), ccall.FuncAddr(sub_466E20))
+	nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1062524))))), sub_466E20)
 	*(*[332]byte)(unsafe.Pointer(&v5[0])) = [332]byte{}
 	*(*uint32)(unsafe.Pointer(&v5[24])) = 0
 	*(*uint32)(unsafe.Pointer(&v5[48])) = 0
@@ -2138,7 +2139,7 @@ func sub_466C40(a1 int32) int32 {
 		return 0
 	}
 	nox_xxx_wndSetID_46B080((*nox_window)(unsafe.Pointer(v4)), 9111)
-	nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1062532)))), ccall.FuncAddr(sub_466E20))
+	nox_gui_winSetFunc96_46B070((*nox_window)(unsafe.Pointer(uintptr(*memmap.PtrInt32(0x5D4594, 1062532)))), sub_466E20)
 	return 1
 }
 func sub_466ED0(a1 int32) int32 {
@@ -4165,7 +4166,7 @@ func sub_470E90(win *nox_window, a2, p3, p4 uintptr) uintptr {
 }
 func nox_win_init_cur_weapon(a1 *nox_window, a2, a3, w, h int) {
 	nox_windows_arr_1093036[4].win = nox_window_new(a1, 0x408, a2, a3, w, h, nil)
-	nox_window_set_all_funcs(nox_windows_arr_1093036[4].win, sub_470E90, sub_470F40_draw, ccall.FuncAddr(sub_4710B0))
+	nox_window_set_all_funcs(nox_windows_arr_1093036[4].win, sub_470E90, sub_470F40_draw, sub_4710B0)
 	nox_windows_arr_1093036[4].win.WidgetData = unsafe.Pointer(uintptr(4))
 }
 func sub_470F40_draw(win *gui.Window, draw *gui.WindowData) int {
