@@ -8,8 +8,6 @@ import (
 
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/gotranspile/cxgo/runtime/stdio"
-
-	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 )
 
 func nox_itow(val int32, s *wchar2_t, radix int32) *wchar2_t {
@@ -981,30 +979,6 @@ func nox_strnicmp(string1 *byte, string2 *byte, sz int32) int32 {
 		return 1
 	}
 	return int32(unicode.ToLower(rune(*(*byte)(unsafe.Add(unsafe.Pointer(string1), i)))) - unicode.ToLower(rune(*(*byte)(unsafe.Add(unsafe.Pointer(string2), i)))))
-}
-func nox_wcstol(nptr *wchar2_t, endptr **wchar2_t, base int32) int32 {
-	var (
-		result int32
-		i      uint32
-		len_   uint32 = nox_wcslen(nptr)
-		tmp    *byte
-		ptr    *byte
-	)
-	tmp = (*byte)(alloc.Calloc1(int(len_+1), 1))
-	for i = 0; i < len_; i++ {
-		if *(*wchar2_t)(unsafe.Add(unsafe.Pointer(nptr), unsafe.Sizeof(wchar2_t(0))*uintptr(i))) < 0x80 {
-			*(*byte)(unsafe.Add(unsafe.Pointer(tmp), i)) = byte(*(*wchar2_t)(unsafe.Add(unsafe.Pointer(nptr), unsafe.Sizeof(wchar2_t(0))*uintptr(i))))
-		} else {
-			*(*byte)(unsafe.Add(unsafe.Pointer(tmp), i)) = math.MaxInt8
-		}
-	}
-	*(*byte)(unsafe.Add(unsafe.Pointer(tmp), i)) = 0
-	result = strtol(tmp, &ptr, base)
-	if endptr != nil {
-		*endptr = (*wchar2_t)(unsafe.Add(unsafe.Pointer(nptr), unsafe.Sizeof(wchar2_t(0))*uintptr(int32(uintptr(unsafe.Pointer(ptr))-uintptr(unsafe.Pointer(tmp))))))
-	}
-	alloc.Free(tmp)
-	return result
 }
 func nox_swprintf(str *wchar2_t, fmt *wchar2_t, _rest ...interface{}) int32 {
 	var (

@@ -5,7 +5,6 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/client"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 )
 
 func asDrawable(p *nox_drawable) *client.Drawable {
@@ -23,14 +22,13 @@ func nox_xxx_sprite_49AA00_drawable(d *nox_drawable) {
 	GetClient().Cli().Objs.AddIndex2D(asDrawable(d))
 }
 
-// nox_xxx_forEachSprite_49AB00
-func nox_xxx_forEachSprite_49AB00(a1 *int4, cfnc unsafe.Pointer, data int32) {
+func nox_xxx_forEachSprite_49AB00(a1 *int4, cfnc func(*nox_drawable, int32), data int32) {
 	if cfnc == nil {
 		return
 	}
 	rect := image.Rect(int(a1.field_0), int(a1.field_4), int(a1.field_8), int(a1.field_C))
 	GetClient().Cli().Objs.EachInRect(rect, func(dr *client.Drawable) {
-		ccall.AsFunc[func(*nox_drawable, int32)](cfnc)((*nox_drawable)(dr.C()), data)
+		cfnc((*nox_drawable)(dr.C()), data)
 	})
 }
 

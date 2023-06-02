@@ -8,6 +8,7 @@ import (
 	"github.com/gotranspile/cxgo/runtime/libc"
 	"github.com/gotranspile/cxgo/runtime/stdio"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
@@ -83,48 +84,47 @@ func sub_4761B0(a1p *nox_drawable) int32 {
 	}
 	return result
 }
-func sub_476AE0(vp *nox_draw_viewport_t, dr *nox_drawable) unsafe.Pointer {
+func sub_476AE0(vp *nox_draw_viewport_t, dr *nox_drawable) {
 	var (
-		a2      *uint8 = (*uint8)(unsafe.Pointer(dr))
-		v2      *uint8
-		result  int32
-		result2 func(*int32, int32) int32
-		v4      int32
-		v5      int32
-		v6      int32
-		v7      int32
-		v8      *byte
-		v9      int32
-		v10     int32
-		v11     uint32
-		v12     *uint8
-		v13     int32
-		v14     int32
-		v15     uint32
-		v16     uint32
-		v17     int32
-		v18     int32
-		v19     int32
-		v20     int32
-		v21     int32
-		v22     int32
-		v23     int32
-		v24     int32
-		v25     int32
-		v26     int32
-		v27     int32
-		v28     int32
-		v29     uint32
-		v30     int32
-		v31     int32
-		v32     int32
-		v33     func(uint32, *uint8, int32)
+		a2     *uint8 = (*uint8)(unsafe.Pointer(dr))
+		v2     *uint8
+		result int32
+		v4     int32
+		v5     int32
+		v6     int32
+		v7     int32
+		v8     *byte
+		v9     int32
+		v10    int32
+		v11    uint32
+		v12    *uint8
+		v13    int32
+		v14    int32
+		v15    uint32
+		v16    uint32
+		v17    int32
+		v18    int32
+		v19    int32
+		v20    int32
+		v21    int32
+		v22    int32
+		v23    int32
+		v24    int32
+		v25    int32
+		v26    int32
+		v27    int32
+		v28    int32
+		v29    uint32
+		v30    int32
+		v31    int32
+		v32    int32
+		v33    func(uint32, *uint8, int32)
 	)
 	v2 = a2
-	result2 = ccall.AsFunc[func(*int32, int32) int32](unsafe.Pointer(uintptr(*((*int32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a2))), 4*75))))))
-	if ccall.FuncAddr(result2) == ccall.FuncAddr(nox_thing_static_draw) {
+
+	if draw := dr.DrawFunc.Ptr(); draw == ccall.FuncAddr(nox_thing_static_draw) {
 		if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a2))), 4*28)))&0x40000 != 0 && (*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a2))), 4*30)))&0x1000000) == 0 {
-			return ccall.FuncAddr(result2)
+			return
 		}
 		v4 = int32(*(*uint32)(unsafe.Pointer(uintptr(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(a2))), 4*76))) + 4))))
 	} else {
@@ -233,7 +233,6 @@ func sub_476AE0(vp *nox_draw_viewport_t, dr *nox_drawable) unsafe.Pointer {
 			}
 		}
 	}
-	return unsafe.Pointer(uintptr(result))
 }
 func sub_476D70(a1 *uint32, a2 *int32, a3 uint32) int16 {
 	var (
@@ -341,9 +340,10 @@ func nox_xxx_clientEnumHover_476FA0() {
 	v2.field_C = mpos.y + 96
 	v2.field_4 = mpos.y - 96
 	dword_5d4594_1096636 = 0
-	nox_xxx_forEachSprite_49AB00(&v2, ccall.FuncAddr(nox_xxx_clientOnCursorHover_477050), int32(uintptr(unsafe.Pointer(&mpos))))
+	nox_xxx_forEachSprite_49AB00(&v2, nox_xxx_clientOnCursorHover_477050, int32(uintptr(unsafe.Pointer(&mpos))))
 }
-func nox_xxx_clientOnCursorHover_477050(arg0 int32, a2 int32) {
+func nox_xxx_clientOnCursorHover_477050(it *client.Drawable, a2 int32) {
+	arg0 := int32(uintptr(it.C()))
 	var (
 		v2  int32
 		v3  int32
@@ -5602,7 +5602,7 @@ func sub_489870() int32 {
 		*(*uint32)(unsafe.Pointer(v1)) = (nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10028).DrawData().Field0 >> 2) & 1
 		v2 = (*uint32)(unsafe.Pointer(nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10031)))
 		v3 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v2)))))), 16413, 0, 0))))
-		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*4))) = uint32(nox_wcstol(v3, nil, 10))
+		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*4))) = uint32(libc.WStrtol(v3, nil, 10))
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*1))) = (nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10029).DrawData().Field0 >> 2) & 1
 		v4 = nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1193380)))), 10030).DrawData().Field0
 		*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v1))), 4*3))) = 0

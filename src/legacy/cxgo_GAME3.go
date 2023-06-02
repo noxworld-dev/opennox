@@ -8,6 +8,7 @@ import (
 	"github.com/chewxy/math32"
 	"github.com/gotranspile/cxgo/runtime/libc"
 
+	"github.com/noxworld-dev/opennox/v1/client"
 	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/memmap"
@@ -5931,7 +5932,7 @@ func nox_xxx_fxShield_4B8090(a1 uint32, a2 int32) *uint32 {
 		v7.field_8 = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*3)) + 10)
 		v7.field_C = int32(*(*uint32)(unsafe.Add(unsafe.Pointer(result), 4*4)) + 10)
 		dword_5d4594_1313788 = 0
-		nox_xxx_forEachSprite_49AB00(&v7, ccall.FuncAddr(nox_xxx_spriteScanForShield_4B81E0), int32(uintptr(unsafe.Pointer(&a1))))
+		nox_xxx_forEachSprite_49AB00(&v7, nox_xxx_spriteScanForShield_4B81E0, int32(uintptr(unsafe.Pointer(&a1))))
 		result = *(**uint32)(unsafe.Pointer(&dword_5d4594_1313788))
 		if dword_5d4594_1313788 != 1 {
 			result = (*uint32)(nox_xxx_spriteLoadAdd_45A360_drawable(int32(*memmap.PtrUint32(0x5D4594, uintptr(v2*4)+1313748)), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*3))), int32(*(*uint32)(unsafe.Add(unsafe.Pointer(v6), 4*4))+3)).C())
@@ -5942,7 +5943,8 @@ func nox_xxx_fxShield_4B8090(a1 uint32, a2 int32) *uint32 {
 	}
 	return result
 }
-func nox_xxx_spriteScanForShield_4B81E0(a1 int32, a2 int32) {
+func nox_xxx_spriteScanForShield_4B81E0(it *client.Drawable, a2 int32) {
+	a1 := int32(uintptr(it.C()))
 	var v2 *uint8
 	v2 = (*uint8)(memmap.PtrOff(0x5D4594, 1313748))
 	for {

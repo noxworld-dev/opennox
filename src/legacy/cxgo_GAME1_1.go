@@ -2346,7 +2346,7 @@ func sub_41CEE0(a1p unsafe.Pointer, a2 int32) int32 {
 			if v3 != 0 || *(*uint32)(unsafe.Pointer(v4)) == uint32(a1) {
 				nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v4, 4)
 				nox_xxx_crypt_426C90()
-				v6 = ccall.AsFunc[func(uint32) int32](unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(uintptr(0))*1))(0)
+				v6 = ccall.AsFunc[func(unsafe.Pointer) int32](*(*unsafe.Pointer)(unsafe.Add(unsafe.Pointer(v4), unsafe.Sizeof(uintptr(0))*1)))(nil)
 				nox_xxx_crypt_426D40()
 				if v6 == 0 {
 					nox_xxx_cryptClose_4269F0()

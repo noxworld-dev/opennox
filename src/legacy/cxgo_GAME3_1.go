@@ -1122,7 +1122,7 @@ func sub_4BE330(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 			v21 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(a3)), 16413, 0, 0))))
 			if v21 != nil {
 				if *v21 != 0 {
-					v22 = nox_wcstol(v21, nil, 10)
+					v22 = int32(libc.WStrtol(v21, nil, 10))
 					if v22 < 0 {
 						v22 = 0
 					}
@@ -1147,7 +1147,7 @@ func sub_4BE330(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 			}
 			v7 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v4)))))), 16413, 0, 0))))
 			if v7 != nil && *v7 != 0 {
-				v8 = nox_wcstol(v7, nil, 10)
+				v8 = int32(libc.WStrtol(v7, nil, 10))
 				if v8 < 0 {
 					v8 = 0
 				}
@@ -1824,7 +1824,7 @@ func sub_4BFE40() int32 {
 		return 0
 	}
 	v0 = sub_46AF00(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1319232)))))
-	v1 = uint32(nox_wcstol(v0, nil, 10))
+	v1 = uint32(libc.WStrtol(v0, nil, 10))
 	if v1 > uint32(*(*int32)(unsafe.Pointer(&dword_5d4594_1319248))) {
 		v1 = dword_5d4594_1319248
 	}
@@ -1930,7 +1930,7 @@ func sub_4C01C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 	switch v3 {
 	case 3602:
 		v7 = sub_46AF00(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1319232)))))
-		v8 = uint32(nox_wcstol(v7, nil, 10) + 1)
+		v8 = uint32(libc.WStrtol(v7, nil, 10) + 1)
 		if v8 > uint32(*(*int32)(unsafe.Pointer(&dword_5d4594_1319248))) {
 			return 0
 		}
@@ -1944,7 +1944,7 @@ func sub_4C01C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		result = 0
 	case 3603:
 		v9 = sub_46AF00(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1319232)))))
-		v10 = nox_wcstol(v9, nil, 10)
+		v10 = int32(libc.WStrtol(v9, nil, 10))
 		v11 = v10
 		if v10 > 1 {
 			nox_swprintf((*wchar2_t)(memmap.PtrOff(0x5D4594, 1319164)), (*wchar2_t)(unsafe.Pointer(internCStr("%d"))), v10-1)
@@ -1957,7 +1957,7 @@ func sub_4C01C0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
 		return 0
 	case 3604, 3606:
 		v5 = sub_46AF00(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1319232)))))
-		v6 = uint32(nox_wcstol(v5, nil, 10))
+		v6 = uint32(libc.WStrtol(v5, nil, 10))
 		if v6 > uint32(*(*int32)(unsafe.Pointer(&dword_5d4594_1319248))) {
 			v6 = dword_5d4594_1319248
 		}

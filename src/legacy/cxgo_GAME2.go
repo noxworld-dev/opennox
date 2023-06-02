@@ -2438,7 +2438,7 @@ func nox_xxx_windowAccessProc_454BA0(win *gui.Window, a2, a3, a4 uintptr) uintpt
 		v45 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(v44)))))), 16413, 0, 0))))
 		v46 = v45
 		if v45 == nil || *v45 == 0 || (func() bool {
-			v47 = nox_wcstol(v45, nil, 10)
+			v47 = int32(libc.WStrtol(v45, nil, 10))
 			return v47 < 0
 		}()) {
 			v47 = 0
@@ -2554,7 +2554,7 @@ func nox_xxx_windowAccessProc_454BA0(win *gui.Window, a2, a3, a4 uintptr) uintpt
 			if *v9 == 0 {
 				return 0
 			}
-			*(*byte)(unsafe.Add(unsafe.Pointer(v8), 1)) = byte(int8(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v8), 1))&0xF0) | nox_wcstol(v9, nil, 10)))
+			*(*byte)(unsafe.Add(unsafe.Pointer(v8), 1)) = byte(int8(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v8), 1))&0xF0) | int32(libc.WStrtol(v9, nil, 10))))
 			return 0
 		case 10127:
 			v10 = sub_416630()
@@ -2568,7 +2568,7 @@ func nox_xxx_windowAccessProc_454BA0(win *gui.Window, a2, a3, a4 uintptr) uintpt
 			if *v11 == 0 {
 				return 0
 			}
-			*(*byte)(unsafe.Add(unsafe.Pointer(v10), 1)) = byte(int8(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v10), 1))&0xF) | nox_wcstol(v11, nil, 10)))
+			*(*byte)(unsafe.Add(unsafe.Pointer(v10), 1)) = byte(int8(int32(*(*byte)(unsafe.Add(unsafe.Pointer(v10), 1))&0xF) | int32(libc.WStrtol(v11, nil, 10))))
 			return 0
 		case 10129:
 			v12 = sub_416630()
@@ -2582,7 +2582,7 @@ func nox_xxx_windowAccessProc_454BA0(win *gui.Window, a2, a3, a4 uintptr) uintpt
 			if *v13 == 0 {
 				return 0
 			}
-			*(*uint16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v12), 5)))) = uint16(int16(nox_wcstol(v13, nil, 10)))
+			*(*uint16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v12), 5)))) = uint16(int16(libc.WStrtol(v13, nil, 10)))
 			return 0
 		case 10131:
 			v14 = sub_416630()
@@ -2596,7 +2596,7 @@ func nox_xxx_windowAccessProc_454BA0(win *gui.Window, a2, a3, a4 uintptr) uintpt
 			if *v15 == 0 {
 				return 0
 			}
-			*(*uint16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v14), 7)))) = uint16(int16(nox_wcstol(v15, nil, 10)))
+			*(*uint16)(unsafe.Pointer((*byte)(unsafe.Add(unsafe.Pointer(v14), 7)))) = uint16(int16(libc.WStrtol(v15, nil, 10)))
 			result = 0
 		case 10191:
 			v33 = (*int32)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1045536))))), 16404, 0, 0))))
@@ -2690,7 +2690,7 @@ func nox_xxx_windowAccessProc_454BA0(win *gui.Window, a2, a3, a4 uintptr) uintpt
 		v40 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a3)))))), 16413, 0, 0))))
 		v41 = v40
 		if v40 == nil || *v40 == 0 || (func() bool {
-			v42 = nox_wcstol(v40, nil, 10)
+			v42 = int32(libc.WStrtol(v40, nil, 10))
 			return v42 < 0
 		}()) {
 			v42 = 0
@@ -3929,11 +3929,11 @@ func sub_459AA0(a1p unsafe.Pointer) *byte {
 	*(*uint32)(unsafe.Pointer(uintptr(a1 + 48))) = uint32(sub_453610())
 	v2 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046516))))), 16413, 0, 0))))
 	if *v2 != 0 {
-		*(*uint16)(unsafe.Pointer(uintptr(a1 + 54))) = uint16(int16(nox_wcstol(v2, nil, 10)))
+		*(*uint16)(unsafe.Pointer(uintptr(a1 + 54))) = uint16(int16(libc.WStrtol(v2, nil, 10)))
 	}
 	v3 = (*wchar2_t)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046520))))), 16413, 0, 0))))
 	if *v3 != 0 {
-		*(*uint8)(unsafe.Pointer(uintptr(a1 + 56))) = uint8(int8(nox_wcstol(v3, nil, 10)))
+		*(*uint8)(unsafe.Pointer(uintptr(a1 + 56))) = uint8(int8(libc.WStrtol(v3, nil, 10)))
 	}
 	*(*uint8)(unsafe.Pointer(uintptr(a1 + 57))) = uint8((nox_xxx_wndGetChildByID_46B0C0((*gui.Window)(unsafe.Pointer(*(**uint32)(unsafe.Pointer(&dword_5d4594_1046492)))), 10122).DrawData().Field0 >> 2) & 1)
 	result = (*byte)(unsafe.Pointer(uintptr(nox_window_call_field_94_fnc((*gui.Window)(unsafe.Pointer(uintptr(*(*int32)(unsafe.Pointer(&dword_5d4594_1046496))))), 16404, 0, 0))))

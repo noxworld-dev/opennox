@@ -340,7 +340,7 @@ func nox_cmd_set_players(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	}
 	v5 = *(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*2))
 	if v5 != nil {
-		v6 = nox_wcstol(v5, nil, 10)
+		v6 = int32(libc.WStrtol(v5, nil, 10))
 		v3 = v6
 		if v6 >= 0 {
 			if v6 > 999 {
@@ -822,7 +822,7 @@ func nox_cmd_cheat_level(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 		}
 		for i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetFirst_416EA0())); i != nil; i = (*byte)(unsafe.Pointer(nox_common_playerInfoGetNext_416EE0((*server.Player)(unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(i))))))))) {
 			if *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*514))) != 0 {
-				v5 = uint8(int8(nox_wcstol(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*2)), nil, 10)))
+				v5 = uint8(int8(libc.WStrtol(*(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*2)), nil, 10)))
 				sub_4EF410(int32(*((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(i))), 4*514)))), v5)
 			}
 		}
@@ -838,11 +838,11 @@ func nox_cmd_window(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	if tokCnt > 1 {
 		v3 = *(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*uintptr(tokInd)))
 		if *v3 != 43 && *v3 != 45 {
-			v4 = nox_wcstol(v3, nil, 10)
+			v4 = int32(libc.WStrtol(v3, nil, 10))
 			nox_draw_setCutSize_476700(v4, 0)
 			return 1
 		}
-		v6 = nox_wcstol(v3, nil, 10)
+		v6 = int32(libc.WStrtol(v3, nil, 10))
 		nox_draw_setCutSize_476700(0, v6)
 	}
 	return 1
@@ -899,7 +899,7 @@ func nox_cmd_set_time(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	v4 = sub_4165B0()
 	v5 = *(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*2))
 	if v5 != nil {
-		v6 = uint8(int8(nox_wcstol(v5, nil, 10)))
+		v6 = uint8(int8(libc.WStrtol(v5, nil, 10)))
 		sub_40A040_settings(int16(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v4))), unsafe.Sizeof(uint16(0))*26)))), v6)
 	}
 	return 1
@@ -916,7 +916,7 @@ func nox_cmd_set_lessons(tokInd int32, tokCnt int32, tokens **wchar2_t) int32 {
 	v4 = *(**wchar2_t)(unsafe.Add(unsafe.Pointer(tokens), unsafe.Sizeof((*wchar2_t)(nil))*2))
 	v5 = sub_4165B0()
 	if v4 != nil {
-		v6 = uint16(int16(nox_wcstol(v4, nil, 10)))
+		v6 = uint16(int16(libc.WStrtol(v4, nil, 10)))
 		sub_409FB0_settings(int16(*((*uint16)(unsafe.Add(unsafe.Pointer((*uint16)(unsafe.Pointer(v5))), unsafe.Sizeof(uint16(0))*26)))), v6)
 	}
 	return 1

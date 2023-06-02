@@ -11211,9 +11211,10 @@ func nox_xxx_xfer_4F3E30(a1 uint16, a2p *server.Object, a3 int32) int32 {
 			}
 		}
 		nox_xxx_fileCryptReadCrcMB_426C20((*uint8)(unsafe.Pointer(&v12)), 4)
-		v5 = (*uint32)(unsafe.Pointer(nox_xxx_newObjectWithTypeInd_4E3450(int32(v4))))
+		v5p := nox_xxx_newObjectWithTypeInd_4E3450(int32(v4))
+		v5 = (*uint32)(v5p.CObj())
 		v6 = v5
-		if v5 == nil || (ccall.AsFunc[func(*uint32, uint32) int32](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(v5), 4*176))))))(v5, 0) == 0 {
+		if v5p == nil || v5p.Xfer.Get()(v5p, nil) == 0 {
 			break
 		}
 		v7 = int32(*(*uint32)(unsafe.Pointer(uintptr(a2 + 504))))

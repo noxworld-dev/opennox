@@ -80,5 +80,5 @@ func (f Func[T]) Ptr() unsafe.Pointer {
 }
 
 func (f *Func[T]) Set(v T) {
-	f.h = FuncAddr(v)
+	f.h = funcAddr(v, 1)
 }
