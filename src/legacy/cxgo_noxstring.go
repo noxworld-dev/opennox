@@ -180,7 +180,7 @@ func nox_vsnwprintf(buffer *wchar2_t, count uint32, format *wchar2_t, ap libc.Ar
 				tmp  [32]byte
 				len_ int32
 			)
-			len_ = int32(libc.StrLen(nox_itoa(ap.Arg().(int32), &tmp[0], 10)))
+			len_ = int32(libc.StrLen(nox_itoa(int32(asInt(ap.Arg())), &tmp[0], 10)))
 			for j = 0; j < width-(func() int32 {
 				if precision > 0 {
 					return precision
@@ -450,6 +450,26 @@ func asPtr(v any) unsafe.Pointer {
 		return unsafe.Pointer(uintptr(v))
 	default:
 		return reflect.ValueOf(v).UnsafePointer()
+	}
+}
+func asInt(v any) int {
+	switch v := v.(type) {
+	case nil:
+		return 0
+	case int:
+		return v
+	case uint32:
+		return int(v)
+	case int32:
+		return int(v)
+	case uint:
+		return int(v)
+	case uintptr:
+		return int(v)
+	case unsafe.Pointer:
+		return int(uintptr(v))
+	default:
+		return int(reflect.ValueOf(v).Int())
 	}
 }
 func nox_vsnprintf(buffer *byte, count uint32, format *byte, ap libc.ArgList) int32 {

@@ -718,7 +718,7 @@ func nox_xxx_mapSavePlayerDataMB_41A230(a1 *byte) int32 {
 		for {
 			nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Add(unsafe.Pointer(v3), -4)), 4)
 			nox_xxx_crypt_426C90()
-			v5 = ccall.AsFunc[func(uint32) int32](unsafe.Pointer(v3))(0)
+			v5 = ccall.AsFunc[func(unsafe.Pointer) int32](*(*unsafe.Pointer)(unsafe.Pointer(v3)))(nil)
 			nox_xxx_crypt_426D40()
 			if v5 == 0 {
 				nox_xxx_cryptClose_4269F0()
@@ -1352,7 +1352,8 @@ func sub_41AC30(a1p unsafe.Pointer, a2p unsafe.Pointer) int32 {
 							v33 = uint32(uint8(int8(v39)))
 							v14 = (*uint8)(unsafe.Pointer(nox_xxx_getUnitName_4E39D0((*server.Object)(unsafe.Pointer(uintptr(v13))))))
 							nox_xxx_fileReadWrite_426AC0_file3_fread_impl(v14, v33)
-							if ccall.AsFunc[func(int32, uint32) int32](unsafe.Pointer(uintptr(v13+704)))(v13, 0) == 0 {
+							v13p := AsObjectP(unsafe.Pointer(uintptr(v13)))
+							if v13p.Xfer.Get()(v13p, nil) == 0 {
 								return 0
 							}
 							v10++

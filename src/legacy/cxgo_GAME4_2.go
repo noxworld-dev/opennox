@@ -223,7 +223,8 @@ func sub_51DE30(a1 *uint32, a2 *uint32, a3 *uint32) int32 {
 	*a3 = *memmap.PtrUint32(0x973F18, uintptr(dword_5d4594_2487248)*12+16208)
 	return result
 }
-func nox_xxx_mapCountWallsMB_51DEA0(a1 int32) int32 {
+func nox_xxx_mapCountWallsMB_51DEA0(it *server.Wall, data unsafe.Pointer) {
+	a1 := int32(uintptr(it.C()))
 	var result int32
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 5)))) < *memmap.PtrInt32(0x5D4594, 2487252) {
 		*memmap.PtrUint32(0x5D4594, 2487252) = uint32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 5))))
@@ -232,7 +233,6 @@ func nox_xxx_mapCountWallsMB_51DEA0(a1 int32) int32 {
 	if result < *memmap.PtrInt32(0x5D4594, 2487256) {
 		*memmap.PtrUint32(0x5D4594, 2487256) = uint32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 6))))
 	}
-	return result
 }
 func sub_51DED0() int32 {
 	var (
@@ -320,7 +320,7 @@ func nox_xxx_map_51E140() int32 {
 	)
 	*memmap.PtrUint32(0x5D4594, 2487252) = 256
 	*memmap.PtrUint32(0x5D4594, 2487256) = 256
-	nox_xxx_wallForeachFn_410640(ccall.FuncAddr(nox_xxx_mapCountWallsMB_51DEA0), nil)
+	nox_xxx_wallForeachFn_410640(nox_xxx_mapCountWallsMB_51DEA0, nil)
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(memmap.PtrOff(0x5D4594, 2487252)), 4)
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(memmap.PtrOff(0x5D4594, 2487256)), 4)
 	nox_xxx_mapWall_426A80(mem_getI32Ptr(0x5D4594, 2487252))

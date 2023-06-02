@@ -4,7 +4,6 @@ import (
 	"image"
 	"unsafe"
 
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -44,9 +43,9 @@ func sub_4106A0(y int32) unsafe.Pointer {
 }
 
 // nox_xxx_wallForeachFn_410640
-func nox_xxx_wallForeachFn_410640(cfnc unsafe.Pointer, data unsafe.Pointer) {
+func nox_xxx_wallForeachFn_410640(cfnc func(it *server.Wall, data unsafe.Pointer), data unsafe.Pointer) {
 	GetServer().S().Walls.EachWallXxx(func(it *server.Wall) {
-		ccall.AsFunc[func(*server.Wall, unsafe.Pointer)](cfnc)(it, data)
+		cfnc(it, data)
 	})
 }
 

@@ -853,14 +853,16 @@ func nox_server_mapRWWindowWalls_4292C0(a1 *uint32) int32 {
 		result = 1
 	} else {
 		*memmap.PtrUint16(0x5D4594, 741336) = 0
-		nox_xxx_wallForeachFn_410640(ccall.FuncAddr(sub_429450), unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1))))))
+		nox_xxx_wallForeachFn_410640(sub_429450, unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1))))))
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(memmap.PtrOff(0x5D4594, 741336)), 2)
-		nox_xxx_wallForeachFn_410640(ccall.FuncAddr(sub_4294B0), unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1))))))
+		nox_xxx_wallForeachFn_410640(sub_4294B0, unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1))))))
 		result = 1
 	}
 	return result
 }
-func sub_429450(a1 *uint8, a2 *uint32) {
+func sub_429450(it *server.Wall, data unsafe.Pointer) {
+	a1 := (*uint8)(it.C())
+	a2 := (*uint32)(data)
 	var (
 		v2 int32
 		v3 int2
@@ -876,7 +878,9 @@ func sub_429450(a1 *uint8, a2 *uint32) {
 		}
 	}
 }
-func sub_4294B0(a1 *uint8, a2 *uint32) {
+func sub_4294B0(it *server.Wall, data unsafe.Pointer) {
+	a1 := (*uint8)(it.C())
+	a2 := (*uint32)(data)
 	var (
 		v2 int32
 		v3 int32
@@ -953,14 +957,16 @@ func nox_server_mapRWDestructableWalls_429530(a1 *uint32) int32 {
 		result = 1
 	} else {
 		*memmap.PtrUint16(0x5D4594, 741340) = 0
-		nox_xxx_wallForeachFn_410640(ccall.FuncAddr(nox_xxx_wall_4296E0), unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1))))))
+		nox_xxx_wallForeachFn_410640(nox_xxx_wall_4296E0, unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1))))))
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(memmap.PtrOff(0x5D4594, 741340)), 2)
-		nox_xxx_wallForeachFn_410640(ccall.FuncAddr(sub_429740), unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1))))))
+		nox_xxx_wallForeachFn_410640(sub_429740, unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1))))))
 		result = 1
 	}
 	return result
 }
-func nox_xxx_wall_4296E0(a1 *uint8, a2 *uint32) {
+func nox_xxx_wall_4296E0(it *server.Wall, data unsafe.Pointer) {
+	a1 := (*uint8)(it.C())
+	a2 := (*uint32)(data)
 	var (
 		v2 int32
 		v3 int2
@@ -976,7 +982,9 @@ func nox_xxx_wall_4296E0(a1 *uint8, a2 *uint32) {
 		}
 	}
 }
-func sub_429740(a1 *uint8, a2 *uint32) {
+func sub_429740(it *server.Wall, data unsafe.Pointer) {
+	a1 := (*uint8)(it.C())
+	a2 := (*uint32)(data)
 	var (
 		v2 int32
 		v3 int32
@@ -1020,9 +1028,9 @@ func nox_server_mapRWSecretWalls_4297C0(a1 *uint32) int32 {
 	}
 	if nox_crypt_IsReadOnly() == 0 {
 		*memmap.PtrUint16(0x5D4594, 741348) = 0
-		nox_xxx_wallForeachFn_410640(ccall.FuncAddr(sub_429A00), unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1))))))
+		nox_xxx_wallForeachFn_410640(sub_429A00, unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1))))))
 		nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(memmap.PtrOff(0x5D4594, 741348)), 2)
-		nox_xxx_wallForeachFn_410640(ccall.FuncAddr(sub_429A60), unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1))))))
+		nox_xxx_wallForeachFn_410640(sub_429A60, unsafe.Pointer(uintptr(int32(uintptr(unsafe.Pointer(a1))))))
 		return 1
 	}
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(memmap.PtrOff(0x5D4594, 741348)), 2)
@@ -1090,7 +1098,9 @@ func nox_server_mapRWSecretWalls_4297C0(a1 *uint32) int32 {
 		}
 	}
 }
-func sub_429A00(a1 *uint8, a2 *uint32) {
+func sub_429A00(it *server.Wall, data unsafe.Pointer) {
+	a1 := (*uint8)(it.C())
+	a2 := (*uint32)(data)
 	var (
 		v2 int32
 		v3 int2
@@ -1106,7 +1116,9 @@ func sub_429A00(a1 *uint8, a2 *uint32) {
 		}
 	}
 }
-func sub_429A60(a1 int32, a2 *uint32) {
+func sub_429A60(it *server.Wall, data unsafe.Pointer) {
+	a1 := int32(uintptr(it.C()))
+	a2 := (*uint32)(data)
 	var (
 		v2 int32
 		v3 int32
@@ -1197,7 +1209,7 @@ func nox_server_mapRWWallMap_429B20(a1 *uint32) int32 {
 			*memmap.PtrUint32(0x5D4594, 741360) = 256
 			dword_5d4594_741364 = 0
 			dword_5d4594_741356 = 0
-			nox_xxx_wallForeachFn_410640(ccall.FuncAddr(sub_42A0F0), nil)
+			nox_xxx_wallForeachFn_410640(sub_42A0F0, nil)
 			v3 = int32(dword_5d4594_741356)
 			v5 = int32(dword_5d4594_741364)
 		}
@@ -1355,7 +1367,8 @@ func nox_server_mapRWWallMap_429B20(a1 *uint32) int32 {
 	nox_xxx_fileReadWrite_426AC0_file3_fread_impl((*uint8)(unsafe.Pointer(&v22)), 1)
 	return 1
 }
-func sub_42A0F0(a1 int32) int32 {
+func sub_42A0F0(it *server.Wall, data unsafe.Pointer) {
+	a1 := int32(uintptr(it.C()))
 	var result int32
 	if int32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 5)))) < *memmap.PtrInt32(0x5D4594, 741360) {
 		*memmap.PtrUint32(0x5D4594, 741360) = uint32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 5))))
@@ -1370,7 +1383,6 @@ func sub_42A0F0(a1 int32) int32 {
 	if result > *(*int32)(unsafe.Pointer(&dword_5d4594_741364)) {
 		dword_5d4594_741364 = uint32(*(*uint8)(unsafe.Pointer(uintptr(a1 + 6))))
 	}
-	return result
 }
 func sub_42A150(a1 int16, a2 *uint32) int32 {
 	var (
@@ -1424,7 +1436,7 @@ func sub_42A150(a1 int16, a2 *uint32) int32 {
 			*memmap.PtrUint32(0x5D4594, 741360) = 256
 			dword_5d4594_741364 = 0
 			dword_5d4594_741356 = 0
-			nox_xxx_wallForeachFn_410640(ccall.FuncAddr(sub_42A0F0), nil)
+			nox_xxx_wallForeachFn_410640(sub_42A0F0, nil)
 			v5 = int32(dword_5d4594_741356)
 			v6 = int32(dword_5d4594_741364)
 		}

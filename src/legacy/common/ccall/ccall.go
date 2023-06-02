@@ -42,7 +42,7 @@ func AsFunc[T any](h unsafe.Pointer) T {
 	}
 	r, ok := funcs[h]
 	if !ok {
-		panic("function reference not found; check call site")
+		panic("func reference not found! check call site for missing ptr dereference")
 	}
 	fnc, ok := r.Func.(T)
 	if !ok {

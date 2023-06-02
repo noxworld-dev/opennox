@@ -4,7 +4,6 @@ import (
 	"unsafe"
 
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -32,8 +31,6 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 	var v26 int32
 	var v27 int32
 	var v28 int32
-	var v29 int32
-	var v30 func(int32, int32, uint32)
 	var v31 int32
 	var v32 int32
 	var v34 int32
@@ -239,11 +236,10 @@ func nox_xxx_netOnPacketRecvServ_51BAD0_net_sdecode_switch(a1 int32, data *uint8
 		}
 		v7 = v85
 		if (int32(*(*uint8)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(v85 + 276))) + 3680))))&3) == 0 && *(*uint32)(unsafe.Pointer(uintptr(v85 + 280))) == 0 && *(*uint32)(unsafe.Pointer(uintptr(v85 + 284))) == 0 {
-			v29 = int32(uintptr(unsafe.Pointer(nox_server_getObjectFromNetCode_4ECCB0(v28))))
-			if v29 != 0 {
-				v30 = ccall.AsFunc[func(int32, int32, uint32)](unsafe.Pointer(uintptr(v29 + 696)))
-				if v30 != nil {
-					v30(v29, unit, 0)
+			v29p := nox_server_getObjectFromNetCode_4ECCB0(v28)
+			if v29p != nil {
+				if v30 := v29p.Collide.Get(); v30 != nil {
+					v30(v29p, AsObjectP(unsafe.Pointer(uintptr(unit))), nil)
 				}
 			}
 		}

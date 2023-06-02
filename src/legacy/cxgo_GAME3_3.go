@@ -4173,7 +4173,6 @@ func nox_xxx_collideChest_4E9C40(obj *server.Object, obj2 *server.Object, pos *t
 		v3 int32
 		v4 int32
 		i  int32
-		v6 func(*uint32)
 	)
 	v2 = a2
 	if a2 == 0 {
@@ -4209,9 +4208,8 @@ func nox_xxx_collideChest_4E9C40(obj *server.Object, obj2 *server.Object, pos *t
 		return
 	}
 LABEL_14:
-	v6 = ccall.AsFunc[func(*uint32)](unsafe.Pointer(uintptr(*(*int32)(unsafe.Add(unsafe.Pointer(a1), 4*181)))))
-	if v6 != nil {
-		v6(a1)
+	if die := obj.Death.Get(); die != nil {
+		die(obj)
 	}
 	nox_xxx_chest_4EDF00(int32(uintptr(unsafe.Pointer(a1))), v2)
 	nox_xxx_dropAllItems_4EDA40(a1)
@@ -4827,11 +4825,10 @@ func nox_xxx_collidePentagram_4EAB20(obj *server.Object, obj2 *server.Object, po
 	*(*uint32)(unsafe.Pointer(uintptr(*(*uint32)(unsafe.Pointer(uintptr(a1 + 748))) + 4))) = 1
 }
 func nox_xxx_collideSign_4EAB40(obj *server.Object, obj2 *server.Object, pos *types.Pointf) {
-	a1 := int32(uintptr(obj.CObj()))
 	a2 := int32(uintptr(obj2.CObj()))
-	if a2 != 0 {
+	if obj2 != nil {
 		if int32(*(*uint8)(unsafe.Pointer(uintptr(a2 + 8))))&4 != 0 {
-			ccall.AsFunc[func(int32, int32) int32](unsafe.Pointer(uintptr(a1+732)))(a2, a1)
+			obj.Use.Get()(obj2, obj)
 		}
 	}
 }

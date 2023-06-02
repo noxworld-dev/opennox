@@ -9,11 +9,9 @@ import (
 	"github.com/noxworld-dev/opennox-lib/types"
 
 	"github.com/noxworld-dev/opennox/v1/client"
+	"github.com/noxworld-dev/opennox/v1/client/gui"
 	noxflags "github.com/noxworld-dev/opennox/v1/common/flags"
 	"github.com/noxworld-dev/opennox/v1/common/ntype"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
-
-	"github.com/noxworld-dev/opennox/v1/client/gui"
 	"github.com/noxworld-dev/opennox/v1/legacy/common/alloc"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
@@ -148,12 +146,12 @@ func sub_517A70(a1p *nox_waypoint_t) {
 }
 
 // sub_517B70
-func sub_517B70(pos *float2, fnc unsafe.Pointer, data unsafe.Pointer) {
+func sub_517B70(pos *float2, fnc func(it *server.Object, data unsafe.Pointer), data unsafe.Pointer) {
 	if fnc == nil {
 		return
 	}
 	GetServer().S().Map.Sub517B70(*(*types.Pointf)(unsafe.Pointer(pos)), func(it *server.Object) {
-		ccall.AsFunc[func(*server.Object, unsafe.Pointer)](fnc)(it, data)
+		fnc(it, data)
 	})
 }
 

@@ -4,7 +4,6 @@ import (
 	"unsafe"
 
 	"github.com/noxworld-dev/opennox/v1/common/unit/ai"
-	"github.com/noxworld-dev/opennox/v1/legacy/common/ccall"
 	"github.com/noxworld-dev/opennox/v1/server"
 )
 
@@ -25,35 +24,35 @@ type Nox_player_polygon_check_data struct {
 
 func init() {
 	for typ, a := range map[ai.ActionType]struct {
-		Start, Update, End, Cancel unsafe.Pointer
+		Start, Update, End, Cancel func(*server.Object)
 	}{
-		ai.ACTION_ESCORT:            {Update: ccall.FuncAddr(nox_xxx_mobActionEscort_546430), End: ccall.FuncAddr(sub_546410), Cancel: ccall.FuncAddr(sub_546420)},
-		ai.ACTION_GUARD:             {Update: ccall.FuncAddr(nox_xxx_mobActionGuard_546010)},
-		ai.ACTION_HUNT:              {Update: ccall.FuncAddr(nox_xxx_mobActionHunt_5449D0)},
-		ai.ACTION_RETREAT:           {Update: ccall.FuncAddr(nox_xxx_mobActionRetreat_545440)},
-		ai.ACTION_MOVE_TO:           {Update: ccall.FuncAddr(nox_xxx_mobActionMoveTo_5443F0)},
-		ai.ACTION_FAR_MOVE_TO:       {Update: ccall.FuncAddr(nox_xxx_mobActionMoveToFar_5445C0)},
-		ai.ACTION_DODGE:             {Update: ccall.FuncAddr(nox_xxx_mobActionDodge_544640)},
-		ai.ACTION_ROAM:              {Start: ccall.FuncAddr(sub_545790), Update: ccall.FuncAddr(nox_xxx_mobActionRoam_5457E0), Cancel: ccall.FuncAddr(sub_5457C0)},
-		ai.ACTION_PICKUP_OBJECT:     {Update: ccall.FuncAddr(nox_xxx_mobActionPickupObject_544B90)},
-		ai.ACTION_RETREAT_TO_MASTER: {Start: ccall.FuncAddr(sub_5456B0), Update: ccall.FuncAddr(sub_5456D0), End: ccall.FuncAddr(sub_5456C0)},
-		ai.ACTION_FIGHT:             {Start: ccall.FuncAddr(nox_xxx_mobActionFightStart_531E20), Update: ccall.FuncAddr(nox_xxx_mobActionFight_531EC0), End: ccall.FuncAddr(sub_531E90)},
-		ai.ACTION_MELEE_ATTACK:      {Start: ccall.FuncAddr(nox_xxx_mobActionMelee1_532130), Update: ccall.FuncAddr(nox_xxx_mobActionMeleeAtt_532440), Cancel: ccall.FuncAddr(nox_ai_action_pop_532100)},
-		ai.ACTION_MISSILE_ATTACK:    {Start: ccall.FuncAddr(sub_532540), Update: ccall.FuncAddr(nox_xxx_mobActionMissileAtt_532610), Cancel: ccall.FuncAddr(nox_ai_action_pop_532100)},
-		ai.ACTION_BLOCK_ATTACK:      {Update: ccall.FuncAddr(nox_xxx_monsterShieldBlockStart_532070), Cancel: ccall.FuncAddr(nox_ai_action_pop_532100)},
-		ai.ACTION_BLOCK_FINISH:      {Update: ccall.FuncAddr(nox_xxx_monsterShieldBlockStop_5320E0), Cancel: ccall.FuncAddr(nox_ai_action_pop_532100)},
-		ai.ACTION_WEAPON_BLOCK:      {Update: ccall.FuncAddr(sub_532110), Cancel: ccall.FuncAddr(nox_ai_action_pop_532100)},
-		ai.ACTION_FLEE:              {Start: ccall.FuncAddr(sub_544740), Update: ccall.FuncAddr(nox_xxx_mobActionFlee_544760), End: ccall.FuncAddr(sub_544750)},
-		ai.ACTION_FACE_LOCATION:     {Update: ccall.FuncAddr(sub_545210), Cancel: ccall.FuncAddr(nox_ai_action_pop_532100)},
-		ai.ACTION_FACE_OBJECT:       {Update: ccall.FuncAddr(sub_545300), Cancel: ccall.FuncAddr(nox_ai_action_pop_532100)},
-		ai.ACTION_FACE_ANGLE:        {Update: ccall.FuncAddr(sub_545340), Cancel: ccall.FuncAddr(nox_ai_action_pop_532100)},
-		ai.ACTION_SET_ANGLE:         {Update: ccall.FuncAddr(sub_5453E0), Cancel: ccall.FuncAddr(nox_ai_action_pop_532100)},
-		ai.ACTION_RANDOM_WALK:       {Update: ccall.FuncAddr(nox_xxx_mobActionRandomWalk_545020)},
-		ai.ACTION_DYING:             {Start: ccall.FuncAddr(nox_xxx_mobGenericDeath_544C40), Update: ccall.FuncAddr(sub_544D60), End: ccall.FuncAddr(nox_xxx_zombieBurnDeleteCheck_544CA0)},
-		ai.ACTION_DEAD:              {Start: ccall.FuncAddr(nox_xxx_mobActionDead1_544D80), Update: ccall.FuncAddr(nox_xxx_mobActionDead2_544EC0)},
-		ai.ACTION_GET_UP:            {Update: ccall.FuncAddr(nox_xxx_mobActionGetUp_534A90)},
-		ai.ACTION_CONFUSED:          {Update: ccall.FuncAddr(nox_xxx_mobActionConfuse_545140)},
-		ai.ACTION_MOVE_TO_HOME:      {Start: ccall.FuncAddr(nox_xxx_mobActionReturnToHome_544920), Update: ccall.FuncAddr(sub_544950), End: ccall.FuncAddr(sub_544930), Cancel: ccall.FuncAddr(sub_544940)},
+		ai.ACTION_ESCORT:            {Update: nox_xxx_mobActionEscort_546430, End: sub_546410, Cancel: sub_546420},
+		ai.ACTION_GUARD:             {Update: nox_xxx_mobActionGuard_546010},
+		ai.ACTION_HUNT:              {Update: nox_xxx_mobActionHunt_5449D0},
+		ai.ACTION_RETREAT:           {Update: nox_xxx_mobActionRetreat_545440},
+		ai.ACTION_MOVE_TO:           {Update: nox_xxx_mobActionMoveTo_5443F0},
+		ai.ACTION_FAR_MOVE_TO:       {Update: nox_xxx_mobActionMoveToFar_5445C0},
+		ai.ACTION_DODGE:             {Update: nox_xxx_mobActionDodge_544640},
+		ai.ACTION_ROAM:              {Start: sub_545790, Update: nox_xxx_mobActionRoam_5457E0, Cancel: sub_5457C0},
+		ai.ACTION_PICKUP_OBJECT:     {Update: nox_xxx_mobActionPickupObject_544B90},
+		ai.ACTION_RETREAT_TO_MASTER: {Start: sub_5456B0, Update: sub_5456D0, End: sub_5456C0},
+		ai.ACTION_FIGHT:             {Start: nox_xxx_mobActionFightStart_531E20, Update: nox_xxx_mobActionFight_531EC0, End: sub_531E90},
+		ai.ACTION_MELEE_ATTACK:      {Start: nox_xxx_mobActionMelee1_532130, Update: nox_xxx_mobActionMeleeAtt_532440, Cancel: nox_ai_action_pop_532100},
+		ai.ACTION_MISSILE_ATTACK:    {Start: sub_532540, Update: nox_xxx_mobActionMissileAtt_532610, Cancel: nox_ai_action_pop_532100},
+		ai.ACTION_BLOCK_ATTACK:      {Update: nox_xxx_monsterShieldBlockStart_532070, Cancel: nox_ai_action_pop_532100},
+		ai.ACTION_BLOCK_FINISH:      {Update: nox_xxx_monsterShieldBlockStop_5320E0, Cancel: nox_ai_action_pop_532100},
+		ai.ACTION_WEAPON_BLOCK:      {Update: sub_532110, Cancel: nox_ai_action_pop_532100},
+		ai.ACTION_FLEE:              {Start: sub_544740, Update: nox_xxx_mobActionFlee_544760, End: sub_544750},
+		ai.ACTION_FACE_LOCATION:     {Update: sub_545210, Cancel: nox_ai_action_pop_532100},
+		ai.ACTION_FACE_OBJECT:       {Update: sub_545300, Cancel: nox_ai_action_pop_532100},
+		ai.ACTION_FACE_ANGLE:        {Update: sub_545340, Cancel: nox_ai_action_pop_532100},
+		ai.ACTION_SET_ANGLE:         {Update: sub_5453E0, Cancel: nox_ai_action_pop_532100},
+		ai.ACTION_RANDOM_WALK:       {Update: nox_xxx_mobActionRandomWalk_545020},
+		ai.ACTION_DYING:             {Start: nox_xxx_mobGenericDeath_544C40, Update: sub_544D60, End: nox_xxx_zombieBurnDeleteCheck_544CA0},
+		ai.ACTION_DEAD:              {Start: nox_xxx_mobActionDead1_544D80, Update: nox_xxx_mobActionDead2_544EC0},
+		ai.ACTION_GET_UP:            {Update: nox_xxx_mobActionGetUp_534A90},
+		ai.ACTION_CONFUSED:          {Update: nox_xxx_mobActionConfuse_545140},
+		ai.ACTION_MOVE_TO_HOME:      {Start: nox_xxx_mobActionReturnToHome_544920, Update: sub_544950, End: sub_544930, Cancel: sub_544940},
 	} {
 		server.RegisterAIAction(cgoAIAction{typ: typ, start: a.Start, update: a.Update, end: a.End, cancel: a.Cancel})
 	}
@@ -61,7 +60,7 @@ func init() {
 
 type cgoAIAction struct {
 	typ                        ai.ActionType
-	start, update, end, cancel unsafe.Pointer
+	start, update, end, cancel func(*server.Object)
 }
 
 func (a cgoAIAction) Type() ai.ActionType {
@@ -70,25 +69,25 @@ func (a cgoAIAction) Type() ai.ActionType {
 
 func (a cgoAIAction) Start(u *server.Object) {
 	if a.start != nil {
-		ccall.AsFunc[func(*server.Object)](a.start)(u)
+		a.start(u)
 	}
 }
 
 func (a cgoAIAction) Update(u *server.Object) {
 	if a.update != nil {
-		ccall.AsFunc[func(*server.Object)](a.update)(u)
+		a.update(u)
 	}
 }
 
 func (a cgoAIAction) End(u *server.Object) {
 	if a.end != nil {
-		ccall.AsFunc[func(*server.Object)](a.end)(u)
+		a.end(u)
 	}
 }
 
 func (a cgoAIAction) Cancel(u *server.Object) {
 	if a.cancel != nil {
-		ccall.AsFunc[func(*server.Object)](a.cancel)(u)
+		a.cancel(u)
 	}
 }
 

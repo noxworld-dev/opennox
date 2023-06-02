@@ -835,34 +835,30 @@ func sub_461E60(a1 ***uint64) **uint64 {
 func sub_461EF0(a1 int32) *byte {
 	var row_idx int32 = 0
 	for {
-		{
-			var col_idx int32 = 0
-			for {
-				{
-					var (
-						p_item       *nox_inventory_cell_t = &nox_client_inventory_grid_1050020[row_idx+NOX_INVENTORY_ROW_COUNT*col_idx]
-						field140_val int32                 = int32(p_item.field_140)
-					)
-					if field140_val > 0 {
-						var p_maybe_stack_items *uint32 = &p_item.field_4
-						for maybe_stack_idx := int32(0); maybe_stack_idx < field140_val; maybe_stack_idx++ {
-							if *((*uint32)(unsafe.Add(unsafe.Pointer(p_maybe_stack_items), 4*uintptr(maybe_stack_idx)))) == uint32(a1) {
-								*memmap.PtrUint32(0x5D4594, 1049792) = uint32(maybe_stack_idx)
-								var result *byte = (*byte)(memmap.PtrOff(0x5D4594, 1049788))
-								*memmap.PtrUint32(0x5D4594, 1049788) = uint32(uintptr(unsafe.Pointer(p_item)))
-								return result
-							}
-						}
+		var col_idx int32 = 0
+		for {
+			var (
+				p_item       = &nox_client_inventory_grid_1050020[row_idx+NOX_INVENTORY_ROW_COUNT*col_idx]
+				field140_val = int32(p_item.field_140)
+			)
+			if field140_val > 0 {
+				var p_maybe_stack_items *uint32 = &p_item.field_4
+				for maybe_stack_idx := int32(0); maybe_stack_idx < field140_val; maybe_stack_idx++ {
+					if *((*uint32)(unsafe.Add(unsafe.Pointer(p_maybe_stack_items), 4*uintptr(maybe_stack_idx)))) == uint32(a1) {
+						*memmap.PtrUint32(0x5D4594, 1049792) = uint32(maybe_stack_idx)
+						var result *byte = (*byte)(memmap.PtrOff(0x5D4594, 1049788))
+						*memmap.PtrUint32(0x5D4594, 1049788) = uint32(uintptr(unsafe.Pointer(p_item)))
+						return result
 					}
-					col_idx++
-				}
-				if col_idx >= NOX_INVENTORY_COL_COUNT {
-					break
 				}
 			}
-			row_idx++
+			col_idx++
+			if col_idx >= NOX_INVENTORY_COL_COUNT {
+				break
+			}
 		}
-		if row_idx > NOX_INVENTORY_ROW_COUNT {
+		row_idx++
+		if row_idx >= NOX_INVENTORY_ROW_COUNT {
 			break
 		}
 	}
