@@ -633,7 +633,7 @@ func sub_41A000(a1 *byte, sv *Nox_savegame_xxx) int32 {
 						goto LABEL_10
 					}
 				}
-				if ccall.AsFunc[func(int32) int32](*memmap.PtrPtr(0x587000, 55956))(0) == 0 {
+				if ccall.AsFunc[func(unsafe.Pointer) int32](*memmap.PtrPtr(0x587000, 55956))(nil) == 0 {
 					nox_xxx_cryptClose_4269F0()
 					return 0
 				}
@@ -834,7 +834,7 @@ func nox_xxx_plrLoad_41A480(a1 *byte) int32 {
 		v3 = (*uint8)(memmap.PtrOff(0x587000, 55936))
 		for {
 			if uint32(v5) == *((*uint32)(unsafe.Add(unsafe.Pointer((*uint32)(unsafe.Pointer(v3))), 4*1))) {
-				if ccall.AsFunc[func(unsafe.Pointer) int32](memmap.PtrOff(0x587000, uintptr(v2*12+55944)))(nil) == 0 {
+				if ccall.AsFunc[func(unsafe.Pointer) int32](*memmap.PtrPtr(0x587000, uintptr(v2*12+55944)))(nil) == 0 {
 					nox_xxx_cryptClose_4269F0()
 					return 0
 				}
@@ -2117,7 +2117,7 @@ func sub_41C280(a1 unsafe.Pointer) int32 {
 	}
 	return result
 }
-func nox_xxx_parseFileInfoData_41C3B0(a1 int32) int32 {
+func nox_xxx_parseFileInfoData_41C3B0(a1 unsafe.Pointer) int32 {
 	var (
 		v1 int32
 		v2 int32
@@ -2209,7 +2209,7 @@ func nox_xxx_parseFileInfoData_41C3B0(a1 int32) int32 {
 	}
 	return 1
 }
-func sub_41C780(a1 int32) int32 {
+func sub_41C780(a1 unsafe.Pointer) int32 {
 	var (
 		i  int32
 		v2 *byte

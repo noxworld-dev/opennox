@@ -7,7 +7,7 @@ var (
 	Sub_4A24C0 func(a1 int) int
 	Sub_43BE40 func(a1 int)
 	Sub_43BE30 func() int
-	Sub_4A18E0 func(a1 *gui.Window, a2, a3, a4 int) int
+	Sub_4A18E0 func(a1 *gui.Window, a2, a3, a4 uintptr) uintptr
 )
 
 // sub_44E320
@@ -23,7 +23,7 @@ func sub_43BE40(a1 int32) { Sub_43BE40(int(a1)) }
 func sub_43BE30() int32 { return int32(Sub_43BE30()) }
 
 func sub_4A18E0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
-	return uintptr(Sub_4A18E0(a1, int(a2), int(a3), int(a4)))
+	return Sub_4A18E0(a1, a2, a3, a4)
 }
 
 func Nox_client_drawGeneralCallback_4A2200() int {

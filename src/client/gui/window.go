@@ -17,14 +17,6 @@ type WindowTooltipFunc func(win *Window, draw *WindowData, a3 uintptr) int
 
 type WindowFuncLegacy = func(*Window, uintptr, uintptr, uintptr) uintptr
 
-func WrapFuncC(h unsafe.Pointer) WindowFunc {
-	if h == nil {
-		return nil
-	}
-	fnc := ccall.AsFunc[WindowFuncLegacy](h)
-	return WrapFunc(fnc)
-}
-
 func WrapFunc(fnc WindowFuncLegacy) WindowFunc {
 	if fnc == nil {
 		return nil

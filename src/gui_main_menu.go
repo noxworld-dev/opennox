@@ -236,9 +236,9 @@ func sub_4A19D0() {
 	nox_client_gui_flag_815132 = 0
 }
 
-func sub_4A18E0(a1 *gui.Window, a2, a3, a4 int) int {
-	res := sub4A18E0(a1, gui.AsWindowEvent(a2, uintptr(a3), uintptr(a4)))
-	return gui.EventRespInt(res)
+func sub_4A18E0(a1 *gui.Window, a2, a3, a4 uintptr) uintptr {
+	res := sub4A18E0(a1, gui.AsWindowEvent(int(a2), a3, a4))
+	return uintptr(gui.EventRespInt(res))
 }
 
 func sub4A18E0(a1 *gui.Window, ev gui.WindowEvent) gui.WindowEventResp {

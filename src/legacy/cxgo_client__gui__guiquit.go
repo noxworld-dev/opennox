@@ -12,8 +12,9 @@ import (
 
 var nox_wnd_quitMenu_825760 *gui.Window = nil
 
-func nox_xxx_menuGameOnButton_445840(a1 *uint32, a2 int32, a3 *int32, a4 int32) int32 {
+func Nox_xxx_menuGameOnButton_445840(win *gui.Window, a2, a3, a4 uintptr) uintptr {
 	var (
+		a1     = (*uint32)(win.C())
 		v3     int32
 		v4     int32
 		result int32
@@ -161,7 +162,7 @@ func nox_xxx_menuGameOnButton_445840(a1 *uint32, a2 int32, a3 *int32, a4 int32) 
 		*(*int32)(unsafe.Add(unsafe.Pointer(a3), 4*9)) = v21
 		result = 0
 	}
-	return result
+	return uintptr(result)
 }
 func sub_445C40() {
 	var (
